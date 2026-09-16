@@ -25,6 +25,10 @@ param([int]$DersHak = 125, [int]$YilEsik = 2020, [int]$PartiTavan = 30,
   # EskiAgirlik 0 · YeniAgirlik 1 · TestAgirlik 2 = 15.09 öğleden sonraki "yalnız son 7 yıl" planı (eşdeğerlik provası bununla yapıldı).
   [double]$EskiAgirlik = 1, [double]$YeniAgirlik = 2, [double]$TestAgirlik = 4,
   [int]$KonuTavan = -1,   # -1 = kendiliğinden max(2, ⌈DersHak/50⌉) (125 → 3, 500 → 10) · 0 = tavansız (15.09 öncesi davranış)
+  # 16.09 (Cem "1.2.3 yap", yıl matematiği SMMM-Bitirme-Yil-Matematigi-v2.xlsx): 2016-2025 geri testinde 7+ yıl görülmemiş GRUBUN o yıl çıkma
+  # olasılığı %13,5 (tek konuda %1,2) → hiçbir grup sıfırlanmaz. Gruplar son 7 yılda (≥GrupYilEsik) çıkmışsa ağırlık alır; daha eski grup yalnız
+  # tabanı (en ağır konusundan) alır. Etkin grupta konu, son çıkışı ≥KonuYilEsik (10 yıl) ise plana girer. 0 = kapalı (eski davranış).
+  [int]$GrupTaban = 0, [int]$GrupYilEsik = 0, [int]$KonuYilEsik = 0,
   [int]$KaynakSuzgeci = 1,   # 1 = ambar ölçümünde KAYNAK YOK çıkan konu plana girmez (veri/sinav/smmm-kaynak-olcumu.json) · 0 = eski davranış
   [ValidatePattern('^[a-z0-9-]{2,16}$')][string]$EtiketOn = 'smmm-d1', [string]$Ad = 'smmm-dalga1', [switch]$Yaz,
   [string]$HakemsizCikti = '',   # 16.09: planda olup ilgi hakeminden geçmemiş (ya da ölçülemeyen) konuların csv'si (ders,konu) — sonraki hakem turu
@@ -119,7 +123,9 @@ function EnBuyukKalan([hashtable]$agirlik, [int]$toplam) {
 # "dikey yuzde analizi" 5, Maliyet'te "gug yukleme katsayisi" 5 soru alıyordu. Bir konu dalgada en çok $tavanKonu soru alır; artan önce
 # AYNI grubun tavanı dolmamış konularına, sonra ders içindeki öteki konulara ağırlıkla dağılır (ders hakkı korunur).
 $tavanKonu = $(if ($KonuTavan -gt 0) { $KonuTavan } elseif ($KonuTavan -eq 0) { [int]::MaxValue } else { [int][math]::Max(2, [math]::Ceiling($DersHak / 50.0)) })
-$tavanTasan = 0; $tavanKalan = 0; $kaynakAtilan = 0
+$tavanTasan = 0; $tavanKalan = 0; $kaynakAtilan = 0; $tabanVerilen = 0; $eskiGrupSay = 0
+$gercekGrup = @{}; foreach ($gv in $grupOf.Values) { $gercekGrup[$gv] = 1 }
+function GrupAdi([string]$key) { if ($grupOf.ContainsKey($key)) { $grupOf[$key] } else { GorunenAd $key } }
 function TavanliDagit([hashtable]$agirlik, [int]$toplam, [hashtable]$mevcut, [int]$tavan) {
   $sonuc = @{}; foreach ($k in $agirlik.Keys) { $sonuc[$k] = 0 }; $kalan = $toplam
   while ($kalan -gt 0) {
@@ -138,9 +144,25 @@ foreach ($rd in $RESMI.Values) {
   $uyeler = @($konu.Keys | Where-Object { $_.StartsWith("$ders|") -and $(if ($EskiAgirlik -gt 0) { (KonuAgirlik $_) -gt 0 } else { $konu[$_].son -ge $YilEsik -and $konu[$_].yeni -gt 0 }) })
   $uyeler = @($uyeler | Where-Object { if ($mulga.ContainsKey((Katla ($_ -split '\|', 2)[1]))) { $script:mulgaAtilan++; $false } else { $true } })
   $uyeler = @($uyeler | Where-Object { $kyA = $(if ($kaynakYok.ContainsKey($_)) { $_ } else { "$(($_ -split '\|',2)[0])|$(Katla (GorunenAd $_))" }); if ($kaynakYok.ContainsKey($kyA)) { if ($kaynakYok[$kyA] -eq 'H') { $script:hakemAtilan++ } else { $script:kaynakAtilan++ }; $false } else { $true } })
+  $eskiGrup = @{}
+  if ($GrupYilEsik -gt 0 -or $KonuYilEsik -gt 0) {
+    $grpAktif = @{}; $enAgir = @{}
+    foreach ($key in $uyeler) { $g = GrupAdi $key; if ($konu[$key].son -ge $GrupYilEsik) { $grpAktif[$g] = 1 }; if (-not $enAgir.ContainsKey($g) -or (KonuAgirlik $key) -gt (KonuAgirlik $enAgir[$g])) { $enAgir[$g] = $key } }
+    $uyeler = @($uyeler | Where-Object { $g = GrupAdi $_; if ($grpAktif.ContainsKey($g)) { $konu[$_].son -ge $KonuYilEsik } else { $GrupTaban -gt 0 -and $gercekGrup.ContainsKey($g) -and $enAgir[$g] -eq $_ } })
+    foreach ($key in $uyeler) { $g = GrupAdi $key; if (-not $grpAktif.ContainsKey($g)) { $eskiGrup[$g] = 1 } }
+  }
   $gAg = @{}; $gUye = @{}
   foreach ($key in $uyeler) { $g = $(if ($grupOf.ContainsKey($key)) { $grupOf[$key] } else { GorunenAd $key }); $w = KonuAgirlik $key; $gAg[$g] = [double]$gAg[$g] + $w; if (-not $gUye.ContainsKey($g)) { $gUye[$g] = New-Object System.Collections.Generic.List[string] }; $gUye[$g].Add($key) }
-  $gSoru = EnBuyukKalan $gAg $DersHak
+  $tabanGrup = @(if ($GrupTaban -gt 0) { $gAg.Keys | Where-Object { $gercekGrup.ContainsKey($_) } })
+  if ($tabanGrup.Count -gt 0 -and $tabanGrup.Count * $GrupTaban -le $DersHak) {
+    $gAgEtkin = @{}; foreach ($g in $gAg.Keys) { $gAgEtkin[$g] = $(if ($eskiGrup.ContainsKey($g)) { 0.0 } else { $gAg[$g] }) }
+    $gSoru = EnBuyukKalan $gAgEtkin ($DersHak - $tabanGrup.Count * $GrupTaban)
+    foreach ($g in $tabanGrup) { $gSoru[$g] = [int]$gSoru[$g] + $GrupTaban }
+    $script:tabanVerilen += $tabanGrup.Count * $GrupTaban; $script:eskiGrupSay += $eskiGrup.Count
+  } else {
+    if ($tabanGrup.Count -gt 0) { Write-Warning "$ders : $($tabanGrup.Count) grup × $GrupTaban taban ders hakkını ($DersHak) aşıyor — taban uygulanmadı" }
+    $gSoru = EnBuyukKalan $gAg $DersHak
+  }
   # konu tavanı: grup payı önce grubun konularına tavanlı dağılır; taşan ders içinde tavanı dolmamış konulara ağırlıkla gider
   $uAgTum = @{}; foreach ($key in $uyeler) { $uAgTum[$key] = KonuAgirlik $key }
   $uSoruTum = @{}; $tasan = 0
@@ -185,7 +207,7 @@ $hakemsiz = @($slotTum | ForEach-Object { "$($_.ders)|$($_.konu)" } | Sort-Objec
 if ($HakemsizCikti) { @($hakemsiz | ForEach-Object { $pp = $_ -split '\|', 2; [pscustomobject]@{ ders = $pp[0]; konu = $pp[1] } }) | Export-Csv $HakemsizCikti -NoTypeInformation -Encoding UTF8 }
 $cakisan = @($planSatir | Where-Object { (Test-Path (Join-Path $depoKok "veri\fabrika\kalip-parti-$($_.etiket).json")) -or (Test-Path (Join-Path $depoKok "veri\sinav\konu\$($_.etiket).json")) } | ForEach-Object etiket)
 $topPlan = ($planSatir | Measure-Object adet -Sum).Sum
-"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · KAYNAK YOK atılan $kaynakAtilan · HAKEM İLGİSİZ atılan $hakemAtilan (hakem kararı $($hakem.Count) konu) (kanun uyuşmazlığı $kanunUyusmaz konu) · istisna $($istisna.Count)"
+"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · KAYNAK YOK atılan $kaynakAtilan · HAKEM İLGİSİZ atılan $hakemAtilan (hakem kararı $($hakem.Count) konu) (kanun uyuşmazlığı $kanunUyusmaz konu) · istisna $($istisna.Count) · grup tabanı $GrupTaban (verilen $tabanVerilen soru, yalnız taban alan eski grup $eskiGrupSay) · grup yıl eşiği $GrupYilEsik · konu yıl eşiği $KonuYilEsik"
 foreach ($d in $dersOzet) { "  {0,-48} $(if ($EskiAgirlik -gt 0) { 'tüm yıllar' } else { "son $(2026 - $YilEsik + 1) yıl" }) konu {2,3} · grup {3,3} · plan {4,4} (bizde düşülen {5}) · kolay {6} zor {7} çok zor {8}" -f $d.ders.Substring(0, [math]::Min(48, $d.ders.Length)), (2026 - $YilEsik + 1), $d.konu7, $d.grup, $d.plan, $d.bizdeDusulen, $d.kolay, $d.zor, $d.cokzor }
 "TOPLAM soru $topPlan · parti $($planSatir.Count) · hakemden geçmemiş konu $($hakemsiz.Count) · köprü dışı konu adı $($kopruDisi.Count) · mevcut etiketle çakışan $($cakisan.Count)"
 if ($cakisan.Count) { throw "ETİKET ÇAKIŞMASI — yeni plan yeni önek ister: $($cakisan -join ', ')" }
