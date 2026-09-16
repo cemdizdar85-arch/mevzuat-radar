@@ -363,6 +363,23 @@ if($Kapat){
     } else { Yaz "  ✓ tuzak nöbetçisi temiz (değişen betikler)" 'Green' }
   }
 
+  # 16.09 (Cem "1.2.3 üçünü de yap", GM 3): KAYNAK ÖLÇÜM ARACININ ÖZ-SINAVI.
+  # Neden: 16.09'da arac/smmm-kaynak-olcum.ps1 iki kez SESSİZCE boş sonuç verdi (paralel çağrıda boşluklu yol
+  # tırnaklanmamıştı) ve bir kez 2.095 konuluk ölçüm dosyasının üstüne 0 konu yazdı. Tuzak nöbetçisi bunu görmez:
+  # kod sözdizimi temizdi, bozulan DAVRANIŞTI. Öz-sınav iki bilinen konuyu ambardan ölçer (bedel 0, ~10 sn) ve
+  # paketin dolu gelmesini şart koşar. YALNIZ o araç ya da üreticisi bu oturumda değiştiyse koşar; DURDURMAZ, uyarır.
+  $degisenPs = @(git -C $KOK status --porcelain | ForEach-Object { ($_ -replace '^..\s+','').Trim() })
+  $ilgili = @($degisenPs | Where-Object { $_ -match 'arac/smmm-kaynak-olcum\.ps1|motor/kalip-parti-uret\.ps1' })
+  $olcAr = Join-Path $KOK 'arac\smmm-kaynak-olcum.ps1'
+  if($ilgili.Count -and (Test-Path $olcAr)){
+    Yaz "  kaynak ölçüm aracı öz-sınavı (bedel 0)..." 'DarkGray'
+    $ozCikti = & powershell -NoProfile -File $olcAr -OzSinav 2>&1
+    if($LASTEXITCODE -ne 0){
+      Yaz "  ⚠ KAYNAK ÖLÇÜM ARACI ÖZ-SINAVI DÜŞTÜ — ölçüm koşturma, önce onar:" 'Red'
+      $ozCikti | Select-Object -Last 4 | ForEach-Object { Yaz "     $_" 'Red' }
+    } else { Yaz "  ✓ kaynak ölçüm aracı öz-sınavı tamam" 'Green' }
+  }
+
   git -C $KOK fetch origin main -q | Out-Null
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   if($ileri -gt 0){
