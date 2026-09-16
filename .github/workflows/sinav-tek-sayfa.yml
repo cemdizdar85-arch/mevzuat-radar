@@ -22,6 +22,7 @@ on:
   push:
     paths:
       - 'motor/sinav-tek-sayfa.ps1'
+      - 'arac/tek-sayfa-kutuk-kapisi.ps1'
       - '.github/workflows/sinav-tek-sayfa.yml'
       - 'veri/kasa-sayim.json'
       - 'veri/ders-profili.json'
@@ -50,6 +51,13 @@ jobs:
           Write-Host 'Bayat girdi kapıyı düşürmez (bilinen borç, sayfada ⚠ ile görünür); KIRIK girdi düşürür.'
           if(@($bayat | Where-Object { $_.durum -like 'KIRIK*' }).Count){ exit 1 }
 
+      # 16.09 (Cem "1 ve 2 yap"): girdi kütüğü doğru mu? Kayıtlı üretici dosyayı gerçekten bu biçimde yazıyor mu, robot onu çağırıp
+      # commit'liyor mu. 16.09 elle denetimi 5 yanlış kayıt buldu; ikisi koşturulunca güncel dosyayı eziyordu. Kırmızı = kütük düzeltilmeli.
+      - name: KAPI — girdi kütüğü (üretici/robot doğru mu)
+        shell: pwsh
+        run: |
+          ./arac/tek-sayfa-kutuk-kapisi.ps1 -Sinama
+          ./arac/tek-sayfa-kutuk-kapisi.ps1
       - name: SONUCU DEPOYA BAS
         if: always()
         run: |

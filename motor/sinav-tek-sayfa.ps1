@@ -37,7 +37,7 @@ $BAYAT_GUN = 7
 #   robot o betiği çağırıp dosyayı commit'liyor mu — 5 kayıt düzeltildi. kgk-analiz'in kayıtlı üreticisi dosyayı EZİYORDU.)
 # ---------------------------------------------------------------------------
 $GIRDILER = @(
-  @{ ad='ders-profili';       yol='veri\ders-profili.json';               uretici='motor/ders-profili-kur.ps1';           robot='yok (resmî liste; Cem onayıyla değişir)'; damga=''; sabit=$true }
+  @{ ad='ders-profili';       yol='veri\ders-profili.json';               uretici='motor/ders-profili-kur.ps1';           robot='yok (resmî liste; Cem onayıyla değişir)'; damga=''; sabit=$true; bicimDenetimi=$false }   # ders-profili-kur dosyayı OKUYUP zenginleştirir, _kaynak/_kural korunur (kütük kapısı Ü4 muafiyeti)
   @{ ad='kasa-sayim';         yol='veri\kasa-sayim.json';                 uretici='motor/kasa-sayim.ps1';                 robot='kasa-sayim.yml · her gün 03:41 TR';     damga='tarih' }
   @{ ad='kota-smmm';          yol='veri\uretim-kotasi.json';              uretici='motor/kota-kur.ps1';                   robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-sgs';           yol='veri\sgs-uretim-kotasi.json';          uretici='motor/sgs-kota-kur.ps1';               robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
@@ -48,8 +48,8 @@ $GIRDILER = @(
   @{ ad='cikmis-karnesi';     yol='veri\cikmis-soru-karnesi.json';        uretici='motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı)'; robot='yok (KGK evreni için haberci: kgk-sinav-nobeti.yml)';                                   damga='tarih' }
   @{ ad='siklik-kunyesi';     yol='veri\siklik-kunyesi.json';             uretici='motor/siklik-kunyesi.ps1';             robot='konu-eslesme.yml · yalnız push';        damga='tarih' }
   @{ ad='kgk-analiz';         yol='veri\kgk-analiz.json';                 uretici='elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)'; robot='yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml'; damga='guncelleme'; olayNobet='veri\kgk-sinav-nobeti.json' }   # 16.09: yaş değil olay (yeni kitapçık) belirler; kgk-sinav-nobeti YEŞİL = güncel
-  @{ ad='ders-karnesi';       yol='veri\ders-karnesi.json';               uretici='motor/ders-karnesi.ps1';               robot='yok (16.09 denetimi: dogrula.yml çağırmıyor, commit etmiyor)';                           damga='guncelleme' }
-  @{ ad='karne-sgs';          yol='veri\konu-kaynak-karnesi.json';        uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml · sgs-analiz push tetikli';   damga='guncelleme' }
+  @{ ad='ders-karnesi';       yol='veri\ders-karnesi.json';               uretici='motor/ders-karnesi.ps1';               robot='karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push)';                           damga='guncelleme' }
+  @{ ad='karne-sgs';          yol='veri\konu-kaynak-karnesi.json';        uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml · pazar 03:00 TR + sgs-analiz push';   damga='guncelleme' }
   @{ ad='karne-smmm';         yol='veri\konu-kaynak-karnesi-smmm.json';   uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml';                             damga='guncelleme' }
   @{ ad='karne-kgk';          yol='veri\konu-kaynak-karnesi-kgk.json';    uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml';                             damga='guncelleme' }
   @{ ad='dayanak-metinsiz';   yol='veri\dayanak-metinsiz-raporu.json';    uretici='arac/dayanak-metinsiz-tarama.ps1';     robot='yok';                                   damga='olcum' }

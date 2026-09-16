@@ -73,6 +73,11 @@ jobs:
           KARNE_GIRDI: ${{ matrix.girdi }}
           KARNE_CIKTI: ${{ matrix.cikti }}
         run: ./motor/konu-kaynak-karnesi.ps1
+      # 16.09 (Cem "1 ve 2 yap"): ders karnesi SGS karnesinden türer (dosya okur, ağ/API yok). 30.08'den beri hiçbir robot koşturmuyordu.
+      - name: Ders karnesini yenile (yalnız SGS)
+        if: matrix.sinav == 'SGS'
+        shell: pwsh
+        run: ./motor/ders-karnesi.ps1
       - name: Karneyi commit'le (${{ matrix.sinav }})
         if: always()
         run: |
@@ -80,7 +85,7 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           # Bu listeye yazilmayan dosya SESSIZCE kaybolur - is akisi yesil biter,
           # dosya uretilir, hicbir yere gitmez.
-          for f in "veri/${{ matrix.cikti }}" veri/karne-log.txt; do
+          for f in "veri/${{ matrix.cikti }}" veri/karne-log.txt $([ "${{ matrix.sinav }}" = "SGS" ] && echo veri/ders-karnesi.json); do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Konu-kaynak karnesi yenilendi (${{ matrix.sinav }}) [veri-operasyonu]"
