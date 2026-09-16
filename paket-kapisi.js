@@ -26,6 +26,10 @@
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var kok = document.documentElement;
   var bitti = false;
+  /* 16.09 ADIM 2: kasa modundaki sayfa (kasa-yukle.js) soruları kapı AÇILINCA çeker.
+     Sonuç: {acik:true, sb:<istemci>} ya da {acik:false}. Perde çıkarsa kasaya hiç istek gitmez. */
+  var kapiCoz;
+  window.__pkKapi = new Promise(function (r) { kapiCoz = r; });
 
   var st = document.createElement('style');
   st.textContent =
@@ -48,9 +52,11 @@
   function ac() {
     if (bitti) return; bitti = true;
     kok.classList.remove('pk-bekle');
+    kapiCoz({ acik: true, sb: window.__pkSb });
   }
   function perde(tur) {
     if (bitti) return; bitti = true;
+    kapiCoz({ acik: false, tur: tur });
     var baslik, metin, dugmeler;
     if (tur === 'giris') {
       baslik = 'Bu bölüm pakete dahil';

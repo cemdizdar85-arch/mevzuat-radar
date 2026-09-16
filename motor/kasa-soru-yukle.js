@@ -66,10 +66,14 @@ function dersSayfalari() {
   return out;
 }
 
-function sayfalariOku() {
+// 16.09: kasa modundaki sayfa kabuktur (motor/kasa-kabuk.js) — sorusu kasada, sayfada değil.
+// Kabuk ATLANIR; kasadaki satırlarına dokunulmaz (silme de yapılmaz).
+function sayfalariOku(atlanan) {
   const out = [];
   for (const { yol, sinav } of dersSayfalari()) {
-    const sorular = sorulariCek(fs.readFileSync(path.join(KOK, yol), 'utf8'));
+    const html = fs.readFileSync(path.join(KOK, yol), 'utf8');
+    if (html.includes('data-kasa-sayfa=')) { if (atlanan) atlanan.push(yol); continue; }
+    const sorular = sorulariCek(html);
     if (!sorular.length) throw new Error(`BOŞ SAYFA KAPISI: ${yol} soru taşımıyor — yükleme durduruldu`);
     out.push({ yol, sinav, ucretsiz: false, sorular });
   }
@@ -95,12 +99,17 @@ function seviyeIsaretle(satirlar, kimlikler) {
   return bulunamayan;
 }
 
-async function yaz(satirlar) {
+// Tablo yoksa: kasa modunda sayfa YOKSA yayın bugünkü gibi sürer (çıkış 3 = "atla");
+// kasa modunda sayfa VARSA durulur (kabuklar kasasız kalır). Bkz arac/kasa-modu.json.
+class TabloYok extends Error {}
+
+async function yaz(satirlar, sayfaYollari) {
   const K = process.env.SUPABASE_SERVICE_KEY;
   if (!K) throw new Error('SUPABASE_SERVICE_KEY yok');
   const h = { apikey: K, Authorization: 'Bearer ' + K, 'User-Agent': UA, 'Content-Type': 'application/json' };
   const var_ = await fetch(SB + 'paket_soru?select=id&limit=1', { headers: h });
-  if (var_.status === 404 || var_.status === 400) throw new Error('paket_soru tablosu yok (TASLAK SQL basılmadı) — yazılmadı');
+  if (var_.status === 404 || var_.status === 400) throw new TabloYok('paket_soru tablosu yok (2026-09-16-paket-soru.sql basılmadı) — yazılmadı');
+  if (!var_.ok) throw new Error(`kasa yoklaması HTTP ${var_.status}`);
   let yazilan = 0;
   for (let i = 0; i < satirlar.length; i += PARCA) {
     const parca = satirlar.slice(i, i + PARCA).map(s => Object.assign({}, s, { guncelleme: new Date().toISOString() }));
@@ -108,9 +117,29 @@ async function yaz(satirlar) {
     if (!r.ok) throw new Error(`parça ${i}: HTTP ${r.status} ${(await r.text()).slice(0, 200)}`);
     yazilan += parca.length;
   }
-  const say = await fetch(SB + 'paket_soru?select=id', { method: 'HEAD', headers: Object.assign({ Prefer: 'count=exact', Range: '0-0' }, h) });
+  // Bayat satır: bu koşuda okunan sayfalara ait olup artık o sayfada olmayan kimlik (soru yayından düştü).
+  // Kimlik başka sayfaya taşındıysa upsert sayfa alanını zaten güncelledi; burada yakalanmaz.
+  const guncel = new Set(satirlar.map(s => s.id));
+  let silinen = 0;
+  for (const yol of sayfaYollari) {
+    const kasadaki = [];
+    for (let i = 0; ; i += 1000) {
+      const r = await fetch(SB + 'paket_soru?select=id&sayfa=eq.' + encodeURIComponent(yol) + '&order=id.asc&limit=1000&offset=' + i, { headers: h });
+      if (!r.ok) throw new Error(`bayat okuma ${yol}: HTTP ${r.status}`);
+      const p = await r.json(); kasadaki.push(...p.map(x => x.id));
+      if (p.length < 1000) break;
+    }
+    const bayat = kasadaki.filter(id => !guncel.has(id));
+    for (let i = 0; i < bayat.length; i += 50) {
+      const liste = bayat.slice(i, i + 50).map(id => '"' + String(id).replace(/"/g, '') + '"').join(',');
+      const r = await fetch(SB + 'paket_soru?id=in.(' + encodeURIComponent(liste) + ')', { method: 'DELETE', headers: Object.assign({ Prefer: 'return=minimal' }, h) });
+      if (!r.ok) throw new Error(`bayat silme ${yol}: HTTP ${r.status}`);
+      silinen += Math.min(50, bayat.length - i);
+    }
+  }
+  const say =await fetch(SB + 'paket_soru?select=id', { method: 'HEAD', headers: Object.assign({ Prefer: 'count=exact', Range: '0-0' }, h) });
   const kasada = Number((say.headers.get('content-range') || '').split('/')[1]);
-  return { yazilan, kasada };
+  return { yazilan, kasada, silinen };
 }
 
 function sinav() {
@@ -136,24 +165,35 @@ function sinav() {
 }
 
 async function ana() {
-  if (process.argv.includes('--sinav')) process.exit(sinav() ? 1 : 0);
-  const sayfalar = sayfalariOku();
+  if (process.argv.includes('--sinav')) { process.exitCode = sinav() ? 1 : 0; return; }
+  const atlanan = [];
+  const sayfalar = sayfalariOku(atlanan);
   const { satirlar, tekrar } = satirlariKur(sayfalar);
+  if (atlanan.length) console.log(`  kabuk (atlandı, kasadaki satırları korunur): ${atlanan.join(', ')}`);
   const svKimlik = seviyeKimlikleri();
   const svYok = seviyeIsaretle(satirlar, svKimlik);
   console.log(`  seviye havuzu ${svKimlik.length} kimlik · kasada bulunamayan ${svYok.length}`);
-  if (svYok.length) { console.log(`  ⛔ SEVİYE HAVUZUNDA KASADA OLMAYAN KİMLİK: ${svYok.slice(0, 5).join(', ')}`); process.exit(2); }
+  // Kabuk sayfanın sorusu bu koşuda okunmadı; seviye kimliği o sayfadaysa "bulunamadı" görünür ama kasada durur.
+  if (svYok.length && !atlanan.length) { console.log(`  ⛔ SEVİYE HAVUZUNDA KASADA OLMAYAN KİMLİK: ${svYok.slice(0, 5).join(', ')}`); process.exitCode = 2; return; }
+  if (svYok.length) console.log(`  (kabuk sayfa var: ${svYok.length} seviye kimliği bu koşuda doğrulanamadı — kasadaki ucretsiz işaretine dokunulmaz)`);
   const bayt = satirlar.reduce((t, s) => t + Buffer.byteLength(JSON.stringify(s.veri)), 0);
   const dersSay = {}; for (const s of satirlar) dersSay[s.ders] = (dersSay[s.ders] || 0) + 1;
   console.log(`KASA YÜKLEYİCİ · ${process.argv.includes('--yaz') ? 'YAZ' : 'KURU'}`);
   console.log(`  sayfa ${sayfalar.length} · satır ${satirlar.length} (ücretsiz ${satirlar.filter(s => s.ucretsiz).length}) · veri ${(bayt / 1048576).toFixed(1)} MB · soru başı ~${Math.round(bayt / satirlar.length / 1024)} KB`);
   console.log('  ders: ' + Object.entries(dersSay).sort((a, b) => b[1] - a[1]).map(([d, n]) => `${d} ${n}`).join(' · '));
-  if (tekrar.length) { console.log(`  ⛔ KİMLİK TEKRARI ${tekrar.length}: ${tekrar.slice(0, 5).join(', ')}`); process.exit(2); }
+  if (tekrar.length) { console.log(`  ⛔ KİMLİK TEKRARI ${tekrar.length}: ${tekrar.slice(0, 5).join(', ')}`); process.exitCode = 2; return; }
   if (!process.argv.includes('--yaz')) { console.log('  KURU — hiçbir yere yazılmadı.'); return; }
-  const r = await yaz(satirlar);
-  console.log(`  yazılan ${r.yazilan} · kasada ${r.kasada}`);
-  if (r.kasada < satirlar.length) { console.log('  ⛔ KASADAKİ SATIR < SAYILAN'); process.exit(2); }
+  let r;
+  try { r = await yaz(satirlar, sayfalar.map(s => s.yol)); }
+  catch (e) {
+    if (!(e instanceof TabloYok)) throw e;
+    const km = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'kasa-modu.json'), 'utf8').replace(/^﻿/, ''));
+    if ((km.sayfalar || []).length) { console.error('  ⛔ ' + e.message + ' — ama kasa modunda sayfa var, DURULDU'); process.exitCode = 1; return; }
+    console.log('  ATLANDI: ' + e.message + ' (kasa modunda sayfa yok, yayın bugünkü gibi sürer)'); process.exitCode = 3; return;
+  }
+  console.log(`  yazılan ${r.yazilan} · bayat silinen ${r.silinen} · kasada ${r.kasada}`);
+  if (r.kasada < satirlar.length) { console.log('  ⛔ KASADAKİ SATIR < SAYILAN'); process.exitCode = 2; return; }
 }
 
-if (require.main === module) ana().catch(e => { console.error('KASA YÜKLEYİCİ DÜŞTÜ: ' + e.message); process.exit(1); });
+if (require.main === module) ana().catch(e => { console.error('KASA YÜKLEYİCİ DÜŞTÜ: ' + e.message); process.exitCode = 1; return; });
 module.exports = { sorulariCek, satirlariKur, seviyeIsaretle };

@@ -100,6 +100,12 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./arac/sgs-650-bas.ps1
 
+      # ⭐ 16.09.2026 ADIM 2 (Cem "depoda soru icerigi kalmasin"): arac/kasa-modu.json'daki sayfalar
+      #   depoda SORUSUZ KABUK durur. Basim onlari tam yeniden yazar; asagidaki okuyucular (cevap
+      #   dagilimi) tam sayfayi gormeli. Sayfa hala kabuksa ders SESSIZCE bos sayilir -> dur.
+      - name: Kasa modundaki sayfalar tam basildi mi
+        run: node motor/kasa-kabuk.js --tam-mi
+
       # ⛔⭐ 12.09.2026 CEM KURALI: "kural koyalim bundan sonra kacmasin"
       #   Cevap dagilimi kapisi ITMEDEN ONCE kosar - bozulmus bir dagilim
       #   siteye CIKMAZ. Kapi CIRCIR: her dersin o anki ki-karesi taban olarak
@@ -126,6 +132,25 @@ jobs:
           } else {
             ./arac/cevap-dagilimi-olc.ps1 -Yaz -Kapi
           }
+
+      # ⭐ 16.09.2026 ADIM 2: sorular kilitli kasaya (paket_soru), kasa modundaki sayfalar kabuga.
+      #   Sira sart: okuyucularin HEPSI (dizin, deneme seti, seviye havuzu, cevap dagilimi) bitti.
+      #   Yukleyici cikis 3 = tablo yok VE kasa modunda sayfa yok -> bugunku gibi devam.
+      #   Kabuk yalniz kasa sayfayla ALAN ALAN ayniysa yazilir; degilse akis durur, hic itilmez
+      #   (tam sayfa depoya ASLA gitmez).
+      - name: Kasaya yukle + kabuga cevir
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node motor/kasa-soru-yukle.js --yaz
+          $kod = $LASTEXITCODE
+          if($kod -eq 3){ "kasa tablosu yok, kasa modunda sayfa yok - atlandi"; exit 0 }
+          $kasaSayfa = @((Get-Content arac/kasa-modu.json -Raw -Encoding UTF8 | ConvertFrom-Json).sayfalar).Count
+          if($kod -ne 0 -and $kasaSayfa -eq 0){ "::warning::kasa yukleyici cikis $kod - kasa modunda sayfa yok, yayin bugunku gibi suruyor"; exit 0 }
+          if($kod -ne 0){ throw "kasa yukleyici cikis $kod - sayfalar ITILMEYECEK" }
+          node motor/kasa-kabuk.js --yaz
+          if($LASTEXITCODE -ne 0){ throw "kabuk cikis $LASTEXITCODE - tam sayfa depoya gitmesin diye durdu" }
 
       - name: Degisen varsa ite
         shell: powershell

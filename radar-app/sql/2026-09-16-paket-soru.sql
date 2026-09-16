@@ -36,9 +36,10 @@ revoke all on public.paket_soru from anon;
 revoke all on public.paket_soru from authenticated;
 grant select on public.paket_soru to authenticated;     -- yazma YOK: yalnız sunucu anahtarı (yükleyici)
 
--- Paket -> sınav eşlemesi (fiyat-motoru.js kimlikleri): sgs · yeterlilik-N / yeterlilik-tum -> smmm ·
--- kgk-M / kgk-tum -> kgk · yeterlilik-kgk -> smmm+kgk · tam / kurucu -> hepsi.
--- 'son15' (Son 15 Gün planı) soru erişimi VERMEZ — ayrı karar gerekirse buraya eklenir.
+-- Paket -> sınav eşlemesi uye-durumu.js paketSinavlari() ile BİREBİR (16.09 okundu):
+--   boş / tam / kurucu -> hepsi · yeterlilik-kgk -> smmm+kgk · sgs, sgs-*, sinav-249 -> sgs ·
+--   yeterlilik, yeterlilik-*, smmm -> smmm · kgk, kgk-* -> kgk.
+-- 'son15' (Son 15 Gün planı) tarayıcıda da hiçbir sınavı açmıyor -> burada da soru erişimi VERMEZ.
 drop policy if exists paket_soru_paketli_okur on public.paket_soru;
 create policy paket_soru_paketli_okur on public.paket_soru
   for select to authenticated
@@ -48,10 +49,13 @@ create policy paket_soru_paketli_okur on public.paket_soru
       where pu.user_id = auth.uid()
         and (pu.bitis is null or pu.bitis >= current_date)
         and (
-          coalesce(pu.paket,'tam') in ('tam','kurucu')
-          or (paket_soru.sinav = 'sgs'  and pu.paket like 'sgs%')
-          or (paket_soru.sinav = 'smmm' and (pu.paket like 'yeterlilik%'))
-          or (paket_soru.sinav = 'kgk'  and (pu.paket like 'kgk%' or pu.paket = 'yeterlilik-kgk'))
+          coalesce(nullif(lower(trim(pu.paket)),''),'tam') in ('tam','kurucu')
+          or (paket_soru.sinav = 'sgs'  and (lower(trim(pu.paket)) = 'sgs' or lower(trim(pu.paket)) like 'sgs-%'
+                                             or lower(trim(pu.paket)) = 'sinav-249'))
+          or (paket_soru.sinav = 'smmm' and (lower(trim(pu.paket)) in ('yeterlilik','smmm','yeterlilik-kgk')
+                                             or lower(trim(pu.paket)) like 'yeterlilik-%'))
+          or (paket_soru.sinav = 'kgk'  and (lower(trim(pu.paket)) in ('kgk','yeterlilik-kgk')
+                                             or lower(trim(pu.paket)) like 'kgk-%'))
         )
         -- K1: dersler NULL = tüm dersler; dolu ise yalnız seçilenler (satin-al.html ders adlarıyla)
         and (pu.dersler is null or paket_soru.ders = any(pu.dersler))
