@@ -234,7 +234,7 @@
       $('ogSonGecmeAlt').textContent='son geçme ihtimalin'+(once!==null?' ('+(son.veri.gecme-once>=0?'+':'')+(son.veri.gecme-once)+' puan)':'');
       var gecen=Math.floor((Date.now()-new Date(son.veri.tarih||son.olusturma))/86400000);
       $('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';
-    } else { $('ogSonGecme').textContent='–'; $('ogTestNot').textContent='Henüz seviye testi yok. 20 soruda ilk ölçümünü al.'; }
+    } else { $('ogSonGecme').textContent='–'; $('ogTestNot').textContent='Henüz seviye testi yok. 30 soruda ilk ölçümünü al.'; }
     $('ogDenemeler').innerHTML=deneme.length?deneme.sort(function(a,b){return a.veri.set-b.veri.set;}).map(function(x){ return '<div class="og-satir"><b>Set '+x.veri.set+'</b><span>'+x.veri.dogru+' doğru · '+x.veri.yanlis+' yanlış · '+x.veri.bos+' boş</span></div>'; }).join('')
       :'<p class="og-alt" style="margin:0">Henüz bitirilmiş deneme yok. 130 soruluk "Sınav gibi çöz" setleri seni bekliyor.</p>';
     var kutu=yerel('kc_kutu',[]), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;

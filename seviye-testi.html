@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>20 soruda geçme ihtimalini ölç · Staja Giriş | Tetikte</title>
-<meta name="description" content="Staja Giriş için 20 soruluk uyarlamalı seviye testi: bitince geçme ihtimalin, tahmini doğru sayın ve en zayıf alanın.">
+<title>30 soruda geçme ihtimalini ölç · Staja Giriş | Tetikte</title>
+<meta name="description" content="Staja Giriş için 30 soruluk uyarlamalı seviye testi: bitince geçme ihtimalin, tahmini doğru sayın ve en zayıf alanın.">
 <link rel="stylesheet" href="stil.css">
 <!--
   SEVİYE TESTİ (13.09.2026)
@@ -14,7 +14,7 @@
   -> "geçme olasılığı vermek istiyorum" -> GM üç seçenek sundu, tek yüzdeyi önermedi -> Cem "Şimdi tek yüzde".
   -> "e-posta işlemini yapalım, şu an yok diye önermemezlik yapma" -> karne öğrencinin e-postasına (radar-app/edge/karne-gonder.ts).
   HESAP: seviye-model.js (Rasch + TESMER yönergesine dayanan sınır varsayımı; varsayımlar #nasil bölümünde).
-  SORULAR: veri/seviye/sgs-havuz.json (motor/seviye-havuz-bas.js). 20 soru, ders payına göre; zorluk her cevaptan sonra
+  SORULAR: veri/seviye/sgs-havuz.json (motor/seviye-havuz-bas.js). 30 soru, ders payına göre; zorluk her cevaptan sonra
   modelin anlık seviye tahminine göre seçilir. Aynı cihaza gösterilen soru tekrar gösterilmez (sv_gorulen); şık sırası karışır.
   VERİ: her cevap anonim cevap_kayit'e (kaynak 'seviye-testi') - açılıştan sonra etiketlerin yerini gerçek zorluk alacak.
   Soru çözme ekranı -> AÇIK tema (09.09 kararı).
@@ -65,7 +65,7 @@
   .sv-grup.zayif{border-color:var(--red)}
   .sv-kutu{background:var(--panel);border:1px solid var(--amber);border-radius:14px;padding:18px;margin:0 0 16px}
   .sv-kutu h2{font-size:19px;margin:0 0 6px}
-  .sv-kutu input[type=email]{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);margin:6px 0 10px}
+  .sv-kutu input[type=email],.sv-kutu input[type=tel]{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);margin:6px 0 10px}
   .sv-onay{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 8px}
   .sv-onay input{margin-top:3px}
   .sv-onay a{color:var(--amber)}
@@ -85,20 +85,51 @@
   <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Seviye testi</div>
 
   <section id="svGiris">
-    <h1>20 soruda geçme ihtimalini ölç</h1>
-    <p class="sv-alt">Staja Giriş için. Sorular sınavdaki ders ağırlığıyla gelir; bildikçe zorlaşır, bilemedikçe kolaylaşır. Yaklaşık 20 dakika.</p>
+    <h1>30 soruda geçme ihtimalini ölç</h1>
+    <p class="sv-alt">Staja Giriş için. Sorular sınavdaki ders ağırlığıyla gelir; bildikçe zorlaşır, bilemedikçe kolaylaşır. Yaklaşık 30 dakika.</p>
     <ul class="sv-maddeler">
       <li>Bitince <b>geçme ihtimalin</b> ve 130 soruluk sınavda tahmini doğru sayın</li>
       <li>Hangi alanda (muhasebe, hukuk, ekonomi-maliye, genel kültür) açığın olduğu</li>
-      <li>İstersen karnen e-postana gelir; yanlışlarını Nöbetçi adım adım anlatır</li>
+      <li>Karnen e-postana gelir; yanlışlarını Nöbetçi adım adım anlatır</li>
     </ul>
     <p class="sv-onceki" id="svOnceki" hidden></p>
     <button class="sv-btn ana" id="svBasla" type="button" disabled>Soru yükleniyor…</button>
     <p class="sv-not">Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez (cevabın sıradaki sorunun zorluğunu belirler). "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.</p>
+
+    <!-- 16.09.2026 Cem: "üye olmayan bir kere çözsün, sonra üye olsun". Cihazda işaret (sv_hak).
+         DÜRÜST SINIR: gizli sekme / tarayıcı verisi silinince aşılır; gerçek sınır sunucuda sayılacak (kart haftası). -->
+    <div class="sv-kutu" id="svHakBitti" hidden>
+      <h2>Ücretsiz ölçümünü kullandın</h2>
+      <p class="sv-alt" style="margin:0 0 12px">Testi yeniden çözmek, ders ders karneni görmek ve yanlışlarını çözmek ücretsiz üyelikte. Hesap açman 1 dakika.</p>
+      <div class="sv-dugmeler">
+        <a class="sv-btn ana" href="ogrenci.html" style="text-decoration:none">Ücretsiz üye ol →</a>
+        <a class="sv-btn" href="kaydir/vitrin/sgs.html" style="text-decoration:none">Örnek soruları çöz</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SONUÇ KAPISI (16.09.2026 Cem: "yüzdeyi göstermek için mail adresi ya da telefon isteyelim ki
+       sonra onları yakalayabilelim"). Test bitti, hesap yapıldı; yüzde bu kapıdan sonra açılır.
+       Üyede kapı ÇIKMAZ (bilgisi zaten bizde). KVKK: karne gönderimi kişinin KENDİ TALEBİ (m.5/2-c);
+       arama/duyuru izni AYRI ve isteğe bağlı kutu (6563 ticari elektronik ileti). -->
+  <section id="svKapi" class="sv-gizli">
+    <div class="sv-kutu">
+      <h2>Sonucun hazır</h2>
+      <p class="sv-alt" style="margin:0 0 4px">30 sorunun tamamı değerlendirildi. Geçme ihtimalini ve alan alan karneni birlikte açalım: karnen e-postana da gitsin ki sınav gününe kadar elinin altında olsun.</p>
+      <form id="svKapiForm" novalidate>
+        <input type="email" id="svEposta" placeholder="e-posta adresin" autocomplete="email" required>
+        <input type="tel" id="svTelefon" placeholder="telefon (isteğe bağlı)" autocomplete="tel">
+        <input type="text" id="svHp" name="_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <label class="sv-onay"><input type="checkbox" id="svKvkk"> <span><a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metnini</a> okudum; karnemin bu adrese gönderilmesini istiyorum.</span></label>
+        <label class="sv-onay"><input type="checkbox" id="svIzin"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta/SMS gönderilmesine ve telefonla aranmama <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza metnindeki</a> kapsamda rıza veriyorum. (isteğe bağlı; her iletide çıkış yolu olur)</span></label>
+        <button class="sv-btn ana" type="submit" id="svGonder">Sonucumu aç →</button>
+        <div class="sv-durum" id="svDurum" role="status"></div>
+      </form>
+    </div>
   </section>
 
   <section id="svTest" class="sv-gizli">
-    <div class="sv-ust"><span>Soru <b id="svNo">1</b> / 20</span><span id="svSure">0:00</span></div>
+    <div class="sv-ust"><span>Soru <b id="svNo">1</b> / <span id="svToplam">30</span></span><span id="svSure">0:00</span></div>
     <div class="sv-ilerleme"><i id="svCubuk" style="width:0%"></i></div>
     <div class="sv-kart">
       <div class="sv-kunye" id="svKunye"></div>
@@ -133,21 +164,10 @@
       </div>
     </div>
 
-    <div class="sv-kutu" id="svKarne">
-      <h2>Karnen e-postana gelsin</h2>
-      <p class="sv-alt" style="margin:0 0 4px">Geçme ihtimalin, alan alan sonucun ve sana en çok puan getirecek başlangıç noktası.</p>
-      <form id="svForm" novalidate>
-        <input type="email" id="svEposta" placeholder="e-posta adresin" autocomplete="email" required>
-        <input type="text" id="svHp" name="_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-        <!-- 14.09 KVKK ölçümü: karne öğrencinin KENDİ TALEBİ -> hukuki sebep talep/sözleşme (m.5/2-c), rıza DEĞİL.
-             İlk sürüm "işlenmesine izin veriyorum" diyerek yanlış dayanak kuruyordu. Duyuru izni ise gerçek açık rıza:
-             kvkk.html bölüm 7'deki metne bağlandı (yurt dışı sağlayıcı dahil), ayrı ve isteğe bağlı. -->
-        <label class="sv-onay"><input type="checkbox" id="svKvkk"> <span><a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metnini</a> okudum; karnemin bu adrese gönderilmesini istiyorum.</span></label>
-        <label class="sv-onay"><input type="checkbox" id="svIzin"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza metnindeki</a> kapsamda rıza veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
-        <button class="sv-btn ana" type="submit" id="svGonder">Karnemi gönder</button>
-        <div class="sv-durum" id="svDurum" role="status"></div>
-      </form>
-    </div>
+    <!-- 14.09 KVKK ölçümü: karne öğrencinin KENDİ TALEBİ -> hukuki sebep talep/sözleşme (m.5/2-c), rıza DEĞİL.
+         Duyuru/arama izni ise gerçek açık rıza: ayrı ve isteğe bağlı kutu. 16.09'da form yukarıdaki
+         SONUÇ KAPISI'na taşındı (yüzde ondan sonra açılıyor); burada yalnız sonucu yazılır. -->
+    <p class="sv-not" id="svKarneDurum" hidden></p>
 
     <div class="sv-dugmeler" id="svYollar" style="margin-bottom:16px"></div>
 
@@ -159,10 +179,10 @@
       <summary>Nasıl hesaplandı?</summary>
       <p>Bu bir <b>tahmindir</b>. Staja Giriş'te puan bağıl hesaplanır (ortalama 50, standart sapma 10; 60 ve üzeri geçer) ve geçme sınırı her dönem sınava girenlere göre değişir; resmî sınır yayımlanmaz.</p>
       <ul>
-        <li><b>Seviyen:</b> 20 cevabından, sorunun zorluğu hesaba katılarak kestirilir (Rasch modeli). Zorluk, sorunun üretimde aldığı kolay / zor / çok zor etiketinden gelir; bu etiketler henüz gerçek adaylarla ölçülmedi.</li>
+        <li><b>Seviyen:</b> 30 cevabından, sorunun zorluğu hesaba katılarak kestirilir (Rasch modeli). Zorluk, sorunun üretimde aldığı kolay / zor / çok zor etiketinden gelir; bu etiketler henüz gerçek adaylarla ölçülmedi.</li>
         <li><b>130 soruda doğru oranın:</b> o seviyeyle, sınav havuzundaki zorluk karışımında beklenen oran.</li>
         <li><b>Geçme sınırı:</b> TESMER Uygulama Yönergesi'ne göre geçmişte "soruların %80'ini doğru cevaplayanların başarılı sayıldığı sınavlar olduğu gibi %60'ını doğru cevaplayanların başarısız bulunduğu sınavlar da olmuştur". Hesapta sınır ortalama %70, ±%7 dağılımla alınır.</li>
-        <li><b>Geçme ihtimali:</b> doğru oranının o dönemin sınırını geçme olasılığı; 20 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir.</li>
+        <li><b>Geçme ihtimali:</b> doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. <b>Ne kadar isabetli?</b> 16.09.2026'da bu modelle 700 sahte aday koşturuldu: 30 soruda tahminin gerçeğinden ortalama sapması <b>±10,7 puan</b> (20 soruda ±12,5 idi), geçer/kalır tarafını ters söyleme oranı %9. Gerçek kesinlik, etiketler adaylarla kalibre edilene kadar bundan düşüktür.</li>
       </ul>
       <p>21 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
     </details>
@@ -178,9 +198,13 @@
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
-  var M=window.SeviyeModel, H=null, SIRA=[], CEVAPLAR=[], AKTIF=null, SECILI=null, BAS=0, SAYAC=null, SORU_BAS=0, SONUC=null;
+  var M=window.SeviyeModel, H=null, SIRA=[], CEVAPLAR=[], AKTIF=null, SECILI=null, BAS=0, SAYAC=null, SORU_BAS=0, SONUC=null, KAPI_LISTE=null;
   var oturum=''; try{ oturum=localStorage.getItem('kc_oturum')||''; if(!oturum){ oturum=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kc_oturum',oturum); } }catch(e){}
-  function goster(id){ ['svGiris','svTest','svSonuc'].forEach(function(k){ $(k).classList.toggle('sv-gizli',k!==id); }); window.scrollTo(0,0); }
+  function goster(id){ ['svGiris','svTest','svKapi','svSonuc'].forEach(function(k){ $(k).classList.toggle('sv-gizli',k!==id); }); window.scrollTo(0,0); }
+  /* 16.09: üye mi? (oturum anahtarı cihazda) - uye-durumu.js ile aynı ölçüt; üyede sonuç kapısı ve tek-hak sınırı YOK */
+  function uyeMi(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } }
+  function hakKullanildi(){ try{ return localStorage.getItem('sv_hak')==='1'; }catch(e){ return false; } }
+  function hakYaz(){ try{ localStorage.setItem('sv_hak','1'); }catch(e){} }
   function karistir(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
   function gorulen(){ try{ return JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); }catch(e){ return []; } }
   function gorulduEkle(id){ try{ var g=gorulen(); if(g.indexOf(id)<0) g.push(id); localStorage.setItem('sv_gorulen',JSON.stringify(g.slice(-2000))); }catch(e){} }
@@ -237,7 +261,8 @@
   });
 
   function basla(){
-    CEVAPLAR=[]; SIRA=planKur(); BAS=Date.now();
+    if(!uyeMi() && hakKullanildi()){ goster('svGiris'); $('svHakBitti').hidden=false; $('svBasla').hidden=true; return; }
+    CEVAPLAR=[]; SIRA=planKur(); BAS=Date.now(); $('svToplam').textContent=SIRA.length;
     if(SAYAC) clearInterval(SAYAC);
     SAYAC=setInterval(function(){ var s=Math.round((Date.now()-BAS)/1000); $('svSure').textContent=Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); },1000);
     goster('svTest'); soruGoster();
@@ -259,7 +284,10 @@
         if(k){ k.tur=1; k.due=an+2*86400000; k.yanlis=(k.yanlis||0)+1; } else kutu.push({id:c.id,konu:'',ders:c.ders,donem:0,tur:1,due:an+2*86400000,yanlis:1}); });
       localStorage.setItem('kc_kutu',JSON.stringify(kutu));
     }catch(e){}
-    sonucCiz(liste);
+    /* 16.09: ücretsiz hak burada tükenir (test bitti). Üyede sınır yok. */
+    hakYaz();
+    if(uyeMi()){ sonucCiz(liste); return; }
+    KAPI_LISTE=liste; goster('svKapi');
   }
   /* 14.09 TAM BANKA TEKLİFİ — seviyeye göre başlık; rakamlar kaynaktan, okunamazsa rakamsız cümle. */
   function teklifCiz(g, zayif, yanlisSay){
@@ -316,29 +344,43 @@
     goster('svSonuc');
   }
 
-  /* KARNE -> öğrencinin e-postası (karne-gonder uç fonksiyonu; içerik sunucuda kurulur) */
-  $('svForm').addEventListener('submit',function(e){
+  /* SONUÇ KAPISI (16.09.2026 Cem) — yüzde bu formdan sonra açılır.
+     İki gönderi: (1) karne-gonder -> karne adayın e-postasına + form_kayit'a düşer,
+     (2) form-al (canlı adı quick-task) -> TELEFON ve iletişim izni bizim kasamıza (karne-gonder telefon alanı tanımıyor).
+     ⛔ Gönderi düşse bile sonuç GÖSTERİLİR: adam 30 soruyu çözdü, bizim sunucu hatamız yüzünden eli boş kalmaz. */
+  $('svKapiForm').addEventListener('submit',function(e){
     e.preventDefault();
-    var eposta=$('svEposta').value.trim(), durum=$('svDurum');
+    var eposta=$('svEposta').value.trim(), tel=$('svTelefon').value.trim(), durum=$('svDurum');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(eposta)){ durum.textContent='Geçerli bir e-posta adresi yaz.'; durum.className='sv-durum hata'; return; }
-    if(!$('svKvkk').checked){ durum.textContent='Gönderebilmemiz için onay kutusunu işaretle.'; durum.className='sv-durum hata'; return; }
-    $('svGonder').disabled=true; durum.textContent='Gönderiliyor…'; durum.className='sv-durum';
-    fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
-      body:JSON.stringify({ eposta:eposta, kvkk:true, izin_ileti:$('svIzin').checked, sinav:'sgs', _hp:$('svHp').value,
+    if(tel && tel.replace(/\D/g,'').length<10){ durum.textContent='Telefonu 10 hane yaz (5xx xxx xx xx) ya da boş bırak.'; durum.className='sv-durum hata'; return; }
+    if(!$('svKvkk').checked){ durum.textContent='Karneni gönderebilmemiz için onay kutusunu işaretle.'; durum.className='sv-durum hata'; return; }
+    $('svGonder').disabled=true; durum.textContent='Sonucun açılıyor…'; durum.className='sv-durum';
+    var izin=$('svIzin').checked;
+    var karne=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+      body:JSON.stringify({ eposta:eposta, kvkk:true, izin_ileti:izin, sinav:'sgs', _hp:$('svHp').value,
         sonuc:{ gecme:SONUC.gecme, dogru130:SONUC.dogru130, soru:SONUC.soru, dogru:SONUC.dogru, gruplar:SONUC.gruplar.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}) } }) })
-    .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j,durum:r.status}; }); })
-    .then(function(s){
-      if(s.ok&&s.j.success){ durum.textContent='Gönderildi. Birkaç dakika içinde gelmezse gereksiz (spam) klasörüne bak.'; durum.className='sv-durum ok'; }
-      else { durum.textContent=s.durum===429?'Bu adrese bugün yeterince karne gönderildi ya da çok sık denendi; biraz sonra yeniden dene.':'Şu an gönderilemedi. Biraz sonra yeniden dene.'; durum.className='sv-durum hata'; $('svGonder').disabled=false; }
-    })
-    .catch(function(){ durum.textContent='Şu an gönderilemedi. Bağlantını kontrol edip yeniden dene.'; durum.className='sv-durum hata'; $('svGonder').disabled=false; });
+      .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
+    var kayit=fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
+      body:JSON.stringify({ subject:'SEVIYE TESTI sonucu', from_name:'Tetikte Seviye Testi', email:eposta, telefon:tel||'-',
+        sinav:'sgs', gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru, tahmini_dogru_130:String(SONUC.dogru130),
+        iletisim_izni:izin?'evet (e-posta/SMS/arama)':'hayir', _hp:$('svHp').value }) }).catch(function(){ return null; });
+    Promise.all([karne,kayit]).then(function(s){
+      sonucCiz(KAPI_LISTE);
+      var d=$('svKarneDurum'); d.hidden=false;
+      d.textContent = s[0] ? 'Karnen '+eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'
+                           : 'Karne e-postası şu an gönderilemedi; sonucun aşağıda duruyor. Sorun düzelince sana ulaşacağız.';
+    });
   });
 
   $('svBasla').addEventListener('click',basla);
   $('svYeniden').addEventListener('click',basla);
   fetch('veri/seviye/sgs-havuz.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
     H=d; $('svBasla').disabled=false; $('svBasla').textContent='Teste başla →';
-    try{ var g=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+'). Yeniden çözersen farklı sorular gelir.'; } }catch(e){}
+    /* 16.09: ücretsiz hakkını kullanmış ziyaretçi -> üyelik kutusu (üyede sınır yok) */
+    var kapali=(!uyeMi() && hakKullanildi());
+    if(kapali){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; }
+    /* "yeniden çözersen farklı sorular gelir" sözü ÜYEYE aittir; hakkını kullanmış ziyaretçiye söylenmez */
+    try{ var g=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
   }).catch(function(){ $('svBasla').textContent='Sorular yüklenemedi, sayfayı yenile'; });
 })();
 </script>

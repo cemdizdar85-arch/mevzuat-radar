@@ -1,13 +1,13 @@
 // ============================================================================
-//  SEVİYE HAVUZU BASICI — "20 soruda geçme ihtimalini ölç" (seviye-testi.html) soru havuzu.
+//  SEVİYE HAVUZU BASICI — "30 soruda geçme ihtimalini ölç" (seviye-testi.html) soru havuzu.
 //
 //  NEDEN (13.09.2026, Cem): "ilk testim müşteri çekmek için; bu sınavda kaç puan alırsın,
 //  denetle tarzı; sınav kadar soru çözersek olmaz." -> 20 soruluk uyarlamalı test.
 //
 //  NE YAPAR
-//   · 20 soruluk plan: her dersin sınavdaki payı × 20, en büyük artık yöntemiyle, her derse
-//     en az 1 (veri/sgs-sinav-yapisi.json). Sonuç: FM 4, Denetim 2, Yabancı Dil 2, diğer 12
-//     ders 1'er - öz-sınav toplamın 20 ve dağılımın bu olduğunu doğrular.
+//   · 30 soruluk plan: her dersin sınavdaki payı × 30, en büyük artık yöntemiyle, her derse
+//     en az 1 (veri/sgs-sinav-yapisi.json). Sonuç: FM 6, Denetim 4, Maliyet/MTA/Matematik/Türkçe/
+//     YD/Ekonomi/Maliye 2'şer, kalan 6 ders 1'er - öz-sınav toplamın 30 ve dağılımın bu olduğunu doğrular.
 //   · Dört grup (sonuç ekranı + karne maili): Muhasebe (FM, Maliyet, MTA, Denetim) · Hukuk
 //     (Meslek, İş-SGK, Vergi, Ticaret, Borçlar) · Ekonomi ve Maliye · Genel Kültür ve Yabancı Dil.
 //     Tek soruyla ders hakkında hüküm verilmez; grup düzeyinde gösterilir.
@@ -23,7 +23,12 @@ const fs = require('fs');
 const path = require('path');
 const KOK = path.join(__dirname, '..');
 const KURU = process.argv.includes('--kuru');
-const TEST_SORU = 20, KUTU = 10;
+// 16.09.2026 — 20 -> 30 SORU (Cem kararı). Ölçüldü (benzetim, sitenin kendi modeliyle 700 sahte aday):
+// tahminin gerçekten sapması 20 soruda ±12,5 puan · 30'da ±10,7 · 35'te ±10,1 · 40'ta ±9,4; geçer/kalır
+// tersine çıkma 20'de %10,4 · 30'da %9,0. Kazancın çoğu 30'da alınıyor, sonrası düzleşiyor. Ayrıca 20 soruda
+// 8 ders TEK soruyla temsil ediliyordu (tek soruyla ders hakkında hüküm verilemez); 30'da FM 6, Denetim 4.
+// KUTU 10 -> 15: üye tekrar çözdüğünde aynı soruların dönmemesi için ders×zorluk kutusu büyütüldü.
+const TEST_SORU = 30, KUTU = 15;
 const ZORLUKLAR = ['kolay', 'zor', 'cokzor'];
 
 const jsonOku = y => JSON.parse(fs.readFileSync(y, 'utf8').replace(/^﻿/, ''));
@@ -85,7 +90,8 @@ for (const d of dersler) {
 const planToplam = plan.reduce((t, x) => t + x.adet, 0);
 if (planToplam !== TEST_SORU) hatalar.push(`plan toplamı ${planToplam} (beklenen ${TEST_SORU})`);
 const fm = plan.find(x => katla(x.ders) === 'finansal muhasebe'), den = plan.find(x => katla(x.ders) === 'denetim'), yd = plan.find(x => katla(x.ders) === 'yabanci dil');
-if (!fm || fm.adet !== 4 || !den || den.adet !== 2 || !yd || yd.adet !== 2) hatalar.push('plan dağılımı beklenenden farklı (FM 4 / Denetim 2 / YD 2)');
+// 16.09: 30 soruluk planın beklenen dağılımı (sınav payından: FM 26/130, Denetim 16/130, YD 10/130)
+if (!fm || fm.adet !== 6 || !den || den.adet !== 4 || !yd || yd.adet !== 2) hatalar.push('plan dağılımı beklenenden farklı (FM 6 / Denetim 4 / YD 2)');
 if (plan.some(x => x.adet < 1)) hatalar.push('sıfır sorulu ders var');
 const grupToplam = {}; plan.forEach(x => grupToplam[x.grup] = (grupToplam[x.grup] || 0) + x.adet);
 

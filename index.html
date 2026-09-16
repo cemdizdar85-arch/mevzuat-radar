@@ -744,7 +744,7 @@ window.veriAl = (function(){
                  hâlin kendisidir; betik çalışmazsa sayfa bununla kalır. Karar tablosu: bzDugmeCiz(). -->
             <a class="bz-cta" id="bzCta" href="ucretsiz-dene.html?sinav=sgs">Ücretsiz dene</a>
             <!-- 13.09 Cem: "ilk testim müşteri çekmek için; bu sınavda kaç puan alırsın, denetle tarzı" -> seviye-testi.html -->
-            <a class="bz-cta2" id="bzCta2" href="seviye-testi.html">20 soruda geçme ihtimalini ölç →</a>
+            <a class="bz-cta2" id="bzCta2" href="seviye-testi.html">30 soruda geçme ihtimalini ölç →</a>
             <p class="bz-durum" id="bzDurum" aria-live="polite"></p>
           </div>
           <div class="bz-cam">
@@ -797,7 +797,7 @@ window.veriAl = (function(){
     /* SINAV × ÜYE DURUMU -> kahraman düğmeleri (15.09.2026, Cem "1.2.3 yap").
        Karar tablosu (değişirse YALNIZ burası değişir):
                           içerik yayında (SGS)                         içerik hazırlanıyor (Yeterlilik, KGK)
-         ziyaretçi        Ücretsiz dene · 20 soruda ölç                 Ön kayıt ol · Staja Giriş'i şimdi dene
+         ziyaretçi        Ücretsiz dene · 30 soruda ölç                 Ön kayıt ol · Staja Giriş'i şimdi dene
          üye, paketsiz    Ücretsiz dene · Paketleri gör                 Ön kayıt ol · Staja Giriş'i şimdi dene
          paket aktif      Sınava gir · Kaldığın yerden devam            Hesabım · (sorular açılınca e-posta)
          paket bitmiş     Paketini yenile · Ücretsiz sorular            Ön kayıt ol · Hesabım                     */
@@ -821,7 +821,7 @@ window.veriAl = (function(){
             durumEl.innerHTML='Paketinin süresi '+(bit?'<b>'+bit+'</b> tarihinde ':'')+'bitti.';
           } else {
             yaz(cta,'Ücretsiz dene',s.dene);
-            if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else yaz(cta2,'20 soruda geçme ihtimalini ölç →',s.olc);
+            if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else yaz(cta2,'30 soruda geçme ihtimalini ölç →',s.olc);
           }
         } else {
           if(d.durum==='aktif'){

@@ -1,5 +1,5 @@
 /* ============================================================================
-   SEVİYE MODELİ — "20 soruda geçme ihtimalini ölç" (seviye-testi.html) hesabı.
+   SEVİYE MODELİ — "30 soruda geçme ihtimalini ölç" (seviye-testi.html) hesabı.
    Tarayıcıda window.SeviyeModel, Node'da module.exports (öz-sınav: node seviye-model.js --sinav).
 
    KARAR (13.09.2026): Cem "geçme olasılığı vermek istiyorum" · GM üç seçenek sundu
@@ -21,7 +21,7 @@
       aralığına kırpılır. (Bağıl değerlendirmede sınır dönemin aday kitlesine göre değişir;
       resmî sınır yayımlanmaz.)
    4) Geçme ihtimali = Σ_θ sonsal(θ) · P(s ≤ p(θ)). Ekranda %5 ile %95 arasında tutulur:
-      20 soruyla "kesin" denmez.
+      30 soruyla "kesin" denmez.
    KALİBRASYON (açık iş): 21.11.2026 sınavından sonra deneme çözenlerin gerçek puanı
    toplanıp b değerleri ve s dağılımı yeniden kestirilir.
 ============================================================================ */

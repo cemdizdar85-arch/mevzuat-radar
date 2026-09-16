@@ -6,12 +6,12 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Ücretsiz dene · Staja Giriş sınavı | Tetikte</title>
-<meta name="description" content="Üye olmadan dene: 20 soruda geçme ihtimalini ölç, 15 dersin tamamından örnek soruları çözümleriyle çöz.">
+<meta name="description" content="Üye olmadan dene: 30 soruda geçme ihtimalini ölç, 15 dersin tamamından örnek soruları çözümleriyle çöz.">
 <link rel="stylesheet" href="stil.css">
 <!--
   ÜCRETSİZ DENE (14.09.2026)
   Cem: "soru çözme kısmı paralı olacak; deneme amaçlı sadece kendin dene yapalım, onu ön sayfaya alalım."
-  Ücretsiz katman: seviye testi (20 soru, veri/seviye/sgs-havuz.json) + vitrin Kaydır-Çöz (kaydir/vitrin/sgs.html,
+  Ücretsiz katman: seviye testi (30 soru, veri/seviye/sgs-havuz.json) + vitrin Kaydır-Çöz (kaydir/vitrin/sgs.html,
   paket-kapisi.js bu yolu MUAF tutar). 14.09 ölçümü: vitrin 70 soru, 15 dersin 15'i temsil ediliyor
   (FM 14, Denetim 9 ... Atatürk 1). "15 dersin tamamından" cümlesi bu ölçüme dayanır; vitrin yeniden
   basılırsa yeniden sayılmalı. Bankanın büyüklüğü soru-dizini.json'dan okunur.
@@ -68,6 +68,10 @@
   .uc-onkayit .uc-hata{font-size:13.5px;color:var(--red);flex-basis:100%}
   .uc-onkayit .uc-baska{margin:16px 0 0;font-size:14px}
   .uc-onkayit .uc-baska a{color:var(--bz-bronz-acik);font-weight:700;text-decoration:none}
+  /* 16.09: tek kart -> kart tam genişliği kaplamasın, okunur kalsın */
+  .uc-kartlar.uc-tek{grid-template-columns:minmax(0,620px)}
+  .uc-ornek{margin:18px 0 0;font-size:15px;color:var(--muted)}
+  .uc-ornek a{color:var(--bz-bronz-acik);font-weight:700;text-decoration:none}
 </style>
 </head>
 <body class="uc-koyu bz-koyu">
@@ -86,7 +90,7 @@
     <div class="uc-bas" id="ucBas">
       <p class="uc-goz">Ücretsiz dene · üyelik gerekmez</p>
       <h1>Önce kendin dene.</h1>
-      <p>Staja Giriş sınavında nerede olduğunu gör, soruların nasıl çözüldüğünü kendi gözünle incele. Kart, e-posta, üyelik istemiyoruz.</p>
+      <p>Staja Giriş sınavında nerede olduğunu gör: 30 soru, yaklaşık 30 dakika. Kart istemiyoruz, üyelik istemiyoruz; sonucunu göndermek için yalnız e-posta adresini alıyoruz.</p>
     </div>
     <section class="uc-onkayit" id="onkayit" hidden>
       <h2 id="okBaslik">Ön kayıt</h2>
@@ -101,20 +105,17 @@
       <div class="uc-ok" id="okTamam" hidden>✓ Ön kaydın alındı. Soru bankası açıldığı gün e-postana yazacağız.</div>
       <p class="uc-baska">Staja Giriş'e mi hazırlanıyorsun? <a href="ucretsiz-dene.html?sinav=sgs">Onu şimdi ücretsiz dene →</a></p>
     </section>
-    <div class="uc-kartlar" id="ucKartlar">
+    <!-- 16.09 Cem: "burada iki deneme vermeye gerek yok" -> TEK eylem (seviye testi).
+         Örnek sorular silinmedi, kartın altında bağlantı oldu: ürünü görmek isteyen oraya gider. -->
+    <div class="uc-kartlar uc-tek" id="ucKartlar">
       <a class="uc-kart" href="seviye-testi.html">
-        <span class="uc-et">1 · Seviye testi</span>
-        <b>20 soruda geçme ihtimalini ölç</b>
-        <span class="uc-alt">Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, güçlü ve zayıf alanların çıkar; istersen karne e-postana gelir.</span>
+        <span class="uc-et">Seviye testi · ücretsiz</span>
+        <b>30 soruda geçme ihtimalini ölç</b>
+        <span class="uc-alt">Uyarlamalı test: bildikçe zorlaşır, bilemedikçe kolaylaşır. Bitince geçme ihtimalin, 130 soruluk sınavda tahmini doğru sayın ve en zayıf alanın çıkar; karnen e-postana da gelir.</span>
         <span class="uc-git">Teste başla →</span>
       </a>
-      <a class="uc-kart" href="kaydir/vitrin/sgs.html">
-        <span class="uc-et">2 · Örnek sorular</span>
-        <b id="ucOrnekBaslik">15 dersin tamamından örnek sorular</b>
-        <span class="uc-alt">Gerçek soru bankasından seçildi. Her şıkkın neden doğru ya da yanlış olduğu ve dayandığı mevzuat maddesi yanında.</span>
-        <span class="uc-git">Soruları çöz →</span>
-      </a>
     </div>
+    <p class="uc-ornek">Önce ürünü görmek istersen: <a href="kaydir/vitrin/sgs.html">15 dersten örnek soruları çözümleriyle çöz →</a></p>
     <div class="uc-paket" id="ucPaket">
       <p><b>Beğendiysen tamamı pakette:</b> <span id="ucBanka">binlerce çözümlü soru</span>, gerçek sınav dağılımında deneme setleri, "sınav gibi" süreli mod ve ilerleme paneli.</p>
       <span><a href="fiyat.html">Paketleri gör →</a><a class="uc-ikinci" href="ogrenci.html">Paketin varsa giriş yap</a></span>
@@ -149,6 +150,7 @@
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';
   $('ucBas').querySelector('p:not(.uc-goz)').textContent='Soruları, Staja Giriş\'te olduğu gibi her şıkkın gerekçesi ve dayandığı madde yanında olacak şekilde yayına hazırlıyoruz. Hazır olmadan satmıyoruz.';
   $('ucKartlar').hidden=true; $('ucPaket').hidden=true;
+  var ornek=document.querySelector('.uc-ornek'); if(ornek) ornek.hidden=true;
   $('onkayit').hidden=false;
   $('okBaslik').textContent=s.ad+' açıldığında ilk sen öğren';
   $('okMetin').textContent='E-postanı bırak; ücretsiz deneme ve paket açıldığı gün tek bir e-posta gelir. Başka bir şey göndermeyiz.';
