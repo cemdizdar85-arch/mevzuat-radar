@@ -1,0 +1,74 @@
+# .github/workflows/veri-ezici-taramasi.yml — VERI EZICI TARAMASI
+#
+# NEDEN VAR (16.09.2026, Cem "2 ve 3 yap"): 16.09'da eski bir betik (kgk-siklik-derle) guncel kgk-analiz.json'u baska
+# bicimle ezdi. arac/veri-ezici-taramasi.ps1 git'te izlenen butun veri/**.json dosyalarini, onlari yazan betiklerle
+# karsilastirir: yazici betik guncel dosyanin ust duzey alanlarini uretmiyor ve dosyayi okumuyorsa "EZICI ADAYI".
+# Haftada bir kosar; aday varsa KIRMIZI + Cem'e mail. Rapor veri/veri-ezici-taramasi.json (kirmizi olsa da yayinlanir).
+# Ag yok, API yok, bedel 0. Tek sayfa girdi kutugu icin gunluk kapi ayrica sinav-tek-sayfa.yml icinde.
+name: Veri Ezici Taramasi
+
+on:
+  schedule:
+    - cron: "0 4 * * 3"    # carsamba 07:00 TR
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/veri-ezici-taramasi.yml'
+      - 'arac/veri-ezici-taramasi.ps1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: veri-ezici-taramasi
+  cancel-in-progress: false
+
+env:
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  tarama:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Veri dosyalarini yazicilarla karsilastir
+        id: tarama
+        shell: pwsh
+        run: ./arac/veri-ezici-taramasi.ps1 -Kapi
+
+      - name: Aday varsa Cem'e mail
+        if: failure() && steps.tarama.outcome == 'failure'
+        shell: pwsh
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - Veri dosyasini ezebilecek betik bulundu' -Mesaj "Veri ezici taramasi EZICI ADAYI buldu: bir betik bir veri dosyasini guncel bicimden farkli yaziyor ve kosturulursa dosyayi bozabilir. Liste: veri/veri-ezici-taramasi.json (adaylar, sinif=EZICI ADAYI). Once elle dogrulanir; gercekse betige koruma eklenir. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/veri-ezici-taramasi.json ]; then
+            echo "::warning title=veri ezici taramasi rapor::rapor dosyasi yok - tarama sona ulasamadi"
+            exit 0
+          fi
+          git add veri/veri-ezici-taramasi.json
+          if git diff --cached --quiet; then
+            echo "Rapor degismedi - islenecek bir sey yok."
+            exit 0
+          fi
+          git commit -m "Veri ezici taramasi raporu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if cikti=$(git pull --rebase --autostash origin main 2>&1) && cikti2=$(git push origin HEAD:main 2>&1); then
+              echo "Rapor islendi (deneme $i)."
+              exit 0
+            fi
+            echo "::warning title=veri ezici taramasi yayin $i::${cikti:0:300} ${cikti2:0:200}"
+            sleep $((i * 7))
+          done
+          echo "::error::Veri ezici taramasi raporu 5 denemede islenemedi (kor kalma)."
+          exit 1

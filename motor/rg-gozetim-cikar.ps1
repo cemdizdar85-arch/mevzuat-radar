@@ -80,13 +80,13 @@ if($ithalatta.Count -eq 0){
 # --- numara + tur
 $noYok = New-Object System.Collections.Generic.List[string]
 $zincir = @{}
-$asil=0; $degisiklik=0; $mulga=0
+$asil=0; $degisiklik=0; $mulgaSayisi=0
 foreach($x in $ithalatta){
   $m = [regex]::Match($x.baslik, $NO_DESENI)
   if(-not $m.Success){ $noYok.Add($x.baslik); continue }
   $no = ($m.Groups[1].Value -replace '\s','')
   $tur = 'asil'
-  if($x.baslik -match $MULGA){ $tur='mulga'; $mulga++ }
+  if($x.baslik -match $MULGA){ $tur='mulga'; $mulgaSayisi++ }
   elseif($x.baslik -match $DEGISIK){ $tur='degisiklik'; $degisiklik++ }
   else { $asil++ }
   if(-not $zincir.ContainsKey($no)){ $zincir[$no] = New-Object System.Collections.Generic.List[object] }
@@ -97,7 +97,7 @@ Write-Host ''
 Write-Host ("  teblig no CIKAN            : {0}" -f ($ithalatta.Count - $noYok.Count))
 Write-Host ("  teblig no cikmayan         : {0}" -f $noYok.Count)
 Write-Host ("  ayri teblig numarasi       : {0}" -f $zincir.Count)
-Write-Host ("    asil / degisiklik / mulga: {0} / {1} / {2}" -f $asil, $degisiklik, $mulga)
+Write-Host ("    asil / degisiklik / mulga: {0} / {1} / {2}" -f $asil, $degisiklik, $mulgaSayisi)
 if($noYok.Count -gt 0){
   Write-Host '  --- numara cikmayan basliklar ---'
   foreach($b in ($noYok | Select-Object -First 5)){ Write-Host ("     " + $b) }
@@ -135,7 +135,13 @@ $cikti = [ordered]@{
   zincir = $sirali
 }
 $ciktiYol = Join-Path $kok 'veri/gozetim-teblig-zinciri.json'
+# ⛔ 16.09.2026 KORUMA (arac/veri-ezici-taramasi.ps1 buldu): bu dosyanın günlük üreticisi motor/gozetim-zincir-cikar.js (kartlar.yml);
+#   onun biçimi 'uretici' + 'tur_dagilimi' alanlarını taşır, bu betik taşımaz. Hedef JS biçimindeyse EZİLMEZ, çıktı ayrı dosyaya gider.
+if((Test-Path $ciktiYol) -and ((Get-Content $ciktiYol -Raw -Encoding UTF8) -match '"uretici"')){
+  $ciktiYol = Join-Path $kok 'veri/gozetim-teblig-zinciri-rg.json'
+  Write-Host 'KORUMA: veri/gozetim-teblig-zinciri.json gozetim-zincir-cikar.js biçiminde — ezilmedi; çıktı veri/gozetim-teblig-zinciri-rg.json' -ForegroundColor Yellow
+}
 [IO.File]::WriteAllText($ciktiYol, ($cikti | ConvertTo-Json -Depth 6), (New-Object Text.UTF8Encoding($true)))
 Write-Host ''
-Write-Host ("Yazildi: veri/gozetim-teblig-zinciri.json ({0} teblig)" -f $sirali.Count)
+Write-Host ("Yazildi: {1} ({0} teblig)" -f $sirali.Count, $ciktiYol)
 exit 0

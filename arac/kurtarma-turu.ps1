@@ -201,7 +201,15 @@ foreach($k in @($benzersiz.Keys|Sort-Object)){
   $v=AmbardaVarMi "$($a.kanun)" "$($a.madde)"
   if($v -eq $null){ $olculemedi.Add($k) } elseif($v){ $paketteYok.Add($k) } else { $ambardaYok.Add($k) }
 }
-RaporYaz -Hedef (Join-Path $depoKok 'veri\kurtarma-ambar-eksigi.json') -Nesne ([ordered]@{
+# ⛔ 16.09.2026 KORUMA (arac/veri-ezici-taramasi.ps1 buldu): veri/kurtarma-ambar-eksigi.json'u 12.09'dan beri arac/madde-teshis.ps1
+#   yeni biçimle (olculen/olculmeyen/uyari/maddeler_ambarda_var …) yeniden türetiyor. Bu betik eski biçimle yazıp onu EZERDİ.
+#   Hedef yeni biçimdeyse bu ölçüm ayrı dosyaya yazılır; güncel teşhis için: powershell -NoProfile -File arac/madde-teshis.ps1
+$ambarEksigiHedefi = Join-Path $depoKok 'veri\kurtarma-ambar-eksigi.json'
+if((Test-Path $ambarEksigiHedefi) -and ((Get-Content $ambarEksigiHedefi -Raw -Encoding UTF8) -match '"olculen"')){
+  $ambarEksigiHedefi = Join-Path $depoKok 'veri\kurtarma-turu-ambar-eksigi.json'
+  Write-Host 'KORUMA: veri/kurtarma-ambar-eksigi.json madde-teshis biçiminde — ezilmedi; bu ölçüm veri/kurtarma-turu-ambar-eksigi.json' -ForegroundColor Yellow
+}
+RaporYaz -Hedef $ambarEksigiHedefi -Nesne ([ordered]@{
   olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm')
   kural='Hakem "kaynak metni su maddeyi ICERMEMEKTEDIR" dedi. Her madde AMBARA SORULDU. ambarda_yok = yutma is emri; pakette_yok = madde AMBARDA VAR ama kaynak paketine girmemis (PAKET KUSURU, yutma COZMEZ).'
   benzersiz_madde=$benzersiz.Count; toplam_vaka=(Dizi $ambarEksik).Count
