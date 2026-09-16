@@ -545,7 +545,10 @@ function Add-BedelKaydi([string]$model,$y){
   }catch{}
 }
 function Get-BedelFiyat{
-  $f = @{ 'claude-sonnet-5'=@(3,15); 'claude-opus-5'=@(15,75); 'claude-haiku-4-5-20251001'=@(1,5); 'claude-haiku-4-5'=@(1,5) }
+  # 16.09 (Cem tasarruf talimatı adım 1): fiyatlar platform.claude.com/docs/en/about-claude/pricing sayfasından OKUNDU (16.09.2026):
+  #   Sonnet 5 girdi 2 / çıktı 10 · Opus 5 girdi 5 / çıktı 25 · Haiku 4.5 girdi 1 / çıktı 5 (USD, milyon jeton). Toplu istek %50, önbellek okuma 0,1× · 5 dk yazma 1,25×.
+  #   Eski tablo Sonnet 3/15 ve Opus 15/75 idi; defterdeki 'BEDEL TOPLAM' ~1,4 kat şişik çıkıyordu (12.09-15.09 arası 41,48 USD yazmış, gerçeği 29,31 USD). Yalnız rapor rakamı; üretim davranışı değişmez.
+  $f = @{ 'claude-sonnet-5'=@(2,10); 'claude-opus-5'=@(5,25); 'claude-haiku-4-5-20251001'=@(1,5); 'claude-haiku-4-5'=@(1,5) }
   $ez = Read-ApiEnv 'MEVZUAT_FIYAT_JSON'
   if($ez){ try{ $j = ConvertFrom-Json -InputObject $ez; foreach($p in $j.PSObject.Properties){ $f[$p.Name] = @([double]$p.Value[0],[double]$p.Value[1]) } }catch{} }
   return $f
