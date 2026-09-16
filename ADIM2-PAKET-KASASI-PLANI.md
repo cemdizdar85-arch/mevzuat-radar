@@ -93,3 +93,24 @@ Fork 0 · 14 günde klon 30.531 (1.458 tekil; çoğu kendi robotlarımız, ayrı
 ### 6.3 Geçmiş temizliği (8. adım)
 - Yol A pilotu + 15 ders kasa modunda **en az bir gün sorunsuz** koştuktan ve Yol B taşıması bittikten sonraki bir akşam.
 - Zorla gönderimden hemen önce Cem'e bir kez daha sorulur (16.09 kararı geçerli).
+
+### 6.4 Durum 16.09 15:30 — altyapı hazır, basım bu akşam (Cem "1.2.3 yap")
+Gönderildi: 1bb30037 (SQL + reçete) · 84d356c9 (kasa modu altyapısı) · icerik nöbetçisi (kabuk tanıma).
+- `kasa-yukle.js` + `paket-kapisi.js` sinyali · `motor/kasa-kabuk.js` (eşdeğerlik kapılı kabuk, `--tam-mi`) ·
+  `motor/kasa-soru-yukle.js` (kabuk atlar, bayat siler, tablo yoksa çıkış 3) · `yayin-bas.yml` iki adım · `arac/kasa-modu.json` **BOŞ**.
+- Prova: 15 ders sayfasında kabuk ~158 KB, kabukta `"dogru"` 0. Tarayıcıda sahte kasayla Türkçe kabuğu asıl sayfayla
+  **metin izi birebir** (46.140 karakter, 78 kart), tek istek, tema düğmesi ve `#s=40` kaydırma çalışıyor.
+- Okuyucu taraması (26 dosya): kabuğu SESSİZCE boş sayan `arac/cevap-dagilimi-olc.ps1` (ders tabanını siler),
+  `motor/soru-dizini.js`, `motor/icerik-nobetcisi.js` (düzeltildi), `vitrin-soru-sec.js`/`vitrin-kart.js` (uyarıyla geçer).
+  Yayında hepsi kabuktan ÖNCE koşar; `--tam-mi` kabuk kalmışsa durdurur. ⚠ `motor/site-nobeti.ps1` meslek-hukuku için
+  300 KB alt sınır tutuyor → Meslek Hukuku kasaya alınmadan ÖNCE o sınır değişmeli (yoksa 15 dk'da bir yanlış alarm).
+
+**BU AKŞAM (22:00 sonrası, Cem "bas" deyince) sıra:**
+1. `radar-app/sql/2026-09-16-paket-soru.sql` bas (SQL Editor) — eşzamanlı sağlık: `dokumanlar?select=id&limit=1` 10 sn'de bir.
+2. Dış ölçüm → UYGULANDI.md: anon `paket_soru` 401/0 · anon `ucretsiz_soru` 200, `veri` içinde `dogru` yok · servis `paket_soru` 200 [].
+3. `node motor/kasa-soru-yukle.js --yaz` (yerel, servis anahtarı) → kasada ≈4.043 satır (~53 MB; disk tavanı 8 GB, ölçülecek).
+4. Seviye kontrolü: ücretsiz bir kimlikle `rpc/seviye_kontrol` → `dogru_mu`; 41. çağrıda `cok fazla istek`.
+5. `arac/kasa-modu.json` → `["kaydir/sgs/turkce.html"]`, `node motor/kasa-kabuk.js` (kuru, eşdeğerlik) → `--yaz` →
+   `node motor/icerik-nobetcisi.js --canli-yok` (KASADA 1) → turkce.html + kasa-modu.json aynı commit → push.
+6. Canlıda anonim: perde çıkıyor, `kaydir/sgs/turkce.html` içinde soru yok. Paketli deneme: **Cem kurucu hesabıyla** Türkçe sayfasını açar.
+7. Bir gün sorunsuz → kalan 14 ders (Meslek öncesi site-nobeti sınırı) → adım 4–5 (deneme seti, seviye testi) → Yol B → geçmiş temizliği.
