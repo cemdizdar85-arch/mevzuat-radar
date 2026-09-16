@@ -303,10 +303,14 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   #  ⚠ ANLIK ISTISNADIR, kural degil: plan satirinda ACIKCA `toplu:false` yazan
   #    ya da MEVZUAT_TOPLU=0 verilen kosular anlik gider. Ikisi de BILEREK
   #    yazilmis olmali; unutulunca artik pahaliya degil UCUZA kacar.
+  # ⛔⭐ 16.09.2026 CEM KARARI: "tüm sorular ne olursa olsun toplu, bütün sınavlarda". Plan satırındaki toplu:false,
+  #    MEVZUAT_TOPLU=0 ve 'auto' sağlık düşürmesi ARTIK ANLIĞA ÇEVİRMEZ. Tek kaçış: MEVZUAT_ANLIK_CEM_ONAYI='<tarih + gerekçe>'
+  #    (üretici de aynı kapıyı taşır: motor/kalip-parti-uret.ps1 "TOPLU ZORUNLU").
+  $anlikOnay="$env:MEVZUAT_ANLIK_CEM_ONAYI".Trim()
   $topluAc=$true
   if($s.PSObject.Properties['toplu'] -and -not [bool]$s.toplu){
-    $topluAc=$false
-    "[$(Get-Date -Format HH:mm)] ANLIK (plan acikca toplu:false demis) · $($s.etiket)"
+    if($anlikOnay){ $topluAc=$false; "[$(Get-Date -Format HH:mm)] ANLIK (plan toplu:false + Cem onayı: $anlikOnay) · $($s.etiket)" }
+    else { "[$(Get-Date -Format HH:mm)] plan toplu:false diyor ama kural TOPLU (Cem 16.09) → TOPLU · $($s.etiket)" }
   }
   # ⛔ ORTAM DEGISKENI EZER. Varsayilan TOPLU oldugu icin bu blok artik yalnizca
   #    "toplu'yu KAPAT" yonunde calisir; acma yonu zaten varsayilan.
@@ -314,8 +318,8 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   #     ezemiyordu ve saglıksız kuyrukta da toplu kaliyordu.)
   if($topluAc){
     if("$env:MEVZUAT_TOPLU" -eq '0'){
-      $topluAc=$false
-      "[$(Get-Date -Format HH:mm)] ANLIK (MEVZUAT_TOPLU=0 ezdi) · $($s.etiket)"
+      if($anlikOnay){ $topluAc=$false; "[$(Get-Date -Format HH:mm)] ANLIK (MEVZUAT_TOPLU=0 + Cem onayı: $anlikOnay) · $($s.etiket)" }
+      else { "[$(Get-Date -Format HH:mm)] MEVZUAT_TOPLU=0 YOK SAYILDI (Cem 16.09: ne olursa olsun toplu) → TOPLU · $($s.etiket)" }
     }
     elseif("$env:MEVZUAT_TOPLU" -eq 'auto'){
       # 09.09 Cem "ara ara deneyelim orayi": kuyruk sagligi son 40 dk icinde
@@ -326,7 +330,7 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
         try{
           $sg=ConvertFrom-Json -InputObject (Get-Content $sagYol -Raw)
           $yas=((Get-Date)-[datetime]$sg.zaman).TotalMinutes
-          if("$($sg.durum)" -ne 'acik' -and $yas -le 40){ $topluAc=$false }
+          if("$($sg.durum)" -ne 'acik' -and $yas -le 40 -and $anlikOnay){ $topluAc=$false }   # 16.09 Cem: sağlıksız kuyrukta da TOPLU beklenir; anlığa yalnız onayla
           "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK: $($sg.durum) ($([int]$yas) dk önce) → $(if($topluAc){'TOPLU'}else{'ANLIK'}) · $($s.etiket)"
         }catch{ "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK okunamadı → TOPLU (varsayilan)" }
       } else { "[$(Get-Date -Format HH:mm)] TOPLU SAĞLIK dosyası yok → TOPLU (varsayilan)" }

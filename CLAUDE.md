@@ -180,6 +180,12 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   anlık yola düşme yok. `motor/kalip-kosucu.ps1` yerelde **durur** (`MEVZUAT_YEREL_BASIM='<gerekçe>'` ile bilerek açılır — yalnız
   hazır-soru dosyası gibi bu makineye bağlı işler için). Neden: 16.09'da yerel koşular 65 süreç, 281 MB boş RAM, paralellik 1 üretti.
   Yerelde kalan tek iş: planı kurmak, küçük onarım (`kalip-parti-uret.ps1 -PilotId`), ölçüm.
+- ⛔⭐ **TÜM SORULAR, TÜM SINAVLARDA, NE OLURSA OLSUN TOPLU** (16.09.2026, Cem: *"dönen sorular toplu basılacak kural olsun, sadece bu sınav
+  değil bütün sınavlarda … tüm sorular ne olursa olsun toplu basılacak"*). Kapıdan dönen sorunun yeniden yazımı dahil (FAZ A ikinci toplu
+  parti `AR`/`A1B`). Mekanik kapı: `motor/kalip-parti-uret.ps1` `-Toplu` olmadan ücretli çağrı yapmaz ("TOPLU ZORUNLU"); `motor/kalip-kosucu.ps1`
+  plan `toplu:false`, `MEVZUAT_TOPLU=0` ve kuyruk sağlığı düşürmesini yok sayar. Tek kaçış Cem'in yazılı onayı: `MEVZUAT_ANLIK_CEM_ONAYI='<tarih+gerekçe>'`.
+  Neden: 15.09'dan beri "toplu" SGS koşularında harcamanın %54'ü (8,88/16,46 USD) anlık gitmişti. Hâlâ anlık kalan dar yollar (bozuk toplu cevabın
+  tek tekrarı, SMMM kaynaklı ikinci çözüm, ikinci bakış, 32k kesik tekrarı) iş emridir.
 - ⛔⭐ **BULUTTA KOŞAN PARTİYE AMBARDAN YAZILMAZ** (16.09.2026, Cem "1.2.3 yap"). Bulut işi partiyi başta indirir, sonda
   tamamını yükler; arada ambara yazan her iş (kaynak bağı taşıma, `arac/paket-tazele.ps1`, elle düzeltme) ya ezilir ya
   bulutun sonucunu siler. Ambardaki bir **kaynağı yeniden bölen/yutan** iş de (standart-yut, TFRS/TMS resmî metin) bağlı

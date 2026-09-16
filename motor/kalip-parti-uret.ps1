@@ -62,6 +62,12 @@ param(
   [switch]$IkinciDalgaKapat # 15.09 Cem israf talimatı md.3 geri dönüş yolu: toplu koşuda ilk dalgadan cevapsız kalan istekler İKİNCİ TOPLU DALGADA toplanır (yarı fiyat). Bu anahtar o dalgayı kapatır, eski davranışa (doğrudan anlık) döner.
 )
 $ErrorActionPreference='Stop'
+# ⛔⭐ 16.09.2026 CEM KARARI — TÜM SORULAR, TÜM SINAVLARDA, NE OLURSA OLSUN TOPLU ("dönen sorular toplu basılacak, bütün sınavlarda").
+# Ücretli model çağrısı yapabilecek her koşu -Toplu ister. Kaçış yalnız Cem'in yazılı onayı: MEVZUAT_ANLIK_CEM_ONAYI='<tarih + gerekçe>'.
+# Bedelsiz yollar (-SadeceHtml, -ApiKapali) serbest.
+if(-not $Toplu -and -not $SadeceHtml -and -not $ApiKapali -and -not "$env:MEVZUAT_ANLIK_CEM_ONAYI".Trim()){
+  throw 'TOPLU ZORUNLU (Cem 16.09): bu koşu -Toplu olmadan ücretli çağrı yapacaktı. -Toplu ekle; anlık için MEVZUAT_ANLIK_CEM_ONAYI gerekir.'
+}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 # ⚠ 15.09.2026 CEM KARARI — KAYNAK PAKETİ TAVANSIZ. Ölçüm (veri/PAKET-TAVANI-OLCUMU.md, 6.762 soru): 4.500 kr tavanı aşan sorularda
 # hakem reddi 2,1–2,4 kat; SPK kp-03 (ilke kararı) ve GDS kp-03 (GDS 3402 p.9, 6.408 kr) doğrudan tavan yüzünden düştü.
@@ -1647,7 +1653,7 @@ function TopluGonder([string]$faz){
   # 16.09 (Cem "hep toplu, ucuza bekle"): SGS'de tek istek de topluya gider. ÖLÇÜLDÜ: kurtarma kuyruğunun 182 partisinin 129'u tek soruluk;
   #   ilk 29 parti her aşamayı anlık koştu, ≈2,13 USD (toplu ≈1,07). Toplu API tek istekli partiyi kabul eder. SMMM/KGK davranışı değişmedi.
   # 16.09 SMMM de eklendi (Cem "hep toplu" + tasarruf talimatı 3. adım): yalnız gönderim yolu değişir; istem, model, effort, jeton tavanı AYNI $isler'dir.
-  if($isler.Count -lt 2 -and $Sinav -ne 'SGS' -and $Sinav -ne 'SMMM'){ if($isler.Count){ Write-Host "  TOPLU $faz : tek istek, anlık gidecek" -ForegroundColor DarkGray }; return }
+  # 16.09 Cem "tüm sorular ne olursa olsun toplu": tek istek her sınavda topluya gider (KGK'nın anlık istisnası kaldırıldı).
   try{ $sonuc=Invoke-ClaudeToplu -Isler $isler -Etiket "$Etiket/$faz" -BeklemeDk $TopluBeklemeDk -OnbelleksizToplu:($Sinav -eq 'SMMM') -ParmakTuz $script:PARMAK_TUZ
     foreach($k in @($sonuc.Keys)){ if($k -notlike '__*'){ $script:TOPLU_HAZIR[$faz][$k]=$sonuc[$k] } }
     if($sonuc.ContainsKey('__hata') -and $sonuc['__hata'].Count){ foreach($hk in $sonuc['__hata'].Keys){ Write-Host "  TOPLU $faz hata ($hk): $($sonuc['__hata'][$hk]) → anlık denenecek" -ForegroundColor DarkYellow } }
@@ -1667,6 +1673,22 @@ function TopluAl([string]$faz,[string]$id){
 # İstem, model, jeton tavanı, effort DEĞİŞMEZ — yalnız ödeme yolu değişir (toplu %50).
 $script:DALGA2_TOPLA=$false
 function Dalga2Mi { return [bool]$script:DALGA2_TOPLA }
+# 16.09 TÜM SINAVLAR (Cem "4.000 soruyu en kötü 0,068 USD'den bas, engelleyen ne varsa kaldır" + "dönen sorular toplu basılacak, bütün
+# sınavlarda, ne olursa olsun"): FAZ A ÜÇ GEÇİŞ. SGS kolu (oturum 92) onayladı.
+# ÖLÇÜLDÜ: 15.09'dan beri "toplu" SGS koşularında harcamanın %54'ü (8,88 / 16,46 USD) ANLIK gitti; FAZ A'da kapıdan dönen 2. deneme
+# ve toplu cevabı gelmeyen 1. deneme her zaman anlıktı. -Toplu koşuda: 1. geçiş ilk istemleri toplar (eskisi gibi), 2. geçiş cevapları kapılardan
+# geçirir, kapıdan dönen sorunun YENİDEN YAZIM istemini ('AR') ve cevabı gelmeyen ilk istemi ('A1B') İKİNCİ TOPLU PARTİYE koyar,
+# 3. geçiş onları kullanır; anlık yol yalnız toplu da veremezse son çaredir. İstem, model, jeton tavanı, kapılar DEĞİŞMEZ.
+# Cevaplar kimlikle ve SİLİNMEDEN okunur (3. geçişte aynı 1. deneme cevabı yeniden kapıdan geçer).
+# -Toplu verilmeyen koşu ve -IkinciDalgaKapat eski (anlık) davranışı korur.
+$script:A_UC_GECIS = ($Toplu -and -not $IkinciDalgaKapat -and -not $SadeceHtml)
+$script:A_TEKRAR_TOPLA = $false
+$script:A_KESIK = @{}
+$script:A_ERTELENEN = @{}
+function TopluAlKalici([string[]]$anahtarlar,[string]$id){
+  foreach($anahtar in $anahtarlar){ if($script:TOPLU_HAZIR.ContainsKey($anahtar) -and $script:TOPLU_HAZIR[$anahtar].ContainsKey($id)){ return $script:TOPLU_HAZIR[$anahtar][$id] } }
+  return $null
+}
 
 # --- son10'dan canli: genc-dili adim istemi + css + Tablo/Sema cizdiriciler --
 $son10=Get-Content (Join-Path $here 'son10-uret.ps1') -Raw -Encoding UTF8
@@ -2789,9 +2811,10 @@ if(Test-Path $dusenYol){ foreach($x in @((ConvertFrom-Json -InputObject (Get-Con
   [IO.File]::WriteAllText($dusenYol,(ConvertTo-Json -InputObject @($dusenL.ToArray()) -Depth 4),[Text.UTF8Encoding]::new($false))
   "FAZ U bitti: uyarlanan $(@($don.Keys | Where-Object { $_ -like 'e-*' }).Count) · düşen $($dusenL.Count) -> $dusenYol"
 }
-foreach($gecisA in @(1,2)){ if($gecisA -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisA -eq 1); $rapor0=$rapor.Count; $kb0=$kaynakBorcu.Count
-foreach($kk in $KONULAR){
-  $id=$kk.id
+foreach($gecisA in $(if($script:A_UC_GECIS){ @(1,2,3) } else { @(1,2) })){ if($gecisA -eq 1 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisA -eq 1); $script:A_TEKRAR_TOPLA=($script:A_UC_GECIS -and $gecisA -eq 2); $rapor0=$rapor.Count; $kb0=$kaynakBorcu.Count
+:konuA foreach($kk in $KONULAR){
+  $id=$kk.id; $raporK=$rapor.Count; $kbK=$kaynakBorcu.Count
+  if($script:A_UC_GECIS -and $gecisA -eq 3 -and -not $script:A_ERTELENEN.ContainsKey($id)){ continue }   # 3. geçiş yalnız ikinci toplu partiye alınanlar (rapor çift yazılmasın)
   if($SadeceHtml){ continue }   # yalniz cizim: cache neyse o (konu degisse de dusurulmez), uretim yok
   # 03.09 OLCULDU (pilot kp-04): kopru konusu degisince FAZ A pilot soruyu DUSURUP YENIDEN URETTI (2 cagri, gider
   # tahakkuku sorusu silindi). Pilot yalniz ADIM/ikiz/yevmiye/hakem fazlari icindir: FAZ A'da SORU ASLA uretilmez.
@@ -3035,7 +3058,18 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # Zor ayarında ilk tavan doğrudan 20k; sade SGS'de 8k kalır.
     # 06.09 Parti-2 ölçümü: normal ayarda da 8 sorunun 4'ü 8k'da kesildi (Denetim 3/4, MTA 1/4) → her kesik = bir boş çağrı. Tek tavan 20k.
     $ilkTavan=20000
+    if($script:A_UC_GECIS){
+      $y=$(if($deneme -eq 1){ TopluAlKalici @('A','A1B') $id } else { TopluAlKalici @('AR') $id })
+      if(-not $y -and $script:A_TEKRAR_TOPLA){
+        TopluTopla $id $SoruModel $istBu $ilkTavan '' $(if($deneme -eq 1){ 'A1B' } else { 'AR' })
+        while($rapor.Count -gt $raporK){ $rapor.RemoveAt($rapor.Count-1) }; while($kaynakBorcu.Count -gt $kbK){ $kaynakBorcu.RemoveAt($kaynakBorcu.Count-1) }
+        $script:A_ERTELENEN[$id]=1
+        Write-Host "  TOPLU A: $id deneme $deneme ikinci toplu partiye alındı" -ForegroundColor DarkCyan
+        continue konuA
+      }
+    } else {
     $y=$(if($deneme -eq 1){ TopluAl 'A' $id } else { $null })   # 08.09 toplu: 1. denemenin cevabı partiden gelir; yoksa ya da tekrarda anlık
+    }
     if(-not $y){ foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model $SoruModel -Icerik $istBu -MaxTok $ilkTavan; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } } }
     # 02.09 gece OLCULDU (bozuk-*.txt kapisi sayesinde): 4 konu "durma=max_tokens, 0 kr"
     # ile bozuktu - model 8.000 jetonun TAMAMINI dusunmeye harcayip metin yazamadan
@@ -3046,7 +3080,9 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # cozulmuyor. Iki hal de ayni ilac: kesik + cozulemeyen cevap => 20k ile bir kez daha.)
     if("$($y.dur)" -eq 'max_tokens' -and (-not "$($y.metin)".Trim() -or -not (Coz $y.metin))){
       Write-Host "  KESIK ($id): 8k tavanda kesildi ($("$($y.metin)".Length) kr), 32k ile yeniden" -ForegroundColor DarkYellow   # 07.09: 20k'da zor Maliyet iki kez kesildi (düşünme jetonları) → 32k + effort=medium (api-hedef)
-      foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model $SoruModel -Icerik $istBu -MaxTok 32000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }
+      $kesikAnah="$id|$deneme"
+      if($script:A_UC_GECIS -and $script:A_KESIK.ContainsKey($kesikAnah)){ $y=$script:A_KESIK[$kesikAnah] }
+      else { foreach($d in 1..3){ try{ $y=Invoke-ClaudeMesaj -Model $SoruModel -Icerik $istBu -MaxTok 32000; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (10*$d) } }; if($script:A_UC_GECIS){ $script:A_KESIK[$kesikAnah]=$y } }
     }
     $aday=Coz $y.metin
     if(-not ($aday -and $aday.soru -and $aday.aciklama)){
@@ -3237,8 +3273,9 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   } else { $rapor.Add("BOZUK: $($ky.konu)"); Write-Host "  BOZUK: $id" -ForegroundColor Yellow }
 }
 # 1. geçişin yan etkileri (kaynak borcu / rapor satırları) ikinci geçişte yeniden yazılacağı için geri alınır, sonra parti gönderilir
-if($script:ON_GECIS){ while($rapor.Count -gt $rapor0){ $rapor.RemoveAt($rapor.Count-1) }; while($kaynakBorcu.Count -gt $kb0){ $kaynakBorcu.RemoveAt($kaynakBorcu.Count-1) }; TopluGonder 'A' } }
-$script:ON_GECIS=$false; $script:DALGA2_TOPLA=$false
+if($script:ON_GECIS){ while($rapor.Count -gt $rapor0){ $rapor.RemoveAt($rapor.Count-1) }; while($kaynakBorcu.Count -gt $kb0){ $kaynakBorcu.RemoveAt($kaynakBorcu.Count-1) }; TopluGonder 'A' }
+if($script:A_TEKRAR_TOPLA){ TopluGonder 'A1B'; TopluGonder 'AR' } }
+$script:ON_GECIS=$false; $script:DALGA2_TOPLA=$false; $script:A_TEKRAR_TOPLA=$false
 
 # --- ARİTMETİK ZİNCİR DEĞERLENDİRİCİ (06.09 Cem "bu beşi geç" #2: uyarı KAPI oldu) ------------------------------------
 # Eskiden yalnız sayfa altına "aritmetik uyarı" yazılırdı (MTA parti-2: 9 uyarı, hiçbiri durdurmadı). Şimdi FAZ B'de adım alınınca
