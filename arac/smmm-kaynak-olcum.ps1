@@ -60,7 +60,7 @@ if (-not $Ic -and -not $OzSinav -and $Parca -gt 1) {
     $b = ($p - 1) * $boy; $e = [math]::Min($p * $boy, $hedefler.Count); if ($b -ge $e) { continue }
     # yol BOŞLUK içerebilir (OneDrive\Masaüstü\mevzuat işi): Start-Process argümanları kendimiz tırnaklarız, yoksa alt süreç sessizce ölür ve sonuç BOŞ döner (16.09 ölçüldü)
     $cikYol = Join-Path $gecici "p$p.jsonl"
-    $arg = @('-NoProfile', '-File', ('"' + $PSCommandPath + '"'), '-Plan', ('"' + $planYol + '"'), '-Sinav', $Sinav, '-Ic', '-Bastan', "$b", '-Bitis', "$e", '-Cikti', ('"' + $cikYol + '"'))
+    $arg = @('-NoProfile', '-File', ('"' + $PSCommandPath + '"'), '-Plan', ('"' + $planYol + '"'), '-Sinav', $Sinav, '-PaketDok', ('"' + $PaketDok + '"'), '-Ic', '-Bastan', "$b", '-Bitis', "$e", '-Cikti', ('"' + $cikYol + '"'))
     $isler += Start-Process powershell -PassThru -WindowStyle Hidden -ArgumentList $arg
   }
   foreach ($is in $isler) { $is.WaitForExit() }
