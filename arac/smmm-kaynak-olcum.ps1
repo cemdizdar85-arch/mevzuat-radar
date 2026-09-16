@@ -92,7 +92,7 @@ else {
 }
 
 # --- özet ---
-$sonucDizi = $(if ($sonuc -is [System.Collections.Generic.List[object]]) { $sonuc.ToArray() } else { @($sonuc) })   # K3: @(List[object]) tr-TR PS 5.1'de ArgumentException
+$sonucDizi = $sonuc.ToArray()   # K3: @(List[object]) tr-TR PS 5.1'de ArgumentException atar; her iki kip de List döndürür
 "ÖLÇÜLEN KONU: $($sonucDizi.Count) · plan: $Plan"
 foreach ($g in @($sonucDizi | Group-Object durum | Sort-Object Count -Descending)) { "  {0,-14} {1,5} konu · {2,5} soru" -f $g.Name, $g.Count, (($g.Group | Measure-Object soru -Sum).Sum) }
 ""
