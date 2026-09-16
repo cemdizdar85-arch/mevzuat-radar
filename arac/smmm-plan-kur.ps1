@@ -27,6 +27,7 @@ param([int]$DersHak = 125, [int]$YilEsik = 2020, [int]$PartiTavan = 30,
   [int]$KonuTavan = -1,   # -1 = kendiliğinden max(2, ⌈DersHak/50⌉) (125 → 3, 500 → 10) · 0 = tavansız (15.09 öncesi davranış)
   [int]$KaynakSuzgeci = 1,   # 1 = ambar ölçümünde KAYNAK YOK çıkan konu plana girmez (veri/sinav/smmm-kaynak-olcumu.json) · 0 = eski davranış
   [ValidatePattern('^[a-z0-9-]{2,16}$')][string]$EtiketOn = 'smmm-d1', [string]$Ad = 'smmm-dalga1', [switch]$Yaz,
+  [string]$HakemsizCikti = '',   # 16.09: planda olup ilgi hakeminden geçmemiş (ya da ölçülemeyen) konuların csv'si (ders,konu) — sonraki hakem turu
   [string]$SayfaYolu = '')
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
@@ -65,7 +66,21 @@ $mulga = @{}; foreach ($h in (Get-Content (Join-Path $depoKok 'veri\sinav\smmm-k
 # üretici zaten soru BASMIYOR (kaynak borcuna yazıyor). O konu plana da girmez, payı aynı grubun kaynağı olan konularına dağılır.
 # Dosya yoksa ya da -KaynakSuzgeci 0 ise davranış birebir eskisi (eşdeğerlik provası bununla yapıldı).
 $kaynakYok = @{}; $koYol = Join-Path $depoKok 'veri\sinav\smmm-kaynak-olcumu.json'
-if ($KaynakSuzgeci -ne 0 -and (Test-Path $koYol)) { foreach ($z in @((Get-Content $koYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if (@('KAYNAK YOK', 'ILGISIZ') -contains "$($z.durum)") { $kaynakYok["$(ResmiDers $z.ders | Select-Object -First 1)|$(Katla $z.konu)"] = 1 } } }
+if ($KaynakSuzgeci -ne 0 -and (Test-Path $koYol)) { foreach ($z in @((Get-Content $koYol -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) { if ("$($z.durum)" -eq 'KAYNAK YOK') { $kaynakYok["$(ResmiDers $z.ders | Select-Object -First 1)|$(Katla $z.konu)"] = 1 } } }
+# 16.09 İLGİ HAKEMİ (Cem "1.2.3", GM 1): konunun paketi konuyla ilgili mi sorusunu MODEL hakemi verir (arac/smmm-ilgi-hakemi.ps1, bulutta
+# smmm-ilgi-hakemi.yml → veri/sinav/smmm-ilgi-hakemi-*.json). Kelime kuralının İLGİSİZ kararı YOK SAYILIR (26 elle doğrulanmış konuda %73;
+# hakem geçerli 22 cevabın 22'sinde doğru). Hakemin İLGİSİZ dediği konu plana girmez; hakem kararı olmayan konu girer ve -HakemsizCikti'ya yazılır.
+$hakem = @{}; $hakemAtilan = 0
+if ($KaynakSuzgeci -ne 0) {
+  foreach ($hf in @(Get-ChildItem (Join-Path $depoKok 'veri\sinav') -Filter 'smmm-ilgi-hakemi-*.json' -ErrorAction SilentlyContinue | Sort-Object LastWriteTime)) {
+    foreach ($z in @((Get-Content $hf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json).konular)) {
+      $hk = "$(ResmiDers $z.ders | Select-Object -First 1)|$(Katla $z.konu)"
+      if ("$($z.durum)" -eq 'OLCULEMEDI' -and $hakem.ContainsKey($hk)) { continue }   # yeni tur ölçemediyse eski kararı koru
+      $hakem[$hk] = "$($z.durum)"
+    }
+  }
+  foreach ($hk in $hakem.Keys) { if ($hakem[$hk] -eq 'ILGISIZ' -and -not $kaynakYok.ContainsKey($hk)) { $kaynakYok[$hk] = 'H' } }
+}
 # 16.09 KANUN UYUŞMAZLIĞI KAPISI (ölçüldü): harita "MADDE OKUNDU" ile köprü dayanağı FARKLI kanunu gösteriyorsa üretici köprüyü kullanır
 # (harita yalnız köprü dayanağı boşken devreye girer). "kdv'nin konusu": harita KDVK (3065) m.1, köprü ÖTV K. (4760) m.1 — ÖTV kısaltması
 # eklenince paket 0 -> 1.239 kr oldu ve ölçüm GÜÇLÜ dedi; yani plan bu konuya ÖTV metniyle KDV sorusu bastıracaktı. 97 okunmuş konuda 2 uyuşmaz.
@@ -122,7 +137,7 @@ foreach ($rd in $RESMI.Values) {
   $ders = $rd[0]
   $uyeler = @($konu.Keys | Where-Object { $_.StartsWith("$ders|") -and $(if ($EskiAgirlik -gt 0) { (KonuAgirlik $_) -gt 0 } else { $konu[$_].son -ge $YilEsik -and $konu[$_].yeni -gt 0 }) })
   $uyeler = @($uyeler | Where-Object { if ($mulga.ContainsKey((Katla ($_ -split '\|', 2)[1]))) { $script:mulgaAtilan++; $false } else { $true } })
-  $uyeler = @($uyeler | Where-Object { if ($kaynakYok.ContainsKey($_) -or $kaynakYok.ContainsKey("$(($_ -split '\|',2)[0])|$(Katla (GorunenAd $_))")) { $script:kaynakAtilan++; $false } else { $true } })
+  $uyeler = @($uyeler | Where-Object { $kyA = $(if ($kaynakYok.ContainsKey($_)) { $_ } else { "$(($_ -split '\|',2)[0])|$(Katla (GorunenAd $_))" }); if ($kaynakYok.ContainsKey($kyA)) { if ($kaynakYok[$kyA] -eq 'H') { $script:hakemAtilan++ } else { $script:kaynakAtilan++ }; $false } else { $true } })
   $gAg = @{}; $gUye = @{}
   foreach ($key in $uyeler) { $g = $(if ($grupOf.ContainsKey($key)) { $grupOf[$key] } else { GorunenAd $key }); $w = KonuAgirlik $key; $gAg[$g] = [double]$gAg[$g] + $w; if (-not $gUye.ContainsKey($g)) { $gUye[$g] = New-Object System.Collections.Generic.List[string] }; $gUye[$g].Add($key) }
   $gSoru = EnBuyukKalan $gAg $DersHak
@@ -165,11 +180,14 @@ foreach ($grp in ($slotTum | Group-Object ders, zorluk, tur | Sort-Object Name))
     $planSatir.Add([pscustomobject][ordered]@{ ders = $ilk.ders; dersAd = $ilk.ders; etiket = $et; adet = $dilim.Count; zorluk = $ilk.zorluk; sinav = 'SMMM'; konuDosya = "veri/sinav/konu/$et.json"; toplu = $true; disla = ''; tur = $ilk.tur })
   }
 }
+# hakem kararı olmayan plan konuları (sonraki tur)
+$hakemsiz = @($slotTum | ForEach-Object { "$($_.ders)|$($_.konu)" } | Sort-Object -Unique | Where-Object { $hk2 = "$(($_ -split '\|',2)[0])|$(Katla (($_ -split '\|',2)[1]))"; -not $hakem.ContainsKey($hk2) -or $hakem[$hk2] -eq 'OLCULEMEDI' })
+if ($HakemsizCikti) { @($hakemsiz | ForEach-Object { $pp = $_ -split '\|', 2; [pscustomobject]@{ ders = $pp[0]; konu = $pp[1] } }) | Export-Csv $HakemsizCikti -NoTypeInformation -Encoding UTF8 }
 $cakisan = @($planSatir | Where-Object { (Test-Path (Join-Path $depoKok "veri\fabrika\kalip-parti-$($_.etiket).json")) -or (Test-Path (Join-Path $depoKok "veri\sinav\konu\$($_.etiket).json")) } | ForEach-Object etiket)
 $topPlan = ($planSatir | Measure-Object adet -Sum).Sum
-"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · KAYNAK YOK atılan $kaynakAtilan (kanun uyuşmazlığı $kanunUyusmaz konu) · istisna $($istisna.Count)"
+"SMMM DALGA PLANI [$Ad] · yıl ağırlığı: $YilEsik öncesi ×$EskiAgirlik · $YilEsik–2025 ×$YeniAgirlik · 2026 test ×$TestAgirlik · ders hakkı $DersHak · konu tavanı $(if ($tavanKonu -eq [int]::MaxValue) { 'yok' } else { $tavanKonu }) (gruptan taşan $tavanTasan, yer bulunamayan $tavanKalan) · ad eşlemesi $($esAd.Count) · MÜLGA atılan $mulgaAtilan · KAYNAK YOK atılan $kaynakAtilan · HAKEM İLGİSİZ atılan $hakemAtilan (hakem kararı $($hakem.Count) konu) (kanun uyuşmazlığı $kanunUyusmaz konu) · istisna $($istisna.Count)"
 foreach ($d in $dersOzet) { "  {0,-48} $(if ($EskiAgirlik -gt 0) { 'tüm yıllar' } else { "son $(2026 - $YilEsik + 1) yıl" }) konu {2,3} · grup {3,3} · plan {4,4} (bizde düşülen {5}) · kolay {6} zor {7} çok zor {8}" -f $d.ders.Substring(0, [math]::Min(48, $d.ders.Length)), (2026 - $YilEsik + 1), $d.konu7, $d.grup, $d.plan, $d.bizdeDusulen, $d.kolay, $d.zor, $d.cokzor }
-"TOPLAM soru $topPlan · parti $($planSatir.Count) · köprü dışı konu adı $($kopruDisi.Count) · mevcut etiketle çakışan $($cakisan.Count)"
+"TOPLAM soru $topPlan · parti $($planSatir.Count) · hakemden geçmemiş konu $($hakemsiz.Count) · köprü dışı konu adı $($kopruDisi.Count) · mevcut etiketle çakışan $($cakisan.Count)"
 if ($cakisan.Count) { throw "ETİKET ÇAKIŞMASI — yeni plan yeni önek ister: $($cakisan -join ', ')" }
 
 # --- 5) inceleme sayfası (depo dışı) ---

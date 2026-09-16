@@ -34,7 +34,8 @@ $depoKok=Split-Path -Parent $here
 . (Join-Path $depoKok 'arac\gk-mevzuat-disi.ps1')   # 13.09: Matematik/Türkçe/YD konusuna mevzuat dayanağı yazılmaz (47 kayıt ölçüldü)
 . (Join-Path $depoKok 'arac\vergi-turu-uyusmaz.ps1')   # 16.09: vergi anan konuya başka verginin/ilgisiz kanunun dayanağı yazılmaz
 # Kural sınav sınav açılır. SMMM açık (ölçüm: 13 dayanak). SGS'de 22, KGK'da 3 kayıt değişir; o sınavların oturumu kendi provasıyla ekler.
-$script:VERGI_UYUSMAZ_SINAV=@('SMMM')
+# 16.09 SGS açıldı (Cem "1.2.3 yap"; sınav oturumu 92 provası: 22 konu, 18'i elle bulunan 30 yanlış bağın içinde, 4'ü ek yanlış bağ). KGK kapalı.
+$script:VERGI_UYUSMAZ_SINAV=@('SMMM','SGS')
 
 $ANAHTAR=if($env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY } else { [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User') }
 if(-not $ANAHTAR){ throw 'SUPABASE_SERVICE_KEY yok - kasa okunamaz, köprü kurulamaz (sessiz "boş" DENMEZ).' }
