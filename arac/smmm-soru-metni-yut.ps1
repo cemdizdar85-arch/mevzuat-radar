@@ -28,6 +28,15 @@ $sbBasliklar = @{ apikey=$sbAnahtar; Authorization="Bearer $sbAnahtar"; 'User-Ag
 $ambarUcu = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar'
 $kaynakNotu = "KAYNAK NOTU: TESMER/TÜRMOB PDF'inde soru kâğıdı imzalı tarama (görüntü) olarak yayımlanmıştır. Soru metni görüntüden yazıya geçirilmiştir (arac/smmm-soru-metni-yut.ps1). Doğrulama: iki bağımsız OCR (Tesseract, Windows OCR) + görsel okuma; her kelime ve rakam en az iki okumayla eşleştirildi, eşleşmeyenler görüntüden tek tek kontrol edildi. Antet, imzalar ve adres satırı alınmamıştır."
 [void](New-Item -ItemType Directory -Force $yedekKlasoru)
+function AmbarIstek([string]$Uri, [string]$Yontem = 'Get', $Govde = $null, $EkBaslik = @{}){
+  # 16.09: Supabase ara sıra 504 veriyor → 5 deneme, artan bekleme
+  for($deneme = 1; $deneme -le 5; $deneme++){
+    try {
+      if($Yontem -eq 'Get'){ return @(foreach($x in (Invoke-RestMethod -Uri $Uri -Headers $sbBasliklar -TimeoutSec 120)){ $x }) }
+      return (Invoke-RestMethod -Method $Yontem -Uri $Uri -Headers ($sbBasliklar + $EkBaslik) -ContentType 'application/json; charset=utf-8' -Body $Govde -TimeoutSec 120)
+    } catch { if($deneme -eq 5){ throw }; Start-Sleep -Seconds (5 * $deneme) }
+  }
+}
 
 $yazildi = 0; $atlandi = 0; $hata = 0
 foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Object Name)){
@@ -43,7 +52,7 @@ foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Objec
   if($ilkSatir -notmatch '^KIP:\s*(EKLE|DEGISTIR)$'){ Write-Host "  !! $kok ilk satır KIP: EKLE/DEGISTIR değil — atlandı"; $hata++; continue }
   $kip = $Matches[1]
   if($govdeMetni -match '\[OKUNAMADI\]'){ Write-Host "  !! $kok [OKUNAMADI] içeriyor — yazılmaz"; $hata++; continue }
-  $kayitlar = @(foreach($x in (Invoke-RestMethod -Uri ("$ambarUcu`?select=id,kaynak_ad,metin&tur=eq.cikmis-komisyon-cevabi&kaynak_ad=like." + [uri]::EscapeDataString("*($kok)")) -Headers $sbBasliklar -TimeoutSec 120)){ $x })
+  $kayitlar = @(AmbarIstek ("$ambarUcu`?select=id,kaynak_ad,metin&tur=eq.cikmis-komisyon-cevabi&kaynak_ad=like." + [uri]::EscapeDataString("*($kok)")))
   if($kayitlar.Count -ne 1){ Write-Host "  !! $kok ambarda $($kayitlar.Count) kayıt — atlandı"; $hata++; continue }
   $eski = "$($kayitlar[0].metin)"
   $yedekYolu = Join-Path $yedekKlasoru "$kok.json"
@@ -68,8 +77,8 @@ foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Objec
   if(-not $Yaz){ continue }
   if(-not (Test-Path $yedekYolu)){ [IO.File]::WriteAllText($yedekYolu,(ConvertTo-Json -InputObject ([ordered]@{ id=$kayitlar[0].id; kaynak_ad=$kayitlar[0].kaynak_ad; metin=$eski; yedeklendi=(Get-Date -Format 'dd.MM.yyyy HH:mm') }) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
   $govde = ConvertTo-Json -InputObject ([ordered]@{ metin=$yeni }) -Compress
-  $null = Invoke-RestMethod -Method Patch -Uri ("$ambarUcu`?id=eq." + $kayitlar[0].id) -Headers ($sbBasliklar + @{ Prefer='return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120
-  $geri = @(foreach($x in (Invoke-RestMethod -Uri ("$ambarUcu`?select=metin&id=eq." + $kayitlar[0].id) -Headers $sbBasliklar -TimeoutSec 120)){ $x })
+  $null = AmbarIstek ("$ambarUcu`?id=eq." + $kayitlar[0].id) 'Patch' ([Text.Encoding]::UTF8.GetBytes($govde)) @{ Prefer='return=minimal' }
+  $geri = @(AmbarIstek ("$ambarUcu`?select=metin&id=eq." + $kayitlar[0].id))
   if($geri.Count -eq 1 -and "$($geri[0].metin)" -ceq $yeni){ $yazildi++ } else { Write-Host "  !! GERİ OKUMA TUTMADI: $kok" -ForegroundColor Red; $hata++ }
 }
 Write-Host ("{0}: yazılan {1} · zaten yazılmış {2} · hata {3}" -f $(if($Yaz){'YAZILDI'}else{'KURU PROVA'}),$yazildi,$atlandi,$hata)
