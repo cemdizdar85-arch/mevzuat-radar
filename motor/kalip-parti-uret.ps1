@@ -4006,7 +4006,7 @@ try{
   if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
     $bz=Get-BedelOzet
     foreach($s in $bz.satirlar){ Write-Host ("  BEDEL {0}: {1} çağrı · girdi {2} · çıktı {3} · önbellek okuma {4} · ≈{5} USD" -f $s.model,$s.cagri,$s.girdi,$s.cikti,$s.onbellekOkuma,$(if($null -ne $s.usd){ $s.usd } else { '?' })) -ForegroundColor DarkCyan }
-    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu VARSAYIM: Sonnet 3/15, Opus 15/75, Haiku 1/5 USD/M; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
+    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu 16.09 resmî: Sonnet 5 2/10, Opus 5 5/25, Haiku 4.5 1/5 USD/M; toplu %50; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
     if($bz.bilinmeyenModel.Count){ Write-Host "  BEDEL: fiyatı bilinmeyen model: $($bz.bilinmeyenModel -join ', ')" -ForegroundColor Yellow }
     $bedelYol=Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl'
     # 11.09 (Cem "paralel kostur"): artik AYNI ANDA birden cok parti kosuyor ve
