@@ -707,9 +707,11 @@ function DesenUret($kayit){
       # paketi değişen SGS sorusu 34 (KVK 5520: 22 · ÖTV 4760: 12 · SMK 6769: 0), bunların 14'ü kapıdan geçmiş (TAZELEME) 20'si düşük.
       # Ambarda karşılığı var: KVK (5520 s.K.) 206 belge · ÖTV K. (4760 s.K.) 84 · SMK (6769 s.K.) 225. $KANUN['KVK']='KVK GUT' eşlemesine DOKUNULMADI
       # (915 belge, mevcut sorular etkilenmesin); yalnız kanun NUMARASI geçen dayanaklar doğru belgeye bağlanır.
-      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and $ham -match '\b5520\b'){ $onekM='KVK (5520 s.K.)' }
-      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and $ham -match '\b4760\b|Ö?TV K\.'){ $onekM='ÖTV K. (4760 s.K.)' }
-      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS') -and $ham -match '\b6769\b'){ $onekM='SMK (6769 s.K.)' }
+      # 16.09 KGK'ya da açıldı (Cem "1.2.3 üçünü de yap", 92 şartlı onayı). EŞDEĞERLİK: KGK köprüsü + kgk konu dosyaları 4.447 dayanak girdisi ->
+      # paketi değişen 1 ('kurumlar vergisi matrahi' <- KVK (5520 s.K.) m.2); ÖTV 4760 / SMK 6769: 0. SGS/SMMM satırları aynı (koşul yalnız genişledi).
+      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS' -or $Sinav -eq 'KGK') -and $ham -match '\b5520\b'){ $onekM='KVK (5520 s.K.)' }
+      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS' -or $Sinav -eq 'KGK') -and $ham -match '\b4760\b|Ö?TV K\.'){ $onekM='ÖTV K. (4760 s.K.)' }
+      elseif(($Sinav -eq 'SMMM' -or $Sinav -eq 'SGS' -or $Sinav -eq 'KGK') -and $ham -match '\b6769\b'){ $onekM='SMK (6769 s.K.)' }
       # 14.09 yalnız bitirme: 6362'de ek maddeler 'm.61/A' (gayrimenkul sertifikası), 'm.35/A' (kitle fonlama) diye adlanır; eski desen /A'yı atıp m.61'i (kira sertifikası) çekiyordu
       if($onekM){ foreach($m in [regex]::Matches($ham,$(if($Sinav -eq 'SMMM'){ '\bm(?:adde)?\.?\s*(\d+(?:/[A-Z])?)' } else { '\bm(?:adde)?\.?\s*(\d+)' }))){ $nM=$m.Groups[1].Value; $d.Add("$onekM m.$nM"); $d.Add("$onekM m.$nM %"); if($d.Count -ge 8){ break } } }
     }
