@@ -11,9 +11,10 @@
 #    - Belge ambarda tek olmalı; zaten "SORULAR" ile başlıyorsa atlar (iki kez eklemez).
 #    - Yazmadan önce eski metni veri/smmm-arsiv/soru-yedek/<kök>.json'a yedekler (varsa ezmez).
 #    - PATCH ile yazar, birebir geri okur. Varsayılan KURU PROVA; yazmak için -Yaz.
-#  Kullanım: powershell -NoProfile -File arac/smmm-soru-metni-yut.ps1 [-Desen 'smmm_2019_1_*'] [-Yaz]
+#  -YenidenKur: zaten yazılmış belgeyi yedekteki ilk metinden yeniden kurar (ör. ayraç düzeltmesi).
+#  Kullanım: powershell -NoProfile -File arac/smmm-soru-metni-yut.ps1 [-Desen 'smmm_2019_1_*'] [-Yaz] [-YenidenKur]
 # ============================================================================
-param([string]$Desen = 'smmm_*', [switch]$Yaz)
+param([string]$Desen = 'smmm_*', [switch]$Yaz, [switch]$YenidenKur)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $depoKok = Split-Path -Parent $PSScriptRoot
@@ -40,11 +41,24 @@ foreach($dosya in (Get-ChildItem $metinKlasoru -Filter "$Desen.txt" | Sort-Objec
   $kayitlar = @(foreach($x in (Invoke-RestMethod -Uri ("$ambarUcu`?select=id,kaynak_ad,metin&tur=eq.cikmis-komisyon-cevabi&kaynak_ad=like." + [uri]::EscapeDataString("*($kok)")) -Headers $sbBasliklar -TimeoutSec 120)){ $x })
   if($kayitlar.Count -ne 1){ Write-Host "  !! $kok ambarda $($kayitlar.Count) kayıt — atlandı"; $hata++; continue }
   $eski = "$($kayitlar[0].metin)"
-  if($eski.StartsWith('SORULAR')){ Write-Host "  zaten yazılmış: $kok"; $atlandi++; continue }
+  $yedekYolu = Join-Path $yedekKlasoru "$kok.json"
+  if($eski.StartsWith('SORULAR')){
+    # -YenidenKur: yazılmış belge YEDEKTEN (ilk yazımdan önceki metin) yeniden kurulur; yedek yoksa dokunulmaz
+    if(-not $YenidenKur){ Write-Host "  zaten yazılmış: $kok"; $atlandi++; continue }
+    if(-not (Test-Path $yedekYolu)){ Write-Host "  !! $kok yeniden kurulamaz: yedek yok"; $hata++; continue }
+    $eski = "$((Get-Content $yedekYolu -Raw -Encoding UTF8 | ConvertFrom-Json).metin)"
+  }
+  # 70 (16.09): motor/kapi-cikmis-gun.ps1 soru kısmını ilk "CEVAPLAR/CEVAP 1/YANITLAR" eşleşmesinde keser.
+  #   DEGISTIR metninde soru ile cevap arasına tek başına "CEVAPLAR" satırı konur (ayraç — resmî metin değil).
+  #   Resmî soru metni değiştirilmez; içinde bu kelimeler geçerse kırpılan kısım raporlanır.
+  $kesimDeseni = '\bCEVAPLAR\b|\bCEVAP\s*1\b|\bCevap\s*1\b|\bYANITLAR\b'
+  if($kip -eq 'DEGISTIR' -and $govdeMetni -notmatch "(?m)^CEVAPLAR\r?$"){ Write-Host "  !! $kok DEGISTIR metninde tek başına 'CEVAPLAR' ayraç satırı yok"; $hata++; continue }
+  $soruKismi = if($kip -eq 'EKLE'){ $govdeMetni } else { [regex]::Split($govdeMetni,"(?m)^CEVAPLAR\r?$")[0] }
+  $kesim = [regex]::Match($soruKismi, $kesimDeseni)
+  if($kesim.Success){ Write-Host ("  ⚠ {0}: soru metninde '{1}' geçiyor — KAPI-CB soru kısmının son {2} karakterini keser (resmî metin korunur)" -f $kok,$kesim.Value,($soruKismi.Length - $kesim.Index)) }
   $yeni = if($kip -eq 'EKLE'){ "SORULAR`n$govdeMetni`n`n$kaynakNotu`n`n$($eski.Trim())" } else { $govdeMetni }
   Write-Host ("  {0} {1}: {2:N0} → {3:N0} kr" -f $kip,$kok,$eski.Length,$yeni.Length)
   if(-not $Yaz){ continue }
-  $yedekYolu = Join-Path $yedekKlasoru "$kok.json"
   if(-not (Test-Path $yedekYolu)){ [IO.File]::WriteAllText($yedekYolu,(ConvertTo-Json -InputObject ([ordered]@{ id=$kayitlar[0].id; kaynak_ad=$kayitlar[0].kaynak_ad; metin=$eski; yedeklendi=(Get-Date -Format 'dd.MM.yyyy HH:mm') }) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
   $govde = ConvertTo-Json -InputObject ([ordered]@{ metin=$yeni }) -Compress
   $null = Invoke-RestMethod -Method Patch -Uri ("$ambarUcu`?id=eq." + $kayitlar[0].id) -Headers ($sbBasliklar + @{ Prefer='return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120
