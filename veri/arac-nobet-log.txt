@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260915165243
+Start time: 20260916002202
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/65df4ee8-211d-49aa-9815-0a99f125444d.ps1'
-Process ID: 2495
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e7951ff5-1d40-4af3-83e3-c0c7ca101a68.ps1'
+Process ID: 2653
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -17,12 +17,24 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 14-09-2026
-Kart sayisi  : 1
+RG gunu      : 16-09-2026
+Kart sayisi  : 7
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Katı yakıtların ithalatı ve piyasaya arzı için uygunluk belgesi ve denetim sistemi
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260915165243
+End time: 20260916002202
 **********************
