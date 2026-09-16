@@ -282,7 +282,12 @@ sifirlanabiliyor. Bu depoda dogrudan Postgres kullanan BASKA bir sey yok
 (hepsi PostgREST); olculdu.
 ---
 
-## `2026-09-10-kalip-surum-kapisi.sql` — ⏳ CEM'İN ONAYINDA, BASILMADI
+## `2026-09-10-kalip-surum-kapisi.sql` — ✅ CANLIDA (16.09.2026 ölçüldü, kısmen doğrulandı)
+
+> 16.09 ölçüm (PostgREST, salt okuma): `soru_havuzu.kalip_surum` sütunu VAR (v1 30.569 · v2 0 · yayin=true 0),
+> `soru_havuzu_arsiv_v1` görünümü VAR (30.569 satır) → dosya basılmış. `ck_soru_havuzu_yayin_yalniz_v2` kısıtı
+> PostgREST'ten okunamadığı için ayrıca DOĞRULANMADI (denemek bir v1 satırı yayına almayı gerektirir — yapılmadı).
+> Teyit: SQL Editor'de `select conname from pg_constraint where conname='ck_soru_havuzu_yayin_yalniz_v2';`
 
 **Ne yapar:** `soru_havuzu`'na `kalip_surum` sütunu (`v1` / `v2`) ekler ve
 **`yayin = true` yalnız `v2` satırlara verilebilir** kısıtını kurar.
