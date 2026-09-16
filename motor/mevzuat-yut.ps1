@@ -29,9 +29,15 @@ if(Test-Path $durumYol){ try { (Get-Content $durumYol -Raw -Encoding UTF8 | Conv
 # 22.07.2026: taksimli madde (32/A, 32/C...) + TUM-BUYUK "EK MADDE/GECICI MADDE/MUKERRER MADDE"
 # varyantlari eklendi — KVK 32/C (asgari KV) ve 7524 ek maddeleri bu desenin disinda kaliyordu.
 function AralikliMaddeDuzelt([string]$duzMetin){
-  # "M A D D E1 2 -" / "M A D D E1 –" / "M ADDE 25 –" -> "MADDE 12 -" / "MADDE 1 –" / "MADDE 25 –"
-  # (MADDE kelimesinin ICINDE en az bir bosluk olan yazim; normal "MADDE 12" (?!MADDE) ile dokunulmaz)
-  return [regex]::Replace($duzMetin, '\b(?!MADDE)(?=M ?A ?D ?D ?E)M ?A ?D ?D ?E ?((?:\d ?){1,3})(?=[-–:(])', { param($es) 'MADDE ' + ($es.Groups[1].Value -replace ' ','') + ' ' })
+  # PDF metninde madde basliginin UC bozuk yazimi (16.09 olculdu, KGK tamlik olcumu):
+  #  1) harf harf aralikli : "M A D D E1 2 -"  / "M ADDE 25 –"   -> MADDE 12 - / MADDE 25 –
+  #  2) sayi bitisik       : "MADDE1 –" / "MADDE13 –"            -> MADDE 1 – / MADDE 13 –   (Portfoy Saklama Tebligi III-56.1: 24 maddenin 11'i bu yuzden ambarda yoktu)
+  #  3) dipnot isaretli    : "MADDE 4 (2) –"                     -> MADDE 4 –                (dipnot NUMARASI metin degil; Teknik Karsiliklar Yon. m.4 ve Gumruk Yon.)
+  # Normal "MADDE 12 –" yazimina dokunulmaz.
+  $s = [regex]::Replace($duzMetin, '\b(?!MADDE)(?=M ?A ?D ?D ?E)M ?A ?D ?D ?E ?((?:\d ?){1,3})(?=[-–:(])', { param($es) 'MADDE ' + ($es.Groups[1].Value -replace ' ','') + ' ' })
+  $s = [regex]::Replace($s, '\bMADDE(\d{1,3})(?=\s*[-–:])', { param($es) 'MADDE ' + $es.Groups[1].Value })
+  $s = [regex]::Replace($s, '\b(MADDE\s+\d{1,3})\s*\(\d{1,2}\)\s*(?=[-–])', { param($es) $es.Groups[1].Value + ' ' })
+  return $s
 }
 function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde

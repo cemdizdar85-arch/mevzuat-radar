@@ -1,11 +1,11 @@
 {
-    "olcum":  "15.09.2026 23:40",
+    "olcum":  "16.09.2026 09:14",
     "kural":  "TAM: resmî paragrafların ≤%5\u0027i ambarda parçasız · EKSİK: \u003e%5 · [Silinmiştir] eksik sayılmaz · Ek bölümleri kümeye katılmaz",
     "ozet":  {
-                 "olculen":  84,
+                 "olculen":  86,
                  "TAM":  67,
-                 "EKSIK":  17,
-                 "olculemedi":  0
+                 "EKSIK":  19,
+                 "olculemedi":  3
              },
     "standartlar":  [
                         {
@@ -555,6 +555,45 @@
                             "silinen_ornek":  ""
                         },
                         {
+                            "standart":  "KYS 1",
+                            "adres":  "",
+                            "durum":  "ADRES YOK",
+                            "resmi_paragraf":  0,
+                            "silinen":  0,
+                            "ambar_paragraf":  0,
+                            "eksik":  0,
+                            "fazla":  0,
+                            "eksik_ornek":  "",
+                            "fazla_ornek":  "",
+                            "silinen_ornek":  ""
+                        },
+                        {
+                            "standart":  "KYS 2",
+                            "adres":  "",
+                            "durum":  "ADRES YOK",
+                            "resmi_paragraf":  0,
+                            "silinen":  0,
+                            "ambar_paragraf":  0,
+                            "eksik":  0,
+                            "fazla":  0,
+                            "eksik_ornek":  "",
+                            "fazla_ornek":  "",
+                            "silinen_ornek":  ""
+                        },
+                        {
+                            "standart":  "SBDS 2400",
+                            "adres":  "",
+                            "durum":  "ADRES YOK",
+                            "resmi_paragraf":  0,
+                            "silinen":  0,
+                            "ambar_paragraf":  0,
+                            "eksik":  0,
+                            "fazla":  0,
+                            "eksik_ornek":  "",
+                            "fazla_ornek":  "",
+                            "silinen_ornek":  ""
+                        },
+                        {
                             "standart":  "TFRS 1",
                             "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 1.pdf",
                             "durum":  "EKSİK",
@@ -1099,6 +1138,32 @@
                             "eksik_ornek":  "",
                             "fazla_ornek":  "",
                             "silinen_ornek":  "9,14,21,23,39,48"
+                        },
+                        {
+                            "standart":  "TSRS 1",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/RaporlamaStandarti/TSRS%201.pdf",
+                            "durum":  "EKSİK",
+                            "resmi_paragraf":  187,
+                            "silinen":  0,
+                            "ambar_paragraf":  78,
+                            "eksik":  109,
+                            "fazla":  0,
+                            "eksik_ornek":  "30,34,38,40,43,48,58,80,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17",
+                            "fazla_ornek":  "",
+                            "silinen_ornek":  ""
+                        },
+                        {
+                            "standart":  "TSRS 2",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/RaporlamaStandarti/TSRS%202.pdf",
+                            "durum":  "EKSİK",
+                            "resmi_paragraf":  113,
+                            "silinen":  0,
+                            "ambar_paragraf":  32,
+                            "eksik":  81,
+                            "fazla":  0,
+                            "eksik_ornek":  "3,21,30,31,33,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20",
+                            "fazla_ornek":  "",
+                            "silinen_ornek":  ""
                         }
                     ]
 }

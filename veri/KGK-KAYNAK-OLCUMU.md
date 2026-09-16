@@ -319,3 +319,23 @@ Maddeli SPK/BDDK/SEDDK kaynakları (ambar ad dizisi, bedel 0): SPK tebliğlerini
 
 **Tazeleme sonrası sınıflar:** a) H22/Z8 · b) H30/Z1 · c) H10/Z1/Y11 (Y = FY) · ç) H7/Z1 · d) H6/Z5 · e) H4/Z2/**Y0** · f) Z13 (TSRS ölçülemedi) · g) **H6/Z0**.
 **Basım (Excel, modül başına 400):** şimdi basılabilir 1.648 · önce onarım/ölçüm 964 · basılamaz 319 (FY 304 + teori + TFRS 18).
+
+---
+
+## GÜNCELLEME 16.09 ~09:30 · Cem "1.2.3 üçünüde yap" (SPK tamlık · TSRS resmî metin · kaynaksız 223 soru)
+
+**(1) Tebliğ/yönetmelik tamlığı resmî metinle ölçüldü — yeni araç `arac/kgk-mevzuat-tamlik.ps1` → `veri/kgk-mevzuat-tamlik.json`.**
+KGK derslerinde geçen 133 belge; ambardaki madde numaraları resmî PDF'le kıyaslandı (mülga maddeler eksik sayılmaz; ek/geçici maddeler ayrı dizi).
+**123 ölçüldü: 120 TAM · 3 EKSİK · 10 ölçülemedi.** Bedel 0.
+- **EKSİK bulunan ve ONARILAN:** Portföy Saklama Tebliği (III-56.1) 24 maddenin 11'i ambarda yoktu → yeniden yutuldu, 24/24 TAM. Sigorta Teknik Karşılıklar Yön. m.4 → TAM.
+- **Kalan tek eksik:** Kâr Payı Tebliği (II-19.1) m.19 ("Yürütme"), m.18'in içinde duruyor — bölücü son maddeyi ayırmıyor; soru değeri yok, bilinen sınır.
+- **Ölçülemeyen 10 belge:** 7'si eski SPK tebliğleri (metinde "MADDE" yok, "Madde 3" veya bölüm yapılı), 2'si bot sayfası, 1'i Kotasyon Yönetmeliği.
+- **Parçalayıcıda iki yazım kusuru daha bulundu** (`motor/mevzuat-yut.ps1 AralikliMaddeDuzelt`): "MADDE1 –" (sayı bitişik) ve "MADDE 4 (2) –" (dipnot işaretli). Eşdeğerlik provası 719 metnin tamamında: değişen 22 metin, hepsi kasıtlı; 22'si yeniden yutuldu. Bağ: soru_havuzu 0; kalıp-parti önbelleklerinde 22 paket-bağı (SGS/SPL partileri, yayın kararını değiştirmez) — SGS'ye dokunulmadı.
+- **Yan bulgu:** 23 belgenin ambardaki `kaynak_url`'i bozuk ("mevzuatmetin/G9:18527.pdf" — pdfId yola yapıştırılmış, HTML hata sayfası veriyor). Yutma etkilenmiyor (adres manifestten kuruluyor), ölçüm aracı adresi çevirerek indiriyor.
+
+**(2) TSRS resmî metni.** Yürürlükteki metin KGK Kurul Kararı, **RG 29.12.2023-32414 (1. mükerrer)**; değişiklik **RG 28.07.2026-33323** (sera gazı). ⚠ RG'nin PDF'i **taranmış görüntü** (3 MB, metin katmanı 4 bin karakter) — makine okuyamaz. Metinli tek resmî kopya KGK'nın kendi dosyası (02.01.2024), ona 2026 değişikliği İŞLENMEMİŞ.
+Ölçüm (`kgk-hakikat-olcumu.ps1`, TSRS adresleri eklendi): TSRS 1 resmî 187 numara / ambar 78 · TSRS 2 113 / 32 → **ek paragrafları (B, D, E serileri) etiketlenmemiş.** Kuru prova: yeniden yutma TSRS 1'de +2.027 karakter getiriyor ama ek adlarını bozuyor; TSRS 2'de **8.137 karakter kaybettiriyor** → **yutulmadı.** 28.07.2026 değişikliği ambarda ayrı kaynak olarak VAR (9 parça).
+
+**(3) Kaynağı belirlenemeyen soru 223 → 0.** Eşleme sözlüğüne denetim (BDS 200/210/230/250/265/315/320/330/500/501/520/530/540/600/701/710/720, ETİK, BDY) ve muhasebe (TFRS 15/10/3/6/9/13, TMS 1/7/8/10/12/16/19/20/21/28/37/38/40/41) kuralları eklendi; artıkta kalanlar dersin varsayılanına (genel muhasebe / BDS 200) bağlandı. Excel'in 5. sayfasında her satırın hangi yöntemle bağlandığı yazıyor; **"ders varsayılanı" 1.426 soru — en zayıf bağ, oradan okunur.**
+
+**Excel tazelendi** (`arac/kgk-basim-excel.ps1` artık depoda): her modülde kaynak eşleşmesi %100 · **şimdi basılabilir 1.992** (dünkü ölçümde 1.648) · önce onarım/ölçüm 623 · basılamaz 319 (Finansal Yönetim 304 + maliyet/analiz teori + TFRS 18).

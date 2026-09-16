@@ -1,8 +1,8 @@
 {
-    "olcum":  "15.09.2026 23:43",
-    "ad_listesi_olcumu":  "15.09.2026 23:29",
+    "olcum":  "16.09.2026 09:19",
+    "ad_listesi_olcumu":  "16.09.2026 09:15",
     "kural":  "HAZIR = beklenen resmî metin ambarda + RESMI nitelik (Türkçe harfli, özet değil) + TAM (madde/paragraf deliği ≤%5, bölünmüş parça eksiği 0, kesik adayı ≤%5) + hüküm anahtarı ailenin içinde ≥2 parçada. ZAYIF = resmî metin var ama delikli/kesik ya da hüküm anahtarı ailenin içinde \u003c2 parçada. YOK = beklenen resmî metin ambarda yok YA DA yalnız elle yazılmış özet/teori notu/taslak var (Cem 14.09: resmî metin şartı). Numara deliği iki anlama gelir: metin yok ya da başka parçaya yapışık (TMS 16 p.31-40 yapışık çıktı); ikisinde de paket seçici hükmü getiremez. Hüküm anahtarı mekanik bir göstergedir; hakem teyidi değildir.",
-    "ambar_satiri":  48344,
+    "ambar_satiri":  48353,
     "ozet":  {
                  "a) Türkiye Muhasebe Standartları":  {
                                                           "HAZIR":  22,
@@ -29,11 +29,11 @@
                                                                           "kota_toplam":  1440
                                                                       },
                  "e) Sigortacılık ve Özel Emeklilik Mevzuatı":  {
-                                                                    "HAZIR":  4,
-                                                                    "ZAYIF":  2,
+                                                                    "HAZIR":  5,
+                                                                    "ZAYIF":  1,
                                                                     "YOK":  0,
                                                                     "OLCULMEDI":  0,
-                                                                    "kota_HAZIR":  200,
+                                                                    "kota_HAZIR":  280,
                                                                     "kota_toplam":  360
                                                                 },
                  "ç) Sermaye Piyasası Mevzuatı":  {
@@ -1196,9 +1196,9 @@
                                   "karakter":  207600,
                                   "resmi_orani":  0.98,
                                   "nitelik":  "RESMI",
-                                  "numara_dizi":  70,
-                                  "numara_delik":  34,
-                                  "delik_ornek":  "5,12,17,19,22,23,25,29,30,33,36,38",
+                                  "numara_dizi":  0,
+                                  "numara_delik":  0,
+                                  "delik_ornek":  "",
                                   "bolum_eksik":  0,
                                   "kesik_adayi":  3,
                                   "kaynak_url_olan":  0,
@@ -1501,16 +1501,16 @@
                     "TK-YON":  {
                                    "ad":  "Sigorta… Teknik Karşılıklarına… Yön.",
                                    "parca":  39,
-                                   "karakter":  43455,
+                                   "karakter":  43451,
                                    "resmi_orani":  1,
                                    "nitelik":  "RESMI",
                                    "numara_dizi":  18,
-                                   "numara_delik":  1,
-                                   "delik_ornek":  "4",
+                                   "numara_delik":  0,
+                                   "delik_ornek":  "",
                                    "bolum_eksik":  0,
                                    "kesik_adayi":  0,
                                    "kaynak_url_olan":  39,
-                                   "tamlik":  "DELIKLI"
+                                   "tamlik":  "TAM"
                                },
                     "TTK-SORUMLULUK":  {
                                            "ad":  "TTK m.1473-1486 (sorumluluk sigortaları)",
@@ -1556,7 +1556,7 @@
                                        },
                     "DEVLET-KATKI-YON":  {
                                              "ad":  "Bireysel Emeklilik Sisteminde Devlet Katkısı Hakkında Yön.",
-                                             "parca":  38,
+                                             "parca":  40,
                                              "karakter":  43061,
                                              "resmi_orani":  1,
                                              "nitelik":  "RESMI",
@@ -1565,7 +1565,7 @@
                                              "delik_ornek":  "",
                                              "bolum_eksik":  0,
                                              "kesik_adayi":  0,
-                                             "kaynak_url_olan":  38,
+                                             "kaynak_url_olan":  40,
                                              "tamlik":  "TAM"
                                          },
                     "TSRS 1":  {
@@ -1574,9 +1574,9 @@
                                    "karakter":  91175,
                                    "resmi_orani":  1,
                                    "nitelik":  "RESMI",
-                                   "numara_dizi":  86,
-                                   "numara_delik":  8,
-                                   "delik_ornek":  "30,34,38,40,43,48,58,80",
+                                   "numara_dizi":  187,
+                                   "numara_delik":  109,
+                                   "delik_ornek":  "30,34,38,40,43,48,58,80,B1,B2,B3,B4",
                                    "bolum_eksik":  0,
                                    "kesik_adayi":  4,
                                    "kaynak_url_olan":  0,
@@ -1588,9 +1588,9 @@
                                    "karakter":  97929,
                                    "resmi_orani":  1,
                                    "nitelik":  "RESMI",
-                                   "numara_dizi":  37,
-                                   "numara_delik":  5,
-                                   "delik_ornek":  "3,21,30,31,33",
+                                   "numara_dizi":  113,
+                                   "numara_delik":  81,
+                                   "delik_ornek":  "3,21,30,31,33,B1,B2,B3,B4,B5,B6,B7",
                                    "bolum_eksik":  0,
                                    "kesik_adayi":  1,
                                    "kaynak_url_olan":  9,
@@ -3104,11 +3104,11 @@
                         "aileler":  "TK-YON",
                         "aile_parca":  39,
                         "nitelik":  "TK-YON=RESMI",
-                        "tamlik":  "TK-YON=DELIKLI",
+                        "tamlik":  "TK-YON=TAM",
                         "hukum_parca":  39,
-                        "hukum_ornek":  "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.5 [3/3] || Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.7 [5/7] || Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.8 [1/2]",
-                        "sinif":  "ZAYIF",
-                        "gerekce":  "hüküm var ama metin: TK-YON: RESMI/DELIKLI"
+                        "hukum_ornek":  "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.16 || Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.9 [1/2] || Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik m.13 [4/4]",
+                        "sinif":  "HAZIR",
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 39 parçada"
                     },
                     {
                         "ders":  "e) Sigortacılık ve Özel Emeklilik Mevzuatı",
@@ -3187,13 +3187,13 @@
                         "cikmis_soru":  21,
                         "cikmis_donem":  21,
                         "aileler":  "4632 + DEVLET-KATKI-YON",
-                        "aile_parca":  103,
+                        "aile_parca":  105,
                         "nitelik":  "4632=RESMI DEVLET-KATKI-YON=RESMI",
                         "tamlik":  "4632=TAM DEVLET-KATKI-YON=TAM",
-                        "hukum_parca":  51,
+                        "hukum_parca":  53,
                         "hukum_ornek":  "BES K. (4632 s.K.) ek m.1 [4/5] || BES K. (4632 s.K.) ek m.1 [5/5] || BES K. (4632 s.K.) ek m.2 [3/5]",
                         "sinif":  "HAZIR",
-                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 51 parçada"
+                        "gerekce":  "resmî+tam aile içinde hüküm anahtarı 53 parçada"
                     },
                     {
                         "ders":  "ç) Sermaye Piyasası Mevzuatı",
@@ -3582,7 +3582,7 @@
                         "nitelik":  "BBD-YON=RESMI",
                         "tamlik":  "BBD-YON=DELIKLI",
                         "hukum_parca":  37,
-                        "hukum_ornek":  "Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.22 || Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.3 [2/3] || Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.6",
+                        "hukum_ornek":  "Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.3 [1/3] || Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.4 [1/2] || Bankalarin Bagimsiz Denetimi Hakkinda Yonetmelik m.7",
                         "sinif":  "ZAYIF",
                         "gerekce":  "hüküm var ama metin: BBD-YON: RESMI/DELIKLI"
                     },
@@ -3599,7 +3599,7 @@
                         "nitelik":  "KREDI-YON=RESMI",
                         "tamlik":  "KREDI-YON=DELIKLI",
                         "hukum_parca":  4,
-                        "hukum_ornek":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.1 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.8 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.6",
+                        "hukum_ornek":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.8 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.7 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.1",
                         "sinif":  "ZAYIF",
                         "gerekce":  "hüküm var ama metin: KREDI-YON: RESMI/DELIKLI"
                     },
@@ -3616,7 +3616,7 @@
                         "nitelik":  "KREDI-YON=RESMI 5411=RESMI",
                         "tamlik":  "KREDI-YON=DELIKLI 5411=TAM",
                         "hukum_parca":  10,
-                        "hukum_ornek":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.3 [2/2] || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.1 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.4 [1/2]",
+                        "hukum_ornek":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.5 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.4 [1/2] || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.1",
                         "sinif":  "HAZIR",
                         "gerekce":  "resmî+tam aile içinde hüküm anahtarı 10 parçada"
                     },
@@ -3633,7 +3633,7 @@
                         "nitelik":  "KREDI-YON=RESMI 5411=RESMI",
                         "tamlik":  "KREDI-YON=DELIKLI 5411=TAM",
                         "hukum_parca":  4,
-                        "hukum_ornek":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.3 [2/2] || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.1 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.4 [1/2]",
+                        "hukum_ornek":  "Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.4 [1/2] || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.1 || Bankalarin Kredi Islemlerine Iliskin Yonetmelik m.3 [2/2]",
                         "sinif":  "HAZIR",
                         "gerekce":  "resmî+tam aile içinde hüküm anahtarı 4 parçada"
                     },

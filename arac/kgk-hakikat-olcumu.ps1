@@ -42,6 +42,11 @@ $ozelAdres = @{
   'İHS 4400' = "$kokAdres/TDS/TDS_2025_Seti/%C4%B0HS%204400_2025.pdf"
   'TFRS 19' = 'https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS%2019.pdf'
   'TMS 1' = "$kokAdres/TMS/TMS_1_Finansal%20Tablolar%C4%B1n%20Sunulu%C5%9Fu.pdf"   # 2026 Kırmızı Kitap klasöründe yok (302); ambardaki kaynak_url bu
+  # 16.09: TSRS'nin RESMÎ yayımı RG 29.12.2023-32414 (1. mük.) kurul kararıdır ama o PDF TARANMIŞ GÖRÜNTÜ (metin katmanı yok, 3 MB'de 4 bin karakter).
+  # Metinli tek resmî kopya KGK'nın kendi dosyası (02.01.2024). ⚠ 28.07.2026-33323 sera gazı değişikliği bu dosyalara İŞLENMEMİŞ —
+  # ölçüm "ilk yayım metnine göre" tamlıktır; değişiklik ambarda ayrı kaynak olarak durur (manifest: kgk-tsrs2-degisiklik-2026).
+  'TSRS 1' = "$kokAdres/Surdurulebilirlik/RaporlamaStandarti/TSRS%201.pdf"
+  'TSRS 2' = "$kokAdres/Surdurulebilirlik/RaporlamaStandarti/TSRS%202.pdf"
 }
 
 function HakikatNumaralari([string]$metin, [string]$std){
@@ -49,6 +54,7 @@ function HakikatNumaralari([string]$metin, [string]$std){
   $bdsKip = $std -match '^(BDS|GDS|İHS)\s'
   foreach($satir in ($metin -split "`r?`n")){
     if($bdsKip){ $es = [regex]::Match($satir,'^\s{0,4}([A-Z]?\d{1,3}[A-Z]?)\.\s+(\S.*)$') }
+    elseif($std -match '^TSRS\s'){ $es = [regex]::Match($satir,'^\s{0,10}([A-Z]{0,2}\d{1,3}[A-Z]{0,2})\s{2,}(\S.*)$') }   # 16.09: TSRS'de numara sütunu girintili
     else       { $es = [regex]::Match($satir,'^([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})\s{2,}(\S.*)$') }   # TFRS 9 '4.1.1' noktalı numara
     if(-not $es.Success){ continue }
     $no = $es.Groups[1].Value; $govde = $es.Groups[2].Value
@@ -64,7 +70,7 @@ $adlar = Get-Content $adOnbellek -Raw -Encoding UTF8 | ConvertFrom-Json
 $ambarNo = @{}
 foreach($r in $adlar){
   $ad = "$($r.kaynak_ad)"
-  $es = [regex]::Match($ad,'^((?:TMS|TFRS|BDS|GDS|İHS)\s\d+)\s(Ek\s\d+\s)?p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:[\s\-]|$)')
+  $es = [regex]::Match($ad,'^((?:TMS|TFRS|BDS|GDS|İHS|TSRS|SBDS|KYS)\s\d+)\s(Ek\s\d+\s)?p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:[\s\-]|$)')
   if(-not $es.Success -or $es.Groups[2].Value){ continue }
   $std = $es.Groups[1].Value
   if(-not $ambarNo.ContainsKey($std)){ $ambarNo[$std] = New-Object System.Collections.Generic.HashSet[string] }
