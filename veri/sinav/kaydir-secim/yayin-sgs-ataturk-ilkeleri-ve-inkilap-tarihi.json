@@ -1,5 +1,13 @@
 [
     {
+        "etiket":  "sgs-d4-inkilap-zor-r4",
+        "id":  "kp-01",
+        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
+        "konu":  "ataturk donemi dis politika",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-inkilap-zor-r2",
         "id":  "kp-01",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
@@ -8,10 +16,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-inkilap-zor-r4",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-01",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "ataturk donemi dis politika",
+        "konu":  "i. dunya savasi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -24,11 +32,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-kolay",
-        "id":  "kp-01",
+        "etiket":  "sgs-d4-inkilap-zor-r2",
+        "id":  "kp-02",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "i. dunya savasi",
-        "donem":  3,
+        "konu":  "ataturk eserleri",
+        "donem":  2,
         "kurtarma":  false
     },
     {
@@ -40,15 +48,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-inkilap-zor-r2",
-        "id":  "kp-02",
-        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "ataturk eserleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-inkilap-kolay",
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-05",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "erzurum kongresi",
@@ -56,7 +56,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-05",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "erzurum kongresi",
@@ -72,14 +72,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-inkilap-cokzor-r3",
-        "id":  "kp-01",
-        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "lozan konferansi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d4-inkilap-cokzor-r1",
         "id":  "kp-01",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
@@ -89,6 +81,14 @@
     },
     {
         "etiket":  "sgs-d4-inkilap-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
+        "konu":  "lozan konferansi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-inkilap-cokzor-r3",
         "id":  "kp-01",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "lozan konferansi",
@@ -136,7 +136,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-03",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "turk medeni kanunu",
@@ -144,7 +144,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-kolay",
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
         "id":  "kp-03",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "turk medeni kanunu",
@@ -160,14 +160,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
-        "id":  "kp-25",
-        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "ataturk tarih tezi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-25",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
@@ -177,9 +169,9 @@
     },
     {
         "etiket":  "sgs-t1-genel-inkilap-zor",
-        "id":  "kp-20",
+        "id":  "kp-25",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "ataturk\u0027un eserleri",
+        "konu":  "ataturk tarih tezi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -200,10 +192,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-kolay",
-        "id":  "kp-21",
+        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "id":  "kp-20",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "balkan antanti",
+        "konu":  "ataturk\u0027un eserleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -217,9 +209,9 @@
     },
     {
         "etiket":  "sgs-t1-genel-inkilap-kolay",
-        "id":  "kp-22",
+        "id":  "kp-21",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "birinci sanayi plani sumerbank",
+        "konu":  "balkan antanti",
         "donem":  1,
         "kurtarma":  false
     },
@@ -232,7 +224,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-22",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "birinci sanayi plani sumerbank",
@@ -241,6 +233,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "id":  "kp-22",
+        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
+        "konu":  "birinci sanayi plani sumerbank",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-26",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "cok partili hayat",
@@ -248,7 +248,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
         "id":  "kp-26",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "cok partili hayat",
@@ -257,6 +257,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-inkilap-kolay",
+        "id":  "kp-26",
+        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
+        "konu":  "cok partili hayat",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-30",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "cumhuriyet ilani",
@@ -264,7 +272,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-30",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "cumhuriyet ilani",
@@ -288,7 +296,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-27",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "i. dunya savasi ateskes",
@@ -296,7 +304,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
         "id":  "kp-27",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "i. dunya savasi ateskes",
@@ -320,14 +328,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-cokzor",
-        "id":  "kp-29",
-        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
-        "konu":  "ii. abdulhamit donemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-29",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
@@ -337,6 +337,14 @@
     },
     {
         "etiket":  "sgs-t1-genel-inkilap-zor",
+        "id":  "kp-29",
+        "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
+        "konu":  "ii. abdulhamit donemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
         "id":  "kp-29",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "ii. abdulhamit donemi",
@@ -360,7 +368,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
         "id":  "kp-07",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "lozan konferansi oncesi olaylar",
@@ -368,7 +376,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-07",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "lozan konferansi oncesi olaylar",
@@ -384,7 +392,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-kolay",
         "id":  "kp-13",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "osmanli padisahlari",
@@ -392,7 +400,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-kolay",
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-13",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "osmanli padisahlari",
@@ -440,7 +448,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-zor",
+        "etiket":  "sgs-t1-genel-inkilap-cokzor",
         "id":  "kp-15",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "v. mehmet resat donemi",
@@ -448,7 +456,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-inkilap-cokzor",
+        "etiket":  "sgs-t1-genel-inkilap-zor",
         "id":  "kp-15",
         "ders":  "Atatürk İlkeleri ve İnkılap Tarihi",
         "konu":  "v. mehmet resat donemi",
