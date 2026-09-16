@@ -3,9 +3,9 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-09-16 11:09:53 UTC
-- commit: aba6701d5546a40c710e90adf2dc5a860eaa139f
-- kosu no: 42
+- zaman: 2026-09-16 13:04:03 UTC
+- commit: 1e32da3648c74350ff65bc0a57366b5fafb8bfe1
+- kosu no: 43
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
@@ -15,7 +15,7 @@
 ## standart-yut.ps1 -standart 'TFRS 16' ciktisi
 
 ```
-Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 [16.09])
+Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09])
   SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma
 
 PDF: https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 16.pdf
