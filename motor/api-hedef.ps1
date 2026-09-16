@@ -546,6 +546,7 @@ function Invoke-ClaudeToplu {
   #   EŞDEĞERLİK: yalnız "aynı içerik zaten kuyrukta" durumunu değiştirir; o durumda eskiden çift ödeme vardı. Kapatmak: MEVZUAT_TOPLU_BAGLAN=0.
   $istenenId = @{}; foreach($r in $req){ $istenenId["$($r.custom_id)"] = 1 }
   $baglananBid = New-Object System.Collections.Generic.List[string]
+  $onHasat = @{}   # 17.09: bitmiş eski partiden bedava alınan cevaplar
   if("$env:MEVZUAT_TOPLU_BAGLAN" -ne '0'){
     try{
       $baglanan = @{}
@@ -558,6 +559,15 @@ function Invoke-ClaudeToplu {
         $uyan = @(foreach($r in $req){ $cid = "$($r.custom_id)"; if(-not $baglanan.ContainsKey($cid) -and $pmE.PSObject.Properties[$cid] -and "$($pmE.$cid)" -eq "$($parmakHep[$cid])"){ $cid } })
         if(-not $uyan.Count){ continue }
         $stE = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$($ep.id)") -Headers $hedef.basliklar -TimeoutSec 60
+        # 17.09 ÖLÇÜLDÜ (smmm-ilgi-hakemi-tur3 halka 3): önceki halkanın partisi BİTMİŞTİ (79/79 başarılı) ama bu işlev yalnız in_progress partiye
+        # bağlanıyordu; bitmiş partiyi yalnız üreticinin TopluGonder'i hasat ediyordu. Hakem/kasa araçları 79 isteği yeniden gönderdi (≈0,38 USD çift).
+        # Bitmiş partide aynı parmak izli cevap varsa BEDAVA alınır, istek gönderilmez (hata/iptal/süresi dolmuş kimlikler yine gönderilir).
+        if("$($stE.processing_status)" -eq 'ended'){
+          $hE = Get-ClaudeTopluSonuc "$($ep.id)" $hedef $Etiket
+          $alE = 0; foreach($cid in $uyan){ if($hE -and $hE.ContainsKey($cid) -and -not $baglanan.ContainsKey($cid)){ $onHasat[$cid] = $hE[$cid]; $baglanan[$cid] = "hasat:$($ep.id)"; $alE++ } }
+          if($alE){ Write-Host ("  TOPLU: {0} istek BİTMİŞ eski partiden bedava hasat edildi → YENİDEN GÖNDERİLMEDİ · id {1} · etiket {2}" -f $alE,$ep.id,$Etiket) -ForegroundColor Cyan }
+          continue
+        }
         if("$($stE.processing_status)" -ne 'in_progress'){ continue }
         foreach($cid in $uyan){ $baglanan[$cid] = "$($ep.id)" }
         $baglananBid.Add("$($ep.id)")
@@ -584,6 +594,8 @@ function Invoke-ClaudeToplu {
     Write-Host ("  TOPLU PARTİ gönderildi: {0} istek · id {1} · {2} KB · etiket {3} · parça {4}/{5}" -f @($pr).Count,$bid,[math]::Round($govde.Length/1024),$Etiket,$bidler.Count,$parcalar.Count) -ForegroundColor Cyan
   }
   $t0 = Get-Date; $out = @{}; $biten = New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($hk0 in @($onHasat.Keys)){ $out[$hk0] = $onHasat[$hk0] }
+  if(-not $bidler.Count){ return $out }   # 17.09: hepsi bitmiş partiden hasat edildi, beklenecek parti yok
   while($true){
     Start-Sleep -Seconds $YoklamaSn
     $toplamOk = 0
