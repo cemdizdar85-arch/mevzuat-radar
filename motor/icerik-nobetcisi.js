@@ -128,16 +128,25 @@ function dosyaSay(yol, metin) {
 
 function ucretsizMi(yol) { return UCRETSIZ.some(r => r.test(yol)); }
 
+// ADIM 2 (16.09.2026): kasa modundaki sayfa SORUSUZ kabuktur (motor/kasa-kabuk.js), sorusu Supabase paket_soru'da.
+// Kabuk "kasada" sayılır. arac/kasa-modu.json'da olup depoda TAM duran sayfa = kabuk atlanıp tam sayfa itilmiş -> KIRMIZI.
+const KABUK_ISARET = 'data-kasa-sayfa=';
+function kasaModu() {
+  try { return (JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'kasa-modu.json'), 'utf8').replace(/^﻿/, '')).sayfalar || []).map(String); }
+  catch (e) { return null; }
+}
+
 function depoyuTara() {
   const liste = execSync('git ls-files -z', { cwd: KOK, maxBuffer: 64 * 1024 * 1024 }).toString('utf8')
     .split('\0').filter(p => /\.(html?|json)$/.test(p));
-  const sonuc = { taranan: 0, okunamayan: [], paket: [], ucretsiz: [] };
+  const sonuc = { taranan: 0, okunamayan: [], paket: [], ucretsiz: [], kasada: [] };
   for (const yol of liste) {
     const tam = path.join(KOK, yol);
     let st; try { st = fs.statSync(tam); } catch (e) { continue; }
     if (st.size > BOYUT_TAVAN) continue;
     let metin; try { metin = fs.readFileSync(tam, 'utf8'); } catch (e) { sonuc.okunamayan.push(yol); continue; }
     sonuc.taranan++;
+    if (/\.html?$/.test(yol) && metin.includes(KABUK_ISARET)) { sonuc.kasada.push(yol); continue; }
     // hızlı ön süzgeç: soru imzası yoksa ayrıştırma
     if (!/"soru"\s*:|"s"\s*:|const SORULAR=/.test(metin)) continue;
     const n = dosyaSay(yol, metin);
@@ -160,6 +169,9 @@ async function canliYokla(kayitlar) {
 function hukumVer(tarama, taban) {
   if (tarama.taranan === 0) return { hukum: 'KÖR', neden: 'hiç dosya taranmadı' };
   if (tarama.okunamayan.length) return { hukum: 'KÖR', neden: 'okunamayan/ayrıştırılamayan: ' + tarama.okunamayan.slice(0, 5).join(', ') };
+  const kasada = new Set(tarama.kasada || []);
+  const kabuksuz = (tarama.kasaModu || []).filter(y => !kasada.has(y));
+  if (kabuksuz.length) return { hukum: 'KIRMIZI', neden: 'kasa modundaki sayfa depoda TAM duruyor (kabuk atlanmış): ' + kabuksuz.join(', '), yeni: kabuksuz.map(y => ({ yol: y, soru: 0 })) };
   const bilinen = new Set((taban && taban.acik_dosyalar) || []);
   const yeni = tarama.paket.filter(k => !bilinen.has(k.yol));
   if (yeni.length) return { hukum: 'KIRMIZI', neden: 'tabanda olmayan açık paket içeriği: ' + yeni.map(k => k.yol + ' (' + k.soru + ')').join(', '), yeni };
@@ -186,6 +198,8 @@ function sinav() {
   t('tabanda olmayan KIRMIZI', hukumVer(tar, { acik_dosyalar: [] }).hukum === 'KIRMIZI');
   t('açık yok YEŞİL', hukumVer({ taranan: 5, okunamayan: [], paket: [], ucretsiz: [] }, null).hukum === 'YEŞİL');
   t('hiç tarama yok KÖR', hukumVer({ taranan: 0, okunamayan: [], paket: [], ucretsiz: [] }, null).hukum === 'KÖR');
+  t('kasa modundaki sayfa kabuksa YEŞİL', hukumVer({ taranan: 5, okunamayan: [], paket: [], ucretsiz: [], kasada: ['k/t.html'], kasaModu: ['k/t.html'] }, null).hukum === 'YEŞİL');
+  t('kasa modundaki sayfa tam duruyorsa KIRMIZI (tabanda olsa bile)', hukumVer({ taranan: 5, okunamayan: [], paket: [{ yol: 'k/t.html', soru: 3 }], ucretsiz: [], kasada: [], kasaModu: ['k/t.html'] }, { acik_dosyalar: ['k/t.html'] }).hukum === 'KIRMIZI');
   const yay = new Map([['a/kp-01', 'x.html'], ['b/kp-02', 'y.html']]);
   t('kalite: ret yok YEŞİL', kaliteHukmu(yay, [{ etiket: 'c', id: 'kp-01', sinif: 'SIM-YANLIS' }]).hukum === 'YEŞİL');
   t('kalite: kaynak eksik SARI', kaliteHukmu(yay, [{ etiket: 'a', id: 'kp-01', sinif: 'KAYNAK-EKSIK' }]).hukum === 'SARI');
@@ -200,6 +214,8 @@ async function ana() {
   let tarama, taban = null;
   try { tarama = depoyuTara(); } catch (e) { console.log('KÖR: tarama çöktü: ' + e.message); cikti('KÖR'); process.exit(3); }
   try { taban = JSON.parse(fs.readFileSync(TABAN, 'utf8')); } catch (e) { taban = null; }
+  tarama.kasaModu = kasaModu();
+  if (tarama.kasaModu === null) { console.log('KÖR: arac/kasa-modu.json okunamadı'); cikti('KÖR', 'kasa-modu.json okunamadı'); process.exit(3); }
 
   if (process.argv.includes('--taban-yaz')) {
     const yeni = { guncelleme: new Date().toISOString().slice(0, 10),
@@ -233,20 +249,30 @@ async function ana() {
   for (const e of kalite.esles) console.log(`    ${e.risk ? 'CEVAP RİSKİ' : 'yeniden basım'}  ${e.id}  ${e.kapi} ${e.sinif}  (${e.sayfa})`);
   const SIRA = { 'YEŞİL': 0, 'SARI': 1, 'KÖR': 2, 'KIRMIZI': 3 };
   if (SIRA[kalite.hukum] > SIRA[h.hukum]) { h.hukum = kalite.hukum; }
+  // Kabuk sayfanın sorusu dosyada değil kasada: kalite taraması onları GÖRMEZ — sessiz geçilmez, yazılır.
+  if (tarama.kasada.length) {
+    h.neden += ` · kalite taraması kasadaki ${tarama.kasada.length} sayfayı kapsamıyor (${tarama.kasada.join(', ')})`;
+    if (h.hukum === 'YEŞİL') h.hukum = 'SARI';
+  }
   if (kalite.esles.length) h.neden += ` · kalite: yayında ${kalite.esles.length} ret kayıtlı soru (${kalite.esles.filter(e => e.risk).length} cevap riski)`;
   const topPaket = tarama.paket.reduce((t, k) => t + k.soru, 0);
   const topUcr = tarama.ucretsiz.reduce((t, k) => t + k.soru, 0);
   const canliAcik = tarama.paket.filter(k => k.canli === 200).length;
+  // İLERLEME: tabanda olup artık açık olmayan dosya (kasaya geçti ya da silindi). Taban --taban-yaz ile BİLEREK küçültülür.
+  const acikSet = new Set(tarama.paket.map(k => k.yol));
+  const kapanan = ((taban && taban.acik_dosyalar) || []).filter(y => !acikSet.has(y));
 
   console.log(`İÇERİK NÖBETÇİSİ · ${h.hukum} · ${h.neden}`);
   console.log(`  taranan dosya ${tarama.taranan} · açık paket içeriği ${tarama.paket.length} dosya / ${topPaket} soru · canlı sitede 200 dönen ${canliAcik}`);
   console.log(`  ücretsiz katman (bilinçli açık) ${tarama.ucretsiz.length} dosya / ${topUcr} soru`);
+  console.log(`  KASADA (kabuk) ${tarama.kasada.length} sayfa${tarama.kasada.length ? ': ' + tarama.kasada.join(', ') : ''} · tabandan kapanan ${kapanan.length}${kapanan.length ? ': ' + kapanan.join(', ') : ''}`);
   for (const k of tarama.paket.sort((a, b) => b.soru - a.soru)) console.log(`    PAKET  ${String(k.soru).padStart(5)}  ${k.yol}${k.canli ? '  [canlı ' + k.canli + ']' : ''}`);
   for (const k of tarama.ucretsiz) console.log(`    ÜCRETSİZ ${String(k.soru).padStart(3)}  ${k.yol}${k.canli ? '  [canlı ' + k.canli + ']' : ''}`);
 
   if (process.env.GITHUB_STEP_SUMMARY) {
     const md = [`### İçerik nöbetçisi: ${h.hukum}`, h.neden, '',
-      `açık paket içeriği **${tarama.paket.length} dosya / ${topPaket} soru** (canlıda 200: ${canliAcik}) · ücretsiz katman ${tarama.ucretsiz.length} dosya / ${topUcr} soru`, '',
+      `açık paket içeriği **${tarama.paket.length} dosya / ${topPaket} soru** (canlıda 200: ${canliAcik}) · ücretsiz katman ${tarama.ucretsiz.length} dosya / ${topUcr} soru`,
+      `kasada (kabuk) **${tarama.kasada.length} sayfa** · tabandan kapanan ${kapanan.length}`, '',
       '| tür | soru | dosya | canlı |', '|---|---:|---|---|']
       .concat(tarama.paket.map(k => `| paket | ${k.soru} | ${k.yol} | ${k.canli || ''} |`))
       .concat(tarama.ucretsiz.map(k => `| ücretsiz | ${k.soru} | ${k.yol} | ${k.canli || ''} |`)).join('\n');
