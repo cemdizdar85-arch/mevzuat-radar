@@ -1,12 +1,12 @@
 # .github/workflows/smmm-yeni-kitapcik.yml — BİTİRME (SMMM) YENİ KİTAPÇIK NÖBETÇİSİ (0 USD)
 # 13.09.2026 Cem "eski çıkmış sınavın yenisi çıktı mı kontrolü yapıyor muyuz?" → "1 yap".
-# Haftada bir TESMER'de bu yıl + gelecek yılın SMMM kitapçıklarını tarar (HEAD + ilk 8 bayt),
+# Her gün TESMER'de bu yıl + gelecek yılın SMMM kitapçıklarını tarar (HEAD + ilk 8 bayt),
 # arşivde olmayanı bulursa Cem'e bir kez mail atar. Para harcamaz, arşive yazmaz, etiketleme emri vermez.
 name: Bitirme yeni kitapcik nobetcisi (0 USD)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 4 * * 1'   # pazartesi 07:17 TR
+    - cron: '17 4 * * *'   # her gün 07:17 TR (16.09 Cem "1.2.3": 2026/3 çıktığı gün haber) — haftalıktı; koşu başına ~48 HEAD isteği, aynı kitapçık için ikinci mail yok
 permissions:
   contents: write
 concurrency:

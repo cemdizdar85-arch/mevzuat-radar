@@ -67,7 +67,7 @@ if ($bildirilecek.Count) {
   $donemOzet = @($bildirilecek | Group-Object donem | ForEach-Object { "$($_.Name): $($_.Count)/8 ders" })
   $konu = "Tetikte: bitirme (SMMM) sınavında yeni kitapçık — $($donemOzet -join ', ')"
   $satir = @($bildirilecek | ForEach-Object { "<li>$($_.donem) · ders $($_.grup) · <a href=""$($_.url)"">$($_.url)</a></li>" }) -join ''
-  $html = "<h3>Bitirme (SMMM Yeterlilik) — arşivde olmayan yeni kitapçık</h3><p>Haftalık nöbetçi TESMER'de arşivimizde (veri/sinav-arsiv.json) olmayan $($bildirilecek.Count) kitapçık buldu. Robot PARA HARCAMADI: arşive almadı, etiketleme emri vermedi.</p><ul>$satir</ul><p>Sonraki adım (Cem onayıyla): arşive al + etiketleme emri. Ölçülen bedel yazılı kitapçıkta ~0,06 USD/kitapçık (emir #13: 280 kitapçık 16,49 USD); test kitapçığı için ölçülmedi.</p>"
+  $html = "<h3>Bitirme (SMMM Yeterlilik) — arşivde olmayan yeni kitapçık</h3><p>Günlük nöbetçi TESMER'de arşivimizde (veri/sinav-arsiv.json) olmayan $($bildirilecek.Count) kitapçık buldu. Robot PARA HARCAMADI: arşive almadı, etiketleme emri vermedi.</p><ul>$satir</ul><p>Sonraki adım (Cem onayıyla): arşive al + etiketleme emri. Ölçülen bedel yazılı kitapçıkta ~0,06 USD/kitapçık (emir #13: 280 kitapçık 16,49 USD); test kitapçığı için ölçülmedi.</p>"
   $duz = "Bitirme (SMMM) yeni kitapçık`n" + (@($bildirilecek | ForEach-Object { "$($_.donem) ders $($_.grup): $($_.url)" }) -join "`n") + "`n`nRobot para harcamadı. Etiketleme Cem onayıyla."
   if ($MailYok) { $mailDurum = 'gitmedi (-MailYok prova)' }
   elseif (-not $env:RESEND_KEY -or -not $env:RESEND_FROM) { $mailDurum = 'gitmedi (RESEND_KEY/RESEND_FROM yok)' }
