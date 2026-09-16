@@ -31,7 +31,8 @@ param([int]$DersHak = 125, [int]$YilEsik = 2020, [int]$PartiTavan = 30,
   [int]$GrupTaban = 0, [int]$GrupYilEsik = 0, [int]$KonuYilEsik = 0,
   [int]$KaynakSuzgeci = 1,   # 1 = ambar ölçümünde KAYNAK YOK çıkan konu plana girmez (veri/sinav/smmm-kaynak-olcumu.json) · 0 = eski davranış
   [ValidatePattern('^[a-z0-9-]{2,16}$')][string]$EtiketOn = 'smmm-d1', [string]$Ad = 'smmm-dalga1', [switch]$Yaz,
-  [string]$HakemsizCikti = '',   # 16.09: planda olup ilgi hakeminden geçmemiş (ya da ölçülemeyen) konuların csv'si (ders,konu) — sonraki hakem turu
+  [string]$HakemsizCikti = '',
+  [string]$KonuCsv = '',   # 16.09: ders|konu|soru|agirlik|son yil csv'si (Excel 'BASILACAK' sütunu için; depo dışına yazılır)   # 16.09: planda olup ilgi hakeminden geçmemiş (ya da ölçülemeyen) konuların csv'si (ders,konu) — sonraki hakem turu
   [string]$SayfaYolu = '')
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
@@ -204,6 +205,7 @@ foreach ($grp in ($slotTum | Group-Object ders, zorluk, tur | Sort-Object Name))
 }
 # hakem kararı olmayan plan konuları (sonraki tur)
 $hakemsiz = @($slotTum | ForEach-Object { "$($_.ders)|$($_.konu)" } | Sort-Object -Unique | Where-Object { $hk2 = "$(($_ -split '\|',2)[0])|$(Katla (($_ -split '\|',2)[1]))"; -not $hakem.ContainsKey($hk2) -or $hakem[$hk2] -eq 'OLCULEMEDI' })
+if ($KonuCsv) { @($slotTum | Group-Object ders, konu | ForEach-Object { $ilkS = $_.Group[0]; [pscustomobject]@{ ders = $ilkS.ders; konu = $ilkS.konu; soru = $_.Count; agirlik = [math]::Round([double]$ilkS.w, 2) } }) | Export-Csv $KonuCsv -NoTypeInformation -Encoding UTF8 }
 if ($HakemsizCikti) { @($hakemsiz | ForEach-Object { $pp = $_ -split '\|', 2; [pscustomobject]@{ ders = $pp[0]; konu = $pp[1] } }) | Export-Csv $HakemsizCikti -NoTypeInformation -Encoding UTF8 }
 $cakisan = @($planSatir | Where-Object { (Test-Path (Join-Path $depoKok "veri\fabrika\kalip-parti-$($_.etiket).json")) -or (Test-Path (Join-Path $depoKok "veri\sinav\konu\$($_.etiket).json")) } | ForEach-Object etiket)
 $topPlan = ($planSatir | Measure-Object adet -Sum).Sum
