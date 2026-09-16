@@ -162,7 +162,10 @@ section p[style*="text-align:center"]{text-align:left !important}
   margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line2)}
 .kat-grup>h3::after{display:none}
 
-#aracAra{max-width:420px;margin:0 0 4px;border-radius:8px;font-size:14px;padding:11px 13px}
+/* 16.09: kapı "görünmez sınır" dedi - kutunun çerçevesi rgba(255,255,255,.13) kalıp beyaz zeminde
+   kayboluyordu (1,04; eşik 1,12). Çerçeve metnin jetonundan türetildi, her temada görünür. */
+#aracAra{max-width:420px;margin:0 0 4px;border-radius:8px;font-size:14px;padding:11px 13px;
+  border:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
 #aracAra:focus{box-shadow:none;border-color:var(--accent)}
 
 
@@ -328,10 +331,16 @@ nav a:focus-visible,.konu a:focus-visible,.arac:focus-visible{outline-offset:3px
    Geri almak: bu bloğu sil (başka hiçbir yere dokunulmadı).
    ================================================================ */
 html body .mini-pencereler{grid-template-columns:repeat(3,1fr)!important;gap:14px!important}
-html body .mini-pencereler .mp{background:var(--panel2)!important;border:1px solid var(--line)!important;
+/* ⚠ 16.09 ÖLÇÜLDÜ (kontrast kapısı): yüzey/çizgi için --panel2 ve --line kullanınca kapı KIRMIZI düştü -
+   o jetonlar temaya göre ayrı dosyalarda tanımlı ve karışabiliyor (kapı, zemini rgb(34,38,45) koyu ölçerken
+   yazıyı açık temadan alıyordu; çerçeve de rgba(255,255,255,.09) kalıp beyaz zeminde kayboluyordu).
+   Çözüm: yüzey ve çizgi METNİN kendi jetonundan türetilir (--ink + --bg karışımı) - ikisi hep aynı temadan gelir. */
+html body .mini-pencereler .mp{background:color-mix(in srgb,var(--ink) 4%,var(--bg))!important;
+  border:1px solid color-mix(in srgb,var(--ink) 14%,transparent)!important;
   border-radius:14px!important;padding:16px 16px 18px!important;transition:border-color .15s,background .15s}
-html body .mini-pencereler .mp:hover{border-color:var(--amber)!important;background:var(--panel)!important}
-html body .mini-pencereler .mp:first-child{background:var(--panel)!important;border:1px solid var(--line2)!important;
+html body .mini-pencereler .mp:hover{border-color:var(--amber)!important;background:color-mix(in srgb,var(--ink) 7%,var(--bg))!important}
+html body .mini-pencereler .mp:first-child{background:color-mix(in srgb,var(--ink) 2%,var(--bg))!important;
+  border:1px solid color-mix(in srgb,var(--ink) 20%,transparent)!important;
   border-radius:16px!important;padding:20px 20px 22px!important}
 html body .mini-pencereler .mp-bar{display:flex;align-items:center;gap:8px!important;margin-bottom:8px!important}
 html body .mini-pencereler .mp-bar:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--amber)}

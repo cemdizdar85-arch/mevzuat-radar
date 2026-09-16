@@ -710,16 +710,25 @@ window.veriAl = (function(){
          üst boşlukla beyaz zeminde tek başına kalıyordu -> kahraman bitince 180 px'lik beyaz boşluk.
          Büyük sitelerin kalıbı: kahramanın hemen altında AYNI zeminde tek kanıt bandı, detay bölümleri sonra açık zeminde.
          İki şerit kahramanla aynı gece rengine alınır, kenardan kenara; jetonlar yerelde koyuya çevrilir. */
+      /* 16.09 GÜNCELLEME (Cem, canlı ekran: "ekranın böyle olması mantıklı değil, yarısı öyle yarısı böyle"):
+         13.09'da bant kahramanla aynı geceye boyanmıştı; ama kaydırırken ekranın üst yarısı koyu bant,
+         alt yarısı açık gövde olarak kalıyordu - kırılma sayfanın ORTASINDA görünüyordu. Önce araya erime
+         kondu, daha kötü oldu (gri leke). Şimdi: KOYU ALAN YALNIZ KAHRAMAN. Bant sayfanın açık zeminine
+         geçti, rakamlar beyaz kartlarda duruyor; kahraman bitince renk bir kez değişir, bir daha değişmez.
+         Koyu bant hâline dönmek gerekirse: aşağıdaki iki kuralı silmek yeter. */
       .hero-sade .bz-nobet,.hero-sade .kanit{
-        --ink:#f2f4f8; --muted:#aab3c0; --dim:#78828f; --panel:#141820; --line:#262b35; --bz-gece:#0a0b0e;
-        max-width:none;width:auto;box-sizing:border-box;margin:0 calc(50% - 50vw);background:var(--bz-gece);
+        max-width:none;width:auto;box-sizing:border-box;margin:0 calc(50% - 50vw);background:var(--bg);
         padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%)}
+      .hero-sade .bz-nobet .bz-nobet-sat{background:transparent;border:0;gap:12px}
+      .hero-sade .bz-nobet .bz-ns{background:var(--panel);border:1px solid var(--line);border-radius:12px}
       .hero-sade .bz-nobet{padding-top:6px;padding-bottom:52px;position:relative}
-      /* 16.09 Cem: "yukarısı ile aşağısı tutmuyor, renk olarak". Ölçüldü: bant #0a0b0e (koyu),
-         hemen altındaki "Nasıl çalışır" bölümü sayfanın açık zemininde (#fbfaf8) - araya keskin bir
-         dikiş çizgisi giriyordu. Koyu bant korunur (sınav nöbeti hissi), geçiş 72 px'de eritilir. */
-      .hero-sade .bz-nobet:after{content:"";position:absolute;left:0;right:0;bottom:0;height:72px;
-        pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg))}
+      /* 16.09 — İKİ TUR:
+         (1) "yukarısı ile aşağısı tutmuyor" -> koyudan açığa 72 px'lik erime kondu.
+         (2) Cem ekranı gördü: "ekranın böyle olması mantıklı değil, yarısı öyle yarısı böyle."
+             HAKLI: erime, koyu bloğun bittiği yeri belirsizleştirip gri bir leke bırakıyordu.
+             Erime KALDIRILDI. Koyu blok (kahraman + sınav bandı) net biter, altında açık gövde başlar;
+             ayrımı bandın alt kenarındaki ince çizgi yapar - "bölüm bitti" demenin dürüst yolu. */
+      .hero-sade .bz-nobet{border-bottom:1px solid var(--bz-gece2)}
       .hero-sade .bz-nobet .nd-dip{background:transparent;padding:0;margin-top:10px}
       .hero-sade .kanit{padding-top:34px;padding-bottom:56px;border-top:1px solid var(--line)}
 
