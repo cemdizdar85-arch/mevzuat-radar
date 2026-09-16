@@ -1,4 +1,4 @@
-﻿{
+{
     "baslik":  "Konu-kaynak karnesi ELLE ESLESME tablosu — karnenin arama korlugunu kapatir",
     "tarih":  "26.08.2026 - KGK partisi eklendi",
     "dogus":  "Karnenin 66 \u0027KAYNAK YOK\u0027 konusu tek tek okundu; 36\u0027sinin metni ambarda VARDI. Kok sebep \u0027cari oran\u0027 hastaligiyla ayni: (1) anahtar-kelime adimi 5 harften kisa kelimeleri atiyor (\u0027bono\u0027 ve \u0027aval\u0027 4\u0027er harf -\u003e konu hic aranamiyor), (2) konu adindaki yazim/cekim metinle birebir tutmuyor (\u0027mesleki supphecilik\u0027 cift p yazim hatasi), (3) konu adi kavrami metindeki resmi terimle degil sinav diliyle soyluyor (\u0027orneklemede kabul edilemez hata payi\u0027 = BDS 530 \u0027tolere edilebilir yanlislik\u0027).",
@@ -7,8 +7,8 @@
                        {
                            "konu":  "^bono aval$",
                            "tip":  "uc",
-                           "rx":  "aval",
-                           "kanit":  980,
+                           "rx":  "\\maval\\M",
+                           "kanit":  70,
                            "gerekce":  "TTK m.700-702 aval hukumleri"
                        },
                        {
@@ -574,8 +574,8 @@
                        {
                            "konu":  "^aval kavrami$",
                            "tip":  "uc",
-                           "rx":  "aval",
-                           "kanit":  980,
+                           "rx":  "\\maval\\M",
+                           "kanit":  70,
                            "gerekce":  "KGK sondaji 26.08: TTK m.700-702"
                        },
                        {
@@ -924,8 +924,8 @@
                        {
                            "konu":  "^kumi frs stok ve arge$",
                            "tip":  "uc",
-                           "rx":  "k[uüUÜ]m[iıİI]",
-                           "kanit":  186,
+                           "rx":  "\\mk[uüUÜ]m[iıİI] frs",
+                           "kanit":  422,
                            "gerekce":  "KGK sondaji 26.08: KUMI FRS"
                        }
                    ]
