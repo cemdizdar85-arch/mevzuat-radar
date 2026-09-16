@@ -335,9 +335,11 @@ html body .mini-pencereler .mp:first-child{background:var(--panel)!important;bor
   border-radius:16px!important;padding:20px 20px 22px!important}
 html body .mini-pencereler .mp-bar{display:flex;align-items:center;gap:8px!important;margin-bottom:8px!important}
 html body .mini-pencereler .mp-bar:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--amber)}
+/* 16.09 kontrast kapısı: yeni bronz (#8a6224) tintli zeminde 4,4 ölçtü (eşik 4,5) -> rozet yazısı
+   jetondan KOYULAŞTIRILIR (ink ile karışım), zemin tinti %8'e iner. Koyu temada ink beyazdır, rozet açılır. */
 html body .mini-pencereler .mp-tag{display:inline-block;align-self:flex-start;font-size:10px!important;
-  letter-spacing:.1em!important;color:var(--amber)!important;border-radius:999px;padding:3px 9px;
-  background:color-mix(in srgb,var(--amber) 10%,transparent)}
+  letter-spacing:.1em!important;color:color-mix(in srgb,var(--amber) 70%,var(--ink))!important;
+  border-radius:999px;padding:3px 9px;background:color-mix(in srgb,var(--amber) 8%,transparent)}
 html body .mini-pencereler .mp-m{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 html body .mini-pencereler .mp-git{color:var(--amber)!important;font-weight:750!important}
 @media(max-width:1000px){ html body .mini-pencereler{grid-template-columns:repeat(2,1fr)!important} }

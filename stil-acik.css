@@ -53,7 +53,7 @@
 :root{
   /* ---- MARKA İŞARETİ (30.08) — TEMAYA GÖRE DEĞİŞMEZ ------------------
      Logo lambası bir marka varlığıdır, durum rengi değil. --accent açık
-     temada #a04a08'e döner (METİN amberi, okunurluk için) ama lamba
+     temada #8a6224'e döner (METİN amberi, okunurluk için) ama lamba
      her iki temada da AYNI kalmalı - logo dosyalarıyla (logo.svg,
      logo-acik.svg, favicon.svg) birebir aynı değer.
      Bu yüzden iki stil dosyasında da AYNI iki satır duruyor. */
@@ -77,13 +77,13 @@
   --dim:#6b7280;
 
   /* marka: metin baglaminda koyu kehribar */
-  --accent:#a04a08;
+  --accent:#8a6224;
   --accent2:#92400e;
   --grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);
 
   /* durum renkleri - acik zeminde okunacak koyulukta */
   --red:#b91c1c;
-  --amber:#a04a08;        /* METIN amberi - tintli amber zeminde bile 5,11 */
+  --amber:#8a6224;        /* METIN amberi - tintli amber zeminde bile 5,11 */
   --amber-dolgu:#f5a524;  /* DOLGU amberi - uzerine koyu murekkep 9,59 */
   --green:#146f35;
   --link:#1d4ed8;
@@ -207,7 +207,7 @@ body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
    Bizde o bolum en ciddi iddiamizin durdugu yer: kaynak ve dogrulama.
    ========================================================================== */
 #guven{
-  background:#161a1f !important;
+  background:#0a0b0e !important;
   border-top:0 !important;
   border-bottom:0 !important;
   color:#eceff3;
@@ -218,8 +218,8 @@ body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
 #guven .kaynak-bar b{color:#eceff3}
 #guven .kaynak-bar b+b::before{color:#6c7681}
 #guven .gk{box-shadow:none}
-#guven a{color:#ffc24b}
-#guven :focus-visible{outline-color:#ffc24b}
+#guven a{color:#eccb96}
+#guven :focus-visible{outline-color:#eccb96}
 
 
 /* ============================================================================
@@ -245,7 +245,7 @@ body,p,.lead,.sade-alt,.sk-ac,.konu span,.arac span,.mp-m,.gk p{
    ============================================================================ */
 
 nav{
-  background:#161a1f;
+  background:#0a0b0e;
   border-bottom:1px solid rgba(255,255,255,.10);
   backdrop-filter:none}
 nav.scrolled{border-bottom-color:rgba(255,255,255,.16)}
@@ -274,7 +274,7 @@ nav .dropdown a span{color:var(--dim)}
 nav .mobbtn{background:none;color:#ffffff;border-color:rgba(255,255,255,.28)}
 
 /* koyu seritte odak halkasi kehribar olmali, koyu degil */
-nav :focus-visible{outline-color:#ffc24b}
+nav :focus-visible{outline-color:#eccb96}
 
 /* DUZELTME (Cem gordu): "Giris / Uye Ol" dugmesi koyu seritte gorunmuyordu.
    Sebep kendi kuralim: nav BEYAZKEN yazdigim ".navlinks a.btn.ghost{color:
@@ -297,7 +297,7 @@ nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:rgba(255,255,
    ============================================================================ */
 
 /* --- ust serit: arac sayfalarinin masthead'i --- */
-.top{background:#161a1f;color:#b9c1cb;
+.top{background:#0a0b0e;color:#b9c1cb;
   margin:-24px -18px 24px;padding:14px 18px;
   border-bottom:1px solid rgba(255,255,255,.10);flex-wrap:wrap}
 .top a{color:#b9c1cb}
@@ -308,7 +308,7 @@ nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:rgba(255,255,
 .top .kp-dugme:hover{color:#ffffff;border-color:rgba(255,255,255,.34)}
 .top .kp-dugme kbd{background:rgba(255,255,255,.09);
   border-color:rgba(255,255,255,.20);color:#b9c1cb}
-.top :focus-visible{outline-color:#ffc24b}
+.top :focus-visible{outline-color:#eccb96}
 @media(max-width:640px){ .top{margin-left:-14px;margin-right:-14px;padding:12px 14px} }
 
 /* --- govde: koyu tema icin yazilmis saydam beyazlar acikta ters doner --- */
@@ -334,7 +334,7 @@ a:hover{color:var(--accent2)}
    sey aydinlik olmali - tek tek degil topluca. */
 .top,.top *{color:#b9c1cb}
 .top a,.top b,.top strong,.top .logo,.top h1{color:#ffffff}
-.top a:hover{color:#ffc24b}
+.top a:hover{color:#eccb96}
 .top .kp-dugme,.top .kp-dugme *{color:#b9c1cb}
 .top .kp-dugme:hover,.top .kp-dugme:hover *{color:#ffffff}
 
@@ -378,7 +378,7 @@ a:hover{color:var(--accent2)}
 .top,
 .top *:not([class*="logo"]):not([class*="mark"]){color:#b9c1cb !important}
 .top a,.top b,.top strong,.top h1,.top .logo{color:#ffffff !important}
-.top a:hover{color:#ffc24b !important}
+.top a:hover{color:#eccb96 !important}
 .top .kp-dugme kbd{color:#b9c1cb !important}
 
 /* Degiskene baglanamamis kalan koyu zeminler (satir ici stil vb.) */
@@ -451,11 +451,11 @@ a:hover{color:var(--accent2)}
   --ink:#ffffff;
   --muted:#b9c1cb;
   --dim:#96a0ac;
-  --accent:#ffc24b;
-  --accent2:#ffc24b;
-  --amber:#ffc24b;
-  --amber-dolgu:#ffc24b;
-  --link:#ffc24b;
+  --accent:#eccb96;
+  --accent2:#eccb96;
+  --amber:#eccb96;
+  --amber-dolgu:#eccb96;
+  --link:#eccb96;
   --green:#3ddc97;
   --red:#ff8a80;
   --line:rgba(255,255,255,.12);
