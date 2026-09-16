@@ -3788,6 +3788,14 @@ foreach($id in @($don.Keys)){
     $cvp.sema | Add-Member -NotePropertyName ogeler -NotePropertyValue @($cvp.sema.adimlar) -Force
   }
   $kMetin=''
+  # 16.09.2026 (Cem "1.2.3 yap"): HAKEM YENİDEN SORULUYORSA KAYITLI PAKET KULLANILMAZ. ÖLÇÜLDÜ: TMS kurtarmasında yeni teori notu yazıldığı
+  #   hâlde 3 soru iki turda aynı eski paketle HAYIR aldı — hakem kayıtlı kaynak_metin_ozet/kaynak_adlar'ı okuyordu. -HakemYenileId verilen
+  #   soruda iki alan bu koşu için yok sayılır; paket aşağıdaki "taze çek" yolundan kurulur (aynı yol arac/paket-tazele.ps1 sonrası da işler).
+  #   EŞDEĞERLİK: -HakemYenileId boşsa $hakemYenidenSor false → davranış birebir aynı.
+  if($hakemYenidenSor){
+    foreach($eskiAlan in 'kaynak_metin_ozet','kaynak_adlar'){ if($cvp.PSObject.Properties[$eskiAlan]){ $cvp.PSObject.Properties.Remove($eskiAlan) } }
+    Write-Host "  HAKEM YENİDEN: $id kayıtlı paket yok sayıldı, taze kuruluyor" -ForegroundColor DarkCyan
+  }
   if($cvp.PSObject.Properties['kaynak_metin_ozet'] -and $cvp.kaynak_metin_ozet){ $kMetin=$cvp.kaynak_metin_ozet }
   elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
     $parca=New-Object System.Collections.Generic.List[string]
@@ -3817,6 +3825,8 @@ foreach($id in @($don.Keys)){
     $amb2=AmbarCek $ds
     $kMetin=$amb2.metin
     if($amb2.adlar.Count){ $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb2.adlar) -Force }
+    # 16.09: hakem yeniden sorulduysa taze paket özeti de yazılır — kör çözüm (~4122) ve ikiz (~4867) bu alanı okur; boş kalırsa paketsiz koşarlar.
+    if($hakemYenidenSor -and "$kMetin".Trim()){ $kpAt3=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $kMetin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt3)) -Force }
   }
   # 03.09 ATIF GENISLETME: modelin dayanak alaninda andigi maddeler ambardan cekilip
   # kaynak paketinin BASINA konur (hakem once bunlari gorur). Ambarda yoksa paket degismez.
