@@ -20,6 +20,38 @@ hepsi ❌ → TR-IP'li sunucu şart.
 > Aynı sınav mevzuat.gov.tr'ye de uygulandı: o **iki araçla da inmedi**.
 > Yani TR-IP ihtiyacı gerçek, ama **tek kaynağa** iniyor.
 
+## Koşu 2026-09-16 10:09 UTC · çıkış IP `135.119.38.211`
+
+| # | Hedef | HTTP | İçerik tipi | Bayt | İmza | Sonuç |
+|---|---|---|---|---:|---|---|
+| 1 | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) | 000 |  | 0000 | bilinmiyor (beklenen PDF) | ❌ ENGEL — bağlantı kurulamadı |
+| 2 | mevzuat.gov.tr MevzuatMetin (SPKn 6362) | 000 |  | 0000 | bilinmiyor (beklenen PDF) | ❌ ENGEL — bağlantı kurulamadı |
+| 3 | resmigazete.gov.tr ana sayfa | 000 |  | 0000 | bilinmiyor (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
+| 4 | resmigazete.gov.tr fihrist (gunluk tarama kaynagi) | 000 |  | 0000 | bilinmiyor (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
+| 5 | ekap.kik.gov.tr bulten indirme (IHALE kaynagi) | 200 | text/html | 37459 | HTML (beklenen HTML) | ✅ İNDİ |
+| 6 | api.ted.europa.eu arama (yurtdisi ihale) | 405 | application/json | 64 | JSON (beklenen JSON) | ⚠️ ERİŞİM VAR — kod 405, imza JSON (istek düzeltilmeli) |
+| 7 | mevzuat.spk.gov.tr API (Search/All) | 200 | application/json | 368090 | JSON (beklenen JSON) | ✅ İNDİ |
+| 8 | mevzuat.spk.gov.tr belge (Teblig III-52.1) | 200 | application/pdf | 240744 | PDF (beklenen PDF) | ✅ İNDİ |
+| 9 | spl.com.tr calisma notu sayfasi | 200 | text/html | 507682 | HTML (beklenen HTML) | ✅ İNDİ |
+| 10 | spl.com.tr calisma notu PDF (1001) | 200 | application/pdf | 3248913 | PDF (beklenen PDF) | ✅ İNDİ |
+| 11 | tspb.org.tr Meslek Kurallari PDF | 200 | application/pdf | 55746 | PDF (beklenen PDF) | ✅ İNDİ |
+| 12 | spk.gov.tr dosya arama | 200 | text/html | 32744 | HTML (beklenen HTML) | ✅ İNDİ |
+| 13 | kgk.gov.tr standart PDF (TFRS 10, Kirmizi Kitap) | 200 | application/pdf | 538837 | PDF (beklenen PDF) | ✅ İNDİ |
+| 14 | kgk.gov.tr denetim standardi (BDS 200) | 200 | application/pdf | 1258943 | PDF (beklenen PDF) | ✅ İNDİ |
+| 15 | mevzuat.gov.tr ana sayfa (domainin TAMAMI mi engelli) | 000 |  | 0000 | PDF (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
+| 16 | mevzuat.gov.tr TLS'siz (http) | 302 |  | 0000 | PDF (beklenen HTML) | ⚠️ ERİŞİM VAR — kod 302, imza PDF (istek düzeltilmeli) |
+| 17 | TBMM kanun metni (OZGUN hal - konsolide DEGIL) | 200 | text/html | 64567 | HTML (beklenen HTML) | ✅ İNDİ |
+| 18 | resmigazete arsiv sayfasi (ozgun yayim) | 000 |  | 0000 | HTML (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
+| 19 | gib.gov.tr mevzuat (vergi tarafi) | 404 | text/html | 37072 | HTML (beklenen HTML) | ⚠️ ERİŞİM VAR — kod 404, imza HTML (istek düzeltilmeli) |
+| 20 | mevzuat.adalet.gov.tr | 200 | text/html | 1235 | HTML (beklenen HTML) | ✅ İNDİ |
+| 21 | ilan.gov.tr AdsByFilter (ALACAK+IHALE kaynagi) | 000 |  | 0000 | bilinmiyor (POST) | ❌ ENGEL — bağlantı kurulamadı |
+| 22 | api.ted.europa.eu arama (yurtdisi ihale) | 200 | application/json | 4468 | JSON (POST) | ✅ İNDİ (POST) |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+
 ## Koşu 2026-09-15 20:22 UTC · çıkış IP `128.24.161.19`
 
 | # | Hedef | HTTP | İçerik tipi | Bayt | İmza | Sonuç |
@@ -51,6 +83,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-15 10:16 UTC · çıkış IP `172.182.225.3`
 
@@ -88,6 +125,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-14 21:00 UTC · çıkış IP `4.236.159.225`
 
@@ -130,6 +172,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-14 10:52 UTC · çıkış IP `20.189.186.1`
 
@@ -177,6 +224,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-13 19:38 UTC · çıkış IP `134.33.99.225`
 
@@ -229,6 +281,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-13 10:27 UTC · çıkış IP `20.109.95.163`
 
@@ -286,6 +343,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-12 19:33 UTC · çıkış IP `135.119.239.32`
 
@@ -348,6 +410,11 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-12 09:29 UTC · çıkış IP `52.150.28.36`
 
@@ -415,80 +482,13 @@ hepsi ❌ → TR-IP'li sunucu şart.
 | — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
 | — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
 | — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
+| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
+| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
+| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
+| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201805 | HTML | ✅ İNDİ |
 
 ## Koşu 2026-09-11 19:55 UTC · çıkış IP `172.184.210.244`
-
-| # | Hedef | HTTP | İçerik tipi | Bayt | İmza | Sonuç |
-|---|---|---|---|---:|---|---|
-| 1 | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) | 000 |  | 0000 | bilinmiyor (beklenen PDF) | ❌ ENGEL — bağlantı kurulamadı |
-| 2 | mevzuat.gov.tr MevzuatMetin (SPKn 6362) | 000 |  | 0000 | bilinmiyor (beklenen PDF) | ❌ ENGEL — bağlantı kurulamadı |
-| 3 | resmigazete.gov.tr ana sayfa | 000 |  | 0000 | bilinmiyor (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
-| 4 | resmigazete.gov.tr fihrist (gunluk tarama kaynagi) | 000 |  | 0000 | bilinmiyor (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
-| 5 | ekap.kik.gov.tr bulten indirme (IHALE kaynagi) | 200 | text/html | 37455 | HTML (beklenen HTML) | ✅ İNDİ |
-| 6 | api.ted.europa.eu arama (yurtdisi ihale) | 405 | application/json | 64 | JSON (beklenen JSON) | ⚠️ ERİŞİM VAR — kod 405, imza JSON (istek düzeltilmeli) |
-| 7 | mevzuat.spk.gov.tr API (Search/All) | 200 | application/json | 368090 | JSON (beklenen JSON) | ✅ İNDİ |
-| 8 | mevzuat.spk.gov.tr belge (Teblig III-52.1) | 200 | application/pdf | 240744 | PDF (beklenen PDF) | ✅ İNDİ |
-| 9 | spl.com.tr calisma notu sayfasi | 200 | text/html | 507682 | HTML (beklenen HTML) | ✅ İNDİ |
-| 10 | spl.com.tr calisma notu PDF (1001) | 200 | application/pdf | 3248913 | PDF (beklenen PDF) | ✅ İNDİ |
-| 11 | tspb.org.tr Meslek Kurallari PDF | 200 | application/pdf | 55746 | PDF (beklenen PDF) | ✅ İNDİ |
-| 12 | spk.gov.tr dosya arama | 200 | text/html | 32820 | HTML (beklenen HTML) | ✅ İNDİ |
-| 13 | kgk.gov.tr standart PDF (TFRS 10, Kirmizi Kitap) | 200 | application/pdf | 538837 | PDF (beklenen PDF) | ✅ İNDİ |
-| 14 | kgk.gov.tr denetim standardi (BDS 200) | 200 | application/pdf | 1258943 | PDF (beklenen PDF) | ✅ İNDİ |
-| 15 | mevzuat.gov.tr ana sayfa (domainin TAMAMI mi engelli) | 000 |  | 0000 | PDF (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
-| 16 | mevzuat.gov.tr TLS'siz (http) | 302 |  | 0000 | PDF (beklenen HTML) | ⚠️ ERİŞİM VAR — kod 302, imza PDF (istek düzeltilmeli) |
-| 17 | TBMM kanun metni (OZGUN hal - konsolide DEGIL) | 200 | text/html | 64464 | HTML (beklenen HTML) | ✅ İNDİ |
-| 18 | resmigazete arsiv sayfasi (ozgun yayim) | 000 |  | 0000 | HTML (beklenen HTML) | ❌ ENGEL — bağlantı kurulamadı |
-| 19 | gib.gov.tr mevzuat (vergi tarafi) | 404 | text/html | 37072 | HTML (beklenen HTML) | ⚠️ ERİŞİM VAR — kod 404, imza HTML (istek düzeltilmeli) |
-| 20 | mevzuat.adalet.gov.tr | 200 | text/html | 1235 | HTML (beklenen HTML) | ✅ İNDİ |
-| 21 | ilan.gov.tr AdsByFilter (ALACAK+IHALE kaynagi) | 000 |  | 0000 | bilinmiyor (POST) | ❌ ENGEL — bağlantı kurulamadı |
-| 22 | api.ted.europa.eu arama (yurtdisi ihale) | 200 | application/json | 4468 | JSON (POST) | ✅ İNDİ (POST) |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200582 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200582 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 199440 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 199440 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 199432 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 199432 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201050 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201050 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 201046 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 201046 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 199681 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 199681 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200380 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200380 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200376 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200376 | HTML | ✅ İNDİ |
-| — | ilan.gov.tr AdsByFilter — **üretim aracı (pwsh/.NET)** | 200 | application/json | — | JSON (POST) | ✅ İNDİ (81 kayıt) |
-| — | mevzuat.gov.tr GeneratePdf (Teblig III-39.1) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | mevzuat.gov.tr MevzuatMetin (SPKn 6362) — **üretim aracı (pwsh/.NET)** | — | — | — | — | ❌ İNMEDİ (The request was canceled due to the configured HttpClient.Timeout of 90 seconds elapsing.) |
-| — | resmigazete.gov.tr ana sayfa — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
-| — | resmigazete.gov.tr fihrist (gunluk taramanin kaynagi) — **üretim aracı (pwsh/.NET)** | 200 | — | 200384 | HTML | ✅ İNDİ |
-
-## Koşu 2026-09-11 09:54 UTC · çıkış IP `158.23.190.68`
 
 | # | Hedef | HTTP | İçerik tipi | Bayt | İmza | Sonuç |
 |---|---|---|---|---:|---|---|
