@@ -400,3 +400,14 @@ Hakikat ölçümü: **TSRS 2 EKSİK → TAM** (resmî 113 numara / ambar 114). K
 **Yedekler:** `veri/fabrika/yedek-KYS1-20260916-1108.json` · `yedek-KYS2-20260916-1135.json` · `yedek-EtikKurallar-20260916-1120.json` (ilk 569) · `yedek-EtikKurallar-20260916-1128.json` (ara 1.084) — kopyaları `_yerel-veri-kasasi/baglama-yedek/`.
 
 **Tazeleme sonrası:** hakikat ölçümü **89 standart, 72 TAM** (sabah 86/69) — ETİK, KYS 1, KYS 2 TAM. Denetim modülünde tek ZAYIF: BDS 720 (9 paragraf). Excel: şimdi basılabilir **2.335** · önce onarım 280 · basılamaz 319; Denetim 403 / 33 / 0.
+
+---
+
+## GÜNCELLEME 16.09 ~13:00 · Cem "1.2.3 üçünü de yap" — cümle kapsaması (hakikat EKSİK'leri metin mi, etiket mi?)
+
+Yeni araç `arac/kgk-cumle-kapsama.ps1` → `veri/kgk-cumle-kapsama.json` (bedel 0, ambara yazmaz). Resmî PDF'in her cümlesi (harf-yalnız, baş ya da son 40 harf) ambardaki standart metninde aranır.
+Kalibrasyon: hakikatte TAM 8 standartta gürültü **%0,2–1,6** (ilk sürüm %15–23 veriyordu: layout'ta cümle başına bölüm başlığı + sayfa üst bilgisi yapışıyor → baş/son penceresi + kısaltma atma). Eşik %5.
+
+**Sonuç: hakikatte EKSİK 17 standardın 16'sı METİN TAM** — BDS 720, TFRS 1/2/5/7/8/9/12/17, TMS 20/21/27/32/33/34/36. Bunlarda sorun gerçekten **etiket** (paragraf ayrı parça değil; ör. TMS 27 91 cümle 15 parçada, TFRS 9 511 bin kr 272 parçada) → paket hassasiyeti düşük ama soru yazılabilir.
+**Tek METİN EKSİK: TFRS 18** — resmî 835 cümlenin hiçbiri ambarda yok (ambarda 23 parçalık özet). Karar Cem'de (103 parti bağı, 65'i SGS).
+KYS 1 ve Etik'te 16.09 sabahı bulunan gerçek kayıp muhasebe setinde **tekrarlanmıyor**.
