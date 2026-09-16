@@ -22,7 +22,10 @@ $ISTEK_BASLIK = @{ apikey = $SERVIS_ANAHTARI; Authorization = "Bearer $SERVIS_AN
 $YEDEK_DIZIN = 'C:\TETIKTE-YEDEK\paket-tazele'; New-Item -ItemType Directory -Force $YEDEK_DIZIN | Out-Null
 $PARTI_ID = [ordered]@{}
 foreach ($oge in ($Liste -split ',')) { $p = $oge.Trim() -split '\|'; if ($p.Count -ne 2) { continue }; if (-not $PARTI_ID.Contains($p[0])) { $PARTI_ID[$p[0]] = New-Object System.Collections.Generic.List[string] }; $PARTI_ID[$p[0]].Add($p[1]) }
+$KOSAN_BULUT = @()
+if ($Yaz) { $KOSAN_BULUT = @(& (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\bulut-kosan-etiketler.ps1') -Kati) }   # 16.09 kural: bulutta koşan partiye yazılmaz
 foreach ($etiketAd in $PARTI_ID.Keys) {
+  if ($KOSAN_BULUT -contains $etiketAd) { "ATLANDI (bulutta koşuyor): $etiketAd"; continue }
   $satirlar = @(Invoke-RestMethod -Uri ("$TABLO_UCU" + "?select=etiket,sinav,icerik&etiket=eq.$([uri]::EscapeDataString($etiketAd))") -Headers $ISTEK_BASLIK -TimeoutSec 180 | ForEach-Object { $_ })
   if (-not $satirlar.Count) { "YOK: $etiketAd"; continue }
   $satir = $satirlar[0]; $icerik = $satir.icerik

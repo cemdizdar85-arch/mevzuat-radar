@@ -180,6 +180,12 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   anlık yola düşme yok. `motor/kalip-kosucu.ps1` yerelde **durur** (`MEVZUAT_YEREL_BASIM='<gerekçe>'` ile bilerek açılır — yalnız
   hazır-soru dosyası gibi bu makineye bağlı işler için). Neden: 16.09'da yerel koşular 65 süreç, 281 MB boş RAM, paralellik 1 üretti.
   Yerelde kalan tek iş: planı kurmak, küçük onarım (`kalip-parti-uret.ps1 -PilotId`), ölçüm.
+- ⛔⭐ **BULUTTA KOŞAN PARTİYE AMBARDAN YAZILMAZ** (16.09.2026, Cem "1.2.3 yap"). Bulut işi partiyi başta indirir, sonda
+  tamamını yükler; arada ambara yazan her iş (kaynak bağı taşıma, `arac/paket-tazele.ps1`, elle düzeltme) ya ezilir ya
+  bulutun sonucunu siler. Ambardaki bir **kaynağı yeniden bölen/yutan** iş de (standart-yut, TFRS/TMS resmî metin) bağlı
+  partileri bayatlatır. Kural: parti yazan araç önce `arac/bulut-kosan-etiketler.ps1 -Kati` çağırır, çıkan etiketleri
+  atlar (plan adı okunamayan eski iş varsa bekler). Kaynak yeniden bölme işi, etki raporundaki partiler bulutta koşuyorsa
+  o partilerin taşımasını bulut bitene kadar sıraya koyar. 16.09 kanıtı: TFRS 18 taşımasında 17 SGS partisinin 13'ü koşuyordu.
 - ⛔⭐ **BULUT GÜVENLİĞİ — "bulut güvenli, kimse sızamaz" DENMEZ** (16.09.2026, Cem: *"güvenlik kısmını kural olarak yaz"*).
   Ölçülmüş gerçek (16.09): depo **PUBLIC**; Actions iş günlükleri herkese açık. 13.09 bulut koşusunun günlüğünde soru metni **yok**,
   sırlar `***` ile maskeli. Ama depoda plan/konu dosyaları, `veri/mevzuat/teori-notlari-*.json` ve (14.09 ölçümü) 7.043 SGS sorusu taşıyan

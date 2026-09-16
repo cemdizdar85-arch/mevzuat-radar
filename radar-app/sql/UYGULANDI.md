@@ -368,4 +368,9 @@ gerekçe ölçüldü: `motor/kalip-parti-uret.ps1` içindeki **KAPI-BAKIYE** her
 ## `TASLAK-2026-09-15-paket-soru.sql` — ⏸ TASLAK, BASILMADI (Adım 2)
 | Dosya | Ne yapar | Durum |
 |---|---|---|
-| `radar-app/sql/TASLAK-2026-09-15-paket-soru.sql` | `paket_soru` kasası (RLS: aktif paket + ders bazlı erişim), anonim `ucretsiz_soru` görünümü (doğru şık YOK), `seviye_kontrol()` sunucu cevap kontrolü (hız sınırlı) | ⏸ **BASILMADI — kart ödemesi haftası + Cem'in 3 kararı** (ADIM2-PAKET-KASASI-PLANI.md). Yükleyici `motor/kasa-soru-yukle.js` kuru koşu 15.09: 16 sayfa, 3.727 satır (518 ücretsiz = vitrin 70 + seviye havuzu 450, 2 ortak), 49,9 MB. Basmadan önce dosya başındaki 3 koşul. |
+| `radar-app/sql/TASLAK-2026-09-15-paket-soru.sql` | `paket_soru` kasası (RLS: aktif paket + ders bazlı erişim), anonim `ucretsiz_soru` görünümü (doğru şık YOK), `seviye_kontrol()` sunucu cevap kontrolü (hız sınırlı) | ⛔ **ESKİDİ — `2026-09-16-paket-soru.sql` ile değişti, BU DOSYA BASILMAZ.** Yükleyici `motor/kasa-soru-yukle.js` kuru koşu 15.09: 16 sayfa, 3.727 satır (518 ücretsiz = vitrin 70 + seviye havuzu 450, 2 ortak), 49,9 MB. |
+
+## 16.09.2026 · Adım 2 paket soru kasası (Cem "1.2.3 üçünü de yap")
+| Dosya | Ne yapar | Eskitir | Durum |
+|---|---|---|---|
+| `radar-app/sql/2026-09-16-paket-soru.sql` | `paket_soru` kasası (RLS: aktif paket + ders bazlı erişim), anonim `ucretsiz_soru` görünümü (doğru şık YOK), `seviye_kontrol(p_id,p_secim)`: IP'yi **sunucu başlığından** okur (taslakta tarayıcı bildiriyordu, boş IP sınırı atlıyordu), 40 kontrol / 10 dk | `TASLAK-2026-09-15-paket-soru.sql` (imzası `seviye_kontrol(text,text,text)` idi — basılmadı, drop gerekmez) | ⏳ **BASILMADI — Cem onayı bekliyor (16.09).** Basım öncesi ölçüm 16.09: `paket_soru` 404 · `ucretsiz_soru` 404 · `rpc/seviye_kontrol` 404 · `rate_limit_check` true · `paket_uyeler.dersler` var. Yükleyici kuru koşu 16.09: 16 sayfa, **4.042 satır** (738 ücretsiz; seviye havuzu 675 kimlik, bulunamayan 0), 52,9 MB, kimlik tekrarı 0. |
