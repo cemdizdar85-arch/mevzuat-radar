@@ -107,8 +107,28 @@ jobs:
   uret:
     runs-on: windows-latest
     timeout-minutes: 350        # GitHub is tavani 360; yukleme adimina pay birakildi
+    env:
+      # 16.09 (Cem "depoda soru icerigi kalmasin"): sinav calisma dosyalari gizli depoya (tetikte-kasa) tasiniyor.
+      # Anahtar (KASA_OKUMA_TOKEN, yalniz tetikte-kasa contents:read) Cem tarafindan eklenince adim kendiliginden calisir; yokken is AYNEN eskisi gibi.
+      KASA_VAR: ${{ secrets.KASA_OKUMA_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Gizli kasa (anahtar varsa)
+        if: env.KASA_VAR == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: cemdizdar85-arch/tetikte-kasa
+          token: ${{ secrets.KASA_OKUMA_TOKEN }}
+          path: _kasa
+
+      - name: Kasa dosyalarini calisma agacina koy (anahtar varsa)
+        if: env.KASA_VAR == 'true'
+        shell: powershell
+        run: |
+          # Kasadaki veri/ agaci depodaki ayni yollara kopyalanir; kosucu ve uretici yol degistirmeden okur.
+          # Yalniz dosya SAYISI yazilir (icerik gunluge basilmaz - bulut guvenligi kurali 2).
+          if(Test-Path _kasa/veri){ $n=@(Get-ChildItem _kasa/veri -Recurse -File).Count; Copy-Item -Path _kasa/veri/* -Destination veri -Recurse -Force; "kasadan kopyalanan dosya: $n" } else { "kasa bos (veri/ yok)" }
 
       - name: Sirlar yerinde mi (kosmadan once DUR)
         shell: powershell
