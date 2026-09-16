@@ -20,6 +20,7 @@ param([string]$Plan = 'veri/sinav/plan-smmm-dalga1.json', [int]$Parca = 8, [swit
   # 16.09 (Cem "1.2.3 üçünü de yap", GM 3): araç ÜÇ SINAVA da açıldı — SGS oturumu kendi kopyasını çıkarmıştı, iki kopya ayrışmasın diye
   # tek araç + -Sinav. Değişen yalnız: köprü süzgeci, konu-dayanak haritası (yalnız bitirmede var) ve çıktı dosyası adı. Ölçüm yolu aynı.
   [ValidateSet('SMMM', 'SGS', 'KGK')][string]$Sinav = 'SMMM',
+  [string]$PaketDok = '',   # 16.09: doluysa her konunun paketi bu klasöre yazılır (ilgi ölçütünü ağsız ayarlamak için)
   [int]$Bastan = 0, [int]$Bitis = 0, [switch]$Ic, [switch]$OzSinav)   # -Ic: paralel alt süreç · -OzSinav: aracın kendisi sağlam mı (2 bilinen konu, plan okumaz, dosya yazmaz)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
@@ -119,6 +120,7 @@ else {
       if ($kokler.Count -eq 0 -or $tut -ge $gerek) { $ilgiliBoy += $blok.Length; $ilgiliSay++; if ($blok -match '^\[([^\]]+)\]') { $ilgiliAd.Add($matches[1]) } }
       elseif ($blok -match '^\[([^\]]+)\]') { $ilgisizAd.Add($matches[1]) }
     }
+    if ($PaketDok) { $pdAd = ((($ders.Substring(0, [math]::Min(12, $ders.Length))) + '__' + $ad) -replace '[^\w\-]', '_') + '.txt'; [IO.File]::WriteAllText((Join-Path $PaketDok $pdAd), $paket, [Text.UTF8Encoding]::new($false)) }
     $durum = $(if ($hata -eq 'AG') { 'OLCULEMEDI-AG' } elseif ($hata) { 'OLCULEMEDI' } elseif ($paket.Length -lt 300) { 'KAYNAK YOK' } elseif ($ilgiliBoy -ge 1000) { 'GUCLU' } elseif ($ilgiliBoy -ge 300) { 'ZAYIF' } else { 'ILGISIZ' })
     $kayit = [ordered]@{ ders = $ders; konu = $ad; soru = [int]$konuSay[$anahtar]; durum = $durum; paketBoy = $paket.Length; ilgiliBoy = $ilgiliBoy; ilgiliKaynak = $ilgiliSay; kokler = ($kokler -join ' '); ilgisizKaynak = (@($ilgisizAd | Select-Object -First 4) -join ' ; '); ilgiliKaynakAd = (@($ilgiliAd | Select-Object -First 4) -join ' ; '); kaynakSayi = $adlar.Count
       kopruKaydi = $kopruVar; dayanak = "$($ky.dayanak)"; cikmisDayanak = "$($ky.cikmis_dayanak)"; desenSayi = $desen.Count
