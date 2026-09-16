@@ -479,10 +479,17 @@ if($yaz){ Write-Host ("AMBARA YENI YAZILAN: {0} | TAZELENEN: {1} | DOKUNULMAYAN:
 # DEGIL, dosya adinin PARCASIDIR - runner'da depo kokune "veri\cikmis-soru-
 # ayrisma.json" adinda tek bir dosya olusuyor, veri/ altina hicbir sey
 # yazilmiyor ve akisin `git add veri/...` adimi sessizce bos donuyordu.
-[IO.File]::WriteAllText((Join-Path $kok 'veri/cikmis-soru-ayrisma.json'),
-  (ConvertTo-Json -InputObject ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); toplamSoru=$topSoru; yazilan=$yazilan; kitapciklar=$rapor.ToArray() }) -Depth 4),
-  (New-Object Text.UTF8Encoding($false)))
-Write-Host "Rapor: veri/cikmis-soru-ayrisma.json"
+# 16.09 KURU KOSU KURALI: bayraksiz koşu (ne -yaz ne -tani) raporu YAZMAZ. Rapor 'son yazma/tani
+# kosusu'dur; SPL karnesi (motor/spl-cikmis-karne.ps1) onu okur, spl-cikmis-hasat.yml commit'ler.
+# KGK zincirinin kuru provasi bu dosyayi KGK sayimiyla ezmisti (16.09 olculdu).
+if($yaz -or $tani){
+  [IO.File]::WriteAllText((Join-Path $kok 'veri/cikmis-soru-ayrisma.json'),
+    (ConvertTo-Json -InputObject ([ordered]@{ tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); toplamSoru=$topSoru; yazilan=$yazilan; kitapciklar=$rapor.ToArray() }) -Depth 4),
+    (New-Object Text.UTF8Encoding($false)))
+  Write-Host "Rapor: veri/cikmis-soru-ayrisma.json"
+} else {
+  Write-Host "KURU KOSU: veri/cikmis-soru-ayrisma.json YAZILMADI (yazmak icin -yaz ya da -tani)."
+}
 
 if($tani){
   $topFiltrelenen = ($bosluklar | Measure-Object -Property filtrelenenSayisi -Sum).Sum

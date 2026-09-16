@@ -63,7 +63,7 @@ if(-not $Yaz){
   Write-Host ''
   Write-Host "KURU PROVA — yapılacaklar: pdf-links.tsv'ye $($eklenecek.Count) satır · kgk-arsiv-indir · cikmis-soru-ayristir (KGK, $(($isler | ForEach-Object { $_.kod }) -join ',')) · cevap anahtarı · ölçümler."
   Write-Host 'Yazmak için -Yaz. Konu etiketleme (adım 6) PARALIDIR — Cem onayı ister.'
-  # ayrıştırıcı kuru koşuda bile veri/cikmis-soru-ayrisma.json yazar (16.09 ölçüldü) → kuru provada ÇAĞRILMAZ
+  # ayrıştırıcı kuru koşuda raporu artık yazmaz (16.09 kuralı); yine de kuru provada çağrılmaz — prova yalnız listeler
 
   exit 0
 }
