@@ -105,7 +105,15 @@ foreach($sv in ($satirlar.sinav | Sort-Object -Unique)){
 $eksikSinav = @('SGS','SMMM','KGK') | Where-Object { $_ -notin @($satirlar.sinav | Sort-Object -Unique) }
 foreach($e in $eksikSinav){ Write-Host ("`n!! {0} ARSIVDE HIC YOK - kaynak adresi bulunmali" -f $e) }
 
-[IO.File]::WriteAllText((Join-Path $kok 'veri\cikmis-soru-karnesi.json'),
+# ⛔ 16.09.2026 KORUMA: veri/cikmis-soru-karnesi.json artık motor/sinav-arsiv-karnesi.ps1'in (23.08) EVREN·DİSK·AMBAR biçimidir;
+#   tek sayfa bölüm 2 onu okur. Bu eski betik ($env:TEMP klasörünü ölçer) aynı dosyayı YIL YIL biçimle ezerdi
+#   (aynı sınıf kaza 16.09'da kgk-analiz.json'da yaşandı). Hedef yeni biçimdeyse çıktı ayrı dosyaya gider.
+$karneHedefi = Join-Path $kok 'veri\cikmis-soru-karnesi.json'
+if((Test-Path $karneHedefi) -and ((Get-Content $karneHedefi -Raw -Encoding UTF8) -match '"evren"')){
+  $karneHedefi = Join-Path $kok 'veri\cikmis-soru-karnesi-yil.json'
+  Write-Host "KORUMA: veri/cikmis-soru-karnesi.json sinav-arsiv-karnesi biçiminde — ezilmedi; bu tablo $karneHedefi dosyasına yazılıyor." -ForegroundColor Yellow
+}
+[IO.File]::WriteAllText($karneHedefi,
   (ConvertTo-Json -InputObject ([ordered]@{
     tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm')
     aciklama='Cikmis sinav kitapciklarinin YIL YIL durumu. Cem bu dosyadan denetler. Eksik satir gizlenmez.'

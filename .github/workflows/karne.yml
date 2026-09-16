@@ -14,11 +14,15 @@
 name: Konu-Kaynak Karnesi
 
 on:
+  # 16.09: haftalik zamanlama - robot push'lari bu akisi tetiklemedigi icin KGK/SMMM karneleri 30.08'den beri bayat kaldi
+  schedule:
+    - cron: "0 0 * * 0"    # pazar 03:00 TR
   workflow_dispatch:
   push:
     paths:
       - 'veri/sgs-analiz.json'          # yeni donem analiz edildi -> karne eskidi
       - 'veri/smmm-analiz.json'
+      - 'veri/kgk-analiz.json'
       - 'motor/konu-kaynak-karnesi.ps1'
       - '.github/workflows/karne.yml'   # elle tetikleme yolu (asagidaki nota bak)
 
@@ -40,24 +44,54 @@ concurrency:
 
 jobs:
   karne:
+    # 16.09 (Cem "1.2.3 ucunude yap"): UC SINAV. Eskiden yalniz SGS kosuyordu; KGK ve SMMM karneleri 30.08'den beri
+    # hic yenilenmedi (yerelde elle uretilmislerdi). Ayni betik KARNE_GIRDI/KARNE_CIKTI ile uc arsivi olcer.
+    # max-parallel 1: uc is ayni veri/karne-log.txt'ye yazar; sirayla kosar, cakisma olmaz. KGK ~2,5 saat surer.
     runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - sinav: SGS
+            girdi: sgs-analiz.json
+            cikti: konu-kaynak-karnesi.json
+          - sinav: SMMM
+            girdi: smmm-analiz.json
+            cikti: konu-kaynak-karnesi-smmm.json
+          - sinav: KGK
+            girdi: kgk-analiz.json
+            cikti: konu-kaynak-karnesi-kgk.json
     steps:
       - uses: actions/checkout@v4
-      - name: Karneyi yenile
+      - name: Karneyi yenile (${{ matrix.sinav }})
         shell: pwsh
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          KARNE_GIRDI: ${{ matrix.girdi }}
+          KARNE_CIKTI: ${{ matrix.cikti }}
         run: ./motor/konu-kaynak-karnesi.ps1
-      - name: Karneyi commit'le
+      # 16.09 (Cem "1 ve 2 yap"): ders karnesi SGS karnesinden türer (dosya okur, ağ/API yok). 30.08'den beri hiçbir robot koşturmuyordu.
+      - name: Ders karnesini yenile (yalnız SGS)
+        if: matrix.sinav == 'SGS'
+        shell: pwsh
+        run: ./motor/ders-karnesi.ps1
+      - name: Karneyi commit'le (${{ matrix.sinav }})
         if: always()
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           # Bu listeye yazilmayan dosya SESSIZCE kaybolur - is akisi yesil biter,
           # dosya uretilir, hicbir yere gitmez.
-          for f in veri/konu-kaynak-karnesi.json veri/karne-log.txt; do
+          for f in "veri/${{ matrix.cikti }}" veri/karne-log.txt $([ "${{ matrix.sinav }}" = "SGS" ] && echo veri/ders-karnesi.json); do
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
-          git diff --cached --quiet || git commit -m "Konu-kaynak karnesi yenilendi [veri-operasyonu]"
-          git pull --rebase --autostash || true
-          git push || true
+          git diff --cached --quiet || git commit -m "Konu-kaynak karnesi yenilendi (${{ matrix.sinav }}) [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin HEAD:main; then exit 0; fi
+            sleep $((i * 7))
+          done
+          echo "::error::Karne (${{ matrix.sinav }}) 5 denemede islenemedi"
+          exit 1
