@@ -14,7 +14,7 @@
 #   - Sonuç: YEŞİL (yeni yok) · KIRMIZI (yeni kitapçık var → çıkış 1, iş akışı Cem'e mail atar) ·
 #     KÖR (sayfa inmedi / hiç girdi ayrıştırılamadı / ambar okunamadı → çıkış 2; sessiz yeşil YOK).
 #   - Rapor: veri/kgk-sinav-nobeti.json (RaporYaz; içerik aynıysa dokunmaz).
-#  Yeni kitapçık çıkınca: pdf-links.tsv'ye satır → motor/kgk-arsiv-indir.ps1 → motor/cikmis-soru-ayristir.ps1 (yerelde).
+#  Yeni kitapçık çıkınca (yerelde): powershell -NoProfile -File arac/kgk-yeni-sinav-yut.ps1 -Yaz  (indir → ayrıştır → ambara yut → ölçümler).
 #  Kullanım: pwsh ./motor/kgk-sinav-nobeti.ps1   (yerelde: powershell -NoProfile -File motor/kgk-sinav-nobeti.ps1)
 # ============================================================================
 $ErrorActionPreference = 'Stop'
@@ -36,7 +36,7 @@ function RaporuYaz([string]$durum, [string]$neden, $girdiler, $yeniler, [int]$bi
     sayfadaki_sinav = $girdiDizisi.Count
     ambarda_bilinen_kod = $bilinenSayisi
     yeni = @($yeniDizisi | ForEach-Object { [ordered]@{ kod=$_.kod; ad=$_.ad; adres=$_.adres } })
-    sayfadakiler = @($girdiDizisi | ForEach-Object { [ordered]@{ kod=$_.kod; ad=$_.ad } })
+    sayfadakiler = @($girdiDizisi | ForEach-Object { [ordered]@{ kod=$_.kod; ad=$_.ad; adres=$_.adres } })
   }
   [void](RaporYaz -Hedef $raporYolu -Nesne $rapor -Sessiz)
 }
@@ -58,7 +58,9 @@ foreach($es in [regex]::Matches($html,"data-href='/(DynamicContent|ContentAssign
   if($ad -notmatch '(?i)s[ıi]nav'){ continue }
   $kod = if($es.Groups[1].Value -eq 'ContentAssignment'){ 'ca' + $es.Groups[2].Value } else { $es.Groups[2].Value }
   if($gorulen.ContainsKey($kod)){ continue }; $gorulen[$kod] = 1
-  $girdiler.Add([pscustomobject]@{ kod=$kod; ad=$ad; adres=('https://kgk.gov.tr/' + $es.Groups[1].Value + 'Detail/' + $es.Groups[2].Value) })
+  # 16.09: sayfa adresi BAŞLIK KISMIYLA (slug) tutulur — başlıksız adres KGK'da hata sayfası döndürür (arac/kgk-yeni-sinav-yut.ps1 bu adresi okur)
+  $tamYol = [regex]::Match($es.Value,"data-href='(/[^']+)'").Groups[1].Value
+  $girdiler.Add([pscustomobject]@{ kod=$kod; ad=$ad; adres=('https://kgk.gov.tr' + $tamYol) })
 }
 # Beklenen alt sınır: 16.09.2026'da sayfada 21 sınav girdisi vardı. Bir anda çok azalırsa sayfa düzeni değişmiştir → KÖR.
 if($girdiler.Count -lt 10){ Write-Host "KÖR: sayfada yalnız $($girdiler.Count) sınav girdisi ayrıştırıldı (düzen değişmiş olabilir)."; RaporuYaz 'KÖR' "ayrıştırılan girdi $($girdiler.Count) (<10)" $girdiler @() 0; exit 2 }

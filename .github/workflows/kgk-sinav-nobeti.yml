@@ -43,7 +43,7 @@ jobs:
         if: failure() && steps.nobet.outcome == 'failure'
         shell: pwsh
         run: |
-          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - KGK yeni sinav kitapcigi (ya da nobetci kor)' -Mesaj "KGK sinav nobetcisi YESIL degil. Durum ve yeni kitapcik listesi: veri/kgk-sinav-nobeti.json. Yeni kitapcik yayimlandiysa: veri/kgk-arsiv/pdf-links.tsv'ye satir -> motor/kgk-arsiv-indir.ps1 -> motor/cikmis-soru-ayristir.ps1 (yerelde). KOR ise sayfa duzeni degismis ya da ambar okunamamistir. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - KGK yeni sinav kitapcigi (ya da nobetci kor)' -Mesaj "KGK sinav nobetcisi YESIL degil. Durum ve yeni kitapcik listesi: veri/kgk-sinav-nobeti.json. Yeni kitapcik yayimlandiysa yerelde tek komut: powershell -NoProfile -File arac/kgk-yeni-sinav-yut.ps1 -Yaz (indir + ayristir + ambara yut + olcumler; konu etiketleme PARALI, ayrica onay). KOR ise sayfa duzeni degismis ya da ambar okunamamistir. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Raporu yayinla (kirmizi olsa da)
         if: always()

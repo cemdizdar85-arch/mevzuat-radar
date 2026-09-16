@@ -1,0 +1,1534 @@
+{
+    "olcum":  "16.09.2026 20:25",
+    "kural":  "EKSİK PDF = sınavın KGK sayfasında olup veri/kgk-arsiv/txt\u0027de karşılığı olmayan dosya (kgk-arsiv-indir ad kuralı). Cevap: kitapçığın sonundaki CEVAP ANAHTARI bölümünde ≥20 \"N. X\" hücresi varsa KİTAPÇIK İÇİNDE. Modül tahmini = hücre/40.",
+    "sinav":  30,
+    "arsiv_sayfasinda":  21,
+    "sayfasi_okunan":  21,
+    "eksik_pdf":  0,
+    "cevap_dagilimi":  {
+                           "KİTAPÇIK İÇİNDE":  27,
+                           "KISMİ (görüntü)":  1,
+                           "AYRI DOSYADA":  1,
+                           "YOK (taranmış/okunamadı)":  1
+                       },
+    "sinavlar":  [
+                     {
+                         "kod":  "12104",
+                         "ad":  "22 Kasım 2025 Tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınav Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  560,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "12104_22_Kasım_2025_Bağımsız_Denetçilik_Sınavı_Sabah_Oturumu-A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "12104_22_Kasım_2025_Bağımsız_Denetçilik_Sınavı_Sabah_Oturumu-B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "12104_22_Kasım_2025_Bağımsız_Denetçilik_Sınavı_Ö_S__Oturumu-A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "12104_22_Kasım_2025_Bağımsız_Denetçilik_Sınavı_Ö_S__Oturumu-B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "12103",
+                         "ad":  "27 Haziran 2026 Tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınav Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  560,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "12103_27Haziran2026OgledenSonraOturumu-A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "12103_27Haziran2026OgledenSonraOturumu-B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "12103_27Haziran2026SabahOturumu-B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "12103_27Haziran2026SabahOturumuA",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11972",
+                         "ad":  "28 Haziran 2025 tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınavı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  560,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11972_Sabah_A_Kitapçığı_-_28_Haziran_2025_1_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11972_Sabah_B_Kitapçığı_-_28_Haziran_2025_1_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11972_ÖS_A_Kitapçığı_-_28_Haziran_2025",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "11972_ÖS_B_Kitapçığı_-_28_Haziran_2025",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11971",
+                         "ad":  "5 Nisan 2025 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  2,
+                         "diskte":  2,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  2,
+                         "cevap_hucresi_toplam":  80,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11971_Sürdürülebilirlik_Denetçiliği_Sınavı_A_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             },
+                                             {
+                                                 "dosya":  "11971_Sürdürülebilirlik_Denetçiliği_Sınavı_B_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11970",
+                         "ad":  "25 Ocak 2025 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  2,
+                         "diskte":  2,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  2,
+                         "cevap_hucresi_toplam":  80,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11970_Sürdürülebilirlik_Denetçiliği_Sınavı_A_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             },
+                                             {
+                                                 "dosya":  "11970_Sürdürülebilirlik_Denetçiliği_Sınavı_B_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11969",
+                         "ad":  "23 Kasım 2024 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  2,
+                         "diskte":  2,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  2,
+                         "cevap_hucresi_toplam":  80,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11969_23_Kasım_2024_Tarihli_Sürdürülebilirlik_Denetçiliği_Sınavı_Soru_Kitapçığı_-_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             },
+                                             {
+                                                 "dosya":  "11969_23_Kasım_2024_Tarihli_Sürdürülebilirlik_Denetçiliği_Sınavı_Soru_Kitapçığı_-_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11967",
+                         "ad":  "23 Kasım 2024 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevapları",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  2,
+                         "diskte":  2,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  2,
+                         "cevap_hucresi_toplam":  240,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11967_23_Kasım_2024_Tarihli_Bağımsız_Denetçilik_Sınavı_Soru_Kitapçığı_-_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11966",
+                         "ad":  "21 Eylül 2024 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  2,
+                         "diskte":  2,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  2,
+                         "cevap_hucresi_toplam":  80,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11966_21_EYLÜL_2024_SÜRDÜRÜLEBİLİRLİK_DENETÇİLİĞİ_SINAVI_A_KİTAPÇIĞI",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             },
+                                             {
+                                                 "dosya":  "11966_21_EYLÜL_2024_SÜRDÜRÜLEBİLİRLİK_DENETÇİLİĞİ_SINAVI_B_KİTAPÇIĞI",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11769",
+                         "ad":  "29 Haziran 2024 Tarihli Bağımsız Denetçilik Sınavı Soru Kitapçığı ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11769_Sabah_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11769_Sabah_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11769_ÖS_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11769_ÖS_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11544",
+                         "ad":  "19 Kasım 2023 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11544_19_Kasım_2023_Bağımsız_Denetçilik_Sınavı_Sabah_Oturumu_-_A_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11544_19_Kasım_2023_Bağımsız_Denetçilik_Sınavı_Sabah_Oturumu_-_B_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11544_19_Kasım_2023_Bağımsız_Denetçilik_Sınavı_Öğleden_Sonra_Oturumu_-_A_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11544_19_Kasım_2023_Bağımsız_Denetçilik_Sınavı_Öğleden_Sonra_Oturumu_-_B_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11487",
+                         "ad":  "08 Temmuz 2023 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  400,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11487_Sabah-A-08_07_2023-_1_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "11487_Sabah-B-08_07_2023-_1_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "11487_Ö_S_-A-08_07_2023-",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11487_Ö_S_-B-08_07_2023-",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "11486",
+                         "ad":  "12 Kasım 2022 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "11486_SabahOturumu_A_Kitapcigi_12_11_2022",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11486_Sabah_Oturumu_B_Kitapcigi_12_1_2022",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11486_Öğleden_Sonra_Oturumu_-_A_Kitapçığı_12_11_2022",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             },
+                                             {
+                                                 "dosya":  "11486_Öğleden_Sonra_Oturumu_-_B_Kitapçığı_12_11_2022",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  120,
+                                                 "modul_tahmini":  3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "10270",
+                         "ad":  "13 Haziran 2021 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "10270_13_Haziran_2021_Sabah_Oturumu_-A-_Kitapçığı_1_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "10270_13_Haziran_2021_Sabah_Oturumu_-B-_Kitapçığı__1_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-A-_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "10270_13_Haziran_2021_Öğleden_Sonra_Oturumu_-B-_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "10248",
+                         "ad":  "14 Kasım 2020 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KISMİ (görüntü)",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  80,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "10248_OS_A_Kitapcigi_14_11_2020",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "10248_OS_B_Kitapcigi14_11_2020",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  true,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             },
+                                             {
+                                                 "dosya":  "10248_Sabah_A_Kitapcigi__14_11_2020",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  true,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  40,
+                                                 "modul_tahmini":  1
+                                             },
+                                             {
+                                                 "dosya":  "10248_Sabah_B_Kitapcigi_14_11_2020",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "ca4695",
+                         "ad":  "22 Ağustos 2020 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_A_Kitapçığı_-_22_08_2020_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "ca4695_Bağımsız_Denetçilik_Sınavı_II__Oturum_-_B_Kitapçığı_-_22_08_2020_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "ca4695_Bağımsız_Denetçilik_Sınavı_I__Oturum_-_A_Kitapçığı_-_22_08_2020_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "ca4695_Bağımsız_Denetçilik_Sınavı_I__Oturum_-_B_Kitapçığı_-_22_08_2020_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "10209",
+                         "ad":  "24 Kasım 2019 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "10209_BirinciOturumAKitapcigi",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "10209_BirinciOturumBKitapcigi",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "10209_IkiniciOturumAKitapcigi",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "10209_IkiniciOturumBKitapcigi",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "10202",
+                         "ad":  "29 Haziran 2019 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  8,
+                         "diskte":  8,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "AYRI DOSYADA",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  0,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "10202_A-KİTAPÇIĞI-SABAH",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "10202_A_KİTAPÇIĞI-SABAH-CEVAPANAHTARI",
+                                                 "ayri_anahtar_dosyasi":  true,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "10202_A_KİTAPÇIĞI-Ö_S_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "10202_A_KİTAPÇIĞI-ÖĞLEDENSONRA-CEVAPANAHTARI",
+                                                 "ayri_anahtar_dosyasi":  true,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "10202_B_KİTAPÇIĞI-SABAH-CEVAPANAHTARI",
+                                                 "ayri_anahtar_dosyasi":  true,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "10202_B_KİTAPÇIĞI-SABAH",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "10202_B_KİTAPÇIĞI-ÖĞLEDENSONRA-CEVAPANAHTARI",
+                                                 "ayri_anahtar_dosyasi":  true,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "10202_B_KİTAPÇIĞI_Ö_S_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "8166",
+                         "ad":  "11 Kasım 2018 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  537,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "8166_Birinci_Oturum_A_Grubu_Sınav_Soru_ve_Cevapları",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  171,
+                                                 "modul_tahmini":  4.3
+                                             },
+                                             {
+                                                 "dosya":  "8166_Birinci_Oturum_B_Grubu_Sınav_Soru_ve_Cevapları",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  171,
+                                                 "modul_tahmini":  4.3
+                                             },
+                                             {
+                                                 "dosya":  "8166_İkinci_Oturum_A_Grubu_Sınav_Soru_ve_Cevapları",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  103,
+                                                 "modul_tahmini":  2.6
+                                             },
+                                             {
+                                                 "dosya":  "8166_İkinci_Oturum_B_Grubu_Sınav_Soru_ve_Cevapları",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  92,
+                                                 "modul_tahmini":  2.3
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "8031",
+                         "ad":  "14 Mayıs 2017 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "8031_A_SINAV_SABAH_duzeltilmis",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "8031_B_SINAV_SABAH_duzeltilmis",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "8031_Sinav_Ogle_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "8031_Sinav_Ogle_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "8030",
+                         "ad":  "12 Kasım 2017 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "8030_SINAV_SABAH_A_12_11_2017",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "8030_SINAV_SABAH_B_12_11_2017",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "8030_SINAV_ÖĞLEDEN_SONRA_A_12_11_2017",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "8030_SINAV_ÖĞLEDEN_SONRA_B_12_11_2017",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6558",
+                         "ad":  "25 Ağustos 2013 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                         "arsiv_sayfasinda":  true,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "OKUNDU",
+                         "sayfadaki_pdf":  4,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6558_OGLE_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6558_OGLE_B_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6558_SABAH_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6558_SABAH_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6541",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6541_13_KASIM_2016_-SINAV_SABAH_-_A_Birinci_Oturum",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6541_13_KASIM_2016_-SINAV_SABAH_-_B_Birinci_Oturum",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_A_Ikinci_Oturum",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6541_13_KASIM_2016_-SINAV_ÖĞLEDEN_SONRA_-_B_Ikinci_Oturum",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6551",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "YOK (taranmış/okunamadı)",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  0,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6551_15_MAYIS_2016_A-1",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "6551_15_MAYIS_2016_A-2",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "6551_15_MAYIS_2016_B-1",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             },
+                                             {
+                                                 "dosya":  "6551_15_MAYIS_2016_B-2",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  false,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  0,
+                                                 "modul_tahmini":  0
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6553",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6553_12092015_OGLE_A_",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6553_12092015_OGLE_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6553_12092015_SABAH_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6553_12092015_SABAH_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6555",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6555_1603OGLE_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6555_1603OGLE_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6555_1603SABAH_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6555_1603SABAH_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6556",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6556_OGLE_A_23092014",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6556_OGLE_B_23092014",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6556_SABAH_A_23092014",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6556_SABAH_B_23092014",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "6557",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "6557_OGLE_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6557_OGLE_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "6557_SABAH_A",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "6557_SABAH_B",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "ca1444",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "ca1444_SABAH-A_KİTAPÇIĞI-13_05_2018",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "ca1444_SABAH-B_KİTAPÇIĞI-13_05_2018",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "ca1444_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI-13_05_2018",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "ca1444_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI-13_05_2018",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "ca4801",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  4,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  4,
+                         "cevap_hucresi_toplam":  480,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_SABAH_-A_KİTAPÇIĞI",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_SABAH_-B_KİTAPÇIĞI",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-A_KİTAPÇIĞI",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             },
+                                             {
+                                                 "dosya":  "ca4801_14_KASIM_2021_BAĞIMSIZ_DENETÇİLİK_SINAVI_-_ÖĞLEDEN_SONRA-B_KİTAPÇIĞI",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  80,
+                                                 "modul_tahmini":  2
+                                             }
+                                         ]
+                     },
+                     {
+                         "kod":  "ca4841",
+                         "ad":  "",
+                         "arsiv_sayfasinda":  false,
+                         "tsv_listesinde":  true,
+                         "sayfa":  "ARŞİV SAYFASINDA YOK",
+                         "sayfadaki_pdf":  0,
+                         "diskte":  2,
+                         "eksik_pdf":  [
+
+                                       ],
+                         "cevap":  "KİTAPÇIK İÇİNDE",
+                         "kitapcik":  2,
+                         "cevap_hucresi_toplam":  320,
+                         "kitapciklar":  [
+                                             {
+                                                 "dosya":  "ca4841_Bağımsız_Denetçilik_Sınavı_-_A_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             },
+                                             {
+                                                 "dosya":  "ca4841_Bağımsız_Denetçilik_Sınavı_-_B_Kitapçığı",
+                                                 "ayri_anahtar_dosyasi":  false,
+                                                 "cevap_bolumu":  true,
+                                                 "dikey_liste":  false,
+                                                 "pdf_son_sayfa":  false,
+                                                 "cevap_hucresi":  160,
+                                                 "modul_tahmini":  4
+                                             }
+                                         ]
+                     }
+                 ]
+}
