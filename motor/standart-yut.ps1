@@ -165,8 +165,17 @@ function SY_Bol([string]$metin, [string]$std){
     # 16.09 (TSRS): metnin İÇİNDEKİ "Ek A'da tanımlanan terimler, … italik yazılmıştır." cümlesi de bu desene uyuyor ve
     # sözlük kipini ana metnin ORTASINDA açıyordu → TSRS 1'in 1–86 paragrafı Ek A yığınına akmıştı (5 paragraf kaldı).
     # Sütun kipinde (yalnız TSRS) başlığın TEK BAŞINA durması şartı konur; öteki standartlarda desen aynen korunur.
-    if($s -match '^Ek\s+A\b' -and (-not $sutunKip -or $s -match '^Ek\s+A\s*$')){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$true; $baslik='Ek A - Tanımlanan terimler'; continue }
-    if($s -match '^Ek\s+([B-Z])\b' -and (-not $sutunKip -or $s -match '^Ek\s+[B-Z]\s*$')){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$false; $baslik=$s; continue }
+    # 16.09 (Cem "2 ve 3 yap", KGK hakikat EKSİK'leri): aynı kusur TMS/TFRS'de de vardı — satır başına düşen "Ek A'daki finansal risk tanımı…"
+    #   (TFRS 17 B8 gövdesi) ve "Ek A Bölümü'nde ve TMS 28'in … tanımlanmaktadır:" (TMS 27 p.5) sözlük kipini açıp B8–B32 / p.6–18H'yi yuttu.
+    #   Başlık şartı (SY_EkBasligiMi): harfin ardından kesme işareti yok · noktalamayla bitmez · ≤120 kr.
+    if($s -match '^Ek\s+A\b' -and (SY_EkBasligiMi $s) -and (-not $sutunKip -or $s -match '^Ek\s+A\s*$')){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$true; $baslik='Ek A - Tanımlanan terimler'; continue }
+    if($s -match '^Ek\s+([B-Z])\b' -and (SY_EkBasligiMi $s) -and (-not $sutunKip -or $s -match '^Ek\s+[B-Z]\s*$')){ if($suAn){ $parcalar.Add($suAn); $suAn=$null }; $sozlukModu=$false; $baslik=$s; continue }
+    # 16.09: Ek A her zaman sözlük DEĞİLDİR — TMS 21/33/36, TFRS 19'da numaralı uygulama rehberidir (A1, A2 …). TMS kipinde
+    #   sözlükteyken TEK BAŞINA "A<n>" satırı gelirse sözlük kapanır, satır aşağıdaki numaralı paragraf dalına düşer.
+    if($sozlukModu -and (-not $satirBasiKip) -and (-not $kilavuzKip) -and (-not $sutunKip) -and $s -match '^A\d{1,3}[A-Z]{0,2}$'){
+      if($suAn){ $parcalar.Add($suAn); $suAn=$null }
+      $sozlukModu=$false; $baslik='Ek A'
+    }
 
     # --- SOZLUK KIPI, NUMARA KONTROLUNDEN ONCE GELMELI -------------------
     # ⚠ 25.08 DERSI (ucuncu deneme): sozluk kontrolu numara kontrolunun
@@ -259,10 +268,11 @@ function SY_Bol([string]$metin, [string]$std){
     if($satirBasiKip -and $s -match '^\d{1,3}$'){ continue }
 
     # --- numarali paragraf: 12 · A1 · B9 · C20D   (kendi satirinda)
-    if((-not $satirBasiKip) -and (-not $kilavuzKip) -and $s -match '^([A-D]?)(\d{1,3})([A-Z]?)$'){
+    # 16.09: önek A–E ve "UR" (TMS 32 uygulama rehberi), sonek iki harfe kadar (TFRS 1 39AH, TFRS 7 44ZA, TFRS 16 C20BA)
+    if((-not $satirBasiKip) -and (-not $kilavuzKip) -and $s -match '^([A-E]|UR)?(\d{1,3})([A-Z]{0,2})$'){
       if($suAn){ $parcalar.Add($suAn) }
       $sozlukModu = $false
-      $suAn = [ordered]@{ onek=$Matches[1]; no=[int]$Matches[2]; sonek=$Matches[3]; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $suAn = [ordered]@{ onek="$($Matches[1])"; no=[int]$Matches[2]; sonek=$Matches[3]; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
       continue
     }
     # --- numara SATIR BASINDA metinle birlikte: "C21 Bu Standart ..."
@@ -379,6 +389,19 @@ function SY_Bol([string]$metin, [string]$std){
   return $kayitlar.ToArray()
 }
 
+function SY_EkBasligiMi([string]$satir){
+  # 16.09: gerçek ek başlığı "Ek A", "EK A", "Ek A - Tanımlanan terimler", "EK A Değer kullanımını tahmin etmek için …".
+  # Metin içi atıf "Ek A'daki …", "Ek A Bölümü'nde … tanımlanmaktadır:" başlık değildir.
+  if($satir -match "^Ek\s+[A-Z]\s*[’'‘``´]"){ return $false }
+  # 16.09 (TFRS 12 C1B): "Ek A değiştirilmiş ve 9A–9B … eklenmiştir. Söz konusu …" — harften sonra küçük harfle devam eden ya da
+  #   ortasında cümle biten satır başlık değildir.
+  if($satir -cmatch '^Ek\s+[A-Z]\s+[a-zçğıöşü]'){ return $false }
+  if($satir -match '[.;]\s+\S'){ return $false }
+  if($satir -match '[.:;,]$'){ return $false }
+  if($satir.Length -gt 120){ return $false }
+  return $true
+}
+
 function SY_TmsLayoutDuzle([string]$layoutMetin, [string]$std){
   # ⚠ 15.09.2026 DERSI — POPPLER DUZ CIKARIMDA NUMARA SUTUNU AYRILIYOR.
   # TMS/TFRS PDF'lerinde paragraf numarasi sol sutunda durur. pdftotext duz kipte
@@ -416,7 +439,7 @@ function SY_TmsLayoutDuzle([string]$layoutMetin, [string]$std){
       while($sonraki -lt $satirlar.Count -and -not $satirlar[$sonraki].Trim()){ $sonraki++ }
       if($sonraki -lt $satirlar.Count -and $satirlar[$sonraki] -match '^\s{3,}\S'){ continue }
     }
-    $numaraEsi = [regex]::Match($hamSatir,'^([A-D]?\d{1,3}[A-Z]?(?:[–-]\d{1,3}[A-Z]?)?)\s{2,}(\S.*)$')
+    $numaraEsi = [regex]::Match($hamSatir,'^((?:[A-E]|UR)?\d{1,3}[A-Z]{0,2}(?:[–-]\d{1,3}[A-Z]{0,2})?)\s{2,}(\S.*)$')   # 16.09: E/UR öneki + iki harfli sonek (SY_Bol TMS kipiyle aynı)
     if($numaraEsi.Success){
       [void]$cikti.AppendLine($numaraEsi.Groups[1].Value)
       [void]$cikti.AppendLine('')
@@ -732,6 +755,13 @@ kisa vade    Isletmenin raporlama donemini izleyen bir yillik donemdir.
   # sutun kipi BASKA standartta acilmamali (ad sarti)
   $bdsK = @(SY_Bol "5. BDS'ler, denetimin genel amaclarini belirler.`n`nA3. Ornek uygulama rehberi paragrafidir." 'BDS 200')
   if(@($bdsK).Count -lt 2){ $dusen += "SUTUN KIPI SIZDI: BDS bolmesi bozuldu ($(@($bdsK | ForEach-Object { $_.kaynak_ad }) -join ' | '))" }
+  # 16.09 (3 vaka): (a) metin içi "Ek A'daki …" sözlük AÇMAZ (TFRS 17 B8) · (b) numaralı Ek A (TMS 36) sözlükte kalmaz · (c) iki harfli sonek / UR öneki
+  $ekAtif = @(SY_Bol "Amaç`n`n1`n`nBu Standart, sigorta sözleşmelerini düzenler ve ilkeleri belirler.`n`n2`n`nİşletme bu Standardı uygular ve sonuçları açıklar.`nEk A'daki finansal risk tanımı değişkenlere atıfta bulunur ve açıklanır.`nEk A değiştirilmiş ve 9A paragrafı eklenmiştir. Söz konusu değişiklik uygulanır`n`n3`n`nBu paragraf üçüncü paragraftır ve ekin dışında kalır." 'TEST 17')
+  if(@($ekAtif | Where-Object { $_.kaynak_ad -match 'Ek A' }).Count -or @($ekAtif | Where-Object { $_.kaynak_ad -match ' p\.3 ' }).Count -ne 1){ $dusen += "EK ATIF SOZLUK ACTI: $(@($ekAtif | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  $ekNumarali = @(SY_Bol "Amaç`n`n1`n`nBirinci paragraf metni burada yer alır ve yeterince uzundur.`n`nEK A`n`nUygulama rehberi`n`nA1`n`nBu ek paragrafı uygulama rehberinin ilk paragrafıdır ve uzundur.`n`nA2`n`nBu ek paragrafı uygulama rehberinin ikinci paragrafıdır ve uzundur." 'TEST 36')
+  if(@($ekNumarali | Where-Object { $_.kaynak_ad -match ' p\.A[12] ' }).Count -ne 2){ $dusen += "NUMARALI EK A SOZLUKTE KALDI: $(@($ekNumarali | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  $ikiHarf = @(SY_Bol "Amaç`n`n1`n`nBirinci paragraf metni burada yer alır ve yeterince uzundur.`n`n39AH`n`nİki harfli sonekli paragraf metni burada yer alır ve uzundur.`n`nUR1`n`nUygulama rehberi paragrafı metni burada yer alır ve uzundur." 'TEST 32')
+  if(@($ikiHarf | Where-Object { $_.kaynak_ad -match ' p\.(39AH|UR1) ' }).Count -ne 2){ $dusen += "IKI HARFLI NUMARA AYRILMADI: $(@($ikiHarf | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
   return $dusen
 }
 
@@ -741,7 +771,7 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09])'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 [16.09])'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
 Write-Host ''
 
@@ -908,7 +938,7 @@ Write-Host ("AMBARDAKI HALI : {0} parca · {1:N0} karakter" -f $eski.Count,$eski
 Write-Host ("YENI HALI      : {0} parca · {1:N0} karakter" -f $yeni.Count,$yeniKarakter)
 Write-Host ("KAZANC         : +{0} parca · +{1:N0} karakter ({2:N1} kat)" -f ($yeni.Count-$eski.Count),($yeniKarakter-$eskiKarakter),$(if($eskiKarakter){$yeniKarakter/$eskiKarakter}else{0}))
 if($PlanYaz){
-  $planNesnesi = [ordered]@{ standart=$standart; url=$url; eski_adlar=@($eski | ForEach-Object { "$($_.kaynak_ad)" }); yeni_adlar=@($yeni | ForEach-Object { "$($_.kaynak_ad)" }); eski_karakter=$eskiKarakter; yeni_karakter=$yeniKarakter }
+  $planNesnesi = [ordered]@{ standart=$standart; url=$url; eski_adlar=@($eski | ForEach-Object { "$($_.kaynak_ad)" }); yeni_adlar=@($yeni | ForEach-Object { "$($_.kaynak_ad)" }); eski_karakter=$eskiKarakter; yeni_karakter=$yeniKarakter; yeni_ozet=@($yeni | ForEach-Object { $md5=[Security.Cryptography.MD5]::Create(); "$($_.kaynak_ad)|$($_.metin.Length)|" + [BitConverter]::ToString($md5.ComputeHash([Text.Encoding]::UTF8.GetBytes($_.metin))) }) }   # 16.09: yeni_ozet = ad|uzunluk|md5 (eşdeğerlik provası için; yalnız -PlanYaz)
   [IO.File]::WriteAllText($PlanYaz,(ConvertTo-Json -InputObject $planNesnesi -Depth 4),(New-Object Text.UTF8Encoding($false)))
 }
 

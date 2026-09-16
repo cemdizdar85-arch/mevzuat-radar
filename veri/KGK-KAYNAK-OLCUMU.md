@@ -411,3 +411,40 @@ Kalibrasyon: hakikatte TAM 8 standartta gürültü **%0,2–1,6** (ilk sürüm %
 **Sonuç: hakikatte EKSİK 17 standardın 16'sı METİN TAM** — BDS 720, TFRS 1/2/5/7/8/9/12/17, TMS 20/21/27/32/33/34/36. Bunlarda sorun gerçekten **etiket** (paragraf ayrı parça değil; ör. TMS 27 91 cümle 15 parçada, TFRS 9 511 bin kr 272 parçada) → paket hassasiyeti düşük ama soru yazılabilir.
 **Tek METİN EKSİK: TFRS 18** — resmî 835 cümlenin hiçbiri ambarda yok (ambarda 23 parçalık özet). Karar Cem'de (103 parti bağı, 65'i SGS).
 KYS 1 ve Etik'te 16.09 sabahı bulunan gerçek kayıp muhasebe setinde **tekrarlanmıyor**.
+
+---
+
+## GÜNCELLEME 16.09 ~14:30 · Cem "2 ve 3 yap" — bölücü onarımı (14 TMS/TFRS) · TFRS 18 bağ ölçümü
+
+### (2) Paragraf bölmesi — `motor/standart-yut.ps1`
+Hakikat EKSİK'lerinin kök nedenleri (metin tamdı, bölme hatalıydı):
+- **Metin içi "Ek A…" satırı sözlük kipini açıyordu.** TFRS 17 B8 gövdesi "Ek A'daki finansal risk tanımı…", TMS 27 p.5 "Ek A Bölümü'nde … tanımlanmaktadır:", TFRS 12 C1B "Ek A değiştirilmiş ve 9A–9B … eklenmiştir." → sonraki bütün paragraflar numarasız "Ek A - Tanımlanan terimler [k/n]" yığınına aktı (TFRS 17'de B8–B32… 149 numara, TMS 27'de p.6–18H). **Eski bölücü bu satırları metinden ATIYORDU** (başlık sanıp gövdeye koymuyordu). Kural (`SY_EkBasligiMi`): harften sonra kesme işareti yok · küçük harfle devam etmez · ortasında cümle bitmez · noktalamayla bitmez · ≤120 kr.
+- **Numaralı Ek A sözlük sanılıyordu.** TMS 21/33/36, TFRS 19'da Ek A uygulama rehberi (A1, A2…). Sözlükteyken tek başına "A<n>" satırı gelince sözlük kapanır.
+- **Numara biçimi dardı.** İki harfli sonek (TFRS 1 39AH, TFRS 7 44ZA–44PP, TFRS 16 C20BA), UR öneki (TMS 32), E öneki (TFRS 1 Ek E).
+- Öz-sınava 3 vaka eklendi; yeni bölücüde 0 düşüş, eski bölücüde 3'ü de düşüyor.
+- **Eşdeğerlik (91 standart kuru prova, ad|uzunluk|md5):** 76'sı bayt bayt aynı; farklı olanlar TFRS 1/2/7/11/16/17/18/19, TMS 19/21/27/32/33/34/36. Resmî cümle kapsaması 14'ünde aynı ya da daha iyi; TFRS 19'da 1 başlık cümlesi ("TFRS 9 … ve TFRS 7 …:") gövdeden parça adına geçti.
+- **Ambara yazıldı (14 standart, TFRS 18 HARİÇ):** TFRS 17 285→370 · TMS 32 80→135 · TMS 27 15→34 · TFRS 7 200→216 · TMS 36 157→171 · TMS 21 91→104 · TFRS 1 146→159 · TMS 33 92→101 · diğerleri +1…+5. Hepsi geri okumayla doğrulandı; yedekler `veri/fabrika/yedek-<std>-20260916-12*.json` + yerel kasa.
+- **Bağ etkisi:** kopan paket bağı 14 soru / 12 parti (hepsi eski "Ek A [k/n]" yığın adları). KGK 2 bağ (`kgk-bosluk-trkiyemuhasebestandartlar` kp-19, kp-27) metin eşleştirmesiyle yeni adlara taşındı (TFRS 17 p.B34/B35/B35A/B35B · TMS 36 p.A14–A17), kasaya yüklendi. **SGS'deki 12 bağa dokunulmadı** (92'ye liste verildi). Soru havuzunda etkilenen 0.
+- Hakikat ölçümü: "“-”" satırı silinmiş sayılır (TMS 36 p.25–27); tek başına "Ek" altındaki harf önekli numara (TMS 32 Ek p.UR1) sayılır.
+- **Sonuç:** hakikat **89 standart, 84 TAM** (sabah 72). Muhasebe modülünde ZAYIF 8 → 2.
+- İkinci düzeltme (TFRS 12 C1B "Ek A değiştirilmiş …"): ikinci tam prova 91 standartta ilk düzeltmeye göre yalnız TFRS 12'yi değiştirdi (79→84 parça, kapsama 2→1, kopan bağ 0) → yazıldı. TMS 32'nin "eksik"i ölçüm yanılgısıydı (UR parçaları "Ek p.UR…" adında; hakikat artık sayıyor).
+- **Son durum: hakikat 89 standart, 86 TAM.** Kalan EKSİK: **TFRS 9** (noktalı numara "4.1.1" — metin tam, ayrı iş), **BDS 720** (Türkiye'ye özgü "20T" soneki, BDS kipi — metin tam), **TFRS 18** (resmî metin yok — aşağıda karar tablosu). Excel modül rakamları değişmedi (basılabilirlik başka ölçütle hesaplanıyor).
+
+### (3) TFRS 18 — bağ etkisi ölçüldü (karar tablosu)
+RG 08.05.2025-32894, 01.01.2027'de yürürlüğe girer. Ambarda **23 elle yazılmış özet** (Türkçe harfsiz, 17.590 kr); resmî metin yok (835 cümlenin hiçbiri). Resmî metin yeni bölücüyle hazır: **288 parça / 171.494 kr**.
+
+Eski "103 parti bağı" rakamı bugün üretilemiyor. Bugünkü ölçüm (1.044 parti tarandı):
+| | KGK | SGS | SMMM | Toplam |
+|---|---:|---:|---:|---:|
+| Paketinde ya da dayanağında TFRS 18 özeti olan soru | 7 | 17 | 1 | **25** |
+| Parti | 2 | 16 | 1 | 19 |
+| Dört kapıdan geçmiş | 0 | 5 | 0 | 5 |
+| …bunların dayanağı "TFRS 18 p.61" (ambarda resmî metni YOK) | – | 3 | – | 3 |
+| Partinin herhangi bir yerinde "TFRS 18" geçen | 2 | 50 | 2 | 54 |
+
+Soru havuzunda 37 KGK sorusu (hiçbiri yayında değil) kaynak alanında "TFRS 18 - TMS 1 ve TMS 8 ilişkisi (geçiş notu)" yazıyor; konuları TMS 8 — kaynak alanı zaten yanlış.
+
+**Seçenekler:**
+- **A (öneri) — resmî metni yut, KGK/SMMM bağlarını taşı, SGS'ye dokunma.** 8 bağ taşınır; SGS'de 17 sorunun paket bağı eski özet adlarına bakar (5'i geçmiş). Kazanç: "TFRS 18 p.61" dayanaklı 3 geçmiş SGS sorusunun dayanağı ilk kez resmî metinde karşılık bulur; KGK Muhasebe modülündeki son "basılamaz" kalkar.
+- B — A + SGS bağlarını da taşı (SGS oturumuyla birlikte; kural gereği 92'ye).
+- C — bekle (01.01.2027'ye kadar yürürlükte değil; ama sınav soruyor).

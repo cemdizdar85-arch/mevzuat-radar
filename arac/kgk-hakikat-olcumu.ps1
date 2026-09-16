@@ -67,7 +67,8 @@ function HakikatNumaralari([string]$metin, [string]$std){
     else       { $es = [regex]::Match($satir,'^([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})\s{2,}(\S.*)$') }   # TFRS 9 '4.1.1' noktalı numara
     if(-not $es.Success){ continue }
     $no = $es.Groups[1].Value; $govde = $es.Groups[2].Value
-    if($govde -match '^\[Silinmi'){ [void]$silinen.Add($no) } else { [void]$gercek.Add($no) }
+    # 16.09: bazı TMS/TFRS'de silinmiş paragraf "[Silinmiştir]" değil tırnaklı tire ile yazılır (TMS 36 p.25-27)
+    if($govde -match '^\[Silinmi' -or $govde -match '^\W?\s*[-–]\s*\W?\s*\d{0,2}\s*$'){ [void]$silinen.Add($no) } else { [void]$gercek.Add($no) }
   }
   foreach($s in @($silinen)){ if($gercek.Contains($s)){ [void]$silinen.Remove($s) } }
   return [pscustomobject]@{ gercek=$gercek; silinen=$silinen }
@@ -79,10 +80,13 @@ $adlar = Get-Content $adOnbellek -Raw -Encoding UTF8 | ConvertFrom-Json
 $ambarNo = @{}
 foreach($r in $adlar){
   $ad = "$($r.kaynak_ad)"
-  $es = [regex]::Match($ad,'^((?:TMS|TFRS|BDS|GDS|İHS|TSRS|SBDS|KYS)\s\d+)\s(Ek\s\d+\s)?p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:[\s\-]|$)')
+  $es = [regex]::Match($ad,'^((?:TMS|TFRS|BDS|GDS|İHS|TSRS|SBDS|KYS)\s\d+)\s(Ek(?:\s\d+)?\s)?p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:[\s\-]|$)')
   $etikEs = [regex]::Match($ad,'^Etik Kurallar p\.(A?\d{3}\.\d{1,3}(?: U\d{1,2})?)(?:\s|$)')   # 16.09
   if($etikEs.Success){ if(-not $ambarNo.ContainsKey('ETIK')){ $ambarNo['ETIK'] = New-Object System.Collections.Generic.HashSet[string] }; [void]$ambarNo['ETIK'].Add($etikEs.Groups[1].Value); continue }
-  if(-not $es.Success -or $es.Groups[2].Value){ continue }
+  # 16.09: numarası 1'den yeniden başlayan "Ek N" parçaları kümeye girmez; ama tek başına "Ek" altındaki HARF önekli numara
+  #   (TMS 32 "Ek p.UR1") ana numaralarla çakışmaz ve resmî metinde vardır → sayılır.
+  if(-not $es.Success){ continue }
+  if($es.Groups[2].Value -and -not ($es.Groups[2].Value -match '^Ek\s$' -and $es.Groups[3].Value -match '^[A-Z]')){ continue }
   $std = $es.Groups[1].Value
   if(-not $ambarNo.ContainsKey($std)){ $ambarNo[$std] = New-Object System.Collections.Generic.HashSet[string] }
   [void]$ambarNo[$std].Add($es.Groups[3].Value)

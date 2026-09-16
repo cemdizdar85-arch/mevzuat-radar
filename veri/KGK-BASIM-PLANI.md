@@ -1,4 +1,4 @@
-# KGK BASIM PLANI — 16.09.2026 (dalga 1 onaylı · plan hazır · disk %94 nedeniyle BAŞLATILMADI)
+# KGK BASIM PLANI — 16.09.2026 (dalga 1 planı hazır · basım artık BULUTTA · başlatma Cem onayında)
 
 Kaynak ölçümü: [KGK-KAYNAK-OLCUMU.md](KGK-KAYNAK-OLCUMU.md) · dağılım ve paylar: masaüstü `KGK-Sinav-Kaynak-Basim-Plani.xlsx` (8 sayfa, üreten: `arac/kgk-basim-excel.ps1`).
 
@@ -62,17 +62,17 @@ Cem onayı geldi ("1.2.3 üçünüde yap"). Plan ve konu dosyaları depoda:
 - Konu: `veri/sinav/konu/kgk-a1-bds315|200|330|530|240.json` — köprüdeki (`veri/fabrika/konu-koprusu.json`) o standarda ait TÜM KGK konuları (35/26/28/27/36), dönem sayısına göre sıralı; üretici son 7 dönem penceresiyle ilk `adet` konuyu seçer.
 - Kasada `kgk-a1*` etiketi yok (çakışma 0). Sınav kolunu tutan oturum (92) eşzamanlı koşuya izin verdi.
 
-**Neden başlatılmadı:** C: diski %94,1 dolu (28,2 GB boş). Kural: ~%90'da dur, Cem'e söyle. Koşunun kendisi birkaç MB yazar; karar Cem'in.
+**16.09 öğleden sonra değişti:** toplu basım artık YALNIZ BULUTTA (CLAUDE.md kuralı, 92 bulut hattı: 320 dk'da kendini yeniden tetikler, toplu parti kaydı ambarda, çift ödeme kapısı açık). C: diski engeli kalktı. Bulut bedeli yerel defterde görünmez → koşu sonrası Anthropic konsolundan ayrıca ölçülür.
 
-Başlatma (Cem "disk tamam" deyince):
-```powershell
-$env:MEVZUAT_TOPLU_BEKLE_DK='1440'; powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-kgk-a1-denetim.json -Paralel 5
+Başlatma (Cem onayıyla, ≈18 USD tahmini):
+```bash
+gh workflow run bulut-uretim.yml -f plan=veri/sinav/plan-kgk-a1-denetim.json -f paralel=5
 ```
 Bitince: `arac/ret-kutugu.ps1` + ret oranı + soru başına gerçek bedel bu belgeye.
 
 ## 6 · Cem'den istenen karar
 
-1. ~~Denetim modülü Dalga 1 başlatılsın mı?~~ **Onaylandı 16.09** — yalnız disk kararı bekliyor (bkz. 5a).
+1. ~~Denetim modülü Dalga 1 başlatılsın mı?~~ **Onaylandı 16.09** — koşu yeri buluta taşındı; başlatma için son "bas" bekleniyor (bkz. 5a).
 2. **Koşu yerel mi bulutta mı?** (bulutta bedel görünmez, ayrı ölçüm gerekir)
 3. Kredi 145 USD; dalga 1+2 sonrası kalan ≈85 USD.
 
