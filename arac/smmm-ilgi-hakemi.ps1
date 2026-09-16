@@ -18,7 +18,7 @@
 #  -Liste 'ilgili' sütunu taşıyorsa (0/1) KALİBRASYON raporu da basılır (doğruluk, yanlış GÜÇLÜ, kaçan).
 # ============================================================================
 param([Parameter(Mandatory = $true)][string]$Liste, [Parameter(Mandatory = $true)][string]$PaketDok, [Parameter(Mandatory = $true)][string]$Cikti,
-  [string]$Model = 'claude-sonnet-5', [string]$Etiket = '', [int]$BlokKr = 700, [string]$HasatBid = '', [switch]$Kuru)   # HasatBid: virgüllü toplu parti kimlikleri — bitmiş cevaplar BEDAVA toplanır, yalnız eksik istekler gönderilir
+  [string]$Model = 'claude-sonnet-5', [string]$Etiket = '', [int]$BlokKr = 700, [string]$HasatBid = '', [switch]$YalnizHasat, [switch]$Kuru)   # HasatBid: virgüllü toplu parti kimlikleri — bitmiş cevaplar BEDAVA toplanır, yalnız eksik istekler gönderilir
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $depoKok 'motor\api-hedef.ps1')
@@ -65,7 +65,7 @@ YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
 $($sb.ToString())
 "@
   $istem = $istem -replace "`r`n", "`n"   # 16.09: satır sonu dosyanın çekiliş biçimine bağlıydı (yerel LF / bulut CRLF) → parmak izi tutmuyordu; tek biçim
-  $isler.Add(@{ id = $id; model = $Model; maxTok = 400; icerik = @(@{ type = 'text'; text = $istem }) })
+  $isler.Add(@{ id = $id; model = $Model; maxTok = 1500;   # 16.09 kalibrasyon: 400'de Sonnet 5 düşünmeyi bitirip metin yazamadı (1/23); ücret yalnız kullanılan jeton icerik = @(@{ type = 'text'; text = $istem }) })
 }
 "İLGİ HAKEMİ: $($satirlar.Count) konu · modele gidecek $($isler.Count) · paketi olmayan $(@($kayit.Values | Where-Object { $_.paketBoy -lt 0 }).Count) · model $Model · etiket $Etiket"
 if ($Kuru) {
@@ -87,7 +87,8 @@ if ($HasatBid) {
 }
 $kalanIs = @($isler | Where-Object { -not $sonuc.ContainsKey($_.id) })
 "GÖNDERİLECEK: $($kalanIs.Count) istek (hasat edilen $($sonuc.Count))"
-if ($kalanIs.Count) { $yeniS = Invoke-ClaudeToplu -Isler $kalanIs -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu; foreach ($yk in @($yeniS.Keys)) { $sonuc[$yk] = $yeniS[$yk] } }
+if ($kalanIs.Count -and $YalnizHasat) { "YALNIZ HASAT: $($kalanIs.Count) istek GÖNDERİLMEDİ (ölçülemedi sayılır)" }
+elseif ($kalanIs.Count) { $yeniS = Invoke-ClaudeToplu -Isler $kalanIs -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu; foreach ($yk in @($yeniS.Keys)) { $sonuc[$yk] = $yeniS[$yk] } }
 if ($sonuc.ContainsKey('__zaman_asimi')) { throw "TOPLU ZAMAN AŞIMI: $($sonuc['__zaman_asimi']) — sonuçlar bekleyen-partiler.json'da; aynı komutla yeniden koşunca bedava hasat edilir. Çıktı YAZILMADI." }
 
 $cikis = New-Object System.Collections.Generic.List[object]
@@ -100,8 +101,12 @@ foreach ($id in $kayit.Keys) {
   elseif (-not $sonuc.ContainsKey($id)) { $hakemDurum = 'OLCULEMEDI'; $bozuk++ }
   else {
     $m = [regex]::Match("$($sonuc[$id].metin)", '(?s)\{.*\}')
-    try { $j = ConvertFrom-Json -InputObject $m.Value; $ilgiliNo = @($j.ilgili | ForEach-Object { [int]$_ }); $yazilabilir = [bool]$j.soru_yazilabilir; $gerekce = "$($j.gerekce)" }
-    catch { $hakemDurum = 'OLCULEMEDI'; $bozuk++ }
+    # 16.09 kalibrasyon (k7): düşünme jeton tavanını bitirip metin yazmadan kesilen cevap İLGİSİZ sayılıyordu → ÖLÇÜLEMEDİ
+    if (-not $m.Success -or "$($sonuc[$id].dur)" -eq 'max_tokens') { $hakemDurum = 'OLCULEMEDI'; $bozuk++ }
+    else {
+      try { $j = ConvertFrom-Json -InputObject $m.Value; $ilgiliNo = @($j.ilgili | ForEach-Object { [int]$_ }); $yazilabilir = [bool]$j.soru_yazilabilir; $gerekce = "$($j.gerekce)" }
+      catch { $hakemDurum = 'OLCULEMEDI'; $bozuk++ }
+    }
   }
   $ilgiliBoy = 0; $ilgiliAd = @()
   foreach ($n in $ilgiliNo) { if ($n -ge 1 -and $n -le $k.bloklar.Count) { $b = $k.bloklar[$n - 1]; $ilgiliBoy += $b.Length; if ($b -match '^\[([^\]]+)\]') { $ilgiliAd += $matches[1] } } }
