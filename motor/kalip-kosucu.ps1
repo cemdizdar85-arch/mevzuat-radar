@@ -32,6 +32,18 @@ $ErrorActionPreference='Continue'
 $buDizin=$(if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 if(-not $Kok){ $Kok=Split-Path $buDizin -Parent }
 
+# ⛔⭐ 16.09.2026 CEM KURALI — TOPLU SORU BASIMI YALNIZ BULUTTA (.github/workflows/bulut-uretim.yml).
+#   "herşeyi buluta taşıdık hızlı olması için, ne oldu yine benim bilgisayara döndü". ÖLÇÜLDÜ 16.09: bulut hattı 12.09'dan beri
+#   hazırdı ama kural yazılı değildi; oturumlar koşucuyu yerelde başlattı → 65 powershell süreci, boş RAM 281 MB, paralellik 4→1.
+#   Bu kapı yerel basımı DURDURUR. Doğru yol:  gh workflow run bulut-uretim.yml -f plan=<depodaki plan> -f paralel=<n>
+#   Bilerek yerel (ör. hazır-soru dosyası yalnız bu makinede): $env:MEVZUAT_YEREL_BASIM='gerekçe' ile açılır. -SadeceSecim parasızdır, serbest.
+if(-not $env:GITHUB_ACTIONS -and -not $SadeceSecim -and -not "$env:MEVZUAT_YEREL_BASIM"){
+  Write-Host "YEREL BASIM KAPALI (Cem kuralı 16.09): toplu soru basımı bulutta koşar." -ForegroundColor Red
+  Write-Host "  gh workflow run bulut-uretim.yml -f plan=$Plan -f paralel=16" -ForegroundColor Yellow
+  Write-Host "  Bilerek yerel gerekiyorsa: `$env:MEVZUAT_YEREL_BASIM='<gerekçe>'" -ForegroundColor DarkYellow
+  exit 3
+}
+
 # Plan satirindaki konuDosya'yi CALISILABILIR yola cevirir. Gerekcesi kuyruk
 # dongusundeki KONU DOSYASI KAPISI yorumunda. Uzun degisken adlari bilerek:
 # PS harf ayirmaz, $Kok ile $kok ayni degiskendir (K1 tuzagi).
