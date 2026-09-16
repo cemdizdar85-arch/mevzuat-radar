@@ -216,7 +216,7 @@ function ConvertTo-AnthropicIcerik($icerik){
 # $global:MEVZUAT_ONBELLEK_SINIR işaretini koyar; işaret yoksa ilk "\n=== " bölüm başlığı. Önek eşiğin altındaysa (Sonnet/Opus ≈1.024 jeton
 # ≈3.500 kr, Haiku ≈2.048 jeton ≈7.000 kr) bölünmez (Anthropic kısa öneği zaten önbelleğe almaz). MEVZUAT_ONBELLEK=0 kapatır.
 $global:MEVZUAT_ONBELLEK_SINIR = '<<<DEGISKEN>>>'
-function Split-OnbellekBloklari([array]$icerik,[string]$model){
+function Split-OnbellekBloklari([array]$icerik,[string]$model,[bool]$OnbellekIsaretsiz=$false){   # 16.09: ad $Kapali OLAMAZ - PS harf ayirmaz, icerideki $kapali parametreyi eziyordu (K1 tuzagi, olculdu)
   $bloklar = @(ConvertTo-IcerikBloklari $icerik | ForEach-Object { $_ })   # ",$out" dönüşü @() ile iç içe dizi oluyor (ölçüldü: [0] Object[]) → boru düzleştirir
   $kapali = ("$(Read-ApiEnv 'MEVZUAT_ONBELLEK')" -eq '0')
   if($bloklar.Count -ne 1 -or -not ($bloklar[0] -is [hashtable]) -or -not $bloklar[0].ContainsKey('text')){ return ,$bloklar }
@@ -232,10 +232,38 @@ function Split-OnbellekBloklari([array]$icerik,[string]$model){
   # Sonnet eşiği 3.500'den 2.000'e indi: giriş (2.909 kr ≈ 1.691 j), teori adım (2.021 kr) ve uyarlama (1.940 kr) istemleri
   # 1.024 jeton sınırının ÜSTÜNDE olduğu hâlde eski eşik yüzünden hiç önbelleğe girmiyordu.
   $esik = $(if($model -match 'haiku'){ 7300 } elseif($model -match 'opus'){ 1000 } else { 2000 })
-  if($kapali -or -not $on -or $on.Length -lt $esik){ return ,@(@{ type='text'; text=($on + $kal) }) }
+  if($OnbellekIsaretsiz -or $kapali -or -not $on -or $on.Length -lt $esik){ return ,@(@{ type='text'; text=($on + $kal) }) }
   return ,@(@{ type='text'; text=$on; cache_control=@{ type='ephemeral' } }, @{ type='text'; text=$kal })
 }
 
+# 16.09 (Cem tasarruf talimatı, GM 3) İSTEM DÖKÜMÜ — eşdeğerlik provasının parasız ayağı.
+# MEVZUAT_ISTEM_DOK=<dosya> verilirse toplu istekler GÖNDERİLMEZ; her iş için kimlik, model, effort, jeton tavanı,
+# parmak izi ve her içerik bloğunun boyu + SHA-256'sı jsonl olarak yazılır. Eski/yeni kod aynı girdiyle koşulur,
+# iki dosya kıyaslanır: "giden istem birebir aynı mı?" sorusuna model çağırmadan cevap verir. Bedel 0.
+# API-KAPALI modda da çağrılabilsin diye ayrı fonksiyon (kalip-parti-uret.ps1 oradaki sarmalayıcıdan çağırır).
+function Write-IstemDokumu([array]$Isler,[string]$Etiket='',[bool]$Onbelleksiz=$false,[string]$ParmakTuz=''){
+  $yol = "$(Read-ApiEnv 'MEVZUAT_ISTEM_DOK')"; if(-not $yol){ return }
+  $sat = New-Object System.Collections.Generic.List[string]
+  foreach($i in @($Isler)){
+    $bloklar = @(ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)" $Onbelleksiz) | ForEach-Object { $_ })   # K3 tuzagi: "return ,$out" + @() tek oge olur, boru duzlestirir
+    $bl = @()
+    foreach($b0 in $bloklar){
+      $mt = "$($b0.text)"; $sha = [Security.Cryptography.SHA256]::Create()
+      try{ $h = (($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($mt)) | ForEach-Object { $_.ToString('x2') }) -join '') } finally { $sha.Dispose() }
+      $bl += @{ boy = $mt.Length; sha = $h; onbellek = [bool]$b0.cache_control }
+    }
+    # eşdeğerlik: ESKİ ayarın (önbellek işaretli) blokları da kurulur; iki biçimin BİRLEŞİK metni aynıysa model aynı metni görüyor demektir
+    $eskiBl = @(ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)" $false) | ForEach-Object { $_ })
+    function _Sha([string]$m){ $s=[Security.Cryptography.SHA256]::Create(); try{ return (($s.ComputeHash([Text.Encoding]::UTF8.GetBytes($m)) | ForEach-Object { $_.ToString('x2') }) -join '') } finally { $s.Dispose() } }
+    $tumSha = _Sha ((@($bloklar | ForEach-Object { "$($_.text)" })) -join '')
+    $tumShaEski = _Sha ((@($eskiBl | ForEach-Object { "$($_.text)" })) -join '')
+    $ef = "$(if($i -is [hashtable]){ $i['effort'] } else { $i.effort })"
+    $sat.Add((@{ id = "$($i.id)"; model = "$($i.model)"; maxTok = [int]$i.maxTok; effort = (Get-EffortDegeri $ef); bloklar = $bl; blokEski = @($eskiBl).Count; tumSha = $tumSha; tumShaEski = $tumShaEski; parmak = ((Get-IcerikParmak $i.icerik) + $(if($ParmakTuz){ "#$ParmakTuz" } else { '' })); etiket = $Etiket } | ConvertTo-Json -Depth 6 -Compress))
+  }
+  $dizin = Split-Path $yol -Parent; if($dizin -and -not (Test-Path $dizin)){ New-Item -ItemType Directory -Force $dizin | Out-Null }
+  [IO.File]::AppendAllLines($yol, [string[]]$sat, [Text.UTF8Encoding]::new($false))
+  Write-Host "  İSTEM DÖKÜMÜ: $($sat.Count) istek yazıldı -> $yol (gönderim YOK, bedel 0)" -ForegroundColor DarkCyan
+}
 # 08.09 ölçüldü (pilot6): adım fazında çıktı jetonlarının %76–86'sı DÜŞÜNME (5.648 jeton çıktı, 772 jeton metin); giriş fazında da öyle.
 # Çıktı fiyatı girdinin 5 katı → düşünme, bedelin en büyük kalemi. Derinlik artık ÇAĞRI BAZINDA verilir: -Effort low|medium|high;
 # verilmezse MEVZUAT_EFFORT, o da yoksa medium. Hesap tasarımı yapan fazlar (soru, ikiz, kör) medium kalır; anlatım/yargı fazları low.
@@ -412,8 +440,14 @@ function Invoke-BekleyenKilitli([scriptblock]$is){
 # log taze çağrı yapılmış gibi jeton satırı basıyor. Kanıt: çok zor kp-05'in HAKEM2 jetonu iki koşuda birebir aynı (2115/1122) çıktı,
 # oysa şıklar tamamen değişmişti; 2. hakemin gerekçesi silinmiş ifadeleri alıntılamayı sürdürdü. Yani "düzelt ve yeniden yargılat"
 # döngüsü sessizce çalışmıyordu. Çözüm: gönderilen her işin İÇERİK PARMAK İZİ parti kaydına yazılır, hasatta karşılaştırılır.
+# 15.09 ONARIM TUZU (Cem "israfı kesme talimatı" md.2): onarım turu toplu koşarsa istem BİREBİR aynı olduğu için parmak izi tutar ve
+# önceki partinin BOZUK/eski cevabı bedava hasat edilir — onarım hiç yapılmamış olur. $script:PARMAK_TUZU dolu olduğunda parmak izi
+# o tuzla hesaplanır: aynı tuzlu koşu kendi partisini hasat eder (kesinti sonrası devam), tuzsuz eski parti ASLA hasat edilmez.
+# İSTEM DEĞİŞMEZ — tuz yalnız parmak izinin girdisidir; modele giden metin, model, jeton tavanı ve effort aynı kalır.
+$script:PARMAK_TUZU = ''
 function Get-IcerikParmak($icerik){
   $s = $(if($icerik -is [array]){ (@($icerik) | ForEach-Object { if($_ -is [hashtable] -and $_.ContainsKey('text')){ "$($_['text'])" } elseif($_ -and $_.PSObject.Properties['text']){ "$($_.text)" } else { "$_" } }) -join "`n" } else { "$icerik" })
+  if("$script:PARMAK_TUZU"){ $s = "TUZ:$script:PARMAK_TUZU`n" + $s }
   $sha = [Security.Cryptography.SHA1]::Create()
   try{ return (([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16)) }finally{ $sha.Dispose() }
 }
@@ -475,19 +509,25 @@ function Invoke-ClaudeToplu {
   #   ⚠ YUK: yoklama TOKEN YAKMAZ (yalnizca batch durum ucu). 63 es zamanli parti
   #   10 sn'de bir sorarsa ~378 istek/dk olur. 429 gorulurse once bunu yukselt:
   #   MEVZUAT_TOPLU_YOKLAMA_SN ortam degiskeni kod degistirmeden ezer.
-  param([Parameter(Mandatory=$true)][array]$Isler,[string]$Etiket='',[int]$BeklemeDk=180,
+  param([Parameter(Mandatory=$true)][array]$Isler,[string]$Etiket='',[int]$BeklemeDk=180,[switch]$OnbelleksizToplu,[string]$ParmakTuz='',
         [int]$YoklamaSn=$(if("$env:MEVZUAT_TOPLU_YOKLAMA_SN" -match '^\d+$' -and [int]$env:MEVZUAT_TOPLU_YOKLAMA_SN -ge 1){ [int]$env:MEVZUAT_TOPLU_YOKLAMA_SN } else { 10 }))
   if(-not @($Isler).Count){ return @{} }
   $hedef = Get-TopluBasliklar
   $req = @()
   $parmakHep = @{}   # 10.09: iş -> içerik parmak izi; parti kaydına yazılır, hasatta doğrulanır (bayat cevap dönmesin)
   foreach($i in @($Isler)){
-    $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)")   # 08.09 önbellek: toplu istekte de önek işaretli
+    # 16.09 (Cem tasarruf talimatı adım 4): -OnbelleksizToplu ile önek işaretlenmez. ÖLÇÜLDÜ (bedel defteri 12.09-15.09): toplu yolda önbellek
+    # YAZMA primi 1,00 USD ödenmiş, OKUMA 0,00 USD — parti tek seferlik olduğu için önek hiç okunmuyor. Model AYNI metni görür (tek blok).
+    $temiz = ConvertTo-AnthropicIcerik (Split-OnbellekBloklari $i.icerik "$($i.model)" ([bool]$OnbelleksizToplu))
     $g = @{ model="$($i.model)"; max_tokens=[int]$i.maxTok; messages=@(@{ role='user'; content=@($temiz) }) }
     if("$($i.model)" -match 'sonnet-5|opus-5'){ $g.output_config = @{ effort = (Get-EffortDegeri "$(if($i -is [hashtable]){ $i['effort'] } else { $i.effort })") } }   # 08.09: iş kaydında 'effort' alanı
     $req += @{ custom_id="$($i.id)"; params=$g }
-    $parmakHep["$($i.id)"] = (Get-IcerikParmak $i.icerik)
+    $parmakHep["$($i.id)"] = (Get-IcerikParmak $i.icerik) + $(if($ParmakTuz){ "#$ParmakTuz" } else { '' })   # 16.09 adım 2: onarım turunda tuz → önceki turun BOZUK cevabı bedava hasat edilmez
   }
+  # 16.09 (Cem tasarruf talimatı, GM 3): MEVZUAT_ISTEM_DOK=<dosya> verilirse istekler GÖNDERİLMEZ; yalnız kimlik, model, effort, jeton tavanı ve
+  #   her bloğun boyu + SHA-256'ı jsonl olarak yazılır. Eski/yeni kod aynı girdiyle koşulup dosyalar kıyaslanır: "giden istem birebir aynı mı?"
+  #   sorusuna PARASIZ cevap verir (eşdeğerlik provası). Model çağrısı olmadığı için bedel 0.
+  if("$(Read-ApiEnv 'MEVZUAT_ISTEM_DOK')"){ Write-IstemDokumu -Isler $Isler -Etiket $Etiket -Onbelleksiz ([bool]$OnbelleksizToplu) -ParmakTuz $ParmakTuz; return @{} }
   # 09.09 09:35 ÖLÇÜLDÜ (Cem "hızlı olsun diye 3 partiye atabiliriz"): 8/30/36/83 istekli partiler 3–15 dk'da işlendi, 62 ve 96 istekli partiler
   # 20 dk'da sıfırdı (08–09.09 gece de 24+ istekliler takıldı). Kuyruk küçük partileri öne alıyor → istekler en çok MEVZUAT_TOPLU_PARCA (varsayılan 30)
   # isteklik PARÇALARA bölünür, hepsi birden gönderilir, birlikte yoklanır; biten parça hemen hasat edilir; zaman aşımında biten parçalar döner,
