@@ -1,8 +1,8 @@
 {
-    "olcum":  "16.09.2026 10:45",
-    "ad_listesi_olcumu":  "16.09.2026 10:29",
+    "olcum":  "16.09.2026 11:49",
+    "ad_listesi_olcumu":  "16.09.2026 11:36",
     "kural":  "HAZIR = beklenen resmî metin ambarda + RESMI nitelik (Türkçe harfli, özet değil) + TAM (madde/paragraf deliği ≤%5, bölünmüş parça eksiği 0, kesik adayı ≤%5) + hüküm anahtarı ailenin içinde ≥2 parçada. ZAYIF = resmî metin var ama delikli/kesik ya da hüküm anahtarı ailenin içinde \u003c2 parçada. YOK = beklenen resmî metin ambarda yok YA DA yalnız elle yazılmış özet/teori notu/taslak var (Cem 14.09: resmî metin şartı). Numara deliği iki anlama gelir: metin yok ya da başka parçaya yapışık (TMS 16 p.31-40 yapışık çıktı); ikisinde de paket seçici hükmü getiremez. Hüküm anahtarı mekanik bir göstergedir; hakem teyidi değildir.",
-    "ambar_satiri":  48503,
+    "ambar_satiri":  49289,
     "ozet":  {
                  "a) Türkiye Muhasebe Standartları":  {
                                                           "HAZIR":  22,
@@ -1178,31 +1178,31 @@
                                 },
                     "ETIK":  {
                                  "ad":  "Bağımsız Denetçiler için Etik Kurallar",
-                                 "parca":  569,
-                                 "karakter":  348637,
+                                 "parca":  1147,
+                                 "karakter":  543297,
                                  "resmi_orani":  0.93,
                                  "nitelik":  "RESMI",
-                                 "numara_dizi":  241,
-                                 "numara_delik":  155,
-                                 "delik_ornek":  "1,3,4,7,8,9,13,14,15,16,18,20",
+                                 "numara_dizi":  1090,
+                                 "numara_delik":  44,
+                                 "delik_ornek":  "A100.8,A114.3,A114.4,300.3,A310.12,A320.7,A360.15,A360.28,A360.37,A380.15,400.15,A400.27",
                                  "bolum_eksik":  0,
-                                 "kesik_adayi":  24,
-                                 "kaynak_url_olan":  0,
-                                 "tamlik":  "DELIKLI"
+                                 "kesik_adayi":  36,
+                                 "kaynak_url_olan":  1147,
+                                 "tamlik":  "TAM"
                              },
                     "KYS 1":  {
                                   "ad":  "KYS 1",
-                                  "parca":  107,
-                                  "karakter":  207600,
-                                  "resmi_orani":  0.98,
+                                  "parca":  267,
+                                  "karakter":  204151,
+                                  "resmi_orani":  1,
                                   "nitelik":  "RESMI",
-                                  "numara_dizi":  0,
+                                  "numara_dizi":  266,
                                   "numara_delik":  0,
                                   "delik_ornek":  "",
                                   "bolum_eksik":  0,
                                   "kesik_adayi":  3,
-                                  "kaynak_url_olan":  0,
-                                  "tamlik":  "DELIKLI"
+                                  "kaynak_url_olan":  267,
+                                  "tamlik":  "TAM"
                               },
                     "II-17.1":  {
                                     "ad":  "Kurumsal Yönetim Tebliği (II-17.1)",

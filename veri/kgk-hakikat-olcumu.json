@@ -1,11 +1,11 @@
 {
-    "olcum":  "16.09.2026 10:42",
+    "olcum":  "16.09.2026 11:46",
     "kural":  "TAM: resmî paragrafların ≤%5\u0027i ambarda parçasız · EKSİK: \u003e%5 · [Silinmiştir] eksik sayılmaz · Ek bölümleri kümeye katılmaz",
     "ozet":  {
-                 "olculen":  86,
-                 "TAM":  69,
+                 "olculen":  89,
+                 "TAM":  72,
                  "EKSIK":  17,
-                 "olculemedi":  3
+                 "olculemedi":  1
              },
     "standartlar":  [
                         {
@@ -490,6 +490,19 @@
                             "silinen_ornek":  ""
                         },
                         {
+                            "standart":  "ETIK",
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/BagimsizDenetcilerIcinEtik%20Kurallar_11_08_2025.pdf",
+                            "durum":  "TAM",
+                            "resmi_paragraf":  1090,
+                            "silinen":  0,
+                            "ambar_paragraf":  1049,
+                            "eksik":  44,
+                            "fazla":  3,
+                            "eksik_ornek":  "A100.8,A114.3,A114.4,300.3,A310.12,A320.7,A360.15,A360.28,A360.37,A380.15,400.15,A400.27,A400.30,A400.31,A400.53,A400.60,A400.72,A400.89,A405.4,A410.13,A410.18,A410.23,A410.25,A410.30,A410.32",
+                            "fazla_ornek":  "A360.31,A360.32,A510.8",
+                            "silinen_ornek":  ""
+                        },
+                        {
                             "standart":  "GDS 3000",
                             "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/GDS 3000_2025.pdf",
                             "durum":  "TAM",
@@ -556,11 +569,11 @@
                         },
                         {
                             "standart":  "KYS 1",
-                            "adres":  "",
-                            "durum":  "ADRES YOK",
-                            "resmi_paragraf":  0,
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/KYS 1_2025.pdf",
+                            "durum":  "TAM",
+                            "resmi_paragraf":  266,
                             "silinen":  0,
-                            "ambar_paragraf":  0,
+                            "ambar_paragraf":  267,
                             "eksik":  0,
                             "fazla":  0,
                             "eksik_ornek":  "",
@@ -569,11 +582,11 @@
                         },
                         {
                             "standart":  "KYS 2",
-                            "adres":  "",
-                            "durum":  "ADRES YOK",
-                            "resmi_paragraf":  0,
+                            "adres":  "https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TDS/TDS_2025_Seti/KYS 2_2025.pdf",
+                            "durum":  "TAM",
+                            "resmi_paragraf":  83,
                             "silinen":  0,
-                            "ambar_paragraf":  0,
+                            "ambar_paragraf":  84,
                             "eksik":  0,
                             "fazla":  0,
                             "eksik_ornek":  "",

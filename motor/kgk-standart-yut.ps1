@@ -143,7 +143,9 @@ function Parcala([string]$metin, [string]$kisa){
     return $parcalar
   }
 
-  $rxPar = [regex]'(?m)^\s*(?<no>(?:R)?\d{1,3}(?:\.\d{1,3}){0,2}\s?A?\d{0,3}|A\d{1,3}|\d{1,3}T)\s+(?=[A-ZÇĞİÖŞÜ(])'
+  # 16.09 (Cem "1.2.3 üçünüde yap", Etik Kurallar onarımı): 2025 Etik Kurallar'da ana hüküm öneki R değil A ("A112.1").
+  #   Eski desen A-önekli ana hükmü AYIRMIYORDU; metni bir önceki U paragrafına yapışıyordu (metin kaybı yok, ad yanlış).
+  $rxPar = [regex]'(?m)^\s*(?<no>(?:[RA])?\d{1,3}(?:\.\d{1,3}){0,2}\s?A?\d{0,3}|A\d{1,3}|\d{1,3}T)\s+(?=[A-ZÇĞİÖŞÜ(])'
   $p = $rxPar.Matches($duz)
   if($p.Count -ge 10){
     # 02.08 CEM DENETIMI: ilk surumde "80 karakterden kisayi atla" ve "6.000'den
@@ -164,13 +166,31 @@ function Parcala([string]$metin, [string]$kisa){
         }
       }
     }
+    $kullanilanNo = New-Object System.Collections.Generic.HashSet[string]
     for($i=0; $i -lt $p.Count; $i++){
       $bas = $p[$i].Index
       $son = if($i -lt $p.Count-1){ $p[$i+1].Index } else { $duz.Length }
       $govde = $duz.Substring($bas, $son-$bas).Trim()
       if($govde.Length -eq 0){ continue }
       $no = ($p[$i].Groups['no'].Value -replace '\s','')
-      if($govde.Length -lt 60 -and $parcalar.Count -gt 0){
+      # 16.09 ⚠ AYNI AD = SESSİZ KAYIP. Etik Kurallar'da bir numaranın altında uygulama paragrafları durur ("100.6 U1" … "100.6 U4").
+      #   Desen yalnız "100.6"yı alıyordu; dört U paragrafı ve ana hüküm AYNI ADI ("Etik Kurallar p.100.6") taşıdı. Yükleyici ada göre tekilleştirdiği
+      #   için 881 parçanın 312'si (≈195 bin kr) ambara hiç girmedi. U etiketi ada eklenir: "p.100.6 U1". Gövdesi U ile başlamayan parçalarda ad AYNEN kalır.
+      $uEtiket = [regex]::Match($govde,'^\S+(?:\s+A\d{1,3})?\s+(U\d{1,2})\b')
+      # 16.09 ÇAPRAZ ATIF SATIR BAŞINA DÜŞÜNCE: "120.6 U1 paragrafında tanımlanan …", "A400.22 (a) ilâ (c) paragraflarında …" yeni paragraf DEĞİLDİR.
+      #   Etiketin ardından küçük harf / "ve" / "ilâ" / tire ya da "(x) ilâ|paragraf" geliyorsa metin ÖNCEKİ parçaya eklenir (atılmaz).
+      $etiketSonu = if($uEtiket.Success){ $uEtiket.Length } else { $p[$i].Groups['no'].Length }
+      $sonrasi = $govde.Substring([Math]::Min($etiketSonu,$govde.Length)).TrimStart()
+      $atifMi = ($uEtiket.Success -and $sonrasi -cmatch '^(?:[a-zçğıöşüâ]|ve\s|il[âa]\s|[–-])') -or ($sonrasi -cmatch '^\([a-zçğıöşü]{1,2}\)\s+(?:il[âa]\s|paragraf)')
+      if($atifMi -and $parcalar.Count -gt 0){ $parcalar[$parcalar.Count-1].metin = $parcalar[$parcalar.Count-1].metin + " " + $govde; continue }
+      if($uEtiket.Success){ $no = "$no $($uEtiket.Groups[1].Value)" }
+      # 16.09: noktalı numara (Etik Kurallar) resmî metinde YALNIZ BİR KEZ paragraf açar; ikinci kez gelmesi sözlük/dizin tablosundaki atıftır
+      #   ("A113.1 Sır saklama … A114.1-A114.3", "120.6 U3(d) Bu terim …") → metin önceki parçaya eklenir, ad çoğalmaz.
+      #   YALNIZ Etik Kurallar: TFRS 17'de aynı kural 31 parçayı değiştirdi (eşdeğerlik provası), orada çift ad başka sebepten.
+      if($kisa -eq 'Etik Kurallar' -and $no -match '\d\.\d' -and $kullanilanNo.Contains($no) -and $parcalar.Count -gt 0){ $parcalar[$parcalar.Count-1].metin = $parcalar[$parcalar.Count-1].metin + " " + $govde; continue }
+      [void]$kullanilanNo.Add($no)
+      # 16.09: Etik Kurallar'da kısa ANA HÜKÜM gerçek paragraftır ("100.6 Denetçi Etik Kurallara uyar." 36 kr) — kırıntı değildir, ayrı kalır.
+      if($govde.Length -lt 60 -and $parcalar.Count -gt 0 -and -not ($kisa -eq 'Etik Kurallar' -and $no -match '\d\.\d')){
         # sayfa numarasi / icindekiler kirintisi: ONCEKI parcaya eklenir, ATILMAZ
         $parcalar[$parcalar.Count-1].metin = $parcalar[$parcalar.Count-1].metin + " " + $govde
         continue

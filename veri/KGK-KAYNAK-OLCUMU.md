@@ -378,3 +378,25 @@ Hakikat ölçümü: **TSRS 2 EKSİK → TAM** (resmî 113 numara / ambar 114). K
 **(3) Basım planı yazıldı → [KGK-BASIM-PLANI.md](KGK-BASIM-PLANI.md).** Soru başına bedel defterden ölçüldü (103 parti, 2.792 soru, güncel resmî fiyatla): **medyan 0,164 USD** (çeyrekler 0,099–0,225). Öneri: Denetim modülü, dalga 1 pilot 107 soru ≈18 USD.
 
 **Tazeleme sonrası Excel:** şimdi basılabilir **2.295** (sabah 1.648) · önce onarım 320 · basılamaz 319. Standart hakikat ölçümü: 86 standart, **69 TAM**.
+
+---
+
+## GÜNCELLEME 16.09 ~12:00 · Cem "1.2.3 üçünüde yap" (küçülme freni · dalga 1 · ETİK/KYS onarımı)
+
+**(1) Küçülme freni ayrı yayınları artık saymıyor — `motor/standart-yut.ps1` (90467b64).** Adı `"<standart> Degisiklikleri"` / `"Değişiklikleri"` ile BAŞLAYAN kayıtlar okuma + yedek + silme süzgecinden çıkar. Süzgeç bilerek dar: başlığında "değişiklik" geçen paragraflar (TMS 8, BDS 320 p.12, TFRS 14 p.13, GDS 3410 p.22) etkilenmez. Eşdeğerlik: 89 standart / 9.177 kayıt, fark yalnız TSRS 2'nin 9 değişiklik parçası.
+
+**(2) Dalga 1 hazır, BAŞLATILMADI** — C: diski %94,1 dolu. Ayrıntı: [KGK-BASIM-PLANI.md](KGK-BASIM-PLANI.md) bölüm 5a.
+
+**(3) ETİK ve KYS onarımı — "etiket eksik" teşhisi YANLIŞTI; sorun metnin kendisindeydi.**
+- **KYS 1: ambarda ESKİ SÜRÜM vardı.** Ambardaki metin 16.01.2023 ilk sürümün diliyle ("Denetim veya hizmetlerin tutarlı…"); yürürlükteki 29.12.2023-32414 sürümü ("Kaliteli denetimlerin tutarlı…") TDS 2025 setinde. Resmî metnin 1.055 cümlesinin **260'ı ambarda yoktu** (46 bin kr); ön bölüm kaydı tek harfti ("T"). Hakikat ölçümü KYS'yi hiç ölçmüyordu (adres kalıbı yalnız BDS/GDS) → "ADRES YOK". Resmî PDF'ten `standart-yut` BDS kipiyle yeniden yazıldı: **107 → 267 parça** (resmî 266 paragraf + künye), geri okuma birebir. Yeni bölmede bulunamayan 79 cümle çoğunlukla bölme yanılgısı (dipnot, "(Bkz.: A7 paragrafı)" parçaları).
+- **KYS 2: aynı sınıf** — 36 → 84 parça, +3.093 kr; resmî 83 paragrafın 68'i etiketsizdi → TAM.
+- **Etik Kurallar: metnin ≈%36'sı ambara HİÇ girmemişti.** `motor/kgk-standart-yut.ps1` "100.6" ile "100.6 U1…U4"ü AYNI ADLA ("Etik Kurallar p.100.6") yazıyordu; ambar yükleyicisi ada göre tekilleştirdiği için **881 parçanın 312'si (≈195 bin kr) düştü**. Ambardaki p.100.6 yalnız U1'i taşıyordu; ana hüküm "Denetçi Etik Kurallara uyar." ve U2–U4 yoktu. Ayrıca 2025 metninde ana hüküm öneki R değil **A** ("A112.1") ve eski desen bunları hiç ayırmıyordu.
+  Düzeltme (`Parcala`): U etiketi ada eklenir ("p.100.6 U1") · A önekli ana hüküm ayrılır · satır başına düşmüş çapraz atıf ("120.6 U1 paragrafında…") yeni paragraf açmaz · Etik'te noktalı numara ikinci kez paragraf açmaz (sözlük/dizin tablosu) · Etik'in kısa ana hükmü (<60 kr) öncekine yapıştırılmaz.
+  **Eşdeğerlik:** betiğin 36 hedefinin 35'inde çıktı bayt bayt aynı; Etik'te metin (boşluksuz) **471.922 kr birebir aynı**, yalnız bölme değişti. İlk denemede "noktalı numara" kuralı TFRS 17'de 31 parçayı değiştirdi → kural Etik'e daraltıldı.
+  **Ambar: 569 parça / 348.637 kr → 1.147 parça / 543.297 kr**, hepsi farklı adlı, `kaynak_url` resmî PDF; geri okuma json ile birebir.
+  **Bağ etkisi ölçüldü:** soru havuzunda Etik/KYS atıflı soru **0** (2.166 KGK sorusunda); yerel üretim önbelleklerinde "Etik Kurallar p." geçen dosya **0**. Eski adların 343'ü yeni kümede yok (çoğu "p.924.4" → "p.A924.4" + "p.924.4 U1"); kopan bağ yok.
+- Hakikat ölçümüne ETİK (numara biçimi `A?NNN.N[ Uk]`, satır başı çapraz atıf elenir) ve KYS eklendi.
+
+**Yedekler:** `veri/fabrika/yedek-KYS1-20260916-1108.json` · `yedek-KYS2-20260916-1135.json` · `yedek-EtikKurallar-20260916-1120.json` (ilk 569) · `yedek-EtikKurallar-20260916-1128.json` (ara 1.084) — kopyaları `_yerel-veri-kasasi/baglama-yedek/`.
+
+**Tazeleme sonrası:** hakikat ölçümü **89 standart, 72 TAM** (sabah 86/69) — ETİK, KYS 1, KYS 2 TAM. Denetim modülünde tek ZAYIF: BDS 720 (9 paragraf). Excel: şimdi basılabilir **2.335** · önce onarım 280 · basılamaz 319; Denetim 403 / 33 / 0.

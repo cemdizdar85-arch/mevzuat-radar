@@ -1,4 +1,4 @@
-# KGK BASIM PLANI — 16.09.2026 (Cem onayı bekler, hiçbir şey başlatılmadı)
+# KGK BASIM PLANI — 16.09.2026 (dalga 1 onaylı · plan hazır · disk %94 nedeniyle BAŞLATILMADI)
 
 Kaynak ölçümü: [KGK-KAYNAK-OLCUMU.md](KGK-KAYNAK-OLCUMU.md) · dağılım ve paylar: masaüstü `KGK-Sinav-Kaynak-Basim-Plani.xlsx` (8 sayfa, üreten: `arac/kgk-basim-excel.ps1`).
 
@@ -6,7 +6,7 @@ Kaynak ölçümü: [KGK-KAYNAK-OLCUMU.md](KGK-KAYNAK-OLCUMU.md) · dağılım ve
 
 | Modül | Kaynak eşleşmesi | Şimdi basılabilir | Önce onarım | Basılamaz |
 |---|---:|---:|---:|---:|
-| **b) Türkiye Denetim Standartları** | %100 | **363** | 73 | 0 |
+| **b) Türkiye Denetim Standartları** | %100 | **403** | 33 | 0 |
 | a) Muhasebe Standartları | %100 | 395 | 37 | 15 |
 | ç) Sermaye Piyasası | %100 | 418 | 27 | 0 |
 | d) Bankacılık | %100 | 303 | 96 | 0 |
@@ -14,7 +14,7 @@ Kaynak ölçümü: [KGK-KAYNAK-OLCUMU.md](KGK-KAYNAK-OLCUMU.md) · dağılım ve
 | f/g) Sürdürülebilirlik | %100 | 392 | 7 | 0 |
 | c) Kurumsal Yönetim + Finansal Yönetim | %100 | 98 | 0 | 304 |
 
-**Toplam (7 modül): şimdi basılabilir 2.295 · önce onarım 320 · basılamaz 319.**
+**Toplam (7 modül, 16.09 11:50 tazeleme): şimdi basılabilir 2.335 · önce onarım 280 · basılamaz 319.**
 
 Denetim modülünün üstünlüğü: **34 BDS'nin 33'ü resmî metinle TAM** (16.09 hakikat ölçümü); BDS 720'de 9 paragraf ayrı parça değil (metni komşu parçada, soru yazılabilir ama paket hassasiyeti düşük). Ek paragrafları (A-serisi) etiketli, dayanak ad köprüsü kurulu. Kurumsal Yönetim en sona kalır: 304 soruluk Finansal Yönetim kısmı resmî metinsiz (SPL kararı bekliyor).
 
@@ -25,7 +25,7 @@ Amaç: ret oranını ve soru başına gerçek bedeli ÖLÇMEK. Dalga 2'ye ancak 
 
 **Dalga 2 — kalan kaynaklar, ≈256 soru** (BDS 720 hariç hepsi TAM). BDS 500/505/540/570/600/700/705/720, BDS 210/230/250/260/265/300/320/402/450/501/510/520/550/560/580/610/620/701/706/710, GDS 3000/3400/3402, İHS 4400, BDY, 660 KHK.
 
-**Dalga 3 — onarım sonrası, ≈73 soru.** ETİK Kurallar (23) ve KYS 1 (17): ambarda resmî metin var, paragraf etiketi eksik (hakikat ölçümü "EKSİK"). Önce parasız onarım, sonra basım.
+**Dalga 3 — ≈40 soru, ONARIM BİTTİ (16.09 11:30).** ETİK Kurallar (23) ve KYS 1 (17) artık resmî metinle TAM (hakikat ölçümü). Ayrıntı: [KGK-KAYNAK-OLCUMU.md](KGK-KAYNAK-OLCUMU.md) 16.09 ~12:00 bölümü. Kalan tek onarım: BDS 720 (9 paragraf etiketsiz).
 
 ## 3 · Bedel (ölçülmüş, tahmin değil)
 
@@ -55,10 +55,25 @@ FAZ A kod kapıları (uzunluk, hesap kodu, klişe, çeldirici, aile, ilgisiz teo
 - Parti bitmeden hat yeniden başlatılmaz (çift ödeme).
 - Her dalga sonunda: ret oranı, soru başına gerçek bedel ve ilgisiz TEORİ payı ölçülüp bu belgeye yazılır.
 
+## 5a · Dalga 1 — hazır, başlatılmadı (16.09 12:00)
+
+Cem onayı geldi ("1.2.3 üçünüde yap"). Plan ve konu dosyaları depoda:
+- Plan: `veri/sinav/plan-kgk-a1-denetim.json` (5 satır, ders "Türkiye Denetim Standartları", toplu, KAPI-AİLE açık)
+- Konu: `veri/sinav/konu/kgk-a1-bds315|200|330|530|240.json` — köprüdeki (`veri/fabrika/konu-koprusu.json`) o standarda ait TÜM KGK konuları (35/26/28/27/36), dönem sayısına göre sıralı; üretici son 7 dönem penceresiyle ilk `adet` konuyu seçer.
+- Kasada `kgk-a1*` etiketi yok (çakışma 0). Sınav kolunu tutan oturum (92) eşzamanlı koşuya izin verdi.
+
+**Neden başlatılmadı:** C: diski %94,1 dolu (28,2 GB boş). Kural: ~%90'da dur, Cem'e söyle. Koşunun kendisi birkaç MB yazar; karar Cem'in.
+
+Başlatma (Cem "disk tamam" deyince):
+```powershell
+$env:MEVZUAT_TOPLU_BEKLE_DK='1440'; powershell -NoProfile -File motor/kalip-kosucu.ps1 -Plan veri/sinav/plan-kgk-a1-denetim.json -Paralel 5
+```
+Bitince: `arac/ret-kutugu.ps1` + ret oranı + soru başına gerçek bedel bu belgeye.
+
 ## 6 · Cem'den istenen karar
 
-1. **Denetim modülü Dalga 1 başlatılsın mı?** (107 soru, ≈18 USD, yerel koşu)
+1. ~~Denetim modülü Dalga 1 başlatılsın mı?~~ **Onaylandı 16.09** — yalnız disk kararı bekliyor (bkz. 5a).
 2. **Koşu yerel mi bulutta mı?** (bulutta bedel görünmez, ayrı ölçüm gerekir)
 3. Kredi 145 USD; dalga 1+2 sonrası kalan ≈85 USD.
 
-Karar gelene kadar hiçbir üretim başlatılmadı.
+Hiçbir üretim başlatılmadı (16.09 12:00).

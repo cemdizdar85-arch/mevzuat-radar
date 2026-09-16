@@ -33,7 +33,7 @@ $kokAdres = 'https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2'
 
 function ResmiAdres([string]$std){
   if($std -match '^(TMS|TFRS)\s'){ return "$kokAdres/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/$(($std -split ' ')[0])/$std.pdf" }
-  if($std -match '^(BDS|GDS)\s'){ return "$kokAdres/TDS/TDS_2025_Seti/${std}_2025.pdf" }
+  if($std -match '^(BDS|GDS|KYS)\s'){ return "$kokAdres/TDS/TDS_2025_Seti/${std}_2025.pdf" }   # 16.09: KYS 1/2 aynı sette (KYS%201_2025.pdf, 200)
   return ''
 }
 # 15.09 araştırma: KGK dosya adı kalıba uymayanlar (adında fazladan boşluk / Türkçe harf)
@@ -47,12 +47,21 @@ $ozelAdres = @{
   # ölçüm "ilk yayım metnine göre" tamlıktır; değişiklik ambarda ayrı kaynak olarak durur (manifest: kgk-tsrs2-degisiklik-2026).
   'TSRS 1' = "$kokAdres/Surdurulebilirlik/RaporlamaStandarti/TSRS%201.pdf"
   'TSRS 2' = "$kokAdres/Surdurulebilirlik/RaporlamaStandarti/TSRS%202.pdf"
+  # 16.09: Etik Kurallar (Bağımsızlık Standartları Dâhil) — TDS 2025 seti, 11.08.2025 güncel metin. Aile kodu 'ETIK' (arac/kgk-kaynak-olcumu.ps1 ile aynı).
+  'ETIK' = "$kokAdres/TDS/TDS_2025_Seti/BagimsizDenetcilerIcinEtik%20Kurallar_11_08_2025.pdf"
 }
 
 function HakikatNumaralari([string]$metin, [string]$std){
   $gercek = New-Object System.Collections.Generic.HashSet[string]; $silinen = New-Object System.Collections.Generic.HashSet[string]
-  $bdsKip = $std -match '^(BDS|GDS|İHS)\s'
+  $bdsKip = $std -match '^(BDS|GDS|İHS|KYS)\s'   # 16.09: KYS de '1. metin' biçiminde
   foreach($satir in ($metin -split "`r?`n")){
+    if($std -eq 'ETIK'){
+      # 16.09: Etik numarası 'A100.7' (ana hüküm) · '100.6' · '100.6 U1' (uygulama). Numaradan sonra küçük harf = satır başına düşmüş çapraz atıf, paragraf değil.
+      $es = [regex]::Match($satir,'^\s{0,6}(A?\d{3}\.\d{1,3}(?:\s+U\d{1,2})?)\s{2,}(\S.*)$')
+      if($es.Success -and $es.Groups[2].Value -cmatch '^[a-zçğıöşü]'){ continue }
+      if($es.Success){ $no = ($es.Groups[1].Value -replace '\s+',' '); $govde = $es.Groups[2].Value; if($govde -match '^\[Silinmi'){ [void]$silinen.Add($no) } else { [void]$gercek.Add($no) } }
+      continue
+    }
     if($bdsKip){ $es = [regex]::Match($satir,'^\s{0,4}([A-Z]?\d{1,3}[A-Z]?)\.\s+(\S.*)$') }
     elseif($std -match '^TSRS\s'){ $es = [regex]::Match($satir,'^\s{0,10}([A-Z]{0,2}\d{1,3}[A-Z]{0,2})\s{2,}(\S.*)$') }   # 16.09: TSRS'de numara sütunu girintili
     else       { $es = [regex]::Match($satir,'^([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})\s{2,}(\S.*)$') }   # TFRS 9 '4.1.1' noktalı numara
@@ -71,6 +80,8 @@ $ambarNo = @{}
 foreach($r in $adlar){
   $ad = "$($r.kaynak_ad)"
   $es = [regex]::Match($ad,'^((?:TMS|TFRS|BDS|GDS|İHS|TSRS|SBDS|KYS)\s\d+)\s(Ek\s\d+\s)?p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:[\s\-]|$)')
+  $etikEs = [regex]::Match($ad,'^Etik Kurallar p\.(A?\d{3}\.\d{1,3}(?: U\d{1,2})?)(?:\s|$)')   # 16.09
+  if($etikEs.Success){ if(-not $ambarNo.ContainsKey('ETIK')){ $ambarNo['ETIK'] = New-Object System.Collections.Generic.HashSet[string] }; [void]$ambarNo['ETIK'].Add($etikEs.Groups[1].Value); continue }
   if(-not $es.Success -or $es.Groups[2].Value){ continue }
   $std = $es.Groups[1].Value
   if(-not $ambarNo.ContainsKey($std)){ $ambarNo[$std] = New-Object System.Collections.Generic.HashSet[string] }
