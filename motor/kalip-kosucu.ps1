@@ -390,6 +390,18 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
    NabizYaz "$($a.s.etiket)" $satirlar.Count   # canli nabiz - bkz. NabizYaz
  }
 }
+# 17.09 KAPI SAYIMI (plan toplamı): her parti günlüğündeki "KAPI SAYIM: kod=n ..." satırları toplanır; yalnız kod ve sayı basılır.
+#   d1-X = ilk taslak X kapısından döndü (yeniden yazım ödendi) · d2-X = yeniden yazım da X'ten döndü · ATILDI = iki deneme de düştü.
+try{
+  $kapiTop=@{}
+  foreach($lg in @(Get-ChildItem $logDir -Filter '*.log' -ErrorAction SilentlyContinue)){
+    foreach($ks in @(Select-String -Path $lg.FullName -Pattern '^KAPI SAYIM: (.+)$' -ErrorAction SilentlyContinue)){
+      # -cmatch: tr-TR kültüründe büyük/küçük duyarsız eşleşme 'I'yı 'ı' sayar, 'ATILDI' [A-Za-z] ile eşleşmez (17.09 ölçüldü)
+      foreach($cift in ($ks.Matches[0].Groups[1].Value -split '\s+')){ if($cift -cmatch '^([A-Za-z0-9-]+)=(\d+)$'){ $kapiTop[$Matches[1]]=[int]$kapiTop[$Matches[1]]+[int]$Matches[2] } }
+    }
+  }
+  if($kapiTop.Count){ "KAPI SAYIM (plan toplamı): " + ((@($kapiTop.Keys) | Sort-Object | ForEach-Object { "$_=$($kapiTop[$_])" }) -join ' ') }
+}catch{ "KAPI SAYIM toplanamadı: $($_.Exception.Message)" }
 # seçim (8.1 yayın şartı)
 . (Join-Path $Kok 'arac\smmm-yayin-sarti.ps1'); $smmmOnay=SmmmOnayHarita $Kok   # 14.09 bitirme kör istisnası (yalnız smmm-* etiketinde kullanılır)
 $secim=@()

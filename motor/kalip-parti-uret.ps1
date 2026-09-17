@@ -83,8 +83,15 @@ $kok=Split-Path -Parent $here
 #   o koşuda hasat edilip ÖDENEN isteklerin bedeli deftere yazılmadı. 8 ders halka 1: defter 102 USD, işlenen 15.331 toplu istek
 #   örneklemle ≈400-485 USD; kredi bu yüzden habersiz bitti. Tanım başa alındı; api-hedef 75'ten ÖNCE bunu çağırır (varsa).
 $script:BEDEL_YAZILDI=$false
+# 17.09 KAPI SAYIMI (Cem "1 yap"): 8 dersin FAZ A taslaklarının %60'ı yazım kapılarından dönüp yeniden yazıldı (126 USD), ~1.270'i ikinci
+#   denemede de atıldı (124 USD); hangi kapının döndürdüğü bulut makinesiyle birlikte silindi. Artık her koşu sonunda yalnız KOD + SAYI
+#   basılır (ör. "KAPI SAYIM: d1-D2=4 d2-CB=1"); soru metni basılmaz (bulut güvenliği kuralı 2). Aynı taslak aynı kapıda bir kez sayılır.
+$script:KAPI_SAYIM=@{}; $script:KAPI_GORULEN=@{}
+function KapiSay([string]$kod,[string]$anahtar){ $ks0="$anahtar|$kod"; if($script:KAPI_GORULEN.ContainsKey($ks0)){ return }; $script:KAPI_GORULEN[$ks0]=1; $script:KAPI_SAYIM[$kod]=1+[int]$script:KAPI_SAYIM[$kod] }
+function KapiSayimYaz{ if($script:KAPI_SAYIM.Count){ Write-Host ("KAPI SAYIM: " + ((@($script:KAPI_SAYIM.Keys) | Sort-Object | ForEach-Object { "$_=$($script:KAPI_SAYIM[$_])" }) -join ' ')) } }
 function BedelDefterYaz{
 if($script:BEDEL_YAZILDI){ return }   # aynı koşuda ikinci satır yazılmaz (çift sayım)
+try{ KapiSayimYaz }catch{}
 try{
   if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
     $bz=Get-BedelOzet
@@ -3133,6 +3140,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       $sebep=if(-not $aday){ 'JSON COZULEMEDI' } elseif(-not $aday.soru){ 'soru alani yok' } else { 'aciklama alani yok' }
       [IO.File]::WriteAllText($bozukYol,("sebep: $sebep | durma: $($y.dur) | cikti token: $($y.cikti) | uzunluk: $("$($y.metin)".Length) kr`n`n$($y.metin)"),[Text.UTF8Encoding]::new($false))
       Write-Host "  BOZUK SEBEP ($id d$deneme): $sebep, durma=$($y.dur), $("$($y.metin)".Length) kr -> $(Split-Path $bozukYol -Leaf)" -ForegroundColor DarkYellow
+      KapiSay "d$deneme-BOZUK" "$id|$deneme"
       # 14.09 yalnız bitirme: istem modele 'yetmiyorsa HATA: Onayli madde kumesi yetersiz' dedirtiyor; bu BOZUK değil KAYNAK YETERSİZ cevabıdır.
       # ÖLÇÜLDÜ (pilot yspk-zor d1+d2, yspk-cokzor d2): aynı paketle ikinci deneme de aynı cevabı verdi, çağrı boşa ödendi. Tekrar yok, kaynak borcu.
       if($Sinav -eq 'SMMM' -and "$($y.metin)" -match '(?i)^\s*HATA:\s*Onayl[ıi]\s+(madde|hesap)\s+k[üu]mesi\s+yetersiz'){ $kyTxt=("$($y.metin)" -replace '\s+',' '); $kaynakBorcu.Add("[$($ky.donem) donem] $($ky.konu) | MODEL: kaynak paketi yetersiz — $($kyTxt.Substring(0,[Math]::Min(220,$kyTxt.Length)))"); $rapor.Add("KAYNAK YETERSIZ (model soruyu yazmadi, tekrar yok): $($ky.konu)"); Write-Host "  KAYNAK YETERSİZ ($id): model paketle soru kuramadı — ikinci deneme ÖDENMİYOR, kaynak borcu" -ForegroundColor Yellow; $cvp=$null; break }
@@ -3176,6 +3184,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   if($ssKusur.Count -and $deneme -eq 1){
     Write-Host "  KAPI-SS (standart seti) ($id): $($ssKusur[0]) - yeniden" -ForegroundColor Magenta
     $ist=$ist+"`nKAPI-SS DUSTU: $($ssKusur[0]). Ambarda bulunmayan standart numarasi ANMA; yalniz kaynak paketinde gordugun standartlari kullan."
+    KapiSay 'd1-SS' "$id|1"
     continue
   }
   if($ssKusur.Count){ Write-Host "  KAPI-SS NOTU ($id): $($ssKusur[0])" -ForegroundColor DarkYellow; $rapor.Add("KAPI-SS: $id | $($ssKusur[0])") }
@@ -3185,6 +3194,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($hsK -and [bool]$hsK.dogrulandi -and $deneme -eq 1){
       Write-Host "  KAPI-HS (hesap seti, MUHURLU) ($id): $($hsKusur[0]) - yeniden" -ForegroundColor Magenta
       $ist=$ist+"`nKAPI-HS DUSTU: $($hsKusur[0]). Soruyu, konunun ONAYLI hesap kumesindeki hesaplarla yeniden yaz."
+      KapiSay 'd1-HS' "$id|1"
       continue
     }
     Write-Host "  KAPI-HS ISARETI ($id): $($hsKusur[0])" -ForegroundColor DarkYellow
@@ -3198,6 +3208,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   if($khKusur.Count -and $deneme -eq 1){
     Write-Host "  KAPI-KH (kodsuz hesap adi) ($id): $($khKusur -join ', ') - yeniden" -ForegroundColor DarkYellow
     $ist=$ist+"`nKAPI-KH DUSTU: sikta '$($khKusur -join ", ")' hesabi ADIYLA anilmis ama KODU yazilmamis. Her hesap adinin onune THP kodunu yaz (ornek: '521 Hisse Senedi Iptal Karlari')."
+    KapiSay 'd1-KH' "$id|1"
     continue
   }
   if($khKusur.Count){ Write-Host "  KAPI-KH NOTU ($id): kodsuz hesap adi -> $($khKusur -join ', ')" -ForegroundColor DarkGray; $rapor.Add("KAPI-KH: $id | kodsuz hesap adi: $($khKusur -join ', ')") }
@@ -3206,6 +3217,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   if($kvKusur2.Count -and $deneme -eq 1){
     Write-Host "  KAPI-KV (kok-sik vaadi) ($id): $($kvKusur2[0]) - yeniden" -ForegroundColor DarkYellow
     $ist=$ist+"`nKAPI-KV DUSTU: $($kvKusur2[0]). Ya siklari TAM KAYIT olarak yaz (borclu ve alacakli taraf birlikte), ya da soru kokunu tek tarafi soracak sekilde degistir."
+    KapiSay 'd1-KV' "$id|1"
     continue
   }
   if($kvKusur2.Count){ Write-Host "  KAPI-KV NOTU ($id): $($kvKusur2[0])" -ForegroundColor DarkGray; $rapor.Add("KAPI-KV: $id | $($kvKusur2[0])") }
@@ -3250,6 +3262,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($cbSonuc.kor -and $deneme -eq 1){ $rapor.Add("KAPI-CB KÖR: $id | $($cbSonuc.kor)") }
     if(@($cbSonuc.not).Count -and -not $cbKusur.Count){ $rapor.Add("KAPI-CB NOTU (deneme $deneme): $id | $(@($cbSonuc.not)[0])") }
     if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count -and -not $acKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
+    foreach($ksK in @(@('UZUN',($uz -gt $UZUNLUK_TAVAN)),@('S',[bool]$sikKusur),@('H',[bool]$hkKusur.Count),@('K',[bool]$kvKusur.Count),@('T',[bool]$tipKusur),@('C',[bool]$cyKusur.Count),@('Y',[bool]$yilKusur),@('O',[bool]$koKusur.Count),@('B',[bool]$bzKusur.Count),@('D2',[bool]$trKusur.Count),@('YD',[bool]$ydKusur.Count),@('P',[bool]$paKusur.Count),@('M',[bool]$muKusur.Count),@('SU',[bool]$suKusur.Count),@('CB',[bool]$cbKusur.Count),@('GT',[bool]$gtKusur.Count),@('AC',[bool]$acKusur.Count))){ if($ksK[1]){ KapiSay "d$deneme-$($ksK[0])" "$id|$deneme" } }   # 17.09 kapı sayımı (yalnız kod+sayı)
     if($muKusur.Count){ Write-Host "  KAPI-M (mülga mevzuat) ($id): $($muKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-M DÜŞTÜ (mülga mevzuat/kurum): $($muKusur -join '; '). Soru yalnız YÜRÜRLÜKTEKİ kanun, standart ve kurum adıyla yazılır; eski kanun numarası, mülga standart, kapanmış kurum adı ve eski/yeni karşılaştırması geçmez. Kaynak paketindeki güncel metne dayan." }
     if($suKusur.Count){ Write-Host "  KAPI-S (süresi dolan veri) ($id): $($suKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-S DÜŞTÜ (süresi dolan veri): $($suKusur -join '; '). Geçmiş bir son tarihe ya da eski yılın had/oranına dayanan veri kullanılmaz; tarihler $((Get-Date).Year) ve sonrası olur, had/oran soruda sayı olarak verilir." }
     if($cbKusur.Count){ Write-Host "  KAPI-CB (çıkmış cümle) ($id): $($cbKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-CB DÜŞTÜ (çıkmış soruyla aynı cümleler): $($cbKusur -join '; '). Şıkları ve öncülleri çıkmış bir sorunun cümlelerinden kurma; aynı kuralı KENDİ cümlenle, farklı bir hükmü ya da farklı bir yanlış yolu sınayacak biçimde yaz." }
@@ -3289,7 +3302,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
       if($gtKusur.Count){ $rapor.Add("KAPI-GT (gün tabanı) DÜŞTÜ: $($ky.konu) | $($gtKusur -join '; ')") }
       if($acKusur.Count){ $rapor.Add("KAPI-AÇ (doğru şık açıklaması) DÜŞTÜ: $($ky.konu) | $($acKusur -join '; ')") }
       $sertDustu=($sikKusur -or $hkKusur.Count -or $tipKusur -or $cyKusur.Count -or $yilKusur -or $koKusur.Count -or $bzKusur.Count -or $trKusur.Count -or $ydKusur.Count -or $paKusur.Count -or $muKusur.Count -or $suKusur.Count -or $cbKusur.Count -or $gtKusur.Count -or $acKusur.Count)
-      if($sertDustu){ Write-Host "  SORU DÜŞTÜ ($id): sert kapı ikinci denemede de tutmadı - kaydedilmedi" -ForegroundColor Red; $rapor.Add("SORU DÜŞTÜ (sert kapı ×2): $($ky.konu)"); $cvp=$null }
+      if($sertDustu){ KapiSay 'ATILDI' "$id|2"; Write-Host "  SORU DÜŞTÜ ($id): sert kapı ikinci denemede de tutmadı - kaydedilmedi" -ForegroundColor Red; $rapor.Add("SORU DÜŞTÜ (sert kapı ×2): $($ky.konu)"); $cvp=$null }
       else { $cvp=$aday }   # yalnız yumuşak kusur: en sonuncuyu al, rapora yazıldı
     }
   }
