@@ -139,6 +139,16 @@ try{
 }
 # 17.09: koşu yakalanmamış bir hatayla ÇÖKERSE de o ana kadar ödenen bedel deftere yazılır; 'break' hatayı aynen yukarı iletir (davranış aynı).
 trap { if(Get-Command BedelDefterYaz -ErrorAction SilentlyContinue){ BedelDefterYaz }; break }
+# 17.09 dönem sıralama anahtarı (bkz. PENCERE, KGK tarih biçimli dönemler)
+function DonemSira([string]$d){
+  $d="$d".Trim()
+  if($d -match '^(\d{4})/(\d{1,2})$'){ return [long]$Matches[1]*10000 + [long]$Matches[2] }
+  $aylar=@{ 'ocak'=1;'subat'=2;'şubat'=2;'mart'=3;'nisan'=4;'mayis'=5;'mayıs'=5;'haziran'=6;'temmuz'=7;'agustos'=8;'ağustos'=8;'eylul'=9;'eylül'=9;'ekim'=10;'kasim'=11;'kasım'=11;'aralik'=12;'aralık'=12 }
+  $m=[regex]::Match($d,'(\d{1,2})\s+(\S+)\s+(\d{4})')
+  if($m.Success){ $ay=$aylar[$m.Groups[2].Value.ToLowerInvariant()]; if($ay){ return [long]$m.Groups[3].Value*10000 + [long]$ay*100 + [long]$m.Groups[1].Value } }
+  $y=[regex]::Match($d,'\b(\d{4})\b'); if($y.Success){ return [long]$y.Groups[1].Value*10000 }
+  return [long]0
+}
 # 15.09 ONARIM TURU TUZU (Cem israf talimatı md.2: "onarımlar biriktirilip tek toplu partide koşulsun; bozuk cevap asla geri gelmesin").
 # Onarım koşusu (-PilotId / -*YenileId / -*Yenile) toplu gidince istem birebir aynı olduğu için parmak izi tutar ve ÖNCEKİ partinin
 # cevabı bedava hasat edilir; düzeltme hiç sorulmamış olur (13.09 HAKEM2 kararsızlığının kökü buydu, o zaman yalnız bozuk cevap için yamanmıştı).
@@ -1465,7 +1475,10 @@ if($DonemPencere -gt 0){
       $sonD=@($dersKayit | Where-Object { $donemSec -contains "$($_.donem)" } | Sort-Object { [int]("$($_.donem)" -replace '/','') } -Descending)
       "PENCERE (SMMM): ders kodu $(if($smmmKod){$smmmKod}else{'bilinmiyor - tum dersler'}) · $($sonD.Count) kayit / $($donemSec.Count) donem"
     } else {
-    $sonD=@($dList | Sort-Object { [int]("$($_.donem)" -replace '/','') } -Descending | Select-Object -First $DonemPencere)
+    # 17.09 ÖLÇÜLDÜ (KGK ilk bulut koşusu 35249795863): kgk-analiz.json dönemleri "29 Haziran 2019" biçiminde; [int]("…" -replace '/','')
+    #   çevrilemedi, $ErrorActionPreference Stop olduğu için 5 partinin 5'i de başlar başlamaz düştü (bedel 0). SGS dönemleri "YYYY/N":
+    #   aynı sıra korunur (YYYY/N → YYYY·10000+N; tek haneli N'de eski anahtarla aynı sıralama). Tarih → YYYY·10000+AA·100+GG.
+    $sonD=@($dList | Sort-Object { DonemSira "$($_.donem)" } -Descending | Select-Object -First $DonemPencere)
     }
     $etiketDonem=@{}   # etiket kökleri -> dönem kümesi
     foreach($dn in $sonD){ foreach($p in @($dn.konuSayim.PSObject.Properties)){ $lab=($p.Name -replace '^[^|]*\|',''); $k=(KokOnek $lab) -join ' '; if(-not $etiketDonem.ContainsKey($k)){ $etiketDonem[$k]=@{} }; $etiketDonem[$k]["$($dn.donem)"]=1 } }
