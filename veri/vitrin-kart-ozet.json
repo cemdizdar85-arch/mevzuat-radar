@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-09-16T07:46:18.269Z",
-  "gun": "2026-09-16",
+  "olcum": "2026-09-17T07:48:39.051Z",
+  "gun": "2026-09-17",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 48,
+      "sira": 49,
       "toplam": 70,
-      "id": "sgs-d2-maliyet-cokzor-r1/kp-01",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "sipariş maliyet sistemi",
-      "kunye": "SGS 2025/1 Soru 59 kalıbı",
-      "donem": 7,
+      "id": "sgs-t1-genel-mat-zor/kp-08",
+      "ders": "Matematik",
+      "konu": "oran orantı",
+      "kunye": "SGS 2026/2 Soru 11 kalıbı",
+      "donem": 4,
       "teori": false,
-      "rakamSik": false,
-      "soru": "İşletme sipariş maliyet sistemi kullanmaktadır. Genel üretim giderleri, makine saati esas alınarak dönem başında belirlenen yükleme oranıyla siparişlere yüklenmektedir. Normal kapasite 20.000 makine saati olarak planlanmış; bu kapasitede bütçelenen sabit genel üretim gideri 400.000 TL, değişken genel üretim gideri oranı ise makine saati başına 20 TL olarak öngörülmüştür. Dönemde fiilen çalışılan makine saati 18.000'dir ve aynı dönemde fiili genel üretim gideri toplamı 774.000 TL olarak gerçekleşmiştir. İşletme ayrıca dönemde 90.000 TL genel yönetim gideri yapmış, direkt işçilerine ise saat başına 35 TL ücret ödemiştir. Buna göre dönemin bütçe (harcama) sapması kaç TL'dir ve yönü nedir?",
+      "rakamSik": true,
+      "soru": "Bir üretim tesisinde üç makinenin günlük üretim miktarları a, b, c olup a:b = 3:4 ve b:c = 5:6 oranındadır. Üç makinenin toplam günlük üretimi 1.180 adettir. Buna göre, en fazla üretim yapan makine ile en az üretim yapan makine arasındaki üretim farkı kaç adettir?",
       "siklar": {
-        "A": "14.000 olumlu",
-        "B": "14.000 olumsuz",
-        "C": "40.000 olumlu",
-        "D": "40.000 olumsuz",
-        "E": "54.000 olumsuz"
+        "A": "80",
+        "B": "100",
+        "C": "180",
+        "D": "300",
+        "E": "480"
       },
-      "dogru": "B",
+      "dogru": "C",
       "tuzak": {
-        "C": {
-          "ad": "Katman Tuzağı",
-          "metin": "Esnek bütçe ile yüklenen gider arasındaki kapasite sapmasını (760.000-720.000=40.000) bütçe sapması sanmış, ayrıca yönünü de ters işaretlemişsin. Doğrusu: Bu tutar kapasite sapmasıdır, bütçe sapması değildir."
+        "D": {
+          "ad": "Terimi Farkla Karıştırma Tuzağı",
+          "metin": "k'yı doğru bulup a=300 değerini bulduktan sonra bunu doğrudan istenen fark sanırsın; oysa soru farkı sorar, tek bir terimin kendisini değil. Doğrusu: fark c-a=180'dir."
         },
         "E": {
-          "ad": "Ayrıştırma Tuzağı",
-          "metin": "Fiili gideri doğrudan yüklenen giderle karşılaştırıp toplam yükleme farkını (774.000-720.000=54.000) bütçe sapması sandın. Doğrusu: Bu tutar toplam yükleme farkıdır, bütçe ve kapasite sapmalarına ayrıştırılmamıştır."
-        },
-        "D": {
-          "ad": "Katman Tuzağı",
-          "metin": "Esnek bütçe ile yüklenen gider arasındaki kapasite sapmasını (760.000-720.000=40.000) bütçe sapması sandın. Doğrusu: Bu tutar kapasite sapmasına aittir, bütçe sapması ayrı bir katmandır ve 14.000 TL'dir."
+          "ad": "Terimi Farkla Karıştırma Tuzağı",
+          "metin": "en fazla üretim yapan c=480 değerini bulup işlemi orada bıkırsın; soru iki uç terim arasındaki farkı ister, tek terimi değil. Doğrusu: fark c-a=180'dir."
         },
         "A": {
-          "ad": "Yön Tuzağı",
-          "metin": "Fiili gider esnek bütçeden büyük olduğu için sapmayı işletme aleyhine değil lehine (olumlu) işaretlemiş olabilirsin. Doğrusu: Fiili gider esnek bütçeden büyük olduğunda sapma olumsuzdur, tutar 14.000 TL'dir."
+          "ad": "Ortadaki Terim Tuzağı",
+          "metin": "c ile b arasındaki farkı (480-400) alıp bunu en çok ile en az arasındaki fark sanırsın; oysa en az üretim a'dır, b değil. Doğrusu: fark en büyük (c) ile en küçük (a) terim arasında hesaplanır, 180 çıkar."
+        },
+        "B": {
+          "ad": "Yanlış Çift Seçme Tuzağı",
+          "metin": "b-a farkını (400-300) alıp en uç değerler arasındaki farkı bulduğunu sanırsın; b orta terimdir, uç değer değildir. Doğrusu: fark c-a=180'dir."
         }
       },
-      "hap": "Bütçe sapması fiili genel üretim gideri ile esnek bütçe genel üretim gideri'ün farkıdır, kapasite sapması ise esnek bütçe ile yüklenen genel üretim gideri'ün farkıdır; ikisi ayrı katmandır.",
+      "hap": "Üç terimli oranı ortak terim üzerinden ortak paydaya indir, K ile terimleri bul, sonra sorunun tam olarak neyi istediğine (terim mi fark mı) bak.",
       "satirlar": [
         [
-          "Bütçelenen toplam genel üretim gideri (400.000+20×20.000)",
-          "800.000"
+          "Oran sabiti k (1180/59)",
+          "20"
         ],
         [
-          "Yükleme oranı (800.000/20.000)",
-          "40"
+          "A değeri (15k)",
+          "300"
         ],
         [
-          "Yüklenen genel üretim gideri (18.000×40)",
-          "720.000"
+          "B değeri (20k)",
+          "400"
         ],
         [
-          "Esnek bütçe genel üretim gideri (400.000+20×18.000)",
-          "760.000"
+          "C değeri (24k)",
+          "480"
         ],
         [
-          "Bütçe (harcama) sapması (774.000-760.000)",
-          "14.000 (olumsuz)"
+          "Fark (c - a)",
+          "180"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=48",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=49",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 67,
+        "kalan_gun": 66,
         "durum": "YESIL",
         "mail_gunu": false
       }
