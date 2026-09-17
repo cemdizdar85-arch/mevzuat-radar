@@ -94,6 +94,16 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./arac/havuz-kur.ps1 -Yaz
 
+      # 17.09.2026 (Cem "1 yap"): KAPI-IK (ikiz soru) 17.09 02:34 yayininda "rapor bayat" diye ATLANDI - rapor
+      #   yalniz elle uretiliyordu, parti indirmesi her kosuda raporu eskitiyordu. Artik basimdan hemen once uretilir.
+      #   ⚠ RaporYaz sonuc degismediyse dosyaya DOKUNMAZ; o zaman saat eski kalir ve sgs-650-bas yine "bayat" der.
+      #   Olcum su an yapildigi icin dosya saati olcum anina cekilir (icerik degismez). Bedel 0, model cagrisi yok.
+      - name: Ikiz soru raporu (KAPI-IK tazele)
+        shell: powershell
+        run: |
+          ./arac/ikiz-soru.ps1
+          if(Test-Path veri/ikiz-soru.json){ (Get-Item veri/ikiz-soru.json).LastWriteTime = Get-Date; "ikiz raporu olcum anina damgalandi" } else { throw 'ikiz raporu uretilemedi - KAPI-IK calismaz, yayin durur' }
+
       - name: Sayfalari bas (Kaydir-Coz)
         shell: powershell
         env:
