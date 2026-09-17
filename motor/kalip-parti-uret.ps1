@@ -1875,6 +1875,21 @@ function Jaccard($a,$b){ if(-not $a.Count -or -not $b.Count){ return 0 }; $o=0; 
 # 08.09 Cem "atladık demeyelim": benzerlik yalnız aynı etikete bakıyordu; kolay/zor/çok zor ve tur 2 AYRI etiketlerde → aynı konunun öteki
 # seviyedeki/turdaki sorusu kopya çıkabilirdi. Aynı planın (etiket öneki: "sgs-t1-") bütün önbellekleri de karşılaştırma havuzuna girer.
 $script:BENZER_HAVUZ=$null
+# 17.09 teori benzerliği yardımcıları (bkz. BenzerlikKusur)
+function SoruTeoriMi($s){ return [bool](-not ($s.PSObject.Properties['cozum_tablo'] -and $s.cozum_tablo -and @($s.cozum_tablo.satirlar).Count -ge 2) -and "$($s.soru)" -cmatch '[Hh]angisi|[Hh]angileri') }   # -cmatch: tr-TR 'I/ı' tuzağı
+function SikKume($s){ return (KelimeKume ((@('A','B','C','D','E') | ForEach-Object { "$($s.siklar.$_)" }) -join ' ')) }
+function KokMaddeNo([string]$t){
+  # "m.6", "m. 35/A", "27. maddesi", "3 üncü maddesinde", "35/A maddesi" → {6, 35/A, 27, 3}; kanun numarası ("6362 sayılı") alınmaz
+  $m=New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($x in [regex]::Matches($t,'\bm\.\s*(\d{1,3}(?:/[A-Za-z])?)\b')){ [void]$m.Add($x.Groups[1].Value.ToUpperInvariant()) }
+  foreach($x in [regex]::Matches($t,'\b(\d{1,3}(?:/[A-Za-z])?)\s*(?:\.|[\u2019'']?\s*(?:inci|ıncı|uncu|üncü|nci|ncı|ncu|ncü))?\s*[Mm]adde')){ [void]$m.Add($x.Groups[1].Value.ToUpperInvariant()) }
+  return ,$m
+}
+function TeoriFarkliMi($sikA,$sikB,$maddeA,$maddeB){
+  if($sikA -and $sikB -and $sikA.Count -and $sikB.Count -and (Jaccard $sikA $sikB) -lt 0.10){ return $true }
+  if($maddeA -and $maddeB -and $maddeA.Count -and $maddeB.Count){ foreach($x in $maddeA){ if($maddeB.Contains($x)){ return $false } }; return $true }
+  return $false
+}
 function BenzerHavuz{
   if($null -ne $script:BENZER_HAVUZ){ return $script:BENZER_HAVUZ }
   $h=New-Object System.Collections.Generic.List[object]
@@ -1883,7 +1898,7 @@ function BenzerHavuz{
   # Artık havuz SINAV düzeyinde: 'sgs-*' bütün etiketler (Tur 1 + Tur 2 + genel kültür + pilotlar). Bedeli yok, yalnız yerel karşılaştırma.
   $onek=$(if($Etiket -match '^([a-z]+)-'){ $Matches[1] } else { '' })
   if($onek){ foreach($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter "kalip-parti-$onek-*.json" -ErrorAction SilentlyContinue)){ if($f.BaseName -eq "kalip-parti-$Etiket"){ continue }
-      try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){ $h.Add([pscustomobject]@{ etiket=($f.BaseName -replace '^kalip-parti-',''); id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)") }) } } }catch{} } }
+      try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){ $h.Add([pscustomobject]@{ etiket=($f.BaseName -replace '^kalip-parti-',''); id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)"); sikKume=(SikKume $p.Value); madde=(KokMaddeNo "$($p.Value.soru)") }) } } }catch{} } }
   $script:BENZER_HAVUZ=$h; if($h.Count){ Write-Host "  benzerlik havuzu: $($h.Count) soru (aynı plan, öteki etiketler)" -ForegroundColor DarkGray }
   return $h
 }
@@ -1893,8 +1908,14 @@ function BenzerlikKusur($a,[string]$benId){
   # soru olduğunda Jaccard 0.56 çıkıyor ve gerçek kopya olmadığı hâlde kapı düşürüyordu. Genel kültür derslerinde çapa eşiği 0,72.
   $capaEsik=$(if($script:GK_DERS){ 0.72 } else { 0.55 })
   if($CAPA.ContainsKey($benId)){ $j=Jaccard $ka (KelimeKume $CAPA[$benId]); if($j -ge $capaEsik){ $k+="çapaya (çıkmış soru) fazla benziyor (Jaccard $j)" } }
-  foreach($oid in @($don.Keys)){ if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }; $j=Jaccard $ka (KelimeKume "$($o.soru)"); if($j -ge 0.60){ $k+="partideki $oid ile aynı soru sayılır (Jaccard $j)" ; break } }
-  foreach($h in (BenzerHavuz)){ $j=Jaccard $ka $h.kume; if($j -ge 0.60){ $k+="$($h.etiket)/$($h.id) [$($h.konu)] ile aynı soru sayılır (Jaccard $j) — başka seviye/tur, özgün senaryo gerek"; break } }
+  # 17.09 (Cem "1 ve 2 yap"): TEORİ sorusunda ("hangisi doğru/yanlış", çözüm tablosu yok) içerik şıklardadır; kök kalıbı ("6362 sayılı Kanun'a göre
+  #   … hangisi yanlıştır?") iki ayrı soruda da aynı çıkar. ÖLÇÜLDÜ (8 ders, dönen 255 teori çifti okundu): şık benzerliği <0,10 olan çiftler başka
+  #   madde/başka konu (m.52 yatırım fonu ~ m.38 yan hizmet); 0,10–0,30 arası çoğunlukla AYNI madde → tekrar. Kural gevşemez: teori sorusu yalnız
+  #   şıkları da neredeyse tamamen farklıysa (<0,10) ya da kökteki madde numaraları ayrıksa "aynı soru" sayılmaz. Hesap/olay sorusunda davranış aynı.
+  # yalnız bitirme (ölçüm SMMM taslaklarından; SGS/KGK kendi oturumunun kararı)
+  $teoriA=($Sinav -eq 'SMMM' -and (SoruTeoriMi $a)); $sikA=$(if($teoriA){ SikKume $a } else { $null }); $maddeA=$(if($teoriA){ KokMaddeNo "$($a.soru)" } else { $null })
+  foreach($oid in @($don.Keys)){ if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }; $j=Jaccard $ka (KelimeKume "$($o.soru)"); if($j -ge 0.60){ if($teoriA -and (TeoriFarkliMi $sikA (SikKume $o) $maddeA (KokMaddeNo "$($o.soru)"))){ continue }; $k+="partideki $oid ile aynı soru sayılır (Jaccard $j)" ; break } }
+  foreach($h in (BenzerHavuz)){ $j=Jaccard $ka $h.kume; if($j -ge 0.60){ if($teoriA -and (TeoriFarkliMi $sikA $h.sikKume $maddeA $h.madde)){ continue }; $k+="$($h.etiket)/$($h.id) [$($h.konu)] ile aynı soru sayılır (Jaccard $j) — başka seviye/tur, özgün senaryo gerek"; break } }
   return $k
 }
 # 08.09 Cem "atladık demeyelim" — KAPI-P YASAL PARAMETRE: yıla bağlı had/oran (asgari ücret, kıdem tavanı, KDV/SGK/damga oranı, gecikme zammı,
