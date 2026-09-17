@@ -363,6 +363,7 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   $argP=@('-NoProfile','-File',(ProvaTir $uret)) + @($arg | ForEach-Object { ProvaTir "$_" })
   $ps=Start-Process -FilePath 'powershell' -ArgumentList $argP -PassThru -WindowStyle Hidden `
                     -RedirectStandardOutput $log -RedirectStandardError ("$log.err")
+  [void]$ps.Handle   # PS 5.1: tutamaç alınmazsa ExitCode bitişte boş gelir (aşağıdaki çıkış kodu kapısı bunu okur)
   $ucan.Add([pscustomobject]@{ s=$s; ps=$ps; log=$log })
  }
  if(-not $ucan.Count){ break }
@@ -371,6 +372,21 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
    if(-not $a.ps.HasExited){ continue }
    $ozetTum+=(PartiKuyrukBitir $a)
    [void]$ucan.Remove($a)
+   # 17.09 ÖLÇÜLDÜ (bulut 35174170697 ve 7 eşi): kredi bitince her parti KAPI-BAKIYE ile 1 koduyla düştü, koşucu bunu "BITTI" saydı,
+   #   zincir yalnız 'TOPLU ANLIKSIZ' aradığı için "plan tamamlandi" dedi → ~1.800 soru kör/hakem2/anlatım fazında yarım kaldı, iş YEŞİL göründü.
+   #   Artık 0 ve 75 dışındaki her çıkış iz bırakır: bakiye düşüşü 'bakiye-bitti.log' (kalan partiler başlatılmaz), öteki hatalar 'hata-cikan.log'.
+   $cikisK=$null; try{ $cikisK=$a.ps.ExitCode }catch{}
+   # desen ASCII: alt sürecin stderr'i OEM kod sayfasıyla yazılıyor, 'DÜŞTÜ' dosyada 'D??T?' olur (17.09 ölçüldü)
+   $bakiyeDustu=[bool](Select-String -Path @($a.log,"$($a.log).err") -Pattern 'KAPI-BAKIYE D|credit balance is too low' -List -ErrorAction SilentlyContinue)
+   if($bakiyeDustu){
+     "[$(Get-Date -Format HH:mm)] 🔴 BAKİYE BİTTİ · $($a.s.etiket) · kalan partiler BAŞLATILMAYACAK"
+     [IO.File]::AppendAllText((Join-Path $logDir 'bakiye-bitti.log'),("YARIM (bakiye bitti) · $($a.s.etiket) · kod $cikisK`r`n"),[Text.UTF8Encoding]::new($false))
+     if(-not $durduruldu){ foreach($kalanS in $kuyruk){ [IO.File]::AppendAllText((Join-Path $logDir 'bakiye-bitti.log'),("YARIM (bakiye bitti, başlatılmadı) · $($kalanS.etiket)`r`n"),[Text.UTF8Encoding]::new($false)) } }
+     $durduruldu=$true
+   } elseif($null -ne $cikisK -and $cikisK -ne 0 -and $cikisK -ne 75){
+     "[$(Get-Date -Format HH:mm)] 🔴 PARTİ HATAYLA BİTTİ · $($a.s.etiket) · kod $cikisK"
+     [IO.File]::AppendAllText((Join-Path $logDir 'hata-cikan.log'),("YARIM (hata kodu $cikisK) · $($a.s.etiket)`r`n"),[Text.UTF8Encoding]::new($false))
+   }
    NabizYaz "$($a.s.etiket)" $satirlar.Count   # canli nabiz - bkz. NabizYaz
  }
 }

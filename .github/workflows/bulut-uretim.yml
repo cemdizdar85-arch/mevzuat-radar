@@ -205,7 +205,10 @@ jobs:
           $atla=@()
           try{
             $buKosu=[long]"${{ github.run_id }}"
-            $kosanlar=@(gh run list --workflow=bulut-uretim.yml --status in_progress --limit 50 --json databaseId,displayTitle | ConvertFrom-Json)
+            # 17.09 OLCULDU: @(... | ConvertFrom-Json) PS 5.1'de diziyi TEK oge sarar -> [long]$k.databaseId her koşuda patliyordu,
+            # kapi hic calismadi ("cakisma kapisi okunamadi ... Int64"). Once degiskene, sonra acarak.
+            $kosanJson=(gh run list --workflow=bulut-uretim.yml --status in_progress --limit 50 --json databaseId,displayTitle) | ConvertFrom-Json
+            $kosanlar=@($kosanJson | ForEach-Object { $_ })
             foreach($k in $kosanlar){
               if([long]$k.databaseId -ge $buKosu){ continue }
               $m=[regex]::Match("$($k.displayTitle)",'Bulut Uretim \| (\S+) \| halka')
@@ -278,14 +281,26 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # Uretici bekleme dolunca "TOPLU ANLIKSIZ" yazip 75 ile cikar. Boyle bir satir varsa is bitmemistir.
+          # 17.09 OLCULDU: kredi bitince partiler KAPI-BAKIYE ile dustu, bu adim yalniz 'TOPLU ANLIKSIZ' aradigi icin "plan tamamlandi"
+          # dedi ve is YESIL bitti (~1.800 soru yarim). Kosucu artik bakiye-bitti.log / hata-cikan.log yazar; ikisi de YARIM sayilir.
+          $bakiye = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'bakiye-bitti.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
+          $hatali = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'hata-cikan.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
+          if($bakiye.Count){
+            "::error::ANTHROPIC BAKIYESI BITTI - plan YARIM kaldi ($($bakiye.Count) parti). Zincir yeniden tetiklenmedi (kredisiz halka bos doner). Kredi yuklenince ayni plani elle baslat: gh workflow run bulut-uretim.yml -f plan=${{ inputs.plan }} -f paralel=${{ inputs.paralel }}"
+            exit 1
+          }
           $yarim = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -ErrorAction SilentlyContinue | Select-String -Pattern 'TOPLU ANLIKSIZ' -List)
-          "yarim kalan parti gunlugu: $($yarim.Count)"
-          if(-not $yarim.Count){ "plan tamamlandi - yeniden tetikleme yok"; exit 0 }
+          "yarim kalan parti gunlugu: $($yarim.Count) · hatayla biten parti: $($hatali.Count)"
+          if(-not $yarim.Count){
+            if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - plan TAMAMLANMADI, elle bakilmali (yeniden tetiklenmedi)"; exit 1 }
+            "plan tamamlandi - yeniden tetikleme yok"; exit 0
+          }
           $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
           if($halka -ge 10){ "ZINCIR TAVANI (10) - yeniden tetiklenmedi. Elle bakilmali."; exit 1 }
           $sonraki = $halka + 1
           gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f zincir="$sonraki"
           "yeniden tetiklendi: halka $sonraki (ayni plan; concurrency grubu bu is bitince baslatir)"
+          if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - zincir surdu ama bu halka KIRMIZI"; exit 1 }
 
       # ⛔ KOSU GUNLUGU ARTIFACT'I KALDIRILDI (12.09, ilk kosudan ONCE olculdu).
       #    Ilk surumde veri/fabrika/kosucu-log/** yukleniyordu. Olctum:

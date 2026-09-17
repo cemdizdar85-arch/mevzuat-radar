@@ -453,7 +453,8 @@ function Get-IcerikParmak($icerik){
 }
 function Add-BekleyenParti([string]$bid,[string]$etiket,$parmak=$null){
   Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; $bek = @()
-    if(Test-Path $y){ foreach($x in @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)))){ if($x -and "$($x.id)"){ $bek += $x } } }
+    # 17.09 K2: @(ConvertFrom-Json) diziyi tek öğe sarıyordu; '+=' diziyi açtığı için şans eseri doğru çalışıyordu → açık açma
+    if(Test-Path $y){ $lstA = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)); foreach($x in @($lstA | ForEach-Object { $_ })){ if($x -and "$($x.id)"){ $bek += $x } } }
     $kayit = [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
     if($parmak){ $kayit | Add-Member -NotePropertyName parmak -NotePropertyValue ([pscustomobject]$parmak) -Force }
     $bek += $kayit
@@ -461,7 +462,7 @@ function Add-BekleyenParti([string]$bid,[string]$etiket,$parmak=$null){
 }
 function Set-BekleyenPartiDurum([string]$bid,[string]$durum){
   Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return }
-    $bek = @(ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y))) | Where-Object { $_ -and "$($_.id)" }; foreach($x in $bek){ if("$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force } }
+    $lstD = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)); $bek = @($lstD | ForEach-Object { $_ } | Where-Object { $_ -and "$($_.id)" }); foreach($x in $bek){ if("$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force } }
     [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
 }
 function Get-BekleyenPartiler([string]$etiket=''){
@@ -620,6 +621,9 @@ function Invoke-ClaudeToplu {
       #   Parti kuyrukta işlenmeye devam eder; aynı plan yeniden koşunca bitmişse bedava hasat edilir, bitmemişse ona bağlanılır.
       if("$env:MEVZUAT_TOPLU_ANLIKSIZ" -eq '1'){
         Write-Host "  TOPLU ANLIKSIZ: $Etiket için bekleme doldu, anlık yola DÜŞÜLMEDİ; süreç 75 ile bitiyor (yeniden koşuda kaldığı yerden)." -ForegroundColor Yellow
+        # 17.09 ÖLÇÜLDÜ: bu çıkış çağıranın bedel defteri adımını atlıyordu → bu koşuda hasat edilip ödenen istekler deftere hiç yazılmadı
+        #   (8 ders halka 1: defter 102 USD, gerçek ≈400+ USD). Çağıran betik defter yazıcısı tanımladıysa önce o çalışır.
+        if(Get-Command BedelDefterYaz -ErrorAction SilentlyContinue){ try{ BedelDefterYaz }catch{} }
         exit 75
       }
       $out['__zaman_asimi'] = ($kalan -join ','); $out['__hata'] = @{}

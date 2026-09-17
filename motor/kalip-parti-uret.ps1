@@ -78,6 +78,36 @@ function PaketTavani([int]$eskiDeger){ if($EskiPaketTavani){ return $eskiDeger }
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $here 'api-hedef.ps1')
+# 14.09: bedel defteri bloğu fonksiyon (gövde aynen; çağrı yerleri: -SadeceHakem erken çıkışı + koşu sonu).
+# 17.09 ÖLÇÜLDÜ: tanım FAZ H'nin ardındaydı; toplu bekleme dolunca api-hedef 'exit 75' ile çıkıyor, bu satıra hiç gelinmiyordu →
+#   o koşuda hasat edilip ÖDENEN isteklerin bedeli deftere yazılmadı. 8 ders halka 1: defter 102 USD, işlenen 15.331 toplu istek
+#   örneklemle ≈400-485 USD; kredi bu yüzden habersiz bitti. Tanım başa alındı; api-hedef 75'ten ÖNCE bunu çağırır (varsa).
+$script:BEDEL_YAZILDI=$false
+function BedelDefterYaz{
+if($script:BEDEL_YAZILDI){ return }   # aynı koşuda ikinci satır yazılmaz (çift sayım)
+try{
+  if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
+    $bz=Get-BedelOzet
+    foreach($s in $bz.satirlar){ Write-Host ("  BEDEL {0}: {1} çağrı · girdi {2} · çıktı {3} · önbellek okuma {4} · ≈{5} USD" -f $s.model,$s.cagri,$s.girdi,$s.cikti,$s.onbellekOkuma,$(if($null -ne $s.usd){ $s.usd } else { '?' })) -ForegroundColor DarkCyan }
+    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu 16.09 resmî: Sonnet 5 2/10, Opus 5 5/25, Haiku 4.5 1/5 USD/M; toplu %50; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
+    if($bz.bilinmeyenModel.Count){ Write-Host "  BEDEL: fiyatı bilinmeyen model: $($bz.bilinmeyenModel -join ', ')" -ForegroundColor Yellow }
+    $bedelYol=Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl'
+    # 11.09 (Cem "paralel kostur"): artik AYNI ANDA birden cok parti kosuyor ve
+    # hepsi bu TEK dosyaya ekliyor. Kilitsiz AppendAllText'te iki surec ayni anda
+    # yazarsa satir bozulur ya da cagri "erisim engellendi" ile duser - bedel
+    # defteri, harcamanin TEK kaydidir; bozulmasi olculemez harcama demektir.
+    # Makine capinda adlandirilmis Mutex (bekleyen-partiler.json ile ayni desen).
+    $bedelSatir=((ConvertTo-Json -InputObject ([ordered]@{ zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n")
+    $bmx=New-Object System.Threading.Mutex($false,'Global\tetikte-bedel-kayit'); $bal=$false
+    try{ $bal=$bmx.WaitOne(20000) }catch{ $bal=$true }   # AbandonedMutex: sahibi olduk
+    try{ [IO.File]::AppendAllText($bedelYol,$bedelSatir,[Text.UTF8Encoding]::new($false)); $script:BEDEL_YAZILDI=$true }
+    finally{ if($bal){ try{ $bmx.ReleaseMutex() }catch{} }; $bmx.Dispose() }
+    if($bz.toplamUsd -gt 0 -and -not @($bz.satirlar | Where-Object { $_.onbellekOkuma -gt 0 }).Count){ Write-Host "  BEDEL NOTU: istem önbelleği hiç okunmadı (0) — kaynak paketi cache_control ile işaretlenirse girdi bedeli düşer (açık iş)" -ForegroundColor DarkYellow }
+  }
+}catch{ Write-Host "  BEDEL özeti yazılamadı: $($_.Exception.Message)" -ForegroundColor Yellow }
+}
+# 17.09: koşu yakalanmamış bir hatayla ÇÖKERSE de o ana kadar ödenen bedel deftere yazılır; 'break' hatayı aynen yukarı iletir (davranış aynı).
+trap { if(Get-Command BedelDefterYaz -ErrorAction SilentlyContinue){ BedelDefterYaz }; break }
 # 15.09 ONARIM TURU TUZU (Cem israf talimatı md.2: "onarımlar biriktirilip tek toplu partide koşulsun; bozuk cevap asla geri gelmesin").
 # Onarım koşusu (-PilotId / -*YenileId / -*Yenile) toplu gidince istem birebir aynı olduğu için parmak izi tutar ve ÖNCEKİ partinin
 # cevabı bedava hasat edilir; düzeltme hiç sorulmamış olur (13.09 HAKEM2 kararsızlığının kökü buydu, o zaman yalnız bozuk cevap için yamanmıştı).
@@ -4113,29 +4143,7 @@ $script:ON_GECIS=$false; $script:DALGA2_TOPLA=$false
 $hakemRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and ("$($don[$_].hakem.karar)" -eq 'HAYIR' -or "$($don[$_].hakem.konu_uyum)" -eq 'KONU-DISI') })
 foreach($id in @($don.Keys)){ if($don[$id].PSObject.Properties['hakem'] -and "$($don[$id].hakem.konu_uyum)" -eq 'KONU-DISI'){ Write-Host "  KONU-DISI (KAPI D): $id [$($don[$id].konu)] -> $($don[$id].hakem.konu_gerekce)" -ForegroundColor Magenta } }
 $dersRed=@($don.Keys | Where-Object { $don[$_].PSObject.Properties['hakem'] -and "$($don[$_].hakem.ders_uyum)" -eq 'DERS-DISI' })
-# 14.09: bedel defteri bloğu fonksiyon (gövde aynen; çağrı yeri değişmedi, -SadeceHakem erken çıkışı da çağırır)
-function BedelDefterYaz{
-try{
-  if(Get-Command Get-BedelOzet -ErrorAction SilentlyContinue){
-    $bz=Get-BedelOzet
-    foreach($s in $bz.satirlar){ Write-Host ("  BEDEL {0}: {1} çağrı · girdi {2} · çıktı {3} · önbellek okuma {4} · ≈{5} USD" -f $s.model,$s.cagri,$s.girdi,$s.cikti,$s.onbellekOkuma,$(if($null -ne $s.usd){ $s.usd } else { '?' })) -ForegroundColor DarkCyan }
-    Write-Host ("BEDEL TOPLAM (bu koşu, {0}): ≈{1} USD{2}" -f $Etiket,$bz.toplamUsd,$(if($bz.fiyatVarsayim){ ' (fiyat tablosu 16.09 resmî: Sonnet 5 2/10, Opus 5 5/25, Haiku 4.5 1/5 USD/M; toplu %50; MEVZUAT_FIYAT_JSON ile ez)' } else { '' })) -ForegroundColor Cyan
-    if($bz.bilinmeyenModel.Count){ Write-Host "  BEDEL: fiyatı bilinmeyen model: $($bz.bilinmeyenModel -join ', ')" -ForegroundColor Yellow }
-    $bedelYol=Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl'
-    # 11.09 (Cem "paralel kostur"): artik AYNI ANDA birden cok parti kosuyor ve
-    # hepsi bu TEK dosyaya ekliyor. Kilitsiz AppendAllText'te iki surec ayni anda
-    # yazarsa satir bozulur ya da cagri "erisim engellendi" ile duser - bedel
-    # defteri, harcamanin TEK kaydidir; bozulmasi olculemez harcama demektir.
-    # Makine capinda adlandirilmis Mutex (bekleyen-partiler.json ile ayni desen).
-    $bedelSatir=((ConvertTo-Json -InputObject ([ordered]@{ zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n")
-    $bmx=New-Object System.Threading.Mutex($false,'Global\tetikte-bedel-kayit'); $bal=$false
-    try{ $bal=$bmx.WaitOne(20000) }catch{ $bal=$true }   # AbandonedMutex: sahibi olduk
-    try{ [IO.File]::AppendAllText($bedelYol,$bedelSatir,[Text.UTF8Encoding]::new($false)) }
-    finally{ if($bal){ try{ $bmx.ReleaseMutex() }catch{} }; $bmx.Dispose() }
-    if($bz.toplamUsd -gt 0 -and -not @($bz.satirlar | Where-Object { $_.onbellekOkuma -gt 0 }).Count){ Write-Host "  BEDEL NOTU: istem önbelleği hiç okunmadı (0) — kaynak paketi cache_control ile işaretlenirse girdi bedeli düşer (açık iş)" -ForegroundColor DarkYellow }
-  }
-}catch{ Write-Host "  BEDEL özeti yazılamadı: $($_.Exception.Message)" -ForegroundColor Yellow }
-}
+# 14.09: bedel defteri bloğu fonksiyon — 17.09'da tanımı dosyanın başına taşındı (api-hedef'in 75 çıkışı da çağırır); çağrı yerleri aynı
 if($SadeceHakem){ Write-Host "SADECE HAKEM: hakem fazı bitti; kör/hakem2/anlatım fazları bu koşuda ÇAĞRILMADI" -ForegroundColor Cyan; if($rapor.Count){ $rapor | Select-Object -Last 20 | ForEach-Object { Write-Host "  RAPOR: $_" -ForegroundColor DarkGray } }; BedelDefterYaz; return }
 
 # 08.09 21:40 Cem "hakemi öne al yaz": KAPI B (dayanak hakemi, Haiku ≈0,03 USD/soru) artık FAZ A'nın hemen ardında. Tur 1 ölçümü: hakem HAYIR
