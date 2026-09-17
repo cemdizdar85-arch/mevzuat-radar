@@ -14,6 +14,7 @@ on:
       - '.github/workflows/konu-eslesme.yml'
       - 'veri/sgs-analiz.json'          # yeni kitapcik okundu -> siklik degisti
       - 'veri/smmm-analiz.json'         # 13.09: SMMM Yeterlilik ayni hat
+      - 'veri/kgk-analiz.json'          # 17.09: KGK ayni hat (ders adi kota etiketine eslenir)
   workflow_dispatch:
 
 permissions:
@@ -40,6 +41,12 @@ jobs:
         shell: pwsh
         run: ./motor/siklik-kunyesi.ps1 -Sinav SMMM
 
+      # 17.09 KGK siklik kunyesi: cikmis haritadaki 21 ders adi kota etiketine
+      # eslenir, birlesik modul konu kelimesiyle bolunur (bolunemezse kunye yok)
+      - name: Siklik kunyesi KGK
+        shell: pwsh
+        run: ./motor/siklik-kunyesi.ps1 -Sinav KGK
+
       # Sonra KASANIN TAMAMI icin esleme sozlugu (service key varsa kasa,
       # yoksa vitrin bankasi - script kaynagini kendi secer)
       - name: Esleme sozlugu
@@ -55,6 +62,7 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           if [ -f veri/siklik-kunyesi.json ]; then git add veri/siklik-kunyesi.json || true; fi
           if [ -f veri/siklik-kunyesi-smmm.json ]; then git add veri/siklik-kunyesi-smmm.json || true; fi
+          if [ -f veri/siklik-kunyesi-kgk.json ]; then git add veri/siklik-kunyesi-kgk.json || true; fi
           if [ -f veri/konu-eslesme.json ]; then git add veri/konu-eslesme.json || true; fi
           git diff --cached --quiet || git commit -m "Konu etiket hizalamasi [veri-operasyonu]"
           git pull --rebase --autostash || true

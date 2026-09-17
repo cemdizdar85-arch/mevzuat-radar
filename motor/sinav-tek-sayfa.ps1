@@ -47,6 +47,7 @@ $GIRDILER = @(
   @{ ad='butunluk-raporu';    yol='veri\butunluk-raporu.json';            uretici='motor/butunluk-kapisi.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='tarih' }
   @{ ad='cikmis-karnesi';     yol='veri\cikmis-soru-karnesi.json';        uretici='motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı)'; robot='yok (KGK evreni için haberci: kgk-sinav-nobeti.yml)';                                   damga='tarih' }
   @{ ad='siklik-kunyesi';     yol='veri\siklik-kunyesi.json';             uretici='motor/siklik-kunyesi.ps1';             robot='konu-eslesme.yml · yalnız push';        damga='tarih' }
+  @{ ad='siklik-kunyesi-kgk'; yol='veri\siklik-kunyesi-kgk.json';         uretici='motor/siklik-kunyesi.ps1 -Sinav KGK';  robot='konu-eslesme.yml · yalnız push';        damga='tarih' }   # 17.09: KGK sıklığı
   @{ ad='kgk-analiz';         yol='veri\kgk-analiz.json';                 uretici='elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)'; robot='yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml'; damga='guncelleme'; olayNobet='veri\kgk-sinav-nobeti.json' }   # 16.09: yaş değil olay (yeni kitapçık) belirler; kgk-sinav-nobeti YEŞİL = güncel
   @{ ad='ders-karnesi';       yol='veri\ders-karnesi.json';               uretici='motor/ders-karnesi.ps1';               robot='karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push)';                           damga='guncelleme' }
   @{ ad='karne-sgs';          yol='veri\konu-kaynak-karnesi.json';        uretici='motor/konu-kaynak-karnesi.ps1';        robot='karne.yml · pazar 03:00 TR + sgs-analiz push';   damga='guncelleme' }
@@ -235,6 +236,8 @@ if($ck -and $ck.satirlar){
 }
 $sk = $veri['siklik-kunyesi']
 if($sk){ $cikmis.sgs_siklik = [pscustomobject]@{ donem=(Sayi $sk.donem_sayisi); konu=(Sayi $sk.konu_sayisi); en_cok=@(@($sk.en_cok_cikan) | Select-Object -First 12 | ForEach-Object { [pscustomobject]@{ konu="$($_.konu)"; donem=(Sayi $_.donem); soru=(Sayi $_.soru) } }) } }
+$skk = $veri['siklik-kunyesi-kgk']
+if($skk){ $cikmis.kgk_siklik = [pscustomobject]@{ donem=(Sayi $skk.donem_sayisi); konu=(Sayi $skk.konu_sayisi); eslenmeyen=(Sayi $skk.eslenmeyen_konu); en_cok=@(@($skk.en_cok_cikan) | Select-Object -First 12 | ForEach-Object { [pscustomobject]@{ konu="$($_.konu)"; donem=(Sayi $_.donem); soru=(Sayi $_.soru) } }) } }
 $ka = $veri['kgk-analiz']
 if($ka -and $ka.donemler){ $cikmis.kgk = [pscustomobject]@{ donem=@($ka.donemler).Count; soru=[int]((@($ka.donemler) | Measure-Object toplamSoru -Sum).Sum) } }
 $kop = $veri['konu-koprusu']
@@ -388,6 +391,16 @@ if($cikmis.sgs_siklik){
 }
 $isr2c = Isaret @('kgk-analiz')
 if($cikmis.kgk){ Satir "$($isr2c)**KGK arşivi** — $($cikmis.kgk.donem) dönem, $(Bin $cikmis.kgk.soru) soru, tamamı etiketli (veri/kgk-analiz.json)."; Satir '' }
+# 17.09: KGK sıklık künyesi — çıkmış haritanın ders adı kota etiketine eşlendi (bölünemeyen birleşik modül konusu künyesiz kalır)
+$isr2ck = Isaret @('siklik-kunyesi-kgk')
+if($cikmis.kgk_siklik){
+  Satir "$($isr2ck)**KGK sıklık künyesi** — $($cikmis.kgk_siklik.donem) dönem, $(Bin $cikmis.kgk_siklik.konu) tekil konu, eşlenmeyen kayıt $($cikmis.kgk_siklik.eslenmeyen) (veri/siklik-kunyesi-kgk.json). En çok çıkan 12 konu:"
+  Satir ''
+  Satir '| Ders › konu | Dönem | Soru |'
+  Satir '|---|---:|---:|'
+  foreach($e in $cikmis.kgk_siklik.en_cok){ Satir "| $(K $e.konu) | $($e.donem) | $($e.soru) |" }
+  Satir ''
+}
 $isr2d = Isaret @('konu-koprusu')
 if($cikmis.kopru_durum){
   Satir "$($isr2d)**Konu köprüsü** (bizim konu adları ↔ çıkmış arşiv etiketleri; veri/konu-koprusu-ozet.json — V2: sayılar canlı kasadan + arşiv analizlerinden, çıkmış dayanağı 31.08 sözlüğünden; sözlükte olmayan konu 'dayanak ölçülmedi'):"
