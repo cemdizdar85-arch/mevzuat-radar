@@ -64,9 +64,12 @@ Cem onayı geldi ("1.2.3 üçünüde yap"). Plan ve konu dosyaları depoda:
 
 **16.09 öğleden sonra değişti:** toplu basım artık YALNIZ BULUTTA (CLAUDE.md kuralı, 92 bulut hattı: 320 dk'da kendini yeniden tetikler, toplu parti kaydı ambarda, çift ödeme kapısı açık). C: diski engeli kalktı. Bulut bedeli yerel defterde görünmez → koşu sonrası Anthropic konsolundan ayrıca ölçülür.
 
-Başlatma (Cem onayıyla, ≈18 USD tahmini):
+Başlatma (Cem onayıyla). 17.09 kuralı (CLAUDE.md "PARA HARCAYAN SORU BASIMI KURALI"): bu dalga KGK'nın **ölçüm koşusudur**, bütçe
+zorunlu ve en çok 25 USD. Eski "≈18 USD" tahmini üretilen soru başınaydı; bitirmenin 16.09 ölçümüyle (yayına giren soru başı ≈0,25 USD)
+107 soru ≈25–30 USD tutabilir → 25 USD tavanında plan yarıda kırmızı durabilir (ölçüm için yeterli; temiz bitmesi istenirse plan ~80 soruya
+indirilir — karar Cem'de).
 ```bash
-gh workflow run bulut-uretim.yml -f plan=veri/sinav/plan-kgk-a1-denetim.json -f paralel=5
+gh workflow run bulut-uretim.yml -f plan=veri/sinav/plan-kgk-a1-denetim.json -f paralel=5 -f butce_usd=25
 ```
 Bitince: `arac/ret-kutugu.ps1` + ret oranı + soru başına gerçek bedel bu belgeye.
 
