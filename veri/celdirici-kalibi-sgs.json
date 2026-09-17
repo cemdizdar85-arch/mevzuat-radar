@@ -1,9 +1,19 @@
-﻿{
-    "olcum":  "2026-09-04 21:56",
+{
+    "olcum":  "2026-09-17 23:43",
     "sinav":  "SGS",
     "kitapcik":  33,
     "soru":  3590,
     "belirsiz":  2183,
+    "sayi_dogru_sira_havuz":  {
+                                  "1. buyuk":  6,
+                                  "2. buyuk":  8,
+                                  "3. buyuk":  14,
+                                  "4. buyuk":  7,
+                                  "5. buyuk":  10,
+                                  "uc_pay":  0.36,
+                                  "n":  45,
+                                  "not":  "uc_pay = dogru degerin EN KUCUK ya da EN BUYUK oldugu soru payi. Bes sik esit dagilsa beklenen 0,40."
+                              },
     "aciklama":  "Ders bazında ÇIKMIŞ şık yapısı. sayi_tekil_orani: sayı şıklarında beş tutarın hepsi farklı olan soru payı; sayi_artan_orani: küçükten büyüğe sıralı payı; yon_cift_orani: tutar+yön sorularında en az iki tutarın iki yönle göründüğü payı; cumle_uzunluk_orani_medyan: en uzun şık / medyan şık uzunluğu. Üretici kural 2a için ders örneklerini buradan okur.",
     "dersler":  {
                     "Finansal Muhasebe":  {

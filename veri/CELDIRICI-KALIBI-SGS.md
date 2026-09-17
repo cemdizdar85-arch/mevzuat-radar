@@ -1,4 +1,4 @@
-# ÇELDİRİCİ KALIBI — SGS (2026-09-04 21:56) · 33 kitapçık · 3590 soru
+# ÇELDİRİCİ KALIBI — SGS (2026-09-17 23:43) · 33 kitapçık · 3590 soru
 
 | Ders | Soru | sayı | sayı+yön | hesap | cümle | sayı: hepsi farklı | sayı: artan sıralı | yön: çift tutar | cümle: en uzun/medyan |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|

@@ -2488,7 +2488,7 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
     yükleme". Genel ilke her şık tipinde: doğru şık, biçimiyle (tek farklı hesap, tek farklı birim, tek çift, en uzun
     cümle) ele vermez; sayı şıklarında beş tutar birbirinden farklı ve küçükten büyüğe sıralı yazılır.
     Sayı şıklarında BİRİM YAZILMAZ, birim kökte durur (06.09 ölçüm, çıkmış kitapçıklar: "kaç ₺'dir? A) 19.200 B) 20.200";
-    şık "19.200 TL" değil "19.200"). Yön kelimesi (olumlu/olumsuz, eksik/fazla yükleme) şıkta kalır.
+    şık "19.200 TL" değil "19.200"). Yön kelimesi (olumlu/olumsuz, eksik/fazla yükleme) şıkta kalır.{SAYI_SIRA_KURAL}
     BU DERSİN ÇIKMIŞ ŞIK KALIBI (ölçüldü): {SIK_KALIP}
 3. ACIKLAMA - her sik icin TEK PARCA DUZ METIN STRING (nesne/alt-alan YASAK).
    TURKCE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazim
@@ -3141,7 +3141,38 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   # Kategori dersten turetilir, hesap/standart kumeleri makineden gelir.
   # Kategori cozulemezse baslik EKLENMEZ (bos string) - eski davranis korunur.
   $rolB = RolBasligi $DersRegex "$($ky.konu)"
-  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  # ⭐⛔ 17.09.2026 KURAL 2b — ÇELDİRİCİ YAYILIMI. VARSAYILAN KAPALI, ANAHTARI `MEVZUAT_SAYI_SIRA=1`.
+  #   NİYE KAPALI: parmak izi doğrudan İSTEM METNİNDEN hesaplanıyor (api-hedef.ps1 Get-IcerikParmak). İstem bir harf
+  #   değişirse bulutta GÖNDERİLMİŞ ve ÖDENMİŞ toplu partiler artık eşleşmez, bedava hasat edilemez ve aynı iş İKİNCİ KEZ
+  #   ödenir. 17.09 23:00'da bitirmenin 8 ders koşusu uçuyordu (ders başı 18 USD bütçe) - kural o an açılsaydı o para
+  #   yanardı. Bu yüzden: anahtar KAPALIYKEN placeholder boş stringe döner ve istem bugünküyle BAYT BAYT AYNI kalır
+  #   (ölçüldü: aynı girdiyle eski/yeni kod → tumSha birebir). Anahtar yalnız bulut BOŞKEN açılır; açıldıktan sonra
+  #   bekleyen eski partiler yeniden ödenir, o yüzden önce `veri/bekleyen-partiler.json` boşalmalı.
+  #   HEDEF SIRA soru başına, GERÇEK SINAV dağılımından çekilir (veri/celdirici-kalibi-sgs.json > sayi_dogru_sira_havuz:
+  #   1=%13 2=%18 3=%31 4=%16 5=%22 · 33 kitapçık, anahtarlı 45 sayı sorusu). Kura DETERMİNİSTİK (etiket+id karması):
+  #   aynı soru yeniden koşarsa aynı hedefi alır, yoksa her koşu yeni istem üretip ödenmiş partiyi çöpe atardı.
+  $SAYI_SIRA_KURAL=''
+  if("$($env:MEVZUAT_SAYI_SIRA)" -eq '1'){
+    $siraAgirlik=@(13,18,31,16,22)
+    $siraKarma=0; foreach($siraKarakter in "$Etiket|$id".ToCharArray()){ $siraKarma=($siraKarma*31 + [int]$siraKarakter) % 100 }
+    $siraHedef=5; $siraToplam=0
+    for($siraIdx=0; $siraIdx -lt 5; $siraIdx++){ $siraToplam+=$siraAgirlik[$siraIdx]; if($siraKarma -lt $siraToplam){ $siraHedef=$siraIdx+1; break } }
+    $siraTarif="$siraHedef. sıra" + $(switch($siraHedef){ 1 { ' (EN KÜÇÜK: dört çeldiricinin dördü de doğru değerden BÜYÜK)' } 5 { ' (EN BÜYÜK: dört çeldiricinin dördü de doğru değerden KÜÇÜK)' } default { " (doğru değerden $($siraHedef-1) çeldirici küçük, $(5-$siraHedef) çeldirici büyük)" } })
+    $SAYI_SIRA_KURAL=@"
+
+2b. ÇELDİRİCİ YAYILIMI — DOĞRU DEĞER UÇLARDA DA OLUR (17.09.2026 ölçüldü; BU SORUDA HEDEF: $siraTarif):
+    Sayı şıkları küçükten büyüğe sıralandığı için doğru değerin kaçıncı sırada olacağını ÇELDİRİCİLERİN YAYILIMI belirler.
+    Çeldiriciler hep gerçek değerin ETRAFINA yazılırsa doğru şık sürekli ortaya (C/D) düşer. Ölçüm: yayındaki 4.415 SGS
+    sorusunda doğru değerin EN BÜYÜK olduğu sayı sorusu payı Finansal'da %2,6 · Maliyet'te %3,4 iken GERÇEK SGS'de %22
+    (en küçük %13 · 2. %18 · 3. %31 · 4. %16 · en büyük %22). Gerçek sınav uçları kullanıyor; kullanmayan bankada
+    "uçları seçme" diyen öğrenci bedava puan kazanır.
+    KURAL: çeldiriciler doğru değerin iki yanına dağıtılmak zorunda DEĞİL; hedef sırayı tutturacak biçimde kurulur.
+    Çeldiriciler her hâlde GERÇEK hata yollarından çıkar (unutulan indirim, ters yön, eksik/fazla dönem, yanlış oran,
+    iki kez sayma). Hedef sırayı tutturmak için uydurma sayı YAZILMAZ: hata yolu bulunamıyorsa hedefi bırak, doğru
+    hesabı ve gerçek çeldirici yollarını koru. Bu kural yalnız beş şıkkın BEŞİ DE SAYI olan soruda geçerlidir.
+"@
+  }
+  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SAYI_SIRA_KURAL}',$SAYI_SIRA_KURAL).Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
@@ -3838,6 +3869,31 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
       $script:sikDengeYaz=$true
     }
     if($script:sikDengeYaz){ CacheYaz }
+  }
+  # ⭐ 17.09.2026 SAYI SIRA SAYIMI (kural 2b'nin ölçüsü; yalnız RAKAM basar - bulut günlüğüne soru metni girmez).
+  #   Kural 2b açık ya da kapalı olsun her koşuda basılır: kapalıyken bugünkü kusuru gösterir, açıkken düzelmeyi.
+  #   ÖLÇÜT: gerçek SGS'de doğru değer %36 uçlarda (en küçük %13 + en büyük %22); bankada Finansal %2,6 · Maliyet %3,4.
+  $sayiSirali=New-Object System.Collections.Generic.List[int]
+  foreach($oid in @($don.Keys)){
+    $sc=$don[$oid]; if(-not $sc -or -not $sc.siklar){ continue }
+    $sdeger=@('A','B','C','D','E') | ForEach-Object { "$($sc.siklar.$_)" }
+    if(@($sdeger | Where-Object { $_ -match '^\s*%?\s*-?\d[\d.,]*\s*(TL|₺|%|adet|kg|gün|yıl|ay|saat|birim)?\s*$' }).Count -ne 5){ continue }
+    $ssayi=@(); $bozuk=$false
+    foreach($sd in $sdeger){ try{ $ssayi+=[double]((($sd -replace '[^\d,\.\-]','') -replace '\.','') -replace ',','.') }catch{ $bozuk=$true } }
+    if($bozuk -or $ssayi.Count -ne 5){ continue }
+    $sdogruIdx=@('A','B','C','D','E').IndexOf("$($sc.dogru)".Trim().ToUpperInvariant())
+    if($sdogruIdx -lt 0){ continue }
+    $ssirali=@($ssayi | Sort-Object)
+    $sayiSirali.Add([array]::IndexOf($ssirali,$ssayi[$sdogruIdx])+1)
+  }
+  if($sayiSirali.Count){
+    $sdag=@(0,0,0,0,0); foreach($sr in $sayiSirali){ if($sr -ge 1 -and $sr -le 5){ $sdag[$sr-1]++ } }
+    $suc=$sdag[0]+$sdag[4]; $sucPay=[math]::Round($suc/[double]$sayiSirali.Count,2)
+    $srenk=$(if($sucPay -lt 0.20){ 'Yellow' } else { 'DarkGray' })
+    $sdagMetin=((1..5) | ForEach-Object { "$_=$($sdag[$_-1])" }) -join ' '
+    $skuralDurum=$(if("$($env:MEVZUAT_SAYI_SIRA)" -eq '1'){ 'AÇIK' } else { 'KAPALI' })
+    Write-Host "  SAYI SIRA SAYIM: sayı şıklı $($sayiSirali.Count) soru · doğru değer sırası $sdagMetin" -ForegroundColor $srenk
+    Write-Host "    uç payı $sucPay (gerçek SGS 0,36 · kural 2b $skuralDurum)" -ForegroundColor $srenk
   }
 }
 

@@ -151,7 +151,23 @@ foreach($g in ($kayit | Where-Object { $_.ders -ne 'belirsiz' } | Group-Object d
     ornek=$ornek
   }
 }
+# ⭐ 17.09.2026 — HAVUZLANMIŞ "DOĞRU DEĞER KAÇINCI SIRADA" ÖLÇÜMÜ (ders bazında örneklem çoğu derste 5'in altında kalıyor
+#   ve "ölçülmedi" yazıyordu; oysa soru DERSTEN BAĞIMSIZ: sayı şıklı soruda doğru değer uçlarda (en küçük/en büyük)
+#   çıkabiliyor mu?). NİYE GEREKTİ: 17.09'da yayındaki 4.415 SGS sorusu ölçüldü, sayısal-artan şıklı sorularda doğru
+#   harf neredeyse hiç E olmuyor (Maliyet E 9/262 · Finansal E 13/509 · MTA E 9/153) çünkü çeldiriciler gerçek değerin
+#   ÜSTÜNE yazılıyor. Bunun kusur mu kalıp mı olduğunu ancak GERÇEK SINAV söyler - bu satır o karşılaştırmayı verir.
+#   Ders ayrımı yapılmaz (havuz), 'belirsiz' dersler de girer: ölçülen şey şıkkın yapısı, dersin içeriği değil.
+$sayiTum=@($kayit | Where-Object { $_.tip -eq 'sayi' -and $_.dogruSira })
+$siraTum=[ordered]@{}
+if($sayiTum.Count){
+  foreach($sg in ($sayiTum | Group-Object dogruSira | Sort-Object { [int]$_.Name })){ $siraTum["$($sg.Name). buyuk"]=$sg.Count }
+  $ucSay=@($sayiTum | Where-Object { [int]$_.dogruSira -eq 1 -or [int]$_.dogruSira -eq 5 }).Count
+  $siraTum['uc_pay']=[math]::Round($ucSay/[double]$sayiTum.Count,2)
+  $siraTum['n']=$sayiTum.Count
+  $siraTum['not']='uc_pay = dogru degerin EN KUCUK ya da EN BUYUK oldugu soru payi. Bes sik esit dagilsa beklenen 0,40.'
+}
 $cikti=[ordered]@{ olcum=(Get-Date -Format 'yyyy-MM-dd HH:mm'); sinav=$Sinav; kitapcik=$adlar.Count; soru=$kayit.Count; belirsiz=@($kayit | Where-Object { $_.ders -eq 'belirsiz' }).Count
+  sayi_dogru_sira_havuz=$(if($sayiTum.Count -ge 5){ $siraTum } else { "olculmedi (anahtarli sayi sorusu $($sayiTum.Count) < 5)" })
   aciklama='Ders bazında ÇIKMIŞ şık yapısı. sayi_tekil_orani: sayı şıklarında beş tutarın hepsi farklı olan soru payı; sayi_artan_orani: küçükten büyüğe sıralı payı; yon_cift_orani: tutar+yön sorularında en az iki tutarın iki yönle göründüğü payı; cumle_uzunluk_orani_medyan: en uzun şık / medyan şık uzunluğu. Üretici kural 2a için ders örneklerini buradan okur.'
   dersler=$dersler }
 $hedef=Join-Path $kok ("veri\celdirici-kalibi-"+$Sinav.ToLowerInvariant()+".json")
