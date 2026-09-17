@@ -174,8 +174,30 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
 
 ## 🧾 SINAV / SORU İŞİ
 
+- ⛔⭐⭐ **PARA HARCAYAN SORU BASIMI KURALI — KİM BASARSA BASSIN, HER SINAVDA** (17.09.2026, Cem: *"boşuna 400 USD harcadık …
+  kim soru basacaksa bunları yapsın, kural olsun"*). **Olay (ölçüldü):** 16.09 gecesi bitirme için 3.983 soruluk plan ölçülmeden, tek
+  seferde açıldı; 400 USD kredi bir gecede bitti, kasaya 387 soru girdi (yayına giren soru başı ≈1 USD, hedef 0,068). Bedel defteri
+  harcamanın ¼'ünü yazıyordu, kredi bitince zincir "tamamlandı" dedi, ~1.800 soru yarım kaldı. Kurallar:
+  1. **Önce küçük ölçüm, sonra büyüt.** Yeni plan ya da yeni sınav önce **tek ders, ≤25 USD** ile koşar. Gerçek bedel **YAYINA GİREN
+     soru başına** çıkarılır (üretilen soru başına değil) + yayın oranı + kapı sayımı (`KAPI SAYIM` günlük satırı). Cem bu rakamı
+     görüp onay vermeden büyük basım yok. **"Tamamını başlat" talimatı ölçüm adımını atlatmaz** — önce risk ve bedel yeniden söylenir.
+  2. **Bütçesiz basım yok (mekanik):** `bulut-uretim.yml` `butce_usd` olmadan başlamaz; plan harcaması bütçeye ulaşınca yeni parti
+     açılmaz, iş KIRMIZI biter. Bütçe >25 USD ise `olcum_kosusu` (bitmiş ölçüm koşusunun run id'si) zorunlu. Kesin fren Anthropic
+     Console aylık harcama tavanıdır (Cem koyar); kredi yalnız o işin bütçesi kadar yüklenir, otomatik yükleme kapalı.
+  3. **Koşu sürerken harcama ölçülür, hız değil.** Saat başı gerçek harcama (Console Cost ya da toplu sonuçların `usage` örneklemi)
+     ile bütçe kıyaslanır; "para kaybı yok" gibi ölçülmemiş cümle kurulmaz. Defter/fren tutarsız görünürse (ör. "bu ay ≈25.000 USD")
+     **ücretli iş durdurulur**, önce düzeltilir.
+  4. **Kapı ret oranı yüksekse basım büyütülmez.** `KAPI SAYIM`da yeniden yazım (d1-*) taslakların üçte birini geçiyorsa önce en çok
+     döndüren kapının kökü çözülür (bitirmede: doğru şık uzunluğu, yuvarlak tutar, yakın adlı konu tekrarı — 17.09 ölçümü).
+  5. **Plan temiz kurulur:** aynı konunun farklı yazımları birleştirilir (bitirme: `veri/sinav/smmm-konu-es.json`), bir konuya tur
+     sayısı tavanlanır; ilgi hakeminden geçmemiş konu basılmaz.
+  6. **Yarım iş önce biter:** kredi/bütçe yüzünden yarım kalan plan yeniden basılmaz; aynı plan aynı etiketle devam ettirilir (ödenmiş
+     toplu sonuçlar bedava hasat edilir).
+  Mekanik parçalar: `motor/kalip-kosucu.ps1` (bütçe kapısı, bakiye/hata izi, kapı sayımı toplamı) · `motor/kalip-parti-uret.ps1`
+  (bedel defteri 75/çöküşte de yazılır, `KAPI SAYIM`) · `.github/workflows/bulut-uretim.yml` (bütçe + ölçüm kapısı, zincir kırmızı durur).
+
 - ⛔⭐ **TOPLU SORU BASIMI YALNIZ BULUTTA** (16.09.2026, Cem: *"herşeyi buluta taşıdık hızlı olması için, ne oldu yine benim bilgisayara döndü"*).
-  Plan depoya yazılır (plan + `veri/sinav/konu/*.json`, göreli yol), sonra: `gh workflow run bulut-uretim.yml -f plan=<plan> -f paralel=<n>`.
+  Plan depoya yazılır (plan + `veri/sinav/konu/*.json`, göreli yol), sonra: `gh workflow run bulut-uretim.yml -f plan=<plan> -f paralel=<n> -f butce_usd=<USD> [-f olcum_kosusu=<run id>]` (17.09: bütçe zorunlu, yukarıdaki kural).
   Bulut işi 320 dk'da kendini yeniden tetikler; gönderilen toplu partilerin kaydı ambarda (`arac/bekleyen-senkron.ps1`) → çift ödeme yok,
   anlık yola düşme yok. `motor/kalip-kosucu.ps1` yerelde **durur** (`MEVZUAT_YEREL_BASIM='<gerekçe>'` ile bilerek açılır — yalnız
   hazır-soru dosyası gibi bu makineye bağlı işler için). Neden: 16.09'da yerel koşular 65 süreç, 281 MB boş RAM, paralellik 1 üretti.

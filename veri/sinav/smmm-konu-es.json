@@ -1,5 +1,5 @@
 {
-    "aciklama":  "BİTİRME (SMMM) konu adı eşlemesi — 15.09.2026, Cem \"1 ve 3 yap\" (GM 3). Çıkmış analizindeki ad köprüde yoksa ve köprüde AYNI konuyu anlatan kayıt varsa analiz adı köprü adına bağlanır (sayım birleşir, soru köprü adına basılır). Yalnız ad denkliği; dayanak bu dosyadan verilmez. Karşılığı olmayan ad bağlanmaz (üretici köprü dışı sentez olarak alır). · 15.09 akşam (Cem \"1.2 bir ve iki yap\"): aynı konunun farklı yazımları (ör. \u0027kdv mahsubu\u0027 / \u0027kdv mahsup kaydi\u0027) tek konuya bağlandı; kanonik ad köprüde olan, yoksa en sık çıkan yazım. Adaylar kural ile bulundu, kararlar okunarak verildi (9 küme reddedildi: ör. \u0027kasa banka transferi\u0027 ≠ \u0027banka kasa transferi\u0027).",
+    "aciklama":  "BİTİRME (SMMM) konu adı eşlemesi — 15.09.2026, Cem \"1 ve 3 yap\" (GM 3). Çıkmış analizindeki ad köprüde yoksa ve köprüde AYNI konuyu anlatan kayıt varsa analiz adı köprü adına bağlanır (sayım birleşir, soru köprü adına basılır). Yalnız ad denkliği; dayanak bu dosyadan verilmez. Karşılığı olmayan ad bağlanmaz (üretici köprü dışı sentez olarak alır). · 15.09 akşam (Cem \"1.2 bir ve iki yap\"): aynı konunun farklı yazımları (ör. \u0027kdv mahsubu\u0027 / \u0027kdv mahsup kaydi\u0027) tek konuya bağlandı; kanonik ad köprüde olan, yoksa en sık çıkan yazım. Adaylar kural ile bulundu, kararlar okunarak verildi (9 küme reddedildi: ör. \u0027kasa banka transferi\u0027 ≠ \u0027banka kasa transferi\u0027). · 17.09 (Cem \"1 ve 2 yap\"): 8 dersin gerçek taslaklarında benzerlik kapısının yakaladığı tekrarların kökü yakın adlı konulardı (\u0027safha maliyet sistemi\u0027 / \u0027… sistemi/yontemi\u0027, \u0027trend analizi\u0027 / \u0027eğilim yüzdesi …\u0027). Aday çiftler kuralla bulundu (194), kararlar okunarak verildi (93 birleşme; alt konu olanlar ayrı bırakıldı). Kanonik ad köprüde olan ve ilgi hakeminde GÜÇLÜ olan; zincirlenen eski eşlemeler yeni hedefe yönlendi.",
     "eslemeler":  [
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -76,8 +76,8 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "gelecek aylara ait gider mahsup",
-                          "kopru":  "gelecek aylara ait gider mahsubu",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gelecek aylara ait gider",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gelecek aylara ait gider mahsubu\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -574,14 +574,14 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "ucret bordrosu tahakkuk",
-                          "kopru":  "ucret tahakkuku bordro",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "personel ucret tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027ucret tahakkuku bordro\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "ucret bordrosu tahakkuku",
-                          "kopru":  "ucret tahakkuku bordro",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "personel ucret tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027ucret tahakkuku bordro\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -622,20 +622,20 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "cek ile odeme",
-                          "kopru":  "cek odemesi",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "verilen cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027cek odemesi\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "cek odeme kaydi",
-                          "kopru":  "cek odemesi",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "verilen cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027cek odemesi\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "satici odeme cek",
-                          "kopru":  "satici cek odemesi",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "verilen cek odemesi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027satici cek odemesi\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -880,8 +880,8 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "gider hesaplari yansitma kaydi",
-                          "kopru":  "gider yansitma hesaplari",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gider yansitma kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gider yansitma hesaplari\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -934,8 +934,8 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "genel yonetim gideri odemesi",
-                          "kopru":  "genel yonetim gideri odeme",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "genel yonetim gideri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027genel yonetim gideri odeme\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -1078,14 +1078,14 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "kdv mahsup tahakkuku",
-                          "kopru":  "kdv mahsup tahakkuk",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "kdv mahsup kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027kdv mahsup tahakkuk\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "kdv mahsup ve tahakkuk",
-                          "kopru":  "kdv mahsup tahakkuk",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "kdv mahsup kaydi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027kdv mahsup tahakkuk\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -1312,8 +1312,8 @@
                       {
                           "ders":  "Finansal Muhasebe",
                           "analiz":  "ucret tahakkuku kaydi",
-                          "kopru":  "ucret tahakkuku",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "personel ucret tahakkuku",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027ucret tahakkuku\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Muhasebe",
@@ -1366,8 +1366,8 @@
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "ticari alacak tahsilat suresi",
-                          "kopru":  "ticari alacak tahsil suresi",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "alacak tahsilat suresi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027ticari alacak tahsil suresi\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -1396,8 +1396,8 @@
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "gelir tablosu yatay analiz",
-                          "kopru":  "yatay analiz gelir tablosu",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "karsilastirmali tablolar analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027yatay analiz gelir tablosu\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -1414,8 +1414,8 @@
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "satis maliyeti trend analizi",
-                          "kopru":  "trend analizi satis-maliyet",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "trend analizi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027trend analizi satis-maliyet\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -1450,14 +1450,14 @@
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "likidite asit test orani",
-                          "kopru":  "likidite asit-test orani",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "asit test orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027likidite asit-test orani\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "asit test oran",
-                          "kopru":  "asit-test oran",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "asit test orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027asit-test oran\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -1534,8 +1534,8 @@
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "finansal kaldirac hesaplama",
-                          "kopru":  "finansal kaldirac",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "finansal kaldirac orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027finansal kaldirac\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -1552,8 +1552,8 @@
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
                           "analiz":  "kaldirac orani hesaplama",
-                          "kopru":  "kaldirac orani",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "finansal kaldirac orani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027kaldirac orani\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Finansal Tablolar ve Analizi",
@@ -1924,8 +1924,8 @@
                       {
                           "ders":  "Maliyet Muhasebesi",
                           "analiz":  "esdeger urun miktari hesaplama",
-                          "kopru":  "esdeger urun miktari",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "esdeger urun birimleri",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027esdeger urun miktari\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Maliyet Muhasebesi",
@@ -1990,8 +1990,8 @@
                       {
                           "ders":  "Maliyet Muhasebesi",
                           "analiz":  "satilan mamul maliyeti kaydi",
-                          "kopru":  "satilan mamul maliyeti",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "satilan mamul maliyeti tablosu",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027satilan mamul maliyeti\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Maliyet Muhasebesi",
@@ -2620,20 +2620,20 @@
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "gelir vergisi beyan unsurlari",
-                          "kopru":  "gelir vergisi beyani hesaplama",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gelir vergisi beyani hesaplama\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "gelir vergisi beyani",
-                          "kopru":  "gelir vergisi beyani hesaplama",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gelir vergisi beyani hesaplama\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "gelir vergisi beyanname hesaplama",
-                          "kopru":  "gelir vergisi beyani hesaplama",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gelir vergisi beyani hesaplama\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
@@ -2644,8 +2644,8 @@
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "bilanco esasi defterleri",
-                          "kopru":  "bilanco esasi defterler",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "bilanco esasi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027bilanco esasi defterler\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
@@ -2686,14 +2686,14 @@
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "gelir vergisi matrahi",
-                          "kopru":  "gelir vergisi matrahi hesaplama",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gelir vergisi matrahi hesaplama\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "gelir vergisi matrahi hesabi",
-                          "kopru":  "gelir vergisi matrahi hesaplama",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027gelir vergisi matrahi hesaplama\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
@@ -2746,14 +2746,14 @@
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "serbest meslek kazanci hesabi",
-                          "kopru":  "serbest meslek kazanci",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "serbest meslek kazanci beyani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027serbest meslek kazanci\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
                           "analiz":  "serbest meslek kazanci hesaplama",
-                          "kopru":  "serbest meslek kazanci",
-                          "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                          "kopru":  "serbest meslek kazanci beyani",
+                          "neden":  "eş yazım birleştirme (15.09, okunarak) · 17.09 hedef \u0027serbest meslek kazanci\u0027 eş konuya yönlendi"
                       },
                       {
                           "ders":  "Vergi Mevzuatı ve Uygulaması",
@@ -2814,6 +2814,564 @@
                           "analiz":  "vergi ziyai tanimi",
                           "kopru":  "vergi ziyai",
                           "neden":  "eş yazım birleştirme (15.09, okunarak)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "ic kontrol eksiklik bildirimi",
+                          "kopru":  "ic kontrol eksikligi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "zorunlu sozlesme konulari",
+                          "kopru":  "sozlesme yapilmasi zorunlulugu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "esdeger mamul birimleri tablosu",
+                          "kopru":  "esdeger urun birimleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik ilkeler kisisel cikar tehdidi",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "dikey analiz gelir tablosu",
+                          "kopru":  "dikey yuzde analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "yatay analiz gelir tablosu",
+                          "kopru":  "karsilastirmali tablolar analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "spk temel kavramlar",
+                          "kopru":  "sermaye piyasasi araci tanimlari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "karsilastirmali tablolar - ticari borc degisimi",
+                          "kopru":  "karsilastirmali tablolar analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "likidite asit-test orani",
+                          "kopru":  "asit test orani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "esdeger urun miktari",
+                          "kopru":  "esdeger urun birimleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "satilan ticari mal maliyeti",
+                          "kopru":  "satilan mal maliyeti",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi satis-maliyet",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "analitik prosedur yontemleri",
+                          "kopru":  "analitik prosedurler",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetimde onemlilik kavrami",
+                          "kopru":  "onemlilik kavrami",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "finansal kaldirac",
+                          "kopru":  "finansal kaldirac orani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "stok devir suresi",
+                          "kopru":  "stok devir hizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "hizmet uretim maliyeti yansitma kaydi",
+                          "kopru":  "hizmet uretim maliyeti kayit",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "sermaye piyasasi kavramlari",
+                          "kopru":  "sermaye piyasasi araci tanimlari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim raporu gorus turleri",
+                          "kopru":  "denetim gorus turleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "yatirim ortakligi kurulus izni",
+                          "kopru":  "yatirim ortakligi kurulus sartlari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "dimm stok devir hizi/suresi",
+                          "kopru":  "stok devir hizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gider yansitma hesaplari",
+                          "kopru":  "gider yansitma kaydi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "turmob birlik organlari",
+                          "kopru":  "birlik organlari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "esdeger urun birimi ve maliyeti hesaplama",
+                          "kopru":  "esdeger birim maliyeti",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Hukuk",
+                          "analiz":  "yillik ucretli izin sureleri",
+                          "kopru":  "yillik ucretli izin",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "ortak mamul maliyet dagitimi",
+                          "kopru":  "ortak maliyet dagitimi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "hizmet sozlesmesi asgari bilgileri",
+                          "kopru":  "sozlesme asgari bilgiler",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "ticari alacak devir hizi",
+                          "kopru":  "alacak devir hizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "standart maliyet sapma analizi",
+                          "kopru":  "standart maliyet farklari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "likidite orani hedefi",
+                          "kopru":  "likidite orani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "kurul tedbir yetkileri ve bildirim",
+                          "kopru":  "spk tedbir yetkileri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "dikey yuzde donem net kari",
+                          "kopru":  "dikey yuzde analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi net satis",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "spk kanun tanimlari",
+                          "kopru":  "sermaye piyasasi araci tanimlari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "reklamla haksiz rekabet",
+                          "kopru":  "reklam yoluyla haksiz rekabet",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "karsilastirmali gelir tablosu analizi",
+                          "kopru":  "karsilastirmali tablolar analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "bilanco dikey yuzde analizi",
+                          "kopru":  "dikey yuzde analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "amortisman hesaplama hatasi",
+                          "kopru":  "amortisman hatasi degerlendirme",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelir tablosu hazirlama",
+                          "kopru":  "gelir tablosu duzenleme",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "ortak mamul maliyeti",
+                          "kopru":  "ortak maliyet dagitimi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "satilan mamul maliyeti",
+                          "kopru":  "satilan mamul maliyeti tablosu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "gug dagitimi birim maliyet",
+                          "kopru":  "gug dagitimi ve mamul birim maliyeti",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret tahakkuku",
+                          "kopru":  "personel ucret tahakkuku",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "haksiz rekabet",
+                          "kopru":  "haksiz rekabet halleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi beyani hesaplama",
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "genel yonetim gideri odeme",
+                          "kopru":  "genel yonetim gideri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ihtiyati haciz",
+                          "kopru":  "ihtiyati haciz sebepleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "uretim ve satilan mamul maliyeti",
+                          "kopru":  "satilan mamul maliyeti tablosu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "spk tedbir yetkileri ve tedrici tasfiye",
+                          "kopru":  "spk tedbir yetkileri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "gider yerleri ikinci dagitim",
+                          "kopru":  "yardimci gider yeri dagitimi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim kistasi belirleme",
+                          "kopru":  "denetim kistasi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik ilke tehditleri",
+                          "kopru":  "etik ilkelere tehditler",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "sozlesme zorunlulugu",
+                          "kopru":  "sozlesme yapilmasi zorunlulugu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ortulu sermaye ve finansman gider kisitlamasi",
+                          "kopru":  "ortulu sermaye",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "oda genel kurulu gorevleri",
+                          "kopru":  "oda genel kurulu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "odalarin gelirleri",
+                          "kopru":  "oda gelirleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "etik tehdit onlemleri",
+                          "kopru":  "etik ilkeler tehdit onlemleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "safha maliyet sistemi/yontemi",
+                          "kopru":  "safha maliyet sistemi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "gelir vergisi matrahi hesaplama",
+                          "kopru":  "gelir vergisi hesabi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "gelecek aylara ait gider mahsubu",
+                          "kopru":  "gelecek aylara ait gider",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "dikey yuzde satis indirimleri",
+                          "kopru":  "dikey yuzde analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "egilim yuzdesi yorumlama",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "gecici mesleki alikoyma cezasi",
+                          "kopru":  "faaliyetten alikoyma cezasi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "ikmalen resen tarh tebligi",
+                          "kopru":  "ikmalen ve resen tarh",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "asit-test oran",
+                          "kopru":  "asit test orani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "dikey yuzde mali borclar",
+                          "kopru":  "dikey yuzde analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "haksiz rekabet reklam yasagi",
+                          "kopru":  "reklam yoluyla haksiz rekabet",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "egilim yuzdesi hesaplama",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "sozlesme asgari unsurlar",
+                          "kopru":  "sozlesme asgari bilgiler",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "girisim sermayesi yatirim ortakligi",
+                          "kopru":  "girisim sermayesi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "gug yukleme oranlari",
+                          "kopru":  "gug yukleme orani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "serbest meslek kazanci",
+                          "kopru":  "serbest meslek kazanci beyani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "kamuyu aydinlatma tazminat talebi reddi",
+                          "kopru":  "kamuyu aydinlatma tazminat talebi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "kdv mahsup tahakkuk",
+                          "kopru":  "kdv mahsup kaydi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "alacak tahsilat suresi hedefi",
+                          "kopru":  "alacak tahsilat suresi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "kripto varlik hizmet saglayici sartlari",
+                          "kopru":  "kripto varlik hizmet saglayicisi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "esdeger mamul miktari",
+                          "kopru":  "esdeger urun birimleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebe Denetimi",
+                          "analiz":  "denetim kaniti sayisi faktorleri",
+                          "kopru":  "denetim kaniti faktorleri",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "kaldirac orani",
+                          "kopru":  "finansal kaldirac orani",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "ticari alacak tahsil suresi",
+                          "kopru":  "alacak tahsilat suresi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "trend analizi stok",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "banka kredisi faiz tahakkuku",
+                          "kopru":  "kredi faiz tahakkuku",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "satici cek odemesi",
+                          "kopru":  "verilen cek odemesi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "muhasebe kayit usulsuzlugu",
+                          "kopru":  "muhasebe usulsuzluk sucu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Maliyet Muhasebesi",
+                          "analiz":  "satilan mamul maliyeti tablosu (safha maliyet)",
+                          "kopru":  "satilan mamul maliyeti tablosu",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "reklam yasagi kurallari",
+                          "kopru":  "reklam yoluyla haksiz rekabet",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "ucret tahakkuku bordro",
+                          "kopru":  "personel ucret tahakkuku",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+                          "analiz":  "mesleki etik ilkeler",
+                          "kopru":  "etik ilkeler",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Sermaye Piyasası Mevzuatı",
+                          "analiz":  "kar dagitimi",
+                          "kopru":  "kar payi dagitim esaslari",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Vergi Mevzuatı ve Uygulaması",
+                          "analiz":  "bilanco esasi defterler",
+                          "kopru":  "bilanco esasi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Tablolar ve Analizi",
+                          "analiz":  "gelir tablosu trend analizi",
+                          "kopru":  "trend analizi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Hukuk",
+                          "analiz":  "tacirin ticari is karinesi",
+                          "kopru":  "ticari is karinesi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
+                      },
+                      {
+                          "ders":  "Finansal Muhasebe",
+                          "analiz":  "cek odemesi",
+                          "kopru":  "verilen cek odemesi",
+                          "neden":  "eş konu birleştirme (17.09, okunarak; benzerlik ölçümünde aynı soruyu üreten yakın adlar; hedef köprüde, ilgi hakemi GUCLU/ZAYIF)"
                       }
                   ]
 }

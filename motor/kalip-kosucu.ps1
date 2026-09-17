@@ -121,6 +121,17 @@ function NabizYaz($ETIKET,$TOPLAM){
 }
 $uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
 # --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
+# 17.09 BÜTÇE KAPISI yardımcısı: bu planın etiketlerine (ve onların toplu faz etiketlerine: "<etiket>/A" gibi) deftere yazılmış toplam USD
+function PlanHarcama{
+  $yolD=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; if(-not (Test-Path $yolD)){ return 0.0 }
+  $etiketKume=@{}; foreach($ps0 in $satirlar){ $etiketKume["$($ps0.etiket)"]=1 }
+  $top=0.0
+  foreach($sat0 in [IO.File]::ReadLines($yolD,[Text.Encoding]::UTF8)){
+    $mE=[regex]::Match($sat0,'"etiket"\s*:\s*"([^"/]*)'); if(-not $mE.Success -or -not $etiketKume.ContainsKey($mE.Groups[1].Value)){ continue }
+    $mU=[regex]::Match($sat0,'"toplamUsd"\s*:\s*(-?[\d.]+(?:[eE][-+]?\d+)?)'); if($mU.Success){ $top+=[double]::Parse($mU.Groups[1].Value,[Globalization.CultureInfo]::InvariantCulture) }
+  }
+  return $top
+}
 function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get-Date -Format 'yyyy-MM')
   # 08.09 16:11 Cem konsol ekranı: bu ay 351,09 USD — defter yalnız 08.09'dan beri ve yalnız BİTEN etiketleri sayıyordu (47,7), gerçek rakamı 300 USD
   # düşük görüyordu. Çapa: veri/fabrika/bedel-konsol.json {"zaman":"2026-09-08 16:11","harcama":351.09} (konsol Usage okuması, elle güncellenir);
@@ -262,6 +273,19 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
     "[$(Get-Date -Format HH:mm)] SÜRE DOLDU, başlatılmadı (sonraki halka): $($s.etiket)"
     [IO.File]::AppendAllText((Join-Path $logDir 'sure-doldu-atlanan.log'),("TOPLU ANLIKSIZ (süre doldu) · $($s.etiket)`r`n"),[Text.UTF8Encoding]::new($false))
     continue } }catch{} }
+  # ⛔⭐ 17.09.2026 BÜTÇE KAPISI (Cem: "boşuna 400 USD harcadık … kim soru basacaksa bunları yapsın, kural olsun").
+  #   Bu planın etiketlerine deftere yazılmış harcama (bütün halkalar; defter iş başında ambardan iner) MEVZUAT_BUTCE_USD'ye ulaştıysa
+  #   YENİ PARTİ BAŞLATILMAZ; "YARIM (bütçe doldu)" izi düşülür, zincir kırmızı durur. Uçuştaki partiler bitene kadar aşım olabilir →
+  #   KESİN FREN Anthropic Console harcama tavanıdır; bu kapı plan içi frendir. Değişken yoksa (yerel/eski çağrı) davranış aynı.
+  if("$env:MEVZUAT_BUTCE_USD" -match '^\d+([.,]\d+)?$'){
+    $butceSinir=[double]::Parse(("$env:MEVZUAT_BUTCE_USD" -replace ',','.'),[Globalization.CultureInfo]::InvariantCulture)
+    $planHarc=PlanHarcama
+    if($planHarc -ge $butceSinir){
+      "[$(Get-Date -Format HH:mm)] 🔴 BÜTÇE DOLDU (plan ≈$([math]::Round($planHarc,2)) / $butceSinir USD), başlatılmadı: $($s.etiket)"
+      [IO.File]::AppendAllText((Join-Path $logDir 'butce-doldu.log'),("YARIM (bütçe doldu) · $($s.etiket) · $([math]::Round($planHarc,2))/$butceSinir USD`r`n"),[Text.UTF8Encoding]::new($false))
+      $durduruldu=$true; break
+    }
+  }
   $sinav=$(if($s.PSObject.Properties['sinav'] -and $s.sinav){ "$($s.sinav)" } else { 'SGS' })
   # ⛔⭐ 12.09.2026 — KONU DOSYASI KAPISI. Plan satirindaki `konuDosya` MUTLAK
   #    YEREL YOL olabiliyor (arac/plan-uret.ps1 ve motor/plandan-parti-kur.ps1
