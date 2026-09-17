@@ -73,6 +73,12 @@ $DERS_TABLO=[ordered]@{
   # a6e serisi etiketi 'yd' degil 'yabancidil' yaziyor (sgs-a6e-yabancidil-p1b, 4 soru).
   # ⚠ sgs-kapituru-* BILEREK eslenmez: kapi deneme turu, ders degil.
   'yabancidil'='Yabancı Dil'
+  # 17.09.2026 (Cem "hazır soruları ekleyelim"): GM elle yazım turları sgs-gm5-ata-rN / sgs-gm5-tr-rN ve bosluk partisi
+  #   sgs-bosluk-svesosyalguvenlikhukuku bu tabloda karsiliksizdi -> 154 kapidan gecmis soru "dersi cozulemedi" diye atlaniyordu.
+  'ata'='Atatürk İlkeleri ve İnkılap Tarihi'; 'tr'='Türkçe'
+  'svesosyalguvenlikhukuku'='İş ve Sosyal Güvenlik Hukuku'
+  'borclarhukuku'='Borçlar Hukuku'; 'finansalmuhasebe'='Finansal Muhasebe'; 'vergihukuku'='Vergi Hukuku'
+  'ticarethukuku'='Ticaret Hukuku'; 'meslekhukuku'='Meslek Hukuku'
 }
 # ⛔ PS TUZAGI (11.09'da ALTINCI kez): tablonun adi $DERS idi ve asagida
 #    "$ders=DersBul $et" yazdim. PS harf AYIRMAZ -> ilk atama TABLOYU string
@@ -151,6 +157,34 @@ if($atlanan.Count){
   foreach($a in ($atlanan.GetEnumerator()|Sort-Object Value -Descending|Select-Object -First 10)){ Write-Host ("    {0,-34} {1,4}" -f $a.Key,$a.Value) }
   $at=0; foreach($a in $atlanan.GetEnumerator()){ $at+=$a.Value }
   Write-Host ("    toplam {0} soru" -f $at) -ForegroundColor Yellow
+}
+
+# ⛔⭐ 17.09.2026 YAYIN BEKLETMESI (Cem "dengesiz 3 dersi beklet"). arac/yayin-bekletme.json'daki derslerde YENI soru
+#   secilmez: yalniz su an yayindaki sayfada (kaydir/sgs/<ders>.html, son basilan) duran soru kimlikleri tutulur.
+#   Neden: cevap dagilimi (circir) kapisi 16.09'dan beri butun SGS yayinini durduruyordu; 3 derste yeni sorular
+#   ki-kareyi tabanin ustune cikariyordu. Bekletme o 3 dersi dondurur, 12 ders yayina devam eder.
+#   Liste bos ya da dosya yoksa davranis BIREBIR aynidir.
+$BEKLETME_YOLU=Join-Path $depoKok 'arac\yayin-bekletme.json'
+if(Test-Path $BEKLETME_YOLU){
+  $BEKLETME_AYAR=Get-Content $BEKLETME_YOLU -Raw -Encoding UTF8 | ConvertFrom-Json
+  if("$($BEKLETME_AYAR.sinav)" -eq $Sinav){
+    foreach($BEKLETILEN_DERS in @($BEKLETME_AYAR.dersler)){
+      if(-not $kova.ContainsKey("$BEKLETILEN_DERS")){ continue }
+      $SAYFA_YOLU=Join-Path $depoKok ('kaydir\sgs\' + ((DosyaAdi "$BEKLETILEN_DERS") -replace '^yayin-sgs-','' -replace '\.json$','.html'))
+      $YAYINDAKI_KIMLIK=@{}
+      if(Test-Path $SAYFA_YOLU){
+        $SAYFA_METNI=[IO.File]::ReadAllText($SAYFA_YOLU)
+        $SORU_BASI=$SAYFA_METNI.IndexOf('SORULAR=[')
+        if($SORU_BASI -ge 0){ foreach($KIMLIK_ESLESME in [regex]::Matches($SAYFA_METNI.Substring($SORU_BASI),'"id":"([^"]+/kp-[0-9A-Za-z]+)"')){ $YAYINDAKI_KIMLIK[$KIMLIK_ESLESME.Groups[1].Value]=1 } }
+      }
+      if(-not $YAYINDAKI_KIMLIK.Count){ throw "YAYIN BEKLETMESI: '$BEKLETILEN_DERS' icin yayindaki sayfadan soru kimligi okunamadi ($SAYFA_YOLU). Ders dondurulamazsa yayin DURUR (sessiz bosaltma yok)." }
+      $ONCEKI_ADET=$kova[$BEKLETILEN_DERS].Count
+      $TUTULAN=New-Object System.Collections.Generic.List[object]
+      foreach($ADAY in $kova[$BEKLETILEN_DERS]){ if($YAYINDAKI_KIMLIK.ContainsKey("$($ADAY.etiket)/$($ADAY.id)")){ $TUTULAN.Add($ADAY) } }
+      $kova[$BEKLETILEN_DERS]=$TUTULAN; $sayac[$BEKLETILEN_DERS]=$TUTULAN.Count
+      Write-Host ("  YAYIN BEKLETMESI: {0} -> {1} yeni soru bekletildi, yayindaki {2} soru tutuldu (sayfada {3} kimlik)" -f $BEKLETILEN_DERS,($ONCEKI_ADET-$TUTULAN.Count),$TUTULAN.Count,$YAYINDAKI_KIMLIK.Count) -ForegroundColor Yellow
+    }
+  }
 }
 
 if(-not $Yaz){
