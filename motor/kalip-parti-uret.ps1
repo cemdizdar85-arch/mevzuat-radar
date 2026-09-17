@@ -88,6 +88,30 @@ $script:BEDEL_YAZILDI=$false
 #   basılır (ör. "KAPI SAYIM: d1-D2=4 d2-CB=1"); soru metni basılmaz (bulut güvenliği kuralı 2). Aynı taslak aynı kapıda bir kez sayılır.
 $script:KAPI_SAYIM=@{}; $script:KAPI_GORULEN=@{}
 function KapiSay([string]$kod,[string]$anahtar){ $ks0="$anahtar|$kod"; if($script:KAPI_GORULEN.ContainsKey($ks0)){ return }; $script:KAPI_GORULEN[$ks0]=1; $script:KAPI_SAYIM[$kod]=1+[int]$script:KAPI_SAYIM[$kod] }
+# 17.09 HEDEFLİ ONARIM (Cem "1 yap"). ÖLÇÜLDÜ (8 ders, gerçek taslaklar kapılardan yeniden oynatıldı): ilk taslakların 2.409'u döndü ve
+#   HER BİRİ baştan yeniden yazdırıldı (istem ~15 bin, cevap ~7 bin jeton; 126 USD). 755'i YALNIZ şu kusurlarla dönmüştü: doğru şık en uzun /
+#   şık biçimi (KAPI-Ş), tutarların hepsi yuvarlak (KAPI-O), gövde uzun, Türkçe harf (KAPI-D2). Bunlar sorunun kuralına/cevabına dokunmayan
+#   yüzey kusurları: soru yeniden kurulmaz, yalnız bu kusur düzelttirilir. Düzeltilen soru İKİNCİ DENEME olarak BÜTÜN kapılardan yine geçer;
+#   hakem, kör çözüm, ikinci hakem, simülasyon aynen koşar. Model aynı (Sonnet), toplu (AR). Yalnız SMMM; SGS/KGK istemi değişmez.
+$HEDEFLI_ONARIM_KODLARI=@('UZUN','S','O','D2')
+function HedefliOnarimIstemi($taslak,[string[]]$notlar){
+  $taslakJson=ConvertTo-Json -InputObject $taslak -Depth 30 -Compress
+  return @"
+Aşağıda bir sınav sorusu JSON'u var. Soru yazım kontrollerinden yalnız şu YÜZEY kusurları yüzünden döndü:
+$(($notlar | ForEach-Object { "- $_" }) -join "`n")
+
+GÖREV: Soruyu baştan YAZMA. Yalnız bu kusurları gider.
+- Konu, ölçülen kural, olay, doğru cevabın dayandığı hüküm ve JSON yapısı (bütün alanlar, alan adları) aynı kalır.
+- Bir tutarı değiştirirsen sorudaki, şıklardaki, açıklamalardaki, çözüm tablosundaki, çeldirici yollarındaki, yevmiye/şema alanlarındaki
+  ilgili bütün sayıları yeniden hesapla; formüller gerçek sonucu versin, her yanlış şık kendi yanlış yolunun gerçek sonucu olsun.
+- Şıkların sırası değişirse "dogru" alanını ve açıklama/teşhis anahtarlarını yeni harflere göre yaz.
+- Türkçe harfler tam yazılır (ş, ç, ğ, ı, ö, ü, İ).
+Cevap YALNIZ düzeltilmiş JSON (aynı şema), başka metin yok.
+
+=== SORU JSON ===
+$taslakJson
+"@
+}
 function KapiSayimYaz{ if($script:KAPI_SAYIM.Count){ Write-Host ("KAPI SAYIM: " + ((@($script:KAPI_SAYIM.Keys) | Sort-Object | ForEach-Object { "$_=$($script:KAPI_SAYIM[$_])" }) -join ' ')) } }
 function BedelDefterYaz{
 if($script:BEDEL_YAZILDI){ return }   # aynı koşuda ikinci satır yazılmaz (çift sayım)
@@ -3095,9 +3119,10 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   # Uzunluk kapisi da 3 denemeden 2'ye indi: 30 soruluk parti 4,5 saatten ~25 dk'ya iner.
   if($script:ON_GECIS){ TopluTopla $id 'claude-sonnet-5' $ist 20000; continue }   # 1. geçiş: yalnız istemi topla (kaynak/çapa aynı koddan kuruldu)
   $cvp=$null
+  $onarimIstem=$null   # 17.09 hedefli onarım: 1. deneme yalnız yüzey kusuruyla dönerse 2. denemenin istemi (bkz. HedefliOnarimIstemi)
   foreach($deneme in 1..2){
     $istBu=$ist
-    if($deneme -gt 1){ $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." }
+    if($deneme -gt 1){ if($onarimIstem){ $istBu=$onarimIstem } else { $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." } }
     $y=$null
     # 02.09 gece KGK partisinde OLCULDU: KGK sorularinin HEPSI 8k'da kesilip 20k ile yeniden
     # gidiyor (her soru iki cagri = iki kat sure). KGK/SMMM uzun kaynak metniyle dusunuyor;
@@ -3262,7 +3287,22 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($cbSonuc.kor -and $deneme -eq 1){ $rapor.Add("KAPI-CB KÖR: $id | $($cbSonuc.kor)") }
     if(@($cbSonuc.not).Count -and -not $cbKusur.Count){ $rapor.Add("KAPI-CB NOTU (deneme $deneme): $id | $(@($cbSonuc.not)[0])") }
     if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count -and -not $acKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
-    foreach($ksK in @(@('UZUN',($uz -gt $UZUNLUK_TAVAN)),@('S',[bool]$sikKusur),@('H',[bool]$hkKusur.Count),@('K',[bool]$kvKusur.Count),@('T',[bool]$tipKusur),@('C',[bool]$cyKusur.Count),@('Y',[bool]$yilKusur),@('O',[bool]$koKusur.Count),@('B',[bool]$bzKusur.Count),@('D2',[bool]$trKusur.Count),@('YD',[bool]$ydKusur.Count),@('P',[bool]$paKusur.Count),@('M',[bool]$muKusur.Count),@('SU',[bool]$suKusur.Count),@('CB',[bool]$cbKusur.Count),@('GT',[bool]$gtKusur.Count),@('AC',[bool]$acKusur.Count))){ if($ksK[1]){ KapiSay "d$deneme-$($ksK[0])" "$id|$deneme" } }   # 17.09 kapı sayımı (yalnız kod+sayı)
+    $ksKodlar=@(foreach($ksK in @(@('UZUN',($uz -gt $UZUNLUK_TAVAN)),@('S',[bool]$sikKusur),@('H',[bool]$hkKusur.Count),@('K',[bool]$kvKusur.Count),@('T',[bool]$tipKusur),@('C',[bool]$cyKusur.Count),@('Y',[bool]$yilKusur),@('O',[bool]$koKusur.Count),@('B',[bool]$bzKusur.Count),@('D2',[bool]$trKusur.Count),@('YD',[bool]$ydKusur.Count),@('P',[bool]$paKusur.Count),@('M',[bool]$muKusur.Count),@('SU',[bool]$suKusur.Count),@('CB',[bool]$cbKusur.Count),@('GT',[bool]$gtKusur.Count),@('AC',[bool]$acKusur.Count))){ if($ksK[1]){ $ksK[0] } })
+    foreach($ksKod in $ksKodlar){ KapiSay "d$deneme-$ksKod" "$id|$deneme" }   # 17.09 kapı sayımı (yalnız kod+sayı)
+    # 17.09 hedefli onarım: yalnız bitirme, yalnız 1. deneme, dönen kapıların HEPSİ yüzey kusuru ise 2. deneme soruyu baştan yazmaz, onarır
+    if($deneme -eq 1 -and $Sinav -eq 'SMMM'){
+      $onarimIstem=$null
+      if($ksKodlar.Count -and -not @($ksKodlar | Where-Object { $HEDEFLI_ONARIM_KODLARI -notcontains $_ }).Count){
+        $onNot=@()
+        if($uz -gt $UZUNLUK_TAVAN){ $onNot+="Soru gövdesi $uz karakter; en çok $UZUNLUK_TAVAN karakter olmalı. Gövdeyi kısalt (hikâyeyi at, gereksiz cümleyi sil); soruda verilen veriler ve sorulan şey aynı kalsın." }
+        if($sikKusur){ $onNot+="Şıklar cevabı ele veriyor: $sikKusur. Şık uzunlukları birbirine yakın olsun, doğru şık en uzun şık olmasın; bir ipucu (parantezli açıklama, birim) yalnız doğru şıkta bulunmasın; aynı tutar iki şıkta tekrar etmesin; tutar+yön şıklarında her tutar iki yönle görünsün." }
+        if($koKusur.Count){ $onNot+="Yapay zekâ izi: $($koKusur -join '; '). Tutarların hepsi yuvarlak olmasın (12.500, 47.350 gibi gerçekçi tutarlar karışsın; hesap yine düzgün çıksın); 'ABC/XYZ' gibi yer tutucu ad, klişe kalıp ve uzun tire (—) kullanma." }
+        if($trKusur.Count){ $onNot+="Şu kelimeler Türkçe harfsiz yazılmış: $($trKusur -join ', '). Bütün metinde Türkçe harfleri tam yaz." }
+        $onarimIstem=HedefliOnarimIstemi $aday $onNot
+        KapiSay 'd1-ONARIM' "$id|1"
+        Write-Host "  HEDEFLİ ONARIM ($id): dönen kapılar yalnız yüzey kusuru ($($ksKodlar -join ',')) → 2. deneme soruyu baştan yazmaz, onarır" -ForegroundColor DarkCyan
+      }
+    }
     if($muKusur.Count){ Write-Host "  KAPI-M (mülga mevzuat) ($id): $($muKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-M DÜŞTÜ (mülga mevzuat/kurum): $($muKusur -join '; '). Soru yalnız YÜRÜRLÜKTEKİ kanun, standart ve kurum adıyla yazılır; eski kanun numarası, mülga standart, kapanmış kurum adı ve eski/yeni karşılaştırması geçmez. Kaynak paketindeki güncel metne dayan." }
     if($suKusur.Count){ Write-Host "  KAPI-S (süresi dolan veri) ($id): $($suKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-S DÜŞTÜ (süresi dolan veri): $($suKusur -join '; '). Geçmiş bir son tarihe ya da eski yılın had/oranına dayanan veri kullanılmaz; tarihler $((Get-Date).Year) ve sonrası olur, had/oran soruda sayı olarak verilir." }
     if($cbKusur.Count){ Write-Host "  KAPI-CB (çıkmış cümle) ($id): $($cbKusur -join ' · ') - yeniden" -ForegroundColor DarkYellow; $ist=$ist+"`nKAPI-CB DÜŞTÜ (çıkmış soruyla aynı cümleler): $($cbKusur -join '; '). Şıkları ve öncülleri çıkmış bir sorunun cümlelerinden kurma; aynı kuralı KENDİ cümlenle, farklı bir hükmü ya da farklı bir yanlış yolu sınayacak biçimde yaz." }
