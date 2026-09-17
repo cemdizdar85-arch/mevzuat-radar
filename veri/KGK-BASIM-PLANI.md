@@ -73,6 +73,12 @@ gh workflow run bulut-uretim.yml -f plan=veri/sinav/plan-kgk-a1-denetim.json -f 
 ```
 Bitince: `arac/ret-kutugu.ps1` + ret oranı + soru başına gerçek bedel bu belgeye.
 
+**17.09 20:04 ilk deneme (bitirme oturumu Cem onayıyla başlattı, run 35249795863): BAŞARISIZ, bedel 0.** 5 partinin 5'i başlar
+başlamaz düştü (toplu istek gönderilmedi). Kök neden: `veri/kgk-analiz.json` dönemleri "29 Haziran 2019" biçiminde; üretici PENCERE
+sıralaması çeviremedi. Düzeltme ana telde (commit 213c0a38, `DonemSira`; SGS sıralaması birebir aynı). Yerel `-ApiKapali` sınaması
+PENCERE'yi geçti. **Yeniden başlatma KGK oturumunun işi, Cem onayıyla, yukarıdaki komutla.** Cem Console'da harcama tavanı koymadı →
+koşu boyunca harcama ölçülür; bekçi kurulursa YALNIZ `kgk-a1-*` partilerini saymalı (17:02Z'de başka kaynaktan bir toplu parti vardı).
+
 ## 6 · Cem'den istenen karar
 
 1. ~~Denetim modülü Dalga 1 başlatılsın mı?~~ **Onaylandı 16.09** — koşu yeri buluta taşındı; başlatma için son "bas" bekleniyor (bkz. 5a).
