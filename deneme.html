@@ -2015,11 +2015,17 @@ function kocRecete(ders){
 // yayinlamiyor; bizim tek gercek tekelimiz.
 // D9 FRENI: konu sayimda BULUNAMAZSA kunye HIC GOSTERILMEZ. "Sik cikar" gibi
 // olcusuz ifade yasak - yalniz sayilmis donem verisi yazilir.
-var SIKLIK = null, KONU_ESLESME = null;
-fetch('veri/siklik-kunyesi.json?' + Date.now())
-  .then(function(r){ return r.json(); })
-  .then(function(d){ if(d && d.konular){ SIKLIK = d; } })
-  .catch(function(){ /* kunye yoksa sessizce gosterilmez */ });
+// 17.09 (Cem "1.2.3 ucunu de yap", 3. madde): kunye artik UC SINAVDA da var.
+// Once yalniz SGS dosyasi yukleniyordu; SMMM ve KGK sorularinda ders adi
+// tutmadigi icin kunye HIC gorunmuyordu. Her sinav kendi sayimindan okur.
+var SIKLIK = null, KONU_ESLESME = null, SIKLIK_SET = {};
+[['SGS','veri/siklik-kunyesi.json'],['SMMM','veri/siklik-kunyesi-smmm.json'],['KGK','veri/siklik-kunyesi-kgk.json']]
+  .forEach(function(p){
+    fetch(p[1] + '?' + Date.now())
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if(d && d.konular){ SIKLIK_SET[p[0]] = d; if(p[0] === 'SGS'){ SIKLIK = d; } } })
+      .catch(function(){ /* kunye yoksa sessizce gosterilmez */ });
+  });
 
 // ETIKET HIZALAMASI (02.08): kunye ilk surumde 10 sorudan 1'inde goruluyordu.
 // Sebep kasadaki DERS adinin kitapciktakinden farkli olmasiydi ("Borclar
@@ -2040,14 +2046,17 @@ function knorm(t){
 }
 
 function siklikKunyesi(s){
-  if(!SIKLIK || !s || !s.ders || !s.konu) return '';
+  if(!s || !s.ders || !s.konu) return '';
+  // etiketsiz eski sorular SGS sayilir (sinav filtresiyle ayni varsayim)
+  var kunye = SIKLIK_SET[s.sinav || 'SGS'];
+  if(!kunye) return '';
   var anah = knorm(s.ders + '|' + s.konu);
-  var k = SIKLIK.konular[anah];
-  if(!k && KONU_ESLESME && KONU_ESLESME[anah]){   // birebir tutmadi -> sozluk
-    k = SIKLIK.konular[KONU_ESLESME[anah].hedef];
+  var k = kunye.konular[anah];
+  if(!k && KONU_ESLESME && KONU_ESLESME[anah] && kunye === SIKLIK_SET['SGS']){   // sozluk yalniz SGS icin olculdu
+    k = kunye.konular[KONU_ESLESME[anah].hedef];
   }
   if(!k || !k.d) return '';                      // sayim yok -> kunye yok (D9)
-  var top = SIKLIK.donem_sayisi || 0;
+  var top = kunye.donem_sayisi || 0;
   if(!top) return '';
   var vurgu = (k.d >= Math.max(3, Math.round(top * 0.15)));   // duzenli cikan konu
   return '<div style="font-size:12px;color:' + (vurgu ? 'var(--accent2)' : 'var(--dim)') +
