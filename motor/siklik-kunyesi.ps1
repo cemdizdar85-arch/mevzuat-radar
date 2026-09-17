@@ -17,17 +17,26 @@
 #  (varsayilan) BIREBIR ayni kalir. SMMM'de kayit (donem|ders) bazli: her ders
 #  bir donemde tek kayit oldugu icin "kac kayitta" = "kac donemde"; donem_sayisi
 #  ise TEKIL donem sayisidir (kayit sayisi degil).
-param([ValidateSet('SGS','SMMM')][string]$Sinav = 'SGS')
+# 17.09 KGK (Cem "1.2.3 üçünü de yap"): -Sinav KGK · kaynak veri/kgk-analiz.json,
+#  çıktı veri/siklik-kunyesi-kgk.json. SGS/SMMM yolu BİREBİR aynı kalır.
+#  KGK'nın tek farkı DERS ADI: çıkmış kitapçık haritası 21 ayrı ders adı taşıyor
+#  (2013–2018 "Muhasebe" / "Denetim", sonra "Türkiye Muhasebe Standartları"…,
+#  bazı dönemlerde ç+d+e tek modülde "Sermaye Piyasası, Bankacılık, Sigortacılık…").
+#  Kasa ve kota ise 9 resmî etiket kullanıyor (veri/kgk-uretim-kotasi.json). Eşleme
+#  olmadan künye anahtarı hiç tutmuyordu → KGK'da künye HİÇ görünmüyordu.
+#  Birleşik modüller konu kelimesiyle bölünür; kelime tutmazsa ders "BIRLESIK-…"
+#  kalır ve künye gösterilmez (D9 freni: uydurma yok, bölünemeyen sayım kullanılmaz).
+param([ValidateSet('SGS','SMMM','KGK')][string]$Sinav = 'SGS')
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-$kaynak = if($Sinav -eq 'SMMM'){ Join-Path $kok 'veri/smmm-analiz.json' } else { Join-Path $kok 'veri/sgs-analiz.json' }
-$cikti  = if($Sinav -eq 'SMMM'){ Join-Path $kok 'veri/siklik-kunyesi-smmm.json' } else { Join-Path $kok 'veri/siklik-kunyesi.json' }
+$kaynak = switch($Sinav){ 'SMMM' { Join-Path $kok 'veri/smmm-analiz.json' } 'KGK' { Join-Path $kok 'veri/kgk-analiz.json' } default { Join-Path $kok 'veri/sgs-analiz.json' } }
+$cikti  = switch($Sinav){ 'SMMM' { Join-Path $kok 'veri/siklik-kunyesi-smmm.json' } 'KGK' { Join-Path $kok 'veri/siklik-kunyesi-kgk.json' } default { Join-Path $kok 'veri/siklik-kunyesi.json' } }
 if(-not (Test-Path $kaynak)){ Write-Host "$kaynak yok - cikildi."; exit 1 }
 
 $a = Get-Content $kaynak -Raw -Encoding UTF8 | ConvertFrom-Json
 $donemler = @($a.donemler | Where-Object { $_.konuSayim })
-$donemSayisi = if($Sinav -eq 'SMMM'){ @($donemler | ForEach-Object { "$($_.donem)" } | Sort-Object -Unique).Count } else { $donemler.Count }
+$donemSayisi = if($Sinav -eq 'SGS'){ $donemler.Count } else { @($donemler | ForEach-Object { "$($_.donem)" } | Sort-Object -Unique).Count }
 Write-Host ("Donem: {0} (kayit {1})" -f $donemSayisi, $donemler.Count)
 
 # Turkce-toleransli normalize: kasadaki etiketle kitapciktaki etiket birebir
@@ -44,13 +53,77 @@ function Norm([string]$t){
   return $s.Trim()
 }
 
+# ---- KGK ders eşlemesi (yalnız -Sinav KGK) -------------------------------
+# Sol: çıkmış kitapçık haritasındaki ders adının Norm'u. Sağ: kota/kasa etiketi.
+$kgkDersHedef = @{
+  'muhasebe'                                  = 'Muhasebe Standartlari'
+  'muhasebe standartlari'                     = 'Muhasebe Standartlari'
+  'turkiye muhasebe standartlari'             = 'Muhasebe Standartlari'
+  'denetim'                                   = 'Denetim Standartlari'
+  'turkiye denetim standartlari'              = 'Denetim Standartlari'
+  'sermaye piyasasi mevzuati'                 = 'Sermaye Piyasasi Mevzuati'
+  'sermaye piyasasi'                          = 'Sermaye Piyasasi Mevzuati'
+  'bankacilik mevzuati'                       = 'Bankacilik Mevzuati'
+  'bankacilik'                                = 'Bankacilik Mevzuati'
+  'sigortacilik ve ozel emeklilik mevzuati'   = 'Sigortacilik ve Ozel Emeklilik Mevzuati'
+  'sigortacilik ve ozel emeklilik'            = 'Sigortacilik ve Ozel Emeklilik Mevzuati'
+  'genel hukuk mevzuati'                      = 'Genel Hukuk Mevzuati'
+}
+# Birleşik modüller: tek ders adı altında iki ya da üç resmî ders var. Konu
+# adındaki kelimeye göre bölünür; hiçbiri tutmazsa BIRLESIK- olarak bırakılır.
+$kgkBirlesik = @{
+  'sermaye piyasasi bankacilik sigortacilik ve ozel emeklilik mevzuati' = 'SPK-BANK-SIG'
+  'sermaye piyasasi bankacilik sigortacilik'                            = 'SPK-BANK-SIG'
+  'kurumsal yonetim ilkeleri ve finansal yonetim'                       = 'KY-FY'
+  'kurumsal yonetim ve finansal yonetim'                                = 'KY-FY'
+  'kurumsal surdurulebilirlik raporlamasi ve denetimi'                  = 'SURDUR'
+}
+$kgkKelime = @{
+  'SPK-BANK-SIG' = @(
+    @{ hedef='Bankacilik Mevzuati';                    desen='banka|bddk|mevduat|kredi|katilim bank|tmsf|sermaye yeterlilig|cekirdek sermaye|likidite karsilama|takipteki|donuk alacak|kaldirac orani|bilgi sistemleri|karsilik yonetmelig' }
+    @{ hedef='Sigortacilik ve Ozel Emeklilik Mevzuati'; desen='sigorta|emeklilik|\bbes\b|seddk|aktuer|reasurans|police|teknik karsilik|matematik karsilik|muallak|devam eden riskler|riziko|hasar|\bprim\b|zeyil|tazminat|teknik faiz|hayat brans' }
+    @{ hedef='Sermaye Piyasasi Mevzuati';              desen='sermaye piyasasi|\bspk\b|borsa|halka arz|halka acik|izahname|yatirim fonu|yatirim ortakligi|menkul kiymet|portfoy yonetim|kayitli sermaye|pay sahip|pay alim|ihrac|kurul kayd|kurul karari|ortakliktan cikarma|fiyat adimi|fon ictuzug|para piyasasi fon|fon ortaklik|kar payi avans|ara donem rapor|tamamlama cagrisi|genel kurul cagri|sermaye artirim|iceriden ogrenen|tahvil|vadeli islem|kotasyon|aracilik|yatirimci tazmin' }
+  )
+  # KY kuralı ÖNCE bakar: yönetim kelimeleri daha özel ("risk yonetim komitesi" KY,
+  #  "risk getiri" FY). 17.09 ölçümü: eşlenmeyen 525 → aşağıdaki listelerle düştü.
+  'KY-FY' = @(
+    @{ hedef='Kurumsal Yonetim';  desen='yonetim kurulu|komite|bagimsiz uye|\betik\b|kurumsal yonetim|genel kurul|kamuyu aydinlatma|ucretlendirme|ic kontrol|ic denetim|pay sahip|menfaat sahip|paydas|seffaflik|hesap verebilir|sorumluluk ilkesi|esitlik ilkesi|adillik|kurumsal karne|kademeli kurul|kurul yapisi|bagimsizlik|aday gosterme|\buye\b|oy hakk|azlik hakk|imtiyaz|faaliyet raporu|entegre raporlama|icerden ogrenen|derecelendirme|vekalet|temsil maliyeti|ilkeler|insan kaynaklari|onemli nitelikte islem|yonetim temel fonksiyon|\bkyt\b' }
+    @{ hedef='Finansal Yonetim';  desen='faiz|\bnpv\b|\birr\b|nakit|isletme sermayesi|portfoy|risk|sermaye maliyeti|sermaye yapisi|sermaye kazanci|sermaye varliklari|kaldirac|basabas|deger(leme|lemesi)?\b|defter degeri|piyasa degeri|tahvil|bono|hisse|varant|\bwacc\b|\bcapm\b|butce|oran|kar pay|temettu|kar dagitim|buyume|beta|iskonto|anuite|devir hizi|likidite|maliyet|finanslama|finansal planlama|finansal yonetim|finansman|borclanma|turev|forward|futures|opsiyon|\bswap\b|faktoring|forfaiting|leasing|kiralama|getiri|yatirim|\bfon\b|alacak yonetimi|stok yonetimi|stok tahmini|katki|modigliani|gordon|miller|proje degerlendirme|egilim yuzde|karlilik|borc|ozkaynak|spot piyasa|piyasa vade' }
+  )
+  'SURDUR' = @(
+    @{ hedef='Surdurulebilirlik Denetimi';    desen='\bgds\b|guvence|denetci|denetim kanit|denetim ekip|sinirli guvence|makul guvence|dogrulama|surdurulebilirlik denetimi yonetmelig|surdurulebilirlik yonetmelig|etik kurallar|bagimsizlik|izin iptali' }
+    @{ hedef='Surdurulebilirlik Raporlamasi'; desen='\btsrs\b|raporlama|surdurulebilirlik rapor|sera gazi|iklim|onemlilik|paydas|\besg\b|kapsam [123]|karbon|\bco2\b|emisyon|enerji tuketim|biyocesitlilik|gecis plani|\bab\b|csrd|csddd|skdm|\bets\b|taksonomi|\bska\b|paris anlasmasi|dongusel ekonomi|sasb|\bsbti\b|yesil|sosyal tahvil|etki yatirimi|\bspk\b|bddk|platform|kamu destek|roma kulubu' }
+  )
+}
+$kgkSayac = @{}   # hangi ders adı hangi hedefe kaç konu taşıdı (rapora yazılır)
+function KgkDers([string]$DersAdi, [string]$KonuAdi){
+  $dn = Norm $DersAdi
+  if($kgkDersHedef.ContainsKey($dn)){ return $kgkDersHedef[$dn] }
+  if($kgkBirlesik.ContainsKey($dn)){
+    $grup = $kgkBirlesik[$dn]; $kn = Norm $KonuAdi
+    foreach($kural in $kgkKelime[$grup]){ if($kn -match $kural.desen){ return $kural.hedef } }
+    return "BIRLESIK-$grup"
+  }
+  return "ESLENMEDI-$DersAdi"
+}
+
 $konu = @{}
 foreach($d in $donemler){
   $gorulen = @{}
   foreach($p in $d.konuSayim.PSObject.Properties){
-    $anah = Norm $p.Name
+    $ham = $p.Name
+    if($Sinav -eq 'KGK'){
+      $parca = "$ham" -split '\|',2
+      if($parca.Count -eq 2){
+        $hedefDers = KgkDers $parca[0] $parca[1]
+        $izAnah = "$(Norm $parca[0]) -> $hedefDers"
+        $kgkSayac[$izAnah] = 1 + [int]$kgkSayac[$izAnah]
+        $ham = "$hedefDers|$($parca[1])"
+      }
+    }
+    $anah = Norm $ham
     if(-not $anah){ continue }
-    if(-not $konu.ContainsKey($anah)){ $konu[$anah] = @{ donem = 0; soru = 0; ad = $p.Name } }
+    if(-not $konu.ContainsKey($anah)){ $konu[$anah] = @{ donem = 0; soru = 0; ad = $ham } }
     $konu[$anah].soru += [int]$p.Value
     if(-not $gorulen[$anah]){ $konu[$anah].donem++; $gorulen[$anah] = $true }
   }
@@ -67,12 +140,18 @@ foreach($k in ($konu.GetEnumerator() | Sort-Object Name)){
 
 $rapor = [ordered]@{
   tarih         = (Get-Date -Format 'dd.MM.yyyy HH:mm')
-  kaynak        = $(if($Sinav -eq 'SMMM'){ 'veri/smmm-analiz.json — cikmis SMMM Yeterlilik kitapciklarinin (yazili + test) konu sayimi' } else { 'veri/sgs-analiz.json — cikmis SGS kitapciklarinin konu sayimi' })
+  kaynak        = $(switch($Sinav){ 'SMMM' { 'veri/smmm-analiz.json — cikmis SMMM Yeterlilik kitapciklarinin (yazili + test) konu sayimi' } 'KGK' { 'veri/kgk-analiz.json — cikmis KGK kitapciklarinin konu sayimi; ders adi kota etiketine eslendi (bkz. ders_esleme)' } default { 'veri/sgs-analiz.json — cikmis SGS kitapciklarinin konu sayimi' } })
   donem_sayisi  = $donemSayisi
   konu_sayisi   = $konu.Count
   en_cok_cikan  = @($enCok | ForEach-Object { [ordered]@{ konu = $_.Value.ad; donem = $_.Value.donem; soru = $_.Value.soru } })
   konular       = $tablo
   kullanim      = 'Anahtar = Norm("<ders>|<konu>"). Kasadaki soru bu anahtarla aranir; BULUNAMAZSA kunye GOSTERILMEZ (D9 freni: sayim yoksa yazilmaz).'
+}
+if($Sinav -eq 'KGK'){
+  $rapor['ders_esleme'] = [ordered]@{}
+  foreach($iz in ($kgkSayac.GetEnumerator() | Sort-Object { $_.Value } -Descending)){ $rapor['ders_esleme'][$iz.Key] = $iz.Value }
+  $rapor['eslenmeyen_konu'] = [int](($kgkSayac.GetEnumerator() | Where-Object { $_.Key -match '-> (BIRLESIK|ESLENMEDI)' } | Measure-Object Value -Sum).Sum)
+  $rapor['esleme_notu'] = 'Cikmis KGK haritasindaki ders adi kota etiketine (veri/kgk-uretim-kotasi.json) eslendi. Birlesik modul konu kelimesiyle bolundu; kelime tutmazsa ders BIRLESIK- kaldi ve o konunun kunyesi GOSTERILMEZ. Genel Hukuk Mevzuati resmi ders listesinde yok (tarihsel), kotaya girmez.'
 }
 Set-Content -LiteralPath $cikti -Value (ConvertTo-Json -InputObject $rapor -Depth 6) -Encoding UTF8 -NoNewline
 Write-Host "`n=== EN COK CIKAN 10 KONU ==="

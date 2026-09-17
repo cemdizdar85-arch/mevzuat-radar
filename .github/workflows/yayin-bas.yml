@@ -202,6 +202,30 @@ jobs:
             git fetch origin main -q
             git merge origin/main --no-edit -q
             $cakisma = @(git diff --name-only --diff-filter=U)
+            # ⭐ 17.09.2026 — CIRCIR OLCUM DOSYASI CAKISMASI OLCEREK COZULUR.
+            #   OLAY: kosu 35256080527 tam burada KIRMIZI bitti. Iki yayin turu ust uste kostu;
+            #   ikinci tur depoyu 17:59'da cekti, birinci tur 18:16'da itti, ikinci tur 18:48'de
+            #   iterken `veri/cevap-dagilimi.json` cakisti. BUTUN kapilar gecmisti (circir YESIL,
+            #   HAVUZ 4538) - yalniz itme dustu, yani 151 yeni soru uretildi ama siteye CIKMADI.
+            #   NIYE bu dosya `.gitattributes` kuralinin DISINDA: circir TABANLARINI tutar, durum
+            #   tasir; korlemesine "yereli al" taban gecmisini bozabilir (13.09 gerekcesi, dogru).
+            #   COZUM: taban `arac/cevap-dagilimi-olc.ps1` satir 185'te zaten min(eski,simdi) ile
+            #   yaziliyor - taban yalniz ASAGI cekilir. Dogru birlesim de bu: olcum fotografi bu
+            #   kosunun (yeni sayfalari o olcuyor), taban iki tarafin KUCUGU.
+            #   `arac/cevap-dagilimi-birlestir.ps1` bunu yapar, yazdigini geri okur ve taban
+            #   yukselmisse cikis 2 ile DURDURUR. Baska her dosyada davranis AYNI: elle coz.
+            if($cakisma.Count -eq 1 -and $cakisma[0] -eq 'veri/cevap-dagilimi.json'){
+              "cakisma yalniz circir olcum dosyasinda - olcerek birlestiriliyor"
+              # ⛔ `Out-File`/`>` YAZMA: PS 5.1 cikti genisligini konsola gore KIRPAR/SARAR (80 kr) ->
+              #    uzun JSON satirinin ortasina yeni satir girer, dosya bozulur. Set-Content sarmaz.
+              git show ":2:veri/cevap-dagilimi.json" | Set-Content -Path "$env:RUNNER_TEMP\cd-bizim.json" -Encoding UTF8
+              git show ":3:veri/cevap-dagilimi.json" | Set-Content -Path "$env:RUNNER_TEMP\cd-onlarin.json" -Encoding UTF8
+              ./arac/cevap-dagilimi-birlestir.ps1 -Bizim "$env:RUNNER_TEMP\cd-bizim.json" -Onlarin "$env:RUNNER_TEMP\cd-onlarin.json" -Cikti 'veri/cevap-dagilimi.json'
+              if($LASTEXITCODE -ne 0){ throw 'circir olcum dosyasi birlestirilemedi - elle coz' }
+              git add veri/cevap-dagilimi.json
+              git commit --no-edit
+              $cakisma = @(git diff --name-only --diff-filter=U)
+            }
             if($cakisma.Count){ throw "itmede cakisma - elle coz: $($cakisma -join ', ')" }
             Start-Sleep -Seconds 4
           }
