@@ -1,5 +1,5 @@
 {
-  "tarih": "16.09.2026 13:23",
+  "tarih": "17.09.2026 13:19",
   "toplam": 44,
   "tutarli": 41,
   "incele": 1,
@@ -7,12 +7,66 @@
   "not": "INCELE = otomatik kusur DEGIL; bolme/normalizasyon farki da olabilir - insan tek tek bakar. OLCULEMEDI = olcum yok, kusur sayilmaz (ucuncu-sonuc kurali). BDS/GDS/KYS v1 kapsam disi.",
   "satirlar": [
     {
-      "standart": "TFRS 15",
+      "standart": "TFRS 1",
       "durum": "TUTARLI",
-      "ambar_parca": 242,
-      "ambar_krk": 139632,
-      "yeni_parca": 242,
-      "yeni_krk": 139632,
+      "ambar_parca": 159,
+      "ambar_krk": 91495,
+      "yeni_parca": 161,
+      "yeni_krk": 91484,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 19",
+      "durum": "TUTARLI",
+      "ambar_parca": 288,
+      "ambar_krk": 156017,
+      "yeni_parca": 288,
+      "yeni_krk": 156017,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 18",
+      "durum": "TUTARLI",
+      "ambar_parca": 288,
+      "ambar_krk": 171494,
+      "yeni_parca": 288,
+      "yeni_krk": 171494,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 17",
+      "durum": "TUTARLI",
+      "ambar_parca": 370,
+      "ambar_krk": 248585,
+      "yeni_parca": 370,
+      "yeni_krk": 248585,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 16",
+      "durum": "TUTARLI",
+      "ambar_parca": 210,
+      "ambar_krk": 108138,
+      "yeni_parca": 210,
+      "yeni_krk": 108138,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 14",
+      "durum": "TUTARLI",
+      "ambar_parca": 70,
+      "ambar_krk": 42952,
+      "yeni_parca": 70,
+      "yeni_krk": 42952,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 13",
+      "durum": "TUTARLI",
+      "ambar_parca": 160,
+      "ambar_krk": 114651,
+      "yeni_parca": 160,
+      "yeni_krk": 114651,
       "oran": 1.0
     },
     {
@@ -52,6 +106,15 @@
       "oran": 1.0
     },
     {
+      "standart": "TFRS 15",
+      "durum": "TUTARLI",
+      "ambar_parca": 242,
+      "ambar_krk": 139632,
+      "yeni_parca": 242,
+      "yeni_krk": 139632,
+      "oran": 1.0
+    },
+    {
       "standart": "TFRS 8",
       "durum": "TUTARLI",
       "ambar_parca": 41,
@@ -61,39 +124,21 @@
       "oran": 1.0
     },
     {
-      "standart": "TFRS 16",
-      "durum": "TUTARLI",
-      "ambar_parca": 210,
-      "ambar_krk": 108138,
-      "yeni_parca": 210,
-      "yeni_krk": 108138,
-      "oran": 1.0
-    },
-    {
-      "standart": "TFRS 13",
-      "durum": "TUTARLI",
-      "ambar_parca": 160,
-      "ambar_krk": 114651,
-      "yeni_parca": 160,
-      "yeni_krk": 114651,
-      "oran": 1.0
-    },
-    {
-      "standart": "TFRS 17",
-      "durum": "TUTARLI",
-      "ambar_parca": 370,
-      "ambar_krk": 248585,
-      "yeni_parca": 370,
-      "yeni_krk": 248585,
-      "oran": 1.0
-    },
-    {
       "standart": "TFRS 7",
       "durum": "TUTARLI",
       "ambar_parca": 216,
       "ambar_krk": 146543,
       "yeni_parca": 221,
       "yeni_krk": 146521,
+      "oran": 1.0
+    },
+    {
+      "standart": "TFRS 6",
+      "durum": "TUTARLI",
+      "ambar_parca": 30,
+      "ambar_krk": 12495,
+      "yeni_parca": 30,
+      "yeni_krk": 12495,
       "oran": 1.0
     },
     {
@@ -115,24 +160,6 @@
       "oran": 1.0
     },
     {
-      "standart": "TFRS 18",
-      "durum": "TUTARLI",
-      "ambar_parca": 288,
-      "ambar_krk": 171494,
-      "yeni_parca": 288,
-      "yeni_krk": 171494,
-      "oran": 1.0
-    },
-    {
-      "standart": "TFRS 19",
-      "durum": "TUTARLI",
-      "ambar_parca": 288,
-      "ambar_krk": 156017,
-      "yeni_parca": 288,
-      "yeni_krk": 156017,
-      "oran": 1.0
-    },
-    {
       "standart": "TFRS 2",
       "durum": "TUTARLI",
       "ambar_parca": 155,
@@ -142,30 +169,12 @@
       "oran": 1.0
     },
     {
-      "standart": "TFRS 1",
+      "standart": "TMS 8",
       "durum": "TUTARLI",
-      "ambar_parca": 159,
-      "ambar_krk": 91495,
-      "yeni_parca": 161,
-      "yeni_krk": 91484,
-      "oran": 1.0
-    },
-    {
-      "standart": "TFRS 6",
-      "durum": "TUTARLI",
-      "ambar_parca": 30,
-      "ambar_krk": 12495,
-      "yeni_parca": 30,
-      "yeni_krk": 12495,
-      "oran": 1.0
-    },
-    {
-      "standart": "TFRS 14",
-      "durum": "TUTARLI",
-      "ambar_parca": 70,
-      "ambar_krk": 42952,
-      "yeni_parca": 70,
-      "yeni_krk": 42952,
+      "ambar_parca": 92,
+      "ambar_krk": 52144,
+      "yeni_parca": 96,
+      "yeni_krk": 52125,
       "oran": 1.0
     },
     {
@@ -187,12 +196,12 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 26",
+      "standart": "TMS 29",
       "durum": "TUTARLI",
-      "ambar_parca": 38,
-      "ambar_krk": 22637,
-      "yeni_parca": 38,
-      "yeni_krk": 22637,
+      "ambar_parca": 41,
+      "ambar_krk": 16191,
+      "yeni_parca": 41,
+      "yeni_krk": 16191,
       "oran": 1.0
     },
     {
@@ -205,30 +214,21 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 24",
-      "durum": "TUTARLI",
-      "ambar_parca": 36,
-      "ambar_krk": 21511,
-      "yeni_parca": 36,
-      "yeni_krk": 21511,
-      "oran": 1.0
-    },
-    {
-      "standart": "TMS 33",
-      "durum": "TUTARLI",
-      "ambar_parca": 101,
-      "ambar_krk": 59802,
-      "yeni_parca": 101,
-      "yeni_krk": 59802,
-      "oran": 1.0
-    },
-    {
       "standart": "TMS 34",
       "durum": "TUTARLI",
       "ambar_parca": 61,
       "ambar_krk": 35579,
       "yeni_parca": 61,
       "yeni_krk": 35579,
+      "oran": 1.0
+    },
+    {
+      "standart": "TMS 26",
+      "durum": "TUTARLI",
+      "ambar_parca": 38,
+      "ambar_krk": 22637,
+      "yeni_parca": 38,
+      "yeni_krk": 22637,
       "oran": 1.0
     },
     {
@@ -259,31 +259,40 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 29",
+      "standart": "TMS 33",
       "durum": "TUTARLI",
-      "ambar_parca": 41,
-      "ambar_krk": 16191,
-      "yeni_parca": 41,
-      "yeni_krk": 16191,
+      "ambar_parca": 101,
+      "ambar_krk": 59802,
+      "yeni_parca": 101,
+      "yeni_krk": 59802,
       "oran": 1.0
     },
     {
-      "standart": "TMS 23",
+      "standart": "TMS 24",
       "durum": "TUTARLI",
       "ambar_parca": 36,
-      "ambar_krk": 14052,
+      "ambar_krk": 21511,
       "yeni_parca": 36,
-      "yeni_krk": 14052,
+      "yeni_krk": 21511,
       "oran": 1.0
     },
     {
-      "standart": "TMS 1",
-      "durum": "INCELE",
-      "ambar_parca": 158,
-      "ambar_krk": 95118,
-      "yeni_parca": 176,
-      "yeni_krk": 94637,
-      "oran": 0.995
+      "standart": "TMS 19",
+      "durum": "TUTARLI",
+      "ambar_parca": 186,
+      "ambar_krk": 118012,
+      "yeni_parca": 186,
+      "yeni_krk": 118012,
+      "oran": 1.0
+    },
+    {
+      "standart": "TMS 21",
+      "durum": "TUTARLI",
+      "ambar_parca": 104,
+      "ambar_krk": 53626,
+      "yeni_parca": 104,
+      "yeni_krk": 53622,
+      "oran": 1.0
     },
     {
       "standart": "TMS 20",
@@ -295,13 +304,13 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 19",
-      "durum": "TUTARLI",
-      "ambar_parca": 186,
-      "ambar_krk": 118012,
-      "yeni_parca": 186,
-      "yeni_krk": 118012,
-      "oran": 1.0
+      "standart": "TMS 1",
+      "durum": "INCELE",
+      "ambar_parca": 158,
+      "ambar_krk": 95118,
+      "yeni_parca": 176,
+      "yeni_krk": 94637,
+      "oran": 0.995
     },
     {
       "standart": "TMS 16",
@@ -319,6 +328,15 @@
       "ambar_krk": 53168,
       "yeni_parca": 91,
       "yeni_krk": 53163,
+      "oran": 1.0
+    },
+    {
+      "standart": "TMS 2",
+      "durum": "TUTARLI",
+      "ambar_parca": 45,
+      "ambar_krk": 20624,
+      "yeni_parca": 45,
+      "yeni_krk": 20624,
       "oran": 1.0
     },
     {
@@ -340,15 +358,6 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 8",
-      "durum": "TUTARLI",
-      "ambar_parca": 92,
-      "ambar_krk": 52144,
-      "yeni_parca": 96,
-      "yeni_krk": 52125,
-      "oran": 1.0
-    },
-    {
       "standart": "TMS 7",
       "durum": "TUTARLI",
       "ambar_parca": 78,
@@ -358,21 +367,12 @@
       "oran": 1.0
     },
     {
-      "standart": "TMS 2",
+      "standart": "TMS 23",
       "durum": "TUTARLI",
-      "ambar_parca": 45,
-      "ambar_krk": 20624,
-      "yeni_parca": 45,
-      "yeni_krk": 20624,
-      "oran": 1.0
-    },
-    {
-      "standart": "TMS 21",
-      "durum": "TUTARLI",
-      "ambar_parca": 104,
-      "ambar_krk": 53626,
-      "yeni_parca": 104,
-      "yeni_krk": 53622,
+      "ambar_parca": 36,
+      "ambar_krk": 14052,
+      "yeni_parca": 36,
+      "yeni_krk": 14052,
       "oran": 1.0
     },
     {
@@ -385,7 +385,7 @@
       "oran": 1.0
     },
     {
-      "standart": "TSRS 2",
+      "standart": "TSRS 1",
       "durum": "ISTISNA-KAPSAM-DISI",
       "ambar_parca": 0,
       "ambar_krk": 0,
@@ -394,7 +394,7 @@
       "oran": 0
     },
     {
-      "standart": "TSRS 1",
+      "standart": "TSRS 2",
       "durum": "ISTISNA-KAPSAM-DISI",
       "ambar_parca": 0,
       "ambar_krk": 0,
