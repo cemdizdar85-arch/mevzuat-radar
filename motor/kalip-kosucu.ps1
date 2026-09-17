@@ -125,9 +125,13 @@ $uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
 function PlanHarcama{
   $yolD=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; if(-not (Test-Path $yolD)){ return 0.0 }
   $etiketKume=@{}; foreach($ps0 in $satirlar){ $etiketKume["$($ps0.etiket)"]=1 }
+  # 17.09: MEVZUAT_BUTCE_BASLANGIC ('yyyy-MM-dd HH:mm', bulutta UTC) verilirse yalnız o andan sonraki satırlar sayılır → bütçe "bu zincirin" harcamasıdır
+  #   (aynı partiler geçmişte koşmuşsa eski harcama yeni ölçümün bütçesini yemez). Yoksa eski davranış: bütün satırlar.
+  $basAn="$env:MEVZUAT_BUTCE_BASLANGIC".Trim()
   $top=0.0
   foreach($sat0 in [IO.File]::ReadLines($yolD,[Text.Encoding]::UTF8)){
     $mE=[regex]::Match($sat0,'"etiket"\s*:\s*"([^"/]*)'); if(-not $mE.Success -or -not $etiketKume.ContainsKey($mE.Groups[1].Value)){ continue }
+    if($basAn){ $mZ=[regex]::Match($sat0,'"zaman"\s*:\s*"([^"]*)"'); if(-not $mZ.Success -or [string]::CompareOrdinal($mZ.Groups[1].Value,$basAn) -lt 0){ continue } }
     $mU=[regex]::Match($sat0,'"toplamUsd"\s*:\s*(-?[\d.]+(?:[eE][-+]?\d+)?)'); if($mU.Success){ $top+=[double]::Parse($mU.Groups[1].Value,[Globalization.CultureInfo]::InvariantCulture) }
   }
   return $top

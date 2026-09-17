@@ -77,6 +77,11 @@ on:
         description: "ZORUNLU plan butcesi (USD). Plan harcamasi buna ulasinca yeni parti baslamaz, is KIRMIZI biter (Cem 17.09: 400 USD dersi). Kesin fren Console tavanidir."
         required: true
         type: string
+      butce_baslangic:
+        description: "Bos birak (zincir kendisi doldurur): butce bu andan (UTC 'yyyy-MM-dd HH:mm') sonraki harcamayi sayar."
+        required: false
+        default: ""
+        type: string
       olcum_kosusu:
         description: "Butce 25 USD'yi asiyorsa ZORUNLU: ayni tur isin once kosulmus KUCUK olcum kosusunun run id'si (gercek soru basi bedel olculmeden buyuk basim yok)."
         required: false
@@ -146,6 +151,7 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           GIRDI_BUTCE: ${{ inputs.butce_usd }}
           GIRDI_OLCUM: ${{ inputs.olcum_kosusu }}
+          GIRDI_BUTCE_BAS: ${{ inputs.butce_baslangic }}
           GH_TOKEN: ${{ github.token }}
         run: |
           # ⛔⭐ 17.09.2026 BUTCE + OLCUM KAPISI (Cem: "boşuna 400 USD harcadık … kim soru basacaksa bunları yapsın, kural olsun").
@@ -158,7 +164,10 @@ jobs:
             $olc=(gh run view "$env:GIRDI_OLCUM" --json status,workflowName) | ConvertFrom-Json
             if("$($olc.workflowName)" -notmatch 'Bulut' -or "$($olc.status)" -ne 'completed'){ throw "OLCUM KAPISI: olcum_kosusu $env:GIRDI_OLCUM bitmis bir bulut uretim kosusu degil (is: '$($olc.workflowName)', durum: '$($olc.status)')." }
           }
-          "butce kapisi: $butceD USD · olcum kosusu: $(if("$env:GIRDI_OLCUM"){ $env:GIRDI_OLCUM } else { '-' })"
+          # 17.09: butce bu zincirin harcamasini sayar (ilk halkada simdi, sonrakilerde zincirden gelen an)
+          $bbas="$env:GIRDI_BUTCE_BAS".Trim(); if($bbas -notmatch '^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$'){ $bbas=(Get-Date).ToUniversalTime().ToString('yyyy-MM-dd HH:mm') }
+          "MEVZUAT_BUTCE_BASLANGIC=$bbas" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          "butce kapisi: $butceD USD (sayac baslangici $bbas UTC) - olcum kosusu: $(if("$env:GIRDI_OLCUM"){ $env:GIRDI_OLCUM } else { '-' })"
           $eksik=@()
           if(-not "$env:ANTHROPIC_API_KEY"){ $eksik+='ANTHROPIC_API_KEY' }
           if(-not "$env:SUPABASE_SERVICE_KEY"){ $eksik+='SUPABASE_SERVICE_KEY' }
@@ -221,7 +230,7 @@ jobs:
           # 16.09 Cem "hep toplu, ucuza bekle": bekleme anlik yola dusmez; SON_AN'da surec 75 ile biter, zincir devam ettirir.
           MEVZUAT_TOPLU_BEKLE_DK: "1440"
           MEVZUAT_TOPLU_ANLIKSIZ: "1"
-          MEVZUAT_BUTCE_USD: ${{ inputs.butce_usd }}   # 17.09 butce kapisi (motor/kalip-kosucu.ps1 PlanHarcama)
+          MEVZUAT_BUTCE_USD: ${{ inputs.butce_usd }}   # 17.09 butce kapisi (motor/kalip-kosucu.ps1 PlanHarcama); MEVZUAT_BUTCE_BASLANGIC ilk adimda GITHUB_ENV'e yazilir
           GH_TOKEN: ${{ github.token }}
         run: |
           # 16.09 PARTI CAKISMA KAPISI: bu isten ONCE baslamis, hala kosan bulut islerinin planlarindaki etiketler atlanir
@@ -327,7 +336,7 @@ jobs:
           $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
           if($halka -ge 10){ "ZINCIR TAVANI (10) - yeniden tetiklenmedi. Elle bakilmali."; exit 1 }
           $sonraki = $halka + 1
-          gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f butce_usd="${{ inputs.butce_usd }}" -f olcum_kosusu="${{ inputs.olcum_kosusu }}" -f zincir="$sonraki"
+          gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f butce_usd="${{ inputs.butce_usd }}" -f butce_baslangic="$env:MEVZUAT_BUTCE_BASLANGIC" -f olcum_kosusu="${{ inputs.olcum_kosusu }}" -f zincir="$sonraki"
           "yeniden tetiklendi: halka $sonraki (ayni plan; concurrency grubu bu is bitince baslatir)"
           if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - zincir surdu ama bu halka KIRMIZI"; exit 1 }
 
