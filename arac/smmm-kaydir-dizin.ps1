@@ -47,7 +47,7 @@ $kartlar = ($satir | ForEach-Object {
   }) -join "`n"
 $html = @"
 <!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>SMMM Yeterlilik (staj bitirme) &#183; Kayd&#305;r-&#199;&#246;z &#183; Tetikte</title>
+<title>SMMM Yeterlilik (staj bitirme) · Kaydır-Çöz · Tetikte</title>
 <link rel="stylesheet" href="../../stil.css"><link rel="stylesheet" href="../../stil-acik.css">
 <style>
 .kaydirDizin{max-width:960px;margin:0 auto;padding:24px 16px}
@@ -59,12 +59,12 @@ $html = @"
 .kaydirDizin .not{margin-top:22px;color:var(--dim);font-size:.9em;border-top:1px solid var(--cizgi);padding-top:12px}
 </style></head><body>
 <main class="kaydirDizin">
-<h1>SMMM Yeterlilik &#183; Kayd&#305;r-&#199;&#246;z</h1>
-<p class="alt">$toplam soru &#183; sekiz ders. Soru bankas&#305; kilitli kasada; sayfa a&#231;&#305;l&#305;rken paketine g&#246;re y&#252;klenir.</p>
+<h1>SMMM Yeterlilik · Kaydır-Çöz</h1>
+<p class="alt">$toplam soru · sekiz ders. Soru bankası kilitli kasada; sayfa açılırken paketine göre yüklenir.</p>
 <div class="izgara">
 $kartlar
 </div>
-<p class="not">Yanl&#305;&#351; yapt&#305;&#287;&#305;n soruyu N&#246;bet&#231;i ad&#305;m ad&#305;m anlat&#305;r. Soru say&#305;lar&#305; her yay&#305;nda tazelenir.</p>
+<p class="not">Yanlış yaptığın soruyu Nöbetçi adım adım anlatır. Soru sayıları her yayında tazelenir.</p>
 </main>
 <script src="../../paket-kapisi.js"></script>
 </body></html>
