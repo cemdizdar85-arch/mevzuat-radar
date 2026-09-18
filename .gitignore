@@ -153,6 +153,10 @@ veri/_onarim-*.json
 # 08.09 23:50 Cem "onaylı bitmiş olanlardan siteye soru at, ben oradan kontrol ederim": kaydir/sgs siteye çıkar (noindex, menüde yok)
 kaydir/*
 !kaydir/sgs/
+# 18.09 Cem "kasadaki soruları siteye bağla": bitirme ders sayfaları KASA MODUNDA sorusuz kabuktur (162 KB; sorular
+#   paket_soru'dan gelir, arac/smmm-kasa-yayin.ps1 -SiteKabuk üretir, motor/kasa-kabuk.js eşdeğerlik kapısından geçer).
+#   Depoya yalnız kabuk + dizin girer; soru metni GİRMEZ (yükleme sırasında ölçüldü: kasadan çekilen 3 sorunun metni kabukta yok).
+!kaydir/smmm/
 # 09.09 ana sayfa vitrini (Nöbetçi kartı): motor/vitrin-bas.ps1 basar, index.html gömer
 !kaydir/vitrin/
 

@@ -20,7 +20,12 @@
 #  EKRAN: soru metni basılmaz (bulutta günlük herkese açık) — yalnız sayı.
 #  KULLANIM: powershell -NoProfile -File arac/smmm-kasa-yayin.ps1 [-Yaz] [-IndirmeYok]
 # ============================================================================
-param([switch]$Yaz, [switch]$IndirmeYok, [double]$IkizEsik = 0.60, [double]$IkizSikEsik = 0.60)
+param([switch]$Yaz, [switch]$IndirmeYok, [double]$IkizEsik = 0.60, [double]$IkizSikEsik = 0.60,
+  # 18.09 (Cem "kasadaki soruları siteye bağla"): site kasa modu için sayfaların DEPODA kabuğa çevrilecek hâli gerekiyor.
+  #   -SiteKabuk: sayfalar kaydir/smmm/<slug>.html'e kurulur, hemen ardından motor/kasa-kabuk.js --yaz ile SORUSUZ kabuğa
+  #   çevrilir (eşdeğerlik kapısı: kasadaki satırlar sayfadaki SORULAR ile alan alan aynı olmalı) ve YALNIZ kabuk diskte kalır.
+  #   Kabuk yazılamazsa (eşdeğerlik tutmazsa) sayfa SİLİNİR — depoda soru içeriği bırakılmaz.
+  [switch]$SiteKabuk)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $PSScriptRoot 'smmm-yayin-sarti.ps1')
@@ -97,6 +102,7 @@ $calisma = Join-Path $depoKok 'sql-yerel\smmm-kasa'
 New-Item -ItemType Directory -Force $calisma | Out-Null
 $nodeArg = New-Object System.Collections.Generic.List[string]
 $yazilanDosya = New-Object System.Collections.Generic.List[string]
+$siteSayfa = New-Object System.Collections.Generic.List[object]   # 18.09 -SiteKabuk: depodaki kaydir/smmm sayfaları (kabuğa çevrilecek)
 try {
   foreach ($g in @($secim | Group-Object ders | Sort-Object Name)) {
     $slug = $DERS_SLUG[$g.Name]
@@ -107,6 +113,13 @@ try {
     $kod = $LASTEXITCODE
     $sonKapi = @($log | Where-Object { "$_" -match 'SON KAPI RED' }).Count
     $sayfa = Join-Path $depoKok "sql-yerel\$cikti"
+    if ($SiteKabuk -and (Test-Path $sayfa)) {
+      # sayfa depodaki site yoluna TAŞINIR; kabuğa çevrilene kadar soru içeriği burada durur, çevrilmezse silinir (aşağıdaki finally)
+      $siteYol = Join-Path $depoKok "kaydir\smmm\$slug.html"
+      New-Item -ItemType Directory -Force (Split-Path $siteYol -Parent) | Out-Null
+      Copy-Item -LiteralPath $sayfa -Destination $siteYol -Force
+      $siteSayfa.Add(@{ yol = $siteYol; sayfa = "kaydir/smmm/$slug.html" })
+    }
     if ($kod -or -not (Test-Path $sayfa)) { throw "sayfa kurulamadı: $($g.Name) (çıkış $kod)" }
     $yazilanDosya.Add($sayfa); $yazilanDosya.Add($secYol)
     $yazilanDosya.Add("C:\TETIKTE-YEDEK\kaydir-coz-$(Get-Date -Format yyyyMMdd)\sayfa-$slug.html")   # kaydir-coz'un yerel yedek kopyası (bulutta yok)
@@ -118,7 +131,27 @@ try {
   $kodN = $LASTEXITCODE
   if ($kodN -eq 3) { 'KASA TABLOSU YOK — yazılmadı (radar-app/sql/2026-09-16-paket-soru.sql basılınca yeniden koş)' }
   elseif ($kodN) { throw "kasa yükleyici düştü ($kodN)" }
+  # 18.09 -SiteKabuk: kasa modu listesine ekle + sayfaları SORUSUZ kabuğa çevir (motor/kasa-kabuk.js eşdeğerlik kapısı)
+  if ($SiteKabuk -and $siteSayfa.Count) {
+    $kmYol = Join-Path $depoKok 'arac\kasa-modu.json'
+    $km = Get-Content $kmYol -Raw -Encoding UTF8 | ConvertFrom-Json
+    $liste = New-Object System.Collections.Generic.List[string]; foreach ($s in @($km.sayfalar)) { $liste.Add("$s") }
+    foreach ($s in $siteSayfa) { if (-not $liste.Contains($s.sayfa)) { $liste.Add($s.sayfa) } }
+    $km.sayfalar = [string[]]$liste.ToArray()
+    [IO.File]::WriteAllText($kmYol, (ConvertTo-Json -InputObject $km -Depth 4), [Text.UTF8Encoding]::new($false))
+    "kasa modu listesi: $($liste.Count) sayfa"
+    & node (Join-Path $depoKok 'motor\kasa-kabuk.js') --yaz
+    $kodK = $LASTEXITCODE
+    if ($kodK) { throw "KABUK YAZILAMADI (çıkış $kodK) — depoya soru içeriği bırakılmıyor, sayfalar silinecek" }
+    foreach ($s in $siteSayfa) {
+      $ham = [IO.File]::ReadAllText($s.yol, [Text.Encoding]::UTF8)
+      if ($ham -notmatch 'data-kasa-sayfa=' -or $ham.Length -gt 400000) { throw "KABUK DOĞRULANAMADI: $($s.sayfa) (işaret yok ya da $([math]::Round($ham.Length/1024)) KB fazla büyük)" }
+      "  kabuk hazır: $($s.sayfa) · $([math]::Round($ham.Length/1024)) KB"
+    }
+    $siteSayfa.Clear()   # kabuk doğrulandı: bu dosyalar SİLİNMEZ, depoda kalır
+  }
 } finally {
+  foreach ($s in $siteSayfa) { if (Test-Path $s.yol) { Remove-Item -LiteralPath $s.yol -Force; "  ⚠ kabuğa çevrilemeyen sayfa silindi: $($s.sayfa)" } }
   foreach ($d in $yazilanDosya) { if (Test-Path $d) { Remove-Item -LiteralPath $d -Force } }
   'çalışma dosyaları silindi (soru içeriği diskte bırakılmadı)'
 }

@@ -109,11 +109,17 @@
       var bugun = new Date().toISOString().slice(0, 10);
       /* 15.09 ÜÇ SINAV: paket SINAVI kapsamalı. Önceden herhangi bir aktif paket SGS sayfalarını açıyordu —
          KGK paketi alan biri SGS soru bankasına girerdi. Eşleme uye-durumu.js paketSinavlari ile AYNI. */
-      var sinavi = /\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs' : null;
+      /* 18.09 (Cem "kasadaki soruları siteye bağla"): bitirme (yeterlilik) sayfaları kaydir/smmm/ altında açıldı.
+         O yol tanınmadığı için sinavi=null kalıyordu ve kapsar() HER aktif pakete "true" diyordu → SGS paketi olan
+         bitirme soru bankasını açardı (15.09'da SGS için kapatılan açığın aynısı). Eşleme uye-durumu.js
+         paketSinavlari ile AYNI: yeterlilik | yeterlilik-* | smmm | yeterlilik-kgk | tam | kurucu. */
+      var sinavi = /\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs'
+        : (/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik' : null);
       var kapsar = function (paket) {
         var p = String(paket == null ? '' : paket).trim().toLowerCase();
         if (!sinavi || !p || p === 'tam' || p === 'kurucu') return true;
         if (sinavi === 'sgs') return p === 'sgs' || p.indexOf('sgs-') === 0 || p === 'sinav-249';
+        if (sinavi === 'yeterlilik') return p === 'yeterlilik' || p.indexOf('yeterlilik-') === 0 || p === 'smmm' || p === 'yeterlilik-kgk';
         return false;
       };
       if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) return ac();
