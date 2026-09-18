@@ -1,5 +1,5 @@
 {
-    "aciklama":  "ADIM 2 kasa modu (16.09.2026). Listelenen Kaydir-Coz sayfalari yayinda SORUSUZ kabuktur; sorular Supabase paket_soru tablosundan paketli uyeye gelir. Uretici: motor/kasa-kabuk.js (yayin-bas.yml). Pilot Turkce 16.09 aksam; bir gun sorunsuz kosunca diger dersler (Meslek Hukuku oncesi motor/site-nobeti.ps1 300 KB alt siniri degismeli).",
+    "aciklama":  "ADIM 2 kasa modu (16.09.2026). Listelenen Kaydir-Coz sayfalari yayinda SORUSUZ kabuktur; sorular Supabase paket_soru tablosundan paketli uyeye gelir. Uretici: motor/kasa-kabuk.js (yayin-bas.yml). Pilot Turkce 16.09 aksam; bir gun sorunsuz kosunca diger dersler (Meslek Hukuku oncesi motor/site-nobeti.ps1 300 KB alt siniri degismeli). · 18.09 (Cem \u0027kasadaki soruları siteye bağla\u0027): bitirmenin 8 ders sayfası eklendi (arac/smmm-kasa-yayin.ps1 -SiteKabuk + arac/smmm-kaydir-dizin.ps1; kaydir/smmm/, 158 KB kabuk, sızıntı ölçümü 0). AÇIK BULGU (SGS oturumuna): kasa kabuklarında noindex META YOK — Türkçe pilotunda da yok; bugün zararsız (robots.txt \u0027Disallow: /\u0027), ama açılış günü robots \u0027Allow\u0027 olunca paketli sayfalar indekslenmeye açık kalır. Düzeltme ortak üreticide (motor/kaydir-coz.ps1 / motor/kasa-kabuk.js) ve SGS kolunun kararında.",
     "sayfalar":  [
                      "kaydir/sgs/turkce.html",
                      "kaydir/smmm/finansal-muhasebe.html",
