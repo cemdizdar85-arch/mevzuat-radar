@@ -2292,7 +2292,55 @@ function KaynakSirala($adlar,[string]$konu,[int]$kac=4){
 #
 # Yeni kural: paket bloklara ayrilir, konuya gore siralanir, butce blok blok
 # doldurulur; SIGMAYAN BLOK KOMPLE DUSER. Yarim blok asla kalmaz.
-function PaketKirp([string]$paket,[string]$konu,[int]$tavan,[ref]$dusen){
+# --- KAPI-Pİ: PAKET İLGİ SÜZGECİ (18.09.2026, Cem "1 yap" + "kalitemizi azaltmaz deme") --------------------------
+# ÖLÇÜLDÜ (bitirme 4k-a, 2.203 soru): "kaynak paketi cevabı desteklemiyor" diye düşen 351 sorunun 348'inde paket 1.000 krk'nın
+#   ÜSTÜNDE; düşenlerin paketi kasaya girenlerden DAHA BÜYÜK (12.258 / 10.207 krk) ama daha ilgisiz (ilgili kaynak payı %17 / %20;
+#   düşenlerin %37'sinde hiç ilgili kaynak yok). Örnek: "genel yönetim gideri" sorusuna 11 kaynak konmuş, 10'u konu dışı
+#   (İŞTİRAKLER, ŞÜPHELİ ALACAKLAR, vergi mahremiyeti). Kök neden: 15.09'da paket TAVANI kaldırıldı (PaketTavani), tavanla birlikte
+#   çalışan PaketKirp'in konu-dışı blok düşürmesi de fiilen kapandı → pakete ne gelirse giriyor.
+# KALİTE KORUMASI (kural: kaliteyi ve çıkmış sınav benzerliğini AZALTMAZ):
+#   · adı konu köklerini taşıyan blok HER ZAMAN kalır,
+#   · adı taşımasa da GÖVDESİNDE konu kökleri geçen blok kalır (karar veren hüküm orada olabilir),
+#   · konunun DAYANAĞI (madde künyesi) geçen blok asla düşmez,
+#   · süzme sonrası paket 1.000 krk'nın (üreticinin "GÜÇLÜ" eşiği) altına inecekse en ilgili bloklar geri eklenir,
+#   · hiçbir blok kesilmez; düşen blok komple düşer (KAPI-KP ilkesi).
+# VARSAYILAN KAPALI: istem metnini değiştirdiği için parmak izi değişir → ödenmiş toplu partiler bedava hasat edilemez.
+#   Açma: MEVZUAT_PAKET_ILGI=1 (bulut girdisi olarak plana verilir). Kapalıyken paket BİREBİR eskisi gibidir.
+function PaketIlgiSuz([string]$paket,[string]$konu,[string]$dayanak,[ref]$dusen){
+  if("$env:MEVZUAT_PAKET_ILGI" -ne '1'){ return $paket }
+  if(-not "$paket".Trim()){ return $paket }
+  $bloklar=@($paket -split "`n---`n" | Where-Object { "$_".Trim() })
+  if($bloklar.Count -le 2){ return $paket }   # iki blok ve altı: süzülecek gürültü yok
+  $kel=@([regex]::Matches((Katla2 "$konu"),'[a-z0-9]{4,}') | ForEach-Object { $_.Value } | Select-Object -Unique)
+  if(-not $kel.Count){ return $paket }
+  $dayK=Katla2 "$dayanak"
+  $dayAnahtar=@([regex]::Matches($dayK,'(m\.\s*\d+[a-z]?|\b\d{3,4}\b)') | ForEach-Object { $_.Value.Trim() } | Select-Object -Unique)
+  $i=0
+  $puanli=@($bloklar | ForEach-Object {
+    $i++; $b="$_"
+    $ad=''; $m=[regex]::Match($b,'^\s*\[([^\]]{1,200})\]'); if($m.Success){ $ad=$m.Groups[1].Value }
+    $adK=Katla2 $ad; $govK=Katla2 $b
+    $adPuan=0; foreach($k in $kel){ if($adK.Contains($k)){ $adPuan++ } }
+    $govPuan=0; foreach($k in $kel){ if($govK.Contains($k)){ $govPuan++ } }
+    $dayVar=$false; if($dayAnahtar.Count){ foreach($dk in $dayAnahtar){ if($adK.Contains($dk)){ $dayVar=$true; break } } }
+    [pscustomobject]@{ blok=$b; ad=$ad; adPuan=$adPuan; govPuan=$govPuan; dayVar=$dayVar; sira=$i }
+  })
+  $tut=@($puanli | Where-Object { $_.adPuan -ge 1 -or $_.govPuan -ge 1 -or $_.dayVar })
+  $atAday=@($puanli | Where-Object { $_.adPuan -eq 0 -and $_.govPuan -eq 0 -and -not $_.dayVar } | Sort-Object sira)
+  if(-not $tut.Count){ return $paket }   # hiçbiri ilgili görünmüyorsa dokunma (kör süzme yok)
+  # 1.000 krk güvenlik tabanı: altına inecekse en ilgili atılanlar geri eklenir
+  $boy=0; foreach($b in $tut){ $boy+=$b.blok.Length+5 }
+  $geri=New-Object System.Collections.Generic.List[object]
+  foreach($b in $atAday){ if($boy -ge 1000){ break }; $geri.Add($b); $boy+=$b.blok.Length+5 }
+  $kalanlar=@($tut + $geri | Sort-Object sira)
+  $at=@($atAday | Where-Object { $geri -notcontains $_ })
+  if(-not $at.Count){ return $paket }
+  if($dusen){ $dusen.Value=@($at | ForEach-Object { $(if($_.ad){ $_.ad } else { "(adsiz blok #$($_.sira))" }) }) }
+  return (($kalanlar | ForEach-Object { $_.blok }) -join "`n---`n")
+}
+# 18.09 (Cem "kalitemizi azaltmaz deme"): $dayanak verilirse konunun DAYANAĞINI taşıyan blok sıralamada en öne alınır (puan +100),
+#   yani tavan düşse bile karar veren hüküm pakette KALIR. Boş bırakılırsa sıralama ve sonuç birebir eskisi gibidir.
+function PaketKirp([string]$paket,[string]$konu,[int]$tavan,[ref]$dusen,[string]$dayanak=''){
   if(-not "$paket".Trim() -or $paket.Length -le $tavan){ return $paket }
   $bloklar=@($paket -split "`n---`n" | Where-Object { "$_".Trim() })
   if($bloklar.Count -le 1){
@@ -2303,12 +2351,15 @@ function PaketKirp([string]$paket,[string]$konu,[int]$tavan,[ref]$dusen){
     return ($k + "`n[UYARI: bu kaynak uzunlugu asdigi icin cumle sinirinda kesildi.]")
   }
   $kel=@([regex]::Matches((Katla2 "$konu"),'[a-z0-9]{4,}') | ForEach-Object { $_.Value } | Select-Object -Unique)
+  # dayanak künyesi: "VUK (213 s.K.) m.323" -> {213, m.323}; blok adında geçiyorsa o blok karar veren hükümdür
+  $dayA=@(); if("$dayanak".Trim()){ $dayK=Katla2 $dayanak; $dayA=@([regex]::Matches($dayK,'(m\.\s*\d+[a-z]?|\b\d{3,4}\b|\b(tms|tfrs|bds)\s*\d+\b)') | ForEach-Object { ($_.Value -replace '\s+','') } | Select-Object -Unique) }
   $i=0
   $puanli=@($bloklar | ForEach-Object {
     $i++; $b="$_"
     $ad=''; $m=[regex]::Match($b,'^\s*\[([^\]]{1,200})\]'); if($m.Success){ $ad=$m.Groups[1].Value }
     $adK=Katla2 $ad
     $p=0; foreach($k in $kel){ if($adK.Contains($k)){ $p++ } }
+    if($dayA.Count){ $adSade=($adK -replace '\s+',''); foreach($dk in $dayA){ if($adSade.Contains($dk)){ $p+=100; break } } }   # dayanak bloğu en öne
     [pscustomobject]@{ blok=$b; ad=$ad; puan=$p; sira=$i }
   } | Sort-Object @{e='puan';d=$true},@{e='sira';d=$false})
   $al=New-Object System.Collections.Generic.List[object]
@@ -2898,7 +2949,7 @@ if(Test-Path $dusenYol){ foreach($x in @((ConvertFrom-Json -InputObject (Get-Con
     $hk=@(HesapKodKapisi $cvp); if($hk.Count){ Dus $id $e "kod-ad çifti tutmuyor: $($hk -join '; ')"; continue }
     $cy=@(CeldiriciYolKapisi $cvp); if($cy.Count){ Dus $id $e "çeldirici yolu hesaplanmıyor: $($cy -join '; ')"; continue }
     $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @() -Force
-    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt)) -Force
+    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt) "$($ky.dayanak)") -Force
     if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
     $cvp | Add-Member -NotePropertyName uyarlama -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); model='claude-sonnet-5'; girdi=[int]$yU.girdi; cikti=[int]$yU.cikti; hesap=$hesapMi }) -Force
@@ -2983,6 +3034,12 @@ foreach($gecisA in $(if($script:A_UC_GECIS){ @(1,2,3) } else { @(1,2) })){ if($g
   $desenler=if($OZEL_DESEN.ContainsKey($konuLc)){ $OZEL_DESEN[$konuLc] } else { DesenUret $ky }
   $script:AMBAR_AG_HATASI=$null
   $amb=AmbarCek $desenler
+  # 18.09 KAPI-Pİ (varsayılan KAPALI, MEVZUAT_PAKET_ILGI=1 ile açılır): konuyla ilgisiz kaynak blokları pakete girmez (bkz. PaketIlgiSuz)
+  if("$env:MEVZUAT_PAKET_ILGI" -eq '1' -and "$($amb.metin)".Trim()){
+    $piAt=$null; $piOnce="$($amb.metin)".Length
+    $amb.metin=PaketIlgiSuz "$($amb.metin)" "$($ky.konu)" "$($ky.dayanak) $(if($ky.PSObject.Properties['cikmis_dayanak']){ "$($ky.cikmis_dayanak)" })" ([ref]$piAt)
+    if($piAt -and @($piAt).Count){ Write-Host ("  KAPI-Pİ: {0} konu dışı kaynak düşürüldü · paket {1} -> {2} krk" -f @($piAt).Count,$piOnce,"$($amb.metin)".Length) -ForegroundColor DarkCyan; $rapor.Add("KAPI-PI: $id | $(@($piAt).Count) konu disi kaynak dusuruldu ($piOnce -> $("$($amb.metin)".Length) krk)") }
+  }
   # AG HATASI != KAYNAK YOK. Olculemeyen konu borca yazilmaz, ayri raporlanir.
   if($amb.agHatasi -and (-not $amb.metin -or $amb.metin.Length -lt 300)){
     $rapor.Add("OLCULEMEDI (ag hatasi, kaynak borcu DEGIL): $($ky.konu)")
@@ -3422,7 +3479,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     if($ky.PSObject.Properties['son_donem']){ $cvp | Add-Member -NotePropertyName son_donem -NotePropertyValue ([int]$ky.son_donem) -Force; $cvp | Add-Member -NotePropertyName pencere -NotePropertyValue $DonemPencere -Force }
     if($ky.PSObject.Properties['capa_kaynak']){ $cvp | Add-Member -NotePropertyName capa_kaynak -NotePropertyValue "$($ky.capa_kaynak)" -Force }
     if($CAPA.ContainsKey($id)){ $cvp | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force }   # 06.09 Cem "3 yap": giriş kartında "Sınavda böyle çıktı" (cevapsız gerçek soru)
-    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt)) -Force
+    $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt) "$($ky.dayanak)") -Force
     if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName donem -NotePropertyValue $ky.donem -Force
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
