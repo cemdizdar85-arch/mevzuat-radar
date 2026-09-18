@@ -77,6 +77,11 @@ on:
         description: "ZORUNLU plan butcesi (USD). Plan harcamasi buna ulasinca yeni parti baslamaz, is KIRMIZI biter (Cem 17.09: 400 USD dersi). Kesin fren Console tavanidir."
         required: true
         type: string
+      sayi_sira:
+        description: "1 = KURAL 2b acik (celdirici yayilimi: sayi siklarinda dogru deger en kucuk/en buyuk de olabilir; 92'nin 17.09 olcumu). Varsayilan 0. Istemi degistirir: odenmis partilerin parmak izi tutmaz."
+        required: false
+        default: "0"
+        type: string
       paket_ilgi:
         description: "1 = kaynak paketi ILGI SUZGECI acik (KAPI-Pİ; konu disi kaynak blogu pakete girmez). Varsayilan 0 = bugunku davranis. Istemi degistirir: odenmis partilerin parmak izi tutmaz."
         required: false
@@ -235,6 +240,7 @@ jobs:
           # 16.09 Cem "hep toplu, ucuza bekle": bekleme anlik yola dusmez; SON_AN'da surec 75 ile biter, zincir devam ettirir.
           MEVZUAT_TOPLU_BEKLE_DK: "1440"
           MEVZUAT_TOPLU_ANLIKSIZ: "1"
+          MEVZUAT_SAYI_SIRA: ${{ inputs.sayi_sira }}   # 18.09 kural 2b (92 olcumu; varsayilan 0)
           MEVZUAT_PAKET_ILGI: ${{ inputs.paket_ilgi }}   # 18.09 KAPI-Pİ (varsayilan 0 = kapali)
           MEVZUAT_BUTCE_USD: ${{ inputs.butce_usd }}   # 17.09 butce kapisi (motor/kalip-kosucu.ps1 PlanHarcama); MEVZUAT_BUTCE_BASLANGIC ilk adimda GITHUB_ENV'e yazilir
           GH_TOKEN: ${{ github.token }}
@@ -342,7 +348,7 @@ jobs:
           $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
           if($halka -ge 10){ "ZINCIR TAVANI (10) - yeniden tetiklenmedi. Elle bakilmali."; exit 1 }
           $sonraki = $halka + 1
-          gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f butce_usd="${{ inputs.butce_usd }}" -f butce_baslangic="$env:MEVZUAT_BUTCE_BASLANGIC" -f paket_ilgi="${{ inputs.paket_ilgi }}" -f olcum_kosusu="${{ inputs.olcum_kosusu }}" -f zincir="$sonraki"
+          gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f butce_usd="${{ inputs.butce_usd }}" -f butce_baslangic="$env:MEVZUAT_BUTCE_BASLANGIC" -f paket_ilgi="${{ inputs.paket_ilgi }}" -f sayi_sira="${{ inputs.sayi_sira }}" -f olcum_kosusu="${{ inputs.olcum_kosusu }}" -f zincir="$sonraki"
           "yeniden tetiklendi: halka $sonraki (ayni plan; concurrency grubu bu is bitince baslatir)"
           if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - zincir surdu ama bu halka KIRMIZI"; exit 1 }
 
