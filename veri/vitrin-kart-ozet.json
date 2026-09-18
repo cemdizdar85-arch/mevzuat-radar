@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-09-17T07:48:39.051Z",
-  "gun": "2026-09-17",
+  "olcum": "2026-09-18T07:28:48.991Z",
+  "gun": "2026-09-18",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 49,
+      "sira": 50,
       "toplam": 70,
-      "id": "sgs-t1-genel-mat-zor/kp-08",
-      "ders": "Matematik",
-      "konu": "oran orantı",
-      "kunye": "SGS 2026/2 Soru 11 kalıbı",
-      "donem": 4,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "Bir üretim tesisinde üç makinenin günlük üretim miktarları a, b, c olup a:b = 3:4 ve b:c = 5:6 oranındadır. Üç makinenin toplam günlük üretimi 1.180 adettir. Buna göre, en fazla üretim yapan makine ile en az üretim yapan makine arasındaki üretim farkı kaç adettir?",
+      "id": "sgs-p-denetim-kolay-r3/kp-02",
+      "ders": "Denetim",
+      "konu": "kasa denetimi",
+      "kunye": "SGS 2024/2 Soru 84 kalıbı",
+      "donem": 5,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Kasa ve nakit denetiminde denetçinin fiilen kasadaki parayı sayıp bunu kasa defterindeki bakiye ile karşılaştırması işlemi hangi yönetim beyanını test eder ve testin yönü nedir?",
       "siklar": {
-        "A": "80",
-        "B": "100",
-        "C": "180",
-        "D": "300",
-        "E": "480"
+        "A": "Tamlık beyanını test eder; test yönü belgeden kayda doğrudur.",
+        "B": "Var olma beyanını test eder; test yönü kayıttan belgeye doğrudur.",
+        "C": "Var olma beyanını test eder; test yönü belgeden kayda doğrudur.",
+        "D": "Tamlık beyanını test eder; test yönü kayıttan belgeye doğrudur.",
+        "E": "Sunum ve açıklama beyanını test eder; test yönü kayıttan belgeye doğrudur."
       },
-      "dogru": "C",
+      "dogru": "B",
       "tuzak": {
-        "D": {
-          "ad": "Terimi Farkla Karıştırma Tuzağı",
-          "metin": "k'yı doğru bulup a=300 değerini bulduktan sonra bunu doğrudan istenen fark sanırsın; oysa soru farkı sorar, tek bir terimin kendisini değil. Doğrusu: fark c-a=180'dir."
+        "C": {
+          "ad": "Yön Ters Çevirme Tuzağı",
+          "metin": "Doğru beyanı seçtiğin halde testin yönünü tamlığın yönüyle karıştırıyorsun. Doğrusu: Var olma testinde yön belgeden kayda değil, kayıttan belgeye doğrudur."
         },
         "E": {
-          "ad": "Terimi Farkla Karıştırma Tuzağı",
-          "metin": "en fazla üretim yapan c=480 değerini bulup işlemi orada bıkırsın; soru iki uç terim arasındaki farkı ister, tek terimi değil. Doğrusu: fark c-a=180'dir."
+          "ad": "Kategori Kayması Tuzağı",
+          "metin": "Kasa sayımını finansal tablo dipnot açıklamalarıyla ilgili bir beyan sanıyorsun. Doğrusu: Fiziksel sayım sunum değil, var olma beyanını test eder ve yönü kayıttan belgeyedir."
+        },
+        "D": {
+          "ad": "Çifte Karışıklık Tuzağı",
+          "metin": "Hem beyanı hem yönü yanlış eşleştiriyorsun; kasa sayımını tamlığın hem konusu hem yönüyle özdeşleştiriyorsun. Doğrusu: Bu işlem var olma beyanını, kayıttan belgeye giderek test eder."
         },
         "A": {
-          "ad": "Ortadaki Terim Tuzağı",
-          "metin": "c ile b arasındaki farkı (480-400) alıp bunu en çok ile en az arasındaki fark sanırsın; oysa en az üretim a'dır, b değil. Doğrusu: fark en büyük (c) ile en küçük (a) terim arasında hesaplanır, 180 çıkar."
-        },
-        "B": {
-          "ad": "Yanlış Çift Seçme Tuzağı",
-          "metin": "b-a farkını (400-300) alıp en uç değerler arasındaki farkı bulduğunu sanırsın; b orta terimdir, uç değer değildir. Doğrusu: fark c-a=180'dir."
+          "ad": "Belge-Kayıt Karışıklığı Tuzağı",
+          "metin": "Testin yönünü doğru sezip beyanı yanlış eşleştiriyorsun; belgeden kayda giden yön tamlığa değil, kasa sayımına ait olan kayıttan belgeye yönünün tersidir. Doğrusu: Kasa sayımı var olma beyanını, kayıttan belgeye giderek…"
         }
       },
-      "hap": "Üç terimli oranı ortak terim üzerinden ortak paydaya indir, K ile terimleri bul, sonra sorunun tam olarak neyi istediğine (terim mi fark mı) bak.",
+      "hap": "Kasa sayımı var olma beyanını kayıttan belgeye doğru test eder; tamlık ise belgeden kayda giden ters yönle test edilir.",
       "satirlar": [
         [
-          "Oran sabiti k (1180/59)",
-          "20"
+          "A) Tamlık beyanını test eder; test yönü belgeden kayda doğr…",
+          "Kasa denetimi hedefleri paragrafı"
         ],
         [
-          "A değeri (15k)",
-          "300"
+          "B) Var olma beyanını test eder; test yönü kayıttan belgeye …",
+          "Kasa denetimi hedefleri paragrafı"
         ],
         [
-          "B değeri (20k)",
-          "400"
+          "C) Var olma beyanını test eder; test yönü belgeden kayda do…",
+          "Kasa denetimi hedefleri paragrafı"
         ],
         [
-          "C değeri (24k)",
-          "480"
+          "D) Tamlık beyanını test eder; test yönü kayıttan belgeye do…",
+          "Kasa denetimi hedefleri paragrafı"
         ],
         [
-          "Fark (c - a)",
-          "180"
+          "E) Sunum ve açıklama beyanını test eder; test yönü kayıttan…",
+          "Kasa denetimi hedefleri paragrafı"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=49",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=50",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 66,
+        "kalan_gun": 65,
         "durum": "YESIL",
         "mail_gunu": false
       }
