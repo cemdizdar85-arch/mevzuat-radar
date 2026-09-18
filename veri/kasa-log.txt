@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260918050914
+Start time: 20260918054737
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b263caa5-1aa3-43a8-9c65-de46c50d6d74.ps1'
-Process ID: 2115
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/43ce7ec5-6652-4fd7-b0cd-d981eaf56a45.ps1'
+Process ID: 2261
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -37,20 +37,147 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
   ...16000
   ...17000
   ...18000
-PS>TerminatingError(Invoke-RestMethod): "Unable to read data from the transport connection: Connection reset by peer."
->> TerminatingError(Invoke-RestMethod): "Unable to read data from the transport connection: Connection reset by peer."
->> TerminatingError(Invoke-RestMethod): "Unable to read data from the transport connection: Connection reset by peer."
->> TerminatingError(Invoke-RestMethod): "Unable to read data from the transport connection: Connection reset by peer."
-Invoke-RestMethod: /home/runner/work/mevzuat-radar/mevzuat-radar/motor/kasa-sayim.ps1:52
-Line |
-  52 |    $s = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=id, …
-     |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | Unable to read data from the transport connection: Connection reset by
-     | peer.
+  ...19000
+  ...20000
+  ...21000
+  ...22000
+  ...23000
+  ...24000
+  ...25000
+  ...26000
+  ...27000
+  ...28000
+  ...29000
+  ...30000
+  cekilen: 30569
 
+================ KASA SAYIMI ================
+  TOPLAM SORU : 30569
+
+  --- sinav bazinda
+     SGS        15827
+     SMMM       12576
+     KGK        2166
+
+  --- ders bazinda
+     Finansal Muhasebe                  7205
+     Maliyet Muhasebesi                 4516
+     Hukuk                              3247
+     Vergi Mevzuatı ve Uygulaması       1650
+     Yabanci Dil                        1531
+     Mali Tablolar Analizi              1373
+     Finansal Tablolar ve Analizi       1355
+     Vergi Hukuku                       1232
+     Muhasebe Standartlari              1079
+     Muh. ve Mali Müş. Meslek Hukuku    1065
+     Ticaret Hukuku                     1034
+     Denetim Standartlari               966
+     Turkce                             928
+     Denetim                            859
+     Is ve Sosyal Guvenlik Hukuku       489
+     Meslek Hukuku                      353
+     Borclar Hukuku                     308
+     Sermaye Piyasası Mevzuatı          284
+     Maliye                             281
+     Ekonomi                            235
+     Matematik                          211
+     Muhasebe Denetimi                  133
+     Ataturk Ilke ve Inkilap Tarihi     114
+     Finansal Yonetim                   76
+     Kurumsal Yonetim                   42
+     Surdurulebilirlik                  3
+
+  --- kaynak tipi (bag kurulabilirlik)
+     mevzuata dayanan (madde bagi kurulabilir) : 22323
+     mevzuat disi (dil/matematik/teori)        : 8246
+
+  --- EN YOGUN 20 KONU (kota sisteminin girdisi)
+      292x  Finansal Tablolar ve Analizi|cari oran
+      231x  Finansal Tablolar ve Analizi|dikey yüzde analizi
+      193x  Yabanci Dil|preposition kullanimi
+      162x  Maliyet Muhasebesi|üretim maliyeti hesabı
+      152x  Maliyet Muhasebesi|birim maliyet hesaplama
+      132x  Finansal Tablolar ve Analizi|trend analizi
+      115x  Finansal Muhasebe|gelecek aylara ait gider mahsubu
+      108x  Maliyet Muhasebesi|uretim ve satilan mamul maliyeti
+       96x  Maliyet Muhasebesi|uretim maliyeti hesabi
+       93x  Mali Tablolar Analizi|yatay analiz
+       85x  Finansal Muhasebe|gelecek aylara ait gider
+       84x  Mali Tablolar Analizi|cari orandan dönen varlık
+       79x  Finansal Muhasebe|kredi faiz reeskontu
+       73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
+       71x  Turkce|cumle ogeleri
+       63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
+       62x  Maliyet Muhasebesi|satilan mamul maliyeti
+       62x  Finansal Tablolar ve Analizi|asit-test oranı
+       60x  Finansal Muhasebe|supheli alacak karsiligi
+       59x  Maliyet Muhasebesi|birim maliyet hesabi
+
+  --- tekil konu sayisi: 16395
+
+  --- YAPAY ZEKA KOKUSU TARAMASI (butun kasa)
+     bakilan          30569
+     placeholder      43
+     hepsiYuvarlak    267
+     klise            37
+     tekduzeTuzak     0
+     toplamIzli       340
+     IZLI ORAN      : %1.1
+-> veri/koku-izli.json  (340 kimlik, uslup turu icin)
+-> veri/kasa-ornek.json  (4 ornek soru, tam metin)
+     KASADA yayin=false (denetim bekleyen) : 30569
+     ...cekilen 1000
+     ...cekilen 2000
+     ...cekilen 3000
+     ...cekilen 4000
+     ...cekilen 5000
+     ...cekilen 6000
+     ...cekilen 7000
+     ...cekilen 8000
+     ...cekilen 9000
+     ...cekilen 10000
+     ...cekilen 11000
+     ...cekilen 12000
+     ...cekilen 13000
+     ...cekilen 14000
+     ...cekilen 15000
+     ...cekilen 16000
+     ...cekilen 17000
+     ...cekilen 18000
+     ...cekilen 19000
+     ...cekilen 20000
+     ...cekilen 21000
+     GUVENLIK DURDURMASI: 20.000 asildi
+     cekilen yayin=false kayit: 21000
+     UYARI: sayim 30569 diyor, cekim 21000 getirdi - EKSIK.
+       Finansal Muhasebe                  1
+       Finansal Tablolar ve Analizi       1
+       Finansal Yonetim                   1
+       Hukuk                              1
+       Mali Tablolar Analizi              1
+       Maliyet Muhasebesi                 1
+       Muhasebe Standartlari              1
+       Ticaret Hukuku                     1
+       Vergi Hukuku                       1
+       Yabanci Dil                        1
+-> veri/denetim-kuyrugu.json  (21000 kimlik, profesor -idler icin)
+     tam metin cekilen: 10 (istenen 10)
+-> veri/yeni-uretim-ornek.json  (10 yeni soru, GM okumasi icin)
+-> veri/pilot-ornek.json  (10 soru; suzgec sinav='SGS' ders='Finansal Muhasebe')
+-> veri/pilot-kuyrugu.json  (4309 kimlik, hakem -idler icin)
+   KAYNAK TURU TAM SAYIM (sinav='SGS' ders='Finansal Muhasebe', yayin=false):
+     standart (STD)    : 1296
+     hesap plani (THP) : 1143
+     toplam            : 4309
+     standart+THP orani: %56.6
+
+-> veri/kasa-sayim.json
+-> arac sayimi: 40 kart tarandi, 29 calisan arac
+  degismedi, dokunulmadi: vitrin-sayilar.json
+-> veri/vitrin-sayilar.json  (soru 30569, hakem 16284, arac 29)
 PS>$global:?
-False
+True
 **********************
 PowerShell transcript end
-End time: 20260918050924
+End time: 20260918054835
 **********************
