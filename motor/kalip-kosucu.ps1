@@ -304,7 +304,11 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   #   Bu planın etiketlerine deftere yazılmış harcama (bütün halkalar; defter iş başında ambardan iner) MEVZUAT_BUTCE_USD'ye ulaştıysa
   #   YENİ PARTİ BAŞLATILMAZ; "YARIM (bütçe doldu)" izi düşülür, zincir kırmızı durur. Uçuştaki partiler bitene kadar aşım olabilir →
   #   KESİN FREN Anthropic Console harcama tavanıdır; bu kapı plan içi frendir. Değişken yoksa (yerel/eski çağrı) davranış aynı.
-  if("$env:MEVZUAT_BUTCE_USD" -match '^\d+([.,]\d+)?$'){
+  # ⛔⭐ 19.09.2026 YALNIZ HASAT turunda bütçe kapısı UYGULANMAZ — çünkü o turda ÜCRETLİ ÇAĞRI YAPILAMAZ
+  #   (motor/api-hedef.ps1: yeni toplu parti açılmaz, anlık çağrı throw eder). Kapı yine de çalışsaydı hasadı
+  #   yarıda keserdi: hasat edilen sonuçlar bedel defterine BUGÜNÜN tarihiyle yazılıyor (para geçmişte gitti,
+  #   defter ilk hasatta kaydediyor) → PlanHarcama şişer ve "bütçe doldu" der. Harcanmayan paraya fren gerekmez.
+  if("$env:MEVZUAT_BUTCE_USD" -match '^\d+([.,]\d+)?$' -and "$env:MEVZUAT_YALNIZ_HASAT" -ne '1'){
     $butceSinir=[double]::Parse(("$env:MEVZUAT_BUTCE_USD" -replace ',','.'),[Globalization.CultureInfo]::InvariantCulture)
     $planHarc=PlanHarcama
     if($planHarc -ge $butceSinir){
