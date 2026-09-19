@@ -1,74 +1,66 @@
 {
-  "olcum": "2026-09-18T07:28:48.991Z",
-  "gun": "2026-09-18",
+  "olcum": "2026-09-19T07:24:28.588Z",
+  "gun": "2026-09-19",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 50,
+      "sira": 51,
       "toplam": 70,
-      "id": "sgs-p-denetim-kolay-r3/kp-02",
-      "ders": "Denetim",
-      "konu": "kasa denetimi",
-      "kunye": "SGS 2024/2 Soru 84 kalıbı",
-      "donem": 5,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "Kasa ve nakit denetiminde denetçinin fiilen kasadaki parayı sayıp bunu kasa defterindeki bakiye ile karşılaştırması işlemi hangi yönetim beyanını test eder ve testin yönü nedir?",
+      "id": "sgs-t1-fmuh-kolay/kp-06",
+      "ders": "Finansal Muhasebe",
+      "konu": "maddi olmayan duran varlık (haklar)",
+      "kunye": "SGS 2025/2 Soru 51 kalıbı",
+      "donem": 6,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "İşletme, 1 Eylül 2026 tarihinde kullanıma hazır hale gelen bir bilgisayar yazılımı için 240.000 TL ödemiştir. Yazılımın yararlı ömrü 5 yıl olarak belirlenmiş ve doğrusal itfa yöntemi uygulanmıştır. Buna göre işletmenin 2026 yılı için ayıracağı itfa payı kaç TL'dir?",
       "siklar": {
-        "A": "Tamlık beyanını test eder; test yönü belgeden kayda doğrudur.",
-        "B": "Var olma beyanını test eder; test yönü kayıttan belgeye doğrudur.",
-        "C": "Var olma beyanını test eder; test yönü belgeden kayda doğrudur.",
-        "D": "Tamlık beyanını test eder; test yönü kayıttan belgeye doğrudur.",
-        "E": "Sunum ve açıklama beyanını test eder; test yönü kayıttan belgeye doğrudur."
+        "A": "4.000",
+        "B": "12.000",
+        "C": "16.000",
+        "D": "20.000",
+        "E": "48.000"
       },
-      "dogru": "B",
+      "dogru": "C",
       "tuzak": {
-        "C": {
-          "ad": "Yön Ters Çevirme Tuzağı",
-          "metin": "Doğru beyanı seçtiğin halde testin yönünü tamlığın yönüyle karıştırıyorsun. Doğrusu: Var olma testinde yön belgeden kayda değil, kayıttan belgeye doğrudur."
+        "D": {
+          "ad": "Erken Başlangıç Tuzağı",
+          "metin": "İtfayı fiilen kullanıma hazır olunan tarihten önce, Ağustos ayından başlatarak beş ay saydın. Doğrusu: itfa başlangıcı kullanıma hazır olma tarihi olan 1 Eylül'dür, bu yüzden dört ay hesaplanmalıdır."
         },
         "E": {
-          "ad": "Kategori Kayması Tuzağı",
-          "metin": "Kasa sayımını finansal tablo dipnot açıklamalarıyla ilgili bir beyan sanıyorsun. Doğrusu: Fiziksel sayım sunum değil, var olma beyanını test eder ve yönü kayıttan belgeyedir."
-        },
-        "D": {
-          "ad": "Çifte Karışıklık Tuzağı",
-          "metin": "Hem beyanı hem yönü yanlış eşleştiriyorsun; kasa sayımını tamlığın hem konusu hem yönüyle özdeşleştiriyorsun. Doğrusu: Bu işlem var olma beyanını, kayıttan belgeye giderek test eder."
+          "ad": "Tam Yıl Tuzağı",
+          "metin": "Varlık yıl içinde kullanıma hazır olduğu hâlde maliyeti 5 yıla değil doğrudan tam bir yıla böldün. Doğrusu: itfa yalnızca kullanıma hazır olunan Eylül-Aralık dönemi için, yani kesirli ay üzerinden hesaplanır."
         },
         "A": {
-          "ad": "Belge-Kayıt Karışıklığı Tuzağı",
-          "metin": "Testin yönünü doğru sezip beyanı yanlış eşleştiriyorsun; belgeden kayda giden yön tamlığa değil, kasa sayımına ait olan kayıttan belgeye yönünün tersidir. Doğrusu: Kasa sayımı var olma beyanını, kayıttan belgeye giderek…"
+          "ad": "Tek Ay Tuzağı",
+          "metin": "Yalnızca kullanıma hazır olunan ayı sayıp aylık payı doğrudan sonuç sandın. Doğrusu: itfa, kullanıma hazır olunan Eylül ayından yıl sonuna kadar geçen dört ay için hesaplanır."
+        },
+        "B": {
+          "ad": "Eksik Ay Sayımı Tuzağı",
+          "metin": "İtfanın kullanıma hazır olma ayını (Eylül) saymayıp Ekim-Aralık şeklinde üç ay saydın. Doğrusu: TMS 38 p.97'ye göre itfa, varlığın kullanıma hazır olduğu ay dahil başlar, bu yüzden dört ay sayılır."
         }
       },
-      "hap": "Kasa sayımı var olma beyanını kayıttan belgeye doğru test eder; tamlık ise belgeden kayda giden ters yönle test edilir.",
+      "hap": "Maddi olmayan duran varlıklarda itfa, varlığın fiilen kullanıma hazır olduğu tarihten başlar; yıl içindeki bu tarihe göre kesirli ay hesabı yapılır.",
       "satirlar": [
         [
-          "A) Tamlık beyanını test eder; test yönü belgeden kayda doğr…",
-          "Kasa denetimi hedefleri paragrafı"
+          "Aylık itfa payı (240.000 / 60 ay)",
+          "4.000"
         ],
         [
-          "B) Var olma beyanını test eder; test yönü kayıttan belgeye …",
-          "Kasa denetimi hedefleri paragrafı"
+          "İtfa edilen ay sayısı (Eylül-Aralık 2026)",
+          "4"
         ],
         [
-          "C) Var olma beyanını test eder; test yönü belgeden kayda do…",
-          "Kasa denetimi hedefleri paragrafı"
-        ],
-        [
-          "D) Tamlık beyanını test eder; test yönü kayıttan belgeye do…",
-          "Kasa denetimi hedefleri paragrafı"
-        ],
-        [
-          "E) Sunum ve açıklama beyanını test eder; test yönü kayıttan…",
-          "Kasa denetimi hedefleri paragrafı"
+          "2026 yılı itfa payı",
+          "16.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=50",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=51",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 65,
+        "kalan_gun": 64,
         "durum": "YESIL",
         "mail_gunu": false
       }
