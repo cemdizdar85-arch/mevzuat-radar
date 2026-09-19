@@ -104,7 +104,26 @@ if($bilinen.Count -lt 10){ Write-Host "KÖR: ambarda yalnız $($bilinen.Count) K
 #   Ölçüt dosya varlığı: veri/kgk-arsiv/etiket/<kod>.json. Ölçülemiyorsa (klasör yok) boş geçilir, "yok" denmez.
 $etiketsizler = @()
 $etiketKlasoru = Join-Path (Join-Path $depoKok 'veri') 'kgk-arsiv\etiket'
-if(Test-Path $etiketKlasoru){
+$analizYolu = Join-Path (Join-Path $depoKok 'veri') 'kgk-analiz.json'
+# ⚠ 19.09: veri/kgk-arsiv GIT DIŞI — bulutta koşan nöbetçide o klasör YOKTUR. Ölçüt bu yüzden
+#   önce DEPODAKİ haritadır (veri/kgk-analiz.json dönem listesi); etiket klasörü varsa yerelde ek tanık.
+if((-not (Test-Path $etiketKlasoru)) -and (Test-Path $analizYolu)){
+  $analizJson = Get-Content $analizYolu -Raw -Encoding UTF8 | ConvertFrom-Json
+  $ayNoH = @{ 'ocak'='01';'şubat'='02';'subat'='02';'mart'='03';'nisan'='04';'mayıs'='05';'mayis'='05';'haziran'='06';'temmuz'='07';'ağustos'='08';'agustos'='08';'eylül'='09';'eylul'='09';'ekim'='10';'kasım'='11';'kasim'='11';'aralık'='12';'aralik'='12' }
+  function HaritaTarih([string]$Metin){
+    $es = [regex]::Match("$Metin",'(\d{1,2})\s+([A-Za-zÇÖŞÜİIĞçöşüığ]+)\s+(\d{4})')
+    if(-not $es.Success){ return $null }
+    $ay = $ayNoH[$es.Groups[2].Value.ToLowerInvariant()]
+    if(-not $ay){ return $null }
+    return ('{0}-{1}-{2:d2}' -f $es.Groups[3].Value, $ay, [int]$es.Groups[1].Value)
+  }
+  $haritaTarihleri = New-Object System.Collections.Generic.HashSet[string]
+  foreach($dn in @($analizJson.donemler)){ $tk = HaritaTarih "$($dn.donem)"; if($tk){ [void]$haritaTarihleri.Add($tk) } }
+  $etiketsizler = @($girdiler | Where-Object { $bilinen.Contains($_.kod) -and -not ($null -ne (HaritaTarih $_.ad) -and $haritaTarihleri.Contains((HaritaTarih $_.ad))) })
+  Write-Host ("Etiket (haritadan): {0} dönem etiketli · ETİKETSİZ {1}" -f $haritaTarihleri.Count, $etiketsizler.Count)
+  foreach($e in $etiketsizler){ Write-Host "  ETİKETSİZ: $($e.kod) · $($e.ad)" }
+}
+elseif(Test-Path $etiketKlasoru){
   # Dosya adı çoğu sınavda kod (10202.json) ama üçünde tarih (2022-11-12.json) — ikisi de sayılır:
   #   kod hem dosya adından hem içerideki "kitapcik" alanından, tarih ise "donem" alanından okunur.
   $etiketliKod = New-Object System.Collections.Generic.HashSet[string]
