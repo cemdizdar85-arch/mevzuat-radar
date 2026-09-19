@@ -57,6 +57,8 @@ jobs:
             exit 0
           fi
           git add veri/kgk-sinav-nobeti.json
+          # 19.09: nobetci etiketsiz sinavi etiket kuyruguna da yazar (SARI durumu)
+          if [ -f veri/kgk-etiket-kuyrugu.json ]; then git add veri/kgk-etiket-kuyrugu.json || true; fi
           if git diff --cached --quiet; then
             echo "Rapor degismedi - islenecek bir sey yok."
             exit 0

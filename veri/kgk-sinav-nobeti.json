@@ -1,117 +1,125 @@
 {
-  "olcum": "16.09.2026 20:35",
-  "durum": "YEŞİL",
-  "neden": "sayfadaki bütün sınavlar ambarda",
-  "sayfa": "https://kgk.gov.tr/DynamicContentDetail/5237/Soru-Ars%CC%A7ivi",
-  "kural": "YENİ = sayfada olup ambarda (tur=cikmis-soru, \"CIKMIS SINAV - KGK …\") dosya kökü kodu bulunmayan sınav girdisi. KÖR = sayfa/ambar okunamadı ya da girdi ayrıştırılamadı.",
-  "sayfadaki_sinav": 21,
-  "ambarda_bilinen_kod": 30,
-  "yeni": [],
-  "sayfadakiler": [
-    {
-      "kod": "12104",
-      "ad": "22 Kasım 2025 Tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınav Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/12104/22-Kasım-2025-Tarihli-Bağımsız-Denetçilik-ve-Sürdürülebilirlik-Denetçiliği-Sınav-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "12103",
-      "ad": "27 Haziran 2026 Tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınav Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/12103/27-Haziran-2026-Tarihli-Bağımsız-Denetçilik-ve-Sürdürülebilirlik-Denetçiliği-Sınav-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "11972",
-      "ad": "28 Haziran 2025 tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınavı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11972/28-Haziran-2025-tarihli-Bağımsız-Denetçilik-ve-Sürdürülebilirlik-Denetçiliği-Sınavı"
-    },
-    {
-      "kod": "11971",
-      "ad": "5 Nisan 2025 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11971/5-Nisan-2025-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
-    },
-    {
-      "kod": "11970",
-      "ad": "25 Ocak 2025 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11970/25-Ocak-2025-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
-    },
-    {
-      "kod": "11969",
-      "ad": "23 Kasım 2024 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11969/23-Kasım-2024-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
-    },
-    {
-      "kod": "11967",
-      "ad": "23 Kasım 2024 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevapları",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11967/23-Kasım-2024-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevapları"
-    },
-    {
-      "kod": "11966",
-      "ad": "21 Eylül 2024 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11966/21-Eylül-2024-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
-    },
-    {
-      "kod": "11769",
-      "ad": "29 Haziran 2024 Tarihli Bağımsız Denetçilik Sınavı Soru Kitapçığı ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11769/29-Haziran-2024-Tarihli-Bağımsız-Denetçilik-Sınavı-Soru-Kitapçığı-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "11544",
-      "ad": "19 Kasım 2023 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11544/19-Kasım-2023-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "11487",
-      "ad": "08 Temmuz 2023 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11487/08-Temmuz-2023-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "11486",
-      "ad": "12 Kasım 2022 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/11486/12-Kasım-2022-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "10270",
-      "ad": "13 Haziran 2021 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/10270/13-Haziran-2021-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "10248",
-      "ad": "14 Kasım 2020 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/10248/14-Kasım-2020-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "ca4695",
-      "ad": "22 Ağustos 2020 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/ContentAssignmentDetail/4695/22-Ag%CC%86ustos-2020-tarihli-Bag%CC%86%C4%B1ms%C4%B1z-Denetc%CC%A7ilik-S%C4%B1nav%C4%B1-Sorular%C4%B1-ve-Cevap-Anahtar%C4%B1"
-    },
-    {
-      "kod": "10209",
-      "ad": "24 Kasım 2019 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/10209/24-Kasım-2019-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "10202",
-      "ad": "29 Haziran 2019 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/10202/29-Haziran-2019-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "8166",
-      "ad": "11 Kasım 2018 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/8166/11-Kasım-2018-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "8031",
-      "ad": "14 Mayıs 2017 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/8031/14-Mayıs-2017-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "8030",
-      "ad": "12 Kasım 2017 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/8030/12-Kasım-2017-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    },
-    {
-      "kod": "6558",
-      "ad": "25 Ağustos 2013 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
-      "adres": "https://kgk.gov.tr/DynamicContentDetail/6558/25-Ağustos-2013-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
-    }
-  ]
+    "olcum":  "19.09.2026 08:03",
+    "durum":  "SARI",
+    "neden":  "etiketsiz sınav: 11 Kasım 2018 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+    "sayfa":  "https://kgk.gov.tr/DynamicContentDetail/5237/Soru-Ars%CC%A7ivi",
+    "kural":  "YENİ = sayfada olup ambarda (tur=cikmis-soru, \"CIKMIS SINAV - KGK …\") dosya kökü kodu bulunmayan sınav girdisi. KÖR = sayfa/ambar okunamadı ya da girdi ayrıştırılamadı.",
+    "sayfadaki_sinav":  21,
+    "ambarda_bilinen_kod":  30,
+    "yeni":  [
+
+             ],
+    "etiketsiz":  [
+                      {
+                          "kod":  "8166",
+                          "ad":  "11 Kasım 2018 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı"
+                      }
+                  ],
+    "sayfadakiler":  [
+                         {
+                             "kod":  "12104",
+                             "ad":  "22 Kasım 2025 Tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınav Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/12104/22-Kasım-2025-Tarihli-Bağımsız-Denetçilik-ve-Sürdürülebilirlik-Denetçiliği-Sınav-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "12103",
+                             "ad":  "27 Haziran 2026 Tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınav Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/12103/27-Haziran-2026-Tarihli-Bağımsız-Denetçilik-ve-Sürdürülebilirlik-Denetçiliği-Sınav-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "11972",
+                             "ad":  "28 Haziran 2025 tarihli Bağımsız Denetçilik ve Sürdürülebilirlik Denetçiliği Sınavı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11972/28-Haziran-2025-tarihli-Bağımsız-Denetçilik-ve-Sürdürülebilirlik-Denetçiliği-Sınavı"
+                         },
+                         {
+                             "kod":  "11971",
+                             "ad":  "5 Nisan 2025 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11971/5-Nisan-2025-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
+                         },
+                         {
+                             "kod":  "11970",
+                             "ad":  "25 Ocak 2025 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11970/25-Ocak-2025-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
+                         },
+                         {
+                             "kod":  "11969",
+                             "ad":  "23 Kasım 2024 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11969/23-Kasım-2024-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
+                         },
+                         {
+                             "kod":  "11967",
+                             "ad":  "23 Kasım 2024 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevapları",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11967/23-Kasım-2024-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevapları"
+                         },
+                         {
+                             "kod":  "11966",
+                             "ad":  "21 Eylül 2024 tarihli Sürdürülebilirlik Denetçiliği Sınavı Soruları ve Cevapları",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11966/21-Eylül-2024-tarihli-Sürdürülebilirlik-Denetçiliği-Sınavı-Soruları-ve-Cevapları"
+                         },
+                         {
+                             "kod":  "11769",
+                             "ad":  "29 Haziran 2024 Tarihli Bağımsız Denetçilik Sınavı Soru Kitapçığı ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11769/29-Haziran-2024-Tarihli-Bağımsız-Denetçilik-Sınavı-Soru-Kitapçığı-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "11544",
+                             "ad":  "19 Kasım 2023 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11544/19-Kasım-2023-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "11487",
+                             "ad":  "08 Temmuz 2023 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11487/08-Temmuz-2023-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "11486",
+                             "ad":  "12 Kasım 2022 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/11486/12-Kasım-2022-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "10270",
+                             "ad":  "13 Haziran 2021 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/10270/13-Haziran-2021-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "10248",
+                             "ad":  "14 Kasım 2020 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/10248/14-Kasım-2020-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "ca4695",
+                             "ad":  "22 Ağustos 2020 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/ContentAssignmentDetail/4695/22-Ag%CC%86ustos-2020-tarihli-Bag%CC%86%C4%B1ms%C4%B1z-Denetc%CC%A7ilik-S%C4%B1nav%C4%B1-Sorular%C4%B1-ve-Cevap-Anahtar%C4%B1"
+                         },
+                         {
+                             "kod":  "10209",
+                             "ad":  "24 Kasım 2019 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/10209/24-Kasım-2019-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "10202",
+                             "ad":  "29 Haziran 2019 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/10202/29-Haziran-2019-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "8166",
+                             "ad":  "11 Kasım 2018 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/8166/11-Kasım-2018-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "8031",
+                             "ad":  "14 Mayıs 2017 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/8031/14-Mayıs-2017-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "8030",
+                             "ad":  "12 Kasım 2017 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/8030/12-Kasım-2017-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         },
+                         {
+                             "kod":  "6558",
+                             "ad":  "25 Ağustos 2013 tarihli Bağımsız Denetçilik Sınavı Soruları ve Cevap Anahtarı",
+                             "adres":  "https://kgk.gov.tr/DynamicContentDetail/6558/25-Ağustos-2013-tarihli-Bağımsız-Denetçilik-Sınavı-Soruları-ve-Cevap-Anahtarı"
+                         }
+                     ]
 }
