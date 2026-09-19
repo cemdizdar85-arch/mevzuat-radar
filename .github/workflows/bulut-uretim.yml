@@ -87,6 +87,17 @@ on:
         required: false
         default: "0"
         type: string
+      # ⛔⭐ 19.09.2026 (Cem "1 yap" = once hasat): odenmis ama alinmamis toplu partileri BEDAVA toplama turu.
+      #   Olculdu (arac/bekleyen-denetim.ps1): 481 parti 'ended' ve sonucu duruyor - 5.170 basarili istek (SGS 1.657 · SMMM 3.513).
+      #   Bu kip acikken uretici bitmis partiye baglanir, sonucu onbellege yazar; baglanamadigi is icin YENI PARTI ACMAZ ve
+      #   anlik cagri da patlar (motor/api-hedef.ps1 > MEVZUAT_YALNIZ_HASAT). Yani tur 0 USD'dir; butce girdisi yine zorunlu
+      #   ama harcanmaz. Kosu, hasat bitince ucretli cagriya ihtiyac duyan ilk partide DURUR - hasat edilenler yuklenir
+      #   (sonuc yazma adimi if: always()).
+      yalniz_hasat:
+        description: "1 = YALNIZ HASAT (bedel 0): odenmis toplu partiler toplanir, yeni istek GONDERILMEZ. Varsayilan 0."
+        required: false
+        default: "0"
+        type: string
       butce_baslangic:
         description: "Bos birak (zincir kendisi doldurur): butce bu andan (UTC 'yyyy-MM-dd HH:mm') sonraki harcamayi sayar."
         required: false
@@ -242,6 +253,7 @@ jobs:
           MEVZUAT_TOPLU_ANLIKSIZ: "1"
           MEVZUAT_SAYI_SIRA: ${{ inputs.sayi_sira }}   # 18.09 kural 2b (92 olcumu; varsayilan 0)
           MEVZUAT_PAKET_ILGI: ${{ inputs.paket_ilgi }}   # 18.09 KAPI-Pİ (varsayilan 0 = kapali)
+          MEVZUAT_YALNIZ_HASAT: ${{ inputs.yalniz_hasat }}   # 19.09 odenmis partileri bedava topla, yeni istek gonderme
           MEVZUAT_BUTCE_USD: ${{ inputs.butce_usd }}   # 17.09 butce kapisi (motor/kalip-kosucu.ps1 PlanHarcama); MEVZUAT_BUTCE_BASLANGIC ilk adimda GITHUB_ENV'e yazilir
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -328,6 +340,12 @@ jobs:
           # Uretici bekleme dolunca "TOPLU ANLIKSIZ" yazip 75 ile cikar. Boyle bir satir varsa is bitmemistir.
           # 17.09 OLCULDU: kredi bitince partiler KAPI-BAKIYE ile dustu, bu adim yalniz 'TOPLU ANLIKSIZ' aradigi icin "plan tamamlandi"
           # dedi ve is YESIL bitti (~1.800 soru yarim). Kosucu artik bakiye-bitti.log / hata-cikan.log yazar; ikisi de YARIM sayilir.
+          # 19.09 YALNIZ HASAT turu: ucretli cagri kapali oldugu icin partilerin HATAYLA bitmesi BEKLENEN sonuctur
+          # (hasat edilecek cevap bitince durur). Zincir yeniden tetiklenmez, is de bu yuzden kirmiziya boyanmaz.
+          if("${{ inputs.yalniz_hasat }}" -eq "1"){
+            "YALNIZ HASAT turu - zincir yok. Hasat edilen cevaplar bir onceki adimda ambara yazildi."
+            exit 0
+          }
           $bakiye = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'bakiye-bitti.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
           $hatali = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'hata-cikan.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
           $butce = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'butce-doldu.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')

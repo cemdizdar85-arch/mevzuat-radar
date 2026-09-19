@@ -371,6 +371,14 @@ function Invoke-ClaudeMesaj {
     [switch]$YalnizOpenRouter,
     [string]$Effort = ''      # 08.09: low|medium|high (Sonnet 5 / Opus 5 düşünme derinliği); boş = MEVZUAT_EFFORT ya da medium
   )
+  # ⛔⭐ 19.09.2026 YALNIZ HASAT (Cem "1 yap" = önce hasat, sonra kural): MEVZUAT_YALNIZ_HASAT=1 iken ÜCRETLİ HİÇBİR
+  #   çağrı yapılmaz. Amaç, ödenmiş ama alınmamış toplu partileri (19.09 ölçümü: 481 parti · 5.170 başarılı istek)
+  #   yeni para harcamadan hasat etmek. Toplu yol bitmiş partiye bağlanıp sonucu bedava alır; bağlanamadığı iş için
+  #   YENİ parti AÇMAZ (Invoke-ClaudeToplu), anlık yol da buradan durur. Koşu bu noktada biter, o ana kadar hasat
+  #   edilen cevaplar önbellekte kalır ve bulut akışı onları `if: always()` adımıyla ambara yazar.
+  if("$(Read-ApiEnv 'MEVZUAT_YALNIZ_HASAT')" -eq '1'){
+    throw 'YALNIZ HASAT: ucretli anlik cagri engellendi (MEVZUAT_YALNIZ_HASAT=1). Hasat edilen cevaplar onbellekte.'
+  }
   $orVar  = [bool](Read-ApiEnv 'OPENROUTER_KEY')
   $antVar = Test-AnthropicVar
   $Icerik = ConvertTo-IcerikBloklari $Icerik   # duz metin de kabul
@@ -581,6 +589,13 @@ function Invoke-ClaudeToplu {
   if("$env:MEVZUAT_TOPLU_SON_AN"){
     try{ $kalanDk = [int][math]::Floor(([datetime]::Parse("$env:MEVZUAT_TOPLU_SON_AN").ToUniversalTime() - (Get-Date).ToUniversalTime()).TotalMinutes)
       if($kalanDk -lt $BeklemeDk){ $BeklemeDk = [math]::Max(1,$kalanDk) } }catch{}
+  }
+  # ⛔⭐ 19.09.2026 YALNIZ HASAT: bağlanılan bitmiş/koşan partiler dışında YENİ PARTİ AÇILMAZ (para harcanmaz).
+  #   Elde ne varsa onunla dönülür; eksik işler çağırana "cevap yok" diye gider ve anlık yol da kapalı olduğu için
+  #   koşu orada durur. Bu, "önce ödenmiş işi al" turunun 0 USD garantisidir.
+  if("$(Read-ApiEnv 'MEVZUAT_YALNIZ_HASAT')" -eq '1' -and @($req).Count){
+    Write-Host ("  YALNIZ HASAT: {0} istek icin YENI PARTI ACILMADI (bedel 0); bagli parti {1}" -f @($req).Count,$baglananBid.Count) -ForegroundColor Yellow
+    $req = @()
   }
   $parcaBoy = $(if("$env:MEVZUAT_TOPLU_PARCA" -match '^\d+$' -and [int]$env:MEVZUAT_TOPLU_PARCA -ge 1){ [int]$env:MEVZUAT_TOPLU_PARCA } else { 30 })
   $parcalar = @(); for($pi=0; $pi -lt $req.Count; $pi+=$parcaBoy){ $parcalar += ,@($req[$pi..([Math]::Min($pi+$parcaBoy,$req.Count)-1)]) }
