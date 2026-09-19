@@ -1,16 +1,16 @@
-﻿{
-    "olcum":  "2026-09-12 08:27",
-    "durum":  "YESIL",
-    "yesil":  3,
-    "kirmizi":  0,
+{
+    "olcum":  "2026-09-18 08:14",
+    "durum":  "KIRMIZI",
+    "yesil":  4,
+    "kirmizi":  1,
     "hedefler":  [
                      {
                          "ad":  "ana sayfa",
                          "url":  "https://tetikte.com/",
                          "durum":  "YESIL",
                          "kod":  200,
-                         "bayt":  133074,
-                         "ms":  554,
+                         "bayt":  139974,
+                         "ms":  1114,
                          "kusur":  "",
                          "deneme":  1
                      },
@@ -19,8 +19,8 @@
                          "url":  "https://tetikte.com/kaydir/sgs/",
                          "durum":  "YESIL",
                          "kod":  200,
-                         "bayt":  23767,
-                         "ms":  113,
+                         "bayt":  49639,
+                         "ms":  407,
                          "kusur":  "",
                          "deneme":  1
                      },
@@ -29,8 +29,28 @@
                          "url":  "https://tetikte.com/kaydir/sgs/meslek-hukuku.html",
                          "durum":  "YESIL",
                          "kod":  200,
-                         "bayt":  734403,
-                         "ms":  1461,
+                         "bayt":  2413595,
+                         "ms":  5887,
+                         "kusur":  "",
+                         "deneme":  1
+                     },
+                     {
+                         "ad":  "bitirme dizini",
+                         "url":  "https://tetikte.com/kaydir/smmm/",
+                         "durum":  "KIRMIZI",
+                         "kod":  200,
+                         "bayt":  3260,
+                         "ms":  219,
+                         "kusur":  "imza yok: \u0027Kaydır\u0027",
+                         "deneme":  1
+                     },
+                     {
+                         "ad":  "bitirme ders sayfasi (kasa kabugu)",
+                         "url":  "https://tetikte.com/kaydir/smmm/hukuk.html",
+                         "durum":  "YESIL",
+                         "kod":  200,
+                         "bayt":  161237,
+                         "ms":  425,
                          "kusur":  "",
                          "deneme":  1
                      }

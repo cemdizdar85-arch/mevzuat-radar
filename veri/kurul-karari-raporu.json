@@ -1,13 +1,20 @@
 {
-    "tarih":  "03.09.2026 09:39",
+    "tarih":  "19.09.2026 07:53",
     "durum":  "TAMAM",
     "mod":  "YAZ",
     "taranan_gun":  7,
     "sayfasiz_gun":  0,
-    "defter_kayit":  3,
-    "yeni":  0,
+    "defter_kayit":  4,
+    "yeni":  1,
     "kararlar":  [
-
+                     {
+                         "kurum":  "BDDK",
+                         "ders":  "Bankacilik Mevzuati",
+                         "rg_tarih":  "19.09.2026",
+                         "baslik":  "Bankacılık Düzenleme ve Denetleme Kurulunun 18/09/2026 Tarihli ve 11572 Sayılı Kararı",
+                         "url":  "https://www.resmigazete.gov.tr/eskiler/2026/09/20260919-5.pdf",
+                         "bicim":  "PDF (taranmis olabilir - metin katmani kontrol edilmeli)"
+                     }
                  ],
     "not":  "Kurul kararlari mevzuat.gov.tr fihristinde YOK; kaynak RG fihristi. Yutma ELLE: metni tercihen kurumun kendi sitesinden (dijital PDF/DOCX) al, veri/mevzuat-hazir/\u003cslug\u003e.txt yaz, manifeste pdfId=HAZIR ile ekle, SADECE=\u003cslug\u003e ile motor/mevzuat-yut.ps1 kos."
 }
