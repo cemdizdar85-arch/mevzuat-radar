@@ -3206,11 +3206,14 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   #   (ölçüldü: aynı girdiyle eski/yeni kod → tumSha birebir). Anahtar yalnız bulut BOŞKEN açılır; açıldıktan sonra
   #   bekleyen eski partiler yeniden ödenir, o yüzden önce `veri/bekleyen-partiler.json` boşalmalı.
   #   HEDEF SIRA soru başına, GERÇEK SINAV dağılımından çekilir (veri/celdirici-kalibi-sgs.json > sayi_dogru_sira_havuz:
-  #   1=%13 2=%18 3=%31 4=%16 5=%22 · 33 kitapçık, anahtarlı 45 sayı sorusu). Kura DETERMİNİSTİK (etiket+id karması):
+  #   19.09 TAZELENDİ — ağırlık artık ÜÇ SINAVIN havuzundan (Cem "3 yap" = paydayı büyüt): SGS 45 + SMMM 81 + KGK 73 = 199
+  #   anahtarlı sayı sorusu → 1=%16 2=%20 3=%30 4=%23 5=%11, uç payı 0,27. (17.09'daki ilk hâli yalnız SGS'nin 45 sorusundan
+  #   geliyordu ve 5. sırayı %22 sanıyordu; havuzda %11 çıktı - SGS'nin tek başına 0,36 uç payı sınavlar arasında en yükseği.)
+  #   Kaynak: veri/celdirici-kalibi-{sgs,smmm,kgk}.json > sayi_dogru_sira_havuz. Kura DETERMİNİSTİK (etiket+id karması):
   #   aynı soru yeniden koşarsa aynı hedefi alır, yoksa her koşu yeni istem üretip ödenmiş partiyi çöpe atardı.
   $SAYI_SIRA_KURAL=''
   if("$($env:MEVZUAT_SAYI_SIRA)" -eq '1'){
-    $siraAgirlik=@(13,18,31,16,22)
+    $siraAgirlik=@(16,20,30,23,11)   # uc sinav havuzu (199 anahtarli sayi sorusu), 19.09
     $siraKarma=0; foreach($siraKarakter in "$Etiket|$id".ToCharArray()){ $siraKarma=($siraKarma*31 + [int]$siraKarakter) % 100 }
     $siraHedef=5; $siraToplam=0
     for($siraIdx=0; $siraIdx -lt 5; $siraIdx++){ $siraToplam+=$siraAgirlik[$siraIdx]; if($siraKarma -lt $siraToplam){ $siraHedef=$siraIdx+1; break } }
@@ -3219,10 +3222,10 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
 
 2b. ÇELDİRİCİ YAYILIMI — DOĞRU DEĞER UÇLARDA DA OLUR (17.09.2026 ölçüldü; BU SORUDA HEDEF: $siraTarif):
     Sayı şıkları küçükten büyüğe sıralandığı için doğru değerin kaçıncı sırada olacağını ÇELDİRİCİLERİN YAYILIMI belirler.
-    Çeldiriciler hep gerçek değerin ETRAFINA yazılırsa doğru şık sürekli ortaya (C/D) düşer. Ölçüm: yayındaki 4.415 SGS
-    sorusunda doğru değerin EN BÜYÜK olduğu sayı sorusu payı Finansal'da %2,6 · Maliyet'te %3,4 iken GERÇEK SGS'de %22
-    (en küçük %13 · 2. %18 · 3. %31 · 4. %16 · en büyük %22). Gerçek sınav uçları kullanıyor; kullanmayan bankada
-    "uçları seçme" diyen öğrenci bedava puan kazanır.
+    Çeldiriciler hep gerçek değerin ETRAFINA yazılırsa doğru şık sürekli ortaya (C/D) düşer. Ölçüm: bizim bankamızda
+    doğru değerin uçlarda (en küçük ya da en büyük) olduğu sayı sorusu payı SGS'de ~%10 · SMMM'de 0,149 iken ÜÇ SINAVIN
+    ÇIKMIŞ SORULARINDA 0,27 (199 anahtarlı sayı sorusu: en küçük %16 · 2. %20 · 3. %30 · 4. %23 · en büyük %11).
+    Gerçek sınav uçları kullanıyor; kullanmayan bankada "uçları seçme" diyen öğrenci bedava puan kazanır.
     KURAL: çeldiriciler doğru değerin iki yanına dağıtılmak zorunda DEĞİL; hedef sırayı tutturacak biçimde kurulur.
     Çeldiriciler her hâlde GERÇEK hata yollarından çıkar (unutulan indirim, ters yön, eksik/fazla dönem, yanlış oran,
     iki kez sayma). Hedef sırayı tutturmak için uydurma sayı YAZILMAZ: hata yolu bulunamıyorsa hedefi bırak, doğru
@@ -3950,7 +3953,7 @@ if(-not $SadeceHtml -and -not $SadeceAdim){
     $sdagMetin=((1..5) | ForEach-Object { "$_=$($sdag[$_-1])" }) -join ' '
     $skuralDurum=$(if("$($env:MEVZUAT_SAYI_SIRA)" -eq '1'){ 'AÇIK' } else { 'KAPALI' })
     Write-Host "  SAYI SIRA SAYIM: sayı şıklı $($sayiSirali.Count) soru · doğru değer sırası $sdagMetin" -ForegroundColor $srenk
-    Write-Host "    uç payı $sucPay (gerçek SGS 0,36 · kural 2b $skuralDurum)" -ForegroundColor $srenk
+    Write-Host "    uç payı $sucPay (gerçek sınav havuzu 0,27 · kural 2b $skuralDurum)" -ForegroundColor $srenk
   }
 }
 

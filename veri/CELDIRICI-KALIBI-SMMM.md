@@ -1,4 +1,4 @@
-# ÇELDİRİCİ KALIBI — SMMM (2026-09-13 11:04) · 16 kitapçık · 320 soru
+# ÇELDİRİCİ KALIBI — SMMM (2026-09-19 07:57) · 16 kitapçık · 320 soru
 
 | Ders | Soru | sayı | sayı+yön | hesap | cümle | sayı: hepsi farklı | sayı: artan sıralı | yön: çift tutar | cümle: en uzun/medyan |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|

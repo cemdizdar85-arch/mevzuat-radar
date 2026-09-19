@@ -1,4 +1,4 @@
-# ÇELDİRİCİ KALIBI — KGK (2026-09-16 22:42) · 120 kitapçık · 11861 soru
+# ÇELDİRİCİ KALIBI — KGK (2026-09-19 08:00) · 120 kitapçık · 11861 soru
 
 | Ders | Soru | sayı | sayı+yön | hesap | cümle | sayı: hepsi farklı | sayı: artan sıralı | yön: çift tutar | cümle: en uzun/medyan |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
