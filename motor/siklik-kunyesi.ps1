@@ -26,7 +26,11 @@
 #  olmadan künye anahtarı hiç tutmuyordu → KGK'da künye HİÇ görünmüyordu.
 #  Birleşik modüller konu kelimesiyle bölünür; kelime tutmazsa ders "BIRLESIK-…"
 #  kalır ve künye gösterilmez (D9 freni: uydurma yok, bölünemeyen sayım kullanılmaz).
-param([ValidateSet('SGS','SMMM','KGK')][string]$Sinav = 'SGS')
+param(
+  [ValidateSet('SGS','SMMM','KGK')][string]$Sinav = 'SGS',
+  [int]$DelilEnAz = 3,          # KGK delil gecisi: kelime en az kac kez gecmis olmali
+  [double]$DelilOran = 0.8      # ve gecislerinin en az bu orani tek derste olmali
+)
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
@@ -107,6 +111,53 @@ function KgkDers([string]$DersAdi, [string]$KonuAdi){
   return "ESLENMEDI-$DersAdi"
 }
 
+# ---- KGK 2. GECIS: kelime kuralinin bolemedigi konuyu VERIDEN gelen delille coz ----
+# 19.09 (Cem "2 ve 3 yap"): birlesik modulde kalan 322 konu icin delil, AYRI MODULLU
+#  donemlerin kendisi. Cozulmus konularin kelimeleri derslere gore sayilir; bir kelime
+#  en az $DelilEnAz kez gecmis ve gecislerinin >=%$($DelilOran*100)'i tek derste ise
+#  AYIRT EDICI sayilir. Acik konu yalnizca ayirt edici kelimelerin OY BIRLIGIYLE
+#  (celisen oy yoksa) o derse gecer. Celiski ya da delil yoksa BIRLESIK kalir.
+#  Olculdu: esik (3, %80) -> 322'nin 53'u cozuldu, celiskili 0. Gevsek esik (2, %80)
+#  65 veriyor; muhafazakar olan secildi.
+$kgkDelil = @{}   # acik "ders|konu" -> hedef ders
+if($Sinav -eq 'KGK'){
+  $kgkGrupHedef = @{
+    'BIRLESIK-SPK-BANK-SIG' = @('Sermaye Piyasasi Mevzuati','Bankacilik Mevzuati','Sigortacilik ve Ozel Emeklilik Mevzuati')
+    'BIRLESIK-KY-FY'        = @('Kurumsal Yonetim','Finansal Yonetim')
+    'BIRLESIK-SURDUR'       = @('Surdurulebilirlik Raporlamasi','Surdurulebilirlik Denetimi')
+  }
+  $durakKelime = @('ve','ile','icin','bir','olan','gore','tanimi','ozellikleri','turleri','hesabi','kavrami','esaslari','sureci','yontemi','yontemleri','orani','suresi')
+  function KelimeAyikla([string]$Metin){ @((Norm $Metin) -split '\s+' | Where-Object { $_.Length -ge 4 -and $durakKelime -notcontains $_ }) }
+  $kelDers = @{}; $acikKayit = New-Object System.Collections.Generic.List[object]
+  foreach($d0 in $donemler){
+    foreach($p0 in $d0.konuSayim.PSObject.Properties){
+      $parca0 = "$($p0.Name)" -split '\|',2
+      if($parca0.Count -ne 2){ continue }
+      $hedef0 = KgkDers $parca0[0] $parca0[1]
+      $kelime0 = KelimeAyikla $parca0[1]
+      if($hedef0 -like 'BIRLESIK-*'){ $acikKayit.Add([pscustomobject]@{ anah="$($parca0[0])|$($parca0[1])"; grup=$hedef0; kelime=$kelime0 }) }
+      elseif($hedef0 -notlike 'ESLENMEDI-*'){ foreach($w0 in $kelime0){ if(-not $kelDers.ContainsKey($w0)){ $kelDers[$w0] = @{} }; $kelDers[$w0][$hedef0] = 1 + [int]$kelDers[$w0][$hedef0] } }
+    }
+  }
+  $ayirtEdici = @{}
+  foreach($kv in $kelDers.GetEnumerator()){
+    $toplamGecis = 0; foreach($v in $kv.Value.Values){ $toplamGecis += [int]$v }
+    if($toplamGecis -lt $DelilEnAz){ continue }
+    $enAd = $null; $enDeger = 0
+    foreach($e in $kv.Value.GetEnumerator()){ if([int]$e.Value -gt $enDeger){ $enDeger = [int]$e.Value; $enAd = [string]$e.Key } }
+    if(($enDeger / $toplamGecis) -ge $DelilOran){ $ayirtEdici[$kv.Key] = $enAd }
+  }
+  $delilCelisen = 0
+  foreach($a in $acikKayit){
+    $oy = @{}
+    foreach($w in ($a.kelime | Select-Object -Unique)){ if($ayirtEdici.ContainsKey($w)){ $hd = $ayirtEdici[$w]; if($kgkGrupHedef[$a.grup] -contains $hd){ $oy[$hd] = 1 + [int]$oy[$hd] } } }
+    if($oy.Count -eq 0){ continue }
+    if($oy.Count -gt 1){ $delilCelisen++; continue }   # celisen oy -> karar verilmez
+    $kgkDelil[$a.anah] = [string]@($oy.Keys)[0]
+  }
+  Write-Host ("KGK delil gecisi: ayirt edici kelime {0} · delille cozulen konu {1} · celiskili {2} · delilsiz {3}" -f $ayirtEdici.Count, $kgkDelil.Count, $delilCelisen, ($acikKayit.Count - $kgkDelil.Count - $delilCelisen))
+}
+
 $konu = @{}
 foreach($d in $donemler){
   $gorulen = @{}
@@ -116,9 +167,10 @@ foreach($d in $donemler){
       $parca = "$ham" -split '\|',2
       if($parca.Count -eq 2){
         $hedefDers = KgkDers $parca[0] $parca[1]
+        if($hedefDers -like 'BIRLESIK-*' -and $kgkDelil.ContainsKey("$($parca[0])|$($parca[1])")){ $hedefDers = $kgkDelil["$($parca[0])|$($parca[1])"] + ' (delil)' }
         $izAnah = "$(Norm $parca[0]) -> $hedefDers"
         $kgkSayac[$izAnah] = 1 + [int]$kgkSayac[$izAnah]
-        $ham = "$hedefDers|$($parca[1])"
+        $ham = "$($hedefDers -replace ' \(delil\)$','')|$($parca[1])"
       }
     }
     $anah = Norm $ham
