@@ -1,157 +1,157 @@
 {
-    "guncelleme":  "2026-09-16 18:51",
-    "kaynak":  "konu-kaynak-karnesi.json + sgs-sinav-yapisi.json (TESMER Uygulama Yonergesi 2024, SGS m.6.2)",
-    "aciklama":  "Cikmis sinav konularinin RESMI SGS derslerine baglanmis hazirlik karnesi. \u0027hazirlikYuzde\u0027 = kaynagi olan konu / (kaynagi olan + kaynagi olmayan); mevzuat-disi konular paydaya alinmaz cunku fabrika onlara zaten girmez. Parali parti kosmadan ONCE bakilir.",
-    "dersler":  [
-                    {
-                        "ders":  "Finansal Muhasebe",
-                        "sinavSoru":  26,
-                        "konu":  831,
-                        "uret":  831,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Denetim",
-                        "sinavSoru":  16,
-                        "konu":  328,
-                        "uret":  328,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Yabanci Dil",
-                        "sinavSoru":  10,
-                        "konu":  159,
-                        "uret":  0,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  159,
-                        "hazirlikYuzde":  0,
-                        "karar":  "FABRIKA GIRMEZ (elle yazilir)"
-                    },
-                    {
-                        "ders":  "Maliyet Muhasebesi",
-                        "sinavSoru":  8,
-                        "konu":  231,
-                        "uret":  230,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Matematik",
-                        "sinavSoru":  8,
-                        "konu":  196,
-                        "uret":  0,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  196,
-                        "hazirlikYuzde":  0,
-                        "karar":  "FABRIKA GIRMEZ (elle yazilir)"
-                    },
-                    {
-                        "ders":  "Mali Tablolar Analizi",
-                        "sinavSoru":  8,
-                        "konu":  116,
-                        "uret":  116,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Turkce",
-                        "sinavSoru":  7,
-                        "konu":  233,
-                        "uret":  0,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  233,
-                        "hazirlikYuzde":  0,
-                        "karar":  "FABRIKA GIRMEZ (elle yazilir)"
-                    },
-                    {
-                        "ders":  "Borclar Hukuku",
-                        "sinavSoru":  6,
-                        "konu":  316,
-                        "uret":  316,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Ekonomi",
-                        "sinavSoru":  6,
-                        "konu":  185,
-                        "uret":  182,
-                        "kaynakYok":  1,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  99,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Maliye",
-                        "sinavSoru":  6,
-                        "konu":  169,
-                        "uret":  169,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Vergi Hukuku",
-                        "sinavSoru":  6,
-                        "konu":  140,
-                        "uret":  140,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Ticaret Hukuku",
-                        "sinavSoru":  6,
-                        "konu":  133,
-                        "uret":  132,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Is ve Sosyal Guvenlik Hukuku",
-                        "sinavSoru":  6,
-                        "konu":  94,
-                        "uret":  94,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Meslek Hukuku",
-                        "sinavSoru":  6,
-                        "konu":  84,
-                        "uret":  84,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  0,
-                        "hazirlikYuzde":  100,
-                        "karar":  "ACIK - musluk acilabilir"
-                    },
-                    {
-                        "ders":  "Ataturk Ilkeleri ve Inkilap Tarihi",
-                        "sinavSoru":  5,
-                        "konu":  49,
-                        "uret":  0,
-                        "kaynakYok":  0,
-                        "mevzuatDisi":  49,
-                        "hazirlikYuzde":  0,
-                        "karar":  "FABRIKA GIRMEZ (elle yazilir)"
-                    }
-                ]
+  "guncelleme": "2026-09-19 06:47",
+  "kaynak": "konu-kaynak-karnesi.json + sgs-sinav-yapisi.json (TESMER Uygulama Yonergesi 2024, SGS m.6.2)",
+  "aciklama": "Cikmis sinav konularinin RESMI SGS derslerine baglanmis hazirlik karnesi. 'hazirlikYuzde' = kaynagi olan konu / (kaynagi olan + kaynagi olmayan); mevzuat-disi konular paydaya alinmaz cunku fabrika onlara zaten girmez. Parali parti kosmadan ONCE bakilir.",
+  "dersler": [
+    {
+      "ders": "Finansal Muhasebe",
+      "sinavSoru": 26,
+      "konu": 831,
+      "uret": 831,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Denetim",
+      "sinavSoru": 16,
+      "konu": 328,
+      "uret": 328,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Yabanci Dil",
+      "sinavSoru": 10,
+      "konu": 159,
+      "uret": 0,
+      "kaynakYok": 0,
+      "mevzuatDisi": 159,
+      "hazirlikYuzde": 0,
+      "karar": "FABRIKA GIRMEZ (elle yazilir)"
+    },
+    {
+      "ders": "Maliyet Muhasebesi",
+      "sinavSoru": 8,
+      "konu": 231,
+      "uret": 230,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Matematik",
+      "sinavSoru": 8,
+      "konu": 196,
+      "uret": 0,
+      "kaynakYok": 0,
+      "mevzuatDisi": 196,
+      "hazirlikYuzde": 0,
+      "karar": "FABRIKA GIRMEZ (elle yazilir)"
+    },
+    {
+      "ders": "Mali Tablolar Analizi",
+      "sinavSoru": 8,
+      "konu": 116,
+      "uret": 116,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Turkce",
+      "sinavSoru": 7,
+      "konu": 233,
+      "uret": 0,
+      "kaynakYok": 0,
+      "mevzuatDisi": 233,
+      "hazirlikYuzde": 0,
+      "karar": "FABRIKA GIRMEZ (elle yazilir)"
+    },
+    {
+      "ders": "Borclar Hukuku",
+      "sinavSoru": 6,
+      "konu": 316,
+      "uret": 316,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Ekonomi",
+      "sinavSoru": 6,
+      "konu": 185,
+      "uret": 184,
+      "kaynakYok": 1,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 99.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Maliye",
+      "sinavSoru": 6,
+      "konu": 169,
+      "uret": 169,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Vergi Hukuku",
+      "sinavSoru": 6,
+      "konu": 140,
+      "uret": 140,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Ticaret Hukuku",
+      "sinavSoru": 6,
+      "konu": 133,
+      "uret": 133,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Is ve Sosyal Guvenlik Hukuku",
+      "sinavSoru": 6,
+      "konu": 94,
+      "uret": 94,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Meslek Hukuku",
+      "sinavSoru": 6,
+      "konu": 84,
+      "uret": 84,
+      "kaynakYok": 0,
+      "mevzuatDisi": 0,
+      "hazirlikYuzde": 100.0,
+      "karar": "ACIK - musluk acilabilir"
+    },
+    {
+      "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+      "sinavSoru": 5,
+      "konu": 49,
+      "uret": 0,
+      "kaynakYok": 0,
+      "mevzuatDisi": 49,
+      "hazirlikYuzde": 0,
+      "karar": "FABRIKA GIRMEZ (elle yazilir)"
+    }
+  ]
 }
