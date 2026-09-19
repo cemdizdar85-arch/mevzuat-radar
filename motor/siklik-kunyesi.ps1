@@ -166,10 +166,21 @@ if($Sinav -eq 'KGK'){
 # AYNI dersi gosteriyorsa atanir; kenardaysa yalniz 3 soru mesafesindeki tek yan
 # kabul edilir. Yanlar celisiyorsa (blok siniri) konu ACIK kalir.
 # Ayni konu iki kitapcikta farkli ders gosterirse o konu da ACIK birakilir.
+# ⚠ 19.09: veri/kgk-arsiv GIT DIŞI — bulutta koşan robotta (konu-eslesme.yml) o klasör YOKTUR.
+#   Kitapçık delili yalnız yerelde hesaplanabildiği için KARARLAR depoya yazılır
+#   (veri/kgk-birlesik-ders-esleme.json: konu → ders, yalnız etiket + ders adı, soru metni yok).
+#   Klasör yoksa betik bu dosyadan okur; böylece bulut ile yerel AYNI künyeyi üretir.
+#   Olmasaydı: bulut künyeyi kitapçık delilsiz yeniden üretip yereldekini eziyordu (eşlenmeyen 58 → 327).
 $kgkKitapcik = @{}
+$kgkEslemeYolu = Join-Path $kok 'veri\kgk-birlesik-ders-esleme.json'
 if($Sinav -eq 'KGK'){
   $etiketKlasoru = Join-Path $kok 'veri\kgk-arsiv\etiket'
-  if(Test-Path $etiketKlasoru){
+  if(-not (Test-Path $etiketKlasoru) -and (Test-Path $kgkEslemeYolu)){
+    $kayitliEsleme = Get-Content $kgkEslemeYolu -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach($pe in @($kayitliEsleme.esleme.PSObject.Properties)){ $kgkKitapcik[$pe.Name] = "$($pe.Value)" }
+    Write-Host ("KGK kitapcik delili: etiket klasoru yok - depodaki karar dosyasindan {0} konu okundu ({1})" -f $kgkKitapcik.Count, $kayitliEsleme.uretim)
+  }
+  elseif(Test-Path $etiketKlasoru){
     $konuOy = @{}
     foreach($ed in (Get-ChildItem $etiketKlasoru -Filter '*.json')){
       $kitap = Get-Content $ed.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -203,7 +214,18 @@ if($Sinav -eq 'KGK'){
     $kitapCelisen = 0
     foreach($ko in $konuOy.GetEnumerator()){ if($ko.Value.Count -eq 1){ $kgkKitapcik[$ko.Key] = @($ko.Value)[0] } else { $kitapCelisen++ } }
     Write-Host ("KGK kitapcik delili: cozulen konu {0} · kitapciklar arasi celisen {1}" -f $kgkKitapcik.Count, $kitapCelisen)
-  } else { Write-Host 'KGK kitapcik delili: veri/kgk-arsiv/etiket yok - atlandi' }
+    # Kararlari depoya yaz: bulut robotu ayni kunyeyi uretebilsin (etiket klasoru orada yok)
+    $eslemeTablosu = [ordered]@{}
+    foreach($ka in ($kgkKitapcik.GetEnumerator() | Sort-Object Name)){ $eslemeTablosu[$ka.Key] = $ka.Value }
+    $eslemeNesnesi = [ordered]@{
+      aciklama = 'KGK birlesik modul konularinin ders karari (kitapcik delili). Anahtar = "<kitapciktaki modul adi>|<konu>", deger = kota ders etiketi. Yalniz etiket ve ders adi tasir; soru metni/sik/cevap YOKTUR.'
+      kural    = 'Karar motor/siklik-kunyesi.ps1 -Sinav KGK ile YERELDE uretilir (veri/kgk-arsiv/etiket git disi): birlesik modulde sorular ders ders blok halinde dizildigi icin bosluk, iki yanindaki cozulmus sorular AYNI dersi gosteriyorsa kapanir. Bulutta klasor olmadigindan bu dosya okunur.'
+      uretim   = (Get-Date -Format 'dd.MM.yyyy HH:mm')
+      konu     = $eslemeTablosu.Count
+      esleme   = $eslemeTablosu
+    }
+    [IO.File]::WriteAllText($kgkEslemeYolu, [string](ConvertTo-Json -InputObject $eslemeNesnesi -Depth 4), (New-Object Text.UTF8Encoding($false)))
+  } else { Write-Host 'KGK kitapcik delili: ne etiket klasoru ne karar dosyasi var - atlandi' }
 }
 
 $konu = @{}
