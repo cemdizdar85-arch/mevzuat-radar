@@ -78,7 +78,7 @@ function AmbarSatirlar([string]$ay){
   return $l
 }
 # Tekillik anahtari: dakika + etiket + tutar (yerel defter dakika hassasiyetinde yaziyor)
-# ⛔⭐ 19.09.2026 SAAT DILIMI ONARIMI — MUKERRER SATIR FABRIKASI BURADAYDI.
+# ⛔⭐ 19.09.2026 MUKERRER SATIR SAVUNMASI (kok neden KANITLANMADI - asagidaki olcumlere bak).
 #   OLCULDU: eylul defteri 22.644 satir / 26.111,82 USD; tekil (zaman+etiket+tutar) 3.399 satir /
 #   2.833,84 USD -> 9,2 KAT sisme. Ambarda ayni satirin 31 kopyasi vardi (hepsi yazan='yerel-GK').
 #   ⚠ KOK NEDEN OLCULDU AMA KANITLANAMADI — iki hipotez bugunku veriyle YENIDEN URETILEMEDI:
@@ -105,15 +105,6 @@ function Anahtar($zaman,$etiket,$tutar){
   }
   if(-not $z){ try{ $z=([datetime]$m).ToString('yyyy-MM-dd HH:mm') }catch{ $z=$m } }
   return ($z + '|' + "$etiket" + '|' + ([double]$tutar).ToString('F6',[cultureinfo]::InvariantCulture))
-}
-# 19.09: ayni anahtardan BIRDEN COK satir varsa yalniz BIRI islenir - yoksa 5 mukerrer yerel satir
-# ambara 5 yeni satir olarak gider (sismenin ikinci kanali).
-function AnahtaraGoreTekil($liste,[scriptblock]$anahtarUret){
-  $gor=@{}; $cik=New-Object System.Collections.Generic.List[object]
-  foreach($x in $liste){ $a=& $anahtarUret $x; if($gor.ContainsKey($a)){ continue }; $gor[$a]=1; $cik.Add($x) }
-  # ⛔ PS 5.1: List dondurulurse boru onu TEK TEK acar (tek oge kalinca dizi bile olmaz) ve @(...).ToArray() patlar.
-  #   Virgullu donus + [object[]] KESIN dizi verir (11.09 K3 tuzaginin kardesi).
-  return ,([object[]]$cik.ToArray())
 }
 
 # ---------------------------------------------------------------------------
@@ -153,7 +144,12 @@ $ambarAnahtar=@{}; foreach($x in $ambar){ $ambarAnahtar[(Anahtar $x.zaman $x.eti
 
 if($Yukle){
   $gonderHam=@($yerelAy|Where-Object{ -not $ambarAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplamUsd)) })
-  $gonder=@(AnahtaraGoreTekil $gonderHam { param($x) Anahtar $x.zaman $x.etiket $x.toplamUsd })
+  # 19.09: IC TEKILLESTIRME satir ici yapilir. ⛔ Once bunu bir FONKSIYON yapmistim; PS 5.1'de dizi donusu
+  #   cagirana TEK NESNE olarak gecti, @() onu 1 ogeye sardi ve bulut "Durumu ambardan indir" adimi
+  #   ConvertToFinalInvalidCastException ile dustu (run 35423527375). Yerel KURU kosuda "1 satir" yaziyordu
+  #   ve bunu dogru sanmistim - kuru kosu yazma yoluna hic girmedigi icin hatayi gostermedi.
+  $gorGon=@{}
+  $gonder=@($gonderHam | Where-Object { $a=Anahtar $_.zaman $_.etiket $_.toplamUsd; if($gorGon.ContainsKey($a)){ $false } else { $gorGon[$a]=1; $true } })
   if($gonderHam.Count -ne $gonder.Count){ Write-Host ("  mukerrer yerel satir atlandi: {0:N0}" -f ($gonderHam.Count-$gonder.Count)) -ForegroundColor DarkYellow }
   Write-Host ("`nGONDERILECEK: {0:N0} satir" -f $gonder.Count) -ForegroundColor Green
   if(-not $Yaz){ Write-Host "KURU KOSU - ambara yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
@@ -181,7 +177,8 @@ if($Yukle){
 $yerelAnahtar=@{}; foreach($x in $yerelAy){ $yerelAnahtar[(Anahtar $x.zaman $x.etiket $x.toplamUsd)]=$true }
 $ekHam=@($ambar|Where-Object{ -not $yerelAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplam_usd)) })
 # 19.09: ambarda ayni satirin kopyalari var (olculdu: 31 kopyaya kadar) - yerele BIR kez yazilir.
-$ek=@(AnahtaraGoreTekil $ekHam { param($x) Anahtar $x.zaman $x.etiket $x.toplam_usd })
+$gorEk=@{}
+$ek=@($ekHam | Where-Object { $a=Anahtar $_.zaman $_.etiket $_.toplam_usd; if($gorEk.ContainsKey($a)){ $false } else { $gorEk[$a]=1; $true } })
 if($ekHam.Count -ne $ek.Count){ Write-Host ("  ambardaki mukerrer kopya atlandi: {0:N0}" -f ($ekHam.Count-$ek.Count)) -ForegroundColor DarkYellow }
 Write-Host ("`nYEREL DEFTERE EKLENECEK: {0:N0} satir" -f $ek.Count) -ForegroundColor Green
 if(-not $Yaz){ Write-Host "KURU KOSU - dosya yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
