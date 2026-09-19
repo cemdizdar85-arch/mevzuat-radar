@@ -1,5 +1,5 @@
 {
-  "olcum": "18.09.2026 09:56",
+  "olcum": "19.09.2026 09:38",
   "kural": "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
   "kaynak_sagligi": [
     {
@@ -7,7 +7,7 @@
       "dosya": "veri/ders-profili.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "18.09.2026 09:56",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "motor/ders-profili-kur.ps1",
       "robot": "yok (resmî liste; Cem onayıyla değişir)"
@@ -16,8 +16,8 @@
       "ad": "kasa-sayim",
       "dosya": "veri/kasa-sayim.json",
       "durum": "TAZE",
-      "damga": "18.09.2026 05:48",
-      "mtime": "18.09.2026 09:56",
+      "damga": "19.09.2026 05:43",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "motor/kasa-sayim.ps1",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
@@ -27,8 +27,8 @@
       "dosya": "veri/uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 49,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 50,
       "uretici": "motor/kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -37,8 +37,8 @@
       "dosya": "veri/sgs-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:4x (Cem ders-ders tablosu)",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 49,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 50,
       "uretici": "motor/sgs-kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -47,8 +47,8 @@
       "dosya": "veri/kgk-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 48,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 49,
       "uretici": "elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi)",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -56,8 +56,8 @@
       "ad": "konu-koprusu",
       "dosya": "veri/konu-koprusu-ozet.json",
       "durum": "TAZE",
-      "damga": "18.09.2026 09:13",
-      "mtime": "18.09.2026 09:56",
+      "damga": "19.09.2026 08:59",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "motor/konu-koprusu-kur.ps1 (V2 canlı)",
       "robot": "konu-koprusu.yml · her gün 07:40 TR"
@@ -67,8 +67,8 @@
       "dosya": "veri/AMBAR-ENVANTERI.md",
       "durum": "TAZE",
       "damga": "16.09.2026 09:14",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 2,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 3,
       "uretici": "motor/ambar-envanteri.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
@@ -76,8 +76,8 @@
       "ad": "butunluk-raporu",
       "dosya": "veri/butunluk-raporu.json",
       "durum": "TAZE",
-      "damga": "17.09.2026 13:20",
-      "mtime": "18.09.2026 09:56",
+      "damga": "18.09.2026 12:55",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 1,
       "uretici": "motor/butunluk-kapisi.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
@@ -87,8 +87,8 @@
       "dosya": "veri/cikmis-soru-karnesi.json",
       "durum": "TAZE",
       "damga": "16.09.2026 22:30",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 2,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 3,
       "uretici": "motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı)",
       "robot": "yok (KGK evreni için haberci: kgk-sinav-nobeti.yml)"
     },
@@ -96,9 +96,9 @@
       "ad": "siklik-kunyesi",
       "dosya": "veri/siklik-kunyesi.json",
       "durum": "TAZE",
-      "damga": "17.09.2026 19:44",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 1,
+      "damga": "19.09.2026 07:06",
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 0,
       "uretici": "motor/siklik-kunyesi.ps1",
       "robot": "konu-eslesme.yml · yalnız push"
     },
@@ -106,9 +106,9 @@
       "ad": "siklik-kunyesi-kgk",
       "dosya": "veri/siklik-kunyesi-kgk.json",
       "durum": "TAZE",
-      "damga": "17.09.2026 19:44",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 1,
+      "damga": "19.09.2026 07:06",
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 0,
       "uretici": "motor/siklik-kunyesi.ps1 -Sinav KGK",
       "robot": "konu-eslesme.yml · yalnız push"
     },
@@ -116,9 +116,9 @@
       "ad": "kgk-analiz",
       "dosya": "veri/kgk-analiz.json",
       "durum": "TAZE",
-      "damga": "19.08.2026 (TAM ARSIV) · nöbet YEŞİL 16.09.2026 20:35",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 30,
+      "damga": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018) · nöbet YEŞİL 19.09.2026 08:16",
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 0,
       "uretici": "elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)",
       "robot": "yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml"
     },
@@ -126,9 +126,9 @@
       "ad": "ders-karnesi",
       "dosya": "veri/ders-karnesi.json",
       "durum": "TAZE",
-      "damga": "2026-09-16 18:51",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 2,
+      "damga": "2026-09-19 06:47",
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 0,
       "uretici": "motor/ders-karnesi.ps1",
       "robot": "karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push)"
     },
@@ -136,29 +136,29 @@
       "ad": "karne-sgs",
       "dosya": "veri/konu-kaynak-karnesi.json",
       "durum": "TAZE",
-      "damga": "2026-09-16 17:06",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 2,
+      "damga": "2026-09-19 06:47",
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 0,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml · pazar 03:00 TR + sgs-analiz push"
     },
     {
       "ad": "karne-smmm",
       "dosya": "veri/konu-kaynak-karnesi-smmm.json",
-      "durum": "BAYAT (23 gün)",
+      "durum": "BAYAT (24 gün)",
       "damga": "2026-08-26 00:51",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 23,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 24,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
     {
       "ad": "karne-kgk",
       "dosya": "veri/konu-kaynak-karnesi-kgk.json",
-      "durum": "BAYAT (23 gün)",
+      "durum": "BAYAT (24 gün)",
       "damga": "2026-08-26 03:00",
-      "mtime": "18.09.2026 09:56",
-      "yas_gun": 23,
+      "mtime": "19.09.2026 09:38",
+      "yas_gun": 24,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -167,7 +167,7 @@
       "dosya": "veri/dayanak-metinsiz-raporu.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "18.09.2026 09:56",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "arac/dayanak-metinsiz-tarama.ps1",
       "robot": "yok"
@@ -177,7 +177,7 @@
       "dosya": "veri/dayanak-kara-liste.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "18.09.2026 09:56",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "arac/dayanak-kara-liste.ps1",
       "robot": "yok"
@@ -187,7 +187,7 @@
       "dosya": "veri/bekleyen-partiler.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "18.09.2026 09:56",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "motor/api-hedef.ps1 (Invoke-ClaudeToplu yazar; parti-hasat.ps1 temizler)",
       "robot": "yan ürün: bulut-uretim.yml / soru-uret-v2.yml (parti-liste.yml bu dosyayı yazmaz; 16.09 denetimi)"
@@ -197,7 +197,7 @@
       "dosya": "veri/sinav-ders-envanteri.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "18.09.2026 09:56",
+      "mtime": "19.09.2026 09:38",
       "yas_gun": 0,
       "uretici": "motor/sinav-ders-envanteri.ps1",
       "robot": "sinav-ders-envanteri.yml · yalnız push"
@@ -1028,9 +1028,9 @@
       ]
     },
     "kgk_siklik": {
-      "donem": 28,
-      "konu": 4773,
-      "eslenmeyen": 398,
+      "donem": 29,
+      "konu": 4973,
+      "eslenmeyen": 63,
       "en_cok": [
         {
           "konu": "Kurumsal Yonetim|yonetim kurulu komiteleri",
@@ -1043,12 +1043,12 @@
           "soru": 10
         },
         {
-          "konu": "Sermaye Piyasasi Mevzuati|sermaye piyasasi suclari",
+          "konu": "Sermaye Piyasasi Mevzuati|sermaye piyasasi kurumlari",
           "donem": 10,
           "soru": 10
         },
         {
-          "konu": "Sermaye Piyasasi Mevzuati|sermaye piyasasi kurumlari",
+          "konu": "Sermaye Piyasasi Mevzuati|sermaye piyasasi suclari",
           "donem": 10,
           "soru": 10
         },
@@ -1068,17 +1068,7 @@
           "soru": 8
         },
         {
-          "konu": "Bankacilik Mevzuati|banka kurulus sartlari",
-          "donem": 7,
-          "soru": 7
-        },
-        {
-          "konu": "Muhasebe Standartlari|azalan bakiyeler amortisman",
-          "donem": 7,
-          "soru": 7
-        },
-        {
-          "konu": "Sermaye Piyasasi Mevzuati|kar payi avansi",
+          "konu": "Kurumsal Yonetim|faaliyet raporu icerigi",
           "donem": 7,
           "soru": 7
         },
@@ -1091,12 +1081,22 @@
           "konu": "Genel Hukuk Mevzuati|ticari isletme unsurlari",
           "donem": 7,
           "soru": 7
+        },
+        {
+          "konu": "Finansal Yonetim|bilesik faiz hesabi",
+          "donem": 7,
+          "soru": 7
+        },
+        {
+          "konu": "Denetim Standartlari|bds 600 topluluk denetimi",
+          "donem": 7,
+          "soru": 7
         }
       ]
     },
     "kgk": {
-      "donem": 29,
-      "soru": 6080
+      "donem": 30,
+      "soru": 6320
     },
     "kopru_durum": [
       {
@@ -1105,7 +1105,7 @@
       },
       {
         "durum": "BOSLUK - cikmisda var, bizde YOK",
-        "konu": 9600
+        "konu": 9811
       },
       {
         "durum": "IKISI DE VAR",
@@ -1131,14 +1131,14 @@
         "sinav": "KGK",
         "arsiv_ders": "Denetim",
         "bizim_ders": "Denetim Standartlari",
-        "konu": 602,
+        "konu": 636,
         "koprusuz": false
       },
       {
         "sinav": "KGK",
         "arsiv_ders": "Genel Hukuk Mevzuatı",
         "bizim_ders": "",
-        "konu": 563,
+        "konu": 595,
         "koprusuz": true
       },
       {
@@ -1152,7 +1152,7 @@
         "sinav": "KGK",
         "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
         "bizim_ders": "",
-        "konu": 792,
+        "konu": 831,
         "koprusuz": true
       },
       {
@@ -1166,14 +1166,14 @@
         "sinav": "KGK",
         "arsiv_ders": "Muhasebe",
         "bizim_ders": "Muhasebe Standartlari",
-        "konu": 465,
+        "konu": 501,
         "koprusuz": false
       },
       {
         "sinav": "KGK",
         "arsiv_ders": "Muhasebe Standartları",
         "bizim_ders": "Muhasebe Standartlari",
-        "konu": 639,
+        "konu": 677,
         "koprusuz": false
       },
       {
@@ -1194,7 +1194,7 @@
         "sinav": "KGK",
         "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
         "bizim_ders": "",
-        "konu": 554,
+        "konu": 591,
         "koprusuz": true
       },
       {
@@ -1343,7 +1343,7 @@
   "ambar": {
     "ozet_satiri": "ÖZET: 48353 parça · 2720 tekil kaynak | Bütünlük ölçülen: 2720 (delikli: 368; son ölçüm: 16.09.2026) | Sürüm ölçülen: 42 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)",
     "butunluk": {
-      "tarih": "17.09.2026 13:20",
+      "tarih": "18.09.2026 12:55",
       "durum": "KIRMIZI",
       "belge": 50005,
       "kaynak_temiz": 2330,
@@ -1576,7 +1576,7 @@
         "doluluk": 82
       }
     ],
-    "agir_bosluk_sayisi": 519,
+    "agir_bosluk_sayisi": 525,
     "agir_bosluklar": [
       {
         "sinav": "SMMM",
@@ -1624,33 +1624,6 @@
         "guc": "OLCULMEDI"
       },
       {
-        "sinav": "KGK",
-        "konu": "kayitli sermaye sistemi",
-        "donem": 10,
-        "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
-        "dayanak": "TTK (6102 s.K.) m.482",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "sermaye piyasasi kurumlari",
-        "donem": 10,
-        "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "sermaye piyasasi suclari",
-        "donem": 10,
-        "cikmis": 10,
-        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
         "sinav": "SMMM",
         "konu": "satistan iade",
         "donem": 10,
@@ -1670,37 +1643,28 @@
       },
       {
         "sinav": "KGK",
-        "konu": "tespit edememe riski",
-        "donem": 9,
-        "cikmis": 9,
-        "arsiv_ders": "Denetim",
+        "konu": "kayitli sermaye sistemi",
+        "donem": 10,
+        "cikmis": 10,
+        "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
+        "dayanak": "TTK (6102 s.K.) m.482",
+        "guc": "TEYITLI"
+      },
+      {
+        "sinav": "KGK",
+        "konu": "sermaye piyasasi kurumlari",
+        "donem": 10,
+        "cikmis": 10,
+        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
         "dayanak": "",
         "guc": "OLCULMEDI"
       },
       {
         "sinav": "KGK",
-        "konu": "net isletme sermayesi",
-        "donem": 9,
-        "cikmis": 12,
-        "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-        "dayanak": "Teori Notu - isletme sermayesi yonetimi",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "SGS",
-        "konu": "kelime bilgisi",
-        "donem": 9,
-        "cikmis": 14,
-        "arsiv_ders": "Yabanci Dil",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
-      },
-      {
-        "sinav": "SMMM",
-        "konu": "satis iadesi",
-        "donem": 9,
-        "cikmis": 9,
-        "arsiv_ders": "Finansal Muhasebe",
+        "konu": "sermaye piyasasi suclari",
+        "donem": 10,
+        "cikmis": 10,
+        "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
         "dayanak": "",
         "guc": "OLCULMEDI"
       },
@@ -1715,11 +1679,74 @@
       },
       {
         "sinav": "SMMM",
+        "konu": "satis iadesi",
+        "donem": 9,
+        "cikmis": 9,
+        "arsiv_ders": "Finansal Muhasebe",
+        "dayanak": "",
+        "guc": "OLCULMEDI"
+      },
+      {
+        "sinav": "SMMM",
         "konu": "mevduat faiz tahakkuku",
         "donem": 9,
         "cikmis": 9,
         "arsiv_ders": "Finansal Muhasebe",
         "dayanak": "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+        "guc": "TEYITLI"
+      },
+      {
+        "sinav": "KGK",
+        "konu": "tespit edememe riski",
+        "donem": 9,
+        "cikmis": 9,
+        "arsiv_ders": "Denetim",
+        "dayanak": "",
+        "guc": "OLCULMEDI"
+      },
+      {
+        "sinav": "SGS",
+        "konu": "kelime bilgisi",
+        "donem": 9,
+        "cikmis": 14,
+        "arsiv_ders": "Yabanci Dil",
+        "dayanak": "",
+        "guc": "OLCULMEDI"
+      },
+      {
+        "sinav": "KGK",
+        "konu": "net isletme sermayesi",
+        "donem": 9,
+        "cikmis": 12,
+        "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+        "dayanak": "Teori Notu - isletme sermayesi yonetimi",
+        "guc": "TEYITLI"
+      },
+      {
+        "sinav": "SMMM",
+        "konu": "ticari borc odeme suresi",
+        "donem": 8,
+        "cikmis": 8,
+        "arsiv_ders": "Finansal Tablolar ve Analizi",
+        "dayanak": "Bankacılık K. (5411 s.K.)",
+        "guc": "ZAYIF"
+      },
+      {
+        "sinav": "KGK",
+        "konu": "ic kontrol bilesenleri",
+        "donem": 8,
+        "cikmis": 8,
+        "arsiv_ders": "Denetim",
+        "dayanak": "BDS 315",
+        "guc": "ZAYIF"
+      },
+      {
+        "sinav": "SMMM",
+        "konu": "kaldirac orani",
+        "donem": 8,
+        "cikmis": 8,
+        "arsiv_ders": "Finansal Tablolar ve Analizi",
+        "dayanak": "Teori Notu - finansal analiz oranlari",
         "guc": "TEYITLI"
       },
       {
@@ -1741,33 +1768,6 @@
         "guc": "ZAYIF"
       },
       {
-        "sinav": "SMMM",
-        "konu": "ticari borc odeme suresi",
-        "donem": 8,
-        "cikmis": 8,
-        "arsiv_ders": "Finansal Tablolar ve Analizi",
-        "dayanak": "Bankacılık K. (5411 s.K.)",
-        "guc": "ZAYIF"
-      },
-      {
-        "sinav": "SMMM",
-        "konu": "kaldirac orani",
-        "donem": 8,
-        "cikmis": 8,
-        "arsiv_ders": "Finansal Tablolar ve Analizi",
-        "dayanak": "Teori Notu - finansal analiz oranlari",
-        "guc": "TEYITLI"
-      },
-      {
-        "sinav": "KGK",
-        "konu": "ic kontrol bilesenleri",
-        "donem": 8,
-        "cikmis": 8,
-        "arsiv_ders": "Denetim",
-        "dayanak": "BDS 315",
-        "guc": "ZAYIF"
-      },
-      {
         "sinav": "KGK",
         "konu": "bilesik faiz hesabi",
         "donem": 7,
@@ -1778,28 +1778,28 @@
       },
       {
         "sinav": "KGK",
-        "konu": "sistematik olmayan risk",
+        "konu": "tahvil özellikleri",
         "donem": 7,
         "cikmis": 7,
-        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-        "dayanak": "TFRS 17",
+        "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+        "dayanak": "SPK Karari",
         "guc": "ZAYIF"
       },
       {
-        "sinav": "KGK",
-        "konu": "ticari isletme unsurlari",
+        "sinav": "SMMM",
+        "konu": "gider yansitma kaydi",
         "donem": 7,
         "cikmis": 7,
-        "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-        "dayanak": "",
-        "guc": "OLCULMEDI"
+        "arsiv_ders": "Finansal Muhasebe",
+        "dayanak": "THP 798",
+        "guc": "TEYITLI"
       },
       {
-        "sinav": "SGS",
-        "konu": "cumle tamamlama-kosul",
+        "sinav": "SMMM",
+        "konu": "personel ucret tahakkuku",
         "donem": 7,
         "cikmis": 7,
-        "arsiv_ders": "Yabanci Dil",
+        "arsiv_ders": "Finansal Muhasebe",
         "dayanak": "",
         "guc": "OLCULMEDI"
       }
@@ -1881,6 +1881,6 @@
         "karar": "FABRIKA GIRMEZ (elle yazilir)"
       }
     ],
-    "bekleyen_parti": 705
+    "bekleyen_parti": 4719
   }
 }
