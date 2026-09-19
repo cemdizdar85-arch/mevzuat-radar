@@ -457,6 +457,21 @@ try{
   }
   if($kapiTop.Count){ "KAPI SAYIM (plan toplamı): " + ((@($kapiTop.Keys) | Sort-Object | ForEach-Object { "$_=$($kapiTop[$_])" }) -join ' ') }
 }catch{ "KAPI SAYIM toplanamadı: $($_.Exception.Message)" }
+# ⛔⭐ 19.09.2026 HASAT SAYIMI — BULUT KÖRLÜĞÜNÜ KAPATIR (bedel 0, yalnız RAKAM basar).
+#   Ölçüldü: id'yle hasat yerelde çalıştı (bir partide 14 → 22 soru) ama bulut provası 0,36 USD harcayıp
+#   hiçbir şey yapmadı. SEBEBİ GÖRÜLEMEDİ, çünkü parti günlükleri runner'da kalıyor (artifact yasak) ve
+#   koşucunun özetinde hasat satırı yoktu. Artık plan toplamı stdout'a düşer: bulut günlüğünden okunur.
+#   Soru metni/şık/cevap BASILMAZ - yalnız sayı (bulut güvenliği kuralı 2).
+try{
+  $hasatTop=0; $idyleTop=0; $doluTop=0; $bayatTop=0
+  foreach($lg in @(Get-ChildItem $logDir -Filter '*.log' -ErrorAction SilentlyContinue)){
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'ID.YLE HASAT \w+ : (\d+) boş slota' -ErrorAction SilentlyContinue)){ $idyleTop+=[int]$hs.Matches[0].Groups[1].Value }
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'dolu slot KORUNDU' -ErrorAction SilentlyContinue)){ if($hs.Line -match '· (\d+) dolu slot KORUNDU'){ $doluTop+=[int]$Matches[1] } }
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'önceki partiden (\d+) cevap BEDAVA hasat' -ErrorAction SilentlyContinue)){ $hasatTop+=[int]$hs.Matches[0].Groups[1].Value }
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern ': (\d+) bayat cevap ATLANDI' -ErrorAction SilentlyContinue)){ $bayatTop+=[int]$hs.Matches[0].Groups[1].Value }
+  }
+  "HASAT SAYIM (plan toplamı): bedava=$hasatTop idyle=$idyleTop dolu-korundu=$doluTop bayat-atlandi=$bayatTop"
+}catch{ "HASAT SAYIM toplanamadı: $($_.Exception.Message)" }
 # seçim (8.1 yayın şartı)
 . (Join-Path $Kok 'arac\smmm-yayin-sarti.ps1'); $smmmOnay=SmmmOnayHarita $Kok   # 14.09 bitirme kör istisnası (yalnız smmm-* etiketinde kullanılır)
 $secim=@()
