@@ -98,6 +98,16 @@ on:
         required: false
         default: "0"
         type: string
+      # 19.09: normal hasat PARMAK IZI ile baglanir; istem o gunden beri degistiyse (hakem paketi her kosuda
+      #   sifirdan kurulur, ambar tazelendi) baglanma olmaz ve odenmis taslak alinamaz. Olculdu: bitirmede 433
+      #   FAZ A + 29 AR taslagi onbellege HIC girmemis, ~07.10'da Anthropic siliyor.
+      #   Bu girdi parmak izi karsilastirmasini YALNIZ soru yazimi fazlarinda (A/AR) ve YALNIZ yalniz_hasat=1
+      #   acikken devre disi birakir; hakem/kor fazlarinda asla (bayat cevap = yanlis karar).
+      hasat_idyle:
+        description: "1 = ID'YLE HASAT: parmak izi tutmasa da odenmis FAZ A/AR taslagi kimlikle alinir. YALNIZ yalniz_hasat=1 ile calisir. Taslak ESKI kaynak paketiyle yazildi - ret orani artabilir."
+        required: false
+        default: "0"
+        type: string
       butce_baslangic:
         description: "Bos birak (zincir kendisi doldurur): butce bu andan (UTC 'yyyy-MM-dd HH:mm') sonraki harcamayi sayar."
         required: false
@@ -253,6 +263,7 @@ jobs:
           MEVZUAT_TOPLU_ANLIKSIZ: "1"
           MEVZUAT_SAYI_SIRA: ${{ inputs.sayi_sira }}   # 18.09 kural 2b (92 olcumu; varsayilan 0)
           MEVZUAT_PAKET_ILGI: ${{ inputs.paket_ilgi }}   # 18.09 KAPI-Pİ (varsayilan 0 = kapali)
+          MEVZUAT_HASAT_IDYLE: ${{ inputs.hasat_idyle }}    # 19.09: parmak izi tutmayan odenmis FAZ A/AR taslagini kimlikle al (yalniz_hasat sart)
           MEVZUAT_YALNIZ_HASAT: ${{ inputs.yalniz_hasat }}   # 19.09 odenmis partileri bedava topla, yeni istek gonderme
           MEVZUAT_BUTCE_USD: ${{ inputs.butce_usd }}   # 17.09 butce kapisi (motor/kalip-kosucu.ps1 PlanHarcama); MEVZUAT_BUTCE_BASLANGIC ilk adimda GITHUB_ENV'e yazilir
           GH_TOKEN: ${{ github.token }}

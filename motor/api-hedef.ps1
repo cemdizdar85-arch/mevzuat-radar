@@ -565,7 +565,20 @@ function Invoke-ClaudeToplu {
         # (parmak izleri 30/30 aynıydı). Yalnız gerçekten hasat edilmiş parti atlanır.
         if("$($ep.durum)" -match '^hasat edildi'){ continue }
         $pmE = $(if($ep.PSObject.Properties['parmak']){ $ep.parmak } else { $null }); if(-not $pmE){ continue }
-        $uyan = @(foreach($r in $req){ $cid = "$($r.custom_id)"; if(-not $baglanan.ContainsKey($cid) -and $pmE.PSObject.Properties[$cid] -and "$($pmE.$cid)" -eq "$($parmakHep[$cid])"){ $cid } })
+        # ⛔⭐ 19.09.2026 ID'YLE HASAT (MEVZUAT_HASAT_IDYLE=1) — parmak izi tutmasa da kimlikle bağlan.
+        #   NİYE: 16.09 gecesi ödenmiş 433 FAZ A taslağı (95 parti) önbelleğe hiç girmedi; istem o günden beri
+        #   değiştiği için (hakem paketi her koşuda sıfırdan kurulur, ambar tazelendi) parmak izi tutmuyor ve
+        #   normal hasat bağlanamıyor. Anthropic partiyi 29 gün sonra siliyor → ~07.10'da bu para yanar.
+        #   ⚠ ÜÇ KİLİT BİRDEN ARANIR, yoksa kip AÇILMAZ:
+        #     1. MEVZUAT_HASAT_IDYLE=1  (bilerek istenmiş olmalı)
+        #     2. MEVZUAT_YALNIZ_HASAT=1 (ücretli çağrı zaten kapalı; kip tek başına para harcatamaz)
+        #     3. faz A ya da AR        (soru YAZIMI). Hakem/kör/hakem2'de bayat cevap almak YANLIŞ KARAR
+        #        demektir: o fazların isteği sorunun kendisini taşır, soru değiştiyse cevap o soruya ait değildir.
+        #        Ölçüldü (19.09): eksik cevap zaten yalnız A (433) ve AR (29) fazlarında; K/H2/O/T/Y'de sıfır.
+        #   EŞDEĞERLİK: üç kilidin biri bile yoksa satır eskisiyle birebir aynı çalışır.
+        $idyleHasat = ("$(Read-ApiEnv 'MEVZUAT_HASAT_IDYLE')" -eq '1' -and "$(Read-ApiEnv 'MEVZUAT_YALNIZ_HASAT')" -eq '1' -and "$Etiket" -cmatch '/(A|AR)$')
+        $uyan = @(foreach($r in $req){ $cid = "$($r.custom_id)"; if(-not $baglanan.ContainsKey($cid) -and $pmE.PSObject.Properties[$cid] -and ($idyleHasat -or "$($pmE.$cid)" -eq "$($parmakHep[$cid])")){ $cid } })
+        if($idyleHasat -and $uyan.Count){ Write-Host ("  ID'YLE HASAT: {0} istek parmak izine BAKILMADAN eski partiden alınacak (faz {1}) - taslak ESKİ kaynak paketiyle yazıldı, hakem yeni paketle bakacak" -f $uyan.Count,$Etiket) -ForegroundColor Yellow }
         if(-not $uyan.Count){ continue }
         $stE = Invoke-RestMethod -Uri ($hedef.taban + "/v1/messages/batches/$($ep.id)") -Headers $hedef.basliklar -TimeoutSec 60
         # 17.09 ÖLÇÜLDÜ (smmm-ilgi-hakemi-tur3 halka 3): önceki halkanın partisi BİTMİŞTİ (79/79 başarılı) ama bu işlev yalnız in_progress partiye
