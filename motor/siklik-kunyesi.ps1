@@ -158,6 +158,54 @@ if($Sinav -eq 'KGK'){
   Write-Host ("KGK delil gecisi: ayirt edici kelime {0} · delille cozulen konu {1} · celiskili {2} · delilsiz {3}" -f $ayirtEdici.Count, $kgkDelil.Count, $delilCelisen, ($acikKayit.Count - $kgkDelil.Count - $delilCelisen))
 }
 
+# ---- KGK 3. GECIS: KITAPCIK DELILI (19.09, Cem "2 ve 3 yap") -------------------
+# Olculdu: birlesik modulde sorular DERS DERS BLOK halinde diziliyor
+#   (ornek 29.06.2019 SPK modulu: SSSSSSSSSSSSSS?BBB?BBB?B?BBB?BGGGGGGGGGG).
+# Bu yuzden cozulemeyen sorunun dersi, AYNI KITAPCIKTA kendisinden once ve sonra
+# gelen cozulmus sorularin dersinden okunur. Kural KATI: iki yan da cozulmus ve
+# AYNI dersi gosteriyorsa atanir; kenardaysa yalniz 3 soru mesafesindeki tek yan
+# kabul edilir. Yanlar celisiyorsa (blok siniri) konu ACIK kalir.
+# Ayni konu iki kitapcikta farkli ders gosterirse o konu da ACIK birakilir.
+$kgkKitapcik = @{}
+if($Sinav -eq 'KGK'){
+  $etiketKlasoru = Join-Path $kok 'veri\kgk-arsiv\etiket'
+  if(Test-Path $etiketKlasoru){
+    $konuOy = @{}
+    foreach($ed in (Get-ChildItem $etiketKlasoru -Filter '*.json')){
+      $kitap = Get-Content $ed.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+      $modulGrup = @{}
+      foreach($sr in @($kitap.sorular)){ $mn = Norm "$($sr.modul)"; if($kgkBirlesik.ContainsKey($mn)){ if(-not $modulGrup.ContainsKey($mn)){ $modulGrup[$mn] = New-Object System.Collections.Generic.List[object] }; $modulGrup[$mn].Add($sr) } }
+      foreach($mg in $modulGrup.GetEnumerator()){
+        $sira = @($mg.Value | Sort-Object { [int]$_.no })
+        $ders = @()
+        foreach($sr in $sira){
+          $hd = KgkDers "$($sr.modul)" "$($sr.konu)"
+          if($hd -like 'BIRLESIK-*' -and $kgkDelil.ContainsKey("$($sr.modul)|$($sr.konu)")){ $hd = $kgkDelil["$($sr.modul)|$($sr.konu)"] }
+          $ders += $(if($hd -like 'BIRLESIK-*' -or $hd -like 'ESLENMEDI-*'){ $null } else { $hd })
+        }
+        for($i = 0; $i -lt $sira.Count; $i++){
+          if($ders[$i]){ continue }
+          $sol = $null; $solUz = 0
+          for($a = $i-1; $a -ge 0; $a--){ if($ders[$a]){ $sol = $ders[$a]; $solUz = $i - $a; break } }
+          $sag = $null; $sagUz = 0
+          for($a = $i+1; $a -lt $sira.Count; $a++){ if($ders[$a]){ $sag = $ders[$a]; $sagUz = $a - $i; break } }
+          $karar = $null
+          if($sol -and $sag){ if($sol -eq $sag){ $karar = $sol } }
+          elseif($sol -and $solUz -le 3){ $karar = $sol }
+          elseif($sag -and $sagUz -le 3){ $karar = $sag }
+          if(-not $karar){ continue }
+          $konuAnah = "$($sira[$i].modul)|$($sira[$i].konu)"
+          if(-not $konuOy.ContainsKey($konuAnah)){ $konuOy[$konuAnah] = New-Object System.Collections.Generic.HashSet[string] }
+          [void]$konuOy[$konuAnah].Add($karar)
+        }
+      }
+    }
+    $kitapCelisen = 0
+    foreach($ko in $konuOy.GetEnumerator()){ if($ko.Value.Count -eq 1){ $kgkKitapcik[$ko.Key] = @($ko.Value)[0] } else { $kitapCelisen++ } }
+    Write-Host ("KGK kitapcik delili: cozulen konu {0} · kitapciklar arasi celisen {1}" -f $kgkKitapcik.Count, $kitapCelisen)
+  } else { Write-Host 'KGK kitapcik delili: veri/kgk-arsiv/etiket yok - atlandi' }
+}
+
 $konu = @{}
 foreach($d in $donemler){
   $gorulen = @{}
@@ -168,9 +216,10 @@ foreach($d in $donemler){
       if($parca.Count -eq 2){
         $hedefDers = KgkDers $parca[0] $parca[1]
         if($hedefDers -like 'BIRLESIK-*' -and $kgkDelil.ContainsKey("$($parca[0])|$($parca[1])")){ $hedefDers = $kgkDelil["$($parca[0])|$($parca[1])"] + ' (delil)' }
+        elseif($hedefDers -like 'BIRLESIK-*' -and $kgkKitapcik.ContainsKey("$($parca[0])|$($parca[1])")){ $hedefDers = $kgkKitapcik["$($parca[0])|$($parca[1])"] + ' (kitapcik)' }
         $izAnah = "$(Norm $parca[0]) -> $hedefDers"
         $kgkSayac[$izAnah] = 1 + [int]$kgkSayac[$izAnah]
-        $ham = "$($hedefDers -replace ' \(delil\)$','')|$($parca[1])"
+        $ham = "$($hedefDers -replace ' \((delil|kitapcik)\)$','')|$($parca[1])"
       }
     }
     $anah = Norm $ham
