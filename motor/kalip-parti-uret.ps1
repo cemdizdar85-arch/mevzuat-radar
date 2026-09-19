@@ -2627,6 +2627,22 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    olan 100.000 TL'lik temmuz ayi kira tutarini %20 gelir vergisi kesintisi (stopaj)
    yaptiktan sonra banka araciligiyla odemistir. Soz konusu isleme iliskin muhasebe kaydi
    asagidakilerden hangisidir?" - ZORLUK AYRIMDA olur, kelime sayisinda DEGIL.
+9b. SON KONTROL - MEKANIK KAPILAR (20.09.2026). Asagidaki dort kusur, soru yazildiktan
+   sonra KOD tarafindan olculur; takilan soru reddedilip PARA ODENEREK yeniden yazilir.
+   Ikisi de senin tek basina onleyebilecegin seyler - JSON'u vermeden once kendin bak:
+   (a) TUTARLAR: govdede dort ya da daha cok tutar varsa HEPSI onbinlik yuvarlak OLAMAZ
+       (100.000 + 250.000 + 80.000 + 30.000 gibi bir dizi kapiya takilir). Gercek sinav
+       tutarlari karisiktir: 12.500 · 47.350 · 183.600 gibi degerler kullan, hesap yine
+       tam ciksin. Tutarlarin en az biri yuvarlak olmayan bir sayi olsun.
+   (b) YER TUTUCU AD YOK: "ABC A.S.", "XYZ Ltd.", "X Isletmesi" YASAK; "Isletme" yaz.
+   (c) YAZIM: uzun tire (—) ve uc nokta (…) KULLANMA; klise baglayici yazma
+       ("bu baglamda", "onem arz etmektedir", "unutulmamalidir ki", "dikkat edilmesi
+       gereken", "soz konusu oldugunda").
+   (d) SAYI SIKLI SORUDA CELDIRICI YOLU ZORUNLU: dogru sik disindaki HER SAYISAL sik icin
+       celdirici_yol alanina o sikkin tutarini VEREN hesabi yaz - yalniz rakam ve islec
+       ("120000*0.20", "45000/12*3"), kelime yazma. Formulun sonucu sikkin tutarina
+       esit olmali; tutmayan sik kapiya takilir. Bir sik "yanlis yolu olmayan" bir sayi
+       olamaz - her celdirici, ogrencinin yapabilecegi SOMUT bir hatanin sonucudur.
 <<<DEGISKEN>>>
 10. SORU TIPI (02.09 - gercek sinavin tip dagilimindan gelen kota): {TIP_TARIF}
 11. SINAV DILI (03.09 - 1.042 cikmis kitapcik olculdu, veri: SINAV-DILI-SOZLUGU):
