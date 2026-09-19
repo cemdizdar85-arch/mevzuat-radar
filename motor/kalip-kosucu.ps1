@@ -463,14 +463,20 @@ try{
 #   koşucunun özetinde hasat satırı yoktu. Artık plan toplamı stdout'a düşer: bulut günlüğünden okunur.
 #   Soru metni/şık/cevap BASILMAZ - yalnız sayı (bulut güvenliği kuralı 2).
 try{
-  $hasatTop=0; $idyleTop=0; $doluTop=0; $bayatTop=0
+  $hasatTop=0; $idyleTop=0; $doluTop=0; $bayatTop=0; $hataTop=0; $hataOrnek=New-Object System.Collections.Generic.List[string]
   foreach($lg in @(Get-ChildItem $logDir -Filter '*.log' -ErrorAction SilentlyContinue)){
-    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'ID.YLE HASAT \w+ : (\d+) boş slota' -ErrorAction SilentlyContinue)){ $idyleTop+=[int]$hs.Matches[0].Groups[1].Value }
-    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'dolu slot KORUNDU' -ErrorAction SilentlyContinue)){ if($hs.Line -match '· (\d+) dolu slot KORUNDU'){ $doluTop+=[int]$Matches[1] } }
-    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'önceki partiden (\d+) cevap BEDAVA hasat' -ErrorAction SilentlyContinue)){ $hasatTop+=[int]$hs.Matches[0].Groups[1].Value }
-    foreach($hs in @(Select-String -Path $lg.FullName -Pattern ': (\d+) bayat cevap ATLANDI' -ErrorAction SilentlyContinue)){ $bayatTop+=[int]$hs.Matches[0].Groups[1].Value }
+    # ⛔ DESENLER ASCII OLMALI: alt surecin gunlugu OEM kod sayfasiyla yazilabiliyor, Turkce harf bozuluyor
+    #   ('bos slota' -> 'bo? slota'). Turkce harfli desen sessizce HIC tutmaz, sayim 0 gorunur (19.09 dersi).
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'HASAT \w+ : (\d+) ' -ErrorAction SilentlyContinue)){ $idyleTop+=[int]$hs.Matches[0].Groups[1].Value }
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern '(\d+) dolu slot KORUNDU' -ErrorAction SilentlyContinue)){ $doluTop+=[int]$hs.Matches[0].Groups[1].Value }
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'partiden (\d+) cevap BEDAVA hasat' -ErrorAction SilentlyContinue)){ $hasatTop+=[int]$hs.Matches[0].Groups[1].Value }
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern '(\d+) bayat cevap ATLANDI' -ErrorAction SilentlyContinue)){ $bayatTop+=[int]$hs.Matches[0].Groups[1].Value }
+    # ⛔ YUTULAN HATA: "TOPLU <faz> : eski parti hasadi atlandi (<sebep>)" - bulutta hasat hic olmuyorsa sebep BURADA yaziyor
+    #   ve bugune kadar kimse gormuyordu (catch bloğu sessizdi, parti gunlugu de yuklenmiyor).
+    foreach($hs in @(Select-String -Path $lg.FullName -Pattern 'eski parti hasad' -ErrorAction SilentlyContinue)){ $hataTop++; if($hataOrnek.Count -lt 3){ [void]$hataOrnek.Add(($hs.Line.Trim() -replace '\s+',' ')) } }
   }
-  "HASAT SAYIM (plan toplamı): bedava=$hasatTop idyle=$idyleTop dolu-korundu=$doluTop bayat-atlandi=$bayatTop"
+  "HASAT SAYIM (plan toplamı): bedava=$hasatTop idyle=$idyleTop dolu-korundu=$doluTop bayat-atlandi=$bayatTop hata=$hataTop"
+  foreach($ho in $hataOrnek){ "   hasat hatasi: $ho" }
 }catch{ "HASAT SAYIM toplanamadı: $($_.Exception.Message)" }
 # seçim (8.1 yayın şartı)
 . (Join-Path $Kok 'arac\smmm-yayin-sarti.ps1'); $smmmOnay=SmmmOnayHarita $Kok   # 14.09 bitirme kör istisnası (yalnız smmm-* etiketinde kullanılır)
