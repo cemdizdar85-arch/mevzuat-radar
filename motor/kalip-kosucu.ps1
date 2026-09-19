@@ -129,10 +129,24 @@ function PlanHarcama{
   #   (aynı partiler geçmişte koşmuşsa eski harcama yeni ölçümün bütçesini yemez). Yoksa eski davranış: bütün satırlar.
   $basAn="$env:MEVZUAT_BUTCE_BASLANGIC".Trim()
   $top=0.0
+  # ⛔⭐ 19.09.2026 MÜKERRER SATIR TEKİLLEŞTİRMESİ — ölçüldü: eylül defteri 22.644 satır / 26.111,82 USD,
+  #   tekil (zaman+etiket+tutar) 3.399 satır / 2.833,84 USD → defter 9,2 KAT şişmiş. Kök neden KANITLANAMADI (saat dilimi ve sayfalama hipotezleri yeniden üretilemedi); savunma: yükleme
+  #   karşılaştırması saat dilimi yüzünden tutmuyordu, aynı satır ambara 31 kez yazıldı (arac/bedel-senkron.ps1).
+  #   ŞİŞME BÜTÇE KAPISINI DE VURUYOR: aynı harcama 9 kez sayılınca koşu bütçesi dolmadan durur (17.09'da
+  #   A/B'nin B kolu FAZ B'ye gelmeden kesildi). Aynı dakikada aynı etikete aynı tutarın iki kez yazılması
+  #   zaten imkânsız (arac/bedel-senkron.ps1 tekillik kuralı) → birebir aynı üçlü BİR KEZ sayılır.
+  $gorulen=@{}
   foreach($sat0 in [IO.File]::ReadLines($yolD,[Text.Encoding]::UTF8)){
     $mE=[regex]::Match($sat0,'"etiket"\s*:\s*"([^"/]*)'); if(-not $mE.Success -or -not $etiketKume.ContainsKey($mE.Groups[1].Value)){ continue }
-    if($basAn){ $mZ=[regex]::Match($sat0,'"zaman"\s*:\s*"([^"]*)"'); if(-not $mZ.Success -or [string]::CompareOrdinal($mZ.Groups[1].Value,$basAn) -lt 0){ continue } }
-    $mU=[regex]::Match($sat0,'"toplamUsd"\s*:\s*(-?[\d.]+(?:[eE][-+]?\d+)?)'); if($mU.Success){ $top+=[double]::Parse($mU.Groups[1].Value,[Globalization.CultureInfo]::InvariantCulture) }
+    $mZ0=[regex]::Match($sat0,'"zaman"\s*:\s*"([^"]*)"')
+    if($basAn){ if(-not $mZ0.Success -or [string]::CompareOrdinal($mZ0.Groups[1].Value,$basAn) -lt 0){ continue } }
+    $mU=[regex]::Match($sat0,'"toplamUsd"\s*:\s*(-?[\d.]+(?:[eE][-+]?\d+)?)'); if(-not $mU.Success){ continue }
+    # ⚠ anahtar TAM etiketle kurulur ("<etiket>/A" ile "<etiket>/B" ayrı satırdır); $mE yalnız plan eşleşmesi için kırpılmış hâli
+    $mEt=[regex]::Match($sat0,'"etiket"\s*:\s*"([^"]*)"')
+    $anh=($mZ0.Groups[1].Value+'|'+$(if($mEt.Success){$mEt.Groups[1].Value}else{$mE.Groups[1].Value})+'|'+$mU.Groups[1].Value)
+    if($gorulen.ContainsKey($anh)){ continue }
+    $gorulen[$anh]=1
+    $top+=[double]::Parse($mU.Groups[1].Value,[Globalization.CultureInfo]::InvariantCulture)
   }
   return $top
 }
@@ -143,7 +157,16 @@ function AyHarcama{ $y=Join-Path $Kok 'veri\fabrika\bedel-kayit.jsonl'; $ay=(Get
   $t=0.0; $esik=''; $kj=Join-Path $Kok 'veri\fabrika\bedel-konsol.json'
   if(Test-Path $kj){ try{ $ko=ConvertFrom-Json -InputObject (Get-Content $kj -Raw -Encoding UTF8); if("$($ko.zaman)" -like "$ay*"){ $t=[double]$ko.harcama; $esik="$($ko.zaman)" } }catch{} }
   if(-not (Test-Path $y)){ return $t }
-  foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }; try{ $o=ConvertFrom-Json -InputObject $sat; $z="$($o.zaman)"; if($z -like "$ay*" -and (-not $esik -or $z -gt $esik)){ $t+=[double]$o.toplamUsd } }catch{} }; return $t }
+  # 19.09: PlanHarcama ile AYNI tekilleştirme (defter 9,2 kat şişmişti; bkz. yukarıdaki not).
+  $gorulenAy=@{}
+  foreach($sat in (Get-Content $y -Encoding UTF8)){ if(-not $sat.Trim()){ continue }
+    try{ $o=ConvertFrom-Json -InputObject $sat }catch{ continue }
+    $z="$($o.zaman)"; if($z -notlike "$ay*"){ continue }
+    if($esik -and -not ($z -gt $esik)){ continue }
+    $anhAy=($z+'|'+"$($o.etiket)"+'|'+([double]$o.toplamUsd).ToString('F6',[Globalization.CultureInfo]::InvariantCulture))
+    if($gorulenAy.ContainsKey($anhAy)){ continue }
+    $gorulenAy[$anhAy]=1; $t+=[double]$o.toplamUsd }
+  return $t }
 # --- PARALELLIK RAM KAPISI (12.09.2026) --------------------------------------
 # Tavan 8'den 40'a cikarildi (bulut runner'i 16 GB, uzerinde baska is yok).
 # Ama makine makineye degisir: Cem'in dizustunde 8 paralelde 543 MB kalmisti.

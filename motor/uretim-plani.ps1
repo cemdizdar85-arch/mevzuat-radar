@@ -148,9 +148,16 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
 # --- 4) GERCEK BIRIM MALIYET -------------------------------------------------
 $bedelDosya=Join-Path $depoKok 'veri\fabrika\bedel-kayit.jsonl'
 $usdEt=@{}
+# 19.09: defterde BIREBIR AYNI satirin kopyalari olabiliyordu (olculdu: eylulde 22.644 satirin 19.245'i
+#   mukerrer, 9,2 kat sisme; kok neden arac/bedel-senkron.ps1 saat dilimi karsilastirmasi, orada onarildi).
+#   Birim maliyet mukerrer satirla hesaplanirsa soru basi bedel oldugundan pahali gorunur.
+$gorulenB=@{}
 foreach($ln in (Get-Content $bedelDosya -Encoding UTF8)){
   if(-not $ln.Trim()){ continue }
   $r=$null; try{ $r=$ln|ConvertFrom-Json }catch{ continue }
+  $anhB="$($r.zaman)|$($r.etiket)|" + ([double]$r.toplamUsd).ToString('F6',[Globalization.CultureInfo]::InvariantCulture)
+  if($gorulenB.ContainsKey($anhB)){ continue }
+  $gorulenB[$anhB]=1
   $usdEt["$($r.etiket)"]=[double]$r.toplamUsd + [double]$usdEt["$($r.etiket)"]
 }
 $defUsd=0; $defUret=0; $defGecen=0

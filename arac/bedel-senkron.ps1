@@ -65,7 +65,9 @@ function AmbarSatirlar([string]$ay){
   $l=New-Object System.Collections.Generic.List[object]
   $off=0
   while($true){
-    $u=$TABAN+'/bedel_kaydi?select=zaman,etiket,ders,toplam_usd&ay=eq.'+[uri]::EscapeDataString($ay)+'&order=zaman.asc&limit=1000&offset='+$off
+    # 19.09: sira KARARLI olmali - 'zaman.asc' tek basina esit zamanlarda rastgele sirayla doner,
+    #   es zamanli ekleme varken offset sayfalamasi kayit kacirabilir/tekrarlayabilir (mukerrer satir savunmasi 3).
+    $u=$TABAN+'/bedel_kaydi?select=zaman,etiket,ders,toplam_usd&ay=eq.'+[uri]::EscapeDataString($ay)+'&order=zaman.asc,id.asc&limit=1000&offset='+$off
     $r=$null
     try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 90 }
     catch{ throw ("ambar okunamadi: " + $_.Exception.Message + " — rag-motor/sql/011_kalip_parti.sql BASILDI MI?") }
@@ -76,9 +78,42 @@ function AmbarSatirlar([string]$ay){
   return $l
 }
 # Tekillik anahtari: dakika + etiket + tutar (yerel defter dakika hassasiyetinde yaziyor)
+# ⛔⭐ 19.09.2026 SAAT DILIMI ONARIMI — MUKERRER SATIR FABRIKASI BURADAYDI.
+#   OLCULDU: eylul defteri 22.644 satir / 26.111,82 USD; tekil (zaman+etiket+tutar) 3.399 satir /
+#   2.833,84 USD -> 9,2 KAT sisme. Ambarda ayni satirin 31 kopyasi vardi (hepsi yazan='yerel-GK').
+#   ⚠ KOK NEDEN OLCULDU AMA KANITLANAMADI — iki hipotez bugunku veriyle YENIDEN URETILEMEDI:
+#     (a) saat dilimi: eski anahtar ile yeni anahtar bugun AYNI sonucu veriyor (ikisi de 796 satir),
+#         yani [datetime] belirsizligi bu makinede farka yol acmiyor.
+#     (b) sayfalama: 'zaman.asc' ile iki kez cekildi -> 21.878 / 21.878 satir, kacan ya da
+#         tekrarlanan kayit YOK.
+#   Geriye kalan en olasi aciklama: es zamanli yukleme + offset sayfalama (12-13.09'da paralel bulut
+#   kosulari vardi; kayit eklenirken offset kayar). KANITLANMADI, iddia da EDILMIYOR.
+#   SISME YALNIZ RAPOR DEGIL FREN SORUNU: butce kapisi ayni harcamayi 9 kez sayinca kosu, parasi
+#   bitmeden durur (17.09 A/B'sinde B kolu FAZ B'ye gelmeden kesildi).
+#   UC KATMAN SAVUNMA (hepsi bedel 0, dogru davranisi degistirmez):
+#     1. anahtar belirsizligi kapandi: offsetli zaman DAIMA [datetimeoffset] ile yerel saate cevrilir,
+#        tutar F6 sabit bicimde yazilir (0,13 ile 0,130000 ayni satirdir).
+#     2. IC TEKILLESTIRME: ayni anahtardan birden cok satir varsa yalniz biri islenir (asagida).
+#     3. sayfalama KARARLI siraya alindi (zaman.asc,id.asc) - es zamanli ekleme sirasinda kaymaz.
+#   Okuma tarafi da tekillestirildi: motor/kalip-kosucu.ps1 (PlanHarcama/AyHarcama),
+#   motor/uretim-plani.ps1, arac/sgs-a6-kos.ps1. Sismis dosya temizligi: arac/bedel-defter-tekille.ps1.
 function Anahtar($zaman,$etiket,$tutar){
-  $z=''; try{ $z=([datetime]$zaman).ToString('yyyy-MM-dd HH:mm') }catch{ $z="$zaman" }
-  return ($z + '|' + "$etiket" + '|' + ([double]$tutar).ToString('F4',[cultureinfo]::InvariantCulture))
+  $z=''; $m="$zaman".Trim()
+  if($m -match '(Z|[+-]\d{2}:?\d{2})$'){
+    $dto=[DateTimeOffset]::MinValue
+    if([DateTimeOffset]::TryParse($m,[ref]$dto)){ $z=$dto.LocalDateTime.ToString('yyyy-MM-dd HH:mm') }
+  }
+  if(-not $z){ try{ $z=([datetime]$m).ToString('yyyy-MM-dd HH:mm') }catch{ $z=$m } }
+  return ($z + '|' + "$etiket" + '|' + ([double]$tutar).ToString('F6',[cultureinfo]::InvariantCulture))
+}
+# 19.09: ayni anahtardan BIRDEN COK satir varsa yalniz BIRI islenir - yoksa 5 mukerrer yerel satir
+# ambara 5 yeni satir olarak gider (sismenin ikinci kanali).
+function AnahtaraGoreTekil($liste,[scriptblock]$anahtarUret){
+  $gor=@{}; $cik=New-Object System.Collections.Generic.List[object]
+  foreach($x in $liste){ $a=& $anahtarUret $x; if($gor.ContainsKey($a)){ continue }; $gor[$a]=1; $cik.Add($x) }
+  # ⛔ PS 5.1: List dondurulurse boru onu TEK TEK acar (tek oge kalinca dizi bile olmaz) ve @(...).ToArray() patlar.
+  #   Virgullu donus + [object[]] KESIN dizi verir (11.09 K3 tuzaginin kardesi).
+  return ,([object[]]$cik.ToArray())
 }
 
 # ---------------------------------------------------------------------------
@@ -117,7 +152,9 @@ if(-not ($Yukle -or $Indir)){ throw 'Yon belirt: -Yukle · -Indir · -Ozet' }
 $ambarAnahtar=@{}; foreach($x in $ambar){ $ambarAnahtar[(Anahtar $x.zaman $x.etiket $x.toplam_usd)]=$true }
 
 if($Yukle){
-  $gonder=@($yerelAy|Where-Object{ -not $ambarAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplamUsd)) })
+  $gonderHam=@($yerelAy|Where-Object{ -not $ambarAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplamUsd)) })
+  $gonder=@(AnahtaraGoreTekil $gonderHam { param($x) Anahtar $x.zaman $x.etiket $x.toplamUsd })
+  if($gonderHam.Count -ne $gonder.Count){ Write-Host ("  mukerrer yerel satir atlandi: {0:N0}" -f ($gonderHam.Count-$gonder.Count)) -ForegroundColor DarkYellow }
   Write-Host ("`nGONDERILECEK: {0:N0} satir" -f $gonder.Count) -ForegroundColor Green
   if(-not $Yaz){ Write-Host "KURU KOSU - ambara yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
   $n=0; $hata=0; $paket=New-Object System.Collections.Generic.List[object]
@@ -142,7 +179,10 @@ if($Yukle){
 
 # INDIR: ambar -> yerel (yalniz yerelde OLMAYAN)
 $yerelAnahtar=@{}; foreach($x in $yerelAy){ $yerelAnahtar[(Anahtar $x.zaman $x.etiket $x.toplamUsd)]=$true }
-$ek=@($ambar|Where-Object{ -not $yerelAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplam_usd)) })
+$ekHam=@($ambar|Where-Object{ -not $yerelAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplam_usd)) })
+# 19.09: ambarda ayni satirin kopyalari var (olculdu: 31 kopyaya kadar) - yerele BIR kez yazilir.
+$ek=@(AnahtaraGoreTekil $ekHam { param($x) Anahtar $x.zaman $x.etiket $x.toplam_usd })
+if($ekHam.Count -ne $ek.Count){ Write-Host ("  ambardaki mukerrer kopya atlandi: {0:N0}" -f ($ekHam.Count-$ek.Count)) -ForegroundColor DarkYellow }
 Write-Host ("`nYEREL DEFTERE EKLENECEK: {0:N0} satir" -f $ek.Count) -ForegroundColor Green
 if(-not $Yaz){ Write-Host "KURU KOSU - dosya yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
 $sb=New-Object System.Text.StringBuilder

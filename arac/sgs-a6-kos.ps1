@@ -28,8 +28,15 @@ $grupEtiketler = New-Object 'System.Collections.Generic.HashSet[string]'
 foreach ($p in ($tum | Where-Object { $gruplar -contains "$($_.dersAd)" })) { [void]$grupEtiketler.Add("$($_.etiket)") }
 function A6Bedel([switch]$Global) {
   $toplam = 0.0
+  # 19.09: defterde birebir ayni satirin kopyalari cikti (eylulde 19.245 mukerrer satir, 9,2 kat sisme;
+  #   kok neden arac/bedel-senkron.ps1 saat dilimi karsilastirmasiydi, onarildi). Butce tavani mukerrer
+  #   satir sayarsa kosu parasi bitmeden durur - ayni ucluyu (zaman+etiket+tutar) BIR kez say.
+  $gorulenA6 = @{}
   foreach ($r in (Get-Content (Join-Path $kok 'veri\fabrika\bedel-kayit.jsonl') -Encoding UTF8 -ErrorAction SilentlyContinue | ForEach-Object { try { $_ | ConvertFrom-Json }catch {} })) {
     $e = "$($r.etiket)"
+    $anhA6 = "$($r.zaman)|$e|" + ([double]$r.toplamUsd).ToString('F6', [Globalization.CultureInfo]::InvariantCulture)
+    if ($gorulenA6.ContainsKey($anhA6)) { continue }
+    $gorulenA6[$anhA6] = 1
     if ($Global) { if ($e -like 'sgs-a6*') { $toplam += [double]$r.toplamUsd } }
     elseif ($grupEtiketler.Contains($e)) { $toplam += [double]$r.toplamUsd }
   }
