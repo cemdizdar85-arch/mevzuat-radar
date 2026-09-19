@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260916153655
+Start time: 20260919051418
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e85f54b5-1588-4c7d-a4fa-6d92bf6879ea.ps1'
-Process ID: 2273
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e34d6165-2c9f-4297-bedb-7d6e605bf0d7.ps1'
+Process ID: 2030
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -21,20 +21,6 @@ Konu sayisi: 3264 (16 donem birlestirilmis)
   ...100/3264
   ...500/3264
   ...600/3264
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "57014",
-  "details": null,
-  "hint": null,
-  "message": "canceling statement due to statement timeout"
-}"
   ...700/3264
   ...800/3264
   ...900/3264
@@ -43,7 +29,6 @@ PS>TerminatingError(Invoke-WebRequest): "
   ...1200/3264
   ...1300/3264
   ...1400/3264
-PS>TerminatingError(Invoke-WebRequest): ""gateway error: Error: Network connection lost.""
   ...1800/3264
   ...1900/3264
   ...2000/3264
@@ -94,5 +79,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260916170651
+End time: 20260919064733
 **********************
