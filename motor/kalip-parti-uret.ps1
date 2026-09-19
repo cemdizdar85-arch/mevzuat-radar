@@ -1678,6 +1678,13 @@ elseif($Sinav -eq 'SMMM'){
 $don=[ordered]@{}
 if(Test-Path $CACHE){ foreach($p in (Get-Content $CACHE -Raw -Encoding UTF8|ConvertFrom-Json).PSObject.Properties){ $don[$p.Name]=$p.Value } }
 "cache: $($don.Count) hazir"
+# ⛔ 19.09 ID'YLE HASAT GUVENLIGI: dolu slot kumesi BURADA, onbellek yuklenirken alinir.
+#   Sebep (olculdu): hasat kodu TopluGonder icinde kosuyor ve oradaki $don BASKA bir sozluk
+#   (kosunun kendi ciktisi, Count=1). Onun uzerinden "slot dolu mu" sorusu HEP "bos" cevabi
+#   veriyordu; ilk sinavda 14 soruluk parti 3'e dustu. Kume artik golgelenemeyen bir adta.
+$script:IDYLE_DOLU_SLOT=@{}
+foreach($kSlot in @($don.Keys)){ if($don[$kSlot] -and $don[$kSlot].soru){ $script:IDYLE_DOLU_SLOT["$kSlot"]=1 } }
+"dolu slot (id'yle hasat korumasi): $($script:IDYLE_DOLU_SLOT.Count)"
 # 13.09 para birimi normalizasyonu: birim ₺ ise her soru önbelleğe yazılırken TL → ₺ (TL'de dokunmaz)
 function CacheYaz{ $dN=[ordered]@{}; foreach($x in ($don.Keys|Sort-Object)){ if($script:PARA_BIRIMI -eq '₺'){ [void](ParaBirimiOnar $don[$x] '₺') }; $dN[$x]=$don[$x] }; [IO.File]::WriteAllText($CACHE,(ConvertTo-Json -InputObject $dN -Depth 10),[Text.UTF8Encoding]::new($false)) }
 # --- TOPLU İSTEK ÖN GEÇİŞİ (08.09, Cem "daha ucuza nasıl?"): her faz -Toplu ile iki geçiş koşar. 1. geçiş (ON_GECIS) yalnız istemleri toplar,
@@ -1717,11 +1724,40 @@ function TopluGonder([string]$faz){
         if(-not $es){ continue }
         $pm=$(if($ep.PSObject.Properties['parmak']){ $ep.parmak } else { $null })
         $kalan=New-Object System.Collections.Generic.List[object]
+        # ⛔⭐ 19.09.2026 ID'YLE HASAT — ASIL KAPI BURASI (ölçüldü: yerelde tek parti, bedel 0).
+        #   Ödenmiş cevaplar Get-ClaudeTopluSonuc ile ZATEN İNİYOR; yalnız parmak izi tutmadığı için atılıyorlardı
+        #   ("30 bayat cevap ATLANDI"). 16.09 gecesinin 433 FAZ A taslağı bu yüzden alınamıyor; Anthropic partiyi
+        #   29 gün sonra siliyor (~07.10'da yanar).
+        #   ⚠ ÜÇ KİLİT BİRDEN — biri yoksa satır eskisiyle BİREBİR aynı çalışır:
+        #     1. MEVZUAT_HASAT_IDYLE=1
+        #     2. MEVZUAT_YALNIZ_HASAT=1 — ücretli çağrı kapalı; kip tek başına para harcatamaz
+        #     3. faz A ya da AR (soru YAZIMI). Hakem/kör/hakem2'de ASLA: o fazların isteği sorunun kendisini taşır,
+        #        soru değiştiyse bayat cevap YANLIŞ KARAR demektir — parmak izi 10.09'da tam bu yüzden kondu.
+        #   ⚠ DÜRÜST SINIR: böyle alınan taslak ESKİ kaynak paketiyle yazıldı, hakem YENİ paketle bakacak;
+        #     ret oranı bugünkünden yüksek çıkabilir. Önce küçük ölçüm koşulur (17.09 kuralı md. 1).
+        #   ⛔ SINANDI VE DARALTILDI (19.09, yerel tek parti): ilk sürüm faz AR'yi de alıyor ve DOLU slotun üstüne
+        #     yazıyordu. Sonuç ölçüldü: 14 soruluk parti 3 soruya düştü - eski taslaklar bugünkü soruların yerine
+        #     geçti, çoğu kapılardan dönünce slotlar boşaldı. (Ambar kopyası sağlamdı, kayıp yerelde kaldı.)
+        #     Artık iki ek kilit: yalnız FAZ A (AR bir yeniden yazımdır, bugünkü taslağın yerine eskisi konamaz) ve
+        #     yalnız BOŞ SLOT (o id'de zaten soru varsa dokunulmaz). Kip delik doldurur, üzerine yazmaz.
+        # ⛔ 19.09 KILIT DUZELTMESI (olculdu): ilk surum "yalniz MEVZUAT_YALNIZ_HASAT=1 iken calis" diyordu.
+        #   O kip ucretli cagriyi kestigi icin hasat edilen taslak hakeme gidemiyor ve ONBELLEGE HIC YAZILMIYOR
+        #   (sinandi: 17 taslak alindi, dosyaya 0 yeni soru girdi). Yani kilit, kipin tek ise yarar kullanimini
+        #   engelliyordu. Gercek guvenlik iki sarttadir ve ikisi de DURUYOR:
+        #     · yalniz FAZ A (soru yazimi) - hakem/kor/hakem2'de bayat cevap = yanlis karar
+        #     · yalniz BOS SLOT - dolu slotun ustune eski taslak yazilmaz (14 soruluk parti 3'e dusmustu)
+        #   Ucretli kullanim zaten butce kapisiyla sinirli; bu kip ek para harcatmaz, TERSINE FAZ A parasini kurtarir.
+        $idyleHasat = ("$($env:MEVZUAT_HASAT_IDYLE)" -eq '1' -and (@('A') -ccontains "$faz"))
+        $idyleSay=0; $idyleDolu=0
         foreach($is in $isler){ $iid="$($is.id)"
           $uyum=$false
           if($pm -and $pm.PSObject.Properties[$iid]){ $uyum = ("$($pm.$iid)" -eq ((Get-IcerikParmak $is.icerik) + $(if($script:PARMAK_TUZ){ "#$($script:PARMAK_TUZ)" } else { '' }))) }   # 16.09: onarım turu tuzu
+          $slotDolu = ($script:IDYLE_DOLU_SLOT -and $script:IDYLE_DOLU_SLOT.ContainsKey($iid))
+          if($idyleHasat -and -not $uyum -and -not $slotDolu -and $es.ContainsKey($iid) -and $es[$iid]){ $script:TOPLU_HAZIR[$faz][$iid]=$es[$iid]; $hasat++; $hasatId.Add($iid); $idyleSay++; continue }
+          if($idyleHasat -and -not $uyum -and $slotDolu){ $idyleDolu++ }
           if($es.ContainsKey($iid) -and $es[$iid] -and $uyum){ $script:TOPLU_HAZIR[$faz][$iid]=$es[$iid]; $hasat++; $hasatId.Add($iid) }
           else { if($es.ContainsKey($iid) -and $es[$iid] -and -not $uyum){ $atlanan.Add($iid) }; $kalan.Add($is) } }
+        if($idyleSay -or $idyleDolu){ Write-Host "  ID'YLE HASAT $faz : $idyleSay boş slota ödenmiş taslak kondu (parmak izine bakılmadan; eski kaynak paketi - hakem YENİ paketle bakacak) · $idyleDolu dolu slot KORUNDU" -ForegroundColor Yellow }
         $isler=@($kalan.ToArray()) }
       if($hasat){ Write-Host "  TOPLU $faz : önceki partiden $hasat cevap BEDAVA hasat edildi ($($hasatId -join ', ')), gönderilecek $($isler.Count)" -ForegroundColor Cyan }
       if($atlanan.Count){ Write-Host "  TOPLU $faz : $($atlanan.Count) bayat cevap ATLANDI, içerik değişmiş ya da parmak izi yok ($(@($atlanan | Select-Object -Unique) -join ', ')) - yeniden gönderilecek" -ForegroundColor Yellow } }

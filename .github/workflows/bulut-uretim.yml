@@ -104,7 +104,7 @@ on:
       #   Bu girdi parmak izi karsilastirmasini YALNIZ soru yazimi fazlarinda (A/AR) ve YALNIZ yalniz_hasat=1
       #   acikken devre disi birakir; hakem/kor fazlarinda asla (bayat cevap = yanlis karar).
       hasat_idyle:
-        description: "1 = ID'YLE HASAT: parmak izi tutmasa da odenmis FAZ A/AR taslagi kimlikle alinir. YALNIZ yalniz_hasat=1 ile calisir. Taslak ESKI kaynak paketiyle yazildi - ret orani artabilir."
+        description: "1 = ID'YLE HASAT: odenmis FAZ A taslagi parmak izine bakilmadan BOS slota konur (dolu slota ASLA, hakem/kor fazlarinda ASLA). Ucretli turda kullanilir: FAZ A parasi kurtarilir, kalan fazlar odenir. Taslak ESKI kaynak paketiyle yazildi - ret orani artabilir."
         required: false
         default: "0"
         type: string
