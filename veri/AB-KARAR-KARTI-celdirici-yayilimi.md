@@ -114,3 +114,41 @@ bilgiyle basım 2b KAPALI ayarla yapılır.
 **20 + 8 = 28 USD'nin karşılığı:** kural denendi ve kapandı; doğru şıkkın dağılımını istem
 yazısıyla gerçek sınava yaklaştırmanın mümkün olduğu (A harfi 27 soruda 0 kez → 35 soruda 6 kez)
 ve bunun yayın oranına bedeli olabileceği ölçüldü. Ayrıca 72 soru kasaya girdi.
+
+## İKİNCİ A/B (20.09.2026, Vergi Mevzuatı, 70 konu, kol başına 12,5 USD)
+
+İlk turun sonucu tek ölçüme dayanıyordu; ikinci tur aynı tasarımla BAŞKA bir derste koşuldu
+(koşular 35454231724 / 35454234087). Sonuç:
+
+| | A — 2b KAPALI | B — 2b AÇIK |
+|---|---|---|
+| üretilen soru | 50 | 57 |
+| sayısal soru · A B C D E | 35 · 6 9 7 7 6 | 37 · 8 8 7 10 4 |
+| **uç harf payı** | **%34,3** | **%32,4** |
+| yayın şartını geçen | 29 (%58) | ölçülemedi (42 soruda çözüm adımları basılmadan koşu kapandı) |
+| harcama | 11,06 USD | 9,50 USD |
+
+**KURAL 2b'NİN ETKİSİ TEKRAR ÜRETİLEMEDİ.** Birinci turda B kolu A'dan 28 puan yüksekti
+(%14,8 → %42,9); bu turda **fark yok, hatta ters yönde** (%34,3 → %32,4). İki turun havuzu:
+A ≈ %34 · B ≈ %37 — yani ilk turdaki sıçrama derse/örnekleme bağlı bir dalgalanmaydı, kuralın
+kalıcı etkisi değil.
+
+Dahası: bu derste **2b KAPALI kol zaten %34,3** ölçtü, gerçek sınavın %36'sına neredeyse eşit.
+Yani "doğru cevap hep ortada" kusuru evrensel değil; Maliyet dersinin o partilerine özgüydü.
+
+### KARAR KESİNLEŞTİ: KURAL 2b KAPALI KALIR.
+
+Gerekçe artık tek turluk değil: iki bağımsız turda etki tutarlı çıkmadı. Kart KAPANDI.
+Yeniden açılması ancak yeni bir ölçümle olur; "sezgiyle açalım" denmez.
+
+**Toplam bedel: 28 + 20,56 = 48,56 USD.** Karşılığı: kural kesin olarak elendi (aksi hâlde
+4.000 soruluk dalga tahminle basılırdı) + 101 soru kasaya girdi + soru başı gerçek bedel ölçüldü
+(aşağıya bakınız).
+
+## YAN ÜRÜN — SORU BAŞI GERÇEK BEDEL (20.09, bugünkü kapılarla)
+
+A kolu tam zinciri bitirdi: **11,06 USD / 29 yayına giren soru = 0,381 USD.** Hedef 0,068'di.
+Kapı sayımı parayı nereye gittiğini söylüyor: `d1-ONARIM=22 · d1-O=26 · d1-UZUN=12 · d1-C=18`
+— yani harcama soruyu YAZMAYA değil, kapıdan dönüp YENİDEN YAZMAYA gidiyor. Hakem reddi de
+yüksek: 14/50 (%28). Büyük dalga bu fiyatla açılmaz; önce en çok döndüren kapıların kökü çözülür
+(17.09 kuralı md. 4).
