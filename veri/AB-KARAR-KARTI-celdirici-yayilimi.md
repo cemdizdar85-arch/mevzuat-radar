@@ -48,7 +48,35 @@ yazılır.
   değeri yön gösterir, tek başına kanıt sayılmaz. Eşik bu yüzden "10 puan" gibi kaba
   tutuldu — küçük örneklemde 2-3 puanlık fark gürültüdür.
 
-## SONUÇ
+## SONUÇ (19.09.2026, iki koşu da YEŞİL bitti)
 
-_(koşular bitince buraya yazılacak: kol · üretilen · yayına giren · A B C D E · uç harf payı
-· soru başı bedel · KARAR)_
+| | A — 2b KAPALI | B — 2b AÇIK |
+|---|---|---|
+| üretilen soru | 47 | 46 |
+| sayısal soru (tümü) · A B C D E | 39 · 6 7 9 10 7 | 41 · 8 8 9 7 9 |
+| **uç harf payı (tüm sayısal)** | **%33,3** | **%41,5** |
+| sayısal + artan sıralı · A B C D E | 27 · 0 4 9 10 4 | 35 · 6 8 9 3 9 |
+| **uç harf payı (artan sıralı)** | **%14,8** (ki-kare 12,4) | **%42,9** (ki-kare 3,7) |
+| hakem "EVET değil" reti | 5/47 (%10,6) | 6/46 (%13,0) |
+| yayın şartını geçen | 38 (%80,9) | **0 — ölçülemedi** |
+| harcama | 12,04 USD | 10,48 USD |
+| yayına giren soru başı | 0,317 USD | ölçülemedi |
+
+**Ölçüt 1 GEÇTİ, hem de farkla.** Artan sıralı sayısal sorularda uç harf payı %14,8 → %42,9
+(+28,1 puan; eşik +10 idi). Gerçek sınav %36 — B kolu hedefin üstünde, A kolu yarısının altında.
+Doğru şıkkın "hep ortada" olma eğilimi (A kolunda A harfi 27 soruda **0 kez**) B kolunda kırıldı.
+
+**Ölçüt 2 ÖLÇÜLEMEDİ.** B kolu 10 USD bütçe kapısına FAZ B'den (çözüm adımları) ÖNCE çarptı:
+46 sorunun 40'ı hakemden geçmiş ama çözüm anlatımı hiç basılmamış, o yüzden simülasyon koşamadı
+ve yayın şartı hepsini düşürdü. Bu bir kalite sonucu DEĞİL, yarım iştir. A kolu aynı bütçeyle
+zinciri bitirdi (12,04 USD), çünkü fazları farklı sırada tamamladı.
+
+**KARAR: ASKIDA.** Kart iki şart birden ister; biri ölçülemediği için kural 2b bugün **KAPALI
+kalır**. Kapatmanın tek yolu B kolunu bitirmektir: aynı plan, aynı etiket (`smmm-ab2-b-maliyet`)
+yeniden başlatılır, ödenmiş toplu sonuçlar bedavaya hasat edilir, yalnız kalan fazlar (B/S/G/
+simülasyon/hakem2) ödenir. **Tahmini ek bedel 5–8 USD** (A kolunun tamamı 12,04 USD tuttu,
+B kolu 10,48 USD'yi zaten harcadı). Bu para Cem'in onayıyla harcanır.
+
+Bir işaret daha: hakem reddi iki kolda neredeyse aynı (%10,6 · %13,0 — bir soruluk fark).
+Yani kural 2b'nin hakem kapısından geçişi düşürdüğüne dair iz YOK; ölçüt 2'nin geçmesi olası
+görünüyor ama "olası" ölçüm değildir, o yüzden karar askıda.

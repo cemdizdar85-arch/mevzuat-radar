@@ -118,6 +118,31 @@ Write-Host ("suzgec: hat={0} · cikmis>={1} · ayristirilamayan {2}" -f $Hat,$En
 Write-Host ("  -> {0:N0} konu · {1:N0} soru" -f $sec.Count,$topSoru) -ForegroundColor Green
 if(-not $sec.Count){ throw 'Suzgecten konu gecmedi - esikleri gevset.' }
 
+# ⛔⭐ 18.09.2026 KISIR KONU KAPISI (Cem "1 ve 2 yap"; para harcayan soru basimi kurali md. 5:
+#   "ilgi hakeminden gecmemis konu basilmaz" - kural yaziliydi, MEKANIGI YOKTU).
+#   OLCULDU (arac/kisir-konu-olc.ps1, 18.09): bitirmede 3.176 uretilen taslagin 1.929'u yayina
+#   girdi (%60,7); 32 konuda en az 3 soru denendi ve HICBIRI gecmedi - 180 taslak (uretilenin
+#   %5,7, ~14 USD) her turda yeniden basiliyordu.
+#   ⚠ KALITE KISITI DEGIL: listedeki konudan bugune kadar TEK soru cikmadi, kapi yayina giren
+#     hicbir soruyu dusurmez. Kaynagi yutulan konu yeniden olcumde listeden duser ve geri gelir.
+#   ⚠ Dosya yoksa kapi CALISMAZ (SGS/KGK icin henuz olcum yok) - sessizce eski davranis.
+$kisirYol=Join-Path $depoKok ('veri\sinav\kisir-konu-'+$Sinav.ToLowerInvariant()+'.json')
+if(Test-Path $kisirYol){
+  $kisirJ=Get-Content $kisirYol -Raw -Encoding UTF8|ConvertFrom-Json
+  $kisirKume=@{}; foreach($kk in @($kisirJ.konular|ForEach-Object{ $_ })){ $kisirKume["$($kk.konu)".Trim().ToLowerInvariant()]=[int]$kk.denenen }
+  if($kisirKume.Count){
+    $oncekiSayi=$sec.Count
+    $dusenKonu=@($sec | Where-Object { $kisirKume.ContainsKey("$($_.konu)".Trim().ToLowerInvariant()) })
+    $sec=@($sec | Where-Object { -not $kisirKume.ContainsKey("$($_.konu)".Trim().ToLowerInvariant()) })
+    $dusenSoru=0; foreach($dk in $dusenKonu){ $dusenSoru+=[int]$dk.acik }
+    Write-Host ("KISIR KONU KAPISI: {0} konu plandan dustu ({1} soru basilmayacak) · olcum {2} · liste {3}" -f `
+      $dusenKonu.Count,$dusenSoru,$kisirJ.olcum,(Split-Path $kisirYol -Leaf)) -ForegroundColor Yellow
+    foreach($dk in ($dusenKonu | Select-Object -First 8)){ Write-Host ("   - {0}" -f $dk.konu) -ForegroundColor DarkYellow }
+    if($dusenKonu.Count -gt 8){ Write-Host ("   ... ve {0} konu daha" -f ($dusenKonu.Count-8)) -ForegroundColor DarkYellow }
+    if(-not $sec.Count){ throw "Kisir konu kapisi TUM konulari dusurdu ($oncekiSayi konu) - once kaynak yutma is emri." }
+  }
+}
+
 # --- DERS BAZLI PARTILEME ----------------------------------------------------
 # Etiket kisaltmalari: kosucu ve ders-cozumleyiciler bu kisa adlari taniyor.
 $KISALT=@{
