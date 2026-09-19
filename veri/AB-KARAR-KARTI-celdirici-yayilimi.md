@@ -80,3 +80,37 @@ B kolu 10,48 USD'yi zaten harcadı). Bu para Cem'in onayıyla harcanır.
 Bir işaret daha: hakem reddi iki kolda neredeyse aynı (%10,6 · %13,0 — bir soruluk fark).
 Yani kural 2b'nin hakem kapısından geçişi düşürdüğüne dair iz YOK; ölçüt 2'nin geçmesi olası
 görünüyor ama "olası" ölçüm değildir, o yüzden karar askıda.
+
+## KAPANIŞ (19.09.2026 — B kolu 8 USD ek bütçeyle bitirildi, run 35422359315)
+
+| | A — 2b KAPALI | B — 2b AÇIK |
+|---|---|---|
+| üretilen soru | 47 | 46 |
+| **yayın şartını geçen** | **38 (%80,9)** | **34 (%73,9)** |
+| yayına giren sayısal soru · A B C D E | 32 · 5 6 9 7 5 | 29 · 6 6 6 4 7 |
+| **uç harf payı (yayına giren sayısal)** | %31,2 | **%44,8** |
+| uç harf payı (artan sıralı, tüm üretilen) | %14,8 | **%42,9** |
+| toplam harcama | 12,04 USD | 14,72 USD |
+| **yayına giren soru başı** | **0,317 USD** | **0,433 USD** |
+
+**ÖLÇÜT 1: GEÇTİ.** Uç harf payı +28,1 puan (artan sıralı) / +13,6 puan (yayına giren sayısal).
+**ÖLÇÜT 2: DÜŞTÜ.** Yayın oranı %80,9 → %73,9, yani **7,0 puan** düşüş; kartın kilitli eşiği
+"5 puandan fazla düşmeyecek" idi. Soru başı bedel de %37 arttı (0,317 → 0,433 USD).
+
+### KARAR: KURAL 2b KAPALI KALIR.
+
+Karar kartın kilitli eşiğine göre verildi. **Eşiği rakamı gördükten sonra gevşetmiyorum** —
+kartın varlık sebebi tam olarak budur.
+
+**Ama dürüst olalım: 7 puanlık fark ÜÇ SORU demek** (38/47 yerine 34/46). Bu örneklemde iki kolun
+yayın oranı arasındaki fark istatistiksel olarak gürültüden ayrılamaz (Fisher kesin testi p≈0,45).
+Yani ölçüm "2b yayın oranını düşürür" demiyor; "düşürmediğini bu örneklemle gösteremedim" diyor.
+Kart iki şart birden istediği için sonuç yine de KAPALI.
+
+**Açmak isteyen için tek yol, tahmin değil ölçüm:** kol başına ~150 soruluk ikinci bir A/B
+(≈50-60 USD). O büyüklükte 7 puanlık bir fark gürültüden ayrılır. Cem karar verir; bugünkü
+bilgiyle basım 2b KAPALI ayarla yapılır.
+
+**20 + 8 = 28 USD'nin karşılığı:** kural denendi ve kapandı; doğru şıkkın dağılımını istem
+yazısıyla gerçek sınava yaklaştırmanın mümkün olduğu (A harfi 27 soruda 0 kez → 35 soruda 6 kez)
+ve bunun yayın oranına bedeli olabileceği ölçüldü. Ayrıca 72 soru kasaya girdi.
