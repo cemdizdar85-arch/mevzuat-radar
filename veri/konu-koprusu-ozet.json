@@ -1,18 +1,18 @@
 {
-  "olcum": "18.09.2026 09:13",
+  "olcum": "19.09.2026 05:14",
   "kaynak": "V2 CANLI: soru_havuzu (kasa) + sgs/smmm/kgk-analiz.json (çıkmış) + konu-eslesme.json sözlüğü + kopru-dayanak-sozlugu.json (31.08 tohumu). Günlük robot: konu-koprusu.yml",
-  "konu_sayisi": 23697,
+  "konu_sayisi": 23908,
   "durum": {
     "YALNIZ BIZDE": 12469,
-    "BOSLUK - cikmisda var, bizde YOK": 9600,
+    "BOSLUK - cikmisda var, bizde YOK": 9811,
     "IKISI DE VAR": 1628
   },
   "sinav_ozeti": [
     {
       "sinav": "KGK",
-      "konu": 5524,
+      "konu": 5735,
       "bizim_soru": 2166,
-      "cikmis_soru": 6080
+      "cikmis_soru": 6320
     },
     {
       "sinav": "SGS",
@@ -29,14 +29,14 @@
   ],
   "kasa_okunan_soru": 30569,
   "arsiv_damgasi": {
-    "SMMM": "13.09.2026 15:25",
-    "KGK": "19.08.2026 (TAM ARSIV)",
-    "SGS": "18.08.2026"
+    "KGK": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018)",
+    "SGS": "18.08.2026",
+    "SMMM": "13.09.2026 15:25"
   },
   "sozlukle_koprulenen_kasa_etiketi": 3075,
-  "cikmis_dayanak_olculmedi": 4659,
+  "cikmis_dayanak_olculmedi": 4870,
   "gk_mevzuat_dayanak_temizlenen": 46,
-  "vergi_turu_dayanak_temizlenen": 34,
+  "vergi_turu_dayanak_temizlenen": 35,
   "karantina_donem": null,
   "ders_koprusu": [
     {
@@ -55,13 +55,13 @@
       "sinav": "KGK",
       "arsiv_ders": "Denetim",
       "bizim_ders": "Denetim Standartlari",
-      "konu_sayisi": 602
+      "konu_sayisi": 636
     },
     {
       "sinav": "KGK",
       "arsiv_ders": "Genel Hukuk Mevzuatı",
       "bizim_ders": "",
-      "konu_sayisi": 563
+      "konu_sayisi": 595
     },
     {
       "sinav": "KGK",
@@ -73,7 +73,7 @@
       "sinav": "KGK",
       "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "bizim_ders": "",
-      "konu_sayisi": 792
+      "konu_sayisi": 831
     },
     {
       "sinav": "KGK",
@@ -85,13 +85,13 @@
       "sinav": "KGK",
       "arsiv_ders": "Muhasebe",
       "bizim_ders": "Muhasebe Standartlari",
-      "konu_sayisi": 465
+      "konu_sayisi": 501
     },
     {
       "sinav": "KGK",
       "arsiv_ders": "Muhasebe Standartları",
       "bizim_ders": "Muhasebe Standartlari",
-      "konu_sayisi": 639
+      "konu_sayisi": 677
     },
     {
       "sinav": "KGK",
@@ -109,7 +109,7 @@
       "sinav": "KGK",
       "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "bizim_ders": "",
-      "konu_sayisi": 554
+      "konu_sayisi": 591
     },
     {
       "sinav": "KGK",
@@ -232,7 +232,7 @@
       "konu_sayisi": 345
     }
   ],
-  "agir_bosluk_sayisi": 519,
+  "agir_bosluk_sayisi": 525,
   "agir_bosluklar": [
     {
       "sinav": "SMMM",
@@ -280,33 +280,6 @@
       "guc": "OLCULMEDI"
     },
     {
-      "sinav": "KGK",
-      "konu": "kayitli sermaye sistemi",
-      "donem": 10,
-      "cikmis": 10,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
-      "dayanak": "TTK (6102 s.K.) m.482",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "sermaye piyasasi kurumlari",
-      "donem": 10,
-      "cikmis": 10,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "sermaye piyasasi suclari",
-      "donem": 10,
-      "cikmis": 10,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
       "sinav": "SMMM",
       "konu": "satistan iade",
       "donem": 10,
@@ -325,31 +298,31 @@
       "guc": "TEYITLI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "satis ve maliyet kaydi",
-      "donem": 9,
-      "cikmis": 9,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "VUK (213 s.K.) m.275 - İmal edilen emtia",
+      "sinav": "KGK",
+      "konu": "kayitli sermaye sistemi",
+      "donem": 10,
+      "cikmis": 10,
+      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
+      "dayanak": "TTK (6102 s.K.) m.482",
       "guc": "TEYITLI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "satis iadesi",
-      "donem": 9,
-      "cikmis": 9,
-      "arsiv_ders": "Finansal Muhasebe",
+      "sinav": "KGK",
+      "konu": "sermaye piyasasi kurumlari",
+      "donem": 10,
+      "cikmis": 10,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "mevduat faiz tahakkuku",
-      "donem": 9,
-      "cikmis": 9,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
-      "guc": "TEYITLI"
+      "sinav": "KGK",
+      "konu": "sermaye piyasasi suclari",
+      "donem": 10,
+      "cikmis": 10,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
@@ -357,6 +330,15 @@
       "donem": 9,
       "cikmis": 14,
       "arsiv_ders": "Yabanci Dil",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "tespit edememe riski",
+      "donem": 9,
+      "cikmis": 9,
+      "arsiv_ders": "Denetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -370,13 +352,58 @@
       "guc": "TEYITLI"
     },
     {
-      "sinav": "KGK",
-      "konu": "tespit edememe riski",
+      "sinav": "SMMM",
+      "konu": "mevduat faiz tahakkuku",
       "donem": 9,
       "cikmis": 9,
-      "arsiv_ders": "Denetim",
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "VUK (213 s.K.) m.283 - Aktif geçici hesap kıymetleri",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "satis iadesi",
+      "donem": 9,
+      "cikmis": 9,
+      "arsiv_ders": "Finansal Muhasebe",
       "dayanak": "",
       "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "satis ve maliyet kaydi",
+      "donem": 9,
+      "cikmis": 9,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "VUK (213 s.K.) m.275 - İmal edilen emtia",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "ticari borc odeme suresi",
+      "donem": 8,
+      "cikmis": 8,
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
+      "dayanak": "Bankacılık K. (5411 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "ic kontrol bilesenleri",
+      "donem": 8,
+      "cikmis": 8,
+      "arsiv_ders": "Denetim",
+      "dayanak": "BDS 315",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kaldirac orani",
+      "donem": 8,
+      "cikmis": 8,
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
+      "dayanak": "Teori Notu - finansal analiz oranlari",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "SGS",
@@ -397,40 +424,103 @@
       "guc": "ZAYIF"
     },
     {
-      "sinav": "SMMM",
-      "konu": "ticari borc odeme suresi",
-      "donem": 8,
-      "cikmis": 8,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "Bankacılık K. (5411 s.K.)",
-      "guc": "ZAYIF"
+      "sinav": "SGS",
+      "konu": "cumle tamamlama-kosul",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Yabanci Dil",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SMMM",
-      "konu": "kaldirac orani",
-      "donem": 8,
-      "cikmis": 8,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "Teori Notu - finansal analiz oranlari",
+      "konu": "alacak senedi tahsilati",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "gelir vergisi matrahi hesaplama",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Vergi Mevzuatı ve Uygulaması",
+      "dayanak": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 258)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "azalan bakiyeler amortisman",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman",
       "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
-      "konu": "ic kontrol bilesenleri",
-      "donem": 8,
-      "cikmis": 8,
-      "arsiv_ders": "Denetim",
-      "dayanak": "BDS 315",
+      "konu": "banka kurulus sartlari",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik / Bankacılık / Bankacılık Mevzuatı",
+      "dayanak": "Bankacılık K. (5411 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "tahvil özellikleri",
+      "konu": "bds 600 topluluk denetimi",
       "donem": 7,
       "cikmis": 7,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
+      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
+      "dayanak": "BDS 600",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "faaliyet raporu icerigi",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
       "dayanak": "SPK Karari",
       "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "kar payi avansi",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı",
+      "dayanak": "Kar Payi Tebligi (II-19.1)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "sistematik olmayan risk",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "dayanak": "TFRS 17",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "bilesik faiz hesabi",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "ticari isletme unsurlari",
+      "donem": 7,
+      "cikmis": 7,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SMMM",
@@ -460,110 +550,20 @@
       "guc": "TEYITLI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "gelir vergisi matrahi hesaplama",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Vergi Mevzuatı ve Uygulaması",
-      "dayanak": "GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 258)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "alacak senedi tahsilati",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
       "sinav": "KGK",
-      "konu": "azalan bakiyeler amortisman",
+      "konu": "tahvil özellikleri",
       "donem": 7,
       "cikmis": 7,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "VUK (213 s.K.) m.315 - Amortismana tabi tutulur. Normal amortisman",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "banka kurulus sartlari",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Bankacılık Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Bankacılık",
-      "dayanak": "Bankacılık K. (5411 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bds 600 topluluk denetimi",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
-      "dayanak": "BDS 600",
-      "guc": "GUCLU"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bilesik faiz hesabi",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "faaliyet raporu icerigi",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "SPK Karari",
       "guc": "ZAYIF"
     },
     {
-      "sinav": "KGK",
-      "konu": "kar payi avansi",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı",
-      "dayanak": "Kar Payi Tebligi (II-19.1)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "cumle tamamlama-kosul",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Yabanci Dil",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "ticari isletme unsurlari",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "sistematik olmayan risk",
-      "donem": 7,
-      "cikmis": 7,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-      "dayanak": "TFRS 17",
-      "guc": "ZAYIF"
-    },
-    {
       "sinav": "SMMM",
-      "konu": "sermaye piyasasi kurumlari",
+      "konu": "denetim teknikleri",
       "donem": 6,
       "cikmis": 6,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı",
+      "arsiv_ders": "Muhasebe Denetimi",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -577,22 +577,13 @@
       "guc": "OLCULMEDI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "musterek muteselsil sorumluluk",
-      "donem": 6,
-      "cikmis": 6,
-      "arsiv_ders": "Muh. ve Mali Müş. Meslek Hukuku",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
       "sinav": "SGS",
-      "konu": "seri toplami",
+      "konu": "yas problemi",
       "donem": 6,
-      "cikmis": 6,
+      "cikmis": 7,
       "arsiv_ders": "Matematik-Istatistik",
       "dayanak": "",
-      "guc": "ZAYIF"
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
@@ -605,21 +596,12 @@
     },
     {
       "sinav": "SGS",
-      "konu": "yas problemi",
-      "donem": 6,
-      "cikmis": 7,
-      "arsiv_ders": "Matematik-Istatistik",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "denetim teknikleri",
+      "konu": "seri toplami",
       "donem": 6,
       "cikmis": 6,
-      "arsiv_ders": "Muhasebe Denetimi",
+      "arsiv_ders": "Matematik-Istatistik",
       "dayanak": "",
-      "guc": "OLCULMEDI"
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SMMM",
@@ -627,6 +609,15 @@
       "donem": 6,
       "cikmis": 6,
       "arsiv_ders": "Maliyet Muhasebesi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "sermaye piyasasi kurumlari",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Sermaye Piyasası Mevzuatı",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -640,13 +631,13 @@
       "guc": "TEYITLI"
     },
     {
-      "sinav": "KGK",
-      "konu": "supheli alacak karsiligi",
+      "sinav": "SMMM",
+      "konu": "musterek muteselsil sorumluluk",
       "donem": 6,
       "cikmis": 6,
-      "arsiv_ders": "Muhasebe / Denetim",
-      "dayanak": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
-      "guc": "TEYITLI"
+      "arsiv_ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
@@ -659,21 +650,66 @@
     },
     {
       "sinav": "KGK",
+      "konu": "vuk degerleme olculeri",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / muhasebe",
+      "dayanak": "VUK (213 s.K.)",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "supheli alacak karsiligi",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Muhasebe / Denetim",
+      "dayanak": "VUK (213 s.K.) m.323 - Şüpheli alacaklar [1/2]",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "stok devir hizi",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "sermaye yapisi yaklasimlari",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "risk degerlendirme prosedurleri",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Denetim",
+      "dayanak": "BDS 315 paragraf 5-6 - Risk değerlendirme prosedürleri: sorgulama, analitik prosedürler, gözlem ve inceleme",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "net bugunku deger",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim",
+      "dayanak": "SPK Tebliğ (III-59.1)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
       "konu": "satilan mal maliyeti",
       "donem": 6,
       "cikmis": 6,
       "arsiv_ders": "Muhasebe",
       "dayanak": "THP 622",
       "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "menfaat sahipleri",
-      "donem": 6,
-      "cikmis": 6,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
-      "dayanak": "Kurumsal Yonetim Tebligi (II-17.1)",
-      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -695,11 +731,20 @@
     },
     {
       "sinav": "KGK",
-      "konu": "net bugunku deger",
+      "konu": "devam eden riskler karsiligi",
       "donem": 6,
       "cikmis": 6,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim",
-      "dayanak": "SPK Tebliğ (III-59.1)",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik",
+      "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "bilanco hesaplari",
+      "donem": 6,
+      "cikmis": 6,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 555)",
       "guc": "ZAYIF"
     },
     {
@@ -722,129 +767,12 @@
     },
     {
       "sinav": "KGK",
-      "konu": "sermaye yapisi yaklasimlari",
+      "konu": "menfaat sahipleri",
       "donem": 6,
       "cikmis": 6,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "stok devir hizi",
-      "donem": 6,
-      "cikmis": 6,
-      "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bilanco hesaplari",
-      "donem": 6,
-      "cikmis": 6,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 555)",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / kurumsal yonetim ve finansal yonetim",
+      "dayanak": "Kurumsal Yonetim Tebligi (II-17.1)",
       "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "raporlama standartlari",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Muhasebe Denetimi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "optimal sermaye yapisi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "oge dizilisi ozdes cumle",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Genel Kultur-Genel Yetenek",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "limit hesabi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Matematik-Istatistik",
-      "dayanak": "",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "varlik karlilik orani",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "ticari alacak tahsil suresi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "muhasebe temel kavramlari",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "gug birinci dagitim",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Maliyet Muhasebesi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "kredili satis kaydi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "VUK (213 s.K.) m.279 - Menkul kıymetler",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "kapanis kayitlari",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "gelir tablosu bilanco hazirlama",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SMMM",
@@ -856,8 +784,17 @@
       "guc": "OLCULMEDI"
     },
     {
+      "sinav": "KGK",
+      "konu": "kalite gozden gecirme",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Denetim",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
       "sinav": "SMMM",
-      "konu": "banka kredisi alimi",
+      "konu": "alacak borc senedi reeskontu",
       "donem": 5,
       "cikmis": 5,
       "arsiv_ders": "Finansal Muhasebe",
@@ -875,118 +812,19 @@
     },
     {
       "sinav": "SMMM",
-      "konu": "alacak borc senedi reeskontu",
+      "konu": "banka kredisi alimi",
       "donem": 5,
       "cikmis": 5,
       "arsiv_ders": "Finansal Muhasebe",
       "dayanak": "",
       "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "cumle tamamlama (zitlik)",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Yabanci Dil",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "damga vergisi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "Damga V.K. (488 s.K.)",
-      "guc": "ZAYIF"
     },
     {
       "sinav": "SMMM",
-      "konu": "maddi olmayan duran varlik alimi",
+      "konu": "gelir tablosu bilanco hazirlama",
       "donem": 5,
       "cikmis": 5,
       "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "KUMI FRS",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "paya donusturulebilir tahvil",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-      "dayanak": "Borclanma Araclari Tebligi (VII-128.8)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "denetim riski",
-      "donem": 5,
-      "cikmis": 6,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "BDS 200",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bagli yetki",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-      "dayanak": "Karayolları Trafik K. (2918 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "geri odeme suresi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "intifa hakki konusu",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-      "dayanak": "TMK (4721 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "kalite gozden gecirme",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Denetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "kurumsal yonetim faydalari",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "denetim kanitlari",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "muhasebe politikasi degisikligi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Muhasebe Standartları / muhasebe standartlari",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -1001,12 +839,210 @@
     },
     {
       "sinav": "KGK",
-      "konu": "yatirimci tazmin merkezi",
+      "konu": "muhasebe politikasi degisikligi",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasası / sermaye piyasasi bankacilik sigortacilik",
-      "dayanak": "SPK Yönetmelik",
+      "arsiv_ders": "Muhasebe Standartları / muhasebe standartlari",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kredili satis kaydi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "VUK (213 s.K.) m.279 - Menkul kıymetler",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "maddi olmayan duran varlik alimi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "KUMI FRS",
       "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "muhasebe temel kavramlari",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "raporlama standartlari",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Muhasebe Denetimi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "intifa hakki konusu",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+      "dayanak": "TMK (4721 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "gug birinci dagitim",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Maliyet Muhasebesi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "geri odeme suresi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "damga vergisi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "Damga V.K. (488 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "capm sermaye maliyeti",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "brut satis kari",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "VUK (213 s.K.) m.275 - İmal edilen emtia",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "bds 330 kontrol testleri",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Türkiye Denetim Standartları / Denetim / DENETİM",
+      "dayanak": "BDS 330",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "basit faiz hesabi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "bankacilik kanunu kapsami",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "dayanak": "Gümrük K. (4458 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "cumle tamamlama (zitlik)",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Yabanci Dil",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "ticari alacak tahsil suresi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "denetim kanitlari",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "denetim riski",
+      "donem": 5,
+      "cikmis": 6,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "BDS 200",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "limit hesabi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Matematik-Istatistik",
+      "dayanak": "",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "oge dizilisi ozdes cumle",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Genel Kultur-Genel Yetenek",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "banka faaliyet raporu",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "dayanak": "Pay Tebligi (VII-128.1)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "bagli yetki",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+      "dayanak": "Karayolları Trafik K. (2918 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "analitik prosedurler",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
+      "dayanak": "BDS 520 (Analitik Prosedürler) m.4",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
@@ -1018,13 +1054,40 @@
       "guc": "TEYITLI"
     },
     {
-      "sinav": "KGK",
-      "konu": "vuk degerleme olculeri",
+      "sinav": "SMMM",
+      "konu": "varlik karlilik orani",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / muhasebe",
-      "dayanak": "VUK (213 s.K.)",
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kapanis kayitlari",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "tms 8 politika degisikligi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
+      "dayanak": "TMS 8",
       "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "yatirimci tazmin merkezi",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası / Sermaye Piyasası Mevzuatı",
+      "dayanak": "SPK Yönetmelik",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -1040,18 +1103,18 @@
       "konu": "tms 23 borclanma maliyetleri",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / MUHASEBE STANDARTLARI / Muhasebe Standartları",
+      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartları / MUHASEBE STANDARTLARI",
       "dayanak": "TMS 23",
       "guc": "GUCLU"
     },
     {
       "sinav": "KGK",
-      "konu": "tms 20 devlet tesvikleri",
+      "konu": "kurumsal yonetim faydalari",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartlari / Muhasebe Standartları",
-      "dayanak": "TMS 20",
-      "guc": "GUCLU"
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
@@ -1064,20 +1127,20 @@
     },
     {
       "sinav": "KGK",
-      "konu": "teknik karsiliklar",
+      "konu": "tms 20 devlet tesvikleri",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
-      "guc": "ZAYIF"
+      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartları / Muhasebe Standartlari",
+      "dayanak": "TMS 20",
+      "guc": "GUCLU"
     },
     {
       "sinav": "KGK",
-      "konu": "risk degerlendirme prosedurleri",
+      "konu": "satilan mamul maliyeti",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Denetim",
-      "dayanak": "BDS 315 paragraf 5-6 - Risk değerlendirme prosedürleri: sorgulama, analitik prosedürler, gözlem ve inceleme",
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "THP 622",
       "guc": "TEYITLI"
     },
     {
@@ -1094,117 +1157,45 @@
       "konu": "portfoy yonetim sirketi",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
       "dayanak": "Sermaye Piyasası K. (6362 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "tms 8 politika degisikligi",
+      "konu": "paya donusturulebilir tahvil",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
-      "dayanak": "TMS 8",
-      "guc": "GUCLU"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "analitik prosedurler",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
-      "dayanak": "BDS 520 (Analitik Prosedürler) m.4",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "devam eden riskler karsiligi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik",
-      "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "dayanak": "Borclanma Araclari Tebligi (VII-128.8)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "brut satis kari",
+      "konu": "optimal sermaye yapisi",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "VUK (213 s.K.) m.275 - İmal edilen emtia",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bds 330 kontrol testleri",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Türkiye Denetim Standartları / DENETİM / Denetim",
-      "dayanak": "BDS 330",
-      "guc": "GUCLU"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "basit faiz hesabi",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "banka faaliyet raporu",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
-      "dayanak": "Pay Tebligi (VII-128.1)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bankacilik kanunu kapsami",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Bankacılık Mevzuatı",
-      "dayanak": "Gümrük K. (4458 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "capm sermaye maliyeti",
-      "donem": 5,
-      "cikmis": 5,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
+      "sinav": "KGK",
+      "konu": "teknik karsiliklar",
+      "donem": 5,
+      "cikmis": 5,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
+      "guc": "ZAYIF"
+    },
+    {
       "sinav": "SGS",
-      "konu": "tanimli islem",
+      "konu": "sayi problemi",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Matematik-Istatistik",
       "dayanak": "",
       "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "stok sayimi denetimi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "sozlesmenin kurulmasi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "TBK (6098 s.K.)",
-      "guc": "ZAYIF"
     },
     {
       "sinav": "SGS",
@@ -1226,12 +1217,21 @@
     },
     {
       "sinav": "SGS",
-      "konu": "is sozlesmesi feshi",
+      "konu": "koklu ifadeler",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "İş K. (4857 s.K.) m.11",
-      "guc": "TEYITLI"
+      "arsiv_ders": "Matematik-Istatistik",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "calisanlar listesinden silinme",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muh. ve Mali Müş. Meslek Hukuku",
+      "dayanak": "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SGS",
@@ -1253,43 +1253,7 @@
     },
     {
       "sinav": "SGS",
-      "konu": "depozito iadesi kaydi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "KDVK (3065 s.K.) m.35 - Bakanlığınca tespit olunur. Matrah ve indirim miktarlarının değişmesi",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "cumle tamamlama (zaman)",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Yabanci Dil",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "cebirsel ifadeler",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Matematik-Istatistik",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "bono zorunlu unsurlari",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "SPK Rehber",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "alacagin devri",
+      "konu": "sozlesmenin kurulmasi",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Hukuk",
@@ -1298,7 +1262,34 @@
     },
     {
       "sinav": "SGS",
-      "konu": "koklu ifadeler",
+      "konu": "is sozlesmesi feshi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "İş K. (4857 s.K.) m.11",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "stok sayimi denetimi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "donem sonu stok sayimi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "uslu ifadeler",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Matematik-Istatistik",
@@ -1307,127 +1298,10 @@
     },
     {
       "sinav": "SGS",
-      "konu": "sayi problemi",
+      "konu": "yazim yanlisi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Matematik-Istatistik",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "ticari isletme unsurlari",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "borc senedi odemesi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "TMK (4721 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "oz kaynak karliligi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "mamul birim maliyeti",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Maliyet Muhasebesi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "malzeme alimi kdv",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "kurumlar vergisi hesaplama",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Vergi Mevzuatı ve Uygulaması / Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "kidem tazminati kosullari",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "kapanis bilancosu duzenleme",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "kambiyo kari kaydi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "TTK (6102 s.K.) m.720",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "sermaye taahhudu kaydi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "TTK (6102 s.K.) m.720",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "gorus bildirmekten kacinma",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe Denetimi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "gelir vergisi beyani hesaplama",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Vergi Mevzuatı ve Uygulaması",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "gecmis yil kari dagitimi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
+      "arsiv_ders": "Genel Kultur-Genel Yetenek",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -1459,13 +1333,13 @@
       "guc": "TEYITLI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "donem sonu stok sayimi",
+      "sinav": "SGS",
+      "konu": "depozito iadesi kaydi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "KDVK (3065 s.K.) m.35 - Bakanlığınca tespit olunur. Matrah ve indirim miktarlarının değişmesi",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "SMMM",
@@ -1478,16 +1352,7 @@
     },
     {
       "sinav": "SMMM",
-      "konu": "genel kabul gormus denetim standartlari",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe Denetimi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "bilanco gelir tablosu",
+      "konu": "donem sonu stok degerleme",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Finansal Muhasebe",
@@ -1495,22 +1360,40 @@
       "guc": "OLCULMEDI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "sgk vergi odemesi",
+      "sinav": "SGS",
+      "konu": "tanimli islem",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
+      "arsiv_ders": "Matematik-Istatistik",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
-      "sinav": "SMMM",
-      "konu": "stok sayim maliyeti",
+      "sinav": "SGS",
+      "konu": "cumle tamamlama (zaman)",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
+      "arsiv_ders": "Yabanci Dil",
       "dayanak": "",
       "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "cebirsel ifadeler",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Matematik-Istatistik",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "bono zorunlu unsurlari",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "SPK Rehber",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SMMM",
@@ -1523,19 +1406,19 @@
     },
     {
       "sinav": "SMMM",
-      "konu": "calisanlar listesinden silinme",
+      "konu": "borc senedi odemesi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Muh. ve Mali Müş. Meslek Hukuku",
-      "dayanak": "SMMM ve YMM Calisma Usul ve Esaslari Hakkinda Yonetmelik",
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "TMK (4721 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "SMMM",
-      "konu": "calisma alani standartlari",
+      "konu": "bilanco gelir tablosu",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Muhasebe Denetimi",
+      "arsiv_ders": "Finansal Muhasebe",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -1568,30 +1451,21 @@
     },
     {
       "sinav": "SMMM",
-      "konu": "devamli sermaye orani",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "stok bagimlilik orani",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Tablolar ve Analizi",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
       "konu": "zorunlu sozlesme konulari",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Muh. ve Mali Müş. Meslek Hukuku",
       "dayanak": "SPK Karari",
       "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "yatirim ortakligi kurulus izni",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Sermaye Piyasası Mevzuatı",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SMMM",
@@ -1625,7 +1499,7 @@
       "konu": "tutarlilik kavrami",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Finansal Tablolar ve Analizi / Muh. ve Mali Müş. Meslek Hukuku / Muhasebe Denetimi",
+      "arsiv_ders": "Finansal Tablolar ve Analizi / Muhasebe Denetimi / Muh. ve Mali Müş. Meslek Hukuku",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -1640,10 +1514,10 @@
     },
     {
       "sinav": "SMMM",
-      "konu": "tasit satisi",
+      "konu": "ticari isletme unsurlari",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
+      "arsiv_ders": "Hukuk",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -1658,38 +1532,209 @@
     },
     {
       "sinav": "SMMM",
-      "konu": "yatirim ortakligi kurulus izni",
+      "konu": "stok sayim maliyeti",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı",
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "stok bagimlilik orani",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
-      "konu": "uslu ifadeler",
+      "konu": "alacagin devri",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Matematik-Istatistik",
+      "arsiv_ders": "Hukuk",
+      "dayanak": "TBK (6098 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "gecmis yil kari dagitimi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "gelir vergisi beyani hesaplama",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Vergi Mevzuatı ve Uygulaması",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "genel kabul gormus denetim standartlari",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe Denetimi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "gorus bildirmekten kacinma",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe Denetimi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kambiyo kari kaydi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "TTK (6102 s.K.) m.720",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "calisma alani standartlari",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe Denetimi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kapanis bilancosu duzenleme",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kurumlar vergisi hesaplama",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Vergi Mevzuatı ve Uygulaması / Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "malzeme alimi kdv",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "mamul birim maliyeti",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Maliyet Muhasebesi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "oz kaynak karliligi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "sermaye taahhudu kaydi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "TTK (6102 s.K.) m.720",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "sgk vergi odemesi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "kidem tazminati kosullari",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "tasit satisi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
-      "konu": "yatirim amacli gayrimenkul",
+      "konu": "vekalet problemi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Muhasebe Standartları / muhasebe standartlari",
-      "dayanak": "SPK Tebliğ (III-48.1)",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "muhasebe disi envanter",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "esitlik ilkesi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Genel Hukuk Mevzuati",
+      "dayanak": "TMK (4721 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "onemli nitelikteki islemler",
+      "konu": "faaliyet kaldirac derecesi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "dayanak": "SPK Rehber",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "finansal varlik tanimi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
+      "dayanak": "SPK Karari",
       "guc": "ZAYIF"
     },
     {
@@ -1724,7 +1769,7 @@
       "konu": "halka acik genel kurul",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası Mevzuatı",
       "dayanak": "Pay Tebligi (VII-128.1)",
       "guc": "ZAYIF"
     },
@@ -1757,20 +1802,20 @@
     },
     {
       "sinav": "KGK",
-      "konu": "finansal varlik tanimi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
-      "dayanak": "SPK Karari",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
       "konu": "ipotek finansmani kurulusu",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası Mevzuatı",
       "dayanak": "Teminatli Menkul Kiymetler Tebligi (III-59.1)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "kabul edilebilir yanlislik",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Denetim",
+      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
       "guc": "ZAYIF"
     },
     {
@@ -1814,53 +1859,8 @@
       "konu": "kredi acma yetkisi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık / Bankacılık Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / Bankacılık",
       "dayanak": "Bankacılık K. (5411 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "mevduat bankasi faaliyetleri",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-      "dayanak": "Bankacılık K. (5411 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "muhasebe disi envanter",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "kabul edilebilir yanlislik",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Denetim",
-      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "faaliyet kaldirac derecesi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-      "dayanak": "SPK Rehber",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "esitlik ilkesi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / Genel Hukuk Mevzuati",
-      "dayanak": "TMK (4721 s.K.)",
       "guc": "ZAYIF"
     },
     {
@@ -1871,6 +1871,33 @@
       "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
       "dayanak": "",
       "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "likidite oranlari",
+      "donem": 4,
+      "cikmis": 6,
+      "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "Teori Notu - finansal analiz oranlari",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "diger bilgiler gorusu",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
+      "dayanak": "Finansal Raporlamaya Iliskin Kavramsal Cerceve (2018) bolum 167",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "borcun sona ermesi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Genel Hukuk Mevzuati / Genel Hukuk Mevzuatı",
+      "dayanak": "TMK (4721 s.K.)",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -1949,7 +1976,7 @@
       "konu": "bds 501 stok sayimi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / DENETİM / Türkiye Denetim Standartları",
+      "arsiv_ders": "Denetim / Türkiye Denetim Standartları / DENETİM",
       "dayanak": "BDS 501",
       "guc": "GUCLU"
     },
@@ -2009,100 +2036,46 @@
     },
     {
       "sinav": "KGK",
-      "konu": "borcun sona ermesi",
+      "konu": "borclar hukuku ilkeleri",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuati / Genel Hukuk Mevzuatı",
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
       "dayanak": "TMK (4721 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "diger bilgiler gorusu",
+      "konu": "borclunun temerrudu",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
-      "dayanak": "Finansal Raporlamaya Iliskin Kavramsal Cerceve (2018) bolum 167",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "muteselsil borcluluk",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı",
+      "arsiv_ders": "genel hukuk mevzuati / Genel Hukuk Mevzuatı",
       "dayanak": "TBK (6098 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "nitelikli yatirimciya satis",
+      "konu": "degersiz alacak kaydi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "donem kari vergi karsiligi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "pay sahipligi haklari",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "TTK (6102 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SMMM",
-      "konu": "donem sonu stok degerleme",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "vergi ziyai",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-      "dayanak": "GVK (193 s.K.)",
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "VUK (213 s.K.)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "vekalet problemi",
+      "konu": "mevduat bankasi faaliyetleri",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "dayanak": "Bankacılık K. (5411 s.K.)",
+      "guc": "ZAYIF"
     },
     {
-      "sinav": "KGK",
-      "konu": "varliklarin kotuye kullanimi",
+      "sinav": "SMMM",
+      "konu": "devamli sermaye orani",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "yazim yanlisi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Genel Kultur-Genel Yetenek",
+      "arsiv_ders": "Finansal Tablolar ve Analizi",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -2117,10 +2090,64 @@
     },
     {
       "sinav": "KGK",
+      "konu": "yatirim amacli gayrimenkul",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe Standartları / muhasebe standartlari",
+      "dayanak": "SPK Tebliğ (III-48.1)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "vergi ziyai",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+      "dayanak": "GVK (193 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SMMM",
+      "konu": "donem kari vergi karsiligi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Finansal Muhasebe",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "varliklarin kotuye kullanimi",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Denetim",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "varlik yonetim sirketleri",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Bankacılık Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "dayanak": "Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "muteselsil borcluluk",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Genel Hukuk Mevzuatı",
+      "dayanak": "TBK (6098 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
       "konu": "tms 8 tahmin degisikligi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari / Türkiye Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları / Muhasebe Standartlari",
       "dayanak": "TMS 8",
       "guc": "GUCLU"
     },
@@ -2153,15 +2180,6 @@
     },
     {
       "sinav": "KGK",
-      "konu": "tfrs 16 kiralamalar",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları",
-      "dayanak": "TFRS 16",
-      "guc": "GUCLU"
-    },
-    {
-      "sinav": "KGK",
       "konu": "taraf tutma tehdidi",
       "donem": 4,
       "cikmis": 4,
@@ -2171,11 +2189,56 @@
     },
     {
       "sinav": "KGK",
-      "konu": "varlik yonetim sirketleri",
+      "konu": "tahvil ihrac esaslari",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Bankacılık Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
-      "dayanak": "Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "dayanak": "SPK Tebliğ (II-5.2)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "tfrs 16 kiralamalar",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları",
+      "dayanak": "TFRS 16",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "stok deger dusuklugu",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Muhasebe / Muhasebe Standartları / muhasebe standartlari",
+      "dayanak": "THP 298",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "nitelikli yatirimciya satis",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "onemli nitelikteki islemler",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "pay sahipligi haklari",
+      "donem": 4,
+      "cikmis": 4,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "TTK (6102 s.K.)",
       "guc": "ZAYIF"
     },
     {
@@ -2185,24 +2248,6 @@
       "cikmis": 4,
       "arsiv_ders": "Muhasebe",
       "dayanak": "Tekdüzen Hesap Planı (MSUGT) — THP 128 işleyişi",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "tahvil ihrac esaslari",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası Mevzuatı",
-      "dayanak": "SPK Tebliğ (II-5.2)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "piyasa bozucu eylem",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "Sermaye Piyasası K. (6362 s.K.) m.104",
       "guc": "TEYITLI"
     },
     {
@@ -2225,21 +2270,21 @@
     },
     {
       "sinav": "KGK",
-      "konu": "sekilde bagimsizlik",
+      "konu": "piyasa bozucu eylem",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / DENETİM",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı",
+      "dayanak": "Sermaye Piyasası K. (6362 s.K.) m.104",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
-      "konu": "satilan mamul maliyeti",
+      "konu": "senet yenileme kaydi",
       "donem": 4,
       "cikmis": 4,
       "arsiv_ders": "Muhasebe",
-      "dayanak": "THP 622",
-      "guc": "TEYITLI"
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
@@ -2255,7 +2300,7 @@
       "konu": "sigorta sirketi kurulusu",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "Sigortacılık K. (5684 s.K.)",
       "guc": "ZAYIF"
     },
@@ -2270,39 +2315,21 @@
     },
     {
       "sinav": "KGK",
-      "konu": "stok deger dusuklugu",
+      "konu": "sekilde bagimsizlik",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Muhasebe / muhasebe standartlari / Muhasebe Standartları",
-      "dayanak": "THP 298",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "senet yenileme kaydi",
-      "donem": 4,
-      "cikmis": 4,
-      "arsiv_ders": "Muhasebe",
+      "arsiv_ders": "Denetim / DENETİM",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
-      "konu": "ucret hukumleri",
+      "konu": "ticari is kavrami",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Hukuk",
-      "dayanak": "4857 sayılı İş Kanunu m.38",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "yonetim iddialari",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "SMMM ve YMM K. Disiplin Yonetmeligi",
-      "guc": "ZAYIF"
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
@@ -2333,21 +2360,21 @@
     },
     {
       "sinav": "SGS",
+      "konu": "ucret hukumleri",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "4857 sayılı İş Kanunu m.38",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SGS",
       "konu": "transfer fiyatlandirmasi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Hukuk",
       "dayanak": "KVK GUT (1 Seri No)",
       "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "sifat karsilastirma",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Yabanci Dil",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
@@ -2360,12 +2387,12 @@
     },
     {
       "sinav": "SGS",
-      "konu": "tazminattan indirim halleri",
+      "konu": "zamanasimi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Hukuk",
-      "dayanak": "TTK (6102 s.K.)",
-      "guc": "ZAYIF"
+      "dayanak": "TBK (6098 s.K.) m.82",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "SGS",
@@ -2387,6 +2414,15 @@
     },
     {
       "sinav": "SGS",
+      "konu": "sifat karsilastirma",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Yabanci Dil",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "SGS",
       "konu": "serefiye hesaplama",
       "donem": 3,
       "cikmis": 3,
@@ -2405,30 +2441,39 @@
     },
     {
       "sinav": "SGS",
-      "konu": "ticari is kavrami",
+      "konu": "paragraf bolme",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Hukuk",
+      "arsiv_ders": "Genel Kultur-Genel Yetenek",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
     {
       "sinav": "SGS",
-      "konu": "zamanasimi",
+      "konu": "tazminattan indirim halleri",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Hukuk",
-      "dayanak": "TBK (6098 s.K.) m.82",
-      "guc": "TEYITLI"
+      "dayanak": "TTK (6102 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "yonetim iddialari",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "SMMM ve YMM K. Disiplin Yonetmeligi",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SMMM",
-      "konu": "kdv tahakkuk kaydi",
+      "konu": "kurumlar vergisi karsiligi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
+      "dayanak": "KVK GUT (1 Seri No)",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SMMM",
@@ -2827,20 +2872,20 @@
       "guc": "OLCULMEDI"
     },
     {
+      "sinav": "SGS",
+      "konu": "odeme emrine itiraz",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
       "sinav": "SMMM",
-      "konu": "kurumlar vergisi karsiligi",
+      "konu": "kdv tahakkuk kaydi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Finansal Muhasebe",
-      "dayanak": "KVK GUT (1 Seri No)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "paragraf bolme",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Genel Kultur-Genel Yetenek",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3233,30 +3278,48 @@
     },
     {
       "sinav": "SGS",
-      "konu": "odeme emrine itiraz",
+      "konu": "nazim hesaplar",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "uretime sevk kaydi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "muhasebe",
-      "dayanak": "SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SIRA NO: 43) bolum 13",
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "SPK Tebliğ (Seri: V, No: 6)",
       "guc": "ZAYIF"
     },
     {
-      "sinav": "SGS",
-      "konu": "milli mucadele basini",
+      "sinav": "KGK",
+      "konu": "ttk sorumluluk sigortalari",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Genel Kultur-Genel Yetenek",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "dayanak": "TTK (6102 s.K.)",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "mesleki etik ilkeler",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "SMMM K. (3568 s.K.) m.45 [1/2]",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "kar dagitim kaydi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "MSUGT Tekduzen Hesap Plani",
+      "guc": "TEYITLI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "kamuyu aydinlatma araclari",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
+      "dayanak": "SPK Karari",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -3344,7 +3407,7 @@
       "konu": "guvence hesabi kapsami",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3386,10 +3449,19 @@
     },
     {
       "sinav": "KGK",
+      "konu": "fonksiyon gaspi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Genel Hukuk Mevzuatı",
+      "dayanak": "TEORI",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
       "konu": "finansman hiyerarsisi teorisi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
+      "arsiv_ders": "kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3404,57 +3476,21 @@
     },
     {
       "sinav": "KGK",
+      "konu": "karsilikli sigorta tanimi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik",
+      "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
       "konu": "finansal holding sirketi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
       "dayanak": "",
       "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "etik kurallar tehdit turleri",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
-      "dayanak": "GDS 3402",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "eksik sigorta tanimi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "5510 s. SGK Kanunu",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "kamuyu aydinlatma araclari",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
-      "dayanak": "SPK Karari",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "efektif faiz orani",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
-      "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 238) bolum 3",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "kar dagitim kaydi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "MSUGT Tekduzen Hesap Plani",
-      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
@@ -3467,10 +3503,37 @@
     },
     {
       "sinav": "KGK",
+      "konu": "kaydilestirme esaslari",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası Mevzuatı",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "mulkiyet hakki",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Genel Hukuk Mevzuatı",
+      "dayanak": "İİK (2004 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "modern portfoy teorisi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
       "konu": "minimum garanti fonu",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / sermaye piyasasi bankacilik sigortacilik",
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "Sigortacılık K. (5684 s.K.)",
       "guc": "ZAYIF"
     },
@@ -3512,19 +3575,19 @@
     },
     {
       "sinav": "KGK",
-      "konu": "likidite oranlari",
+      "konu": "manuel kontrol uygunlugu",
       "donem": 3,
-      "cikmis": 5,
-      "arsiv_ders": "Muhasebe / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "Teori Notu - finansal analiz oranlari",
-      "guc": "TEYITLI"
+      "cikmis": 3,
+      "arsiv_ders": "Denetim",
+      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
       "konu": "kurumsal yonetim etmenleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
+      "arsiv_ders": "kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3542,7 +3605,7 @@
       "konu": "kredi sinirlamasi istisnalari",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3620,15 +3683,6 @@
     },
     {
       "sinav": "KGK",
-      "konu": "kaydilestirme esaslari",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
       "konu": "katilma intifa senedi",
       "donem": 3,
       "cikmis": 3,
@@ -3638,48 +3692,30 @@
     },
     {
       "sinav": "KGK",
-      "konu": "karsilikli sigorta tanimi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik",
-      "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "modern portfoy teorisi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "durust resim ilkesi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / genel hukuk mevzuati",
-      "dayanak": "TTK (6102 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "donem kari hesaplama",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "THP 690",
-      "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "bds 810 ozet tablolar",
+      "konu": "etik kurallar tehdit turleri",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
-      "dayanak": "BDS 810",
-      "guc": "GUCLU"
+      "dayanak": "GDS 3402",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "eksik sigorta tanimi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "dayanak": "5510 s. SGK Kanunu",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "efektif faiz orani",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 238) bolum 3",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -3749,7 +3785,7 @@
       "konu": "banka gayrimenkul siniri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
       "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
       "guc": "ZAYIF"
     },
@@ -3776,9 +3812,18 @@
       "konu": "bagimsiz uye kriterleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM",
+      "arsiv_ders": "KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "dayanak": "Kurumsal Yonetim Tebligi (II-17.1)",
       "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "ayirt etme gucu",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Genel Hukuk Mevzuatı",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
@@ -3830,7 +3875,7 @@
       "konu": "agirlikli sermaye maliyeti",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
+      "arsiv_ders": "kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3845,21 +3890,21 @@
     },
     {
       "sinav": "KGK",
+      "konu": "bds 810 ozet tablolar",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
+      "dayanak": "BDS 810",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
       "konu": "beta katsayisi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "donem net kari hesabi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe Standartları / muhasebe",
-      "dayanak": "Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik",
-      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -3872,12 +3917,39 @@
     },
     {
       "sinav": "KGK",
-      "konu": "birim mamul maliyeti",
+      "konu": "birim degisken gider",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Muhasebe",
-      "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 431)",
+      "dayanak": "TEORI",
       "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "durust resim ilkesi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / genel hukuk mevzuati",
+      "dayanak": "TTK (6102 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "donem net kari hesabi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe Standartları / muhasebe",
+      "dayanak": "Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "donem kari hesaplama",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "THP 690",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
@@ -3902,7 +3974,7 @@
       "konu": "denetim komitesi gorevleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "Bankacılık K. (5411 s.K.)",
       "guc": "ZAYIF"
     },
@@ -3929,8 +4001,17 @@
       "konu": "degistirilebilir tahviller",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası / Sermaye Piyasası Mevzuatı",
       "dayanak": "Borclanma Araclari Tebligi (VII-128.8)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "net gelir yaklasimi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "dayanak": "TFRS 17 Ek A",
       "guc": "ZAYIF"
     },
     {
@@ -3941,24 +4022,6 @@
       "arsiv_ders": "Sermaye Piyasası Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "Kamu Malî Yönetimi K. (5018 s.K.) m.3 [1/3]",
       "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "degersiz alacak kaydi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "VUK (213 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "deger dusuklugu gostergeleri",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
-      "dayanak": "KUMI FRS",
-      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -3983,7 +4046,7 @@
       "konu": "capm beklenen getiri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
+      "arsiv_ders": "kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
       "dayanak": "TEORI",
       "guc": "ZAYIF"
     },
@@ -4007,30 +4070,12 @@
     },
     {
       "sinav": "KGK",
-      "konu": "borclunun temerrudu",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "genel hukuk mevzuati / Genel Hukuk Mevzuatı",
-      "dayanak": "TBK (6098 s.K.)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
       "konu": "borclarin ifasi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Genel Hukuk Mevzuatı",
       "dayanak": "TBK m.89",
       "guc": "TEYITLI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "borclar hukuku ilkeleri",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
-      "dayanak": "TMK (4721 s.K.)",
-      "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
@@ -4052,30 +4097,30 @@
     },
     {
       "sinav": "KGK",
-      "konu": "birim degisken gider",
+      "konu": "birim mamul maliyeti",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Muhasebe",
-      "dayanak": "TEORI",
+      "dayanak": "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 431)",
       "guc": "ZAYIF"
     },
     {
       "sinav": "KGK",
-      "konu": "mulkiyet hakki",
+      "konu": "deger dusuklugu gostergeleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Genel Hukuk Mevzuatı",
-      "dayanak": "İİK (2004 s.K.)",
+      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
+      "dayanak": "KUMI FRS",
       "guc": "ZAYIF"
     },
     {
-      "sinav": "KGK",
-      "konu": "net gelir yaklasimi",
+      "sinav": "SGS",
+      "konu": "milli mucadele basini",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
-      "dayanak": "TFRS 17 Ek A",
-      "guc": "ZAYIF"
+      "arsiv_ders": "Genel Kultur-Genel Yetenek",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
@@ -4087,13 +4132,13 @@
       "guc": "ZAYIF"
     },
     {
-      "sinav": "SGS",
-      "konu": "denetim belgelendirme",
+      "sinav": "KGK",
+      "konu": "ongorulen yanlislik",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
+      "arsiv_ders": "Denetim",
+      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SGS",
@@ -4214,6 +4259,15 @@
     },
     {
       "sinav": "KGK",
+      "konu": "yurutmenin durdurulmasi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Genel Hukuk Mevzuatı / genel hukuk mevzuati",
+      "dayanak": "İYUK (2577 s.K.)",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
       "konu": "yurt disi sigorta yaptirma",
       "donem": 3,
       "cikmis": 3,
@@ -4244,7 +4298,7 @@
       "konu": "yillik faaliyet raporu",
       "donem": 3,
       "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Bankacılık Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "TTK (6102 s.K.)",
       "guc": "ZAYIF"
     },
@@ -4259,12 +4313,12 @@
     },
     {
       "sinav": "SGS",
-      "konu": "denetim gorusu turleri",
+      "konu": "denetim belgelendirme",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Muhasebe",
-      "dayanak": "BDS 700 madde 16",
-      "guc": "TEYITLI"
+      "dayanak": "",
+      "guc": "OLCULMEDI"
     },
     {
       "sinav": "KGK",
@@ -4277,30 +4331,21 @@
     },
     {
       "sinav": "SGS",
-      "konu": "denetim planlamasi",
+      "konu": "denetim gorusu turleri",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Muhasebe",
-      "dayanak": "Etik Kurallar",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "disiplin yonetmeligi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "TÜRMOB Birlik Yön.",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "SGS",
-      "konu": "mesleki etik ilkeler",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Hukuk",
-      "dayanak": "SMMM K. (3568 s.K.) m.45 [1/2]",
+      "dayanak": "BDS 700 madde 16",
       "guc": "TEYITLI"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "denetim prosedurleri",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "BDS 402",
+      "guc": "ZAYIF"
     },
     {
       "sinav": "SGS",
@@ -4466,11 +4511,38 @@
     },
     {
       "sinav": "SGS",
-      "konu": "denetim prosedurleri",
+      "konu": "disiplin yonetmeligi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Hukuk",
+      "dayanak": "TÜRMOB Birlik Yön.",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "SGS",
+      "konu": "denetim planlamasi",
       "donem": 3,
       "cikmis": 3,
       "arsiv_ders": "Muhasebe",
-      "dayanak": "BDS 402",
+      "dayanak": "Etik Kurallar",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "uretime sevk kaydi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "muhasebe",
+      "dayanak": "SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SIRA NO: 43) bolum 13",
+      "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "uretilen mamul maliyeti",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "KUMI FRS",
       "guc": "ZAYIF"
     },
     {
@@ -4484,28 +4556,19 @@
     },
     {
       "sinav": "KGK",
-      "konu": "ttk sorumluluk sigortalari",
+      "konu": "stok sayim farki",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "TTK (6102 s.K.)",
-      "guc": "GUCLU"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "ttk hayat sigortalari",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "TTK (6102 s.K.)",
-      "guc": "GUCLU"
+      "arsiv_ders": "Denetim",
+      "dayanak": "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
       "konu": "spk kanunu kapsami",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / sermaye piyasasi bankacilik sigortacilik",
       "dayanak": "SPK Karari",
       "guc": "ZAYIF"
     },
@@ -4550,7 +4613,7 @@
       "konu": "sigorta sozlesmesi hukumleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
       "dayanak": "SSİY (Sos. Sig. İşlemleri Yön.)",
       "guc": "ZAYIF"
     },
@@ -4559,7 +4622,7 @@
       "konu": "sigorta ettiren yukumlulukleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
       "dayanak": "TTK (6102 s.K.)",
       "guc": "ZAYIF"
     },
@@ -4571,6 +4634,15 @@
       "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / sermaye piyasasi bankacilik sigortacilik",
       "dayanak": "Sigortacılık K. (5684 s.K.)",
       "guc": "ZAYIF"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "sermaye taahhudu kaydi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Muhasebe",
+      "dayanak": "TTK (6102 s.K.) m.720",
+      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
@@ -4631,7 +4703,7 @@
       "konu": "ozkaynak degisim tablosu",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Muhasebe / Muhasebe Standartlari / Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartlari / Muhasebe Standartları / Muhasebe",
       "dayanak": "BOBI FRS",
       "guc": "ZAYIF"
     },
@@ -4652,33 +4724,6 @@
       "arsiv_ders": "Bankacılık Mevzuatı / Bankacılık",
       "dayanak": "Bankalarin Sermaye Yeterliliginin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik",
       "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "ongorulen yanlislik",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Denetim",
-      "dayanak": "SPK Tebliğ (Seri: X, No: 22)",
-      "guc": "ZAYIF"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "odenmis sermaye tanimi",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
-      "dayanak": "",
-      "guc": "OLCULMEDI"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "stok sayim farki",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Denetim",
-      "dayanak": "VUK (213 s.K.) m.278 - Kıymeti düşen mallar",
-      "guc": "TEYITLI"
     },
     {
       "sinav": "KGK",
@@ -4706,6 +4751,24 @@
       "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "tfrs 1 ilk uygulama",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Türkiye Muhasebe Standartları",
+      "dayanak": "TFRS 1",
+      "guc": "GUCLU"
+    },
+    {
+      "sinav": "KGK",
+      "konu": "ttk hayat sigortalari",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "dayanak": "TTK (6102 s.K.)",
+      "guc": "GUCLU"
     },
     {
       "sinav": "KGK",
@@ -4781,6 +4844,15 @@
     },
     {
       "sinav": "KGK",
+      "konu": "odenmis sermaye tanimi",
+      "donem": 3,
+      "cikmis": 3,
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "dayanak": "",
+      "guc": "OLCULMEDI"
+    },
+    {
+      "sinav": "KGK",
       "konu": "tms 36 deger dusuklugu",
       "donem": 3,
       "cikmis": 3,
@@ -4789,21 +4861,12 @@
       "guc": "GUCLU"
     },
     {
-      "sinav": "SGS",
-      "konu": "nazim hesaplar",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Muhasebe",
-      "dayanak": "SPK Tebliğ (Seri: V, No: 6)",
-      "guc": "ZAYIF"
-    },
-    {
       "sinav": "KGK",
-      "konu": "tms 27 bireysel tablolar",
+      "konu": "tms 24 iliskili taraf",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları",
-      "dayanak": "TMS 27",
+      "arsiv_ders": "Türkiye Muhasebe Standartları / MUHASEBE STANDARTLARI",
+      "dayanak": "TMS 24",
       "guc": "GUCLU"
     },
     {
@@ -4811,7 +4874,7 @@
       "konu": "tms 21 kur cevrimi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartlari / Muhasebe Standartları",
+      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartları / Muhasebe Standartlari",
       "dayanak": "TMS 21",
       "guc": "GUCLU"
     },
@@ -4820,7 +4883,7 @@
       "konu": "tms 21 gecerli para birimi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / MUHASEBE STANDARTLARI / Muhasebe Standartları",
+      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartları / MUHASEBE STANDARTLARI",
       "dayanak": "TMS 21",
       "guc": "GUCLU"
     },
@@ -4880,20 +4943,11 @@
     },
     {
       "sinav": "KGK",
-      "konu": "tfrs 1 ilk uygulama",
+      "konu": "tms 27 bireysel tablolar",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Türkiye Muhasebe Standartları",
-      "dayanak": "TFRS 1",
-      "guc": "GUCLU"
-    },
-    {
-      "sinav": "KGK",
-      "konu": "tms 24 iliskili taraf",
-      "donem": 3,
-      "cikmis": 3,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / MUHASEBE STANDARTLARI",
-      "dayanak": "TMS 24",
+      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları",
+      "dayanak": "TMS 27",
       "guc": "GUCLU"
     },
     {
