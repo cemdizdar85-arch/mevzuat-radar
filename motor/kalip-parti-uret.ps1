@@ -2638,6 +2638,13 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
    (c) YAZIM: uzun tire (—) ve uc nokta (…) KULLANMA; klise baglayici yazma
        ("bu baglamda", "onem arz etmektedir", "unutulmamalidir ki", "dikkat edilmesi
        gereken", "soz konusu oldugunda").
+   (e) DAYANAK ALINTISI ZORUNLU (20.09.2026 olcumu): sorunun dayandigi kural, KAYNAK
+       PAKETINDE acikca yazan bir cumle olmalidir. O cumleyi "dayanak_alinti" alanina
+       BIREBIR kopyala (en az 40 karakter, paketten kes-yapistir; kendi cumlenle yazma).
+       Paket sorulacak kurali TASIMIYORSA konuyu zorlama: paketin TASIDIGI bir hukmu sor.
+       NIYE: 20.09 olcumu - Vergi dersinde hakem reddinin 10'u, SPK'da 3'u "kaynakta bu
+       kural yok" gerekcesiyle geldi (hesap_uyum=YOK). Yani soru dogru olabilir ama
+       kaynaksizdir; kaynaksiz soru YAYINA GIREMEZ ve yeniden yazimi PARA yakar.
    (d) SAYI SIKLI SORUDA CELDIRICI YOLU ZORUNLU: dogru sik disindaki HER SAYISAL sik icin
        celdirici_yol alanina o sikkin tutarini VEREN hesabi yaz - yalniz rakam ve islec
        ("120000*0.20", "45000/12*3"), kelime yazma. Formulun sonucu sikkin tutarina
@@ -3461,6 +3468,24 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     # dört tuzak açıklaması doluydu; hiçbir kapı yakalamadı, hakem boş {ACIK} ile EVET dedi, FAZ B kavram tablosu kuramayıp adımları sessizce atladı,
     # simülasyon da koşmadı. Doğru şıkkın açıklaması (aciklama.<harf>) boşsa soru yeniden yazdırılır; ikinci denemede de boşsa SERT (kaydedilmez).
     $acKusur=@(); if($Sinav -eq 'SMMM' -and $aday.aciklama -and $aday.aciklama -isnot [string] -and -not "$($aday.aciklama.$("$($aday.dogru)".Trim().ToUpperInvariant()))".Trim()){ $acKusur=@("doğru şık $("$($aday.dogru)".Trim()) için açıklama boş") }
+    # ⭐ 20.09.2026 DAYANAK ALINTISI ÖLÇÜMÜ (KAPI DEĞİL — önce uyum ölçülür, sonra kapı kurulur).
+    #   Ölçüldü (dalga 1. dilim): Vergi'de hakem reddinin 10'u, SPK'da 3'ü "kaynakta bu kural yok"
+    #   (hesap_uyum=YOK) gerekçesiyle geldi; ikisi de en pahalı dersler (0,345 · 0,542 USD/soru).
+    #   İstem artık dayanak cümlesini BİREBİR kopyalamayı istiyor (kural 9b/e). Bu satır yalnız
+    #   uyumu sayar: alıntı var mı, pakette gerçekten geçiyor mu. Soru DÜŞMEZ, para harcatmaz.
+    #   Uyum yüksek çıkarsa kapı sertleştirilir; düşük çıkarsa önce istem düzeltilir.
+    $alDurum='AL-YOK'
+    try{
+      $alMetin="$($aday.dayanak_alinti)".Trim()
+      if($alMetin.Length -ge 40){
+        $nrm={ param($m) (($m -replace '\s+',' ') -replace '[“”"''`’]','').Trim().ToLowerInvariant() }
+        $pk=& $nrm "$($aday.kaynak_metin_ozet)"; $al=& $nrm $alMetin
+        $par=$al.Substring(0,[Math]::Min(60,$al.Length))
+        $alDurum=$(if($pk.Contains($al) -or $pk.Contains($par)){ 'AL-TAM' } else { 'AL-TUTMAZ' })
+      } elseif($alMetin){ $alDurum='AL-KISA' }
+    }catch{ $alDurum='AL-OLCULEMEDI' }
+    KapiSay $alDurum "$id|$deneme"
+    if($alDurum -ne 'AL-TAM' -and $deneme -eq 1){ $rapor.Add("DAYANAK ALINTISI: $id | $alDurum") }
     if($cbSonuc.kor -and $deneme -eq 1){ $rapor.Add("KAPI-CB KÖR: $id | $($cbSonuc.kor)") }
     if(@($cbSonuc.not).Count -and -not $cbKusur.Count){ $rapor.Add("KAPI-CB NOTU (deneme $deneme): $id | $(@($cbSonuc.not)[0])") }
     if($uz -le $UZUNLUK_TAVAN -and -not $sikKusur -and -not $hkKusur.Count -and -not $kvKusur.Count -and -not $tipKusur -and -not $cyKusur.Count -and -not $yilKusur -and -not $koKusur.Count -and -not $bzKusur.Count -and -not $trKusur.Count -and -not $ydKusur.Count -and -not $paKusur.Count -and -not $muKusur.Count -and -not $suKusur.Count -and -not $cbKusur.Count -and -not $gtKusur.Count -and -not $acKusur.Count){ $cvp=$aday; if(SikSirala $cvp){ Write-Host "  ŞIK SIRALANDI ($id): doğru artık $($cvp.dogru)" -ForegroundColor DarkGray }; if($yonNot.Count){ Write-Host "  YEVMİYE YÖN NOTU ($id): $($yonNot -join ' · ') (kapatma/iade kaydıysa meşru; hakem2 bakar)" -ForegroundColor DarkYellow; $rapor.Add("YEVMIYE YON NOTU: $id | $($yonNot -join '; ')") }; $mNot=@(MulgaNotu $aday); if($mNot.Count){ $rapor.Add("KURUM ADI NOTU: $id | $($mNot -join '; ')") }; break }
