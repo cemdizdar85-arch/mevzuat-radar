@@ -3248,6 +3248,29 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   # 16.09 BİTİRME 4.000 PROGRAMI (Cem "aynı soru ve cevapları basmasın"): plan aynı konuyu birden çok tura (-r1, -r2 …) ve zorluğa dağıtır;
   # toplu partiler AYNI ANDA gönderildiği için önceki turun sorusu istemde gösterilemez. Her tur konunun BAŞKA bir yönünü sınar (deterministik,
   # parmak izi kararlı). Yalnız yeni önekli partiler (smmm-4k-*); koşan/eski partilerin istemi ve parmak izi değişmez.
+  # ⛔⭐ 21.09.2026 TEKRARI KÖKTEN KES — MODELE "BU KONUDA ZATEN ŞUNLAR YAZILDI" DE (bedel ~0).
+  #   ÖLÇÜLDÜ (dalga 2): 576 konunun 156'sı HİÇ soruya dönmedi; en çok döndüren kapı BENZERLİK
+  #   (d1-B 98 · d2-B 63) ve iki denemede de geçemeyen 127 taslak ATILDI — para ödendi, soru yok.
+  #   Model o konuda ne yazıldığını GÖRMÜYORDU: aynı açıyı yeniden yazıyor, kapı haklı olarak düşürüyor.
+  #   Dizin koşu başında kurulur (motor/kalip-kosucu.ps1 → veri/fabrika/konu-ornek.json, depoya girmez).
+  #   ⚠ Kapı GEVŞEMEZ. Burada yapılan, modele aynı şeyi yazdırmamak - kalite kısıtı değil, israf kesme.
+  if($script:KONU_ORNEK -eq $null){
+    $script:KONU_ORNEK=@{}
+    try{
+      $koYol=Join-Path $kok 'veri\fabrika\konu-ornek.json'
+      if(Test-Path $koYol){ $koJ=Get-Content $koYol -Raw -Encoding UTF8|ConvertFrom-Json
+        foreach($kp in $koJ.PSObject.Properties){ $script:KONU_ORNEK["$($kp.Name)"]=@($kp.Value|ForEach-Object{ "$_" }) } }
+    }catch{ $script:KONU_ORNEK=@{} }
+  }
+  $koAnah="$($ky.konu)".Trim().ToLowerInvariant()
+  if($script:KONU_ORNEK.ContainsKey($koAnah)){
+    $koList=@($script:KONU_ORNEK[$koAnah] | Select-Object -First 4)
+    if($koList.Count){
+      $ekNot+="`n`nBU KONUDA ZATEN YAZILMIŞ SORULAR (açılışları): " + (($koList | ForEach-Object { '"' + $_ + '…"' }) -join ' · ') +
+              "`nBunlarla AYNI olayı, aynı sayı kalıbını ya da aynı soru kökünü YAZMA. Başka bir hüküm, başka bir işlem adımı ya da" +
+              " adayın başka bir yanılgısını sına. Benzer çıkan soru kapıdan döner ve yeniden yazdırılır."
+    }
+  }
   if($Sinav -eq 'SMMM' -and $Etiket -match '^smmm-4k-.*-r(\d+)(-\d+)?$'){
     $turNoA=[int]$Matches[1]
     $aciA=@('konunun temel kuralı ya da tanımı ve doğrudan uygulaması','kuralın istisnası, sınır durumu, süresi ya da oranı','somut bir olayda (kişi, işletme, tarih, tutar) hükmün ya da hesabın uygulanması','iki yakın kavramın ayrımı ya da adayların sık yaptığı yanlışın sınanması')[($turNoA-1)%4]

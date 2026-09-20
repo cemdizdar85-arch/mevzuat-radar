@@ -120,6 +120,35 @@ function NabizYaz($ETIKET,$TOPLAM){
   }
 }
 $uret=Join-Path $buDizin 'kalip-parti-uret.ps1'
+# ⛔⭐ 21.09.2026 KONU ÖRNEK DİZİNİ — BENZERLİK REDDİNİN KÖKÜ (bedel 0, koşu başında BİR kez kurulur).
+#   ÖLÇÜLDÜ (dalga 2, 576 konu): 156 konu HİÇ soruya dönmedi; en çok döndüren kapı BENZERLİK
+#   (d1-B 98 · d2-B 63) ve iki denemede de geçemeyen 127 taslak ATILDI — yani para ödendi, soru yok.
+#   SEBEP: model o konuda ZATEN yazılmış soruları görmüyor; aynı açıyı yeniden yazıyor, kapı da haklı
+#   olarak düşürüyor. Ayrıca "farklı açı" notu yalnız eski '-r<N>' etiketlerinde çalışıyordu, yeni
+#   dalga etiketlerinde (smmm-w*) hiç devreye girmedi.
+#   ⛔ DEPOYA YAZILMAZ: dizin soru metninin ilk 110 karakterini taşır → veri/fabrika/ altında kalır
+#     (.gitignore'da). Bulut koşusu partileri indirdiği için orada da kurulur.
+if($Sinav -eq 'SMMM' -or "$Plan" -match 'smmm'){
+  try{
+    $ornekYol=Join-Path $Kok 'veri\fabrika\konu-ornek.json'
+    $ornekDizin=[ordered]@{}
+    foreach($pf in @(Get-ChildItem (Join-Path $Kok 'veri\fabrika') -Filter 'kalip-parti-smmm-*.json' -ErrorAction SilentlyContinue)){
+      $pj=$null; try{ $pj=Get-Content $pf.FullName -Raw -Encoding UTF8|ConvertFrom-Json }catch{ continue }
+      foreach($po in $pj.PSObject.Properties){
+        if($po.Name -notlike 'kp-*'){ continue }
+        $pv=$po.Value; if(-not $pv -or -not $pv.soru){ continue }
+        $pk="$($pv.konu)".Trim().ToLowerInvariant(); if(-not $pk){ continue }
+        if(-not $ornekDizin.Contains($pk)){ $ornekDizin[$pk]=New-Object System.Collections.Generic.List[string] }
+        if($ornekDizin[$pk].Count -ge 4){ continue }
+        $pm=(("$($pv.soru)" -replace '\s+',' ')).Trim()
+        $ornekDizin[$pk].Add($pm.Substring(0,[Math]::Min(110,$pm.Length)))
+      }
+    }
+    $cik=[ordered]@{}; foreach($ck in $ornekDizin.Keys){ $cik[$ck]=@($ornekDizin[$ck].ToArray()) }
+    [IO.File]::WriteAllText($ornekYol,(ConvertTo-Json -InputObject $cik -Depth 4),(New-Object Text.UTF8Encoding $false))
+    "KONU ÖRNEK DİZİNİ: $($cik.Count) konu · $(([math]::Round((Get-Item $ornekYol).Length/1KB))) KB (benzerlik reddini azaltmak için istemde kullanılır)"
+  }catch{ "konu örnek dizini kurulamadı (koşu etkilenmedi): $($_.Exception.Message)" }
+}
 # --- BEDEL EMNİYETİ: bu ayın harcaması bedel defterinden (veri/fabrika/bedel-kayit.jsonl, 08.09'dan itibaren tam; öncesi eksik → tutucu) ---
 # 17.09 BÜTÇE KAPISI yardımcısı: bu planın etiketlerine (ve onların toplu faz etiketlerine: "<etiket>/A" gibi) deftere yazılmış toplam USD
 function PlanHarcama{
