@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-09-19T07:24:28.588Z",
-  "gun": "2026-09-19",
+  "olcum": "2026-09-20T07:48:26.902Z",
+  "gun": "2026-09-20",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 51,
+      "sira": 52,
       "toplam": 70,
-      "id": "sgs-t1-fmuh-kolay/kp-06",
-      "ders": "Finansal Muhasebe",
-      "konu": "maddi olmayan duran varlık (haklar)",
-      "kunye": "SGS 2025/2 Soru 51 kalıbı",
-      "donem": 6,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "İşletme, 1 Eylül 2026 tarihinde kullanıma hazır hale gelen bir bilgisayar yazılımı için 240.000 TL ödemiştir. Yazılımın yararlı ömrü 5 yıl olarak belirlenmiş ve doğrusal itfa yöntemi uygulanmıştır. Buna göre işletmenin 2026 yılı için ayıracağı itfa payı kaç TL'dir?",
+      "id": "sgs-t3-yd-kolay/kp-03",
+      "ders": "Yabancı Dil",
+      "konu": "passive voice",
+      "kunye": "SGS 2024/2 Soru 24 kalıbı",
+      "donem": 5,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "All the monthly expense reports ---- by the accounting department every week.",
       "siklar": {
-        "A": "4.000",
-        "B": "12.000",
-        "C": "16.000",
-        "D": "20.000",
-        "E": "48.000"
+        "A": "were reviewed",
+        "B": "review",
+        "C": "reviewed",
+        "D": "is reviewed",
+        "E": "are reviewed"
       },
-      "dogru": "C",
+      "dogru": "E",
       "tuzak": {
-        "D": {
-          "ad": "Erken Başlangıç Tuzağı",
-          "metin": "İtfayı fiilen kullanıma hazır olunan tarihten önce, Ağustos ayından başlatarak beş ay saydın. Doğrusu: itfa başlangıcı kullanıma hazır olma tarihi olan 1 Eylül'dür, bu yüzden dört ay hesaplanmalıdır."
-        },
-        "E": {
-          "ad": "Tam Yıl Tuzağı",
-          "metin": "Varlık yıl içinde kullanıma hazır olduğu hâlde maliyeti 5 yıla değil doğrudan tam bir yıla böldün. Doğrusu: itfa yalnızca kullanıma hazır olunan Eylül-Aralık dönemi için, yani kesirli ay üzerinden hesaplanır."
+        "C": {
+          "ad": "Yardımcı Fiil Eksikliği Tuzağı",
+          "metin": "öğrenci yalnız V3'ü yazıp be fiilini atlamış, çünkü V3'ün tek başına edilgenlik anlamı verdiğini sanmış. Doğrusu: edilgen çatı her zaman be + V3 gerektirir, tek başına 'reviewed' cümlede yüklem olamaz."
         },
         "A": {
-          "ad": "Tek Ay Tuzağı",
-          "metin": "Yalnızca kullanıma hazır olunan ayı sayıp aylık payı doğrudan sonuç sandın. Doğrusu: itfa, kullanıma hazır olunan Eylül ayından yıl sonuna kadar geçen dört ay için hesaplanır."
+          "ad": "Zaman Tuzağı",
+          "metin": "öğrenci 'every week' ipucunu atlayıp geçmiş zaman çekimini seçmiş. Doğrusu: tekrarlanan/alışılmış eylem present simple edilgen gerektirir, 'were' geçmiş zamandır."
+        },
+        "D": {
+          "ad": "Özne-Yüklem Uyumsuzluğu Tuzağı",
+          "metin": "öğrenci 'reports' kelimesinin çoğul olduğunu gözden kaçırıp tekil 'is' seçmiş. Doğrusu: çoğul özneyle be fiili 'are' olarak çekimlenir."
         },
         "B": {
-          "ad": "Eksik Ay Sayımı Tuzağı",
-          "metin": "İtfanın kullanıma hazır olma ayını (Eylül) saymayıp Ekim-Aralık şeklinde üç ay saydın. Doğrusu: TMS 38 p.97'ye göre itfa, varlığın kullanıma hazır olduğu ay dahil başlar, bu yüzden dört ay sayılır."
+          "ad": "Çatı Tuzağı",
+          "metin": "öğrenci fiili etken çatıda bırakıp yalnız anlamı düşünmüş, ama cümledeki 'by the accounting department' ifadesi eylemin öznece değil raporlar üzerinde yapıldığını gösterir. Doğrusu: edilgen çatı gerektiğinden 'are revie…"
         }
       },
-      "hap": "Maddi olmayan duran varlıklarda itfa, varlığın fiilen kullanıma hazır olduğu tarihten başlar; yıl içindeki bu tarihe göre kesirli ay hesabı yapılır.",
+      "hap": "Edilgen çatı = be (özneye ve zamana uygun çekimli) + V3; be fiili asla atlanmaz, özne sayısına göre seçilir.",
       "satirlar": [
         [
-          "Aylık itfa payı (240.000 / 60 ay)",
-          "4.000"
+          "A) were reviewed",
+          "Teori notu: ZAMANLARA GÖRE - Past simple"
         ],
         [
-          "İtfa edilen ay sayısı (Eylül-Aralık 2026)",
-          "4"
+          "B) review",
+          "Teori notu: ETKEN'DEN EDİLGEN'E"
         ],
         [
-          "2026 yılı itfa payı",
-          "16.000"
+          "C) reviewed",
+          "Teori notu: TEMEL YAPI"
+        ],
+        [
+          "D) is reviewed",
+          "Teori notu: TEMEL YAPI"
+        ],
+        [
+          "E) are reviewed",
+          "Teori notu: ZAMANLARA GÖRE - Present simple"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=51",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=52",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 64,
+        "kalan_gun": 63,
         "durum": "YESIL",
         "mail_gunu": false
       }
