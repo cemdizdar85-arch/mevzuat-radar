@@ -3478,7 +3478,11 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     try{
       $alMetin="$($aday.dayanak_alinti)".Trim()
       if($alMetin.Length -ge 40){
-        $nrm={ param($m) (($m -replace '\s+',' ') -replace '[“”"''`’]','').Trim().ToLowerInvariant() }
+        # ⛔ Kivrik tirnak (U+2019) PowerShell ayristiricisinda TIRNAK sayilir: desene duz yazilinca dosya
+        #   80 sozdizimi hatasiyla patlar (20.09'da yasandi). Karakterler KODLA kurulur.
+        $tirnakKume=([string][char]0x201C)+([char]0x201D)+([char]0x2018)+([char]0x2019)+([char]0x0022)+([char]0x0027)+([char]0x0060)
+        $tirnakDesen='[' + [regex]::Escape($tirnakKume) + ']'
+        $nrm={ param($m) ([regex]::Replace((($m -replace '\s+',' ')),$tirnakDesen,'')).Trim().ToLowerInvariant() }
         $pk=& $nrm "$($aday.kaynak_metin_ozet)"; $al=& $nrm $alMetin
         $par=$al.Substring(0,[Math]::Min(60,$al.Length))
         $alDurum=$(if($pk.Contains($al) -or $pk.Contains($par)){ 'AL-TAM' } else { 'AL-TUTMAZ' })
