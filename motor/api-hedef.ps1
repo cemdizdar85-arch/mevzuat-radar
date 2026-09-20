@@ -585,7 +585,13 @@ function Invoke-ClaudeToplu {
         # bağlanıyordu; bitmiş partiyi yalnız üreticinin TopluGonder'i hasat ediyordu. Hakem/kasa araçları 79 isteği yeniden gönderdi (≈0,38 USD çift).
         # Bitmiş partide aynı parmak izli cevap varsa BEDAVA alınır, istek gönderilmez (hata/iptal/süresi dolmuş kimlikler yine gönderilir).
         if("$($stE.processing_status)" -eq 'ended'){
-          $hE = Get-ClaudeTopluSonuc "$($ep.id)" $hedef $Etiket
+          # ⛔⭐ 20.09.2026 DEFTER ŞİŞMESİNİN KÖKÜ: burada cevap BEDAVA alınıyor (parti zaten ödenmişti)
+          #   ama Get-ClaudeTopluSonuc'un dördüncü parametresi varsayılan $true olduğu için bedel deftere
+          #   BİR KEZ DAHA yazılıyordu. Ölçüldü (Cem'in Console ekranı): Console eylül = 2.537,09 USD
+          #   (TÜM hesap), bizim defter yalnız soru basımı için 2.943,03 USD — yani defter en az 406 USD
+          #   fazla sayıyor. Üreticideki kardeş çağrı (kalip-parti-uret.ps1:1723) zaten $false geçiyordu.
+          #   ⚠ Etkisi: soru başı bedel ölçümleri OLDUĞUNDAN PAHALI çıktı; gerçek fiyat daha düşük.
+          $hE = Get-ClaudeTopluSonuc "$($ep.id)" $hedef $Etiket $false
           $alE = 0; foreach($cid in $uyan){ if($hE -and $hE.ContainsKey($cid) -and -not $baglanan.ContainsKey($cid)){ $onHasat[$cid] = $hE[$cid]; $baglanan[$cid] = "hasat:$($ep.id)"; $alE++ } }
           if($alE){ Write-Host ("  TOPLU: {0} istek BİTMİŞ eski partiden bedava hasat edildi → YENİDEN GÖNDERİLMEDİ · id {1} · etiket {2}" -f $alE,$ep.id,$Etiket) -ForegroundColor Cyan }
           continue
