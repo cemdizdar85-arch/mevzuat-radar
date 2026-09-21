@@ -121,6 +121,16 @@ jobs:
           - { ad: "CI kirmizi nobetcisi OZ-SINAVI (donusumlu ariza korlugu)",
               kabuk: pwsh, komut: "./arac/ci-kirmizi-nobetcisi-sinavi.ps1" }
 
+          # 21.09.2026 - Sayacin kendi sinavi. Dayanak alintisi sayaci 20.09'da
+          # kuruldu, "olcuyorum" dedi; 21.09'da olculdu ki karsilastirmayi BOS
+          # METINLE yapiyordu (baktigi alan modelin cevabinda hic yoktu). w5
+          # kosusunda 277 denemenin 277'si AL-TUTMAZ, AL-TAM sifir cikti ve bu
+          # "model uyduruyor" gibi okunabilirdi. Sinav GERCEK fonksiyonu AST ile
+          # cikarip kosar (replika YASAK) ve bos paketin artik AL-OLCULEMEDI
+          # dondugunu dogrular - 10 vaka, yakalama + yanlis alarm birlikte.
+          - { ad: "Dayanak alintisi sayaci OZ-SINAVI (bos paket != TUTMAZ)",
+              kabuk: pwsh, komut: "./arac/alinti-sayaci-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

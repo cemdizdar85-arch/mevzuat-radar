@@ -2466,6 +2466,39 @@ function ThpSozluk{
   }catch{ Write-Host "  THP sözlüğü çekilemedi (KAPI-H ölçülmedi): $($_.Exception.Message)" -ForegroundColor DarkYellow }
   $script:THP_SOZLUK=$d; return $d
 }
+# ⭐ 20.09.2026 DAYANAK ALINTISI SAYACI — KAPI DEĞİL, yalnız sayar; soru düşürmez, para harcatmaz.
+#   Niye var: dalga 1'de hakem reddinin bir bölümü "kaynakta bu kural yok" gerekçesiyle geldi.
+#   İstem, dayanak cümlesini kaynak paketinden BİREBİR kopyalamayı istiyor (kural 9b/e); bu sayaç
+#   kopyanın gerçekten pakette geçip geçmediğini ölçer.
+#
+# ⛔ 21.09.2026 — SAYAÇ BİR GÜN YANLIŞ ŞEYİ ÖLÇTÜ. Karşılaştırma `$aday.kaynak_metin_ozet`e
+#   bakıyordu; oysa `$aday` MODELİN CEVABIDIR ve o alan cevapta YOKTUR (doğrulama bittikten sonra
+#   `$cvp`ye eklenir). Karşılaştırma boş metinleydi → `''.Contains(...)` hep false → w5'te 277
+#   denemenin 277'si AL-TUTMAZ, AL-TAM sıfır çıktı. Artık paket metni parametreyle geliyor.
+#
+# 🚫 BU SAYAÇ ŞUNU GÖRMEZ: (a) modelin cümleyi kısaltarak/araya kelime sokarak kopyalamasını —
+#   ilk 60 karakter tutmuyorsa TUTMAZ der, oysa alıntı meşru olabilir; (b) paket 4500 karakterde
+#   kırpıldıysa alıntının kırpılan kısımdan gelmesini; (c) alıntının SORUYU gerçekten destekleyip
+#   desteklemediğini — yalnız metinde geçip geçmediğine bakar, anlama bakmaz.
+# Öz-sınav: powershell -NoProfile -File arac\alinti-sayaci-sinavi.ps1  (bedel 0, dogrula.yml'de koşar)
+function AlintiDurumu([string]$alintiMetin,[string]$paketMetin){
+  try{
+    $alMetin="$alintiMetin".Trim()
+    if(-not $alMetin){ return 'AL-YOK' }
+    if($alMetin.Length -lt 40){ return 'AL-KISA' }
+    # ⛔ Kivrik tirnak (U+2019) PowerShell ayristiricisinda TIRNAK sayilir: desene duz yazilinca dosya
+    #   80 sozdizimi hatasiyla patlar (20.09'da yasandi). Karakterler KODLA kurulur.
+    $tirnakKume=([string][char]0x201C)+([char]0x201D)+([char]0x2018)+([char]0x2019)+([char]0x0022)+([char]0x0027)+([char]0x0060)
+    $tirnakDesen='[' + [regex]::Escape($tirnakKume) + ']'
+    $nrm={ param($m) ([regex]::Replace((("$m" -replace '\s+',' ')),$tirnakDesen,'')).Trim().ToLowerInvariant() }
+    $pk=& $nrm "$paketMetin"
+    if(-not $pk){ return 'AL-OLCULEMEDI' }   # paket yoksa "tutmaz" DENMEZ; ölçülemedi denir
+    $al=& $nrm $alMetin
+    $par=$al.Substring(0,[Math]::Min(60,$al.Length))
+    if($pk.Contains($al) -or $pk.Contains($par)){ return 'AL-TAM' }
+    return 'AL-TUTMAZ'
+  }catch{ return 'AL-OLCULEMEDI' }
+}
 # 07.09 KAPI-Ç (Cem "kandırmacılı çok seçenekli"): hesap sorusunda her yanlış şık, üreticinin yazdığı YANLIŞ YOL formülünün sonucu olmalı.
 # Kendi hesaplayıcısı var (AritmetikKusur/SayiCoz bu noktada henüz tanımlı değil): Türkçe sayı → nokta ondalık, %x → (x/100), yalnız rakam
 # ve işleçten oluşan ifade Invoke-Expression ile hesaplanır, şık tutarıyla ±%0,5 kıyaslanır. Sayı olmayan (cümle/yön) şıklara uygulanmaz.
@@ -3503,20 +3536,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     #   İstem artık dayanak cümlesini BİREBİR kopyalamayı istiyor (kural 9b/e). Bu satır yalnız
     #   uyumu sayar: alıntı var mı, pakette gerçekten geçiyor mu. Soru DÜŞMEZ, para harcatmaz.
     #   Uyum yüksek çıkarsa kapı sertleştirilir; düşük çıkarsa önce istem düzeltilir.
-    $alDurum='AL-YOK'
-    try{
-      $alMetin="$($aday.dayanak_alinti)".Trim()
-      if($alMetin.Length -ge 40){
-        # ⛔ Kivrik tirnak (U+2019) PowerShell ayristiricisinda TIRNAK sayilir: desene duz yazilinca dosya
-        #   80 sozdizimi hatasiyla patlar (20.09'da yasandi). Karakterler KODLA kurulur.
-        $tirnakKume=([string][char]0x201C)+([char]0x201D)+([char]0x2018)+([char]0x2019)+([char]0x0022)+([char]0x0027)+([char]0x0060)
-        $tirnakDesen='[' + [regex]::Escape($tirnakKume) + ']'
-        $nrm={ param($m) ([regex]::Replace((($m -replace '\s+',' ')),$tirnakDesen,'')).Trim().ToLowerInvariant() }
-        $pk=& $nrm "$($aday.kaynak_metin_ozet)"; $al=& $nrm $alMetin
-        $par=$al.Substring(0,[Math]::Min(60,$al.Length))
-        $alDurum=$(if($pk.Contains($al) -or $pk.Contains($par)){ 'AL-TAM' } else { 'AL-TUTMAZ' })
-      } elseif($alMetin){ $alDurum='AL-KISA' }
-    }catch{ $alDurum='AL-OLCULEMEDI' }
+    $alDurum=AlintiDurumu "$($aday.dayanak_alinti)" "$($amb.metin)"
     KapiSay $alDurum "$id|$deneme"
     if($alDurum -ne 'AL-TAM' -and $deneme -eq 1){ $rapor.Add("DAYANAK ALINTISI: $id | $alDurum") }
     if($cbSonuc.kor -and $deneme -eq 1){ $rapor.Add("KAPI-CB KÖR: $id | $($cbSonuc.kor)") }
