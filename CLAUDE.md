@@ -85,9 +85,51 @@ git fetch origin main; git merge origin/main --no-edit; git push origin HEAD:mai
 | Yeni HTML sayfasını `stil-acik.css` bağlamadan eklemek | Sayfa açık temada **beyaz zeminde beyaz yazı** olur. `stil.css`'ten SONRA bağlanır (eşit özgüllükte sonraki kazanır). 29.08'de `durum.html`, 30.08'de `pano.html` bu yüzden kırmızıya düştü. |
 | Rapor JSON'unu doğrudan `Set-Content` ile yazmak | Çıktıda `olcum` zaman damgası olduğu için dosya, **sonuç hiç değişmese bile** her koşuda "değişmiş" görünür → kapanış denetimi takılır, robotlar boş commit üretir, iki koşu gereksiz çakışır. Bunun yerine: `. (Join-Path $depoKok 'arac\rapor-yaz.ps1')` + `RaporYaz -Hedef $hedef -Nesne $cikti` — **helper `arac/` altındadır, `motor/` değil** (01.09'da bir oturum `$PSScriptRoot`'ta arayıp düştü). Zaman alanları hariç kıyaslar; aynıysa dosyaya **hiç dokunmaz**. Betiğin ayrıca kendi "yazildi" mesajını basması yasak — dokunulmadığı hâlde "yazdım" der (30.08'de beş betikte vardı). |
 | **Bilinen tuzağı tekrar yazmak** | ⛔ **Mekanik kapı: `arac/tuzak-nobetcisi.ps1`** (11.09.2026). Kod **çalıştırılmadan** okunur, beş bilinen tuzağı yakalar: **K1** değişken çakışması (`$DERS` ↔ `$ders`) · **K2** `@(...\|ConvertFrom-Json)` dizi sarma · **K3** `@($list)` List patlaması · **K4** sıralamasız `limit=1` var/yok testi · **K5** BOM'suz Türkçe `.ps1`. Niye var: 11.09'da en çok zamanı *aynı* hataları tekrarlamak yedi — K1 **altı kez**, K2 üç kez. Hepsi `arac/olcum-kapilari.ps1`'de **yazılıydı**; yorum kimseyi durdurmadı. `motor/oturum.ps1 -Kapat` bu kapıyı **değişen `.ps1` dosyalarında** koşar; 🔴 ZARARLI bulgu varsa oturum kapanmaz (`-Birak "gerekçe"` ile bilerek geçilir). Depodaki **210 eski bulgu ayrı iş emri** — hepsini kapatmak kapıyı ilk gün kapatırdı. **Kurt masalı okumaz:** her kural öz-sınavlı (6 kural + K5'in 3 vakası + K1'in ağırlık ayrımı); yanlış alarm ölçülerek ayıklandı (K5 104→44, K2 80→76). Bilerek bozuk test verisi `# nobetci:gec` / `# nobetci:bolge-basla`…`-bitir` ile susturulur, **gerekçesi yazılarak**. |
+| **Kapı kurup "bir daha düşmez" demek** | ⭐ **Cem kuralı (21.09.2026):** *"şu an sen kapı bir daha düşmeyecek şekilde yapıyorum deme."* Bkz. aşağıdaki **KAPI KURMA KURALLARI** — iddia yalnız ölçülmüş vaka kadardır. |
 | Sabit renk yazmak (`#abc`, `rgba(...)`) | `arac/renk-sabiti-denetcisi.ps1` kapısı düşer. Tema jetonu kullanılır; saydamlık için `color-mix(in srgb,var(--jeton) X%,transparent)`. **`var(--dim,#5d6b7c)` gibi YEDEK DEĞER de sabittir.** Renk gerçekten sabit kalmalıysa tabanı tazele ve **nedenini commit'e yaz**. |
 
 ---
+
+## 🚪 KAPI KURMA KURALLARI — "bir daha düşmez" DENMEZ
+
+> ⭐ **Cem kuralı (21.09.2026):** *"bunu kural haline getirelim; şu an sen kapı bir
+> daha düşmeyecek şekilde yapıyorum deme."*
+
+**Neden (o gün ölçüldü):** `kaynak.yml` sabah koşusu 4 gün üst üste düştü ve
+**üç ayrı kapı** bunu kaçırdı. Üçü de "ölçüyorum" diyordu:
+
+| Kapı | Ne sanıyordu | Gerçekte |
+|---|---|---|
+| `yapisal-denetci.ps1` | ikincil kaynak yakalıyor | ihale firmasının **adını** kaynak sandı (KPMG/PwC), 4 gün yayını durdurdu |
+| `ci-kirmizi-nobetcisi.ps1` | üst üste kırmızıyı görüyor | desen `F S F S F S` olunca seri hep **1**'de kaldı, 5 gün kör; ayrıca 159 workflow'un yalnız **100**'üne bakıyordu |
+| `veri-tazelik.ps1` | tazeliği ölçüyor | 55 dosyanın **29'u** "TANIMSIZ" diye hiç denetlenmiyordu |
+
+### Kurallar
+
+1. **İddia, ölçülmüş vaka kadardır.** "Bir daha düşmez", "artık yakalanır",
+   "bu sorun kapandı" **yazılmaz**. Yazılacak olan: *"şu 10 vakada şunu yakaladı,
+   şunu kaçırdı (tarih)."* Ölçülmemişse **"ölçülmedi"** denir.
+2. **Her kapının öz-sınavı olur ve `dogrula.yml` matrisinde koşar.**
+   Öz-sınavı olmayan kapı "ölçüyor" sayılmaz — çünkü kendi bozulduğunda
+   sessizce yalan söyler. Sınav hem **yakalaması gerekeni** hem
+   **yanlış alarm vermemesi gerekeni** içerir.
+3. **Kapının kendisi de kör olabilir; körlüğü yazılı olur.** Her kapının
+   başına *"bu kapı şunu GÖRMEZ"* satırı düşülür. Görmediği bilinen desen,
+   bilinmeyen desenden iyidir.
+4. **Rapor, bakmadığını da söyler.** `aktif_workflow: 100` değil,
+   `workflow_toplam: 159 / alinan: 100 / KÖR: 59`. Eksik kapsama **"temiz"**
+   diye raporlanamaz — kapsam düştüyse çıktı **KÖR**'dür.
+5. **Kapı bir LİSTEYLE çalışıyorsa (yasaklı kelime, ikincil kaynak adı),
+   o liste meşru veriyle çakışabilir.** Liste eklerken öz-sınava şu vaka
+   yazılır: *"bu kelime meşru veri olarak geçebilir mi?"* — 21.09'da KPMG'ydi,
+   yarın bir marka adı ya da firma unvanı olur.
+6. **Bir iş kırmızıysa önce HANGİ ADIMIN düştüğüne bakılır, hata metnine değil.**
+   21.09'da log'daki en gürültülü hata (EKAP SSL) suçlu değildi —
+   `continue-on-error` ile yutuluyordu. Suçlu, sessizce atlanan
+   **"Değişiklik varsa yayınla"** adımıydı.
+7. **Kapı düşünce ne kadar iş durduğu ölçülür.** "Tek ihlalde tüm yayını
+   durdur" ile "yalnız bozuk dosyayı geri al" aynı şey değildir; 21.09'da
+   birinci desen **1 yanlış alarm yüzünden 30+ dosyanın hasadını** çöpe attı.
 
 ## 📏 ÇAKIŞMA ÇÖZME REÇETESİ (30.08'de kanıtlandı)
 
