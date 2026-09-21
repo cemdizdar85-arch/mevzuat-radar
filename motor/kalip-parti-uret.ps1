@@ -2646,10 +2646,16 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
        kural yok" gerekcesiyle geldi (hesap_uyum=YOK). Yani soru dogru olabilir ama
        kaynaksizdir; kaynaksiz soru YAYINA GIREMEZ ve yeniden yazimi PARA yakar.
    (d) SAYI SIKLI SORUDA CELDIRICI YOLU ZORUNLU: dogru sik disindaki HER SAYISAL sik icin
-       celdirici_yol alanina o sikkin tutarini VEREN hesabi yaz - yalniz rakam ve islec
-       ("120000*0.20", "45000/12*3"), kelime yazma. Formulun sonucu sikkin tutarina
-       esit olmali; tutmayan sik kapiya takilir. Bir sik "yanlis yolu olmayan" bir sayi
-       olamaz - her celdirici, ogrencinin yapabilecegi SOMUT bir hatanin sonucudur.
+       celdirici_yol alanina o sikkin tutarini VEREN hesabi yaz. BICIM (madde 13'le AYNI,
+       makine boyle okuyor): "<hesap> = <sikkin tutari> (<hatanin adi>)".
+       Ornek: "950.000 - 845.000 = 105.000 (tazminati elden cikarma maliyetine katti)".
+       Cok adimli yol ';' ile ayrilir, SON adim sikkin tutarini vermelidir:
+       "862.500*0,05 = 43.125; 215.625 - 43.125 = 172.500 (finansman giderini dusmedi)".
+       ⛔ '=' ISARETI ZORUNLU - yalnizca ifade yazilirsa ("120000*0.20") kapi "'=' yok"
+       diyerek soruyu geri cevirir ve YENIDEN YAZDIRIR (20.09'da bu kural yanlis
+       yazilmisti: "yalniz rakam ve islec" deniyordu, kapiyla celisiyordu).
+       Bir sik "yanlis yolu olmayan" bir sayi olamaz - her celdirici, ogrencinin
+       yapabilecegi SOMUT bir hatanin sonucudur.
 <<<DEGISKEN>>>
 10. SORU TIPI (02.09 - gercek sinavin tip dagilimindan gelen kota): {TIP_TARIF}
 11. SINAV DILI (03.09 - 1.042 cikmis kitapcik olculdu, veri: SINAV-DILI-SOZLUGU):
