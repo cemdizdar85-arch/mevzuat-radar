@@ -178,12 +178,25 @@ Get-ChildItem $veri -Filter *.json | ForEach-Object {
   # denetciyi null'la cokertti, kapi sabahtan beri kirmiziydi ve KIMSE
   # GORMEDI). Cokme yerine ACIK hata: bos json ya silinmeli ya doldurulmali.
   if([string]::IsNullOrWhiteSpace($metin)){ Hata "$($_.Name) : BOS JSON dosyasi - ya sessiz veri kaybi ya unutulmus kalinti. Sil ya da doldur."; return }
+  # 21.09: AD ALANLARI TARAMA DISI. Kural 1 "veriyi ikincil KAYNAKTAN alma" der;
+  # bir firmanin ADININ veride gecmesi kaynak degil VERIDIR. ihale-firma-ozet.json
+  # 19.724 ihale firmasini "firmalar[].ad" altinda tasiyor ve KPMG/PwC gercekten
+  # ihaleye giren firmalar; dosyanin kendi damgasi ise birincil ("Kaynak: Kamu
+  # Ihale Bulteni - Sonuc Ilanlari (KIK)"). Ayni tuzak marka verisinde de var:
+  # marka-yeni-basvurular.json 31.000 basvuruyu marka SAHIBI adiyla tasiyor.
+  # OLCULDU (21.09): bu yanlis alarm 18-21.09'un DORT sabah kosusunu da dusurdu;
+  # "Degisiklik varsa yayinla" adimi hic calismadi ve o kosularin TUM hasadi
+  # yayinlanmadan kayboldu (eximbank/kgf/iskur/urge 23,9 GUN bayat kaldi).
+  # Cozum: ad tasiyan alanlarin DEGERI maskelenir, kaynak/not/aciklama/url
+  # alanlari AYNEN taranir - yani kapi kalkmaz, yalniz korlugu gider.
+  $adAlanDeseni = '"(?:ad|adi|unvan|unvani|firma|firmaAdi|sahip|sahibi|basvuran|istekli|kazanan|yuklenici|marka|markaAdi|kurum|kurumlar|idare|idareAdi)"\s*:\s*"(?:[^"\\]|\\.)*"'
+  $metinTaranir = [regex]::Replace($metin, $adAlanDeseni, '"_ad_":""', 'IgnoreCase')
   foreach($k in $ikincilKaynaklar){
     # 01.09: ham Contains, SPL envanterindeki ScriptResource URL'lerinin base64
     # copunde 'pwc' alt-dizisini yakaladi (L9pwct...) ve 3 workflow'u birden
     # dusurdu. Kelime siniriyla esle: gercek 'PwC'/'KPMG' aniliyorsa yine yakalar,
     # rastgele dizgideki alt-dizi yakalamaz.
-    if([regex]::IsMatch($metin, '\b' + [regex]::Escape($k) + '\b', 'IgnoreCase')){ Hata "$($_.Name) : IKINCIL KAYNAK '$k' geciyor - Kural 1 ihlali. Bu veri gercek birincilden (RG/mevzuat.gov.tr/GIB) teyit edilip damga degistirilmeli." }
+    if([regex]::IsMatch($metinTaranir, '\b' + [regex]::Escape($k) + '\b', 'IgnoreCase')){ Hata "$($_.Name) : IKINCIL KAYNAK '$k' geciyor - Kural 1 ihlali. Bu veri gercek birincilden (RG/mevzuat.gov.tr/GIB) teyit edilip damga degistirilmeli." }
   }
 }
 # Kritik sayisal dosyalar birincil DAMGA tasimali (kaynak/not alaninda resmi isaret)
