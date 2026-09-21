@@ -65,10 +65,16 @@
   .sv-grup.zayif{border-color:var(--red)}
   .sv-kutu{background:var(--panel);border:1px solid var(--amber);border-radius:14px;padding:18px;margin:0 0 16px}
   .sv-kutu h2{font-size:19px;margin:0 0 6px}
-  .sv-kutu input[type=email],.sv-kutu input[type=tel]{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);margin:6px 0 10px}
+  .sv-kutu input[type=email],.sv-kutu input[type=tel],.sv-kutu input[type=text],.sv-kutu select{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);margin:6px 0 10px}
+  .sv-kutu label.sv-etiket{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:10px 0 0}
+  .sv-kutu input:focus-visible,.sv-kutu select:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
   .sv-onay{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 8px}
   .sv-onay input{margin-top:3px}
   .sv-onay a{color:var(--amber)}
+  /* 21.09: izin kanalları yan yana (İYS biçimi: her kanal ayrı onay) */
+  .sv-kanallar{display:flex;flex-wrap:wrap;gap:6px 18px;margin:2px 0 10px}
+  .sv-kanallar label{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--muted);cursor:pointer}
+  .sv-zorunlu{color:var(--red)}
   .sv-durum{font-size:14px;margin-top:10px;min-height:1.4em}
   .sv-durum.ok{color:var(--green)} .sv-durum.hata{color:var(--red)}
   .sv-yanlis{border-top:1px solid var(--line);padding:10px 0;font-size:14px;color:var(--ink)}
@@ -92,6 +98,8 @@
       <li>Hangi alanda (muhasebe, hukuk, ekonomi-maliye, genel kültür) açığın olduğu</li>
       <li>Karnen e-postana gelir; yanlışlarını Nöbetçi adım adım anlatır</li>
     </ul>
+    <!-- 21.09: kapı öne alındığı için sürpriz olmasın - ne isteneceği başlamadan ÖNCE yazılır. -->
+    <p class="sv-not" style="margin:0 0 16px">Başlamadan önce adını, e-postanı ve telefonunu soracağız — karnen oraya gidecek. Ücretsiz, kart istenmez.</p>
     <p class="sv-onceki" id="svOnceki" hidden></p>
     <button class="sv-btn ana" id="svBasla" type="button" disabled>Soru yükleniyor…</button>
     <p class="sv-not">Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez (cevabın sıradaki sorunun zorluğunu belirler). "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.</p>
@@ -108,21 +116,51 @@
     </div>
   </section>
 
-  <!-- SONUÇ KAPISI (16.09.2026 Cem: "yüzdeyi göstermek için mail adresi ya da telefon isteyelim ki
-       sonra onları yakalayabilelim"). Test bitti, hesap yapıldı; yüzde bu kapıdan sonra açılır.
-       Üyede kapı ÇIKMAZ (bilgisi zaten bizde). KVKK: karne gönderimi kişinin KENDİ TALEBİ (m.5/2-c);
-       arama/duyuru izni AYRI ve isteğe bağlı kutu (6563 ticari elektronik ileti). -->
-  <section id="svKapi" class="sv-gizli">
+  <!-- ÖN KAPI (21.09.2026 Cem: "ilk giren 30 soruluk sınava girmek için telefon numarası ve mail alalım,
+       biz ondan sonra bu sınavı yapabilsin" + "telefonu zorunlu yapalım").
+       16.09'un SONUÇ KAPISI buraya, testin ÖNÜNE alındı. GM sonda tutmayı önerdi (testi yarıda bırakan
+       kaybedilmez, verme isteği sonda en yüksek); Cem başta olmasını ve telefonun ZORUNLU olmasını istedi -> karar Cem'in.
+       Üyede kapı ÇIKMAZ (bilgisi zaten bizde). Bir kez dolduran tekrar doldurmaz (sv_kayit).
+       KVKK: karne + sonuç gönderimi kişinin KENDİ TALEBİ (m.5/2-c). Tanıtım izni AYRI ve isteğe bağlı,
+       6563 gereği KANAL KANAL alınır (İYS biçimi). ⛔ İYS kaydı yapılana kadar e-posta DIŞI kanaldan
+       ileti çıkmaz: kayda iys_kayitli:'HAYIR' damgası düşer, gönderen taraf buna bakar. -->
+  <section id="svOnKapi" class="sv-gizli">
     <div class="sv-kutu">
-      <h2>Sonucun hazır</h2>
-      <p class="sv-alt" style="margin:0 0 4px">30 sorunun tamamı değerlendirildi. Geçme ihtimalini ve alan alan karneni birlikte açalım: karnen e-postana da gitsin ki sınav gününe kadar elinin altında olsun.</p>
-      <form id="svKapiForm" novalidate>
-        <input type="email" id="svEposta" placeholder="e-posta adresin" autocomplete="email" required>
-        <input type="tel" id="svTelefon" placeholder="telefon (isteğe bağlı)" autocomplete="tel">
+      <h2>Son adım: karnen nereye gelsin?</h2>
+      <p class="sv-alt" style="margin:0 0 4px">30 soruyu bitirdiğinde geçme ihtimalin ve alan alan karnen hazır olacak. Karnen sınav gününe kadar elinin altında dursun diye e-postana da gönderiyoruz.</p>
+      <form id="svOnKapiForm" novalidate>
+        <label class="sv-etiket" for="svAd">Adın soyadın <span class="sv-zorunlu">*</span></label>
+        <input type="text" id="svAd" placeholder="Ahmet Yılmaz" autocomplete="name" required>
+        <label class="sv-etiket" for="svEposta">E-posta <span class="sv-zorunlu">*</span></label>
+        <input type="email" id="svEposta" placeholder="ornek@eposta.com" autocomplete="email" required>
+        <label class="sv-etiket" for="svTelefon">Telefon <span class="sv-zorunlu">*</span></label>
+        <input type="tel" id="svTelefon" placeholder="5xx xxx xx xx" autocomplete="tel" required>
+        <label class="sv-etiket" for="svSinav">Hangi sınava hazırlanıyorsun? <span class="sv-zorunlu">*</span></label>
+        <select id="svSinav" required>
+          <option value="sgs">SMMM Staja Giriş (SGS)</option>
+          <option value="yeterlilik">SMMM Yeterlilik</option>
+          <option value="kgk">KGK Bağımsız Denetçilik</option>
+        </select>
+        <!-- Dönem seçenekleri elle yazıldı: sinav_donemleri tablosu (2026-09-15-elci-programi.sql) HENÜZ BASILMADI.
+             O göç basılınca bu liste oradan okunmalı. 2026/3 tarihi (21.11.2026) sayfanın kendi hesabında da kullanılıyor. -->
+        <label class="sv-etiket" for="svDonem">Hangi dönem gireceksin? <span class="sv-zorunlu">*</span></label>
+        <select id="svDonem" required>
+          <option value="">Seç…</option>
+          <option value="2026/3">2026/3 — 21 Kasım 2026</option>
+          <option value="2027/1">2027/1</option>
+          <option value="2027/2">2027/2</option>
+          <option value="belirsiz">Henüz karar vermedim</option>
+        </select>
         <input type="text" id="svHp" name="_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-        <label class="sv-onay"><input type="checkbox" id="svKvkk"> <span><a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metnini</a> okudum; karnemin bu adrese gönderilmesini istiyorum.</span></label>
-        <label class="sv-onay"><input type="checkbox" id="svIzin"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta/SMS gönderilmesine ve telefonla aranmama <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza metnindeki</a> kapsamda rıza veriyorum. (isteğe bağlı; her iletide çıkış yolu olur)</span></label>
-        <button class="sv-btn ana" type="submit" id="svGonder">Sonucumu aç →</button>
+        <label class="sv-onay"><input type="checkbox" id="svKvkk"> <span><a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metnini</a> okudum; karnemin ve sonucumun bana iletilmesi için bilgilerimin işlenmesini istiyorum. <span class="sv-zorunlu">*</span></span></label>
+        <p class="sv-not" style="margin:10px 0 2px">Sınav hatırlatması ve duyuru almak ister misin? İşaretlediğin kanaldan ulaşırız — <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza metni</a>. İsteğe bağlı, her iletide çıkış yolu olur.</p>
+        <div class="sv-kanallar">
+          <label><input type="checkbox" id="svIzinEposta"> E-posta</label>
+          <label><input type="checkbox" id="svIzinSms"> SMS</label>
+          <label><input type="checkbox" id="svIzinArama"> Telefonla arama</label>
+          <label><input type="checkbox" id="svIzinWa"> WhatsApp</label>
+        </div>
+        <button class="sv-btn ana" type="submit" id="svGonder">Teste başla →</button>
         <div class="sv-durum" id="svDurum" role="status"></div>
       </form>
     </div>
@@ -202,9 +240,12 @@
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
-  var M=window.SeviyeModel, H=null, SIRA=[], CEVAPLAR=[], AKTIF=null, SECILI=null, BAS=0, SAYAC=null, SORU_BAS=0, SONUC=null, KAPI_LISTE=null;
+  var M=window.SeviyeModel, H=null, SIRA=[], CEVAPLAR=[], AKTIF=null, SECILI=null, BAS=0, SAYAC=null, SORU_BAS=0, SONUC=null;
   var oturum=''; try{ oturum=localStorage.getItem('kc_oturum')||''; if(!oturum){ oturum=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kc_oturum',oturum); } }catch(e){}
-  function goster(id){ ['svGiris','svTest','svKapi','svSonuc'].forEach(function(k){ $(k).classList.toggle('sv-gizli',k!==id); }); window.scrollTo(0,0); }
+  function goster(id){ ['svGiris','svTest','svOnKapi','svSonuc'].forEach(function(k){ $(k).classList.toggle('sv-gizli',k!==id); }); window.scrollTo(0,0); }
+  /* 21.09 ÖN KAPI: bir kez verilen bilgi cihazda tutulur, aynı kişiye ikinci kez form sorulmaz. */
+  function kayitOku(){ try{ var s=localStorage.getItem('sv_kayit'); return s?JSON.parse(s):null; }catch(e){ return null; } }
+  function kayitYaz(k){ try{ localStorage.setItem('sv_kayit',JSON.stringify(k)); }catch(e){} }
   /* 16.09: üye mi? (oturum anahtarı cihazda) - uye-durumu.js ile aynı ölçüt; üyede sonuç kapısı ve tek-hak sınırı YOK */
   function uyeMi(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } }
   function hakKullanildi(){ try{ return localStorage.getItem('sv_hak')==='1'; }catch(e){ return false; } }
@@ -264,8 +305,14 @@
     var k=e.key.toUpperCase(); if(/^[A-E]$/.test(k)){ sec(k); e.preventDefault(); } else if(e.key==='Enter'&&SECILI){ kaydet(false); e.preventDefault(); }
   });
 
+  /* 21.09 Cem: ön kapı. Üye (bilgisi bizde) ve daha önce form dolduran doğrudan teste girer;
+     diğer herkes ad + e-posta + TELEFON (zorunlu) + sınav + dönem vermeden soru göremez. */
   function basla(){
     if(!uyeMi() && hakKullanildi()){ goster('svGiris'); $('svHakBitti').hidden=false; $('svBasla').hidden=true; return; }
+    if(!uyeMi() && !kayitOku()){ goster('svOnKapi'); $('svAd').focus(); return; }
+    testeBasla();
+  }
+  function testeBasla(){
     CEVAPLAR=[]; SIRA=planKur(); BAS=Date.now(); $('svToplam').textContent=SIRA.length;
     if(SAYAC) clearInterval(SAYAC);
     SAYAC=setInterval(function(){ var s=Math.round((Date.now()-BAS)/1000); $('svSure').textContent=Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); },1000);
@@ -290,8 +337,33 @@
     }catch(e){}
     /* 16.09: ücretsiz hak burada tükenir (test bitti). Üyede sınır yok. */
     hakYaz();
-    if(uyeMi()){ sonucCiz(liste); return; }
-    KAPI_LISTE=liste; goster('svKapi');
+    /* 21.09: kapı öne alındı -> sonuç artık BEKLETİLMEZ, hemen çizilir.
+       Bilgisini ön kapıda vermiş ziyaretçinin karnesi arkadan gönderilir; gönderi düşse bile sonuç ekranda durur. */
+    sonucCiz(liste);
+    if(!uyeMi()) karneGonder();
+  }
+  /* 21.09: ön kapıda alınan bilgiyle karne + sonuç gönderimi. İki gönderi:
+     (1) karne-gonder -> karne adayın e-postasına + form_kayit'a düşer,
+     (2) quick-task   -> ad/telefon/sınav/dönem + kanal izinleri bizim kasamıza (karne-gonder bu alanları tanımıyor).
+     ⛔ Gönderi düşse bile sonuç GÖSTERİLİR: adam 30 soruyu çözdü, bizim sunucu hatamız yüzünden eli boş kalmaz. */
+  function karneGonder(){
+    var k=kayitOku(); if(!k||!SONUC) return;
+    var ozet={ gecme:SONUC.gecme, dogru130:SONUC.dogru130, soru:SONUC.soru, dogru:SONUC.dogru,
+               gruplar:SONUC.gruplar.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}) };
+    var karne=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+      body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'sgs', _hp:'', sonuc:ozet }) })
+      .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
+    fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
+      /* DİKKAT: iki ayrı "sınav" var - cozulen_test her zaman SGS (havuz SGS), hazirlandigi_sinav
+         adayın ön kapıda söylediğidir. Aynı ada konursa kasada biri diğeri sanılır. */
+      body:JSON.stringify({ subject:'SEVIYE TESTI sonucu', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
+        cozulen_test:'sgs', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru,
+        tahmini_dogru_130:String(SONUC.dogru130), _hp:'' }) }).catch(function(){});
+    karne.then(function(ok){
+      var d=$('svKarneDurum'); d.hidden=false;
+      d.textContent = ok ? 'Karnen '+k.eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'
+                         : 'Karne e-postası şu an gönderilemedi; sonucun aşağıda duruyor. Sorun düzelince sana ulaşacağız.';
+    });
   }
   /* 14.09 TAM BANKA TEKLİFİ — seviyeye göre başlık; rakamlar kaynaktan, okunamazsa rakamsız cümle. */
   function teklifCiz(g, zayif, yanlisSay){
@@ -344,36 +416,44 @@
     /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
     $('svYollar').innerHTML=yollar;
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
-    $('svDurum').textContent=''; $('svDurum').className='sv-durum'; $('svGonder').disabled=false;
     goster('svSonuc');
   }
 
-  /* SONUÇ KAPISI (16.09.2026 Cem) — yüzde bu formdan sonra açılır.
-     İki gönderi: (1) karne-gonder -> karne adayın e-postasına + form_kayit'a düşer,
-     (2) form-al (canlı adı quick-task) -> TELEFON ve iletişim izni bizim kasamıza (karne-gonder telefon alanı tanımıyor).
-     ⛔ Gönderi düşse bile sonuç GÖSTERİLİR: adam 30 soruyu çözdü, bizim sunucu hatamız yüzünden eli boş kalmaz. */
-  $('svKapiForm').addEventListener('submit',function(e){
+  /* ÖN KAPI (21.09.2026 Cem) — test bu formdan sonra başlar. Telefon ZORUNLU (Cem kararı).
+     Aday burada yakalanır: testi yarıda bıraksa bile kaydı bizde kalır (aşağıdaki "aday" gönderisi).
+     Sonuç gönderimi testin sonunda karneGonder() ile yapılır.
+     ⛔ Gönderi düşerse test YİNE başlar: adamın önüne sunucu hatamızı çıkarmayız, kayıt cihazda durur. */
+  function telNormal(ham){
+    var d=String(ham||'').replace(/\D/g,'');
+    if(d.length===12 && d.slice(0,2)==='90') d=d.slice(2);
+    if(d.length===11 && d.charAt(0)==='0') d=d.slice(1);
+    return (d.length===10 && d.charAt(0)==='5') ? d : '';
+  }
+  $('svOnKapiForm').addEventListener('submit',function(e){
     e.preventDefault();
-    var eposta=$('svEposta').value.trim(), tel=$('svTelefon').value.trim(), durum=$('svDurum');
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(eposta)){ durum.textContent='Geçerli bir e-posta adresi yaz.'; durum.className='sv-durum hata'; return; }
-    if(tel && tel.replace(/\D/g,'').length<10){ durum.textContent='Telefonu 10 hane yaz (5xx xxx xx xx) ya da boş bırak.'; durum.className='sv-durum hata'; return; }
-    if(!$('svKvkk').checked){ durum.textContent='Karneni gönderebilmemiz için onay kutusunu işaretle.'; durum.className='sv-durum hata'; return; }
-    $('svGonder').disabled=true; durum.textContent='Sonucun açılıyor…'; durum.className='sv-durum';
-    var izin=$('svIzin').checked;
-    var karne=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
-      body:JSON.stringify({ eposta:eposta, kvkk:true, izin_ileti:izin, sinav:'sgs', _hp:$('svHp').value,
-        sonuc:{ gecme:SONUC.gecme, dogru130:SONUC.dogru130, soru:SONUC.soru, dogru:SONUC.dogru, gruplar:SONUC.gruplar.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}) } }) })
-      .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
-    var kayit=fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
-      body:JSON.stringify({ subject:'SEVIYE TESTI sonucu', from_name:'Tetikte Seviye Testi', email:eposta, telefon:tel||'-',
-        sinav:'sgs', gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru, tahmini_dogru_130:String(SONUC.dogru130),
-        iletisim_izni:izin?'evet (e-posta/SMS/arama)':'hayir', _hp:$('svHp').value }) }).catch(function(){ return null; });
-    Promise.all([karne,kayit]).then(function(s){
-      sonucCiz(KAPI_LISTE);
-      var d=$('svKarneDurum'); d.hidden=false;
-      d.textContent = s[0] ? 'Karnen '+eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'
-                           : 'Karne e-postası şu an gönderilemedi; sonucun aşağıda duruyor. Sorun düzelince sana ulaşacağız.';
-    });
+    var durum=$('svDurum'), ad=$('svAd').value.trim(), eposta=$('svEposta').value.trim();
+    var tel=telNormal($('svTelefon').value), donem=$('svDonem').value;
+    var hata=function(m,alan){ durum.textContent=m; durum.className='sv-durum hata'; if(alan) $(alan).focus(); };
+    if(ad.length<2){ return hata('Adını yaz (karnende böyle görünecek).','svAd'); }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(eposta)){ return hata('Geçerli bir e-posta adresi yaz.','svEposta'); }
+    if(!tel){ return hata('Telefonunu 5xx xxx xx xx biçiminde yaz.','svTelefon'); }
+    if(!donem){ return hata('Hangi dönem gireceğini seç.','svDonem'); }
+    if(!$('svKvkk').checked){ return hata('Devam edebilmemiz için onay kutusunu işaretle.','svKvkk'); }
+    var k={ ad:ad, eposta:eposta, telefon:tel, sinav:$('svSinav').value, donem:donem,
+            izin_eposta:$('svIzinEposta').checked, izin_sms:$('svIzinSms').checked,
+            izin_arama:$('svIzinArama').checked, izin_wa:$('svIzinWa').checked, tarih:new Date().toISOString() };
+    kayitYaz(k);
+    /* ADAY KAYDI — testten ÖNCE gider; yarıda bırakan da elimizde kalır (Cem'in ön kapı gerekçesi).
+       ⛔ 6563/İYS: e-posta dışı kanal izinleri toplanıyor ama İYS kaydı YAPILMADI. Damga her kayda düşer;
+          gönderen taraf (robot/postacı) bu damgayı görmeden SMS/arama/WhatsApp iletisi çıkarmaz. */
+    var kanal=[]; if(k.izin_eposta) kanal.push('e-posta'); if(k.izin_sms) kanal.push('SMS');
+    if(k.izin_arama) kanal.push('arama'); if(k.izin_wa) kanal.push('WhatsApp');
+    try{ fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
+      body:JSON.stringify({ subject:'SEVIYE TESTI adayi', from_name:'Tetikte Seviye Testi', ad:ad, email:eposta, telefon:tel,
+        cozulen_test:'sgs', hazirlandigi_sinav:k.sinav, donem:donem, kvkk:'evet', iletisim_izni:kanal.length?kanal.join(' + '):'hayir',
+        iys_kayitli:'HAYIR - e-posta disi kanaldan ileti gonderilmez', _hp:$('svHp').value }) }).catch(function(){}); }catch(e2){}
+    durum.textContent=''; durum.className='sv-durum';
+    testeBasla();
   });
 
   $('svBasla').addEventListener('click',basla);
