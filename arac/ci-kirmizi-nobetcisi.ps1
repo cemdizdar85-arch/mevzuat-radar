@@ -32,6 +32,15 @@
 # ============================================================================
 param(
   [int]$UstUste = 2,        # kac ust uste kirmizi "kalici" sayilir
+  # 21.09.2026 - DONUSUMLU ARIZA KORLUGU (olculdu, kaynak.yml):
+  # "ust uste" olcusu ilk YESILDE duruyor. kaynak.yml'in son 6 kosusu
+  # "failure success failure success failure success" idi: sabah kosusu
+  # 4 gun ust uste dustu, aksam kosusu hep yesildi, seri HEP 1'de kaldi
+  # ve nobetci arizayi 4 gun boyunca HIC gormedi. Ikinci bir olcu gerekti:
+  # "son N kosunun kaci kirmizi". Tek seferlik gecici ariza (10'da 1)
+  # alarm uretmez; donusumlu kalici ariza (10'da 5) uretir.
+  [int]$OranPencere = 10,   # oran olcusunde bakilacak son kosu sayisi
+  [int]$OranEsik = 3,       # o pencerede kac kirmizi "kalici ariza" sayilir
   [int]$HatirlatmaGun = 7,  # suren seri kac gunde bir hatirlatilir
   [int]$Sinir = 0,          # kac workflow taransin (0 = hepsi; yerel deneme icin)
   [switch]$Sessiz           # mail atma, yalniz raporla (yerel deneme icin)
@@ -72,9 +81,27 @@ function Api($yol) {
 }
 
 # --- 1) aktif workflow'lar --------------------------------------------------
-$wf = Api "actions/workflows?per_page=100"
-if (-not $wf) { Write-Host "CI KIRMIZI NOBETCISI: KOR — workflow listesi alinamadi."; exit 1 }
-$aktif = @($wf.workflows | Where-Object { $_.state -eq "active" })
+# 21.09.2026 - SAYFALAMA EKLENDI. Tek sayfa 100 kayit veriyordu ama depoda
+# 159 workflow var (API total_count 160): ~60 workflow HIC BAKILMIYORDU ve
+# rapor bunu "aktif_workflow: 100" diye yaziyordu - yani korlugu tamlik gibi
+# gosteriyordu. Simdi tum sayfalar cekilir, alinamayan sayfa KOR sayilir.
+$hamWf = @()
+$sayfa = 1
+$toplamBeklenen = -1
+while ($sayfa -le 20) {
+  $wf = Api ("actions/workflows?per_page=100&page={0}" -f $sayfa)
+  if (-not $wf) { if ($sayfa -eq 1) { Write-Host "CI KIRMIZI NOBETCISI: KOR — workflow listesi alinamadi."; exit 1 } else { break } }
+  if ($toplamBeklenen -lt 0) { $toplamBeklenen = [int]$wf.total_count }
+  $gelen = @($wf.workflows)
+  if ($gelen.Count -eq 0) { break }
+  $hamWf += $gelen
+  if ($hamWf.Count -ge $toplamBeklenen) { break }
+  $sayfa++
+}
+if ($toplamBeklenen -gt 0 -and $hamWf.Count -lt $toplamBeklenen) {
+  Write-Host ("  UYARI: {0} workflow beklenirken {1} alindi - eksik kalan OLCULMEDI sayilir." -f $toplamBeklenen, $hamWf.Count)
+}
+$aktif = @($hamWf | Where-Object { $_.state -eq "active" })
 $tumu  = $aktif.Count
 if ($Sinir -gt 0 -and $aktif.Count -gt $Sinir) { $aktif = @($aktif[0..($Sinir - 1)]) }
 Write-Host ("CI KIRMIZI NOBETCISI: {0}/{1} aktif workflow, esik {2} ust uste kirmizi." -f $aktif.Count, $tumu, $UstUste)
@@ -82,35 +109,57 @@ Write-Host ("CI KIRMIZI NOBETCISI: {0}/{1} aktif workflow, esik {2} ust uste kir
 $sinirlandi = $tumu - $aktif.Count
 
 # --- 2) her birinin son kosulari -------------------------------------------
+function KirmiziMi($k){ return ($k.conclusion -eq "failure" -or $k.conclusion -eq "timed_out") }
 $kirmiziSeriler = @()
 $olculemeyen    = 0
 $bakilan        = 0
 
 foreach ($w in $aktif) {
   # yalniz TAMAMLANMIS kosular; devam edenler seriyi bozmasin
-  $r = Api ("actions/workflows/{0}/runs?per_page={1}&status=completed" -f $w.id, ($UstUste + 3))
+  $cekilecek = [Math]::Max($OranPencere, ($UstUste + 3))
+  $r = Api ("actions/workflows/{0}/runs?per_page={1}&status=completed" -f $w.id, $cekilecek)
   if (-not $r) { $olculemeyen++; continue }
   $kosular = @($r.workflow_runs)
   if ($kosular.Count -eq 0) { continue }   # hic kosmamis - kirmizi degil
   $bakilan++
 
-  # bastan itibaren kac tanesi ust uste basarisiz
+  # OLCU 1 - bastan itibaren kac tanesi UST USTE basarisiz
   $seri = 0
   foreach ($k in $kosular) {
-    if ($k.conclusion -eq "failure" -or $k.conclusion -eq "timed_out") { $seri++ } else { break }
+    if (KirmiziMi $k) { $seri++ } else { break }
   }
-  if ($seri -lt $UstUste) { continue }
 
-  # serinin EN ESKI kosusu seriyi kimliklendirir (yeni seri = yeni bildirim)
-  $seriKok = $kosular[$seri - 1].id
+  # OLCU 2 (21.09) - son $OranPencere kosunun kaci kirmizi. Donusumlu arizayi
+  # ("sabah kirmizi / aksam yesil") olcu 1 GOREMIYOR; bu gorur.
+  $pencere = @($kosular | Select-Object -First $OranPencere)
+  $oranKirmizi = @($pencere | Where-Object { KirmiziMi $_ }).Count
+  # Pencere dolmadiysa oran olcusu uygulanmaz (yeni workflow yanlis alarm vermesin)
+  $oranGecerli = ($pencere.Count -ge $OranPencere) -and ($oranKirmizi -ge $OranEsik)
+
+  if ($seri -lt $UstUste -and -not $oranGecerli) { continue }
+
+  if ($seri -ge $UstUste) {
+    # serinin EN ESKI kosusu seriyi kimliklendirir (yeni seri = yeni bildirim)
+    $tur     = "ust_uste"
+    $seriKok = $kosular[$seri - 1].id
+  } else {
+    # ORAN alarmi: pencere her kosuda kaydigi icin kok olarak kosu id'si
+    # KULLANILMAZ - her gun "yeni seri" sanilip spam olurdu. Workflow'a sabit
+    # bir anahtar verilir: bir kez bildirilir, surerse haftada bir hatirlatilir.
+    $tur     = "oran"
+    $seriKok = "oran-" + $w.id
+  }
   $kirmiziSeriler += [pscustomobject]@{
-    ad       = $w.name
-    dosya    = ($w.path -replace '^\.github/workflows/', '')
-    seri     = $seri
-    seri_kok = $seriKok
-    son_sha  = $kosular[0].head_sha.Substring(0, 8)
-    son_url  = $kosular[0].html_url
-    son_ne   = ($kosular[0].display_title -replace '[\r\n]', ' ')
+    ad            = $w.name
+    dosya         = ($w.path -replace '^\.github/workflows/', '')
+    seri          = $seri
+    tur           = $tur
+    oran_kirmizi  = $oranKirmizi
+    oran_pencere  = $pencere.Count
+    seri_kok      = $seriKok
+    son_sha       = $kosular[0].head_sha.Substring(0, 8)
+    son_url       = $kosular[0].html_url
+    son_ne        = ($kosular[0].display_title -replace '[\r\n]', ' ')
   }
 }
 
@@ -152,14 +201,17 @@ foreach ($s in ($kirmiziSeriler | Sort-Object -Property seri -Descending)) {
 $rapor = [ordered]@{
   olcum_tarihi     = $simdi.ToString("o")
   esik_ust_uste    = $UstUste
+  esik_oran        = ("{0}/{1}" -f $OranEsik, $OranPencere)   # 21.09: donusumlu ariza olcusu
   hatirlatma_gun   = $HatirlatmaGun
+  workflow_toplam  = $toplamBeklenen     # 21.09: sayfalama sonrasi GERCEK toplam
+  workflow_alinan  = $hamWf.Count        # alinamayan kalirsa aradaki fark KOR demektir
   aktif_workflow   = $aktif.Count
   bakilan          = $bakilan
   olculemeyen      = $olculemeyen
   kalici_kirmizi   = $kirmiziSeriler.Count
   yeni_bildirim    = $bildirim.Count
   seriler          = @($kirmiziSeriler | ForEach-Object {
-                        [ordered]@{ ad = $_.ad; dosya = $_.dosya; ust_uste = $_.seri; son_sha = $_.son_sha; son_ne = $_.son_ne; url = $_.son_url } })
+                        [ordered]@{ ad = $_.ad; dosya = $_.dosya; tur = $_.tur; ust_uste = $_.seri; oran = ("{0}/{1}" -f $_.oran_kirmizi, $_.oran_pencere); son_sha = $_.son_sha; son_ne = $_.son_ne; url = $_.son_url } })
   bildirilen       = $yeniDurum
 }
 $rapor | ConvertTo-Json -Depth 6 | Set-Content -Path $raporYol -Encoding UTF8
@@ -172,7 +224,7 @@ if ($sinirlandi -gt 0) {
   Write-Host ("  ATLANDI: {0} workflow (-Sinir verildi) - bunlar OLCULMEDI." -f $sinirlandi)
 }
 if ($kirmiziSeriler.Count -eq 0) {
-  Write-Host ("  Temiz - {0} workflow bakildi, ust uste {1} kirmizi olan yok." -f $bakilan, $UstUste)
+  Write-Host ("  Temiz - {0} workflow bakildi; ust uste {1} kirmizi de, son {2} kosuda {3}+ kirmizi da yok." -f $bakilan, $UstUste, $OranPencere, $OranEsik)
   if ($olculemeyen -gt 0) { exit 1 }
   exit 0
 }

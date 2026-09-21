@@ -102,6 +102,25 @@ jobs:
           - { ad: "Yapisal denetci (imkansiz/celisik veri)",
               kabuk: pwsh, komut: "./arac/yapisal-denetci.ps1" }
 
+          # 21.09.2026 - KAPININ KENDI OZ-SINAVI. Yapisal denetci Kural 1'i
+          # sabit bir "ikincil kaynak" LISTESIYLE uyguluyor; o liste mesru
+          # veriyle cakisabilir. Nitekim cakisti: ihale-firma-ozet.json'daki
+          # 19.724 firmadan ikisi KPMG ve PwC olunca denetci firmanin ADINI
+          # kaynak sandi, "Degisiklik varsa yayinla" adimi 4 gun hic calismadi
+          # ve o kosularin tum hasadi kayboldu. Duzeltme ad alanlarini tarama
+          # disi birakti; bu sinav duzeltmenin kapiyi ZAYIFLATMADIGINI olcer
+          # (ad alaninda gecer, kaynak/not/url alaninda YAKALAR - 10 vaka).
+          - { ad: "Yapisal denetci OZ-SINAVI (ad alani != kaynak)",
+              kabuk: pwsh, komut: "./arac/yapisal-denetci-sinavi.ps1" }
+
+          # 21.09.2026 - Nobetcinin kendi korlugu icin sinav. "Ust uste N
+          # kirmizi" olcusu ilk yesilde duruyordu; kaynak.yml'in "F S F S F S
+          # F S F S" deseninde seri hep 1'de kaldi ve 5 gunluk ariza hic
+          # gorulmedi. Oran olcusu eklendi; bu sinav ikisinin de calistigini
+          # VE yanlis alarm uretmedigini olcer (10 vaka).
+          - { ad: "CI kirmizi nobetcisi OZ-SINAVI (donusumlu ariza korlugu)",
+              kabuk: pwsh, komut: "./arac/ci-kirmizi-nobetcisi-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
