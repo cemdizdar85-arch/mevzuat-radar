@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260920025552
+Start time: 20260921105203
 Username: runnervmlun5p\runner
 RunAs User: runnervmlun5p\runner
 Configuration Name: 
 Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/bf051276-503c-4b2e-a4d9-942cdacc13d0.ps1'
-Process ID: 2250
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/005e4469-ba83-4520-9de9-5895fd216e2f.ps1'
+Process ID: 2028
 PSVersion: 7.6.5
 PSEdition: Core
 GitCommitId: 7.6.5
@@ -19,65 +19,14 @@ WSManStackVersion: 3.0
 **********************
 Konu sayisi: 3264 (16 donem birlestirilmis)
   ...100/3264
-  ...500/3264
-  ...600/3264
-  ...700/3264
-  ...800/3264
-  ...900/3264
-  ...1000/3264
-  ...1100/3264
-  ...1200/3264
-  ...1300/3264
-  ...1400/3264
-  ...1800/3264
-  ...1900/3264
-  ...2000/3264
-  ...2100/3264
-  ...2200/3264
-  ...2300/3264
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "PGRST100",
-  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
-  "hint": null,
-  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "PGRST100",
-  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
-  "hint": null,
-  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
-}"
-PS>TerminatingError(Invoke-WebRequest): "
-{
-  "code": "PGRST100",
-  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
-  "hint": null,
-  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
-}"
-  ...2400/3264
-  ...2500/3264
-  ...2600/3264
-  ...2700/3264
-  ...2800/3264
-  ...2900/3264
-  ...3000/3264
-  ...3100/3264
-
-=========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 2625
-  KAYNAK YOK (once yut)    : 1
-  MEVZUAT-DISI (elle yaz)  : 637
-  OLCULEMEDI (sorgu hatasi): 1
-  hatali sorgu toplami     : 1
-  -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
-
---- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
-    1 soru | Ekonomi                    | tuketici tercih aksiyomlari
-PS>$global:?
-True
+PS>TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> $global:?
+False
 **********************
 PowerShell transcript end
-End time: 20260920041843
+End time: 20260921105629
 **********************
