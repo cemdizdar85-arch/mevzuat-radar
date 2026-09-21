@@ -2700,7 +2700,7 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 BICIM CAPASI - asagidaki onayli ornekle AYNI ses/uzunluk/sik yapisi:
 {ORNEK}
 Cevap YALNIZ JSON:
-{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"teshis":{"A":{"yanilgi":"...","gercek":"...","ayirt":"...","paragraf":"..."},"B":{...},"C":{...},"D":{...},"E":{...}},"celdirici_yol":{"<yanlış şık>":"<sayılı yanlış yol> = <şık tutarı> (<hatanın adı>)",...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye"}
+{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"teshis":{"A":{"yanilgi":"...","gercek":"...","ayirt":"...","paragraf":"..."},"B":{...},"C":{...},"D":{...},"E":{...}},"celdirici_yol":{"<yanlış şık>":"<sayılı yanlış yol> = <şık tutarı> (<hatanın adı>)",...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kisa kunye","dayanak_alinti":"<KAYNAK METNINDEN BIREBIR kopyalanmis, sorunun dayandigi cumle - en az 40 karakter>"}
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
