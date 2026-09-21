@@ -444,14 +444,17 @@
             izin_arama:$('svIzinArama').checked, izin_wa:$('svIzinWa').checked, tarih:new Date().toISOString() };
     kayitYaz(k);
     /* ADAY KAYDI — testten ÖNCE gider; yarıda bırakan da elimizde kalır (Cem'in ön kapı gerekçesi).
-       ⛔ 6563/İYS: e-posta dışı kanal izinleri toplanıyor ama İYS kaydı YAPILMADI. Damga her kayda düşer;
-          gönderen taraf (robot/postacı) bu damgayı görmeden SMS/arama/WhatsApp iletisi çıkarmaz. */
+       ⛔ 6563/İYS (21.09 iys.org.tr SSS'inden ölçüldü): İYS'nin kanalları SESLİ ARAMA · KISA MESAJ · E-POSTA.
+          "İYS'de kayıtlı olmayan e-posta adreslerine de gönderim yapabilir miyim? -> HAYIR." Yani tanıtım
+          e-postası da İYS'siz gönderilemez; damga ÜÇ kanalı da kapatır, yalnız e-posta dışını değil.
+          WhatsApp İYS'de ayrı kanal DEĞİL (üç kanal var) - hukuki karşılığı avukat sorusu, kutusu duruyor.
+          Kişinin kendi talebi olan karne/sonuç ticari ileti değildir, damgadan etkilenmez. */
     var kanal=[]; if(k.izin_eposta) kanal.push('e-posta'); if(k.izin_sms) kanal.push('SMS');
     if(k.izin_arama) kanal.push('arama'); if(k.izin_wa) kanal.push('WhatsApp');
     try{ fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
       body:JSON.stringify({ subject:'SEVIYE TESTI adayi', from_name:'Tetikte Seviye Testi', ad:ad, email:eposta, telefon:tel,
         cozulen_test:'sgs', hazirlandigi_sinav:k.sinav, donem:donem, kvkk:'evet', iletisim_izni:kanal.length?kanal.join(' + '):'hayir',
-        iys_kayitli:'HAYIR - e-posta disi kanaldan ileti gonderilmez', _hp:$('svHp').value }) }).catch(function(){}); }catch(e2){}
+        iys_kayitli:'HAYIR - HICBIR kanaldan (e-posta/SMS/arama) tanitim iletisi gonderilmez', _hp:$('svHp').value }) }).catch(function(){}); }catch(e2){}
     durum.textContent=''; durum.className='sv-durum';
     testeBasla();
   });
