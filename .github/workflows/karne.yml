@@ -89,8 +89,28 @@ jobs:
             if [ -f "$f" ]; then git add "$f" || true; fi
           done
           git diff --cached --quiet || git commit -m "Konu-kaynak karnesi yenilendi (${{ matrix.sinav }}) [veri-operasyonu]"
+          # 21.09 ONARIM (Cem "karneyi tazele"): olcum 1,5-2,5 saat suruyor, bu sirada robotlar ana tele yaziyor.
+          #   Eski dongu `git pull --rebase` cakismasina dusunce calisma agaci CAKISMALI kaliyordu ve bes denemenin
+          #   hepsi ayni cakismada oluyordu -> KGK karnesi 26.08'den, SMMM karnesi de gunlerdir tazelenemiyordu
+          #   (olcum YESIL bitiyor, sonuc COPE gidiyor: 20.09 kosusu 6s25d, 19.09 kosusu 6s51d).
+          #   Cozum: karne dosyalari ROBOT CIKTISIDIR - bizimki en tazesidir. Cakismada dosyalari yeniden uretmiyoruz,
+          #   ana teli temiz alip URETTIGIMIZ dosyalari uzerine koyuyoruz (baska dosyaya dokunmadan).
+          KARNE_DOSYALARI="veri/${{ matrix.cikti }} veri/karne-log.txt"
+          if [ "${{ matrix.sinav }}" = "SGS" ]; then KARNE_DOSYALARI="$KARNE_DOSYALARI veri/ders-karnesi.json"; fi
+          mkdir -p /tmp/karne-yedek
+          for f in $KARNE_DOSYALARI; do [ -f "$f" ] && cp "$f" "/tmp/karne-yedek/$(basename $f)"; done
           for i in 1 2 3 4 5; do
-            if git pull --rebase --autostash origin main && git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then exit 0; fi
+            echo "::warning title=karne yayin $i::push reddedildi, ana tel tazelenip karne dosyalari yeniden konuyor"
+            git rebase --abort 2>/dev/null || true
+            git merge --abort 2>/dev/null || true
+            git fetch origin main || true
+            git reset --hard origin/main || true
+            for f in $KARNE_DOSYALARI; do
+              b="/tmp/karne-yedek/$(basename $f)"
+              if [ -f "$b" ]; then cp "$b" "$f"; git add "$f" || true; fi
+            done
+            git diff --cached --quiet || git commit -m "Konu-kaynak karnesi yenilendi (${{ matrix.sinav }}) [veri-operasyonu]"
             sleep $((i * 7))
           done
           echo "::error::Karne (${{ matrix.sinav }}) 5 denemede islenemedi"
