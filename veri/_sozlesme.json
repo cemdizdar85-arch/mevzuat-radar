@@ -1,12 +1,12 @@
-{
+﻿{
     "aciklama":  "VERI SOZLESMESI (25.08.2026, Faz 1). Siteyi besleyen veri dosyalarinin yayina cikma sarti. arac/veri-kapisi.ps1 her robot commit\u0027inden ONCE bu sozlesmeye bakar; gecmeyen dosya COMMIT EDILMEZ, son saglam surum (HEAD) yerinde birakilir. Boylece site \u0027bozuk\u0027 olamaz, en kotu ihtimalle \u0027biraz eski\u0027 olur. Sozlesmesi olmayan dosya faz 1\u0027de ATLANIR (kapi genisledikce buraya eklenir).",
     "neden":  "Olculdu (25.08): 85 is akisi veri/*.json commit\u0027liyor, bunlardan YALNIZ 1\u0027i commit oncesi denetim yapiyor, ve GitHub Pages dogrudan main dalindan yayinliyor. Yani robot yazdigi an canliya cikiyor; tek bekci (arac/veri-bekcisi.ps1) olaydan SONRA kosuyor ve o kapi 6 gundur kirmiziydi. Sitenin 2-3 gunde bir \u0027patlamasi\u0027 bu bosluktan.",
     "kurallar":  {
                      "asgari_kayit":  "Mutlak taban. Kayit olcusu: dizi ise eleman sayisi, nesne ise ust anahtar sayisi ile en buyuk ic dizinin buyugu.",
                      "dusus_tavani":  "HEAD\u0027deki son saglam surume gore izin verilen orani asan KAYIT ya da BAYT dususu -\u003e RED. Kaynak patladiginda genelde hata vermez, AZ veri doner; bu kural onu yakalar.",
-                     "azami_yas_saat":  "Tazelik taahhudu. Faz 1 kapisi bunu DENETLEMEZ (yeni yazilan dosya her zaman tazedir); ayri bir bayatlik nobetcisi icin burada tutulur."
+                     "azami_yas_saat":  "Tazelik taahhudu. Kapi (Faz 1) bunu DENETLEMEZ - yeni yazilan dosya her zaman tazedir. arac/veri-tazelik.ps1 bunu gunde iki kez (04:00 / 18:00 TR) denetler. OLCU: son git commit zamani. UYARI: bir robot kossa da icerik degismediyse arac/rapor-yaz.ps1 dosyaya DOKUNMAZ; o yuzden nadiren degisen dosyalarda esik genis tutulur."
                  },
-    "faz":  "Faz 1 (25.08): siteyi besleyen en riskli 12 dosya, degerleri ELLE ayarlandi. Faz 2 (25.08): kalan 43 dosya OLCULEREK eklendi (asgari = mevcudun %70\u0027i, tavan %30 varsayilan). Faz 2 kayitlarinda azami_yas_saat NULL - guncelleme ritmi belirlenmedi; tazelik nobetcisi bunlari \u0027TANIMSIZ\u0027 diye ayri listeler, YANLIS ALARM URETMEZ.",
+    "faz":  "Faz 1 (25.08): siteyi besleyen en riskli 12 dosya, degerleri ELLE ayarlandi. Faz 2 (25.08): kalan 43 dosya OLCULEREK eklendi (asgari = mevcudun %70\u0027i, tavan %30 varsayilan). Faz 2 kayitlarinda azami_yas_saat NULL - guncelleme ritmi belirlenmedi; tazelik nobetcisi bunlari \u0027TANIMSIZ\u0027 diye ayri listeler, YANLIS ALARM URETMEZ. Faz 3 (21.09.2026, Cem \"hergun sabah 4 aksam 18 denetlensin\"): TANIMSIZ kalan 29 dosyanin azami_yas_saat degeri, her dosyanin KENDI git gecmisindeki medyan yazilma araligindan turetilerek dolduruldu (gunluk-\u003e48sa, dalgali-\u003e168sa, tarife-\u003e2160sa, yillik-\u003e8760sa). Artik TANIMSIZ yok; tazelik nobeti gunde IKI kez kosar (04:00 ve 18:00 TR).",
     "varsayilan":  {
                        "dusus_tavani":  0.30
                    },
@@ -91,16 +91,16 @@
                                                 "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: KDV oran listesi - indirici yok, tarife yillik dongu"
                                             },
                      "veri/ihale-idare-ozet.json":  {
-                                                        "not":  "Faz 2 - olculen: 7336 kayit / 4024,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "not":  "Faz 2 - olculen: 7336 kayit / 4024,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,9 sa (15 kosu) - gunluk ihale ozeti.",
                                                         "dusus_tavani":  0.3,
                                                         "asgari_kayit":  5135,
-                                                        "azami_yas_saat":  null
+                                                        "azami_yas_saat":  48
                                                     },
                      "veri/yanveri-damga.json":  {
-                                                     "not":  "Faz 2 - olculen: 10 kayit / 1,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "not":  "Faz 2 - olculen: 10 kayit / 1,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 24,0 sa (15 kosu).",
                                                      "dusus_tavani":  0.3,
                                                      "asgari_kayit":  7,
-                                                     "azami_yas_saat":  null
+                                                     "azami_yas_saat":  48
                                                  },
                      "veri/hatirlatici-sablonlar.json":  {
                                                              "not":  "Faz 2 - olculen: 8 kayit / 6,1 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -117,16 +117,16 @@
                                                        "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: yillik hadler (VUK GT); yillik-rakam-nobeti sinyal veriyor, yazma elle"
                                                    },
                      "veri/siklik-kunyesi.json":  {
-                                                      "not":  "Faz 2 - olculen: 3248 kayit / 428,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                      "not":  "Faz 2 - olculen: 3248 kayit / 428,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 20,7 sa ama ortalama 71,8 sa - obek obek yazilir; pay genis.",
                                                       "dusus_tavani":  0.3,
                                                       "asgari_kayit":  2273,
-                                                      "azami_yas_saat":  null
+                                                      "azami_yas_saat":  168
                                                   },
                      "veri/ihale-firma-ozet.json":  {
-                                                        "not":  "Faz 2 - olculen: 14054 kayit / 6539,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "not":  "Faz 2 - olculen: 14054 kayit / 6539,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,9 sa (15 kosu) - gunluk ihale ozeti.",
                                                         "dusus_tavani":  0.3,
                                                         "asgari_kayit":  9837,
-                                                        "azami_yas_saat":  null
+                                                        "azami_yas_saat":  48
                                                     },
                      "veri/cvoa-oranlar.json":  {
                                                     "not":  "Faz 2 - olculen: 92 kayit / 17 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -150,34 +150,34 @@
                                                  "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: 10790 s. Karar ekinden gozle okundu, yillik tazeleme"
                                              },
                      "veri/gtip-balik.json":  {
-                                                  "not":  "Faz 2 - olculen: 569 kayit / 53,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "not":  "Faz 2 - olculen: 569 kayit / 53,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Tek commit gecmisi; balik tarife listesi nadiren degisir. 90 gun tavan.",
                                                   "dusus_tavani":  0.3,
                                                   "asgari_kayit":  398,
-                                                  "azami_yas_saat":  null
+                                                  "azami_yas_saat":  2160
                                               },
                      "veri/eximbank-oran.json":  {
-                                                     "not":  "Faz 2 - olculen: 120 kayit / 23,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "not":  "Faz 2 - olculen: 120 kayit / 23,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,9 sa (11 kosu) - kaynak.yml gunluk hasat.",
                                                      "dusus_tavani":  0.3,
                                                      "asgari_kayit":  84,
-                                                     "azami_yas_saat":  null
+                                                     "azami_yas_saat":  48
                                                  },
                      "veri/gtip-damping.json":  {
-                                                    "not":  "Faz 2 - olculen: 141 kayit / 27,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 141 kayit / 27,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 419,6 sa (~17,5 gun) - damping sorusturmalari. 60 gun tavan.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  98,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  1440
                                                 },
                      "veri/sik-istatistigi.json":  {
-                                                       "not":  "Faz 2 - olculen: 4 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                       "not":  "Faz 2 - olculen: 4 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,9 sa (15 kosu).",
                                                        "dusus_tavani":  0.3,
                                                        "asgari_kayit":  2,
-                                                       "azami_yas_saat":  null
+                                                       "azami_yas_saat":  48
                                                    },
                      "veri/nice-siniflar.json":  {
-                                                     "not":  "Faz 2 - olculen: 45 kayit / 39,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "not":  "Faz 2 - olculen: 45 kayit / 39,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Nice siniflandirmasi yilda bir guncellenir (WIPO). 1 yil tavan.",
                                                      "dusus_tavani":  0.3,
                                                      "asgari_kayit":  31,
-                                                     "azami_yas_saat":  null
+                                                     "azami_yas_saat":  8760
                                                  },
                      "veri/gecikme-zammi.json":  {
                                                      "not":  "Faz 2 - olculen: 4 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -187,10 +187,10 @@
                                                      "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore RG karariyla DEGISEN oran; indirici yok. 90 gunde bir gozden gecirilsin ki degisiklik gec kalmasin"
                                                  },
                      "veri/sgs-analiz.json":  {
-                                                  "not":  "Faz 2 - olculen: 35 kayit / 411 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "not":  "Faz 2 - olculen: 35 kayit / 411 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 4,7 sa / ortalama 83,1 sa - sinav analizi obek halinde.",
                                                   "dusus_tavani":  0.3,
                                                   "asgari_kayit":  24,
-                                                  "azami_yas_saat":  null
+                                                  "azami_yas_saat":  168
                                               },
                      "veri/sgs-sinav-yapisi.json":  {
                                                         "not":  "Faz 2 - olculen: 5 kayit / 7,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -200,22 +200,22 @@
                                                         "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: sinav yapisi nadiren degisir, yillik gozden gecirme yeterli"
                                                     },
                      "veri/iskur-tesvik.json":  {
-                                                    "not":  "Faz 2 - olculen: 10 kayit / 2,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 10 kayit / 2,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,9 sa (11 kosu) - kaynak.yml gunluk hasat.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  7,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  48
                                                 },
                      "veri/gtip-igv-ulke.json":  {
-                                                     "not":  "Faz 2 - olculen: 4592 kayit / 179,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "not":  "Faz 2 - olculen: 4592 kayit / 179,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 910,5 sa (~38 gun) - ulke bazli IGV. 90 gun tavan.",
                                                      "dusus_tavani":  0.3,
                                                      "asgari_kayit":  3214,
-                                                     "azami_yas_saat":  null
+                                                     "azami_yas_saat":  2160
                                                  },
                      "veri/kgf-paket.json":  {
-                                                 "not":  "Faz 2 - olculen: 32 kayit / 8,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                 "not":  "Faz 2 - olculen: 32 kayit / 8,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,9 sa (11 kosu) - kaynak.yml gunluk hasat.",
                                                  "dusus_tavani":  0.3,
                                                  "asgari_kayit":  22,
-                                                 "azami_yas_saat":  null
+                                                 "azami_yas_saat":  48
                                              },
                      "veri/risk-merkezi.json":  {
                                                     "not":  "Faz 2 - olculen: 9 kayit / 1,1 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -225,28 +225,28 @@
                                                     "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: BILINCLI ELLE - hasatci mail atiyor, dosyaya basmiyor"
                                                 },
                      "veri/gtip-emy-tarim.json":  {
-                                                      "not":  "Faz 2 - olculen: 179 kayit / 39,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                      "not":  "Faz 2 - olculen: 179 kayit / 39,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Tek commit gecmisi; EMY tarim listesi nadiren degisir. 90 gun tavan.",
                                                       "dusus_tavani":  0.3,
                                                       "asgari_kayit":  125,
-                                                      "azami_yas_saat":  null
+                                                      "azami_yas_saat":  2160
                                                   },
                      "veri/radar-kiymet.json":  {
-                                                    "not":  "Faz 2 - olculen: 136 kayit / 12,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 136 kayit / 12,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 1,4 sa / ortalama 78,9 sa. Su an 32,5 gun yasli - ilk kosuda KIRMIZI yanmasi BEKLENIR.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  95,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  168
                                                 },
                      "veri/birlik-urge.json":  {
-                                                   "not":  "Faz 2 - olculen: 13 kayit / 7,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "not":  "Faz 2 - olculen: 13 kayit / 7,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,8 sa (13 kosu) - kaynak.yml gunluk hasat.",
                                                    "dusus_tavani":  0.3,
                                                    "asgari_kayit":  9,
-                                                   "azami_yas_saat":  null
+                                                   "azami_yas_saat":  48
                                                },
                      "veri/ihale-ted.json":  {
-                                                 "not":  "Faz 2 - olculen: 105 kayit / 45,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                 "not":  "Faz 2 - olculen: 105 kayit / 45,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 24,0 sa (15 kosu) - TED gunluk cekim.",
                                                  "dusus_tavani":  0.3,
                                                  "asgari_kayit":  73,
-                                                 "azami_yas_saat":  null
+                                                 "azami_yas_saat":  48
                                              },
                      "veri/gtip-ihracat-kisit.json":  {
                                                           "not":  "Faz 2 - olculen: 59 kayit / 8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -256,16 +256,16 @@
                                                           "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: kaynak indirilmiyor, yillik dongu"
                                                       },
                      "veri/konu-eslesme.json":  {
-                                                    "not":  "Faz 2 - olculen: 1423 kayit / 393,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 1423 kayit / 393,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 29,9 sa / ortalama 81,4 sa - ic esleme sozlugu.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  996,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  168
                                                 },
                      "veri/gunun-tuzagi.json":  {
-                                                    "not":  "Faz 2 - olculen: 5 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 5 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 24,0 sa (15 kosu) - gunluk tuzak karti.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  3,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  48
                                                 },
                      "veri/gtip-otv.json":  {
                                                 "not":  "Faz 2 - olculen: 65 kayit / 5,7 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -289,52 +289,52 @@
                                                    "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: VKN\u0027li TOHUM dosya; canli besleme alacak-arsiv.json\u0027da"
                                                },
                      "veri/gtip-vergi-tarim.json":  {
-                                                        "not":  "Faz 2 - olculen: 2712 kayit / 722,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                        "not":  "Faz 2 - olculen: 2712 kayit / 722,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 872,1 sa (~36 gun) - tarim tarifesi. 90 gun tavan.",
                                                         "dusus_tavani":  0.3,
                                                         "asgari_kayit":  1898,
-                                                        "azami_yas_saat":  null
+                                                        "azami_yas_saat":  2160
                                                     },
                      "veri/smmm-analiz.json":  {
-                                                   "not":  "Faz 2 - olculen: 144 kayit / 230,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "not":  "Faz 2 - olculen: 144 kayit / 230,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 4,7 sa / ortalama 94,1 sa - sinav analizi obek halinde.",
                                                    "dusus_tavani":  0.3,
                                                    "asgari_kayit":  100,
-                                                   "azami_yas_saat":  null
+                                                   "azami_yas_saat":  168
                                                },
                      "veri/sinav-takvimi.json":  {
-                                                     "not":  "Faz 2 - olculen: 6 kayit / 2,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                     "not":  "Faz 2 - olculen: 6 kayit / 2,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 196,5 sa; sinav takvimi donemsel yayimlanir. 90 gun tavan.",
                                                      "dusus_tavani":  0.3,
                                                      "asgari_kayit":  4,
-                                                     "azami_yas_saat":  null
+                                                     "azami_yas_saat":  2160
                                                  },
                      "veri/teblig-damga.json":  {
-                                                    "not":  "Faz 2 - olculen: 172 kayit / 41,3 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 172 kayit / 41,3 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 8,2 sa (15 kosu) - gunden sik yazilir.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  120,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  48
                                                 },
                      "veri/vitrin-sayilar.json":  {
-                                                      "not":  "Faz 2 - olculen: 6 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                      "not":  "Faz 2 - olculen: 6 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,5 sa (15 kosu) - vitrin kanit sayilari.",
                                                       "dusus_tavani":  0.3,
                                                       "asgari_kayit":  4,
-                                                      "azami_yas_saat":  null
+                                                      "azami_yas_saat":  48
                                                   },
                      "veri/kart-durum.json":  {
-                                                  "not":  "Faz 2 - olculen: 1 kayit / 0 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "not":  "Faz 2 - olculen: 1 kayit / 0 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 24,0 sa (15 kosu) - RG tarama damgasi.",
                                                   "dusus_tavani":  0.3,
                                                   "asgari_kayit":  0,
-                                                  "azami_yas_saat":  null
+                                                  "azami_yas_saat":  48
                                               },
                      "veri/gtip-ulke-gruplari.json":  {
-                                                          "not":  "Faz 2 - olculen: 7 kayit / 0,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                          "not":  "Faz 2 - olculen: 7 kayit / 0,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Tek commit gecmisi; ulke gruplari nadiren degisir. 90 gun tavan.",
                                                           "dusus_tavani":  0.3,
                                                           "asgari_kayit":  4,
-                                                          "azami_yas_saat":  null
+                                                          "azami_yas_saat":  2160
                                                       },
                      "veri/gtip-askiya.json":  {
-                                                   "not":  "Faz 2 - olculen: 610 kayit / 139,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                   "not":  "Faz 2 - olculen: 610 kayit / 139,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen ritim ~36 gun (17.08 / 12.07). Askiya alma listesi. 90 gun tavan.",
                                                    "dusus_tavani":  0.3,
                                                    "asgari_kayit":  427,
-                                                   "azami_yas_saat":  null
+                                                   "azami_yas_saat":  2160
                                                },
                      "veri/gtip-ekvergi.json":  {
                                                     "not":  "Faz 2 - olculen: 11 kayit / 10 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
@@ -344,16 +344,16 @@
                                                     "ritim_dayanagi":  "veri/otomasyon-borcu.json - Deftere gore: ELLE - ek mali yukumluluk listesi"
                                                 },
                      "veri/rg-gun-durum.json":  {
-                                                    "not":  "Faz 2 - olculen: 8 kayit / 0,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                    "not":  "Faz 2 - olculen: 8 kayit / 0,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): kartlar.html okuyor; gunluk RG durumu olmasi beklenir. Gecmiste tek commit var - ilk kosuda KIRMIZI yanmasi BEKLENIR, arastirilacak.",
                                                     "dusus_tavani":  0.3,
                                                     "asgari_kayit":  5,
-                                                    "azami_yas_saat":  null
+                                                    "azami_yas_saat":  48
                                                 },
                      "veri/gtip-nihai.json":  {
-                                                  "not":  "Faz 2 - olculen: 105 kayit / 11,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI.",
+                                                  "not":  "Faz 2 - olculen: 105 kayit / 11,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen ritim ~36 gun (17.08 / 12.07). Nihai kullanim. 90 gun tavan.",
                                                   "dusus_tavani":  0.3,
                                                   "asgari_kayit":  73,
-                                                  "azami_yas_saat":  null
+                                                  "azami_yas_saat":  2160
                                               }
                  }
 }

@@ -30,7 +30,15 @@ on:
       - 'veri/_sozlesme.json'
       - 'arac/veri-kapisi.ps1'
   schedule:
-    - cron: '20 6 * * *'    # 09:20 TR - gunluk TAZELIK nobeti (kapi degil, ayri soru)
+    # CEM (21.09.2026): "olcu hergun sabah 4 aksam tekrar mesela 18.00 olabilir,
+    # hergun denetlensin". Tek gunluk 09:20 nobeti IKI VARDIYAYA cikarildi.
+    # Vardiyalar bilerek HASATIN ARDINA konuldu: kaynak.yml 03:13 ve 17:00 TR'de
+    # hasat ediyor; denetim hasadin 45-60 dk sonrasinda kosarsa "bugun geldi mi"
+    # sorusunu ayni gun icinde cevaplar. Eski 09:20 nobeti aksam hasadini ertesi
+    # sabaha birakiyordu: 21.09'da ana sayfa 18.09 kartlarini "bugun" diye
+    # gosterdi ve bunu hicbir nobetci yakalamadi.
+    - cron: '0 1 * * *'     # 04:00 TR - sabah denetimi (gece hasadinin ardindan)
+    - cron: '0 15 * * *'    # 18:00 TR - aksam denetimi (aksam hasadinin ardindan)
   workflow_dispatch: {}
 
 permissions:
