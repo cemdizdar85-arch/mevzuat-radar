@@ -131,6 +131,15 @@ jobs:
           - { ad: "Dayanak alintisi sayaci OZ-SINAVI (bos paket != TUTMAZ)",
               kabuk: pwsh, komut: "./arac/alinti-sayaci-sinavi.ps1" }
 
+          # 21.09.2026 - Kapi bir LISTEYLE calisiyor, liste mesru veriyle cakisabilir
+          # (kural md. 5). Burada cakisma somut: "kaynak reddi almis konu" ile "calisan
+          # konu" ayni olabilir. Olculdu - sartsiz "kaynak reddi >= 2" deseydik 120 konu
+          # duserdi ve bunlarin 215 YAYINA GIRMIS sorusu vardi. Kapi "VE yayina giren = 0"
+          # sartiyla kuruldu; bu sinav o sartin yerinde durdugunu olcer (11 vaka, 5'i
+          # yanlis alarm vakasi). GERCEK fonksiyon AST ile cikarilip kosulur.
+          - { ad: "Kisir/kaynak-borcu secimi OZ-SINAVI (calisan konuyu dusurmez)",
+              kabuk: pwsh, komut: "./arac/kisir-konu-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

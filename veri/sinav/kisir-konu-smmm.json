@@ -1,175 +1,430 @@
 {
-    "olcum":  "2026-09-19 07:41",
-    "aciklama":  "En az 3 soru denenmiş, HİÇBİRİ yayın şartını geçmemiş konular. motor/plandan-parti-kur.ps1 bu konuları plana almaz. Türetilmiştir - elle düzenlenmez; kaynağı yutulan konu yeniden ölçümde listeden düşer.",
-    "kural":  "denenen \u003e= 3 ve yayına giren = 0",
+    "olcum":  "2026-09-22 01:24",
+    "aciklama":  "Plana ALINMAYAN konular. İki kural: (1) KISIR = en az 3 soru denenmiş, hiçbiri yayın şartını geçmemiş; (2) KAYNAK-BORCU = hakem en az 2 kez \u0027paket cevabı destekleyen hükmü taşımıyor\u0027 demiş ve konu hiç yayına girmemiş. İkisinde de ORTAK ŞART: yayına giren = 0 — kapı çalışan hiçbir konuyu düşürmez. motor/plandan-parti-kur.ps1 bu listeyi okur. Türetilmiştir, elle düzenlenmez; kaynağı yutulan konu yeniden ölçümde listeden düşer. İş emri: veri/KAYNAK-BORCU.md",
+    "kural":  "(denenen \u003e= 3 VEYA kaynakReddi \u003e= 2) VE yayına giren = 0",
     "olculen":  {
-                    "konu":  607,
-                    "denenen":  3269,
-                    "gecen":  1967,
-                    "partiDosyasi":  327
+                    "konu":  1157,
+                    "denenen":  4484,
+                    "gecen":  2692,
+                    "partiDosyasi":  443
                 },
-    "kisirKonu":  32,
-    "kisirTaslak":  182,
+    "kisirKonu":  69,
+    "kaynakBorclu":  55,
+    "kisirTaslak":  282,
     "konular":  [
                     {
                         "konu":  "gss bakmakla yukumlu",
                         "denenen":  11,
-                        "kaynakEksik":  3
-                    },
-                    {
-                        "konu":  "idari para cezasi",
-                        "denenen":  9,
-                        "kaynakEksik":  8
+                        "kaynakEksik":  11,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "esdeger urun birimleri",
                         "denenen":  9,
-                        "kaynakEksik":  6
+                        "kaynakEksik":  8,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "tazmin talebi zamanasimi",
                         "denenen":  9,
-                        "kaynakEksik":  4
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "idari para cezasi",
+                        "denenen":  9,
+                        "kaynakEksik":  8,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "sermaye piyasasi kavramlari",
                         "denenen":  8,
-                        "kaynakEksik":  5
+                        "kaynakEksik":  6,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "kayİk denetimi yetkisi",
                         "denenen":  8,
-                        "kaynakEksik":  6
-                    },
-                    {
-                        "konu":  "genel kurul cagrisi",
-                        "denenen":  7,
-                        "kaynakEksik":  7
-                    },
-                    {
-                        "konu":  "yari mamul devir hizi/suresi",
-                        "denenen":  7,
-                        "kaynakEksik":  7
+                        "kaynakEksik":  6,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "gider yeri tanimi (msugt)",
                         "denenen":  7,
-                        "kaynakEksik":  7
+                        "kaynakEksik":  7,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "asit test orani",
                         "denenen":  7,
-                        "kaynakEksik":  7
+                        "kaynakEksik":  7,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "tacirin bagimli yardimcilari",
                         "denenen":  7,
-                        "kaynakEksik":  2
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "sermaye piyasasi araci tanimlari",
-                        "denenen":  6,
-                        "kaynakEksik":  5
+                        "konu":  "genel kurul cagrisi",
+                        "denenen":  7,
+                        "kaynakEksik":  7,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "spk suc tipleri",
-                        "denenen":  6,
-                        "kaynakEksik":  5
+                        "konu":  "ticari borc odeme suresi",
+                        "denenen":  7,
+                        "kaynakEksik":  7,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "muhlet verme sartlari",
                         "denenen":  6,
-                        "kaynakEksik":  1
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
                     },
                     {
-                        "konu":  "ticari isletmenin ticaret siciline tescili",
-                        "denenen":  5,
-                        "kaynakEksik":  4
+                        "konu":  "sermaye piyasasi araci tanimlari",
+                        "denenen":  6,
+                        "kaynakEksik":  5,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "kripto varlik hizmet saglayici denetimi",
-                        "denenen":  5,
-                        "kaynakEksik":  0
+                        "konu":  "yari mamul devir hizi/suresi",
+                        "denenen":  6,
+                        "kaynakEksik":  6,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "spk suc tipleri",
+                        "denenen":  6,
+                        "kaynakEksik":  5,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "asit-test oran",
                         "denenen":  5,
-                        "kaynakEksik":  5
+                        "kaynakEksik":  5,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "borc senedi reeskontu",
                         "denenen":  5,
-                        "kaynakEksik":  1
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
                     },
                     {
-                        "konu":  "oran analizi hesaplama",
-                        "denenen":  4,
-                        "kaynakEksik":  3
+                        "konu":  "kripto varlik hizmet saglayici denetimi",
+                        "denenen":  5,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
                     },
                     {
-                        "konu":  "gelir vergisi hesabi",
-                        "denenen":  4,
-                        "kaynakEksik":  3
+                        "konu":  "ticari isletmenin ticaret siciline tescili",
+                        "denenen":  5,
+                        "kaynakEksik":  5,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "sermaye piyasasi suclari",
-                        "denenen":  4,
-                        "kaynakEksik":  2
-                    },
-                    {
-                        "konu":  "zamanasimi",
-                        "denenen":  4,
-                        "kaynakEksik":  0
-                    },
-                    {
-                        "konu":  "trend analizi net satis",
-                        "denenen":  4,
-                        "kaynakEksik":  4
-                    },
-                    {
-                        "konu":  "muhasebe kayit usulsuzlugu",
-                        "denenen":  4,
-                        "kaynakEksik":  2
-                    },
-                    {
-                        "konu":  "piyasa bozucu eylem",
-                        "denenen":  4,
-                        "kaynakEksik":  1
-                    },
-                    {
-                        "konu":  "limited sirket ortak sorumlulugu",
-                        "denenen":  4,
-                        "kaynakEksik":  0
+                        "konu":  "brut satis karliligi",
+                        "denenen":  5,
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "sebepsiz zenginlesme zamanasimi",
                         "denenen":  4,
-                        "kaynakEksik":  3
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "izahname",
+                        "konu":  "gelir vergisi matrahi",
                         "denenen":  4,
-                        "kaynakEksik":  1
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "ise baslamayi bildirme",
                         "denenen":  4,
-                        "kaynakEksik":  4
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "stajdan sayilan haller",
+                        "konu":  "sermaye piyasasi suclari",
                         "denenen":  4,
-                        "kaynakEksik":  0
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "zamanasimi",
+                        "denenen":  4,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "limited sirket ortak sorumlulugu",
+                        "denenen":  4,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "faaliyet kârliligi",
+                        "denenen":  4,
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "ihtiyati haciz dava suresi",
                         "denenen":  4,
-                        "kaynakEksik":  1
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "isyeri kira geliri beyani",
+                        "denenen":  4,
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "piyasa bozucu eylem",
+                        "denenen":  4,
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "gelir vergisi hesabi",
+                        "denenen":  4,
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "ticari borc devir hizi",
+                        "denenen":  4,
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "oran analizi hesaplama",
+                        "denenen":  4,
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "ticaret unvani koruma",
+                        "denenen":  4,
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "muhasebe kayit usulsuzlugu",
+                        "denenen":  4,
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "trend analizi net satis",
+                        "denenen":  4,
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "izahname",
+                        "denenen":  4,
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "stajdan sayilan haller",
+                        "denenen":  4,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "telif kazanci istisnasi",
+                        "denenen":  3,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
                     },
                     {
                         "konu":  "serbest meslek kazanci",
                         "denenen":  3,
-                        "kaynakEksik":  2
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "alacak satis iliskisi",
+                        "denenen":  3,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "uygulamali mesleki egitim",
+                        "denenen":  3,
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "disiplin tedbir karari",
+                        "denenen":  3,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "ticari mal devir hizi",
+                        "denenen":  3,
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "satis iadesi kaydi",
+                        "denenen":  3,
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "ic kontrol amaclari",
+                        "denenen":  3,
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "kdv hizmet tanimi",
+                        "denenen":  3,
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "hukuk kaynaklari hiyerarsisi",
+                        "denenen":  3,
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "reklamla haksiz rekabet",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "stok degerleme brut kar",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "serbest bolge fason hizmet kdv",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "ozel maliyet gideri",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "satislardan nakit girisi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "fon akim tablosu",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "varlik devir hizi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "erken odeme iskontosu",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "oda kurulus meslek mensubu sayisi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "birim maliyet hesabi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "istinaf kanun yolu",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "dis protezciligi kazanci",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "kdv tarhiyatin muhatabi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "satistan iade avans",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "net ucret hesabi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "alacak tahsilati",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "finansal kiralama kiralayan degerleme",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "dava sarti arabuluculuk",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "brut satis kari",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "kredili satis kaydi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "bilanco tanimi",
+                        "denenen":  2,
+                        "kaynakEksik":  2,
+                        "neden":  "KAYNAK-BORCU"
                     }
                 ]
 }

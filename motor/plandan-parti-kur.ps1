@@ -126,18 +126,40 @@ if(-not $sec.Count){ throw 'Suzgecten konu gecmedi - esikleri gevset.' }
 #   ⚠ KALITE KISITI DEGIL: listedeki konudan bugune kadar TEK soru cikmadi, kapi yayina giren
 #     hicbir soruyu dusurmez. Kaynagi yutulan konu yeniden olcumde listeden duser ve geri gelir.
 #   ⚠ Dosya yoksa kapi CALISMAZ (SGS/KGK icin henuz olcum yok) - sessizce eski davranis.
+#
+#   ⭐ 21.09.2026 IKINCI KURAL: KAYNAK BORCU (Cem "1 ve 2 yap"). Listeye artik ikinci bir
+#   sinif giriyor: hakem en az 2 kez "paket cevabi destekleyen HUKMU tasimiyor" demis VE konu
+#   hic yayina girmemisse. OLCULDU: SMMM dalgalarinda hakem reddinin 151/242'si (%62) bu
+#   gerekceyle geldi. Kirpma/montaj kusuru DEGIL - reddedilen sorularin paketi yayina
+#   girenlerle ayni boyda (medyan 10.133 ↔ 10.538 krk) ve konuyu ayni oranda tasiyor
+#   (%89,4 ↔ %94,0); kaynak ambarda gercekten yok. Liste 32 -> 69 konu oldu (55'i kaynak
+#   borclusu), 282 taslak (uretilenin %6,3) artik basilmayacak.
+#   ⚠ YANLIS ALARM BEDELI OLCULDU: sartsiz "kaynak reddi >= 2" deseydik 120 konu duserdi ve
+#     bunlarin 215 YAYINA GIRMIS sorusu vardi. "VE yayina giren = 0" sarti yuzunden bugunku
+#     kapinin yanlis alarm bedeli 0 soru.
+#   🚫 BU KAPI SUNU GORMEZ: konu adinin farkli yazimlarini (esleme sozlugu ayri is);
+#     ambara YENI yutulmus kaynagi (liste yeniden olculene kadar konu dusuk kalir);
+#     hakemin gerekcesinin dogru olup olmadigini.
+#   Is emri: veri/KAYNAK-BORCU.md · Oz-sinav: arac/kisir-konu-sinavi.ps1
 $kisirYol=Join-Path $depoKok ('veri\sinav\kisir-konu-'+$Sinav.ToLowerInvariant()+'.json')
 if(Test-Path $kisirYol){
   $kisirJ=Get-Content $kisirYol -Raw -Encoding UTF8|ConvertFrom-Json
-  $kisirKume=@{}; foreach($kk in @($kisirJ.konular|ForEach-Object{ $_ })){ $kisirKume["$($kk.konu)".Trim().ToLowerInvariant()]=[int]$kk.denenen }
+  $kisirKume=@{}; $kisirNeden=@{}
+  foreach($kk in @($kisirJ.konular|ForEach-Object{ $_ })){
+    $kAd="$($kk.konu)".Trim().ToLowerInvariant()
+    $kisirKume[$kAd]=[int]$kk.denenen
+    $kisirNeden[$kAd]=$(if("$($kk.neden)".Trim()){ "$($kk.neden)" } else { 'KISIR' })   # 21.09 oncesi liste 'neden' tasimaz
+  }
   if($kisirKume.Count){
     $oncekiSayi=$sec.Count
     $dusenKonu=@($sec | Where-Object { $kisirKume.ContainsKey("$($_.konu)".Trim().ToLowerInvariant()) })
     $sec=@($sec | Where-Object { -not $kisirKume.ContainsKey("$($_.konu)".Trim().ToLowerInvariant()) })
     $dusenSoru=0; foreach($dk in $dusenKonu){ $dusenSoru+=[int]$dk.acik }
-    Write-Host ("KISIR KONU KAPISI: {0} konu plandan dustu ({1} soru basilmayacak) · olcum {2} · liste {3}" -f `
-      $dusenKonu.Count,$dusenSoru,$kisirJ.olcum,(Split-Path $kisirYol -Leaf)) -ForegroundColor Yellow
-    foreach($dk in ($dusenKonu | Select-Object -First 8)){ Write-Host ("   - {0}" -f $dk.konu) -ForegroundColor DarkYellow }
+    $borcSay=0; foreach($dk in $dusenKonu){ if("$($kisirNeden["$($dk.konu)".Trim().ToLowerInvariant()])" -like '*KAYNAK-BORCU*'){ $borcSay++ } }
+    Write-Host ("KISIR/KAYNAK-BORCU KAPISI: {0} konu plandan dustu ({1} kaynak borclusu · {2} soru basilmayacak) · olcum {3} · liste {4}" -f `
+      $dusenKonu.Count,$borcSay,$dusenSoru,$kisirJ.olcum,(Split-Path $kisirYol -Leaf)) -ForegroundColor Yellow
+    if($borcSay){ Write-Host "   -> kaynak borclulari veri/KAYNAK-BORCU.md'de: bunlar PARA ile degil YUTMA ile cozulur" -ForegroundColor DarkYellow }
+    foreach($dk in ($dusenKonu | Select-Object -First 8)){ Write-Host ("   - {0}  [{1}]" -f $dk.konu,$kisirNeden["$($dk.konu)".Trim().ToLowerInvariant()]) -ForegroundColor DarkYellow }
     if($dusenKonu.Count -gt 8){ Write-Host ("   ... ve {0} konu daha" -f ($dusenKonu.Count-8)) -ForegroundColor DarkYellow }
     if(-not $sec.Count){ throw "Kisir konu kapisi TUM konulari dusurdu ($oncekiSayi konu) - once kaynak yutma is emri." }
   }
