@@ -11,8 +11,36 @@ Ayrıntılı kırılım: https://console.anthropic.com/settings/usage → **Cost
 | Tarih | Console (tüm hesap) | Defter (yalnız soru basımı) | Defter fazlası |
 |---|---|---|---|
 | 2026-09-20 18:58 | **2.537,09 USD** | 2.943,03 USD | **+405,94 USD** |
+| 2026-09-21 (dalga 2 + 3 sonrası) | **2.651,47 USD** | — | — |
 
 Defter, hesabın tamamından fazla sayıyordu — imkânsız, yani şişik.
+
+## ⭐ İLK KAPALI ÇAPA ÖLÇÜMÜ (21.09) — DEFTER DOĞRULANDI
+
+Düzeltmeden **sonra** basılan iki dalga, Console'un iki okuması arasında kaldı:
+
+| | |
+|---|---|
+| Console farkı (tüm hesap) | **114,38 USD** |
+| Aynı sürede kasaya giren soru | **371** (dalga 2: 258 · dalga 3: 113) |
+| **GERÇEK soru başı bedel** | **0,308 USD** |
+| Aynı sürede defterin dediği | 113,67 USD → 0,306 USD/soru |
+| **Defter ile Console farkı** | **0,71 USD (%0,6)** |
+
+**Defter artık doğru.** Console'dan yalnız %0,6 sapıyor ve o fark da aynı sürede koşan
+diğer robotların (OCR, marka, alacak) harcaması olarak açıklanıyor.
+
+⚠ **Ve bir beklenti boşa çıktı:** "defter şişik olduğu için gerçek fiyat daha ucuzdur"
+demiştim. Şişme ESKİ dönemin sorunuymuş; düzeltmeden sonraki dalgalarda defter zaten
+doğru yazıyordu. **Gerçek fiyat 0,31 USD/soru — 0,30'un altı değil.**
+
+### Planlama rakamı (ölçülmüş, tahmin değil)
+
+| Hedef | Bütçe |
+|---|---|
+| +500 soru | ~154 USD |
+| +1.000 soru | ~308 USD |
+| Kasayı 4.000'e çıkarmak (+1.529) | ~471 USD |
 
 ## Neden şişmişti (20.09'da bulundu ve düzeltildi)
 
