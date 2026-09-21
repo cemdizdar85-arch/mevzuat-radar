@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-09-20T07:48:26.902Z",
-  "gun": "2026-09-20",
+  "olcum": "2026-09-21T08:02:07.361Z",
+  "gun": "2026-09-21",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 52,
+      "sira": 53,
       "toplam": 70,
-      "id": "sgs-t3-yd-kolay/kp-03",
-      "ders": "Yabancı Dil",
-      "konu": "passive voice",
-      "kunye": "SGS 2024/2 Soru 24 kalıbı",
+      "id": "sgs-c2-fmuh-zor-r3/kp-03",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 2 stoklar",
+      "kunye": "SGS 2026/1 Soru 53 kalıbı",
       "donem": 5,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "All the monthly expense reports ---- by the accounting department every week.",
+      "teori": false,
+      "rakamSik": true,
+      "soru": "İşletme, ticaret amacıyla aldığı bir mal partisi için 200.000 TL mal bedeli ödemiş, 6.000 TL nakliye ve 4.000 TL sigorta giderine katlanmış, satıcıdan 12.000 TL alış iskontosu almıştır. Parti 1.000 birimden oluşmaktadır. Dönem sonunda malın tahmini satış fiyatı birim başına 175 TL, satışı gerçekleştirmek için gerekli tahmini maliyet ise birim başına 5 TL olarak belirlenmiştir. TMS 2 Stoklar'a göre, bu mal partisi için dönem sonunda ayrılması gereken stok değer düşüklüğü karşılığı tutarı kaç TL'dir?",
       "siklar": {
-        "A": "were reviewed",
-        "B": "review",
-        "C": "reviewed",
-        "D": "is reviewed",
-        "E": "are reviewed"
+        "A": "18.000",
+        "B": "23.000",
+        "C": "52.000",
+        "D": "40.000",
+        "E": "28.000"
       },
       "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Yardımcı Fiil Eksikliği Tuzağı",
-          "metin": "öğrenci yalnız V3'ü yazıp be fiilini atlamış, çünkü V3'ün tek başına edilgenlik anlamı verdiğini sanmış. Doğrusu: edilgen çatı her zaman be + V3 gerektirir, tek başına 'reviewed' cümlede yüklem olamaz."
+          "ad": "Ters İşlem Tuzağı",
+          "metin": "Alış iskontosunu maliyetten düşmek yerine maliyete eklersin ve (200.000+6.000+4.000+12.000)/1.000=222 TL birim maliyet bulursun. Doğrusu: Alış iskontosu maliyeti azaltan bir kalemdir, toplama değil çıkarmaya dahil edili…"
         },
         "A": {
-          "ad": "Zaman Tuzağı",
-          "metin": "öğrenci 'every week' ipucunu atlayıp geçmiş zaman çekimini seçmiş. Doğrusu: tekrarlanan/alışılmış eylem present simple edilgen gerektirir, 'were' geçmiş zamandır."
+          "ad": "Eksik Maliyet Tuzağı",
+          "metin": "Nakliye ve sigorta giderlerini stok maliyetine dahil etmeyip yalnızca mal bedelinden alış iskontosunu düşerek (200.000-12.000)/1.000=188 TL birim maliyet bulup 170 TL net gerçekleşebilir değerle karşılaştırırsın. Doğrus…"
         },
         "D": {
-          "ad": "Özne-Yüklem Uyumsuzluğu Tuzağı",
-          "metin": "öğrenci 'reports' kelimesinin çoğul olduğunu gözden kaçırıp tekil 'is' seçmiş. Doğrusu: çoğul özneyle be fiili 'are' olarak çekimlenir."
+          "ad": "İskonto Atlama Tuzağı",
+          "metin": "Alış iskontosunu maliyetten düşürmeyi unutup (200.000+6.000+4.000)/1.000=210 TL birim maliyet hesaplarsın. Doğrusu: Alış iskontosu, mal maliyetini azaltan bir unsur olarak toplam maliyetten indirilmelidir."
         },
         "B": {
-          "ad": "Çatı Tuzağı",
-          "metin": "öğrenci fiili etken çatıda bırakıp yalnız anlamı düşünmüş, ama cümledeki 'by the accounting department' ifadesi eylemin öznece değil raporlar üzerinde yapıldığını gösterir. Doğrusu: edilgen çatı gerektiğinden 'are revie…"
+          "ad": "Net Değer Eksik Hesap Tuzağı",
+          "metin": "Net gerçekleşebilir değeri bulurken satışı gerçekleştirmek için gerekli tahmini maliyeti düşmeyi unutup yalnızca satış fiyatını (175 TL) esas alırsın. Doğrusu: TMS 2 paragraf 6 uyarınca net gerçekleşebilir değer, tahmin…"
         }
       },
-      "hap": "Edilgen çatı = be (özneye ve zamana uygun çekimli) + V3; be fiili asla atlanmaz, özne sayısına göre seçilir.",
+      "hap": "Stok maliyetine doğrudan ilişkilendirilebilen giderler eklenir, alış iskontoları düşülür; sonuç net gerçekleşebilir değerle karşılaştırılıp düşüklük varsa karşılık ayrılır.",
       "satirlar": [
         [
-          "A) were reviewed",
-          "Teori notu: ZAMANLARA GÖRE - Past simple"
+          "Toplam maliyet (1.000 birim)",
+          "198.000"
         ],
         [
-          "B) review",
-          "Teori notu: ETKEN'DEN EDİLGEN'E"
+          "Birim maliyet",
+          "198"
         ],
         [
-          "C) reviewed",
-          "Teori notu: TEMEL YAPI"
+          "Net gerçekleşebilir değer (175-5)",
+          "170"
         ],
         [
-          "D) is reviewed",
-          "Teori notu: TEMEL YAPI"
+          "Birim değer düşüklüğü (198-170)",
+          "28"
         ],
         [
-          "E) are reviewed",
-          "Teori notu: ZAMANLARA GÖRE - Present simple"
+          "Ayrılması gereken karşılık (28×1.000)",
+          "28.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=52",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=53",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 63,
+        "kalan_gun": 62,
         "durum": "YESIL",
         "mail_gunu": false
       }
