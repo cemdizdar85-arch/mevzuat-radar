@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **16.09.2026 09:14** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **21.09.2026 14:34** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 48353 parça · 2720 tekil kaynak | Bütünlük ölçülen: 2720 (delikli: 368; son ölçüm: 16.09.2026) | Sürüm ölçülen: 42 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
+**ÖZET:** 50045 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 363; son ölçüm: 20.09.2026) | Sürüm ölçülen: 40 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -11,7 +11,7 @@
 
 | Sınav | Belge (canlı) | Dönem sayısı | Dönemler |
 |---|---:|---:|---|
-| KGK | 108 | 11 | ?(54) · 2025/1(2) · y.2016(8) · y.2017(4) · y.2018(4) · y.2020(8) · y.2021(8) · y.2022(4) · y.2023(4) · y.2024(6) · y.2025(6) |
+| KGK | 120 | 11 | ?(62) · 2025/1(2) · y.2016(12) · y.2017(4) · y.2018(4) · y.2020(8) · y.2021(8) · y.2022(4) · y.2023(4) · y.2024(6) · y.2025(6) |
 | SGS | 129 | 65 | 2005/1(1) · 2005/2(1) · 2005/3(1) · 2006/1(1) · 2006/2(1) · 2006/3(1) · 2007/1(1) · 2007/2(1) · 2007/3(1) · 2008/1(1) · 2008/2(1) · 2008/3(1) · 2009/1(1) · 2009/2(1) · 2009/3(1) · 2010/1(1) · 2010/2(1) · 2010/3(1) · 2011/1(1) · 2011/2(1) · 2011/3(1) · 2012/1(1) · 2012/2(1) · 2012/3(1) · 2013/1(1) · 2013/2(1) · 2013/3(1) · 2014/1(1) · 2014/2(1) · 2014/3(1) · 2015/1(1) · 2015/2(1) · 2015/3(1) · 2016/1(3) · 2016/2(3) · 2016/3(3) · 2017/1(3) · 2017/2(3) · 2017/3(3) · 2018/1(3) · 2018/2(3) · 2018/3(3) · 2019/1(3) · 2019/2(3) · 2019/3(3) · 2020/1(3) · 2020/2(3) · 2020/3(3) · 2021/1(3) · 2021/2(3) · 2021/3(3) · 2022/1(3) · 2022/2(3) · 2022/3(3) · 2023/1(3) · 2023/2(3) · 2023/3(3) · 2024/1(3) · 2024/2(3) · 2024/3(3) · 2025/1(3) · 2025/2(3) · 2025/3(3) · 2026/1(3) · 2026/2(3) |
 | SMMM | 16 | 2 | 2026/1(8) · 2026/2(8) |
 | SMMM (yazılı/komisyon) | 403 | 53 | 2008/1(7) · 2008/2(7) · 2008/3(7) · 2009/1(7) · 2009/2(7) · 2009/3(7) · 2010/1(7) · 2010/2(7) · 2010/3(7) · 2011/1(7) · 2011/2(7) · 2011/3(7) · 2012/1(7) · 2012/2(7) · 2012/3(7) · 2013/1(7) · 2013/2(7) · 2013/3(7) · 2014/1(7) · 2014/2(7) · 2014/3(7) · 2015/1(8) · 2015/2(8) · 2015/3(8) · 2016/1(8) · 2016/2(8) · 2016/3(8) · 2017/1(8) · 2017/2(8) · 2017/3(8) · 2018/1(8) · 2018/2(8) · 2018/3(8) · 2019/1(8) · 2019/2(8) · 2019/3(8) · 2020/1(8) · 2020/2(8) · 2021/1(8) · 2021/2(8) · 2021/3(8) · 2022/1(8) · 2022/2(8) · 2022/3(8) · 2023/1(8) · 2023/2(8) · 2023/3(8) · 2024/1(8) · 2024/2(8) · 2024/3(8) · 2025/1(8) · 2025/2(8) · 2025/3(8) |
@@ -20,9 +20,9 @@
 
 | Kaynak | Tür | Parça | TAM MI | GÜNCEL Mİ |
 |---|---|---:|---|---|
-| [ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi) | cikmis-komisyon-cevabi | 403 | DELİK-İNCELE(par:0/kesik:40/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| [ARŞİV] ÇIKMIŞ SINAV (cikmis-soru) | cikmis-soru | 253 | DELİK-İNCELE(par:0/kesik:34/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| [GRUP] TEORİ NOTLARI | teori-notu | 559 | DELİK-İNCELE(par:494/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| [ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi) | cikmis-komisyon-cevabi | 403 | DELİK-İNCELE(par:0/kesik:41/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| [ARŞİV] ÇIKMIŞ SINAV (cikmis-soru) | cikmis-soru | 265 | DELİK-İNCELE(par:0/kesik:34/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| [GRUP] TEORİ NOTLARI | teori-notu | 582 | DELİK-İNCELE(par:494/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. Is K. (kidem tazminati | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. İş K. (kıdem | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 2006 YILI SERBEST MUHASEBECİLİK, SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK ASGARİ ÜCRET TARİFESİ | kanun-madde | 35 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -48,7 +48,7 @@
 | 6563 s. E-Ticaret K. | kanun-madde | 43 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 6736 s.K. (2016 Yapilandirma) | kanun-madde | 76 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 7143 s.K. (2018 Yapilandirma) | kanun-madde | 97 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| 7326 s.K. (2021 Yapilandirma) | kanun-madde | 89 | DELİK-İNCELE(par:2/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| 7326 s.K. (2021 Yapilandirma) | kanun-madde | 90 | DELİK-İNCELE(par:2/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 7440 s.K. (2023 Yapilandirma-Matrah Artirimi) | kanun-madde | 115 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | AATUHK (6183 s.K.) | kanun-madde | 163 | DELİK-İNCELE(par:2/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Adli Sicil K. (5352 s.K.) | kanun-madde | 24 | DELİK-İNCELE(par:1/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -380,10 +380,10 @@
 | BDS 610 | standart-madde | 79 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 620 | standart-madde | 58 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 620 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 700 | standart-madde | 140 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 700 | standart-madde | 144 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 700 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 701 | standart-madde | 83 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 705 | standart-madde | 58 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 701 | standart-madde | 84 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 705 | standart-madde | 60 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 705 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 706 | standart-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 706 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -392,7 +392,7 @@
 | BDS 706 Ek 4 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 710 | standart-madde | 33 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 710 Ek | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDS 720 | standart-madde | 85 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDS 720 | standart-madde | 94 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 720 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 720 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDS 800 | standart-madde | 36 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -433,7 +433,7 @@
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 57) | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 58) | kanun-madde | 5 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 59) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 60) | kanun-madde | 26 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 60) | kanun-madde | 27 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 61) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 62) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | DAMGA VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 63) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -477,9 +477,9 @@
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 66) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 67) | kanun-madde | 8 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 68) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 69) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 69) | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 70) | kanun-madde | 11 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 72) | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 72) | kanun-madde | 14 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 73) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 74) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 75) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -500,21 +500,21 @@
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO:51) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | EMLAK VERGİSİ KANUNU GENEL TEBLİĞİ(SERİ NO: 71) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Esnaf ve Sanatkârlar K. (5362 s.K.) | kanun-madde | 119 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Etik Kurallar | standart-madde | 567 | DELİK-İNCELE(par:852/kesik:0/oksuz:28) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Etik Kurallar | standart-madde | 1145 | DELİK-İNCELE(par:1700/kesik:0/oksuz:34) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Etik Kurallar - on bolum | standart-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Fin. Kiralama-Faktoring K. (6361 s.K.) | kanun-madde | 91 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Finansal Raporlamaya Iliskin Kavramsal Cerceve (2018) | kanun-madde | 214 | DELİK-İNCELE(par:0/kesik:1/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | FSEK (5846 s.K.) | kanun-madde | 132 | DELİK-İNCELE(par:7/kesik:30/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Fuar Desteklerine Iliskin Genelge (5973 uygulama) | kanun-madde | 85 | DELİK-İNCELE(par:0/kesik:2/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gayrimenkul Yatirim Ortakliklarina Iliskin Esaslar Tebligi (III-48.1) | kanun-madde | 91 | DELİK-İNCELE(par:1/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GDS 3000 | standart-madde | 287 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3000 | standart-madde | 293 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3000 Ek | standart-madde | 6 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3400 | standart-madde | 33 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3402 | standart-madde | 110 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3402 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3402 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3402 Ek 3 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GDS 3410 | standart-madde | 214 | DELİK-İNCELE(par:15/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GDS 3410 | standart-madde | 231 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3410 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GDS 3410 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 251) | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -532,7 +532,7 @@
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 265) | kanun-madde | 21 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 266) | kanun-madde | 11 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 267) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 269) | kanun-madde | 10 | DELİK-İNCELE(par:1/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 269) | kanun-madde | 11 | DELİK-İNCELE(par:1/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 270) | kanun-madde | 10 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 271) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 272) | kanun-madde | 5 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -554,18 +554,18 @@
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 288) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 289) | kanun-madde | 13 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 290) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 291) | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 291) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 292) | kanun-madde | 17 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 293) | kanun-madde | 28 | DELİK-İNCELE(par:17/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 294) | kanun-madde | 10 | DELİK-İNCELE(par:26/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 295) | kanun-madde | 16 | DELİK-İNCELE(par:59/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 296) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 294) | kanun-madde | 11 | DELİK-İNCELE(par:26/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 295) | kanun-madde | 17 | DELİK-İNCELE(par:59/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 296) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 297) | kanun-madde | 17 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 299) | kanun-madde | 11 | DELİK-İNCELE(par:26/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 300) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 299) | kanun-madde | 12 | DELİK-İNCELE(par:26/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 300) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 301) | kanun-madde | 17 | DELİK-İNCELE(par:0/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 302) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 303) | kanun-madde | 27 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 302) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 303) | kanun-madde | 28 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 304) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 305) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 306) | kanun-madde | 26 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -598,9 +598,9 @@
 | Gümrük K. — Ekonomik etkili rejimler (m.79-135) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gümrük K. (4458 s.K.) | kanun-madde | 318 | DELİK-İNCELE(par:0/kesik:33/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gümrük kıymeti (4458 | rehber | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Gümrük Yönetmeliği | kanun-madde | 698 | DELİK-İNCELE(par:104/kesik:1/oksuz:5) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Gümrük Yönetmeliği | kanun-madde | 698 | DELİK-İNCELE(par:101/kesik:1/oksuz:4) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | GVK (193 s.K.) | kanun-madde | 368 | DELİK-İNCELE(par:124/kesik:35/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| GVK 94 Tevkifat Oranlari BKK (2009/14592) | kanun-madde | 10 | DELİK-İNCELE(par:0/kesik:6/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| GVK 94 Tevkifat Oranlari BKK (2009/14592) | kanun-madde | 11 | DELİK-İNCELE(par:0/kesik:6/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Haksız Rekabet ve Reklam Yasağı Yön. | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Hal K. (5957 s.K.) | kanun-madde | 46 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Harçlar K. (492 s.K.) | kanun-madde | 240 | DELİK-İNCELE(par:75/kesik:24/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -637,9 +637,9 @@
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 76) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 77) | kanun-madde | 22 | DELİK-İNCELE(par:57/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 78) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 79) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 79) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 80) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 81) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 81) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 82) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 83) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO: 84) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -665,8 +665,8 @@
 | Ihracat Destekleri Hakkinda Karar (5973 s. CB Karari) | kanun-madde | 59 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Istanbul Takas ve Saklama Bankasi A.S. Merkezi Karsi Taraf Yonetmeligi | kanun-madde | 72 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Istanbul Takas ve Saklama Bankasi A.S. Merkezi Takas Yonetmeligi | kanun-madde | 72 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Izahname ve Ihrac Belgesi Tebligi (II-5.1) | kanun-madde | 54 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| İHS 4400 | standart-madde | 96 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Izahname ve Ihrac Belgesi Tebligi (II-5.1) | kanun-madde | 55 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| İHS 4400 | standart-madde | 97 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | İHS 4400 Ek 1 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | İHS 4400 Ek 2 | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | İİK — Konkordato (m.285-309) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -687,9 +687,9 @@
 | Kamu Ihale Tebligi (2026/1) - esik degerler | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kamu İhale Sözl. K. (4735 s.K.) | kanun-madde | 58 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kamu Malî Yönetimi K. (5018 s.K.) | kanun-madde | 169 | DELİK-İNCELE(par:4/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Kamulaştırma K. (2942 s.K.) | kanun-madde | 87 | DELİK-İNCELE(par:4/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Kamulaştırma K. (2942 s.K.) | kanun-madde | 88 | DELİK-İNCELE(par:4/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kanuni Faiz K. (3095 s.K.) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Kar Payi Tebligi (II-19.1) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Kar Payi Tebligi (II-19.1) | kanun-madde | 20 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Karayolları Trafik K. (2918 s.K.) | kanun-madde | 268 | DELİK-İNCELE(par:5/kesik:3/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kat Mülkiyeti K. (634 s.K.) | kanun-madde | 100 | DELİK-İNCELE(par:0/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Katilim Esaslari Cercevesinde Sigortacilik ve BES Yonetmeligi | kanun-madde | 22 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1106,7 +1106,7 @@
 | KURUMLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 86) | kanun-madde | 28 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kurumsal Yonetim Tebligi (II-17.1) | kanun-madde | 47 | DELİK-İNCELE(par:0/kesik:15/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK (5520 s.K.) | kanun-madde | 206 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KVK 15 Vergi Kesintisi Oranlari BKK (2009/14594) | kanun-madde | 7 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK 30 Tevkifat Oranlari BKK (2009/14593) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK GUT (1 Seri No) b.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK GUT (1 Seri No) b.10.1 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1654,10 +1654,8 @@
 | KVK GUT (1 Seri No) b.9.3.4 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVK GUT (1 Seri No) b.9.3.5 | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KVKK (6698 s.K.) | kanun-madde | 47 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KYS 1 | standart-madde | 106 | DELİK-İNCELE(par:34/kesik:23/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KYS 1 - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KYS 2 | standart-madde | 35 | DELİK-İNCELE(par:15/kesik:9/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| KYS 2 - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KYS 1 | standart-madde | 267 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KYS 2 | standart-madde | 84 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KYS Duyuru | standart-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Menşe ve dolaşım belgeleri | rehber | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Merkezi Kayit Kurulusunun Kurulus, Faaliyet, Calisma ve Denetim Esaslari Hakkinda Yonetmelik | kanun-madde | 48 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1680,9 +1678,9 @@
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 44) | kanun-madde | 4 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 45) | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 46) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 47) | kanun-madde | 7 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 47) | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 48) | kanun-madde | 33 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 49) | kanun-madde | 6 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 49) | kanun-madde | 7 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 50) | kanun-madde | 18 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 51) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | MOTORLU TAŞITLAR VERGİSİ GENEL TEBLİĞİ (SERİ NO: 52) | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1731,7 +1729,7 @@
 | ÖZEL TÜKETİM VERGİSİ (IV) SAYILI LİSTE UYGULAMA GENEL TEBLİĞİ | kanun-madde | 88 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Pay Tebligi (VII-128.1) | kanun-madde | 107 | DELİK-İNCELE(par:1/kesik:15/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Perakende Ticaret K. (6585 s.K.) | kanun-madde | 43 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Portfoy Saklama Hizmetine ve Bu Hizmette Bulunacak Kuruluslara Iliskin Esaslar Tebligi (III-56.1) | kanun-madde | 35 | DELİK-İNCELE(par:7/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Portfoy Saklama Hizmetine ve Bu Hizmette Bulunacak Kuruluslara Iliskin Esaslar Tebligi (III-56.1) | kanun-madde | 35 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Portfoy Yonetim Sirketleri ve Bu Sirketlerin Faaliyetlerine Iliskin Esaslar Tebligi (III-55.1) | kanun-madde | 83 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Rekabet K. (4054 s.K.) | kanun-madde | 82 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sanayi Sicili K. (6948 s.K.) | kanun-madde | 19 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1741,7 +1739,7 @@
 | SEDDK Teskilat ve Gorevleri Hakkinda CBK (47 s.) | kanun-madde | 32 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sendikalar ve TİS K. (6356 s.K.) | kanun-madde | 102 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Serbest Bölgeler K. (3218 s.K.) | kanun-madde | 33 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SERİ NO: 45) | kanun-madde | 11 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SERİ NO: 45) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SIRA NO: 42) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SIRA NO: 43) | kanun-madde | 14 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK KANUNU GENEL TEBLİĞİ (SIRA NO: 44) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1758,12 +1756,12 @@
 | Sermaye Piyasası K. (6362 s.K.) | kanun-madde | 269 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2) | kanun-madde | 51 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sermaye Piyasasinda Degerleme Standartlari Tebligi (III-62.1) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Seyahat Acentaları K. (1618 s.K.) | kanun-madde | 37 | DELİK-İNCELE(par:14/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Seyahat Acentaları K. (1618 s.K.) | kanun-madde | 38 | DELİK-İNCELE(par:14/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta Acenteleri Yonetmeligi | kanun-madde | 38 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta Eksperleri Yonetmeligi | kanun-madde | 36 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta ve Reasurans Brokerleri Yonetmeligi | kanun-madde | 30 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigorta ve Reasurans ile Emeklilik Sirketlerinin Sermaye Yeterliliklerinin Olculmesine ve Degerlendirilmesine Iliskin Yonetmelik | kanun-madde | 22 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik | kanun-madde | 39 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik | kanun-madde | 39 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacılık K. (5684 s.K.) | kanun-madde | 134 | DELİK-İNCELE(par:1/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacilik Tekduzen Hesap Plani ve Izahnamesi Hakkinda Teblig | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacilik ve Ozel Emeklilik Sektorlerinde Ic Sistemlere Dair Yonetmelik | kanun-madde | 91 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2141,7 +2139,7 @@
 | SPK Yönetmelik (VII-123.2) - Sermaye Piyasası Kurulu Disiplin Amirleri Yönetmeliği (VII-123.2) | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SPK Yönetmelik (VII-130.1) - Sermaye Piyasası Kurulu İç Denetim Usul ve Esasları Hakkında Yönetmeli | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SSİY (Sos. Sig. İşlemleri Yön.) | kanun-madde | 338 | DELİK-İNCELE(par:2/kesik:0/oksuz:4) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Suç Gelirleri/MASAK K. (5549 s.K.) | kanun-madde | 35 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Suç Gelirleri/MASAK K. (5549 s.K.) | kanun-madde | 36 | DELİK-İNCELE(par:4/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Surekli Egitim Tebligi | standart-madde | 24 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Surekli Egitim Tebligi - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 10) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2153,7 +2151,7 @@
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 19) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 6) | kanun-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 8) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 9) | kanun-madde | 11 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TAHSİLAT GENEL TEBLİĞİ (SERİ: B SIRA NO: 9) | kanun-madde | 12 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: C SIRA NO: 3) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: C SIRA NO: 4) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TAHSİLAT GENEL TEBLİĞİ (SERİ: C SIRA NO: 5) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2180,26 +2178,24 @@
 | Tebligat K. (7201 s.K.) | kanun-madde | 68 | DELİK-İNCELE(par:3/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teknoloji Gel. Bölg. K. (4691 s.K.) | kanun-madde | 41 | DELİK-İNCELE(par:210/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Teminatli Menkul Kiymetler Tebligi (III-59.1) | kanun-madde | 56 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TFRS 1 | standart-madde | 146 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 1 | standart-madde | 159 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 10 | standart-madde | 193 | TAM | TUTARLI |
-| TFRS 11 | standart-madde | 93 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TFRS 12 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 11 | standart-madde | 96 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TFRS 12 | standart-madde | 84 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
 | TFRS 13 | standart-madde | 160 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 14 | standart-madde | 70 | TAM | TUTARLI |
 | TFRS 15 | standart-madde | 242 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
-| TFRS 16 | standart-madde | 207 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
-| TFRS 17 | standart-madde | 285 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 18 | standart-madde | 21 | TAM(set-birebir; kapı notu: par:48/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 18 - TMS 1 ve TMS 8 iliskisi (gecis notu) | standart-madde | 1 | TAM | TUTARLI |
-| TFRS 18 B98-B105 - Kisa/uzun vade sinir vakalari | standart-madde | 1 | TAM | TUTARLI |
-| TFRS 19 | standart-madde | 283 | DELİK-İNCELE(par:21/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
-| TFRS 2 | standart-madde | 153 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 16 | standart-madde | 210 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 17 | standart-madde | 370 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
+| TFRS 18 | standart-madde | 288 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 19 | standart-madde | 288 | DELİK-İNCELE(par:21/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
+| TFRS 2 | standart-madde | 155 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 3 | standart-madde | 177 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 5 | standart-madde | 62 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 6 | standart-madde | 30 | TAM | TUTARLI |
-| TFRS 7 | standart-madde | 200 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 7 | standart-madde | 216 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 8 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TFRS 9 | standart-madde | 272 | DELİK-İNCELE(par:0/kesik:1/oksuz:21) | ÖLÇÜLMEDİ |
+| TFRS 9 | standart-madde | 404 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | THP 100 - Kasa | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 101 - ALINAN ÇEKLER | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | THP 102 - Bankalar | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2478,21 +2474,21 @@
 | TMS 10 | standart-madde | 28 | TAM | TUTARLI |
 | TMS 12 | standart-madde | 131 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
 | TMS 16 | standart-madde | 101 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 19 | standart-madde | 185 | TAM(set-birebir; kapı notu: par:495/kesik:0/oksuz:7 resmî metinde de yok) | TUTARLI |
+| TMS 19 | standart-madde | 186 | TAM(set-birebir; kapı notu: par:495/kesik:0/oksuz:7 resmî metinde de yok) | TUTARLI |
 | TMS 2 | standart-madde | 45 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | ÖLÇÜLMEDİ |
 | TMS 20 | standart-madde | 46 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 21 | standart-madde | 91 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 21 | standart-madde | 104 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 23 | standart-madde | 36 | TAM(set-birebir; kapı notu: par:10/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 24 | standart-madde | 36 | TAM | TUTARLI |
 | TMS 26 | standart-madde | 38 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 27 | standart-madde | 15 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 27 | standart-madde | 34 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 28 | standart-madde | 65 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ISTISNA-ELLE-ZENGIN |
 | TMS 29 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 32 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:48/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 32 Ek | standart-madde | 1 | TAM | TUTARLI |
-| TMS 33 | standart-madde | 92 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
-| TMS 34 | standart-madde | 60 | TAM(set-birebir; kapı notu: par:8/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TMS 36 | standart-madde | 157 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 32 Ek | standart-madde | 56 | TAM | TUTARLI |
+| TMS 33 | standart-madde | 101 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 34 | standart-madde | 61 | TAM(set-birebir; kapı notu: par:6/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 36 | standart-madde | 171 | TAM(set-birebir; kapı notu: par:9/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 37 | standart-madde | 102 | TAM(set-birebir; kapı notu: par:5/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 38 | standart-madde | 146 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 40 | standart-madde | 90 | TAM(set-birebir; kapı notu: par:18/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
@@ -2503,13 +2499,11 @@
 | TPKK (1567 s.K.) | kanun-madde | 19 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSPB Sermaye Piyasasi Calisanlari Etik Ilkeleri ve Davranis Kurallari (Genelge 191) | kanun-madde | 79 | DELİK-İNCELE(par:0/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSPB Uyelerinin Sermaye Piyasasi Faaliyetlerini Yuruturken Uyacaklari Meslek Kurallari | kanun-madde | 37 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TSRS 1 | standart-madde | 104 | DELİK-İNCELE(par:8/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
-| TSRS 1 - on bolum | standart-madde | 1 | TAM | ISTISNA-KAPSAM-DISI |
-| TSRS 2 | standart-madde | 63 | DELİK-İNCELE(par:5/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
-| TSRS 2 - on bolum | standart-madde | 1 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | ISTISNA-KAPSAM-DISI |
+| TSRS 1 | standart-madde | 195 | DELİK-İNCELE(par:8/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
+| TSRS 2 | standart-madde | 124 | DELİK-İNCELE(par:5/kesik:0/oksuz:3) | ISTISNA-KAPSAM-DISI |
 | TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) | kanun-madde | 9 | TAM | ISTISNA-KAPSAM-DISI |
 | TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TTK (6102 s.K.) | kanun-madde | 1598 | DELİK-İNCELE(par:20/kesik:2/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Payı K. (7183 s.K.) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Teşvik K. (2634 s.K.) | kanun-madde | 90 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2522,7 +2516,7 @@
 | Varantlar ve Yatirim Kurulusu Sertifikalari Tebligi (VII-128.3) | kanun-madde | 47 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik | kanun-madde | 46 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERASET VE İNTIKAL VERGISI KANUNU GENEL TEBLIĞI (SERİ NO: 36) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Veraset ve İntikal V.K. (7338 s.K.) | kanun-madde | 36 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Veraset ve İntikal V.K. (7338 s.K.) | kanun-madde | 37 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERASET VE İNTİKAL VERGİSİ KANUNU GENEL TEBLİĞİ (SERI NO: 43) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERASET VE İNTİKAL VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 38) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERASET VE İNTİKAL VERGİSİ KANUNU GENEL TEBLİĞİ (SERİ NO: 39) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2640,12 +2634,12 @@
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 465) | kanun-madde | 16 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 468) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 470) | kanun-madde | 14 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 471) | kanun-madde | 5 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 471) | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 474) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 476) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 477) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 478) | kanun-madde | 54 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 481) | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 481) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 483) | kanun-madde | 32 | DELİK-İNCELE(par:2/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 484) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 485) | kanun-madde | 9 | DELİK-İNCELE(par:53/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2653,13 +2647,13 @@
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 490) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 491) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 492) | kanun-madde | 13 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 493) | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 494) | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 495) | kanun-madde | 22 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 493) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 494) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 495) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 496) | kanun-madde | 29 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 497) | kanun-madde | 16 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 497) | kanun-madde | 17 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 500) | kanun-madde | 28 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 501) | kanun-madde | 6 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 501) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 503) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 504) | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 505) | kanun-madde | 6 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2725,7 +2719,7 @@
 | VUK — Ceza sistemi (m.341-376) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK — Değerleme ve karşılıklar (m.281,322,323) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK — Fatura ve belge düzeni (m.229-232,313-320) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VUK (213 s.K.) | kanun-madde | 584 | DELİK-İNCELE(par:430/kesik:29/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VUK (213 s.K.) | kanun-madde | 583 | DELİK-İNCELE(par:430/kesik:29/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK (213 s.K.) ek | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK 509 GT | kanun-madde | 204 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK GT 389 (amortisman faydali omur listeleri) | kanun-madde | 10 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |

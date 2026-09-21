@@ -7,7 +7,10 @@
 #  parcalar + Supabase'e yeniden yukler + belge_tarihi=BUGUN (son senkron damgasi).
 #  Degismeyeni ATLAR (israf yok). EZBER DEGIL: her gun guncel kaynagin aynasi.
 #  ENV: SUPABASE_SERVICE_KEY (yukleme icin; yoksa yalniz dosya uretir).
+#  ENV: ZORLA=1 (hash ayni olsa bile yeniden yut) · ENV: SADECE=<slug,slug> (yalniz o kaynaklar)
+#  -OzSinav: parcalayicinin kisa madde kuralini iki vakayla sinar, ambara DOKUNMAZ.
 # ============================================================================
+param([switch]$OzSinav)
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 try { [System.Text.Encoding]::RegisterProvider([System.Text.CodePagesEncodingProvider]::Instance) } catch {}
@@ -101,7 +104,21 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     # karakterden kisa madde ATILIYORDU. Kisa madde de maddedir (yururluk,
     # yurutme, tanim fikralari) ve soru-cevap araci onlari da arar. Artik
     # atilmaz - onceki maddeye eklenir, yani metin kaybi sifir.
-    if($govde.Length -lt 60){
+    # 21.09.2026 KUSUR (olculdu, SPK Kar Payi Tebligi II-19.1 vakasi): 60 karakterden kisa
+    #   madde HEP onceki maddeye ekleniyordu. Metin kaybi yok ama MADDE KAYDI yok: "Yurutme
+    #   MADDE 19 - (1) Bu Teblig hukumlerini Kurul yurutur." (55 kr) ambarda ayri belge degil,
+    #   m.18'in kuyrugu olarak duruyordu. KGK mevzuat tamlik olcumu (16.09) bu tebligi "EKSIK"
+    #   isaretliyordu (resmi 19 madde / ambar 18) ve m.19 diye arayan hicbir sorgu bulamiyordu.
+    # AYRIM (olculdu, 719 _txt dosyasi): 60 kr altinda 75 gövde var; 37'si TAM CUMLE
+    #   ("...yururlukten kaldirilmistir." / "...Maliye Bakani yurutur."), 38'i KIRIK PARCA
+    #   ("Yururluk: Madde 117 -", "Mukellef: Madde 41 - Yangin"). Tam cumle olan gercek maddedir,
+    #   kirik parca degildir. Kural: >=30 kr VE nokta ile bitiyorsa KENDI KAYDI olur; degilse
+    #   eskisi gibi onceki maddeye eklenir (metin kaybi yine sifir).
+    # BU KAPI SUNU GORMEZ: noktasiz biten gercek kisa madde (ornek olculmedi) ile 30 kr altindaki
+    #   gercek madde birlesik kalmaya devam eder; ayrica kirik parcanin kendisi duzeltilmez.
+    # Oz-sinav: powershell -File motor/mevzuat-yut.ps1 -OzSinav  (iki vaka: II-19.1 m.19 ayrilir,
+    #   "Yururluk: Madde 117 -" birlesir)
+    if($govde.Length -lt 60 -and -not ($govde.Length -ge 30 -and $govde.EndsWith('.'))){
       if($docs.Count -gt 0){ $docs[$docs.Count-1].metin = "$($docs[$docs.Count-1].metin) $govde" }
       continue
     }
@@ -225,6 +242,28 @@ function ParcalaKilavuz([string]$flatMetin, [string]$kanunAd, [string]$url){
 }
 
 function Sha([string]$s){ $sha=[Security.Cryptography.SHA256]::Create(); ([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16) }
+
+# --- OZ-SINAV (21.09.2026, kapi kurma kurali 2): kisa madde kurali iki vakayla sinanir.
+#     Ambara DOKUNMAZ, ag istegi YAPMAZ. Cikis 0 = gecti, 1 = kaldi.
+if($OzSinav){
+  $sinavlar = @(
+    @{ ad='II-19.1 m.19 tam cumle -> AYRI KAYIT'
+       metin='Yururluk MADDE 18 - (1) Bu Teblig 1/2/2014 tarihinde yururluge girer ve yayimi ile birlikte uygulanmaya baslar. Yurutme MADDE 19 - (1) Bu Teblig hukumlerini Kurul yurutur.'
+       bekle='m.19'; olmali=$true }
+    @{ ad='Kirik parca "Yururluk: Madde 117 -" -> BIRLESIK KALIR'
+       metin='Madde 116 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Yururluk: Madde 117 - Madde 118 - Bu Kanun hukumlerini Cumhurbaskani yurutur ve yayimi tarihinde yururluge girer.'
+       bekle='m.117'; olmali=$false }
+  )
+  $gecti = 0; $kaldi = 0
+  foreach($s in $sinavlar){
+    $cikan = Parcala $s.metin 'SINAV' 'http://ornek'
+    $var = @($cikan | Where-Object { "$($_.kaynak_ad)" -match ([regex]::Escape($s.bekle) + '(\s|$)') }).Count -gt 0
+    if($var -eq $s.olmali){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) }
+    else { $kaldi++; Write-Host ("  KALDI {0} (beklenen: {1}, cikan: {2})" -f $s.ad,$s.olmali,$var) -ForegroundColor Red }
+  }
+  Write-Host ("OZ-SINAV: gecti {0} - kaldi {1}" -f $gecti,$kaldi)
+  exit $(if($kaldi){ 1 } else { 0 })
+}
 
 $SB_ANAHTAR = $env:SUPABASE_SERVICE_KEY
 # 07.08: sb_secret anahtar robot User-Agent ister ("Forbidden use of secret API
