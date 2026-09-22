@@ -129,6 +129,30 @@ Sonrası: haftada 4 gönderi — %30 nöbet · %30 araç · %25 sınav · %15 tu
 
 ---
 
+## 5b · ⭐ 22.09 DÜZELTME — AÇILIŞ GÖNDERİSİ KART DEĞİL, FİLM
+
+Cem: *"3 kare hiç dikkat çekmiyor… dikkat çekmemiz lazım."* Haklı, ve kendi hesabı bunu
+ölçüyor: @dizdardenetim 51 → 3.007'ye **kartlarla değil filmlerle** çıktı (Eylül gönderilerinin
+4'ü reels).
+
+**Ölçüldü (22.09):** `Masaüstü/Firmalar Reklam/Tetikte/` altında **iki bitmiş film 13.09'dan beri
+yayınlanmadan duruyor** — `BIR-HEVESLE-ALINANLAR-1-YAYINA-HAZIR-G03.mp4` (56,6 sn · 1080×1920)
+ve `BIR-HEVESLE-ALINANLAR-2-TELEFON-1080x1920.mp4` (52,9 sn). @tetiktecom'da 0 gönderi,
+@dizdardenetim'in Eylül gönderileri Paranın Günlüğü → **hiçbir yerde yayınlanmamışlar.**
+
+**Yayın kapısı uygulandı:** ikisinde de video akışı t=0'da başlamıyordu (0,033 ve 0,021;
+ses 0,000) → 11.09 kuralına göre yeniden basıldı: `-fps_mode cfr -vf setpts=PTS-STARTPTS
+-af asetpts=PTS-STARTPTS -crf 17 -movflags +faststart`. Çıktılar `*-YAYIN.mp4`, iki akış da
+**0,000000**, süre değişmedi. İlk kare YAVG 50,6 (eşik 40) ✅.
+
+**Yeni karar:** sabit gönderi = **Bölüm 1 filmi**, kart değil. Kefillik cümlesi filmin
+açıklamasında ve sabitlenmiş yorumda durur (Cem kuralı: *iddia söylenmez, gösterilir*).
+Üç kefillik karesi rafta kalır — filmin 2 gün sonrasında ikinci gönderi olarak kullanılabilir.
+Aynı film aynı gün @tetiktecom'un **ilk gönderisi** olur.
+
+**Elçi teklifine eklenen ayak:** elçiye yalnız soru değil **paylaşacağı film** de verilir.
+Hiçbir sınav platformu elçisine hazır film vermiyor; kasada bölüm üretim hattı kurulu.
+
 ## 6 · SIRA (her adım öncekine bağlı)
 
 1. Dizdar doğrulama dokunuşları (bio + 1 sabit gönderi + site altbilgisi) — **Cem, telefondan**
