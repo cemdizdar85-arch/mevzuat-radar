@@ -1,6 +1,6 @@
 # SINAV TEK SAYFA — üç sınavın tek doğru sayfası
 
-> Üretim: **21.09.2026 10:54** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
+> Üretim: **22.09.2026 10:09** (makine; elle düzenlenmez — motor/sinav-tek-sayfa.ps1, günlük robot). Makine hâli: veri/sinav-tek-sayfa.json
 > **KURAL:** Sınavla ilgili "var mı / kaç tane / eksik ne" sorusunun TEK cevabı bu sayfadır. Başında **⚠** olan satırın girdisi bayat (> 7 gün) ya da kırıktır: o sayı **ölçülmedi** sayılır, önce girdisi tazelenir (bölüm 5).
 > Bu sayfa hiçbir şeyi kendisi ölçmez; ölçüm robotlarının çıktılarını birleştirir ve her sayının yanına kaynağını + tarihini yazar.
 
@@ -16,7 +16,7 @@
 
 ## 1 · SINAVLAR VE DERSLER (resmî liste × kasadaki sorumuz × onaylı kota)
 
-Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ilanı / SPL) · bizim soru = veri/kasa-sayim.json (21.09.2026 06:09) · kota = üç kota dosyası (bölüm 5).
+Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ilanı / SPL) · bizim soru = veri/kasa-sayim.json (22.09.2026 06:03) · kota = üç kota dosyası (bölüm 5).
 
 ### STAJA BAŞLAMA (SGS) — 15 ders · kasada 15.827 soru · kota 14.603 · eksik 4.529
 
@@ -195,8 +195,8 @@ Kota = Cem'in onayladığı ders başına hedef (SGS 31.07 · SMMM 31.07 · KGK 
 
 Ambarın kaynak kaynak dökümü **veri/AMBAR-ENVANTERI.md**'dedir (VAR MI / TAM MI / GÜNCEL Mİ). Burada yalnız özet:
 
-- ÖZET: 48353 parça · 2720 tekil kaynak / Bütünlük ölçülen: 2720 (delikli: 368; son ölçüm: 16.09.2026) / Sürüm ölçülen: 42 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
-- Bütünlük kapısı (20.09.2026 13:02): **KIRMIZI** · 50.005 belge · temiz kaynak 2.330 · sorunlu kaynak 384 · kesik belge 737 · öksüz belge 265 (veri/butunluk-raporu.json)
+- ÖZET: 50045 parça · 2714 tekil kaynak / Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 21.09.2026) / Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 21.09.2026 15:02)
+- Bütünlük kapısı (21.09.2026 15:04): **KIRMIZI** · 50.045 belge · temiz kaynak 2.330 · sorunlu kaynak 384 · kesik belge 737 · öksüz belge 265 (veri/butunluk-raporu.json)
 - Yutma günlüğü (ne zaman ne yutuldu): YUTMA-LISTESI.md (kök).
 
 ## 5 · KAYNAK SAĞLIĞI — "indirdik mi, indirmedik mi" karmaşasının bittiği yer
@@ -205,28 +205,28 @@ Bu sayfanın her girdisi aşağıda. **TAZE** = ≤ 7 gün · **BAYAT** = daha e
 
 | Girdi | Dosya | Durum | Ölçüm damgası | Dosya tarihi | Üretici | Robot |
 |---|---|---|---|---|---|---|
-| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 21.09.2026 10:54 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
-| kasa-sayim | veri/kasa-sayim.json | TAZE | 21.09.2026 06:09 | 21.09.2026 10:54 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
-| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 21.09.2026 10:54 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 21.09.2026 10:54 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
-| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 21.09.2026 10:54 | elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi) | yok (Cem kararı; tarih anlamsız) |
-| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 21.09.2026 10:13 | 21.09.2026 10:54 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
-| ambar-envanteri | veri/AMBAR-ENVANTERI.md | TAZE | 16.09.2026 09:14 | 21.09.2026 10:54 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 20.09.2026 13:02 | 21.09.2026 10:54 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
-| cikmis-karnesi | veri/cikmis-soru-karnesi.json | TAZE | 16.09.2026 22:30 | 21.09.2026 10:54 | motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı) | yok (KGK evreni için haberci: kgk-sinav-nobeti.yml) |
-| siklik-kunyesi | veri/siklik-kunyesi.json | TAZE | 19.09.2026 07:06 | 21.09.2026 10:54 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
-| siklik-kunyesi-kgk | veri/siklik-kunyesi-kgk.json | TAZE | 19.09.2026 07:06 | 21.09.2026 10:54 | motor/siklik-kunyesi.ps1 -Sinav KGK | konu-eslesme.yml · yalnız push |
-| kgk-analiz | veri/kgk-analiz.json | TAZE | 19.09.2026 (etiketten donem eklendi: 11 Kasım 2018) · nöbet YEŞİL 19.09.2026 08:16 | 21.09.2026 10:54 | elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ) | yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml |
-| ders-karnesi | veri/ders-karnesi.json | TAZE | 2026-09-20 04:18 | 21.09.2026 10:54 | motor/ders-karnesi.ps1 | karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push) |
-| karne-sgs | veri/konu-kaynak-karnesi.json | TAZE | 2026-09-20 04:18 | 21.09.2026 10:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml · pazar 03:00 TR + sgs-analiz push |
-| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | **BAYAT (26 gün)** | 2026-08-26 00:51 | 21.09.2026 10:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | **BAYAT (26 gün)** | 2026-08-26 03:00 | 21.09.2026 10:54 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
-| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 21.09.2026 10:54 | arac/dayanak-metinsiz-tarama.ps1 | yok |
-| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 21.09.2026 10:54 | arac/dayanak-kara-liste.ps1 | yok |
-| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 21.09.2026 10:54 | motor/api-hedef.ps1 (Invoke-ClaudeToplu yazar; parti-hasat.ps1 temizler) | yan ürün: bulut-uretim.yml / soru-uret-v2.yml (parti-liste.yml bu dosyayı yazmaz; 16.09 denetimi) |
-| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 21.09.2026 10:54 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
+| ders-profili | veri/ders-profili.json | **SABİT (karar dosyası)** |  | 22.09.2026 10:09 | motor/ders-profili-kur.ps1 | yok (resmî liste; Cem onayıyla değişir) |
+| kasa-sayim | veri/kasa-sayim.json | TAZE | 22.09.2026 06:03 | 22.09.2026 10:09 | motor/kasa-sayim.ps1 | kasa-sayim.yml · her gün 03:41 TR |
+| kota-smmm | veri/uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:30 (Cem onayi: her ders 1.010) | 22.09.2026 10:09 | motor/kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-sgs | veri/sgs-uretim-kotasi.json | **SABİT (karar dosyası)** | 31.07.2026 10:4x (Cem ders-ders tablosu) | 22.09.2026 10:09 | motor/sgs-kota-kur.ps1 | yok (Cem kararı; tarih anlamsız) |
+| kota-kgk | veri/kgk-uretim-kotasi.json | **SABİT (karar dosyası)** | 01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM') | 22.09.2026 10:09 | elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi) | yok (Cem kararı; tarih anlamsız) |
+| konu-koprusu | veri/konu-koprusu-ozet.json | TAZE | 22.09.2026 09:29 | 22.09.2026 10:09 | motor/konu-koprusu-kur.ps1 (V2 canlı) | konu-koprusu.yml · her gün 07:40 TR |
+| ambar-envanteri | veri/AMBAR-ENVANTERI.md | TAZE | 21.09.2026 15:05 | 22.09.2026 10:09 | motor/ambar-envanteri.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| butunluk-raporu | veri/butunluk-raporu.json | TAZE | 21.09.2026 15:04 | 22.09.2026 10:09 | motor/butunluk-kapisi.ps1 | ambar-kapilari.yml · her gün 11:00 TR |
+| cikmis-karnesi | veri/cikmis-soru-karnesi.json | TAZE | 16.09.2026 22:30 | 22.09.2026 10:09 | motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı) | yok (KGK evreni için haberci: kgk-sinav-nobeti.yml) |
+| siklik-kunyesi | veri/siklik-kunyesi.json | TAZE | 19.09.2026 07:06 | 22.09.2026 10:09 | motor/siklik-kunyesi.ps1 | konu-eslesme.yml · yalnız push |
+| siklik-kunyesi-kgk | veri/siklik-kunyesi-kgk.json | TAZE | 19.09.2026 07:06 | 22.09.2026 10:09 | motor/siklik-kunyesi.ps1 -Sinav KGK | konu-eslesme.yml · yalnız push |
+| kgk-analiz | veri/kgk-analiz.json | TAZE | 19.09.2026 (etiketten donem eklendi: 11 Kasım 2018) · nöbet YEŞİL 19.09.2026 08:16 | 22.09.2026 10:09 | elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ) | yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml |
+| ders-karnesi | veri/ders-karnesi.json | TAZE | 2026-09-21 12:24 | 22.09.2026 10:09 | motor/ders-karnesi.ps1 | karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push) |
+| karne-sgs | veri/konu-kaynak-karnesi.json | TAZE | 2026-09-21 12:24 | 22.09.2026 10:09 | motor/konu-kaynak-karnesi.ps1 | karne.yml · pazar 03:00 TR + sgs-analiz push |
+| karne-smmm | veri/konu-kaynak-karnesi-smmm.json | TAZE | 2026-09-21 14:31 | 22.09.2026 10:09 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| karne-kgk | veri/konu-kaynak-karnesi-kgk.json | TAZE | 2026-09-21 17:25 | 22.09.2026 10:09 | motor/konu-kaynak-karnesi.ps1 | karne.yml |
+| dayanak-metinsiz | veri/dayanak-metinsiz-raporu.json | TAZE |  | 22.09.2026 10:09 | arac/dayanak-metinsiz-tarama.ps1 | yok |
+| dayanak-kara-liste | veri/dayanak-kara-liste.json | TAZE |  | 22.09.2026 10:09 | arac/dayanak-kara-liste.ps1 | yok |
+| bekleyen-partiler | veri/bekleyen-partiler.json | TAZE |  | 22.09.2026 10:09 | motor/api-hedef.ps1 (Invoke-ClaudeToplu yazar; parti-hasat.ps1 temizler) | yan ürün: bulut-uretim.yml / soru-uret-v2.yml (parti-liste.yml bu dosyayı yazmaz; 16.09 denetimi) |
+| sinav-ders-envanteri | veri/sinav-ders-envanteri.json | TAZE |  | 22.09.2026 10:09 | motor/sinav-ders-envanteri.ps1 | sinav-ders-envanteri.yml · yalnız push |
 
-**Şu an TAZE olmayan girdi: 6 / 20.**
+**Şu an TAZE olmayan girdi: 4 / 20.**
 
 ## 6 · ÇIKMIŞ SORULARA GÖRE YUTMADIĞIMIZ MEVZUAT
 
@@ -250,34 +250,36 @@ En çok kaydı etkileyen bulunamayan dayanaklar:
 - MSUGT Tekduzen Hesap Plani - 486 -> 1 kayit
 - İki tarih arasındaki gün farkını hesaplama kuralı (takvim ay-gün sayıları) -> 1 kayit
 
-⚠ **Konu-kaynak karnesi** (her çıkmış konu için ambarda kaynak var mı; veri/konu-kaynak-karnesi*.json):
+**Konu-kaynak karnesi** (her çıkmış konu için ambarda kaynak var mı; veri/konu-kaynak-karnesi*.json):
 
 | Sınav | ÜRET (kaynağı var) | KAYNAK YOK | MEVZUAT DIŞI | Ölçülemedi |
 |---|---:|---:|---:|---:|
 | SGS | 2.625 | **1** | 637 | 1 |
-| SMMM | 1.004 | **6** | 0 | 0 |
-| KGK | 5.082 | **65** | 0 | 0 |
+| SMMM | 3.292 | **23** | 0 | 0 |
+| KGK | 5.397 | **9** | 0 | 0 |
 
 KAYNAK YOK örnekleri (SGS):
 - Ekonomi › tuketici tercih aksiyomlari (1 çıkmış)
 
 KAYNAK YOK örnekleri (SMMM):
-- Finansal Muhasebe › finansal kiralamali monografi (1 çıkmış)
-- Finansal Muhasebe › kdv hesaplasmasi kaydi (1 çıkmış)
-- Finansal Muhasebe › stok fire kaydi (1 çıkmış)
-- Muhasebe Denetimi › denetim ustlenememe halleri (1 çıkmış)
-- Muhasebe Denetimi › sermaye azalmasinda kurul tedbirleri (1 çıkmış)
-- Vergi Mevzuatı ve Uygulaması › sermaye azaltimi vergilendirmesi (1 çıkmış)
+- Finansal Muhasebe › senet kirdirma iskonto (2 çıkmış)
+- Vergi Mevzuatı ve Uygulaması › mirascilara sure eklenmesi (1 çıkmış)
+- Vergi Mevzuatı ve Uygulaması › kolektif sirket vergi tarhiyati (1 çıkmış)
+- Muhasebe Denetimi › zayi olan mal kaydi (1 çıkmış)
+- Muh. ve Mali Müş. Meslek Hukuku › birlik disiplin kurulu uye vasiflari (1 çıkmış)
+- Maliyet Muhasebesi › dimmg sapmalari (1 çıkmış)
+- Finansal Tablolar ve Analizi › alikonan hisse basina kar (1 çıkmış)
+- Finansal Muhasebe › tasit tamirat aktiflestirme (1 çıkmış)
 
 KAYNAK YOK örnekleri (KGK):
-- Bankacılık Mevzuatı › bkn 5411 banka turlerine gore faaliyet yasaklari (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › kurumsal yonetim etmenleri (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › pay sahipleriyle iletisimde oncu komite (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › piyasa vade siniflamasi (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › reel faiz hesabi (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › sabit gider siniflamasi (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › temettu ilisksizlik teorisi (1 çıkmış)
-- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › wacc hesabi (1 çıkmış)
+- Genel Hukuk Mevzuati › idarenin anayasal ilkeleri (1 çıkmış)
+- Genel Hukuk Mevzuati › odeme emrine itiraz sayilmama (1 çıkmış)
+- Genel Hukuk Mevzuatı › anonim sirkete sermaye olarak getirilebilecekler (1 çıkmış)
+- Genel Hukuk Mevzuatı › istimval (1 çıkmış)
+- Genel Hukuk Mevzuatı › zilyetlikte hukmen teslim (1 çıkmış)
+- Kurumsal Yönetim İlkeleri ve Finansal Yönetim › finansal basarisizlikta mali yapi iyilestirme (1 çıkmış)
+- Muhasebe › dovizli mevduat donem sonu kaydi (1 çıkmış)
+- Muhasebe › faiz geliri dogmayan islem (1 çıkmış)
 
 **Dayanak kara listesi** (hakemle ölçüldü, yanlış oranı > %50; üretici yok sayar — veri/dayanak-kara-liste.json):
 

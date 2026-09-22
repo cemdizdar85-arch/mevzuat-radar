@@ -1,29 +1,29 @@
 {
-  "guncelleme": "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 21.09.2026 10:39.",
+  "guncelleme": "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 22.09.2026 04:56.",
   "kaynaklar": [
     {
       "ad": "TÜBİTAK",
       "url": "https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari",
       "durum": "OK (12 çağrı)",
-      "sonUretim": "2026-09-21"
+      "sonUretim": "2026-09-22"
     },
     {
       "ad": "KOSGEB",
       "url": "https://www.kosgeb.gov.tr",
-      "durum": "OK (0 açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)",
-      "sonUretim": "2026-08-30"
+      "durum": "OK (1 açık çağrı — ana sayfa + duyurular tarandı, 0 olması normal)",
+      "sonUretim": "2026-09-22"
     },
     {
       "ad": "AB",
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals",
-      "durum": "OK (portalda 1160 konu tarandi; tarihi gecerli 563 — açık 297, yakında 266; listede en yakın 100)",
-      "sonUretim": "2026-09-21"
+      "durum": "OK (portalda 1159 konu tarandi; tarihi gecerli 562 — açık 296, yakında 266; listede en yakın 100)",
+      "sonUretim": "2026-09-22"
     },
     {
       "ad": "Kalkınma Ajansları",
       "url": "https://ka.gov.tr/destekler",
       "durum": "OK (26 ajansta güncel 89 destek, 21 tanesi listede)",
-      "sonUretim": "2026-09-21"
+      "sonUretim": "2026-09-22"
     },
     {
       "ad": "TKDK (IPARD)",
@@ -35,7 +35,7 @@
       "ad": "HAMLE",
       "url": "https://www.hamle.gov.tr/Home/CagriPlani",
       "durum": "ÖLÇÜLEMEDİ",
-      "sonUretim": "2026-09-21"
+      "sonUretim": "2026-09-22"
     },
     {
       "ad": "KKYDP / RG tebliği",
@@ -301,38 +301,36 @@
       "url": "https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-kentsel-gecisleri-surdurulebilir-bir-gelecege-yonlendirme-ortakligi-dut-2026-cagrisi-acildi"
     },
     {
-      "kaynak": "AB",
-      "kod": "ESC-HUMAID-2021-QUAL-LABEL",
-      "baslik": "Quality Label Humanitarian Aid - Full Procedure",
+      "kaynak": "KOSGEB",
+      "kod": "",
+      "baslik": "Girişimci Destek Programı İş Geliştirme Çağrısı 2026 Yılı 1. Dönem Başvuruları Başladı",
       "durum": "acik",
-      "program": "Avrupa Dayanışma Programı",
-      "acilis": "2021-06-09",
-      "sonTarih": "2026-09-21",
-      "tarihler": [],
-      "ozet": "The Quality Label for Humanitarian Aid Volunteering certifies that an organisation is able to carry out high quality solidarity activities in compliance with the principles, objectives and…",
-      "kim": "ESC Quality Label",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ESC-HUMAID-2021-QUAL-LABEL-FP"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "186296",
-      "baslik": "Rule of Law (ROLAW III)",
-      "durum": "acik",
-      "program": "EuropeAid",
-      "acilis": "2026-05-13",
-      "sonTarih": "2026-09-21",
+      "acilis": "",
+      "sonTarih": "",
       "tarihler": [],
       "ozet": "",
       "kim": "",
       "tutar": "",
+      "asama": [
+        "kurulus"
+      ],
+      "url": "https://www.kosgeb.gov.tr/site/tr/genel/detay/9335/girisimci-destek-programi-is-gelistirme-cagrisi-2026-yili-1-donem-basvurulari-basladi"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-JU-CHIPS-2026-2-CSA",
+      "baslik": "Supply chain resilience CSA",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-07-07",
+      "sonTarih": "2026-09-22",
+      "tarihler": [],
+      "ozet": "The action should establish a supply chain data platform, as a digital twin of the semiconductor supply chain, which should:\n• Gather secure, anonymized data shared by companies, coming…",
+      "kim": "HORIZON JU Coordination and Support Actions",
+      "tutar": "Proje başına 500,000 € – 2.0 milyon €; yaklaşık 1 proje desteklenecek",
       "ozetDil": "en",
       "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186296/DD/ACT/MK"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-2-CSA"
     },
     {
       "kaynak": "AB",
@@ -413,25 +411,6 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-JU-CBE-2026",
-      "baslik": "Bio-based additives as alternatives to unlock and increase recyclability and/or biodegradability",
-      "durum": "acik",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-04-23",
-      "sonTarih": "2026-09-22",
-      "tarihler": [],
-      "ozet": "Successful proposals will contribute to the implementation of the Zero Pollution Action Plan, the Circular Economy Action Plan, the Ecodesign for Sustainable Products Regulation, the…",
-      "kim": "HORIZON JU Innovation Actions",
-      "tutar": "Proje başına 7.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IA-02"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-JU-CBE-2026",
       "baslik": "Diversification of nutritional food ingredient sources for increased EU resilience and strategic autonomy",
       "durum": "acik",
       "program": "Ufuk Avrupa",
@@ -470,6 +449,25 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-JU-CBE-2026",
+      "baslik": "SSbD bio-based solutions for home and/or personal care",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-04-23",
+      "sonTarih": "2026-09-22",
+      "tarihler": [],
+      "ozet": "Successful proposals will contribute to the Chemicals Strategy for Sustainability and Ecodesign for Sustainable Products Regulation, the Chemical Industry Action Plan, the Clean Industrial…",
+      "kim": "HORIZON JU Innovation Actions",
+      "tutar": "Proje başına 20.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-03"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-JU-CBE-2026",
       "baslik": "Supporting industry in the switch to sustainable and circular bio-based products and processes",
       "durum": "acik",
       "program": "Ufuk Avrupa",
@@ -485,25 +483,6 @@
         "arge"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-CSA-01"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-JU-CBE-2026",
-      "baslik": "Boosting biorefinery competitiveness through biotech",
-      "durum": "acik",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-04-23",
-      "sonTarih": "2026-09-22",
-      "tarihler": [],
-      "ozet": "Successful proposals will contribute to the implementation of the EU initiative on Biotechnology and Biomanufacturing, the EU Life Sciences Strategy, the updated EU Bioeconomy Strategy, the…",
-      "kim": "HORIZON JU Innovation Actions",
-      "tutar": "Proje başına 20.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-01"
     },
     {
       "kaynak": "AB",
@@ -564,19 +543,21 @@
     },
     {
       "kaynak": "AB",
-      "kod": "HORIZON-JU-CHIPS-2026-2-CSA",
-      "baslik": "Supply chain resilience CSA",
+      "kod": "HORIZON-JU-CHIPS-2026-SDV-CSA",
+      "baslik": "Coordination of the European software-defined vehicle platform",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-07-07",
       "sonTarih": "2026-09-22",
       "tarihler": [],
-      "ozet": "The action should establish a supply chain data platform, as a digital twin of the semiconductor supply chain, which should:\n• Gather secure, anonymized data shared by companies, coming…",
+      "ozet": "Proposals are expected to contribute to the following outcomes:\nSteer a European agenda to catalyse the development of a full software defined and hardware-enabled vehicle AD stack “built…",
       "kim": "HORIZON JU Coordination and Support Actions",
-      "tutar": "Proje başına 500,000 € – 2.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "tutar": "Proje başına 1.0 milyon € – 2.0 milyon €; yaklaşık 1 proje desteklenecek",
       "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-2-CSA"
+      "asama": [
+        "kurulus"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-SDV-CSA"
     },
     {
       "kaynak": "AB",
@@ -616,21 +597,21 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-JU-CBE-2026",
-      "baslik": "SSbD bio-based solutions for home and/or personal care",
+      "baslik": "Boosting biorefinery competitiveness through biotech",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-04-23",
       "sonTarih": "2026-09-22",
       "tarihler": [],
-      "ozet": "Successful proposals will contribute to the Chemicals Strategy for Sustainability and Ecodesign for Sustainable Products Regulation, the Chemical Industry Action Plan, the Clean Industrial…",
+      "ozet": "Successful proposals will contribute to the implementation of the EU initiative on Biotechnology and Biomanufacturing, the EU Life Sciences Strategy, the updated EU Bioeconomy Strategy, the…",
       "kim": "HORIZON JU Innovation Actions",
       "tutar": "Proje başına 20.0 milyon €; yaklaşık 1 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
-        "arge",
-        "donusum"
+        "donusum",
+        "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-03"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-01"
     },
     {
       "kaynak": "AB",
@@ -652,21 +633,22 @@
     },
     {
       "kaynak": "AB",
-      "kod": "HORIZON-JU-CHIPS-2026-SDV-CSA",
-      "baslik": "Coordination of the European software-defined vehicle platform",
+      "kod": "HORIZON-JU-CBE-2026",
+      "baslik": "Bio-based additives as alternatives to unlock and increase recyclability and/or biodegradability",
       "durum": "acik",
       "program": "Ufuk Avrupa",
-      "acilis": "2026-07-07",
+      "acilis": "2026-04-23",
       "sonTarih": "2026-09-22",
       "tarihler": [],
-      "ozet": "Proposals are expected to contribute to the following outcomes:\nSteer a European agenda to catalyse the development of a full software defined and hardware-enabled vehicle AD stack “built…",
-      "kim": "HORIZON JU Coordination and Support Actions",
-      "tutar": "Proje başına 1.0 milyon € – 2.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozet": "Successful proposals will contribute to the implementation of the Zero Pollution Action Plan, the Circular Economy Action Plan, the Ecodesign for Sustainable Products Regulation, the…",
+      "kim": "HORIZON JU Innovation Actions",
+      "tutar": "Proje başına 7.0 milyon €; yaklaşık 2 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
-        "kurulus"
+        "arge",
+        "donusum"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CHIPS-2026-SDV-CSA"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IA-02"
     },
     {
       "kaynak": "AB",
@@ -930,6 +912,25 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL2-2026-01",
+      "baslik": "Boosting creative startups for disruptive innovation",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-05-12",
+      "sonTarih": "2026-09-23",
+      "tarihler": [],
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nDeepened knowledge of specific factors favouring the growth of creative startups [1] , in particular those with…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 5.0 milyon € – 6.0 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "kurulus",
+        "buyume"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-02"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL2-2026-01",
       "baslik": "Supporting post-conflict democracy and reconstruction",
       "durum": "acik",
       "program": "Ufuk Avrupa",
@@ -1040,21 +1041,20 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL6-2026-01",
-      "baslik": "Understanding biomass flows in Europe",
+      "baslik": "Bioeconomy policy support hub for Member States, regions and sectors",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-04-17",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Project results are expected to contribute to all the following expected outcomes:\nenhanced understanding of the environmental, social and economic potential of the supply of different…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 3.0 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nmost Member States and regions [1] have established the bioeconomy as an important policy field.…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 3.0 milyon €; yaklaşık 1 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
-        "donusum",
         "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-05"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-06"
     },
     {
       "kaynak": "AB",
@@ -1077,21 +1077,21 @@
     },
     {
       "kaynak": "AB",
-      "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Governing global commons sustainably",
+      "kod": "HORIZON-CL6-2026-01",
+      "baslik": "Balancing food security, bioeconomy, climate and biodiversity objectives to unlock sustainable value chains",
       "durum": "acik",
       "program": "Ufuk Avrupa",
-      "acilis": "2026-05-12",
+      "acilis": "2026-04-17",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes:\nEU institutions, Member States and decision-makers worldwide, relevant international organisations, civil society…",
+      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\ndecision-makers have improved understanding of the impacts of bioeconomy and nature markets on the…",
       "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 3.5 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "tutar": "Proje başına 6.0 milyon €; yaklaşık 2 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
         "donusum"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-06"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-09"
     },
     {
       "kaynak": "AB",
@@ -1115,20 +1115,21 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL6-2026-01",
-      "baslik": "Bioeconomy policy support hub for Member States, regions and sectors",
+      "baslik": "Understanding biomass flows in Europe",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-04-17",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nmost Member States and regions [1] have established the bioeconomy as an important policy field.…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 3.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozet": "Project results are expected to contribute to all the following expected outcomes:\nenhanced understanding of the environmental, social and economic potential of the supply of different…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 3.0 milyon €; yaklaşık 2 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
+        "donusum",
         "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-06"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-05"
     },
     {
       "kaynak": "AB",
@@ -1153,40 +1154,21 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Boosting creative startups for disruptive innovation",
+      "baslik": "Government in transition – how governments change the way they work and prepare the civil service for the future",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-05-12",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes:\nDeepened knowledge of specific factors favouring the growth of creative startups [1] , in particular those with…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 5.0 milyon € – 6.0 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozet": "Projects should contribute to all of the following expected outcomes.\nCountry government innovation info sheets, trends, inspiring good practices, the most innovative solutions recently…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 3.5 milyon € – 4.0 milyon €; yaklaşık 2 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
-        "kurulus",
-        "buyume"
+        "buyume",
+        "istihdam"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-02"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL6-2026-01",
-      "baslik": "Improving circularity of multilayer flexible plastic food contact packaging",
-      "durum": "acik",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-04-17",
-      "sonTarih": "2026-09-23",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nenvironment and society at large benefit from recyclable food packaging which can be recycled and…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 5.0 milyon € – 6.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-01"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-03"
     },
     {
       "kaynak": "AB",
@@ -1211,96 +1193,74 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Government in transition – how governments change the way they work and prepare the civil service for the future",
+      "baslik": "Tackling gender-based violence against politically active women and LGBTIQ people",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-05-12",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes.\nCountry government innovation info sheets, trends, inspiring good practices, the most innovative solutions recently…",
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nEU and national policymakers and relevant stakeholders get an enhanced understanding of the drivers of violence against…",
       "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 3.5 milyon € – 4.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "buyume",
-        "istihdam"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-03"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "PPPA-2026-IRIS2-UT-INDREADY",
-      "baslik": "Industrial Readiness for Affordable Ka-band User Terminals",
-      "durum": "acik",
-      "program": "PPPA",
-      "acilis": "2026-05-27",
-      "sonTarih": "2026-09-23",
-      "tarihler": [],
-      "ozet": "Projects funded under this call are expected to deliver tangible industrial outputs that demonstrably advance the readiness and affordability of future governmental Ka-band user terminals…",
-      "kim": "Pilot Projects and Preparatory Actions",
-      "tutar": "Proje başına 7.0 milyon € – 20.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "buyume"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/PPPA-2026-IRIS2-UT-IND-READINESS"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Fostering cooperation and integration between SSH and STEM research and innovation in the EU",
-      "durum": "acik",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-05-12",
-      "sonTarih": "2026-09-23",
-      "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes:\nGreater integration of SSH and STEM [1] research and innovation in R&I initiatives funded at EU level, national and/or…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 3.5 milyon €; yaklaşık 1 proje desteklenecek",
+      "tutar": "Proje başına 3.5 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
         "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-TRANSFO-10"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL6-2026-01",
-      "baslik": "Supporting pre-normative research for standardization of the bio-based products",
-      "durum": "acik",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-04-17",
-      "sonTarih": "2026-09-23",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nhigher and more robust industrial European competitiveness, decarbonisation and strategic autonomy…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 4.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge",
-        "buyume"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-08"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-01"
     },
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Research and Innovation Network for a Union of Equality",
+      "baslik": "Governing global commons sustainably",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-05-12",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes:\nPolicymakers are made aware and are equipped with the knowledge and tools to integrate inclusive and intersectional…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 4.0 milyon € – 4.5 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nEU institutions, Member States and decision-makers worldwide, relevant international organisations, civil society…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 3.5 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-06"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL2-2026-01",
+      "baslik": "Making Europe a global magnet for talent - Attracting and retaining students, researchers and high-skilled workers from outside the EU",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-05-12",
+      "sonTarih": "2026-09-23",
+      "tarihler": [],
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nGenerate rigorous, policy-relevant evidence on the factors that may influence students, researchers, and high-skilled…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 3.0 milyon € – 3.3 milyon €; yaklaşık 3 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
         "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-05"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-TRANSFO-06"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL2-2026-01",
+      "baslik": "Fostering competences for the green transition",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-05-12",
+      "sonTarih": "2026-09-23",
+      "tarihler": [],
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nProvide policymakers, education and training institutions, and social partners with a solid understanding of which…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 3.0 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-TRANSFO-07"
     },
     {
       "kaynak": "AB",
@@ -1322,21 +1282,40 @@
     },
     {
       "kaynak": "AB",
+      "kod": "HORIZON-CL6-2026-01",
+      "baslik": "Improving circularity of multilayer flexible plastic food contact packaging",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-04-17",
+      "sonTarih": "2026-09-23",
+      "tarihler": [],
+      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nenvironment and society at large benefit from recyclable food packaging which can be recycled and…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 5.0 milyon € – 6.0 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-01-CIRCBIO-01"
+    },
+    {
+      "kaynak": "AB",
       "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Fostering competences for the green transition",
+      "baslik": "Research and Innovation Network for a Union of Equality",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-05-12",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes:\nProvide policymakers, education and training institutions, and social partners with a solid understanding of which…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 3.0 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nPolicymakers are made aware and are equipped with the knowledge and tools to integrate inclusive and intersectional…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 4.0 milyon € – 4.5 milyon €; yaklaşık 1 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
-        "donusum"
+        "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-TRANSFO-07"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-05"
     },
     {
       "kaynak": "AB",
@@ -1377,20 +1356,20 @@
     {
       "kaynak": "AB",
       "kod": "HORIZON-CL2-2026-01",
-      "baslik": "Tackling gender-based violence against politically active women and LGBTIQ people",
+      "baslik": "Fostering cooperation and integration between SSH and STEM research and innovation in the EU",
       "durum": "acik",
       "program": "Ufuk Avrupa",
       "acilis": "2026-05-12",
       "sonTarih": "2026-09-23",
       "tarihler": [],
-      "ozet": "Projects should contribute to all of the following expected outcomes:\nEU and national policymakers and relevant stakeholders get an enhanced understanding of the drivers of violence against…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 3.5 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nGreater integration of SSH and STEM [1] research and innovation in R&I initiatives funded at EU level, national and/or…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 3.5 milyon €; yaklaşık 1 proje desteklenecek",
       "ozetDil": "en",
       "asama": [
         "arge"
       ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-01"
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-TRANSFO-10"
     },
     {
       "kaynak": "AB",
@@ -1410,6 +1389,42 @@
         "donusum"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-06"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL2-2026-01",
+      "baslik": "Towards a fair and transparent market for cultural and creative content in the era of generative AI",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-05-12",
+      "sonTarih": "2026-09-23",
+      "tarihler": [],
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nAn in-depth analysis of the socio-economic dimensions and impacts of generative AI on the cultural and creative sectors…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 3.0 milyon € – 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-04"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL2-2026-01",
+      "baslik": "AI integration in CCSI work practice: catalysing innovation and competitiveness",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-05-12",
+      "sonTarih": "2026-09-23",
+      "tarihler": [],
+      "ozet": "Projects should contribute to all of the following expected outcomes:\nInsights, recommendations, strategies, guidelines, methods and tools supporting full AI integration in CCSI practices…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 4.0 milyon € – 5.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-03"
     },
     {
       "kaynak": "AB",
@@ -2150,24 +2165,6 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "ANKARAKA",
-      "baslik": "2026 Ankara Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-08-03",
-      "sonTarih": "2026-10-02",
-      "tarihler": [],
-      "ozet": "Ankara’da Sivil Toplumun Sosyal Girişimcilik Yoluyla Desteklenmesi Projesi kapsamında Ankara’da Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı 20 Temmuz 2026…",
-      "kim": "Uygun Başvuru Sahipleri Kooperatifler İktisadi İşletmesi Olan Dernek ve Vakıflar Sosyal İşletmeler İktisadi işletmesi olmayan ancak iktisadi işletme…",
-      "tutar": "Program kapsamında sosyal girişimlere yaklaşık 1,5 milyon avro tutarında destek sağlanacaktır.",
-      "asama": [
-        "kurulus",
-        "donusum",
-        "arge"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "ANKARAKA",
       "baslik": "Kreatif Endüstriler Teknik Destek Programı (2026)",
       "durum": "acik",
       "acilis": "2026-08-06",
@@ -2182,6 +2179,24 @@
         "kurulus"
       ],
       "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qRh0RiP8ZoCu8YHNqe4FsRpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
+      "kod": "ANKARAKA",
+      "baslik": "2026 Ankara Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı",
+      "durum": "acik",
+      "acilis": "2026-08-03",
+      "sonTarih": "2026-10-02",
+      "tarihler": [],
+      "ozet": "Ankara’da Sivil Toplumun Sosyal Girişimcilik Yoluyla Desteklenmesi Projesi kapsamında Ankara’da Sosyal Girişimcilik Ekosistemi Kapasite Geliştirme Mali Destek Programı 20 Temmuz 2026…",
+      "kim": "Uygun Başvuru Sahipleri Kooperatifler İktisadi İşletmesi Olan Dernek ve Vakıflar Sosyal İşletmeler İktisadi işletmesi olmayan ancak iktisadi işletme…",
+      "tutar": "Program kapsamında sosyal girişimlere yaklaşık 1,5 milyon avro tutarında destek sağlanacaktır.",
+      "asama": [
+        "kurulus",
+        "donusum",
+        "arge"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qcPqCLhaf2MClxnLrahvwjpQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2235,22 +2250,6 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "CKA",
-      "baslik": "2026 Yılı Teknik Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-03-01",
-      "sonTarih": "2026-12-29",
-      "tarihler": [],
-      "ozet": "",
-      "kim": "Kamu Kurum ve Kuruluşları · Mahalli İdareler ve Mahalli İdare Birlikleri · Üniversiteler · Kamu Kurumu Niteliğindeki Meslek Kuruluşları · Sivil Toplum Kuruluşları ·…",
-      "tutar": "Program Bütçesi 7.500.000,00 TL Proje Başına Azami Eğitim faaliyetleri için:",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qamaLbcz01TJ-VTo6-sZ4PBQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "CKA",
       "baslik": "2026 Yılı Fizibilite Desteği Programı",
       "durum": "acik",
       "acilis": "2026-03-01",
@@ -2284,6 +2283,36 @@
     },
     {
       "kaynak": "Kalkınma Ajansları",
+      "kod": "CKA",
+      "baslik": "2026 Yılı Teknik Destek Programı",
+      "durum": "acik",
+      "acilis": "2026-03-01",
+      "sonTarih": "2026-12-29",
+      "tarihler": [],
+      "ozet": "",
+      "kim": "Kamu Kurum ve Kuruluşları · Mahalli İdareler ve Mahalli İdare Birlikleri · Üniversiteler · Kamu Kurumu Niteliğindeki Meslek Kuruluşları · Sivil Toplum Kuruluşları ·…",
+      "tutar": "Program Bütçesi 7.500.000,00 TL Proje Başına Azami Eğitim faaliyetleri için:",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qamaLbcz01TJ-VTo6-sZ4PBQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
+      "kod": "FKA",
+      "baslik": "Fırat Turu Destek Programı (2025-2026)",
+      "durum": "acik",
+      "acilis": "2025-07-28",
+      "sonTarih": "2026-10-30",
+      "tarihler": [],
+      "ozet": "Sanayi ve Teknoloji Bakanlığı Kalkınma Ajansları Genel Müdürlüğü koordinasyonunda faaliyetlerini sürdüren Fırat Kalkınma Ajansı (FKA), TRB1 Bölgesi’ndeki (Malatya, Elazığ, Bingöl, Tunceli)…",
+      "kim": "",
+      "tutar": "Fırat Turu Destek Programı kapsamında, TRB1 Bölgesi’ne tur düzenleyen seyahat acentelerine her bir tur için 72.000 TL’ye kadar konaklama desteği…",
+      "asama": [],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qezYcM-p074WPsHoyogixSVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
       "kod": "FKA",
       "baslik": "2026 Yılı Yönetim Danışmanlığı Teknik Destek Programı",
       "durum": "acik",
@@ -2302,17 +2331,19 @@
     },
     {
       "kaynak": "Kalkınma Ajansları",
-      "kod": "FKA",
-      "baslik": "Fırat Turu Destek Programı (2025-2026)",
+      "kod": "GMKA",
+      "baslik": "GMKA Yönetim Danışmanlığı Teknik Destek Programı",
       "durum": "acik",
-      "acilis": "2025-07-28",
-      "sonTarih": "2026-10-30",
+      "acilis": "2026-03-01",
+      "sonTarih": "2026-10-31",
       "tarihler": [],
-      "ozet": "Sanayi ve Teknoloji Bakanlığı Kalkınma Ajansları Genel Müdürlüğü koordinasyonunda faaliyetlerini sürdüren Fırat Kalkınma Ajansı (FKA), TRB1 Bölgesi’ndeki (Malatya, Elazığ, Bingöl, Tunceli)…",
-      "kim": "",
-      "tutar": "Fırat Turu Destek Programı kapsamında, TRB1 Bölgesi’ne tur düzenleyen seyahat acentelerine her bir tur için 72.000 TL’ye kadar konaklama desteği…",
-      "asama": [],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qezYcM-p074WPsHoyogixSVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+      "ozet": "Program ile Güney Marmara Bölgesi’nde faaliyet gösteren işletmelerin üretim, planlama, lojistik ve idari süreçlerinde verimliliğin artırılması ve kurumsal kapasitelerinin geliştirilmesi…",
+      "kim": "Güdümlü projenin yürütülmesinde, aynı anda birden fazla kurum ve kuruluş rol alması halinde bu kurum ve kuruluşlardan biri başvuru sahibi olarak…",
+      "tutar": "",
+      "asama": [
+        "buyume"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbozn-hyzesrsCTT-GDVwZxQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2329,22 +2360,6 @@
         "buyume"
       ],
       "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qfF3y-Sh2QhhH5RCQng7YmRQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "GMKA",
-      "baslik": "GMKA Yönetim Danışmanlığı Teknik Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-03-01",
-      "sonTarih": "2026-10-31",
-      "tarihler": [],
-      "ozet": "Program ile Güney Marmara Bölgesi’nde faaliyet gösteren işletmelerin üretim, planlama, lojistik ve idari süreçlerinde verimliliğin artırılması ve kurumsal kapasitelerinin geliştirilmesi…",
-      "kim": "Güdümlü projenin yürütülmesinde, aynı anda birden fazla kurum ve kuruluş rol alması halinde bu kurum ve kuruluşlardan biri başvuru sahibi olarak…",
-      "tutar": "",
-      "asama": [
-        "buyume"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qbozn-hyzesrsCTT-GDVwZxQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2435,6 +2450,24 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "OKA",
+      "baslik": "2026 Yılı İhracatta İkiz Dönüşüm Teknik Destek Programı",
+      "durum": "acik",
+      "acilis": "2026-01-15",
+      "sonTarih": "2026-12-25",
+      "tarihler": [],
+      "ozet": "Hâlihazırda başka bir finansman kaynağından desteklenen projeler Program kapsamında desteklenemez.",
+      "kim": "Kar amacı güden kuruluşlar, sosyal sorumluluk projeleri için başvuru sahibi, diğer program önceliklerine yönelik projelerde ise ancak iştirakçi…",
+      "tutar": "Program kapsamında desteklenecek proje tekliflerinin asgari bütçesi 1 milyon TL’dir .",
+      "asama": [
+        "buyume",
+        "istihdam",
+        "arge"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVit46_PrR0b4EjTLY48wQ1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
+      "kod": "OKA",
       "baslik": "2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
       "durum": "acik",
       "acilis": "2026-01-15",
@@ -2467,24 +2500,6 @@
         "arge"
       ],
       "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qc6HfV3sk_H2bl-GNkVx6JhQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "OKA",
-      "baslik": "2026 Yılı İhracatta İkiz Dönüşüm Teknik Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-01-15",
-      "sonTarih": "2026-12-25",
-      "tarihler": [],
-      "ozet": "Hâlihazırda başka bir finansman kaynağından desteklenen projeler Program kapsamında desteklenemez.",
-      "kim": "Kar amacı güden kuruluşlar, sosyal sorumluluk projeleri için başvuru sahibi, diğer program önceliklerine yönelik projelerde ise ancak iştirakçi…",
-      "tutar": "Program kapsamında desteklenecek proje tekliflerinin asgari bütçesi 1 milyon TL’dir .",
-      "asama": [
-        "buyume",
-        "istihdam",
-        "arge"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVit46_PrR0b4EjTLY48wQ1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",

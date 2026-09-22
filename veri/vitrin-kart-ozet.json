@@ -1,74 +1,62 @@
 {
-  "olcum": "2026-09-21T08:02:07.361Z",
-  "gun": "2026-09-21",
+  "olcum": "2026-09-22T07:47:33.471Z",
+  "gun": "2026-09-22",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 53,
+      "sira": 54,
       "toplam": 70,
-      "id": "sgs-c2-fmuh-zor-r3/kp-03",
-      "ders": "Finansal Muhasebe",
-      "konu": "tms 2 stoklar",
-      "kunye": "SGS 2026/1 Soru 53 kalıbı",
-      "donem": 5,
+      "id": "sgs-d2-denetim-cokzor-r2/kp-03",
+      "ders": "Denetim",
+      "konu": "maddi duran varlık denetimi",
+      "kunye": "SGS 2026/1 Soru 76 kalıbı",
+      "donem": 3,
       "teori": false,
-      "rakamSik": true,
-      "soru": "İşletme, ticaret amacıyla aldığı bir mal partisi için 200.000 TL mal bedeli ödemiş, 6.000 TL nakliye ve 4.000 TL sigorta giderine katlanmış, satıcıdan 12.000 TL alış iskontosu almıştır. Parti 1.000 birimden oluşmaktadır. Dönem sonunda malın tahmini satış fiyatı birim başına 175 TL, satışı gerçekleştirmek için gerekli tahmini maliyet ise birim başına 5 TL olarak belirlenmiştir. TMS 2 Stoklar'a göre, bu mal partisi için dönem sonunda ayrılması gereken stok değer düşüklüğü karşılığı tutarı kaç TL'dir?",
+      "rakamSik": false,
+      "soru": "İşletme, maliyeti 187.500 TL, birikmiş amortismanı 132.800 TL olan taşıtı 47.350 TL takas değeriyle verip 62.900 TL nakit ekleyerek yeni taşıt almıştır. Sigorta eksperi rayiç değeri 58.000 TL bulmuştur. KDV ihmal edilecektir. İşlemde oluşan tutar ve hesabı aşağıdakilerden hangisidir?",
       "siklar": {
-        "A": "18.000",
-        "B": "23.000",
-        "C": "52.000",
-        "D": "40.000",
-        "E": "28.000"
+        "A": "7.350 TL kâr olarak 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir",
+        "B": "140.150 TL zarar olarak 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir",
+        "C": "3.300 TL kâr olarak 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir",
+        "D": "7.350 TL zarar olarak 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir",
+        "E": "7.350 TL zarar olarak 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir"
       },
-      "dogru": "E",
+      "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Ters İşlem Tuzağı",
-          "metin": "Alış iskontosunu maliyetten düşmek yerine maliyete eklersin ve (200.000+6.000+4.000+12.000)/1.000=222 TL birim maliyet bulursun. Doğrusu: Alış iskontosu maliyeti azaltan bir kalemdir, toplama değil çıkarmaya dahil edili…"
+          "ad": "Çeldirici Veri Tuzağı",
+          "metin": "Sigorta eksperinin belirlediği rayiç değeri takas değeri yerine kullanmışsın, oysa kayıtta esas alınacak değer taraflarca belirlenen takas değeridir. Doğrusu: Fark 58.000 değil 47.350 TL üzerinden hesaplanır."
+        },
+        "E": {
+          "ad": "Hesap Tarafı Karıştırma Tuzağı",
+          "metin": "Doğru tutarı bulmuşsun ama zararı gider hesabına borç yerine gelir hesabına alacak yazmışsın. Doğrusu: Zarar 689 hesabına borç, kâr 679 hesabına alacak kaydedilir; bu işlemde sonuç zarardır."
         },
         "A": {
-          "ad": "Eksik Maliyet Tuzağı",
-          "metin": "Nakliye ve sigorta giderlerini stok maliyetine dahil etmeyip yalnızca mal bedelinden alış iskontosunu düşerek (200.000-12.000)/1.000=188 TL birim maliyet bulup 170 TL net gerçekleşebilir değerle karşılaştırırsın. Doğrus…"
-        },
-        "D": {
-          "ad": "İskonto Atlama Tuzağı",
-          "metin": "Alış iskontosunu maliyetten düşürmeyi unutup (200.000+6.000+4.000)/1.000=210 TL birim maliyet hesaplarsın. Doğrusu: Alış iskontosu, mal maliyetini azaltan bir unsur olarak toplam maliyetten indirilmelidir."
+          "ad": "Yön Ters Çevirme Tuzağı",
+          "metin": "Farkın mutlak değerini doğru bulup işareti ters okumuş, net defter değeri takas değerinden büyükken bunu kâr sanmışsın. Doğrusu: Takas değeri net defter değerinden küçük olduğunda fark zarardır ve 689 hesabına borç yazı…"
         },
         "B": {
-          "ad": "Net Değer Eksik Hesap Tuzağı",
-          "metin": "Net gerçekleşebilir değeri bulurken satışı gerçekleştirmek için gerekli tahmini maliyeti düşmeyi unutup yalnızca satış fiyatını (175 TL) esas alırsın. Doğrusu: TMS 2 paragraf 6 uyarınca net gerçekleşebilir değer, tahmin…"
+          "ad": "Maliyetle Kıyaslama Tuzağı",
+          "metin": "Kâr/zararı takas değeri ile eski varlığın maliyet bedeli arasındaki farktan bulmuşsun, birikmiş amortismanı hiç düşmemişsin. Doğrusu: Kıyaslama maliyetle değil net defter değeriyle yapılır, o da 54.700 TL'dir."
         }
       },
-      "hap": "Stok maliyetine doğrudan ilişkilendirilebilen giderler eklenir, alış iskontoları düşülür; sonuç net gerçekleşebilir değerle karşılaştırılıp düşüklük varsa karşılık ayrılır.",
+      "hap": "Duran varlık takasında kâr/zarar, takas değeri ile net defter değeri (maliyet-birikmiş amortisman) arasındaki farktır; zarar 689 borç, kâr 679 alacak kaydedilir.",
       "satirlar": [
         [
-          "Toplam maliyet (1.000 birim)",
-          "198.000"
+          "Net defter değeri (187.500-132.800)",
+          "54.700"
         ],
         [
-          "Birim maliyet",
-          "198"
-        ],
-        [
-          "Net gerçekleşebilir değer (175-5)",
-          "170"
-        ],
-        [
-          "Birim değer düşüklüğü (198-170)",
-          "28"
-        ],
-        [
-          "Ayrılması gereken karşılık (28×1.000)",
-          "28.000"
+          "Fark (47.350-54.700)",
+          "-7.350"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=53",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=54",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 62,
+        "kalan_gun": 61,
         "durum": "YESIL",
         "mail_gunu": false
       }

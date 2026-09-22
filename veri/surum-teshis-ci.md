@@ -3,14 +3,14 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-09-21 15:02:38 UTC
-- commit: b4df7f3db2bce90cf1757fc3a0dbf873bd5597b4
-- kosu no: 49
+- zaman: 2026-09-22 13:19:44 UTC
+- commit: a5ac42ca266a3f6de6d91ab534ae6e12e893532f
+- kosu no: 50
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
 - SUPABASE_SERVICE_KEY uzunluk: 219
-- pwsh: 7.6.5 · OS: Ubuntu 24.04.5 LTS
+- pwsh: 7.6.6 · OS: Ubuntu 24.04.5 LTS
 
 ## standart-yut.ps1 -standart 'TFRS 16' ciktisi
 
