@@ -28,24 +28,48 @@ Bağlantılar bölümüne ikinci adres olarak `tetikte.com` eklenir.
 
 ---
 
-## 2 · @dizdardenetim SABİT GÖNDERİ — açıklama metni
+## 2 · @dizdardenetim SABİT GÖNDERİ — FİLM + açıklaması
 
-Kurumsal denetim registeri (08.09 kararı): tespit kipi, soru-kanca yok, abartı yok.
+⭐ **22.09 değişiklik:** sabit gönderi kart değil, **"Bir Hevesle Alınanlar" Bölüm 1 filmi**
+(`Firmalar Reklam/Tetikte/BIR-HEVESLE-ALINANLAR-1-YAYINA-HAZIR-G03-YAYIN.mp4`, 56,6 sn).
+Gerekçe: aynı hesap statik gönderilerle 51 takipçide kaldı, filmlerle 3.007'ye çıktı.
+
+### DİL KARARI — iki marka, iki register
+
+08.09'daki **kurumsal denetim registeri Dizdar'ın KENDİ ürünleri içindir** (IFRS, maliyet,
+iç kontrol; kitle CFO/patron). **Tetikte içeriği o dille yazılmaz** — kitlesi 22–30 yaş sınav
+adayı, ve film zaten o dille konuşmuyor. Dizdar hesabından çıksa bile Tetikte'nin sesi
+**Nöbetçi'nin sesidir**. Kurumsal cümle filmin altına konursa film yalan söylemiş olur.
+
+### Film açıklaması (yayınlanacak metin)
 
 ```
-Tetikte, Dizdar Denetim ve Yazılım A.Ş. tarafından geliştirilen bir mevzuat izleme
-ve sınav hazırlık platformudur.
+Bunu biz yaptık.
 
-Sistem resmî kaynakları günlük olarak tarar. Bir hüküm değiştiğinde, o hükme dayanan
-içerik işaretlenir. Amaç, içeriğin güncelliğini kişisel takibe bırakmamaktır.
+Sınava hazırlanan biri gece on birde oturuyor. Kitap raf süsü olmuş, video seti yarım,
+eline kumandayı alıyor. Sonra dün gece yanlış yaptığı soru masada konuşmaya başlıyor.
 
-Platform şu an Staja Başlama sınavına hazırlananlara açıktır. Yeterlilik ve Bağımsız
-Denetçilik tarafındaki çalışma sürmektedir.
+Tetikte'de ders anlatan yok. Yanlış yaptığın soru sana neyi karıştırdığını söylüyor.
 
-Adres: tetikte.com — bağlantı profilimizdedir.
+Staja Başlama için açık: tetikte.com
+
+Bu filmdeki görüntüler yapay zekâ ile üretilmiştir. Anlatılan durum kurgudur.
 ```
 
-Gönderi **sabitlenir** (profilin ilk sırasında dursun). Etiket kullanılmaz.
+Gönderi **sabitlenir**. Sabitlenmiş yorum (kefillik satırı):
+
+```
+Tetikte'yi Dizdar Denetim ve Yazılım A.Ş. olarak biz geliştirdik. Bağlantı profilde.
+```
+
+⚠ Yükleme ekranında **yapay zekâ etiketi** açılır (gelişmiş ayarlar) + profildeki
+"Yapay zekâ içerik üreticisi" anahtarı açık olmalı. Görüntüler Seedance üretimi.
+
+### Rafta kalan üç kefillik karesi
+
+`Firmalar Reklam/Dizdar Denetim/Tetikte-Kefillik/kefil-1..3.png` — açılış gönderisi DEĞİL.
+Filmden iki gün sonra "ne yapıyor" gönderisi olarak kullanılabilir; Dizdar'ın kurumsal
+kimliğiyle basıldı, o yüzden Dizdar akışında yabancı durmaz.
 
 ---
 
