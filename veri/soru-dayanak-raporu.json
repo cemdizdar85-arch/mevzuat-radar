@@ -1,13 +1,44 @@
 {
-  "tarih": "22.09.2026 08:48",
-  "durum": "TAMAM",
-  "degisenMadde": 57,
-  "silinenMadde": 7,
-  "isaretlenenSoru": 0,
-  "taban_ilerletildi": true,
-  "yeniHatEngellenen": 689,
-  "yeniHatKasadanCekilen": 689,
-  "yeniHatTaramaHatasi": false,
-  "etkilenen": [],
-  "not": "Isaretlenen sorular yayin=false + mevzuat-degisti notu tasir; hakem+GM yargisi sonrasi geri acilir."
+    "tarih":  "22.09.2026 21:30",
+    "durum":  "KIRMIZI",
+    "degisenMadde":  57,
+    "silinenMadde":  7,
+    "isaretlenenSoru":  42,
+    "taban_ilerletildi":  false,
+    "yeniHatEngellenen":  0,
+    "yeniHatKasadanCekilen":  0,
+    "yeniHatTaramaHatasi":  true,
+    "etkilenen":  [
+                      {
+                          "madde":  "213|152",
+                          "soru":  1,
+                          "tur":  "degisti"
+                      },
+                      {
+                          "madde":  "213|185",
+                          "soru":  2,
+                          "tur":  "degisti"
+                      },
+                      {
+                          "madde":  "213|194",
+                          "soru":  1,
+                          "tur":  "degisti"
+                      },
+                      {
+                          "madde":  "213|266",
+                          "soru":  1,
+                          "tur":  "degisti"
+                      },
+                      {
+                          "madde":  "213|274",
+                          "soru":  28,
+                          "tur":  "degisti"
+                      },
+                      {
+                          "madde":  "213|278",
+                          "soru":  233,
+                          "tur":  "degisti"
+                      }
+                  ],
+    "not":  "Isaretlenen sorular yayin=false + mevzuat-degisti notu tasir; hakem+GM yargisi sonrasi geri acilir."
 }
