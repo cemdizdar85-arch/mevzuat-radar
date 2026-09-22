@@ -31,7 +31,18 @@
     powershell -NoProfile -ExecutionPolicy Bypass -File arac/smmm-plan-kur.ps1 -PlanSayisi 2 -PlanBasinaSoru 45 -Etiket w7
 ================================================================================
 #>
-param([int]$PlanSayisi = 2, [int]$PlanBasinaSoru = 45, [string]$Etiket = 'w7', [int]$CikmisEsik = 3)
+param(
+  [int]$PlanSayisi = 2, [int]$PlanBasinaSoru = 45, [string]$Etiket = 'w7', [int]$CikmisEsik = 3,
+  # ⭐ 22.09.2026 (Cem "1 yap"): açığın EN PAHALI kısmı, hiç sorusu olmayan YÜKSEK SIKLIKLI konular.
+  #   Ölçüldü: 4.000'lik bankaya göre açık 3.338 soru; bunun 3.051'i HİÇ SORUSU OLMAYAN 2.537 konuda.
+  #   Sınavda 31 kez çıkan "bilanço düzenleme"de ve 25 kez çıkan "şüpheli alacak karşılığı"nda
+  #   sıfır sorumuz vardı. Bu anahtar planı yalnız o konulardan kurar.
+  #   ⚠ KÖRLÜK: "hiç yok" sayısı konu adı yazım farkından ŞİŞİKTİR — 2.537'nin 594'ü aslında
+  #     adı farklı yazılmış dolu bir konunun alt/üst kümesi ("şüpheli alacak karşılığı" ~
+  #     "şüpheli alacak karşılığı ayırma"). Bu plana o ikizler de girebilir; kopyayı üretimdeki
+  #     ikiz kapısı (arac/ikiz-olcusu.ps1) eler, ama parası ödenir. Konu adı tekilleştirmesi ayrı iş.
+  [switch]$YalnizHicYok
+)
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
 $ErrorActionPreference = 'Stop'
@@ -57,8 +68,10 @@ foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\sinav\konu') -Filter 'smmm-w
 $c = @(Import-Csv (Join-Path $kok 'veri\fabrika\smmm-kapsama.csv') -Encoding UTF8)
 $havuz = @($c | Where-Object {
     [int]$_.cikmis -ge $CikmisEsik -and [int]$_.acik -gt 0 -and -not $_.engel -and
-    $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders)
+    $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
+    ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true }))
   } | Sort-Object { [int]$_.cikmis } -Descending)
+if ($YalnizHicYok) { "MOD: YALNIZ HIC SORUSU OLMAYAN KONULAR (yayinlanabilir = 0)" }
 # ⛔ 22.09 DUZELTME: once "onceki dalgalarda gecen konuyu al" diye elemistim; oyle yapinca
 #   havuz 39 konuya dusuyordu. YANLIS: en cok cikan konularda ACIK ZATEN VAR (amortisman
 #   ayirma cikmis 43, bizde 7 -> 122 acik). Amac ayni konuya IKINCI SORU yazmak; kopya
