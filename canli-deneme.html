@@ -202,7 +202,11 @@ function salonKur(o, hedef){
     kart.style.display='block';
     // paketi simdiden indir (sifreli - acilamaz)
     if(!CANLI.paket){
-      fetch('veri/canli/' + CANLI.kod + '.enc.json?' + Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(p){
+      /* 23.09: cache-buster 60 saniyelik kovaya alındı — paket 328 KB ve
+         herkeste aynı; benzersiz URL CDN'i devre dışı bırakıp 5.000 indirmeyi
+         (≈1,6 GB) tek tek köke yolluyordu. Kova ile CDN dağıtıyor, paket en
+         çok 1 dk geç görünür (indirme sınavdan 30 dk önce başlıyor). */
+      fetch('veri/canli/' + CANLI.kod + '.enc.json?t=' + Math.floor(Date.now()/60000)).then(function(r){ return r.ok ? r.json() : null; }).then(function(p){
         if(p){ CANLI.paket = p; }
         else if(ms <= 30*60000){ durum.textContent = 'Paket henüz yüklenmedi, sayfayı sınav saatinde yenile.'; }
       }).catch(function(){});
@@ -221,10 +225,24 @@ function anahtarBekle(){
   var kovaUrl = 'https://bjrleanjpyujtajmazxn.supabase.co/storage/v1/object/public/canli/anahtar-' + CANLI.kod + '.json';
   var repoUrl = 'veri/canli/anahtar-' + CANLI.kod + '.json';
   var dene = function(){
-    fetch(kovaUrl + '?' + Date.now()).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-      .catch(function(){ return fetch(repoUrl + '?' + Date.now()).then(function(r){ return r.ok ? r.json() : Promise.reject(); }); })
+    /* 23.09 5K YÜK KAPISI — iki değişiklik, ikisi de ÖLÇÜLDÜ.
+       (1) cache-buster benzersiz ?<ms> yerine 10 SANİYELİK KOVA. Benzersiz URL
+           CDN'i tamamen devre dışı bırakıyordu.
+           ⚠ Ölçüm 23.09: Supabase Storage public nesneye `Cache-Control: no-cache`
+           basıyor, yükleme başlığıyla değiştirilemedi (CF-Cache-Status hep
+           MISS/REVALIDATED). Yani kova Supabase tarafında yükü AZALTMIYOR;
+           kazanç GitHub Pages (Fastly, max-age=600 ölçüldü) yedeğinde.
+       (2) yoklama aralığı 8-15 sn -> 10-25 sn (ortalama 17,5). 5.000 kişide
+           ≈286 istek/sn. Ölçüm: bu uç tek makineden 169 istek/sn'de 600/600
+           başarılı, p95 1,7 sn, sıfır hata — tavan görülmedi.
+       ⚠ BU KAPININ GÖRMEDİĞİ: anahtar GEÇ yayınlanırsa yoklama dakikalarca
+       sürer ve yük sürekli olur. Kısa süreli tepe sorun değil, gecikme sorundur
+       — anahtar saatinde basılmalı. */
+    var kova = Math.floor(Date.now()/10000);
+    fetch(kovaUrl + '?t=' + kova).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .catch(function(){ return fetch(repoUrl + '?t=' + kova).then(function(r){ return r.ok ? r.json() : Promise.reject(); }); })
       .then(function(a){ if(a && a.anahtar){ sinavAc(a.anahtar); } else { throw 0; } })
-      .catch(function(){ setTimeout(dene, 8000 + Math.random()*7000); });
+      .catch(function(){ setTimeout(dene, 10000 + Math.random()*15000); });
   };
   dene();
 }
@@ -330,11 +348,18 @@ function teslim(otomatik){
       method:'POST', headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Prefer:'return=minimal' }, body: govde
     }).then(function(r){
       if(r.ok || r.status===201){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; CANLI.gonderildi=true; }
-      else if(kalan > 0){ setTimeout(function(){ yolla(kalan-1); }, 9000); }
+      else if(kalan > 0){ setTimeout(function(){ yolla(kalan-1); }, 20000 + Math.random()*40000); }
       else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı, sıralama açıklanınca yine görebilirsin.'; }
-    }).catch(function(){ if(kalan>0){ setTimeout(function(){ yolla(kalan-1); }, 9000); } else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı.'; } });
+    }).catch(function(){ if(kalan>0){ setTimeout(function(){ yolla(kalan-1); }, 20000 + Math.random()*40000); } else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı.'; } });
   };
-  setTimeout(function(){ yolla(1); }, 500 + Math.random()*15000);
+  /* 23.09 5K YÜK KAPISI — yayılım 15 sn'den 150 sn'ye çıkarıldı.
+     Süre dolunca HERKES aynı saniyede otomatik teslim oluyor; 15 sn'lik
+     pencere 5.000 kişide ≈333 istek/sn tepe demekti. 150 sn'de ≈33 istek/sn.
+     Tekrar denemesi de 9 sn sabitten 20-60 sn rastgeleye alındı (sabit
+     gecikme, düşen isteklerin hepsini aynı ana yeniden yığıyordu).
+     Kullanıcı beklemiyor: sonuç ekranı ve çözümler zaten açık, gönderim
+     arka planda. */
+  setTimeout(function(){ yolla(1); }, 500 + Math.random()*150000);
 }
 /* ===== /KILITLI-SET MOTORU ===== */
 document.getElementById('kayitForm').addEventListener('submit', function(e){
