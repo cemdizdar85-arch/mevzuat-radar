@@ -274,6 +274,10 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   **43 kez** görülen "amortisman ayırma"da 7, **31 kez** görülen "bilanço düzenleme"de ve **25 kez** görülen "şüpheli alacak
   karşılığı"nda **SIFIR** sorumuz vardı. Sebep: SGS'nin ve KGK'nın kapsama tablosu vardı, **bitirmeninki yoktu**.
   **Kural — bu sıra atlanmaz:**
+  0. **HEDEF = 4.000 SORU** (Cem kararı, 23.09.2026: *"4.000 olsun"*). Hedef konu başına "kat" değil, **bankanın toplamı**;
+     çıkmış sıklığına göre konulara dağıtılır (`-ToplamHedef 4000`, varsayılan). Hedef değişirse tek komutla yeniden üretilir.
+     23.09 ölçümü: elde **2.442**, hedef dağıtımı **4.439**, **açık ≈3.300** — açık 2.000 değil, çünkü eldeki soruların
+     **1.388'i hedefin üstündeki konularda** duruyor (sayı var, doğru yerde değil).
   1. **Tablo tazelenir:** `arac/smmm-kapsama-tablosu.ps1` → `veri/fabrika/smmm-kapsama.csv`
      (ders · konu · **sınavda kaç kez çıktı** · yazdık · yayınlanabilir · hedef · açık · **engel**). Bedel 0.
      ⛔ **Bayat tabloyla plan kurulmaz (mekanik):** `smmm-plan-kur.ps1` tablo 12 saatten eskiyse **durur**.
