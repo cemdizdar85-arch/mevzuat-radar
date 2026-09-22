@@ -1,0 +1,28 @@
+{
+  "olcum": "2026-09-22T22:36:24.8504700Z",
+  "seviye": "KOR",
+  "gerekce": "sayim okunamadi",
+  "son_1_saat": null,
+  "son_24_saat": null,
+  "en_yogun_dakika": null,
+  "toplam": null,
+  "okuma_hatasi": "uye_sayim() fonksiyonu YOK - radar-app/sql/2026-09-25-uye-sayim.sql basilmamis",
+  "esikler": {
+    "kirmizi_dakika": 30,
+    "kirmizi_saat": 300,
+    "sari_dakika": 15,
+    "sari_saat": 100,
+    "sari_gun": 1000,
+    "tekrar_saat": 6,
+    "kor_tekrar_saat": 24
+  },
+  "son_alarm": {
+    "seviye": "KOR",
+    "zaman": "2026-09-22T22:36:24.8504700Z"
+  },
+  "gormedigi": [
+    "yavas bot: saatte 100 / dakikada 15 altinda, cok IP - insandan ayirt edilemez",
+    "sahte hesabin niteligi (uydurma alan adi) - e-postaya bilerek bakilmaz",
+    "mesru kalabalik da SARI/KIRMIZI yakar - alarm \"bak\" der, \"saldiri var\" demez"
+  ]
+}
