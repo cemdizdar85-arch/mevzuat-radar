@@ -1,12 +1,12 @@
 {
-  "olcum": "2026-09-22T22:36:24.8504700Z",
-  "seviye": "KOR",
-  "gerekce": "sayim okunamadi",
-  "son_1_saat": null,
-  "son_24_saat": null,
-  "en_yogun_dakika": null,
-  "toplam": null,
-  "okuma_hatasi": "uye_sayim() fonksiyonu YOK - radar-app/sql/2026-09-25-uye-sayim.sql basilmamis",
+  "olcum": "2026-09-22T22:52:19.0569560Z",
+  "seviye": "YESIL",
+  "gerekce": "esiklerin altinda",
+  "son_1_saat": 0,
+  "son_24_saat": 0,
+  "en_yogun_dakika": 0,
+  "toplam": 6,
+  "okuma_hatasi": null,
   "esikler": {
     "kirmizi_dakika": 30,
     "kirmizi_saat": 300,
@@ -18,7 +18,7 @@
   },
   "son_alarm": {
     "seviye": "KOR",
-    "zaman": "2026-09-22T22:36:24.8504700Z"
+    "zaman": "2026-09-22T22:36:24.85047Z"
   },
   "gormedigi": [
     "yavas bot: saatte 100 / dakikada 15 altinda, cok IP - insandan ayirt edilemez",
