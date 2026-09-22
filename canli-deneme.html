@@ -135,13 +135,22 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
   if(!d || !d.oturumlar) return;
   var simdi = new Date();
   var zamani = function(o){ return new Date(o.tarih.split('.').reverse().join('-') + 'T' + (o.saat || '10:00') + ':00'); };
-  var gelecek = d.oturumlar.filter(function(o){ return zamani(o) > simdi; });
+  /* 24.09 GEÇ GİRİŞ KAPISI — eskiden oturum, başlangıç saniyesinde "geçmiş"
+     sayılıyordu: 10:00:01'de sayfayı AÇAN ya da YENİLEYEN kişi o sınavı hiç
+     görmüyor, bir sonraki oturumun (bir hafta sonrası) geri sayımına
+     düşüyordu. Artık oturum başlangıçtan GIRIS_DK dakika sonrasına kadar
+     yeni girişe, bu cihazda yarım kalmış sınavı olan için AZAMI_DK'ya kadar
+     devama açık. */
+  var GIRIS_DK = 30, AZAMI_DK = 180;
+  var yarimVar = function(o){ try { var x = JSON.parse(localStorage.getItem('canliDurum-' + oturumKodu(o)) || 'null'); return !!(x && x.bitisMs); } catch(e){ return false; } };
+  var kapanis = function(o){ return new Date(zamani(o).getTime() + (yarimVar(o) ? AZAMI_DK : GIRIS_DK) * 60000); };
+  var gelecek = d.oturumlar.filter(function(o){ return kapanis(o) > simdi; });
   var tk = document.getElementById('takvim');
   d.oturumlar.forEach(function(o){
-    var gecti = zamani(o) <= simdi;
+    var gecti = kapanis(o) <= simdi, suruyor = !gecti && zamani(o) <= simdi;
     var sat = document.createElement('div');
     sat.style.cssText = 'display:flex;gap:10px;font-size:13.5px;margin:6px 0;color:' + (gecti ? 'var(--dim)' : 'var(--muted)');
-    sat.innerHTML = '<span style="min-width:88px;font-weight:700;color:' + (gecti ? 'var(--dim)' : 'var(--amber)') + '">' + o.tarih + '</span><span><b>' + (o.sinav || '') + '</b> · ' + o.ad + (gecti ? ' · tamamlandı' : ' · ' + o.saat) + '</span>';
+    sat.innerHTML = '<span style="min-width:88px;font-weight:700;color:' + (gecti ? 'var(--dim)' : 'var(--amber)') + '">' + o.tarih + '</span><span><b>' + (o.sinav || '') + '</b> · ' + o.ad + (gecti ? ' · tamamlandı' : (suruyor ? ' · ŞU AN SÜRÜYOR' : ' · ' + o.saat)) + '</span>';
     tk.appendChild(sat);
   });
   if(!gelecek.length){
@@ -153,7 +162,7 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
   document.getElementById('tarihMetin').textContent = (o.sinav ? o.sinav + ' ' : '') + o.ad + ', ' + o.tarih + ' Pazar ' + o.saat;
   var tik = function(){
     var ms = hedef - new Date();
-    if(ms <= 0){ document.getElementById('tarihAlt').textContent = 'Oturum saati geldi!'; return; }
+    if(ms <= 0){ document.getElementById('tarihAlt').textContent = 'Oturum başladı — aşağıdaki salondan hemen katıl.'; return; }
     var g = Math.floor(ms/86400000), s = Math.floor(ms%86400000/3600000), dk = Math.floor(ms%3600000/60000);
     document.getElementById('tarihAlt').textContent = 'Kalan: ' + g + ' gün ' + s + ' saat ' + dk + ' dakika';
     setTimeout(tik, 30000);
@@ -247,18 +256,61 @@ function anahtarBekle(){
   dene();
 }
 function b64ab(b64){ var s = atob(b64), a = new Uint8Array(s.length); for(var i=0;i<s.length;i++){ a[i]=s.charCodeAt(i); } return a.buffer; }
+/* 24.09 YARIM SINAV KAYDI — eskiden cevaplar yalnız bellekteydi: telefonda
+   arama gelmesi, sekmenin kapanması ya da sayfanın yenilenmesi TÜM cevapları
+   siliyor ve süreyi 120 dakikadan YENİDEN başlatıyordu. Artık her işaretleme
+   ve her soru geçişi bu cihaza yazılır; sayfa yeniden açılınca sınav kaldığı
+   yerden, KALAN süreyle devam eder. Bitmiş sınav yeniden açılınca sonuç
+   ekranı gelir; sonuç zaten gönderildiyse ikinci kez gönderilmez. */
+function durumAnahtar(){ return 'canliDurum-' + CANLI.kod; }
+function durumOku(){ try { return JSON.parse(localStorage.getItem(durumAnahtar()) || 'null'); } catch(e){ return null; } }
+function durumYaz(){
+  try { localStorage.setItem(durumAnahtar(), JSON.stringify({ basMs:CANLI.basMs, bitisMs:CANLI.bitisMs,
+    cevap:CANLI.cevap, idx:CANLI.idx, bitti:!!CANLI.bitti, gonderildi:!!CANLI.gonderildi })); } catch(e){}
+}
 function sinavAc(anahtarB64){
-  if(!CANLI.paket){ document.getElementById('salonDurum').textContent = 'Paket eksik, sayfayı yenile.'; return; }
+  /* 24.09 PAKET YARIŞI — saatten SONRA gelen (ya da yenileyen) kişide küçük
+     anahtar dosyası 328 KB'lık paketten önce iniyor, eski kod "Paket eksik,
+     sayfayı yenile" deyip duruyordu; yenileyince aynı yarış tekrarlanıyordu.
+     Artık paket yoksa önce paket indirilir, sonra sınav açılır. */
+  if(!CANLI.paket){
+    var sd = document.getElementById('salonDurum');
+    sd.textContent = 'Soru paketi indiriliyor…';
+    fetch('veri/canli/' + CANLI.kod + '.enc.json?t=' + Math.floor(Date.now()/60000)).then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(p){
+        if(p){ CANLI.paket = p; sinavAc(anahtarB64); }
+        else { sd.textContent = 'Paket alınamadı, birkaç saniye içinde yeniden deneniyor…'; setTimeout(function(){ sinavAc(anahtarB64); }, 5000 + Math.random()*5000); }
+      })
+      .catch(function(){ sd.textContent = 'Bağlantı zayıf, yeniden deneniyor…'; setTimeout(function(){ sinavAc(anahtarB64); }, 5000 + Math.random()*5000); });
+    return;
+  }
   crypto.subtle.importKey('raw', b64ab(anahtarB64), {name:'AES-CBC'}, false, ['decrypt']).then(function(k){
     return crypto.subtle.decrypt({name:'AES-CBC', iv:new Uint8Array(b64ab(CANLI.paket.iv))}, k, b64ab(CANLI.paket.veri));
   }).then(function(duz){
     var d = JSON.parse(new TextDecoder().decode(duz));
-    CANLI.sorular = d.sorular; CANLI.idx = 0; CANLI.cevap = {};
-    CANLI.bitisMs = Date.now() + (d.sure_dk || 120) * 60000;
-    CANLI.basMs = Date.now();
+    CANLI.sorular = d.sorular;
+    var es = durumOku();
+    if(es && es.bitisMs){
+      CANLI.cevap = es.cevap || {};
+      CANLI.idx = Math.max(0, Math.min(es.idx || 0, CANLI.sorular.length - 1));
+      CANLI.bitisMs = es.bitisMs; CANLI.basMs = es.basMs;
+      CANLI.gonderildi = !!es.gonderildi;
+    } else {
+      CANLI.idx = 0; CANLI.cevap = {};
+      CANLI.bitisMs = Date.now() + (d.sure_dk || 120) * 60000;
+      CANLI.basMs = Date.now();
+    }
     document.getElementById('salonKart').style.display = 'none';
-    document.querySelectorAll('.kart').forEach(function(K){ if(K.id !== 'salonKart') K.style.display = 'none'; });
+    /* 24.09: eskiden SAYFADAKİ TÜM .kart'lar gizleniyordu — soru kartı
+       (#sinavEkran içinde) ve sonuç kartları (#sonucEkran içinde) da
+       dahil. Sınav ekranı sayaçla açılıp SORUSUZ görünüyordu. Artık
+       yalnız sınav/sonuç ekranı dışındaki tanıtım kartları gizlenir. */
+    document.querySelectorAll('.kart').forEach(function(K){
+      if(K.id !== 'salonKart' && !K.closest('#sinavEkran') && !K.closest('#sonucEkran')) K.style.display = 'none';
+    });
+    if(es && es.bitti){ teslim(false); return; }
     document.getElementById('sinavEkran').style.display = 'block';
+    durumYaz();
     sayacIsle(); soruGoster();
   }).catch(function(){ document.getElementById('salonDurum').textContent = 'Anahtar çözülemedi, sayfayı yenileyip tekrar dene.'; });
 }
@@ -311,6 +363,7 @@ function soruGoster(){
     p.onclick = function(){ CANLI.idx = i; soruGoster(); window.scrollTo(0,0); };
     pl.appendChild(p);
   });
+  durumYaz();   // 24.09: her işaretleme/geçiş sonrası bu cihaza yaz (yenilemede kayıp yok)
 }
 document.getElementById('seIleri').onclick = function(){ if(CANLI.idx < CANLI.sorular.length-1){ CANLI.idx++; soruGoster(); window.scrollTo(0,0); } };
 document.getElementById('seGeri').onclick = function(){ if(CANLI.idx > 0){ CANLI.idx--; soruGoster(); window.scrollTo(0,0); } };
@@ -318,6 +371,7 @@ document.getElementById('seBitir').onclick = function(){ if(confirm('Sınavı bi
 function teslim(otomatik){
   if(CANLI.bitti){ return; }
   CANLI.bitti = true;
+  durumYaz();
   var dg=0, yn=0, bs=0, liste=[];
   CANLI.sorular.forEach(function(s){
     var c = CANLI.cevap[s.id];
@@ -347,7 +401,7 @@ function teslim(otomatik){
     fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/canli_sonuc', {
       method:'POST', headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Prefer:'return=minimal' }, body: govde
     }).then(function(r){
-      if(r.ok || r.status===201){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; CANLI.gonderildi=true; }
+      if(r.ok || r.status===201){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; CANLI.gonderildi=true; durumYaz(); }
       else if(kalan > 0){ setTimeout(function(){ yolla(kalan-1); }, 20000 + Math.random()*40000); }
       else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı, sıralama açıklanınca yine görebilirsin.'; }
     }).catch(function(){ if(kalan>0){ setTimeout(function(){ yolla(kalan-1); }, 20000 + Math.random()*40000); } else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı.'; } });
@@ -359,6 +413,9 @@ function teslim(otomatik){
      gecikme, düşen isteklerin hepsini aynı ana yeniden yığıyordu).
      Kullanıcı beklemiyor: sonuç ekranı ve çözümler zaten açık, gönderim
      arka planda. */
+  /* 24.09: bitmiş sınav yeniden açıldıysa ve sonuç zaten ulaştıysa İKİNCİ KEZ
+     gönderme — aynı kişinin skoru sıralamaya iki kez girmesin. */
+  if(CANLI.gonderildi){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; return; }
   setTimeout(function(){ yolla(1); }, 500 + Math.random()*150000);
 }
 /* ===== /KILITLI-SET MOTORU ===== */

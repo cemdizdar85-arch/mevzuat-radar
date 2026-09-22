@@ -74,6 +74,24 @@ arasında yaklaşık **8 kat** pay var.
 
 ---
 
+## 3b · ⭐ 24.09 — TARAYICI PROVASI: SUNUCUDAN BÜYÜK RİSK SAYFANIN İÇİNDEYDİ
+
+Sayfa gerçek şifreli paket (`SGS-2308.enc.json`, 93 soru) + gerçek anahtarla, yerel
+sunucuda, kapı saati 3 dk sonraya kurularak **uçtan uca** koşuldu. Sayfa hiç
+çalıştırılmamıştı (`canli_sonuc` tablosu 0 satır — Ağustos oturumları yapılmamış);
+prova **üç kusur** çıkardı, üçü de düzeltildi ve yeniden prova edildi:
+
+| # | Kusur (düzeltmeden önce) | Etkisi | Düzeltme | Prova sonucu |
+|---|---|---|---|---|
+| 1 | Oturum, başlangıç **saniyesinde** "geçmiş" sayılıyordu | 10:00:01'de sayfayı **açan ya da yenileyen** sınavı **hiç görmüyordu**, bir sonraki oturumun geri sayımına düşüyordu | Geç giriş penceresi: yeni giriş **30 dk**, yarım sınavı olan **180 dk** | ✅ saatten sonra açan girdi · takvim "ŞU AN SÜRÜYOR" |
+| 2 | Cevaplar yalnız bellekte | Arama gelmesi / sekmenin kapanması / yenileme → **tüm cevaplar silinir, süre 120 dk'dan yeniden başlar** | Her işaretleme ve geçişte cihaza yazılır; açılınca kaldığı yerden, **kalan** süreyle | ✅ 3 cevap + soru no geri geldi · sayaç 149:51 → 149:40 (sıfırlanmadı) |
+| 3 | Sınav açılınca sayfadaki **tüm** `.kart`'lar gizleniyordu | **Soru kartı** (ve sonuç kartları) da gizlenirdi → sınav ekranı sayaçla ama **sorusuz** açılırdı | Yalnız sınav/sonuç ekranı dışındaki kartlar gizlenir | ✅ soru kartı ve 93 açıklamalı sonuç görünür |
+| + | Geç gelende küçük anahtar 328 KB paketten önce inerse "Paket eksik, sayfayı yenile" döngüsü | Yavaş mobilde geç gelen giremez | Paket yoksa önce indirilir, sonra açılır | ✅ geç gelen (boş cihaz) girdi |
+| + | Bitmiş sınav yenilenirse sonuç yeniden gönderilebilirdi | Aynı skor sıralamaya iki kez girer | `gonderildi` bayrağı cihaza yazılır | ✅ yenilemede ikinci istek YOK (ağ kaydı boş) |
+
+Prova sırasında gerçek veritabanına tek satır yazılmadı (sonuç isteği sayfa içinde
+taklit edildi); prova sonrası `canli_sonuc` = **0 satır** (ölçüldü).
+
 ## 4 · ÖLÇÜLMEDİ (bu sayfanın körlükleri)
 
 - **5.000 gerçek tarayıcı** hiç denenmedi; ölçüm tek makineden yapıldı.
