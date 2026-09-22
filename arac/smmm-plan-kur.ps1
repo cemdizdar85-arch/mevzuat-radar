@@ -41,7 +41,13 @@ param(
   #     adı farklı yazılmış dolu bir konunun alt/üst kümesi ("şüpheli alacak karşılığı" ~
   #     "şüpheli alacak karşılığı ayırma"). Bu plana o ikizler de girebilir; kopyayı üretimdeki
   #     ikiz kapısı (arac/ikiz-olcusu.ps1) eler, ama parası ödenir. Konu adı tekilleştirmesi ayrı iş.
-  [switch]$YalnizHicYok
+  [switch]$YalnizHicYok,
+  # ⭐ 23.09.2026 (Cem "1 yap"): bir konuya bu dalgada en çok kaç soru yazılsın.
+  #   Üretici bir partide aynı konudan TEK soru çıkarır (konu listesini tekilleştirir,
+  #   motor/kalip-parti-uret.ps1 ~1391) — bu yüzden `adet`i büyütmek işe yaramaz, daha çok
+  #   KONU seçtirir. Çoklu soru ZORLUK dilimleriyle alınır: tavan 3 = zor + çok zor + kolay.
+  #   Daha fazlası ayrı tur (tur=2) ister.
+  [int]$KonuBasiTavan = 3
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -79,17 +85,34 @@ if ($YalnizHicYok) { "MOD: YALNIZ HIC SORUSU OLMAYAN KONULAR (yayinlanabilir = 0
 $eskiDe = @($havuz | Where-Object { $eski.ContainsKey((Nrm $_.konu)) }).Count
 "secilebilir konu (cikmis>=$CikmisEsik, acik>0, engelsiz): {0} · bunlarin {1}'i onceki dalgalarda da vardi (acik oldugu icin ALINIYOR)" -f $havuz.Count, $eskiDe
 
-$gerekli = $PlanSayisi * $PlanBasinaSoru
-if ($havuz.Count -lt $gerekli) { Write-Host "  UYARI: havuz $($havuz.Count) konu, istenen $gerekli — plan kucuk kurulacak" -ForegroundColor Yellow }
-$sec = @($havuz | Select-Object -First $gerekli)
-"alinan konu: {0} · cikmis araligi {1}..{2}" -f $sec.Count, ([int]$sec[0].cikmis), ([int]$sec[-1].cikmis)
+# ⭐ 23.09.2026 KONU BAŞINA ADET (Cem "1 yap"): eskiden her konuya 1 soru yazılıyordu.
+#   ÖLÇÜLDÜ: "bilanço düzenleme" sınavda 31 kez çıkmış, 4.000'lik bankadaki hedefi 27 soru —
+#   1 soru yazmak açığı kapatmıyor, konuyu yalnız "açıyor".
+#   ⛔ MEKANİK SINIR (ölçüldü, motor/kalip-parti-uret.ps1 satır ~1391): üretici konu listesini
+#     TEKİLLEŞTİRİYOR ($gorulen) — bir partide bir konudan yalnız BİR soru çıkar. `adet`i
+#     büyütmek daha çok soru değil, daha çok KONU seçtirir. Bu yüzden çoklu soru, konuyu
+#     BİRDEN ÇOK ZORLUK diliminde açarak alınır (aynı konu kolay + zor + çok zor = 3 soru).
+#     Tavan bu yüzden 3'tür; daha fazlası ayrı tur (tur=2) ister.
+$ZORLUK_SIRA = @('zor', 'cokzor', 'kolay')   # banka sınavdan zor: önce zor dilimler dolar
+$hedefSoru = $PlanSayisi * $PlanBasinaSoru
+$sec = New-Object System.Collections.Generic.List[object]
+$soruSay = 0
+foreach ($h in $havuz) {
+  if ($soruSay -ge $hedefSoru) { break }
+  $kac = [Math]::Max(1, [Math]::Min([int]$h.acik, [Math]::Min($KonuBasiTavan, $ZORLUK_SIRA.Count)))
+  if ($soruSay + $kac -gt $hedefSoru) { $kac = $hedefSoru - $soruSay }
+  if ($kac -le 0) { break }
+  $h | Add-Member -NotePropertyName kacSoru -NotePropertyValue $kac -Force
+  $sec.Add($h); $soruSay += $kac
+}
+if ($soruSay -lt $hedefSoru) { Write-Host "  UYARI: havuz yetmedi — $soruSay soru kuruldu (istenen $hedefSoru)" -ForegroundColor Yellow }
+"alinan konu: {0} · soru {1} · cikmis araligi {2}..{3} · konu basi tavan {4}" -f $sec.Count, $soruSay, ([int]$sec[0].cikmis), ([int]$sec[$sec.Count - 1].cikmis), $KonuBasiTavan
 
 # planlara serpistir (round-robin: her plan ayni siklik profilini alsin)
 # ⚠ PS 5.1 TUZAGI: hem hashtable hem dizi indekslemesi bu baglamda ArgumentException verdi.
 #   Care: indeks tasima yok - her konuya plan numarasi OZELLIK olarak yazilir, sonra suzulur.
 for ($i = 0; $i -lt $sec.Count; $i++) { $sec[$i] | Add-Member -NotePropertyName planNo -NotePropertyValue (($i % $PlanSayisi) + 1) -Force }
 
-$ZORLUK = @(@('kolay', 0.25), @('zor', 0.50), @('cokzor', 0.25))
 $konuDizin = Join-Path $kok 'veri\sinav\konu'
 New-Item -ItemType Directory -Force $konuDizin | Out-Null
 
@@ -100,14 +123,11 @@ for ($p = 1; $p -le $PlanSayisi; $p++) {
   foreach ($g in ($liste | Group-Object ders)) {
     $kk = @($g.Group)
     $ders = $g.Name; $dersKisaAd = $KISA[$ders]   # K1: $kisa yazilirsa $KISA haritasini EZER (PS harf ayirmaz)
-    # dersin konularini zorluklara bol
-    $baslangic = 0
-    for ($z = 0; $z -lt $ZORLUK.Count; $z++) {
-      $adet = $(if ($z -eq $ZORLUK.Count - 1) { $kk.Count - $baslangic } else { [int][Math]::Round($kk.Count * $ZORLUK[$z][1]) })
-      if ($adet -le 0) { continue }
-      $dilim = @($kk[$baslangic..($baslangic + $adet - 1)])
-      $baslangic += $adet
-      $et = "smmm-$Etiket-$p-$dersKisaAd-$($ZORLUK[$z][0])"
+    # Konu, kacSoru kadar ZORLUK dilimine girer (zor -> cok zor -> kolay).
+    for ($z = 0; $z -lt $ZORLUK_SIRA.Count; $z++) {
+      $dilim = @($kk | Where-Object { [int]$_.kacSoru -gt $z })
+      if (-not $dilim.Count) { continue }
+      $et = "smmm-$Etiket-$p-$dersKisaAd-$($ZORLUK_SIRA[$z])"
       $kd = "veri/sinav/konu/$et.json"
       $konuJson = ConvertTo-Json -InputObject ([string[]]@($dilim | ForEach-Object { "$($_.konu)" })) -Depth 3
       if ($konuJson -isnot [string]) { $konuJson = ($konuJson -join "`n") }
@@ -120,7 +140,7 @@ for ($p = 1; $p -le $PlanSayisi; $p++) {
       if (-not $dersKanonik) { throw "etiket '$et' ders haritasında çözülemedi — plan kurulmadı (arac/smmm-ders-adi.ps1'e satır eklenmeli)" }
       $satirlar.Add([ordered]@{
           ders = $dersKanonik; dersAd = $dersKanonik; etiket = $et; adet = $dilim.Count
-          zorluk = $(if ($ZORLUK[$z][0] -eq 'cokzor') { 'çok zor' } else { $ZORLUK[$z][0] })
+          zorluk = $(if ($ZORLUK_SIRA[$z] -eq 'cokzor') { 'çok zor' } else { $ZORLUK_SIRA[$z] })
           sinav = 'SMMM'; konuDosya = $kd; toplu = $true; disla = ''; tur = 1
         })
     }
