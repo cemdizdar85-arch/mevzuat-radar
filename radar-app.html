@@ -74,6 +74,8 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
      Kopya acilmaz; robot tarafindaki esi motor/destek-takip-nobeti.ps1. -->
 <script src="destek-kural.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 25.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
+<script src="captcha.js"></script>
 <!-- 29.08 (Cem: "marka ile ilgili cok sey yapmistik ama burada goremiyorum"):
      Marka araclarinin TAMAMI app() icindeydi, yani girisin arkasinda kaliyordu;
      giris ekraninda tek bir marka baglantisi yoktu. Serit artik giris ekraninda
@@ -183,13 +185,13 @@ function giris(){
       window.addEventListener('load',()=>{ if($('#markaAraclar')) markaSeridiCiz(); },{once:true});
     }
   })();
-  $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value}); if(error)$('#ahata').textContent=trHata(error); };
+  $('#girisBtn').onclick=async()=>{ const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value,options:{captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)}}); if(error)$('#ahata').textContent=trHata(error); };
   $('#kayitBtn').onclick=async()=>{
     if(!$('#kosulOnay').checked){ $('#ahata').textContent='Üyelik için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
     if(!$('#email').value.trim()){ $('#ahata').textContent='E-posta adresini yaz.'; return; }
     if(($('#sifre').value||'').length<6){ $('#ahata').textContent='Şifre en az 6 karakter olmalı.'; return; }
     const {data,error}=await sb.auth.signUp({ email:$('#email').value.trim(), password:$('#sifre').value,
-      options:{ data:{ kosul_kabul:new Date().toISOString(), pazarlama_rizasi:$('#rizaOnay').checked, riza_tarihi:($('#rizaOnay').checked?new Date().toISOString():null) } } });
+      options:{ captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined), data:{ kosul_kabul:new Date().toISOString(), pazarlama_rizasi:$('#rizaOnay').checked, riza_tarihi:($('#rizaOnay').checked?new Date().toISOString():null) } } });
     if(error){$('#ahata').textContent=trHata(error);return;}
     if(!data.session)$('#ahata').textContent='Kayıt alındı, giriş yapabilirsin.';
   };
@@ -200,6 +202,7 @@ function giris(){
 // taninmayan hata OLDUGU GIBI gosterilir (yutulmaz - yoksa sessiz kalir).
 function trHata(e){
   const k=(e&&(e.code||e.error_code))||'', m=(e&&e.message)||'';
+  if(/captcha/i.test(k+m)) return 'Güvenlik doğrulaması tamamlanamadı. Sayfayı yenileyip tekrar dene; reklam engelleyici açıksa bu site için kapat.';
   if(/invalid_credentials/i.test(k)||/invalid login/i.test(m)) return 'E-posta veya şifre hatalı. Henüz üye değilsen "Yeni üyelik"e bas.';
   if(/weak_password/i.test(k)||/at least 6/i.test(m))          return 'Şifre en az 6 karakter olmalı.';
   if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';

@@ -2248,6 +2248,8 @@ function hataGonder(){
      duserse dordu birden acilmiyordu. Kutuphane artik BIZIM sunucumuzdan geliyor ve surum
      SABIT - adreste "@2" yazarken kutuphane haber vermeden guncelleniyordu. -->
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 25.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
+<script src="captcha.js"></script>
 <script type="module">
 const { createClient } = window.supabase || {};
 if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
@@ -2417,7 +2419,7 @@ g('uyeGirisBtn').onclick = async function(){
   g('uyeHata').textContent = '';
   var eposta = g('uyeEposta').value.trim();
   if(!eposta || !g('uyeSifre').value){ g('uyeHata').textContent = 'E-posta ve şifreni yaz.'; return; }
-  var r = await sb.auth.signInWithPassword({ email: eposta, password: g('uyeSifre').value });
+  var r = await sb.auth.signInWithPassword({ email: eposta, password: g('uyeSifre').value, options: { captchaToken: (window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined) } });
   if(r.error){ g('uyeHata').textContent = 'Giriş olmadı: ' + r.error.message; return; }
   kasaYukle(r.data.user);
 };

@@ -137,6 +137,8 @@
 </div>
 
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 25.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
+<script src="captcha.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js"></script>
@@ -181,6 +183,7 @@
 
   function trHata(e){
     var k=(e&&(e.code||e.error_code))||'', m=(e&&e.message)||'';
+    if(/captcha/i.test(k+m)) return 'Güvenlik doğrulaması tamamlanamadı. Sayfayı yenileyip tekrar dene; reklam engelleyici açıksa bu site için kapat.';
     if(/invalid_credentials/i.test(k)||/invalid login/i.test(m)) return 'E-posta veya şifre hatalı. Hesabın yoksa "Ücretsiz hesap aç"a bas.';
     if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';
     if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';
@@ -275,7 +278,7 @@
   }
   $('ogGirisBtn').addEventListener('click',async function(){
     $('ogHata').className='og-hata'; $('ogHata').textContent='';
-    var r=await sb.auth.signInWithPassword({email:$('ogEposta').value.trim(),password:$('ogSifre').value});
+    var r=await sb.auth.signInWithPassword({email:$('ogEposta').value.trim(),password:$('ogSifre').value,options:{captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)}});
     if(r.error){ $('ogHata').textContent=trHata(r.error); return; }
     panel(r.data.user);
   });
@@ -286,7 +289,7 @@
     if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }
     var an=new Date().toISOString(), riza=$('ogRiza').checked;
     var r=await sb.auth.signUp({ email:$('ogEposta').value.trim(), password:$('ogSifre').value,
-      options:{ emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null } } });
+      options:{ captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null } } });
     if(r.error){ h.textContent=trHata(r.error); return; }
     if(r.data.session){ panel(r.data.user); }
     else { h.className='og-bilgi'; h.textContent='Hesabın açıldı. E-postana bir doğrulama bağlantısı geldiyse ona tıkla, sonra giriş yap.'; }
@@ -294,7 +297,7 @@
   $('ogSifremi').addEventListener('click',async function(e){
     e.preventDefault(); var h=$('ogHata'), ep=$('ogEposta').value.trim();
     if(!ep){ h.className='og-hata'; h.textContent='Önce e-posta adresini yaz.'; return; }
-    var r=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html'});
+    var r=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html',captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)});
     h.className=r.error?'og-hata':'og-bilgi'; h.textContent=r.error?trHata(r.error):'Şifre yenileme bağlantısı e-postana gönderildi.';
   });
   $('ogCikis').addEventListener('click',function(){ sb.auth.signOut().then(function(){ location.reload(); }); });

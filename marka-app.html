@@ -54,6 +54,8 @@ label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:0 0
      duserse dordu birden acilmiyordu. Kutuphane artik BIZIM sunucumuzdan geliyor ve surum
      SABIT - adreste "@2" yazarken kutuphane haber vermeden guncelleniyordu. -->
 <script src="kutuphane/supabase-2.112.3.js"></script>
+<!-- 25.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
+<script src="captcha.js"></script>
 <script type="module">
 const { createClient } = window.supabase || {};
 if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
@@ -85,8 +87,8 @@ function giris(){
     <label>Şifre</label><input class="gir" id="sifre" type="password">
     <div style="display:flex;gap:8px"><button class="btn" id="g">Giriş</button><button class="btn k" id="k">Kayıt ol</button></div>
     <div class="hata" id="e"></div></div>`;
-  $('#g').onclick=async()=>{const{error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value});if(error)$('#e').textContent=error.message;};
-  $('#k').onclick=async()=>{const{data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value});if(error){$('#e').textContent=error.message;return;}if(!data.session)$('#e').textContent='Onay e-postana bak, sonra giriş yap.';};
+  $('#g').onclick=async()=>{const{error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#sifre').value,options:{captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)}});if(error)$('#e').textContent=error.message;};
+  $('#k').onclick=async()=>{const{data,error}=await sb.auth.signUp({email:$('#email').value.trim(),password:$('#sifre').value,options:{captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)}});if(error){$('#e').textContent=error.message;return;}if(!data.session)$('#e').textContent='Onay e-postana bak, sonra giriş yap.';};
 }
 
 async function markaApp(){
