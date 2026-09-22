@@ -1,7 +1,7 @@
 ﻿# RET KUTUGU — dusen sorularin nedeni ve onarim emri
 
-> Uretim: **22.09.2026 01:14** (makine; elle duzenlenmez — arac/ret-kutugu.ps1). Bedel 0.
-> Taranan 12.129 soru · dusen **4.076** (%33,6)
+> Uretim: **22.09.2026 21:34** (makine; elle duzenlenmez — arac/ret-kutugu.ps1). Bedel 0.
+> Taranan 12.231 soru · dusen **4.124** (%33,7)
 
 ## KURAL
 
@@ -12,23 +12,23 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 
 | Kapi | Soru | Pay |
 |---|---:|---:|
-| KAPI-HAKEM | 1.913 | %46,9 |
-| KAPI-HAKEM2 | 883 | %21,7 |
-| KAPI-SIM | 712 | %17,5 |
-| KAPI-KOR | 456 | %11,2 |
+| KAPI-HAKEM | 1.944 | %47,1 |
+| KAPI-HAKEM2 | 884 | %21,4 |
+| KAPI-SIM | 721 | %17,5 |
+| KAPI-KOR | 463 | %11,2 |
 | hakem KOSMADI | 112 | %2,7 |
 
 ## 2 · KOK NEDEN SINIFI — asil okunacak tablo
 
 | Sinif | Soru | Pay | Onarim yolu |
 |---|---:|---:|---|
-| KAYNAK-EKSIK | 1.661 | %40,8 | Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri. |
-| SIM-YANLIS | 712 | %17,5 | Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter. |
-| YZ-KOKUSU | 543 | %13,3 | Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir. |
-| KOR-CELISKI | 456 | %11,2 | Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret. |
-| (siniflanmamis) | 402 | %9,9 | **Desen yok — yeni kusur ailesi olabilir, asagidaki orneklere bak ve SINIF listesine desen ekle.** |
+| KAYNAK-EKSIK | 1.690 | %41,0 | Paket cevabi destekleyen HUKMU tasimiyor. Once KAYNAK SIRALAMASI (KAPI-KP) ve konu-kaynak bagi bakilir; kaynak ambarda yoksa yutma is emri. |
+| SIM-YANLIS | 721 | %17,5 | Ogrenci simulasyonu yanlis cevapladi. Celdirici cok guclu ya da istem mugllak; genelde tek kelime duzeltmesi yeter. |
+| YZ-KOKUSU | 544 | %13,2 | Yapay zeka kokusu: en uzun sik dogru, mutlak ifade. Sik boylari esitlenir, mutlak zarflar atilir. |
+| KOR-CELISKI | 463 | %11,2 | Bagimsiz kor cozum anahtardan FARKLI cevap verdi. Ikisinden biri yanlis: once anahtari elle dogrula, sonra soruyu yeniden uret. |
+| (siniflanmamis) | 402 | %9,7 | **Desen yok — yeni kusur ailesi olabilir, asagidaki orneklere bak ve SINIF listesine desen ekle.** |
 | HAKEM-KOSMADI | 112 | %2,7 | Soru hic denetlenmemis. Parti -PilotId ile yeniden kosulur; kapilardan gecerse hasada girer. |
-| KAYNAK-KESIK | 90 | %2,2 | Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir. |
+| KAYNAK-KESIK | 92 | %2,2 | Kaynak paketi KIRPILMIS (kp-01 sinifi). KAPI-KP (11.09) bunu onluyor; ESKI kayitlar icin hakem tazelenir. |
 | COK-ANLAMLI | 34 | %0,8 | Istem cumlesi tek anlama indirilir; cogu zaman tek kelime duzeltmesi yeter. |
 | YAPAY-DIL | 29 | %0,7 | Dil kapisi. Istem, cikmis sinav yazimina gore yeniden kurulur. |
 | SINAV-DUZEYI | 18 | %0,4 | Soru SGS duzeyinin USTUNDE (paragraf numarasi sorgusu vb). Konu kartina zorluk tavani yazilir; soru sadelestirilir. |
@@ -52,7 +52,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 
 ## 3 · ONARIM EMRI — sinif sinif ilk 10 soru
 
-### KAYNAK-EKSIK (1661 soru)
+### KAYNAK-EKSIK (1690 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -67,7 +67,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | kgk-bosluk-trkiyedenetimstandartlar/kp-29 | mevzuata aykirilik gostergeleri | Kaynak metinde BDS 315 A23 paragrafından iç hukuk müşavirinin sorgulanması konusunda hiç bahsedilmemiş; sağlanan metinde yapısal risk aralığı, temel k… |
 | kgk-bosluk-trkiyedenetimstandartlar/kp-30 | operasyonel risk tanimi | Kaynak metinde 'iş hayatına ilişkin riskler' tanımı yer almamakta; sağlanan BDS 315 paragrafları yapısal risk, kontrol riski, BT riskleri ve ciddi ris… |
 
-### SIM-YANLIS (712 soru)
+### SIM-YANLIS (721 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -82,7 +82,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-bosluk-ekonomi/kp-03 | marjinal fayda |  |
 | sgs-bosluk-meslekhukuku/kp-03 | buro edinme zorunlulugu |  |
 
-### YZ-KOKUSU (543 soru)
+### YZ-KOKUSU (544 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -97,7 +97,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | sgs-bosluk-svesosyalguvenlikhukuku/kp-07 | calisma suresi | KOKU: Şık A ve D birbirine yakın/tekrarlayan fikirler (sorumluluk fabrika müdüründe) ile gereksiz tekrar |
 | sgs-c2-denetim-cokzor-r1/kp-02 | denetim riski | Soru kökü ve konu (BDS 200 risk modeli) alan bilgisine uygun olsa da, şıklar SGS formatındaki 'sonuç+kısa etiket, gerekçesiz' yapıdan uzaklaşmış; her … |
 
-### KOR-CELISKI (456 soru)
+### KOR-CELISKI (463 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
@@ -127,7 +127,7 @@ Bir kok neden sinifi ilk uce giriyorsa once ona KAPI kurulur — kapisiz tekrar 
 | kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-27 | isletme sermayesi yetersizligi |  |
 | kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-28 | isleyen tesebbus degeri |  |
 
-### KAYNAK-KESIK (90 soru)
+### KAYNAK-KESIK (92 soru)
 
 | Parti / id | Konu | Gerekce |
 |---|---|---|
