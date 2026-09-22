@@ -4529,6 +4529,38 @@ if($SadeceHakem){ Write-Host "SADECE HAKEM: hakem fazı bitti; kör/hakem2/anlat
 $HAKEM_GECMEDI=New-Object 'System.Collections.Generic.HashSet[string]'
 foreach($hid in @($don.Keys)){ $hc=$don[$hid]; if(-not $hc.soru){ continue }; if(-not ($hc.PSObject.Properties['hakem'] -and $hc.hakem -and "$($hc.hakem.karar)" -eq 'EVET')){ [void]$HAKEM_GECMEDI.Add($hid) } }
 function HakemGecti([string]$id){ return -not $HAKEM_GECMEDI.Contains($id) }
+
+# ⛔⭐ 23.09.2026 KÖR KAPISI — "yanlış olduğu belli olan soruya para verme" (Cem: "iki çözücü bizim cevabımıza
+#   ulaşamıyorsa bunu niye yapıyoruz, önceden engelleyemez miyiz" → "evet yap").
+#   ÖLÇÜLDÜ (bütün SMMM taslakları): kör çözüm 3.771 soruda koştu, 262'sinde cevap anahtarından farklı buldu.
+#   Bu 262 soruya kör "yanlış" dedikten SONRA yine ödendi: 2. hakem 261 · kaynaklı çözüm 235 · verilenler 186 ·
+#   adımlar 157 · sade 157 · simülasyon 153. YAYINA GİREN: 0. Bunların 50'sinde İKİ çözücü de yanlış (kural
+#   gereği asla yayına giremez) — 50'sinin de 2. hakem parası ödenmişti.
+#   Kapının kararları (yalnız SMMM; SGS/KGK davranışı AYNEN kalır):
+#     GECER          : kör doğru, ya da kör hiç koşmamış (karar yok → engelleme yok)
+#     IKISI-YANLIS   : kör ✗ ve kaynaklı ikinci çözüm ✗  → hiçbir sonraki faz koşmaz
+#     KAYNAKLI-YOK   : kör ✗ ve kaynaklı çözüm yok/bayat → sonraki fazlar koşmaz (önce kaynaklı çözüm)
+#     ONAY-BEKLIYOR  : kör ✗, kaynaklı ✓, Cem onayı yok   → 2. hakem koşar (ucuz, Cem'in önüne çöp gitmesin),
+#                      ANLATIM fazları (adım/giriş/ikiz/sim/sade/verilenler) ONAYDAN SONRA koşar
+#   ⚠ BU, 14.09 KARARINI DEĞİŞTİRİR: o gün "Cem onay vermeden önce simülasyonu da görsün" diye kör ✗ + kaynaklı ✓
+#     soru anlatım fazlarına sokuluyordu. 23.09 ölçümü: bu yoldan 185 soru anlatım parası yedi, onay dosyası
+#     hiç oluşmadığı için YAYINA GİREN 0. Kalite kapısı gevşemedi: yayın şartı onaydan sonra da simülasyonu ARAR.
+#   🚫 GÖRMEZ: kör çözücünün kendisi yanlışsa (bizim anahtarımız doğruysa) soru yine de durur — bu soruyu yalnız
+#     kaynaklı çözüm + Cem onayı açar. Öz-sınav: arac/kor-kapisi-sinavi.ps1
+$script:SMMM_ONAY_HARITA=$null
+function SmmmKorKapisi([string]$id, $soruNesne){
+  if($Sinav -ne 'SMMM'){ return 'GECER' }
+  $kc=$(if($soruNesne.PSObject.Properties['kor_cozum']){ $soruNesne.kor_cozum } else { $null })
+  if(-not ($kc -and $kc.PSObject.Properties['dogru_mu'])){ return 'GECER' }   # kör koşmamış: karar yok, engel yok
+  if([bool]$kc.dogru_mu){ return 'GECER' }
+  $kk=$(if($soruNesne.PSObject.Properties['kor_cozum_kaynakli']){ $soruNesne.kor_cozum_kaynakli } else { $null })
+  $kkGuncel=($kk -and "$($kk.parmak_izi)" -eq (SmmmParmakIzi $soruNesne) -and "$($kk.kor_cevap)" -eq "$($kc.cevap)")
+  if(-not $kkGuncel){ return 'KAYNAKLI-YOK' }
+  if(-not [bool]$kk.dogru_mu){ return 'IKISI-YANLIS' }
+  if($null -eq $script:SMMM_ONAY_HARITA){ $script:SMMM_ONAY_HARITA=SmmmOnayHarita $kok }
+  if((SmmmKorIstisna "$Etiket/$id" $soruNesne $script:SMMM_ONAY_HARITA).gecer){ return 'GECER' }
+  return 'ONAY-BEKLIYOR'
+}
 if($HAKEM_GECMEDI.Count){ Write-Host "  HAKEM ÖNDE: $($HAKEM_GECMEDI.Count) soru hakemden geçmedi → adım/giriş/ikiz/sim/kör/hakem2 fazlarına girmeyecek ($((@($HAKEM_GECMEDI) | Select-Object -First 10) -join ', '))" -ForegroundColor Yellow; $rapor.Add("HAKEM ONDE: $($HAKEM_GECMEDI.Count) soru pahali fazlara girmedi") }
 # --- FAZ K: KÖR ÇÖZÜM (07.09 A kovası 1 — Cem "hatasız olacak"; Maliyet kp-05'te yüzdeler ters kurulmuştu, hakem+sim+aritmetik üçü de geçirdi) -----
 # Bağımsız ve FARKLI bir model, anlatımı/ikizi/açıklamayı görmeden yalnız soru + şıkları çözer. Cevap doğru şıkla tutmuyorsa soru yayına çıkmaz
@@ -4704,12 +4736,17 @@ SORU: {SORU}
 DOĞRU: {DOGRU}
 DOĞRU ŞIKKIN AÇIKLAMASI: {ACIK}
 '@
+$script:KOR_KAPI_H2_ATLANAN=0
 foreach($gecisH in @(1,2,3)){ if($gecisH -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisH -eq 1); $script:DALGA2_TOPLA=($gecisH -eq 2 -and -not $IkinciDalgaKapat)   # 15.09: 1=topla, 2=toplu cevapla + kalanı İKİNCİ DALGAYA topla, 3=ikinci dalga cevabı (son çare anlık)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or $SadeceAdim){ break }
   if($PilotId -and (($PilotId -split ',') -notcontains $id)){ continue }
   if(-not (HakemGecti $id)){ continue }   # 08.09 hakem önde: hakemden geçmeyen soru bu faza girmez (bedel)
   $cvp=$don[$id]; if(-not $cvp.soru -or -not $cvp.siklar){ continue }
+  # 23.09 KÖR KAPISI: iki çözücü de yanlışsa (ya da kaynaklı çözüm yoksa) soru hiçbir yolla yayına giremez → 2. hakem ÖDENMEZ.
+  #   Ölçüldü: iki çözücünün de yanlış bulduğu 50 sorunun 50'sine 2. hakem parası ödenmişti.
+  $kkKapi=SmmmKorKapisi $id $cvp
+  if($kkKapi -in 'IKISI-YANLIS','KAYNAKLI-YOK'){ if($gecisH -eq 1 -or -not $Toplu){ $script:KOR_KAPI_H2_ATLANAN++ }; continue }
   if(-not $Hakem2Yenile -and $cvp.PSObject.Properties['hakem2'] -and $cvp.hakem2 -and $cvp.hakem2.PSObject.Properties['karar']){
     # 08.09: eldeki karar API'siz yeniden türetilir (sert koku listesi değişti: "birbirinin tam tersi" artık sert değil) — 0 USD
     $h2=$cvp.hakem2; $tumKoku=@(@($h2.koku)+@($(if($h2.PSObject.Properties['koku_not']){ $h2.koku_not } else { @() })) | Where-Object { "$_" })
@@ -4762,19 +4799,28 @@ foreach($id in @($don.Keys)){
 }
 if($script:ON_GECIS){ TopluGonder 'H2' }; if($script:DALGA2_TOPLA){ TopluGonder 'H2#2' } }
 $script:ON_GECIS=$false; $script:DALGA2_TOPLA=$false
+if($script:KOR_KAPI_H2_ATLANAN){ Write-Host "  KÖR KAPISI: $($script:KOR_KAPI_H2_ATLANAN) soruya 2. hakem çağrılmadı (iki çözücü de yanlış / kaynaklı çözüm yok — yayına giremez)" -ForegroundColor Yellow; $script:KAPI_SAYIM['KOR-H2-ATLA']=[int]$script:KAPI_SAYIM['KOR-H2-ATLA']+$script:KOR_KAPI_H2_ATLANAN; $rapor.Add("KOR KAPISI: $($script:KOR_KAPI_H2_ATLANAN) soruya 2. hakem cagrilmadi") }
 
 # 09.09 Cem "sırayı değiştir": KÖR ÇÖZÜM + HAKEM2 anlatımın ÖNÜNE alındı. Ölçüm: Sonnet çıktı jetonu toplam harcamanın %57'si ve neredeyse
 # tamamı soru + ADIM anlatımı; hakemden geçen soruların ≈dörtte biri kör/hakem2'de düşüyor, düşmeden ÖNCE adım+giriş+ikiz+sim bedeli
 # ödeniyordu. Bu iki kapı yalnız soru ve şıklara bakar, anlatıma ihtiyaç duymaz → önce onlar koşar, geçemeyen soru anlatım fazına girmez.
 # Simülasyon (FAZ Ö) adımları okuduğu için yerinde kalır. Yayın kuralı DEĞİŞMEDİ (hakem ∧ sim ∧ kör ∧ hakem2).
+$script:KOR_ONAY_BEKLEYEN=0
 if(-not ($SadeceHtml -or $SadeceAdim)){ foreach($hid in @($don.Keys)){ $hc=$don[$hid]; if(-not $hc.soru){ continue }   # yalnız çizim/adım modunda FAZ K ve H2 hiç koşmaz; kararları yok diye anlatım kapatılmaz
   $korOk=($hc.PSObject.Properties['kor_cozum'] -and $hc.kor_cozum -and $hc.kor_cozum.PSObject.Properties['dogru_mu'] -and [bool]$hc.kor_cozum.dogru_mu)
   # 14.09 YALNIZ BİTİRME (Cem "1.2.3 üçünüde yap", GM önerisi 1): kör ✗ ama kaynaklı ikinci çözümü doğru (bu metne + bu kör cevaba ait) olan
   # soru Cem'in onay listesine gidiyor; onay vermeden önce simülasyon + teori ikizi de görsün diye anlatım fazlarına girer.
   # YAYIN kuralı değişmedi: arac/smmm-yayin-sarti.ps1 hâlâ Cem ONAY + parmak izi + sim yanlış değil ister. SGS'de koşul ilk terimde düşer.
-  if(-not $korOk -and $Sinav -eq 'SMMM' -and $hc.PSObject.Properties['kor_cozum_kaynakli'] -and $hc.kor_cozum_kaynakli -and [bool]$hc.kor_cozum_kaynakli.dogru_mu -and "$($hc.kor_cozum_kaynakli.parmak_izi)" -eq (SmmmParmakIzi $hc) -and "$($hc.kor_cozum_kaynakli.kor_cevap)" -eq "$($hc.kor_cozum.cevap)"){ $korOk=$true }
+  # ⛔ 23.09 KÖR KAPISI bu istisnayı DARALTTI: kaynaklı ✓ yetmez, CEM ONAYI da olmalı (SmmmKorKapisi 'GECER').
+  #   Ölçüldü: bu yoldan 185 soru anlatım fazlarının parasını yedi, onay hiç gelmediği için yayına giren 0.
+  #   Onay bekleyen soru anlatıma girmez; onay verilince bir sonraki koşuda (aynı etiket) anlatım + sim koşar.
+  if(-not $korOk -and $Sinav -eq 'SMMM'){
+    $kkK=SmmmKorKapisi $hid $hc
+    if($kkK -eq 'GECER'){ $korOk=$true } elseif($kkK -eq 'ONAY-BEKLIYOR'){ $script:KOR_ONAY_BEKLEYEN++ }
+  }
   $h2Ok=($hc.PSObject.Properties['hakem2'] -and $hc.hakem2 -and "$($hc.hakem2.karar)" -eq 'EVET')
   if(-not ($korOk -and $h2Ok)){ [void]$HAKEM_GECMEDI.Add($hid) } } }
+if($script:KOR_ONAY_BEKLEYEN){ Write-Host "  KÖR KAPISI: $($script:KOR_ONAY_BEKLEYEN) soru Cem onayı bekliyor → anlatım fazlarına ONAYDAN SONRA girecek (arac/smmm-onay.ps1)" -ForegroundColor Yellow; $script:KAPI_SAYIM['KOR-ONAY-BEKLER']=[int]$script:KAPI_SAYIM['KOR-ONAY-BEKLER']+$script:KOR_ONAY_BEKLEYEN; $rapor.Add("KOR KAPISI: $($script:KOR_ONAY_BEKLEYEN) soru Cem onayi bekliyor, anlatim fazlarina girmedi") }
 if($HAKEM_GECMEDI.Count){ Write-Host "  KAPI ÖNDE: $($HAKEM_GECMEDI.Count) soru hakem/kör/hakem2'den geçmedi → anlatım fazlarına (adım, giriş, ikiz, sim) girmeyecek" -ForegroundColor Yellow; $rapor.Add("KAPI ONDE: $($HAKEM_GECMEDI.Count) soru anlatim fazlarina girmedi") }
 
 # --- FAZ B: ADIMLAR (hesaplilarda; genc dili) --------------------------------

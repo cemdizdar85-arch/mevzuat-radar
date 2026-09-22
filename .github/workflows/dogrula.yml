@@ -157,6 +157,14 @@ jobs:
           - { ad: "Ikiz olcusu OZ-SINAVI (uretim ve yayin TEK cetvel)",
               kabuk: pwsh, komut: "./arac/ikiz-olcusu-sinavi.ps1" }
 
+          # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
+          # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
+          # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para
+          # yine yanar, sikilasirsa saglam soru anlatimsiz kalir. 11 vaka: SGS'ye dokunmama +
+          # durdurmasi gereken + durdurmamasi gereken + bayat kaynakli + onay sonrasi degisen soru.
+          - { ad: "Kor kapisi OZ-SINAVI (yanlisligi belli soruya para verme)",
+              kabuk: pwsh, komut: "./arac/kor-kapisi-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
