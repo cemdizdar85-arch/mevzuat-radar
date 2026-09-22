@@ -50,7 +50,16 @@ param(
   [int]$KonuBasiTavan = 3,
   # 23.09: kapsama tablosu bu kadar saatten eskiyse plan KURULMAZ (bkz. BAYAT TABLO KAPISI).
   [int]$TabloTazelikSaat = 12,
-  [switch]$Zorla
+  [switch]$Zorla,
+  # ⭐ 23.09.2026 KOŞAN DALGA REZERVİ (Cem "hızlı yap"): kapsama tablosu yalnız BİTMİŞ partileri görür.
+  #   Bulutta koşan bir dalganın konuları tabloda hâlâ "açık" görünür; o sırada kurulan ikinci plan AYNI
+  #   konuları yeniden seçer → paralel dalga = aynı konuya ikinci ödeme (22.09 ölçümü: 1.388 fazla sorunun
+  #   303'ü tam böyle, tek gecede r1..r10 turlarıyla). Bu parametre koşan dalgaların konu dosyalarını okur
+  #   (veri/sinav/konu/smmm-<etiket>-*.json) ve her konu satırını 1 soruluk REZERV sayıp açıktan düşer.
+  #   Örnek: -RezerveEtiket 'w7,w8'
+  #   🚫 GÖRMEZ: koşan dalgada soru ÜRETİLEMEZSE (kapıdan düşerse) rezerv boşa tutulmuş olur; bir sonraki
+  #     tablo tazelemesinde konu yine açık görünür ve bir sonraki dalgaya girer (kayıp değil, gecikme).
+  [string]$RezerveEtiket = ''
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -94,6 +103,24 @@ if ($yas -gt $TabloTazelikSaat -and -not $Zorla) {
 "kapsama tablosu yasi: $yas saat"
 $c = @(Import-Csv $csvYol -Encoding UTF8)
 if (-not ($c[0].PSObject.Properties.Name -contains 'son10')) { throw "kapsama tablosunda son10 (yenilik) sütunu yok — tablo 23.09 öncesi sürüm; önce arac/smmm-kapsama-tablosu.ps1 koşulur" }
+# --- KOŞAN DALGA REZERVİ: koşan dalgaların konuları açıktan düşülür ---
+if ($RezerveEtiket) {
+  $rezerv = @{}; $rezDosya = 0
+  foreach ($rz in @($RezerveEtiket -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
+    foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\sinav\konu') -Filter "smmm-$rz-*.json" -ErrorAction SilentlyContinue)) {
+      $rezDosya++
+      foreach ($k in @((Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })) { $n0 = Nrm "$k"; $rezerv[$n0] = 1 + [int]$rezerv[$n0] }
+    }
+  }
+  if (-not $rezDosya) { throw "rezerv etiketi '$RezerveEtiket' için konu dosyası bulunamadı — yanlış etiket yazılırsa paralel dalga AYNI konuları basar; plan kurulmadı" }
+  $rezSoru = 0; foreach ($v0 in $rezerv.Values) { $rezSoru += $v0 }
+  $dusen = 0
+  foreach ($r in $c) {
+    $n0 = Nrm "$($r.konu)"
+    if ($rezerv.ContainsKey($n0)) { $yeni = [Math]::Max(0, [int]$r.acik - [int]$rezerv[$n0]); $dusen += ([int]$r.acik - $yeni); $r.acik = "$yeni" }
+  }
+  "KOŞAN DALGA REZERVİ ($RezerveEtiket): $rezDosya konu dosyası · $rezSoru soru rezerv · açıktan düşülen $dusen"
+}
 $havuz = @($c | Where-Object {
     # ⛔ 23.09 YENİLİK KURALI (Cem "10 yıldır sorulmayan konuya soru basmayalım"): eşik ve sıra artık SON 10 YIL
     #   sıklığıyla (son10). Tüm zamanlar sayısı yanıltıyordu: "şüpheli alacak karşılığı" 25 kez çıkmış ama
