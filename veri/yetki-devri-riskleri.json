@@ -1,11 +1,11 @@
 {
-  "tarih": "22.09.2026 21:37",
+  "tarih": "22.09.2026 22:11",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 880,
   "riskli_madde": 1313,
   "sayfa": 72,
   "atifli_iddia": 303,
-  "dayanaksiz_iddia": 381,
+  "dayanaksiz_iddia": 382,
   "kirmizi_aday": 30,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -590,13 +590,19 @@
     },
     {
       "sayfa": "canli-deneme.html",
-      "satir": 244,
+      "satir": 264,
       "iddia": "000 kişi",
       "metin": "(2) yoklama aralığı 8-15 sn -> 10-25 sn (ortalama 17,5). 5.000 kişide"
     },
     {
       "sayfa": "canli-deneme.html",
-      "satir": 411,
+      "satir": 427,
+      "iddia": "000 kişi",
+      "metin": "sınav bitiminde 5.000 kişi aynı anda bakarsa sunucuya tek istek düşmez."
+    },
+    {
+      "sayfa": "canli-deneme.html",
+      "satir": 469,
       "iddia": "000 kişi",
       "metin": "pencere 5.000 kişide ≈333 istek/sn tepe demekti. 150 sn'de ≈33 istek/sn."
     },
@@ -2096,19 +2102,19 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 239,
+      "satir": 242,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 283,
+      "satir": 286,
       "iddia": "en az 6",
       "metin": "if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 303,
+      "satir": 306,
       "iddia": "en az 6",
       "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
     },
