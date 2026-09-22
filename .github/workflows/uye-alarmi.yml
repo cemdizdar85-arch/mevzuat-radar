@@ -1,0 +1,68 @@
+# .github/workflows/uye-alarmi.yml — ÜYE ALARMI (saatlik)
+#
+# NEDEN VAR (25.09.2026, Cem "1 yap"): 24.09'da e-posta onayı kapatıldı, sahte
+# hesap açmak kolaylaştı; bot koruması (captcha) 4 Ekim sonrasına kaldı. Bu
+# alarm olmadan bin sahte hesap açılsa haftalar sonra görürdük.
+#
+# Ne yapar: motor/uye-alarmi.ps1 Supabase'deki public.uye_sayim()'dan YALNIZ
+# SAYI okur (kişi verisi Actions'a GİRMEZ), eşik aşılırsa Cem'e mail atar
+# (arac/alarm-maili.ps1), raporu veri/uye-alarmi.json'a yazar (kırmızı olsa da).
+# Eşikler, tekrar kuralı ve "bu kapı şunu GÖRMEZ" betiğin başında.
+# Öz-sınav: dogrula.yml matrisinde (./motor/uye-alarmi.ps1 -Sinav).
+name: Uye Alarmi
+
+on:
+  schedule:
+    - cron: "17 * * * *"     # her saat :17 (robot yığılmasının olduğu :00'dan uzak)
+  workflow_dispatch:
+
+permissions:
+  contents: write     # raporu depoya işler
+
+concurrency:
+  group: uye-alarmi
+  cancel-in-progress: false
+
+env:
+  SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  alarm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Yeni uye sayisini olc (gerekirse Cem'e mail)
+        id: olc
+        shell: pwsh
+        run: ./motor/uye-alarmi.ps1
+
+      - name: Raporu yayinla (kirmizi olsa da)
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ ! -f veri/uye-alarmi.json ]; then
+            echo "::warning title=uye alarmi rapor::rapor dosyasi yok - betik rapora ulasamadi"
+            exit 0
+          fi
+          git add veri/uye-alarmi.json
+          if git diff --cached --quiet; then
+            echo "Rapor degismedi - islenecek bir sey yok."
+            exit 0
+          fi
+          git commit -m "Uye alarmi raporu [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if cikti=$(git pull --rebase --autostash origin main 2>&1) && cikti2=$(git push origin HEAD:main 2>&1); then
+              echo "Rapor islendi (deneme $i)."
+              exit 0
+            fi
+            echo "::warning title=uye alarmi yayin $i::${cikti:0:300} ${cikti2:0:200}"
+            sleep $((i * 7))
+          done
+          echo "::error::Uye alarmi raporu 5 denemede islenemedi (kor kalma)."
+          exit 1
