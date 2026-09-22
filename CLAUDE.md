@@ -269,6 +269,26 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   5. **Depoya yeni soru içeriği commit'lenmez**; soru ve cevap ambarda durur. Depoda duran açık içerik ayrı iş emri (paket kasası, `ADIM2-PAKET-KASASI-PLANI.md`).
   6. Güvenlik iddiası **ölçümle** yazılır: "sızmaz" değil, "şu günlükte/şu dosyada şu yok (tarih)" denir. Ölçülmemişse "ölçülmedi".
 
+- ⛔⭐⭐ **SORU BASIM PLANI KAPSAMA TABLOSUNDAN KURULUR — ELDEN PLAN YOK** (22.09.2026, Cem: *"exceli yap ve ona göre soru çıkaralım · ben böyle biliyordum, bunu kural olarak yazalım"*).
+  **Olay (ölçüldü 22.09):** bitirme planları aylarca elde kuruldu; kapsam **genişliğe** gitti, **sıklığa** gitmedi. Çıkmış sınavlarda
+  **43 kez** görülen "amortisman ayırma"da 7, **31 kez** görülen "bilanço düzenleme"de ve **25 kez** görülen "şüpheli alacak
+  karşılığı"nda **SIFIR** sorumuz vardı. Sebep: SGS'nin ve KGK'nın kapsama tablosu vardı, **bitirmeninki yoktu**.
+  **Kural — bu sıra atlanmaz:**
+  1. **Tablo tazelenir:** `arac/smmm-kapsama-tablosu.ps1` → `veri/fabrika/smmm-kapsama.csv`
+     (ders · konu · **sınavda kaç kez çıktı** · yazdık · yayınlanabilir · hedef · açık · **engel**). Bedel 0.
+  2. **Excel'e dökülür:** `arac/smmm-basim-excel.ps1` → Masaüstü `SMMM-Bitirme-Konu-Basim-Plani.xlsx`
+     (+ `veri/fabrika/SMMM-KAPSAMA-excel.csv`). Cem bu dosyadan bakar. **Elle düzenlenmez**, her koşuda yeniden yazılır.
+  3. **Plan o tablodan kurulur:** `arac/smmm-plan-kur.ps1` — seçim **SIKLIK ÖNCE** (çıkmış ≥ eşik · açık > 0 · **ENGEL yok**).
+     Elde konu listesi yazılmaz. Ders adı etiketten **kanonik** ada çevrilir (`arac/smmm-ders-adi.ps1`); çözülemeyen etiketle plan **kurulmaz**.
+  4. **ENGELLİ konuya para verilmez.** `KISIR` / `KAYNAK-BORCU` işaretli konu plana alınmaz — bunlar **para ile değil kaynak yutma ile**
+     çözülür, iş emri `veri/KAYNAK-BORCU.md`. Kaynağı gelince `arac/kisir-konu-olc.ps1 -BorcOdendi '<konu>' -BorcNotu '<kaynak>'`.
+  5. **Aynı konu yasak değildir.** En çok çıkan konularda açık zaten vardır (amortisman ayırma 122 açık); amaç o konuya **ikinci soruyu**
+     yazmaktır. Kopyayı ikiz kapısı engeller (`arac/ikiz-olcusu.ps1`, 22.09'dan beri **üretimde de** koşar). ⚠ 22.09'da "önceki dalgada
+     geçen konuyu alma" denilince havuz 239'dan **39** konuya düşmüştü — bu eleme YANLIŞTIR.
+  6. **Zorluk karışımı:** banka sınavdan **zor** olacak (Cem 21.09) — kolay %25 · zor %50 · çok zor %25.
+  **Tablonun körlükleri yazılıdır:** konu adı yazım farklarını tek konuya indirmez · "çıkmış" köprüden gelir, köprü yanlışsa hedef de
+  yanlıştır · ikiz süzgecinin yayında eleyeceğini görmez. Bu üçü **"ölçülmedi"** sayılır, "yok" sayılmaz.
+
 - ⭐ **Sınavla ilgili "var mı / kaç / eksik ne" sorusunun TEK cevabı `veri/SINAV-TEK-SAYFA.md`** (02.09.2026, Cem: "tek yerden, hızlı, güvenilir, kaybolmadan"). 7 bölüm = Cem'in 7 sorusu: dersler · çıkmış sorular · yeterli miyiz · ambar · kaynak sağlığı · yutulmayan mevzuat · basılacaklar. Üretici `motor/sinav-tek-sayfa.ps1`, robot `sinav-tek-sayfa.yml` (her sabah 08:30 TR). Elle düzenlenmez; **⚠ işaretli satır = girdisi bayat/kırık, o sayı "ölçülmedi"dir** — önce bölüm 5'teki girdi tazelenir. Hafızadan sınav rakamı YAZILMAZ, bu sayfadan okunur.
 - ⛔⭐ **RET KÜTÜĞÜ — üretim/hasat turu bitince, istisnasız** (11.09.2026, Cem: *"retleri topla ama bir daha karşılaşmayacak şekilde kurumsal olarak kâğıda dök"*). Tur biter bitmez `powershell -NoProfile -File arac/ret-kutugu.ps1` koşar (bedel 0) → `veri/RET-KUTUGU.md`. **Ret nedenleri okunmadan yeni tur başlatılmaz.** Bir kök neden sınıfı ilk üçe giriyorsa önce ona kapı kurulur — kapısız tekrar üretim aynı parayı ikinci kez yakar. **İlk ölçüm (11.09): 1.288 retin %56,6'sı soruyla değil KAYNAK PAKETİYLE ilgiliydi** (paket cevabı destekleyen hükmü taşımıyor ya da ortadan kesik). Şartname: `SORU-BASMA-KURALLARI.md` bölüm G.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
