@@ -92,6 +92,59 @@ prova **üç kusur** çıkardı, üçü de düzeltildi ve yeniden prova edildi:
 Prova sırasında gerçek veritabanına tek satır yazılmadı (sonuç isteği sayfa içinde
 taklit edildi); prova sonrası `canli_sonuc` = **0 satır** (ölçüldü).
 
+## 3c · 🔴 ÜYELİK YOLUNUN TAVANLARI — Supabase panelinden okundu (24.09, yalnız okuma, ayar DEĞİŞTİRİLMEDİ)
+
+| Ayar | Değer | Anlamı |
+|---|---|---|
+| E-posta onayı (`mailer_autoconfirm`) | **false** (onay AÇIK) — `/auth/v1/settings` ile de ölçüldü | Her kayıt bir onay e-postası gönderir; tıklanmadan giriş yok |
+| Özel SMTP | **AÇIK** · gönderen `hesap@tetikte.com` "Tetikte" · kullanıcı `resend`, port 465 | Deneme posta servisi değil, Resend üzerinden gidiyor ✅ |
+| **E-posta gönderim tavanı** | **saatte 30 — PROJE GENELİ** | 🔴 **Tüm site saatte en çok 30 kayıt onayı/şifre e-postası gönderebilir.** 31. kişi "email rate limit exceeded" alır |
+| Kayıt + giriş tavanı | **5 dk'da 30 — IP BAŞINA** | Mobil operatörler yüzlerce telefonu tek IP'de toplar (CGNAT) → aynı operatörden aynı anda giriş yapanlar birbirini tıkayabilir |
+| Oturum yenileme | 5 dk'da 150 — IP başına | Canlı deneme sayfası bunu HİÇ kullanmıyor (uyeMi ağa gitmez) |
+| Resend'in kendi planı / günlük kotası | **ÖLÇÜLMEDİ** — Chrome'da Resend oturumu yok, giriş yapılmadı | Tavan yükseltilirse sıradaki sınır bu olur |
+
+**Sonuç:** "sınav bitince 5.000 kişi aynı anda üye olsun" tasarımı bu ayarlarla **ilk saatte 30 kişide tıkanırdı**.
+Bu yüzden üyelik kapısı sınavdan ÖNCEYE alındı ("Yerini ayır") ve üyelik kontrolü ağa gitmeyecek şekilde kuruldu.
+Ama 12 güne yayılsa bile tek bir viral gönderi saatte 30'u aşar → **ayar kararı Cem'de** (güvenlik ayarı):
+- (A) e-posta tavanını yükselt + Resend planını doğrula, ya da
+- (B) kayıtta e-posta onayını kapat (anında hesap, e-posta bağımlılığı sıfır).
+
+## 3d · ⭐ ÇOK TARAYICILI PROVA (24.09 gece, iki koşu)
+
+25 **gerçek başsız tarayıcı** (her biri ayrı cihaz gibi, ayrı localStorage, 390×800 telefon ekranı)
++ **2.000 sanal istemci** anahtar kalabalığı. Anahtar **gerçek Supabase kovasına** kapı saatinde
+basıldı (`scratchpad/prova/anahtar-yayinla.ps1`), sonuçlar **gerçek `canli_sonuc`** tablosuna gitti.
+17 erken, 5 geç (kapı+10–60 sn), 3 çok geç (kapı+90–120 sn); her 4 kişiden biri sınav ortasında sayfayı yeniledi.
+
+| Ölçüm | 1. koşu | 2. koşu |
+|---|---|---|
+| Anahtar kapıdan kaç sn sonra yayında | 3,14 sn | 1,91 sn |
+| Sınava giren | **25/25** | **25/25** |
+| Erken gelenin sınavı açılma anı (kapıdan sonra) | 11,9–15,6 sn | 6,0–24,9 sn (yoklama aralığı 10–25 sn) |
+| Sınav ortasında yenileme: cevap + süre korundu | **6/6** | **6/6** |
+| "Sınavı bitir" → sonuç tabloya ulaştı | 0/25 ❌ (aşağıda) | **25/25** ✅ |
+| Anahtarı bulan sanal istemci | 2.000/2.000 | 2.000/2.000 |
+| Üye görünümü (oturum kaydı elle kondu) | — | "Üyesin, yerin ayrıldı" · davet yok · **93 açıklama açık** ✅ |
+| Üye olmayan görünüm | — | davet kutusu görünür · açıklamalar 🔒 ✅ (tarayıcıda ayrıca doğrulandı) |
+
+**1. koşudaki 0/25 bir sayfa kusuru DEĞİL, açılış perdesiydi:** `menu.js`'teki site geneli
+"Tetikte çok yakında" perdesi (`#mrPerde`, `z-index:99999`) önizleme anahtarı olmayan her yeni
+ziyaretçide sayfanın tamamını kaplıyor; düğmeye dokunulamıyordu. Perde altında sınav çalışıyordu
+(25/25 girdi). 2. koşuda perde kaldırılmış hâl (`mrOnizleme=1`) denendi → 25/25 ulaştı.
+🔴 **Bağımlılık:** 4 Ekim'de canlı sitede perde KALKMIŞ olmalı (`motor/gong.ps1`, açılış günü).
+Açılış kayarsa sınava kimse dokunamaz.
+
+**Sanal kalabalıktaki "ağ hatası" (1.129 / 1.071):** hepsi istemci tarafında, tek makinenin aynı anda
+2.000 bağlantı açamamasından; 4xx/5xx **sıfır**, hata alan istemci yeniden denedi ve **hepsi** anahtarı aldı.
+Sunucu tarafında reddedilen istek görülmedi.
+
+**Temizlik (ölçüldü):** prova sonuçları (25 satır) silindi → `canli_sonuc` **0 satır**; prova anahtarı
+kovadan silindi → kova **boş**.
+
+**Ölçüm hatası kaydı:** 2. koşuda "üye olmayan kapı 0/25" çıktı; sebep ölçüm betiğiydi — kilit metni
+kapalı `<details>` içinde olduğu için `innerText` onu saymıyor. Tarayıcıda doğrudan bakıldı: davet görünür,
+kilit metni HTML'de var. Kapı doğru, ölçüm yanlıştı.
+
 ## 4 · ÖLÇÜLMEDİ (bu sayfanın körlükleri)
 
 - **5.000 gerçek tarayıcı** hiç denenmedi; ölçüm tek makineden yapıldı.

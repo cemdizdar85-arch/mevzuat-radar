@@ -119,6 +119,26 @@
     </div>
   </div>
 
+  <!-- 24.09 "Yerini ayır = ücretsiz üye ol": kayıtlar sınav gününe değil ÖNCEKİ
+       günlere yayılsın (Auth e-posta tavanı proje genelinde saatte 30 — ölçüldü
+       23.09). Üye olan sınav bitince açıklamaları anında görür. -->
+  <div class="kart" id="uyeKart">
+    <h2>Yerini ayır</h2>
+    <p id="uyeMetin">Ücretsiz üye ol: sınav bitince her yanlışının <b>neden</b> yanlış olduğunu ve dayanağını hemen görürsün. Üye olmadan da girebilirsin; açıklamalar üyelere açık.</p>
+    <a id="uyeBtn" href="ogrenci.html?sonra=canli-deneme.html" style="display:inline-block;background:var(--amber);color:var(--taban);font-weight:800;padding:10px 18px;border-radius:9px;text-decoration:none">Ücretsiz üye ol · yerini ayır</a>
+  </div>
+  <script>
+  /* üyeyse kartı "yerin ayrıldı"ya çevir — ağa gitmez. uyeMi sayfa sonundaki
+     ana betikte tanımlı; ayrı <script> bloğu olduğu için hoisting buraya YETMEZ,
+     o yüzden sayfa yüklenince çalışır. */
+  document.addEventListener('DOMContentLoaded', function(){
+    try { if(typeof uyeMi === 'function' && uyeMi()){
+      document.getElementById('uyeMetin').innerHTML = '✓ <b>Üyesin, yerin ayrıldı.</b> Sınav saatinde bu sayfaya gel; bitince açıklamaların hemen açılır.';
+      document.getElementById('uyeBtn').style.display = 'none';
+    } } catch(e){}
+  });
+  </script>
+
   <div class="kart">
     <h2>Listeye yazıl</h2>
     <p>Tarih açıklandığında ve oturum açıldığında e-postana haber gelir. Başka hiçbir şey için kullanılmaz.</p>
@@ -262,6 +282,23 @@ function b64ab(b64){ var s = atob(b64), a = new Uint8Array(s.length); for(var i=
    ve her soru geçişi bu cihaza yazılır; sayfa yeniden açılınca sınav kaldığı
    yerden, KALAN süreyle devam eder. Bitmiş sınav yeniden açılınca sonuç
    ekranı gelir; sonuç zaten gönderildiyse ikinci kez gönderilmez. */
+/* 24.09 üyelik kontrolü — AĞA GİTMEZ. Sitenin diğer sayfaları (ogrenci.html vb.)
+   aynı alan adında Supabase oturumunu 'sb-<proje>-auth-token' anahtarıyla bu
+   cihaza yazıyor; kayıt varsa bu kişi üyedir. getSession() kullanılmadı çünkü
+   süresi dolmuş oturumu yenilemek için sunucuya gider — sınav bitiminde binlerce
+   kişi aynı anda bakarsa Auth'un IP başı sınırına (5 dk'da 30) takılırdı
+   (mobil operatörlerde yüzlerce telefon tek IP'yi paylaşır). */
+function uyeMi(){
+  try {
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if(!/^sb-[a-z0-9]+-auth-token$/.test(k)) continue;
+      var v = JSON.parse(localStorage.getItem(k) || 'null');
+      if(v && ((v.user && v.user.id) || (v.currentSession && v.currentSession.user))) return true;
+    }
+  } catch(e){}
+  return false;
+}
 function durumAnahtar(){ return 'canliDurum-' + CANLI.kod; }
 function durumOku(){ try { return JSON.parse(localStorage.getItem(durumAnahtar()) || 'null'); } catch(e){ return null; } }
 function durumYaz(){
@@ -383,13 +420,34 @@ function teslim(otomatik){
   document.getElementById('soOzet').textContent = dg + ' doğru · ' + yn + ' yanlış · ' + bs + ' boş  (%' + Math.round(100*dg/CANLI.sorular.length) + ')';
   try { localStorage.setItem('canliSonuc-' + CANLI.kod, JSON.stringify({ dogru:dg, yanlis:yn, bos:bs, t:Date.now() })); } catch(e){}
   var lst = document.getElementById('soListe'); lst.innerHTML='';
+  /* 24.09 ÜYELİK KAPISI (Cem: "2 yap") — sayfa "açıklamaların tamamı için üyelik
+     gerekir" diyordu ama 93 açıklamayı herkese gösteriyordu. Artık: cevap anahtarı
+     (hangi soruda ne yaptın, doğrusu ne) HERKESE; "neden" açıklaması ÜYEYE.
+     Üyelik kontrolü AĞA GİTMEZ (uyeMi, bu cihazdaki oturum kaydına bakar) —
+     sınav bitiminde 5.000 kişi aynı anda bakarsa sunucuya tek istek düşmez.
+     ⚠ Dürüst kapı, güvenlik değil: açıklamalar şifre çözülmüş pakette zaten
+     tarayıcıda; meraklı biri okuyabilir. Amaç üyeye davet, kilit değil. */
+  var uye = uyeMi();
+  if(!uye){
+    var davet = document.createElement('div');
+    davet.style.cssText = 'border:1px solid var(--amber);border-radius:10px;padding:14px 16px;margin:4px 0 12px;background:color-mix(in srgb,var(--amber) 8%,transparent)';
+    davet.innerHTML = '<b style="font-size:15px">' + yn + ' yanlışının nedenini görmek ister misin?</b>' +
+      '<p style="font-size:13.5px;color:var(--muted);margin:6px 0 10px">Her sorunun "neden böyle" açıklaması ve dayanağı hazır. Görmek için <b>ücretsiz üye ol</b>. ' +
+      'Sonucun bu cihazda saklı; üye olup bu sayfaya döndüğünde açıklamalar burada açılır.</p>' +
+      '<a href="ogrenci.html?sonra=canli-deneme.html" style="display:inline-block;background:var(--amber);color:var(--taban);font-weight:800;padding:9px 16px;border-radius:9px;text-decoration:none">Ücretsiz üye ol · açıklamaları gör</a>' +
+      ' <a href="ogrenci.html?sonra=canli-deneme.html" style="font-size:13px;margin-left:10px">Zaten üyeyim, giriş yap</a>';
+    lst.appendChild(davet);
+  }
   liste.forEach(function(o,i){
     var s=o.s, dgr = (o.c===s.dogru);
     var ac = (s.aciklama && s.aciklama[s.dogru]) ? String(s.aciklama[s.dogru]) : '';
+    var govdeAc = uye
+      ? esc(ac) + (s.kaynak ? '\n\n📑 Kaynak: ' + esc(s.kaynak) : '')
+      : '🔒 Neden böyle olduğu ve dayanağı ücretsiz üyelere açık.';
     var d = document.createElement('details');
     d.style.cssText='margin:7px 0;border:1px solid var(--line2);border-radius:9px;padding:9px 12px;background:var(--yuzey)';
     d.innerHTML = '<summary style="cursor:pointer;font-size:13.5px"><b style="color:' + (o.c ? (dgr?'var(--green)':'var(--red)') : 'var(--dim)') + '">' + (i+1) + '. ' + (o.c ? (dgr?'✓':'✗ senin: '+o.c) : 'boş') + ' · doğru: ' + esc(s.dogru) + '</b>, ' + esc(String(s.soru).slice(0,90)) + '…</summary>' +
-      '<div style="font-size:13px;color:var(--muted);margin-top:8px;white-space:pre-wrap">' + esc(ac) + (s.kaynak ? '\n\n📑 Kaynak: ' + esc(s.kaynak) : '') + '</div>';
+      '<div style="font-size:13px;color:var(--muted);margin-top:8px;white-space:pre-wrap">' + govdeAc + '</div>';
     lst.appendChild(d);
   });
   // sonucu gonder: 0-15 sn rastgele gecikme + 1 tekrar (5k kisi ayni anda vurmasin)

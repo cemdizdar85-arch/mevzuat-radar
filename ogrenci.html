@@ -186,6 +186,9 @@
     if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';
     if(/validation_failed/i.test(k)||/invalid.*email/i.test(m)) return 'E-posta adresi geçerli görünmüyor.';
     if(/email_not_confirmed/i.test(k)) return 'E-postanı doğrulaman gerekiyor: gelen kutunu kontrol et.';
+    /* 24.09: proje geneli e-posta tavanı (Auth → Rate Limits, 23.09'da saatte 30
+       ölçüldü) aşılınca "bir dakika bekle" demek yanlıştı — tavan SAATLİK. */
+    if(/over_email_send_rate_limit/i.test(k)||/email rate limit/i.test(m)) return 'Şu an kayıt yoğunluğu var, doğrulama e-postası gönderilemedi. Birkaç dakika sonra tekrar dene.';
     if(/rate limit/i.test(k+m)) return 'Çok sık denendi. Bir dakika bekleyip tekrar dene.';
     return m||'Bir sorun oldu, tekrar dene.';
   }
