@@ -278,6 +278,21 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      çıkmış sıklığına göre konulara dağıtılır (`-ToplamHedef 4000`, varsayılan). Hedef değişirse tek komutla yeniden üretilir.
      23.09 ölçümü: elde **2.442**, hedef dağıtımı **4.439**, **açık ≈3.300** — açık 2.000 değil, çünkü eldeki soruların
      **1.388'i hedefin üstündeki konularda** duruyor (sayı var, doğru yerde değil).
+  0b. ⛔⭐ **SON 10 YIL KURALI** (Cem, 23.09.2026: *"10 yıldır sorulmayan bir soruya bizde soru basmamalıyız · son 10 yıl kural
+     oluşturalım, ona göre soru ve kanun baksın"*). Konunun ağırlığı **tüm zamanların çıkma sayısı DEĞİL, son 10 yılda kaç kez
+     sorulduğu**dur (`son10` sütunu, kaynak `veri/smmm-analiz.json` — 419 dönem×ders kaydı, 2008–2026). Son 10 yılda hiç
+     sorulmayan konunun hedefi **0**'dır; plan kurucu ona soru yazmaz. Adı analizde eşleşmeyen konunun yeniliği **ölçülemez**
+     (`OLCULMEDI`) ve ona da hedef verilmez — yeni olduğunu kanıtlayamadığımız konuya para verilmez.
+     **Ölçüldü (23.09):** eski dağıtım 1.121 soruluk hedefi **10+ yıldır sorulmayan** 1.013 konuya veriyordu; bu konulara
+     bugüne kadar **223 soru** basılmıştı. "Şüpheli alacak karşılığı" tüm zamanlarda 25 kez çıkmış ama **son 10 yılda 1 kez**
+     (son 2020/2) — eski kuralla bu gece 3 soru basılacaktı. "Amortisman ayırma" ise son 10 yılda **29 kez** (son 2025/3).
+     **Kanun tarafı:** konunun dayandığı madde değiştiyse, o konunun eski çıkma sıklığı yeni sınavı öngörmeyebilir ve eski
+     soruların cevabı yanlış olabilir → soru **eski metinden basılmaz**, önce yeni metin ambara yutulur. Madde değişikliğini
+     `motor/soru-dayanak-nobetcisi.ps1` işaretler (`veri/sinav/mevzuat-degisti-yeni-hat.json`) ve yayın şartı o soruyu çeker.
+     ⚠ **Nöbetçinin alarmı toplu çekimden ÖNCE doğrulanır** (27.08 robot kıyımı dersi: *"kaynak değişti ≠ değer değişti"*):
+     22.09'da "VUK m.370 SİLİNDİ" kaydı 689 soruyu (SMMM'de ~340) yayından çekti; 23.09 ölçümünde VUK'un madde parmak izi
+     dosyasında 08:00 ile 19:22 arasında **hiçbir madde silinmemiş/değişmemişti** ve m.370 **iki dosyada da yoktu** — yani
+     gerçek bir kanun değişikliği mi, yutma eksiği mi **ölçülmedi**. Doğrulanmadan geri de açılmaz, olduğu gibi de bırakılmaz.
   1. **Tablo tazelenir:** `arac/smmm-kapsama-tablosu.ps1` → `veri/fabrika/smmm-kapsama.csv`
      (ders · konu · **sınavda kaç kez çıktı** · yazdık · yayınlanabilir · hedef · açık · **engel**). Bedel 0.
      ⛔ **Bayat tabloyla plan kurulmaz (mekanik):** `smmm-plan-kur.ps1` tablo 12 saatten eskiyse **durur**.

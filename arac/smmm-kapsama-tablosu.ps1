@@ -43,7 +43,19 @@ param(
   #     Bu bilinçlidir — nadir konu bankanın önceliği değildir. Kat modu hâlâ duruyor.
   #   VARSAYILAN 4000: Cem'in bitirme hedefi (bkz. hafıza "bitirme hedefi 4.000→8.000").
   #   Kat moduna dönmek için: -ToplamHedef 0 -HedefKat 3
-  [int]$ToplamHedef = 4000
+  [int]$ToplamHedef = 4000,
+  # ⛔⭐ 23.09.2026 YENİLİK KURALI (Cem: "çıkmış sorularda yeni olanlardan basmak lazım,
+  #   10 yıldır sorulmayan bir soruya bizde soru basmamalıyız").
+  #   ÖLÇÜLDÜ (veri/smmm-analiz.json, 419 dönem×ders kaydı, 2008–2026): eski hedef dağıtımı
+  #   1.121 soruluk hedefi 10+ YILDIR SORULMAYAN 1.013 konuya veriyordu; bu konulara bugüne
+  #   kadar 223 soru basılmıştı ("sebepsiz zenginleşme davası" son 2014/2 — bizde 12 soru).
+  #   Yeni kural: AĞIRLIK tüm zamanların çıkma sayısı DEĞİL, -YenilikYil'dan (varsayılan
+  #   2016 = son 10 yıl) bu yana kaç kez sorulduğu. Bu pencerede hiç sorulmayan konunun
+  #   hedefi 0'dır — plan kurucu ona soru yazmaz.
+  #   🚫 GÖRMEZ: analizde adı eşleşmeyen konu ("analizde YOK") için yenilik ÖLÇÜLEMEZ; bu
+  #     konulara da hedef verilmez (yeni olduğunu kanıtlayamadığımız konuya para vermeyiz).
+  #     Bu, ad eşleşmesi düzeltilince bazı gerçekten yeni konuları geri getirecek.
+  [int]$YenilikYil = 2016
 )
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -77,6 +89,23 @@ $esYol = Join-Path $kok 'veri\sinav\smmm-konu-es.json'
 if (Test-Path $esYol) {
   foreach ($e in @((Get-Content $esYol -Raw -Encoding UTF8 | ConvertFrom-Json).eslemeler | ForEach-Object { $_ })) {
     if ($e) { $es[(Nrm "$($e.analiz)")] = (Nrm "$($e.kopru)") }
+  }
+}
+
+# --- 2b) YENİLİK: çıkmış kitapçık analizi (dönem × ders × konu sayımı) ---
+#   Anahtar biçimi "Ders|konu" (23.09 ölçüldü) — ders öneki atılır, eşleme sözlüğüyle köprü adına çevrilir.
+$anYol = Join-Path $kok 'veri\smmm-analiz.json'
+if (-not (Test-Path $anYol)) { throw "çıkmış analizi yok: $anYol — yenilik ölçülemez, tablo YAZILMADI" }
+$sonSira = @{}; $pencereSay = @{}; $anGorulen = @{}
+foreach ($dd in @((Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json).donemler | ForEach-Object { $_ })) {
+  if (-not $dd -or -not $dd.konuSayim) { continue }
+  $anah = "$($dd.donem)|$($dd.ders)"; if ($anGorulen.ContainsKey($anah)) { continue }; $anGorulen[$anah] = 1
+  $yil = [int]("$($dd.donem)" -replace '/.*$', ''); $sira = $yil * 10 + [int]("$($dd.donem)" -replace '^.*/', '')
+  foreach ($p in $dd.konuSayim.PSObject.Properties) {
+    $n = Nrm ("$($p.Name)" -replace '^[^|]*\|', ''); if (-not $n) { continue }
+    if ($es.ContainsKey($n)) { $n = $es[$n] }
+    if (-not $sonSira.ContainsKey($n) -or $sira -gt $sonSira[$n]) { $sonSira[$n] = $sira }
+    if ($yil -ge $YenilikYil) { $pencereSay[$n] = [int]$pencereSay[$n] + [int]$p.Value }
   }
 }
 
@@ -115,21 +144,44 @@ $satir = New-Object System.Collections.Generic.List[object]
 $tumKonu = New-Object 'System.Collections.Generic.HashSet[string]'
 foreach ($n in $cikmis.Keys) { [void]$tumKonu.Add($n) }
 foreach ($n in $yazdik.Keys) { [void]$tumKonu.Add($n) }
-$cikmisToplam = 0
-if ($ToplamHedef -gt 0) { foreach ($n in $tumKonu) { $cikmisToplam += [int]$cikmis[$n] } }
+# AĞIRLIK: son $YenilikYil'dan bu yana kaç kez soruldu (YENİLİK KURALI, 23.09). Pencerede sorulmayan = 0.
+$pencereToplam = 0
+if ($ToplamHedef -gt 0) { foreach ($n in $tumKonu) { $pencereToplam += [int]$pencereSay[$n] } }
+# ⭐ 23.09: EN BÜYÜK KALAN YÖNTEMİ — düz yuvarlamada 4.000'in ~520'si kayboluyordu (küçük payların
+#   hepsi 0'a yuvarlanıyordu, toplam hedef 3.479 çıkıyordu). Cem "4.000 olsun" dedi: tablo toplamı
+#   TAM 4.000 olmalı. Önce taban (aşağı yuvarlama) verilir, eksik kalan birimler en büyük kesirli
+#   paya sahip konulara birer birer dağıtılır.
+$hedefHarita = @{}
+if ($ToplamHedef -gt 0 -and $pencereToplam -gt 0) {
+  $kesir = New-Object System.Collections.Generic.List[object]
+  $dagitilan = 0
+  foreach ($n in $tumKonu) {
+    $pc0 = [int]$pencereSay[$n]; if ($pc0 -le 0) { continue }
+    $tam = $ToplamHedef * $pc0 / [double]$pencereToplam
+    $taban = [int][Math]::Floor($tam)
+    $hedefHarita[$n] = $taban; $dagitilan += $taban
+    $kesir.Add([pscustomobject]@{ n = $n; k = ($tam - $taban); pc = $pc0 })
+  }
+  $kalan = $ToplamHedef - $dagitilan
+  foreach ($x in ($kesir | Sort-Object @{e = { $_.k }; Descending = $true }, @{e = { $_.pc }; Descending = $true }, n | Select-Object -First $kalan)) { $hedefHarita[$x.n]++ }
+}
 foreach ($n in $tumKonu) {
   $c = [int]$cikmis[$n]
+  $pc = [int]$pencereSay[$n]
   $d = $(if ($kopruDers.ContainsKey($n) -and $kopruDers[$n]) { $kopruDers[$n] } elseif ($dersKonu.ContainsKey($n)) { $dersKonu[$n] } else { '' })
   if ($Ders -and $d -notmatch $Ders) { continue }
   $hedef = $(if ($ToplamHedef -gt 0) {
-      if ($c -le 0 -or $cikmisToplam -le 0) { 0 } else { [int][Math]::Round($ToplamHedef * $c / [double]$cikmisToplam) }
-    } else { [Math]::Max(1, $c * $HedefKat) })
+      $(if ($hedefHarita.ContainsKey($n)) { [int]$hedefHarita[$n] } else { 0 })
+    } else { $(if ($pc -le 0) { 0 } else { [Math]::Max(1, $c * $HedefKat) }) })
+  $sonAd = $(if ($sonSira.ContainsKey($n)) { '{0}/{1}' -f [Math]::Floor($sonSira[$n] / 10), ($sonSira[$n] % 10) } else { '' })
+  $yenilik = $(if (-not $sonSira.ContainsKey($n)) { 'OLCULMEDI' } elseif ($pc -gt 0) { 'YENI' } else { "ESKI (son $sonAd)" })
   $yay = [int]$yayin[$n]
   $acik = [Math]::Max(0, $hedef - $yay)
   $durum = $(if ($yay -ge $hedef) { 'YETER' } elseif ($yay -eq 0) { 'HIC YOK' } else { 'EKSIK' })
   $satir.Add([pscustomobject]@{
       ders = $d; konu = $(if ($kopruAd.ContainsKey($n)) { $kopruAd[$n] } else { $n })
-      cikmis = $c; yazdik = [int]$yazdik[$n]; yayinlanabilir = $yay
+      cikmis = $c; son10 = $pc; son_soruldu = $sonAd; yenilik = $yenilik
+      yazdik = [int]$yazdik[$n]; yayinlanabilir = $yay
       hedef = $hedef; acik = $acik; durum = $durum
       engel = $(if ($engel.ContainsKey($n)) { $engel[$n] } else { '' })
     })

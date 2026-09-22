@@ -93,18 +93,22 @@ if ($yas -gt $TabloTazelikSaat -and -not $Zorla) {
 }
 "kapsama tablosu yasi: $yas saat"
 $c = @(Import-Csv $csvYol -Encoding UTF8)
+if (-not ($c[0].PSObject.Properties.Name -contains 'son10')) { throw "kapsama tablosunda son10 (yenilik) sütunu yok — tablo 23.09 öncesi sürüm; önce arac/smmm-kapsama-tablosu.ps1 koşulur" }
 $havuz = @($c | Where-Object {
-    [int]$_.cikmis -ge $CikmisEsik -and [int]$_.acik -gt 0 -and -not $_.engel -and
+    # ⛔ 23.09 YENİLİK KURALI (Cem "10 yıldır sorulmayan konuya soru basmayalım"): eşik ve sıra artık SON 10 YIL
+    #   sıklığıyla (son10). Tüm zamanlar sayısı yanıltıyordu: "şüpheli alacak karşılığı" 25 kez çıkmış ama
+    #   son 10 yılda 1 kez (son 2020/2); eski kuralla 3 soru basılacaktı. son10 sütunu yoksa tablo eskidir → durur.
+    [int]$_.son10 -ge $CikmisEsik -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
     ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true }))
-  } | Sort-Object { [int]$_.cikmis } -Descending)
+  } | Sort-Object { [int]$_.son10 }, { [int]$_.acik } -Descending)
 if ($YalnizHicYok) { "MOD: YALNIZ HIC SORUSU OLMAYAN KONULAR (yayinlanabilir = 0)" }
 # ⛔ 22.09 DUZELTME: once "onceki dalgalarda gecen konuyu al" diye elemistim; oyle yapinca
 #   havuz 39 konuya dusuyordu. YANLIS: en cok cikan konularda ACIK ZATEN VAR (amortisman
 #   ayirma cikmis 43, bizde 7 -> 122 acik). Amac ayni konuya IKINCI SORU yazmak; kopya
 #   olmasini ikiz kapisi engelliyor (arac/ikiz-olcusu.ps1, uretimde de kosuyor artik).
 $eskiDe = @($havuz | Where-Object { $eski.ContainsKey((Nrm $_.konu)) }).Count
-"secilebilir konu (cikmis>=$CikmisEsik, acik>0, engelsiz): {0} · bunlarin {1}'i onceki dalgalarda da vardi (acik oldugu icin ALINIYOR)" -f $havuz.Count, $eskiDe
+"secilebilir konu (SON 10 YIL cikmis>=$CikmisEsik, acik>0, engelsiz): {0} · bunlarin {1}'i onceki dalgalarda da vardi (acik oldugu icin ALINIYOR)" -f $havuz.Count, $eskiDe
 
 # ⭐ 23.09.2026 KONU BAŞINA ADET (Cem "1 yap"): eskiden her konuya 1 soru yazılıyordu.
 #   ÖLÇÜLDÜ: "bilanço düzenleme" sınavda 31 kez çıkmış, 4.000'lik bankadaki hedefi 27 soru —
@@ -127,7 +131,7 @@ foreach ($h in $havuz) {
   $sec.Add($h); $soruSay += $kac
 }
 if ($soruSay -lt $hedefSoru) { Write-Host "  UYARI: havuz yetmedi — $soruSay soru kuruldu (istenen $hedefSoru)" -ForegroundColor Yellow }
-"alinan konu: {0} · soru {1} · cikmis araligi {2}..{3} · konu basi tavan {4}" -f $sec.Count, $soruSay, ([int]$sec[0].cikmis), ([int]$sec[$sec.Count - 1].cikmis), $KonuBasiTavan
+"alinan konu: {0} · soru {1} · SON 10 YIL cikmis araligi {2}..{3} · konu basi tavan {4}" -f $sec.Count, $soruSay, ([int]$sec[0].son10), ([int]$sec[$sec.Count - 1].son10), $KonuBasiTavan
 
 # planlara serpistir (round-robin: her plan ayni siklik profilini alsin)
 # ⚠ PS 5.1 TUZAGI: hem hashtable hem dizi indekslemesi bu baglamda ArgumentException verdi.
