@@ -47,7 +47,24 @@ $vaka = @(
 
 $gecen = 0; $kalan = New-Object System.Collections.Generic.List[string]
 foreach ($v in $vaka) {
-  $r = @(KisirSecimi @($v.k) 3 2)
+  $r = @(KisirSecimi @($v.k) 3 2 @{})
+  $c = $(if ($r.Count) { "$($r[0].neden)" } else { '' })
+  if ($c -eq $v.bek) { $gecen++; if (-not $Sessiz) { "  OK   [{0,-18}] {1}" -f $(if ($c) { $c }else { 'DUSMEDI' }), $v.ad } }
+  else { $kalan.Add(("{0} -> beklenen '{1}', cikan '{2}'" -f $v.ad, $v.bek, $c)); if (-not $Sessiz) { "  DUSTU[{0,-18}] {1}" -f $c, $v.ad } }
+}
+
+# --- AF VAKALARI (21.09): kaynagi sonradan yutulan konunun sifir noktasi tasinir ---
+# NIYE: liste GECMIS sicilden turetiliyor. Kaynak sonradan gelse bile eski redler yerinde
+# durdugu icin konu sonsuza kadar dusuyordu. 21.09'da 9 konuya formul karti yazildi ve tam
+# bu tuzaga girildi: not ambardaydi ama kapi konulari hala dusuruyordu.
+$afVaka = @(
+  @{ ad = 'AF: taban bugunku sayiya esit -> konu ARTIK dusmez'; k = (K 'p' 9 0 8); af = @{ 'p' = [pscustomobject]@{ tabanDenenen = 9; tabanKe = 8 } }; bek = '' }
+  @{ ad = 'AF SICILI SILMEZ: taban sonrasi 3 deneme daha -> yine KISIR'; k = (K 'p' 12 0 8); af = @{ 'p' = [pscustomobject]@{ tabanDenenen = 9; tabanKe = 8 } }; bek = 'KISIR' }
+  @{ ad = 'AF SICILI SILMEZ: taban sonrasi 2 kaynak reddi -> yine KAYNAK-BORCU'; k = (K 'p' 10 0 10); af = @{ 'p' = [pscustomobject]@{ tabanDenenen = 9; tabanKe = 8 } }; bek = 'KAYNAK-BORCU' }
+  @{ ad = 'AF baska konuyu ETKILEMEZ'; k = (K 'q' 5 0 4); af = @{ 'p' = [pscustomobject]@{ tabanDenenen = 9; tabanKe = 8 } }; bek = 'KISIR+KAYNAK-BORCU' }
+)
+foreach ($v in $afVaka) {
+  $r = @(KisirSecimi @($v.k) 3 2 $v.af)
   $c = $(if ($r.Count) { "$($r[0].neden)" } else { '' })
   if ($c -eq $v.bek) { $gecen++; if (-not $Sessiz) { "  OK   [{0,-18}] {1}" -f $(if ($c) { $c }else { 'DUSMEDI' }), $v.ad } }
   else { $kalan.Add(("{0} -> beklenen '{1}', cikan '{2}'" -f $v.ad, $v.bek, $c)); if (-not $Sessiz) { "  DUSTU[{0,-18}] {1}" -f $c, $v.ad } }
@@ -55,7 +72,7 @@ foreach ($v in $vaka) {
 
 # TOPLU VAKA: kapi TUM konulari dusurmemeli (plandan-parti-kur.ps1 bu durumda throw eder)
 $toplu = @((K 'x' 5 0 0), (K 'y' 1 2 0), (K 'z' 2 0 2))
-$rt = @(KisirSecimi $toplu 3 2)
+$rt = @(KisirSecimi $toplu 3 2 @{})
 if ($rt.Count -eq 2) { $gecen++; if (-not $Sessiz) { '  OK   [TOPLU            ] 3 konudan 2 duser, calisan konu kalir' } }
 else { $kalan.Add("TOPLU vaka: 3 konudan 2 dusmeliydi, $($rt.Count) dustu") }
 
@@ -65,7 +82,7 @@ if ($rk.Count -eq 0) { $gecen++; if (-not $Sessiz) { '  OK   [KAPALI           ]
 else { $kalan.Add('KaynakRedEsik=0 ikinci kurali KAPATMADI') }
 
 ''
-"KISIR/KAYNAK-BORCU SECIM OZ-SINAVI: {0}/{1} gecti" -f $gecen, ($vaka.Count + 2)
+"KISIR/KAYNAK-BORCU SECIM OZ-SINAVI: {0}/{1} gecti" -f $gecen, ($vaka.Count + $afVaka.Count + 2)
 if ($kalan.Count) {
   foreach ($k in $kalan) { Write-Host "  KIRMIZI: $k" -ForegroundColor Red }
   exit 1

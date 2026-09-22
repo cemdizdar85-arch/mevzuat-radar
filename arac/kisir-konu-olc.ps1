@@ -46,7 +46,14 @@
 param(
   [int]$EnAzDeneme = 3,          # bu kadar soru denenmiş olmalı (altı "ölçülmedi")
   [int]$KaynakRedEsik = 2,       # 21.09: bu kadar KAYNAK-EKSIK/KESIK reddi + hiç yayın yoksa da düşer
-  [string]$Sinav = 'SMMM'
+  [string]$Sinav = 'SMMM',
+  # ⭐ 21.09 BORÇ ÖDEME (af): kaynağı ambara yutulan konu. Virgüllü konu listesi verilir; betik
+  #   o konunun BUGÜNKÜ denenen/red sayısını taban olarak kaydeder ve bundan sonra YALNIZ
+  #   TABANDAN SONRAKİ denemeleri sayar. Neden gerekiyordu: liste geçmiş sicilden türetiliyor;
+  #   kaynak sonradan gelse bile eski redler yerinde durduğu için konu sonsuza kadar düşüyordu.
+  #   Af sicili SİLMEZ, sıfır noktasını taşır — konu yeni kaynakla da 3 kez düşerse yine listeye girer.
+  [string]$BorcOdendi = '',
+  [string]$BorcNotu = ''         # af gerekçesi (hangi kaynak yutuldu)
 )
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -89,16 +96,23 @@ if (Test-Path $retYol) {
 #   "sebepsiz zenginleşme davası" iki ayrı konu sayılır, biri düşerken öteki kalabilir;
 #   (b) kaynağın ambara YENİ yutulmuş olmasını — ret kütüğü geçmişi taşır, konu bir sonraki
 #   ölçüme kadar düşük kalır; (c) hakemin gerekçesinin DOĞRU olup olmadığını.
-function KisirSecimi($kayitlar, [int]$enAzDeneme, [int]$kaynakRedEsik) {
+function KisirSecimi($kayitlar, [int]$enAzDeneme, [int]$kaynakRedEsik, $af) {
   $out = New-Object System.Collections.Generic.List[object]
   foreach ($x in @($kayitlar)) {
     if ([int]$x.gecen -gt 0) { continue }          # yayına giren varsa ASLA düşmez
+    # AF: kaynağı sonradan yutulan konuda sıfır noktası taşınır — yalnız taban SONRASI denemeler sayılır.
+    $d = [int]$x.denenen; $k = [int]$x.ke
+    if ($af -and $af.ContainsKey("$($x.konu)")) {
+      $t = $af["$($x.konu)"]
+      $d = [Math]::Max(0, $d - [int]$t.tabanDenenen)
+      $k = [Math]::Max(0, $k - [int]$t.tabanKe)
+    }
     $neden = ''
-    if ([int]$x.denenen -ge $enAzDeneme) { $neden = 'KISIR' }
-    elseif ($kaynakRedEsik -gt 0 -and [int]$x.ke -ge $kaynakRedEsik) { $neden = 'KAYNAK-BORCU' }
+    if ($d -ge $enAzDeneme) { $neden = 'KISIR' }
+    elseif ($kaynakRedEsik -gt 0 -and $k -ge $kaynakRedEsik) { $neden = 'KAYNAK-BORCU' }
     if (-not $neden) { continue }
-    if ([int]$x.denenen -ge $enAzDeneme -and [int]$x.ke -ge $kaynakRedEsik -and $kaynakRedEsik -gt 0) { $neden = 'KISIR+KAYNAK-BORCU' }
-    $out.Add([pscustomobject]@{ konu = $x.konu; denenen = [int]$x.denenen; ke = [int]$x.ke; neden = $neden })
+    if ($d -ge $enAzDeneme -and $k -ge $kaynakRedEsik -and $kaynakRedEsik -gt 0) { $neden = 'KISIR+KAYNAK-BORCU' }
+    $out.Add([pscustomobject]@{ konu = $x.konu; denenen = $d; ke = $k; neden = $neden })
   }
   return @($out.ToArray())
 }
@@ -106,7 +120,35 @@ function KisirSecimi($kayitlar, [int]$enAzDeneme, [int]$kaynakRedEsik) {
 $hepsi = @($durum.Values)
 $toplamD = ($hepsi | Measure-Object denenen -Sum).Sum
 $toplamG = ($hepsi | Measure-Object gecen -Sum).Sum
-$kisir = @(KisirSecimi $hepsi $EnAzDeneme $KaynakRedEsik | Sort-Object denenen -Descending)
+
+# --- AF SİCİLİ: kaynağı sonradan yutulan konuların sıfır noktası ---
+$afYol = Join-Path $depoKok ('veri\sinav\kaynak-borcu-odendi-' + $Sinav.ToLowerInvariant() + '.json')
+$af = @{}
+if (Test-Path $afYol) {
+  foreach ($a in @((Get-Content $afYol -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar | ForEach-Object { $_ })) {
+    if (-not $a) { continue }
+    $af["$($a.konu)".Trim().ToLowerInvariant()] = [pscustomobject]@{ tabanDenenen = [int]$a.tabanDenenen; tabanKe = [int]$a.tabanKe; tarih = "$($a.tarih)"; not = "$($a.not)" }
+  }
+}
+if ($BorcOdendi) {
+  if (-not $BorcNotu) { throw '-BorcOdendi verildiyse -BorcNotu zorunlu: hangi kaynak yutuldu, yazılmadan af işlenmez.' }
+  $eklenen = 0; $bulunmayan = New-Object System.Collections.Generic.List[string]
+  foreach ($kAd in @($BorcOdendi -split ',' | ForEach-Object { $_.Trim().ToLowerInvariant() } | Where-Object { $_ })) {
+    if (-not $durum.ContainsKey($kAd)) { $bulunmayan.Add($kAd); continue }
+    $af[$kAd] = [pscustomobject]@{ tabanDenenen = [int]$durum[$kAd].denenen; tabanKe = [int]$durum[$kAd].ke; tarih = (Get-Date -Format 'yyyy-MM-dd'); not = $BorcNotu }
+    $eklenen++
+  }
+  foreach ($b in $bulunmayan) { Write-Host "  AF ATLANDI (kasada böyle bir konu yok): $b" -ForegroundColor Yellow }
+  $afNesne = [ordered]@{
+    aciklama = "Kaynağı ambara sonradan yutulan konular. Sicil SİLİNMEZ; yalnız sıfır noktası taşınır — bu konuda YALNIZCA taban sonrası denemeler sayılır. Konu yeni kaynakla da $EnAzDeneme kez düşerse listeye geri girer. Türetilmiştir, elle düzenlenmez: arac/kisir-konu-olc.ps1 -BorcOdendi '<konu,konu>' -BorcNotu '<hangi kaynak>'"
+    kayitlar = @($af.Keys | Sort-Object | ForEach-Object { [ordered]@{ konu = $_; tabanDenenen = $af[$_].tabanDenenen; tabanKe = $af[$_].tabanKe; tarih = $af[$_].tarih; not = $af[$_].not } })
+  }
+  [IO.File]::WriteAllText($afYol, (ConvertTo-Json -InputObject $afNesne -Depth 6), (New-Object Text.UTF8Encoding $false))
+  Write-Host ("AF İŞLENDİ: {0} konu · sicil {1} kayıt -> {2}" -f $eklenen, $af.Count, (Split-Path $afYol -Leaf)) -ForegroundColor Green
+}
+if ($af.Count) { Write-Host ("af sicili: {0} konu (sıfır noktası taşınmış)" -f $af.Count) -ForegroundColor DarkCyan }
+
+$kisir = @(KisirSecimi $hepsi $EnAzDeneme $KaynakRedEsik $af | Sort-Object denenen -Descending)
 $kisirD = ($kisir | Measure-Object denenen -Sum).Sum
 $borcluSay = @($kisir | Where-Object { $_.neden -like '*KAYNAK-BORCU*' }).Count
 
