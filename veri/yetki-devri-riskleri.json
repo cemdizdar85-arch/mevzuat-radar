@@ -1,5 +1,5 @@
 {
-  "tarih": "22.09.2026 22:11",
+  "tarih": "22.09.2026 22:48",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 880,
   "riskli_madde": 1313,
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1898,19 +1898,19 @@
     },
     {
       "sayfa": "marka-app.html",
-      "satir": 104,
+      "satir": 106,
       "iddia": "6 ay",
       "metin": "Kullanım delili dosyaların gizli saklanır (yalnız sen görürsün). Yenilemeye 6 ay kala robot seni uyaracak (SMS/mail, kurulum aşamasında). Bu araç bilgilendirir; başvuruyu marka vek"
     },
     {
       "sayfa": "marka-app.html",
-      "satir": 128,
+      "satir": 130,
       "iddia": "10 yıl",
       "metin": "Koruma bitişi (+10 yıl) ${fmt(m.koruma_bitisi)}"
     },
     {
       "sayfa": "marka-app.html",
-      "satir": 129,
+      "satir": 131,
       "iddia": "6 ay",
       "metin": "Yenileme penceresi (son 6 ay) ${fmt(m.yenileme_acilis)} → ${fmt(m.koruma_bitisi)}"
     },
@@ -2096,25 +2096,25 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 185,
+      "satir": 188,
       "iddia": "en az 6",
       "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 242,
+      "satir": 245,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 286,
+      "satir": 289,
       "iddia": "en az 6",
       "metin": "if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 306,
+      "satir": 309,
       "iddia": "en az 6",
       "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
     },
@@ -2126,31 +2126,31 @@
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 190,
+      "satir": 192,
       "iddia": "en az 6",
       "metin": "if(($('#sifre').value||'').length<6){ $('#ahata').textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 204,
+      "satir": 207,
       "iddia": "en az 6",
       "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 334,
+      "satir": 337,
       "iddia": "en az 3",
       "metin": "if(unvan.length Rakibin unvanını yaz (en az 3 karakter). '; return; }"
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 574,
+      "satir": 577,
       "iddia": "6 ay",
       "metin": "${(f.markalar||[]).length?'● AKTİF':'○ MARKA GİR'} Marka radarı Yenileme 6 ay kala + benzer başvuru çıkınca uyarı."
     },
     {
       "sayfa": "radar-app.html",
-      "satir": 575,
+      "satir": 578,
       "iddia": "15 gün",
       "metin": "${(f.borclu_vkn||[]).length?'● AKTİF':'○ VKN GİR'} Alacak radarı İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı."
     },
