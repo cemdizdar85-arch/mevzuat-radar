@@ -81,6 +81,76 @@ altı sayı: *izlenme · beğeni · yorum · paylaşma · kaydetme · profil ziy
 
 **Faz 0 bitmeden reklam parası harcanmaz.** (Organik yayın Faz 1'de başlar, o bedava.)
 
+### ⭐ FAZ 0.5 · CUMA AÇILIŞI — "site açıldı" duyurusu DEĞİL, bir OLAY
+
+**22.09 Cem: *"siteyi cuma günü açacağız, hiç mi yeni bir şey yapmayalım, nasıl dikkat çekeriz?"***
+
+**Cevap: yeni bir şey icat etmeye gerek yok — takvimde zaten duruyor ve unutulmuş.**
+
+`veri/canli-deneme.json` (Cem onayı 06.08.2026):
+
+| Oturum | Sınav | Tarih | Saat |
+|---|---|---|---|
+| **Başvuru Denemesi** | **SGS** | **27.09.2026 Pazar** | **10:00** |
+
+Not alanında yazan: *"SGS başvuru penceresi ortası (21 Eyl – 9 Eki): 'başvurayım mı?'
+kararına gerçek yüzdelik cevap."* Katılım **bedelsiz** (Cem kararı), sınav sitede çözülür,
+kilitli-set mimarisi 5.000 eşzamanlıya dayanıklı, veritabanı yükü sıfır.
+
+**Yani Cuma açılıştan İKİ GÜN sonra, Türkiye geneli ücretsiz bir SGS denemesi var.**
+
+#### Neden açılış hamlesi bu olmalı
+
+1. **"Site açıldı" haber değildir.** Kimse bir sitenin açılışını takip etmez. **"Pazar 10:00'da
+   Türkiye geneli deneme"** bir olaydır: tarihi var, saati var, kaçırılır.
+2. **Zamanlama tesadüf değil.** SGS başvuru penceresi **şu an açık** (21 Eylül – 9 Ekim).
+   Aday tam bu hafta *"başvurayım mı, hazır mıyım?"* diye düşünüyor. Denemenin cevapladığı
+   soru bu. Bir hafta sonra bu pencere kapanır ve aynı duyurunun gücü kalmaz.
+3. **Paylaşılır.** "Ben de gireceğim" doğal olarak arkadaş etiketlenir; sınav grupları
+   (WhatsApp/Telegram) tarih paylaşır, reklam paylaşmaz.
+4. **Kasa kapalıyken bile çalışır.** Katılım bedelsiz → IBAN kusuru bu hamleyi engellemiyor.
+   (Ama deneme sonrası satın alma gelecek, o yüzden IBAN yine Cuma'dan önce girilmeli.)
+5. **İkinci dalga içeriği kendisi üretir.** Deneme bittiğinde elimizde **ölçülmüş** sosyal
+   kanıt olur: kaç kişi girdi, hangi soruda kaç kişi düştü. Bugün uyduramadığımız her rakam
+   Pazar akşamı gerçek olur.
+6. **Elçilere paylaşacak somut şey verir** — komisyon değil, tarih.
+
+#### İkinci yeni parça: "35 DÖNEM RAPORU" (lead magnet, 0 TL)
+
+`veri/siklik-kunyesi.json` — **35 dönem, 3.248 tekil konu**, her konunun kaç dönemde ve kaç
+soruda çıktığı ölçülmüş (19.09 üretimi). Türkiye'de bu veriyi kimse yayınlamıyor, çünkü
+kimse 35 dönemi ayrıştırmadı.
+
+Ücretsiz yayınlanır: *"Staja Başlama'da son 35 dönemde hangi konudan kaç soru çıktı."*
+Ders ders liste. Bu, sınav gruplarında **elden ele dolaşan** türden bir belgedir.
+
+İkisi birbirini besler:
+**Rapor** "şu konulara çalış" der → **Deneme** "bakalım çalışmış mısın" der →
+**Sonuç** "işte yanlışların, ve her birinin adı var" der → ürün kendini anlatmış olur.
+
+#### Cuma–Pazar takvimi
+
+| Gün | Hamle | Kimde |
+|---|---|---|
+| **Çarşamba (bugün/yarın)** | IBAN gir · Bölüm 1 filmini yayınla · geri sayım başlasın | Cem |
+| **Perşembe** | 35 Dönem Raporu yayında (site + gönderi) | GM üretir, Cem yükler |
+| **Cuma** | Açılış: duyuru gönderisi + hikâye + "Pazar 10:00" kartı | Cem yükler |
+| **Cumartesi** | Hatırlatma hikâyesi + geri sayım çıkartması | Cem |
+| **Pazar 10:00** | Deneme · canlı hikâye akışı | Cem |
+| **Pazar akşamı** | Sonuç gönderisi — gerçek rakamlarla | GM üretir |
+
+#### 🔴 TEK BAĞIMLILIK — ölçmedim, sınav kolunda
+
+Canlı Sınav **Faz 4** (zamanlı oturum + dağıtım + skor) hafızada "AKTİF İŞ" olarak duruyor;
+Pazar'a yetişip yetişmediğini **ölçmedim** ve ölçemem: `sinav` kolu şu an başka bir oturumda
+canlı (`opus-sinav`, iş: "benzerlik kapisi kasaya baksin"). Sayfa ve takvim bağlı
+(`canli-deneme.html`, menüde ve ana sayfada görünüyor, e-posta kaydı çalışıyor),
+ama oturumun kendisi hazır mı — **o kola sorulmalı.**
+
+Faz 4 Pazar'a yetişmiyorsa hamle ölmez, **kayıt kampanyasına döner**: "Pazar 10:00" yerine
+"ilk Türkiye geneli deneme — kaydını bırak, tarihi ilk sen duy" (sayfada bu akış zaten var).
+Ama tarihli olan tarihsizden kat kat güçlüdür; önce Faz 4 teyit edilmeli.
+
 ### FAZ 1 · HACİM (gün 1–30) — tek kural: HER GÜN BİR GÖNDERİ, TEK FORMAT
 
 30 gün boyunca format **değişmez**. Beğenmediğimiz çıkarsa bile 30 gün basarız; karar
