@@ -495,7 +495,9 @@ window.veriAl = (function(){
          (ölçüm: #eef2f7 üstünde #fbfaf8 = 1,08). Renk burada, öğenin kendisinde sabitlendi. -->
     <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px;color:color-mix(in srgb,var(--ink) 92%,transparent)" title="Büro ve firma paneli">İşletme girişi</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
-    <a class="btn" href="genc.html">Ücretsiz Başla</a>
+    <!-- 23.09 Cem "1.2.3 yap": "Ücretsiz Başla" sınav takvimine (genc.html) gidiyordu; sitedeki tek ücretsiz
+         vaat seviye testi -> menü düğmesi de oraya. Genç Müşavir Araçlar menüsünde duruyor. -->
+    <a class="btn" href="seviye-testi.html">Ücretsiz Başla</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
@@ -672,6 +674,19 @@ window.veriAl = (function(){
       .bz-kah [hidden]{display:none !important}   /* .bz-cta2{display:inline-block} hidden özniteliğini ezmesin */
       .bz-kah .bz-durum{margin:16px 0 0;font-size:13.5px;line-height:1.5;color:var(--bz-ak-govde);min-height:1.5em}
       .bz-kah .bz-durum b{color:var(--bz-bronz-acik);font-weight:700}
+      /* 23.09 ÖN KAYIT KAHRAMANDA: içeriği hazırlanan sınavda form ara sayfaya gitmeden burada (ucretsiz-dene.html ile aynı kapı) */
+      .bz-kah .bz-onkayit{margin:14px 0 0;max-width:34em}
+      .bz-kah .bz-ok-satir{display:flex;flex-wrap:wrap;gap:10px}
+      .bz-kah .bz-onkayit input[type=email]{flex:1 1 230px;min-width:0;font:inherit;font-size:15px;padding:13px 14px;border-radius:11px;
+        border:1px solid var(--line2);background:var(--panel);color:var(--ink)}
+      .bz-kah .bz-onkayit button{font:inherit;font-size:15.5px;font-weight:750;cursor:pointer;border:0;border-radius:11px;padding:13px 26px;
+        color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));box-shadow:0 14px 36px rgba(207,161,99,.26)}
+      .bz-kah .bz-onkayit button:disabled{opacity:.6;cursor:wait}
+      .bz-kah .bz-ok-riza{display:flex;gap:8px;align-items:flex-start;margin:12px 0 0;font-size:12.5px;line-height:1.5;color:var(--bz-ak-govde)}
+      .bz-kah .bz-ok-riza input{margin-top:3px}
+      .bz-kah .bz-ok-riza a{color:var(--bz-bronz-acik)}
+      .bz-kah .bz-ok-hata{margin:8px 0 0;font-size:13.5px;font-weight:700;color:var(--red,#b42318)}
+      .bz-kah .bz-ok-tamam{margin:14px 0 0;font-size:15px;font-weight:700;color:var(--green)}
 
       /* 16.09: günün sorusu paneli - koyu camdan BEYAZ karta (açık tema) */
       .bz-kah .bz-cam{background:rgba(30,34,43,.62);border:1px solid rgba(214,180,126,.20);border-radius:16px;
@@ -793,10 +808,20 @@ window.veriAl = (function(){
                  ziyaretçi/paketsiz "Ücretsiz dene" · paketi aktif "Sınava gir" · süresi bitmiş "Paketini yenile".
                  İçeriği henüz yayında olmayan sınavda (Yeterlilik, KGK) "Ön kayıt ol". Aşağıdaki yazılar oturumsuz
                  hâlin kendisidir; betik çalışmazsa sayfa bununla kalır. Karar tablosu: bzDugmeCiz(). -->
-            <a class="bz-cta" id="bzCta" href="seviye-testi.html">Ücretsiz dene</a>
+            <a class="bz-cta" id="bzCta" href="seviye-testi.html">Geçme ihtimalini ölç (ücretsiz)</a>
             <!-- 13.09 Cem: "ilk testim müşteri çekmek için; bu sınavda kaç puan alırsın, denetle tarzı" -> seviye-testi.html -->
             <a class="bz-cta2" id="bzCta2" href="fiyat.html" hidden>Paketleri gör →</a>
             <p class="bz-durum" id="bzDurum" aria-live="polite"></p>
+            <form class="bz-onkayit" id="bzOnkayit" hidden novalidate>
+              <div class="bz-ok-satir">
+                <input type="email" id="bzOkEposta" autocomplete="email" placeholder="e-posta adresin" aria-label="E-posta adresin" required>
+                <button type="submit">Ön kayıt bırak</button>
+              </div>
+              <label class="bz-ok-riza"><input type="checkbox" id="bzOkRiza" required> <span>E-postamın, bu sınavın soru bankası açıldığında bilgilendirilmem için işlenmesine izin veriyorum. İstediğimde çıkabilirim. <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma metni</a></span></label>
+              <input type="text" name="_hp" id="bzOkHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+              <div class="bz-ok-hata" id="bzOkHata" role="alert"></div>
+            </form>
+            <p class="bz-ok-tamam" id="bzOkTamam" hidden>✓ Ön kaydın alındı. Soru bankası açıldığı gün e-postana yazacağız.</p>
           </div>
           <div class="bz-cam">
             <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s>SGS · Kaydır-Çöz</s></div>
@@ -848,21 +873,22 @@ window.veriAl = (function(){
     /* SINAV × ÜYE DURUMU -> kahraman düğmeleri (15.09.2026, Cem "1.2.3 yap").
        Karar tablosu (değişirse YALNIZ burası değişir):
                           içerik yayında (SGS)                         içerik hazırlanıyor (Yeterlilik, KGK)
-         ziyaretçi        Ücretsiz dene (-> seviye testi, TEK eylem)    Ön kayıt ol (TEK eylem)
-         üye, paketsiz    Ücretsiz dene · Paketleri gör                 Ön kayıt ol (TEK eylem)
+         ziyaretçi        Geçme ihtimalini ölç (ücretsiz) — TEK eylem   ÖN KAYIT FORMU burada (ara sayfa yok)
+         üye, paketsiz    Geçme ihtimalini ölç · Paketleri gör          ÖN KAYIT FORMU (e-posta dolu gelir)
          paket aktif      Sınava gir · Kaldığın yerden devam            Hesabım · (sorular açılınca e-posta)
-         paket bitmiş     Paketini yenile · Ücretsiz sorular            Ön kayıt ol · Hesabım                     */
+         paket bitmiş     Paketini yenile · Ücretsiz sorular            Hesabım · ÖN KAYIT FORMU                  */
     (function(){
       if(!window.TetikteUye) return;
       var U=window.TetikteUye, S=U.SINAVLAR, son={oturum:false,sinavlar:{}};
       var cta=document.getElementById('bzCta'), cta2=document.getElementById('bzCta2'), durumEl=document.getElementById('bzDurum');
+      var okForm=document.getElementById('bzOnkayit'), okTamam=document.getElementById('bzOkTamam'), okEp=document.getElementById('bzOkEposta'), okAlindi={};
       var sekmeler=[].slice.call(document.querySelectorAll('.bz-sekme button'));
       var secili=U.seciliSinav();
       function yaz(el,metin,adres){ if(!el) return; el.textContent=metin; el.setAttribute('href',adres); el.hidden=false; }
       function bzDugmeCiz(){
         var s=S[secili], d=(son.sinavlar&&son.sinavlar[secili])||{durum:son.oturum?'uye':'ziyaretci'}, bit=U.tarihYazi(d.bitis);
         sekmeler.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-sinav')===secili?'true':'false'); });
-        durumEl.textContent='';
+        durumEl.textContent=''; okForm.hidden=true; okTamam.hidden=true; document.getElementById('bzOkHata').textContent='';
         if(s.icerik){
           if(d.durum==='aktif'){
             yaz(cta,'Sınava gir',s.gir); yaz(cta2,'Kaldığın yerden devam →',s.devam);
@@ -873,21 +899,38 @@ window.veriAl = (function(){
           } else {
             /* 23.09 Cem: "Ücretsiz dene ve 30 soru aynı yere geliyor, birini bırakalım" -> ara sayfa atlanır,
                düğme doğrudan seviye testine gider; ikinci bağlantı yalnız üyeye (Paketleri gör). */
-            yaz(cta,'Ücretsiz dene',s.olc);
-            if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else { cta2.hidden=true; durumEl.textContent='30 soruluk seviye testi · üyelik gerekmez · bitince geçme ihtimalin'; }
+            yaz(cta,'Geçme ihtimalini ölç (ücretsiz)',s.olc);
+            if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else cta2.hidden=true;
+            durumEl.textContent='30 soru · yaklaşık 30 dakika · üyelik gerekmez';
           }
         } else {
           if(d.durum==='aktif'){
             yaz(cta,'Hesabım','ogrenci.html'); cta2.hidden=true;
             durumEl.textContent=s.ad+' paketin açık'+(bit?' ('+bit+' tarihine kadar)':'')+'. Soruları yayına hazırlıyoruz; açıldığı gün e-postana haber gelir.';
           } else {
-            yaz(cta,'Ön kayıt ol',s.onkayit);
-            /* 23.09 Cem: "Yeterlilik giriyorum Staja Giriş çıkıyor" -> başka sınava yönlendiren bağlantı kaldırıldı. */
+            /* 23.09 Cem: "Yeterlilik giriyorum Staja Giriş çıkıyor" -> başka sınava yönlendiren bağlantı kaldırıldı.
+               23.09 Cem "1.2.3 yap" -> "Ön kayıt ol" düğmesi ara sayfaya gitmez, form burada açık durur. */
+            cta.hidden=true;
             if(d.durum==='bitmis') yaz(cta2,'Hesabım →','ogrenci.html'); else cta2.hidden=true;
-            durumEl.textContent=s.ad+' soru bankası hazırlanıyor. Ön kayıt bırak, açıldığı gün ilk sen öğren.';
+            durumEl.textContent=s.ad+' soru bankası hazırlanıyor. E-postanı bırak, açıldığı gün ilk sen öğren.';
+            if(okAlindi[secili]) okTamam.hidden=false; else { okForm.hidden=false; if(!okEp.value&&son.eposta) okEp.value=son.eposta; }
           }
         }
       }
+      /* ön kayıt: ucretsiz-dene.html ile AYNI kapı (radar-app/edge/form-al.ts, canlı adı quick-task) ve aynı alanlar */
+      okForm.addEventListener('submit',function(e){
+        e.preventDefault();
+        var k=secili, ep=okEp.value.trim(), h=document.getElementById('bzOkHata'); h.textContent='';
+        if(!/^[^s@]+@[^s@]+.[^s@]{2,}$/.test(ep)){ h.textContent='E-posta adresini yaz.'; return; }
+        if(!document.getElementById('bzOkRiza').checked){ h.textContent='Ön kayıt için bilgilendirme iznini işaretlemen gerekiyor.'; return; }
+        var dugme=okForm.querySelector('button'); dugme.disabled=true;
+        fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',
+          headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},
+          body:JSON.stringify({email:ep,subject:'ON KAYIT '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:document.getElementById('bzOkHp').value})
+        }).then(function(y){ return y.ok?y.json():Promise.reject(y.status); }).then(function(){
+          dugme.disabled=false; okAlindi[k]=true; if(secili===k) bzDugmeCiz();
+        }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da info@dizdardenetim.com adresine yaz.'; });
+      });
       sekmeler.forEach(function(b){
         b.addEventListener('click',function(){ secili=b.getAttribute('data-sinav'); U.sinavSec(secili); bzDugmeCiz(); });
         b.addEventListener('keydown',function(e){
@@ -902,7 +945,7 @@ window.veriAl = (function(){
         var nav=document.getElementById('navOgrenci');
         if(nav&&son.oturum){ nav.textContent='Hesabım'; nav.title=son.eposta||'Öğrenci hesabın'; }
         /* üye olmuş kişiye "Ücretsiz Başla" gösterilmez */
-        var basla=document.querySelector('#nav a.btn[href="genc.html"]'); if(basla) basla.hidden=!!son.oturum;
+        var basla=document.querySelector('#nav a.btn[href="seviye-testi.html"]'); if(basla) basla.hidden=!!son.oturum;
       }
       /* olay, bu betik okunmadan ateşlenmiş olabilir (ziyaretçide söz anında çözülür) -> söz de dinlenir */
       U.hazir.then(uyeGeldi);

@@ -207,13 +207,13 @@
       +'<b>'+dn.toplam_soru+' soru · '+dn.sure_dk+' dakika · gerçek ders dağılımı</b>'
       +'<span class="sc-deneme-alt">Çözerken cevap görünmez; bitince ders ders karne ve her yanlışın Nöbetçi anlatımı. '+dn.set_sayisi+' set, aynı soru iki kez gelmez.</span></span>'
       +'<span class="sc-deneme-git">🔒 Pakete dahil →</span></a>':'';
-    /* 14.09 Cem "deneme amaçlı sadece kendin dene": üyeliksiz ücretsiz katman en üstte */
-    var ucretsizKart=(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="ucretsiz-dene.html" style="margin-bottom:12px"><span><b>Ücretsiz dene: üyeliksiz, kartsız</b>'
-      +'<span class="sc-deneme-alt">15 dersin tamamından örnek sorular çözümleriyle ve 30 soruluk seviye testi. Soru bankasının tamamı, deneme setleri ve "sınav gibi" mod pakete dahil.</span></span><span class="sc-seviye-git">Ücretsiz dene →</span></a>':'';
-    /* 13.09: seviye testi (30 soru, geçme ihtimali) - yalnız SGS için hazır */
-    var seviyeKart=(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="seviye-testi.html"><span><b>Önce 30 soruda geçme ihtimalini ölç</b>'
-      +'<span class="sc-deneme-alt">Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, zayıf alanın ve istersen e-postana karne.</span></span><span class="sc-seviye-git">Ölç →</span></a>':'';
-    var h=ucretsizKart+seviyeKart+denemeKart+'<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
+    /* 14.09 Cem "deneme amaçlı sadece kendin dene": üyeliksiz ücretsiz katman en üstte.
+       23.09 Cem "1.2.3 yap": "Ücretsiz dene" ve "30 soruda ölç" iki kart aynı teste çıkıyordu -> TEK kart;
+       örnek sorular kartın altında küçük bağlantı (ucretsiz-dene.html'deki düzenin aynısı). Yalnız SGS için hazır. */
+    var seviyeKart=(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="seviye-testi.html"><span><b>Ücretsiz: 30 soruda geçme ihtimalini ölç</b>'
+      +'<span class="sc-deneme-alt">Üyeliksiz, kartsız. Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, zayıf alanın ve istersen e-postana karne.</span></span><span class="sc-seviye-git">Ölç →</span></a>'
+      +'<p class="sc-aciklama" style="margin:-4px 0 14px">Önce ürünü görmek istersen: <a href="kaydir/vitrin/sgs.html">15 dersten örnek soruları çözümleriyle çöz →</a></p>':'';
+    var h=seviyeKart+denemeKart+'<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
         ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'
         :'Bu sınavın soruları hakem ve çözüm kapılarından geçiyor. Açıldığında dersler burada, Staja Giriş\'teki gibi ders ders görünecek.')+'</p>';
