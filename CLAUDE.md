@@ -276,6 +276,11 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   **Kural — bu sıra atlanmaz:**
   1. **Tablo tazelenir:** `arac/smmm-kapsama-tablosu.ps1` → `veri/fabrika/smmm-kapsama.csv`
      (ders · konu · **sınavda kaç kez çıktı** · yazdık · yayınlanabilir · hedef · açık · **engel**). Bedel 0.
+     ⛔ **Bayat tabloyla plan kurulmaz (mekanik):** `smmm-plan-kur.ps1` tablo 12 saatten eskiyse **durur**.
+     Neden: 23.09'da ölçüldü — hedefin üstüne yazılmış **1.388 soru**nun sahibi 325 konunun **323'ü birden çok
+     partiden** geldi ("dikey yüzde analizi" 23 ayrı partiden 49 soru, hedefi 13). **303'ünün payı tek bir dalgada:
+     `smmm-4k`** (16–17.09'un 400 USD'lik gecesi), çünkü o plan `r1..r10` turlarıyla aynı konu listesini yeniden bastı.
+     Üreticinin konu tekilleştirmesi parti **içinde** çalışır, partiler **arasında** çalışmaz — tek koruma taze tablodur.
   2. **Excel'e dökülür:** `arac/smmm-basim-excel.ps1` → Masaüstü `SMMM-Bitirme-Konu-Basim-Plani.xlsx`
      (+ `veri/fabrika/SMMM-KAPSAMA-excel.csv`). Cem bu dosyadan bakar. **Elle düzenlenmez**, her koşuda yeniden yazılır.
   3. **Plan o tablodan kurulur:** `arac/smmm-plan-kur.ps1` — seçim **SIKLIK ÖNCE** (çıkmış ≥ eşik · açık > 0 · **ENGEL yok**).

@@ -47,7 +47,10 @@ param(
   #   motor/kalip-parti-uret.ps1 ~1391) — bu yüzden `adet`i büyütmek işe yaramaz, daha çok
   #   KONU seçtirir. Çoklu soru ZORLUK dilimleriyle alınır: tavan 3 = zor + çok zor + kolay.
   #   Daha fazlası ayrı tur (tur=2) ister.
-  [int]$KonuBasiTavan = 3
+  [int]$KonuBasiTavan = 3,
+  # 23.09: kapsama tablosu bu kadar saatten eskiyse plan KURULMAZ (bkz. BAYAT TABLO KAPISI).
+  [int]$TabloTazelikSaat = 12,
+  [switch]$Zorla
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -71,7 +74,25 @@ foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\sinav\konu') -Filter 'smmm-w
 }
 "onceki dalga konusu: {0}" -f $eski.Count
 
-$c = @(Import-Csv (Join-Path $kok 'veri\fabrika\smmm-kapsama.csv') -Encoding UTF8)
+# ⛔⭐ 23.09.2026 BAYAT TABLO KAPISI — "fazla 1.388" ölçümünün doğurduğu kapı.
+#   ÖLÇÜLDÜ: hedefin üstüne yazılmış 1.388 sorunun sahibi 325 konunun 323'ü BİRDEN ÇOK
+#   partiden geldi; "dikey yüzde analizi" 23 ayrı partiden 49 soru almış (hedefi 13).
+#   303'ünün payı tek bir dalgada: smmm-4k (16–17.09'un 400 USD'lik gecesi), çünkü o plan
+#   r1..r10 turlarıyla AYNI konu listesini tekrar tekrar bastı. Üreticinin tekilleştirmesi
+#   parti İÇİNDE çalışır, partiler ARASINDA çalışmaz.
+#   Bugünkü koruma: plan kapsama tablosundan kurulur ve "açık > 0" şartı doluyu eler. Ama bu
+#   koruma tablonun TAZE olmasına bağlıdır — bayat tabloyla kurulan plan, o gece basılmış
+#   konuyu yeniden basar. Bu yüzden tablo yaşı ölçülür.
+#   🚫 GÖRMEZ: tablo taze ama parti dosyaları ambardan inmemişse tablo yine eksiktir
+#     (kapsama betiği bunu ayrıca kontrol eder: parti dosyası < 50 ise durur).
+$csvYol = Join-Path $kok 'veri\fabrika\smmm-kapsama.csv'
+if (-not (Test-Path $csvYol)) { throw "kapsama tablosu yok: $csvYol — once arac/smmm-kapsama-tablosu.ps1 kosulur (CLAUDE.md: plan TABLODAN kurulur)" }
+$yas = [int]((Get-Date) - (Get-Item $csvYol).LastWriteTime).TotalHours
+if ($yas -gt $TabloTazelikSaat -and -not $Zorla) {
+  throw "kapsama tablosu BAYAT ($yas saat, tavan $TabloTazelikSaat) — bayat tabloyla plan kurulursa dolu konu yeniden basilir (22.09 olcumu: 1.388 fazla soru). Once: powershell -File arac/smmm-kapsama-tablosu.ps1   (bilerek gecmek icin -Zorla)"
+}
+"kapsama tablosu yasi: $yas saat"
+$c = @(Import-Csv $csvYol -Encoding UTF8)
 $havuz = @($c | Where-Object {
     [int]$_.cikmis -ge $CikmisEsik -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
