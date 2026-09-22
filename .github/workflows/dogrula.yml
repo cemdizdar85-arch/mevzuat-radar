@@ -140,6 +140,23 @@ jobs:
           - { ad: "Kisir/kaynak-borcu secimi OZ-SINAVI (calisan konuyu dusurmez)",
               kabuk: pwsh, komut: "./arac/kisir-konu-sinavi.ps1" }
 
+          # 22.09.2026 - Ders eslemesi bir AD YAZIMI yuzunden 58 odenmis soruyu ambara
+          # sokmadi: 439 parti etiketinin 5'i ('-vergi'/'-hukuk' yazimli) cozulemiyordu ve
+          # yayinci onlari sessizce "ders cozulemedi" diye dusuruyordu. Harita artik tek
+          # dosyada; bu sinav hem 24 vakayi hem YEREL ETIKETLERIN TAMAMINI tarar ve
+          # cozulemeyeni KOR diye bildirir (kapsam olcusu).
+          - { ad: "SMMM ders adi OZ-SINAVI (etiket -> ders, kapsam dahil)",
+              kabuk: pwsh, komut: "./arac/smmm-ders-adi-sinavi.ps1" }
+
+          # 22.09.2026 - Ikiz olcusu artik HEM uretimde HEM yayinda ayni dosyadan geliyor.
+          # Onceden iki ayri cetvel vardi: yayin ucyu harf + soru VE dogru sik, uretim ise
+          # >=4 harfli kelime + yalniz soru. Olculdu - yayinin ikiz saydigi 78 ciftte uretim
+          # cetveli 0,33'e kadar iniyordu; ambara girmeyen 107 sorunun 24'unu yalniz yayin
+          # cetveli yakaliyordu (yazildi, hakemden gecti, parasi odendi, sonra elendi).
+          # Sinav 11 vaka: yakalama + yanlis alarm + sinir + on suzgec esiginin guvenli olmasi.
+          - { ad: "Ikiz olcusu OZ-SINAVI (uretim ve yayin TEK cetvel)",
+              kabuk: pwsh, komut: "./arac/ikiz-olcusu-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

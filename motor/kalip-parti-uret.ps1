@@ -165,6 +165,8 @@ if($script:PARMAK_TUZU){ Write-Host "  ONARIM TURU: parmak izi tuzu '$script:PAR
 . (Join-Path $kok 'arac\kimlik-ayikla.ps1')   # 11.09: kimlik ayiklama TEK kaynaktan
 . (Join-Path $here 'kapi-cikmis-gun.ps1')     # 13.09: KAPI-CB çıkmış cümle benzerliği (3 sınav, şık+öncül dahil) + KAPI-GT gün tabanı (360/365 kökte yazılı)
 . (Join-Path $kok 'arac\smmm-yayin-sarti.ps1')   # 14.09: bitirme yayın şartı + parmak izi (yalnız fonksiyon; SGS yolunda çağrılmaz)
+. (Join-Path $kok 'arac\ikiz-olcusu.ps1')        # 22.09: İKİZ CETVELİ — yayıncıyla AYNI ölçü (üçlü harf, soru+doğru şık). Bkz. BenzerlikKusur.
+. (Join-Path $kok 'arac\smmm-ders-adi.ps1')      # 22.09: etiket → ders (yayıncıyla aynı harita); ikiz karşılaştırması ders içinde yapılır
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
 # bitiş damgası (sql-yerel/kalip-parti-<etiket>.html) varsa ATLAR. Koşan koşucular eski kod olsa da üretici her etikette yeniden okunur.
@@ -1934,7 +1936,11 @@ function BenzerHavuz{
   # Artık havuz SINAV düzeyinde: 'sgs-*' bütün etiketler (Tur 1 + Tur 2 + genel kültür + pilotlar). Bedeli yok, yalnız yerel karşılaştırma.
   $onek=$(if($Etiket -match '^([a-z]+)-'){ $Matches[1] } else { '' })
   if($onek){ foreach($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter "kalip-parti-$onek-*.json" -ErrorAction SilentlyContinue)){ if($f.BaseName -eq "kalip-parti-$Etiket"){ continue }
-      try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){ $h.Add([pscustomobject]@{ etiket=($f.BaseName -replace '^kalip-parti-',''); id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)"); sikKume=(SikKume $p.Value); madde=(KokMaddeNo "$($p.Value.soru)") }) } } }catch{} } }
+      try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){
+        $hEt=($f.BaseName -replace '^kalip-parti-','')
+        # 22.09: YAYIN CETVELİ için ham metin de taşınır (üçlü parmak izi ancak gerekince hesaplanır — bkz. BenzerlikKusur).
+        $h.Add([pscustomobject]@{ etiket=$hEt; id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)"); sikKume=(SikKume $p.Value); madde=(KokMaddeNo "$($p.Value.soru)");
+          ders=$(if($Sinav -eq 'SMMM'){ SmmmDersAdi $hEt $p.Value } else { '' }); soruMetin="$($p.Value.soru)"; dogruMetin=(IkizDogruMetin $p.Value); parmak=$null }) } } }catch{} } }
   $script:BENZER_HAVUZ=$h; if($h.Count){ Write-Host "  benzerlik havuzu: $($h.Count) soru (aynı plan, öteki etiketler)" -ForegroundColor DarkGray }
   return $h
 }
@@ -1952,6 +1958,44 @@ function BenzerlikKusur($a,[string]$benId){
   $teoriA=($Sinav -eq 'SMMM' -and (SoruTeoriMi $a)); $sikA=$(if($teoriA){ SikKume $a } else { $null }); $maddeA=$(if($teoriA){ KokMaddeNo "$($a.soru)" } else { $null })
   foreach($oid in @($don.Keys)){ if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }; $j=Jaccard $ka (KelimeKume "$($o.soru)"); if($j -ge 0.60){ if($teoriA -and (TeoriFarkliMi $sikA (SikKume $o) $maddeA (KokMaddeNo "$($o.soru)"))){ continue }; $k+="partideki $oid ile aynı soru sayılır (Jaccard $j)" ; break } }
   foreach($h in (BenzerHavuz)){ $j=Jaccard $ka $h.kume; if($j -ge 0.60){ if($teoriA -and (TeoriFarkliMi $sikA $h.sikKume $maddeA $h.madde)){ continue }; $k+="$($h.etiket)/$($h.id) [$($h.konu)] ile aynı soru sayılır (Jaccard $j) — başka seviye/tur, özgün senaryo gerek"; break } }
+  # ⭐ 22.09.2026 — YAYIN CETVELİ ÜRETİME DE BAĞLANDI (Cem "1 yap").
+  #   ÖLÇÜLDÜ: yayıncı (arac/smmm-kasa-yayin.ps1) ikizi BAŞKA bir cetvelle ölçüyor — 3'lü harf
+  #   kümesi, soru ≥0,60 VE doğru şık ≥0,60. Yukarıdaki kelime cetveli bunu kaçırıyordu: ambara
+  #   girmeyen 107 sorunun 47'sinin ikizi vardı, 24'ünü yalnız üçlü cetvel yakalıyordu. O 24 soru
+  #   yazıldı, hakemden geçti, parası ödendi ve yayında elendi. Artık üretimde yakalanıyor.
+  #   ⚠ HIZ: her çiftte üçlü hesaplamak pahalı; önce ucuz kelime ölçüsüyle elenir. Eşik 0,25 —
+  #     ölçülen 78 gerçek ikiz çiftinin EN DÜŞÜĞÜ 0,33'tü (arac/ikiz-olcusu.ps1 IKIZ_ON_ESIK).
+  #   🚫 GÖRMEZ: ön süzgecin altında kalan (kelime örtüşmesi <0,25) gerçek ikizi — o çift hiç
+  #     ölçülmez. Bu bir kaçırmadır, yanlış alarm değil.
+  if($Sinav -eq 'SMMM' -and -not $k.Count){
+    $dersBu=SmmmDersAdi $Etiket $a
+    $parmakA=$null
+    # önce AYNI PARTİ (önbellek): kendi turunda üretilen ikiz de yayına giremez
+    foreach($oid in @($don.Keys)){
+      if($oid -eq $benId){ continue }
+      $o=$don[$oid]; if(-not $o -or -not $o.soru){ continue }
+      if((Jaccard $ka (KelimeKume "$($o.soru)")) -lt $script:IKIZ_ON_ESIK){ continue }
+      if($null -eq $parmakA){ $parmakA=IkizParmak "$($a.soru)" (IkizDogruMetin $a) }
+      if(IkizMi $parmakA (IkizParmak "$($o.soru)" (IkizDogruMetin $o))){
+        $k+="partideki $oid ile YAYIN CETVELİNE göre ikiz — yayına giremez, özgün senaryo gerek"; break
+      }
+    }
+  }
+  if($Sinav -eq 'SMMM' -and -not $k.Count){
+    $dersBu=SmmmDersAdi $Etiket $a
+    $parmakA=$null
+    foreach($h in (BenzerHavuz)){
+      if($dersBu -and $h.ders -and $h.ders -ne $dersBu){ continue }   # yayıncı da ders içinde bakar
+      if((Jaccard $ka $h.kume) -lt $script:IKIZ_ON_ESIK){ continue }
+      if($null -eq $parmakA){ $parmakA=IkizParmak "$($a.soru)" (IkizDogruMetin $a) }
+      if($null -eq $h.parmak){ $h.parmak=IkizParmak $h.soruMetin $h.dogruMetin }
+      if(IkizMi $parmakA $h.parmak){
+        $d=IkizDeger $parmakA $h.parmak
+        $k+=("$($h.etiket)/$($h.id) [$($h.konu)] ile YAYIN CETVELİNE göre ikiz (soru {0:N2} · doğru şık {1:N2}) — yayına giremez, özgün senaryo gerek" -f $d.soru,$d.sik)
+        break
+      }
+    }
+  }
   return $k
 }
 # 08.09 Cem "atladık demeyelim" — KAPI-P YASAL PARAMETRE: yıla bağlı had/oran (asgari ücret, kıdem tavanı, KDV/SGK/damga oranı, gecikme zammı,

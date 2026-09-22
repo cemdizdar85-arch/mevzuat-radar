@@ -42,24 +42,24 @@ $retYol = Join-Path $depoKok 'veri\ret-kutugu.json'
 if (Test-Path $retYol) { foreach ($rk in @((Get-Content $retYol -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar)) { $ret["$($rk.etiket)|$($rk.id)"] = "$($rk.kapi) $($rk.sinif)" } }
 else { Write-Host '⚠ RET KÜTÜĞÜ yok (veri/ret-kutugu.json) — kapı uygulanamadı, yayın DURDU' -ForegroundColor Red; exit 1 }
 
-# ders adı: etiketteki kısaltmadan (plan kurucunun kısaltmaları) ekran adına
-$DERS_KISA = [ordered]@{ 'ymeslek' = 'Meslek Hukuku'; 'fmuh' = 'Finansal Muhasebe'; 'yfta' = 'Finansal Tablolar ve Analizi'; 'maliyet' = 'Maliyet Muhasebesi'; 'ydenetim' = 'Muhasebe Denetimi'; 'yspk' = 'Sermaye Piyasası Mevzuatı'; 'yvergi' = 'Vergi Mevzuatı ve Uygulaması'; 'yhukuk' = 'Hukuk' }
-$DERS_SLUG = @{ 'Meslek Hukuku' = 'meslek-hukuku'; 'Finansal Muhasebe' = 'finansal-muhasebe'; 'Finansal Tablolar ve Analizi' = 'finansal-tablolar'; 'Maliyet Muhasebesi' = 'maliyet-muhasebesi'; 'Muhasebe Denetimi' = 'muhasebe-denetimi'; 'Sermaye Piyasası Mevzuatı' = 'sermaye-piyasasi'; 'Vergi Mevzuatı ve Uygulaması' = 'vergi'; 'Hukuk' = 'hukuk' }
-# eski adlı partiler (ölçüldü 16.09: parti içinde ders alanı BOŞ): boşluk partileri ders adını bitişik yazar, GM partileri kısa ad kullanır
-$DERS_ESKI = [ordered]@{ 'smmm-bosluk-finansalmuhasebe' = 'Finansal Muhasebe'; 'smmm-bosluk-hukuk' = 'Hukuk'; 'smmm-bosluk-muhasebedenetimi' = 'Muhasebe Denetimi'; 'smmm-bosluk-sermayepiyasas' = 'Sermaye Piyasası Mevzuatı'; 'smmm-bosluk-vergimevzuat' = 'Vergi Mevzuatı ve Uygulaması'; 'smmm-bosluk-muhasebecilik' = 'Meslek Hukuku'; 'smmm-bosluk-finansaltablo' = 'Finansal Tablolar ve Analizi'; 'smmm-bosluk-maliyet' = 'Maliyet Muhasebesi'; 'smmm-denetim-' = 'Muhasebe Denetimi'; 'smmm-gm-p2-fta' = 'Finansal Tablolar ve Analizi'; 'smmm-gm-p2-vergi' = 'Vergi Mevzuatı ve Uygulaması'; 'smmm-gm-p2-maliyet' = 'Maliyet Muhasebesi' }
-function DersBul([string]$etiket, $v) {
-  foreach ($k in $DERS_KISA.Keys) { if ($etiket -match "(^|-)$k(-|$)") { return $DERS_KISA[$k] } }
-  foreach ($k in $DERS_ESKI.Keys) { if ($etiket.StartsWith($k)) { return $DERS_ESKI[$k] } }
-  $h = "$($v.ders)"
-  foreach ($d in $DERS_KISA.Values) { if ($h -and ($h -like "$($d.Split(' ')[0])*")) { return $d } }
-  return ''
-}
-function Katla([string]$s) {
-  $x = "$s".ToLowerInvariant(); foreach ($c in @(@('ç', 'c'), @('ğ', 'g'), @('ı', 'i'), @('İ', 'i'), @('ö', 'o'), @('ş', 's'), @('ü', 'u'))) { $x = $x.Replace($c[0], $c[1]) }
-  $x = $x.Replace('²', '2').Replace('³', '3').Replace('¹', '1'); return ((($x -replace '[^a-z0-9]', ' ') -replace '\s+', ' ').Trim())
-}
-function Ucluler([string]$t) { $k = ($t -replace ' ', ''); $h = New-Object 'System.Collections.Generic.HashSet[string]'; for ($i = 0; $i -le $k.Length - 3; $i++) { [void]$h.Add($k.Substring($i, 3)) }; return , $h }
-function Benzerlik($ax, $bx) { if ($ax.Count -eq 0 -or $bx.Count -eq 0) { return 0.0 }; $n = 0; foreach ($u in $ax) { if ($bx.Contains($u)) { $n++ } }; $b = $ax.Count + $bx.Count - $n; if ($b -le 0) { return 0.0 }; return $n / [double]$b }
+# ⭐ 22.09.2026 — DERS EŞLEMESİ ARTIK ORTAK DOSYADA: arac/smmm-ders-adi.ps1
+#   ÖLÇÜLDÜ: harita yalnız burada duruyordu ve dersini çözemediği partiyi sessizce "ders çözülemedi"
+#   diye düşürüyordu. 439 parti etiketinin 5'i ('-vergi' / '-hukuk' yazımlı ölçüm ve A/B partileri)
+#   çözülemiyordu → 187 taslak, bunların 58'i YAYIN ŞARTINI GEÇEN soru, ambara hiç girmedi.
+#   Harita tek yerde tutulur, öz-sınavı vardır (arac/smmm-ders-adi-sinavi.ps1) ve öz-sınav yerel
+#   parti etiketlerinin TAMAMINI tarayıp çözülemeyeni KÖR diye bildirir.
+. (Join-Path $PSScriptRoot 'smmm-ders-adi.ps1')
+function DersBul([string]$etiket, $v) { return (SmmmDersAdi $etiket $v) }
+# ⭐ 22.09.2026 — İKİZ CETVELİ DE ORTAK DOSYADA: arac/ikiz-olcusu.ps1
+#   ÖLÇÜLDÜ: üretici bu işi BAŞKA bir cetvelle yapıyordu (≥4 harfli kelime kümesi, yalnız soru
+#   metni). Yayın cetvelinin ikiz saydığı 78 çiftte üretim cetvelinin değeri 0,33'e kadar
+#   iniyordu; ambara girmeyen 107 sorunun 47'sinin ikizi vardı ve bunların 24'ünü üretim
+#   cetveli KAÇIRMIŞTI — yani soru yazıldı, hakemden geçti, parası ödendi, sonra burada elendi.
+#   Cetvel artık tek dosyada; öz-sınavı var: arac/ikiz-olcusu-sinavi.ps1
+. (Join-Path $PSScriptRoot 'ikiz-olcusu.ps1')
+function Katla([string]$s) { return (IkizKatla $s) }
+function Ucluler([string]$t) { return (IkizUcluler $t) }
+function Benzerlik($ax, $bx) { return (IkizBenzerlik $ax $bx) }
 
 $aday = New-Object System.Collections.Generic.List[object]
 $dusen = @{}
@@ -105,7 +105,7 @@ $yazilanDosya = New-Object System.Collections.Generic.List[string]
 $siteSayfa = New-Object System.Collections.Generic.List[object]   # 18.09 -SiteKabuk: depodaki kaydir/smmm sayfaları (kabuğa çevrilecek)
 try {
   foreach ($g in @($secim | Group-Object ders | Sort-Object Name)) {
-    $slug = $DERS_SLUG[$g.Name]
+    $slug = SmmmDersSlug $g.Name
     $secYol = Join-Path $calisma "secim-$slug.json"
     [IO.File]::WriteAllText($secYol, (ConvertTo-Json -InputObject @($g.Group | Sort-Object etiket, id | ForEach-Object { [ordered]@{ etiket = $_.etiket; id = $_.id; ders = $_.ders; konu = $_.konu; donem = $_.donem } }) -Depth 3), [Text.UTF8Encoding]::new($false))
     $cikti = "smmm-kasa\sayfa-$slug.html"
