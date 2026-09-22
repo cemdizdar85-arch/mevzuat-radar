@@ -75,8 +75,9 @@ function HakikatNumaralari([string]$metin, [string]$std){
 }
 
 # ambar adları (arac/kgk-kaynak-olcumu.ps1 önbelleği; -Tazele ile orada tazelenir)
-$adOnbellek = Join-Path $depoKok 'veri\fabrika\kosucu-log\kgk-kaynak-adlar.json'
-$adlar = Get-Content $adOnbellek -Raw -Encoding UTF8 | ConvertFrom-Json
+# 22.09: ad listesi ORTAK YARDIMCIDAN (24 saatten eskiyse ambardan tazelenir; 21.09 Kâr Payı vakası)
+. (Join-Path $PSScriptRoot 'kgk-ad-onbellegi.ps1')
+$adlar = KgkAdListesi -DepoKok $depoKok
 $ambarNo = @{}
 foreach($r in $adlar){
   $ad = "$($r.kaynak_ad)"

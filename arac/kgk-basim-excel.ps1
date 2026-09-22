@@ -20,7 +20,9 @@ function Katla([string]$metin){ $m=$metin.ToLowerInvariant(); foreach($cift in @
 $olcum = Get-Content "$depoKok\veri\kgk-kaynak-olcumu.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $kota  = Get-Content "$depoKok\veri\kgk-uretim-kotasi.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $arsiv = Get-Content "$depoKok\veri\kgk-analiz.json" -Raw -Encoding UTF8 | ConvertFrom-Json
-$adlar = Get-Content "$depoKok\veri\fabrika\kosucu-log\kgk-kaynak-adlar.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+# 22.09: ad listesi ORTAK YARDIMCIDAN (bayat önbellek kapısı; 21.09 Kâr Payı vakası)
+. (Join-Path $PSScriptRoot 'kgk-ad-onbellegi.ps1')
+$adlar = KgkAdListesi -DepoKok $depoKok
 $ambarAdlari = @($adlar | ForEach-Object { "$($_.kaynak_ad)" })
 
 $dersAdi=@{ 'Muhasebe Standartlari'='a) Türkiye Muhasebe Standartları'; 'Denetim Standartlari'='b) Türkiye Denetim Standartları'; 'Kurumsal Yonetim'='c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim'; 'Finansal Yonetim'='c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim'; 'Sermaye Piyasasi Mevzuati'='ç) Sermaye Piyasası Mevzuatı'; 'Bankacilik Mevzuati'='d) Bankacılık Mevzuatı'; 'Sigortacilik ve Ozel Emeklilik Mevzuati'='e) Sigortacılık ve Özel Emeklilik Mevzuatı'; 'Surdurulebilirlik Raporlamasi'='f) Kurumsal Sürdürülebilirlik Raporlaması'; 'Surdurulebilirlik Denetimi'='g) Sürdürülebilirlik Denetimi' }

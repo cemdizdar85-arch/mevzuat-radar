@@ -97,8 +97,11 @@ function Dilimle([string]$govde, [int]$boy){
   return $liste
 }
 
+# DIPNOT AYIRICI ortak dosyada (arac/dipnot-ayir.ps1) — iki yutucu ayni kurali kullanir.
+. (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\dipnot-ayir.ps1')
+
 function Parcala([string]$metin, [string]$kisa){
-  $duz = ($metin -replace "`r", "") -replace "[ \t]+", " "
+  $duz = DipnotAyir (($metin -replace "`r", "") -replace "[ \t]+", " ")
   $parcalar = New-Object System.Collections.Generic.List[object]
 
   $rxMadde = [regex]'(?m)^\s*(?<tur>MADDE|Madde|GEÇİCİ MADDE|Geçici MADDE|EK MADDE)\s+(?<no>\d+)\s*[–—-]'

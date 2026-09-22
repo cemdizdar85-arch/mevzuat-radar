@@ -75,7 +75,10 @@ function SY_PdfAraci {
   return ''
 }
 
+# 22.09: yapisik dipnot ayirma (arac/dipnot-ayir.ps1) — "BDS 50027" -> "BDS 500", "aciklamalara64" -> "aciklamalara"
+. (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\dipnot-ayir.ps1')
 function SY_Bol([string]$metin, [string]$std){
+  $metin = DipnotAyir $metin
   # ⚠ 25.08 DERSI — ILK SURUM STANDARDIN EKLERINI TUMUYLE ATLIYORDU.
   # Paragraf numarasi kendi satirinda durur (^\d+$) ve ilk surum yalniz onu
   # ariyordu. Oysa standardin EN DEGERLI bolumu ekte olabilir:

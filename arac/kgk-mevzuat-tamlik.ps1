@@ -70,29 +70,9 @@ $manifest = Get-Content (Join-Path $depoKok 'veri\mevzuat-kaynaklar.json') -Raw 
 #   sayfalı olarak tazelenir ve raporun başına yaş yazılır.
 # BU KAPI ŞUNU GÖRMEZ: tazeleme düşerse (ağ/anahtar) eski önbellekle devam eder — o durumda
 #   ekrana "ÖNBELLEK BAYAT" yazar; sessiz yeşil yoktur.
-$adYolu = Join-Path $depoKok 'veri\fabrika\kosucu-log\kgk-kaynak-adlar.json'
-$adYasSaat = if(Test-Path $adYolu){ [Math]::Round(((Get-Date) - (Get-Item $adYolu).LastWriteTime).TotalHours,1) } else { 9999 }
-if($adYasSaat -gt 24 -or $TazeleAdlar){
-  Write-Host ("ambar adı önbelleği {0} saatlik — tazeleniyor..." -f $adYasSaat)
-  try {
-    $tumAd = New-Object System.Collections.Generic.List[object]
-    $adim = 1000; $ofs = 0
-    while($true){
-      $sayfa = @(); foreach($x in (Invoke-RestMethod -Uri "$SB_URL/rest/v1/dokumanlar?select=kaynak_ad&order=id&limit=$adim&offset=$ofs" -Headers $H -TimeoutSec 180)){ $sayfa += $x }
-      if(-not $sayfa.Count){ break }
-      foreach($x in $sayfa){ $tumAd.Add([pscustomobject]@{ kaynak_ad = "$($x.kaynak_ad)" }) }
-      $ofs += $adim
-      if($sayfa.Count -lt $adim){ break }
-    }
-    if($tumAd.Count -ge 1000){
-      [IO.File]::WriteAllText($adYolu, [string](ConvertTo-Json -InputObject $tumAd.ToArray() -Depth 3), (New-Object Text.UTF8Encoding($false)))
-      Write-Host ("  ambar adı önbelleği tazelendi: {0} kayıt" -f $tumAd.Count)
-      $adYasSaat = 0
-    } else { Write-Host ("  TAZELEME KÖR: ambardan {0} kayıt geldi (<1000) — eski önbellek korundu" -f $tumAd.Count) -ForegroundColor Yellow }
-  } catch { Write-Host ("  TAZELEME DÜŞTÜ: {0} — ÖNBELLEK BAYAT ({1} saat) ile devam" -f $_.Exception.Message, $adYasSaat) -ForegroundColor Yellow }
-}
-Write-Host ("ambar adı önbelleği: {0} saatlik" -f $adYasSaat)
-$adlar = Get-Content $adYolu -Raw -Encoding UTF8 | ConvertFrom-Json
+. (Join-Path $PSScriptRoot 'kgk-ad-onbellegi.ps1')
+$adlar = KgkAdListesi -DepoKok $depoKok -Baslik $H -Tazele:$TazeleAdlar
+
 $belgeler = @{}
 foreach($r in $adlar){
   $ad = "$($r.kaynak_ad)"

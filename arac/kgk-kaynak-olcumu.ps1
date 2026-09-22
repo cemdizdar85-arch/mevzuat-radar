@@ -70,7 +70,11 @@ function GetirSayfa([string]$yolMetni){
 }
 
 # ---------------------------------------------------------------- 1) ad listesi
-if($Tazele -or -not (Test-Path $adOnbellek)){
+# 22.09: yas kapisi - onbellek 24 saatten eskiyse -Tazele verilmese de tazelenir (21.09 Kar Payi vakasi:
+#   119 saatlik onbellek yuzunden ambarda VAR olan madde raporda EKSIK gorunuyordu).
+$adYasSaat = if(Test-Path $adOnbellek){ [Math]::Round(((Get-Date) - (Get-Item $adOnbellek).LastWriteTime).TotalHours,1) } else { 9999 }
+Write-Host ("ambar adi onbellegi: {0} saatlik" -f $adYasSaat)
+if($Tazele -or $adYasSaat -gt 24 -or -not (Test-Path $adOnbellek)){
   $adSatirlari=New-Object System.Collections.Generic.List[object]
   $sonAnahtar=''
   while($true){
