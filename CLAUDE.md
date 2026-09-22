@@ -310,6 +310,19 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      yazmaktır. Kopyayı ikiz kapısı engeller (`arac/ikiz-olcusu.ps1`, 22.09'dan beri **üretimde de** koşar). ⚠ 22.09'da "önceki dalgada
      geçen konuyu alma" denilince havuz 239'dan **39** konuya düşmüştü — bu eleme YANLIŞTIR.
   6. **Zorluk karışımı:** banka sınavdan **zor** olacak (Cem 21.09) — kolay %25 · zor %50 · çok zor %25.
+  7. ⛔⭐ **HER DALGA DÖNGÜ BETİĞİYLE AÇILIR — "yanlış konu basmıyoruz" DENMEZ, GÖSTERİLİR** (Cem 23.09: *"excel güncellenecek
+     ve yanlış konu basmayacağız deme · bunu da kural olarak yap"*). Yeni dalga yalnız
+     `arac/smmm-dalga-dongu.ps1 -Etiket wN -Rezerve '<koşan dalgalar>'` ile kurulur. Betik sırayla: partileri indirir →
+     kapsama tablosunu tazeler → **Excel'i yeniden yazar** → planı rezervli kurar → **KONU DENETİMİ** yapar: yeni dalganın
+     **her konusu** tablodan tek tek kontrol edilir (son 10 yılda sorulmuş mu · açığı var mı · engelli mi · ders adı kanonik mi ·
+     konu dosyası yerinde mi · koşan dalgalar + bu dalga açığı aşıyor mu). **Tek ihlal varsa plan dosyaları silinir, dalga AÇILMAZ.**
+     Betiğin son satırı `DENETİM: …` Cem'e **aynen** gösterilir — "yanlış konu yok" cümlesi yerine o satır yazılır.
+     Koşan/eski bir dalga `-SadeceDenetim` ile denetlenir (dosyaya dokunmaz).
+     **Ölçüldü (23.09, gerçek dalgalarla):** w9 YEŞİL (65 konu, 180/180 son 10 yıl) · eski kuralla kurulmuş w6 KIRMIZI (10+ yıl
+     eski, engelli, hedefi dolu konuları yakaladı) · koşan w8'de 1 ihlal (taşıt satışı: planlı 2 > açık 1 — w7'nin biten yarısı
+     açığı kapattı; koşan dalga durdurulmadı, bedeli 1 fazla soru).
+     🚫 GÖRMEZ: konu adı yazım farkları · paralel dalgaların birbirinin yeni sorusu (ikizi yayın kapısı yakalar).
+     ⚠ Öz-sınavı henüz YOK (gerçek veriyle üç yönlü ölçüldü; sentetik vakalı `dogrula.yml` sınavı iş emri).
   **Tablonun körlükleri yazılıdır:** konu adı yazım farklarını tek konuya indirmez · "çıkmış" köprüden gelir, köprü yanlışsa hedef de
   yanlıştır · ikiz süzgecinin yayında eleyeceğini görmez. Bu üçü **"ölçülmedi"** sayılır, "yok" sayılmaz.
 
