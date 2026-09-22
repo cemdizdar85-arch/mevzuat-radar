@@ -1,5 +1,5 @@
 {
-  "olcum": "21.09.2026 10:13",
+  "olcum": "22.09.2026 09:29",
   "kaynak": "V2 CANLI: soru_havuzu (kasa) + sgs/smmm/kgk-analiz.json (çıkmış) + konu-eslesme.json sözlüğü + kopru-dayanak-sozlugu.json (31.08 tohumu). Günlük robot: konu-koprusu.yml",
   "konu_sayisi": 23908,
   "durum": {
@@ -29,14 +29,14 @@
   ],
   "kasa_okunan_soru": 30569,
   "arsiv_damgasi": {
-    "SMMM": "13.09.2026 15:25",
     "SGS": "18.08.2026",
-    "KGK": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018)"
+    "KGK": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018)",
+    "SMMM": "13.09.2026 15:25"
   },
   "sozlukle_koprulenen_kasa_etiketi": 3075,
   "cikmis_dayanak_olculmedi": 4870,
   "gk_mevzuat_dayanak_temizlenen": 46,
-  "vergi_turu_dayanak_temizlenen": 35,
+  "vergi_turu_dayanak_temizlenen": 34,
   "karantina_donem": null,
   "ders_koprusu": [
     {
@@ -464,7 +464,7 @@
       "konu": "banka kurulus sartlari",
       "donem": 7,
       "cikmis": 7,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık / sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Bankacılık Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık / Bankacılık Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / sermaye piyasasi bankacilik sigortacilik",
       "dayanak": "Bankacılık K. (5411 s.K.)",
       "guc": "ZAYIF"
     },
@@ -734,7 +734,7 @@
       "konu": "devam eden riskler karsiligi",
       "donem": 6,
       "cikmis": 6,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik / Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
       "guc": "ZAYIF"
     },
@@ -1094,7 +1094,7 @@
       "konu": "tms 23 ozellikli varlik",
       "donem": 5,
       "cikmis": 5,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartları / Muhasebe Standartlari",
+      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları / Muhasebe Standartlari",
       "dayanak": "TMS 23",
       "guc": "GUCLU"
     },
@@ -1499,7 +1499,7 @@
       "konu": "tutarlilik kavrami",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Finansal Tablolar ve Analizi / Muh. ve Mali Müş. Meslek Hukuku / Muhasebe Denetimi",
+      "arsiv_ders": "Finansal Tablolar ve Analizi / Muhasebe Denetimi / Muh. ve Mali Müş. Meslek Hukuku",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -1760,7 +1760,7 @@
       "konu": "haksiz fiil unsurlari",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+      "arsiv_ders": "Genel Hukuk Mevzuati / Genel Hukuk Mevzuatı",
       "dayanak": "TTK (6102 s.K.)",
       "guc": "ZAYIF"
     },
@@ -1859,7 +1859,7 @@
       "konu": "kredi acma yetkisi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık / Bankacılık Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı / Bankacılık",
       "dayanak": "Bankacılık K. (5411 s.K.)",
       "guc": "ZAYIF"
     },
@@ -1895,7 +1895,7 @@
       "konu": "borcun sona ermesi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Genel Hukuk Mevzuati",
+      "arsiv_ders": "Genel Hukuk Mevzuati / Genel Hukuk Mevzuatı",
       "dayanak": "TMK (4721 s.K.)",
       "guc": "ZAYIF"
     },
@@ -1967,7 +1967,7 @@
       "konu": "bds 500 denetim kanitlari",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
+      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
       "dayanak": "BDS 500",
       "guc": "GUCLU"
     },
@@ -1976,7 +1976,7 @@
       "konu": "bds 501 stok sayimi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / DENETİM / Türkiye Denetim Standartları",
+      "arsiv_ders": "Denetim / Türkiye Denetim Standartları / DENETİM",
       "dayanak": "BDS 501",
       "guc": "GUCLU"
     },
@@ -1985,7 +1985,7 @@
       "konu": "bds 550 iliskili taraflar",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
+      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
       "dayanak": "BDS 550",
       "guc": "GUCLU"
     },
@@ -1994,7 +1994,7 @@
       "konu": "bds 560 sonraki olaylar",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Denetim / Türkiye Denetim Standartları",
+      "arsiv_ders": "Türkiye Denetim Standartları / Denetim",
       "dayanak": "BDS 560",
       "guc": "GUCLU"
     },
@@ -2003,7 +2003,7 @@
       "konu": "bes devlet katkisi",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "BES K. (4632 s.K.)",
       "guc": "ZAYIF"
     },
@@ -2048,7 +2048,7 @@
       "konu": "borclunun temerrudu",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / genel hukuk mevzuati",
+      "arsiv_ders": "genel hukuk mevzuati / Genel Hukuk Mevzuatı",
       "dayanak": "TBK (6098 s.K.)",
       "guc": "ZAYIF"
     },
@@ -2129,7 +2129,7 @@
       "konu": "varlik yonetim sirketleri",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Bankacılık Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Bankacılık Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
       "dayanak": "Varlik Yonetim Sirketlerinin Kurulus ve Faaliyet Esaslari Hakkinda Yonetmelik",
       "guc": "ZAYIF"
     },
@@ -2165,7 +2165,7 @@
       "konu": "tms 10 sonraki olaylar",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Muhasebe Standartlari / Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari",
       "dayanak": "TMS 10",
       "guc": "GUCLU"
     },
@@ -2174,7 +2174,7 @@
       "konu": "tfrs 16 kullanim hakki varligi olcumu",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartları / Türkiye Muhasebe Standartları",
       "dayanak": "TFRS 16",
       "guc": "GUCLU"
     },
@@ -2192,7 +2192,7 @@
       "konu": "tahvil ihrac esaslari",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sermaye Piyasası Mevzuatı",
       "dayanak": "SPK Tebliğ (II-5.2)",
       "guc": "ZAYIF"
     },
@@ -2300,7 +2300,7 @@
       "konu": "sigorta sirketi kurulusu",
       "donem": 4,
       "cikmis": 4,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
       "dayanak": "Sigortacılık K. (5684 s.K.)",
       "guc": "ZAYIF"
     },
@@ -3407,7 +3407,7 @@
       "konu": "guvence hesabi kapsami",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sigortacılık ve Özel Emeklilik / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3461,7 +3461,7 @@
       "konu": "finansman hiyerarsisi teorisi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3479,7 +3479,7 @@
       "konu": "karsilikli sigorta tanimi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sigortacılık ve Özel Emeklilik / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sigortacılık ve Özel Emeklilik / Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
       "dayanak": "Sigorta ve Reasurans ile Emeklilik Sirketlerinin Teknik Karsiliklarina ve Bu Karsiliklarin Yatirilacagi Varliklara Iliskin Yonetmelik",
       "guc": "ZAYIF"
     },
@@ -3533,7 +3533,7 @@
       "konu": "minimum garanti fonu",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "sermaye piyasasi bankacilik sigortacilik / Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "Sigortacılık K. (5684 s.K.)",
       "guc": "ZAYIF"
     },
@@ -3587,7 +3587,7 @@
       "konu": "kurumsal yonetim etmenleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3605,7 +3605,7 @@
       "konu": "kredi sinirlamasi istisnalari",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "arsiv_ders": "Bankacılık Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3785,7 +3785,7 @@
       "konu": "banka gayrimenkul siniri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "arsiv_ders": "Bankacılık Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "SPK Tebliğ (Seri: V, No: 34)",
       "guc": "ZAYIF"
     },
@@ -3812,7 +3812,7 @@
       "konu": "bagimsiz uye kriterleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / KURUMSAL YÖNETİM İLKELERİ VE FİNANSAL YÖNETİM / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "Kurumsal Yonetim Tebligi (II-17.1)",
       "guc": "ZAYIF"
     },
@@ -3875,7 +3875,7 @@
       "konu": "agirlikli sermaye maliyeti",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "",
       "guc": "OLCULMEDI"
     },
@@ -3974,7 +3974,7 @@
       "konu": "denetim komitesi gorevleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
       "dayanak": "Bankacılık K. (5411 s.K.)",
       "guc": "ZAYIF"
     },
@@ -4001,7 +4001,7 @@
       "konu": "degistirilebilir tahviller",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı / Sermaye Piyasası",
+      "arsiv_ders": "Sermaye Piyasası / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası Mevzuatı",
       "dayanak": "Borclanma Araclari Tebligi (VII-128.8)",
       "guc": "ZAYIF"
     },
@@ -4046,7 +4046,7 @@
       "konu": "capm beklenen getiri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Kurumsal Yonetim Ilkeleri ve Finansal Yonetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+      "arsiv_ders": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim / kurumsal yonetim ve finansal yonetim / Kurumsal Yonetim Ilkeleri ve Finansal Yonetim",
       "dayanak": "TEORI",
       "guc": "ZAYIF"
     },
@@ -4298,7 +4298,7 @@
       "konu": "yillik faaliyet raporu",
       "donem": 3,
       "cikmis": 4,
-      "arsiv_ders": "Genel Hukuk Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Bankacılık Mevzuatı",
+      "arsiv_ders": "Genel Hukuk Mevzuatı / Bankacılık Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "TTK (6102 s.K.)",
       "guc": "ZAYIF"
     },
@@ -4568,7 +4568,7 @@
       "konu": "spk kanunu kapsami",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI",
+      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / sermaye piyasasi bankacilik sigortacilik / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "SPK Karari",
       "guc": "ZAYIF"
     },
@@ -4613,7 +4613,7 @@
       "konu": "sigorta sozlesmesi hukumleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik Mevzuatı",
+      "arsiv_ders": "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "SSİY (Sos. Sig. İşlemleri Yön.)",
       "guc": "ZAYIF"
     },
@@ -4622,7 +4622,7 @@
       "konu": "sigorta ettiren yukumlulukleri",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı / Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati",
+      "arsiv_ders": "Sermaye Piyasasi, Bankacilik, Sigortacilik ve Ozel Emeklilik Mevzuati / SERMAYE PİYASASI, BANKACILIK, SİGORTACILIK VE ÖZEL EMEKLİLİK MEVZUATI / Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı",
       "dayanak": "TTK (6102 s.K.)",
       "guc": "ZAYIF"
     },
@@ -4703,7 +4703,7 @@
       "konu": "ozkaynak degisim tablosu",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Muhasebe Standartlari / Muhasebe / Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari / Muhasebe",
       "dayanak": "BOBI FRS",
       "guc": "ZAYIF"
     },
@@ -4874,7 +4874,7 @@
       "konu": "tms 21 kur cevrimi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / Muhasebe Standartlari / Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartları / Muhasebe Standartlari / Türkiye Muhasebe Standartları",
       "dayanak": "TMS 21",
       "guc": "GUCLU"
     },
@@ -4883,7 +4883,7 @@
       "konu": "tms 21 gecerli para birimi",
       "donem": 3,
       "cikmis": 3,
-      "arsiv_ders": "Türkiye Muhasebe Standartları / MUHASEBE STANDARTLARI / Muhasebe Standartları",
+      "arsiv_ders": "Muhasebe Standartları / MUHASEBE STANDARTLARI / Türkiye Muhasebe Standartları",
       "dayanak": "TMS 21",
       "guc": "GUCLU"
     },
