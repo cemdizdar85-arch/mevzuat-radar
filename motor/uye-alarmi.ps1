@@ -13,6 +13,8 @@
 #    KIRMIZI : en yoğun dakika >= 30  (insan bu hızda kaydolmaz, bot olur)
 #              ya da son 1 saat >= 300
 #    SARI    : en yoğun dakika >= 15, son 1 saat >= 100, son 24 saat >= 1000
+#    SARI    : (25.09 hesap paylaşımı) son 24 saatte ekranı 8+ kez el değiştiren
+#              üye >= 1, ya da 4. cihazla girmeye çalışan üye >= 3
 #    YEŞİL   : hiçbiri
 #    KÖR     : sayım okunamadı (fonksiyon yok / yetki / ağ) — "temiz" SAYILMAZ
 #
@@ -48,6 +50,7 @@ $ESIK = [ordered]@{
   kirmizi_dakika = 30; kirmizi_saat = 300
   sari_dakika = 15; sari_saat = 100; sari_gun = 1000
   tekrar_saat = 6; kor_tekrar_saat = 24
+  paylasim_sari = 1; cihaz_siniri_sari = 3
 }
 $SEVIYE_SIRA = @{ 'YESIL' = 0; 'SARI' = 1; 'KIRMIZI' = 2; 'KOR' = 3 }
 
@@ -63,6 +66,11 @@ function Get-UyeSeviyesi {
   if ($dakikaTepe -ge $ESIK.sari_dakika)     { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "bir dakikada $dakikaTepe kayit (esik $($ESIK.sari_dakika))" } }
   if ($saatlik -ge $ESIK.sari_saat)          { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "son 1 saatte $saatlik kayit (esik $($ESIK.sari_saat))" } }
   if ($gunluk -ge $ESIK.sari_gun)            { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "son 24 saatte $gunluk kayit (esik $($ESIK.sari_gun))" } }
+  # 25.09 hesap paylaşımı belirtileri (eski uye_sayim bu alanları döndürmez -> 0 sayılır)
+  $paylasimSupheli = [int]$SayimGirdisi.paylasim_supheli
+  $cihazSiniriAsan = [int]$SayimGirdisi.cihaz_siniri_24s
+  if ($paylasimSupheli -ge $ESIK.paylasim_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$paylasimSupheli uyede ekran 24 saatte 8+ kez el degistirdi (hesap paylasimi belirtisi)" } }
+  if ($cihazSiniriAsan -ge $ESIK.cihaz_siniri_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$cihazSiniriAsan uye 24 saatte 4. cihazla girmeye calisti (esik $($ESIK.cihaz_siniri_sari))" } }
   return [pscustomobject]@{ seviye = 'YESIL'; gerekce = 'esiklerin altinda' }
 }
 
@@ -89,7 +97,11 @@ if ($Sinav) {
     @{ ad = 'dakikada 16 (hizli)';       s = @{ son_1_saat = 20;  son_24_saat = 20;   en_yogun_dakika = 16 }; bek = 'SARI' },
     @{ ad = 'dakikada 35 (bot hizi)';    s = @{ son_1_saat = 40;  son_24_saat = 40;   en_yogun_dakika = 35 }; bek = 'KIRMIZI' },
     @{ ad = 'saatte 350';                s = @{ son_1_saat = 350; son_24_saat = 400;  en_yogun_dakika = 10 }; bek = 'KIRMIZI' },
-    @{ ad = 'sayim yok';                 s = $null;                                                               bek = 'KOR' }
+    @{ ad = 'sayim yok';                 s = $null;                                                               bek = 'KOR' },
+    @{ ad = 'paylasim supheli 1 uye';    s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; paylasim_supheli = 1; cihaz_siniri_24s = 0 }; bek = 'SARI' },
+    @{ ad = 'cihaz siniri 2 (yanlis alarm vermemeli)'; s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; paylasim_supheli = 0; cihaz_siniri_24s = 2 }; bek = 'YESIL' },
+    @{ ad = 'cihaz siniri 3 uye';        s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; paylasim_supheli = 0; cihaz_siniri_24s = 3 }; bek = 'SARI' },
+    @{ ad = 'eski sayim (paylasim alani yok)'; s = @{ son_1_saat = 1; son_24_saat = 2; en_yogun_dakika = 1 };           bek = 'YESIL' }
   )
   $dusen = 0
   foreach ($v in $vakalar) {
@@ -117,7 +129,7 @@ if ($Sinav) {
   }
   $toplamVaka = $vakalar.Count + $mailVakalari.Count
   if ($dusen -gt 0) { Write-Host "UYE ALARMI OZ-SINAVI KIRMIZI ($dusen / $toplamVaka vaka dustu)"; exit 1 }
-  Write-Host "UYE ALARMI OZ-SINAVI YESIL ($toplamVaka vaka: 8 seviye + 7 mail tekrari)"
+  Write-Host "UYE ALARMI OZ-SINAVI YESIL ($toplamVaka vaka: $($vakalar.Count) seviye + $($mailVakalari.Count) mail tekrari)"
   exit 0
 }
 
@@ -171,6 +183,8 @@ Son 1 saat: $($sayim.son_1_saat) yeni uye
 Son 24 saat: $($sayim.son_24_saat) yeni uye
 Son 1 saatin en yogun dakikasi: $($sayim.en_yogun_dakika) kayit
 Toplam uye: $($sayim.toplam)
+Hesap paylasimi belirtisi (24 sa, ekran 8+ kez el degistirdi): $([int]$sayim.paylasim_supheli) uye
+4. cihazla girmeye calisan (24 sa): $([int]$sayim.cihaz_siniri_24s) uye
 
 Ne yapmali:
 - Bir dakikada 30'dan fazla kayit insan hizi degildir; bot olabilir.
@@ -206,13 +220,16 @@ $rapor = [ordered]@{
   son_24_saat = if ($sayim) { [int]$sayim.son_24_saat } else { $null }
   en_yogun_dakika = if ($sayim) { [int]$sayim.en_yogun_dakika } else { $null }
   toplam = if ($sayim) { [int]$sayim.toplam } else { $null }
+  paylasim_supheli = if ($sayim) { [int]$sayim.paylasim_supheli } else { $null }
+  cihaz_siniri_24s = if ($sayim) { [int]$sayim.cihaz_siniri_24s } else { $null }
   okuma_hatasi = if ($okumaHatasi) { $okumaHatasi } else { $null }
   esikler = $ESIK
   son_alarm = $yeniAlarm
   gormedigi = @(
     'yavas bot: saatte 100 / dakikada 15 altinda, cok IP - insandan ayirt edilemez',
     'sahte hesabin niteligi (uydurma alan adi) - e-postaya bilerek bakilmaz',
-    'mesru kalabalik da SARI/KIRMIZI yakar - alarm "bak" der, "saldiri var" demez'
+    'mesru kalabalik da SARI/KIRMIZI yakar - alarm "bak" der, "saldiri var" demez',
+    'sirali paylasim (biri sabah biri aksam, toplam 3 cihazi asmadan) ekran el degistirmesi az oldugu icin gorunmez'
   )
 }
 if (-not $Kuru) { RaporYaz -Hedef $raporYolu -Nesne $rapor | Out-Null }

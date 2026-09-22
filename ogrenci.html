@@ -107,6 +107,13 @@
       <h2>Paketlerim</h2>
       <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
     </div>
+    <!-- 25.09 CİHAZLARIM (hesap paylaşım koruması): paket en fazla 3 cihazda, aynı anda tek
+         ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->
+    <div class="og-bolum" id="cihazlarim">
+      <h2>Cihazlarım</h2>
+      <p class="og-alt" style="margin:0 0 8px">Paketin en fazla <b>3 cihazda</b> kullanılabilir ve <b>aynı anda tek ekranda</b> açık olur. Yeni bir cihaz eklemek için eskisini buradan çıkarabilirsin.</p>
+      <div id="ogCihazlar"><p class="og-alt" style="margin:0">Cihazların okunuyor…</p></div>
+    </div>
     <h2 style="font-size:20px;margin:28px 0 0" id="ogIlerleme">Staja Giriş ilerlemen</h2>
     <div class="og-kartlar">
       <div class="og-kart"><b id="ogGun">–</b><span>gün kaldı · <span id="ogTarih">21 Kasım 2026</span></span></div>
@@ -139,6 +146,7 @@
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <!-- 25.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
 <script src="captcha.js"></script>
+<script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js"></script>
@@ -214,11 +222,42 @@
       location.replace(s); return true;
     }catch(e){ return false; }
   }
+  /* 25.09 CİHAZLARIM — cihaz-kapisi.js'in cihazlarim/cihaz_cikar fonksiyonları. SQL basılmamışsa
+     (ttCihaz.listele null döner) bölüm dürüstçe "henüz açılmadı" der, sayfanın geri kalanı etkilenmez. */
+  async function cihazlarimCiz(){
+    var kutu=$('ogCihazlar');
+    if(!window.ttCihaz){ kutu.innerHTML='<p class="og-alt" style="margin:0">Cihaz listesi şu an yüklenemedi.</p>'; return; }
+    var v=await window.ttCihaz.listele(sb);
+    if(!v){ kutu.innerHTML='<p class="og-alt" style="margin:0">Cihaz koruması henüz açılmadı.</p>'; return; }
+    var liste=v.cihazlar||[];
+    if(!liste.length){ kutu.innerHTML='<p class="og-alt" style="margin:0">Henüz kayıtlı cihaz yok. Paketli bir soru sayfasına girdiğinde bu cihaz burada görünür.</p>'; return; }
+    var esc=function(t){ var e=document.createElement('div'); e.textContent=String(t==null?'':t); return e.innerHTML; };
+    var tarih=function(t){ return t?new Date(t).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):''; };
+    var h='<div class="og-kutu" style="padding:6px 16px">';
+    liste.forEach(function(c){
+      h+='<div class="og-satir"><div><b>'+esc(c.etiket||'Cihaz')+'</b>'+(c.bu_cihaz?' <span style="color:var(--amber)">· bu cihaz</span>':'')+(c.aktif_ekran?' <span style="color:var(--green)">· şu an açık</span>':'')+
+         '<br><span>son giriş '+esc(tarih(c.son_gorulme))+'</span></div>'+
+         '<button class="og-btn" type="button" data-cihaz="'+esc(c.cihaz_id)+'"'+(v.cikarma_hakki>0?'':' disabled')+'>Çıkar</button></div>';
+    });
+    h+='</div><p class="og-alt" style="margin:8px 0 0;font-size:13.5px">'+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay <b>'+v.cikarma_hakki+'</b> çıkarma hakkın kaldı (30 günde en fazla 2).</p><div class="og-hata" id="ogCihazHata"></div>';
+    kutu.innerHTML=h;
+    kutu.querySelectorAll('button[data-cihaz]').forEach(function(b){
+      b.onclick=async function(){
+        if(!confirm('Bu cihazı çıkarmak istiyor musun? O cihazdan paketli içeriğe yeniden girilirse yeni cihaz sayılır.')) return;
+        b.disabled=true;
+        var r=await window.ttCihaz.cikar(sb, b.getAttribute('data-cihaz'));
+        if(r && r.durum==='aylik_sinir'){ $('ogCihazHata').textContent='Bu ay çıkarma hakkın doldu. Yeniden: '+tarih(r.yeniden)+'.'; b.disabled=false; return; }
+        if(!r || r.durum!=='tamam'){ $('ogCihazHata').textContent='Cihaz çıkarılamadı, tekrar dene.'; b.disabled=false; return; }
+        cihazlarimCiz().catch(function(){});
+      };
+    });
+  }
   async function panel(user){
     if(sonraGit()) return;
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
     $('ogKim').textContent=user.email||'';
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
+    cihazlarimCiz().catch(function(){ $('ogCihazlar').innerHTML='<p class="og-alt" style="margin:0">Cihaz bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;
     /* 1) cihazdakini hesaba aktar (tekil anahtar - iki kez yazılmaz) */
     if(cihaz.length){

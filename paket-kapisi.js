@@ -86,6 +86,20 @@
     if (document.body) cizim(); else document.addEventListener('DOMContentLoaded', cizim);
   }
 
+  /* 25.09 HESAP PAYLAŞIM KORUMASI (cihaz-kapisi.js): tek aktif ekran + en fazla 3 cihaz +
+     filigran. Yalnız aktif paket görülünce, sayfa AÇILDIKTAN sonra yüklenir; betik inmezse
+     ya da SQL basılmamışsa hiçbir şey kapanmaz (fail-open). */
+  function cihazKorumasi(sb, kullanici) {
+    try {
+      var calistir = function () { if (window.ttCihaz) window.ttCihaz.koru(sb, kullanici); };
+      if (window.ttCihaz) return calistir();
+      var s = document.createElement('script');
+      s.src = KOK + 'cihaz-kapisi.js';
+      s.onload = calistir;
+      (document.head || kok).appendChild(s);
+    } catch (e) {}
+  }
+
   var zaman = setTimeout(function () { perde('hata'); }, 9000);
 
   function kutuphane(sonra) {
@@ -122,7 +136,11 @@
         if (sinavi === 'yeterlilik') return p === 'yeterlilik' || p.indexOf('yeterlilik-') === 0 || p === 'smmm' || p === 'yeterlilik-kgk';
         return false;
       };
-      if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) return ac();
+      if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) {
+        ac();                               // ÖNCE sayfa açılır ...
+        cihazKorumasi(sb, oturum.user);     // ... SONRA paylaşım koruması (arızada üye içeride kalır)
+        return;
+      }
       perde('paket');
     } catch (e) { clearTimeout(zaman); perde('hata'); }
   });
