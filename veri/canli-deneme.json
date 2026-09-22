@@ -2,12 +2,48 @@
   "_aciklama": "Turkiye Geneli Canli Deneme takvimi (Cem onaylari 06.08.2026 gece: 'tarihler uygun', 'hangi sinav yakinsa ilk ona - staja giris', 'sonraki hafta bitirme'). DONUSUMLU SERI: pazar sabahlari, bir hafta SGS bir hafta Yeterlilik. Sinav tarihleri resmi: SGS 21.11.2026, Yeterlilik 3. donem 28.11.2026 (TURMOB takvimi, genc.html). Sinav SITEDE cozulur; kilitli-set mimarisi (saat gelince site acar; 5k eszamanli yuke dayanikli, veritabanina yuk sifir). Katilim BEDELSIZ (Cem karari); oturum sonrasi kaynakli aciklamalar + kor nokta raporu uyeye.",
   "durum": "kayit",
   "oturumlar": [
-    { "ad": "Tanışma Denemesi",  "sinav": "SGS",        "tarih": "23.08.2026", "saat": "10:00", "not": "Açılış oturumu: seviyeni gör. Katılım azsa yüzdelik yerine seviye raporu (rakam disiplini)." },
-    { "ad": "Tanışma Denemesi",  "sinav": "Yeterlilik", "tarih": "30.08.2026", "saat": "10:00", "not": "Yeterlilik tarafının açılış oturumu." },
-    { "ad": "Başvuru Denemesi",  "sinav": "SGS",        "tarih": "27.09.2026", "saat": "10:00", "not": "SGS başvuru penceresi ortası (21 Eyl - 9 Eki): 'başvurayım mı?' kararına gerçek yüzdelik cevap." },
-    { "ad": "Ara Deneme",        "sinav": "Yeterlilik", "tarih": "04.10.2026", "saat": "10:00", "not": "Yeterlilik yol ölçümü." },
-    { "ad": "Genel Prova",       "sinav": "SGS",        "tarih": "01.11.2026", "saat": "10:00", "not": "SGS'ye (21.11) 3 hafta kala büyük final." },
-    { "ad": "Genel Prova",       "sinav": "Yeterlilik", "tarih": "08.11.2026", "saat": "10:00", "not": "Yeterlilik'e (28.11) 3 hafta kala büyük final." }
+    {
+      "ad": "Tanışma Denemesi",
+      "sinav": "SGS",
+      "tarih": "23.08.2026",
+      "saat": "10:00",
+      "not": "Açılış oturumu: seviyeni gör. Katılım azsa yüzdelik yerine seviye raporu (rakam disiplini)."
+    },
+    {
+      "ad": "Tanışma Denemesi",
+      "sinav": "Yeterlilik",
+      "tarih": "30.08.2026",
+      "saat": "10:00",
+      "not": "Yeterlilik tarafının açılış oturumu."
+    },
+    {
+      "ad": "Başvuru Denemesi",
+      "sinav": "SGS",
+      "tarih": "04.10.2026",
+      "saat": "10:00",
+      "not": "SGS basvuru penceresinin SON HAFTASI (21 Eyl - 9 Eki): basvuru kapanmadan once son olcum. 22.09 Cem karari: 27.09 duyuruya vakit yok, bir hafta kaydirildi."
+    },
+    {
+      "ad": "Ara Deneme",
+      "sinav": "Yeterlilik",
+      "tarih": "11.10.2026",
+      "saat": "10:00",
+      "not": "Yeterlilik yol olcumu. 22.09 Cem karari: SGS bir hafta kayinca donusumlu seri korunarak 04.10 -> 11.10."
+    },
+    {
+      "ad": "Genel Prova",
+      "sinav": "SGS",
+      "tarih": "01.11.2026",
+      "saat": "10:00",
+      "not": "SGS'ye (21.11) 3 hafta kala büyük final."
+    },
+    {
+      "ad": "Genel Prova",
+      "sinav": "Yeterlilik",
+      "tarih": "08.11.2026",
+      "saat": "10:00",
+      "not": "Yeterlilik'e (28.11) 3 hafta kala büyük final."
+    }
   ],
   "gorev": "#71 - acilisin ilk buyuk etkinligi"
 }
