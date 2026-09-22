@@ -1,0 +1,61 @@
+# SMMM BİTİRME KAPSAMA TABLOSU — her sabah (22.09.2026, Cem "1 ve 2 yap")
+#
+# NİYE: "hangi konuya kaç soru lazım" sorusu her seferinde elde hesaplanıyordu. 22.09'da
+# ölçüldü ki kapsam SIKLIĞA gitmemiş: çıkmış sınavlarda 31 kez görülen "bilanço düzenleme"de
+# ve 25 kez görülen "şüpheli alacak karşılığı"nda SIFIR sorumuz vardı. Tablo artık her sabah
+# taze duruyor; basım planı CLAUDE.md kuralı gereği bu tablodan kurulur.
+#
+# BEDEL 0 — model çağrısı YOK. Yalnız ambardan parti indirir ve yerel dosya okur.
+# ⚠ Excel (.xlsx) BURADA üretilmez: Excel COM yalnız Cem'in makinesinde var.
+#   Bulutta üretilen, depoya giren özet: veri/SMMM-KAPSAMA.md
+# 🚫 BU İŞ ŞUNU GÖRMEZ: konu adı yazım farklarını (aynı konu iki satır olur ve "hiç
+#   yazmadık" sayısını şişirir) · köprünün doğruluğunu · ikiz süzgecinin yayında eleyeceğini.
+name: SMMM Kapsama Tablosu (0 USD)
+
+on:
+  schedule:
+    - cron: '35 5 * * *'      # 08:35 TR
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: smmm-kapsama
+  cancel-in-progress: false
+
+jobs:
+  kapsama:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Partileri ambardan indir (bedel 0)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./arac/parti-senkron.ps1 -Indir -Yaz -Sinav SMMM -OnEk 'smmm-'
+          if ($LASTEXITCODE) { throw "parti indirme dustu ($LASTEXITCODE)" }
+
+      - name: Kapsama tablosunu uret
+        shell: pwsh
+        run: |
+          ./arac/smmm-kapsama-tablosu.ps1
+          if ($LASTEXITCODE) { throw "kapsama tablosu dustu ($LASTEXITCODE)" }
+          if (-not (Test-Path veri/SMMM-KAPSAMA.md)) { throw "ozet yazilmadi" }
+
+      # ⚠ veri/fabrika gitignore'da: CSV depoya GIRMEZ, yalniz MD ozet girer.
+      #   Soru metni hicbir dosyaya basilmaz (bulut gunlugu herkese acik - CLAUDE.md bulut guvenligi).
+      - name: Degisiklik varsa yayinla
+        shell: pwsh
+        run: |
+          git config user.name  "mevzuat-radar-robot"
+          git config user.email "robot@tetikte.local"
+          git add veri/SMMM-KAPSAMA.md
+          $fark = git diff --cached --name-only
+          if (-not $fark) { "degisiklik yok - commit atlandi"; exit 0 }
+          git commit -m "SMMM kapsama tablosu tazelendi [robot]"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main

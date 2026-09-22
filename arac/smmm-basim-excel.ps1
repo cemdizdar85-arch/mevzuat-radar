@@ -136,8 +136,18 @@ try {
   )
   [void](Tablo $s5 @('sütun / not', 'anlamı') $aciklama { param($r) @($r[0], $r[1]) })
 
+  # ⚠ 22.09: dosya açıksa (Excel'de ya da OneDrive kilidinde) SaveAs COMException veriyor ve
+  #   bütün iş düşüyordu. Cem'in açık dosyasını KAPATMAYIZ; damgalı yeni ada yazılır ve söylenir.
   if (Test-Path $Cikti) { Remove-Item $Cikti -Force -ErrorAction SilentlyContinue }
-  $wb.SaveAs($Cikti, 51); $wb.Close($false)
-  "EXCEL: $Cikti"
+  $yazilan = $Cikti
+  try { $wb.SaveAs($Cikti, 51) }
+  catch {
+    $yedekAd = [IO.Path]::Combine([IO.Path]::GetDirectoryName($Cikti),
+      ([IO.Path]::GetFileNameWithoutExtension($Cikti) + '-' + (Get-Date -Format 'yyyyMMdd-HHmm') + '.xlsx'))
+    Write-Host "  '$Cikti' yazılamadı (dosya açık olabilir) — yeni ada yazılıyor" -ForegroundColor Yellow
+    $wb.SaveAs($yedekAd, 51); $yazilan = $yedekAd
+  }
+  $wb.Close($false)
+  "EXCEL: $yazilan"
 }
 finally { if ($xl) { $xl.Quit(); [void][Runtime.InteropServices.Marshal]::ReleaseComObject($xl) } }

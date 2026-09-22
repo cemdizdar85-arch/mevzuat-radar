@@ -30,7 +30,21 @@
     ... -Ders 'Vergi'      (tek ders)
 ================================================================================
 #>
-param([int]$HedefKat = 3, [string]$Ders = '', [switch]$Sessiz)
+param(
+  [int]$HedefKat = 3, [string]$Ders = '', [switch]$Sessiz,
+  # ⭐ 22.09.2026 (Cem "1 ve 2 yap"): "hedef = çıkmış × kat" formülü bitirme hedefiyle
+  #   KONUŞMUYORDU. Ölçüldü: kat 1'de bile açık 8.434, kat 3'te 16.697 çıkıyor — çünkü
+  #   köprüde 8.318 konu var ve her birine en az 1 hedef düşüyor. Cem'in hedefi ise
+  #   BANKANIN TOPLAMI (4.000 soru), konu başına kat değil.
+  #   -ToplamHedef verilince hedef, SIKLIK AĞIRLIKLI olarak o toplamdan dağıtılır:
+  #     hedef_i = ToplamHedef × çıkmış_i / Σçıkmış   (çıkmış=0 olan konuya hedef 0)
+  #   Böylece "bitirdik mi" sorusunun cevabı tek sayıdır: toplam açık.
+  #   ⚠ Taban yok: çıkmışı 1 olan konu bu dağıtımda 1'in altında kalıp 0 hedef alabilir.
+  #     Bu bilinçlidir — nadir konu bankanın önceliği değildir. Kat modu hâlâ duruyor.
+  #   VARSAYILAN 4000: Cem'in bitirme hedefi (bkz. hafıza "bitirme hedefi 4.000→8.000").
+  #   Kat moduna dönmek için: -ToplamHedef 0 -HedefKat 3
+  [int]$ToplamHedef = 4000
+)
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 $kok = Split-Path -Parent $buDizin
@@ -101,11 +115,15 @@ $satir = New-Object System.Collections.Generic.List[object]
 $tumKonu = New-Object 'System.Collections.Generic.HashSet[string]'
 foreach ($n in $cikmis.Keys) { [void]$tumKonu.Add($n) }
 foreach ($n in $yazdik.Keys) { [void]$tumKonu.Add($n) }
+$cikmisToplam = 0
+if ($ToplamHedef -gt 0) { foreach ($n in $tumKonu) { $cikmisToplam += [int]$cikmis[$n] } }
 foreach ($n in $tumKonu) {
   $c = [int]$cikmis[$n]
   $d = $(if ($kopruDers.ContainsKey($n) -and $kopruDers[$n]) { $kopruDers[$n] } elseif ($dersKonu.ContainsKey($n)) { $dersKonu[$n] } else { '' })
   if ($Ders -and $d -notmatch $Ders) { continue }
-  $hedef = [Math]::Max(1, $c * $HedefKat)
+  $hedef = $(if ($ToplamHedef -gt 0) {
+      if ($c -le 0 -or $cikmisToplam -le 0) { 0 } else { [int][Math]::Round($ToplamHedef * $c / [double]$cikmisToplam) }
+    } else { [Math]::Max(1, $c * $HedefKat) })
   $yay = [int]$yayin[$n]
   $acik = [Math]::Max(0, $hedef - $yay)
   $durum = $(if ($yay -ge $hedef) { 'YETER' } elseif ($yay -eq 0) { 'HIC YOK' } else { 'EKSIK' })
@@ -123,7 +141,8 @@ $satir | Sort-Object @{e = { $_.ders } }, @{e = { $_.acik }; Descending = $true 
 if (-not $Sessiz) {
   $acikToplam = ($satir | Where-Object { -not $_.engel } | Measure-Object acik -Sum).Sum
   $engelliAcik = ($satir | Where-Object { $_.engel } | Measure-Object acik -Sum).Sum
-  "SMMM KAPSAMA (hedef = cikmis x $HedefKat) · parti dosyasi $partiSay"
+  $kuralAd = $(if ($ToplamHedef -gt 0) { "hedef = SIKLIK AGIRLIKLI, banka toplami $ToplamHedef" } else { "hedef = cikmis x $HedefKat" })
+  "SMMM KAPSAMA ($kuralAd) · parti dosyasi $partiSay"
   "  konu {0} · yayinlanabilir {1} · hedef {2}" -f $satir.Count, (($satir | Measure-Object yayinlanabilir -Sum).Sum), (($satir | Measure-Object hedef -Sum).Sum)
   "  ACIK (basilabilir)  : {0}" -f $acikToplam
   "  ACIK ama ENGELLI    : {0}  (kisir/kaynak borcu - once kaynak)" -f $engelliAcik
@@ -146,3 +165,51 @@ if (-not $Sessiz) {
   ''
   "CSV: veri/fabrika/smmm-kapsama.csv"
 }
+
+# --- KOMMIT EDİLEBİLİR ÖZET (veri/fabrika gitignore'da; robot bunu yayınlar) ---
+$fazlaTop = 0; foreach ($s in $satir) { $fazlaTop += [Math]::Max(0, [int]$s.yayinlanabilir - [int]$s.hedef) }
+$hic = @($satir | Where-Object { [int]$_.yayinlanabilir -eq 0 -and [int]$_.hedef -gt 0 })
+$md = New-Object System.Collections.Generic.List[string]
+$md.Add('# SMMM BİTİRME — KONU KAPSAMA')
+$md.Add('')
+$md.Add("> Türetilmiştir (``arac/smmm-kapsama-tablosu.ps1``), **elle düzenlenmez**. Ölçüm: $(Get-Date -Format 'yyyy-MM-dd HH:mm')")
+$md.Add("> Kural: " + $(if ($ToplamHedef -gt 0) { "hedef **sıklık ağırlıklı**, banka toplamı **$ToplamHedef**" } else { "hedef = çıkmış × $HedefKat" }))
+$md.Add('> Excel: `arac/smmm-basim-excel.ps1` (yerelde, Excel COM ister) · Plan: `arac/smmm-plan-kur.ps1`')
+$md.Add('')
+$md.Add('| | soru |')
+$md.Add('|---|---:|')
+$md.Add("| hedef | $(($satir | Measure-Object hedef -Sum).Sum) |")
+$md.Add("| bugün yayınlanabilir | $(($satir | Measure-Object yayinlanabilir -Sum).Sum) |")
+$md.Add("| **EKSİK (açık)** | **$(($satir | Measure-Object acik -Sum).Sum)** |")
+$md.Add("| …bunun engellisi (kısır/kaynak borcu) | $(($satir | Where-Object { $_.engel } | Measure-Object acik -Sum).Sum) |")
+$md.Add("| FAZLA yazdığımız (hedef üstü) | $fazlaTop |")
+$md.Add("| hiç yazmadığımız konu | $($hic.Count) (hedefi $(($hic | Measure-Object hedef -Sum).Sum) soru) |")
+$md.Add('')
+$md.Add('## Ders ders')
+$md.Add('')
+$md.Add('| ders | konu | sınavda çıktı | yayınlanabilir | hedef | açık | açık-engelli |')
+$md.Add('|---|---:|---:|---:|---:|---:|---:|')
+foreach ($g in ($satir | Where-Object { $_.ders -notmatch '/' } | Group-Object ders | Sort-Object { ($_.Group | Where-Object { -not $_.engel } | Measure-Object acik -Sum).Sum } -Descending)) {
+  $md.Add(("| {0} | {1} | {2} | {3} | {4} | {5} | {6} |" -f $(if ($g.Name) { $g.Name } else { '(ders yok)' }), $g.Count,
+      ($g.Group | Measure-Object cikmis -Sum).Sum, ($g.Group | Measure-Object yayinlanabilir -Sum).Sum,
+      ($g.Group | Measure-Object hedef -Sum).Sum,
+      (($g.Group | Where-Object { -not $_.engel } | Measure-Object acik -Sum).Sum),
+      (($g.Group | Where-Object { $_.engel } | Measure-Object acik -Sum).Sum)))
+}
+$md.Add('')
+$md.Add('## En çok çıkmış ama hiç yazmadığımız 25 konu')
+$md.Add('')
+$md.Add('| çıkmış | hedef | konu | ders | engel |')
+$md.Add('|---:|---:|---|---|---|')
+foreach ($x in ($hic | Sort-Object { [int]$_.cikmis } -Descending | Select-Object -First 25)) {
+  $md.Add(("| {0} | {1} | {2} | {3} | {4} |" -f $x.cikmis, $x.hedef, ("$($x.konu)" -replace '\|', '/'), $x.ders, $x.engel))
+}
+$md.Add('')
+$md.Add('## Bu tablo şunu GÖRMEZ')
+$md.Add('')
+$md.Add('- Konu adının farklı yazımlarını tek konuya indirmez — aynı konu iki satırda görünür ve "hiç yazmadık" sayısını ŞİŞİRİR.')
+$md.Add('- "sınavda çıktı" konu köprüsünden gelir; köprü yanlışsa hedef de yanlıştır.')
+$md.Add('- İkiz süzgecini görmez: yayınlanabilir bir soru, yayında benzeri olduğu için yine de elenebilir.')
+$md.Add('')
+[IO.File]::WriteAllText((Join-Path $kok 'veri\SMMM-KAPSAMA.md'), ($md -join "`r`n"), (New-Object Text.UTF8Encoding $false))
+if (-not $Sessiz) { 'MD : veri/SMMM-KAPSAMA.md' }
