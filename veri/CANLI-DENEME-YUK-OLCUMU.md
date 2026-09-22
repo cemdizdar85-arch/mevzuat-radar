@@ -105,9 +105,16 @@ taklit edildi); prova sonrası `canli_sonuc` = **0 satır** (ölçüldü).
 
 **Sonuç:** "sınav bitince 5.000 kişi aynı anda üye olsun" tasarımı bu ayarlarla **ilk saatte 30 kişide tıkanırdı**.
 Bu yüzden üyelik kapısı sınavdan ÖNCEYE alındı ("Yerini ayır") ve üyelik kontrolü ağa gitmeyecek şekilde kuruldu.
-Ama 12 güne yayılsa bile tek bir viral gönderi saatte 30'u aşar → **ayar kararı Cem'de** (güvenlik ayarı):
-- (A) e-posta tavanını yükselt + Resend planını doğrula, ya da
-- (B) kayıtta e-posta onayını kapat (anında hesap, e-posta bağımlılığı sıfır).
+Ama 12 güne yayılsa bile tek bir viral gönderi saatte 30'u aşar → ayar kararı Cem'deydi (güvenlik ayarı).
+
+✅ **24.09 KARAR VE UYGULAMA (Cem: "kapat onayı sen yap"): e-posta onayı KAPATILDI.**
+Panel → Authentication → Sign In / Providers → "Confirm email" KAPALI, "Successfully updated settings".
+Doğrulama (dışarıdan, ölçüldü): `/auth/v1/settings` → `mailer_autoconfirm: true`.
+Uçtan uca deneme: prova hesabıyla kayıt → **anında oturum** geldi, e-posta onaylı sayıldı, **e-posta gönderilmedi**;
+prova hesabı yönetici API'siyle silindi (tekrar aranınca bulunamadı).
+Sonuç: kayıt yolunda saatte-30 tavanı ARTIK YOK. Şifre sıfırlama e-postaları hâlâ bu tavana tabi (düşük hacim).
+Bedeli (bilerek kabul edildi): adresler doğrulanmamış — yanlış yazılmış/uydurma adres üye olabilir;
+toplu tanıtım e-postası bu listeye körlemesine atılmamalı (geri dönen posta Resend itibarını düşürür).
 
 ## 3d · ⭐ ÇOK TARAYICILI PROVA (24.09 gece, iki koşu)
 
