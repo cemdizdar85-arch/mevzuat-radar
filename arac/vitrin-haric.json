@@ -1,5 +1,5 @@
 {
-  "aciklama": "Ana sayfa vitrinine (kaydir/vitrin/<sinav>.html) GİRMEYECEK sorular, gerekçeli. Okuyan: motor/vitrin-soru-sec.js. 23.09.2026 Cem \"1 ve 2 yap\": 70 Yeterlilik vitrin sorusu elle okundu; konu etiketi soruyla uyuşmayan ya da kökü bozuk soru çıkarıldı (rozetteki çıkma sayısı etiketten hesaplanıyor, yanlış etiket = yanlış iddia). Bu liste KASADAKİ soruyu düzeltmez - etiket onarımı sınav kolunun işi. haric_konu: etiketi kasada sistematik olarak başka konuya yapışmış konular (\"<sinav>|<katlanmış konu>\"); okunan her örnek yanlıştı.",
+  "aciklama": "Ana sayfa vitrinine ve seviye testi setine GİRMEYECEK sorular, gerekçeli. Okuyan: motor/vitrin-soru-sec.js. 23.09.2026 Cem \"1 ve 2 yap\": 70 Yeterlilik vitrin sorusu elle okundu; konu etiketi soruyla uyuşmayan ya da kökü bozuk soru çıkarıldı (rozetteki çıkma sayısı etiketten hesaplanıyor, yanlış etiket = yanlış iddia). Bu liste KASADAKİ soruyu düzeltmez - etiket onarımı sınav kolunun işi. haric_konu: etiketi kasada sistematik olarak başka konuya yapışmış konular (\"<sinav>|<katlanmış konu>\"); okunan her örnek yanlıştı. Okuyanlar: motor/vitrin-soru-sec.js + motor/seviye-set-sec.js.",
   "haric": {
     "smmm-w2-ydenetim-zor/kp-01": "soru kökü bozuk: \"hangisinin doğru olduğu soruluyor\" özet cümlesi, gerçek soru değil",
     "smmm-ab2-b-maliyet/kp-04": "etiket \"satılan mal maliyeti\", soru standart maliyet farkları (722/723/732/733/734)",
@@ -13,7 +13,9 @@
     "smmm-w7-1-fmuh-zor/kp-01": "etiket \"ticari mal satışı\", soru şüpheli ticari alacak (128) - #15 ile aynı konu",
     "smmm-ab2-b-maliyet/kp-07": "etiket \"GÜG birinci dağıtım\", soru kademeli dağıtım (ikinci dağıtım)",
     "smmm-4k-a-ymeslek-kolay-r3-2/kp-01": "etiket \"haksız rekabet\", soru iş bitiminde devir teslim / odaya bildirim",
-    "smmm-4k-a-fmuh-zor-r7/kp-05": "etiket kapanış kaydı (FM dönem sonu kapanışı), soru standart maliyet fark hesaplarının (712/713) dağıtımı"
+    "smmm-4k-a-fmuh-zor-r7/kp-05": "etiket kapanış kaydı (FM dönem sonu kapanışı), soru standart maliyet fark hesaplarının (712/713) dağıtımı",
+    "smmm-4k-a-yvergi-cokzor-r5/kp-01": "YANLIŞ CEVAP: kasadaki D (187.000) gümrük müşavirliği ücretini matraha katıyor; KDV m.21/c yalnız vergilendirilmeyen giderleri katar, müşavirlik KDVli faturalanır -> doğru B (184.000). Sınav koluna bildirildi 23.09",
+    "smmm-4k-a-yvergi-cokzor-r4/kp-01": "etiket ithalatta kdv hesabı (Vergi), soru ithal malın 153 Ticari Mallar maliyeti (muhasebe); cevap doğru"
   },
   "haric_konu": {
     "smmm|hizmet akdi borclari": "okunan 2 sorunun 2si 5510 m.41 borçlanması (hizmet akdi borçları değil)",
