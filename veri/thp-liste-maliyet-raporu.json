@@ -1,7 +1,19 @@
 {
-  "tarih": "12.09.2026 09:56",
-  "durum": "HATA",
-  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
-  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
-  "satir": 45
+  "tarih": "23.09.2026 19:53",
+  "durum": "TAMAM",
+  "mod": "OLCUM (0 USD, yazma yok)",
+  "kasa": 30569,
+  "thp_hesap": 269,
+  "thp_karakter": 8833,
+  "thp_tahmini_token": 2524.0,
+  "senaryo_A_simdiki_genis_desen": 19884,
+  "senaryo_B_kod_izi_veya_muhasebe_fiili": 11329,
+  "senaryo_C_yalniz_kod_izi": 9409,
+  "maliyet_A_usd": 50.19,
+  "maliyet_B_usd": 28.59,
+  "maliyet_C_usd": 23.75,
+  "tasarruf_B_usd": 21.6,
+  "tasarruf_C_usd": 26.44,
+  "risk_desen_disi_ama_kod_var": 1143,
+  "not": "Yalniz OLCUM - kasaya ve isteme dokunulmadi. Token tahmini ~3,5 karakter/token (Turkce). Maliyet yalniz THP LISTESININ giris tokeni; sorunun kendisi ve dayanak haric. Daraltma karari Cem in - 181 vakasi riski (kod metinde yokken model hafizadan yazar) risk_desen_disi_ama_kod_var sayacinda gorunur."
 }
