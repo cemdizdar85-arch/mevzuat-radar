@@ -52,8 +52,12 @@ $Hs = @{ apikey = $SRV; Authorization = "Bearer $SRV"; 'User-Agent' = 'mevzuat-r
 $onEk = "$($Sinav.ToLowerInvariant())-"
 
 # --- taban (alarmın karşılaştırdığı damga) — bayt korunarak
+# ⛔ 23.09 KUSUR (ölçüldü): cmd /c içinde '^' KAÇIŞ karakteridir — 'X^' sessizce 'X' oluyordu, yani alarm ÖNCESİ taban
+#   yerine SONRASI okunuyor ve 'AYNI-METİN' kanıtı anlamsız çıkıyordu. Sürüm önce git rev-parse ile tam kimliğe çözülür.
+$TabanSha = "$(& git -C $kok rev-parse --verify --quiet "$TabanCommit")".Trim(); if (-not $TabanSha) { throw "taban sürümü çözülemedi: $TabanCommit" }
+$AynaSha = "$(& git -C $kok rev-parse --verify --quiet "$AynaCommit")".Trim(); if (-not $AynaSha) { throw "ayna sürümü çözülemedi: $AynaCommit" }
 $tabanDosya = Join-Path $env:TEMP 'md-taban-dogrula.json'
-& cmd /c "git -C `"$kok`" cat-file blob $($TabanCommit):veri/mevzuat/_madde-damga-onceki.json > `"$tabanDosya`""
+& cmd /c "git -C `"$kok`" cat-file blob $($TabanSha):veri/mevzuat/_madde-damga-onceki.json > `"$tabanDosya`""
 if ($LASTEXITCODE) { throw "taban okunamadı: $TabanCommit" }
 $tabanJ = Get-Content $tabanDosya -Raw -Encoding UTF8 | ConvertFrom-Json
 $taban = $tabanJ.maddeler
@@ -85,7 +89,7 @@ function AynaParcalari([string]$anahtar, [string]$kaynak) {
   if (-not $law) { return @() }
   if (-not $script:aynaOnbellek.ContainsKey($law.slug)) {
     $f = Join-Path $env:TEMP "md-ayna-$($law.slug).json"
-    & cmd /c "git -C `"$kok`" cat-file blob $($AynaCommit):veri/mevzuat/$($law.slug).json > `"$f`" 2>nul"
+    & cmd /c "git -C `"$kok`" cat-file blob $($AynaSha):veri/mevzuat/$($law.slug).json > `"$f`" 2>nul"
     $script:aynaOnbellek[$law.slug] = $(if ($LASTEXITCODE) { @() } else { @((Get-Content $f -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler) })
   }
   return @($script:aynaOnbellek[$law.slug] | Where-Object { (Anahtar "$($_.kaynak_ad)") -eq $anahtar })
