@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **22.09.2026 19:00** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **23.09.2026 13:36** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50054 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 22.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 22.09.2026 18:59)
+**ÖZET:** 50052 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 23.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 23.09.2026 13:33)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2504,7 +2504,7 @@
 | TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) | kanun-madde | 9 | TAM | ISTISNA-KAPSAM-DISI |
 | TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TTK (6102 s.K.) | kanun-madde | 1598 | DELİK-İNCELE(par:20/kesik:2/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TTK (6102 s.K.) | kanun-madde | 1596 | DELİK-İNCELE(par:20/kesik:2/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Payı K. (7183 s.K.) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Teşvik K. (2634 s.K.) | kanun-madde | 90 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TÜRMOB Birlik Yön. | kanun-madde | 70 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
