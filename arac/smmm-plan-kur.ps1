@@ -61,7 +61,9 @@ param(
   #     tablo tazelemesinde konu yine açık görünür ve bir sonraki dalgaya girer (kayıp değil, gecikme).
   [string]$RezerveEtiket = '',
   # 23.09: bir planın en fazla satır sayısı (bulut işi paralel=8 → 8 satır TEK SIRA koşar). Bkz. SATIR TAVANI.
-  [int]$SatirTavan = 8
+  [int]$SatirTavan = 8,
+  # 23.09: dalga soruları derslere AÇIKLA orantılı paylaştırılır (aşağıda "DERS PAYI"); bu anahtar eski tek-liste seçimine döner
+  [switch]$DersPayiYok
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -150,16 +152,36 @@ $eskiDe = @($havuz | Where-Object { $eski.ContainsKey((Nrm $_.konu)) }).Count
 #     Tavan bu yüzden 3'tür; daha fazlası ayrı tur (tur=2) ister.
 $ZORLUK_SIRA = @('zor', 'cokzor', 'kolay')   # banka sınavdan zor: önce zor dilimler dolar
 $hedefSoru = $PlanSayisi * $PlanBasinaSoru
-$sec = New-Object System.Collections.Generic.List[object]
-$soruSay = 0
-foreach ($h in $havuz) {
-  if ($soruSay -ge $hedefSoru) { break }
-  $kac = [Math]::Max(1, [Math]::Min([int]$h.acik, [Math]::Min($KonuBasiTavan, $ZORLUK_SIRA.Count)))
-  if ($soruSay + $kac -gt $hedefSoru) { $kac = $hedefSoru - $soruSay }
-  if ($kac -le 0) { break }
-  $h | Add-Member -NotePropertyName kacSoru -NotePropertyValue $kac -Force
-  $sec.Add($h); $soruSay += $kac
+# ⭐ 23.09.2026 DERS PAYI (Cem "1.2.3 üçünü de yap"): havuz tek liste halinde son10'a göre sıralanınca dalga
+#   hep Finansal Muhasebe'ye gidiyordu (FM konu sayımları yevmiye kaydı başına, doğal olarak yüksek). Artık
+#   dalganın soruları önce DERSLERE, her dersin (engelsiz, havuzdaki) AÇIĞIYLA orantılı paylaştırılır; ders
+#   içinde sıra yine son10. Bir dersin havuzu payını dolduramazsa artan, ikinci geçişte kalan havuza gider.
+#   -DersPayiYok: eski davranış (tek liste). Tablo tarafında ders tabanı: arac/smmm-kapsama-tablosu.ps1 -DersTaban.
+$dersAcik = @{}; foreach ($h in $havuz) { $dersAcik["$($h.ders)"] = [int]$dersAcik["$($h.ders)"] + [int]$h.acik }
+$dersKota = @{}
+if (-not $DersPayiYok) {
+  $wTop = 0.0; foreach ($k in $dersAcik.Keys) { $wTop += $dersAcik[$k] }
+  $kes = New-Object System.Collections.Generic.List[object]; $dag = 0
+  foreach ($k in $dersAcik.Keys) { $tam = $hedefSoru * $dersAcik[$k] / $wTop; $tb = [int][Math]::Floor($tam); $dersKota[$k] = $tb; $dag += $tb; $kes.Add([pscustomobject]@{ n = $k; k = $tam - $tb }) }
+  foreach ($x in ($kes | Sort-Object k -Descending | Select-Object -First ($hedefSoru - $dag))) { $dersKota[$x.n]++ }
 }
+$sec = New-Object System.Collections.Generic.List[object]
+$soruSay = 0; $dersSay = @{}; $alinan = @{}
+foreach ($gecis in 1, 2) {
+  if ($gecis -eq 2 -and ($DersPayiYok -or $soruSay -ge $hedefSoru)) { break }
+  foreach ($h in $havuz) {
+    if ($soruSay -ge $hedefSoru) { break }
+    $hk = "$($h.ders)|$($h.konu)"; if ($alinan.ContainsKey($hk)) { continue }
+    $kac = [Math]::Max(1, [Math]::Min([int]$h.acik, [Math]::Min($KonuBasiTavan, $ZORLUK_SIRA.Count)))
+    if ($gecis -eq 1 -and -not $DersPayiYok) { $kac = [Math]::Min($kac, [int]$dersKota["$($h.ders)"] - [int]$dersSay["$($h.ders)"]) }
+    if ($soruSay + $kac -gt $hedefSoru) { $kac = $hedefSoru - $soruSay }
+    if ($kac -le 0) { continue }
+    $h | Add-Member -NotePropertyName kacSoru -NotePropertyValue $kac -Force
+    $sec.Add($h); $soruSay += $kac; $alinan[$hk] = 1; $dersSay["$($h.ders)"] = [int]$dersSay["$($h.ders)"] + $kac
+  }
+}
+if (-not $DersPayiYok) { "DERS PAYI (dalga, acikla orantili): " + (($dersKota.Keys | Sort-Object { -$dersKota[$_] } | ForEach-Object { "{0} {1}/{2}" -f $_, [int]$dersSay[$_], $dersKota[$_] }) -join ' · ') }
+$sec = [System.Collections.Generic.List[object]]@($sec | Sort-Object { [int]$_.son10 }, { [int]$_.acik } -Descending)
 if ($soruSay -lt $hedefSoru) { Write-Host "  UYARI: havuz yetmedi — $soruSay soru kuruldu (istenen $hedefSoru)" -ForegroundColor Yellow }
 "alinan konu: {0} · soru {1} · SON 10 YIL cikmis araligi {2}..{3} · konu basi tavan {4}" -f $sec.Count, $soruSay, ([int]$sec[0].son10), ([int]$sec[$sec.Count - 1].son10), $KonuBasiTavan
 

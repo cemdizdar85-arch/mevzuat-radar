@@ -55,7 +55,17 @@ param(
   #   🚫 GÖRMEZ: analizde adı eşleşmeyen konu ("analizde YOK") için yenilik ÖLÇÜLEMEZ; bu
   #     konulara da hedef verilmez (yeni olduğunu kanıtlayamadığımız konuya para vermeyiz).
   #     Bu, ad eşleşmesi düzeltilince bazı gerçekten yeni konuları geri getirecek.
-  [int]$YenilikYil = 2016
+  [int]$YenilikYil = 2016,
+  # ⭐ 23.09.2026 DERS TABANI (Cem "1.2.3 üçünü de yap"): sıklık ağırlığı 4.000'in %49'unu (1.977) Finansal
+  #   Muhasebe'ye veriyordu. ÖLÇÜLDÜ (veri/smmm-analiz.json): FM sınavı başına ~39 "soru" sayılıyor, öteki
+  #   dersler ~7 — FM'de her yevmiye kaydı ayrı soru sayılmış. Gerçek sınavda her ders AYRI sınav, ayrı geçme
+  #   notu; Hukuk'a hazırlanan aday yalnız Hukuk sorusu çözer, bu dağılımda ona 263 soru düşüyordu.
+  #   Kural: önce DERSLER arası pay — her ders en az -DersTaban; kalan, dersin son-10-yıl ağırlığına göre
+  #   (su doldurma: tabanın altında kalan ders tabana sabitlenir, kalan toplam öbürlerine yeniden dağıtılır).
+  #   Sonra her dersin payı KENDİ konularına sıklıkla dağıtılır (en büyük kalan, toplam yine TAM 4.000).
+  #   Dersi bilinmeyen konular (ders boş) tabansız, ağırlığıyla pay alır. 0 → eski davranış (düz sıklık).
+  #   🚫 GÖRMEZ: dersin GERÇEK sınavdaki soru sayısını (analiz sayımıyla ağırlık veriyor, taban bunu yumuşatıyor).
+  [int]$DersTaban = 350
 )
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -153,23 +163,52 @@ if ($ToplamHedef -gt 0) { foreach ($n in $tumKonu) { $pencereToplam += [int]$pen
 #   TAM 4.000 olmalı. Önce taban (aşağı yuvarlama) verilir, eksik kalan birimler en büyük kesirli
 #   paya sahip konulara birer birer dağıtılır.
 $hedefHarita = @{}
-if ($ToplamHedef -gt 0 -and $pencereToplam -gt 0) {
-  $kesir = New-Object System.Collections.Generic.List[object]
-  $dagitilan = 0
-  foreach ($n in $tumKonu) {
-    $pc0 = [int]$pencereSay[$n]; if ($pc0 -le 0) { continue }
-    $tam = $ToplamHedef * $pc0 / [double]$pencereToplam
-    $taban = [int][Math]::Floor($tam)
-    $hedefHarita[$n] = $taban; $dagitilan += $taban
-    $kesir.Add([pscustomobject]@{ n = $n; k = ($tam - $taban); pc = $pc0 })
+# en büyük kalan: $agirlik (anahtar → ağırlık) üzerinden TAM $toplam birim dağıtır
+function EnBuyukKalan([hashtable]$agirlik, [int]$toplam) {
+  $sonuc = @{}; $w = 0.0; foreach ($k in $agirlik.Keys) { $w += [double]$agirlik[$k] }
+  if ($w -le 0 -or $toplam -le 0) { return $sonuc }
+  $kesir = New-Object System.Collections.Generic.List[object]; $dagitilan = 0
+  foreach ($k in $agirlik.Keys) {
+    if ([double]$agirlik[$k] -le 0) { continue }
+    $tam = $toplam * [double]$agirlik[$k] / $w; $tb = [int][Math]::Floor($tam)
+    $sonuc[$k] = $tb; $dagitilan += $tb
+    $kesir.Add([pscustomobject]@{ n = $k; k = ($tam - $tb); pc = [double]$agirlik[$k] })
   }
-  $kalan = $ToplamHedef - $dagitilan
-  foreach ($x in ($kesir | Sort-Object @{e = { $_.k }; Descending = $true }, @{e = { $_.pc }; Descending = $true }, n | Select-Object -First $kalan)) { $hedefHarita[$x.n]++ }
+  foreach ($x in ($kesir | Sort-Object @{e = { $_.k }; Descending = $true }, @{e = { $_.pc }; Descending = $true }, n | Select-Object -First ($toplam - $dagitilan))) { $sonuc[$x.n]++ }
+  return $sonuc
+}
+function KonuDersi([string]$n) { if ($kopruDers.ContainsKey($n) -and $kopruDers[$n]) { return $kopruDers[$n] } elseif ($dersKonu.ContainsKey($n)) { return $dersKonu[$n] } else { return '' } }
+$dersPayi = @{}
+if ($ToplamHedef -gt 0 -and $pencereToplam -gt 0) {
+  # 1) ders ağırlıkları (son 10 yıl)
+  $dersW = @{}; foreach ($n in $tumKonu) { $pc0 = [int]$pencereSay[$n]; if ($pc0 -gt 0) { $dk = KonuDersi $n; $dersW[$dk] = [int]$dersW[$dk] + $pc0 } }
+  # 2) su doldurma: tabanın altında kalan (adı olan) ders tabana sabitlenir
+  $sabit = @{}
+  if ($DersTaban -gt 0) {
+    $adli = @($dersW.Keys | Where-Object { $_ -and $_ -notmatch '/' }).Count   # "A / B" ortak konular tabansız
+    if ($adli * $DersTaban -gt $ToplamHedef) { throw "ders tabanı ($DersTaban × $adli ders) toplam hedefi ($ToplamHedef) aşıyor" }
+    do {
+      $degisti = $false; $kalanT = $ToplamHedef - $sabit.Count * $DersTaban; $kalanW = 0.0
+      foreach ($dk in $dersW.Keys) { if (-not $sabit.ContainsKey($dk)) { $kalanW += $dersW[$dk] } }
+      foreach ($dk in @($dersW.Keys)) {
+        if (-not $dk -or $dk -match '/' -or $sabit.ContainsKey($dk)) { continue }
+        if ($kalanT * $dersW[$dk] / $kalanW -lt $DersTaban) { $sabit[$dk] = 1; $degisti = $true }
+      }
+    } while ($degisti)
+  }
+  $serbestW = @{}; foreach ($dk in $dersW.Keys) { if (-not $sabit.ContainsKey($dk)) { $serbestW[$dk] = $dersW[$dk] } }
+  $dersPayi = EnBuyukKalan $serbestW ($ToplamHedef - $sabit.Count * $DersTaban)
+  foreach ($dk in $sabit.Keys) { $dersPayi[$dk] = $DersTaban }
+  # 3) her dersin payı kendi konularına (son 10 yıl sıklığı)
+  foreach ($dk in $dersPayi.Keys) {
+    $kw = @{}; foreach ($n in $tumKonu) { $pc0 = [int]$pencereSay[$n]; if ($pc0 -gt 0 -and (KonuDersi $n) -eq $dk) { $kw[$n] = $pc0 } }
+    $ic = EnBuyukKalan $kw ([int]$dersPayi[$dk]); foreach ($n in $ic.Keys) { $hedefHarita[$n] = $ic[$n] }
+  }
 }
 foreach ($n in $tumKonu) {
   $c = [int]$cikmis[$n]
   $pc = [int]$pencereSay[$n]
-  $d = $(if ($kopruDers.ContainsKey($n) -and $kopruDers[$n]) { $kopruDers[$n] } elseif ($dersKonu.ContainsKey($n)) { $dersKonu[$n] } else { '' })
+  $d = KonuDersi $n
   if ($Ders -and $d -notmatch $Ders) { continue }
   $hedef = $(if ($ToplamHedef -gt 0) {
       $(if ($hedefHarita.ContainsKey($n)) { [int]$hedefHarita[$n] } else { 0 })
