@@ -824,7 +824,7 @@ window.veriAl = (function(){
             <p class="bz-ok-tamam" id="bzOkTamam" hidden>✓ Ön kaydın alındı. Soru bankası açıldığı gün e-postana yazacağız.</p>
           </div>
           <div class="bz-cam">
-            <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s>SGS · Kaydır-Çöz</s></div>
+            <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s id="bzEtiket">SGS · Kaydır-Çöz</s></div>
             <div class="bz-rozet" id="bzRozet">📌 Son 35 sınavın 15 tanesinde çıktı</div>
             <p class="bz-ozet" id="bzOzet">"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu." cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?</p>
             <div class="bz-cerceve" id="bzCerceve" hidden></div>
@@ -888,6 +888,9 @@ window.veriAl = (function(){
       function bzDugmeCiz(){
         var s=S[secili], d=(son.sinavlar&&son.sinavlar[secili])||{durum:son.oturum?'uye':'ziyaretci'}, bit=U.tarihYazi(d.bitis);
         sekmeler.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-sinav')===secili?'true':'false'); });
+        /* 23.09 Cem "sınav değiştirirsen sağdaki soru değişmiyor": sağdaki günün sorusu kartı ayrı betikte;
+           seçili sınav ona bu olayla duyurulur (kart kendi betiğinde dinler). */
+        try { document.dispatchEvent(new CustomEvent('tt-sinav', { detail: secili })); } catch(e){}
         durumEl.textContent=''; okForm.hidden=true; okTamam.hidden=true; document.getElementById('bzOkHata').textContent='';
         if(s.icerik){
           if(d.durum==='aktif'){
@@ -1020,6 +1023,16 @@ window.veriAl = (function(){
       if(!ileriEl||!cerceveEl) return;
       var KUNYE=null, sira=45, acik=false, YOL='kaydir/vitrin/sgs.html?vitrin=1&tek=1&tema=koyu#s=';
       var kancaEl=document.getElementById('bzKanca'), tekrar=null;   /* tekrar: bu sıradaki soru yanlış kutusundan geldiyse kutu kaydı */
+      /* 23.09 Cem: "sınav değiştirirsen sağdaki soru değişmiyor" — kart artık seçili sekmeyi izler.
+         Havuzu olan sınav (veri/vitrin-kart-ozet.json > sinavlar.<sınav>) KENDİ günün sorusunu gösterir.
+         Havuzu henüz olmayan sınavda SGS sorusu GÖSTERİLMEZ ve başka sınava yönlendirilmez (23.09 kuralı:
+         "Yeterlilik giriyorum Staja Giriş çıkıyor"); kart dürüstçe "hazırlanıyor" der. Robot
+         (motor/vitrin-kart.js) yeterlilik/kgk havuzunu bastığı gün kart kendiliğinden dolar. */
+      var OZET=null, aktifSinav='sgs', SGS_YOL=YOL, sgsSira=sira, sgsTekrar=null;
+      var etiketEl=document.getElementById('bzEtiket'), baskaEl=document.getElementById('bzBaska');
+      var surucuEl=cerceveEl.parentNode.querySelector('.bz-surucu'), dipEl=cerceveEl.parentNode.querySelector('.bz-dip');
+      var SINAV_AD={ sgs:'SGS', yeterlilik:'Yeterlilik', kgk:'KGK' };
+      function gorunur(el,v){ if(el) el.hidden=!v; }
       function kanca(bas,metin,dip){
         if(!kancaEl) return;
         document.getElementById('bzKancaBas').textContent=bas;
@@ -1065,6 +1078,40 @@ window.veriAl = (function(){
         notEl.textContent='Bu, ürünün kendisi — ana sayfa kopyası değil.';
       }
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
+      function sinavKart(sn){
+        aktifSinav=sn||'sgs';
+        if(etiketEl) etiketEl.textContent=(SINAV_AD[aktifSinav]||aktifSinav)+' · Kaydır-Çöz';
+        gorunur(surucuEl,true); gorunur(dipEl,true); gorunur(baskaEl,aktifSinav==='sgs');
+        if(aktifSinav==='sgs'){ YOL=SGS_YOL; sira=sgsSira; tekrar=sgsTekrar; afisCiz(); return; }
+        var o=OZET&&OZET.sinavlar&&OZET.sinavlar[aktifSinav];
+        if(o&&o.baglanti){
+          tekrar=null;
+          sira=(OZET.gun===bugunTR()&&typeof o.sira==='number')?o.sira:robotGunu(o.toplam||1);
+          YOL=o.baglanti.replace('tema=acik','tema=koyu').replace('vitrin=1','vitrin=1&tek=1').replace(/#s=.*$/,'')+'#s=';
+          kapat();
+          dersEl.textContent=(o.ders||'')+(o.konu?' · '+o.konu:'');
+          rozetEl.textContent='📌 Çıkmış sınavlarda '+(o.donem||0)+' kez çıktı'; rozetEl.hidden=!o.donem;
+          ozetEl.textContent=o.soru||'';
+          return;
+        }
+        kapat();
+        dersEl.textContent='Günün sorusu';
+        rozetEl.hidden=true;
+        ozetEl.textContent=(SINAV_AD[aktifSinav]||'Bu sınavın')+' soru bankası hazırlanıyor. Açıldığında burada her gün bir soru olacak: şıkkı seçersin, Nöbetçi neden doğru ya da yanlış olduğunu maddesiyle açıklar; yanlış yaptığın soru 2 gün sonra yeniden karşına çıkar.';
+        gorunur(surucuEl,false); gorunur(dipEl,false);
+      }
+      document.addEventListener('tt-sinav',function(e){
+        var sn=e&&e.detail; if(!sn||sn===aktifSinav) return;
+        if(!KUNYE){ aktifSinav=sn; return; }   /* veri henüz inmediyse yükleme sonunda uygulanır */
+        sinavKart(sn);
+      });
+      /* 23.09 Cem "soru günlük değişsin demiştik": değişiyor (ölçüldü 15-22.09, her gün farklı soru) ama robot
+         10:30-11:00 TR arası koşuyordu; o saate kadar dünkü soru kalıyordu. Robotun dosyası BUGÜNE ait değilse
+         sayfa robotun AYNI formülünü (yılın günü mod havuz) kendisi uygular -> soru gece yarısı değişir. */
+      function bugunTR(){
+        var tr=new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Istanbul'}));
+        return tr.getFullYear()+'-'+String(tr.getMonth()+1).padStart(2,'0')+'-'+String(tr.getDate()).padStart(2,'0');
+      }
       function robotGunu(n){
         var s=new Date(), tr=new Date(s.toLocaleString('en-US',{timeZone:'Europe/Istanbul'}));
         var gunNo=Math.floor((tr-new Date(tr.getFullYear(),0,1))/86400000); return ((gunNo%n)+n)%n;
@@ -1074,10 +1121,11 @@ window.veriAl = (function(){
         fetch('veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
       ]).then(function(r){
         var d=r[0], oz=r[1]; if(!d||!d.kartlar||!d.kartlar.length) return;
-        KUNYE=d; if(d.baglanti) YOL=d.baglanti.replace('tema=acik','tema=koyu');
+        KUNYE=d; OZET=oz; if(d.baglanti) YOL=d.baglanti.replace('tema=acik','tema=koyu');
+        SGS_YOL=YOL;
         var robot=oz&&oz.sinavlar&&oz.sinavlar.sgs;
-        /* robotun sırası yalnız aynı havuza aitse (toplam eşleşmeli) - yoksa robotun AYNI formülü */
-        sira=(robot&&robot.toplam===d.kartlar.length&&d.kartlar[robot.sira])?robot.sira:robotGunu(d.kartlar.length);
+        /* robotun sırası yalnız BUGÜNE aitse ve aynı havuzdansa (toplam eşleşmeli) - yoksa robotun AYNI formülü */
+        sira=(oz&&oz.gun===bugunTR()&&robot&&robot.toplam===d.kartlar.length&&d.kartlar[robot.sira])?robot.sira:robotGunu(d.kartlar.length);
         /* vadesi gelmiş kutu sorusu havuzdaysa önce o (en eski vade önce) */
         var ku=kutuOku(), an=Date.now()+ku.ileri;
         var vadeli=ku.kutu.filter(function(x){ return x&&x.due<=an; }).sort(function(a,b){ return a.due-b.due; });
@@ -1085,9 +1133,13 @@ window.veriAl = (function(){
           var j=-1; for(var q=0;q<d.kartlar.length;q++){ if(d.kartlar[q].id===vadeli[v].id){ j=q; break; } }
           if(j>=0){ sira=j; tekrar=vadeli[v]; break; }
         }
-        afisCiz();
+        sgsSira=sira; sgsTekrar=tekrar;
+        /* seçili sekme (üye durumu/önceki seçim) yükleme bitmeden gelmiş olabilir: sayfadaki seçime bak */
+        var seciliBtn=document.querySelector('.bz-sekme button[aria-selected="true"]');
+        var ilkSinav=seciliBtn?seciliBtn.getAttribute('data-sinav'):aktifSinav;
+        if(ilkSinav&&ilkSinav!=='sgs') sinavKart(ilkSinav); else { aktifSinav='sgs'; afisCiz(); }
         var bag=document.getElementById('bzBaska');
-        if(bag) bag.addEventListener('click',function(e){ e.preventDefault(); tekrar=null; sira=(sira+1)%d.kartlar.length; afisCiz(); });
+        if(bag) bag.addEventListener('click',function(e){ e.preventDefault(); if(aktifSinav!=='sgs') return; tekrar=null; sira=(sira+1)%d.kartlar.length; sgsSira=sira; sgsTekrar=null; afisCiz(); });
       });
     })();
     </script>
