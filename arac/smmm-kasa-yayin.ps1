@@ -41,6 +41,12 @@ $ret = @{}
 $retYol = Join-Path $depoKok 'veri\ret-kutugu.json'
 if (Test-Path $retYol) { foreach ($rk in @((Get-Content $retYol -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar)) { $ret["$($rk.etiket)|$($rk.id)"] = "$($rk.kapi) $($rk.sinif)" } }
 else { Write-Host '⚠ RET KÜTÜĞÜ yok (veri/ret-kutugu.json) — kapı uygulanamadı, yayın DURDU' -ForegroundColor Red; exit 1 }
+# ⭐ 23.09.2026 ELLE RET: ret kütüğü yalnız üretim kapılarından beslenir; insanın OKUYARAK bulduğu kusurun (yanlış/iki
+#   cevaplı soru) yolu yoktu. İlk vaka: site oturumu smmm-4k-a-yvergi-cokzor-r5/kp-01'de ithalat KDV matrahına müşavirlik
+#   ücretini katan açıklama buldu (KDV m.21/c "vergilendirilmeyenler"), soru iki şıkta savunulabilir. Liste: kimlik →
+#   {gerekce, kaynak, tarih}; soru metni YOK. Kalkması için kimlik listeden çıkarılır (soru yeniden yazılınca yeni kimlik alır).
+$elleRetYol = Join-Path $depoKok 'veri\sinav\smmm-elle-ret.json'
+if (Test-Path $elleRetYol) { foreach ($p in (Get-Content $elleRetYol -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar.PSObject.Properties) { $ret["$($p.Name)" -replace '/', '|'] = "ELLE $($p.Value.gerekce)" } }
 
 # ⭐ 22.09.2026 — DERS EŞLEMESİ ARTIK ORTAK DOSYADA: arac/smmm-ders-adi.ps1
 #   ÖLÇÜLDÜ: harita yalnız burada duruyordu ve dersini çözemediği partiyi sessizce "ders çözülemedi"

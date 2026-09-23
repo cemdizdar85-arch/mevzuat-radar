@@ -19,10 +19,17 @@ const { sorulariCek, satirlariKur, seviyeIsaretle } = require('./kasa-soru-yukle
 // Kimlik listesi arac/smmm-ucretsiz-sec.ps1'den (elle okunmuş vitrin seçimi + GM'nin okuduğu ekler) gelir.
 // Ücretsiz satır herkese açık ucretsiz_soru görünümünden DOĞRU ŞIK OLMADAN okunur (2026-09-16-paket-soru.sql).
 const UCRETSIZ_LISTE = path.join(__dirname, '..', 'veri', 'sinav', 'smmm-ucretsiz.json');
+// 23.09 (Cem kararı, site oturumu iletti): seviye testi SABİT 30 soruluk set — veri/seviye/smmm-set.json (sorular[].id,
+// motor/seviye-set-sec.js, elle okunmuş). Test sayfası soruyu ucretsiz_soru'dan, cevabı rpc/seviye_kontrol'den alır;
+// ikisi de yalnız ucretsiz satırda çalışır. Set değişince bir sonraki yayında işaret kendiliğinden güncellenir.
+const SEVIYE_SET = path.join(__dirname, '..', 'veri', 'seviye', 'smmm-set.json');
 function ucretsizKimlikleri(oku) {
+  const idler = [];
   const ham = oku(UCRETSIZ_LISTE);
-  if (ham == null) return [];
-  return (JSON.parse(ham).kimlikler || []).map(k => String(k.id || '')).filter(Boolean);
+  if (ham != null) idler.push(...(JSON.parse(ham).kimlikler || []).map(k => String(k.id || '')));
+  const sv = oku(SEVIYE_SET);
+  if (sv != null) idler.push(...(JSON.parse(sv).sorular || []).map(k => String(k.id || '')));
+  return [...new Set(idler.filter(Boolean))];
 }
 
 const SB = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/';
@@ -109,6 +116,9 @@ function sinav() {
   const yok = seviyeIsaretle(st, ids);
   t('ücretsiz listedeki kimlik işaretlenir, kasada olmayan sayılır', st[0].ucretsiz === true && yok.length === 1);
   t('ücretsiz liste dosyası yoksa boş liste', ucretsizKimlikleri(() => null).length === 0);
+  const birlesik = ucretsizKimlikleri(y => (y === SEVIYE_SET ? JSON.stringify({ sorular: [{ id: 'a/kp-01' }, { id: 'b/kp-02' }] }) : JSON.stringify({ kimlikler: [{ id: 'a/kp-01' }, { id: 'c/kp-03' }] })));
+  t('ücretsiz liste + seviye seti birleşir, ortak kimlik bir kez', birlesik.length === 3);
+  t('yalnız seviye seti varsa onu okur', ucretsizKimlikleri(y => (y === SEVIYE_SET ? JSON.stringify({ sorular: [{ id: 'x/kp-01' }] }) : null)).length === 1);
   console.log(hata ? `ÖZ-SINAV DÜŞTÜ (${hata})` : 'ÖZ-SINAV GEÇTİ');
   return hata;
 }
