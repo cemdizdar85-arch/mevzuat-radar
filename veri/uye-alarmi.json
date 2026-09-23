@@ -1,11 +1,13 @@
 {
-  "olcum": "2026-09-22T22:52:19.0569560Z",
+  "olcum": "2026-09-23T01:31:38.6699478Z",
   "seviye": "YESIL",
   "gerekce": "esiklerin altinda",
   "son_1_saat": 0,
   "son_24_saat": 0,
   "en_yogun_dakika": 0,
   "toplam": 6,
+  "paylasim_supheli": 0,
+  "cihaz_siniri_24s": 0,
   "okuma_hatasi": null,
   "esikler": {
     "kirmizi_dakika": 30,
@@ -14,7 +16,9 @@
     "sari_saat": 100,
     "sari_gun": 1000,
     "tekrar_saat": 6,
-    "kor_tekrar_saat": 24
+    "kor_tekrar_saat": 24,
+    "paylasim_sari": 1,
+    "cihaz_siniri_sari": 3
   },
   "son_alarm": {
     "seviye": "KOR",
@@ -23,6 +27,7 @@
   "gormedigi": [
     "yavas bot: saatte 100 / dakikada 15 altinda, cok IP - insandan ayirt edilemez",
     "sahte hesabin niteligi (uydurma alan adi) - e-postaya bilerek bakilmaz",
-    "mesru kalabalik da SARI/KIRMIZI yakar - alarm \"bak\" der, \"saldiri var\" demez"
+    "mesru kalabalik da SARI/KIRMIZI yakar - alarm \"bak\" der, \"saldiri var\" demez",
+    "sirali paylasim (biri sabah biri aksam, toplam 3 cihazi asmadan) ekran el degistirmesi az oldugu icin gorunmez"
   ]
 }
