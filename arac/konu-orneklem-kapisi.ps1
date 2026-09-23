@@ -35,6 +35,13 @@ function OrneklemKapisi([string[]]$adaylar, $orneklem, [string]$damga) {
   if (-not $orneklem) { return [pscustomobject]@{ izin = $false; sebep = "örneklem yok — önce -OrneklemYaz, sonra $($gerek.Count) kayıt elle okunur"; disla = @() } }
   if ("$($orneklem.damga)" -ne $damga) { return [pscustomobject]@{ izin = $false; sebep = 'model sonucu değişti (damga farklı) — yeni örneklem gerekir'; disla = @() } }
   $karar = @{}; foreach ($k in @($orneklem.kayitlar | ForEach-Object { $_ })) { if ($k) { $karar["$($k.an)"] = "$($k.karar)" } }
+  # TAM OKUMA (23.09, Cem "1.2.3" madde 2: "model yalnız aday bulsun, elle okunsun"): adayların HEPSİ okunduysa
+  # oran eşiği aranmaz — her kayıt kendi kararıyla yazılır/dışlanır (örneklem genellemesi gerekmez)
+  $tumAday = @($adaylar | Where-Object { "$_" } | Sort-Object -Unique)
+  if (-not @($tumAday | Where-Object { $karar["$_"] -notin 'DOĞRU', 'YANLIŞ' }).Count) {
+    $dislaT = @($tumAday | Where-Object { $karar["$_"] -eq 'YANLIŞ' })
+    return [pscustomobject]@{ izin = $true; sebep = "tam okuma: $($tumAday.Count) aday okundu, YANLIŞ $($dislaT.Count) dışlandı"; disla = $dislaT }
+  }
   $eksik = @($gerek | Where-Object { $karar["$_"] -notin 'DOĞRU', 'YANLIŞ' })
   if ($eksik.Count) { return [pscustomobject]@{ izin = $false; sebep = "örneklemde $($eksik.Count)/$($gerek.Count) kayıt okunmadı"; disla = @() } }
   $yanlis = @($gerek | Where-Object { $karar["$_"] -eq 'YANLIŞ' })
