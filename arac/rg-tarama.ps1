@@ -175,7 +175,7 @@ if($nobetVuran.Count -gt 0){
 
 # --- radar.html uret (repo koku) ---------------------------------------------
 $s = New-Object System.Text.StringBuilder
-[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">')
+[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">')
 # 30.07 REBRAND KACAGI KAPANDI: bu CI kalibi hala "Mevzuat Radarı" + MAVI
 # yaziyordu - her sabah radar.html'i eski markaya geri boyayacakti. Ayrica
 # "Bugün RG'de - <tarih>" basligi sayfa eskiyince yalan soyluyordu.

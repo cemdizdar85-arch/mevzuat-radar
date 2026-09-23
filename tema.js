@@ -24,6 +24,8 @@
   var t=null; try{ t=localStorage.getItem(KEY); }catch(e){}
   uygula(t==='dark');
   function kur(){
+    /* 23.09: tema-bas.js yüklü sayfada düğme menu.js'te, üst şeritte (tek düğme, tek anahtar) - burada kurulmaz */
+    if(window.TetikteTema) return;
     if(document.getElementById('temaB')) return;
     var s=document.createElement('style');
     s.textContent='.temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--line2);background:var(--kagit);color:var(--ink);font:inherit;font-size:15px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}.temaB:focus-visible{outline:3px solid var(--accent);outline-offset:2px}';

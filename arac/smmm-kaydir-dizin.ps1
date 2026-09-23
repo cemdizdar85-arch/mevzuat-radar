@@ -46,7 +46,7 @@ $kartlar = ($satir | ForEach-Object {
     '<a class="kart" href="' + $_.slug + '.html"><div class="ad">' + (HtmlK $_.ad) + '</div><div class="sayi">' + $_.soru + ' soru</div><div class="konu">Nöbetçi çözümüyle; yanlışını anlatır.</div></a>'
   }) -join "`n"
 $html = @"
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="../../tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>SMMM Yeterlilik (staj bitirme) · Kaydır-Çöz · Tetikte</title>
 <link rel="stylesheet" href="../../stil.css"><link rel="stylesheet" href="../../stil-acik.css">
 <style>

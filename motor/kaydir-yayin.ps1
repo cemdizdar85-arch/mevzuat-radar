@@ -65,7 +65,7 @@ if($hatalar.Count){
 function E([string]$s){ [System.Net.WebUtility]::HtmlEncode("$s") }
 $kartH=($kartlar | ForEach-Object { "<a class=`"kart`" href=`"$($_.slug).html`"><div class=`"ad`">$(E $_.ders)</div><div class=`"sayi`">$($_.n) soru</div><div class=`"konu`">$(E $_.konular)</div></a>" }) -join "`n"
 $html=@"
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="../../tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>$(E $Baslik) · Tetikte</title>
 <link rel="stylesheet" href="../../stil.css"><link rel="stylesheet" href="../../stil-acik.css">
 <style>

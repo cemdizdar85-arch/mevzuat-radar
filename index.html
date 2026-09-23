@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<script src="tema-bas.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 16.09.2026: site AÇIK temadır. Bu satır olmadan, işletim sistemi koyu temadaysa tarayıcı
      kendi koyu paletini karıştırıyor (ölçüldü: menü yazıları #4b5563 yerine #93a1b3 çıkıyor,
@@ -1078,12 +1079,16 @@ window.veriAl = (function(){
         cerceveEl.innerHTML='<div class="bz-yuk">Nöbetçi geliyor…</div>'; cerceveEl.hidden=false;
         var f=document.createElement('iframe');
         f.setAttribute('title','Tetikte Kaydır-Çöz — günün sorusu'); f.setAttribute('loading','lazy');
-        f.src=YOL+sira; f.onload=function(){ var y=cerceveEl.querySelector('.bz-yuk'); if(y) y.remove(); };
+        /* 23.09 Cem "tema her yerde aynı": kart seçili temayla açılır (önceden adreste sabit tema=koyu vardı) */
+        f.src=temaliYol()+sira; f.onload=function(){ var y=cerceveEl.querySelector('.bz-yuk'); if(y) y.remove(); };
         cerceveEl.appendChild(f);
         rozetEl.hidden=true; ozetEl.hidden=true;
         ileriEl.textContent='Kapat ✕'; ileriEl.className='bz-ileri bz-bitti';
         notEl.textContent='Bu, ürünün kendisi — ana sayfa kopyası değil.';
       }
+      function temaliYol(){ var koyu=window.TetikteTema?window.TetikteTema.koyuMu():false; return YOL.replace(/tema=(koyu|acik)/,'tema='+(koyu?'koyu':'acik')); }
+      /* tema kart açıkken değişirse iframe aynı soruda yeni temayla yeniden yüklenir */
+      document.addEventListener('tt-tema',function(){ var f=cerceveEl.querySelector('iframe'); if(acik&&f) f.src=temaliYol()+sira; });
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
       function sinavKart(sn){
         aktifSinav=sn||'sgs';

@@ -500,7 +500,8 @@ function raporYaz(icerik){
      koyu gecis 'dark' yazar - ayni Chrome profili oldugu icin sira ve anahtar onemli.
      Etiket: "deneme.html [koyu]". kaydir/vitrin/sgs.html kok disinda ama ana sayfanin
      bagladigi urun; iki temada da olculur. Kapi boylece iki temayi da korur. */
-  const KOYU_SAYFALAR=['deneme.html','canli-deneme.html','tuzak.html','kaydir/vitrin/sgs.html']
+  /* 23.09: tema-bas.js ile kc_tema TÜM stil-acik sayfalarının anahtarı oldu -> ana sayfa + Yeterlilik vitrini de koyu ölçülür */
+  const KOYU_SAYFALAR=['index.html','deneme.html','canli-deneme.html','tuzak.html','kaydir/vitrin/sgs.html','kaydir/vitrin/smmm.html']
     .filter(s=>fs.existsSync(path.join(KOK,s)));
   const ekAcik = secili.length ? [] : ['kaydir/vitrin/sgs.html'].filter(s=>fs.existsSync(path.join(KOK,s)));
   const gecisler=[

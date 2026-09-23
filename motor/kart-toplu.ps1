@@ -1167,7 +1167,7 @@ if(@($guncelKartlar).Count -eq 0 -and (Test-Path $guncelYol)){
 
 # ---- kartlar.html + gunluk arsiv kopyasi ------------------------------------
 $s = New-Object System.Text.StringBuilder
-[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">')
+[void]$s.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css">')
 [void]$s.AppendLine("<title>Günün Hap Kartları - $TarihNokta | Tetikte</title>")
 [void]$s.AppendLine('<meta name="description" content="Bugünün Resmî Gazete değişiklikleri hap bilgi kartları hâlinde: ne oldu, kimi ilgilendiriyor, ne yapmalı.">')
 [void]$s.AppendLine('<link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
@@ -1439,7 +1439,7 @@ $gunler = Get-ChildItem $arsivDirSite -Filter "kartlar-*.html" | ForEach-Object 
   [pscustomobject]@{ dosya=$_.Name; gun=$g; sirala=("{0}{1}{2}" -f $pp[2],$pp[1],$pp[0]); goster=("{0}.{1}.{2}" -f $pp[0],$pp[1],$pp[2]) }
 } | Sort-Object sirala -Descending
 $a = New-Object System.Text.StringBuilder
-[void]$a.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css"><base href="../">')
+[void]$a.AppendLine('<!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="stil.css"><base href="../">')
 [void]$a.AppendLine('<title>Kart Arşivi | Tetikte</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><style>')
 [void]$a.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%)}')
 [void]$a.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.7}')

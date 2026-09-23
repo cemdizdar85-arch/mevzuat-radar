@@ -226,12 +226,14 @@ var css=''+
  'cursor:pointer;box-shadow:0 8px 28px color-mix(in srgb,var(--marka-lamba-1) 40%,transparent);letter-spacing:.2px;'+
  'transition:transform .28s ease,opacity .28s ease}'+
 '#mrxFab:hover{transform:translateY(-2px)}'+
-/* 16.09 tema düğmesi: Araçlar düğmesinin hemen üstünde, aynı köşede, aynı dilde */
-'#mrxTema{position:fixed;right:18px;bottom:74px;z-index:99990;appearance:none;cursor:pointer;'+
-'width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);'+
-'color:var(--ink);font-size:17px;line-height:1;display:grid;place-items:center;'+
-'box-shadow:0 6px 18px color-mix(in srgb,var(--ink) 12%,transparent);transition:transform .15s,border-color .15s}'+
-'#mrxTema:hover{transform:translateY(-2px);border-color:var(--amber)}'+
+/* 23.09 tema düğmesi: ÜST ŞERİTTE Ara düğmesinin yanında, onun ölçüsünde (komut.css .kp-dugme);
+   şerit yoksa sağ üstte sabit. Yalnız tema jetonu. */
+'#mrxTema{appearance:none;cursor:pointer;font:inherit;font-size:15px;line-height:1;color:var(--muted);'+
+'background:none;border:1px solid var(--line);border-radius:8px;min-width:34px;height:30px;padding:0 8px;'+
+'display:inline-grid;place-items:center;margin-left:6px;vertical-align:middle;transition:border-color .15s,color .15s}'+
+'#mrxTema:hover{color:var(--ink);border-color:var(--line2)}'+
+'#mrxTema:focus-visible{outline:2px solid var(--amber);outline-offset:2px}'+
+'#mrxTema.mrxTemaSabit{position:fixed;top:12px;right:14px;z-index:99990;background:var(--panel);min-width:40px;height:36px}'+
 '@media print{#mrxTema{display:none!important}}'+
 '#mrxFab.mrxGizli{transform:translateY(140%);opacity:0;pointer-events:none}'+
 '#mrxKaplama{position:fixed;inset:0;z-index:99991;background:color-mix(in srgb,var(--taban) 93%,transparent);backdrop-filter:blur(6px);'+
@@ -408,27 +410,42 @@ function kur(){
      Kaydır-Çöz'ün kendi anahtarı (kc_tema) ayrıdır, ona dokunulmaz.
      ⚠ Açık tema dosyası bağlı olmayan sayfada düğme HİÇ çıkmaz (zaten koyudur).
      ============================================================================ */
+  /* 23.09.2026 — TEK TEMA (Cem: "renk her yerde tümden değişsin, üstten değiştirsinler"): anahtar artık
+     Kaydır-Çöz'le ORTAK kc_tema ('dark'/'light'), kaynağı tema-bas.js (<head>'de, çizimden önce). Düğme sağ
+     alttan ÜST ŞERİDE, Ara düğmesinin yanına taşındı (komut.js'in kullandığı yer: nav .navlinks / .top);
+     şerit olmayan sayfada sağ üstte sabit durur. tema-bas.js yüklenmemiş eski sayfada da aynı anahtarla çalışır. */
   (function(){
     var baglar=[].slice.call(document.querySelectorAll('link[rel="stylesheet"]')).filter(function(l){
       return /stil-acik\.css/.test(l.getAttribute('href')||'');
     });
     if(!baglar.length) return;
-    function oku(){ try{ return localStorage.getItem('tt_tema')||'acik'; }catch(e){ return 'acik'; } }
-    function uygula(t){ baglar.forEach(function(l){ l.disabled=(t==='koyu'); }); }
+    var T=window.TetikteTema||{
+      oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='koyu'?'dark':'light'; }catch(e){ return 'light'; } },
+      yaz:function(t){ try{ localStorage.setItem('kc_tema',t); localStorage.removeItem('tt_tema'); }catch(e){} this.uygula(t); try{ document.dispatchEvent(new CustomEvent('tt-tema',{detail:t})); }catch(e){} },
+      uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); }); if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
+    };
     var dugme=document.createElement('button');
     dugme.id='mrxTema'; dugme.type='button';
-    function yaz(){ var t=oku();
-      dugme.textContent = t==='koyu' ? '☀' : '☾';
-      dugme.title = t==='koyu' ? 'Açık temaya geç' : 'Koyu temaya geç';
+    function yaz(){ var koyu=T.oku()==='dark';
+      dugme.textContent = koyu ? '☀' : '☾';
+      dugme.title = koyu ? 'Açık temaya geç' : 'Koyu temaya geç';
       dugme.setAttribute('aria-label',dugme.title);
     }
-    dugme.addEventListener('click',function(){
-      var yeni = oku()==='koyu' ? 'acik' : 'koyu';
-      try{ localStorage.setItem('tt_tema',yeni); }catch(e){}
-      uygula(yeni); yaz();
-    });
-    uygula(oku()); yaz();
-    document.body.appendChild(dugme);
+    dugme.addEventListener('click',function(){ T.yaz(T.oku()==='dark'?'light':'dark'); yaz(); });
+    document.addEventListener('tt-tema',yaz);
+    T.uygula(T.oku()); yaz();
+    /* yer: Ara düğmesinin hemen yanı; komut.js düğmeyi DOMContentLoaded'da kurar -> kısa süre beklenir */
+    /* true = Ara'nın yanına oturdu (son yer). Ara henüz yoksa şeride geçici konur; Ara gelince yanına taşınır. */
+    function yerlestir(){
+      var ara=document.querySelector('.kp-dugme');
+      if(ara){ if(ara.nextSibling!==dugme) ara.parentNode.insertBefore(dugme,ara.nextSibling); dugme.className='mrxTemaSerit'; return true; }
+      var yer=document.querySelector('[data-komut-dugme]')||document.querySelector('nav .navlinks')||document.querySelector('.top');
+      if(yer){ if(dugme.parentNode!==yer){ if(yer.classList.contains('top')) yer.appendChild(dugme); else yer.insertBefore(dugme,yer.firstChild); } dugme.className='mrxTemaSerit'; return false; }
+      if(!dugme.parentNode){ dugme.className='mrxTemaSabit'; document.body.appendChild(dugme); }
+      return false;
+    }
+    var deneme=0;
+    if(!yerlestir()){ var zaman=setInterval(function(){ if(yerlestir()||++deneme>20) clearInterval(zaman); },150); }
   })();
 
   var kap=document.createElement('div'); kap.id='mrxKaplama';
