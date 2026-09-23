@@ -1948,7 +1948,7 @@ function BenzerHavuz{
         $hEt=($f.BaseName -replace '^kalip-parti-','')
         # 22.09: YAYIN CETVELİ için ham metin de taşınır (üçlü parmak izi ancak gerekince hesaplanır — bkz. BenzerlikKusur).
         $h.Add([pscustomobject]@{ etiket=$hEt; id=$p.Name; konu="$($p.Value.konu)"; kume=(KelimeKume "$($p.Value.soru)"); sikKume=(SikKume $p.Value); madde=(KokMaddeNo "$($p.Value.soru)");
-          ders=$(if($Sinav -eq 'SMMM'){ SmmmDersAdi $hEt $p.Value } else { '' }); soruMetin="$($p.Value.soru)"; dogruMetin=(IkizDogruMetin $p.Value); parmak=$null }) } } }catch{} } }
+          ders=$(if($Sinav -eq 'SMMM'){ SmmmDersAdi $hEt $p.Value } else { '' }); soruMetin="$($p.Value.soru)"; dogruMetin=(IkizDogruMetin $p.Value); parmak=$null; kaynak=@($p.Value.kaynak_adlar); ai=$null }) } } }catch{} } }
   $script:BENZER_HAVUZ=$h; if($h.Count){ Write-Host "  benzerlik havuzu: $($h.Count) soru (aynı plan, öteki etiketler)" -ForegroundColor DarkGray }
   return $h
 }
@@ -2001,6 +2001,29 @@ function BenzerlikKusur($a,[string]$benId){
         $d=IkizDeger $parmakA $h.parmak
         $k+=("$($h.etiket)/$($h.id) [$($h.konu)] ile YAYIN CETVELİNE göre ikiz (soru {0:N2} · doğru şık {1:N2}) — yayına giremez, özgün senaryo gerek" -f $d.soru,$d.sik)
         break
+      }
+    }
+  }
+  # ⭐ 24.09.2026 — ANLAMCA İKİZ ÜRETİMDE DE (Cem "1.2.3"): yayıncı KAPI-IK anlam ikizini (arac/ikiz-olcusu.ps1 IkizAnlamMi:
+  #   aynı ders+konu+ilk kaynak, soru ≥0,40, doğru şık ≥0,60, şık yazılı ve rakamları aynı) 24.09'dan beri eliyor; yayındaki
+  #   2.827 adayda 43 soru daha düştü — parası ödenmiş sorulardı. Burada hakemden ÖNCE durur.
+  #   Kaynak: kayıt kaynak_adlar taşıyorsa o, yoksa bu sorunun ambar paketi ($amb.adlar — kaynak_adlar ondan yazılır).
+  #   🚫 GÖRMEZ: IkizAnlamMi başlığındaki sınırlar; havuzdaki taslak yayına girmemiş olsa bile ikiz sayılır (klasik kapıyla aynı).
+  if($Sinav -eq 'SMMM' -and -not $k.Count){
+    $dersBu=SmmmDersAdi $Etiket $a
+    $kaA=$(if($a.PSObject.Properties['kaynak_adlar'] -and @($a.kaynak_adlar).Count){ @($a.kaynak_adlar) } elseif($amb -and $amb.adlar){ @($amb.adlar) } else { @() })
+    $aiA=IkizAnlamIz (IkizAnlamGrup $dersBu "$($a.konu)" $kaA) "$($a.soru)" (IkizDogruMetin $a)
+    if($aiA.grup){
+      foreach($oid in @($don.Keys)){
+        if($oid -eq $benId){ continue }; $o=$don[$oid]; if(-not $o -or -not $o.soru -or "$($o.konu)" -ne "$($a.konu)"){ continue }
+        if(IkizAnlamMi $aiA (IkizAnlamIz (IkizAnlamGrup $dersBu "$($o.konu)" @($o.kaynak_adlar)) "$($o.soru)" (IkizDogruMetin $o))){ $k+="partideki $oid ile ANLAMCA ikiz (aynı madde+konu, aynı doğru ifade) — yayına giremez, özgün senaryo gerek"; break }
+      }
+    }
+    if($aiA.grup -and -not $k.Count){
+      foreach($h in (BenzerHavuz)){
+        if($h.konu -ne "$($a.konu)" -or ($dersBu -and $h.ders -and $h.ders -ne $dersBu)){ continue }
+        if($null -eq $h.ai){ $h.ai=IkizAnlamIz (IkizAnlamGrup $h.ders $h.konu $h.kaynak) $h.soruMetin $h.dogruMetin }
+        if(IkizAnlamMi $aiA $h.ai){ $k+="$($h.etiket)/$($h.id) [$($h.konu)] ile ANLAMCA ikiz (aynı madde+konu, aynı doğru ifade) — yayına giremez, özgün senaryo gerek"; break }
       }
     }
   }

@@ -159,6 +159,12 @@ jobs:
           - { ad: "Ikiz olcusu OZ-SINAVI (uretim ve yayin TEK cetvel)",
               kabuk: pwsh, komut: "./arac/ikiz-olcusu-sinavi.ps1" }
 
+          # 24.09.2026 - Uretimde ANLAMCA IKIZ (KAPI-B): kalip-parti-uret.ps1 CALISTIRILMAZ (para harcar); gercek
+          # BenzerlikKusur AST ile yuklenir, sahte parti/havuz/ambar paketiyle cagrilir. 7 vaka. Mutasyonla olculdu:
+          # havuz kontrolu / parti kontrolu / ambar paketi yedegi kaldirilinca KIRMIZI (3/3).
+          - { ad: "Uretim ikiz kapisi OZ-SINAVI (anlamca ikiz hakemden once dursun)",
+              kabuk: pwsh, komut: "./arac/uretim-ikiz-sinavi.ps1" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para
