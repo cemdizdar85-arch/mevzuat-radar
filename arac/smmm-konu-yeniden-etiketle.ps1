@@ -19,20 +19,29 @@
      model sonucu değişmemiş). YANLIŞ işaretli kayıt hiç yazılmaz. Örneklem: veri/sinav/smmm-konu-orneklem-<kume>.json
   KULLANIM: powershell -NoProfile -File arac/smmm-konu-yeniden-etiketle.ps1 [-Kume kasa] [-OrneklemYaz | -Yaz]
             -OrneklemYaz: okunacak örneklemi dosyaya yazar (karar BEKLİYOR); okuyan DOĞRU/YANLIŞ işaretler.
+            -OrneklemYaz -TamOkuma (Cem 23.09 "model yalnız aday bulsun"): BÜTÜN adaylar yazılır + ders ders okuma
+              paketleri veri/fabrika/konu-aday-paket/<ders>.md (soru metni içerir, depoya girmez). Hepsi okununca
+              kapı oran aramaz; DOĞRU'lar yazılır, YANLIŞ'lar dışlanır.
+            -Istem v1|v2: hangi model karnesi okunur (smmm-konu-uyum-model.ps1 ile aynı; varsayılan v2).
 ================================================================================
 #>
-param([ValidateSet('anahtar', 'kasa')][string]$Kume = 'kasa', [switch]$Yaz, [switch]$OrneklemYaz)
+param([ValidateSet('anahtar', 'kasa')][string]$Kume = 'kasa', [switch]$Yaz, [switch]$OrneklemYaz, [switch]$TamOkuma, [ValidateSet('v1', 'v2')][string]$Istem = 'v2')
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 $kok = Split-Path -Parent $buDizin
 . (Join-Path $buDizin 'konu-orneklem-kapisi.ps1')
-$girdi = Join-Path $kok "veri\fabrika\smmm-konu-uyum-model-$Kume.json"
+$sonEk = $(if ($Istem -eq 'v2') { '-v2' } else { '' })
+$girdi = Join-Path $kok "veri\fabrika\smmm-konu-uyum-model-$Kume$sonEk.json"
 if (-not (Test-Path $girdi)) { throw "model sonucu yok: $girdi — önce arac/smmm-konu-uyum-model.ps1 -Kume $Kume" }
 $tabloKonu = @{}; foreach ($r in (Import-Csv (Join-Path $kok 'veri\fabrika\smmm-kapsama.csv') -Encoding UTF8)) { $tabloKonu["$($r.konu)"] = 1 }
 $kosan = @{}
 try { foreach ($e in @(& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'bulut-kosan-etiketler.ps1') -Kati 2>$null)) { if ("$e".Trim()) { $kosan["$e".Trim()] = 1 } } }
 catch { throw "koşan dalgalar okunamadı — yazmak güvenli değil: $($_.Exception.Message)" }
 if ($LASTEXITCODE) { throw 'koşan dalgalar okunamadı (bulut-kosan-etiketler -Kati çıkış ≠ 0) — yazılmadı' }
+# Cem 23.09 ("1.2.3" madde 3): etiket düzeltme DALGALAR BİTTİKTEN SONRA (w11 dahil) — öncelik yanlış anahtarlı sorular.
+# Etiket hatası soruyu yanlış yapmaz, kapsama sayımını bozar; koşan dalgayla aynı anda parti dosyası yazmak çakışma doğurur.
+$kosanSmmm = @($kosan.Keys | Where-Object { $_ -like 'smmm-*' })
+if ($Yaz -and $kosanSmmm.Count) { throw "yazılmadı — bulutta $($kosanSmmm.Count) SMMM partisi koşuyor (ör. $($kosanSmmm[0])); Cem kararı: etiket düzeltme dalgalar bittikten sonra" }
 
 $sonuc = @(Get-Content $girdi -Raw -Encoding UTF8 | ConvertFrom-Json | ForEach-Object { $_ })
 $aday = @($sonuc | Where-Object { $_.uyum -eq 'HAYIR' -and "$($_.dogru_konu)" -and "$($_.dogru_konu)" -ne 'LISTEDE_YOK' })
@@ -40,17 +49,36 @@ $gecerli = @($aday | Where-Object { $tabloKonu.ContainsKey("$($_.dogru_konu)") }
 Write-Host ("model sonucu {0} · HAYIR+öneri {1} · önerisi konu listesinde aynen var {2} · koşan dalga partisi {3}" -f $sonuc.Count, $aday.Count, $gecerli.Count, $kosan.Count)
 # --- ELLE ÖRNEKLEM KAPISI
 $damga = (Get-FileHash $girdi -Algorithm SHA256).Hash.Substring(0, 12)
-$ornekDosya = Join-Path $kok "veri\sinav\smmm-konu-orneklem-$Kume.json"
+$ornekDosya = Join-Path $kok "veri\sinav\smmm-konu-orneklem-$Kume$sonEk.json"
 $orn = $null; if (Test-Path $ornekDosya) { $orn = Get-Content $ornekDosya -Raw -Encoding UTF8 | ConvertFrom-Json }
 $adayAn = @($gecerli | ForEach-Object { "$($_.an)" })
 if ($OrneklemYaz) {
   $eski = @{}; if ($orn -and "$($orn.damga)" -eq $damga) { foreach ($k in @($orn.kayitlar | ForEach-Object { $_ })) { $eski["$($k.an)"] = $k } }
-  $sec = @(OrneklemSec $adayAn $damga); $kayitlar = New-Object System.Collections.Generic.List[object]
+  $sec = $(if ($TamOkuma) { @($adayAn | Sort-Object -Unique) } else { @(OrneklemSec $adayAn $damga) }); $kayitlar = New-Object System.Collections.Generic.List[object]
   foreach ($an in $sec) { if ($eski.ContainsKey($an)) { $kayitlar.Add($eski[$an]); continue }
     $x = $gecerli | Where-Object { "$($_.an)" -eq $an } | Select-Object -First 1
     $kayitlar.Add([ordered]@{ an = $an; onerilen_konu = "$($x.dogru_konu)"; gerekce = "$($x.gerekce)"; karar = 'BEKLİYOR'; okuyan = ''; not = '' }) }
   [IO.File]::WriteAllText($ornekDosya, (ConvertTo-Json -InputObject ([ordered]@{ damga = $damga; girdi = "veri/fabrika/smmm-konu-uyum-model-$Kume.json"; tarih = (Get-Date -Format 'yyyy-MM-dd HH:mm'); aday = $adayAn.Count; kayitlar = $kayitlar.ToArray() }) -Depth 4), (New-Object Text.UTF8Encoding $false))
-  "ÖRNEKLEM YAZILDI: $($sec.Count)/$($adayAn.Count) aday → $ornekDosya (her kayıt okunup karar DOĞRU/YANLIŞ yazılır)"; exit 0
+  if ($TamOkuma) {
+    # ders ders okuma paketleri (soru metni içerir → veri/fabrika, gitignore)
+    . (Join-Path $buDizin 'smmm-ders-adi.ps1')
+    $pDir = Join-Path $kok 'veri\fabrika\konu-aday-paket'; New-Item -ItemType Directory -Force $pDir | Out-Null
+    $gruplar = $sec | Group-Object { SmmmDersAdi (("$_" -split '/')[0]) $null }
+    foreach ($g in $gruplar) {
+      $pm = New-Object System.Collections.Generic.List[string]
+      $pm.Add("# KONU ETİKETİ ADAYLARI — $($g.Name) ($($g.Count) soru, model $Istem)"); $pm.Add('')
+      $pm.Add("> Her soruda karar: etiket mi doğru (YANLIŞ = modelin önerisi yanlış) yoksa önerilen konu mu (DOĞRU)? Karar $ornekDosya içindeki ``karar`` alanına yazılır."); $pm.Add('')
+      foreach ($an in $g.Group) {
+        $et = ("$an" -split '/')[0]; $id = ("$an" -split '/')[1]; $x = $gecerli | Where-Object { "$($_.an)" -eq $an } | Select-Object -First 1
+        $v = (Get-Content (Join-Path $kok "veri\fabrika\kalip-parti-$et.json") -Raw -Encoding UTF8 | ConvertFrom-Json).$id
+        $pm.Add('---'); $pm.Add("## $an"); $pm.Add(''); $pm.Add("**Etiket:** $($v.konu) → **model önerisi:** $($x.dogru_konu)  ·  _$($x.gerekce)_"); $pm.Add('')
+        $pm.Add("**Soru:** $($v.soru)"); $pm.Add(''); foreach ($h in 'A', 'B', 'C', 'D', 'E') { $pm.Add("- **$h)** $($v.siklar.$h)$(if ("$($v.dogru)" -eq $h) { ' ← cevap' })") }; $pm.Add('')
+      }
+      [IO.File]::WriteAllText((Join-Path $pDir ("{0}-{1}.md" -f $Kume, ($g.Name -replace '[^\wçğıöşüÇĞİÖŞÜ]+', '-').Trim('-').ToLower())), ($pm -join "`r`n"), (New-Object Text.UTF8Encoding $false))
+    }
+    "PAKETLER: $(@($gruplar).Count) ders → $pDir · $(($gruplar | ForEach-Object { "$($_.Name) $($_.Count)" }) -join ' · ')"
+  }
+  "ÖRNEKLEM YAZILDI: $($sec.Count)/$($adayAn.Count) aday$(if ($TamOkuma) { ' (TAM OKUMA)' }) → $ornekDosya (her kayıt okunup karar DOĞRU/YANLIŞ yazılır)"; exit 0
 }
 $kapi = OrneklemKapisi $adayAn $orn $damga
 Write-Host "ÖRNEKLEM KAPISI: $(if ($kapi.izin) { 'İZİN' } else { 'KAPALI' }) — $($kapi.sebep)"

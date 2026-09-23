@@ -38,6 +38,14 @@ $ad100 = @(1..100 | ForEach-Object { "r/kp-{0:D3}" -f $_ }); $s100 = @(OrneklemS
 $k100 = OrneklemKapisi $ad100 (Orn 'D1' @($s100 | Select-Object -First 9) @($s100[9])) 'D1'
 T '1/10 YANLIŞ (%10, eşik dahil) → İZİN, YANLIŞ olan dışlanır' ($k100.izin -and (@($k100.disla) -contains $s100[9]) -and @($k100.disla).Count -eq 1)
 T 'aday yok → izin (yazılacak bir şey yok)' ((OrneklemKapisi @() $null 'D1').izin)
+# TAM OKUMA: hepsi okunduysa oran aranmaz, YANLIŞ'lar dışlanır
+$yarim = @($ad20 | Select-Object -First 10); $obur = @($ad20 | Select-Object -Skip 10)
+$kTam = OrneklemKapisi $ad20 (Orn 'D1' $yarim $obur) 'D1'
+T 'tam okuma: 20 adayın hepsi okundu, %50 YANLIŞ → İZİN, 10 YANLIŞ dışlanır' ($kTam.izin -and @($kTam.disla).Count -eq 10 -and -not (@($kTam.disla) | Where-Object { $yarim -contains $_ }))
+$disari = @($ad20 | Where-Object { $s20 -notcontains $_ }); $okunmayan = $disari[0]
+$dogruK = @($ad20 | Where-Object { $_ -ne $okunmayan -and $_ -ne $s20[0] })
+T 'tam okuma eksik (19/20, örneklem dışı 1 okunmamış) → örneklem kuralı: 1/5 YANLIŞ → İZİN YOK' (-not (OrneklemKapisi $ad20 (Orn 'D1' $dogruK @($s20[0])) 'D1').izin)
+T 'tam okuma da damga ister' (-not (OrneklemKapisi $ad20 (Orn 'ESKI' $yarim $obur) 'D1').izin)
 $top = $gecti + $dustu.Count
 Write-Host "KONU ÖRNEKLEM KAPISI ÖZ-SINAVI: $gecti/$top geçti"
 if ($dustu.Count) { $dustu | ForEach-Object { Write-Host "  ✗ $_" }; exit 1 }
