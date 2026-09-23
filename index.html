@@ -843,32 +843,7 @@ window.veriAl = (function(){
       </div>
     </div>
 
-    <!-- SINAV BANDI (13.09 Cem "1.2.3 yap", GM önerisi 1): kahramanın hemen altındaki koyu bant YALNIZ
-         sınava hazırlananı ilgilendiren dört rakamı taşır - büyük sitelerin kalıbı "tek kitle, tek kanıt bandı".
-         Resmî Gazete / ihale / gümrük rakamları aşağıya, iş bölümünün girişine (#is-nobet) taşındı.
-         Kimlikler korundu: ndSgs/ndYet (nöbet betiği geri sayar), knCikmis (kanıt betiği), bzCozulebilir
-         (veri/soru-dizini.json - yayındaki Kaydır-Çöz sayfalarında çözülebilir soru; kasa sayısı DEĞİL).
-         Alt yazılar sınav tarihini taşır (TÜRMOB 2026 resmî takvimi): "başvuru 21 Eylül'de açılıyor" gibi
-         birkaç günde eskiyen cümle yazılmadı. -->
-    <section class="bz-nobet" aria-label="Sınav nöbeti">
-      <div class="bz-nobet-ust">
-        <span class="bz-et">Sınava hazırlanan için</span>
-        <span>Sınav tarihleri TÜRMOB 2026 resmî takviminden</span>
-      </div>
-      <div class="bz-nobet-sat">
-        <a class="bz-ns" href="sorular.html#sgs"><b id="ndSgs">69 gün</b><span>Staja Giriş sınavına · 21 Kasım 2026</span></a>
-        <a class="bz-ns" href="sorular.html#smmm"><b id="ndYet">76 gün</b><span>Yeterlilik sınavına · 28 Kasım 2026</span></a>
-        <a class="bz-ns" href="sorular.html"><b id="bzCozulebilir">3.678</b><span>çözümlü soru bugün açık · her şıkkın gerekçesi yazılı</span></a>
-        <a class="bz-ns" href="sorular.html"><b id="knCikmis">20.851</b><span>çıkmış soru arşivde, üç sınavdan</span></a>
-      </div>
-    </section>
-    <script>
-    /* bzCozulebilir: HTML'deki değer son ölçüm (13.09.2026); dizin okunursa üzerine yazılır, 0 gelirse yazılmaz. */
-    fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
-      if(!d||!d.sinavlar) return; var n=0; d.sinavlar.forEach(function(s){ n+=+s.soru||0; });
-      var e=document.getElementById('bzCozulebilir'); if(e&&n>0) e.textContent=n.toLocaleString('tr-TR');
-    }).catch(function(){});
-    </script>
+    <!-- SINAV BANDI kaldırıldı (23.09.2026, Cem "bu alttaki bilgileri kaldıralım"): gün sayacı + çözümlü/çıkmış soru kutuları. ndSgs/ndYet/knCikmis/bzCozulebilir yazan betikler eksik kimliği atlar. -->
     <script src="uye-durumu.js"></script>
     <script>
     /* SINAV × ÜYE DURUMU -> kahraman düğmeleri (15.09.2026, Cem "1.2.3 yap").
