@@ -1,7 +1,650 @@
 {
-  "tarih": "12.09.2026 09:56",
-  "durum": "HATA",
-  "hata": "Response status code does not indicate success: 500 (Internal Server Error).",
-  "sunucu": "\n{\n  \"code\": \"57014\",\n  \"details\": null,\n  \"hint\": null,\n  \"message\": \"canceling statement due to statement timeout\"\n}",
-  "satir": 48
+  "tarih": "23.09.2026 19:56",
+  "durum": "TAMAM",
+  "mod": "OLCUM (0 USD, yazma yok)",
+  "kasa": 30569,
+  "aciklamasi_olan": 30567,
+  "olcut": "Bir acilis kalibi %5 ustu DIKKAT, %10 ustu TEKDUZE. Dogal dilde en sik kalip genelde %2-3te kalir.",
+  "en_yuksek_tek_kalip_yuzde": 7.06,
+  "en_yuksek_bolum": "KURAL",
+  "KARAR": "DIKKAT - sinirda",
+  "bolumler": {
+    "NE SORULUYOR": {
+      "bolum_toplam": 29636,
+      "farkli_acilis_2kelime": 9593,
+      "farkli_acilis_3kelime": 15549,
+      "en_sik_2kelime": [
+        {
+          "acilis": "imal edilen",
+          "adet": 1307,
+          "yuzde": 4.41
+        },
+        {
+          "acilis": "esaslı neden",
+          "adet": 747,
+          "yuzde": 2.52
+        },
+        {
+          "acilis": "üretilen mamulün",
+          "adet": 339,
+          "yuzde": 1.14
+        },
+        {
+          "acilis": "belirli süreli",
+          "adet": 289,
+          "yuzde": 0.98
+        },
+        {
+          "acilis": "noterin protesto",
+          "adet": 286,
+          "yuzde": 0.97
+        },
+        {
+          "acilis": "genel idare",
+          "adet": 246,
+          "yuzde": 0.83
+        },
+        {
+          "acilis": "işletmenin kısa",
+          "adet": 243,
+          "yuzde": 0.82
+        },
+        {
+          "acilis": "protestoyu düzenleyen",
+          "adet": 223,
+          "yuzde": 0.75
+        },
+        {
+          "acilis": "hangi cümlede",
+          "adet": 201,
+          "yuzde": 0.68
+        },
+        {
+          "acilis": "yönetim kurulunun",
+          "adet": 170,
+          "yuzde": 0.57
+        },
+        {
+          "acilis": "ithal edilen",
+          "adet": 167,
+          "yuzde": 0.56
+        },
+        {
+          "acilis": "peşin ödenen",
+          "adet": 154,
+          "yuzde": 0.52
+        },
+        {
+          "acilis": "cümlede hangi",
+          "adet": 152,
+          "yuzde": 0.51
+        },
+        {
+          "acilis": "gelir tablosunda",
+          "adet": 148,
+          "yuzde": 0.5
+        },
+        {
+          "acilis": "genel üretim",
+          "adet": 146,
+          "yuzde": 0.49
+        }
+      ],
+      "en_sik_3kelime": [
+        {
+          "acilis": "imal edilen mamulün",
+          "adet": 879,
+          "yuzde": 2.97
+        },
+        {
+          "acilis": "esaslı neden olmadan",
+          "adet": 562,
+          "yuzde": 1.9
+        },
+        {
+          "acilis": "işletmenin kısa vadeli",
+          "adet": 241,
+          "yuzde": 0.81
+        },
+        {
+          "acilis": "protestoyu düzenleyen noterin",
+          "adet": 223,
+          "yuzde": 0.75
+        },
+        {
+          "acilis": "belirli süreli iş",
+          "adet": 204,
+          "yuzde": 0.69
+        },
+        {
+          "acilis": "genel idare giderlerinin",
+          "adet": 181,
+          "yuzde": 0.61
+        },
+        {
+          "acilis": "üretilen mamulün maliyet",
+          "adet": 166,
+          "yuzde": 0.56
+        },
+        {
+          "acilis": "dönen varlıkların kısa",
+          "adet": 126,
+          "yuzde": 0.43
+        },
+        {
+          "acilis": "şirketin kısa vadeli",
+          "adet": 120,
+          "yuzde": 0.4
+        },
+        {
+          "acilis": "noterin protesto sonrası",
+          "adet": 111,
+          "yuzde": 0.37
+        },
+        {
+          "acilis": "satılan ticari malların",
+          "adet": 111,
+          "yuzde": 0.37
+        },
+        {
+          "acilis": "genel üretim giderlerinin",
+          "adet": 103,
+          "yuzde": 0.35
+        },
+        {
+          "acilis": "ithal edilen bir",
+          "adet": 100,
+          "yuzde": 0.34
+        },
+        {
+          "acilis": "esaslı neden gösterilmeden",
+          "adet": 97,
+          "yuzde": 0.33
+        },
+        {
+          "acilis": "gelecek döneme ait",
+          "adet": 95,
+          "yuzde": 0.32
+        }
+      ]
+    },
+    "KURAL": {
+      "bolum_toplam": 29645,
+      "farkli_acilis_2kelime": 5034,
+      "farkli_acilis_3kelime": 8117,
+      "en_sik_2kelime": [
+        {
+          "acilis": "vuk m",
+          "adet": 2092,
+          "yuzde": 7.06
+        },
+        {
+          "acilis": "vuk 275",
+          "adet": 1607,
+          "yuzde": 5.42
+        },
+        {
+          "acilis": "ttk m",
+          "adet": 1269,
+          "yuzde": 4.28
+        },
+        {
+          "acilis": "belirli süreli",
+          "adet": 731,
+          "yuzde": 2.47
+        },
+        {
+          "acilis": "iş kanunu",
+          "adet": 676,
+          "yuzde": 2.28
+        },
+        {
+          "acilis": "vuk madde",
+          "adet": 671,
+          "yuzde": 2.26
+        },
+        {
+          "acilis": "cari oran",
+          "adet": 563,
+          "yuzde": 1.9
+        },
+        {
+          "acilis": "ttk ya",
+          "adet": 354,
+          "yuzde": 1.19
+        },
+        {
+          "acilis": "dikey yüzde",
+          "adet": 350,
+          "yuzde": 1.18
+        },
+        {
+          "acilis": "3568 sayılı",
+          "adet": 336,
+          "yuzde": 1.13
+        },
+        {
+          "acilis": "üretilen mamulün",
+          "adet": 317,
+          "yuzde": 1.07
+        },
+        {
+          "acilis": "vuk un",
+          "adet": 315,
+          "yuzde": 1.06
+        },
+        {
+          "acilis": "vuk a",
+          "adet": 271,
+          "yuzde": 0.91
+        },
+        {
+          "acilis": "ttk madde",
+          "adet": 261,
+          "yuzde": 0.88
+        },
+        {
+          "acilis": "vuk 262",
+          "adet": 248,
+          "yuzde": 0.84
+        }
+      ],
+      "en_sik_3kelime": [
+        {
+          "acilis": "vuk m 275",
+          "adet": 1420,
+          "yuzde": 4.79
+        },
+        {
+          "acilis": "belirli süreli iş",
+          "adet": 610,
+          "yuzde": 2.06
+        },
+        {
+          "acilis": "vuk 275 e",
+          "adet": 557,
+          "yuzde": 1.88
+        },
+        {
+          "acilis": "vuk 275 maddeye",
+          "adet": 526,
+          "yuzde": 1.77
+        },
+        {
+          "acilis": "vuk madde 275",
+          "adet": 445,
+          "yuzde": 1.5
+        },
+        {
+          "acilis": "iş kanunu na",
+          "adet": 435,
+          "yuzde": 1.47
+        },
+        {
+          "acilis": "cari oran dönen",
+          "adet": 352,
+          "yuzde": 1.19
+        },
+        {
+          "acilis": "ttk ya göre",
+          "adet": 351,
+          "yuzde": 1.18
+        },
+        {
+          "acilis": "dikey yüzde analizinde",
+          "adet": 306,
+          "yuzde": 1.03
+        },
+        {
+          "acilis": "3568 sayılı kanun",
+          "adet": 292,
+          "yuzde": 0.98
+        },
+        {
+          "acilis": "vuk 275 madde",
+          "adet": 292,
+          "yuzde": 0.98
+        },
+        {
+          "acilis": "vuk a göre",
+          "adet": 271,
+          "yuzde": 0.91
+        },
+        {
+          "acilis": "ttk m 720",
+          "adet": 270,
+          "yuzde": 0.91
+        },
+        {
+          "acilis": "üretilen mamulün maliyet",
+          "adet": 244,
+          "yuzde": 0.82
+        },
+        {
+          "acilis": "protestoyu düzenleyen noter",
+          "adet": 240,
+          "yuzde": 0.81
+        }
+      ]
+    },
+    "BU OLAYDA": {
+      "bolum_toplam": 29636,
+      "farkli_acilis_2kelime": 13576,
+      "farkli_acilis_3kelime": 21017,
+      "en_sik_2kelime": [
+        {
+          "acilis": "işletme genel",
+          "adet": 608,
+          "yuzde": 2.05
+        },
+        {
+          "acilis": "ham madde",
+          "adet": 519,
+          "yuzde": 1.75
+        },
+        {
+          "acilis": "dönen varlıklar",
+          "adet": 283,
+          "yuzde": 0.95
+        },
+        {
+          "acilis": "mehmet bey",
+          "adet": 276,
+          "yuzde": 0.93
+        },
+        {
+          "acilis": "yıldırım makina",
+          "adet": 216,
+          "yuzde": 0.73
+        },
+        {
+          "acilis": "şirket genel",
+          "adet": 198,
+          "yuzde": 0.67
+        },
+        {
+          "acilis": "mehmet yılmaz",
+          "adet": 173,
+          "yuzde": 0.58
+        },
+        {
+          "acilis": "alış bedeli",
+          "adet": 156,
+          "yuzde": 0.53
+        },
+        {
+          "acilis": "toplam maliyet",
+          "adet": 151,
+          "yuzde": 0.51
+        },
+        {
+          "acilis": "yıldırım mobilya",
+          "adet": 134,
+          "yuzde": 0.45
+        },
+        {
+          "acilis": "karadeniz gıda",
+          "adet": 126,
+          "yuzde": 0.43
+        },
+        {
+          "acilis": "cari oran",
+          "adet": 122,
+          "yuzde": 0.41
+        },
+        {
+          "acilis": "yıldız mobilya",
+          "adet": 112,
+          "yuzde": 0.38
+        },
+        {
+          "acilis": "fatura bedeli",
+          "adet": 111,
+          "yuzde": 0.37
+        },
+        {
+          "acilis": "yönetim kurulu",
+          "adet": 104,
+          "yuzde": 0.35
+        }
+      ],
+      "en_sik_3kelime": [
+        {
+          "acilis": "işletme genel idare",
+          "adet": 498,
+          "yuzde": 1.68
+        },
+        {
+          "acilis": "şirket genel idare",
+          "adet": 161,
+          "yuzde": 0.54
+        },
+        {
+          "acilis": "yıldırım makina nın",
+          "adet": 110,
+          "yuzde": 0.37
+        },
+        {
+          "acilis": "işletme genel yönetim",
+          "adet": 106,
+          "yuzde": 0.36
+        },
+        {
+          "acilis": "dönen varlıklar 487",
+          "adet": 82,
+          "yuzde": 0.28
+        },
+        {
+          "acilis": "mehmet bey in",
+          "adet": 80,
+          "yuzde": 0.27
+        },
+        {
+          "acilis": "ham madde 187",
+          "adet": 65,
+          "yuzde": 0.22
+        },
+        {
+          "acilis": "noter protesto işlemini",
+          "adet": 64,
+          "yuzde": 0.22
+        },
+        {
+          "acilis": "karadeniz gıda a",
+          "adet": 60,
+          "yuzde": 0.2
+        },
+        {
+          "acilis": "cari oran dönen",
+          "adet": 59,
+          "yuzde": 0.2
+        },
+        {
+          "acilis": "ham madde 87",
+          "adet": 59,
+          "yuzde": 0.2
+        },
+        {
+          "acilis": "yıldırım mobilya nın",
+          "adet": 54,
+          "yuzde": 0.18
+        },
+        {
+          "acilis": "demir makina nın",
+          "adet": 52,
+          "yuzde": 0.18
+        },
+        {
+          "acilis": "yıldırım makine nin",
+          "adet": 46,
+          "yuzde": 0.16
+        },
+        {
+          "acilis": "18 750 tl",
+          "adet": 44,
+          "yuzde": 0.15
+        }
+      ]
+    },
+    "AKILDA KALSIN": {
+      "bolum_toplam": 29637,
+      "farkli_acilis_2kelime": 12193,
+      "farkli_acilis_3kelime": 19045,
+      "en_sik_2kelime": [
+        {
+          "acilis": "genel idare",
+          "adet": 1378,
+          "yuzde": 4.65
+        },
+        {
+          "acilis": "cari oran",
+          "adet": 501,
+          "yuzde": 1.69
+        },
+        {
+          "acilis": "esaslı neden",
+          "adet": 448,
+          "yuzde": 1.51
+        },
+        {
+          "acilis": "genel üretim",
+          "adet": 418,
+          "yuzde": 1.41
+        },
+        {
+          "acilis": "genel yönetim",
+          "adet": 252,
+          "yuzde": 0.85
+        },
+        {
+          "acilis": "noter protesto",
+          "adet": 250,
+          "yuzde": 0.84
+        },
+        {
+          "acilis": "dikey analizde",
+          "adet": 231,
+          "yuzde": 0.78
+        },
+        {
+          "acilis": "zincirleme sözleşme",
+          "adet": 219,
+          "yuzde": 0.74
+        },
+        {
+          "acilis": "peşin ödenen",
+          "adet": 183,
+          "yuzde": 0.62
+        },
+        {
+          "acilis": "zincirleme belirli",
+          "adet": 149,
+          "yuzde": 0.5
+        },
+        {
+          "acilis": "belirli süreli",
+          "adet": 146,
+          "yuzde": 0.49
+        },
+        {
+          "acilis": "asit test",
+          "adet": 134,
+          "yuzde": 0.45
+        },
+        {
+          "acilis": "yönetim kurulu",
+          "adet": 131,
+          "yuzde": 0.44
+        },
+        {
+          "acilis": "noter poliçenin",
+          "adet": 118,
+          "yuzde": 0.4
+        },
+        {
+          "acilis": "7 a",
+          "adet": 112,
+          "yuzde": 0.38
+        }
+      ],
+      "en_sik_3kelime": [
+        {
+          "acilis": "genel idare giderleri",
+          "adet": 828,
+          "yuzde": 2.79
+        },
+        {
+          "acilis": "genel üretim giderleri",
+          "adet": 327,
+          "yuzde": 1.1
+        },
+        {
+          "acilis": "genel idare gideri",
+          "adet": 308,
+          "yuzde": 1.04
+        },
+        {
+          "acilis": "esaslı neden yoksa",
+          "adet": 297,
+          "yuzde": 1.0
+        },
+        {
+          "acilis": "zincirleme belirli süreli",
+          "adet": 149,
+          "yuzde": 0.5
+        },
+        {
+          "acilis": "cari oran 1",
+          "adet": 145,
+          "yuzde": 0.49
+        },
+        {
+          "acilis": "genel yönetim giderleri",
+          "adet": 112,
+          "yuzde": 0.38
+        },
+        {
+          "acilis": "zincirleme sözleşme yasağı",
+          "adet": 103,
+          "yuzde": 0.35
+        },
+        {
+          "acilis": "dikey analizde her",
+          "adet": 99,
+          "yuzde": 0.33
+        },
+        {
+          "acilis": "genel idare giderlerinin",
+          "adet": 89,
+          "yuzde": 0.3
+        },
+        {
+          "acilis": "belirli süreli sözleşme",
+          "adet": 89,
+          "yuzde": 0.3
+        },
+        {
+          "acilis": "cari oran 2",
+          "adet": 85,
+          "yuzde": 0.29
+        },
+        {
+          "acilis": "esaslı neden olmadan",
+          "adet": 77,
+          "yuzde": 0.26
+        },
+        {
+          "acilis": "genel yönetim gideri",
+          "adet": 72,
+          "yuzde": 0.24
+        },
+        {
+          "acilis": "genel idare giderlerini",
+          "adet": 70,
+          "yuzde": 0.24
+        }
+      ]
+    }
+  },
+  "not": "Yalniz OLCUM - kasaya dokunulmadi. Basligin kendisi (Ne soruluyor:) sabit olmasi sorun degil; olculen sey basligin ALTINDAKI cumlenin acilis kalibidir."
 }
