@@ -1,5 +1,5 @@
 {
-  "tarih": "23.09.2026 19:19",
+  "tarih": "23.09.2026 19:32",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 880,
   "riskli_madde": 1313,
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 415,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -194,7 +194,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1482,
+      "satir": 1486,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1532,79 +1532,79 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1026,
+      "satir": 1030,
       "iddia": "2 gün",
       "metin": "/* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur."
     },
     {
       "sayfa": "index.html",
-      "satir": 1033,
+      "satir": 1037,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Ku"
     },
     {
       "sayfa": "index.html",
-      "satir": 1035,
+      "satir": 1039,
       "iddia": "7 gün",
       "metin": "else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');"
     },
     {
       "sayfa": "index.html",
-      "satir": 1091,
+      "satir": 1095,
       "iddia": "2 gün",
       "metin": "ozetEl.textContent=(SINAV_AD[aktifSinav]||'Bu sınavın')+' soru bankası hazırlanıyor. Açıldığında burada her gün bir soru olacak: şıkkı seçersin, Nöbetçi neden doğru ya da yanlış ol"
     },
     {
       "sayfa": "index.html",
-      "satir": 1165,
+      "satir": 1169,
       "iddia": "%100",
       "metin": "Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·"
     },
     {
       "sayfa": "index.html",
-      "satir": 1166,
+      "satir": 1170,
       "iddia": "%96",
       "metin": "\"Nöbetçi anlatsın\" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir)."
     },
     {
       "sayfa": "index.html",
-      "satir": 1167,
+      "satir": 1171,
       "iddia": "%40",
       "metin": "BİLEREK YAZILMADI: \"ikizini sen çöz\" - yalnız %40'ında var. -->"
     },
     {
       "sayfa": "index.html",
-      "satir": 1177,
+      "satir": 1181,
       "iddia": "2 gün",
       "metin": "4 Unutma Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar."
     },
     {
       "sayfa": "index.html",
-      "satir": 1293,
+      "satir": 1297,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 1309,
+      "satir": 1313,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 1342,
+      "satir": 1346,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 1345,
+      "satir": 1349,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1536,
+      "satir": 1540,
       "iddia": "5 gün",
       "metin": "robot bugün koştuğu hâlde dosya değişmediği için 5 gün eskide kalıyordu. Akış bandı raftaki"
     },
