@@ -47,7 +47,9 @@ $kok = Split-Path -Parent $buDizin
 $sinavKosusu = [bool]$DenetimKok
 if ($sinavKosusu) { $kok = $DenetimKok; $IndirmeYok = $true; $ExcelYok = $true }
 function Nrm([string]$s) {
-  $t = "$s".ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
+  # Önce İ/ı katlanır, SONRA küçültülür: Linux'ta (ICU) 'İ'.ToLowerInvariant() = 'i'+U+0307 olur ve 'İŞLEMLERİ'
+  # tablodaki 'işlemleri' ile eşleşmez (23.09 dogrula.yml'de öz-sınav yakaladı; Windows'ta görünmüyordu).
+  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
   return (($t -replace '[^a-z0-9 ]', ' ') -replace '\s+', ' ').Trim()
 }
 function Adim([string]$ad, [scriptblock]$is) {
