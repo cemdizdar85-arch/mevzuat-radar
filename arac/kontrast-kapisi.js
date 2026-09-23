@@ -420,17 +420,22 @@ function raporYaz(icerik){
    kartlar 61 · karsilastirma 4 · radar 4 · alacak-radari 2 · marka-rapor 2 · kdv-iade-rehberi 1 · tetikte-marka 1.
    23.09 aksam: kartlar + radar CIKTI (kok: motor/kart-toplu.ps1 ve arac/rg-tarama.ps1 satir ici :root'ta eski
    --dim:#5d6b7c kopyasi; 09.09 stil.css duzeltmesi oraya ulasmamisti -> kopya silindi, tek kaynak stil.css). Kalan 10 kirik.
+   23.09 gece: kalan 5 de temizlendi (karsilastirma/alacak-radari eski --dim kopyasi silindi; kdv-iade hapi amber
+   jetonlarina; marka-rapor kagit baglantisi kagit rengini miras alir; tetikte-marka acik gosterim kutusu kendi --dim'i).
+   LISTE BOS: kapi stil-acik bagli HER sayfayi iki temada olcer. Yeni bir koyu kirigi hemen duzeltilemiyorsa
+   sayfa buraya GEREKCEYLE eklenir - rapor onu koyu_bekleyen (KOR) diye yazar.
    Bu kapi bu sayfalari KOYUDA GORMEZ (acikta gorur). Duzelten satiri siler. */
-const KOYU_BEKLEYEN=['karsilastirma.html','alacak-radari.html','marka-rapor.html','kdv-iade-rehberi.html','tetikte-marka.html'];
+const KOYU_BEKLEYEN=[];
 const KOYU_VITRIN=['kaydir/vitrin/sgs.html','kaydir/vitrin/smmm.html'];
-function koyuListe(sayfalar, secili, acikBagli){
+function koyuListe(sayfalar, secili, acikBagli, bekleyen){
+  bekleyen = bekleyen || KOYU_BEKLEYEN;
   const aday=sayfalar.filter(acikBagli).concat(secili.length ? KOYU_VITRIN.filter(v=>secili.includes(v)) : KOYU_VITRIN);
-  return aday.filter((s,i)=>aday.indexOf(s)===i && !KOYU_BEKLEYEN.includes(s) && (!secili.length || secili.includes(s)));
+  return aday.filter((s,i)=>aday.indexOf(s)===i && !bekleyen.includes(s) && (!secili.length || secili.includes(s)));
 }
 if(process.argv.includes('--sinav')){
   let h=0; const t=(ad,k)=>{ console.log((k?'  geçti: ':'  DÜŞTÜ: ')+ad); if(!k) h++; };
   const bagli=s=>s!=='koyu-tasarim.html';
-  const l=koyuListe(['index.html','marka-rapor.html','koyu-tasarim.html','pano.html','kartlar.html'],[],bagli);
+  const l=koyuListe(['index.html','marka-rapor.html','koyu-tasarim.html','pano.html','kartlar.html'],[],bagli,['marka-rapor.html']);
   t('stil-acik bağlı sayfa koyuda ölçülür (listeden çıkan kartlar dahil)', l.includes('index.html') && l.includes('pano.html') && l.includes('kartlar.html'));
   t('KOYU_BEKLEYEN koyuda ölçülmez', !l.includes('marka-rapor.html'));
   t('stil-acik bağlı olmayan (yalnız koyu) sayfa koyu geçişe girmez', !l.includes('koyu-tasarim.html'));
