@@ -59,7 +59,9 @@ param(
   #   Örnek: -RezerveEtiket 'w7,w8'
   #   🚫 GÖRMEZ: koşan dalgada soru ÜRETİLEMEZSE (kapıdan düşerse) rezerv boşa tutulmuş olur; bir sonraki
   #     tablo tazelemesinde konu yine açık görünür ve bir sonraki dalgaya girer (kayıp değil, gecikme).
-  [string]$RezerveEtiket = ''
+  [string]$RezerveEtiket = '',
+  # 23.09: bir planın en fazla satır sayısı (bulut işi paralel=8 → 8 satır TEK SIRA koşar). Bkz. SATIR TAVANI.
+  [int]$SatirTavan = 8
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -168,6 +170,7 @@ for ($i = 0; $i -lt $sec.Count; $i++) { $sec[$i] | Add-Member -NotePropertyName 
 $konuDizin = Join-Path $kok 'veri\sinav\konu'
 New-Item -ItemType Directory -Force $konuDizin | Out-Null
 
+$tumSatir = New-Object System.Collections.Generic.List[object]   # 23.09 SATIR TAVANI: satırlar havuzda toplanır, sonda eşit bölünür
 for ($p = 1; $p -le $PlanSayisi; $p++) {
   $liste = @($sec | Where-Object { [int]$_.planNo -eq $p })
   if (-not $liste.Count) { continue }
@@ -197,10 +200,31 @@ for ($p = 1; $p -le $PlanSayisi; $p++) {
         })
     }
   }
-  $planYol = Join-Path $kok "veri\sinav\plan-smmm-$Etiket-$p.json"
-  $planJson = ConvertTo-Json -InputObject @($satirlar.ToArray()) -Depth 5
+  # ⭐ 23.09.2026 SATIR TAVANI (Cem "1 yap"): bir plan en fazla -SatirTavan satır taşır, fazlası ayrı plana bölünür.
+  #   ÖLÇÜLDÜ (arac/toplu-kuyruk-hizi.ps1, 5.923 parti): Anthropic kuyruğunda bekleme her saatte medyan 2–3 dk —
+  #   kuyruk darboğaz DEĞİL. Dalganın 3–5 saat sürmesinin sebebi: her satır ~12 fazdan SIRAYLA geçiyor ve bulut
+  #   işi aynı anda en çok `paralel` (8) satır koşturuyor; 9–15 satırlı plan İKİ SIRA koşuyordu. Tavan 8 = tek sıra.
+  #   Bölünen planlar ayrı dosyadır (plan-smmm-<etiket>-<n>a/b.json) ve ayrı bulut işinde, AYNI ANDA koşar.
+  #   Satır etiketleri ve konu dosyaları DEĞİŞMEZ (bölme yalnız hangi planda koşacaklarını ayırır).
+  #   🚫 GÖRMEZ: GitHub'ın aynı anda koşturabildiği iş sayısını (depo başına sınır) — çok plan açılırsa bazıları
+  #     sırada bekler; dalga yine kısalır ama "yarıya iner" garantisi yoktur.
+  #   ⚠ İlk sürüm her planı AYRI bölüyordu: 1 satır / 1 soruluk minik planlar çıktı (her biri ayrı makine
+  #     açıp partileri baştan indiriyor). Artık bütün satırlar havuzda toplanır, EŞİT dağıtılır (aşağıda).
+  foreach ($s in $satirlar) { $tumSatir.Add($s) }
+}
+# --- DALGANIN BÜTÜN SATIRLARI eşit paylarla ≤ SatirTavan'lık planlara (round-robin: ağır ve hafif satırlar karışır) ---
+$planSayi = [Math]::Max(1, [int][Math]::Ceiling($tumSatir.Count / [double]$SatirTavan))
+$kova = @(); for ($q = 0; $q -lt $planSayi; $q++) { $kova += , (New-Object System.Collections.Generic.List[object]) }
+# ağır satır önce: her plana ağır/hafif karışsın, soru yükü dengelensin
+$sirali = @($tumSatir | Sort-Object { [int]$_.adet } -Descending)
+for ($q = 0; $q -lt $sirali.Count; $q++) { $kova[$q % $planSayi].Add($sirali[$q]) }
+for ($q = 0; $q -lt $planSayi; $q++) {
+  $dilimSatir = @($kova[$q].ToArray())
+  $planYol = Join-Path $kok "veri\sinav\plan-smmm-$Etiket-$($q + 1).json"
+  $planJson = ConvertTo-Json -InputObject @($dilimSatir) -Depth 5
   if ($planJson -isnot [string]) { $planJson = ($planJson -join "`n") }
   [IO.File]::WriteAllText([string]$planYol, [string]$planJson, (New-Object Text.UTF8Encoding $false))
-  $top = 0; foreach ($s in $satirlar) { $top += [int]$s.adet }
-  "plan-smmm-$Etiket-$p.json : {0} satir · {1} soru · dersler: {2}" -f $satirlar.Count, $top, ((@($satirlar | ForEach-Object { $_.ders }) | Select-Object -Unique) -join ', ')
+  $top = 0; foreach ($s in $dilimSatir) { $top += [int]$s.adet }
+  "plan-smmm-$Etiket-$($q + 1).json : {0} satir · {1} soru · dersler: {2}" -f $dilimSatir.Count, $top, ((@($dilimSatir | ForEach-Object { $_.ders }) | Select-Object -Unique) -join ', ')
 }
+"PLAN SAYISI: $planSayi (satır tavanı $SatirTavan, toplam satır $($tumSatir.Count))"
