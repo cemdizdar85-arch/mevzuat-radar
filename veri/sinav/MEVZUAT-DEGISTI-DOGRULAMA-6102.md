@@ -1,16 +1,13 @@
 # MEVZUAT DEĞİŞTİ — ENGEL DOĞRULAMASI
 
-> Türetilmiştir (`arac/mevzuat-degisti-dogrula.ps1`), elle düzenlenmez. 23.09.2026 17:30 · taban `aedd2dde^` (22.09.2026) · bedel 0 · soru metni YOK
+> Türetilmiştir (`arac/mevzuat-degisti-dogrula.ps1`), elle düzenlenmez. 23.09.2026 17:44 · taban `aedd2dde^` (22.09.2026) · bedel 0 · soru metni YOK
 
-**DOĞRULAMA: engel 338 · kanıtlı 57 · SGS için kalkan 53 · başka sınav kanıtlı (dokunulmadı) 4 · kalan engel 285**
+**DOĞRULAMA: engel 8 · kanıtlı 3 · SPL için kalkan 3 · başka sınav kanıtlı (dokunulmadı) 0 · kalan engel 5**
 
 | madde | kaynak | tür | soru | sınav | sonuç | kanıt / neden |
 |---|---|---|---:|---|---|---|
-| 6102|332 | TTK (6102 s.K.) m.332 | degisti | 37 | SGS 35 · SPL 2 | KANUN-AYNASI-AYNI | kanun aynası 8d352c7b^ → HEAD: madde metni dipnot numarası dışında birebir (1090 kr) |
-| 6102|gec7 | TTK (6102 s.K.) gec. m.7 | degisti | 16 | KGK 2 · SGS 12 · SMMM 2 | KANITSIZ — engel kalır | ayna (8d352c7b^) ile bugünkü parçalar farklı ve kanun aynasında metin değişmiş → metin değişmiş olabilir |
-| 6102|gec13 | TTK (6102 s.K.) gec. m.13 | degisti | 4 | SGS 4 | KANUN-AYNASI-AYNI | kanun aynası 8d352c7b^ → HEAD: madde metni dipnot numarası dışında birebir (983 kr) |
-| 6102|580 | TTK (6102 s.K.) m.580 | degisti | 3 | SGS 2 · SPL 1 | KANUN-AYNASI-AYNI | kanun aynası 8d352c7b^ → HEAD: madde metni dipnot numarası dışında birebir (178 kr) |
-| 6102|1534 | TTK (6102 s.K.) m.1534 | degisti | 1 | KGK 1 | KANUN-AYNASI-AYNI | kanun aynası 8d352c7b^ → HEAD: madde metni dipnot numarası dışında birebir (1523 kr) |
-| 6102|617 | TTK (6102 s.K.) m.617 | degisti | 1 | SGS 1 | ELLE-OKUNDU | TTK aynası 8d352c7b^ → 8d352c7b: tek fark dipnot işareti "92"nin AYM 25/12/2025 dipnot metninin önünden arkasına geçmesi; madde metni ve dipnot içeriği aynı (1.231 = 1.231 kr). (GM, 23.09.2026) |
+| 6102|gec7 | TTK (6102 s.K.) gec. m.7 | degisti | 5 | KGK 2 · SGS 1 · SMMM 2 | KANITSIZ — engel kalır | ayna (8d352c7b^) ile bugünkü parçalar farklı ve kanun aynasında metin değişmiş → metin değişmiş olabilir |
+| 6102|332 | TTK (6102 s.K.) m.332 | degisti | 2 | SPL 2 | KANUN-AYNASI-AYNI | kanun aynası 8d352c7b^ → HEAD: madde metni dipnot numarası dışında birebir (1090 kr) |
+| 6102|580 | TTK (6102 s.K.) m.580 | degisti | 1 | SPL 1 | KANUN-AYNASI-AYNI | kanun aynası 8d352c7b^ → HEAD: madde metni dipnot numarası dışında birebir (178 kr) |
 
 Kanıt kuralları betiğin başında. Başka sınavın kanıtlı kayıtları o sınavın sahibi tarafından `-Sinav <SGS|KGK> -Yaz` ile kaldırılır.
