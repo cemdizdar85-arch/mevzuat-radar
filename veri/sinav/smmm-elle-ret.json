@@ -22,9 +22,44 @@
                                                            "tarih":  "2026-09-23"
                                                        },
                      "smmm-4k-a-yvergi-kolay-r4/kp-13":  {
-                                                           "gerekce":  "binek kira: anahtar (D 49.800) sınır içi kiraya ayrıca %70 kısıtı uyguluyor. 311 Seri No.lu GVGT m.13 kiralamada yalnız aylık tavanı uygular (örnekte kiraya %70 yok); m.14/3 %70'i 'tamir, bakım, yakıt, sigorta ve benzeri cari giderler' ile sınırlar. Doğru KKEG yalnız tavanı aşan 30.000 (B). Ayrıca varsayılan tavan 5.500 (2020 tutarı).",
-                                                           "kaynak":  "onay kuyruğu hakemi (p07) kalıp taraması + GM ambar okuması (311 GVGT m.13 [2/7] 885bc786, m.14 [1/4] b264d9d1), 23.09.2026",
+                                                             "gerekce":  "binek kira: anahtar (D 49.800) sınır içi kiraya ayrıca %70 kısıtı uyguluyor. 311 Seri No.lu GVGT m.13 kiralamada yalnız aylık tavanı uygular (örnekte kiraya %70 yok); m.14/3 %70\u0027i \u0027tamir, bakım, yakıt, sigorta ve benzeri cari giderler\u0027 ile sınırlar. Doğru KKEG yalnız tavanı aşan 30.000 (B). Ayrıca varsayılan tavan 5.500 (2020 tutarı).",
+                                                             "kaynak":  "onay kuyruğu hakemi (p07) kalıp taraması + GM ambar okuması (311 GVGT m.13 [2/7] 885bc786, m.14 [1/4] b264d9d1), 23.09.2026",
+                                                             "tarih":  "2026-09-23"
+                                                         },
+                     "smmm-4k-a-yhukuk-kolay-r5/kp-06":  {
+                                                             "gerekce":  "kollektif/emek ortağı: anahtar D \"aksi kararlaştırılmadıkça zarara katılmaz\". TBK m.623: hüküm yoksa kazanç ve zarar EŞİT; emek ortağının zarardan muafiyeti ancak ANLAŞMAYLA. Doğru şık C.",
+                                                             "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+                                                             "tarih":  "2026-09-23"
+                                                         },
+                     "smmm-4k-a-yhukuk-kolay-r9/kp-04":  {
+                                                             "gerekce":  "kollektif/emek ortağı: anahtar A aynı yanlış kural (varsayılan muafiyet); açıklama ayrıca \"hüküm yoksa sermaye payı oranında\" diyor. TBK m.623: eşit. Doğru şık D.",
+                                                             "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+                                                             "tarih":  "2026-09-23"
+                                                         },
+                     "smmm-4k-a-yhukuk-zor-r1/kp-03":  {
+                                                           "gerekce":  "kollektif/emek ortağı: anahtar C varsayılan zarar muafiyeti öğretiyor (TBK m.623 yalnız anlaşmayla). Kâr oranı zarara da geçerli; emek ortağı dahil. Hiçbir şık tam doğru değil.",
+                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
                                                            "tarih":  "2026-09-23"
-                                                       }
+                                                       },
+                     "smmm-4k-a-yhukuk-zor-r2/kp-02":  {
+                                                           "gerekce":  "kollektif/emek ortağı: anahtar D ikinci yarısı yanlış (varsayılan zarar muafiyeti yok, TBK m.623). Doğru şık yok.",
+                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+                                                           "tarih":  "2026-09-23"
+                                                       },
+                     "smmm-4k-a-yhukuk-zor-r6/kp-17":  {
+                                                           "gerekce":  "\"hangisi yanlıştır\": anahtar B yanlış ifade ama A da yanlış (emek ortağı aksi kararlaştırılmadıkça zarara katılmaz — TBK m.623 tersini söyler). İki cevap.",
+                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+                                                           "tarih":  "2026-09-23"
+                                                       },
+                     "smmm-d1-yhukuk-zor-r1-2/kp-08":  {
+                                                           "gerekce":  "\"hangisi yanlıştır\": anahtar C yanlış ifade ama E de yanlış (emek ortağının varsayılan zarar muafiyeti — TBK m.623 yalnız anlaşmayla). İki cevap.",
+                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+                                                           "tarih":  "2026-09-23"
+                                                       },
+                     "smmm-w1-yhukuk-zor/kp-13":  {
+                                                      "gerekce":  "kollektif zarar hesabı: anahtar D (97.920) emek ortağını varsayılan olarak zarardan çıkarıyor. TBK m.623: kâr oranı zarara da geçerli, muafiyet anlaşma ister → A payı 183.600×%40 = 73.440 (C).",
+                                                      "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+                                                      "tarih":  "2026-09-23"
+                                                  }
                  }
 }
