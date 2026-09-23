@@ -197,7 +197,11 @@ foreach ($g in $maddeler) {
 
 # --- kaldırılacaklar: yalnız -Sinav önekli + kanıtlı madde
 $kanitli = @{}; foreach ($s in $sonuc) { if ($s.kanit) { $kanitli["$($s.madde)|$($s.tur)"] = $s.kanit } }
-$kalkacak = @($liste.Values | Where-Object { $kanitli.ContainsKey("$($_.madde)|$($_.tur)") -and "$($_.anahtar)".StartsWith($onEk, [StringComparison]::OrdinalIgnoreCase) })
+# 23.09: SORU BAZINDA kanıt (TTK geç. m.7: madde gerçekten değişti ama paketinde "mıknatıs" kaynak olarak bulunan sorular iptal edilen
+#   hükme hiç değinmiyor). Anahtar "<taban>|soru|<etiket/kp-XX>"; tür KAVRAM-TARAMASI ya da ELLE-OKUNDU, gerekçesiyle.
+$soruKanit = @{}; foreach ($kk in $elleKanit.Keys) { if ($kk -like "$TabanCommit|soru|*") { $soruKanit[$kk.Substring("$TabanCommit|soru|".Length)] = $elleKanit[$kk] } }
+$kalkacak = @($liste.Values | Where-Object { ($kanitli.ContainsKey("$($_.madde)|$($_.tur)") -or $soruKanit.ContainsKey("$($_.anahtar)")) -and (-not $MaddeOnEk -or "$($_.madde)".StartsWith($MaddeOnEk)) -and "$($_.anahtar)".StartsWith($onEk, [StringComparison]::OrdinalIgnoreCase) })
+if ($soruKanit.Count) { Write-Host ("soru bazında kanıt: {0} (bu taban için)" -f $soruKanit.Count) }
 $digerKanitli = @($liste.Values | Where-Object { $kanitli.ContainsKey("$($_.madde)|$($_.tur)") -and -not "$($_.anahtar)".StartsWith($onEk, [StringComparison]::OrdinalIgnoreCase) })
 $kalan = $liste.Count - $kalkacak.Count
 $ozet = "DOĞRULAMA: engel $($liste.Count) · kanıtlı $($kalkacak.Count + $digerKanitli.Count) · $Sinav için kalkan $($kalkacak.Count) · başka sınav kanıtlı (dokunulmadı) $($digerKanitli.Count) · kalan engel $kalan"
