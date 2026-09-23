@@ -122,3 +122,24 @@ function MdMaddeKoku([string]$ad) {
   if ($m.Success) { return $m.Groups[1].Value.Trim() }
   return ''
 }
+# 24.09.2026 (Cem "1.2.3"): TEORİ NOTU İZLEME. Nöbetçi yalnız kanun anahtarlarını ('213|370') izliyordu; ambar teori notları
+# ('ad|TEORI - …') damgada vardı ama değişince hiçbir soru çekilmiyordu (kollektif notu TBK 623'ün tersini öğretiyordu,
+# yayında 7 yanlış soru elle bulundu). Kaynak kökü: kanun maddesi → 'VUK (213 s.K.) m.370'; teori notu → 'TEORI:<ad>'.
+function MdKaynakKoku([string]$ad) {
+  $mk = MdMaddeKoku $ad; if ($mk) { return $mk }
+  $a = MdAdKoku $ad; if ($a -like 'TEORI*') { return "TEORI:$a" }
+  return ''
+}
+function MdIzlenenAnahtar([string]$anahtar) { return ($anahtar -match '^\d+\|' -or $anahtar -match '^ad\|TEORI') }
+# _degisen-kokler.json'a eski/yeni metnin ayırt edici belirteçlerini ekler (mevzuat-yut ile aynı biçim; aynı anahtarda önceki
+# kayıtla BİRLEŞİR, biri belirsizse belirsiz). Döner: 'ayni' (metin aynı, yazılmadı) | 'belirsiz' | 'yazildi'
+function MdDegisenKokEkle([string]$dkYol, [string]$anahtar, [string]$eski, [string]$yeni, [string]$kaynak) {
+  $af = MdAyirtEdici $eski $yeni
+  if ($null -ne $af -and @($af).Count -eq 0) { return 'ayni' }
+  $bel = ($null -eq $af); $dizi = @($af | Where-Object { $_ })
+  $dk = [ordered]@{}; if (Test-Path $dkYol) { foreach ($p in (Get-Content $dkYol -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler.PSObject.Properties) { $dk[$p.Name] = $p.Value } }
+  if ($dk.Contains($anahtar) -and $dk[$anahtar]) { if ($dk[$anahtar].belirsiz) { $bel = $true }; $dizi = @(@($dizi) + @($dk[$anahtar].belirtecler) | Where-Object { $_ } | Select-Object -Unique) }
+  $dk[$anahtar] = [ordered]@{ tarih = (Get-Date -Format 'yyyy-MM-dd HH:mm'); kaynak = $kaynak; belirsiz = $bel; belirtecler = $dizi }
+  [IO.File]::WriteAllText($dkYol, (ConvertTo-Json -InputObject ([ordered]@{ aciklama = 'Madde/not metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1, arac/teori-notu-duzelt-*.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.'; maddeler = $dk }) -Depth 5), (New-Object Text.UTF8Encoding $false))
+  return $(if ($bel) { 'belirsiz' } else { 'yazildi' })
+}

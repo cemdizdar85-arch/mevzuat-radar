@@ -20,6 +20,7 @@ param([switch]$Uygula)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $depoKok = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'mevzuat-degisti.ps1')
 $anahtarSb = "$($env:SUPABASE_SERVICE_KEY)".Trim(); if (-not $anahtarSb) { $anahtarSb = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
 if (-not $anahtarSb) { throw 'SUPABASE_SERVICE_KEY yok' }
 $basliklarSb = @{ apikey = $anahtarSb; Authorization = "Bearer $anahtarSb"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
@@ -62,6 +63,8 @@ foreach ($p in $plan) {
   $ambar = "$((Invoke-RestMethod -Uri "$tabloAdr`?select=metin&id=eq.$($p.id)" -Headers $basliklarSb -TimeoutSec 120)[0].metin)"
   $yedekAd = ($dz.ad -replace '[^\w\-]+', '_'); [IO.File]::WriteAllText((Join-Path $yedekKlasor "$yedekAd.metin.$(Get-Date -Format 'yyyyMMdd-HHmmss').txt"), $ambar, (New-Object Text.UTF8Encoding $false))
   $yeniMetin = $ambar.Replace($dz.eski, $dz.yeni)
+  # 24.09: nöbetçi artık teori notlarını izliyor → değişen kısmın belirteçleri yazılır (değmeyen soru çekilmez; bkz. arac/mevzuat-degisti.ps1 MdDegisenKokEkle)
+  Write-Host "  belirteç kaydı: $(MdDegisenKokEkle (Join-Path $depoKok 'veri\mevzuat\_degisen-kokler.json') "ad|$($dz.ad)" $ambar $yeniMetin (Split-Path -Leaf $PSCommandPath))"
   $govde = ConvertTo-Json -InputObject @{ metin = $yeniMetin } -Compress
   Invoke-RestMethod -Method Patch -Uri "$tabloAdr`?id=eq.$($p.id)" -Headers ($basliklarSb + @{ Prefer = 'return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($govde)) -TimeoutSec 120 | Out-Null
   $geri = "$((Invoke-RestMethod -Uri "$tabloAdr`?select=metin&id=eq.$($p.id)" -Headers $basliklarSb -TimeoutSec 120)[0].metin)"

@@ -94,13 +94,13 @@ if(($degisen.Count + $silinen.Count) -gt 0){
 # Yayın şartları listeyi okur; soru yeniden yazılırsa içerik izi değişir ve engel kalkar. Parti dosyalarına YAZILMAZ
 # (CLAUDE.md: bulutta koşan partiye ambardan yazılmaz).
 $yeniHatEngel = 0; $yeniHatHata = $false; $kasadanCekilen = 0
-$kanunAnah = @(($degisen + $silinen) | Where-Object { $_ -match '^\d+\|' })
+$kanunAnah = @(($degisen + $silinen) | Where-Object { MdIzlenenAnahtar $_ })   # 24.09: + teori notları (ad|TEORI - …)
 if ($kanunAnah.Count) {
   . (Join-Path (Join-Path $kok 'arac') 'mevzuat-degisti.ps1')
   $kokTur = @{}
   foreach ($a in $kanunAnah) {
     $kay = $(if ($guncel.PSObject.Properties[$a]) { $guncel.$a } else { $onceki.$a })
-    $mk = MdMaddeKoku "$($kay.ad)"
+    $mk = MdKaynakKoku "$($kay.ad)"
     if ($mk) { $kokTur[$mk] = @{ anahtar = $a; tur = $(if ($silinen -contains $a) { 'SILINDI' } else { 'degisti' }) } }
   }
   if ($kokTur.Count) {
@@ -122,7 +122,7 @@ if ($kanunAnah.Count) {
           foreach ($q in $ic.PSObject.Properties) {
             $v = $q.Value; if (-not $v -or -not $v.PSObject.Properties['soru'] -or -not $v.soru) { continue }
             foreach ($ka in @($v.kaynak_adlar)) {
-              $mk = MdMaddeKoku "$ka"
+              $mk = MdKaynakKoku "$ka"
               if (-not ($mk -and $kokTur.ContainsKey($mk))) { continue }
               # 23.09: soru değişen kısma DEĞMİYORSA çekilmez (yalnız 'degisti', belirteç biliniyor ve taban sonrası ise)
               $dkE = $degisenKok["$($kokTur[$mk].anahtar)"]
