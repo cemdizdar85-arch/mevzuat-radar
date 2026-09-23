@@ -1,8 +1,26 @@
 {
-  "tarih": "22.09.2026 16:52",
-  "rg_gun": "22-09-2026",
-  "kart": 1,
-  "etkilenen_dosya": 0,
+  "tarih": "23.09.2026 00:30",
+  "rg_gun": "23-09-2026",
+  "kart": 5,
+  "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": []
+  "uyarilar": [
+    {
+      "dosya": "veri/gtip-damping.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri",
+      "hasat": "motor/damping-hasat.ps1 (yerel damping.xlsx)",
+      "eslesme_sayisi": 2,
+      "eslesmeler": [
+        {
+          "anahtar": "damping",
+          "kart_basligi": "Güneş paneli bağlantı kutularında dampinge karşı kesin önlem oranları"
+        },
+        {
+          "anahtar": "damping",
+          "kart_basligi": "Çin menşeli kaynak makineleri dampinge karşı önlemde firma adı değişikliği"
+        }
+      ]
+    }
+  ]
 }

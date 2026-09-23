@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260922165210
-Username: runnervmlun5p\runner
-RunAs User: runnervmlun5p\runner
+Start time: 20260923003038
+Username: runnervmtr4k5\runner
+RunAs User: runnervmtr4k5\runner
 Configuration Name: 
-Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0603cd59-1eb6-4320-93ae-b762e95bed1d.ps1'
-Process ID: 2537
-PSVersion: 7.6.5
+Machine: runnervmtr4k5 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/aac5d798-034b-4c2b-b4d5-ed9e60fdc003.ps1'
+Process ID: 2568
+PSVersion: 7.6.6
 PSEdition: Core
-GitCommitId: 7.6.5
+GitCommitId: 7.6.6
 OS: Ubuntu 24.04.5 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -17,12 +17,25 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 22-09-2026
-Kart sayisi  : 1
+RG gunu      : 23-09-2026
+Kart sayisi  : 5
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-damping.json   (arac: gtip.html)
+      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
+      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
+      <- Güneş paneli bağlantı kutularında dampinge karşı kesin önlem oranları
+      <- Çin menşeli kaynak makineleri dampinge karşı önlemde firma adı değişikliği
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20260922165211
+End time: 20260923003038
 **********************
