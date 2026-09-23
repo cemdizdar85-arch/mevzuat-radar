@@ -1,0 +1,25 @@
+{
+  "aciklama": "Ana sayfa vitrinine (kaydir/vitrin/<sinav>.html) GİRMEYECEK sorular, gerekçeli. Okuyan: motor/vitrin-soru-sec.js. 23.09.2026 Cem \"1 ve 2 yap\": 70 Yeterlilik vitrin sorusu elle okundu; konu etiketi soruyla uyuşmayan ya da kökü bozuk soru çıkarıldı (rozetteki çıkma sayısı etiketten hesaplanıyor, yanlış etiket = yanlış iddia). Bu liste KASADAKİ soruyu düzeltmez - etiket onarımı sınav kolunun işi. haric_konu: etiketi kasada sistematik olarak başka konuya yapışmış konular (\"<sinav>|<katlanmış konu>\"); okunan her örnek yanlıştı.",
+  "haric": {
+    "smmm-w2-ydenetim-zor/kp-01": "soru kökü bozuk: \"hangisinin doğru olduğu soruluyor\" özet cümlesi, gerçek soru değil",
+    "smmm-ab2-b-maliyet/kp-04": "etiket \"satılan mal maliyeti\", soru standart maliyet farkları (722/723/732/733/734)",
+    "smmm-w1-ydenetim-zor/kp-02": "etiket \"raporlama standartları\", soru KYS 2 kalite gözden geçirme (#33/#40 ile aynı konu)",
+    "smmm-w1-ydenetim-kolay/kp-01": "etiket \"görüş bildirmekten kaçınma\", soru KYS 2 kalite gözden geçirenin rolü",
+    "smmm-w1-ydenetim-zor/kp-04": "etiket \"çalışma alanı standartları\", soru KYS 2 kalite gözden geçirme",
+    "smmm-w3-yhukuk-cokzor/kp-01": "etiket \"hukukun yazılı kaynakları\", soru TTK limited şirket asgari sermayesi (geçici m.15)",
+    "smmm-w2-ydenetim-kolay/kp-01": "etiket \"denetim sözleşmesi unsurları\", soru BDS 220 ekip sorumlulukları",
+    "smmm-w5-yhukuk-cokzor/kp-01": "etiket \"hizmet akdi borçları\", soru 5510 m.41/g grev süresi borçlanması",
+    "smmm-w3-yhukuk-cokzor/kp-02": "etiket \"borç ilişkisi unsurları\", soru alt işveren + deneme süresi (İş Kanunu)",
+    "smmm-w7-1-fmuh-zor/kp-01": "etiket \"ticari mal satışı\", soru şüpheli ticari alacak (128) - #15 ile aynı konu",
+    "smmm-ab2-b-maliyet/kp-07": "etiket \"GÜG birinci dağıtım\", soru kademeli dağıtım (ikinci dağıtım)",
+    "smmm-4k-a-ymeslek-kolay-r3-2/kp-01": "etiket \"haksız rekabet\", soru iş bitiminde devir teslim / odaya bildirim",
+    "smmm-4k-a-fmuh-zor-r7/kp-05": "etiket kapanış kaydı (FM dönem sonu kapanışı), soru standart maliyet fark hesaplarının (712/713) dağıtımı"
+  },
+  "haric_konu": {
+    "smmm|hizmet akdi borclari": "okunan 2 sorunun 2si 5510 m.41 borçlanması (hizmet akdi borçları değil)",
+    "smmm|gorus bildirmekten kacinma": "okunan 2 sorunun 2si KYS 2 / BDS 220 kalite gözden geçirme ve görüş farklılığı",
+    "smmm|denetim sozlesmesi unsurlari": "okunan 2 sorunun 2si BDS 220 ekip sorumlulukları",
+    "smmm|raporlama standartlari": "okunan 2 sorunun 1i KYS 2, 1i sürdürülebilirlik raporlaması (TSRS) - GKGDS raporlama standartları değil",
+    "smmm|kdv mahsubu": "okunan 2 sorunun 2si sipariş avansı mahsubu + satış teslim kaydı (191/391 KDV mahsubu değil)"
+  }
+}

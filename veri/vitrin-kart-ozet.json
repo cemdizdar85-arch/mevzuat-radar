@@ -1,5 +1,5 @@
 {
-  "olcum": "2026-09-23T08:17:28.765Z",
+  "olcum": "2026-09-23T08:41:05.948Z",
   "gun": "2026-09-23",
   "sinavlar": {
     "sgs": {
@@ -77,53 +77,61 @@
       "ad": "SMMM Yeterlilik",
       "sira": 55,
       "toplam": 70,
-      "id": "smmm-w5-yhukuk-cokzor/kp-01",
-      "ders": "Hukuk",
-      "konu": "hizmet akdi borçları",
-      "kunye": "SMMM 2026/2 ders 06 Soru 15 kalıbı",
-      "donem": 3,
+      "id": "smmm-4k-a-yfta-zor-r8/kp-03",
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "finansal kaldıraç oranı",
+      "kunye": "SMMM 2026/2 ders 02 Soru 4 kalıbı",
+      "donem": 7,
       "teori": false,
       "rakamSik": true,
-      "soru": "Hizmet akdiyle (4/a) çalışan sigortalı, işyerinde 58 gün süren grev nedeniyle çalışamadığı bu süreyi 5510 sayılı Kanun'un 41. maddesinin (g) bendine göre borçlanmak istemektedir. Talep tarihinde seçtiği günlük kazanç 750 ₺'dir. Buna göre sigortalının ödemesi gereken borçlanma tutarı kaç ₺'dir?",
+      "soru": "İşletmenin aktif toplamı 3.500.000 ₺, kısa vadeli yabancı kaynakları 612.500 ₺, uzun vadeli yabancı kaynakları 337.500 ₺, özkaynakları 2.550.000 ₺'dir. Alınacak kredinin aktife ekleneceği varsayımıyla kaldıraç oranı tavanı %40'tır. Çekilebilecek maksimum ek kredi kaç ₺'dir?",
       "siklar": {
-        "A": "13.920",
-        "B": "14.400",
-        "C": "16.095",
-        "D": "16.965",
-        "E": "19.575"
+        "A": "70.000",
+        "B": "450.000",
+        "C": "1.312.500",
+        "D": "787.500",
+        "E": "750.000"
       },
-      "dogru": "A",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Kapsam Genişletme Tuzağı",
-          "metin": "madde metninde geçen genel sağlık sigortası primi ibaresini bu borçlanmaya da ayrıca eklenen bir kalem sandın; oysa o hüküm sadece kısmi süreli çalışma borçlanmasına (i bendi) özgüdür. Doğrusu: ilave GSS payı hesaba kat…"
+          "ad": "Bileşik Hata Tuzağı",
+          "metin": "Hem uzun vadeli yabancı kaynağı unutup hem de borçla-aktif-büyür formülünü kullanınca (1.400.000-612.500)/0,60=1.312.500 çıkar. Doğrusu: mevcut borç hesabında UVYK atlanmamalıdır."
         },
-        "E": {
-          "ad": "Taraf Karıştırma Tuzağı",
-          "metin": "metindeki 'diğerleri için %45' ifadesini sigortalının kendisine uyguladın; oysa bu oran 4/a dışındaki (4/b, 4/c) sigortalılar içindir. Doğrusu: sigortalı 4/a kapsamında olduğundan %32 uygulanır ve tutar 13.920 ₺'dir."
+        "A": {
+          "ad": "Borç-Özkaynak Karıştırma Tuzağı",
+          "metin": "Tavanı özkaynak tabanına uygulayıp 0,40×2.550.000-950.000=70.000 bulmuşsun; kaldıraç oranının paydası aktif toplamıdır, özkaynak değildir. Doğrusu: tavan aktif toplamına uygulanır."
         },
         "D": {
-          "ad": "Oran Karıştırma Tuzağı",
-          "metin": "dipnotta yer alan %39 oranını genel oran sandın; bu oran yalnız er veya erbaş olarak silah altında geçen sürenin (b bendi) borçlanmasında uygulanır. Doğrusu: (g) bendi borçlanmasında 4/a sigortalısı için %32 uygulanır, …"
+          "ad": "Eksik Toplam Yabancı Kaynak Tuzağı",
+          "metin": "Uzun vadeli yabancı kaynağı unutup 0,40×3.500.000-612.500=787.500 bulmuşsun. Doğrusu: mevcut borç KVYK+UVYK=950.000'dir, sadece KVYK değil."
         },
         "B": {
-          "ad": "Ayı Tam Sayma Tuzağı",
-          "metin": "gün sayısını sorudaki 58 yerine ayı 30 günden ibaret sayarak 60'a yuvarladın; süre borçlanmasında fiilen geçen gün sayısı esas alınır. Doğrusu: 58 gün x 750 x %32 = 13.920 ₺'dir."
+          "ad": "Aktif Sabit Varsayımı Tuzağı",
+          "metin": "0,40×3.500.000-950.000=450.000 hesabı, kredinin aktife girmediği varsayımına aittir. Doğrusu: soru kredinin aktife ekleneceğini söylüyor, payda da büyümelidir."
         }
       },
-      "hap": "5510 s. Kanun m.41'de sayılan borçlanma türlerinde (er/erbaşlık hariç), sigortalının seçtiği günlük kazancın borçlanma primi 4/a sigortalıları için %32, diğer statülerdeki sigortalılar için %45 üzerinden hesaplanır.",
+      "hap": "Kaldıraç oranının paydası aktif toplamıdır; kredi aktife eklenecekse ek borç B=(Tavan×Aktif-Mevcut Borç)/(1-Tavan) formülüyle bulunur.",
       "satirlar": [
         [
-          "Toplam Kazanç (58 gün x 750 ₺)",
-          "43.500"
+          "Mevcut Toplam Yabancı Kaynak (612.500+337.500)",
+          "950.000"
         ],
         [
-          "Borçlanma Oranı (4/a sigortalısı)",
-          "%32"
+          "Tavan × Aktif Toplamı (0,40 × 3.500.000)",
+          "1.400.000"
         ],
         [
-          "Borçlanma Tutarı",
-          "13.920"
+          "Fark (1.400.000-950.000)",
+          "450.000"
+        ],
+        [
+          "1 - Tavan (1-0,40)",
+          "0,60"
+        ],
+        [
+          "Maksimum Ek Kredi (450.000/0,60)",
+          "750.000"
         ]
       ],
       "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=55",

@@ -104,11 +104,20 @@ async function kaynakListeler() {
   console.log('kaynak: kasa (paket_soru, sinav=smmm) ' + kasa.length + ' soru');
   return [kasa];
 }
+// 23.09.2026 (Cem "1 ve 2 yap" -> vitrin etiket denetimi): 70 soru elle okundu; konu etiketi soruyla uyuşmayan ya da
+// kökü bozuk soru vitrine girmez - rozetteki "N kez çıktı" etiketten hesaplandığı için yanlış etiket yanlış iddiadır.
+// Liste gerekçeli: arac/vitrin-haric.json ({ "<etiket/id>": "gerekçe" }).
+let haric = {};
+// haric_konu: '<sinav>|<konu>' - etiketi kasada SİSTEMATİK olarak başka konulara yapışmış (23.09 ölçümü: bu dört etiketin okunan 8 sorusunun 8'i başka konu).
+let haricKonu = {};
+try { const hj = jsonOku(path.join(kok, 'arac', 'vitrin-haric.json')); haric = hj.haric || {}; haricKonu = hj.haric_konu || {}; } catch (e) { haric = {}; }
+let _haric = 0;
 (async () => {
 const adaylar = []; let toplam = 0;
 for (const liste of await kaynakListeler()) {
   for (const s of liste) {
     toplam++;
+    if (haric[String(s.id)] || haricKonu[sinav + '|' + katla(s.konu)]) { _haric++; continue; }
     const o = s.olcum || {};
     if (String(o.hakem) !== 'EVET') continue;
     if (!(o.sim && o.sim.dogru === true)) continue;
@@ -185,7 +194,7 @@ secim.sort((a, b) => (a._anahtar - b._anahtar) || (w[b._dk] - w[a._dk]) || (b._p
 const hedef = path.join(kok, 'veri', 'sinav', 'kaydir-secim', 'vitrin-' + sinav + '-secim.json');
 const temiz = secim.map(({ etiket, id, ders, konu, donem, kurtarma }) => ({ etiket, id, ders, konu, donem, kurtarma }));
 if (!kuru) fs.writeFileSync(hedef, JSON.stringify(temiz, null, 2) + '\n', 'utf8');
-console.log('taranan ' + toplam + ' · basılamaz (parti bu makinede yok) ' + _basilamaz + ' · ≥' + EN_AZ_DONEM + ' dönem aday ' + adaylar.length +
+console.log('taranan ' + toplam + ' · hariç listesi ' + _haric + ' · basılamaz (parti bu makinede yok) ' + _basilamaz + ' · ≥' + EN_AZ_DONEM + ' dönem aday ' + adaylar.length +
   ' · tekil konu ' + dersler.reduce((t, d) => t + dersListe[d].length, 0) +
   ' · seçilen ' + secim.length + (kuru ? ' (KURU - dosyaya yazılmadı)' : ' → ' + path.relative(kok, hedef)));
 console.log('ders kotası (sınav ağırlığı → yer):');
