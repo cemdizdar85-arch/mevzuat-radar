@@ -18,7 +18,9 @@ if($env:GH_TOKEN){ $BASLIK["Authorization"] = "Bearer $($env:GH_TOKEN)" }
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 
-function Ac([string]$yol, [int[]]$nolar){
+# 23.09: adı 'Ac' idi — PowerShell'de Ac = Add-Content takma adı; Windows'ta çağrı işleve değil Add-Content'e gider ve JSON'un
+# sonuna "17"/"18" yazardı (Linux pwsh'ta 'ac' takma adı yok, bu yüzden bugüne dek zarar olmadı). Tuzak nöbetçisi K7 yakaladı.
+function EmirAc([string]$yol, [int[]]$nolar){
   $tam = Join-Path $kok $yol
   $j = Get-Content $tam -Raw -Encoding UTF8 | ConvertFrom-Json
   $degisti = $false
@@ -59,8 +61,8 @@ function AcIlk([string]$yol, [int[]]$sira){
 
 $sgs  = AcIlk 'veri/uretim-emir.json' @(16,21,22,23)
 $smmm = AcIlk 'veri/uretim-emir.json' @(19,24,25,26)
-$hap  = Ac    'veri/uretim-emir.json' @(17)
-$p    = Ac    'veri/profesor-emir.json' @(18)
+$hap  = EmirAc 'veri/uretim-emir.json' @(17)
+$p    = EmirAc 'veri/profesor-emir.json' @(18)
 $degisti      = $sgs[0] -or $smmm[0] -or $hap[0] -or $p[0]
 $uretimAcik   = $sgs[1] -or $smmm[1] -or $hap[1]
 $profesorAcik = $p[1]
