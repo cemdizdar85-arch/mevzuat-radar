@@ -34,6 +34,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 23.09 KAPI-HAD: yayin sarti guncel had tutarlarini veri/sinav/had-guncel.json'dan okur (ambardaki kanun serhleri).
+      # Once tazelenir; duserse eski dosya kalir (kapi eski had ile calisir, yayin DURMAZ).
+      - name: Guncel had tutarlarini tazele (KAPI-HAD)
+        shell: powershell
+        continue-on-error: true
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/had-tutar-tarama.ps1 -YalnizHad
+
       - name: Bitirme sorularini kilitli kasaya yaz
         shell: powershell
         env:

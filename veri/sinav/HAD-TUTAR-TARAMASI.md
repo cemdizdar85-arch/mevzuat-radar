@@ -1,8 +1,8 @@
 # YILLIK HAD TUTARI TARAMASI
 
-> Türetilmiştir (`arac/had-tutar-tarama.ps1`). 23.09.2026 17:53 · bedel 0 · soru metni YOK · güncel had = ambardaki kanun maddesi şerhi
+> Türetilmiştir (`arac/had-tutar-tarama.ps1`). 23.09.2026 18:08 · bedel 0 · soru metni YOK · güncel had = ambardaki kanun maddesi şerhi
 
-**HAD TUTARI TARAMASI: bakılan soru 9947 · şerhli maddeye dayanan 423 · ŞÜPHELİ 34**
+**HAD TUTARI TARAMASI: bakılan soru 9946 · şerhli maddeye dayanan 422 · ŞÜPHELİ 33**
 
 Şüpheli = karar değil; elle okunur. Kural ve körlükler betiğin başında. 23.09 elle okuma: 34 şüpheliden 3'ü gerçek (862.400 · 1.100.000 SMMM → elle ret; SGS t1-vergi-cokzor/kp-28 → SGS kolu); çoğu senaryo tutarı ya da 'varsayılırsa' kurgusu.
 
@@ -25,7 +25,6 @@
 | smmm-4k-a-yvergi-kolay-r7/kp-09 | 213|177,492|gec1 | 2.212.500 | 2.500.000 / 3.500.000 / 2.471.168 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-kolay-r9/kp-21 | 193|68 | 60.000 | 46.000 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-zor-r2/kp-17 | 213|370 | 950.000 | 870.000 | **hayır — gerçek diye veriyor** |
-| smmm-4k-a-yvergi-zor-r3/kp-07 | 213|177,492|gec1 | 1.100.000 | 1.200.000 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-zor-r3/kp-08 | 213|232,193|47,193|48 | 40.000 | 60.000 / 49.000 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-zor-r3/kp-16 | 193|40 | 3.250.000 | 2.600.000 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-zor-r6/kp-08 | 213|370 | 1.050.000 | 870.000 | **hayır — gerçek diye veriyor** |

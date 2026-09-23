@@ -18,6 +18,8 @@
 if (-not (Get-Command Get-KodsuzHesapAdi -ErrorAction SilentlyContinue)) { . (Join-Path $PSScriptRoot 'kimlik-ayikla.ps1') }   # 16.09 KAPI-KH için (çağıranın kapsamına yüklenir)
 . (Join-Path $PSScriptRoot 'mevzuat-degisti.ps1')   # 16.09 yeni hat mevzuat engel listesi
 $script:MD_LISTE = $null
+. (Join-Path $PSScriptRoot 'had-kapisi.ps1')   # 23.09 KAPI-HAD
+$script:HAD_HARITA = $null
 function SmmmParmakIzi($soruNesne) {
   $parca = @("$($soruNesne.soru)") + @('A', 'B', 'C', 'D', 'E' | ForEach-Object { "$($soruNesne.siklar.$_)" }) + @("$($soruNesne.dogru)".Trim().ToUpperInvariant())
   $bayt = [Text.Encoding]::UTF8.GetBytes(($parca -join [char]0x1E))
@@ -80,6 +82,10 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   if ($null -eq $script:MD_LISTE) { $script:MD_LISTE = MdListeOku (Split-Path -Parent $PSScriptRoot) }
   $mdE = MdEngel $script:MD_LISTE $anahtar $v
   if ($mdE) { return [pscustomobject]@{ gecer = $false; neden = "mevzuat değişti: $($mdE.kaynak) ($($mdE.tur), $($mdE.tarih))" } }
+  # 23.09 KAPI-HAD (arac/had-kapisi.ps1): dayandığı maddenin güncel haddinden farklı tutarı GERÇEK diye veren soru geçmez
+  if ($null -eq $script:HAD_HARITA) { $script:HAD_HARITA = HadHaritaOku (Split-Path -Parent $PSScriptRoot) }
+  $hadI = HadIddiasi $v $script:HAD_HARITA @(@($v.kaynak_adlar) | ForEach-Object { MdAnahtar "$_" })
+  if ($hadI) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-HAD yanlış had tutarı: $hadI" } }
   foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu) { return [pscustomobject]@{ gecer = $false; neden = 'simülasyon yanlış' } } }
   # 14.09 (Cem "1.2 yap", GM önerisi): simülasyonu HİÇ koşmamış soru da geçmez. Ölçüldü: pilot smmm-pilot-ymeslek-zor kp-01 adımları
   # (çözüm anlatımı) yazılmadığı için simülasyon sessizce atlandı, kural yalnız "yanlış değil" dediğinden anlatımsız + sınanmamış soru seçildi.

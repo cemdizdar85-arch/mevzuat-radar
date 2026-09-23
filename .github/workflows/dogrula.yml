@@ -213,6 +213,13 @@ jobs:
           - { ad: "Soru etki OZ-SINAVI (degisen kisma degmeyen soru cekilmez, gercek degisiklik kacmaz)",
               kabuk: pwsh, komut: "./arac/soru-etki-sinavi.ps1" }
 
+          # 23.09.2026 - KAPI-HAD bitirme yayin sartinda soru dusurur (yanlis yasal had tutari). Had taramasi 34 supheli
+          # vermisti (31'i saglam) - kapi DAR kuruldu: tutar had ifadesiyle dogrudan tanimli + ayni baglam ya da madde
+          # aciktan aniliyor + varsayim degil. 11 vaka; butun SMMM (4.862) esdegerlik provasinda yalniz bilinen 2 kusur dustu.
+          # Mutasyonla olculdu: varsayim / madde anilmasi / baglam sarti kaldirilinca KIRMIZI.
+          - { ad: "KAPI-HAD OZ-SINAVI (yanlis had tutari yayina girmesin)",
+              kabuk: pwsh, komut: "./arac/had-kapisi-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

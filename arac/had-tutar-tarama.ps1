@@ -16,18 +16,18 @@
   KULLANIM: powershell -NoProfile -File arac/had-tutar-tarama.ps1
 ================================================================================
 #>
-param([double]$Alt = 0.6, [double]$Ust = 1.4)
+param([double]$Alt = 0.6, [double]$Ust = 1.4, [switch]$YalnizHad)   # -YalnizHad: yalnız veri/sinav/had-guncel.json tazelenir (kasa yayını öncesi, KAPI-HAD için)
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 $kok = Split-Path -Parent $buDizin
-. (Join-Path $buDizin 'mevzuat-degisti.ps1'); . (Join-Path $buDizin 'smmm-yayin-sarti.ps1')
+. (Join-Path $buDizin 'mevzuat-degisti.ps1'); . (Join-Path $buDizin 'smmm-yayin-sarti.ps1')   # had-kapisi.ps1 (HadKokler) yayın şartıyla gelir
 $onay = SmmmOnayHarita $kok
 $S = $env:SUPABASE_SERVICE_KEY; if (-not $S) { $S = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY', 'User') }
 $H = @{ apikey = $S; Authorization = "Bearer $S"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
 function Tutar([string]$s) { $t = ($s -replace '\.', '') -replace ',', '.'; $d = 0.0; if ([double]::TryParse($t, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$d)) { return $d }; return -1 }
 
 # --- 1) güncel had: ambardaki kanun maddelerinde "(N TL)" şerhi
-$had = @{}; $son = ''; $belge = 0
+$had = @{}; $hadBaglam = @{}; $son = ''; $belge = 0
 $rxSerh = [regex]'\((\d{1,3}(?:\.\d{3})+(?:,\d+)?)\s*(?:TL|Türk lirası)\)'
 while ($true) {
   $u = "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=id,kaynak_ad,metin&tur=eq.kanun-madde&metin=like.*TL)*$(if($son){"&id=gt.$son"})&order=id&limit=500"
@@ -35,10 +35,16 @@ while ($true) {
   $j = @((ConvertFrom-Json ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()))) | ForEach-Object { $_ })
   if (-not $j.Count) { break }
   foreach ($d in $j) { $a = MdAnahtar "$($d.kaynak_ad)"; if (-not $a) { continue }; $belge++
-    foreach ($m in $rxSerh.Matches("$($d.metin)")) { $v = Tutar $m.Groups[1].Value; if ($v -ge 1000) { if (-not $had.ContainsKey($a)) { $had[$a] = New-Object System.Collections.Generic.List[double] }; if (-not $had[$a].Contains($v)) { $had[$a].Add($v) } } } }
+    foreach ($m in $rxSerh.Matches("$($d.metin)")) { $v = Tutar $m.Groups[1].Value; if ($v -ge 1000) { if (-not $had.ContainsKey($a)) { $had[$a] = New-Object System.Collections.Generic.List[double] }; if (-not $had[$a].Contains($v)) { $had[$a].Add($v) }
+        # 23.09: hangi had? — şerhten önceki 120 karakterin kökleri (KAPI-HAD yalnız aynı bağlamdaki tutarı karşılaştırır)
+        $bs = [Math]::Max(0, $m.Index - 120); $kk = HadKokler ("$($d.metin)".Substring($bs, $m.Index - $bs)); $ak = "$a|$v"; if (-not $hadBaglam.ContainsKey($ak)) { $hadBaglam[$ak] = @{} }; foreach ($k in $kk) { $hadBaglam[$ak][$k] = 1 } } } }
   $son = "$($j[$j.Count-1].id)"; if ($j.Count -lt 500) { break }
 }
+# 23.09: KAPI-HAD (arac/had-kapisi.ps1) bu dosyayı okur — yalnız madde anahtarı + tutar (soru metni yok)
+$hg = [ordered]@{}; foreach ($a in ($had.Keys | Sort-Object)) { $hg[$a] = @($had[$a] | Sort-Object | ForEach-Object { [ordered]@{ tutar = $_; baglam = @($hadBaglam["$a|$_"].Keys | Sort-Object) } }) }
+[IO.File]::WriteAllText((Join-Path $kok 'veri\sinav\had-guncel.json'), (ConvertTo-Json -InputObject ([ordered]@{ aciklama = 'Güncel had tutarları: ambardaki KANUN MADDESİ konsolide şerhleri "(N TL)". Üreten arac/had-tutar-tarama.ps1; okuyan arac/had-kapisi.ps1 (KAPI-HAD).'; olcum = (Get-Date -Format 'dd.MM.yyyy HH:mm'); maddeler = $hg }) -Depth 4), (New-Object Text.UTF8Encoding $false))
 Write-Host ("güncel had: {0} kanun maddesinde {1} tutar ({2} belge)" -f $had.Count, (($had.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum), $belge)
+if ($YalnizHad) { if ($had.Count -lt 10) { throw "had-guncel: yalnız $($had.Count) madde — ambar okuması şüpheli, dosya YAZILDI ama kontrol et" }; return }
 
 # --- 2) sorular (SMMM: yayın şartını geçen · SGS: bütün taslaklar)
 $rxTutar = [regex]'(\d{1,3}(?:\.\d{3})+(?:,\d+)?)\s*(?:TL|₺|Türk lirası|lira)'
