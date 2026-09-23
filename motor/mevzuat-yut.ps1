@@ -25,6 +25,7 @@ $bugun = (Get-Date).ToString("yyyy-MM-dd")
 if(-not (Test-Path $mevzuatDir)){ New-Item -ItemType Directory -Path $mevzuatDir -Force | Out-Null }
 
 $manifest = Get-Content (Join-Path $kok "veri\mevzuat-kaynaklar.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+. (Join-Path (Join-Path $kok 'arac') 'mevzuat-degisti.ps1')   # 23.09: MdAnahtar · MdAyirtEdici (ayırt edici belirteçler)
 $durum = @{}
 if(Test-Path $durumYol){ try { (Get-Content $durumYol -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $durum[$_.Name] = $_.Value } } catch {} }
 
@@ -416,6 +417,31 @@ foreach($law in $manifest.kanunlar){
   $kapsama = if($flat.Length -gt 0){ [math]::Round(100*$ambarKr/$flat.Length,1) } else { 0 }
   if($kapsama -lt 98){ Write-Host ("  KAPSAMA UYARISI: {0} -> %{1} (mulga maddeler dusuldugunde normal olabilir)" -f $law.ad, $kapsama) }
   else { Write-Host ("  kapsama %{0}" -f $kapsama) }
+  # 23.09.2026 AYIRT EDİCİ BELİRTEÇLER (arac/mevzuat-degisti.ps1 MdAyirtEdici): ayna üzerine yazılmadan ÖNCE eski/yeni
+  # madde metinleri karşılaştırılır; değişen her madde için farkın belirteçleri veri/mevzuat/_degisen-kokler.json'a yazılır.
+  # Soru-dayanak nöbetçisi bu belirteçlerden hiçbirine değmeyen soruyu çekmez (TTK geç. m.7: 93 sorudan 91'i değmiyordu).
+  # Belirteç bulunamazsa 'belirsiz' yazılır → nöbetçi hepsini çeker. Hata olursa yutma DURMAZ (dosya yazılmaz = eski davranış).
+  try {
+    $eskiAyna = Join-Path $mevzuatDir "$($law.slug).json"
+    if(Test-Path $eskiAyna){
+      $eskiM=@{}; foreach($d in @((Get-Content $eskiAyna -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler)){ $a=MdAnahtar "$($d.kaynak_ad)"; if($a){ $eskiM[$a]="$($eskiM[$a]) $($d.metin)" } }
+      $yeniM=@{}; foreach($d in $docs){ $a=MdAnahtar "$($d.kaynak_ad)"; if($a){ $yeniM[$a]="$($yeniM[$a]) $($d.metin)" } }
+      $dkY = Join-Path $mevzuatDir '_degisen-kokler.json'
+      $dk=[ordered]@{}; if(Test-Path $dkY){ foreach($p in (Get-Content $dkY -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler.PSObject.Properties){ $dk[$p.Name]=$p.Value } }
+      $yeniKayit=0
+      foreach($a in $eskiM.Keys){
+        if(-not $yeniM.ContainsKey($a)){ continue }
+        $af = MdAyirtEdici $eskiM[$a] $yeniM[$a]
+        if($null -ne $af -and @($af).Count -eq 0){ continue }   # metin aynı
+        $bel=($null -eq $af); $belirtecDizi=@($af)
+        # aynı maddede önceki (henüz nöbetçinin işlemediği olabilecek) değişiklik: belirteçler BİRLEŞİR, biri belirsizse belirsiz
+        if($dk.Contains($a) -and $dk[$a]){ if($dk[$a].belirsiz){ $bel=$true }; $belirtecDizi=@(@($belirtecDizi) + @($dk[$a].belirtecler) | Where-Object { $_ } | Select-Object -Unique) }
+        $dk[$a] = [ordered]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); kaynak=$law.slug; belirsiz=$bel; belirtecler=$belirtecDizi }
+        $yeniKayit++
+      }
+      if($yeniKayit){ [IO.File]::WriteAllText($dkY, (ConvertTo-Json -InputObject ([ordered]@{ aciklama='Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.'; maddeler=$dk }) -Depth 5), (New-Object Text.UTF8Encoding($false))); Write-Host ("  ayırt edici belirteç: {0} madde" -f $yeniKayit) }
+    }
+  } catch { Write-Host "  ⚠ ayırt edici belirteç hesaplanamadı (nöbetçi temkinli çalışır): $($_.Exception.Message)" }
   # dosyaya yaz
   $json = (@{ belgeler=$docs } | ConvertTo-Json -Depth 6)
   [IO.File]::WriteAllBytes((Join-Path $mevzuatDir "$($law.slug).json"), [Text.Encoding]::UTF8.GetBytes($json))

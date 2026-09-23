@@ -206,6 +206,13 @@ jobs:
           - { ad: "Engel dogrulama OZ-SINAVI (yanlis kanitla soru geri acilmasin)",
               kabuk: pwsh, komut: "./arac/mevzuat-degisti-dogrula-sinavi.ps1" }
 
+          # 23.09.2026 - Nobetci artik paketinde degisen madde bulunan ama degisen kisma DEGMEYEN soruyu cekmiyor
+          # (TTK gec. m.7: 93 sorudan 91'i degmiyordu). Kural yanlis kurulursa GERCEK degisiklik yayinda kalir.
+          # 14 vaka: oran/sure/iptal edilen hukum YAKALANIR, ilgisiz soru ve metin ayni CEKILMEZ, soz dizimi ve
+          # yalniz serh -> BELIRSIZ (hepsi cekilir). Mutasyonla olculdu: sayi sozcugu / sayilar / belirsiz kaldirilinca KIRMIZI.
+          - { ad: "Soru etki OZ-SINAVI (degisen kisma degmeyen soru cekilmez, gercek degisiklik kacmaz)",
+              kabuk: pwsh, komut: "./arac/soru-etki-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

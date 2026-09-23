@@ -67,6 +67,55 @@ function MdDamgaDegisimi($eski, $yeni) {
   return 'ekleme'
 }
 
+# ----------------------------------------------------------------------------
+#  SORU MADDEYE GERÇEKTEN DEĞİYOR MU? (23.09.2026, Cem "1.2.3 üçünü de yap")
+#  ÖLÇÜLDÜ (TTK geç. m.7, AYM iptali): nöbetçi paketinde değişen madde bulunan 93 SMMM sorusunu çekti; elle okumada
+#  yalnız 2'si iptal edilen hükme değiyordu (uzun madde pakete MIKNATIS olarak giriyor). Kural: yutucu, madde metni
+#  değişince eski/yeni kelime kümesi farkını (AYIRT EDİCİ belirteçler) veri/mevzuat/_degisen-kokler.json'a yazar;
+#  nöbetçi, soru + şıklar + açıklamasında bu belirteçlerden HİÇBİRİ geçmeyen soruyu çekmez (kaydına yazar).
+#  Belirteç: ≥4 harfli kelimenin ilk 5 harfi + sayılar (%18, 500.000, 7/1) + sayı/süre sözcükleri (on, beş, yıl, ay…).
+#  Şerh/dipnot dili (iptal, cümle, yürürlüğe girer, Resmî Gazete…) sayılmaz — 23.09'da yanlış alarmın kaynağıydı.
+#  ÖLÇÜLDÜ (tek vaka!): 93 sorudan 14'ü işaretlendi, gerçekten değen 2'nin 2'si yakalandı.
+#  🚫 GÖRMEZ: eş anlamlı ifade ("devlete geçer" ↔ "Hazineye intikal"); farkın belirteci yoksa (yalnız söz dizimi değişti)
+#     MdAyirtEdici $null döner → nöbetçi HEPSİNİ çeker (temkinli, eski davranış).
+#  Öz-sınav: arac/soru-etki-sinavi.ps1
+# ----------------------------------------------------------------------------
+$script:MD_SERH = @{}; foreach ($w in 'iptal ikinc ucunc cumle karar anaya mahke yurur girer resmi gazet yayim tarih sayil madde fikra degis eklen mulga bendi bentt ibare'.Split(' ')) { $script:MD_SERH[$w] = 1 }
+$script:MD_SAYI = @{}; foreach ($w in 'bir iki uc dort bes alti yedi sekiz dokuz on yirmi otuz kirk elli altmis yetmis seksen doksan yuz bin milyon gun ay yil hafta saat yarim ceyrek'.Split(' ')) { $script:MD_SAYI[$w] = 1 }
+function MdKatla([string]$s) { return ("$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c') }
+function MdBelirtecler([string]$t) {
+  $h = @{}; $k = MdKatla $t
+  foreach ($m in [regex]::Matches($k, '[a-z]+')) { $w = $m.Value
+    if ($script:MD_SAYI.ContainsKey($w)) { $h["~$w"] = 1; continue }
+    if ($w.Length -lt 4) { continue }
+    $r = $w.Substring(0, [Math]::Min(5, $w.Length)); if (-not $script:MD_SERH.ContainsKey($r)) { $h[$r] = 1 } }
+  foreach ($m in [regex]::Matches($k, '%\s*\d+(?:[.,]\d+)?|\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:[.,/]\d+)*')) { $h['#' + ($m.Value -replace '\s', '')] = 1 }
+  return $h
+}
+# eski/yeni metin → ayırt edici belirteçler; metin aynıysa @() ; fark var ama belirteci yoksa $null (belirsiz)
+function MdAyirtEdici([string]$eski, [string]$yeni) {
+  if ((($eski -replace '\s+', ' ').Trim()) -eq (($yeni -replace '\s+', ' ').Trim())) { return , @() }
+  $be = MdBelirtecler $eski; $by = MdBelirtecler $yeni
+  $f = @(@($be.Keys | Where-Object { -not $by.ContainsKey($_) }) + @($by.Keys | Where-Object { -not $be.ContainsKey($_) }))
+  if (-not $f.Count) { return $null }
+  return , $f
+}
+# soru nesnesi ($v: soru, siklar, aciklama) ayırt edici belirteçlerden birini taşıyor mu? → eşleşen belirteçler
+function MdSoruDegiyor($v, $ayirt) {
+  $metin = "$($v.soru) " + ((@('A', 'B', 'C', 'D', 'E') | ForEach-Object { "$($v.siklar.$_)" }) -join ' ') + ' ' + ($v.aciklama | ConvertTo-Json -Compress -Depth 4)
+  $b = MdBelirtecler $metin
+  # ⚠ virgülsüz: ", @()" boş sonucu tek elemanlı (içi boş dizi) diziye çevirip @().Count = 1 yapıyordu (öz-sınav yakaladı, 23.09)
+  return @(@($ayirt) | Where-Object { $b.ContainsKey("$_") })
+}
+# madde anahtarı: motor/madde-damga.ps1 satır 88-104'ün AYNASI (kanun|seri+madde). Ayrışırsa öz-sınav düşer.
+function MdAnahtar([string]$ad) {
+  $kn = [regex]::Match($ad, '(?<![\d/])(\d{3,4})\s*(?:s\.|say[ıi]l[ıi])'); if (-not $kn.Success) { $kn = [regex]::Match($ad, '\((\d{3,4})\)') }
+  $mn = [regex]::Match($ad, '[^a-zA-Z0-9]m\.\s*(\d{1,4})(?!\d)')
+  if (-not ($kn.Success -and $mn.Success)) { return '' }
+  $seri = ''; if ($ad -match '(?i)ge[çc]ici\s*m\.?|gec\.\s*m\.') { $seri = 'gec' } elseif ($ad -match '(?i)ek\s+m\.') { $seri = 'ek' }
+  return ("{0}|{1}{2}" -f $kn.Groups[1].Value, $seri, $mn.Groups[1].Value)
+}
+
 # kaynak adı ("VUK (213 s.K.) m.10 - Kanuni temsilcilerin ödevi [1/2]") → madde kökü ("VUK (213 s.K.) m.10")
 function MdMaddeKoku([string]$ad) {
   $m = [regex]::Match("$ad", '^(.*?\bm\.\s*\d+(?:/[A-Z])?)(?=\s|$|\[)')

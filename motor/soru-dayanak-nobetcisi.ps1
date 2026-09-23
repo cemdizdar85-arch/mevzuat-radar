@@ -104,6 +104,11 @@ if ($kanunAnah.Count) {
     if ($mk) { $kokTur[$mk] = @{ anahtar = $a; tur = $(if ($silinen -contains $a) { 'SILINDI' } else { 'degisti' }) } }
   }
   if ($kokTur.Count) {
+    # 23.09: yutucunun yazdığı ayırt edici belirteçler + taban tarihi (belirteç kaydı tabandan ESKİYSE kullanılmaz)
+    $degisenKok = @{}; $dkY = Join-Path $kok 'veri\mevzuat\_degisen-kokler.json'
+    if (Test-Path $dkY) { foreach ($p in (Get-Content $dkY -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler.PSObject.Properties) { $degisenKok[$p.Name] = $p.Value } }
+    $tabanTarihIso = '9999'; try { $tabanTarihIso = ([datetime]::ParseExact("$((Get-Content $oncekiYol -Raw -Encoding UTF8 | ConvertFrom-Json).tarih)", 'dd.MM.yyyy HH:mm', $null)).ToString('yyyy-MM-dd HH:mm') } catch {}
+    $degmeyen = New-Object System.Collections.Generic.List[object]
     try {
       $liste = MdListeOku $kok
       $Hs = @{ apikey = $env:SUPABASE_SERVICE_KEY; Authorization = "Bearer $($env:SUPABASE_SERVICE_KEY)"; 'User-Agent' = 'mevzuat-radar-robot/1.0' }
@@ -119,6 +124,14 @@ if ($kanunAnah.Count) {
             foreach ($ka in @($v.kaynak_adlar)) {
               $mk = MdMaddeKoku "$ka"
               if (-not ($mk -and $kokTur.ContainsKey($mk))) { continue }
+              # 23.09: soru değişen kısma DEĞMİYORSA çekilmez (yalnız 'degisti', belirteç biliniyor ve taban sonrası ise)
+              $dkE = $degisenKok["$($kokTur[$mk].anahtar)"]
+              if ($kokTur[$mk].tur -eq 'degisti' -and $dkE -and -not $dkE.belirsiz -and "$($dkE.tarih)" -ge $tabanTarihIso) {
+                if (-not @(MdSoruDegiyor $v @($dkE.belirtecler)).Count) {
+                  $degmeyen.Add([pscustomobject][ordered]@{ anahtar = "$($pr.etiket)/$($q.Name)"; madde = $kokTur[$mk].anahtar; tarih = (Get-Date -Format 'dd.MM.yyyy'); belirtec = @($dkE.belirtecler).Count })
+                  continue   # başka bir değişen maddeye değiyor olabilir
+                }
+              }
               $an = "$($pr.etiket)/$($q.Name)"; $iz = MdIcerikIzi $v
               if (-not ($liste.ContainsKey($an) -and "$($liste[$an].iz)" -eq $iz)) {
                 $liste[$an] = [pscustomobject][ordered]@{ anahtar = $an; iz = $iz; madde = $kokTur[$mk].anahtar; kaynak = $mk; tur = $kokTur[$mk].tur; tarih = (Get-Date -Format 'dd.MM.yyyy') }
@@ -147,7 +160,13 @@ if ($kanunAnah.Count) {
           }
         }
       }
-      Write-Host ("YENİ HAT: değişen madde kökü {0} · yeni engellenen soru {1} · kasadan çekilen {2}" -f $kokTur.Count, $yeniHatEngel, $kasadanCekilen)
+      # 23.09: değişen kısma DEĞMEDİĞİ için çekilmeyen sorular — denetim izi (soru metni yok)
+      $script:degmeyenSay = $degmeyen.Count
+      if ($degmeyen.Count) {
+        $dgY = Join-Path (Join-Path $kok 'veri\sinav') 'mevzuat-degisti-degmeyen.json'
+        $eskiDg = @(); if (Test-Path $dgY) { $eskiDg = @((Get-Content $dgY -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar) }
+        [IO.File]::WriteAllText($dgY, (ConvertTo-Json -InputObject ([ordered]@{ aciklama = 'Soru-dayanak nöbetçisi: paketinde değişen madde vardı ama soru, şıklar ve açıklama ayırt edici belirteçlerin hiçbirine değmiyor → ÇEKİLMEDİ (arac/mevzuat-degisti.ps1 MdSoruDegiyor).'; kayitlar = @(@($eskiDg) + $degmeyen.ToArray()) }) -Depth 4), (New-Object Text.UTF8Encoding($false)))
+      }      Write-Host ("YENİ HAT: değişen madde kökü {0} · yeni engellenen soru {1} · kasadan çekilen {2} · değişen kısma DEĞMEDİĞİ için çekilmeyen {3}" -f $kokTur.Count, $yeniHatEngel, $kasadanCekilen, $degmeyen.Count)
     } catch { $yeniHatHata = $true; Write-Host "YENİ HAT TARAMASI DÜŞTÜ: $($_.Exception.Message)" }
   }
 }
@@ -168,7 +187,7 @@ $durum = if($isaretlemeTamam){ 'TAMAM' } else { 'KIRMIZI' }
 RaporYaz ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$durum
   degisenMadde=$degisen.Count; silinenMadde=$silinen.Count; isaretlenenSoru=$isaretli
-  siraKaymasiCekilmedi=$siraKaymasi; ayriEklemeCekilmedi=$ayriEkleme
+  siraKaymasiCekilmedi=$siraKaymasi; ayriEklemeCekilmedi=$ayriEkleme; degmedigiIcinCekilmedi=$(if($script:degmeyenSay){ $script:degmeyenSay } else { 0 })
   taban_ilerletildi=$isaretlemeTamam
   yeniHatEngellenen=$yeniHatEngel; yeniHatKasadanCekilen=$kasadanCekilen; yeniHatTaramaHatasi=$yeniHatHata
   etkilenen=@($etkilenen | Select-Object -First 100)
