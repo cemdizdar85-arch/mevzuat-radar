@@ -1,7 +1,22 @@
 {
-  "durum": "KOR",
-  "sebep": "devtools-portu-acilmadi",
+  "durum": "YESIL",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "chrome_stderr": "[2265:2288:0923/154919.594313:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2265:2288:0923/154919.635362:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2265:2288:0923/154920.500437:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
+  "sayfa": 229,
+  "koyu_gecis": 74,
+  "koyu_bekleyen": [],
+  "temiz_sayfa": 229,
+  "denetlenen_metin": 27022,
+  "toplam_kirik": 0,
+  "denetlenen_sinir": 8149,
+  "toplam_gorunmez_sinir": 0,
+  "olculemeyen": 0,
+  "esik": {
+    "normal": 4.5,
+    "buyuk": 3,
+    "sinir": 1.12
+  },
+  "gorunmez_sinir_sayfalar": [],
+  "olculemeyenler": [],
+  "kirik_sayfalar": []
 }
