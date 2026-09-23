@@ -910,6 +910,13 @@ window.veriAl = (function(){
           if(d.durum==='aktif'){
             yaz(cta,'Hesabım','ogrenci.html'); cta2.hidden=true;
             durumEl.textContent=s.ad+' paketin açık'+(bit?' ('+bit+' tarihine kadar)':'')+'. Soruları yayına hazırlıyoruz; açıldığı gün e-postana haber gelir.';
+          } else if(s.olc){
+            /* 23.09 Cem "sınava girişle aynı görünsün" + "30 soru çözüp seviyelerini ölçecekler": içeriği hazırlanan
+               sınavda da seviye testi varsa düğme SGS'dekiyle aynı. Ön kayıt formu kalkar - testin ön kapısı
+               ad + e-posta + telefonu zaten alıyor (seviye-testi.html svOnKapi). */
+            yaz(cta,'Geçme ihtimalini ölç (ücretsiz)',s.olc);
+            if(d.durum==='bitmis') yaz(cta2,'Hesabım →','ogrenci.html'); else cta2.hidden=true;
+            durumEl.textContent='30 soru · yaklaşık 40 dakika · '+s.ad+' soru bankası hazırlanıyor';
           } else {
             /* 23.09 Cem: "Yeterlilik giriyorum Staja Giriş çıkıyor" -> başka sınava yönlendiren bağlantı kaldırıldı.
                23.09 Cem "1.2.3 yap" -> "Ön kayıt ol" düğmesi ara sayfaya gitmez, form burada açık durur. */

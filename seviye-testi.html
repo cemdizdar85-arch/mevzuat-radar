@@ -18,6 +18,11 @@
   modelin anlık seviye tahminine göre seçilir. Aynı cihaza gösterilen soru tekrar gösterilmez (sv_gorulen); şık sırası karışır.
   VERİ: her cevap anonim cevap_kayit'e (kaynak 'seviye-testi') - açılıştan sonra etiketlerin yerini gerçek zorluk alacak.
   Soru çözme ekranı -> AÇIK tema (09.09 kararı).
+  YETERLİLİK KİPİ (23.09.2026, ?sinav=yeterlilik): Cem "30 soru çözüp seviyelerini ölçecekler ... biz 30 soruyu
+  istediğimiz gibi değiştireceğiz". SABİT set veri/seviye/smmm-set.json (motor/seviye-set-sec.js; yalnız kimlik).
+  Soru metni Supabase ucretsiz_soru görünümünden (CEVAPSIZ), cevap rpc/seviye_kontrol'den (sunucuda, IP başına
+  40/10 dk) gelir - depoda Yeterlilik sorusu ve cevabı YOK. Hesap: seviye-model-yet.js (m.16/b: her ders >= 50,
+  ortalama >= 60, tezkiye ortalamaya girer).
 -->
 <style>
   body{margin:0}
@@ -63,6 +68,12 @@
   .sv-grup b{display:block;font-size:14px;color:var(--ink)}
   .sv-grup span{font-size:13px;color:var(--muted)}
   .sv-grup.zayif{border-color:var(--red)}
+  .sv-grup em{font-style:normal;font-size:12px;font-weight:800;border-radius:99px;padding:1px 8px;margin-left:6px}
+  .sv-grup em.guclu{color:var(--green);border:1px solid var(--green)}
+  .sv-grup em.sinirda{color:var(--amber);border:1px solid var(--amber)}
+  .sv-grup em.riskli{color:var(--red);border:1px solid var(--red)}
+  .sv-tez{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted);margin:0 0 16px}
+  .sv-tez input{font:inherit;width:80px;padding:8px 10px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
   .sv-kutu{background:var(--panel);border:1px solid var(--amber);border-radius:14px;padding:18px;margin:0 0 16px}
   .sv-kutu h2{font-size:19px;margin:0 0 6px}
   .sv-kutu input[type=email],.sv-kutu input[type=tel],.sv-kutu input[type=text],.sv-kutu select{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);margin:6px 0 10px}
@@ -182,13 +193,15 @@
 
   <section id="svSonuc" class="sv-gizli">
     <div class="sv-sonuc-ust">
-      <div class="sv-kunye">Staja Giriş · geçme ihtimalin</div>
+      <div class="sv-kunye" id="svKunyeSonuc">Staja Giriş · geçme ihtimalin</div>
       <div class="sv-yuzde">%<span id="svYuzde">0</span><small>tahmini</small></div>
       <span class="sv-seviye" id="svSeviye"></span>
       <p class="sv-mesaj" id="svMesaj"></p>
       <p class="sv-not" id="svDetay"></p>
     </div>
     <div class="sv-gruplar" id="svGruplar"></div>
+    <!-- YET: tezkiye notu ortalamaya ayrı ders gibi girer (m.16/b); verilmezse en düşük kabul notu 80 (m.9) -->
+    <label class="sv-tez" id="svTez" hidden>Staj tezkiye notun (biliyorsan): <input type="number" id="svTezNot" min="80" max="100" step="1" placeholder="80"> <span>ortalamaya ayrı bir ders gibi girer</span></label>
 
     <!-- 14.09 Cem "ücretsiz denemeyi pazarlamanın merkezine koyalım": test bitince TAM BANKA teklifi.
          Rakamlar elle yazılmaz: banka büyüklüğü soru-dizini.json, set sayısı deneme/sgs-dizin.json, fiyat fiyat-motoru.js. -->
@@ -197,8 +210,8 @@
       <p class="sv-alt" id="svTeklifMetin" style="margin:0 0 12px"></p>
       <p class="sv-not" id="svTeklifFiyat" style="margin:0 0 12px" hidden></p>
       <div class="sv-dugmeler">
-        <a class="sv-btn ana" href="satin-al.html?paket=sgs" style="text-decoration:none">Tam bankayı aç →</a>
-        <a class="sv-btn" href="kaydir/vitrin/sgs.html" style="text-decoration:none">Önce örnek soruları çöz</a>
+        <a class="sv-btn ana" id="svTeklifAna" href="satin-al.html?paket=sgs" style="text-decoration:none">Tam bankayı aç →</a>
+        <a class="sv-btn" id="svTeklifIkinci" href="kaydir/vitrin/sgs.html" style="text-decoration:none">Önce örnek soruları çöz</a>
       </div>
     </div>
 
@@ -228,11 +241,23 @@
       </ul>
       <p>21 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
     </details>
+    <details class="sv-nasil" id="nasilYet" hidden>
+      <summary>Nasıl hesaplandı?</summary>
+      <p>Bu bir <b>tahmindir</b>. Yeterlilik'te başarılı sayılmak için her dersten 100 üzerinden <b>en az 50</b> almak ve derslerin ortalamasının <b>en az 60</b> olması gerekir; staj tezkiye notu ortalamaya ayrı bir ders gibi girer (YMM ve SMMM Sınav Yönetmeliği m.16/b). 2026'dan beri her ders 20 soruluk testtir.</p>
+      <ul>
+        <li><b>Seviyen:</b> 30 cevabından, sorunun zorluğu hesaba katılarak kestirilir (Rasch modeli): çok zor bir soruyu bilmek, kolay bir soruyu bilmekten fazla sayılır. Zorluk, sorunun kolay / zor / çok zor etiketinden gelir; bu etiketler henüz gerçek adaylarla ölçülmedi.</li>
+        <li><b>Ders ders:</b> bir derste 3-5 soru var; 3'te 3 "100 puan" demek değildir. Az soruda tahmin genel seviyene doğru çekilir.</li>
+        <li><b>Gerçek sınav:</b> her ders için 20 soruluk sınav, bu seviyelerle bilgisayarda binlerce kez oynatılır; "her ders 50'nin üstünde ve ortalama 60'ın üstünde" çıkan oyunların oranı geçme ihtimalindir. Test soruları bilerek sınavdan zor seçildi; hesap gerçek sınavı bu setten kolay kabul eder (varsayım).</li>
+        <li><b>Güçlü / Sınırda / Riskli:</b> o dersten 50'yi geçme ihtimalin %80 ve üstü · %50–80 · %50'nin altı.</li>
+      </ul>
+      <p>28 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
+    </details>
     <div class="sv-dugmeler"><button class="sv-btn" id="svYeniden" type="button">Testi yeniden çöz (farklı sorular)</button></div>
   </section>
 </div>
 
 <script src="seviye-model.js"></script>
+<script src="seviye-model-yet.js"></script>
 <script src="fiyat-motoru.js"></script>
 <script>
 (function(){
@@ -241,6 +266,9 @@
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var M=window.SeviyeModel, H=null, SIRA=[], CEVAPLAR=[], AKTIF=null, SECILI=null, BAS=0, SAYAC=null, SORU_BAS=0, SONUC=null;
+  /* 23.09 YETERLİLİK KİPİ: sabit 30 soru, soru ucretsiz_soru'dan (cevapsız), cevap rpc/seviye_kontrol'den */
+  var YET=/(?:^|[?&#])sinav=yeterlilik\b/.test(location.search+'&'+location.hash), SET=[], MESGUL=false;
+  var ANAH_HAK=YET?'sv_hak_yet':'sv_hak', ANAH_SONUC=YET?'sv_sonuclar_yet':'sv_sonuclar';
   var oturum=''; try{ oturum=localStorage.getItem('kc_oturum')||''; if(!oturum){ oturum=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kc_oturum',oturum); } }catch(e){}
   function goster(id){ ['svGiris','svTest','svOnKapi','svSonuc'].forEach(function(k){ $(k).classList.toggle('sv-gizli',k!==id); }); window.scrollTo(0,0); }
   /* 21.09 ÖN KAPI: bir kez verilen bilgi cihazda tutulur, aynı kişiye ikinci kez form sorulmaz. */
@@ -248,8 +276,8 @@
   function kayitYaz(k){ try{ localStorage.setItem('sv_kayit',JSON.stringify(k)); }catch(e){} }
   /* 16.09: üye mi? (oturum anahtarı cihazda) - uye-durumu.js ile aynı ölçüt; üyede sonuç kapısı ve tek-hak sınırı YOK */
   function uyeMi(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } }
-  function hakKullanildi(){ try{ return localStorage.getItem('sv_hak')==='1'; }catch(e){ return false; } }
-  function hakYaz(){ try{ localStorage.setItem('sv_hak','1'); }catch(e){} }
+  function hakKullanildi(){ try{ return localStorage.getItem(ANAH_HAK)==='1'; }catch(e){ return false; } }
+  function hakYaz(){ try{ localStorage.setItem(ANAH_HAK,'1'); }catch(e){} }
   function karistir(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
   function gorulen(){ try{ return JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); }catch(e){ return []; } }
   function gorulduEkle(id){ try{ var g=gorulen(); if(g.indexOf(id)<0) g.push(id); localStorage.setItem('sv_gorulen',JSON.stringify(g.slice(-2000))); }catch(e){} }
@@ -275,9 +303,16 @@
     }
     return null;
   }
+  /* YET: set sırası - dersler serpiştirilir (aynı dersten art arda soru gelmesin), ilk soru FM; sıra her testte aynı */
+  function setSirala(liste){
+    var gr={}, ad=[]; liste.forEach(function(x){ if(!gr[x.ders]){ gr[x.ders]=[]; ad.push(x.ders); } gr[x.ders].push(x); });
+    ad.sort(function(a,b){ return gr[b].length-gr[a].length; });
+    var o=[]; for(var t=0;o.length<liste.length;t++) ad.forEach(function(d){ if(gr[d][t]) o.push(gr[d][t]); });
+    return o;
+  }
   function soruGoster(){
     var n=CEVAPLAR.length; if(n>=SIRA.length){ bitir(); return; }
-    AKTIF=soruSec(SIRA[n]); if(!AKTIF){ bitir(); return; }
+    AKTIF=YET?SIRA[n]:soruSec(SIRA[n]); if(!AKTIF){ bitir(); return; }
     SECILI=null; SORU_BAS=Date.now();
     $('svNo').textContent=n+1; $('svCubuk').style.width=(100*n/SIRA.length)+'%';
     $('svKunye').textContent=AKTIF.ders;
@@ -289,9 +324,28 @@
     $('svCevapla').disabled=true;
   }
   function sec(h){ SECILI=h; $('svSiklar').querySelectorAll('.sv-sik').forEach(function(b){ var s=b.getAttribute('data-h')===h; b.classList.toggle('secili',s); b.setAttribute('aria-checked',String(s)); }); $('svCevapla').disabled=false; }
+  /* YET: doğru harf sayfada YOK - sunucu söyler (seviye_kontrol, IP başına 40/10 dk). "Bilmiyorum"da da sorulur:
+     sonuç ekranı "doğrusu X" gösterir. Sunucu cevap veremezse bir kez daha denenir; yine olmazsa soru
+     "denetlenemedi" diye işaretlenir ve hesaba GİRMEZ (yanlış sayılmaz - adamı bizim hatamızla cezalandırmayız). */
   function kaydet(bilmiyorum){
+    if(!YET) return kaydetYerel(bilmiyorum);
+    if(MESGUL) return; MESGUL=true; $('svCevapla').disabled=true; $('svBilmiyorum').disabled=true;
+    var asil=bilmiyorum?null:AKTIF.harita[SECILI];
+    var sor=function(){ return fetch(SB+'/rest/v1/rpc/seviye_kontrol',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+      body:JSON.stringify({ p_id:AKTIF.q.id, p_secim:asil||'' }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){ if(!j||j.hata||!j.dogru) throw 0; return j; }); };
+    sor().catch(function(){ return new Promise(function(ok){ setTimeout(ok,1500); }).then(sor); }).then(function(j){
+      AKTIF.q.dogru=String(j.dogru).toUpperCase(); MESGUL=false; $('svBilmiyorum').disabled=false; kaydetYerel(bilmiyorum);
+    }).catch(function(){
+      AKTIF.q.dogru=null; AKTIF.denetlenemedi=true; MESGUL=false; $('svBilmiyorum').disabled=false; kaydetYerel(bilmiyorum);
+    });
+  }
+  function kaydetYerel(bilmiyorum){
     var asil=bilmiyorum?null:AKTIF.harita[SECILI], dogru=!bilmiyorum&&asil===AKTIF.q.dogru;
-    CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:AKTIF.q.dogru, soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
+    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
+    /* 23.09: şıklar ekranda KARIŞIK - sonuçta "doğrusu X" adayın GÖRDÜĞÜ harf olmalı (önceden asıl harf yazılıyordu:
+       ekranda C'yi gören "doğrusu A" okuyabiliyordu). Harf + şık metni birlikte saklanır. */
+    var ekranDogru=Object.keys(AKTIF.harita).filter(function(h){ return AKTIF.harita[h]===AKTIF.q.dogru; })[0]||AKTIF.q.dogru;
+    CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
     gorulduEkle(AKTIF.q.id);
     /* anonim cevap kaydı (cevap_kayit, anon yalnız ekler) - gerçek zorluk ölçümü için */
     try{ fetch(SB+'/rest/v1/cevap_kayit',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Prefer:'return=minimal'},
@@ -313,14 +367,22 @@
     testeBasla();
   }
   function testeBasla(){
-    CEVAPLAR=[]; SIRA=planKur(); BAS=Date.now(); $('svToplam').textContent=SIRA.length;
+    CEVAPLAR=[]; SIRA=YET?SET.map(function(x){ return { q:{ id:x.id, soru:x.soru, siklar:x.siklar, sayfa:x.sayfa, sira:x.sira }, zorluk:x.zorluk, ders:x.ders, grup:x.ders }; }):planKur();
+    BAS=Date.now(); $('svToplam').textContent=SIRA.length;
     if(SAYAC) clearInterval(SAYAC);
     SAYAC=setInterval(function(){ var s=Math.round((Date.now()-BAS)/1000); $('svSure').textContent=Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); },1000);
     goster('svTest'); soruGoster();
   }
 
+  /* YET hesabı: denetlenemeyen soru hesaba girmez (bkz. kaydet). Tezkiye sonuç ekranından değişebilir. */
+  function yetHesap(tez){
+    var c=CEVAPLAR.filter(function(x){ return !x.denetlenemedi; });
+    var sira=[]; SET.forEach(function(x){ if(sira.indexOf(x.ders)<0) sira.push(x.ders); });
+    return window.SeviyeModelYet.tahmin(c.map(function(x){ return {ders:x.ders,zorluk:x.zorluk,dogru:x.dogru}; }), {tezkiye:tez, dersler:sira});
+  }
   function bitir(){
     if(SAYAC){ clearInterval(SAYAC); SAYAC=null; }
+    if(YET) return bitirYet();
     var t=M.tahmin(CEVAPLAR.map(function(c){ return {zorluk:c.zorluk,dogru:c.dogru}; }));
     var gruplar={}, sira=[];
     CEVAPLAR.forEach(function(c){ if(!gruplar[c.grup]){ gruplar[c.grup]={ad:c.grup,dogru:0,soru:0}; sira.push(c.grup); } gruplar[c.grup].soru++; if(c.dogru) gruplar[c.grup].dogru++; });
@@ -342,12 +404,69 @@
     sonucCiz(liste);
     if(!uyeMi()) karneGonder();
   }
+  function yanlisKutusu(){
+    try{
+      var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
+      CEVAPLAR.forEach(function(c){ if(c.dogru||c.denetlenemedi) return; var k=kutu.filter(function(x){return x.id===c.id;})[0];
+        if(k){ k.tur=1; k.due=an+2*86400000; k.yanlis=(k.yanlis||0)+1; } else kutu.push({id:c.id,konu:'',ders:c.ders,donem:0,tur:1,due:an+2*86400000,yanlis:1}); });
+      localStorage.setItem('kc_kutu',JSON.stringify(kutu));
+    }catch(e){}
+  }
+  function bitirYet(){
+    var t=yetHesap(), dogruSay=CEVAPLAR.filter(function(c){return c.dogru;}).length;
+    var liste=t.dersler.map(function(d){ return {ad:d.ad,dogru:d.dogru,soru:d.soru,durum:d.durum,puan:d.puan,p50:d.p50}; });
+    SONUC={ gecme:t.gecme, dogru130:0, soru:CEVAPLAR.length, dogru:dogruSay, gruplar:liste, tezkiye:t.tezkiye,
+            denetlenemedi:CEVAPLAR.filter(function(c){return c.denetlenemedi;}).length, tarih:new Date().toISOString() };
+    try{ var gecmis=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru,durum:x.durum};}),tarih:SONUC.tarih}); localStorage.setItem(ANAH_SONUC,JSON.stringify(gecmis.slice(-20))); }catch(e){}
+    yanlisKutusu(); hakYaz();
+    sonucCizYet();
+    if(!uyeMi()) karneGonder();
+  }
+  var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
+  function sonucCizYet(){
+    var g=SONUC.gecme, sinif=g>=70?'yuksek':g>=40?'orta':'dusuk', liste=SONUC.gruplar;
+    $('svKunyeSonuc').textContent='Yeterlilik · geçme ihtimalin';
+    $('svYuzde').textContent=g;
+    $('svSeviye').textContent=g>=70?'Hazıra yakınsın':g>=40?'Sınırdasın':'Bugün girsen zorlanırsın';
+    $('svSeviye').className='sv-seviye '+sinif;
+    var risk=liste.filter(function(x){return x.durum==='riskli';}).sort(function(a,b){ return a.p50-b.p50; });
+    var ad=function(x){ return x.ad; };
+    $('svMesaj').textContent = risk.length
+      ? 'Yeterlilik\'te güçlü derslerin seni kurtarmaz; tek bir dersin 50\'nin altında kalırsa sınavı kaybedersin. '
+        +(risk.length>3 ? risk.length+' dersin riskli; en zayıf üçü: '+risk.slice(0,3).map(ad).join(', ')+'. Önce oradan başla.'
+                        : 'Riskli '+(risk.length===1?'dersin':'derslerin')+': '+risk.map(ad).join(', ')+'. Önce orası.')
+      : g>=70 ? 'Sekiz dersin hiçbiri riskli görünmüyor. Sınırdaki derslerini sağlamlaştır; sınavda tek bir ders 50\'nin altında kalırsa ortalama kurtarmaz.'
+      : 'Hiçbir dersin riskli değil ama çoğu sınırda: ortalamayı 60\'ın üstüne çıkaracak birkaç doğru eksik.';
+    $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · tezkiye notu '+SONUC.tezkiye+' alındı · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
+    $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru · sınavda 50\'yi geçme ihtimali %'+x.p50+'</span></div>'; }).join('');
+    $('svTez').hidden=false;
+    $('svTeklifBaslik').textContent=risk.length?'Riskli derslerini Nöbetçi\'yle kapat':'Yanlışlarının nedenini öğren';
+    var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
+    $('svTeklifMetin').innerHTML='Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır'+(y.length?'; bu testteki <b>'+y.length+' yanlışının</b> anlatımı da orada.':'.')+' Banka açıldığı gün haber almak için ücretsiz üye ol.';
+    $('svTeklifFiyat').hidden=true;
+    $('svTeklifAna').textContent='Ücretsiz üye ol →'; $('svTeklifAna').setAttribute('href','ogrenci.html');
+    $('svTeklifIkinci').textContent='Örnek soruları çöz'; $('svTeklifIkinci').setAttribute('href','kaydir/vitrin/smmm.html');
+    $('svYollar').innerHTML='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
+    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+'<div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
+    $('nasil').hidden=true; $('nasilYet').hidden=false;
+    goster('svSonuc');
+  }
   /* 21.09: ön kapıda alınan bilgiyle karne + sonuç gönderimi. İki gönderi:
      (1) karne-gonder -> karne adayın e-postasına + form_kayit'a düşer,
      (2) quick-task   -> ad/telefon/sınav/dönem + kanal izinleri bizim kasamıza (karne-gonder bu alanları tanımıyor).
      ⛔ Gönderi düşse bile sonuç GÖSTERİLİR: adam 30 soruyu çözdü, bizim sunucu hatamız yüzünden eli boş kalmaz. */
   function karneGonder(){
     var k=kayitOku(); if(!k||!SONUC) return;
+    /* YET: karne-gonder yalnız 'sgs' kabul ediyor (23.09); Yeterlilik karnesi fonksiyon güncellenip yayınlanana kadar
+       e-posta VAAT EDİLMEZ, çağrılmaz. Aday + sonuç kaydı quick-task ile yine bize düşer. */
+    if(YET){
+      fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
+        body:JSON.stringify({ subject:'SEVIYE TESTI sonucu (Yeterlilik)', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
+          cozulen_test:'yeterlilik', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru, tezkiye:String(SONUC.tezkiye),
+          dersler:SONUC.gruplar.map(function(x){ return x.ad+' '+x.dogru+'/'+x.soru+' '+(DURUM_AD[x.durum]||''); }).join(' · '), _hp:'' }) }).catch(function(){});
+      var d=$('svKarneDurum'); d.hidden=false; d.textContent='Sonucun bu ekranda. Yeterlilik soru bankası açıldığında '+k.eposta+' adresine haber vereceğiz.';
+      return;
+    }
     var ozet={ gecme:SONUC.gecme, dogru130:SONUC.dogru130, soru:SONUC.soru, dogru:SONUC.dogru,
                gruplar:SONUC.gruplar.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}) };
     var karne=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
@@ -415,7 +534,7 @@
       +'<a class="sv-btn" href="sinav-gibi.html" style="text-decoration:none">Paketin varsa: sınav gibi çöz (130 soru)</a>';
     /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
     $('svYollar').innerHTML=yollar;
-    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
+    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
     goster('svSonuc');
   }
 
@@ -453,7 +572,7 @@
     if(k.izin_arama) kanal.push('arama'); if(k.izin_wa) kanal.push('WhatsApp');
     try{ fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
       body:JSON.stringify({ subject:'SEVIYE TESTI adayi', from_name:'Tetikte Seviye Testi', ad:ad, email:eposta, telefon:tel,
-        cozulen_test:'sgs', hazirlandigi_sinav:k.sinav, donem:donem, kvkk:'evet', iletisim_izni:kanal.length?kanal.join(' + '):'hayir',
+        cozulen_test:YET?'yeterlilik':'sgs', hazirlandigi_sinav:k.sinav, donem:donem, kvkk:'evet', iletisim_izni:kanal.length?kanal.join(' + '):'hayir',
         iys_kayitli:'HAYIR - HICBIR kanaldan (e-posta/SMS/arama) tanitim iletisi gonderilmez', _hp:$('svHp').value }) }).catch(function(){}); }catch(e2){}
     durum.textContent=''; durum.className='sv-durum';
     testeBasla();
@@ -461,14 +580,46 @@
 
   $('svBasla').addEventListener('click',basla);
   $('svYeniden').addEventListener('click',basla);
-  fetch('veri/seviye/sgs-havuz.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+  /* YET: tezkiye notu değişince sonuç yeniden hesaplanır (aynı cevaplar, tohumlu hesap -> yalnız tezkiye etkisi) */
+  $('svTezNot').addEventListener('change',function(){
+    var v=Number(this.value); if(!(v>=80&&v<=100)){ this.value=''; v=80; }
+    var t=yetHesap(v); SONUC.gecme=t.gecme; SONUC.tezkiye=t.tezkiye;
+    SONUC.gruplar=t.dersler.map(function(d){ return {ad:d.ad,dogru:d.dogru,soru:d.soru,durum:d.durum,puan:d.puan,p50:d.p50}; });
+    sonucCizYet();
+  });
+  /* YET: set (kimlik) depodan, soru metni ucretsiz_soru'dan (cevapsız). 30 sorunun HEPSİ gelmeden test açılmaz:
+     eksik setle ölçülen "geçme ihtimali" başka bir testin sonucu olurdu. */
+  function yetYukle(){
+    document.title='30 soruda geçme ihtimalini ölç · Yeterlilik | Tetikte';
+    $('svGiris').querySelector('h1').textContent='30 soruda geçme ihtimalini ölç';
+    $('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaşık 40 dakika.';
+    $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
+    $('svGiris').querySelectorAll('.sv-not')[0].textContent='Başlamadan önce adını, e-postanı ve telefonunu soracağız; soru bankası açıldığında sana oradan haber vereceğiz. Ücretsiz, kart istenmez.';
+    $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.';
+    $('svHakBitti').querySelector('a[href="kaydir/vitrin/sgs.html"]').setAttribute('href','kaydir/vitrin/smmm.html');
+    $('svYeniden').textContent='Testi yeniden çöz';
+    try{ $('svSinav').value='yeterlilik'; }catch(e){}
+    return fetch('veri/seviye/smmm-set.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(s){
+      var ids=s.sorular.map(function(x){ return x.id; });
+      var liste=ids.map(function(id){ return '"'+id.replace(/"/g,'')+'"'; }).join(',');
+      return fetch(SB+'/rest/v1/ucretsiz_soru?select=id,sayfa,sira,veri&id=in.('+encodeURIComponent(liste)+')',{ headers:{apikey:KEY,Authorization:'Bearer '+KEY} })
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(rows){
+          var m={}; rows.forEach(function(x){ m[x.id]=x; });
+          var eksik=ids.filter(function(id){ var x=m[id]; return !(x&&x.veri&&x.veri.soru&&x.veri.siklar&&Object.keys(x.veri.siklar).length===5); });
+          if(eksik.length) throw { eksik:eksik.length };
+          SET=setSirala(s.sorular.map(function(x){ var v=m[x.id].veri; return { id:x.id, ders:x.ders, zorluk:x.zorluk, soru:v.soru, siklar:v.siklar, sayfa:m[x.id].sayfa, sira:m[x.id].sira }; }));
+          return { plan:[] };
+        });
+    });
+  }
+  (YET?yetYukle():fetch('veri/seviye/sgs-havuz.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); })).then(function(d){
     H=d; $('svBasla').disabled=false; $('svBasla').textContent='Teste başla →';
     /* 16.09: ücretsiz hakkını kullanmış ziyaretçi -> üyelik kutusu (üyede sınır yok) */
     var kapali=(!uyeMi() && hakKullanildi());
     if(kapali){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; }
     /* "yeniden çözersen farklı sorular gelir" sözü ÜYEYE aittir; hakkını kullanmış ziyaretçiye söylenmez */
-    try{ var g=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
-  }).catch(function(){ $('svBasla').textContent='Sorular yüklenemedi, sayfayı yenile'; });
+    try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali||YET?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
+  }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile'; });
 })();
 </script>
 <script src="sinav-sonucu.js" defer></script>

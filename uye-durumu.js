@@ -37,6 +37,8 @@
     yeterlilik: {
       kod: 'yeterlilik', ad: 'Yeterlilik', uzun: 'SMMM Yeterlilik (staj bitirme)', icerik: false,
       dene: 'ucretsiz-dene.html?sinav=yeterlilik', onkayit: 'ucretsiz-dene.html?sinav=yeterlilik#onkayit',
+      /* 23.09 Cem: her sınavın sabit 30 soruluk seviye testi -> içerik hazırlanırken de "ölç" düğmesi var */
+      olc: 'seviye-testi.html?sinav=yeterlilik',
       fiyat: 'fiyat.html'
     },
     kgk: {
