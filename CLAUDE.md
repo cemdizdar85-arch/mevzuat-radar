@@ -130,6 +130,14 @@ git fetch origin main; git merge origin/main --no-edit; git push origin HEAD:mai
 7. **Kapı düşünce ne kadar iş durduğu ölçülür.** "Tek ihlalde tüm yayını
    durdur" ile "yalnız bozuk dosyayı geri al" aynı şey değildir; 21.09'da
    birinci desen **1 yanlış alarm yüzünden 30+ dosyanın hasadını** çöpe attı.
+8. ⭐ **Her öz-sınav BOZARAK sınanır (mutasyon).** (Cem 23.09.2026, "1.2.3 üçünü de yap".) Öz-sınavın yeşil
+   olması kapının çalıştığını göstermez; sınavın kendisi kör olabilir. Kapının kilit koşulları tek tek bilerek
+   bozulur (koşul `$false`/`$true` yapılır, eşik değiştirilir) ve **her bozmada öz-sınav KIRMIZI düşmelidir**;
+   düşmüyorsa sınav eksiktir, kapı "ölçülüyor" sayılmaz. Sonuç commit mesajına yazılır ("X kapatılınca N/M → KIRMIZI").
+   **Neden (23.09 ölçüldü):** o gün kurulan dört kapının dördünün ilk öz-sınavı kusurluydu — dalga denetimi (Linux'ta
+   Türkçe İ), engel doğrulama (düzenli ifade `$(...)` içindeki ikinci `$`'ı görmüyordu; "metin değişti" vakası boyu da
+   değiştirdiği için damgaya hiç gelmiyordu), soru etkisi (işlevin kendi `, @()` dizi hatası), KAPI-HAD (varsayım vakası
+   başka koşulla düşüyordu). Hepsi mutasyonla ya da ilk gerçek koşuda çıktı; mutasyon olmasa dördü de "YEŞİL" gidecekti.
 
 ## 📏 ÇAKIŞMA ÇÖZME REÇETESİ (30.08'de kanıtlandı)
 
