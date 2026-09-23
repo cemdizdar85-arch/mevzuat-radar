@@ -128,11 +128,19 @@ try{
     # yazarsa satir bozulur ya da cagri "erisim engellendi" ile duser - bedel
     # defteri, harcamanin TEK kaydidir; bozulmasi olculemez harcama demektir.
     # Makine capinda adlandirilmis Mutex (bekleyen-partiler.json ile ayni desen).
-    $bedelSatir=((ConvertTo-Json -InputObject ([ordered]@{ zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n")
+    $bedelZaman=(Get-Date -Format 'yyyy-MM-dd HH:mm')   # 23.09: yerel satır ile ambar satırı AYNI zamanı taşısın (tekillik anahtarı)
+    $bedelSatir=((ConvertTo-Json -InputObject ([ordered]@{ zaman=$bedelZaman; etiket=$Etiket; ders=$DersRegex; toplamUsd=$bz.toplamUsd; varsayim=$bz.fiyatVarsayim; satirlar=$bz.satirlar }) -Compress -Depth 4)+"`n")
     $bmx=New-Object System.Threading.Mutex($false,'Global\tetikte-bedel-kayit'); $bal=$false
     try{ $bal=$bmx.WaitOne(20000) }catch{ $bal=$true }   # AbandonedMutex: sahibi olduk
     try{ [IO.File]::AppendAllText($bedelYol,$bedelSatir,[Text.UTF8Encoding]::new($false)); $script:BEDEL_YAZILDI=$true }
     finally{ if($bal){ try{ $bmx.ReleaseMutex() }catch{} }; $bmx.Dispose() }
+    # ⛔ 23.09 (bkz. api-hedef.ps1 BEDEL ARA KAYDI): kesin satır ambara HEMEN gider (koşu sonu senkronunu beklemez;
+    #   makine yükleme adımından önce ölürse satır kaybolmasın). Başarılıysa ara kayıt "kapandı" işaretlenir,
+    #   kapatıcı onu ikinci kez yazmaz. Başarısızsa ara kayıt açık kalır → arac/bedel-ara-kapat.ps1 yazar.
+    #   Koşu sonundaki bedel-senkron -Yukle aynı satırı anahtar (zaman+etiket+tutar) eşleşmesiyle ATLAR.
+    if($script:BEDEL_YAZILDI -and (Get-Command Save-BedelKesin -ErrorAction SilentlyContinue)){
+      if(Save-BedelKesin $bedelZaman $Etiket $DersRegex ([double]$bz.toplamUsd) ([bool]$bz.fiyatVarsayim) $bz.satirlar 'kalip-parti-uret'){ Save-BedelAra $Etiket $true }
+    }
     if($bz.toplamUsd -gt 0 -and -not @($bz.satirlar | Where-Object { $_.onbellekOkuma -gt 0 }).Count){ Write-Host "  BEDEL NOTU: istem önbelleği hiç okunmadı (0) — kaynak paketi cache_control ile işaretlenirse girdi bedeli düşer (açık iş)" -ForegroundColor DarkYellow }
   }
 }catch{ Write-Host "  BEDEL özeti yazılamadı: $($_.Exception.Message)" -ForegroundColor Yellow }

@@ -173,6 +173,14 @@ jobs:
           - { ad: "Bekleyen parti ambar kaydi OZ-SINAVI (cokuste odenmis is kaybolmasin)",
               kabuk: pwsh, komut: "./arac/bekleyen-ambar-sinavi.ps1" }
 
+          # 23.09.2026 - Coken kosunun bedeli. Harcama kosunun BELLEGINDE birikiyor, deftere
+          # yalniz sonda yaziliyordu; 04:04 cokusunde w9/w10 hic satir yazamadi, butce kapisi
+          # o planlari 0 USD sayip yeniden izin verdi. Artik ara kayit + kapatici var. Sinav:
+          # anahtar (faz eki atilir, halkalar ayri), govde (SISTEM, soru metni yok), kapatici
+          # karari (yalniz kapanmamis + eski + tutarli kayit; kosmakta olana dokunmaz) - 13 vaka.
+          - { ad: "Bedel ara kaydi OZ-SINAVI (coken kosunun harcamasi deftere girsin)",
+              kabuk: pwsh, komut: "./arac/bedel-ara-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

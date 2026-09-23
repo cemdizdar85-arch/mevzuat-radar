@@ -226,6 +226,11 @@ jobs:
           ./arac/kopru-senkron.ps1 -Indir -Yaz -Sinav $planSinavi
           # 16.09: gonderilmis toplu parti kimlikleri (yeniden koşuda BEDAVA hasat / kuyruktakine baglanma; cift odeme yok)
           ./arac/bekleyen-senkron.ps1 -Indir
+          # 23.09: COKEN KOSUNUN BEDELI deftere gecsin. 04:04-04:12 UTC cokusunde w9/w10 deftere hic satir yazamadi,
+          # butce kapisi o planlari 0 USD sayip yeniden izin verdi. Kapanmamis + 400 dk'dan eski ara kayit = coken kosu
+          # -> kesin satira cevrilir. Defter indirilmeden ONCE kosar ki asagidaki butce kapisi bu tutari gorsun.
+          # Dusmesi isi durdurmaz (koruma en iyi caba; eski davranis surer).
+          try{ ./arac/bedel-ara-kapat.ps1 -Yaz }catch{ "::warning::bedel ara kapatici dustu: $($_.Exception.Message)" }
           # Isin baslangici: toplu bekleme bu andan 290 dk sonra kesilir. 17.09 OLCULDU (35119974812): 320/335 butcesinde yukleme adimina 8 dk kaldi,
           # 152 partinin 36'si yazilabildi, bekleyen kaydi hic yazilmadi. Butce: SON_AN 290 · Uret 305 · yukleme ~40 dk.
           "MEVZUAT_TOPLU_SON_AN=$((Get-Date).ToUniversalTime().AddMinutes(290).ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii

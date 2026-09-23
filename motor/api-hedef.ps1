@@ -489,6 +489,54 @@ function Save-BekleyenAmbar($kayit){
     [void](Invoke-RestMethod -Method Post -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?on_conflict=etiket' -Headers $bas -ContentType 'application/json; charset=utf-8' -Body $bayt -TimeoutSec 60)
   }catch{ Write-Host "  BEKLEYEN AMBAR YAZILAMADI (parti $($kayit.id)): $($_.Exception.Message) — kayıt yalnız YERELDE" -ForegroundColor Yellow }
 }
+# ⛔⭐ 23.09.2026 BEDEL ARA KAYDI — çöken koşunun harcaması da deftere girsin (Cem "1.2.3 üçünü de yap").
+#   ÖLÇÜLDÜ (23.09): harcama koşunun BELLEĞİNDE birikiyor ($global:MEVZUAT_BEDEL), deftere yalnız koşu
+#   sonunda TEK satır yazılıyordu (kalip-parti-uret.ps1 BedelDefterYaz). 04:04–04:12 UTC çöküşünde w9/w10
+#   hiç satır yazamadı → (a) ne harcandığı bilinemedi, (b) bütçe kapısı o planları 0 USD saydı ve
+#   yeniden başlatmaya YENİDEN 15 USD izin verdi. Artık her toplu sonuç alındığında o koşunun BİRİKMİŞ
+#   tutarı ambara ARA KAYIT olarak yazılır (kalip_parti, etiket "__bedel-ara/<koşu>/<etiket>", sinav SISTEM,
+#   kendi üstüne yazar). Koşu normal biterse kesin satır bedel_kaydi'na DOĞRUDAN gider ve ara kayıt
+#   "kapandı" olur. Çöken koşunun açık ara kaydını arac/bedel-ara-kapat.ps1 kesin satıra çevirir.
+#   ⚠ ÇİFT SAYIM YOK: ara kayıt bedel_kaydi'na girmez, yalnız kalip_parti'da durur; kesin satır ya BedelDefterYaz
+#     ya kapatıcı tarafından BİR kez yazılır; ikisi de aynı (zaman+etiket+tutar) anahtarını kullanır, okuyucular
+#     bu anahtarla tekilleştirir (arac/bedel-senkron.ps1).
+#   🚫 GÖRMEZ: toplu sonucu ALINMAMIŞ ama Anthropic'in faturaladığı parti (çöküş sonucu almadan önceyse) —
+#     bunun tutarı ara kayda da girmez; ölçülen tek şey bu koşunun ALDIĞI sonuçlardır. Console tek doğrulayıcıdır.
+#   Öz-sınav: arac/bedel-ara-sinavi.ps1
+function BedelAraAnahtar([string]$etiketTam,[string]$kosu){
+  $kok0 = ("$etiketTam" -replace '/.*$','').Trim(); if(-not $kok0){ return $null }
+  return "__bedel-ara/$kosu/$kok0"
+}
+function BedelAraGovde([string]$etiketTam,[string]$kosu,$ozet,[bool]$kapandi,[string]$zaman){
+  $an = BedelAraAnahtar $etiketTam $kosu; if(-not $an -or -not $ozet){ return $null }
+  return [ordered]@{ etiket = $an; sinav = 'SISTEM'; yazan = 'api-hedef'
+    icerik = [ordered]@{ aciklama = 'Koşu içi birikmiş bedel ara kaydı (motor/api-hedef.ps1). bedel_kaydi DEĞİLDİR, toplama girmez.'
+      zaman = $zaman; etiket = ("$etiketTam" -replace '/.*$',''); kosu = $kosu; toplamUsd = [double]$ozet.toplamUsd
+      varsayim = [bool]$ozet.fiyatVarsayim; satirlar = @($ozet.satirlar); kapandi = $kapandi } }
+}
+function Get-KosuKimligi{ if("$env:GITHUB_RUN_ID"){ return "gh$($env:GITHUB_RUN_ID)-$($env:GITHUB_RUN_ATTEMPT)" }; if(-not $script:YEREL_KOSU_KIMLIGI){ $script:YEREL_KOSU_KIMLIGI = "yerel-$PID-$(Get-Date -Format 'yyyyMMddHHmmss')" }; return $script:YEREL_KOSU_KIMLIGI }
+function Get-SbAnahtar{ $a = "$env:SUPABASE_SERVICE_KEY"; if(-not $a){ $a = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))" }; return $a.Trim() }
+function Save-BedelAra([string]$etiketTam,[bool]$kapandi=$false){
+  try{
+    $anah = Get-SbAnahtar; if(-not $anah){ return }
+    $oz = Get-BedelOzet; if(-not $oz -or [double]$oz.toplamUsd -le 0){ return }
+    $govde = BedelAraGovde $etiketTam (Get-KosuKimligi) $oz $kapandi (Get-Date -Format 'yyyy-MM-dd HH:mm'); if(-not $govde){ return }
+    $bayt = [Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $govde -Depth 8 -Compress))
+    $bas = @{ apikey = $anah; Authorization = "Bearer $anah"; 'User-Agent' = 'mevzuat-radar-robot/1.0'; Prefer = 'resolution=merge-duplicates,return=minimal' }
+    [void](Invoke-RestMethod -Method Post -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?on_conflict=etiket' -Headers $bas -ContentType 'application/json; charset=utf-8' -Body $bayt -TimeoutSec 60)
+  }catch{ Write-Host "  BEDEL ARA KAYDI YAZILAMADI ($etiketTam): $($_.Exception.Message)" -ForegroundColor Yellow }
+}
+# Kesin satırı bedel_kaydi'na doğrudan yazar (bedel-senkron.ps1 -Yukle ile AYNI alanlar → anahtarla tekilleşir). Başarılıysa $true.
+function Save-BedelKesin([string]$zaman,[string]$etiket,[string]$ders,[double]$toplamUsd,[bool]$varsayim,$satirlar,[string]$yazan){
+  try{
+    $anah = Get-SbAnahtar; if(-not $anah){ return $false }
+    $satir = [ordered]@{ zaman = ([datetime]$zaman).ToString('o'); etiket = $etiket; ders = $ders; toplam_usd = $toplamUsd; varsayim = $varsayim; satirlar = @($satirlar); yazan = $yazan }
+    $bayt = [Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($satir) -Depth 8 -Compress))
+    $bas = @{ apikey = $anah; Authorization = "Bearer $anah"; 'User-Agent' = 'mevzuat-radar-robot/1.0'; Prefer = 'return=minimal' }
+    [void](Invoke-RestMethod -Method Post -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/bedel_kaydi' -Headers $bas -ContentType 'application/json; charset=utf-8' -Body $bayt -TimeoutSec 60)
+    return $true
+  }catch{ Write-Host "  BEDEL KESİN SATIRI AMBARA YAZILAMADI ($etiket): $($_.Exception.Message) — koşu sonu senkronu deneyecek" -ForegroundColor Yellow; return $false }
+}
 function Add-BekleyenParti([string]$bid,[string]$etiket,$parmak=$null){
   # 23.09: kayıt kilit bloğunun DIŞINDA kurulur (blok içindeki atama o bloğun kapsamında kalır; ambar yazımı da dışarıda)
   $kayitYeni = [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
@@ -546,6 +594,7 @@ function Get-ClaudeTopluSonuc([string]$bid,$hedef,[string]$etiket,[bool]$bedelYa
     if($bedelYaz){ Add-BedelKaydi ("$($m.model)" + '|toplu') $y }   # yeniden hasatta bedel defterine ikinci kez yazılmaz (zaten ödendi)
     $out[$cid] = $y
   }
+  if($bedelYaz){ Save-BedelAra $etiket $false }   # 23.09: birikmiş tutar ambara (makine çökse de kalır)
   Set-BekleyenPartiDurum $bid 'hasat edildi'
   return $out
 }
