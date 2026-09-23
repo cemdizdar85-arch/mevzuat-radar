@@ -220,6 +220,12 @@ jobs:
           - { ad: "KAPI-HAD OZ-SINAVI (yanlis had tutari yayina girmesin)",
               kabuk: pwsh, komut: "./arac/had-kapisi-sinavi.ps1" }
 
+          # 23.09.2026 - Commit mesaji "su dosyayi degistirdim" diyor, dosya commit'te mi? O gun iki degisiklik
+          # "yapildi" diye gonderildi ama dosyaya girmemisti (cc4b6a6e CLAUDE.md). 41 iddiada 1 gercek, 0 yanlis alarm.
+          # Mutasyon: komut ornegi ayiklamasi kaldirilinca KIRMIZI.
+          - { ad: "Commit iddia denetimi OZ-SINAVI (anilan dosya commit'te olmali)",
+              kabuk: pwsh, komut: "./arac/commit-iddia-denetimi.ps1 -Sinav" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
