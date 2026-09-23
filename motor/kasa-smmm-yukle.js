@@ -13,7 +13,17 @@
 // Ekrana soru metni BASILMAZ (bulut günlüğü herkese açık): yalnız sayı.
 'use strict';
 const fs = require('fs');
-const { sorulariCek, satirlariKur } = require('./kasa-soru-yukle.js');
+const path = require('path');
+const { sorulariCek, satirlariKur, seviyeIsaretle } = require('./kasa-soru-yukle.js');
+// 23.09.2026 (Cem "1.2.3 üçünü de yap"): bitirme ERKEN ERİŞİMLE açılıyor; ücretsiz katman her dersten 5 soru.
+// Kimlik listesi arac/smmm-ucretsiz-sec.ps1'den (elle okunmuş vitrin seçimi + GM'nin okuduğu ekler) gelir.
+// Ücretsiz satır herkese açık ucretsiz_soru görünümünden DOĞRU ŞIK OLMADAN okunur (2026-09-16-paket-soru.sql).
+const UCRETSIZ_LISTE = path.join(__dirname, '..', 'veri', 'sinav', 'smmm-ucretsiz.json');
+function ucretsizKimlikleri(oku) {
+  const ham = oku(UCRETSIZ_LISTE);
+  if (ham == null) return [];
+  return (JSON.parse(ham).kimlikler || []).map(k => String(k.id || '')).filter(Boolean);
+}
 
 const SB = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/';
 const UA = 'tetikte-kasa-smmm/1.0';
@@ -93,6 +103,12 @@ function sinav() {
   t('sgs sayfa adı reddedilir', d3);
   let d4 = false; try { argumanlar(['--dosya', 'x']); } catch (e) { d4 = true; }
   t('eşleşmeyen --dosya/--sayfa durdurur', d4);
+  // 23.09: ücretsiz liste — listedeki kimlik işaretlenir, olmayan sayılır, liste yoksa hiçbiri ücretsiz değil
+  const st = satirlariKur(s).satirlar;
+  const ids = ucretsizKimlikleri(() => JSON.stringify({ kimlikler: [{ id: 'smmm-4k-d1-yvergi-kolay-r1/kp-01' }, { id: 'smmm-yok/kp-09' }] }));
+  const yok = seviyeIsaretle(st, ids);
+  t('ücretsiz listedeki kimlik işaretlenir, kasada olmayan sayılır', st[0].ucretsiz === true && yok.length === 1);
+  t('ücretsiz liste dosyası yoksa boş liste', ucretsizKimlikleri(() => null).length === 0);
   console.log(hata ? `ÖZ-SINAV DÜŞTÜ (${hata})` : 'ÖZ-SINAV GEÇTİ');
   return hata;
 }
@@ -103,6 +119,9 @@ async function ana() {
   if (!ciftler.length) throw new Error('en az bir --dosya/--sayfa çifti gerekli');
   const sayfalar = sayfalariKur(ciftler, d => fs.readFileSync(d, 'utf8'));
   const { satirlar, tekrar } = satirlariKur(sayfalar);
+  const ucKimlik = ucretsizKimlikleri(y => (fs.existsSync(y) ? fs.readFileSync(y, 'utf8') : null));
+  const ucYok = seviyeIsaretle(satirlar, ucKimlik);
+  console.log(`  ücretsiz: listede ${ucKimlik.length} · işaretlenen ${satirlar.filter(s => s.ucretsiz).length} · kasada olmayan ${ucYok.length}`);
   const bayt = satirlar.reduce((t, s) => t + Buffer.byteLength(JSON.stringify(s.veri)), 0);
   const dersSay = {}; for (const s of satirlar) dersSay[s.ders] = (dersSay[s.ders] || 0) + 1;
   console.log(`KASA SMMM · ${process.argv.includes('--yaz') ? 'YAZ' : 'KURU'} · sayfa ${sayfalar.length} · satır ${satirlar.length} · veri ${(bayt / 1048576).toFixed(2)} MB`);
