@@ -97,7 +97,7 @@ foreach($gd in $gunler){
     [void]$s.AppendLine("<title>Neyin nesi değişti - $(HtmlKac $k.baslik_sade) | Tetikte</title>")
     [void]$s.AppendLine('<meta name="robots" content="noindex">')
     [void]$s.AppendLine('<link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style>')
-    [void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--red:#ff6b5e;--green:#3ddc97}')
+    [void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#8f9dae;--accent2:#ffc24b;--red:#ff6b5e;--green:#3ddc97}')
     [void]$s.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6}')
     [void]$s.AppendLine('a{color:var(--accent2)}.wrap{max-width:840px;margin:0 auto;padding:24px 18px 70px}')
     [void]$s.AppendLine('.top{font-size:13px;color:var(--dim);margin-bottom:18px}.top a{color:var(--muted);text-decoration:none;font-weight:600}')

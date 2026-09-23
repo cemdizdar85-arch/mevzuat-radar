@@ -324,6 +324,9 @@ jobs:
           # liste kurucunun oz-sinavi (Chrome gerekmez, saniyeler).
           - { ad: "Kontrast kapisi oz-sinavi (koyu gecis listesi)",
               kabuk: bash, komut: "node arac/kontrast-kapisi.js --sinav" }
+          # 23.09: haftalik :root kopya uyarisinin (root-jeton-tarama.yml) oz-sinavi - saniyeler
+          - { ad: "Root jeton taramasi OZ-SINAVI (eski jeton kopyasi yeni mi)",
+              kabuk: bash, komut: "node arac/root-jeton-tarama.js --sinav" }
 
           # 29.08 (Cem "2 yap"): kurulu kapilarin hicbiri "bu sayfa gercekten
           # aciliyor mu" diye sormuyordu. Kontrast kapisi RENGI, koku olcer

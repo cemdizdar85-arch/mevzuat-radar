@@ -1,0 +1,59 @@
+# ============================================================================
+#  SATIR İÇİ :root JETON TARAMASI — haftalık UYARI (kapı değil)
+#
+#  NEDEN VAR (23.09.2026, Cem "2 yap"): o gün kartlar, radar, karsilastirma, alacak-radari ve
+#  arsiv/degisim (82 sayfa) koyu zeminde okunmuyordu. Kök hep aynıydı: sayfanın ya da üreticinin
+#  kendi :root kopyasında eski --dim duruyordu; 09.09'da stil.css'te yapılan düzeltme kopyalara
+#  ULAŞMAMIŞTI. Bu iş, ortak stil jetonuna farklı değer veren yeni bir kopya çıktığında uyarır.
+#
+#  DAVRANIŞ: arac/root-jeton-tarama.js --rapor -> veri/root-jeton-raporu.json (yalnız değiştiyse).
+#  Yalnız GEÇEN RAPORDA OLMAYAN okunurluk ayrışması SARI + ::warning notu üretir; mevcut borç
+#  her hafta sarı yakmaz. İş HİÇ KIRMIZI DÜŞMEZ (sayfaya özgü paletler meşru olabilir;
+#  okunmayan metni kontrast kapısı ölçer - dogrula.yml).
+#  GÖRMEZ: :root dışındaki yerel tanımlar · arsiv/ · çalışma anında basılan renkler.
+#  Bedel: 0 USD (model çağrısı yok), ~1 dk makine.
+# ============================================================================
+name: Root jeton taramasi (haftalik uyari)
+
+on:
+  schedule:
+    - cron: '40 6 * * 1'      # Pazartesi 09:40 TR
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: root-jeton-tarama
+  cancel-in-progress: false
+
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Oz-sinav
+        run: node arac/root-jeton-tarama.js --sinav
+
+      - name: Tarama (uyari; kirmizi dusmez)
+        run: node arac/root-jeton-tarama.js --rapor
+
+      - name: Raporu depoya yaz
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "robot@tetikte.com"
+          git config merge.tetikte-robot.name "Tetikte robot ciktisi"
+          git config merge.tetikte-robot.driver true
+          git add veri/root-jeton-raporu.json
+          if git diff --staged --quiet; then
+            echo "rapor degismedi"
+          else
+            git commit -m "Root jeton taramasi [veri-operasyonu]"
+            for d in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && exit 0
+              echo "deneme $d dustu"; sleep 5
+            done
+            echo "yayinlanamadi"; exit 1
+          fi

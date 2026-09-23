@@ -190,7 +190,7 @@ $s = New-Object System.Text.StringBuilder
 # 30.07 REBRAND KACAGI: kalip hala MAVI markayla yaziyordu - rebrand gecesi
 # (27-28.07) canli radar.html'i duzeltti ama bu ureticiyi atladi; robot bir
 # daha kossa sayfayi maviye geri boyayacakti. Kehribar palet + nobet lambasi.
-[void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#5d6b7c;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e}')
+[void]$s.AppendLine(':root{--bg:#06090f;--panel:#0d141e;--line:rgba(255,255,255,.09);--ink:#eef2f7;--muted:#93a1b3;--dim:#8f9dae;--accent2:#ffc24b;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#ff6b5e}')
 [void]$s.AppendLine('*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}')
 [void]$s.AppendLine('a{color:var(--accent2)}.wrap{max-width:820px;margin:0 auto;padding:24px 18px 70px}')
 [void]$s.AppendLine('.top{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:24px;color:var(--dim)}.top a{color:var(--muted);text-decoration:none;font-weight:600}.top a:hover{color:var(--ink)}')

@@ -449,9 +449,15 @@ if(process.argv.includes('--sinav')){
 /* --- ana akis ----------------------------------------------------------- */
 (async function(){
   const secili=process.argv.slice(2).filter(a=>a.endsWith('.html'));
+  /* 23.09 (Cem "1 ve 2 yap"): kök dışında robotun yazdığı ziyaretçi sayfası klasörleri de ölçülür. arsiv/degisim/
+     (arac/degisim-sayfasi.ps1, 82 sayfa) 09.09 öncesi --dim:#5d6b7c taşıyordu ve kapı onu HİÇ görmüyordu.
+     Bu sayfalar stil-acik.css'e bağlı değil (yalnız koyu) -> koyuListe onları ikinci kez ölçmez. */
+  const EK_KLASORLER=['arsiv/degisim'];
   const sayfalar = secili.length ? secili
     : fs.readdirSync(KOK).filter(f=>f.endsWith('.html'))
-        .filter(f=>!/-yedek|^_/.test(f)).sort();
+        .filter(f=>!/-yedek|^_/.test(f)).sort()
+        .concat(...EK_KLASORLER.filter(k=>fs.existsSync(path.join(KOK,k)))
+          .map(k=>fs.readdirSync(path.join(KOK,k)).filter(f=>f.endsWith('.html')).sort().map(f=>k+'/'+f)));
 
   if(!sayfalar.length){ console.log('KONTRAST KAPISI: kokte .html yok, atlandi.'); process.exit(0); }
 
