@@ -335,17 +335,17 @@ jobs:
       # kalsa da) yayin sartindan + ret kutugunden + ikiz suzgecinden gecen bitirme sorulari paket_soru'ya (sinav=smmm) yazilir.
       # Sayfa runner'da sql-yerel/ altinda kurulur ve silinir; depoya/artifact'a icerik GITMEZ; ekrana yalniz sayi basilir.
       # Idempotent: ayni soru yeniden yazilir (upsert), yayindan dusen soru kasadan silinir. SGS planinda bu adim KOSMAZ.
-      - name: Bitirme sorularini kilitli kasaya yaz (yalniz SMMM plani)
+      # 23.09.2026 (Cem "1.2.3 ucunu de yap" - madde 3): kasa yayini artik AYRI IS (smmm-kasa-yayin.yml, tek sira).
+      #   Olculdu: her kosu sonunda butun kasayi bastan yazan bu adim 30+ dk suruyordu; 12 kosu = ayni is 12 kez,
+      #   ve 04:04 cokusunde w8 uretimini bitirmis ama BU adimda dusmustu. Burada yalniz tetiklenir.
+      - name: Bitirme kasa yayinini tetikle (ayri is, tek sira; yalniz SMMM plani)
         if: always() && !cancelled() && env.PLAN_SINAVI == 'SMMM'
         shell: powershell
         env:
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          $ErrorActionPreference = 'Continue'   # alt surecin stderr satiri adimi dusurmesin; cikis kodu asagida okunur
-          & powershell -NoProfile -File ./arac/smmm-kasa-yayin.ps1 -Yaz
-          $kod = $LASTEXITCODE
-          "kasa yayini cikis kodu: $kod"
-          if($kod){ "::error::bitirme kasa yayini dustu ($kod) - sorular ambarda duruyor, adim elle yeniden kosulabilir: powershell -File arac/smmm-kasa-yayin.ps1 -Yaz"; exit $kod }
+          gh workflow run smmm-kasa-yayin.yml --ref main
+          if($LASTEXITCODE){ "::warning::kasa yayini tetiklenemedi - sabah 07:20 TR kendiliginden kosar ya da elle: gh workflow run smmm-kasa-yayin.yml" } else { "kasa yayini tetiklendi (smmm-kasa-yayin.yml)" }
 
       - name: Toplu kuyruk bitmediyse ayni plani yeniden tetikle
         if: always() && !cancelled()

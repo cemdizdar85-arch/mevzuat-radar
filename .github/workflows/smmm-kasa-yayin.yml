@@ -1,0 +1,46 @@
+# SMMM (BITIRME) KASA YAYINI — AYRI IS, TEK SIRA (23.09.2026, Cem "1.2.3 ucunu de yap" - madde 3)
+#
+# NIYE AYRI: kasa yayini (arac/smmm-kasa-yayin.ps1 -Yaz) eskiden HER bulut uretim kosusunun sonunda
+# calisiyordu. Olculdu (23.09): 12 kosu ayni gece 12 kez butun kasayi bastan yazdi, adim tek basina
+# 30+ dk suruyor ve 350 dk is tavanina yaklasiyordu; 04:04 cokusunde w8 uretimini BITIRMIS ama bu adimda
+# dusmustu. Yayin her seferinde butun kasayi yazdigi icin (idempotent, upsert + bayat silme) TEK kosu yeter.
+#
+# NASIL: bulut-uretim.yml sonunda yalniz bu isi TETIKLER. concurrency grubu tek sira tutar ve
+# cancel-in-progress KAPALI: GitHub bir grupta en fazla 1 kosan + 1 bekleyen tutar, daha yeni bekleyen
+# eskisinin yerine gecer. 12 tetik = 1 kosu + en fazla 1 ek kosu. Yarim yayin olmaz (kosan kesilmez).
+# Ayrica her sabah bir kez kendiliginden kosar: coken kosu yayini hic tetikleyemese de kasa guncellenir.
+#
+# BEDEL 0 — model cagrisi YOK. Gunluge yalniz sayi basilir, soru metni basilmaz (bulut guvenligi kurali 2).
+# 🚫 BU IS SUNU GORMEZ: uretim kosusu hic bitmezse (sonuc ambara yazilamadiysa) o sorular zaten ambarda
+#   yoktur; yayin ambarda olani yayinlar.
+name: SMMM Kasa Yayini (0 USD)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 4 * * *'      # 07:20 TR - gece koşularından sonra guvenlik agi
+
+concurrency:
+  group: smmm-kasa-yayin
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  yayin:
+    runs-on: windows-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bitirme sorularini kilitli kasaya yaz
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ErrorActionPreference = 'Continue'   # alt surecin stderr satiri adimi dusurmesin; cikis kodu asagida okunur
+          & powershell -NoProfile -File ./arac/smmm-kasa-yayin.ps1 -Yaz
+          $kod = $LASTEXITCODE
+          "kasa yayini cikis kodu: $kod"
+          if($kod){ "::error::bitirme kasa yayini dustu ($kod) - sorular ambarda duruyor; yeniden: gh workflow run smmm-kasa-yayin.yml"; exit $kod }
