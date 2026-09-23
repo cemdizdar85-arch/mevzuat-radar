@@ -1,0 +1,43 @@
+# ANTHROPIC TOPLU KUYRUK HIZI — her sabah (23.09.2026, Cem "1.2.3 ucunu de yap")
+#
+# NIYE: 23.09'da Anthropic toplu kuyrugu gun boyu yavasladi (81 parti 3 saat 0 islendi); dalgalar 14+ saat surdu.
+# 7 gunluk medyan (2 dk) bunu gostermiyordu. Dalga acma karari "bugun kuyruk ne durumda" ile verilir:
+# arac/toplu-kuyruk-hizi.ps1 son 24 saat + su an bekleyen partileri ve bir KUYRUK DURUMU satiri (NORMAL/YAVAS) yazar.
+# BEDEL 0: yalniz GET /v1/messages/batches (liste). Istek gonderilmez, sonuc indirilmez. Soru metni yok.
+name: Toplu Kuyruk Hizi (0 USD)
+
+on:
+  schedule:
+    - cron: '30 3 * * *'      # 06:30 TR - sabah karari icin
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kuyruk-hizi
+  cancel-in-progress: false
+
+jobs:
+  olc:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kuyruk hizini olc
+        shell: powershell
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./arac/toplu-kuyruk-hizi.ps1 -Gun 7
+
+      - name: Raporu commit'le (sessiz kosu yasak)
+        shell: bash
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add veri/TOPLU-KUYRUK-HIZI.md
+          if git diff --cached --quiet; then echo "Degisiklik yok"; exit 0; fi
+          git commit -m "Toplu kuyruk hizi [veri-operasyonu]"
+          git pull --rebase --autostash || true
+          git push

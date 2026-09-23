@@ -57,7 +57,16 @@ foreach ($g in ($olc | Group-Object saat | Sort-Object { [int]$_.Name })) {
   $md.Add(("| {0:00}:00 | {1} | {2} | {3:N0} | {4:N0} | {5:N0} |" -f [int]$g.Name, $g.Count, (($g.Group | Measure-Object istek -Sum).Sum), (Yuzdelik $d 0.5), (Yuzdelik $d 0.9), (($d | Measure-Object -Maximum).Maximum)))
 }
 $tumD = @($olc | ForEach-Object { $_.dk })
+# 23.09 (Cem "1.2.3"): SABAH KARARI için son 24 saat + şu an bekleyen. O gün 81 parti 3 saat 0 işlendi; 7 günlük medyan (2 dk)
+# bunu göstermiyordu — dalga açma kararı "bugün kuyruk ne durumda" sorusuyla verilir.
+$simdi = (Get-Date).ToUniversalTime()
+$son24 = @($tum | Where-Object { "$($_.processing_status)" -eq 'ended' -and $_.ended_at -and ([datetime]$_.created_at).ToUniversalTime() -ge $simdi.AddHours(-24) } | ForEach-Object { (([datetime]$_.ended_at).ToUniversalTime() - ([datetime]$_.created_at).ToUniversalTime()).TotalMinutes })
+$bekleyen = @($tum | Where-Object { "$($_.processing_status)" -eq 'in_progress' })
+$enEski = if ($bekleyen.Count) { [int](($bekleyen | ForEach-Object { ($simdi - ([datetime]$_.created_at).ToUniversalTime()).TotalMinutes } | Measure-Object -Maximum).Maximum) } else { 0 }
 $md.Add('')
+$md.Add(("**Son 24 saat:** biten parti {0} · medyan {1:N0} dk · %90 {2:N0} dk · **şu an bekleyen {3} parti, en eskisi {4} dk** (liste sınırı: son {5} sayfa)" -f $son24.Count, (Yuzdelik $son24 0.5), (Yuzdelik $son24 0.9), $bekleyen.Count, $enEski, $SayfaTavan))
+$durumK = if ($bekleyen.Count -and $enEski -gt 120) { 'YAVAŞ — en eski bekleyen 2 saati geçti; yeni dalga kuyruğu uzatır, süre belirsiz' } elseif ((Yuzdelik $son24 0.5) -gt 30) { 'YAVAŞ — son 24 saat medyanı 30 dk üstü' } else { 'NORMAL' }
+$md.Add("**Kuyruk durumu: $durumK**")
 $md.Add(("**Genel:** medyan {0:N0} dk · %90 {1:N0} dk · parti {2}" -f (Yuzdelik $tumD 0.5), (Yuzdelik $tumD 0.9), $olc.Count))
 $md.Add('')
 $md.Add('Kural koymak için: bir saat diliminin medyanı ötekilerden **belirgin ve birkaç gün üst üste** düşükse o saat "tercih" olur. Tek gecelik veri kural değildir.')
