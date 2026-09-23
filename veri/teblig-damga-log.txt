@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260923125956
-Username: runnervmlun5p\runner
-RunAs User: runnervmlun5p\runner
+Start time: 20260923175613
+Username: runnervmtr4k5\runner
+RunAs User: runnervmtr4k5\runner
 Configuration Name: 
-Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b2d41fad-bf30-40df-8c9b-f740418bf046.ps1'
-Process ID: 11332
-PSVersion: 7.6.5
+Machine: runnervmtr4k5 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/de34dff2-5876-4234-b45b-7501b658c228.ps1'
+Process ID: 11329
+PSVersion: 7.6.6
 PSEdition: Core
-GitCommitId: 7.6.5
+GitCommitId: 7.6.6
 OS: Ubuntu 24.04.5 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -31,20 +31,18 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...110/172
   ...120/172
   ...130/172
-PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...140/172
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 171
+  gercekten olculen (PDF geldi) : 172
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 1
-     44961 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+  inemeyen (istek dustu)        : 0
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 171 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20260923133450
+End time: 20260923183230
 **********************
