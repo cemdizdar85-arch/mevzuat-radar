@@ -1,15 +1,15 @@
 {
-  "olcum_tarihi": "2026-09-22T09:22:23.4674933+00:00",
+  "olcum_tarihi": "2026-09-23T09:23:13.2555509+00:00",
   "esik_ust_uste": 2,
   "esik_oran": "3/10",
   "hatirlatma_gun": 7,
-  "workflow_toplam": 160,
-  "workflow_alinan": 160,
-  "aktif_workflow": 160,
-  "bakilan": 158,
+  "workflow_toplam": 163,
+  "workflow_alinan": 163,
+  "aktif_workflow": 163,
+  "bakilan": 160,
   "olculemeyen": 0,
-  "kalici_kirmizi": 43,
-  "yeni_bildirim": 34,
+  "kalici_kirmizi": 42,
+  "yeni_bildirim": 12,
   "seriler": [
     {
       "ad": "Acilis Tekduzelik Olcumu (0 USD)",
@@ -22,14 +22,34 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/34687044714"
     },
     {
+      "ad": "Bulut Uretim (soru basimi)",
+      "dosya": "bulut-uretim.yml",
+      "tur": "oran",
+      "ust_uste": 0,
+      "oran": "7/10",
+      "son_sha": "87fad009",
+      "son_ne": "Bulut Uretim | veri/sinav/plan-smmm-onarim-2.json | halka 2",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35820942425"
+    },
+    {
       "ad": "CI Kirmizi Nobetcisi",
       "dosya": "ci-kirmizi-nobeti.yml",
       "tur": "ust_uste",
       "ust_uste": 10,
       "oran": "10/10",
-      "son_sha": "44da9591",
+      "son_sha": "bee233ff",
       "son_ne": "CI Kirmizi Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35586342413"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35709821005"
+    },
+    {
+      "ad": "Damping Kiyas Nobeti",
+      "dosya": "damping-kiyas.yml",
+      "tur": "oran",
+      "ust_uste": 1,
+      "oran": "3/10",
+      "son_sha": "b24f4877",
+      "son_ne": "Damping Kiyas Nobeti",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35714170521"
     },
     {
       "ad": "Dil Kusuru Taramasi (0 USD)",
@@ -44,12 +64,12 @@
     {
       "ad": "Dogrulama Kapisi",
       "dosya": "dogrula.yml",
-      "tur": "ust_uste",
-      "ust_uste": 2,
-      "oran": "6/10",
-      "son_sha": "f98312c7",
-      "son_ne": "Kaynak borcu kapisi: \"paket hukmu tasimiyor\" reddi ikinci kez satin a…",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35662866724"
+      "tur": "oran",
+      "ust_uste": 1,
+      "oran": "3/10",
+      "son_sha": "c09fd888",
+      "son_ne": "Seviye testi: Yeterlilik SABIT 30 soru seti (Cem 23.09) - secici + set",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35840892396"
     },
     {
       "ad": "Formul Eksik Taramasi (0 USD)",
@@ -65,11 +85,11 @@
       "ad": "Gorev nobeti (yerel robotlar yasiyor mu)",
       "dosya": "gorev-nobeti.yml",
       "tur": "oran",
-      "ust_uste": 0,
-      "oran": "8/10",
-      "son_sha": "1317f78c",
-      "son_ne": "Gorev nobeti (yerel robotlar yasiyor mu)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35622586659"
+      "ust_uste": 1,
+      "oran": "6/10",
+      "son_sha": "9b001af6",
+      "son_ne": "Hukuki metinler: 3 cihaz / tek ekran kullanim kosulu + bu oturumdaki …",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35819586544"
     },
     {
       "ad": "Gorsel Backfill",
@@ -115,11 +135,11 @@
       "ad": "Ihale bulten tamligi (gunluk)",
       "dosya": "ihale-gunluk-tamlik.yml",
       "tur": "ust_uste",
-      "ust_uste": 3,
-      "oran": "5/10",
-      "son_sha": "0c628487",
+      "ust_uste": 4,
+      "oran": "6/10",
+      "son_sha": "7b09cace",
       "son_ne": "Ihale bulten tamligi (gunluk)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35709011935"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35841560734"
     },
     {
       "ad": "Kasa Kalite Taramasi",
@@ -176,20 +196,10 @@
       "dosya": "kaynak.yml",
       "tur": "oran",
       "ust_uste": 0,
-      "oran": "4/10",
-      "son_sha": "21344783",
-      "son_ne": "Kaynak Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35688276921"
-    },
-    {
-      "ad": "Marka Bulteni",
-      "dosya": "marka-bulten.yml",
-      "tur": "oran",
-      "ust_uste": 1,
       "oran": "3/10",
-      "son_sha": "432798ad",
-      "son_ne": "Marka Bulteni",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35674798921"
+      "son_sha": "60b8afb1",
+      "son_ne": "Kaynak Nobetcisi",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35819261103"
     },
     {
       "ad": "Günlük Kanun Aynası",
@@ -197,9 +207,9 @@
       "tur": "ust_uste",
       "ust_uste": 10,
       "oran": "10/10",
-      "son_sha": "13e13d9c",
-      "son_ne": "Günlük Kanun Aynası",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35702131694"
+      "son_sha": "55b23c9c",
+      "son_ne": "VUK m.370 yanlis alarmi: 203 SMMM sorusu KANITLA geri acildi + iki ko…",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35832828998"
     },
     {
       "ad": "Mukerrer Eleme (0 USD)",
@@ -217,9 +227,9 @@
       "tur": "ust_uste",
       "ust_uste": 10,
       "oran": "10/10",
-      "son_sha": "13e13d9c",
+      "son_sha": "c08d376d",
       "son_ne": "Nabiz Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35702098040"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35834362793"
     },
     {
       "ad": "Alacak ilani okuma pilotu",
@@ -265,11 +275,11 @@
       "ad": "Ithalat Rejimi Nobeti",
       "dosya": "rejim.yml",
       "tur": "ust_uste",
-      "ust_uste": 3,
-      "oran": "3/10",
-      "son_sha": "fc365e7f",
+      "ust_uste": 4,
+      "oran": "4/10",
+      "son_sha": "ffee0a94",
       "son_ne": "Ithalat Rejimi Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35587303325"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35710442257"
     },
     {
       "ad": "SGS Soru Tipi Olcumu (0 USD)",
@@ -377,9 +387,9 @@
       "tur": "oran",
       "ust_uste": 0,
       "oran": "4/10",
-      "son_sha": "f63bd03b",
+      "son_sha": "9bfb2548",
       "son_ne": "Terim Taramasi (0 USD)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35076031246"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35839398061"
     },
     {
       "ad": "Terim Uygula (kasaya yazar)",
@@ -412,26 +422,6 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/32404472267"
     },
     {
-      "ad": "Yan Veri Nobeti",
-      "dosya": "yanveri.yml",
-      "tur": "ust_uste",
-      "ust_uste": 2,
-      "oran": "2/10",
-      "son_sha": "091ba4c7",
-      "son_ne": "Yan Veri Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35586634534"
-    },
-    {
-      "ad": "Yayin (havuz kur + sayfa bas + ite)",
-      "dosya": "yayin-bas.yml",
-      "tur": "oran",
-      "ust_uste": 1,
-      "oran": "8/10",
-      "son_sha": "f98312c7",
-      "son_ne": "Yayin (havuz kur + sayfa bas + ite)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/35668620298"
-    },
-    {
       "ad": "Mevzuat Tam Yukleme",
       "dosya": "yukle.yml",
       "tur": "oran",
@@ -444,262 +434,256 @@
   ],
   "bildirilen": {
     "ci-kirmizi-nobeti.yml": {
+      "sebep": "yeni seri",
       "seri": 10,
-      "seri_kok": 34683858268,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "nabiz.yml": {
-      "seri": 10,
-      "seri_kok": 35493105673,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "mevzuat.yml": {
-      "seri": 10,
-      "seri_kok": 35498135223,
-      "son_bildirim": "2026-09-21T10:01:15.0385981+00:00",
-      "sebep": "bildirildi"
+      "seri_kok": 34749774108,
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
     "sgs-tip-olcum.yml": {
+      "sebep": "bildirildi",
       "seri": 10,
       "seri_kok": 30740525828,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "nabiz.yml": {
+      "sebep": "yeni seri",
+      "seri": 10,
+      "seri_kok": 35567053370,
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
+    },
+    "mevzuat.yml": {
+      "sebep": "yeni seri",
+      "seri": 10,
+      "seri_kok": 35639736430,
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
     "gorsel-backfill.yml": {
+      "sebep": "bildirildi",
       "seri": 7,
       "seri_kok": 30108107005,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "hap-onarim.yml": {
+      "sebep": "bildirildi",
       "seri": 6,
       "seri_kok": 31592448739,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "sik-hesap-kodu-oneri.yml": {
-      "seri": 5,
-      "seri_kok": 31592448735,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "standart-damga.yml": {
+      "sebep": "bildirildi",
       "seri": 5,
       "seri_kok": 33388383750,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "sik-hesap-kodu-oneri.yml": {
+      "sebep": "bildirildi",
+      "seri": 5,
+      "seri_kok": 31592448735,
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "acilis-tekduzelik-olcum.yml": {
+      "sebep": "7 gundur suruyor",
       "seri": 4,
       "seri_kok": 31592448760,
-      "son_bildirim": "2026-09-16T09:21:22.2774155+00:00",
-      "sebep": "bildirildi"
-    },
-    "mukerrer-ele.yml": {
-      "seri": 4,
-      "seri_kok": 31592448514,
-      "son_bildirim": "2026-09-16T09:21:22.2774155+00:00",
-      "sebep": "bildirildi"
-    },
-    "formul-eksik-tarama.yml": {
-      "seri": 4,
-      "seri_kok": 31592448803,
-      "son_bildirim": "2026-09-16T09:21:22.2774155+00:00",
-      "sebep": "bildirildi"
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
     "thp-liste-maliyet-olcum.yml": {
+      "sebep": "bildirildi",
       "seri": 4,
       "seri_kok": 31592448614,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "terim-uygula.yml": {
+      "sebep": "bildirildi",
       "seri": 4,
       "seri_kok": 31206376662,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "kapsam-maliyet-olcum.yml": {
-      "seri": 4,
-      "seri_kok": 31592448721,
-      "son_bildirim": "2026-09-16T09:21:22.2774155+00:00",
-      "sebep": "bildirildi"
-    },
-    "sik-karistir.yml": {
-      "seri": 3,
-      "seri_kok": 32224779136,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "rejim.yml": {
-      "seri": 3,
+      "sebep": "bildirildi",
+      "seri": 4,
       "seri_kok": 35433353220,
-      "son_bildirim": "2026-09-21T10:01:15.0385981+00:00",
-      "sebep": "bildirildi"
+      "son_bildirim": "2026-09-21T10:01:15.0385981+00:00"
+    },
+    "kapsam-maliyet-olcum.yml": {
+      "sebep": "7 gundur suruyor",
+      "seri": 4,
+      "seri_kok": 31592448721,
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
+    },
+    "mukerrer-ele.yml": {
+      "sebep": "7 gundur suruyor",
+      "seri": 4,
+      "seri_kok": 31592448514,
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
     "ihale-gunluk-tamlik.yml": {
-      "seri": 3,
+      "sebep": "bildirildi",
+      "seri": 4,
       "seri_kok": 35501603480,
-      "son_bildirim": "2026-09-21T10:01:15.0385981+00:00",
-      "sebep": "bildirildi"
+      "son_bildirim": "2026-09-21T10:01:15.0385981+00:00"
+    },
+    "formul-eksik-tarama.yml": {
+      "sebep": "7 gundur suruyor",
+      "seri": 4,
+      "seri_kok": 31592448803,
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
     "hakem-son-okuma.yml": {
+      "sebep": "7 gundur suruyor",
       "seri": 3,
       "seri_kok": 32224779369,
-      "son_bildirim": "2026-09-16T09:21:22.2774155+00:00",
-      "sebep": "bildirildi"
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
-    "tablo-format-tarama.yml": {
-      "seri": 2,
-      "seri_kok": 32404472069,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "uretim-olcum.yml": {
-      "seri": 2,
-      "seri_kok": 32224779448,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "yanveri.yml": {
-      "seri": 2,
-      "seri_kok": 35502050253,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "soru-nitelik.yml": {
-      "seri": 2,
-      "seri_kok": 32404472489,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+    "sik-karistir.yml": {
+      "sebep": "bildirildi",
+      "seri": 3,
+      "seri_kok": 32224779136,
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "taslak-linki.yml": {
+      "sebep": "bildirildi",
       "seri": 2,
       "seri_kok": 31078621525,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "tablo-format-tarama.yml": {
+      "sebep": "bildirildi",
+      "seri": 2,
+      "seri_kok": 32404472069,
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "uretim-olcum.yml": {
+      "sebep": "bildirildi",
+      "seri": 2,
+      "seri_kok": 32224779448,
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "okuma-pilotu.yml": {
+      "sebep": "8 gundur suruyor",
       "seri": 2,
       "seri_kok": 33300804311,
-      "son_bildirim": "2026-09-15T09:28:49.0089041+00:00",
-      "sebep": "bildirildi"
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
+    },
+    "soru-nitelik.yml": {
+      "sebep": "bildirildi",
+      "seri": 2,
+      "seri_kok": 32404472489,
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "dogrula.yml": {
-      "seri": 2,
-      "seri_kok": 35661657489,
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "yukle.yml": {
+      "sebep": "yeni seri",
       "seri": 1,
-      "seri_kok": "oran-318364347",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "seri_kok": "oran-312057757",
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
+    },
+    "damping-kiyas.yml": {
+      "sebep": "yeni seri",
+      "seri": 1,
+      "seri_kok": "oran-345919859",
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
     },
     "dil-kusuru-tarama.yml": {
+      "sebep": "bildirildi",
       "seri": 1,
       "seri_kok": "oran-327289907",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
-    "yayin-bas.yml": {
+    "yukle.yml": {
+      "sebep": "bildirildi",
       "seri": 1,
-      "seri_kok": "oran-356384138",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "marka-bulten.yml": {
-      "seri": 1,
-      "seri_kok": "oran-345698373",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "seri_kok": "oran-318364347",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "kasa-desen-olcum.yml": {
+      "sebep": "bildirildi",
       "seri": 1,
       "seri_kok": "oran-325446526",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "gorev-nobeti.yml": {
-      "seri": 0,
+      "sebep": "bildirildi",
+      "seri": 1,
       "seri_kok": "oran-345572876",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "hesap-kodu-denetimi.yml": {
-      "seri": 0,
-      "seri_kok": "oran-326024949",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "terim-taramasi.yml": {
-      "seri": 0,
-      "seri_kok": "oran-326252957",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "kalite-tarama.yml": {
+      "sebep": "bildirildi",
       "seri": 0,
       "seri_kok": "oran-323730245",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "kasa-bag.yml": {
-      "seri": 0,
-      "seri_kok": "oran-322461610",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "paket.yml": {
-      "seri": 0,
-      "seri_kok": "oran-318433746",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "spl-cikmis-hasat.yml": {
-      "seri": 0,
-      "seri_kok": "oran-346454161",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "soru-denetci-k2.yml": {
-      "seri": 0,
-      "seri_kok": "oran-319186278",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "smmm-ilgi-hakemi.yml": {
-      "seri": 0,
-      "seri_kok": "oran-359534235",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "kaynak.yml": {
-      "seri": 0,
-      "seri_kok": "oran-311728001",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
-    },
-    "onarim-tarama.yml": {
-      "seri": 0,
-      "seri_kok": "oran-325527497",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "karne.yml": {
+      "sebep": "bildirildi",
       "seri": 0,
       "seri_kok": "oran-323071323",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     },
     "profesor-v2.yml": {
+      "sebep": "bildirildi",
       "seri": 0,
       "seri_kok": "oran-322437243",
-      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00",
-      "sebep": "yeni seri"
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "smmm-ilgi-hakemi.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-359534235",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "soru-denetci-k2.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-319186278",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "paket.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-318433746",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "spl-cikmis-hasat.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-346454161",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "onarim-tarama.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-325527497",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "hesap-kodu-denetimi.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-326024949",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "kaynak.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-311728001",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "terim-taramasi.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-326252957",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
+    },
+    "bulut-uretim.yml": {
+      "sebep": "yeni seri",
+      "seri": 0,
+      "seri_kok": "oran-356311897",
+      "son_bildirim": "2026-09-23T09:23:13.2555509+00:00"
+    },
+    "kasa-bag.yml": {
+      "sebep": "bildirildi",
+      "seri": 0,
+      "seri_kok": "oran-322461610",
+      "son_bildirim": "2026-09-22T09:22:23.4674933+00:00"
     }
   }
 }
