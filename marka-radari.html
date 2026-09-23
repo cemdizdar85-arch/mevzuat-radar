@@ -305,7 +305,7 @@ function koruma(){
     from_name:'Tetikte Marka', "E-posta":m, "Marka/Firma":ad||'', "Tescil No":no||'', "Sinif":sinif||'', "Talep":"Markam yok/emin degilim - kontrol + koruma"};
   fetch(EP,{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{out.innerHTML='✅ Aldık. Sana ait tescilli marka var mı kontrol edip koruma seçeneklerini ileteceğiz.';})
-    .catch(()=>{out.innerHTML='İletişim: <a href="mailto:info@dizdardenetim.com">info@dizdardenetim.com</a>';});
+    .catch(()=>{out.innerHTML='İletişim: <a href="mailto:destek@tetikte.com">destek@tetikte.com</a>';});
 }
 function takip(){
   const m=document.getElementById('mail').value.trim();
@@ -314,7 +314,7 @@ function takip(){
     from_name:'Tetikte Marka', "E-posta":m, "Marka":SON.ad||'', "Tescil No":SON.no||'', "Sinif":SON.sinif||'', "Basvuru":SON.basvuru||'', "Bitis":SON.bitis||'', "Pencere acilis":SON.acilis||'', "Durum":SON.durum||''};
   fetch(EP,{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
     .then(()=>{document.getElementById('takipOut').innerHTML='✅ Takibe alındı. Yenileme yaklaşınca haber vereceğiz.';})
-    .catch(()=>{document.getElementById('takipOut').innerHTML='İletişim: <a href="mailto:info@dizdardenetim.com">info@dizdardenetim.com</a>';});
+    .catch(()=>{document.getElementById('takipOut').innerHTML='İletişim: <a href="mailto:destek@tetikte.com">destek@tetikte.com</a>';});
 }
 </script>
 <div style="max-width:760px;margin:0 auto;padding:8px 18px 64px" data-mr-cta>

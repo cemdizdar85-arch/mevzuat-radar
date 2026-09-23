@@ -919,7 +919,7 @@ window.veriAl = (function(){
           body:JSON.stringify({email:ep,subject:'ON KAYIT '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:document.getElementById('bzOkHp').value})
         }).then(function(y){ return y.ok?y.json():Promise.reject(y.status); }).then(function(){
           dugme.disabled=false; okAlindi[k]=true; if(secili===k) bzDugmeCiz();
-        }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da info@dizdardenetim.com adresine yaz.'; });
+        }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da destek@tetikte.com adresine yaz.'; });
       });
       sekmeler.forEach(function(b){
         b.addEventListener('click',function(){ secili=b.getAttribute('data-sinav'); U.sinavSec(secili); bzDugmeCiz(); });
@@ -2033,7 +2033,7 @@ window.veriAl = (function(){
 </main>
 <footer>
   <div class="foot-in">
-    <span>© 2026 Tetikte · bir <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--muted);font-weight:600">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</a> yazılımı · <a href="mailto:info@dizdardenetim.com" style="color:var(--muted)">info@dizdardenetim.com</a></span>
+    <span>© 2026 Tetikte · bir <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--muted);font-weight:600">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</a> yazılımı · <a href="mailto:destek@tetikte.com" style="color:var(--muted)">destek@tetikte.com</a></span>
     <span>
       <a href="gtip.html">GTİP Kontrolü</a>
       <a href="risk-taramasi.html">Risk Taraması</a>
@@ -2066,7 +2066,7 @@ window.veriAl = (function(){
     <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> ·
     <a href="uyelik-sozlesmesi.html">Üyelik Koşulları</a> ·
     <a href="kvkk.html">KVKK Aydınlatma</a>
-    <br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · MERSİS 0301130343200001 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · info@dizdardenetim.com · 0537 843 80 58
+    <br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · MERSİS 0301130343200001 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · destek@tetikte.com · 0537 843 80 58
   </p>
   <p class="disclaimer">Tetikte bir bilgilendirme platformudur; hukuki mütalaa vermez,
   beyanname düzenlemez. Tüm kartlar kaynak mevzuata bağlanır ve uzman doğrulamasından geçer.</p>

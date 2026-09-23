@@ -532,7 +532,7 @@ function kur(){
         '<a href="' + KOK + 'gizlilik-politikasi.html" style="color:var(--muted);text-decoration:none">Gizlilik ve Çerez</a> · ' +
         '<a href="' + KOK + 'uyelik-sozlesmesi.html" style="color:var(--muted);text-decoration:none">Üyelik Koşulları</a> · ' +
         '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a>' +
-        '<br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · İzmir · info@dizdardenetim.com' +
+        '<br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · İzmir · destek@tetikte.com' +
         '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);
     }
