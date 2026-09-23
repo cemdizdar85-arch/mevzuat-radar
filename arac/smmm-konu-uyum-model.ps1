@@ -16,7 +16,7 @@
   🚫 GÖRMEZ: modelin kendi yanılgısı (anahtar karnesi bunu ölçer, yalnız 82 soruda).
 ================================================================================
 #>
-param([ValidateSet('anahtar', 'kasa')][string]$Kume = 'anahtar', [string]$Model = 'claude-sonnet-5', [int]$KonuListe = 80, [string]$ParcaId = '', [switch]$Kuru)
+param([ValidateSet('anahtar', 'kasa')][string]$Kume = 'anahtar', [string]$Model = 'claude-sonnet-5', [int]$KonuListe = 80, [string]$ParcaId = '', [switch]$Kuru, [int]$AzamiToken = 1500, [switch]$EksikTamamla)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -54,13 +54,17 @@ Write-Host "küme $Kume · soru $($sorular.Count) · model $Model"
 if ($Kuru) { $gt = 0; foreach ($s in $sorular) { $gt += ("$($s.v.soru)".Length + 600) }; Write-Host ("KURU: gönderilmedi · kaba giriş ≈ {0:N0} kr" -f $gt); return }
 
 $SISTEM = 'Sen SMMM Yeterlilik sınavı soru bankasının etiket denetçisisin. Görevin yalnız şu: verilen sorunun gerçekten ölçtüğü konu, soruya iliştirilmiş KONU ETİKETİ ile aynı mı? Sorunun doğru/yanlış olduğunu DEĞERLENDİRME. Soru etiketteki konuyu doğrudan ölçüyorsa EVET; etiketle ilgili ama esas olarak başka bir alt konuyu ölçüyorsa (ör. etiket "GÜG birinci dağıtım", soru kademeli ikinci dağıtım) HAYIR; ikisini de belirgin biçimde ölçüyorsa KISMEN. HAYIR ya da KISMEN ise, verilen konu listesinden soruya en uygun konuyu AYNEN yaz; listede uygun konu yoksa "LISTEDE_YOK". Yalnız şu JSON''u döndür: {"uyum":"EVET|HAYIR|KISMEN","dogru_konu":"...","gerekce":"en fazla 20 kelime"}'
+# 23.09: -EksikTamamla → önceki sonuç dosyasında EVET/HAYIR/KISMEN alan soru yeniden gönderilmez (yalnız eksik + OKUNAMADI); sonuçlar birleşir
+$onceki = @{}; $cikti0 = Join-Path $kok "veri\fabrika\smmm-konu-uyum-model-$Kume.json"
+if ($EksikTamamla -and (Test-Path $cikti0)) { foreach ($o in @((Get-Content $cikti0 -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })) { if ("$($o.uyum)" -in 'EVET', 'HAYIR', 'KISMEN') { $onceki["$($o.an)"] = $o } } }
+if ($onceki.Count) { $sorular = [System.Collections.Generic.List[object]]@($sorular | Where-Object { -not $onceki.ContainsKey($_.an) }); Write-Host "eksik tamamla: önceki geçerli $($onceki.Count) · gönderilecek $($sorular.Count)" }
 $istekler = New-Object System.Collections.Generic.List[object]; $harita = @{}; $i = 0
 foreach ($s in $sorular) {
   $i++; $cid = 'ku-{0:D5}' -f $i; $harita[$cid] = $s.an
   $liste = $(if ($dersKonu.ContainsKey($s.ders)) { ($dersKonu[$s.ders] -join ' | ') } else { '' })
   $sik = (@('A', 'B', 'C', 'D', 'E') | ForEach-Object { "$_) $($s.v.siklar.$_)" }) -join "`n"
   $metin = "DERS: $($s.ders)`nKONU ETİKETİ: $($s.v.konu)`n`nSORU:`n$($s.v.soru)`n$sik`nDOĞRU CEVAP: $($s.v.dogru)`n`nDERSİN KONU LİSTESİ:`n$liste"
-  $istekler.Add(@{ custom_id = $cid; params = @{ model = $Model; max_tokens = 200; system = $SISTEM; messages = @(@{ role = 'user'; content = $metin }) } })
+  $istekler.Add(@{ custom_id = $cid; params = @{ model = $Model; max_tokens = $AzamiToken; system = $SISTEM; messages = @(@{ role = 'user'; content = $metin }) } })
 }
 $cikti = Join-Path $kok "veri\fabrika\smmm-konu-uyum-model-$Kume.json"
 if (-not $ParcaId) {
@@ -79,7 +83,7 @@ foreach ($l in $satir) {
   $x = $l | ConvertFrom-Json; $an = $harita["$($x.custom_id)"]
   if ("$($x.result.type)" -ne 'succeeded') { $hata++; continue }
   $gTok += [int]$x.result.message.usage.input_tokens; $cTok += [int]$x.result.message.usage.output_tokens
-  $t = "$($x.result.message.content[0].text)"; $m = [regex]::Match($t, '\{[\s\S]*\}')
+  $t = (@($x.result.message.content | Where-Object { $_.type -eq 'text' } | ForEach-Object { "$($_.text)" }) -join "`n"); $m = [regex]::Match($t, '\{[\s\S]*\}')   # 23.09: ilk blok "thinking" olabilir
   $k = $null; try { $k = $m.Value | ConvertFrom-Json } catch {}
   $sonuc.Add([pscustomobject][ordered]@{ an = $an; uyum = $(if ($k) { "$($k.uyum)" } else { 'OKUNAMADI' }); dogru_konu = $(if ($k) { "$($k.dogru_konu)" } else { '' }); gerekce = $(if ($k) { "$($k.gerekce)" } else { '' }) })
 }
@@ -87,10 +91,10 @@ $bedel = ($gTok * 3 + $cTok * 15) / 1e6 * 0.5
 [IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject $sonuc.ToArray() -Depth 3), (New-Object Text.UTF8Encoding $false))
 # anahtar karnesi
 $ky = @($sonuc | Where-Object { $yanlis.ContainsKey($_.an) }); $kd = @($sonuc | Where-Object { $dogru.ContainsKey($_.an) })
-$yak = @($ky | Where-Object { $_.uyum -ne 'EVET' }).Count; $ya = @($kd | Where-Object { $_.uyum -eq 'HAYIR' }).Count; $yaK = @($kd | Where-Object { $_.uyum -eq 'KISMEN' }).Count
+$yakalanan = @($ky | Where-Object { $_.uyum -in 'HAYIR', 'KISMEN' }).Count; $dogruHayir = @($kd | Where-Object { $_.uyum -eq 'HAYIR' }).Count; $dogruKismen = @($kd | Where-Object { $_.uyum -eq 'KISMEN' }).Count; $okunamadi = @($sonuc | Where-Object { $_.uyum -eq 'OKUNAMADI' }).Count   # 23.09 K1: $yak/$yaK aynı değişkendi
 $say = @{}; foreach ($s in $sonuc) { $say[$s.uyum] = 1 + [int]$say[$s.uyum] }
 $oz = "MODEL KONU UYUMU ($Kume, $Model): soru $($sonuc.Count) · " + (($say.Keys | Sort-Object | ForEach-Object { "$_ $($say[$_])" }) -join ' · ') + " · hata $hata · token $gTok/$cTok · bedel ≈ $([Math]::Round($bedel, 3)) USD"
-$karne = "ANAHTAR: yanlış etiketli $($ky.Count)'in $yak'ini yakaladı (HAYIR/KISMEN) · doğru etiketli $($kd.Count)'de HAYIR $ya, KISMEN $yaK"
+$karne = "ANAHTAR: yanlış etiketli $($ky.Count)'in $yakalanan'ini yakaladı (HAYIR/KISMEN) · doğru etiketli $($kd.Count)'de HAYIR $dogruHayir, KISMEN $dogruKismen · okunamayan $okunamadi"
 $md = New-Object System.Collections.Generic.List[string]
 $md.Add('# SMMM KONU–SORU UYUMU — model kontrolü'); $md.Add('')
 $md.Add("> Türetilmiştir (``arac/smmm-konu-uyum-model.ps1``). $(Get-Date -Format 'dd.MM.yyyy HH:mm') · toplu parti ``$ParcaId`` · soru metni YOK"); $md.Add('')
