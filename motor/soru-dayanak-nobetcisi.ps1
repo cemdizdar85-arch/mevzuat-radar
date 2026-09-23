@@ -42,12 +42,18 @@ $onceki = (Get-Content $oncekiYol -Raw -Encoding UTF8 | ConvertFrom-Json).maddel
 # --- degisenler (damga farkli) + silinenler
 $degisen = New-Object System.Collections.Generic.List[string]
 $silinen = New-Object System.Collections.Generic.List[string]
+# 23.09.2026: "damga farkli" != "metin degisti". 22.09'da 12 maddeye "degisti" denip 414 soru cekildi; 7'sinde
+# yalniz parca DIZILISI kaymisti (arac/mevzuat-degisti.ps1 MdDamgaDegisimi). Dizilis kaymasi ('sira') ve ayni
+# anahtara AYRI kayit eklenmesi ('ekleme', or. mük. m.121 ambara girince m.121) artik soru CEKMEZ; sayilari raporda.
+. (Join-Path (Join-Path $kok 'arac') 'mevzuat-degisti.ps1')
+$siraKaymasi = 0; $ayriEkleme = 0
 foreach($p in $onceki.PSObject.Properties){
   $g = $guncel.PSObject.Properties[$p.Name]
   if($null -eq $g){ $silinen.Add($p.Name); continue }
-  if("$($g.Value.damga)" -ne "$($p.Value.damga)"){ $degisen.Add($p.Name) }
+  $tur = MdDamgaDegisimi $p.Value $g.Value
+  if($tur -eq 'degisti'){ $degisen.Add($p.Name) } elseif($tur -eq 'sira'){ $siraKaymasi++ } elseif($tur -eq 'ekleme'){ $ayriEkleme++ }
 }
-Write-Host ("degisen madde: {0} | silinen: {1}" -f $degisen.Count, $silinen.Count)
+Write-Host ("degisen madde: {0} | silinen: {1} | yalniz dizilis kaymasi (cekilmedi): {2} | ayri kayit eklendi (cekilmedi): {3}" -f $degisen.Count, $silinen.Count, $siraKaymasi, $ayriEkleme)
 
 $isaretli=0; $etkilenen = New-Object System.Collections.Generic.List[object]
 # 16.08 DUZELTME (1): kapi yalniz $degisen'e bakiyordu. Degisen 0 ama SILINEN
@@ -162,6 +168,7 @@ $durum = if($isaretlemeTamam){ 'TAMAM' } else { 'KIRMIZI' }
 RaporYaz ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); durum=$durum
   degisenMadde=$degisen.Count; silinenMadde=$silinen.Count; isaretlenenSoru=$isaretli
+  siraKaymasiCekilmedi=$siraKaymasi; ayriEklemeCekilmedi=$ayriEkleme
   taban_ilerletildi=$isaretlemeTamam
   yeniHatEngellenen=$yeniHatEngel; yeniHatKasadanCekilen=$kasadanCekilen; yeniHatTaramaHatasi=$yeniHatHata
   etkilenen=@($etkilenen | Select-Object -First 100)

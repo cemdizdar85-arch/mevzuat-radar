@@ -42,6 +42,16 @@ function AralikliMaddeDuzelt([string]$duzMetin){
   $s = [regex]::Replace($s, '\b(MADDE\s+\d{1,3})\s*\(\d{1,2}\)\s*(?=[-–])', { param($es) $es.Groups[1].Value + ' ' })
   return $s
 }
+# Maddenin KENDISI mulga mi? (yalniz ilk 70 karakterdeki "(Mülga:" / "(Mülga madde:" serhi; ibare/fikra mulgasi degil)
+# Serhte mulgadan SONRA "Yeniden duzenleme" geliyorsa madde yururluktedir (23.09, VUK m.370 vakasi - asagida).
+function MaddeKendisiMulga([string]$govde){
+  $m = [regex]::Match($govde, '^.{0,70}?\((Mülga\s*(?:madde)?\s*:[^)]*)\)')
+  if(-not $m.Success){ return ($govde -match '^.{0,70}\(Mülga\s*(?:madde)?\s*:') }   # kapanmayan serh: eski davranis
+  $serh = $m.Groups[1].Value
+  $mulgalar = [regex]::Matches($serh, 'Mülga'); $yenidenler = [regex]::Matches($serh, '(?i)Yeniden\s+düzenle')
+  if($yenidenler.Count -and $yenidenler[$yenidenler.Count-1].Index -gt $mulgalar[$mulgalar.Count-1].Index){ return $false }
+  return $true
+}
 function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde
   # numarasindan HEMEN SONRA tire bekliyordu. Ama bazi metinlerde degisiklik
@@ -99,7 +109,15 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     # katki orani formulu) ambara HIC GIRMEDI - ikisi de "(1) Sanayi (Mülga ibare:
     # RG-15/10/2025-33048) urunlerinin..." diye basliyor. Kapsama %77,7'ye dusmustu.
     # Artik yalniz MADDENIN KENDISI mulgaysa atlanir: "(Mülga:" veya "(Mülga madde".
-    if($govde -match '^.{0,70}\(Mülga\s*(?:madde)?\s*:'){ continue }
+    # 23.09.2026 KUSUR (olculdu, VUK m.370 vakasi): "(Mülga: 30/12/1980-2365/89 md.; Yeniden duzenleme:
+    #   15/7/2016-6728/22 md.)" -> madde 1980'de kaldirilmis, 2016'da YENIDEN yazilmis, bugun YURURLUKTE.
+    #   Kural serhin BASINA bakip atiyordu. Zarar: 21.09 VUK yutmasi 27.08'de elle eklenen m.370'i sildi,
+    #   nobetci "m.370 SILINDI" dedi, 275 soru (228 SMMM) yayindan cekildi. Tum _txt taramasi: 455 mulga
+    #   serhli maddenin 15'inde "Yeniden duzenleme" var (GVK m.20/22/32/33/80/81/121, KDVK m.38, VUK m.370,
+    #   Gumruk m.244, TCMB m.44, TPKK m.5, Cevre m.4/5/18) - hepsi ambara HIC girmemisti.
+    #   Kural: serhteki SON islem belirler. Cevre m.4 "...Yeniden duzenleme: 2006; Mülga: 2018" -> mulga, atlanir.
+    #   BU KAPI SUNU GORMEZ: "(Mülga: ...) (Ek: ...)" gibi AYRI parantezle yeniden eklenen madde (olculmedi).
+    if(MaddeKendisiMulga $govde){ continue }
     # 02.08 CEM KURALI ("ustunkoru degil, en kucuk maddesine kadar"): 60
     # karakterden kisa madde ATILIYORDU. Kisa madde de maddedir (yururluk,
     # yurutme, tanim fikralari) ve soru-cevap araci onlari da arar. Artik
@@ -253,6 +271,16 @@ if($OzSinav){
     @{ ad='Kirik parca "Yururluk: Madde 117 -" -> BIRLESIK KALIR'
        metin='Madde 116 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Yururluk: Madde 117 - Madde 118 - Bu Kanun hukumlerini Cumhurbaskani yurutur ve yayimi tarihinde yururluge girer.'
        bekle='m.117'; olmali=$false }
+    # 23.09 - mulga serhinin SON islemi (VUK m.370 vakasi)
+    @{ ad='VUK m.370 "Mülga ...; Yeniden düzenleme" -> YURURLUKTE, AYRI KAYIT'
+       metin='Madde 369 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. İzaha davet: Madde 370 – (Mülga: 30/12/1980-2365/89 md.; Yeniden düzenleme: 15/7/2016-6728/22 md.) (Değişik:5/12/2019-7194/25 md.) a) Vergi incelemesine başlanılmadan önce verginin ziyaa uğradığına delalet eden emareler bulunduğunda izaha davet edilir.'
+       bekle='m.370'; olmali=$true }
+    @{ ad='Cevre m.4 "...Yeniden düzenleme; Mülga" -> son islem MULGA, ATLANIR'
+       metin='Madde 3 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 4 – (Mülga: 9/8/1991 - KHK-443/43 md.; Yeniden düzenleme: 26/4/2006-5491/4 md.; Mülga: 2/7/2018-KHK-703/82 md.) Madde 5 - Bu madde de yururluktedir ve yeterince uzun bir govdeye sahiptir, ayri kayit olur.'
+       bekle='m.4'; olmali=$false }
+    @{ ad='Duz mulga "(Mülga: ...)" -> ATLANIR (eski davranis korunur)'
+       metin='Madde 37 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 38 – (Mülga: 22/7/1998 – 4369/82 md.) Ödeme yeri: Madde 39 – Hususi kanunlarında ödeme yeri gösterilmemiş amme alacakları borçlunun ikametgahında ödenir.'
+       bekle='m.38'; olmali=$false }
   )
   $gecti = 0; $kaldi = 0
   foreach($s in $sinavlar){

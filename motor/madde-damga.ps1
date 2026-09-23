@@ -36,6 +36,7 @@ $kok  = Split-Path -Parent $here
 $SB_URL = "https://bjrleanjpyujtajmazxn.supabase.co"
 $KEY = if($env:SUPABASE_SERVICE_KEY){ $env:SUPABASE_SERVICE_KEY } else { "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg" }
 $H = @{ apikey = $KEY; Authorization = "Bearer $KEY" }
+. (Join-Path (Join-Path $kok 'arac') 'mevzuat-degisti.ps1')   # MdDamgaDegisimi · MdAdKoku (23.09)
 
 # --- metni damgalamadan once SADELESTIR: bosluk/noktalama/buyuk-kucuk farki
 # "degisiklik" sayilmamali. Yoksa her yeniden-hasatta yuzlerce sahte alarm cikar
@@ -128,6 +129,8 @@ foreach($a in ($mad.Keys | Sort-Object)){
     parca = $sirali.Count
     uzunluk = $metin.Length
     ad = $sirali[0].ad
+    # 23.09: parca izleri (sira bagimsiz) - "damga farkli" ile "metin degisti"yi ayirmak icin (arac/mevzuat-degisti.ps1 MdDamgaDegisimi)
+    parca_izleri = @($sirali | ForEach-Object { (Damga (MdAdKoku $_.ad)).Substring(0, 8) + ':' + (Damga $_.metin) } | Sort-Object)
   }
 }
 
@@ -143,7 +146,8 @@ if(-not $ilkKurulum){
 $yeni = @(); $degisen = @(); $kaybolan = @()
 foreach($a in $yeniTablo.Keys){
   if(-not $eski.ContainsKey($a)){ $yeni += $a; continue }
-  if("$($eski[$a].damga)" -ne "$($yeniTablo[$a].damga)"){
+  # 23.09: yalniz dizilis kaymasi ('sira') ya da ayni anahtara AYRI kayit eklenmesi ('ekleme') degisim sayilmaz
+  if((MdDamgaDegisimi $eski[$a] $yeniTablo[$a]) -eq 'degisti'){
     $degisen += [pscustomobject]@{
       anahtar=$a; ad=$yeniTablo[$a].ad
       eski_damga="$($eski[$a].damga)"; yeni_damga="$($yeniTablo[$a].damga)"

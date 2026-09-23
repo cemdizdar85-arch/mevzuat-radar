@@ -189,6 +189,16 @@ jobs:
           - { ad: "SMMM dalga konu denetimi OZ-SINAVI (yanlis konuya dalga acilmasin)",
               kabuk: pwsh, komut: "./arac/smmm-dalga-dongu-sinavi.ps1" }
 
+          # 23.09.2026 - VUK m.370 yanlis alarmi: 689 soru yayindan cekildi. Iki kok: (1) ayristirici
+          # "(Mülga: ...; Yeniden duzenleme: ...)" serhini mulga sanip maddeyi atiyordu - 15 madde ambara hic
+          # girmemisti; (2) nobetci "damga farkli"yi "metin degisti" sayiyordu, 7 maddede yalniz parca dizilisi
+          # kaymisti. Iki sinav: ayristiricinin serh kurali (5 vaka, ambara DOKUNMAZ) + damga degisim turu
+          # (15 vaka: gercek degisiklik kacmasin + dizilis/ayri kayit alarm vermesin).
+          - { ad: "Mevzuat ayristirici OZ-SINAVI (mulga serhinin SON islemi)",
+              kabuk: pwsh, komut: "./motor/mevzuat-yut.ps1 -OzSinav" }
+          - { ad: "Damga degisim turu OZ-SINAVI (dizilis kaymasi soru cekmesin)",
+              kabuk: pwsh, komut: "./arac/damga-degisim-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
