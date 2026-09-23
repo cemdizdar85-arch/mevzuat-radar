@@ -6,29 +6,34 @@
 #  "F S F S F S F S F S" idi - sabah kosusu 5 gun ust uste dustu, aksam
 #  kosusu hep yesildi, seri HEP 1'de kaldi, nobetci arizayi HIC gormedi.
 #  O bosluktan 4 gunluk hasat kayboldu. Ikinci olcu (oran) eklendi.
-#  Bu sinav iki olcunun de dogru calistigini ve YANLIS ALARM uretmedigini
-#  olcer. Mantik nobetciden BIREBIR kopyadir; nobetci degisirse bu da degisir.
+#
+#  23.09.2026: ikinci korluk. 'cancelled' ve 'skipped' kosular "kirmizi degil"
+#  sayiliyordu; yayin-bas.yml 5 gun (38 dusus, arada 26 iptal + 26 atlandi)
+#  gorulmedi. Artik karar vermeyen kosu elenir (G vakalari).
+#
+#  REPLIKA YOK (23.09): karar mantigi nobetcinin KENDI dosyasindan AST ile
+#  cikarilip kosulur (KararVerir + AlarmOlcusu). Nobetci degisirse sinav
+#  otomatik olarak yenisini olcer; kopya eskiyemez.
 # ============================================================================
 
 $UstUste     = 2
 $OranPencere = 10
 $OranEsik    = 3
 
-function KirmiziMi($c){ return ($c -eq 'failure' -or $c -eq 'timed_out') }
-
-# Nobetcideki karar mantiginin birebir ayni hali
-function AlarmVerir([string[]]$kosular) {
-  $seri = 0
-  foreach ($c in $kosular) { if (KirmiziMi $c) { $seri++ } else { break } }
-  $pencere = @($kosular | Select-Object -First $OranPencere)
-  $oranKirmizi = @($pencere | Where-Object { KirmiziMi $_ }).Count
-  $oranGecerli = ($pencere.Count -ge $OranPencere) -and ($oranKirmizi -ge $OranEsik)
-  if ($seri -ge $UstUste) { return 'ust_uste' }
-  if ($oranGecerli)       { return 'oran' }
-  return 'sessiz'
+$nobetciYol = Join-Path $PSScriptRoot 'ci-kirmizi-nobetcisi.ps1'
+$tok = $null; $hata = $null
+$ast = [System.Management.Automation.Language.Parser]::ParseFile($nobetciYol, [ref]$tok, [ref]$hata)
+if ($hata.Count) { Write-Host "NOBETCI AYRISTIRILAMADI: $($hata[0].Message)"; exit 1 }
+foreach ($ad in @('KararVerir', 'AlarmOlcusu')) {
+  $fn = $ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -eq $ad }, $true) | Select-Object -First 1
+  if (-not $fn) { Write-Host "NOBETCIDE '$ad' fonksiyonu YOK - sinav kosamaz"; exit 1 }
+  . ([scriptblock]::Create($fn.Extent.Text))
 }
 
-$F = 'failure'; $S = 'success'; $T = 'timed_out'
+function AlarmVerir([string[]]$kosular) { return (AlarmOlcusu $kosular $UstUste $OranPencere $OranEsik).tur }
+
+$F = 'failure'; $S = 'success'; $T = 'timed_out'; $C = 'cancelled'; $K = 'skipped'
+function Tekrar($x, [int]$n) { return @(1..$n | ForEach-Object { $x }) }
 
 # vaka = @(ad, kosu dizisi (yeniden eskiye), beklenen)
 $vakalar = @(
@@ -51,12 +56,24 @@ $vakalar = @(
   @('D2 hepsi kirmizi -> ust_uste (oran degil; en siddetli olcu kazanir)',
     @($F,$F,$F,$F,$F,$F,$F,$F,$F,$F), 'ust_uste'),
   @('E1 son kosu YESIL ama gecmis cogunlukla kirmizi -> oran yakalar',
-    @($S,$F,$F,$S,$F,$F,$S,$F,$S,$S), 'oran')
+    @($S,$F,$F,$S,$F,$F,$S,$F,$S,$S), 'oran'),
+  @('G1 GERCEK VAKA yayin-bas.yml 23.09: son 12 kosu atlandi, oncesi dusus+iptal -> ALARM',
+    @((Tekrar $K 12) + @($F,$C,$C,$F,$C,$F,$F,$C,$F,$S)), 'ust_uste'),
+  @('G2 dususlerin arasina iptal girer (F C F C F) -> seri 3, ALARM',
+    @($F,$C,$F,$C,$F,$S,$S,$S,$S,$S,$S,$S), 'ust_uste'),
+  @('G3 iptaller arasinda TEK dusus -> SESSIZ (yanlis alarm olmasin)',
+    @($C,$F,$C,$S,$C,$S,$S,$S,$S,$S,$S,$S,$S), 'sessiz'),
+  @('G4 yalniz iptal/atlandi (karar yok) -> SESSIZ (bilinen korluk, basta yazili)',
+    @($C,$K,$C,$K,$C,$K,$C,$K,$C,$K), 'sessiz'),
+  @('G5 atlananlar pencereyi SULANDIRMAZ: 3/10 karar veren kirmizi -> oran',
+    @($K,$K,$K,$F,$S,$K,$S,$F,$S,$S,$K,$F,$S,$S,$S), 'oran'),
+  @('G6 atlanan cok ama karar veren az (pencere dolmamis) -> SESSIZ',
+    @($K,$F,$K,$S,$K,$F,$K,$S), 'sessiz')
 )
 
 $gecen = 0; $kalan = 0
-Write-Host "== CI KIRMIZI NOBETCISI OZ-SINAVI =="
-Write-Host ("   olculer: ust uste >= {0}  |  oran >= {1}/{2}" -f $UstUste, $OranEsik, $OranPencere)
+Write-Host "== CI KIRMIZI NOBETCISI OZ-SINAVI (gercek fonksiyon: $nobetciYol) =="
+Write-Host ("   olculer: ust uste >= {0}  |  oran >= {1}/{2}  |  iptal/atlandi elenir" -f $UstUste, $OranEsik, $OranPencere)
 Write-Host ""
 foreach ($v in $vakalar) {
   $cikan = AlarmVerir $v[1]

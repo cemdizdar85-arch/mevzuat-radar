@@ -42,6 +42,11 @@ param(
   [int]$OranPencere = 10,   # oran olcusunde bakilacak son kosu sayisi
   [int]$OranEsik = 3,       # o pencerede kac kirmizi "kalici ariza" sayilir
   [int]$HatirlatmaGun = 7,  # suren seri kac gunde bir hatirlatilir
+  # 23.09.2026 - KRITIK AKIS: SGS yayini (yayin-bas.yml) 18.09 11:03 -> 23.09 arasi 38 kez dustu,
+  # nobetcinin 5 gunluk raporunun yalniz 1'inde gorundu. Kritik akis mail KONUSUNA yazilir
+  # (42 kalici kirmizinin arasinda kaybolmasin) ve her gun hatirlatilir.
+  [string[]]$Kritik = @('yayin-bas.yml'),
+  [int]$HatirlatmaGunKritik = 1,
   [int]$Sinir = 0,          # kac workflow taransin (0 = hepsi; yerel deneme icin)
   [switch]$Sessiz           # mail atma, yalniz raporla (yerel deneme icin)
 )
@@ -109,36 +114,49 @@ Write-Host ("CI KIRMIZI NOBETCISI: {0}/{1} aktif workflow, esik {2} ust uste kir
 $sinirlandi = $tumu - $aktif.Count
 
 # --- 2) her birinin son kosulari -------------------------------------------
-function KirmiziMi($k){ return ($k.conclusion -eq "failure" -or $k.conclusion -eq "timed_out") }
+# --- KARAR MANTIGI (oz-sinav bu iki fonksiyonu AST ile cikarip GERCEGINI kosar) ---
+# 23.09.2026 - KARAR VERMEYEN KOSU: 'cancelled' ve 'skipped' ne kirmizi ne yesildir.
+# Eskiden "kirmizi degil" sayiliyordu: ust uste sayaci her iptalde sifirlaniyor, 10'luk
+# pencereyi de atlanan kosular dolduruyordu. OLCULDU: yayin-bas.yml 18.09 11:03'ten 23.09'a
+# 38 kez dustu; araya 26 iptal + 26 atlandi girdi; 23.09 09:23 raporunda son 10 kosu 04:04-04:38
+# arasi 'skipped' idi -> 0/10, alarm YOK. Rapor 19/20/21/23.09'da akisi hic gostermedi.
+# GORMEZ: yalniz iptal edilen ya da hep atlanan akis (hic karar yoksa sessiz kalir).
+function KararVerir([string]$c) { return -not ($c -eq 'cancelled' -or $c -eq 'skipped') }
+function AlarmOlcusu([string[]]$sonuclar, [int]$esikSeri, [int]$pencereBoy, [int]$esikOran) {
+  $kararli = @($sonuclar | Where-Object { KararVerir $_ })
+  # OLCU 1 - bastan itibaren kac karar veren kosu UST USTE basarisiz
+  $seriSay = 0
+  foreach ($c in $kararli) { if ($c -eq 'failure' -or $c -eq 'timed_out') { $seriSay++ } else { break } }
+  # OLCU 2 (21.09) - son N karar veren kosunun kaci kirmizi (donusumlu ariza)
+  $pnc = @($kararli | Select-Object -First $pencereBoy)
+  $kirmiziSay = @($pnc | Where-Object { $_ -eq 'failure' -or $_ -eq 'timed_out' }).Count
+  # Pencere dolmadiysa oran uygulanmaz (yeni workflow yanlis alarm vermesin)
+  $oranTutar = ($pnc.Count -ge $pencereBoy) -and ($kirmiziSay -ge $esikOran)
+  $sonucTur = if ($seriSay -ge $esikSeri) { 'ust_uste' } elseif ($oranTutar) { 'oran' } else { 'sessiz' }
+  return [pscustomobject]@{ tur = $sonucTur; seri = $seriSay; oran = $kirmiziSay; pencere = $pnc.Count; kararli = $kararli.Count }
+}
+# --- /KARAR MANTIGI ---
+
 $kirmiziSeriler = @()
 $olculemeyen    = 0
 $bakilan        = 0
 
 foreach ($w in $aktif) {
-  # yalniz TAMAMLANMIS kosular; devam edenler seriyi bozmasin
-  $cekilecek = [Math]::Max($OranPencere, ($UstUste + 3))
-  $r = Api ("actions/workflows/{0}/runs?per_page={1}&status=completed" -f $w.id, $cekilecek)
+  # yalniz TAMAMLANMIS kosular; devam edenler seriyi bozmasin. Iptal/atlandi elendigi
+  # icin pencereden fazlasi cekilir (yayin-bas.yml'de 10 kosunun 10'u atlandi olabiliyor).
+  $r = Api ("actions/workflows/{0}/runs?per_page=100&status=completed" -f $w.id)
   if (-not $r) { $olculemeyen++; continue }
-  $kosular = @($r.workflow_runs)
-  if ($kosular.Count -eq 0) { continue }   # hic kosmamis - kirmizi degil
+  $kosular = @($r.workflow_runs | Where-Object { KararVerir "$($_.conclusion)" })
+  if ($kosular.Count -eq 0) { continue }   # karar veren kosu yok - kirmizi degil
   $bakilan++
 
-  # OLCU 1 - bastan itibaren kac tanesi UST USTE basarisiz
-  $seri = 0
-  foreach ($k in $kosular) {
-    if (KirmiziMi $k) { $seri++ } else { break }
-  }
+  $olc = AlarmOlcusu @($kosular | ForEach-Object { "$($_.conclusion)" }) $UstUste $OranPencere $OranEsik
+  $seri        = $olc.seri
+  $oranKirmizi = $olc.oran
+  $pencere     = @($kosular | Select-Object -First $OranPencere)
+  if ($olc.tur -eq 'sessiz') { continue }
 
-  # OLCU 2 (21.09) - son $OranPencere kosunun kaci kirmizi. Donusumlu arizayi
-  # ("sabah kirmizi / aksam yesil") olcu 1 GOREMIYOR; bu gorur.
-  $pencere = @($kosular | Select-Object -First $OranPencere)
-  $oranKirmizi = @($pencere | Where-Object { KirmiziMi $_ }).Count
-  # Pencere dolmadiysa oran olcusu uygulanmaz (yeni workflow yanlis alarm vermesin)
-  $oranGecerli = ($pencere.Count -ge $OranPencere) -and ($oranKirmizi -ge $OranEsik)
-
-  if ($seri -lt $UstUste -and -not $oranGecerli) { continue }
-
-  if ($seri -ge $UstUste) {
+  if ($olc.tur -eq 'ust_uste') {
     # serinin EN ESKI kosusu seriyi kimliklendirir (yeni seri = yeni bildirim)
     $tur     = "ust_uste"
     $seriKok = $kosular[$seri - 1].id
@@ -157,6 +175,7 @@ foreach ($w in $aktif) {
     oran_kirmizi  = $oranKirmizi
     oran_pencere  = $pencere.Count
     seri_kok      = $seriKok
+    son_sonuc     = "$($kosular[0].conclusion)"
     son_sha       = $kosular[0].head_sha.Substring(0, 8)
     son_url       = $kosular[0].html_url
     son_ne        = ($kosular[0].display_title -replace '[\r\n]', ' ')
@@ -185,7 +204,9 @@ foreach ($s in ($kirmiziSeriler | Sort-Object -Property seri -Descending)) {
   if ($kayit -and [string]$kayit.seri_kok -eq [string]$s.seri_kok) {
     # ayni seri suruyor - haftada bir hatirlat
     $gecen = ($simdi - [datetime]$kayit.son_bildirim).TotalDays
-    if ($gecen -lt $HatirlatmaGun) { $bildir = $false }
+    # kritik akis gunde bir - ama yalniz HALA kirmiziysa; son kosusu yesilse haftalik (duzelmis yayin her gun mail atmasin)
+    $hatirlatEsik = if (($Kritik -contains $s.dosya) -and $s.son_sonuc -ne 'success') { $HatirlatmaGunKritik } else { $HatirlatmaGun }
+    if ($gecen -lt $hatirlatEsik) { $bildir = $false }
     else { $sebep = ("{0} gundur suruyor" -f [int]$gecen) }
   }
 
@@ -245,7 +266,21 @@ if ($bildirim.Count -eq 0) {
 # 19.08 onemsiz-kutu dersi: TUM-BUYUK konu + HTML-tek govde spam puani
 # yukseltir; konu cumle duzeni, her maile duz-metin (text) alternatifi eklenir.
 $konu = "Tetikte CI alarmi: $($bildirim.Count) kapi kalici kirmizi"
-$satirlar = $bildirim | ForEach-Object { "{0} — {1} kosudur ust uste kirmizi (son: {2})" -f $_.dosya, $_.seri, $_.son_ne }
+# Kritik akis once gelir ve KONUYA yazilir (23.09: yayin 5 gun durdu, gorulmedi).
+$kritikBil = @($bildirim | Where-Object { $Kritik -contains $_.dosya })
+if ($kritikBil.Count) {
+  $k0 = $kritikBil[0]
+  if ($k0.son_sonuc -eq 'success') {
+    # oran alarmi, son kosu yesil: yayin su an CALISIYOR ama sik dusuyor - "durdu" denmez
+    $konu = "Tetikte alarmi: SGS yayini sik dusuyor ({0}, son {1} kosunun {2}'i kirmizi, son kosu yesil)" -f $k0.dosya, $k0.oran_pencere, $k0.oran_kirmizi
+  } else {
+    $konu = "Tetikte alarmi: SGS yayini durdu ({0}, {1} kirmizi)" -f $k0.dosya, $(if ($k0.tur -eq 'ust_uste') { "ust uste $($k0.seri) kosudur" } else { "son $($k0.oran_pencere) kosunun $($k0.oran_kirmizi)'i" })
+  }
+  if ($bildirim.Count -gt $kritikBil.Count) { $konu += " + $($bildirim.Count - $kritikBil.Count) kapi" }
+  $bildirim = @($kritikBil) + @($bildirim | Where-Object { $Kritik -notcontains $_.dosya })
+}
+function OlcuMetni($s) { if ($s.tur -eq 'ust_uste') { "{0} kosudur ust uste kirmizi" -f $s.seri } else { "son {0} kosunun {1}'i kirmizi (son kosu: {2})" -f $s.oran_pencere, $s.oran_kirmizi, $s.son_sonuc } }
+$satirlar = $bildirim | ForEach-Object { "{0}{1} — {2} (son: {3})" -f $(if ($Kritik -contains $_.dosya) { 'KRITIK · ' } else { '' }), $_.dosya, (OlcuMetni $_), $_.son_ne }
 
 if ($Sessiz) {
   Write-Host ""
@@ -255,7 +290,7 @@ if ($Sessiz) {
 }
 
 if ($env:RESEND_KEY) {
-  $sat  = ($bildirim | ForEach-Object { "<li><a href=""$($_.son_url)"">$($_.dosya)</a> — $($_.seri) kosudur ust uste kirmizi<br><small>son: $($_.son_ne)</small></li>" }) -join ""
+  $sat  = ($bildirim | ForEach-Object { "<li>$(if ($Kritik -contains $_.dosya) { '<b>KRITIK</b> · ' })<a href=""$($_.son_url)"">$($_.dosya)</a> — $(OlcuMetni $_)<br><small>son: $($_.son_ne)</small></li>" }) -join ""
   $html = "<h3>CI kapisi kalici kirmizi</h3><p>Asagidaki kapilar ust uste basarisiz oluyor. Kalici kirmizi kapi kapi degildir — arkasindaki adimlar da kosmuyor olabilir.</p><ul>$sat</ul><p>Actions sekmesinden loga bak.</p>"
   $duz  = "CI kapisi kalici kirmizi`n`n" + ($satirlar -join "`n") + "`n`nActions sekmesinden loga bak."
   $mb   = @{ from = $env:RESEND_FROM; to = @("cemdizdar85@hotmail.com"); subject = $konu; html = $html; text = $duz } | ConvertTo-Json -Depth 3
