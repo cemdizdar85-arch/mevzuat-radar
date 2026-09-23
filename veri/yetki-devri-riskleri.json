@@ -1,11 +1,11 @@
 {
-  "tarih": "23.09.2026 05:09",
+  "tarih": "23.09.2026 09:35",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 880,
   "riskli_madde": 1313,
   "sayfa": 72,
-  "atifli_iddia": 311,
-  "dayanaksiz_iddia": 390,
+  "atifli_iddia": 312,
+  "dayanaksiz_iddia": 393,
   "kirmizi_aday": 30,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 297,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 278,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -194,7 +194,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1498,
+      "satir": 1505,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1532,79 +1532,79 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1043,
+      "satir": 1050,
       "iddia": "2 gün",
       "metin": "/* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur."
     },
     {
       "sayfa": "index.html",
-      "satir": 1050,
+      "satir": 1057,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Ku"
     },
     {
       "sayfa": "index.html",
-      "satir": 1052,
+      "satir": 1059,
       "iddia": "7 gün",
       "metin": "else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');"
     },
     {
       "sayfa": "index.html",
-      "satir": 1104,
+      "satir": 1111,
       "iddia": "2 gün",
       "metin": "ozetEl.textContent=(SINAV_AD[aktifSinav]||'Bu sınavın')+' soru bankası hazırlanıyor. Açıldığında burada her gün bir soru olacak: şıkkı seçersin, Nöbetçi neden doğru ya da yanlış ol"
     },
     {
       "sayfa": "index.html",
-      "satir": 1178,
+      "satir": 1185,
       "iddia": "%100",
       "metin": "Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·"
     },
     {
       "sayfa": "index.html",
-      "satir": 1179,
+      "satir": 1186,
       "iddia": "%96",
       "metin": "\"Nöbetçi anlatsın\" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir)."
     },
     {
       "sayfa": "index.html",
-      "satir": 1180,
+      "satir": 1187,
       "iddia": "%40",
       "metin": "BİLEREK YAZILMADI: \"ikizini sen çöz\" - yalnız %40'ında var. -->"
     },
     {
       "sayfa": "index.html",
-      "satir": 1190,
+      "satir": 1197,
       "iddia": "2 gün",
       "metin": "4 Unutma Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar."
     },
     {
       "sayfa": "index.html",
-      "satir": 1309,
+      "satir": 1316,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 1325,
+      "satir": 1332,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 1358,
+      "satir": 1365,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 1361,
+      "satir": 1368,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1552,
+      "satir": 1559,
       "iddia": "5 gün",
       "metin": "robot bugün koştuğu hâlde dosya değişmediği için 5 gün eskide kalıyordu. Akış bandı raftaki"
     },
@@ -2366,27 +2366,45 @@
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 213,
+      "satir": 226,
       "iddia": "2 gün",
       "metin": "Yanlışların yanlış kutuna düştü; 2 gün sonra ders sayfasında yeniden karşına çıkar."
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 226,
+      "satir": 239,
       "iddia": "%80",
       "metin": "Geçme sınırı: TESMER Uygulama Yönergesi'ne göre geçmişte \"soruların %80'ini doğru cevaplayanların başarılı sayıldığı sınavlar olduğu gibi %60'ını doğru cevaplayanların başarısız bu"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 227,
+      "satir": 240,
       "iddia": "%5",
       "metin": "Geçme ihtimali: doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. Ne kadar isabetli? 16.09.2026'da bu modelle 7"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 385,
+      "satir": 249,
+      "iddia": "100 puan",
+      "metin": "Ders ders: bir derste 3-5 soru var; 3'te 3 \"100 puan\" demek değildir. Az soruda tahmin genel seviyene doğru çekilir."
+    },
+    {
+      "sayfa": "seviye-testi.html",
+      "satir": 251,
+      "iddia": "%80",
+      "metin": "Güçlü / Sınırda / Riskli: o dersten 50'yi geçme ihtimalin %80 ve üstü · %50–80 · %50'nin altı."
+    },
+    {
+      "sayfa": "seviye-testi.html",
+      "satir": 504,
       "iddia": "7 gün",
       "metin": "+' · 7 gün koşulsuz iade';"
+    },
+    {
+      "sayfa": "seviye-testi.html",
+      "satir": 595,
+      "iddia": "10 yıl",
+      "metin": "$('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaş"
     },
     {
       "sayfa": "sinav-gibi.html",
@@ -8022,7 +8040,7 @@
     {
       "dosya": "ttk",
       "kaynak_ad": "TTK (6102 s.K.) gec. m.13",
-      "kesit": "...len süreyi üç ay uzatmaya ve kısaltmaya Cumhurbaşkanı yetkilidir.116 (2) Genel kurulca 2019 yılı hesap dönemine ilişkin kâr payı dağıtımı kararı alınmış ancak henüz pay sahiplerine ödeme yapılmamışsa ..."
+      "kesit": "...len süreyi üç ay uzatmaya ve kısaltmaya Cumhurbaşkanı yetkilidir.115 (2) Genel kurulca 2019 yılı hesap dönemine ilişkin kâr payı dağıtımı kararı alınmış ancak henüz pay sahiplerine ödeme yapılmamışsa ..."
     },
     {
       "dosya": "tuketici",
