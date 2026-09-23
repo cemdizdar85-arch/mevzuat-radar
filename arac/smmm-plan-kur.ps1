@@ -63,7 +63,11 @@ param(
   # 23.09: bir planın en fazla satır sayısı (bulut işi paralel=8 → 8 satır TEK SIRA koşar). Bkz. SATIR TAVANI.
   [int]$SatirTavan = 8,
   # 23.09: dalga soruları derslere AÇIKLA orantılı paylaştırılır (aşağıda "DERS PAYI"); bu anahtar eski tek-liste seçimine döner
-  [switch]$DersPayiYok
+  [switch]$DersPayiYok,
+  # 23.09 (Cem "1.2.3 üçünü de yap"): bu derslerde son-10-yıl eşiği 1 — Hukuk tabloda 204 açıkken dalgadan 10 soru
+  #   alıyordu, çünkü konularının çoğu son 10 yılda BİR kez sorulmuş (eşik 2'nin altında). 1 kez sorulmuş konu hâlâ
+  #   "yeni" kuralına uyar (son 10 yılda sorulmuş). Öbür derslerde -CikmisEsik geçerli.
+  [string]$DusukEsikDersler = 'Hukuk,Muh. ve Mali Müş. Meslek Hukuku'
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -126,11 +130,14 @@ if ($RezerveEtiket) {
   }
   "KOŞAN DALGA REZERVİ ($RezerveEtiket): $rezDosya konu dosyası · $rezSoru soru rezerv · açıktan düşülen $dusen"
 }
+$dusukEsik = @{}; foreach ($dd in @($DusukEsikDersler -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })) { $dusukEsik[$dd] = 1 }
+if ($dusukEsik.Count) { "DUSUK ESIK (son10 >= 1): " + (@($dusukEsik.Keys) -join ' · ') }
 $havuz = @($c | Where-Object {
+    $esikBu = $(if ($dusukEsik.ContainsKey("$($_.ders)")) { [Math]::Min(1, $CikmisEsik) } else { $CikmisEsik })
     # ⛔ 23.09 YENİLİK KURALI (Cem "10 yıldır sorulmayan konuya soru basmayalım"): eşik ve sıra artık SON 10 YIL
     #   sıklığıyla (son10). Tüm zamanlar sayısı yanıltıyordu: "şüpheli alacak karşılığı" 25 kez çıkmış ama
     #   son 10 yılda 1 kez (son 2020/2); eski kuralla 3 soru basılacaktı. son10 sütunu yoksa tablo eskidir → durur.
-    [int]$_.son10 -ge $CikmisEsik -and [int]$_.acik -gt 0 -and -not $_.engel -and
+    [int]$_.son10 -ge $esikBu -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
     ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true }))
   } | Sort-Object { [int]$_.son10 }, { [int]$_.acik } -Descending)

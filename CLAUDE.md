@@ -283,6 +283,8 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      dersler ~7. Gerçek sınavda her ders ayrı sınav. Kural: önce dersler arası pay, **her ders en az 350**, kalan son-10-yıl
      ağırlığıyla (tablo `-DersTaban 350`; 23.09 sonuç: FM 1.528, öbür 7 ders 350'şer, "A / B" ortak konular ~22). Plan
      kurucu dalganın sorusunu derslere **havuzdaki açıkla orantılı** böler, ders içinde sıra son10 (`-DersPayiYok` eski hal).
+     Hukuk + Meslek Hukuku'nda son-10-yıl eşiği **1** (`-DusukEsikDersler`; konuları çoğunlukla 10 yılda bir kez soruluyor,
+     eşik 2'de Hukuk 204 açığa karşın dalgadan 10 soru alıyordu → 46). 1 kez sorulmuş konu yine "son 10 yılda sorulmuş"tur.
   0b. ⛔⭐ **SON 10 YIL KURALI** (Cem, 23.09.2026: *"10 yıldır sorulmayan bir soruya bizde soru basmamalıyız · son 10 yıl kural
      oluşturalım, ona göre soru ve kanun baksın"*). Konunun ağırlığı **tüm zamanların çıkma sayısı DEĞİL, son 10 yılda kaç kez
      sorulduğu**dur (`son10` sütunu, kaynak `veri/smmm-analiz.json` — 419 dönem×ders kaydı, 2008–2026). Son 10 yılda hiç
