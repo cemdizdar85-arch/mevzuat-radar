@@ -65,7 +65,8 @@ $kok = Split-Path -Parent $buDizin
 $onay = SmmmOnayHarita $kok
 
 function Nrm([string]$s) {
-  $t = "$s".ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
+  # Önce İ/ı katlanır, SONRA küçültülür (Linux/ICU'da 'İ'.ToLowerInvariant() = 'i'+U+0307; 23.09 dalga öz-sınavı yakaladı).
+  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
   return (($t -replace '[^a-z0-9 ]', ' ') -replace '\s+', ' ').Trim()
 }
 
