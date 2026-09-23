@@ -35,7 +35,7 @@
 #               kanun aynasında (veri/mevzuat/<slug>.json, -AynaCommit) durur. Aynanın birleşik boyu tabanın boyuna
 #               eşitse VE aynadaki parça metinleri bugünkü ambar parçalarıyla birebir aynı çok-kümeyse → metin aynı.
 #               (22.09 VUK gec. m.1: 22 parça, 22! diziliş denenemez.)
-param([string]$TabanCommit = '0c628487^', [string]$AynaCommit = '7e766a01^', [string]$Sinav = 'SMMM', [switch]$Yaz)
+param([string]$TabanCommit = '0c628487^', [string]$AynaCommit = '7e766a01^', [string]$AynaYeniCommit = 'HEAD', [string]$Sinav = 'SMMM', [string]$MaddeOnEk = '', [switch]$Yaz)   # -MaddeOnEk '6102|': yalnız o kanunun kayıtları (taban her alarm için farklıdır)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -56,6 +56,7 @@ $onEk = "$($Sinav.ToLowerInvariant())-"
 #   yerine SONRASI okunuyor ve 'AYNI-METİN' kanıtı anlamsız çıkıyordu. Sürüm önce git rev-parse ile tam kimliğe çözülür.
 $TabanSha = "$(& git -C $kok rev-parse --verify --quiet "$TabanCommit")".Trim(); if (-not $TabanSha) { throw "taban sürümü çözülemedi: $TabanCommit" }
 $AynaSha = "$(& git -C $kok rev-parse --verify --quiet "$AynaCommit")".Trim(); if (-not $AynaSha) { throw "ayna sürümü çözülemedi: $AynaCommit" }
+$AynaYeniSha = "$(& git -C $kok rev-parse --verify --quiet "$AynaYeniCommit")".Trim(); if (-not $AynaYeniSha) { throw "yeni ayna sürümü çözülemedi: $AynaYeniCommit" }
 $tabanDosya = Join-Path $env:TEMP 'md-taban-dogrula.json'
 & cmd /c "git -C `"$kok`" cat-file blob $($TabanSha):veri/mevzuat/_madde-damga-onceki.json > `"$tabanDosya`""
 if ($LASTEXITCODE) { throw "taban okunamadı: $TabanCommit" }
@@ -83,17 +84,22 @@ function Parcalar([string]$anahtar, [string]$kaynak) {
 }
 # kanun aynasının (git) eski sürümündeki parçalar — manifestte adı kaynak önekiyle başlayan kanunun <slug>.json'u
 $script:aynaOnbellek = @{}
-function AynaParcalari([string]$anahtar, [string]$kaynak) {
+function AynaParcalari([string]$anahtar, [string]$kaynak, [string]$sha = $AynaSha) {
   $on = [regex]::Match($kaynak, '^(.*?\(\d{3,4}[^)]*\))').Groups[1].Value
   $law = @($manifest.kanunlar | Where-Object { "$($_.ad)" -eq $on }) | Select-Object -First 1
   if (-not $law) { return @() }
-  if (-not $script:aynaOnbellek.ContainsKey($law.slug)) {
-    $f = Join-Path $env:TEMP "md-ayna-$($law.slug).json"
-    & cmd /c "git -C `"$kok`" cat-file blob $($AynaSha):veri/mevzuat/$($law.slug).json > `"$f`" 2>nul"
-    $script:aynaOnbellek[$law.slug] = $(if ($LASTEXITCODE) { @() } else { @((Get-Content $f -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler) })
+  $ok = "$sha|$($law.slug)"
+  if (-not $script:aynaOnbellek.ContainsKey($ok)) {
+    $f = Join-Path $env:TEMP "md-ayna-$($sha.Substring(0,8))-$($law.slug).json"
+    & cmd /c "git -C `"$kok`" cat-file blob $($sha):veri/mevzuat/$($law.slug).json > `"$f`" 2>nul"
+    $script:aynaOnbellek[$ok] = $(if ($LASTEXITCODE) { @() } else { @((Get-Content $f -Raw -Encoding UTF8 | ConvertFrom-Json).belgeler) })
   }
-  return @($script:aynaOnbellek[$law.slug] | Where-Object { (Anahtar "$($_.kaynak_ad)") -eq $anahtar })
+  return @($script:aynaOnbellek[$ok] | Where-Object { (Anahtar "$($_.kaynak_ad)") -eq $anahtar })
 }
+# dipnot numarası ayıklama: PDF metninde dipnot işareti kelimeye/noktalamaya bitişik sayıdır ("yetkilidir.116", "(…)118").
+# Yalnız NOKTALAMA ya da kapanış parantezinden hemen sonra gelen 1-3 haneli sayı atılır; madde içi tutar/tarih/oran
+# (boşlukla ayrılmış ya da "/" ile bağlı) dokunulmaz. Sonra Sadelestir (küçük harf + boşluk).
+function DipnotSil([string]$t) { return (Sadelestir ([regex]::Replace("$t", '(?<=[\.\)…:;,])\d{1,3}(?=\s|$)', ''))) }
 $manifest = Get-Content (Join-Path $kok 'veri\mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 # alt küme + diziliş araması: uzunlukla budanır
 function DizilisBul($parca, [int]$hedefBoy, [string]$hedefDamga) {
@@ -131,7 +137,7 @@ function EnGecTarih([string]$metin) {
 
 # --- engel kayıtları madde başına
 $liste = MdListeOku $kok
-$maddeler = @($liste.Values | Group-Object { "$($_.madde)|$($_.tur)" })
+$maddeler = @($liste.Values | Where-Object { -not $MaddeOnEk -or "$($_.madde)".StartsWith($MaddeOnEk) } | Group-Object { "$($_.madde)|$($_.tur)" })
 Write-Host ("engel kaydı {0} · madde×tür {1} · taban {2} ({3:dd.MM.yyyy})" -f $liste.Count, $maddeler.Count, $TabanCommit, $tabanTarih)
 $sonuc = New-Object System.Collections.Generic.List[object]
 foreach ($g in $maddeler) {
@@ -164,8 +170,21 @@ foreach ($g in $maddeler) {
         if ($ay.Count -and $ayBoy -eq [int]$tb.Value.uzunluk) {
           $k1 = @($ay | ForEach-Object { Damga "$($_.metin)" } | Sort-Object) -join ','; $k2 = @($parca | ForEach-Object { Damga "$($_.metin)" } | Sort-Object) -join ','
           if ($k1 -eq $k2) { $kanit = 'AYNI-PARÇA-KÜMESİ'; $detay = "$($parca.Count) parça; ayna $AynaCommit boyu $ayBoy = taban boyu; parça metinleri birebir (diziliş $($parca.Count)! denenemez)" }
-          else { $neden = "ayna ($AynaCommit) ile bugünkü parçalar farklı → metin değişmiş olabilir" }
-        } else { $neden = "tabandaki damga ($($tb.Value.uzunluk) kr) diziliş aramasıyla çıkmadı ($($parca.Count) parça); ayna boyu $ayBoy ≠ taban → kanıt yok" }
+          else {
+            $ayYeni = @(AynaParcalari $an "$($ornek.kaynak)" $AynaYeniSha)
+            $t1 = DipnotSil (@($ay | Sort-Object kaynak_ad | ForEach-Object { "$($_.metin)" }) -join ' '); $t2 = DipnotSil (@($ayYeni | Sort-Object kaynak_ad | ForEach-Object { "$($_.metin)" }) -join ' ')
+            if ($ayYeni.Count -and $t1 -eq $t2) { $kanit = 'KANUN-AYNASI-AYNI'; $detay = "kanun aynası $AynaCommit → ${AynaYeniCommit}: madde metni dipnot numarası dışında birebir ($($t2.Length) kr)" }
+            else { $neden = "ayna ($AynaCommit) ile bugünkü parçalar farklı ve kanun aynasında metin değişmiş → metin değişmiş olabilir" }
+          }
+        } else {
+          # 4. yol — KANUN-AYNASI-AYNI (23.09, TTK vakası): anahtar başka kayıtları da topladığı için taban boyu tutmayabilir
+          # (m.332 taban 2.172 kr, TTK aynasında 1.090). Kanunun KENDİ aynasında maddenin metni, yutmadan önce (-AynaCommit)
+          # ve bugün (-AynaYeniCommit) DİPNOT NUMARALARI ayıklanınca birebir aynıysa kanun metni değişmemiştir.
+          $ayYeni = @(AynaParcalari $an "$($ornek.kaynak)" $AynaYeniSha)
+          $t1 = DipnotSil (@($ay | Sort-Object kaynak_ad | ForEach-Object { "$($_.metin)" }) -join ' '); $t2 = DipnotSil (@($ayYeni | Sort-Object kaynak_ad | ForEach-Object { "$($_.metin)" }) -join ' ')
+          if ($ay.Count -and $ayYeni.Count -and $t1 -eq $t2) { $kanit = 'KANUN-AYNASI-AYNI'; $detay = "kanun aynası $AynaCommit → ${AynaYeniCommit}: madde metni dipnot numarası dışında birebir ($($t2.Length) kr)" }
+          else { $neden = "tabandaki damga ($($tb.Value.uzunluk) kr) diziliş aramasıyla çıkmadı ($($parca.Count) parça); kanun aynasında metin farklı → kanıt yok" }
+        }
       }
     }
   }
@@ -187,7 +206,7 @@ $md.Add(''); $md.Add("**$ozet**$(if (-not $Yaz) { ' — KURU KOŞU, liste deği�
 $md.Add('| madde | kaynak | tür | soru | sınav | sonuç | kanıt / neden |'); $md.Add('|---|---|---|---:|---|---|---|')
 foreach ($s in ($sonuc | Sort-Object { -$_.soru })) { $md.Add("| $($s.madde) | $($s.ad) | $($s.tur) | $($s.soru) | $($s.sinav) | $(if ($s.kanit) { $s.kanit } else { 'KANITSIZ — engel kalır' }) | $(if ($s.kanit) { $s.detay } else { $s.neden }) |") }
 $md.Add(''); $md.Add('Kanıt kuralları betiğin başında. Başka sınavın kanıtlı kayıtları o sınavın sahibi tarafından `-Sinav <SGS|KGK> -Yaz` ile kaldırılır.')
-[IO.File]::WriteAllText((Join-Path $kok 'veri\sinav\MEVZUAT-DEGISTI-DOGRULAMA.md'), ($md -join "`r`n"), (New-Object Text.UTF8Encoding $false))
+[IO.File]::WriteAllText((Join-Path $kok ('veri\sinav\MEVZUAT-DEGISTI-DOGRULAMA' + $(if ($MaddeOnEk) { '-' + ($MaddeOnEk -replace '[^0-9a-z]', '') } else { '' }) + '.md')), ($md -join "`r`n"), (New-Object Text.UTF8Encoding $false))
 
 if ($Yaz -and $kalkacak.Count) {
   foreach ($k in $kalkacak) { [void]$liste.Remove("$($k.anahtar)") }

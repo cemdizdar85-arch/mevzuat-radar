@@ -199,6 +199,13 @@ jobs:
           - { ad: "Damga degisim turu OZ-SINAVI (dizilis kaymasi soru cekmesin)",
               kabuk: pwsh, komut: "./arac/damga-degisim-sinavi.ps1" }
 
+          # 23.09.2026 - Engel dogrulama araci (yayindan cekilen soruyu KANITLA geri acar) ayni gun iki kez yanlis
+          # kanit uretti: cmd '^' kacisi alarm SONRASI tabani okuttu; kelime cok-kumesi sira korudu. 13 vaka:
+          # dizilis/damga, dipnot ayiklama (tutar/tarih/bent/sira DOKUNULMAZ), tarih, '^' gerilemesi.
+          # Mutasyonla olculdu: caret geri, damga kontrolu yok, dipnot her sayiyi siler -> sinav KIRMIZI.
+          - { ad: "Engel dogrulama OZ-SINAVI (yanlis kanitla soru geri acilmasin)",
+              kabuk: pwsh, komut: "./arac/mevzuat-degisti-dogrula-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
