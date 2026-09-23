@@ -38,6 +38,70 @@ function kacis(s: string): string { return s.replace(/&/g, "&amp;").replace(/</g
 
 export type Sonuc = { gecme: number; dogru130: number; soru: number; dogru: number; gruplar: { ad: string; dogru: number; soru: number }[] };
 
+// 23.09.2026 YETERLİLİK (Cem "3 yap"): seviye-testi.html?sinav=yeterlilik karnesi. Aynı spam kuralı: tarayıcıdan
+// yalnız sayı + bilinen ders adı + üç durum etiketinden biri; mail metni tamamen burada kurulur.
+// Ders adları veri/seviye/smmm-set.json ile birebir; durum eşikleri seviye-model-yet.js (%80 / %50).
+export const DERS_ADLARI_YET = ["Finansal Muhasebe", "Maliyet Muhasebesi", "Finansal Tablolar ve Analizi", "Vergi Mevzuatı ve Uygulaması",
+  "Muhasebe Denetimi", "Hukuk", "Meslek Hukuku", "Sermaye Piyasası Mevzuatı"];
+const DURUMLAR = ["guclu", "sinirda", "riskli"];
+const DURUM_AD: Record<string, string> = { guclu: "Güçlü", sinirda: "Sınırda", riskli: "Riskli" };
+export type SonucYet = { gecme: number; soru: number; dogru: number; tezkiye: number; dersler: { ad: string; dogru: number; soru: number; durum: string }[] };
+
+export function dogrulaYet(s: any): { ok: true; sonuc: SonucYet } | { ok: false; neden: string } {
+  s = s ?? {};
+  const soru = tamsayi(s.soru, 1, 40), gecme = tamsayi(s.gecme, 5, 95), tezkiye = tamsayi(s.tezkiye, 80, 100);
+  const dogru = soru === null ? null : tamsayi(s.dogru, 0, soru);
+  if (soru === null || gecme === null || tezkiye === null || dogru === null) return { ok: false, neden: "sonuc sayilari gecersiz" };
+  if (!Array.isArray(s.dersler) || s.dersler.length < 1 || s.dersler.length > DERS_ADLARI_YET.length) return { ok: false, neden: "dersler gecersiz" };
+  const dersler: SonucYet["dersler"] = [], gorulen = new Set<string>();
+  let ts = 0, td = 0;
+  for (const g of s.dersler) {
+    if (!g || !DERS_ADLARI_YET.includes(g.ad) || gorulen.has(g.ad)) return { ok: false, neden: "ders adi gecersiz" };
+    if (!DURUMLAR.includes(g.durum)) return { ok: false, neden: "ders durumu gecersiz" };
+    const gs = tamsayi(g.soru, 1, 10); const gd = gs === null ? null : tamsayi(g.dogru, 0, gs);
+    if (gs === null || gd === null) return { ok: false, neden: "ders sayilari gecersiz" };
+    gorulen.add(g.ad); dersler.push({ ad: g.ad, dogru: gd, soru: gs, durum: g.durum }); ts += gs; td += gd;
+  }
+  if (ts !== soru || td !== dogru) return { ok: false, neden: "ders toplami tutmuyor" };
+  return { ok: true, sonuc: { gecme, soru, dogru, tezkiye, dersler } };
+}
+
+export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: string } {
+  const seviye = s.gecme >= 70 ? "Hazıra yakınsın" : s.gecme >= 40 ? "Sınırdasın" : "Bugün girsen zorlanırsın";
+  const risk = s.dersler.filter(d => d.durum === "riskli");
+  const oneri = risk.length
+    ? `Yeterlilik'te güçlü derslerin seni kurtarmaz: tek bir dersin 50'nin altında kalırsa sınavı kaybedersin. Önce ${risk.length > 3 ? "en zayıf derslerin" : "riskli derslerin"}: ${risk.slice(0, 3).map(d => d.ad).join(", ")}.`
+    : s.gecme >= 70 ? "Sekiz dersin hiçbiri riskli görünmüyor. Sınırdaki derslerini sağlamlaştır." : "Hiçbir dersin riskli değil ama çoğu sınırda: ortalamayı 60'ın üstüne çıkaracak birkaç doğru eksik.";
+  const site = "https://tetikte.com";
+  const metin = [
+    `Tetikte seviye testi karnen - SMMM Yeterlilik`, ``,
+    `Geçme ihtimalin: %${s.gecme} (${seviye})`,
+    `Bu testte: ${s.dogru} / ${s.soru} doğru · tezkiye notu ${s.tezkiye} alındı`, ``,
+    ...s.dersler.map(d => `${d.ad}: ${d.dogru} / ${d.soru} - ${DURUM_AD[d.durum]}`), ``,
+    oneri, ``,
+    `Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır; banka açıldığında bu adrese haber vereceğiz.`,
+    `Örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/smmm.html`,
+    `Testi yeniden çöz: ${site}/seviye-testi.html?sinav=yeterlilik`, ``,
+    `Nasıl hesaplandı? Bu bir TAHMİNDİR. Yeterlilik'te her dersten en az 50 almak ve derslerin ortalamasının en az 60 olması gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, bu testteki cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi. Ayrıntı: ${site}/seviye-testi.html?sinav=yeterlilik`, ``,
+    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
+  ].join("\n");
+  const renk: Record<string, string> = { guclu: "#15803d", sinirda: "#8d6c38", riskli: "#b91c1c" };
+  const g = s.dersler.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;color:${renk[x.durum]}">${DURUM_AD[x.durum]}</td></tr>`).join("");
+  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px">
+<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · SMMM Yeterlilik seviye testi</p>
+<h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
+<p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · bu testte ${s.dogru} / ${s.soru} · tezkiye ${s.tezkiye}</p>
+<table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
+<p style="margin:0 0 16px">${kacis(oneri)}</p>
+<p style="margin:0 0 10px">Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır; banka açıldığında bu adrese haber vereceğiz.</p>
+<p style="margin:0 0 18px"><a href="${site}/kaydir/vitrin/smmm.html" style="background:#cfa163;color:#221704;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:8px;display:inline-block">Örnek soruları çöz →</a>
+&nbsp; <a href="${site}/seviye-testi.html?sinav=yeterlilik" style="color:#8d6c38;font-weight:700">Testi yeniden çöz</a></p>
+<p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Yeterlilik'te her dersten en az 50 ve ortalamada en az 60 gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi.</p>
+<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
+</div>`;
+  return { konu: `Yeterlilik seviye testi karnen: geçme ihtimalin %${s.gecme}`, metin, html };
+}
+
 // Doğrulama: yalnız sayılar ve bilinen grup adları. Hata varsa null + neden.
 export function dogrula(veri: any): { ok: true; eposta: string; izin: boolean; sonuc: Sonuc } | { ok: false; neden: string } {
   if (!veri || typeof veri !== "object" || Array.isArray(veri)) return { ok: false, neden: "nesne degil" };
@@ -117,7 +181,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "05689ba2c711c316";
+const KOD_IMZA = "3a6b24a10487f851";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
@@ -176,14 +240,21 @@ if (Deno && Deno.serve) {
     if (ham.length > 4096) return cevap(413, { success: false, hata: "govde cok buyuk" }, origin);
     let veri: any; try { veri = JSON.parse(ham); } catch { return cevap(400, { success: false, hata: "json degil" }, origin); }
     if (veri && (veri._hp || veri.botcheck)) return cevap(200, { success: true, posta: false, kayit: false }, origin);
-    const d = dogrula(veri);
+    // 23.09: Yeterlilik ayrı doğrulayıcıdan geçer; e-posta / KVKK kuralı SGS ile aynı
+    const yet = veri && veri.sinav === "yeterlilik";
+    const d: any = yet ? (() => {
+      const e = String(veri.eposta ?? "").trim().toLowerCase();
+      if (!epostaGecerli(e)) return { ok: false, neden: "e-posta bicimi gecersiz" };
+      if (veri.kvkk !== true) return { ok: false, neden: "kvkk onayi yok" };
+      const y = dogrulaYet(veri.sonuc); return y.ok ? { ok: true, eposta: e, izin: veri.izin_ileti === true, sonuc: y.sonuc } : y;
+    })() : dogrula(veri);
     if (!d.ok) return cevap(400, { success: false, hata: d.neden }, origin);
     const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
     if (await hizAsti(ip)) return cevap(429, { success: false, hata: "cok sik gonderi, biraz sonra dene" }, origin);
     if (await epostaSiniri(d.eposta)) return cevap(429, { success: false, hata: "bu adrese bugun yeterince karne gonderildi" }, origin);
     if (!RESEND_KEY) return cevap(503, { success: false, hata: "posta anahtari tanimli degil" }, origin);
 
-    const m = mailKur(d.sonuc);
+    const m = yet ? mailKurYet(d.sonuc) : mailKur(d.sonuc);
     let postaOk = false;
     try {
       const r = await fetch("https://api.resend.com/emails", { method: "POST",
@@ -192,9 +263,13 @@ if (Deno && Deno.serve) {
       postaOk = r.ok;
     } catch { postaOk = false; }
 
-    const kayitOk = await kasayaYaz({ konu: KONU, gonderen: "Seviye testi", eposta: d.eposta, sayfa: req.headers.get("referer")?.slice(0, 300) ?? null, koken: origin,
-      alanlar: { "Geçme ihtimali": `%${d.sonuc.gecme}`, "Tahmini doğru (130)": String(d.sonuc.dogru130), "Test": `${d.sonuc.dogru}/${d.sonuc.soru}`,
-        "Gruplar": d.sonuc.gruplar.map(g => `${g.ad} ${g.dogru}/${g.soru}`).join(" · "), "KVKK onayı": "evet", "Kampanya/hatırlatma izni": d.izin ? "evet" : "hayır",
+    const kayitOk = await kasayaYaz({ konu: KONU, gonderen: yet ? "Seviye testi (Yeterlilik)" : "Seviye testi", eposta: d.eposta, sayfa: req.headers.get("referer")?.slice(0, 300) ?? null, koken: origin,
+      alanlar: yet
+        ? { "Sınav": "Yeterlilik", "Geçme ihtimali": `%${d.sonuc.gecme}`, "Test": `${d.sonuc.dogru}/${d.sonuc.soru}`, "Tezkiye": String(d.sonuc.tezkiye),
+            "Dersler": d.sonuc.dersler.map((g: any) => `${g.ad} ${g.dogru}/${g.soru} ${DURUM_AD[g.durum]}`).join(" · "), "KVKK onayı": "evet",
+            "Kampanya/hatırlatma izni": d.izin ? "evet" : "hayır", "Karne maili": postaOk ? "gitti" : "GİTMEDİ" }
+        : { "Geçme ihtimali": `%${d.sonuc.gecme}`, "Tahmini doğru (130)": String(d.sonuc.dogru130), "Test": `${d.sonuc.dogru}/${d.sonuc.soru}`,
+        "Gruplar": d.sonuc.gruplar.map((g: any) => `${g.ad} ${g.dogru}/${g.soru}`).join(" · "), "KVKK onayı": "evet", "Kampanya/hatırlatma izni": d.izin ? "evet" : "hayır",
         "Karne maili": postaOk ? "gitti" : "GİTMEDİ" } });
 
     if (!postaOk) return cevap(502, { success: false, posta: false, kayit: kayitOk, hata: "posta gonderilemedi" }, origin);

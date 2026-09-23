@@ -1,5 +1,5 @@
 // Öz-sınav: node radar-app/edge/karne-gonder.sinav.ts  (Node 24 tür silme; ağ/posta YOK)
-import { dogrula, mailKur, kokenIzinli } from "./karne-gonder.ts";
+import { dogrula, mailKur, kokenIzinli, dogrulaYet, mailKurYet } from "./karne-gonder.ts";
 
 let hata = 0;
 const bekle = (ad: string, k: boolean) => { console.log((k ? "  geçti  " : "  DÜŞTÜ  ") + ad); if (!k) hata++; };
@@ -25,5 +25,22 @@ bekle("mail: geçme yüzdesi, tahmini doğru, en zayıf grup, 'tahmin' notu, KVK
   m.konu.includes("%62") && m.html.includes("yaklaşık <b>91</b>") && m.metin.includes("En çok çalışman gereken grup: Ekonomi ve Maliye") && m.metin.includes("Bu bir TAHMİNDİR") && m.html.includes("/kvkk.html"));
 bekle("seviye metni eşikleri: 62 -> Sınırdasın", m.metin.includes("Sınırdasın"));
 bekle("köken: tetikte.com izinli, başka site değil", kokenIzinli("https://tetikte.com") && kokenIzinli("http://localhost:5173") && !kokenIzinli("https://kotu.example"));
-console.log(`KARNE-GÖNDER öz-sınav: ${13 - hata}/13`);
+// 23.09 YETERLİLİK
+const yet = () => ({ gecme: 23, soru: 30, dogru: 12, tezkiye: 85, dersler: [
+  { ad: "Finansal Muhasebe", dogru: 2, soru: 5, durum: "riskli" }, { ad: "Maliyet Muhasebesi", dogru: 1, soru: 5, durum: "riskli" },
+  { ad: "Finansal Tablolar ve Analizi", dogru: 2, soru: 4, durum: "sinirda" }, { ad: "Vergi Mevzuatı ve Uygulaması", dogru: 2, soru: 4, durum: "sinirda" },
+  { ad: "Muhasebe Denetimi", dogru: 1, soru: 3, durum: "riskli" }, { ad: "Hukuk", dogru: 1, soru: 3, durum: "sinirda" },
+  { ad: "Meslek Hukuku", dogru: 3, soru: 3, durum: "guclu" }, { ad: "Sermaye Piyasası Mevzuatı", dogru: 0, soru: 3, durum: "riskli" } ] });
+const y = dogrulaYet(yet());
+bekle("YET: geçerli sonuç kabul", y.ok === true);
+const bozY = (f: (v: any) => void) => { const v: any = yet(); f(v); return dogrulaYet(v).ok; };
+bekle("YET: bilinmeyen ders adı (serbest metin) RED", bozY(v => { v.dersler[0].ad = "<b>kampanya</b>"; }) === false);
+bekle("YET: bilinmeyen durum RED", bozY(v => { v.dersler[0].durum = "<script>"; }) === false);
+bekle("YET: tezkiye 79 (kabul notunun altı) RED", bozY(v => { v.tezkiye = 79; }) === false);
+bekle("YET: ders toplamı tutmazsa RED", bozY(v => { v.dersler[0].dogru = 3; }) === false);
+bekle("YET: tekrarlanan ders RED", bozY(v => { v.dersler[1].ad = "Finansal Muhasebe"; }) === false);
+const my = mailKurYet((y as any).sonuc);
+bekle("YET mail: yüzde, ders durumu, m.16/b notu, riskli ders önerisi, KVKK var",
+  my.konu.includes("%23") && my.metin.includes("Meslek Hukuku: 3 / 3 - Güçlü") && my.metin.includes("m.16/b") && my.metin.includes("Önce en zayıf derslerin: Finansal Muhasebe") && my.html.includes("/kvkk.html") && my.metin.includes("TAHMİNDİR"));
+console.log(`KARNE-GÖNDER öz-sınav: ${20 - hata}/20`);
 if (hata) process.exit(1);

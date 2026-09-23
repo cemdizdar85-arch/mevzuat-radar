@@ -458,14 +458,25 @@
      ⛔ Gönderi düşse bile sonuç GÖSTERİLİR: adam 30 soruyu çözdü, bizim sunucu hatamız yüzünden eli boş kalmaz. */
   function karneGonder(){
     var k=kayitOku(); if(!k||!SONUC) return;
-    /* YET: karne-gonder yalnız 'sgs' kabul ediyor (23.09); Yeterlilik karnesi fonksiyon güncellenip yayınlanana kadar
-       e-posta VAAT EDİLMEZ, çağrılmaz. Aday + sonuç kaydı quick-task ile yine bize düşer. */
+    /* YET (23.09 Cem "3 yap"): karne-gonder 'yeterlilik' kabul ediyor (radar-app/edge/karne-gonder.ts dogrulaYet);
+       fonksiyon panelden yayınlanana kadar 400 döner -> yedek mesaj, sonuç ekranda kalır. Aday + sonuç kaydı quick-task ile
+       her durumda bize düşer. Soru/doğru sayısı DERSLERDEN toplanır: sunucuya ulaşılamayan soru hesaba girmediği için
+       toplamlar ders satırlarıyla tutmalı (fonksiyon tutmayanı reddeder). */
     if(YET){
+      var ds=SONUC.gruplar.map(function(x){ return {ad:x.ad,dogru:x.dogru,soru:x.soru,durum:x.durum}; }).filter(function(x){ return x.soru>0; });
+      var ts=ds.reduce(function(a,x){return a+x.soru;},0), td=ds.reduce(function(a,x){return a+x.dogru;},0);
+      var karneY=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+        body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'yeterlilik', _hp:'', sonuc:{ gecme:SONUC.gecme, soru:ts, dogru:td, tezkiye:SONUC.tezkiye, dersler:ds } }) })
+        .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
       fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
         body:JSON.stringify({ subject:'SEVIYE TESTI sonucu (Yeterlilik)', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
           cozulen_test:'yeterlilik', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru, tezkiye:String(SONUC.tezkiye),
           dersler:SONUC.gruplar.map(function(x){ return x.ad+' '+x.dogru+'/'+x.soru+' '+(DURUM_AD[x.durum]||''); }).join(' · '), _hp:'' }) }).catch(function(){});
-      var d=$('svKarneDurum'); d.hidden=false; d.textContent='Sonucun bu ekranda. Yeterlilik soru bankası açıldığında '+k.eposta+' adresine haber vereceğiz.';
+      karneY.then(function(ok){
+        var d=$('svKarneDurum'); d.hidden=false;
+        d.textContent = ok ? 'Karnen '+k.eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'
+                           : 'Sonucun bu ekranda. Yeterlilik soru bankası açıldığında '+k.eposta+' adresine haber vereceğiz.';
+      });
       return;
     }
     var ozet={ gecme:SONUC.gecme, dogru130:SONUC.dogru130, soru:SONUC.soru, dogru:SONUC.dogru,
