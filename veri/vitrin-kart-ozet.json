@@ -1,145 +1,137 @@
 {
-  "olcum": "2026-09-23T08:41:05.948Z",
-  "gun": "2026-09-23",
+  "olcum": "2026-09-23T23:35:37.656Z",
+  "gun": "2026-09-24",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 55,
+      "sira": 56,
       "toplam": 70,
-      "id": "sgs-p-meslek-cokzor-r4/kp-01",
-      "ders": "Meslek Hukuku",
-      "konu": "haksız rekabet reklam yasağı",
-      "kunye": "SGS 2025/1 Soru 103 kalıbı",
-      "donem": 7,
-      "teori": true,
+      "id": "sgs-t1-borclar-cokzor/kp-02",
+      "ders": "Borçlar Hukuku",
+      "konu": "haksız fiil zamanaşımı",
+      "kunye": "SGS 2025/3 Soru 128 kalıbı",
+      "donem": 4,
+      "teori": false,
       "rakamSik": false,
-      "soru": "Bir SMMM hakkında, Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Mesleklerine İlişkin Haksız Rekabet ve Reklam Yasağı Yönetmeliğine aykırılık iddiasıyla yapılan şikâyetin soruşturulması sürecine ilişkin olarak aşağıdakilerden hangisi doğrudur?",
+      "soru": "Bir haksız fiil 05.01.2016'da işlenmiş, zarar gören zararı ve tazminat yükümlüsünü 10.03.2019'da öğrenmiştir. Fiil, ceza kanununda 15 yıllık dava zamanaşımı öngörülen bir suçu da oluşturmaktadır. Zarar gören 20.02.2026 tarihinde tazminat davası açmıştır. Aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "Oda yönetim kurulu, bu Yönetmeliğe aykırılıklarla ilgili şikâyetler konusunda soruşturma yapılması görevini Haksız Rekabetle Mücadele Kuruluna verebilir; bu yetkinin kullanılması yönetim kurulunun takdirindedir.",
-        "B": "Bu tür şikâyetlerde soruşturma görevi doğrudan ve zorunlu olarak Haksız Rekabetle Mücadele Kuruluna aittir; oda yönetim kurulunun başka türlü bir görevlendirme yapma yetkisi bulunmamaktadır.",
-        "C": "Şikâyet konusu hususlar, oda disiplin kurulunun kendi üyeleri arasından görevlendireceği bir veya birden fazla üye tarafından doğrudan soruşturulur.",
-        "D": "Hakkında soruşturma yapılan meslek mensubu kendisine tanınan süre içinde bilgi vermese dahi, soruşturmayı yürütenler bu durumda dahi mutlaka sözlü ifadesini almak zorundadır.",
-        "E": "Meslek mensubundan bilgi almak için verilecek süre otuz günden az olamaz; bu süre dolmadan dosya üzerinden inceleme yapılamaz."
+        "A": "İki yıllık zamanaşımı süresi dolduğundan, tazminat istemi zamanaşımına uğramıştır.",
+        "B": "On yıllık zamanaşımı süresi dolduğundan, tazminat istemi zamanaşımına uğramıştır.",
+        "C": "On yıllık zamanaşımı süresi henüz dolmadığından, tazminat istemi zamanaşımına uğramamıştır.",
+        "D": "On beş yıllık ceza zamanaşımı süresi dolduğundan, tazminat istemi zamanaşımına uğramıştır.",
+        "E": "On beş yıllık ceza zamanaşımı süresi henüz dolmadığından, tazminat istemi zamanaşımına uğramamıştır."
       },
-      "dogru": "A",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Organ Karışıklığı Tuzağı",
-          "metin": "Soruşturmayı disiplin kurulunun bizzat yürüttüğünü sanırsın. Doğrusu: Soruşturma, oda yönetim kurulunun kendi üyeleri arasından görevlendireceği kişilerce (veya devredilirse Mücadele Kurulunca) yapılır, disiplin kurulu …"
+          "ad": "Yanlış Hesap Tuzağı",
+          "metin": "On yıllık sürenin 05.01.2026'da dolduğunu gözden kaçırıp henüz dolmadığını düşünüyorsun; sonucu doğru bulsan da gerekçen yanlıştır. Doğrusu: On yıllık süre fiilen dolmuştur, zamanaşımına uğramama sebebi on beş yıllık ce…"
         },
-        "E": {
-          "ad": "Had/Süre Tuzağı",
-          "metin": "Süreyi 30 gün sanırsın. Doğrusu: Meslek mensubundan bilgi almak için verilecek süre 15 günden az olamaz, 30 gün değildir."
+        "A": {
+          "ad": "İki Yıl Yeter Tuzağı",
+          "metin": "Öğrenmeden başlayan iki yıllık sürenin dolmuş olmasını tek başına yeterli sanıyorsun. Doğrusu: Fiil ceza kanununda daha uzun zamanaşımı öngörülen bir suçu oluşturduğundan iki yıllık ve on yıllık süreler yerine on beş yı…"
         },
         "D": {
-          "ad": "Koşul Atlama Tuzağı",
-          "metin": "Her durumda sözlü ifade alınması gerektiğini sanırsın. Doğrusu: Süre dolmasına rağmen bilgi verilmemesi veya tebligat yapılamaması hâlinde dosya üzerinden yapılan inceleme ile yetinilir."
+          "ad": "Süre Hesabı Tuzağı",
+          "metin": "On beş yıllık sürenin 2026'da dolduğunu sanıyorsun; oysa süre fiil tarihinden başlar ve 2031'de dolar. Doğrusu: On beş yıllık ceza zamanaşımı süresi 2026 yılında henüz dolmamıştır."
         },
         "B": {
-          "ad": "Zorunluluk Tuzağı",
-          "metin": "'verebilir' ifadesini 'vermek zorundadır' olarak okursun. Doğrusu: Görevlendirme yönetim kurulunun takdirine bağlı bir yetki olup zorunluluk değildir."
+          "ad": "Genel Süre Tuzağı",
+          "metin": "On yıllık sürenin dolmuş olmasından hareketle zamanaşımına uğradığı sonucuna varıyorsun ve ceza kanunundaki daha uzun süreyi gözden kaçırıyorsun. Doğrusu: Ceza kanunu daha uzun zamanaşımı öngördüğünden bu süre uygulanır…"
         }
       },
-      "hap": "Haksız Rekabet ve Reklam Yasağı Yönetmeliğine aykırılık şikayetlerinde soruşturma görevi, oda yönetim kurulunca dilerse Haksız Rekabetle Mücadele Kuruluna VERİLEBİLİR; bu zorunlu değildir.",
+      "hap": "Haksız fiil ceza gerektiren ve ceza kanununda daha uzun zamanaşımı öngörülen bir suçu oluşturuyorsa, iki yıllık ve on yıllık süreler yerine bu daha uzun ceza zamanaşımı süresi uygulanır.",
       "satirlar": [
         [
-          "A) Oda yönetim kurulu, bu Yönetmeliğe aykırılıklarla ilgili…",
-          "m.19"
+          "2 yıllık süre (öğrenme)",
+          "10.03.2019"
         ],
         [
-          "B) Bu tür şikâyetlerde soruşturma görevi doğrudan ve zorunl…",
-          "m.19"
+          "10 yıllık süre (fiil)",
+          "05.01.2016"
         ],
         [
-          "C) Şikâyet konusu hususlar, oda disiplin kurulunun kendi üy…",
-          "m.19"
-        ],
-        [
-          "D) Hakkında soruşturma yapılan meslek mensubu kendisine tan…",
-          "m.19"
-        ],
-        [
-          "E) Meslek mensubundan bilgi almak için verilecek süre otuz …",
-          "m.19"
+          "15 yıllık ceza zamanaşımı (fiil)",
+          "05.01.2016"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=55",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=56",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 60,
+        "kalan_gun": 59,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 55,
+      "sira": 56,
       "toplam": 70,
-      "id": "smmm-4k-a-yfta-zor-r8/kp-03",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "finansal kaldıraç oranı",
-      "kunye": "SMMM 2026/2 ders 02 Soru 4 kalıbı",
-      "donem": 7,
+      "id": "smmm-4k-a-maliyet-zor-r5/kp-03",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dağıtımı",
+      "kunye": "SMMM 2026/2 ders 03 Soru 15 kalıbı",
+      "donem": 4,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin aktif toplamı 3.500.000 ₺, kısa vadeli yabancı kaynakları 612.500 ₺, uzun vadeli yabancı kaynakları 337.500 ₺, özkaynakları 2.550.000 ₺'dir. Alınacak kredinin aktife ekleneceği varsayımıyla kaldıraç oranı tavanı %40'tır. Çekilebilecek maksimum ek kredi kaç ₺'dir?",
+      "soru": "Bir işletmede aynı süreçten A, B mamulleri ile C yan mamulü elde edilmektedir. Ortak maliyet 216.000 ₺'dir; işletme dağıtımda ayrılma noktası satış değerlerini esas almakta, C'nin net gerçekleşebilir değerini ortak maliyetten düşmektedir. C'nin satış değeri 40.000 ₺, satılabilir hale getirme maliyeti 4.000 ₺'dir. A 3.000 br (40 ₺/br), B 2.000 br (30 ₺/br) üretilmiştir. A'ya ayrılma sonrası 15.000 ₺ ek işleme maliyeti uygulanmaktadır. Buna göre A mamulünün birim maliyeti kaç ₺'dir?",
       "siklar": {
-        "A": "70.000",
-        "B": "450.000",
-        "C": "1.312.500",
-        "D": "787.500",
-        "E": "750.000"
+        "A": "27",
+        "B": "40",
+        "C": "41",
+        "D": "45",
+        "E": "53"
       },
-      "dogru": "E",
+      "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Bileşik Hata Tuzağı",
-          "metin": "Hem uzun vadeli yabancı kaynağı unutup hem de borçla-aktif-büyür formülünü kullanınca (1.400.000-612.500)/0,60=1.312.500 çıkar. Doğrusu: mevcut borç hesabında UVYK atlanmamalıdır."
+          "ad": "Yöntem Karıştırma Tuzağı",
+          "metin": "Satış değeri yerine fiziksel miktar (kg/adet) oranını kullandın. Doğrusu: dağıtım satış değerine göre yapılır, miktar oranıyla 123.000/3.000=41 değil 45 bulunur."
+        },
+        "E": {
+          "ad": "Yan Ürün Düşülmemesi Tuzağı",
+          "metin": "Ortak maliyetten C'nin net gerçekleşebilir değerini düşmeden dağıtım yaptın. Doğrusu: önce 216.000-36.000=180.000 bulunur, 159.000/3.000=53 değil 45'tir."
         },
         "A": {
-          "ad": "Borç-Özkaynak Karıştırma Tuzağı",
-          "metin": "Tavanı özkaynak tabanına uygulayıp 0,40×2.550.000-950.000=70.000 bulmuşsun; kaldıraç oranının paydası aktif toplamıdır, özkaynak değildir. Doğrusu: tavan aktif toplamına uygulanır."
-        },
-        "D": {
-          "ad": "Eksik Toplam Yabancı Kaynak Tuzağı",
-          "metin": "Uzun vadeli yabancı kaynağı unutup 0,40×3.500.000-612.500=787.500 bulmuşsun. Doğrusu: mevcut borç KVYK+UVYK=950.000'dir, sadece KVYK değil."
+          "ad": "Toplam Miktara Bölme Tuzağı",
+          "metin": "A'nın payını kendi üretim miktarına değil A ve B'nin toplam miktarına böldün. Doğrusu: 135.000/3.000=45 olmalıyken 135.000/5.000=27 çıkar, bu yanlıştır."
         },
         "B": {
-          "ad": "Aktif Sabit Varsayımı Tuzağı",
-          "metin": "0,40×3.500.000-950.000=450.000 hesabı, kredinin aktife girmediği varsayımına aittir. Doğrusu: soru kredinin aktife ekleneceğini söylüyor, payda da büyümelidir."
+          "ad": "Ek İşleme Maliyetini Atlama Tuzağı",
+          "metin": "A'nın ortak maliyetten aldığı payı doğru buldun ama ayrılma sonrası eklenen 15.000 ₺'yi unuttun. Doğrusu: 120.000/3.000=40 değil, 135.000/3.000=45'tir."
         }
       },
-      "hap": "Kaldıraç oranının paydası aktif toplamıdır; kredi aktife eklenecekse ek borç B=(Tavan×Aktif-Mevcut Borç)/(1-Tavan) formülüyle bulunur.",
+      "hap": "Ortak maliyet dağıtımında önce yan ürünün net gerçekleşebilir değeri düşülür, kalan tutar satış değerine göre dağıtılır, sonra ayrılma sonrası ek işleme maliyeti eklenir.",
       "satirlar": [
         [
-          "Mevcut Toplam Yabancı Kaynak (612.500+337.500)",
-          "950.000"
+          "B mamulü satış değeri",
+          "60.000"
         ],
         [
-          "Tavan × Aktif Toplamı (0,40 × 3.500.000)",
-          "1.400.000"
+          "Toplam satış değeri",
+          "180.000"
         ],
         [
-          "Fark (1.400.000-950.000)",
-          "450.000"
+          "A mamulünün ortak maliyetten payı",
+          "120.000"
         ],
         [
-          "1 - Tavan (1-0,40)",
-          "0,60"
+          "A mamulünün toplam maliyeti (ek işleme dahil)",
+          "135.000"
         ],
         [
-          "Maksimum Ek Kredi (450.000/0,60)",
-          "750.000"
+          "A mamulünün birim maliyeti",
+          "45"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=55",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=56",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 70,
+        "kalan_gun": 69,
         "durum": "YESIL",
         "mail_gunu": false
       }
