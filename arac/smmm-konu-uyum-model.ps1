@@ -87,7 +87,10 @@ foreach ($l in $satir) {
   $k = $null; try { $k = $m.Value | ConvertFrom-Json } catch {}
   $sonuc.Add([pscustomobject][ordered]@{ an = $an; uyum = $(if ($k) { "$($k.uyum)" } else { 'OKUNAMADI' }); dogru_konu = $(if ($k) { "$($k.dogru_konu)" } else { '' }); gerekce = $(if ($k) { "$($k.gerekce)" } else { '' }) })
 }
-$bedel = ($gTok * 3 + $cTok * 15) / 1e6 * 0.5
+$bedel = ($gTok * 3 + $cTok * 15) / 1e6 * 0.5   # yalnız BU partinin bedeli
+# 23.09: -EksikTamamla birleştirmesi — önceki geçerli sonuçlar eklenmezse dosya yalnız yeni partiyle ezilirdi (26 geçerli sonuç kaybolurdu)
+$yeniAn = @{}; foreach ($s in $sonuc) { $yeniAn["$($s.an)"] = 1 }
+foreach ($an in $onceki.Keys) { if (-not $yeniAn.ContainsKey($an)) { $sonuc.Add($onceki[$an]) } }
 [IO.File]::WriteAllText($cikti, (ConvertTo-Json -InputObject $sonuc.ToArray() -Depth 3), (New-Object Text.UTF8Encoding $false))
 # anahtar karnesi
 $ky = @($sonuc | Where-Object { $yanlis.ContainsKey($_.an) }); $kd = @($sonuc | Where-Object { $dogru.ContainsKey($_.an) })
