@@ -168,6 +168,10 @@ foreach($g in $GIRDILER){
   $veri[$g.ad] = $nesne
   $saglik.Add([pscustomobject]@{ ad=$g.ad; dosya=($g.yol -replace '\\','/'); durum=$durum; damga=$damgaMetin; mtime=$mtime; yas_gun=$yas; uretici=$g.uretici; robot=$g.robot })
 }
+# 23.09: "sitede" sayısı kasa-sayim.json içindeki site alanından gelir (paket_soru). Okunamadıysa ayrı sağlık satırı KIRIK olur.
+$ks0 = $veri['kasa-sayim']; $ks0Satir = $saglik | Where-Object { $_.ad -eq 'kasa-sayim' } | Select-Object -First 1
+$siteDurum = if(-not $ks0){ 'YOK (kasa-sayim yok)' } elseif(-not $ks0.PSObject.Properties['site'] -or -not $ks0.site){ "KIRIK (paket_soru okunamadı: $(if($ks0.PSObject.Properties['site_hata'] -and "$($ks0.site_hata)"){ "$($ks0.site_hata)" } else { 'kasa-sayim eski sürüm, site alanı yok' }))" } else { "$($ks0Satir.durum)" }
+$saglik.Add([pscustomobject]@{ ad='kasa-site'; dosya='veri/kasa-sayim.json › site'; durum=$siteDurum; damga=$(if($ks0Satir){ $ks0Satir.damga } else { '' }); mtime=$(if($ks0Satir){ $ks0Satir.mtime } else { '' }); yas_gun=$(if($ks0Satir){ $ks0Satir.yas_gun } else { -1 }); uretici='motor/kasa-sayim.ps1 (paket_soru sayımı)'; robot='kasa-sayim.yml · her gün 03:41 TR' })
 function Guvenilir([string]$ad){ $satir = $saglik | Where-Object { $_.ad -eq $ad } | Select-Object -First 1; return ($satir -and ($satir.durum -eq 'TAZE' -or $satir.durum -like 'SABİT*')) }
 function Isaret([string[]]$adlar){ foreach($a in $adlar){ if(-not (Guvenilir $a)){ return '⚠ ' } }; return '' }
 
@@ -184,6 +188,12 @@ $kasa = $veri['kasa-sayim']
 $kasaDers = @{}
 if($kasa -and $kasa.sinav_ders){ foreach($p in $kasa.sinav_ders.PSObject.Properties){ $parca = $p.Name -split '\|',2; $anahtarK = "$($parca[0])|$(DersAnahtar $parca[1])"; if(-not $kasaDers.ContainsKey($anahtarK)){ $kasaDers[$anahtarK] = 0 }; $kasaDers[$anahtarK] += (Sayi $p.Value) } }
 
+$siteDers = @{}; $siteSinav = @{}; $siteVar = [bool]($kasa -and $kasa.PSObject.Properties['site'] -and $kasa.site)
+if($siteVar){
+  foreach($p in $kasa.site.sinav_ders.PSObject.Properties){ $parca = $p.Name -split '\|',2; $a = "$($parca[0])|$(DersAnahtar $parca[1])"; $siteDers[$a] = [int]$siteDers[$a] + (Sayi $p.Value) }
+  foreach($p in $kasa.site.sinav.PSObject.Properties){ $siteSinav["$($p.Name)"] = Sayi $p.Value }
+}
+$siteKullanilan = @{}
 $hedefDers = @{}
 if($veri['kota-sgs'] -and $veri['kota-sgs'].ozet){ foreach($o in @($veri['kota-sgs'].ozet)){ $hedefDers["SGS|$(DersAnahtar $o.ders)"] = Sayi $o.hedef } }
 if($veri['kota-smmm'] -and $veri['kota-smmm'].ozet){ foreach($o in @($veri['kota-smmm'].ozet)){ $hedefDers["SMMM|$(DersAnahtar $o.ders)"] = Sayi $o.toplam_kota } }
@@ -201,11 +211,20 @@ if($profil -and $profil.sinavlar){
       $mevcut = if($kasaDers.ContainsKey($anahtar)){ $kasaDers[$anahtar] } else { 0 }
       $hedef = if($hedefDers.ContainsKey($anahtar)){ $hedefDers[$anahtar] } else { -1 }
       $eksik = if($hedef -ge 0){ [Math]::Max(0, $hedef - $mevcut) } else { -1 }
+      # kasadaki kısa ders adı (SMMM "Meslek Hukuku") resmî uzun adın ("Muhasebecilik ve Mali Müşavirlik Meslek Hukuku") içinde geçiyorsa
+      # AYNI SINAV içinde ona bağlanır (genel eş anlam sözlüğüne konmaz: SGS'de "Meslek Hukuku" ayrı derstir)
+      $siteAnahtar = $anahtar
+      if($siteVar -and -not $siteDers.ContainsKey($anahtar)){
+        $aday = @($siteDers.Keys | Where-Object { $_.StartsWith("$kisa|") -and -not $siteKullanilan.ContainsKey($_) -and $anahtar.Contains(($_ -split '\|',2)[1]) })
+        if($aday.Count -eq 1){ $siteAnahtar = $aday[0] }
+      }
+      if($siteDers.ContainsKey($siteAnahtar)){ $siteKullanilan[$siteAnahtar] = 1 }
+      $sitede = if(-not $siteVar){ -2 } elseif(-not $siteSinav.ContainsKey($kisa)){ -1 } elseif($siteDers.ContainsKey($siteAnahtar)){ $siteDers[$siteAnahtar] } else { 0 }   # -2 ölçülmedi · -1 sitede sayfa yok
       $doluluk = if($hedef -gt 0){ [int][Math]::Min(100, [Math]::Round(100.0 * $mevcut / $hedef)) } else { -1 }
       $dersSatirlari.Add([pscustomobject]@{
         sinav=$kisa; sinav_uzun=$sinavAd; ders=$dersAd; bolum="$($d.bolum)"; sinav_soru=(Sayi $d.soru_sayisi)
         liste_dayanagi="$($d.liste_dayanagi)"; onay="$($d._onay)"
-        bizim=$mevcut; hedef=$hedef; eksik=$eksik; doluluk=$doluluk
+        bizim=$mevcut; sitede=$sitede; hedef=$hedef; eksik=$eksik; doluluk=$doluluk
       })
     }
   }
@@ -223,7 +242,8 @@ foreach($kisa in @('SGS','SMMM','KGK')){
   $kasaToplam = if($kasa -and $kasa.sinav -and $kasa.sinav.PSObject.Properties[$kisa]){ Sayi $kasa.sinav.$kisa } else { 0 }
   $hedefToplam = ($satirlar | Where-Object { $_.hedef -ge 0 } | Measure-Object hedef -Sum).Sum
   $eksikToplam = ($satirlar | Where-Object { $_.eksik -ge 0 } | Measure-Object eksik -Sum).Sum
-  $sinavOzet.Add([pscustomobject]@{ sinav=$kisa; ders=$satirlar.Count; kasa=$kasaToplam; hedef=[int]$hedefToplam; eksik=[int]$eksikToplam; kotasiz_ders=@($satirlar | Where-Object { $_.hedef -lt 0 }).Count })
+  $siteToplam = if(-not $siteVar){ -2 } elseif($siteSinav.ContainsKey($kisa)){ $siteSinav[$kisa] } else { -1 }
+  $sinavOzet.Add([pscustomobject]@{ sinav=$kisa; ders=$satirlar.Count; kasa=$kasaToplam; sitede=$siteToplam; hedef=[int]$hedefToplam; eksik=[int]$eksikToplam; kotasiz_ders=@($satirlar | Where-Object { $_.hedef -lt 0 }).Count })
 }
 
 # ---------------------------------------------------------------------------
@@ -336,10 +356,10 @@ Satir '| Basmamız gereken sorular neler? | 7 |'
 Satir ''
 
 # --- 1
-$isr1 = Isaret @('ders-profili','kasa-sayim')
+$isr1 = Isaret @('ders-profili','kasa-sayim','kasa-site')
 Satir '## 1 · SINAVLAR VE DERSLER (resmî liste × kasadaki sorumuz × onaylı kota)'
 Satir ''
-Satir "$($isr1)Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ilanı / SPL) · bizim soru = veri/kasa-sayim.json ($((($saglik | Where-Object { $_.ad -eq 'kasa-sayim' }).damga))) · kota = üç kota dosyası (bölüm 5)."
+Satir "$($isr1)Kaynak: ders listesi = veri/ders-profili.json (TESMER Yönergesi m.6.2 / KGK ilanı / SPL) · **sitede** = kilitli kasa paket_soru (siteye giden soru) · eski havuz = soru_havuzu (Cem kararı: sayılmaz) · ikisi de veri/kasa-sayim.json ($((($saglik | Where-Object { $_.ad -eq 'kasa-sayim' }).damga))) · kota = üç kota dosyası (bölüm 5)."
 Satir ''
 foreach($sinavProp in $SINAV_KISA.GetEnumerator()){
   $kisa = $sinavProp.Value
@@ -347,18 +367,30 @@ foreach($sinavProp in $SINAV_KISA.GetEnumerator()){
   if(-not $satirlar.Count){ continue }
   $ozet = $sinavOzet | Where-Object { $_.sinav -eq $kisa } | Select-Object -First 1
   $baslik = "### $($sinavProp.Key) — $($satirlar.Count) ders"
-  if($ozet){ $baslik += " · kasada $(Bin $ozet.kasa) soru · kota $(Bin $ozet.hedef) · eksik $(Bin $ozet.eksik)" }
+  if($ozet){
+    $siteM = if($ozet.sitede -eq -2){ 'sitede ölçülmedi' } elseif($ozet.sitede -eq -1){ 'sitede sayfa yok' } else { "**sitede $(Bin $ozet.sitede)**" }
+    $baslik += " · $siteM · kota $(Bin $ozet.hedef) · eksik $(Bin $ozet.eksik) (kota − eski havuz)"
+  }
   Satir $baslik
+  if($ozet){ Satir "$(Isaret @('kasa-sayim'))Eski havuz (soru_havuzu — **kullanılmaz, Cem kararı**; sitede yok): $(Bin $ozet.kasa) soru" }
   Satir ''
-  Satir '| Ders | Bölüm | Sınavda soru | Bizim soru | Kota | Eksik | Doluluk | Onay |'
-  Satir '|---|---|---:|---:|---:|---:|---:|---|'
+  Satir '| Ders | Bölüm | Sınavda soru | **Sitede** | Eski havuz | Kota | Eksik (kota − eski havuz) | Doluluk | Onay |'
+  Satir '|---|---|---:|---:|---:|---:|---:|---:|---|'
   foreach($s in $satirlar){
     $hedefM = if($s.hedef -ge 0){ Bin $s.hedef } else { 'kota yok' }
     $eksikM = if($s.eksik -ge 0){ Bin $s.eksik } else { '—' }
     $dolM = if($s.doluluk -ge 0){ "%$($s.doluluk)" } else { '—' }
     $sinavSoruM = if($s.sinav_soru -gt 0){ "$($s.sinav_soru)" } else { '—' }
-    Satir "| $(K $s.ders) | $(K $s.bolum) | $sinavSoruM | $(Bin $s.bizim) | $hedefM | $eksikM | $dolM | $(K $s.onay) |"
+    $siteDM = if($s.sitede -eq -2){ 'ölçülmedi' } elseif($s.sitede -eq -1){ 'sayfa yok' } else { Bin $s.sitede }
+    Satir "| $(K $s.ders) | $(K $s.bolum) | $sinavSoruM | $siteDM | $(Bin $s.bizim) | $hedefM | $eksikM | $dolM | $(K $s.onay) |"
   }
+  Satir ''
+}
+$siteEslesmeyen = @($siteDers.Keys | Where-Object { -not $siteKullanilan.ContainsKey($_) } | Sort-Object)
+if($siteEslesmeyen.Count){
+  Satir '**Sitede var ama resmî ders listesinde karşılığı bulunamayan ders adları** (sessizce kaybolmasın; toplamlar yine başlıktaki "sitede" sayısında):'
+  Satir ''
+  foreach($e in $siteEslesmeyen){ Satir "- $(K $e): $(Bin $siteDers[$e]) soru" }
   Satir ''
 }
 if($planDisi.Count){

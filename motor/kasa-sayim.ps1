@@ -348,8 +348,40 @@ if($PILOT_SINAV -or $PILOT_DERS){
   } catch { Write-Host ("pilot dokumu alinamadi: {0}" -f $_.Exception.Message) }
 }
 
+# --- 23.09.2026 SİTEDE (yeni format) — Cem "a yap" (site oturumu iletti): "sitede kaç soru var" sorusuna tek sayfa
+# bu dosyadan "SGS 15.827" diyordu; o sayı soru_havuzu = ESKİ HAVUZ (Temmuz–Ağustos v1 basımı; Cem kararı sayılmaz).
+# ÖLÇÜLDÜ (23.09): soru_havuzu 30.569 (SGS 15.827 · SMMM 12.576 · KGK 2.166), hepsi eklenme ≤ 09.08.2026, hepsi
+# kalip_surum v1, yayin=true 0. Siteye giden soru kilitli kasa public.paket_soru'dur (SGS 4.400 · SMMM 2.729, 23.09).
+# Okunamazsa site=$null + site_hata → tek sayfa "ölçülmedi" yazar (yalan sayı yazmaz).
+$site = $null; $siteHata = ''
+try {
+  $ps = New-Object System.Collections.Generic.List[object]; $psSon = ''
+  while($true){
+    $hp = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/paket_soru?select=id,sinav,ders,sayfa,ucretsiz$(if($psSon){"&id=gt.$([uri]::EscapeDataString($psSon))"})&order=id&limit=1000" -Headers $H -TimeoutSec 180
+    $gh = ConvertFrom-Json ([Text.Encoding]::UTF8.GetString($hp.RawContentStream.ToArray())); $dp = @($gh | ForEach-Object { $_ })
+    if(-not $dp.Count){ break }
+    foreach($x in $dp){ $ps.Add($x) }; $psSon = "$($dp[$dp.Count-1].id)"
+    if($dp.Count -lt 1000){ break }
+  }
+  $sSinav = [ordered]@{}; $sDers = [ordered]@{}; $sSayfa = @{}; $sUcr = [ordered]@{}
+  foreach($x in $ps){
+    $sn = "$($x.sinav)".ToUpperInvariant(); if(-not $sn){ $sn = '(bos)' }
+    $sSinav[$sn] = 1 + [int]$sSinav[$sn]; $dk = "$sn|$($x.ders)"; $sDers[$dk] = 1 + [int]$sDers[$dk]
+    if("$($x.sayfa)" -notlike 'kaydir/vitrin/*'){ $sSayfa["$($x.sayfa)"] = 1 }
+    if($x.ucretsiz){ $sUcr[$sn] = 1 + [int]$sUcr[$sn] }
+  }
+  $site = [ordered]@{ kaynak = 'public.paket_soru (kilitli kasa; siteye giden soru)'; toplam = $ps.Count; sinav = $sSinav; sinav_ders = $sDers; ders_sayfasi = $sSayfa.Count; ucretsiz = $sUcr }
+  Write-Host ("  SITEDE (paket_soru): {0} · {1}" -f $ps.Count, (($sSinav.GetEnumerator() | ForEach-Object { "$($_.Key) $($_.Value)" }) -join ' · '))
+} catch { $siteHata = "$($_.Exception.Message)"; Write-Host "  SITEDE sayilamadi: $siteHata" }
+# eski havuz: soru_havuzu'nun TAMAMI (23.09 ölçümü: hepsi v1, ≤ 09.08, yayında 0). Yeni kayıt girerse ayrım bozulur → en yeni eklenme yazılır.
+$enYeni = ''; try { $hy = Invoke-RestMethod -Uri "$SB_URL/rest/v1/soru_havuzu?select=eklenme&order=eklenme.desc&limit=1" -Headers $H -TimeoutSec 60; $enYeni = "$(@($hy)[0].eklenme)" } catch {}
+$eskiHavuz = [ordered]@{ kural = 'soru_havuzu tablosunun TAMAMI eski havuzdur (Cem kararı: sayılmaz, sitede yok). 23.09 ölçümü: hepsi kalip_surum v1, eklenme ≤ 09.08.2026, yayin=true 0.'; toplam = $toplam; sinav = $sinav; en_yeni_eklenme = $enYeni }
+
 $rapor = [ordered]@{
   tarih = (Get-Date -Format "dd.MM.yyyy HH:mm")
+  site = $site
+  site_hata = $siteHata
+  eski_havuz = $eskiHavuz
   toplam = $toplam
   cekilen = $kayit.Count
   sinav = $sinav
