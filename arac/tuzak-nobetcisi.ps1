@@ -254,6 +254,31 @@ function K4-SiralamasizTekSatir($metin,$ast,$dosya){
   return $bul.ToArray()
 }
 
+function K7-TakmaAdCakismasi($metin,$ast,$dosya){
+  # 23.09.2026 (Cem "1.2.3"): 'R' ve 'H' PowerShell'in HAZIR takma adlaridir (Invoke-History / Get-History).
+  #   Ayni adla yazilan islev CAGRILMAZ - takma ad once cozulur. 23.09'da iki kez yasandi (tek sayfa duzenlemesi
+  #   hic uygulanmadi; KAPI-HAD oz-sinavi Get-History hatasiyla dustu). Depo taramasi (23.09): 1 eski vaka -
+  #   gece-paket.ps1:21 'function Ac' (Ac = Add-Content).
+  #   Liste: bu makinenin Get-Alias'i + PS 5.1 cekirdek kisa adlar (Linux pwsh'ta ls/cat gibi adlar yok; CI ayni sonucu versin).
+  #   🚫 GORMEZ: modul yukleyince gelen takma adlar; Set-Alias ile sonradan tanimlanan ad.
+  $bul=New-Object System.Collections.Generic.List[object]
+  if(-not $ast){ return $bul.ToArray() }
+  if(-not $script:TAKMA_AD){
+    $script:TAKMA_AD=@{}
+    foreach($a in @(Get-Alias -ErrorAction SilentlyContinue)){ $script:TAKMA_AD[$a.Name.ToLowerInvariant()]="$($a.Definition)" }
+    foreach($c in 'h=Get-History','r=Invoke-History','ac=Add-Content','sc=Set-Content','gc=Get-Content','cd=Set-Location','ls=Get-ChildItem','cp=Copy-Item','mv=Move-Item','rm=Remove-Item','ps=Get-Process','gi=Get-Item','gm=Get-Member','gl=Get-Location','gp=Get-ItemProperty','gu=Get-Unique','gv=Get-Variable','ii=Invoke-Item','ni=New-Item','ri=Remove-Item','si=Set-Item','sl=Set-Location','sp=Set-ItemProperty','sv=Set-Variable','fc=Format-Custom','fl=Format-List','ft=Format-Table','fw=Format-Wide','md=mkdir','rd=Remove-Item','nv=New-Variable','iex=Invoke-Expression','icm=Invoke-Command','irm=Invoke-RestMethod','iwr=Invoke-WebRequest','sort=Sort-Object','tee=Tee-Object','type=Get-Content','where=Where-Object','select=Select-Object','foreach=ForEach-Object','sleep=Start-Sleep','kill=Stop-Process','echo=Write-Output','cat=Get-Content','dir=Get-ChildItem','del=Remove-Item','diff=Compare-Object','group=Group-Object','measure=Measure-Object','start=Start-Process','write=Write-Output','clear=Clear-Host','copy=Copy-Item','move=Move-Item','ren=Rename-Item','erase=Remove-Item','pwd=Get-Location'){
+      $p=$c -split '=',2; if(-not $script:TAKMA_AD.ContainsKey($p[0])){ $script:TAKMA_AD[$p[0]]=$p[1] } }
+  }
+  foreach($f in $ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] }, $true)){
+    $k=$f.Name.ToLowerInvariant()
+    if($script:TAKMA_AD.ContainsKey($k)){
+      $bul.Add([pscustomobject]@{ satir=$f.Extent.StartLineNumber
+        ileti="TAKMA AD CAKISMASI: 'function $($f.Name)' PowerShell hazir takma adiyla ayni ($($script:TAKMA_AD[$k])). Cagri ISLEVE DEGIL takma ada gider (23.09: R/H iki kez). Adi degistir." })
+    }
+  }
+  return $bul.ToArray()
+}
+
 function K5-BomsuzTurkce($metin,$ast,$dosya){
   # PS 5.1 BOM'suz UTF-8'i ANSI sanar -> Turkce iceren .ps1 ayristirilamaz.
   $bul=New-Object System.Collections.Generic.List[object]
@@ -390,6 +415,7 @@ $KURALLAR=@(
   @{ ad='K4-SIRASIZ';   fn=(Get-Item function:K4-SiralamasizTekSatir);yml=$false }
   @{ ad='K5-BOMSUZ';    fn=(Get-Item function:K5-BomsuzTurkce);       yml=$false }
   @{ ad='K6-STDERR';    fn=(Get-Item function:K6-YerelKomutStderr);   yml=$true  }
+  @{ ad='K7-TAKMAAD';   fn=(Get-Item function:K7-TakmaAdCakismasi);   yml=$false }
 )
 
 # ---------------------------------------------------------------------------
@@ -425,6 +451,11 @@ $d=$l.ToArray()' }
     @{ kural='K3-LISTSARMA'; kotu='$l=New-Object System.Collections.Generic.List[object]
 $d=@($l)'; iyi='$l=New-Object System.Collections.Generic.List[string]
 $d=@($l)' }
+    # K7 (23.09): hazir takma adla ayni islev adi (R = Invoke-History, H = Get-History) - iki kez yasandi
+    @{ kural='K7-TAKMAAD';   kotu='function R([string]$a){ $a }
+R "x"';                                         iyi='function Degistir([string]$a){ $a }
+Degistir "x"' }
+    @{ kural='K7-TAKMAAD';   kotu='function H([double]$t){ $t }';   iyi='function HadVaka([double]$t){ $t }' }
     @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&ad=ilike.%25x%25&limit=1"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=a&order=a.asc&limit=5"' }
     # eq. ile TEKIL alan sorgusu belirlidir - alarm verilmemeli (olculdu 12.09:
     # kaynak_ad 3.000 ornekte tekil; kural 2 yanlis alarm uretmisti).
