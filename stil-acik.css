@@ -85,6 +85,7 @@
   --red:#b91c1c;
   --amber:#8a6224;        /* METIN amberi - tintli amber zeminde bile 5,11 */
   --amber-dolgu:#f5a524;  /* DOLGU amberi - uzerine koyu murekkep 9,59 */
+  --amber-uzeri:var(--ink); /* 23.09: amber dolgu ustundeki yazi (stil.css ile esli) */
   --green:#146f35;
   --link:#1d4ed8;
 }

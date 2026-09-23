@@ -415,6 +415,30 @@ function raporYaz(icerik){
   }catch(e){ /* rapor yazilamazsa kapinin kendisi durmasin */ }
 }
 
+/* --- koyu gecis listesi (23.09) -------------------------------------------
+   KOYU_BEKLEYEN: koyu temada okunmayan metni OLCULMUS, henuz duzeltilmemis sayfalar (23.09 tam olcum, 147 gecis):
+   kartlar 61 · karsilastirma 4 · radar 4 · alacak-radari 2 · marka-rapor 2 · kdv-iade-rehberi 1 · tetikte-marka 1.
+   Bu kapi bu sayfalari KOYUDA GORMEZ (acikta gorur). Duzelten satiri siler. */
+const KOYU_BEKLEYEN=['kartlar.html','karsilastirma.html','radar.html','alacak-radari.html','marka-rapor.html','kdv-iade-rehberi.html','tetikte-marka.html'];
+const KOYU_VITRIN=['kaydir/vitrin/sgs.html','kaydir/vitrin/smmm.html'];
+function koyuListe(sayfalar, secili, acikBagli){
+  const aday=sayfalar.filter(acikBagli).concat(secili.length ? KOYU_VITRIN.filter(v=>secili.includes(v)) : KOYU_VITRIN);
+  return aday.filter((s,i)=>aday.indexOf(s)===i && !KOYU_BEKLEYEN.includes(s) && (!secili.length || secili.includes(s)));
+}
+if(process.argv.includes('--sinav')){
+  let h=0; const t=(ad,k)=>{ console.log((k?'  geçti: ':'  DÜŞTÜ: ')+ad); if(!k) h++; };
+  const bagli=s=>s!=='koyu-tasarim.html';
+  const l=koyuListe(['index.html','kartlar.html','koyu-tasarim.html','pano.html'],[],bagli);
+  t('stil-acik bağlı sayfa koyuda ölçülür', l.includes('index.html') && l.includes('pano.html'));
+  t('KOYU_BEKLEYEN koyuda ölçülmez', !l.includes('kartlar.html'));
+  t('stil-acik bağlı olmayan (yalnız koyu) sayfa koyu geçişe girmez', !l.includes('koyu-tasarim.html'));
+  t('vitrin sayfaları koyuda ölçülür', l.includes('kaydir/vitrin/sgs.html') && l.includes('kaydir/vitrin/smmm.html'));
+  const s=koyuListe(['index.html','pano.html'],['index.html'],()=>true);
+  t('seçili çalıştırmada yalnız seçilenler', s.length===1 && s[0]==='index.html');
+  t('liste tekrarsız', koyuListe(['kaydir/vitrin/sgs.html'],[],()=>true).length===2);
+  console.log(h?'KONTRAST KOYU LİSTE ÖZ-SINAVI DÜŞTÜ':'KONTRAST KOYU LİSTE ÖZ-SINAVI: 6/6 GEÇTİ'); process.exit(h?1:0);
+}
+
 /* --- ana akis ----------------------------------------------------------- */
 (async function(){
   const secili=process.argv.slice(2).filter(a=>a.endsWith('.html'));
@@ -500,9 +524,13 @@ function raporYaz(icerik){
      koyu gecis 'dark' yazar - ayni Chrome profili oldugu icin sira ve anahtar onemli.
      Etiket: "deneme.html [koyu]". kaydir/vitrin/sgs.html kok disinda ama ana sayfanin
      bagladigi urun; iki temada da olculur. Kapi boylece iki temayi da korur. */
-  /* 23.09: tema-bas.js ile kc_tema TÜM stil-acik sayfalarının anahtarı oldu -> ana sayfa + Yeterlilik vitrini de koyu ölçülür */
-  const KOYU_SAYFALAR=['index.html','deneme.html','canli-deneme.html','tuzak.html','kaydir/vitrin/sgs.html','kaydir/vitrin/smmm.html']
+  /* 23.09 KADEMELİ KOYU (Cem "1 ve 2 yap"): tema-bas.js ile koyu tema artık stil-acik.css bağlı HER sayfada seçilebiliyor.
+     Kural: stil-acik bağlı her sayfa + iki vitrin koyu da ölçülür, KOYU_BEKLEYEN hariç. Bekleyen sayfa düzeltilince
+     listeden SİLİNİR, kapı onu kendiliğinden ölçmeye başlar. Rapor bekleyenleri "koyu_bekleyen" diye söyler (KÖR). */
+  const KOYU_SAYFALAR=koyuListe(sayfalar, secili, s=>{ try{ return /stil-acik\.css/.test(fs.readFileSync(path.join(KOK,s),'utf8')); }catch(e){ return false; } })
     .filter(s=>fs.existsSync(path.join(KOK,s)));
+  const koyuKor=KOYU_BEKLEYEN.filter(s=>(!secili.length||secili.includes(s)) && fs.existsSync(path.join(KOK,s)));
+  if(koyuKor.length) console.log('KONTRAST KAPISI: koyu temada ÖLÇÜLMEYEN (KOYU_BEKLEYEN) '+koyuKor.length+' sayfa: '+koyuKor.join(', '));
   const ekAcik = secili.length ? [] : ['kaydir/vitrin/sgs.html'].filter(s=>fs.existsSync(path.join(KOK,s)));
   const gecisler=[
     ...sayfalar.concat(ekAcik).map(s=>({sayfa:s, koyu:false})),
@@ -561,6 +589,7 @@ function raporYaz(icerik){
     chrome: chrome,
     sayfa: gecisler.length,
     koyu_gecis: gecisler.filter(g=>g.koyu).length,
+    koyu_bekleyen: koyuKor,   /* 23.09 kapı kuralı 4: bakmadığını da söyler - bu sayfalar koyuda KÖR */
     temiz_sayfa: temiz,
     denetlenen_metin: sonuc.reduce((t,s)=>t+(s.bakilan||0),0),
     toplam_kirik: toplamKirik,

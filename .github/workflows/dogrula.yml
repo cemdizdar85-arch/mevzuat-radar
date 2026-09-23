@@ -313,6 +313,10 @@ jobs:
           - { ad: "Kontrast kapisi (okunmayan metin yayina cikmasin)",
               kabuk: bash, komut: "node arac/kontrast-kapisi.js",
               rapor: "veri/kontrast-raporu.json" }
+          # 23.09: koyu gecis artik kuralla kurulur (stil-acik bagli her sayfa - KOYU_BEKLEYEN);
+          # liste kurucunun oz-sinavi (Chrome gerekmez, saniyeler).
+          - { ad: "Kontrast kapisi oz-sinavi (koyu gecis listesi)",
+              kabuk: bash, komut: "node arac/kontrast-kapisi.js --sinav" }
 
           # 29.08 (Cem "2 yap"): kurulu kapilarin hicbiri "bu sayfa gercekten
           # aciliyor mu" diye sormuyordu. Kontrast kapisi RENGI, koku olcer

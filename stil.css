@@ -60,6 +60,9 @@
   --red:#ff6b5e;
   --amber:#ffc24b;
   --amber-dolgu:#ffc24b;
+  /* 23.09: amber DOLGU üstündeki yazı - iki temada da koyu (kurulus-nobeti düğmeleri var(--taban) kullanıyordu,
+     açık temada kâğıt rengine dönüp 1,54 kontrasta düşüyordu). Koyu tabanda zemin rengi, stil-acik.css'te mürekkep. */
+  --amber-uzeri:var(--taban);
   --link:#6fb3ff;
   --green:#3ddc97;
 
@@ -158,4 +161,12 @@ input[type=checkbox],input[type=radio]{
     --ink:#f2f4f8; --muted:#aab3c0; --dim:#8a93a0; --panel:#12151b; --panel2:#171b22;
     --line:#232833; --line2:#2e3440; --amber:#e3b877; --accent:#e3b877; --yuzey:#12151b;
     --bg:#0a0b0e; --bg2:#101319;
+    /* 23.09: --taban eksikti -> menu.js açılış perdesi (background:var(--taban)) açık temanın kâğıt rengini alıyor,
+       yazısı bu paletin açık mürekkebi olunca perde okunmuyordu (kontrast 1,06; sorular.html + ucretsiz-dene.html). */
+    --taban:var(--bz-gece);
     background:var(--bz-gece);color:var(--ink)}
+  /* 23.09: stil-acik.css ".top a{color:... !important}" koyu tasarımlı sayfanın marka yazısını koyu şeritte koyu boyuyordu (1,12). */
+  body.bz-koyu .top a.sc-marka, body.bz-koyu .top a.uc-marka{color:var(--bz-ak) !important}
+  /* 23.09 TEK TEMA: koyuda stil-acik.css kapanınca zemini hiçbir dosya vermiyordu (body şeffaf, tuval beyaz) ->
+     seviye-testi / ogrenci koyuda beyaz zemine beyaz yazı (1,0). Tuval koyu paletin zemini. */
+  html[data-theme="dark"]{background:var(--bg)}
