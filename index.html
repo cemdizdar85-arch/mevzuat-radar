@@ -782,6 +782,10 @@ window.veriAl = (function(){
            kart gövdeleri doku olarak kalır, yazıları gizlenir (o boyda zaten okunmuyordu) */
         .bz-kah .bz-deste{opacity:.5}
         .bz-kah .bz-rk-kod,.bz-kah .bz-rk-bas{visibility:hidden}
+        /* 23.09 Cem "boşluğu kısalt": sınav bandı kalkınca kahraman kartı ile "Nasıl çalışır" arası telefonda
+           118 px kalmıştı (gövde alt 40 + bölüm üst pay 44 + dolgu 34) -> 16 + 20 + 28 = 64 px. Masaüstü değişmedi. */
+        .bz-kah .bz-govde{padding-bottom:16px}
+        #nasil{margin-top:20px;padding-top:28px}
       }
     </style>
 
