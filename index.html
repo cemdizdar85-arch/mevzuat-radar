@@ -1182,7 +1182,7 @@ window.veriAl = (function(){
            ziyaretçi ikisini kıyaslayınca çelişki sanıyor. Ziyaretçiyi ilgilendiren, önünde AÇIK olan sorudur;
            üretim rakamı iç ölçümümüzdür (veri/SINAV-TEK-SAYFA.md). Satır kaldırıldı, yönlendirme kaldı.
            knKasa/knDers/knTarih kimlikleri de bu satırla gitti; kanıt betiği artık yoksa atlıyor. -->
-      <p class="nasil-kanit"><a href="sorular.html">Sınavını seç →</a></p>
+      <!-- 23.09 Cem: "Sınavını seç →" bağlantısı kaldırıldı - fiyat satırındaki "Tüm sınav fiyatları →" aynı işi görüyor. -->
       <!-- 13.09 (Cem "1.2.3 yap"): öğrenci fiyatı ana sayfada hiç yoktu. Rakam ELLE YAZILMAZ: fiyat-motoru.js
            (FIYAT.sgs / KOTA.sgs / SURE_GUN) okunur; Cem'in planladığı zam motora girince burası kendiliğinden değişir.
            Yalnız Staja Giriş fiyatı yazılır: Yeterlilik ve Bağımsız Denetçilik soru sayfaları henüz "Hazırlanıyor". -->
@@ -1202,15 +1202,12 @@ window.veriAl = (function(){
     })();
     </script>
     <style>
-      .nasil-fiyat{margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
+      .nasil-fiyat{margin:28px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
       .nasil-fiyat b{color:var(--ink)}
       .nasil-fiyat a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
     </style>
     <style>
       .nasil-adimlar.nasil-dort{grid-template-columns:repeat(4,1fr);gap:0 32px}
-      .nasil-kanit{margin:18px 0 0;font-size:13px;line-height:1.6;color:var(--dim)}
-      .nasil-kanit b{color:var(--ink);font-weight:700}
-      .nasil-kanit a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
       @media(max-width:1040px){ .nasil-adimlar.nasil-dort{grid-template-columns:1fr 1fr} }
       @media(max-width:900px){ .nasil-adimlar.nasil-dort{grid-template-columns:1fr} }
       /* iş bölümü girişi: açık zeminde, sitenin kendi jetonlarıyla */
