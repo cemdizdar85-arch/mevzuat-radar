@@ -165,6 +165,14 @@ jobs:
           - { ad: "Kor kapisi OZ-SINAVI (yanlisligi belli soruya para verme)",
               kabuk: pwsh, komut: "./arac/kor-kapisi-sinavi.ps1" }
 
+          # 23.09.2026 - Odenmis is kaydi. 04:04-04:12 UTC GitHub makineleri coktu, 12 basim
+          # kosusu dustu; parti kayitlari yalniz makinede oldugu icin w9/w10'un odenmis sonuclari
+          # sahipsiz kaldi. Kayit artik gonderildigi anda ambara, parti basina AYRI satira yaziliyor
+          # (tek satirda 12 kosu birbirini ezerdi). Sinav: govde dogru mu, soru metni tasimiyor mu,
+          # birlestirme hic kayit kaybetmiyor mu - 9 vaka.
+          - { ad: "Bekleyen parti ambar kaydi OZ-SINAVI (cokuste odenmis is kaybolmasin)",
+              kabuk: pwsh, komut: "./arac/bekleyen-ambar-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

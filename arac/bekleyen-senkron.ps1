@@ -36,9 +36,21 @@ function YereliOku { if (-not (Test-Path $YEREL_YOL)) { return @() }; return (Di
 function AmbariOku {
   $cevap = Invoke-RestMethod -Uri ("$TABLO_UCU" + "?select=icerik&etiket=eq.$SISTEM_ETIKETI") -Headers $ISTEK_BASLIK -TimeoutSec 120
   $satirlar = @($cevap | ForEach-Object { $_ })
-  if (-not $satirlar.Count) { return @() }
-  $ic = $satirlar[0].icerik; if ($ic -is [string]) { $ic = ConvertFrom-Json -InputObject $ic }
-  return (DiziyeCevir $ic.partiler)
+  $tek = @()
+  if ($satirlar.Count) { $ic = $satirlar[0].icerik; if ($ic -is [string]) { $ic = ConvertFrom-Json -InputObject $ic }; $tek = @(DiziyeCevir $ic.partiler) }
+  # ⭐ 23.09.2026: motor/api-hedef.ps1 her partiyi GÖNDERİLDİĞİ ANDA kendi satırına yazar ("__bekleyen/<id>").
+  #   Niye: 23.09 04:04–04:12 UTC GitHub makineleri çöktü, koşu sonunda yüklenecek kayıtlar makineyle gitti,
+  #   w9/w10'un ödenmiş sonuçları sahipsiz kaldı. Bu satırlar da okunur ve birleştirilir (kimliğe göre, durumu
+  #   dolu olan kazanır — Birlestir ile aynı kural). order= ŞART: sırasız sayfalama kararsızdır (K4).
+  $tekil = New-Object System.Collections.Generic.List[object]
+  for ($ofs = 0; ; $ofs += 1000) {
+    $c2 = Invoke-RestMethod -Uri ("$TABLO_UCU" + "?select=icerik&etiket=like.__bekleyen/*&order=etiket.asc&limit=1000&offset=$ofs") -Headers $ISTEK_BASLIK -TimeoutSec 120
+    $s2 = @($c2 | ForEach-Object { $_ }); if (-not $s2.Count) { break }
+    foreach ($r in $s2) { $i2 = $r.icerik; if ($i2 -is [string]) { $i2 = ConvertFrom-Json -InputObject $i2 }; foreach ($p in (DiziyeCevir $i2.partiler)) { $tekil.Add($p) } }
+    if ($s2.Count -lt 1000) { break }
+  }
+  if ($tekil.Count) { Write-Host "  (parti satırlarından: $($tekil.Count) kayıt)" }
+  return @(Birlestir $tekil $tek)
 }
 function Birlestir($oncelikli, $diger) {
   $harita = [ordered]@{}

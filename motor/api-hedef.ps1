@@ -459,19 +459,55 @@ function Get-IcerikParmak($icerik){
   $sha = [Security.Cryptography.SHA1]::Create()
   try{ return (([BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-','').Substring(0,16)) }finally{ $sha.Dispose() }
 }
+# ⛔⭐ 23.09.2026 ÖDENMİŞ İŞ KAYDI GÖNDERİLDİĞİ ANDA AMBARA (Cem "1 yap").
+#   ÖLÇÜLDÜ (23.09 04:04–04:12 UTC): GitHub makineleri aynı 8 dakikada çöktü, 12 basım koşusunun 12'si
+#   "runner lost communication" ile düştü. Parti kayıtları (hangi Anthropic partisi hangi etikete ait)
+#   yalnız makinedeki veri/bekleyen-partiler.json'da tutuluyor, ambara ancak koşu SONUNDA yükleniyordu
+#   (bulut-uretim.yml "Sonucu ambara yaz"). Makine ölünce kayıt da öldü: w9 ve w10'un ödenmiş sonuçları
+#   Anthropic'te duruyor ama hangi etikete ait oldukları bilinemediği için bağlanamıyor (sonuçta yalnız
+#   "kp-16" gibi soru numarası var). Yeniden basmak = aynı işe ikinci ödeme.
+#   Artık her parti kaydı GÖNDERİLDİĞİ ANDA ambara, KENDİ SATIRINA yazılır (etiket "__bekleyen/<parti id>").
+#   ⚠ NİYE AYRI SATIR: eski ambar kaydı TEK satırdı (arac/bekleyen-senkron.ps1, '__sistem-bekleyen-partiler');
+#     12 koşu aynı anda o satırı oku-birleştir-yaz yapsa birbirinin kaydını EZER. Parti başına ayrı satır
+#     yalnız ekleme yapar, yarış yoktur. Koşu başındaki `bekleyen-senkron.ps1 -Indir` bu satırları da okur.
+#   İçerik: parti kimliği + etiket + zaman + durum + parmak izi (özet değerler). Soru metni TAŞIMAZ.
+#   🚫 GÖRMEZ: ambara yazma düşerse (ağ, anahtar yok) koşu DURMAZ — eski davranışa (yalnız yerel) döner ve
+#     ekrana uyarı basar. Yani bu koruma en iyi çabadır, garanti değildir; uyarı satırı günlükte aranır.
+#   Öz-sınav: arac/bekleyen-ambar-sinavi.ps1
+function BekleyenAmbarGovde($kayit){
+  if(-not $kayit -or -not "$($kayit.id)"){ return $null }
+  return [ordered]@{ etiket = "__bekleyen/$($kayit.id)"; sinav = 'SISTEM'; yazan = 'api-hedef'
+    icerik = [ordered]@{ aciklama = 'Gönderilmiş tek toplu parti kaydı (motor/api-hedef.ps1). Soru değildir.'; partiler = @($kayit) } }
+}
+function Save-BekleyenAmbar($kayit){
+  try{
+    $anah = "$env:SUPABASE_SERVICE_KEY"; if(-not $anah){ $anah = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))" }
+    $anah = $anah.Trim(); if(-not $anah){ Write-Host "  BEKLEYEN AMBAR: anahtar yok, parti $($kayit.id) yalnız YERELDE kayıtlı (makine çökerse kayıt gider)" -ForegroundColor Yellow; return }
+    $govde = BekleyenAmbarGovde $kayit; if(-not $govde){ return }
+    $bayt = [Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $govde -Depth 8 -Compress))
+    $bas = @{ apikey = $anah; Authorization = "Bearer $anah"; 'User-Agent' = 'mevzuat-radar-robot/1.0'; Prefer = 'resolution=merge-duplicates,return=minimal' }
+    [void](Invoke-RestMethod -Method Post -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?on_conflict=etiket' -Headers $bas -ContentType 'application/json; charset=utf-8' -Body $bayt -TimeoutSec 60)
+  }catch{ Write-Host "  BEKLEYEN AMBAR YAZILAMADI (parti $($kayit.id)): $($_.Exception.Message) — kayıt yalnız YERELDE" -ForegroundColor Yellow }
+}
 function Add-BekleyenParti([string]$bid,[string]$etiket,$parmak=$null){
+  # 23.09: kayıt kilit bloğunun DIŞINDA kurulur (blok içindeki atama o bloğun kapsamında kalır; ambar yazımı da dışarıda)
+  $kayitYeni = [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
+  if($parmak){ $kayitYeni | Add-Member -NotePropertyName parmak -NotePropertyValue ([pscustomobject]$parmak) -Force }
   Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; $bek = @()
     # 17.09 K2: @(ConvertFrom-Json) diziyi tek öğe sarıyordu; '+=' diziyi açtığı için şans eseri doğru çalışıyordu → açık açma
     if(Test-Path $y){ $lstA = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)); foreach($x in @($lstA | ForEach-Object { $_ })){ if($x -and "$($x.id)"){ $bek += $x } } }
-    $kayit = [pscustomobject]@{ id=$bid; etiket=$etiket; zaman=(Get-Date -Format 'yyyy-MM-dd HH:mm'); durum='gonderildi' }
-    if($parmak){ $kayit | Add-Member -NotePropertyName parmak -NotePropertyValue ([pscustomobject]$parmak) -Force }
-    $bek += $kayit
+    $bek += $kayitYeni
     [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 4),(New-Object Text.UTF8Encoding($false))) }
+  # 23.09: ambar yazımı kilidin DIŞINDA (ağ çağrısı öteki süreçleri bekletmesin)
+  Save-BekleyenAmbar $kayitYeni
 }
 function Set-BekleyenPartiDurum([string]$bid,[string]$durum){
+  $tut = @{}   # 23.09: güncellenen kaydı bloğun dışına taşımak için (hashtable başvurudur, blok içindeki ekleme dışarıda görünür)
   Invoke-BekleyenKilitli { $kok = Split-Path -Parent $PSScriptRoot; $y = Join-Path $kok 'veri\bekleyen-partiler.json'; if(-not (Test-Path $y)){ return }
-    $lstD = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)); $bek = @($lstD | ForEach-Object { $_ } | Where-Object { $_ -and "$($_.id)" }); foreach($x in $bek){ if("$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force } }
+    $lstD = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText($y)); $bek = @($lstD | ForEach-Object { $_ } | Where-Object { $_ -and "$($_.id)" }); foreach($x in $bek){ if("$($x.id)" -eq $bid){ $x | Add-Member -NotePropertyName durum -NotePropertyValue $durum -Force; $tut['k'] = $x } }
     [IO.File]::WriteAllText($y,(ConvertTo-Json -InputObject @($bek) -Depth 3),(New-Object Text.UTF8Encoding($false))) }
+  # 23.09: durum ambardaki parti satırına da yazılır ("hasat edildi" → yeniden başlatmada boşuna bağlanılmaz)
+  if($tut.ContainsKey('k')){ Save-BekleyenAmbar $tut['k'] }
 }
 function Get-BekleyenPartiler([string]$etiket=''){
   # 08.09: aynı etiket/faz için daha önce GÖNDERİLMİŞ partiler (yeniden başlatmada bedava hasat; en yenisi önce)
