@@ -31,6 +31,12 @@ function kasaModu() {
 
 function kabukMu(html) { return html.includes(ISARET); }
 
+// --tam-mi yalnız BU AKIŞIN bastığı sayfalara bakar (--onek kaydir/sgs/). 18.09'da kasa-modu.json'a bitirme
+// sayfaları eklendi; onları yayin-bas.yml hiç basmaz (arac/smmm-kasa-yayin.ps1 kurar), kapı her koşuda düştü ve
+// SGS yayını 18.09 11:03 -> 23.09 arası 5 gün durdu. Önek verilmezse eski davranış: listenin tamamı.
+// GÖRMEZ: önek dışındaki kasa sayfasının durumunu (o sayfayı basan akışın kendi kapısı sorumlu).
+function tamMiBakilacak(liste, onek) { return onek ? liste.filter(y => y.startsWith(onek)) : liste; }
+
 // Anahtar sırasından bağımsız kanonik metin (jsonb anahtarları yeniden sıralar).
 function kanonik(x) {
   if (Array.isArray(x)) return '[' + x.map(kanonik).join(',') + ']';
@@ -125,6 +131,9 @@ function sinav() {
   t('içerik farkı yakalanır', esdeger(S, [{ id: 'a', sira: 0, veri: { id: 'a', x: 2, y: { p: 1, q: [1, 2] } } }, { id: 'b', sira: 1, veri: { id: 'b' } }]).length === 1);
   t('sayı farkı yakalanır', esdeger(S, [{ id: 'a', sira: 0, veri: S[0] }]).length === 1);
   t('dizi sırası farkı yakalanır', esdeger(S, [{ id: 'a', sira: 0, veri: { id: 'a', x: 1, y: { p: 1, q: [2, 1] } } }, { id: 'b', sira: 1, veri: { id: 'b' } }]).length === 1);
+  const L = ['kaydir/sgs/turkce.html', 'kaydir/smmm/hukuk.html', 'kaydir/smmm/vergi.html'];
+  t('tam-mi önekle yalnız o akışın sayfası (bitirme kabuğu SGS yayınını durdurmaz)', tamMiBakilacak(L, 'kaydir/sgs/').join() === 'kaydir/sgs/turkce.html');
+  t('tam-mi öneksiz listenin tamamı (SGS kabuğu yine yakalanır)', tamMiBakilacak(L, '').length === 3);
   console.log(hata ? `ÖZ-SINAV DÜŞTÜ (${hata})` : 'ÖZ-SINAV GEÇTİ');
   return hata;
 }
@@ -136,9 +145,13 @@ async function ana() {
   // (hâlâ kabuksa) sayfayı okuyan betikler (cevap dağılımı, dizin, deneme seti, seviye havuzu) o dersi
   // SESSİZCE boş sayar — cevap-dagilimi.json'da dersin tabanı silinir (16.09 okuyucu taraması). Burada durulur.
   if (process.argv.includes('--tam-mi')) {
-    const kabuk = liste.filter(y => fs.existsSync(path.join(KOK, y)) && kabukMu(fs.readFileSync(path.join(KOK, y), 'utf8')));
+    const oi = process.argv.indexOf('--onek');
+    const onek = oi > 0 ? String(process.argv[oi + 1] || '') : '';
+    if (oi > 0 && !onek) { console.error('⛔ --onek değersiz verildi'); process.exitCode = 1; return; }
+    const bakilan = tamMiBakilacak(liste, onek);
+    const kabuk = bakilan.filter(y => fs.existsSync(path.join(KOK, y)) && kabukMu(fs.readFileSync(path.join(KOK, y), 'utf8')));
     if (kabuk.length) { console.error('⛔ kasa modundaki sayfa bu koşuda tam basılmadı (hâlâ kabuk): ' + kabuk.join(', ')); process.exitCode = 1; return; }
-    console.log(`kasa modundaki ${liste.length} sayfanın hepsi tam basılı — okuyucular güvenle koşabilir`);
+    console.log(`kasa modundaki ${liste.length} sayfadan ${bakilan.length}'i bakıldı${onek ? ` (önek ${onek}; BAKILMAYAN ${liste.length - bakilan.length})` : ''} — hepsi tam basılı, okuyucular güvenle koşabilir`);
     return;
   }
   const yaz = process.argv.includes('--yaz');

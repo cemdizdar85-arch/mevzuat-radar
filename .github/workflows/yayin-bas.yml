@@ -113,8 +113,11 @@ jobs:
       # ⭐ 16.09.2026 ADIM 2 (Cem "depoda soru icerigi kalmasin"): arac/kasa-modu.json'daki sayfalar
       #   depoda SORUSUZ KABUK durur. Basim onlari tam yeniden yazar; asagidaki okuyucular (cevap
       #   dagilimi) tam sayfayi gormeli. Sayfa hala kabuksa ders SESSIZCE bos sayilir -> dur.
+      # 23.09.2026: --onek sart. 18.09'da kasa-modu.json'a bitirme (kaydir/smmm/) sayfalari eklendi; bu akis
+      #   onlari BASMAZ, kapi her kosuda "hala kabuk" deyip dustu -> SGS yayini 18.09 11:03'ten 23.09'a durdu.
+      #   Okuyucularin hepsi (cevap dagilimi, dizin, deneme, seviye) yalniz kaydir/sgs/ okur.
       - name: Kasa modundaki sayfalar tam basildi mi
-        run: node motor/kasa-kabuk.js --tam-mi
+        run: node motor/kasa-kabuk.js --tam-mi --onek kaydir/sgs/
 
       # ⛔⭐ 12.09.2026 CEM KURALI: "kural koyalim bundan sonra kacmasin"
       #   Cevap dagilimi kapisi ITMEDEN ONCE kosar - bozulmus bir dagilim
