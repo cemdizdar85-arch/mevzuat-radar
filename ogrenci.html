@@ -107,7 +107,7 @@
       <h2>Paketlerim</h2>
       <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
     </div>
-    <!-- 25.09 CİHAZLARIM (hesap paylaşım koruması): paket en fazla 3 cihazda, aynı anda tek
+    <!-- 23.09 CİHAZLARIM (hesap paylaşım koruması): paket en fazla 3 cihazda, aynı anda tek
          ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->
     <div class="og-bolum" id="cihazlarim">
       <h2>Cihazlarım</h2>
@@ -144,7 +144,7 @@
 </div>
 
 <script src="kutuphane/supabase-2.112.3.js"></script>
-<!-- 25.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
+<!-- 23.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
 <script src="captcha.js"></script>
 <script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
@@ -197,7 +197,7 @@
     if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';
     if(/validation_failed/i.test(k)||/invalid.*email/i.test(m)) return 'E-posta adresi geçerli görünmüyor.';
     if(/email_not_confirmed/i.test(k)) return 'E-postanı doğrulaman gerekiyor: gelen kutunu kontrol et.';
-    /* 24.09: proje geneli e-posta tavanı (Auth → Rate Limits, 23.09'da saatte 30
+    /* 23.09: proje geneli e-posta tavanı (Auth → Rate Limits, 23.09'da saatte 30
        ölçüldü) aşılınca "bir dakika bekle" demek yanlıştı — tavan SAATLİK. */
     if(/over_email_send_rate_limit/i.test(k)||/email rate limit/i.test(m)) return 'Şu an kayıt yoğunluğu var, doğrulama e-postası gönderilemedi. Birkaç dakika sonra tekrar dene.';
     if(/rate limit/i.test(k+m)) return 'Çok sık denendi. Bir dakika bekleyip tekrar dene.';
@@ -222,7 +222,7 @@
       location.replace(s); return true;
     }catch(e){ return false; }
   }
-  /* 25.09 CİHAZLARIM — cihaz-kapisi.js'in cihazlarim/cihaz_cikar fonksiyonları. SQL basılmamışsa
+  /* 23.09 CİHAZLARIM — cihaz-kapisi.js'in cihazlarim/cihaz_cikar fonksiyonları. SQL basılmamışsa
      (ttCihaz.listele null döner) bölüm dürüstçe "henüz açılmadı" der, sayfanın geri kalanı etkilenmez. */
   async function cihazlarimCiz(){
     var kutu=$('ogCihazlar');

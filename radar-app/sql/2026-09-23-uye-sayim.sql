@@ -1,7 +1,7 @@
 -- ============================================================================
--- UYE SAYIM FONKSIYONU (25.09.2026 - saatlik uye alarmi, Cem "1 yap")
+-- UYE SAYIM FONKSIYONU (23.09.2026 - saatlik uye alarmi, Cem "1 yap")
 --
--- NEDEN: 24.09'da e-posta onayi kapatildi (Auth e-posta tavani saatte 30 idi,
+-- NEDEN: 23.09'da e-posta onayi kapatildi (Auth e-posta tavani saatte 30 idi,
 -- canli denemede kayitlari tikayacakti). Bedeli: sahte hesap acmak kolaylasti;
 -- bot korumasi (captcha) 4 Ekim sonrasina birakildi. Bu fonksiyon saatlik
 -- uye alarmina (motor/uye-alarmi.ps1) YALNIZ SAYI verir.

@@ -119,7 +119,7 @@
     </div>
   </div>
 
-  <!-- 24.09 "Yerini ayır = ücretsiz üye ol": kayıtlar sınav gününe değil ÖNCEKİ
+  <!-- 23.09 "Yerini ayır = ücretsiz üye ol": kayıtlar sınav gününe değil ÖNCEKİ
        günlere yayılsın (Auth e-posta tavanı proje genelinde saatte 30 — ölçüldü
        23.09). Üye olan sınav bitince açıklamaları anında görür. -->
   <div class="kart" id="uyeKart">
@@ -155,7 +155,7 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
   if(!d || !d.oturumlar) return;
   var simdi = new Date();
   var zamani = function(o){ return new Date(o.tarih.split('.').reverse().join('-') + 'T' + (o.saat || '10:00') + ':00'); };
-  /* 24.09 GEÇ GİRİŞ KAPISI — eskiden oturum, başlangıç saniyesinde "geçmiş"
+  /* 23.09 GEÇ GİRİŞ KAPISI — eskiden oturum, başlangıç saniyesinde "geçmiş"
      sayılıyordu: 10:00:01'de sayfayı AÇAN ya da YENİLEYEN kişi o sınavı hiç
      görmüyor, bir sonraki oturumun (bir hafta sonrası) geri sayımına
      düşüyordu. Artık oturum başlangıçtan GIRIS_DK dakika sonrasına kadar
@@ -276,13 +276,13 @@ function anahtarBekle(){
   dene();
 }
 function b64ab(b64){ var s = atob(b64), a = new Uint8Array(s.length); for(var i=0;i<s.length;i++){ a[i]=s.charCodeAt(i); } return a.buffer; }
-/* 24.09 YARIM SINAV KAYDI — eskiden cevaplar yalnız bellekteydi: telefonda
+/* 23.09 YARIM SINAV KAYDI — eskiden cevaplar yalnız bellekteydi: telefonda
    arama gelmesi, sekmenin kapanması ya da sayfanın yenilenmesi TÜM cevapları
    siliyor ve süreyi 120 dakikadan YENİDEN başlatıyordu. Artık her işaretleme
    ve her soru geçişi bu cihaza yazılır; sayfa yeniden açılınca sınav kaldığı
    yerden, KALAN süreyle devam eder. Bitmiş sınav yeniden açılınca sonuç
    ekranı gelir; sonuç zaten gönderildiyse ikinci kez gönderilmez. */
-/* 24.09 üyelik kontrolü — AĞA GİTMEZ. Sitenin diğer sayfaları (ogrenci.html vb.)
+/* 23.09 üyelik kontrolü — AĞA GİTMEZ. Sitenin diğer sayfaları (ogrenci.html vb.)
    aynı alan adında Supabase oturumunu 'sb-<proje>-auth-token' anahtarıyla bu
    cihaza yazıyor; kayıt varsa bu kişi üyedir. getSession() kullanılmadı çünkü
    süresi dolmuş oturumu yenilemek için sunucuya gider — sınav bitiminde binlerce
@@ -306,7 +306,7 @@ function durumYaz(){
     cevap:CANLI.cevap, idx:CANLI.idx, bitti:!!CANLI.bitti, gonderildi:!!CANLI.gonderildi })); } catch(e){}
 }
 function sinavAc(anahtarB64){
-  /* 24.09 PAKET YARIŞI — saatten SONRA gelen (ya da yenileyen) kişide küçük
+  /* 23.09 PAKET YARIŞI — saatten SONRA gelen (ya da yenileyen) kişide küçük
      anahtar dosyası 328 KB'lık paketten önce iniyor, eski kod "Paket eksik,
      sayfayı yenile" deyip duruyordu; yenileyince aynı yarış tekrarlanıyordu.
      Artık paket yoksa önce paket indirilir, sonra sınav açılır. */
@@ -338,7 +338,7 @@ function sinavAc(anahtarB64){
       CANLI.basMs = Date.now();
     }
     document.getElementById('salonKart').style.display = 'none';
-    /* 24.09: eskiden SAYFADAKİ TÜM .kart'lar gizleniyordu — soru kartı
+    /* 23.09: eskiden SAYFADAKİ TÜM .kart'lar gizleniyordu — soru kartı
        (#sinavEkran içinde) ve sonuç kartları (#sonucEkran içinde) da
        dahil. Sınav ekranı sayaçla açılıp SORUSUZ görünüyordu. Artık
        yalnız sınav/sonuç ekranı dışındaki tanıtım kartları gizlenir. */
@@ -400,7 +400,7 @@ function soruGoster(){
     p.onclick = function(){ CANLI.idx = i; soruGoster(); window.scrollTo(0,0); };
     pl.appendChild(p);
   });
-  durumYaz();   // 24.09: her işaretleme/geçiş sonrası bu cihaza yaz (yenilemede kayıp yok)
+  durumYaz();   // 23.09: her işaretleme/geçiş sonrası bu cihaza yaz (yenilemede kayıp yok)
 }
 document.getElementById('seIleri').onclick = function(){ if(CANLI.idx < CANLI.sorular.length-1){ CANLI.idx++; soruGoster(); window.scrollTo(0,0); } };
 document.getElementById('seGeri').onclick = function(){ if(CANLI.idx > 0){ CANLI.idx--; soruGoster(); window.scrollTo(0,0); } };
@@ -420,7 +420,7 @@ function teslim(otomatik){
   document.getElementById('soOzet').textContent = dg + ' doğru · ' + yn + ' yanlış · ' + bs + ' boş  (%' + Math.round(100*dg/CANLI.sorular.length) + ')';
   try { localStorage.setItem('canliSonuc-' + CANLI.kod, JSON.stringify({ dogru:dg, yanlis:yn, bos:bs, t:Date.now() })); } catch(e){}
   var lst = document.getElementById('soListe'); lst.innerHTML='';
-  /* 24.09 ÜYELİK KAPISI (Cem: "2 yap") — sayfa "açıklamaların tamamı için üyelik
+  /* 23.09 ÜYELİK KAPISI (Cem: "2 yap") — sayfa "açıklamaların tamamı için üyelik
      gerekir" diyordu ama 93 açıklamayı herkese gösteriyordu. Artık: cevap anahtarı
      (hangi soruda ne yaptın, doğrusu ne) HERKESE; "neden" açıklaması ÜYEYE.
      Üyelik kontrolü AĞA GİTMEZ (uyeMi, bu cihazdaki oturum kaydına bakar) —
@@ -471,7 +471,7 @@ function teslim(otomatik){
      gecikme, düşen isteklerin hepsini aynı ana yeniden yığıyordu).
      Kullanıcı beklemiyor: sonuç ekranı ve çözümler zaten açık, gönderim
      arka planda. */
-  /* 24.09: bitmiş sınav yeniden açıldıysa ve sonuç zaten ulaştıysa İKİNCİ KEZ
+  /* 23.09: bitmiş sınav yeniden açıldıysa ve sonuç zaten ulaştıysa İKİNCİ KEZ
      gönderme — aynı kişinin skoru sıralamaya iki kez girmesin. */
   if(CANLI.gonderildi){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; return; }
   setTimeout(function(){ yolla(1); }, 500 + Math.random()*150000);

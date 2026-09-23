@@ -203,7 +203,7 @@ jobs:
           - { ad: "SQL kapisi (calistirilamaz SQL depoya girmesin)",
               kabuk: bash, komut: "node arac/sql-kapisi.js" }
 
-          # 25.09 - e-posta onayi kapatildi (24.09), sahte hesap acmak kolaylasti.
+          # 23.09 - e-posta onayi kapatildi (23.09), sahte hesap acmak kolaylasti.
           # Saatlik uye alarmi (uye-alarmi.yml) yalniz SAYI okur, esik asilinca Cem'e
           # mail atar. Oz-sinav 15 vaka: 8 seviye (sinir alti YANLIS ALARM VERMEMELI
           # dahil) + 7 mail tekrari (ayni seviye 6 sa icinde ikinci mail yok,

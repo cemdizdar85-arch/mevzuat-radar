@@ -1,8 +1,8 @@
 /* ============================================================================
    BOT KORUMASI (Cloudflare Turnstile) — HAZIR, KAPALI
-   25.09.2026, Cem "2 yap": turnstile'lı formlar hazır dursun, canlıya alınmasın.
+   23.09.2026, Cem "2 yap": turnstile'lı formlar hazır dursun, canlıya alınmasın.
 
-   NEDEN: 24.09'da e-posta onayı kapatıldı; sahte hesap açmak kolaylaştı. Koruma
+   NEDEN: 23.09'da e-posta onayı kapatıldı; sahte hesap açmak kolaylaştı. Koruma
    4 Ekim sonrasına bırakıldı ama saldırı gelirse AYNI GÜN açılabilsin diye
    kod şimdiden 5 sayfada (ogrenci, radar-app, evrak-app, marka-app, deneme)
    10 giriş/üyelik çağrısına bağlı.

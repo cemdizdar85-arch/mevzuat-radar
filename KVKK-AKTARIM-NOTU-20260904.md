@@ -15,7 +15,7 @@ karar değil, **ölçülmüş olgu listesi + seçilecek dayanak seçenekleri**di
 | ~~web3forms~~ | 04.09.2026'da zincirden ÇIKARILDI (19 sayfa + sipariş formu oradan geçiyordu) | — | commit `8c8e1ee7` |
 
 Kayıt açık (`disable_signup=false`), e-posta onayı ~~açık (`mailer_autoconfirm=false`)~~
-**KAPALI (`mailer_autoconfirm=true`) — 24.09.2026 Cem kararı ("kapat onayı sen yap")**, sebebi
+**KAPALI (`mailer_autoconfirm=true`) — 23.09.2026 Cem kararı ("kapat onayı sen yap")**, sebebi
 proje geneli Auth e-posta tavanı (saatte 30) canlı denemede kayıtları tıkayacaktı; ayrıntı
 `veri/CANLI-DENEME-YUK-OLCUMU.md` §3c. Kayıtta artık onay e-postası GİTMİYOR (aktarım
 değerlendirmesi açısından: Resend'e kayıt anında üye adresi gitmiyor; şifre sıfırlama vb. hâlâ gidiyor).

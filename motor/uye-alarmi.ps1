@@ -1,19 +1,19 @@
 ﻿# ============================================================================
 #  ÜYE ALARMI — saatlik yeni üye sayımı, sahte hesap dalgasına erken uyarı
 #
-#  NEDEN (25.09.2026, Cem "1 yap"): 24.09'da e-posta onayı kapatıldı; sahte
+#  NEDEN (23.09.2026, Cem "1 yap"): 23.09'da e-posta onayı kapatıldı; sahte
 #  hesap açmak kolaylaştı ve bot koruması (captcha) 4 Ekim sonrasına kaldı.
 #  Bu alarm olmadan bin sahte hesap açılsa haftalar sonra görürdük.
 #
 #  NASIL: Supabase'de public.uye_sayim() fonksiyonu (radar-app/sql/
-#  2026-09-25-uye-sayim.sql) YALNIZ SAYI döndürür — e-posta/ad/kimlik
+#  2026-09-23-uye-sayim.sql) YALNIZ SAYI döndürür — e-posta/ad/kimlik
 #  dönmez. Kişi verisi Actions'a GİRMEZ (depo public, CLAUDE.md bulut m.4).
 #
 #  SEVİYELER (ölçülen: son 1 saat · son 24 saat · son 1 saatin en yoğun dakikası)
 #    KIRMIZI : en yoğun dakika >= 30  (insan bu hızda kaydolmaz, bot olur)
 #              ya da son 1 saat >= 300
 #    SARI    : en yoğun dakika >= 15, son 1 saat >= 100, son 24 saat >= 1000
-#    SARI    : (25.09 hesap paylaşımı) son 24 saatte ekranı 8+ kez el değiştiren
+#    SARI    : (23.09 hesap paylaşımı) son 24 saatte ekranı 8+ kez el değiştiren
 #              üye >= 1, ya da 4. cihazla girmeye çalışan üye >= 3
 #    YEŞİL   : hiçbiri
 #    KÖR     : sayım okunamadı (fonksiyon yok / yetki / ağ) — "temiz" SAYILMAZ
@@ -66,7 +66,7 @@ function Get-UyeSeviyesi {
   if ($dakikaTepe -ge $ESIK.sari_dakika)     { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "bir dakikada $dakikaTepe kayit (esik $($ESIK.sari_dakika))" } }
   if ($saatlik -ge $ESIK.sari_saat)          { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "son 1 saatte $saatlik kayit (esik $($ESIK.sari_saat))" } }
   if ($gunluk -ge $ESIK.sari_gun)            { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "son 24 saatte $gunluk kayit (esik $($ESIK.sari_gun))" } }
-  # 25.09 hesap paylaşımı belirtileri (eski uye_sayim bu alanları döndürmez -> 0 sayılır)
+  # 23.09 hesap paylaşımı belirtileri (eski uye_sayim bu alanları döndürmez -> 0 sayılır)
   $paylasimSupheli = [int]$SayimGirdisi.paylasim_supheli
   $cihazSiniriAsan = [int]$SayimGirdisi.cihaz_siniri_24s
   if ($paylasimSupheli -ge $ESIK.paylasim_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$paylasimSupheli uyede ekran 24 saatte 8+ kez el degistirdi (hesap paylasimi belirtisi)" } }
@@ -143,14 +143,14 @@ if (-not $servisAnahtari) {
 } else {
   try {
     # UA bilerek düz: Supabase, tarayıcıya benzeyen UA'da gizli anahtarı reddediyor
-    # ("Forbidden use of secret API key in browser" — 24.09'da yaşandı).
+    # ("Forbidden use of secret API key in browser" — 23.09'da yaşandı).
     $sayim = Invoke-RestMethod -Uri "$SUPABASE_ADRES/rest/v1/rpc/uye_sayim" -Method Post `
       -Headers @{ apikey = $servisAnahtari; Authorization = "Bearer $servisAnahtari"; 'Content-Type' = 'application/json' } `
       -Body '{}' -UserAgent 'tetikte-uye-alarmi/1.0' -TimeoutSec 40
   } catch {
     $okumaHatasi = "$($_.Exception.Message)"
     if ($okumaHatasi -match '404|PGRST202|Could not find the function') {
-      $okumaHatasi = 'uye_sayim() fonksiyonu YOK - radar-app/sql/2026-09-25-uye-sayim.sql basilmamis'
+      $okumaHatasi = 'uye_sayim() fonksiyonu YOK - radar-app/sql/2026-09-23-uye-sayim.sql basilmamis'
     }
     $sayim = $null
   }

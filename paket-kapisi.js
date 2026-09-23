@@ -86,7 +86,7 @@
     if (document.body) cizim(); else document.addEventListener('DOMContentLoaded', cizim);
   }
 
-  /* 25.09 HESAP PAYLAŞIM KORUMASI (cihaz-kapisi.js): tek aktif ekran + en fazla 3 cihaz +
+  /* 23.09 HESAP PAYLAŞIM KORUMASI (cihaz-kapisi.js): tek aktif ekran + en fazla 3 cihaz +
      filigran. Yalnız aktif paket görülünce, sayfa AÇILDIKTAN sonra yüklenir; betik inmezse
      ya da SQL basılmamışsa hiçbir şey kapanmaz (fail-open). */
   function cihazKorumasi(sb, kullanici) {

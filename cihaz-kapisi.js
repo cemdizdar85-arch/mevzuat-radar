@@ -1,6 +1,6 @@
-/* cihaz-kapisi.js — HESAP PAYLAŞIM KORUMASI, istemci ayağı (25.09.2026)
+/* cihaz-kapisi.js — HESAP PAYLAŞIM KORUMASI, istemci ayağı (23.09.2026)
  *
- * Cem 25.09: "1.2.3 üçünü de yapalım, açılışı beklemeyelim". Paket alan birinin şifresini
+ * Cem 23.09: "1.2.3 üçünü de yapalım, açılışı beklemeyelim". Paket alan birinin şifresini
  * başkalarına vermesine karşı, profesyonel platformlardaki katmanlar:
  *   (1) TEK AKTİF EKRAN — sayfa açılınca bu cihaz ekranı alır; eski cihaz bir sonraki
  *       yoklamada (en geç 60 sn / sekmeye dönünce) "Hesabın başka bir cihazda açıldı" görür.
@@ -8,7 +8,7 @@
  *       Hesabım → Cihazlarım'dan çıkarılır (30 günde en fazla 2 çıkarma).
  *   (3) FİLİGRAN — paketli sayfada üyenin e-postası silik yazar (ekran görüntüsü dağıtan
  *       kendini ifşa eder).
- * Veritabanı ayağı: radar-app/sql/2026-09-25-hesap-paylasim-korumasi.sql
+ * Veritabanı ayağı: radar-app/sql/2026-09-23-hesap-paylasim-korumasi.sql
  * (cihaz_kontrol · cihazlarim · cihaz_cikar). Alarm ayağı: motor/uye-alarmi.ps1.
  *
  * YALNIZ PAKETLİ İÇERİKTE çalışır: paket-kapisi.js aktif paket görünce koru()'yu çağırır.
@@ -65,7 +65,7 @@
       if (r.error) {
         if (fonksiyonYok(r.error)) {
           kapali = true;
-          console.warn('[cihaz-kapisi] ' + ad + ' yok — radar-app/sql/2026-09-25-hesap-paylasim-korumasi.sql basılmamış; koruma KAPALI, sayfa açık kalır.');
+          console.warn('[cihaz-kapisi] ' + ad + ' yok — radar-app/sql/2026-09-23-hesap-paylasim-korumasi.sql basılmamış; koruma KAPALI, sayfa açık kalır.');
         }
         return null;
       }

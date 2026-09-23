@@ -1,10 +1,10 @@
 -- ============================================================================
--- HESAP PAYLASIM KORUMASI (25.09.2026, Cem "1.2.3 ucunu de yapalim, acilisi beklemeyelim")
+-- HESAP PAYLASIM KORUMASI (23.09.2026, Cem "1.2.3 ucunu de yapalim, acilisi beklemeyelim")
 --
 -- NEDEN: paket alan birinin sifresini baskalarina vermesi. Profesyonel platformlarin
 -- katmanlari: (1) tek aktif ekran, (2) en fazla 3 kayitli cihaz + ayda 2 cikarma,
 -- (3) filigran (istemci), (4) anormallik alarmi. Bu dosya 1, 2 ve 4'un veritabani ayagi.
--- (Supabase "Enforce single session per user" 25.09'da ACILDI - taban katman, eski
+-- (Supabase "Enforce single session per user" 23.09'da ACILDI - taban katman, eski
 --  cihaz en gec 1 saatte duser. Bu dosya PAKETLI icerikte ANINDA kontrol verir.)
 --
 -- KAPSAM: yalniz PAKETLI icerik sayfalari (paket-kapisi.js aktif paket gorunce cagirir).
@@ -175,7 +175,7 @@ grant execute on function public.cihaz_cikar(text) to authenticated;
 -- uye_sayim (alarm) GENISLEDI: paylasim belirtileri eklendi - yine YALNIZ SAYI.
 --   paylasim_supheli : son 24 saatte ekrani 8+ kez el degistiren uye sayisi
 --   cihaz_siniri_24s : son 24 saatte 4. cihazla girmeye calisan uye sayisi
--- Eskitir: 2026-09-25-uye-sayim.sql icindeki uye_sayim() (alanlar korunur, yenileri eklenir).
+-- Eskitir: 2026-09-23-uye-sayim.sql icindeki uye_sayim() (alanlar korunur, yenileri eklenir).
 -- ---------------------------------------------------------------------------
 create or replace function public.uye_sayim()
 returns jsonb

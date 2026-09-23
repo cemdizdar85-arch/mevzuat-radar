@@ -74,7 +74,7 @@ arasında yaklaşık **8 kat** pay var.
 
 ---
 
-## 3b · ⭐ 24.09 — TARAYICI PROVASI: SUNUCUDAN BÜYÜK RİSK SAYFANIN İÇİNDEYDİ
+## 3b · ⭐ 23.09 — TARAYICI PROVASI: SUNUCUDAN BÜYÜK RİSK SAYFANIN İÇİNDEYDİ
 
 Sayfa gerçek şifreli paket (`SGS-2308.enc.json`, 93 soru) + gerçek anahtarla, yerel
 sunucuda, kapı saati 3 dk sonraya kurularak **uçtan uca** koşuldu. Sayfa hiç
@@ -92,7 +92,7 @@ prova **üç kusur** çıkardı, üçü de düzeltildi ve yeniden prova edildi:
 Prova sırasında gerçek veritabanına tek satır yazılmadı (sonuç isteği sayfa içinde
 taklit edildi); prova sonrası `canli_sonuc` = **0 satır** (ölçüldü).
 
-## 3c · 🔴 ÜYELİK YOLUNUN TAVANLARI — Supabase panelinden okundu (24.09, yalnız okuma, ayar DEĞİŞTİRİLMEDİ)
+## 3c · 🔴 ÜYELİK YOLUNUN TAVANLARI — Supabase panelinden okundu (23.09, yalnız okuma, ayar DEĞİŞTİRİLMEDİ)
 
 | Ayar | Değer | Anlamı |
 |---|---|---|
@@ -107,7 +107,7 @@ taklit edildi); prova sonrası `canli_sonuc` = **0 satır** (ölçüldü).
 Bu yüzden üyelik kapısı sınavdan ÖNCEYE alındı ("Yerini ayır") ve üyelik kontrolü ağa gitmeyecek şekilde kuruldu.
 Ama 12 güne yayılsa bile tek bir viral gönderi saatte 30'u aşar → ayar kararı Cem'deydi (güvenlik ayarı).
 
-✅ **24.09 KARAR VE UYGULAMA (Cem: "kapat onayı sen yap"): e-posta onayı KAPATILDI.**
+✅ **23.09 KARAR VE UYGULAMA (Cem: "kapat onayı sen yap"): e-posta onayı KAPATILDI.**
 Panel → Authentication → Sign In / Providers → "Confirm email" KAPALI, "Successfully updated settings".
 Doğrulama (dışarıdan, ölçüldü): `/auth/v1/settings` → `mailer_autoconfirm: true`.
 Uçtan uca deneme: prova hesabıyla kayıt → **anında oturum** geldi, e-posta onaylı sayıldı, **e-posta gönderilmedi**;
@@ -116,7 +116,7 @@ Sonuç: kayıt yolunda saatte-30 tavanı ARTIK YOK. Şifre sıfırlama e-postala
 Bedeli (bilerek kabul edildi): adresler doğrulanmamış — yanlış yazılmış/uydurma adres üye olabilir;
 toplu tanıtım e-postası bu listeye körlemesine atılmamalı (geri dönen posta Resend itibarını düşürür).
 
-## 3d · ⭐ ÇOK TARAYICILI PROVA (24.09 gece, iki koşu)
+## 3d · ⭐ ÇOK TARAYICILI PROVA (23.09 gece, iki koşu)
 
 25 **gerçek başsız tarayıcı** (her biri ayrı cihaz gibi, ayrı localStorage, 390×800 telefon ekranı)
 + **2.000 sanal istemci** anahtar kalabalığı. Anahtar **gerçek Supabase kovasına** kapı saatinde
