@@ -77,6 +77,8 @@ $md = New-Object System.Collections.Generic.List[string]
 $md.Add('# YILLIK HAD TUTARI TARAMASI'); $md.Add('')
 $md.Add("> Türetilmiştir (``arac/had-tutar-tarama.ps1``). $(Get-Date -Format 'dd.MM.yyyy HH:mm') · bedel 0 · soru metni YOK · güncel had = ambardaki kanun maddesi şerhi"); $md.Add('')
 $md.Add("**$oz**"); $md.Add(''); $md.Add('Şüpheli = karar değil; elle okunur. Kural ve körlükler betiğin başında. 23.09 elle okuma: 34 şüpheliden 3''ü gerçek (862.400 · 1.100.000 SMMM → elle ret; SGS t1-vergi-cokzor/kp-28 → SGS kolu); çoğu senaryo tutarı ya da ''varsayılırsa'' kurgusu.'); $md.Add('')
+$md.Add('## Kapsam dışı — tebliğ / yönetmelik tutarları (KAYNAK BORCU)'); $md.Add('')
+$md.Add('23.09.2026 ölçümü: ambarda "2026" geçen kanun dışı belge 54; "2026 … N TL" kalıbında yalnız 7 cümle, hepsi 4 teori notunda (binek oto sınırları, örnek hesaplar). KDV istisna tutarları, SGK prim tabanı/tavanı, asgari ücret, GVK tarife dilimleri gibi TEBLİĞ/KARAR ile yıllık belirlenen tutarlar ambarda bu biçimde YOK → bu tutarları kullanan sorular **taranamıyor** (ölçülmedi, "temiz" değil). Önce 2026 resmî kaynaklarının ambara yutulması gerekir (GVK GT tarife tebliği, SGK 2026 genelgesi, Asgari Ücret Tespit Komisyonu kararı, KDV GUT tutar güncellemeleri).'); $md.Add('')
 $md.Add('| kimlik | madde | soruda | güncel had | varsayım mı |'); $md.Add('|---|---|---:|---:|---|')
 foreach ($s in $supheli) { $md.Add("| $($s.an) | $($s.madde) | $($s.bulunan) | $($s.guncel_had) | $(if ($s.varsayim) { 'evet (soru varsayım diye kurmuş)' } else { '**hayır — gerçek diye veriyor**' }) |") }
 [IO.File]::WriteAllText((Join-Path $kok 'veri\sinav\HAD-TUTAR-TARAMASI.md'), ($md -join "`r`n"), (New-Object Text.UTF8Encoding $false))

@@ -1,10 +1,14 @@
 # YILLIK HAD TUTARI TARAMASI
 
-> Türetilmiştir (`arac/had-tutar-tarama.ps1`). 23.09.2026 18:08 · bedel 0 · soru metni YOK · güncel had = ambardaki kanun maddesi şerhi
+> Türetilmiştir (`arac/had-tutar-tarama.ps1`). 23.09.2026 18:23 · bedel 0 · soru metni YOK · güncel had = ambardaki kanun maddesi şerhi
 
-**HAD TUTARI TARAMASI: bakılan soru 9946 · şerhli maddeye dayanan 422 · ŞÜPHELİ 33**
+**HAD TUTARI TARAMASI: bakılan soru 9945 · şerhli maddeye dayanan 421 · ŞÜPHELİ 32**
 
 Şüpheli = karar değil; elle okunur. Kural ve körlükler betiğin başında. 23.09 elle okuma: 34 şüpheliden 3'ü gerçek (862.400 · 1.100.000 SMMM → elle ret; SGS t1-vergi-cokzor/kp-28 → SGS kolu); çoğu senaryo tutarı ya da 'varsayılırsa' kurgusu.
+
+## Kapsam dışı — tebliğ / yönetmelik tutarları (KAYNAK BORCU)
+
+23.09.2026 ölçümü: ambarda "2026" geçen kanun dışı belge 54; "2026 … N TL" kalıbında yalnız 7 cümle, hepsi 4 teori notunda (binek oto sınırları, örnek hesaplar). KDV istisna tutarları, SGK prim tabanı/tavanı, asgari ücret, GVK tarife dilimleri gibi TEBLİĞ/KARAR ile yıllık belirlenen tutarlar ambarda bu biçimde YOK → bu tutarları kullanan sorular **taranamıyor** (ölçülmedi, "temiz" değil). Önce 2026 resmî kaynaklarının ambara yutulması gerekir (GVK GT tarife tebliği, SGK 2026 genelgesi, Asgari Ücret Tespit Komisyonu kararı, KDV GUT tutar güncellemeleri).
 
 | kimlik | madde | soruda | güncel had | varsayım mı |
 |---|---|---:|---:|---|
@@ -17,7 +21,6 @@
 | sgs-t1-vergi-zor/kp-28 | 213|177 | 1.847.500 | 2.500.000 | **hayır — gerçek diye veriyor** |
 | sgs-t4-vergi-kolay/kp-03 | 193|47,193|48,193|21 | 2.480.000 | 1.900.000 | **hayır — gerçek diye veriyor** |
 | sgs-t4-vergi-zor/kp-19 | 193|40 | 62.000 | 46.000 | **hayır — gerçek diye veriyor** |
-| smmm-4k-a-yvergi-cokzor-r5/kp-02 | 213|370,193|82 | 862.400 | 870.000 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-kolay-r1/kp-02 | 193|21,492|gec1 | 92.000 | 102.097 / 66.104 / 125.802 / 102.773 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-kolay-r10/kp-06 | 213|370 | 600.000 | 870.000 | **hayır — gerçek diye veriyor** |
 | smmm-4k-a-yvergi-kolay-r2/kp-04 | 213|370 | 700.000 | 870.000 | **hayır — gerçek diye veriyor** |
