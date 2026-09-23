@@ -50,6 +50,23 @@ T 'MdAnahtar örnekleri' ((MdAnahtar 'TTK (6102 s.K.) gec. m.7 [3/7]') -eq '6102
 # --- nöbetçi kuralı yerinde mi (belirsiz / taban tarihi / SILINDI hariç)
 $nb = [IO.File]::ReadAllText((Join-Path $kok 'motor\soru-dayanak-nobetcisi.ps1'), [Text.Encoding]::UTF8)
 T 'nöbetçi: yalnız degisti + belirsiz değil + taban sonrası kayıtla atlar' ($nb.Contains("-eq 'degisti' -and `$dkE -and -not `$dkE.belirsiz -and") -and $nb.Contains('-ge $tabanTarihIso'))
+# --- 24.09 TEORİ NOTU İZLEME (MdKaynakKoku / MdIzlenenAnahtar / MdDegisenKokEkle) — gerçek vaka: kollektif notu (TBK 623)
+T 'kaynak kökü: kanun maddesi aynen (MdMaddeKoku)' ((MdKaynakKoku 'VUK (213 s.K.) m.370 [1/3]') -eq 'VUK (213 s.K.) m.370')
+T 'kaynak kökü: teori notu TEORI:<ad>, parça eki atılır' ((MdKaynakKoku 'TEORI - Kollektif sirkette kar dagitimi [1/2]') -eq 'TEORI:TEORI - Kollektif sirkette kar dagitimi')
+T 'kaynak kökü: madde numarasız standart/tebliğ adı → boş (izlenmez)' ((MdKaynakKoku 'BDS 570 İşletmenin Sürekliliği') -eq '')
+T 'izlenen anahtar: kanun + teori evet, standart hayır' ((MdIzlenenAnahtar '6102|227') -and (MdIzlenenAnahtar 'ad|TEORI - Kollektif sirkette kar dagitimi') -and -not (MdIzlenenAnahtar 'ad|BDS 570'))
+$ke = 'KAR-ZARAR DAGITIMI: Sozlesmede hukum yoksa kar ve zarar ortaklar arasinda SERMAYE PAYLARI ORANINDA paylasilir. SORUMLULUK: ortaklar sirket borclarindan MUTESELSILEN sorumludur.'
+$ky = 'KAR-ZARAR DAGITIMI: Sozlesmede hukum yoksa her ortagin kar ve zarardaki payi ESITTIR (TBK m.623/1). SORUMLULUK: ortaklar sirket borclarindan MUTESELSILEN sorumludur.'
+T 'teori: hüküm-yoksa kuralını soran soru DEĞER' ((Degiyor (S 'Kollektif sirkette sozlesmede hukum yoksa kar nasil paylasilir?' 'Sermaye paylari oraninda') $ke $ky) -eq 'DEGIYOR')
+T 'teori: yalnız müteselsil sorumluluğu soran soru DEĞMEZ (çekilmez)' ((Degiyor (S 'Kollektif sirket ortaklarinin sirket borclarindan sorumlulugu nasildir?' 'Muteselsilen sorumludurlar') $ke $ky) -eq 'DEGMIYOR')
+$dkT = Join-Path ([IO.Path]::GetTempPath()) ("dk-sinav-{0}.json" -f [guid]::NewGuid().ToString('N'))
+$r1 = MdDegisenKokEkle $dkT 'ad|TEORI - X' 'ayni metin' 'ayni   metin' 'sinav'
+$r2 = MdDegisenKokEkle $dkT 'ad|TEORI - X' $ke $ky 'sinav'
+$r3 = MdDegisenKokEkle $dkT 'ad|TEORI - X' 'oran %18 uygulanir' 'oran %20 uygulanir' 'sinav'
+$kayit = (Get-Content $dkT -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler.'ad|TEORI - X'
+T 'belirteç kaydı: aynı metin yazılmaz, fark yazılır, ikinci değişiklik BİRLEŞİR' ($r1 -eq 'ayni' -and $r2 -eq 'yazildi' -and $r3 -eq 'yazildi' -and (@($kayit.belirtecler) -contains '#%20') -and (@($kayit.belirtecler) -contains 'serma') -and -not $kayit.belirsiz)
+if (Test-Path $dkT) { [IO.File]::Delete($dkT) }
+T 'nöbetçi: teori anahtarları izleniyor ve soru tarafı MdKaynakKoku ile eşleniyor' ($nb.Contains('Where-Object { MdIzlenenAnahtar $_ }') -and $nb.Contains('$mk = MdKaynakKoku "$ka"') -and $nb.Contains('$mk = MdKaynakKoku "$($kay.ad)"'))
 $top = $gecti + $dustu.Count
 Write-Host "SORU ETKİ ÖZ-SINAVI: $gecti/$top geçti"
 if ($dustu.Count) { $dustu | ForEach-Object { Write-Host "  ✗ $_" }; exit 1 }
