@@ -78,13 +78,35 @@ function partiVar(etiket, id) {
   const k = partiOnbellek[etiket];
   return !!(k && k.includes(id));
 }
+// 23.09.2026 (Cem: Yeterlilik sekmesi "sınava girişle aynı görünsün" -> 70 soruluk açık vitrin ONAYLANDI):
+// SMMM sayfaları kasa modunda SORUSUZ kabuk (arac/kasa-modu.json); sorular Supabase paket_soru.veri'de ve sayfadaki
+// SORULAR kaydıyla alan alan aynı (motor/kasa-kabuk.js eşdeğerlik kapısı). Sayfada soru yoksa kasadan okunur.
+async function kaynakListeler() {
+  const listeler = [];
+  for (const f of fs.readdirSync(dizin)) {
+    if (!f.endsWith('.html') || f === 'index.html') continue;
+    const h = fs.readFileSync(path.join(dizin, f), 'utf8');
+    const m = h.match(/const SORULAR=(\[\{[\s\S]*?\}\]);\r?\n/);   // git autocrlf: yerelde CRLF olabilir
+    if (!m) { if (!/data-kasa-sayfa=/.test(h)) console.warn('SORULAR bulunamadı: ' + f); continue; }
+    try { listeler.push(JSON.parse(m[1])); } catch (e) { console.warn('JSON okunamadı: ' + f); }
+  }
+  if (listeler.length || sinav !== 'smmm') return listeler;
+  const K = process.env.SUPABASE_SERVICE_KEY;
+  if (!K) throw new Error('SMMM sayfaları kasa kabuğu ve SUPABASE_SERVICE_KEY yok - kasa okunamadı');
+  const h = { apikey: K, Authorization: 'Bearer ' + K };
+  const kasa = [];
+  for (let i = 0; ; i += 500) {
+    const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=veri&sinav=eq.smmm&order=id.asc&limit=500&offset=' + i, { headers: h });
+    if (!r.ok) throw new Error('kasa okunamadı: HTTP ' + r.status);
+    const p = await r.json(); for (const x of p) if (x && x.veri) kasa.push(x.veri);
+    if (p.length < 500) break;
+  }
+  console.log('kaynak: kasa (paket_soru, sinav=smmm) ' + kasa.length + ' soru');
+  return [kasa];
+}
+(async () => {
 const adaylar = []; let toplam = 0;
-for (const f of fs.readdirSync(dizin)) {
-  if (!f.endsWith('.html') || f === 'index.html') continue;
-  const h = fs.readFileSync(path.join(dizin, f), 'utf8');
-  const m = h.match(/const SORULAR=(\[\{[\s\S]*?\}\]);\r?\n/);   // git autocrlf: yerelde CRLF olabilir
-  if (!m) { console.warn('SORULAR bulunamadı: ' + f); continue; }
-  let liste; try { liste = JSON.parse(m[1]); } catch (e) { console.warn('JSON okunamadı: ' + f); continue; }
+for (const liste of await kaynakListeler()) {
   for (const s of liste) {
     toplam++;
     const o = s.olcum || {};
@@ -173,3 +195,4 @@ dersler.slice().sort((a, b) => w[b] - w[a]).forEach(d => {
 console.log('ilk 20 günün sırası:');
 secim.slice(0, 20).forEach((s, i) => console.log('  ' + String(i).padStart(2) + ' | ' + s.donem + ' dönem | ' + s.ders + ' | ' + s.konu + ' | ' + (s._hesapli ? 'hesaplı' : 'teori')));
 if (!secim.length) { console.error('hiç aday yok'); process.exit(3); }
+})().catch(e => { console.error(e.message); process.exit(4); });

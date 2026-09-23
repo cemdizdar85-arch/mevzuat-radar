@@ -1,62 +1,137 @@
 {
-  "olcum": "2026-09-22T07:47:33.471Z",
-  "gun": "2026-09-22",
+  "olcum": "2026-09-23T08:17:28.765Z",
+  "gun": "2026-09-23",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 54,
+      "sira": 55,
       "toplam": 70,
-      "id": "sgs-d2-denetim-cokzor-r2/kp-03",
-      "ders": "Denetim",
-      "konu": "maddi duran varlık denetimi",
-      "kunye": "SGS 2026/1 Soru 76 kalıbı",
-      "donem": 3,
-      "teori": false,
+      "id": "sgs-p-meslek-cokzor-r4/kp-01",
+      "ders": "Meslek Hukuku",
+      "konu": "haksız rekabet reklam yasağı",
+      "kunye": "SGS 2025/1 Soru 103 kalıbı",
+      "donem": 7,
+      "teori": true,
       "rakamSik": false,
-      "soru": "İşletme, maliyeti 187.500 TL, birikmiş amortismanı 132.800 TL olan taşıtı 47.350 TL takas değeriyle verip 62.900 TL nakit ekleyerek yeni taşıt almıştır. Sigorta eksperi rayiç değeri 58.000 TL bulmuştur. KDV ihmal edilecektir. İşlemde oluşan tutar ve hesabı aşağıdakilerden hangisidir?",
+      "soru": "Bir SMMM hakkında, Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Mesleklerine İlişkin Haksız Rekabet ve Reklam Yasağı Yönetmeliğine aykırılık iddiasıyla yapılan şikâyetin soruşturulması sürecine ilişkin olarak aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "7.350 TL kâr olarak 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir",
-        "B": "140.150 TL zarar olarak 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir",
-        "C": "3.300 TL kâr olarak 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir",
-        "D": "7.350 TL zarar olarak 689 Diğer Olağandışı Gider ve Zararlar hesabına borç kaydedilir",
-        "E": "7.350 TL zarar olarak 679 Diğer Olağandışı Gelir ve Kârlar hesabına alacak kaydedilir"
+        "A": "Oda yönetim kurulu, bu Yönetmeliğe aykırılıklarla ilgili şikâyetler konusunda soruşturma yapılması görevini Haksız Rekabetle Mücadele Kuruluna verebilir; bu yetkinin kullanılması yönetim kurulunun takdirindedir.",
+        "B": "Bu tür şikâyetlerde soruşturma görevi doğrudan ve zorunlu olarak Haksız Rekabetle Mücadele Kuruluna aittir; oda yönetim kurulunun başka türlü bir görevlendirme yapma yetkisi bulunmamaktadır.",
+        "C": "Şikâyet konusu hususlar, oda disiplin kurulunun kendi üyeleri arasından görevlendireceği bir veya birden fazla üye tarafından doğrudan soruşturulur.",
+        "D": "Hakkında soruşturma yapılan meslek mensubu kendisine tanınan süre içinde bilgi vermese dahi, soruşturmayı yürütenler bu durumda dahi mutlaka sözlü ifadesini almak zorundadır.",
+        "E": "Meslek mensubundan bilgi almak için verilecek süre otuz günden az olamaz; bu süre dolmadan dosya üzerinden inceleme yapılamaz."
       },
-      "dogru": "D",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Çeldirici Veri Tuzağı",
-          "metin": "Sigorta eksperinin belirlediği rayiç değeri takas değeri yerine kullanmışsın, oysa kayıtta esas alınacak değer taraflarca belirlenen takas değeridir. Doğrusu: Fark 58.000 değil 47.350 TL üzerinden hesaplanır."
+          "ad": "Organ Karışıklığı Tuzağı",
+          "metin": "Soruşturmayı disiplin kurulunun bizzat yürüttüğünü sanırsın. Doğrusu: Soruşturma, oda yönetim kurulunun kendi üyeleri arasından görevlendireceği kişilerce (veya devredilirse Mücadele Kurulunca) yapılır, disiplin kurulu …"
         },
         "E": {
-          "ad": "Hesap Tarafı Karıştırma Tuzağı",
-          "metin": "Doğru tutarı bulmuşsun ama zararı gider hesabına borç yerine gelir hesabına alacak yazmışsın. Doğrusu: Zarar 689 hesabına borç, kâr 679 hesabına alacak kaydedilir; bu işlemde sonuç zarardır."
+          "ad": "Had/Süre Tuzağı",
+          "metin": "Süreyi 30 gün sanırsın. Doğrusu: Meslek mensubundan bilgi almak için verilecek süre 15 günden az olamaz, 30 gün değildir."
         },
-        "A": {
-          "ad": "Yön Ters Çevirme Tuzağı",
-          "metin": "Farkın mutlak değerini doğru bulup işareti ters okumuş, net defter değeri takas değerinden büyükken bunu kâr sanmışsın. Doğrusu: Takas değeri net defter değerinden küçük olduğunda fark zarardır ve 689 hesabına borç yazı…"
+        "D": {
+          "ad": "Koşul Atlama Tuzağı",
+          "metin": "Her durumda sözlü ifade alınması gerektiğini sanırsın. Doğrusu: Süre dolmasına rağmen bilgi verilmemesi veya tebligat yapılamaması hâlinde dosya üzerinden yapılan inceleme ile yetinilir."
         },
         "B": {
-          "ad": "Maliyetle Kıyaslama Tuzağı",
-          "metin": "Kâr/zararı takas değeri ile eski varlığın maliyet bedeli arasındaki farktan bulmuşsun, birikmiş amortismanı hiç düşmemişsin. Doğrusu: Kıyaslama maliyetle değil net defter değeriyle yapılır, o da 54.700 TL'dir."
+          "ad": "Zorunluluk Tuzağı",
+          "metin": "'verebilir' ifadesini 'vermek zorundadır' olarak okursun. Doğrusu: Görevlendirme yönetim kurulunun takdirine bağlı bir yetki olup zorunluluk değildir."
         }
       },
-      "hap": "Duran varlık takasında kâr/zarar, takas değeri ile net defter değeri (maliyet-birikmiş amortisman) arasındaki farktır; zarar 689 borç, kâr 679 alacak kaydedilir.",
+      "hap": "Haksız Rekabet ve Reklam Yasağı Yönetmeliğine aykırılık şikayetlerinde soruşturma görevi, oda yönetim kurulunca dilerse Haksız Rekabetle Mücadele Kuruluna VERİLEBİLİR; bu zorunlu değildir.",
       "satirlar": [
         [
-          "Net defter değeri (187.500-132.800)",
-          "54.700"
+          "A) Oda yönetim kurulu, bu Yönetmeliğe aykırılıklarla ilgili…",
+          "m.19"
         ],
         [
-          "Fark (47.350-54.700)",
-          "-7.350"
+          "B) Bu tür şikâyetlerde soruşturma görevi doğrudan ve zorunl…",
+          "m.19"
+        ],
+        [
+          "C) Şikâyet konusu hususlar, oda disiplin kurulunun kendi üy…",
+          "m.19"
+        ],
+        [
+          "D) Hakkında soruşturma yapılan meslek mensubu kendisine tan…",
+          "m.19"
+        ],
+        [
+          "E) Meslek mensubundan bilgi almak için verilecek süre otuz …",
+          "m.19"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=54",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=55",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 61,
+        "kalan_gun": 60,
+        "durum": "YESIL",
+        "mail_gunu": false
+      }
+    },
+    "smmm": {
+      "ad": "SMMM Yeterlilik",
+      "sira": 55,
+      "toplam": 70,
+      "id": "smmm-w5-yhukuk-cokzor/kp-01",
+      "ders": "Hukuk",
+      "konu": "hizmet akdi borçları",
+      "kunye": "SMMM 2026/2 ders 06 Soru 15 kalıbı",
+      "donem": 3,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Hizmet akdiyle (4/a) çalışan sigortalı, işyerinde 58 gün süren grev nedeniyle çalışamadığı bu süreyi 5510 sayılı Kanun'un 41. maddesinin (g) bendine göre borçlanmak istemektedir. Talep tarihinde seçtiği günlük kazanç 750 ₺'dir. Buna göre sigortalının ödemesi gereken borçlanma tutarı kaç ₺'dir?",
+      "siklar": {
+        "A": "13.920",
+        "B": "14.400",
+        "C": "16.095",
+        "D": "16.965",
+        "E": "19.575"
+      },
+      "dogru": "A",
+      "tuzak": {
+        "C": {
+          "ad": "Kapsam Genişletme Tuzağı",
+          "metin": "madde metninde geçen genel sağlık sigortası primi ibaresini bu borçlanmaya da ayrıca eklenen bir kalem sandın; oysa o hüküm sadece kısmi süreli çalışma borçlanmasına (i bendi) özgüdür. Doğrusu: ilave GSS payı hesaba kat…"
+        },
+        "E": {
+          "ad": "Taraf Karıştırma Tuzağı",
+          "metin": "metindeki 'diğerleri için %45' ifadesini sigortalının kendisine uyguladın; oysa bu oran 4/a dışındaki (4/b, 4/c) sigortalılar içindir. Doğrusu: sigortalı 4/a kapsamında olduğundan %32 uygulanır ve tutar 13.920 ₺'dir."
+        },
+        "D": {
+          "ad": "Oran Karıştırma Tuzağı",
+          "metin": "dipnotta yer alan %39 oranını genel oran sandın; bu oran yalnız er veya erbaş olarak silah altında geçen sürenin (b bendi) borçlanmasında uygulanır. Doğrusu: (g) bendi borçlanmasında 4/a sigortalısı için %32 uygulanır, …"
+        },
+        "B": {
+          "ad": "Ayı Tam Sayma Tuzağı",
+          "metin": "gün sayısını sorudaki 58 yerine ayı 30 günden ibaret sayarak 60'a yuvarladın; süre borçlanmasında fiilen geçen gün sayısı esas alınır. Doğrusu: 58 gün x 750 x %32 = 13.920 ₺'dir."
+        }
+      },
+      "hap": "5510 s. Kanun m.41'de sayılan borçlanma türlerinde (er/erbaşlık hariç), sigortalının seçtiği günlük kazancın borçlanma primi 4/a sigortalıları için %32, diğer statülerdeki sigortalılar için %45 üzerinden hesaplanır.",
+      "satirlar": [
+        [
+          "Toplam Kazanç (58 gün x 750 ₺)",
+          "43.500"
+        ],
+        [
+          "Borçlanma Oranı (4/a sigortalısı)",
+          "%32"
+        ],
+        [
+          "Borçlanma Tutarı",
+          "13.920"
+        ]
+      ],
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=55",
+      "havuz": {
+        "adet": 70,
+        "ilk_gun": "2026-09-23",
+        "bitis": "2026-12-02",
+        "kalan_gun": 70,
         "durum": "YESIL",
         "mail_gunu": false
       }
