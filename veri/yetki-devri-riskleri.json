@@ -1,11 +1,11 @@
 {
-  "tarih": "23.09.2026 03:31",
+  "tarih": "23.09.2026 04:45",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 880,
   "riskli_madde": 1313,
   "sayfa": 72,
   "atifli_iddia": 311,
-  "dayanaksiz_iddia": 386,
+  "dayanaksiz_iddia": 389,
   "kirmizi_aday": 30,
   "yeni_aday": 0,
   "yeni": [],
@@ -49,7 +49,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 414,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -2101,6 +2101,12 @@
       "metin": "İlk 5 yıl bağımlıdır: Uluslararası tescil, ilk beş yıl esas markaya bağlıdır. Esas marka bu sürede reddedilir, geri çekilir, iptal edilir ya da yenilenmezse uluslararası tescil de "
     },
     {
+      "sayfa": "mesafeli-satis.html",
+      "satir": 70,
+      "iddia": "30 gün",
+      "metin": "Paket içeriği en fazla 3 (üç) cihazda kullanılabilir ve aynı anda yalnız bir cihazda açık olabilir; yeni bir cihazdan girildiğinde önceki cihazdaki oturum kapanır. Üye, kayıtlı cih"
+    },
+    {
       "sayfa": "ogrenci.html",
       "satir": 82,
       "iddia": "7 gün",
@@ -2141,6 +2147,12 @@
       "satir": 348,
       "iddia": "en az 6",
       "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
+    },
+    {
+      "sayfa": "on-bilgilendirme.html",
+      "satir": 73,
+      "iddia": "30 gün",
+      "metin": "Kullanım koşulu: Paket en fazla 3 (üç) cihazda kullanılabilir ve aynı anda yalnız bir cihazda açık olabilir; yeni bir cihazdan girildiğinde önceki cihazdaki oturum kapanır. Alıcı, "
     },
     {
       "sayfa": "radar-app.html",
@@ -2537,6 +2549,12 @@
       "satir": 148,
       "iddia": "%20",
       "metin": "return {r:20,t:'%20'};"
+    },
+    {
+      "sayfa": "uyelik-sozlesmesi.html",
+      "satir": 91,
+      "iddia": "30 gün",
+      "metin": "Kayıtlı cihazlarınızı Hesabım → Cihazlarım bölümünden yönetebilirsiniz; bir cihaz 30 günde en fazla"
     }
   ],
   "riskli_maddeler": [
