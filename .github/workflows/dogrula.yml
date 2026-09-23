@@ -181,6 +181,14 @@ jobs:
           - { ad: "Bedel ara kaydi OZ-SINAVI (coken kosunun harcamasi deftere girsin)",
               kabuk: pwsh, komut: "./arac/bedel-ara-sinavi.ps1" }
 
+          # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
+          # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya
+          # gider. GERCEK betik -DenetimKok ile gecici klasorde kosulur (replika yok). 14 vaka:
+          # 9 ihlal turu tek tek + 4 yanlis alarm (Turkce harf, tam sinir, y-onekli ders) + silme.
+          # Mutasyonla olculdu: ESKI kontrolu / asim kontrolu / silme kapatilinca sinav KIRMIZI.
+          - { ad: "SMMM dalga konu denetimi OZ-SINAVI (yanlis konuya dalga acilmasin)",
+              kabuk: pwsh, komut: "./arac/smmm-dalga-dongu-sinavi.ps1" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 

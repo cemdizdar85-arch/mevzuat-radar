@@ -322,7 +322,11 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      eski, engelli, hedefi dolu konuları yakaladı) · koşan w8'de 1 ihlal (taşıt satışı: planlı 2 > açık 1 — w7'nin biten yarısı
      açığı kapattı; koşan dalga durdurulmadı, bedeli 1 fazla soru).
      🚫 GÖRMEZ: konu adı yazım farkları · paralel dalgaların birbirinin yeni sorusu (ikizi yayın kapısı yakalar).
-     ⚠ Öz-sınavı henüz YOK (gerçek veriyle üç yönlü ölçüldü; sentetik vakalı `dogrula.yml` sınavı iş emri).
+     Öz-sınav: `arac/smmm-dalga-dongu-sinavi.ps1` (`dogrula.yml`'de, 23.09) — gerçek betik `-DenetimKok` ile geçici
+     klasörde koşar; 14 vaka (9 ihlal türü + 4 yanlış alarm + silme). Mutasyonla ölçüldü: 10+ yıl kontrolü, açık aşımı
+     kontrolü ya da silme kapatılınca sınav KIRMIZI düşüyor. Plan kurucunun SEÇİMİNİ ölçmez (o ayrı betik).
+     **Plan satır tavanı 8** (`smmm-plan-kur.ps1 -SatirTavan`, 23.09): bulut işi aynı anda 8 satır koşturur; 9–15 satırlı
+     plan iki sıra koşuyordu. Dalga yine aynı toplam soruyu basar, yalnız daha çok plana bölünür.
   **Tablonun körlükleri yazılıdır:** konu adı yazım farklarını tek konuya indirmez · "çıkmış" köprüden gelir, köprü yanlışsa hedef de
   yanlıştır · ikiz süzgecinin yayında eleyeceğini görmez. Bu üçü **"ölçülmedi"** sayılır, "yok" sayılmaz.
 

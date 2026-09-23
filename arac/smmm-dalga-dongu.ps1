@@ -33,12 +33,19 @@ param(
   [int]$PlanSayisi = 4, [int]$PlanBasinaSoru = 45, [int]$CikmisEsik = 2,
   [switch]$IndirmeYok, [switch]$ExcelYok,
   # Var olan (koşan/bitmiş) bir dalgayı yalnız DENETLER: plan kurmaz, Excel yazmaz, ihlalde dosya SİLMEZ.
-  [switch]$SadeceDenetim
+  [switch]$SadeceDenetim,
+  # YALNIZ ÖZ-SINAV İÇİN (arac/smmm-dalga-dongu-sinavi.ps1): adım 1-4 atlanır, KONU DENETİMİ bu kökteki
+  # veri/fabrika/smmm-kapsama.csv + veri/sinav/plan-smmm-*.json + veri/sinav/konu/*.json üzerinde koşar.
+  # İhlalde silme davranışı gerçek koşuyla AYNIDIR (sınav onu da ölçer).
+  [string]$DenetimKok = ''
+  # Yollar '/' ile yazılır: denetim bölümü dogrula.yml'de ubuntu+pwsh üzerinde de koşar.
 )
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 $kok = Split-Path -Parent $buDizin
 . (Join-Path $buDizin 'smmm-ders-adi.ps1')
+$sinavKosusu = [bool]$DenetimKok
+if ($sinavKosusu) { $kok = $DenetimKok; $IndirmeYok = $true; $ExcelYok = $true }
 function Nrm([string]$s) {
   $t = "$s".ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
   return (($t -replace '[^a-z0-9 ]', ' ') -replace '\s+', ' ').Trim()
@@ -48,34 +55,34 @@ function Adim([string]$ad, [scriptblock]$is) {
   & $is
   if ($LASTEXITCODE) { throw "$ad düştü (çıkış $LASTEXITCODE) — dalga AÇILMADI" }
 }
-if (-not $SadeceDenetim -and (Get-ChildItem (Join-Path $kok 'veri\sinav') -Filter "plan-smmm-$Etiket-*.json" -ErrorAction SilentlyContinue)) { throw "'$Etiket' etiketli plan zaten var — aynı etiketle ikinci dalga kurulmaz" }
+if (-not $SadeceDenetim -and -not $sinavKosusu -and (Get-ChildItem (Join-Path $kok 'veri/sinav') -Filter "plan-smmm-$Etiket-*.json" -ErrorAction SilentlyContinue)) { throw "'$Etiket' etiketli plan zaten var — aynı etiketle ikinci dalga kurulmaz" }
 if ($SadeceDenetim) { $IndirmeYok = $true; $ExcelYok = $true }
 if (-not $SadeceDenetim -and -not $IndirmeYok) { Adim '1) partiler ambardan iniyor' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'parti-senkron.ps1') -Indir -Yaz -Sinav SMMM -OnEk 'smmm-' *> $null } }
-if (-not $SadeceDenetim) { Adim '2) kapsama tablosu (son 10 yıl, hedef 4.000)' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-kapsama-tablosu.ps1') -Sessiz *> $null } }
+if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim '2) kapsama tablosu (son 10 yıl, hedef 4.000)' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-kapsama-tablosu.ps1') -Sessiz *> $null } }
 if (-not $ExcelYok) {
   Adim '3) Excel' { $o = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-basim-excel.ps1') 2>&1; $script:excelSatir = @($o | Where-Object { "$_" -match '^EXCEL:' }) | Select-Object -Last 1 }
 }
 $plArg = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $buDizin 'smmm-plan-kur.ps1'), '-PlanSayisi', "$PlanSayisi", '-PlanBasinaSoru', "$PlanBasinaSoru", '-Etiket', $Etiket, '-CikmisEsik', "$CikmisEsik")
 if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }
-if (-not $SadeceDenetim) { Adim "4) plan kuruluyor ($Etiket, rezerv: $(if($Rezerve){$Rezerve}else{'yok'}))" { & powershell @plArg *> "$env:TEMP\plan-$Etiket.txt" } }
+if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim "4) plan kuruluyor ($Etiket, rezerv: $(if($Rezerve){$Rezerve}else{'yok'}))" { & powershell @plArg *> "$env:TEMP\plan-$Etiket.txt" } }
 
 # --- 5) KONU DENETİMİ ---
 Write-Host '== 5) konu denetimi' -ForegroundColor Cyan
 $tablo = @{}
-foreach ($r in @(Import-Csv (Join-Path $kok 'veri\fabrika\smmm-kapsama.csv') -Encoding UTF8)) { $tablo[(Nrm $r.konu)] = $r }
+foreach ($r in @(Import-Csv (Join-Path $kok 'veri/fabrika/smmm-kapsama.csv') -Encoding UTF8)) { $tablo[(Nrm $r.konu)] = $r }
 # koşan dalgaların planlanmış soruları (rezerv) + bu dalga
 $planli = @{}
 foreach ($rz in @(@($Rezerve -split ',') + $Etiket | ForEach-Object { "$_".Trim() } | Where-Object { $_ })) {
-  foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\sinav\konu') -Filter "smmm-$rz-*.json" -ErrorAction SilentlyContinue)) {
+  foreach ($f in (Get-ChildItem (Join-Path $kok 'veri/sinav/konu') -Filter "smmm-$rz-*.json" -ErrorAction SilentlyContinue)) {
     foreach ($k in @((Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })) { $n = Nrm "$k"; $planli[$n] = 1 + [int]$planli[$n] }
   }
 }
 $ihlal = New-Object System.Collections.Generic.List[string]
 $konuSay = @{}; $soru = 0; $yeni = 0; $eski = 0; $olcmedi = 0; $engelli = 0; $aciksiz = 0; $dersHata = 0; $dosyaYok = 0; $asan = 0
-foreach ($pf in (Get-ChildItem (Join-Path $kok 'veri\sinav') -Filter "plan-smmm-$Etiket-*.json")) {
+foreach ($pf in (Get-ChildItem (Join-Path $kok 'veri/sinav') -Filter "plan-smmm-$Etiket-*.json")) {
   foreach ($s in @((Get-Content $pf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })) {
     if ((SmmmDersAdi "$($s.etiket)" $null) -ne "$($s.ders)") { $dersHata++; $ihlal.Add("ders adı kanonik değil: $($s.etiket) → '$($s.ders)'") }
-    $kd = Join-Path $kok ("$($s.konuDosya)" -replace '/', '\')
+    $kd = Join-Path $kok "$($s.konuDosya)"
     if (-not (Test-Path $kd)) { $dosyaYok++; $ihlal.Add("konu dosyası yok: $($s.konuDosya)"); continue }
     foreach ($k in @((Get-Content $kd -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })) {
       $soru++; $n = Nrm "$k"; $konuSay[$n] = 1
@@ -94,8 +101,8 @@ $ozet = "DENETİM: $Etiket · $($konuSay.Count) konu · $soru soru · son 10 yı
 if ($ihlal.Count -or $soru -eq 0) {
   foreach ($i in ($ihlal | Select-Object -First 15)) { Write-Host "  İHLAL: $i" -ForegroundColor Red }
   if ($SadeceDenetim) { Write-Host "$ozet → KIRMIZI (yalnız denetim — dosyalara dokunulmadı)" -ForegroundColor Red; exit 1 }
-  Get-ChildItem (Join-Path $kok 'veri\sinav') -Filter "plan-smmm-$Etiket-*.json" | Remove-Item -Force
-  Get-ChildItem (Join-Path $kok 'veri\sinav\konu') -Filter "smmm-$Etiket-*.json" | Remove-Item -Force
+  Get-ChildItem (Join-Path $kok 'veri/sinav') -Filter "plan-smmm-$Etiket-*.json" | Remove-Item -Force
+  Get-ChildItem (Join-Path $kok 'veri/sinav/konu') -Filter "smmm-$Etiket-*.json" | Remove-Item -Force
   Write-Host "$ozet → KIRMIZI, plan dosyaları SİLİNDİ, dalga AÇILMAZ" -ForegroundColor Red
   exit 1
 }
