@@ -154,6 +154,8 @@ jobs:
           # cetveli 0,33'e kadar iniyordu; ambara girmeyen 107 sorunun 24'unu yalniz yayin
           # cetveli yakaliyordu (yazildi, hakemden gecti, parasi odendi, sonra elendi).
           # Sinav 11 vaka: yakalama + yanlis alarm + sinir + on suzgec esiginin guvenli olmasi.
+          # 24.09.2026: +9 vaka ANLAMCA IKIZ (IkizAnlamMi: ayni ders+konu+ilk kaynak, soru>=0,40, dogru sik>=0,60,
+          # sik yazili ve rakamlari ayni). Mutasyonla olculdu: rakam/harf/grup/sik/soru sarti kaldirilinca KIRMIZI (5/5).
           - { ad: "Ikiz olcusu OZ-SINAVI (uretim ve yayin TEK cetvel)",
               kabuk: pwsh, komut: "./arac/ikiz-olcusu-sinavi.ps1" }
 

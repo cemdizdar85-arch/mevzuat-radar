@@ -73,3 +73,38 @@ function IkizDogruMetin($v) {
 #   ⚠ Bu bir HIZ süzgecidir, kalite kapısı değil; düşürdüğü çift ikiz SAYILMAZ, yani
 #   eşik yanlış seçilirse kapı KÖR kalır (yanlış alarm değil, KAÇIRMA üretir).
 $script:IKIZ_ON_ESIK = 0.25
+
+# ⭐ 24.09.2026 — ANLAMCA İKİZ (Cem "1.2.3" madde 3: "aynı madde + aynı konu" ikinci ölçüt)
+#   NİYE: harf cetveli (IkizMi: soru ≥0,60 VE şık ≥0,60) aynı hükmü BAŞKA kelimelerle soran soruyu görmüyordu.
+#   Onay kuyruğu hakemleri 12 anlamca ikiz kümesi buldu (İYUK 20/B 4 soru, disiplin m.30 4 soru…); 28 bilinen
+#   ikiz çiftinin harf cetvelinden geçebilen yalnız birkaçıydı.
+#   ÖLÇÜLDÜ (24.09, yayındaki 2.859 SMMM sorusu):
+#     · kaba kural "aynı ders+konu+ilk kaynak → 1 soru": 1.658 soru (%58) elenirdi — okunan örnekte çoğu aynı maddenin
+#       BAŞKA yönü ya da sayı değişkeni → REDDEDİLDİ.
+#     · + soru ≥0,40 + doğru şık ≥0,60: 107 elenir; 12 çiftlik örneklemde 7 gerçek ikiz, 5 yanlış alarm — hepsi
+#       kısa sayısal cevap ("10.000") ya da tutarı farklı yevmiye kaydı.
+#     · + doğru şık ≥25 harf + şıktaki rakamlar AYNI (bu kural): ~57 elenir; 15 çiftlik örneklemin 13'ü gerçek
+#       ikizdi, kalan 2 (tutarı farklı yevmiye) rakam şartıyla ayrışır.
+#   🚫 GÖRMEZ: konu etiketi ya da ilk kaynağı farklı yazılmış ikizler; cevabı sayı olan hesap sorusu ikizleri
+#     (sayı değişkeni bilinçli olarak serbest); anlamı aynı ama harf örtüşmesi 0,40 altı soru.
+$script:IKIZ_ANLAM_SORU = 0.40; $script:IKIZ_ANLAM_SIK = 0.60; $script:IKIZ_ANLAM_HARF = 25
+function IkizAnlamGrup([string]$ders, [string]$konu, $kaynakAdlar) {
+  $k = @(@($kaynakAdlar) | Where-Object { "$_" -and "$_" -notmatch '^TEORI' } | Select-Object -First 1)
+  $ilk = $(if ($k.Count) { "$($k[0])" } else { "$(@(@($kaynakAdlar) | Where-Object { "$_" }) | Select-Object -First 1)" })
+  if (-not "$ders".Trim() -or -not "$konu".Trim() -or -not "$ilk".Trim()) { return '' }
+  return "$ders|$konu|$ilk"
+}
+function IkizSikHarf([string]$s) { return ([regex]::Matches("$s", '[A-Za-zÇĞİÖŞÜçğıöşü]')).Count }
+function IkizSikSayi([string]$s) { return ((@([regex]::Matches("$s", '\d[\d.,]*') | ForEach-Object { $_.Value.TrimEnd('.', ',') }) | Sort-Object -Unique) -join '|') }
+# Bir sorunun anlam-ikiz izi: grup + üçlüler + doğru şık harf sayısı + doğru şıktaki rakamlar
+function IkizAnlamIz([string]$grup, [string]$soru, [string]$dogruSik) {
+  return [pscustomobject]@{ grup = $grup; uc = (IkizUcluler (IkizKatla $soru)); ucD = (IkizUcluler (IkizKatla $dogruSik)); harf = (IkizSikHarf $dogruSik); sayi = (IkizSikSayi $dogruSik) }
+}
+function IkizAnlamMi($a, $b) {
+  if (-not $a -or -not $b -or -not $a.grup -or $a.grup -ne $b.grup) { return $false }
+  if ($a.harf -lt $script:IKIZ_ANLAM_HARF -or $b.harf -lt $script:IKIZ_ANLAM_HARF) { return $false }
+  if ("$($a.sayi)" -ne "$($b.sayi)") { return $false }
+  if ((IkizBenzerlik $a.uc $b.uc) -lt $script:IKIZ_ANLAM_SORU) { return $false }
+  if ((IkizBenzerlik $a.ucD $b.ucD) -lt $script:IKIZ_ANLAM_SIK) { return $false }
+  return $true
+}

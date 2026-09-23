@@ -20,7 +20,7 @@
 #  EKRAN: soru metni basılmaz (bulutta günlük herkese açık) — yalnız sayı.
 #  KULLANIM: powershell -NoProfile -File arac/smmm-kasa-yayin.ps1 [-Yaz] [-IndirmeYok]
 # ============================================================================
-param([switch]$Yaz, [switch]$IndirmeYok, [double]$IkizEsik = 0.60, [double]$IkizSikEsik = 0.60,
+param([switch]$Yaz, [switch]$IndirmeYok, [double]$IkizEsik = 0.60, [double]$IkizSikEsik = 0.60, [switch]$AnlamIkizYok,
   # 18.09 (Cem "kasadaki soruları siteye bağla"): site kasa modu için sayfaların DEPODA kabuğa çevrilecek hâli gerekiyor.
   #   -SiteKabuk: sayfalar kaydir/smmm/<slug>.html'e kurulur, hemen ardından motor/kasa-kabuk.js --yaz ile SORUSUZ kabuğa
   #   çevrilir (eşdeğerlik kapısı: kasadaki satırlar sayfadaki SORULAR ile alan alan aynı olmalı) ve YALNIZ kabuk diskte kalır.
@@ -82,24 +82,28 @@ foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
     $ders = DersBul $et $v
     if (-not $ders) { $dusen['ders çözülemedi'] = 1 + [int]$dusen['ders çözülemedi']; continue }
     $aday.Add([pscustomobject]@{ etiket = $et; id = $p.Name; ders = $ders; konu = "$($v.konu)"; donem = [int]$v.donem; boy = "$($v.soru)".Length
-        uc = (Ucluler (Katla "$($v.soru)")); ucD = (Ucluler (Katla "$($v.siklar.$("$($v.dogru)".Trim().ToUpperInvariant()))")) })
+        uc = (Ucluler (Katla "$($v.soru)")); ucD = (Ucluler (Katla "$($v.siklar.$("$($v.dogru)".Trim().ToUpperInvariant()))"))
+        ai = (IkizAnlamIz (IkizAnlamGrup $ders "$($v.konu)" $v.kaynak_adlar) "$($v.soru)" (IkizDogruMetin $v)) })
   }
 }
 # KAPI-IK (ders içinde, iki ölçüt)
-$ikizDisi = @{}
+$ikizDisi = @{}; $anlamIkiz = @{}
 foreach ($g in @($aday | Group-Object ders)) {
   $l = @($g.Group | Sort-Object @{ e = { $_.boy }; Descending = $true }, etiket, id)   # uzun olan önce → kalan
   for ($i = 0; $i -lt $l.Count; $i++) {
     if ($ikizDisi.ContainsKey("$($l[$i].etiket)|$($l[$i].id)")) { continue }
     for ($j = $i + 1; $j -lt $l.Count; $j++) {
       $kj = "$($l[$j].etiket)|$($l[$j].id)"; if ($ikizDisi.ContainsKey($kj)) { continue }
-      if ((Benzerlik $l[$i].uc $l[$j].uc) -lt $IkizEsik) { continue }
-      if ((Benzerlik $l[$i].ucD $l[$j].ucD) -ge $IkizSikEsik) { $ikizDisi[$kj] = "$($l[$i].etiket)|$($l[$i].id)" }
+      $klasik = ((Benzerlik $l[$i].uc $l[$j].uc) -ge $IkizEsik) -and ((Benzerlik $l[$i].ucD $l[$j].ucD) -ge $IkizSikEsik)
+      if ($klasik) { $ikizDisi[$kj] = "$($l[$i].etiket)|$($l[$i].id)"; continue }
+      # 24.09 (Cem "1.2.3" madde 3): ANLAMCA İKİZ — aynı ders+konu+ilk kaynak, soru ≥0,40, doğru şık ≥0,60 (yazılı, rakamlar aynı).
+      # Ölçüm ve sınır arac/ikiz-olcusu.ps1 IkizAnlamMi başlığında; yayındaki 2.859 soruda ~57 eler.
+      if (-not $AnlamIkizYok -and (IkizAnlamMi $l[$i].ai $l[$j].ai)) { $ikizDisi[$kj] = "$($l[$i].etiket)|$($l[$i].id)"; $anlamIkiz[$kj] = 1 }
     }
   }
 }
 $secim = @($aday | Where-Object { -not $ikizDisi.ContainsKey("$($_.etiket)|$($_.id)") })
-if ($ikizDisi.Count) { $dusen['KAPI-IK ikiz'] = $ikizDisi.Count }
+if ($ikizDisi.Count) { $dusen['KAPI-IK ikiz'] = $ikizDisi.Count - $anlamIkiz.Count }; if ($anlamIkiz.Count) { $dusen['KAPI-IK anlam ikiz'] = $anlamIkiz.Count }
 "SMMM KASA SEÇİMİ: aday $($aday.Count) · seçilen $($secim.Count) · düşen: $(($dusen.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ' · ')"
 if (-not $secim.Count) { 'seçilen soru yok — kasaya yazılacak bir şey yok'; exit 0 }
 

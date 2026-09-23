@@ -63,8 +63,34 @@ else { $kalan.Add("IkizDogruMetin yanlis: '$(IkizDogruMetin $nes)'") }
 if ((IkizDogruMetin ([pscustomobject]@{ dogru = ''; siklar = $null })) -eq '') { $gecen++; if (-not $Sessiz) { '  OK    siklar yoksa bos doner (cokmez)' } }
 else { $kalan.Add('IkizDogruMetin bos nesnede cokuyor/yanlis') }
 
+# --- 24.09 ANLAMCA İKİZ (IkizAnlamMi) — gerçek çiftlerden kısaltıldı (yayındaki kasa örneklemi)
+function AI([string]$g, [string]$s, [string]$d) { return (IkizAnlamIz $g $s $d) }
+$gH = 'Hukuk|haksiz fiil unsurlari|TBK m.49'
+$h1 = AI $gH '6098 sayili Turk Borclar Kanunu m.49da duzenlenen haksiz fiil sorumlulugunun kural ve istisnasi bakimindan asagidaki ifadelerden hangisi dogrudur?' 'Zarar verici fiili yasaklayan bir hukuk kurali bulunmasa bile, ahlaka aykiri bir fiille baskasina kasten zarar veren de bu zarari gidermekle yukumludur.'
+$h2 = AI $gH 'Turk Borclar Kanununun haksiz fiil sorumluluguna iliskin hukumlerine gore asagidakilerden hangisi dogrudur?' 'Zarar verici fiili yasaklayan bir hukuk kurali olmasa bile, ahlaka aykiri bir fiille kasten zarar veren kisi de bu zarari gidermekle yukumludur.'
+Vaka 'ANLAM: ayni hukum, baska kok cumlesi (harf cetveli kacirir) -> IKIZ' (IkizAnlamMi $h1 $h2) $true
+Vaka 'ANLAM kontrol: ayni cift harf cetvelinde AYRI (yeni olcut gercekten ek)' (IkizMi (P '6098 sayili Turk Borclar Kanunu m.49da duzenlenen haksiz fiil sorumlulugunun kural ve istisnasi bakimindan asagidaki ifadelerden hangisi dogrudur?' 'x') (P 'Turk Borclar Kanununun haksiz fiil sorumluluguna iliskin hukumlerine gore asagidakilerden hangisi dogrudur?' 'x')) $false
+$gK = 'Finansal Muhasebe|kambiyo kari kaydi|THP 646'
+$k1 = AI $gK 'Isletme doviz cinsinden alacaginin degerlemesinde kur farki olusmustur. Buna gore donem sonu degerleme kaydi asagidakilerden hangisidir?' '120 ALICILAR hesabi 30.000 TL borclandirilir, 646 KAMBIYO KARLARI hesabi 30.000 TL alacaklandirilir.'
+$k2 = AI $gK 'Isletme doviz cinsinden alacaginin donem sonu degerlemesinde kur farki hesaplamistir. Yapilacak degerleme kaydi asagidakilerden hangisidir?' '120 ALICILAR hesabi 20.000 TL borclandirilir, 646 KAMBIYO KARLARI hesabi 20.000 TL alacaklandirilir.'
+Vaka 'ANLAM: ayni kayit kalibi, TUTAR farkli (sayi degiskeni) -> AYRI' (IkizAnlamMi $k1 $k2) $false
+$n1 = AI 'Maliyet|birim maliyet hesaplama|THP 710' 'Isletmede donem icinde direkt ilk madde ve malzeme ile direkt iscilik giderleri toplami 400.000 TL, genel uretim gideri 100.000 TL olarak gerceklesmistir. Birim maliyet kactir?' '100'
+$n2 = AI 'Maliyet|birim maliyet hesaplama|THP 710' 'Bir tekstil isletmesinde 5.000 birim mamul uretilmistir. Direkt ilk madde ve malzeme gideri 150.000 TL, direkt iscilik gideri 100.000 TL ise birim maliyet kactir?' '100'
+Vaka 'ANLAM: kisa sayisal cevap (harf < 25) -> AYRI' (IkizAnlamMi $n1 $n2) $false
+$g2 = AI 'Hukuk|kusursuz sorumluluk halleri|TBK m.49' '6098 sayili Turk Borclar Kanunu m.49da duzenlenen haksiz fiil sorumlulugunun kural ve istisnasi bakimindan asagidaki ifadelerden hangisi dogrudur?' 'Zarar verici fiili yasaklayan bir hukuk kurali bulunmasa bile, ahlaka aykiri bir fiille baskasina kasten zarar veren de bu zarari gidermekle yukumludur.'
+Vaka 'ANLAM: konu etiketi farkli (grup ayri) -> AYRI' (IkizAnlamMi $h1 $g2) $false
+$e1 = AI 'Meslek|etik tehditler|Etik Yon. Ek' 'TURMOB Etik Ilkeler Yonetmeligi eki uyarinca bagimsiz calisan meslek mensubu icin tekrar degerlendirme tehdidine verilebilecek orneklerden biri degildir?' 'Musteri sozlesmesi ile ilgili olarak azledilme veya gorevi baskasina verme ile tehdit edilmek'
+$e2 = AI 'Meslek|etik tehditler|Etik Yon. Ek' 'TURMOB Etik Ilkeler Yonetmeligi Ekinde bagimsiz calisan meslek mensubu icin tekrar degerlendirme tehdidi ornekleri sayilmistir. Asagidakilerden hangisi bu kapsamda bir ornek degildir?' 'Sozlesme ekibinin bir uyesinin, musteri isletmenin bir yoneticisi ile yakin veya birinci derece ailevi iliskiye sahip olmasi'
+Vaka 'ANLAM: ayni liste, BASKA dogru cevap -> AYRI' (IkizAnlamMi $e1 $e2) $false
+$gD = 'Denetim|denetim gorusu etkisi|BDS 570'
+$d1 = AI $gD 'Ege Konfeksiyon AS nin bankalarla borc yeniden yapilandirma gorusmeleri yil sonunda surmektedir; yonetim belirsizligi dipnotta yeterince aciklamistir. Denetci hangi gorusu verir?' 'Olumlu gorus verilir; raporda Isletmenin Surekliligiyle Ilgili Onemli Belirsizlik baslikli ayri bir bolume yer verilir.'
+$d2 = AI $gD 'BDS 570 uyarinca, dipnotta yeterince aciklanmis onemli belirsizlik durumunda rapor bicimi nasil olur?' 'Olumlu gorus verilir; raporda Isletmenin Surekliligiyle Ilgili Onemli Belirsizlik baslikli ayri bir bolume yer verilir.'
+Vaka 'ANLAM SINIRI: ayni cevap ama soru metni cok farkli (<0,40) -> AYRI (bilincli temkin; yanlis alarm yerine kacirma)' (IkizAnlamMi $d1 $d2) $false
+Vaka 'ANLAM: grup bos (konu/kaynak yok) -> AYRI' (IkizAnlamMi (AI '' 'a' 'b') (AI '' 'a' 'b')) $false
+if ((IkizAnlamGrup 'Hukuk' 'haksiz fiil' @('TEORI - x', 'TBK (6098 s.K.) m.49')) -eq 'Hukuk|haksiz fiil|TBK (6098 s.K.) m.49') { $gecen++; if (-not $Sessiz) { '  OK    IkizAnlamGrup TEORI notunu atlayip ilk resmi kaynagi alir' } } else { $kalan.Add("IkizAnlamGrup yanlis: '$(IkizAnlamGrup 'Hukuk' 'haksiz fiil' @('TEORI - x', 'TBK (6098 s.K.) m.49'))'") }
+
 ''
-"IKIZ OLCUSU OZ-SINAVI: {0}/11 gecti" -f $gecen
+"IKIZ OLCUSU OZ-SINAVI: {0}/{1} gecti" -f $gecen, ($gecen + $kalan.Count)
 if ($kalan.Count) { foreach ($k in $kalan) { Write-Host "  KIRMIZI: $k" -ForegroundColor Red }; exit 1 }
 Write-Host 'YESIL' -ForegroundColor Green
 exit 0
