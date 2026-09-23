@@ -71,6 +71,24 @@ $vakalar = @(
     @($K,$F,$K,$S,$K,$F,$K,$S), 'sessiz')
 )
 
+# 23.09: ZAMANLI vakalar - vaka = @(ad, kosu dizisi, yas dizisi (gun, ayni sira), beklenen). Pencere 14 gun.
+$zamanli = @(
+  @('H1 GERCEK VAKA karne.yml: son kosu YESIL (1 gun), eski dususler 20-60 gun once -> SESSIZ (eskiden oran)',
+    @($S,$F,$F,$F,$S,$F,$S,$F,$S,$F), @(1,20,25,30,35,40,45,50,55,60), 'sessiz'),
+  @('H2 GERCEK VAKA 12.09 toplu 500: son 4 kosu kirmizi, en yenisi 15 gun once -> UYUYAN (alarm degil, gizli de degil)',
+    @($F,$F,$F,$F,$S), @(15,27,33,40,48), 'uyuyan'),
+  @('H3 taze kalici kirmizi (0,5 ve 1 gun) -> ust_uste (uyuyan DEGIL)',
+    @($F,$F,$S), @(0.5,1,2), 'ust_uste'),
+  @('H4 donusumlu ariza pencere icinde (5 gunde 10 kosu) -> oran (zaman suzgeci A1i bozmaz)',
+    @($F,$S,$F,$S,$F,$S,$F,$S,$F,$S), @(0.2,0.7,1.2,1.7,2.2,2.7,3.2,3.7,4.2,4.7), 'oran'),
+  @('H5 sinir: en yeni kirmizi 13 gun once, oncesi 20 -> ust_uste (pencere icinde)',
+    @($F,$F), @(13,20), 'ust_uste'),
+  @('H6 sinir: en yeni kirmizi 15 gun once -> uyuyan',
+    @($F,$F), @(15,16), 'uyuyan'),
+  @('H7 atlanan kosu en yeni ama karar veren kirmizilar eski -> uyuyan (yas karar verenden alinir)',
+    @($K,$K,$F,$F), @(1,2,20,21), 'uyuyan')
+)
+
 $gecen = 0; $kalan = 0
 Write-Host "== CI KIRMIZI NOBETCISI OZ-SINAVI (gercek fonksiyon: $nobetciYol) =="
 Write-Host ("   olculer: ust uste >= {0}  |  oran >= {1}/{2}  |  iptal/atlandi elenir" -f $UstUste, $OranEsik, $OranPencere)
@@ -83,6 +101,14 @@ foreach ($v in $vakalar) {
   Write-Host ("  [{0}] {1}" -f $isaret, $v[0])
   if (-not $ok) { Write-Host ("          beklenen='{0}' cikan='{1}'" -f $v[2], $cikan) }
 }
+foreach ($v in $zamanli) {
+  $cikan = (AlarmOlcusu $v[1] $UstUste $OranPencere $OranEsik ([double[]]$v[2]) 14).tur
+  $ok = ($cikan -eq $v[3])
+  if ($ok) { $gecen++ } else { $kalan++ }
+  $isaret = if ($ok) { 'GECTI' } else { 'KALDI' }
+  Write-Host ("  [{0}] {1}" -f $isaret, $v[0])
+  if (-not $ok) { Write-Host ("          beklenen='{0}' cikan='{1}'" -f $v[3], $cikan) }
+}
 Write-Host ""
-Write-Host ("SONUC: {0} gecti / {1} kaldi (toplam {2})" -f $gecen, $kalan, $vakalar.Count)
+Write-Host ("SONUC: {0} gecti / {1} kaldi (toplam {2})" -f $gecen, $kalan, ($vakalar.Count + $zamanli.Count))
 if ($kalan -gt 0) { exit 1 } else { exit 0 }

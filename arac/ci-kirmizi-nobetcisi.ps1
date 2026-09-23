@@ -47,6 +47,7 @@ param(
   # (42 kalici kirmizinin arasinda kaybolmasin) ve her gun hatirlatilir.
   [string[]]$Kritik = @('yayin-bas.yml'),
   [int]$HatirlatmaGunKritik = 1,
+  [int]$GunPencere = 14,    # oran yalniz bu kadar gunluk kosulara bakar; son kosusu daha eski kirmizi = 'uyuyan'
   [int]$Sinir = 0,          # kac workflow taransin (0 = hepsi; yerel deneme icin)
   [switch]$Sessiz           # mail atma, yalniz raporla (yerel deneme icin)
 )
@@ -122,22 +123,36 @@ $sinirlandi = $tumu - $aktif.Count
 # arasi 'skipped' idi -> 0/10, alarm YOK. Rapor 19/20/21/23.09'da akisi hic gostermedi.
 # GORMEZ: yalniz iptal edilen ya da hep atlanan akis (hic karar yoksa sessiz kalir).
 function KararVerir([string]$c) { return -not ($c -eq 'cancelled' -or $c -eq 'skipped') }
-function AlarmOlcusu([string[]]$sonuclar, [int]$esikSeri, [int]$pencereBoy, [int]$esikOran) {
-  $kararli = @($sonuclar | Where-Object { KararVerir $_ })
+# 23.09.2026 - ZAMAN PENCERESI: seyrek kosan akista "son 10 kosu" AYLARA yayiliyordu. 42 kalici
+# kirmizinin 13'u son kosusu YESIL olan akisti (karne, kalite-tarama, rejim...): oran olcusu
+# agustostaki dususleri bugunun arizasi sayiyordu. Artik:
+#   - oran yalniz son $gunPencere gundeki karar veren kosulara bakar;
+#   - son karar veren kosu $gunPencere gunden ESKIYSE akis 'uyuyan'dir: kalici kirmizi SAYILMAZ,
+#     mail atilmaz, raporda AYRI listede durur (gizlenmez). 12 olcum araci 12.09'daki tek bir
+#     Supabase 500'unde dusup o gunden beri hic kosmamisti.
+# $yaslar = her kosunun kac gun once oldugu ($sonuclar ile ayni sira). Verilmezse zaman suzgeci yok.
+# GORMEZ: uyuyan akisin gercekten bozuk olup olmadigini (yeniden kosulmadan bilinemez).
+function AlarmOlcusu([string[]]$sonuclar, [int]$esikSeri, [int]$pencereBoy, [int]$esikOran, [double[]]$yaslar = @(), [int]$gunPencere = 14) {
+  $sira = @(0..([Math]::Max(0, $sonuclar.Count - 1)) | Where-Object { $sonuclar.Count -gt 0 -and (KararVerir $sonuclar[$_]) })
+  $kararli = @($sira | ForEach-Object { $sonuclar[$_] })
+  $zamanli = ($yaslar.Count -eq $sonuclar.Count -and $yaslar.Count -gt 0)
   # OLCU 1 - bastan itibaren kac karar veren kosu UST USTE basarisiz
   $seriSay = 0
   foreach ($c in $kararli) { if ($c -eq 'failure' -or $c -eq 'timed_out') { $seriSay++ } else { break } }
-  # OLCU 2 (21.09) - son N karar veren kosunun kaci kirmizi (donusumlu ariza)
-  $pnc = @($kararli | Select-Object -First $pencereBoy)
+  # OLCU 2 (21.09) - son N karar veren kosunun kaci kirmizi (donusumlu ariza); 23.09: yalniz pencere gunleri
+  $oranSira = if ($zamanli) { @($sira | Where-Object { $yaslar[$_] -le $gunPencere }) } else { $sira }
+  $pnc = @($oranSira | Select-Object -First $pencereBoy | ForEach-Object { $sonuclar[$_] })
   $kirmiziSay = @($pnc | Where-Object { $_ -eq 'failure' -or $_ -eq 'timed_out' }).Count
   # Pencere dolmadiysa oran uygulanmaz (yeni workflow yanlis alarm vermesin)
   $oranTutar = ($pnc.Count -ge $pencereBoy) -and ($kirmiziSay -ge $esikOran)
-  $sonucTur = if ($seriSay -ge $esikSeri) { 'ust_uste' } elseif ($oranTutar) { 'oran' } else { 'sessiz' }
+  $uyuyor = $zamanli -and $sira.Count -gt 0 -and ($yaslar[$sira[0]] -gt $gunPencere)
+  $sonucTur = if ($seriSay -ge $esikSeri -and $uyuyor) { 'uyuyan' } elseif ($seriSay -ge $esikSeri) { 'ust_uste' } elseif ($oranTutar) { 'oran' } else { 'sessiz' }
   return [pscustomobject]@{ tur = $sonucTur; seri = $seriSay; oran = $kirmiziSay; pencere = $pnc.Count; kararli = $kararli.Count }
 }
 # --- /KARAR MANTIGI ---
 
 $kirmiziSeriler = @()
+$uyuyanlar      = @()
 $olculemeyen    = 0
 $bakilan        = 0
 
@@ -150,11 +165,34 @@ foreach ($w in $aktif) {
   if ($kosular.Count -eq 0) { continue }   # karar veren kosu yok - kirmizi degil
   $bakilan++
 
-  $olc = AlarmOlcusu @($kosular | ForEach-Object { "$($_.conclusion)" }) $UstUste $OranPencere $OranEsik
+  $simdiUtc = (Get-Date).ToUniversalTime()
+  $yasListe = @($kosular | ForEach-Object { ($simdiUtc - ([datetime]$_.created_at).ToUniversalTime()).TotalDays })
+  $olc = AlarmOlcusu @($kosular | ForEach-Object { "$($_.conclusion)" }) $UstUste $OranPencere $OranEsik $yasListe $GunPencere
   $seri        = $olc.seri
   $oranKirmizi = $olc.oran
-  $pencere     = @($kosular | Select-Object -First $OranPencere)
+  $pencere     = @($kosular | Select-Object -First $olc.pencere)
   if ($olc.tur -eq 'sessiz') { continue }
+  if ($olc.tur -eq 'uyuyan') {
+    # IKINCI BAKIS (23.09 OLCULDU): API ayni istege bir kosuda dogrula.yml icin "59 ust uste, son
+    # 08.09" dondurdu, hemen sonraki kosuda dogrusunu (40, son 23.09). Tek kotu yanit canli kirmiziyi
+    # 'uyuyan' yapip alarmi SUSTURABILIR. Uyuyan karari ancak durum suzgecsiz ikinci sorgu da ayni
+    # seyi soylerse verilir; demezse ikinci sorgunun olcusu kullanilir.
+    $r2 = Api ("actions/workflows/{0}/runs?per_page=100" -f $w.id)
+    $k2 = @($r2.workflow_runs | Where-Object { "$($_.status)" -eq 'completed' -and (KararVerir "$($_.conclusion)") })
+    if ($r2 -and $k2.Count) {
+      $yas2 = @($k2 | ForEach-Object { ($simdiUtc - ([datetime]$_.created_at).ToUniversalTime()).TotalDays })
+      $olc2 = AlarmOlcusu @($k2 | ForEach-Object { "$($_.conclusion)" }) $UstUste $OranPencere $OranEsik $yas2 $GunPencere
+      if ($olc2.tur -ne 'uyuyan') {
+        Write-Host ("  IKINCI BAKIS: {0} ilk sorguda uyuyan, ikincide '{1}' - ikincisi kullanildi" -f $w.path, $olc2.tur)
+        $kosular = $k2; $olc = $olc2; $seri = $olc.seri; $oranKirmizi = $olc.oran; $pencere = @($kosular | Select-Object -First $olc.pencere)
+      }
+    }
+  }
+  if ($olc.tur -eq 'sessiz') { continue }
+  if ($olc.tur -eq 'uyuyan') {
+    $uyuyanlar += [pscustomobject]@{ dosya = ($w.path -replace '^\.github/workflows/', ''); ust_uste = $seri; son_kosu = "$($kosular[0].created_at)"; son_olay = "$($kosular[0].event)"; url = $kosular[0].html_url }
+    continue
+  }
 
   if ($olc.tur -eq 'ust_uste') {
     # serinin EN ESKI kosusu seriyi kimliklendirir (yeni seri = yeni bildirim)
@@ -230,6 +268,10 @@ $rapor = [ordered]@{
   bakilan          = $bakilan
   olculemeyen      = $olculemeyen
   kalici_kirmizi   = $kirmiziSeriler.Count
+  gun_pencere      = $GunPencere
+  # 23.09: son kosusu $GunPencere gunden eski ve kirmizi akislar - alarm degil, ama GIZLENMEZ
+  uyuyan_kirmizi   = $uyuyanlar.Count
+  uyuyanlar        = @($uyuyanlar | Sort-Object son_kosu | ForEach-Object { [ordered]@{ dosya = $_.dosya; ust_uste = $_.ust_uste; son_kosu = $_.son_kosu; son_olay = $_.son_olay; url = $_.url } })
   yeni_bildirim    = $bildirim.Count
   seriler          = @($kirmiziSeriler | ForEach-Object {
                         [ordered]@{ ad = $_.ad; dosya = $_.dosya; tur = $_.tur; ust_uste = $_.seri; oran = ("{0}/{1}" -f $_.oran_kirmizi, $_.oran_pencere); son_sha = $_.son_sha; son_ne = $_.son_ne; url = $_.son_url } })
@@ -240,6 +282,10 @@ $rapor | ConvertTo-Json -Depth 6 | Set-Content -Path $raporYol -Encoding UTF8
 # --- 5) ekrana --------------------------------------------------------------
 if ($olculemeyen -gt 0) {
   Write-Host ("  OLCULEMEDI: {0} workflow (kosu listesi alinamadi) - temiz DEGIL, bilinmiyor." -f $olculemeyen)
+}
+if ($uyuyanlar.Count -gt 0) {
+  Write-Host ("  UYUYAN KIRMIZI ({0}): son kosusu {1} gunden eski ve kirmizi - alarm degil, yeniden kosulmadan bozuk mu bilinmez:" -f $uyuyanlar.Count, $GunPencere)
+  foreach ($u in ($uyuyanlar | Sort-Object son_kosu)) { Write-Host ("    {0,-34} {1} ust uste  son: {2} ({3})" -f $u.dosya, $u.ust_uste, $u.son_kosu, $u.son_olay) }
 }
 if ($sinirlandi -gt 0) {
   Write-Host ("  ATLANDI: {0} workflow (-Sinir verildi) - bunlar OLCULMEDI." -f $sinirlandi)
