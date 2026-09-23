@@ -137,6 +137,7 @@ function EnGecTarih([string]$metin) {
 
 # --- engel kayıtları madde başına
 $liste = MdListeOku $kok
+$elleKanit = @{}; $ekY = Join-Path $kok 'veri\sinav\mevzuat-degisti-elle-kanit.json'; if (Test-Path $ekY) { foreach ($p in (Get-Content $ekY -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar.PSObject.Properties) { $elleKanit[$p.Name] = $p.Value } }
 $maddeler = @($liste.Values | Where-Object { -not $MaddeOnEk -or "$($_.madde)".StartsWith($MaddeOnEk) } | Group-Object { "$($_.madde)|$($_.tur)" })
 Write-Host ("engel kaydı {0} · madde×tür {1} · taban {2} ({3:dd.MM.yyyy})" -f $liste.Count, $maddeler.Count, $TabanCommit, $tabanTarih)
 $sonuc = New-Object System.Collections.Generic.List[object]
@@ -144,10 +145,12 @@ foreach ($g in $maddeler) {
   $ornek = $g.Group[0]; $an = "$($ornek.madde)"; $tur = "$($ornek.tur)"
   $sinavSay = @{}; foreach ($k in $g.Group) { $s = ("$($k.anahtar)" -split '-')[0].ToUpperInvariant(); $sinavSay[$s] = 1 + [int]$sinavSay[$s] }
   $kanit = ''; $neden = ''; $detay = ''
+  $ek = $elleKanit["$TabanCommit|$an"]; if ($ek) { $kanit = 'ELLE-OKUNDU'; $detay = "$($ek.gerekce) ($($ek.okuyan))" }
   $tb = $taban.PSObject.Properties[$an]
   $parca = @(Parcalar $an "$($ornek.kaynak)")
   $gc = $guncel.PSObject.Properties[$an]
-  if ($gc -and $parca.Count -ne [int]$gc.Value.parca) { $neden = "ÖLÇÜLEMEDİ: ambarda $($parca.Count) parça bulundu, damga dosyası $($gc.Value.parca) diyor (anahtar aynası ayrışmış olabilir)" }
+  if ($kanit) { }
+  elseif ($gc -and $parca.Count -ne [int]$gc.Value.parca) { $neden = "ÖLÇÜLEMEDİ: ambarda $($parca.Count) parça bulundu, damga dosyası $($gc.Value.parca) diyor (anahtar aynası ayrışmış olabilir)" }
   elseif ($tur -eq 'SILINDI') {
     if (-not $parca.Count) { $neden = 'madde bugün de ambarda YOK (yeniden yutma bekleniyor)' }
     else {
