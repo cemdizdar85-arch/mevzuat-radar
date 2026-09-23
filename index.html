@@ -1083,10 +1083,14 @@ window.veriAl = (function(){
         if(etiketEl) etiketEl.textContent=(SINAV_AD[aktifSinav]||aktifSinav)+' · Kaydır-Çöz';
         gorunur(surucuEl,true); gorunur(dipEl,true); gorunur(baskaEl,aktifSinav==='sgs');
         if(aktifSinav==='sgs'){ YOL=SGS_YOL; sira=sgsSira; tekrar=sgsTekrar; afisCiz(); return; }
-        var o=OZET&&OZET.sinavlar&&OZET.sinavlar[aktifSinav];
+        /* robot (motor/vitrin-kart.js) Yeterlilik'i 'smmm' anahtarıyla yazar; sekme 'yeterlilik' der */
+        var ozetAnahtar=(aktifSinav==='yeterlilik')?'smmm':aktifSinav;
+        var o=OZET&&OZET.sinavlar&&OZET.sinavlar[ozetAnahtar];
         if(o&&o.baglanti){
           tekrar=null;
-          sira=(OZET.gun===bugunTR()&&typeof o.sira==='number')?o.sira:robotGunu(o.toplam||1);
+          /* bu sınavın soru listesi sayfada yok (künye yalnız SGS'de); metin robotun seçtiği sorudan geldiği için
+             sıra da ROBOTUN sırasıdır - metin ile açılan soru her zaman aynı soru olsun */
+          sira=(typeof o.sira==='number')?o.sira:0;
           YOL=o.baglanti.replace('tema=acik','tema=koyu').replace('vitrin=1','vitrin=1&tek=1').replace(/#s=.*$/,'')+'#s=';
           kapat();
           dersEl.textContent=(o.ders||'')+(o.konu?' · '+o.konu:'');

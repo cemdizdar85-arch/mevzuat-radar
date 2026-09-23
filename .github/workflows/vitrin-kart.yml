@@ -4,7 +4,13 @@
 name: Vitrin kart (günün sorusu)
 on:
   schedule:
-    - cron: '20 2 * * *'     # 05:20 TR (yaz), nöbet robotlarından önce; ana sayfa 09:02'de taze
+    # 23.09 (Cem "3 yap"): '20 2' (05:20 TR) yazılıydı ama OLCULDU 15-22.09 koşular 07:24-08:02 UTC =
+    # 10:24-11:02 TR, yani GitHub zamanlayıcısı bu akışı ~5 saat geciktiriyor. Gecikme yalnız ERTELER,
+    # asla öne almaz: 00:07 TR'ye kurulunca koşu gece yarısından SONRA ve sabah erkenden gelir; robot
+    # günü koşu anındaki TR tarihinden hesapladığı için yanlış güne düşmez.
+    # (Ana sayfa 23.09'dan beri robot bayatsa günün sorusunu kendisi hesaplıyor - bu saat artık
+    # ziyaretçiye görünmüyor; havuz ömrü mailleri ve Yeterlilik/KGK kartları için önemli.)
+    - cron: '7 21 * * *'     # 00:07 TR
   workflow_dispatch:
 permissions:
   contents: write
