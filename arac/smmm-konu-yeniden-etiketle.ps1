@@ -14,13 +14,18 @@
   ⛔ KOŞAN DALGA: arac/bulut-kosan-etiketler.ps1 -Kati çıktısındaki partiler ATLANIR (CLAUDE.md: bulutta koşan
      partiye ambardan yazılmaz) — bir sonraki koşuda yeniden denenir.
   🚫 GÖRMEZ: modelin önerdiği konunun doğruluğunu (anahtar karnesi ölçer); sorunun cevabını (değerlendirilmez).
-  KULLANIM: powershell -NoProfile -File arac/smmm-konu-yeniden-etiketle.ps1 [-Kume kasa] [-Yaz]
+  ⛔ ELLE ÖRNEKLEM (23.09, Cem "1.2.3"): model doğru etiketlilerin %17'sine HAYIR dedi → -Yaz yalnız
+     arac/konu-orneklem-kapisi.ps1 izin verirse yazar (örneklem max(5,⌈%10⌉) tamamı okunmuş, yanlış ≤ %10,
+     model sonucu değişmemiş). YANLIŞ işaretli kayıt hiç yazılmaz. Örneklem: veri/sinav/smmm-konu-orneklem-<kume>.json
+  KULLANIM: powershell -NoProfile -File arac/smmm-konu-yeniden-etiketle.ps1 [-Kume kasa] [-OrneklemYaz | -Yaz]
+            -OrneklemYaz: okunacak örneklemi dosyaya yazar (karar BEKLİYOR); okuyan DOĞRU/YANLIŞ işaretler.
 ================================================================================
 #>
-param([ValidateSet('anahtar', 'kasa')][string]$Kume = 'kasa', [switch]$Yaz)
+param([ValidateSet('anahtar', 'kasa')][string]$Kume = 'kasa', [switch]$Yaz, [switch]$OrneklemYaz)
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 $kok = Split-Path -Parent $buDizin
+. (Join-Path $buDizin 'konu-orneklem-kapisi.ps1')
 $girdi = Join-Path $kok "veri\fabrika\smmm-konu-uyum-model-$Kume.json"
 if (-not (Test-Path $girdi)) { throw "model sonucu yok: $girdi — önce arac/smmm-konu-uyum-model.ps1 -Kume $Kume" }
 $tabloKonu = @{}; foreach ($r in (Import-Csv (Join-Path $kok 'veri\fabrika\smmm-kapsama.csv') -Encoding UTF8)) { $tabloKonu["$($r.konu)"] = 1 }
@@ -33,6 +38,25 @@ $sonuc = @(Get-Content $girdi -Raw -Encoding UTF8 | ConvertFrom-Json | ForEach-O
 $aday = @($sonuc | Where-Object { $_.uyum -eq 'HAYIR' -and "$($_.dogru_konu)" -and "$($_.dogru_konu)" -ne 'LISTEDE_YOK' })
 $gecerli = @($aday | Where-Object { $tabloKonu.ContainsKey("$($_.dogru_konu)") })
 Write-Host ("model sonucu {0} · HAYIR+öneri {1} · önerisi konu listesinde aynen var {2} · koşan dalga partisi {3}" -f $sonuc.Count, $aday.Count, $gecerli.Count, $kosan.Count)
+# --- ELLE ÖRNEKLEM KAPISI
+$damga = (Get-FileHash $girdi -Algorithm SHA256).Hash.Substring(0, 12)
+$ornekDosya = Join-Path $kok "veri\sinav\smmm-konu-orneklem-$Kume.json"
+$orn = $null; if (Test-Path $ornekDosya) { $orn = Get-Content $ornekDosya -Raw -Encoding UTF8 | ConvertFrom-Json }
+$adayAn = @($gecerli | ForEach-Object { "$($_.an)" })
+if ($OrneklemYaz) {
+  $eski = @{}; if ($orn -and "$($orn.damga)" -eq $damga) { foreach ($k in @($orn.kayitlar | ForEach-Object { $_ })) { $eski["$($k.an)"] = $k } }
+  $sec = @(OrneklemSec $adayAn $damga); $kayitlar = New-Object System.Collections.Generic.List[object]
+  foreach ($an in $sec) { if ($eski.ContainsKey($an)) { $kayitlar.Add($eski[$an]); continue }
+    $x = $gecerli | Where-Object { "$($_.an)" -eq $an } | Select-Object -First 1
+    $kayitlar.Add([ordered]@{ an = $an; onerilen_konu = "$($x.dogru_konu)"; gerekce = "$($x.gerekce)"; karar = 'BEKLİYOR'; okuyan = ''; not = '' }) }
+  [IO.File]::WriteAllText($ornekDosya, (ConvertTo-Json -InputObject ([ordered]@{ damga = $damga; girdi = "veri/fabrika/smmm-konu-uyum-model-$Kume.json"; tarih = (Get-Date -Format 'yyyy-MM-dd HH:mm'); aday = $adayAn.Count; kayitlar = $kayitlar.ToArray() }) -Depth 4), (New-Object Text.UTF8Encoding $false))
+  "ÖRNEKLEM YAZILDI: $($sec.Count)/$($adayAn.Count) aday → $ornekDosya (her kayıt okunup karar DOĞRU/YANLIŞ yazılır)"; exit 0
+}
+$kapi = OrneklemKapisi $adayAn $orn $damga
+Write-Host "ÖRNEKLEM KAPISI: $(if ($kapi.izin) { 'İZİN' } else { 'KAPALI' }) — $($kapi.sebep)"
+if ($Yaz -and -not $kapi.izin) { throw "yazılmadı — örneklem kapısı kapalı: $($kapi.sebep)" }
+$dislaAn = @{}; foreach ($d in @($kapi.disla)) { $dislaAn["$d"] = 1 }
+$gecerli = @($gecerli | Where-Object { -not $dislaAn.ContainsKey("$($_.an)") })
 $partiye = $gecerli | Group-Object { ("$($_.an)" -split '/')[0] }
 $yazilan = 0; $atlanan = 0; $duzelen = 0; $kayit = New-Object System.Collections.Generic.List[object]
 foreach ($g in $partiye) {

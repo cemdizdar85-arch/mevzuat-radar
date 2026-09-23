@@ -220,6 +220,12 @@ jobs:
           - { ad: "KAPI-HAD OZ-SINAVI (yanlis had tutari yayina girmesin)",
               kabuk: pwsh, komut: "./arac/had-kapisi-sinavi.ps1" }
 
+          # 23.09.2026 - Model konu kontrolu dogru etiketlilerin %17'sine HAYIR dedi; yeniden etiketleme yalniz
+          # HAYIR + ELLE ORNEKLEM (max(5, %10), tamami okunmus, yanlis <= %10, model sonucu degismemis) ile yazar.
+          # 14 vaka. Mutasyonla olculdu: damga / okunmamis / yanlis orani / ornekleme-yok kontrolu kaldirilinca KIRMIZI.
+          - { ad: "Konu orneklem kapisi OZ-SINAVI (model HAYIR dedi diye etiket elle bakilmadan degismesin)",
+              kabuk: pwsh, komut: "./arac/konu-orneklem-kapisi-sinavi.ps1" }
+
           # 23.09.2026 - Commit mesaji "su dosyayi degistirdim" diyor, dosya commit'te mi? O gun iki degisiklik
           # "yapildi" diye gonderildi ama dosyaya girmemisti (cc4b6a6e CLAUDE.md). 41 iddiada 1 gercek, 0 yanlis alarm.
           # Mutasyon: komut ornegi ayiklamasi kaldirilinca KIRMIZI.
