@@ -4,7 +4,7 @@
                      "ad|TEORI - Kollektif sirkette kar dagitimi":  {
                                                                         "tarih":  "2026-09-24 02:29",
                                                                         "kaynak":  "arac/teori-notu-duzelt-20260924.ps1",
-                                                                        "belirsiz":  false,
+                                                                        "belirsiz":  true,
                                                                         "belirtecler":  [
                                                                                             "alir",
                                                                                             "sorul",
@@ -35,7 +35,39 @@
                                                                                             "payin",
                                                                                             "hakka",
                                                                                             "aykir"
-                                                                                        ]
+                                                                                        ],
+                                                                        "otomatik_belirtecler":  [
+                                                                                                     "alir",
+                                                                                                     "sorul",
+                                                                                                     "karda",
+                                                                                                     "ozell",
+                                                                                                     "#623/1",
+                                                                                                     "yani",
+                                                                                                     "#227/3",
+                                                                                                     "gore",
+                                                                                                     "nitel",
+                                                                                                     "anlas",
+                                                                                                     "ortag",
+                                                                                                     "ifade",
+                                                                                                     "#126",
+                                                                                                     "yolla",
+                                                                                                     "deger",
+                                                                                                     "yanli",
+                                                                                                     "yonde",
+                                                                                                     "ilisk",
+                                                                                                     "emegi",
+                                                                                                     "esitt",
+                                                                                                     "edili",
+                                                                                                     "payi",
+                                                                                                     "esit",
+                                                                                                     "bakil",
+                                                                                                     "#623/3",
+                                                                                                     "acik",
+                                                                                                     "payin",
+                                                                                                     "hakka",
+                                                                                                     "aykir"
+                                                                                                 ],
+                                                                        "elle_karar":  "GM 24.09: anlam TERSİNE döndü (\"sermaye payı oranında\"→\"eşit\", \"emek ortağı zarara katılmaz\"→\"yalnız anlaşmayla\") ama kilit kelimeler (emek, zarar, katıl) iki metinde de var → belirteç yöntemi bu değişikliği göremez; otomatik belirteçler sıradan kelimeler (sorul, gore, ilisk) ve \"sorul\" kökü \"sorumlu\"ya da uyuyor. BELİRSİZ: nota dayanan her soru çekilir; sağlam olanlar (11 SMMM, okundu) ELLE-OKUNDU kanıtıyla geri açılır."
                                                                     },
                      "ad|TEORI - Asit-test (likidite) oranlari":  {
                                                                       "tarih":  "2026-09-24 02:29",
