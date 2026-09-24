@@ -46,7 +46,8 @@ function sunucu() {
 }
 const bekle = ms => new Promise(r => setTimeout(r, Math.max(0, ms)));
 const say = {}; const art = k => { say[k] = (say[k] || 0) + 1; };
-const kayitMs = [], acilisSn = [], sonucSn = [];
+const kayitMs = [], acilisSn = [], sonucSn = [], hataOrnek = {};
+const acilisErken = [];
 
 async function kisi(tarayici, i) {
   const mobil = i % 5 !== 0;
@@ -78,11 +79,15 @@ async function kisi(tarayici, i) {
       await sayfa.goto(U + 'index.html?kapi=tetikte2026', { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => {});
     }
     asama = 'salon';
-    // gec gelenleri de dene: her 6 kisiden biri kapidan 10-90 sn sonra girer
-    if (i % 6 === 5) await bekle(KAPI_MS + 10000 + Math.random() * 80000 - Date.now());
-    await sayfa.goto(U + 'canli-deneme.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    // 24.09 1. kosu: ogrenci.html kayittan sonra KENDISI canli-deneme.html'e gider (panel -> sonraGit ->
+    // location.replace). Betik ayni anda goto yapinca iki gezinme carpisiyordu (22/1.008 'salon' hatasi,
+    // 9 makineye dagilmis). Gercek kullanici tek yonlendirme yasar: once o beklenir, ustune gezinme yapilmaz.
+    if (KAYIT) await sayfa.waitForURL(/canli-deneme\.html/, { timeout: 20000 }).catch(() => art('yonlendirme_gelmedi'));
+    const gec = i % 6 === 5;   // her 6 kisiden biri kapidan 10-90 sn sonra girer
+    if (gec) { await bekle(KAPI_MS + 10000 + Math.random() * 80000 - Date.now()); }
+    if (gec || !/canli-deneme\.html/.test(sayfa.url())) await sayfa.goto(U + 'canli-deneme.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await sayfa.waitForSelector('#sinavEkran', { state: 'visible', timeout: Math.max(60000, KAPI_MS + 6 * 60000 - Date.now()) });
-    art('sinav_acildi'); acilisSn.push((Date.now() - KAPI_MS) / 1000);
+    art('sinav_acildi'); acilisSn.push((Date.now() - KAPI_MS) / 1000); if (!gec) acilisErken.push((Date.now() - KAPI_MS) / 1000);
     asama = 'cevap';
     for (let j = 0; j < 20; j++) {
       const btn = sayfa.locator('#seSiklar button');
@@ -109,6 +114,10 @@ async function kisi(tarayici, i) {
     art('sonuc_' + g); if (g === 'ok') sonucSn.push((Date.now() - tg) / 1000);
   } catch (e) {
     art('asama_hatasi_' + asama);
+    // teshis: hata mesajinin basi + sayfadaki salon durum yazisi (kisisel veri/soru metni icermez)
+    const durum = await sayfa.evaluate(() => { const d = document.getElementById('salonDurum'); return d ? d.textContent.trim().slice(0, 70) : '(salonDurum yok)'; }).catch(() => '(okunamadi)');
+    const msj = String(e && e.message || e).split('\n')[0].replace(/https?:\/\/\S+/g, '<url>').slice(0, 90);
+    const k = asama + ' | ' + msj + ' | ' + durum; hataOrnek[k] = (hataOrnek[k] || 0) + 1;
   } finally { await ctx.close().catch(() => {}); }
 }
 
@@ -125,5 +134,5 @@ function ist(a) { if (!a.length) return null; const s = [...a].sort((x, y) => x 
   await Promise.all(is);
   await tarayici.close(); srv.close();
   const ornek = Object.keys(say).filter(k => k.startsWith('_ornek_')).map(k => k.slice(7)); ornek.forEach(k => delete say['_ornek_' + k]);
-  console.log('OZET ' + JSON.stringify({ makine: NO, kisi: KISI, say, kayit_ms: ist(kayitMs), acilis_sn: ist(acilisSn), sonuc_sn: ist(sonucSn), kayit_hata_ornek: ornek.slice(0, 3) }));
+  console.log('OZET ' + JSON.stringify({ makine: NO, kisi: KISI, say, kayit_ms: ist(kayitMs), acilis_sn: ist(acilisSn), acilis_erken_sn: ist(acilisErken), sonuc_sn: ist(sonucSn), kayit_hata_ornek: ornek.slice(0, 3), hata_ornek: hataOrnek }));
 })().catch(e => { console.log('KALABALIK DUSTU: ' + e.message); process.exit(1); });
