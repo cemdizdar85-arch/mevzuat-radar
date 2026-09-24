@@ -77,11 +77,16 @@ const belirtec = metin => sayilastir(sozcuklere(metin));
 function yapisigiAyir(dok, bek) {
   const ciftler = []; for (let k = 0; k + 1 < bek.length; k++) if (bek[k].t[0] !== '#' && bek[k + 1].t[0] !== '#') ciftler.push([bek[k].t, bek[k + 1].t]);
   const kelimeler = new Set(bek.map(b => b.t)); const cikti = [];
-  for (const w of dok) {
+  for (let k = 0; k < dok.length; k++) {
+    const w = dok[k];
     if (w[0] === '#' || kelimeler.has(w)) { cikti.push(w); continue; }
     let en = null, enB = 0;
     for (const [a, b] of ciftler) { const s = benzer(w, a + b); if (s > enB) { enB = s; en = [a, b]; } }
-    if (en && enB >= 0.8) cikti.push(en[0], en[1]); else cikti.push(w);
+    // 24.09 YANLIS KIRMIZI (Bolum 1 filmi): beklenen "Maliyet'in ilk" -> ek atilir "maliyet ilk"; whisper "maliyetin ilk" yazar.
+    // "maliyetin" ~ "maliyet"+"ilk" (0,80) diye bolunuyor, hemen arkadaki gercek "ilk" ile IKI "ilk" olusup TEKRAR sayiliyordu.
+    // Arkadaki dokum kelimesi zaten ciftin ikinci kelimesiyse bolunmez (ikinci kelime yapisik degil, kendi basina duyulmus).
+    const arkadaVar = MUT !== 'cift' && en && k + 1 < dok.length && benzer(dok[k + 1], en[1]) >= 0.8;
+    if (en && enB >= 0.8 && !arkadaVar) cikti.push(en[0], en[1]); else cikti.push(w);
   }
   return cikti;
 }
@@ -207,6 +212,7 @@ if (process.argv[2] === '--sinav') {
   //   vaka 1: 20.09 klibi — son cumle dusmus + kekeleme -> KIRMIZI + iki KIRMIZI bulgu sart
   //   vaka 2: onayli temiz ses -> KIRMIZI OLMAMALI (yanlis alarm)
   //   vaka 3: 24.09 bitmis film, whisper yapisik kelime -> KIRMIZI OLMAMALI (yanlis alarm; 'yapisik' mutasyonunda duser)
+  //   vaka 4: Bolum 1 filmi, ekli kelime ("Maliyet'in") yapisik sanilip bolununce sahte TEKRAR -> KIRMIZI OLMAMALI ('cift' mutasyonunda duser)
   // Sartlar KIRMIZI bulgunun KENDISINI arar: 24.09'da 'tekrar' kontrolu kapatilinca yedek SARI "OLASI TEKRAR" satiri
   // eski sinavi (tur.includes('TEKRAR')) yaniltmis, sinav yine TEMIZ demisti.
   const kok = path.resolve(__dirname, '..', '..', '..');

@@ -38,3 +38,8 @@ Eski yerlerde yalnız **yönlendirici** kaldı. Büyük dosyalar (mp4, sahne jso
 - `node ... | head` boruyu kapatıp çizimi yarıda kesti → çıktıyı dosyaya al, sonra oku.
 - Dinamik `loudnorm` sessiz sayacı yükseltti (tık −3 dB'ye çıktı) → **sabit kazanç** + `alimiter`.
 - Whisper iki kelimeyi yapıştırabilir → denetleyici beklenen çiftlere göre ayırır (`yapisigiAyir`).
+- O ayırıcı ekli kelimeyi de yapışık sandı (24.09, Bölüm 1 filmi: "Maliyet'in" → ek atılıp "maliyet"; whisper "maliyetin" →
+  "maliyet+ilk" diye bölündü, arkadaki gerçek "ilk" ile sahte TEKRAR → yanlış KIRMIZI). Arkadaki kelime çiftin ikincisiyse bölünmez;
+  öz-sınav vaka 4, mutasyon `KD_MUTASYON=cift`.
+- Ada dökümü (≥2,5 sn pencereler) kısa bir cümleyi atlayabilir (Bölüm 3 r7 "Bir adetin değil." %67 çıktı, filmde 30,52 sn'de VAR).
+  SARI "KISMEN DUYULDU"da önce `whisper -ml 1` kelime zamanlarına bak, sonra karar ver.
