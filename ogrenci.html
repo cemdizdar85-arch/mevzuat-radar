@@ -213,7 +213,8 @@
       if(!/rate limit|over_request_rate_limit|too many/i.test(k+m)) return;
       if((new URLSearchParams(location.search).get('sonra')||'')!=='canli-deneme.html') return;
       var p=document.createElement('p'); p.style.cssText='margin:8px 0 0;font-size:13.5px;color:var(--muted)';
-      p.innerHTML='Canlı denemeye <b>üyeliksiz de girebilirsin</b>: sonucun bu cihazda saklanır, üyeliği sonra açarsın. <a class="og-link" href="canli-deneme.html">Denemeye dön →</a>';
+      // 24.09 (Cem "3 ekim uygun"): canlı denemeye yalnız kesimden önce kaydolan girer -> "üyeliksiz gir" DENMEZ
+      p.innerHTML='Yoğunluk geçicidir: bir dakika sonra tekrar dene. Canlı deneme kaydı her oturumdan <b>önceki gün 23:59\'a kadar</b> açık. <a class="og-link" href="canli-deneme.html">Takvime bak →</a>';
       h.appendChild(p);
     }catch(x){}
   }
