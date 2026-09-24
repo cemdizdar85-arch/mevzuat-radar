@@ -1,40 +1,7 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 217,
-  "koyu_gecis": 68,
-  "koyu_bekleyen": [],
-  "temiz_sayfa": 217,
-  "denetlenen_metin": 26001,
-  "toplam_kirik": 0,
-  "denetlenen_sinir": 7686,
-  "toplam_gorunmez_sinir": 1,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [
-    {
-      "sayfa": "index.html",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "p.bz-fiyat",
-          "kimlik": "#ogrenciFiyat < .bz-cam",
-          "iz": "<p class=\"bz-fiyat\" id=\"ogrenciFiyat\"><b>Staja Giriş soru bankası: 2.590 TL</b> · KDV dahil, 3 ay · ilk 500 üy",
-          "yan": "ust",
-          "oran": 1.118,
-          "esik": 1.12,
-          "cerceve": "rgba(214,180,126,0.18)",
-          "gorunen": "rgb(247,241,231)",
-          "zemin": "rgb(255,255,254)"
-        }
-      ]
-    }
-  ],
-  "olculemeyenler": [],
-  "kirik_sayfalar": []
+  "chrome_stderr": ""
 }
