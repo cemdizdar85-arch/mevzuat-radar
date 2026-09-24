@@ -834,10 +834,9 @@ window.veriAl = (function(){
               <button class="bz-ileri" type="button" id="bzIleri">Nöbetçi çözsün →</button>
               <span class="bz-not" id="bzNot">Gerçek soru · şıkkı seç, çözümü aç</span>
             </div>
-            <div class="bz-dip">
-              <a href="#" id="bzBaska">Başka soru</a>
-              <a href="sorular.html">Tüm sorular →</a>
-            </div>
+            <!-- 24.09 Cem: "her gün başka soru görecek ama aşağıdan değiştirerek soru görmesin, tek soru görsün" +
+                 "deneme sınavında zaten soru görecek, burayı kaldırıp fiyat ve üye olmayı göster".
+                 Başka soru + Tüm sorular satırı KALKTI; betikler bzBaska/.bz-dip yoksa atlar. -->
             <!-- 24.09 Cem "1-3 yap": öğrenci fiyatı kartın dibinde; seçili sınavın fiyatını yazar (24.09 '1 ve 3 yap'; satılmayan sınavda 'şimdilik ön kayıt'). Rakam fiyat-motoru.js'ten. -->
             <p class="bz-fiyat" id="ogrenciFiyat" hidden></p>
           </div>
@@ -1208,11 +1207,21 @@ window.veriAl = (function(){
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('kgk',k); }
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
-          return ic+' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
+          ic+=' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
+          /* 24.09 Cem "burdan fiyat görsün ve üye olsun": kartın tek çağrısı üyelik.
+             Üye değil -> Ücretsiz üye ol · üye, paket yok, sınav satışta -> Paketi al · paketi açık -> fiyat hiç gösterilmez */
+          var ds=(UYE&&UYE.sinavlar&&UYE.sinavlar[sn])||{};
+          if(ds.durum==='aktif') return '';
+          if(!UYE||!UYE.oturum) ic+='<a class="bz-uye" href="ogrenci.html">Ücretsiz üye ol →</a>';
+          else if(HZ[sn]) ic+='<a class="bz-uye" href="fiyat.html">Paketi al →</a>';
+          return ic;
         }
-        window.ttFiyatGoster=function(sn){ var h=satir(sn||'sgs'); e.innerHTML=h; e.hidden=!h; };
+        var UYE=null, SN='sgs';
+        window.ttFiyatGoster=function(sn){ SN=sn||'sgs'; var h=satir(SN); e.innerHTML=h; e.hidden=!h; };
         var sb=document.querySelector('.bz-sekme button[aria-selected="true"]');
         window.ttFiyatGoster(sb?sb.getAttribute('data-sinav'):'sgs');
+        document.addEventListener('tetikte-uye',function(ev){ UYE=ev.detail||null; window.ttFiyatGoster(SN); });
+        if(window.TetikteUye&&window.TetikteUye.hazir) window.TetikteUye.hazir.then(function(d){ UYE=d||null; window.ttFiyatGoster(SN); });
       }catch(x){}
     })();
     </script>
@@ -1222,6 +1231,8 @@ window.veriAl = (function(){
       /* 24.09 mobil denetim: kart dibi + raf bağlantıları 17-20 px yüksekti (parmakla basılır boy >= 24 px) */
       @media (max-width:700px){ .bz-kah .bz-dip a,.bz-fiyat a,.raf-tumu a{display:inline-block;min-height:24px;line-height:24px;padding-top:2px;padding-bottom:2px} }
       .bz-fiyat a{color:var(--bz-ak);font-weight:700;text-decoration:none;white-space:nowrap}
+      .bz-fiyat a.bz-uye{display:flex;justify-content:center;align-items:center;margin-top:12px;min-height:44px;border-radius:12px;border:1px solid var(--bz-ak);color:var(--bz-ak);font-size:14px}
+      .bz-fiyat a.bz-uye:hover{background:rgba(214,180,126,.10)}
       .nasil-fiyat{margin:28px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
       .nasil-fiyat b{color:var(--ink)}
       .nasil-fiyat a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
