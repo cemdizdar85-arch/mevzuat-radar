@@ -60,6 +60,7 @@ powershell -NoProfile -File motor/oturum.ps1 -Kapat -Kol "<açtığın kol>"
 Bu betik commit edilmemiş iş kalmışsa **UYARIR**. Uyarı varsa oturum bitmemiştir.
 
 **Altın kural: düzenleme → commit → `git push origin HEAD:main` AYNI çağrıda.**
+**Yeni/değişen betik İLK KEZ çalıştırılmadan önce:** `powershell -NoProfile -File arac/tuzak-nobetcisi.ps1 -Yol <dosya>` — BULGU varsa önce düzelt (24.09: K6 kuralı `git … 2>$null`'ın EAP=Stop altında betiği öldürdüğünü YAZIYORDU; yeni prova betiği nöbetçiden geçirilmeden koşturuldu ve 1.943 dosyalık prova yarıda düştü. Kural vardı, sıra yoktu).
 **Commit ile push arasında:** `powershell -NoProfile -File arac/commit-iddia-denetimi.ps1` — mesajda satır başında "şu dosya: …" diye anılan dosya commit'te yoksa çıkış 1, push edilmez (23.09: CLAUDE.md düzenlemesi uygulanmadan "eklendi" diye gönderildi).
 Arada başka iş yapma. Robotlar ana tele dakikalar içinde yazıyor; beklersen çarpışırsın.
 
