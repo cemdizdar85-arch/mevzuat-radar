@@ -364,6 +364,15 @@ jobs:
           # 18.09'da kapi yayini 5 gun durdurdu. Ag yok, saniyeler.
           - { ad: "Kasa kabugu OZ-SINAVI (kabuk + tam-mi onek suzgeci)",
               kabuk: bash, komut: "node motor/kasa-kabuk.js --sinav" }
+          # 24.09 (Cem "1 ve 3 yap"): fark.html "30.000'den fazla", tuzak.html "29.000'den fazla soru"
+          # yaziyordu; sitede 7.117 soru vardi (Ticari Reklam Yon. m.9: ispat reklam verende).
+          # Yayindaki soru sayisi iddiasini kaydir/<sinav>/index.html ile kiyaslar. Her push'ta
+          # kosar: yayindan soru cekilip sayi duserse eski dogru cumle de KIRMIZI olur.
+          # GORMEZ: gorseldeki yazi, JS ile kurulan sayi, depo disi metin (dosya basinda tam liste).
+          - { ad: "Sayi iddiasi kapisi (sitede yazan soru sayisi gercek mi)",
+              kabuk: bash, komut: "node arac/sayi-iddia-kapisi.js" }
+          - { ad: "Sayi iddiasi kapisi OZ-SINAVI",
+              kabuk: bash, komut: "node arac/sayi-iddia-kapisi.js --sinav" }
 
           # 29.08 (Cem "2 yap"): kurulu kapilarin hicbiri "bu sayfa gercekten
           # aciliyor mu" diye sormuyordu. Kontrast kapisi RENGI, koku olcer
