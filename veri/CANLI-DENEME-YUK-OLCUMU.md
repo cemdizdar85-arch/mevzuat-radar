@@ -152,9 +152,42 @@ kovadan silindi → kova **boş**.
 kapalı `<details>` içinde olduğu için `innerText` onu saymıyor. Tarayıcıda doğrudan bakıldı: davet görünür,
 kilit metni HTML'de var. Kapı doğru, ölçüm yanlıştı.
 
+## 3e · ⭐ 1.008 GERÇEK TARAYICI, 18 MAKİNE, TAM AKIŞ (24.09.2026, Cem "evet 1000 tarayıcı testini kur")
+
+Akış `.github/workflows/yuk-testi-1000.yml` · betikler `arac/yuk/kalabalik.js` + `arac/yuk/yuk-yonet.js`.
+18 GitHub makinesi (18 ayrı IP) × 56 gerçek başsız tarayıcı. Her kişi: `ogrenci.html`'den **üye olur** → kapıyı bekler →
+20 soru cevaplar → her 4 kişiden biri sınav ortasında yeniler → bitirir → sonucun ulaştığını ekranda doğrular.
+Sayfa her makinede YEREL sunucudan (canlı takvim/paket değişmedi); **Auth, Storage ve `canli_sonuc` GERÇEK**.
+Paket 93 uydurma soru. Her koşudan sonra temizlik: sonuçlar + anahtar + deneme üyeleri silindi, **kalan 0** ölçüldü.
+
+| Ölçüm | Prova (1×3) | 1. koşu (1.008) | 2. koşu (1.008) |
+|---|---|---|---|
+| Üye olabilen | 3/3 | **1.008/1.008** | 983/1.008 (25 "Çok sık denendi" — aşağıda) |
+| Kayıt süresi | ~0,5 sn | p50 ~0,44 sn · en kötü 1,35 sn | p50 ~0,48 sn · en kötü 2,97 sn |
+| Anahtar kapıya göre | −0,9 sn | −1,0 sn (dışarıdan +0,24 sn okundu) | −1,1 sn |
+| Sınav ekranı açılan | 3/3 | 986/1.008 (22 betik kusuru) | 986/1.008 (22 betik kusuru) |
+| Zamanında gelende açılış | 0,8–4,3 sn | p50 ~3,5 sn | **17 makinede 2,5–5,8 sn (en kötü 5,8)** |
+| Sınav ortası yenileme | 1/1 | **243/243** | **246/246** |
+| Sonuç ulaşan (açılanlardan) | 3/3 | **986/986** | **986/986** |
+
+**Sistem tarafında hata görülmedi:** 5xx yok; sınavı açan herkesin sonucu ulaştı; yenilemede cevap/süre kaybı yok.
+
+**Betik kusurları (sistemin değil, düzeltildi):** 1. koşu — kayıttan sonra `ogrenci.html` kişiyi kendisi `canli-deneme.html`'e
+yönlendiriyor, betik aynı anda gidince iki gezinme çarpıştı (22, 9 makineye dağılmış). 2. koşu — adres kontrolü
+`?sonra=canli-deneme.html` sorgusunu sınav sayfası sandı; kaydı reddedilen kişi kayıt sayfasında kaldı (22).
+
+🔴 **GERÇEK RİSK KANITLANDI — IP başına kayıt tavanı:** 2. koşuda 18. makine GitHub'ın 20 işlik sınırı yüzünden **26 dk geç**
+başladı ve 56 kaydı **tek IP'den ~1 dakikaya** sıkıştırdı → **25'i "Çok sık denendi. Bir dakika bekleyip tekrar dene."** aldı.
+Bu Supabase'in "kayıt+giriş IP başına 5 dk'da 30" tavanı (3c'deki panel okuması). Mobil operatörler binlerce telefonu tek
+IP'de toplar (CGNAT) → **aynı operatörden aynı dakikada üye olmaya çalışan kalabalıkta kayıtların bir kısmı reddedilir.**
+Sınavın kendisi üyelik istemez (çözmeye engel değil); etkilenen yalnız kayıt anı. Tavan panelde bir güvenlik ayarı → **karar Cem'de.**
+
+GÖRMEZ: 1.000 ayrı IP (18 IP), gerçek mobil ağ/yavaş cihaz, 120 dk'lik oturum (kişiler hemen bitirdi), GitHub Pages paket yükü.
+`cevaplar` sütunu bu koşularda henüz basılı değildi → sonuçlar yedek yolla (sütunsuz) ulaştı; yedek yol gerçek tarayıcıda çalıştı.
+
 ## 4 · ÖLÇÜLMEDİ (bu sayfanın körlükleri)
 
-- **5.000 gerçek tarayıcı** hiç denenmedi; ölçüm tek makineden yapıldı.
+- ~~5.000 gerçek tarayıcı hiç denenmedi~~ → **1.008 gerçek tarayıcı 18 IP'den denendi (3e).** 5.000 ve 1.000 ayrı IP hâlâ denenmedi.
   Gerçek dünyada mobil ağlar, yavaş cihazlar ve 5.000 ayrı IP devreye girer.
 - **Anahtarın geç yayınlanması** senaryosu denenmedi. Kısa tepe sorun değil;
   anahtar 10 dakika gecikirse yoklama yükü 10 dakika **sürekli** olur.
