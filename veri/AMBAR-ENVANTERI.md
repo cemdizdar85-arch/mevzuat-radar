@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **23.09.2026 13:36** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **24.09.2026 13:30** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50052 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 23.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 23.09.2026 13:33)
+**ÖZET:** 50056 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 24.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 24.09.2026 13:29)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -603,7 +603,7 @@
 | GVK 94 Tevkifat Oranlari BKK (2009/14592) | kanun-madde | 11 | DELİK-İNCELE(par:0/kesik:6/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Haksız Rekabet ve Reklam Yasağı Yön. | kanun-madde | 35 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Hal K. (5957 s.K.) | kanun-madde | 46 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Harçlar K. (492 s.K.) | kanun-madde | 240 | DELİK-İNCELE(par:75/kesik:24/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Harçlar K. (492 s.K.) | kanun-madde | 241 | DELİK-İNCELE(par:75/kesik:24/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ | kanun-madde | 5 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (Seri No : 50 ) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | HARÇLAR KANUNU GENEL TEBLİĞİ (SERİ NO : 63) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2719,7 +2719,7 @@
 | VUK — Ceza sistemi (m.341-376) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK — Değerleme ve karşılıklar (m.281,322,323) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK — Fatura ve belge düzeni (m.229-232,313-320) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| VUK (213 s.K.) | kanun-madde | 583 | DELİK-İNCELE(par:430/kesik:29/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VUK (213 s.K.) | kanun-madde | 586 | DELİK-İNCELE(par:429/kesik:29/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK (213 s.K.) ek | kanun-madde | 13 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK 509 GT | kanun-madde | 204 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VUK GT 389 (amortisman faydali omur listeleri) | kanun-madde | 10 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
