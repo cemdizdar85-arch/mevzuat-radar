@@ -132,12 +132,42 @@
   /* üyeyse kartı "yerin ayrıldı"ya çevir — ağa gitmez. uyeMi sayfa sonundaki
      ana betikte tanımlı; ayrı <script> bloğu olduğu için hoisting buraya YETMEZ,
      o yüzden sayfa yüklenince çalışır. */
+  var UYE_KART_UYE = false;
   document.addEventListener('DOMContentLoaded', function(){
     try { if(typeof uyeMi === 'function' && uyeMi()){
+      UYE_KART_UYE = true;
       document.getElementById('uyeMetin').innerHTML = '✓ <b>Üyesin, yerin ayrıldı.</b> Sınav saatinde bu sayfaya gel; bitince açıklamaların hemen açılır.';
       document.getElementById('uyeBtn').style.display = 'none';
     } } catch(e){}
   });
+  /* 24.09 KAYITLARI GÜNLERE YAY (Cem "1 ve 2 yap", madde 2). 1.008 tarayıcı testi ölçtü: tek IP'den
+     1 dakikada 56 kayıt denenince 25'i "Çok sık denendi" aldı (Auth: IP başına 5 dk'da 30). Mobil
+     operatörler binlerce telefonu tek IP'de toplar. Bu yüzden: sınavdan ÖNCEKİ günlerde kart "yerini
+     bugünden ayır" der; sınav sabahı (başlangıçtan 3 sa önce -> bitiş) kayıt ÖZENDİRİLMEZ, "üyelik şart
+     değil, doğrudan gir" der. Takvim ana betikteki tek fetch'ten gelir (ek istek yok). */
+  function uyeKartGuncelle(oturumlar){
+    try {
+      if(UYE_KART_UYE || !oturumlar) return;
+      var simdi = Date.now(), en = null;
+      oturumlar.forEach(function(o){
+        var s = new Date(o.tarih.split('.').reverse().join('-') + 'T' + (o.saat || '10:00') + ':00').getTime();
+        if(simdi < s + 180*60000 && (!en || s < en.s)) en = { s:s, o:o };
+      });
+      if(!en) return;
+      var m = document.getElementById('uyeMetin'), b = document.getElementById('uyeBtn');
+      if(simdi >= en.s - 3*3600000){
+        m.innerHTML = '<b>Bugün sınav günü: üyelik şart değil, doğrudan sınava gir.</b> Sınav sabahı kayıtlar yoğun olur; kayıtta "çok sık denendi" görürsen dert etme. Sonucun bu cihazda saklanır; üyeliği sınavdan sonra da açabilirsin, açıklamalar kaybolmaz.';
+        b.textContent = 'İsteğe bağlı: ücretsiz üye ol';
+        b.style.background = 'transparent'; b.style.color = 'var(--amber)'; b.style.border = '1px solid var(--amber)';
+      } else {
+        // takvim günü farkı (saat farkını yukarı yuvarlamak 10 günü "11 gün" gösteriyordu)
+        var gece = function(t){ var x = new Date(t); x.setHours(0,0,0,0); return x.getTime(); };
+        var gun = Math.round((gece(en.s) - gece(simdi)) / 86400000);
+        var ad = (en.o.sinav || '') + ' denemesi';
+        m.innerHTML = (gun <= 1 ? ad + ' <b>yarın</b>.' : ad + 'ne <b>' + gun + ' gün</b> kaldı.') + ' <b>Yerini bugünden ayır:</b> sınav sabahı herkes aynı anda üye olmaya çalışınca kayıt yavaşlayabilir. Önceden üye olan, sınav biter bitmez her yanlışının <b>neden</b> yanlış olduğunu ve dayanağını görür. Üye olmadan da girebilirsin.';
+      }
+    } catch(e){}
+  }
   </script>
 
   <div class="kart">
@@ -154,6 +184,7 @@
 <script>
 fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   if(!d || !d.oturumlar) return;
+  if(typeof uyeKartGuncelle === 'function') uyeKartGuncelle(d.oturumlar);
   var simdi = new Date();
   var zamani = function(o){ return new Date(o.tarih.split('.').reverse().join('-') + 'T' + (o.saat || '10:00') + ':00'); };
   /* 23.09 GEÇ GİRİŞ KAPISI — eskiden oturum, başlangıç saniyesinde "geçmiş"
@@ -434,7 +465,7 @@ function teslim(otomatik){
     davet.style.cssText = 'border:1px solid var(--amber);border-radius:10px;padding:14px 16px;margin:4px 0 12px;background:color-mix(in srgb,var(--amber) 8%,transparent)';
     davet.innerHTML = '<b style="font-size:15px">' + yn + ' yanlışının nedenini görmek ister misin?</b>' +
       '<p style="font-size:13.5px;color:var(--muted);margin:6px 0 10px">Her sorunun "neden böyle" açıklaması ve dayanağı hazır. Görmek için <b>ücretsiz üye ol</b>. ' +
-      'Sonucun bu cihazda saklı; üye olup bu sayfaya döndüğünde açıklamalar burada açılır.</p>' +
+      'Sonucun bu cihazda saklı; üye olup bu sayfaya döndüğünde açıklamalar burada açılır. Kayıtta "çok sık denendi" görürsen birkaç dakika sonra dene, hiçbir şey kaybolmaz.</p>' +
       '<a href="ogrenci.html?sonra=canli-deneme.html" style="display:inline-block;background:var(--amber);color:var(--taban);font-weight:800;padding:9px 16px;border-radius:9px;text-decoration:none">Ücretsiz üye ol · açıklamaları gör</a>' +
       ' <a href="ogrenci.html?sonra=canli-deneme.html" style="font-size:13px;margin-left:10px">Zaten üyeyim, giriş yap</a>';
     lst.appendChild(davet);
