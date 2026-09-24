@@ -146,7 +146,9 @@
   [].forEach.call(document.querySelectorAll('.uc-sekme a'),function(a){
     if(a.getAttribute('data-sinav')===k) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
   });
-  if(s.icerik) return;                              /* Staja Giriş: sayfa olduğu gibi */
+  /* Staja Giriş: sayfa olduğu gibi. 24.09: bu sayfanın kartları SGS'nindir; içeriği açılan başka sınav
+     (Yeterlilik) kendi açık vitrinine gider - "Yeterlilik giriyorum Staja Giriş çıkıyor" (23.09) tekrarlanmasın. */
+  if(s.icerik){ if(k!=='sgs'&&s.vitrin) location.replace(s.vitrin); return; }
   document.title='Ön kayıt · '+s.uzun+' | Tetikte';
   $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';

@@ -35,10 +35,14 @@
       al: 'satin-al.html?paket=sgs', fiyat: 'fiyat.html'
     },
     yeterlilik: {
-      kod: 'yeterlilik', ad: 'Yeterlilik', uzun: 'SMMM Yeterlilik (staj bitirme)', icerik: false,
+      kod: 'yeterlilik', ad: 'Yeterlilik', uzun: 'SMMM Yeterlilik (staj bitirme)', icerik: true,   /* 24.09 Cem: satışta (fiyat-motoru.js ICERIK_HAZIR ile aynı) */
       dene: 'ucretsiz-dene.html?sinav=yeterlilik', onkayit: 'ucretsiz-dene.html?sinav=yeterlilik#onkayit',
       /* 23.09 Cem: her sınavın sabit 30 soruluk seviye testi -> içerik hazırlanırken de "ölç" düğmesi var */
-      olc: 'seviye-testi.html?sinav=yeterlilik',
+      olc: 'seviye-testi.html?sinav=yeterlilik', olcDk: 40,
+      /* 24.09 satışa açılınca gereken alanlar. sinav-gibi.html yalnız SGS'dir -> Yeterlilik'te giriş = kendi soru bankası.
+         Satın alma ders seçimli -> fiyat sayfasına (Yeterlilik kartı). Ücretsiz deneme = 70 soruluk açık vitrin. */
+      gir: 'kaydir/smmm/index.html', devam: 'kaydir/smmm/index.html',
+      al: 'fiyat.html?sinav=yeterlilik', vitrin: 'kaydir/vitrin/smmm.html?vitrin=1',
       fiyat: 'fiyat.html'
     },
     kgk: {

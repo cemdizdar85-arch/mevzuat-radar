@@ -879,7 +879,7 @@ window.veriAl = (function(){
                düğme doğrudan seviye testine gider; ikinci bağlantı yalnız üyeye (Paketleri gör). */
             yaz(cta,'Geçme ihtimalini ölç (ücretsiz)',s.olc);
             if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else cta2.hidden=true;
-            durumEl.textContent='30 soru · yaklaşık 30 dakika · üyelik gerekmez';
+            durumEl.textContent='30 soru · yaklaşık '+(s.olcDk||30)+' dakika · üyelik gerekmez';   /* 24.09: süre sınava göre (uye-durumu.js olcDk) */
           }
         } else {
           if(d.durum==='aktif'){

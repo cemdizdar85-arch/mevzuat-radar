@@ -100,7 +100,9 @@ var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
    yönlendirir (uye-durumu.js SINAVLAR.icerik ile AYNI tutulur).
    Sayfalar yayına girince true yapılır; iki dosya birlikte değişir.
 --------------------------------------------------------------------------- */
-var ICERIK_HAZIR = { sgs:true, yeterlilik:false, kgk:false };
+/* 24.09 Cem ("bu da satışta" + "1.2.3 ÜÇÜNÜ DE YAP"): Yeterlilik SATIŞA AÇILDI. Dayanak: kaydir/smmm 8 ders sayfası
+   yayında (18.09), paket-kapisi.js yeterlilik paketine açıyor, paket_soru kasası basılı (16.09). uye-durumu.js ile AYNI commit. */
+var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
 
 /* ---------------------------------------------------------------------------
    FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı).
