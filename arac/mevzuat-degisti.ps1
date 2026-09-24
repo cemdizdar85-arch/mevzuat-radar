@@ -83,12 +83,20 @@ function MdDamgaDegisimi($eski, $yeni) {
 $script:MD_SERH = @{}; foreach ($w in 'iptal ikinc ucunc cumle karar anaya mahke yurur girer resmi gazet yayim tarih sayil madde fikra degis eklen mulga bendi bentt ibare'.Split(' ')) { $script:MD_SERH[$w] = 1 }
 $script:MD_SAYI = @{}; foreach ($w in 'bir iki uc dort bes alti yedi sekiz dokuz on yirmi otuz kirk elli altmis yetmis seksen doksan yuz bin milyon gun ay yil hafta saat yarim ceyrek'.Split(' ')) { $script:MD_SAYI[$w] = 1 }
 function MdKatla([string]$s) { return ("$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c') }
+# 24.09.2026 (Cem "1.2.3"): İKİ KÖRLÜK DÜZELTMESİ — ölçüm arac/belirtec-esdegerlik.ps1
+#  (1) OLUMSUZLUK: 5 harflik kök "katılır"/"katılmaz"ı aynı sayıyordu ('katil'); yalnız olumsuzluğu değişen hüküm belirteç
+#      üretmiyordu. Olumsuz biçim ayrıca '!kök' üretir; MdAyirtEdici '!kök' farkında kökün kendisini de ekler (fiilin her biçimi).
+#  (2) SORU KALIBI SÖZCÜKLERİ: "göre, ilişkin, aşağıdaki, hangi, yani, ifade, sorulan" kanun/not farkına girince soru kökündeki
+#      aynı sözcük yüzünden HER soru "değiyor" sayılıyordu (kollektif notu 24.09: 11 sağlam soru bu yüzden çekiliyordu).
+$script:MD_BOS = @{}; foreach ($w in 'gore ilisk asagi hangi yani ifade sorul'.Split(' ')) { $script:MD_BOS[$w] = 1 }
+function MdOlumsuzMu([string]$w) { return ($w.Length -ge 6 -and $w.Substring(3) -match 'maz|mez|mayan|meyen|madik|medik|madan|meden|mamak|memek|mayac|meyec|mamis|memis') }
 function MdBelirtecler([string]$t) {
   $h = @{}; $k = MdKatla $t
   foreach ($m in [regex]::Matches($k, '[a-z]+')) { $w = $m.Value
     if ($script:MD_SAYI.ContainsKey($w)) { $h["~$w"] = 1; continue }
     if ($w.Length -lt 4) { continue }
-    $r = $w.Substring(0, [Math]::Min(5, $w.Length)); if (-not $script:MD_SERH.ContainsKey($r)) { $h[$r] = 1 } }
+    $r = $w.Substring(0, [Math]::Min(5, $w.Length)); if ($script:MD_SERH.ContainsKey($r) -or $script:MD_BOS.ContainsKey($r)) { continue }
+    $h[$r] = 1; if (MdOlumsuzMu $w) { $h["!$r"] = 1 } }
   foreach ($m in [regex]::Matches($k, '%\s*\d+(?:[.,]\d+)?|\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:[.,/]\d+)*')) { $h['#' + ($m.Value -replace '\s', '')] = 1 }
   return $h
 }
@@ -97,6 +105,7 @@ function MdAyirtEdici([string]$eski, [string]$yeni) {
   if ((($eski -replace '\s+', ' ').Trim()) -eq (($yeni -replace '\s+', ' ').Trim())) { return , @() }
   $be = MdBelirtecler $eski; $by = MdBelirtecler $yeni
   $f = @(@($be.Keys | Where-Object { -not $by.ContainsKey($_) }) + @($by.Keys | Where-Object { -not $be.ContainsKey($_) }))
+  foreach ($x in @($f | Where-Object { "$_".StartsWith('!') })) { $kk = "$x".Substring(1); if ($f -notcontains $kk) { $f += $kk } }   # olumsuzluk değişti → fiilin her biçimi
   if (-not $f.Count) { return $null }
   return , $f
 }
