@@ -1,6 +1,6 @@
 # SMMM BİTİRME — KONU KAPSAMA
 
-> Türetilmiştir (`arac/smmm-kapsama-tablosu.ps1`), **elle düzenlenmez**. Ölçüm: 2026-09-24 07:16
+> Türetilmiştir (`arac/smmm-kapsama-tablosu.ps1`), **elle düzenlenmez**. Ölçüm: 2026-09-24 07:29
 > Kural: hedef **sıklık ağırlıklı**, banka toplamı **4000**
 > Excel: `arac/smmm-basim-excel.ps1` (yerelde, Excel COM ister) · Plan: `arac/smmm-plan-kur.ps1`
 
