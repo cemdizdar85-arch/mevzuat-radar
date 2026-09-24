@@ -354,3 +354,19 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
 - Yaz → geri oku → karşılaştır.
 - Pazarlamada "mali müşavir/SMMM" unvanı kullanılmaz. Cem = "Tetikte'nin kurucusu".
   Üründe "hoca" yok → "Nöbetçi".
+
+---
+
+## 🎬 VİDEO BASIMI — her cümle tek tek denetlenir
+
+- ⛔⭐ **Cem kuralı (24.09.2026):** *"basımdan sonra her cümleyi tek tek kontrol et … bu çok önemli ve kural olsun video basımında."*
+  Hat ve araçlar **`arac/video/`** (tek kaynak; ayrıntı `arac/video/OKU.md`). Sıra atlanmaz:
+  **ses üret → ses denetimi → Cem dinler → klip bas → klip denetimi → dudak kareleri gözle → kurgu → bitmiş filme denetim.**
+- `arac/video/uret.ps1` (ücretli klip): sahnede `beklenen_replikler` yoksa **para harcanmadan durur**; klip inince `klip-denetim.js`
+  kendiliğinden koşar, **KIRMIZI'da `exit 2`, kurguya geçilmez**. Sahnede `soru_id` varsa önce `arac/pazarlama-soru-kapisi.ps1`
+  (VUK/TMS çatalı). Varsayılan çözünürlük **720p**.
+- **Olay (ölçüldü):** 20.09 klibinde (3,71 USD) model son cümleyi DÜŞÜRMÜŞ ve bir cümleyi KEKELETMİŞTİ; yalnız sessizlik
+  düzenine bakılıp "tuttu" denmişti. İkisini sonradan Cem'in kulağı / tek tek döküm yakaladı.
+- 🚫 **GÖRMEZ:** dudak senkronu (yalnız kare tabakası, gözle) · telaffuz inceliği (yalnız "yakın eşleme") · yerel araç (whisper bu
+  makinede), `dogrula.yml`'de koşmaz. Öz-sınav `node arac/video/klip-denetim.js --sinav` (vakalar kasada — depo public).
+  Mutasyonla ölçüldü (24.09): `KD_MUTASYON=dusen|tekrar|yapisik` → sınav DÜŞÜYOR.

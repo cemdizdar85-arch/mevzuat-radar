@@ -95,6 +95,8 @@ veri/ihale-sonuc.json
 
 # 20.08 - dahili pazarlama plani, depo PUBLIC oldugu icin ASLA girmez (video-kilit)
 video/
+# 24.09.2026: yalniz video ARACLARI (kod) depoya girer - metin, sahne, mp4 ve plan video/ altinda kalir.
+!arac/video/
 
 # 20.08 GECMIS TEMIZLIGI SONRASI KORUMA: RG PDF arsivi buyuk ve gecmisi sisiriyordu,
 # gecmisten silindi; yerel diskte yasar, depoya bir daha girmez.
