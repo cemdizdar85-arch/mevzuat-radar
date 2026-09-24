@@ -60,7 +60,7 @@ $html = @"
 </style></head><body>
 <main class="kaydirDizin">
 <h1>SMMM Yeterlilik · Kaydır-Çöz</h1>
-<p class="alt">$toplam soru · sekiz ders. Soru bankası kilitli kasada; sayfa açılırken paketine göre yüklenir.</p>
+<p class="alt">$toplam soru · sekiz ders. Soru bankası kilitli kasada; sayfa açılırken paketine göre yüklenir. Her soru: sınav gibi çöz → yanlışını gör → Nöbetçi adım adım anlatsın → yanlışın 2 gün sonra yeniden karşına çıkar.</p>
 <div class="izgara">
 $kartlar
 </div>

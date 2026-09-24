@@ -838,6 +838,8 @@ window.veriAl = (function(){
               <a href="#" id="bzBaska">Başka soru</a>
               <a href="sorular.html">Tüm sorular →</a>
             </div>
+            <!-- 24.09 Cem "1-3 yap": öğrenci fiyatı kartın dibinde; yalnız SGS sekmesinde görünür (fiyat SGS'nin - Yeterlilik kartının altında yanıltırdı). Rakam fiyat-motoru.js'ten. -->
+            <p class="bz-fiyat" id="ogrenciFiyat" hidden></p>
           </div>
         </div>
       </div>
@@ -1067,6 +1069,7 @@ window.veriAl = (function(){
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
       function sinavKart(sn){
         aktifSinav=sn||'sgs';
+        var fy=document.getElementById('ogrenciFiyat'); if(fy&&fy.getAttribute('data-dolu')) fy.hidden=aktifSinav!=='sgs';
         if(etiketEl) etiketEl.textContent=(SINAV_AD[aktifSinav]||aktifSinav)+' · Kaydır-Çöz';
         gorunur(surucuEl,true); gorunur(dipEl,true); gorunur(baskaEl,aktifSinav==='sgs');
         if(aktifSinav==='sgs'){ YOL=SGS_YOL; sira=sgsSira; tekrar=sgsTekrar; afisCiz(); return; }
@@ -1165,7 +1168,7 @@ window.veriAl = (function(){
          Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·
          "Nöbetçi anlatsın" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir).
          BİLEREK YAZILMADI: "ikizini sen çöz" - yalnız %40'ında var. -->
-    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
+    <section class="nasil" id="nasil" aria-label="Nasıl çalışır" hidden style="display:none"><!-- 24.09: içi boş (dört adım gizli, fiyat satırı günün sorusu kartına taşındı) -->
       <div class="nasil-bas" hidden style="display:none"><!-- 24.09 Cem: "ilk sayfada olmasın" - dört adım sınav seçildikten sonra gösterilecek -->
         <span class="nasil-et">Nasıl çalışır</span>
         <h2>Dört adım, her soruda.</h2>
@@ -1186,7 +1189,6 @@ window.veriAl = (function(){
       <!-- 13.09 (Cem "1.2.3 yap"): öğrenci fiyatı ana sayfada hiç yoktu. Rakam ELLE YAZILMAZ: fiyat-motoru.js
            (FIYAT.sgs / KOTA.sgs / SURE_GUN) okunur; Cem'in planladığı zam motora girince burası kendiliğinden değişir.
            Yalnız Staja Giriş fiyatı yazılır: Yeterlilik ve Bağımsız Denetçilik soru sayfaları henüz "Hazırlanıyor". -->
-      <p class="nasil-fiyat" id="ogrenciFiyat" hidden></p>
     </section>
     <script src="fiyat-motoru.js"></script>
     <script>
@@ -1197,11 +1199,16 @@ window.veriAl = (function(){
         e.innerHTML='<b>Staja Giriş soru bankası: '+tl(f.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'
           +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye kuruluş fiyatı, sonra '+tl(f.liste)+' TL':'')
           +' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
-        e.hidden=false;
+        e.setAttribute('data-dolu','1');
+        var sb=document.querySelector('.bz-sekme button[aria-selected="true"]');
+        e.hidden=!!(sb&&sb.getAttribute('data-sinav')!=='sgs');
       }catch(x){}
     })();
     </script>
     <style>
+      .bz-fiyat{margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(214,180,126,.18);font-size:12.5px;line-height:1.55;color:var(--bz-ak-govde)}
+      .bz-fiyat b{color:inherit;font-weight:700}
+      .bz-fiyat a{color:var(--bz-ak);font-weight:700;text-decoration:none;white-space:nowrap}
       .nasil-fiyat{margin:28px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
       .nasil-fiyat b{color:var(--ink)}
       .nasil-fiyat a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
