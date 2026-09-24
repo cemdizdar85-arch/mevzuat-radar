@@ -114,7 +114,6 @@ var GRUPLAR=[
   ["soru-cevap.html","💬","Net Cevap","Mevzuat sorunu sor, kaynaklı cevap al"],
   ["ceza-asistani.html","⚖️","Ceza Asistanı","İndirim mi, uzlaşma mı, dava mı?"],
   ["asgari-kv.html","🧾","Asgari Kurumlar Vergisi","%10 tabana takılıyor musun?"],
-  ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["tesvik-sihirbazi.html","🧲","Yatırım Teşvik Sihirbazı","9903: bölgen, desteklerin, 2026 fırsatları"],
   ["arge-kapi-hesabi.html","🔬","Ar-Ge Kapısı Hesabı","Merkez / Teknokent / TÜBİTAK — yıllık TL farkı"],
@@ -146,13 +145,8 @@ var GRUPLAR=[
   // 17.08: marka-app.html BITMIS ve CALISAN bir uygulamaydi ama SITEDE HICBIR
   // YERDEN ERISILEMIYORDU - ne menude ne bir sayfada linki vardi. Tarama
   // yakaladi. Ayni durum evrak-app.html'de de vardi (asagida).
-  ["marka-app.html","🔐","Marka İzleme — hesabım","Markalarını ekle, yenilemeyi biz takip edelim"]]},
- {ad:"🧮 Muhasebe Bürosu (SMMM)", araclar:[
-  ["fis-fabrikasi.html","🏭","Fiş Fabrikası","Banka ekstresi → programına hazır fiş"],
-  ["evrak-radari.html","📁","Evrak Radarı","Mükelleften evrak kovalamayı bitir"],
-  ["evrak-app.html","🔐","Evrak Radarı — hesabım","Liste oluştur, mükellefe link at, cevapları gör"],
-  ["belge-kasasi.html","🗄️","Belge Kasası","Belgeler tek yerde, süreleri takipte"],
-  ["hatirlatici.html","⏰","Süre Hatırlatıcı","DİİB · KDV · SGK kritik tarihleri"]]}
+  ["marka-app.html","🔐","Marka İzleme — hesabım","Markalarını ekle, yenilemeyi biz takip edelim"]]}
+ /* 24.09 Cem: "Muhasebe Bürosu (SMMM)" grubu sitede görünmesin - sonra verilecek (Fiş Fabrikası, Evrak Radarı, Belge Kasası, Süre Hatırlatıcı). */
 ];
 
 /* ---- KÖK YOLU (28.08.2026) ------------------------------------------------

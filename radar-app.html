@@ -577,7 +577,7 @@ async function pano(f){
     <div class="radar-kart ${(f.gtip_kodlari||[]).length?'akt':''}"><span class="durum ${(f.gtip_kodlari||[]).length?'d-akt':'d-bek'}">${(f.gtip_kodlari||[]).length?'● AKTİF':'○ GTİP GİR'}</span><h4>Mevzuat / RG radarı</h4><p>GTİP kodlarına dokunan Resmî Gazete değişikliği çıkınca hap kart + uyarı gelir.</p></div>
     <div class="radar-kart ${(f.markalar||[]).length?'akt':''}"><span class="durum ${(f.markalar||[]).length?'d-akt':'d-bek'}">${(f.markalar||[]).length?'● AKTİF':'○ MARKA GİR'}</span><h4>Marka radarı</h4><p>Yenileme 6 ay kala + benzer başvuru çıkınca uyarı.</p></div>
     <div class="radar-kart ${(f.borclu_vkn||[]).length?'akt':''}"><span class="durum ${(f.borclu_vkn||[]).length?'d-akt':'d-bek'}">${(f.borclu_vkn||[]).length?'● AKTİF':'○ VKN GİR'}</span><h4>Alacak radarı</h4><p>İzlediğin borçlu konkordato/iflas ilan ederse 15 günlük süreyle uyarı.</p></div>
-    <div class="radar-kart akt"><span class="durum d-akt">● AKTİF</span><h4>Süre & belge radarı</h4><p>DİİB/KDV/SGK süreleri + belge geçerlilikleri için <a href="belge-kasasi.html">Belge Kasası</a>.</p></div>
+    
     <p class="mini" style="margin-top:12px">Uyarılar <b>${esc(f.kanal||'mail')}</b> ile gönderilecek. Robot bildirim motoru yakında; şimdilik pano canlı eşleşmeyi gösterir.</p>`;
   $('#silFirma').onclick=async()=>{ if(!confirm('Bu firmayı silmek istediğine emin misin?'))return; await sb.from('firmalar').delete().eq('id',f.id); SECILI=null; app(); };
 }

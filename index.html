@@ -467,9 +467,6 @@ window.veriAl = (function(){
         <a href="hizmet.html">Yurt Dışı Fatura<span>2 No.lu KDV / stopaj hesabı</span></a>
         <a href="fiyatfarki.html">Credit/Debit Note<span>sonradan gelen fiyat farkı</span></a>
         <a href="toplu-gtip.html">Toplu GTİP<span>Excel'ini yapıştır, kalem kalem vergi</span></a>
-        <a href="kdv-iade-rehberi.html">KDV İadesi<span>adım adım iade yol haritası</span></a>
-        <a href="hatirlatici.html">Süre Hatırlatıcı<span>DİİB · KDV · SGK tarihleri</span></a>
-        <a href="belge-kasasi.html">Belge Kasası<span>tüm belgelerin, süresi takipli</span></a>
         <a href="ceza-asistani.html">Ceza Asistanı<span>ceza geldi, hangi kapı</span></a>
         <a href="kurulus.html">Şirket Kuruluşu<span>şahıs mı, Ltd mi, AŞ mi</span></a>
         <a href="kurulus-nobeti.html">Kuruluş Nöbeti<span>kaça mal olur, ilk 12 ay, unvan, ortaklar</span></a>
@@ -484,7 +481,6 @@ window.veriAl = (function(){
         <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
         <a href="marka-radari.html">Marka Radarı<span>markanla ilgili her şey tek yerde</span></a>
         <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
-        <a href="evrak-radari.html">Evrak Radarı<span>mükellef evrak takibi</span></a>
         <a href="destekler.html">Destek Radarı<span>profiline göre KOSGEB, Eximbank</span></a>
         <a href="radar.html">Bugün RG'de<span>günün mevzuat değişiklikleri</span></a>
         <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
@@ -842,6 +838,8 @@ window.veriAl = (function(){
               <a href="#" id="bzBaska">Başka soru</a>
               <a href="sorular.html">Tüm sorular →</a>
             </div>
+            <!-- 24.09 Cem "1-3 yap": öğrenci fiyatı kartın dibinde; seçili sınavın fiyatını yazar (24.09 '1 ve 3 yap'; satılmayan sınavda 'şimdilik ön kayıt'). Rakam fiyat-motoru.js'ten. -->
+            <p class="bz-fiyat" id="ogrenciFiyat" hidden></p>
           </div>
         </div>
       </div>
@@ -1071,6 +1069,7 @@ window.veriAl = (function(){
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
       function sinavKart(sn){
         aktifSinav=sn||'sgs';
+        if(window.ttFiyatGoster) window.ttFiyatGoster(aktifSinav);   /* 24.09: fiyat satırı seçili sınavı izler */
         if(etiketEl) etiketEl.textContent=(SINAV_AD[aktifSinav]||aktifSinav)+' · Kaydır-Çöz';
         gorunur(surucuEl,true); gorunur(dipEl,true); gorunur(baskaEl,aktifSinav==='sgs');
         if(aktifSinav==='sgs'){ YOL=SGS_YOL; sira=sgsSira; tekrar=sgsTekrar; afisCiz(); return; }
@@ -1169,12 +1168,12 @@ window.veriAl = (function(){
          Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·
          "Nöbetçi anlatsın" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir).
          BİLEREK YAZILMADI: "ikizini sen çöz" - yalnız %40'ında var. -->
-    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
-      <div class="nasil-bas">
+    <section class="nasil" id="nasil" aria-label="Nasıl çalışır" hidden style="display:none"><!-- 24.09: içi boş (dört adım gizli, fiyat satırı günün sorusu kartına taşındı) -->
+      <div class="nasil-bas" hidden style="display:none"><!-- 24.09 Cem: "ilk sayfada olmasın" - dört adım sınav seçildikten sonra gösterilecek -->
         <span class="nasil-et">Nasıl çalışır</span>
         <h2>Dört adım, her soruda.</h2>
       </div>
-      <div class="nasil-adimlar nasil-dort">
+      <div class="nasil-adimlar nasil-dort" hidden style="display:none">
         <div class="na"><span class="na-no">1</span><b>Sınavdaki gibi çöz</b><p>Soru sınav kitapçığındaki biçimde gelir. Süren işler, şıkları kâğıttaki gibi çizerek elersin.</p></div>
         <div class="na"><span class="na-no">2</span><b>Yanlışını gör</b><p>Seçtiğin şıkkın neden yanlış, doğrusunun neden doğru olduğu tek tek yazar.</p></div>
         <div class="na"><span class="na-no">3</span><b>Nöbetçi anlatsın</b><p>Çözüm adım adım açılır; takıldığın adımda durur, geri dönersin.</p></div>
@@ -1190,22 +1189,39 @@ window.veriAl = (function(){
       <!-- 13.09 (Cem "1.2.3 yap"): öğrenci fiyatı ana sayfada hiç yoktu. Rakam ELLE YAZILMAZ: fiyat-motoru.js
            (FIYAT.sgs / KOTA.sgs / SURE_GUN) okunur; Cem'in planladığı zam motora girince burası kendiliğinden değişir.
            Yalnız Staja Giriş fiyatı yazılır: Yeterlilik ve Bağımsız Denetçilik soru sayfaları henüz "Hazırlanıyor". -->
-      <p class="nasil-fiyat" id="ogrenciFiyat" hidden></p>
     </section>
     <script src="fiyat-motoru.js"></script>
     <script>
     (function(){
       try{
+        /* 24.09 Cem "1 ve 3 yap": kart dibindeki fiyat seçili sınavı izler. Rakamlar YALNIZ fiyat-motoru.js'ten.
+           ICERIK_HAZIR false olan sınav satılmaz (15.09 kararı) -> fiyat.html gibi "şimdilik ön kayıt" yazar. */
         var e=document.getElementById('ogrenciFiyat'); if(!e||typeof FIYAT==='undefined'||!FIYAT.sgs) return;
-        var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
-        e.innerHTML='<b>Staja Giriş soru bankası: '+tl(f.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'
-          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye kuruluş fiyatı, sonra '+tl(f.liste)+' TL':'')
-          +' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
-        e.hidden=false;
+        var ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30), K=(typeof KOTA!=='undefined')?KOTA:{};
+        var HZ=(typeof ICERIK_HAZIR!=='undefined')?ICERIK_HAZIR:{sgs:true};
+        var DS=(typeof DERSLER!=='undefined')?DERSLER:{};
+        function kota(sn,f){ return (f.liste>f.kurulus&&K[sn])?' · ilk '+tl(K[sn])+' üyeye kuruluş fiyatı':''; }
+        function satir(sn){
+          var ic='';
+          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+tl(f.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+tl(f.liste)+' TL':''); }
+          else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('yeterlilik',t); }
+          else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('kgk',k); }
+          if(!ic) return '';
+          if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
+          return ic+' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
+        }
+        window.ttFiyatGoster=function(sn){ var h=satir(sn||'sgs'); e.innerHTML=h; e.hidden=!h; };
+        var sb=document.querySelector('.bz-sekme button[aria-selected="true"]');
+        window.ttFiyatGoster(sb?sb.getAttribute('data-sinav'):'sgs');
       }catch(x){}
     })();
     </script>
     <style>
+      .bz-fiyat{margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(214,180,126,.18);font-size:12.5px;line-height:1.55;color:var(--bz-ak-govde)}
+      .bz-fiyat b{color:inherit;font-weight:700}
+      /* 24.09 mobil denetim: kart dibi + raf bağlantıları 17-20 px yüksekti (parmakla basılır boy >= 24 px) */
+      @media (max-width:700px){ .bz-kah .bz-dip a,.bz-fiyat a,.raf-tumu a{display:inline-block;min-height:24px;line-height:24px;padding-top:2px;padding-bottom:2px} }
+      .bz-fiyat a{color:var(--bz-ak);font-weight:700;text-decoration:none;white-space:nowrap}
       .nasil-fiyat{margin:28px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
       .nasil-fiyat b{color:var(--ink)}
       .nasil-fiyat a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
@@ -1225,7 +1241,8 @@ window.veriAl = (function(){
          Kahramanın altındaki koyu banttan ve eski "Nasıl çalışır"dan TAŞINDI: aynı kimlikler
          (ndRg/ndIhale/ndNeZaman/ndSaat/ndTarih/ndDip) - nöbet betiği değişmeden doldurur.
          Metin sınav cümlelerinden arındırıldı ("dersin", "her soru şıkkının gerekçesiyle" çıktı). -->
-    <section class="is-nobet" id="is-nobet" aria-label="İş tarafında nöbet">
+    <!-- 24.09 Cem: "ilk sayfada olmasın" - iş nöbeti gizli; kimlikler yerinde (nöbet betiği bozulmasın) -->
+    <section class="is-nobet" id="is-nobet" aria-label="İş tarafında nöbet" hidden style="display:none">
       <div class="nasil-bas">
         <span class="nasil-et">İş tarafında da aynı nöbet</span>
         <h2 style="margin:0;font-family:inherit;font-size:clamp(22px,2.4vw,30px);font-weight:800;color:var(--ink);letter-spacing:-.02em">Üç adım, her sabah.</h2>
@@ -1496,15 +1513,7 @@ window.veriAl = (function(){
           <span class="mp-git">Markalarımı getir →</span>
         </span>
       </a>
-      <a class="mp" href="kdv-iade-rehberi.html">
-        <span class="mp-bar"><b>KDV İadesi</b></span>
-        <span class="mp-ic">
-          <span class="mp-tag">DEVLETTEN PARANI GERİ AL</span>
-          <span class="mp-b">Yüklendiğin KDV'nin iadesi hakkın</span>
-          <span class="mp-m">KDVK m.32: tam istisna işlemlerde yüklenilen KDV iade alınır. Süre <b style="color:var(--ink)">izleyen 2. takvim yılı sonu</b>; kaçıran yanar</span>
-          <span class="mp-git">İade yol haritasını gör →</span>
-        </span>
-      </a>
+      <!-- 24.09 Cem: KDV İadesi kartı ana sayfadan kalktı (araç Araçlar menüsünde duruyor). -->
       <a class="mp" href="kurulus.html">
         <span class="mp-bar"><b>Şirket Kuruluşu</b></span>
         <span class="mp-ic">
@@ -1705,7 +1714,6 @@ window.veriAl = (function(){
         <a class="arac vitrinde" href="soru-cevap.html"><div><b>Net Cevap</b><span>Mevzuat sorunu yaz; kanun maddesine dayalı net cevabını al.</span></div></a>
         <a class="arac" href="ceza-asistani.html"><div><b>Ceza Asistanı</b><span>Ceza geldi mi? İndirim mi, uzlaşma mı, dava mı? Hangi kapı sana uygunsa gör.</span></div></a>
         <a class="arac" href="asgari-kv.html"><div><b>Asgari Kurumlar Vergisi</b><span>%10 tabana takılıyor musun? 2025 sonrası yeni kurala göre hesapla.</span></div></a>
-        <a class="arac vitrinde" href="kdv-iade-rehberi.html"><div><b>KDV İade Rehberi</b><span>KDV iadesini adım adım al; hangi belgeler, hangi sırayla.</span></div></a>
         <a class="arac vitrinde" href="kurulus.html"><div><b>Şirket Kuruluşu Rehberi</b><span>Şahıs mı, limited mi, anonim mi? Adım adım kuruluş yolu.</span></div></a>
         <a class="arac vitrinde" href="tesvik-sihirbazi.html"><div><b>Yatırım Teşvik Sihirbazı</b><span>Yeni 9903 sistemine göre il + sektör + tutarınla hangi destek; 31.12.2026'lık 6. bölge fırsatları.</span></div></a>
         <a class="arac" href="arge-kapi-hesabi.html"><div><b>Ar-Ge Kapısı Hesabı</b><span>Merkez mi, Teknokent mi, TÜBİTAK mı? Ekibinle üç kapının yıllık TL farkını yan yana gör.</span></div></a>
@@ -1743,15 +1751,7 @@ window.veriAl = (function(){
       </div>
     </div>
 
-    <div class="kat-grup" id="kg4">
-      <h3>Muhasebe Bürosu (SMMM)</h3>
-      <div class="araclar-grid">
-        <a class="arac" href="fis-fabrikasi.html"><div><b>Fiş Fabrikası</b><span>Banka ekstresini yükle; muhasebe programına hazır fiş Excel'i al.</span></div></a>
-        <a class="arac" href="evrak-radari.html"><div><b>Evrak Radarı</b><span>Mükelleften evrak kovalamayı bitir; eksikler kendiliğinden takip edilsin.</span></div></a>
-        <a class="arac" href="belge-kasasi.html"><div><b>Belge Kasası</b><span>Firmanın tüm belgeleri tek yerde, geçerlilik süreleri takipte.</span></div></a>
-        <a class="arac" href="hatirlatici.html"><div><b>Süre Hatırlatıcı</b><span>DİİB, KDV, SGK… kritik tarihleri gir, zamanı gelince hatırlatsın.</span></div></a>
-      </div>
-    </div>
+    <!-- 24.09 Cem: "Muhasebe Bürosu" araçları (Fiş Fabrikası, Evrak Radarı, Belge Kasası, Süre Hatırlatıcı) sitede görünmesin - sonra verilecek. Sayfalar yerinde, yalnız bağlantılar kalktı. -->
 
     <div id="aracYok" style="display:none;text-align:center;color:var(--dim);padding:30px 0;font-size:14px">Aradığın kelimeyle eşleşen araç yok. Başka bir kelime dene.</div>
   </div>
@@ -2042,7 +2042,6 @@ window.veriAl = (function(){
       <a href="fiyatfarki.html">Fiyat Farkı</a>
       <a href="toplu-gtip.html">Toplu GTİP</a>
       <a href="ceza-asistani.html">Ceza Asistanı</a>
-      <a href="evrak-radari.html">Evrak Radarı</a>
       <a href="marka-radari.html">Marka Radarı</a>
       <a href="destekler.html">Destek Radarı</a>
       <a href="kurulus.html">Şirket Kuruluşu</a>

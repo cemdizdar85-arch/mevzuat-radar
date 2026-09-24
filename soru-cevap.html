@@ -323,7 +323,8 @@ function localSor(q){
     const k=en.k;
     localStorage.setItem(LSK, kullanilan()+1); hakYaz();
     let html=`<div class="cevap"><div class="konu">${esc(k.konu)}</div><h3>Net cevap</h3><p>${esc(k.cevap)}</p>${guvenFooter(esc(k.kaynak))}`;
-    if(k.arac) html+=`<div class="araclink"><a href="${esc(k.arac)}">İlgili aracı aç / detaylandır →</a></div>`;
+    /* 24.09 Cem: kapalı araçlara (_kapali-araclar/) bağlantı verilmez */
+    if(k.arac && !/^(kdv-iade-rehberi|fis-fabrikasi|evrak-radari|evrak-app|belge-kasasi|hatirlatici).html/.test(k.arac)) html+=`<div class="araclink"><a href="${esc(k.arac)}">İlgili aracı aç / detaylandır →</a></div>`;
     html+=`</div>`;
     // ikinci ilgili — 21.08: mutlak esik (>=2) yerine BIRINCIYE ORAN. Ölçümde
     // "serbest meslek makbuzunda stopaj oranı" sorusunda doğru kayıt ikinci

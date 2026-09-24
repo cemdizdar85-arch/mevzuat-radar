@@ -34,7 +34,6 @@
     ]],
     ['Vergi ve ceza', [
       ['Ceza Asistanı', 'ceza-asistani.html', 'ceza uzlasma indirim dava vuk'],
-      ['KDV iade rehberi', 'kdv-iade-rehberi.html', 'kdv iade istisna mahsup'],
       ['Asgari kurumlar vergisi', 'asgari-kv.html', 'asgari kurumlar vergisi yuzde 10'],
       ['Eşik rehberi', 'sayfalar/index.html', 'esik calisan sayisi ciro zorunluluk'],
       ['Net Cevap', 'soru-cevap.html', 'soru sor cevap madde mevzuat'],
@@ -69,13 +68,7 @@
     ]],
     ['Mevzuat nöbeti', [
       ['Bugün Resmî Gazete\'de', 'radar.html', 'resmi gazete rg degisiklik bugun'],
-      ['Günün hap kartları', 'kartlar.html', 'hap kart ozet gunluk'],
-      ['Süre hatırlatıcı', 'hatirlatici.html', 'sure tarih hatirlatma diib kdv sgk']
-    ]],
-    ['Büro ve evrak', [
-      ['Fiş Fabrikası', 'fis-fabrikasi.html', 'fis luca ekstre muhasebe kayit musavir smmm buro'],
-      ['Evrak Radarı', 'evrak-radari.html', 'evrak mukellef takip musavir smmm buro'],
-      ['Belge Kasası', 'belge-kasasi.html', 'belge kasa sure takip arsiv musavir buro']
+      ['Günün hap kartları', 'kartlar.html', 'hap kart ozet gunluk']
     ]],
     ['SMMM sınavları', [
       ['Sınav takvimi ve soru bankası', 'genc.html', 'sgs staja giris yeterlilik sinav takvim ogrenci stajyer aday musavir smmm'],
