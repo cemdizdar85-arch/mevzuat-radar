@@ -78,7 +78,12 @@ foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
     $anah = "$et|$($p.Name)"
     $sart = SmmmYayinSarti "$et/$($p.Name)" $v $onay
     if (-not $sart.gecer) { $dusen['yayın şartı'] = 1 + [int]$dusen['yayın şartı']; continue }
-    if ($ret.ContainsKey($anah)) { $dusen['ret kütüğü'] = 1 + [int]$dusen['ret kütüğü']; continue }
+    # 24.09 (Cem onay kuyruğu): onaylanan 55 sorunun 55'i ret kütüğünde YALNIZ KAPI-KOR (kör çözüm anahtardan farklı) ile
+    #   kayıtlıydı ve bu satır onları onaydan bağımsız eliyordu (yayında 0/55). Cem ONAYI tam bu durumun istisnasıdır:
+    #   ret nedeni KAPI-KOR ve yayın şartı Cem onayıyla geçtiyse ret kütüğü durdurmaz. ELLE RET ve öteki nedenler aynen durdurur.
+    $korOnay = ("$($ret[$anah])" -like 'KAPI-KOR*' -and "$($sart.neden)" -match 'Cem onay')
+    if ($ret.ContainsKey($anah) -and -not $korOnay) { $dusen['ret kütüğü'] = 1 + [int]$dusen['ret kütüğü']; continue }
+    if ($korOnay) { $dusen['(bilgi) Cem onayıyla KAPI-KOR aşıldı'] = 1 + [int]$dusen['(bilgi) Cem onayıyla KAPI-KOR aşıldı'] }
     $ders = DersBul $et $v
     if (-not $ders) { $dusen['ders çözülemedi'] = 1 + [int]$dusen['ders çözülemedi']; continue }
     $aday.Add([pscustomobject]@{ etiket = $et; id = $p.Name; ders = $ders; konu = "$($v.konu)"; donem = [int]$v.donem; boy = "$($v.soru)".Length
