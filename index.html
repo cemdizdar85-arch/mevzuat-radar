@@ -1206,12 +1206,19 @@ window.veriAl = (function(){
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
           ic+=' · <a href="fiyat.html?sinav='+sn+'">Paket ayrıntısı →</a>';   /* 24.09: fiyat sayfası seçili sınavı gösterir */
-          /* 24.09 Cem "burdan fiyat görsün ve üye olsun": kartın tek çağrısı üyelik.
-             Üye değil -> Ücretsiz üye ol · üye, paket yok, sınav satışta -> Paketi al · paketi açık -> fiyat hiç gösterilmez */
+          /* 24.09 Cem "ücretsiz üye olu kaldırmak lazım, burda ücretli üyelik SATMAYACAK mıyız": kartın tek çağrısı SATIŞ.
+             Ücretsiz giriş sayfada zaten iki yerde (üst şerit "Ücretsiz Başla", kahraman "Geçme ihtimalini ölç").
+             Satıştaki sınav -> Satın al (SGS doğrudan ödeme; ders/modül seçimli sınavlar fiyat sayfasında seçer) ·
+             satışta değil (ICERIK_HAZIR false) -> Ön kayıt ol (fiyat.html ile aynı hedef) · paketi açık -> fiyat hiç gösterilmez */
           var ds=(UYE&&UYE.sinavlar&&UYE.sinavlar[sn])||{};
           if(ds.durum==='aktif') return '';
-          if(!UYE||!UYE.oturum) ic+='<a class="bz-uye" href="ogrenci.html">Ücretsiz üye ol →</a>';
-          else if(HZ[sn]) ic+='<a class="bz-uye" href="fiyat.html">Paketi al →</a>';
+          if(HZ[sn]){
+            var al=(sn==='sgs')?'satin-al.html?paket=sgs':'fiyat.html?sinav='+sn;
+            var tutar=(sn==='sgs')?' — '+tl(FIYAT.sgs.kurulus)+' TL':'';
+            ic+='<a class="bz-uye bz-al" href="'+al+'">'+(ds.durum==='bitmis'?'Paketini yenile':'Satın al')+tutar+' →</a>';
+          } else {
+            ic+='<a class="bz-uye" href="ucretsiz-dene.html?sinav='+sn+'#onkayit">Ön kayıt ol — açılınca ilk sen öğren</a>';
+          }
           return ic;
         }
         var UYE=null, SN='sgs';
@@ -1231,6 +1238,9 @@ window.veriAl = (function(){
       .bz-fiyat a{color:var(--bz-ak);font-weight:700;text-decoration:none;white-space:nowrap}
       .bz-fiyat a.bz-uye{display:flex;justify-content:center;align-items:center;margin-top:12px;min-height:44px;border-radius:12px;border:1px solid var(--bz-ak);color:var(--bz-ak);font-size:14px}
       .bz-fiyat a.bz-uye:hover{background:rgba(214,180,126,.10)}
+      /* satış düğmesi: kahramanın ana düğmesiyle aynı dolgu (Nöbetçi çözsün ile aynı aile) */
+      .bz-fiyat a.bz-al{background:linear-gradient(180deg,#f0cf98,#d6b47e);border-color:transparent;color:#1a1408}
+      .bz-fiyat a.bz-al:hover{filter:brightness(1.06);background:linear-gradient(180deg,#f0cf98,#d6b47e)}
       .nasil-fiyat{margin:28px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
       .nasil-fiyat b{color:var(--ink)}
       .nasil-fiyat a{color:var(--amber);font-weight:700;text-decoration:none;white-space:nowrap}
