@@ -67,7 +67,13 @@ param(
   # 23.09 (Cem "1.2.3 üçünü de yap"): bu derslerde son-10-yıl eşiği 1 — Hukuk tabloda 204 açıkken dalgadan 10 soru
   #   alıyordu, çünkü konularının çoğu son 10 yılda BİR kez sorulmuş (eşik 2'nin altında). 1 kez sorulmuş konu hâlâ
   #   "yeni" kuralına uyar (son 10 yılda sorulmuş). Öbür derslerde -CikmisEsik geçerli.
-  [string]$DusukEsikDersler = 'Hukuk,Muh. ve Mali Müş. Meslek Hukuku'
+  [string]$DusukEsikDersler = 'Hukuk,Muh. ve Mali Müş. Meslek Hukuku',
+  # 24.09 (Cem "1.2.3 üçünü de yap"): kapsama ölçümünde açığın YARISI Finansal Muhasebe'de (1.015/2.267) — dalga tek derse
+  #   verilebilsin. Kanonik ders adı (tablodaki 'ders' sütunu), ör. 'Finansal Muhasebe'. Boş = bütün dersler (ders payı).
+  [string]$YalnizDers = '',
+  # 24.09 (aynı onay): sitede HİÇ sorusu olmayan (yayinlanabilir = 0) konular önce; kendi içinde yine SON 10 YIL sıklığı.
+  #   -YalnizHicYok'tan farkı: hiç-yok bitince dolu konulara geçer (dalga boş kalmaz).
+  [switch]$HicYokOnce
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -139,8 +145,10 @@ $havuz = @($c | Where-Object {
     #   son 10 yılda 1 kez (son 2020/2); eski kuralla 3 soru basılacaktı. son10 sütunu yoksa tablo eskidir → durur.
     [int]$_.son10 -ge $esikBu -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
-    ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true }))
-  } | Sort-Object { [int]$_.son10 }, { [int]$_.acik } -Descending)
+    ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true })) -and
+    (-not $YalnizDers -or "$($_.ders)" -eq $YalnizDers)
+  } | Sort-Object { if ($HicYokOnce) { [int]([int]$_.yayinlanabilir -eq 0) } else { 0 } }, { [int]$_.son10 }, { [int]$_.acik } -Descending)
+if ($YalnizDers) { "MOD: YALNIZ DERS = $YalnizDers" }; if ($HicYokOnce) { "MOD: HIC SORUSU OLMAYAN KONULAR ONCE (havuzda $(@($havuz | Where-Object { [int]$_.yayinlanabilir -eq 0 }).Count))" }
 if ($YalnizHicYok) { "MOD: YALNIZ HIC SORUSU OLMAYAN KONULAR (yayinlanabilir = 0)" }
 # ⛔ 22.09 DUZELTME: once "onceki dalgalarda gecen konuyu al" diye elemistim; oyle yapinca
 #   havuz 39 konuya dusuyordu. YANLIS: en cok cikan konularda ACIK ZATEN VAR (amortisman
