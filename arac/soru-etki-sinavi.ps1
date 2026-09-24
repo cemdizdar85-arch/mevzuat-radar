@@ -67,6 +67,12 @@ $kayit = (Get-Content $dkT -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler.'ad|
 T 'belirteç kaydı: aynı metin yazılmaz, fark yazılır, ikinci değişiklik BİRLEŞİR' ($r1 -eq 'ayni' -and $r2 -eq 'yazildi' -and $r3 -eq 'yazildi' -and (@($kayit.belirtecler) -contains '#%20') -and (@($kayit.belirtecler) -contains 'serma') -and -not $kayit.belirsiz)
 if (Test-Path $dkT) { [IO.File]::Delete($dkT) }
 T 'nöbetçi: teori anahtarları izleniyor ve soru tarafı MdKaynakKoku ile eşleniyor' ($nb.Contains('Where-Object { MdIzlenenAnahtar $_ }') -and $nb.Contains('$mk = MdKaynakKoku "$ka"') -and $nb.Contains('$mk = MdKaynakKoku "$($kay.ad)"'))
+# --- 24.09 İKİ KÖRLÜK: olumsuzluk + soru kalıbı sözcükleri
+T 'olumsuzluk: "katılmaz"→"katılır" (başka hiçbir şey değişmedi) → "katılır" diyen soru DEĞİYOR' ((Degiyor (S 'Emek ortagi zarara katilir mi?' 'Evet') 'Emek ortagi zarara katilmaz.' 'Emek ortagi zarara katilir.') -eq 'DEGIYOR')
+T 'olumsuzluk + başka değişiklik: yalnız fiile değen soru yine DEĞİYOR (eskiden kaçardı)' ((Degiyor (S 'Emek ortagi zarara katilir mi?' 'Evet') 'Emek ortagi zarara katilmaz. Sure otuz gundur.' 'Emek ortagi zarara katilir. Sure altmis gundur.') -eq 'DEGIYOR')
+T 'olumsuzluk: ilgisiz soru DEĞMİYOR' ((Degiyor (S 'Ortaklar sirket borclarindan nasil sorumludur?' 'Muteselsilen') 'Emek ortagi zarara katilmaz. Sure otuz gundur.' 'Emek ortagi zarara katilir. Sure altmis gundur.') -eq 'DEGMIYOR')
+T 'olumsuz biçim tanıma: katılmaz/ödenmeyen/verilmedikçe evet; hammadde/yapılması/medeni hayır' ((MdOlumsuzMu 'katilmaz') -and (MdOlumsuzMu 'odenmeyen') -and (MdOlumsuzMu 'verilmedikce') -and -not (MdOlumsuzMu 'hammadde') -and -not (MdOlumsuzMu 'yapilmasi') -and -not (MdOlumsuzMu 'medeni'))
+T 'soru kalıbı sözcüğü farkı ("göre/ilişkin") tek başına soru çekmez' ((Degiyor (S 'Asagidakilerden hangisi TTKya gore dogrudur?' 'Tescil gerekir') 'Buna gore iliskin tescil zorunludur.' 'Tescil zorunludur.') -ne 'DEGIYOR')
 $top = $gecti + $dustu.Count
 Write-Host "SORU ETKİ ÖZ-SINAVI: $gecti/$top geçti"
 if ($dustu.Count) { $dustu | ForEach-Object { Write-Host "  ✗ $_" }; exit 1 }
