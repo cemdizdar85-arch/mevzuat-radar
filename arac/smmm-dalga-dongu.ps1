@@ -64,7 +64,23 @@ if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim '2) kapsama tablosu (son 
 if (-not $ExcelYok) {
   Adim '3) Excel' { $o = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-basim-excel.ps1') 2>&1; $script:excelSatir = @($o | Where-Object { "$_" -match '^EXCEL:' }) | Select-Object -Last 1 }
 }
-$plArg = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $buDizin 'smmm-plan-kur.ps1'), '-PlanSayisi', "$PlanSayisi", '-PlanBasinaSoru', "$PlanBasinaSoru", '-Etiket', $Etiket, '-CikmisEsik', "$CikmisEsik")
+# 24.09 (Cem "1.2.3" madde 2): YAKLAŞAN YETERLİLİK DENEME PAKETİ kasanın güncel hâliyle yeniden üretilir (yeni sorular girer,
+#   anahtar yenilenir). Yalnız: oturum tarihi en az 1 gün ileride + paketi zaten var + anahtarı YAYINLANMAMIŞ
+#   (veri/canli/anahtar-<kod>.json yok). Tarihi geçmiş / yayınlanmış pakete DOKUNULMAZ. Hata dalgayı durdurmaz (uyarı).
+if (-not $SadeceDenetim -and -not $sinavKosusu) {
+  try {
+    $cd = Get-Content (Join-Path $kok 'veri/canli-deneme.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($o in @($cd.oturumlar | Where-Object { "$($_.sinav)" -eq 'Yeterlilik' })) {
+      $tar = [datetime]::ParseExact("$($o.tarih)", 'dd.MM.yyyy', $null); $kod = 'YET-' + $tar.ToString('ddMM')
+      if ($tar -lt (Get-Date).Date.AddDays(1)) { continue }
+      if (-not (Test-Path (Join-Path $kok "veri/canli/$kod.enc.json"))) { continue }
+      if (Test-Path (Join-Path $kok "veri/canli/anahtar-$kod.json")) { continue }
+      Write-Host "== deneme paketi tazeleniyor: $kod ($($o.tarih))" -ForegroundColor Cyan
+      $po = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $kok 'motor/canli-paketle.ps1') -oturum $kod 2>&1
+      Write-Host "   $(@($po | Where-Object { "$_" -match 'PAKET HAZIR|URETILMEDI' }) -join ' ')"
+    }
+  } catch { Write-Host "  ⚠ deneme paketi tazelenemedi (dalga sürer): $($_.Exception.Message)" -ForegroundColor Yellow }
+}$plArg = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $buDizin 'smmm-plan-kur.ps1'), '-PlanSayisi', "$PlanSayisi", '-PlanBasinaSoru', "$PlanBasinaSoru", '-Etiket', $Etiket, '-CikmisEsik', "$CikmisEsik")
 if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }; if ($HaricDers) { $plArg += @('-HaricDers', $HaricDers) }; if ($YalnizHicYok) { $plArg += '-YalnizHicYok' }
 if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim "4) plan kuruluyor ($Etiket, rezerv: $(if($Rezerve){$Rezerve}else{'yok'}))" { & powershell @plArg *> "$env:TEMP\plan-$Etiket.txt" } }
 
