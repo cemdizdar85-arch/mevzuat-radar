@@ -44,22 +44,45 @@ jobs:
         shell: pwsh
         run: ./arac/kaynak-nobetcisi.ps1
 
+      # 24.09 DERSI - TEK KAYNAK TUM NOBETI OLDURUYORDU: bu uc adimda continue-on-error
+      # yoktu. ilan.gov.tr API'si 24.09'da 403 verince (arayuz disi istemciyi reddediyor;
+      # tarayicida ayni uc 200, fark istegin kimligi) ILK adim dustu ve arkasindaki HER
+      # SEY - alacak, cagri/fuar/exim/kgf, Kamu Ihale Bulteni, marka izleme, yayinla -
+      # iki kosu boyunca hic calismadi. Artik dusen kaynak digerlerini durdurmaz; dustugu
+      # asagidaki alarm adimiyla Cem'e mail olur ve is EN SONDA (yayindan sonra) KIRMIZI biter.
       - name: Yurt ici ihale listesi (ilan.gov.tr acik API — gunluk yenile)
+        id: ihaleyurtici
+        continue-on-error: true
         shell: pwsh
         run: ./motor/ihale-yurtici-hasat.ps1 -Adet 100
 
       - name: Yurt disi ihale listesi (AB TED acik API — sektor sektor aktif ihaleler)
+        id: ted
+        continue-on-error: true
         shell: pwsh
         run: ./motor/ihale-ted-hasat.ps1
 
       - name: Iflas/konkordato ilanlari (ilan.gov.tr — alacak radari canli besleme)
+        id: alacakhasat
+        continue-on-error: true
         shell: pwsh
         run: ./motor/alacak-ilan-hasat.ps1 -Adet 60
+
+      - name: ilan.gov.tr / TED hasadi dustuyse Cem'e haber ver
+        if: steps.ihaleyurtici.outcome == 'failure' || steps.ted.outcome == 'failure' || steps.alacakhasat.outcome == 'failure'
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - ilan.gov.tr / TED hasadi dustu (Alacak + Ihale bayatliyor)' -Mesaj "Hasat dustu (ihale yurtici: ${{ steps.ihaleyurtici.outcome }} / TED: ${{ steps.ted.outcome }} / alacak: ${{ steps.alacakhasat.outcome }}). Dusen besleme GUNCELLENMEDI; Alacak Radari 'son cekim' tarihi ilerlemez. 24.09 olcumu: ilan.gov.tr AdsByFilter arayuz disi istemciye 403 veriyor (yerelden de). Diger hasatlar kosmaya devam etti. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       # Borclu firma adi + (tek/gecerli) VKN'yi ilan.gov.tr detayindan cek. Canli
       # besleme her gun yenilendigi icin HEMEN ardindan kosar. Dort kontrol kapisi
       # yanlis firma gostermeyi engeller (emin degilse bos birakir).
+      # 24.09: yalniz hasat BASARILIYSA - dusen hasatta eski canli dosyayi yeniden islemez.
       - name: Alacak ilanlarina borclu adi + VKN ekle
+        if: steps.alacakhasat.outcome == 'success'
         continue-on-error: true
         shell: pwsh
         run: ./motor/alacak-borclu-cek.ps1
@@ -71,6 +94,7 @@ jobs:
       # ps1 adiminin kacirdigi borclulari da yakalar (o "tek VKN varsa yaz"
       # kuralindan dolayi grup konkordatolarini eliyordu), o yuzden ondan SONRA.
       - name: Alacak ilan metnini ayristir (esas no, muhlet, komiser, borclular)
+        if: steps.alacakhasat.outcome == 'success'
         continue-on-error: true
         run: node motor/alacak-metin-ayristir.js
 
@@ -81,6 +105,7 @@ jobs:
       # coalesce'li oldugu icin bos gelen borclu/VKN eskisini SILMEZ.
       # SUPABASE_SERVICE_KEY secret'i yoksa betik "ATLANDI" yazar (kor kalma kurali).
       - name: Alacak arsivini kasaya yaz (Supabase)
+        if: steps.alacakhasat.outcome == 'success'
         continue-on-error: true
         shell: pwsh
         env:
@@ -450,3 +475,12 @@ jobs:
             echo "5 denemede de yayinlanamadi - adim bilerek KIRMIZI biter, sessiz kalmaz"
             exit 1
           fi
+
+      # 24.09: dusen kaynak artik zinciri kesmiyor (continue-on-error) - ama sessiz de kalmaz.
+      # Veri yayinlandiktan SONRA is bilerek kirmizi biter; Actions listesinde "basarili" gorunup
+      # alacak/ihale beslemesinin durdugunu gizlemesin.
+      - name: Hasat dustuyse isi KIRMIZI bitir (yayindan sonra)
+        if: steps.ihaleyurtici.outcome == 'failure' || steps.ted.outcome == 'failure' || steps.alacakhasat.outcome == 'failure'
+        run: |
+          echo "Dusen hasat: ihale yurtici=${{ steps.ihaleyurtici.outcome }} TED=${{ steps.ted.outcome }} alacak=${{ steps.alacakhasat.outcome }}"
+          exit 1
