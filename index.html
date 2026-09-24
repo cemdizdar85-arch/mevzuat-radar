@@ -838,7 +838,7 @@ window.veriAl = (function(){
               <a href="#" id="bzBaska">Başka soru</a>
               <a href="sorular.html">Tüm sorular →</a>
             </div>
-            <!-- 24.09 Cem "1-3 yap": öğrenci fiyatı kartın dibinde; yalnız SGS sekmesinde görünür (fiyat SGS'nin - Yeterlilik kartının altında yanıltırdı). Rakam fiyat-motoru.js'ten. -->
+            <!-- 24.09 Cem "1-3 yap": öğrenci fiyatı kartın dibinde; seçili sınavın fiyatını yazar (24.09 '1 ve 3 yap'; satılmayan sınavda 'şimdilik ön kayıt'). Rakam fiyat-motoru.js'ten. -->
             <p class="bz-fiyat" id="ogrenciFiyat" hidden></p>
           </div>
         </div>
@@ -1069,7 +1069,7 @@ window.veriAl = (function(){
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
       function sinavKart(sn){
         aktifSinav=sn||'sgs';
-        var fy=document.getElementById('ogrenciFiyat'); if(fy&&fy.getAttribute('data-dolu')) fy.hidden=aktifSinav!=='sgs';
+        if(window.ttFiyatGoster) window.ttFiyatGoster(aktifSinav);   /* 24.09: fiyat satırı seçili sınavı izler */
         if(etiketEl) etiketEl.textContent=(SINAV_AD[aktifSinav]||aktifSinav)+' · Kaydır-Çöz';
         gorunur(surucuEl,true); gorunur(dipEl,true); gorunur(baskaEl,aktifSinav==='sgs');
         if(aktifSinav==='sgs'){ YOL=SGS_YOL; sira=sgsSira; tekrar=sgsTekrar; afisCiz(); return; }
@@ -1194,20 +1194,33 @@ window.veriAl = (function(){
     <script>
     (function(){
       try{
+        /* 24.09 Cem "1 ve 3 yap": kart dibindeki fiyat seçili sınavı izler. Rakamlar YALNIZ fiyat-motoru.js'ten.
+           ICERIK_HAZIR false olan sınav satılmaz (15.09 kararı) -> fiyat.html gibi "şimdilik ön kayıt" yazar. */
         var e=document.getElementById('ogrenciFiyat'); if(!e||typeof FIYAT==='undefined'||!FIYAT.sgs) return;
-        var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
-        e.innerHTML='<b>Staja Giriş soru bankası: '+tl(f.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'
-          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye kuruluş fiyatı, sonra '+tl(f.liste)+' TL':'')
-          +' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
-        e.setAttribute('data-dolu','1');
+        var ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30), K=(typeof KOTA!=='undefined')?KOTA:{};
+        var HZ=(typeof ICERIK_HAZIR!=='undefined')?ICERIK_HAZIR:{sgs:true};
+        var DS=(typeof DERSLER!=='undefined')?DERSLER:{};
+        function kota(sn,f){ return (f.liste>f.kurulus&&K[sn])?' · ilk '+tl(K[sn])+' üyeye kuruluş fiyatı':''; }
+        function satir(sn){
+          var ic='';
+          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+tl(f.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+tl(f.liste)+' TL':''); }
+          else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('yeterlilik',t); }
+          else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('kgk',k); }
+          if(!ic) return '';
+          if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
+          return ic+' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
+        }
+        window.ttFiyatGoster=function(sn){ var h=satir(sn||'sgs'); e.innerHTML=h; e.hidden=!h; };
         var sb=document.querySelector('.bz-sekme button[aria-selected="true"]');
-        e.hidden=!!(sb&&sb.getAttribute('data-sinav')!=='sgs');
+        window.ttFiyatGoster(sb?sb.getAttribute('data-sinav'):'sgs');
       }catch(x){}
     })();
     </script>
     <style>
       .bz-fiyat{margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(214,180,126,.18);font-size:12.5px;line-height:1.55;color:var(--bz-ak-govde)}
       .bz-fiyat b{color:inherit;font-weight:700}
+      /* 24.09 mobil denetim: kart dibi + raf bağlantıları 17-20 px yüksekti (parmakla basılır boy >= 24 px) */
+      @media (max-width:700px){ .bz-kah .bz-dip a,.bz-fiyat a,.raf-tumu a{display:inline-block;min-height:24px;line-height:24px;padding-top:2px;padding-bottom:2px} }
       .bz-fiyat a{color:var(--bz-ak);font-weight:700;text-decoration:none;white-space:nowrap}
       .nasil-fiyat{margin:28px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
       .nasil-fiyat b{color:var(--ink)}
