@@ -114,7 +114,6 @@ var GRUPLAR=[
   ["soru-cevap.html","💬","Net Cevap","Mevzuat sorunu sor, kaynaklı cevap al"],
   ["ceza-asistani.html","⚖️","Ceza Asistanı","İndirim mi, uzlaşma mı, dava mı?"],
   ["asgari-kv.html","🧾","Asgari Kurumlar Vergisi","%10 tabana takılıyor musun?"],
-  ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["tesvik-sihirbazi.html","🧲","Yatırım Teşvik Sihirbazı","9903: bölgen, desteklerin, 2026 fırsatları"],
   ["arge-kapi-hesabi.html","🔬","Ar-Ge Kapısı Hesabı","Merkez / Teknokent / TÜBİTAK — yıllık TL farkı"],
