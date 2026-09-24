@@ -454,16 +454,25 @@ function teslim(otomatik){
   // sonucu gonder: 0-15 sn rastgele gecikme + 1 tekrar (5k kisi ayni anda vurmasin)
   var g = document.getElementById('soGonderim');
   g.textContent = 'Sonucun Türkiye sıralaması için gönderiliyor…';
-  var govde = JSON.stringify({ oturum: CANLI.kod, dogru: dg, yanlis: yn, bos: bs,
-    sure_sn: Math.round((Date.now()-CANLI.basMs)/1000), cihaz: (innerWidth<760?'mobil':'masaustu') });
-  var yolla = function(kalan){
+  /* 24.09 (Cem "1 yap"): soru soru cevap da AYNI tek istekle gider — paket sırasıyla her soruya
+     bir harf (A-E), boş '-'. İstek sayısı artmaz (kişi başı 1, ~100 bayt). Adsızdır, kişiye bağlanmaz.
+     Sütun (canli_sonuc.cevaplar) henüz basılmadıysa PostgREST 400 döner → özet sütunsuz HEMEN yeniden
+     gider; sonuç kaybolmaz, yalnız cevap dizisi o kişi için eksik kalır. */
+  var cvp = CANLI.sorular.map(function(s){ var c = CANLI.cevap[s.id]; return /^[A-E]$/.test(String(c||'')) ? String(c) : '-'; }).join('');
+  var alan = { oturum: CANLI.kod, dogru: dg, yanlis: yn, bos: bs,
+    sure_sn: Math.round((Date.now()-CANLI.basMs)/1000), cihaz: (innerWidth<760?'mobil':'masaustu') };
+  var govdeSade = JSON.stringify(alan);
+  alan.cevaplar = cvp;
+  var govdeTam = JSON.stringify(alan);
+  var yolla = function(kalan, sade){
     fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/canli_sonuc', {
-      method:'POST', headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Prefer:'return=minimal' }, body: govde
+      method:'POST', headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Prefer:'return=minimal' }, body: (sade ? govdeSade : govdeTam)
     }).then(function(r){
       if(r.ok || r.status===201){ g.textContent = '✓ Sonucun sıralama havuzuna ulaştı.'; CANLI.gonderildi=true; durumYaz(); }
-      else if(kalan > 0){ setTimeout(function(){ yolla(kalan-1); }, 20000 + Math.random()*40000); }
+      else if(!sade && r.status===400){ yolla(kalan, true); }
+      else if(kalan > 0){ setTimeout(function(){ yolla(kalan-1, sade); }, 20000 + Math.random()*40000); }
       else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı, sıralama açıklanınca yine görebilirsin.'; }
-    }).catch(function(){ if(kalan>0){ setTimeout(function(){ yolla(kalan-1); }, 20000 + Math.random()*40000); } else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı.'; } });
+    }).catch(function(){ if(kalan>0){ setTimeout(function(){ yolla(kalan-1, sade); }, 20000 + Math.random()*40000); } else { g.textContent = 'Sonuç gönderilemedi, skorun bu cihazda saklı.'; } });
   };
   /* 23.09 5K YÜK KAPISI — yayılım 15 sn'den 150 sn'ye çıkarıldı.
      Süre dolunca HERKES aynı saniyede otomatik teslim oluyor; 15 sn'lik
