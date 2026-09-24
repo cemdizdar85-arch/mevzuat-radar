@@ -1,0 +1,116 @@
+# .github/workflows/yuk-testi-1000.yml — CANLI DENEME YUK TESTI: 1.000 GERCEK TARAYICI (24.09.2026)
+#
+# Cem 24.09: "1000 kisi canli sinava girse biz bu isi kaldiramaz isek rezil oluruz · evet 1000 tarayici testini kur".
+# 23.09 olcumu tek makineden (25 tarayici + 2.000 sanal istemci) yapilmisti; bu akis 20 makineden, 20 IP ile
+# 1.000 GERCEK tarayiciyi tam akista kosar: UYE OL -> kapiyi bekle -> cevapla -> (1/4) yenile -> bitir -> sonuc.
+#
+# NE GERCEK, NE DEGIL:
+#   GERCEK : Supabase Auth (uyelik), Storage (anahtar), PostgREST canli_sonuc (sonuc) - canli sistem.
+#   YEREL  : sayfa her makinede yerel sunucudan (arac/yuk/kalabalik.js); canli sitedeki takvim/paket DEGISMEZ,
+#            gercek ziyaretci test oturumunu gormez. Paket 93 UYDURMA soru (gercek soru icerigi yok).
+# TEMIZLIK her kosulda (always): test sonuclari + anahtar + deneme uyeleri silinir, "kalan 0" olculur.
+# GORMEZ: 1.000 ayri IP (makine kadar IP), gercek mobil ag, 120 dk'lik oturum, GitHub Pages'in paket yuku.
+# YAN ETKI (bilerek): saatlik uye alarmi 1.000 yeni hesabi gorup otecek.
+# Bedel: 0 USD (depo public; Actions dakikasi bedava). Cem onayi: 24.09 "evet 1000 tarayici testini kur".
+name: Yuk testi (1000 tarayici)
+
+on:
+  workflow_dispatch:
+    inputs:
+      makine:
+        description: "Makine sayisi (her biri 'kisi' kadar tarayici). 20 x 50 = 1.000"
+        default: "20"
+      kisi:
+        description: "Makine basina tarayici"
+        default: "50"
+      hazirlik_dk:
+        description: "Kapi = simdi + bu kadar dakika (makinelerin kurulumu + uyelik yayilimi icin)"
+        default: "22"
+      kayit_dk:
+        description: "Uyelikler kac dakikaya yayilsin (makine basi; 10 dk = IP basi 5 dk'da 25, tavan 30)"
+        default: "10"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yuk-testi
+  cancel-in-progress: false
+
+jobs:
+  zaman:
+    runs-on: ubuntu-latest
+    outputs:
+      kapi_ms: ${{ steps.z.outputs.kapi_ms }}
+      tarih: ${{ steps.z.outputs.tarih }}
+      saat: ${{ steps.z.outputs.saat }}
+      kod: ${{ steps.z.outputs.kod }}
+      liste: ${{ steps.z.outputs.liste }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - id: z
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          HAZIRLIK_DK: ${{ inputs.hazirlik_dk }}
+          MAKINE: ${{ inputs.makine }}
+        run: node arac/yuk/yuk-yonet.js zaman
+
+  kapi:
+    needs: zaman
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          KAPI_MS: ${{ needs.zaman.outputs.kapi_ms }}
+          KOD: ${{ needs.zaman.outputs.kod }}
+          RUN: ${{ github.run_id }}
+        run: node arac/yuk/yuk-yonet.js kapi
+
+  kalabalik:
+    needs: zaman
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      max-parallel: 40
+      matrix:
+        no: ${{ fromJSON(needs.zaman.outputs.liste) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Playwright kur
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1.47.2
+          npx playwright install --with-deps chromium
+      - name: Kalabalik
+        env:
+          NO: ${{ matrix.no }}
+          KISI: ${{ inputs.kisi }}
+          KAPI_MS: ${{ needs.zaman.outputs.kapi_ms }}
+          KOD: ${{ needs.zaman.outputs.kod }}
+          TARIH: ${{ needs.zaman.outputs.tarih }}
+          SAAT: ${{ needs.zaman.outputs.saat }}
+          KAYIT_DK: ${{ inputs.kayit_dk }}
+          RUN: ${{ github.run_id }}
+        run: node arac/yuk/kalabalik.js
+
+  temizlik:
+    needs: [zaman, kapi, kalabalik]
+    if: ${{ always() && needs.zaman.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          KOD: ${{ needs.zaman.outputs.kod }}
+          RUN: ${{ github.run_id }}
+        run: node arac/yuk/yuk-yonet.js temizlik
