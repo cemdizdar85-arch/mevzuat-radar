@@ -468,8 +468,6 @@ window.veriAl = (function(){
         <a href="fiyatfarki.html">Credit/Debit Note<span>sonradan gelen fiyat farkı</span></a>
         <a href="toplu-gtip.html">Toplu GTİP<span>Excel'ini yapıştır, kalem kalem vergi</span></a>
         <a href="kdv-iade-rehberi.html">KDV İadesi<span>adım adım iade yol haritası</span></a>
-        <a href="hatirlatici.html">Süre Hatırlatıcı<span>DİİB · KDV · SGK tarihleri</span></a>
-        <a href="belge-kasasi.html">Belge Kasası<span>tüm belgelerin, süresi takipli</span></a>
         <a href="ceza-asistani.html">Ceza Asistanı<span>ceza geldi, hangi kapı</span></a>
         <a href="kurulus.html">Şirket Kuruluşu<span>şahıs mı, Ltd mi, AŞ mi</span></a>
         <a href="kurulus-nobeti.html">Kuruluş Nöbeti<span>kaça mal olur, ilk 12 ay, unvan, ortaklar</span></a>
@@ -484,7 +482,6 @@ window.veriAl = (function(){
         <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
         <a href="marka-radari.html">Marka Radarı<span>markanla ilgili her şey tek yerde</span></a>
         <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
-        <a href="evrak-radari.html">Evrak Radarı<span>mükellef evrak takibi</span></a>
         <a href="destekler.html">Destek Radarı<span>profiline göre KOSGEB, Eximbank</span></a>
         <a href="radar.html">Bugün RG'de<span>günün mevzuat değişiklikleri</span></a>
         <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
@@ -1170,11 +1167,11 @@ window.veriAl = (function(){
          "Nöbetçi anlatsın" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir).
          BİLEREK YAZILMADI: "ikizini sen çöz" - yalnız %40'ında var. -->
     <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
-      <div class="nasil-bas">
+      <div class="nasil-bas" hidden style="display:none"><!-- 24.09 Cem: "ilk sayfada olmasın" - dört adım sınav seçildikten sonra gösterilecek -->
         <span class="nasil-et">Nasıl çalışır</span>
         <h2>Dört adım, her soruda.</h2>
       </div>
-      <div class="nasil-adimlar nasil-dort">
+      <div class="nasil-adimlar nasil-dort" hidden style="display:none">
         <div class="na"><span class="na-no">1</span><b>Sınavdaki gibi çöz</b><p>Soru sınav kitapçığındaki biçimde gelir. Süren işler, şıkları kâğıttaki gibi çizerek elersin.</p></div>
         <div class="na"><span class="na-no">2</span><b>Yanlışını gör</b><p>Seçtiğin şıkkın neden yanlış, doğrusunun neden doğru olduğu tek tek yazar.</p></div>
         <div class="na"><span class="na-no">3</span><b>Nöbetçi anlatsın</b><p>Çözüm adım adım açılır; takıldığın adımda durur, geri dönersin.</p></div>
@@ -1225,7 +1222,8 @@ window.veriAl = (function(){
          Kahramanın altındaki koyu banttan ve eski "Nasıl çalışır"dan TAŞINDI: aynı kimlikler
          (ndRg/ndIhale/ndNeZaman/ndSaat/ndTarih/ndDip) - nöbet betiği değişmeden doldurur.
          Metin sınav cümlelerinden arındırıldı ("dersin", "her soru şıkkının gerekçesiyle" çıktı). -->
-    <section class="is-nobet" id="is-nobet" aria-label="İş tarafında nöbet">
+    <!-- 24.09 Cem: "ilk sayfada olmasın" - iş nöbeti gizli; kimlikler yerinde (nöbet betiği bozulmasın) -->
+    <section class="is-nobet" id="is-nobet" aria-label="İş tarafında nöbet" hidden style="display:none">
       <div class="nasil-bas">
         <span class="nasil-et">İş tarafında da aynı nöbet</span>
         <h2 style="margin:0;font-family:inherit;font-size:clamp(22px,2.4vw,30px);font-weight:800;color:var(--ink);letter-spacing:-.02em">Üç adım, her sabah.</h2>
@@ -1496,15 +1494,7 @@ window.veriAl = (function(){
           <span class="mp-git">Markalarımı getir →</span>
         </span>
       </a>
-      <a class="mp" href="kdv-iade-rehberi.html">
-        <span class="mp-bar"><b>KDV İadesi</b></span>
-        <span class="mp-ic">
-          <span class="mp-tag">DEVLETTEN PARANI GERİ AL</span>
-          <span class="mp-b">Yüklendiğin KDV'nin iadesi hakkın</span>
-          <span class="mp-m">KDVK m.32: tam istisna işlemlerde yüklenilen KDV iade alınır. Süre <b style="color:var(--ink)">izleyen 2. takvim yılı sonu</b>; kaçıran yanar</span>
-          <span class="mp-git">İade yol haritasını gör →</span>
-        </span>
-      </a>
+      <!-- 24.09 Cem: KDV İadesi kartı ana sayfadan kalktı (araç Araçlar menüsünde duruyor). -->
       <a class="mp" href="kurulus.html">
         <span class="mp-bar"><b>Şirket Kuruluşu</b></span>
         <span class="mp-ic">
@@ -1743,15 +1733,7 @@ window.veriAl = (function(){
       </div>
     </div>
 
-    <div class="kat-grup" id="kg4">
-      <h3>Muhasebe Bürosu (SMMM)</h3>
-      <div class="araclar-grid">
-        <a class="arac" href="fis-fabrikasi.html"><div><b>Fiş Fabrikası</b><span>Banka ekstresini yükle; muhasebe programına hazır fiş Excel'i al.</span></div></a>
-        <a class="arac" href="evrak-radari.html"><div><b>Evrak Radarı</b><span>Mükelleften evrak kovalamayı bitir; eksikler kendiliğinden takip edilsin.</span></div></a>
-        <a class="arac" href="belge-kasasi.html"><div><b>Belge Kasası</b><span>Firmanın tüm belgeleri tek yerde, geçerlilik süreleri takipte.</span></div></a>
-        <a class="arac" href="hatirlatici.html"><div><b>Süre Hatırlatıcı</b><span>DİİB, KDV, SGK… kritik tarihleri gir, zamanı gelince hatırlatsın.</span></div></a>
-      </div>
-    </div>
+    <!-- 24.09 Cem: "Muhasebe Bürosu" araçları (Fiş Fabrikası, Evrak Radarı, Belge Kasası, Süre Hatırlatıcı) sitede görünmesin - sonra verilecek. Sayfalar yerinde, yalnız bağlantılar kalktı. -->
 
     <div id="aracYok" style="display:none;text-align:center;color:var(--dim);padding:30px 0;font-size:14px">Aradığın kelimeyle eşleşen araç yok. Başka bir kelime dene.</div>
   </div>
@@ -2042,7 +2024,6 @@ window.veriAl = (function(){
       <a href="fiyatfarki.html">Fiyat Farkı</a>
       <a href="toplu-gtip.html">Toplu GTİP</a>
       <a href="ceza-asistani.html">Ceza Asistanı</a>
-      <a href="evrak-radari.html">Evrak Radarı</a>
       <a href="marka-radari.html">Marka Radarı</a>
       <a href="destekler.html">Destek Radarı</a>
       <a href="kurulus.html">Şirket Kuruluşu</a>
