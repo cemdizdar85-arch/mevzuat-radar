@@ -106,8 +106,11 @@ $plan = @(
   @{alan="Marka & sınai mülkiyet"; arac="marka-radari.html"; kanun="6769 SMK"},
   @{alan="Kurumlar/Gelir vergisi & teşvik"; arac="index.html#app"; kanun="5520 KVK, 193 GVK, 5746 Ar-Ge, Yatırım Teşvik, 7524 asgari kurumlar"},
   @{alan="Şirket & ticaret hukuku"; arac="kurulus.html"; kanun="6102 TTK (kuruluş, genel kurul, sermaye, tasfiye)"},
-  @{alan="SGK & bordro"; arac="index.html#app"; kanun="5510 SGK, 4857 İş K., 4447 İşsizlik"},
-  @{alan="KDV & tevkifat & iade"; arac="kdv-iade-rehberi.html"; kanun="3065 KDVK, KDV Genel Uygulama Tebliği"}
+  @{alan="SGK & bordro"; arac="index.html#app"; kanun="5510 SGK, 4857 İş K., 4447 İşsizlik"}
+  # 24.09 Cem: KDV İadesi aracı siteden kalktı (_kapali-araclar/). Bu satır kalsaydı yeni kayda kapalı sayfanın
+  # bağını yazar, yapısal denetçi yayını durdururdu (24.09 akşamı 28 kayıt bu yüzden kapıyı kırdı).
+  # Araç geri açılınca satır geri gelir:
+  # @{alan="KDV & tevkifat & iade"; arac="kdv-iade-rehberi.html"; kanun="3065 KDVK, KDV Genel Uygulama Tebliği"}
 )
 $secili = $plan | Sort-Object { [int]($sayim["$($_.arac)"]) } | Select-Object -First 1
 Write-Host ("Bu gece derinlesilecek alan: {0} (mevcut ~{1} kayit)" -f $secili.alan, ([int]$sayim["$($secili.arac)"]))
