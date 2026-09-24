@@ -34,6 +34,24 @@ $U = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/soru_havuzu'
 $H = @{ apikey=$env:SUPABASE_SERVICE_KEY }
 
 $sinav = if($oturum -like 'SGS*'){ 'SGS' } elseif($oturum -like 'YET*'){ 'SMMM' } else { throw "oturum kodu SGS-... ya da YET-... olmali" }
+# 24.09.2026 (bitirme oturumu, Cem "bitirme sinavina odaklan"): YETERLILIK paketi ESKI HAVUZDAN (soru_havuzu, v1,
+#   "kullanilmaz" karari) cekiliyordu. Yeni kasa paket_soru (sinav=smmm; kilitli kasa, Cem onaylari, ikiz kapisi, Kaydir-Coz
+#   bicimi). YET yolu artik oradan okur ve alanlari canli-deneme.html bicimine cevirir. Ucretsiz (herkese acik) sorular
+#   pakete girmez. SGS yolu DEGISMEDI (SGS kolunun karari; bitirme oturumu SGS'ye dokunmaz).
+$KASA = ($sinav -eq 'SMMM')
+$UK = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru'
+$HK = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
+# Kaydir-Coz nesnesi -> canli-deneme.html bicimi. aciklama[dogru] = kural + sade anlatim; yanlis sik = tuzak adi + metni;
+# kaynak = dayanak. COZUM TABLOSU (tablo) BILEREK YOK: sayfa tabloyu soruyla birlikte cizer (gorselCiz) -> cevabi acar.
+function KasaCevir([string]$kid, $v){
+  if($v -is [string]){ $v = $v | ConvertFrom-Json }
+  $d = "$($v.dogru)".Trim().ToUpperInvariant(); $ac = [ordered]@{}
+  foreach($h in 'A','B','C','D','E'){
+    if($h -eq $d){ $ac[$h] = (@("$($v.kural)", "$($v.sade.dogru)") | Where-Object { "$_".Trim() }) -join "`n`n" }
+    elseif($v.tuzak -and $v.tuzak.$h){ $ac[$h] = "$($v.tuzak.$h.ad): $($v.tuzak.$h.metin)" }
+  }
+  return [pscustomobject][ordered]@{ id=$kid; ders="$($v.ders)"; konu="$($v.konu)"; soru="$($v.soru)"; siklar=$v.siklar; dogru=$d; aciklama=$ac; kaynak="$($v.dayanak)" }
+}
 
 # --- bilesim
 $SGS_BILESIM = @(
@@ -77,7 +95,7 @@ $havuz = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
   # kasada benzer_grup kolonu YOK (olculdu 07.08) - cesitlilik KONU TAVANIYLA saglanir
-  $r = @(Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 | ForEach-Object { $_ })
+  $r = @($(if($KASA){ Invoke-RestMethod -Uri "$UK`?select=id,ders,konu&sinav=eq.smmm&ucretsiz=eq.false&order=id&limit=1000&offset=$bas" -Headers $HK -TimeoutSec 180 } else { Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 }) | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($x){ $havuz.Add($x) } }
   if($r.Count -lt 1000){ break }
@@ -129,7 +147,8 @@ $idler = @($secim | ForEach-Object { "$($_.id)" })
 for($b=0; $b -lt $idler.Count; $b+=50){
   $dilim = $idler[$b..([Math]::Min($b+49,$idler.Count-1))]
   $liste = ($dilim | ForEach-Object { '"'+$_+'"' }) -join ','
-  $rr = @(Invoke-RestMethod -Uri "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,tablo,yevmiye,hap,kaynak&id=in.($liste)" -Headers $H -TimeoutSec 180 | ForEach-Object { $_ })
+  if($KASA){ $rr = @(Invoke-RestMethod -Uri ("$UK`?select=id,veri&id=in.(" + [uri]::EscapeDataString($liste) + ")") -Headers $HK -TimeoutSec 180 | ForEach-Object { $_ } | Where-Object { $_ } | ForEach-Object { KasaCevir "$($_.id)" $_.veri }) }
+  else { $rr = @(Invoke-RestMethod -Uri "$U`?select=id,ders,konu,soru,siklar,dogru,aciklama,tablo,yevmiye,hap,kaynak&id=in.($liste)" -Headers $H -TimeoutSec 180 | ForEach-Object { $_ }) }
   foreach($x in $rr){ if($x){ $tam["$($x.id)"]=$x } }
 }
 $paketSoru = @($idler | ForEach-Object { $tam[$_] } | Where-Object { $_ })
