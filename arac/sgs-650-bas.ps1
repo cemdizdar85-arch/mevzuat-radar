@@ -191,6 +191,22 @@ if(Test-Path $ikizYol){
   }
 } else { Write-Host '⚠ KAPI-IK: veri/ikiz-soru.json yok, ikiz suzgeci UYGULANMADI' -ForegroundColor Yellow }
 
+# --- KAPI-ELLE: ELLE RET (24.09.2026, Cem "evet kur")
+# Okuyarak bulunan kusurlu soru (iki dogru sik, yanlis yasal tutar...) otomatik kapilardan GECMIS olabilir:
+# 24.09'da kollektif sirket sorulari hakem + kor + sim'den gecmisti, cunku kaynak teori notu TBK m.623'un
+# tersini ogretiyordu ve soru-dayanak nobetcisi teori notlarini izlemiyor. SMMM'deki smmm-elle-ret.json'un esi.
+# Dosya BOZUKSA yayin DURUR ($ErrorActionPreference Stop): bilinen kusurlu soruyu yayina almaktansa.
+# GORMEZ: listeye yazilmamis kusurlu soruyu (liste yalniz okuyanin buldugunu tasir).
+$elleRet=@{}
+$elleRetYol=Join-Path $depoKok 'veri\sinav\sgs-elle-ret.json'
+if(Test-Path $elleRetYol){
+  $er=Get-Content $elleRetYol -Raw -Encoding UTF8|ConvertFrom-Json
+  if(-not $er.kayitlar){ throw "KAPI-ELLE: $elleRetYol 'kayitlar' alani yok - yayin durdu" }
+  foreach($p in $er.kayitlar.PSObject.Properties){ $elleRet[($p.Name -replace '/','|')]="$($p.Value.gerekce)" }
+  $havuzdaki=@($elleRet.Keys | Where-Object { $k0=$_; @($hep | Where-Object { "$($_.etiket)|$($_.id)" -eq $k0 }).Count -gt 0 }).Count
+  Write-Host ("KAPI-ELLE: {0} soru elle ret listesinde ({1}'i bu havuzda, digerleri onleyici)" -f $elleRet.Count,$havuzdaki) -ForegroundColor Cyan
+} else { Write-Host 'KAPI-ELLE: veri/sinav/sgs-elle-ret.json yok - elle ret UYGULANMADI' -ForegroundColor Yellow }
+
 $cozulmeyen=@{}
 $dusen=New-Object System.Collections.Generic.List[string]
 $cikti=New-Object System.Collections.Generic.List[object]
@@ -199,6 +215,7 @@ foreach($r in $hep){
   $anahtarSoru = "$($r.etiket)|$($r.id)"
   if($gorulen.ContainsKey($anahtarSoru)){ continue }   # ayni soru iki secim dosyasindaysa bir kez
   $gorulen[$anahtarSoru]=$true
+  if($elleRet.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-ELLE elle ret)"); continue }
   if($ikizDisi.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-IK ikiz)"); continue }
   $sebep = DusmeSebebi $r.etiket $r.id
   if(-not $sebep -and $script:RET.ContainsKey($anahtarSoru)){ $sebep = "ret kutugu: $($script:RET[$anahtarSoru])" }
