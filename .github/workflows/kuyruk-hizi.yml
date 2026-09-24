@@ -8,7 +8,7 @@ name: Toplu Kuyruk Hizi (0 USD)
 
 on:
   schedule:
-    - cron: '30 3 * * *'      # 06:30 TR - sabah karari icin
+    - cron: '30 */3 * * *'    # 24.09 (Cem "1.2.3"): 3 saatte bir (TR 00:30, 03:30, 06:30 ...) - dalga acma karari o anki kuyruga dayansin
   workflow_dispatch:
 
 permissions:
