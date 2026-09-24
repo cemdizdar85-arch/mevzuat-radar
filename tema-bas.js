@@ -9,7 +9,8 @@
 
    KARAR: tek anahtar kc_tema ('dark' | 'light'). Kaydır-Çöz sayfaları (29 sayfa, motor/kaydir-coz.ps1 basar)
    zaten bunu okuyor; genel sayfalar ona taşındı. Eski tt_tema bir kez aktarılır (kc_tema yoksa).
-   Varsayılan AÇIK; işletim sistemi İZLENMEZ (09.09 kararı).
+   Varsayılan KOYU (Cem 24.09: "ekran hep bu renk gelsin, isteyen beyaz yapsın, sitenin rengi bu olsun");
+   beyaz yalnız düğmeyle seçilir ve cihazda hatırlanır. İşletim sistemi İZLENMEZ (09.09 kararı).
 
    NASIL: açık tema stil-acik.css'ten gelir (sayfa sonunda bağlı, stil.css koyu tabanın üstüne).
    Koyu = o bağ(lar) devre dışı + <html data-theme="dark">. Bağ gövdede ayrıştırıldığı an MutationObserver
@@ -30,7 +31,7 @@
       var eski = localStorage.getItem('tt_tema');            /* 16.09 menü düğmesinin anahtarı -> bir kez aktar */
       if (eski === 'koyu' || eski === 'acik') { t = eski === 'koyu' ? 'dark' : 'light'; localStorage.setItem(KEY, t); return t; }
     }catch(e){}
-    return 'light';
+    return 'dark';   /* 24.09 Cem: site rengi koyu; seçim yoksa koyu */
   }
   function acikBaglar(){ return [].slice.call(document.querySelectorAll('link[rel="stylesheet"]')).filter(function(l){ return /stil-acik\.css/.test(l.getAttribute('href')||''); }); }
   var gozcu = null;

@@ -485,7 +485,7 @@ $html=@'
 <style>
 /* 09.09 AÇIK TEMA — Cem 30.08 "site rengini beyaz yaptık, burası siyah kalmış", 09.09 "bas: açık tema".
    Varsayılan = sitenin açık paleti (stil-acik.css değerleri; stil.css BAĞLANMAZ: .kart/.sik/.btn/.kutu seçicileri çakışır).
-   Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. Koyu tema yalnız düğmeyle (data-theme="dark", tarayıcıda kc_tema) ya da ?tema=koyu ile; işletim sistemi izlenmez, site de izlemiyor. */
+   Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. 24.09 Cem: VARSAYILAN KOYU ("sitenin rengi bu olsun"); beyaz yalnız düğmeyle (kc_tema=light) ya da ?tema=acik ile; işletim sistemi izlenmez, site de izlemiyor. */
 :root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#16191d;--metin:#16191d;--dim:#4b5563;--mavi:#1d4ed8;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#a04a08;--ustYazi:#ffffff}
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
@@ -748,7 +748,7 @@ const VITRIN=/[?&]vitrin=1/.test(location.search);
 const TEK=/[?&]tek=1/.test(location.search);
 (function(){ const d=document.documentElement; const q=(location.search.match(/[?&]tema=(koyu|acik)/)||[])[1]; let t=null; try{ t=localStorage.getItem('kc_tema'); }catch(e){}
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
-  if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');
+  if(t!=='light') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 24.09 Cem: varsayılan koyu */
   if(VITRIN) d.setAttribute('data-vitrin','1');
   if(TEK) d.setAttribute('data-tek','1');
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;

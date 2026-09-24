@@ -237,7 +237,7 @@
 const VITRIN=/[?&]vitrin=1/.test(location.search);
 (function(){ const d=document.documentElement; const q=(location.search.match(/[?&]tema=(koyu|acik)/)||[])[1]; let t=null; try{ t=localStorage.getItem('kc_tema'); }catch(e){}
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
-  if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');
+  if(t!=='light') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 24.09 Cem: varsayılan koyu */
   if(VITRIN) d.setAttribute('data-vitrin','1');
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;
     const ikon=()=>{ const koyu=d.getAttribute('data-theme')==='dark'; b.textContent=koyu?'☀':'☾'; b.setAttribute('aria-label',koyu?'Açık temaya geç':'Koyu temaya geç'); };

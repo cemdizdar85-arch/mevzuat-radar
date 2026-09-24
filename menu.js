@@ -420,7 +420,7 @@ function kur(){
     });
     if(!baglar.length) return;
     var T=window.TetikteTema||{
-      oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='koyu'?'dark':'light'; }catch(e){ return 'light'; } },
+      oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='acik'?'light':'dark'; }catch(e){ return 'dark'; } },
       yaz:function(t){ try{ localStorage.setItem('kc_tema',t); localStorage.removeItem('tt_tema'); }catch(e){} this.uygula(t); try{ document.dispatchEvent(new CustomEvent('tt-tema',{detail:t})); }catch(e){} },
       uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); }); if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
     };
