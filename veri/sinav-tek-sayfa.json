@@ -1,5 +1,5 @@
 {
-  "olcum": "23.09.2026 14:27",
+  "olcum": "24.09.2026 10:17",
   "kural": "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
   "kaynak_sagligi": [
     {
@@ -7,7 +7,7 @@
       "dosya": "veri/ders-profili.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "23.09.2026 14:27",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "motor/ders-profili-kur.ps1",
       "robot": "yok (resmî liste; Cem onayıyla değişir)"
@@ -16,8 +16,8 @@
       "ad": "kasa-sayim",
       "dosya": "veri/kasa-sayim.json",
       "durum": "TAZE",
-      "damga": "23.09.2026 17:21",
-      "mtime": "23.09.2026 14:27",
+      "damga": "24.09.2026 06:05",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "motor/kasa-sayim.ps1",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
@@ -27,8 +27,8 @@
       "dosya": "veri/uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 54,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 55,
       "uretici": "motor/kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -37,8 +37,8 @@
       "dosya": "veri/sgs-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:4x (Cem ders-ders tablosu)",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 54,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 55,
       "uretici": "motor/sgs-kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -47,8 +47,8 @@
       "dosya": "veri/kgk-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 53,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 54,
       "uretici": "elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi)",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -56,8 +56,8 @@
       "ad": "konu-koprusu",
       "dosya": "veri/konu-koprusu-ozet.json",
       "durum": "TAZE",
-      "damga": "23.09.2026 09:33",
-      "mtime": "23.09.2026 14:27",
+      "damga": "24.09.2026 09:32",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "motor/konu-koprusu-kur.ps1 (V2 canlı)",
       "robot": "konu-koprusu.yml · her gün 07:40 TR"
@@ -67,8 +67,8 @@
       "dosya": "veri/AMBAR-ENVANTERI.md",
       "durum": "TAZE",
       "damga": "23.09.2026 13:36",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 0,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 1,
       "uretici": "motor/ambar-envanteri.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
@@ -77,18 +77,18 @@
       "dosya": "veri/butunluk-raporu.json",
       "durum": "TAZE",
       "damga": "23.09.2026 13:35",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 0,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 1,
       "uretici": "motor/butunluk-kapisi.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
     {
       "ad": "cikmis-karnesi",
       "dosya": "veri/cikmis-soru-karnesi.json",
-      "durum": "TAZE",
+      "durum": "BAYAT (8 gün)",
       "damga": "16.09.2026 22:30",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 7,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 8,
       "uretici": "motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı)",
       "robot": "yok (KGK evreni için haberci: kgk-sinav-nobeti.yml)"
     },
@@ -97,8 +97,8 @@
       "dosya": "veri/siklik-kunyesi.json",
       "durum": "TAZE",
       "damga": "19.09.2026 07:06",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 4,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 5,
       "uretici": "motor/siklik-kunyesi.ps1",
       "robot": "konu-eslesme.yml · yalnız push"
     },
@@ -107,8 +107,8 @@
       "dosya": "veri/siklik-kunyesi-kgk.json",
       "durum": "TAZE",
       "damga": "19.09.2026 07:06",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 4,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 5,
       "uretici": "motor/siklik-kunyesi.ps1 -Sinav KGK",
       "robot": "konu-eslesme.yml · yalnız push"
     },
@@ -117,8 +117,8 @@
       "dosya": "veri/kgk-analiz.json",
       "durum": "TAZE",
       "damga": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018) · nöbet YEŞİL 19.09.2026 08:16",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 4,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 5,
       "uretici": "elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)",
       "robot": "yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml"
     },
@@ -127,8 +127,8 @@
       "dosya": "veri/ders-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-09-21 12:24",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 2,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 3,
       "uretici": "motor/ders-karnesi.ps1",
       "robot": "karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push)"
     },
@@ -137,8 +137,8 @@
       "dosya": "veri/konu-kaynak-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-09-21 12:24",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 2,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 3,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml · pazar 03:00 TR + sgs-analiz push"
     },
@@ -147,8 +147,8 @@
       "dosya": "veri/konu-kaynak-karnesi-smmm.json",
       "durum": "TAZE",
       "damga": "2026-09-21 14:31",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 2,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 3,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -157,8 +157,8 @@
       "dosya": "veri/konu-kaynak-karnesi-kgk.json",
       "durum": "TAZE",
       "damga": "2026-09-21 17:25",
-      "mtime": "23.09.2026 14:27",
-      "yas_gun": 2,
+      "mtime": "24.09.2026 10:17",
+      "yas_gun": 3,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -167,7 +167,7 @@
       "dosya": "veri/dayanak-metinsiz-raporu.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "23.09.2026 14:27",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "arac/dayanak-metinsiz-tarama.ps1",
       "robot": "yok"
@@ -177,7 +177,7 @@
       "dosya": "veri/dayanak-kara-liste.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "23.09.2026 14:27",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "arac/dayanak-kara-liste.ps1",
       "robot": "yok"
@@ -187,7 +187,7 @@
       "dosya": "veri/bekleyen-partiler.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "23.09.2026 14:27",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "motor/api-hedef.ps1 (Invoke-ClaudeToplu yazar; parti-hasat.ps1 temizler)",
       "robot": "yan ürün: bulut-uretim.yml / soru-uret-v2.yml (parti-liste.yml bu dosyayı yazmaz; 16.09 denetimi)"
@@ -197,7 +197,7 @@
       "dosya": "veri/sinav-ders-envanteri.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "23.09.2026 14:27",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "motor/sinav-ders-envanteri.ps1",
       "robot": "sinav-ders-envanteri.yml · yalnız push"
@@ -206,8 +206,8 @@
       "ad": "kasa-site",
       "dosya": "veri/kasa-sayim.json › site",
       "durum": "TAZE",
-      "damga": "23.09.2026 17:21",
-      "mtime": "23.09.2026 14:27",
+      "damga": "24.09.2026 06:05",
+      "mtime": "24.09.2026 10:17",
       "yas_gun": 0,
       "uretici": "motor/kasa-sayim.ps1 (paket_soru sayımı)",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
@@ -218,7 +218,7 @@
       "sinav": "SGS",
       "ders": 15,
       "kasa": 15827,
-      "sitede": 4400,
+      "sitede": 4393,
       "hedef": 14603,
       "eksik": 4529,
       "kotasiz_ders": 0
@@ -227,7 +227,7 @@
       "sinav": "SMMM",
       "ders": 8,
       "kasa": 12576,
-      "sitede": 2729,
+      "sitede": 3070,
       "hedef": 8080,
       "eksik": 1603,
       "kotasiz_ders": 0
@@ -266,7 +266,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 211,
-      "sitede": 466,
+      "sitede": 438,
       "hedef": 750,
       "eksik": 539,
       "doluluk": 28
@@ -280,7 +280,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 114,
-      "sitede": 160,
+      "sitede": 153,
       "hedef": 469,
       "eksik": 355,
       "doluluk": 24
@@ -308,7 +308,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 4309,
-      "sitede": 1011,
+      "sitede": 1026,
       "hedef": 1500,
       "eksik": 0,
       "doluluk": 100
@@ -322,7 +322,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 2570,
-      "sitede": 363,
+      "sitede": 368,
       "hedef": 1040,
       "eksik": 0,
       "doluluk": 100
@@ -336,7 +336,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1373,
-      "sitede": 203,
+      "sitede": 204,
       "hedef": 1050,
       "eksik": 0,
       "doluluk": 100
@@ -350,7 +350,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 859,
-      "sitede": 653,
+      "sitede": 643,
       "hedef": 1050,
       "eksik": 191,
       "doluluk": 82
@@ -378,7 +378,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 281,
-      "sitede": 144,
+      "sitede": 127,
       "hedef": 1020,
       "eksik": 739,
       "doluluk": 28
@@ -406,7 +406,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 489,
-      "sitede": 163,
+      "sitede": 157,
       "hedef": 1020,
       "eksik": 531,
       "doluluk": 48
@@ -420,7 +420,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1232,
-      "sitede": 140,
+      "sitede": 157,
       "hedef": 1020,
       "eksik": 0,
       "doluluk": 100
@@ -434,7 +434,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1034,
-      "sitede": 224,
+      "sitede": 249,
       "hedef": 1020,
       "eksik": 0,
       "doluluk": 100
@@ -448,7 +448,7 @@
       "liste_dayanagi": "TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2 (ders bazlı soru dağılımı tablosu)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 308,
-      "sitede": 186,
+      "sitede": 184,
       "hedef": 1020,
       "eksik": 712,
       "doluluk": 30
@@ -462,7 +462,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 2896,
-      "sitede": 525,
+      "sitede": 769,
       "hedef": 1010,
       "eksik": 0,
       "doluluk": 100
@@ -476,7 +476,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1355,
-      "sitede": 348,
+      "sitede": 364,
       "hedef": 1010,
       "eksik": 0,
       "doluluk": 100
@@ -490,7 +490,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1946,
-      "sitede": 446,
+      "sitede": 450,
       "hedef": 1010,
       "eksik": 0,
       "doluluk": 100
@@ -504,7 +504,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 133,
-      "sitede": 354,
+      "sitede": 335,
       "hedef": 1010,
       "eksik": 877,
       "doluluk": 13
@@ -518,7 +518,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1650,
-      "sitede": 260,
+      "sitede": 347,
       "hedef": 1010,
       "eksik": 0,
       "doluluk": 100
@@ -532,7 +532,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 3247,
-      "sitede": 325,
+      "sitede": 321,
       "hedef": 1010,
       "eksik": 0,
       "doluluk": 100
@@ -546,7 +546,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 1065,
-      "sitede": 291,
+      "sitede": 296,
       "hedef": 1010,
       "eksik": 0,
       "doluluk": 100
@@ -560,7 +560,7 @@
       "liste_dayanagi": "YMM ve SMMM Sınav Yönetmeliği m.14/1-(b) (RG 16.01.2005-25702)",
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 284,
-      "sitede": 180,
+      "sitede": 188,
       "hedef": 1010,
       "eksik": 726,
       "doluluk": 28
