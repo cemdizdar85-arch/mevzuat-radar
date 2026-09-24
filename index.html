@@ -1205,7 +1205,7 @@ window.veriAl = (function(){
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, '+ay+' ay'+kota('kgk',k); }
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
-          ic+=' · <a href="fiyat.html">Tüm sınav fiyatları →</a>';
+          ic+=' · <a href="fiyat.html?sinav='+sn+'">Paket ayrıntısı →</a>';   /* 24.09: fiyat sayfası seçili sınavı gösterir */
           /* 24.09 Cem "burdan fiyat görsün ve üye olsun": kartın tek çağrısı üyelik.
              Üye değil -> Ücretsiz üye ol · üye, paket yok, sınav satışta -> Paketi al · paketi açık -> fiyat hiç gösterilmez */
           var ds=(UYE&&UYE.sinavlar&&UYE.sinavlar[sn])||{};

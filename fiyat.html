@@ -55,6 +55,7 @@
   .kaynakNot a{ color:var(--link); }
 
   .kartlar{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin:8px 0 30px; }
+  .kartlar.tek{ grid-template-columns:minmax(0,460px); justify-content:center; }
   .p{ background:var(--kart); border:1px solid var(--line); border-radius:14px;
       padding:22px 20px; display:flex; flex-direction:column; position:relative; }
   .p.one{ border-color:rgba(245,165,36,.55); box-shadow:0 0 0 1px rgba(245,165,36,.18); }
@@ -116,9 +117,13 @@
 <p class="kaynakNot">Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF), 22.07.2026'da okundu.
 TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'yi kontrol et.</p>
 
+<!-- 24.09 Cem: "staja başlamanın içine girdiğimde sadece staja başlama kalsın". Sınav seçiliyse (?sinav= ya da
+     ana sayfadaki sekme = tt_sinav) yalnız o sınavın kartı görünür; ?sinav=hepsi hepsini gösterir. Rakip ölçümü:
+     UWorld CPA sayfası yalnız CPA planlarını gösterir. Ücretsiz kart SGS kartının altına tek satır olarak iner. -->
+<p class="kucuk" id="secSatir" hidden style="margin:0 0 10px;text-align:center"></p>
 <div class="kartlar">
 
-  <div class="p">
+  <div class="p" data-sinav="ucretsiz">
     <h3>Ücretsiz</h3>
     <div class="kim">Önce gör, sonra karar ver</div>
     <div class="gunluk">0 <small>TL</small></div>
@@ -135,7 +140,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <a class="btn ikincil" href="deneme.html">Hemen çözmeye başla</a>
   </div>
 
-  <div class="p one">
+  <div class="p one" data-sinav="sgs">
     <span class="rozet">EN ÇOK SEÇİLEN</span>
     <h3>Staja Başlama</h3>
     <div class="kim" id="erSgs">3 ay</div>
@@ -152,12 +157,13 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li><b>7 gün koşulsuz iade</b></li>
     </ul>
     <a class="btn" href="satin-al.html?paket=sgs">Satın al — kuruluş fiyatından</a>
+    <p class="kucuk" id="ucretsizSatir" hidden style="margin:10px 0 0;text-align:center">Önce denemek istersen: günde 15 soru, kart bilgisi yok — <a href="deneme.html">ücretsiz başla →</a></p>
   </div>
 
   <!-- 29.08: DERS BAZLI SATIS acildi. Yeterlilik'te ders ders kaliniyor;
        kaldigi 2 dersi olan adaya 8 derslik paket satmak onu disarida
        birakiyordu. Merdivenin her basamagi RESMI HARCTAN ucuz. -->
-  <div class="p">
+  <div class="p" data-sinav="yeterlilik">
     <h3>SMMM Yeterlilik</h3>
     <div class="kim" id="erYet">3 ay</div>
     <div class="gunluk" id="fyYet">— <small>TL</small></div>
@@ -181,7 +187,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
        (teyitsiz tarih yazilmaz); ilan cikinca SINAVLAR dizisine eklenir.
        29.08 olcumu: piyasanin en buyuk ismi (Fuat Hoca) KGK'yi henuz
        fiyatlamamis, on kayit topluyor. Fiyati belli tek KGK urunuyuz. -->
-  <div class="p">
+  <div class="p" data-sinav="kgk">
     <span class="rozet" id="rzKgk">ÖN KAYIT</span>
     <h3>Bağımsız Denetçi (KGK)</h3>
     <div class="kim">3 ay</div>
@@ -504,6 +510,31 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
       + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üye' : '—') + '</td>';
     t.appendChild(tr);
   });
+})();
+</script>
+<script>
+/* 24.09 Cem "staja başlamanın içine girdiğimde sadece staja başlama kalsın": seçili sınavın süzgeci.
+   Kaynak sırası: ?sinav= (sgs|yeterlilik|kgk|hepsi) > ana sayfadaki sekme (localStorage tt_sinav). Seçim yoksa hepsi. */
+(function(){
+  var ADLAR={ sgs:'Staja Başlama', yeterlilik:'SMMM Yeterlilik', kgk:'Bağımsız Denetçi (KGK)' };
+  var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1];
+  var sn=q; if(!sn){ try{ sn=localStorage.getItem('tt_sinav'); }catch(e){} }
+  if(!sn||sn==='hepsi'||!ADLAR[sn]) return;
+  function gz(el,v){ if(el) el.style.display=v?'none':''; }
+  var kutu=document.querySelector('.kartlar'); if(!kutu) return;
+  [].forEach.call(kutu.querySelectorAll('.p[data-sinav]'),function(k){ gz(k,k.getAttribute('data-sinav')!==sn); });
+  kutu.classList.add('tek');
+  if(sn==='sgs'){ var u=document.getElementById('ucretsizSatir'); if(u) u.hidden=false; }
+  /* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */
+  var v=document.querySelector('.vurus'); if(v&&sn!=='sgs') gz(v,true);
+  /* geri sayım: yalnız seçili sınav (KGK'nın ilanlı tarihi yok -> takvim gizli) */
+  if(typeof SINAVLAR!=='undefined'){
+    var tks=document.querySelectorAll('#takvim .tk'), var_=false;
+    SINAVLAR.forEach(function(s,i){ if(tks[i]){ var bu=(s.anahtar===sn); gz(tks[i],!bu); if(bu) var_=true; } });
+    if(!var_){ var tk=document.getElementById('takvim'); if(tk) gz(tk,true); var kn=document.querySelector('.kaynakNot'); if(kn) gz(kn,true); }
+  }
+  var s=document.getElementById('secSatir');
+  if(s){ s.innerHTML='<b>'+ADLAR[sn]+'</b> fiyatı · <a href="fiyat.html?sinav=hepsi">Diğer sınavların fiyatları →</a>'; s.hidden=false; }
 })();
 </script>
 <script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">
