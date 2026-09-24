@@ -240,6 +240,12 @@ jobs:
           - { ad: "Commit iddia denetimi OZ-SINAVI (anilan dosya commit'te olmali)",
               kabuk: pwsh, komut: "./arac/commit-iddia-denetimi.ps1 -Sinav" }
 
+          # 24.09.2026 - Pazarlamada "cozenlerin %X'i su sikki secti" cumlesinin tek kaynagi. Olculmemis "en cok denen"
+          # iddiasi yerine gercek oran; n < esik ise AZ VERI (videoda yuzde soylenmez). 4 vaka, ag yok.
+          # Mutasyonla olculdu: esik / yuzde paydasi / gecersiz secim / canli dizi kaymasi -> sinav KIRMIZI.
+          - { ad: "Sik dagilimi OZ-SINAVI (az veriyle yuzde soylenmesin)",
+              kabuk: pwsh, komut: "./arac/sik-dagilimi.ps1 -Sinav" }
+
           - { ad: "Eksik dosya kapisi (cagrilan dosya depoda mi)",
               kabuk: pwsh, komut: "./arac/eksik-dosya-kapisi.ps1" }
 
