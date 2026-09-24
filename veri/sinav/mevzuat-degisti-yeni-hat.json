@@ -1,45 +1,389 @@
 {
-    "aciklama":  "Yeni hat (Kaydır-Çöz) soruları: dayandığı madde değişti/silindi. Yayın şartları geçirmez; soru yeniden yazılırsa (iz değişir) engel kalkar. Üreten: motor/soru-dayanak-nobetcisi.ps1",
-    "kayitlar":  [
-                     {
-                         "anahtar":  "kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-13",
-                         "iz":  "2b99b9b6f04c40bf",
-                         "madde":  "6102|gec7",
-                         "kaynak":  "TTK (6102 s.K.) gec. m.7",
-                         "tur":  "degisti",
-                         "tarih":  "23.09.2026"
-                     },
-                     {
-                         "anahtar":  "kgk-bosluk-sigortaclkvezelemeklilikmevzuat/kp-08",
-                         "iz":  "a875bd53028155cd",
-                         "madde":  "6102|gec7",
-                         "kaynak":  "TTK (6102 s.K.) gec. m.7",
-                         "tur":  "degisti",
-                         "tarih":  "23.09.2026"
-                     },
-                     {
-                         "anahtar":  "sgs-t2-ticaret-zor/kp-19",
-                         "iz":  "9d64b9a88bc2d422",
-                         "madde":  "6102|gec7",
-                         "kaynak":  "TTK (6102 s.K.) gec. m.7",
-                         "tur":  "degisti",
-                         "tarih":  "23.09.2026"
-                     },
-                     {
-                         "anahtar":  "smmm-w1-yhukuk-cokzor/kp-02",
-                         "iz":  "1383f5b6fbf91998",
-                         "madde":  "6102|gec7",
-                         "kaynak":  "TTK (6102 s.K.) gec. m.7",
-                         "tur":  "degisti",
-                         "tarih":  "23.09.2026"
-                     },
-                     {
-                         "anahtar":  "smmm-w5-yhukuk-zor/kp-02",
-                         "iz":  "9f2da83b9a552cca",
-                         "madde":  "6102|gec7",
-                         "kaynak":  "TTK (6102 s.K.) gec. m.7",
-                         "tur":  "degisti",
-                         "tarih":  "23.09.2026"
-                     }
-                 ]
+  "aciklama": "Yeni hat (Kaydır-Çöz) soruları: dayandığı madde değişti/silindi. Yayın şartları geçirmez; soru yeniden yazılırsa (iz değişir) engel kalkar. Üreten: motor/soru-dayanak-nobetcisi.ps1",
+  "kayitlar": [
+    {
+      "anahtar": "kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-12",
+      "iz": "a1a2205a13de42f8",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "kgk-bosluk-kurumsalynetimİlkelerivefinansalynetim/kp-13",
+      "iz": "2b99b9b6f04c40bf",
+      "madde": "6102|gec7",
+      "kaynak": "TTK (6102 s.K.) gec. m.7",
+      "tur": "degisti",
+      "tarih": "23.09.2026"
+    },
+    {
+      "anahtar": "kgk-bosluk-sigortaclkvezelemeklilikmevzuat/kp-08",
+      "iz": "a875bd53028155cd",
+      "madde": "6102|gec7",
+      "kaynak": "TTK (6102 s.K.) gec. m.7",
+      "tur": "degisti",
+      "tarih": "23.09.2026"
+    },
+    {
+      "anahtar": "kgk-bosluk-trkiyedenetimstandartlar/kp-41",
+      "iz": "7ca88c46d43869ce",
+      "madde": "ad|TEORI - Asit-test (likidite) oranlari",
+      "kaynak": "TEORI:TEORI - Asit-test (likidite) oranlari",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "kgk-bosluk-trkiyemuhasebestandartlar/kp-64",
+      "iz": "1d7b33d1f168ee2d",
+      "madde": "ad|TEORI - Asit-test (likidite) oranlari",
+      "kaynak": "TEORI:TEORI - Asit-test (likidite) oranlari",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-c5-ticaret-cokzor-r1/kp-05",
+      "iz": "41e8987b55d9f8d8",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-c5-ticaret-cokzor-r2/kp-04",
+      "iz": "07011fff0d04ad5e",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-c5-ticaret-kolay-r1/kp-12",
+      "iz": "5f03de91010e5e3e",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-c5-ticaret-kolay-r2/kp-12",
+      "iz": "6a8fcb0990bdf45a",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-t1-mta-zor/kp-13",
+      "iz": "37c25f8595dd531d",
+      "madde": "ad|TEORI - Asit-test (likidite) oranlari",
+      "kaynak": "TEORI:TEORI - Asit-test (likidite) oranlari",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-t2-fmuh-zor/kp-71",
+      "iz": "6bd64bd625fbb01a",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-t2-ticaret-zor/kp-19",
+      "iz": "9d64b9a88bc2d422",
+      "madde": "6102|gec7",
+      "kaynak": "TTK (6102 s.K.) gec. m.7",
+      "tur": "degisti",
+      "tarih": "23.09.2026"
+    },
+    {
+      "anahtar": "sgs-t2b-mta-cokzor/kp-10",
+      "iz": "a9924478e01b64a3",
+      "madde": "ad|TEORI - Asit-test (likidite) oranlari",
+      "kaynak": "TEORI:TEORI - Asit-test (likidite) oranlari",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-t2b-mta-cokzor/kp-17",
+      "iz": "d42560e1ed036d0f",
+      "madde": "ad|TEORI - Asit-test (likidite) oranlari",
+      "kaynak": "TEORI:TEORI - Asit-test (likidite) oranlari",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "sgs-t4-vergi-cokzor/kp-12",
+      "iz": "c24918c4d5c143a1",
+      "madde": "492|28",
+      "kaynak": "Harçlar K. (492 s.K.) m.28",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-cokzor-r1/kp-03",
+      "iz": "7726b9ef470c236e",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-cokzor-r10/kp-01",
+      "iz": "2673b365446f3db7",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-cokzor-r2/kp-02",
+      "iz": "0b85f9b8e4434031",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r2/kp-25",
+      "iz": "5c60d6b4fed1e2b9",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r3/kp-25",
+      "iz": "d836609a8af6f0e1",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r3/kp-26",
+      "iz": "180798be63d313f6",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r4/kp-25",
+      "iz": "a50e720f3ce45981",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r5/kp-06",
+      "iz": "893813283db2a74a",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r6/kp-26",
+      "iz": "66ffc54131f51c83",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r7/kp-24",
+      "iz": "df394852e7b51766",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r8/kp-05",
+      "iz": "c8ebe84c8c8ab45e",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-kolay-r9/kp-04",
+      "iz": "d2496ebe6ce4f2fd",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r1/kp-03",
+      "iz": "75dd93b90304cb21",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r2/kp-02",
+      "iz": "65e690e86f70d844",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r3/kp-03",
+      "iz": "99ca5cd83dda1c8c",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r4/kp-03",
+      "iz": "bfdded69287e6569",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r4/kp-18",
+      "iz": "875e4df903bdc0d3",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r5/kp-19",
+      "iz": "31a0c6bf8d332a9b",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r6/kp-01",
+      "iz": "1503e9b300b4d0fa",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r6/kp-17",
+      "iz": "1b706f0c827a6f7b",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r7/kp-03",
+      "iz": "d484c334c516de4f",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-4k-a-yhukuk-zor-r7/kp-17",
+      "iz": "b9db7d698e848f53",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-d1-yhukuk-zor-r1-2/kp-08",
+      "iz": "c418480e9adfd0a7",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w1-yfta-zor/kp-16",
+      "iz": "03ed6ce8436eaba2",
+      "madde": "ad|TEORI - Asit-test (likidite) oranlari",
+      "kaynak": "TEORI:TEORI - Asit-test (likidite) oranlari",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w1-yhukuk-cokzor/kp-02",
+      "iz": "1383f5b6fbf91998",
+      "madde": "6102|gec7",
+      "kaynak": "TTK (6102 s.K.) gec. m.7",
+      "tur": "degisti",
+      "tarih": "23.09.2026"
+    },
+    {
+      "anahtar": "smmm-w1-yhukuk-zor/kp-13",
+      "iz": "8adc8618a7b1cb13",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w12a-2-yhukuk-cokzor/kp-07",
+      "iz": "e1c5d506a2c989a5",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w12a-2-yhukuk-zor/kp-07",
+      "iz": "fae803472e355fd5",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w12a-3-yhukuk-cokzor/kp-01",
+      "iz": "05d29ee9f839a174",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w3-yhukuk-kolay/kp-09",
+      "iz": "4607d5b7f404aed5",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w3-yhukuk-zor/kp-06",
+      "iz": "16ac299acb2c6c6b",
+      "madde": "ad|TEORI - Kollektif sirkette kar dagitimi",
+      "kaynak": "TEORI:TEORI - Kollektif sirkette kar dagitimi",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w3-yvergi-zor/kp-28",
+      "iz": "7e7cbbb4a45c7f13",
+      "madde": "492|28",
+      "kaynak": "Harçlar K. (492 s.K.) m.28",
+      "tur": "degisti",
+      "tarih": "24.09.2026"
+    },
+    {
+      "anahtar": "smmm-w5-yhukuk-zor/kp-02",
+      "iz": "9f2da83b9a552cca",
+      "madde": "6102|gec7",
+      "kaynak": "TTK (6102 s.K.) gec. m.7",
+      "tur": "degisti",
+      "tarih": "23.09.2026"
+    }
+  ]
 }
