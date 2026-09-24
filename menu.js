@@ -110,18 +110,10 @@ var GRUPLAR=[
   ["hizmet.html","🌐","Yurt Dışı Hizmet Faturası","2 No.lu KDV + stopaj hesabı"],
   ["fiyatfarki.html","💱","Credit / Debit Note","Sonradan gelen fiyat farkının vergisi"],
   ["toplu-gtip.html","📑","Toplu GTİP Kontrolü","Excel'ini yapıştır, kalem kalem vergi yükü"]]},
- {ad:"🧾 Vergi, Ceza & Rehberler", araclar:[
+ {ad:"🧭 Rehberler ve sınav", araclar:[   /* 24.09 Cem: "bunları da kaldıralım, sistem yenileme devam edebilir, şu an sadece sitede görünmesin" - işletme araçları gizli; sayfalar ve robotları yerinde. */
   ["soru-cevap.html","💬","Net Cevap","Mevzuat sorunu sor, kaynaklı cevap al"],
-  ["ceza-asistani.html","⚖️","Ceza Asistanı","İndirim mi, uzlaşma mı, dava mı?"],
-  ["asgari-kv.html","🧾","Asgari Kurumlar Vergisi","%10 tabana takılıyor musun?"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["tesvik-sihirbazi.html","🧲","Yatırım Teşvik Sihirbazı","9903: bölgen, desteklerin, 2026 fırsatları"],
-  ["arge-kapi-hesabi.html","🔬","Ar-Ge Kapısı Hesabı","Merkez / Teknokent / TÜBİTAK — yıllık TL farkı"],
-  ["kurulus-evrak.html","🗂️","Kuruluş Evrak Çantası","Hangi belge, kim doldurur, nereye?"],
-  ["kurulus-nobeti.html","🛎️","Kuruluş Nöbeti","Kaça mal olur, ilk 12 ay takvimi, unvan, ortaklar sözleşmesi"],
-  ["karne.html","📋","Yükümlülük Karnesi","Firmana özel yükümlülük fotoğrafı, PDF'li"],
-  ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
-  ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
   ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"],
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
   ["canli-deneme.html","📡","Canlı Deneme","Aynı anda, herkese aynı set; katılanlar arasında yüzdelik sıralaman"],
@@ -637,3 +629,29 @@ function ttSorguHakki(anahtar){
     return true;
   } catch (e) { return true; }
 }
+
+/* ---- GİZLİ ARAÇLAR (24.09.2026) --------------------------------------------
+   Cem: "bunları da kaldıralım, sistem yenileme varsa devam edebilir, şu an sadece
+   sitede görünmesin". Sayfalar ve robotları YERİNDE; yalnız bağlantılar görünmez.
+   Menü/katalog/Ctrl+K/site haritasından elle çıkarıldı; sayfa İÇİNDEKİ bağlantılar
+   (11 sayfada 28 adet) burada süzülür: düğme ya da "→" bağlantısı kalkar, cümle
+   içindeki bağlantı düz yazıya döner. Geri açmak: adı bu listeden sil + menü/komut/
+   sitemap satırlarını geri koy (commit "işletme araçları gizlendi").
+   Kendi sayfasında süzmez (kendine bağ). ------------------------------------ */
+(function () {
+  var GIZLI = /(^|\/)(ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index)\.html(?:[?#]|$)/;
+  function suz() {
+    var kendi = location.pathname;
+    [].forEach.call(document.querySelectorAll('a[href]'), function (a) {
+      var h = a.getAttribute('href') || '';
+      if (/^(https?:)?\/\//.test(h) && h.indexOf(location.host) < 0) return;
+      if (!GIZLI.test(h.replace(/^https?:\/\/[^\/]+/, ''))) return;
+      if (GIZLI.test(kendi)) return;
+      var metin = (a.textContent || '').trim();
+      var dugme = /btn|dugme|kart|arac|mp\b/.test(a.className || '') || /→|›|»/.test(metin) || a.querySelector('div,b,img');
+      if (dugme) { a.remove(); return; }
+      var s = document.createElement('span'); s.textContent = a.textContent; a.replaceWith(s);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', suz); else suz();
+})();

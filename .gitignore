@@ -164,3 +164,6 @@ kaydir/*
 
 # 14.09: 1.835 soruluk eski soru dökümü kazara depoya girmişti (12.09, 8259666b). Kasada: _yerel-veri-kasasi/soru-dokumu/. Paket içeriği depoya girmez.
 veri/_cozme-sorular.json
+
+# 24.09 KAPI-KC gunluk taramasi: her sabah yerelde yazilir, zamanlanmis gorev commit atmaz
+veri/sinav/kc-eksik-rapor.json
