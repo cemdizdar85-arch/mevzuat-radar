@@ -82,10 +82,14 @@ async function kisi(tarayici, i) {
     // 24.09 1. kosu: ogrenci.html kayittan sonra KENDISI canli-deneme.html'e gider (panel -> sonraGit ->
     // location.replace). Betik ayni anda goto yapinca iki gezinme carpisiyordu (22/1.008 'salon' hatasi,
     // 9 makineye dagilmis). Gercek kullanici tek yonlendirme yasar: once o beklenir, ustune gezinme yapilmaz.
-    if (KAYIT) await sayfa.waitForURL(/canli-deneme\.html/, { timeout: 20000 }).catch(() => art('yonlendirme_gelmedi'));
+    // 24.09 2. kosu: /canli-deneme\.html/ duz desen ogrenci.html'in '?sonra=canli-deneme.html' SORGUSUNA da
+    // uyuyordu; kaydi reddedilen (yonlendirilmeyen) kisi kayit sayfasinda kaliyor, 'salon' hatasi sayiliyordu.
+    // Artik yalniz YOL (pathname) bakilir.
+    const sinavSayfasi = u => { try { return new URL(String(u)).pathname.endsWith('/canli-deneme.html'); } catch (e) { return false; } };
+    if (KAYIT) await sayfa.waitForURL(u => sinavSayfasi(u), { timeout: 20000 }).catch(() => art('yonlendirme_gelmedi'));
     const gec = i % 6 === 5;   // her 6 kisiden biri kapidan 10-90 sn sonra girer
     if (gec) { await bekle(KAPI_MS + 10000 + Math.random() * 80000 - Date.now()); }
-    if (gec || !/canli-deneme\.html/.test(sayfa.url())) await sayfa.goto(U + 'canli-deneme.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    if (gec || !sinavSayfasi(sayfa.url())) await sayfa.goto(U + 'canli-deneme.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await sayfa.waitForSelector('#sinavEkran', { state: 'visible', timeout: Math.max(60000, KAPI_MS + 6 * 60000 - Date.now()) });
     art('sinav_acildi'); acilisSn.push((Date.now() - KAPI_MS) / 1000); if (!gec) acilisErken.push((Date.now() - KAPI_MS) / 1000);
     asama = 'cevap';
