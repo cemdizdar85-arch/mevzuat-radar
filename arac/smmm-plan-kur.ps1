@@ -73,7 +73,9 @@ param(
   [string]$YalnizDers = '',
   # 24.09 (aynı onay): sitede HİÇ sorusu olmayan (yayinlanabilir = 0) konular önce; kendi içinde yine SON 10 YIL sıklığı.
   #   -YalnizHicYok'tan farkı: hiç-yok bitince dolu konulara geçer (dalga boş kalmaz).
-  [switch]$HicYokOnce
+  [switch]$HicYokOnce,
+  # 24.09 (Cem "1.2.3"): bu ders(ler) dalgaya GİRMEZ (virgülle), ör. FM kendi dalgasındayken öbür 7 dersin hiç-yok dalgası.
+  [string]$HaricDers = ''
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -146,7 +148,8 @@ $havuz = @($c | Where-Object {
     [int]$_.son10 -ge $esikBu -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
     ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true })) -and
-    (-not $YalnizDers -or "$($_.ders)" -eq $YalnizDers)
+    (-not $YalnizDers -or "$($_.ders)" -eq $YalnizDers) -and
+    (-not $HaricDers -or (@($HaricDers -split ',' | ForEach-Object { $_.Trim() }) -notcontains "$($_.ders)"))
   } | Sort-Object { if ($HicYokOnce) { [int]([int]$_.yayinlanabilir -eq 0) } else { 0 } }, { [int]$_.son10 }, { [int]$_.acik } -Descending)
 if ($YalnizDers) { "MOD: YALNIZ DERS = $YalnizDers" }; if ($HicYokOnce) { "MOD: HIC SORUSU OLMAYAN KONULAR ONCE (havuzda $(@($havuz | Where-Object { [int]$_.yayinlanabilir -eq 0 }).Count))" }
 if ($YalnizHicYok) { "MOD: YALNIZ HIC SORUSU OLMAYAN KONULAR (yayinlanabilir = 0)" }

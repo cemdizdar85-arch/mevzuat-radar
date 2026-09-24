@@ -30,7 +30,7 @@
 param(
   [Parameter(Mandatory)][string]$Etiket,
   [string]$Rezerve = '',
-  [int]$PlanSayisi = 4, [int]$PlanBasinaSoru = 45, [int]$CikmisEsik = 2, [string]$YalnizDers = '', [switch]$HicYokOnce,   # 24.09 plan-kur'a geçer
+  [int]$PlanSayisi = 4, [int]$PlanBasinaSoru = 45, [int]$CikmisEsik = 2, [string]$YalnizDers = '', [switch]$HicYokOnce, [string]$HaricDers = '', [switch]$YalnizHicYok,   # 24.09 plan-kur'a geçer
   [switch]$IndirmeYok, [switch]$ExcelYok,
   # Var olan (koşan/bitmiş) bir dalgayı yalnız DENETLER: plan kurmaz, Excel yazmaz, ihlalde dosya SİLMEZ.
   [switch]$SadeceDenetim,
@@ -65,7 +65,7 @@ if (-not $ExcelYok) {
   Adim '3) Excel' { $o = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-basim-excel.ps1') 2>&1; $script:excelSatir = @($o | Where-Object { "$_" -match '^EXCEL:' }) | Select-Object -Last 1 }
 }
 $plArg = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $buDizin 'smmm-plan-kur.ps1'), '-PlanSayisi', "$PlanSayisi", '-PlanBasinaSoru', "$PlanBasinaSoru", '-Etiket', $Etiket, '-CikmisEsik', "$CikmisEsik")
-if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }
+if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }; if ($HaricDers) { $plArg += @('-HaricDers', $HaricDers) }; if ($YalnizHicYok) { $plArg += '-YalnizHicYok' }
 if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim "4) plan kuruluyor ($Etiket, rezerv: $(if($Rezerve){$Rezerve}else{'yok'}))" { & powershell @plArg *> "$env:TEMP\plan-$Etiket.txt" } }
 
 # --- 5) KONU DENETİMİ ---
