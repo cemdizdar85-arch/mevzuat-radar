@@ -1,137 +1,145 @@
 {
-  "olcum": "2026-09-23T23:35:37.656Z",
-  "gun": "2026-09-24",
+  "olcum": "2026-09-24T23:50:45.354Z",
+  "gun": "2026-09-25",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 56,
+      "sira": 57,
       "toplam": 70,
-      "id": "sgs-t1-borclar-cokzor/kp-02",
-      "ders": "Borçlar Hukuku",
-      "konu": "haksız fiil zamanaşımı",
-      "kunye": "SGS 2025/3 Soru 128 kalıbı",
-      "donem": 4,
-      "teori": false,
+      "id": "sgs-d2-issgk-cokzor-r2/kp-01",
+      "ders": "İş ve Sosyal Güvenlik Hukuku",
+      "konu": "is sözleşmesi turleri",
+      "kunye": "SGS 2026/1 Soru 109 kalıbı",
+      "donem": 5,
+      "teori": true,
       "rakamSik": false,
-      "soru": "Bir haksız fiil 05.01.2016'da işlenmiş, zarar gören zararı ve tazminat yükümlüsünü 10.03.2019'da öğrenmiştir. Fiil, ceza kanununda 15 yıllık dava zamanaşımı öngörülen bir suçu da oluşturmaktadır. Zarar gören 20.02.2026 tarihinde tazminat davası açmıştır. Aşağıdakilerden hangisi doğrudur?",
+      "soru": "Bir işyerinde niteliği itibarıyla en çok yirmi beş iş günü sürecek montaj işinde çalıştırılacak işçi ile işveren arasında çağrı üzerine çalışmaya dayalı kısmi süreli, yazılı bir iş sözleşmesi yapılmıştır. Sözleşmede işçinin haftalık çalışma süresi, çağrı süresi ve günlük çalışma süresi taraflarca belirlenmemiştir. Bu duruma ilişkin olarak aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "İki yıllık zamanaşımı süresi dolduğundan, tazminat istemi zamanaşımına uğramıştır.",
-        "B": "On yıllık zamanaşımı süresi dolduğundan, tazminat istemi zamanaşımına uğramıştır.",
-        "C": "On yıllık zamanaşımı süresi henüz dolmadığından, tazminat istemi zamanaşımına uğramamıştır.",
-        "D": "On beş yıllık ceza zamanaşımı süresi dolduğundan, tazminat istemi zamanaşımına uğramıştır.",
-        "E": "On beş yıllık ceza zamanaşımı süresi henüz dolmadığından, tazminat istemi zamanaşımına uğramamıştır."
+        "A": "Haftalık çalışma süresi taraflarca belirlenmediğinden işçinin haftalık çalışma süresi yirmi saat kararlaştırılmış sayılır.",
+        "B": "İş, niteliği itibarıyla süreksiz iş sayıldığından çağrı üzerine çalışmaya ilişkin madde hükümleri yerine Türk Borçlar Kanunu hükümleri uygulanır.",
+        "C": "Sözleşmede günlük çalışma süresi belirlenmediğinden işveren her çağrıda işçiyi günde en az dört saat çalıştırmak zorundadır.",
+        "D": "İşveren, işçiyi çalışacağı zamandan en az dört gün önce çağırmak zorundadır.",
+        "E": "Sözleşmede çalışma süresi ve çağrı zamanı belirtilmediğinden iş sözleşmesi kesin olarak belirsiz süreli kabul edilir."
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Yanlış Hesap Tuzağı",
-          "metin": "On yıllık sürenin 05.01.2026'da dolduğunu gözden kaçırıp henüz dolmadığını düşünüyorsun; sonucu doğru bulsan da gerekçen yanlıştır. Doğrusu: On yıllık süre fiilen dolmuştur, zamanaşımına uğramama sebebi on beş yıllık ce…"
+          "ad": "Dört Saat Karinesi Tuzağı",
+          "metin": "Günlük asgari dört saat çalıştırma zorunluluğunun bu işte de aranacağını düşünürsün. Doğrusu: Bu hüküm de m.14'te yer alır ve süreksiz işte m.10 gereği devre dışıdır."
         },
-        "A": {
-          "ad": "İki Yıl Yeter Tuzağı",
-          "metin": "Öğrenmeden başlayan iki yıllık sürenin dolmuş olmasını tek başına yeterli sanıyorsun. Doğrusu: Fiil ceza kanununda daha uzun zamanaşımı öngörülen bir suçu oluşturduğundan iki yıllık ve on yıllık süreler yerine on beş yı…"
+        "E": {
+          "ad": "Süre Türü Karıştırma Tuzağı",
+          "metin": "Çalışma süresinin belirlenmemiş olmasını, sözleşmenin belirli/belirsiz süreli olmasıyla aynı konu sanırsın. Doğrusu: Belirli-belirsiz süre ayrımı m.11'e göre işin bir süreye bağlı olup olmamasına bakar; bu ayrım burada …"
         },
         "D": {
-          "ad": "Süre Hesabı Tuzağı",
-          "metin": "On beş yıllık sürenin 2026'da dolduğunu sanıyorsun; oysa süre fiil tarihinden başlar ve 2031'de dolar. Doğrusu: On beş yıllık ceza zamanaşımı süresi 2026 yılında henüz dolmamıştır."
+          "ad": "Dört Gün Süresi Tuzağı",
+          "metin": "Çağrı üzerine çalışmadaki dört günlük bildirim süresinin süreksiz işte de geçerli olduğunu sanırsın. Doğrusu: m.10, süreksiz işlerde m.14'ün tamamının uygulanmayacağını, yerine Türk Borçlar Kanunu hükümlerinin uygulanac…"
         },
-        "B": {
-          "ad": "Genel Süre Tuzağı",
-          "metin": "On yıllık sürenin dolmuş olmasından hareketle zamanaşımına uğradığı sonucuna varıyorsun ve ceza kanunundaki daha uzun süreyi gözden kaçırıyorsun. Doğrusu: Ceza kanunu daha uzun zamanaşımı öngördüğünden bu süre uygulanır…"
+        "A": {
+          "ad": "Yirmi Saat Karinesi Tuzağı",
+          "metin": "İşçinin çağrı üzerine çalışmaya dair yirmi saatlik haftalık süre karinesinin her zaman geçerli olduğunu düşünürsün. Doğrusu: Bu karine 4857 sayılı İş Kanunu m.14'te düzenlenmiştir; ancak süreksiz işlerde m.10 uyarınca m…"
         }
       },
-      "hap": "Haksız fiil ceza gerektiren ve ceza kanununda daha uzun zamanaşımı öngörülen bir suçu oluşturuyorsa, iki yıllık ve on yıllık süreler yerine bu daha uzun ceza zamanaşımı süresi uygulanır.",
+      "hap": "Otuz iş gününü aşmayan süreksiz işlerde İş Kanunu m.13 ve m.14 uygulanmaz, bu konularda Türk Borçlar Kanunu hükümleri uygulanır.",
       "satirlar": [
         [
-          "2 yıllık süre (öğrenme)",
-          "10.03.2019"
+          "A) Haftalık çalışma süresi taraflarca belirlenmediğinden iş…",
+          "m.10, m.14"
         ],
         [
-          "10 yıllık süre (fiil)",
-          "05.01.2016"
+          "B) İş, niteliği itibarıyla süreksiz iş sayıldığından çağrı …",
+          "m.10"
         ],
         [
-          "15 yıllık ceza zamanaşımı (fiil)",
-          "05.01.2016"
+          "C) Sözleşmede günlük çalışma süresi belirlenmediğinden işve…",
+          "m.10, m.14"
+        ],
+        [
+          "D) İşveren, işçiyi çalışacağı zamandan en az dört gün önce …",
+          "m.10, m.14"
+        ],
+        [
+          "E) Sözleşmede çalışma süresi ve çağrı zamanı belirtilmediği…",
+          "m.11"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=56",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=57",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 59,
+        "kalan_gun": 58,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 56,
+      "sira": 57,
       "toplam": 70,
-      "id": "smmm-4k-a-maliyet-zor-r5/kp-03",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "ortak maliyet dağıtımı",
-      "kunye": "SMMM 2026/2 ders 03 Soru 15 kalıbı",
-      "donem": 4,
+      "id": "smmm-w6-yvergi-zor/kp-01",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "bilanço tanımı",
+      "kunye": "SMMM 2026/1 ders 05 Soru 2 kalıbı",
+      "donem": 3,
       "teori": false,
       "rakamSik": true,
-      "soru": "Bir işletmede aynı süreçten A, B mamulleri ile C yan mamulü elde edilmektedir. Ortak maliyet 216.000 ₺'dir; işletme dağıtımda ayrılma noktası satış değerlerini esas almakta, C'nin net gerçekleşebilir değerini ortak maliyetten düşmektedir. C'nin satış değeri 40.000 ₺, satılabilir hale getirme maliyeti 4.000 ₺'dir. A 3.000 br (40 ₺/br), B 2.000 br (30 ₺/br) üretilmiştir. A'ya ayrılma sonrası 15.000 ₺ ek işleme maliyeti uygulanmaktadır. Buna göre A mamulünün birim maliyeti kaç ₺'dir?",
+      "soru": "İşletme (gerçek usulde gelir vergisi mükellefi olan, bilanço esasına göre defter tutan bir gerçek kişi), 2026 yılı için şu bilgileri vermektedir: Dönem başı aktif toplamı 1.250.000 ₺, dönem başı yabancı kaynaklar toplamı 480.000 ₺'dir. Dönem sonu aktif toplamı 1.640.750 ₺, dönem sonu yabancı kaynaklar toplamı 512.300 ₺'dir. Yıl içinde işletme sahibi, işletmeden kişisel ihtiyaçları için 96.000 ₺ çekmiş, ayrıca işletmeye 42.750 ₺ ilave sermaye koymuştur. 193 sayılı Gelir Vergisi Kanunu'na göre, işletmenin 2026 yılı ticari kazancı kaç ₺'dir?",
       "siklar": {
-        "A": "27",
-        "B": "40",
-        "C": "41",
-        "D": "45",
-        "E": "53"
+        "A": "305.200",
+        "B": "315.700",
+        "C": "358.450",
+        "D": "411.700",
+        "E": "454.450"
       },
       "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Yöntem Karıştırma Tuzağı",
-          "metin": "Satış değeri yerine fiziksel miktar (kg/adet) oranını kullandın. Doğrusu: dağıtım satış değerine göre yapılır, miktar oranıyla 123.000/3.000=41 değil 45 bulunur."
+          "ad": "Ne soruluyor",
+          "metin": "İşletmenin 2026 yılı ticari kazancının kaç ₺ olduğu soruluyor. Kural: GVK m.38'e göre ticari kazanç, dönem sonu ile dönem başı öz sermaye arasındaki farka işletmeden çekilen değerlerin eklenip işletmeye ilave edilen değ…"
         },
         "E": {
-          "ad": "Yan Ürün Düşülmemesi Tuzağı",
-          "metin": "Ortak maliyetten C'nin net gerçekleşebilir değerini düşmeden dağıtım yaptın. Doğrusu: önce 216.000-36.000=180.000 bulunur, 159.000/3.000=53 değil 45'tir."
+          "ad": "Atlanan Katman Tuzağı",
+          "metin": "Çekilen değeri farka eklersen ama ilave edilen sermayeyi düşmeyi unutursan 358.450 + 96.000 = 454.450 bulursun. Doğrusu: işletmeye ilave edilen değer farktan indirilmelidir, indirim atlanamaz."
         },
         "A": {
-          "ad": "Toplam Miktara Bölme Tuzağı",
-          "metin": "A'nın payını kendi üretim miktarına değil A ve B'nin toplam miktarına böldün. Doğrusu: 135.000/3.000=45 olmalıyken 135.000/5.000=27 çıkar, bu yanlıştır."
+          "ad": "Ters İşlem Tuzağı",
+          "metin": "Çekilen değeri farktan düşüp ilave edileni farka eklersen (yönleri ters uygularsan) 358.450 - 96.000 + 42.750 = 305.200 bulursun. Doğrusu: çekilen değer farka eklenir, ilave edilen değer farktan indirilir."
         },
         "B": {
-          "ad": "Ek İşleme Maliyetini Atlama Tuzağı",
-          "metin": "A'nın ortak maliyetten aldığı payı doğru buldun ama ayrılma sonrası eklenen 15.000 ₺'yi unuttun. Doğrusu: 120.000/3.000=40 değil, 135.000/3.000=45'tir."
+          "ad": "Eksik Katman Tuzağı",
+          "metin": "Öz sermaye farkından yalnız ilave edilen sermayeyi düşüp, işletmeden çekilen değeri hiç eklemezsen 358.450 - 42.750 = 315.700 bulursun. Doğrusu: çekilen değer de farka ilave edilmelidir."
         }
       },
-      "hap": "Ortak maliyet dağıtımında önce yan ürünün net gerçekleşebilir değeri düşülür, kalan tutar satış değerine göre dağıtılır, sonra ayrılma sonrası ek işleme maliyeti eklenir.",
+      "hap": "Bilanço esasında ticari kazanç, dönem sonu ile dönem başı öz sermaye farkına çekilen değerler eklenip ilave edilen değerler indirilerek bulunur (GVK m.38).",
       "satirlar": [
         [
-          "B mamulü satış değeri",
-          "60.000"
+          "Dönem sonu öz sermaye (1.640.750 - 512.300)",
+          "1.128.450"
         ],
         [
-          "Toplam satış değeri",
-          "180.000"
+          "Öz sermaye farkı (1.128.450 - 770.000)",
+          "358.450"
         ],
         [
-          "A mamulünün ortak maliyetten payı",
-          "120.000"
+          "+ İşletmeden çekilen değerler",
+          "96.000"
         ],
         [
-          "A mamulünün toplam maliyeti (ek işleme dahil)",
-          "135.000"
+          "- İşletmeye ilave edilen değerler",
+          "-42.750"
         ],
         [
-          "A mamulünün birim maliyeti",
-          "45"
+          "Ticari Kazanç (Sonuç)",
+          "411.700"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=56",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=57",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 69,
+        "kalan_gun": 68,
         "durum": "YESIL",
         "mail_gunu": false
       }
