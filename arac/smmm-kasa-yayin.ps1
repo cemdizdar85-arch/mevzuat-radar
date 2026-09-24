@@ -110,7 +110,23 @@ foreach ($g in @($aday | Group-Object ders)) {
 $secim = @($aday | Where-Object { -not $ikizDisi.ContainsKey("$($_.etiket)|$($_.id)") })
 if ($ikizDisi.Count) { $dusen['KAPI-IK ikiz'] = $ikizDisi.Count - $anlamIkiz.Count }; if ($anlamIkiz.Count) { $dusen['KAPI-IK anlam ikiz'] = $anlamIkiz.Count }
 "SMMM KASA SEÇİMİ: aday $($aday.Count) · seçilen $($secim.Count) · düşen: $(($dusen.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ' · ')"
-if (-not $secim.Count) { 'seçilen soru yok — kasaya yazılacak bir şey yok'; exit 0 }
+# ⭐ 24.09.2026 ONAY YAYIN KAPISI (Cem "1.2.3"): Cem'in ONAY verdiği soru yayında değilse NEDENİ söylenir.
+#   Olay: onaylı 55 sorunun 55'i ret kütüğünde KAPI-KOR ile kayıtlıydı ve bu betik onları onaydan bağımsız eliyordu —
+#   yayında 0/55, kimse görmedi. Normal düşüş: ikiz kapısı · ELLE RET · yayın şartı (soru değişti → onay parmak izi
+#   geçersiz, ya da başka kapı). KIRMIZI: onaya rağmen ret kütüğü · nedeni bilinmeyen. Kırmızıda yayın YİNE yazılır
+#   (öteki sorular beklemesin) ama betik SONDA çıkış 1 verir → iş kırmızı biter, gözden kaçmaz.
+$secimAn = @{}; foreach ($s in $secim) { $secimAn["$($s.etiket)|$($s.id)"] = 1 }
+$adayAn = @{}; foreach ($s in $aday) { $adayAn["$($s.etiket)|$($s.id)"] = 1 }
+$onayDurum = @{}; $script:onayKirmizi = New-Object System.Collections.Generic.List[string]
+foreach ($ok in @($onay.Keys)) {
+  if ("$($onay[$ok].karar)" -ne 'ONAY') { continue }
+  $k = "$ok" -replace '/', '|'
+  $durum = $(if ($secimAn.ContainsKey($k)) { 'yayında' } elseif ($ikizDisi.ContainsKey($k)) { 'ikiz' } elseif ("$($ret[$k])" -like 'ELLE*') { 'elle ret' } elseif ($ret.ContainsKey($k)) { 'ONAYA RAĞMEN RET KÜTÜĞÜ' } elseif (-not $adayAn.ContainsKey($k)) { 'yayın şartı' } else { 'BİLİNMİYOR' })
+  $onayDurum[$durum] = 1 + [int]$onayDurum[$durum]
+  if ($durum -in 'ONAYA RAĞMEN RET KÜTÜĞÜ', 'BİLİNMİYOR') { $script:onayKirmizi.Add("$ok ($durum)") }
+}
+"ONAY YAYIN KAPISI: " + $(if ($onayDurum.Count) { ($onayDurum.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ' · ' } else { 'onay kaydı yok' })
+if ($script:onayKirmizi.Count) { Write-Host ("⛔ ONAY YAYIN KAPISI KIRMIZI: {0} onaylı soru beklenmedik biçimde yayında değil: {1}" -f $script:onayKirmizi.Count, (@($script:onayKirmizi | Select-Object -First 5) -join ', ')) -ForegroundColor Red }if (-not $secim.Count) { 'seçilen soru yok — kasaya yazılacak bir şey yok'; exit 0 }
 
 # sayfalar (depo dışı klasör: sql-yerel gitignore'da)
 $calisma = Join-Path $depoKok 'sql-yerel\smmm-kasa'
@@ -170,3 +186,4 @@ try {
   foreach ($d in $yazilanDosya) { if (Test-Path $d) { Remove-Item -LiteralPath $d -Force } }
   'çalışma dosyaları silindi (soru içeriği diskte bırakılmadı)'
 }
+if ($script:onayKirmizi -and $script:onayKirmizi.Count) { exit 1 }   # 24.09 ONAY YAYIN KAPISI: yayın yazıldı ama onaylı soru beklenmedik biçimde dışarıda
