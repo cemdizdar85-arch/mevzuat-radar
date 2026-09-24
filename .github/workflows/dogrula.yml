@@ -165,6 +165,13 @@ jobs:
           - { ad: "Uretim ikiz kapisi OZ-SINAVI (anlamca ikiz hakemden once dursun)",
               kabuk: pwsh, komut: "./arac/uretim-ikiz-sinavi.ps1" }
 
+          # 24.09.2026 - KAPI-KC: bitirme sorusu Kaydir-Coz alanlari (her sik aciklamasi, yanlis sik teshisi, sade,
+          # adimlar, dayanak) eksiksiz degilse yayina girmez. Esdegerlik (butun SMMM taslaklari): yalniz sitede eksik
+          # bulunan 11 soruyu dusurdu, fazlasi 0. Mutasyonla olculdu: aciklama/teshis/dayanak kontrolu kaldirilinca ve
+          # ", dizi" donusu (K3) yazilinca KIRMIZI (4/4).
+          - { ad: "Kaydir-Coz eksiksizlik kapisi OZ-SINAVI (Nobetci bos kart gostermesin)",
+              kabuk: pwsh, komut: "./arac/kc-kapisi-sinavi.ps1" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para

@@ -63,6 +63,28 @@ function SmmmKorIstisna([string]$anahtar, $soruNesne, $onayHarita) {
 }
 
 # Tam yayın şartı (kalip-kosucu 8.1 ile aynı sıra) + kör istisnası
+# ⭐ 24.09.2026 KAPI-KC — KAYDIR-ÇÖZ EKSİKSİZLİK (Cem "1.2.3"): sitedeki 3.385 bitirme sorusu tarandı, 11'inde Nöbetçi'nin kaydırmalı
+#   çözümü eksikti (8 teşhis kartı yok · 3 dayanak boş · 2 tuzak yok · 1 kural boş). Kök: yayın şartı yalnız "açıklama VAR ama doğru
+#   şıkkınki boş"u yakalıyordu — açıklama alanı HİÇ yoksa (smmm-4k-a-maliyet-kolay-r1-2/kp-07) ya da yanlış bir şıkkınki boşsa geçiyordu.
+#   Eksik sayılır: herhangi bir şıkkın açıklaması boş/yok · herhangi bir YANLIŞ şıkkın teşhisi yok · sade anlatım (sade.dogru) boş ·
+#   adımlar yok · dayanak boş. Döner: eksik adları (boşsa tam).
+#   🚫 GÖRMEZ: alanın İÇERİĞİNİN doğruluğunu (hakem/sim ölçer); açıklamanın tuzak kalıbına ("X Tuzağı: …") uyup uymadığını.
+function SmmmKcEksik($v) {
+  $eksik = New-Object System.Collections.Generic.List[string]
+  $dogruHarf = "$($v.dogru)".Trim().ToUpperInvariant()
+  foreach ($harf in 'A', 'B', 'C', 'D', 'E') {
+    $ac = $(if ($v.PSObject.Properties['aciklama'] -and $v.aciklama -and $v.aciklama -isnot [string]) { $v.aciklama.$harf } else { $null })
+    $dolu = $(if ($null -eq $ac) { $false } elseif ($ac -is [string]) { [bool]$ac.Trim() } else { [bool](@($ac.PSObject.Properties | Where-Object { "$($_.Value)".Trim() }).Count) })
+    if (-not $dolu) { $eksik.Add("açıklama $harf"); }
+  }
+  foreach ($harf in @('A', 'B', 'C', 'D', 'E' | Where-Object { $_ -ne $dogruHarf })) {
+    if (-not ($v.PSObject.Properties['teshis'] -and $v.teshis -and $v.teshis.PSObject.Properties[$harf] -and $v.teshis.$harf)) { $eksik.Add("teşhis $harf") }
+  }
+  if (-not ($v.PSObject.Properties['sade'] -and $v.sade -and "$($v.sade.dogru)".Trim())) { $eksik.Add('sade anlatım') }
+  if (-not ($v.PSObject.Properties['adimlar'] -and @($v.adimlar | Where-Object { $_ }).Count)) { $eksik.Add('adımlar') }
+  if (-not "$($v.dayanak)".Trim()) { $eksik.Add('dayanak') }
+  return $eksik.ToArray()   # ⚠ virgülsüz: ", dizi" + çağıranın @() sarması boş listeyi 1 elemanlı yapar (K3) → kapı HER soruyu düşürürdü
+}
 function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   $v = $soruNesne
   if (-not $v -or -not $v.soru) { return [pscustomobject]@{ gecer = $false; neden = 'soru yok' } }
@@ -95,5 +117,6 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
     if (-not $ist.gecer) { return [pscustomobject]@{ gecer = $false; neden = "kör çözüm yanlış; $($ist.neden)" } }
   }
   if (-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2 -and "$($v.hakem2.karar)" -eq 'EVET')) { return [pscustomobject]@{ gecer = $false; neden = 'hakem2 EVET değil' } }
+  $kcEksik = @(SmmmKcEksik $v); if ($kcEksik.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-KC Kaydır-Çöz eksik: $($kcEksik -join ', ')" } }
   return [pscustomobject]@{ gecer = $true; neden = $(if (SmmmKorDogru $v) { 'tüm şartlar' } else { 'tüm şartlar (kör istisnası: Cem onayı + kaynaklı çözüm)' }) }
 }
