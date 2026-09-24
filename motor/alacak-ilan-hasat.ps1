@@ -113,3 +113,20 @@ $cikti = [ordered]@{
 # (alacak-arsiv-tara.ps1) guvenli yazimla hizalandi: her yerde BOM'suz UTF-8.
 [System.IO.File]::WriteAllText($yol, ($cikti | ConvertTo-Json -Depth 5), (New-Object System.Text.UTF8Encoding $false))
 Write-Host ("ALACAK ILAN: {0} ilan ({1} havuzdan) -> veri/alacak-ilan-canli.json" -f $ilanlar.Count, $eskiler.Count)
+
+# 24.09 BESLEME DAMGASI - tazelik nobetinin gozu. Canli veri 19.08'den beri git DISINDA (gizli kasa);
+# veri-tazelik.ps1 git yasina baktigi icin alacak beslemesini HIC goremiyordu: 24.09'da ilan.gov.tr API'si 403
+# verdi, iki kosu dustu, nobet sustu (Cem ekranda "son cekim 23.09" gorunce fark etti). Bu dosya YALNIZ basarili
+# hasatta buraya gelinince yazilir; hasat duserse eskir ve _sozlesme.json'daki azami_yas_saat asilinca BAYAT olur.
+# Icinde kisisel veri YOK (ilan no/borclu/VKN yazilmaz) - git'e girmesi guvenli.
+$enYeni = $null
+foreach($x in $ilanlar){ try { $t = [datetime]::ParseExact("$($x.tarih)","dd.MM.yyyy",$null); if(-not $enYeni -or $t -gt $enYeni){ $enYeni = $t } } catch {} }
+$damga = [ordered]@{
+  son_basarili_cekim = (Get-Date -Format "yyyy-MM-dd HH:mm")
+  en_yeni_ilan       = $(if($enYeni){ $enYeni.ToString("yyyy-MM-dd") } else { "" })
+  bu_kosuda_gelen    = @($yeniNolar).Count
+  canli_listede      = $ilanlar.Count
+  kaynak             = "ilan.gov.tr AdsByFilter (motor/alacak-ilan-hasat.ps1)"
+}
+[System.IO.File]::WriteAllText((Join-Path $kok "veri\alacak-besleme-damga.json"), ($damga | ConvertTo-Json), (New-Object System.Text.UTF8Encoding $false))
+Write-Host ("BESLEME DAMGASI: son basarili cekim {0} · en yeni ilan {1}" -f $damga.son_basarili_cekim, $damga.en_yeni_ilan)

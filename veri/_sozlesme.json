@@ -11,6 +11,10 @@
                        "dusus_tavani":  0.30
                    },
     "dosyalar":  {
+                     "veri/alacak-besleme-damga.json":  {
+                                                    "azami_yas_saat":  30,
+                                                    "not":  "24.09: Alacak Radari canli beslemesinin gozu. Canli veri git DISINDA (gizli kasa, 19.08) oldugundan veri/alacak-arsiv.json girdisi CI'da hep 'yok' sayiliyordu - 24.09 ilan.gov.tr 403'u sessiz gecti. Damga yalniz basarili hasatta yazilir (motor/alacak-ilan-hasat.ps1); gunde 2 kosu -> 30 saat = en az 2 kosu ust uste dusmus."
+                                                },
                      "veri/root-jeton-raporu.json":  {
                                                     "azami_yas_saat":  192,
                                                     "not":  "23.09: haftalik :root kopya uyarisi (root-jeton-tarama.yml, Pazartesi). Rapor yalniz degisince yazilir; 8 gun ustu = robot durmus."
