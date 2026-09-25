@@ -24,7 +24,8 @@ $kapiK=$null
 # 25.09: üretici Yabancı Dil modunda KAPI-K'yı KAPATIR (motor/kalip-parti-uret.ps1 YD_MOD: "KAPI-K kapalı"); ön denetim kapatmıyordu ve
 #   YD yazarları report/meeting/credit gibi temel kelimeleri sınav dışı sanıp soruyu fakirleştiriyordu (K3 w3: 6 soru yalnız bu yüzden düştü).
 #   Aynı desen üreticiyle birebir: 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce'.
-if($Ders -and $Ders -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce'){ "YABANCI DİL: KAPI-K üreticide kapalı olduğu için burada da ölçülmez" }
+$YABANCI_DIL_DENETIMI=[bool]($Ders -and $Ders -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce')
+if($YABANCI_DIL_DENETIMI){ "YABANCI DİL: KAPI-K ve soru/şıkta ASCII-Türkçe kontrolü üreticide kapalı olduğu için burada da ölçülmez" }
 elseif($Ders){
   $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
   if(Test-Path $kutup){ . $kutup; $kapiK=KapiKSozlukKur -DersRegex $Ders -Pencere $Pencere }
@@ -97,8 +98,8 @@ foreach($q in $liste){
     $eksik=@(); $tekrar=@(); foreach($on in $say.Keys){ if(-not $sz.ContainsKey($on)){ if($say[$on] -ge 2){ $tekrar+=$kel[$on] } else { $eksik+=$kel[$on] } } }
     if($tekrar.Count){ $k.Add("KAPI-K DAR tekrarli (kusur): $($tekrar -join ', ')") }
     if($eksik.Count){ $k.Add("KAPI-K DAR disi tek (genis sozlukte olmali): $($eksik -join ', ')") } }
-  # ASCII Türkçe
-  $tum="$($q.soru) "+(@($harf | ForEach-Object { "$($q.siklar.$_)" }) -join ' ')+' '+(@($q.adimlar | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')
+  # ASCII Türkçe (25.09: Yabancı Dil'de soru ve şıklar İngilizce -> yalnız adımlar ölçülür; "once" İngilizce kelimesi "önce" sanılıyordu, K3 w2)
+  $tum=$(if($YABANCI_DIL_DENETIMI){ '' } else { "$($q.soru) "+(@($harf | ForEach-Object { "$($q.siklar.$_)" }) -join ' ') })+' '+(@($q.adimlar | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')
   $asc=@([regex]::Matches($tum.ToLowerInvariant(),'\b(icin|degil|isletme|donem|uretim|dogru|yanlis|ucret|hesabi|satis|yuzde|deger|iscilik|dagitim|kayit|kaydi|urun|uretilen|tutari|yapilan|icinde|once)\b') | ForEach-Object { $_.Value } | Select-Object -Unique); if($asc.Count){ $k.Add("ASCII Turkce: $($asc -join ',')") }
   $etiket=$(if($k.Count){ 'KUSUR' } else { 'ok' })
   if($etiket -eq 'ok'){ $temizSay++ }
