@@ -1,143 +1,143 @@
 {
-  "olcum": "2026-09-24T23:50:45.354Z",
-  "gun": "2026-09-25",
+  "olcum": "2026-09-25T23:55:32.849Z",
+  "gun": "2026-09-26",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 57,
+      "sira": 58,
       "toplam": 70,
-      "id": "sgs-d2-issgk-cokzor-r2/kp-01",
-      "ders": "İş ve Sosyal Güvenlik Hukuku",
-      "konu": "is sözleşmesi turleri",
-      "donem": 5,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "Bir işyerinde niteliği itibarıyla en çok yirmi beş iş günü sürecek montaj işinde çalıştırılacak işçi ile işveren arasında çağrı üzerine çalışmaya dayalı kısmi süreli, yazılı bir iş sözleşmesi yapılmıştır. Sözleşmede işçinin haftalık çalışma süresi, çağrı süresi ve günlük çalışma süresi taraflarca belirlenmemiştir. Bu duruma ilişkin olarak aşağıdakilerden hangisi doğrudur?",
+      "id": "sgs-d2-ekonomi-zor-r2/kp-01",
+      "ders": "Ekonomi",
+      "konu": "taylor prensibi",
+      "donem": 3,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Denge reel faiz %2, cari enflasyon %8, enflasyon hedefi %5, çıktı açığı 1 puandır. Taylor kuralına göre politika faizi = denge reel faiz + cari enflasyon + a×(enflasyon-hedef) + b×(çıktı açığı); a=1,5 ve b=0,5 olduğuna göre politika faizi yüzde kaçtır?",
       "siklar": {
-        "A": "Haftalık çalışma süresi taraflarca belirlenmediğinden işçinin haftalık çalışma süresi yirmi saat kararlaştırılmış sayılır.",
-        "B": "İş, niteliği itibarıyla süreksiz iş sayıldığından çağrı üzerine çalışmaya ilişkin madde hükümleri yerine Türk Borçlar Kanunu hükümleri uygulanır.",
-        "C": "Sözleşmede günlük çalışma süresi belirlenmediğinden işveren her çağrıda işçiyi günde en az dört saat çalıştırmak zorundadır.",
-        "D": "İşveren, işçiyi çalışacağı zamandan en az dört gün önce çağırmak zorundadır.",
-        "E": "Sözleşmede çalışma süresi ve çağrı zamanı belirtilmediğinden iş sözleşmesi kesin olarak belirsiz süreli kabul edilir."
+        "A": "10,5",
+        "B": "13,0",
+        "C": "13,5",
+        "D": "14,5",
+        "E": "15,0"
       },
-      "dogru": "B",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Dört Saat Karinesi Tuzağı",
-          "metin": "Günlük asgari dört saat çalıştırma zorunluluğunun bu işte de aranacağını düşünürsün. Doğrusu: Bu hüküm de m.14'te yer alır ve süreksiz işte m.10 gereği devre dışıdır."
-        },
-        "E": {
-          "ad": "Süre Türü Karıştırma Tuzağı",
-          "metin": "Çalışma süresinin belirlenmemiş olmasını, sözleşmenin belirli/belirsiz süreli olmasıyla aynı konu sanırsın. Doğrusu: Belirli-belirsiz süre ayrımı m.11'e göre işin bir süreye bağlı olup olmamasına bakar; bu ayrım burada …"
-        },
-        "D": {
-          "ad": "Dört Gün Süresi Tuzağı",
-          "metin": "Çağrı üzerine çalışmadaki dört günlük bildirim süresinin süreksiz işte de geçerli olduğunu sanırsın. Doğrusu: m.10, süreksiz işlerde m.14'ün tamamının uygulanmayacağını, yerine Türk Borçlar Kanunu hükümlerinin uygulanac…"
+          "ad": "Katsayı İhmali Tuzağı",
+          "metin": "Enflasyon farkını (8-5=3) a=1,5 ile çarpmadan, katsayısız olarak doğrudan topladın. Doğrusu: Taylor prensibinin özü enflasyon katsayısının 1'den büyük olmasıdır, fark mutlaka a ile çarpılır ve sonuç 15,0'tir."
         },
         "A": {
-          "ad": "Yirmi Saat Karinesi Tuzağı",
-          "metin": "İşçinin çağrı üzerine çalışmaya dair yirmi saatlik haftalık süre karinesinin her zaman geçerli olduğunu düşünürsün. Doğrusu: Bu karine 4857 sayılı İş Kanunu m.14'te düzenlenmiştir; ancak süreksiz işlerde m.10 uyarınca m…"
+          "ad": "İhmal Tuzağı",
+          "metin": "Enflasyonun hedeften sapması (8-5=3) katmanını toplama hiç dahil etmedin, sanki para politikası yalnız cari enflasyona ve çıktı açığına tepki veriyor. Doğrusu: sapma terimi a katsayısıyla çarpılıp mutlaka eklenir, sonuç…"
+        },
+        "D": {
+          "ad": "Çıktı Açığı İhmali Tuzağı",
+          "metin": "b×çıktı açığı (0,5×1=0,5) terimini toplama dahil etmedin, sanki kural yalnız enflasyon terimlerinden oluşuyor. Doğrusu: genel biçimde çıktı açığı terimi de eklenir, sonuç 15,0'tir."
+        },
+        "B": {
+          "ad": "Taban Atlama Tuzağı",
+          "metin": "Denge reel faizi (%2) toplamaya hiç katmadın, sanki politika faizi sıfır reel faiz üzerine kuruluymuş gibi hesapladın. Doğrusu: denge reel faiz kuralın sabit tabanıdır ve toplama eklenir, sonuç 15,0'tir."
         }
       },
-      "hap": "Otuz iş gününü aşmayan süreksiz işlerde İş Kanunu m.13 ve m.14 uygulanmaz, bu konularda Türk Borçlar Kanunu hükümleri uygulanır.",
+      "hap": "Taylor prensibi, enflasyondaki 1 puanlık artışa karşılık nominal faizin 1 puandan fazla artması gerektiği koşuludur; yani enflasyon katsayısı 1'den büyük olmalıdır.",
       "satirlar": [
         [
-          "A) Haftalık çalışma süresi taraflarca belirlenmediğinden iş…",
-          "m.10, m.14"
+          "Denge reel faiz katkısı",
+          "2"
         ],
         [
-          "B) İş, niteliği itibarıyla süreksiz iş sayıldığından çağrı …",
-          "m.10"
+          "Enflasyon katkısı (cari enflasyon)",
+          "8"
         ],
         [
-          "C) Sözleşmede günlük çalışma süresi belirlenmediğinden işve…",
-          "m.10, m.14"
+          "Enflasyon farkı katkısı (a×(enflasyon-hedef))",
+          "1,5×3=4,5"
         ],
         [
-          "D) İşveren, işçiyi çalışacağı zamandan en az dört gün önce …",
-          "m.10, m.14"
+          "Çıktı açığı katkısı (b×çıktı açığı)",
+          "0,5×1=0,5"
         ],
         [
-          "E) Sözleşmede çalışma süresi ve çağrı zamanı belirtilmediği…",
-          "m.11"
+          "Politika faizi (toplam)",
+          "15,0"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=57",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=58",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 58,
+        "kalan_gun": 57,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 57,
+      "sira": 58,
       "toplam": 70,
-      "id": "smmm-w6-yvergi-zor/kp-01",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "bilanço tanımı",
+      "id": "smmm-4k-a-ymeslek-kolay-r10/kp-05",
+      "ders": "Meslek Hukuku",
+      "konu": "meslek mensubu genel şartları",
       "donem": 3,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "İşletme (gerçek usulde gelir vergisi mükellefi olan, bilanço esasına göre defter tutan bir gerçek kişi), 2026 yılı için şu bilgileri vermektedir: Dönem başı aktif toplamı 1.250.000 ₺, dönem başı yabancı kaynaklar toplamı 480.000 ₺'dir. Dönem sonu aktif toplamı 1.640.750 ₺, dönem sonu yabancı kaynaklar toplamı 512.300 ₺'dir. Yıl içinde işletme sahibi, işletmeden kişisel ihtiyaçları için 96.000 ₺ çekmiş, ayrıca işletmeye 42.750 ₺ ilave sermaye koymuştur. 193 sayılı Gelir Vergisi Kanunu'na göre, işletmenin 2026 yılı ticari kazancı kaç ₺'dir?",
+      "teori": true,
+      "rakamSik": false,
+      "soru": "SMMM stajını tamamlamış aday Kaan, yeterlilik sınavına girmeden önce görülen bir davada irtikap suçundan mahkûm olmuş ve cezası kesinleşmiştir. Daha sonra çıkarılan genel af kanunundan yararlanmış, ayrıca Türk Ceza Kanunu m.53'te belirtilen süreler de tamamen geçmiştir. Kaan'ın meslek mensubu olabilmesi açısından 3568 sayılı Kanun m.4 uyarınca aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "305.200",
-        "B": "315.700",
-        "C": "358.450",
-        "D": "411.700",
-        "E": "454.450"
+        "A": "Türk Ceza Kanunu m.53'teki süreler tamamen geçtiğinden genel şart artık sağlanmıştır ve Kaan meslek mensubu olabilir.",
+        "B": "İrtikap suçu madde 4/d'de sayılan suçlardan olduğundan af ve süre geçmesi bu engeli kaldırmaz; Kaan meslek mensubu olamaz.",
+        "C": "Genel af kanunundan yararlanma nedeniyle mahkûmiyet hukuken ortadan kalktığından Kaan meslek mensubu olabilir.",
+        "D": "İrtikap kasten işlenmiş bir suç olsa da hapis cezası bir yıldan az kaldığında engel oluşturmadığından Kaan meslek mensubu olabilir.",
+        "E": "Kaan hakkında memuriyetten çıkarılma cezası bulunmadığından madde 4/e bendi açısından engel yoktur ve bu nedenle meslek mensubu olabilir."
       },
-      "dogru": "D",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Ne soruluyor",
-          "metin": "İşletmenin 2026 yılı ticari kazancının kaç ₺ olduğu soruluyor. Kural: GVK m.38'e göre ticari kazanç, dönem sonu ile dönem başı öz sermaye arasındaki farka işletmeden çekilen değerlerin eklenip işletmeye ilave edilen değ…"
+          "ad": "Af Tuzağı",
+          "metin": "Öğrenci genel aftan yararlanmayı mahkûmiyetin tamamen silinmesi sanır. Doğrusu: madde 4/d 'affa uğramış olsa bile' ibaresiyle bu suç grubunda affı da etkisiz kılar."
         },
         "E": {
-          "ad": "Atlanan Katman Tuzağı",
-          "metin": "Çekilen değeri farka eklersen ama ilave edilen sermayeyi düşmeyi unutursan 358.450 + 96.000 = 454.450 bulursun. Doğrusu: işletmeye ilave edilen değer farktan indirilmelidir, indirim atlanamaz."
+          "ad": "Kapsam Tuzağı",
+          "metin": "Öğrenci tek bir bendin (e - memuriyetten çıkarılma) sağlanmasını tüm madde 4'ün sağlandığı anlamına gelir sanır. Doğrusu: madde 4 bentleri kümülatiftir, d bendindeki irtikap engeli tek başına genel şartı ihlal eder."
+        },
+        "D": {
+          "ad": "Eşik Tuzağı",
+          "metin": "Öğrenci madde 4/d'deki 'bir yıl veya daha fazla hapis' eşiğini tüm suçlara uygulanan genel bir sınır sanır. Doğrusu: bu süre eşiği yalnız genel kasten suçlar için geçerlidir; irtikap gibi özel sayılan suçlarda süre uzun…"
         },
         "A": {
-          "ad": "Ters İşlem Tuzağı",
-          "metin": "Çekilen değeri farktan düşüp ilave edileni farka eklersen (yönleri ters uygularsan) 358.450 - 96.000 + 42.750 = 305.200 bulursun. Doğrusu: çekilen değer farka eklenir, ilave edilen değer farktan indirilir."
-        },
-        "B": {
-          "ad": "Eksik Katman Tuzağı",
-          "metin": "Öz sermaye farkından yalnız ilave edilen sermayeyi düşüp, işletmeden çekilen değeri hiç eklemezsen 358.450 - 42.750 = 315.700 bulursun. Doğrusu: çekilen değer de farka ilave edilmelidir."
+          "ad": "Süre Tuzağı",
+          "metin": "Öğrenci TCK m.53 süresinin dolmasını her durumda temizlenme sanır. Doğrusu: madde 4/d'de sayılan suçlarda kanun açıkça 'süreler geçmiş olsa bile' diyerek engeli kalıcı kılar."
         }
       },
-      "hap": "Bilanço esasında ticari kazanç, dönem sonu ile dönem başı öz sermaye farkına çekilen değerler eklenip ilave edilen değerler indirilerek bulunur (GVK m.38).",
+      "hap": "3568 sayılı Kanun m.4/d'de sayılan zimmet, irtikap, rüşvet, dolandırıcılık gibi suçlarda af ve TCK m.53 süresinin geçmesi meslek mensubu olma engelini kaldırmaz.",
       "satirlar": [
         [
-          "Dönem sonu öz sermaye (1.640.750 - 512.300)",
-          "1.128.450"
+          "A) Türk Ceza Kanunu m.53'teki süreler tamamen geçtiğinden g…",
+          "m.4/d"
         ],
         [
-          "Öz sermaye farkı (1.128.450 - 770.000)",
-          "358.450"
+          "B) İrtikap suçu madde 4/d'de sayılan suçlardan olduğundan a…",
+          "m.4/d"
         ],
         [
-          "+ İşletmeden çekilen değerler",
-          "96.000"
+          "C) Genel af kanunundan yararlanma nedeniyle mahkûmiyet huku…",
+          "m.4/d"
         ],
         [
-          "- İşletmeye ilave edilen değerler",
-          "-42.750"
+          "D) İrtikap kasten işlenmiş bir suç olsa da hapis cezası bir…",
+          "m.4/d"
         ],
         [
-          "Ticari Kazanç (Sonuç)",
-          "411.700"
+          "E) Kaan hakkında memuriyetten çıkarılma cezası bulunmadığın…",
+          "m.4/e, m.4/d"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=57",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=58",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 68,
+        "kalan_gun": 67,
         "durum": "YESIL",
         "mail_gunu": false
       }
