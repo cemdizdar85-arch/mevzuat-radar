@@ -657,6 +657,12 @@ window.veriAl = (function(){
       .bz-kah .bz-cta2{display:inline-block;margin:0 0 0 18px;font-size:15px;font-weight:700;color:var(--bz-bronz-acik);
         text-decoration:none;border-bottom:1px solid rgba(214,180,126,.45);padding:4px 0}
       .bz-kah .bz-cta2:hover{color:var(--bz-ak)}
+      /* 25.09: ücretsiz ölçüm artık İKİNCİL düğme (rakip düzeni: satın al birincil + ücretsiz deneme yanında çerçeveli) */
+      .bz-kah .bz-cta2.bz-cta-ikincil{padding:13px 26px;border:1.5px solid color-mix(in srgb,var(--bz-bronz-acik) 70%,transparent);
+        border-radius:14px;vertical-align:middle}
+      .bz-kah .bz-cta2.bz-cta-ikincil:hover{background:color-mix(in srgb,var(--bz-bronz-acik) 10%,transparent)}
+      /* telefonda ana düğme ikincilden dar kalıyordu (213 / 268 px): ikisi de tam genişlik, ana üstte */
+      @media(max-width:520px){ .bz-kah .bz-cta,.bz-kah .bz-cta2.bz-cta-ikincil{display:block;width:auto;text-align:center;box-sizing:border-box} }
       @media(max-width:520px){ .bz-kah .bz-cta2{display:block;margin:18px 0 0;width:max-content} }
       /* SINAV SEKMESİ (15.09 Cem "sınava giriş, bitirme ve KGK nasıl girecek, ayırmak lazım"):
          göz satırı üç tıklanır sekme olur; düğmeler seçili sınav × üye durumuna göre uye-durumu.js'ten yazılır. */
@@ -807,9 +813,10 @@ window.veriAl = (function(){
                  ziyaretçi/paketsiz "Ücretsiz dene" · paketi aktif "Sınava gir" · süresi bitmiş "Paketini yenile".
                  İçeriği henüz yayında olmayan sınavda (Yeterlilik, KGK) "Ön kayıt ol". Aşağıdaki yazılar oturumsuz
                  hâlin kendisidir; betik çalışmazsa sayfa bununla kalır. Karar tablosu: bzDugmeCiz(). -->
-            <a class="bz-cta" id="bzCta" href="seviye-testi.html">Geçme ihtimalini ölç (ücretsiz)</a>
+            <!-- 25.09: betik çalışmazsa da rakip düzeni - ana düğme satın al, ücretsiz ölçüm yanında ikincil -->
+            <a class="bz-cta" id="bzCta" href="satin-al.html?paket=sgs">Satın al →</a>
             <!-- 13.09 Cem: "ilk testim müşteri çekmek için; bu sınavda kaç puan alırsın, denetle tarzı" -> seviye-testi.html -->
-            <a class="bz-cta2" id="bzCta2" href="fiyat.html" hidden>Paketleri gör →</a>
+            <a class="bz-cta2 bz-cta-ikincil" id="bzCta2" href="seviye-testi.html">Geçme ihtimalini ölç (ücretsiz)</a>
             <p class="bz-durum" id="bzDurum" aria-live="polite"></p>
             <form class="bz-onkayit" id="bzOnkayit" hidden novalidate>
               <div class="bz-ok-satir">
@@ -859,7 +866,20 @@ window.veriAl = (function(){
       var okForm=document.getElementById('bzOnkayit'), okTamam=document.getElementById('bzOkTamam'), okEp=document.getElementById('bzOkEposta'), okAlindi={};
       var sekmeler=[].slice.call(document.querySelectorAll('.bz-sekme button'));
       var secili=U.seciliSinav();
-      function yaz(el,metin,adres){ if(!el) return; el.textContent=metin; el.setAttribute('href',adres); el.hidden=false; }
+      function yaz(el,metin,adres){ if(!el) return; el.textContent=metin; el.setAttribute('href',adres); el.hidden=false; if(el===cta2) el.classList.remove('bz-cta-ikincil'); }
+      /* 25.09: kahraman satın al düğmesinin fiyatı - YALNIZ fiyat-motoru.js'ten (sayfada daha aşağıda yüklenir; ilk çizimde
+         henüz yoksa fiyatsız yazılır, üyelik olayıyla yeniden çizilince dolar). Ders seçimli sınavda "…'den". */
+      function kahramanTutar(sn){
+        try{
+          if(typeof FIYAT==='undefined'||typeof tl!=='function') return '';
+          if(sn==='sgs'&&FIYAT.sgs) return ' — '+tl(FIYAT.sgs.kurulus)+' TL';
+          if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) return ' — ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den";
+          if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgk[1]) return ' — modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den";
+        }catch(e){}
+        return '';
+      }
+      /* fiyat-motoru.js bu betikten SONRA yüklenir: sayfa ayrıştırılınca bir kez daha çiz ki fiyat düğmeye girsin */
+      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ try{ bzDugmeCiz(); }catch(e){} });
       function bzDugmeCiz(){
         var s=S[secili], d=(son.sinavlar&&son.sinavlar[secili])||{durum:son.oturum?'uye':'ziyaretci'}, bit=U.tarihYazi(d.bitis);
         sekmeler.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-sinav')===secili?'true':'false'); });
@@ -875,11 +895,12 @@ window.veriAl = (function(){
             yaz(cta,'Paketini yenile',s.al); yaz(cta2,'Ücretsiz sorular →',s.dene);
             durumEl.innerHTML='Paketinin süresi '+(bit?'<b>'+bit+'</b> tarihinde ':'')+'bitti.';
           } else {
-            /* 23.09 Cem: "Ücretsiz dene ve 30 soru aynı yere geliyor, birini bırakalım" -> ara sayfa atlanır,
-               düğme doğrudan seviye testine gider; ikinci bağlantı yalnız üyeye (Paketleri gör). */
-            yaz(cta,'Geçme ihtimalini ölç (ücretsiz)',s.olc);
-            if(d.durum==='uye') yaz(cta2,'Paketleri gör →',s.fiyat); else cta2.hidden=true;
-            durumEl.textContent='30 soru · yaklaşık '+(s.olcDk||30)+' dakika · üyelik gerekmez';   /* 24.09: süre sınava göre (uye-durumu.js olcDk) */
+            /* 25.09 Cem "burda satın alma çok küçük kalıyor, rakiplerde nerede": UWorld CPA ilk ekranı birincil "Shop Courses",
+               yanında ikincil "Start Free Trial"; Becker birincil "Save now" + ikincil "Try FREE". Bizde ana düğme ücretsiz
+               ölçümdü, satın alma yalnız sağdaki kartın dibindeydi. Artık: ANA = Satın al (fiyatıyla), İKİNCİL = ücretsiz ölçüm. */
+            yaz(cta,'Satın al'+kahramanTutar(secili)+' →',s.al||s.fiyat);
+            yaz(cta2,'Geçme ihtimalini ölç (ücretsiz)',s.olc); cta2.classList.add('bz-cta-ikincil');
+            durumEl.textContent='Önce ücretsiz dene: 30 soru · yaklaşık '+(s.olcDk||30)+' dakika · üyelik gerekmez';   /* 24.09: süre sınava göre (uye-durumu.js olcDk) */
           }
         } else {
           if(d.durum==='aktif'){
