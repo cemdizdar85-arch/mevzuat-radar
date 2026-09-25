@@ -12,7 +12,7 @@
   var K = window.TT_KATALOG || { paket: [], ucretsiz: [], yakinda: [], surum: '?', derleme: '?' };
   var P = (window.Capacitor && window.Capacitor.Plugins) || {};
   var yerel = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
-  var HESAP_SIL_EPOSTA = 'info@dizdardenetim.com';   // kvkk.html'deki silme kanalıyla AYNI
+  var HESAP_SIL_EPOSTA = 'destek@tetikte.com';   // 25.09 Cem: dışarıya yalnız tetikte adresleri (kvkk.html de buna çevrilecek)
   var SIFRE_DONUS = 'https://tetikte.com/ogrenci.html';
   var INDIRME_ANAHTARI = 'tt_uyg_indirilen';
   var PARCA = 100;                                    // kasa-yukle.js ile AYNI (hazirla-sinavi.js ölçer)

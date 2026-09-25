@@ -130,7 +130,7 @@ Play fiyatı elle güncellenir.
   ister (e-posta + şifre inceleme formuna yazılır). Kurucu hesabı verilmez. Ayrı bir hesap açılıp
   paketi tanımlanır.
 - **Hesap silme:** Play "Veri güvenliği" formu bir silme adresi ister. Bugünkü kanal kvkk.html'deki
-  `info@dizdardenetim.com`. Uygulamadaki "Hesabımı sil" de oraya e-posta açar.
+  `destek@tetikte.com` (25.09 Cem: yalnız tetikte adresleri). Uygulamadaki "Hesabımı sil" de oraya e-posta açar.
   ⚠ Hafızadaki kayda göre (23.08) bu kutuya erişilemiyor. Silme talebi okunmazsa KVKK riski oluşur.
 - **SGS içeriği:** uygulamada bugün SGS'den yalnız **Türkçe** var (kasa pilotu). SGS paketi satan
   bir uygulama tek dersle mağazaya çıkmamalı. Önce site kolu Adım 2'yi 14 derse yaymalı
