@@ -3,22 +3,22 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.400** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.474 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.474 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 494 | 899 | 28,1 | 1030 | 294 | 52 | 5 | 143 | 70 |
-| Denetim | 281 | 491 | 15,3 | 646 | 182 | 27 | 2 | 70 | 28 |
+| Finansal Muhasebe | 494 | 899 | 28,1 | 1025 | 294 | 52 | 5 | 143 | 70 |
+| Denetim | 281 | 491 | 15,3 | 643 | 182 | 27 | 2 | 70 | 28 |
 | Yabancı Dil | 85 | 321 | 10,0 | 257 | 42 | 22 | 0 | 21 | 121 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 367 | 105 | 12 | 2 | 20 | 10 |
 | Matematik | 119 | 256 | 8,0 | 435 | 43 | 12 | 3 | 61 | 23 |
-| Ticaret Hukuku | 129 | 226 | 7,1 | 250 | 69 | 9 | 0 | 51 | 13 |
+| Ticaret Hukuku | 129 | 226 | 7,1 | 249 | 69 | 9 | 0 | 51 | 14 |
 | Türkçe | 126 | 224 | 7,0 | 126 | 26 | 17 | 4 | 79 | 36 |
-| Vergi Hukuku | 160 | 200 | 6,3 | 155 | 52 | 6 | 7 | 95 | 8 |
-| Mali Tablolar Analizi | 96 | 197 | 6,2 | 208 | 62 | 13 | 1 | 20 | 12 |
+| Vergi Hukuku | 160 | 200 | 6,3 | 154 | 52 | 6 | 7 | 95 | 8 |
+| Mali Tablolar Analizi | 96 | 197 | 6,2 | 207 | 62 | 13 | 1 | 20 | 12 |
 | Ekonomi | 137 | 193 | 6,0 | 151 | 47 | 10 | 3 | 77 | 9 |
 | İş ve Sosyal Güvenlik Hukuku | 96 | 186 | 5,8 | 157 | 43 | 16 | 0 | 37 | 26 |
-| Borçlar Hukuku | 91 | 180 | 5,6 | 190 | 47 | 15 | 0 | 29 | 28 |
+| Borçlar Hukuku | 91 | 180 | 5,6 | 189 | 47 | 15 | 0 | 29 | 28 |
 | Maliye | 119 | 168 | 5,3 | 124 | 35 | 8 | 5 | 71 | 7 |
 | Meslek Hukuku | 92 | 163 | 5,1 | 149 | 43 | 7 | 2 | 40 | 24 |
 | Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 153 | 28 | 4 | 4 | 78 | 15 |
@@ -28,7 +28,7 @@ Sitede sayfadan okunan soru: **4.400** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **169 konu / 433 soru**
+- 3+ dönem çıkmış: **169 konu / 434 soru**
 - 2 dönem çıkmış: 101 konu / 134 soru
 - 1 dönem çıkmış: 893 konu / 895 soru
 

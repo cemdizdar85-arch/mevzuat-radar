@@ -68,7 +68,9 @@ for (const d of an.donemler) {
 // 2) site: sayfadaki her sorunun konu alanı
 const site = new Map(); let siteTop = 0;
 const dizin = path.join(KOK, 'kaydir', 'sgs');
-for (const f of fs.readdirSync(dizin).filter(f => f.endsWith('.html'))) {
+// 25.09: özel sayfalar (muhur-10 vitrin, kapituru deneme, index) ders sayfalarından seçilmiş sorudur → sayılırsa soru İKİ kez sayılır
+//   (ölçüldü: muhur-10'daki 10 soru ders sayfalarında da var).
+for (const f of fs.readdirSync(dizin).filter(f => f.endsWith('.html') && !/^(index|muhur-|kapituru-)/.test(f))) {
   const h = fs.readFileSync(path.join(dizin, f), 'utf8');
   const ds = [...h.matchAll(/"ders":"([^"]*)"/g)].map(m => coz(m[1]));
   if (!ds.length) {
