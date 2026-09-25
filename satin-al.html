@@ -292,7 +292,7 @@ if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GR
        + '<span class="er">' + p.erisim + '</span>'
        + '<span class="harc">' + p.harcYazi + '</span></span>'
        + '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b>'
-       + (p.liste > p.fiyat ? '<s>' + tl(p.liste) + ' TL</s>' : '')
+       + (p.liste > p.fiyat ? '<span>sonra ' + tl(p.liste) + ' TL</span>' : '')
        + '<span>' + p.not + '</span></span></label>';
   });
   if(ODAK_GRUP){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }

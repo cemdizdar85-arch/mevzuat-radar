@@ -330,7 +330,9 @@ function paketler(){
   /* Ortak alanlar */
   L.forEach(function(p){
     p.indirim = indirimYuzde(p.fiyat, p.liste);
-    p.not     = p.indirim ? 'kuruluş fiyatı · %' + p.indirim : 'sabit fiyat';
+    /* 25.09 Cem: yüzde rozeti kaldırıldı. Liste fiyatı ÜSTÜ ÇİZİLİ de gösterilmez: o fiyattan hiç satış yapılmadı,
+     çizili 'eski fiyat' İndirimli Satış mevzuatında sahte indirim sayılır (29.08 dersi 6). Liste ileriye dönük yazılır. */
+  p.not     = (p.liste > p.fiyat && p.kota) ? 'kuruluş fiyatı · ilk ' + tl(p.kota) + ' üye' : (p.indirim ? 'kuruluş fiyatı' : 'sabit fiyat');
     p.taksit  = taksitYazi(p.fiyat);
   });
   return L;

@@ -67,7 +67,7 @@
      bolmek ucuz marka refleksidir; rakiplerin hicbiri yapmiyor. Tek rakam. */
   .gunluk{ font:800 34px/1 ui-monospace,Consolas,monospace; letter-spacing:-1px; }
   .gunluk small{ font-size:13px; font-weight:600; color:var(--muted); font-family:inherit; letter-spacing:0; }
-  .liste{ font-size:14px; color:var(--dim); text-decoration:line-through; margin-top:6px; }
+  .liste{ font-size:13px; color:var(--dim); margin-top:6px; }
   .liste b{ text-decoration:none; display:inline-block; color:var(--green); font-weight:800;
             font-size:12px; letter-spacing:.3px; margin-left:6px; }
   .tutar{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
@@ -424,7 +424,8 @@ function kart(id, p){
   document.getElementById('fy' + id).innerHTML = tl(p.fiyat) + ' <small>TL</small>';
   var ls = document.getElementById('ls' + id);
   if(p.liste > p.fiyat){
-    ls.innerHTML = tl(p.liste) + ' TL <b>%' + p.indirim + '</b>';
+    /* 25.09 Cem: '%' rozeti ve üstü çizili liste kaldırıldı (hiç uygulanmamış fiyat çizilemez); ileriye dönük yazılır. */
+    ls.textContent = (p.kota ? tl(p.kota) + ' üyeden sonra ' : 'Sonra ') + tl(p.liste) + ' TL';
   }
   var kt = document.getElementById('kt' + id);
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
