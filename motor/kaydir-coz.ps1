@@ -46,7 +46,8 @@ if($SecimDosya){
           if($sonDeg){ foreach($kk in $kyAll){ $tutlar=@(@($kk.ogeler.borc)+@($kk.ogeler.alacak) | ForEach-Object { "$($_.tutar)" -replace '[^\d,]','' }); if($tutlar -contains $sonDeg){ $ky=$kk; break } } } } } }
     $DERS_TR=@{'Borclar Hukuku'='Borçlar Hukuku';'Is ve Sosyal Guvenlik Hukuku'='İş ve Sosyal Güvenlik Hukuku';'Vergi Hukuku'='Vergi Hukuku';'Ticaret Hukuku'='Ticaret Hukuku'}
     $dersAd="$($l.ders)"; if($DERS_TR.ContainsKey($dersAd)){ $dersAd=$DERS_TR[$dersAd] }
-    $sec+=[pscustomobject]@{ et=$l.etiket; id=$l.id; v=$v; ky=$ky; kyAll=$kyAll; donem=[int]$v.donem; ders=$dersAd }
+    # 25.09 (Cem "gm onerilerini yap"): secim satirinda konu varsa (arac/havuz-kur.ps1 veri/sinav/sgs-ders-duzelt.json konu duzeltmesi) ekranda o gorunur; yoksa parti konusu.
+    $sec+=[pscustomobject]@{ et=$l.etiket; id=$l.id; v=$v; ky=$ky; kyAll=$kyAll; donem=[int]$v.donem; ders=$dersAd; konuSecim=$(if($l.PSObject.Properties['konu'] -and "$($l.konu)".Trim()){ "$($l.konu)" } else { '' }) }
   }
   "secim dosyasi: $($liste.Count) istendi -> $($sec.Count) bulundu"
 }
@@ -351,7 +352,7 @@ foreach($x in $sec){
   # 25.09 Cem ("TESMER eski sınav sorularını kullanıyor demesinler"): çapa KAYNAĞI (hangi çıkmış soru örnek alındı)
   # sayfaya YAZILMAZ - ekranda kullanılmıyordu ama kaynak kodda her soruda "SGS 2026/2 Soru 56" gibi duruyordu. Üreticide kalır.
   $capaB=$null; if($v.PSObject.Properties['capa_metin'] -and "$($v.capa_metin)".Trim()){ $capaB=@{ kaynak=$(if($v.PSObject.Properties['capa_kaynak']){ "$($v.capa_kaynak)" } else { 'çıkmış soru' }); metin=(TurkceOnar "$($v.capa_metin)") } }
-  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$null; oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitlar=$kayitlar; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen; teshis=$teshis; celdiriciYol=$celY; teori=$(if($tablo -and (@('Adım','Şık') -contains "$(@($tablo.basliklar)[0])")){ $true } else { $false }) }
+  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar $(if($x.PSObject.Properties['konuSecim'] -and $x.konuSecim){ "$($x.konuSecim)" } else { "$($v.konu)" })); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$null; oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitlar=$kayitlar; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen; teshis=$teshis; celdiriciYol=$celY; teori=$(if($tablo -and (@('Adım','Şık') -contains "$(@($tablo.basliklar)[0])")){ $true } else { $false }) }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
 }
 Sure 'sözlük + soru kurulumu'

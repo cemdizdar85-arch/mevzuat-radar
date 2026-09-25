@@ -31,8 +31,46 @@ param(
   [switch]$Indir,
   [switch]$Ozet,
   [string]$Ay = '',                # 'YYYY-MM' (bos = bu ay)
-  [switch]$Yaz
+  [switch]$Yaz,
+  # 25.09.2026: yerel defterdeki 3 SAAT KAYMIS IKIZ satirlari (asagidaki SAAT DILIMI notu) yedekleyip cikarir. -Yaz olmadan kuru kosu.
+  [switch]$YerelIkizTemizle,
+  [switch]$Sinav                   # 25.09: TabloVar (±3 saat esleme) oz-sinavi; ag yok, anahtar gerekmez
 )
+# ⛔⭐ 25.09.2026 SAAT DILIMI (Cem "gm onerilerini yap" -> "devam et"). OLCULDU:
+#   · Yukle / motor/api-hedef.ps1 Save-BedelKesin zamani ([datetime]$z).ToString('o') ile OFSETSIZ yolluyordu. Bulut
+#     makinesinde (UTC) zararsiz; BU makinede (TR, +03) duvar saati ambara UTC diye yazildi -> ambarda 3 saat kaymis.
+#   · Indir ambar zamanini ([datetime]) ile YEREL saate cevirip (+3) deftere yaziyordu -> AYNI harcama yerel defterde
+#     ikinci kez (olculdu: 810 satir / 813,60 USD ikiz). Anahtar (zaman+etiket+tutar) iki hali farkli satir sandi; ambardaki
+#     706 mukerrer satirin (793,60 USD, hepsi yazan=yerel-GK) da en olasi kaynagi bu (Yukle ayni satiri tekrar yollamis) -
+#     KANITLANMADI, cunku eski gonderim gunlukleri yok.
+#   DUZELTME: (1) yazarken zaman ACIK OFSETLE ([DateTimeOffset] yerel) · (2) 'zaten var mi' kontrolu ayni etiket+tutarin
+#     ±3 saat kaymis halini de AYNI satir sayar (eski yanlis kayitlar ambarda duruyor) · (3) -YerelIkizTemizle.
+#   🚫 GORMEZ: ayni partinin ayni kurusla tam 3 saat arayla gercekten iki kez odenmesini (ikizden ayiramaz; olasiligi
+#     kurus hassasiyetinde 6 basamakli tutarla pratikte yok, ama olculmedi) · ambardaki eski mukerrerleri SILMEZ.
+function ZamanOfsetli($zaman){ return ([DateTimeOffset]([datetime]::SpecifyKind([datetime]$zaman,[DateTimeKind]::Local))).ToString('o') }
+function AnahtarKaydir([string]$anahtar,[int]$saat){
+  $parca=$anahtar.Split('|',2); $z=[datetime]::MinValue
+  if(-not [datetime]::TryParseExact($parca[0],'yyyy-MM-dd HH:mm',[cultureinfo]::InvariantCulture,[Globalization.DateTimeStyles]::None,[ref]$z)){ return $anahtar }
+  return ($z.AddHours($saat).ToString('yyyy-MM-dd HH:mm',[cultureinfo]::InvariantCulture) + '|' + $parca[1])
+}
+function TabloVar($tablo,[string]$anahtar){
+  foreach($kayma in 0,-3,3){ if($tablo.ContainsKey((AnahtarKaydir $anahtar $kayma))){ return $true } }
+  return $false
+}
+if($Sinav){
+  $dusen=New-Object System.Collections.Generic.List[string]
+  $t=@{ '2026-09-07 23:58|smmm-w9-1-fmuh-zor|0.130000'=1 }
+  if(-not (TabloVar $t '2026-09-07 23:58|smmm-w9-1-fmuh-zor|0.130000')){ $dusen.Add('ayni anahtar bulunamadi') }
+  if(-not (TabloVar $t '2026-09-08 02:58|smmm-w9-1-fmuh-zor|0.130000')){ $dusen.Add('+3 saat ikiz bulunamadi (gun devri)') }
+  if(-not (TabloVar $t '2026-09-07 20:58|smmm-w9-1-fmuh-zor|0.130000')){ $dusen.Add('-3 saat ikiz bulunamadi') }
+  if(TabloVar $t '2026-09-08 00:58|smmm-w9-1-fmuh-zor|0.130000'){ $dusen.Add('+1 saat fark YANLIS ALARM') }
+  if(TabloVar $t '2026-09-07 22:58|smmm-w9-1-fmuh-zor|0.130000'){ $dusen.Add('-1 saat fark YANLIS ALARM') }
+  if(TabloVar $t '2026-09-08 02:58|smmm-w9-1-fmuh-zor|0.140000'){ $dusen.Add('farkli tutar YANLIS ALARM') }
+  if(TabloVar $t '2026-09-08 02:58|smmm-w9-2-fmuh-zor|0.130000'){ $dusen.Add('farkli etiket YANLIS ALARM') }
+  if((ZamanOfsetli '2026-09-07 23:58') -notmatch '^2026-09-07T23:58:00.*[+-]\d\d:\d\d$'){ $dusen.Add('ofsetli zaman bicimi: ' + (ZamanOfsetli '2026-09-07 23:58')) }
+  if($dusen.Count){ $dusen | ForEach-Object { Write-Host "  DUSTU: $_" -ForegroundColor Red }; exit 1 }
+  Write-Host 'BEDEL SENKRON OZ-SINAVI YESIL (8 vaka: 3 esleme · 4 yanlis alarm · 1 bicim)' -ForegroundColor Green; exit 0
+}
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
@@ -130,20 +168,54 @@ $ambar=Dizi (AmbarSatirlar $Ay)
 
 $yT=0.0; foreach($x in $yerelAy){ $yT+=[double]$x.toplamUsd }
 $aT=0.0; foreach($x in $ambar){ $aT+=[double]$x.toplam_usd }
+# ⭐ 25.09.2026 (Cem "gm onerilerini yap"): OZET de TEKIL toplamla kiyaslar. OLCULDU: bulut kosusu "FARK 793,60 USD -
+#   iki taraf ayni freni gormuyor" yaziyordu; ambardaki MUKERRER satirlar (ayni zaman+etiket+tutar) tam 706 satir /
+#   793,60 USD cikti (hepsi yazan='yerel-GK', 07-15.09 - 19.09'da olculen sisme). Fren (kalip-kosucu PlanHarcama/AyHarcama)
+#   zaten TEKIL sayiyor; yanlis alarmi yalniz bu ozet satiri uretiyordu (ham toplam). Ham toplam da basilir, gizlenmez.
+#   🚫 GORMEZ: mukerrerleri SILMEZ (ambar satiri kalici silinmez - Cem karari gerekir).
+$yTekil=@{}; foreach($x in $yerelAy){ $yTekil[(Anahtar $x.zaman $x.etiket $x.toplamUsd)]=[double]$x.toplamUsd }
+$aTekil=@{}; foreach($x in $ambar){ $aTekil[(Anahtar $x.zaman $x.etiket $x.toplam_usd)]=[double]$x.toplam_usd }
+$yTT=0.0; foreach($v in $yTekil.Values){ $yTT+=$v }
+$aTT=0.0; foreach($v in $aTekil.Values){ $aTT+=$v }
 Write-Host ("AY {0}" -f $Ay) -ForegroundColor Cyan
-Write-Host ("  YEREL : {0,5} satir · {1,8:N2} USD" -f $yerelAy.Count,$yT)
-Write-Host ("  AMBAR : {0,5} satir · {1,8:N2} USD" -f $ambar.Count,$aT)
-$fark=[math]::Abs($yT-$aT)
+Write-Host ("  YEREL : {0,5} satir · {1,8:N2} USD  (tekil {2} satir · {3:N2} USD)" -f $yerelAy.Count,$yT,$yTekil.Count,$yTT)
+Write-Host ("  AMBAR : {0,5} satir · {1,8:N2} USD  (tekil {2} satir · {3:N2} USD)" -f $ambar.Count,$aT,$aTekil.Count,$aTT)
+if($ambar.Count -gt $aTekil.Count){ Write-Host ("  MUKERRER (ambar): {0} satir · {1:N2} USD - fren bunlari SAYMAZ" -f ($ambar.Count-$aTekil.Count),($aT-$aTT)) -ForegroundColor DarkYellow }
+$fark=[math]::Abs($yTT-$aTT)
 if($fark -gt 0.01){ Write-Host ("  ⚠ FARK : {0:N2} USD - iki taraf ayni freni gormuyor" -f $fark) -ForegroundColor Yellow }
 else{ Write-Host "  ✓ toplamlar ayni" -ForegroundColor Green }
 
 if($Ozet){ return }
-if(-not ($Yukle -or $Indir)){ throw 'Yon belirt: -Yukle · -Indir · -Ozet' }
+if($YerelIkizTemizle){
+  # Ikiz = ayni etiket+tutar, biri digerinden TAM 3 saat SONRA; cikan, INDIRILMIS olan (varsayim=true, satirlar bos -
+  # Indir'in yazdigi bicim). Iki taraf da kendi uretimiyse (satirlar dolu) dokunulmaz, sayilir.
+  $tumSatir=@(Get-Content $defter -Encoding UTF8)
+  $anahtarSatir=@{}; for($i=0;$i -lt $tumSatir.Count;$i++){ $o=$null; try{ $o=$tumSatir[$i]|ConvertFrom-Json }catch{ continue }; if(-not $o){ continue }
+    $anahtarSatir[(Anahtar $o.zaman $o.etiket $o.toplamUsd)]=$i }
+  $cikacak=@{}; $dokunulmayan=0; $cikanUsd=0.0
+  foreach($a in @($anahtarSatir.Keys)){
+    $ikiz=AnahtarKaydir $a -3
+    if(-not $anahtarSatir.ContainsKey($ikiz)){ continue }
+    $o=$tumSatir[$anahtarSatir[$a]]|ConvertFrom-Json
+    if([bool]$o.varsayim -and -not @($o.satirlar).Count){ $cikacak[$anahtarSatir[$a]]=$true; $cikanUsd+=[double]$o.toplamUsd } else { $dokunulmayan++ }
+  }
+  Write-Host ("YEREL IKIZ: {0} satir · {1:N2} USD cikarilacak · kendi uretimi oldugu icin dokunulmayan {2}" -f $cikacak.Count,$cikanUsd,$dokunulmayan) -ForegroundColor Cyan
+  if(-not $Yaz){ Write-Host 'KURU KOSU - dosya degismedi. Yazmak icin: -YerelIkizTemizle -Yaz' -ForegroundColor Yellow; return }
+  $yedekDizin='C:\TETIKTE-YEDEK\bedel-defter'; New-Item -ItemType Directory -Force $yedekDizin | Out-Null
+  Copy-Item $defter (Join-Path $yedekDizin ("bedel-kayit-" + (Get-Date -Format 'yyyyMMdd-HHmmss') + '.jsonl')) -Force
+  $kalan=New-Object System.Collections.Generic.List[string]; for($i=0;$i -lt $tumSatir.Count;$i++){ if(-not $cikacak.ContainsKey($i)){ $kalan.Add($tumSatir[$i]) } }
+  $mx=New-Object System.Threading.Mutex($false,'Global\tetikte-bedel-kayit'); $al=$false
+  try{ $al=$mx.WaitOne(20000) }catch{ $al=$true }
+  try{ [IO.File]::WriteAllLines($defter,$kalan,[Text.UTF8Encoding]::new($false)) } finally{ if($al){ try{ $mx.ReleaseMutex() }catch{} }; $mx.Dispose() }
+  Write-Host ("YAZILDI: {0} -> {1} satir (yedek {2})" -f $tumSatir.Count,$kalan.Count,$yedekDizin) -ForegroundColor Green
+  return
+}
+if(-not ($Yukle -or $Indir)){ throw 'Yon belirt: -Yukle · -Indir · -Ozet · -YerelIkizTemizle' }
 
 $ambarAnahtar=@{}; foreach($x in $ambar){ $ambarAnahtar[(Anahtar $x.zaman $x.etiket $x.toplam_usd)]=$true }
 
 if($Yukle){
-  $gonderHam=@($yerelAy|Where-Object{ -not $ambarAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplamUsd)) })
+  $gonderHam=@($yerelAy|Where-Object{ -not (TabloVar $ambarAnahtar (Anahtar $_.zaman $_.etiket $_.toplamUsd)) })   # 25.09: ±3 saat ikiz de "var" sayilir
   # 19.09: IC TEKILLESTIRME satir ici yapilir. ⛔ Once bunu bir FONKSIYON yapmistim; PS 5.1'de dizi donusu
   #   cagirana TEK NESNE olarak gecti, @() onu 1 ogeye sardi ve bulut "Durumu ambardan indir" adimi
   #   ConvertToFinalInvalidCastException ile dustu (run 35423527375). Yerel KURU kosuda "1 satir" yaziyordu
@@ -156,7 +228,7 @@ if($Yukle){
   $n=0; $hata=0; $paket=New-Object System.Collections.Generic.List[object]
   foreach($x in $gonder){
     $paket.Add([ordered]@{
-      zaman=([datetime]$x.zaman).ToString('o'); etiket="$($x.etiket)"; ders="$($x.ders)"
+      zaman=(ZamanOfsetli $x.zaman); etiket="$($x.etiket)"; ders="$($x.ders)"   # 25.09: ofsetsiz 'o' TR saatini UTC diye yaziyordu
       toplam_usd=[double]$x.toplamUsd; varsayim=[bool]$x.varsayim
       satirlar=$x.satirlar; yazan=$yazan })
     if($paket.Count -ge 200){
@@ -175,7 +247,7 @@ if($Yukle){
 
 # INDIR: ambar -> yerel (yalniz yerelde OLMAYAN)
 $yerelAnahtar=@{}; foreach($x in $yerelAy){ $yerelAnahtar[(Anahtar $x.zaman $x.etiket $x.toplamUsd)]=$true }
-$ekHam=@($ambar|Where-Object{ -not $yerelAnahtar.ContainsKey((Anahtar $_.zaman $_.etiket $_.toplam_usd)) })
+$ekHam=@($ambar|Where-Object{ -not (TabloVar $yerelAnahtar (Anahtar $_.zaman $_.etiket $_.toplam_usd)) })   # 25.09: ±3 saat ikiz yerelde varsa EKLENMEZ
 # 19.09: ambarda ayni satirin kopyalari var (olculdu: 31 kopyaya kadar) - yerele BIR kez yazilir.
 $gorEk=@{}
 $ek=@($ekHam | Where-Object { $a=Anahtar $_.zaman $_.etiket $_.toplam_usd; if($gorEk.ContainsKey($a)){ $false } else { $gorEk[$a]=1; $true } })

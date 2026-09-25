@@ -8,19 +8,19 @@ Sitede sayfadan okunan soru: **4.273** (Türkçe sayfası konu göstermiyor → 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Finansal Muhasebe | 494 | 899 | 28,1 | 1030 | 300 | 53 | 1 | 140 | 70 |
-| Denetim | 283 | 498 | 15,6 | 646 | 182 | 28 | 2 | 71 | 30 |
+| Denetim | 281 | 491 | 15,3 | 643 | 182 | 26 | 2 | 71 | 26 |
 | Yabancı Dil | 85 | 321 | 10,0 | 256 | 42 | 22 | 0 | 21 | 121 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 367 | 108 | 12 | 0 | 19 | 10 |
 | Matematik | 119 | 256 | 8,0 | 435 | 43 | 12 | 3 | 61 | 23 |
-| Ticaret Hukuku | 131 | 236 | 7,4 | 254 | 69 | 11 | 0 | 51 | 15 |
+| Ticaret Hukuku | 129 | 226 | 7,1 | 246 | 69 | 9 | 0 | 51 | 13 |
 | Türkçe | 126 | 224 | 7,0 | ölçülmedi | 0 | 0 | 0 | 0 | 0 |
-| Vergi Hukuku | 160 | 204 | 6,4 | 158 | 55 | 7 | 5 | 93 | 8 |
+| Vergi Hukuku | 160 | 200 | 6,3 | 156 | 55 | 7 | 5 | 93 | 6 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 208 | 61 | 13 | 1 | 21 | 13 |
 | Ekonomi | 137 | 193 | 6,0 | 151 | 47 | 10 | 3 | 77 | 9 |
-| İş ve Sosyal Güvenlik Hukuku | 95 | 182 | 5,7 | 156 | 43 | 15 | 0 | 37 | 23 |
+| İş ve Sosyal Güvenlik Hukuku | 96 | 186 | 5,8 | 157 | 43 | 16 | 0 | 37 | 26 |
+| Borçlar Hukuku | 91 | 180 | 5,6 | 192 | 47 | 15 | 0 | 29 | 25 |
 | Maliye | 119 | 168 | 5,3 | 123 | 35 | 8 | 5 | 71 | 7 |
-| Borçlar Hukuku | 89 | 166 | 5,2 | 182 | 47 | 13 | 0 | 29 | 21 |
-| Meslek Hukuku | 91 | 160 | 5,0 | 148 | 42 | 7 | 1 | 41 | 21 |
+| Meslek Hukuku | 92 | 163 | 5,1 | 150 | 42 | 8 | 1 | 41 | 22 |
 | Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 153 | 28 | 4 | 4 | 78 | 15 |
 | Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 6 | 2 | 0 | 0 | 1 | 0 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -89,10 +89,10 @@ Sitede sayfadan okunan soru: **4.273** (Türkçe sayfası konu göstermiyor → 
 | Yabancı Dil | karsilastirma yapisi | 5 / 4 | 1 | 4 |
 | Borçlar Hukuku | takas-borclar kanunu | 5 / 5 | 2 | 3 |
 | Borçlar Hukuku | irade bozuklugu | 5 / 5 | 2 | 3 |
-| Denetim | sendika guvenceleri (yonetici-temsilci) | 4 / 4 | 1 | 3 |
 | Denetim | banka hesaplari denetim unsurlari | 4 / 4 | 1 | 3 |
 | Ekonomi | tam rekabet kisa donem denge | 5 / 5 | 2 | 3 |
 | Finansal Muhasebe | depozito iadesi kaydi | 10 / 10 | 7 | 3 |
 | Finansal Muhasebe | ifac bunyesindeki kuruluslar | 5 / 5 | 2 | 3 |
 | Finansal Muhasebe | kapsamli gelir | 4 / 4 | 1 | 3 |
 | İş ve Sosyal Güvenlik Hukuku | sigortali sayilma | 7 / 7 | 4 | 3 |
+| İş ve Sosyal Güvenlik Hukuku | sendika guvenceleri (yonetici-temsilci) | 4 / 4 | 1 | 3 |

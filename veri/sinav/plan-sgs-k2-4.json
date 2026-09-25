@@ -1,0 +1,93 @@
+[
+    {
+        "ders": "Is ve Sosyal Guvenlik Hukuku|Is ve Sosyal Guvenlik",
+        "dersAd": "Is ve Sosyal Guvenlik Hukuku|Is ve Sosyal Guvenlik",
+        "etiket": "sgs-k2-issgk-zor",
+        "adet": 12,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-issgk-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-issgk-zor.json"
+    },
+    {
+        "ders": "Borclar Hukuku|Ticaret ve Borclar",
+        "dersAd": "Borclar Hukuku|Ticaret ve Borclar",
+        "etiket": "sgs-k2-borclar-kolay",
+        "adet": 2,
+        "zorluk": "kolay",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-borclar-kolay.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-borclar-kolay.json"
+    },
+    {
+        "ders": "Matematik",
+        "dersAd": "Matematik",
+        "etiket": "sgs-k2-mat-cokzor",
+        "adet": 6,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-mat-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-mat-cokzor.json"
+    },
+    {
+        "ders": "Mali Tablolar Analizi",
+        "dersAd": "Mali Tablolar Analizi",
+        "etiket": "sgs-k2-mta-zor",
+        "adet": 5,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-mta-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-mta-zor.json"
+    },
+    {
+        "ders": "Ataturk Ilke",
+        "dersAd": "Ataturk Ilke",
+        "etiket": "sgs-k2-inkilap-kolay",
+        "adet": 3,
+        "zorluk": "kolay",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-inkilap-kolay.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-inkilap-kolay.json"
+    },
+    {
+        "ders": "Ekonomi",
+        "dersAd": "Ekonomi",
+        "etiket": "sgs-k2-ekonomi-cokzor",
+        "adet": 2,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-ekonomi-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-ekonomi-cokzor.json"
+    },
+    {
+        "ders": "^Maliye$",
+        "dersAd": "^Maliye$",
+        "etiket": "sgs-k2-maliye-zor",
+        "adet": 5,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k2-maliye-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k2-maliye-zor.json"
+    }
+]

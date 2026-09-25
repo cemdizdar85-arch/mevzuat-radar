@@ -104,17 +104,22 @@ $kova=@{}
 #   🚫 GORMEZ: yayin sartini gecmeyen soruyu (zaten havuza girmez) · kaydi sonradan silinen soruyu (kayit sessizce etkisiz kalir,
 #     asagida "uygulanmayan" sayisi basilir).
 $DERS_DUZELTME_TABLOSU=@{}
+#   KONU DUZELTMESI (ayni dosya, 'konu' alani): soru metnine gore yanlis etiketli sorunun konusu. Kapsama sayimi ve ekrandaki
+#   konu buradan gelir (motor/kaydir-coz.ps1 secim satirindaki konuyu kullanir). Cevap dagilimini degistirmedigi icin
+#   durum='bekle' olan ders tasimasinda da UYGULANIR.
+$KONU_DUZELTME_TABLOSU=@{}
 $DERS_DUZELTME_YOLU=Join-Path $depoKok 'veri\sinav\sgs-ders-duzelt.json'
 if($Sinav -eq 'sgs' -and (Test-Path $DERS_DUZELTME_YOLU)){
   $DERS_DUZELTME_DOSYASI=Get-Content $DERS_DUZELTME_YOLU -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach($DUZELTME_KAYDI in @($DERS_DUZELTME_DOSYASI.duzelt.PSObject.Properties)){
+    if($DUZELTME_KAYDI.Value.PSObject.Properties['konu'] -and "$($DUZELTME_KAYDI.Value.konu)".Trim()){ $KONU_DUZELTME_TABLOSU[$DUZELTME_KAYDI.Name]="$($DUZELTME_KAYDI.Value.konu)".Trim() }
     if("$($DUZELTME_KAYDI.Value.durum)" -ne 'uygula'){ continue }
     $HEDEF_DERS_ADI="$($DUZELTME_KAYDI.Value.ders)"
     if(@($DERS_TABLO.Values) -notcontains $HEDEF_DERS_ADI){ throw "sgs-ders-duzelt.json: '$($DUZELTME_KAYDI.Name)' hedef ders '$HEDEF_DERS_ADI' DERS_TABLO'da yok" }
     $DERS_DUZELTME_TABLOSU[$DUZELTME_KAYDI.Name]=$HEDEF_DERS_ADI
   }
 }
-$DUZELTILEN_SORU_SAYISI=0
+$DUZELTILEN_SORU_SAYISI=0; $KONU_DUZELTILEN_SAYISI=0
 $disSinav=@{}   # sinav filtresinin disarida biraktigi partiler - SESSIZ gecilmez
 foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip-parti-*.json')){
   $et=($x.BaseName -replace '^kalip-parti-','')
@@ -158,13 +163,14 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
     if(-not $SORU_DERSI){ $atlanan[$et]=1+[int]$atlanan[$et]; continue }
     if(-not $kova.ContainsKey($SORU_DERSI)){ $kova[$SORU_DERSI]=New-Object System.Collections.Generic.List[object] }
     $kova[$SORU_DERSI].Add([pscustomobject]@{
-      etiket=$et; id=$p.Name; ders=$SORU_DERSI; konu="$($v.konu)"
+      etiket=$et; id=$p.Name; ders=$SORU_DERSI; konu=$(if($KONU_DUZELTME_TABLOSU.ContainsKey("$et/$($p.Name)")){ $KONU_DUZELTILEN_SAYISI++; $KONU_DUZELTME_TABLOSU["$et/$($p.Name)"] } else { "$($v.konu)" })
       donem=$(if($v.PSObject.Properties['donem']){ [int]$v.donem } else { 1 })
       kurtarma=$false })
     $sayac[$SORU_DERSI]=1+[int]$sayac[$SORU_DERSI]
   }
 }
 Write-Host ("taranan {0:N0} soru · YAYIN SARTINI saglayan {1:N0}" -f $toplam,$gecen) -ForegroundColor Cyan
+if($KONU_DUZELTME_TABLOSU.Count){ Write-Host ("KONU DUZELTMESI: {0} kayit · uygulanan {1}" -f $KONU_DUZELTME_TABLOSU.Count,$KONU_DUZELTILEN_SAYISI) -ForegroundColor Cyan }
 if($DERS_DUZELTME_TABLOSU.Count){ Write-Host ("DERS DUZELTMESI: {0} kayit · uygulanan {1} · uygulanmayan {2} (soru havuzda yok / yayin sartini gecmiyor)" -f $DERS_DUZELTME_TABLOSU.Count,$DUZELTILEN_SORU_SAYISI,($DERS_DUZELTME_TABLOSU.Count-$DUZELTILEN_SORU_SAYISI)) -ForegroundColor Cyan }
 if($disSinav.Count){
   $dn=0; foreach($v in $disSinav.Values){ $dn+=$v }
