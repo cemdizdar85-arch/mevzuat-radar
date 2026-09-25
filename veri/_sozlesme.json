@@ -11,6 +11,18 @@
                        "dusus_tavani":  0.30
                    },
     "dosyalar":  {
+                     "veri/yerel-ayna-raporu.json":  {
+                                                    "azami_yas_saat":  30,
+                                                    "not":  "25.09: yerel ayna (TR-IP, 06:30) her kosuda yazar ve commit'ler. 25.09'da push sessizce dusmustu; rapor ana tele ulasmazsa burada BAYAT olur."
+                                                },
+                     "veri/yerel-indirici-nabiz.json":  {
+                                                    "azami_yas_saat":  30,
+                                                    "not":  "25.09: yerel indirici (TR-IP, 09:30) nabzi - mevzuat-hazir'in tek besleyicisi. Gelmezse bulut aynasi taze metin alamaz."
+                                                },
+                     "veri/gorev-nabzi.json":  {
+                                                    "azami_yas_saat":  30,
+                                                    "not":  "25.09: dizustu gorev nabzi (motor/gorev-kur.ps1 -yayinla, 06:45). Gelmezse yerel robotlarin durumu KOR."
+                                                },
                      "veri/alacak-besleme-damga.json":  {
                                                     "azami_yas_saat":  30,
                                                     "not":  "24.09: Alacak Radari canli beslemesinin gozu. Canli veri git DISINDA (gizli kasa, 19.08) oldugundan veri/alacak-arsiv.json girdisi CI'da hep 'yok' sayiliyordu - 24.09 ilan.gov.tr 403'u sessiz gecti. Damga yalniz basarili hasatta yazilir (motor/alacak-ilan-hasat.ps1); gunde 2 kosu -> 30 saat = en az 2 kosu ust uste dusmus."

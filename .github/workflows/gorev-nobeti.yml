@@ -85,6 +85,18 @@ jobs:
             done
           fi
 
+      # 25.09.2026 (Cem "2 yap"): KIRMIZI hukum 23-25.09 her gun is akisini dusurdu ama Cem'e ULASMADI (yalniz
+      # GitHub'in kendi bildirimi). Oteki robotlardaki duzenle gerekceli mail: hangi gorev, hangi kod, ne zaman.
+      - name: KIRMIZIYSA Cem'e haber ver
+        if: steps.olc.outputs.hukum == 'KIRMIZI'
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          $govde = (Get-Content veri/gorev-nobet-log.txt -Encoding utf8) -join "`n"
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE - yerel robot gorevi KIRMIZI (dizustu)' -Mesaj ("$govde`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+
       - name: KAPI
         if: steps.olc.outputs.hukum == 'KIRMIZI'
         run: |

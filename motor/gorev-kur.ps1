@@ -157,10 +157,20 @@ foreach($g in $GOREVLER){
 # Gunluk gorev icin esik 36 saat: bir gun atlamak (makine kapali) tolere edilir,
 # IKI gun atlamak edilmez. Okuyamadigimiz gorev "yok" degil KOR'dur.
 $ESIK_SAAT = 36
+# 25.09.2026 (Cem "2 yap": robot gorevlerinin basarisiz bitisi nobete baglansin): bu makinedeki OTEKI robot gorevleri
+# de olculur - YALNIZ OLCUM, kuruluma girmez (Windows gorevlerine dokunulmaz). Olculen araliklar (25.09):
+# ambar-nabiz 15 dk, hat-nobetci 5 dk, toplu-sonda 30 dk, AlacakKasaYedek haftalik. Esik gece uykusunu (8-9 sa) tolere eder.
+$IZLE_YALNIZ = @(
+  @{ ad='tetikte-ambar-nabiz';      saat='15 dk arayla'; esik=16 },
+  @{ ad='tetikte-hat-nobetci';      saat='5 dk arayla';  esik=16 },
+  @{ ad='tetikte-toplu-sonda';      saat='30 dk arayla'; esik=16 },
+  @{ ad='TETIKTE-AlacakKasaYedek';  saat='haftalik';     esik=192 }
+)
 $simdi = Get-Date
 $nabiz = @()
 $hukum = 'YESIL'
-foreach($g in $GOREVLER){
+foreach($g in @($GOREVLER) + @($IZLE_YALNIZ)){
+  $esik = if($g.esik){ [double]$g.esik } else { $ESIK_SAAT }
   $s = [ordered]@{ ad=$g.ad; beklenen_saat=$g.saat; durum='KOR'; sebep=''; son_kosu=$null; son_sonuc=$null; gecikme_saat=$null; gorev_durumu=$null; pilde_bekliyor=$false }
   try {
     $t = Get-ScheduledTask -TaskName $g.ad -ErrorAction Stop
@@ -199,7 +209,7 @@ foreach($g in $GOREVLER){
       if($t.State -eq 'Running' -or $i.LastTaskResult -eq 267009){
         $s.durum='YESIL'; $s.sebep='SU ANDA KOSUYOR'
       }
-      elseif($gec -gt $ESIK_SAAT){ $s.durum='KIRMIZI'; $s.sebep=("son kosu {0} saat once (esik {1})" -f $gec,$ESIK_SAAT) }
+      elseif($gec -gt $esik){ $s.durum='KIRMIZI'; $s.sebep=("son kosu {0} saat once (esik {1})" -f $gec,$esik) }
       elseif($i.LastTaskResult -ne 0 -and $BILGI_KODU -notcontains $i.LastTaskResult){
         $s.durum='KIRMIZI'; $s.sebep=("son kosu HATA ile bitti (kod {0})" -f $i.LastTaskResult)
       }

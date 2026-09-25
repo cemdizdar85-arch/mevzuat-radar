@@ -14,7 +14,19 @@
 #
 #  ENV: SUPABASE_SERVICE_KEY (User-env'den okunur). Kor kalma: her kosu
 #  veri/yerel-ayna-raporu.json + git commit (bakan herkes gorur).
+#
+#  25.09.2026 - TEK SAHIP (Cem "1 ve 2 yap"): veri/mevzuat/ (yutma durumu) IKI robot tarafindan yaziliyordu -
+#  bu betik + bulut 'Gunluk Kanun Aynasi' (mevzuat.yml, gunde 2). 25.09 07:00'de cakistilar, depo kilitlendi.
+#  Olcum 12-25.09: bu betik 13 kosunun 13'unde 0 metin INDIRDI; hepsi veri/mevzuat-hazir'den (yerel-indirici,
+#  TR-IP, 09:30) geliyordu = bulutun da okudugu ayni girdi. Yani yutma burada IKINCI KEZ yapiliyordu.
+#  SAHIPLIK:  veri/mevzuat/**            -> YALNIZ bulut Kanun Aynasi
+#             veri/mevzuat-hazir/**      -> YALNIZ motor/yerel-indirici.ps1 (TR-IP indirme, gecici worktree'den push)
+#             veri/mevzuat-kaynaklar.json + teblig-hasat-raporu -> BU BETIK (teblig hasadi; mevzuat.gov.tr GitHub'i
+#             engelledigi icin bulut yapamaz). Onceden bu iki dosya HIC commit'lenmiyordu - yeni teblig makinede kaliyordu.
+#  Yeni teblig zinciri: 06:30 hasat -> manifest push -> 09:30 yerel-indirici G9'u indirir -> hazir push -> bulut yutar.
+#  Soru-dayanak nobeti bulutta (soru-dayanak.yml). Eski davranis (indir + yut + dayanak + veri/mevzuat commit): -EskiYol
 # ============================================================================
+param([switch]$EskiYol)
 $ErrorActionPreference = 'Continue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $kok = 'C:\Users\cemdi\OneDrive\Masaüstü\mevzuat işi\mevzuat-radar'
@@ -41,6 +53,8 @@ function PdfMi([string]$yol){
 Write-Host '=== TEBLIG HASAT ==='
 try { & (Join-Path $kok 'motor\teblig-hasat.ps1') } catch { Write-Host ('hasat atlandi: ' + $_.Exception.Message) }
 
+$ok=0; $hazir=0; $htmlRed=0; $agHata=0; $kesik=$false; $onceden=0; $yutKod='bulutta (mevzuat.yml)'
+if($EskiYol){   # 25.09: indir + yut + dayanak yalniz -EskiYol ile (tek sahip notu dosya basinda)
 $man = Get-Content (Join-Path $kok 'veri\mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $oturum = OturumAc
 $ok=0; $hazir=0; $htmlRed=0; $agHata=0; $ardisikAg=0; $kesik=$false; $say=0; $onceden=0
@@ -89,9 +103,11 @@ $yutKod = $LASTEXITCODE
 # dayanan sorular otomatik cekilir (Cem'e verilen sozun zinciri).
 Write-Host '=== SORU-DAYANAK NOBETCISI ==='
 & (Join-Path $kok 'motor\soru-dayanak-nobetcisi.ps1')
+} else { Write-Host 'INDIRME/YUTMA/DAYANAK: bulutta (tek sahip, 25.09) - burada yalniz teblig hasadi' }
 
 [IO.File]::WriteAllText($raporYol, (ConvertTo-Json -Depth 4 -InputObject ([ordered]@{
   tarih=(Get-Date -Format 'dd.MM.yyyy HH:mm'); makine='yerel (TR-IP)'
+  rol=$(if($EskiYol){ 'eski yol: indir + yut + dayanak' } else { 'teblig hasadi (veri/mevzuat sahibi: bulut Kanun Aynasi)' })
   indirilen=$ok; hazir=$hazir; onceden=$onceden; htmlRed=$htmlRed; agHata=$agHata; devreKesik=$kesik
   yutucuCikis=$yutKod
 })), (New-Object Text.UTF8Encoding($false)))
@@ -105,10 +121,17 @@ Write-Host '=== SORU-DAYANAK NOBETCISI ==='
 #  (2) pull --autostash'siz -> kirli agacta duserdi ("cannot pull with rebase:
 #      You have unstaged changes"). Robotlar veri dosyasi yazdigi icin agac
 #      neredeyse HER ZAMAN kirlidir; bu, aynayi kilitleyen dugumdu.
-$AYNA_YOLLAR = @('veri/mevzuat','veri/yerel-ayna-raporu.json','veri/soru-dayanak-raporu.json')
-git add -A -- veri/mevzuat
+if($EskiYol){
+  $AYNA_YOLLAR = @('veri/mevzuat','veri/yerel-ayna-raporu.json','veri/soru-dayanak-raporu.json')
+  git add -A -- veri/mevzuat
+  git add -- veri/soru-dayanak-raporu.json 2>$null
+} else {
+  # 25.09 tek sahip: veri/mevzuat'a DOKUNULMAZ; teblig hasadinin ciktisi (once hic commit'lenmiyordu) + kendi rapor
+  $AYNA_YOLLAR = @('veri/mevzuat-kaynaklar.json','veri/teblig-hasat-raporu.json','veri/yerel-ayna-raporu.json')
+  git add -- veri/mevzuat-kaynaklar.json 2>$null
+  git add -- veri/teblig-hasat-raporu.json 2>$null
+}
 git add -- veri/yerel-ayna-raporu.json
-git add -- veri/soru-dayanak-raporu.json 2>$null
 git diff --cached --quiet -- $AYNA_YOLLAR
 if($LASTEXITCODE -ne 0){
   git commit -m 'Yerel ayna kosusu (TR-IP) [veri-operasyonu]' -- $AYNA_YOLLAR | Out-Null
