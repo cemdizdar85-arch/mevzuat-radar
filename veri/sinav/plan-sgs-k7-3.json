@@ -1,0 +1,93 @@
+[
+    {
+        "ders": "Matematik",
+        "dersAd": "Matematik",
+        "etiket": "sgs-k7-mat-zor",
+        "adet": 5,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-mat-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-mat-zor.json"
+    },
+    {
+        "ders": "Ekonomi",
+        "dersAd": "Ekonomi",
+        "etiket": "sgs-k7-ekonomi-cokzor",
+        "adet": 2,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-ekonomi-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-ekonomi-cokzor.json"
+    },
+    {
+        "ders": "Matematik",
+        "dersAd": "Matematik",
+        "etiket": "sgs-k7-mat-kolay",
+        "adet": 2,
+        "zorluk": "kolay",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-mat-kolay.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-mat-kolay.json"
+    },
+    {
+        "ders": "Ekonomi",
+        "dersAd": "Ekonomi",
+        "etiket": "sgs-k7-ekonomi-kolay",
+        "adet": 1,
+        "zorluk": "kolay",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-ekonomi-kolay.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-ekonomi-kolay.json"
+    },
+    {
+        "ders": "Ataturk Ilke",
+        "dersAd": "Ataturk Ilke",
+        "etiket": "sgs-k7-inkilap-kolay",
+        "adet": 1,
+        "zorluk": "kolay",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-inkilap-kolay.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-inkilap-kolay.json"
+    },
+    {
+        "ders": "^Maliye$",
+        "dersAd": "^Maliye$",
+        "etiket": "sgs-k7-maliye-cokzor",
+        "adet": 1,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-maliye-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-maliye-cokzor.json"
+    },
+    {
+        "ders": "Meslek Hukuku",
+        "dersAd": "Meslek Hukuku",
+        "etiket": "sgs-k7-meslek-zor",
+        "adet": 1,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k7-meslek-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k7-meslek-zor.json"
+    }
+]
