@@ -162,6 +162,6 @@
   window.TT = {
     istemci: istemci, kullanici: kullanici, paketler: paketler, acarMi: acarMi,
     sinaviBul: sinaviBul, kapsar: kapsar, cikis: cikis, onbellekTemizle: temizle,
-    CEVRIMDISI_GUN: CEVRIMDISI_GUN
+    CEVRIMDISI_GUN: CEVRIMDISI_GUN, SB_URL: SB_URL, SB_KEY: SB_KEY
   };
 })();

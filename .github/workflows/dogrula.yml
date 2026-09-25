@@ -379,8 +379,17 @@ jobs:
           - { ad: "Mobil uygulama icerik kapisi OZ-SINAVI (kasa + sizinti + satis)",
               kabuk: bash, komut: "node mobil/hazirla-sinavi.js" }
           # Kural 8: kapilar tek tek kor edilir, her birinde sinav KIRMIZI dusmeli (4/4).
-          - { ad: "Mobil uygulama icerik kapisi MUTASYON (4 kapi kor edilince sinav duser mi)",
+          - { ad: "Mobil uygulama icerik kapisi MUTASYON (5 kapi kor edilince sinav duser mi)",
               kabuk: bash, komut: "node mobil/hazirla-sinavi.js --mutasyon" }
+          # 25.09 (Cem "1 ve 2 yap"): uygulama ici satin alma. radar-app/edge/magaza-dogrula.ts'in saf
+          # karar blogu (kime ne tanimlanir, ne reddedilip iade edilir) GERCEK kodundan kosar; bitis
+          # tarihi fiyat-motoru.js ile, paket kurali paket-kapisi.js ile, magaza fiyati site fiyati/0,85
+          # ile, satilan ders adlari kasadaki adlarla ayni mi olculur. Ag yok, saniyeler.
+          # GORMEZ: Google API'nin gercek yaniti, Supabase yazimi (canli prova ister).
+          - { ad: "Mobil satin alma karari OZ-SINAVI (hak karari + fiyat + tarih esligi)",
+              kabuk: bash, komut: "node mobil/magaza-sinavi.js" }
+          - { ad: "Mobil satin alma karari MUTASYON (5 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node mobil/magaza-sinavi.js --mutasyon" }
           # 24.09 (Cem "1 ve 3 yap"): fark.html "30.000'den fazla", tuzak.html "29.000'den fazla soru"
           # yaziyordu; sitede 7.117 soru vardi (Ticari Reklam Yon. m.9: ispat reklam verende).
           # Yayindaki soru sayisi iddiasini kaydir/<sinav>/index.html ile kiyaslar. Her push'ta

@@ -6,9 +6,9 @@
  * Sözleşme paket-kapisi.js ile AYNI: window.__pkKapi = Promise<{acik:true, sb} | {acik:false}>.
  * kasa-yukle.js değişmeden çalışır ve soruları kilitli kasadan (paket_soru, RLS) çeker.
  *
- * Sitedekinden farkları (Cem 25.09 kararı "uygulamada satış yok, giriş var"):
- *   - Perdede satın alma / paket sayfası düğmesi YOK. Mağaza kuralları uygulama içinden
- *     dışarıdaki satışa yönlendirmeyi yasaklıyor; perde yalnız "giriş" ve "ana ekran" der.
+ * Sitedekinden farkları (Cem 25.09: dışarıya satış yönlendirmesi yok; satış yalnız mağaza içinden):
+ *   - Perdede SİTENİN satın alma sayfasına düğme YOK (mağaza kuralı). Paketi olmayana uygulamanın
+ *     kendi "Paketler" bölümü gösterilir (magaza.js, Google Play ödemesi).
  *   - Sayfaya sonradan eklenen satın alma bağlantıları (kasa-yukle.js'in "ders pakette yok"
  *     ekranındaki düğme gibi) gözlemciyle kaldırılır. hazirla.js aynı düğmeyi derlemede de söker; bu ikinci kat.
  *   - Ağ yoksa son bilinen paket bilgisiyle açılır (ortak.js, en fazla 7 gün).
@@ -104,8 +104,9 @@
       dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#giris">Giriş yap</a>';
     } else if (tur === 'paket') {
       baslik = 'Bu sınav hesabında açık değil';
-      metin = 'Hesabındaki paket bu sınavı kapsamıyor. Hesabında açık olan sınavlar ana ekranda listelenir.';
-      dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html">Ana ekrana dön</a>';
+      metin = 'Hesabındaki paket bu sınavı kapsamıyor. Paketler ekranından uygulama içinde açabilirsin.';
+      dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#paketler">Paket seç</a>' +
+        '<a href="' + KOK + 'index.html">Ana ekrana dön</a>';
     } else {
       baslik = 'Bağlantı kurulamadı';
       metin = 'Paket bilgin kontrol edilemedi. İnternet bağlantını kontrol edip yeniden dene.';

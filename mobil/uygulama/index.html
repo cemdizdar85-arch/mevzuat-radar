@@ -42,6 +42,21 @@
     </div>
   </section>
 
+  <!-- PAKETLER (uygulama içi satın alma; fiyat mağazadan okunur) -->
+  <section id="paketler" class="bolum" hidden>
+    <h2>Paketler</h2>
+    <p id="paketNot" class="soluk">Ödeme Google Play üzerinden yapılır; paket hesabına hemen tanımlanır.</p>
+    <div id="urunListe" class="liste"></div>
+    <div id="dersSecim" class="kart" hidden>
+      <p id="dersSecimBaslik"><b></b></p>
+      <div id="dersKutular"></div>
+      <p id="dersSecimHata" class="hata" role="alert"></p>
+      <button type="button" id="dersSecimTamam" class="ana">Devam</button>
+      <button type="button" id="dersSecimVazgec" class="duz">Vazgeç</button>
+    </div>
+    <p id="satinDurum" class="soluk" role="status"></p>
+  </section>
+
   <!-- ÜCRETSİZ -->
   <section id="ucretsiz" class="bolum">
     <h2>Ücretsiz dene</h2>
@@ -76,6 +91,7 @@
     <p id="surum" class="soluk kucuk"></p>
   </footer>
 </main>
+<script src="magaza.js"></script>
 <script src="uygulama.js"></script>
 </body>
 </html>

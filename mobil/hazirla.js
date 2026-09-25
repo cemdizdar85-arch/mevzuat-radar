@@ -13,8 +13,11 @@
  *   KAPI-KASA   paket sayfası sorusuz kabuk olmalı: data-kasa-sayfa=<yol>,
  *               `const SORULAR=window.__KASA_SORULAR||[]`, gömülü SORULAR dizisi yok.
  *   KAPI-SIZINTI vitrin dışındaki HER dosyada `"dogru":` ve `const SORULAR=[` sıfır.
- *   KAPI-SATIS  hiçbir dosyada satış sayfasına bağ yok (satin-al/fiyat/radar-fiyat/mesafeli-satis .html)
- *               ve vitrin dışında satış düğmesi metni yok ("Paketi al", "Paketleri gör", "Paketi güncelle").
+ *   KAPI-SATIS  hiçbir dosyada SİTENİN satış sayfasına bağ yok (satin-al/fiyat/radar-fiyat/mesafeli-satis .html)
+ *               ve vitrin dışında sitenin satış düğmesi metni yok ("Paketi al", "Paketleri gör", "Paketi güncelle").
+ *               Uygulama içi satın alma (magaza.js, Google Play ödemesi) bu kapının konusu DEĞİL.
+ *   KAPI-UCRETSIZ (25.09, Cem "sınav başına 30 soru ücretsiz") vitrin sayfası uygulamaya en çok
+ *               UCRETSIZ_SORU soruyla girer; ders dağılımı korunarak kesilir, kesilemezse derleme durur.
  *
  * BU KAPILAR ŞUNU GÖRMEZ (yazılı körlük):
  *   - Kasa satırlarının kendisini (paket_soru RLS'i sunucuda; burada yalnız dosyaya bakılır).
@@ -23,7 +26,7 @@
  *   - Sayfaların çalışma anında uzaktan yüklediği içerik (yalnız paket_soru; o da RLS'li).
  *
  * Kullanım:  node mobil/hazirla.js [--kok <depo>] [--cikti <klasör>]
- * Öz-sınav:  node mobil/hazirla-sinavi.js   (dogrula.yml; mutasyon: HZ_MUTASYON=kasa|sizinti|satis|yama)
+ * Öz-sınav:  node mobil/hazirla-sinavi.js   (dogrula.yml; mutasyon: HZ_MUTASYON=kasa|sizinti|satis|yama|ucretsiz)
  */
 'use strict';
 const fs = require('fs');
@@ -43,6 +46,32 @@ const SATIS_METNI = /Paketi al|Paketleri gör|Paketi güncelle/;
 const KASA_YAMA_ESKI = "dugme('../../satin-al.html', 'Paketi güncelle')";
 const KASA_YAMA_YENI = "''";
 const SINAV_AD = { sgs: 'SGS', yeterlilik: 'SMMM Yeterlilik' };
+const UCRETSIZ_SORU = 30;   // Cem 25.09: sınav başına 30 ücretsiz soru
+
+/* Sayfadaki `const SORULAR=[...]` dizisinin başını/sonunu dize kaçışlarına dikkat ederek bulur. */
+function soruDizisiBul(html) {
+  const bas = html.indexOf('const SORULAR=[');
+  if (bas < 0) return null;
+  const i = bas + 'const SORULAR='.length;
+  let d = 0, q = false, e = false, j = i;
+  for (; j < html.length; j++) {
+    const c = html[j];
+    if (q) { if (e) e = false; else if (c === '\\') e = true; else if (c === '"') q = false; continue; }
+    if (c === '"') q = true; else if (c === '[') d++; else if (c === ']') { d--; if (d === 0) break; }
+  }
+  try { return { bas: i, son: j + 1, dizi: JSON.parse(html.slice(i, j + 1)) }; } catch (hata) { return null; }
+}
+/* Ders dağılımını koruyarak ilk n soruyu seçer: dersler sayfadaki ilk görülme sırasıyla, sırayla birer soru. */
+function dengeliSec(dizi, n) {
+  const gruplar = new Map();
+  for (const s of dizi) { const k = String(s.ders || ''); if (!gruplar.has(k)) gruplar.set(k, []); gruplar.get(k).push(s); }
+  const secilen = new Set();
+  const kuyruk = [...gruplar.values()];
+  while (secilen.size < Math.min(n, dizi.length)) {
+    for (const g of kuyruk) { if (g.length && secilen.size < n) secilen.add(g.shift()); }
+  }
+  return dizi.filter((s) => secilen.has(s));   // sayfadaki özgün sıra korunur
+}
 
 const hatalar = [];
 function kapi(ad, kosul, mesaj) {
@@ -118,7 +147,17 @@ let ucretsizSoru = 0;
 for (const yol of VITRIN) {
   if (!var_(yol)) continue;
   let html = oku(yol);
-  ucretsizSoru += say(html, /"dogru":/g);
+  const bulunan = soruDizisiBul(html);
+  kapi('KAPI-UCRETSIZ', !!bulunan, yol + ': SORULAR dizisi okunamadı (kesilemedi)');
+  if (bulunan && MUTASYON !== 'ucretsiz') {
+    const secilen = dengeliSec(bulunan.dizi, UCRETSIZ_SORU);
+    /* JSON içinde "</" kalırsa <script> erken kapanır; "<\/" aynı JSON değerini verir. */
+    html = html.slice(0, bulunan.bas) + JSON.stringify(secilen).replace(/<\//g, '<\\/') + html.slice(bulunan.son);
+  }
+  const sonra = soruDizisiBul(html);
+  const adet = sonra ? sonra.dizi.length : -1;
+  kapi('KAPI-UCRETSIZ', adet >= 0 && adet <= UCRETSIZ_SORU, yol + ': ücretsiz soru ' + adet + ' > ' + UCRETSIZ_SORU);
+  ucretsizSoru += Math.max(adet, 0);
   html = html.split(KAPI_ETIKETI).join('<script src="../../uygulama-kapisi.js"></script>');
   yaz(yol, html);
   const smmm = yol.indexOf('smmm') >= 0;
@@ -150,6 +189,13 @@ for (const ad of fs.readdirSync(path.join(MOBIL, 'uygulama'))) kopyala(path.join
 
 const paket = JSON.parse(fs.readFileSync(path.join(MOBIL, 'package.json'), 'utf8'));
 katalog.surum = paket.version;
+/* Mağaza ürünleri: fiyat GÖMÜLMEZ (uygulama mağazadan okur); yalnız kimlik, ad, sınav, ders sayısı. */
+const magazaYolu = path.join(MOBIL, 'magaza-urunleri.json');
+if (fs.existsSync(magazaYolu)) {
+  const m = JSON.parse(fs.readFileSync(magazaYolu, 'utf8'));
+  katalog.urunler = (m.urunler || []).map((u) => ({ id: u.id, ad: u.ad, sinav: u.sinav, ders: u.ders }));
+  katalog.dersler = m.dersler || {};
+}
 katalog.derleme = process.env.TT_DERLEME || new Date().toISOString().slice(0, 10);
 yaz('katalog.js', '/* hazirla.js üretir, elle düzenlenmez */\nwindow.TT_KATALOG=' + JSON.stringify(katalog) + ';\n');
 

@@ -2,8 +2,8 @@
  *
  * Ekranlar: giriş · Sınavlarım (hesabın paketine göre) · Ücretsiz dene · Günlük hatırlatıcı · Hesap.
  * Katalog (window.TT_KATALOG) derlemede mobil/hazirla.js tarafından yazılır: yalnız KASA MODUNDAKİ
- * (sorusuz) sayfalar + ücretsiz vitrin. Uygulamada satın alma YOK (Cem 25.09): hiçbir ekran fiyat,
- * paket satışı ya da dışarıdaki satış sayfasına yönlendirme göstermez.
+ * (sorusuz) sayfalar + ücretsiz vitrin (sınav başına 30) + mağaza ürünleri. Satın alma YALNIZ
+ * mağaza üzerinden (magaza.js, Cem 25.09 "1 ve 2 yap"); dışarıdaki satış sayfasına yönlendirme YOK.
  *
  * Yerel eklentiler window.Capacitor.Plugins üzerinden çağrılır (paketleyici yok). Tarayıcıda
  * açılırsa (Capacitor yok) hatırlatıcı gizlenir, dış bağlantılar yeni sekmede açılır.
@@ -101,6 +101,7 @@
     $('anaNot').textContent = acik.length
       ? 'Bir derse dokun, kaldığın yerden devam et. "Cihaza indir" ile internetsiz çözebilirsin.'
       : 'Hesabında bu uygulamada açılabilen bir sınav görünmüyor.';
+    if (window.TTMagaza) window.TTMagaza.goster(sb, k, yenile);
     var sinavlar = {};
     acik.forEach(function (d) { sinavlar[d.sinav] = 1; });
     var yakin = (K.yakinda || []).filter(function (d) { return sinavlar[d.sinav]; });
@@ -110,6 +111,7 @@
 
   function girisCiz() {
     goster('ana', false); goster('hesap', false); goster('giris', true); rozet('');
+    if (window.TTMagaza) window.TTMagaza.gizle();
   }
   function rozet(t) { $('durumRozet').textContent = t; $('durumRozet').hidden = !t; }
 
