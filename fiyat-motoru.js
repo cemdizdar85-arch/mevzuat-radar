@@ -80,14 +80,14 @@ var TAKSIT_ADET = 3;
 
 /* ---------------------------------------------------------------------------
    ELÇİ KODU — 15.09.2026 Cem kararı: elçi koduyla alan takipçiye SGS'de 400 TL
-   indirim (25.09'dan beri 3.390 → 2.990). İndirimin geçerliliğine SUNUCU karar verir
+   indirim; 25.09 aksamdan beri 400 + KDV = 480 TL (3.108 → 2.628). İndirimin geçerliliğine SUNUCU karar verir
    (radar-app/sql/2026-09-15-elci-programi.sql · siparis_elci_damga); buradaki
    rakam yalnız EKRAN gösterimidir ve sunucudaki elci_indirim tablosuyla AYNI olmalı.
    acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
    açılırsa takipçi indirimi ekranda görür ama sipariş indirimsiz yazılır.
    SQL basılıp doğrulandıktan sonra true yapılır.
 --------------------------------------------------------------------------- */
-var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
+var ELCI = { acik:false, indirim:{ sgs:480 }, bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
    İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında
@@ -117,8 +117,12 @@ var FIYAT = {
      Kodsuz alan 2.590 oder; elci satisinda bize kalan ayni (2.190 uzerinden).
      25.09.2026 CEM KARARI: kurulus 3.390 (2.825 + KDV) / liste 3.990. Hedef: elci kodlu satista
      (3.390 - 400 = 2.990) 1.000 TL komisyon, %5 kart kesintisi ve %25 KV sonrasi bize 1.007 TL kalsin;
-     elcisiz satista 1.992 TL. Etikette KDV dahil tutar buyuk, altinda 'KDV haric' kucuk (6502 m.54). */
-  sgs:            { kurulus:3390, liste:3990 },
+     elcisiz satista 1.992 TL. Etikette KDV dahil tutar buyuk, altinda 'KDV haric' kucuk (6502 m.54).
+     25.09.2026 (aksam) CEM KARARI 'F isle': kurulus 2.590 + KDV = 3.108 (ilk 500) / liste 2.990 + KDV = 3.588.
+     Elci kodu 400 + KDV = 480 TL -> takipci 2.190 + KDV = 2.628 oder. Kart acilinca 3 taksit (ayda 1.036 / 1.196).
+     Rapor: Masaustu Tetikte-SGS-Fiyat-Raporu-20260925-v2.xlsx (1.000 uyede ~1,69 milyon TL net, %8 taksit komisyonuyla).
+     Bant gerekcesi: uygulamalar 400-2.000, video 4.500-7.700 -> 3.108 uygulama rafinin ustunde, 'ucuz' okunmaz. */
+  sgs:            { kurulus:3108, liste:3588 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
      4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080                     */

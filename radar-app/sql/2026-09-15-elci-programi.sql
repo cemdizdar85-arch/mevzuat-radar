@@ -3,13 +3,13 @@
 --
 --  NEDEN: 15.09'da elçi davetinde iki söz verildi, ikisinin de arkasında sistem
 --  YOKTU (15.09 taramasında ölçüldü):
---    1) "Takipçiniz size özel kodla 400 TL indirimli alır (3.390 → 2.990; 25.09 fiyat kararı)."
+--    1) "Takipçiniz size özel kodla 400 + KDV (480 TL) indirimli alır (3.108 → 2.628; 25.09 akşam fiyat kararı)."
 --       Mevcut davet kodu (Çalışma Arkadaşım, veri/sql-davet-kodu.sql) indirim
 --       yapmıyor, iki tarafa +1 ay veriyor. Yani takipçi kodu girse de 2.590 görürdü.
 --    2) "Satış başına 750 / 1.000 / 1.250 TL, yalnız eşik üstü, kademe taşınır."
 --       Kim kaç satış yaptı, hangi kademede, ne hak etti — hesaplayan yapı yoktu.
 --
---  KARARLAR (Cem, 15.09): SGS 2.590 / 2.990 (25.09'dan beri 3.390 / 3.990) · elçi kodu 400 TL · komisyon
+--  KARARLAR (Cem, 15.09): SGS 2.590 / 2.990 (25.09 akşamdan beri 3.108 / 3.588 = 2.590+KDV / 2.990+KDV) · elçi kodu 400 TL · komisyon
 --  1–9. satış 750 · 10–49. satış 1.000 · 50–99. satış 1.250 · 100+ özel ·
 --  yalnız eşik üstü · kazanılan kademe sonraki döneme taşınır, tutturulamazsa
 --  bir kademe iner · komisyon 7 günlük iade süresi dolunca kesinleşir ·
@@ -75,7 +75,7 @@ revoke all on public.elciler from anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- 3) HANGİ PAKETTE KAÇ TL İNDİRİM — tek yer
---    Karar: yalnız SGS, 400 TL. Yeni paket eklenecekse buraya satır eklenir.
+--    Karar: yalnız SGS, 400 + KDV = 480 TL (25.09; önce 400). Yeni paket eklenecekse buraya satır eklenir.
 --    ⚠️ fiyat-motoru.js'teki ELCI.indirim ile AYNI olmalı (tarayıcı gösterimi oradan).
 -- ---------------------------------------------------------------------------
 create table if not exists public.elci_indirim (
@@ -84,7 +84,7 @@ create table if not exists public.elci_indirim (
 );
 alter table public.elci_indirim enable row level security;
 revoke all on public.elci_indirim from anon, authenticated;
-insert into public.elci_indirim (paket, indirim_tl) values ('sgs', 400)
+insert into public.elci_indirim (paket, indirim_tl) values ('sgs', 480)  -- 25.09 Cem: 400 + KDV
 on conflict (paket) do update set indirim_tl = excluded.indirim_tl;
 
 
@@ -290,7 +290,7 @@ revoke all on public.elci_donem_raporu from anon, authenticated;
 --  DOĞRULAMA — bastıktan sonra SQL editörde:
 --   a) select column_name from information_schema.columns
 --       where table_name='siparisler' and column_name in ('elci_kodu','indirim_tl','odendi_tarihi');   -- 3 satır
---   b) select * from elci_indirim;                                   -- sgs | 400
+--   b) select * from elci_indirim;                                   -- sgs | 480
 --   c) insert into elciler (kod, ad_soyad, email) values ('DENEME', 'Deneme Elçi', 'deneme@ornek.com');
 --      select elci_kodu_kontrol('deneme', 'sgs');                    -- 400
 --      select elci_kodu_kontrol('deneme', 'yeterlilik-tum');         -- 0
