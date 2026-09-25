@@ -25,6 +25,8 @@
   }
 }
 * { box-sizing: border-box; }
+/* hidden özniteliği, display veren sınıflarca (.liste grid) ezilmesin */
+[hidden] { display: none !important; }
 html, body { margin: 0; background: var(--taban); color: var(--yazi); }
 body {
   font: 16px/1.5 -apple-system, "Segoe UI", system-ui, Roboto, Arial, sans-serif;
@@ -68,5 +70,14 @@ button { font: inherit; cursor: pointer; }
 .anahtar { display: flex; align-items: center; gap: 10px; margin: 0; }
 .anahtar input { width: 20px; height: 20px; accent-color: var(--vurgu); }
 .yakinda { margin: 0; padding-left: 18px; color: var(--soluk); }
+.urun { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px;
+  background: var(--panel); color: var(--yazi); border: 1px solid var(--cizgi); }
+.urun .ad { flex: 1; font-weight: 700; }
+.urun .etiket { font-size: 12px; color: var(--soluk); display: block; font-weight: 500; }
+.urun .al { flex: none; padding: 9px 14px; border-radius: 999px; font-weight: 800; border: 0;
+  background: var(--vurgu); color: var(--vurguYazi); }
+.urun .al:disabled { opacity: .55; }
+#dersKutular label { display: flex; align-items: center; gap: 10px; font-weight: 600; margin: 0 0 10px; }
+#dersKutular input { width: 20px; height: 20px; accent-color: var(--vurgu); }
 .alt { margin-top: 30px; text-align: center; }
 .bag { background: none; border: 0; color: var(--soluk); text-decoration: underline; padding: 6px 8px; font-size: 14px; }

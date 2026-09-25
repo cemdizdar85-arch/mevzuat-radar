@@ -29,12 +29,12 @@ const HAZIRLA = path.join(__dirname, 'hazirla.js');
 
 /* --------- mutasyon kipi: kendini her kapı kör edilmiş olarak koşar, düşmesini bekler --------- */
 if (process.argv.includes('--mutasyon')) {
-  let tutan = 0; const MUT = ['kasa', 'sizinti', 'satis', 'yama'];
+  let tutan = 0; const MUT = ['kasa', 'sizinti', 'satis', 'yama', 'ucretsiz'];
   for (const m of MUT) {
     const r = spawnSync(process.execPath, [__filename], { env: Object.assign({}, process.env, { HZ_MUTASYON: m }), encoding: 'utf8' });
     const dustu = r.status !== 0;
     if (dustu) tutan++;
-    console.log('  mutasyon ' + m.padEnd(8) + (dustu ? 'KIRMIZI (doğru — sınav körlüğü yakaladı)' : 'YESIL  (YANLIŞ — sınav bu kapıyı ölçmüyor)'));
+    console.log('  mutasyon ' + m.padEnd(10) + (dustu ? 'KIRMIZI (doğru — sınav körlüğü yakaladı)' : 'YESIL  (YANLIŞ — sınav bu kapıyı ölçmüyor)'));
   }
   console.log('MUTASYON: ' + tutan + '/' + MUT.length + ' → KIRMIZI');
   process.exit(tutan === MUT.length ? 0 : 1);
@@ -44,8 +44,11 @@ if (process.argv.includes('--mutasyon')) {
 const KABUK = (yol, ek) => '<!doctype html><html data-kasa-sayfa="' + yol + '" lang="tr"><head><script src="../../paket-kapisi.js"></script>' +
   '<title>Tetikte · Kaydır-Çöz</title></head><body><div id="akis"></div>' + (ek || '') +
   '<script type="text/x-tetikte-kasa" id="kasaAna">const SORULAR=window.__KASA_SORULAR||[];</script><script src="../../kasa-yukle.js"></script></body></html>';
-const VITRIN = (ek) => '<!doctype html><html lang="tr"><head><script src="../../paket-kapisi.js"></script></head><body>' +
-  '<script>const SORULAR=[{"soru":"Mal fiyatı artarsa?","dogru":"B"}];' + (ek || '') + '</script></body></html>';
+const VITRIN = (ek, adet) => {
+  const d = []; for (let i = 0; i < (adet || 1); i++) d.push({ soru: 'Mal fiyatı artarsa? ' + i, ders: 'D' + (i % 3), dogru: 'B' });
+  return '<!doctype html><html lang="tr"><head><script src="../../paket-kapisi.js"></script></head><body>' +
+    '<script>const SORULAR=' + JSON.stringify(d) + ';' + (ek || '') + '</script></body></html>';
+};
 
 function kur(degisiklik) {
   const k = fs.mkdtempSync(path.join(os.tmpdir(), 'hz-sinav-'));
@@ -84,6 +87,12 @@ const VAKALAR = [
   { ad: 'temiz kabuk + vitrin → YEŞİL', bekle: 0 },
   { ad: 'vitrinde cevaplı soru + "fiyat" kelimesi → YEŞİL (yanlış alarm yok)', bekle: 0,
     d: { 'kaydir/vitrin/sgs.html': VITRIN('var not="fiyatı yükselen mal";') } },
+  { ad: 'vitrin 70 soru → 30\'a kesilir (sınav başına 30 ücretsiz)', bekle: 0, desen: /ücretsiz 1 sayfa\/30 soru/,
+    d: { 'kaydir/vitrin/sgs.html': VITRIN('', 70) } },
+  { ad: 'vitrin 12 soru → dokunulmaz (12)', bekle: 0, desen: /ücretsiz 1 sayfa\/12 soru/,
+    d: { 'kaydir/vitrin/sgs.html': VITRIN('', 12) } },
+  { ad: 'vitrinde SORULAR dizisi okunamıyor → KAPI-UCRETSIZ', bekle: 1, desen: /KAPI-UCRETSIZ/,
+    d: { 'kaydir/vitrin/sgs.html': '<html><head><script src="../../paket-kapisi.js"></script></head><body><script>const SORULAR=[{bozuk</script></body></html>' } },
   { ad: 'kasa sayfasında gömülü SORULAR → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*gömülü/,
     d: { 'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html', '<script>const SORULAR=[{"x":1}]</script>') } },
   { ad: 'kabuk işareti yok (eski gömülü sayfa listeye yazılmış) → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*işareti yok/,

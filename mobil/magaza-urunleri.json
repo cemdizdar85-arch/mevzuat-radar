@@ -1,0 +1,15 @@
+{
+  "aciklama": "Mağaza (Google Play / App Store) uygulama içi ürünleri — 25.09.2026 Cem kararı: SGS + Yeterlilik birlikte, fiyat = site kuruluş fiyatı ÷ 0,85 (yukarı yuvarlanır; Google %15 kesince net gelir siteyle aynı). Fiyat Play Console'da girilir; buradaki 'fiyat_tl' yalnız kayıt ve kıyas içindir, uygulama fiyatı mağazadan okur. Ürün→paket eşlemesinin sunucu kopyası radar-app/edge/magaza-dogrula.ts URUNLER; mobil/hazirla-sinavi.js ikisini kıyaslar.",
+  "urunler": [
+    { "id": "sgs",            "ad": "Staja Başlama (SGS) — soru bankası", "paket": "sgs",            "sinav": "sgs",        "ders": 0, "site_tl": 3108, "fiyat_tl": 3657 },
+    { "id": "yeterlilik_1",   "ad": "Yeterlilik — 1 ders",                "paket": "yeterlilik-1",   "sinav": "yeterlilik", "ders": 1, "site_tl": 1190, "fiyat_tl": 1400 },
+    { "id": "yeterlilik_2",   "ad": "Yeterlilik — 2 ders",                "paket": "yeterlilik-2",   "sinav": "yeterlilik", "ders": 2, "site_tl": 1990, "fiyat_tl": 2342 },
+    { "id": "yeterlilik_3",   "ad": "Yeterlilik — 3 ders",                "paket": "yeterlilik-3",   "sinav": "yeterlilik", "ders": 3, "site_tl": 2590, "fiyat_tl": 3048 },
+    { "id": "yeterlilik_4",   "ad": "Yeterlilik — 4 ders",                "paket": "yeterlilik-4",   "sinav": "yeterlilik", "ders": 4, "site_tl": 3090, "fiyat_tl": 3636 },
+    { "id": "yeterlilik_tum", "ad": "Yeterlilik — tüm dersler",           "paket": "yeterlilik-tum", "sinav": "yeterlilik", "ders": 8, "site_tl": 3490, "fiyat_tl": 4106 }
+  ],
+  "dersler": {
+    "yeterlilik": ["Finansal Muhasebe", "Finansal Tablolar ve Analizi", "Maliyet Muhasebesi", "Muhasebe Denetimi",
+                   "Vergi Mevzuatı ve Uygulaması", "Hukuk", "Sermaye Piyasası Mevzuatı", "Meslek Hukuku"]
+  }
+}
