@@ -22,7 +22,7 @@
     if(b){ b.textContent=koyu?'☀':'☾'; var et=koyu?'Açık temaya geç':'Koyu temaya geç'; b.setAttribute('aria-label',et); b.title=et; }
   }
   var t=null; try{ t=localStorage.getItem(KEY); }catch(e){}
-  uygula(t==='dark');
+  uygula(t!=='light');   /* 24.09 Cem: varsayılan koyu, beyaz yalnız seçilirse */
   function kur(){
     /* 23.09: tema-bas.js yüklü sayfada düğme menu.js'te, üst şeritte (tek düğme, tek anahtar) - burada kurulmaz */
     if(window.TetikteTema) return;

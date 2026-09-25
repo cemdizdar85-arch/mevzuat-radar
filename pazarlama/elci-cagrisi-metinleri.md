@@ -130,7 +130,7 @@ Kısaca:
 
 — Sana her hafta özgün soru + çözümü gönderiyoruz. Sorular bize ait,
   çıkmış sınav sorusu değil; istediğin biçimde kullanabilirsin.
-— Takipçine özel kod: 2.590 TL olan paketi 2.190 TL'ye alıyorlar.
+— Takipçine özel kod: 3.108 TL olan paketi 2.628 TL'ye alıyorlar.
 — Sana pay: 1–9 satış 750 TL, 10–49 satış 1.000 TL, 50–99 satış 1.250 TL.
   100 üzerini ayrı konuşuyoruz. Kazandığın kademe sonraki döneme taşınır.
 — Ödeme iade süresi dolduktan sonra aylık, hesabına.
@@ -159,8 +159,8 @@ tetikte.com
 | Rakam | Kaynak | Tarih |
 |---|---|---|
 | 35 dönem, 3.248 tekil konu | `veri/siklik-kunyesi.json` | 22.09.2026 |
-| SGS paket 2.590 TL (ilk 500) | 15.09 Cem onayı, canlı `251a4b95` | 15.09.2026 |
-| Kod indirimi 400 TL → 2.190 TL | 15.09 Cem onayı | 15.09.2026 |
+| SGS paket 3.108 TL (ilk 500; 2.590 + KDV), sonra 3.588 | 25.09 akşam Cem kararı | 25.09.2026 |
+| Kod indirimi 400 + KDV (480 TL) → 2.628 TL | 15.09 Cem onayı (tutar 25.09 fiyatıyla) | 25.09.2026 |
 | Komisyon 750 / 1.000 / 1.250 | 15.09 Cem onayı (yalnız eşik üstü, kademe taşınır) | 15.09.2026 |
 | Açık paket yalnız SGS | `fiyat-motoru.js` → `ICERIK_HAZIR` | 22.09.2026 |
 

@@ -92,7 +92,8 @@ for (const [kod, ad] of SINAVLAR) {
   const rakamSik = Object.values(siklar).every(v => /^[\d.,%\s€$TL-]+$/.test(v));
   sinavlar[kod] = {
     ad, sira: i, toplam: liste.length, id: s.id, ders: s.ders, konu: s.konu,
-    kunye: (s.capa && s.capa.kaynak) ? s.capa.kaynak + ' kalıbı' : (s.ders + ' · yeni soru'),
+    // 25.09 Cem: 'kunye' (çıkmış sınav + soru no) açık dosyaya YAZILMAZ - hiçbir sayfa okumuyordu, yalnız
+    // "çıkmış soruyu kullanıyorlar" iddiasına malzeme oluyordu.
     // ⛔ 13.09: yorum "rozetle aynı" diyordu ama DEĞİLDİ. Karttaki rozet kaydir-coz.ps1'de
     // max(s.donem, cikmis.donemler.length); gece yayınlanan havuzda cikmis.donemler boş, s.donem dolu.
     // Eski hâl yeni sorularda afişe "0 dönem" yazdırıyordu. Artık rozetle birebir aynı ölçü.

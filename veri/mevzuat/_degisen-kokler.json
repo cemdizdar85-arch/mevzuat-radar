@@ -1,124 +1,124 @@
 {
-    "aciklama":  "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
-    "maddeler":  {
-                     "ad|TEORI - Kollektif sirkette kar dagitimi":  {
-                                                                        "tarih":  "2026-09-24 02:29",
-                                                                        "kaynak":  "arac/teori-notu-duzelt-20260924.ps1",
-                                                                        "belirsiz":  true,
-                                                                        "belirtecler":  [
-                                                                                            "alir",
-                                                                                            "sorul",
-                                                                                            "karda",
-                                                                                            "ozell",
-                                                                                            "#623/1",
-                                                                                            "yani",
-                                                                                            "#227/3",
-                                                                                            "gore",
-                                                                                            "nitel",
-                                                                                            "anlas",
-                                                                                            "ortag",
-                                                                                            "ifade",
-                                                                                            "#126",
-                                                                                            "yolla",
-                                                                                            "deger",
-                                                                                            "yanli",
-                                                                                            "yonde",
-                                                                                            "ilisk",
-                                                                                            "emegi",
-                                                                                            "esitt",
-                                                                                            "edili",
-                                                                                            "payi",
-                                                                                            "esit",
-                                                                                            "bakil",
-                                                                                            "#623/3",
-                                                                                            "acik",
-                                                                                            "payin",
-                                                                                            "hakka",
-                                                                                            "aykir"
-                                                                                        ],
-                                                                        "otomatik_belirtecler":  [
-                                                                                                     "alir",
-                                                                                                     "sorul",
-                                                                                                     "karda",
-                                                                                                     "ozell",
-                                                                                                     "#623/1",
-                                                                                                     "yani",
-                                                                                                     "#227/3",
-                                                                                                     "gore",
-                                                                                                     "nitel",
-                                                                                                     "anlas",
-                                                                                                     "ortag",
-                                                                                                     "ifade",
-                                                                                                     "#126",
-                                                                                                     "yolla",
-                                                                                                     "deger",
-                                                                                                     "yanli",
-                                                                                                     "yonde",
-                                                                                                     "ilisk",
-                                                                                                     "emegi",
-                                                                                                     "esitt",
-                                                                                                     "edili",
-                                                                                                     "payi",
-                                                                                                     "esit",
-                                                                                                     "bakil",
-                                                                                                     "#623/3",
-                                                                                                     "acik",
-                                                                                                     "payin",
-                                                                                                     "hakka",
-                                                                                                     "aykir"
-                                                                                                 ],
-                                                                        "elle_karar":  "GM 24.09: anlam TERSİNE döndü (\"sermaye payı oranında\"→\"eşit\", \"emek ortağı zarara katılmaz\"→\"yalnız anlaşmayla\") ama kilit kelimeler (emek, zarar, katıl) iki metinde de var → belirteç yöntemi bu değişikliği göremez; otomatik belirteçler sıradan kelimeler (sorul, gore, ilisk) ve \"sorul\" kökü \"sorumlu\"ya da uyuyor. BELİRSİZ: nota dayanan her soru çekilir; sağlam olanlar (11 SMMM, okundu) ELLE-OKUNDU kanıtıyla geri açılır."
-                                                                    },
-                     "ad|TEORI - Asit-test (likidite) oranlari":  {
-                                                                      "tarih":  "2026-09-24 02:29",
-                                                                      "kaynak":  "arac/teori-notu-duzelt-20260924.ps1",
-                                                                      "belirsiz":  false,
-                                                                      "belirtecler":  [
-                                                                                          "bagim"
-                                                                                      ],
-                                                                      "otomatik_belirtecler":  [
-                                                                                                   "komis",
-                                                                                                   "dusul",
-                                                                                                   "#2017/1",
-                                                                                                   "disin",
-                                                                                                   "ticar",
-                                                                                                   "cozum",
-                                                                                                   "smmm",
-                                                                                                   "#2016/1"
-                                                                                               ],
-                                                                      "elle_daraltma":  "GM 24.09: notta değişen TEK cümle stok bağımlılık formülü (\"Alacaklar\" → \"Ticari Alacaklar\"); otomatik belirteçler (ticar, smmm, komis…) asit-test hesabında ticari alacak geçen sağlam soruları da çekiyordu (69 sorudan 39). Daraltınca 6 soru (SMMM 1 · SGS 3 · KGK 2), hepsi stok bağımlılık sorusu."
-                                                                  },
-                     "492|gec1":  {
-                                      "tarih":  "2026-09-25 06:30",
-                                      "kaynak":  "harclar",
-                                      "belirsiz":  false,
-                                      "belirtecler":  [
-                                                          "#24/9/2025",
-                                                          "#2024/103",
-                                                          "#8/10/2025",
-                                                          "#2025/201"
-                                                      ]
-                                  },
-                     "492|28":  {
-                                    "tarih":  "2026-09-25 06:30",
-                                    "kaynak":  "harclar",
-                                    "belirsiz":  false,
-                                    "belirtecler":  [
-                                                        "#89",
-                                                        "#10",
-                                                        "#8910"
-                                                    ]
-                                },
-                     "492|29":  {
-                                    "tarih":  "2026-09-25 06:30",
-                                    "kaynak":  "harclar",
-                                    "belirsiz":  false,
-                                    "belirtecler":  [
-                                                        "#24/9/2025",
-                                                        "sonra",
-                                                        "~dokuz",
-                                                        "resm"
-                                                    ]
-                                }
-                 }
+  "aciklama": "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
+  "maddeler": {
+    "ad|TEORI - Kollektif sirkette kar dagitimi": {
+      "tarih": "2026-09-24 02:29",
+      "kaynak": "arac/teori-notu-duzelt-20260924.ps1",
+      "belirsiz": true,
+      "belirtecler": [
+        "alir",
+        "sorul",
+        "karda",
+        "ozell",
+        "#623/1",
+        "yani",
+        "#227/3",
+        "gore",
+        "nitel",
+        "anlas",
+        "ortag",
+        "ifade",
+        "#126",
+        "yolla",
+        "deger",
+        "yanli",
+        "yonde",
+        "ilisk",
+        "emegi",
+        "esitt",
+        "edili",
+        "payi",
+        "esit",
+        "bakil",
+        "#623/3",
+        "acik",
+        "payin",
+        "hakka",
+        "aykir"
+      ],
+      "otomatik_belirtecler": [
+        "alir",
+        "sorul",
+        "karda",
+        "ozell",
+        "#623/1",
+        "yani",
+        "#227/3",
+        "gore",
+        "nitel",
+        "anlas",
+        "ortag",
+        "ifade",
+        "#126",
+        "yolla",
+        "deger",
+        "yanli",
+        "yonde",
+        "ilisk",
+        "emegi",
+        "esitt",
+        "edili",
+        "payi",
+        "esit",
+        "bakil",
+        "#623/3",
+        "acik",
+        "payin",
+        "hakka",
+        "aykir"
+      ],
+      "elle_karar": "GM 24.09: anlam TERSİNE döndü (\"sermaye payı oranında\"→\"eşit\", \"emek ortağı zarara katılmaz\"→\"yalnız anlaşmayla\") ama kilit kelimeler (emek, zarar, katıl) iki metinde de var → belirteç yöntemi bu değişikliği göremez; otomatik belirteçler sıradan kelimeler (sorul, gore, ilisk) ve \"sorul\" kökü \"sorumlu\"ya da uyuyor. BELİRSİZ: nota dayanan her soru çekilir; sağlam olanlar (11 SMMM, okundu) ELLE-OKUNDU kanıtıyla geri açılır."
+    },
+    "ad|TEORI - Asit-test (likidite) oranlari": {
+      "tarih": "2026-09-24 02:29",
+      "kaynak": "arac/teori-notu-duzelt-20260924.ps1",
+      "belirsiz": false,
+      "belirtecler": [
+        "bagim"
+      ],
+      "otomatik_belirtecler": [
+        "komis",
+        "dusul",
+        "#2017/1",
+        "disin",
+        "ticar",
+        "cozum",
+        "smmm",
+        "#2016/1"
+      ],
+      "elle_daraltma": "GM 24.09: notta değişen TEK cümle stok bağımlılık formülü (\"Alacaklar\" → \"Ticari Alacaklar\"); otomatik belirteçler (ticar, smmm, komis…) asit-test hesabında ticari alacak geçen sağlam soruları da çekiyordu (69 sorudan 39). Daraltınca 6 soru (SMMM 1 · SGS 3 · KGK 2), hepsi stok bağımlılık sorusu."
+    },
+    "492|gec1": {
+      "tarih": "2026-09-24 07:17",
+      "kaynak": "harclar",
+      "belirsiz": false,
+      "belirtecler": [
+        "#2025/201",
+        "#8/10/2025",
+        "#2024/103",
+        "#24/9/2025"
+      ]
+    },
+    "492|28": {
+      "tarih": "2026-09-24 07:17",
+      "kaynak": "harclar",
+      "belirsiz": false,
+      "belirtecler": [
+        "#10",
+        "#89",
+        "#8910"
+      ]
+    },
+    "492|29": {
+      "tarih": "2026-09-24 07:17",
+      "kaynak": "harclar",
+      "belirsiz": false,
+      "belirtecler": [
+        "~dokuz",
+        "sonra",
+        "#24/9/2025",
+        "resm"
+      ]
+    }
+  }
 }

@@ -701,7 +701,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
       var rz=document.getElementById('aiRozet');
       if(rz && d.son30>0){
         rz.innerHTML='🚨 Son 30 günde <b style="font-size:14px">'+Number(d.son30).toLocaleString('tr-TR')+'</b> iflas ve konkordato ilanı · biri senin müşterin mi?'
-          +(AI_SON_TARIH?' <span style="opacity:.72">· son çekim '+aiKac(AI_SON_TARIH)+'</span>':'');
+          +(AI_SON_TARIH?' <span style="opacity:.72">· en yeni ilan '+aiKac(AI_SON_TARIH)+'</span>':'');   /* 24.09: "son çekim" yazıyordu ama değer EN YENİ İLAN tarihi (d.enYeniTarih); robot koşusu değil */
       }
     }
     aiMakro();

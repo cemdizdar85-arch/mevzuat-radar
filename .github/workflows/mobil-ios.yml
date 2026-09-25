@@ -1,0 +1,125 @@
+# ============================================================================
+#  MOBIL - iOS (App Store Connect / TestFlight) derleme hatti  (25.09.2026)
+#
+#  Ne yapar: mobil/hazirla.js kapilarindan gecen icerikle iOS uygulamasini bulutta
+#  (GitHub macOS kosucusu - Mac satin alinmadi, apple-developer-duns karari) derler,
+#  otomatik imzalar ve App Store Connect'e yukler -> TestFlight'ta gorunur.
+#  App Store'a YAYIN bu hatla OLMAZ: yayin App Store Connect'te elle "incelemeye gonder"
+#  ile yapilir ve once uygulama ici satin alma karari gerekir (mobil/OKU.md, "Apple 3.1.1").
+#
+#  Sirlar (Cem kurar - mobil/OKU.md adim 3):
+#    MOBIL_ASC_ANAHTAR_ID     App Store Connect API anahtar kimligi (Key ID)
+#    MOBIL_ASC_YAYINCI_ID     Issuer ID
+#    MOBIL_ASC_ANAHTAR_P8     .p8 dosyasinin ICERIGI (BEGIN/END satirlari dahil)
+#    MOBIL_APPLE_TAKIM_ID     Team ID (10 karakter)
+#
+#  Bedel: 0 TL (public depo; macOS dakikasi da ucretsiz). Artifact YOK.
+#  GORMEZ: uygulamanin cihazda calismasini (TestFlight'ta telefonla denenir), Apple
+#  incelemesinin sonucunu.
+# ============================================================================
+name: Mobil - iOS (TestFlight)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobil-ios
+  cancel-in-progress: false
+
+jobs:
+  derle:
+    runs-on: macos-15
+    timeout-minutes: 60
+    env:
+      ASC_ANAHTAR_ID: ${{ secrets.MOBIL_ASC_ANAHTAR_ID }}
+      ASC_YAYINCI_ID: ${{ secrets.MOBIL_ASC_YAYINCI_ID }}
+      TAKIM: ${{ secrets.MOBIL_APPLE_TAKIM_ID }}
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Anahtarlar var mi (yoksa hic derleme)
+        env:
+          P8: ${{ secrets.MOBIL_ASC_ANAHTAR_P8 }}
+        run: |
+          eksik=""
+          [ -z "$ASC_ANAHTAR_ID" ] && eksik="$eksik MOBIL_ASC_ANAHTAR_ID"
+          [ -z "$ASC_YAYINCI_ID" ] && eksik="$eksik MOBIL_ASC_YAYINCI_ID"
+          [ -z "$TAKIM" ] && eksik="$eksik MOBIL_APPLE_TAKIM_ID"
+          [ -z "$P8" ] && eksik="$eksik MOBIL_ASC_ANAHTAR_P8"
+          if [ -n "$eksik" ]; then
+            echo "::error title=anahtar yok::Tanimsiz sir:$eksik (mobil/OKU.md adim 3)"
+            exit 1
+          fi
+          printf '%s\n' "$P8" > "$RUNNER_TEMP/AuthKey.p8"
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Icerik kapisi oz-sinavi + icerik derleme
+        working-directory: mobil
+        env:
+          TT_DERLEME: ${{ github.run_number }}
+        run: |
+          node hazirla-sinavi.js
+          node hazirla.js
+
+      - name: Paketler
+        working-directory: mobil
+        run: npm ci --no-audit --no-fund
+
+      - name: iOS projesi + ikonlar
+        working-directory: mobil
+        run: |
+          npx cap add ios --packagemanager SPM
+          node ikon-uret.js
+          npx capacitor-assets generate --ios --assetPath kaynak/uretilen
+          npx cap sync ios
+          # sifreleme beyani: yalniz HTTPS (muaf) -> her yuklemede sorulmasin
+          /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
+          ls ios/App
+
+      - name: Arsivle (otomatik imza, API anahtariyla)
+        working-directory: mobil/ios/App
+        run: |
+          SURUM=$(node -p "require('../../package.json').version")
+          if [ -d App.xcworkspace ]; then PROJE="-workspace App.xcworkspace"; else PROJE="-project App.xcodeproj"; fi
+          xcodebuild $PROJE -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" archive \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/AuthKey.p8" \
+            -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" \
+            DEVELOPMENT_TEAM="$TAKIM" CODE_SIGN_STYLE=Automatic PRODUCT_BUNDLE_IDENTIFIER=com.tetikte.app \
+            MARKETING_VERSION="$SURUM" CURRENT_PROJECT_VERSION=${{ github.run_number }} | tail -40
+
+      - name: App Store Connect'e yukle (TestFlight)
+        run: |
+          cat > "$RUNNER_TEMP/disari.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>upload</string>
+            <key>teamID</key><string>$TAKIM</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>manageAppVersionAndBuildNumber</key><false/>
+          </dict></plist>
+          EOF
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/disari.plist" -exportPath "$RUNNER_TEMP/disari" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/AuthKey.p8" \
+            -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" | tail -40
+          echo "::notice title=TestFlight::Derleme ${{ github.run_number }} yuklendi; App Store Connect isledikten sonra (10-30 dk) TestFlight'ta gorunur."
+
+      - name: Anahtari sil
+        if: always()
+        run: rm -f "$RUNNER_TEMP/AuthKey.p8"

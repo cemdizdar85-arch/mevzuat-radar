@@ -1,0 +1,16 @@
+# Derleme çıktıları ve bulutta her koşuda yeniden üretilen yerel projeler depoya girmez.
+# www/      -> hazirla.js üretir (sayfa kabukları + uygulama ekranı)
+# android/  -> npx cap add android (bulut, mobil-android.yml)
+# ios/      -> npx cap add ios (bulut, mobil-ios.yml)
+node_modules/
+www/
+android/
+ios/
+kaynak/uretilen/
+*.aab
+*.apk
+*.ipa
+*.jks
+*.keystore
+*.p8
+*.enc

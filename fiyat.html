@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Fiyatlar | Tetikte</title>
-<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 3.108 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/fiyat.html">
 <meta property="og:title" content="Fiyatlar">
-<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 3.108 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fiyatlar">
-<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok, 7 gün koşulsuz iade.">
+<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 3.108 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -55,6 +55,7 @@
   .kaynakNot a{ color:var(--link); }
 
   .kartlar{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin:8px 0 30px; }
+  .kartlar.tek{ grid-template-columns:minmax(0,460px); justify-content:center; }
   .p{ background:var(--kart); border:1px solid var(--line); border-radius:14px;
       padding:22px 20px; display:flex; flex-direction:column; position:relative; }
   .p.one{ border-color:rgba(245,165,36,.55); box-shadow:0 0 0 1px rgba(245,165,36,.18); }
@@ -104,10 +105,13 @@
 <p class="alt">Hepsi KDV dahil. Gizli ücret yok, teklif formu yok; ne ödeyeceğini burada görüyorsun.</p>
 
 <!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
-     fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge. -->
+     fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge.
+     25.09 Cem ("3 yap"): fiyat 3.390'a cikinca harc (1.635) capa olarak ters calisiyordu
+     ("harcin iki kati"). Manset capasi CANLI KURS tabanina alindi: 8.500 TL KDV dahil,
+     15.09.2026 rakip olcumu (kurumun kendi sitesi). Rakip adi YAZILMAZ. Harc alt satirda kalir. -->
 <div class="vurus">
-  <div class="buyuk">Sınava bir kez daha girmek <b>1.635 TL</b> ve dört ay demek.<br>Biz <b id="vurusFiyat">2.590 TL</b> istiyoruz, bir daha girmeyesin diye.</div>
-  <p>Staja Giriş Sınavı başvuru bedeli 2026'da 1.635 TL. Kalırsan bu parayı yeniden ödersin, üstüne dört ay kaybedersin.
+  <div class="buyuk">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor.<br>Biz <b id="vurusFiyat">3.108 TL</b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
+  <p>Kurs fiyatları kurumların kendi sitelerinden, 15.09.2026'da okundu (KDV dahil karşılığıyla). Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
 
@@ -116,9 +120,13 @@
 <p class="kaynakNot">Kaynak: TÜRMOB 2026 Sınav Takvimi (resmî PDF), 22.07.2026'da okundu.
 TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.org.tr" target="_blank" rel="noopener">tesmer.org.tr</a>'yi kontrol et.</p>
 
+<!-- 24.09 Cem: "staja başlamanın içine girdiğimde sadece staja başlama kalsın". Sınav seçiliyse (?sinav= ya da
+     ana sayfadaki sekme = tt_sinav) yalnız o sınavın kartı görünür; ?sinav=hepsi hepsini gösterir. Rakip ölçümü:
+     UWorld CPA sayfası yalnız CPA planlarını gösterir. Ücretsiz kart SGS kartının altına tek satır olarak iner. -->
+<p class="kucuk" id="secSatir" hidden style="margin:0 0 10px;text-align:center"></p>
 <div class="kartlar">
 
-  <div class="p">
+  <div class="p" data-sinav="ucretsiz">
     <h3>Ücretsiz</h3>
     <div class="kim">Önce gör, sonra karar ver</div>
     <div class="gunluk">0 <small>TL</small></div>
@@ -135,13 +143,14 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <a class="btn ikincil" href="deneme.html">Hemen çözmeye başla</a>
   </div>
 
-  <div class="p one">
+  <div class="p one" data-sinav="sgs">
     <span class="rozet">EN ÇOK SEÇİLEN</span>
     <h3>Staja Başlama</h3>
-    <div class="kim" id="erSgs">3 ay</div>
+    <div class="kim" id="erSgs">Sınavına kadar</div>
     <div class="gunluk" id="fySgs">— <small>TL</small></div>
     <div class="liste" id="lsSgs"></div>
     <div class="kdv">KDV dahil · kuruluş fiyatı · <span id="ktSgs"></span></div>
+<div class="kdv" id="khSgs"></div>
     <ul>
       <li>Sınırsız soru: bankanın tamamı</li>
       <li><b>Birebir Prova</b>: 130 soru, resmî ders dağılımı</li>
@@ -149,27 +158,27 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li>Her sorunun <b>yürürlükteki kanun maddesine bağı</b></li>
       <li>Konu notu · SRS tekrar destesi · Tetikte Skoru</li>
       <li><b>Son 15 Gün dahil</b></li>
-      <li><b>7 gün koşulsuz iade</b></li>
     </ul>
     <a class="btn" href="satin-al.html?paket=sgs">Satın al — kuruluş fiyatından</a>
+    <p class="kucuk" id="ucretsizSatir" hidden style="margin:10px 0 0;text-align:center">Önce denemek istersen: günde 15 soru, kart bilgisi yok — <a href="deneme.html">ücretsiz başla →</a></p>
   </div>
 
   <!-- 29.08: DERS BAZLI SATIS acildi. Yeterlilik'te ders ders kaliniyor;
        kaldigi 2 dersi olan adaya 8 derslik paket satmak onu disarida
        birakiyordu. Merdivenin her basamagi RESMI HARCTAN ucuz. -->
-  <div class="p">
+  <div class="p" data-sinav="yeterlilik">
     <h3>SMMM Yeterlilik</h3>
-    <div class="kim" id="erYet">3 ay</div>
+    <div class="kim" id="erYet">Sınavına kadar</div>
     <div class="gunluk" id="fyYet">— <small>TL</small></div>
     <div class="liste" id="lsYet"></div>
     <div class="kdv">tüm dersler · KDV dahil · <span id="ktYet"></span></div>
+<div class="kdv" id="khYet"></div>
     <ul>
       <li><b>Tek ders <span id="fyYet1">—</span> TL'den başlar</b> — kaldığın dersi seç</li>
       <li>Sınırsız soru: sekiz dersin tamamı</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
       <li>Her sorunun <b>kanun maddesine bağı</b></li>
       <li>Konu notu · SRS tekrar destesi</li>
-      <li><b>7 gün koşulsuz iade</b></li>
     </ul>
     <!-- 15.09 Cem kararı: soru sayfaları yayında olmayan sınav satılmaz, ön kayıt alınır (fiyat-motoru.js ICERIK_HAZIR).
          Düğme ICERIK_HAZIR.yeterlilik true olunca aşağıdaki betikle "Satın al"a döner. -->
@@ -181,20 +190,20 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
        (teyitsiz tarih yazilmaz); ilan cikinca SINAVLAR dizisine eklenir.
        29.08 olcumu: piyasanin en buyuk ismi (Fuat Hoca) KGK'yi henuz
        fiyatlamamis, on kayit topluyor. Fiyati belli tek KGK urunuyuz. -->
-  <div class="p">
+  <div class="p" data-sinav="kgk">
     <span class="rozet" id="rzKgk">ÖN KAYIT</span>
     <h3>Bağımsız Denetçi (KGK)</h3>
-    <div class="kim">3 ay</div>
+    <div class="kim">Sınavına kadar · en az 3 ay</div>
     <div class="gunluk" id="fyKgk">— <small>TL</small></div>
     <div class="liste" id="lsKgk"></div>
     <div class="kdv">SMMM paketi · 3 konu · KDV dahil · <span id="ktKgk"></span></div>
+<div class="kdv" id="khKgk"></div>
     <ul>
       <li><b>SMMM'ysen üç konudan sorumlusun</b> — sektör mevzuatı muaf</li>
       <li>Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim</li>
       <li><b>YMM paketi (2 konu) <span id="fyKgk2">—</span> TL</b> · tek konu <span id="fyKgk1">—</span> TL</li>
       <li>Türkiye'nin tek interaktif KGK soru bankası</li>
       <li>Her soruda standart/madde kaynağı</li>
-      <li><b>7 gün koşulsuz iade</b></li>
     </ul>
     <p class="kucuk" id="onKgk" style="margin:0 0 8px">Soru bankası yayına hazırlanıyor · şimdilik ön kayıt</p>
     <a class="btn ikincil" id="alKgk" href="ucretsiz-dene.html?sinav=kgk#onkayit">Ön kayıt ol — açılınca ilk sen öğren</a>
@@ -208,17 +217,9 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <h2>İki dönemlik paket satmıyoruz</h2>
   <p style="margin:0;font-size:14px">Piyasada satılan paketlerin çoğu <b>iki sınav dönemini</b> kapsıyor —
   yani daha satarken senin bir kere kalacağını varsayıyorlar. Biz varsaymıyoruz.</p>
-  <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Üç ay.</b>
-  Geçemezsen ikinci dönem <b class="a">yarı fiyat</b> — peşin ödetmiyoruz.</p>
-  <p class="kucuk" style="margin:10px 0 0">Paketin, satın aldığın tarihteki en yakın sınav gününü
-  kapsamıyorsa <b>o sınava kadar ücretsiz uzatılır</b>. Sınav ertelenirse de süren uzar.</p>
-</div>
-
-<!-- KOPRU: merdiveni ayakta tutan tek mekanizma. -->
-<div class="kutu">
-  <h2>Bir üst sınava geçerken</h2>
-  <p style="margin:0;font-size:14px">Staja Başlama'yı bizimle geçersen <b class="a">Yeterlilik'te %30</b>,
-  Yeterlilik'i bizimle geçersen <b class="a">KGK'da %30</b> indirimin olur. Süresiz hak — üç yıl sonra da geçerli.</p>
+  <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Sınav gününe kadar.</b></p>
+  <p class="kucuk" style="margin:10px 0 0">Erişimin girdiğin sınavın gününe kadar sürer ve <b>hiçbir zaman 3 aydan kısa olmaz</b>:
+  sınava az kala alsan da en az 3 ay çalışırsın. Sınav ertelenirse süren de uzar.</p>
 </div>
 
 <!-- CEM'IN FIKRI, BELGEYLE: bu mesleğin resmi bedeli. Saldirilamaz cunku TESMER'in kendi tarifesi. -->
@@ -320,17 +321,16 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
     <tr><td>Zayıf konu karnesi + çalışma önerisi</td><td class="sag">490 TL</td></tr>
     <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
-    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">2.590 TL</b></td></tr>
+    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">3.108 TL</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Son 15 Gün'ü gerçekten 890 TL'ye ayrı satıyoruz; uydurma bir "değer" değil,
   aşağıda fiyatı yazan gerçek ürün.</p>
 </div>
 
 <div class="kutu vurgu">
-  <h2>Riski biz alıyoruz</h2>
-  <p style="margin:0;font-size:14px"><b class="a">7 gün koşulsuz iade.</b> Sebep sormuyoruz, form doldurtmuyoruz.
-  Beğenmezsen yazarsın, paranı iade ederiz.</p>
-  <p style="margin:8px 0 0;font-size:14px"><b>Sınav ertelenirse süren uzar.</b> TESMER tarihi değiştirirse
+  <!-- 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" - "7 gün koşulsuz iade" paragrafı kalktı; erteleme sözü kaldı. -->
+  <h2>Sınav ertelenirse süren uzar</h2>
+  <p style="margin:0;font-size:14px"><b>Sınav ertelenirse süren uzar.</b> TESMER tarihi değiştirirse
   erişimin yeni sınav gününe kadar kendiliğinden uzatılır, ek ücret istemeyiz.</p>
   <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
   <p style="margin:8px 0 0;font-size:14px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da
@@ -345,8 +345,10 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <p style="margin:0;font-size:14px">Her üyeye <b>3 davet kodu</b> veriyoruz. Davet ettiğin arkadaşın üye olursa
   <b class="a">ikinize de +1 ay</b> erişim eklenir. Kimse fiyattan kırmıyor; ikiniz de daha uzun çalışıyorsunuz.</p>
   <p class="kucuk" style="margin:8px 0 0">Bu sınavda en çok kaybettiren şey yalnız çalışmak ve yarıda bırakmak.
-  İkili çalışanların ortak prova tablosu olur; kimin nerede olduğunu ikiniz de görürsünüz.
-  Üç arkadaş getirene Yeterlilik paketine geçişte yarı fiyat.</p>
+  İkili çalışanların ortak prova tablosu olur; kimin nerede olduğunu ikiniz de görürsünüz.</p>
+  <!-- 25.09 Cem ("2 yap"): "Üç arkadaş getirene Yeterlilik'e geçişte yarı fiyat" sozu KALDIRILDI;
+       uygulayan mekanizma yoktu (yari fiyat / %30 sozleriyle ayni gerekce, d40e202d). -->
+
 </div>
 
 <div class="kutu">
@@ -376,7 +378,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <p style="margin:0;font-size:14px">Paketi seç, bilgilerini gir, <b class="a">banka havalesi / EFT</b> ile öde.
   Sipariş sonunda hesap bilgisi ve sipariş numaran ekrana gelir; ödemeni gördüğümüz gün erişimin açılır ve
   <b>e-arşiv faturan</b> e-posta adresine gönderilir.</p>
-  <p style="margin:10px 0 0;font-size:14px">Bu adımda kart bilgisi istemiyoruz — <b>7 gün koşulsuz iade</b> hakkın saklı.</p>
+  <p style="margin:10px 0 0;font-size:14px">Bu adımda kart bilgisi istemiyoruz.</p>
   <p style="margin:14px 0 0"><a class="btn" style="display:inline-block;padding:11px 22px" href="satin-al.html">Paketi seç ve satın al</a></p>
   <p class="kucuk" style="margin:12px 0 0">Kararsızsan önce <a href="deneme.html">günde 15 soruyu ücretsiz</a>
   çöz; kart bilgisi istemiyoruz.</p>
@@ -426,6 +428,9 @@ function kart(id, p){
   }
   var kt = document.getElementById('kt' + id);
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
+  // 25.09 Cem: rakip '+KDV' yaziyor; buyuk rakam KDV dahil kalir (6502 m.54), kiyas icin haric tutar kucuk satirda.
+  var kh = document.getElementById('kh' + id);
+  if(kh){ kh.textContent = 'KDV hariç ' + tl(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' TL'; }
 }
 /* KGK karti SMMM PAKETINI gosterir (3 konu), "dort konunun tamami"ni degil:
    KGK'da alicinin buyuk cogunlugu SMMM ve KGK'nin kendi sayfasina gore SMMM
@@ -504,6 +509,31 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
       + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üye' : '—') + '</td>';
     t.appendChild(tr);
   });
+})();
+</script>
+<script>
+/* 24.09 Cem "staja başlamanın içine girdiğimde sadece staja başlama kalsın": seçili sınavın süzgeci.
+   Kaynak sırası: ?sinav= (sgs|yeterlilik|kgk|hepsi) > ana sayfadaki sekme (localStorage tt_sinav). Seçim yoksa hepsi. */
+(function(){
+  var ADLAR={ sgs:'Staja Başlama', yeterlilik:'SMMM Yeterlilik', kgk:'Bağımsız Denetçi (KGK)' };
+  var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1];
+  var sn=q; if(!sn){ try{ sn=localStorage.getItem('tt_sinav'); }catch(e){} }
+  if(!sn||sn==='hepsi'||!ADLAR[sn]) return;
+  function gz(el,v){ if(el) el.style.display=v?'none':''; }
+  var kutu=document.querySelector('.kartlar'); if(!kutu) return;
+  [].forEach.call(kutu.querySelectorAll('.p[data-sinav]'),function(k){ gz(k,k.getAttribute('data-sinav')!==sn); });
+  kutu.classList.add('tek');
+  if(sn==='sgs'){ var u=document.getElementById('ucretsizSatir'); if(u) u.hidden=false; }
+  /* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */
+  var v=document.querySelector('.vurus'); if(v&&sn!=='sgs') gz(v,true);
+  /* geri sayım: yalnız seçili sınav (KGK'nın ilanlı tarihi yok -> takvim gizli) */
+  if(typeof SINAVLAR!=='undefined'){
+    var tks=document.querySelectorAll('#takvim .tk'), var_=false;
+    SINAVLAR.forEach(function(s,i){ if(tks[i]){ var bu=(s.anahtar===sn); gz(tks[i],!bu); if(bu) var_=true; } });
+    if(!var_){ var tk=document.getElementById('takvim'); if(tk) gz(tk,true); var kn=document.querySelector('.kaynakNot'); if(kn) gz(kn,true); }
+  }
+  var s=document.getElementById('secSatir');
+  if(s){ s.innerHTML='<b>'+ADLAR[sn]+'</b> fiyatı · <a href="fiyat.html?sinav=hepsi">Diğer sınavların fiyatları →</a>'; s.hidden=false; }
 })();
 </script>
 <script src="menu.js" defer></script><link rel="stylesheet" href="komut.css">

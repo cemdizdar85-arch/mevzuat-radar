@@ -33,7 +33,8 @@ function paketYaz() {
   fs.mkdirSync(path.join(KOK, 'veri', 'canli'), { recursive: true });
   fs.writeFileSync(path.join(KOK, 'veri', 'canli', KOD + '.enc.json'), JSON.stringify({ iv: iv.toString('base64'), veri: veri.toString('base64') }));
   // takvim YALNIZ bu makinenin kopyasinda; canli sitedeki veri/canli-deneme.json'a dokunulmaz
-  fs.writeFileSync(path.join(KOK, 'veri', 'canli-deneme.json'), JSON.stringify({ durum: 'kayit', oturumlar: [{ ad: 'Yük testi', sinav: 'SGS', tarih: TARIH, saat: SAAT }] }));
+  // 24.09 kayit kesimi kurali: test oturumunda kesim KAPIDAN 1 DK ONCE (kayitlar kapi-90 sn'ye kadar biter)
+  fs.writeFileSync(path.join(KOK, 'veri', 'canli-deneme.json'), JSON.stringify({ durum: 'kayit', oturumlar: [{ ad: 'Yük testi', sinav: 'SGS', tarih: TARIH, saat: SAAT, kayit_kesim: new Date(KAPI_MS - 60000).toISOString() }] }));
   if (E.YEREL_ANAHTAR === '1') fs.writeFileSync(path.join(KOK, 'veri', 'canli', 'anahtar-' + KOD + '.json'), JSON.stringify({ anahtar: anahtar.toString('base64') }));
 }
 const TUR = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
@@ -56,11 +57,15 @@ async function kisi(tarayici, i) {
   sayfa.on('dialog', d => d.accept().catch(() => {}));
   const U = 'http://127.0.0.1:' + PORT + '/';
   let asama = 'baslangic';
+  // 24.09 kayit kesimi kontrol gruplari: kapi bu ikisinde KAPALI kalmali (canli-deneme.html katilabilir())
+  const kayitsiz = KAYIT && i % 12 === 11;   // hic kaydolmayan
+  const gecKayit = KAYIT && i % 12 === 10;   // kesimden (kapi-60 sn) SONRA kaydolan
   try {
-    if (KAYIT) {
+    if (KAYIT && !kayitsiz) {
       asama = 'kayit';
       const sonKayit = KAPI_MS - 90000;
-      const t = Date.now() + Math.min(i * (KAYIT_DK * 60000 / KISI) + Math.random() * 5000, Math.max(0, sonKayit - Date.now()));
+      const t = gecKayit ? KAPI_MS - 45000 + Math.random() * 5000
+        : Date.now() + Math.min(i * (KAYIT_DK * 60000 / KISI) + Math.random() * 5000, Math.max(0, sonKayit - Date.now()));
       await bekle(t - Date.now());
       await sayfa.goto(U + 'ogrenci.html?kapi=tetikte2026&sonra=canli-deneme.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
       await sayfa.fill('#ogEposta', 'yuktest-' + RUN + '-' + NO + '-' + i + '@tetikte.com');
@@ -86,11 +91,19 @@ async function kisi(tarayici, i) {
     // uyuyordu; kaydi reddedilen (yonlendirilmeyen) kisi kayit sayfasinda kaliyor, 'salon' hatasi sayiliyordu.
     // Artik yalniz YOL (pathname) bakilir.
     const sinavSayfasi = u => { try { return new URL(String(u)).pathname.endsWith('/canli-deneme.html'); } catch (e) { return false; } };
-    if (KAYIT) await sayfa.waitForURL(u => sinavSayfasi(u), { timeout: 20000 }).catch(() => art('yonlendirme_gelmedi'));
+    if (KAYIT && !kayitsiz) await sayfa.waitForURL(u => sinavSayfasi(u), { timeout: 20000 }).catch(() => art('yonlendirme_gelmedi'));
     const gec = i % 6 === 5;   // her 6 kisiden biri kapidan 10-90 sn sonra girer
     if (gec) { await bekle(KAPI_MS + 10000 + Math.random() * 80000 - Date.now()); }
     if (gec || !sinavSayfasi(sayfa.url())) await sayfa.goto(U + 'canli-deneme.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await sayfa.waitForSelector('#sinavEkran', { state: 'visible', timeout: Math.max(60000, KAPI_MS + 6 * 60000 - Date.now()) });
+    // sinav ekrani ACILDI mi, yoksa kayit kesimi kapisi KAPALI mi dedi
+    const kapi = await sayfa.waitForFunction(() => {
+      const e = document.getElementById('sinavEkran'); if (e && e.offsetParent !== null) return 'acik';
+      const d = document.getElementById('salonDurum'); return (d && d.getAttribute('data-kapi') === 'kapali') ? 'kapali' : false;
+    }, null, { timeout: Math.max(60000, KAPI_MS + 6 * 60000 - Date.now()), polling: 500 }).then(h => h.jsonValue());
+    if (kayitsiz || gecKayit) {
+      art(kapi === 'kapali' ? 'kapi_dogru_kapali' : 'kapi_HATALI_acildi');
+      if (kapi === 'kapali') return;
+    } else if (kapi === 'kapali') { art('kapi_HATALI_kapali'); return; }
     art('sinav_acildi'); acilisSn.push((Date.now() - KAPI_MS) / 1000); if (!gec) acilisErken.push((Date.now() - KAPI_MS) / 1000);
     asama = 'cevap';
     for (let j = 0; j < 20; j++) {

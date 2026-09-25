@@ -348,8 +348,10 @@ foreach($x in $sec){
   # 06.09 ölçüm: VUK 328 kâr sorusu yevmiye şeması taşıdığı için 'kayit' sayılıyordu → çözüm tablosu varsa HESAP, yalnız kayıt varsa KAYIT
   $tipB=$(if($v.cozum_tablo -and $v.cozum_tablo.satirlar){ 'hesap' } elseif($kayit.Count){ 'kayit' } else { 'teori' })
   # 06.09 Cem "3 yap": çapa (pencerenin gerçek çıkmış sorusu) giriş kartında "Sınavda böyle çıktı" olarak, cevapsız
+  # 25.09 Cem ("TESMER eski sınav sorularını kullanıyor demesinler"): çapa KAYNAĞI (hangi çıkmış soru örnek alındı)
+  # sayfaya YAZILMAZ - ekranda kullanılmıyordu ama kaynak kodda her soruda "SGS 2026/2 Soru 56" gibi duruyordu. Üreticide kalır.
   $capaB=$null; if($v.PSObject.Properties['capa_metin'] -and "$($v.capa_metin)".Trim()){ $capaB=@{ kaynak=$(if($v.PSObject.Properties['capa_kaynak']){ "$($v.capa_kaynak)" } else { 'çıkmış soru' }); metin=(TurkceOnar "$($v.capa_metin)") } }
-  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$(if($capaB){ @{ kaynak=$capaB.kaynak } } else { $null }); oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitlar=$kayitlar; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen; teshis=$teshis; celdiriciYol=$celY; teori=$(if($tablo -and (@('Adım','Şık') -contains "$(@($tablo.basliklar)[0])")){ $true } else { $false }) }
+  $sorular+=@{ id="$($x.et)/$($x.id)"; konu=(TurkceOnar "$($v.konu)"); donem=$x.donem; oyun=$oyun; verilenler=$verilenler; konuGiris=$konuGiris; olcum=$olcum; tip=$tipB; capa=$null; oyunBonus=$oyunBonus; ders=$(if($x.PSObject.Properties['ders'] -and $x.ders){ "$($x.ders)" } else { 'Finansal Muhasebe' }); soru="$($v.soru)"; siklar=$siklar; dogru=$d; tuzak=$tz; kural=$kural; olay=$olay; hap=(TurkceOnar "$($v.hap)"); sade=$sade; taktik="$($v.sinav_taktigi)"; kayit=$kayit; kayitlar=$kayitlar; kayitBaslik="$($x.ky.baslik)"; dayanak="$($v.dayanak)"; adimlar=$adimlar; tablo=$tablo; verilen=$verilen; teshis=$teshis; celdiriciYol=$celY; teori=$(if($tablo -and (@('Adım','Şık') -contains "$(@($tablo.basliklar)[0])")){ $true } else { $false }) }
   "  $($x.et) $($x.id) · $($v.konu) · $($x.donem) donem · kayit satiri $($kayit.Count)"
 }
 Sure 'sözlük + soru kurulumu'
@@ -485,7 +487,7 @@ $html=@'
 <style>
 /* 09.09 AÇIK TEMA — Cem 30.08 "site rengini beyaz yaptık, burası siyah kalmış", 09.09 "bas: açık tema".
    Varsayılan = sitenin açık paleti (stil-acik.css değerleri; stil.css BAĞLANMAZ: .kart/.sik/.btn/.kutu seçicileri çakışır).
-   Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. Koyu tema yalnız düğmeyle (data-theme="dark", tarayıcıda kc_tema) ya da ?tema=koyu ile; işletim sistemi izlenmez, site de izlemiyor. */
+   Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. 24.09 Cem: VARSAYILAN KOYU ("sitenin rengi bu olsun"); beyaz yalnız düğmeyle (kc_tema=light) ya da ?tema=acik ile; işletim sistemi izlenmez, site de izlemiyor. */
 :root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#16191d;--metin:#16191d;--dim:#4b5563;--mavi:#1d4ed8;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#a04a08;--ustYazi:#ffffff}
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
@@ -748,7 +750,7 @@ const VITRIN=/[?&]vitrin=1/.test(location.search);
 const TEK=/[?&]tek=1/.test(location.search);
 (function(){ const d=document.documentElement; const q=(location.search.match(/[?&]tema=(koyu|acik)/)||[])[1]; let t=null; try{ t=localStorage.getItem('kc_tema'); }catch(e){}
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
-  if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');
+  if(t!=='light') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 24.09 Cem: varsayılan koyu */
   if(VITRIN) d.setAttribute('data-vitrin','1');
   if(TEK) d.setAttribute('data-tek','1');
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;
@@ -823,7 +825,7 @@ SORULAR.forEach((s,i)=>{
   // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
   const sv=seviyeHesapla(s);
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
-   +'<div class="govde"><span class="rozet">📌 '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde çıktı</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
+   +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="Ara sonuçlarını satır satır yaz; tabloyla eşleşenler cevaptan sonra işaretlenir.&#10;Hesabı sen yaparsın, kâğıt yapmaz."></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'

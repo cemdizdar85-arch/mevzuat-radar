@@ -16,7 +16,7 @@
       Açık kapatan kural: paket en yakın sınavı kapsamıyorsa ücretsiz uzatılır.
    3) İKİ DÖNEMLİK PAKET SATILMIYOR. Piyasanın tamamı (Suat 20.000 ikili,
       Prensip 11.000 iki dönem, Deha 8de8 29.250) adayın kalacağını varsayıyor.
-      Biz varsaymıyoruz; geçemeyene ikinci dönem %50.
+      Biz varsaymıyoruz. (25.09 Cem: ikinci dönem %50 ve üst sınav %30 sözleri kaldırıldı — uygulayan mekanizma yoktu.)
    4) DERS/MODÜL BAZLI SATIŞ. Yeterlilik'te ders ders kalınıyor; kaldığı 2 dersi
       olan adama 8 derslik paket satmak onu dışarıda bırakıyordu.
    5) İÇERİK KADEMESİ YOK. Ucuz pakette de konu notu ve madde bağı var —
@@ -70,7 +70,7 @@ var HARC_KAYNAK = {
 --------------------------------------------------------------------------- */
 var KOTA = { sgs:500, yeterlilik:200, kgk:150, radar:300, kurucu:100 };
 
-/* Erişim süresi: 3 ay. Sınav gününe bağlı DEĞİL. */
+/* Erişim: en az 3 ay VE en yakın sınavın gününe kadar (hangisi geçse). 25.09'dan beri vitrinde 'sınava kadar' yazılır. */
 var SURE_GUN = 90;
 
 /* Kart ödemesi açıldığında true yapılır — taksit satırları o zaman görünür.
@@ -80,14 +80,14 @@ var TAKSIT_ADET = 3;
 
 /* ---------------------------------------------------------------------------
    ELÇİ KODU — 15.09.2026 Cem kararı: elçi koduyla alan takipçiye SGS'de 400 TL
-   indirim (2.590 → 2.190). İndirimin geçerliliğine SUNUCU karar verir
+   indirim; 25.09 aksamdan beri 400 + KDV = 480 TL (3.108 → 2.628). İndirimin geçerliliğine SUNUCU karar verir
    (radar-app/sql/2026-09-15-elci-programi.sql · siparis_elci_damga); buradaki
    rakam yalnız EKRAN gösterimidir ve sunucudaki elci_indirim tablosuyla AYNI olmalı.
    acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
    açılırsa takipçi indirimi ekranda görür ama sipariş indirimsiz yazılır.
    SQL basılıp doğrulandıktan sonra true yapılır.
 --------------------------------------------------------------------------- */
-var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
+var ELCI = { acik:false, indirim:{ sgs:480 }, bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
    İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında
@@ -100,7 +100,9 @@ var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
    yönlendirir (uye-durumu.js SINAVLAR.icerik ile AYNI tutulur).
    Sayfalar yayına girince true yapılır; iki dosya birlikte değişir.
 --------------------------------------------------------------------------- */
-var ICERIK_HAZIR = { sgs:true, yeterlilik:false, kgk:false };
+/* 24.09 Cem ("bu da satışta" + "1.2.3 ÜÇÜNÜ DE YAP"): Yeterlilik SATIŞA AÇILDI. Dayanak: kaydir/smmm 8 ders sayfası
+   yayında (18.09), paket-kapisi.js yeterlilik paketine açıyor, paket_soru kasası basılı (16.09). uye-durumu.js ile AYNI commit. */
+var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
 
 /* ---------------------------------------------------------------------------
    FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı).
@@ -112,8 +114,15 @@ var FIYAT = {
      Gerekçe: rakip taraması (58 kurum) — uygulamalar 499, kurslar 4.500+; "ucuz = kalitesiz" algısı olmasın.
      Yeterlilik ve KGK bilerek DEĞİŞMEDİ (Cem: "bitirme ve KGK aynı kalsın").
      15.09 aksam GUNCELLEME (Cem onayi): kurulus 2.590. Elci koduyla 400 TL indirim -> takipci 2.190 oder.
-     Kodsuz alan 2.590 oder; elci satisinda bize kalan ayni (2.190 uzerinden). */
-  sgs:            { kurulus:2590, liste:2990 },
+     Kodsuz alan 2.590 oder; elci satisinda bize kalan ayni (2.190 uzerinden).
+     25.09.2026 CEM KARARI: kurulus 3.390 (2.825 + KDV) / liste 3.990. Hedef: elci kodlu satista
+     (3.390 - 400 = 2.990) 1.000 TL komisyon, %5 kart kesintisi ve %25 KV sonrasi bize 1.007 TL kalsin;
+     elcisiz satista 1.992 TL. Etikette KDV dahil tutar buyuk, altinda 'KDV haric' kucuk (6502 m.54).
+     25.09.2026 (aksam) CEM KARARI 'F isle': kurulus 2.590 + KDV = 3.108 (ilk 500) / liste 2.990 + KDV = 3.588.
+     Elci kodu 400 + KDV = 480 TL -> takipci 2.190 + KDV = 2.628 oder. Kart acilinca 3 taksit (ayda 1.036 / 1.196).
+     Rapor: Masaustu Tetikte-SGS-Fiyat-Raporu-20260925-v2.xlsx (1.000 uyede ~1,69 milyon TL net, %8 taksit komisyonuyla).
+     Bant gerekcesi: uygulamalar 400-2.000, video 4.500-7.700 -> 3.108 uygulama rafinin ustunde, 'ucuz' okunmaz. */
+  sgs:            { kurulus:3108, liste:3588 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
      4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080                     */
@@ -239,8 +248,11 @@ function erisimYazi(anahtar){
   var kaps = sinaviKapsiyorMu(anahtar);
   var t = bit.toLocaleDateString('tr-TR', {day:'numeric', month:'long', year:'numeric'});
   var s = sinav(anahtar);
-  if(kaps === false && s){ return '3 ay (' + t + ') — ' + s.yazi + ' sınavına kadar ücretsiz uzatılır'; }
-  return '3 ay · ' + t + ' tarihine kadar';
+  /* 25.09 Cem: pazarın dili 'sınava kadar' (rakiplerin 4/4'ü). Kural DEĞİŞMEDİ: bitiş = max(90 gün, sınav+3 gün);
+     yalnız vitrin yazısı sınavı öne alır, gerçek bitiş tarihi yanında durur (verdiğimizden azını söylemeyiz). */
+  var sg = s ? new Date(s.tarih + 'T09:00:00+03:00') : null;
+  if(s && sg >= new Date()){ return s.yazi + ' sınavına kadar · erişim ' + t + ' tarihine kadar açık'; }
+  return 'Sınavına kadar · en az 3 ay (' + t + ')';
 }
 
 /* ---------------------------------------------------------------------------
@@ -289,7 +301,7 @@ function paketler(){
     L.push({ id:'kgk-' + m, grup:'Bağımsız Denetçilik (KGK)',
              ad:KGK_ADLAR[m], kim:KGK_KIM[m], modul:m,
              fiyat:FIYAT.kgk[m].kurulus, liste:FIYAT.kgk[m].liste,
-             kota:KOTA.kgk, erisim:'3 ay', sinav:null,
+             kota:KOTA.kgk, erisim:'Sınavına kadar · en az 3 ay', sinav:null,
              /* 15.09.2026 ölçümü (kurumların kendi siteleri): modül başına kurs
                 5.250 (Suat Hoca) · 7.250+KDV (Fuat Hoca, kayıttan) · 10.800 (Piyasa Okulu)
                 · 12.600+KDV (Deha) · 13.500 (Uğurlu). Eski "2.500 – 5.250" ek alan
@@ -300,12 +312,12 @@ function paketler(){
            ad:'KGK — dört konunun tamamı', modul:HARC.kgk.temelAlanKonu,
            kim:'Sektör mevzuatından da sorumluysan',
            fiyat:FIYAT.kgkTum.kurulus, liste:FIYAT.kgkTum.liste,
-           kota:KOTA.kgk, erisim:'3 ay', sinav:null,
+           kota:KOTA.kgk, erisim:'Sınavına kadar · en az 3 ay', sinav:null,
            harcYazi:'Piyasada tam paket kursu 13.500 – 15.120 TL', acik:ICERIK_HAZIR.kgk });
 
   L.push({ id:'yeterlilik-kgk', grup:'Bağımsız Denetçilik (KGK)',
            ad:'Yeterlilik + KGK', fiyat:FIYAT.yeterlilikKgk.kurulus, liste:FIYAT.yeterlilikKgk.liste,
-           kota:KOTA.kgk, erisim:'3 ay · iki sınav birden', sinav:null,
+           kota:KOTA.kgk, erisim:'İki sınava da kadar · en az 3 ay', sinav:null,
            harcYazi:'Ayrı ayrı ' + tl(FIYAT.yeterlilikTum.kurulus + FIYAT.kgkTum.kurulus) + ' TL',
            acik:(ICERIK_HAZIR.yeterlilik && ICERIK_HAZIR.kgk) });
 

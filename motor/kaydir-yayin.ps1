@@ -79,7 +79,8 @@ $html=@"
 </style></head><body>
 <main class="kaydirDizin">
 <h1>$(E $Baslik)</h1>
-<p class="alt">$toplam soru · $($kartlar.Count) ders · her soru: sınav gibi çöz → yanlışını gör → Nöbetçi adım adım anlatsın → ikizini sen çöz. Bu sorular hakem, öğrenci simülasyonu, bağımsız kör çözüm ve ikinci hakemden geçti.</p>
+<!-- 24.09 Cem '1 yap': 'ikizini sen çöz' yalnız %44,6'sında var (1.899/4.261 ölçüldü) -> her soruda olan yanlış kutusu yazılır -->
+<p class="alt">$toplam soru · $($kartlar.Count) ders · her soru: sınav gibi çöz → yanlışını gör → Nöbetçi adım adım anlatsın → yanlışın 2 gün sonra yeniden karşına çıkar. Bu sorular hakem, öğrenci simülasyonu, bağımsız kör çözüm ve ikinci hakemden geçti.</p>
 <div class="izgara">
 $kartH
 </div>

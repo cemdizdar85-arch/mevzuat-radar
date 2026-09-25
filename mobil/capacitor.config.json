@@ -1,0 +1,30 @@
+{
+  "appId": "com.tetikte.app",
+  "appName": "Tetikte",
+  "webDir": "www",
+  "appendUserAgent": "TetikteUygulama/1",
+  "backgroundColor": "#1b1a18",
+  "server": {
+    "androidScheme": "https",
+    "hostname": "localhost"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true
+  },
+  "ios": {
+    "contentInset": "never",
+    "scrollEnabled": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 600,
+      "launchAutoHide": true,
+      "backgroundColor": "#1b1a18",
+      "showSpinner": false
+    },
+    "LocalNotifications": {
+      "iconColor": "#f5a524"
+    }
+  }
+}

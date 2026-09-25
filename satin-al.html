@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Satın Al | Tetikte</title>
-<meta name="description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, 7 gün koşulsuz iade, e-arşiv fatura.">
+<meta name="description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, e-arşiv fatura.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/satin-al.html">
 <meta property="og:title" content="Satın Al">
-<meta property="og:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, 7 gün koşulsuz iade, e-arşiv fatura.">
+<meta property="og:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, e-arşiv fatura.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Satın Al">
-<meta name="twitter:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, 7 gün koşulsuz iade, e-arşiv fatura.">
+<meta name="twitter:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, e-arşiv fatura.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -101,6 +101,9 @@
   .kv b{ min-width:150px; color:var(--muted); font-weight:600; font-size:12.5px; }
   .uyari{ background:rgba(255,107,107,.08); border:1px solid rgba(255,107,107,.45); border-radius:12px;
           padding:14px 18px; margin-bottom:20px; color:var(--red); font-size:13.5px; font-weight:700; }
+  /* 24.09 mobil denetim: form yazısı 14 px idi -> iPhone Safari 16 px altındaki kutuya dokununca sayfayı
+     zorla yakınlaştırır (ödeme formunda kopuş). Telefonda 16 px; yatay taşma 0, paket satırı 154 px tıklanır. */
+  @media (max-width:700px){ input[type=text],input[type=email],input[type=tel],textarea,select{ font-size:16px; } }
 </style>
 </head>
 <body>
@@ -123,8 +126,8 @@
 
 <div class="adim">1 · Paket</div>
 <div id="paketler"></div>
-<p class="kucuk" style="margin-top:2px">Erişim 3 aydır. <b>Paketin en yakın sınav gününü kapsamıyorsa o sınava kadar
-ücretsiz uzatılır</b>; sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
+<p class="kucuk" style="margin-top:2px">Erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
+sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
 <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
 <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
 <p class="kucuk" style="margin-top:6px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da bilgisayarda da
@@ -204,7 +207,7 @@
     <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını onaylıyorum.</span></label>
   <label class="onay"><input type="checkbox" id="onIfa">
     <span>Hizmetin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
-    yasal cayma hakkı olmadığını, <b>7 gün koşulsuz iade</b> hakkımın ise saklı olduğunu biliyorum.</span></label>
+    yasal cayma hakkı olmadığını biliyorum.</span></label>
   <label class="onay"><input type="checkbox" id="onKvkk">
     <span>Sipariş, fatura ve hesap tanımlama için verilerimin nasıl işlendiğini anlatan
     <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></label>
@@ -212,7 +215,7 @@
   <button class="btn" id="gonder">Siparişi tamamla</button>
   <div class="sonuc" id="sonuc"></div>
   <p class="kucuk" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra
-  göreceğin hesaba banka havalesi/EFT ile yapılır. <b>7 gün koşulsuz iade</b> hakkın saklıdır.</p>
+  göreceğin hesaba banka havalesi/EFT ile yapılır.</p>
 </div>
 
 <!-- ================= SIPARIS SONRASI ODEME TALIMATI ================= -->

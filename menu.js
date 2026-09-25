@@ -110,22 +110,13 @@ var GRUPLAR=[
   ["hizmet.html","🌐","Yurt Dışı Hizmet Faturası","2 No.lu KDV + stopaj hesabı"],
   ["fiyatfarki.html","💱","Credit / Debit Note","Sonradan gelen fiyat farkının vergisi"],
   ["toplu-gtip.html","📑","Toplu GTİP Kontrolü","Excel'ini yapıştır, kalem kalem vergi yükü"]]},
- {ad:"🧾 Vergi, Ceza & Rehberler", araclar:[
+ {ad:"🧭 Rehberler ve sınav", araclar:[   /* 24.09 Cem: "bunları da kaldıralım, sistem yenileme devam edebilir, şu an sadece sitede görünmesin" - işletme araçları gizli; sayfalar ve robotları yerinde. */
   ["soru-cevap.html","💬","Net Cevap","Mevzuat sorunu sor, kaynaklı cevap al"],
-  ["ceza-asistani.html","⚖️","Ceza Asistanı","İndirim mi, uzlaşma mı, dava mı?"],
-  ["asgari-kv.html","🧾","Asgari Kurumlar Vergisi","%10 tabana takılıyor musun?"],
-  ["kdv-iade-rehberi.html","💰","KDV İade Rehberi","İadeyi adım adım al"],
   ["kurulus.html","🏢","Şirket Kuruluşu Rehberi","Şahıs mı, limited mi, anonim mi?"],
   ["tesvik-sihirbazi.html","🧲","Yatırım Teşvik Sihirbazı","9903: bölgen, desteklerin, 2026 fırsatları"],
-  ["arge-kapi-hesabi.html","🔬","Ar-Ge Kapısı Hesabı","Merkez / Teknokent / TÜBİTAK — yıllık TL farkı"],
-  ["kurulus-evrak.html","🗂️","Kuruluş Evrak Çantası","Hangi belge, kim doldurur, nereye?"],
-  ["kurulus-nobeti.html","🛎️","Kuruluş Nöbeti","Kaça mal olur, ilk 12 ay takvimi, unvan, ortaklar sözleşmesi"],
-  ["karne.html","📋","Yükümlülük Karnesi","Firmana özel yükümlülük fotoğrafı, PDF'li"],
-  ["sayfalar/index.html","✅","Eşik Rehberi","Hangi zorunluluklar seni kapsıyor?"],
-  ["bilgi.html","📚","Bilgi Havuzu","Sade Türkçe özet + kaynak maddesi"],
   ["genc.html","🎓","Genç Müşavir","2026 sınav takvimi, geri sayımlı"],
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
-  ["canli-deneme.html","📡","Canlı Deneme","Türkiye geneli, aynı anda; gerçek yüzdelik sıralaman"],
+  ["canli-deneme.html","📡","Canlı Deneme","Aynı anda, herkese aynı set; katılanlar arasında yüzdelik sıralaman"],
   ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"],
   ["karsilastirma.html","⚖️","Hangisi sana lazım?","Kurs, kitap, ücretsiz banka ve biz — dürüst tablo"],
   ["donem-plani.html","🗺️","Dönem Planı","Kalan haftaları haritayla faz faz doldur"],
@@ -146,13 +137,8 @@ var GRUPLAR=[
   // 17.08: marka-app.html BITMIS ve CALISAN bir uygulamaydi ama SITEDE HICBIR
   // YERDEN ERISILEMIYORDU - ne menude ne bir sayfada linki vardi. Tarama
   // yakaladi. Ayni durum evrak-app.html'de de vardi (asagida).
-  ["marka-app.html","🔐","Marka İzleme — hesabım","Markalarını ekle, yenilemeyi biz takip edelim"]]},
- {ad:"🧮 Muhasebe Bürosu (SMMM)", araclar:[
-  ["fis-fabrikasi.html","🏭","Fiş Fabrikası","Banka ekstresi → programına hazır fiş"],
-  ["evrak-radari.html","📁","Evrak Radarı","Mükelleften evrak kovalamayı bitir"],
-  ["evrak-app.html","🔐","Evrak Radarı — hesabım","Liste oluştur, mükellefe link at, cevapları gör"],
-  ["belge-kasasi.html","🗄️","Belge Kasası","Belgeler tek yerde, süreleri takipte"],
-  ["hatirlatici.html","⏰","Süre Hatırlatıcı","DİİB · KDV · SGK kritik tarihleri"]]}
+  ["marka-app.html","🔐","Marka İzleme — hesabım","Markalarını ekle, yenilemeyi biz takip edelim"]]}
+ /* 24.09 Cem: "Muhasebe Bürosu (SMMM)" grubu sitede görünmesin - sonra verilecek (Fiş Fabrikası, Evrak Radarı, Belge Kasası, Süre Hatırlatıcı). */
 ];
 
 /* ---- KÖK YOLU (28.08.2026) ------------------------------------------------
@@ -420,7 +406,7 @@ function kur(){
     });
     if(!baglar.length) return;
     var T=window.TetikteTema||{
-      oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='koyu'?'dark':'light'; }catch(e){ return 'light'; } },
+      oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='acik'?'light':'dark'; }catch(e){ return 'dark'; } },
       yaz:function(t){ try{ localStorage.setItem('kc_tema',t); localStorage.removeItem('tt_tema'); }catch(e){} this.uygula(t); try{ document.dispatchEvent(new CustomEvent('tt-tema',{detail:t})); }catch(e){} },
       uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); }); if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
     };
@@ -564,7 +550,13 @@ function kur(){
        olculdu: gtip.html'de [data-veri-damgasi] hic olusmadi). Bu yuzden
        yer bulunamazsa KENDI kabini olusturur. */
     var yer = document.querySelector('[data-veri-damgasi]');
-    {
+    /* 25.09 Cem: "burda veri güncelleme niye var, böyle eski tarihler sitede olmasın, kaldıralım".
+       Sayfa dibi "Veri son güncelleme" satırı KAPALI. Soru/seviye sayfalarında ziyaretçiye bilgi vermiyor, yalnız
+       eski tarih gösteriyordu (seviye-testi.html "13.09.2026"); rakip sınav sitelerinde (UWorld, Becker) böyle satır yok.
+       Tazeliği önemli sayfaların KENDİ damgası var (Alacak "en yeni ilan" + 3 gün bayatlık uyarısı, ana sayfa
+       "Bu sabahın nöbeti"). Ölçüm yerinde: veri/tazelik-damgasi.json + arac/veri-tazelik.ps1 çalışmaya devam eder.
+       Geri açmak için alttaki koşulu true yap. */
+    if (false) {
       fetch(KOK + 'veri/tazelik-damgasi.json', { cache: 'no-store' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
@@ -643,3 +635,29 @@ function ttSorguHakki(anahtar){
     return true;
   } catch (e) { return true; }
 }
+
+/* ---- GİZLİ ARAÇLAR (24.09.2026) --------------------------------------------
+   Cem: "bunları da kaldıralım, sistem yenileme varsa devam edebilir, şu an sadece
+   sitede görünmesin". Sayfalar ve robotları YERİNDE; yalnız bağlantılar görünmez.
+   Menü/katalog/Ctrl+K/site haritasından elle çıkarıldı; sayfa İÇİNDEKİ bağlantılar
+   (11 sayfada 28 adet) burada süzülür: düğme ya da "→" bağlantısı kalkar, cümle
+   içindeki bağlantı düz yazıya döner. Geri açmak: adı bu listeden sil + menü/komut/
+   sitemap satırlarını geri koy (commit "işletme araçları gizlendi").
+   Kendi sayfasında süzmez (kendine bağ). ------------------------------------ */
+(function () {
+  var GIZLI = /(^|\/)(ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index)\.html(?:[?#]|$)/;
+  function suz() {
+    var kendi = location.pathname;
+    [].forEach.call(document.querySelectorAll('a[href]'), function (a) {
+      var h = a.getAttribute('href') || '';
+      if (/^(https?:)?\/\//.test(h) && h.indexOf(location.host) < 0) return;
+      if (!GIZLI.test(h.replace(/^https?:\/\/[^\/]+/, ''))) return;
+      if (GIZLI.test(kendi)) return;
+      var metin = (a.textContent || '').trim();
+      var dugme = /btn|dugme|kart|arac|mp\b/.test(a.className || '') || /→|›|»/.test(metin) || a.querySelector('div,b,img');
+      if (dugme) { a.remove(); return; }
+      var s = document.createElement('span'); s.textContent = a.textContent; a.replaceWith(s);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', suz); else suz();
+})();

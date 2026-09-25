@@ -1,0 +1,27 @@
+{
+  "name": "tetikte-mobil",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tetikte mağaza uygulaması (Google Play + App Store) — Capacitor kabuğu. Soru TAŞIMAZ; sorular kilitli kasadan (paket_soru) gelir. Bkz mobil/OKU.md",
+  "scripts": {
+    "hazirla": "node hazirla.js",
+    "sinav": "node hazirla-sinavi.js"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/app": "8.1.1",
+    "@capacitor/browser": "8.0.4",
+    "@capacitor/core": "8.5.2",
+    "@capacitor/ios": "8.5.2",
+    "@capacitor/local-notifications": "8.3.1",
+    "@capacitor/splash-screen": "8.0.2",
+    "@capacitor/status-bar": "8.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "3.0.5",
+    "@capacitor/cli": "8.5.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

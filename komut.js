@@ -33,22 +33,13 @@
       ['Yurt dışı hizmet faturası', 'hizmet.html', 'stopaj 2 nolu kdv yurtdisi yazilim']
     ]],
     ['Vergi ve ceza', [
-      ['Ceza Asistanı', 'ceza-asistani.html', 'ceza uzlasma indirim dava vuk'],
-      ['KDV iade rehberi', 'kdv-iade-rehberi.html', 'kdv iade istisna mahsup'],
-      ['Asgari kurumlar vergisi', 'asgari-kv.html', 'asgari kurumlar vergisi yuzde 10'],
-      ['Eşik rehberi', 'sayfalar/index.html', 'esik calisan sayisi ciro zorunluluk'],
       ['Net Cevap', 'soru-cevap.html', 'soru sor cevap madde mevzuat'],
-      ['Bilgi Havuzu', 'bilgi.html', 'ozet konu anlatim kaynak']
     ]],
     ['Şirket kuruluşu', [
       ['Şirket kuruluşu rehberi', 'kurulus.html', 'sahis limited anonim kurulus tur'],
-      ['Kuruluş evrak çantası', 'kurulus-evrak.html', 'evrak belge kurulus dilekce'],
-      ['Kuruluş Nöbeti', 'kurulus-nobeti.html', 'kurulus maliyet kaca mal olur harc ilan takvim unvan ortaklar sozlesmesi vesting'],
-      ['Yükümlülük karnesi', 'karne.html', 'karne yukumluluk firma profil']
     ]],
     ['Teşvik ve destek', [
       ['Yatırım teşvik sihirbazı', 'tesvik-sihirbazi.html', 'tesvik yatirim belge 9903 il sektor'],
-      ['Ar-Ge kapısı hesabı', 'arge-kapi-hesabi.html', 'arge merkez teknokent tubitak 5746 4691'],
       ['Destek Radarı', 'destekler.html', 'kosgeb hibe destek cagri eximbank']
     ]],
     ['İhale', [
@@ -69,13 +60,7 @@
     ]],
     ['Mevzuat nöbeti', [
       ['Bugün Resmî Gazete\'de', 'radar.html', 'resmi gazete rg degisiklik bugun'],
-      ['Günün hap kartları', 'kartlar.html', 'hap kart ozet gunluk'],
-      ['Süre hatırlatıcı', 'hatirlatici.html', 'sure tarih hatirlatma diib kdv sgk']
-    ]],
-    ['Büro ve evrak', [
-      ['Fiş Fabrikası', 'fis-fabrikasi.html', 'fis luca ekstre muhasebe kayit musavir smmm buro'],
-      ['Evrak Radarı', 'evrak-radari.html', 'evrak mukellef takip musavir smmm buro'],
-      ['Belge Kasası', 'belge-kasasi.html', 'belge kasa sure takip arsiv musavir buro']
+      ['Günün hap kartları', 'kartlar.html', 'hap kart ozet gunluk']
     ]],
     ['SMMM sınavları', [
       ['Sınav takvimi ve soru bankası', 'genc.html', 'sgs staja giris yeterlilik sinav takvim ogrenci stajyer aday musavir smmm'],
