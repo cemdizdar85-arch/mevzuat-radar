@@ -249,9 +249,10 @@ function erisimYazi(anahtar){
   var t = bit.toLocaleDateString('tr-TR', {day:'numeric', month:'long', year:'numeric'});
   var s = sinav(anahtar);
   /* 25.09 Cem: pazarın dili 'sınava kadar' (rakiplerin 4/4'ü). Kural DEĞİŞMEDİ: bitiş = max(90 gün, sınav+3 gün);
-     yalnız vitrin yazısı sınavı öne alır, gerçek bitiş tarihi yanında durur (verdiğimizden azını söylemeyiz). */
+     25.09 akşam Cem ("aralığa kadar değil sınava kadar"): vitrinde YALNIZ sınav tarihi yazar, 90 günlük
+     bitiş tarihi gösterilmez. Kural yine aynı; sınava az kala alana verilen fazladan süre sessiz kalır. */
   var sg = s ? new Date(s.tarih + 'T09:00:00+03:00') : null;
-  if(s && sg >= new Date()){ return s.yazi + ' sınavına kadar · erişim ' + t + ' tarihine kadar açık'; }
+  if(s && sg >= new Date()){ return s.yazi + ' sınavına kadar'; }
   return 'Sınavına kadar · en az 3 ay (' + t + ')';
 }
 

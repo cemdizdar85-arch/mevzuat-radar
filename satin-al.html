@@ -272,6 +272,15 @@ var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
    Icerigi hazir olmayan paket (acik:false) listede GORUNMEZ; dolu gorunen
    bos paket satmayiz. Her satirda ayni kapsam icin odenecek RESMI HARC yazar. */
 var PAKETLER = acikPaketler(), secili = null;
+/* 25.09 Cem: "staja giriste yeterlilikle ilgili fiyatlar cikmasin". ?paket=X ile gelen yalniz X'in
+   sinav grubunu (+ 'Ek' grubunu) gorur; elci linki (?e=) paketsiz gelirse SGS'dir (elci indirimi yalniz SGS'de).
+   Parametresiz gelen hepsini gorur; filtreli sayfanin altinda "diger sinavlar" baglantisi durur. */
+var ODAK_GRUP = (function(){
+  var s = new URLSearchParams(location.search), q = s.get('paket') || (s.get('e') ? 'sgs' : '');
+  var p = q ? paketBul(q) : null;
+  return p ? p.grup : '';
+})();
+if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GRUP || p.grup === 'Ek'; }); }
 (function(){
   var kap = document.getElementById('paketler'), grup = '', h = '';
   PAKETLER.forEach(function(p){
@@ -286,6 +295,7 @@ var PAKETLER = acikPaketler(), secili = null;
        + (p.liste > p.fiyat ? '<s>' + tl(p.liste) + ' TL</s>' : '')
        + '<span>' + p.not + '</span></span></label>';
   });
+  if(ODAK_GRUP){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
   kap.innerHTML = h;
   kap.addEventListener('change', function(e){
     if(e.target.name !== 'paket') return;
