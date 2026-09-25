@@ -1,6 +1,6 @@
 [
     {
-        "etiket":  "sgs-c2-ekonomi-kolay-r1",
+        "etiket":  "sgs-p-ekonomi-kolay-r1",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "is lm maliye politikasi",
@@ -8,7 +8,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r1",
+        "etiket":  "sgs-c2-ekonomi-kolay-r1",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "is lm maliye politikasi",
@@ -40,6 +40,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-ekonomi-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "likidite tuzagi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-ekonomi-kolay-r3",
         "id":  "kp-01",
         "ders":  "Ekonomi",
@@ -48,10 +56,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-ekonomi-kolay-r2",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-01",
         "ders":  "Ekonomi",
-        "konu":  "likidite tuzagi",
+        "konu":  "talep esnekligi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-ekonomi-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "talep esnekligi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -80,14 +96,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-ekonomi-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Ekonomi",
-        "konu":  "talep esnekligi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-01",
         "ders":  "Ekonomi",
@@ -96,11 +104,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "etiket":  "sgs-d2-ekonomi-cokzor-r2",
         "id":  "kp-01",
         "ders":  "Ekonomi",
-        "konu":  "talep esnekligi",
-        "donem":  4,
+        "konu":  "marjinal fayda",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ekonomi-kolay-r3-a",
+        "id":  "kp-02",
+        "ders":  "Ekonomi",
+        "konu":  "marjinal fayda",
+        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -120,47 +136,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r3-a",
-        "id":  "kp-02",
-        "ders":  "Ekonomi",
-        "konu":  "marjinal fayda",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-ekonomi-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "Ekonomi",
-        "konu":  "marjinal fayda",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-ekonomi-zor-r1",
-        "id":  "kp-01",
-        "ders":  "Ekonomi",
-        "konu":  "para politikasi araclari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-ekonomi-cokzor-r1",
-        "id":  "kp-01",
-        "ders":  "Ekonomi",
-        "konu":  "para politikasi araclari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-ekonomi-kolay-r1",
-        "id":  "kp-02",
-        "ders":  "Ekonomi",
-        "konu":  "para politikasi araclari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-ekonomi-cokzor-r4-a",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "para politikasi araclari",
@@ -176,7 +152,55 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ekonomi-cokzor-r4-a",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "para politikasi araclari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-ekonomi-kolay-r1",
+        "id":  "kp-02",
+        "ders":  "Ekonomi",
+        "konu":  "para politikasi araclari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-ekonomi-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "para politikasi araclari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-02",
+        "ders":  "Ekonomi",
+        "konu":  "taylor prensibi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-ekonomi-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "taylor prensibi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-ekonomi-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Ekonomi",
+        "konu":  "taylor prensibi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-ekonomi-kolay-r3",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "taylor prensibi",
@@ -192,27 +216,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-ekonomi-kolay-r1",
-        "id":  "kp-01",
+        "etiket":  "sgs-d2-ekonomi-zor-r2",
+        "id":  "kp-05",
         "ders":  "Ekonomi",
-        "konu":  "taylor prensibi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-02",
-        "ders":  "Ekonomi",
-        "konu":  "taylor prensibi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-ekonomi-kolay-r3",
-        "id":  "kp-01",
-        "ders":  "Ekonomi",
-        "konu":  "taylor prensibi",
-        "donem":  3,
+        "konu":  "denge geliri carpan etkisi",
+        "donem":  2,
         "kurtarma":  false
     },
     {
@@ -224,18 +232,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-ekonomi-zor-r2",
-        "id":  "kp-05",
-        "ders":  "Ekonomi",
-        "konu":  "denge geliri carpan etkisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-ekonomi-cokzor-r2-a",
         "id":  "kp-02",
         "ders":  "Ekonomi",
         "konu":  "etkin tarife haddi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "id":  "kp-06",
+        "ders":  "Ekonomi",
+        "konu":  "farksizlik egrileri",
         "donem":  2,
         "kurtarma":  false
     },
@@ -256,10 +264,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-07",
         "ders":  "Ekonomi",
-        "konu":  "farksizlik egrileri",
+        "konu":  "genisletici para politikasi araclari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "id":  "kp-07",
+        "ders":  "Ekonomi",
+        "konu":  "genisletici para politikasi araclari",
         "donem":  2,
         "kurtarma":  false
     },
@@ -272,18 +288,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
-        "id":  "kp-07",
-        "ders":  "Ekonomi",
-        "konu":  "genisletici para politikasi araclari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-07",
+        "id":  "kp-05",
         "ders":  "Ekonomi",
-        "konu":  "genisletici para politikasi araclari",
+        "konu":  "j egrisi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -304,16 +312,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-05",
+        "etiket":  "sgs-k2-ekonomi-zor",
+        "id":  "kp-04",
         "ders":  "Ekonomi",
         "konu":  "j egrisi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-ekonomi-cokzor-r2",
+        "etiket":  "sgs-k2-ekonomi-zor",
         "id":  "kp-03",
+        "ders":  "Ekonomi",
+        "konu":  "keynesyen tuketim fonksiyonu",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-ekonomi-zor",
+        "id":  "kp-02",
         "ders":  "Ekonomi",
         "konu":  "likidite tuzagi",
         "donem":  2,
@@ -328,7 +344,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-ekonomi-cokzor-r1",
+        "etiket":  "sgs-d3-ekonomi-cokzor-r2",
+        "id":  "kp-03",
+        "ders":  "Ekonomi",
+        "konu":  "likidite tuzagi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
         "id":  "kp-04",
         "ders":  "Ekonomi",
         "konu":  "mukayeseli ustunluk firsat maliyeti",
@@ -336,7 +360,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
+        "etiket":  "sgs-d2-ekonomi-cokzor-r1",
         "id":  "kp-04",
         "ders":  "Ekonomi",
         "konu":  "mukayeseli ustunluk firsat maliyeti",
@@ -352,14 +376,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-ekonomi-zor-r2",
-        "id":  "kp-01",
-        "ders":  "Ekonomi",
-        "konu":  "paranin yansizligi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-ekonomi-zor-r1",
         "id":  "kp-03",
         "ders":  "Ekonomi",
@@ -368,10 +384,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-ekonomi-cokzor-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-c5-ekonomi-zor-r2",
+        "id":  "kp-01",
         "ders":  "Ekonomi",
-        "konu":  "stolper-samuelson teoremi",
+        "konu":  "paranin yansizligi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -384,15 +400,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-d2-ekonomi-cokzor-r2",
+        "id":  "kp-05",
         "ders":  "Ekonomi",
-        "konu":  "talep fiyat esnekligi",
+        "konu":  "stolper-samuelson teoremi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
         "id":  "kp-03",
         "ders":  "Ekonomi",
         "konu":  "talep fiyat esnekligi",
@@ -416,6 +432,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-03",
+        "ders":  "Ekonomi",
+        "konu":  "talep fiyat esnekligi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-03",
         "ders":  "Ekonomi",
@@ -424,7 +448,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "etiket":  "sgs-p-ekonomi-kolay-r1-a",
         "id":  "kp-03",
         "ders":  "Ekonomi",
         "konu":  "talep fiyat esnekligi",
@@ -432,16 +456,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-ekonomi-cokzor-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-c5-ekonomi-cokzor-r2",
+        "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "taylor kurali",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-ekonomi-cokzor-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-d2-ekonomi-cokzor-r2",
+        "id":  "kp-02",
         "ders":  "Ekonomi",
         "konu":  "taylor kurali",
         "donem":  2,
@@ -456,8 +480,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-ekonomi-zor",
-        "id":  "kp-07",
+        "etiket":  "sgs-k2-ekonomi-zor",
+        "id":  "kp-06",
         "ders":  "Ekonomi",
         "konu":  "denge geliri-carpan etkisi",
         "donem":  1,
@@ -468,6 +492,22 @@
         "id":  "kp-26",
         "ders":  "Ekonomi",
         "konu":  "denge geliri-carpan etkisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-ekonomi-zor",
+        "id":  "kp-07",
+        "ders":  "Ekonomi",
+        "konu":  "denge geliri-carpan etkisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "id":  "kp-27",
+        "ders":  "Ekonomi",
+        "konu":  "devaluasyon dis ticaret esnekligi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -488,22 +528,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
-        "id":  "kp-27",
-        "ders":  "Ekonomi",
-        "konu":  "devaluasyon dis ticaret esnekligi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-ekonomi-zor-r1",
-        "id":  "kp-05",
-        "ders":  "Ekonomi",
-        "konu":  "dezenflasyon kavrami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-e16-ekonomi-kolay",
         "id":  "kp-14",
         "ders":  "Ekonomi",
@@ -514,6 +538,14 @@
     {
         "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-28",
+        "ders":  "Ekonomi",
+        "konu":  "dezenflasyon kavrami",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-ekonomi-zor-r1",
+        "id":  "kp-05",
         "ders":  "Ekonomi",
         "konu":  "dezenflasyon kavrami",
         "donem":  1,
@@ -544,42 +576,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "id":  "kp-25",
+        "ders":  "Ekonomi",
+        "konu":  "fiyat farklilastirmasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-25",
+        "ders":  "Ekonomi",
+        "konu":  "fiyat farklilastirmasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-ekonomi-kolay",
         "id":  "kp-12",
         "ders":  "Ekonomi",
         "konu":  "fiyat farklilastirmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
-        "id":  "kp-25",
-        "ders":  "Ekonomi",
-        "konu":  "fiyat farklilastirmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-25",
-        "ders":  "Ekonomi",
-        "konu":  "fiyat farklilastirmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-22",
-        "ders":  "Ekonomi",
-        "konu":  "genisletici para politikasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
-        "id":  "kp-22",
-        "ders":  "Ekonomi",
-        "konu":  "genisletici para politikasi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -592,8 +608,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "id":  "kp-22",
+        "ders":  "Ekonomi",
+        "konu":  "genisletici para politikasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-23",
+        "id":  "kp-22",
+        "ders":  "Ekonomi",
+        "konu":  "genisletici para politikasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-ekonomi-kolay",
+        "id":  "kp-13",
         "ders":  "Ekonomi",
         "konu":  "gsyh deflator",
         "donem":  1,
@@ -608,8 +640,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-ekonomi-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-23",
         "ders":  "Ekonomi",
         "konu":  "gsyh deflator",
         "donem":  1,
@@ -624,7 +656,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
         "id":  "kp-24",
         "ders":  "Ekonomi",
         "konu":  "gsyih hesaplama",
@@ -632,7 +664,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-24",
         "ders":  "Ekonomi",
         "konu":  "gsyih hesaplama",
@@ -672,7 +704,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
         "id":  "kp-33",
         "ders":  "Ekonomi",
         "konu":  "ikame ve tamamlayici mallar",
@@ -680,7 +712,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-33",
         "ders":  "Ekonomi",
         "konu":  "ikame ve tamamlayici mallar",
@@ -712,6 +744,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "id":  "kp-35",
+        "ders":  "Ekonomi",
+        "konu":  "klasik iktisat yaklasimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-ekonomi-kolay",
         "id":  "kp-21",
         "ders":  "Ekonomi",
@@ -728,24 +768,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
-        "id":  "kp-35",
-        "ders":  "Ekonomi",
-        "konu":  "klasik iktisat yaklasimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-ekonomi-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-c5-ekonomi-kolay-r1",
+        "id":  "kp-10",
         "ders":  "Ekonomi",
         "konu":  "manset enflasyon",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-ekonomi-kolay-r1",
-        "id":  "kp-10",
+        "etiket":  "sgs-e16-ekonomi-zor",
+        "id":  "kp-08",
         "ders":  "Ekonomi",
         "konu":  "manset enflasyon",
         "donem":  1,
@@ -816,6 +848,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-e16-ekonomi-kolay",
+        "id":  "kp-17",
+        "ders":  "Ekonomi",
+        "konu":  "mutlak ustunlukler teorisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-ekonomi-cokzor",
         "id":  "kp-01",
         "ders":  "Ekonomi",
@@ -824,10 +864,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-ekonomi-kolay",
-        "id":  "kp-17",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-31",
         "ders":  "Ekonomi",
-        "konu":  "mutlak ustunlukler teorisi",
+        "konu":  "odemeler dengesi kalemleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -841,14 +881,6 @@
     },
     {
         "etiket":  "sgs-t1-genel-ekonomi-cokzor",
-        "id":  "kp-31",
-        "ders":  "Ekonomi",
-        "konu":  "odemeler dengesi kalemleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-31",
         "ders":  "Ekonomi",
         "konu":  "odemeler dengesi kalemleri",
@@ -864,16 +896,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-ekonomi-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-e16-ekonomi-kolay",
+        "id":  "kp-18",
         "ders":  "Ekonomi",
         "konu":  "odemeler dengesi kaydi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-ekonomi-kolay",
-        "id":  "kp-18",
+        "etiket":  "sgs-e16-ekonomi-zor",
+        "id":  "kp-09",
         "ders":  "Ekonomi",
         "konu":  "odemeler dengesi kaydi",
         "donem":  1,
@@ -888,6 +920,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "id":  "kp-14",
+        "ders":  "Ekonomi",
+        "konu":  "piyasa yapilari oligopol",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-ekonomi-kolay",
         "id":  "kp-14",
         "ders":  "Ekonomi",
@@ -897,14 +937,6 @@
     },
     {
         "etiket":  "sgs-t1-genel-ekonomi-cokzor",
-        "id":  "kp-14",
-        "ders":  "Ekonomi",
-        "konu":  "piyasa yapilari oligopol",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-14",
         "ders":  "Ekonomi",
         "konu":  "piyasa yapilari oligopol",
@@ -952,6 +984,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-ekonomi-cokzor-r1",
+        "id":  "kp-04",
+        "ders":  "Ekonomi",
+        "konu":  "talep egrisini kaydiran faktorler",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-ekonomi-cokzor-r2",
         "id":  "kp-04",
         "ders":  "Ekonomi",
@@ -960,10 +1000,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-ekonomi-cokzor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-k2-ekonomi-zor",
+        "id":  "kp-05",
         "ders":  "Ekonomi",
-        "konu":  "talep egrisini kaydiran faktorler",
+        "konu":  "tam rekabet kisa donem denge",
         "donem":  1,
         "kurtarma":  false
     },
@@ -992,6 +1032,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "id":  "kp-10",
+        "ders":  "Ekonomi",
+        "konu":  "tekelci rekabet piyasasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-10",
         "ders":  "Ekonomi",
@@ -1008,31 +1056,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
-        "id":  "kp-10",
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "id":  "kp-19",
         "ders":  "Ekonomi",
-        "konu":  "tekelci rekabet piyasasi",
+        "konu":  "tobin vergisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-ekonomi-kolay",
+        "id":  "kp-19",
+        "ders":  "Ekonomi",
+        "konu":  "tobin vergisi",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-genel-ekonomi-zor",
-        "id":  "kp-19",
-        "ders":  "Ekonomi",
-        "konu":  "tobin vergisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-kolay",
-        "id":  "kp-19",
-        "ders":  "Ekonomi",
-        "konu":  "tobin vergisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-19",
         "ders":  "Ekonomi",
         "konu":  "tobin vergisi",
@@ -1056,7 +1096,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16b-ekonomi-kolay",
+        "etiket":  "sgs-e16b-ekonomi-zor",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "tuketici tercihleri konvekslik",
@@ -1064,7 +1104,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16b-ekonomi-zor",
+        "etiket":  "sgs-e16b-ekonomi-kolay",
         "id":  "kp-01",
         "ders":  "Ekonomi",
         "konu":  "tuketici tercihleri konvekslik",
@@ -1096,7 +1136,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
+        "etiket":  "sgs-t1-genel-ekonomi-zor",
         "id":  "kp-15",
         "ders":  "Ekonomi",
         "konu":  "uyarlayici bekleyisler modeli",
@@ -1104,7 +1144,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-ekonomi-zor",
+        "etiket":  "sgs-t1-genel-ekonomi-cokzor",
         "id":  "kp-15",
         "ders":  "Ekonomi",
         "konu":  "uyarlayici bekleyisler modeli",
