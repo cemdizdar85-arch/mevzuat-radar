@@ -33,6 +33,11 @@ jobs:
   derle:
     runs-on: macos-15
     timeout-minutes: 60
+    # 25.09 DERSI: shell belirtilmeyince GitHub 'bash -e' kosar, PIPEFAIL YOK; 'xcodebuild ... | tail'
+    # xcodebuild'in hatasini yutuyordu -> ilk kosu imza hatasiyla dustu ama is YESIL bitti.
+    defaults:
+      run:
+        shell: bash
     env:
       ASC_ANAHTAR_ID: ${{ secrets.MOBIL_ASC_ANAHTAR_ID }}
       ASC_YAYINCI_ID: ${{ secrets.MOBIL_ASC_YAYINCI_ID }}
@@ -87,18 +92,22 @@ jobs:
           /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
           ls ios/App
 
-      - name: Arsivle (otomatik imza, API anahtariyla)
+      - name: Arsivle (imzasiz; dagitim imzasi yukleme adiminda Apple bulut imzasiyla)
         working-directory: mobil/ios/App
         run: |
+          # 25.09 ilk kosu: otomatik imza arsivde GELISTIRME profili istedi ("Your team has no devices") ve dustu.
+          # Magaza derlemesinde cihaz gerekmez: arsiv imzasiz alinir, -exportArchive (app-store-connect,
+          # automatic) Apple Distribution ile bulutta imzalar.
           SURUM=$(node -p "require('../../package.json').version")
           if [ -d App.xcworkspace ]; then PROJE="-workspace App.xcworkspace"; else PROJE="-project App.xcodeproj"; fi
           xcodebuild $PROJE -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" archive \
-            -allowProvisioningUpdates \
-            -authenticationKeyPath "$RUNNER_TEMP/AuthKey.p8" \
-            -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" \
-            DEVELOPMENT_TEAM="$TAKIM" CODE_SIGN_STYLE=Automatic PRODUCT_BUNDLE_IDENTIFIER=com.tetikte.app \
-            MARKETING_VERSION="$SURUM" CURRENT_PROJECT_VERSION=${{ github.run_number }} | tail -40
+            DEVELOPMENT_TEAM="$TAKIM" PRODUCT_BUNDLE_IDENTIFIER=com.tetikte.app \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            MARKETING_VERSION="$SURUM" CURRENT_PROJECT_VERSION=${{ github.run_number }} > "$RUNNER_TEMP/arsiv.log" 2>&1 \
+            || { tail -60 "$RUNNER_TEMP/arsiv.log"; echo "::error title=arsiv::xcodebuild archive dustu"; exit 1; }
+          tail -15 "$RUNNER_TEMP/arsiv.log"
+          test -d "$RUNNER_TEMP/App.xcarchive" || { echo "::error title=arsiv::App.xcarchive olusmadi"; exit 1; }
 
       - name: App Store Connect'e yukle (TestFlight)
         run: |
@@ -117,7 +126,11 @@ jobs:
             -exportOptionsPlist "$RUNNER_TEMP/disari.plist" -exportPath "$RUNNER_TEMP/disari" \
             -allowProvisioningUpdates \
             -authenticationKeyPath "$RUNNER_TEMP/AuthKey.p8" \
-            -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" | tail -40
+            -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" > "$RUNNER_TEMP/disari.log" 2>&1 \
+            || { tail -60 "$RUNNER_TEMP/disari.log"; echo "::error title=yukleme::xcodebuild -exportArchive dustu"; exit 1; }
+          tail -15 "$RUNNER_TEMP/disari.log"
+          grep -qiE "EXPORT SUCCEEDED|Upload succeeded" "$RUNNER_TEMP/disari.log" \
+            || { echo "::error title=yukleme::basari satiri yok (EXPORT SUCCEEDED / Upload succeeded)"; exit 1; }
           echo "::notice title=TestFlight::Derleme ${{ github.run_number }} yuklendi; App Store Connect isledikten sonra (10-30 dk) TestFlight'ta gorunur."
 
       - name: Anahtari sil

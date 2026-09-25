@@ -72,7 +72,16 @@ foreach($m in [regex]::Matches($uretici,"(?m)^\s{2}'([^']{3,60})'\s*=\s*@\((.+?)
 # 09.09: ilk sürümde bu blok hiç okunamıyordu ve bütün hukuk dersleri sahte "kaynak YOK" veriyordu (Borçlar 28/29).
 # Ders adı üretici dosyasında doğrudan aranır; plan ders adı '|' ile iki yazımı taşıyabilir ('Borclar Hukuku|Ticaret ve Borclar').
 $dersKanunlari=@()
+# 25.09: ders adı Türkçe harfle verilince ('Borçlar Hukuku') üreticinin ASCII anahtarı ('Borclar Hukuku') tutmuyor, liste
+#   sessizce "OKUNAMADI" oluyordu (K2 yazarı ölçtü: Borçlar'da 5 sahte YOK + 2 ilgisiz VAR). Ad hem özgün hem ASCII hâliyle denenir.
+$dersAdlari=New-Object System.Collections.Generic.List[string]
 foreach($dAd in ("$Ders" -split '\|')){
+  $ham=$dAd.Trim(); if(-not $ham){ continue }
+  $dersAdlari.Add($ham)
+  $ascii=$ham.Replace('ç','c').Replace('Ç','C').Replace('ğ','g').Replace('Ğ','G').Replace('ı','i').Replace('İ','I').Replace('ö','o').Replace('Ö','O').Replace('ş','s').Replace('Ş','S').Replace('ü','u').Replace('Ü','U')
+  if($ascii -ne $ham){ $dersAdlari.Add($ascii) }
+}
+foreach($dAd in $dersAdlari){
   $ad2=$dAd.Trim(); if(-not $ad2){ continue }
   # 09.09: [^)]+ kullanılamaz — kanun adının kendisinde parantez var ('TBK (6098 s.K.)'), yakalama erken kesiliyordu.
   # Tırnaklı öğe dizisi olarak yakalanır: @('X','Y')

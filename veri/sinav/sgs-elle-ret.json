@@ -1,30 +1,42 @@
 {
-    "aciklama":  "SGS elle ret (24.09.2026, Cem 'evet kur'): okuyarak bulunan kusurlu soru sayfaya ve kasaya GIRMEZ (arac/sgs-650-bas.ps1 KAPI-ELLE). Kimlik -> gerekce. Soru metni YOK. Kalkmasi icin kayit silinir; soru yeniden yazilinca yeni kimlik alir. Dosya bozuksa SGS yayini DURUR (bilinen kusurlu soruyu yayina almaktansa).",
-    "kayitlar":  {
-                     "sgs-c5-ticaret-cokzor-r1/kp-05":  {
-                                                            "gerekce":  "Kollektif sirkette kar/zarar paylasimi. Soru 'her zaman dogrudur' soruyor; anahtar B dogru ama E ('hukum yoksa esit') de dogru -> iki dogru cevap. Kaynak: ambardaki teori notu TBK m.623'un tersini ogretiyordu (not 24.09'da duzeltildi).",
-                                                            "kaynak":  "sinav/bitirme oturumu okumasi + site oturumu TBK (6098) m.623 metnini ambardan okudu (0df932f6): 'aksi kararlastirilmamissa ... esittir; zarara katilmama anlasmasi yalniz emek ortagi icin gecerli', 24.09.2026",
-                                                            "tarih":  "2026-09-24"
-                                                        },
-                     "sgs-c5-ticaret-kolay-r2/kp-12":  {
-                                                           "gerekce":  "Kollektif sirkette kar/zarar paylasimi. Soru 'hangisi yanlistir' soruyor; anahtar E ama B ('sermaye payi oraninda') ve D ('emek ortagi aksi kararlastirilmadikca zarara katilmaz') da yanlis -> uc cevap. Ayni hatali teori notu.",
-                                                           "kaynak":  "sinav/bitirme oturumu okumasi + site oturumu TBK (6098) m.623 metnini ambardan okudu (0df932f6), 24.09.2026",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "sgs-c5-ticaret-cokzor-r2/kp-04":  {
-                                                            "gerekce":  "Yayinda degil (24.09); anahtari ayni yanlis kurala (kar sermaye payi oraninda / emek ortagi kendiliginden zarardan muaf) dayaniyor. Onleyici: yayin sartini gecerse de sayfaya cikmasin.",
-                                                            "kaynak":  "sinav/bitirme oturumu okumasi, TBK m.623 (0df932f6), 24.09.2026 - site oturumu bu sorunun metnini OKUMADI",
-                                                            "tarih":  "2026-09-24"
-                                                        },
-                     "sgs-c5-ticaret-kolay-r1/kp-12":  {
-                                                           "gerekce":  "Yayinda degil (24.09); anahtari ayni yanlis kurala dayaniyor. Onleyici.",
-                                                           "kaynak":  "sinav/bitirme oturumu okumasi, TBK m.623 (0df932f6), 24.09.2026 - site oturumu bu sorunun metnini OKUMADI",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "sgs-t1-vergi-cokzor/kp-28":  {
-                                                       "gerekce":  "VUK m.177 karma faaliyet: soru siniri 5.000.000 TL / is hasilati 2.400.000 TL diye GERCEK veri gibi veriyor; 2026 hadleri 2.500.000 / 1.200.000 (VUK GT 588). Dogru sinirla cevap (2.500.000-2.000.000)/5 = 100.000, siklarda yok. Yayinda degil (24.09); onleyici.",
-                                                       "kaynak":  "sinav/bitirme oturumu okumasi (arac/had-tutar-tarama.ps1) + site oturumu VUK GT 588 EK m.177 metnini ambardan okudu (ad67d45a), 24.09.2026",
-                                                       "tarih":  "2026-09-24"
-                                                   }
-                 }
+    "aciklama": "SGS elle ret (24.09.2026, Cem 'evet kur'): okuyarak bulunan kusurlu soru sayfaya ve kasaya GIRMEZ (arac/sgs-650-bas.ps1 KAPI-ELLE). Kimlik -> gerekce. Soru metni YOK. Kalkmasi icin kayit silinir; soru yeniden yazilinca yeni kimlik alir. Dosya bozuksa SGS yayini DURUR (bilinen kusurlu soruyu yayina almaktansa).",
+    "kayitlar": {
+        "sgs-c5-ticaret-cokzor-r1/kp-05": {
+            "gerekce": "Kollektif sirkette kar/zarar paylasimi. Soru 'her zaman dogrudur' soruyor; anahtar B dogru ama E ('hukum yoksa esit') de dogru -> iki dogru cevap. Kaynak: ambardaki teori notu TBK m.623'un tersini ogretiyordu (not 24.09'da duzeltildi).",
+            "kaynak": "sinav/bitirme oturumu okumasi + site oturumu TBK (6098) m.623 metnini ambardan okudu (0df932f6): 'aksi kararlastirilmamissa ... esittir; zarara katilmama anlasmasi yalniz emek ortagi icin gecerli', 24.09.2026",
+            "tarih": "2026-09-24"
+        },
+        "sgs-c5-ticaret-kolay-r2/kp-12": {
+            "gerekce": "Kollektif sirkette kar/zarar paylasimi. Soru 'hangisi yanlistir' soruyor; anahtar E ama B ('sermaye payi oraninda') ve D ('emek ortagi aksi kararlastirilmadikca zarara katilmaz') da yanlis -> uc cevap. Ayni hatali teori notu.",
+            "kaynak": "sinav/bitirme oturumu okumasi + site oturumu TBK (6098) m.623 metnini ambardan okudu (0df932f6), 24.09.2026",
+            "tarih": "2026-09-24"
+        },
+        "sgs-c5-ticaret-cokzor-r2/kp-04": {
+            "gerekce": "Yayinda degil (24.09); anahtari ayni yanlis kurala (kar sermaye payi oraninda / emek ortagi kendiliginden zarardan muaf) dayaniyor. Onleyici: yayin sartini gecerse de sayfaya cikmasin.",
+            "kaynak": "sinav/bitirme oturumu okumasi, TBK m.623 (0df932f6), 24.09.2026 - site oturumu bu sorunun metnini OKUMADI",
+            "tarih": "2026-09-24"
+        },
+        "sgs-c5-ticaret-kolay-r1/kp-12": {
+            "gerekce": "Yayinda degil (24.09); anahtari ayni yanlis kurala dayaniyor. Onleyici.",
+            "kaynak": "sinav/bitirme oturumu okumasi, TBK m.623 (0df932f6), 24.09.2026 - site oturumu bu sorunun metnini OKUMADI",
+            "tarih": "2026-09-24"
+        },
+        "sgs-t1-vergi-cokzor/kp-28": {
+            "gerekce": "VUK m.177 karma faaliyet: soru siniri 5.000.000 TL / is hasilati 2.400.000 TL diye GERCEK veri gibi veriyor; 2026 hadleri 2.500.000 / 1.200.000 (VUK GT 588). Dogru sinirla cevap (2.500.000-2.000.000)/5 = 100.000, siklarda yok. Yayinda degil (24.09); onleyici.",
+            "kaynak": "sinav/bitirme oturumu okumasi (arac/had-tutar-tarama.ps1) + site oturumu VUK GT 588 EK m.177 metnini ambardan okudu (ad67d45a), 24.09.2026",
+            "tarih": "2026-09-24"
+        },
+        "sgs-t1-fmuh-kolay-b/kp-123": {
+            "gerekce": "Soru kokunde hesap kodu yanlis: '220 ALICILAR' yaziyor; Tekduzen Hesap Plani'nda Alicilar 120 (220 uzun vadeli). Tutar (120.000) dogru ama ogrenciye yanlis kod ogretiyor.",
+            "kaynak": "25.09 tum-banka etiket denetimi okuyucusu isaretledi; GM soru metnini okuyup dogruladi"
+        },
+        "sgs-c5-fmuh-kolay-r2/kp-05": {
+            "gerekce": "Ticari mal deger dusuklugu icin TMS 36 ve 'gercege uygun deger' anilmis; stoklar TMS 36 kapsami disinda, dogrusu TMS 2 (net gerceklesebilir deger). Rakam (25.000) tesaduf dogru, kavram yanlis.",
+            "kaynak": "25.09 tum-banka etiket denetimi okuyucusu isaretledi; GM soru metnini okuyup dogruladi"
+        },
+        "sgs-d4-turkce-kolay-r2/kp-01": {
+            "gerekce": "Iki dogru cevap: anahtar B dogru, ama A ('Kardesimde boyle bir kitap yok') da dogru cumle - bulunma eki -de bitisik ('kardesimin elinde'). Yazar 'kardesim de' hatasini kastetmis, yazildigi haliyle ikinci dogru olusmus.",
+            "kaynak": "25.09 GM okumasi (teori notu etki olcumu sirasinda)"
+        }
+    }
 }
