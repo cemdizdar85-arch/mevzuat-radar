@@ -550,7 +550,13 @@ function kur(){
        olculdu: gtip.html'de [data-veri-damgasi] hic olusmadi). Bu yuzden
        yer bulunamazsa KENDI kabini olusturur. */
     var yer = document.querySelector('[data-veri-damgasi]');
-    {
+    /* 25.09 Cem: "burda veri güncelleme niye var, böyle eski tarihler sitede olmasın, kaldıralım".
+       Sayfa dibi "Veri son güncelleme" satırı KAPALI. Soru/seviye sayfalarında ziyaretçiye bilgi vermiyor, yalnız
+       eski tarih gösteriyordu (seviye-testi.html "13.09.2026"); rakip sınav sitelerinde (UWorld, Becker) böyle satır yok.
+       Tazeliği önemli sayfaların KENDİ damgası var (Alacak "en yeni ilan" + 3 gün bayatlık uyarısı, ana sayfa
+       "Bu sabahın nöbeti"). Ölçüm yerinde: veri/tazelik-damgasi.json + arac/veri-tazelik.ps1 çalışmaya devam eder.
+       Geri açmak için alttaki koşulu true yap. */
+    if (false) {
       fetch(KOK + 'veri/tazelik-damgasi.json', { cache: 'no-store' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
