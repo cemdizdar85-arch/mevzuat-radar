@@ -2,41 +2,41 @@
     {
         "ders": "Denetim",
         "dersAd": "Denetim",
-        "etiket": "sgs-k5-denetim-cokzor",
-        "adet": 8,
-        "zorluk": "çok zor",
-        "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-denetim-cokzor.json",
-        "toplu": true,
-        "disla": "",
-        "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-denetim-cokzor.json"
-    },
-    {
-        "ders": "Is ve Sosyal Guvenlik Hukuku|Is ve Sosyal Guvenlik",
-        "dersAd": "Is ve Sosyal Guvenlik Hukuku|Is ve Sosyal Guvenlik",
-        "etiket": "sgs-k5-issgk-zor",
-        "adet": 6,
-        "zorluk": "zor",
-        "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-issgk-zor.json",
-        "toplu": true,
-        "disla": "",
-        "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-issgk-zor.json"
-    },
-    {
-        "ders": "Meslek Hukuku",
-        "dersAd": "Meslek Hukuku",
-        "etiket": "sgs-k5-meslek-kolay",
-        "adet": 2,
+        "etiket": "sgs-k5-denetim-kolay",
+        "adet": 3,
         "zorluk": "kolay",
         "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-meslek-kolay.json",
+        "konuDosya": "veri/sinav/konu/sgs-k5-denetim-kolay.json",
         "toplu": true,
         "disla": "",
         "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-meslek-kolay.json"
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-denetim-kolay.json"
+    },
+    {
+        "ders": "Finansal Muhasebe",
+        "dersAd": "Finansal Muhasebe",
+        "etiket": "sgs-k5-fmuh-cokzor",
+        "adet": 9,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k5-fmuh-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-fmuh-cokzor.json"
+    },
+    {
+        "ders": "Ataturk Ilke",
+        "dersAd": "Ataturk Ilke",
+        "etiket": "sgs-k5-inkilap-zor",
+        "adet": 2,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k5-inkilap-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-inkilap-zor.json"
     },
     {
         "ders": "Maliyet Muhasebesi",
@@ -65,29 +65,29 @@
         "hazirSoru": "veri/fabrika/hazir-sgs-k5-mat-zor.json"
     },
     {
-        "ders": "Ekonomi",
-        "dersAd": "Ekonomi",
-        "etiket": "sgs-k5-ekonomi-kolay",
-        "adet": 1,
-        "zorluk": "kolay",
+        "ders": "Mali Tablolar Analizi",
+        "dersAd": "Mali Tablolar Analizi",
+        "etiket": "sgs-k5-mta-zor",
+        "adet": 2,
+        "zorluk": "zor",
         "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-ekonomi-kolay.json",
+        "konuDosya": "veri/sinav/konu/sgs-k5-mta-zor.json",
         "toplu": true,
         "disla": "",
         "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-ekonomi-kolay.json"
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-mta-zor.json"
     },
     {
-        "ders": "Mali Tablolar Analizi",
-        "dersAd": "Mali Tablolar Analizi",
-        "etiket": "sgs-k5-mta-cokzor",
+        "ders": "Vergi Hukuku",
+        "dersAd": "Vergi Hukuku",
+        "etiket": "sgs-k5-vergi-cokzor",
         "adet": 1,
         "zorluk": "çok zor",
         "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-mta-cokzor.json",
+        "konuDosya": "veri/sinav/konu/sgs-k5-vergi-cokzor.json",
         "toplu": true,
         "disla": "",
         "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-mta-cokzor.json"
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-vergi-cokzor.json"
     }
 ]

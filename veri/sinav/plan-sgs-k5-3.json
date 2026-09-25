@@ -1,29 +1,68 @@
 [
     {
-        "ders": "Finansal Muhasebe",
-        "dersAd": "Finansal Muhasebe",
-        "etiket": "sgs-k5-fmuh-kolay",
-        "adet": 5,
-        "zorluk": "kolay",
+        "ders": "Borclar Hukuku|Ticaret ve Borclar",
+        "dersAd": "Borclar Hukuku|Ticaret ve Borclar",
+        "etiket": "sgs-k5-borclar-zor",
+        "adet": 6,
+        "zorluk": "zor",
         "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-fmuh-kolay.json",
+        "konuDosya": "veri/sinav/konu/sgs-k5-borclar-zor.json",
         "toplu": true,
         "disla": "",
         "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-fmuh-kolay.json"
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-borclar-zor.json"
     },
     {
-        "ders": "Yabanci Dil",
-        "dersAd": "Yabanci Dil",
-        "etiket": "sgs-k5-yd-cokzor",
-        "adet": 6,
-        "zorluk": "çok zor",
+        "ders": "Ekonomi",
+        "dersAd": "Ekonomi",
+        "etiket": "sgs-k5-ekonomi-kolay",
+        "adet": 1,
+        "zorluk": "kolay",
         "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-yd-cokzor.json",
+        "konuDosya": "veri/sinav/konu/sgs-k5-ekonomi-kolay.json",
         "toplu": true,
         "disla": "",
         "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-yd-cokzor.json"
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-ekonomi-kolay.json"
+    },
+    {
+        "ders": "Ataturk Ilke",
+        "dersAd": "Ataturk Ilke",
+        "etiket": "sgs-k5-inkilap-cokzor",
+        "adet": 2,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k5-inkilap-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-inkilap-cokzor.json"
+    },
+    {
+        "ders": "Is ve Sosyal Guvenlik Hukuku|Is ve Sosyal Guvenlik",
+        "dersAd": "Is ve Sosyal Guvenlik Hukuku|Is ve Sosyal Guvenlik",
+        "etiket": "sgs-k5-issgk-zor",
+        "adet": 6,
+        "zorluk": "zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k5-issgk-zor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-issgk-zor.json"
+    },
+    {
+        "ders": "Matematik",
+        "dersAd": "Matematik",
+        "etiket": "sgs-k5-mat-cokzor",
+        "adet": 2,
+        "zorluk": "çok zor",
+        "sinav": "SGS",
+        "konuDosya": "veri/sinav/konu/sgs-k5-mat-cokzor.json",
+        "toplu": true,
+        "disla": "",
+        "tur": 1,
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-mat-cokzor.json"
     },
     {
         "ders": "Meslek Hukuku",
@@ -39,45 +78,6 @@
         "hazirSoru": "veri/fabrika/hazir-sgs-k5-meslek-zor.json"
     },
     {
-        "ders": "Borclar Hukuku|Ticaret ve Borclar",
-        "dersAd": "Borclar Hukuku|Ticaret ve Borclar",
-        "etiket": "sgs-k5-borclar-kolay",
-        "adet": 1,
-        "zorluk": "kolay",
-        "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-borclar-kolay.json",
-        "toplu": true,
-        "disla": "",
-        "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-borclar-kolay.json"
-    },
-    {
-        "ders": "Ataturk Ilke",
-        "dersAd": "Ataturk Ilke",
-        "etiket": "sgs-k5-inkilap-cokzor",
-        "adet": 3,
-        "zorluk": "çok zor",
-        "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-inkilap-cokzor.json",
-        "toplu": true,
-        "disla": "",
-        "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-inkilap-cokzor.json"
-    },
-    {
-        "ders": "Ekonomi",
-        "dersAd": "Ekonomi",
-        "etiket": "sgs-k5-ekonomi-zor",
-        "adet": 2,
-        "zorluk": "zor",
-        "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-ekonomi-zor.json",
-        "toplu": true,
-        "disla": "",
-        "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-ekonomi-zor.json"
-    },
-    {
         "ders": "Turkce",
         "dersAd": "Turkce",
         "etiket": "sgs-k5-turkce-kolay",
@@ -91,16 +91,16 @@
         "hazirSoru": "veri/fabrika/hazir-sgs-k5-turkce-kolay.json"
     },
     {
-        "ders": "Vergi Hukuku",
-        "dersAd": "Vergi Hukuku",
-        "etiket": "sgs-k5-vergi-cokzor",
-        "adet": 1,
-        "zorluk": "çok zor",
+        "ders": "Yabanci Dil",
+        "dersAd": "Yabanci Dil",
+        "etiket": "sgs-k5-yd-kolay",
+        "adet": 3,
+        "zorluk": "kolay",
         "sinav": "SGS",
-        "konuDosya": "veri/sinav/konu/sgs-k5-vergi-cokzor.json",
+        "konuDosya": "veri/sinav/konu/sgs-k5-yd-kolay.json",
         "toplu": true,
         "disla": "",
         "tur": 1,
-        "hazirSoru": "veri/fabrika/hazir-sgs-k5-vergi-cokzor.json"
+        "hazirSoru": "veri/fabrika/hazir-sgs-k5-yd-kolay.json"
     }
 ]
