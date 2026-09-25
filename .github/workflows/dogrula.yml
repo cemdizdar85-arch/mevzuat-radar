@@ -172,6 +172,13 @@ jobs:
           - { ad: "Kaydir-Coz eksiksizlik kapisi OZ-SINAVI (Nobetci bos kart gostermesin)",
               kabuk: pwsh, komut: "./arac/kc-kapisi-sinavi.ps1" }
 
+          # 25.09.2026 - SMMM'ye ozel konu->kaynak desenleri (motor/kalip-parti-uret.ps1 $OZEL_DESEN_TAM). SGS'de sozluk
+          # BIREBIR ayni mi, var olan anahtar eziliyor mu, yeni anahtarlar kok eslesmesiyle baska konuyu yakaliyor mu
+          # (depodaki butun konu adlarinda eski/yeni desen kiyasi). Mutasyon: SMMM kosulu, ezme ve sira sabitlemesi
+          # tek tek kaldirilinca KIRMIZI; birebir dislama + sira birlikte kaldirilinca KIRMIZI (8/11).
+          - { ad: "SMMM ozel desen blogu OZ-SINAVI (SGS sozlugu degismesin, yeni anahtar baska konuyu yakalamasin)",
+              kabuk: pwsh, komut: "./arac/smmm-ozel-desen-sinavi.ps1" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para

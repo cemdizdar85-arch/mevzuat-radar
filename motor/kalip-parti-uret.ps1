@@ -1266,6 +1266,51 @@ $OZEL_DESEN=@{
   '5018 butce turleri'                = @('~teori 5018 butce turleri','Kamu Malî Yönetimi K. (5018 s.K.) m.3 [%','~teori merkezi yonetim butcesi kapsami')
   'kamu harcamalari artis kuramlari'  = @('~teori kamu harcamalarinin artis','~teori wagner kanunu')
 }
+# 25.09.2026 YALNIZ BİTİRME (Cem AskUserQuestion "Hedefli: ~11 konuya özel desen"). ÖLÇÜLDÜ (w14, 39 hakem reddi): 20'si "atıf teyitsiz";
+#   bakılan 10 vakanın 8'inde gereken kaynak AMBARDA VARDI ama pakete girmedi (GÜG yükleme sorusuna '501 Ödenmemiş Sermaye', faaliyet
+#   kârlılığı sorusuna GÜG yükleme notu geldi) — otomatik '~teori' deseni konunun BÜTÜN kelimelerini not başlığında arıyor ("katsayisi",
+#   "mamul", "karlilik" başlıkta yok). Bütün SMMM taslakları (5.853 hakemli soru): konuya uyan not ambarda VAR ama pakette DEĞİLKEN atıf
+#   reddi %12,5, paketteyken %7,2. Her desenin çektiği kaynak 25.09'da ambarda tek tek ölçüldü.
+#   ⚠ Bu anahtarlar YALNIZ BİREBİR konu adıyla çalışır ($OZEL_DESEN_TAM): kök eşleşmesine girmez — 'sgk vergi odemesi'nin kökleri
+#   ('vergi','odeme') başka vergi konularını da yakalardı. SGS/KGK koşusunda blok hiç çalışmaz, var olan anahtar ezilmez.
+$OZEL_DESEN_TAM=New-Object System.Collections.Generic.HashSet[string]
+# ⚠ Kök eşleşmesi EŞİT puanlı iki anahtarda sözlüğün DOLAŞIM SIRASINDA ilk geleni seçer; anahtar eklemek hashtable sırasını değiştirir.
+#   ÖLÇÜLDÜ (25.09 eşdeğerlik provası, 4.305 konu adı): sıra sabitlenmeden 'gelir gider tahakkuku' 'gider tahakkuku' yerine 'gelir tahakkuku'
+#   desenini alıyordu. Kök eşleşmesi bu yüzden blok ÖNCESİ sırayı dolaşır → eski davranış birebir korunur.
+$OZEL_DESEN_KOK_SIRA=@($OZEL_DESEN.Keys)
+if($Sinav -eq 'SMMM'){
+  $gugD=@('~teori gug yukleme','~teori genel uretim giderlerinin dagitimi','THP 730%','THP 731%')
+  $faalD=@('~teori faaliyet kar marji','~teori karlilik oranlari','~teori brut satis kari','THP 600%')
+  $esdD=@('~teori esdeger urun birimleri','~teori safha maliyetinde esdeger','THP 151%')
+  $asitD=@('~teori likidite oranlari','~teori cari oran ve asit','THP 150%','THP 300%')
+  $brutD=@('~teori brut satis kari','~teori karlilik oranlari','THP 600%','THP 620%')
+  $sgkD=@('~teori ucret bordrosu','THP 361%','THP 360%','THP 335%','THP 191%')
+  $iadeD=@('~teori satistan iadeler','THP 610%','THP 611%','THP 191%','THP 391%')
+  $kartD=@('@VUK (213 s.K.) muk. m.355|kredi','THP 108%','THP 102%','THP 600%','THP 391%','THP 780%','THP 120%')   # muk. m.355 [6/9] = 7524/13 kredi kartı fıkrası (ölçüldü)
+  $smmmEkDesen=[ordered]@{
+    'gug yukleme katsayisi'=$gugD; 'gug yukleme katsayilari hesabi'=$gugD; 'gug yukleme oranlari'=$gugD
+    'faaliyet karlilik orani'=$faalD; 'faaliyet kârlilik orani'=$faalD; 'faaliyet karliligi'=$faalD; 'faaliyet kârliligi'=$faalD
+    'esdeger mamul birimi'=$esdD; 'esdeger mamul birimi yontemi'=$esdD; 'esdeger mamul birimleri tablosu'=$esdD; 'esdeger mamul miktari'=$esdD
+    'asit-test oran'=$asitD; 'asit test orani'=$asitD; 'likidite asit-test orani'=$asitD
+    'trend analizi net satis'=@('~teori karsilastirmali yatay','~teori trend','THP 600%')
+    'brut satis karliligi'=$brutD; 'brut satis kârliligi'=$brutD
+    'ozel maliyet gideri'=@('~teori bakim onarim','THP 264%','THP 730%','THP 770%')
+    'sgk vergi odemesi'=$sgkD; 'sgk vergi kesinti odemesi'=$sgkD
+    'satistan iade kdv'=$iadeD; 'satistan iade avans'=$iadeD
+    'kredi karti tahsilati'=$kartD; 'kredi karti ile satis'=$kartD
+  }
+  foreach($ekAnahtar in $smmmEkDesen.Keys){ if(-not $OZEL_DESEN.ContainsKey($ekAnahtar)){ $OZEL_DESEN[$ekAnahtar]=$smmmEkDesen[$ekAnahtar]; [void]$OZEL_DESEN_TAM.Add($ekAnahtar) } }
+}
+# 25.09: konu adı sözlükte BİREBİR yoksa, bütün kökleri konuda geçen EN UZUN anahtar seçilir (06.09 fmuh-k10b kuralı, eskiden satır içindeydi;
+#   öz-sınav çağırabilsin diye işleve alındı, mantık AYNI). $OZEL_DESEN_TAM'daki anahtarlar bu eşleşmeye girmez.
+function OzelDesenKokAnahtari([string]$konuLc){
+  if($OZEL_DESEN.ContainsKey($konuLc)){ return $konuLc }
+  $konuKok=@((Katla2 $konuLc) -split '\s+' | Where-Object { $_.Length -ge 4 } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } })
+  $enA=$null; $enN=0
+  foreach($ak in $OZEL_DESEN_KOK_SIRA){ if($OZEL_DESEN_TAM.Contains($ak)){ continue }; $akK=@((Katla2 $ak) -split '\s+' | Where-Object { $_.Length -ge 4 } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); if(-not $akK.Count){ continue }; $ortak=@($akK | Where-Object { $konuKok -contains $_ }).Count; if($ortak -eq $akK.Count -and $akK.Count -gt $enN){ $enN=$akK.Count; $enA=$ak } }
+  if($enA -and $enN -ge 2){ return $enA }
+  return $null
+}
 # Hakem yakalamalarindan dogan konu-ozel uretim uyarilari (isteme eklenir)
 $OZEL_NOT=@{
   # 06.09 kalıp-5 pilotu (hakem yakaladı): model dava masrafını alacağa EKLEYİP karşılık ayırdı; 2022/1 çıkmış sorunun tuzağı tam buydu (110.000 şıkları).
@@ -3199,10 +3244,8 @@ foreach($gecisA in $(if($script:A_UC_GECIS){ @(1,2,3) } else { @(1,2) })){ if($g
   # 06.09 fmuh-k10b dersi: köprü konusu "duran varlik (sabit kiymet) satisi kaydi" iken elle ölçülmüş desen "duran varlik satisi" (THP 253/257/679/689,
   # VUK 328) BİREBİR eşleşmediği için genel desen THP 197/199/248 çekti → hakem HAYIR. Birebir yoksa: desen anahtarının bütün kökleri konuda geçiyorsa o desen.
   if(-not $OZEL_DESEN.ContainsKey($konuLc)){
-    $konuKok=@((Katla2 $konuLc) -split '\s+' | Where-Object { $_.Length -ge 4 } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } })
-    $enA=$null; $enN=0
-    foreach($ak in $OZEL_DESEN.Keys){ $akK=@((Katla2 $ak) -split '\s+' | Where-Object { $_.Length -ge 4 } | ForEach-Object { if($_.Length -gt 5){ $_.Substring(0,5) } else { $_ } }); if(-not $akK.Count){ continue }; $ortak=@($akK | Where-Object { $konuKok -contains $_ }).Count; if($ortak -eq $akK.Count -and $akK.Count -gt $enN){ $enN=$akK.Count; $enA=$ak } }
-    if($enA -and $enN -ge 2){ Write-Host "  OZEL_DESEN kök eşleşmesi: '$konuLc' -> '$enA'" -ForegroundColor DarkGray; $konuLc=$enA }
+    $enA=OzelDesenKokAnahtari $konuLc
+    if($enA){ Write-Host "  OZEL_DESEN kök eşleşmesi: '$konuLc' -> '$enA'" -ForegroundColor DarkGray; $konuLc=$enA }
   }
   $desenler=if($OZEL_DESEN.ContainsKey($konuLc)){ $OZEL_DESEN[$konuLc] } else { DesenUret $ky }
   $script:AMBAR_AG_HATASI=$null
