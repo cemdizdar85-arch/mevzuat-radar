@@ -530,7 +530,8 @@ function Save-BedelAra([string]$etiketTam,[bool]$kapandi=$false){
 function Save-BedelKesin([string]$zaman,[string]$etiket,[string]$ders,[double]$toplamUsd,[bool]$varsayim,$satirlar,[string]$yazan){
   try{
     $anah = Get-SbAnahtar; if(-not $anah){ return $false }
-    $satir = [ordered]@{ zaman = ([datetime]$zaman).ToString('o'); etiket = $etiket; ders = $ders; toplam_usd = $toplamUsd; varsayim = $varsayim; satirlar = @($satirlar); yazan = $yazan }
+    # 25.09: zaman ACIK OFSETLE (ofsetsiz 'o' TR saatini ambara UTC diye yaziyordu -> 3 saat kayma; bkz. arac/bedel-senkron.ps1 SAAT DILIMI)
+    $satir = [ordered]@{ zaman = ([DateTimeOffset]([datetime]::SpecifyKind([datetime]$zaman,[DateTimeKind]::Local))).ToString('o'); etiket = $etiket; ders = $ders; toplam_usd = $toplamUsd; varsayim = $varsayim; satirlar = @($satirlar); yazan = $yazan }
     $bayt = [Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($satir) -Depth 8 -Compress))
     $bas = @{ apikey = $anah; Authorization = "Bearer $anah"; 'User-Agent' = 'mevzuat-radar-robot/1.0'; Prefer = 'return=minimal' }
     [void](Invoke-RestMethod -Method Post -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/bedel_kaydi' -Headers $bas -ContentType 'application/json; charset=utf-8' -Body $bayt -TimeoutSec 60)

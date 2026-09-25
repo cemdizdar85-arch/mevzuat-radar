@@ -196,6 +196,13 @@ jobs:
           - { ad: "Bedel ara kaydi OZ-SINAVI (coken kosunun harcamasi deftere girsin)",
               kabuk: pwsh, komut: "./arac/bedel-ara-sinavi.ps1" }
 
+          # 25.09.2026 - Bedel defteri SAAT DILIMI. Yerelde yazilan satirlar ambara 3 saat kaymis (ofsetsiz) yaziliyor,
+          # indirilince ayni harcama yerel defterde IKINCI kez sayiliyordu (olculdu: 810 satir / 813,60 USD). Sinav:
+          # ±3 saat ikiz eslesmesi (gun devri dahil) + 4 yanlis alarm (±1 saat, farkli tutar, farkli etiket) + ofsetli bicim.
+          # Mutasyonla olculdu: kayma listesi 0'a indirilince / yalniz +3 birakilinca / ±1 eklenince / ofset silinince 5/5 KIRMIZI.
+          - { ad: "Bedel senkron SAAT DILIMI OZ-SINAVI (ayni harcama iki kez sayilmasin)",
+              kabuk: pwsh, komut: "./arac/bedel-senkron.ps1 -Sinav" }
+
           # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
           # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya
           # gider. GERCEK betik -DenetimKok ile gecici klasorde kosulur (replika yok). 14 vaka:
