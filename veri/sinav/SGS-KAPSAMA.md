@@ -3,12 +3,12 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.474 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.473 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 494 | 899 | 28,1 | 1026 | 266 | 54 | 15 | 159 | 100 |
-| Denetim | 281 | 491 | 15,3 | 640 | 174 | 31 | 6 | 70 | 43 |
+| Finansal Muhasebe | 490 | 890 | 27,8 | 1023 | 265 | 51 | 15 | 159 | 93 |
+| Denetim | 282 | 496 | 15,5 | 643 | 174 | 34 | 5 | 69 | 46 |
 | Yabancı Dil | 85 | 321 | 10,0 | 257 | 45 | 18 | 1 | 21 | 120 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 369 | 101 | 13 | 5 | 20 | 18 |
 | Matematik | 119 | 256 | 8,0 | 433 | 42 | 12 | 4 | 61 | 29 |
@@ -17,7 +17,7 @@ Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından
 | Vergi Hukuku | 160 | 200 | 6,3 | 154 | 50 | 6 | 8 | 96 | 8 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 208 | 61 | 12 | 3 | 20 | 12 |
 | Ekonomi | 137 | 193 | 6,0 | 151 | 50 | 8 | 4 | 75 | 12 |
-| İş ve Sosyal Güvenlik Hukuku | 96 | 186 | 5,8 | 160 | 39 | 19 | 2 | 36 | 36 |
+| İş ve Sosyal Güvenlik Hukuku | 98 | 190 | 5,9 | 160 | 39 | 19 | 3 | 37 | 39 |
 | Borçlar Hukuku | 91 | 180 | 5,6 | 189 | 50 | 12 | 3 | 26 | 34 |
 | Maliye | 119 | 168 | 5,3 | 124 | 34 | 7 | 6 | 72 | 7 |
 | Meslek Hukuku | 92 | 163 | 5,1 | 152 | 43 | 7 | 4 | 38 | 27 |
@@ -28,7 +28,7 @@ Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **180 konu / 517 soru**
+- 3+ dönem çıkmış: **180 konu / 516 soru**
 - 2 dönem çıkmış: 120 konu / 168 soru
 - 1 dönem çıkmış: 900 konu / 902 soru
 
@@ -48,13 +48,13 @@ Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından
 | Borçlar Hukuku | zamanasimi suresi | 3 / 3 | 2025/3 |
 | Borçlar Hukuku | sozlesme sekli | 3 / 3 | 2026/2 |
 | Borçlar Hukuku | borclu temerrudu | 3 / 3 | 2019/1 |
-| Denetim | is guvencesi | 3 / 3 | 2019/1 |
 | Finansal Muhasebe | amortisman yontemi degisimi | 3 / 3 | 2025/2 |
 | Finansal Muhasebe | tfrs 3 gercege uygun deger olcumu | 3 / 3 | 2023/1 |
 | Finansal Muhasebe | pasif duzenleyici hesap | 3 / 3 | 2026/1 |
 | Finansal Muhasebe | onemlilik kavrami | 3 / 3 | 2021/3 |
 | Finansal Muhasebe | nazim hesaplar | 3 / 3 | 2019/1 |
 | Finansal Muhasebe | muhasebe politikalari | 3 / 3 | 2026/1 |
+| İş ve Sosyal Güvenlik Hukuku | is guvencesi | 3 / 3 | 2019/1 |
 | Maliyet Muhasebesi | ekonomik siparis miktari | 3 / 3 | 2019/2 |
 | Meslek Hukuku | etik kurulu gorev yetkileri | 3 / 3 | 2026/2 |
 | Meslek Hukuku | smmm odalari | 3 / 3 | 2021/1 |
