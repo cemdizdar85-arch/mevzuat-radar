@@ -105,7 +105,19 @@ var ELCI = { acik:false, indirim:{ sgs:480 }, bicim:/^[A-Z0-9]{3,12}$/ };
 var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
 
 /* ---------------------------------------------------------------------------
-   FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı).
+   KDV HARİÇ GÖSTERİM — 25.09.2026 CEM KARARI ("sitede artı KDV olarak yazalım, KDV'siz fiyatı görelim").
+   Risk Cem'e iki kez yazıldı: 6502 m.54 + Fiyat Etiketi Yönetmeliği tüketiciye tüm vergiler dahil tutar
+   gösterilmesini ister. Riski küçültmek için KDV dahil toplam HER YERDE hemen altında yazar; ödeme özeti
+   KDV dahildir. Yalnız SGS: diğer paketler KDV dahil yuvarlak kuruldu (1.190 → '991,67 + KDV' olurdu).
+   Kapatmak için sgs:false yeter; sayfalar bu iki yardımcıyı okur.
+--------------------------------------------------------------------------- */
+var KDV_HARIC_GOSTER = { sgs:true };
+function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL + KDV' : tl(n) + ' TL'; }
+function fiyatDahilNot(id, n){ return KDV_HARIC_GOSTER[id] ? 'KDV dahil ' + tl(n) + ' TL' : ''; }
+
+/* ---------------------------------------------------------------------------
+   FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı). Rakamlar hep KDV dahil tutulur;
+   ekranda SGS 25.09'dan beri '+ KDV' gösterilir (KDV_HARIC_GOSTER), hesap değişmez.
    Sınav tarafı KDV dahil olmak ZORUNDA: 6502 m.54 + Fiyat Etiketi Yönetmeliği,
    tüketiciye satışta tüm vergiler dahil tek tutar gösterilir.
 --------------------------------------------------------------------------- */

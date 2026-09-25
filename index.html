@@ -872,7 +872,7 @@ window.veriAl = (function(){
       function kahramanTutar(sn){
         try{
           if(typeof FIYAT==='undefined'||typeof tl!=='function') return '';
-          if(sn==='sgs'&&FIYAT.sgs) return ' — '+tl(FIYAT.sgs.kurulus)+' TL';
+          if(sn==='sgs'&&FIYAT.sgs) return ' — '+fiyatAna('sgs',FIYAT.sgs.kurulus);
           if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) return ' — ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den";
           if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgk[1]) return ' — modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den";
         }catch(e){}
@@ -1225,7 +1225,7 @@ window.veriAl = (function(){
         function kota(sn,f){ return (f.liste>f.kurulus&&K[sn])?' · ilk '+tl(K[sn])+' üyeye kuruluş fiyatı':''; }
         function satir(sn){
           var ic='';
-          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+tl(f.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+tl(f.liste)+' TL':''); }
+          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b> ('+fiyatDahilNot('sgs',f.kurulus)+') · sınava kadar'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste):''); }
           else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('yeterlilik',t); }
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('kgk',k); }
           if(!ic) return '';
@@ -1239,7 +1239,7 @@ window.veriAl = (function(){
           if(ds.durum==='aktif') return '';
           if(HZ[sn]){
             var al=(sn==='sgs')?'satin-al.html?paket=sgs':'fiyat.html?sinav='+sn;
-            var tutar=(sn==='sgs')?' — '+tl(FIYAT.sgs.kurulus)+' TL':'';
+            var tutar=(sn==='sgs')?' — '+fiyatAna('sgs',FIYAT.sgs.kurulus):'';
             ic+='<a class="bz-uye bz-al" href="'+al+'">'+(ds.durum==='bitmis'?'Paketini yenile':'Satın al')+tutar+' →</a>';
           } else {
             ic+='<a class="bz-uye" href="ucretsiz-dene.html?sinav='+sn+'#onkayit">Ön kayıt ol — açılınca ilk sen öğren</a>';
@@ -1937,7 +1937,7 @@ window.veriAl = (function(){
          abonelik" karsilastirmasina cevrildi; fiyatin evi fiyat.html. -->
     <div class="sec-head reveal">
       <h2>Bakış bedava. Nöbet abonelikle.</h2>
-      <p>Araçlara bakmak ücretsiz ve üyeliksiz. Ödeme yalnızca <b style="color:var(--ink)">senin yerine nöbet tutan</b> uyarı aboneliğinde. Fiyatlar tek sayfada, KDV dahil ve açık.</p>
+      <p>Araçlara bakmak ücretsiz ve üyeliksiz. Ödeme yalnızca <b style="color:var(--ink)">senin yerine nöbet tutan</b> uyarı aboneliğinde. Fiyatlar tek sayfada ve açık.</p>
     </div>
     <div class="fiyat-grid">
       <div class="fkart reveal">

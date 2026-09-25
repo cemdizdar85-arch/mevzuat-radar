@@ -511,8 +511,8 @@
     try{
       if(typeof FIYAT!=='undefined'&&FIYAT.sgs){
         var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
-        $('svTeklifFiyat').innerHTML='<b>'+tl(f.kurulus)+' TL</b> · KDV dahil · sınava kadar erişim (en az '+ay+' ay)'
-          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye kuruluş fiyatı (sonra '+tl(f.liste)+' TL)':'')
+        $('svTeklifFiyat').innerHTML='<b>'+fiyatAna('sgs',f.kurulus)+'</b> ('+fiyatDahilNot('sgs',f.kurulus)+') · sınava kadar erişim (en az '+ay+' ay)'
+          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye kuruluş fiyatı (sonra '+fiyatAna('sgs',f.liste)+')':'')
           ;   /* 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" */
         $('svTeklifFiyat').hidden=false;
       }

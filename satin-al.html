@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Satın Al | Tetikte</title>
-<meta name="description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, e-arşiv fatura.">
+<meta name="description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. E-arşiv fatura.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/satin-al.html">
 <meta property="og:title" content="Satın Al">
-<meta property="og:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, e-arşiv fatura.">
+<meta property="og:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. E-arşiv fatura.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Satın Al">
-<meta name="twitter:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. KDV dahil, e-arşiv fatura.">
+<meta name="twitter:description" content="Tetikte soru bankası paketleri. Paketi seç, bilgilerini gir, banka havalesi/EFT ile öde. E-arşiv fatura.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -122,7 +122,7 @@
 </div>
 
 <h1>Satın Al</h1>
-<p class="alt">Paketi seç, bilgilerini gir, havale/EFT ile öde. Hepsi KDV dahil — üstüne eklenen ücret yok.</p>
+<p class="alt">Paketi seç, bilgilerini gir, havale/EFT ile öde. Ödeyeceğin KDV dahil toplam her paketin altında ve özet tabloda yazar; başka ücret yok.</p>
 
 <div class="adim">1 · Paket</div>
 <div id="paketler"></div>
@@ -247,7 +247,7 @@ sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
   <div class="kv" style="border:none"><b>E-posta / Telefon</b><span>destek@tetikte.com · 0537 843 80 58</span></div>
 </div>
 
-<p class="kucuk">Fiyatlar Türk Lirası ve KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası, deneme ve
+<p class="kucuk">Fiyatlar Türk Lirasıdır; ödenecek tutar KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası, deneme ve
 açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 <p class="kucuk"><a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> ·
 <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> ·
@@ -291,8 +291,9 @@ if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GR
        + (p.kim ? '<span class="er" style="color:var(--amber)">' + p.kim + '</span><br>' : '')
        + '<span class="er">' + p.erisim + '</span>'
        + '<span class="harc">' + p.harcYazi + '</span></span>'
-       + '<span class="fy"><b>' + tl(p.fiyat) + ' TL</b>'
-       + (p.liste > p.fiyat ? '<span>sonra ' + tl(p.liste) + ' TL</span>' : '')
+       + '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
+       + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
+       + (p.liste > p.fiyat ? '<span>sonra ' + fiyatAna(p.id, p.liste) + '</span>' : '')
        + '<span>' + p.not + '</span></span></label>';
   });
   if(ODAK_GRUP){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
