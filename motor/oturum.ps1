@@ -270,15 +270,29 @@ if($Ac){
 
   if($geri -gt 0){
     Yaz "  -> birleştiriliyor..." 'Yellow'
-    $cikti = git -C $KOK merge origin/main --no-edit
+    # 25.09.2026 DERSİ (aynı gün iki kez): çakışmada `exit 2` birleştirmeyi YARIDA bırakıyordu (MERGE_HEAD kalıyordu);
+    # sonraki her -Ac yukarıdaki "yarım iş" kapısında exit 3 ile durdu -> hiçbir oturum kol açamadı. Ayrıca birleştirme
+    # başka sebeple reddedilince ("local changes would be overwritten") çakışma listesi boş kaldığı için betik
+    # "temiz birleşti" + "ana telle eşit" YALANI basıyordu (yerel main 162 commit gerideyken).
+    # Artık: çakışma -> birleştirme GERİ ALINIR (depo yarım kalmaz), kırmızı rapor, kilit yine alınır (oturumlar ayrı
+    # kopyada çalışır; bir robot veri çakışması tüm oturumları kilitlememeli). Red -> "hizalanamadı" der, "temiz" demez.
+    # ÇÖZMEZ: çakışmanın kendisini. Hangi sürümün kazanacağı insan kararıdır (CLAUDE.md > ÇAKIŞMA ÇÖZME REÇETESİ).
+    $cikti = git -C $KOK merge origin/main --no-edit 2>&1
+    $mkod = $LASTEXITCODE
     $cak = git -C $KOK diff --name-only --diff-filter=U
     if($cak){
-      Yaz "`n  ⛔ ÇAKIŞMA — $(@($cak).Count) dosya. ÖLÇMEDEN ÇÖZME." 'Red'
-      Yaz "     Reçete: CLAUDE.md > ÇAKIŞMA ÇÖZME REÇETESİ" 'Red'
+      git -C $KOK merge --abort 2>&1 | Out-Null
+      $script:hizaNotu = "ÇAKIŞMA - birleştirme geri alındı, hizalanmadı"
+      Yaz "`n  ⛔ ÇAKIŞMA — $(@($cak).Count) dosya. Birleştirme GERİ ALINDI (depo yarım bırakılmadı); yerel main hizalanmadı." 'Red'
+      Yaz "     ÖLÇMEDEN ÇÖZME. Reçete: CLAUDE.md > ÇAKIŞMA ÇÖZME REÇETESİ · çözülene kadar her açılışta bu uyarı çıkar." 'Red'
       $cak | ForEach-Object { Yaz "       $_" 'Red' }
-      exit 2
+    } elseif($mkod -ne 0){
+      $script:hizaNotu = "birleştirme reddedildi, hizalanmadı"
+      $ilk = @($cikti | ForEach-Object { "$_" } | Where-Object { $_ -match '\S' } | Select-Object -First 2) -join ' / '
+      Yaz "  ⛔ HİZALANAMADI (birleştirme reddedildi): $ilk" 'Red'
+    } else {
+      Yaz "  -> temiz birleşti" 'Green'
     }
-    Yaz "  -> temiz birleşti" 'Green'
   }
 
   $kirli = @(git -C $KOK status --short | Where-Object { $_ -match '^( M|M |MM|A |AM)' }).Count
@@ -307,7 +321,10 @@ if($Ac){
   if(-not $Is -or -not $Ad){ Yaz "  ⓘ Başka oturumlar seni bulabilsin: -Is `"kısa iş`" -Ad <ListAgents'teki adın> ver ve oturum başlığını '$Kol · <iş>' yap." 'DarkGray' }
 
   Yaz "`n=== 3/3 · HAZIR ===" 'Cyan'
-  Yaz "  Dal: $(git -C $KOK rev-parse --abbrev-ref HEAD) · ana telle eşit"
+  # 25.09: "ana telle eşit" SABİT yazılıyordu; artık ölçülür.
+  $geriSon = [int](git -C $KOK rev-list --count HEAD..origin/main)
+  if($geriSon -gt 0){ Yaz "  Dal: $(git -C $KOK rev-parse --abbrev-ref HEAD) · ⚠ ana telin $geriSon commit GERİSİNDE$(if($script:hizaNotu){ " ($($script:hizaNotu))" }) - işini origin/main'den açtığın ayrı kopyada yap" 'Yellow' }
+  else { Yaz "  Dal: $(git -C $KOK rev-parse --abbrev-ref HEAD) · ana telle eşit" }
   Yaz "  İş bitince MUTLAKA: powershell -NoProfile -File motor/oturum.ps1 -Kapat`n" 'Yellow'
   exit 0
 }
@@ -389,7 +406,10 @@ if($Kapat){
       if($LASTEXITCODE -eq 0){ Yaz "  -> itildi (deneme $i)" 'Green'; break }
       git -C $KOK fetch origin main -q | Out-Null
       git -C $KOK merge origin/main --no-edit -q | Out-Null
-      if(git -C $KOK diff --name-only --diff-filter=U){ Yaz "  ⛔ itmede çakışma — elle çöz" 'Red'; exit 2 }
+      if(git -C $KOK diff --name-only --diff-filter=U){
+        git -C $KOK merge --abort 2>&1 | Out-Null   # 25.09: yarım birleştirme bırakma (sonraki -Ac'yi kilitliyordu)
+        Yaz "  ⛔ itmede çakışma — birleştirme geri alındı, commit'ler yerelde bekliyor; elle çöz (CLAUDE.md reçetesi)" 'Red'; exit 2
+      }
       Start-Sleep -Seconds 2
     }
   } else { Yaz "  itilecek commit yok" 'Green' }

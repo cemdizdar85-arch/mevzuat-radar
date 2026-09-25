@@ -112,8 +112,20 @@ git add -- veri/soru-dayanak-raporu.json 2>$null
 git diff --cached --quiet -- $AYNA_YOLLAR
 if($LASTEXITCODE -ne 0){
   git commit -m 'Yerel ayna kosusu (TR-IP) [veri-operasyonu]' -- $AYNA_YOLLAR | Out-Null
-  git pull --rebase --autostash origin main 2>$null | Out-Null
-  git push origin HEAD:main 2>$null | Out-Null
-  Write-Host 'commit + push tamam'
+  # 25.09.2026 DERSI: pull/push hatalari 2>$null ile YUTULUYORDU. 07:00 kosusunda rebase veri/mevzuat'ta cakisti,
+  # YARIDA KALDI (.git/rebase-merge), push dustu - betik yine "commit + push tamam" yazdi, gorev 0 (basarili) bitti.
+  # Yarim rebase butun oturumlarin kol acmasini kilitledi. Artik: cakisma -> rebase GERI ALINIR (depo yarim kalmaz),
+  # KIRMIZI yazilir, gorev 1 ile biter (Gorev Zamanlayicisi'nda gorunur). Hangi surumun kazanacagina KARAR VERMEZ.
+  $cek = git pull --rebase --autostash origin main 2>&1
+  if($LASTEXITCODE -ne 0){
+    git rebase --abort 2>&1 | Out-Null
+    Write-Host ('KIRMIZI: ana tel cekilemedi (cakisma) - rebase GERI ALINDI, ayna commitin yerelde bekliyor. ' + (@($cek | ForEach-Object { "$_" } | Where-Object { $_ -match 'CONFLICT|error' } | Select-Object -First 3) -join ' / ')) -ForegroundColor Red
+    $script:aynaHata = $true
+  } else {
+    git push origin HEAD:main 2>&1 | Out-Null
+    if($LASTEXITCODE -ne 0){ Write-Host 'KIRMIZI: push reddedildi - commit yerelde bekliyor' -ForegroundColor Red; $script:aynaHata = $true }
+    else { Write-Host 'commit + push tamam' }
+  }
 } else { Write-Host 'degisiklik yok - commit atlanildi' }
+if($script:aynaHata){ Write-Host 'YEREL AYNA: VERI YAYINLANAMADI'; exit 1 }
 Write-Host 'YEREL AYNA TAMAM'
