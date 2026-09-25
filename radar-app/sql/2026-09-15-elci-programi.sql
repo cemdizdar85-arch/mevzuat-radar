@@ -3,13 +3,13 @@
 --
 --  NEDEN: 15.09'da elçi davetinde iki söz verildi, ikisinin de arkasında sistem
 --  YOKTU (15.09 taramasında ölçüldü):
---    1) "Takipçiniz size özel kodla 400 TL indirimli alır (2.590 → 2.190)."
+--    1) "Takipçiniz size özel kodla 400 TL indirimli alır (3.390 → 2.990; 25.09 fiyat kararı)."
 --       Mevcut davet kodu (Çalışma Arkadaşım, veri/sql-davet-kodu.sql) indirim
 --       yapmıyor, iki tarafa +1 ay veriyor. Yani takipçi kodu girse de 2.590 görürdü.
 --    2) "Satış başına 750 / 1.000 / 1.250 TL, yalnız eşik üstü, kademe taşınır."
 --       Kim kaç satış yaptı, hangi kademede, ne hak etti — hesaplayan yapı yoktu.
 --
---  KARARLAR (Cem, 15.09): SGS 2.590 / 2.990 · elçi kodu 400 TL · komisyon
+--  KARARLAR (Cem, 15.09): SGS 2.590 / 2.990 (25.09'dan beri 3.390 / 3.990) · elçi kodu 400 TL · komisyon
 --  1–9. satış 750 · 10–49. satış 1.000 · 50–99. satış 1.250 · 100+ özel ·
 --  yalnız eşik üstü · kazanılan kademe sonraki döneme taşınır, tutturulamazsa
 --  bir kademe iner · komisyon 7 günlük iade süresi dolunca kesinleşir ·

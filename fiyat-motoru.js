@@ -16,7 +16,7 @@
       Açık kapatan kural: paket en yakın sınavı kapsamıyorsa ücretsiz uzatılır.
    3) İKİ DÖNEMLİK PAKET SATILMIYOR. Piyasanın tamamı (Suat 20.000 ikili,
       Prensip 11.000 iki dönem, Deha 8de8 29.250) adayın kalacağını varsayıyor.
-      Biz varsaymıyoruz; geçemeyene ikinci dönem %50.
+      Biz varsaymıyoruz. (25.09 Cem: ikinci dönem %50 ve üst sınav %30 sözleri kaldırıldı — uygulayan mekanizma yoktu.)
    4) DERS/MODÜL BAZLI SATIŞ. Yeterlilik'te ders ders kalınıyor; kaldığı 2 dersi
       olan adama 8 derslik paket satmak onu dışarıda bırakıyordu.
    5) İÇERİK KADEMESİ YOK. Ucuz pakette de konu notu ve madde bağı var —
@@ -80,7 +80,7 @@ var TAKSIT_ADET = 3;
 
 /* ---------------------------------------------------------------------------
    ELÇİ KODU — 15.09.2026 Cem kararı: elçi koduyla alan takipçiye SGS'de 400 TL
-   indirim (2.590 → 2.190). İndirimin geçerliliğine SUNUCU karar verir
+   indirim (25.09'dan beri 3.390 → 2.990). İndirimin geçerliliğine SUNUCU karar verir
    (radar-app/sql/2026-09-15-elci-programi.sql · siparis_elci_damga); buradaki
    rakam yalnız EKRAN gösterimidir ve sunucudaki elci_indirim tablosuyla AYNI olmalı.
    acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
@@ -114,8 +114,11 @@ var FIYAT = {
      Gerekçe: rakip taraması (58 kurum) — uygulamalar 499, kurslar 4.500+; "ucuz = kalitesiz" algısı olmasın.
      Yeterlilik ve KGK bilerek DEĞİŞMEDİ (Cem: "bitirme ve KGK aynı kalsın").
      15.09 aksam GUNCELLEME (Cem onayi): kurulus 2.590. Elci koduyla 400 TL indirim -> takipci 2.190 oder.
-     Kodsuz alan 2.590 oder; elci satisinda bize kalan ayni (2.190 uzerinden). */
-  sgs:            { kurulus:2590, liste:2990 },
+     Kodsuz alan 2.590 oder; elci satisinda bize kalan ayni (2.190 uzerinden).
+     25.09.2026 CEM KARARI: kurulus 3.390 (2.825 + KDV) / liste 3.990. Hedef: elci kodlu satista
+     (3.390 - 400 = 2.990) 1.000 TL komisyon, %5 kart kesintisi ve %25 KV sonrasi bize 1.007 TL kalsin;
+     elcisiz satista 1.992 TL. Etikette KDV dahil tutar buyuk, altinda 'KDV haric' kucuk (6502 m.54). */
+  sgs:            { kurulus:3390, liste:3990 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
      4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080                     */

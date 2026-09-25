@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Fiyatlar | Tetikte</title>
-<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
+<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 3.390 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/fiyat.html">
 <meta property="og:title" content="Fiyatlar">
-<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
+<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 3.390 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fiyatlar">
-<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
+<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 3.390 TL; Yeterlilik'te her basamak resmî harçtan ucuz. KDV dahil, gizli ücret yok.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -107,7 +107,7 @@
 <!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
      fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge. -->
 <div class="vurus">
-  <div class="buyuk">Sınava bir kez daha girmek <b>1.635 TL</b> ve dört ay demek.<br>Biz <b id="vurusFiyat">2.590 TL</b> istiyoruz, bir daha girmeyesin diye.</div>
+  <div class="buyuk">Sınava bir kez daha girmek <b>1.635 TL</b> ve dört ay demek.<br>Biz <b id="vurusFiyat">3.390 TL</b> istiyoruz, bir daha girmeyesin diye.</div>
   <p>Staja Giriş Sınavı başvuru bedeli 2026'da 1.635 TL. Kalırsan bu parayı yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
@@ -147,6 +147,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="gunluk" id="fySgs">— <small>TL</small></div>
     <div class="liste" id="lsSgs"></div>
     <div class="kdv">KDV dahil · kuruluş fiyatı · <span id="ktSgs"></span></div>
+<div class="kdv" id="khSgs"></div>
     <ul>
       <li>Sınırsız soru: bankanın tamamı</li>
       <li><b>Birebir Prova</b>: 130 soru, resmî ders dağılımı</li>
@@ -168,6 +169,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="gunluk" id="fyYet">— <small>TL</small></div>
     <div class="liste" id="lsYet"></div>
     <div class="kdv">tüm dersler · KDV dahil · <span id="ktYet"></span></div>
+<div class="kdv" id="khYet"></div>
     <ul>
       <li><b>Tek ders <span id="fyYet1">—</span> TL'den başlar</b> — kaldığın dersi seç</li>
       <li>Sınırsız soru: sekiz dersin tamamı</li>
@@ -192,6 +194,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="gunluk" id="fyKgk">— <small>TL</small></div>
     <div class="liste" id="lsKgk"></div>
     <div class="kdv">SMMM paketi · 3 konu · KDV dahil · <span id="ktKgk"></span></div>
+<div class="kdv" id="khKgk"></div>
     <ul>
       <li><b>SMMM'ysen üç konudan sorumlusun</b> — sektör mevzuatı muaf</li>
       <li>Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim</li>
@@ -211,17 +214,9 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <h2>İki dönemlik paket satmıyoruz</h2>
   <p style="margin:0;font-size:14px">Piyasada satılan paketlerin çoğu <b>iki sınav dönemini</b> kapsıyor —
   yani daha satarken senin bir kere kalacağını varsayıyorlar. Biz varsaymıyoruz.</p>
-  <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Üç ay.</b>
-  Geçemezsen ikinci dönem <b class="a">yarı fiyat</b> — peşin ödetmiyoruz.</p>
+  <p style="margin:10px 0 0;font-size:14px"><b class="a">Bir sınav. Üç ay.</b></p>
   <p class="kucuk" style="margin:10px 0 0">Paketin, satın aldığın tarihteki en yakın sınav gününü
   kapsamıyorsa <b>o sınava kadar ücretsiz uzatılır</b>. Sınav ertelenirse de süren uzar.</p>
-</div>
-
-<!-- KOPRU: merdiveni ayakta tutan tek mekanizma. -->
-<div class="kutu">
-  <h2>Bir üst sınava geçerken</h2>
-  <p style="margin:0;font-size:14px">Staja Başlama'yı bizimle geçersen <b class="a">Yeterlilik'te %30</b>,
-  Yeterlilik'i bizimle geçersen <b class="a">KGK'da %30</b> indirimin olur. Süresiz hak — üç yıl sonra da geçerli.</p>
 </div>
 
 <!-- CEM'IN FIKRI, BELGEYLE: bu mesleğin resmi bedeli. Saldirilamaz cunku TESMER'in kendi tarifesi. -->
@@ -323,7 +318,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
     <tr><td>Zayıf konu karnesi + çalışma önerisi</td><td class="sag">490 TL</td></tr>
     <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
-    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">2.590 TL</b></td></tr>
+    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">3.390 TL</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Son 15 Gün'ü gerçekten 890 TL'ye ayrı satıyoruz; uydurma bir "değer" değil,
   aşağıda fiyatı yazan gerçek ürün.</p>
@@ -428,6 +423,9 @@ function kart(id, p){
   }
   var kt = document.getElementById('kt' + id);
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
+  // 25.09 Cem: rakip '+KDV' yaziyor; buyuk rakam KDV dahil kalir (6502 m.54), kiyas icin haric tutar kucuk satirda.
+  var kh = document.getElementById('kh' + id);
+  if(kh){ kh.textContent = 'KDV hariç ' + tl(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' TL'; }
 }
 /* KGK karti SMMM PAKETINI gosterir (3 konu), "dort konunun tamami"ni degil:
    KGK'da alicinin buyuk cogunlugu SMMM ve KGK'nin kendi sayfasina gore SMMM
