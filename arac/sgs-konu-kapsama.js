@@ -20,7 +20,7 @@
   ÇIKTI : veri/fabrika/sgs-konu-kapsama.csv (Excel, ; ayraçlı) + .json · veri/sinav/SGS-KAPSAMA.md (özet)
 
   DURUM : VAR (sitede ≥ Kat × çıkan) · AZ · HİÇ YOK · 10 YILDIR ÇIKMIYOR · ÇIKMIŞTA YOK (bizim konu)
-          Türkçe = ÖLÇÜLMEDİ (kaydir/sgs/turkce.html konu alanı taşımıyor; kasada 127 soru var)
+          Türkçe (kasa modu sayfası): konu havuzun seçim dosyasından okunur (25.09)
 
   🚫 GÖRMEZ:
     · Sözlükte olmayan yeni arşiv etiketi (yeni sınav yutulunca) kendi kümesi olur, dersi '?' —
@@ -70,7 +70,17 @@ const site = new Map(); let siteTop = 0;
 const dizin = path.join(KOK, 'kaydir', 'sgs');
 for (const f of fs.readdirSync(dizin).filter(f => f.endsWith('.html'))) {
   const h = fs.readFileSync(path.join(dizin, f), 'utf8');
-  const ds = [...h.matchAll(/"ders":"([^"]*)"/g)].map(m => coz(m[1])); if (!ds.length) continue;
+  const ds = [...h.matchAll(/"ders":"([^"]*)"/g)].map(m => coz(m[1]));
+  if (!ds.length) {
+    // 25.09: kasa modundaki sayfa (Türkçe) soru taşımaz → konu, havuzun seçim dosyasından (veri/sinav/kaydir-secim/yayin-sgs-<sayfa>.json).
+    //   Ölçüldü: yayin-sgs-turkce.json 127 kayıt = kasadaki Türkçe 127. 🚫 GÖRMEZ: seçimden sonra sayfa basıcıda (sgs-650-bas) düşen soruyu.
+    const sec = path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'yayin-sgs-' + f.replace(/\.html$/, '.json'));
+    if (!fs.existsSync(sec)) continue;
+    for (const r of JSON.parse(fs.readFileSync(sec, 'utf8').replace(/^﻿/, ''))) {
+      siteTop++; const k = r.ders + '|' + katla(r.konu); if (!site.has(k)) site.set(k, { ad: r.konu, n: 0 }); site.get(k).n++;
+    }
+    continue;
+  }
   const say = {}; ds.forEach(x => say[x] = (say[x] || 0) + 1);
   const dA = Object.entries(say).sort((a, b) => b[1] - a[1])[0][0];
   for (const m of h.matchAll(/"konu":"([^"]*)"/g)) { siteTop++; const k = dA + '|' + katla(m[1]); if (!site.has(k)) site.set(k, { ad: coz(m[1]), n: 0 }); site.get(k).n++; }
@@ -96,8 +106,7 @@ for (const [kk, K] of kume) {
   const ders = Object.entries(K.dersOy).sort((a, b) => b[1] - a[1])[0][0];
   const bas = L.find(c => c.a === kk) || [...L].sort((a, b) => b.site - a.site || b.son - a.son)[0];
   let durum;
-  if (ders === 'Türkçe') durum = 'ÖLÇÜLMEDİ (Türkçe sayfası konu göstermiyor)';
-  else if (son === 0) durum = tum > 0 ? '10 YILDIR ÇIKMIYOR' : '—';
+  if (son === 0) durum = tum > 0 ? '10 YILDIR ÇIKMIYOR' : '—';
   else if (siteN === 0) durum = 'HİÇ YOK';
   else if (siteN < KAT * son) durum = 'AZ';
   else durum = 'VAR';
@@ -125,10 +134,10 @@ const md = [];
 md.push('# SGS — KONU KAPSAMA', '');
 md.push(`> Türetilmiştir (\`arac/sgs-konu-kapsama.js\`), **elle düzenlenmez**. Hedef: sitede **${KAT} kat** (son 10 yılda çıkan soru sayısı kadar × ${KAT}). Pencere: ${YIL}+ (${pencere} dönem).`);
 md.push('> Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.', '');
-md.push(`Sitede sayfadan okunan soru: **${sayi(siteTop)}** (Türkçe sayfası konu göstermiyor → sayılmadı) · konu kümesi: ${sayi(kume.size)} · sözlükte olmayan arşiv etiketi: **${sozlukteYok}**`, '');
+md.push(`Sitede sayfadan okunan soru: **${sayi(siteTop)}** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: ${sayi(kume.size)} · sözlükte olmayan arşiv etiketi: **${sozlukteYok}**`, '');
 md.push('| Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |', '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|');
-for (const [k, d] of Object.entries(D).sort((a, b) => b[1].son - a[1].son)) md.push(`| ${k} | ${d.k} | ${d.son} | ${(d.son / pencere).toFixed(1).replace('.', ',')} | ${k === 'Türkçe' ? 'ölçülmedi' : d.site} | ${d.VAR} | ${d.AZ} | ${d.Y2} | ${d.Y1} | ${d.e3} |`);
-const trsiz = r => r.ders !== 'Türkçe' && r.ders !== '?';
+for (const [k, d] of Object.entries(D).sort((a, b) => b[1].son - a[1].son)) md.push(`| ${k} | ${d.k} | ${d.son} | ${(d.son / pencere).toFixed(1).replace('.', ',')} | ${d.site} | ${d.VAR} | ${d.AZ} | ${d.Y2} | ${d.Y1} | ${d.e3} |`);
+const trsiz = r => r.ders !== '?';
 const oz = f => { const x = sat.filter(r => trsiz(r) && r.eksik > 0 && f(r)); return `${x.length} konu / ${x.reduce((a, r) => a + r.eksik, 0)} soru`; };
 md.push('', '## Hedefe eksik', '', `- 3+ dönem çıkmış: **${oz(r => r.don >= 3)}**`, `- 2 dönem çıkmış: ${oz(r => r.don === 2)}`, `- 1 dönem çıkmış: ${oz(r => r.don < 2)}`, '');
 md.push('## Birden çok dönem çıkmış, sitede hiç sorusu olmayan', '', '| Ders | Konu | Çıkan / dönem | Son |', '|---|---|---:|---|');
