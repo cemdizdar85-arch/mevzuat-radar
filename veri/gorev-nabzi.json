@@ -1,5 +1,5 @@
 {
-    "olcum":  "2026-09-24T06:45:12",
+    "olcum":  "2026-09-25T06:45:13",
     "makine":  "GK",
     "kullanici":  "cemdi",
     "kok":  "C:\\Users\\cemdi\\OneDrive\\Masaüstü\\mevzuat işi\\mevzuat-radar",
@@ -10,11 +10,11 @@
                          "ad":  "MevzuatRadar-YerelAyna",
                          "beklenen_saat":  "06:30",
                          "durum":  "YESIL",
-                         "sebep":  "",
-                         "son_kosu":  "2026-09-24T06:30:01",
-                         "son_sonuc":  0,
+                         "sebep":  "SU ANDA KOSUYOR",
+                         "son_kosu":  "2026-09-25T06:30:01",
+                         "son_sonuc":  267009,
                          "gecikme_saat":  0.3,
-                         "gorev_durumu":  "Ready",
+                         "gorev_durumu":  "Running",
                          "pilde_bekliyor":  false
                      },
                      {
@@ -22,7 +22,7 @@
                          "beklenen_saat":  "06:45",
                          "durum":  "YESIL",
                          "sebep":  "SU ANDA KOSUYOR",
-                         "son_kosu":  "2026-09-24T06:45:01",
+                         "son_kosu":  "2026-09-25T06:45:01",
                          "son_sonuc":  267009,
                          "gecikme_saat":  0,
                          "gorev_durumu":  "Running",
@@ -33,9 +33,9 @@
                          "beklenen_saat":  "09:30",
                          "durum":  "YESIL",
                          "sebep":  "",
-                         "son_kosu":  "2026-09-23T10:13:53",
+                         "son_kosu":  "2026-09-24T09:52:26",
                          "son_sonuc":  0,
-                         "gecikme_saat":  20.5,
+                         "gecikme_saat":  20.9,
                          "gorev_durumu":  "Ready",
                          "pilde_bekliyor":  false
                      },
@@ -44,9 +44,9 @@
                          "beklenen_saat":  "08:10",
                          "durum":  "KIRMIZI",
                          "sebep":  "son kosu HATA ile bitti (kod 1)",
-                         "son_kosu":  "2026-09-23T08:10:01",
+                         "son_kosu":  "2026-09-24T08:42:02",
                          "son_sonuc":  1,
-                         "gecikme_saat":  22.6,
+                         "gecikme_saat":  22.1,
                          "gorev_durumu":  "Ready",
                          "pilde_bekliyor":  false
                      }
