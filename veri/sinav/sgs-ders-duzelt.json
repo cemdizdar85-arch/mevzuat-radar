@@ -1,5 +1,5 @@
 {
- "aciklama": "SGS DERS DUZELTMESI (Cem 25.09 \"yanlis dersteki sorulari duzelt\"). Soru kimligi (etiket/kp-NN) -> dogru ders. arac/havuz-kur.ps1 okur; durum=uygula olanlari etiketten cozulen ders yerine bu derse koyar. Parti dosyalarina dokunulmaz. Kaynak: sitedeki 1.392 konu adi ders ders okundu (86 supheli konu), supheli 164 sorunun METNI tek tek okundu -> 84 soru gercekten yanlis derste (etiketi yanlis 64). durum=bekle: tasima bugun circir kapisini dusurur. | 25.09 KONU: supheli sorularda metne gore yanlis etiketli 64 sorunun dogru konusu (konu alani; arsiv kume adlari, 17 yeni ad).",
+ "aciklama": "SGS DERS DUZELTMESI (Cem 25.09 \"yanlis dersteki sorulari duzelt\"). Soru kimligi (etiket/kp-NN) -> dogru ders. arac/havuz-kur.ps1 okur; durum=uygula olanlari etiketten cozulen ders yerine bu derse koyar. Parti dosyalarina dokunulmaz. Kaynak: sitedeki 1.392 konu adi ders ders okundu (86 supheli konu), supheli 164 sorunun METNI tek tek okundu -> 84 soru gercekten yanlis derste (etiketi yanlis 64). durum=bekle: tasima bugun circir kapisini dusurur. | 25.09 KONU: supheli sorularda metne gore yanlis etiketli 64 sorunun dogru konusu (konu alani; arsiv kume adlari, 17 yeni ad). | 25.09 TUM-BANKA ETIKET DENETIMI: 4.209 soru metinle okundu (23 okuyucu), 450 yanlis etiket (GM orneklemi 25 kararda 21 isabet), 24 baska ders.",
  "olcum": "2026-09-25",
  "duzelt": {
   "sgs-d2-borclar-zor-r2/kp-03": {
@@ -174,7 +174,10 @@
    "ders": "Meslek Hukuku",
    "eski": "Maliye",
    "durum": "uygula",
-   "gerekce": "3568 staj ve sınav komisyonu"
+   "gerekce": "3568 staj ve sınav komisyonu",
+   "konu": "meslek hukuku staj",
+   "eski_konu": "3568 sayılı kanun birlik",
+   "konu_gerekce": "Staj ve sınav komisyonu hükümleri soruluyor"
   },
   "sgs-p-meslek-kolay-r1/kp-03": {
    "ders": "Vergi Hukuku",
@@ -428,93 +431,84 @@
   "sgs-c5-maliyet-kolay-r2/kp-12": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "Sipariş avansı mahsubu, 120 Alıcılar kaydı",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "Sipariş avansı mahsubu, 120 Alıcılar kaydı"
   },
   "sgs-c5-maliyet-cokzor-r1/kp-13": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "Ticari mal aralıklı envanter SMM",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "Ticari mal aralıklı envanter SMM"
   },
   "sgs-d2-maliyet-cokzor-r1/kp-06": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme"
   },
   "sgs-c5-maliyet-zor-r1/kp-10": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "Net satış ve brüt kâr marjı",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "Net satış ve brüt kâr marjı"
   },
   "sgs-c5-maliyet-kolay-r1/kp-17": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "Maliyet üzerinden kâr, ticari SMM",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "Maliyet üzerinden kâr, ticari SMM"
   },
   "sgs-t1-maliyet-zor/kp-18": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "Özel maliyet boşaltmada kalan itfa",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "Özel maliyet boşaltmada kalan itfa"
   },
   "sgs-t1-maliyet-kolay/kp-18": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "Özel maliyet boşaltmada kalan itfa",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "Özel maliyet boşaltmada kalan itfa"
   },
   "sgs-t1-maliyet-zor/kp-17": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
    "durum": "bekle",
    "gerekce": "Özel maliyet boşaltmada kalan itfa",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "bekleme": "circir: tasinirsa Finansal Muhasebe ki-kare taban+3 sinirini asar"
   },
   "sgs-t1-maliyet-cokzor/kp-17": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
    "durum": "bekle",
    "gerekce": "Özel maliyet boşaltmada kalan itfa",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "bekleme": "circir: tasinirsa Finansal Muhasebe ki-kare taban+3 sinirini asar"
   },
   "sgs-d5-maliyet-zor-r2/kp-05": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
    "durum": "bekle",
    "gerekce": "Senetli ticari mal alışı 153 kaydı",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "bekleme": "circir: tasinirsa Finansal Muhasebe ki-kare taban+3 sinirini asar"
   },
   "sgs-d5-maliyet-zor-r1/kp-05": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
    "durum": "bekle",
    "gerekce": "Senetli ticari mal alışı 153 kaydı",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "bekleme": "circir: tasinirsa Finansal Muhasebe ki-kare taban+3 sinirini asar"
   },
   "sgs-c5-maliyet-kolay-r1/kp-06": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "TMS 16 takasla edinilen varlık maliyeti",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "TMS 16 takasla edinilen varlık maliyeti"
   },
   "sgs-c5-maliyet-zor-r2/kp-09": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
+   "durum": "uygula",
    "gerekce": "TMS 19 tanımlanmış katkı planı gideri",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir",
    "konu": "tms 19 calisanlara saglanan faydalar",
    "eski_konu": "tms 19 tanımlanmış fayda maliyeti",
    "konu_gerekce": "Tanımlanmış katkı planı dönem gideri"
@@ -522,30 +516,28 @@
   "sgs-c5-maliyet-zor-r2/kp-06": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme"
   },
   "sgs-c5-maliyet-zor-r1/kp-06": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
-   "durum": "bekle",
-   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "durum": "uygula",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme"
   },
   "sgs-t1-maliyet-kolay/kp-25": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
    "durum": "bekle",
    "gerekce": "259 Verilen Avanslar kaydı",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "bekleme": "circir: tasinirsa Finansal Muhasebe ki-kare taban+3 sinirini asar"
   },
   "sgs-t2b-maliyet-zor/kp-12": {
    "ders": "Finansal Muhasebe",
    "eski": "Maliyet Muhasebesi",
    "durum": "bekle",
    "gerekce": "Verilen/alınan avans hesapları kaydı",
-   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+   "bekleme": "circir: tasinirsa Finansal Muhasebe ki-kare taban+3 sinirini asar"
   },
   "sgs-c2-denetim-cokzor-r3/kp-05": {
    "ders": "Denetim",
@@ -1050,6 +1042,3779 @@
    "konu": "vuk vergi mukellefiyeti",
    "eski_konu": "vergi geliri düşüşü",
    "konu_gerekce": "VUK işi bırakma kavramı"
+  },
+  "sgs-d4-inkilap-zor-r2/kp-01": {
+   "ders": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "eski": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ataturk donemi ekonomik calismalar",
+   "eski_konu": "atatürk dönemi dış politika",
+   "konu_gerekce": "Soru ekonomi politikası/devletçilik soruyor, dış politika değil"
+  },
+  "sgs-d4-inkilap-zor-r4/kp-01": {
+   "ders": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "eski": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ataturk donemi ekonomik calismalar",
+   "eski_konu": "atatürk dönemi dış politika",
+   "konu_gerekce": "Soru ekonomi politikası/devletçilik soruyor, dış politika değil"
+  },
+  "sgs-gm5-ata-r1/kp-11": {
+   "ders": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "eski": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ataturk inkilaplari",
+   "eski_konu": "cumhuriyet ilanı",
+   "konu_gerekce": "1928 din maddesinin çıkarılması, laiklik inkılabı"
+  },
+  "sgs-gm5-ata-r6/kp-15": {
+   "ders": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "eski": "Atatürk İlkeleri ve İnkılap Tarihi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ataturk inkilaplari",
+   "eski_konu": "saltanat halifelik",
+   "konu_gerekce": "1928 din maddesinin çıkarılması, laiklik inkılabı"
+  },
+  "sgs-bc-borclar-kolay-r2/kp-01": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "is sozlesmesi sekli",
+   "eski_konu": "sözleşme şekli",
+   "konu_gerekce": "BASKA DERS: İş Hukuku; 4857 iş sözleşmesi şekli"
+  },
+  "sgs-p-borclar-zor-r2-b2/kp-02": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kira ve odunc sozlesmesi",
+   "eski_konu": "sözleşmenin kurulması",
+   "konu_gerekce": "Özel sözleşmeler: kira ve ödünç kurulması soruluyor"
+  },
+  "sgs-p-borclar-zor-r1-b2/kp-02": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "borcun ifa zamani",
+   "eski_konu": "sözleşmenin kurulması",
+   "konu_gerekce": "Süreli ifa zamanının belirlenmesi soruluyor"
+  },
+  "sgs-d5-borclar-kolay-r1/kp-03": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "borclu temerrudu imkanlari",
+   "eski_konu": "borçlu temerrüdü",
+   "konu_gerekce": "Alacaklı temerrüdünde borçlunun tevdi hakkı soruluyor"
+  },
+  "sgs-bosluk-borclarhukuku/kp-09": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tazminattan indirim halleri",
+   "eski_konu": "haksız fiil unsurlari",
+   "konu_gerekce": "Zarar görenin kusuruyla hâkimin indirim yetkisi"
+  },
+  "sgs-t1-borclar-zor/kp-04": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "zamanasimini kesen sebepler",
+   "eski_konu": "zamanaşımı süresi",
+   "konu_gerekce": "Hangisi zamanaşımını kesen sebep değildir sorusu"
+  },
+  "sgs-t1-borclar-cokzor/kp-04": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "zamanasiminin kesilmesi",
+   "eski_konu": "zamanaşımı süresi",
+   "konu_gerekce": "Kısmi ifayla kesilme sonrası yeni süre hesabı"
+  },
+  "sgs-p-borclar-zor-r1/kp-07": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bedensel zarar tazmin kalemleri",
+   "eski_konu": "manevi tazminat",
+   "konu_gerekce": "Çalışma gücü kaybı maddi tazminattan ödeme mahsubu"
+  },
+  "sgs-d3-borclar-cokzor-r1/kp-06": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sebepsiz zenginlesme iade kapsami",
+   "eski_konu": "sebepsiz zenginleşme şartları",
+   "konu_gerekce": "Kötüniyetli elden çıkarmada iade kapsamı soruluyor"
+  },
+  "sgs-p-borclar-cokzor-r1-b2/kp-06": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sebepsiz zenginlesme iade kapsami",
+   "eski_konu": "sebepsiz zenginleşme şartları",
+   "konu_gerekce": "İade yükümlülüğü ve giderler soruluyor, şartlar değil"
+  },
+  "sgs-c5-borclar-zor-r2/kp-01": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hayvan satisinda ayip sorumlulugu",
+   "eski_konu": "sorumsuzluk anlaşmaları",
+   "konu_gerekce": "Satış sözleşmesi: hayvan satışında ayıptan sorumluluk"
+  },
+  "sgs-t2b-borclar-cokzor/kp-08": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hukuka aykiriligi kaldiran haller",
+   "eski_konu": "haksız fiil şartları",
+   "konu_gerekce": "Haklı savunma ve zorunluluk hâli soruluyor"
+  },
+  "sgs-t1-borclar-kolay/kp-29": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hukuka aykiriligi kaldiran haller",
+   "eski_konu": "haksız fiil sartlari",
+   "konu_gerekce": "Hukuka aykırılığı engelleyen haller soruluyor"
+  },
+  "sgs-bosluk-denetim/kp-02": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetim kanıtları",
+   "konu_gerekce": "BDS 265 iç kontrol eksikliği bildirimi soruluyor"
+  },
+  "sgs-p-denetim-zor-r3/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "ic kontrol sistemi",
+   "konu_gerekce": "yapısal risk/kontrol riski bileşenleri, iç kontrol değil"
+  },
+  "sgs-p-denetim-zor-r1/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "ic kontrol sistemi",
+   "konu_gerekce": "yapısal risk/kontrol riski bileşenleri, iç kontrol değil"
+  },
+  "sgs-p-denetim-zor-r4-b2/kp-02": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "ic kontrol sistemi",
+   "konu_gerekce": "önemli yanlışlık riski bileşenleri soruluyor"
+  },
+  "sgs-p-denetim-zor-r2/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "ic kontrol sistemi",
+   "konu_gerekce": "yapısal/kontrol/denetim riski kavramları soruluyor"
+  },
+  "sgs-p-denetim-zor-r3-b2/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "ic kontrol sistemi",
+   "konu_gerekce": "yapısal/kontrol/denetim riski ilişkisi soruluyor"
+  },
+  "sgs-bosluk-denetim/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 260 ust yonetimle iletisim",
+   "eski_konu": "bağımsız denetim süreci",
+   "konu_gerekce": "BDS 260 bağımsızlık bildirimi soruluyor"
+  },
+  "sgs-bosluk-denetim/kp-11": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 260 ust yonetimle iletisim",
+   "eski_konu": "denetçi raporu",
+   "konu_gerekce": "BDS 260 yazılı iletişim zorunluluğu soruluyor"
+  },
+  "sgs-t2-denetim-kolay/kp-06": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetçi raporu",
+   "konu_gerekce": "BDS 265 eksiklik bildirimi, denetçi raporu değil"
+  },
+  "sgs-t2-denetim-cokzor/kp-02": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetçi raporu",
+   "konu_gerekce": "BDS 265 eksiklik bildirimi, denetçi raporu değil"
+  },
+  "sgs-d3-denetim-kolay-r3/kp-02": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetim belgelendirme",
+   "konu_gerekce": "BDS 265 yazılı bildirilecek eksiklik sayısı"
+  },
+  "sgs-bosluk-denetim/kp-14": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "denetim belgelendirme",
+   "konu_gerekce": "BDS 315 yapısal risk aralığı konumlandırması"
+  },
+  "sgs-d3-denetim-kolay-r1/kp-07": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "analitik prosedurler",
+   "eski_konu": "denetim belgelendirme",
+   "konu_gerekce": "beklenti-kayıt sapması hesabı, analitik prosedür"
+  },
+  "sgs-bosluk-denetim/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "denetim görüşü turleri",
+   "konu_gerekce": "mevzuat öngörülü raporun asgari unsurları"
+  },
+  "sgs-d3-denetim-zor-r1/kp-07": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "onceki denetciyle gorusme",
+   "eski_konu": "denetim planlamasi",
+   "konu_gerekce": "müşteri kabulünde önceki denetçiyle iletişim"
+  },
+  "sgs-d2-denetim-cokzor-r1/kp-06": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "onceki denetciyle gorusme",
+   "eski_konu": "denetim planlamasi",
+   "konu_gerekce": "müşteri kabulünde önceki denetçiyle iletişim"
+  },
+  "sgs-d3-denetim-zor-r3/kp-02": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "onceki denetciyle gorusme",
+   "eski_konu": "denetim planlamasi",
+   "konu_gerekce": "önceki denetçiyle iletişimin rolü soruluyor"
+  },
+  "sgs-p-denetim-kolay-r3/kp-07": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "onceki denetciyle gorusme",
+   "eski_konu": "denetim planlamasi",
+   "konu_gerekce": "önceki denetçiden elde edilen bilgilerin işlevi"
+  },
+  "sgs-bosluk-denetim/kp-10": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetim planlamasi",
+   "konu_gerekce": "BDS 265 eksiklik bildirimi, planlama değil"
+  },
+  "sgs-p-denetim-zor-r3/kp-07": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti guvenilirligi",
+   "eski_konu": "denetim prosedürleri",
+   "konu_gerekce": "en güvenilir kanıt karşılaştırması soruluyor"
+  },
+  "sgs-p-denetim-zor-r4/kp-04": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetim prosedürleri",
+   "konu_gerekce": "BDS 265 eksiklik bildirimi soruluyor"
+  },
+  "sgs-bosluk-denetim/kp-07": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 315 yapisal risk faktoru",
+   "eski_konu": "denetim prosedürleri",
+   "konu_gerekce": "BDS 315 değişiklik yapısal risk faktörü örneği"
+  },
+  "sgs-bosluk-denetim/kp-06": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kontrol cevresi unsurlari",
+   "eski_konu": "güvence hizmetleri",
+   "konu_gerekce": "küçük işletmede kontrol çevresi değerlendirmesi"
+  },
+  "sgs-p-denetim-zor-r3-b2/kp-06": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kontrol testi",
+   "eski_konu": "güvence hizmetleri",
+   "konu_gerekce": "kontrol testinde sapma değerlendirmesi"
+  },
+  "sgs-d3-denetim-kolay-r1/kp-05": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 510 acilis bakiyeleri gorusu",
+   "eski_konu": "güvence hizmetleri",
+   "konu_gerekce": "açılış bakiyesi kanıt yetersizliğinde görüş"
+  },
+  "sgs-d2-denetim-kolay-r2/kp-02": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 560 bilanco sonrasi olaylar",
+   "eski_konu": "güvence hizmetleri",
+   "konu_gerekce": "BDS 560 sonraki olaylar, güvence değil"
+  },
+  "sgs-c2-denetim-cokzor-r3/kp-06": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 560 bilanco sonrasi olaylar",
+   "eski_konu": "güvence hizmetleri",
+   "konu_gerekce": "BDS 560 sonraki olaylar, güvence değil"
+  },
+  "sgs-d2-denetim-cokzor-r2/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "maddi duran varlik takas muhasebesi",
+   "eski_konu": "maddi duran varlık denetimi",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; takas kârı/zararı hesabı"
+  },
+  "sgs-bosluk-denetim/kp-09": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "yönetim beyanları",
+   "konu_gerekce": "BDS 265 toplu eksiklik bildirimi soruluyor"
+  },
+  "sgs-p-denetim-kolay-r3/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "stok sayimi denetimi",
+   "eski_konu": "yönetim iddialari",
+   "konu_gerekce": "defter-sayım stok sapması hesabı"
+  },
+  "sgs-p-denetim-kolay-r2/kp-05": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim beyani duzeyinde risk bilesenleri",
+   "eski_konu": "yönetim iddialari",
+   "konu_gerekce": "yapısal risk kavramının tanımı soruluyor"
+  },
+  "sgs-d3-denetim-zor-r1/kp-06": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "topluluk denetimi bds 600",
+   "eski_konu": "yönetim iddialari",
+   "konu_gerekce": "BDS 600 topluluk denetçisi prosedürleri"
+  },
+  "sgs-p-denetim-kolay-r1/kp-05": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "yönetim iddialari",
+   "konu_gerekce": "önemli iç kontrol eksikliği bildirimi kuralı"
+  },
+  "sgs-p-denetim-kolay-r1/kp-16": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim turleri",
+   "eski_konu": "bağımsız denetim raporu",
+   "konu_gerekce": "faaliyet denetimi türü soruluyor, rapor değil"
+  },
+  "sgs-p-denetim-kolay-r2/kp-15": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 260 ust yonetimle iletisim",
+   "eski_konu": "bağımsız denetim raporu",
+   "konu_gerekce": "BDS 260 önemli denetim bulguları"
+  },
+  "sgs-p-denetim-zor-r2/kp-09": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kanitlari",
+   "eski_konu": "denetim kalite kontrolü",
+   "konu_gerekce": "kanıt niteliği ve kaynakları, kalite kontrol değil"
+  },
+  "sgs-p-denetim-cokzor-r1-b2/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetimde uzman kullanimi",
+   "eski_konu": "denetim kalite kontrolü",
+   "konu_gerekce": "BDS 620 uzman çalışmasına atıf"
+  },
+  "sgs-p-denetim-cokzor-r2-b2/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 402 hizmet kurulusu",
+   "eski_konu": "denetim kalite kontrolü",
+   "konu_gerekce": "BDS 402 hizmet kuruluşu denetçisi"
+  },
+  "sgs-t2-denetim-kolay/kp-11": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 230 denetim belgelendirme",
+   "eski_konu": "denetim raporu bolumleri",
+   "konu_gerekce": "BDS 230 rapor sonrası prosedür belgelendirmesi"
+  },
+  "sgs-t1-denetim-zor/kp-20": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 260 ust yonetimle iletisim",
+   "eski_konu": "denetim sözleşmesi şartları",
+   "konu_gerekce": "BDS 260 sahip-yönetici iletişim hükmü"
+  },
+  "sgs-p-denetim-kolay-r3/kp-10": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kilit denetim konulari",
+   "eski_konu": "denetimde örnekleme",
+   "konu_gerekce": "BDS 805 kilit denetim konuları, örnekleme değil"
+  },
+  "sgs-d2-denetim-cokzor-r1/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 501 belirli kalemler kapsami",
+   "eski_konu": "finansal tablo iddialari",
+   "konu_gerekce": "BDS 501 kapsamı soruluyor, iddia değil"
+  },
+  "sgs-d3-denetim-cokzor-r2/kp-04": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 501 belirli kalemler kapsami",
+   "eski_konu": "finansal tablo iddialari",
+   "konu_gerekce": "BDS 501 kapsamı soruluyor, iddia değil"
+  },
+  "sgs-p-denetim-zor-r3-b2/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 550 iliskili taraflar prosedurleri",
+   "eski_konu": "finansal yatırımlar denetimi",
+   "konu_gerekce": "BDS 550 ilişkili taraf kayıt incelemesi soruluyor"
+  },
+  "sgs-p-denetim-cokzor-r1/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "isletme ve faaliyet ortamini degerlendirme",
+   "eski_konu": "finansal yatırımlar denetimi",
+   "konu_gerekce": "BDS 315 organizasyon yapısı kanaati soruluyor"
+  },
+  "sgs-p-denetim-zor-r1/kp-17": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti uzman calismasi",
+   "eski_konu": "finansal yatırımlar denetimi",
+   "konu_gerekce": "BDS 500 yönetim uzmanı statüsü soruluyor"
+  },
+  "sgs-t2-denetim-zor/kp-11": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim riski bilesenleri",
+   "eski_konu": "genel denetim stratejisi",
+   "konu_gerekce": "tespit edememe riski hesabı, strateji değil"
+  },
+  "sgs-p-denetim-zor-r1/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hileye iliskin sorumluluk",
+   "eski_konu": "kanıt yeterliliği unsurlari",
+   "konu_gerekce": "BDS 240 p.6 hile tespit etkenleri soruluyor"
+  },
+  "sgs-d5-denetim-zor-r1/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "maddi olmayan duran varlık denetimi",
+   "konu_gerekce": "BDS 265 önemli eksiklik bildirimi soruluyor"
+  },
+  "sgs-t5-denetim-zor/kp-04": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 210 on sartlar",
+   "eski_konu": "müşteri kabul süreci",
+   "konu_gerekce": "BDS 210 sınırsız erişim ön şartı soruluyor"
+  },
+  "sgs-t1-denetim-zor/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "dava ve iddialar denetimi",
+   "eski_konu": "önemli yanlışlık riski",
+   "konu_gerekce": "dava karşılığı düzeltme hesabı soruluyor"
+  },
+  "sgs-c2-denetim-zor-r1/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "muhasebenin temel kavramlari",
+   "eski_konu": "önemlilik kavramı denetim",
+   "konu_gerekce": "BASKA DERS: Finansal Muhasebe; MSUGT temel kavramları"
+  },
+  "sgs-t5-denetim-zor/kp-05": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim riski bilesenleri",
+   "eski_konu": "örnekleme riski",
+   "konu_gerekce": "tespit edememe riski hesabı soruluyor"
+  },
+  "sgs-p-denetim-zor-r1/kp-09": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "isletme ve faaliyet ortamini degerlendirme",
+   "eski_konu": "üçüncü taraf stok denetimi",
+   "konu_gerekce": "BDS 315 organizasyon yapısı, stok değil"
+  },
+  "sgs-d3-denetim-kolay-r1/kp-09": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 402 hizmet kurulusu",
+   "eski_konu": "üçüncü taraf stok denetimi",
+   "konu_gerekce": "BDS 402 hizmet kuruluşu tanımı soruluyor"
+  },
+  "sgs-d5-denetim-zor-r1/kp-11": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mevzuata aykirilik denetci sorumlulugu",
+   "eski_konu": "alınan çekler denetimi",
+   "konu_gerekce": "BDS 250 aykırılık göstergeleri soruluyor"
+  },
+  "sgs-d5-denetim-zor-r2/kp-11": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mesleki muhakeme",
+   "eski_konu": "alınan çekler denetimi",
+   "konu_gerekce": "BDS 200 mesleki muhakeme alanları soruluyor"
+  },
+  "sgs-d5-denetim-cokzor-r2/kp-07": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 610 ic denetimden yararlanma",
+   "eski_konu": "bağımsız denetim amaçları",
+   "konu_gerekce": "BDS 610 iç denetim çalışması kullanımı"
+  },
+  "sgs-t1-denetim-kolay/kp-67": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 240 hile sorumluluklari amaci",
+   "eski_konu": "bds 240 hile ucgeni",
+   "konu_gerekce": "hile tespit etkenleri, hile üçgeni değil"
+  },
+  "sgs-t1-denetim-zor/kp-67": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 240 hile sorumluluklari amaci",
+   "eski_konu": "bds 240 hile ucgeni",
+   "konu_gerekce": "denetçinin hile sorumlulukları, üçgen değil"
+  },
+  "sgs-t1-denetim-cokzor/kp-67": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 240 hile sorumluluklari amaci",
+   "eski_konu": "bds 240 hile ucgeni",
+   "konu_gerekce": "genel BDS 240 sorumluluk, üçgen değil"
+  },
+  "sgs-d5-denetim-zor-r2/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "finansal yatirimlar denetimi",
+   "eski_konu": "bds 260 üst yönetimle iletişim",
+   "konu_gerekce": "BASKA DERS: Finansal Muhasebe; THP sermaye payı sınıflaması"
+  },
+  "sgs-t2-denetim-zor/kp-31": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "onemlilik kiyaslama noktasi",
+   "eski_konu": "bds 320 performans önemliliği",
+   "konu_gerekce": "kıyaslama noktası ve oran soruluyor"
+  },
+  "sgs-t2-denetim-zor/kp-21": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetimde ornekleme",
+   "eski_konu": "bds 330 yetersiz denetim kanıtı",
+   "konu_gerekce": "BDS 530 uygulanamayan örneklem kalemi"
+  },
+  "sgs-t2-denetim-zor/kp-28": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti uygunlugu",
+   "eski_konu": "bds 330 yetersiz denetim kanıtı",
+   "konu_gerekce": "kanıtın ihtiyaca uygunluğu (A27) soruluyor"
+  },
+  "sgs-t2-denetim-kolay/kp-30": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti uygunlugu",
+   "eski_konu": "bds 500 dış bilgi kaynağı",
+   "konu_gerekce": "ihtiyaca uygunluk (A27) soruluyor, dış kaynak değil"
+  },
+  "sgs-t1-denetim-kolay/kp-71": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti uygunlugu",
+   "eski_konu": "bds 500 kanıt yeterlilik",
+   "konu_gerekce": "ihtiyaca uygunluk soruluyor, yeterlilik değil"
+  },
+  "sgs-t1-denetim-zor/kp-71": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti uygunlugu",
+   "eski_konu": "bds 500 kanıt yeterlilik",
+   "konu_gerekce": "ihtiyaca uygunluk ve kaynak, yeterlilik değil"
+  },
+  "sgs-c5-denetim-cokzor-r2/kp-18": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetimde ornekleme",
+   "eski_konu": "bds 530 örneklem büyüklüğü faktorleri",
+   "konu_gerekce": "uygulanamayan kalem sapma sayılır; büyüklük faktörü değil"
+  },
+  "sgs-c5-denetim-cokzor-r1/kp-18": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetimde ornekleme",
+   "eski_konu": "bds 530 örneklem büyüklüğü faktorleri",
+   "konu_gerekce": "alternatif prosedür uygulanan kalem; büyüklük faktörü değil"
+  },
+  "sgs-t2-denetim-zor/kp-35": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetimde ornekleme",
+   "eski_konu": "bds 530 örnekleme yöntemi",
+   "konu_gerekce": "uygulanamayan kalem değerlendirmesi; seçim yöntemi değil"
+  },
+  "sgs-e16-denetim-kolay/kp-05": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 530 orneklem buyuklugu faktorleri",
+   "eski_konu": "bds 530 örnekleme yöntemi",
+   "konu_gerekce": "Ek 3 risk-örneklem büyüklüğü ilişkisi"
+  },
+  "sgs-e16-denetim-zor/kp-04": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 530 orneklem buyuklugu faktorleri",
+   "eski_konu": "bds 530 örnekleme yöntemi",
+   "konu_gerekce": "Ek 3 risk-örneklem büyüklüğü ilişkisi"
+  },
+  "sgs-t1-denetim-cokzor/kp-86": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ornekleme riski",
+   "eski_konu": "bds 530 örnekleme yöntemi",
+   "konu_gerekce": "örnekleme riski, örnekleme dışı risk, anomali"
+  },
+  "sgs-c5-denetim-zor-r2/kp-20": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "bds 700 görüş bölümü",
+   "konu_gerekce": "mevzuatta öngörülen rapor şekli (p.50), görüş bölümü değil"
+  },
+  "sgs-t2-denetim-kolay/kp-40": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "bds 700 görüş bölümü unsurlari",
+   "konu_gerekce": "mevzuatta öngörülen rapor asgari unsurları"
+  },
+  "sgs-t1-denetim-zor/kp-85": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "bds 700 görüş bölümü unsurlari",
+   "konu_gerekce": "mevzuat raporu ve başka standart seti atfı"
+  },
+  "sgs-c5-denetim-zor-r1-2/kp-04": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "bds 700 görüşün dayanağı bölümü",
+   "konu_gerekce": "mevzuatta öngörülen rapor unsurları, dayanak değil"
+  },
+  "sgs-c5-denetim-zor-r2-2/kp-03": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "bds 700 görüşün dayanağı bölümü",
+   "konu_gerekce": "mevzuatta öngörülen rapor içeriği, dayanak değil"
+  },
+  "sgs-c5-denetim-kolay-r1/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "bds 700 görüşün dayanağı unsurlari",
+   "konu_gerekce": "mevzuatta öngörülen rapor asgari unsurları"
+  },
+  "sgs-t1-denetim-kolay/kp-77": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 700 denetci raporu kurallari",
+   "eski_konu": "denetçi raporu görüş bölümü",
+   "konu_gerekce": "mevzuatta öngörülen rapor BDS atfı, görüş bölümü değil"
+  },
+  "sgs-t1-denetim-kolay/kp-72": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 570 onemli belirsizlik bolumu",
+   "eski_konu": "bds 706 dikkat çekilen hususlar",
+   "konu_gerekce": "süreklilik raporlaması hangi standart: BDS 570"
+  },
+  "sgs-c5-denetim-cokzor-r1/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 230 calisma kagitlari ilave amaclar",
+   "eski_konu": "çalışma kagitlari mesleki yargı faktorleri",
+   "konu_gerekce": "BDS 230 ilave amaçlar soruluyor"
+  },
+  "sgs-t1-denetim-kolay/kp-79": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 230 denetim belgelendirme",
+   "eski_konu": "çalışma kagitlari nihai dosya",
+   "konu_gerekce": "sözlü iletişimin belgelendirilmesi, nihai dosya değil"
+  },
+  "sgs-t1-denetim-cokzor/kp-79": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 230 denetim belgelendirme",
+   "eski_konu": "çalışma kagitlari nihai dosya",
+   "konu_gerekce": "sözlü iletişimin belgelendirilmesi, nihai dosya değil"
+  },
+  "sgs-p-denetim-cokzor-r3-b2/kp-16": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetim finansal tablo iddialari",
+   "konu_gerekce": "Önemli iç kontrol eksikliği bildirimi"
+  },
+  "sgs-d2-denetim-zor-r1/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim sozlesmesi sartlari",
+   "eski_konu": "denetim finansal tablo iddialari",
+   "konu_gerekce": "BDS 210/560 sözleşme şartı; 60 gün değil"
+  },
+  "sgs-t1-denetim-zor/kp-31": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 580 yazili beyanlar",
+   "eski_konu": "denetim görüş turleri",
+   "konu_gerekce": "BDS 580 yazılı beyanlar"
+  },
+  "sgs-t1-denetim-kolay/kp-31": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 550 iliskili taraflar prosedurleri",
+   "eski_konu": "denetim görüş turleri",
+   "konu_gerekce": "BDS 550 ilişkili taraf ekip müzakeresi"
+  },
+  "sgs-d5-denetim-zor-r1/kp-13": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetim kaniti tanimi",
+   "eski_konu": "denetim güvence sinirlamalari",
+   "konu_gerekce": "Kanıt olarak kullanılacak bilgi kaynağı"
+  },
+  "sgs-d5-denetim-kolay-r2/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 265 ic kontrol eksikligi",
+   "eski_konu": "denetim güvencesi",
+   "konu_gerekce": "İç kontrol eksikliği bildirim şekli"
+  },
+  "sgs-d5-denetim-kolay-r1/kp-12": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bds 500 denetim kaniti guvenilirligi",
+   "eski_konu": "denetim güvencesi",
+   "konu_gerekce": "BDS 500 kanıt güvenilirliği ilkeleri"
+  },
+  "sgs-t2-denetim-kolay/kp-19": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mevzuata aykirilik denetci sorumlulugu",
+   "eski_konu": "denetim on şartları",
+   "konu_gerekce": "BDS 250 mevzuata aykırılık"
+  },
+  "sgs-t1-denetim-cokzor/kp-33": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denetimde ornekleme",
+   "eski_konu": "denetim planlama süreci",
+   "konu_gerekce": "BDS 530 kapsam ve amaç; sistematik seçim değil"
+  },
+  "sgs-t1-denetim-kolay/kp-33": {
+   "ders": "Denetim",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "fiziki stok sayimi",
+   "eski_konu": "denetim planlama süreci",
+   "konu_gerekce": "Sayım tarihi farklılığı; değerleme değil"
+  },
+  "sgs-c2-ekonomi-kolay-r2/kp-01": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "likidite tuzagi",
+   "eski_konu": "is-lm para politikası etkinliği",
+   "konu_gerekce": "likidite tuzağında maliye çarpanı soruluyor, para politikası değil"
+  },
+  "sgs-c2-ekonomi-kolay-r3/kp-01": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "likidite tuzagi",
+   "eski_konu": "is-lm para politikası etkinliği",
+   "konu_gerekce": "likidite tuzağında kamu harcaması çarpanı hesabı"
+  },
+  "sgs-p-ekonomi-zor-r1-a/kp-01": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "likidite tuzagi",
+   "eski_konu": "is-lm para politikası etkinliği",
+   "konu_gerekce": "likidite tuzağında maliye politikası gelir etkisi"
+  },
+  "sgs-p-ekonomi-kolay-r1/kp-01": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "is lm maliye politikasi",
+   "eski_konu": "is-lm para politikası etkinliği",
+   "konu_gerekce": "dik LM, kamu harcaması tam dışlama"
+  },
+  "sgs-c2-ekonomi-kolay-r1/kp-01": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "is lm maliye politikasi",
+   "eski_konu": "is-lm para politikası etkinliği",
+   "konu_gerekce": "kamu harcaması dışlama etkisi, maliye politikası"
+  },
+  "sgs-p-ekonomi-cokzor-r1/kp-02": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "cari oran",
+   "eski_konu": "cari işlemler hesabı",
+   "konu_gerekce": "BASKA DERS: Muhasebe (mali analiz) - işletme cari oranı"
+  },
+  "sgs-p-ekonomi-zor-r1-a/kp-03": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "cari oran",
+   "eski_konu": "cari işlemler hesabı",
+   "konu_gerekce": "BASKA DERS: Muhasebe (mali analiz) - cari oran hesabı"
+  },
+  "sgs-d3-ekonomi-kolay-r1/kp-05": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "cari oran",
+   "eski_konu": "cari işlemler hesabı",
+   "konu_gerekce": "BASKA DERS: Muhasebe (mali analiz) - borç ödemesi cari oran"
+  },
+  "sgs-d2-ekonomi-zor-r3/kp-04": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denge geliri carpan etkisi",
+   "eski_konu": "keynesyen tüketim fonksiyonu",
+   "konu_gerekce": "vergili açık ekonomide çarpan ile gelir artışı"
+  },
+  "sgs-d2-ekonomi-zor-r2/kp-05": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "denge geliri carpan etkisi",
+   "eski_konu": "keynesyen tüketim fonksiyonu",
+   "konu_gerekce": "harcama ve vergi çarpanı, dengeli bütçe"
+  },
+  "sgs-p-ekonomi-cokzor-r2-a/kp-02": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "etkin tarife haddi",
+   "eski_konu": "stolper-samuelson teoremi",
+   "konu_gerekce": "nihai mal ve girdi tarifesiyle katma değer korunması"
+  },
+  "sgs-d5-ekonomi-cokzor-r2/kp-02": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tufe gsyh deflator farki",
+   "eski_konu": "nominal gsyh",
+   "konu_gerekce": "GSYH deflatörü ile TÜFE karşılaştırması"
+  },
+  "sgs-d5-ekonomi-cokzor-r1/kp-02": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gsyh deflator",
+   "eski_konu": "nominal gsyh",
+   "konu_gerekce": "deflatör enflasyonuyla reel GSYH hesabı"
+  },
+  "sgs-t1-genel-ekonomi-kolay/kp-13": {
+   "ders": "Ekonomi",
+   "eski": "Ekonomi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "taylor prensibi",
+   "eski_konu": "para politikası makro modeller",
+   "konu_gerekce": "Taylor prensibine göre faiz tepkisi soruluyor"
+  },
+  "sgs-d3-fmuh-kolay-r2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mizan turleri ve esitlikleri",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Genel geçici mizan türünü soruyor"
+  },
+  "sgs-p-fmuh-kolay-r4/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kesin mizan",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Kesin mizan türünü soruyor"
+  },
+  "sgs-p-fmuh-kolay-r2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mizan turleri ve esitlikleri",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Genel geçici mizan türünü soruyor"
+  },
+  "sgs-c2-fmuh-kolay-r1/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kesin mizan",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Kesin mizan türünü soruyor"
+  },
+  "sgs-t2-fmuh-cokzor/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mizan turleri ve esitlikleri",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Mizanın tespit edemediği hatayı soruyor"
+  },
+  "sgs-d2-fmuh-kolay-r2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kesin mizan",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Kesin mizan türünü soruyor"
+  },
+  "sgs-d2-fmuh-kolay-r3/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mizan turleri ve esitlikleri",
+   "eski_konu": "muhasebe bilgi sistemi",
+   "konu_gerekce": "Genel geçici mizan türünü soruyor"
+  },
+  "sgs-d5-fmuh-zor-r1/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sermaye taahhudu hisse iptali",
+   "eski_konu": "hisse senedi satışı",
+   "konu_gerekce": "Ödenmeyen taahhüt hisse iptali, 521 iptal kârı"
+  },
+  "sgs-p-fmuh-zor-r1/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sermaye artirimi ihrac primi",
+   "eski_konu": "hisse senedi satışı",
+   "konu_gerekce": "Sermaye artırımında ihraç primi kaydı"
+  },
+  "sgs-a6-fmuh-cokzor-r1/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "karsilik gideri kaydi ikramiye",
+   "eski_konu": "tms 37 karşılıklar",
+   "konu_gerekce": "373 ikramiye karşılığı hesaplaması, TMS 37 değil"
+  },
+  "sgs-p-fmuh-kolay-r1/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hasilat tamamlanma yuzdesi",
+   "eski_konu": "tms 18 hasılat",
+   "konu_gerekce": "TFRS 15 girdi yöntemiyle tamamlanma yüzdesi"
+  },
+  "sgs-c2-fmuh-kolay-r2/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 hasilat adimlari",
+   "eski_konu": "tms 18 hasılat",
+   "konu_gerekce": "TFRS 15 sözleşme tanıma şartları"
+  },
+  "sgs-p-fmuh-kolay-r2/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 hasilat adimlari",
+   "eski_konu": "tms 18 hasılat",
+   "konu_gerekce": "TFRS 15 kontrol devri, hasılat zamanı"
+  },
+  "sgs-c2-fmuh-kolay-r3/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 hasilat adimlari",
+   "eski_konu": "tms 18 hasılat",
+   "konu_gerekce": "TFRS 15 paragraf 9 sözleşme şartları"
+  },
+  "sgs-c2-fmuh-kolay-r1/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 hasilat adimlari",
+   "eski_konu": "tms 18 hasılat",
+   "konu_gerekce": "TFRS 15 sözleşme tanıma şartları"
+  },
+  "sgs-bosluk-finansalmuhasebe/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "depozitolu kap kirilmasi kaydi",
+   "eski_konu": "depozito iadesi kaydı",
+   "konu_gerekce": "Kap kırıldı, depozito iade edilmiyor"
+  },
+  "sgs-bosluk-finansalmuhasebe/kp-05": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "alacak senetleri reeskontu",
+   "eski_konu": "bilanço hesapları",
+   "konu_gerekce": "Reeskont kaydı soruluyor, bilanço hesabı genel değil"
+  },
+  "sgs-c2-fmuh-cokzor-r3/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet fark kapanisi",
+   "eski_konu": "dönem kârı zararı hesabı",
+   "konu_gerekce": "BASKA DERS: Maliyet Muhasebesi; standart maliyet fark hesapları"
+  },
+  "sgs-p-fmuh-zor-r3/kp-15": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ara donem raporlama",
+   "eski_konu": "muhasebe politikaları",
+   "konu_gerekce": "TMS 34 ara dönem ikramiye gideri"
+  },
+  "sgs-p-fmuh-zor-r1/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ara donem raporlama",
+   "eski_konu": "muhasebe politikaları",
+   "konu_gerekce": "TMS 34 ara dönem tahmin revizyonu"
+  },
+  "sgs-fmuh-ek15/kp-10": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "maliyet muhasebesi baglanti hesabi",
+   "eski_konu": "muhasebe politikaları",
+   "konu_gerekce": "BASKA DERS: Maliyet Muhasebesi; 700 bağlantı hesabı kaydı"
+  },
+  "sgs-d3-fmuh-kolay-r2/kp-05": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "arama giderleri",
+   "eski_konu": "nazım hesaplar",
+   "konu_gerekce": "271 Arama Giderleri kaydı, nazım hesap yok"
+  },
+  "sgs-bosluk-finansalmuhasebe/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "arama giderleri",
+   "eski_konu": "nazım hesaplar",
+   "konu_gerekce": "271 Arama Giderleri kapanışı, nazım hesap yok"
+  },
+  "sgs-c2-fmuh-zor-r2/kp-14": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "donemsellik kavrami",
+   "eski_konu": "önemlilik kavramı",
+   "konu_gerekce": "Dönemsellik kavramı tanımı soruluyor"
+  },
+  "sgs-p-fmuh-kolay-r1/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "muhasebe temel kavramlari",
+   "eski_konu": "önemlilik kavramı",
+   "konu_gerekce": "Kavram-tanım eşleştirmesi; cevap dönemsellik"
+  },
+  "sgs-p-fmuh-kolay-r3/kp-11": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "donemsellik kavrami",
+   "eski_konu": "önemlilik kavramı",
+   "konu_gerekce": "Dönemsellik kavramı tanımı soruluyor"
+  },
+  "sgs-p-fmuh-kolay-r4/kp-11": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "donemsellik kavrami",
+   "eski_konu": "önemlilik kavramı",
+   "konu_gerekce": "Dönemsellik kavramı tanımı soruluyor"
+  },
+  "sgs-fmuh-30/kp-23": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sosyal sorumluluk kavrami",
+   "eski_konu": "önemlilik kavramı",
+   "konu_gerekce": "Sosyal sorumluluk kavramı soruluyor"
+  },
+  "sgs-c2-fmuh-cokzor-r1/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil hisse donusumu",
+   "eski_konu": "sermaye artırımı ihraç primi",
+   "konu_gerekce": "Hisseyle değiştirilebilir tahvil dönüşümü"
+  },
+  "sgs-p-fmuh-cokzor-r3/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil hisse donusumu",
+   "eski_konu": "sermaye artırımı ihraç primi",
+   "konu_gerekce": "Hisseyle değiştirilebilir tahvil dönüşümü"
+  },
+  "sgs-c2-fmuh-cokzor-r2/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil hisse donusumu",
+   "eski_konu": "sermaye artırımı ihraç primi",
+   "konu_gerekce": "Hisseyle değiştirilebilir tahvil dönüşümü"
+  },
+  "sgs-p-fmuh-cokzor-r4/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil hisse donusumu",
+   "eski_konu": "sermaye artırımı ihraç primi",
+   "konu_gerekce": "Hisseyle değiştirilebilir tahvil dönüşümü"
+  },
+  "sgs-t3-fmuh-zor/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "amortisman yöntemi değişimi",
+   "konu_gerekce": "Duran varlık takas kârı; yöntem değişimi yok"
+  },
+  "sgs-e16-fmuh-kolay/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "amortisman yöntemi değişimi",
+   "konu_gerekce": "Duran varlık takas kârı; yöntem değişimi yok"
+  },
+  "sgs-p-fmuh-kolay-r1/kp-21": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "amortisman yöntemi değişimi",
+   "konu_gerekce": "Duran varlık takas zararı; yöntem değişimi yok"
+  },
+  "sgs-p-fmuh-kolay-r2/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "amortisman yöntemi değişimi",
+   "konu_gerekce": "Duran varlık takas kârı; yöntem değişimi yok"
+  },
+  "sgs-d3-fmuh-kolay-r1/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "amortisman yöntemi değişimi",
+   "konu_gerekce": "Duran varlık takas kârı; yöntem değişimi yok"
+  },
+  "sgs-t1-fmuh-kolay/kp-53": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mali borclar hesap gruplari",
+   "eski_konu": "borç senedi yenileme",
+   "konu_gerekce": "Tahvil taksiti 405ten 304e sınıflandırma"
+  },
+  "sgs-bc-fmuh-kolay-r2/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ozkaynak tutari hesaplama",
+   "eski_konu": "finansal tablolar",
+   "konu_gerekce": "Varlık eksi borçla özkaynak hesabı"
+  },
+  "sgs-d3-fmuh-kolay-r1/kp-21": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 40 yatirim amacli gayrimenkul",
+   "eski_konu": "finansal tablolar",
+   "konu_gerekce": "TMS 40 yatırım amaçlı gayrimenkul maliyeti"
+  },
+  "sgs-c2-fmuh-cokzor-r2/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hisse senedi iptali",
+   "eski_konu": "hisse senedi ihracı",
+   "konu_gerekce": "521 hisse senedi iptal kari hesaplaniyor"
+  },
+  "sgs-p-fmuh-zor-r2/kp-18": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil hisse donusumu",
+   "eski_konu": "hisse senedi ihracı",
+   "konu_gerekce": "degistirilebilir tahvilin hisseye donusumu"
+  },
+  "sgs-d2-fmuh-zor-r1/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hisse senedi iptali",
+   "eski_konu": "hisse senedi ihracı",
+   "konu_gerekce": "taahhut yerine getirmeyen ortagin hisse iptali"
+  },
+  "sgs-t2-fmuh-zor/kp-21": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ifac bunyesindeki kuruluslar",
+   "eski_konu": "ıasb çalışmaları",
+   "konu_gerekce": "IASB degil IFAC standart kurullari soruluyor"
+  },
+  "sgs-c5-fmuh-kolay-r3/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "istirakler bagli ortakliklar",
+   "eski_konu": "ilişkili taraf tanımı",
+   "konu_gerekce": "242 istirakler hesabi soruluyor, TMS 24 degil"
+  },
+  "sgs-c5-fmuh-kolay-r1/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "istirakler bagli ortakliklar",
+   "eski_konu": "ilişkili taraf tanımı",
+   "konu_gerekce": "oy hakkina gore 242 istirak siniflamasi"
+  },
+  "sgs-c2-fmuh-zor-r1-2/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mizan turleri ve esitlikleri",
+   "eski_konu": "muhasebe bilgi sistemi süreci",
+   "konu_gerekce": "envanter oncesi mizan turu soruluyor"
+  },
+  "sgs-t4-fmuh-cokzor/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "brut satis kari",
+   "eski_konu": "satış iskontosu kaydı",
+   "konu_gerekce": "brut satis kari hesaplamasi soruluyor"
+  },
+  "sgs-t2-fmuh-zor/kp-20": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "alacak senetleri reeskontu",
+   "eski_konu": "senet iskonto kaydı",
+   "konu_gerekce": "donem sonu reeskont, iskonto ettirme yok"
+  },
+  "sgs-p-fmuh-zor-r2/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bagli menkul kiymetler kaydi",
+   "eski_konu": "sermaye kaydı",
+   "konu_gerekce": "yatirimci tarafi 240 hesabi bedelsiz-bedelli pay"
+  },
+  "sgs-c2-fmuh-cokzor-r1-2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 16 maliyet bedeli",
+   "eski_konu": "taşıma gideri kaydı",
+   "konu_gerekce": "makine maliyet bedeli unsurlari soruluyor"
+  },
+  "sgs-d3-fmuh-kolay-r2/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ozel maliyetler",
+   "eski_konu": "tms 17 kiralama",
+   "konu_gerekce": "264 ozel maliyetler ve itfa suresi"
+  },
+  "sgs-t1-fmuh-zor-b/kp-159": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "menkul kiymet satisi",
+   "eski_konu": "bağlı menkul kıymetler kaydı",
+   "konu_gerekce": "spekulatif tahvil satisi, bagli MK degil"
+  },
+  "sgs-t2-fmuh-kolay/kp-80": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kredi faiz tahakkuku",
+   "eski_konu": "banka kredisi geri ödemesi",
+   "konu_gerekce": "donem sonu faiz tahakkuku soruluyor"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-154": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil ihraci iskonto",
+   "eski_konu": "borç senedi iskontosu",
+   "konu_gerekce": "iskontolu tahvil ihraci 405 hesabi"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-154": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil ihraci iskonto",
+   "eski_konu": "borç senedi iskontosu",
+   "konu_gerekce": "iskontolu tahvil ihraci 405 hesabi"
+  },
+  "sgs-c5-fmuh-cokzor-r1-3/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "karsilik gideri kaydi ikramiye",
+   "eski_konu": "diğer faaliyet gider-zarar kalemleri",
+   "konu_gerekce": "ikramiye karşılığı fark gideri soruluyor"
+  },
+  "sgs-c5-fmuh-zor-r1-2/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kar payi vergi kesintisi",
+   "eski_konu": "dönem kârı vergi karşılığı kaydı",
+   "konu_gerekce": "kâr dağıtımı ve stopaj, vergi karşılığı değil"
+  },
+  "sgs-t1-fmuh-zor-b/kp-130": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "supheli alacak karsiligi",
+   "eski_konu": "dönem sonu düzeltme kaydı",
+   "konu_gerekce": "şüpheli alacağın değersizleşmesi ve karşılık"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-130": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "supheli alacak karsiligi",
+   "eski_konu": "dönem sonu düzeltme kaydı",
+   "konu_gerekce": "129 karşılığın kapatılması, şüpheli alacak"
+  },
+  "sgs-c5-fmuh-zor-r2-2/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "satilan ticari mallar maliyeti",
+   "eski_konu": "dönemler arası ilk madde alım hesabı",
+   "konu_gerekce": "ticari mal SMM hesabı, ilk madde değil"
+  },
+  "sgs-c5-fmuh-zor-r1-2/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ticari mal sayim fazlasi",
+   "eski_konu": "dönemler arası ilk madde alım hesabı",
+   "konu_gerekce": "398 sayım fazlasının gelire aktarılması"
+  },
+  "sgs-t2-fmuh-zor/kp-72": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "duran varlık alım kaydı",
+   "konu_gerekce": "eski taşıt takasıyla yeni taşıt maliyeti"
+  },
+  "sgs-t2-fmuh-cokzor/kp-77": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ozel maliyet bedeli",
+   "eski_konu": "duran varlık hesap grupları",
+   "konu_gerekce": "özel maliyet bedeli itfası ve fesih"
+  },
+  "sgs-t1-fmuh-zor-b/kp-143": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ozel maliyet bedeli",
+   "eski_konu": "duran varlık hesap grupları",
+   "konu_gerekce": "özel maliyet bedeli itfası ve fesih"
+  },
+  "sgs-t2-fmuh-cokzor/kp-78": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "elden cikarilacak maddi duran varlik",
+   "eski_konu": "duran varlık kârlılığı",
+   "konu_gerekce": "294 hesabına aktarılan makine"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-139": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hisse senedi satis kaydi",
+   "eski_konu": "faaliyet giderleri hesabı",
+   "konu_gerekce": "hisse satış kârından alış bedeli"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-183": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 1 netlestirme",
+   "eski_konu": "finansal raporlama çerçevesi uygunluğu",
+   "konu_gerekce": "TMS 1 netleştirme hükmü soruluyor"
+  },
+  "sgs-e16-fmuh-kolay/kp-41": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "finansal bilgi niteliksel ozellikleri",
+   "eski_konu": "finansal raporlama çerçevesi uygunluğu",
+   "konu_gerekce": "temel/destekleyici niteliksel özellikler"
+  },
+  "sgs-t1-fmuh-zor-b/kp-183": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 1 netlestirme",
+   "eski_konu": "finansal raporlama çerçevesi uygunluğu",
+   "konu_gerekce": "TMS 1 netleştirme ve cari ayrımı"
+  },
+  "sgs-e16-fmuh-kolay/kp-43": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "finansal bilgi niteliksel ozellikleri",
+   "eski_konu": "finansal raporlama değerlendirmesi",
+   "konu_gerekce": "destekleyici niteliksel özellik soruluyor"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-180": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "maliyet gideri karsiligi",
+   "eski_konu": "gider tahakkuku",
+   "konu_gerekce": "373 maliyet giderleri karşılığı kapatma"
+  },
+  "sgs-t1-fmuh-zor-b/kp-180": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "maliyet gideri karsiligi",
+   "eski_konu": "gider tahakkuku",
+   "konu_gerekce": "373 tahmini karşılık ile kesin gider farkı"
+  },
+  "sgs-t2-fmuh-zor/kp-76": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gelir tahakkuku kaydi",
+   "eski_konu": "hasılat kavramı",
+   "konu_gerekce": "181 gelir tahakkuku kaydı, hasılat kavramı değil"
+  },
+  "sgs-c5-fmuh-cokzor-r1/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "menkul kiymet satisi",
+   "eski_konu": "hisse iptali ve yeni ortak kaydı",
+   "konu_gerekce": "118 hisse senedi satış kârı"
+  },
+  "sgs-c5-fmuh-cokzor-r2/kp-20": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "menkul kiymet satisi",
+   "eski_konu": "hisse iptali ve yeni ortak kaydı",
+   "konu_gerekce": "240 bağlı menkul kıymet satışı"
+  },
+  "sgs-d5-fmuh-zor-r1/kp-16": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil hisse donusumu",
+   "eski_konu": "hisse senedi değerleme",
+   "konu_gerekce": "hisseyle değiştirilebilir tahvil dönüşümü"
+  },
+  "sgs-c5-fmuh-kolay-r1-2/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ihrac primli hisse satisi",
+   "eski_konu": "hisse senedi satışı kaydı",
+   "konu_gerekce": "primli hisse ihracı, 520 hesap"
+  },
+  "sgs-d5-fmuh-zor-r1/kp-24": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "verilen siparis avanslari",
+   "eski_konu": "is avansı kaydı",
+   "konu_gerekce": "verilen sipariş avansı mahsubu, iş avansı değil"
+  },
+  "sgs-d5-fmuh-zor-r2/kp-24": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "siparis avansi mahsubu",
+   "eski_konu": "is avansı kaydı",
+   "konu_gerekce": "alınan sipariş avansı mahsubu"
+  },
+  "sgs-d5-fmuh-cokzor-r1/kp-23": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "menkul kiymet satisi",
+   "eski_konu": "kapsamlı gelir",
+   "konu_gerekce": "110 hisse satış kârı kaydı"
+  },
+  "sgs-c5-fmuh-zor-r2/kp-19": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kar dagitimi yedek akce",
+   "eski_konu": "kâr yedeklerinden dağıtım kaydı",
+   "konu_gerekce": "cari yıl kâr dağıtımı, yedeklerden dağıtım değil"
+  },
+  "sgs-e16-fmuh-zor/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kur degerleme",
+   "eski_konu": "kasa kambiyo kur farkı",
+   "konu_gerekce": "döviz kredisi dönem sonu kur değerlemesi"
+  },
+  "sgs-e16-fmuh-kolay/kp-40": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kur degerleme",
+   "eski_konu": "kasa kambiyo kur farkı",
+   "konu_gerekce": "döviz kredisi VUK 280 değerleme"
+  },
+  "sgs-e16-fmuh-kolay/kp-11": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "maddi duran varlık harcaması",
+   "konu_gerekce": "demirbaş takası kâr/zarar"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-173": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "maden isletme hakki kaydi",
+   "eski_konu": "maddi duran varlık harcaması",
+   "konu_gerekce": "arama giderlerinin işletme hakkına aktarılması"
+  },
+  "sgs-c5-fmuh-kolay-r1-2/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "arama giderleri",
+   "eski_konu": "mbs harcama döngüsü",
+   "konu_gerekce": "rezerv bulunamayan arama gideri kaydı"
+  },
+  "sgs-t1-fmuh-zor-b/kp-172": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hisse senedi iptali",
+   "eski_konu": "menkul kıymet (hisse senedi) satış kaydı",
+   "konu_gerekce": "hisse itfası ve yeniden ihraç"
+  },
+  "sgs-c5-fmuh-zor-r1-2/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "deger dusuklugu testi geri kazanilabilir deger",
+   "eski_konu": "menkul kıymet değer düşüklüğü karşılığı",
+   "konu_gerekce": "iştirak geri kazanılabilir tutar, TMS 36"
+  },
+  "sgs-d5-fmuh-cokzor-r1/kp-15": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "muhasebe bilgi sistemi kontrolleri",
+   "eski_konu": "muhasebe bilgi kullanıcıları",
+   "konu_gerekce": "önleyici uygulama kontrolü soruluyor"
+  },
+  "sgs-t1-fmuh-kolay/kp-90": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "maliyet muhasebesi baglanti hesabi",
+   "eski_konu": "muhasebe bilgi sistemi kontrolleri",
+   "konu_gerekce": "700 bağlantı hesabı kaydı"
+  },
+  "sgs-c5-fmuh-zor-r1-2/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 7 dolayli yontem",
+   "eski_konu": "nakit akış tablosu tanımı",
+   "konu_gerekce": "dolaylı yöntemle işletme nakit akışı"
+  },
+  "sgs-c5-fmuh-kolay-r1/kp-18": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "nakit değişim hesabı",
+   "konu_gerekce": "taşıt takası kâr/zarar"
+  },
+  "sgs-c5-fmuh-kolay-r2/kp-18": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik takasi",
+   "eski_konu": "nakit değişim hesabı",
+   "konu_gerekce": "taşıt takası kâr/zarar"
+  },
+  "sgs-t1-fmuh-zor-b/kp-95": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ertelenen kdv 192 392 kaydi",
+   "eski_konu": "pasif düzenleyici hesap",
+   "konu_gerekce": "392 Diğer KDV düzenleyici değil; ertelenen KDV sorusu"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-95": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ertelenen kdv 192 392 kaydi",
+   "eski_konu": "pasif düzenleyici hesap",
+   "konu_gerekce": "Ertelenen KDV terkin kaydı; düzenleyici hesap değil"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-94": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "menkul kiymet alimi",
+   "eski_konu": "satın alma iskontosu",
+   "konu_gerekce": "Hisse senedi alış maliyeti, iskonto ve komisyon"
+  },
+  "sgs-t1-fmuh-zor/kp-83": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik satisi",
+   "eski_konu": "satış amaçlı duran varlık",
+   "konu_gerekce": "VUK 328 makine satış kârı; TFRS 5 değil"
+  },
+  "sgs-t1-fmuh-cokzor/kp-83": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yenileme fonu",
+   "eski_konu": "satış amaçlı duran varlık",
+   "konu_gerekce": "VUK 328 yenileme fonuna alınacak kâr"
+  },
+  "sgs-t1-fmuh-kolay/kp-83": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik satisi",
+   "eski_konu": "satış amaçlı duran varlık",
+   "konu_gerekce": "Makine satış kârı hesabı; TFRS 5 değil"
+  },
+  "sgs-c5-fmuh-zor-r1-2/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik satisi amortisman",
+   "eski_konu": "satış amaçlı duran varlık sınıflaması",
+   "konu_gerekce": "Kıst amortismanlı makine satış kârı"
+  },
+  "sgs-c5-fmuh-zor-r2/kp-07": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik satisi amortisman",
+   "eski_konu": "satış amaçlı elde tutulan duran varlık",
+   "konu_gerekce": "Kıst amortismanlı makine satış kâr/zararı"
+  },
+  "sgs-d5-fmuh-cokzor-r1/kp-13": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tahvil satin alma",
+   "eski_konu": "senet yenileme",
+   "konu_gerekce": "Tahvil itfası ve yeni tahvil alımı"
+  },
+  "sgs-c5-fmuh-cokzor-r1-3/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hisse senedi satisi",
+   "eski_konu": "senet yenileme kaydı",
+   "konu_gerekce": "Hisse senedi satış kârı ve yeni alım"
+  },
+  "sgs-c5-fmuh-cokzor-r2-2/kp-05": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hisse senedi satisi",
+   "eski_konu": "senet yenileme kaydı",
+   "konu_gerekce": "Hisse satışı ve yeni hisse alımı ödemesi"
+  },
+  "sgs-c5-fmuh-kolay-r2/kp-02": {
+   "ders": "Maliye",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "belediye serefiye harcamalara katilma",
+   "eski_konu": "şerefiye (bayındırlık katılma bedeli)",
+   "konu_gerekce": "BASKA DERS: Maliye (kamu gelirleri, belediye şerefiyesi)"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-132": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "uzun vadeli borcun kisa vadeye aktarimi",
+   "eski_konu": "tahvil ihracı-iskonto",
+   "konu_gerekce": "407'den kısa vadeye aktarım; iskonto yok"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-116": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 sozlesme maliyetleri",
+   "eski_konu": "tfrs 15 hasılat adımları",
+   "konu_gerekce": "Sözleşme elde etme maliyetleri; beş adım değil"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-116": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 sozlesme maliyetleri",
+   "eski_konu": "tfrs 15 hasılat adımları",
+   "konu_gerekce": "Sözleşme elde etme/yerine getirme maliyetleri aktifleştirme"
+  },
+  "sgs-c5-fmuh-kolay-r1/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 sozlesme maliyetleri",
+   "eski_konu": "tfrs 15 konsinye hasılat",
+   "konu_gerekce": "Sözleşme maliyeti gider kaydı; konsinye değil"
+  },
+  "sgs-c5-fmuh-kolay-r2/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 sozlesme maliyetleri",
+   "eski_konu": "tfrs 15 konsinye hasılat",
+   "konu_gerekce": "Sözleşme elde etme komisyonu; konsinye değil"
+  },
+  "sgs-d5-fmuh-zor-r1/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tfrs 15 sozlesme maliyetleri",
+   "eski_konu": "tfrs 15 tek başına satış fiyatı",
+   "konu_gerekce": "Sözleşme maliyetleri sınıflaması; satış fiyatı değil"
+  },
+  "sgs-c5-fmuh-kolay-r1/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 2 net gerceklesebilir deger olcumu",
+   "eski_konu": "tfrs 3 gerçeğe uygun değer olcumu",
+   "konu_gerekce": "Stok NGD değer düşüklüğü; TFRS 3 değil"
+  },
+  "sgs-e16-fmuh-kolay/kp-23": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "duran varlik satisi",
+   "eski_konu": "tfrs 5 satış amaçlı duran varlık",
+   "konu_gerekce": "VUK 328 makine satış kârı"
+  },
+  "sgs-c5-fmuh-kolay-r2/kp-11": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 1 netlestirme",
+   "eski_konu": "tms 1 geriye dönük düzeltme sunumu",
+   "konu_gerekce": "Soru netleştirme ilkesini soruyor"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-104": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 27 bagli ortaklik olcumu",
+   "eski_konu": "tms 24 ilişkili taraflar",
+   "konu_gerekce": "Bağlı ortaklık/iştirak temettü muhasebesi"
+  },
+  "sgs-e16-fmuh-kolay/kp-15": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "istirakler bagli ortakliklar",
+   "eski_konu": "tms 27 bağlı ortaklık olcumu",
+   "konu_gerekce": "THP hesap seçimi (245); TMS 27 ölçümü değil"
+  },
+  "sgs-t1-fmuh-cokzor-b/kp-102": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 36 deger dusuklugu testi",
+   "eski_konu": "tms 36 değer düşüklüğü kapsamı",
+   "konu_gerekce": "Elden çıkarma maliyetleri hesaplaması; kapsam değil"
+  },
+  "sgs-t2-fmuh-zor/kp-47": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 36 deger dusuklugu kapsami",
+   "eski_konu": "tms 36 değer düşüklüğü testi",
+   "konu_gerekce": "Kapsam dışı varlık sorusu"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-99": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tms 36 deger dusuklugu kapsami",
+   "eski_konu": "tms 36 değer düşüklüğü testi",
+   "konu_gerekce": "Kapsam dışı varlık sorusu"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-142": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "arama giderleri 271",
+   "eski_konu": "tms 38 ar-ge aktifleştirme",
+   "konu_gerekce": "Petrol arama harcaması 271; Ar-Ge değil"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-173": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "arama giderleri 271",
+   "eski_konu": "tms 38 ar-ge aktifleştirme",
+   "konu_gerekce": "Sonuçsuz arama gideri zarar kaydı"
+  },
+  "sgs-d5-fmuh-kolay-r2/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "amortisman tahmin degisikligi",
+   "eski_konu": "yeniden değerleme tms16",
+   "konu_gerekce": "Faydalı ömür revizyonu; yeniden değerleme yok"
+  },
+  "sgs-p-issgk-kolay-r2-a/kp-02": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "belirli sureli is sozlesmesi",
+   "eski_konu": "is sözleşmesi feshi",
+   "konu_gerekce": "zincirleme belirli süreli sözleşme soruluyor, fesih değil"
+  },
+  "sgs-p-issgk-zor-r1/kp-02": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "belirli sureli is sozlesmesi",
+   "eski_konu": "is sözleşmesi feshi",
+   "konu_gerekce": "m.11 zincirleme belirli süreli sözleşme niteliği"
+  },
+  "sgs-bosluk-svesosyalguvenlikhukuku/kp-09": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kidem tazminati tmsf odemesi",
+   "eski_konu": "is güvencesi",
+   "konu_gerekce": "rödövans işçisi kıdem tazminatının TMSF ödemesi"
+  },
+  "sgs-bosluk-svesosyalguvenlikhukuku/kp-08": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gecici is iliskisi",
+   "eski_konu": "is kazası sayılmayan haller",
+   "konu_gerekce": "m.7 geçici işçide iş kazası bildirimi"
+  },
+  "sgs-bosluk-svesosyalguvenlikhukuku/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "belirli sureli is sozlesmesi",
+   "eski_konu": "kıdem tazminatı",
+   "konu_gerekce": "belirli süreli işçiye ayrım yasağı (m.12), kıdem değil"
+  },
+  "sgs-bosluk-svesosyalguvenlikhukuku/kp-02": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gecici is iliskisi",
+   "eski_konu": "sigortalı sayılma",
+   "konu_gerekce": "m.7 geçici devirde prim sorumluluğu"
+  },
+  "sgs-p-issgk-zor-r3-a/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "isin durdurulmasi ucretsiz izin",
+   "eski_konu": "ücret yönetmeliği kuralları",
+   "konu_gerekce": "İSG iş durdurma ve geçici 10 ücretsiz izin"
+  },
+  "sgs-p-issgk-zor-r4-a/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "esit islem borcu",
+   "eski_konu": "ücret yönetmeliği kuralları",
+   "konu_gerekce": "eşit davranma ilkesi (m.5)"
+  },
+  "sgs-c2-issgk-kolay-r2/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "esit islem borcu",
+   "eski_konu": "ücret yönetmeliği kuralları",
+   "konu_gerekce": "eşit davranma ilkesi (m.5)"
+  },
+  "sgs-c2-issgk-kolay-r1/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "esit islem borcu",
+   "eski_konu": "ücret yönetmeliği kuralları",
+   "konu_gerekce": "eşit davranma borcu (m.5)"
+  },
+  "sgs-c2-issgk-kolay-r3/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "esit islem borcu",
+   "eski_konu": "ücret yönetmeliği kuralları",
+   "konu_gerekce": "cinsiyete dayalı ücret ayrımı, m.5"
+  },
+  "sgs-t1-issgk-cokzor/kp-12": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "isci arac gereci masraf tbk",
+   "eski_konu": "alt işverenlik",
+   "konu_gerekce": "TBK işçinin kendi aracı masraf tazmini"
+  },
+  "sgs-t2-issgk-cokzor/kp-05": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gecici is iliskisi",
+   "eski_konu": "fazla çalışma",
+   "konu_gerekce": "m.7 geçici iş ilişkisi soruluyor"
+  },
+  "sgs-t1-issgk-kolay/kp-14": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gecici is iliskisi",
+   "eski_konu": "fazla çalışma",
+   "konu_gerekce": "m.7 geçici iş ilişkisi süre sınırları"
+  },
+  "sgs-d3-issgk-cokzor-r1/kp-06": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "isyeri devri",
+   "eski_konu": "süreli fesih kuralları",
+   "konu_gerekce": "m.6 işyeri devri soruluyor"
+  },
+  "sgs-t1-issgk-zor/kp-24": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "İş ve Sosyal Güvenlik Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sureli fesih",
+   "eski_konu": "is kanunu çalışma süreleri",
+   "konu_gerekce": "kötüniyet ve ihbar tazminatı hesabı"
+  },
+  "sgs-p-mta-zor-r4/kp-02": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "nakit donusum suresi",
+   "eski_konu": "stok devir hızı",
+   "konu_gerekce": "Soru nakit dönüşüm süresini soruyor; stok yalnız girdi"
+  },
+  "sgs-t2b-mta-zor/kp-06": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "stok devir hizi",
+   "eski_konu": "brüt kâr oranı",
+   "konu_gerekce": "Sorulan stok devir hızı; brüt kâr yalnız SMM için"
+  },
+  "sgs-c5-mta-zor-r3/kp-01": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "net isletme sermayesi",
+   "eski_konu": "standart oranlar",
+   "konu_gerekce": "Devir hızlarından net işletme sermayesi hesabı; standart oran yok"
+  },
+  "sgs-d2-mta-zor-r1/kp-04": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "asit test orani",
+   "eski_konu": "standart oranlar",
+   "konu_gerekce": "Devir/kaldıraçtan asit-test oranı hesabı; standart oran yok"
+  },
+  "sgs-t2b-mta-cokzor/kp-22": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "dikey yuzde faaliyet kari",
+   "eski_konu": "dikey yüzde-aktif analizi",
+   "konu_gerekce": "Gelir tablosu dikey yüzdesinden faaliyet kârı; aktif değil"
+  },
+  "sgs-t1-mta-cokzor/kp-14": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "dikey yuzde faaliyet kari",
+   "eski_konu": "mali tablo standart oranlar",
+   "konu_gerekce": "Gelir tablosu dikey yüzdeleriyle faaliyet kârından net satış"
+  },
+  "sgs-d3-maliye-zor-r1/kp-01": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mali surukleme",
+   "eski_konu": "kamu harcamaları artış nedenleri",
+   "konu_gerekce": "Dilim sabit kalınca fazladan vergi: mali sürüklenme hesabı"
+  },
+  "sgs-a6-maliye-cokzor-r1/kp-03": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "5018 sayili kanun mali yonetim araclari",
+   "eski_konu": "vergilemede etkinlik",
+   "konu_gerekce": "5018 yatırım projesi fayda-maliyet analizi; vergilemeyle ilgisiz"
+  },
+  "sgs-t1-genel-maliye-cokzor/kp-14": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kamu harcamalari reel artis",
+   "eski_konu": "baumol kamu harcama artışı",
+   "konu_gerekce": "Enflasyon-nüfustan arındırılmış reel harcama hesabı; Baumol değil"
+  },
+  "sgs-d5-maliye-zor-r1/kp-05": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "butce ilkeleri",
+   "eski_konu": "bütçe standart analiz",
+   "konu_gerekce": "5018 bütçe ilkeleri, gayri safi gösterim"
+  },
+  "sgs-d5-maliye-zor-r2/kp-05": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "butce ilkeleri",
+   "eski_konu": "bütçe standart analiz",
+   "konu_gerekce": "5018 madde 13 bütçe ilkeleri"
+  },
+  "sgs-t4-maliye-cokzor/kp-04": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kamu harcamalari artis kuramlari",
+   "eski_konu": "kamu harcamaları reel artış",
+   "konu_gerekce": "Wagner ve Leviathan yaklaşımlarının karşılaştırması"
+  },
+  "sgs-t4-maliye-kolay/kp-13": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "genel yonetim kapsami",
+   "eski_konu": "5018 bütçe turleri",
+   "konu_gerekce": "Genel yönetim kapsamındaki idareler soruluyor"
+  },
+  "sgs-t4-maliye-cokzor/kp-13": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "genel yonetim kapsami",
+   "eski_konu": "5018 bütçe turleri",
+   "konu_gerekce": "Mahalli idare kavramının kapsamı soruluyor"
+  },
+  "sgs-t4-maliye-zor/kp-06": {
+   "ders": "Maliye",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "vergi yansimasi",
+   "eski_konu": "vergi ozellikleri",
+   "konu_gerekce": "Esnek olmayan talepte vergi yükünün dağılımı"
+  },
+  "sgs-maliyet-15/kp-04": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "genel uretim gideri sapmasi",
+   "eski_konu": "genel üretim gideri dağıtımı",
+   "konu_gerekce": "toplam GUG sapmasi soruluyor, dagitim degil"
+  },
+  "sgs-t1-maliyet-cokzor/kp-04": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart gug sapmasi",
+   "eski_konu": "genel üretim gideri dağıtımı",
+   "konu_gerekce": "hacim sapmasindan fiili faaliyet hacmi"
+  },
+  "sgs-maliyet-15/kp-06": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "satilan mamul maliyeti hesabi",
+   "eski_konu": "evre maliyet sistemi",
+   "konu_gerekce": "yalniz satilan mamul maliyeti hesabi; safha unsuru yok"
+  },
+  "sgs-p-maliyet-zor-r1-b2/kp-02": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet sapma kapanisi",
+   "eski_konu": "evre maliyet sistemi",
+   "konu_gerekce": "standart maliyet farklarinin orantili dagitimi"
+  },
+  "sgs-p-maliyet-cokzor-r4/kp-02": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "satilan mamul maliyeti hesabi",
+   "eski_konu": "evre maliyet sistemi",
+   "konu_gerekce": "SMM'den geriye donem sonu yari mamul"
+  },
+  "sgs-p-maliyet-zor-r2-b2/kp-02": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet sapma kapanisi",
+   "eski_konu": "evre maliyet sistemi",
+   "konu_gerekce": "standart maliyet fark hesaplarinin kapanisi"
+  },
+  "sgs-d3-maliyet-zor-r2/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "verilen siparis avansi mahsubu",
+   "eski_konu": "ekonomik sipariş miktarı",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; avans mahsup kaydi"
+  },
+  "sgs-t1-maliyet-cokzor/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart gug sapmasi",
+   "eski_konu": "genel üretim gideri yükleme",
+   "konu_gerekce": "standart maliyette GUG sapma hesabi"
+  },
+  "sgs-t1-maliyet-zor/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart gug sapmasi",
+   "eski_konu": "genel üretim gideri yükleme",
+   "konu_gerekce": "standart maliyette GUG sapma hesabi"
+  },
+  "sgs-maliyet-15/kp-15": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart gug sapmasi",
+   "eski_konu": "genel üretim gideri yükleme",
+   "konu_gerekce": "sabit GUG hacim (kapasite) sapmasi"
+  },
+  "sgs-p-maliyet-cokzor-r3-b2/kp-05": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet sistemi",
+   "eski_konu": "üretim maliyeti hesaplama",
+   "konu_gerekce": "standart maliyet karti ve GUG standardi"
+  },
+  "sgs-p-maliyet-cokzor-r1-b2/kp-03": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet sapma kapanisi",
+   "eski_konu": "yarı mamul maliyeti",
+   "konu_gerekce": "GUG fark hesaplarinin dagitimi"
+  },
+  "sgs-d2-maliyet-kolay-r1/kp-04": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam maliyet yontemi",
+   "eski_konu": "birleşik maliyet satış değeri yöntemi",
+   "konu_gerekce": "tam maliyetle birim mamul maliyeti; birlesik yok"
+  },
+  "sgs-d5-maliyet-cokzor-r2/kp-02": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam ve degisken maliyet sistemi",
+   "eski_konu": "birleşik maliyet satış değeri yöntemi",
+   "konu_gerekce": "tam ve degisken maliyet kar farki"
+  },
+  "sgs-d2-maliyet-cokzor-r1/kp-05": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam maliyet normal maliyet",
+   "eski_konu": "birleşik maliyet üretim miktarı yöntemi",
+   "konu_gerekce": "tam-normal maliyet kar farki"
+  },
+  "sgs-c2-maliyet-cokzor-r2/kp-03": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam maliyet normal maliyet",
+   "eski_konu": "birleşik maliyet üretim miktarı yöntemi",
+   "konu_gerekce": "tam-normal maliyet kar karsilastirmasi"
+  },
+  "sgs-d5-maliyet-zor-r1/kp-02": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam maliyet yontemi",
+   "eski_konu": "gug birim pay hesabı",
+   "konu_gerekce": "tam maliyetle birim mamul maliyeti"
+  },
+  "sgs-p-maliyet-zor-r2-b2/kp-06": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "satilan mamul maliyeti hesabi",
+   "eski_konu": "safha maliyetleme",
+   "konu_gerekce": "safha unsuru yok, SMM hesabi"
+  },
+  "sgs-t1-maliyet-cokzor/kp-10": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gug matematiksel dagitim",
+   "eski_konu": "tam maliyet yöntemi",
+   "konu_gerekce": "karsilikli (matematiksel) gider yeri dagitimi"
+  },
+  "sgs-c5-maliyet-cokzor-r2/kp-11": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kademeli dagitim yontemi",
+   "eski_konu": "7/a genel üretim gideri kapsamı",
+   "konu_gerekce": "Soru yardımcı gider yerlerinin kademeli dağıtımını soruyor"
+  },
+  "sgs-c5-maliyet-cokzor-r1/kp-12": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kademeli dagitim yontemi",
+   "eski_konu": "7/a genel üretim gideri kapsamı",
+   "konu_gerekce": "Kademeli dağıtım sonrası makine saati yükleme oranı soruluyor"
+  },
+  "sgs-t1-maliyet-kolay/kp-37": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart gug sapmasi",
+   "eski_konu": "7-a seçeneği genel üretim gideri",
+   "konu_gerekce": "Sabit GÜG hacim (kapasite) sapması soruluyor"
+  },
+  "sgs-t1-maliyet-zor/kp-36": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "birlesik maliyet satis degeri yontemi",
+   "eski_konu": "7-a seçeneği üretim maliyeti kaydı",
+   "konu_gerekce": "Yan ürünlü birleşik maliyetin satış değerine göre dağıtımı"
+  },
+  "sgs-t1-maliyet-zor/kp-39": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "satilan mamul maliyeti hesabi",
+   "eski_konu": "ağırlıklı ortalama maliyet",
+   "konu_gerekce": "Asıl istenen satılan mamul maliyeti; ortalama yalnız ara adım"
+  },
+  "sgs-t2b-maliyet-cokzor/kp-19": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "basabas noktasi",
+   "eski_konu": "değişken maliyet sistemi",
+   "konu_gerekce": "Başabaş noktası satış miktarı soruluyor"
+  },
+  "sgs-c5-maliyet-cokzor-r2/kp-10": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "basabas noktasi",
+   "eski_konu": "değişken maliyetleme birim maliyet",
+   "konu_gerekce": "Birim maliyet değil başabaş miktarı soruluyor"
+  },
+  "sgs-t2b-maliyet-zor/kp-17": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet farklari",
+   "eski_konu": "direkt hammadde miktarı",
+   "konu_gerekce": "Standart maliyet toplam hammadde farkından fiili miktar çözümü"
+  },
+  "sgs-d5-maliyet-zor-r1/kp-06": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "standart maliyet miktar farki",
+   "eski_konu": "direkt ilk madde malzeme",
+   "konu_gerekce": "Direkt ilk madde miktar farkı hesaplanıyor"
+  },
+  "sgs-t1-maliyet-zor/kp-35": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "direkt iscilik sure farki",
+   "eski_konu": "direkt işçilik gideri hesaplama",
+   "konu_gerekce": "Standart maliyette direkt işçilik süre farkı soruluyor"
+  },
+  "sgs-t1-maliyet-cokzor/kp-35": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "direkt iscilik sure farki",
+   "eski_konu": "direkt işçilik gideri hesaplama",
+   "konu_gerekce": "Standart maliyette direkt işçilik süre farkı soruluyor"
+  },
+  "sgs-t1-maliyet-kolay/kp-35": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "direkt iscilik sure farki",
+   "eski_konu": "direkt işçilik gideri hesaplama",
+   "konu_gerekce": "Standart maliyette direkt işçilik süre farkı soruluyor"
+  },
+  "sgs-t1-maliyet-zor/kp-41": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gug matematiksel dagitim",
+   "eski_konu": "genel üretim giderleri",
+   "konu_gerekce": "Karşılıklı (matematiksel) dağıtımla esas gider yeri payı"
+  },
+  "sgs-t1-maliyet-zor/kp-31": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "genel uretim gideri sapmasi",
+   "eski_konu": "gug yükleme oranı",
+   "konu_gerekce": "Kapasite (hacim) sapması tutarı ve yönü soruluyor"
+  },
+  "sgs-t2b-maliyet-cokzor/kp-08": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "uretim maliyeti siniflandirma",
+   "eski_konu": "maliyet esası kavramı",
+   "konu_gerekce": "Maliyetlerin davranışa göre sınıflandırılması soruluyor"
+  },
+  "sgs-c5-maliyet-kolay-r2/kp-03": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "agirlikli ortalama maliyet",
+   "eski_konu": "ortalama maliyetle direkt işçilik hesabı",
+   "konu_gerekce": "İşçilik yok; ağırlıklı ortalamayla ilk madde tüketimi"
+  },
+  "sgs-t1-maliyet-zor/kp-28": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "esdeger birim maliyeti",
+   "eski_konu": "safha maliyet miktar sağlama",
+   "konu_gerekce": "Ortalama yöntemle yarı mamul dönüştürme maliyeti soruluyor"
+  },
+  "sgs-d5-maliyet-cokzor-r2/kp-03": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam ve degisken maliyet sistemi",
+   "eski_konu": "stok maliyet yontemleri",
+   "konu_gerekce": "Tam ve değişken maliyete göre kâr farkı"
+  },
+  "sgs-d5-maliyet-cokzor-r1/kp-03": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tam ve degisken maliyet sistemi",
+   "eski_konu": "stok maliyet yontemleri",
+   "konu_gerekce": "Normal ve değişken maliyete göre kâr farkı"
+  },
+  "sgs-t1-maliyet-kolay/kp-23": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "maliyet giderleri karsiligi",
+   "eski_konu": "tam maliyet normal maliyet",
+   "konu_gerekce": "373 hesabıyla gider tahakkuku/yayma kaydı soruluyor"
+  },
+  "sgs-d4-mat-kolay-r1/kp-02": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ebob ekok",
+   "eski_konu": "uslu sayılar",
+   "konu_gerekce": "Asal çarpan verili, EBOB soruluyor"
+  },
+  "sgs-d4-mat-kolay-r3/kp-02": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ebob ekok",
+   "eski_konu": "uslu sayılar",
+   "konu_gerekce": "Asal çarpan verili, EBOB soruluyor"
+  },
+  "sgs-d4-mat-kolay-r4/kp-02": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ebob ekok",
+   "eski_konu": "uslu sayılar",
+   "konu_gerekce": "Asal çarpan verili, EBOB soruluyor"
+  },
+  "sgs-gm5-mat-r26/kp-03": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kesir problemi",
+   "eski_konu": "karmaşık kesir işlemi",
+   "konu_gerekce": "Depo suyu kesir problemi, bileşik kesir yok"
+  },
+  "sgs-gm5-mat-r24/kp-03": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kesir problemi",
+   "eski_konu": "karmaşık kesir işlemi",
+   "konu_gerekce": "Tam sayılı kesir bölme sözel problemi"
+  },
+  "sgs-e16-mat-kolay/kp-04": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "koklu ifadeler",
+   "eski_konu": "cebirsel ifade sadeleştirme",
+   "konu_gerekce": "Karekök sadeleştirme sorusu"
+  },
+  "sgs-t1-genel-mat-zor/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "aktif toplami islem etkisi",
+   "eski_konu": "seri toplamı",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; işlemlerin aktife etkisi"
+  },
+  "sgs-d4-mat-cokzor-r1/kp-03": {
+   "ders": "Mali Tablolar Analizi",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "finansal oran analizi",
+   "eski_konu": "yüzde problemi",
+   "konu_gerekce": "BASKA DERS: Finansal Tablolar Analizi; asit-test, özkaynak oranı"
+  },
+  "sgs-gm5-mat-r23/kp-10": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "hareket problemi",
+   "eski_konu": "ters orantı",
+   "konu_gerekce": "Yol-hız-zaman hesabı, hareket problemi"
+  },
+  "sgs-e16-mat-kolay/kp-17": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mutlak deger denklemi",
+   "eski_konu": "mutlak değer fonksiyonu",
+   "konu_gerekce": "Fonksiyon yok, düz mutlak değer denklemi kökleri"
+  },
+  "sgs-t1-genel-mat-cokzor/kp-34": {
+   "ders": "Matematik",
+   "eski": "Matematik",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mutlak deger denklemi",
+   "eski_konu": "mutlak değer fonksiyonu",
+   "konu_gerekce": "Fonksiyon yok, parametreli mutlak değer denklemi"
+  },
+  "sgs-d5-meslek-zor-r3/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "meslekle bagdasmayan isler",
+   "eski_konu": "meslek etik ilkeleri",
+   "konu_gerekce": "Meslekle bağdaşmayan iş istisnasını soruyor"
+  },
+  "sgs-p-meslek-zor-r2-a/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ticari faaliyet yasagi",
+   "eski_konu": "meslek etik ilkeleri",
+   "konu_gerekce": "45. madde; ortaklık bürosu ticari faaliyet sayılmaz"
+  },
+  "sgs-p-meslek-zor-r2/kp-01": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "meslekle bagdasmayan isler",
+   "eski_konu": "meslek etik ilkeleri",
+   "konu_gerekce": "Çalışma şekli ve bağdaşmayan işler soruluyor"
+  },
+  "sgs-meslek-p30/kp-01": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "ttk haksiz rekabet halleri",
+   "eski_konu": "haksız rekabet reklam yasağı",
+   "konu_gerekce": "Salt TTK 55; BASKA DERS: Ticaret Hukuku"
+  },
+  "sgs-d2-meslek-zor-r2/kp-04": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "meslek mensubu genel sartlari",
+   "eski_konu": "disiplin yönetmeliği",
+   "konu_gerekce": "Meslek mensubu olmanın genel şartlarını soruyor"
+  },
+  "sgs-d3-meslek-zor-r4/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tabela asilmasi kurallari",
+   "eski_konu": "meslek mensubu ücret esasları",
+   "konu_gerekce": "Büro tabelası içeriği soruluyor, ücret değil"
+  },
+  "sgs-d5-meslek-kolay-r2/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tabela asilmasi kurallari",
+   "eski_konu": "mesleki etik ilkeler",
+   "konu_gerekce": "İşyeri ve tabela kuralları; doğru şık tabela"
+  },
+  "sgs-bc-meslek-kolay-r1/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "reklam yasagi",
+   "eski_konu": "mesleki etik ilkeler",
+   "konu_gerekce": "Akademik unvanın reklam amaçlı kullanımı soruluyor"
+  },
+  "sgs-d5-meslek-kolay-r1/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "reklam yasagi",
+   "eski_konu": "mesleki etik ilkeler",
+   "konu_gerekce": "Akademik unvanın reklam amaçlı kullanımı soruluyor"
+  },
+  "sgs-d3-meslek-cokzor-r2/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "reklam yasagi",
+   "eski_konu": "mesleki etik ilkeler",
+   "konu_gerekce": "Büro, tabela, unvan kullanımı; reklam yönetmeliği"
+  },
+  "sgs-p-meslek-kolay-r2-a/kp-05": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "etik gizli bilgi aciklama halleri",
+   "eski_konu": "çalışma usul esasları",
+   "konu_gerekce": "Etik İlkeler gizlilik ilkesini soruyor"
+  },
+  "sgs-bc-meslek-cokzor-r2/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "etik gizli bilgi aciklama halleri",
+   "eski_konu": "çalışma usul esasları",
+   "konu_gerekce": "Etik İlkeler gizlilik yükümlülüğünü soruyor"
+  },
+  "sgs-t1-meslek-kolay/kp-07": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "ticari faaliyet yasagi",
+   "eski_konu": "disiplin kovuşturması",
+   "konu_gerekce": "İzinsiz ticari işletme, tacir sıfatı; BASKA DERS: Ticaret Hukuku"
+  },
+  "sgs-bc-meslek-zor-r2/kp-02": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "haksiz rekabet meslek hukuku",
+   "eski_konu": "smmm odaları",
+   "konu_gerekce": "Haksız rekabette dava hakları soruluyor"
+  },
+  "sgs-d3-meslek-kolay-r2/kp-04": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "haksiz rekabet meslek hukuku",
+   "eski_konu": "smmm odaları",
+   "konu_gerekce": "Haksız rekabette odaların açabileceği davalar"
+  },
+  "sgs-p-meslek-zor-r1-a/kp-04": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "haksiz rekabet meslek hukuku",
+   "eski_konu": "smmm odaları",
+   "konu_gerekce": "Haksız rekabette odaların açabileceği davalar"
+  },
+  "sgs-t1-meslek-cokzor/kp-04": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "etik ilkeler tehditler",
+   "eski_konu": "ücret tarifesi",
+   "konu_gerekce": "Yıldırma tehdidi örneği soruluyor, tarife değil"
+  },
+  "sgs-a6e-meslek-zor/kp-15": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "etik gizli bilgi aciklama halleri",
+   "eski_konu": "etik ilkeler kişisel çıkar",
+   "konu_gerekce": "Gizlilik ilkesi soruluyor, kişisel çıkar değil"
+  },
+  "sgs-a6e-meslek-kolay/kp-12": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "etik kurallara uyum cercevesi",
+   "eski_konu": "etik ilkeler kişisel çıkar",
+   "konu_gerekce": "Tehdit karşısında genel uyum çerçevesi soruluyor"
+  },
+  "sgs-d5-meslek-zor-r2/kp-05": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "buro edinme zorunlulugu",
+   "eski_konu": "meslek mensubu ticari faaliyet yasağı",
+   "konu_gerekce": "İşyeri, tabela, internet sitesi kuralları soruluyor"
+  },
+  "sgs-t1-meslek-kolay/kp-11": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "haksiz rekabet meslek hukuku",
+   "eski_konu": "mesleki davranış ilkesi",
+   "konu_gerekce": "TTK haksız rekabet hali soruluyor"
+  },
+  "sgs-t1-meslek-kolay/kp-23": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "mesleki etik ilkeler",
+   "eski_konu": "mesleki davranış ilkesi",
+   "konu_gerekce": "Dürüstlük temel etik ilkesi soruluyor"
+  },
+  "sgs-t1-meslek-cokzor/kp-11": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "disiplin cezalari",
+   "eski_konu": "mesleki davranış ilkesi",
+   "konu_gerekce": "Meslekten çıkarma cezası halleri soruluyor"
+  },
+  "sgs-t1-meslek-cokzor/kp-20": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "meslek etik ilkeleri",
+   "eski_konu": "mesleki davranış ilkesi",
+   "konu_gerekce": "Ahlak, etik, davranış kuralları kavram ilişkisi"
+  },
+  "sgs-a6e-meslek-cokzor/kp-06": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sir saklama yukumlulugu",
+   "eski_konu": "özen sorumluluğu",
+   "konu_gerekce": "Eski müşteri sırrını aktarma; gizlilik soruluyor"
+  },
+  "sgs-t1-meslek-kolay/kp-10": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "oda organlari",
+   "eski_konu": "ruhsat iptali-meslek hukuku",
+   "konu_gerekce": "Valinin odayı faaliyetten men kararı soruluyor"
+  },
+  "sgs-c5-meslek-cokzor-r1/kp-07": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "oda organlari",
+   "eski_konu": "ruhsat iptali-meslek hukuku",
+   "konu_gerekce": "Oda organlarının görevden alınması soruluyor"
+  },
+  "sgs-d5-meslek-cokzor-r1/kp-03": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "3568 sayili kanun meslek konusu",
+   "eski_konu": "smmm mesleki yasaklar",
+   "konu_gerekce": "Kanun 2. madde meslek konusu işleri soruluyor"
+  },
+  "sgs-c5-meslek-kolay-r1/kp-04": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "smmm staj yonetmeligi",
+   "eski_konu": "smmm'nin yapabileceği işler",
+   "konu_gerekce": "Staj Yönetmeliği 23; aday çalışma sınırları"
+  },
+  "sgs-c5-meslek-kolay-r2/kp-03": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "smmm staj yonetmeligi",
+   "eski_konu": "smmm'nin yapabileceği işler",
+   "konu_gerekce": "Staj Yönetmeliği 23; aday çalışma sınırları"
+  },
+  "sgs-t1-meslek-cokzor/kp-14": {
+   "ders": "Meslek Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "3568 sayili kanun meslek konusu",
+   "eski_konu": "yeminli mali müşavirlik sınavı",
+   "konu_gerekce": "YMM meslek konusu ve yasakları, sınav değil"
+  },
+  "sgs-d2-ticaret-cokzor-r1/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "finansman bonosu ihrac kaydi",
+   "eski_konu": "finansman bonosu ihracı",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; 308 hesap hesaplaması"
+  },
+  "sgs-t2-ticaret-zor/kp-04": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "limited sirket pay devri",
+   "eski_konu": "haksız rekabet davaları",
+   "konu_gerekce": "limited şirket esas sermaye payı devri soruluyor"
+  },
+  "sgs-t1-ticaret-cokzor/kp-08": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "limited sirket pay devri",
+   "eski_konu": "limited şirket ortak sorumluluğu",
+   "konu_gerekce": "pay devrine genel kurul onayı soruluyor"
+  },
+  "sgs-t2-ticaret-zor/kp-10": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "anonim sirket genel kurul yetkileri",
+   "eski_konu": "çek üzerindeki kayıtlar",
+   "konu_gerekce": "TTK 408 genel kurul devredilemez yetkileri"
+  },
+  "sgs-t1-ticaret-kolay/kp-18": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "limited sirket ortak sorumlulugu",
+   "eski_konu": "çek üzerindeki kayıtlar",
+   "konu_gerekce": "limited şirket ek ödeme yükümlülüğü soruluyor"
+  },
+  "sgs-t2-ticaret-kolay/kp-04": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sirket birlesmesi",
+   "eski_konu": "çek üzerindeki kayıtlar",
+   "konu_gerekce": "birleşmede denkleştirme ödemesi sınırı"
+  },
+  "sgs-d5-ticaret-kolay-r2/kp-03": {
+   "ders": "Meslek Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "bekle",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "smmm disiplin cezalari",
+   "eski_konu": "haksız rekabet ve reklam yasağı",
+   "konu_gerekce": "BASKA DERS: Meslek Hukuku; SMMM disiplin yönetmeliği",
+   "bekleme": "circir: tasinirsa Meslek Hukuku ki-kare taban+3 sinirini asar"
+  },
+  "sgs-d5-ticaret-kolay-r1/kp-03": {
+   "ders": "Meslek Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "bekle",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "smmm disiplin cezalari",
+   "eski_konu": "haksız rekabet ve reklam yasağı",
+   "konu_gerekce": "BASKA DERS: Meslek Hukuku; SMMM disiplin yönetmeliği",
+   "bekleme": "circir: tasinirsa Meslek Hukuku ki-kare taban+3 sinirini asar"
+  },
+  "sgs-d2-ticaret-zor-r1/kp-08": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ticaret unvani",
+   "eski_konu": "haksız rekabet ve reklam yasağı",
+   "konu_gerekce": "ticaret unvanının haksız kullanımı ve korunması"
+  },
+  "sgs-t1-ticaret-kolay/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "alacak senedi ciro kaydi",
+   "eski_konu": "kambiyo senedi cirosu",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; 121 hesap kaydı"
+  },
+  "sgs-t2-ticaret-kolay/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "alacak senedi ciro kaydi",
+   "eski_konu": "kambiyo senedi cirosu",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; 100 kasa kaydı"
+  },
+  "sgs-t1-ticaret-cokzor/kp-11": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "limited sirket genel kurul yetkileri",
+   "eski_konu": "limited şirket ortak sorumluluğu",
+   "konu_gerekce": "genel kurulda oy hakkı hesabı soruluyor"
+  },
+  "sgs-bc-ticaret-zor-r2/kp-02": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ticaret unvani",
+   "eski_konu": "ticari işletme unsurlari",
+   "konu_gerekce": "derneğin ticaret unvanı soruluyor"
+  },
+  "sgs-d3-ticaret-cokzor-r2/kp-04": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ticari defterlerle ispat",
+   "eski_konu": "ticari örf ve adet",
+   "konu_gerekce": "ticari defterlerin delil olması soruluyor"
+  },
+  "sgs-c5-ticaret-cokzor-r1/kp-11": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "bedelsiz sermaye artirimi kaydi",
+   "eski_konu": "bedelsiz pay sermaye artırımı",
+   "konu_gerekce": "BASKA DERS: Genel Muhasebe; yevmiye kaydı soruluyor"
+  },
+  "sgs-t5-ticaret-zor/kp-12": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bono aval",
+   "eski_konu": "bono imza sorumluluğu",
+   "konu_gerekce": "bonoda avalin kimin hesabına verildiği"
+  },
+  "sgs-t5-ticaret-cokzor/kp-12": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "bono unsurlari",
+   "eski_konu": "bono imza sorumluluğu",
+   "konu_gerekce": "vadesiz bononun geçerliliği soruluyor"
+  },
+  "sgs-t5-ticaret-zor/kp-11": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "karsiliksiz cek yaptirimi",
+   "eski_konu": "çekte muhatap banka",
+   "konu_gerekce": "karşılıksız çekte yüzde on ödeme"
+  },
+  "sgs-c5-ticaret-kolay-r2/kp-10": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ticaret sicili",
+   "eski_konu": "limited şirkette müdürler",
+   "konu_gerekce": "TTK 39 sicil internet sitesi yayını"
+  },
+  "sgs-t1-ticaret-kolay/kp-25": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "ozel istihdam burolari gecici is",
+   "eski_konu": "özel istihdam büroları geçici is",
+   "konu_gerekce": "BASKA DERS: İş ve Sosyal Güvenlik Hukuku; 4857"
+  },
+  "sgs-t1-ticaret-zor/kp-25": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "ozel istihdam burolari gecici is",
+   "eski_konu": "özel istihdam büroları geçici is",
+   "konu_gerekce": "BASKA DERS: İş ve Sosyal Güvenlik Hukuku; 4857"
+  },
+  "sgs-t1-ticaret-kolay/kp-21": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "iflasa tabi olma",
+   "eski_konu": "tacir sayılma",
+   "konu_gerekce": "tacirin iflasa tabi olması soruluyor"
+  },
+  "sgs-t1-ticaret-cokzor/kp-31": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kollektif sirket ozellikleri",
+   "eski_konu": "tacir-esnaf ortak hükümler",
+   "konu_gerekce": "kollektif şirkette yönetici ortak yetkisi"
+  },
+  "sgs-t2-ticaret-zor/kp-18": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tacir olmanin sonuclari",
+   "eski_konu": "tacir-esnaf ortak hükümler",
+   "konu_gerekce": "TTK 22 tacirin ceza indirimi isteyememesi"
+  },
+  "sgs-t2-ticaret-kolay/kp-05": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09) | BASKA DERS (tum-banka denetimi 25.09)",
+   "konu": "adi ortaklik yonetimi",
+   "eski_konu": "tacir-esnaf ortak hükümler",
+   "konu_gerekce": "BASKA DERS: Borçlar Hukuku; adi ortaklık yönetimi"
+  },
+  "sgs-t2-ticaret-zor/kp-15": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tacir olmanin sonuclari",
+   "eski_konu": "ticari defterlerle ispat",
+   "konu_gerekce": "basiretli iş adamı yükümü soruluyor"
+  },
+  "sgs-t2-ticaret-kolay/kp-10": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "donatma istiraki",
+   "eski_konu": "ticari defterlerle ispat",
+   "konu_gerekce": "deniz ticareti donatma iştiraki defterleri"
+  },
+  "sgs-t2-ticaret-kolay/kp-09": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "yonetim kurulu yetkileri",
+   "eski_konu": "ticari temsilcilik yetkisi",
+   "konu_gerekce": "AŞ yönetiminin iç yönergeyle devri"
+  },
+  "sgs-t5-ticaret-zor/kp-09": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "fatura itiraz suresi",
+   "eski_konu": "ttk ihtar bildirim şekli",
+   "konu_gerekce": "faturaya sekiz gün itiraz süresi"
+  },
+  "sgs-t1-vergi-kolay/kp-13": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "izaha davet",
+   "eski_konu": "vergi ziyaı cezası zamanaşımı",
+   "konu_gerekce": "sahte belge izaha davet şartı soruluyor"
+  },
+  "sgs-d5-vergi-cokzor-r2/kp-02": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kdv istisnalari",
+   "eski_konu": "kdv matrah",
+   "konu_gerekce": "ihraç kaydıyla teslimde iade tutarı soruluyor"
+  },
+  "sgs-d5-vergi-zor-r1/kp-03": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "izaha davet",
+   "eski_konu": "vergi cezalari",
+   "konu_gerekce": "sahte belge izaha davet şartı soruluyor"
+  },
+  "sgs-p-vergi-kolay-r1/kp-04": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "teblig suresi vuk",
+   "eski_konu": "vergi cezalari",
+   "konu_gerekce": "ilanen tebliğde dava süresi başlangıcı soruluyor"
+  },
+  "sgs-d5-vergi-zor-r1/kp-11": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "damga vergisi",
+   "eski_konu": "damga vergisi nüsha",
+   "konu_gerekce": "nüsha değil mukavele devrinde vergi soruluyor"
+  },
+  "sgs-t2-vergi-kolay/kp-17": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "vergi cezalari",
+   "eski_konu": "emlak vergisi-bina vergisi",
+   "konu_gerekce": "VUK pişmanlık ve ıslah hükümleri soruluyor"
+  },
+  "sgs-t4-vergi-zor/kp-16": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gelir vergisi mukellefiyeti",
+   "eski_konu": "gelir vergisi-yurt dışı kazanç istisnası",
+   "konu_gerekce": "yabancı uzmanın yerleşme/dar mükellefiyet durumu"
+  },
+  "sgs-t4-vergi-cokzor/kp-16": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gelir vergisi mukellefiyeti",
+   "eski_konu": "gelir vergisi-yurt dışı kazanç istisnası",
+   "konu_gerekce": "kazancın Türkiye'de elde edilmiş sayılmaması soruluyor"
+  },
+  "sgs-t1-vergi-cokzor/kp-26": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "gelir vergisi beyannamesi",
+   "eski_konu": "gelir vergisi-yurt dışı kazanç istisnası",
+   "konu_gerekce": "beyan edilen gelirden indirimler hesabı soruluyor"
+  },
+  "sgs-t2-vergi-kolay/kp-08": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "sermaye azaltimi kvk 32b",
+   "eski_konu": "kurumlar vergisi istisnası",
+   "konu_gerekce": "KVK 32/B sermaye azaltımı sıralaması soruluyor"
+  },
+  "sgs-t1-vergi-kolay/kp-12": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "belediye gelirleri mukellef",
+   "eski_konu": "ötv vergiye tabi işlemler",
+   "konu_gerekce": "Belediye Gelirleri ve damga mükellef eşleştirmesi"
+  },
+  "sgs-c5-vergi-kolay-r1/kp-05": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "izaha davet",
+   "eski_konu": "vergi cezası ödeme süresi (1 ay)",
+   "konu_gerekce": "izaha davet sonrası 30 günlük ödeme süresi"
+  },
+  "sgs-c5-vergi-kolay-r2/kp-05": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "izaha davet",
+   "eski_konu": "vergi cezası ödeme süresi (1 ay)",
+   "konu_gerekce": "izaha davette yüzde 20 ceza süresi soruluyor"
+  },
+  "sgs-d5-vergi-zor-r2/kp-08": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "amme alacagi kapsami 6183",
+   "eski_konu": "vergi tahsil yontemleri",
+   "konu_gerekce": "6183 şümul ve tanımları soruluyor"
+  },
+  "sgs-d5-vergi-zor-r1/kp-08": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "amme alacagi kapsami 6183",
+   "eski_konu": "vergi tahsil yontemleri",
+   "konu_gerekce": "6183 kapsam ve tanımları soruluyor"
+  },
+  "sgs-d5-vergi-cokzor-r2/kp-06": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "izaha davet",
+   "eski_konu": "vergi usul kanunu tarhiyat türü",
+   "konu_gerekce": "sahte belge izaha davet şartı soruluyor"
+  },
+  "sgs-t1-vergi-zor/kp-14": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "kdv teslim sayilan haller",
+   "eski_konu": "vergiye uyumlu mükellef indirimi",
+   "konu_gerekce": "KDV teslim sayılan haller hesabı soruluyor"
+  },
+  "sgs-t4-vergi-kolay/kp-10": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "amme alacagi tecil",
+   "eski_konu": "vergiye uyumlu mükellef indirimi",
+   "konu_gerekce": "6183 vergiye uyumlu mükellef tecil şartları"
+  },
+  "sgs-t4-vergi-cokzor/kp-10": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "amme alacagi tecil",
+   "eski_konu": "vergiye uyumlu mükellef indirimi",
+   "konu_gerekce": "6183 vergiye uyumlu tecil ve pişmanlık"
+  },
+  "sgs-t1-vergi-kolay/kp-28": {
+   "ders": "Vergi Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "tacir siniflari",
+   "eski_konu": "vuk vergi mükellefiyeti",
+   "konu_gerekce": "VUK 177 birinci sınıf tacir soruluyor"
+  },
+  "sgs-e16-yd-zor/kp-01": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "baglac secimi",
+   "eski_konu": "cümle tamamlama",
+   "konu_gerekce": "Boşluk tek bağlaç: Despite seçimi"
+  },
+  "sgs-e16-yd-cokzor/kp-01": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "baglac secimi",
+   "eski_konu": "cümle tamamlama",
+   "konu_gerekce": "Boşluk tek bağlaç: Despite seçimi"
+  },
+  "sgs-t3-yd-cokzor/kp-01": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "baglac secimi",
+   "eski_konu": "cümle tamamlama",
+   "konu_gerekce": "Boşluk tek bağlaç: Although seçimi"
+  },
+  "sgs-e16-yd-cokzor/kp-02": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "fiil zamani",
+   "eski_konu": "passive voice",
+   "konu_gerekce": "Cevap had occurred; edilgen değil, past perfect"
+  },
+  "sgs-t1-genel-yd-cokzor/kp-05": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "modal verbs",
+   "eski_konu": "passive voice",
+   "konu_gerekce": "Cevap could not have occurred; modal perfect, edilgen değil"
+  },
+  "sgs-e16c-yd-kolay/kp-01": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "fiil zamani past tense",
+   "eski_konu": "present perfect tense",
+   "konu_gerekce": "Cevap went, last year; simple past"
+  },
+  "sgs-d4-yd-zor-r1/kp-06": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ilgi zamiri whose",
+   "eski_konu": "ilgi zamiri (which)",
+   "konu_gerekce": "Cevap whose, etiket which diyor"
+  },
+  "sgs-d4-yd-zor-r3/kp-07": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "ilgi zamiri whose",
+   "eski_konu": "ilgi zamiri (which)",
+   "konu_gerekce": "Cevap whose, etiket which diyor"
+  },
+  "sgs-e16-yd-kolay/kp-09": {
+   "ders": "Yabancı Dil",
+   "eski": "Yabancı Dil",
+   "durum": "uygula",
+   "gerekce": "yalniz konu etiketi (tum-banka denetimi 25.09)",
+   "konu": "adjective secimi",
+   "eski_konu": "adverb seçimi",
+   "konu_gerekce": "\"look\" bağ fiilinden sonra sıfat: promising"
   }
  }
 }
