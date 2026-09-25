@@ -824,7 +824,7 @@ window.veriAl = (function(){
           </div>
           <div class="bz-cam">
             <div class="bz-cam-ust"><span id="bzDers">Türkçe · anlatım bozukluğu</span><s id="bzEtiket">SGS · Kaydır-Çöz</s></div>
-            <div class="bz-rozet" id="bzRozet">📌 Son 35 sınavın 15 tanesinde çıktı</div>
+            <div class="bz-rozet" id="bzRozet">📌 Bu konudan son 35 sınavın 15 tanesinde soru geldi</div>
             <p class="bz-ozet" id="bzOzet">"Sporcular, antrenörün verdiği talimatları dinledi ve harfiyen uydu." cümlesindeki anlatım bozukluğunun benzeri, aşağıdakilerin hangisinde vardır?</p>
             <div class="bz-cerceve" id="bzCerceve" hidden></div>
             <div class="bz-kanca" id="bzKanca" hidden aria-live="polite"><b id="bzKancaBas"></b><p id="bzKancaMetin"></p><a href="ogrenci.html">Ücretsiz üye ol</a><small id="bzKancaDip"></small></div>
@@ -1043,8 +1043,12 @@ window.veriAl = (function(){
         if(!KUNYE) return; var k=KUNYE.kartlar[sira]; if(!k) return;
         dersEl.textContent=(k.ders||'')+(k.konu?' · '+k.konu:'');
         /* "tanesinde": Türkçe sıra eki her rakamda değişir (11'inde/7'sinde/3'ünde), bu hepsinde doğru */
+        /* 25.09 Cem: "5 adet çıktı diyoruz ... sonra TESMER eski sınav sorularını kullanıyor demesinler".
+           Sayı SORUNUN değil KONUNUN sıklığıdır (vitrin-soru-sec.js: etiketten hesaplanır). "Çıktı" tek başına "bu soru
+           sınavda çıktı" diye okunuyordu; "benzeri çıktı" da "çıkmış soruyu değiştirip kullanıyorlar" diye okunur.
+           Sorular özgündür (SORU-URETIM-SOZLESMESI 1. madde) - rozet yalnız konunun kaç sınavda sorulduğunu söyler. */
         rozetEl.textContent=tekrar?(tekrar.tur>=2?'📥 Yanlış kutundan · son tur: bilirsen kutundan çıkar':'📥 Yanlış kutundan · daha önce bu soruyu kaçırmıştın')
-          :'📌 Son '+KUNYE.taranan_donem+' sınavın '+k.donem+' tanesinde çıktı';
+          :'📌 Bu konudan son '+KUNYE.taranan_donem+' sınavın '+k.donem+' tanesinde soru geldi';
         ozetEl.textContent=k.ozet||'';
         kapat();
       }
@@ -1081,7 +1085,7 @@ window.veriAl = (function(){
           YOL=o.baglanti.replace('tema=acik','tema=koyu').replace('vitrin=1','vitrin=1&tek=1').replace(/#s=.*$/,'')+'#s=';
           kapat();
           dersEl.textContent=(o.ders||'')+(o.konu?' · '+o.konu:'');
-          rozetEl.textContent='📌 Çıkmış sınavlarda '+(o.donem||0)+' kez çıktı'; rozetEl.hidden=!o.donem;
+          rozetEl.textContent='📌 Bu konudan çıkmış sınavlarda '+(o.donem||0)+' kez soru geldi'; rozetEl.hidden=!o.donem;   /* 25.09: konu sıklığı, soru değil */
           ozetEl.textContent=o.soru||'';
           return;
         }
