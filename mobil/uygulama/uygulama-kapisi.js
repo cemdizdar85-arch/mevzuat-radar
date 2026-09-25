@@ -104,9 +104,17 @@
       dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#giris">Giriş yap</a>';
     } else if (tur === 'paket') {
       baslik = 'Bu sınav hesabında açık değil';
-      metin = 'Hesabındaki paket bu sınavı kapsamıyor. Paketler ekranından uygulama içinde açabilirsin.';
-      dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#paketler">Paket seç</a>' +
-        '<a href="' + KOK + 'index.html">Ana ekrana dön</a>';
+      // Uygulama içi satış yalnız Android'de açık (magaza.js). iOS'ta satın alma yolu gösterilmez
+      // (Apple 3.1.1: IAP dışı satın alma yönlendirmesi ret sebebi; 25.09 satışsız ilk sürüm kararı).
+      var androidMi = !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'android');
+      if (androidMi) {
+        metin = 'Hesabındaki paket bu sınavı kapsamıyor. Paketler ekranından uygulama içinde açabilirsin.';
+        dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#paketler">Paket seç</a>' +
+          '<a href="' + KOK + 'index.html">Ana ekrana dön</a>';
+      } else {
+        metin = 'Hesabındaki paket bu sınavı kapsamıyor. Ücretsiz örnek soruları ana ekrandan çözebilirsin.';
+        dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html">Ana ekrana dön</a>';
+      }
     } else {
       baslik = 'Bağlantı kurulamadı';
       metin = 'Paket bilgin kontrol edilemedi. İnternet bağlantını kontrol edip yeniden dene.';
