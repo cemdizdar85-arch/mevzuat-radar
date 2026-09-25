@@ -70,7 +70,7 @@ var HARC_KAYNAK = {
 --------------------------------------------------------------------------- */
 var KOTA = { sgs:500, yeterlilik:200, kgk:150, radar:300, kurucu:100 };
 
-/* Erişim süresi: 3 ay. Sınav gününe bağlı DEĞİL. */
+/* Erişim: en az 3 ay VE en yakın sınavın gününe kadar (hangisi geçse). 25.09'dan beri vitrinde 'sınava kadar' yazılır. */
 var SURE_GUN = 90;
 
 /* Kart ödemesi açıldığında true yapılır — taksit satırları o zaman görünür.
@@ -244,8 +244,11 @@ function erisimYazi(anahtar){
   var kaps = sinaviKapsiyorMu(anahtar);
   var t = bit.toLocaleDateString('tr-TR', {day:'numeric', month:'long', year:'numeric'});
   var s = sinav(anahtar);
-  if(kaps === false && s){ return '3 ay (' + t + ') — ' + s.yazi + ' sınavına kadar ücretsiz uzatılır'; }
-  return '3 ay · ' + t + ' tarihine kadar';
+  /* 25.09 Cem: pazarın dili 'sınava kadar' (rakiplerin 4/4'ü). Kural DEĞİŞMEDİ: bitiş = max(90 gün, sınav+3 gün);
+     yalnız vitrin yazısı sınavı öne alır, gerçek bitiş tarihi yanında durur (verdiğimizden azını söylemeyiz). */
+  var sg = s ? new Date(s.tarih + 'T09:00:00+03:00') : null;
+  if(s && sg >= new Date()){ return s.yazi + ' sınavına kadar · erişim ' + t + ' tarihine kadar açık'; }
+  return 'Sınavına kadar · en az 3 ay (' + t + ')';
 }
 
 /* ---------------------------------------------------------------------------
@@ -294,7 +297,7 @@ function paketler(){
     L.push({ id:'kgk-' + m, grup:'Bağımsız Denetçilik (KGK)',
              ad:KGK_ADLAR[m], kim:KGK_KIM[m], modul:m,
              fiyat:FIYAT.kgk[m].kurulus, liste:FIYAT.kgk[m].liste,
-             kota:KOTA.kgk, erisim:'3 ay', sinav:null,
+             kota:KOTA.kgk, erisim:'Sınavına kadar · en az 3 ay', sinav:null,
              /* 15.09.2026 ölçümü (kurumların kendi siteleri): modül başına kurs
                 5.250 (Suat Hoca) · 7.250+KDV (Fuat Hoca, kayıttan) · 10.800 (Piyasa Okulu)
                 · 12.600+KDV (Deha) · 13.500 (Uğurlu). Eski "2.500 – 5.250" ek alan
@@ -305,12 +308,12 @@ function paketler(){
            ad:'KGK — dört konunun tamamı', modul:HARC.kgk.temelAlanKonu,
            kim:'Sektör mevzuatından da sorumluysan',
            fiyat:FIYAT.kgkTum.kurulus, liste:FIYAT.kgkTum.liste,
-           kota:KOTA.kgk, erisim:'3 ay', sinav:null,
+           kota:KOTA.kgk, erisim:'Sınavına kadar · en az 3 ay', sinav:null,
            harcYazi:'Piyasada tam paket kursu 13.500 – 15.120 TL', acik:ICERIK_HAZIR.kgk });
 
   L.push({ id:'yeterlilik-kgk', grup:'Bağımsız Denetçilik (KGK)',
            ad:'Yeterlilik + KGK', fiyat:FIYAT.yeterlilikKgk.kurulus, liste:FIYAT.yeterlilikKgk.liste,
-           kota:KOTA.kgk, erisim:'3 ay · iki sınav birden', sinav:null,
+           kota:KOTA.kgk, erisim:'İki sınava da kadar · en az 3 ay', sinav:null,
            harcYazi:'Ayrı ayrı ' + tl(FIYAT.yeterlilikTum.kurulus + FIYAT.kgkTum.kurulus) + ' TL',
            acik:(ICERIK_HAZIR.yeterlilik && ICERIK_HAZIR.kgk) });
 
