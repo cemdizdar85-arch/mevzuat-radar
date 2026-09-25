@@ -130,10 +130,20 @@ $ambar=Dizi (AmbarSatirlar $Ay)
 
 $yT=0.0; foreach($x in $yerelAy){ $yT+=[double]$x.toplamUsd }
 $aT=0.0; foreach($x in $ambar){ $aT+=[double]$x.toplam_usd }
+# ⭐ 25.09.2026 (Cem "gm onerilerini yap"): OZET de TEKIL toplamla kiyaslar. OLCULDU: bulut kosusu "FARK 793,60 USD -
+#   iki taraf ayni freni gormuyor" yaziyordu; ambardaki MUKERRER satirlar (ayni zaman+etiket+tutar) tam 706 satir /
+#   793,60 USD cikti (hepsi yazan='yerel-GK', 07-15.09 - 19.09'da olculen sisme). Fren (kalip-kosucu PlanHarcama/AyHarcama)
+#   zaten TEKIL sayiyor; yanlis alarmi yalniz bu ozet satiri uretiyordu (ham toplam). Ham toplam da basilir, gizlenmez.
+#   🚫 GORMEZ: mukerrerleri SILMEZ (ambar satiri kalici silinmez - Cem karari gerekir).
+$yTekil=@{}; foreach($x in $yerelAy){ $yTekil[(Anahtar $x.zaman $x.etiket $x.toplamUsd)]=[double]$x.toplamUsd }
+$aTekil=@{}; foreach($x in $ambar){ $aTekil[(Anahtar $x.zaman $x.etiket $x.toplam_usd)]=[double]$x.toplam_usd }
+$yTT=0.0; foreach($v in $yTekil.Values){ $yTT+=$v }
+$aTT=0.0; foreach($v in $aTekil.Values){ $aTT+=$v }
 Write-Host ("AY {0}" -f $Ay) -ForegroundColor Cyan
-Write-Host ("  YEREL : {0,5} satir · {1,8:N2} USD" -f $yerelAy.Count,$yT)
-Write-Host ("  AMBAR : {0,5} satir · {1,8:N2} USD" -f $ambar.Count,$aT)
-$fark=[math]::Abs($yT-$aT)
+Write-Host ("  YEREL : {0,5} satir · {1,8:N2} USD  (tekil {2} satir · {3:N2} USD)" -f $yerelAy.Count,$yT,$yTekil.Count,$yTT)
+Write-Host ("  AMBAR : {0,5} satir · {1,8:N2} USD  (tekil {2} satir · {3:N2} USD)" -f $ambar.Count,$aT,$aTekil.Count,$aTT)
+if($ambar.Count -gt $aTekil.Count){ Write-Host ("  MUKERRER (ambar): {0} satir · {1:N2} USD - fren bunlari SAYMAZ" -f ($ambar.Count-$aTekil.Count),($aT-$aTT)) -ForegroundColor DarkYellow }
+$fark=[math]::Abs($yTT-$aTT)
 if($fark -gt 0.01){ Write-Host ("  ⚠ FARK : {0:N2} USD - iki taraf ayni freni gormuyor" -f $fark) -ForegroundColor Yellow }
 else{ Write-Host "  ✓ toplamlar ayni" -ForegroundColor Green }
 
