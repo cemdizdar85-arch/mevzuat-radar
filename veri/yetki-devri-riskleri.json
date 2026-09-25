@@ -1,14 +1,22 @@
 {
-  "tarih": "25.09.2026 05:38",
+  "tarih": "25.09.2026 05:49",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 880,
   "riskli_madde": 1313,
   "sayfa": 66,
   "atifli_iddia": 285,
   "dayanaksiz_iddia": 375,
-  "kirmizi_aday": 29,
-  "yeni_aday": 0,
-  "yeni": [],
+  "kirmizi_aday": 30,
+  "yeni_aday": 1,
+  "yeni": [
+    {
+      "sayfa": "fiyat.html",
+      "satir": 113,
+      "iddia": "8.500 TL",
+      "kanun": "590",
+      "metin": "Canlı hazırlık kursları 8.500 TL 'den başlıyor. Biz 2.590 TL + KDV istiyoruz, üstelik her soruyu sen çözüyorsun."
+    }
+  ],
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
@@ -84,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -177,6 +185,13 @@
       "iddia": "%50,",
       "kanun": "5986",
       "metin": "oran:[\"Temel oran %50, pazaryeri tanıtımında pazaryeri başına 3 yıl (5986 s. Karar m.4; e-ihracat tanıtım gideri sınırı: pazaryeri satışının %20'si)\",\"Sipariş karşılama (fulfilment"
+    },
+    {
+      "sayfa": "fiyat.html",
+      "satir": 113,
+      "iddia": "8.500 TL",
+      "kanun": "590",
+      "metin": "Canlı hazırlık kursları 8.500 TL 'den başlıyor. Biz 2.590 TL + KDV istiyoruz, üstelik her soruyu sen çözüyorsun."
     },
     {
       "sayfa": "hizmet.html",
@@ -1010,8 +1025,8 @@
     {
       "sayfa": "fiyat.html",
       "satir": 324,
-      "iddia": "3.108 TL",
-      "metin": "Paket fiyatı 3.108 TL"
+      "iddia": "2.590 TL",
+      "metin": "Paket fiyatı 2.590 TL + KDV"
     },
     {
       "sayfa": "fiyat.html",
@@ -1039,7 +1054,7 @@
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 528,
+      "satir": 530,
       "iddia": "1.635 TL",
       "metin": "/* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */"
     },
@@ -1592,8 +1607,8 @@
     {
       "sayfa": "karsilastirma.html",
       "satir": 89,
-      "iddia": "3.108 TL",
-      "metin": "SGS 3.108 TL Yeterlilik 1.190–3.490 · KGK 1.490–3.990 (kuruluş fiyatları, KDV dahil)"
+      "iddia": "2.590 TL",
+      "metin": "SGS 2.590 TL + KDV (KDV dahil 3.108) Yeterlilik 1.190–3.490 · KGK 1.490–3.990 (kuruluş fiyatları, KDV dahil)"
     },
     {
       "sayfa": "karsilastirma.html",
