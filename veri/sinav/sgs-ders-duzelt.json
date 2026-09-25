@@ -1,0 +1,527 @@
+{
+ "aciklama": "SGS DERS DUZELTMESI (Cem 25.09 \"yanlis dersteki sorulari duzelt\"). Soru kimligi (etiket/kp-NN) -> dogru ders. arac/havuz-kur.ps1 okur; durum=uygula olanlari etiketten cozulen ders yerine bu derse koyar. Parti dosyalarina dokunulmaz. Kaynak: sitedeki 1.392 konu adi ders ders okundu (86 supheli konu), supheli 164 sorunun METNI tek tek okundu -> 84 soru gercekten yanlis derste (etiketi yanlis 64). durum=bekle: tasima bugun circir kapisini dusurur.",
+ "olcum": "2026-09-25",
+ "duzelt": {
+  "sgs-d2-borclar-zor-r2/kp-03": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "Borçlar Hukuku",
+   "durum": "uygula",
+   "gerekce": "5510 m.41 borçlanma sosyal güvenlik konusu"
+  },
+  "sgs-c5-denetim-zor-r2/kp-07": {
+   "ders": "İş ve Sosyal Güvenlik Hukuku",
+   "eski": "Denetim",
+   "durum": "uygula",
+   "gerekce": "6356 sendika yöneticisinin işe dönüşü"
+  },
+  "sgs-t4-fmuh-cokzor/kp-05": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Süreklilik belirsizliğinde denetçi görüşü"
+  },
+  "sgs-d2-fmuh-zor-r1-2/kp-02": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Alacaklarda kontrol testi ayrımı"
+  },
+  "sgs-c2-fmuh-zor-r1-2/kp-02": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Standart maliyet işçilik süre sapması"
+  },
+  "sgs-p-fmuh-cokzor-r3/kp-17": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Standart maliyet işçilik süre farkı"
+  },
+  "sgs-t4-fmuh-cokzor/kp-30": {
+   "ders": "Meslek Hukuku",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "IFAC, IAASB, KGK kurum bilgisi"
+  },
+  "sgs-t1-fmuh-zor-b/kp-149": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Kontrol testi / maddi doğrulama ayrımı"
+  },
+  "sgs-e16-fmuh-kolay/kp-36": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Denetim riski modeli, tespit edememe riski"
+  },
+  "sgs-t4-fmuh-kolay/kp-28": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "İç kontrol bileşenleri (COSO)"
+  },
+  "sgs-t4-fmuh-zor/kp-28": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "İç kontrolün doğal sınırları"
+  },
+  "sgs-t4-fmuh-cokzor/kp-33": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "İç kontrol bileşenlerine sınıflama"
+  },
+  "sgs-t4-fmuh-zor/kp-33": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "İç kontrol bileşenlerine sınıflama"
+  },
+  "sgs-t2-fmuh-zor/kp-103": {
+   "ders": "Meslek Hukuku",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "IFAC bünyesindeki standart kurulları"
+  },
+  "sgs-t2-fmuh-kolay/kp-98": {
+   "ders": "Meslek Hukuku",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "IFAC bünyesindeki standart kurulları"
+  },
+  "sgs-e16-fmuh-zor/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "GÜG ikinci dağıtım yöntemleri"
+  },
+  "sgs-t1-fmuh-zor/kp-72": {
+   "ders": "Vergi Hukuku",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "VUK fatura düzenleme süresi ve sonucu"
+  },
+  "sgs-t1-fmuh-kolay-b/kp-149": {
+   "ders": "Denetim",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Alacaklarda kontrol testi ayrımı"
+  },
+  "sgs-t2-fmuh-cokzor/kp-42": {
+   "ders": "Vergi Hukuku",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "VUK 231 fatura süresinden teslim tarihi"
+  },
+  "sgs-c5-fmuh-cokzor-r1-2/kp-03": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "723 işçilik süre farkı, standart maliyet"
+  },
+  "sgs-c5-fmuh-cokzor-r2/kp-11": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "Standart maliyet işçilik ücret sapması"
+  },
+  "sgs-t4-fmuh-cokzor/kp-19": {
+   "ders": "Meslek Hukuku",
+   "eski": "Finansal Muhasebe",
+   "durum": "uygula",
+   "gerekce": "IESBA, IFAC, PIOB etik kurum bilgisi"
+  },
+  "sgs-p-mta-cokzor-r2-a/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "GÜG doğrudan dağıtım hesabı"
+  },
+  "sgs-p-mta-cokzor-r1-a/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "GÜG doğrudan dağıtım hesabı"
+  },
+  "sgs-p-mta-cokzor-r3-a/kp-07": {
+   "ders": "Maliyet Muhasebesi",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "GÜG dağıtımı ve yükleme oranı maliyet konusu"
+  },
+  "sgs-t1-mta-cokzor/kp-24": {
+   "ders": "Denetim",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "BDS 330 kontrol testi sapması"
+  },
+  "sgs-e16-maliye-cokzor/kp-03": {
+   "ders": "Meslek Hukuku",
+   "eski": "Maliye",
+   "durum": "uygula",
+   "gerekce": "3568 staj ve sınav komisyonu"
+  },
+  "sgs-p-meslek-kolay-r1/kp-03": {
+   "ders": "Vergi Hukuku",
+   "eski": "Meslek Hukuku",
+   "durum": "uygula",
+   "gerekce": "GVK 65 serbest meslek faaliyeti unsurları"
+  },
+  "sgs-t2-ticaret-zor/kp-01": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 20 genel işlem koşulları"
+  },
+  "sgs-t1-ticaret-cokzor/kp-01": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK genel işlem koşulları, yazılmamış sayılma"
+  },
+  "sgs-ticaret-k10d/kp-01": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 20 genel işlem koşulları"
+  },
+  "sgs-t1-ticaret-kolay/kp-09": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "Haksız fiilde hukuka uygunluk sebepleri"
+  },
+  "sgs-t1-ticaret-zor/kp-09": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "Haksız fiilde hukuka uygunluk sebepleri"
+  },
+  "sgs-t5-ticaret-kolay/kp-02": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "Haksız fiilde hukuka uygunluk sebepleri"
+  },
+  "sgs-t5-ticaret-zor/kp-02": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK kendi gücüyle hak koruma"
+  },
+  "sgs-t1-ticaret-kolay/kp-42": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK esaslı yanılma halleri"
+  },
+  "sgs-t1-ticaret-cokzor/kp-42": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK esaslı yanılma halleri"
+  },
+  "sgs-t1-ticaret-zor/kp-42": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK esaslı yanılma halleri"
+  },
+  "sgs-t1-ticaret-zor/kp-47": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 20 genel işlem koşulları"
+  },
+  "sgs-t1-ticaret-kolay/kp-48": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 21 GİK sözleşme kapsamına girme"
+  },
+  "sgs-t1-ticaret-cokzor/kp-48": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 21 GİK sözleşme kapsamına girme"
+  },
+  "sgs-t2-ticaret-zor/kp-21": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 21 GİK sözleşme kapsamına girme"
+  },
+  "sgs-t1-ticaret-cokzor/kp-44": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK kesin hükümsüzlük / iptal edilebilirlik"
+  },
+  "sgs-t2-ticaret-cokzor/kp-25": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK 27 kesin ve kısmi hükümsüzlük"
+  },
+  "sgs-t1-ticaret-kolay/kp-20": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK süreli öneri ve kabul"
+  },
+  "sgs-t1-ticaret-zor/kp-20": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK kira süresi ve fesih"
+  },
+  "sgs-t1-ticaret-cokzor/kp-20": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK temsil, sözleşmenin kurulması"
+  },
+  "sgs-t2-ticaret-zor/kp-14": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK öneri ve kabul kuralları"
+  },
+  "sgs-t1-ticaret-cokzor/kp-29": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK yazılı şekil ve imza"
+  },
+  "sgs-t1-ticaret-zor/kp-29": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK yazılı şekil ve imza"
+  },
+  "sgs-t1-ticaret-kolay/kp-29": {
+   "ders": "Borçlar Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "TBK yazılı şekil ve imza"
+  },
+  "sgs-c5-ticaret-kolay-r1/kp-06": {
+   "ders": "Vergi Hukuku",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "GVK dar mükellef zirai kazanç"
+  },
+  "sgs-t4-vergi-cokzor/kp-01": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "TTK çek zorunlu unsurları"
+  },
+  "sgs-t2-vergi-cokzor/kp-01": {
+   "ders": "Ticaret Hukuku",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "TTK çekte ödeme ve düzenleme yeri"
+  },
+  "sgs-c5-vergi-cokzor-r2/kp-08": {
+   "ders": "Maliye",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "Dolaylı vergi yansıması, esneklik; maliye teorisi"
+  },
+  "sgs-e16d-vergi-kolay/kp-01": {
+   "ders": "Maliye",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "Maliye teorisinde negatif gelir vergisi"
+  },
+  "sgs-p-mta-kolay-r3-a/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "TMS 16 sonraki harcama amortismanı"
+  },
+  "sgs-p-mta-kolay-r1-a/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "Değer artırıcı harcama sonrası amortisman"
+  },
+  "sgs-c2-mta-kolay-r1/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "Kapasite artırıcı harcama amortismanı"
+  },
+  "sgs-c5-mta-zor-r2/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "Taşıt alımı yevmiye kaydı"
+  },
+  "sgs-c5-mta-zor-r1/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Mali Tablolar Analizi",
+   "durum": "uygula",
+   "gerekce": "Taşıt alımı yevmiye kaydı"
+  },
+  "sgs-d5-maliyet-kolay-r1/kp-02": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "Örgütlenme gideri itfası; özel maliyet değil"
+  },
+  "sgs-d2-maliyet-cokzor-r3/kp-01": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme"
+  },
+  "sgs-d2-maliyet-cokzor-r2/kp-04": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "uygula",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme"
+  },
+  "sgs-d2-ticaret-zor-r2/kp-03": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Ticaret Hukuku",
+   "durum": "uygula",
+   "gerekce": "Hazine bonosu tahsil yevmiye kaydı"
+  },
+  "sgs-c5-vergi-kolay-r2/kp-11": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "TMS 12 ertelenmiş vergi hesabı"
+  },
+  "sgs-c5-vergi-kolay-r1/kp-13": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Vergi Hukuku",
+   "durum": "uygula",
+   "gerekce": "TMS 12 ertelenmiş vergi hesabı"
+  },
+  "sgs-c5-maliyet-kolay-r2/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Sipariş avansı mahsubu, 120 Alıcılar kaydı",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-cokzor-r1/kp-13": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Ticari mal aralıklı envanter SMM",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-d2-maliyet-cokzor-r1/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-zor-r1/kp-10": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Net satış ve brüt kâr marjı",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-kolay-r1/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Maliyet üzerinden kâr, ticari SMM",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-t1-maliyet-zor/kp-18": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Özel maliyet boşaltmada kalan itfa",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-t1-maliyet-kolay/kp-18": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Özel maliyet boşaltmada kalan itfa",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-t1-maliyet-zor/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Özel maliyet boşaltmada kalan itfa",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-t1-maliyet-cokzor/kp-17": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Özel maliyet boşaltmada kalan itfa",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-d5-maliyet-zor-r2/kp-05": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Senetli ticari mal alışı 153 kaydı",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-d5-maliyet-zor-r1/kp-05": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Senetli ticari mal alışı 153 kaydı",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-kolay-r1/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "TMS 16 takasla edinilen varlık maliyeti",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-zor-r2/kp-09": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "TMS 19 tanımlanmış katkı planı gideri",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-zor-r2/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-c5-maliyet-zor-r1/kp-06": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "TMS 23 borçlanma maliyeti aktifleştirme",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-t1-maliyet-kolay/kp-25": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "259 Verilen Avanslar kaydı",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  },
+  "sgs-t2b-maliyet-zor/kp-12": {
+   "ders": "Finansal Muhasebe",
+   "eski": "Maliyet Muhasebesi",
+   "durum": "bekle",
+   "gerekce": "Verilen/alınan avans hesapları kaydı",
+   "bekleme": "FM cevap dagilimi (circir): tasinirsa FM ki-kare taban+3 sinirini asar; yeni FM sorulari D/E agirlikli girince acilir"
+  }
+ }
+}
