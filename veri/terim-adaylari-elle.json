@@ -1,0 +1,28 @@
+{
+  "aciklama": "TERİM ADAYLARI (elle beslenir, KARAR ölçümle verilir). kanun = kanun dili, sinav = sınav dili adayı. bire_bir=false olan çift asla kapıya girmez (gerçek terimleri bozar: 'menkul kıymet'). motor/terim-olcum.ps1 bunları çıkmış kitapçıklarda sayar, veri/terim-ciftleri.json'a karar yazar; üretici yalnız karar='kapi' olanları dil kapısına alır.",
+  "adaylar": [
+    { "ad": "genel idare gideri ↔ genel yönetim gideri", "kanun": "genel idare gider", "sinav": "genel yönetim gider", "bire_bir": true },
+    { "ad": "genel imal(at) gideri ↔ genel üretim gideri", "kanun": "genel imal", "sinav": "genel üretim gider", "bire_bir": true, "desen_kanun": "[Gg]enel\\s+[İi]mal(?:at)?\\s+[Gg]ider", "karsilik": "genel üretim gider" },
+    { "ad": "DİMM ↔ direkt ilk madde ve malzeme", "kanun": "DİMM", "sinav": "direkt ilk madde", "bire_bir": true, "karsilik": "direkt ilk madde ve malzeme" },
+    { "ad": "Dİ ↔ direkt işçilik", "kanun": "Dİ", "sinav": "direkt işçilik", "bire_bir": true },
+    { "ad": "GÜG ↔ genel üretim gideri", "kanun": "GÜG", "sinav": "genel üretim gider", "bire_bir": true, "karsilik": "genel üretim gideri" },
+    { "ad": "GİG ↔ genel üretim gideri", "kanun": "GİG", "sinav": "genel üretim gider", "bire_bir": true, "karsilik": "genel üretim gideri" },
+    { "ad": "GUG (ASCII) ↔ genel üretim gideri", "kanun": "GUG", "sinav": "genel üretim gider", "bire_bir": true, "karsilik": "genel üretim gideri", "not": "05.09: model 'GUG' yazdı (Ü'süz); GÜG deseni yakalamıyordu" },
+    { "ad": "lehte ↔ olumlu (sapma yönü)", "kanun": "lehte", "sinav": "olumlu", "bire_bir": true, "karsilik": "olumlu", "not": "04.09 ölçüm: lehte 0, olumlu 213 (SGS 65 kitapçık)" },
+    { "ad": "aleyhte ↔ olumsuz (sapma yönü)", "kanun": "aleyhte", "sinav": "olumsuz", "bire_bir": true, "karsilik": "olumsuz", "not": "04.09 ölçüm: aleyhte 2, olumsuz 205" },
+    { "ad": "emtia ↔ stok", "kanun": "emtia", "sinav": "stok", "bire_bir": false, "not": "ek uyumu bozulur (emtianın → stokun); kanun alıntısında kalmalı" },
+    { "ad": "gayrimenkul ↔ maddi duran varlık", "kanun": "gayrimenkul", "sinav": "maddi duran varlık", "bire_bir": false, "not": "ikisi de sınavda geçiyor" },
+    { "ad": "ihtiyat ↔ yedek", "kanun": "ihtiyat", "sinav": "yedek", "bire_bir": false },
+    { "ad": "müessese ↔ işletme", "kanun": "müessese", "sinav": "işletme", "bire_bir": false, "not": "işletme genel kelime" },
+    { "ad": "teşebbüs ↔ girişim", "kanun": "teşebbüs", "sinav": "girişim", "bire_bir": false },
+    { "ad": "mahsup ↔ indirilecek KDV", "kanun": "mahsup", "sinav": "indirilecek kdv", "bire_bir": false },
+    { "ad": "itfa ↔ amortisman", "kanun": "itfa", "sinav": "amortisman", "bire_bir": false, "not": "maddi olmayanlarda itfa doğru terim" },
+    { "ad": "hasılat ↔ satış geliri", "kanun": "hasılat", "sinav": "satış geliri", "bire_bir": false, "not": "hasılat sınav dili (SGS 161/7)" },
+    { "ad": "ilk madde ve malzeme ↔ hammadde", "kanun": "ilk madde ve malzeme", "sinav": "hammadde", "bire_bir": false },
+    { "ad": "maaş ↔ ücret", "kanun": "maaş", "sinav": "ücret", "bire_bir": false, "not": "ücret genel kelime" },
+    { "ad": "kâr ↔ kar", "kanun": "kâr", "sinav": "kar ", "bire_bir": false, "not": "kâr şapkalı sınav dili (SGS 3876/17)" },
+    { "ad": "tahakkuk ↔ gerçekleşme", "kanun": "tahakkuk", "sinav": "gerçekleşme", "bire_bir": false },
+    { "ad": "iştirak ↔ bağlı ortaklık", "kanun": "iştirak", "sinav": "bağlı ortaklık", "bire_bir": false, "not": "farklı kavramlar" },
+    { "ad": "kıymet ↔ değer", "kanun": "kıymet", "sinav": "değer", "bire_bir": false, "not": "'menkul kıymet' gerçek terim" }
+  ]
+}

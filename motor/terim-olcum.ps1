@@ -3,7 +3,7 @@
 #
 #  NEDEN VAR (04.09.2026, Cem "sınavda genel idare gideri çıkıyor mu?" → GM 3 "ölçümü robota bağla,
 #  kapı listesi ölçümden beslensin, elle yazılmasın"): Üreticinin dil kapısındaki terim çiftleri artık bu
-#  betiğin ÇIKTISINDAN okunur. Adaylar elle beslenir (veri/terim-adaylari.json: kanun dili, sınav dili adayı,
+#  betiğin ÇIKTISINDAN okunur. Adaylar elle beslenir (veri/terim-adaylari-elle.json - 25.09 ayrıldı: kanun dili, sınav dili adayı,
 #  bire_bir bayrağı); KARAR ölçümle verilir: üç sınavın çıkmış kitapçıklarında sınav dili tarafı kanun dilinin
 #  en az 5 katıysa ve çift bire birse → 'kapi'. Aksi → 'dokunma' (gerekçesiyle).
 #
@@ -19,7 +19,11 @@ $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok=Split-Path -Parent $here
 . (Join-Path $kok 'arac\rapor-yaz.ps1')
-$adayDosya=Join-Path $kok 'veri\terim-adaylari.json'
+# 25.09.2026 DOSYA ADI ÇAKIŞMASI (görev 24-25.09 kod 1, kök 09.09): 'veri/terim-adaylari.json' 05.08'den beri
+# motor/terim-taramasi.ps1'in (bulut, haftalık) ÇIKTISI. 04.09'da bu betik elle listeyi AYNI ada koydu; 09.09'da tarama
+# dosyayı kendi biçimiyle yeniden yazdı, 'adaylar' alanı gitti, elle liste 16 gün kayıptı. Elle liste artık kendi
+# dosyasında (754cfee5 sürümünden geri yüklendi, 23 aday). Tarama dosyasına bu betik DOKUNMAZ.
+$adayDosya=Join-Path $kok 'veri\terim-adaylari-elle.json'
 $hedefJson=Join-Path $kok 'veri\terim-ciftleri.json'
 $hedefMd=Join-Path $kok 'veri\TERIM-CIFTLERI.md'
 $arsiv=[ordered]@{ SGS='sgs-arsiv'; KGK='kgk-arsiv'; SMMM='smmm-arsiv' }
@@ -46,7 +50,11 @@ function TerimDesen([string]$s){
   return "(?<![$H])"+$sb.ToString()
 }
 
-$adaylar=@((Get-Content $adayDosya -Raw -Encoding UTF8 | ConvertFrom-Json).adaylar)
+# 25.09: @($null).Count = 1 tuzağı - alan yokken liste '1 elemanlı' sanılıp null üzerinde patlıyordu
+# ("Cannot index into a null array", görev kaydı boş). Artık alan/eleman yoksa AÇIK hata.
+$adayHam = Get-Content $adayDosya -Raw -Encoding UTF8 | ConvertFrom-Json
+if(-not $adayHam.PSObject.Properties['adaylar']){ throw "aday dosyasında 'adaylar' alanı YOK: $adayDosya (başka bir robot üzerine mi yazdı?)" }
+$adaylar=@($adayHam.adaylar | Where-Object { $_ })
 if(-not $adaylar.Count){ throw "aday listesi boş: $adayDosya" }
 
 # arşiv var mı? (yalnız yerelde)
@@ -89,7 +97,7 @@ $yazildi=RaporYaz -Hedef $hedefJson -Nesne $cikti -Derinlik 8 -Sessiz:$Sessiz
 $md=New-Object System.Text.StringBuilder
 [void]$md.AppendLine("# TERİM ÇİFTLERİ — kanun dili ↔ sınav dili")
 [void]$md.AppendLine(""); [void]$md.AppendLine("Ölçüm: $($cikti.olcum) · kitapçık SGS $($kitap['SGS']) / KGK $($kitap['KGK']) / SMMM $($kitap['SMMM']) · bizim $($cacheM.Count) soru. Hücre = geçiş / kitapçık (bizim: geçiş / soru).")
-[void]$md.AppendLine("Karar kuralı: $($cikti.kural). Adaylar: ``veri/terim-adaylari.json`` (elle), karar: ``veri/terim-ciftleri.json`` (bu betik). Üretici yalnız **kapi** olanları uygular."); [void]$md.AppendLine("")
+[void]$md.AppendLine("Karar kuralı: $($cikti.kural). Adaylar: ``veri/terim-adaylari-elle.json`` (elle), karar: ``veri/terim-ciftleri.json`` (bu betik). Üretici yalnız **kapi** olanları uygular."); [void]$md.AppendLine("")
 [void]$md.AppendLine("| Çift | SGS kanun | SGS sınav | KGK kanun | KGK sınav | SMMM kanun | SMMM sınav | Bizim kanun | Bizim sınav | Karar |"); [void]$md.AppendLine("|---|---|---|---|---|---|---|---|---|---|")
 foreach($c in $ciftler){ $s=$c.sayim; [void]$md.AppendLine("| $($c.ad) | $($s.SGS.kanun) / $($s.SGS.kanun_kitapcik) | $($s.SGS.sinav) / $($s.SGS.sinav_kitapcik) | $($s.KGK.kanun) / $($s.KGK.kanun_kitapcik) | $($s.KGK.sinav) / $($s.KGK.sinav_kitapcik) | $($s.SMMM.kanun) / $($s.SMMM.kanun_kitapcik) | $($s.SMMM.sinav) / $($s.SMMM.sinav_kitapcik) | $($c.bizim.kanun) / $($c.bizim.kanun_soru) | $($c.bizim.sinav) / $($c.bizim.sinav_soru) | **$($c.karar)** — $($c.gerekce) |") }
 $eskiMd=if(Test-Path $hedefMd){ [IO.File]::ReadAllText($hedefMd,[Text.Encoding]::UTF8) } else { '' }

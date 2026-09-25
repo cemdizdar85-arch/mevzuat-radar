@@ -8,7 +8,7 @@
   NEDEN YENİ BİR ARAÇ GEREKTİ
   ---------------------------
   Elimizde zaten `veri/TERIM-CIFTLERI.md` var (08.09). Ama o araç bir
-  DOĞRULAYICIDIR, keşifçi değil: `veri/terim-adaylari.json`'daki ELLE yazılmış
+  DOĞRULAYICIDIR, keşifçi değil: `veri/terim-adaylari-elle.json`'daki ELLE yazılmış
   24 çifti alır ve "bu çift gerçekten ayrışıyor mu" diye ölçer.
 
   Kimsenin aklına gelmeyen çifti bulamaz. Cem'in yakaladığı
