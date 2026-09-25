@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>Tetikte</title>
+<link rel="stylesheet" href="uygulama.css">
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script src="ortak.js"></script>
+<script src="katalog.js"></script>
+</head>
+<body>
+<header class="ust">
+  <div class="marka"><span class="lamba" aria-hidden="true"></span>Tetikte</div>
+  <div id="durumRozet" class="rozet" hidden></div>
+</header>
+
+<main>
+  <!-- GİRİŞ -->
+  <section id="giris" class="bolum" hidden>
+    <h1>Soru bankan cebinde</h1>
+    <p class="soluk">Tetikte hesabınla giriş yap; hesabında açık olan sınavlar burada listelenir.</p>
+    <form id="girisForm" class="kart" autocomplete="on">
+      <label>E-posta<input id="eposta" type="email" inputmode="email" autocomplete="username" required></label>
+      <label>Şifre<input id="sifre" type="password" autocomplete="current-password" required></label>
+      <p id="girisHata" class="hata" role="alert"></p>
+      <button type="submit" class="ana">Giriş yap</button>
+      <button type="button" id="sifreUnuttum" class="duz">Şifremi unuttum</button>
+    </form>
+  </section>
+
+  <!-- SINAVLARIM -->
+  <section id="ana" class="bolum" hidden>
+    <h1>Sınavlarım</h1>
+    <p id="anaNot" class="soluk"></p>
+    <div id="liste" class="liste"></div>
+    <div id="yakindaKutu" hidden>
+      <h2>Hazırlanıyor</h2>
+      <p class="soluk">Bu dersler güvenli soru kasasına taşındıkça uygulamada açılır.</p>
+      <ul id="yakinda" class="yakinda"></ul>
+    </div>
+  </section>
+
+  <!-- ÜCRETSİZ -->
+  <section id="ucretsiz" class="bolum">
+    <h2>Ücretsiz dene</h2>
+    <p class="soluk">Hesap gerekmez. Gerçek sınav kalıbında örnek sorular, açıklamalarıyla.</p>
+    <div id="ucretsizListe" class="liste"></div>
+  </section>
+
+  <!-- HATIRLATICI -->
+  <section id="hatirlatici" class="bolum">
+    <h2>Günlük hatırlatıcı</h2>
+    <div class="kart satir">
+      <label class="anahtar"><input id="hatAcik" type="checkbox"> Her gün hatırlat</label>
+      <input id="hatSaat" type="time" value="20:00" aria-label="Hatırlatma saati">
+    </div>
+    <p id="hatNot" class="soluk"></p>
+  </section>
+
+  <!-- HESAP -->
+  <section id="hesap" class="bolum" hidden>
+    <h2>Hesap</h2>
+    <div class="kart">
+      <p id="hesapEposta" class="soluk"></p>
+      <button type="button" id="cikis" class="duz">Çıkış yap</button>
+      <button type="button" id="cihazlar" class="duz">Cihazlarımı yönet</button>
+      <button type="button" id="hesapSil" class="duz tehlike">Hesabımı sil</button>
+    </div>
+  </section>
+
+  <footer class="alt">
+    <button type="button" class="bag" data-dis="https://tetikte.com/gizlilik-politikasi.html">Gizlilik politikası</button>
+    <button type="button" class="bag" data-dis="https://tetikte.com/kvkk.html">KVKK aydınlatma metni</button>
+    <p id="surum" class="soluk kucuk"></p>
+  </footer>
+</main>
+<script src="uygulama.js"></script>
+</body>
+</html>

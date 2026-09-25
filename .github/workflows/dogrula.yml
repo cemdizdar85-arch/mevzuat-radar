@@ -371,6 +371,16 @@ jobs:
           # 18.09'da kapi yayini 5 gun durdurdu. Ag yok, saniyeler.
           - { ad: "Kasa kabugu OZ-SINAVI (kabuk + tam-mi onek suzgeci)",
               kabuk: bash, komut: "node motor/kasa-kabuk.js --sinav" }
+          # 25.09 (Cem "1.2.3 uc hamle"): magaza uygulamasi (mobil/) yalniz KASA MODUNDAKI sorusuz
+          # kabuklari tasir, satis baglantisi tasimaz. Kapilar mobil/hazirla.js'te; bu sinav gercek
+          # betigi 9 sahte depoda + gercek depoda kosar, ayrica paket kurali (kapsar) ve kasa sorgusu
+          # bicimi paket-kapisi.js / kasa-yukle.js ile ayni mi olcer. Ag yok, saniyeler.
+          # GORMEZ: yerel Android/iOS derlemesini, kasa RLS'ini, cihazda calismayi.
+          - { ad: "Mobil uygulama icerik kapisi OZ-SINAVI (kasa + sizinti + satis)",
+              kabuk: bash, komut: "node mobil/hazirla-sinavi.js" }
+          # Kural 8: kapilar tek tek kor edilir, her birinde sinav KIRMIZI dusmeli (4/4).
+          - { ad: "Mobil uygulama icerik kapisi MUTASYON (4 kapi kor edilince sinav duser mi)",
+              kabuk: bash, komut: "node mobil/hazirla-sinavi.js --mutasyon" }
           # 24.09 (Cem "1 ve 3 yap"): fark.html "30.000'den fazla", tuzak.html "29.000'den fazla soru"
           # yaziyordu; sitede 7.117 soru vardi (Ticari Reklam Yon. m.9: ispat reklam verende).
           # Yayindaki soru sayisi iddiasini kaydir/<sinav>/index.html ile kiyaslar. Her push'ta

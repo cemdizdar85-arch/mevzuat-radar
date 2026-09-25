@@ -1,0 +1,72 @@
+/* uygulama.css — mağaza uygulamasının ana ekranı. Renkler YALNIZ burada, jeton olarak tanımlanır;
+   koyu taban marka kimliği (favicon.svg zemini), amber vurgu sitedeki --accent/--accent2 ile aynı. */
+:root {
+  --taban: #1b1a18;
+  --panel: #252320;
+  --cizgi: color-mix(in srgb, #ffffff 12%, transparent);
+  --yazi: #f2eee8;
+  --soluk: #b3aca2;
+  --vurgu: #f5a524;
+  --vurgu2: #ffc24b;
+  --vurguYazi: #1b1a18;
+  --hata: #ff8a7a;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --taban: #faf8f5;
+    --panel: #ffffff;
+    --cizgi: color-mix(in srgb, #1b1a18 14%, transparent);
+    --yazi: #1b1a18;
+    --soluk: #5e584f;
+    --vurgu: #b86e00;
+    --vurgu2: #f5a524;
+    --vurguYazi: #ffffff;
+    --hata: #b3261e;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--taban); color: var(--yazi); }
+body {
+  font: 16px/1.5 -apple-system, "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-tap-highlight-color: transparent;
+}
+.ust { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 6px; }
+.marka { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -.3px; }
+.lamba { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, var(--vurgu), var(--vurgu2));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--vurgu) 55%, transparent); }
+.rozet { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--cizgi); color: var(--soluk); }
+main { max-width: 640px; margin: 0 auto; padding: 0 16px 32px; }
+.bolum { margin-top: 18px; }
+h1 { font-size: 26px; letter-spacing: -.5px; margin: 8px 0 6px; }
+h2 { font-size: 18px; margin: 0 0 6px; }
+.soluk { color: var(--soluk); margin: 0 0 12px; }
+.kucuk { font-size: 12px; }
+.kart { background: var(--panel); border: 1px solid var(--cizgi); border-radius: 16px; padding: 16px; }
+label { display: block; font-size: 14px; font-weight: 650; margin-bottom: 12px; }
+input[type=email], input[type=password], input[type=time] {
+  display: block; width: 100%; margin-top: 6px; padding: 12px; font: inherit; color: var(--yazi);
+  background: var(--taban); border: 1px solid var(--cizgi); border-radius: 11px;
+}
+input[type=time] { width: auto; margin: 0; }
+button { font: inherit; cursor: pointer; }
+.ana { display: block; width: 100%; padding: 13px; border: 0; border-radius: 12px; font-weight: 800;
+  background: var(--vurgu); color: var(--vurguYazi); }
+.duz { display: block; width: 100%; margin-top: 8px; padding: 12px; border-radius: 12px; font-weight: 650;
+  background: transparent; color: var(--yazi); border: 1px solid var(--cizgi); }
+.tehlike { color: var(--hata); }
+.hata { color: var(--hata); min-height: 1em; margin: 0 0 10px; font-size: 14px; }
+.liste { display: grid; gap: 10px; }
+.ders { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; text-decoration: none;
+  background: var(--panel); color: var(--yazi); border: 1px solid var(--cizgi); }
+.ders .ad { flex: 1; font-weight: 700; }
+.ders .etiket { font-size: 12px; color: var(--soluk); display: block; font-weight: 500; }
+.ders .indir { flex: none; padding: 7px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  background: transparent; color: var(--yazi); border: 1px solid var(--cizgi); }
+.ders .indir[data-durum=cihazda] { color: var(--vurgu); border-color: var(--vurgu); }
+.satir { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.anahtar { display: flex; align-items: center; gap: 10px; margin: 0; }
+.anahtar input { width: 20px; height: 20px; accent-color: var(--vurgu); }
+.yakinda { margin: 0; padding-left: 18px; color: var(--soluk); }
+.alt { margin-top: 30px; text-align: center; }
+.bag { background: none; border: 0; color: var(--soluk); text-decoration: underline; padding: 6px 8px; font-size: 14px; }

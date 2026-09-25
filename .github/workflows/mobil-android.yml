@@ -1,0 +1,159 @@
+# ============================================================================
+#  MOBIL - ANDROID (Google Play) derleme hatti  (25.09.2026, Cem "1.2.3 uc hamle")
+#
+#  Ne yapar: mobil/hazirla.js kapilarindan gecen icerikle (yalniz KASA MODUNDAKI
+#  sorusuz kabuklar + ucretsiz vitrin + uygulama ekrani) imzali AAB derler.
+#    - MOBIL_PLAY_SERVIS_JSON varsa Play'e yukler (varsayilan: dahili test, taslak).
+#    - Yoksa AAB SIFRELENIR (.enc) ve 3 gunluk artifact olur; Cem mobil/aab-indir.ps1
+#      ile indirip cozer ve Play Console'a ELLE yukler. Google yeni uygulamanin ILK
+#      paketini API'den kabul etmiyor -> ilk yukleme her durumda elle.
+#
+#  Sirlar (Cem kurar, oturumlar gormez - mobil/OKU.md):
+#    MOBIL_ANDROID_ANAHTAR_B64   yukleme anahtari (.jks, base64)  <- mobil/anahtar-kur.ps1
+#    MOBIL_ANDROID_ANAHTAR_SIFRE anahtar + .enc sifresi           <- mobil/anahtar-kur.ps1
+#    MOBIL_PLAY_SERVIS_JSON      (istege bagli) Play API servis hesabi JSON
+#
+#  Bedel: 0 TL (depo public -> Actions dakikasi ucretsiz). Soru metni gunluge BASILMAZ
+#  (paketin icinde soru yok; hazirla.js yalniz sayi yazar). Artifact yalniz .enc.
+#  GORMEZ: uygulamanin cihazda calismasini (dahili test kanalinda telefonla denenir).
+# ============================================================================
+name: Mobil - Android (Play)
+
+on:
+  workflow_dispatch:
+    inputs:
+      kanal:
+        description: "Play kanali (internal = dahili test)"
+        default: internal
+        type: choice
+        options: [internal, alpha, beta]
+      durum:
+        description: "Yayin durumu (hic yayinlanmamis uygulamada 'draft' zorunlu)"
+        default: draft
+        type: choice
+        options: [draft, completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobil-android
+  cancel-in-progress: false
+
+jobs:
+  derle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANAHTAR_SIFRE: ${{ secrets.MOBIL_ANDROID_ANAHTAR_SIFRE }}
+      # sir adimin kendi if'inde okunamaz; var/yok bilgisi is duzeyinde tasinir
+      PLAY_VAR: ${{ secrets.MOBIL_PLAY_SERVIS_JSON != '' && 'evet' || '' }}
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: Anahtar var mi (yoksa hic derleme)
+        env:
+          ANAHTAR_B64: ${{ secrets.MOBIL_ANDROID_ANAHTAR_B64 }}
+        run: |
+          if [ -z "$ANAHTAR_B64" ] || [ -z "$ANAHTAR_SIFRE" ]; then
+            echo "::error title=anahtar yok::MOBIL_ANDROID_ANAHTAR_B64 / _SIFRE tanimli degil. Cem: powershell -NoProfile -File mobil/anahtar-kur.ps1 (mobil/OKU.md adim 1)"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Icerik kapisi oz-sinavi + icerik derleme
+        working-directory: mobil
+        env:
+          TT_DERLEME: ${{ github.run_number }}
+        run: |
+          node hazirla-sinavi.js
+          node hazirla.js
+
+      - name: Paketler
+        working-directory: mobil
+        run: npm ci --no-audit --no-fund
+
+      - name: Android projesi + ikonlar
+        working-directory: mobil
+        run: |
+          npx cap add android
+          node ikon-uret.js
+          npx capacitor-assets generate --android --assetPath kaynak/uretilen
+          npx cap sync android
+
+      - name: Surum + imza ayari
+        working-directory: mobil/android
+        env:
+          ANAHTAR_B64: ${{ secrets.MOBIL_ANDROID_ANAHTAR_B64 }}
+        run: |
+          SURUM=$(node -p "require('../package.json').version")
+          sed -i -E "s/versionCode [0-9]+/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"$SURUM\"/" app/build.gradle
+          grep -E "versionCode|versionName|applicationId" app/build.gradle
+          echo "$ANAHTAR_B64" | base64 -d > app/yukleme.jks
+          cat >> app/build.gradle <<'EOF'
+
+          // mobil-android.yml ekler: Play yukleme anahtari (sifre ortam degiskeninden, dosyaya yazilmaz)
+          android {
+              signingConfigs {
+                  yukleme {
+                      storeFile file('yukleme.jks')
+                      storePassword System.getenv('ANAHTAR_SIFRE')
+                      keyAlias 'tetikte'
+                      keyPassword System.getenv('ANAHTAR_SIFRE')
+                  }
+              }
+              buildTypes { release { signingConfig signingConfigs.yukleme } }
+          }
+          EOF
+
+      - name: AAB derle
+        working-directory: mobil/android
+        run: |
+          ./gradlew --no-daemon bundleRelease
+          ls -la app/build/outputs/bundle/release/
+          rm -f app/yukleme.jks
+
+      - name: Play'e yukle (servis hesabi varsa)
+        id: play
+        if: ${{ env.PLAY_VAR == 'evet' }}
+        continue-on-error: true      # dusse de AAB sifreli artifact olarak kalsin; is sonda KIRMIZI biter
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.MOBIL_PLAY_SERVIS_JSON }}
+          packageName: com.tetikte.app
+          releaseFiles: mobil/android/app/build/outputs/bundle/release/app-release.aab
+          track: ${{ inputs.kanal }}
+          status: ${{ inputs.durum }}
+
+      - name: Servis hesabi yoksa - AAB'yi sifrele (elle yukleme icin)
+        if: ${{ steps.play.outcome != 'success' }}
+        run: |
+          mkdir -p cikti
+          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt \
+            -in mobil/android/app/build/outputs/bundle/release/app-release.aab \
+            -out cikti/tetikte-${{ github.run_number }}.aab.enc -pass env:ANAHTAR_SIFRE
+          ls -la cikti
+
+      - name: Sifreli AAB'yi artifact yap (3 gun)
+        if: ${{ steps.play.outcome != 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobil-aab-${{ github.run_number }}
+          path: cikti/*.enc
+          retention-days: 3
+          if-no-files-found: error
+
+      - name: Play yuklemesi dustuyse isi KIRMIZI bitir
+        if: ${{ steps.play.outcome == 'failure' }}
+        run: |
+          echo "::error title=play yuklemesi::Play API yuklemesi dustu (ilk paket mi? ilk yukleme Play Console'dan ELLE yapilir - mobil/OKU.md). Sifreli AAB artifact olarak birakildi."
+          exit 1
