@@ -14,8 +14,30 @@
 #             [-Ders 'Borclar Hukuku|Ticaret ve Borclar'] [-Pencere 7] [-Sozluk <kelime dosyasi>]
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
-param([Parameter(Mandatory)][string]$Dosya,[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7)
+param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
+# --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
+# NEDEN: bu betik sabit 746 kr ile ölçüyordu; bulut koşucusu (motor/kalip-kosucu.ps1 DersTavani) ise her satıra DERSİN tavanını verir:
+#   plan satırında 'tavan' varsa o, yoksa veri/sinav-anatomisi-sgs.json C_ders_kalibi.<ders>.uzunluk.p90 (iki yönlü eşleşme), bulamazsa 350.
+#   Ölçüldü: k2-2'de 'ok' denen 6 Denetim çok zor sorusunun 6'sı da bulutta "uzunluk > 342" ile ÜCRETSİZ kapıda düştü; 479 hazır soruda 47 aşım.
+# Burada koşucunun kuralı birebir kopyalanır (SGS anatomisi; SMMM satırı bu betikle denetlenmiyor).
+# 🚫 GÖRMEZ: plan satırındaki elle 'tavan' alanı (-Tavan ile verilir) · SMMM tavanları (veri/sinav-anatomisi-smmm.json).
+function DersTavaniOlc([string]$dersRx,[string]$kokYol){
+  $anY=Join-Path $kokYol 'veri\sinav-anatomisi-sgs.json'; if(-not $dersRx -or -not (Test-Path $anY)){ return 0 }
+  $an=ConvertFrom-Json -InputObject (Get-Content $anY -Raw -Encoding UTF8)
+  foreach($p in $an.C_ders_kalibi.PSObject.Properties){ if($dersRx -match [regex]::Escape($p.Name) -or $p.Name -match [regex]::Escape($dersRx)){ return [int]$p.Value.uzunluk.p90 } }
+  return 350
+}
+$depoKokD=Split-Path -Parent $(if($PSScriptRoot){ $PSScriptRoot } else { (Get-Location).Path + '\arac' })
+if($TavanSinavi){
+  # Beklenenler anatomi dosyasından DEĞİL, koşucunun 25.09 bulut günlüğünde gördüğümüz sonuçtan: Denetim 342 (6/6 düştü, 373–573 kr),
+  # Borçlar 630 (15 sorunun 15'i 258+ kr ile geçti), '^Maliye$' 393 (desen 'Maliye' adını İÇERİR), kısa 'Ataturk Ilke' 243 (ters yön eşleşmesi).
+  $vakalar=@(@('Denetim',342),@('Borclar Hukuku|Ticaret ve Borclar',630),@('^Maliye$',393),@('Ataturk Ilke',243),@('Yabanci Dil',350))
+  $hata=0; foreach($v in $vakalar){ $olc=DersTavaniOlc $v[0] $depoKokD; $iyi=($olc -eq $v[1]); if(-not $iyi){ $hata++ }; "  $(if($iyi){'TAMAM'}else{'HATA '}) '$($v[0])' -> $olc (beklenen $($v[1]))" }
+  if($hata){ "TAVAN SINAVI KIRMIZI: $hata/$($vakalar.Count)"; exit 1 } else { "TAVAN SINAVI YESIL: $($vakalar.Count)/$($vakalar.Count)"; exit 0 }
+}
+if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi)' }
+$UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
 function Hesapla([string]$ifade){ $t=$ifade -replace '\.','' -replace ',','.' -replace 'x','*'; if($t -notmatch '^[\d\.\s\*/+\-]+$'){ return $null }; try{ return [double](Invoke-Expression $t) }catch{ return $null } }
@@ -32,7 +54,7 @@ elseif($Ders){
   if(-not $kapiK){ "UYARI: KAPI-K sozlugu kurulamadi (ambar/anahtar/analiz dosyasi) - bu kapi OLCULMEDI" }
 }
 $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
-"dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count)"
+"dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count) | uzunluk tavani: $UZ_TAVAN kr"
 if($kapiK){ "KAPI-K sozlugu: genis $($kapiK.genis.Keys.Count) · dar $($kapiK.dar.Keys.Count) (soru $($kapiK.aralik -join '-')) · $($kapiK.blok) blok · son $Pencere donem: $($kapiK.donemler -join ', ')" }
 $i=0; $temizSay=0
 foreach($q in $liste){
@@ -49,7 +71,7 @@ foreach($q in $liste){
   $tutar=@([regex]::Matches("$($q.soru)",'(?<![\d.,])\d{1,3}(?:\.\d{3})+(?![\d.,])') | ForEach-Object { [long]($_.Value -replace '\.','') })
   if($tutar.Count -ge 4 -and -not @($tutar | Where-Object { $_ % 10000 -ne 0 }).Count){ $k.Add("tutarlarin hepsi onbinlik ($($tutar.Count))") }
   if("$($q.soru)" -match '—|…'){ $k.Add('uzun tire / uc nokta') }
-  if("$($q.soru)".Length -gt 746){ $k.Add("soru uzun $("$($q.soru)".Length)") }
+  if("$($q.soru)".Length -gt $UZ_TAVAN){ $k.Add("soru uzun $("$($q.soru)".Length) kr > ders tavani $UZ_TAVAN (bulut koşucusu bu soruyu ÜCRETSİZ kapıda düşürür)") }
   # KAPI-Ç: çeldirici yolunda ';' yasak; formül sonucu şık tutarıyla uyumlu
   if($q.celdirici_yol){ foreach($p in @($q.celdirici_yol.PSObject.Properties)){ $v="$($p.Value)"; if($v -match ';'){ $k.Add("celdirici $($p.Name) icinde ';'") }
       if($sayisal){ $son=[regex]::Matches(($v -replace '\([^)]*\)',''),'=\s*(-?[\d\.,]+)'); if($son.Count){ $cv=Sayi $son[$son.Count-1].Groups[1].Value; $sv=Sayi "$($q.siklar.($p.Name))"; if($null -ne $cv -and $null -ne $sv -and [math]::Abs($cv-$sv) -gt [math]::Max(0.5,[math]::Abs($sv)*0.005)){ $k.Add("celdirici $($p.Name) sonucu $cv != sik $sv") } } }

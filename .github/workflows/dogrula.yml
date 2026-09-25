@@ -203,6 +203,12 @@ jobs:
           - { ad: "Bedel senkron SAAT DILIMI OZ-SINAVI (ayni harcama iki kez sayilmasin)",
               kabuk: pwsh, komut: "./arac/bedel-senkron.ps1 -Sinav" }
 
+          # 25.09.2026 - Hazir soru ON DENETIMI uzunluk tavani = bulut kosucusunun DersTavani (anatomi p90).
+          # Sabit 746 ile 'ok' denen 6 Denetim cok zor sorusu bulutta 6/6 dustu (k2-2). Mutasyonla olculdu:
+          # ters yon eslesmesi silinince 2/5, p90->p75 4/5, varsayilan 350->746 2/5 KIRMIZI.
+          - { ad: "Hazir soru on denetimi DERS TAVANI OZ-SINAVI (bulutla ayni uzunluk kapisi)",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -TavanSinavi" }
+
           # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
           # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya
           # gider. GERCEK betik -DenetimKok ile gecici klasorde kosulur (replika yok). 14 vaka:
