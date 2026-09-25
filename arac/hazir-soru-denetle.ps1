@@ -21,7 +21,11 @@ function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)
 function Hesapla([string]$ifade){ $t=$ifade -replace '\.','' -replace ',','.' -replace 'x','*'; if($t -notmatch '^[\d\.\s\*/+\-]+$'){ return $null }; try{ return [double](Invoke-Expression $t) }catch{ return $null } }
 $sz=@{}; if($Sozluk -and (Test-Path $Sozluk)){ foreach($w in ((Get-Content $Sozluk -Raw -Encoding UTF8) -split '\s+')){ $w=Duz $w; if($w.Length -ge 5){ $sz[$w.Substring(0,5)]=1 } } }
 $kapiK=$null
-if($Ders){
+# 25.09: üretici Yabancı Dil modunda KAPI-K'yı KAPATIR (motor/kalip-parti-uret.ps1 YD_MOD: "KAPI-K kapalı"); ön denetim kapatmıyordu ve
+#   YD yazarları report/meeting/credit gibi temel kelimeleri sınav dışı sanıp soruyu fakirleştiriyordu (K3 w3: 6 soru yalnız bu yüzden düştü).
+#   Aynı desen üreticiyle birebir: 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce'.
+if($Ders -and $Ders -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce'){ "YABANCI DİL: KAPI-K üreticide kapalı olduğu için burada da ölçülmez" }
+elseif($Ders){
   $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
   if(Test-Path $kutup){ . $kutup; $kapiK=KapiKSozlukKur -DersRegex $Ders -Pencere $Pencere }
   if(-not $kapiK){ "UYARI: KAPI-K sozlugu kurulamadi (ambar/anahtar/analiz dosyasi) - bu kapi OLCULMEDI" }
