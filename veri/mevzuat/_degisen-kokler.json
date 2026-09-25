@@ -1,5 +1,5 @@
 {
-    "aciklama":  "Madde/not metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1, arac/teori-notu-duzelt-*.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
+    "aciklama":  "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
     "maddeler":  {
                      "ad|TEORI - Kollektif sirkette kar dagitimi":  {
                                                                         "tarih":  "2026-09-24 02:29",
@@ -87,6 +87,38 @@
                                                                                                    "#2016/1"
                                                                                                ],
                                                                       "elle_daraltma":  "GM 24.09: notta değişen TEK cümle stok bağımlılık formülü (\"Alacaklar\" → \"Ticari Alacaklar\"); otomatik belirteçler (ticar, smmm, komis…) asit-test hesabında ticari alacak geçen sağlam soruları da çekiyordu (69 sorudan 39). Daraltınca 6 soru (SMMM 1 · SGS 3 · KGK 2), hepsi stok bağımlılık sorusu."
-                                                                  }
+                                                                  },
+                     "492|gec1":  {
+                                      "tarih":  "2026-09-25 06:30",
+                                      "kaynak":  "harclar",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#24/9/2025",
+                                                          "#2024/103",
+                                                          "#8/10/2025",
+                                                          "#2025/201"
+                                                      ]
+                                  },
+                     "492|28":  {
+                                    "tarih":  "2026-09-25 06:30",
+                                    "kaynak":  "harclar",
+                                    "belirsiz":  false,
+                                    "belirtecler":  [
+                                                        "#89",
+                                                        "#10",
+                                                        "#8910"
+                                                    ]
+                                },
+                     "492|29":  {
+                                    "tarih":  "2026-09-25 06:30",
+                                    "kaynak":  "harclar",
+                                    "belirsiz":  false,
+                                    "belirtecler":  [
+                                                        "#24/9/2025",
+                                                        "sonra",
+                                                        "~dokuz",
+                                                        "resm"
+                                                    ]
+                                }
                  }
 }
