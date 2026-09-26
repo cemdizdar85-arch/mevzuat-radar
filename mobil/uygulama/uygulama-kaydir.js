@@ -63,6 +63,9 @@
     '#akis>.kart .panel.acik.ttKucuk .ttPanelBar{border-bottom:0}',
     /* 4) cevaptan sonra yüzen Kâğıt düğmesi gizli */
     '#akis>.kart.cevaplandi .kagitAc{display:none!important}',
+    /* Kâğıt düğmesi uzun sorularda E şıkkının yazısını örtüyordu (26.09) → yalnız kalem ikonlu küçük yuvarlak (emoji yok) */
+    '#akis>.kart .kagitAc{font-size:0!important;width:44px;height:44px;padding:0!important;border-radius:50%!important;display:flex;align-items:center;justify-content:center;right:10px!important}',
+    '#akis>.kart .kagitAc:before{content:"";width:18px;height:18px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.7%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M4 20h4L19 9l-4-4L4 16z%27/%3E%3Cpath d=%27m13.5 6.5 4 4%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.7%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M4 20h4L19 9l-4-4L4 16z%27/%3E%3Cpath d=%27m13.5 6.5 4 4%27/%3E%3C/svg%3E") center/contain no-repeat}',
     /* numaralı soru listesi */
     '#ttListe{position:fixed;inset:0;z-index:2147481000;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}',
     '#ttListe.acik{display:flex}',
@@ -83,8 +86,15 @@
   var YOL = (location.pathname.match(/kaydir\/[^?#]+\.html$/) || [''])[0];
   var st2 = document.createElement('style');
   st2.textContent = [
-    '.ttBayrak{font:inherit;font-size:.95em;line-height:1;background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:3px 7px;cursor:pointer;opacity:.75}',
-    '.ttBayrak.acik{opacity:1;border-color:var(--altin,#f5a524);background:color-mix(in srgb,var(--altin,#f5a524) 22%,var(--kart))}',
+    /* 26.09 (Cem "yapay zekâ gibi durmasın"): başlık çiplerinin emojisi silinir (cipTemizle), yerine çizgi ikon */
+    '.ustCip.skorCip:before,.ustCip.kutuCip:before{content:"";display:inline-block;width:14px;height:14px;margin-right:5px;vertical-align:-2px;background:currentColor}',
+    '.ustCip.skorCip:before{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%278%27/%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%273.5%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%278%27/%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%273.5%27/%3E%3C/svg%3E") center/contain no-repeat}',
+    '.ustCip.kutuCip:before{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M3.5 13.5 6 5h12l2.5 8.5V19H3.5z%27/%3E%3Cpath d=%27M3.5 13.5H9l1 2h4l1-2h5.5%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M3.5 13.5 6 5h12l2.5 8.5V19H3.5z%27/%3E%3Cpath d=%27M3.5 13.5H9l1 2h4l1-2h5.5%27/%3E%3C/svg%3E") center/contain no-repeat}',
+    '.govde .rozet:before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;vertical-align:2px;background:currentColor}',
+    '.ttBayrak{display:inline-flex;align-items:center;justify-content:center;line-height:1;background:transparent;border:1px solid var(--cizgi);border-radius:8px;padding:4px 7px;cursor:pointer;color:var(--dim,#8b8b93)}',
+    '.ttBayrak svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round}',
+    '.ttBayrak.acik{color:var(--altin,#f5a524);border-color:var(--altin,#f5a524)}',
+    '.ttBayrak.acik svg{fill:currentColor}',
     '.ttPanelBar{gap:8px}',
     '.ttNotKutu{margin:10px 0 4px;padding:10px 12px;border:1px dashed var(--cizgi);border-radius:12px;font-size:.9em;white-space:pre-wrap}',
     '#ttNotEkran{position:fixed;inset:0;z-index:2147481500;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}',
@@ -98,7 +108,7 @@
     '#ttListe .sekmeler button{flex:1;font:inherit;font-size:.85em;font-weight:700;padding:7px 4px;border-radius:999px;border:1px solid var(--cizgi);background:transparent;color:var(--dim);cursor:pointer}',
     '#ttListe .sekmeler button.secili{color:var(--yazi);border-color:var(--yazi)}',
     '#ttListe .izgara button{position:relative}',
-    '#ttListe .izgara button.bay:after{content:"🔖";position:absolute;top:-6px;right:-4px;font-size:12px}',
+    '#ttListe .izgara button.bay:after{content:"";position:absolute;top:3px;right:3px;width:6px;height:6px;background:var(--altin,#f5a524)}',
     '#ttListe .izgara button.gizli{display:none}',
     '#ttListe .yazi{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:.9em;color:var(--dim)}',
     '#ttListe .yazi button{font:inherit;font-weight:800;min-width:44px;padding:6px 10px;border-radius:10px;border:1px solid var(--cizgi);background:transparent;color:var(--yazi);cursor:pointer}',
@@ -137,7 +147,7 @@
     if (!l) {
       l = document.createElement('div'); l.id = 'ttListe';
       l.innerHTML = '<div class="ic" role="dialog" aria-label="Soru listesi"><h3>Sorular</h3>' +
-        '<p>Yeşil doğru, kırmızı yanlış, 🔖 işaretlediklerin. Bir soruya dokun, oraya git.</p>' +
+        '<p>Yeşil doğru, kırmızı yanlış; köşesinde nokta olanlar işaretlediklerin. Bir soruya dokun, oraya git.</p>' +
         '<div class="sekmeler"><button type="button" data-s="tum">Tümü</button><button type="button" data-s="yan">Yanlışlar</button><button type="button" data-s="bay">İşaretliler</button></div>' +
         '<div class="izgara"></div>' +
         '<button type="button" class="dugme ana tekrar" style="width:100%;margin-top:14px">↻ Yanlışlarımı tekrar çöz</button>' +
@@ -177,7 +187,7 @@
       b.addEventListener('click', function () { l.classList.remove('acik'); k.scrollIntoView({ behavior: 'smooth' }); });
       iz.appendChild(b);
     });
-    if (!gosterilen) { var bos = document.createElement('div'); bos.className = 'bos'; bos.textContent = listeSuzgec === 'bay' ? 'Henüz işaretlediğin soru yok. Sorunun üstündeki 🔖 ile işaretle.' : 'Bu listede soru yok.'; iz.appendChild(bos); }
+    if (!gosterilen) { var bos = document.createElement('div'); bos.className = 'bos'; bos.textContent = listeSuzgec === 'bay' ? 'Henüz işaretlediğin soru yok. Sorunun üstündeki işaret düğmesiyle işaretle.' : 'Bu listede soru yok.'; iz.appendChild(bos); }
     l.querySelector('.tekrar').hidden = !yanlisVar;
   }
 
@@ -207,7 +217,7 @@
     var e = document.getElementById('ttNotEkran');
     if (!e) {
       e = document.createElement('div'); e.id = 'ttNotEkran';
-      e.innerHTML = '<div class="ic"><h3 style="margin:0 0 8px">📝 Bu soruya notun</h3><textarea maxlength="2000" placeholder="Kendi cümlenle kural, tuzak, hatırlatma…"></textarea>' +
+      e.innerHTML = '<div class="ic"><h3 style="margin:0 0 8px">Bu soruya notun</h3><textarea maxlength="2000" placeholder="Kendi cümlenle kural, tuzak, hatırlatma…"></textarea>' +
         '<div class="satir"><button type="button" class="vaz">Vazgeç</button><button type="button" class="ana kay">Kaydet</button></div></div>';
       document.body.appendChild(e);
       e.addEventListener('click', function (ev) { if (ev.target === e || ev.target.classList.contains('vaz')) e.classList.remove('acik'); });
@@ -222,10 +232,10 @@
     var kutu = p.querySelector('.ttNotKutu'), n = IL && IL.notu(sidK(k));
     if (!n) { if (kutu) kutu.remove(); return; }
     if (!kutu) { kutu = document.createElement('div'); kutu.className = 'ttNotKutu'; var bar = p.querySelector('.ttPanelBar'); p.insertBefore(kutu, bar ? bar.nextSibling : p.firstChild); }
-    kutu.textContent = '📝 Notun: ' + n.m;
+    kutu.textContent = 'Notun: ' + n.m;
   }
 
-  /* her karta bir kez: "i / N" düğmesi, 🔖 bayrak, açıklama kartına küçült/aç + 📝 not, cevap kaydı */
+  /* her karta bir kez: "i / N" düğmesi, işaret (bayrak), açıklama kartına küçült/aç + not, cevap kaydı */
   function kartiDuzenle(k) {
     if (k.__tt) return; k.__tt = 1;
     var sag = k.querySelector('.ustSag');
@@ -241,7 +251,8 @@
         }
       }
       if (IL) {
-        var bay = document.createElement('button'); bay.type = 'button'; bay.className = 'ttBayrak'; bay.textContent = '🔖';
+        var bay = document.createElement('button'); bay.type = 'button'; bay.className = 'ttBayrak';
+        bay.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6.5 3.5h11v17l-5.5-4-5.5 4z"/></svg>';
         bay.setAttribute('aria-label', 'Soruyu işaretle');
         bay.classList.toggle('acik', IL.bayrakVar(sidK(k)));
         bay.addEventListener('click', function (e) {
@@ -257,7 +268,7 @@
       var bar = document.createElement('div'); bar.className = 'ttPanelBar';
       var dg = document.createElement('button'); dg.type = 'button'; dg.textContent = '▼ Soruyu gör';
       bar.appendChild(dg);
-      if (IL) { var nb = document.createElement('button'); nb.type = 'button'; nb.textContent = '📝 Not'; nb.addEventListener('click', function (e) { e.stopPropagation(); notAc(k); }); bar.appendChild(nb); }
+      if (IL) { var nb = document.createElement('button'); nb.type = 'button'; nb.textContent = 'Not'; nb.addEventListener('click', function (e) { e.stopPropagation(); notAc(k); }); bar.appendChild(nb); }
       p.insertBefore(bar, p.firstChild);
       notCiz(k);
       var kucult = function (evet) { p.classList.toggle('ttKucuk', evet); dg.textContent = evet ? '▲ Açıklamayı aç' : '▼ Soruyu gör'; if (!evet) p.scrollTop = 0; };
@@ -284,7 +295,7 @@
           k.__cevaplandi = 1;
           IL.cevapla(sidK(k), s.classList.contains('dogru'), YOL);
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;
-          if (g === h) serit('🎯 Günlük hedef tamam: ' + h + ' soru. Seri ' + IL.seri() + ' gün 🔥', null, null, 3500);
+          if (g === h) serit('Günlük hedef tamam · ' + h + ' soru · seri ' + IL.seri() + ' gün', null, null, 3500);
         }, 0);
       });
     });
@@ -293,7 +304,8 @@
   /* kaldığın yerden devam: kaydırmada konum yazılır; açılışta (derin bağlantı yoksa) o karta gidilir */
   var konumKuruldu = false, izleyici = null, konumZam = null;
   function konumKur() {
-    if (konumKuruldu || !IL || !YOL) return;
+    /* tek kart modu (günün sorusu): kaldığın yer yazılmaz, "Devam et" oraya gitmesin */
+    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek')) return;
     var a = akis(), ks = kartlar(); if (!a || !ks.length) return;
     konumKuruldu = true;
     var tekrarda = tekrarKur();
@@ -309,11 +321,23 @@
     } else IL.konumYaz(YOL, 0);
   }
 
+  /* sayfanın kendi yazdığı çip/rozet metnindeki baştaki emojiyi sil (sayfa çipi her cevaptan sonra yeniden yazar) */
+  var EMOJI = /^[\u2190-\u2BFF\uFE0F\s]*(?:[\uD83C-\uD83E][\uDC00-\uDFFF][\uFE0F\s]*)*/;
+  function cipTemizle(kok) {
+    [].forEach.call((kok || document).querySelectorAll('.ustCip.skorCip,.ustCip.kutuCip,.govde .rozet'), function (el) {
+      var t = el.textContent, y = t.replace(EMOJI, '');
+      if (y !== t && el.children.length === 0) el.textContent = y;
+      else if (y !== t && el.firstChild && el.firstChild.nodeType === 3) el.firstChild.textContent = el.firstChild.textContent.replace(EMOJI, '');
+    });
+  }
+  var cipIzleyici = null;
   function kur() {
     var a = akis(); if (!a) return;
     kartlar().forEach(kartiDuzenle);
     if (!izleyici) { try { izleyici = new MutationObserver(function () { kartlar().forEach(kartiDuzenle); konumKur(); }); izleyici.observe(a, { childList: true }); } catch (e) {} }
     konumKur();
+    cipTemizle(a);
+    if (!cipIzleyici) { try { cipIzleyici = new MutationObserver(function () { cipTemizle(a); }); cipIzleyici.observe(a, { childList: true, subtree: true }); } catch (e) {} }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(kur, 0); });
   else setTimeout(kur, 0);

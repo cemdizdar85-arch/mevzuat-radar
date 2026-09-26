@@ -94,6 +94,9 @@ function sinaviBul(yol) { return /^kaydir\/sgs\//.test(yol) ? 'sgs' : (/^kaydir\
 /* Ders adı: sayfa başlıkları hep "Tetikte · Kaydır-Çöz" olduğu için klasörün dizin sayfasındaki kart adından
    okunur (kaydir/<sınav>/index.html: <a class="kart" href="x.html"><div class="ad">Ad</div><div class="sayi">N soru</div>). */
 const dizinOnbellek = {};
+/* Ders kartındaki "N soru" (sitenin dizin sayfası — site sayısının TEK kaynağı); ana ekranda kilitli derste gösterilir. */
+const sayiOnbellek = {};
+function sayiBul(yol) { baslikBul(yol); return sayiOnbellek[yol] || null; }
 function cozHtml(t) {
   return t.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
@@ -102,9 +105,12 @@ function baslikBul(yol) {
   if (!dizinOnbellek[klasor]) {
     dizinOnbellek[klasor] = {};
     if (var_(klasor + '/index.html')) {
-      const re = /<a[^>]*href="([a-z0-9-]+\.html)"[^>]*>\s*<div class="ad">([^<]*)<\/div>/g;
+      const re = /<a[^>]*href="([a-z0-9-]+\.html)"[^>]*>\s*<div class="ad">([^<]*)<\/div>(?:\s*<div class="sayi">\s*([\d.]+)\s*soru)?/g;
       let m; const html = oku(klasor + '/index.html');
-      while ((m = re.exec(html))) dizinOnbellek[klasor][m[1]] = cozHtml(m[2]).trim();
+      while ((m = re.exec(html))) {
+        dizinOnbellek[klasor][m[1]] = cozHtml(m[2]).trim();
+        if (m[3]) sayiOnbellek[klasor + '/' + m[1]] = +m[3].replace(/\./g, '');
+      }
     }
   }
   return dizinOnbellek[klasor][ad] || ad.replace(/\.html$/, '').split('-').map((s) => s.charAt(0).toLocaleUpperCase('tr') + s.slice(1)).join(' ');
@@ -139,7 +145,7 @@ for (const yol of kasaSayfalari) {
   html = html.split(KAPI_ETIKETI).join(UC_ETIKET);
   yaz(yol, html);
   const sinav = sinaviBul(yol);
-  katalog.paket.push({ yol, baslik: baslikBul(yol), sinav, sinavAd: SINAV_AD[sinav] || '' });
+  katalog.paket.push({ yol, baslik: baslikBul(yol), sinav, sinavAd: SINAV_AD[sinav] || '', adet: sayiBul(yol) });
 }
 
 /* ---------- 3. ücretsiz vitrin (bilinçli açık) ---------- */
@@ -162,7 +168,7 @@ for (const yol of VITRIN) {
   yaz(yol, html);
   const smmm = yol.indexOf('smmm') >= 0;
   katalog.ucretsiz.push({ yol, baslik: smmm ? 'SMMM Yeterlilik örnek soruları' : 'SGS örnek soruları',
-    sinav: smmm ? 'yeterlilik' : 'sgs', sinavAd: 'ücretsiz' });
+    sinav: smmm ? 'yeterlilik' : 'sgs', sinavAd: 'ücretsiz', adet: Math.max(adet, 0) });
 }
 
 /* ---------- 4. hazırlanıyor: kasaya taşınmamış ders sayfaları (yalnız ad) ---------- */
@@ -173,7 +179,7 @@ for (const klasor of ['kaydir/sgs', 'kaydir/smmm']) {
     if (!/\.html$/.test(ad) || ad === 'index.html' || kasaSayfalari.indexOf(yol) >= 0) continue;
     if (/^(muhur|kapituru)-/.test(ad)) continue;   // tekrar/tur sayfaları ders değil
     const sinav = sinaviBul(yol);
-    katalog.yakinda.push({ baslik: baslikBul(yol), sinav, sinavAd: SINAV_AD[sinav] || '' });
+    katalog.yakinda.push({ baslik: baslikBul(yol), sinav, sinavAd: SINAV_AD[sinav] || '', adet: sayiBul(yol) });
   }
 }
 

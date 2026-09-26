@@ -11,16 +11,47 @@
 <script src="katalog.js"></script>
 </head>
 <body>
+<!-- ince çizgi ikonlar (emoji yok — 26.09 Cem "teknolojik bir yapı gibi") -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bugun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-sinav" viewBox="0 0 24 24"><path d="M12 3.5 21 8l-9 4.5L3 8z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16 9 4.5 9-4.5"/></symbol>
+  <symbol id="i-karne" viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 16v-5"/><path d="M12 16V6"/><path d="M17 16v-8"/></symbol>
+  <symbol id="i-hesap" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.2-3.6 4.1-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-kilit" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-oynat" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
+  <symbol id="i-takvim" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-acik" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 7.6-1.7"/></symbol>
+  <symbol id="i-giris" viewBox="0 0 24 24"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14"/><path d="M4 12h11M11 8l4 4-4 4"/></symbol>
+  <symbol id="i-tekrar" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></symbol>
+</svg>
+
 <header class="ust">
   <div class="marka"><span class="lamba" aria-hidden="true"></span>Tetikte</div>
   <div id="durumRozet" class="rozet" hidden></div>
 </header>
 
 <main>
-  <!-- GİRİŞ -->
-  <section id="giris" class="bolum" hidden>
-    <h1>Soru bankan cebinde</h1>
-    <p class="soluk">Tetikte hesabınla giriş yap; hesabında açık olan sınavlar burada listelenir.</p>
+  <!-- BUGÜN (uygulama-ozet.js doldurur) -->
+  <section id="ozet" class="bolum" data-sekme="bugun"></section>
+
+  <!-- SINAVLAR: seçici + ücretsiz (uygulama-sinavlar.js) · açık dersler (uygulama.js) · kilitli dersler -->
+  <section id="sinavUst" class="bolum" data-sekme="sinav"></section>
+  <section id="ana" class="bolum" data-sekme="sinav" hidden>
+    <span class="etk">Açık derslerin</span>
+    <div id="liste" class="liste"></div>
+    <p id="anaNot" class="soluk kucuk" style="margin-top:10px"></p>
+    <div id="yakindaKutu" data-sekme="yok" hidden><ul id="yakinda"></ul></div>
+  </section>
+  <section id="kilitli" class="bolum" data-sekme="sinav"></section>
+
+  <!-- KARNEM (uygulama-ozet.js doldurur) -->
+  <section id="karne" class="bolum" data-sekme="karne"></section>
+
+  <!-- HESAP: giriş ya da hesap · paketler · çalışma ayarları · hatırlatıcı -->
+  <section id="giris" class="bolum" data-sekme="hesap" hidden>
+    <h1>Giriş</h1>
+    <p class="soluk">Tetikte hesabınla giriş yap. Paketindeki dersler açılır, ilerlemen tüm cihazlarında aynı kalır.</p>
     <form id="girisForm" class="kart" autocomplete="on">
       <label>E-posta<input id="eposta" type="email" inputmode="email" autocomplete="username" required></label>
       <label>Şifre<input id="sifre" type="password" autocomplete="current-password" required></label>
@@ -30,23 +61,16 @@
     </form>
   </section>
 
-  <!-- SINAVLARIM -->
-  <section id="ana" class="bolum" hidden>
-    <h1>Sınavlarım</h1>
-    <p id="anaNot" class="soluk"></p>
-    <div id="liste" class="liste"></div>
-    <div id="yakindaKutu" hidden>
-      <h2>Hazırlanıyor</h2>
-      <p class="soluk">Bu dersler güvenli soru kasasına taşındıkça uygulamada açılır.</p>
-      <ul id="yakinda" class="yakinda"></ul>
-    </div>
+  <section id="hesap" class="bolum" data-sekme="hesap" hidden>
+    <h1>Hesap</h1>
+    <p id="hesapEposta" class="soluk"></p>
   </section>
 
   <!-- PAKETLER (uygulama içi satın alma; fiyat mağazadan okunur) -->
-  <section id="paketler" class="bolum" hidden>
-    <h2>Paketler</h2>
-    <p id="paketNot" class="soluk">Ödeme Google Play üzerinden yapılır; paket hesabına hemen tanımlanır.</p>
+  <section id="paketler" class="bolum" data-sekme="hesap" hidden>
+    <span class="etk">Paketler</span>
     <div id="urunListe" class="liste"></div>
+    <p id="paketNot" class="soluk kucuk" style="margin-top:10px">Ödeme Google Play üzerinden yapılır; paket hesabına hemen tanımlanır.</p>
     <div id="dersSecim" class="kart" hidden>
       <p id="dersSecimBaslik"><b></b></p>
       <div id="dersKutular"></div>
@@ -57,35 +81,31 @@
     <p id="satinDurum" class="soluk" role="status"></p>
   </section>
 
-  <!-- ÜCRETSİZ -->
-  <section id="ucretsiz" class="bolum">
-    <h2>Ücretsiz dene</h2>
-    <p class="soluk">Hesap gerekmez. Gerçek sınav kalıbında örnek sorular, açıklamalarıyla.</p>
+  <!-- ÜCRETSİZ (eski liste; ücretsiz sorular artık Sınavlar'da — uygulama.js doldurmaya devam eder) -->
+  <section id="ucretsiz" class="bolum" data-sekme="yok">
     <div id="ucretsizListe" class="liste"></div>
   </section>
 
   <!-- HATIRLATICI -->
-  <section id="hatirlatici" class="bolum">
-    <h2>Günlük hatırlatıcı</h2>
+  <section id="hatirlatici" class="bolum" data-sekme="hesap">
+    <span class="etk">Günlük hatırlatıcı</span>
     <div class="kart satir">
       <label class="anahtar"><input id="hatAcik" type="checkbox"> Her gün hatırlat</label>
       <input id="hatSaat" type="time" value="20:00" aria-label="Hatırlatma saati">
     </div>
-    <p id="hatNot" class="soluk"></p>
+    <p id="hatNot" class="soluk kucuk" style="margin-top:10px"></p>
   </section>
 
-  <!-- HESAP -->
-  <section id="hesap" class="bolum" hidden>
-    <h2>Hesap</h2>
-    <div class="kart">
-      <p id="hesapEposta" class="soluk"></p>
-      <button type="button" id="cikis" class="duz">Çıkış yap</button>
+  <!-- HESAP İŞLEMLERİ -->
+  <section id="hesapIslem" class="bolum" data-sekme="hesap">
+    <div id="hesapDugmeler" hidden>
       <button type="button" id="cihazlar" class="duz">Cihazlarımı yönet</button>
+      <button type="button" id="cikis" class="duz">Çıkış yap</button>
       <button type="button" id="hesapSil" class="duz tehlike">Hesabımı sil</button>
     </div>
   </section>
 
-  <footer class="alt">
+  <footer class="alt" data-sekme="hesap">
     <button type="button" class="bag" data-dis="https://tetikte.com/gizlilik-politikasi.html">Gizlilik politikası</button>
     <button type="button" class="bag" data-dis="https://tetikte.com/kvkk.html">KVKK aydınlatma metni</button>
     <p id="surum" class="soluk kucuk"></p>
@@ -95,6 +115,7 @@
 <script src="uygulama.js"></script>
 <script src="ilerleme.js"></script>
 <script src="uygulama-ozet.js"></script>
+<script src="uygulama-sinavlar.js"></script>
 <script src="uygulama-sekme.js"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **25.09.2026 13:35** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **26.09.2026 12:57** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50056 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 25.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 25.09.2026 13:33)
+**ÖZET:** 50060 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 26.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 26.09.2026 12:55)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -22,7 +22,7 @@
 |---|---|---:|---|---|
 | [ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi) | cikmis-komisyon-cevabi | 403 | DELİK-İNCELE(par:0/kesik:41/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | [ARŞİV] ÇIKMIŞ SINAV (cikmis-soru) | cikmis-soru | 265 | DELİK-İNCELE(par:0/kesik:34/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| [GRUP] TEORİ NOTLARI | teori-notu | 591 | DELİK-İNCELE(par:494/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| [GRUP] TEORİ NOTLARI | teori-notu | 595 | DELİK-İNCELE(par:494/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. Is K. (kidem tazminati | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. İş K. (kıdem | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 2006 YILI SERBEST MUHASEBECİLİK, SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK ASGARİ ÜCRET TARİFESİ | kanun-madde | 35 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |

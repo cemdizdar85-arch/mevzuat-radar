@@ -1,6 +1,8 @@
 /* uygulama.js — mağaza uygulamasının ana ekranı (25.09.2026)
  *
- * Ekranlar: giriş · Sınavlarım (hesabın paketine göre) · Ücretsiz dene · Günlük hatırlatıcı · Hesap.
+ * Ekranlar: giriş · açık dersler (hesabın paketine göre) · Günlük hatırlatıcı · Hesap. Sekme düzeni
+ * (Bugün · Sınavlar · Karnem · Hesap) uygulama-sekme.js'te; ücretsiz ve kilitli dersler uygulama-sinavlar.js'te.
+ * Giriş durumu değişince document'e 'tt-durum' olayı atılır; window.TT_DURUM = { girisli, acik: [yol] }.
  * Katalog (window.TT_KATALOG) derlemede mobil/hazirla.js tarafından yazılır: yalnız KASA MODUNDAKİ
  * (sorusuz) sayfalar + ücretsiz vitrin (sınav başına 30) + mağaza ürünleri. Satın alma YALNIZ
  * mağaza üzerinden (magaza.js, Cem 25.09 "1 ve 2 yap"); dışarıdaki satış sayfasına yönlendirme YOK.
@@ -66,16 +68,18 @@
   function dersKarti(d, indirilebilir) {
     var m = indirilenler()[d.yol];
     var a = document.createElement('a');
-    a.className = 'ders'; a.href = d.yol;
-    a.innerHTML = '<span class="ad">' + esc(d.baslik) + '<span class="etiket">' + esc(d.sinavAd || '') +
-      (m ? ' · cihazda (' + esc(m.tarih) + ')' : '') + '</span></span>' +
-      (indirilebilir ? '<button type="button" class="indir"' + (m ? ' data-durum="cihazda"' : '') + '>' + (m ? 'Yenile' : 'Cihaza indir') + '</button>' : '');
+    a.className = 'ders'; a.href = d.yol; a.setAttribute('data-sinav', d.sinav || '');
+    var alt = [];
+    if (d.adet) alt.push(d.adet.toLocaleString('tr-TR') + ' soru');
+    if (m) alt.push('cihazda · ' + m.tarih.split('-').reverse().join('.'));
+    a.innerHTML = '<span class="ad">' + esc(d.baslik) + '<span class="etiket">' + esc(alt.join(' · ')) + '</span></span>' +
+      (indirilebilir ? '<button type="button" class="indir"' + (m ? ' data-durum="cihazda"' : '') + '>' + (m ? 'Yenile' : 'İndir') + '</button>' : '');
     var dugme = a.querySelector('.indir');
     if (dugme) dugme.addEventListener('click', async function (e) {
       e.preventDefault(); e.stopPropagation();
       dugme.disabled = true; dugme.textContent = 'İniyor…';
-      try { var n = await dersIndir(d.yol); dugme.textContent = n + ' soru cihazda'; dugme.setAttribute('data-durum', 'cihazda'); }
-      catch (err) { dugme.textContent = 'İnmedi, yeniden dene'; }
+      try { var n = await dersIndir(d.yol); dugme.textContent = 'Cihazda'; dugme.setAttribute('data-durum', 'cihazda'); }
+      catch (err) { dugme.textContent = 'Yeniden dene'; }
       dugme.disabled = false;
     });
     return a;
@@ -88,19 +92,19 @@
   }
 
   async function anaCiz(k) {
-    goster('giris', false); goster('ana', true); goster('hesap', true);
-    $('hesapEposta').textContent = k.email ? 'Giriş yapılan hesap: ' + k.email : '';
+    goster('giris', false); goster('ana', true); goster('hesap', true); goster('hesapDugmeler', true);
+    $('hesapEposta').textContent = k.email || '';
     var liste = $('liste'); liste.innerHTML = '<p class="soluk">Paket bilgisi okunuyor…</p>';
     var p;
     try { p = await window.TT.paketler(sb, k.id); }
-    catch (e) { liste.innerHTML = '<p class="soluk">Paket bilgisi okunamadı. İnternet bağlantını kontrol et.</p>'; return; }
+    catch (e) { liste.innerHTML = '<p class="soluk">Paket bilgisi okunamadı. İnternet bağlantını kontrol et.</p>'; durumBildir(true, null); return; }
     rozet(k.cevrimdisi || p.cevrimdisi ? 'Çevrimdışı' : '');
     var acik = (K.paket || []).filter(function (d) { return window.TT.acarMi(p.satir, d.sinav); });
     liste.innerHTML = '';
     acik.forEach(function (d) { liste.appendChild(dersKarti(d, true)); });
-    $('anaNot').textContent = acik.length
-      ? 'Bir derse dokun, kaldığın yerden devam et. "Cihaza indir" ile internetsiz çözebilirsin.'
-      : 'Hesabında bu uygulamada açılabilen bir sınav görünmüyor.';
+    goster('ana', acik.length > 0);
+    $('anaNot').textContent = 'Derse dokun, kaldığın sorudan devam et. İndir: internetsiz çözmek için.';
+    durumBildir(true, acik.map(function (d) { return d.yol; }));
     if (window.TTMagaza) window.TTMagaza.goster(sb, k, yenile);
     var sinavlar = {};
     acik.forEach(function (d) { sinavlar[d.sinav] = 1; });
@@ -110,8 +114,13 @@
   }
 
   function girisCiz() {
-    goster('ana', false); goster('hesap', false); goster('giris', true); rozet('');
+    goster('ana', false); goster('hesap', false); goster('hesapDugmeler', false); goster('giris', true); rozet('');
     if (window.TTMagaza) window.TTMagaza.gizle();
+    durumBildir(false, []);
+  }
+  function durumBildir(girisli, acik) {
+    window.TT_DURUM = { girisli: girisli, acik: acik };
+    try { document.dispatchEvent(new CustomEvent('tt-durum', { detail: window.TT_DURUM })); } catch (e) {}
   }
   function rozet(t) { $('durumRozet').textContent = t; $('durumRozet').hidden = !t; }
 
