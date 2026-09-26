@@ -300,6 +300,22 @@ jobs:
           else { "TOPLU PARCA BOYU: kod varsayilani (30)" }
           ./motor/kalip-kosucu.ps1 -Plan "${{ inputs.plan }}" -Paralel ${{ inputs.paralel }}
 
+      # 26.09.2026 (SGS k4/k5 olcumu): GM hazir sorularinin bir kismi bulutta partiye GIRMEDI (k4 32 -> 24), ayni dosya
+      # yerel -ApiKapali provasinda 32/32 geciyordu. Parti gunlukleri guvenlik kurali geregi disari verilmez, sebep OLCULEMEDI.
+      # Bu adim yalniz SAYI + ETIKET + KONU ADI + KAPI KODU basar (soru/sik/aciklama/kaynak metni BASMAZ - bulut guvenligi kurali 2).
+      # GORMEZ: FAZ GM disinda (model fazlari, cache dusurme) kaybolan soru; onun izi yalniz "FAZ GM bitti" satirindaki sayidir.
+      - name: Hazir soru dusus ozeti (yalniz kapi kodu)
+        if: always()
+        shell: powershell
+        run: |
+          foreach($lg in @(Get-ChildItem veri/fabrika/kosucu-log -Filter '*.log' -File -ErrorAction SilentlyContinue)){
+            $s=Select-String -Path $lg.FullName -Pattern 'FAZ GM bitti: al.nan (\d+) . d..en (\d+)' -ErrorAction SilentlyContinue | Select-Object -Last 1
+            if($s){ "HAZIR OZET $($lg.BaseName): alinan $($s.Matches[0].Groups[1].Value) · dusen $($s.Matches[0].Groups[2].Value)" } }
+          foreach($f in @(Get-ChildItem veri/fabrika -Filter 'hazir-dusen-*.json' -File -ErrorAction SilentlyContinue)){
+            try{ foreach($d in @((Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json))){ if(-not $d){ continue }
+              $kod=@([regex]::Matches("$($d.sebep)",'KAPI-[A-Z0-9ÇŞĞÜÖİ]+|uzunluk|konu bu etiketin|eksik') | ForEach-Object { $_.Value } | Sort-Object -Unique) -join ','
+              "HAZIR DUSTU $($f.BaseName -replace '^hazir-dusen-','') | $($d.konu) | $kod" } }catch{ "HAZIR DUSTU okunamadi: $($f.Name)" } }
+
       - name: Sonucu ambara yaz (KOSU DUSSE BILE)
         if: always()
         shell: powershell
