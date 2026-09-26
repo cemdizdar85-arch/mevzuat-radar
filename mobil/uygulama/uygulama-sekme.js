@@ -1,44 +1,42 @@
-/* uygulama-sekme.js — ANA EKRANIN ALT SEKME ÇUBUĞU (26.09.2026, Cem "yap hepsini")
+/* uygulama-sekme.js — ANA EKRANIN ALT SEKME ÇUBUĞU
  *
- * Önce: giriş, sınavlar, paketler, ücretsiz, hatırlatıcı, hesap TEK uzun sayfada alt alta. Telefon
- * uygulamalarında alışılan düzen alt sekme çubuğu (Duolingo, Pocket Prep, UWorld): Sınavlar · Ücretsiz ·
- * Paketler · Hesap. Bölümlerin görünürlüğünü uygulama.js/magaza.js (hidden) yönetmeye DEVAM eder; bu dosya
- * yalnız "hangi sekmenin bölümleri ekranda" sorusunu çözer (body[data-sekme] + bölümlerin data-sekme'si).
- *   - Girişsizken "Sınavlar" sekmesi giriş formunu + ücretsiz soruları gösterir (ilk açılışta deneme yolu).
- *   - "Paketler" sekmesi yalnız mağaza bölümü açıkken görünür (magaza.js: Android / iPhone anahtarı).
- *   - index.html#paketler, #giris gibi bağlantılar ilgili sekmeyi açar (kilitli sınav perdesi bunları kullanır).
+ * 26.09.2026 (2. sürüm, Cem "olsun"): Bugün · Sınavlar · Karnem · Hesap. Önceki düzendeki ayrı "Ücretsiz" ve
+ * "Paketler" sekmeleri kaldırıldı — yurt dışındaki büyük uygulamaların hiçbirinde mağaza sekmesi yok (Pocket Prep:
+ * Çalış · İstatistik · Ayarlar; Duolingo: Öğren · Pratik · Profil). Ücretsiz sorular ve kilitli dersler Sınavlar'da,
+ * satın alma Hesap'ta ve kilitli derse dokununca. İkonlar ince çizgi SVG (index.html <symbol>), emoji YOK.
+ *
+ * Bölümler hangi sekmede: index.html'deki data-sekme (bugun · sinav · karne · hesap · yok). Görünürlüğü
+ * (hidden) uygulama.js/magaza.js yönetmeye DEVAM eder; bu dosya yalnız "hangi sekme ekranda" sorusunu çözer.
+ * Dış bağlantılar: index.html#paketler / #giris / #hesap → Hesap; #ucretsiz → Sınavlar (kilitli sınav perdesi).
+ * window.TTSekme.sec(sekme, hedefBolumId) — diğer dosyalar sekme değiştirip bir bölüme kaydırır.
  */
 (function () {
   var SEKMELER = [
-    { id: 'sinav', ad: 'Sınavlar', ikon: '📚' },
-    { id: 'ucretsiz', ad: 'Ücretsiz', ikon: '🎁' },
-    { id: 'paket', ad: 'Paketler', ikon: '🛒' },
-    { id: 'hesap', ad: 'Hesap', ikon: '👤' }
+    { id: 'bugun', ad: 'Bugün', ikon: 'bugun' },
+    { id: 'sinav', ad: 'Sınavlar', ikon: 'sinav' },
+    { id: 'karne', ad: 'Karnem', ikon: 'karne' },
+    { id: 'hesap', ad: 'Hesap', ikon: 'hesap' }
   ];
-  var BOLUM = { giris: 'sinav hesap', ana: 'sinav', paketler: 'paket', ucretsiz: 'ucretsiz', hatirlatici: 'hesap', hesap: 'hesap' };
-  var HASH = { '#paketler': 'paket', '#giris': 'sinav', '#ucretsiz': 'ucretsiz', '#hesap': 'hesap' };
+  var HASH = { '#paketler': ['hesap', 'paketler'], '#giris': ['hesap', 'giris'], '#hesap': ['hesap'], '#ucretsiz': ['sinav'], '#karne': ['karne'] };
   var ANAHTAR = 'tt_uyg_sekme';
   var body = document.body;
-
-  Object.keys(BOLUM).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute('data-sekme', BOLUM[id]); });
-  var alt = document.querySelector('footer.alt'); if (alt) alt.setAttribute('data-sekme', 'hesap');
 
   var ALT = 'max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px))';   // Capacitor 8 SystemBars + env()
   var st = document.createElement('style');
   st.textContent = [
     'body[data-sekme] main [data-sekme]{display:none}',
-    'body[data-sekme=sinav] main [data-sekme~=sinav],body[data-sekme=ucretsiz] main [data-sekme~=ucretsiz],' +
-    'body[data-sekme=paket] main [data-sekme~=paket],body[data-sekme=hesap] main [data-sekme~=hesap]{display:block}',
-    /* girişsizken Sınavlar sekmesi ücretsiz soruları da gösterir */
-    'body.girissiz[data-sekme=sinav] main #ucretsiz{display:block}',
-    'main{padding-bottom:calc(84px + ' + ALT + ')!important}',
+    'body[data-sekme=bugun] main [data-sekme=bugun],body[data-sekme=sinav] main [data-sekme=sinav],' +
+    'body[data-sekme=karne] main [data-sekme=karne],body[data-sekme=hesap] main [data-sekme=hesap]{display:block}',
+    'main{padding-bottom:calc(88px + ' + ALT + ')!important}',
     '#sekmeCubugu{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;' +
-    'background:var(--panel);border-top:1px solid var(--cizgi);padding:6px 4px calc(6px + ' + ALT + ')}',
-    '#sekmeCubugu button{flex:1;background:none;border:0;color:var(--soluk);font:600 11.5px/1.2 inherit;padding:6px 2px;' +
-    'display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:12px}',
-    '#sekmeCubugu button .i{font-size:20px;line-height:1;filter:grayscale(1);opacity:.7}',
-    '#sekmeCubugu button[aria-selected=true]{color:var(--vurgu)}',
-    '#sekmeCubugu button[aria-selected=true] .i{filter:none;opacity:1}'
+    'background:color-mix(in srgb,var(--taban) 88%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);' +
+    'border-top:1px solid var(--cizgi);padding:4px 6px calc(4px + ' + ALT + ')}',
+    '#sekmeCubugu button{position:relative;flex:1;background:none;border:0;color:var(--soluk);font:500 10.5px/1.2 inherit;letter-spacing:.02em;' +
+    'padding:10px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:5px}',
+    '#sekmeCubugu svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}',
+    '#sekmeCubugu button[aria-selected=true]{color:var(--yazi)}',
+    /* etkin sekme: üstte kısa vurgu çizgisi */
+    '#sekmeCubugu button[aria-selected=true]:before{content:"";position:absolute;top:-5px;left:50%;width:18px;height:2px;margin-left:-9px;background:var(--vurgu)}'
   ].join('\n');
   document.head.appendChild(st);
 
@@ -47,39 +45,27 @@
   SEKMELER.forEach(function (s) {
     var b = document.createElement('button');
     b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.sekme = s.id;
-    b.innerHTML = '<span class="i" aria-hidden="true">' + s.ikon + '</span>' + s.ad;
-    b.addEventListener('click', function () { sec(s.id, true); });
+    b.innerHTML = '<svg aria-hidden="true"><use href="#i-' + s.ikon + '"/></svg>' + s.ad;
+    b.addEventListener('click', function () { sec(s.id); });
     cubuk.appendChild(b);
   });
   body.appendChild(cubuk);
 
-  function sec(id, dokunus) {
-    var pb = cubuk.querySelector('[data-sekme=paket]');
-    if (id === 'paket' && pb && pb.hidden) id = 'sinav';
+  function sec(id, hedef) {
+    if (!SEKMELER.some(function (s) { return s.id === id; })) id = 'bugun';
     body.setAttribute('data-sekme', id);
     [].forEach.call(cubuk.children, function (b) { b.setAttribute('aria-selected', b.dataset.sekme === id ? 'true' : 'false'); });
     try { sessionStorage.setItem(ANAHTAR, id); } catch (e) {}
-    if (dokunus) window.scrollTo(0, 0);
+    var el = hedef && document.getElementById(hedef);
+    if (el && !el.hidden) el.scrollIntoView({ block: 'start' });
+    else window.scrollTo(0, 0);
   }
+  window.TTSekme = { sec: sec };
 
-  /* durum izleyici: giriş formu görünürse "girişsiz"; paket bölümü görünmüyorsa Paketler sekmesi gizli */
-  function durumu() {
-    var g = document.getElementById('giris'), p = document.getElementById('paketler');
-    body.classList.toggle('girissiz', !!(g && !g.hidden));
-    var pb = cubuk.querySelector('[data-sekme=paket]');
-    if (pb) pb.hidden = !(p && !p.hidden);
-    if (pb && pb.hidden && body.getAttribute('data-sekme') === 'paket') sec('sinav');
-  }
-  try {
-    var mo = new MutationObserver(durumu);
-    ['giris', 'paketler'].forEach(function (id) { var el = document.getElementById(id); if (el) mo.observe(el, { attributes: true, attributeFilter: ['hidden'] }); });
-  } catch (e) {}
-
-  var ilk = HASH[location.hash] || null;
+  var h = HASH[location.hash], ilk = h ? h[0] : null;
   if (!ilk) { try { ilk = sessionStorage.getItem(ANAHTAR); } catch (e) {} }
-  durumu();
-  sec(ilk || 'sinav');
-  /* magaza.js paket bölümünü sonradan açınca #paketler hedefi o sekmeye düşsün */
-  if (location.hash === '#paketler') setTimeout(function () { durumu(); sec('paket'); }, 1500);
-  window.addEventListener('hashchange', function () { if (HASH[location.hash]) sec(HASH[location.hash], true); });
+  sec(ilk || 'bugun', h && h[1]);
+  /* magaza.js paket bölümünü oturum okunduktan SONRA açar: #paketler hedefi o zaman kaydırılsın */
+  if (h && h[1]) setTimeout(function () { sec(h[0], h[1]); }, 1500);
+  window.addEventListener('hashchange', function () { var x = HASH[location.hash]; if (x) sec(x[0], x[1]); });
 })();
