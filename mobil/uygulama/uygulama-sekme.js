@@ -47,6 +47,7 @@
     b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.sekme = s.id;
     b.innerHTML = '<svg aria-hidden="true"><use href="#i-' + s.ikon + '"/></svg>' + s.ad;
     b.addEventListener('click', function () {
+      if (window.TTHis) window.TTHis.hafif();
       /* Sınavlar'dayken yeniden dokununca sınav listesine dön (alışılan davranış) */
       if (s.id === 'sinav' && body.getAttribute('data-sekme') === 'sinav' && window.TTSinavlar) return window.TTSinavlar.ac();
       sec(s.id);

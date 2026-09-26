@@ -94,6 +94,7 @@
   async function anaCiz(k) {
     goster('giris', false); goster('ana', true); goster('hesap', true); goster('hesapDugmeler', true);
     $('hesapEposta').textContent = k.email || '';
+    profilCiz(k);
     var liste = $('liste'); liste.innerHTML = '<p class="soluk">Paket bilgisi okunuyor…</p>';
     var p;
     try { p = await window.TT.paketler(sb, k.id); }
@@ -118,6 +119,15 @@
     if (window.TTMagaza) window.TTMagaza.gizle();
     durumBildir(false, []);
   }
+  /* Hesap: profil kartı (baş harf, e-posta, paket durumu) — bandın kenarına biner */
+  function profilCiz(k) {
+    var kap = $('profilKart');
+    if (!kap) { kap = document.createElement('div'); kap.id = 'profilKart'; kap.className = 'kart'; var b = $('hesap').querySelector('.bant'); b.parentNode.insertBefore(kap, b.nextSibling); }
+    var ep = k.email || '', harf = (ep.charAt(0) || '?').toLocaleUpperCase('tr');
+    var paket = (window.TT_DURUM && window.TT_DURUM.acik && window.TT_DURUM.acik.length) ? window.TT_DURUM.acik.length + ' ders açık' : 'Paket yok';
+    kap.innerHTML = '<div class="profil"><span class="avatar">' + esc(harf) + '</span><span class="ad"><b>' + esc(ep) + '</b><small>' + esc(paket) + '</small></span></div>';
+  }
+  document.addEventListener('tt-durum', function () { if (window.TT_DURUM && window.TT_DURUM.girisli && $('profilKart')) profilCiz({ email: $('hesapEposta').textContent }); });
   function durumBildir(girisli, acik) {
     window.TT_DURUM = { girisli: girisli, acik: acik };
     /* soru sayfaları (supabase'siz vitrin) üyelik kapısı için bunu okur: uygulama-kaydir.js */

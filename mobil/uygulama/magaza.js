@@ -172,10 +172,11 @@
       (r.products || []).forEach(function (p) { magazaFiyat[p.identifier] = p.priceString; });
     } catch (e) {}
     var l = $('urunListe'); l.innerHTML = '';
-    URUNLER.forEach(function (u) {
+    /* kapsamlı paket en üstte (ödeme sayfasında ilk görülen) */
+    URUNLER.slice().sort(function (a, b) { return (b.ders === 0 || b.ders >= 8) - (a.ders === 0 || a.ders >= 8); }).forEach(function (u) {
       var fiyat = magazaFiyat[u.id];
       var el = document.createElement('div');
-      el.className = 'urun';
+      el.className = 'urun'; el.setAttribute('data-sinav', u.sinav);
       el.innerHTML = '<span class="ad">' + esc(u.ad) + '<span class="etiket">' +
         (fiyat ? esc(fiyat) : 'Fiyat mağazadan okunamadı') + ' · sınava kadar erişim</span></span>' +
         '<button type="button" class="al"' + (fiyat ? '' : ' disabled') + '>Satın al</button>';
