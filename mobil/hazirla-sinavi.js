@@ -56,8 +56,9 @@ function kur(degisiklik) {
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",
     'kutuphane/supabase-9.9.9.js': '/* kütüphane */',
-    'kasa-yukle.js': "var PARCA = 100; mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));",
+    'kasa-yukle.js': "var PARCA = 100; async function cek(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));",
     'cihaz-kapisi.js': '/* cihaz */',
+    'captcha.js': '/* captcha */',
     'kaydir/sgs/index.html': '<a class="kart" href="turkce.html"><div class="ad">T&#252;rk&#231;e</div></a>',
     'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html'),
     'kaydir/sgs/maliye.html': '<html><script>const SORULAR=[{"dogru":"A"}]</script></html>',
@@ -106,7 +107,9 @@ const VAKALAR = [
   { ad: 'ortak betikte satış düğmesi metni → KAPI-SATIS', bekle: 1, desen: /KAPI-SATIS.*düğmesi metni/,
     d: { 'cihaz-kapisi.js': "el.textContent='Paketleri gör';" } },
   { ad: 'kasa-yukle.js yaması tutmadı (düğme metni değişmiş) → KAPI-SATIS', bekle: 1, desen: /KAPI-SATIS.*yaması tutmadı/,
-    d: { 'kasa-yukle.js': "var PARCA = 100; mesaj('x','y', dugme('../../satin-al.html', 'Paketini yükselt'));" } }
+    d: { 'kasa-yukle.js': "var PARCA = 100; async function cek(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketini yükselt'));" } },
+  { ad: 'kasa-yukle.js cek() imzası değişmiş (kısa sınav kancası tutmaz) → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*karma kancası/,
+    d: { 'kasa-yukle.js': "var PARCA = 100; async function cekSorular(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));" } }
 ];
 
 let gecen = 0, toplam = 0;

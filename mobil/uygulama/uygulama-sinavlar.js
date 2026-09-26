@@ -3,11 +3,12 @@
  * Üç görünüm, sekme içinde (Android geri tuşu geri götürür: history.pushState + popstate):
  *   liste    sınav kartları alt alta (SGS · Yeterlilik · KGK; yeni sınav = bir kart daha). Seçim zorunlu DEĞİL;
  *            ilk açılışta seçilen sınav en üstte.
+ *   kisa     kısa sınav seçimi (10 / 20 soru) → açık derslerden birinin sayfası ?karma=kisa ile (uygulama-karma.js).
  *   sinav    sınavın içi: ÜCRETSİZ DENE (açık) + dört çalışma yolu — Ders ders çöz · Kısa sınav · En çok çıkanlar ·
  *            Sınav gibi. Cem 26.09: "bunların hepsi kilitli olacak". Paketi olmayana kilitli görünür, altında TEK
  *            "Kilidi aç" düğmesi. Henüz kurulmamış yollar "yakında" diye yazar (kilit açılınca boş çıkmasın diye).
  *   dersler  ders listesi: hesapta açık dersler (#ana, uygulama.js çizer; burada sınava süzülür) + kilitli dersler
- *            (gerçek soru sayısıyla — katalog adet, kaynak kaydir/<sınav>/index.html) + kasaya taşınmamışlar.
+ *            + kasaya taşınmamışlar. Soru SAYISI yazılmaz (Cem 26.09: derlemedeki sayı kasadan geride kalıyor).
  * KGK uygulamada henüz yok → kartı "hazırlanıyor".
  *
  * APPLE KURALI: iPhone'da satış kapalıyken (katalog iosSatis false) fiyat, satın alma çağrısı, dış satış
@@ -24,8 +25,8 @@
   /* sınav içi çalışma yolları; hazir:false olanın arkası henüz kurulmadı */
   var YOLLAR = [
     { id: 'dersler', ad: 'Ders ders çöz', alt: 'Dersini seç, kaldığın sorudan devam et', ikon: 'sinav', hazir: true },
-    { id: 'kisa', ad: 'Kısa sınav', alt: 'Derslerden karışık 10 ya da 20 soru, süreli, sonunda karne', ikon: 'bugun', hazir: false },
-    { id: 'cok', ad: 'En çok çıkanlar', alt: 'En çok dönemde soru gelen konulardan 20 soru', ikon: 'karne', hazir: false },
+    { id: 'kisa', ad: 'Kısa sınav', alt: 'Derslerden karışık 10 ya da 20 soru, süreli, sonunda karne', ikon: 'bugun', hazir: true },
+    { id: 'cok', ad: 'En çok çıkanlar', alt: 'En çok dönemde soru gelen konulardan 20 soru, süreli', ikon: 'karne', hazir: true },
     { id: 'deneme', ad: 'Sınav gibi', alt: 'Tam deneme: gerçek süre, resmî ders dağılımı, ders ders karne', ikon: 'takvim', hazir: false }
   ];
   var ANAHTAR = 'tt_uyg_sinavgor';
@@ -84,15 +85,15 @@
   function kilitAc() {
     var D = durum();
     if (!window.TTSekme) return;
-    if (!D.girisli) window.TTSekme.sec('hesap', 'giris');
+    if (!D.girisli) { if (window.TTGiris) window.TTGiris.ac('uye'); else window.TTSekme.sec('hesap', 'giris'); }
     else if (satisMumkun() && window.TTMagaza) window.TTSekme.sec('hesap', 'paketler');
   }
   /* paketi olmayanın kilit altındaki tek düğme + açıklama */
   function kilitDugmesi() {
     var D = durum();
     if (!D.girisli) return '<button type="button" class="ana" data-kilitac="1">Kilidi aç</button>' +
-      '<p class="not">Paketin varsa hesabınla giriş yap; kilitler burada açılır.' +
-      (satisMumkun() ? ' Paketin yoksa giriş yaptıktan sonra uygulamadan alabilirsin.' : '') + '</p>';
+      '<p class="not">Önce ücretsiz üye ol ya da hesabınla giriş yap; paketin varsa kilitler burada açılır.' +
+      (satisMumkun() ? ' Paketin yoksa üye olduktan sonra uygulamadan alabilirsin.' : '') + '</p>';
     if (satisMumkun() && window.TTMagaza) return '<button type="button" class="ana" data-kilitac="1">Kilidi aç</button>';
     return '<p class="not">Bu sınav hesabındaki pakette yok.</p>';
   }
@@ -121,14 +122,14 @@
   function sinavCiz(s) {
     var o = ozet(s), acik = o.acik.length > 0;
     var h = geriDugmesi('Sınavlar') + '<h1>' + esc(sinavAd(s)) + '</h1>';
-    if (o.paket.length) h += '<p class="alt1">' + sayi(o.soru) + ' soru · ' + (o.paket.length + o.yakin.length) + ' ders' +
+    if (o.paket.length) h += '<p class="alt1">' + (o.paket.length + o.yakin.length) + ' ders' +
       (o.yakin.length ? ' (' + o.yakin.length + ' ders hazırlanıyor)' : '') + '</p>';
 
     h += '<span class="etk" style="margin-top:24px">Ücretsiz dene</span><div class="satirlar">';
     if (o.ucr) {
       var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan;
       h += '<a class="srt" href="' + esc(o.ucr.yol) + '">' + ik('oynat') + '<span class="ad">Örnek sorular<small>' +
-        sayi(o.ucr.adet || 30) + ' soru · hesap gerekmez · açıklamalı</small></span>' +
+        sayi(o.ucr.adet || 30) + ' soru · ilk 3 soru hesapsız, gerisi ücretsiz üyelikle</small></span>' +
         (n ? '<span class="sag">' + n + '/' + (o.ucr.adet || n) + '</span>' : '') + OK + '</a>';
     } else h += '<div class="bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
     h += '</div>';
@@ -147,8 +148,25 @@
       b.onclick = function () {
         if (b.dataset.yol === 'dersler') return git('dersler', s, true);
         if (!acik) return kilitAc();
+        /* kısa sınav / en çok çıkanlar: açık derslerden birinin sayfası kabuk olur (uygulama-karma.js) */
+        var kabuk = o.acik[0];
+        if (b.dataset.yol === 'kisa') return git('kisa', s, true);
+        if (b.dataset.yol === 'cok' && kabuk) location.href = kabuk + '?karma=cok&n=20';
       };
     });
+  }
+
+  /* kısa sınav: 10 ya da 20 soru; soru başına 90 sn */
+  function kisaCiz(s) {
+    var o = ozet(s);
+    if (!o.acik.length) return sinavCiz(s);
+    var h = geriDugmesi(sinavAd(s)) + '<h1>Kısa sınav</h1><p class="alt1">Paketindeki derslerden karışık sorular. Süre biter ya da hepsini cevaplarsan ders ders karnen çıkar.</p>' +
+      '<div class="satirlar" style="margin-top:20px">';
+    [10, 20].forEach(function (n) {
+      h += '<a class="srt" href="' + esc(o.acik[0]) + '?karma=kisa&n=' + n + '">' + ik('bugun') + '<span class="ad">' + n + ' soru<small>' +
+        (n * 1.5) + ' dakika</small></span>' + OK + '</a>';
+    });
+    $('sinavUst').innerHTML = h + '</div>';
   }
 
   function derslerCiz(s) {
@@ -172,7 +190,7 @@
     var k = '<span class="etk">' + (o.acik.length ? 'Paketinde olmayanlar' : 'Tam soru bankası') + '</span><div class="satirlar">';
     kilitli.forEach(function (d) {
       k += '<button type="button" class="srt kilit" data-kilitac="1">' + ik('kilit') + '<span class="ad">' + esc(d.baslik) +
-        '<small>' + (d.adet ? sayi(d.adet) + ' soru' : 'Pakette') + '</small></span>' + OK + '</button>';
+        '<small>Pakette</small></span>' + OK + '</button>';
     });
     o.yakin.forEach(function (d) {
       k += '<div class="srt kilit">' + ik('kilit') + '<span class="ad">' + esc(d.baslik) + '<small>Hazırlanıyor</small></span></div>';
@@ -187,12 +205,19 @@
     if (g !== 'liste' && !ozet(s).var_) g = 'liste';
     document.body.setAttribute('data-sinavgor', g);
     if (g !== 'dersler') { $('ana').classList.add('gizle'); $('kilitli').classList.add('gizle'); }
-    if (g === 'liste') listeCiz(); else if (g === 'sinav') sinavCiz(s); else derslerCiz(s);
+    if (g === 'liste') listeCiz(); else if (g === 'sinav') sinavCiz(s); else if (g === 'kisa') kisaCiz(s); else derslerCiz(s);
     [].forEach.call(document.querySelectorAll('#sinavUst [data-geri]'), function (b) {
       b.onclick = function () { if (history.state && history.state.ttSinav) history.back(); else git(gor.g === 'dersler' ? 'sinav' : 'liste', gor.s, false); };
     });
     [].forEach.call(document.querySelectorAll('#sinavUst [data-kilitac],#kilitli [data-kilitac]'), function (b) { b.onclick = kilitAc; });
   }
+
+  /* soru sayfaları (katalogsuz) ara karnede gerçek paket büyüklüğünü yazsın diye */
+  try {
+    var po = {};
+    SINAVLAR.forEach(function (x) { var o = ozet(x.id); if (o.paket.length) po[x.id] = { ders: o.paket.length + o.yakin.length }; });
+    localStorage.setItem('tt_uyg_paket_ozet', JSON.stringify(po));
+  } catch (e) {}
 
   ciz();
   document.addEventListener('tt-durum', ciz);

@@ -49,7 +49,7 @@ if($TavanSinavi){
 function IkizFonkYukle([string]$kokY){
   $uy=[IO.Path]::Combine($kokY,'motor','kalip-parti-uret.ps1'); $tk=$null; $hk=$null   # .NET yolu: Linux'ta '\' ayraç değildir (dogrula.yml pwsh/ubuntu)
   $ast=[System.Management.Automation.Language.Parser]::ParseFile($uy,[ref]$tk,[ref]$hk)
-  $gerek=@('Katla2','KelimeKume','Jaccard','SoruTeoriMi','SikKume','KokMaddeNo','TeoriFarkliMi','BenzerHavuz','BenzerlikKusur')
+  $gerek=@('Katla2','KelimeKume','Jaccard','SoruTeoriMi','SikKume','KokMaddeNo','TeoriFarkliMi','BenzerHavuz','BenzerlikKusur','KokuKusur','AciklamaDuz')
   $bul=@($ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] },$true) | Where-Object { $gerek -contains $_.Name })
   $eksikF=@($gerek | Where-Object { $ad=$_; -not ($bul | Where-Object { $_.Name -eq $ad }) })
   if($eksikF.Count){ throw "İKİZ: üreticide fonksiyon bulunamadı: $($eksikF -join ', ')" }
@@ -198,6 +198,8 @@ foreach($q in $liste){
     if($hgS.Count){ $k.Add("KAPI-HG riski: '$($hgS -join ', ')' hesap kodu sanılır, hakem paketine THP girer (sayıyı yazıyla yaz ya da birim/% ekle)") }
   }
   if($kaynakOlcu){ foreach($ad in @($q.kaynak_adlar)){ if("$ad".Trim() -and $kaynakVar["$ad"] -eq $false){ $k.Add("KAYNAK ADI ambarda yok: '$ad' (paket boş kalır, hakem soruyu atlar)") } } }
+  # 26.09 KAPI-O (klişe/koku): üreticinin GERÇEK KokuKusur fonksiyonu (AST). Ölçüldü: sgs-k10-yd-kolay 'bu bağlamda' klişesiyle bulutta düşecekti, ön denetim görmüyordu.
+  if($ikizAcik){ foreach($x in @(KokuKusur $q)){ $k.Add("KAPI-O: $x") } }
   if($ikizAcik){ foreach($x in @(BenzerlikKusur $q ("hz-{0:d2}" -f $i))){ $k.Add("KAPI-B: $x") }; $don[("hz-{0:d2}" -f $i)]=$q }
   $durumEt=$(if($k.Count){ 'KUSUR' } else { 'ok' })
   if($durumEt -eq 'ok'){ $temizSay++ }

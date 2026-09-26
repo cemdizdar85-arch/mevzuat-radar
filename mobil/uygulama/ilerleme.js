@@ -132,4 +132,44 @@
       return esitleniyor;
     }
   };
+
+  /* ---- ADIM SAYACI (26.09.2026 üyelik kapısı; radar-app/sql/2026-09-26-uyelik-kapisi.sql olay_say) ----
+     Her sayfa olayı cihazdaki kuyruğa yazar; kuyruğu ana ekran gönderir (Supabase adresi ortak.js'te).
+     KİŞİSEL VERİ YOK: yalnız olay adı + platform. tek=true → cihaz başına bir kez (huni adımları). */
+  var OLAY_K = 'tt_olay_kuyruk', OLAY_TEK = 'tt_olay_tek', gonderiliyor = false;
+  kok.TTOlay = {
+    say: function (ad, tek) {
+      if (typeof localStorage === 'undefined') return;
+      try {
+        if (tek) {
+          var tk = JSON.parse(localStorage.getItem(OLAY_TEK) || '{}');
+          if (tk[ad]) return;
+          tk[ad] = 1; localStorage.setItem(OLAY_TEK, JSON.stringify(tk));
+        }
+        var q = JSON.parse(localStorage.getItem(OLAY_K) || '[]'); q.push(ad);
+        localStorage.setItem(OLAY_K, JSON.stringify(q.slice(-200)));
+      } catch (e) {}
+    },
+    /* kuyruğu gönder; ulaşılamazsa (ağ yok / SQL basılmamış) kalanlar kuyruğa geri yazılır */
+    gonder: async function (url, anahtar, platform) {
+      if (gonderiliyor || typeof localStorage === 'undefined' || typeof fetch === 'undefined') return;
+      gonderiliyor = true;
+      var q = [];
+      try { q = JSON.parse(localStorage.getItem(OLAY_K) || '[]'); localStorage.setItem(OLAY_K, '[]'); } catch (e) {}
+      for (var i = 0; i < q.length; i++) {
+        var tamam = false;
+        try {
+          var r = await fetch(url + '/rest/v1/rpc/olay_say', { method: 'POST',
+            headers: { 'Content-Type': 'application/json', apikey: anahtar, Authorization: 'Bearer ' + anahtar },
+            body: JSON.stringify({ p_olay: q[i], p_platform: platform }) });
+          tamam = r.ok;
+        } catch (e) {}
+        if (!tamam) {
+          try { var geri = q.slice(i).concat(JSON.parse(localStorage.getItem(OLAY_K) || '[]')); localStorage.setItem(OLAY_K, JSON.stringify(geri.slice(-200))); } catch (e) {}
+          break;
+        }
+      }
+      gonderiliyor = false;
+    }
+  };
 })(typeof window !== 'undefined' ? window : this);
