@@ -147,4 +147,12 @@ for (const r of sat.filter(r => trsiz(r) && r.durum === 'HİÇ YOK' && r.don >= 
 md.push('', '## 3+ dönem çıkmış, en büyük 30 eksik', '', '| Ders | Konu | Çıkan / dönem | Sitede | Eksik |', '|---|---|---:|---:|---:|');
 for (const r of sat.filter(r => trsiz(r) && r.durum === 'AZ' && r.don >= 3).sort((a, b) => b.eksik - a.eksik).slice(0, 30)) md.push(`| ${r.ders} | ${r.konu} | ${r.son} / ${r.don} | ${r.site} | ${r.eksik} |`);
 fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'SGS-KAPSAMA.md'), md.join('\n') + '\n');
+// 27.09 (KGK oturumunun bulgusu, SGS kolu kararı): tek sayfa SGS "eksik"i ESKİ HAVUZ − kota ile hesaplıyordu (FM "%100 dolu", gerçekte
+//   kapsamada 26 eksik). Tek sayfa artık buradan okur (motor/sinav-tek-sayfa.ps1 girdi 'kapsama-sgs'). Kapsam = PLAN kuralıyla aynı:
+//   son 10 yılda 3+ dönem çıkmış konular; hedef = Σ ⌈kat × son⌉, sitede = Σ min(sitede, konu hedefi), eksik = Σ konu eksiği.
+//   Zaman damgası YOK (sonuç değişmezse dosya aynı kalır).
+{ const O = {}; for (const r of sat) { if (!trsiz(r) || r.don < 3 || r.son <= 0) continue; const h = Math.ceil(KAT * r.son); const o = O[r.ders] || (O[r.ders] = { hedef: 0, site: 0, eksik: 0, konu: 0 }); o.hedef += h; o.site += Math.min(r.site, h); o.eksik += r.eksik; o.konu++; }
+  const L = Object.entries(O).sort((a, b) => a[0].localeCompare(b[0], 'tr')).map(([k, o]) => ({ ders: k, ...o }));
+  const top = L.reduce((a, o) => ({ hedef: a.hedef + o.hedef, site: a.site + o.site, eksik: a.eksik + o.eksik }), { hedef: 0, site: 0, eksik: 0 });
+  fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'sgs-kapsama-ozet.json'), JSON.stringify({ aciklama: 'SGS ders başına hedef/sitede/eksik — arac/sgs-konu-kapsama.js (son 10 yılda 3+ dönem çıkmış konular; hedef = kat × son 10 yıl çıkan; eski havuz SAYILMAZ).', kat: KAT, yil: YIL, hedef_toplam: top.hedef, site_toplam: top.site, eksik_toplam: top.eksik, dersler: L }, null, 1) + '\n'); }
 console.log(`SGS kapsama: kume ${kume.size} · site ${siteTop} · sozlukte yok ${sozlukteYok} · 3+ donem eksik ${oz(r => r.don >= 3)} (kat ${KAT})`);

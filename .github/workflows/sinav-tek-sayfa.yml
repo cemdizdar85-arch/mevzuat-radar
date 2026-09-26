@@ -79,7 +79,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/SINAV-TEK-SAYFA.md veri/sinav-tek-sayfa.json veri/sinav/SGS-KAPSAMA.md veri/sinav/KGK-KAPSAMA.md veri/sinav/kgk-kapsama-ozet.json 2>/dev/null || true
+          git add veri/SINAV-TEK-SAYFA.md veri/sinav-tek-sayfa.json veri/sinav/SGS-KAPSAMA.md veri/sinav/KGK-KAPSAMA.md veri/sinav/kgk-kapsama-ozet.json veri/sinav/sgs-kapsama-ozet.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "degisiklik yok - commit yok."
           else

@@ -42,6 +42,7 @@ $GIRDILER = @(
   @{ ad='kota-smmm';          yol='veri\uretim-kotasi.json';              uretici='motor/kota-kur.ps1';                   robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-sgs';           yol='veri\sgs-uretim-kotasi.json';          uretici='motor/sgs-kota-kur.ps1';               robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
   @{ ad='kota-kgk';           yol='veri\kgk-uretim-kotasi.json';          uretici='elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi)';            robot='yok (Cem kararı; tarih anlamsız)';      damga='tarih'; sabit=$true }
+  @{ ad='kapsama-sgs';        yol='veri\sinav\sgs-kapsama-ozet.json';    uretici='arac/sgs-konu-kapsama.js';              robot='sinav-tek-sayfa.yml · her gün 08:30 TR'; damga='';      sabit=$true }   # 27.09: SGS eksik kapsamadan (3+ dönem konular; eski havuz sayılmaz); damgasız
   @{ ad='kapsama-kgk';        yol='veri\sinav\kgk-kapsama-ozet.json';    uretici='arac/kgk-konu-kapsama.js';              robot='sinav-tek-sayfa.yml · her gün 08:30 TR'; damga='';      sabit=$true }   # 27.09: KGK hedefi kapsamadan (Cem onayı 4.229); damgasız → içerik değişmezse commit yok
   @{ ad='konu-koprusu';       yol='veri\konu-koprusu-ozet.json';          uretici='motor/konu-koprusu-kur.ps1 (V2 canlı)'; robot='konu-koprusu.yml · her gün 07:40 TR';  damga='olcum' }
   @{ ad='ambar-envanteri';    yol='veri\AMBAR-ENVANTERI.md';              uretici='motor/ambar-envanteri.ps1';            robot='ambar-kapilari.yml · her gün 11:00 TR'; damga='md' }
@@ -202,6 +203,11 @@ if($veri['kota-smmm'] -and $veri['kota-smmm'].ozet){ foreach($o in @($veri['kota
 # 27.09 (Cem "1.2.3"): KGK hedefi artık KAPSAMA TABLOSUNDAN (arac/kgk-konu-kapsama.js · SGS kuralı · Cem onayı 26.09: 4.229).
 #   01.08 kotası (5.871) eski konu listesiyle kurulmuştu ve kapsamayla çelişiyordu. Kapsama özeti yoksa eski kota kullanılır.
 if($veri['kapsama-kgk'] -and $veri['kapsama-kgk'].moduller){ foreach($o in @($veri['kapsama-kgk'].moduller)){ $anahtar = "KGK|$(DersAnahtar $o.ders)"; if(-not $hedefDers.ContainsKey($anahtar)){ $hedefDers[$anahtar] = 0 }; $hedefDers[$anahtar] += (Sayi $o.hedef) } }
+# 27.09 (KGK oturumunun bulgusu · SGS kolu): SGS hedef/eksik de KAPSAMADAN (arac/sgs-konu-kapsama.js → veri/sinav/sgs-kapsama-ozet.json).
+#   Eski hâl: eksik = kota − ESKİ HAVUZ → FM "%100 dolu" (havuz 4.309 > kota 1.500), kapsamada 26 eksik vardı. Özet yoksa eski kota kalır.
+#   Kapsam: son 10 yılda 3+ dönem çıkmış konular (plan kuralı); hedef = Σ kat × son10 · sitede = Σ min(sitede, konu hedefi) · eksik = Σ konu eksiği.
+$sgsKapsamaEksik = @{}; $sgsKapsamaSite = @{}
+if($veri['kapsama-sgs'] -and $veri['kapsama-sgs'].dersler){ foreach($o in @($veri['kapsama-sgs'].dersler)){ $anahtar = "SGS|$(DersAnahtar $o.ders)"; $hedefDers[$anahtar] = (Sayi $o.hedef); $sgsKapsamaEksik[$anahtar] = (Sayi $o.eksik); $sgsKapsamaSite[$anahtar] = (Sayi $o.site) } }
 $kgkKapsamaEksik = @{}; $kgkKapsamaSite = @{}
 if($veri['kapsama-kgk'] -and $veri['kapsama-kgk'].moduller){ foreach($o in @($veri['kapsama-kgk'].moduller)){ $anahtar = "KGK|$(DersAnahtar $o.ders)"; $kgkKapsamaEksik[$anahtar] = [int]$kgkKapsamaEksik[$anahtar] + (Sayi $o.eksik); $kgkKapsamaSite[$anahtar] = [int]$kgkKapsamaSite[$anahtar] + (Sayi $o.site) } }
 elseif($veri['kota-kgk'] -and $veri['kota-kgk'].plan){ foreach($o in @($veri['kota-kgk'].plan)){ $anahtar = "KGK|$(DersAnahtar $o.ders)"; if(-not $hedefDers.ContainsKey($anahtar)){ $hedefDers[$anahtar] = 0 }; $hedefDers[$anahtar] += (Sayi $o.adet) } }
@@ -230,6 +236,7 @@ if($profil -and $profil.sinavlar){
       $doluluk = if($hedef -gt 0){ [int][Math]::Min(100, [Math]::Round(100.0 * $mevcut / $hedef)) } else { -1 }
       # 27.09: KGK kapsama özeti varsa eksik/doluluk ESKİ HAVUZA göre değil kapsamaya göre (hedef − sitedeki soru, konu konu toplamı).
       #   Eski havuz Cem kararıyla sayılmaz; KGK'da eski havuzla eksik "TMS %100 dolu" diyordu, kapsama 852 eksik diyor.
+      if($kisa -eq 'SGS' -and $sgsKapsamaEksik.ContainsKey($anahtar)){ $eksik = $sgsKapsamaEksik[$anahtar]; $doluluk = if($hedef -gt 0){ [int][Math]::Min(100, [Math]::Round(100.0 * $sgsKapsamaSite[$anahtar] / $hedef)) } else { -1 } }
       if($kisa -eq 'KGK' -and $kgkKapsamaEksik.ContainsKey($anahtar)){ $eksik = $kgkKapsamaEksik[$anahtar]; $doluluk = if($hedef -gt 0){ [int][Math]::Min(100, [Math]::Round(100.0 * $kgkKapsamaSite[$anahtar] / $hedef)) } else { -1 } }
       $dersSatirlari.Add([pscustomobject]@{
         sinav=$kisa; sinav_uzun=$sinavAd; ders=$dersAd; bolum="$($d.bolum)"; sinav_soru=(Sayi $d.soru_sayisi)
@@ -379,7 +386,7 @@ foreach($sinavProp in $SINAV_KISA.GetEnumerator()){
   $baslik = "### $($sinavProp.Key) — $($satirlar.Count) ders"
   if($ozet){
     $siteM = if($ozet.sitede -eq -2){ 'sitede ölçülmedi' } elseif($ozet.sitede -eq -1){ 'sitede sayfa yok' } else { "**sitede $(Bin $ozet.sitede)**" }
-    $baslik += " · $siteM · kota $(Bin $ozet.hedef) · eksik $(Bin $ozet.eksik) $(if($ozet.sinav -eq 'KGK' -and $kgkKapsamaEksik.Count){ '(kapsama: hedef − sitede, konu konu)' } else { '(kota − eski havuz)' })"
+    $baslik += " · $siteM · kota $(Bin $ozet.hedef) · eksik $(Bin $ozet.eksik) $(if(($ozet.sinav -eq 'KGK' -and $kgkKapsamaEksik.Count) -or ($ozet.sinav -eq 'SGS' -and $sgsKapsamaEksik.Count)){ '(kapsama: hedef − sitede, konu konu)' } else { '(kota − eski havuz)' })"
   }
   Satir $baslik
   if($ozet){ Satir "$(Isaret @('kasa-sayim'))Eski havuz (soru_havuzu — **kullanılmaz, Cem kararı**; sitede yok): $(Bin $ozet.kasa) soru" }
