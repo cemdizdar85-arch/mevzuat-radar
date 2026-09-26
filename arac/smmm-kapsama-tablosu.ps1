@@ -102,6 +102,29 @@ if (Test-Path $esYol) {
     if ($e) { $es[(Nrm "$($e.analiz)")] = (Nrm "$($e.kopru)") }
   }
 }
+# ⭐ 26.09.2026 (Cem "eksik listesi … hata olmasın"): sözlükte İKİ YÖNLÜ DÖNGÜ vardı — ör.
+#   'is sozlesmesi tanimi ve unsurlari' → 'is sozlesmesi tanimi unsurlari' VE tersi. Eşleme tek adım
+#   uygulandığı için konunun yayınlanabilir soruları bir satıra, son-10-yıl sayımı (hedef) öbür satıra
+#   düşüyordu: 18 yayınlanabilir sorusu olan konu "7 açık" görünüyor, plan ona yeniden soru yazdırıyordu.
+#   ÖLÇÜLDÜ: 48 döngü çifti, 26'sında açık yanlış (tablo 78 → gerçek 11). Çözüm: döngüdeki adlar TEK ada
+#   (köprüde çıkmışı en büyük olan; eşitse sıralamada ilk) toplanır, zincirler (A→B→C) sona kadar izlenir.
+#   🚫 GÖRMEZ: sözlükte hiç bağlanmamış yazım farklarını (o ayrı iş: veri/sinav/smmm-konu-es.json).
+#   Öz-sınav: arac/smmm-kapsama-es-sinavi.ps1 (dogrula.yml).
+function EsCoz([hashtable]$harita, [hashtable]$cikmisSay) {
+  $sonuc = @{}
+  foreach ($bas in @($harita.Keys)) {
+    $yol = New-Object System.Collections.Generic.List[string]; $gorulen = @{}; $n = $bas
+    while ($harita.ContainsKey($n) -and -not $gorulen.ContainsKey($n)) { $gorulen[$n] = 1; $yol.Add($n); $n = $harita[$n] }
+    if ($gorulen.ContainsKey($n)) {
+      # döngü: döngüdeki adlardan çıkmışı en büyük olan (eşitse sıralı ilk) kanondur
+      $dongu = @($yol | Select-Object -Skip ($yol.IndexOf($n)))
+      $n = @($dongu | Sort-Object @{ e = { [int]$cikmisSay[$_] }; Descending = $true }, @{ e = { $_ } })[0]
+    }
+    if ($n -ne $bas) { $sonuc[$bas] = $n }
+  }
+  return $sonuc
+}
+$es = EsCoz $es $cikmis
 
 # --- 2b) YENİLİK: çıkmış kitapçık analizi (dönem × ders × konu sayımı) ---
 #   Anahtar biçimi "Ders|konu" (23.09 ölçüldü) — ders öneki atılır, eşleme sözlüğüyle köprü adına çevrilir.

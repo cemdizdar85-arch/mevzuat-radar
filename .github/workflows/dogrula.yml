@@ -179,6 +179,12 @@ jobs:
           - { ad: "SMMM ozel desen blogu OZ-SINAVI (SGS sozlugu degismesin, yeni anahtar baska konuyu yakalamasin)",
               kabuk: pwsh, komut: "./arac/smmm-ozel-desen-sinavi.ps1" }
 
+          # 26.09.2026 - SMMM kapsama tablosu esleme sozlugu dongu/zincir cozumu (arac/smmm-kapsama-tablosu.ps1 EsCoz).
+          # Olculdu: 48 iki yonlu dongu, 26 konuda acik yanlis (78 -> 11). Mutasyon: dongu kirici kapali 6/10,
+          # zincir tek adim 7/10, kanon ters 5/10, EsCoz uygulanmiyor 1/10 KIRMIZI.
+          - { ad: "SMMM kapsama tablosu ES OZ-SINAVI (dongudeki konu adlari tek satira toplansin)",
+              kabuk: pwsh, komut: "./arac/smmm-kapsama-es-sinavi.ps1" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para
