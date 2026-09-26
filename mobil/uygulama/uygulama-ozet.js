@@ -361,7 +361,11 @@
       };
     });
     [].forEach.call(karneB.querySelectorAll('[data-kilitac]'), function (b) {
-      b.onclick = function () { if (window.TTSinavlar) window.TTSinavlar.ac(IL.veri().ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik'); };
+      b.onclick = function () {
+        var s = IL.veri().ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik';
+        if (window.TTOdeme && window.TTOdeme.ac(s)) return;
+        if (window.TTSinavlar) window.TTSinavlar.ac(s);
+      };
     });
   }
 

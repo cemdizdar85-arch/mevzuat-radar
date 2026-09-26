@@ -110,9 +110,12 @@
   <!-- HESAP İŞLEMLERİ -->
   <section id="hesapIslem" class="bolum" data-sekme="hesap">
     <div id="hesapDugmeler" hidden>
-      <button type="button" id="cihazlar" class="duz">Cihazlarımı yönet</button>
-      <button type="button" id="cikis" class="duz">Çıkış yap</button>
-      <button type="button" id="hesapSil" class="duz tehlike">Hesabımı sil</button>
+      <span class="etk">Hesap işlemleri</span>
+      <div class="satirlar">
+        <button type="button" id="cihazlar" class="srt"><span class="ad">Cihazlarımı yönet<small>Hesabına bağlı telefonlar ve bilgisayarlar</small></span><svg class="ik ok" aria-hidden="true"><use href="#i-ok"/></svg></button>
+        <button type="button" id="cikis" class="srt"><span class="ad">Çıkış yap</span></button>
+        <button type="button" id="hesapSil" class="srt tehlike"><span class="ad">Hesabımı sil<small>Hesabın ve ilerlemen kalıcı olarak silinir</small></span></button>
+      </div>
     </div>
   </section>
 
@@ -127,6 +130,7 @@
 <script src="uygulama.js"></script>
 <script src="uygulama-ozet.js"></script>
 <script src="uygulama-sinavlar.js"></script>
+<script src="uygulama-odeme.js"></script>
 <script src="uygulama-sekme.js"></script>
 </body>
 </html>

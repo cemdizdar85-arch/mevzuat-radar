@@ -38,8 +38,9 @@ function svg(boy, oran, zemin) {
     ['icon-only.png', svg(1024, 1.0, TABAN)],          // iOS + eski Android: kare, saydamsız
     ['icon-foreground.png', svg(1024, 0.62, null)],    // Android uyarlanabilir ön katman (güvenli bölge %66)
     ['icon-background.png', svg(1024, 0, TABAN)],      // Android uyarlanabilir arka katman: düz taban
-    ['splash.png', svg(2732, 0.16, TABAN)],
-    ['splash-dark.png', svg(2732, 0.16, TABAN)]
+    /* açılış: ana ekranın lacivert bandıyla aynı renk (26.09 kalite dili B) — ikon rengi değişmedi */
+    ['splash.png', svg(2732, 0.16, '#0c1a2b')],
+    ['splash-dark.png', svg(2732, 0.16, '#0c1a2b')]
   ];
   for (const [ad, girdi] of isler) {
     let is = sharp(girdi).png();

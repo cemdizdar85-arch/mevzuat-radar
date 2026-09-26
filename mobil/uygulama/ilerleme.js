@@ -153,6 +153,17 @@
     }
   };
 
+  /* ---- DOKUNUŞ HİSSİ (26.09 "Apple kalitesi"): @capacitor/haptics; eklenti yoksa (tarayıcı) sessizce yok sayılır ---- */
+  kok.TTHis = (function () {
+    function H() { return kok.Capacitor && kok.Capacitor.Plugins && kok.Capacitor.Plugins.Haptics; }
+    function dene(fn) { try { var h = H(); if (h) { var p = fn(h); if (p && p.catch) p.catch(function () {}); } } catch (e) {} }
+    return {
+      hafif: function () { dene(function (h) { return h.impact({ style: 'LIGHT' }); }); },
+      dogru: function () { dene(function (h) { return h.notification({ type: 'SUCCESS' }); }); },
+      yanlis: function () { dene(function (h) { return h.notification({ type: 'WARNING' }); }); }
+    };
+  })();
+
   /* ---- ADIM SAYACI (26.09.2026 üyelik kapısı; radar-app/sql/2026-09-26-uyelik-kapisi.sql olay_say) ----
      Her sayfa olayı cihazdaki kuyruğa yazar; kuyruğu ana ekran gönderir (Supabase adresi ortak.js'te).
      KİŞİSEL VERİ YOK: yalnız olay adı + platform. tek=true → cihaz başına bir kez (huni adımları). */
