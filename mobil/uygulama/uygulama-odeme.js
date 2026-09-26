@@ -34,7 +34,7 @@
     '#odeme .kazanc div:first-child{border-top:0}',
     '#odeme .kazanc i{flex:none;width:22px;height:22px;border-radius:50%;background:#f5a524;display:grid;place-items:center;margin-top:1px}',
     '#odeme .kazanc i:after{content:"";width:9px;height:5px;border:2px solid #0b0b0c;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}',
-    '#odeme .kazanc b{display:block;font-size:15px;font-weight:600}',
+    '#odeme .kazanc b{display:block;font-size:15px;font-weight:600;color:var(--yazi)}',
     '#odeme .kazanc span{display:block;font-size:13px;color:var(--soluk);margin-top:1px}',
     '#odeme #paketler{margin-top:18px}',
     '#odeme #paketler>.etk{color:var(--soluk)}',
@@ -42,28 +42,32 @@
     '#odeme .urun{min-height:72px}',
     '#odeme .urun .ad{font-size:15.5px}',
     '#odeme .urun .al{background:var(--zit);color:var(--zitYazi);padding:11px 18px;border-radius:999px;font-weight:600}',
+    '#odeme .vazgec{display:block;width:100%;margin-top:10px;padding:14px;border:0;background:transparent;color:var(--soluk);font:600 15px/1 inherit}',
     '#odeme .yasal{margin:14px 4px 0;font-size:12px;color:var(--soluk);line-height:1.5}'
   ].join('\n');
   document.head.appendChild(st);
 
   function secili() { return (IL && IL.veri().ayar.sinav) === 'sgs' ? 'sgs' : 'yeterlilik'; }
   var yer = null;   /* #paketler'in asıl yeri */
-  function ac(sinav) {
+  /* o (isteğe bağlı): { etk, baslik, alt, vazgec } — hoş geldin teklifi gibi özel girişler için başlık */
+  function ac(sinav, o) {
     var p = $('paketler');
     if (!p || p.hidden) return false;   /* satış bu cihazda/oturumda kapalı → çağıran eski yola düşer */
-    sinav = sinav || secili();
+    sinav = sinav || secili(); o = o || {};
     kapat();
     var e = document.createElement('div'); e.id = 'odeme'; e.setAttribute('role', 'dialog'); e.setAttribute('aria-label', 'Tam paket');
     e.innerHTML = '<div class="ic"><div class="oUst"><button type="button" class="kapat" aria-label="Kapat">×</button>' +
-      '<span class="etk">Tam paket · ' + AD[sinav] + '</span><h1>Sınavına tam hazırlan.</h1><p>Sınavına kadar erişim. Tek ödeme, abonelik yok.</p></div>' +
+      '<span class="etk">' + (o.etk || 'Tam paket · ' + AD[sinav]) + '</span><h1>' + (o.baslik || 'Sınavına tam hazırlan.') + '</h1><p>' +
+      (o.alt || 'Sınavına kadar erişim. Tek ödeme, abonelik yok.') + '</p></div>' +
       '<div class="govde"><div class="kazanc">' + KAZANC.map(function (k) { return '<div><i></i><span><b>' + k[0] + '</b><span>' + k[1] + '</span></span></div>'; }).join('') +
       '</div><div id="odemeYuva"></div><p class="yasal">Ödeme ' + ((window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios') ? 'App Store' : 'Google Play') +
-      ' üzerinden alınır; paket hesabına hemen tanımlanır. Satın alma koşulları: üyelik sözleşmesi ve mesafeli satış bilgileri.</p></div></div>';
+      ' üzerinden alınır; paket hesabına hemen tanımlanır. Satın alma koşulları: üyelik sözleşmesi ve mesafeli satış bilgileri.</p>' +
+      (o.vazgec ? '<button type="button" class="vazgec">' + o.vazgec + '</button>' : '') + '</div></div>';
     document.body.appendChild(e);
     yer = { ebeveyn: p.parentNode, sonraki: p.nextSibling };
     e.querySelector('#odemeYuva').appendChild(p);
     [].forEach.call(p.querySelectorAll('.urun'), function (u) { u.classList.toggle('buSinav', u.getAttribute('data-sinav') === sinav); });
-    e.addEventListener('click', function (ev) { if (ev.target === e || ev.target.classList.contains('kapat')) kapat(); });
+    e.addEventListener('click', function (ev) { if (ev.target === e || ev.target.classList.contains('kapat') || ev.target.classList.contains('vazgec')) kapat(); });
     if (window.TTOlay) window.TTOlay.say('paket_ekrani');
     return true;
   }
@@ -76,6 +80,25 @@
   window.TTOdeme = { ac: ac, kapat: kapat };
 
   /* soru sayfasındaki ara karneden "Tam paketi incele" ile gelindiyse: paket bölümü açılınca sayfayı aç */
+  /* A) hoş geldin teklifi: yeni üye, paketi yok, satış bu cihazda açık → bir kez. Mağaza ürünleri geç yüklenir, 8 sn bekler.
+     Soru kapısından üye olan önce sorusuna döner; teklifi ana ekrana geldiğinde görür. */
+  function hosgeldin() {
+    var bayrak = null; try { bayrak = localStorage.getItem('tt_teklif_hosgeldin'); } catch (x) {}
+    var D = window.TT_DURUM;
+    if (!bayrak || !D || !D.girisli || (D.acik && D.acik.length) || $('odeme')) return;
+    var n = 0, t = setInterval(function () {
+      var p = $('paketler');
+      if (p && !p.hidden && p.querySelector('.urun')) {
+        clearInterval(t);
+        try { localStorage.removeItem('tt_teklif_hosgeldin'); } catch (x) {}
+        if (window.TTOlay) window.TTOlay.say('teklif_hosgeldin', true);
+        ac(secili(), { etk: 'Hoş geldin · ücretsiz üyeliğin açık', baslik: 'Şimdi sınavın tamamına geç.',
+          alt: '30 ücretsiz soru seni bekliyor. Tam pakette tüm dersler, kısa sınav, en çok çıkanlar ve tuzak haritası var. Tek ödeme, abonelik yok.',
+          vazgec: 'Şimdilik ücretsiz sorularla devam et' });
+      } else if (++n > 16) clearInterval(t);
+    }, 500);
+  }
+  document.addEventListener('tt-durum', hosgeldin);
   var iste = null; try { iste = sessionStorage.getItem('tt_uyg_odeme'); sessionStorage.removeItem('tt_uyg_odeme'); } catch (x) {}
   if (iste) {
     var dene = 0, zam = setInterval(function () { if (ac(iste) || ++dene > 20) clearInterval(zam); }, 300);

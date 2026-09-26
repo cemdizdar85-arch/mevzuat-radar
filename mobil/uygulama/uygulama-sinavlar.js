@@ -24,10 +24,10 @@
   ];
   /* sınav içi çalışma yolları; hazir:false olanın arkası henüz kurulmadı */
   var YOLLAR = [
-    { id: 'dersler', ad: 'Ders ders çöz', alt: 'Dersini seç, kaldığın sorudan devam et', ikon: 'sinav', hazir: true },
-    { id: 'kisa', ad: 'Kısa sınav', alt: 'Derslerden karışık 10 ya da 20 soru, süreli, sonunda karne', ikon: 'bugun', hazir: true },
-    { id: 'cok', ad: 'En çok çıkanlar', alt: 'En çok dönemde soru gelen konulardan 20 soru, süreli', ikon: 'karne', hazir: true },
-    { id: 'deneme', ad: 'Sınav gibi', alt: 'Tam deneme: gerçek süre, resmî ders dağılımı, ders ders karne', ikon: 'takvim', hazir: false }
+    { id: 'dersler', ad: 'Ders ders çöz', alt: 'Kaldığın sorudan devam', ikon: 'kitap', renk: 'mavi', hazir: true },
+    { id: 'kisa', ad: 'Kısa sınav', alt: '10 ya da 20 soru, süreli', ikon: 'simsek', renk: 'amber', hazir: true },
+    { id: 'cok', ad: 'En çok çıkanlar', alt: 'En çok sorulan konular', ikon: 'alev', renk: 'kizil', hazir: true },
+    { id: 'deneme', ad: 'Sınav gibi', alt: 'Gerçek süre, tam deneme', ikon: 'kupa', renk: 'mor', hazir: false }
   ];
   var ANAHTAR = 'tt_uyg_sinavgor';
   function $(id) { return document.getElementById(id); }
@@ -90,6 +90,15 @@
     else if (satisMumkun() && window.TTMagaza) { if (!(window.TTOdeme && window.TTOdeme.ac(gor.s))) window.TTSekme.sec('hesap', 'paketler'); }
   }
   /* paketi olmayanın kilit altındaki tek düğme + açıklama */
+  /* 27.09: kilit anlatımı düz yazı değil, düğmeli kart */
+  function kilitBandi() {
+    var D = durum(), dugme, yazi;
+    if (!D.girisli) { dugme = 'Ücretsiz üye ol'; yazi = 'Üye ol ya da hesabınla giriş yap; paketin varsa bütün yollar açılır.'; }
+    else if (satisMumkun() && window.TTMagaza) { dugme = 'Kilidi aç'; yazi = 'Tam paketle ders ders çözme, kısa sınav ve en çok çıkanlar açılır.'; }
+    else return '<div class="kilitBant"><span class="kbIk">' + ik('kilit') + '</span><span class="kbYazi"><b>Paketinde yok</b>Bu sınav hesabındaki pakette değil.</span></div>';
+    return '<div class="kilitBant"><span class="kbIk">' + ik('kilit') + '</span><span class="kbYazi"><b>Tam paket kilitli</b>' + yazi + '</span>' +
+      '<button type="button" class="ana" data-kilitac="1">' + dugme + '</button></div>';
+  }
   function kilitDugmesi() {
     var D = durum();
     if (!D.girisli) return '<button type="button" class="ana" data-kilitac="1">Kilidi aç</button>' +
@@ -123,29 +132,32 @@
 
   function sinavCiz(s) {
     var o = ozet(s), acik = o.acik.length > 0;
-    var h = '<div class="bant yalin"><h1>' + esc(sinavAd(s)) + '</h1>';
-    h += '<p class="alt1">' + (o.paket.length ? (o.paket.length + o.yakin.length) + ' ders' +
-      (o.yakin.length ? ' (' + o.yakin.length + ' ders hazırlanıyor)' : '') + ' · ' : '') +
-      '<button type="button" class="bagIc" data-degistir="1">Sınavı değiştir</button></p></div>';
+    /* 27.09 Cem "A4 kâğıdı, ayarlar listesi gibi": başlığın altında sınav KAPSÜLÜ (altı çizili bağlantı değil) */
+    var h = '<div class="bant yalin"><h1>' + esc(sinavAd(s)) + '</h1>' +
+      '<button type="button" class="hap" data-degistir="1">' + (o.paket.length ? (o.paket.length + o.yakin.length) + ' ders · ' : '') +
+      'Sınavı değiştir' + ik('ok').replace('class="ik"', 'class="ik asagi"') + '</button></div>';
 
-    h += '<span class="etk" style="margin-top:24px">Ücretsiz dene</span><div class="satirlar">';
+    /* ücretsiz: ilerleme çubuklu kart (düz satır değil) */
+    h += '<span class="etk" style="margin-top:26px">Ücretsiz dene</span>';
     if (o.ucr) {
-      var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan;
-      h += '<a class="srt" href="' + esc(o.ucr.yol) + '">' + ik('oynat') + '<span class="ad">Örnek sorular<small>' +
-        sayi(o.ucr.adet || 30) + ' soru · ilk 3 soru hesapsız, gerisi ücretsiz üyelikle</small></span>' +
-        (n ? '<span class="sag">' + n + '/' + (o.ucr.adet || n) + '</span>' : '') + OK + '</a>';
-    } else h += '<div class="bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
-    h += '</div>';
+      var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan, top = o.ucr.adet || 30;
+      h += '<a class="ilerKart" href="' + esc(o.ucr.yol) + '"><span class="iUst"><span class="iAd">Örnek sorular<small>' + sayi(top) +
+        ' soru · ilk 3 soru hesapsız</small></span><span class="iDugme">' + (n ? 'Devam et' : 'Başla') + ik('ok') + '</span></span>' +
+        '<span class="iCubuk"><i style="width:' + Math.min(100, Math.round(n / top * 100)) + '%"></i></span>' +
+        '<span class="iAlt">' + n + ' / ' + top + ' soru çözüldü</span></a>';
+    } else h += '<div class="kart bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
 
-    h += '<span class="etk">Çalışma</span><div class="satirlar">';
+    /* çalışma yolları: 2×2 kart ızgarası, her yolun kendi renkli ikonu; kilit ve "yakında" köşe rozeti */
+    h += '<span class="etk">Çalışma</span><div class="bento">';
     YOLLAR.forEach(function (y) {
       var kilitli = !acik, gidilir = y.hazir && (y.id === 'dersler' || !kilitli);
-      var sag = !y.hazir ? '<span class="etiketK">Yakında</span>' : '';
-      h += '<button type="button" class="srt' + (kilitli ? ' kilit' : '') + '" data-yol="' + y.id + '"' + (gidilir || kilitli ? '' : ' disabled') + '>' +
-        ik(kilitli ? 'kilit' : y.ikon) + '<span class="ad">' + esc(y.ad) + '<small>' + esc(y.alt) + '</small></span>' + sag + (gidilir ? OK : '') + '</button>';
+      h += '<button type="button" class="bKart ' + y.renk + (y.hazir ? '' : ' yakinda') + '" data-yol="' + y.id + '"' + (gidilir || kilitli ? '' : ' disabled') + '>' +
+        '<span class="bIk">' + ik(y.ikon) + '</span>' +
+        (!y.hazir ? '<span class="bRozet">Yakında</span>' : kilitli ? '<span class="bRozet kilitR">' + ik('kilit') + '</span>' : '') +
+        '<b>' + esc(y.ad) + '</b><small>' + esc(y.alt) + '</small></button>';
     });
     h += '</div>';
-    if (!acik) h += kilitDugmesi();
+    if (!acik) h += kilitBandi();
     $('sinavUst').innerHTML = h;
     [].forEach.call($('sinavUst').querySelectorAll('[data-yol]'), function (b) {
       b.onclick = function () {

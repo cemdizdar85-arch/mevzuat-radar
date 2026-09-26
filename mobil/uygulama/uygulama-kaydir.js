@@ -387,7 +387,7 @@
   st4.textContent = [
     ':root[data-theme="dark"]{--bg:#0b0b0d;--bg2:#1f1f22;--kart:#1a1a1d;--cizgi:#2c2c30;--yazi:#f5f5f7;--metin:#f5f5f7;--dim:#98989f;--ustYazi:#111113}',
     ':root{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}',
-    ':root:not([data-theme="dark"]){--bg:#f6f5f2;--bg2:#efeeea;--kart:#ffffff;--cizgi:#e6e5e1;--yazi:#111113;--metin:#111113;--dim:#6e6e73;--ustYazi:#ffffff}',
+    ':root:not([data-theme="dark"]){--bg:#f8fafc;--bg2:#f1f5f9;--kart:#ffffff;--cizgi:#e2e8f0;--yazi:#0f172a;--metin:#0f172a;--dim:#64748b;--ustYazi:#ffffff}',
     'html,body{font-family:-apple-system,"SF Pro Text","Segoe UI",system-ui,Roboto,sans-serif!important}',
     /* düğmeler: yuvarlak hap yerine teknik köşe; ana eylem zıt renk, öğrenme eylemi marka turuncusu */
     '.cip2,.btn{border-radius:8px!important}',
@@ -422,6 +422,16 @@
     '.ttAraclar b{font-size:.9em}.ttAraclar span{font-size:.82em;color:var(--dim)}',
     /* YÖN 1 · başparmak bölgesi: soru metni üstte, şıklar kartın ALTINA yaslanır (kısa soruda boşluk ortada kalır) */
     '#akis>.kart .govde{display:flex!important;flex-direction:column}',
+    /* 27.09 kurumsal keskinlik (uygulama 1.5.3 ile aynı dil): kart 1px çelik çizgi + ince gölge, şık hizalı rakam, basınca mikro tepki */
+    ':root:not([data-theme="dark"]) #akis>.kart{border:1px solid var(--cizgi)!important;box-shadow:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.05)!important}',
+    ':root:not([data-theme="dark"]) .sik{border:1px solid var(--cizgi)!important;background:#fff}',
+    '.soru,.sik{font-variant-numeric:tabular-nums}',
+    '.sik{transition:transform .15s cubic-bezier(.2,.9,.3,1.2),border-color .15s}',
+    '.sik:active{transform:scale(.98)}',
+    /* dönem rozeti: ana sayfadaki frekans rozetiyle aynı — beyaz kapsül, yeşil sinyal noktası */
+    '.govde .rozet{display:inline-flex!important;align-self:flex-start;width:fit-content;align-items:center;gap:0;border:1px solid var(--cizgi)!important;background:var(--kart)!important;color:var(--yazi)!important;font-weight:600;border-radius:999px!important}',
+    '.govde .rozet:before{width:7px!important;height:7px!important;border-radius:50%;background:#059669!important;vertical-align:0!important}',
+    '@media (prefers-reduced-motion:reduce){.sik:active{transform:none}}',
     '#akis>.kart .siklar{margin-top:auto;padding-top:14px}',
     /* açıklama paneli yaylı açılır (yeni sayfa/pencere yok, aynı kartta) */
     '#akis>.kart .panel{transition:transform .46s cubic-bezier(.2,1.12,.3,1),visibility 0s linear .46s!important;border-radius:26px 26px 0 0!important}',
@@ -486,7 +496,7 @@
   function paketOzet() { try { return (JSON.parse(localStorage.getItem('tt_uyg_paket_ozet') || '{}') || {})[SINAV] || null; } catch (e) { return null; } }
   var st3 = document.createElement('style');
   st3.textContent = [
-    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:radial-gradient(120% 420px at 50% -60px,rgba(245,165,36,.20),transparent 70%) no-repeat,var(--bg);color:var(--yazi);display:none;flex-direction:column;justify-content:flex-end;' +
+    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:radial-gradient(120% 420px at 50% -60px,rgba(245,165,36,.08),transparent 70%) no-repeat,var(--bg);color:var(--yazi);display:none;flex-direction:column;justify-content:flex-end;' +
       'padding:24px 20px calc(24px + ' + ALT + ');font-family:-apple-system,"Segoe UI",system-ui,Roboto,sans-serif}',
     '.ttPerde.acik{display:flex}',
     '.ttPerde .etk{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#b86e00;margin-bottom:12px}',
