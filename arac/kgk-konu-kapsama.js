@@ -144,5 +144,12 @@ async function siteOku() {
   md.push('## En büyük 40 eksik', '', '| Modül | Konu | Son 10 yıl çıkan / sınav | Sitede | Eksik |', '|---|---|---:|---:|---:|');
   for (const r of sat.filter(r => r.eksik > 0).sort((a, b) => b.eksik - a.eksik || b.don - a.don).slice(0, 40)) md.push(`| ${r.ders} | ${r.konu} | ${r.son} / ${r.don} | ${r.site} | ${r.eksik} |`);
   fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'KGK-KAPSAMA.md'), md.join('\n') + '\n');
+  // 27.09 (Cem "1.2.3"): tek sayfanın KGK kotası artık buradan (motor/sinav-tek-sayfa.ps1 girdi 'kapsama-kgk').
+  //   Zaman damgası YOK → sonuç değişmezse dosya aynı kalır, robot boş commit üretmez. Site KÖR'se ozet yazılmaz (eski kalır).
+  if (siteL) {
+    const ozet = { aciklama: 'KGK modül başına hedef/sitede/eksik — arac/kgk-konu-kapsama.js (SGS kuralı: son 10 yılda çıkan × kat; eski genel muhasebe hariç). Hedef Cem onayı 26.09 (4.229).', kat: KAT, yil: YIL, hedef_toplam: T.hedef, site_toplam: T.site, eksik_toplam: T.eksik,
+      moduller: Object.entries(D).filter(([k]) => k !== '?').sort((a, b) => a[0].localeCompare(b[0], 'tr')).map(([k, d]) => ({ ders: k, hedef: d.hedef, site: d.site, eksik: d.eksik, konu: d.k })) };
+    fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'kgk-kapsama-ozet.json'), JSON.stringify(ozet, null, 1) + '\n');
+  }
   console.log(`KGK kapsama: kume ${kume.size} · hedef ${T.hedef} · site ${siteL ? siteTop : 'KOR'} · eksik ${T.eksik} · sozlukte yok ${sozlukteYok} (kat ${KAT}, ${YIL}+)`);
 })().catch(e => { console.error('HATA:', e.message); process.exit(1); });

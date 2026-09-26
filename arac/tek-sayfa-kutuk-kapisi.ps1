@@ -22,10 +22,11 @@ param([switch]$Sinama, [string]$TekSayfaYolu = '')   # TekSayfaYolu: başka bir 
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 
+# 27.09: üretici .js de olabilir (arac/kgk-konu-kapsama.js, node)
 function KayitDenetle($kayit){
   $bulgular = New-Object System.Collections.Generic.List[string]
   $yaprak = Split-Path ("$($kayit.yol)" -replace '\\','/') -Leaf
-  $uretici = [regex]::Match("$($kayit.uretici)",'(motor|arac)/[\w\-]+\.ps1').Value
+  $uretici = [regex]::Match("$($kayit.uretici)",'(motor|arac)/[\w\-]+\.(ps1|js)').Value
   $akislar = @([regex]::Matches("$($kayit.robot)",'[\w\-]+\.yml') | ForEach-Object { $_.Value })
   $akisMetinleri = @{}
   foreach($akis in $akislar){
