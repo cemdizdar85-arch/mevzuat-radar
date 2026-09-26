@@ -89,7 +89,7 @@ $KISA = @{
 }
 function Nrm([string]$s) {
   # Önce İ/ı katlanır, SONRA küçültülür (Linux/ICU'da 'İ'.ToLowerInvariant() = 'i'+U+0307; 23.09 dalga öz-sınavı yakaladı).
-  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
+  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c' -replace 'â', 'a' -replace 'î', 'i' -replace 'û', 'u'   # 26.09: şapkalı harf ('kâr') 'k r' oluyor, aynı konu iki satıra bölünüyordu
   return (($t -replace '[^a-z0-9 ]', ' ') -replace '\s+', ' ').Trim()
 }
 
