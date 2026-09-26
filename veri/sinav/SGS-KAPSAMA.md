@@ -3,7 +3,7 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.759** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.766** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -13,7 +13,7 @@ Sitede sayfadan okunan soru: **4.759** (kasa modundaki sayfa seçim dosyasından
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 385 | 106 | 10 | 3 | 20 | 4 |
 | Matematik | 119 | 256 | 8,0 | 446 | 45 | 9 | 4 | 61 | 16 |
 | Ticaret Hukuku | 129 | 226 | 7,1 | 258 | 76 | 4 | 1 | 48 | 2 |
-| Türkçe | 126 | 224 | 7,0 | 146 | 31 | 13 | 3 | 79 | 16 |
+| Türkçe | 126 | 224 | 7,0 | 153 | 34 | 10 | 3 | 79 | 9 |
 | Vergi Hukuku | 161 | 203 | 6,3 | 165 | 55 | 4 | 6 | 96 | 0 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 219 | 64 | 9 | 3 | 20 | 2 |
 | Ekonomi | 137 | 193 | 6,0 | 162 | 52 | 7 | 3 | 75 | 3 |
@@ -28,7 +28,7 @@ Sitede sayfadan okunan soru: **4.759** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **69 konu / 159 soru**
+- 3+ dönem çıkmış: **66 konu / 152 soru**
 - 2 dönem çıkmış: 120 konu / 168 soru
 - 1 dönem çıkmış: 901 konu / 903 soru
 
@@ -92,15 +92,14 @@ Sitede sayfadan okunan soru: **4.759** (kasa modundaki sayfa seçim dosyasından
 |---|---|---:|---:|---:|
 | Yabancı Dil | cumle tamamlama | 55 / 22 | 21 | 34 |
 | Finansal Muhasebe | muhasebe bilgi sistemi | 16 / 16 | 6 | 10 |
-| Türkçe | yazim kurallari | 15 / 14 | 7 | 8 |
 | Yabancı Dil | kelime bilgisi | 17 / 12 | 10 | 7 |
+| Türkçe | yazim kurallari | 15 / 14 | 10 | 5 |
 | Matematik | cebirsel ifadeler | 6 / 6 | 2 | 4 |
 | Yabancı Dil | baglac kullanimi | 17 / 14 | 13 | 4 |
 | Yabancı Dil | edat kullanimi | 8 / 8 | 4 | 4 |
 | Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 6 | 3 |
 | Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 4 | 3 |
 | Matematik | limit hesabi | 13 / 13 | 10 | 3 |
-| Türkçe | noktalama isaretleri | 14 / 14 | 11 | 3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | milli mucadele basini | 3 / 3 | 1 | 2 |
 | Borçlar Hukuku | genel islem kosullari | 9 / 9 | 7 | 2 |
 | Finansal Muhasebe | donem kari zarari hesabi | 9 / 9 | 7 | 2 |
@@ -109,6 +108,7 @@ Sitede sayfadan okunan soru: **4.759** (kasa modundaki sayfa seçim dosyasından
 | Matematik | turev hesabi | 12 / 12 | 10 | 2 |
 | Meslek Hukuku | meslek etik ilkeleri | 7 / 7 | 5 | 2 |
 | Meslek Hukuku | smmm odalari | 3 / 3 | 1 | 2 |
+| Türkçe | noktalama isaretleri | 14 / 14 | 12 | 2 |
 | Türkçe | yazim yanlisi | 4 / 4 | 2 | 2 |
 | Atatürk İlkeleri ve İnkılap Tarihi | ataturk donemi dis politika | 6 / 6 | 5 | 1 |
 | Borçlar Hukuku | takas-borclar kanunu | 5 / 5 | 4 | 1 |
