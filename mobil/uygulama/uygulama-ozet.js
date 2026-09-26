@@ -223,15 +223,17 @@
 
     /* tam paket: sınav başına gerçek soru/ders sayısı, kilitli; dokununca o sınavın içi */
     var paketli = SINAV_SIRA.filter(function (x) { return x.id === secS && (K.paket || []).some(function (d) { return d.sinav === x.id; }); });
-    if (paketli.length) {
-      html += '<span class="etk">Tam paket · kilitli</span><div class="satirlar">';
-      paketli.forEach(function (x) {
-        var p = (K.paket || []).filter(function (d) { return d.sinav === x.id; }), y = (K.yakinda || []).filter(function (d) { return d.sinav === x.id; });
-        html += '<button type="button" class="srt kilit" data-sinav="' + x.id + '">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>' +
-          (p.length + y.length) + ' ders' + (y.length ? ' (' + y.length + ' hazırlanıyor)' : '') + ' · tüm sorular' +
-          '</small></span>' + OK + '</button>';
-      });
-      html += '</div><p class="soluk kucuk" style="margin-top:10px">Pakette: ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme.</p>';
+    /* 27.09 Cem "paralı üyeliğe hiç yönlendirmiyoruz": silik kilitli satır → teklif kartı (ödeme sayfasını doğrudan açar;
+       üye değilse önce ücretsiz üyelik, sonra hoş geldin teklifi). Ders sayısı katalogdan; fiyat yazılmaz (mağazadan okunur). */
+    /* APPLE 3.1.1: iPhone'da uygulama içi satış kapalıyken satışa çağıran kart gösterilmez */
+    var iosKapali = !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios' && K.iosSatis !== true);
+    if (paketli.length && !iosKapali) {
+      var x = paketli[0], pk = (K.paket || []).filter(function (d) { return d.sinav === x.id; }), yk = (K.yakinda || []).filter(function (d) { return d.sinav === x.id; });
+      html += '<button type="button" class="teklif" data-teklif="' + x.id + '"><span class="tEtk">Tam paket · ' + esc(x.ad) + '</span>' +
+        '<b>Sınavına tam hazırlan.</b><span class="tMadde">' +
+        ['<i></i>' + (pk.length + yk.length) + ' dersin tüm soruları' + (yk.length ? ' (' + yk.length + ' ders hazırlanıyor)' : ''),
+         '<i></i>Kısa sınav ve en çok çıkanlar', '<i></i>Tuzak ve konu haritası'].join('</span><span class="tMadde">') +
+        '</span><span class="tAlt"><span>Tek ödeme · abonelik yok</span><span class="tDugme">' + (uye ? 'Paketi gör' : 'Önce ücretsiz üye ol') + ik('ok') + '</span></span></button>';
     }
     if (t.n) html += '<span class="etk">Bugün</span>' + olcuKarti(v, h, bugun, seri, t).replace('<div class="kart">', '<div class="kart" style="margin-top:0">');
     return html;
@@ -267,6 +269,15 @@
     }
     bugunB.innerHTML = html;
     tekrarBagla(bugunB);
+    [].forEach.call(bugunB.querySelectorAll('[data-teklif]'), function (b) {
+      b.onclick = function () {
+        var s = b.getAttribute('data-teklif'), D1 = window.TT_DURUM;
+        if (window.TTOlay) window.TTOlay.say('teklif_kart');
+        if (!(D1 && D1.girisli)) { try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {} if (window.TTGiris) window.TTGiris.ac('uye'); return; }
+        if (window.TTOdeme && window.TTOdeme.ac(s)) return;
+        if (window.TTSinavlar) window.TTSinavlar.ac(s);
+      };
+    });
     [].forEach.call(bugunB.querySelectorAll('[data-git]'), function (g) {
       g.onclick = function () { if (window.TTGiris) window.TTGiris.ac(g.dataset.git === 'uyeol' ? 'uye' : 'giris'); };
     });

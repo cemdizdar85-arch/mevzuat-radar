@@ -179,6 +179,7 @@
         if (u.error) { h.textContent = /already|registered|exists/i.test(u.error.message || '') ? 'Bu e-postayla zaten hesap var. "Giriş yap"a geç.' : trHata(u.error); return; }
         if (!u.data.session) { h.textContent = 'Hesabın açıldı. E-postana gelen bağlantıya tıkla, sonra giriş yap.'; modSec('giris'); return; }
         olay('uye_ol', true);
+        try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {}
       } else {
         var g = await sb.auth.signInWithPassword({ email: ep, password: sf, options: { captchaToken: await captcha() } });
         if (g.error) { h.textContent = trHata(g.error); return; }
