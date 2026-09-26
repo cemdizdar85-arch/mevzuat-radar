@@ -45,6 +45,9 @@ const SATIS_BAG = /(satin-al|fiyat|radar-fiyat|mesafeli-satis)\.html/i;
 const SATIS_METNI = /Paketi al|Paketleri gör|Paketi güncelle/;
 const KASA_YAMA_ESKI = "dugme('../../satin-al.html', 'Paketi güncelle')";
 const KASA_YAMA_YENI = "''";
+/* 26.09 kısa sınav / en çok çıkanlar: kabuk sayfa ?karma= ile açılınca sorular uygulama-karma.js'ten gelir */
+const KARMA_YAMA_ESKI = 'async function cek(sb) {';
+const KARMA_YAMA_YENI = 'async function cek(sb) {\n    if (window.TTKarma) return window.TTKarma.cek(sb);   /* mobil/hazirla.js yaması: uygulama-karma.js */';
 const SINAV_AD = { sgs: 'SGS', yeterlilik: 'SMMM Yeterlilik' };
 const UCRETSIZ_SORU = 30;   // Cem 25.09: sınav başına 30 ücretsiz soru
 
@@ -131,7 +134,7 @@ kapi('KAPI-KASA', kasaSayfalari.length === (kasa.sayfalar || []).length,
 const kutuphane = (oku('paket-kapisi.js').match(/kutuphane\/supabase-[0-9.]+\.js/) || [])[0];
 kapi('KAPI-KASA', !!kutuphane && var_(kutuphane), 'supabase kütüphanesi paket-kapisi.js içinde bulunamadı');
 
-const UC_ETIKET = '<script src="../../' + kutuphane + '"></script><script src="../../ortak.js"></script><script src="../../uygulama-kapisi.js"></script><script src="../../ilerleme.js"></script><script src="../../uygulama-kaydir.js"></script>';
+const UC_ETIKET = '<script src="../../' + kutuphane + '"></script><script src="../../ortak.js"></script><script src="../../uygulama-kapisi.js"></script><script src="../../ilerleme.js"></script><script src="../../uygulama-kaydir.js"></script><script src="../../uygulama-karma.js"></script>';
 const katalog = { surum: '', derleme: '', paket: [], ucretsiz: [], yakinda: [] };
 
 /* ---------- 2. paket sayfaları (yalnız kasa modu) ---------- */
@@ -188,6 +191,9 @@ let kasaYukle = oku('kasa-yukle.js');
 const yamaSayisi = kasaYukle.split(KASA_YAMA_ESKI).length - 1;
 if (MUTASYON !== 'yama') kasaYukle = kasaYukle.split(KASA_YAMA_ESKI).join(KASA_YAMA_YENI);
 kapi('KAPI-SATIS', yamaSayisi === 1, 'kasa-yukle.js satın alma düğmesi yaması tutmadı (beklenen 1, bulunan ' + yamaSayisi + ') — dosya değişmiş, hazirla.js güncellenmeli');
+const karmaSayisi = kasaYukle.split(KARMA_YAMA_ESKI).length - 1;
+kasaYukle = kasaYukle.split(KARMA_YAMA_ESKI).join(KARMA_YAMA_YENI);
+kapi('KAPI-KASA', karmaSayisi === 1, 'kasa-yukle.js karma kancası tutmadı (beklenen 1, bulunan ' + karmaSayisi + ') — cek() imzası değişmiş');
 yaz('kasa-yukle.js', kasaYukle);
 kopyala('cihaz-kapisi.js');
 /* bot koruması (Turnstile): sitedekiyle AYNI dosya ve aynı anahtar — sitede açılınca uygulamada da açık olur (26.09) */

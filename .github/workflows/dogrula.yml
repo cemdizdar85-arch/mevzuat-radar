@@ -423,6 +423,12 @@ jobs:
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js" }
           - { ad: "Mobil ilerleme birlestirme MUTASYON (4 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js --mutasyon" }
+          # 26.09 kisa sinav / en cok cikanlar (mobil/uygulama/uygulama-karma.js): soru secimi dengeli mi,
+          # tekrar yok mu, cevap sorunun gercek dersine mi yaziliyor, 1000+ satir sayfalaniyor mu. GORMEZ: RLS/ag.
+          - { ad: "Mobil kisa sinav secimi OZ-SINAVI",
+              kabuk: bash, komut: "node mobil/karma-sinavi.js" }
+          - { ad: "Mobil kisa sinav MUTASYON (denge/sayfalama bozulunca sinav duser mi)",
+              kabuk: bash, komut: "! KR_MUTASYON=denge node mobil/karma-sinavi.js && ! KR_MUTASYON=sayfalama node mobil/karma-sinavi.js" }
           # 24.09 (Cem "1 ve 3 yap"): fark.html "30.000'den fazla", tuzak.html "29.000'den fazla soru"
           # yaziyordu; sitede 7.117 soru vardi (Ticari Reklam Yon. m.9: ispat reklam verende).
           # Yayindaki soru sayisi iddiasini kaydir/<sinav>/index.html ile kiyaslar. Her push'ta

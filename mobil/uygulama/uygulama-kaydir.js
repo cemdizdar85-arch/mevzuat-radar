@@ -127,6 +127,8 @@
   function kartlar() { var a = akis(); return a ? [].slice.call(a.children).filter(function (k) { return k.classList.contains('kart') && k.querySelector('.sik'); }) : []; }
   function gorunen() { return kartlar().filter(function (k) { return !k.classList.contains('ttDisarda'); }); }
   function simdikiKart() { var a = akis(); if (!a || !a.clientHeight) return null; var g = gorunen(); return g[Math.round(a.scrollTop / a.clientHeight)] || null; }
+  /* karma (kısa sınav): kart hangi dersin sayfasından geldiyse o yol (uygulama-karma.js) */
+  function kartYol(k) { return (window.TTKarma && window.TTKarma.yol(kartlar().indexOf(k))) || YOL; }
   function sidK(k) { if (!k.__sid) { var q = k.querySelector('.soru'); k.__sid = IL ? IL.sid(q ? q.textContent : '') : ''; } return k.__sid; }
   function durumK(k) { var c = IL && IL.veri().cevap[sidK(k)]; return c ? c.s : null; }
   function serit(metin, dugme, fn, sure) {
@@ -293,7 +295,7 @@
         setTimeout(function () {
           if (!k.querySelector('.sik.dogru')) return;
           k.__cevaplandi = 1;
-          IL.cevapla(sidK(k), s.classList.contains('dogru'), YOL);
+          IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k));
           cevapSonrasi();
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;
           if (g === h) serit('Günlük hedef tamam · ' + h + ' soru · seri ' + IL.seri() + ' gün', null, null, 3500);
@@ -306,7 +308,7 @@
   var konumKuruldu = false, izleyici = null, konumZam = null;
   function konumKur() {
     /* tek kart modu (günün sorusu): kaldığın yer yazılmaz, "Devam et" oraya gitmesin */
-    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek')) return;
+    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek') || window.TTKarma) return;
     var a = akis(), ks = kartlar(); if (!a || !ks.length) return;
     konumKuruldu = true;
     var tekrarda = tekrarKur();
