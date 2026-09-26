@@ -127,6 +127,8 @@
   function kartlar() { var a = akis(); return a ? [].slice.call(a.children).filter(function (k) { return k.classList.contains('kart') && k.querySelector('.sik'); }) : []; }
   function gorunen() { return kartlar().filter(function (k) { return !k.classList.contains('ttDisarda'); }); }
   function simdikiKart() { var a = akis(); if (!a || !a.clientHeight) return null; var g = gorunen(); return g[Math.round(a.scrollTop / a.clientHeight)] || null; }
+  /* karma (kısa sınav): kart hangi dersin sayfasından geldiyse o yol (uygulama-karma.js) */
+  function kartYol(k) { return (window.TTKarma && window.TTKarma.yol(kartlar().indexOf(k))) || YOL; }
   function sidK(k) { if (!k.__sid) { var q = k.querySelector('.soru'); k.__sid = IL ? IL.sid(q ? q.textContent : '') : ''; } return k.__sid; }
   function durumK(k) { var c = IL && IL.veri().cevap[sidK(k)]; return c ? c.s : null; }
   function serit(metin, dugme, fn, sure) {
@@ -293,7 +295,7 @@
         setTimeout(function () {
           if (!k.querySelector('.sik.dogru')) return;
           k.__cevaplandi = 1;
-          IL.cevapla(sidK(k), s.classList.contains('dogru'), YOL);
+          IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k));
           cevapSonrasi();
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;
           if (g === h) serit('Günlük hedef tamam · ' + h + ' soru · seri ' + IL.seri() + ' gün', null, null, 3500);
@@ -306,7 +308,7 @@
   var konumKuruldu = false, izleyici = null, konumZam = null;
   function konumKur() {
     /* tek kart modu (günün sorusu): kaldığın yer yazılmaz, "Devam et" oraya gitmesin */
-    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek')) return;
+    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek') || window.TTKarma) return;
     var a = akis(), ks = kartlar(); if (!a || !ks.length) return;
     konumKuruldu = true;
     var tekrarda = tekrarKur();
@@ -332,6 +334,57 @@
     });
   }
   var cipIzleyici = null;
+
+  /* ---------- UYGULAMA GÖRÜNÜM KATMANI (26.09.2026, Cem "uygulamada yap") ----------
+     Ana ekranla aynı dil: lacivert zemin, beyaz ana düğme, marka turuncusu, emoji YOK.
+     Sitenin dosyasına ve SORU İÇERİĞİNE dokunulmaz: yalnız renk jetonları ezilir ve metin düğümlerinin
+     BAŞINDAKİ emoji ekranda silinir (kalıbın düğme adları ve sırası aynen kalır).
+     KORUNAN (kalıbın renk dili, anlam taşır): --yesil doğru · --kirmizi yanlış · --mavi kaynak rakam · --altin bulunan rakam.
+     Geri almak: bu bloğu silmek yeter; soru verisi etkilenmez. */
+  var st4 = document.createElement('style');
+  st4.textContent = [
+    ':root[data-theme="dark"]{--bg:#06090f;--bg2:#0a0f17;--kart:#0d141e;--cizgi:#1f2a38;--yazi:#eef2f7;--metin:#eef2f7;--dim:#93a1b3;--ustYazi:#06090f}',
+    ':root:not([data-theme="dark"]){--bg:#f2f2f4;--bg2:#e9e9ec;--kart:#ffffff;--cizgi:#e1e1e6;--ustYazi:#ffffff}',
+    'html,body{font-family:-apple-system,"SF Pro Text","Segoe UI",system-ui,Roboto,sans-serif!important}',
+    /* düğmeler: yuvarlak hap yerine teknik köşe; ana eylem zıt renk, öğrenme eylemi marka turuncusu */
+    '.cip2,.btn{border-radius:8px!important}',
+    '.cip2.ana,.btn.ana{background:var(--yazi)!important;color:var(--bg)!important}',
+    '.cip2.birincil{background:#f5a524!important;color:#0b0b0c!important}',
+    '.sik{border-radius:10px!important}',
+    /* emoji yerine başlıklarda küçük turuncu kare (sitenin lambası) */
+    '.panel h3:before,.basl:before,.sek:before,.et:before,.hap:before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;vertical-align:2px;background:#f5a524}',
+    '.basl span:before{content:none!important}'
+  ].join('\n');
+  document.head.appendChild(st4);
+  var BAS_EMOJI = /^(\s*)(?:[←-⇿⌀-⏿①-➿⤀-⯿]️?\s*|(?:[\uD83C-\uD83E][\uDC00-\uDFFF]|‍|️)+\s*)+/;
+  var KORU = /^[▲▼◀▶←-↓]/;   /* ▲ ▼ ◀ ▶ ← ↑ → ↓ yön okları kalır (düğmenin anlamı) */
+  function emojiSil(kok) {
+    if (!kok || !document.createTreeWalker) return;
+    var w = document.createTreeWalker(kok, 4 /* SHOW_TEXT */), d, deg = [];
+    while ((d = w.nextNode())) {
+      var p = d.parentNode; if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName)) continue;
+      var v = d.nodeValue; if (!v || KORU.test(v.replace(/^\s+/, ''))) continue;
+      var m = v.match(BAS_EMOJI);
+      if (m && m[0].trim()) {
+        var y = m[1] + v.slice(m[0].length);
+        /* yalnız emojiden oluşan parça: öğede başka yazı varsa silinir ("✅ Doğrusu"), yoksa işarettir, kalır (🏁) */
+        if (y.trim() || (p.textContent || '').replace(v, '').trim()) deg.push([d, y]);
+      }
+    }
+    deg.forEach(function (x) { x[0].nodeValue = x[1]; });
+  }
+  var gorunumIzleyici = null;
+  function gorunumKur() {
+    emojiSil(document.body);
+    if (gorunumIzleyici || !window.MutationObserver) return;
+    gorunumIzleyici = new MutationObserver(function (kayit) {
+      kayit.forEach(function (k) {
+        if (k.type === 'characterData') emojiSil(k.target.parentNode);
+        else [].forEach.call(k.addedNodes, function (n) { if (n.nodeType === 1) emojiSil(n); else if (n.nodeType === 3) emojiSil(n.parentNode); });
+      });
+    });
+    gorunumIzleyici.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
 
   /* ---------- ÜCRETSİZ SORULARDA ÜYELİK KAPISI + ARA KARNE (26.09.2026, Cem "kur") ----------
      Kurgu: 3 soru hesapsız → "ücretsiz üye ol" kapısı (geçilmez) → 30 soru → her 10 soruda ara karne + tam paket.
@@ -411,7 +464,7 @@
     var e = perde('ttAra', '<div class="etk">' + (bitti ? 'Ücretsiz sorular bitti' : 'Ara karne · ' + n + ' soru') + '</div>' +
       '<div class="buyuk">' + ok + '<small> / ' + n + ' doğru</small></div>' +
       '<h2>' + (bitti ? 'Şimdi tamamına geç' : 'Gerçek sınav bundan çok daha geniş') + '</h2>' +
-      '<p>Tam pakette' + (p && p.soru ? ' ' + Number(p.soru).toLocaleString('tr-TR') + ' soru, ' + p.ders + ' ders;' : '') +
+      '<p>Tam pakette' + (p && p.ders ? ' ' + p.ders + ' dersin tüm soruları;' : ' tüm dersler;') +
       ' ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme var.</p>' +
       '<a class="birinci" href="' + ANA + '">Tam paketi incele</a>' +
       (bitti ? '' : '<button type="button" class="ikinci">Ücretsiz sorulara devam et</button>'));
@@ -441,6 +494,7 @@
     if (!izleyici) { try { izleyici = new MutationObserver(function () { kartlar().forEach(kartiDuzenle); konumKur(); }); izleyici.observe(a, { childList: true }); } catch (e) {} }
     konumKur();
     kapiIzle();
+    gorunumKur();
     cipTemizle(a);
     if (!cipIzleyici) { try { cipIzleyici = new MutationObserver(function () { cipTemizle(a); }); cipIzleyici.observe(a, { childList: true, subtree: true }); } catch (e) {} }
   }

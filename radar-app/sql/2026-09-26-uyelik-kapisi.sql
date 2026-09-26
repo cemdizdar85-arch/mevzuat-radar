@@ -66,7 +66,8 @@ set search_path = public
 as $$
 begin
   if p_olay not in ('ilk_acilis', 'soru_1', 'soru_3', 'kapi', 'uye_ol', 'giris', 'soru_10', 'soru_30',
-                    'ara_karne', 'tam_paket_bak', 'paket_ekrani', 'satin_al_bas', 'satin_aldi', 'hesap_sil') then
+                    'ara_karne', 'tam_paket_bak', 'paket_ekrani', 'satin_al_bas', 'satin_aldi', 'hesap_sil',
+                    'karma_kisa', 'karma_cok') then
     return;
   end if;
   if p_platform not in ('android', 'ios', 'web') then

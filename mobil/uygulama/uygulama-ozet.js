@@ -54,12 +54,13 @@
   var bugunB = $('ozet'), karneB = $('karne');
 
   /* ?tek=1: Kaydır-Çöz tek kart modu — yalnız o soru, kaydırma yok (26.09 Cem: "alt alta bir sürü soru çıkıyor") */
-  function gununSorusu() {
-    var sinav = IL.veri().ayar.sinav || 'yeterlilik';
-    var s = (K.ucretsiz || []).filter(function (x) { return x.sinav === sinav; })[0] || (K.ucretsiz || [])[0];
+  function gununSorusu(sinav) {
+    sinav = sinav || IL.veri().ayar.sinav || 'yeterlilik';
+    var s = (K.ucretsiz || []).filter(function (x) { return x.sinav === sinav; })[0];
     if (!s) return null;
     var d = new Date(), gun = Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000);
-    return { yol: s.yol, sira: gun % (s.adet || 30), baslik: s.baslik };
+    var i = gun % (s.adet || 30), on = (K.onizleme && K.onizleme[sinav] || [])[i] || null;
+    return { yol: s.yol, sira: i, baslik: s.baslik, sinav: sinav, on: on };
   }
 
   /* derse göre sonuç (yalnız katalogdaki sayfalar); yanlış kimlikleri "yanlışlarını çöz" için */
@@ -102,20 +103,49 @@
       '<div><b>' + (t.n ? '<small>%</small>' + yuzde(t.ok / t.n) : '—') + '</b><span>Doğru</span></div></div>' +
       '<div class="cizgiBar"><i style="width:' + Math.min(100, Math.round(bugun / h * 100)) + '%"></i></div>' +
       '<div class="durumYazi">' + (bugun >= h ? 'Günlük hedef tamam. Seri korunuyor.' :
-        (bugun ? 'Hedefe ' + (h - bugun) + ' soru kaldı.' : 'Günlük hedef ' + h + ' soru. İlk soruyla gün başlar.')) + '</div></div>';
+        (bugun ? 'Hedefe ' + (h - bugun) + ' soru kaldı.' : 'Günlük hedef ' + h + ' soru. İlk soruyla gün başlar.')) + '</div>' + haftaSeridi(h) + '</div>';
   }
-  function gununSatiri() {
-    var gs = gununSorusu();
-    return gs ? '<a class="srt" href="' + esc(gs.yol) + '?tek=1#s=' + gs.sira + '">' + ik('takvim') + '<span class="ad">Günün sorusu<small>' +
-      esc(gs.baslik.replace(/ örnek soruları$/, '')) + ' · her gün yeni bir soru</small></span>' + OK + '</a>' : '';
+  var KISA = { sgs: 'SGS', yeterlilik: 'Yeterlilik' };
+  /* her sınavın günün sorusu (hariç: kahraman kartında gösterilen) */
+  function gununSatiri(haric) {
+    return ['sgs', 'yeterlilik'].filter(function (s) { return s !== haric; }).map(function (s) {
+      var gs = gununSorusu(s); if (!gs) return '';
+      return '<a class="srt" href="' + esc(gs.yol) + '?tek=1#s=' + gs.sira + '">' + ik('takvim') + '<span class="ad">Günün sorusu · ' + KISA[s] + '<small>' +
+        esc(gs.on ? gs.on.d : gs.baslik) + (gs.on && gs.on.p ? ' · ' + gs.on.p + ' dönemde soru geldi' : ' · her gün yeni bir soru') + '</small></span>' + OK + '</a>';
+    }).join('');
+  }
+  /* radar çizgisi — marka işareti (Tetikte = nöbette); süs değil, kartın köşesinde ince çizgi */
+  var RADAR = '<svg class="radar" viewBox="0 0 200 200" aria-hidden="true"><circle cx="200" cy="0" r="60"/><circle cx="200" cy="0" r="105"/>' +
+    '<circle cx="200" cy="0" r="150"/><circle cx="200" cy="0" r="195"/><path d="M200 0 L62 138"/></svg>';
+  /* KAHRAMAN: günün sorusunun GERÇEK önizlemesi (kök + şıklar; doğru şık kartta YOK) — site kahramanı "Yanlışını böyle öğrenirsin." */
+  function kahramanKart(sinav) {
+    var gs = gununSorusu(sinav); if (!gs || !gs.on) return '';
+    var o = gs.on, url = esc(gs.yol) + '?tek=1#s=' + gs.sira;
+    var h = '<a class="kahraman" href="' + url + '">' + RADAR +
+      '<span class="kUst"><i></i>Günün sorusu · ' + KISA[sinav] + ' · ' + esc(o.d) + '</span>' +
+      (o.p ? '<span class="kDonem">' + o.p + ' dönemde soru geldi</span>' : '') +
+      '<span class="kSoru">' + esc(o.s) + '</span><span class="kSiklar">';
+    ['A', 'B', 'C', 'D', 'E'].forEach(function (x) { if (o.k[x]) h += '<span><b>' + x + '</b>' + esc(o.k[x]) + '</span>'; });
+    return h + '</span><span class="kDugme">Çöz, tuzağını gör' + ik('ok') + '</span></a>';
+  }
+  /* bu haftanın 7 günü: dolu = hedef tuttu, çerçeve = çözdü ama hedefe varmadı (gerçek kayıt) */
+  function haftaSeridi(h) {
+    var v = IL.veri(), bas = new Date(), g = (bas.getDay() + 6) % 7, s = '<div class="hafta">';
+    ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'].forEach(function (ad, i) {
+      var d = new Date(bas.getFullYear(), bas.getMonth(), bas.getDate() - g + i), n = v.gun[IL.bugun(d.getTime())] || 0;
+      s += '<span class="' + (n >= h ? 'dolu' : n ? 'yari' : '') + (i === g ? ' bugun' : '') + '"><i></i>' + ad + '</span>';
+    });
+    return s + '</div>';
   }
   var SINAV_SIRA = [{ id: 'sgs', ad: 'SGS · Staja Giriş' }, { id: 'yeterlilik', ad: 'SMMM Yeterlilik' }, { id: 'kgk', ad: 'KGK Bağımsız Denetçilik' }];
 
   function ucretsizCiz(v, h, bugun, seri, t) {
     var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
-    var html = '<span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'İlk 3 soru hesapsız') + '</span><h1>Ücretsiz dene</h1>' +
-      '<p class="soluk" style="margin-top:6px">Sınav başına 30 soru, gerçek sınav kalıbında, her birinin açıklamasıyla.' +
-      (uye ? '' : ' 3 sorudan sonrası ücretsiz üyelikle açılır.') + '</p>';
+    var secS = v.ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik';
+    var html = '<span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
+      '<h1 class="slogan">Yanlışını böyle öğrenirsin.</h1>' +
+      '<p class="soluk" style="margin-top:8px">Yanlış şıkta tuzağın adı ve doğrusu anında. Sınav başına 30 soru ücretsiz' +
+      (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     html += '<span class="etk" style="margin-top:22px">Ücretsiz açık olanlar</span><div class="satirlar">';
     SINAV_SIRA.forEach(function (x) {
@@ -128,7 +158,7 @@
         html += '<div class="srt kilit">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>Hazırlanıyor</small></span></div>';
       }
     });
-    html += gununSatiri() + '</div>';
+    html += gununSatiri(secS) + '</div>';
 
     /* tam paket: sınav başına gerçek soru/ders sayısı, kilitli; dokununca o sınavın içi */
     var paketli = SINAV_SIRA.filter(function (x) { return (K.paket || []).some(function (d) { return d.sinav === x.id; }); });
@@ -136,9 +166,8 @@
       html += '<span class="etk">Tam paket · kilitli</span><div class="satirlar">';
       paketli.forEach(function (x) {
         var p = (K.paket || []).filter(function (d) { return d.sinav === x.id; }), y = (K.yakinda || []).filter(function (d) { return d.sinav === x.id; });
-        var soru = p.reduce(function (a, d) { return a + (d.adet || 0); }, 0);
         html += '<button type="button" class="srt kilit" data-sinav="' + x.id + '">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>' +
-          soru.toLocaleString('tr-TR') + ' soru · ' + (p.length + y.length) + ' ders' + (y.length ? ' (' + y.length + ' hazırlanıyor)' : '') +
+          (p.length + y.length) + ' ders' + (y.length ? ' (' + y.length + ' hazırlanıyor)' : '') + ' · tüm sorular' +
           '</small></span>' + OK + '</button>';
       });
       html += '</div><p class="soluk kucuk" style="margin-top:10px">Pakette: ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme.</p>';
@@ -162,11 +191,11 @@
         html += '<button type="button" class="srt birincil" data-sinav="' + esc(v.ayar.sinav || 'yeterlilik') + '">' + ik('oynat') +
           '<span class="ad">Çalışmaya başla<small>Dersini seç</small></span>' + OK + '</button>';
       }
-      html += gununSatiri();
+      html += gununSatiri(v.ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik');
       var z = enZayif();
       if (z) html += '<a class="srt" href="' + esc(z.yol) + '">' + ik('karne') + '<span class="ad">En zayıf dersin<small>' +
         esc(z.ad) + '</small></span><span class="sag">%' + yuzde(z.oran) + '</span>' + OK + '</a>';
-      html += '</div>';
+      html += '</div>' + kahramanKart(v.ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik');
     }
 
     var D = window.TT_DURUM;
@@ -199,9 +228,11 @@
         'Çözdüğün her soru burada derse göre ölçülür: doğru oranı, yanlışların, işaretlediklerin.</div>';
       return;
     }
-    html += '<div class="kart"><div class="olcu">' +
-      '<div><b>' + t.n.toLocaleString('tr-TR') + '</b><span>Çözülen</span></div>' +
-      '<div><b><small>%</small>' + yuzde(t.ok / t.n) + '</b><span>Doğru</span></div>' +
+    var y = yuzde(t.ok / t.n), C = 2 * Math.PI * 42;
+    html += '<div class="kart karneUst"><svg class="halka" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42"/>' +
+      '<circle class="dolu" cx="50" cy="50" r="42" stroke-dasharray="' + (C * y / 100).toFixed(1) + ' ' + C.toFixed(1) + '"/></svg>' +
+      '<div class="halkaYazi"><b><small>%</small>' + y + '</b><span>Doğru</span></div>' +
+      '<div class="olcu iki"><div><b>' + t.n.toLocaleString('tr-TR') + '</b><span>Çözülen</span></div>' +
       '<div><b>' + t.bay + '</b><span>İşaretli</span></div></div></div>';
     var ds = dersler().sort(function (a, b) { return b.n - a.n; });
     if (ds.length) {
