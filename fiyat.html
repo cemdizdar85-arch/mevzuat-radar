@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Fiyatlar | Tetikte</title>
-<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL + KDV; Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
+<meta name="description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama ilk 1.000 kurucuya 2.995 TL (KDV dahil); Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/fiyat.html">
 <meta property="og:title" content="Fiyatlar">
-<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL + KDV; Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
+<meta property="og:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama ilk 1.000 kurucuya 2.995 TL (KDV dahil); Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fiyatlar">
-<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama 2.590 TL + KDV; Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
+<meta name="twitter:description" content="Staja Başlama, SMMM Yeterlilik ve KGK Bağımsız Denetçilik soru bankası. Staja Başlama ilk 1.000 kurucuya 2.995 TL (KDV dahil); Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -102,7 +102,7 @@
 </div>
 
 <h1>Fiyatlar</h1>
-<p class="alt">Gizli ücret yok, teklif formu yok. KDV hariç yazılan fiyatın altında ödeyeceğin KDV dahil toplam yazar.</p>
+<p class="alt">Gizli ücret yok, teklif formu yok. Yazan fiyat, KDV dahil ödeyeceğin tutarın kendisidir.</p>
 
 <!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
      fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge.
@@ -110,7 +110,7 @@
      ("harcin iki kati"). Manset capasi CANLI KURS tabanina alindi: 8.500 TL KDV dahil,
      15.09.2026 rakip olcumu (kurumun kendi sitesi). Rakip adi YAZILMAZ. Harc alt satirda kalir. -->
 <div class="vurus">
-  <div class="buyuk">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor.<br>Biz <b id="vurusFiyat">2.590 TL + KDV</b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
+  <div class="buyuk">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor.<br>Biz <b id="vurusFiyat">2.995 TL</b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
   <p>Kurs fiyatları kurumların kendi sitelerinden, 15.09.2026'da okundu (KDV dahil karşılığıyla). Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
@@ -149,7 +149,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="kim" id="erSgs">Sınavına kadar</div>
     <div class="gunluk" id="fySgs">— <small>TL</small></div>
     <div class="liste" id="lsSgs"></div>
-    <div class="kdv">kuruluş fiyatı · <span id="ktSgs"></span></div>
+    <div class="kdv">kurucu fiyatı · KDV dahil · <span id="ktSgs"></span></div>
 <div class="kdv" id="khSgs"></div>
     <ul>
       <li>Sınırsız soru: bankanın tamamı</li>
@@ -159,7 +159,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
       <li>Konu notu · SRS tekrar destesi · Tetikte Skoru</li>
       <li><b>Son 15 Gün dahil</b></li>
     </ul>
-    <a class="btn" href="satin-al.html?paket=sgs">Satın al — kuruluş fiyatından</a>
+    <a class="btn" href="satin-al.html?paket=sgs">Satın al — kurucu fiyatından</a>
     <p class="kucuk" id="ucretsizSatir" hidden style="margin:10px 0 0;text-align:center">Önce denemek istersen: günde 15 soru, kart bilgisi yok — <a href="deneme.html">ücretsiz başla →</a></p>
   </div>
 
@@ -289,15 +289,16 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 <!-- 29.08: GUN MERDIVENI KALDIRILDI, yerine UYE KOTASI.
      Eski merdiven sinava kalan gune gore fiyati kendiliginden yukseltiyordu ve
      29.08'de patladi: kutu 2.190 yazarken manset 1.790 diyordu. Kota bizim
-     kontrolumuzde, sessizce tetiklenmez. Sayac EKRANDA GOSTERILMEZ. -->
+     kontrolumuzde, sessizce tetiklenmez. 27.09: SGS + Yeterlilik ilk 1.000 kurucu; kalan yer SUNUCUDAN gelirse gosterilir. -->
 <div class="kutu">
-  <h2>Kuruluş fiyatı: ilk gelenler</h2>
+  <h2>Kurucu fiyatı: ilk 1.000 kurucu</h2>
   <div class="tabsar"><table id="kotaTablo">
-    <tr><th>Paket</th><th class="sag">Kuruluş fiyatı</th><th class="sag">Sonrası</th><th>Kota</th></tr>
+    <tr><th>Paket</th><th class="sag">Kurucu fiyatı</th><th class="sag">Sonrası</th><th>Kota</th></tr>
   </table></div>
-  <p class="kucuk" style="margin-top:10px"><b>Sahte indirim yapmıyoruz:</b> üstü çizili gösterdiğimiz rakam,
-  kota dolduğunda gerçekten uygulayacağımız fiyattır. "Son 3 saat" sayacı, üstü çizili uydurma fiyat
-  ya da kampanya tiyatrosu yok. <b>Kuruluş fiyatına giren bir yıl boyunca o fiyatta kalır.</b></p>
+  <p class="kucuk" style="margin-top:10px"><b>Sahte indirim yapmıyoruz:</b> "Sonrası" sütunundaki rakam,
+  kurucu kontenjanı dolduğunda gerçekten uygulayacağımız fiyattır. Kalan kurucu yeri sayısı ödeme kayıtlarımızdan
+  gelir; "son 3 saat" sayacı, üstü çizili uydurma fiyat ya da kampanya tiyatrosu yok. Fiyatların hepsi KDV dahildir.
+  <b>Kurucu fiyatına giren bir yıl boyunca o fiyatta kalır.</b></p>
 </div>
 
 <!-- KATEGORI AYRIMI: eski "piyasadan yirmi kat ucuzuz" cumlesi KALDIRILDI (02.08).
@@ -321,7 +322,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
     <tr><td>Zayıf konu karnesi + çalışma önerisi</td><td class="sag">490 TL</td></tr>
     <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
-    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">2.590 TL + KDV</b></td></tr>
+    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">2.995 TL</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Son 15 Gün'ü gerçekten 890 TL'ye ayrı satıyoruz; uydurma bir "değer" değil,
   aşağıda fiyatı yazan gerçek ürün.</p>
@@ -399,7 +400,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <a href="kvkk.html">KVKK Aydınlatma Metni</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></p>
 </div>
 
-<p class="kucuk">Fiyatlar Türk Lirasıdır. Staja Başlama fiyatı KDV hariç yazılır, KDV dahil toplamı hemen altında gösterilir; diğer fiyatlar KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
+<p class="kucuk">Fiyatlar Türk Lirasıdır ve hepsi KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
 deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
@@ -426,13 +427,19 @@ function kart(id, p){
   var ls = document.getElementById('ls' + id);
   if(p.liste > p.fiyat){
     /* 25.09 Cem: '%' rozeti ve üstü çizili liste kaldırıldı (hiç uygulanmamış fiyat çizilemez); ileriye dönük yazılır. */
-    ls.textContent = (p.kota ? tl(p.kota) + ' üyeden sonra ' : 'Sonra ') + fiyatAna(pid, p.liste);
+    ls.textContent = (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'Sonra ') + fiyatAna(pid, p.liste);
   }
   var kt = document.getElementById('kt' + id);
-  if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' üye'; }
-  // 25.09 Cem: rakip '+KDV' yaziyor; buyuk rakam KDV dahil kalir (6502 m.54), kiyas icin haric tutar kucuk satirda.
+  if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' kurucu'; }
+  // 27.09 Cem: '+KDV' gosterimi kalkti (Yon. m.13/2). Bu satir artik GERCEK kalan kurucu yerini yazar;
+  // sunucu sayiyi vermezse bos kalir (uydurma sayi yazilmaz).
   var kh = document.getElementById('kh' + id);
-  if(kh){ kh.textContent = hr ? fiyatDahilNot(pid, p.fiyat) : 'KDV hariç ' + tl(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' TL'; }
+  if(kh){
+    kh.textContent = hr ? fiyatDahilNot(pid, p.fiyat) : '';
+    if(p.sinav && p.kota && p.liste > p.fiyat){
+      kurucuKalan(function(k){ var t = kurucuSatir(p.sinav, k); if(t){ kh.textContent = t; kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; } });
+    }
+  }
   if(hr){ kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; kh.style.fontSize = '13px'; }
 }
 /* KGK karti SMMM PAKETINI gosterir (3 konu), "dort konunun tamami"ni degil:
@@ -456,7 +463,7 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 [['Yet','yeterlilik','yeterlilik-tum'],['Kgk','kgk','kgk-3']].forEach(function(x){
   if(!ICERIK_HAZIR[x[1]]) return;
   var a = document.getElementById('al' + x[0]), on = document.getElementById('on' + x[0]);
-  a.textContent = 'Satın al — kuruluş fiyatından'; a.href = 'satin-al.html?paket=' + x[2];
+  a.textContent = 'Satın al — kurucu fiyatından'; a.href = 'satin-al.html?paket=' + x[2];
   if(on) on.remove();
   if(x[1] === 'kgk'){ document.getElementById('rzKgk').textContent = 'YENİ'; }
 });
@@ -500,7 +507,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
   });
 })();
 
-// KOTA TABLOSU: kurulus fiyati / liste fiyati / kota. Sayac gosterilmez.
+// KOTA TABLOSU: kurucu fiyati / liste fiyati / kota (+ sunucudan gelirse kalan yer).
 (function(){
   var t = document.getElementById('kotaTablo');
   ['sgs','yeterlilik-tum','kgk-tum','yeterlilik-kgk'].forEach(function(id){
@@ -509,8 +516,12 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
     tr.innerHTML = '<td>' + p.ad + '</td>'
       + '<td class="sag simdi">' + tl(p.fiyat) + ' TL</td>'
       + '<td class="sag">' + tl(p.liste) + ' TL</td>'
-      + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üye' : '—') + '</td>';
+      + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' kurucu' : '—') + '<br><span class="kucuk kurucuKalan"></span></td>';
     t.appendChild(tr);
+    if(p.sinav && p.kota){
+      var hucre = tr.querySelector('.kurucuKalan');
+      kurucuKalan(function(k){ hucre.textContent = kurucuSatir(p.sinav, k); });
+    }
   });
 })();
 </script>

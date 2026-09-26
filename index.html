@@ -1222,11 +1222,11 @@ window.veriAl = (function(){
         var ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30), K=(typeof KOTA!=='undefined')?KOTA:{};
         var HZ=(typeof ICERIK_HAZIR!=='undefined')?ICERIK_HAZIR:{sgs:true};
         var DS=(typeof DERSLER!=='undefined')?DERSLER:{};
-        function kota(sn,f){ return (f.liste>f.kurulus&&K[sn])?' · ilk '+tl(K[sn])+' üyeye kuruluş fiyatı':''; }
+        function kota(sn,f){ return (f.liste>f.kurulus&&K[sn])?' · ilk '+tl(K[sn])+' kurucuya kurucu fiyatı':''; }
         function satir(sn){
           var ic='';
-          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b> ('+fiyatDahilNot('sgs',f.kurulus)+') · sınava kadar'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste):''); }
-          else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('yeterlilik',t); }
+          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b> · KDV dahil, sınava kadar'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste):''); }
+          else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+tl(t.liste)+' TL':''); }
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('kgk',k); }
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';

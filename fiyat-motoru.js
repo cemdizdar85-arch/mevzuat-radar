@@ -63,12 +63,15 @@ var HARC_KAYNAK = {
 };
 
 /* ---------------------------------------------------------------------------
-   KOTA — kuruluş fiyatının bitiş şartı. Sayaç EKRANDA GÖSTERİLMEZ:
-   açılışta "3 üye" yazması itibar kaybı, sahte sayaç ise yalan olurdu.
-   Kota dolunca fiyat liste fiyatına ÇIKAR — bu bir söz, tutulmazsa
-   "üstü çizili sahte fiyat" yapmış oluruz (İndirimli Satış mevzuatı).
+   KOTA — kurucu fiyatının bitiş şartı. Kota dolunca fiyat liste fiyatına ÇIKAR — bu bir söz,
+   tutulmazsa "üstü çizili sahte fiyat" yapmış oluruz (Ticari Reklam ve HTU Yön. m.14 + Ek A-7).
+   27.09.2026 CEM KARARI: SGS ve Yeterlilik'te "ilk 1.000 kurucu" (sınav başına ayrı sayılır,
+   yalnız ÖDEYEN: siparisler durum='odendi' + magaza_siparis verildi/tuketildi).
+   Sayaç 27.09'dan beri EKRANDA GÖSTERİLİR ama yalnız sunucu gerçek sayıyı verirse
+   (rpc kurucu_sayac, radar-app/sql/2026-09-27-kurucu-sayac.sql). Sunucu yanıt vermezse satır
+   HİÇ çizilmez — tahmini/uydurma sayı yazılmaz.
 --------------------------------------------------------------------------- */
-var KOTA = { sgs:500, yeterlilik:200, kgk:150, radar:300, kurucu:100 };
+var KOTA = { sgs:1000, yeterlilik:1000, kgk:150, radar:300, kurucu:100 };
 
 /* Erişim: en az 3 ay VE en yakın sınavın gününe kadar (hangisi geçse). 25.09'dan beri vitrinde 'sınava kadar' yazılır. */
 var SURE_GUN = 90;
@@ -80,14 +83,14 @@ var TAKSIT_ADET = 3;
 
 /* ---------------------------------------------------------------------------
    ELÇİ KODU — 15.09.2026 Cem kararı: elçi koduyla alan takipçiye SGS'de 400 TL
-   indirim; 25.09 aksamdan beri 400 + KDV = 480 TL (3.108 → 2.628). İndirimin geçerliliğine SUNUCU karar verir
+   indirim; 25.09'da 480'e çıkmıştı, 27.09 CEM KARARIYLA yine 400 TL KDV dahil (2.995 → 2.595). İndirimin geçerliliğine SUNUCU karar verir
    (radar-app/sql/2026-09-15-elci-programi.sql · siparis_elci_damga); buradaki
    rakam yalnız EKRAN gösterimidir ve sunucudaki elci_indirim tablosuyla AYNI olmalı.
    acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
    açılırsa takipçi indirimi ekranda görür ama sipariş indirimsiz yazılır.
    SQL basılıp doğrulandıktan sonra true yapılır.
 --------------------------------------------------------------------------- */
-var ELCI = { acik:false, indirim:{ sgs:480 }, bicim:/^[A-Z0-9]{3,12}$/ };
+var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
    İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında
@@ -110,8 +113,11 @@ var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
    gösterilmesini ister. Riski küçültmek için KDV dahil toplam HER YERDE hemen altında yazar; ödeme özeti
    KDV dahildir. Yalnız SGS: diğer paketler KDV dahil yuvarlak kuruldu (1.190 → '991,67 + KDV' olurdu).
    Kapatmak için sgs:false yeter; sayfalar bu iki yardımcıyı okur.
+   27.09.2026 CEM KARARI ("tamam bu fiyatları uygula"): KAPATILDI. Ana rakam KDV dahil yazılır —
+   Ticari Reklam ve HTU Yön. m.13/2 "reklamda fiyat tüm vergiler dahil toplam satış fiyatı" (resmî metin
+   26.09'da mevzuat.gov.tr'den okundu). Rakiplerin bir kısmı '+KDV' yazıyor; bu bizim için kıyas avantajı.
 --------------------------------------------------------------------------- */
-var KDV_HARIC_GOSTER = { sgs:true };
+var KDV_HARIC_GOSTER = { sgs:false };
 function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL + KDV' : tl(n) + ' TL'; }
 function fiyatDahilNot(id, n){ return KDV_HARIC_GOSTER[id] ? 'KDV dahil ' + tl(n) + ' TL' : ''; }
 
@@ -133,14 +139,20 @@ var FIYAT = {
      25.09.2026 (aksam) CEM KARARI 'F isle': kurulus 2.590 + KDV = 3.108 (ilk 500) / liste 2.990 + KDV = 3.588.
      Elci kodu 400 + KDV = 480 TL -> takipci 2.190 + KDV = 2.628 oder. Kart acilinca 3 taksit (ayda 1.036 / 1.196).
      Rapor: Masaustu Tetikte-SGS-Fiyat-Raporu-20260925-v2.xlsx (1.000 uyede ~1,69 milyon TL net, %8 taksit komisyonuyla).
-     Bant gerekcesi: uygulamalar 400-2.000, video 4.500-7.700 -> 3.108 uygulama rafinin ustunde, 'ucuz' okunmaz. */
-  sgs:            { kurulus:3108, liste:3588 },
+     Bant gerekcesi: uygulamalar 400-2.000, video 4.500-7.700 -> 3.108 uygulama rafinin ustunde, 'ucuz' okunmaz.
+     27.09.2026 CEM KARARI ("tamam bu fiyatları uygula"): KURUCU 1.000 + LİSTE İKİ KATI. SGS kurucu 2.995 (ilk 1.000
+     ödeyen) / liste 5.990; Yeterlilik merdiveninin listesi kurucu × 2 (tüm dersler 3.490 / 6.990). Hepsi KDV dahil.
+     Liste fiyatı gerçekten uygulanacak fiyattır (video paketleri 5.900'e, canlı kurslar 8.500-14.000'e çıkıyor);
+     'yüzde 50 indirim' DENMEZ (o fiyattan satış yapılmadı, m.14/3) -> '1.000 kurucudan sonra 5.990 TL' denir.
+     Kalan (elçisiz, KDV + %8 kart + %25 KV sonrası): 2.995 -> ~1.690 · 5.990 -> ~3.380 · elçili 750 komisyonla ~900. */
+  sgs:            { kurulus:2995, liste:5990 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
-     4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080                     */
-  yeterlilik:     [ null, {kurulus:1190,liste:1690}, {kurulus:1990,liste:2790},
-                          {kurulus:2590,liste:3590}, {kurulus:3090,liste:4290} ],
-  yeterlilikTum:  { kurulus:3490, liste:4990 },
+     4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080
+     ⚠ 27.09: liste (kurucu x 2) harçtan PAHALI; 'harçtan ucuz' cümlesi yalnız kurucu fiyatı için doğrudur. */
+  yeterlilik:     [ null, {kurulus:1190,liste:2390}, {kurulus:1990,liste:3990},
+                          {kurulus:2590,liste:5190}, {kurulus:3090,liste:6190} ],
+  yeterlilikTum:  { kurulus:3490, liste:6990 },
   /* KGK modül merdiveni — çapa e-sınav harcı: 7 konu × 950 = 6.650 TL */
   kgk:            [ null, {kurulus:1490,liste:1990}, {kurulus:2490,liste:3290},
                           {kurulus:3190,liste:4190} ],
@@ -344,7 +356,7 @@ function paketler(){
     p.indirim = indirimYuzde(p.fiyat, p.liste);
     /* 25.09 Cem: yüzde rozeti kaldırıldı. Liste fiyatı ÜSTÜ ÇİZİLİ de gösterilmez: o fiyattan hiç satış yapılmadı,
      çizili 'eski fiyat' İndirimli Satış mevzuatında sahte indirim sayılır (29.08 dersi 6). Liste ileriye dönük yazılır. */
-  p.not     = (p.liste > p.fiyat && p.kota) ? 'kuruluş fiyatı · ilk ' + tl(p.kota) + ' üye' : (p.indirim ? 'kuruluş fiyatı' : 'sabit fiyat');
+  p.not     = (p.liste > p.fiyat && p.kota) ? 'kurucu fiyatı · ilk ' + tl(p.kota) + ' kurucu' : (p.indirim ? 'kurucu fiyatı' : 'sabit fiyat');
     p.taksit  = taksitYazi(p.fiyat);
   });
   return L;
@@ -353,3 +365,37 @@ function paketBul(id){
   return paketler().filter(function(p){ return p.id === id; })[0] || null;
 }
 function acikPaketler(){ return paketler().filter(function(p){ return p.acik; }); }
+
+/* ---------------------------------------------------------------------------
+   KURUCU SAYACI — 27.09.2026. Kalan kurucu yerini SUNUCUDAN okur (yalnız sayı döner,
+   kişi verisi yok). Sunucu yanıt vermezse / fonksiyon basılmamışsa cb(null) → sayfa
+   satırı HİÇ çizmez. Tek istek, sayfa başına önbellekli.
+   cb(kalanlar) → { sgs: 873, yeterlilik: 1000 } (0'ın altına inmez)
+--------------------------------------------------------------------------- */
+var KURUCU_SB = { url:'https://bjrleanjpyujtajmazxn.supabase.co', key:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' };
+var __kurucuSoz = null;
+function kurucuKalan(cb){
+  if(!__kurucuSoz){
+    __kurucuSoz = (typeof fetch !== 'function') ? Promise.resolve(null) :
+      fetch(KURUCU_SB.url + '/rest/v1/rpc/kurucu_sayac', { method:'POST',
+        headers:{ apikey:KURUCU_SB.key, Authorization:'Bearer ' + KURUCU_SB.key, 'Content-Type':'application/json' }, body:'{}' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if(!Array.isArray(d)) return null;
+        var o = {}, n = 0;
+        d.forEach(function(x){
+          if(x && KOTA[x.sinav] && typeof x.satilan === 'number'){ o[x.sinav] = Math.max(0, KOTA[x.sinav] - x.satilan); n++; }
+        });
+        ['sgs','yeterlilik'].forEach(function(k){ if(!(k in o)) o[k] = KOTA[k]; });
+        return o;
+      })
+      .catch(function(){ return null; });
+  }
+  __kurucuSoz.then(function(o){ try{ cb(o); }catch(e){} });
+}
+/* Sayfalar için tek cümle: 'Kalan kurucu yeri: 873' — sayaç yoksa boş dize. */
+function kurucuSatir(sinavAnahtar, kalanlar){
+  if(!kalanlar || !(sinavAnahtar in kalanlar)) return '';
+  var k = kalanlar[sinavAnahtar];
+  return k > 0 ? 'Kalan kurucu yeri: ' + tl(k) : 'Kurucu kontenjanı doldu';
+}
