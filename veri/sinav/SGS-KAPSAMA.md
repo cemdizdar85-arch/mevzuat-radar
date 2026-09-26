@@ -17,10 +17,10 @@ Sitede sayfadan okunan soru: **4.766** (kasa modundaki sayfa seçim dosyasından
 | Vergi Hukuku | 161 | 203 | 6,3 | 165 | 55 | 4 | 6 | 96 | 0 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 219 | 64 | 9 | 3 | 20 | 2 |
 | Ekonomi | 137 | 193 | 6,0 | 162 | 52 | 7 | 3 | 75 | 3 |
-| İş ve Sosyal Güvenlik Hukuku | 98 | 190 | 5,9 | 189 | 49 | 10 | 2 | 37 | 10 |
+| İş ve Sosyal Güvenlik Hukuku | 97 | 186 | 5,8 | 189 | 49 | 10 | 1 | 37 | 6 |
 | Borçlar Hukuku | 91 | 180 | 5,6 | 220 | 61 | 4 | 0 | 26 | 4 |
 | Maliye | 119 | 168 | 5,3 | 131 | 39 | 2 | 6 | 72 | 0 |
-| Meslek Hukuku | 92 | 163 | 5,1 | 176 | 48 | 5 | 1 | 38 | 6 |
+| Meslek Hukuku | 93 | 167 | 5,2 | 176 | 48 | 5 | 2 | 38 | 10 |
 | Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 164 | 30 | 4 | 3 | 77 | 6 |
 | Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 2 | 0 | 1 | 1 | 1 | 4 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -36,8 +36,8 @@ Sitede sayfadan okunan soru: **4.766** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Son |
 |---|---|---:|---|
-| İş ve Sosyal Güvenlik Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
 | Matematik | uslu sayilar | 4 / 4 | 2019/3 |
+| Meslek Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
 | Muhasebe (ders ayrılmadı) | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
 | Finansal Muhasebe | maddi duran varlik dogruluk testi | 3 / 2 | 2017/3 |
