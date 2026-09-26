@@ -234,3 +234,15 @@ h1.slogan { font-size: 32px; line-height: 1.08; letter-spacing: -.03em; margin: 
 .kilitKutu .kPerde svg { width: 22px; height: 22px; }
 .kilitKutu .kPerde b { font-size: 14px; font-weight: 600; }
 .kilitKutu .kPerde .ana { width: auto; padding: 11px 22px; margin-top: 4px; }
+
+/* tablet (iPad vb.): telefon genişliğinde küçük kalmasın — içerik genişler, yazı büyür (26.09 mağaza görselinde görüldü) */
+@media (min-width: 768px) {
+  body { font-size: 17px; }
+  main { max-width: 760px; }
+  h1 { font-size: 36px; }
+  h1.slogan { font-size: 40px; }
+  .kahraman .kSoru { font-size: 18px; }
+  .kahraman .kSiklar span { font-size: 15px; }
+  .srt .ad small, .ders .etiket, .karneS small { font-size: 14px; }
+  #sekmeCubugu button { font-size: 12px; }
+}

@@ -79,12 +79,22 @@
     for (var b in v.bayrak) { if (v.bayrak[b] && !v.bayrak[b].yok) bay++; }
     return { n: n, ok: ok, bay: bay };
   }
-  function enZayif() {  /* ancak en az iki ders (her biri 5+ cevap) kıyaslanabilince anlamlı */
-    var kiyas = dersler().filter(function (r) { return r.n >= 5; });
+  /* en zayıf ders: sorunun GERÇEK dersine göre (kayıttaki d; yoksa sayfa adı). Ancak en az iki ders (her biri 5+ cevap)
+     kıyaslanabilince ve o dersin sayfası hesapta açıksa gösterilir — kilitli derse "şimdi çalış" demek yanıltır. */
+  function enZayif() {
+    var v = IL.veri(), m = {};
+    for (var s in v.cevap) {
+      var c = v.cevap[s]; if (!c || !c.yol) continue;
+      var ad = c.d || sayfaAdi(c.yol), r = m[ad] || (m[ad] = { ad: ad, ok: 0, n: 0 });
+      r.n++; if (c.s === 'ok') r.ok++;
+    }
+    var kiyas = Object.keys(m).map(function (k) { var r = m[k]; r.oran = r.ok / r.n; return r; }).filter(function (r) { return r.n >= 5; });
     if (kiyas.length < 2) return null;
-    /* en düşük oranlı ders açık değilse (kilitli) gösterme: açık dersler arasından "en zayıf" demek yanıltır */
     var z = kiyas.sort(function (a, b) { return a.oran - b.oran; })[0];
-    return acikMi(z.yol) ? z : null;
+    var sayfaD = (K.paket || []).filter(function (d) { return d.baslik === z.ad && acikMi(d.yol); })[0];
+    if (!sayfaD) return null;
+    z.yol = sayfaD.yol;
+    return z;
   }
   function yuzde(x) { return Math.round(x * 100); }
   function tarihYazi() {

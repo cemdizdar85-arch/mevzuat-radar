@@ -453,8 +453,9 @@
     if (e && e.classList.contains('acik')) return;
     var top = kartlar().length, kalan = Math.max(top - n, 0), i = kartlar().indexOf(k);
     e = perde('ttKapi', '<div class="etk">' + n + ' / ' + top + ' soru<i><b style="width:' + Math.round(n / top * 100) + '%"></b></i></div>' +
-      '<h2>Kalan ' + kalan + ' soru ücretsiz</h2>' +
-      '<p>Ücretsiz üye ol: soruların, açıklamaları ve karnen açılsın. İlerlemen tüm cihazlarında saklanır. Kart bilgisi istenmez.</p>' +
+      '<h2>' + (kalan > 0 ? 'Kalan ' + kalan + ' soru ücretsiz' : 'Karnen ve ilerlemen hesabında') + '</h2>' +
+      '<p>' + (kalan > 0 ? 'Ücretsiz üye ol: soruların, açıklamaları ve karnen açılsın. ' : 'Devam etmek için giriş yap ya da ücretsiz üye ol. ') +
+      'İlerlemen tüm cihazlarında saklanır. Kart bilgisi istenmez.</p>' +
       '<a class="birinci" href="' + ANA + '#uyeol">Ücretsiz üye ol</a>' +
       '<a class="ikinci" href="' + ANA + '#giris">Hesabım var, giriş yap</a>' +
       '<button type="button" class="ucuncu">Çözdüğüm sorulara dön</button>');
