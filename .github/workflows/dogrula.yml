@@ -417,6 +417,12 @@ jobs:
               kabuk: bash, komut: "node mobil/magaza-sinavi.js" }
           - { ad: "Mobil satin alma karari MUTASYON (5 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node mobil/magaza-sinavi.js --mutasyon" }
+          # 26.09 (Cem "eksiklerin hepsi" B kumesi): telefon <-> hesap ilerleme birlestirmesi
+          # (mobil/uygulama/ilerleme.js birlestir) hic ilerleme kaybetmiyor mu. GORMEZ: tablo/RLS/ag.
+          - { ad: "Mobil ilerleme birlestirme OZ-SINAVI (cihazlar arasi kayip yok)",
+              kabuk: bash, komut: "node mobil/ilerleme-sinavi.js" }
+          - { ad: "Mobil ilerleme birlestirme MUTASYON (4 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node mobil/ilerleme-sinavi.js --mutasyon" }
           # 24.09 (Cem "1 ve 3 yap"): fark.html "30.000'den fazla", tuzak.html "29.000'den fazla soru"
           # yaziyordu; sitede 7.117 soru vardi (Ticari Reklam Yon. m.9: ispat reklam verende).
           # Yayindaki soru sayisi iddiasini kaydir/<sinav>/index.html ile kiyaslar. Her push'ta

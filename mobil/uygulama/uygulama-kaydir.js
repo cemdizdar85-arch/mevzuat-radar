@@ -170,7 +170,7 @@
       if (!d) { var n = nok && nok.querySelector('i[data-j="' + j + '"]'); d = n && n.classList.contains('ok') ? 'ok' : n && n.classList.contains('yan') ? 'yan' : null; }
       if (d) b.classList.add(d);
       if (d === 'yan') yanlisVar = true;
-      var bay = IL && IL.veri().bayrak[sidK(k)]; if (bay) b.classList.add('bay');
+      var bay = IL && IL.bayrakVar(sidK(k)); if (bay) b.classList.add('bay');
       if (k === su) b.classList.add('simdi');
       var goster = listeSuzgec === 'tum' || (listeSuzgec === 'yan' && d === 'yan') || (listeSuzgec === 'bay' && bay);
       if (!goster || k.classList.contains('ttDisarda')) b.classList.add('gizli'); else gosterilen++;
@@ -212,14 +212,14 @@
       document.body.appendChild(e);
       e.addEventListener('click', function (ev) { if (ev.target === e || ev.target.classList.contains('vaz')) e.classList.remove('acik'); });
     }
-    var ta = e.querySelector('textarea'), n = IL && IL.veri().not[sidK(k)];
+    var ta = e.querySelector('textarea'), n = IL && IL.notu(sidK(k));
     ta.value = n ? n.m : '';
     e.querySelector('.kay').onclick = function () { if (IL) IL.notYaz(sidK(k), ta.value, YOL, kartlar().indexOf(k)); e.classList.remove('acik'); notCiz(k); };
     e.classList.add('acik'); setTimeout(function () { ta.focus(); }, 50);
   }
   function notCiz(k) {
     var p = k.querySelector('.panel'); if (!p) return;
-    var kutu = p.querySelector('.ttNotKutu'), n = IL && IL.veri().not[sidK(k)];
+    var kutu = p.querySelector('.ttNotKutu'), n = IL && IL.notu(sidK(k));
     if (!n) { if (kutu) kutu.remove(); return; }
     if (!kutu) { kutu = document.createElement('div'); kutu.className = 'ttNotKutu'; var bar = p.querySelector('.ttPanelBar'); p.insertBefore(kutu, bar ? bar.nextSibling : p.firstChild); }
     kutu.textContent = '📝 Notun: ' + n.m;
@@ -243,7 +243,7 @@
       if (IL) {
         var bay = document.createElement('button'); bay.type = 'button'; bay.className = 'ttBayrak'; bay.textContent = '🔖';
         bay.setAttribute('aria-label', 'Soruyu işaretle');
-        bay.classList.toggle('acik', !!IL.veri().bayrak[sidK(k)]);
+        bay.classList.toggle('acik', IL.bayrakVar(sidK(k)));
         bay.addEventListener('click', function (e) {
           e.stopPropagation();
           var acik = IL.bayrakDegis(sidK(k), YOL, kartlar().indexOf(k)); bay.classList.toggle('acik', acik);
@@ -302,7 +302,7 @@
       konumZam = setTimeout(function () { var k = simdikiKart(); if (k && !tekrarda) IL.konumYaz(YOL, kartlar().indexOf(k)); }, 400);
     }, { passive: true });
     if (tekrarda || /#s=\d+/.test(location.hash)) return;
-    var i = IL.veri().konum[YOL] || 0;
+    var i = IL.konumu(YOL);
     if (i > 0 && ks[i]) {
       setTimeout(function () { a.style.scrollBehavior = 'auto'; ks[i].scrollIntoView(); a.style.scrollBehavior = ''; }, 50);
       serit('Kaldığın yerden: ' + (i + 1) + '. soru', 'Baştan', function () { a.scrollTo({ top: 0, behavior: 'smooth' }); }, 6000);

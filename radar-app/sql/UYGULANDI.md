@@ -383,3 +383,8 @@ gerekçe ölçüldü: `motor/kalip-parti-uret.ps1` içindeki **KAPI-BAKIYE** her
 | Dosya | Ne yapar | Eskitir | Durum |
 |---|---|---|---|
 | `radar-app/sql/2026-09-25-magaza-siparis.sql` | `magaza_siparis` kütüğü: satın alma jetonu başına tek satır (jeton unique), durum `isleniyor/verildi/tuketildi/red/beklemede/hata`, RLS açık + politika YOK (yalnız servis anahtarı). auth.users'a FK YOK. Yazan: `radar-app/edge/magaza-dogrula.ts` | — | ✅ **BASILDI 25.09.2026 (Cem, SQL Editor; dosyadaki kodun aynısı, açıklama satırları olmadan).** **Dış ölçüm 25.09 (açık anahtar):** anon `GET magaza_siparis` → **HTTP 401 / 42501** "permission denied" (tablo var, kapalı) · kıyas: olmayan tablo 404 PGRST205 · basım sonrası `dokumanlar` 200. Ölçülmedi: servis anahtarıyla 200 `[]` (bu makinede servis anahtarı yok). |
+
+## 26.09.2026 · Mağaza uygulaması: hesaba bağlı ilerleme (Cem "eksiklerin hepsini yapalım", B kümesi)
+| Dosya | Ne yapar | Eskitir | Durum |
+|---|---|---|---|
+| `radar-app/sql/2026-09-26-ogrenci-ilerleme.sql` | `ogrenci_ilerleme`: üye başına tek satır (user_id PK, `veri` jsonb ≤1,5 MB) — son cevaplar, 🔖 işaretler, 📝 notlar, kaldığın yer, günlük sayaç, çalışma ayarları. RLS: authenticated yalnız kendi satırını okur/ekler/günceller; anon hiç. auth.users'a FK YOK (14.09 DDL kesintisi dersi). Yazan/okuyan: `mobil/uygulama/ilerleme.js` esitle() (birleştirir, ezmez; öz-sınav `mobil/ilerleme-sinavi.js`) | — | ⏳ **BASILMADI.** Basım öncesi ölçüm 26.09: anon GET → **404 PGRST205** (tablo yok). Basılana kadar uygulama ilerlemeyi yalnız cihazda tutar (esitle → "yerel", hata göstermez). |

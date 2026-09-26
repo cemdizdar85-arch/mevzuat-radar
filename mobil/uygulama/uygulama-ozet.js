@@ -141,10 +141,25 @@
   $('ayarSinav').onchange = function () { IL.ayarYaz({ sinav: this.value }); ciz(); };
   $('ayarHedef').onchange = function () { IL.ayarYaz({ hedef: +this.value }); ciz(); };
 
+  /* hesapla eşitleme (B kümesi): girişliyse sunucudaki kayıtla birleştir; değiştiyse yeniden çiz.
+     Tablo basılmadıysa / ağ yoksa sessizce yerelde kalır (ilerleme.js esitle → "yerel"). */
+  function esitle() {
+    try {
+      if (!window.TT || !window.TT.istemci) return;
+      var sb = window.TT.istemci();
+      window.TT.kullanici(sb).then(function (k) {
+        if (!k || k.cevrimdisi) return;
+        IL.esitle(sb, k.id).then(function (s) { if (s === 'guncellendi') { ciz(); $('ayarSinav').value = IL.veri().ayar.sinav || 'yeterlilik'; $('ayarHedef').value = String(IL.veri().ayar.hedef || 10); } });
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   ciz();
   kurulum();
-  /* sınav listesi (#liste) giriş sonrası dolunca "devam et / şimdi çalış" uygunluğu değişir; dönüşte de tazele */
-  try { new MutationObserver(function () { ciz(); }).observe($('liste'), { childList: true }); } catch (e) {}
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) ciz(); });
-  window.addEventListener('pageshow', ciz);
+  esitle();
+  /* sınav listesi (#liste) giriş sonrası dolunca "devam et / şimdi çalış" uygunluğu değişir ve oturum yeni açılmış
+     olabilir → yeniden çiz + eşitle; soru ekranından dönüşte de */
+  try { new MutationObserver(function () { ciz(); esitle(); }).observe($('liste'), { childList: true }); } catch (e) {}
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) { ciz(); esitle(); } });
+  window.addEventListener('pageshow', function () { ciz(); esitle(); });
 })();
