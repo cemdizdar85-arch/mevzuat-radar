@@ -14,7 +14,8 @@
 #             [-Ders 'Borclar Hukuku|Ticaret ve Borclar'] [-Pencere 7] [-Sozluk <kelime dosyasi>]
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
-param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi)
+param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
 # NEDEN: bu betik sabit 746 kr ile ölçüyordu; bulut koşucusu (motor/kalip-kosucu.ps1 DersTavani) ise her satıra DERSİN tavanını verir:
@@ -36,7 +37,46 @@ if($TavanSinavi){
   $hata=0; foreach($v in $vakalar){ $olc=DersTavaniOlc $v[0] $depoKokD; $iyi=($olc -eq $v[1]); if(-not $iyi){ $hata++ }; "  $(if($iyi){'TAMAM'}else{'HATA '}) '$($v[0])' -> $olc (beklenen $($v[1]))" }
   if($hata){ "TAVAN SINAVI KIRMIZI: $hata/$($vakalar.Count)"; exit 1 } else { "TAVAN SINAVI YESIL: $($vakalar.Count)/$($vakalar.Count)"; exit 0 }
 }
-if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi)' }
+# --- KAPI-B İKİZ + KAYNAK ADI (26.09.2026, SGS k4/k8 + SMMM gm2 ölçümü) --------------------------------------------------------
+# NEDEN: bulutta 8 Türkçe (k4), 7 İngilizce (k8) ve 4 SMMM (gm2) hazır soru KAPI-B ile ÜCRETSİZ kapıda düştü; bu betik ve
+#   yerel prova görmedi (prova etiketi 'prova-…' idi, ikiz havuzu etiketin ÖN EKİNDEN kurulur → havuz boştu).
+# YÖNTEM: ikiz ölçüsü ELLE KOPYALANMAZ — motor/kalip-parti-uret.ps1'den GERÇEK fonksiyonlar AST ile alınır (BenzerlikKusur,
+#   BenzerHavuz, KelimeKume, Jaccard, teori istisnası) + arac/ikiz-olcusu.ps1 (yayın cetveli, anlam ikizi) + arac/smmm-ders-adi.ps1.
+#   Havuz = veri/fabrika/kalip-parti-<önek>-*.json (bulut indir_parti ile aynı dosyalar; yerelde önce
+#   arac/parti-senkron.ps1 -Indir -Yaz -Sinav <SGS|SMMM> çalıştır — bayat havuz = kaçırma). Dosya içi ikiz: önceki sorular '$don'a eklenir.
+# KAYNAK ADI: kaynak_adlar'daki her ad ambarda (dokumanlar.kaynak_ad) BİREBİR yoksa paket boş kalır, hakem soruyu atlar → KUSUR.
+# 🚫 GÖRMEZ: çapa (çıkmış soru) benzerliği ($CAPA boş — pencere çapası üretimde kurulur) · kendi etiketinin partisi (üretici de hariç tutar).
+function IkizFonkYukle([string]$kokY){
+  $uy=[IO.Path]::Combine($kokY,'motor','kalip-parti-uret.ps1'); $tk=$null; $hk=$null   # .NET yolu: Linux'ta '\' ayraç değildir (dogrula.yml pwsh/ubuntu)
+  $ast=[System.Management.Automation.Language.Parser]::ParseFile($uy,[ref]$tk,[ref]$hk)
+  $gerek=@('Katla2','KelimeKume','Jaccard','SoruTeoriMi','SikKume','KokMaddeNo','TeoriFarkliMi','BenzerHavuz','BenzerlikKusur')
+  $bul=@($ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] },$true) | Where-Object { $gerek -contains $_.Name })
+  $eksikF=@($gerek | Where-Object { $ad=$_; -not ($bul | Where-Object { $_.Name -eq $ad }) })
+  if($eksikF.Count){ throw "İKİZ: üreticide fonksiyon bulunamadı: $($eksikF -join ', ')" }
+  return $bul
+}
+if($IkizSinavi){
+  # Sentetik havuz (CI'da ambar yok): geçici kökte bir SGS partisi kurulur; GERÇEK BenzerlikKusur koşar.
+  $gk=Join-Path ([IO.Path]::GetTempPath()) ("ikiz-sinav-" + [guid]::NewGuid().ToString('N')); $gkFab=[IO.Path]::Combine($gk,'veri','fabrika'); New-Item -ItemType Directory -Force $gkFab | Out-Null
+  $havuzSoru='Aşağıdaki cümlelerin hangisinde yazım yanlışı yapılmıştır? Toplantıya herkes zamanında geldi fakat müdür biraz geç kaldı.'
+  $havuzJ=@{ 'kp-01'=@{ soru=$havuzSoru; konu='yazim kurallari'; siklar=@{A='a';B='b';C='c';D='d';E='e'}; dogru='A' } } | ConvertTo-Json -Depth 5
+  [IO.File]::WriteAllText([IO.Path]::Combine($gkFab,'kalip-parti-sgs-eski-turkce-zor.json'),$havuzJ,[Text.UTF8Encoding]::new($false))
+  foreach($fn in (IkizFonkYukle $depoKokD)){ . ([scriptblock]::Create($fn.Extent.Text)) }
+  . ([IO.Path]::Combine($depoKokD,'arac','ikiz-olcusu.ps1')); . ([IO.Path]::Combine($depoKokD,'arac','smmm-ders-adi.ps1'))
+  $kok=$gk; $Sinav='SGS'; $Etiket='sgs-yeni-turkce-zor'; $CAPA=@{}; $amb=$null; $script:GK_DERS=$true; $script:BENZER_HAVUZ=$null
+  $v=@(
+    @('havuzdaki soruyla birebir aynı kök -> YAKALA', $havuzSoru, @{}, $true),
+    @('tamamen farklı kök -> GEÇ', 'Muhasebe bürosunun yıllık raporunda geçen sözcüklerden hangisinin yazımı doğrudur ve neden öyledir?', @{}, $false),
+    @('dosya içi kardeş aynı kök -> YAKALA', 'Kargo şirketinin müşteri kayıtlarında yer alan cümlelerden hangisinde soru eki yanlış yazılmıştır?', @{ 'hz-0'=[pscustomobject]@{ soru='Kargo şirketinin müşteri kayıtlarında yer alan cümlelerden hangisinde soru eki yanlış yazılmıştır?'; konu='x' } }, $true)
+  )
+  $hata=0
+  foreach($vk in $v){ $don=$vk[2]; $a=[pscustomobject]@{ soru=$vk[1]; konu='yazim kurallari'; siklar=[pscustomobject]@{A='a';B='b';C='c';D='d';E='e'}; dogru='A' }
+    $sonuc=@(BenzerlikKusur $a 'hz-9'); $yak=[bool]$sonuc.Count; $iyi=($yak -eq $vk[3]); if(-not $iyi){ $hata++ }
+    "  $(if($iyi){'TAMAM'}else{'HATA '}) $($vk[0]) -> $(if($yak){'yakalandı: ' + $sonuc[0]}else{'geçti'})" }
+  Remove-Item -Recurse -Force $gk -ErrorAction SilentlyContinue
+  if($hata){ "İKİZ SINAVI KIRMIZI: $hata/$($v.Count)"; exit 1 } else { "İKİZ SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
+if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -57,6 +97,30 @@ $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count) | uzunluk tavani: $UZ_TAVAN kr"
 if($kapiK){ "KAPI-K sozlugu: genis $($kapiK.genis.Keys.Count) · dar $($kapiK.dar.Keys.Count) (soru $($kapiK.aralik -join '-')) · $($kapiK.blok) blok · son $Pencere donem: $($kapiK.donemler -join ', ')" }
 $i=0; $temizSay=0
+# İKİZ kurulumu: etiket verilmezse dosya adından (hazir-<etiket>.json); önek sgs/smmm/kgk değilse ölçülmez (söylenir).
+$ikizAcik=$false
+if(-not $IkizYok){
+  $ikEt=$(if($IkizEtiket){ $IkizEtiket } else { ([IO.Path]::GetFileNameWithoutExtension($Dosya) -replace '^hazir-','' -replace '-\d+$','') })
+  if($ikEt -match '^(sgs|smmm|kgk)-'){
+    $ikOnek=$Matches[1]; $havuzSay=@(Get-ChildItem (Join-Path $depoKokD 'veri\fabrika') -Filter "kalip-parti-$ikOnek-*.json" -ErrorAction SilentlyContinue).Count
+    foreach($fn in (IkizFonkYukle $depoKokD)){ . ([scriptblock]::Create($fn.Extent.Text)) }
+    . (Join-Path $depoKokD 'arac\ikiz-olcusu.ps1'); . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1')
+    $kok=$depoKokD; $Sinav=$ikOnek.ToUpperInvariant(); $Etiket=$ikEt; $CAPA=@{}; $amb=$null; $don=@{}; $script:BENZER_HAVUZ=$null
+    $script:GK_DERS=[bool]($ikEt -match '-(yd|mat|turkce|inkilap)-')
+    $ikizAcik=$true
+    "İKİZ (KAPI-B): etiket $ikEt · havuz kalip-parti-$ikOnek-*.json = $havuzSay dosya$(if($havuzSay -lt 50){' · ⚠ HAVUZ KÜÇÜK/BAYAT OLABİLİR: arac/parti-senkron.ps1 -Indir -Yaz -Sinav ' + $Sinav})"
+  } else { "İKİZ (KAPI-B): ÖLÇÜLMEDİ — etiket önek sgs/smmm/kgk değil ('$ikEt'); -IkizEtiket <etiket> ver" }
+}
+# KAYNAK ADI: benzersiz adlar ambarda birebir aranır (anahtar yoksa ÖLÇÜLMEDİ denir)
+$kaynakVar=@{}; $kaynakOlcu=$false
+if(-not $KaynakYok){
+  $sbK="$($env:SUPABASE_SERVICE_KEY)".Trim(); if(-not $sbK){ $sbK="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
+  if($sbK){ [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $adlarT=@($liste | ForEach-Object { @($_.kaynak_adlar) } | Where-Object { "$_".Trim() } | Sort-Object -Unique)
+    foreach($ad in $adlarT){ try{ $r=@(Invoke-RestMethod -Uri ("https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=id&limit=1&kaynak_ad=eq." + [uri]::EscapeDataString("$ad")) -Headers @{ apikey=$sbK; Authorization="Bearer $sbK"; 'User-Agent'='mevzuat-radar-robot/1.0' } -TimeoutSec 60); $kaynakVar["$ad"]=[bool]@($r | Where-Object { $_ -and $_.id }).Count }catch{ $kaynakVar["$ad"]=$null } }
+    $kaynakOlcu=$true; "KAYNAK ADI: $($adlarT.Count) benzersiz ad · ambarda yok: $(@($kaynakVar.Keys | Where-Object { $kaynakVar[$_] -eq $false }).Count) · okunamadı: $(@($kaynakVar.Keys | Where-Object { $null -eq $kaynakVar[$_] }).Count)"
+  } else { "KAYNAK ADI: ÖLÇÜLMEDİ (SUPABASE_SERVICE_KEY yok)" }
+}
 foreach($q in $liste){
   $i++; $k=New-Object System.Collections.Generic.List[string]
   $not=New-Object System.Collections.Generic.List[string]   # kapıyı DÜŞÜRMEYEN uyarılar (KAPI-K tek kelime gibi)
@@ -123,9 +187,11 @@ foreach($q in $liste){
   # ASCII Türkçe (25.09: Yabancı Dil'de soru ve şıklar İngilizce -> yalnız adımlar ölçülür; "once" İngilizce kelimesi "önce" sanılıyordu, K3 w2)
   $tum=$(if($YABANCI_DIL_DENETIMI){ '' } else { "$($q.soru) "+(@($harf | ForEach-Object { "$($q.siklar.$_)" }) -join ' ') })+' '+(@($q.adimlar | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')
   $asc=@([regex]::Matches($tum.ToLowerInvariant(),'\b(icin|degil|isletme|donem|uretim|dogru|yanlis|ucret|hesabi|satis|yuzde|deger|iscilik|dagitim|kayit|kaydi|urun|uretilen|tutari|yapilan|icinde|once)\b') | ForEach-Object { $_.Value } | Select-Object -Unique); if($asc.Count){ $k.Add("ASCII Turkce: $($asc -join ',')") }
-  $etiket=$(if($k.Count){ 'KUSUR' } else { 'ok' })
-  if($etiket -eq 'ok'){ $temizSay++ }
-  "{0,2}. {1,-36} {2}" -f $i,$q.konu,$etiket
+  if($kaynakOlcu){ foreach($ad in @($q.kaynak_adlar)){ if("$ad".Trim() -and $kaynakVar["$ad"] -eq $false){ $k.Add("KAYNAK ADI ambarda yok: '$ad' (paket boş kalır, hakem soruyu atlar)") } } }
+  if($ikizAcik){ foreach($x in @(BenzerlikKusur $q ("hz-{0:d2}" -f $i))){ $k.Add("KAPI-B: $x") }; $don[("hz-{0:d2}" -f $i)]=$q }
+  $durumEt=$(if($k.Count){ 'KUSUR' } else { 'ok' })
+  if($durumEt -eq 'ok'){ $temizSay++ }
+  "{0,2}. {1,-36} {2}" -f $i,$q.konu,$durumEt
   foreach($x in $k){ "      - $x" }
   foreach($x in $not){ "      . $x" }
 }

@@ -216,6 +216,13 @@ jobs:
           - { ad: "Hazir soru on denetimi DERS TAVANI OZ-SINAVI (bulutla ayni uzunluk kapisi)",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -TavanSinavi" }
 
+          # 26.09.2026 - Hazir soru ON DENETIMI KAPI-B ikiz: ureticinin GERCEK BenzerlikKusur/BenzerHavuz fonksiyonlari AST ile
+          # alinir, sentetik havuzla kosar (3 vaka: havuz ikizi yakala, farkli kok gec, dosya ici kardes yakala).
+          # Mutasyonla olculdu: havuz koku yanlis / BenzerHavuz yuklenmez / havuz esigi kapatilir -> 3/3 KIRMIZI.
+          # Gercek veriyle yerelde: SGS k4 3/3, k8 3/3, SMMM gm2 4/4 bulutun dusurdugunu ayni eslesmeyle yakaladi, 0 yanlis alarm.
+          - { ad: "Hazir soru on denetimi IKIZ (KAPI-B) OZ-SINAVI (ureticinin gercek fonksiyonu)",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -IkizSinavi" }
+
           # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
           # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya
           # gider. GERCEK betik -DenetimKok ile gecici klasorde kosulur (replika yok). 14 vaka:
