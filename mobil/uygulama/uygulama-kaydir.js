@@ -335,6 +335,57 @@
   }
   var cipIzleyici = null;
 
+  /* ---------- UYGULAMA GÖRÜNÜM KATMANI (26.09.2026, Cem "uygulamada yap") ----------
+     Ana ekranla aynı dil: lacivert zemin, beyaz ana düğme, marka turuncusu, emoji YOK.
+     Sitenin dosyasına ve SORU İÇERİĞİNE dokunulmaz: yalnız renk jetonları ezilir ve metin düğümlerinin
+     BAŞINDAKİ emoji ekranda silinir (kalıbın düğme adları ve sırası aynen kalır).
+     KORUNAN (kalıbın renk dili, anlam taşır): --yesil doğru · --kirmizi yanlış · --mavi kaynak rakam · --altin bulunan rakam.
+     Geri almak: bu bloğu silmek yeter; soru verisi etkilenmez. */
+  var st4 = document.createElement('style');
+  st4.textContent = [
+    ':root[data-theme="dark"]{--bg:#06090f;--bg2:#0a0f17;--kart:#0d141e;--cizgi:#1f2a38;--yazi:#eef2f7;--metin:#eef2f7;--dim:#93a1b3;--ustYazi:#06090f}',
+    ':root:not([data-theme="dark"]){--bg:#f2f2f4;--bg2:#e9e9ec;--kart:#ffffff;--cizgi:#e1e1e6;--ustYazi:#ffffff}',
+    'html,body{font-family:-apple-system,"SF Pro Text","Segoe UI",system-ui,Roboto,sans-serif!important}',
+    /* düğmeler: yuvarlak hap yerine teknik köşe; ana eylem zıt renk, öğrenme eylemi marka turuncusu */
+    '.cip2,.btn{border-radius:8px!important}',
+    '.cip2.ana,.btn.ana{background:var(--yazi)!important;color:var(--bg)!important}',
+    '.cip2.birincil{background:#f5a524!important;color:#0b0b0c!important}',
+    '.sik{border-radius:10px!important}',
+    /* emoji yerine başlıklarda küçük turuncu kare (sitenin lambası) */
+    '.panel h3:before,.basl:before,.sek:before,.et:before,.hap:before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;vertical-align:2px;background:#f5a524}',
+    '.basl span:before{content:none!important}'
+  ].join('\n');
+  document.head.appendChild(st4);
+  var BAS_EMOJI = /^(\s*)(?:[←-⇿⌀-⏿①-➿⤀-⯿]️?\s*|(?:[\uD83C-\uD83E][\uDC00-\uDFFF]|‍|️)+\s*)+/;
+  var KORU = /^[▲▼◀▶←-↓]/;   /* ▲ ▼ ◀ ▶ ← ↑ → ↓ yön okları kalır (düğmenin anlamı) */
+  function emojiSil(kok) {
+    if (!kok || !document.createTreeWalker) return;
+    var w = document.createTreeWalker(kok, 4 /* SHOW_TEXT */), d, deg = [];
+    while ((d = w.nextNode())) {
+      var p = d.parentNode; if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName)) continue;
+      var v = d.nodeValue; if (!v || KORU.test(v.replace(/^\s+/, ''))) continue;
+      var m = v.match(BAS_EMOJI);
+      if (m && m[0].trim()) {
+        var y = m[1] + v.slice(m[0].length);
+        /* yalnız emojiden oluşan parça: öğede başka yazı varsa silinir ("✅ Doğrusu"), yoksa işarettir, kalır (🏁) */
+        if (y.trim() || (p.textContent || '').replace(v, '').trim()) deg.push([d, y]);
+      }
+    }
+    deg.forEach(function (x) { x[0].nodeValue = x[1]; });
+  }
+  var gorunumIzleyici = null;
+  function gorunumKur() {
+    emojiSil(document.body);
+    if (gorunumIzleyici || !window.MutationObserver) return;
+    gorunumIzleyici = new MutationObserver(function (kayit) {
+      kayit.forEach(function (k) {
+        if (k.type === 'characterData') emojiSil(k.target.parentNode);
+        else [].forEach.call(k.addedNodes, function (n) { if (n.nodeType === 1) emojiSil(n); else if (n.nodeType === 3) emojiSil(n.parentNode); });
+      });
+    });
+    gorunumIzleyici.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+
   /* ---------- ÜCRETSİZ SORULARDA ÜYELİK KAPISI + ARA KARNE (26.09.2026, Cem "kur") ----------
      Kurgu: 3 soru hesapsız → "ücretsiz üye ol" kapısı (geçilmez) → 30 soru → her 10 soruda ara karne + tam paket.
      Yalnız vitrin (ücretsiz) sayfalarında; tek kart modu (günün sorusu) kapıdan muaf. Giriş durumu ana ekrandan
@@ -443,6 +494,7 @@
     if (!izleyici) { try { izleyici = new MutationObserver(function () { kartlar().forEach(kartiDuzenle); konumKur(); }); izleyici.observe(a, { childList: true }); } catch (e) {} }
     konumKur();
     kapiIzle();
+    gorunumKur();
     cipTemizle(a);
     if (!cipIzleyici) { try { cipIzleyici = new MutationObserver(function () { cipTemizle(a); }); cipIzleyici.observe(a, { childList: true, subtree: true }); } catch (e) {} }
   }
