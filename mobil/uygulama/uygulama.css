@@ -311,3 +311,11 @@ h1.slogan { font-size: 34px; line-height: 1.08; }
 @keyframes sekmeGel { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 main > [data-sekme] { animation: sekmeGel .22s ease-out; }
 @media (prefers-reduced-motion: reduce) { main > [data-sekme], #odeme .ic { animation: none !important; } .srt:active, .sinavKart:active, .kahraman:active, .ana:active { transform: none; } }
+
+/* AMBLEM: sitenin resmî logosu (logo-acik.svg) her yerde aynı — 26.09 Cem "tetikte amblemi ile sitedeki amblem aynı değil" */
+.marka { letter-spacing: normal !important; text-transform: none !important; font-size: inherit !important; }
+.marka .logo { display: block; height: 32px; width: auto; color: #fff; }
+.lamba { display: none; }
+#kurulum .kMarka span { display: block !important; }
+#kurulum .kMarka .logo { display: block; height: 34px; width: auto; color: #fff; }
+#kurulum .kMarka i { display: none; }
