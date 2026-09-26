@@ -187,6 +187,16 @@ foreach($q in $liste){
   # ASCII Türkçe (25.09: Yabancı Dil'de soru ve şıklar İngilizce -> yalnız adımlar ölçülür; "once" İngilizce kelimesi "önce" sanılıyordu, K3 w2)
   $tum=$(if($YABANCI_DIL_DENETIMI){ '' } else { "$($q.soru) "+(@($harf | ForEach-Object { "$($q.siklar.$_)" }) -join ' ') })+' '+(@($q.adimlar | ForEach-Object { "$($_.formul) $($_.anlatim)" }) -join ' ')
   $asc=@([regex]::Matches($tum.ToLowerInvariant(),'\b(icin|degil|isletme|donem|uretim|dogru|yanlis|ucret|hesabi|satis|yuzde|deger|iscilik|dagitim|kayit|kaydi|urun|uretilen|tutari|yapilan|icinde|once)\b') | ForEach-Object { $_.Value } | Select-Object -Unique); if($asc.Count){ $k.Add("ASCII Turkce: $($asc -join ',')") }
+  # 26.09 KAPI-HG PAKET KİRLENMESİ: üretici (kalip-parti-uret.ps1 KAPI-HG) Matematik/Atatürk DIŞINDA her derste soru+şıklardaki
+  #   3 haneli sayıyı (birim yoksa) hesap kodu sanıp hakem paketine THP tanımı ekler; paket tavanı asıl notu dışarı iter →
+  #   hakem "kaynak ilgisiz" der (k7 Ekonomi 2 soru: '360', '120'). Hesap kodu kullanan derslerde (FM/Maliyet/MTA/Denetim/Vergi) ölçülmez.
+  #   Desen üreticininkiyle aynı biçim (birim listesi dahil); 🚫 GÖRMEZ: üreticinin Get-HesapKodu süzgeci (geçersiz kodu atıyorsa burada fazla uyarı olur).
+  if($Ders -and $Ders -notmatch 'Finansal|Maliyet|Mali Tablo|Denetim|Vergi|Muhasebe|Matematik|Atat'){
+    $hgM="$($q.soru) " + ((@('A','B','C','D','E') | ForEach-Object { "$($q.siklar.$_)" }) -join ' ')
+    $hgB='(?:TL|YTL|TRY|USD|EUR|₺|lira|kuruş|kurus|adet|kg|gram|ton|km|cm|mm|metre|litre|gün|gun|ay|yıl|yil|saat|dakika|saniye|kişi|kisi)'
+    $hgS=@([regex]::Matches($hgM,"(?<![\d.,%$])([1-7]\d\d)(?![\d.,%])\s+(?!$hgB(?![A-Za-zÇĞİÖŞÜçğıöşü]))") | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
+    if($hgS.Count){ $k.Add("KAPI-HG riski: '$($hgS -join ', ')' hesap kodu sanılır, hakem paketine THP girer (sayıyı yazıyla yaz ya da birim/% ekle)") }
+  }
   if($kaynakOlcu){ foreach($ad in @($q.kaynak_adlar)){ if("$ad".Trim() -and $kaynakVar["$ad"] -eq $false){ $k.Add("KAYNAK ADI ambarda yok: '$ad' (paket boş kalır, hakem soruyu atlar)") } } }
   if($ikizAcik){ foreach($x in @(BenzerlikKusur $q ("hz-{0:d2}" -f $i))){ $k.Add("KAPI-B: $x") }; $don[("hz-{0:d2}" -f $i)]=$q }
   $durumEt=$(if($k.Count){ 'KUSUR' } else { 'ok' })
