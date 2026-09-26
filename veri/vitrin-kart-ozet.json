@@ -1,143 +1,143 @@
 {
-  "olcum": "2026-09-25T23:55:32.849Z",
-  "gun": "2026-09-26",
+  "olcum": "2026-09-26T23:30:06.787Z",
+  "gun": "2026-09-27",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 58,
+      "sira": 59,
       "toplam": 70,
-      "id": "sgs-d2-ekonomi-zor-r2/kp-01",
-      "ders": "Ekonomi",
-      "konu": "taylor prensibi",
+      "id": "sgs-p-vergi-zor-r1-a/kp-03",
+      "ders": "Vergi Hukuku",
+      "konu": "kdv matrahı",
       "donem": 3,
       "teori": false,
       "rakamSik": true,
-      "soru": "Denge reel faiz %2, cari enflasyon %8, enflasyon hedefi %5, çıktı açığı 1 puandır. Taylor kuralına göre politika faizi = denge reel faiz + cari enflasyon + a×(enflasyon-hedef) + b×(çıktı açığı); a=1,5 ve b=0,5 olduğuna göre politika faizi yüzde kaçtır?",
+      "soru": "Bir işletme, gerçek kişiye yaptığı mal teslimi karşılığında 500.000 TL mal bedeli, 20.000 TL vade farkı, 15.000 TL kur farkı ve teslim yerine kadar yapılan 5.000 TL taşıma gideri tahsil etmiş, faturada 10.000 TL iskonto uygulamıştır. 3065 sayılı Katma Değer Vergisi Kanununa göre bu teslimin katma değer vergisi matrahı kaç TL'dir?",
       "siklar": {
-        "A": "10,5",
-        "B": "13,0",
-        "C": "13,5",
-        "D": "14,5",
-        "E": "15,0"
+        "A": "490.000",
+        "B": "510.000",
+        "C": "515.000",
+        "D": "525.000",
+        "E": "530.000"
       },
       "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Katsayı İhmali Tuzağı",
-          "metin": "Enflasyon farkını (8-5=3) a=1,5 ile çarpmadan, katsayısız olarak doğrudan topladın. Doğrusu: Taylor prensibinin özü enflasyon katsayısının 1'den büyük olmasıdır, fark mutlaka a ile çarpılır ve sonuç 15,0'tir."
+          "ad": "Kur Farkı Atlama Tuzağı",
+          "metin": "Kur farkının döviz işlemine özgü, KDV dışı bir gelir olduğu sanılıp matraha eklenmemiştir. Doğrusu: aynı madde kur farkını da vade farkı, faiz ve prim gibi matraha dahil sayar."
         },
         "A": {
-          "ad": "İhmal Tuzağı",
-          "metin": "Enflasyonun hedeften sapması (8-5=3) katmanını toplama hiç dahil etmedin, sanki para politikası yalnız cari enflasyona ve çıktı açığına tepki veriyor. Doğrusu: sapma terimi a katsayısıyla çarpılıp mutlaka eklenir, sonuç…"
+          "ad": "Eksik Toplama Tuzağı",
+          "metin": "Vade farkı, kur farkı ve taşıma gideri hiç matraha eklenmemiş; yalnız mal bedelinden iskonto düşülmüştür. Doğrusu: Kanunun 24 üncü maddesi uyarınca üç unsur da matraha dahildir."
         },
         "D": {
-          "ad": "Çıktı Açığı İhmali Tuzağı",
-          "metin": "b×çıktı açığı (0,5×1=0,5) terimini toplama dahil etmedin, sanki kural yalnız enflasyon terimlerinden oluşuyor. Doğrusu: genel biçimde çıktı açığı terimi de eklenir, sonuç 15,0'tir."
+          "ad": "Taşıma Gideri Atlama Tuzağı",
+          "metin": "Teslim yerine kadar yapılan taşıma giderinin satıcı üstlendiği için ayrı bir gider kalemi olup matraha girmediği düşünülmüştür. Doğrusu: 24 üncü maddenin (a) bendi bu taşıma giderini matraha dahil unsur sayar."
         },
         "B": {
-          "ad": "Taban Atlama Tuzağı",
-          "metin": "Denge reel faizi (%2) toplamaya hiç katmadın, sanki politika faizi sıfır reel faiz üzerine kuruluymuş gibi hesapladın. Doğrusu: denge reel faiz kuralın sabit tabanıdır ve toplama eklenir, sonuç 15,0'tir."
+          "ad": "Vade Farkı Atlama Tuzağı",
+          "metin": "Vade farkının ayrı bir finansman geliri olduğu düşünülüp matraha katılmamıştır. Doğrusu: 3065 sayılı Kanunun 24 üncü maddesinin (c) bendi vade farkını açıkça matraha dahil unsur sayar."
         }
       },
-      "hap": "Taylor prensibi, enflasyondaki 1 puanlık artışa karşılık nominal faizin 1 puandan fazla artması gerektiği koşuludur; yani enflasyon katsayısı 1'den büyük olmalıdır.",
+      "hap": "Katma değer vergisi matrahına vade farkı, kur farkı ve taşıma gideri gibi unsurlar dahildir; fatura üzerindeki iskonto ise matraha dahil değildir.",
       "satirlar": [
         [
-          "Denge reel faiz katkısı",
-          "2"
+          "Vade farkı (eklenir)",
+          "20.000"
         ],
         [
-          "Enflasyon katkısı (cari enflasyon)",
-          "8"
+          "Kur farkı (eklenir)",
+          "15.000"
         ],
         [
-          "Enflasyon farkı katkısı (a×(enflasyon-hedef))",
-          "1,5×3=4,5"
+          "Taşıma gideri (eklenir)",
+          "5.000"
         ],
         [
-          "Çıktı açığı katkısı (b×çıktı açığı)",
-          "0,5×1=0,5"
+          "İskonto (düşülür)",
+          "-10.000"
         ],
         [
-          "Politika faizi (toplam)",
-          "15,0"
+          "KDV Matrahı (Sonuç)",
+          "530.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=58",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=59",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 57,
+        "kalan_gun": 56,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 58,
+      "sira": 59,
       "toplam": 70,
-      "id": "smmm-4k-a-ymeslek-kolay-r10/kp-05",
-      "ders": "Meslek Hukuku",
-      "konu": "meslek mensubu genel şartları",
+      "id": "smmm-4k-a-ydenetim-kolay-r1/kp-03",
+      "ders": "Muhasebe Denetimi",
+      "konu": "mesleki muhakeme",
       "donem": 3,
       "teori": true,
       "rakamSik": false,
-      "soru": "SMMM stajını tamamlamış aday Kaan, yeterlilik sınavına girmeden önce görülen bir davada irtikap suçundan mahkûm olmuş ve cezası kesinleşmiştir. Daha sonra çıkarılan genel af kanunundan yararlanmış, ayrıca Türk Ceza Kanunu m.53'te belirtilen süreler de tamamen geçmiştir. Kaan'ın meslek mensubu olabilmesi açısından 3568 sayılı Kanun m.4 uyarınca aşağıdakilerden hangisi doğrudur?",
+      "soru": "BDS 220'ye göre, mesleki muhakeme ile mesleki şüphecilik arasındaki ilişkiye dair aşağıdaki ifadelerden hangisi doğrudur?",
       "siklar": {
-        "A": "Türk Ceza Kanunu m.53'teki süreler tamamen geçtiğinden genel şart artık sağlanmıştır ve Kaan meslek mensubu olabilir.",
-        "B": "İrtikap suçu madde 4/d'de sayılan suçlardan olduğundan af ve süre geçmesi bu engeli kaldırmaz; Kaan meslek mensubu olamaz.",
-        "C": "Genel af kanunundan yararlanma nedeniyle mahkûmiyet hukuken ortadan kalktığından Kaan meslek mensubu olabilir.",
-        "D": "İrtikap kasten işlenmiş bir suç olsa da hapis cezası bir yıldan az kaldığında engel oluşturmadığından Kaan meslek mensubu olabilir.",
-        "E": "Kaan hakkında memuriyetten çıkarılma cezası bulunmadığından madde 4/e bendi açısından engel yoktur ve bu nedenle meslek mensubu olabilir."
+        "A": "Mesleki muhakeme, denetim ekibince kullanılan mesleki şüpheciliğin kalitesini ve etkinliğini destekleyen bir tutumdur.",
+        "B": "Mesleki şüphecilik, denetim ekibi tarafından yapılan muhakemelerin kalitesini ve bu muhakemeler aracılığıyla denetim düzeyinde kaliteye ulaşılmasındaki genel etkinliğini destekler.",
+        "C": "Mesleki şüphecilik, yalnızca denetimin yürütülmesi aşamasında hata veya hileye işaret eden durumların değerlendirilmesiyle sınırlıdır, planlama aşamasında kullanılmaz.",
+        "D": "Mesleki muhakeme, yalnızca sorumlu denetçi tarafından kullanılan; diğer ekip üyelerini kapsamayan bir yargılama sürecidir.",
+        "E": "Mesleki muhakeme, yalnızca önemli muhasebe tahminlerinin değerlendirilmesiyle sınırlı olup, kalite yönetimine ilişkin kararlarda kullanılmaz."
       },
       "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Af Tuzağı",
-          "metin": "Öğrenci genel aftan yararlanmayı mahkûmiyetin tamamen silinmesi sanır. Doğrusu: madde 4/d 'affa uğramış olsa bile' ibaresiyle bu suç grubunda affı da etkisiz kılar."
+          "ad": "Zamanlama Daraltma Tuzağı",
+          "metin": "Mesleki şüpheciliğin yalnızca yürütme aşamasında geçerli olduğunu sanıyorsun. Doğrusu: BDS 220 p.7'ye göre denetim ekibi, denetimi hem planlarken hem yürütürken mesleki şüphecilik içinde hareket eder."
         },
         "E": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "Öğrenci tek bir bendin (e - memuriyetten çıkarılma) sağlanmasını tüm madde 4'ün sağlandığı anlamına gelir sanır. Doğrusu: madde 4 bentleri kümülatiftir, d bendindeki irtikap engeli tek başına genel şartı ihlal eder."
+          "ad": "Kapsam Sınırlama Tuzağı",
+          "metin": "Mesleki muhakemenin yalnızca tahmin değerlendirmesiyle sınırlı bir teknik araç olduğunu sanıyorsun. Doğrusu: BDS 220 p.6-p.7'ye göre mesleki muhakeme, kalitenin yönetilmesi ve kaliteye ulaşılması için atılacak adımlara …"
         },
         "D": {
-          "ad": "Eşik Tuzağı",
-          "metin": "Öğrenci madde 4/d'deki 'bir yıl veya daha fazla hapis' eşiğini tüm suçlara uygulanan genel bir sınır sanır. Doğrusu: bu süre eşiği yalnız genel kasten suçlar için geçerlidir; irtikap gibi özel sayılan suçlarda süre uzun…"
+          "ad": "Özne Daraltma Tuzağı",
+          "metin": "Mesleki muhakemenin sadece sorumlu denetçiye ait bir yetki olduğunu sanıyorsun. Doğrusu: BDS 220 p.7 açıkça 'denetim ekibi'nin mesleki muhakeme kullanacağını belirtir, kapsam tüm ekibi içerir."
         },
         "A": {
-          "ad": "Süre Tuzağı",
-          "metin": "Öğrenci TCK m.53 süresinin dolmasını her durumda temizlenme sanır. Doğrusu: madde 4/d'de sayılan suçlarda kanun açıkça 'süreler geçmiş olsa bile' diyerek engeli kalıcı kılar."
+          "ad": "Rol Ters Çevirme Tuzağı",
+          "metin": "İki kavramı birbirinin yerine koyup mesleki muhakemenin mesleki şüpheciliği desteklediğini sanıyorsun. Doğrusu: BDS 220 p.7'de yön tam tersinedir; mesleki şüphecilik, muhakemelerin kalitesini destekler."
         }
       },
-      "hap": "3568 sayılı Kanun m.4/d'de sayılan zimmet, irtikap, rüşvet, dolandırıcılık gibi suçlarda af ve TCK m.53 süresinin geçmesi meslek mensubu olma engelini kaldırmaz.",
+      "hap": "Mesleki şüphecilik, mesleki muhakemenin kalitesini ve kaliteye ulaşma etkinliğini destekler; yön karıştırılmaz.",
       "satirlar": [
         [
-          "A) Türk Ceza Kanunu m.53'teki süreler tamamen geçtiğinden g…",
-          "m.4/d"
+          "A) Mesleki muhakeme, denetim ekibince kullanılan mesleki şü…",
+          "p.7"
         ],
         [
-          "B) İrtikap suçu madde 4/d'de sayılan suçlardan olduğundan a…",
-          "m.4/d"
+          "B) Mesleki şüphecilik, denetim ekibi tarafından yapılan muh…",
+          "p.7"
         ],
         [
-          "C) Genel af kanunundan yararlanma nedeniyle mahkûmiyet huku…",
-          "m.4/d"
+          "C) Mesleki şüphecilik, yalnızca denetimin yürütülmesi aşama…",
+          "p.7"
         ],
         [
-          "D) İrtikap kasten işlenmiş bir suç olsa da hapis cezası bir…",
-          "m.4/d"
+          "D) Mesleki muhakeme, yalnızca sorumlu denetçi tarafından ku…",
+          "p.7"
         ],
         [
-          "E) Kaan hakkında memuriyetten çıkarılma cezası bulunmadığın…",
-          "m.4/e, m.4/d"
+          "E) Mesleki muhakeme, yalnızca önemli muhasebe tahminlerinin…",
+          "p.6"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=58",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=59",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 67,
+        "kalan_gun": 66,
         "durum": "YESIL",
         "mail_gunu": false
       }
