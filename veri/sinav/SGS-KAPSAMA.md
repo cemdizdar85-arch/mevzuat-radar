@@ -3,64 +3,42 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.728** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 488 | 887 | 27,7 | 1021 | 265 | 49 | 15 | 159 | 91 |
-| Denetim | 282 | 496 | 15,5 | 643 | 174 | 34 | 5 | 69 | 46 |
-| Yabancı Dil | 85 | 321 | 10,0 | 257 | 45 | 18 | 1 | 21 | 120 |
-| Maliyet Muhasebesi | 139 | 267 | 8,3 | 369 | 101 | 13 | 5 | 20 | 18 |
-| Matematik | 119 | 256 | 8,0 | 433 | 42 | 12 | 4 | 61 | 29 |
-| Ticaret Hukuku | 129 | 226 | 7,1 | 244 | 70 | 10 | 1 | 48 | 16 |
-| Türkçe | 126 | 224 | 7,0 | 126 | 26 | 17 | 4 | 79 | 36 |
-| Vergi Hukuku | 161 | 203 | 6,3 | 156 | 50 | 7 | 8 | 96 | 9 |
-| Mali Tablolar Analizi | 96 | 197 | 6,2 | 208 | 61 | 12 | 3 | 20 | 12 |
-| Ekonomi | 137 | 193 | 6,0 | 151 | 50 | 8 | 4 | 75 | 12 |
-| İş ve Sosyal Güvenlik Hukuku | 98 | 190 | 5,9 | 160 | 39 | 19 | 3 | 37 | 39 |
-| Borçlar Hukuku | 91 | 180 | 5,6 | 189 | 50 | 12 | 3 | 26 | 34 |
-| Maliye | 119 | 168 | 5,3 | 124 | 34 | 7 | 6 | 72 | 7 |
-| Meslek Hukuku | 92 | 163 | 5,1 | 152 | 43 | 7 | 4 | 38 | 27 |
-| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 153 | 30 | 2 | 5 | 77 | 15 |
+| Finansal Muhasebe | 488 | 887 | 27,7 | 1086 | 287 | 33 | 8 | 160 | 26 |
+| Denetim | 282 | 496 | 15,5 | 671 | 183 | 25 | 5 | 69 | 18 |
+| Yabancı Dil | 85 | 321 | 10,0 | 323 | 56 | 7 | 1 | 21 | 58 |
+| Maliyet Muhasebesi | 139 | 267 | 8,3 | 385 | 106 | 10 | 3 | 20 | 4 |
+| Matematik | 119 | 256 | 8,0 | 445 | 44 | 10 | 4 | 61 | 17 |
+| Ticaret Hukuku | 129 | 226 | 7,1 | 258 | 76 | 4 | 1 | 48 | 2 |
+| Türkçe | 126 | 224 | 7,0 | 146 | 31 | 13 | 3 | 79 | 16 |
+| Vergi Hukuku | 161 | 203 | 6,3 | 162 | 52 | 7 | 6 | 96 | 3 |
+| Mali Tablolar Analizi | 96 | 197 | 6,2 | 219 | 64 | 9 | 3 | 20 | 2 |
+| Ekonomi | 137 | 193 | 6,0 | 161 | 52 | 7 | 3 | 75 | 4 |
+| İş ve Sosyal Güvenlik Hukuku | 98 | 190 | 5,9 | 189 | 49 | 10 | 2 | 37 | 10 |
+| Borçlar Hukuku | 91 | 180 | 5,6 | 220 | 61 | 4 | 0 | 26 | 4 |
+| Maliye | 119 | 168 | 5,3 | 129 | 37 | 4 | 6 | 72 | 2 |
+| Meslek Hukuku | 92 | 163 | 5,1 | 172 | 47 | 6 | 1 | 38 | 10 |
+| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 160 | 30 | 4 | 3 | 77 | 9 |
 | Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 2 | 0 | 1 | 1 | 1 | 4 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Hukuk (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **179 konu / 515 soru**
+- 3+ dönem çıkmış: **83 konu / 189 soru**
 - 2 dönem çıkmış: 120 konu / 168 soru
-- 1 dönem çıkmış: 900 konu / 902 soru
+- 1 dönem çıkmış: 901 konu / 903 soru
 
 ## Birden çok dönem çıkmış, sitede hiç sorusu olmayan
 
 | Ders | Konu | Çıkan / dönem | Son |
 |---|---|---:|---|
-| Atatürk İlkeleri ve İnkılap Tarihi | ataturk donemi dis politika | 6 / 6 | 2025/2 |
-| Meslek Hukuku | meslek mensubu ucret esaslari | 5 / 5 | 2021/1 |
-| Ekonomi | keynesyen tuketim fonksiyonu | 4 / 4 | 2018/2 |
-| Finansal Muhasebe | kapsamli gelir | 4 / 4 | 2023/1 |
 | İş ve Sosyal Güvenlik Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
 | Matematik | uslu sayilar | 4 / 4 | 2019/3 |
 | Muhasebe (ders ayrılmadı) | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
-| Maliyet Muhasebesi | direkt ilk madde malzeme | 4 / 3 | 2020/3 |
-| Atatürk İlkeleri ve İnkılap Tarihi | milli mucadele basini | 3 / 3 | 2023/2 |
-| Borçlar Hukuku | zamanasimi suresi | 3 / 3 | 2025/3 |
-| Borçlar Hukuku | sozlesme sekli | 3 / 3 | 2026/2 |
-| Borçlar Hukuku | borclu temerrudu | 3 / 3 | 2019/1 |
-| Finansal Muhasebe | amortisman yontemi degisimi | 3 / 3 | 2025/2 |
-| Finansal Muhasebe | tfrs 3 gercege uygun deger olcumu | 3 / 3 | 2023/1 |
-| Finansal Muhasebe | pasif duzenleyici hesap | 3 / 3 | 2026/1 |
-| Finansal Muhasebe | onemlilik kavrami | 3 / 3 | 2021/3 |
-| Finansal Muhasebe | nazim hesaplar | 3 / 3 | 2019/1 |
-| Finansal Muhasebe | muhasebe politikalari | 3 / 3 | 2026/1 |
-| İş ve Sosyal Güvenlik Hukuku | is guvencesi | 3 / 3 | 2019/1 |
-| Maliyet Muhasebesi | ekonomik siparis miktari | 3 / 3 | 2019/2 |
-| Meslek Hukuku | etik kurulu gorev yetkileri | 3 / 3 | 2026/2 |
-| Meslek Hukuku | smmm odalari | 3 / 3 | 2021/1 |
-| Türkçe | unlu degisimi | 3 / 3 | 2025/3 |
-| Vergi Hukuku | kamu alacagi guvence onlemleri | 3 / 3 | 2018/1 |
-| Vergi Hukuku | vuk degerleme olculeri | 3 / 3 | 2020/2 |
 | Yabancı Dil | ilgi zamiri (which) | 3 / 3 | 2024/1 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
 | Finansal Muhasebe | maddi duran varlik dogruluk testi | 3 / 2 | 2017/3 |
@@ -113,33 +91,33 @@ Sitede sayfadan okunan soru: **4.388** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Sitede | Eksik |
 |---|---|---:|---:|---:|
-| Yabancı Dil | cumle tamamlama | 55 / 22 | 12 | 43 |
-| Finansal Muhasebe | muhasebe bilgi sistemi | 16 / 16 | 2 | 14 |
-| Yabancı Dil | baglac kullanimi | 17 / 14 | 4 | 13 |
-| Yabancı Dil | kelime bilgisi | 17 / 12 | 6 | 11 |
-| Türkçe | yazim kurallari | 15 / 14 | 5 | 10 |
-| Yabancı Dil | preposition secimi | 15 / 14 | 7 | 8 |
-| Yabancı Dil | kelime bilgisi (fiil secimi) | 11 / 10 | 3 | 8 |
-| İş ve Sosyal Güvenlik Hukuku | toplu is sozlesmesi | 11 / 11 | 4 | 7 |
-| Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 3 | 6 |
-| Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 1 | 6 |
-| Meslek Hukuku | meslek etik ilkeleri | 7 / 7 | 1 | 6 |
-| Türkçe | noktalama isaretleri | 14 / 14 | 8 | 6 |
-| Borçlar Hukuku | genel islem kosullari | 9 / 9 | 4 | 5 |
-| Finansal Muhasebe | donem kari zarari hesabi | 9 / 9 | 4 | 5 |
-| Maliyet Muhasebesi | direkt iscilik gideri hesaplama | 6 / 6 | 1 | 5 |
-| Matematik | cebirsel ifadeler | 6 / 6 | 1 | 5 |
-| Denetim | denetci raporu | 7 / 7 | 3 | 4 |
-| Denetim | denetim kalite kontrolu | 5 / 5 | 1 | 4 |
-| Finansal Muhasebe | depozito iadesi kaydi | 10 / 10 | 6 | 4 |
-| Finansal Muhasebe | duzenleyici hesaplar | 5 / 5 | 1 | 4 |
-| İş ve Sosyal Güvenlik Hukuku | sigortali sayilma | 7 / 7 | 3 | 4 |
-| Mali Tablolar Analizi | net isletme sermayesi | 9 / 8 | 5 | 4 |
-| Matematik | limit hesabi | 13 / 13 | 9 | 4 |
-| Matematik | yuzde problemi | 6 / 6 | 2 | 4 |
-| Matematik | seri toplami | 6 / 6 | 2 | 4 |
-| Türkçe | anlatim bozuklugu | 13 / 13 | 9 | 4 |
+| Yabancı Dil | cumle tamamlama | 55 / 22 | 21 | 34 |
+| Finansal Muhasebe | muhasebe bilgi sistemi | 16 / 16 | 6 | 10 |
+| Türkçe | yazim kurallari | 15 / 14 | 7 | 8 |
+| Yabancı Dil | kelime bilgisi | 17 / 12 | 10 | 7 |
+| Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 2 | 5 |
+| Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 5 | 4 |
+| Matematik | cebirsel ifadeler | 6 / 6 | 2 | 4 |
+| Yabancı Dil | baglac kullanimi | 17 / 14 | 13 | 4 |
 | Yabancı Dil | edat kullanimi | 8 / 8 | 4 | 4 |
-| Yabancı Dil | kelime tamamlama | 7 / 3 | 3 | 4 |
-| Yabancı Dil | edilgen yapi | 6 / 6 | 2 | 4 |
-| Yabancı Dil | karsilastirma yapisi | 5 / 4 | 1 | 4 |
+| Atatürk İlkeleri ve İnkılap Tarihi | ataturk donemi dis politika | 6 / 6 | 3 | 3 |
+| Matematik | limit hesabi | 13 / 13 | 10 | 3 |
+| Meslek Hukuku | meslek etik ilkeleri | 7 / 7 | 4 | 3 |
+| Meslek Hukuku | meslek mensubu ucret esaslari | 5 / 5 | 2 | 3 |
+| Türkçe | noktalama isaretleri | 14 / 14 | 11 | 3 |
+| Yabancı Dil | ilgi zamiri | 7 / 7 | 4 | 3 |
+| Atatürk İlkeleri ve İnkılap Tarihi | milli mucadele basini | 3 / 3 | 1 | 2 |
+| Borçlar Hukuku | genel islem kosullari | 9 / 9 | 7 | 2 |
+| Denetim | banka hesaplari denetim unsurlari | 4 / 4 | 2 | 2 |
+| Denetim | gorus bildirmekten kacinma raporu | 3 / 3 | 1 | 2 |
+| Ekonomi | tam rekabet kisa donem denge | 5 / 5 | 3 | 2 |
+| Finansal Muhasebe | donem kari zarari hesabi | 9 / 9 | 7 | 2 |
+| Maliyet Muhasebesi | direkt iscilik gideri hesaplama | 6 / 6 | 4 | 2 |
+| Maliyet Muhasebesi | ekonomik siparis miktari | 3 / 3 | 1 | 2 |
+| Matematik | turev hesabi | 12 / 12 | 10 | 2 |
+| Meslek Hukuku | smmm odalari | 3 / 3 | 1 | 2 |
+| Türkçe | yazim yanlisi | 4 / 4 | 2 | 2 |
+| Yabancı Dil | zarf kullanimi | 3 / 3 | 1 | 2 |
+| Borçlar Hukuku | takas-borclar kanunu | 5 / 5 | 4 | 1 |
+| Borçlar Hukuku | sozlesme iptal sebepleri | 3 / 3 | 2 | 1 |
+| Denetim | denetci raporu | 7 / 7 | 6 | 1 |
