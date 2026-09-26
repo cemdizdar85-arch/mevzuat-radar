@@ -26,13 +26,26 @@
     localStorage.setItem('kc_tema', koyu ? 'dark' : 'light');
   } catch (e) {}
 
+  /* Kenar payları: Capacitor 8 SystemBars (varsayılan "css") Android'de --safe-area-inset-* değişkenlerini
+     yazar; iOS ve yeni Chromium'da env() doğru döner. İkisinden büyüğü alınır. */
+  var UST = 'max(env(safe-area-inset-top),var(--safe-area-inset-top,0px))';
+  var ALT = 'max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px))';
   var st = document.createElement('style');
   st.textContent = [
-    /* 1) güvenli alan */
-    '#akis>.kart{padding-top:calc(14px + env(safe-area-inset-top))!important}',
-    '#akis>.kart .panel{padding-bottom:calc(20px + env(safe-area-inset-bottom))!important}',
-    '#akis>.kart .ipucu{bottom:calc(14px + env(safe-area-inset-bottom))!important}',
-    '#akis>.kart .kagitAc{bottom:calc(44px + env(safe-area-inset-bottom))!important}',
+    /* 1) güvenli alan — soru kartı */
+    '#akis>.kart{padding-top:calc(14px + ' + UST + ')!important}',
+    '#akis>.kart .panel{padding-bottom:calc(20px + ' + ALT + ')!important}',
+    '#akis>.kart .ipucu{bottom:calc(14px + ' + ALT + ')!important}',
+    '#akis>.kart .kagitAc{bottom:calc(44px + ' + ALT + ')!important}',
+    /* tam ekran açılan katmanlar: 🎬 Nöbetçi anlatsın (.ders, altında Geri/İleri), ⚖️ Sen çöz (.oyun),
+       📥 yanlış kutusu (.kutuIc). 26.09 Cem: "İleri tuşu telefonun geri tuşuna yakın geliyor". */
+    '.ders{padding-top:calc(12px + ' + UST + ')!important}',
+    '.ders .altc{padding-bottom:calc(18px + ' + ALT + ')!important}',
+    '.oyun{padding-top:calc(14px + ' + UST + ')!important;padding-bottom:calc(18px + ' + ALT + ')!important}',
+    '.kutuIc{padding-bottom:calc(22px + ' + ALT + ')!important}',
+    '#ttGeri{top:calc(10px + ' + UST + ')!important}',
+    /* tam ekran katman açıkken sol üstteki "‹" başlığın üstüne binmesin (katmanın kendi ✕ düğmesi var) */
+    'body:has(.ders.acik) #ttGeri,body:has(.oyun.acik) #ttGeri,body:has(#ttListe.acik) #ttGeri{display:none!important}',
     '#temaB{display:none!important}',
     /* 2) üst şerit: tek satır */
     '#ttGeri{padding:0!important;width:36px;height:36px;display:flex!important;align-items:center;justify-content:center;font-size:20px!important;line-height:1!important}',
@@ -46,14 +59,14 @@
     /* 3) açıklama kartı: küçülür / açılır */
     '.ttPanelBar{position:sticky;top:-12px;z-index:2;display:flex;justify-content:center;margin:-12px -14px 8px;padding:10px 14px 8px;background:var(--kart);border-bottom:1px solid var(--cizgi)}',
     '.ttPanelBar button{font:inherit;font-size:.9em;font-weight:700;color:var(--yazi);background:transparent;border:1px solid var(--cizgi);border-radius:999px;padding:6px 16px;cursor:pointer}',
-    '#akis>.kart .panel.acik.ttKucuk{transform:translateY(calc(100% - 58px - env(safe-area-inset-bottom)))!important;overflow:hidden!important}',
+    '#akis>.kart .panel.acik.ttKucuk{transform:translateY(calc(100% - 58px - ' + ALT + '))!important;overflow:hidden!important}',
     '#akis>.kart .panel.acik.ttKucuk .ttPanelBar{border-bottom:0}',
     /* 4) cevaptan sonra yüzen Kâğıt düğmesi gizli */
     '#akis>.kart.cevaplandi .kagitAc{display:none!important}',
     /* numaralı soru listesi */
     '#ttListe{position:fixed;inset:0;z-index:2147481000;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}',
     '#ttListe.acik{display:flex}',
-    '#ttListe .ic{width:min(100%,560px);max-height:75%;overflow-y:auto;background:var(--kart);color:var(--yazi);border-radius:18px 18px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom))}',
+    '#ttListe .ic{width:min(100%,560px);max-height:75%;overflow-y:auto;background:var(--kart);color:var(--yazi);border-radius:18px 18px 0 0;padding:16px 16px calc(18px + ' + ALT + ')}',
     '#ttListe h3{margin:0 0 4px;font-size:1.05em}',
     '#ttListe p{margin:0 0 12px;font-size:.82em;color:var(--dim)}',
     '#ttListe .izgara{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}',
