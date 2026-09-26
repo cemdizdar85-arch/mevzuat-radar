@@ -1,0 +1,80 @@
+# KGK (BAGIMSIZ DENETCILIK) KASA YAYINI — AYRI IS, TEK SIRA (27.09.2026, Cem "1.2.3 ucunu de yap")
+#
+# NIYE: arac/kgk-kasa-yayin.ps1 modul modul Kaydir-Coz sayfasi kurar (motor/kaydir-coz.ps1); yerel makinede
+# sayfa basina ~55-60 dk surdu (27.09 olcumu, 6 soruluk sayfa dahil) -> 5 modul ~5 saat. Bulutta kosar.
+# SMMM esi: smmm-kasa-yayin.yml (ayni desen: tek sira, cancel-in-progress kapali, gunluge yalniz sayi).
+#
+# GIRDILER
+#   yaz        : false (varsayilan) = KURU kosu, paket_soru'ya YAZMAZ, yalniz sayim. true = kilitli kasaya yazar (Cem onayi).
+#   site_kabuk : true = kaydir/kgk/<slug>.html SORUSUZ kabuk sayfalari + arac/kasa-modu.json kurulur ve depoya
+#                commit'lenir (motor/kasa-kabuk.js esdegerlik kapisi; kabuk yazilamazsa sayfa silinir, depoya soru icerigi girmez).
+#                Yalniz yaz=true ile anlamli.
+# BEDEL 0 — model cagrisi YOK. Gunluge soru metni basilmaz (bulut guvenligi kurali 2).
+# 🚫 GORMEZ: bulutta KOSAN kgk partilerini (arac/bulut-kosan-etiketler.ps1) — yayinci onlari atlar, is bitince tekrar kosulmali.
+#   Menu/index/sinav giris kapisi (site kolu) bu isin disinda.
+name: KGK Kasa Yayini (0 USD)
+
+on:
+  workflow_dispatch:
+    inputs:
+      yaz:
+        description: "true = kilitli kasaya (paket_soru, sinav=kgk) yaz. false = kuru kosu"
+        required: false
+        default: false
+        type: boolean
+      site_kabuk:
+        description: "true = kaydir/kgk kabuk sayfalarini kur ve depoya commit'le (yaz=true ile)"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: kgk-kasa-yayin
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  yayin:
+    runs-on: windows-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Guncel had tutarlarini tazele (KAPI-HAD)
+        shell: powershell
+        continue-on-error: true
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/had-tutar-tarama.ps1 -YalnizHad
+
+      - name: KGK sorularini kilitli kasaya yaz (ya da kuru kos)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          YAZ: ${{ inputs.yaz }}
+          KABUK: ${{ inputs.site_kabuk }}
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $argListe = @()
+          if($env:YAZ -eq 'true'){ $argListe += '-Yaz' }
+          if($env:YAZ -eq 'true' -and $env:KABUK -eq 'true'){ $argListe += '-SiteKabuk' }
+          "KGK kasa yayini: $(if($argListe.Count){ $argListe -join ' ' } else { 'KURU' })"
+          $bas = Get-Date
+          & powershell -NoProfile -File ./arac/kgk-kasa-yayin.ps1 @argListe
+          $kod = $LASTEXITCODE
+          "kgk kasa yayini cikis kodu: $kod · sure $([math]::Round(((Get-Date)-$bas).TotalMinutes)) dk"
+          if($kod){ "::error::KGK kasa yayini dustu ($kod) - sorular ambarda duruyor"; exit $kod }
+
+      - name: Kabuk sayfalarini depoya bas (yalniz site_kabuk)
+        if: ${{ inputs.yaz && inputs.site_kabuk }}
+        shell: powershell
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add kaydir/kgk arac/kasa-modu.json
+          git diff --staged --quiet
+          if($LASTEXITCODE -eq 0){ "degisiklik yok - commit yok."; exit 0 }
+          git commit -m "KGK kasa kabuk sayfalari (kgk-kasa-yayin.yml) [veri-operasyonu]"
+          foreach($i in 1..3){ git pull --rebase --autostash origin main; git push; if($LASTEXITCODE -eq 0){ break }; Start-Sleep 5 }
