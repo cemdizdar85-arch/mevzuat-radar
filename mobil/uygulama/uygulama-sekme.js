@@ -68,10 +68,10 @@
   }
   window.TTSekme = { sec: sec };
 
-  /* ilk sekme kişiye göre: paketi olmayana "Ücretsiz", paketliye "Bugün" (uygulama-ozet.js 'tt-acilis' atar) */
+  /* ilk sekme: ad herkese "Bugün" (27.09 Cem); içerik kişiye göre (uygulama-ozet.js 'tt-acilis' atar) */
   function ilkEtiket(ucr) {
     var b = cubuk.querySelector('[data-sekme=bugun]'); if (!b) return;
-    b.innerHTML = '<svg aria-hidden="true"><use href="#i-' + (ucr ? 'oynat' : 'bugun') + '"/></svg>' + (ucr ? 'Ücretsiz' : 'Bugün');
+    b.innerHTML = '<svg aria-hidden="true"><use href="#i-' + 'bugun"/></svg>Bugün'; /* 27.09 Cem 'evet': ad herkese 'Bugün' (içerik paketsize yine ücretsiz ekranı) */
   }
   document.addEventListener('tt-acilis', function (e) { ilkEtiket(e.detail === 'ucretsiz'); });
   if (window.TTOzet) ilkEtiket(window.TTOzet.paketsiz());   // ozet.js bu dosyadan önce yüklenir: ilk olayı kaçırdık
