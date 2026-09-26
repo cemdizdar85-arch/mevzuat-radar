@@ -3,7 +3,7 @@
  * 26.09.2026 (2. sürüm, Cem "olsun"): Bugün · Sınavlar · Karnem · Hesap. Önceki düzendeki ayrı "Ücretsiz" ve
  * "Paketler" sekmeleri kaldırıldı — yurt dışındaki büyük uygulamaların hiçbirinde mağaza sekmesi yok (Pocket Prep:
  * Çalış · İstatistik · Ayarlar; Duolingo: Öğren · Pratik · Profil). Ücretsiz sorular ve kilitli dersler Sınavlar'da,
- * satın alma Hesap'ta ve kilitli derse dokununca. İkonlar ince çizgi SVG (index.html <symbol>), emoji YOK.
+ * satın alma Hesap'ta ve kilitli derse dokununca. İlk sekme paketi olmayana "Ücretsiz" adıyla açılır (Cem 26.09 "başa ücretsiz"). İkonlar ince çizgi SVG (index.html <symbol>), emoji YOK.
  *
  * Bölümler hangi sekmede: index.html'deki data-sekme (bugun · sinav · karne · hesap · yok). Görünürlüğü
  * (hidden) uygulama.js/magaza.js yönetmeye DEVAM eder; bu dosya yalnız "hangi sekme ekranda" sorusunu çözer.
@@ -46,7 +46,11 @@
     var b = document.createElement('button');
     b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.sekme = s.id;
     b.innerHTML = '<svg aria-hidden="true"><use href="#i-' + s.ikon + '"/></svg>' + s.ad;
-    b.addEventListener('click', function () { sec(s.id); });
+    b.addEventListener('click', function () {
+      /* Sınavlar'dayken yeniden dokununca sınav listesine dön (alışılan davranış) */
+      if (s.id === 'sinav' && body.getAttribute('data-sekme') === 'sinav' && window.TTSinavlar) return window.TTSinavlar.ac();
+      sec(s.id);
+    });
     cubuk.appendChild(b);
   });
   body.appendChild(cubuk);
@@ -61,6 +65,14 @@
     else window.scrollTo(0, 0);
   }
   window.TTSekme = { sec: sec };
+
+  /* ilk sekme kişiye göre: paketi olmayana "Ücretsiz", paketliye "Bugün" (uygulama-ozet.js 'tt-acilis' atar) */
+  function ilkEtiket(ucr) {
+    var b = cubuk.querySelector('[data-sekme=bugun]'); if (!b) return;
+    b.innerHTML = '<svg aria-hidden="true"><use href="#i-' + (ucr ? 'oynat' : 'bugun') + '"/></svg>' + (ucr ? 'Ücretsiz' : 'Bugün');
+  }
+  document.addEventListener('tt-acilis', function (e) { ilkEtiket(e.detail === 'ucretsiz'); });
+  if (window.TTOzet) ilkEtiket(window.TTOzet.paketsiz());   // ozet.js bu dosyadan önce yüklenir: ilk olayı kaçırdık
 
   var h = HASH[location.hash], ilk = h ? h[0] : null;
   if (!ilk) { try { ilk = sessionStorage.getItem(ANAHTAR); } catch (e) {} }

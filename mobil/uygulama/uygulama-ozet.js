@@ -90,43 +90,95 @@
     try { return new Date().toLocaleDateString('tr-TR', { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) { return ''; }
   }
 
-  function bugunCiz() {
-    IL.yenidenOku();
-    var v = IL.veri(), h = v.ayar.hedef || 10, bugun = v.gun[IL.bugun()] || 0, seri = IL.seri(), t = toplam();
-    var html = '<span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1>';
-    html += '<div class="kart"><div class="olcu">' +
+  /* paketi olmayan (yeni gelen ya da paketsiz üye): açılış ekranı "Ücretsiz" (Cem 26.09 "başa ücretsiz").
+     Paketi olan: "Bugün" (devam et, hedef, günün sorusu). acik === null (paket okunamadı) → paketli sayılmaz. */
+  function paketsiz() { var D = window.TT_DURUM; return !D || !D.acik || !D.acik.length; }
+  window.TTOzet = { paketsiz: paketsiz };
+
+  function olcuKarti(v, h, bugun, seri, t) {
+    return '<div class="kart"><div class="olcu">' +
       '<div><b>' + bugun + '<small> / ' + h + '</small></b><span>Soru</span></div>' +
       '<div><b>' + seri + '</b><span>Seri · gün</span></div>' +
       '<div><b>' + (t.n ? '<small>%</small>' + yuzde(t.ok / t.n) : '—') + '</b><span>Doğru</span></div></div>' +
       '<div class="cizgiBar"><i style="width:' + Math.min(100, Math.round(bugun / h * 100)) + '%"></i></div>' +
       '<div class="durumYazi">' + (bugun >= h ? 'Günlük hedef tamam. Seri korunuyor.' :
         (bugun ? 'Hedefe ' + (h - bugun) + ' soru kaldı.' : 'Günlük hedef ' + h + ' soru. İlk soruyla gün başlar.')) + '</div></div>';
-
-    html += '<span class="etk">Sıradaki</span><div class="satirlar">';
-    if (v.son && v.son.yol && acikMi(v.son.yol)) {
-      html += '<a class="srt birincil" href="' + esc(v.son.yol) + '">' + ik('oynat') + '<span class="ad">Devam et<small>' +
-        esc(sayfaAdi(v.son.yol)) + ' · ' + ((v.son.i || 0) + 1) + '. soru</small></span>' + OK + '</a>';
-    } else {
-      var u = (K.ucretsiz || []).filter(function (x) { return x.sinav === (v.ayar.sinav || 'yeterlilik'); })[0] || (K.ucretsiz || [])[0];
-      if (u) html += '<a class="srt birincil" href="' + esc(u.yol) + '">' + ik('oynat') + '<span class="ad">Ücretsiz sorularla başla<small>' +
-        esc(u.baslik) + (u.adet ? ' · ' + u.adet + ' soru' : '') + '</small></span>' + OK + '</a>';
-    }
+  }
+  function gununSatiri() {
     var gs = gununSorusu();
-    if (gs) html += '<a class="srt" href="' + esc(gs.yol) + '?tek=1#s=' + gs.sira + '">' + ik('takvim') + '<span class="ad">Günün sorusu<small>' +
-      esc(gs.baslik.replace(/ örnek soruları$/, '')) + ' · her gün yeni bir soru</small></span>' + OK + '</a>';
-    var z = enZayif();
-    if (z) html += '<a class="srt" href="' + esc(z.yol) + '">' + ik('karne') + '<span class="ad">En zayıf dersin<small>' +
-      esc(z.ad) + '</small></span><span class="sag">%' + yuzde(z.oran) + '</span>' + OK + '</a>';
-    html += '</div>';
+    return gs ? '<a class="srt" href="' + esc(gs.yol) + '?tek=1#s=' + gs.sira + '">' + ik('takvim') + '<span class="ad">Günün sorusu<small>' +
+      esc(gs.baslik.replace(/ örnek soruları$/, '')) + ' · her gün yeni bir soru</small></span>' + OK + '</a>' : '';
+  }
+  var SINAV_SIRA = [{ id: 'sgs', ad: 'SGS · Staja Giriş' }, { id: 'yeterlilik', ad: 'SMMM Yeterlilik' }, { id: 'kgk', ad: 'KGK Bağımsız Denetçilik' }];
+
+  function ucretsizCiz(v, h, bugun, seri, t) {
+    var html = '<span class="etk">Hesap gerekmez</span><h1>Ücretsiz dene</h1>' +
+      '<p class="soluk" style="margin-top:6px">Gerçek sınav kalıbında sorular, her birinin açıklamasıyla.</p>';
+    /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
+    html += '<span class="etk" style="margin-top:22px">Ücretsiz açık olanlar</span><div class="satirlar">';
+    SINAV_SIRA.forEach(function (x) {
+      var u = (K.ucretsiz || []).filter(function (d) { return d.sinav === x.id; })[0];
+      if (u) {
+        var r = IL.dersSonucu(u.yol), n = r.ok + r.yan;
+        html += '<a class="srt" href="' + esc(u.yol) + '">' + ik('oynat') + '<span class="ad">' + esc(x.ad) + '<small>' +
+          (u.adet || 30) + ' soru · açıklamalı</small></span>' + (n ? '<span class="sag">' + n + '/' + (u.adet || n) + '</span>' : '') + OK + '</a>';
+      } else {
+        html += '<div class="srt kilit">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>Hazırlanıyor</small></span></div>';
+      }
+    });
+    html += gununSatiri() + '</div>';
+
+    /* tam paket: sınav başına gerçek soru/ders sayısı, kilitli; dokununca o sınavın içi */
+    var paketli = SINAV_SIRA.filter(function (x) { return (K.paket || []).some(function (d) { return d.sinav === x.id; }); });
+    if (paketli.length) {
+      html += '<span class="etk">Tam paket · kilitli</span><div class="satirlar">';
+      paketli.forEach(function (x) {
+        var p = (K.paket || []).filter(function (d) { return d.sinav === x.id; }), y = (K.yakinda || []).filter(function (d) { return d.sinav === x.id; });
+        var soru = p.reduce(function (a, d) { return a + (d.adet || 0); }, 0);
+        html += '<button type="button" class="srt kilit" data-sinav="' + x.id + '">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>' +
+          soru.toLocaleString('tr-TR') + ' soru · ' + (p.length + y.length) + ' ders' + (y.length ? ' (' + y.length + ' hazırlanıyor)' : '') +
+          '</small></span>' + OK + '</button>';
+      });
+      html += '</div><p class="soluk kucuk" style="margin-top:10px">Pakette: ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme.</p>';
+    }
+    if (t.n) html += '<span class="etk">Bugün</span>' + olcuKarti(v, h, bugun, seri, t).replace('<div class="kart">', '<div class="kart" style="margin-top:0">');
+    return html;
+  }
+
+  function bugunCiz() {
+    IL.yenidenOku();
+    var v = IL.veri(), h = v.ayar.hedef || 10, bugun = v.gun[IL.bugun()] || 0, seri = IL.seri(), t = toplam();
+    var html;
+    if (paketsiz()) html = ucretsizCiz(v, h, bugun, seri, t);
+    else {
+      html = '<span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1>' + olcuKarti(v, h, bugun, seri, t);
+      html += '<span class="etk">Sıradaki</span><div class="satirlar">';
+      if (v.son && v.son.yol && acikMi(v.son.yol)) {
+        html += '<a class="srt birincil" href="' + esc(v.son.yol) + '">' + ik('oynat') + '<span class="ad">Devam et<small>' +
+          esc(sayfaAdi(v.son.yol)) + ' · ' + ((v.son.i || 0) + 1) + '. soru</small></span>' + OK + '</a>';
+      } else {
+        html += '<button type="button" class="srt birincil" data-sinav="' + esc(v.ayar.sinav || 'yeterlilik') + '">' + ik('oynat') +
+          '<span class="ad">Çalışmaya başla<small>Dersini seç</small></span>' + OK + '</button>';
+      }
+      html += gununSatiri();
+      var z = enZayif();
+      if (z) html += '<a class="srt" href="' + esc(z.yol) + '">' + ik('karne') + '<span class="ad">En zayıf dersin<small>' +
+        esc(z.ad) + '</small></span><span class="sag">%' + yuzde(z.oran) + '</span>' + OK + '</a>';
+      html += '</div>';
+    }
 
     var D = window.TT_DURUM;
     if (D && !D.girisli) {
       html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="giris">' + ik('giris') +
-        '<span class="ad">Giriş yap<small>Paketindeki dersler açılır, ilerlemen tüm cihazlarında saklanır</small></span>' + OK + '</button></div>';
+        '<span class="ad">Paketin var mı? Giriş yap<small>Paketindeki dersler açılır, ilerlemen tüm cihazlarında saklanır</small></span>' + OK + '</button></div>';
     }
     bugunB.innerHTML = html;
     var g = bugunB.querySelector('[data-git=giris]');
     if (g) g.onclick = function () { if (window.TTSekme) window.TTSekme.sec('hesap', 'giris'); };
+    [].forEach.call(bugunB.querySelectorAll('[data-sinav]'), function (b) {
+      b.onclick = function () { if (window.TTSinavlar) window.TTSinavlar.ac(b.dataset.sinav); };
+    });
+    try { document.dispatchEvent(new CustomEvent('tt-acilis', { detail: paketsiz() ? 'ucretsiz' : 'bugun' })); } catch (e) {}
   }
 
   /* uygulama-kaydir.js tekrarKur: sayfa açılınca yalnız bu kimliklerin kartları görünür */

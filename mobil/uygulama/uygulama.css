@@ -92,6 +92,8 @@ h2 { font-size: 17px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 8px;
 .srt .ok { flex: none; width: 16px; height: 16px; color: var(--soluk); }
 .srt.kilit .ad { color: var(--soluk); }
 .srt:active { background: var(--panel2); }
+.srt:disabled { opacity: .5; cursor: default; }
+.srt:disabled:active { background: none; }
 .srt.birincil { background: var(--zit); color: var(--zitYazi); }
 .srt.birincil .ad small, .srt.birincil .ok, .srt.birincil .sag { color: inherit; opacity: .6; }
 
