@@ -144,8 +144,9 @@
       var g = kok.TTGorunum.deger();
       return g === 'koyu' || (g === 'sistem' && !!(kok.matchMedia && kok.matchMedia('(prefers-color-scheme: dark)').matches));
     },
-    cubuk: function () {
-      var P = (kok.Capacitor && kok.Capacitor.Plugins) || {}, koyu = kok.TTGorunum.koyu();
+    /* ustKoyu: sayfanın üstü koyu mu (ana ekranın lacivert bandı: true) — değilse temaya göre */
+    cubuk: function (ustKoyu) {
+      var P = (kok.Capacitor && kok.Capacitor.Plugins) || {}, koyu = ustKoyu === true || kok.TTGorunum.koyu();
       /* Capacitor adlandırması: DARK = açık renk ikon (koyu zemin için), LIGHT = koyu ikon (açık zemin için) */
       try { if (P.StatusBar && P.StatusBar.setStyle) P.StatusBar.setStyle({ style: koyu ? 'DARK' : 'LIGHT' }).catch(function () {}); } catch (e) {}
       try { if (P.SystemBars && P.SystemBars.setStyle) P.SystemBars.setStyle({ style: koyu ? 'DARK' : 'LIGHT' }).catch(function () {}); } catch (e) {}

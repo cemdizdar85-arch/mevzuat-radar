@@ -38,16 +38,38 @@
       'background:none;color:var(--yazi);font:600 12px/1 inherit}',
     '.karneS .yanB svg{width:14px;height:14px}',
     /* ilk açılış */
-    '#kurulum{position:fixed;inset:0;z-index:100;background:var(--taban);color:var(--yazi);display:flex;flex-direction:column;justify-content:flex-end;' +
-      'padding:24px 20px calc(28px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)))}',
-    '#kurulum:before{content:"";position:absolute;left:20px;top:calc(30px + max(env(safe-area-inset-top),var(--safe-area-inset-top,0px)));width:7px;height:7px;background:var(--vurgu)}',
-    '#kurulum:after{content:"TETİKTE";position:absolute;left:37px;top:calc(24px + max(env(safe-area-inset-top),var(--safe-area-inset-top,0px)));font-weight:700;font-size:13px;letter-spacing:.32em}',
-    '#kurulum .adim{font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--soluk);margin-bottom:18px;font-variant-numeric:tabular-nums}',
-    '#kurulum .adim i{display:block;height:2px;background:var(--cizgi);margin-top:10px}',
-    '#kurulum .adim i b{display:block;height:100%;background:var(--vurgu)}',
-    '#kurulum h1{font-size:30px;margin:0 0 8px}',
-    '#kurulum p{color:var(--soluk);margin:0 0 22px}',
-    '#kurulum .atla{margin-top:14px;background:none;border:0;color:var(--soluk);font-size:13px;padding:10px}'
+    /* ilk açılış (26.09 Cem "üstü bomboş, kalite sıfır"): Apple karşılama ekranı düzeni — lacivert bant + ürünün
+       kendisi (gerçek soru, yanlış şık, tuzağın adı, kural) + üç adım; boşluk bırakmayan akış, altta sabit düğme */
+    '#kurulum{position:fixed;inset:0;z-index:100;background:var(--taban);color:var(--yazi);overflow-y:auto;-webkit-overflow-scrolling:touch}',
+    '#kurulum .kB{background:var(--bant);color:#fff;padding:calc(20px + max(env(safe-area-inset-top),var(--safe-area-inset-top,0px))) 22px 76px}',
+    '#kurulum .kMarka{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:13px;letter-spacing:.32em}',
+    '#kurulum .kMarka span{display:flex;align-items:center;gap:10px}#kurulum .kMarka i{width:7px;height:7px;background:#f5a524}',
+    '#kurulum .kMarka em{font-style:normal;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums}',
+    '#kurulum .kB h1{color:#fff;font-size:34px;line-height:1.08;margin:30px 0 10px}',
+    '#kurulum .kB p{color:rgba(255,255,255,.74);margin:0;font-size:15.5px;line-height:1.5}',
+    '#kurulum .kIc{padding:0 16px calc(110px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)));margin-top:-52px}',
+    '#kurulum .ornek{background:var(--panel);border-radius:18px;box-shadow:var(--golge);padding:18px 16px;position:relative;overflow:hidden}',
+    '#kurulum .ornek:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#f5a524}',
+    '#kurulum .oUst{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--vurgu)}',
+    '#kurulum .oSoru{margin:10px 0 12px;font-size:14.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}',
+    '#kurulum .oSik{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--hata);background:color-mix(in srgb,var(--hata) 7%,var(--panel));font-size:14px}',
+    '#kurulum .oSik b{flex:none;width:22px;height:22px;display:grid;place-items:center;border-radius:5px;background:var(--hata);color:#fff;font-size:12px}',
+    '#kurulum .oSik small{margin-left:auto;font-size:11px;color:var(--hata);font-weight:600;white-space:nowrap}',
+    '#kurulum .oTuzak{display:inline-flex;align-items:center;gap:7px;margin:12px 0 8px;padding:6px 10px;border-radius:6px;background:color-mix(in srgb,#f5a524 16%,var(--panel));color:var(--yazi);font-size:12.5px;font-weight:600}',
+    '#kurulum .oTuzak:before{content:"";width:6px;height:6px;background:#f5a524}',
+    '#kurulum .oKural{font-size:13.5px;line-height:1.5;color:var(--soluk);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}',
+    '#kurulum .oKural b{color:var(--iyi)}',
+    '#kurulum .adimlar{margin-top:22px;display:grid;gap:18px;padding:0 6px}',
+    '#kurulum .adimlar div{display:flex;gap:14px;align-items:flex-start}',
+    '#kurulum .adimlar .no{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--bant);color:#f5a524;font:600 15px/1 "Fraunces",Georgia,serif}',
+    '#kurulum .adimlar b{display:block;font-size:15.5px;font-weight:600}',
+    '#kurulum .adimlar span{display:block;font-size:13.5px;color:var(--soluk);margin-top:2px;line-height:1.45}',
+    '#kurulum .kAlt{position:fixed;left:0;right:0;bottom:0;padding:14px 20px calc(16px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)));background:linear-gradient(to top,var(--taban) 70%,transparent)}',
+    '#kurulum .kAlt .ana{padding:16px;font-size:16px;border-radius:12px}',
+    '#kurulum .secim{display:grid;gap:12px}',
+    '#kurulum .secim .sinavKart{margin:0}',
+    '#kurulum .secim .srt{min-height:64px}',
+    '#kurulum .kNot{margin:16px 6px 0;font-size:13px;color:var(--soluk);line-height:1.5}'
   ].join('\n');
   document.head.appendChild(st);
 
@@ -155,10 +177,10 @@
   function ucretsizCiz(v, h, bugun, seri, t) {
     var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
     var secS = seciliSinav();
-    var html = '<span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
+    var html = '<div class="bant"><span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
       '<h1 class="slogan">Yanlışını böyle öğrenirsin.</h1>' +
       '<p class="soluk" style="margin-top:8px">Yanlış şıkta tuzağın adı ve doğrusu anında. 30 soru ücretsiz' +
-      (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p>' + kahramanKart(secS);
+      (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p></div>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     /* 26.09 Cem: "sınavını seçsin, bütün sınavları görmesin" — yalnız seçilen sınav */
     html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span><div class="satirlar">';
@@ -196,7 +218,7 @@
     var html;
     if (paketsiz()) html = ucretsizCiz(v, h, bugun, seri, t);
     else {
-      html = '<span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1>' + olcuKarti(v, h, bugun, seri, t);
+      html = '<div class="bant"><span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1></div>' + olcuKarti(v, h, bugun, seri, t);
       html += '<span class="etk">Sıradaki</span><div class="satirlar">';
       if (v.son && v.son.yol && acikMi(v.son.yol)) {
         html += '<a class="srt birincil" href="' + esc(v.son.yol) + '">' + ik('oynat') + '<span class="ad">Devam et<small>' +
@@ -262,7 +284,7 @@
   }
 
   function karneCiz() {
-    var l = kayitlar(), html = '<span class="etk">' + esc(SINAV_AD[seciliSinav()]) + '</span><h1>Karnem</h1>';
+    var l = kayitlar(), html = '<div class="bant"><span class="etk">' + esc(SINAV_AD[seciliSinav()]) + '</span><h1>Karnem</h1></div>';
     if (!l.length) {
       karneB.innerHTML = html + '<div class="kart bosDurum"><b>Henüz ölçüm yok</b>' +
         'Çözdüğün her soru burada ölçülür: derse göre başarın, harcadığın süre, yanlışların ve en çok düştüğün tuzaklar.</div>';
@@ -345,20 +367,45 @@
 
   function ciz() { bugunCiz(); karneCiz(); }
 
-  /* ilk açılış: sınav → günlük hedef → hatırlatıcı */
+  /* ilk açılış: karşılama (nasıl öğrettiğimiz) → sınav → günlük hedef → hatırlatıcı */
   function kurulum() {
     var a0 = IL.veri().ayar, yalnizSinav = !!a0.kurulum && !a0.sinav;
     if (a0.kurulum && a0.sinav) return;
     var e = document.createElement('div'); e.id = 'kurulum'; document.body.appendChild(e);
-    var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); };
-    var bas = function (n) { return '<div class="adim">0' + n + ' / 03<i><b style="width:' + Math.round(n / 3 * 100) + '%"></b></i></div>'; };
+    if (window.TTGorunum) window.TTGorunum.cubuk(true);   /* üst lacivert bant */
+    var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); if (window.TTGorunum) window.TTGorunum.cubuk(true); };
+    var toplamAdim = yalnizSinav ? 1 : 3;
+    var bant = function (n, baslik, alt) {
+      return '<div class="kB"><div class="kMarka"><span><i></i>TETİKTE</span>' + (n ? '<em>0' + n + ' / 0' + toplamAdim + '</em>' : '') + '</div>' +
+        '<h1>' + baslik + '</h1><p>' + alt + '</p></div>';
+    };
     var secenek = function (v, ad, alt) { return '<button type="button" class="srt" data-v="' + v + '"><span class="ad">' + ad + '<small>' + alt + '</small></span>' + OK + '</button>'; };
+    var sinavKarti = function (v, mono, ad, alt, kapali) {
+      return '<button type="button" class="sinavKart" ' + (kapali ? 'disabled' : 'data-v="' + v + '"') + '><span class="mono">' + mono + '</span>' +
+        '<span class="ad">' + ad + '<small>' + alt + '</small></span>' + (kapali ? '<span class="etiketK">Hazırlanıyor</span>' : OK) + '</button>';
+    };
+    /* 0) karşılama: ürünün kendisi — gerçek bir soru, yanlış şık, tuzağın adı, kural (katalog.tanitim, vitrin sorusu) */
+    var karsilama = function () {
+      var o = K.tanitim, ornek = '';
+      if (o) ornek = '<div class="ornek"><div class="oUst">Gerçek bir soru · ' + esc(o.d) + '</div><div class="oSoru">' + esc(o.s) + '</div>' +
+        '<div class="oSik"><b>' + esc(o.h) + '</b><span>' + esc(o.k) + '</span><small>Senin cevabın</small></div>' +
+        '<div class="oTuzak">' + esc(o.tz) + '</div><div class="oKural"><b>Doğrusu:</b> ' + esc(o.kural) + '</div></div>';
+      e.innerHTML = bant(0, 'Yanlışını böyle öğrenirsin.', 'Staja giriş ve yeterlilik sınavlarına, her yanlışın nedenini öğrenerek hazırlan.') +
+        '<div class="kIc">' + ornek + '<div class="adimlar">' +
+        '<div><span class="no">1</span><span><b>Gerçek sınav kalıbında çöz</b><span>Çıkmış sınavlara göre hazırlanmış sorular; her soruda konunun kaç dönemde sorulduğu.</span></span></div>' +
+        '<div><span class="no">2</span><span><b>Tuzağını gör</b><span>Yanlış şıkkın hangi tuzaktan geldiği, doğrusu ve dayandığı kanun maddesi, anında.</span></span></div>' +
+        '<div><span class="no">3</span><span><b>Karnende ölç</b><span>Hangi derste ve hangi tuzakta takıldığını gör; zayıf yerine çalış.</span></span></div>' +
+        '</div></div><div class="kAlt"><button type="button" class="ana">Başla</button></div>';
+      e.querySelector('.kAlt .ana').onclick = adim1;
+    };
     var adim1 = function () {
-      e.innerHTML = bas(1) + '<h1>Hangi sınava hazırlanıyorsun?</h1><p>Uygulama yalnız seçtiğin sınavı gösterir. İstediğin zaman üstteki sınav düğmesinden değiştirirsin.</p>' +
-        '<div class="satirlar">' + secenek('sgs', 'SGS · Staja Giriş', 'Staja başlamak için giriş sınavı') +
-        secenek('yeterlilik', 'SMMM Yeterlilik (Bitirme)', 'Staj bitirme · 8 ders') +
-        '<div class="srt kilit"><span class="ad">KGK Bağımsız Denetçilik<small>Hazırlanıyor</small></span></div></div>';
-      [].forEach.call(e.querySelectorAll('.srt[data-v]'), function (b) {
+      e.scrollTop = 0;
+      e.innerHTML = bant(1, 'Hangi sınava hazırlanıyorsun?', 'Uygulama yalnız seçtiğin sınavı gösterir. İstediğin zaman üstteki sınav düğmesinden değiştirirsin.') +
+        '<div class="kIc"><div class="secim">' + sinavKarti('sgs', 'SGS', 'SGS · Staja Giriş', 'Staja başlamak için giriş sınavı') +
+        sinavKarti('yeterlilik', 'YET', 'SMMM Yeterlilik (Bitirme)', 'Staj bitirme · 8 ders') +
+        sinavKarti('', 'KGK', 'KGK Bağımsız Denetçilik', '', true) + '</div>' +
+        '<p class="kNot">Her sınavda 30 soru ücretsiz; ilk 3 soru için hesap bile gerekmez.</p></div>';
+      [].forEach.call(e.querySelectorAll('[data-v]'), function (b) {
         b.onclick = function () {
           IL.ayarYaz({ sinav: b.dataset.v }); try { sessionStorage.removeItem('tt_uyg_sinavsec'); } catch (x) {}
           try { document.dispatchEvent(new CustomEvent('tt-sinav', { detail: b.dataset.v })); } catch (x) {}
@@ -367,21 +414,23 @@
       });
     };
     var adim2 = function () {
-      e.innerHTML = bas(2) + '<h1>Günde kaç soru?</h1><p>Hedefini tuttuğun her gün serin bir artar. Az ama her gün, çok ama arada bir çalışmaktan iyidir.</p>' +
-        '<div class="satirlar">' + secenek('10', '10 soru', 'Günde yaklaşık 15 dakika') + secenek('20', '20 soru', 'Günde yaklaşık 30 dakika') +
-        secenek('40', '40 soru', 'Günde yaklaşık 1 saat') + '</div>';
+      e.scrollTop = 0;
+      e.innerHTML = bant(2, 'Günde kaç soru?', 'Hedefini tuttuğun her gün serin bir artar. Az ama her gün, çok ama arada bir çalışmaktan iyidir.') +
+        '<div class="kIc"><div class="satirlar">' + secenek('10', '10 soru', 'Günde yaklaşık 15 dakika') + secenek('20', '20 soru', 'Günde yaklaşık 30 dakika') +
+        secenek('40', '40 soru', 'Günde yaklaşık 1 saat') + '</div></div>';
       [].forEach.call(e.querySelectorAll('.srt'), function (b) { b.onclick = function () { IL.ayarYaz({ hedef: +b.dataset.v }); adim3(); }; });
     };
     var adim3 = function () {
       var yerel = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
       if (!yerel || !$('hatAcik')) return bitir();
-      e.innerHTML = bas(3) + '<h1>Her gün hatırlatayım mı?</h1><p>Akşam 20:00’de kısa bir bildirim. Saati Hesap’tan değiştirebilirsin.</p>' +
-        '<div class="satirlar">' + secenek('evet', 'Evet, hatırlat', 'Her gün 20:00') + secenek('hayir', 'Hayır', 'Bildirim gönderilmez') + '</div>';
+      e.scrollTop = 0;
+      e.innerHTML = bant(3, 'Her gün hatırlatayım mı?', 'Akşam 20:00’de kısa bir bildirim. Saati Hesap’tan değiştirebilirsin.') +
+        '<div class="kIc"><div class="satirlar">' + secenek('evet', 'Evet, hatırlat', 'Her gün 20:00') + secenek('hayir', 'Hayır', 'Bildirim gönderilmez') + '</div></div>';
       [].forEach.call(e.querySelectorAll('.srt'), function (b) {
         b.onclick = function () { if (b.dataset.v === 'evet' && !$('hatAcik').checked) $('hatAcik').click(); bitir(); };
       });
     };
-    adim1();
+    if (yalnizSinav) adim1(); else karsilama();
   }
 
   /* Hesap sekmesi: çalışma ayarları (ilk açılışta "sonra değiştirebilirsin" denen yer) */
@@ -405,9 +454,9 @@
     $('ayarGorunum').onchange = function () {
       try { localStorage.setItem('tt_gorunum', this.value); } catch (e) {}
       document.documentElement.setAttribute('data-gorunum', window.TTGorunum.koyu() ? 'koyu' : 'acik');
-      window.TTGorunum.cubuk();
+      window.TTGorunum.cubuk(true);
     };
-    window.TTGorunum.cubuk();
+    window.TTGorunum.cubuk(true);
   }
 
   /* hesapla eşitleme: girişliyse sunucudaki kayıtla birleştir; değiştiyse yeniden çiz.

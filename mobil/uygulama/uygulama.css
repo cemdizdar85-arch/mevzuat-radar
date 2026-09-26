@@ -3,6 +3,12 @@
    emoji YOK (ikonlar ince çizgi SVG) · gölge/degrade/parlama YOK · tek vurgu rengi (marka amber)
    yalnız ilerleme çizgisi, etkin sekme ve durum noktasında · ana düğme zıt renk (koyu zeminde beyaz)
    · rakamlar büyük, ince, eşit genişlikte · küçük BÜYÜK HARF etiketler geniş aralıkla. */
+/* Fraunces (başlık yazısı) — uygulamanın İÇİNDE (internetsiz çalışır, cihaz Google'a istek atmaz). Lisans: SIL OFL 1.1
+   (fraunces-OFL.txt). Kaynak: Google Fonts alt kümeleri (latin + latin-ext: ş ğ İ ı dahil), 26.09.2026. */
+@font-face { font-family: "Fraunces"; font-style: normal; font-weight: 500 600; font-display: swap; src: url(fraunces-latin-ext.woff2) format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Fraunces"; font-style: normal; font-weight: 500 600; font-display: swap; src: url(fraunces-latin.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 /* VARSAYILAN: AÇIK "KÂĞIT" (26.09 Cem "1 bak"): sıcak kırık beyaz zemin (saf beyaz parlamaz), beyaz kart,
    saf siyah değil koyu kömür yazı. Kontrast (ölçülen, WCAG formülü): --yazi/--taban 15,7 · --soluk/--taban 6,1 · --vurgu/beyaz 5,1 · --vurgu/--taban 4,6 · koyu yazı/--vurguDolgu 9,6. */
 :root {
@@ -253,3 +259,36 @@ h1.slogan { font-size: 32px; line-height: 1.08; letter-spacing: -.03em; margin: 
 #sinavCip svg { width: 14px; height: 14px; transform: rotate(90deg); color: var(--soluk); }
 #sinavSec { position: fixed; inset: 0; z-index: 120; background: rgba(0, 0, 0, .45); display: flex; align-items: flex-end; }
 #sinavSec .ic { width: 100%; background: var(--taban); border-radius: 16px 16px 0 0; padding: 20px 16px calc(20px + max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px))); }
+
+/* ---------- 26.09 (3) KALİTE DİLİ — Cem "B yap": lacivert çatı + derinlik + dergi başlıkları ----------
+   "A4 kâğıdı gibi" görünüm düzdü: aynı zemin, ince çizgili kutular, tek tip yazı. Çare: üstte markanın laciverti
+   (başlık bandı; ilk kart bandın kenarına biner), kartlarda çizgi yerine hafif gölge, başlıklarda Fraunces.
+   Soru/açıklama metni okunaklı sans + açık zeminde KALIR (okuma araştırması). */
+:root { --taban: #f2efe8; --bant: #0c1a2b; --golge: 0 1px 2px rgba(22, 20, 16, .05), 0 10px 30px rgba(22, 20, 16, .09); }
+:root[data-gorunum="koyu"] { --bant: #0f1c2e; --golge: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 30px rgba(0, 0, 0, .45); }
+body:before { content: ""; position: fixed; left: 0; right: 0; top: 0; height: max(env(safe-area-inset-top), var(--safe-area-inset-top, 0px)); background: var(--bant); z-index: 60; }
+header.ust { background: var(--bant); box-shadow: 0 0 0 100vmax var(--bant); clip-path: inset(0 -100vmax); padding-bottom: 8px; }
+header.ust .marka { color: #fff; }
+header.ust #sinavCip { background: rgba(255, 255, 255, .08); color: #fff; border-color: rgba(255, 255, 255, .22); }
+header.ust #sinavCip svg { color: rgba(255, 255, 255, .7); }
+header.ust .rozet { color: rgba(255, 255, 255, .75); border-color: rgba(255, 255, 255, .25); }
+.bant { position: relative; margin-top: -22px; padding: 14px 0 60px; background: var(--bant); box-shadow: 0 0 0 100vmax var(--bant); clip-path: inset(0 -100vmax); color: #fff; }
+.bant.yalin { padding-bottom: 24px; margin-bottom: 4px; }
+.olcu b { white-space: nowrap; }
+.karneUst .olcu b { font-size: 28px; }
+.bant h1 { color: #fff; }
+.bant .etk { color: #f5a524; }
+.bant .soluk, .bant .alt1 { color: rgba(255, 255, 255, .74) !important; }
+.bant .bagIc, .bant .geri { color: #fff !important; }
+.bant + .kart, .bant + .kahraman, .bant + .satirlar, .bant + .segment { margin-top: -44px !important; position: relative; z-index: 1; }
+.kart, .satirlar, .liste, .kahraman, .sinavKart, .segment { border-color: transparent !important; box-shadow: var(--golge); border-radius: 16px; }
+.kahraman { border-top: 0 !important; }
+.kahraman:before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--vurguDolgu); }
+.kahraman .kSiklar span { background: var(--panel2); }
+#sekmeCubugu { background: var(--panel) !important; border-top: 0 !important; box-shadow: 0 -6px 24px rgba(22, 20, 16, .07); -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+/* dergi başlıkları: Fraunces */
+h1, .olcu b, .halkaYazi b { font-family: "Fraunces", Georgia, "Times New Roman", serif; }
+h1 { font-weight: 600; letter-spacing: -.015em; }
+h1.slogan { font-size: 34px; line-height: 1.08; }
+.olcu b, .halkaYazi b { font-weight: 500; letter-spacing: -.01em; }
+@media (min-width: 768px) { h1.slogan { font-size: 42px; } }

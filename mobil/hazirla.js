@@ -170,6 +170,17 @@ for (const yol of VITRIN) {
   html = html.split(KAPI_ETIKETI).join('<script src="../../uygulama-kapisi.js"></script><script src="../../ilerleme.js"></script><script src="../../uygulama-kaydir.js"></script>');
   yaz(yol, html);
   const smmm = yol.indexOf('smmm') >= 0;
+  /* 26.09 karşılama ekranı: "nasıl öğrettiğimizi" gösteren TEK örnek — bir YANLIŞ şık + tuzağının adı + kural cümlesi.
+     Doğru şık harfi konmaz (KAPI-SIZINTI "dogru": arar). Yalnız vitrin (zaten açık) sorusu. */
+  if (sonra && !smmm && !katalog.tanitim) {
+    const q = sonra.dizi.find((s) => s.tuzak && s.kural && String(s.soru || '').length < 300 &&
+      Object.keys(s.tuzak).some((h) => s.tuzak[h] && s.tuzak[h].ad && s.siklar && s.siklar[h]));
+    if (q) {
+      const h = Object.keys(q.tuzak).find((x) => q.tuzak[x] && q.tuzak[x].ad && q.siklar[x]);
+      katalog.tanitim = { d: String(q.ders || ''), s: String(q.soru).replace(/\s+/g, ' ').trim(), h,
+        k: String(q.siklar[h]).replace(/\s+/g, ' ').trim().slice(0, 140), tz: String(q.tuzak[h].ad), kural: String(q.kural).replace(/\s+/g, ' ').trim().slice(0, 220) };
+    }
+  }
   /* 26.09 Cem "ekran kapkara, yalnız yazı": ana ekranda günün sorusunun GERÇEK önizlemesi (kök + şıklar).
      Yalnız vitrin (zaten açık) · DOĞRU ŞIK ve açıklama KONMAZ (KAPI-SIZINTI "dogru": arar). */
   if (sonra) katalog.onizleme[smmm ? 'yeterlilik' : 'sgs'] = sonra.dizi.map((s) => {
