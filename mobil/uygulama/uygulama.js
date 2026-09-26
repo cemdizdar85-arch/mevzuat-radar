@@ -95,7 +95,7 @@
     goster('giris', false); goster('ana', true); goster('hesap', true); goster('hesapDugmeler', true);
     $('hesapEposta').textContent = k.email || '';
     profilCiz(k);
-    var liste = $('liste'); liste.innerHTML = '<p class="soluk">Paket bilgisi okunuyor…</p>';
+    var liste = $('liste'); liste.innerHTML = '<div class="iskelet" aria-label="Paket bilgisi okunuyor"><i></i><i></i><i></i></div>';
     var p;
     try { p = await window.TT.paketler(sb, k.id); }
     catch (e) { liste.innerHTML = '<p class="soluk">Paket bilgisi okunamadı. İnternet bağlantını kontrol et.</p>'; durumBildir(true, null); return; }

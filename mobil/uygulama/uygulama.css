@@ -1,51 +1,52 @@
 /* uygulama.css — mağaza uygulamasının ana ekranı. Renkler YALNIZ burada, jeton olarak tanımlanır.
-   26.09.2026 Cem: "yapay zekâ gibi durmasın, teknolojik bir yapı gibi — Nvidia, Tesla". Kurallar:
-   emoji YOK (ikonlar ince çizgi SVG) · gölge/degrade/parlama YOK · tek vurgu rengi (marka amber)
-   yalnız ilerleme çizgisi, etkin sekme ve durum noktasında · ana düğme zıt renk (koyu zeminde beyaz)
-   · rakamlar büyük, ince, eşit genişlikte · küçük BÜYÜK HARF etiketler geniş aralıkla. */
-/* Fraunces (başlık yazısı) — uygulamanın İÇİNDE (internetsiz çalışır, cihaz Google'a istek atmaz). Lisans: SIL OFL 1.1
-   (fraunces-OFL.txt). Kaynak: Google Fonts alt kümeleri (latin + latin-ext: ş ğ İ ı dahil), 26.09.2026. */
-@font-face { font-family: "Fraunces"; font-style: normal; font-weight: 500 600; font-display: swap; src: url(fraunces-latin-ext.woff2) format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: "Fraunces"; font-style: normal; font-weight: 500 600; font-display: swap; src: url(fraunces-latin.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+   TASARIM SİSTEMİ "YÖN 1 · CAM" (26.09.2026, Cem "1 yap"): Apple'ın 2025 dili (Liquid Glass, WWDC25) — içerik önde,
+   açık ferah zemin + üstte markanın turuncusundan hafif ışık, dev ve kalın sistem başlıkları, 22px köşeli yumuşak
+   gölgeli kartlar, siyah hap düğmeler, İÇERİĞİN ÜSTÜNDE YÜZEN CAM sekme kapsülü (cam yalnız gezinmede; içerikte yok).
+   Yasak: emoji, parıltı, mor/mavi neon, yapay zekâ klişesi. Turuncu yalnız marka anlarında. Amblem: logo-acik.svg. */
 /* VARSAYILAN: AÇIK "KÂĞIT" (26.09 Cem "1 bak"): sıcak kırık beyaz zemin (saf beyaz parlamaz), beyaz kart,
    saf siyah değil koyu kömür yazı. Kontrast (ölçülen, WCAG formülü): --yazi/--taban 15,7 · --soluk/--taban 6,1 · --vurgu/beyaz 5,1 · --vurgu/--taban 4,6 · koyu yazı/--vurguDolgu 9,6. */
 :root {
-  --taban: #f6f4ef;
+  --taban: #f6f5f2;
   --panel: #ffffff;
-  --panel2: #faf8f4;
-  --cizgi: rgba(28, 27, 25, .10);
-  --cizgi2: rgba(28, 27, 25, .18);
-  --yazi: #1c1b19;
-  --soluk: #5f5b54;
+  --panel2: #f3f2ef;
+  --cizgi: rgba(0, 0, 0, .08);
+  --cizgi2: rgba(0, 0, 0, .14);
+  --yazi: #111113;
+  --soluk: #6e6e73;
   --vurgu: #a85a00;        /* yazı/çizgi için koyu turuncu (açık zeminde okunur) */
   --vurgu2: #a85a00;
   --vurguDolgu: #f5a524;   /* dolgu: marka turuncusu, üstünde koyu yazı */
   --vurguYazi: #ffffff;
-  --zit: #1c1b19;          /* ana düğme zemini */
+  --zit: #111113;          /* ana düğme zemini (siyah hap) */
   --zitYazi: #ffffff;
-  --iyi: #12875a;
-  --hata: #b3261e;
-  --yaricap: 10px;
+  --iyi: #1a8a4a;
+  --hata: #c9322a;
+  --yaricap: 22px;
+  --golge: 0 1px 1px rgba(0, 0, 0, .02), 0 10px 30px rgba(0, 0, 0, .07);
+  --aura: rgba(245, 165, 36, .20);
+  --cam: rgba(255, 255, 255, .72);
+  --sistem: -apple-system, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI", Roboto, system-ui, sans-serif;
 }
 /* KOYU: yalnız Hesap → Görünüm "Koyu" ya da "Telefona göre" + telefon gece modunda (index.html başındaki betik) */
 :root[data-gorunum="koyu"] {
-  --taban: #06090f;       /* site stil.css --bg */
-  --panel: #0d141e;       /* site --panel */
-  --panel2: #131d2a;
-  --cizgi: rgba(255, 255, 255, .09);
+  --taban: #0b0b0d;
+  --panel: #1a1a1d;
+  --panel2: #232327;
+  --cizgi: rgba(255, 255, 255, .08);
   --cizgi2: rgba(255, 255, 255, .16);
-  --yazi: #eef2f7;        /* site --ink */
-  --soluk: #93a1b3;       /* site --muted */
+  --yazi: #f5f5f7;
+  --soluk: #98989f;
   --vurgu: #f5a524;
   --vurgu2: #f5a524;
   --vurguDolgu: #f5a524;
   --vurguYazi: #000000;
-  --zit: #eef2f7;
-  --zitYazi: #000000;
+  --zit: #f5f5f7;
+  --zitYazi: #111113;
   --iyi: #3ecf8e;
   --hata: #ff6b5e;
+  --golge: 0 1px 1px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .5);
+  --aura: rgba(245, 165, 36, .14);
+  --cam: rgba(28, 28, 30, .72);
 }
 /* form öğeleri (onay kutusu, seçim) telefonun gece modunu değil uygulamanın temasını izlesin */
 :root { color-scheme: light; }
@@ -260,53 +261,64 @@ h1.slogan { font-size: 32px; line-height: 1.08; letter-spacing: -.03em; margin: 
 #sinavSec { position: fixed; inset: 0; z-index: 120; background: rgba(0, 0, 0, .45); display: flex; align-items: flex-end; }
 #sinavSec .ic { width: 100%; background: var(--taban); border-radius: 16px 16px 0 0; padding: 20px 16px calc(20px + max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px))); }
 
-/* ---------- 26.09 (3) KALİTE DİLİ — Cem "B yap": lacivert çatı + derinlik + dergi başlıkları ----------
-   "A4 kâğıdı gibi" görünüm düzdü: aynı zemin, ince çizgili kutular, tek tip yazı. Çare: üstte markanın laciverti
-   (başlık bandı; ilk kart bandın kenarına biner), kartlarda çizgi yerine hafif gölge, başlıklarda Fraunces.
-   Soru/açıklama metni okunaklı sans + açık zeminde KALIR (okuma araştırması). */
-:root { --taban: #f2efe8; --bant: #0c1a2b; --golge: 0 1px 2px rgba(22, 20, 16, .05), 0 10px 30px rgba(22, 20, 16, .09); }
-:root[data-gorunum="koyu"] { --bant: #0f1c2e; --golge: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 30px rgba(0, 0, 0, .45); }
-body:before { content: ""; position: fixed; left: 0; right: 0; top: 0; height: max(env(safe-area-inset-top), var(--safe-area-inset-top, 0px)); background: var(--bant); z-index: 60; }
-header.ust { background: var(--bant); box-shadow: 0 0 0 100vmax var(--bant); clip-path: inset(0 -100vmax); padding-bottom: 8px; }
-header.ust .marka { color: #fff; }
-header.ust #sinavCip { background: rgba(255, 255, 255, .08); color: #fff; border-color: rgba(255, 255, 255, .22); }
-header.ust #sinavCip svg { color: rgba(255, 255, 255, .7); }
-header.ust .rozet { color: rgba(255, 255, 255, .75); border-color: rgba(255, 255, 255, .25); }
-.bant { position: relative; margin-top: -22px; padding: 14px 0 60px; background: var(--bant); box-shadow: 0 0 0 100vmax var(--bant); clip-path: inset(0 -100vmax); color: #fff; }
-.bant.yalin { padding-bottom: 24px; margin-bottom: 4px; }
-.olcu b { white-space: nowrap; }
+/* ---------- YÖN 1 · CAM (26.09 Cem "1 yap") ---------- */
+body { background: radial-gradient(120% 420px at 50% -60px, var(--aura), transparent 70%) no-repeat, var(--taban); font-family: var(--sistem); }
+header.ust { background: transparent; padding-bottom: 6px; }
+header.ust #sinavCip { background: var(--cam); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--cizgi); box-shadow: 0 4px 14px rgba(0, 0, 0, .06); color: var(--yazi); }
+header.ust .rozet { color: var(--soluk); }
+.bant { position: relative; padding: 4px 0 2px; }
+.bant.yalin { padding-bottom: 2px; }
+.bant .etk { font-size: 12px !important; letter-spacing: .06em !important; text-transform: uppercase !important; font-weight: 600 !important; color: var(--vurgu) !important; margin: 0 0 6px !important; }
+.bant .soluk, .bant .alt1 { color: var(--soluk); }
+.bant + .kart, .bant + .kahraman, .bant + .satirlar, .bant + .segment, .bant + #profilKart { margin-top: 16px !important; }
+h1 { font-family: var(--sistem); font-weight: 800; letter-spacing: -.035em; font-size: 34px; line-height: 1.05; }
+h1.slogan { font-size: 38px; line-height: 1.02; }
+.etk { font-size: 21px; font-weight: 700; text-transform: none; letter-spacing: -.02em; color: var(--yazi); margin: 30px 0 12px; }
+.kart, .satirlar, .liste, .kahraman, .sinavKart { border: 0 !important; border-radius: var(--yaricap); box-shadow: var(--golge); }
+.satirlar > * + *, .liste > :not([hidden]) ~ :not([hidden]) { border-top-color: var(--cizgi); }
+.segment { border: 0; border-radius: 14px; box-shadow: var(--golge); }
+.kahraman { padding: 22px 20px 20px; }
+.kahraman .radar, .sinavKart .radar { display: none; }
+.kahraman .kDugme { background: var(--zit); color: var(--zitYazi); border-radius: 999px; font-weight: 600; }
+.kahraman .kSiklar span { border-radius: 14px; background: var(--panel2); border-color: transparent; }
+.olcu b, .halkaYazi b { font-family: var(--sistem); font-weight: 700; letter-spacing: -.03em; white-space: nowrap; }
 .karneUst .olcu b { font-size: 28px; }
-.bant h1 { color: #fff; }
-.bant .etk { color: #f5a524; }
-.bant .soluk, .bant .alt1 { color: rgba(255, 255, 255, .74) !important; }
-.bant .bagIc, .bant .geri { color: #fff !important; }
-.bant + .kart, .bant + .kahraman, .bant + .satirlar, .bant + .segment { margin-top: -44px !important; position: relative; z-index: 1; }
-.kart, .satirlar, .liste, .kahraman, .sinavKart, .segment { border-color: transparent !important; box-shadow: var(--golge); border-radius: 16px; }
-.kahraman { border-top: 0 !important; }
-.kahraman:before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--vurguDolgu); }
-.kahraman .kSiklar span { background: var(--panel2); }
-#sekmeCubugu { background: var(--panel) !important; border-top: 0 !important; box-shadow: 0 -6px 24px rgba(22, 20, 16, .07); -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
-/* dergi başlıkları: Fraunces */
-h1, .olcu b, .halkaYazi b { font-family: "Fraunces", Georgia, "Times New Roman", serif; }
-h1 { font-weight: 600; letter-spacing: -.015em; }
-h1.slogan { font-size: 34px; line-height: 1.08; }
-.olcu b, .halkaYazi b { font-weight: 500; letter-spacing: -.01em; }
-@media (min-width: 768px) { h1.slogan { font-size: 42px; } }
+.ana, .duz { border-radius: 999px; }
+.sinavKart .mono { border: 0; border-radius: 16px; background: var(--vurguDolgu); color: #1c1100; }
+.sinavKart:disabled .mono { background: var(--panel2); color: var(--soluk); }
+.cizgiBar { height: 4px; border-radius: 4px; }
+.cizgiBar i, .hafta .dolu i, .cubukGrafik .bugun i { background: var(--vurguDolgu); border-color: var(--vurguDolgu); border-radius: 4px; }
+.hafta .yari i { border-color: var(--vurguDolgu); }
+.halka .dolu { stroke: var(--vurguDolgu); stroke-linecap: round; }
+/* yüzen cam sekme kapsülü (Apple iOS 26): alttan ayrık, yarı saydam; bulanıklık yoksa düz panel */
+#sekmeCubugu { left: 12px !important; right: 12px !important; bottom: calc(10px + max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px))) !important;
+  border-radius: 30px !important; background: var(--cam) !important; -webkit-backdrop-filter: saturate(180%) blur(24px) !important; backdrop-filter: saturate(180%) blur(24px) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .14), inset 0 0 0 1px rgba(255, 255, 255, .45) !important; padding: 6px !important; border-top: 0 !important; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { #sekmeCubugu { background: var(--panel) !important; } }
+#sekmeCubugu button { border-radius: 24px; padding: 8px 2px 7px !important; }
+#sekmeCubugu button[aria-selected=true] { background: rgba(127, 127, 127, .14); color: var(--yazi); }
+#sekmeCubugu button[aria-selected=true]:before { display: none !important; }
+body main { padding-bottom: calc(112px + max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px))) !important; }
+/* iskelet yükleme (dönen çark yok): gri çubuklar yavaşça nabız atar */
+@keyframes iskeletNabiz { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.iskelet { padding: 18px; display: grid; gap: 12px; }
+.iskelet i { display: block; height: 14px; border-radius: 7px; background: var(--panel2); animation: iskeletNabiz 1.2s ease-in-out infinite; }
+.iskelet i:nth-child(2) { width: 72%; } .iskelet i:nth-child(3) { width: 48%; }
+@media (min-width: 768px) { h1.slogan { font-size: 44px; } }
 
 /* Hesap: profil kartı + ayar listesi (26.09 tüm uygulama denetimi) */
-#hesap .bant.yalin { padding-bottom: 60px; }
-#hesap .bant + #profilKart { margin-top: -44px !important; position: relative; z-index: 1; }
 .profil { display: flex; align-items: center; gap: 14px; }
-.profil .avatar { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--bant); color: #f5a524;
-  font: 600 22px/1 "Fraunces", Georgia, serif; }
+.profil .avatar { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--vurguDolgu); color: #1c1100;
+  font: 700 22px/1 var(--sistem); }
 .profil .ad { min-width: 0; }
 .profil .ad b { display: block; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .profil .ad small { display: block; color: var(--soluk); font-size: 13px; margin-top: 2px; }
 #hesapDugmeler .srt.tehlike .ad { color: var(--hata); }
 #hesapIslem { margin-top: 22px; }
 /* dokunma geri bildirimi: kartlar ve satırlar basılınca hafif küçülür */
-.srt, .sinavKart, .kahraman, .ana, .urun .al { transition: transform .12s ease; }
-.srt:active, .sinavKart:active, .kahraman:active, .ana:active { transform: scale(.985); }
+.srt, .sinavKart, .kahraman, .ana, .urun .al { transition: transform .18s cubic-bezier(.2, .9, .3, 1.2); }
+.srt:active, .sinavKart:active, .kahraman:active, .ana:active { transform: scale(.975); }
 /* sekme geçişi: içerik kısa ve yumuşak belirir (display:none → block her seferinde yeniden oynar) */
 @keyframes sekmeGel { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 main > [data-sekme] { animation: sekmeGel .22s ease-out; }
@@ -314,8 +326,8 @@ main > [data-sekme] { animation: sekmeGel .22s ease-out; }
 
 /* AMBLEM: sitenin resmî logosu (logo-acik.svg) her yerde aynı — 26.09 Cem "tetikte amblemi ile sitedeki amblem aynı değil" */
 .marka { letter-spacing: normal !important; text-transform: none !important; font-size: inherit !important; }
-.marka .logo { display: block; height: 32px; width: auto; color: #fff; }
+.marka .logo { display: block; height: 32px; width: auto; color: var(--yazi); }
 .lamba { display: none; }
 #kurulum .kMarka span { display: block !important; }
-#kurulum .kMarka .logo { display: block; height: 34px; width: auto; color: #fff; }
+#kurulum .kMarka .logo { display: block; height: 34px; width: auto; color: var(--yazi); }
 #kurulum .kMarka i { display: none; }

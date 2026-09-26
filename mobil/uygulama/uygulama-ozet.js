@@ -42,16 +42,15 @@
     /* ilk açılış */
     /* ilk açılış (26.09 Cem "üstü bomboş, kalite sıfır"): Apple karşılama ekranı düzeni — lacivert bant + ürünün
        kendisi (gerçek soru, yanlış şık, tuzağın adı, kural) + üç adım; boşluk bırakmayan akış, altta sabit düğme */
-    '#kurulum{position:fixed;inset:0;z-index:100;background:var(--taban);color:var(--yazi);overflow-y:auto;-webkit-overflow-scrolling:touch}',
-    '#kurulum .kB{background:var(--bant);color:#fff;padding:calc(20px + max(env(safe-area-inset-top),var(--safe-area-inset-top,0px))) 22px 76px}',
+    '#kurulum{position:fixed;inset:0;z-index:100;background:radial-gradient(120% 420px at 50% -60px,var(--aura),transparent 70%) no-repeat,var(--taban);color:var(--yazi);overflow-y:auto;-webkit-overflow-scrolling:touch}',
+    '#kurulum .kB{color:var(--yazi);padding:calc(20px + max(env(safe-area-inset-top),var(--safe-area-inset-top,0px))) 22px 8px}',
     '#kurulum .kMarka{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:13px;letter-spacing:.32em}',
     '#kurulum .kMarka span{display:flex;align-items:center;gap:10px}#kurulum .kMarka i{width:7px;height:7px;background:#f5a524}',
-    '#kurulum .kMarka em{font-style:normal;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums}',
-    '#kurulum .kB h1{color:#fff;font-size:34px;line-height:1.08;margin:30px 0 10px}',
-    '#kurulum .kB p{color:rgba(255,255,255,.74);margin:0;font-size:15.5px;line-height:1.5}',
-    '#kurulum .kIc{padding:0 16px calc(110px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)));margin-top:-52px}',
-    '#kurulum .ornek{background:var(--panel);border-radius:18px;box-shadow:var(--golge);padding:18px 16px;position:relative;overflow:hidden}',
-    '#kurulum .ornek:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#f5a524}',
+    '#kurulum .kMarka em{font-style:normal;font-size:12px;font-weight:600;color:var(--soluk);font-variant-numeric:tabular-nums}',
+    '#kurulum .kB h1{font-size:38px;line-height:1.02;margin:30px 0 12px}',
+    '#kurulum .kB p{color:var(--soluk);margin:0;font-size:16px;line-height:1.5}',
+    '#kurulum .kIc{padding:18px 16px calc(110px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)))}',
+    '#kurulum .ornek{background:var(--panel);border-radius:22px;box-shadow:var(--golge);padding:20px 18px;position:relative;overflow:hidden}',
     '#kurulum .oUst{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--vurgu)}',
     '#kurulum .oSoru{margin:10px 0 12px;font-size:14.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}',
     '#kurulum .oSik{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--hata);background:color-mix(in srgb,var(--hata) 7%,var(--panel));font-size:14px}',
@@ -63,11 +62,11 @@
     '#kurulum .oKural b{color:var(--iyi)}',
     '#kurulum .adimlar{margin-top:22px;display:grid;gap:18px;padding:0 6px}',
     '#kurulum .adimlar div{display:flex;gap:14px;align-items:flex-start}',
-    '#kurulum .adimlar .no{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--bant);color:#f5a524;font:600 15px/1 "Fraunces",Georgia,serif}',
+    '#kurulum .adimlar .no{flex:none;width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:var(--vurguDolgu);color:#1c1100;font:700 15px/1 var(--sistem)}',
     '#kurulum .adimlar b{display:block;font-size:15.5px;font-weight:600}',
     '#kurulum .adimlar span{display:block;font-size:13.5px;color:var(--soluk);margin-top:2px;line-height:1.45}',
     '#kurulum .kAlt{position:fixed;left:0;right:0;bottom:0;padding:14px 20px calc(16px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)));background:linear-gradient(to top,var(--taban) 70%,transparent)}',
-    '#kurulum .kAlt .ana{padding:16px;font-size:16px;border-radius:12px}',
+    '#kurulum .kAlt .ana{padding:17px;font-size:16px;border-radius:999px}',
     '#kurulum .secim{display:grid;gap:12px}',
     '#kurulum .secim .sinavKart{margin:0}',
     '#kurulum .secim .srt{min-height:64px}',
@@ -185,7 +184,7 @@
       (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p></div>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     /* 26.09 Cem: "sınavını seçsin, bütün sınavları görmesin" — yalnız seçilen sınav */
-    html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span><div class="satirlar">';
+    html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span><div class="satirlar">' + tekrarSatiri();
     SINAV_SIRA.filter(function (x) { return x.id === secS; }).forEach(function (x) {
       var u = (K.ucretsiz || []).filter(function (d) { return d.sinav === x.id; })[0];
       if (u) {
@@ -221,7 +220,7 @@
     if (paketsiz()) html = ucretsizCiz(v, h, bugun, seri, t);
     else {
       html = '<div class="bant"><span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1></div>' + olcuKarti(v, h, bugun, seri, t);
-      html += '<span class="etk">Sıradaki</span><div class="satirlar">';
+      html += '<span class="etk">Sıradaki</span><div class="satirlar">' + tekrarSatiri();
       if (v.son && v.son.yol && acikMi(v.son.yol)) {
         html += '<a class="srt birincil" href="' + esc(v.son.yol) + '">' + ik('oynat') + '<span class="ad">Devam et<small>' +
           esc(sayfaAdi(v.son.yol)) + ' · ' + ((v.son.i || 0) + 1) + '. soru</small></span>' + OK + '</a>';
@@ -243,6 +242,7 @@
         '<span class="ad">Hesabım var, giriş yap<small>Paketindeki dersler açılır</small></span>' + OK + '</button></div>';
     }
     bugunB.innerHTML = html;
+    tekrarBagla(bugunB);
     [].forEach.call(bugunB.querySelectorAll('[data-git]'), function (g) {
       g.onclick = function () { if (window.TTGiris) window.TTGiris.ac(g.dataset.git === 'uyeol' ? 'uye' : 'giris'); };
     });
@@ -250,6 +250,37 @@
       b.onclick = function () { if (window.TTSinavlar) window.TTSinavlar.ac(b.dataset.sinav); };
     });
     try { document.dispatchEvent(new CustomEvent('tt-acilis', { detail: paketsiz() ? 'ucretsiz' : 'bugun' })); } catch (e) {}
+  }
+
+  /* ---------- GÖRÜNMEZ TEKRAR (26.09 Cem "2 ve 3 yap"; kurallar TEKRAR-KURALLARI yorumunda) ----------
+     K1 Yanlış cevaplanan soru, cevaptan en az 20 saat sonra "tekrar zamanı gelmiş" sayılır (dün ve öncesi).
+     K2 Tekrarda doğru yapılırsa kayıt "ok" olur, kuyruktan kendiliğinden çıkar; yine yanlışsa zamanı sıfırlanır, ertesi gün yine gelir.
+     K3 Sıradaki listesinin en üstünde tek satır: en çok bekleyen dersin tekrarı, dokununca YALNIZ o sorular açılır.
+     K4 Yalnız erişilebilen sorular (ücretsiz ya da paketinde açık ders); seçili sınav dışındakiler sayılmaz.
+     K5 Satırda o soruların en sık tuzağı yazılır ("En çok: … Tuzağı"). Kullanıcıya "yapay zekâ" vb. hiçbir şey söylenmez.
+     Veri: yalnız cihazdaki/hesaptaki cevap kaydı (ilerleme.js). Sunucuya bir şey gönderilmez. */
+  var TEKRAR_SAAT = 20;
+  function tekrarKuyrugu() {
+    var v = IL.veri(), sinir = Date.now() - TEKRAR_SAAT * 3600e3, sec = seciliSinav(), m = {};
+    for (var s in v.cevap) {
+      var c = v.cevap[s];
+      if (!c || c.s === 'ok' || !c.yol || c.t > sinir || sinaviNe(c.yol) !== sec || !acikMi(c.yol)) continue;
+      var g = m[c.yol] || (m[c.yol] = { yol: c.yol, ad: c.d || sayfaAdi(c.yol), yanlar: [], tz: {} });
+      g.yanlar.push(s); if (c.tz) g.tz[c.tz] = (g.tz[c.tz] || 0) + 1;
+    }
+    var l = Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return b.yanlar.length - a.yanlar.length; });
+    return { toplam: l.reduce(function (a, g) { return a + g.yanlar.length; }, 0), ilk: l[0] || null };
+  }
+  function tekrarSatiri() {
+    var q = tekrarKuyrugu(); if (!q.ilk) return '';
+    var tz = Object.keys(q.ilk.tz).sort(function (a, b) { return q.ilk.tz[b] - q.ilk.tz[a]; })[0];
+    return '<button type="button" class="srt" data-tekrar="1">' + ik('tekrar') + '<span class="ad">Tekrar zamanı · ' + q.ilk.yanlar.length + ' soru<small>' +
+      esc(q.ilk.ad) + (tz ? ' · en çok: ' + esc(tz) : ' · dün ve önce yanlış yaptıkların') + '</small></span>' +
+      (q.toplam > q.ilk.yanlar.length ? '<span class="sag">toplam ' + q.toplam + '</span>' : '') + OK + '</button>';
+  }
+  function tekrarBagla(kok) {
+    var b = kok.querySelector('[data-tekrar]'); if (!b) return;
+    b.onclick = function () { var q = tekrarKuyrugu(); if (q.ilk) yanlislariCoz(q.ilk); };
   }
 
   /* uygulama-kaydir.js tekrarKur: sayfa açılınca yalnız bu kimliklerin kartları görünür */
@@ -378,8 +409,8 @@
     var a0 = IL.veri().ayar, yalnizSinav = !!a0.kurulum && !a0.sinav;
     if (a0.kurulum && a0.sinav) return;
     var e = document.createElement('div'); e.id = 'kurulum'; document.body.appendChild(e);
-    if (window.TTGorunum) window.TTGorunum.cubuk(true);   /* üst lacivert bant */
-    var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); if (window.TTGorunum) window.TTGorunum.cubuk(true); };
+    if (window.TTGorunum) window.TTGorunum.cubuk();
+    var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); if (window.TTGorunum) window.TTGorunum.cubuk(); };
     var toplamAdim = yalnizSinav ? 1 : 3;
     var bant = function (n, baslik, alt) {
       return '<div class="kB"><div class="kMarka"><span>' + LOGO + '</span>' + (n ? '<em>0' + n + ' / 0' + toplamAdim + '</em>' : '') + '</div>' +
@@ -460,9 +491,9 @@
     $('ayarGorunum').onchange = function () {
       try { localStorage.setItem('tt_gorunum', this.value); } catch (e) {}
       document.documentElement.setAttribute('data-gorunum', window.TTGorunum.koyu() ? 'koyu' : 'acik');
-      window.TTGorunum.cubuk(true);
+      window.TTGorunum.cubuk();
     };
-    window.TTGorunum.cubuk(true);
+    window.TTGorunum.cubuk();
   }
 
   /* hesapla eşitleme: girişliyse sunucudaki kayıtla birleştir; değiştiyse yeniden çiz.

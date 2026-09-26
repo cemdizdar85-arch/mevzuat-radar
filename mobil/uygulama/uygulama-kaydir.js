@@ -363,6 +363,19 @@
     });
   }
   var cipIzleyici = null;
+  /* iskelet yükleme: kasa-yukle.js'in "Sorular yükleniyor…" durum kutusu yerine sayfa biçiminde gri çubuklar */
+  (function () {
+    function iskelet() {
+      var a = document.getElementById('akis'); if (!a) return;
+      var d = a.firstElementChild;
+      if (d && d.getAttribute && d.getAttribute('role') === 'status' && /yükleniyor/i.test(d.textContent || '') && !d.__tt) {
+        d.__tt = 1; d.className = 'ttIskelet'; d.removeAttribute('style'); d.setAttribute('aria-label', 'Sorular yükleniyor');
+        d.innerHTML = '<i></i><i></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i>';
+      }
+    }
+    try { var a0 = document.getElementById('akis'); if (a0) new MutationObserver(iskelet).observe(a0, { childList: true }); } catch (e) {}
+    document.addEventListener('DOMContentLoaded', iskelet);
+  })();
 
   /* ---------- UYGULAMA GÖRÜNÜM KATMANI (26.09.2026, Cem "uygulamada yap") ----------
      Ana ekranla aynı dil: lacivert zemin, beyaz ana düğme, marka turuncusu, emoji YOK.
@@ -372,9 +385,9 @@
      Geri almak: bu bloğu silmek yeter; soru verisi etkilenmez. */
   var st4 = document.createElement('style');
   st4.textContent = [
-    ':root[data-theme="dark"]{--bg:#06090f;--bg2:#0a0f17;--kart:#0d141e;--cizgi:#1f2a38;--yazi:#eef2f7;--metin:#eef2f7;--dim:#93a1b3;--ustYazi:#06090f}',
+    ':root[data-theme="dark"]{--bg:#0b0b0d;--bg2:#1f1f22;--kart:#1a1a1d;--cizgi:#2c2c30;--yazi:#f5f5f7;--metin:#f5f5f7;--dim:#98989f;--ustYazi:#111113}',
     ':root{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}',
-    ':root:not([data-theme="dark"]){--bg:#f6f4ef;--bg2:#efece6;--kart:#ffffff;--cizgi:#e4e0d8;--yazi:#1c1b19;--metin:#1c1b19;--dim:#5f5b54;--ustYazi:#ffffff}',
+    ':root:not([data-theme="dark"]){--bg:#f6f5f2;--bg2:#efeeea;--kart:#ffffff;--cizgi:#e6e5e1;--yazi:#111113;--metin:#111113;--dim:#6e6e73;--ustYazi:#ffffff}',
     'html,body{font-family:-apple-system,"SF Pro Text","Segoe UI",system-ui,Roboto,sans-serif!important}',
     /* düğmeler: yuvarlak hap yerine teknik köşe; ana eylem zıt renk, öğrenme eylemi marka turuncusu */
     '.cip2,.btn{border-radius:8px!important}',
@@ -402,14 +415,25 @@
     '.cip2.bDaha{border-style:solid!important}',
     '.btn.mavi,.dugme.ana,#ttListe .tekrar{background:var(--yazi)!important;color:var(--bg)!important;border:0!important;border-radius:10px!important}',
     '#ttListe .ic{border-radius:22px 22px 0 0!important}',
-    '#ttListe h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.5em;margin:4px 0 6px}',
+    '#ttListe h3{font-family:-apple-system,\"SF Pro Display\",Inter,\"Segoe UI\",Roboto,system-ui,sans-serif;font-weight:800;letter-spacing:-.03em;font-size:1.6em;margin:4px 0 6px}',
     '#ttListe .izgara button.simdi,#ttListe .izgara button[aria-current]{outline:2px solid #f5a524!important;outline-offset:1px}',
     '.ttAraclar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}',
     '.ttAraclar button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px;border-radius:12px;border:1px solid var(--cizgi);background:var(--bg);color:var(--yazi);font:inherit;text-align:left}',
     '.ttAraclar b{font-size:.9em}.ttAraclar span{font-size:.82em;color:var(--dim)}',
-    /* Fraunces soru sayfalarında da (başlıklar); dosya uygulamada ../../ altında */
-    '@font-face{font-family:"Fraunces";font-weight:500 600;src:url(../../fraunces-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+1E00-1E9F}',
-    '@font-face{font-family:"Fraunces";font-weight:500 600;src:url(../../fraunces-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+2000-206F}'
+    /* YÖN 1 · başparmak bölgesi: soru metni üstte, şıklar kartın ALTINA yaslanır (kısa soruda boşluk ortada kalır) */
+    '#akis>.kart .govde{display:flex!important;flex-direction:column}',
+    '#akis>.kart .siklar{margin-top:auto;padding-top:14px}',
+    /* açıklama paneli yaylı açılır (yeni sayfa/pencere yok, aynı kartta) */
+    '#akis>.kart .panel{transition:transform .46s cubic-bezier(.2,1.12,.3,1),visibility 0s linear .46s!important;border-radius:26px 26px 0 0!important}',
+    '#akis>.kart .panel.acik{transition:transform .46s cubic-bezier(.2,1.12,.3,1),visibility 0s!important}',
+    '.cip2,.btn{border-radius:999px!important}',
+    '.sik{border-radius:16px!important}',
+    /* iskelet yükleme (kasa-yukle.js "Sorular yükleniyor" kutusunun yerine) */
+    '@keyframes ttNabiz{0%,100%{opacity:.5}50%{opacity:1}}',
+    '.ttIskelet{max-width:560px;margin:0 auto;padding:calc(70px + ' + UST + ') 18px 0;display:grid;gap:12px}',
+    '.ttIskelet i{display:block;height:16px;border-radius:8px;background:var(--bg2);animation:ttNabiz 1.2s ease-in-out infinite}',
+    '.ttIskelet i.s{height:58px;border-radius:16px;margin-top:6px}',
+    '.ttIskelet i:nth-child(2){width:86%}.ttIskelet i:nth-child(3){width:64%;margin-bottom:28px}'
   ].join('\n');
   document.head.appendChild(st4);
   var BAS_EMOJI = /^(\s*)(?:[←-⇿⌀-⏿①-➿⤀-⯿]️?\s*|(?:[\uD83C-\uD83E][\uDC00-\uDFFF]|‍|️)+\s*)+/;
@@ -462,20 +486,20 @@
   function paketOzet() { try { return (JSON.parse(localStorage.getItem('tt_uyg_paket_ozet') || '{}') || {})[SINAV] || null; } catch (e) { return null; } }
   var st3 = document.createElement('style');
   st3.textContent = [
-    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:#0c1a2b;color:#fff;display:none;flex-direction:column;justify-content:flex-end;' +
+    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:radial-gradient(120% 420px at 50% -60px,rgba(245,165,36,.20),transparent 70%) no-repeat,var(--bg);color:var(--yazi);display:none;flex-direction:column;justify-content:flex-end;' +
       'padding:24px 20px calc(24px + ' + ALT + ');font-family:-apple-system,"Segoe UI",system-ui,Roboto,sans-serif}',
     '.ttPerde.acik{display:flex}',
-    '.ttPerde .etk{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#f5a524;margin-bottom:12px}',
-    '.ttPerde .etk i{display:block;height:2px;background:rgba(255,255,255,.14);margin-top:10px}',
-    '.ttPerde .etk i b{display:block;height:100%;background:#f5a524}',
-    '.ttPerde h2{font-family:"Fraunces",Georgia,serif;font-size:32px;font-weight:600;letter-spacing:-.01em;line-height:1.12;margin:0 0 10px;color:#fff}',
-    '.ttPerde p{color:rgba(255,255,255,.74);margin:0 0 20px;line-height:1.5}',
-    '.ttPerde .buyuk{font-family:"Fraunces",Georgia,serif;font-size:60px;font-weight:500;letter-spacing:-.03em;line-height:1;margin:4px 0 14px;font-variant-numeric:tabular-nums}',
-    '.ttPerde .buyuk small{font-size:22px;color:rgba(255,255,255,.6);font-family:inherit}',
+    '.ttPerde .etk{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#b86e00;margin-bottom:12px}',
+    '.ttPerde .etk i{display:block;height:4px;border-radius:4px;background:var(--bg2);margin-top:10px}',
+    '.ttPerde .etk i b{display:block;height:100%;border-radius:4px;background:#f5a524}',
+    '.ttPerde h2{font-family:-apple-system,\"SF Pro Display\",Inter,\"Segoe UI\",Roboto,system-ui,sans-serif;font-size:34px;font-weight:800;letter-spacing:-.035em;line-height:1.04;margin:0 0 10px;color:var(--yazi)}',
+    '.ttPerde p{color:var(--dim);margin:0 0 20px;line-height:1.5}',
+    '.ttPerde .buyuk{font-family:-apple-system,\"SF Pro Display\",Inter,\"Segoe UI\",Roboto,system-ui,sans-serif;font-size:64px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:4px 0 14px;font-variant-numeric:tabular-nums}',
+    '.ttPerde .buyuk small{font-size:22px;color:var(--dim);font-family:inherit}',
     '.ttPerde a,.ttPerde button{display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;font:600 15px/1.2 inherit;padding:15px;border-radius:8px;margin-top:10px;cursor:pointer}',
-    '.ttPerde .birinci{background:#f5a524;color:#0b0b0c;border:0;border-radius:12px!important;font-weight:700}',
-    '.ttPerde .ikinci{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:12px!important}',
-    '.ttPerde .ucuncu{background:none;border:0;color:rgba(255,255,255,.6);font-weight:500}'
+    '.ttPerde .birinci{background:var(--yazi);color:var(--bg);border:0;border-radius:999px!important;font-weight:600}',
+    '.ttPerde .ikinci{background:transparent;color:var(--yazi);border:1px solid var(--cizgi);border-radius:999px!important}',
+    '.ttPerde .ucuncu{background:none;border:0;color:var(--dim);font-weight:500}'
   ].join('\n');
   document.head.appendChild(st3);
   function perde(id, html) {

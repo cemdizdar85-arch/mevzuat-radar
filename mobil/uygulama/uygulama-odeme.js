@@ -21,15 +21,15 @@
   var st = document.createElement('style');
   st.textContent = [
     '#odeme{position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.5);display:flex;align-items:flex-end}',
-    '#odeme .ic{width:100%;max-height:94%;overflow-y:auto;background:var(--taban);border-radius:22px 22px 0 0;animation:odemeGel .28s ease-out}',
-    '@keyframes odemeGel{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}',
-    '#odeme .oUst{position:relative;background:var(--bant);color:#fff;padding:22px 22px 64px;border-radius:22px 22px 0 0}',
-    '#odeme .kapat{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font:400 20px/1 inherit}',
-    '#odeme .etk{color:#f5a524;margin:0 0 10px}',
-    '#odeme h1{color:#fff;font-size:30px;line-height:1.1;margin:0 0 8px}',
-    '#odeme .oUst p{margin:0;color:rgba(255,255,255,.74);font-size:15px}',
-    '#odeme .govde{position:relative;z-index:1;padding:0 16px calc(20px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)));margin-top:-44px}',
-    '#odeme .kazanc{background:var(--panel);border-radius:16px;box-shadow:var(--golge);padding:6px 16px}',
+    '#odeme .ic{width:100%;max-height:94%;overflow-y:auto;background:radial-gradient(120% 360px at 50% -40px,var(--aura),transparent 70%) no-repeat,var(--taban);border-radius:28px 28px 0 0;animation:odemeGel .42s cubic-bezier(.2,1.1,.3,1)}',
+    '@keyframes odemeGel{from{transform:translateY(60px);opacity:.3}to{transform:none;opacity:1}}',
+    '#odeme .oUst{position:relative;color:var(--yazi);padding:26px 22px 8px}',
+    '#odeme .kapat{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(127,127,127,.16);color:var(--yazi);font:400 20px/1 inherit}',
+    '#odeme .etk{font-size:12px!important;letter-spacing:.06em!important;text-transform:uppercase!important;font-weight:600!important;color:var(--vurgu)!important;margin:0 0 8px!important}',
+    '#odeme h1{font-size:34px;line-height:1.04;margin:0 0 8px}',
+    '#odeme .oUst p{margin:0;color:var(--soluk);font-size:15.5px}',
+    '#odeme .govde{position:relative;z-index:1;padding:0 16px calc(20px + max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px)));margin-top:16px}',
+    '#odeme .kazanc{background:var(--panel);border-radius:22px;box-shadow:var(--golge);padding:6px 18px}',
     '#odeme .kazanc div{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--cizgi)}',
     '#odeme .kazanc div:first-child{border-top:0}',
     '#odeme .kazanc i{flex:none;width:22px;height:22px;border-radius:50%;background:#f5a524;display:grid;place-items:center;margin-top:1px}',
@@ -41,7 +41,7 @@
     '#odeme .urun[data-sinav]:not(.buSinav){display:none!important}',
     '#odeme .urun{min-height:72px}',
     '#odeme .urun .ad{font-size:15.5px}',
-    '#odeme .urun .al{background:#f5a524;color:#0b0b0c;padding:11px 16px;border-radius:10px;font-weight:700}',
+    '#odeme .urun .al{background:var(--zit);color:var(--zitYazi);padding:11px 18px;border-radius:999px;font-weight:600}',
     '#odeme .yasal{margin:14px 4px 0;font-size:12px;color:var(--soluk);line-height:1.5}'
   ].join('\n');
   document.head.appendChild(st);
