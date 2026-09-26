@@ -1,53 +1,5 @@
 [
     {
-        "etiket":  "sgs-d2-vergi-kolay-r2",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-vergi-kolay-r3",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-vergi-kolay-r2",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-vergi-kolay-r4",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-vergi-kolay-r3-a",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-vergi-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d3-vergi-kolay-r4",
         "id":  "kp-01",
         "ders":  "Vergi Hukuku",
@@ -64,7 +16,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-vergihukuku",
+        "etiket":  "sgs-d3-vergi-kolay-r3",
         "id":  "kp-01",
         "ders":  "Vergi Hukuku",
         "konu":  "damga vergisi",
@@ -72,7 +24,55 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-vergi-kolay-r3",
+        "etiket":  "sgs-d2-vergi-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-vergi-kolay-r3",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-vergi-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-kolay-r3-a",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-kolay-r4",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bosluk-vergihukuku",
         "id":  "kp-01",
         "ders":  "Vergi Hukuku",
         "konu":  "damga vergisi",
@@ -96,14 +96,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-vergi-zor-r1",
-        "id":  "kp-01",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv vergiyi doguran olay",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-a6-vergi-kolay-r1",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
@@ -112,7 +104,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
+        "etiket":  "sgs-d2-vergi-zor-r1",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv vergiyi doguran olay",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-02",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv istisnalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv istisnalari",
@@ -128,14 +136,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-02",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv istisnalari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-vergi-kolay-r1",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
@@ -144,7 +144,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
+        "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv istisnalari",
@@ -152,40 +152,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-zor-r2-a",
-        "id":  "kp-03",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-bosluk-vergihukuku",
         "id":  "kp-04",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-vergi-zor-r1-a",
-        "id":  "kp-03",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-vergi-zor-r3-a",
-        "id":  "kp-03",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-vergi-zor-r4-a",
-        "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv matrahi",
         "donem":  3,
@@ -200,10 +168,34 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-cokzor-r4-a",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-vergi-zor-r4-a",
+        "id":  "kp-03",
         "ders":  "Vergi Hukuku",
-        "konu":  "kurumlar vergisi mukellefleri",
+        "konu":  "kdv matrahi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-zor-r1-a",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv matrahi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-zor-r2-a",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv matrahi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-zor-r3-a",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv matrahi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -224,6 +216,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k7-vergi-zor",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kurumlar vergisi mukellefleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-vergi-cokzor-r4-a",
+        "id":  "kp-02",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kurumlar vergisi mukellefleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-vergi-cokzor",
         "id":  "kp-02",
         "ders":  "Vergi Hukuku",
@@ -232,8 +240,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-vergihukuku",
-        "id":  "kp-03",
+        "etiket":  "sgs-c5-vergi-kolay-r2",
+        "id":  "kp-01",
         "ders":  "Vergi Hukuku",
         "konu":  "odeme emrine itiraz",
         "donem":  3,
@@ -248,8 +256,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-kolay-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-bosluk-vergihukuku",
+        "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "odeme emrine itiraz",
         "donem":  3,
@@ -264,7 +272,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-vergi-kolay-r1",
+        "etiket":  "sgs-t1-vergi-cokzor",
         "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "serbest meslek kazanci",
@@ -272,7 +280,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-cokzor",
+        "etiket":  "sgs-a6-vergi-kolay-r1",
         "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "serbest meslek kazanci",
@@ -296,14 +304,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-vergi-zor",
-        "id":  "kp-02",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vuk degerleme olculeri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k2-vergi-kolay",
         "id":  "kp-01",
         "ders":  "Vergi Hukuku",
@@ -312,11 +312,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-vergi-zor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-k2-vergi-zor",
+        "id":  "kp-02",
         "ders":  "Vergi Hukuku",
-        "konu":  "asgari kurumlar vergisi",
-        "donem":  2,
+        "konu":  "vuk degerleme olculeri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k7-vergi-cokzor",
+        "id":  "kp-01",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vuk degerleme olculeri",
+        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -336,8 +344,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-d3-vergi-zor-r1",
+        "id":  "kp-04",
+        "ders":  "Vergi Hukuku",
+        "konu":  "asgari kurumlar vergisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-vergi-cokzor",
+        "id":  "kp-04",
         "ders":  "Vergi Hukuku",
         "konu":  "emsal kira bedeli",
         "donem":  2,
@@ -352,8 +368,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-vergi-cokzor",
-        "id":  "kp-04",
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "emsal kira bedeli",
         "donem":  2,
@@ -364,6 +380,14 @@
         "id":  "kp-03",
         "ders":  "Vergi Hukuku",
         "konu":  "izaha davet",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-vergi-zor",
+        "id":  "kp-03",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kamu alacagi guvence onlemleri",
         "donem":  2,
         "kurtarma":  false
     },
@@ -384,16 +408,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-vergi-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-vergi-kolay-r1-a",
+        "id":  "kp-06",
         "ders":  "Vergi Hukuku",
-        "konu":  "kamu alacagi guvence onlemleri",
+        "konu":  "kdv indirimi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-vergi-kolay-r1-a",
-        "id":  "kp-06",
+        "etiket":  "sgs-k7-vergi-zor",
+        "id":  "kp-02",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv indirimi",
         "donem":  2,
@@ -544,15 +568,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-10",
-        "ders":  "Vergi Hukuku",
-        "konu":  "amme alacagi tecil",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-cokzor",
+        "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-15",
         "ders":  "Vergi Hukuku",
         "konu":  "amme alacagi tecil",
@@ -568,7 +584,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-10",
+        "ders":  "Vergi Hukuku",
+        "konu":  "amme alacagi tecil",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-15",
         "ders":  "Vergi Hukuku",
         "konu":  "amme alacagi tecil",
@@ -624,14 +648,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-kolay-r2",
-        "id":  "kp-10",
-        "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi resmi daire tanimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-vergi-kolay-r1",
         "id":  "kp-10",
         "ders":  "Vergi Hukuku",
@@ -640,10 +656,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-c5-vergi-kolay-r2",
+        "id":  "kp-10",
         "ders":  "Vergi Hukuku",
-        "konu":  "damga vergisi sure uzatimi",
+        "konu":  "damga vergisi resmi daire tanimi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -666,6 +682,14 @@
     {
         "etiket":  "sgs-t1-vergi-cokzor",
         "id":  "kp-19",
+        "ders":  "Vergi Hukuku",
+        "konu":  "damga vergisi sure uzatimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-13",
         "ders":  "Vergi Hukuku",
         "konu":  "damga vergisi sure uzatimi",
         "donem":  1,
@@ -712,6 +736,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-vergi-kolay-r2",
+        "id":  "kp-12",
+        "ders":  "Vergi Hukuku",
+        "konu":  "emlak vergisi vergi degeri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-vergi-kolay-r1",
         "id":  "kp-14",
         "ders":  "Vergi Hukuku",
@@ -720,10 +752,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-kolay-r2",
-        "id":  "kp-12",
+        "etiket":  "sgs-t4-vergi-zor",
+        "id":  "kp-18",
         "ders":  "Vergi Hukuku",
-        "konu":  "emlak vergisi vergi degeri",
+        "konu":  "emlak vergisi-bina vergisi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -744,14 +776,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-18",
-        "ders":  "Vergi Hukuku",
-        "konu":  "emlak vergisi-bina vergisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-18",
         "ders":  "Vergi Hukuku",
@@ -760,16 +784,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-42",
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-72",
         "ders":  "Vergi Hukuku",
         "konu":  "fatura duzenleme suresi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-72",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-42",
         "ders":  "Vergi Hukuku",
         "konu":  "fatura duzenleme suresi",
         "donem":  1,
@@ -784,7 +808,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
+        "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-16",
         "ders":  "Vergi Hukuku",
         "konu":  "gelir vergisi mukellefiyeti",
@@ -792,7 +816,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
+        "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-16",
         "ders":  "Vergi Hukuku",
         "konu":  "gelir vergisi mukellefiyeti",
@@ -832,14 +856,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-vergi-cokzor-r2",
-        "id":  "kp-10",
-        "ders":  "Vergi Hukuku",
-        "konu":  "ikmalen tarh",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d5-vergi-cokzor-r1",
         "id":  "kp-10",
         "ders":  "Vergi Hukuku",
@@ -848,16 +864,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-d5-vergi-cokzor-r2",
+        "id":  "kp-10",
+        "ders":  "Vergi Hukuku",
+        "konu":  "ikmalen tarh",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-vergi-zor-r1",
+        "id":  "kp-07",
         "ders":  "Vergi Hukuku",
         "konu":  "izaha davet",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-kolay-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-vergi-kolay",
+        "id":  "kp-13",
         "ders":  "Vergi Hukuku",
         "konu":  "izaha davet",
         "donem":  1,
@@ -872,6 +896,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-vergi-kolay-r1",
+        "id":  "kp-05",
+        "ders":  "Vergi Hukuku",
+        "konu":  "izaha davet",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-vergi-kolay-r2",
         "id":  "kp-05",
         "ders":  "Vergi Hukuku",
@@ -880,23 +912,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-vergi-zor-r1",
-        "id":  "kp-07",
-        "ders":  "Vergi Hukuku",
-        "konu":  "izaha davet",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-17",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv matrahina dahil unsurlar",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-vergi-cokzor",
         "id":  "kp-17",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv matrahina dahil unsurlar",
@@ -920,10 +936,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-17",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv matrahina dahil unsurlar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-vergi-zor",
         "id":  "kp-14",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv teslim sayilan haller",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-cokzor",
+        "id":  "kp-06",
+        "ders":  "Vergi Hukuku",
+        "konu":  "kdv vergiye tabi islemler",
         "donem":  1,
         "kurtarma":  false
     },
@@ -936,8 +968,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-cokzor",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-vergi-cokzor",
+        "id":  "kp-25",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv vergiye tabi islemler",
         "donem":  1,
@@ -954,14 +986,6 @@
     {
         "etiket":  "sgs-t4-vergi-kolay",
         "id":  "kp-06",
-        "ders":  "Vergi Hukuku",
-        "konu":  "kdv vergiye tabi islemler",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-vergi-cokzor",
-        "id":  "kp-25",
         "ders":  "Vergi Hukuku",
         "konu":  "kdv vergiye tabi islemler",
         "donem":  1,
@@ -992,16 +1016,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-zor-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-c5-vergi-zor-r1",
+        "id":  "kp-11",
         "ders":  "Vergi Hukuku",
         "konu":  "mukellefiyet ve vergi sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-zor-r1",
-        "id":  "kp-11",
+        "etiket":  "sgs-c5-vergi-zor-r2",
+        "id":  "kp-07",
         "ders":  "Vergi Hukuku",
         "konu":  "mukellefiyet ve vergi sorumlulugu",
         "donem":  1,
@@ -1080,7 +1104,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-cokzor",
+        "etiket":  "sgs-t1-vergi-kolay",
         "id":  "kp-08",
         "ders":  "Vergi Hukuku",
         "konu":  "vergi tarhi on islemleri",
@@ -1088,7 +1112,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
+        "etiket":  "sgs-t1-vergi-cokzor",
         "id":  "kp-08",
         "ders":  "Vergi Hukuku",
         "konu":  "vergi tarhi on islemleri",
@@ -1128,8 +1152,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-zor",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-vergi-kolay",
+        "id":  "kp-17",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk defterikebir",
         "donem":  1,
@@ -1144,7 +1168,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
+        "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-11",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk defterikebir",
@@ -1152,8 +1176,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-vergi-kolay",
-        "id":  "kp-17",
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-11",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk defterikebir",
         "donem":  1,
@@ -1176,14 +1200,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-vergi-kolay",
-        "id":  "kp-08",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vuk karsilik",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-vergi-zor",
         "id":  "kp-08",
         "ders":  "Vergi Hukuku",
@@ -1194,6 +1210,14 @@
     {
         "etiket":  "sgs-t1-vergi-kolay",
         "id":  "kp-15",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vuk karsilik",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-vergi-kolay",
+        "id":  "kp-08",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk karsilik",
         "donem":  1,
@@ -1224,6 +1248,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d5-vergi-zor-r2",
+        "id":  "kp-07",
+        "ders":  "Vergi Hukuku",
+        "konu":  "vuk vergi mukellefiyeti",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-vergi-kolay",
         "id":  "kp-09",
         "ders":  "Vergi Hukuku",
@@ -1248,15 +1280,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-vergi-zor-r2",
-        "id":  "kp-07",
-        "ders":  "Vergi Hukuku",
-        "konu":  "vuk vergi mukellefiyeti",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-vergi-zor-r2",
+        "etiket":  "sgs-c5-vergi-cokzor-r1",
         "id":  "kp-04",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk vergilendirme sureci",
@@ -1264,7 +1288,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-cokzor-r1",
+        "etiket":  "sgs-c5-vergi-zor-r2",
         "id":  "kp-04",
         "ders":  "Vergi Hukuku",
         "konu":  "vuk vergilendirme sureci",
