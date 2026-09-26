@@ -253,9 +253,26 @@ if(Test-Path $anatomiYolSmmm){
     foreach($p in $anS.C_ders_kalibi.PSObject.Properties){ $DERS_TAVAN_SMMM[$p.Name] = [int]$p.Value.uzunluk.p90 }
   }catch{ }
 }
+# 27.09 KGK: KGK satırı da SGS sözlüğüne düşüyordu -> "Türkiye Denetim Standartları" SGS Denetim p90'ı (342) alıyordu; KGK'nın
+#   gerçek Denetim p90'ı 784 (veri/sinav-anatomisi-kgk.json, n=261). KGK anatomisi ders adlarını SGS adlarıyla tutuyor
+#   ("Denetim", "Finansal Muhasebe"); Muhasebe Standartları -> 'Finansal Muhasebe', öteki bütün KGK modülleri -> 'Denetim'
+#   (en büyük örneklem). SGS/SMMM yolu BİREBİR aynı: yalnız sinav=KGK satırı bu dala girer.
+$DERS_TAVAN_KGK = @{}
+$anatomiYolKgk = Join-Path $Kok 'veri\sinav-anatomisi-kgk.json'
+if(Test-Path $anatomiYolKgk){
+  try{
+    $anK = ConvertFrom-Json -InputObject (Get-Content $anatomiYolKgk -Raw -Encoding UTF8)
+    foreach($p in $anK.C_ders_kalibi.PSObject.Properties){ $DERS_TAVAN_KGK[$p.Name] = [int]$p.Value.uzunluk.p90 }
+  }catch{ }
+}
 function DersTavani($satir){
   if($satir.PSObject.Properties['tavan'] -and $satir.tavan){ return [int]$satir.tavan }
   $d = "$($satir.ders)"
+  if($satir.PSObject.Properties['sinav'] -and "$($satir.sinav)" -eq 'KGK'){
+    $kgkAnahtar = $(if($d -match '(?i)Muhasebe Standart'){ 'Finansal Muhasebe' } else { 'Denetim' })
+    if($DERS_TAVAN_KGK.ContainsKey($kgkAnahtar)){ return $DERS_TAVAN_KGK[$kgkAnahtar] }
+    return 784
+  }
   if($satir.PSObject.Properties['sinav'] -and "$($satir.sinav)" -eq 'SMMM'){
     foreach($k in $DERS_TAVAN_SMMM.Keys){ if($d -match [regex]::Escape($k) -or $k -match [regex]::Escape($d)){ return $DERS_TAVAN_SMMM[$k] } }
     return 350
