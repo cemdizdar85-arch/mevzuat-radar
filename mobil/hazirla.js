@@ -135,7 +135,7 @@ const kutuphane = (oku('paket-kapisi.js').match(/kutuphane\/supabase-[0-9.]+\.js
 kapi('KAPI-KASA', !!kutuphane && var_(kutuphane), 'supabase kütüphanesi paket-kapisi.js içinde bulunamadı');
 
 const UC_ETIKET = '<script src="../../' + kutuphane + '"></script><script src="../../ortak.js"></script><script src="../../uygulama-kapisi.js"></script><script src="../../ilerleme.js"></script><script src="../../uygulama-kaydir.js"></script><script src="../../uygulama-karma.js"></script>';
-const katalog = { surum: '', derleme: '', paket: [], ucretsiz: [], yakinda: [] };
+const katalog = { surum: '', derleme: '', paket: [], ucretsiz: [], yakinda: [], onizleme: {} };
 
 /* ---------- 2. paket sayfaları (yalnız kasa modu) ---------- */
 for (const yol of kasaSayfalari) {
@@ -170,6 +170,13 @@ for (const yol of VITRIN) {
   html = html.split(KAPI_ETIKETI).join('<script src="../../uygulama-kapisi.js"></script><script src="../../ilerleme.js"></script><script src="../../uygulama-kaydir.js"></script>');
   yaz(yol, html);
   const smmm = yol.indexOf('smmm') >= 0;
+  /* 26.09 Cem "ekran kapkara, yalnız yazı": ana ekranda günün sorusunun GERÇEK önizlemesi (kök + şıklar).
+     Yalnız vitrin (zaten açık) · DOĞRU ŞIK ve açıklama KONMAZ (KAPI-SIZINTI "dogru": arar). */
+  if (sonra) katalog.onizleme[smmm ? 'yeterlilik' : 'sgs'] = sonra.dizi.map((s) => {
+    const k = {}; const sk = s.siklar || {};
+    ['A', 'B', 'C', 'D', 'E'].forEach((h) => { if (sk[h] != null) k[h] = String(sk[h]).replace(/\s+/g, ' ').trim().slice(0, 120); });
+    return { d: String(s.ders || ''), s: String(s.soru || '').replace(/\s+/g, ' ').trim().slice(0, 320), k, p: +s.donem || 0 };
+  });
   katalog.ucretsiz.push({ yol, baslik: smmm ? 'SMMM Yeterlilik örnek soruları' : 'SGS örnek soruları',
     sinav: smmm ? 'yeterlilik' : 'sgs', sinavAd: 'ücretsiz', adet: Math.max(adet, 0) });
 }
