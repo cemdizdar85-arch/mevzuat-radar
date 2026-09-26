@@ -1,14 +1,14 @@
 # SMMM BİTİRME — KONU KAPSAMA
 
-> Türetilmiştir (`arac/smmm-kapsama-tablosu.ps1`), **elle düzenlenmez**. Ölçüm: 2026-09-25 22:13
+> Türetilmiştir (`arac/smmm-kapsama-tablosu.ps1`), **elle düzenlenmez**. Ölçüm: 2026-09-26 08:19
 > Kural: hedef **sıklık ağırlıklı**, banka toplamı **4000**
 > Excel: `arac/smmm-basim-excel.ps1` (yerelde, Excel COM ister) · Plan: `arac/smmm-plan-kur.ps1`
 
 | | soru |
 |---|---:|
 | hedef | 4000 |
-| bugün yayınlanabilir | 3605 |
-| **EKSİK (açık)** | **1674** |
+| bugün yayınlanabilir | 3613 |
+| **EKSİK (açık)** | **1666** |
 | …bunun engellisi (kısır/kaynak borcu) | 125 |
 | FAZLA yazdığımız (hedef üstü) | 1279 |
 | hiç yazmadığımız konu | 904 (hedefi 1245 soru) |
@@ -17,14 +17,14 @@
 
 | ders | konu | sınavda çıktı | yayınlanabilir | hedef | açık | açık-engelli |
 |---|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 2117 | 2038 | 1060 | 1528 | 629 | 22 |
+| Finansal Muhasebe | 2117 | 2038 | 1061 | 1528 | 628 | 22 |
 | Muhasebe Denetimi | 352 | 333 | 357 | 350 | 175 | 5 |
-| Sermaye Piyasası Mevzuatı | 346 | 204 | 221 | 350 | 168 | 28 |
+| Sermaye Piyasası Mevzuatı | 346 | 204 | 222 | 350 | 167 | 28 |
 | Vergi Mevzuatı ve Uygulaması | 1273 | 416 | 358 | 350 | 145 | 30 |
-| Maliyet Muhasebesi | 798 | 323 | 400 | 350 | 124 | 11 |
-| Hukuk | 1966 | 340 | 417 | 350 | 118 | 14 |
-| Finansal Tablolar ve Analizi | 471 | 515 | 392 | 350 | 107 | 10 |
-| Muh. ve Mali Müş. Meslek Hukuku | 979 | 374 | 374 | 350 | 80 | 4 |
+| Maliyet Muhasebesi | 798 | 323 | 401 | 350 | 123 | 11 |
+| Hukuk | 1966 | 340 | 419 | 350 | 116 | 14 |
+| Finansal Tablolar ve Analizi | 471 | 515 | 393 | 350 | 106 | 10 |
+| Muh. ve Mali Müş. Meslek Hukuku | 979 | 374 | 376 | 350 | 78 | 4 |
 
 ## En çok çıkmış ama hiç yazmadığımız 25 konu
 
