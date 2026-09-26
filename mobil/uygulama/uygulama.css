@@ -4,17 +4,17 @@
    yalnız ilerleme çizgisi, etkin sekme ve durum noktasında · ana düğme zıt renk (koyu zeminde beyaz)
    · rakamlar büyük, ince, eşit genişlikte · küçük BÜYÜK HARF etiketler geniş aralıkla. */
 :root {
-  --taban: #000000;
-  --panel: #0e0e10;
-  --panel2: #17171a;
+  --taban: #06090f;       /* site stil.css --bg */
+  --panel: #0d141e;       /* site --panel */
+  --panel2: #131d2a;
   --cizgi: rgba(255, 255, 255, .09);
   --cizgi2: rgba(255, 255, 255, .16);
-  --yazi: #f4f4f5;
-  --soluk: #8b8b93;
+  --yazi: #eef2f7;        /* site --ink */
+  --soluk: #93a1b3;       /* site --muted */
   --vurgu: #f5a524;
   --vurgu2: #f5a524;
   --vurguYazi: #000000;
-  --zit: #f4f4f5;          /* ana düğme zemini */
+  --zit: #eef2f7;          /* ana düğme zemini */
   --zitYazi: #000000;
   --iyi: #3ecf8e;
   --hata: #ff6b5e;
@@ -152,3 +152,56 @@ input[type=text]:focus { outline: none; border-color: var(--yazi); }
 .onay { align-items: flex-start !important; font-weight: 400 !important; font-size: 13.5px; line-height: 1.45; margin: 4px 0 12px !important; color: var(--soluk) !important; }
 .onay input { flex: none; margin-top: 1px; }
 .bagIc { background: none; border: 0; padding: 0; color: var(--yazi); text-decoration: underline; text-underline-offset: 3px; font: inherit; }
+
+/* ---------- 26.09 (2): Cem "ekran kapkara, yalnız yazı — senin firman olsa bunu yapar mısın; yapay zekâ da olmasın".
+   Çare süs değil ÜRÜN: günün sorusunun gerçek önizlemesi (kahraman), sitenin kilitli cümlesi, marka radarı,
+   haftalık seri şeridi, karne halkası. Emoji / degrade / parıltı yine YOK. */
+h1.slogan { font-size: 32px; line-height: 1.08; letter-spacing: -.03em; margin: 8px 0 0; }
+.kahraman { position: relative; display: block; margin-top: 18px; padding: 20px 18px 18px; overflow: hidden; text-decoration: none; color: var(--yazi);
+  background: var(--panel); border: 1px solid var(--cizgi2); border-radius: 14px; border-top: 2px solid var(--vurgu); }
+.kahraman .radar { position: absolute; right: 0; top: 0; width: 180px; height: 180px; fill: none; stroke: var(--vurgu); stroke-width: 1; opacity: .22; pointer-events: none; }
+.kahraman .kUst { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--vurgu); }
+.kahraman .kUst i { width: 6px; height: 6px; background: var(--vurgu); flex: none; }
+.kahraman .kDonem { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--soluk); border: 1px solid var(--cizgi2); border-radius: 4px; padding: 3px 7px; }
+.kahraman .kSoru { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; margin: 12px 0 14px;
+  font-size: 16px; line-height: 1.5; font-weight: 500; }
+.kahraman .kSiklar { display: grid; gap: 6px; }
+.kahraman .kSiklar span { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 9px 10px; border: 1px solid var(--cizgi); border-radius: 8px;
+  font-size: 13.5px; color: var(--soluk); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: var(--taban); }
+.kahraman .kSiklar b { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid var(--cizgi2); border-radius: 5px;
+  font-size: 12px; font-weight: 600; color: var(--yazi); }
+.kahraman .kDugme { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px; padding: 13px; border-radius: 8px;
+  background: var(--vurgu); color: #0b0b0c; font-weight: 700; font-size: 15px; }
+.kahraman .kDugme svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.kahraman:active { border-color: var(--vurgu); }
+
+/* haftalık seri şeridi */
+.hafta { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 16px; }
+.hafta span { display: grid; justify-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; color: var(--soluk); }
+.hafta i { width: 100%; height: 22px; border-radius: 5px; border: 1px solid var(--cizgi2); }
+.hafta .yari i { border-color: var(--vurgu); }
+.hafta .dolu i { background: var(--vurgu); border-color: var(--vurgu); }
+.hafta .bugun { color: var(--yazi); }
+
+/* karne halkası */
+.karneUst { display: flex; align-items: center; gap: 16px; }
+.halka { width: 92px; height: 92px; flex: none; transform: rotate(-90deg); }
+.halka circle { fill: none; stroke: var(--cizgi2); stroke-width: 7; }
+.halka .dolu { stroke: var(--vurgu); stroke-linecap: butt; }
+.halkaYazi { margin-left: -108px; width: 92px; text-align: center; }
+.halkaYazi b { display: block; font-size: 24px; font-weight: 400; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.halkaYazi b small { font-size: 13px; color: var(--soluk); }
+.halkaYazi span { font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--soluk); }
+.olcu.iki { grid-template-columns: repeat(2, 1fr); flex: 1; margin-left: 16px; }
+
+/* sınav kartı: büyük kısaltma rozetli */
+.sinavKart { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px; margin-top: 10px; overflow: hidden; text-align: left;
+  background: var(--panel); border: 1px solid var(--cizgi); border-radius: 14px; color: var(--yazi); font: inherit; }
+.sinavKart .mono { flex: none; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 12px; border: 1.5px solid var(--vurgu);
+  color: var(--vurgu); font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+.sinavKart .ad { flex: 1; min-width: 0; font-weight: 600; font-size: 16px; }
+.sinavKart .ad small { display: block; font-weight: 400; font-size: 12.5px; color: var(--soluk); margin-top: 2px; }
+.sinavKart .ok { width: 16px; height: 16px; color: var(--soluk); }
+.sinavKart .radar { position: absolute; right: 0; top: 0; width: 120px; height: 120px; fill: none; stroke: var(--vurgu); stroke-width: 1; opacity: .14; pointer-events: none; }
+.sinavKart:disabled { opacity: .55; }
+.sinavKart:disabled .mono { border-color: var(--cizgi2); color: var(--soluk); }

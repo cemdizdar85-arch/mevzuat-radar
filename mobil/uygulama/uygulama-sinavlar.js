@@ -18,9 +18,9 @@
 (function () {
   var K = window.TT_KATALOG || {}, IL = window.TTIlerleme;
   var SINAVLAR = [
-    { id: 'sgs', ad: 'SGS · Staja Giriş', kisa: 'SGS' },
-    { id: 'yeterlilik', ad: 'SMMM Yeterlilik', kisa: 'Yeterlilik' },
-    { id: 'kgk', ad: 'KGK Bağımsız Denetçilik', kisa: 'KGK' }
+    { id: 'sgs', ad: 'SGS · Staja Giriş', kisa: 'SGS', mono: 'SGS' },
+    { id: 'yeterlilik', ad: 'SMMM Yeterlilik', kisa: 'Yeterlilik', mono: 'YET' },
+    { id: 'kgk', ad: 'KGK Bağımsız Denetçilik', kisa: 'KGK', mono: 'KGK' }
   ];
   /* sınav içi çalışma yolları; hazir:false olanın arkası henüz kurulmadı */
   var YOLLAR = [
@@ -101,7 +101,8 @@
   function listeCiz() {
     var sec = IL ? IL.veri().ayar.sinav : null;
     var sira = SINAVLAR.slice().sort(function (a, b) { return (b.id === sec) - (a.id === sec); });
-    var h = '<h1>Sınavlar</h1><div class="satirlar" style="margin-top:14px">';
+    var RADAR = '<svg class="radar" viewBox="0 0 200 200" aria-hidden="true"><circle cx="200" cy="0" r="70"/><circle cx="200" cy="0" r="125"/><circle cx="200" cy="0" r="180"/></svg>';
+    var h = '<h1>Sınavlar</h1><p class="alt1">Sınavını seç: ücretsiz dene, ders ders çöz, kısa sınav, en çok çıkanlar.</p><div style="margin-top:8px">';
     sira.forEach(function (x) {
       var o = ozet(x.id), etk, alt;
       if (!o.var_) { etk = '<span class="etiketK">Hazırlanıyor</span>'; alt = 'Uygulamada henüz yok'; }
@@ -109,8 +110,8 @@
         etk = o.acik.length ? '<span class="etiketK acik">Paketin açık</span>' : '';
         alt = (o.ucr ? sayi(o.ucr.adet || 30) + ' soru ücretsiz' : '') + (o.paket.length ? ' · ' + (o.paket.length + o.yakin.length) + ' ders' : '');
       }
-      h += '<button type="button" class="srt" data-s="' + x.id + '"' + (o.var_ ? '' : ' disabled') + '><span class="ad">' + esc(x.ad) +
-        '<small>' + esc(alt) + '</small></span>' + etk + (o.var_ ? OK : '') + '</button>';
+      h += '<button type="button" class="sinavKart" data-s="' + x.id + '"' + (o.var_ ? '' : ' disabled') + '>' + RADAR + '<span class="mono">' + x.mono + '</span>' +
+        '<span class="ad">' + esc(x.ad) + '<small>' + esc(alt) + '</small></span>' + etk + (o.var_ ? OK : '') + '</button>';
     });
     h += '</div>';
     $('sinavUst').innerHTML = h;
