@@ -155,10 +155,10 @@
   function ucretsizCiz(v, h, bugun, seri, t) {
     var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
     var secS = seciliSinav();
-    var html = '<span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
+    var html = '<div class="bant"><span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
       '<h1 class="slogan">Yanlışını böyle öğrenirsin.</h1>' +
       '<p class="soluk" style="margin-top:8px">Yanlış şıkta tuzağın adı ve doğrusu anında. 30 soru ücretsiz' +
-      (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p>' + kahramanKart(secS);
+      (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p></div>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     /* 26.09 Cem: "sınavını seçsin, bütün sınavları görmesin" — yalnız seçilen sınav */
     html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span><div class="satirlar">';
@@ -196,7 +196,7 @@
     var html;
     if (paketsiz()) html = ucretsizCiz(v, h, bugun, seri, t);
     else {
-      html = '<span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1>' + olcuKarti(v, h, bugun, seri, t);
+      html = '<div class="bant"><span class="etk">' + esc(tarihYazi()) + '</span><h1>Bugün</h1></div>' + olcuKarti(v, h, bugun, seri, t);
       html += '<span class="etk">Sıradaki</span><div class="satirlar">';
       if (v.son && v.son.yol && acikMi(v.son.yol)) {
         html += '<a class="srt birincil" href="' + esc(v.son.yol) + '">' + ik('oynat') + '<span class="ad">Devam et<small>' +
@@ -262,7 +262,7 @@
   }
 
   function karneCiz() {
-    var l = kayitlar(), html = '<span class="etk">' + esc(SINAV_AD[seciliSinav()]) + '</span><h1>Karnem</h1>';
+    var l = kayitlar(), html = '<div class="bant"><span class="etk">' + esc(SINAV_AD[seciliSinav()]) + '</span><h1>Karnem</h1></div>';
     if (!l.length) {
       karneB.innerHTML = html + '<div class="kart bosDurum"><b>Henüz ölçüm yok</b>' +
         'Çözdüğün her soru burada ölçülür: derse göre başarın, harcadığın süre, yanlışların ve en çok düştüğün tuzaklar.</div>';
@@ -350,7 +350,8 @@
     var a0 = IL.veri().ayar, yalnizSinav = !!a0.kurulum && !a0.sinav;
     if (a0.kurulum && a0.sinav) return;
     var e = document.createElement('div'); e.id = 'kurulum'; document.body.appendChild(e);
-    var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); };
+    if (window.TTGorunum) window.TTGorunum.cubuk();   /* ilk açılış kâğıt zeminli */
+    var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); if (window.TTGorunum) window.TTGorunum.cubuk(true); };
     var bas = function (n) { return '<div class="adim">0' + n + ' / 03<i><b style="width:' + Math.round(n / 3 * 100) + '%"></b></i></div>'; };
     var secenek = function (v, ad, alt) { return '<button type="button" class="srt" data-v="' + v + '"><span class="ad">' + ad + '<small>' + alt + '</small></span>' + OK + '</button>'; };
     var adim1 = function () {
@@ -405,9 +406,9 @@
     $('ayarGorunum').onchange = function () {
       try { localStorage.setItem('tt_gorunum', this.value); } catch (e) {}
       document.documentElement.setAttribute('data-gorunum', window.TTGorunum.koyu() ? 'koyu' : 'acik');
-      window.TTGorunum.cubuk();
+      window.TTGorunum.cubuk(true);
     };
-    window.TTGorunum.cubuk();
+    window.TTGorunum.cubuk(true);
   }
 
   /* hesapla eşitleme: girişliyse sunucudaki kayıtla birleştir; değiştiyse yeniden çiz.

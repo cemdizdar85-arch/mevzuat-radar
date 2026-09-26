@@ -123,10 +123,10 @@
 
   function sinavCiz(s) {
     var o = ozet(s), acik = o.acik.length > 0;
-    var h = '<h1>' + esc(sinavAd(s)) + '</h1>';
+    var h = '<div class="bant yalin"><h1>' + esc(sinavAd(s)) + '</h1>';
     h += '<p class="alt1">' + (o.paket.length ? (o.paket.length + o.yakin.length) + ' ders' +
       (o.yakin.length ? ' (' + o.yakin.length + ' ders hazırlanıyor)' : '') + ' · ' : '') +
-      '<button type="button" class="bagIc" data-degistir="1">Sınavı değiştir</button></p>';
+      '<button type="button" class="bagIc" data-degistir="1">Sınavı değiştir</button></p></div>';
 
     h += '<span class="etk" style="margin-top:24px">Ücretsiz dene</span><div class="satirlar">';
     if (o.ucr) {
@@ -163,7 +163,7 @@
   function kisaCiz(s) {
     var o = ozet(s);
     if (!o.acik.length) return sinavCiz(s);
-    var h = geriDugmesi(sinavAd(s)) + '<h1>Kısa sınav</h1><p class="alt1">Paketindeki derslerden karışık sorular. Süre biter ya da hepsini cevaplarsan ders ders karnen çıkar.</p>' +
+    var h = '<div class="bant">' + geriDugmesi(sinavAd(s)) + '<h1>Kısa sınav</h1><p class="alt1">Paketindeki derslerden karışık sorular. Süre biter ya da hepsini cevaplarsan ders ders karnen çıkar.</p></div>' +
       '<div class="satirlar" style="margin-top:20px">';
     [10, 20].forEach(function (n) {
       h += '<a class="srt" href="' + esc(o.acik[0]) + '?karma=kisa&n=' + n + '">' + ik('bugun') + '<span class="ad">' + n + ' soru<small>' +
@@ -174,7 +174,7 @@
 
   function derslerCiz(s) {
     var o = ozet(s), D = durum();
-    $('sinavUst').innerHTML = geriDugmesi(sinavAd(s)) + '<h1>Ders ders çöz</h1>';
+    $('sinavUst').innerHTML = '<div class="bant yalin">' + geriDugmesi(sinavAd(s)) + '<h1>Ders ders çöz</h1></div>';
     /* açık dersler: seçili sınava süz */
     var gorunen = 0;
     [].forEach.call($('liste').children, function (a) {
