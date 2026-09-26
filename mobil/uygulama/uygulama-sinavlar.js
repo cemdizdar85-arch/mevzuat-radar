@@ -66,7 +66,8 @@
   document.head.appendChild(st);
 
   /* görünüm durumu: { g: 'liste'|'sinav'|'dersler', s: sınav } */
-  var gor = { g: 'liste', s: null };
+  /* 26.09 Cem "bütün sınavları görmesin": sekme doğrudan SEÇİLİ sınavın içiyle açılır; liste yalnız "Sınavı değiştir"de */
+  var gor = { g: 'sinav', s: null };
   try { var eski = JSON.parse(sessionStorage.getItem(ANAHTAR) || 'null'); if (eski && eski.g) gor = eski; } catch (e) {}
   function git(g, s, gecmis) {
     gor = { g: g, s: s || null };
@@ -122,9 +123,10 @@
 
   function sinavCiz(s) {
     var o = ozet(s), acik = o.acik.length > 0;
-    var h = geriDugmesi('Sınavlar') + '<h1>' + esc(sinavAd(s)) + '</h1>';
-    if (o.paket.length) h += '<p class="alt1">' + (o.paket.length + o.yakin.length) + ' ders' +
-      (o.yakin.length ? ' (' + o.yakin.length + ' ders hazırlanıyor)' : '') + '</p>';
+    var h = '<h1>' + esc(sinavAd(s)) + '</h1>';
+    h += '<p class="alt1">' + (o.paket.length ? (o.paket.length + o.yakin.length) + ' ders' +
+      (o.yakin.length ? ' (' + o.yakin.length + ' ders hazırlanıyor)' : '') + ' · ' : '') +
+      '<button type="button" class="bagIc" data-degistir="1">Sınavı değiştir</button></p>';
 
     h += '<span class="etk" style="margin-top:24px">Ücretsiz dene</span><div class="satirlar">';
     if (o.ucr) {
@@ -202,14 +204,16 @@
   }
 
   function ciz() {
-    var g = gor.g, s = gor.s;
-    if (g !== 'liste' && !ozet(s).var_) g = 'liste';
+    /* görünüm her zaman seçili sınavda; eski "liste" durumu sınavın içine döner */
+    var g = gor.g === 'liste' ? 'sinav' : gor.g, s = (IL && IL.veri().ayar.sinav) === 'sgs' ? 'sgs' : 'yeterlilik';
+    gor.s = s;
     document.body.setAttribute('data-sinavgor', g);
     if (g !== 'dersler') { $('ana').classList.add('gizle'); $('kilitli').classList.add('gizle'); }
     if (g === 'liste') listeCiz(); else if (g === 'sinav') sinavCiz(s); else if (g === 'kisa') kisaCiz(s); else derslerCiz(s);
     [].forEach.call(document.querySelectorAll('#sinavUst [data-geri]'), function (b) {
-      b.onclick = function () { if (history.state && history.state.ttSinav) history.back(); else git(gor.g === 'dersler' ? 'sinav' : 'liste', gor.s, false); };
+      b.onclick = function () { if (history.state && history.state.ttSinav) history.back(); else git('sinav', gor.s, false); };
     });
+    [].forEach.call(document.querySelectorAll('#sinavUst [data-degistir]'), function (b) { b.onclick = function () { if (window.TTSinavSec) window.TTSinavSec.ac(); }; });
     [].forEach.call(document.querySelectorAll('#sinavUst [data-kilitac],#kilitli [data-kilitac]'), function (b) { b.onclick = kilitAc; });
   }
 
@@ -222,13 +226,18 @@
 
   ciz();
   document.addEventListener('tt-durum', ciz);
+  document.addEventListener('tt-sinav', function () { gor = { g: 'sinav', s: null }; try { sessionStorage.setItem(ANAHTAR, JSON.stringify(gor)); } catch (e) {} ciz(); });
   try { new MutationObserver(function () { if (gor.g === 'dersler') ciz(); }).observe($('liste'), { childList: true }); } catch (e) {}
   window.addEventListener('pageshow', ciz);
   /* dışarıdan: TTSinavlar.ac('sgs') → o sınavın içi; ac() → liste */
   window.TTSinavlar = {
     ciz: ciz,
     secili: function () { return (IL && IL.veri().ayar.sinav) || 'yeterlilik'; },
-    ac: function (s) { if (window.TTSekme) window.TTSekme.sec('sinav'); if (s) git('sinav', s, true); else git('liste', null, false); },
+    ac: function (s) {
+      if (window.TTSekme) window.TTSekme.sec('sinav');
+      if (s && IL && s !== 'kgk' && IL.veri().ayar.sinav !== s) IL.ayarYaz({ sinav: s });
+      git('sinav', null, false);
+    },
     ozet: ozet
   };
 })();

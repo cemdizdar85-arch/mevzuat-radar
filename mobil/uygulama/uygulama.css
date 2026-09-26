@@ -246,3 +246,10 @@ h1.slogan { font-size: 32px; line-height: 1.08; letter-spacing: -.03em; margin: 
   .srt .ad small, .ders .etiket, .karneS small { font-size: 14px; }
   #sekmeCubugu button { font-size: 12px; }
 }
+
+/* üst şeritteki sınav düğmesi + sınav seçim penceresi (26.09: uygulama tek sınava odaklı) */
+#sinavCip { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; margin-right: 8px; padding: 7px 10px 7px 12px; border-radius: 999px;
+  border: 1px solid var(--cizgi2); background: var(--panel); color: var(--yazi); font: 600 13px/1 inherit; }
+#sinavCip svg { width: 14px; height: 14px; transform: rotate(90deg); color: var(--soluk); }
+#sinavSec { position: fixed; inset: 0; z-index: 120; background: rgba(0, 0, 0, .45); display: flex; align-items: flex-end; }
+#sinavSec .ic { width: 100%; background: var(--taban); border-radius: 16px 16px 0 0; padding: 20px 16px calc(20px + max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px))); }
