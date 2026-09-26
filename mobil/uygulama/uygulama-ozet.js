@@ -293,7 +293,9 @@
   ayarB.id = 'calismaAyar'; ayarB.className = 'bolum'; ayarB.setAttribute('data-sekme', 'hesap');
   ayarB.innerHTML = '<span class="etk">Çalışma</span><div class="kart">' +
     '<label>Sınavım<select id="ayarSinav"><option value="yeterlilik">SMMM Yeterlilik</option><option value="sgs">SGS · Staja Giriş</option></select></label>' +
-    '<label style="margin-bottom:0">Günlük hedef<select id="ayarHedef"><option value="10">10 soru</option><option value="20">20 soru</option><option value="40">40 soru</option></select></label></div>';
+    '<label>Günlük hedef<select id="ayarHedef"><option value="10">10 soru</option><option value="20">20 soru</option><option value="40">40 soru</option></select></label>' +
+    '<label style="margin-bottom:0">Görünüm<select id="ayarGorunum"><option value="acik">Açık (önerilen, okuması kolay)</option>' +
+    '<option value="koyu">Koyu</option><option value="sistem">Telefonun ayarına göre</option></select></label></div>';
   $('hatirlatici').parentNode.insertBefore(ayarB, $('hatirlatici'));
   function ayarOku() { $('ayarSinav').value = IL.veri().ayar.sinav || 'yeterlilik'; $('ayarHedef').value = String(IL.veri().ayar.hedef || 10); }
   ayarOku();
@@ -302,6 +304,15 @@
     ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz();
   };
   $('ayarHedef').onchange = function () { IL.ayarYaz({ hedef: +this.value }); ciz(); };
+  if (window.TTGorunum) {
+    $('ayarGorunum').value = window.TTGorunum.deger();
+    $('ayarGorunum').onchange = function () {
+      try { localStorage.setItem('tt_gorunum', this.value); } catch (e) {}
+      document.documentElement.setAttribute('data-gorunum', window.TTGorunum.koyu() ? 'koyu' : 'acik');
+      window.TTGorunum.cubuk();
+    };
+    window.TTGorunum.cubuk();
+  }
 
   /* hesapla eşitleme: girişliyse sunucudaki kayıtla birleştir; değiştiyse yeniden çiz.
      Ağ yoksa sessizce yerelde kalır (ilerleme.js esitle → "yerel"). */

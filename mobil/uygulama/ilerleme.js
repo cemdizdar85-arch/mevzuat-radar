@@ -133,6 +133,23 @@
     }
   };
 
+  /* ---- GÖRÜNÜM (26.09.2026, Cem "1 bak"): varsayılan AÇIK "kâğıt" tema — okuma araştırmaları koyu yazı + açık
+     zemini destekliyor (Piepenbrock 2013/2014, positive polarity). Seçenek: Hesap → Görünüm (açık / koyu / telefona göre).
+     Durum çubuğu ikonları zemine göre koyu/açık yapılır (yoksa gece modundaki telefonda saat kâğıt zeminde kaybolur). */
+  kok.TTGorunum = {
+    deger: function () { try { return localStorage.getItem('tt_gorunum') || 'acik'; } catch (e) { return 'acik'; } },
+    koyu: function () {
+      var g = kok.TTGorunum.deger();
+      return g === 'koyu' || (g === 'sistem' && !!(kok.matchMedia && kok.matchMedia('(prefers-color-scheme: dark)').matches));
+    },
+    cubuk: function () {
+      var P = (kok.Capacitor && kok.Capacitor.Plugins) || {}, koyu = kok.TTGorunum.koyu();
+      /* Capacitor adlandırması: DARK = açık renk ikon (koyu zemin için), LIGHT = koyu ikon (açık zemin için) */
+      try { if (P.StatusBar && P.StatusBar.setStyle) P.StatusBar.setStyle({ style: koyu ? 'DARK' : 'LIGHT' }).catch(function () {}); } catch (e) {}
+      try { if (P.SystemBars && P.SystemBars.setStyle) P.SystemBars.setStyle({ style: koyu ? 'DARK' : 'LIGHT' }).catch(function () {}); } catch (e) {}
+    }
+  };
+
   /* ---- ADIM SAYACI (26.09.2026 üyelik kapısı; radar-app/sql/2026-09-26-uyelik-kapisi.sql olay_say) ----
      Her sayfa olayı cihazdaki kuyruğa yazar; kuyruğu ana ekran gönderir (Supabase adresi ortak.js'te).
      KİŞİSEL VERİ YOK: yalnız olay adı + platform. tek=true → cihaz başına bir kez (huni adımları). */

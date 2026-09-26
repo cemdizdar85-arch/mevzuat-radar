@@ -3,7 +3,28 @@
    emoji YOK (ikonlar ince çizgi SVG) · gölge/degrade/parlama YOK · tek vurgu rengi (marka amber)
    yalnız ilerleme çizgisi, etkin sekme ve durum noktasında · ana düğme zıt renk (koyu zeminde beyaz)
    · rakamlar büyük, ince, eşit genişlikte · küçük BÜYÜK HARF etiketler geniş aralıkla. */
+/* VARSAYILAN: AÇIK "KÂĞIT" (26.09 Cem "1 bak"): sıcak kırık beyaz zemin (saf beyaz parlamaz), beyaz kart,
+   saf siyah değil koyu kömür yazı. Kontrast (ölçülen, WCAG formülü): --yazi/--taban 15,7 · --soluk/--taban 6,1 · --vurgu/beyaz 5,1 · --vurgu/--taban 4,6 · koyu yazı/--vurguDolgu 9,6. */
 :root {
+  --taban: #f6f4ef;
+  --panel: #ffffff;
+  --panel2: #faf8f4;
+  --cizgi: rgba(28, 27, 25, .10);
+  --cizgi2: rgba(28, 27, 25, .18);
+  --yazi: #1c1b19;
+  --soluk: #5f5b54;
+  --vurgu: #a85a00;        /* yazı/çizgi için koyu turuncu (açık zeminde okunur) */
+  --vurgu2: #a85a00;
+  --vurguDolgu: #f5a524;   /* dolgu: marka turuncusu, üstünde koyu yazı */
+  --vurguYazi: #ffffff;
+  --zit: #1c1b19;          /* ana düğme zemini */
+  --zitYazi: #ffffff;
+  --iyi: #12875a;
+  --hata: #b3261e;
+  --yaricap: 10px;
+}
+/* KOYU: yalnız Hesap → Görünüm "Koyu" ya da "Telefona göre" + telefon gece modunda (index.html başındaki betik) */
+:root[data-gorunum="koyu"] {
   --taban: #06090f;       /* site stil.css --bg */
   --panel: #0d141e;       /* site --panel */
   --panel2: #131d2a;
@@ -13,31 +34,16 @@
   --soluk: #93a1b3;       /* site --muted */
   --vurgu: #f5a524;
   --vurgu2: #f5a524;
+  --vurguDolgu: #f5a524;
   --vurguYazi: #000000;
-  --zit: #eef2f7;          /* ana düğme zemini */
+  --zit: #eef2f7;
   --zitYazi: #000000;
   --iyi: #3ecf8e;
   --hata: #ff6b5e;
-  --yaricap: 10px;
 }
-@media (prefers-color-scheme: light) {
-  :root {
-    --taban: #f2f2f4;
-    --panel: #ffffff;
-    --panel2: #f7f7f8;
-    --cizgi: rgba(0, 0, 0, .08);
-    --cizgi2: rgba(0, 0, 0, .16);
-    --yazi: #0b0b0c;
-    --soluk: #6b6b73;
-    --vurgu: #c77700;
-    --vurgu2: #c77700;
-    --vurguYazi: #ffffff;
-    --zit: #0b0b0c;
-    --zitYazi: #ffffff;
-    --iyi: #12875a;
-    --hata: #c4271b;
-  }
-}
+/* form öğeleri (onay kutusu, seçim) telefonun gece modunu değil uygulamanın temasını izlesin */
+:root { color-scheme: light; }
+:root[data-gorunum="koyu"] { color-scheme: dark; }
 * { box-sizing: border-box; }
 /* hidden özniteliği, display veren sınıflarca (.liste grid) ezilmesin */
 [hidden] { display: none !important; }
@@ -55,7 +61,7 @@ svg.ik { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor
 /* üst şerit: yazı markası */
 .ust { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px 4px; }
 .marka { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px; letter-spacing: .32em; text-transform: uppercase; }
-.lamba { width: 7px; height: 7px; background: var(--vurgu); }
+.lamba { width: 7px; height: 7px; background: var(--vurguDolgu); }
 .rozet { font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 4px 8px;
   border: 1px solid var(--cizgi2); border-radius: 4px; color: var(--soluk); }
 
@@ -171,7 +177,7 @@ h1.slogan { font-size: 32px; line-height: 1.08; letter-spacing: -.03em; margin: 
 .kahraman .kSiklar b { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid var(--cizgi2); border-radius: 5px;
   font-size: 12px; font-weight: 600; color: var(--yazi); }
 .kahraman .kDugme { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px; padding: 13px; border-radius: 8px;
-  background: var(--vurgu); color: #0b0b0c; font-weight: 700; font-size: 15px; }
+  background: var(--vurguDolgu); color: #0b0b0c; font-weight: 700; font-size: 15px; }
 .kahraman .kDugme svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
 .kahraman:active { border-color: var(--vurgu); }
 

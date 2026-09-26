@@ -20,10 +20,12 @@
 (function () {
   var kok = document.documentElement;
 
-  /* 5) Tema: sayfanın kendi tema betiği (kc_tema) bu dosyadan SONRA çalışır; telefonun ayarını ona yazarız. */
+  /* 5) Tema: sayfanın kendi tema betiği (kc_tema) bu dosyadan SONRA çalışır; uygulamanın görünüm tercihini
+        (ilerleme.js TTGorunum — varsayılan açık) ona yazarız; durum çubuğu ikonları da zemine göre. */
   try {
-    var koyu = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var koyu = window.TTGorunum ? window.TTGorunum.koyu() : false;
     localStorage.setItem('kc_tema', koyu ? 'dark' : 'light');
+    if (window.TTGorunum) window.TTGorunum.cubuk();
   } catch (e) {}
 
   /* Kenar payları: Capacitor 8 SystemBars (varsayılan "css") Android'de --safe-area-inset-* değişkenlerini
@@ -344,7 +346,8 @@
   var st4 = document.createElement('style');
   st4.textContent = [
     ':root[data-theme="dark"]{--bg:#06090f;--bg2:#0a0f17;--kart:#0d141e;--cizgi:#1f2a38;--yazi:#eef2f7;--metin:#eef2f7;--dim:#93a1b3;--ustYazi:#06090f}',
-    ':root:not([data-theme="dark"]){--bg:#f2f2f4;--bg2:#e9e9ec;--kart:#ffffff;--cizgi:#e1e1e6;--ustYazi:#ffffff}',
+    ':root{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}',
+    ':root:not([data-theme="dark"]){--bg:#f6f4ef;--bg2:#efece6;--kart:#ffffff;--cizgi:#e4e0d8;--yazi:#1c1b19;--metin:#1c1b19;--dim:#5f5b54;--ustYazi:#ffffff}',
     'html,body{font-family:-apple-system,"SF Pro Text","Segoe UI",system-ui,Roboto,sans-serif!important}',
     /* düğmeler: yuvarlak hap yerine teknik köşe; ana eylem zıt renk, öğrenme eylemi marka turuncusu */
     '.cip2,.btn{border-radius:8px!important}',
@@ -406,20 +409,20 @@
   function paketOzet() { try { return (JSON.parse(localStorage.getItem('tt_uyg_paket_ozet') || '{}') || {})[SINAV] || null; } catch (e) { return null; } }
   var st3 = document.createElement('style');
   st3.textContent = [
-    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:rgba(0,0,0,.975);color:#f4f4f5;display:none;flex-direction:column;justify-content:flex-end;' +
+    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:var(--bg);color:var(--yazi);display:none;flex-direction:column;justify-content:flex-end;' +
       'padding:24px 20px calc(24px + ' + ALT + ');font-family:-apple-system,"Segoe UI",system-ui,Roboto,sans-serif}',
     '.ttPerde.acik{display:flex}',
-    '.ttPerde .etk{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93;margin-bottom:12px}',
-    '.ttPerde .etk i{display:block;height:2px;background:rgba(255,255,255,.12);margin-top:10px}',
+    '.ttPerde .etk{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}',
+    '.ttPerde .etk i{display:block;height:2px;background:var(--cizgi);margin-top:10px}',
     '.ttPerde .etk i b{display:block;height:100%;background:#f5a524}',
     '.ttPerde h2{font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px}',
-    '.ttPerde p{color:#a1a1aa;margin:0 0 20px;line-height:1.5}',
+    '.ttPerde p{color:var(--dim);margin:0 0 20px;line-height:1.5}',
     '.ttPerde .buyuk{font-size:56px;font-weight:300;letter-spacing:-.03em;line-height:1;margin:4px 0 14px;font-variant-numeric:tabular-nums}',
-    '.ttPerde .buyuk small{font-size:22px;color:#8b8b93}',
+    '.ttPerde .buyuk small{font-size:22px;color:var(--dim)}',
     '.ttPerde a,.ttPerde button{display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;font:600 15px/1.2 inherit;padding:15px;border-radius:8px;margin-top:10px;cursor:pointer}',
-    '.ttPerde .birinci{background:#f4f4f5;color:#000;border:0}',
-    '.ttPerde .ikinci{background:transparent;color:#f4f4f5;border:1px solid rgba(255,255,255,.18)}',
-    '.ttPerde .ucuncu{background:none;border:0;color:#8b8b93;font-weight:500}'
+    '.ttPerde .birinci{background:var(--yazi);color:var(--bg);border:0}',
+    '.ttPerde .ikinci{background:transparent;color:var(--yazi);border:1px solid var(--cizgi)}',
+    '.ttPerde .ucuncu{background:none;border:0;color:var(--dim);font-weight:500}'
   ].join('\n');
   document.head.appendChild(st3);
   function perde(id, html) {

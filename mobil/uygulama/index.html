@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="color-scheme" content="dark light">
+<meta name="color-scheme" content="light dark">
+<script>/* görünüm: varsayılan açık; tercih Hesap → Görünüm (ilerleme.js TTGorunum ile aynı kural) */(function(){try{var g=localStorage.getItem('tt_gorunum')||'acik';var k=g==='koyu'||(g==='sistem'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-gorunum',k?'koyu':'acik');}catch(e){}})();</script>
 <title>Tetikte</title>
 <link rel="stylesheet" href="uygulama.css">
 <script src="kutuphane/supabase-2.112.3.js"></script>
