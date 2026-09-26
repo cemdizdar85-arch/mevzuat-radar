@@ -136,9 +136,8 @@
       html += '<span class="etk">Tam paket · kilitli</span><div class="satirlar">';
       paketli.forEach(function (x) {
         var p = (K.paket || []).filter(function (d) { return d.sinav === x.id; }), y = (K.yakinda || []).filter(function (d) { return d.sinav === x.id; });
-        var soru = p.reduce(function (a, d) { return a + (d.adet || 0); }, 0);
         html += '<button type="button" class="srt kilit" data-sinav="' + x.id + '">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>' +
-          soru.toLocaleString('tr-TR') + ' soru · ' + (p.length + y.length) + ' ders' + (y.length ? ' (' + y.length + ' hazırlanıyor)' : '') +
+          (p.length + y.length) + ' ders' + (y.length ? ' (' + y.length + ' hazırlanıyor)' : '') + ' · tüm sorular' +
           '</small></span>' + OK + '</button>';
       });
       html += '</div><p class="soluk kucuk" style="margin-top:10px">Pakette: ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme.</p>';

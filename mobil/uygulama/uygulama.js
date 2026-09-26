@@ -39,6 +39,7 @@
     if (/Email not confirmed/i.test(m)) return 'E-posta adresin henüz doğrulanmamış.';
     if (/fetch|network|Failed/i.test(m)) return 'İnternet bağlantısı kurulamadı.';
     if (/rate|too many/i.test(m)) return 'Çok fazla deneme yapıldı. Biraz sonra yeniden dene.';
+    if (/captcha/i.test(m)) return 'Güvenlik doğrulaması tamamlanamadı. İnternetini kontrol edip yeniden dene.';
     return 'Giriş yapılamadı. Bilgilerini kontrol edip yeniden dene.';
   }
 
@@ -70,7 +71,6 @@
     var a = document.createElement('a');
     a.className = 'ders'; a.href = d.yol; a.setAttribute('data-sinav', d.sinav || '');
     var alt = [];
-    if (d.adet) alt.push(d.adet.toLocaleString('tr-TR') + ' soru');
     if (m) alt.push('cihazda · ' + m.tarih.split('-').reverse().join('.'));
     a.innerHTML = '<span class="ad">' + esc(d.baslik) + '<span class="etiket">' + esc(alt.join(' · ')) + '</span></span>' +
       (indirilebilir ? '<button type="button" class="indir"' + (m ? ' data-durum="cihazda"' : '') + '>' + (m ? 'Yenile' : 'İndir') + '</button>' : '');
@@ -148,6 +148,8 @@
   $('modGiris').addEventListener('click', function () { modSec('giris'); });
   function olay(ad, tek) { if (window.TTOlay) window.TTOlay.say(ad, tek); }
   function platformAdi() { return (window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform()) || 'web'; }
+  /* bot koruması: captcha.js (sitedeki) açıkken taze Turnstile belirteci; kapalıyken undefined — hiçbir şey değişmez */
+  function captcha() { return window.ttCaptchaToken ? window.ttCaptchaToken() : Promise.resolve(undefined); }
   function olayGonder() { if (window.TTOlay && window.TT && window.TT.SB_URL) window.TTOlay.gonder(window.TT.SB_URL, window.TT.SB_KEY, platformAdi()); }
 
   $('girisForm').addEventListener('submit', async function (e) {
@@ -161,14 +163,14 @@
       if (mod === 'uye') {
         if (!$('kosul').checked) { h.textContent = 'Üye olmak için sözleşmeyi ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
         var an = new Date().toISOString(), riza = $('riza').checked;
-        var u = await sb.auth.signUp({ email: ep, password: sf, options: { data: {
+        var u = await sb.auth.signUp({ email: ep, password: sf, options: { captchaToken: await captcha(), data: {
           hesap_turu: 'ogrenci', kaynak: 'uygulama', ad: $('ad').value.trim().slice(0, 60),
           kosul_kabul: an, pazarlama_rizasi: riza, riza_tarihi: riza ? an : null } } });
         if (u.error) { h.textContent = /already|registered|exists/i.test(u.error.message || '') ? 'Bu e-postayla zaten hesap var. "Giriş yap"a geç.' : trHata(u.error); return; }
         if (!u.data.session) { h.textContent = 'Hesabın açıldı. E-postana gelen bağlantıya tıkla, sonra giriş yap.'; modSec('giris'); return; }
         olay('uye_ol', true);
       } else {
-        var g = await sb.auth.signInWithPassword({ email: ep, password: sf });
+        var g = await sb.auth.signInWithPassword({ email: ep, password: sf, options: { captchaToken: await captcha() } });
         if (g.error) { h.textContent = trHata(g.error); return; }
         olay('giris', true);
       }
@@ -184,7 +186,7 @@
   $('sifreUnuttum').addEventListener('click', async function () {
     var ep = $('eposta').value.trim();
     if (!ep) { $('girisHata').textContent = 'Önce e-posta adresini yaz.'; return; }
-    var r = await sb.auth.resetPasswordForEmail(ep, { redirectTo: SIFRE_DONUS });
+    var r = await sb.auth.resetPasswordForEmail(ep, { redirectTo: SIFRE_DONUS, captchaToken: await captcha() });
     $('girisHata').textContent = r.error ? trHata(r.error) : 'Şifre yenileme bağlantısı e-postana gönderildi.';
   });
   $('cikis').addEventListener('click', async function () {

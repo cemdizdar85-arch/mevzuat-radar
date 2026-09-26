@@ -411,7 +411,7 @@
     var e = perde('ttAra', '<div class="etk">' + (bitti ? 'Ücretsiz sorular bitti' : 'Ara karne · ' + n + ' soru') + '</div>' +
       '<div class="buyuk">' + ok + '<small> / ' + n + ' doğru</small></div>' +
       '<h2>' + (bitti ? 'Şimdi tamamına geç' : 'Gerçek sınav bundan çok daha geniş') + '</h2>' +
-      '<p>Tam pakette' + (p && p.soru ? ' ' + Number(p.soru).toLocaleString('tr-TR') + ' soru, ' + p.ders + ' ders;' : '') +
+      '<p>Tam pakette' + (p && p.ders ? ' ' + p.ders + ' dersin tüm soruları;' : ' tüm dersler;') +
       ' ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme var.</p>' +
       '<a class="birinci" href="' + ANA + '">Tam paketi incele</a>' +
       (bitti ? '' : '<button type="button" class="ikinci">Ücretsiz sorulara devam et</button>'));

@@ -190,6 +190,8 @@ if (MUTASYON !== 'yama') kasaYukle = kasaYukle.split(KASA_YAMA_ESKI).join(KASA_Y
 kapi('KAPI-SATIS', yamaSayisi === 1, 'kasa-yukle.js satın alma düğmesi yaması tutmadı (beklenen 1, bulunan ' + yamaSayisi + ') — dosya değişmiş, hazirla.js güncellenmeli');
 yaz('kasa-yukle.js', kasaYukle);
 kopyala('cihaz-kapisi.js');
+/* bot koruması (Turnstile): sitedekiyle AYNI dosya ve aynı anahtar — sitede açılınca uygulamada da açık olur (26.09) */
+kopyala('captcha.js');
 kopyala(kutuphane);
 for (const ad of fs.readdirSync(path.join(MOBIL, 'uygulama'))) kopyala(path.join('mobil', 'uygulama', ad), ad);
 

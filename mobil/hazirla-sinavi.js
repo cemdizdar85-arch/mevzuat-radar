@@ -58,6 +58,7 @@ function kur(degisiklik) {
     'kutuphane/supabase-9.9.9.js': '/* kütüphane */',
     'kasa-yukle.js': "var PARCA = 100; mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));",
     'cihaz-kapisi.js': '/* cihaz */',
+    'captcha.js': '/* captcha */',
     'kaydir/sgs/index.html': '<a class="kart" href="turkce.html"><div class="ad">T&#252;rk&#231;e</div></a>',
     'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html'),
     'kaydir/sgs/maliye.html': '<html><script>const SORULAR=[{"dogru":"A"}]</script></html>',

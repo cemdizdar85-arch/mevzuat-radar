@@ -7,7 +7,7 @@
  *            Sınav gibi. Cem 26.09: "bunların hepsi kilitli olacak". Paketi olmayana kilitli görünür, altında TEK
  *            "Kilidi aç" düğmesi. Henüz kurulmamış yollar "yakında" diye yazar (kilit açılınca boş çıkmasın diye).
  *   dersler  ders listesi: hesapta açık dersler (#ana, uygulama.js çizer; burada sınava süzülür) + kilitli dersler
- *            (gerçek soru sayısıyla — katalog adet, kaynak kaydir/<sınav>/index.html) + kasaya taşınmamışlar.
+ *            + kasaya taşınmamışlar. Soru SAYISI yazılmaz (Cem 26.09: derlemedeki sayı kasadan geride kalıyor).
  * KGK uygulamada henüz yok → kartı "hazırlanıyor".
  *
  * APPLE KURALI: iPhone'da satış kapalıyken (katalog iosSatis false) fiyat, satın alma çağrısı, dış satış
@@ -121,7 +121,7 @@
   function sinavCiz(s) {
     var o = ozet(s), acik = o.acik.length > 0;
     var h = geriDugmesi('Sınavlar') + '<h1>' + esc(sinavAd(s)) + '</h1>';
-    if (o.paket.length) h += '<p class="alt1">' + sayi(o.soru) + ' soru · ' + (o.paket.length + o.yakin.length) + ' ders' +
+    if (o.paket.length) h += '<p class="alt1">' + (o.paket.length + o.yakin.length) + ' ders' +
       (o.yakin.length ? ' (' + o.yakin.length + ' ders hazırlanıyor)' : '') + '</p>';
 
     h += '<span class="etk" style="margin-top:24px">Ücretsiz dene</span><div class="satirlar">';
@@ -172,7 +172,7 @@
     var k = '<span class="etk">' + (o.acik.length ? 'Paketinde olmayanlar' : 'Tam soru bankası') + '</span><div class="satirlar">';
     kilitli.forEach(function (d) {
       k += '<button type="button" class="srt kilit" data-kilitac="1">' + ik('kilit') + '<span class="ad">' + esc(d.baslik) +
-        '<small>' + (d.adet ? sayi(d.adet) + ' soru' : 'Pakette') + '</small></span>' + OK + '</button>';
+        '<small>Pakette</small></span>' + OK + '</button>';
     });
     o.yakin.forEach(function (d) {
       k += '<div class="srt kilit">' + ik('kilit') + '<span class="ad">' + esc(d.baslik) + '<small>Hazırlanıyor</small></span></div>';
@@ -197,7 +197,7 @@
   /* soru sayfaları (katalogsuz) ara karnede gerçek paket büyüklüğünü yazsın diye */
   try {
     var po = {};
-    SINAVLAR.forEach(function (x) { var o = ozet(x.id); if (o.paket.length) po[x.id] = { soru: o.soru, ders: o.paket.length + o.yakin.length }; });
+    SINAVLAR.forEach(function (x) { var o = ozet(x.id); if (o.paket.length) po[x.id] = { ders: o.paket.length + o.yakin.length }; });
     localStorage.setItem('tt_uyg_paket_ozet', JSON.stringify(po));
   } catch (e) {}
 
