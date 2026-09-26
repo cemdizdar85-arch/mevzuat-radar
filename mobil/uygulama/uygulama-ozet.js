@@ -184,18 +184,20 @@
       (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p></div>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     /* 26.09 Cem: "sınavını seçsin, bütün sınavları görmesin" — yalnız seçilen sınav */
-    html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span><div class="satirlar">' + tekrarSatiri();
-    SINAV_SIRA.filter(function (x) { return x.id === secS; }).forEach(function (x) {
-      var u = (K.ucretsiz || []).filter(function (d) { return d.sinav === x.id; })[0];
-      if (u) {
-        var r = IL.dersSonucu(u.yol), n = r.ok + r.yan;
-        html += '<a class="srt" href="' + esc(u.yol) + '">' + ik('oynat') + '<span class="ad">Örnek sorular<small>' +
-          (u.adet || 30) + ' soru · açıklamalı</small></span>' + (n ? '<span class="sag">' + n + '/' + (u.adet || n) + '</span>' : '') + OK + '</a>';
-      } else {
-        html += '<div class="srt kilit">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>Hazırlanıyor</small></span></div>';
-      }
-    });
-    html += '</div>';
+    /* 27.09: örnek sorular düz satır değil, ilerleme çubuklu kart (Sınavlar ekranıyla aynı dil); tekrar satırı ayrı */
+    html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span>';
+    var tk = tekrarSatiri();
+    if (tk) html += '<div class="satirlar" style="margin-bottom:12px">' + tk + '</div>';
+    var u = (K.ucretsiz || []).filter(function (d) { return d.sinav === secS; })[0];
+    if (u) {
+      var r0 = IL.dersSonucu(u.yol), n0 = r0.ok + r0.yan, top0 = u.adet || 30;
+      html += '<a class="ilerKart" href="' + esc(u.yol) + '"><span class="iUst"><span class="iAd">Örnek sorular<small>' + top0 +
+        ' soru · açıklamalı</small></span><span class="iDugme">' + (n0 ? 'Devam et' : 'Başla') + ik('ok') + '</span></span>' +
+        '<span class="iCubuk"><i style="width:' + Math.min(100, Math.round(n0 / top0 * 100)) + '%"></i></span>' +
+        '<span class="iAlt">' + n0 + ' / ' + top0 + ' soru çözüldü</span></a>';
+    } else {
+      html += '<div class="kart bosDurum"><b>Hazırlanıyor</b>Bu sınavın ücretsiz soruları yakında.</div>';
+    }
 
     /* tam paket: sınav başına gerçek soru/ders sayısı, kilitli; dokununca o sınavın içi */
     var paketli = SINAV_SIRA.filter(function (x) { return x.id === secS && (K.paket || []).some(function (d) { return d.sinav === x.id; }); });
