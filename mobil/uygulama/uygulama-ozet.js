@@ -144,12 +144,15 @@
   function paketsiz() { var D = window.TT_DURUM; return !D || !D.acik || !D.acik.length; }
   window.TTOzet = { paketsiz: paketsiz };
 
+  /* 27.09: veri paneli — hedef halkası (SVG), doğru oranı çubuğu; ayrı ilerleme çizgisi kalktı (halka aynı bilgiyi veriyor) */
   function olcuKarti(v, h, bugun, seri, t) {
-    return '<div class="kart"><div class="olcu">' +
-      '<div><b>' + bugun + '<small> / ' + h + '</small></b><span>Soru</span></div>' +
+    var oran = Math.min(1, bugun / h), C = 97.4; /* 2πr, r=15.5 */
+    return '<div class="kart"><div class="olcu panel">' +
+      '<div class="oHalka"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5"/><circle class="dolu" cx="18" cy="18" r="15.5" ' +
+      'stroke-dasharray="' + (oran * C).toFixed(1) + ' ' + C + '"' + (oran ? '' : ' style="display:none"') + '/></svg><b>' + bugun + '<small>/' + h + '</small></b><span>Soru</span></div>' +
       '<div><b>' + seri + '</b><span>Seri · gün</span></div>' +
-      '<div><b>' + (t.n ? '<small>%</small>' + yuzde(t.ok / t.n) : '—') + '</b><span>Doğru</span></div></div>' +
-      '<div class="cizgiBar"><i style="width:' + Math.min(100, Math.round(bugun / h * 100)) + '%"></i></div>' +
+      '<div><b>' + (t.n ? '<small>%</small>' + yuzde(t.ok / t.n) : '—') + '</b><span>Doğru</span>' +
+      '<em class="oBar"><i style="width:' + (t.n ? yuzde(t.ok / t.n) : 0) + '%"></i></em></div></div>' +
       '<div class="durumYazi">' + (bugun >= h ? 'Günlük hedef tamam. Seri korunuyor.' :
         (bugun ? 'Hedefe ' + (h - bugun) + ' soru kaldı.' : 'Günlük hedef ' + h + ' soru. İlk soruyla gün başlar.')) + '</div>' + haftaSeridi(h) + '</div>';
   }
@@ -166,13 +169,15 @@
   var RADAR = '<svg class="radar" viewBox="0 0 200 200" aria-hidden="true"><circle cx="200" cy="0" r="60"/><circle cx="200" cy="0" r="105"/>' +
     '<circle cx="200" cy="0" r="150"/><circle cx="200" cy="0" r="195"/><path d="M200 0 L62 138"/></svg>';
   /* KAHRAMAN: günün sorusunun GERÇEK önizlemesi (kök + şıklar; doğru şık kartta YOK) — site kahramanı "Yanlışını böyle öğrenirsin." */
+  /* tutarlar (8.125.400 ₺ gibi) hizalı rakam + hafif zemin; yalnız binlik ayraçlı sayılar — yıl, madde no dokunulmaz */
+  function rakamVurgu(s) { return s.replace(/\d{1,3}(?:\.\d{3})+(?:,\d+)?(?:\s?(?:₺|TL))?/g, '<span class="rk">$&</span>'); }
   function kahramanKart(sinav) {
     var gs = gununSorusu(sinav); if (!gs || !gs.on) return '';
     var o = gs.on, url = esc(gs.yol) + '?tek=1#s=' + gs.sira;
     var h = '<a class="kahraman" href="' + url + '">' + RADAR +
       '<span class="kUst"><i></i>Günün sorusu · ' + KISA[sinav] + ' · ' + esc(o.d) + '</span>' +
-      (o.p ? '<span class="kDonem">' + o.p + ' dönemde soru geldi</span>' : '') +
-      '<span class="kSoru">' + esc(o.s) + '</span><span class="kSiklar">';
+      (o.p ? '<span class="kDonem"><i></i>' + o.p + ' dönemde soru geldi</span>' : '') +
+      '<span class="kSoru">' + rakamVurgu(esc(o.s)) + '</span><span class="kSiklar">';
     ['A', 'B', 'C', 'D', 'E'].forEach(function (x) { if (o.k[x]) h += '<span><b>' + x + '</b>' + esc(o.k[x]) + '</span>'; });
     return h + '</span><span class="kDugme">Çöz, tuzağını gör' + ik('ok') + '</span></a>';
   }
@@ -195,9 +200,9 @@
   function ucretsizCiz(v, h, bugun, seri, t) {
     var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
     var secS = seciliSinav();
-    var html = '<div class="bant"><span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
+    var html = '<div class="bant kompakt"><span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
       '<h1 class="slogan">Yanlışını böyle öğrenirsin.</h1>' +
-      '<p class="soluk" style="margin-top:8px">Yanlış şıkta tuzağın adı ve doğrusu anında. 30 soru ücretsiz' +
+      '<p class="soluk">Yanlış şıkta tuzağın adı ve doğrusu anında. 30 soru ücretsiz' +
       (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p></div>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     /* 26.09 Cem: "sınavını seçsin, bütün sınavları görmesin" — yalnız seçilen sınav */
@@ -255,9 +260,9 @@
 
     var D = window.TT_DURUM;
     if (D && !D.girisli) {
-      html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="uyeol">' + ik('hesap') +
+      html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="uyeol">' + ik('hesap', 'rozet amber') +
         '<span class="ad">Ücretsiz üye ol<small>30 soru, açıklamalar ve karnen açılır; kart istenmez</small></span>' + OK + '</button>' +
-        '<button type="button" class="srt" data-git="giris">' + ik('giris') +
+        '<button type="button" class="srt" data-git="giris">' + ik('giris', 'rozet') +
         '<span class="ad">Hesabım var, giriş yap<small>Paketindeki dersler açılır</small></span>' + OK + '</button></div>';
     }
     bugunB.innerHTML = html;
