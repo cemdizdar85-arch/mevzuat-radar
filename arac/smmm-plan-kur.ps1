@@ -75,7 +75,10 @@ param(
   #   -YalnizHicYok'tan farkı: hiç-yok bitince dolu konulara geçer (dalga boş kalmaz).
   [switch]$HicYokOnce,
   # 24.09 (Cem "1.2.3"): bu ders(ler) dalgaya GİRMEZ (virgülle), ör. FM kendi dalgasındayken öbür 7 dersin hiç-yok dalgası.
-  [string]$HaricDers = ''
+  [string]$HaricDers = '',
+  # 26.09 (Cem AskUserQuestion "515 konuya 1'er soru"): son10 bu sayıdan BÜYÜK konu dalgaya girmez (0 = kapalı).
+  #   -Son10Tavan 1 -YalnizHicYok -KonuBasiTavan 1 → yalnız son 10 yılda 1 kez sorulmuş, sorusu olmayan konulara 1'er soru.
+  [int]$Son10Tavan = 0
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -89,7 +92,7 @@ $KISA = @{
 }
 function Nrm([string]$s) {
   # Önce İ/ı katlanır, SONRA küçültülür (Linux/ICU'da 'İ'.ToLowerInvariant() = 'i'+U+0307; 23.09 dalga öz-sınavı yakaladı).
-  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
+  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c' -replace 'â', 'a' -replace 'î', 'i' -replace 'û', 'u'   # 26.09: şapkalı harf ('kâr') 'k r' oluyor, aynı konu iki satıra bölünüyordu
   return (($t -replace '[^a-z0-9 ]', ' ') -replace '\s+', ' ').Trim()
 }
 
@@ -145,7 +148,7 @@ $havuz = @($c | Where-Object {
     # ⛔ 23.09 YENİLİK KURALI (Cem "10 yıldır sorulmayan konuya soru basmayalım"): eşik ve sıra artık SON 10 YIL
     #   sıklığıyla (son10). Tüm zamanlar sayısı yanıltıyordu: "şüpheli alacak karşılığı" 25 kez çıkmış ama
     #   son 10 yılda 1 kez (son 2020/2); eski kuralla 3 soru basılacaktı. son10 sütunu yoksa tablo eskidir → durur.
-    [int]$_.son10 -ge $esikBu -and [int]$_.acik -gt 0 -and -not $_.engel -and
+    [int]$_.son10 -ge $esikBu -and ($Son10Tavan -le 0 -or [int]$_.son10 -le $Son10Tavan) -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
     ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true })) -and
     (-not $YalnizDers -or "$($_.ders)" -eq $YalnizDers) -and

@@ -32,6 +32,11 @@ param(
   [string]$Rezerve = '',
   [int]$PlanSayisi = 4, [int]$PlanBasinaSoru = 45, [int]$CikmisEsik = 2, [string]$YalnizDers = '', [switch]$HicYokOnce, [string]$HaricDers = '', [switch]$YalnizHicYok,   # 24.09 plan-kur'a geçer
   [switch]$IndirmeYok, [switch]$ExcelYok,
+  # 26.09 (Cem "1.2.3": önce son 10 yılda 2+ kez sorulan eksikler): plan-kur Hukuk + Meslek'te eşiği 1'e indirir
+  #   (-DusukEsikDersler). Bu anahtar o indirimi KAPATIR → bütün derslerde son10 >= -CikmisEsik. Verilmezse davranış aynı.
+  [switch]$DusukEsikYok,
+  # 26.09 (Cem "515 konuya 1'er soru"): plan-kur'a geçer. 0 = plan-kur varsayılanı / kapalı.
+  [int]$Son10Tavan = 0, [int]$KonuBasiTavan = 0,
   # Var olan (koşan/bitmiş) bir dalgayı yalnız DENETLER: plan kurmaz, Excel yazmaz, ihlalde dosya SİLMEZ.
   [switch]$SadeceDenetim,
   # YALNIZ ÖZ-SINAV İÇİN (arac/smmm-dalga-dongu-sinavi.ps1): adım 1-4 atlanır, KONU DENETİMİ bu kökteki
@@ -49,7 +54,7 @@ if ($sinavKosusu) { $kok = $DenetimKok; $IndirmeYok = $true; $ExcelYok = $true }
 function Nrm([string]$s) {
   # Önce İ/ı katlanır, SONRA küçültülür: Linux'ta (ICU) 'İ'.ToLowerInvariant() = 'i'+U+0307 olur ve 'İŞLEMLERİ'
   # tablodaki 'işlemleri' ile eşleşmez (23.09 dogrula.yml'de öz-sınav yakaladı; Windows'ta görünmüyordu).
-  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c'
+  $t = "$s".Replace([char]0x0130, 'I').Replace([char]0x0131, 'i').ToLowerInvariant() -replace 'ı', 'i' -replace 'ş', 's' -replace 'ğ', 'g' -replace 'ü', 'u' -replace 'ö', 'o' -replace 'ç', 'c' -replace 'â', 'a' -replace 'î', 'i' -replace 'û', 'u'   # 26.09: şapkalı harf ('kâr') 'k r' oluyor, aynı konu iki satıra bölünüyordu
   return (($t -replace '[^a-z0-9 ]', ' ') -replace '\s+', ' ').Trim()
 }
 function Adim([string]$ad, [scriptblock]$is) {
@@ -81,7 +86,7 @@ if (-not $SadeceDenetim -and -not $sinavKosusu) {
     }
   } catch { Write-Host "  ⚠ deneme paketi tazelenemedi (dalga sürer): $($_.Exception.Message)" -ForegroundColor Yellow }
 }$plArg = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $buDizin 'smmm-plan-kur.ps1'), '-PlanSayisi', "$PlanSayisi", '-PlanBasinaSoru', "$PlanBasinaSoru", '-Etiket', $Etiket, '-CikmisEsik', "$CikmisEsik")
-if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }; if ($HaricDers) { $plArg += @('-HaricDers', $HaricDers) }; if ($YalnizHicYok) { $plArg += '-YalnizHicYok' }
+if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }; if ($HaricDers) { $plArg += @('-HaricDers', $HaricDers) }; if ($YalnizHicYok) { $plArg += '-YalnizHicYok' }; if ($DusukEsikYok) { $plArg += @('-DusukEsikDersler', 'YOK') }; if ($Son10Tavan -gt 0) { $plArg += @('-Son10Tavan', "$Son10Tavan") }; if ($KonuBasiTavan -gt 0) { $plArg += @('-KonuBasiTavan', "$KonuBasiTavan") }
 if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim "4) plan kuruluyor ($Etiket, rezerv: $(if($Rezerve){$Rezerve}else{'yok'}))" { & powershell @plArg *> "$env:TEMP\plan-$Etiket.txt" } }
 
 # --- 5) KONU DENETİMİ ---
