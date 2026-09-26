@@ -129,6 +129,18 @@
   function kartlar() { var a = akis(); return a ? [].slice.call(a.children).filter(function (k) { return k.classList.contains('kart') && k.querySelector('.sik'); }) : []; }
   function gorunen() { return kartlar().filter(function (k) { return !k.classList.contains('ttDisarda'); }); }
   function simdikiKart() { var a = akis(); if (!a || !a.clientHeight) return null; var g = gorunen(); return g[Math.round(a.scrollTop / a.clientHeight)] || null; }
+  /* karne için sorunun bilgisi (26.09): ders, konu, süre, düşülen tuzak, çıkmış dönem, sıra. Kaynak: sayfanın kendi
+     SORULAR dizisi ve durum.sn (sayfa motoru cevap anında saniyeyi yazar). Bulunamazsa alan boş kalır (uydurma yok). */
+  function kartBilgi(k, sik) {
+    try {
+      var i = +k.getAttribute('data-i'), q = (typeof SORULAR !== 'undefined' && SORULAR[i]) || null, h = sik.getAttribute('data-h');
+      var sn = (typeof durum !== 'undefined' && durum.sn && durum.sn[i] != null) ? durum.sn[i] : null;
+      if (!q) return { sn: sn };
+      var tz = (!sik.classList.contains('dogru') && q.tuzak && q.tuzak[h] && q.tuzak[h].ad) ? String(q.tuzak[h].ad).slice(0, 80) : null;
+      var p = Math.max(+q.donem || 0, (q.cikmis && q.cikmis.donemler) ? q.cikmis.donemler.length : 0);
+      return { d: String(q.ders || '').slice(0, 80), k: String(q.konu || '').slice(0, 80), sn: sn, tz: tz, p: p || null, i: window.TTKarma ? null : i };
+    } catch (e) { return null; }
+  }
   /* karma (kısa sınav): kart hangi dersin sayfasından geldiyse o yol (uygulama-karma.js) */
   function kartYol(k) { return (window.TTKarma && window.TTKarma.yol(kartlar().indexOf(k))) || YOL; }
   function sidK(k) { if (!k.__sid) { var q = k.querySelector('.soru'); k.__sid = IL ? IL.sid(q ? q.textContent : '') : ''; } return k.__sid; }
@@ -297,7 +309,7 @@
         setTimeout(function () {
           if (!k.querySelector('.sik.dogru')) return;
           k.__cevaplandi = 1;
-          IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k));
+          IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k), kartBilgi(k, s));
           cevapSonrasi();
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;
           if (g === h) serit('Günlük hedef tamam · ' + h + ' soru · seri ' + IL.seri() + ' gün', null, null, 3500);

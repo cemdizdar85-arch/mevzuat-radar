@@ -83,9 +83,11 @@
     yenidenOku: function () { veri = oku(); return veri; },
     bayrakVar: function (s) { return varMi(veri.bayrak[s]); },
     notu: function (s) { var n = veri.not[s]; return varMi(n) ? n : null; },
-    cevapla: function (s, dogru, yol) {
+    /* ek (26.09 karne): { d: ders, k: konu, sn: süre (sn), tz: düşülen tuzağın adı, p: çıkmış dönem sayısı, i: sayfadaki sıra } */
+    cevapla: function (s, dogru, yol, ek) {
       var ilk = !veri.cevap[s] || veri.cevap[s].gun !== bugun();
       veri.cevap[s] = { s: dogru ? 'ok' : 'yan', t: Date.now(), gun: bugun(), yol: yol };
+      if (ek) for (var a in ek) if (ek[a] !== null && ek[a] !== undefined && ek[a] !== '') veri.cevap[s][a] = ek[a];
       if (ilk) veri.gun[bugun()] = (veri.gun[bugun()] || 0) + 1;
       yaz();
     },
