@@ -1248,7 +1248,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-borclar-zor",
+        "etiket":  "sgs-t2-ticaret-zor",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "genel islem kosullari",
@@ -1256,7 +1256,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "genel islem kosullari",
+        "donem":  9,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-borclar-zor",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "genel islem kosullari",
@@ -1288,8 +1296,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-01",
+        "etiket":  "sgs-k2-borclar-zor",
+        "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme",
         "donem":  8,
@@ -1312,7 +1320,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-borclar-zor",
+        "etiket":  "sgs-d2-borclar-kolay-r4",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-borclar-cokzor",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme",
@@ -1328,7 +1344,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r4",
+        "etiket":  "sgs-d2-borclar-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme",
@@ -1344,11 +1368,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme",
-        "donem":  8,
+        "konu":  "sozlesme sekli",
+        "donem":  5,
         "kurtarma":  false
     },
     {
@@ -1357,6 +1381,14 @@
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesme sekli",
         "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bosluk-borclarhukuku",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "alacagin devri",
+        "donem":  4,
         "kurtarma":  false
     },
     {
@@ -1376,23 +1408,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r3",
-        "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "alacagin devri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-bc-borclar-zor-r1",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "alacagin devri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-bc-borclar-zor-r2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "alacagin devri",
@@ -1408,7 +1424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-borclarhukuku",
+        "etiket":  "sgs-d2-borclar-kolay-r3",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "alacagin devri",
@@ -1416,10 +1432,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-borclar-zor",
-        "id":  "kp-05",
+        "etiket":  "sgs-bc-borclar-zor-r2",
+        "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
-        "konu":  "borcun ifa yeri",
+        "konu":  "alacagin devri",
         "donem":  4,
         "kurtarma":  false
     },
@@ -1440,7 +1456,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
+        "etiket":  "sgs-p-borclar-cokzor-r3-b2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
@@ -1456,7 +1472,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r3-b2",
+        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
@@ -1464,7 +1480,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
+        "etiket":  "sgs-k2-borclar-zor",
+        "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borcun ifa yeri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa yeri",
@@ -1476,22 +1500,6 @@
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "borcun ifa zamani",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil zamanasimi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-kolay-r1-b2",
-        "id":  "kp-02",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil zamanasimi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -1512,6 +1520,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-borclar-kolay-r1-b2",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil zamanasimi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil zamanasimi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-borclar-zor-r2-b2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
@@ -1520,8 +1544,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-borclar-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-c2-borclar-cokzor-r2",
+        "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmenin kurulmasi",
         "donem":  4,
@@ -1544,24 +1568,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-cokzor-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-k2-borclar-zor",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmenin kurulmasi",
         "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-zor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "borclarin ifasi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-borclar-zor-r1",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "borclarin ifasi",
         "donem":  3,
@@ -1576,6 +1600,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-borclar-kolay-r1",
+        "id":  "kp-06",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borclarin ifasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-borclar-cokzor",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
@@ -1584,10 +1616,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
-        "konu":  "borclarin ifasi",
+        "konu":  "borclu temerrudu",
         "donem":  3,
         "kurtarma":  false
     },
@@ -1608,6 +1640,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-bosluk-borclarhukuku",
+        "id":  "kp-08",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "haksiz fiil",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-borclar-cokzor-r1",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
@@ -1624,14 +1672,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-zor-r4",
-        "id":  "kp-05",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-borclar-zor-r1",
         "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
@@ -1640,16 +1680,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r1-b2",
-        "id":  "kp-04",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-bosluk-borclarhukuku",
-        "id":  "kp-08",
+        "etiket":  "sgs-p-borclar-zor-r4",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil",
         "donem":  3,
@@ -1672,32 +1704,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-cokzor-r1",
-        "id":  "kp-05",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "hukuka uygunluk sebepleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-09",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "hukuka uygunluk sebepleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-ticaret-zor",
-        "id":  "kp-09",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "hukuka uygunluk sebepleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-bosluk-borclarhukuku",
-        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "hukuka uygunluk sebepleri",
         "donem":  3,
@@ -1712,6 +1720,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-bosluk-borclarhukuku",
+        "id":  "kp-06",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hukuka uygunluk sebepleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-zor",
+        "id":  "kp-09",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hukuka uygunluk sebepleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t5-ticaret-zor",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
@@ -1720,18 +1744,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-borclar-kolay-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-d2-borclar-cokzor-r1",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
-        "konu":  "kusursuz sorumluluk halleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-borclar-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "kusursuz sorumluluk halleri",
+        "konu":  "hukuka uygunluk sebepleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -1744,7 +1760,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-borclar-kolay-r3",
+        "etiket":  "sgs-c5-borclar-kolay-r1",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "kusursuz sorumluluk halleri",
@@ -1760,24 +1776,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-borclar-kolay-r3",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "kusursuz sorumluluk halleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-borclar-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "kusursuz sorumluluk halleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k2-borclar-zor",
         "id":  "kp-06",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "tazminattan indirim halleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-bosluk-borclarhukuku",
-        "id":  "kp-09",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "tazminattan indirim halleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-bosluk-borclarhukuku",
-        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "tazminattan indirim halleri",
         "donem":  3,
@@ -1792,10 +1808,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-zor-r3",
-        "id":  "kp-01",
+        "etiket":  "sgs-bosluk-borclarhukuku",
+        "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
-        "konu":  "ucret sozlesmesi",
+        "konu":  "tazminattan indirim halleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bosluk-borclarhukuku",
+        "id":  "kp-09",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "tazminattan indirim halleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -1808,16 +1832,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-cokzor-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-c2-borclar-zor-r3",
+        "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-borclar-cokzor-r2",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi",
         "donem":  3,
@@ -1840,10 +1864,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-cokzor-r3",
-        "id":  "kp-01",
+        "etiket":  "sgs-d2-borclar-kolay-r1",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
-        "konu":  "zamanasimi",
+        "konu":  "ucret sozlesmesi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -1856,7 +1880,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-cokzor-r4",
+        "etiket":  "sgs-p-borclar-kolay-r4-bulut",
+        "id":  "kp-02",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "zamanasimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-borclar-cokzor-r3",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "zamanasimi",
@@ -1864,7 +1896,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r4-bulut",
+        "etiket":  "sgs-d5-borclar-kolay-r2",
         "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
         "konu":  "zamanasimi",
@@ -1880,8 +1912,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-borclar-kolay-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-borclar-cokzor-r4",
+        "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
         "konu":  "zamanasimi",
         "donem":  3,
@@ -1928,14 +1960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-kolay-r2",
-        "id":  "kp-07",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "hukuka aykiriligi kaldiran haller",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d3-borclar-cokzor-r2",
         "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
@@ -1946,6 +1970,14 @@
     {
         "etiket":  "sgs-d3-borclar-cokzor-r1",
         "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hukuka aykiriligi kaldiran haller",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-borclar-kolay-r2",
+        "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
         "konu":  "hukuka aykiriligi kaldiran haller",
         "donem":  2,
@@ -1968,8 +2000,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-borclar-cokzor-r3",
-        "id":  "kp-01",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "irade bozuklugu",
         "donem":  2,
@@ -1984,10 +2016,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-borclar-kolay-r3",
-        "id":  "kp-02",
+        "etiket":  "sgs-c5-borclar-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
-        "konu":  "kesin hukumsuzluk halleri",
+        "konu":  "irade bozuklugu",
         "donem":  2,
         "kurtarma":  false
     },
@@ -2000,10 +2032,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-borclar-zor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-c5-borclar-kolay-r3",
+        "id":  "kp-02",
         "ders":  "Borçlar Hukuku",
-        "konu":  "manevi tazminat",
+        "konu":  "kesin hukumsuzluk halleri",
         "donem":  2,
         "kurtarma":  false
     },
@@ -2012,6 +2044,22 @@
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "manevi tazminat",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-borclar-zor-r1",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "manevi tazminat",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-borclar-kolay-r2-b2",
+        "id":  "kp-06",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "muteselsil borcluluk",
         "donem":  2,
         "kurtarma":  false
     },
@@ -2032,14 +2080,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r2-b2",
-        "id":  "kp-06",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "muteselsil borcluluk",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-bc-borclar-kolay-r2",
         "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
@@ -2048,16 +2088,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-borclar-kolay-r2",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "muteselsil sorumluluk",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-borclar-kolay-r2",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-borclar-kolay-r1",
+        "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
         "konu":  "muteselsil sorumluluk",
         "donem":  2,
@@ -2088,14 +2128,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-08",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme zamanasimi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-08",
         "ders":  "Borçlar Hukuku",
@@ -2113,7 +2145,15 @@
     },
     {
         "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-07",
+        "id":  "kp-08",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme zamanasimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "secimlik borc",
         "donem":  2,
@@ -2128,24 +2168,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
         "konu":  "secimlik borc",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-borclar-zor-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-borclar-zor",
+        "id":  "kp-10",
         "ders":  "Borçlar Hukuku",
         "konu":  "sorumsuzluk anlasmalari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-borclar-zor",
-        "id":  "kp-10",
+        "etiket":  "sgs-d3-borclar-zor-r1",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "sorumsuzluk anlasmalari",
         "donem":  2,
@@ -2160,16 +2200,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi esaslari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-borclar-kolay",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi esaslari",
         "donem":  2,
@@ -2185,14 +2225,6 @@
     },
     {
         "etiket":  "sgs-p-borclar-cokzor-r3-b2",
-        "id":  "kp-05",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "ucret sozlesmesi kurallari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
         "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi kurallari",
@@ -2216,11 +2248,11 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-23",
+        "etiket":  "sgs-p-borclar-cokzor-r2-b2",
+        "id":  "kp-05",
         "ders":  "Borçlar Hukuku",
-        "konu":  "adam calistiranin sorumlulugu",
-        "donem":  1,
+        "konu":  "ucret sozlesmesi kurallari",
+        "donem":  2,
         "kurtarma":  false
     },
     {
@@ -2234,6 +2266,14 @@
     {
         "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-12",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "adam calistiranin sorumlulugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-23",
         "ders":  "Borçlar Hukuku",
         "konu":  "adam calistiranin sorumlulugu",
         "donem":  1,
@@ -2288,14 +2328,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-22",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "borclar kanunu\u0027nda temsil",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-borclar-zor",
         "id":  "kp-15",
         "ders":  "Borçlar Hukuku",
@@ -2304,10 +2336,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-22",
         "ders":  "Borçlar Hukuku",
-        "konu":  "borclu temerrudu imkanlari",
+        "konu":  "borclar kanunu\u0027nda temsil",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2320,6 +2352,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-14",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "borclu temerrudu imkanlari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-20",
         "ders":  "Borçlar Hukuku",
@@ -2328,8 +2368,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-42",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-08",
         "ders":  "Borçlar Hukuku",
         "konu":  "esasli yanilma halleri",
         "donem":  1,
@@ -2344,7 +2384,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-42",
         "ders":  "Borçlar Hukuku",
         "konu":  "esasli yanilma halleri",
@@ -2352,7 +2392,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-42",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "esasli yanilma halleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-42",
         "ders":  "Borçlar Hukuku",
         "konu":  "esasli yanilma halleri",
@@ -2376,7 +2424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-48",
         "ders":  "Borçlar Hukuku",
         "konu":  "genel islem sartlari",
@@ -2384,7 +2432,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-48",
         "ders":  "Borçlar Hukuku",
         "konu":  "genel islem sartlari",
@@ -2424,16 +2472,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-25",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil ispat yuku",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-25",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-13",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil ispat yuku",
         "donem":  1,
@@ -2444,14 +2492,6 @@
         "id":  "kp-16",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil sartlari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-11",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2472,18 +2512,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-30",
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-11",
         "ders":  "Borçlar Hukuku",
         "konu":  "haksiz fiil sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-borclar-kolay",
+        "id":  "kp-30",
         "ders":  "Borçlar Hukuku",
-        "konu":  "haksiz fiil tazminat indirimi",
+        "konu":  "haksiz fiil sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2505,9 +2545,9 @@
     },
     {
         "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-12",
+        "id":  "kp-09",
         "ders":  "Borçlar Hukuku",
-        "konu":  "hayvan bulunduran sorumlulugu",
+        "konu":  "haksiz fiil tazminat indirimi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2528,10 +2568,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-12",
         "ders":  "Borçlar Hukuku",
-        "konu":  "hukuka aykiriligi kaldiran haller",
+        "konu":  "hayvan bulunduran sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2545,7 +2585,23 @@
     },
     {
         "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-10",
+        "id":  "kp-08",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "hukuka aykiriligi kaldiran haller",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-17",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "ibra islemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-kolay",
+        "id":  "kp-27",
         "ders":  "Borçlar Hukuku",
         "konu":  "ibra islemi",
         "donem":  1,
@@ -2560,16 +2616,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-27",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "ibra islemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-17",
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-10",
         "ders":  "Borçlar Hukuku",
         "konu":  "ibra islemi",
         "donem":  1,
@@ -2632,7 +2680,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-cokzor",
+        "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-13",
         "ders":  "Borçlar Hukuku",
         "konu":  "kusursuz sorumluluk kurtulus kaniti",
@@ -2640,7 +2688,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
+        "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-13",
         "ders":  "Borçlar Hukuku",
         "konu":  "kusursuz sorumluluk kurtulus kaniti",
@@ -2652,14 +2700,6 @@
         "id":  "kp-03",
         "ders":  "Borçlar Hukuku",
         "konu":  "kusursuz sorumluluk kurtulus kaniti",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-borclar-zor",
-        "id":  "kp-12",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "oneri-icap kurallari",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2680,10 +2720,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-borclar-zor",
+        "id":  "kp-12",
         "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme genel esaslar",
+        "konu":  "oneri-icap kurallari",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2696,10 +2736,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-06",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme genel esaslar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-borclar-cokzor",
         "id":  "kp-09",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme genel esaslar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-08",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme giderler",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2720,14 +2776,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-08",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme giderler",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-borclar-cokzor-r1",
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
@@ -2736,16 +2784,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-05",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "sebepsiz zenginlesme iadesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-borclar-cokzor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t1-borclar-zor",
+        "id":  "kp-09",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme iadesi",
         "donem":  1,
@@ -2760,8 +2800,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sebepsiz zenginlesme iadesi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-borclar-cokzor",
+        "id":  "kp-14",
         "ders":  "Borçlar Hukuku",
         "konu":  "sebepsiz zenginlesme iadesi",
         "donem":  1,
@@ -2784,6 +2832,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-12",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "sozlesme iptal sebepleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-borclar-kolay",
         "id":  "kp-18",
         "ders":  "Borçlar Hukuku",
@@ -2792,10 +2848,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-12",
+        "etiket":  "sgs-k2-borclar-zor",
+        "id":  "kp-14",
         "ders":  "Borçlar Hukuku",
-        "konu":  "sozlesme iptal sebepleri",
+        "konu":  "sozlesmelerde kesin hukumsuzluk",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2808,8 +2864,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-borclar-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-07",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmelerde kesin hukumsuzluk",
         "donem":  1,
@@ -2824,16 +2880,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-20",
+        "etiket":  "sgs-t2-ticaret-zor",
+        "id":  "kp-14",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmenin kurulma ani",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-ticaret-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-20",
         "ders":  "Borçlar Hukuku",
         "konu":  "sozlesmenin kurulma ani",
         "donem":  1,
@@ -2848,8 +2904,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-k2-borclar-cokzor",
+        "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "takas-borclar kanunu",
         "donem":  1,
@@ -2864,10 +2920,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-borclar-cokzor",
+        "id":  "kp-05",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "takas-borclar kanunu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-borclar-kolay",
         "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "takas-borclar kanunu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-borclar-kolay",
+        "id":  "kp-07",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "tehlike sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2888,26 +2960,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-kolay",
-        "id":  "kp-07",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "tehlike sorumlulugu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d5-borclar-zor-r1",
         "id":  "kp-06",
         "ders":  "Borçlar Hukuku",
         "konu":  "temerrut",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-borclar-kolay-r2",
-        "id":  "kp-04",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "ucret alacagi zamanasimi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2920,7 +2976,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-borclar-kolay-r1",
+        "etiket":  "sgs-c5-borclar-kolay-r2",
+        "id":  "kp-04",
+        "ders":  "Borçlar Hukuku",
+        "konu":  "ucret alacagi zamanasimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-borclar-kolay-r2",
         "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi kurallari (iade)",
@@ -2928,7 +2992,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-borclar-kolay-r2",
+        "etiket":  "sgs-d5-borclar-kolay-r1",
         "id":  "kp-04",
         "ders":  "Borçlar Hukuku",
         "konu":  "ucret sozlesmesi kurallari (iade)",
@@ -2944,16 +3008,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-borclar-kolay",
-        "id":  "kp-15",
+        "etiket":  "sgs-t2b-borclar-zor",
+        "id":  "kp-10",
         "ders":  "Borçlar Hukuku",
         "konu":  "vekalet sozlesmesi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-borclar-zor",
-        "id":  "kp-10",
+        "etiket":  "sgs-t1-borclar-kolay",
+        "id":  "kp-15",
         "ders":  "Borçlar Hukuku",
         "konu":  "vekalet sozlesmesi",
         "donem":  1,
@@ -2992,7 +3056,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-cokzor",
         "id":  "kp-29",
         "ders":  "Borçlar Hukuku",
         "konu":  "yazili sekil imza sartlari",
@@ -3000,7 +3064,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-29",
         "ders":  "Borçlar Hukuku",
         "konu":  "yazili sekil imza sartlari",
@@ -18056,7 +18120,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-issgk-kolay-r1",
+        "etiket":  "sgs-p-issgk-kolay-r3-a",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika uyeligi",
@@ -18080,7 +18144,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r3-a",
+        "etiket":  "sgs-d2-issgk-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika uyeligi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-issgk-kolay-r1",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika uyeligi",
@@ -18104,14 +18176,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-kolay-r2",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-a6-issgk-cokzor-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -18120,7 +18184,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-issgk-cokzor",
+        "etiket":  "sgs-k2-issgk-zor",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "toplu is sozlesmesi",
@@ -18152,6 +18216,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-e16-issgk-cokzor",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "toplu is sozlesmesi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-issgk-kolay",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -18160,7 +18232,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-issgk-cokzor",
+        "etiket":  "sgs-k2-issgk-cokzor",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "toplu is sozlesmesi",
@@ -18176,39 +18248,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-issgk-cokzor-r4-a",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-issgk-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-issgk-cokzor-r1",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
@@ -18224,7 +18264,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3-a",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
@@ -18234,6 +18282,30 @@
     {
         "etiket":  "sgs-a6-issgk-cokzor-r1",
         "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r3-a",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-cokzor-r2",
+        "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
         "donem":  5,
@@ -18264,14 +18336,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-kolay-r1",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi feshi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-issgk-kolay-r3",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -18280,10 +18344,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "etiket":  "sgs-d3-issgk-kolay-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "yillik ucretli izin",
+        "konu":  "is sozlesmesi feshi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -18296,7 +18360,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-zor-r3",
+        "etiket":  "sgs-k2-issgk-zor",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "yillik ucretli izin",
@@ -18312,10 +18376,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-issgk-zor-r3",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "yillik ucretli izin",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "yillik ucretli izin",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "belirli sureli is sozlesmesi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "calisma ve dinlenme sureleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -18332,14 +18420,6 @@
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "calisma ve dinlenme sureleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-issgk-kolay-r3",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "esit islem borcu",
         "donem":  3,
         "kurtarma":  false
     },
@@ -18368,8 +18448,16 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-issgk-kolay-r3",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "esit islem borcu",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
-        "id":  "kp-08",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "gecici is iliskisi",
         "donem":  3,
@@ -18377,7 +18465,7 @@
     },
     {
         "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
-        "id":  "kp-02",
+        "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "gecici is iliskisi",
         "donem":  3,
@@ -18392,16 +18480,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-07",
+        "etiket":  "sgs-d2-borclar-zor-r2",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "hizmet borclanmasi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-borclar-zor-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "hizmet borclanmasi",
         "donem":  3,
@@ -18440,7 +18528,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-zor-r1",
+        "etiket":  "sgs-c2-issgk-kolay-r2",
+        "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi sayilmayan haller",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r4-a",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilmayan haller",
@@ -18456,15 +18552,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-kolay-r2",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi sayilmayan haller",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-cokzor-r4-a",
+        "etiket":  "sgs-p-issgk-zor-r1",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilmayan haller",
@@ -18488,16 +18576,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r2-a",
-        "id":  "kp-03",
+        "etiket":  "sgs-d5-issgk-kolay-r1",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isci ucretleri",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-issgk-kolay-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-issgk-cokzor-r2-a",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isci ucretleri",
         "donem":  3,
@@ -18512,16 +18600,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-zor-r1-a",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-issgk-cokzor-r2",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
         "donem":  3,
@@ -18536,7 +18624,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-cokzor-r1",
+        "etiket":  "sgs-p-issgk-cokzor-r3",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
@@ -18544,7 +18632,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "etiket":  "sgs-c2-issgk-cokzor-r1",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
@@ -18562,6 +18650,14 @@
     {
         "etiket":  "sgs-k2-issgk-kolay",
         "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sigortali sayilma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sigortali sayilma",
         "donem":  3,
@@ -18600,14 +18696,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r3-a",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sureli fesih",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-issgk-cokzor-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -18624,10 +18712,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-issgk-kolay-r3-a",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "ucret hukumleri",
+        "konu":  "sureli fesih",
         "donem":  3,
         "kurtarma":  false
     },
@@ -18640,8 +18728,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "ucret hukumleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d3-issgk-cokzor-r3",
         "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "ucret hukumleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
+        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucret hukumleri",
         "donem":  3,
@@ -18664,7 +18768,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-13",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "belirli sureli is sozlesmesi",
@@ -18680,7 +18784,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-13",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "belirli sureli is sozlesmesi",
@@ -18696,14 +18800,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-kolay-r1",
-        "id":  "kp-06",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "gecici is iliskisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-issgk-kolay-r2",
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -18714,6 +18810,22 @@
     {
         "etiket":  "sgs-c5-issgk-kolay-r3",
         "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "gecici is iliskisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-kolay-r1",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "gecici is iliskisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "gecici is iliskisi",
         "donem":  2,
@@ -18736,22 +18848,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-05",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "gecici is iliskisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-issgk-kolay-r2",
-        "id":  "kp-07",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "grev lokavt",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-issgk-zor-r3-a",
         "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -18768,10 +18864,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-11",
+        "etiket":  "sgs-d3-issgk-kolay-r2",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "grev lokavt yasagi",
+        "konu":  "grev lokavt",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-07",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "grev lokavt",
         "donem":  2,
         "kurtarma":  false
     },
@@ -18784,7 +18888,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-11",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "grev lokavt yasagi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-issgk-cokzor-r1",
         "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi meslek hastaligi",
@@ -18792,8 +18904,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-cokzor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-10",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi meslek hastaligi",
         "donem":  2,
@@ -18808,8 +18920,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi meslek hastaligi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-issgk-kolay-r2-a",
         "id":  "kp-07",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi sigortasi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-09",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sigortasi",
         "donem":  2,
@@ -18832,16 +18960,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-cokzor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-c5-issgk-kolay-r2",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ise iade arabuluculuk",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-kolay-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ise iade arabuluculuk",
         "donem":  2,
@@ -18864,16 +18992,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-zor-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-issgk-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isyeri devri",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-cokzor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-c5-issgk-zor-r1",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isyeri devri",
         "donem":  2,
@@ -18904,18 +19032,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-zor-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "kisa uzun vadeli sigorta kollari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-08",
+        "etiket":  "sgs-d3-issgk-zor-r1",
+        "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "kismi sureli is sozlesmesi",
+        "konu":  "kisa uzun vadeli sigorta kollari",
         "donem":  2,
         "kurtarma":  false
     },
@@ -18928,7 +19056,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "kismi sureli is sozlesmesi",
@@ -18938,6 +19066,14 @@
     {
         "etiket":  "sgs-d2-issgk-cokzor-r1",
         "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "kismi sureli is sozlesmesi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "kismi sureli is sozlesmesi",
         "donem":  2,
@@ -18984,8 +19120,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-29",
+        "etiket":  "sgs-e16-issgk-zor",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fazla calisma hukumleri",
         "donem":  1,
@@ -19000,8 +19136,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-issgk-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-29",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fazla calisma hukumleri",
         "donem":  1,
@@ -19016,6 +19152,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-30",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "fiili hizmet suresi zammi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-30",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19025,9 +19169,9 @@
     },
     {
         "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-30",
+        "id":  "kp-28",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "fiili hizmet suresi zammi",
+        "konu":  "gecici is goremezlik sigorta kollari",
         "donem":  1,
         "kurtarma":  false
     },
@@ -19048,10 +19192,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-28",
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-26",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "gecici is goremezlik sigorta kollari",
+        "konu":  "haciz siniri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -19072,24 +19216,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-26",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "haciz siniri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-27",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is guvencesi kapsami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-14",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is guvencesi kapsami",
         "donem":  1,
@@ -19104,10 +19232,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-14",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is guvencesi kapsami",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-issgk-kolay",
         "id":  "kp-10",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kanunu calisma sureleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-35",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kanunu fesih",
         "donem":  1,
         "kurtarma":  false
     },
@@ -19121,9 +19265,9 @@
     },
     {
         "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-35",
+        "id":  "kp-36",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kanunu fesih",
+        "konu":  "is kazasi isveren sorumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -19137,14 +19281,6 @@
     },
     {
         "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-36",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi isveren sorumlulugu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -19152,7 +19288,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -19176,16 +19312,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-zor-r1",
-        "id":  "kp-11",
+        "etiket":  "sgs-e16-issgk-zor",
+        "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi surekli is goremezlik",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-issgk-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-c5-issgk-zor-r1",
+        "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi surekli is goremezlik",
         "donem":  1,
@@ -19232,6 +19368,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-denetim-zor-r2",
+        "id":  "kp-07",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika guvenceleri (yonetici-temsilci)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k2-issgk-kolay",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19248,8 +19392,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-denetim-zor-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika guvenceleri (yonetici-temsilci)",
         "donem":  1,
@@ -19312,16 +19456,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-issgk-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-20",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sigortali sayilmayanlar",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-20",
+        "etiket":  "sgs-e16-issgk-kolay",
+        "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sigortali sayilmayanlar",
         "donem":  1,
@@ -19384,14 +19528,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-21",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "ucretin odenmemesi hakli fesih",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-issgk-cokzor-r1",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19400,16 +19536,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-cokzor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-21",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "yaslilik ayligi prim gunu",
+        "konu":  "ucretin odenmemesi hakli fesih",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-k2-issgk-cokzor",
         "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "yaslilik ayligi prim gunu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-issgk-cokzor-r1",
+        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "yaslilik ayligi prim gunu",
         "donem":  1,
@@ -22144,47 +22288,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-maliyet-zor1",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-maliyet-zor2",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -22200,14 +22304,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r3-b2",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -22216,7 +22312,47 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-kolay-r1",
+        "etiket":  "sgs-maliyet-zor2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-maliyet-zor1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r3",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -22248,7 +22384,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3",
+        "etiket":  "sgs-d2-maliyet-kolay-r1",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -22256,7 +22392,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
@@ -22272,6 +22416,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri dagitimi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -22280,16 +22432,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-maliyet-zor-r3",
+        "etiket":  "sgs-c2-maliyet-zor-r1",
         "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri dagitimi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
         "donem":  7,
@@ -22312,7 +22456,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-maliyet-zor-r1",
+        "etiket":  "sgs-d2-maliyet-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri dagitimi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-maliyet-zor-r3",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
@@ -22328,16 +22480,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-zor-r2",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri dagitimi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
-        "id":  "kp-02",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
         "donem":  7,
@@ -22352,39 +22496,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4-b2",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet yontemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet yontemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r4",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet yontemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet yontemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r4-b2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
@@ -22400,8 +22520,40 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
         "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r4",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet yontemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
         "donem":  7,
@@ -22424,16 +22576,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r3",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet yontemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi",
         "donem":  7,
@@ -22448,8 +22592,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-cokzor-r1",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet sistemi",
         "donem":  7,
@@ -22457,6 +22609,38 @@
     },
     {
         "etiket":  "sgs-c2-maliyet-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-maliyet-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-maliyet-kolay",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-maliyet-zor-r1",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet sistemi",
@@ -22480,54 +22664,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-maliyet-kolay",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-maliyet-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r3",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet sistemi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-zor-r3-b2",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -22536,7 +22672,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-maliyet-zor-r1",
+        "etiket":  "sgs-d2-maliyet-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet sistemi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r3",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet sistemi",
@@ -22552,15 +22696,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r3",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "evre maliyet sistemi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "etiket":  "sgs-p-maliyet-zor-r4-b2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "evre maliyet sistemi",
@@ -22576,7 +22712,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r4-b2",
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "evre maliyet sistemi",
@@ -22584,16 +22720,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-maliyet-cokzor-r1",
-        "id":  "kp-01",
+        "etiket":  "sgs-p-maliyet-cokzor-r3",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "satilan mamul maliyeti",
+        "konu":  "evre maliyet sistemi",
         "donem":  5,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-d2-maliyet-kolay-r1",
         "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satilan mamul maliyeti",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-maliyet-cokzor-r1",
+        "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
@@ -22616,7 +22760,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
+        "etiket":  "sgs-p-maliyet-zor-r4",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
@@ -22648,14 +22792,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r4",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "satilan mamul maliyeti",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
@@ -22664,16 +22800,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-maliyet-15",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "satilan mamul maliyeti hesabi",
+        "konu":  "satilan mamul maliyeti",
         "donem":  5,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-p-maliyet-cokzor-r4",
         "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satilan mamul maliyeti hesabi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-maliyet-15",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti hesabi",
         "donem":  5,
@@ -22704,23 +22848,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-maliyet-zor-r1",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "kademeli dagitim yontemi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "kademeli dagitim yontemi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "kademeli dagitim yontemi",
@@ -22736,11 +22864,35 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "etiket":  "sgs-p-maliyet-kolay-r1",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "kademeli dagitim yontemi",
         "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "kademeli dagitim yontemi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-maliyet-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "kademeli dagitim yontemi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-maliyet-15",
+        "id":  "kp-13",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "birlesik maliyet dagitimi",
+        "donem":  3,
         "kurtarma":  false
     },
     {
@@ -22760,14 +22912,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-maliyet-15",
-        "id":  "kp-13",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "birlesik maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d3-maliyet-kolay-r1",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
@@ -22776,14 +22920,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r2-b2",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "birlesik maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-zor-r1-b2",
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
@@ -22792,24 +22928,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri yukleme",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-zor-r2-b2",
-        "id":  "kp-04",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri yukleme",
+        "konu":  "birlesik maliyet dagitimi",
         "donem":  3,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri yukleme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r2-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri yukleme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri yukleme",
         "donem":  3,
@@ -22824,8 +22968,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak urun maliyet dagitimi",
         "donem":  3,
@@ -22840,14 +22984,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-maliyet-15",
-        "id":  "kp-14",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak urun maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
@@ -22856,8 +22992,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-04",
+        "etiket":  "sgs-maliyet-15",
+        "id":  "kp-14",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak urun maliyet dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak urun maliyet dagitimi",
         "donem":  3,
@@ -22876,22 +23020,6 @@
         "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak urun maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-07",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart gug sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-07",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart gug sapmasi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -22904,10 +23032,42 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart gug sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart gug sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-fmuh-cokzor-r3",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet fark kapanisi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-maliyet-kolay-r1",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet farklari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r1",
+        "id":  "kp-05",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet farklari",
         "donem":  3,
         "kurtarma":  false
     },
@@ -22928,24 +23088,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet farklari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d3-maliyet-cokzor-r1",
         "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet farklari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-maliyet-kolay-r1",
-        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet farklari",
         "donem":  3,
@@ -22960,7 +23104,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-zor-r3",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-cokzor-r2-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
@@ -22976,8 +23136,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-maliyet-zor-r2",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
         "donem":  3,
@@ -22992,24 +23152,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r3",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
         "donem":  3,
@@ -23020,30 +23164,6 @@
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sistemi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r1",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
         "donem":  3,
         "kurtarma":  false
     },
@@ -23064,8 +23184,48 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yari mamul maliyeti",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-kolay-r2",
         "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yari mamul maliyeti",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yari mamul maliyeti",
         "donem":  3,
@@ -23080,24 +23240,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "yari mamul maliyeti",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r3",
         "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "yari mamul maliyeti",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
-        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yari mamul maliyeti",
         "donem":  3,
@@ -23144,14 +23288,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-cokzor-r3-a",
-        "id":  "kp-07",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "basit (dogrudan) dagitim yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-mta-cokzor-r2-a",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -23160,16 +23296,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bc-maliyet-kolay-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-mta-cokzor-r3-a",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "birim uretim maliyeti",
+        "konu":  "basit (dogrudan) dagitim yontemi",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-d2-maliyet-kolay-r1",
         "id":  "kp-05",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "birim uretim maliyeti",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bc-maliyet-kolay-r2",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birim uretim maliyeti",
         "donem":  2,
@@ -23192,6 +23336,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-12",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken-normal maliyet birim farki",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-kolay-r2-b2",
         "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
@@ -23200,8 +23352,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-12",
+        "etiket":  "sgs-p-maliyet-zor-r2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken-normal maliyet birim farki",
         "donem":  2,
@@ -23216,10 +23368,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r2",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken-normal maliyet birim farki",
+        "konu":  "direkt ilk madde geriye dogru hesap",
         "donem":  2,
         "kurtarma":  false
     },
@@ -23240,14 +23392,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-06",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt iscilik farklari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
@@ -23264,8 +23408,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r2-b2",
-        "id":  "kp-07",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik farklari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim hesabi",
         "donem":  2,
@@ -23280,8 +23432,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-p-maliyet-cokzor-r2-b2",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim hesabi",
         "donem":  2,
@@ -23296,16 +23448,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2",
-        "id":  "kp-09",
+        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo esdeger birim (dimm)",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
-        "id":  "kp-08",
+        "etiket":  "sgs-p-maliyet-kolay-r2",
+        "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo esdeger birim (dimm)",
         "donem":  2,
@@ -23336,16 +23488,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
-        "id":  "kp-10",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "maliyet fonksiyonu",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-11",
+        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "id":  "kp-10",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "maliyet fonksiyonu",
         "donem":  2,
@@ -23368,16 +23520,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-13",
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet sistemi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-13",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet sistemi",
         "donem":  2,
@@ -23408,6 +23560,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-14",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satislarin maliyeti tablosu",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
@@ -23417,14 +23577,6 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-14",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "satislarin maliyeti tablosu",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satislarin maliyeti tablosu",
@@ -23448,14 +23600,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r3",
-        "id":  "kp-17",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart iscilik sure sapmasi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-fmuh-zor-r1-2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
@@ -23464,18 +23608,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-maliyet-kolay",
-        "id":  "kp-01",
+        "etiket":  "sgs-p-fmuh-cokzor-r3",
+        "id":  "kp-17",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet iscilik farklari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-11",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet iscilik farklari",
+        "konu":  "standart iscilik sure sapmasi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -23496,8 +23632,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-11",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet iscilik farklari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-08",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet iscilik farklari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-maliyet-kolay",
+        "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet iscilik farklari",
         "donem":  2,
@@ -23552,16 +23704,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-06",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sistemi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sistemi",
         "donem":  2,
@@ -23576,14 +23728,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-maliyet-cokzor-r2",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam maliyet normal maliyet",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-maliyet-cokzor-r1",
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
@@ -23592,23 +23736,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-04",
+        "etiket":  "sgs-c2-maliyet-cokzor-r2",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam maliyet yontemi",
+        "konu":  "tam maliyet normal maliyet",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam maliyet yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d5-maliyet-zor-r1",
+        "etiket":  "sgs-k2-maliyet-zor",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam maliyet yontemi",
@@ -23624,18 +23760,34 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-cokzor-r2",
+        "etiket":  "sgs-d5-maliyet-zor-r1",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam ve degisken maliyet sistemi",
+        "konu":  "tam maliyet yontemi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-06",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
+        "konu":  "tam maliyet yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "tam maliyet yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-maliyet-cokzor-r2",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "tam ve degisken maliyet sistemi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -23648,8 +23800,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "uretim maliyeti hesaplama",
         "donem":  2,
@@ -23658,6 +23810,14 @@
     {
         "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "uretim maliyeti hesaplama",
         "donem":  2,
@@ -23704,16 +23864,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-22",
+        "etiket":  "sgs-c5-maliyet-kolay-r2",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "agirlikli ortalama maliyet",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-kolay-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "agirlikli ortalama maliyet",
         "donem":  1,
@@ -23744,16 +23904,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-cokzor-r1",
-        "id":  "kp-10",
+        "etiket":  "sgs-c5-maliyet-cokzor-r2",
+        "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet katsayi yontemi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-cokzor-r2",
-        "id":  "kp-09",
+        "etiket":  "sgs-c5-maliyet-cokzor-r1",
+        "id":  "kp-10",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet katsayi yontemi",
         "donem":  1,
@@ -23776,7 +23936,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-38",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik urun katsayi yontemi",
@@ -23784,7 +23944,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-38",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik urun katsayi yontemi",
@@ -23800,14 +23960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-33",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-33",
         "ders":  "Maliyet Muhasebesi",
@@ -23816,8 +23968,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-19",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-33",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken maliyet sistemi",
         "donem":  1,
@@ -23826,6 +23978,14 @@
     {
         "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-16",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken maliyet sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-19",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken maliyet sistemi",
         "donem":  1,
@@ -23856,6 +24016,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt ilk madde malzeme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k2-maliyet-kolay",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -23868,6 +24036,14 @@
         "id":  "kp-16",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt ilk madde tuketimi hesabi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik gideri hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
@@ -23888,8 +24064,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-23",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-27",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik sure farki",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-35",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik sure farki",
         "donem":  1,
@@ -23897,7 +24081,7 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-34",
+        "id":  "kp-35",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik sure farki",
         "donem":  1,
@@ -23912,24 +24096,16 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-23",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik sure farki",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-35",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt iscilik sure farki",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-27",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt iscilik sure farki",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-35",
+        "id":  "kp-34",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik sure farki",
         "donem":  1,
@@ -23968,6 +24144,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-44",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "esdeger birim maliyeti",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-44",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "esdeger birim maliyeti",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-23",
         "ders":  "Maliyet Muhasebesi",
@@ -23984,18 +24176,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-44",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-47",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "esdeger birim maliyeti",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-44",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "esdeger birim maliyeti",
+        "konu":  "esdeger birim tamamlanma derecesi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24010,14 +24194,6 @@
     {
         "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-24",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "esdeger birim tamamlanma derecesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-47",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim tamamlanma derecesi",
         "donem":  1,
@@ -24048,7 +24224,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-46",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo yontemi maliyet",
@@ -24064,7 +24240,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-46",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo yontemi maliyet",
@@ -24076,14 +24252,6 @@
         "id":  "kp-31",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri sapmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-24",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim giderleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24104,6 +24272,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-24",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim giderleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d5-maliyet-cokzor-r1",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -24112,7 +24288,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-kolay-r1",
+        "etiket":  "sgs-d5-maliyet-kolay-r2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim maliyeti dagitimi",
@@ -24120,7 +24296,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-kolay-r2",
+        "etiket":  "sgs-d5-maliyet-kolay-r1",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim maliyeti dagitimi",
@@ -24160,14 +24336,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-22",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug kademeli dagitim tablosu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-43",
         "ders":  "Maliyet Muhasebesi",
@@ -24184,24 +24352,16 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-22",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "gug kademeli dagitim tablosu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-18",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug matematiksel dagitim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-10",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug matematiksel dagitim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-42",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug matematiksel dagitim",
         "donem":  1,
@@ -24216,6 +24376,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-42",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "gug matematiksel dagitim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-10",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "gug matematiksel dagitim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
@@ -24240,16 +24416,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-maliyet-kolay",
-        "id":  "kp-04",
+        "etiket":  "sgs-c5-maliyet-cokzor-r1",
+        "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "hareketli ortalama maliyet",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-cokzor-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-e16-maliyet-kolay",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "hareketli ortalama maliyet",
         "donem":  1,
@@ -24272,8 +24448,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-19",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-07",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "katsayili maliyet dagitimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "katsayili maliyet dagitimi",
         "donem":  1,
@@ -24281,6 +24465,14 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-19",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "katsayili maliyet dagitimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-19",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "katsayili maliyet dagitimi",
@@ -24296,23 +24488,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-09",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "katsayili maliyet dagitimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-07",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "katsayili maliyet dagitimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "maliyet esasi kavrami",
@@ -24320,7 +24496,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "maliyet esasi kavrami",
@@ -24384,8 +24560,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-21",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi gug hesaplama",
         "donem":  1,
@@ -24400,18 +24576,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-21",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "normal maliyet yontemi gug hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-15",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "normal maliyet-kapasite kullanim",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24432,6 +24600,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-15",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "normal maliyet-kapasite kullanim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d5-maliyet-kolay-r2",
         "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
@@ -24440,8 +24616,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-15",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-13",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet-katsayili yontem",
         "donem":  1,
@@ -24456,8 +24632,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-15",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet-katsayili yontem",
         "donem":  1,
@@ -24474,6 +24650,14 @@
     {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-14",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ozel maliyet itfasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ozel maliyet itfasi",
         "donem":  1,
@@ -24504,6 +24688,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-28",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "safha maliyet miktar saglama",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
@@ -24512,10 +24704,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-28",
+        "etiket":  "sgs-e16-maliyet-cokzor",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "safha maliyet miktar saglama",
+        "konu":  "safha maliyet-esdeger birim",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24544,26 +24736,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-maliyet-cokzor",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "safha maliyet-esdeger birim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-maliyet-zor-r1",
         "id":  "kp-18",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyeti esdeger birim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-maliyet-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "satilan mamul maliyeti hesabi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24577,6 +24753,14 @@
     },
     {
         "etiket":  "sgs-c5-maliyet-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satilan mamul maliyeti hesabi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-maliyet-cokzor-r2",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti hesabi",
@@ -24640,14 +24824,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-30",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet-gug hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-30",
         "ders":  "Maliyet Muhasebesi",
@@ -24656,10 +24832,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-maliyet-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-30",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet-gug yukleme",
+        "konu":  "siparis maliyet-gug hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24674,6 +24850,14 @@
     {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-48",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet-gug yukleme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-maliyet-kolay",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyet-gug yukleme",
         "donem":  1,
@@ -24768,7 +24952,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-29",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet direkt iscilik",
@@ -24776,8 +24960,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-29",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet direkt iscilik",
         "donem":  1,
@@ -24792,8 +24976,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-29",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-13",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet direkt iscilik",
         "donem":  1,
@@ -24816,26 +25000,18 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-maliyet-zor-r2",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet fiyat sapmasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-maliyet-zor-r1",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet fiyat sapmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-maliyet-zor-r2",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet fiyat sapmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-maliyet-zor-r2",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet miktar farki",
         "donem":  1,
         "kurtarma":  false
     },
@@ -24856,8 +25032,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-24",
+        "etiket":  "sgs-c5-maliyet-zor-r2",
+        "id":  "kp-05",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet miktar farki",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-15",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma kapanisi",
         "donem":  1,
@@ -24872,8 +25056,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-15",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-24",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma kapanisi",
         "donem":  1,
@@ -24904,14 +25088,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-zor-r1",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam ve degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d5-maliyet-cokzor-r1",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
@@ -24930,6 +25106,14 @@
     {
         "etiket":  "sgs-d5-maliyet-cokzor-r2",
         "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "tam ve degisken maliyet sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-maliyet-zor-r1",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam ve degisken maliyet sistemi",
         "donem":  1,
@@ -25048,16 +25232,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-25",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yatirim siparis avansi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-12",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-25",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yatirim siparis avansi",
         "donem":  1,
@@ -34056,7 +34240,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-cokzor",
+        "etiket":  "sgs-e16-yd-zor",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "baglac secimi",
@@ -34072,42 +34256,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-zor",
+        "etiket":  "sgs-t3-yd-cokzor",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "baglac secimi",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r3",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
         "donem":  18,
         "kurtarma":  false
     },
@@ -34120,23 +34272,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r2",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r1",
+        "etiket":  "sgs-e16-yd-kolay",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama",
@@ -34152,7 +34288,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k3b-yd-zor",
+        "etiket":  "sgs-d4-yd-kolay-r2",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama",
@@ -34160,7 +34296,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama",
@@ -34176,6 +34328,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k3-yd-kolay",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
@@ -34184,15 +34344,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6e-yabancidil-p1b",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama",
-        "donem":  18,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-zor",
+        "etiket":  "sgs-k3-yd-zor",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama",
@@ -34208,7 +34360,55 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3b-yd-zor",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-zor",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-a6e-yabancidil-p1b",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama",
+        "donem":  18,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3b-yd-cokzor",
         "id":  "kp-02",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi",
@@ -34248,6 +34448,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-a6e-yabancidil-p1b",
+        "id":  "kp-02",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi",
+        "donem":  9,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-gm5-yd-r1",
         "id":  "kp-02",
         "ders":  "Yabancı Dil",
@@ -34256,7 +34464,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k3b-yd-cokzor",
+        "etiket":  "sgs-k3-yd-cokzor",
         "id":  "kp-02",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi",
@@ -34272,14 +34480,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-02",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama-kosul",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-gm5-yd-r2",
         "id":  "kp-02",
         "ders":  "Yabancı Dil",
@@ -34288,8 +34488,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r3",
+        "etiket":  "sgs-d4-yd-cokzor-r1",
         "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama-kosul",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama-kosul",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-02",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama-kosul",
         "donem":  7,
@@ -34312,7 +34528,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r1",
+        "etiket":  "sgs-gm5-yd-r3",
         "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama-kosul",
@@ -34328,38 +34544,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama-kosul",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k3b-yd-zor",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "baglac kullanimi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-04",
-        "ders":  "Yabancı Dil",
-        "konu":  "baglac kullanimi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k3b-yd-kolay",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "baglac kullanimi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k3-yd-kolay",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
@@ -34368,7 +34552,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
+        "etiket":  "sgs-k3-yd-cokzor",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "baglac kullanimi",
@@ -34384,8 +34568,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k3b-yd-cokzor",
-        "id":  "kp-03",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "baglac kullanimi",
         "donem":  6,
@@ -34400,18 +34592,34 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-k3b-yd-zor",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
-        "konu":  "edat kullanimi",
+        "konu":  "baglac kullanimi",
         "donem":  6,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-k3b-yd-kolay",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
-        "konu":  "edat kullanimi",
+        "konu":  "baglac kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3b-yd-cokzor",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac kullanimi",
         "donem":  6,
         "kurtarma":  false
     },
@@ -34432,8 +34640,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-06",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "edat kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "edat kullanimi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "baglac secimi",
         "donem":  5,
@@ -34456,7 +34680,39 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r3",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac secimi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac secimi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama (zitlik)",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama (zitlik)",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r3",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (zitlik)",
@@ -34472,23 +34728,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama (zitlik)",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-07",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama (zitlik)",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r3",
+        "etiket":  "sgs-d4-yd-zor-r3",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (zitlik)",
@@ -34512,6 +34752,30 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "karsilastirma yapilari",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "karsilastirma yapilari",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "karsilastirma yapilari",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-gm5-yd-r1",
         "id":  "kp-06",
         "ders":  "Yabancı Dil",
@@ -34528,18 +34792,50 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-04",
-        "ders":  "Yabancı Dil",
-        "konu":  "karsilastirma yapilari",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "modal verbs",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-zor",
+        "id":  "kp-02",
+        "ders":  "Yabancı Dil",
+        "konu":  "passive voice",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "passive voice",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "passive voice",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r3",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "passive voice",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-zor",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "passive voice",
         "donem":  5,
         "kurtarma":  false
     },
@@ -34568,23 +34864,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-zor",
-        "id":  "kp-02",
-        "ders":  "Yabancı Dil",
-        "konu":  "passive voice",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "passive voice",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-cokzor",
+        "etiket":  "sgs-d4-yd-kolay-r1",
         "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "passive voice",
@@ -34600,22 +34880,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r3",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "passive voice",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r1",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "passive voice",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d4-yd-kolay-r4",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
@@ -34624,16 +34888,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-zor",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "passive voice",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-e16c-yd-cokzor",
+        "id":  "kp-01",
         "ders":  "Yabancı Dil",
         "konu":  "present perfect tense",
         "donem":  5,
@@ -34664,6 +34920,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "present perfect tense",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-02",
+        "ders":  "Yabancı Dil",
+        "konu":  "present perfect tense",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
@@ -34696,19 +34968,19 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-04",
+        "etiket":  "sgs-d4-yd-kolay-r3",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
-        "konu":  "present perfect tense",
-        "donem":  5,
+        "konu":  "cumle tamamlama (zaman)",
+        "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16c-yd-cokzor",
-        "id":  "kp-01",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-11",
         "ders":  "Yabancı Dil",
-        "konu":  "present perfect tense",
-        "donem":  5,
+        "konu":  "cumle tamamlama (zaman)",
+        "donem":  4,
         "kurtarma":  false
     },
     {
@@ -34728,23 +35000,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-11",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama (zaman)",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r3",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama (zaman)",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-zor-r2",
+        "etiket":  "sgs-d4-yd-zor-r1",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri",
@@ -34760,14 +35016,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r1",
-        "id":  "kp-04",
-        "ders":  "Yabancı Dil",
-        "konu":  "ilgi zamiri",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-gm5-yd-r1",
         "id":  "kp-10",
         "ders":  "Yabancı Dil",
@@ -34776,8 +35024,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-d4-yd-zor-r2",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "ilgi zamiri",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "kosul cumlesi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "kosul cumlesi",
         "donem":  4,
@@ -34792,16 +35056,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r3",
-        "id":  "kp-06",
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "kosul cumlesi",
         "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-09",
+        "ders":  "Yabancı Dil",
+        "konu":  "kosul cumlesi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "relative clause",
         "donem":  4,
@@ -34809,38 +35081,6 @@
     },
     {
         "etiket":  "sgs-t3-yd-cokzor",
-        "id":  "kp-04",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-zor",
-        "id":  "kp-04",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-yd-cokzor",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-cokzor-r2",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "relative clause",
@@ -34856,8 +35096,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-04",
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-03",
         "ders":  "Yabancı Dil",
         "konu":  "relative clause",
         "donem":  4,
@@ -34872,14 +35112,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-03",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d4-yd-cokzor-r1",
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
@@ -34888,11 +35120,43 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-15",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-06",
         "ders":  "Yabancı Dil",
-        "konu":  "baglac (although)",
-        "donem":  3,
+        "konu":  "relative clause",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-zor",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "relative clause",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "relative clause",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-cokzor",
+        "id":  "kp-03",
+        "ders":  "Yabancı Dil",
+        "konu":  "relative clause",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-cokzor-r2",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "relative clause",
+        "donem":  4,
         "kurtarma":  false
     },
     {
@@ -34904,8 +35168,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r4",
-        "id":  "kp-04",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-15",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac (although)",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-13",
+        "ders":  "Yabancı Dil",
+        "konu":  "baglac (although)",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-cokzor-r2",
+        "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (sonuc)",
         "donem":  3,
@@ -34920,8 +35200,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-d4-yd-cokzor-r4",
+        "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (sonuc)",
         "donem":  3,
@@ -34932,6 +35212,22 @@
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (sonuc)",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-cokzor-r1",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil secimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-cokzor-r2",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil secimi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -34944,40 +35240,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r2",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "fiil secimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-cokzor-r1",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "fiil secimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-09",
-        "ders":  "Yabancı Dil",
-        "konu":  "ilgi zamiri whose",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d4-yd-zor-r3",
         "id":  "kp-07",
-        "ders":  "Yabancı Dil",
-        "konu":  "ilgi zamiri whose",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-kolay-r2",
-        "id":  "kp-06",
         "ders":  "Yabancı Dil",
         "konu":  "ilgi zamiri whose",
         "donem":  3,
@@ -35000,6 +35264,30 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "ilgi zamiri whose",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-09",
+        "ders":  "Yabancı Dil",
+        "konu":  "ilgi zamiri whose",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r2",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "ilgi zamiri whose",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-09",
         "ders":  "Yabancı Dil",
@@ -35008,10 +35296,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
+        "etiket":  "sgs-k3b-yd-zor",
         "id":  "kp-06",
         "ders":  "Yabancı Dil",
-        "konu":  "ilgi zamiri whose",
+        "konu":  "karsilastirma yapisi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -35024,8 +35312,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k3b-yd-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-15",
+        "ders":  "Yabancı Dil",
+        "konu":  "karsilastirma yapisi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "karsilastirma yapisi",
         "donem":  3,
@@ -35040,16 +35336,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-14",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-09",
         "ders":  "Yabancı Dil",
         "konu":  "kelime tamamlama",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6e-yabancidil-p1b",
-        "id":  "kp-06",
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-09",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime tamamlama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-14",
         "ders":  "Yabancı Dil",
         "konu":  "kelime tamamlama",
         "donem":  3,
@@ -35072,7 +35376,31 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-a6e-yabancidil-p1b",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime tamamlama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d4-yd-zor-r4",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "modal fiil",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-zor-r2",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "modal fiil",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-zor-r1",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "modal fiil",
@@ -35088,38 +35416,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-zor-r2",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "modal fiil",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-yd-zor-r1",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "modal fiil",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-08",
-        "ders":  "Yabancı Dil",
-        "konu":  "modal verbs",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-cokzor",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "modal verbs",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t3-yd-kolay",
         "id":  "kp-06",
         "ders":  "Yabancı Dil",
@@ -35128,15 +35424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-zor",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "modal verbs",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "modal verbs",
@@ -35152,26 +35440,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "modal verbs",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-07",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
-        "konu":  "sentence completion",
+        "konu":  "modal verbs",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-04",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-11",
         "ders":  "Yabancı Dil",
-        "konu":  "sentence completion",
+        "konu":  "modal verbs",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-07",
+        "etiket":  "sgs-t3-yd-zor",
+        "id":  "kp-06",
         "ders":  "Yabancı Dil",
-        "konu":  "sentence completion",
+        "konu":  "modal verbs",
         "donem":  3,
         "kurtarma":  false
     },
@@ -35184,7 +35480,31 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-17",
+        "ders":  "Yabancı Dil",
+        "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-zor",
         "id":  "kp-05",
         "ders":  "Yabancı Dil",
         "konu":  "sentence completion",
@@ -35200,32 +35520,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6e-yabancidil-p1b",
-        "id":  "kp-05",
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "sentence completion",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "sentence completion",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-gm5-yd-r3",
-        "id":  "kp-08",
-        "ders":  "Yabancı Dil",
-        "konu":  "sentence completion",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-zor",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-07",
         "ders":  "Yabancı Dil",
         "konu":  "sentence completion",
         "donem":  3,
@@ -35240,10 +35544,42 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-17",
+        "etiket":  "sgs-gm5-yd-r3",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-a6e-yabancidil-p1b",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "sentence completion",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-11",
+        "ders":  "Yabancı Dil",
+        "konu":  "sifat karsilastirma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-12",
+        "ders":  "Yabancı Dil",
+        "konu":  "sifat karsilastirma",
         "donem":  3,
         "kurtarma":  false
     },
@@ -35256,7 +35592,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
+        "etiket":  "sgs-k3-yd-zor",
         "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "sifat karsilastirma",
@@ -35272,14 +35608,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-cokzor-r1",
-        "id":  "kp-09",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama (baglac)",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d4-yd-cokzor-r2",
         "id":  "kp-09",
         "ders":  "Yabancı Dil",
@@ -35288,8 +35616,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r3",
-        "id":  "kp-08",
+        "etiket":  "sgs-d4-yd-cokzor-r1",
+        "id":  "kp-09",
+        "ders":  "Yabancı Dil",
+        "konu":  "cumle tamamlama (baglac)",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-09",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (ilgi cumlesi)",
         "donem":  2,
@@ -35304,8 +35640,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-d4-yd-kolay-r3",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (ilgi cumlesi)",
         "donem":  2,
@@ -35336,6 +35672,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-14",
+        "ders":  "Yabancı Dil",
+        "konu":  "edilgen yapi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k3-yd-kolay",
         "id":  "kp-10",
         "ders":  "Yabancı Dil",
@@ -35344,8 +35688,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-19",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-18",
         "ders":  "Yabancı Dil",
         "konu":  "edilgen yapi",
         "donem":  2,
@@ -35360,16 +35704,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d4-yd-kolay-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-19",
         "ders":  "Yabancı Dil",
-        "konu":  "fiil zamani",
+        "konu":  "edilgen yapi",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-d4-yd-kolay-r3",
         "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil zamani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-13",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil zamani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d4-yd-kolay-r1",
+        "id":  "kp-08",
         "ders":  "Yabancı Dil",
         "konu":  "fiil zamani",
         "donem":  2,
@@ -35392,7 +35752,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
@@ -35402,6 +35762,22 @@
     {
         "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-12",
+        "ders":  "Yabancı Dil",
+        "konu":  "preposition secimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-08",
+        "ders":  "Yabancı Dil",
+        "konu":  "preposition secimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-16",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
         "donem":  2,
@@ -35424,16 +35800,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-12",
-        "ders":  "Yabancı Dil",
-        "konu":  "preposition secimi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k3b-yd-cokzor",
-        "id":  "kp-04",
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-15",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
         "donem":  2,
@@ -35464,8 +35832,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-08",
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
         "donem":  2,
@@ -35476,6 +35844,62 @@
         "id":  "kp-04",
         "ders":  "Yabancı Dil",
         "konu":  "preposition secimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3b-yd-cokzor",
+        "id":  "kp-04",
+        "ders":  "Yabancı Dil",
+        "konu":  "preposition secimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-zor",
+        "id":  "kp-08",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-08",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-08",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-cokzor",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-13",
+        "ders":  "Yabancı Dil",
+        "konu":  "prepositions",
         "donem":  2,
         "kurtarma":  false
     },
@@ -35496,62 +35920,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-13",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-07",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-yd-cokzor",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-zor",
-        "id":  "kp-08",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-08",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-cokzor",
-        "id":  "kp-08",
-        "ders":  "Yabancı Dil",
-        "konu":  "prepositions",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-07",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-10",
         "ders":  "Yabancı Dil",
@@ -35560,24 +35928,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-18",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-10",
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-07",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary",
         "donem":  2,
@@ -35592,8 +35944,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-yd-cokzor",
+        "etiket":  "sgs-t3-yd-kolay",
         "id":  "kp-07",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-18",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-10",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-06",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary",
         "donem":  2,
@@ -35624,14 +36000,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-29",
-        "ders":  "Yabancı Dil",
-        "konu":  "adjective secimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-e16-yd-kolay",
         "id":  "kp-10",
         "ders":  "Yabancı Dil",
@@ -35648,18 +36016,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-29",
         "ders":  "Yabancı Dil",
         "konu":  "adjective secimi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-30",
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-09",
         "ders":  "Yabancı Dil",
-        "konu":  "adverb secimi",
+        "konu":  "adjective secimi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -35672,10 +36040,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r1",
-        "id":  "kp-21",
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-30",
         "ders":  "Yabancı Dil",
-        "konu":  "adverb usage",
+        "konu":  "adverb secimi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -35696,15 +36064,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-26",
+        "etiket":  "sgs-gm5-yd-r1",
+        "id":  "kp-21",
         "ders":  "Yabancı Dil",
-        "konu":  "correlative conjunction",
+        "konu":  "adverb usage",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-26",
         "ders":  "Yabancı Dil",
         "konu":  "correlative conjunction",
@@ -35720,7 +36088,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-26",
+        "ders":  "Yabancı Dil",
+        "konu":  "correlative conjunction",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-27",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (after)",
@@ -35736,18 +36112,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-27",
         "ders":  "Yabancı Dil",
         "konu":  "cumle tamamlama (after)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-cokzor",
-        "id":  "kp-11",
-        "ders":  "Yabancı Dil",
-        "konu":  "cumle tamamlama-although",
         "donem":  1,
         "kurtarma":  false
     },
@@ -35760,10 +36128,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-31",
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-11",
         "ders":  "Yabancı Dil",
-        "konu":  "fiil zamani (past tense)",
+        "konu":  "cumle tamamlama-although",
         "donem":  1,
         "kurtarma":  false
     },
@@ -35785,6 +36153,30 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-31",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil zamani (past tense)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-22",
+        "ders":  "Yabancı Dil",
+        "konu":  "fiil zamani (past tense)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-35",
+        "ders":  "Yabancı Dil",
+        "konu":  "isim kelime bilgisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-35",
         "ders":  "Yabancı Dil",
         "konu":  "isim kelime bilgisi",
@@ -35796,38 +36188,6 @@
         "id":  "kp-35",
         "ders":  "Yabancı Dil",
         "konu":  "isim kelime bilgisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-35",
-        "ders":  "Yabancı Dil",
-        "konu":  "isim kelime bilgisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k3b-yd-kolay",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi (fiil secimi)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k3b-yd-cokzor",
-        "id":  "kp-05",
-        "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi (fiil secimi)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-36",
-        "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi (fiil secimi)",
         "donem":  1,
         "kurtarma":  false
     },
@@ -35848,8 +36208,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-18",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (fiil secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-36",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (fiil secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-21",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (fiil secimi)",
         "donem":  1,
@@ -35864,6 +36240,38 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k3b-yd-kolay",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (fiil secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-36",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (fiil secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3b-yd-cokzor",
+        "id":  "kp-05",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (fiil secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-34",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (isim secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-34",
         "ders":  "Yabancı Dil",
@@ -35880,16 +36288,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-34",
-        "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi (isim secimi)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-32",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-19",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (sifat secimi)",
         "donem":  1,
@@ -35905,6 +36305,22 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-32",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (sifat secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-16",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi (sifat secimi)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-32",
         "ders":  "Yabancı Dil",
         "konu":  "kelime bilgisi (sifat secimi)",
@@ -35920,6 +36336,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-33",
+        "ders":  "Yabancı Dil",
+        "konu":  "kelime bilgisi sifat",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-33",
         "ders":  "Yabancı Dil",
@@ -35936,10 +36360,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-33",
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-25",
         "ders":  "Yabancı Dil",
-        "konu":  "kelime bilgisi sifat",
+        "konu":  "modal passive yapi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -35953,14 +36377,6 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-25",
-        "ders":  "Yabancı Dil",
-        "konu":  "modal passive yapi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-25",
         "ders":  "Yabancı Dil",
         "konu":  "modal passive yapi",
@@ -35976,7 +36392,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-17",
         "ders":  "Yabancı Dil",
         "konu":  "modal verb",
@@ -35984,7 +36400,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-17",
         "ders":  "Yabancı Dil",
         "konu":  "modal verb",
@@ -36024,16 +36440,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-16",
+        "etiket":  "sgs-e16-yd-kolay",
+        "id":  "kp-13",
         "ders":  "Yabancı Dil",
         "konu":  "preposition usage",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-kolay",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-16",
         "ders":  "Yabancı Dil",
         "konu":  "preposition usage",
         "donem":  1,
@@ -36056,6 +36472,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-14",
+        "ders":  "Yabancı Dil",
+        "konu":  "relative clause-where",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-yd-zor",
         "id":  "kp-08",
         "ders":  "Yabancı Dil",
@@ -36072,14 +36496,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-14",
-        "ders":  "Yabancı Dil",
-        "konu":  "relative clause-where",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-15",
         "ders":  "Yabancı Dil",
@@ -36104,6 +36520,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-genel-yd-zor",
+        "id":  "kp-19",
+        "ders":  "Yabancı Dil",
+        "konu":  "sifat kelime bilgisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-19",
         "ders":  "Yabancı Dil",
@@ -36120,15 +36544,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
-        "id":  "kp-19",
-        "ders":  "Yabancı Dil",
-        "konu":  "sifat kelime bilgisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-23",
         "ders":  "Yabancı Dil",
         "konu":  "sifat kullanimi",
@@ -36144,7 +36560,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-23",
         "ders":  "Yabancı Dil",
         "konu":  "sifat kullanimi",
@@ -36176,22 +36592,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
-        "id":  "kp-22",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary choice",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-kolay",
-        "id":  "kp-22",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary choice",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-22",
         "ders":  "Yabancı Dil",
@@ -36201,7 +36601,31 @@
     },
     {
         "etiket":  "sgs-t1-genel-yd-kolay",
+        "id":  "kp-22",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary choice",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "id":  "kp-22",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary choice",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-zor",
         "id":  "kp-20",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary verb choice",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-yd-kolay",
+        "id":  "kp-10",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary verb choice",
         "donem":  1,
@@ -36216,7 +36640,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-zor",
+        "etiket":  "sgs-t3-yd-cokzor",
+        "id":  "kp-10",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary verb choice",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-yd-cokzor",
+        "id":  "kp-06",
+        "ders":  "Yabancı Dil",
+        "konu":  "vocabulary verb choice",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-20",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary verb choice",
@@ -36232,31 +36672,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-yd-cokzor",
-        "id":  "kp-06",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary verb choice",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-kolay",
-        "id":  "kp-10",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary verb choice",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-yd-cokzor",
-        "id":  "kp-10",
-        "ders":  "Yabancı Dil",
-        "konu":  "vocabulary verb choice",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-yd-cokzor",
+        "etiket":  "sgs-t1-genel-yd-kolay",
         "id":  "kp-21",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary-verb secimi",
@@ -36272,7 +36688,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-yd-kolay",
+        "etiket":  "sgs-t1-genel-yd-cokzor",
         "id":  "kp-21",
         "ders":  "Yabancı Dil",
         "konu":  "vocabulary-verb secimi",
@@ -36280,16 +36696,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k3-yd-kolay",
-        "id":  "kp-11",
+        "etiket":  "sgs-gm5-yd-r2",
+        "id":  "kp-12",
         "ders":  "Yabancı Dil",
         "konu":  "zaman secimi (used)",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-gm5-yd-r2",
-        "id":  "kp-12",
+        "etiket":  "sgs-k3-yd-zor",
+        "id":  "kp-20",
+        "ders":  "Yabancı Dil",
+        "konu":  "zaman secimi (used)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-cokzor",
+        "id":  "kp-17",
+        "ders":  "Yabancı Dil",
+        "konu":  "zaman secimi (used)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k3-yd-kolay",
+        "id":  "kp-11",
         "ders":  "Yabancı Dil",
         "konu":  "zaman secimi (used)",
         "donem":  1,
