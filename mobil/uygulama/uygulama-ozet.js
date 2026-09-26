@@ -56,6 +56,7 @@
   var main = document.querySelector('main');
   main.insertBefore(bolum, main.firstChild);
 
+  /* ?tek=1: Kaydır-Çöz tek kart modu — yalnız o soru, kaydırma yok (26.09 Cem: "alt alta bir sürü soru çıkıyor") */
   function gununSorusu() {
     var sinav = IL.veri().ayar.sinav || 'yeterlilik';
     var s = (K.ucretsiz || []).filter(function (x) { return x.sinav === sinav; })[0] || (K.ucretsiz || [])[0];
@@ -77,7 +78,7 @@
         esc(sayfaAdi(v.son.yol)) + ' · ' + ((v.son.i || 0) + 1) + '. soru</small></span><span class="ok">›</span></a>';
     }
     var gs = gununSorusu();
-    if (gs) html += '<a class="kart buyuk" href="' + esc(gs.yol) + '#s=' + gs.sira + '"><span class="ik">☀️</span><span class="ad">Günün sorusu<small>' +
+    if (gs) html += '<a class="kart buyuk" href="' + esc(gs.yol) + '?tek=1#s=' + gs.sira + '"><span class="ik">☀️</span><span class="ad">Günün sorusu<small>' +
       esc(gs.baslik) + ' · her gün yeni bir soru</small></span><span class="ok">›</span></a>';
     /* karnem: en az 1 cevaplı dersler */
     var dersler = tumSayfa.map(function (s) { var r = IL.dersSonucu(s.yol); r.yol = s.yol; r.ad = s.baslik; r.n = r.ok + r.yan; return r; })

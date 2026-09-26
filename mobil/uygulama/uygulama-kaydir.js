@@ -63,6 +63,9 @@
     '#akis>.kart .panel.acik.ttKucuk .ttPanelBar{border-bottom:0}',
     /* 4) cevaptan sonra yüzen Kâğıt düğmesi gizli */
     '#akis>.kart.cevaplandi .kagitAc{display:none!important}',
+    /* Kâğıt düğmesi uzun sorularda E şıkkının yazısını örtüyordu (26.09) → yalnız ✏️ olan küçük yuvarlak */
+    '#akis>.kart .kagitAc{font-size:0!important;width:44px;height:44px;padding:0!important;border-radius:50%!important;display:flex;align-items:center;justify-content:center;right:10px!important}',
+    '#akis>.kart .kagitAc:before{content:"✏️";font-size:18px}',
     /* numaralı soru listesi */
     '#ttListe{position:fixed;inset:0;z-index:2147481000;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center}',
     '#ttListe.acik{display:flex}',
@@ -293,7 +296,8 @@
   /* kaldığın yerden devam: kaydırmada konum yazılır; açılışta (derin bağlantı yoksa) o karta gidilir */
   var konumKuruldu = false, izleyici = null, konumZam = null;
   function konumKur() {
-    if (konumKuruldu || !IL || !YOL) return;
+    /* tek kart modu (günün sorusu): kaldığın yer yazılmaz, "Devam et" oraya gitmesin */
+    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek')) return;
     var a = akis(), ks = kartlar(); if (!a || !ks.length) return;
     konumKuruldu = true;
     var tekrarda = tekrarKur();
