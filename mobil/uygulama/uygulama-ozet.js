@@ -147,31 +147,35 @@
     });
     return s + '</div>';
   }
+  var SINAV_AD = { sgs: 'SGS · Staja Giriş', yeterlilik: 'SMMM Yeterlilik (Bitirme)', kgk: 'KGK Bağımsız Denetçilik' };
+  function seciliSinav() { return IL.veri().ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik'; }
+  function sinaviNe(yol) { return /\/(sgs)(\.html|\/)/.test(yol) ? 'sgs' : 'yeterlilik'; }
   var SINAV_SIRA = [{ id: 'sgs', ad: 'SGS · Staja Giriş' }, { id: 'yeterlilik', ad: 'SMMM Yeterlilik' }, { id: 'kgk', ad: 'KGK Bağımsız Denetçilik' }];
 
   function ucretsizCiz(v, h, bugun, seri, t) {
     var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
-    var secS = v.ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik';
+    var secS = seciliSinav();
     var html = '<span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
       '<h1 class="slogan">Yanlışını böyle öğrenirsin.</h1>' +
-      '<p class="soluk" style="margin-top:8px">Yanlış şıkta tuzağın adı ve doğrusu anında. Sınav başına 30 soru ücretsiz' +
+      '<p class="soluk" style="margin-top:8px">Yanlış şıkta tuzağın adı ve doğrusu anında. 30 soru ücretsiz' +
       (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p>' + kahramanKart(secS);
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
-    html += '<span class="etk" style="margin-top:22px">Ücretsiz açık olanlar</span><div class="satirlar">';
-    SINAV_SIRA.forEach(function (x) {
+    /* 26.09 Cem: "sınavını seçsin, bütün sınavları görmesin" — yalnız seçilen sınav */
+    html += '<span class="etk" style="margin-top:22px">Ücretsiz · ' + esc(SINAV_AD[secS]) + '</span><div class="satirlar">';
+    SINAV_SIRA.filter(function (x) { return x.id === secS; }).forEach(function (x) {
       var u = (K.ucretsiz || []).filter(function (d) { return d.sinav === x.id; })[0];
       if (u) {
         var r = IL.dersSonucu(u.yol), n = r.ok + r.yan;
-        html += '<a class="srt" href="' + esc(u.yol) + '">' + ik('oynat') + '<span class="ad">' + esc(x.ad) + '<small>' +
+        html += '<a class="srt" href="' + esc(u.yol) + '">' + ik('oynat') + '<span class="ad">Örnek sorular<small>' +
           (u.adet || 30) + ' soru · açıklamalı</small></span>' + (n ? '<span class="sag">' + n + '/' + (u.adet || n) + '</span>' : '') + OK + '</a>';
       } else {
         html += '<div class="srt kilit">' + ik('kilit') + '<span class="ad">' + esc(x.ad) + '<small>Hazırlanıyor</small></span></div>';
       }
     });
-    html += gununSatiri(secS) + '</div>';
+    html += '</div>';
 
     /* tam paket: sınav başına gerçek soru/ders sayısı, kilitli; dokununca o sınavın içi */
-    var paketli = SINAV_SIRA.filter(function (x) { return (K.paket || []).some(function (d) { return d.sinav === x.id; }); });
+    var paketli = SINAV_SIRA.filter(function (x) { return x.id === secS && (K.paket || []).some(function (d) { return d.sinav === x.id; }); });
     if (paketli.length) {
       html += '<span class="etk">Tam paket · kilitli</span><div class="satirlar">';
       paketli.forEach(function (x) {
@@ -201,11 +205,10 @@
         html += '<button type="button" class="srt birincil" data-sinav="' + esc(v.ayar.sinav || 'yeterlilik') + '">' + ik('oynat') +
           '<span class="ad">Çalışmaya başla<small>Dersini seç</small></span>' + OK + '</button>';
       }
-      html += gununSatiri(v.ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik');
       var z = enZayif();
       if (z) html += '<a class="srt" href="' + esc(z.yol) + '">' + ik('karne') + '<span class="ad">En zayıf dersin<small>' +
         esc(z.ad) + '</small></span><span class="sag">%' + yuzde(z.oran) + '</span>' + OK + '</a>';
-      html += '</div>' + kahramanKart(v.ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik');
+      html += '</div>' + kahramanKart(seciliSinav());
     }
 
     var D = window.TT_DURUM;
@@ -240,7 +243,8 @@
   function sure(sn) { if (!sn) return '0 dk'; if (sn < 60) return sn + ' sn'; var d = Math.round(sn / 60); return d < 60 ? d + ' dk' : Math.floor(d / 60) + ' sa ' + (d % 60) + ' dk'; }
   function kayitlar() {
     var v = IL.veri(), l = [];
-    for (var s in v.cevap) { var c = v.cevap[s]; if (c && c.yol) { var r = Object.create(c); r.sid = s; r.ders = c.d || sayfaAdi(c.yol); l.push(r); } }
+    var sec = seciliSinav();
+    for (var s in v.cevap) { var c = v.cevap[s]; if (c && c.yol && sinaviNe(c.yol) === sec) { var r = Object.create(c); r.sid = s; r.ders = c.d || sayfaAdi(c.yol); l.push(r); } }
     return l;
   }
   function grupla(l, anahtar) {
@@ -258,7 +262,7 @@
   }
 
   function karneCiz() {
-    var l = kayitlar(), html = '<h1>Karnem</h1>';
+    var l = kayitlar(), html = '<span class="etk">' + esc(SINAV_AD[seciliSinav()]) + '</span><h1>Karnem</h1>';
     if (!l.length) {
       karneB.innerHTML = html + '<div class="kart bosDurum"><b>Henüz ölçüm yok</b>' +
         'Çözdüğün her soru burada ölçülür: derse göre başarın, harcadığın süre, yanlışların ve en çok düştüğün tuzaklar.</div>';
@@ -343,18 +347,23 @@
 
   /* ilk açılış: sınav → günlük hedef → hatırlatıcı */
   function kurulum() {
-    if (IL.veri().ayar.kurulum) return;
+    var a0 = IL.veri().ayar, yalnizSinav = !!a0.kurulum && !a0.sinav;
+    if (a0.kurulum && a0.sinav) return;
     var e = document.createElement('div'); e.id = 'kurulum'; document.body.appendChild(e);
     var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); };
     var bas = function (n) { return '<div class="adim">0' + n + ' / 03<i><b style="width:' + Math.round(n / 3 * 100) + '%"></b></i></div>'; };
     var secenek = function (v, ad, alt) { return '<button type="button" class="srt" data-v="' + v + '"><span class="ad">' + ad + '<small>' + alt + '</small></span>' + OK + '</button>'; };
     var adim1 = function () {
-      e.innerHTML = bas(1) + '<h1>Hangi sınava hazırlanıyorsun?</h1><p>Günün sorusu ve öneriler buna göre gelir. Sonra Hesap’tan değiştirebilirsin.</p>' +
-        '<div class="satirlar">' + secenek('yeterlilik', 'SMMM Yeterlilik', '8 ders') + secenek('sgs', 'SGS · Staja Giriş', 'Staja başlama sınavı') + '</div>' +
-        '<button type="button" class="atla">Şimdilik geç</button>';
-      e.querySelector('.atla').onclick = bitir;
-      [].forEach.call(e.querySelectorAll('.srt'), function (b) {
-        b.onclick = function () { IL.ayarYaz({ sinav: b.dataset.v }); try { sessionStorage.removeItem('tt_uyg_sinavsec'); } catch (x) {} adim2(); };
+      e.innerHTML = bas(1) + '<h1>Hangi sınava hazırlanıyorsun?</h1><p>Uygulama yalnız seçtiğin sınavı gösterir. İstediğin zaman üstteki sınav düğmesinden değiştirirsin.</p>' +
+        '<div class="satirlar">' + secenek('sgs', 'SGS · Staja Giriş', 'Staja başlamak için giriş sınavı') +
+        secenek('yeterlilik', 'SMMM Yeterlilik (Bitirme)', 'Staj bitirme · 8 ders') +
+        '<div class="srt kilit"><span class="ad">KGK Bağımsız Denetçilik<small>Hazırlanıyor</small></span></div></div>';
+      [].forEach.call(e.querySelectorAll('.srt[data-v]'), function (b) {
+        b.onclick = function () {
+          IL.ayarYaz({ sinav: b.dataset.v }); try { sessionStorage.removeItem('tt_uyg_sinavsec'); } catch (x) {}
+          try { document.dispatchEvent(new CustomEvent('tt-sinav', { detail: b.dataset.v })); } catch (x) {}
+          if (yalnizSinav) bitir(); else adim2();
+        };
       });
     };
     var adim2 = function () {
@@ -379,7 +388,7 @@
   var ayarB = document.createElement('section');
   ayarB.id = 'calismaAyar'; ayarB.className = 'bolum'; ayarB.setAttribute('data-sekme', 'hesap');
   ayarB.innerHTML = '<span class="etk">Çalışma</span><div class="kart">' +
-    '<label>Sınavım<select id="ayarSinav"><option value="yeterlilik">SMMM Yeterlilik</option><option value="sgs">SGS · Staja Giriş</option></select></label>' +
+    '<label>Sınavım<select id="ayarSinav"><option value="sgs">SGS · Staja Giriş</option><option value="yeterlilik">SMMM Yeterlilik (Bitirme)</option></select></label>' +
     '<label>Günlük hedef<select id="ayarHedef"><option value="10">10 soru</option><option value="20">20 soru</option><option value="40">40 soru</option></select></label>' +
     '<label style="margin-bottom:0">Görünüm<select id="ayarGorunum"><option value="acik">Açık (önerilen, okuması kolay)</option>' +
     '<option value="koyu">Koyu</option><option value="sistem">Telefonun ayarına göre</option></select></label></div>';
@@ -388,7 +397,7 @@
   ayarOku();
   $('ayarSinav').onchange = function () {
     IL.ayarYaz({ sinav: this.value }); try { sessionStorage.removeItem('tt_uyg_sinavsec'); } catch (x) {}
-    ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz();
+    try { document.dispatchEvent(new CustomEvent('tt-sinav', { detail: this.value })); } catch (x) {}
   };
   $('ayarHedef').onchange = function () { IL.ayarYaz({ hedef: +this.value }); ciz(); };
   if (window.TTGorunum) {
@@ -413,6 +422,35 @@
       }).catch(function () {});
     } catch (e) {}
   }
+
+  /* ÜST ŞERİTTE SINAV DÜĞMESİ (26.09): uygulama tek sınava odaklı; değiştirmek tek dokunuş */
+  var cip = document.createElement('button');
+  cip.type = 'button'; cip.id = 'sinavCip'; cip.setAttribute('aria-label', 'Sınavı değiştir');
+  var ust = document.querySelector('header.ust'); if (ust) ust.insertBefore(cip, $('durumRozet'));
+  function cipCiz() { cip.innerHTML = (seciliSinav() === 'sgs' ? 'SGS' : 'Yeterlilik') + '<svg class="ik" aria-hidden="true"><use href="#i-ok"/></svg>'; }
+  function sinavSecAc() {
+    var e = document.createElement('div'); e.id = 'sinavSec'; e.setAttribute('role', 'dialog');
+    var sec = seciliSinav(), sat = function (id, ad, alt) {
+      return '<button type="button" class="srt" data-v="' + id + '"><span class="ad">' + ad + '<small>' + alt + '</small></span>' +
+        (id === sec ? '<span class="etiketK acik">Seçili</span>' : OK) + '</button>';
+    };
+    e.innerHTML = '<div class="ic"><span class="etk">Sınavın</span><div class="satirlar">' + sat('sgs', 'SGS · Staja Giriş', 'Staja başlamak için giriş sınavı') +
+      sat('yeterlilik', 'SMMM Yeterlilik (Bitirme)', 'Staj bitirme · 8 ders') +
+      '<div class="srt kilit"><span class="ad">KGK Bağımsız Denetçilik<small>Hazırlanıyor</small></span></div></div>' +
+      '<button type="button" class="duz kapat">Kapat</button></div>';
+    document.body.appendChild(e);
+    e.onclick = function (ev) { if (ev.target === e || ev.target.classList.contains('kapat')) e.remove(); };
+    [].forEach.call(e.querySelectorAll('[data-v]'), function (b) {
+      b.onclick = function () {
+        IL.ayarYaz({ sinav: b.dataset.v }); e.remove();
+        try { document.dispatchEvent(new CustomEvent('tt-sinav', { detail: b.dataset.v })); } catch (x) {}
+      };
+    });
+  }
+  cip.onclick = sinavSecAc;
+  window.TTSinavSec = { ac: sinavSecAc };
+  document.addEventListener('tt-sinav', cipCiz);
+  cipCiz();
 
   ciz();
   kurulum();
