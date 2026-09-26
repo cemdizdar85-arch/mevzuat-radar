@@ -142,7 +142,7 @@
     if (o.ucr) {
       var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan, top = o.ucr.adet || 30;
       h += '<a class="ilerKart" href="' + esc(o.ucr.yol) + '"><span class="iUst"><span class="iAd">Örnek sorular<small>' + sayi(top) +
-        ' soru · ilk 3 soru hesapsız</small></span><span class="iDugme">' + (n ? 'Devam et' : 'Başla') + ik('ok') + '</span></span>' +
+        ' soru · ilk 3 soru kayıt olmadan</small></span><span class="iDugme">' + (n ? 'Devam et' : 'Başla') + ik('ok') + '</span></span>' +
         '<span class="iCubuk"><i style="width:' + Math.min(100, Math.round(n / top * 100)) + '%"></i></span>' +
         '<span class="iAlt">' + n + ' / ' + top + ' soru çözüldü</span></a>';
     } else h += '<div class="kart bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
