@@ -24,7 +24,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "etiket":  "sgs-d3-fmuh-kolay-r2",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "mizan turleri ve esitlikleri",
@@ -40,6 +40,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "mizan turleri ve esitlikleri",
+        "donem":  10,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-kolay-r3",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
@@ -48,15 +56,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-kolay-r2",
+        "etiket":  "sgs-k1-fmuh-kolay",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
-        "konu":  "mizan turleri ve esitlikleri",
+        "konu":  "muhasebe bilgi sistemi",
         "donem":  10,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-k5-fmuh-kolay",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe bilgi sistemi",
@@ -65,14 +73,6 @@
     },
     {
         "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "muhasebe bilgi sistemi",
-        "donem":  10,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k1-fmuh-kolay",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe bilgi sistemi",
@@ -88,48 +88,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 40 yatirim amacli gayrimenkul",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-cokzor-r4",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 40 yatirim amacli gayrimenkul",
-        "donem":  8,
+        "konu":  "muhasebe bilgi sistemi",
+        "donem":  10,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-fmuh-zor-r1",
+        "etiket":  "sgs-k5-fmuh-cokzor",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 40 yatirim amacli gayrimenkul",
-        "donem":  8,
+        "konu":  "muhasebe bilgi sistemi",
+        "donem":  10,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "etiket":  "sgs-t2-fmuh-zor",
         "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 40 yatirim amacli gayrimenkul",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d5-fmuh-zor-r2",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 40 yatirim amacli gayrimenkul",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-a6-fmuh-cokzor-r1",
-        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 40 yatirim amacli gayrimenkul",
         "donem":  8,
@@ -137,14 +113,6 @@
     },
     {
         "etiket":  "sgs-fmuh-ek15",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 40 yatirim amacli gayrimenkul",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-kolay",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 40 yatirim amacli gayrimenkul",
@@ -160,7 +128,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
+        "etiket":  "sgs-a6-fmuh-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 40 yatirim amacli gayrimenkul",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-cokzor-r4",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 40 yatirim amacli gayrimenkul",
@@ -168,24 +144,48 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gider tahakkuku",
-        "donem":  7,
+        "konu":  "tms 40 yatirim amacli gayrimenkul",
+        "donem":  8,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-31",
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gider tahakkuku",
-        "donem":  7,
+        "konu":  "tms 40 yatirim amacli gayrimenkul",
+        "donem":  8,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 40 yatirim amacli gayrimenkul",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-fmuh-zor-r1",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 40 yatirim amacli gayrimenkul",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-fmuh-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 40 yatirim amacli gayrimenkul",
+        "donem":  8,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-kolay-r3",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "gider tahakkuku",
         "donem":  7,
@@ -200,6 +200,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-fmuh-kolay-r3",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gider tahakkuku",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-zor-r1",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
@@ -208,23 +216,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gider tahakkuku",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gider tahakkuku",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d5-fmuh-kolay-r2",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gider tahakkuku",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gider tahakkuku",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r3",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "gider tahakkuku",
@@ -240,32 +248,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r3",
-        "id":  "kp-03",
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "gider tahakkuku",
         "donem":  7,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-zor-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi satisi",
+        "konu":  "gider tahakkuku",
         "donem":  7,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
+        "etiket":  "sgs-c2-fmuh-zor-r3",
         "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi satisi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-cokzor-r3",
-        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi satisi",
         "donem":  7,
@@ -280,7 +280,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r3",
+        "etiket":  "sgs-d3-fmuh-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hisse senedi satisi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-zor-r3",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi satisi",
@@ -296,7 +304,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-zor-r3",
+        "etiket":  "sgs-d2-fmuh-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hisse senedi satisi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi satisi",
@@ -320,30 +336,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "nakit akis tablosu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-zor-r2",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "nakit akis tablosu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-zor-r2",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "nakit akis tablosu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-a6-fmuh-cokzor-r1",
         "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
@@ -352,15 +344,31 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-zor-r3",
-        "id":  "kp-01",
+        "etiket":  "sgs-p-fmuh-zor-r4",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "nakit akis tablosu",
         "donem":  7,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r4",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nakit akis tablosu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nakit akis tablosu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-cokzor-r1",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "nakit akis tablosu",
@@ -384,24 +392,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "nakit akis tablosu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "nakit akis tablosu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-cokzor-r3",
-        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "nakit akis tablosu",
         "donem":  7,
@@ -416,15 +408,39 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-05",
+        "etiket":  "sgs-c2-fmuh-cokzor-r3",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "nakit akis tablosu",
         "donem":  7,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r4",
+        "etiket":  "sgs-d2-fmuh-zor-r3",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nakit akis tablosu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r2",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nakit akis tablosu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nakit akis tablosu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-fmuh-30",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi",
@@ -440,8 +456,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-fmuh-kolay-r4",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye artirimi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-fmuh-cokzor-r4",
         "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye artirimi",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-kolay-r2",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi",
         "donem":  7,
@@ -456,22 +488,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye artirimi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye artirimi",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-fmuh-zor-r2",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
@@ -480,7 +496,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r2",
+        "etiket":  "sgs-d2-fmuh-kolay-r1",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi",
@@ -504,8 +520,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 36 deger dusuklugu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 36 deger dusuklugu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d5-fmuh-cokzor-r2",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 36 deger dusuklugu",
         "donem":  7,
@@ -520,6 +552,30 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-fmuh-zor4",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 36 deger dusuklugu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-zor-r2",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 36 deger dusuklugu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 36 deger dusuklugu",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-a6-fmuh-cokzor-r1",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
@@ -528,8 +584,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-fmuh-zor4",
-        "id":  "kp-01",
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 36 deger dusuklugu",
         "donem":  7,
@@ -552,47 +608,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 36 deger dusuklugu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "etiket":  "sgs-fmuh-30",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 36 deger dusuklugu",
+        "konu":  "tms 37 karsiliklar",
         "donem":  7,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-zor-r2",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 36 deger dusuklugu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d5-fmuh-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 36 deger dusuklugu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 36 deger dusuklugu",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 37 karsiliklar",
@@ -608,16 +632,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 37 karsiliklar",
-        "donem":  7,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-02",
+        "etiket":  "sgs-c2-fmuh-cokzor-r1",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 37 karsiliklar",
         "donem":  7,
@@ -632,7 +648,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1",
+        "etiket":  "sgs-c2-fmuh-cokzor-r2",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 37 karsiliklar",
@@ -640,8 +656,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 37 karsiliklar",
+        "donem":  7,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 37 karsiliklar",
         "donem":  7,
@@ -672,23 +696,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 15 hasilat adimlari",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 15 hasilat adimlari",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 15 hasilat adimlari",
@@ -704,16 +712,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-cokzor-r1",
-        "id":  "kp-03",
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 15 hasilat adimlari",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 15 hasilat adimlari",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 18 hasilat",
         "donem":  6,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-cokzor-r3",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-fmuh-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 18 hasilat",
         "donem":  6,
@@ -728,8 +752,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r4",
-        "id":  "kp-04",
+        "etiket":  "sgs-d2-fmuh-cokzor-r3",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 18 hasilat",
         "donem":  6,
@@ -744,14 +768,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 38 maddi olmayan duran varlik",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-fmuh-kolay-r3",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
@@ -760,31 +776,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r2",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 38 maddi olmayan duran varlik",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-cokzor-r2",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 38 maddi olmayan duran varlik",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-fmuh-cokzor-r2",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 38 maddi olmayan duran varlik",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-cokzor-r1",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 38 maddi olmayan duran varlik",
@@ -800,11 +792,51 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-fmuh-kolay-r2",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 38 maddi olmayan duran varlik",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-kolay-r4",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 38 maddi olmayan duran varlik",
         "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-06",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 38 maddi olmayan duran varlik",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-cokzor-r2",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 38 maddi olmayan duran varlik",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-cokzor-r1",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 38 maddi olmayan duran varlik",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donemsellik kavrami",
+        "donem":  5,
         "kurtarma":  false
     },
     {
@@ -816,8 +848,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-e16-fmuh-zor",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donemsellik kavrami",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "donemsellik kavrami",
         "donem":  5,
@@ -825,6 +865,14 @@
     },
     {
         "etiket":  "sgs-t3-fmuh-kolay",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donemsellik kavrami",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "donemsellik kavrami",
@@ -840,16 +888,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donemsellik kavrami",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-fmuh-zor",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "donemsellik kavrami",
         "donem":  5,
@@ -864,22 +904,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donemsellik kavrami",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donemsellik kavrami",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-fmuh-30",
         "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
@@ -888,15 +912,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r3",
-        "id":  "kp-04",
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-zor-r3",
+        "etiket":  "sgs-p-fmuh-zor-r2",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku",
@@ -912,24 +936,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r3",
-        "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tahakkuku",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tahakkuku",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-fmuh-zor-r1",
         "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelir tahakkuku",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r3",
+        "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku",
         "donem":  5,
@@ -944,7 +960,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r2",
+        "etiket":  "sgs-d2-fmuh-zor-r3",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku",
@@ -952,8 +968,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-11",
+        "etiket":  "sgs-c2-fmuh-kolay-r3",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelir tahakkuku",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-fmuh-kolay",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "kar dagitimi kaydi",
         "donem":  5,
@@ -968,8 +992,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-fmuh-cokzor-r1",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kar dagitimi kaydi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "kar dagitimi kaydi",
         "donem":  5,
@@ -992,14 +1024,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-cokzor-r1",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitimi kaydi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-fmuh-kolay-r1",
         "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
@@ -1008,31 +1032,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozkaynak hesaplama",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozkaynak hesaplama",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozkaynak hesaplama",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-fmuh-kolay-r1",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ozkaynak hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ozkaynak hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-kolay-r1",
         "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak hesaplama",
@@ -1048,6 +1064,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ozkaynak hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ozkaynak hesaplama",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
@@ -1056,24 +1088,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "etiket":  "sgs-p-fmuh-zor-r1",
         "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozkaynak hesaplama",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 12 ertelenmis vergi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 12 ertelenmis vergi",
         "donem":  5,
@@ -1096,16 +1112,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-fmuh-cokzor-r1",
-        "id":  "kp-07",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 12 ertelenmis vergi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-07",
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 12 ertelenmis vergi",
         "donem":  5,
@@ -1120,8 +1128,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 12 ertelenmis vergi",
         "donem":  5,
@@ -1136,24 +1144,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 2 stoklar",
+        "konu":  "tms 12 ertelenmis vergi",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-08",
+        "etiket":  "sgs-a6-fmuh-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 2 stoklar",
+        "konu":  "tms 12 ertelenmis vergi",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 2 stoklar",
         "donem":  5,
@@ -1161,14 +1169,6 @@
     },
     {
         "etiket":  "sgs-a6-fmuh-cokzor-r1",
-        "id":  "kp-08",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 2 stoklar",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 2 stoklar",
@@ -1184,6 +1184,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-08",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 2 stoklar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-fmuh-30",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
@@ -1192,8 +1200,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 2 stoklar",
         "donem":  5,
@@ -1208,8 +1216,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 2 stoklar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 2 stoklar",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-16",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "amortisman ayirma",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
         "konu":  "amortisman ayirma",
         "donem":  4,
@@ -1232,8 +1264,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-16",
+        "etiket":  "sgs-d2-fmuh-cokzor-r1",
+        "id":  "kp-07",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "amortisman ayirma",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
         "konu":  "amortisman ayirma",
         "donem":  4,
@@ -1248,46 +1288,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-16",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "amortisman ayirma",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-cokzor-r1",
-        "id":  "kp-07",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "amortisman ayirma",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-cokzor-r1",
-        "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "depozito iadesi kaydi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-09",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "depozito iadesi kaydi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-09",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "depozito iadesi kaydi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
@@ -1296,8 +1296,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-d3-fmuh-cokzor-r1",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
         "konu":  "depozito iadesi kaydi",
         "donem":  4,
@@ -1312,8 +1312,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-zor-r2",
-        "id":  "kp-06",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "depozito iadesi kaydi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "depozito iadesi kaydi",
         "donem":  4,
@@ -1322,6 +1330,30 @@
     {
         "etiket":  "sgs-p-fmuh-zor-r4",
         "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "depozito iadesi kaydi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k1-fmuh-kolay",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "depozito iadesi kaydi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "depozito iadesi kaydi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-zor-r2",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "depozito iadesi kaydi",
         "donem":  4,
@@ -1344,8 +1376,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-17",
+        "etiket":  "sgs-c2-fmuh-cokzor-r2",
+        "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi",
         "donem":  4,
@@ -1360,8 +1392,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r2",
-        "id":  "kp-08",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi",
         "donem":  4,
@@ -1384,8 +1416,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-06",
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelecek aylara ait giderler",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r1",
+        "id":  "kp-08",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelecek aylara ait giderler",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-zor-r3",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait giderler",
         "donem":  4,
@@ -1394,14 +1442,6 @@
     {
         "etiket":  "sgs-p-fmuh-zor-r2",
         "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek aylara ait giderler",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait giderler",
         "donem":  4,
@@ -1424,8 +1464,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-08",
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait giderler",
         "donem":  4,
@@ -1440,16 +1480,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r3",
-        "id":  "kp-05",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek aylara ait giderler",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-cokzor-r4",
-        "id":  "kp-07",
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
         "konu":  "kasa sayim farki",
         "donem":  4,
@@ -1464,8 +1496,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-16",
+        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kasa sayim farki",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-cokzor-r4",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "kasa sayim farki",
         "donem":  4,
@@ -1474,14 +1514,6 @@
     {
         "etiket":  "sgs-c2-fmuh-cokzor-r3",
         "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kasa sayim farki",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-kolay-r4",
-        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "kasa sayim farki",
         "donem":  4,
@@ -1504,24 +1536,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kollektif sirket kar dagitimi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-13",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kollektif sirket kar dagitimi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-18",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kollektif sirket kar dagitimi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-kolay-r1",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "kollektif sirket kar dagitimi",
         "donem":  4,
@@ -1545,23 +1569,23 @@
     },
     {
         "etiket":  "sgs-fmuh-30",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kollektif sirket kar dagitimi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-cokzor-r2",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "stok deger dusuklugu",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-fmuh-30",
         "id":  "kp-19",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "stok deger dusuklugu",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "stok deger dusuklugu",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-15",
         "ders":  "Finansal Muhasebe",
         "konu":  "stok deger dusuklugu",
         "donem":  4,
@@ -1576,6 +1600,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "stok deger dusuklugu",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "stok deger dusuklugu",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-fmuh-cokzor",
         "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
@@ -1584,10 +1624,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-cokzor-r2",
-        "id":  "kp-04",
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
-        "konu":  "stok deger dusuklugu",
+        "konu":  "supheli alacak karsiligi",
         "donem":  4,
         "kurtarma":  false
     },
@@ -1616,15 +1656,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "supheli alacak karsiligi",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-a6-fmuh-cokzor-r1",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 28 istirakler",
@@ -1632,7 +1664,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-a6-fmuh-cokzor-r1",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 28 istirakler",
@@ -1664,16 +1696,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-t3-fmuh-kolay",
+        "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 7 nakit akis tablosu",
         "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-kolay",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 7 nakit akis tablosu",
         "donem":  4,
@@ -1704,18 +1736,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 7 nakit akis tablosu",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tutarlilik kavrami",
         "donem":  4,
         "kurtarma":  false
     },
@@ -1736,6 +1760,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-06",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tutarlilik kavrami",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-fmuh-kolay-r4",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
@@ -1744,16 +1776,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-08",
+        "etiket":  "sgs-d2-fmuh-kolay-r4",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
         "konu":  "yasal yedek akce",
         "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r4",
-        "id":  "kp-05",
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
         "konu":  "yasal yedek akce",
         "donem":  4,
@@ -1776,6 +1808,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-fmuh-zor-r3",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ara donem raporlama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-fmuh-zor-r1",
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
@@ -1784,10 +1824,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r3",
-        "id":  "kp-15",
+        "etiket":  "sgs-d3-fmuh-kolay-r2",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
-        "konu":  "ara donem raporlama",
+        "konu":  "arama giderleri",
         "donem":  3,
         "kurtarma":  false
     },
@@ -1800,10 +1840,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-kolay-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-fmuh-zor-r3",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
-        "konu":  "arama giderleri",
+        "konu":  "azalan bakiyeler amortisman",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r4",
+        "id":  "kp-12",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "azalan bakiyeler amortisman",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "azalan bakiyeler amortisman",
         "donem":  3,
         "kurtarma":  false
     },
@@ -1824,32 +1880,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r4",
-        "id":  "kp-12",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "azalan bakiyeler amortisman",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "azalan bakiyeler amortisman",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-zor-r3",
-        "id":  "kp-13",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "azalan bakiyeler amortisman",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-27",
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "bilanco hesaplari",
         "donem":  3,
@@ -1864,6 +1896,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-27",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "bilanco hesaplari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-zor-r1",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
@@ -1872,16 +1912,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "bilanco hesaplari",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-27",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "bilanco hesaplari",
         "donem":  3,
@@ -1896,7 +1936,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
+        "etiket":  "sgs-p-fmuh-cokzor-r3",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "depozitolu kap kirilmasi kaydi",
@@ -1904,7 +1944,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r3",
+        "etiket":  "sgs-d3-fmuh-zor-r1",
+        "id":  "kp-08",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "depozitolu kap kirilmasi kaydi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "depozitolu kap kirilmasi kaydi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r1",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "depozitolu kap kirilmasi kaydi",
@@ -1920,32 +1976,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-09",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "depozitolu kap kirilmasi kaydi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-zor-r1",
-        "id":  "kp-08",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "depozitolu kap kirilmasi kaydi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-fmuh-zor-r1",
         "id":  "kp-12",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem kari hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-bc-fmuh-cokzor-r2",
-        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "donem kari hesaplama",
         "donem":  3,
@@ -1960,26 +1992,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r4",
-        "id":  "kp-13",
+        "etiket":  "sgs-bc-fmuh-cokzor-r2",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
-        "konu":  "donem kari zarari hesabi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k1-fmuh-kolay",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem kari zarari hesabi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-cokzor-r4",
-        "id":  "kp-13",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem kari zarari hesabi",
+        "konu":  "donem kari hesaplama",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2000,6 +2016,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem kari zarari hesabi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-cokzor-r4",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem kari zarari hesabi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
@@ -2008,15 +2040,23 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r3",
-        "id":  "kp-11",
+        "etiket":  "sgs-k1-fmuh-kolay",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
-        "konu":  "donemsellik kavrami",
+        "konu":  "donem kari zarari hesabi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem kari zarari hesabi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r3",
         "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "donemsellik kavrami",
@@ -2032,18 +2072,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-fmuh-parti1",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik satisi amortisman",
+        "konu":  "donemsellik kavrami",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r4",
-        "id":  "kp-10",
+        "etiket":  "sgs-fmuh-parti1",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik takasi",
+        "konu":  "duran varlik satisi amortisman",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2056,8 +2096,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "id":  "kp-10",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik takasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-26",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "faaliyet kari hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r1",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "faaliyet kari hesaplama",
         "donem":  3,
@@ -2080,24 +2136,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r1",
-        "id":  "kp-13",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "faaliyet kari hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-bc-fmuh-zor-r2",
         "id":  "kp-01",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "fifo yontemi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-zor-r1",
-        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "fifo yontemi",
         "donem":  3,
@@ -2112,6 +2152,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-fmuh-zor-r1",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "fifo yontemi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-ticaret-cokzor-r1",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
@@ -2120,8 +2168,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "finansman bonosu ihraci",
         "donem":  3,
@@ -2136,6 +2184,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t3-fmuh-kolay",
+        "id":  "kp-06",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "finansman bonosu ihraci",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-fmuh-cokzor-r2",
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
@@ -2144,8 +2200,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1",
-        "id":  "kp-17",
+        "etiket":  "sgs-p-fmuh-cokzor-r3",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek yillara ait giderler",
         "donem":  3,
@@ -2168,6 +2224,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-cokzor-r1",
+        "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelecek yillara ait giderler",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-cokzor-r1",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
@@ -2176,10 +2240,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r3",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-30",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek yillara ait giderler",
+        "konu":  "gelir tablosu hesaplari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-29",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelir tablosu hesaplari",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2192,7 +2264,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-30",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tablosu hesaplari",
@@ -2208,14 +2280,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-30",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tablosu hesaplari",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-fmuh-kolay-r1",
         "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
@@ -2224,10 +2288,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-29",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tablosu hesaplari",
+        "konu":  "hazine bonosu tahsili",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-ticaret-zor-r2",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hazine bonosu tahsili",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2248,16 +2320,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-ticaret-zor-r2",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hazine bonosu tahsili",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-p-fmuh-zor-r1",
+        "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "hazine bonosu tahsili",
         "donem":  3,
@@ -2272,40 +2336,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-14",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hazine bonosu tahsili",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-20",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hesap isleyisi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-28",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hesap isleyisi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-11",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hesap isleyisi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
-        "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "hesap isleyisi",
         "donem":  3,
@@ -2320,10 +2352,42 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-14",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hesap isleyisi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-11",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hesap isleyisi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-cokzor-r1",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "hesap isleyisi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-20",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hesap isleyisi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "isletmenin surekliligi",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2344,40 +2408,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "isletmenin surekliligi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-cokzor-r1",
-        "id":  "kp-11",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-fmuh-cokzor-r3",
         "id":  "kp-08",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-17",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-kolay-r4",
-        "id":  "kp-15",
         "ders":  "Finansal Muhasebe",
         "konu":  "kar dagitimi",
         "donem":  3,
@@ -2392,8 +2424,40 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
         "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kar dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-cokzor-r1",
+        "id":  "kp-11",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kar dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r4",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kar dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r4",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kesin mizan",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-kolay-r1",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "kesin mizan",
         "donem":  3,
@@ -2416,26 +2480,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r4",
-        "id":  "kp-13",
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "kesin mizan",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-kolay-r1",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kesin mizan",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kidem tazminati",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2448,8 +2496,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-13",
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "kidem tazminati",
         "donem":  3,
@@ -2458,6 +2506,14 @@
     {
         "etiket":  "sgs-p-fmuh-cokzor-r4",
         "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kidem tazminati",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "kidem tazminati",
         "donem":  3,
@@ -2480,6 +2536,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "muhasebe politikalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-06",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "muhasebe politikalari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-fmuh-kolay-r1",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
@@ -2488,8 +2560,64 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-11",
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nazim hesaplar",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nazim hesaplar",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-kolay",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "onemlilik kavrami",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "onemlilik kavrami",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "onemlilik kavrami",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-fmuh-30",
+        "id":  "kp-28",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "police muhasebelestirme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-19",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "police muhasebelestirme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
         "konu":  "police muhasebelestirme",
         "donem":  3,
@@ -2498,14 +2626,6 @@
     {
         "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-19",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "police muhasebelestirme",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-fmuh-30",
-        "id":  "kp-28",
         "ders":  "Finansal Muhasebe",
         "konu":  "police muhasebelestirme",
         "donem":  3,
@@ -2520,16 +2640,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-19",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "police muhasebelestirme",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-19",
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "police muhasebelestirme",
         "donem":  3,
@@ -2537,30 +2649,6 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-24",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "serefiye hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-24",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "serefiye hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "serefiye hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
         "konu":  "serefiye hesaplama",
@@ -2584,24 +2672,40 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-10",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "serefiye hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-24",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "serefiye hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-24",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "serefiye hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r3",
+        "id":  "kp-12",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye taahhudu iptali",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-fmuh-ek15",
         "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye taahhudu iptali",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1",
-        "id":  "kp-11",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye taahhudu iptali",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-cokzor-r2",
-        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye taahhudu iptali",
         "donem":  3,
@@ -2624,8 +2728,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r3",
-        "id":  "kp-12",
+        "etiket":  "sgs-c2-fmuh-cokzor-r1",
+        "id":  "kp-11",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye taahhudu iptali",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-cokzor-r2",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye taahhudu iptali",
         "donem":  3,
@@ -2640,8 +2752,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r4",
-        "id":  "kp-10",
+        "etiket":  "sgs-c2-fmuh-cokzor-r2",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "tahvil hisse donusumu",
         "donem":  3,
@@ -2664,18 +2776,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r2",
-        "id":  "kp-12",
+        "etiket":  "sgs-p-fmuh-cokzor-r4",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "tahvil hisse donusumu",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-kolay-r3",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tahvil ihraci",
         "donem":  3,
         "kurtarma":  false
     },
@@ -2688,8 +2792,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r1",
-        "id":  "kp-11",
+        "etiket":  "sgs-p-fmuh-kolay-r3",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "tahvil ihraci",
         "donem":  3,
@@ -2698,6 +2802,14 @@
     {
         "etiket":  "sgs-c2-fmuh-kolay-r1",
         "id":  "kp-12",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tahvil ihraci",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r1",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "tahvil ihraci",
         "donem":  3,
@@ -2720,16 +2832,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-11",
+        "etiket":  "sgs-c5-fmuh-kolay-r2",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "temel muhasebe kavramlari",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-fmuh-zor-r1",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "temel muhasebe kavramlari",
         "donem":  3,
@@ -2744,8 +2856,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2",
-        "id":  "kp-01",
+        "etiket":  "sgs-p-fmuh-zor-r2",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "temel muhasebe kavramlari",
         "donem":  3,
@@ -2784,7 +2896,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 21 gecerli para birimi",
@@ -2792,15 +2904,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-11",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 21 gecerli para birimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 21 gecerli para birimi",
@@ -2816,16 +2920,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r2",
+        "etiket":  "sgs-d2-fmuh-kolay-r1",
         "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 21 kur cevrimi",
+        "konu":  "tms 21 gecerli para birimi",
         "donem":  3,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-c2-fmuh-cokzor-r1",
         "id":  "kp-12",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 21 kur cevrimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-cokzor-r1",
+        "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 21 kur cevrimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-fmuh-cokzor-r2",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 21 kur cevrimi",
         "donem":  3,
@@ -2840,8 +2960,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-cokzor-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-p-fmuh-kolay-r1",
+        "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 21 kur cevrimi",
         "donem":  3,
@@ -2864,14 +2984,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r1",
-        "id":  "kp-16",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 21 kur cevrimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
@@ -2880,8 +2992,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r4",
-        "id":  "kp-10",
+        "etiket":  "sgs-p-fmuh-zor-r1",
+        "id":  "kp-15",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms-38 maddi olmayan duran varliklar",
         "donem":  3,
@@ -2890,6 +3002,14 @@
     {
         "etiket":  "sgs-c2-fmuh-kolay-r2",
         "id":  "kp-16",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms-38 maddi olmayan duran varliklar",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r4",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms-38 maddi olmayan duran varliklar",
         "donem":  3,
@@ -2904,14 +3024,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms-38 maddi olmayan duran varliklar",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d3-maliyet-zor-r2",
         "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
@@ -2920,16 +3032,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16b-fmuh-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-e16b-fmuh-cokzor",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "akreditif kaydi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16b-fmuh-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-e16b-fmuh-kolay",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "akreditif kaydi",
         "donem":  2,
@@ -2944,16 +3056,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-kolay-r1",
-        "id":  "kp-14",
+        "etiket":  "sgs-c2-fmuh-kolay-r2",
+        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "aktiflestirilmis giderler",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r2",
-        "id":  "kp-17",
+        "etiket":  "sgs-d3-fmuh-kolay-r1",
+        "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "aktiflestirilmis giderler",
         "donem":  2,
@@ -2968,14 +3080,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
-        "id":  "kp-17",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "alacak senedi ciro kaydi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-ticaret-kolay",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
@@ -2984,24 +3088,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-29",
+        "etiket":  "sgs-t1-ticaret-kolay",
+        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
-        "konu":  "alacak senedi yenileme",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-55",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "alacak senedi yenileme",
+        "konu":  "alacak senedi ciro kaydi",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t2-fmuh-cokzor",
         "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "alacak senedi yenileme",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
         "konu":  "alacak senedi yenileme",
         "donem":  2,
@@ -3016,16 +3120,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-cokzor-r1-2",
-        "id":  "kp-02",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-55",
         "ders":  "Finansal Muhasebe",
-        "konu":  "alacak senetleri",
+        "konu":  "alacak senedi yenileme",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-e16-fmuh-kolay",
         "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "alacak senetleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-fmuh-cokzor-r1-2",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "alacak senetleri",
         "donem":  2,
@@ -3048,8 +3160,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-32",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-57",
         "ders":  "Finansal Muhasebe",
         "konu":  "alinan siparis avanslari",
         "donem":  2,
@@ -3064,10 +3176,50 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-57",
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-32",
         "ders":  "Finansal Muhasebe",
         "konu":  "alinan siparis avanslari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-kolay",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "amortisman yontemi degisimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-12",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "amortisman yontemi degisimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-07",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "amortisman yontemi degisimi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-51",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "aralikli envanter yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-51",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "aralikli envanter yontemi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3080,18 +3232,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-51",
+        "etiket":  "sgs-c2-fmuh-kolay-r1-2",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
-        "konu":  "aralikli envanter yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-51",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "aralikli envanter yontemi",
+        "konu":  "azalan bakiyelerden normale gecis amortismani",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3112,26 +3256,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r1-2",
-        "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "azalan bakiyelerden normale gecis amortismani",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-fmuh-zor-r2",
         "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
         "konu":  "bagli menkul kiymetler kaydi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d5-fmuh-cokzor-r2",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "bilanco sonrasi olaylar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3152,16 +3280,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-d5-fmuh-cokzor-r2",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
-        "konu":  "bilanco toplami degisimi",
+        "konu":  "bilanco sonrasi olaylar",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-21",
+        "etiket":  "sgs-c5-fmuh-cokzor-r1",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "bilanco toplami degisimi",
         "donem":  2,
@@ -3176,10 +3304,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-d2-fmuh-kolay-r1",
+        "id":  "kp-21",
         "ders":  "Finansal Muhasebe",
-        "konu":  "borc senedi yenileme",
+        "konu":  "bilanco toplami degisimi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3192,7 +3320,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "borc senedi yenileme",
@@ -3201,15 +3329,23 @@
     },
     {
         "etiket":  "sgs-t4-fmuh-cokzor",
-        "id":  "kp-03",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
-        "konu":  "brut satis kari",
+        "konu":  "borc senedi yenileme",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-p-fmuh-zor-r1",
         "id":  "kp-25",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "brut satis kari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-cokzor",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "brut satis kari",
         "donem":  2,
@@ -3264,8 +3400,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-t3-fmuh-zor",
+        "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik takasi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  2,
@@ -3288,18 +3432,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-zor",
-        "id":  "kp-09",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
-        "id":  "kp-12",
+        "etiket":  "sgs-k1-fmuh-cokzor",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik takasi",
+        "konu":  "duzenleyici hesaplar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3328,15 +3472,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-cokzor",
-        "id":  "kp-09",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "duzenleyici hesaplar",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-65",
         "ders":  "Finansal Muhasebe",
         "konu":  "fifo stok degerleme",
@@ -3344,7 +3488,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-65",
         "ders":  "Finansal Muhasebe",
         "konu":  "fifo stok degerleme",
@@ -3360,8 +3504,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-21",
+        "etiket":  "sgs-p-fmuh-cokzor-r2",
+        "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait gelirler",
         "donem":  2,
@@ -3376,15 +3520,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r2",
-        "id":  "kp-27",
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-21",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait gelirler",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-kolay",
+        "etiket":  "sgs-t3-fmuh-zor",
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait gider",
@@ -3394,6 +3538,14 @@
     {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-64",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelecek aylara ait gider",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t3-fmuh-kolay",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek aylara ait gider",
         "donem":  2,
@@ -3416,10 +3568,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-zor",
-        "id":  "kp-10",
+        "etiket":  "sgs-p-fmuh-zor-r1",
+        "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek aylara ait gider",
+        "konu":  "gelecek yillara ait gelirler",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3432,18 +3584,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-22",
+        "etiket":  "sgs-p-fmuh-zor-r3",
+        "id":  "kp-23",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek yillara ait gelirler",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r3",
-        "id":  "kp-23",
+        "etiket":  "sgs-p-fmuh-kolay-r1",
+        "id":  "kp-25",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek yillara ait gelirler",
+        "konu":  "gelir tablosu",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3464,10 +3616,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r1",
-        "id":  "kp-25",
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-21",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tablosu",
+        "konu":  "gelir tablosu ilkeleri",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3480,26 +3632,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-21",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tablosu ilkeleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-fmuh-zor-r3",
         "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tablosu ilkeleri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tablosu kalemleri",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3520,10 +3656,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelir tablosu kalemleri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-50",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-zor-r2",
+        "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelir-gider hesaplari isleyisi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3544,10 +3696,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r2",
-        "id":  "kp-17",
+        "etiket":  "sgs-p-fmuh-zor-r3",
+        "id":  "kp-25",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelir-gider hesaplari isleyisi",
+        "konu":  "gider pusulasi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-14",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gider pusulasi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3560,23 +3720,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r3",
-        "id":  "kp-25",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gider pusulasi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-67",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gider tahakkuklari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-67",
         "ders":  "Finansal Muhasebe",
         "konu":  "gider tahakkuklari",
@@ -3592,7 +3736,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-67",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gider tahakkuklari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "hatali kayit duzeltme",
@@ -3600,7 +3752,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "hatali kayit duzeltme",
@@ -3616,6 +3768,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-fmuh-zor-r1",
+        "id":  "kp-19",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hisse senedi iptali",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-fmuh-cokzor-r2",
         "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
@@ -3626,14 +3786,6 @@
     {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-63",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi iptali",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-zor-r1",
-        "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi iptali",
         "donem":  2,
@@ -3680,24 +3832,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-37",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "isletme birlesmesi serefiye",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-08",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "isletme birlesmesi serefiye",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-59",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "isletme birlesmesi serefiye",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-37",
         "ders":  "Finansal Muhasebe",
         "konu":  "isletme birlesmesi serefiye",
         "donem":  2,
@@ -3712,10 +3856,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-08",
         "ders":  "Finansal Muhasebe",
-        "konu":  "istirakler bagli ortakliklar",
+        "konu":  "isletme birlesmesi serefiye",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3736,10 +3880,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-mta-kolay-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-c5-fmuh-kolay-r1",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
-        "konu":  "kapasite artirici harcama amortismani",
+        "konu":  "istirakler bagli ortakliklar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3760,6 +3904,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-mta-kolay-r1",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kapasite artirici harcama amortismani",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-fmuh-cokzor-r1",
         "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
@@ -3769,14 +3921,6 @@
     },
     {
         "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kavramsal cerceve niteliksel ozellikler",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "kavramsal cerceve niteliksel ozellikler",
@@ -3800,8 +3944,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-zor-r1",
-        "id":  "kp-25",
+        "etiket":  "sgs-t4-fmuh-kolay",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kavramsal cerceve niteliksel ozellikler",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bc-fmuh-zor-r2",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
         "konu":  "kisilik kavrami",
         "donem":  2,
@@ -3816,10 +3968,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bc-fmuh-zor-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-d2-fmuh-zor-r1",
+        "id":  "kp-25",
         "ders":  "Finansal Muhasebe",
         "konu":  "kisilik kavrami",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-18",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kredi faiz tahakkuku",
         "donem":  2,
         "kurtarma":  false
     },
@@ -3834,14 +3994,6 @@
     {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-37",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kredi faiz tahakkuku",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "kredi faiz tahakkuku",
         "donem":  2,
@@ -3872,16 +4024,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r3",
-        "id":  "kp-18",
+        "etiket":  "sgs-d2-fmuh-kolay-r1-2",
+        "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "marjinal urun kaydi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1-2",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-fmuh-zor-r3",
+        "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "marjinal urun kaydi",
         "donem":  2,
@@ -3912,16 +4064,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-24",
+        "etiket":  "sgs-d3-fmuh-cokzor-r2",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "menkul sermaye iradi sayilmayanlar",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-cokzor-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
         "konu":  "menkul sermaye iradi sayilmayanlar",
         "donem":  2,
@@ -3944,14 +4096,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-cokzor",
-        "id":  "kp-08",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "muhasebe bilgi sistemi sureci",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-fmuh-cokzor-r2",
         "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
@@ -3968,7 +4112,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-k1-fmuh-cokzor",
+        "id":  "kp-08",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "muhasebe bilgi sistemi sureci",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-38",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe tahmini degisikligi",
@@ -3976,7 +4128,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-38",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe tahmini degisikligi",
@@ -3992,16 +4144,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-zor-r1",
-        "id":  "kp-24",
+        "etiket":  "sgs-p-fmuh-kolay-r1",
+        "id":  "kp-30",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe temel kavramlari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r1",
-        "id":  "kp-30",
+        "etiket":  "sgs-d2-fmuh-zor-r1",
+        "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe temel kavramlari",
         "donem":  2,
@@ -4048,6 +4200,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d3-fmuh-cokzor-r1",
+        "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "oz kaynak toplami hesabi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-cokzor-r2",
+        "id":  "kp-10",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "oz kaynak toplami hesabi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-kolay-r3",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
@@ -4064,32 +4232,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-cokzor-r2",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "oz kaynak toplami hesabi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-cokzor-r1",
-        "id":  "kp-17",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "oz kaynak toplami hesabi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-cokzor-r3",
-        "id":  "kp-22",
+        "etiket":  "sgs-c2-fmuh-zor-r1",
+        "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozel maliyet itfasi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1",
-        "id":  "kp-20",
+        "etiket":  "sgs-p-fmuh-cokzor-r3",
+        "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozel maliyet itfasi",
         "donem":  2,
@@ -4128,16 +4280,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-31",
+        "etiket":  "sgs-k1-fmuh-cokzor",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak hesaplari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-cokzor",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak hesaplari",
         "donem":  2,
@@ -4160,14 +4312,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-24",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozkaynaklar hesaplama",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-fmuh-cokzor-r1",
         "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
@@ -4177,9 +4321,9 @@
     },
     {
         "etiket":  "sgs-d2-fmuh-kolay-r1",
-        "id":  "kp-23",
+        "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
-        "konu":  "reeskont kaydi",
+        "konu":  "ozkaynaklar hesaplama",
         "donem":  2,
         "kurtarma":  false
     },
@@ -4200,6 +4344,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-fmuh-kolay-r1",
+        "id":  "kp-23",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "reeskont kaydi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-34",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "satilan ticari mal maliyeti",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-22",
         "ders":  "Finansal Muhasebe",
@@ -4208,7 +4368,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-34",
         "ders":  "Finansal Muhasebe",
         "konu":  "satilan ticari mal maliyeti",
@@ -4220,22 +4380,6 @@
         "id":  "kp-34",
         "ders":  "Finansal Muhasebe",
         "konu":  "satilan ticari mal maliyeti",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-34",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "satilan ticari mal maliyeti",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-33",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "satilan ticari mallar maliyeti",
         "donem":  2,
         "kurtarma":  false
     },
@@ -4256,10 +4400,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-46",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-33",
         "ders":  "Finansal Muhasebe",
-        "konu":  "satis iskontosu kaydi",
+        "konu":  "satilan ticari mallar maliyeti",
         "donem":  2,
         "kurtarma":  false
     },
@@ -4272,7 +4416,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "satis iskontosu kaydi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-46",
         "ders":  "Finansal Muhasebe",
         "konu":  "satis iskontosu kaydi",
@@ -4280,8 +4432,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-46",
         "ders":  "Finansal Muhasebe",
         "konu":  "satis iskontosu kaydi",
         "donem":  2,
@@ -4320,14 +4472,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-48",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye artirimi kaydi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-48",
         "ders":  "Finansal Muhasebe",
@@ -4336,10 +4480,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-48",
         "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye kaydi",
+        "konu":  "sermaye artirimi kaydi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -4352,7 +4496,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
+        "etiket":  "sgs-c5-fmuh-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye kaydi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-47",
         "ders":  "Finansal Muhasebe",
         "konu":  "siparis avansi mahsubu",
@@ -4368,7 +4520,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-47",
         "ders":  "Finansal Muhasebe",
         "konu":  "siparis avansi mahsubu",
@@ -4408,6 +4560,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d3-fmuh-zor-r1",
+        "id":  "kp-12",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "supheli alacak karsiligi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-52",
         "ders":  "Finansal Muhasebe",
@@ -4418,14 +4578,6 @@
     {
         "etiket":  "sgs-bc-fmuh-zor-r1",
         "id":  "kp-03",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "supheli alacak karsiligi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-zor-r1",
-        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "supheli alacak karsiligi",
         "donem":  2,
@@ -4472,16 +4624,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r2",
-        "id":  "kp-12",
+        "etiket":  "sgs-p-fmuh-zor-r1",
+        "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 10 kontrol gucu olmayan paylar",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r1",
-        "id":  "kp-19",
+        "etiket":  "sgs-p-fmuh-zor-r2",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 10 kontrol gucu olmayan paylar",
         "donem":  2,
@@ -4496,8 +4648,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
-        "id":  "kp-13",
+        "etiket":  "sgs-p-fmuh-cokzor-r3",
+        "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 16 kiralamalar",
         "donem":  2,
@@ -4512,18 +4664,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r3",
-        "id":  "kp-16",
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 16 kiralamalar",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-zor-r1",
-        "id":  "kp-13",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
-        "konu":  "ticari mallar hesabi",
+        "konu":  "tfrs 16 kiralamalar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-06",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 16 kiralamalar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -4545,6 +4705,22 @@
     },
     {
         "etiket":  "sgs-d3-fmuh-zor-r1",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ticari mallar hesabi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 1 finansal tablolar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-fmuh-zor-r1",
         "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 1 finansal tablolar",
@@ -4560,24 +4736,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 1 finansal tablolar",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1-2",
-        "id":  "kp-01",
+        "etiket":  "sgs-c2-fmuh-cokzor-r1",
+        "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 16 maliyet bedeli",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1",
-        "id":  "kp-20",
+        "etiket":  "sgs-c2-fmuh-cokzor-r1-2",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 16 maliyet bedeli",
         "donem":  2,
@@ -4616,6 +4784,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-fmuh-zor-r1",
+        "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 28 ozkaynak yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-fmuh-kolay-r1",
         "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
@@ -4626,14 +4802,6 @@
     {
         "etiket":  "sgs-p-fmuh-cokzor-r2",
         "id":  "kp-23",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 28 ozkaynak yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-fmuh-zor-r1",
-        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 28 ozkaynak yontemi",
         "donem":  2,
@@ -4664,14 +4832,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-40",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 8 muhasebe politikasi degisikligi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
@@ -4688,15 +4848,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-42",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-40",
         "ders":  "Finansal Muhasebe",
-        "konu":  "yapilmakta olan yatirimlar",
+        "konu":  "tms 8 muhasebe politikasi degisikligi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-42",
         "ders":  "Finansal Muhasebe",
         "konu":  "yapilmakta olan yatirimlar",
@@ -4712,6 +4872,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-42",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "yapilmakta olan yatirimlar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-fmuh-cokzor-r1-2",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
@@ -4720,16 +4888,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-zor",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-151",
         "ders":  "Finansal Muhasebe",
         "konu":  "aktiflesen gider",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-151",
+        "etiket":  "sgs-t3-fmuh-zor",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "aktiflesen gider",
         "donem":  1,
@@ -4744,7 +4912,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2-2",
+        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "aktiflestirilen gider",
@@ -4752,7 +4920,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
+        "etiket":  "sgs-c5-fmuh-kolay-r2-2",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "aktiflestirilen gider",
@@ -4832,16 +5000,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-146",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-32",
         "ders":  "Finansal Muhasebe",
         "konu":  "amortisman yontemleri",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-32",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-146",
         "ders":  "Finansal Muhasebe",
         "konu":  "amortisman yontemleri",
         "donem":  1,
@@ -4905,7 +5073,7 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-142",
+        "id":  "kp-173",
         "ders":  "Finansal Muhasebe",
         "konu":  "arama giderleri 271",
         "donem":  1,
@@ -4913,7 +5081,7 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-173",
+        "id":  "kp-142",
         "ders":  "Finansal Muhasebe",
         "konu":  "arama giderleri 271",
         "donem":  1,
@@ -4928,7 +5096,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-153",
         "ders":  "Finansal Muhasebe",
         "konu":  "avans mahsup kaydi",
@@ -4936,8 +5104,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-cokzor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-153",
         "ders":  "Finansal Muhasebe",
         "konu":  "avans mahsup kaydi",
         "donem":  1,
@@ -4952,8 +5120,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-153",
+        "etiket":  "sgs-k1-fmuh-cokzor",
+        "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "avans mahsup kaydi",
         "donem":  1,
@@ -5056,16 +5224,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-25",
+        "etiket":  "sgs-e16-fmuh-zor",
+        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "bedelsiz pay sermaye artirimi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-zor",
-        "id":  "kp-17",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-25",
         "ders":  "Finansal Muhasebe",
         "konu":  "bedelsiz pay sermaye artirimi",
         "donem":  1,
@@ -5096,14 +5264,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-155",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "borclanma maliyetleri aktiflestirme",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-155",
         "ders":  "Finansal Muhasebe",
@@ -5120,6 +5280,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-155",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "borclanma maliyetleri aktiflestirme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-maliyet-cokzor-r3",
+        "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "borclanma maliyetleri tms23",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-maliyet-cokzor-r2",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
@@ -5130,14 +5306,6 @@
     {
         "etiket":  "sgs-d2-maliyet-cokzor-r1",
         "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "borclanma maliyetleri tms23",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-maliyet-cokzor-r3",
-        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "borclanma maliyetleri tms23",
         "donem":  1,
@@ -5240,14 +5408,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-50",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "diger borc ve gider karsiliklari",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-96",
         "ders":  "Finansal Muhasebe",
@@ -5256,7 +5416,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-96",
         "ders":  "Finansal Muhasebe",
         "konu":  "diger borc ve gider karsiliklari",
@@ -5264,7 +5424,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-50",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "diger borc ve gider karsiliklari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-96",
         "ders":  "Finansal Muhasebe",
         "konu":  "diger borc ve gider karsiliklari",
@@ -5312,6 +5480,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-32",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem net kâri hesaplama",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-32",
         "ders":  "Finansal Muhasebe",
@@ -5328,14 +5504,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-32",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem net kâri hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
@@ -5344,7 +5512,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
+        "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
         "konu":  "donem net zarari kapanisi",
@@ -5352,7 +5520,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
         "konu":  "donem net zarari kapanisi",
@@ -5376,6 +5544,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-fmuh-cokzor-r1",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "doviz borc senedi reeskont-tasarruf degeri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-fmuh-cokzor-r2",
         "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
@@ -5384,10 +5560,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r1",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-131",
         "ders":  "Finansal Muhasebe",
-        "konu":  "doviz borc senedi reeskont-tasarruf degeri",
+        "konu":  "doviz kredisi kapatma",
         "donem":  1,
         "kurtarma":  false
     },
@@ -5400,23 +5576,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-131",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "doviz kredisi kapatma",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-137",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik (sabit kiymet) satisi kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-137",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik (sabit kiymet) satisi kaydi",
@@ -5432,7 +5592,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-137",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik (sabit kiymet) satisi kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-137",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik (sabit kiymet) satisi kaydi",
@@ -5456,7 +5624,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-83",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi",
@@ -5472,18 +5640,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-83",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-fmuh-zor-r1-2",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik satisi amortisman",
         "donem":  1,
         "kurtarma":  false
     },
@@ -5496,8 +5656,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-26",
+        "etiket":  "sgs-c5-fmuh-zor-r1-2",
+        "id":  "kp-10",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik satisi amortisman",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-72",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  1,
@@ -5520,16 +5688,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
-        "id":  "kp-26",
+        "etiket":  "sgs-c5-fmuh-kolay-r2",
+        "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-72",
+        "etiket":  "sgs-d3-fmuh-zor-r1",
+        "id":  "kp-19",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik takasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-cokzor",
+        "id":  "kp-26",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  1,
@@ -5552,16 +5728,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2",
-        "id":  "kp-18",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik takasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-zor-r1",
-        "id":  "kp-19",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-26",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  1,
@@ -5584,14 +5752,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-fmuh-cokzor-r2",
-        "id":  "kp-16",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "envanter defteri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d5-fmuh-cokzor-r1",
         "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
@@ -5600,10 +5760,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-95",
+        "etiket":  "sgs-d5-fmuh-cokzor-r2",
+        "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
-        "konu":  "ertelenen kdv 192 392 kaydi",
+        "konu":  "envanter defteri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -5616,10 +5776,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-vergi-kolay-r2",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-95",
         "ders":  "Finansal Muhasebe",
-        "konu":  "ertelenmis vergi varligi-yukumlulugu",
+        "konu":  "ertelenen kdv 192 392 kaydi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -5632,24 +5792,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-118",
+        "etiket":  "sgs-c5-vergi-kolay-r2",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
-        "konu":  "faaliyet giderleri hesabi",
+        "konu":  "ertelenmis vergi varligi-yukumlulugu",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t3-fmuh-zor",
         "id":  "kp-12",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "faaliyet giderleri hesabi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-fmuh-zor",
-        "id":  "kp-21",
         "ders":  "Finansal Muhasebe",
         "konu":  "faaliyet giderleri hesabi",
         "donem":  1,
@@ -5664,10 +5816,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-e16-fmuh-zor",
+        "id":  "kp-21",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "faaliyet giderleri hesabi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-118",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "faaliyet giderleri hesabi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-fmuh-kolay",
         "id":  "kp-35",
         "ders":  "Finansal Muhasebe",
         "konu":  "faaliyet giderleri hesabi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-fmuh-zor",
+        "id":  "kp-18",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "faaliyet kâri hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
@@ -5681,22 +5857,6 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-140",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "faaliyet kâri hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-88",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "faaliyet kâri hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-140",
         "ders":  "Finansal Muhasebe",
         "konu":  "faaliyet kâri hesaplama",
@@ -5712,24 +5872,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-zor",
-        "id":  "kp-18",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-140",
         "ders":  "Finansal Muhasebe",
         "konu":  "faaliyet kâri hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-74",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-88",
         "ders":  "Finansal Muhasebe",
-        "konu":  "faaliyet nakit akisi",
+        "konu":  "faaliyet kâri hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-e16c-fmuh-zor",
         "id":  "kp-03",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "faaliyet nakit akisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-74",
         "ders":  "Finansal Muhasebe",
         "konu":  "faaliyet nakit akisi",
         "donem":  1,
@@ -5792,14 +5960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r1",
-        "id":  "kp-20",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "finansman bonosu vade sonu kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-cokzor-r2",
         "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
@@ -5808,7 +5968,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-fmuh-cokzor-r1",
+        "id":  "kp-20",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "finansman bonosu vade sonu kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-177",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "finansman gideri islemleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-177",
         "ders":  "Finansal Muhasebe",
         "konu":  "finansman gideri islemleri",
@@ -5824,22 +6000,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-177",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "finansman gideri islemleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-178",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek aylara ait gelir",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-fmuh-kolay",
         "id":  "kp-72",
         "ders":  "Finansal Muhasebe",
@@ -5849,9 +6009,9 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-179",
+        "id":  "kp-178",
         "ders":  "Finansal Muhasebe",
-        "konu":  "gelecek aylara ait gider kapanisi",
+        "konu":  "gelecek aylara ait gelir",
         "donem":  1,
         "kurtarma":  false
     },
@@ -5872,6 +6032,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-179",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelecek aylara ait gider kapanisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-fmuh-kolay",
         "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
@@ -5880,16 +6048,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
-        "id":  "kp-12",
+        "etiket":  "sgs-c5-fmuh-kolay-r2-2",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek donem giderlerini ayirma kaydi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2-2",
-        "id":  "kp-11",
+        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelecek donem giderlerini ayirma kaydi",
         "donem":  1,
@@ -5952,14 +6120,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-184",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "gelir tahakkuku kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-fmuh-zor",
         "id":  "kp-76",
         "ders":  "Finansal Muhasebe",
@@ -5968,7 +6128,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-184",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku kaydi",
@@ -5976,7 +6136,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-184",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "gelir tahakkuku kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-184",
         "ders":  "Finansal Muhasebe",
         "konu":  "gelir tahakkuku kaydi",
@@ -6040,7 +6208,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-101",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hisse senedi deger dusuklugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-fmuh-cokzor",
+        "id":  "kp-27",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hisse senedi deger dusuklugu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi deger dusuklugu",
@@ -6058,22 +6242,6 @@
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-188",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi deger dusuklugu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-kolay",
-        "id":  "kp-27",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi deger dusuklugu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-101",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi deger dusuklugu",
         "donem":  1,
@@ -6104,14 +6272,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r2",
-        "id":  "kp-13",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi satis kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-139",
         "ders":  "Finansal Muhasebe",
@@ -6120,16 +6280,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r1-3",
-        "id":  "kp-02",
+        "etiket":  "sgs-c5-fmuh-zor-r2",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
-        "konu":  "hisse senedi satisi",
+        "konu":  "hisse senedi satis kaydi",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-c5-fmuh-cokzor-r2-2",
         "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "hisse senedi satisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-fmuh-cokzor-r1-3",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "hisse senedi satisi",
         "donem":  1,
@@ -6152,7 +6320,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-fmuh-zor-r1",
+        "etiket":  "sgs-d5-fmuh-zor-r2",
         "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "ihrac primli hisse satisi",
@@ -6168,7 +6336,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-fmuh-zor-r2",
+        "etiket":  "sgs-d5-fmuh-zor-r1",
         "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "ihrac primli hisse satisi",
@@ -6192,14 +6360,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-15",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "istirakler bagli ortakliklar",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-cokzor-r2",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
@@ -6216,6 +6376,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-15",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "istirakler bagli ortakliklar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d5-fmuh-zor-r2",
         "id":  "kp-25",
         "ders":  "Finansal Muhasebe",
@@ -6224,8 +6392,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-kolay",
-        "id":  "kp-06",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
         "konu":  "kapsamli gelir",
         "donem":  1,
@@ -6248,18 +6416,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-38",
+        "etiket":  "sgs-k1-fmuh-kolay",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitimi yedek akce",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-fmuh-zor-r2",
-        "id":  "kp-19",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitimi yedek akce",
+        "konu":  "kapsamli gelir",
         "donem":  1,
         "kurtarma":  false
     },
@@ -6280,16 +6440,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-108",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-38",
         "ders":  "Finansal Muhasebe",
-        "konu":  "kâr dagitimi yedekler",
+        "konu":  "kar dagitimi yedek akce",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-31",
+        "etiket":  "sgs-c5-fmuh-zor-r2",
+        "id":  "kp-19",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kar dagitimi yedek akce",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-108",
         "ders":  "Finansal Muhasebe",
         "konu":  "kâr dagitimi yedekler",
         "donem":  1,
@@ -6304,18 +6472,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
-        "konu":  "kar dagitiminda yedekler",
+        "konu":  "kâr dagitimi yedekler",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-39",
+        "etiket":  "sgs-c5-fmuh-cokzor-r2",
+        "id":  "kp-05",
         "ders":  "Finansal Muhasebe",
-        "konu":  "kar payi vergi kesintisi",
+        "konu":  "kar dagitiminda yedekler",
         "donem":  1,
         "kurtarma":  false
     },
@@ -6328,8 +6496,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r1-2",
-        "id":  "kp-12",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-39",
         "ders":  "Finansal Muhasebe",
         "konu":  "kar payi vergi kesintisi",
         "donem":  1,
@@ -6338,6 +6506,14 @@
     {
         "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-39",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kar payi vergi kesintisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-fmuh-zor-r1-2",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "kar payi vergi kesintisi",
         "donem":  1,
@@ -6408,6 +6584,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-fmuh-cokzor",
+        "id":  "kp-37",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kavramsal cerceve ifa degeri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-37",
         "ders":  "Finansal Muhasebe",
@@ -6424,15 +6608,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
-        "id":  "kp-37",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kavramsal cerceve ifa degeri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-cokzor",
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-34",
         "ders":  "Finansal Muhasebe",
         "konu":  "kavramsal cerceve yukumluluk",
@@ -6440,7 +6616,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-34",
         "ders":  "Finansal Muhasebe",
         "konu":  "kavramsal cerceve yukumluluk",
@@ -6480,6 +6656,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-163",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "kesin mizan bakiye",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-163",
         "ders":  "Finansal Muhasebe",
@@ -6488,10 +6672,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-163",
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-89",
         "ders":  "Finansal Muhasebe",
-        "konu":  "kesin mizan bakiye",
+        "konu":  "kesin mizan hesap kalani",
         "donem":  1,
         "kurtarma":  false
     },
@@ -6506,14 +6690,6 @@
     {
         "etiket":  "sgs-t2-fmuh-cokzor",
         "id":  "kp-106",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "kesin mizan hesap kalani",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-89",
         "ders":  "Finansal Muhasebe",
         "konu":  "kesin mizan hesap kalani",
         "donem":  1,
@@ -6568,7 +6744,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-mta-zor-r1",
+        "etiket":  "sgs-c5-mta-zor-r2",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "kredili tasit alimi kaydi",
@@ -6576,7 +6752,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-mta-zor-r2",
+        "etiket":  "sgs-c5-mta-zor-r1",
         "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "kredili tasit alimi kaydi",
@@ -6600,16 +6776,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
-        "id":  "kp-35",
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-90",
         "ders":  "Finansal Muhasebe",
         "konu":  "maddi olmayan duran varlik (haklar)",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-90",
+        "etiket":  "sgs-t4-fmuh-kolay",
+        "id":  "kp-35",
         "ders":  "Finansal Muhasebe",
         "konu":  "maddi olmayan duran varlik (haklar)",
         "donem":  1,
@@ -6624,7 +6800,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-180",
         "ders":  "Finansal Muhasebe",
         "konu":  "maliyet gideri karsiligi",
@@ -6632,7 +6808,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-180",
         "ders":  "Finansal Muhasebe",
         "konu":  "maliyet gideri karsiligi",
@@ -6656,6 +6832,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-169",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "menkul kiymet alimi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-169",
         "ders":  "Finansal Muhasebe",
@@ -6672,32 +6856,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-169",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "menkul kiymet alimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-134",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "menkul kiymet satisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-134",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "menkul kiymet satisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-cokzor-r2",
         "id":  "kp-20",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "menkul kiymet satisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-134",
         "ders":  "Finansal Muhasebe",
         "konu":  "menkul kiymet satisi",
         "donem":  1,
@@ -6712,8 +6880,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-134",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "menkul kiymet satisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-fmuh-cokzor-r1",
         "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "menkul kiymet satisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-134",
         "ders":  "Finansal Muhasebe",
         "konu":  "menkul kiymet satisi",
         "donem":  1,
@@ -6728,26 +6912,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-134",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "menkul kiymet satisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d5-fmuh-kolay-r2",
         "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
         "konu":  "mevduat faiz",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-92",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "mevduat faizi-onceki donem",
         "donem":  1,
         "kurtarma":  false
     },
@@ -6768,10 +6936,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2-2",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-92",
         "ders":  "Finansal Muhasebe",
-        "konu":  "mizan kurallari",
+        "konu":  "mevduat faizi-onceki donem",
         "donem":  1,
         "kurtarma":  false
     },
@@ -6786,6 +6954,14 @@
     {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-30",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "mizan kurallari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-fmuh-kolay-r2-2",
+        "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
         "konu":  "mizan kurallari",
         "donem":  1,
@@ -6816,16 +6992,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16c-fmuh-kolay",
-        "id":  "kp-01",
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-88",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe bilgi sistemi girdi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-88",
+        "etiket":  "sgs-e16c-fmuh-kolay",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "muhasebe bilgi sistemi girdi",
         "donem":  1,
@@ -6880,14 +7056,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-14",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "nakit girisi surecleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
@@ -6896,7 +7064,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-14",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "nakit girisi surecleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-85",
         "ders":  "Finansal Muhasebe",
         "konu":  "normal amortisman yontemi",
@@ -6904,7 +7080,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-85",
         "ders":  "Finansal Muhasebe",
         "konu":  "normal amortisman yontemi",
@@ -6936,16 +7112,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-43",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-91",
         "ders":  "Finansal Muhasebe",
         "konu":  "olagandisi gelir siniflandirma",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-91",
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-43",
         "ders":  "Finansal Muhasebe",
         "konu":  "olagandisi gelir siniflandirma",
         "donem":  1,
@@ -6968,7 +7144,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozel maliyet itfasi",
@@ -6976,7 +7152,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozel maliyet itfasi",
@@ -6992,14 +7168,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
-        "id":  "kp-16",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozkaynak negatif analizi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
@@ -7008,8 +7176,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-07",
+        "etiket":  "sgs-t4-fmuh-kolay",
+        "id":  "kp-16",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "ozkaynak negatif analizi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-98",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak tutari hesaplama",
         "donem":  1,
@@ -7024,10 +7200,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-98",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak tutari hesaplama",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-18",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "pasif duzenleyici hesap",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-09",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "pasif duzenleyici hesap",
         "donem":  1,
         "kurtarma":  false
     },
@@ -7072,7 +7264,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-93",
         "ders":  "Finansal Muhasebe",
         "konu":  "reeskont vade sonu kaydi",
@@ -7088,7 +7280,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-93",
         "ders":  "Finansal Muhasebe",
         "konu":  "reeskont vade sonu kaydi",
@@ -7144,8 +7336,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
-        "id":  "kp-71",
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "satistan iade-surekli envanter",
         "donem":  1,
@@ -7160,8 +7352,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-fmuh-zor",
+        "id":  "kp-71",
         "ders":  "Finansal Muhasebe",
         "konu":  "satistan iade-surekli envanter",
         "donem":  1,
@@ -7176,14 +7368,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-09",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "senet ile mal alisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-68",
         "ders":  "Finansal Muhasebe",
@@ -7192,10 +7376,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-10",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
-        "konu":  "senet iskonto ettirme",
+        "konu":  "senet ile mal alisi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -7218,6 +7402,14 @@
     {
         "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-69",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "senet iskonto ettirme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "senet iskonto ettirme",
         "donem":  1,
@@ -7256,8 +7448,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-75",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-39",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi-ic kaynaklar",
         "donem":  1,
@@ -7272,24 +7464,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-39",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-75",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi-ic kaynaklar",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-114",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye artirimi-ihrac primi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-128",
+        "etiket":  "sgs-t3-fmuh-zor",
+        "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi-ihrac primi",
         "donem":  1,
@@ -7304,8 +7488,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t3-fmuh-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-128",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye artirimi-ihrac primi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-114",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi-ihrac primi",
         "donem":  1,
@@ -7316,6 +7508,14 @@
         "id":  "kp-108",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye artirimi-ihrac primi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-fmuh-zor",
+        "id":  "kp-08",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "sermaye taahhudu-hisse iptali",
         "donem":  1,
         "kurtarma":  false
     },
@@ -7336,15 +7536,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-zor",
-        "id":  "kp-08",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "sermaye taahhudu-hisse iptali",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye yedekleri hesaplama",
@@ -7352,7 +7544,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye yedekleri hesaplama",
@@ -7368,7 +7560,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "sigortali varlik kaybi",
@@ -7384,7 +7576,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "sigortali varlik kaybi",
@@ -7400,7 +7592,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-64",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "siparis avansi satis kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-79",
         "ders":  "Finansal Muhasebe",
         "konu":  "siparis avansi satis kaydi",
@@ -7416,16 +7616,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-79",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "siparis avansi satis kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-64",
         "ders":  "Finansal Muhasebe",
         "konu":  "siparis avansi satis kaydi",
         "donem":  1,
@@ -7480,14 +7672,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r1-2",
-        "id":  "kp-02",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "supheli alacak kismi tahsili",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-cokzor-r2-2",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
@@ -7496,10 +7680,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-24",
+        "etiket":  "sgs-c5-fmuh-cokzor-r1-2",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
-        "konu":  "surdurulebilirlik standartlari issb",
+        "konu":  "supheli alacak kismi tahsili",
         "donem":  1,
         "kurtarma":  false
     },
@@ -7520,6 +7704,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-24",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "surdurulebilirlik standartlari issb",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-78",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tahvil faiz tahakkuku",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-78",
         "ders":  "Finansal Muhasebe",
@@ -7529,14 +7729,6 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-78",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tahvil faiz tahakkuku",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-78",
         "ders":  "Finansal Muhasebe",
         "konu":  "tahvil faiz tahakkuku",
@@ -7584,14 +7776,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
-        "id":  "kp-24",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tahvil ihraci-iskonto",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
@@ -7601,6 +7785,14 @@
     },
     {
         "etiket":  "sgs-t4-fmuh-kolay",
+        "id":  "kp-24",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tahvil ihraci-iskonto",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
         "konu":  "tahvil ihraci-iskonto",
@@ -7656,7 +7848,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-115",
         "ders":  "Finansal Muhasebe",
         "konu":  "temettu geliri tahakkuku",
@@ -7664,7 +7856,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-115",
         "ders":  "Finansal Muhasebe",
         "konu":  "temettu geliri tahakkuku",
@@ -7688,6 +7880,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-17",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 15 hasilat adimlari",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-117",
         "ders":  "Finansal Muhasebe",
@@ -7696,31 +7896,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 15 sozlesme maliyetleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-fmuh-kolay-r1",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 15 sozlesme maliyetleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-116",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 15 sozlesme maliyetleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-116",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 15 sozlesme maliyetleri",
@@ -7736,10 +7912,26 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-122",
+        "etiket":  "sgs-c5-fmuh-kolay-r1",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 16 kullanim hakki",
+        "konu":  "tfrs 15 sozlesme maliyetleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-fmuh-kolay-r2",
+        "id":  "kp-06",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 15 sozlesme maliyetleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-116",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 15 sozlesme maliyetleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -7752,18 +7944,42 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-127",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-122",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 3 isletme birlesmeleri",
+        "konu":  "tfrs 16 kullanim hakki",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-66",
+        "etiket":  "sgs-k5-fmuh-zor",
+        "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 3 negatif serefiye",
+        "konu":  "tfrs 3 gercege uygun deger olcumu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-kolay",
+        "id":  "kp-05",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 3 gercege uygun deger olcumu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-fmuh-cokzor",
+        "id":  "kp-08",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 3 gercege uygun deger olcumu",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-127",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 3 isletme birlesmeleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -7778,6 +7994,14 @@
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-128",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 3 negatif serefiye",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-66",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 3 negatif serefiye",
         "donem":  1,
@@ -7816,16 +8040,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-64",
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-48",
         "ders":  "Finansal Muhasebe",
         "konu":  "ticari mal satis kaydi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-48",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-64",
         "ders":  "Finansal Muhasebe",
         "konu":  "ticari mal satis kaydi",
         "donem":  1,
@@ -7864,14 +8088,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-183",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 1 netlestirme",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-kolay-r2",
         "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
@@ -7881,6 +8097,14 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-183",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 1 netlestirme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-183",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 1 netlestirme",
@@ -7920,6 +8144,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-125",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 16 amortisman",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-125",
         "ders":  "Finansal Muhasebe",
@@ -7929,14 +8161,6 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-125",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 16 amortisman",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-125",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 16 amortisman",
@@ -8008,7 +8232,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1",
+        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 2 net gerceklesebilir deger olcumu",
@@ -8016,7 +8240,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
+        "etiket":  "sgs-c5-fmuh-kolay-r1",
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 2 net gerceklesebilir deger olcumu",
@@ -8048,14 +8272,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-zor-r2",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 23 borclanma maliyeti aktiflestirme",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-maliyet-zor-r1",
         "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
@@ -8064,10 +8280,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-103",
+        "etiket":  "sgs-c5-maliyet-zor-r2",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
-        "konu":  "tms 24 iliskili taraflar",
+        "konu":  "tms 23 borclanma maliyeti aktiflestirme",
         "donem":  1,
         "kurtarma":  false
     },
@@ -8080,10 +8296,26 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-103",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 24 iliskili taraflar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-103",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 24 iliskili taraflar",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-104",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 27 bagli ortaklik olcumu",
         "donem":  1,
         "kurtarma":  false
     },
@@ -8098,14 +8330,6 @@
     {
         "etiket":  "sgs-t2-fmuh-kolay",
         "id":  "kp-44",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 27 bagli ortaklik olcumu",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
-        "id":  "kp-104",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 27 bagli ortaklik olcumu",
         "donem":  1,
@@ -8128,14 +8352,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-105",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 29 yuksek enflasyon",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-105",
         "ders":  "Finansal Muhasebe",
@@ -8152,6 +8368,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-105",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 29 yuksek enflasyon",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2-fmuh-zor",
         "id":  "kp-49",
         "ders":  "Finansal Muhasebe",
@@ -8160,8 +8384,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-47",
+        "etiket":  "sgs-t2-fmuh-cokzor",
+        "id":  "kp-56",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 36 deger dusuklugu kapsami",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-102",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 36 deger dusuklugu kapsami",
         "donem":  1,
@@ -8184,16 +8416,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-102",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 36 deger dusuklugu kapsami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-cokzor",
-        "id":  "kp-56",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-47",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 36 deger dusuklugu kapsami",
         "donem":  1,
@@ -8336,16 +8560,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r1-2",
-        "id":  "kp-09",
+        "etiket":  "sgs-c5-fmuh-kolay-r1",
+        "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 7 dolayli yontem",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-c5-fmuh-zor-r1-2",
+        "id":  "kp-09",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 7 dolayli yontem",
         "donem":  1,
@@ -8376,7 +8600,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-106",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 8 muhasebe tahmini",
@@ -8384,7 +8608,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-106",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 8 muhasebe tahmini",
@@ -8408,7 +8632,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "ucret bordrosu kaydi",
@@ -8416,7 +8640,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
+        "etiket":  "sgs-e16-fmuh-kolay",
         "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "ucret bordrosu kaydi",
@@ -8456,15 +8680,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-23",
+        "etiket":  "sgs-k1-fmuh-cokzor",
+        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "yedek akce ayirma",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "yedek akce ayirma",
@@ -8480,16 +8704,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-cokzor",
-        "id":  "kp-13",
+        "etiket":  "sgs-t4-fmuh-cokzor",
+        "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "yedek akce ayirma",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
-        "id":  "kp-20",
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-23",
         "ders":  "Finansal Muhasebe",
         "konu":  "yedek akce ayirma",
         "donem":  1,
@@ -8536,14 +8760,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-109",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "yeralti yerustu duzenleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-109",
         "ders":  "Finansal Muhasebe",
@@ -8554,6 +8770,14 @@
     {
         "etiket":  "sgs-t2-fmuh-cokzor",
         "id":  "kp-65",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "yeralti yerustu duzenleri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-109",
         "ders":  "Finansal Muhasebe",
         "konu":  "yeralti yerustu duzenleri",
         "donem":  1,

@@ -4,7 +4,7 @@
  * radar-app/edge/magaza-dogrula.ts'in SAF bloğunu (// SAF-BASLA … // SAF-BITIS, tip yazımı yok) Node'da
  * vm ile GERÇEK kodundan koşturur (replika YASAK) ve ölçer:
  *   A) hakKarari(): kime ne tanımlanır, ne REDDEDİLİR (red = tüketilmez = Google 3 günde iade eder)
- *   B) dersleriDogrula() ve googleHukmu() (başka hesabın jetonu, bekleyen/iptal ödeme)
+ *   B) dersleriDogrula(), googleHukmu() ve appleHukmu() (başka hesabın/uygulamanın işlemi, ürün takası, iade)
  *   C) bitisHesapla() = fiyat-motoru.js bitisTarihi() — 400 farklı günde aynı gün
  *   D) paketSinavlari() = paket-kapisi.js kapsar() — paket×sınav tablosunda aynı
  *   E) Katalog tutarlılığı: magaza-urunleri.json ↔ edge URUNLER/DERSLER · site fiyatı = fiyat-motoru.js
@@ -28,7 +28,11 @@ const MUTASYONLAR = {
   'zaten-acik':   ['if (!yeniDers.length) return { islem: "red", neden: "zaten-acik" };', ''],
   'baska-sinav':  ['if (paketSinavlari(p).indexOf(u.sinav) < 0) return { islem: "red", neden: "baska-sinav" };', ''],
   'ders-sayisi':  ['if (temiz.length !== u.ders) return { tamam: false, hata: "ders-sayisi" };', ''],
-  'uzatma':       ['const uzat = satir.bitis && satir.bitis > yeniBitis ? satir.bitis : yeniBitis;', 'const uzat = yeniBitis;']
+  'uzatma':       ['const uzat = satir.bitis && satir.bitis > yeniBitis ? satir.bitis : yeniBitis;', 'const uzat = yeniBitis;'],
+  'apple-hesap':  ['if (String(a.appAccountToken || "").toLowerCase() !== String(kullaniciId).toLowerCase()) return "baska-hesap";', ''],
+  'apple-urun':   ['if (a.productId !== urunId) return "urun-uyusmuyor";', ''],
+  'apple-iade':   ['if (a.revocationDate) return "iptal";', ''],
+  'apple-uygulama': ['if (a.bundleId !== PAKET_ADI) return "baska-uygulama";', '']
 };
 
 if (process.argv.includes('--mutasyon')) {
@@ -59,7 +63,7 @@ if (mut) {
 }
 const E = {};
 vm.createContext(E);
-vm.runInContext(saf + '\n;this.X={URUNLER,DERSLER,SINAV_TARIHI,SURE_GUN,bitisHesapla,paketSinavlari,dersleriDogrula,hakKarari,googleHukmu,trGunu};', E);
+vm.runInContext(saf + '\n;this.X={URUNLER,DERSLER,SINAV_TARIHI,SURE_GUN,bitisHesapla,paketSinavlari,dersleriDogrula,hakKarari,googleHukmu,appleHukmu,trGunu};', E);
 const X = E.X;
 
 /* ---- A) hakKarari ---- */
@@ -105,6 +109,16 @@ t('B7 Google: satın alındı + bu hesap → tamam', X.googleHukmu({ purchaseSta
 t('B8 Google: başka hesabın jetonu → baska-hesap', X.googleHukmu({ purchaseState: 0, obfuscatedExternalAccountId: 'x' }, U) === 'baska-hesap');
 t('B9 Google: hesap kimliği boş → baska-hesap', X.googleHukmu({ purchaseState: 0 }, U) === 'baska-hesap');
 t('B10 Google: bekleyen ödeme → beklemede, iptal → iptal', X.googleHukmu({ purchaseState: 2, obfuscatedExternalAccountId: U }, U) === 'beklemede' && X.googleHukmu({ purchaseState: 1, obfuscatedExternalAccountId: U }, U) === 'iptal');
+
+/* ---- B-Apple) appleHukmu: App Store Server API işlem yükü ---- */
+const A = (o) => Object.assign({ bundleId: "com.tetikte.app", productId: "sgs", appAccountToken: U.toUpperCase(), type: "Consumable" }, o || {});
+t("B11 Apple: doğru uygulama + ürün + hesap (büyük harf UUID) → tamam", X.appleHukmu(A(), U, "sgs") === "tamam");
+t("B12 Apple: başka hesabın işlemi → baska-hesap", X.appleHukmu(A({ appAccountToken: "11111111-2222-3333-4444-555555555555" }), U, "sgs") === "baska-hesap");
+t("B13 Apple: hesap kimliği iliştirilmemiş → baska-hesap", X.appleHukmu(A({ appAccountToken: undefined }), U, "sgs") === "baska-hesap");
+t("B14 Apple: ucuz ürünün işlemiyle pahalı paket istemek → urun-uyusmuyor", X.appleHukmu(A({ productId: "yeterlilik_1" }), U, "yeterlilik_tum") === "urun-uyusmuyor");
+t("B15 Apple: iade edilmiş işlem → iptal", X.appleHukmu(A({ revocationDate: 1760000000000 }), U, "sgs") === "iptal");
+t("B16 Apple: başka uygulamanın işlemi → baska-uygulama", X.appleHukmu(A({ bundleId: "com.baska.app" }), U, "sgs") === "baska-uygulama");
+t("B17 Apple: yanıt yok → yanit-yok; tüketilemez tür → urun-turu", X.appleHukmu(null, U, "sgs") === "yanit-yok" && X.appleHukmu(A({ type: "Non-Consumable" }), U, "sgs") === "urun-turu");
 
 /* ---- C) bitiş = fiyat-motoru.js ---- */
 const F = { window: {}, console };
