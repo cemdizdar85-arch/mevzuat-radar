@@ -29,7 +29,7 @@
 </svg>
 
 <header class="ust">
-  <div class="marka"><span class="lamba" aria-hidden="true"></span>Tetikte</div>
+  <div class="marka"><svg class="logo" viewBox="24 18 280 84" role="img" aria-label="Tetikte"><defs><linearGradient id="ttLogoA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5a524"/><stop offset="1" stop-color="#ffc24b"/></linearGradient><radialGradient id="ttLogoH" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#f5a524" stop-opacity=".26"/><stop offset="100%" stop-color="#f5a524" stop-opacity="0"/></radialGradient></defs><circle cx="62" cy="60" r="34" fill="url(#ttLogoH)"/><circle cx="62" cy="60" r="19" fill="url(#ttLogoA)"/><text x="112" y="78" font-family="Inter,Segoe UI,system-ui,-apple-system,Roboto,Arial,sans-serif" font-size="58" font-weight="800" letter-spacing="-1.4" textLength="181" lengthAdjust="spacingAndGlyphs" fill="currentColor">tetıkte</text><circle cx="197" cy="30" r="7" fill="url(#ttLogoA)"/></svg></div>
   <div id="durumRozet" class="rozet" hidden></div>
 </header>
 
@@ -110,9 +110,12 @@
   <!-- HESAP İŞLEMLERİ -->
   <section id="hesapIslem" class="bolum" data-sekme="hesap">
     <div id="hesapDugmeler" hidden>
-      <button type="button" id="cihazlar" class="duz">Cihazlarımı yönet</button>
-      <button type="button" id="cikis" class="duz">Çıkış yap</button>
-      <button type="button" id="hesapSil" class="duz tehlike">Hesabımı sil</button>
+      <span class="etk">Hesap işlemleri</span>
+      <div class="satirlar">
+        <button type="button" id="cihazlar" class="srt"><span class="ad">Cihazlarımı yönet<small>Hesabına bağlı telefonlar ve bilgisayarlar</small></span><svg class="ik ok" aria-hidden="true"><use href="#i-ok"/></svg></button>
+        <button type="button" id="cikis" class="srt"><span class="ad">Çıkış yap</span></button>
+        <button type="button" id="hesapSil" class="srt tehlike"><span class="ad">Hesabımı sil<small>Hesabın ve ilerlemen kalıcı olarak silinir</small></span></button>
+      </div>
     </div>
   </section>
 
@@ -127,6 +130,7 @@
 <script src="uygulama.js"></script>
 <script src="uygulama-ozet.js"></script>
 <script src="uygulama-sinavlar.js"></script>
+<script src="uygulama-odeme.js"></script>
 <script src="uygulama-sekme.js"></script>
 </body>
 </html>

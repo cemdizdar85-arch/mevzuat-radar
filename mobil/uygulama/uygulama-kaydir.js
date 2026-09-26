@@ -166,7 +166,9 @@
         '<p>Yeşil doğru, kırmızı yanlış; köşesinde nokta olanlar işaretlediklerin. Bir soruya dokun, oraya git.</p>' +
         '<div class="sekmeler"><button type="button" data-s="tum">Tümü</button><button type="button" data-s="yan">Yanlışlar</button><button type="button" data-s="bay">İşaretliler</button></div>' +
         '<div class="izgara"></div>' +
-        '<button type="button" class="dugme ana tekrar" style="width:100%;margin-top:14px">↻ Yanlışlarımı tekrar çöz</button>' +
+        '<button type="button" class="dugme ana tekrar" style="width:100%;margin-top:14px">Yanlışlarımı tekrar çöz</button>' +
+        '<div class="ttAraclar"><button type="button" data-arac="kutu"><b>Yanlış kutusu</b><span></span></button>' +
+        '<button type="button" data-arac="skor"><b>Hazırlık skoru</b><span></span></button></div>' +
         '<div class="yazi">Yazı boyutu <button type="button" data-z="-1">A−</button><button type="button" data-z="0">A</button><button type="button" data-z="1">A+</button></div>' +
         '<button type="button" class="kapat">Kapat</button></div>';
       document.body.appendChild(l);
@@ -180,8 +182,18 @@
           IL.ayarYaz({ yazi: z }); yaziUygula(); return;
         }
         if (t.classList.contains('tekrar')) return tekrarBaslat();
+        var arac = t.closest && t.closest('[data-arac]');
+        if (arac) {   /* sayfanın kendi çipine dokun: yanlış kutusu / skor açıklaması sayfa motorunda açılır */
+          l.classList.remove('acik');
+          var kk = simdikiKart() || kartlar()[0], cp = kk && kk.querySelector(arac.dataset.arac === 'kutu' ? '.kutuCip' : '.skorCip');
+          if (cp) cp.click();
+        }
       });
     }
+    /* araçların güncel değeri: sayfanın çip yazısı (emoji zaten silinmiş) */
+    var kc = document.querySelector('.ustCip.kutuCip'), sc = document.querySelector('.ustCip.skorCip');
+    l.querySelector('[data-arac=kutu] span').textContent = kc ? kc.textContent.trim() : '';
+    l.querySelector('[data-arac=skor] span').textContent = sc ? sc.textContent.trim() : '';
     listeCiz(l);
     l.classList.add('acik');
   }
@@ -254,6 +266,8 @@
   /* her karta bir kez: "i / N" düğmesi, işaret (bayrak), açıklama kartına küçült/aç + not, cevap kaydı */
   function kartiDuzenle(k) {
     if (k.__tt) return; k.__tt = 1;
+    /* şık harfi rozette yalnız harf: "A)" → "A" (görünüm; data-h ve içerik aynı) */
+    [].forEach.call(k.querySelectorAll('.sik>b'), function (b) { b.textContent = b.textContent.replace(/[)\s]+$/, ''); });
     var sag = k.querySelector('.ustSag');
     if (sag) {
       for (var i = sag.childNodes.length - 1; i >= 0; i--) {
@@ -310,6 +324,7 @@
           if (!k.querySelector('.sik.dogru')) return;
           k.__cevaplandi = 1;
           IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k), kartBilgi(k, s));
+          if (window.TTHis) { if (s.classList.contains('dogru')) window.TTHis.dogru(); else window.TTHis.yanlis(); }
           cevapSonrasi();
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;
           if (g === h) serit('Günlük hedef tamam · ' + h + ' soru · seri ' + IL.seri() + ' gün', null, null, 3500);
@@ -368,7 +383,33 @@
     '.sik{border-radius:10px!important}',
     /* emoji yerine başlıklarda küçük turuncu kare (sitenin lambası) */
     '.panel h3:before,.basl:before,.sek:before,.et:before,.hap:before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;vertical-align:2px;background:#f5a524}',
-    '.basl span:before{content:none!important}'
+    '.basl span:before{content:none!important}',
+    /* 26.09 (3) tüm uygulama denetimi — soru ekranı */
+    '.ustCip.skorCip,.ustCip.kutuCip{display:none!important}',
+    '.ilerleme{height:3px!important;border-radius:3px;background:var(--cizgi)!important}',
+    '.ilerleme i{background:#f5a524!important;border-radius:3px}',
+    '.ttNo{font-weight:700!important;border-radius:999px!important}',
+    '.ttBayrak{border-radius:999px!important}',
+    '.soru{font-size:1.08em;line-height:1.55!important;letter-spacing:-.003em}',
+    '.sik{display:flex!important;align-items:center;gap:12px;min-height:56px;padding:12px 44px 12px 12px!important;box-shadow:0 1px 2px rgba(0,0,0,.04)}',
+    '.sik>b{flex:none;width:28px;height:28px;display:grid;place-items:center;margin:0!important;border-radius:8px;border:1px solid var(--cizgi);' +
+      'font-size:13px;font-weight:700;color:var(--yazi)!important;background:var(--bg);font-variant-numeric:tabular-nums}',
+    '.sik.dogru>b{background:var(--yesil);border-color:var(--yesil);color:#fff!important}',
+    '.sik.yanlis>b{background:var(--kirmizi);border-color:var(--kirmizi);color:#fff!important}',
+    '.sik.dogru,.sik.yanlis{box-shadow:none}',
+    '.konuK{background:var(--bg2)!important;border:0!important;border-radius:12px!important}',
+    '.panel .geri{border-radius:12px!important}',
+    '.cip2.bDaha{border-style:solid!important}',
+    '.btn.mavi,.dugme.ana,#ttListe .tekrar{background:var(--yazi)!important;color:var(--bg)!important;border:0!important;border-radius:10px!important}',
+    '#ttListe .ic{border-radius:22px 22px 0 0!important}',
+    '#ttListe h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.5em;margin:4px 0 6px}',
+    '#ttListe .izgara button.simdi,#ttListe .izgara button[aria-current]{outline:2px solid #f5a524!important;outline-offset:1px}',
+    '.ttAraclar{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}',
+    '.ttAraclar button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px;border-radius:12px;border:1px solid var(--cizgi);background:var(--bg);color:var(--yazi);font:inherit;text-align:left}',
+    '.ttAraclar b{font-size:.9em}.ttAraclar span{font-size:.82em;color:var(--dim)}',
+    /* Fraunces soru sayfalarında da (başlıklar); dosya uygulamada ../../ altında */
+    '@font-face{font-family:"Fraunces";font-weight:500 600;src:url(../../fraunces-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+1E00-1E9F}',
+    '@font-face{font-family:"Fraunces";font-weight:500 600;src:url(../../fraunces-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+2000-206F}'
   ].join('\n');
   document.head.appendChild(st4);
   var BAS_EMOJI = /^(\s*)(?:[←-⇿⌀-⏿①-➿⤀-⯿]️?\s*|(?:[\uD83C-\uD83E][\uDC00-\uDFFF]|‍|️)+\s*)+/;
@@ -421,20 +462,20 @@
   function paketOzet() { try { return (JSON.parse(localStorage.getItem('tt_uyg_paket_ozet') || '{}') || {})[SINAV] || null; } catch (e) { return null; } }
   var st3 = document.createElement('style');
   st3.textContent = [
-    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:var(--bg);color:var(--yazi);display:none;flex-direction:column;justify-content:flex-end;' +
+    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:#0c1a2b;color:#fff;display:none;flex-direction:column;justify-content:flex-end;' +
       'padding:24px 20px calc(24px + ' + ALT + ');font-family:-apple-system,"Segoe UI",system-ui,Roboto,sans-serif}',
     '.ttPerde.acik{display:flex}',
-    '.ttPerde .etk{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}',
-    '.ttPerde .etk i{display:block;height:2px;background:var(--cizgi);margin-top:10px}',
+    '.ttPerde .etk{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#f5a524;margin-bottom:12px}',
+    '.ttPerde .etk i{display:block;height:2px;background:rgba(255,255,255,.14);margin-top:10px}',
     '.ttPerde .etk i b{display:block;height:100%;background:#f5a524}',
-    '.ttPerde h2{font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px}',
-    '.ttPerde p{color:var(--dim);margin:0 0 20px;line-height:1.5}',
-    '.ttPerde .buyuk{font-size:56px;font-weight:300;letter-spacing:-.03em;line-height:1;margin:4px 0 14px;font-variant-numeric:tabular-nums}',
-    '.ttPerde .buyuk small{font-size:22px;color:var(--dim)}',
+    '.ttPerde h2{font-family:"Fraunces",Georgia,serif;font-size:32px;font-weight:600;letter-spacing:-.01em;line-height:1.12;margin:0 0 10px;color:#fff}',
+    '.ttPerde p{color:rgba(255,255,255,.74);margin:0 0 20px;line-height:1.5}',
+    '.ttPerde .buyuk{font-family:"Fraunces",Georgia,serif;font-size:60px;font-weight:500;letter-spacing:-.03em;line-height:1;margin:4px 0 14px;font-variant-numeric:tabular-nums}',
+    '.ttPerde .buyuk small{font-size:22px;color:rgba(255,255,255,.6);font-family:inherit}',
     '.ttPerde a,.ttPerde button{display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;font:600 15px/1.2 inherit;padding:15px;border-radius:8px;margin-top:10px;cursor:pointer}',
-    '.ttPerde .birinci{background:var(--yazi);color:var(--bg);border:0}',
-    '.ttPerde .ikinci{background:transparent;color:var(--yazi);border:1px solid var(--cizgi)}',
-    '.ttPerde .ucuncu{background:none;border:0;color:var(--dim);font-weight:500}'
+    '.ttPerde .birinci{background:#f5a524;color:#0b0b0c;border:0;border-radius:12px!important;font-weight:700}',
+    '.ttPerde .ikinci{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:12px!important}',
+    '.ttPerde .ucuncu{background:none;border:0;color:rgba(255,255,255,.6);font-weight:500}'
   ].join('\n');
   document.head.appendChild(st3);
   function perde(id, html) {
@@ -486,7 +527,7 @@
       (bitti ? '' : '<button type="button" class="ikinci">Ücretsiz sorulara devam et</button>'));
     e.querySelector('a').addEventListener('click', function () {
       olay('tam_paket_bak');
-      try { sessionStorage.setItem('tt_uyg_sekme', 'sinav'); sessionStorage.setItem('tt_uyg_sinavgor', JSON.stringify({ g: 'sinav', s: SINAV })); } catch (x) {}
+      try { sessionStorage.setItem('tt_uyg_sekme', 'sinav'); sessionStorage.setItem('tt_uyg_sinavgor', JSON.stringify({ g: 'sinav', s: SINAV })); sessionStorage.setItem('tt_uyg_odeme', SINAV); } catch (x) {}
     });
     var d = e.querySelector('.ikinci'); if (d) d.onclick = function () { perdeKapat('ttAra'); };
   }

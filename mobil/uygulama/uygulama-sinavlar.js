@@ -87,7 +87,7 @@
     var D = durum();
     if (!window.TTSekme) return;
     if (!D.girisli) { if (window.TTGiris) window.TTGiris.ac('uye'); else window.TTSekme.sec('hesap', 'giris'); }
-    else if (satisMumkun() && window.TTMagaza) window.TTSekme.sec('hesap', 'paketler');
+    else if (satisMumkun() && window.TTMagaza) { if (!(window.TTOdeme && window.TTOdeme.ac(gor.s))) window.TTSekme.sec('hesap', 'paketler'); }
   }
   /* paketi olmayanın kilit altındaki tek düğme + açıklama */
   function kilitDugmesi() {

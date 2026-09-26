@@ -28,6 +28,8 @@ on:
       - 'veri/ders-profili.json'
       - 'veri/sinav/sgs-konu-es.json'
       - 'arac/sgs-konu-kapsama.js'
+      - 'arac/kgk-konu-kapsama.js'
+      - 'veri/sinav/kgk-konu-es.json'
 
 permissions:
   contents: write
@@ -42,6 +44,13 @@ jobs:
       # Eşleme sözlüğü veri/sinav/sgs-konu-es.json; model/ağ yok. Dosyada zaman damgası yok → değişmezse commit yok.
       - name: SGS KONU KAPSAMA
         run: node arac/sgs-konu-kapsama.js
+
+      # 27.09 (Cem "1.2.3"): KGK konu kapsama — hedef/sitede/eksik; tek sayfanın KGK kotası buradan. Site sayımı paket_soru (servis anahtarı);
+      # ekrana yalnız sayı basar. Anahtar yoksa site KÖR yazılır ve özet dosyası YAZILMAZ (eski kalır).
+      - name: KGK KONU KAPSAMA
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node arac/kgk-konu-kapsama.js
 
       - name: TEK SAYFAYI KUR
         shell: pwsh
@@ -70,7 +79,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/SINAV-TEK-SAYFA.md veri/sinav-tek-sayfa.json veri/sinav/SGS-KAPSAMA.md 2>/dev/null || true
+          git add veri/SINAV-TEK-SAYFA.md veri/sinav-tek-sayfa.json veri/sinav/SGS-KAPSAMA.md veri/sinav/KGK-KAPSAMA.md veri/sinav/kgk-kapsama-ozet.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "degisiklik yok - commit yok."
           else

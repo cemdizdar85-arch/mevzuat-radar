@@ -5,9 +5,9 @@
   "sayfa": 217,
   "koyu_gecis": 68,
   "koyu_bekleyen": [],
-  "temiz_sayfa": 217,
+  "temiz_sayfa": 216,
   "denetlenen_metin": 25938,
-  "toplam_kirik": 0,
+  "toplam_kirik": 1,
   "denetlenen_sinir": 7686,
   "toplam_gorunmez_sinir": 1,
   "olculemeyen": 0,
@@ -36,5 +36,21 @@
     }
   ],
   "olculemeyenler": [],
-  "kirik_sayfalar": []
+  "kirik_sayfalar": [
+    {
+      "sayfa": "pano.html",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "span.rz",
+          "yazi": "2 gün önce",
+          "oran": 4.22,
+          "esik": 4.5,
+          "renk": "rgb(138, 98, 36)",
+          "zemin": "rgb(233,226,214)",
+          "iz": "<span class=\"rz sari\">2 gün önce</span>"
+        }
+      ]
+    }
+  ]
 }

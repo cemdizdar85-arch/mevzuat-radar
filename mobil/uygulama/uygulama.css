@@ -292,3 +292,30 @@ h1 { font-weight: 600; letter-spacing: -.015em; }
 h1.slogan { font-size: 34px; line-height: 1.08; }
 .olcu b, .halkaYazi b { font-weight: 500; letter-spacing: -.01em; }
 @media (min-width: 768px) { h1.slogan { font-size: 42px; } }
+
+/* Hesap: profil kartı + ayar listesi (26.09 tüm uygulama denetimi) */
+#hesap .bant.yalin { padding-bottom: 60px; }
+#hesap .bant + #profilKart { margin-top: -44px !important; position: relative; z-index: 1; }
+.profil { display: flex; align-items: center; gap: 14px; }
+.profil .avatar { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--bant); color: #f5a524;
+  font: 600 22px/1 "Fraunces", Georgia, serif; }
+.profil .ad { min-width: 0; }
+.profil .ad b { display: block; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profil .ad small { display: block; color: var(--soluk); font-size: 13px; margin-top: 2px; }
+#hesapDugmeler .srt.tehlike .ad { color: var(--hata); }
+#hesapIslem { margin-top: 22px; }
+/* dokunma geri bildirimi: kartlar ve satırlar basılınca hafif küçülür */
+.srt, .sinavKart, .kahraman, .ana, .urun .al { transition: transform .12s ease; }
+.srt:active, .sinavKart:active, .kahraman:active, .ana:active { transform: scale(.985); }
+/* sekme geçişi: içerik kısa ve yumuşak belirir (display:none → block her seferinde yeniden oynar) */
+@keyframes sekmeGel { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+main > [data-sekme] { animation: sekmeGel .22s ease-out; }
+@media (prefers-reduced-motion: reduce) { main > [data-sekme], #odeme .ic { animation: none !important; } .srt:active, .sinavKart:active, .kahraman:active, .ana:active { transform: none; } }
+
+/* AMBLEM: sitenin resmî logosu (logo-acik.svg) her yerde aynı — 26.09 Cem "tetikte amblemi ile sitedeki amblem aynı değil" */
+.marka { letter-spacing: normal !important; text-transform: none !important; font-size: inherit !important; }
+.marka .logo { display: block; height: 32px; width: auto; color: #fff; }
+.lamba { display: none; }
+#kurulum .kMarka span { display: block !important; }
+#kurulum .kMarka .logo { display: block; height: 34px; width: auto; color: #fff; }
+#kurulum .kMarka i { display: none; }

@@ -16,6 +16,8 @@
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function ik(ad, sinif) { return '<svg class="ik' + (sinif ? ' ' + sinif : '') + '" aria-hidden="true"><use href="#i-' + ad + '"/></svg>'; }
   var OK = ik('ok', 'ok');
+  /* sitenin resmî amblemi (logo-acik.svg) — index.html üst şeritteki ile aynı */
+  var LOGO = "<svg class=\"logo\" viewBox=\"24 18 280 84\" role=\"img\" aria-label=\"Tetikte\"><defs><linearGradient id=\"ttLogoA2\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#f5a524\"/><stop offset=\"1\" stop-color=\"#ffc24b\"/></linearGradient><radialGradient id=\"ttLogoH2\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"52%\" stop-color=\"#f5a524\" stop-opacity=\".26\"/><stop offset=\"100%\" stop-color=\"#f5a524\" stop-opacity=\"0\"/></radialGradient></defs><circle cx=\"62\" cy=\"60\" r=\"34\" fill=\"url(#ttLogoH2)\"/><circle cx=\"62\" cy=\"60\" r=\"19\" fill=\"url(#ttLogoA2)\"/><text x=\"112\" y=\"78\" font-family=\"Inter,Segoe UI,system-ui,-apple-system,Roboto,Arial,sans-serif\" font-size=\"58\" font-weight=\"800\" letter-spacing=\"-1.4\" textLength=\"181\" lengthAdjust=\"spacingAndGlyphs\" fill=\"currentColor\">tetıkte</text><circle cx=\"197\" cy=\"30\" r=\"7\" fill=\"url(#ttLogoA2)\"/></svg>";
   var tumSayfa = [].concat(K.paket || [], K.ucretsiz || []);
   function sayfa(yol) { return tumSayfa.filter(function (x) { return x.yol === yol; })[0] || null; }
   function sayfaAdi(yol) { var s = sayfa(yol); return s ? s.baslik : 'Son çalıştığın ders'; }
@@ -361,7 +363,11 @@
       };
     });
     [].forEach.call(karneB.querySelectorAll('[data-kilitac]'), function (b) {
-      b.onclick = function () { if (window.TTSinavlar) window.TTSinavlar.ac(IL.veri().ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik'); };
+      b.onclick = function () {
+        var s = IL.veri().ayar.sinav === 'sgs' ? 'sgs' : 'yeterlilik';
+        if (window.TTOdeme && window.TTOdeme.ac(s)) return;
+        if (window.TTSinavlar) window.TTSinavlar.ac(s);
+      };
     });
   }
 
@@ -376,7 +382,7 @@
     var bitir = function () { IL.ayarYaz({ kurulum: true }); e.remove(); ciz(); if (window.TTSinavlar) window.TTSinavlar.ciz(); if (window.TTGorunum) window.TTGorunum.cubuk(true); };
     var toplamAdim = yalnizSinav ? 1 : 3;
     var bant = function (n, baslik, alt) {
-      return '<div class="kB"><div class="kMarka"><span><i></i>TETİKTE</span>' + (n ? '<em>0' + n + ' / 0' + toplamAdim + '</em>' : '') + '</div>' +
+      return '<div class="kB"><div class="kMarka"><span>' + LOGO + '</span>' + (n ? '<em>0' + n + ' / 0' + toplamAdim + '</em>' : '') + '</div>' +
         '<h1>' + baslik + '</h1><p>' + alt + '</p></div>';
     };
     var secenek = function (v, ad, alt) { return '<button type="button" class="srt" data-v="' + v + '"><span class="ad">' + ad + '<small>' + alt + '</small></span>' + OK + '</button>'; };
