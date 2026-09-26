@@ -22,6 +22,14 @@
         "Enable Captcha protection" → Turnstile + GİZLİ ANAHTAR → Save.
      TERS SIRA (önce panel) = sitede KİMSE giriş yapamaz, üye olamaz.
 
+   📱 MAĞAZA UYGULAMASI (26.09.2026): bu dosya uygulamaya da kopyalanır (mobil/hazirla.js) ve uygulamanın
+     üye ol / giriş / şifre yenileme çağrılarına bağlıdır. Uygulama sayfası tetikte.com'dan DEĞİL, telefonun
+     içinden açılır: Android https://localhost, iPhone capacitor://localhost. Bu yüzden panel açılmadan önce:
+       a) Turnstile sitesinin alan adlarına "localhost" da eklenir,
+       b) captcha açık bu dosyayla yeni uygulama sürümü derlenir ve İKİ telefonda giriş + üyelik denenir
+          (ÖLÇÜLMEDİ: Turnstile'ın iPhone capacitor:// adresinde çalışıp çalışmadığı),
+       c) kullanıcıların çoğu bu sürüme geçmeden panel açılmaz — eski sürümde giriş tamamen durur.
+
    BU DOSYA ŞUNU GÖRMEZ / YAPMAZ:
      - Reklam engelleyici challenges.cloudflare.com'u keserse token alınamaz;
        ttCaptchaToken() 15 sn sonra undefined döner — panel açıksa o kişi

@@ -127,6 +127,8 @@
   function kartlar() { var a = akis(); return a ? [].slice.call(a.children).filter(function (k) { return k.classList.contains('kart') && k.querySelector('.sik'); }) : []; }
   function gorunen() { return kartlar().filter(function (k) { return !k.classList.contains('ttDisarda'); }); }
   function simdikiKart() { var a = akis(); if (!a || !a.clientHeight) return null; var g = gorunen(); return g[Math.round(a.scrollTop / a.clientHeight)] || null; }
+  /* karma (kısa sınav): kart hangi dersin sayfasından geldiyse o yol (uygulama-karma.js) */
+  function kartYol(k) { return (window.TTKarma && window.TTKarma.yol(kartlar().indexOf(k))) || YOL; }
   function sidK(k) { if (!k.__sid) { var q = k.querySelector('.soru'); k.__sid = IL ? IL.sid(q ? q.textContent : '') : ''; } return k.__sid; }
   function durumK(k) { var c = IL && IL.veri().cevap[sidK(k)]; return c ? c.s : null; }
   function serit(metin, dugme, fn, sure) {
@@ -293,7 +295,8 @@
         setTimeout(function () {
           if (!k.querySelector('.sik.dogru')) return;
           k.__cevaplandi = 1;
-          IL.cevapla(sidK(k), s.classList.contains('dogru'), YOL);
+          IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k));
+          cevapSonrasi();
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;
           if (g === h) serit('Günlük hedef tamam · ' + h + ' soru · seri ' + IL.seri() + ' gün', null, null, 3500);
         }, 0);
@@ -305,7 +308,7 @@
   var konumKuruldu = false, izleyici = null, konumZam = null;
   function konumKur() {
     /* tek kart modu (günün sorusu): kaldığın yer yazılmaz, "Devam et" oraya gitmesin */
-    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek')) return;
+    if (konumKuruldu || !IL || !YOL || kok.hasAttribute('data-tek') || window.TTKarma) return;
     var a = akis(), ks = kartlar(); if (!a || !ks.length) return;
     konumKuruldu = true;
     var tekrarda = tekrarKur();
@@ -331,11 +334,115 @@
     });
   }
   var cipIzleyici = null;
+
+  /* ---------- ÜCRETSİZ SORULARDA ÜYELİK KAPISI + ARA KARNE (26.09.2026, Cem "kur") ----------
+     Kurgu: 3 soru hesapsız → "ücretsiz üye ol" kapısı (geçilmez) → 30 soru → her 10 soruda ara karne + tam paket.
+     Yalnız vitrin (ücretsiz) sayfalarında; tek kart modu (günün sorusu) kapıdan muaf. Giriş durumu ana ekrandan
+     (uygulama.js durumBildir → localStorage tt_uyg_girisli). Bu kapı PAZARLAMA kapısıdır, güvenlik değil:
+     30 ücretsiz soru zaten açık (sitede de açık); kilitli içerik paket_soru RLS'inde. */
+  var VITRIN = /^kaydir\/vitrin\//.test(YOL), HESAPSIZ = 3, ARA = 10;
+  var SINAV = /smmm/.test(YOL) ? 'yeterlilik' : 'sgs';
+  var ANA = '../../index.html';
+  function olay(ad, tek) { if (window.TTOlay) window.TTOlay.say(ad, tek); }
+  function girisli() { try { return localStorage.getItem('tt_uyg_girisli') === '1'; } catch (e) { return false; } }
+  function sayac() { var r = IL ? IL.dersSonucu(YOL) : { ok: 0, yan: 0 }; return { ok: r.ok, n: r.ok + r.yan }; }
+  function cevapliMi(k) { return !!(IL && IL.veri().cevap[sidK(k)]); }
+  function simdiki() {
+    var a = akis(); if (!a) return null;
+    var b = a.getBoundingClientRect(), el = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2);
+    return el && el.closest ? el.closest('#akis>.kart') : null;
+  }
+  function paketOzet() { try { return (JSON.parse(localStorage.getItem('tt_uyg_paket_ozet') || '{}') || {})[SINAV] || null; } catch (e) { return null; } }
+  var st3 = document.createElement('style');
+  st3.textContent = [
+    '.ttPerde{position:fixed;inset:0;z-index:2147481500;background:rgba(0,0,0,.975);color:#f4f4f5;display:none;flex-direction:column;justify-content:flex-end;' +
+      'padding:24px 20px calc(24px + ' + ALT + ');font-family:-apple-system,"Segoe UI",system-ui,Roboto,sans-serif}',
+    '.ttPerde.acik{display:flex}',
+    '.ttPerde .etk{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93;margin-bottom:12px}',
+    '.ttPerde .etk i{display:block;height:2px;background:rgba(255,255,255,.12);margin-top:10px}',
+    '.ttPerde .etk i b{display:block;height:100%;background:#f5a524}',
+    '.ttPerde h2{font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px}',
+    '.ttPerde p{color:#a1a1aa;margin:0 0 20px;line-height:1.5}',
+    '.ttPerde .buyuk{font-size:56px;font-weight:300;letter-spacing:-.03em;line-height:1;margin:4px 0 14px;font-variant-numeric:tabular-nums}',
+    '.ttPerde .buyuk small{font-size:22px;color:#8b8b93}',
+    '.ttPerde a,.ttPerde button{display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;font:600 15px/1.2 inherit;padding:15px;border-radius:8px;margin-top:10px;cursor:pointer}',
+    '.ttPerde .birinci{background:#f4f4f5;color:#000;border:0}',
+    '.ttPerde .ikinci{background:transparent;color:#f4f4f5;border:1px solid rgba(255,255,255,.18)}',
+    '.ttPerde .ucuncu{background:none;border:0;color:#8b8b93;font-weight:500}'
+  ].join('\n');
+  document.head.appendChild(st3);
+  function perde(id, html) {
+    var e = document.getElementById(id);
+    if (!e) { e = document.createElement('div'); e.id = id; e.className = 'ttPerde'; e.setAttribute('role', 'dialog'); document.body.appendChild(e); }
+    e.innerHTML = html; e.classList.add('acik'); return e;
+  }
+  function perdeKapat(id) { var e = document.getElementById(id); if (e) e.classList.remove('acik'); }
+
+  /* kapı: hesapsız kişi 3 soruyu çözdüyse, cevaplanmamış karta geldiğinde */
+  function kapiDenetle() {
+    if (!VITRIN || !IL || kok.hasAttribute('data-tek') || girisli()) { perdeKapat('ttKapi'); return; }
+    var n = sayac().n, k = simdiki();
+    if (n < HESAPSIZ || !k || cevapliMi(k)) { perdeKapat('ttKapi'); return; }
+    var e = document.getElementById('ttKapi');
+    if (e && e.classList.contains('acik')) return;
+    var top = kartlar().length, kalan = Math.max(top - n, 0), i = kartlar().indexOf(k);
+    e = perde('ttKapi', '<div class="etk">' + n + ' / ' + top + ' soru<i><b style="width:' + Math.round(n / top * 100) + '%"></b></i></div>' +
+      '<h2>Kalan ' + kalan + ' soru ücretsiz</h2>' +
+      '<p>Ücretsiz üye ol: soruların, açıklamaları ve karnen açılsın. İlerlemen tüm cihazlarında saklanır. Kart bilgisi istenmez.</p>' +
+      '<a class="birinci" href="' + ANA + '#uyeol">Ücretsiz üye ol</a>' +
+      '<a class="ikinci" href="' + ANA + '#giris">Hesabım var, giriş yap</a>' +
+      '<button type="button" class="ucuncu">Çözdüğüm sorulara dön</button>');
+    olay('kapi', true);
+    [].forEach.call(e.querySelectorAll('a'), function (a) {
+      a.addEventListener('click', function () {
+        try { sessionStorage.setItem('tt_uyg_donus', YOL + '#s=' + Math.max(i, 0)); sessionStorage.setItem('tt_uyg_sekme', 'hesap'); } catch (x) {}
+      });
+    });
+    e.querySelector('.ucuncu').onclick = function () { perdeKapat('ttKapi'); var a = akis(); if (a) a.scrollTo({ top: 0, behavior: 'smooth' }); };
+  }
+
+  /* ara karne: her 10 cevapta bir kez (sayfa başına), sonuncuda tam karne */
+  function araKarne(n, ok, top) {
+    var anahtar = 'tt_ara_' + YOL, goruldu = [];
+    try { goruldu = JSON.parse(localStorage.getItem(anahtar) || '[]'); } catch (e) {}
+    if (goruldu.indexOf(n) >= 0) return;
+    goruldu.push(n); try { localStorage.setItem(anahtar, JSON.stringify(goruldu)); } catch (e) {}
+    var bitti = n >= top, p = paketOzet();
+    if (bitti) olay('soru_30', true); else if (n === ARA) olay('soru_10', true);
+    olay('ara_karne');
+    var e = perde('ttAra', '<div class="etk">' + (bitti ? 'Ücretsiz sorular bitti' : 'Ara karne · ' + n + ' soru') + '</div>' +
+      '<div class="buyuk">' + ok + '<small> / ' + n + ' doğru</small></div>' +
+      '<h2>' + (bitti ? 'Şimdi tamamına geç' : 'Gerçek sınav bundan çok daha geniş') + '</h2>' +
+      '<p>Tam pakette' + (p && p.ders ? ' ' + p.ders + ' dersin tüm soruları;' : ' tüm dersler;') +
+      ' ders ders çözme, kısa sınav, en çok çıkanlar ve sınav gibi deneme var.</p>' +
+      '<a class="birinci" href="' + ANA + '">Tam paketi incele</a>' +
+      (bitti ? '' : '<button type="button" class="ikinci">Ücretsiz sorulara devam et</button>'));
+    e.querySelector('a').addEventListener('click', function () {
+      olay('tam_paket_bak');
+      try { sessionStorage.setItem('tt_uyg_sekme', 'sinav'); sessionStorage.setItem('tt_uyg_sinavgor', JSON.stringify({ g: 'sinav', s: SINAV })); } catch (x) {}
+    });
+    var d = e.querySelector('.ikinci'); if (d) d.onclick = function () { perdeKapat('ttAra'); };
+  }
+
+  function cevapSonrasi() {
+    if (!VITRIN || kok.hasAttribute('data-tek')) return;
+    var c = sayac(), top = kartlar().length;
+    if (c.n === 1) olay('soru_1', true);
+    if (c.n === HESAPSIZ) olay('soru_3', true);
+    if (girisli() && c.n > 0 && (c.n % ARA === 0 || c.n >= top)) setTimeout(function () { araKarne(c.n, c.ok, top); }, 1600);
+  }
+  var kapiZam = null;
+  function kapiIzle() {
+    var a = akis(); if (!a || a.__ttKapi || !VITRIN) return; a.__ttKapi = 1;
+    a.addEventListener('scroll', function () { clearTimeout(kapiZam); kapiZam = setTimeout(kapiDenetle, 120); }, { passive: true });
+    kapiDenetle();
+  }
   function kur() {
     var a = akis(); if (!a) return;
     kartlar().forEach(kartiDuzenle);
     if (!izleyici) { try { izleyici = new MutationObserver(function () { kartlar().forEach(kartiDuzenle); konumKur(); }); izleyici.observe(a, { childList: true }); } catch (e) {} }
     konumKur();
+    kapiIzle();
     cipTemizle(a);
     if (!cipIzleyici) { try { cipIzleyici = new MutationObserver(function () { cipTemizle(a); }); cipIzleyici.observe(a, { childList: true, subtree: true }); } catch (e) {} }
   }

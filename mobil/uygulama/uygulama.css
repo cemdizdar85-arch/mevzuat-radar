@@ -92,6 +92,8 @@ h2 { font-size: 17px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 8px;
 .srt .ok { flex: none; width: 16px; height: 16px; color: var(--soluk); }
 .srt.kilit .ad { color: var(--soluk); }
 .srt:active { background: var(--panel2); }
+.srt:disabled { opacity: .5; cursor: default; }
+.srt:disabled:active { background: none; }
 .srt.birincil { background: var(--zit); color: var(--zitYazi); }
 .srt.birincil .ad small, .srt.birincil .ok, .srt.birincil .sag { color: inherit; opacity: .6; }
 
@@ -143,3 +145,10 @@ button { font: inherit; cursor: pointer; }
 .bosDurum b { display: block; color: var(--yazi); font-weight: 600; margin-bottom: 4px; }
 .alt { margin-top: 34px; text-align: center; }
 .bag { background: none; border: 0; color: var(--soluk); text-decoration: underline; text-underline-offset: 3px; padding: 6px 8px; font-size: 13px; }
+/* üye ol / giriş formu */
+input[type=text] { display: block; width: 100%; margin-top: 6px; padding: 13px 12px; font: inherit; color: var(--yazi);
+  background: var(--taban); border: 1px solid var(--cizgi2); border-radius: 8px; }
+input[type=text]:focus { outline: none; border-color: var(--yazi); }
+.onay { align-items: flex-start !important; font-weight: 400 !important; font-size: 13.5px; line-height: 1.45; margin: 4px 0 12px !important; color: var(--soluk) !important; }
+.onay input { flex: none; margin-top: 1px; }
+.bagIc { background: none; border: 0; padding: 0; color: var(--yazi); text-decoration: underline; text-underline-offset: 3px; font: inherit; }
