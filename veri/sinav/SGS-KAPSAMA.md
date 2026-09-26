@@ -3,32 +3,32 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.728** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.759** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Finansal Muhasebe | 488 | 887 | 27,7 | 1086 | 287 | 33 | 8 | 160 | 26 |
-| Denetim | 282 | 496 | 15,5 | 671 | 183 | 25 | 5 | 69 | 18 |
-| Yabancı Dil | 85 | 321 | 10,0 | 323 | 56 | 7 | 1 | 21 | 58 |
+| Denetim | 282 | 496 | 15,5 | 680 | 188 | 20 | 5 | 69 | 9 |
+| Yabancı Dil | 85 | 321 | 10,0 | 330 | 58 | 6 | 0 | 21 | 51 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 385 | 106 | 10 | 3 | 20 | 4 |
-| Matematik | 119 | 256 | 8,0 | 445 | 44 | 10 | 4 | 61 | 17 |
+| Matematik | 119 | 256 | 8,0 | 446 | 45 | 9 | 4 | 61 | 16 |
 | Ticaret Hukuku | 129 | 226 | 7,1 | 258 | 76 | 4 | 1 | 48 | 2 |
 | Türkçe | 126 | 224 | 7,0 | 146 | 31 | 13 | 3 | 79 | 16 |
-| Vergi Hukuku | 161 | 203 | 6,3 | 162 | 52 | 7 | 6 | 96 | 3 |
+| Vergi Hukuku | 161 | 203 | 6,3 | 165 | 55 | 4 | 6 | 96 | 0 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 219 | 64 | 9 | 3 | 20 | 2 |
-| Ekonomi | 137 | 193 | 6,0 | 161 | 52 | 7 | 3 | 75 | 4 |
+| Ekonomi | 137 | 193 | 6,0 | 162 | 52 | 7 | 3 | 75 | 3 |
 | İş ve Sosyal Güvenlik Hukuku | 98 | 190 | 5,9 | 189 | 49 | 10 | 2 | 37 | 10 |
 | Borçlar Hukuku | 91 | 180 | 5,6 | 220 | 61 | 4 | 0 | 26 | 4 |
-| Maliye | 119 | 168 | 5,3 | 129 | 37 | 4 | 6 | 72 | 2 |
-| Meslek Hukuku | 92 | 163 | 5,1 | 172 | 47 | 6 | 1 | 38 | 10 |
-| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 160 | 30 | 4 | 3 | 77 | 9 |
+| Maliye | 119 | 168 | 5,3 | 131 | 39 | 2 | 6 | 72 | 0 |
+| Meslek Hukuku | 92 | 163 | 5,1 | 176 | 48 | 5 | 1 | 38 | 6 |
+| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 164 | 30 | 4 | 3 | 77 | 6 |
 | Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 2 | 0 | 1 | 1 | 1 | 4 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Hukuk (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **83 konu / 189 soru**
+- 3+ dönem çıkmış: **69 konu / 159 soru**
 - 2 dönem çıkmış: 120 konu / 168 soru
 - 1 dönem çıkmış: 901 konu / 903 soru
 
@@ -39,7 +39,6 @@ Sitede sayfadan okunan soru: **4.728** (kasa modundaki sayfa seçim dosyasından
 | İş ve Sosyal Güvenlik Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
 | Matematik | uslu sayilar | 4 / 4 | 2019/3 |
 | Muhasebe (ders ayrılmadı) | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
-| Yabancı Dil | ilgi zamiri (which) | 3 / 3 | 2024/1 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
 | Finansal Muhasebe | maddi duran varlik dogruluk testi | 3 / 2 | 2017/3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | halifeligin kaldirilmasi | 2 / 2 | 2024/1 |
@@ -95,29 +94,29 @@ Sitede sayfadan okunan soru: **4.728** (kasa modundaki sayfa seçim dosyasından
 | Finansal Muhasebe | muhasebe bilgi sistemi | 16 / 16 | 6 | 10 |
 | Türkçe | yazim kurallari | 15 / 14 | 7 | 8 |
 | Yabancı Dil | kelime bilgisi | 17 / 12 | 10 | 7 |
-| Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 2 | 5 |
-| Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 5 | 4 |
 | Matematik | cebirsel ifadeler | 6 / 6 | 2 | 4 |
 | Yabancı Dil | baglac kullanimi | 17 / 14 | 13 | 4 |
 | Yabancı Dil | edat kullanimi | 8 / 8 | 4 | 4 |
-| Atatürk İlkeleri ve İnkılap Tarihi | ataturk donemi dis politika | 6 / 6 | 3 | 3 |
+| Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 6 | 3 |
+| Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 4 | 3 |
 | Matematik | limit hesabi | 13 / 13 | 10 | 3 |
-| Meslek Hukuku | meslek etik ilkeleri | 7 / 7 | 4 | 3 |
-| Meslek Hukuku | meslek mensubu ucret esaslari | 5 / 5 | 2 | 3 |
 | Türkçe | noktalama isaretleri | 14 / 14 | 11 | 3 |
-| Yabancı Dil | ilgi zamiri | 7 / 7 | 4 | 3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | milli mucadele basini | 3 / 3 | 1 | 2 |
 | Borçlar Hukuku | genel islem kosullari | 9 / 9 | 7 | 2 |
-| Denetim | banka hesaplari denetim unsurlari | 4 / 4 | 2 | 2 |
-| Denetim | gorus bildirmekten kacinma raporu | 3 / 3 | 1 | 2 |
-| Ekonomi | tam rekabet kisa donem denge | 5 / 5 | 3 | 2 |
 | Finansal Muhasebe | donem kari zarari hesabi | 9 / 9 | 7 | 2 |
 | Maliyet Muhasebesi | direkt iscilik gideri hesaplama | 6 / 6 | 4 | 2 |
 | Maliyet Muhasebesi | ekonomik siparis miktari | 3 / 3 | 1 | 2 |
 | Matematik | turev hesabi | 12 / 12 | 10 | 2 |
+| Meslek Hukuku | meslek etik ilkeleri | 7 / 7 | 5 | 2 |
 | Meslek Hukuku | smmm odalari | 3 / 3 | 1 | 2 |
 | Türkçe | yazim yanlisi | 4 / 4 | 2 | 2 |
-| Yabancı Dil | zarf kullanimi | 3 / 3 | 1 | 2 |
+| Atatürk İlkeleri ve İnkılap Tarihi | ataturk donemi dis politika | 6 / 6 | 5 | 1 |
 | Borçlar Hukuku | takas-borclar kanunu | 5 / 5 | 4 | 1 |
 | Borçlar Hukuku | sozlesme iptal sebepleri | 3 / 3 | 2 | 1 |
-| Denetim | denetci raporu | 7 / 7 | 6 | 1 |
+| Denetim | denetim riski | 5 / 4 | 4 | 1 |
+| Denetim | ic kontrol sistemi | 4 / 4 | 3 | 1 |
+| Denetim | denetim belgelendirme | 4 / 4 | 3 | 1 |
+| Denetim | banka hesaplari denetim unsurlari | 4 / 4 | 3 | 1 |
+| Denetim | gorus bildirmekten kacinma raporu | 3 / 3 | 2 | 1 |
+| Denetim | denetim cari dosya | 3 / 3 | 2 | 1 |
+| Ekonomi | tam rekabet kisa donem denge | 5 / 5 | 4 | 1 |
