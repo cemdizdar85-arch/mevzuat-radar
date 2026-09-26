@@ -3,34 +3,34 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.472 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.462 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 488 | 887 | 27,7 | 1105 | 299 | 21 | 8 | 160 | 7 |
+| Finansal Muhasebe | 483 | 886 | 27,7 | 1105 | 298 | 20 | 8 | 157 | 7 |
 | Denetim | 282 | 496 | 15,5 | 680 | 188 | 20 | 5 | 69 | 9 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 62 | 2 | 0 | 21 | 5 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 385 | 106 | 10 | 3 | 20 | 4 |
-| Matematik | 119 | 256 | 8,0 | 446 | 45 | 9 | 4 | 61 | 16 |
-| Ticaret Hukuku | 129 | 226 | 7,1 | 258 | 76 | 4 | 1 | 48 | 2 |
-| Türkçe | 126 | 224 | 7,0 | 153 | 34 | 10 | 3 | 79 | 9 |
+| Matematik | 115 | 254 | 7,9 | 446 | 53 | 8 | 4 | 50 | 15 |
+| Ticaret Hukuku | 128 | 225 | 7,0 | 252 | 74 | 4 | 1 | 49 | 2 |
+| Türkçe | 127 | 225 | 7,0 | 153 | 34 | 10 | 3 | 80 | 9 |
 | Vergi Hukuku | 161 | 203 | 6,3 | 165 | 55 | 4 | 6 | 96 | 0 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 219 | 64 | 9 | 3 | 20 | 2 |
-| Ekonomi | 137 | 193 | 6,0 | 162 | 52 | 7 | 3 | 75 | 3 |
+| Ekonomi | 138 | 194 | 6,1 | 162 | 52 | 7 | 3 | 76 | 3 |
 | İş ve Sosyal Güvenlik Hukuku | 97 | 186 | 5,8 | 189 | 49 | 10 | 1 | 37 | 6 |
 | Borçlar Hukuku | 91 | 180 | 5,6 | 220 | 61 | 4 | 0 | 26 | 4 |
+| Meslek Hukuku | 94 | 169 | 5,3 | 182 | 49 | 5 | 2 | 38 | 10 |
 | Maliye | 119 | 168 | 5,3 | 131 | 39 | 2 | 6 | 72 | 0 |
-| Meslek Hukuku | 93 | 167 | 5,2 | 176 | 48 | 5 | 2 | 38 | 10 |
-| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 164 | 30 | 4 | 3 | 77 | 6 |
+| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 164 | 32 | 2 | 3 | 77 | 5 |
 | Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 2 | 0 | 1 | 1 | 1 | 4 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Hukuk (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **50 konu / 87 soru**
-- 2 dönem çıkmış: 120 konu / 168 soru
-- 1 dönem çıkmış: 901 konu / 903 soru
+- 3+ dönem çıkmış: **48 konu / 85 soru**
+- 2 dönem çıkmış: 118 konu / 166 soru
+- 1 dönem çıkmış: 890 konu / 892 soru
 
 ## Birden çok dönem çıkmış, sitede hiç sorusu olmayan
 
@@ -106,7 +106,6 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 | Meslek Hukuku | smmm odalari | 3 / 3 | 1 | 2 |
 | Türkçe | noktalama isaretleri | 14 / 14 | 12 | 2 |
 | Türkçe | yazim yanlisi | 4 / 4 | 2 | 2 |
-| Atatürk İlkeleri ve İnkılap Tarihi | ataturk donemi dis politika | 6 / 6 | 5 | 1 |
 | Borçlar Hukuku | takas-borclar kanunu | 5 / 5 | 4 | 1 |
 | Borçlar Hukuku | sozlesme iptal sebepleri | 3 / 3 | 2 | 1 |
 | Denetim | denetim riski | 5 / 4 | 4 | 1 |
@@ -120,3 +119,4 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 | Ekonomi | mukayeseli ustunluk firsat maliyeti | 3 / 3 | 2 | 1 |
 | Finansal Muhasebe | hisse senedi satisi | 11 / 10 | 10 | 1 |
 | Finansal Muhasebe | depozito iadesi kaydi | 10 / 10 | 9 | 1 |
+| Finansal Muhasebe | ozkaynak degisimi | 4 / 4 | 3 | 1 |
