@@ -23,6 +23,7 @@
   Object.keys(BOLUM).forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute('data-sekme', BOLUM[id]); });
   var alt = document.querySelector('footer.alt'); if (alt) alt.setAttribute('data-sekme', 'hesap');
 
+  var ALT = 'max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px))';   // Capacitor 8 SystemBars + env()
   var st = document.createElement('style');
   st.textContent = [
     'body[data-sekme] main [data-sekme]{display:none}',
@@ -30,9 +31,9 @@
     'body[data-sekme=paket] main [data-sekme~=paket],body[data-sekme=hesap] main [data-sekme~=hesap]{display:block}',
     /* girişsizken Sınavlar sekmesi ücretsiz soruları da gösterir */
     'body.girissiz[data-sekme=sinav] main #ucretsiz{display:block}',
-    'main{padding-bottom:calc(84px + env(safe-area-inset-bottom))!important}',
+    'main{padding-bottom:calc(84px + ' + ALT + ')!important}',
     '#sekmeCubugu{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;' +
-    'background:var(--panel);border-top:1px solid var(--cizgi);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}',
+    'background:var(--panel);border-top:1px solid var(--cizgi);padding:6px 4px calc(6px + ' + ALT + ')}',
     '#sekmeCubugu button{flex:1;background:none;border:0;color:var(--soluk);font:600 11.5px/1.2 inherit;padding:6px 2px;' +
     'display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:12px}',
     '#sekmeCubugu button .i{font-size:20px;line-height:1;filter:grayscale(1);opacity:.7}',

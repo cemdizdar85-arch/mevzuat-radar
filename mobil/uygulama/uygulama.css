@@ -30,7 +30,9 @@
 html, body { margin: 0; background: var(--taban); color: var(--yazi); }
 body {
   font: 16px/1.5 -apple-system, "Segoe UI", system-ui, Roboto, Arial, sans-serif;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* Capacitor 8 SystemBars Android'de --safe-area-inset-* yazar; env() iOS/yeni Chromium'da dolar — büyüğü */
+  padding: max(env(safe-area-inset-top), var(--safe-area-inset-top, 0px)) max(env(safe-area-inset-right), var(--safe-area-inset-right, 0px))
+    max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px)) max(env(safe-area-inset-left), var(--safe-area-inset-left, 0px));
   -webkit-tap-highlight-color: transparent;
 }
 .ust { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 6px; }
