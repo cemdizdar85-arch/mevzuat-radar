@@ -125,7 +125,7 @@ kapi('KAPI-KASA', kasaSayfalari.length === (kasa.sayfalar || []).length,
 const kutuphane = (oku('paket-kapisi.js').match(/kutuphane\/supabase-[0-9.]+\.js/) || [])[0];
 kapi('KAPI-KASA', !!kutuphane && var_(kutuphane), 'supabase kütüphanesi paket-kapisi.js içinde bulunamadı');
 
-const UC_ETIKET = '<script src="../../' + kutuphane + '"></script><script src="../../ortak.js"></script><script src="../../uygulama-kapisi.js"></script>';
+const UC_ETIKET = '<script src="../../' + kutuphane + '"></script><script src="../../ortak.js"></script><script src="../../uygulama-kapisi.js"></script><script src="../../uygulama-kaydir.js"></script>';
 const katalog = { surum: '', derleme: '', paket: [], ucretsiz: [], yakinda: [] };
 
 /* ---------- 2. paket sayfaları (yalnız kasa modu) ---------- */
@@ -158,7 +158,7 @@ for (const yol of VITRIN) {
   const adet = sonra ? sonra.dizi.length : -1;
   kapi('KAPI-UCRETSIZ', adet >= 0 && adet <= UCRETSIZ_SORU, yol + ': ücretsiz soru ' + adet + ' > ' + UCRETSIZ_SORU);
   ucretsizSoru += Math.max(adet, 0);
-  html = html.split(KAPI_ETIKETI).join('<script src="../../uygulama-kapisi.js"></script>');
+  html = html.split(KAPI_ETIKETI).join('<script src="../../uygulama-kapisi.js"></script><script src="../../uygulama-kaydir.js"></script>');
   yaz(yol, html);
   const smmm = yol.indexOf('smmm') >= 0;
   katalog.ucretsiz.push({ yol, baslik: smmm ? 'SMMM Yeterlilik örnek soruları' : 'SGS örnek soruları',

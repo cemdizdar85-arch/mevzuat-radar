@@ -49,7 +49,7 @@
     var ciz = function () {
       if (document.getElementById('ttGeri')) return;
       var a = document.createElement('a');
-      a.id = 'ttGeri'; a.href = KOK + 'index.html'; a.textContent = '‹ Sınavlar';
+      a.id = 'ttGeri'; a.href = KOK + 'index.html'; a.textContent = '‹';   // 26.09: tek satır üst şerit (uygulama-kaydir.js)
       a.setAttribute('aria-label', 'Sınav listesine dön');
       document.body.appendChild(a);
     };
