@@ -104,10 +104,12 @@
       dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#giris">Giriş yap</a>';
     } else if (tur === 'paket') {
       baslik = 'Bu sınav hesabında açık değil';
-      // Uygulama içi satış yalnız Android'de açık (magaza.js). iOS'ta satın alma yolu gösterilmez
+      // "Paket seç" yalnız bu cihazda uygulama içi satış açıkken (magaza.js ana ekranda yazar: Android her
+      // zaman, iPhone katalog anahtarı iosSatis açıkken). Kapalıyken satın alma yolu gösterilmez
       // (Apple 3.1.1: IAP dışı satın alma yönlendirmesi ret sebebi; 25.09 satışsız ilk sürüm kararı).
-      var androidMi = !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'android');
-      if (androidMi) {
+      var satisAcik = false;
+      try { satisAcik = localStorage.getItem('tt_uyg_satis_acik') === '1'; } catch (e) {}
+      if (satisAcik) {
         metin = 'Hesabındaki paket bu sınavı kapsamıyor. Paketler ekranından uygulama içinde açabilirsin.';
         dugmeler = '<a class="pk-ana" href="' + KOK + 'index.html#paketler">Paket seç</a>' +
           '<a href="' + KOK + 'index.html">Ana ekrana dön</a>';

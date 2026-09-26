@@ -195,6 +195,7 @@ if (fs.existsSync(magazaYolu)) {
   const m = JSON.parse(fs.readFileSync(magazaYolu, 'utf8'));
   katalog.urunler = (m.urunler || []).map((u) => ({ id: u.id, ad: u.ad, sinav: u.sinav, ders: u.ders }));
   katalog.dersler = m.dersler || {};
+  katalog.iosSatis = m.ios_satis === true;   // App Store satış anahtarı (magaza-urunleri.json)
 }
 katalog.derleme = process.env.TT_DERLEME || new Date().toISOString().slice(0, 10);
 yaz('katalog.js', '/* hazirla.js üretir, elle düzenlenmez */\nwindow.TT_KATALOG=' + JSON.stringify(katalog) + ';\n');

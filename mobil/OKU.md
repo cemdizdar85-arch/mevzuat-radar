@@ -113,9 +113,28 @@ Sıra (hepsi yapılmadan satış açılmaz; eksik adımda uygulama "Paketler şu
 
 **Sınırlar (bilerek):** hesapta başka sınavın AKTİF paketi varsa ikinci sınav uygulamadan alınamaz
 (`paket_uyeler` kişi başına tek satır; uygulama ödemeden ÖNCE söyler). İade/iptal edilen ödemenin
-erişimi kendiliğinden kapanmaz (izlenmiyor). Elçi kodu mağazada yok. iPhone'da satış YOK (Apple ayağı
-yazılmadı; bölüm iOS'ta gizli). Kota (ilk 500 kuruluş fiyatı) mağazada otomatik değişmez — kota dolunca
-Play fiyatı elle güncellenir.
+erişimi kendiliğinden kapanmaz (izlenmiyor). Elçi kodu mağazada yok. Kota (ilk 500 kuruluş fiyatı) mağazada
+otomatik değişmez — kota dolunca Play fiyatı elle güncellenir.
+
+## 🍎 Uygulama içi satın alma (App Store) — 26.09.2026
+
+Kod hazır, **anahtar kapalı** (`magaza-urunleri.json` → `"ios_satis": false`): iPhone'da Paketler ekranı ve kilitli
+sınavdaki "Paket seç" görünmez. Açmak için sırayla:
+
+1. **Apple Paid Apps sözleşmesi Active** (Business → banka + W-8BEN-E vergi formu). Banka "Bank key doesn't exist"
+   veriyorsa: hesabın bağlı olduğu şube kodu bankadan öğrenilip "Don't know your Banka Kodu" aramasından seçilir.
+2. **In-App Purchase anahtarı**: App Store Connect → Users and Access → Integrations → **In-App Purchase** → Generate.
+   Key ID + Issuer ID + .p8 → Supabase → Edge Functions → Secrets: `MAGAZA_APPLE_ANAHTAR_ID`,
+   `MAGAZA_APPLE_YAYINCI_ID`, `MAGAZA_APPLE_P8` (.p8 İÇERİĞİ). Denetim: `…/functions/v1/magaza-dogrula?tani=1` → `"apple":true`.
+3. **magaza-dogrula yeniden yüklenir** (`?surum=1` = `arac/edge-imza.js` ESLEME'deki imza).
+4. **6 ürün** App Store Connect → In-App Purchases → **Consumable**, kimlikler `magaza-urunleri.json` ile BİREBİR
+   (sgs, yeterlilik_1..4, yeterlilik_tum); TRY fiyat = `fiyat_tl`'e en yakın Apple fiyat basamağı; her ürüne inceleme
+   ekran görüntüsü. Ürünler ilk IAP'li sürümle BİRLİKTE incelemeye gönderilir.
+5. `"ios_satis": true` → iOS derlemesi (`gh workflow run mobil-ios.yml`) → yeni sürüm incelemeye.
+
+⚠ Apple, bitirilmemiş işlemi Google gibi **kendiliğinden iade etmez**. Bu yüzden ödeme ekranından önce sunucu
+"kontrol" adımı şart; yine de tanımlanamayan ödemede kullanıcıya reportaproblem.apple.com gösterilir ve kayıt
+`magaza_siparis`'te `red` olarak iade takibine kalır.
 
 ## 🔴 Mağazaya ÇIKMADAN önceki kararlar
 

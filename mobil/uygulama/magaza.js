@@ -11,7 +11,12 @@
  * ayrıca mağazada onaylanmamış kalan satın almaları (getPurchases) toplar.
  *
  * Tarayıcıda ya da eklenti yokken bölüm HİÇ gösterilmez (Capacitor.Plugins.NativePurchases).
- * BU DOSYA ŞUNU YAPMAZ: fiyat yazmaz (mağazadan okur) · siteye satış bağlantısı vermez · Apple.
+ *
+ * iPhone (26.09.2026): aynı akış App Store ile. Jeton = StoreKit transactionId; sunucu App Store Server
+ * API'den doğrular; işlem sunucu cevabından SONRA cihazda bitirilir (acknowledgePurchase = finish).
+ * Apple kendiliğinden iade ETMEZ → "kontrol" adımı ödeme ekranından önce şart. iPhone'da bölüm yalnız
+ * TT_KATALOG.iosSatis true iken açılır (mobil/magaza-urunleri.json "ios_satis"; Apple banka/sözleşme onayı).
+ * BU DOSYA ŞUNU YAPMAZ: fiyat yazmaz (mağazadan okur) · siteye satış bağlantısı vermez.
  */
 (function () {
   var P = (window.Capacitor && window.Capacitor.Plugins) || {};
@@ -26,7 +31,21 @@
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function durum(t) { $('satinDurum').textContent = t || ''; }
   function yerelMi() { return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform() && NP); }
-  function android() { return !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'android'); }
+  function platform() { return (window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform()) || 'web'; }
+  function ios() { return platform() === 'ios'; }
+  /* Satış bu cihazda açık mı: Android her zaman; iPhone yalnız katalog anahtarı açıkken. */
+  function satisAcik() { return platform() === 'android' || (ios() && K.iosSatis === true); }
+  function magaza() { return ios() ? 'apple' : 'google'; }
+  function magazaAdi() { return ios() ? 'App Store' : 'Google'; }
+  var BITEN = 'tt_uyg_biten';   // iPhone: sunucunun kesin yanıt verdiği işlemler (yeniden gönderilmez)
+  function bitenler() { try { return JSON.parse(localStorage.getItem(BITEN) || '[]'); } catch (e) { return []; } }
+  function bitenEkle(j) { var l = bitenler(); if (l.indexOf(j) < 0) { l.push(j); try { localStorage.setItem(BITEN, JSON.stringify(l.slice(-200))); } catch (e) {} } }
+  /* iPhone'da işlemi cihazda bitir (StoreKit finish). Google'da tüketimi sunucu yapar. */
+  async function bitir(jeton) {
+    if (!ios()) return;
+    bitenEkle(jeton);
+    try { await NP.acknowledgePurchase({ purchaseToken: jeton }); } catch (e) {}
+  }
 
   var NEDEN = {
     'baska-sinav': 'Hesabında başka bir sınavın aktif paketi var. Bu paket şu an uygulamadan tanımlanamıyor.',
@@ -36,6 +55,7 @@
     'beklemede': 'Ödemen henüz tamamlanmadı. Tamamlanınca paketin açılır.',
     'baska-hesap': 'Bu ödeme başka bir Tetikte hesabına ait.',
     'google-ulasilamadi': 'Google’a şu an ulaşılamadı. Uygulama bir sonraki açılışta yeniden dener.',
+    'apple-ulasilamadi': 'App Store’a şu an ulaşılamadı. Uygulama bir sonraki açılışta yeniden dener.',
     'sunucu-ayari': 'Satın alma şu an kapalı. Lütfen daha sonra dene.'
   };
   function nedenYazi(n) { return NEDEN[n] || 'İşlem tamamlanamadı (' + (n || 'bilinmiyor') + ').'; }
@@ -59,22 +79,25 @@
   function bekleyenSil(jeton) { bekleyenYaz(bekleyenler().filter(function (x) { return x.jeton !== jeton; })); }
 
   async function dogrula(b) {
-    var r = await sunucu({ islem: 'dogrula', magaza: 'google', urun: b.urun, jeton: b.jeton, dersler: b.dersler || null });
-    if (r.j && r.j.tamam) { bekleyenSil(b.jeton); return { tamam: true, j: r.j }; }
+    var r = await sunucu({ islem: 'dogrula', magaza: magaza(), urun: b.urun, jeton: b.jeton, dersler: b.dersler || null });
+    if (r.j && r.j.tamam) { bekleyenSil(b.jeton); await bitir(b.jeton); return { tamam: true, j: r.j }; }
     var kesin = r.durum === 409 && r.j.neden !== 'isleniyor' || r.durum === 400;
-    if (kesin) bekleyenSil(b.jeton);
+    if (kesin) { bekleyenSil(b.jeton); await bitir(b.jeton); }
     return { tamam: false, kesin: kesin, neden: r.j.neden };
   }
   async function bekleyenleriIsle() {
     var l = bekleyenler().filter(function (x) { return x.uid === kullanici.id; });
     /* mağazada onaylanmamış kalan satın almalar (uygulama ödeme ile kayıt arasında kapandıysa) */
     try {
-      var g = await NP.getPurchases({ productType: 'inapp', appAccountToken: kullanici.id });
+      /* iOS eklentisi süzgeci UUID'nin BÜYÜK harfli yazımıyla birebir kıyaslar (uuidString). */
+      var g = await NP.getPurchases({ productType: 'inapp', appAccountToken: ios() ? String(kullanici.id).toUpperCase() : kullanici.id });
+      var biten = bitenler();
       (g.purchases || []).forEach(function (t) {
-        if (!t.purchaseToken || t.isAcknowledged) return;
-        if (!l.some(function (x) { return x.jeton === t.purchaseToken; })) {
+        var jt = ios() ? t.transactionId : t.purchaseToken;
+        if (!jt || t.isAcknowledged || biten.indexOf(jt) >= 0) return;
+        if (!l.some(function (x) { return x.jeton === jt; })) {
           var niyet = null; try { niyet = JSON.parse(localStorage.getItem('tt_uyg_niyet_' + t.productIdentifier) || 'null'); } catch (e) {}
-          var b = { uid: kullanici.id, urun: t.productIdentifier, jeton: t.purchaseToken, dersler: niyet ? niyet.dersler : null };
+          var b = { uid: kullanici.id, urun: t.productIdentifier, jeton: jt, dersler: niyet ? niyet.dersler : null };
           bekleyenEkle(b); l.push(b);
         }
       });
@@ -120,16 +143,20 @@
       catch (e) { durum('Sunucuya ulaşılamadı. Ödeme alınmadı; bağlantını kontrol edip yeniden dene.'); return; }
       if (!k.j || !k.j.tamam) { durum(nedenYazi(k.j && k.j.neden) + ' Ödeme alınmadı.'); return; }
       try { localStorage.setItem('tt_uyg_niyet_' + urun.id, JSON.stringify({ dersler: dersler, zaman: Date.now() })); } catch (e) {}
-      durum('Google ödeme ekranı açılıyor…');
+      durum(magazaAdi() + ' ödeme ekranı açılıyor…');
       var t = await NP.purchaseProduct({ productIdentifier: urun.id, productType: 'inapp', quantity: 1,
         appAccountToken: kullanici.id, isConsumable: false, autoAcknowledgePurchases: false });
-      if (!t || !t.purchaseToken) { durum('Satın alma tamamlanmadı.'); return; }
-      var b = { uid: kullanici.id, urun: urun.id, jeton: t.purchaseToken, dersler: dersler };
+      var jeton = t && (ios() ? t.transactionId : t.purchaseToken);
+      if (!jeton) { durum('Satın alma tamamlanmadı.'); return; }
+      var b = { uid: kullanici.id, urun: urun.id, jeton: String(jeton), dersler: dersler };
       bekleyenEkle(b);
       durum('Ödeme alındı, paketin hesabına tanımlanıyor…');
       var s = await dogrula(b);
       if (s.tamam) { durum('Paketin açıldı. Bitiş: ' + (s.j.bitis || '')); if (yenileFn) yenileFn(); return; }
-      durum(nedenYazi(s.neden) + (s.kesin && s.neden !== 'beklemede' ? ' Ödemen Google tarafından 3 gün içinde otomatik iade edilir.' : ''));
+      var iade = !s.kesin || s.neden === 'beklemede' ? '' : ios()
+        ? ' Ödemenin iadesi için Apple’a başvurabilirsin: reportaproblem.apple.com'
+        : ' Ödemen Google tarafından 3 gün içinde otomatik iade edilir.';
+      durum(nedenYazi(s.neden) + iade);
     } catch (e) {
       var m = String((e && (e.message || e.code)) || '');
       durum(/cancel|iptal|USER_CANCELED/i.test(m) ? 'Satın alma iptal edildi.' : 'Satın alma tamamlanamadı. Uygulama bir sonraki açılışta yeniden dener.');
@@ -158,9 +185,12 @@
 
   window.TTMagaza = {
     goster: function (istemci, k, yenile) {
-      if (!yerelMi() || !android() || !URUNLER.length || k.cevrimdisi) { $('paketler').hidden = true; return; }
+      /* Kilitli sınav perdesi (uygulama-kapisi.js) "Paket seç" düğmesini bu bilgiyle gösterir. */
+      try { localStorage.setItem('tt_uyg_satis_acik', yerelMi() && satisAcik() ? '1' : '0'); } catch (e) {}
+      if (!yerelMi() || !satisAcik() || !URUNLER.length || k.cevrimdisi) { $('paketler').hidden = true; return; }
       sb = istemci; kullanici = k; yenileFn = yenile;
       $('paketler').hidden = false;
+      $('paketNot').textContent = 'Ödeme ' + (ios() ? 'App Store' : 'Google Play') + ' üzerinden yapılır; paket hesabına hemen tanımlanır.';
       urunleriCiz().then(function () { if (location.hash === '#paketler') $('paketler').scrollIntoView({ block: 'start' }); });
       bekleyenleriIsle();
     },

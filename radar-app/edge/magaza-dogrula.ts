@@ -21,15 +21,25 @@
 //  GİZLİLER (Supabase → Edge Functions → Secrets):
 //    MAGAZA_GOOGLE_SERVIS_JSON  Google Cloud servis hesabının JSON anahtarı (Play Console'da
 //                               "Siparişleri yönet" + "Finansal verileri görüntüle" izinli)
+//    MAGAZA_APPLE_ANAHTAR_ID    App Store Connect → Users and Access → Integrations → In-App Purchase
+//    MAGAZA_APPLE_YAYINCI_ID    anahtarının Key ID'si · Issuer ID · .p8 dosyasının İÇERİĞİ (26.09 Apple ayağı).
+//    MAGAZA_APPLE_P8            Üçü yoksa Apple istekleri 503 "sunucu-ayari" döner.
 //    SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY otomatik gelir.
+//
+//  AKIŞ (App Store, 26.09.2026): uygulama ödemeden önce yine {islem:"kontrol"} sorar; StoreKit 2 satın
+//  almasına appAccountToken = Supabase user id iliştirilir ve işlem BİTİRİLMEDEN bırakılır. {magaza:"apple",
+//  jeton: transactionId} ile gelinir; App Store Server API'den işlem okunur (önce üretim, yoksa sandbox),
+//  paket/ürün/hesap/iade denetlenir, paket yazılır; uygulama sonra işlemi cihazda bitirir (finish).
+//  ⚠ Apple bitirilmemiş işlemi KENDİLİĞİNDEN İADE ETMEZ — "kontrol" adımı bu yüzden şart.
 //  YAYIN: Supabase panel → Edge Functions → yeni fonksiyon "magaza-dogrula" → bu dosya.
 //         "Verify JWT" KAPALI (diğer uç fonksiyonlar gibi): kimlik bu dosyada /auth/v1/user ile
 //         doğrulanır; kapı açıkken ?surum=1 nöbetçisi ve CORS ön isteği ağ geçidinde 401 alır.
 //  TEŞHİS: ?surum=1 → kod imzası · ?tani=1 → gizli tanımlı mı (değer DÖNMEZ).
 //
 //  BU FONKSİYON ŞUNU YAPMAZ / GÖRMEZ:
-//    - App Store (Apple) doğrulaması: {magaza:"apple"} 501 döner (ayrı iş, IAP kararı sonrası).
-//    - İade/iptal sonrası erişimi geri almaz (Google "voided purchases" izlenmiyor — ayrı iş).
+//    - İade/iptal sonrası erişimi geri almaz (Google "voided purchases" / Apple REFUND bildirimi izlenmiyor — ayrı iş).
+//    - Apple işlem yükünün (JWS) sertifika zincirini ayrıca doğrulamaz: yük, kimlik doğrulamalı istekle
+//      doğrudan Apple sunucusundan okunur; istemcinin gönderdiği JWS'e hiç güvenilmez.
 //    - Elçi / davet kodu indirimi uygulamaz (mağaza fiyatı sabit).
 // ============================================================================
 
@@ -119,10 +129,21 @@ function googleHukmu(g, kullaniciId) {
   if (g.obfuscatedExternalAccountId !== kullaniciId) return "baska-hesap";
   return "tamam";
 }
+// App Store Server API işlem yükünü (JWSTransactionDecodedPayload) bu hesap + ürün için değerlendirir.
+// appAccountToken = satın alırken iliştirilen Supabase user id (UUID; Apple büyük harfle döndürebilir).
+function appleHukmu(a, kullaniciId, urunId) {
+  if (!a || typeof a !== "object") return "yanit-yok";
+  if (a.bundleId !== PAKET_ADI) return "baska-uygulama";
+  if (a.productId !== urunId) return "urun-uyusmuyor";
+  if (String(a.appAccountToken || "").toLowerCase() !== String(kullaniciId).toLowerCase()) return "baska-hesap";
+  if (a.revocationDate) return "iptal";
+  if (a.type !== "Consumable") return "urun-turu";
+  return "tamam";
+}
 // SAF-BITIS
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür.
-const KOD_IMZA = "2ece3b06fb3015df";
+const KOD_IMZA = "3f8d305da3a13606";
 
 // Uygulama kökenleri: Android WebView https://localhost, iOS capacitor://localhost.
 const IZINLI_KOKEN = new Set(["https://localhost", "capacitor://localhost", "http://localhost"]);
@@ -144,6 +165,10 @@ function yanit(govde: unknown, durum: number, origin: string | null): Response {
 const SB_URL = typeof Deno !== "undefined" ? (Deno.env.get("SUPABASE_URL") || "") : "";
 const SB_SERVIS = typeof Deno !== "undefined" ? (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "") : "";
 const GOOGLE_JSON = typeof Deno !== "undefined" ? (Deno.env.get("MAGAZA_GOOGLE_SERVIS_JSON") || "") : "";
+const APPLE_ANAHTAR_ID = typeof Deno !== "undefined" ? (Deno.env.get("MAGAZA_APPLE_ANAHTAR_ID") || "") : "";
+const APPLE_YAYINCI_ID = typeof Deno !== "undefined" ? (Deno.env.get("MAGAZA_APPLE_YAYINCI_ID") || "") : "";
+const APPLE_P8 = typeof Deno !== "undefined" ? (Deno.env.get("MAGAZA_APPLE_P8") || "") : "";
+const APPLE_HAZIR = !!(APPLE_ANAHTAR_ID && APPLE_YAYINCI_ID && APPLE_P8);
 
 async function rest(yol: string, secenek: RequestInit = {}): Promise<Response> {
   return await fetch(SB_URL + "/rest/v1/" + yol, {
@@ -207,44 +232,84 @@ async function googleTuket(urunId: string, jeton: string): Promise<boolean> {
   return r.ok;
 }
 
+/* ---- Apple: In-App Purchase anahtarıyla ES256 JWT → App Store Server API ---- */
+let appleAnahtar: { deger: string; bitis: number } | null = null;
+async function appleErisim(): Promise<string> {
+  if (appleAnahtar && appleAnahtar.bitis > Date.now() + 60000) return appleAnahtar.deger;
+  const simdi = Math.floor(Date.now() / 1000);
+  const govde = b64url(JSON.stringify({ alg: "ES256", kid: APPLE_ANAHTAR_ID, typ: "JWT" })) + "." + b64url(JSON.stringify({
+    iss: APPLE_YAYINCI_ID, iat: simdi, exp: simdi + 1200, aud: "appstoreconnect-v1", bid: PAKET_ADI,
+  }));
+  const pem = APPLE_P8.replace(/-----[^-]+-----/g, "").replace(/\s+/g, "");
+  const der = Uint8Array.from(atob(pem), (c) => c.charCodeAt(0));
+  const anahtar = await crypto.subtle.importKey("pkcs8", der, { name: "ECDSA", namedCurve: "P-256" }, false, ["sign"]);
+  // WebCrypto ECDSA imzası r||s (IEEE P1363) döner — JWS ES256'nın istediği biçim.
+  const imza = await crypto.subtle.sign({ name: "ECDSA", hash: "SHA-256" }, anahtar, new TextEncoder().encode(govde));
+  appleAnahtar = { deger: govde + "." + b64url(imza), bitis: Date.now() + 1100 * 1000 };
+  return appleAnahtar.deger;
+}
+function jwsYuk(jws: string): Record<string, unknown> | null {
+  const orta = String(jws || "").split(".")[1];
+  if (!orta) return null;
+  const b64 = orta.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((orta.length + 3) % 4);
+  try { return JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)))); } catch (_e) { return null; }
+}
+// Önce üretim, bulunamazsa sandbox (App Review ve test kullanıcıları sandbox'ta öder).
+// Yanıt Apple'ın kendi sunucusundan, kimlik doğrulamalı istekle geldiği için yük imzası ayrıca çözülmez.
+async function appleOku(islemNo: string): Promise<Record<string, unknown> | null> {
+  for (const kok of ["https://api.storekit.itunes.apple.com", "https://api.storekit-sandbox.itunes.apple.com"]) {
+    const r = await fetch(kok + "/inApps/v1/transactions/" + encodeURIComponent(islemNo), { headers: { Authorization: "Bearer " + await appleErisim() } });
+    if (r.status === 404) continue;
+    if (!r.ok) throw new Error("apple doğrulama " + r.status);
+    const j = await r.json();
+    const yuk = jwsYuk(j.signedTransactionInfo);
+    return yuk ? { ...yuk, _ortam: kok.indexOf("sandbox") > 0 ? "sandbox" : "production" } : null;
+  }
+  return null;
+}
+
 async function siparisYaz(alanlar: Record<string, unknown>, jeton: string): Promise<void> {
   await rest("magaza_siparis?jeton=eq." + encodeURIComponent(jeton), { method: "PATCH", body: JSON.stringify({ ...alanlar, guncelleme: new Date().toISOString() }) });
 }
 
-async function dogrula(k: { id: string }, urunId: string, jeton: string, dersler: string[] | null, origin: string | null): Promise<Response> {
+async function dogrula(magaza: "google" | "apple", k: { id: string }, urunId: string, jeton: string, dersler: string[] | null, origin: string | null): Promise<Response> {
+  const google = magaza === "google";
   // 1) Jeton daha önce görüldü mü (aynı ödemeyle iki kez paket alınamaz; tekrar çağrı güvenli)
-  const on = await rest("magaza_siparis?select=user_id,durum,paket,bitis,urun&jeton=eq." + encodeURIComponent(jeton));
+  const on = await rest("magaza_siparis?select=user_id,durum,paket,bitis,urun,magaza&jeton=eq." + encodeURIComponent(jeton));
   const onceki = on.ok ? (await on.json())[0] : null;
   if (onceki) {
-    if (onceki.user_id !== k.id) return yanit({ tamam: false, neden: "baska-hesap" }, 409, origin);
+    if (onceki.user_id !== k.id || onceki.magaza !== magaza) return yanit({ tamam: false, neden: "baska-hesap" }, 409, origin);
     if (onceki.durum === "verildi" || onceki.durum === "tuketildi") {
-      if (onceki.durum === "verildi" && await googleTuket(onceki.urun, jeton)) await siparisYaz({ durum: "tuketildi" }, jeton);
+      if (google && onceki.durum === "verildi" && await googleTuket(onceki.urun, jeton)) await siparisYaz({ durum: "tuketildi" }, jeton);
       return yanit({ tamam: true, paket: onceki.paket, bitis: onceki.bitis, tekrar: true }, 200, origin);
     }
     if (onceki.durum === "isleniyor") return yanit({ tamam: false, neden: "isleniyor" }, 409, origin);
   } else {
     const ek = await rest("magaza_siparis", { method: "POST", headers: { Prefer: "resolution=ignore-duplicates,return=representation" },
-      body: JSON.stringify({ magaza: "google", urun: urunId, jeton, user_id: k.id, durum: "isleniyor" }) });
+      body: JSON.stringify({ magaza, urun: urunId, jeton, user_id: k.id, durum: "isleniyor" }) });
     const eklenen = ek.ok ? await ek.json() : [];
     if (!eklenen.length) return yanit({ tamam: false, neden: "isleniyor" }, 409, origin);
   }
 
-  // 2) Google'a sor
+  // 2) Mağazaya sor
   let g: Record<string, unknown> | null = null;
-  try { g = await googleOku(urunId, jeton); }
-  catch (_e) { await siparisYaz({ durum: "hata", neden: "google-ulasilamadi" }, jeton); return yanit({ tamam: false, neden: "google-ulasilamadi" }, 502, origin); }
-  const gh = googleHukmu(g, k.id);
+  const ulasilamadi = google ? "google-ulasilamadi" : "apple-ulasilamadi";
+  try { g = google ? await googleOku(urunId, jeton) : await appleOku(jeton); }
+  catch (_e) { await siparisYaz({ durum: "hata", neden: ulasilamadi }, jeton); return yanit({ tamam: false, neden: ulasilamadi }, 502, origin); }
+  const gh = google ? googleHukmu(g, k.id) : appleHukmu(g, k.id, urunId);
   if (gh !== "tamam") {
-    await siparisYaz({ durum: gh === "beklemede" ? "beklemede" : "red", neden: gh, ham: g, siparis_no: g ? g.orderId : null }, jeton);
+    await siparisYaz({ durum: gh === "beklemede" ? "beklemede" : "red", neden: gh, ham: g, siparis_no: g ? (google ? g.orderId : g.originalTransactionId) : null }, jeton);
     return yanit({ tamam: false, neden: gh }, gh === "beklemede" ? 202 : 409, origin);
   }
-  const siparisNo = (g as Record<string, unknown>).orderId;
+  const siparisNo = google ? (g as Record<string, unknown>).orderId : (g as Record<string, unknown>).originalTransactionId;
 
-  // 3) Hak kararı (tanımlanamıyorsa TÜKETİLMEZ → Google 3 günde iade eder)
+  // 3) Hak kararı. Google: tanımlanamıyorsa TÜKETİLMEZ → Google 3 günde iade eder.
+  //    Apple: kendiliğinden iade YOK — bu yüzden uygulama ödemeden ÖNCE {islem:"kontrol"} sorar; buraya düşen
+  //    red nadirdir (iki cihazdan eşzamanlı alım) ve magaza_siparis'te "red" olarak iade takibine kalır.
   const karar = hakKarari(await paketSatiri(k.id), urunId, dersler, Date.now());
   if (karar.islem === "red") {
     await siparisYaz({ durum: "red", neden: karar.neden, ham: g, siparis_no: siparisNo }, jeton);
-    return yanit({ tamam: false, neden: karar.neden, iade: "3 gün içinde otomatik" }, 409, origin);
+    return yanit({ tamam: false, neden: karar.neden, iade: google ? "3 gün içinde otomatik" : "apple-iade-talebi" }, 409, origin);
   }
   const y = karar.yeni!;
   const yaz = karar.islem === "ekle"
@@ -256,8 +321,9 @@ async function dogrula(k: { id: string }, urunId: string, jeton: string, dersler
   }
   await siparisYaz({ durum: "verildi", paket: y.paket, bitis: y.bitis, dersler: y.dersler, ham: g, siparis_no: siparisNo }, jeton);
 
-  // 4) Tüket (onay + yeniden satın alınabilirlik). Düşerse paket yine verildi; sonraki çağrı yeniden dener.
-  if (await googleTuket(urunId, jeton)) await siparisYaz({ durum: "tuketildi" }, jeton);
+  // 4) Google: tüket (onay + yeniden satın alınabilirlik). Düşerse paket yine verildi; sonraki çağrı yeniden dener.
+  //    Apple: sunucuda tüketim yok — uygulama bu yanıttan sonra işlemi cihazda bitirir (finish).
+  if (google && await googleTuket(urunId, jeton)) await siparisYaz({ durum: "tuketildi" }, jeton);
   return yanit({ tamam: true, paket: y.paket, bitis: y.bitis }, 200, origin);
 }
 
@@ -266,7 +332,7 @@ async function isle(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
   const url = new URL(req.url);
   if (url.searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
-  if (url.searchParams.get("tani") === "1") return yanit({ google: !!GOOGLE_JSON, supabase: !!(SB_URL && SB_SERVIS) }, 200, origin);
+  if (url.searchParams.get("tani") === "1") return yanit({ google: !!GOOGLE_JSON, apple: APPLE_HAZIR, supabase: !!(SB_URL && SB_SERVIS) }, 200, origin);
   if (req.method !== "POST") return yanit({ tamam: false, neden: "yontem" }, 405, origin);
 
   const jwt = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
@@ -284,12 +350,17 @@ async function isle(req: Request): Promise<Response> {
     return yanit({ tamam: karar.islem !== "red", neden: karar.neden || null, yeni: karar.yeni || null }, 200, origin);
   }
   if (b.islem !== "dogrula") return yanit({ tamam: false, neden: "islem" }, 400, origin);
-  if (b.magaza === "apple") return yanit({ tamam: false, neden: "apple-henuz-yok" }, 501, origin);
-  if (b.magaza !== "google") return yanit({ tamam: false, neden: "magaza" }, 400, origin);
   const jeton = String(b.jeton || "");
+  if (b.magaza === "apple") {
+    // Apple jetonu = StoreKit 2 transactionId (yalnız rakam)
+    if (!/^\d{1,20}$/.test(jeton)) return yanit({ tamam: false, neden: "jeton" }, 400, origin);
+    if (!APPLE_HAZIR) return yanit({ tamam: false, neden: "sunucu-ayari" }, 503, origin);
+    return await dogrula("apple", k, urunId, jeton, d.dersler || null, origin);
+  }
+  if (b.magaza !== "google") return yanit({ tamam: false, neden: "magaza" }, 400, origin);
   if (!/^[A-Za-z0-9._\-:]{20,2000}$/.test(jeton)) return yanit({ tamam: false, neden: "jeton" }, 400, origin);
   if (!GOOGLE_JSON) return yanit({ tamam: false, neden: "sunucu-ayari" }, 503, origin);
-  return await dogrula(k, urunId, jeton, d.dersler || null, origin);
+  return await dogrula("google", k, urunId, jeton, d.dersler || null, origin);
 }
 
 if (typeof Deno !== "undefined") Deno.serve((req: Request) => isle(req).catch(() => yanit({ tamam: false, neden: "sunucu" }, 500, req.headers.get("origin"))));
