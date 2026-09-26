@@ -128,8 +128,10 @@
     });
   }
 
+  function olay(ad) { if (window.TTOlay) window.TTOlay.say(ad); }   // adım sayacı (ilerleme.js)
   async function satinAl(urun, dugme) {
     durum('');
+    olay('satin_al_bas');
     var dersler = null;
     if (urun.ders > 0 && urun.ders < (DERSLER[urun.sinav] || []).length) {
       dersler = await dersSec(urun);
@@ -152,7 +154,7 @@
       bekleyenEkle(b);
       durum('Ödeme alındı, paketin hesabına tanımlanıyor…');
       var s = await dogrula(b);
-      if (s.tamam) { durum('Paketin açıldı. Bitiş: ' + (s.j.bitis || '')); if (yenileFn) yenileFn(); return; }
+      if (s.tamam) { olay('satin_aldi'); durum('Paketin açıldı. Bitiş: ' + (s.j.bitis || '')); if (yenileFn) yenileFn(); return; }
       var iade = !s.kesin || s.neden === 'beklemede' ? '' : ios()
         ? ' Ödemenin iadesi için Apple’a başvurabilirsin: reportaproblem.apple.com'
         : ' Ödemen Google tarafından 3 gün içinde otomatik iade edilir.';

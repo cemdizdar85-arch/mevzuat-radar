@@ -50,14 +50,23 @@
 
   <!-- HESAP: giriş ya da hesap · paketler · çalışma ayarları · hatırlatıcı -->
   <section id="giris" class="bolum" data-sekme="hesap" hidden>
-    <h1>Giriş</h1>
-    <p class="soluk">Tetikte hesabınla giriş yap. Paketindeki dersler açılır, ilerlemen tüm cihazlarında aynı kalır.</p>
-    <form id="girisForm" class="kart" autocomplete="on">
+    <h1 id="girisBaslik">Ücretsiz üye ol</h1>
+    <p id="girisAlt" class="soluk">30 ücretsiz soru, açıklamaları ve karnen açılır. İlerlemen tüm cihazlarında saklanır.</p>
+    <div class="segment" role="group" aria-label="Üye ol ya da giriş yap" style="margin:14px 0 14px">
+      <button type="button" id="modUye" aria-pressed="true">Üye ol</button>
+      <button type="button" id="modGiris" aria-pressed="false">Giriş yap</button>
+    </div>
+    <form id="girisForm" class="kart" autocomplete="on" novalidate>
+      <label id="adSatir">Adın<input id="ad" type="text" autocomplete="given-name" maxlength="60"></label>
       <label>E-posta<input id="eposta" type="email" inputmode="email" autocomplete="username" required></label>
-      <label>Şifre<input id="sifre" type="password" autocomplete="current-password" required></label>
+      <label>Şifre<input id="sifre" type="password" autocomplete="new-password" minlength="6" required></label>
+      <div id="onaySatir">
+        <label class="anahtar onay"><input id="kosul" type="checkbox"> <span><button type="button" class="bagIc" data-dis="https://tetikte.com/uyelik-sozlesmesi.html">Üyelik sözleşmesini</button> ve <button type="button" class="bagIc" data-dis="https://tetikte.com/kvkk.html">aydınlatma metnini</button> okudum, kabul ediyorum.</span></label>
+        <label class="anahtar onay"><input id="riza" type="checkbox"> <span>Kampanya ve duyurular e-postama gelsin (isteğe bağlı).</span></label>
+      </div>
       <p id="girisHata" class="hata" role="alert"></p>
-      <button type="submit" class="ana">Giriş yap</button>
-      <button type="button" id="sifreUnuttum" class="duz">Şifremi unuttum</button>
+      <button type="submit" id="girisGonder" class="ana">Ücretsiz üye ol</button>
+      <button type="button" id="sifreUnuttum" class="duz" hidden>Şifremi unuttum</button>
     </form>
   </section>
 
@@ -112,8 +121,8 @@
   </footer>
 </main>
 <script src="magaza.js"></script>
-<script src="uygulama.js"></script>
 <script src="ilerleme.js"></script>
+<script src="uygulama.js"></script>
 <script src="uygulama-ozet.js"></script>
 <script src="uygulama-sinavlar.js"></script>
 <script src="uygulama-sekme.js"></script>

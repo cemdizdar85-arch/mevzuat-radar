@@ -112,8 +112,10 @@
   var SINAV_SIRA = [{ id: 'sgs', ad: 'SGS · Staja Giriş' }, { id: 'yeterlilik', ad: 'SMMM Yeterlilik' }, { id: 'kgk', ad: 'KGK Bağımsız Denetçilik' }];
 
   function ucretsizCiz(v, h, bugun, seri, t) {
-    var html = '<span class="etk">Hesap gerekmez</span><h1>Ücretsiz dene</h1>' +
-      '<p class="soluk" style="margin-top:6px">Gerçek sınav kalıbında sorular, her birinin açıklamasıyla.</p>';
+    var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
+    var html = '<span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'İlk 3 soru hesapsız') + '</span><h1>Ücretsiz dene</h1>' +
+      '<p class="soluk" style="margin-top:6px">Sınav başına 30 soru, gerçek sınav kalıbında, her birinin açıklamasıyla.' +
+      (uye ? '' : ' 3 sorudan sonrası ücretsiz üyelikle açılır.') + '</p>';
     /* hangi sınavlara açığız — katalogdan, sabit yazı yok */
     html += '<span class="etk" style="margin-top:22px">Ücretsiz açık olanlar</span><div class="satirlar">';
     SINAV_SIRA.forEach(function (x) {
@@ -169,12 +171,15 @@
 
     var D = window.TT_DURUM;
     if (D && !D.girisli) {
-      html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="giris">' + ik('giris') +
-        '<span class="ad">Paketin var mı? Giriş yap<small>Paketindeki dersler açılır, ilerlemen tüm cihazlarında saklanır</small></span>' + OK + '</button></div>';
+      html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="uyeol">' + ik('hesap') +
+        '<span class="ad">Ücretsiz üye ol<small>30 soru, açıklamalar ve karnen açılır; kart istenmez</small></span>' + OK + '</button>' +
+        '<button type="button" class="srt" data-git="giris">' + ik('giris') +
+        '<span class="ad">Hesabım var, giriş yap<small>Paketindeki dersler açılır</small></span>' + OK + '</button></div>';
     }
     bugunB.innerHTML = html;
-    var g = bugunB.querySelector('[data-git=giris]');
-    if (g) g.onclick = function () { if (window.TTSekme) window.TTSekme.sec('hesap', 'giris'); };
+    [].forEach.call(bugunB.querySelectorAll('[data-git]'), function (g) {
+      g.onclick = function () { if (window.TTGiris) window.TTGiris.ac(g.dataset.git === 'uyeol' ? 'uye' : 'giris'); };
+    });
     [].forEach.call(bugunB.querySelectorAll('[data-sinav]'), function (b) {
       b.onclick = function () { if (window.TTSinavlar) window.TTSinavlar.ac(b.dataset.sinav); };
     });

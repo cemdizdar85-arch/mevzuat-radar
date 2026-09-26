@@ -84,15 +84,15 @@
   function kilitAc() {
     var D = durum();
     if (!window.TTSekme) return;
-    if (!D.girisli) window.TTSekme.sec('hesap', 'giris');
+    if (!D.girisli) { if (window.TTGiris) window.TTGiris.ac('uye'); else window.TTSekme.sec('hesap', 'giris'); }
     else if (satisMumkun() && window.TTMagaza) window.TTSekme.sec('hesap', 'paketler');
   }
   /* paketi olmayanın kilit altındaki tek düğme + açıklama */
   function kilitDugmesi() {
     var D = durum();
     if (!D.girisli) return '<button type="button" class="ana" data-kilitac="1">Kilidi aç</button>' +
-      '<p class="not">Paketin varsa hesabınla giriş yap; kilitler burada açılır.' +
-      (satisMumkun() ? ' Paketin yoksa giriş yaptıktan sonra uygulamadan alabilirsin.' : '') + '</p>';
+      '<p class="not">Önce ücretsiz üye ol ya da hesabınla giriş yap; paketin varsa kilitler burada açılır.' +
+      (satisMumkun() ? ' Paketin yoksa üye olduktan sonra uygulamadan alabilirsin.' : '') + '</p>';
     if (satisMumkun() && window.TTMagaza) return '<button type="button" class="ana" data-kilitac="1">Kilidi aç</button>';
     return '<p class="not">Bu sınav hesabındaki pakette yok.</p>';
   }
@@ -128,7 +128,7 @@
     if (o.ucr) {
       var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan;
       h += '<a class="srt" href="' + esc(o.ucr.yol) + '">' + ik('oynat') + '<span class="ad">Örnek sorular<small>' +
-        sayi(o.ucr.adet || 30) + ' soru · hesap gerekmez · açıklamalı</small></span>' +
+        sayi(o.ucr.adet || 30) + ' soru · ilk 3 soru hesapsız, gerisi ücretsiz üyelikle</small></span>' +
         (n ? '<span class="sag">' + n + '/' + (o.ucr.adet || n) + '</span>' : '') + OK + '</a>';
     } else h += '<div class="bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
     h += '</div>';
@@ -193,6 +193,13 @@
     });
     [].forEach.call(document.querySelectorAll('#sinavUst [data-kilitac],#kilitli [data-kilitac]'), function (b) { b.onclick = kilitAc; });
   }
+
+  /* soru sayfaları (katalogsuz) ara karnede gerçek paket büyüklüğünü yazsın diye */
+  try {
+    var po = {};
+    SINAVLAR.forEach(function (x) { var o = ozet(x.id); if (o.paket.length) po[x.id] = { soru: o.soru, ders: o.paket.length + o.yakin.length }; });
+    localStorage.setItem('tt_uyg_paket_ozet', JSON.stringify(po));
+  } catch (e) {}
 
   ciz();
   document.addEventListener('tt-durum', ciz);

@@ -17,7 +17,7 @@
     { id: 'karne', ad: 'Karnem', ikon: 'karne' },
     { id: 'hesap', ad: 'Hesap', ikon: 'hesap' }
   ];
-  var HASH = { '#paketler': ['hesap', 'paketler'], '#giris': ['hesap', 'giris'], '#hesap': ['hesap'], '#ucretsiz': ['sinav'], '#karne': ['karne'] };
+  var HASH = { '#paketler': ['hesap', 'paketler'], '#giris': ['hesap', 'giris'], '#uyeol': ['hesap', 'giris'], '#hesap': ['hesap'], '#ucretsiz': ['sinav'], '#karne': ['karne'] };
   var ANAHTAR = 'tt_uyg_sekme';
   var body = document.body;
 
@@ -60,6 +60,7 @@
     body.setAttribute('data-sekme', id);
     [].forEach.call(cubuk.children, function (b) { b.setAttribute('aria-selected', b.dataset.sekme === id ? 'true' : 'false'); });
     try { sessionStorage.setItem(ANAHTAR, id); } catch (e) {}
+    if (hedef === 'paketler' && window.TTOlay) window.TTOlay.say('paket_ekrani');
     var el = hedef && document.getElementById(hedef);
     if (el && !el.hidden) el.scrollIntoView({ block: 'start' });
     else window.scrollTo(0, 0);

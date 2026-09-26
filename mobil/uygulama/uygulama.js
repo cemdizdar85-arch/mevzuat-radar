@@ -120,17 +120,66 @@
   }
   function durumBildir(girisli, acik) {
     window.TT_DURUM = { girisli: girisli, acik: acik };
+    /* soru sayfaları (supabase'siz vitrin) üyelik kapısı için bunu okur: uygulama-kaydir.js */
+    try { localStorage.setItem('tt_uyg_girisli', girisli ? '1' : '0'); } catch (e) {}
     try { document.dispatchEvent(new CustomEvent('tt-durum', { detail: window.TT_DURUM })); } catch (e) {}
   }
   function rozet(t) { $('durumRozet').textContent = t; $('durumRozet').hidden = !t; }
 
+  /* ---------- üye ol / giriş (26.09 Cem "kur": üyelik kapısı) ----------
+     Üye ol = ogrenci.html ile AYNI meta alanları (koşullar zorunlu, açık rıza isteğe bağlı ve ayrı). Supabase e-posta
+     onayı 23.09'dan beri kapalı → signUp oturumu hemen açar; açmazsa kişiye söylenir. */
+  var mod = 'uye';
+  function modSec(m) {
+    mod = m;
+    $('modUye').setAttribute('aria-pressed', m === 'uye'); $('modGiris').setAttribute('aria-pressed', m === 'giris');
+    $('adSatir').hidden = m !== 'uye'; $('onaySatir').hidden = m !== 'uye'; $('sifreUnuttum').hidden = m !== 'giris';
+    $('girisGonder').textContent = m === 'uye' ? 'Ücretsiz üye ol' : 'Giriş yap';
+    $('girisBaslik').textContent = m === 'uye' ? 'Ücretsiz üye ol' : 'Giriş yap';
+    $('girisAlt').textContent = m === 'uye' ? '30 ücretsiz soru, açıklamaları ve karnen açılır. İlerlemen tüm cihazlarında saklanır.'
+      : 'Tetikte hesabınla giriş yap. Paketindeki dersler açılır, ilerlemen tüm cihazlarında aynı kalır.';
+    $('sifre').setAttribute('autocomplete', m === 'uye' ? 'new-password' : 'current-password');
+    $('girisHata').textContent = '';
+  }
+  $('modUye').addEventListener('click', function () { modSec('uye'); });
+  /* diğer dosyalar: TTGiris.ac('uye'|'giris') → Hesap sekmesinde o form */
+  window.TTGiris = { ac: function (m) { modSec(m === 'giris' ? 'giris' : 'uye'); if (window.TTSekme) window.TTSekme.sec('hesap', 'giris'); } };
+  window.addEventListener('hashchange', function () { if (location.hash === '#uyeol') modSec('uye'); else if (location.hash === '#giris') modSec('giris'); });
+  $('modGiris').addEventListener('click', function () { modSec('giris'); });
+  function olay(ad, tek) { if (window.TTOlay) window.TTOlay.say(ad, tek); }
+  function platformAdi() { return (window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform()) || 'web'; }
+  function olayGonder() { if (window.TTOlay && window.TT && window.TT.SB_URL) window.TTOlay.gonder(window.TT.SB_URL, window.TT.SB_KEY, platformAdi()); }
+
   $('girisForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-    $('girisHata').textContent = '';
-    var r = await sb.auth.signInWithPassword({ email: $('eposta').value.trim(), password: $('sifre').value });
-    if (r.error) { $('girisHata').textContent = trHata(r.error); return; }
-    $('sifre').value = '';
-    yenile();
+    var h = $('girisHata'); h.textContent = '';
+    var ep = $('eposta').value.trim(), sf = $('sifre').value;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ep)) { h.textContent = 'E-posta adresini yaz.'; return; }
+    if (sf.length < 6) { h.textContent = 'Şifre en az 6 karakter olmalı.'; return; }
+    var dg = $('girisGonder'); dg.disabled = true;
+    try {
+      if (mod === 'uye') {
+        if (!$('kosul').checked) { h.textContent = 'Üye olmak için sözleşmeyi ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
+        var an = new Date().toISOString(), riza = $('riza').checked;
+        var u = await sb.auth.signUp({ email: ep, password: sf, options: { data: {
+          hesap_turu: 'ogrenci', kaynak: 'uygulama', ad: $('ad').value.trim().slice(0, 60),
+          kosul_kabul: an, pazarlama_rizasi: riza, riza_tarihi: riza ? an : null } } });
+        if (u.error) { h.textContent = /already|registered|exists/i.test(u.error.message || '') ? 'Bu e-postayla zaten hesap var. "Giriş yap"a geç.' : trHata(u.error); return; }
+        if (!u.data.session) { h.textContent = 'Hesabın açıldı. E-postana gelen bağlantıya tıkla, sonra giriş yap.'; modSec('giris'); return; }
+        olay('uye_ol', true);
+      } else {
+        var g = await sb.auth.signInWithPassword({ email: ep, password: sf });
+        if (g.error) { h.textContent = trHata(g.error); return; }
+        olay('giris', true);
+      }
+      $('sifre').value = '';
+      await yenile();
+      olayGonder();
+      /* üyelik kapısından gelindiyse kaldığı soruya dön */
+      var don = null; try { don = sessionStorage.getItem('tt_uyg_donus'); sessionStorage.removeItem('tt_uyg_donus'); } catch (x) {}
+      if (don && /^kaydir\/[a-z0-9\/-]+\.html(#s=\d+)?$/.test(don)) location.href = don;
+      else if (window.TTSekme) window.TTSekme.sec('bugun');
+    } finally { dg.disabled = false; }
   });
   $('sifreUnuttum').addEventListener('click', async function () {
     var ep = $('eposta').value.trim();
@@ -144,7 +193,18 @@
     girisCiz();
   });
   $('cihazlar').addEventListener('click', function () { disAc('https://tetikte.com/ogrenci.html#cihazlarim'); });
-  $('hesapSil').addEventListener('click', function () {
+  /* hesap silme: uygulama içinden (Apple 5.1.1(v)); SQL hesabimi_sil basılmamışsa eski yol (e-posta) */
+  $('hesapSil').addEventListener('click', async function () {
+    if (!confirm('Hesabın ve ilerlemen kalıcı olarak silinir. Hesabında açık bir paket varsa o da silinir ve geri alınamaz. Devam edilsin mi?')) return;
+    var s = await sb.rpc('hesabimi_sil').catch(function (x) { return { error: x }; });
+    if (!s.error && s.data && s.data.tamam) {
+      olay('hesap_sil'); olayGonder();
+      await window.TT.cikis(sb).catch(function () {});
+      try { ['tt_ilerleme', INDIRME_ANAHTARI, 'tt_uyg_girisli'].forEach(function (a) { localStorage.removeItem(a); }); } catch (e) {}
+      alert('Hesabın silindi.');
+      location.reload();
+      return;
+    }
     var ep = ($('hesapEposta').textContent || '').replace(/^.*: /, '');
     var govde = 'Merhaba,\n\nTetikte hesabımın ve verilerimin silinmesini istiyorum.\nHesap e-postası: ' + ep + '\n';
     location.href = 'mailto:' + HESAP_SIL_EPOSTA + '?subject=' + encodeURIComponent('hesabımı sil') + '&body=' + encodeURIComponent(govde);
@@ -191,7 +251,8 @@
     var k = await window.TT.kullanici(sb);
     if (k) return anaCiz(k);
     girisCiz();
-    if (location.hash === '#giris') $('eposta').focus();
+    if (location.hash === '#giris') modSec('giris');
+    if (location.hash === '#uyeol') modSec('uye');
   }
 
   $('surum').textContent = 'Sürüm ' + K.surum + ' · ' + K.derleme;
@@ -199,5 +260,8 @@
   catch (e) { $('liste').textContent = 'Uygulama başlatılamadı.'; return; }
   ucretsizCiz();
   hatBaslat();
-  yenile();
+  olay('ilk_acilis', true);
+  yenile().then(olayGonder, olayGonder);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) olayGonder(); });
+  window.addEventListener('pageshow', olayGonder);
 })();
