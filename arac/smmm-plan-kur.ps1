@@ -75,7 +75,10 @@ param(
   #   -YalnizHicYok'tan farkı: hiç-yok bitince dolu konulara geçer (dalga boş kalmaz).
   [switch]$HicYokOnce,
   # 24.09 (Cem "1.2.3"): bu ders(ler) dalgaya GİRMEZ (virgülle), ör. FM kendi dalgasındayken öbür 7 dersin hiç-yok dalgası.
-  [string]$HaricDers = ''
+  [string]$HaricDers = '',
+  # 26.09 (Cem AskUserQuestion "515 konuya 1'er soru"): son10 bu sayıdan BÜYÜK konu dalgaya girmez (0 = kapalı).
+  #   -Son10Tavan 1 -YalnizHicYok -KonuBasiTavan 1 → yalnız son 10 yılda 1 kez sorulmuş, sorusu olmayan konulara 1'er soru.
+  [int]$Son10Tavan = 0
 )
 $kok = Split-Path -Parent $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')   # ders adı TEK haritadan (etiket -> kanonik ders adı)
@@ -145,7 +148,7 @@ $havuz = @($c | Where-Object {
     # ⛔ 23.09 YENİLİK KURALI (Cem "10 yıldır sorulmayan konuya soru basmayalım"): eşik ve sıra artık SON 10 YIL
     #   sıklığıyla (son10). Tüm zamanlar sayısı yanıltıyordu: "şüpheli alacak karşılığı" 25 kez çıkmış ama
     #   son 10 yılda 1 kez (son 2020/2); eski kuralla 3 soru basılacaktı. son10 sütunu yoksa tablo eskidir → durur.
-    [int]$_.son10 -ge $esikBu -and [int]$_.acik -gt 0 -and -not $_.engel -and
+    [int]$_.son10 -ge $esikBu -and ($Son10Tavan -le 0 -or [int]$_.son10 -le $Son10Tavan) -and [int]$_.acik -gt 0 -and -not $_.engel -and
     $_.ders -notmatch '/' -and $KISA.ContainsKey($_.ders) -and
     ($(if ($YalnizHicYok) { [int]$_.yayinlanabilir -eq 0 } else { $true })) -and
     (-not $YalnizDers -or "$($_.ders)" -eq $YalnizDers) -and
