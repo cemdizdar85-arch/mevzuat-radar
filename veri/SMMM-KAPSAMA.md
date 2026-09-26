@@ -1,6 +1,6 @@
 # SMMM BİTİRME — KONU KAPSAMA
 
-> Türetilmiştir (`arac/smmm-kapsama-tablosu.ps1`), **elle düzenlenmez**. Ölçüm: 2026-09-27 02:45
+> Türetilmiştir (`arac/smmm-kapsama-tablosu.ps1`), **elle düzenlenmez**. Ölçüm: 2026-09-27 02:51
 > Kural: hedef **sıklık ağırlıklı**, banka toplamı **4000**
 > Excel: `arac/smmm-basim-excel.ps1` (yerelde, Excel COM ister) · Plan: `arac/smmm-plan-kur.ps1`
 
@@ -9,7 +9,7 @@
 | hedef | 4000 |
 | bugün yayınlanabilir | 3730 |
 | **EKSİK (açık)** | **1397** |
-| …bunun engellisi (kısır/kaynak borcu) | 115 |
+| …bunun engellisi (kısır/kaynak borcu) | 101 |
 | FAZLA yazdığımız (hedef üstü) | 1127 |
 | hiç yazmadığımız konu | 550 (hedefi 786 soru) |
 
@@ -20,7 +20,7 @@
 | Finansal Muhasebe | 2111 | 2030 | 1096 | 1530 | 573 | 9 |
 | Muhasebe Denetimi | 352 | 333 | 363 | 350 | 158 | 1 |
 | Sermaye Piyasası Mevzuatı | 345 | 204 | 232 | 350 | 148 | 28 |
-| Vergi Mevzuatı ve Uygulaması | 1272 | 416 | 366 | 350 | 119 | 32 |
+| Vergi Mevzuatı ve Uygulaması | 1272 | 416 | 366 | 350 | 133 | 18 |
 | Maliyet Muhasebesi | 798 | 323 | 401 | 350 | 101 | 4 |
 | Finansal Tablolar ve Analizi | 461 | 498 | 403 | 350 | 72 | 15 |
 | Hukuk | 1961 | 340 | 453 | 350 | 62 | 20 |
@@ -35,7 +35,7 @@
 | 3 | 1 | faaliyet kari orani | Finansal Tablolar ve Analizi | KAYNAK-BORCU |
 | 3 | 5 | satislardan nakit girisi | Finansal Tablolar ve Analizi | KAYNAK-BORCU |
 | 3 | 1 | ozel maliyet gideri | Finansal Muhasebe | KISIR+KAYNAK-BORCU |
-| 3 | 5 | ticari mal devir hizi | Finansal Tablolar ve Analizi | KISIR |
+| 3 | 5 | ticari mal devir hizi | Finansal Tablolar ve Analizi | KISIR+KAYNAK-BORCU |
 | 3 | 6 | spk suc tipleri | Sermaye Piyasası Mevzuatı | KISIR+KAYNAK-BORCU |
 | 2 | 1 | yenileme fonu iptali | Finansal Muhasebe |  |
 | 2 | 2 | kredi karti tahsilati | Finansal Muhasebe | KISIR+KAYNAK-BORCU |

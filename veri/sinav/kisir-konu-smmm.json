@@ -1,5 +1,5 @@
 {
-    "olcum":  "2026-09-26 23:48",
+    "olcum":  "2026-09-27 02:50",
     "aciklama":  "Plana ALINMAYAN konular. İki kural: (1) KISIR = en az 3 soru denenmiş, hiçbiri yayın şartını geçmemiş; (2) KAYNAK-BORCU = hakem en az 2 kez \u0027paket cevabı destekleyen hükmü taşımıyor\u0027 demiş ve konu hiç yayına girmemiş. İkisinde de ORTAK ŞART: yayına giren = 0 — kapı çalışan hiçbir konuyu düşürmez. motor/plandan-parti-kur.ps1 bu listeyi okur. Türetilmiştir, elle düzenlenmez; kaynağı yutulan konu yeniden ölçümde listeden düşer. İş emri: veri/KAYNAK-BORCU.md",
     "kural":  "(denenen \u003e= 3 VEYA kaynakReddi \u003e= 2) VE yayına giren = 0",
     "olculen":  {
@@ -8,9 +8,9 @@
                     "gecen":  3709,
                     "partiDosyasi":  893
                 },
-    "kisirKonu":  68,
-    "kaynakBorclu":  44,
-    "kisirTaslak":  277,
+    "kisirKonu":  67,
+    "kaynakBorclu":  49,
+    "kisirTaslak":  273,
     "konular":  [
                     {
                         "konu":  "gss bakmakla yukumlu",
@@ -63,7 +63,7 @@
                     {
                         "konu":  "kredi karti tahsilati",
                         "denenen":  7,
-                        "kaynakEksik":  2,
+                        "kaynakEksik":  7,
                         "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
@@ -93,8 +93,8 @@
                     {
                         "konu":  "sermaye acilis kaydi",
                         "denenen":  5,
-                        "kaynakEksik":  0,
-                        "neden":  "KISIR"
+                        "kaynakEksik":  5,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "gelir vergisi matrahi",
@@ -111,8 +111,8 @@
                     {
                         "konu":  "cekin karsiliksiz cikmasi sartlari",
                         "denenen":  5,
-                        "kaynakEksik":  1,
-                        "neden":  "KISIR"
+                        "kaynakEksik":  5,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "ticari isletmenin ticaret siciline tescili",
@@ -135,24 +135,6 @@
                     {
                         "konu":  "ticari mal devir hizi",
                         "denenen":  5,
-                        "kaynakEksik":  1,
-                        "neden":  "KISIR"
-                    },
-                    {
-                        "konu":  "izahname",
-                        "denenen":  4,
-                        "kaynakEksik":  1,
-                        "neden":  "KISIR"
-                    },
-                    {
-                        "konu":  "ihtiyati haciz dava suresi",
-                        "denenen":  4,
-                        "kaynakEksik":  1,
-                        "neden":  "KISIR"
-                    },
-                    {
-                        "konu":  "sebepsiz zenginlesme zamanasimi",
-                        "denenen":  4,
                         "kaynakEksik":  3,
                         "neden":  "KISIR+KAYNAK-BORCU"
                     },
@@ -163,9 +145,27 @@
                         "neden":  "KISIR"
                     },
                     {
-                        "konu":  "disiplin tedbir karari",
+                        "konu":  "izahname",
                         "denenen":  4,
-                        "kaynakEksik":  0,
+                        "kaynakEksik":  1,
+                        "neden":  "KISIR"
+                    },
+                    {
+                        "konu":  "kdv hizmet tanimi",
+                        "denenen":  4,
+                        "kaynakEksik":  4,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "sebepsiz zenginlesme zamanasimi",
+                        "denenen":  4,
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
+                    },
+                    {
+                        "konu":  "ihtiyati haciz dava suresi",
+                        "denenen":  4,
+                        "kaynakEksik":  1,
                         "neden":  "KISIR"
                     },
                     {
@@ -181,22 +181,16 @@
                         "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
-                        "konu":  "telif kazanci istisnasi",
+                        "konu":  "disiplin tedbir karari",
                         "denenen":  4,
                         "kaynakEksik":  0,
                         "neden":  "KISIR"
                     },
                     {
-                        "konu":  "gelir vergisi hesabi",
+                        "konu":  "telif kazanci istisnasi",
                         "denenen":  4,
-                        "kaynakEksik":  3,
-                        "neden":  "KISIR+KAYNAK-BORCU"
-                    },
-                    {
-                        "konu":  "kdv hizmet tanimi",
-                        "denenen":  4,
-                        "kaynakEksik":  4,
-                        "neden":  "KISIR+KAYNAK-BORCU"
+                        "kaynakEksik":  0,
+                        "neden":  "KISIR"
                     },
                     {
                         "konu":  "ise baslamayi bildirme",
@@ -249,13 +243,13 @@
                     {
                         "konu":  "5510 ucret tanimi",
                         "denenen":  3,
-                        "kaynakEksik":  0,
-                        "neden":  "KISIR"
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "oda denetimi yetkilileri",
                         "denenen":  3,
-                        "kaynakEksik":  0,
+                        "kaynakEksik":  1,
                         "neden":  "KISIR"
                     },
                     {
@@ -267,8 +261,8 @@
                     {
                         "konu":  "varliklarin kârliligi",
                         "denenen":  3,
-                        "kaynakEksik":  0,
-                        "neden":  "KISIR"
+                        "kaynakEksik":  3,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "ortaklara borc odemesi",
@@ -291,14 +285,14 @@
                     {
                         "konu":  "ticari orf ve adet",
                         "denenen":  3,
-                        "kaynakEksik":  0,
+                        "kaynakEksik":  1,
                         "neden":  "KISIR"
                     },
                     {
                         "konu":  "eksik borc kavrami",
                         "denenen":  3,
-                        "kaynakEksik":  0,
-                        "neden":  "KISIR"
+                        "kaynakEksik":  2,
+                        "neden":  "KISIR+KAYNAK-BORCU"
                     },
                     {
                         "konu":  "ozel maliyet gideri",
