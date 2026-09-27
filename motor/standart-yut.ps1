@@ -29,6 +29,7 @@ param(
   [switch]$duzen,           # pdftotext -layout: iki sutunlu sayfalarda sutunlari korur
   [switch]$BagRaporuYok,    # 16.09: yazımdan sonra arac/kaynak-bolunme-etki.ps1 koşmasın (varsayılan: koşar)
   [string]$PlanYaz = ''     # 14.09: kuru provada ESKI ve YENI parca adlarini bu JSON'a yazar (soru-kaynak bagi etkisi olcumu icin; ambara yazmaz)
+  ,[switch]$YalnizSinav     # 27.09: yalniz oz-sinavi kos, cik (dogrula.yml matrisi icin; PDF/ambar yok)
 )
 
 $ErrorActionPreference = 'Stop'
@@ -126,6 +127,7 @@ function SY_Bol([string]$metin, [string]$std){
   #   yerine yenisi gelen bekleyen başlık gövdeye eklenir. Öteki standartlarda davranış aynı.
   $noktaliKip = ($std -match '^(TMS|TFRS)\s') -and (@($satirlar | Where-Object { $_.Trim() -match '^[A-Z]{0,2}\d{1,2}(\.\d{1,2}){1,3}$' }).Count -ge 20)
   $bekleyenBaslik = ''
+  $oncekiBaslikMetni = ''; $oncekiBaslikSuAn = $null; $oncekiBaslikYeniKural = $false   # 27.09: kullanilmadan ezilen baslik govdeye doner (yeni kural devredeyse)
   $suAn = $null
   $sozlukModu = $false          # Ek A: numarasiz terim-tanim sozlugu
   # ⚠ 14.09.2026 DERSI — SAYFA NUMARASI + KOSU BASLIGI PARAGRAF SANILIYORDU.
@@ -327,8 +329,21 @@ function SY_Bol([string]$metin, [string]$std){
     # dusuyordu (60 sondadan 3 kayip). Kilavuz kipinde gercek bolum basliklari
     # kisadir - esik 70 -> 45.
     $baslikEsik = if($kilavuzKip){ 45 } else { 70 }
-    if($s.Length -le $baslikEsik -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and $s -cmatch '^[A-ZÇĞİÖŞÜ]' -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
+    # 27.09 (BDS 300 p.A24 "İlk Denetimlerde Dikkate Alınacak İlâve Hususlar (Bkz.: 12 nci paragraf)" 73 kr): BDS kipinde "(Bkz.: …)" ile
+    #   biten satir bolum basligidir; 70 kr esigi bu baslik ailesine 180 kr olarak uygulanir (yalniz satir basi kipi, oteki kipler aynen).
+    #   Parantezden ONCEKI kisimda cumle noktalamasi olmaz (KYS 1 "Personel: … çalışanlardır. (Bkz.: A20–A21 paragrafı)" tanim satiridir, baslik degil).
+    $bkzBaslik = $satirBasiKip -and $s.Length -le 180 -and $s -match '^[^.:;()]{3,}\((Bkz|Bakınız)\.?:(?:[^()]|\([^()]*\))*\)$'
+    #   Tirnakla baslayan Bkz basligi da basliktir (BDS 200 "“Önemli Yanlışlık” Riski (Bkz.: 13(h) paragrafı)" govdeye dusuyor, A16 bir onceki basligi aliyordu).
+    $tirnakBkz = $bkzBaslik -and $s.Length -gt 1 -and ($s[0] -eq [char]0x201C -or $s[0] -eq [char]0x22) -and ("$($s[1])" -cmatch '[A-ZÇĞİÖŞÜ]')
+    if(($s.Length -le $baslikEsik -or $bkzBaslik) -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and ($s -cmatch '^[A-ZÇĞİÖŞÜ]' -or $tirnakBkz) -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
       if($noktaliKip -and $bekleyenBaslik -and $suAn){ $suAn.govde.Add($bekleyenBaslik) }
+      # 27.09: yeni kuralla (70 kr ustu / tirnakli Bkz) taninan baslik HIC KULLANILMADAN yerine baska baslik gelirse eskisi gibi govdeye
+      #   yazilir (ICERIK ATILMAZ; ust-alt iki baslik art arda: BDS 315 "İşletme ve Çevresi, … (Bkz.: A48-A49)" + "İşletme ve Çevresi ile … (Bkz.: A50-A55)").
+      #   Ayni sey tersine de gecerli: eski kuralla baslik sanilan govde parcasi ("Bu tür tehditlerin … etkenler ve", KYS 2) yeni kuralli
+      #   baslikla ezilirse govdeye doner. Iki baslik da eski kurallıysa davranis ESKISI GIBI kalir (esdegerlik).
+      $simdikiYeniKural = -not ($s.Length -le $baslikEsik -and $s -cmatch '^[A-ZÇĞİÖŞÜ]')
+      if($oncekiBaslikMetni -and $suAn -and [object]::ReferenceEquals($oncekiBaslikSuAn,$suAn) -and ($oncekiBaslikYeniKural -or $simdikiYeniKural)){ $suAn.govde.Add($oncekiBaslikMetni) }
+      $oncekiBaslikMetni = $s; $oncekiBaslikSuAn = $suAn; $oncekiBaslikYeniKural = $simdikiYeniKural
       $baslik = $s
       $bekleyenBaslik = $s
       continue
@@ -419,6 +434,172 @@ function SY_EkBasligiMi([string]$satir){
   if($satir -match '[.:;,]$'){ return $false }
   if($satir.Length -gt 120){ return $false }
   return $true
+}
+
+function SY_DipnotAyikla([string]$metin){
+  # ⚠ 27.09.2026 DERSI — BDS DIPNOTLARI BASLIGA VE GOVDEYE KARISIYORDU (soru yazicilari: BDS 200/210/300/315/330/520/701).
+  # -layout cikariminda sayfa dibi dipnotu iki bicimde gelir:
+  #   poppler : "4"  (sutun 0, tek basina)  +  "    BDS 220 (Revize), 25 inci paragraf"  (girintili metin)
+  #   xpdf    : "2 BDS 200, “Bağımsız Denetçinin ...”"  (sutun 0, numara + bosluk + metin)  +  "  Olarak Yürütülmesi”"
+  # BDS kipi tek basina sayiyi SAYFA NO sayip atiyordu; ardindaki KISA dipnot metni ("BDS 220 (Revize), 25 inci paragraf")
+  # bolum BASLIGI sanildi ve sonraki paragraflarin ADINA girdi (BDS 300 p.10-11, BDS 520 p.A16-A21, BDS 701 p.5/A7);
+  # uzun dipnot metni o sirada acik paragrafin GOVDESINE karisti. Govdedeki dipnot ISARETI de ("kontrolün 14 bulunduğu",
+  # "zorundadır. 12 Dolayısıyla", "değerlendirme,2") metinde kaliyordu.
+  # KURAL: (1) dipnot blogu = sutun 0'da SIRA NUMARALI (beklenen..beklenen+2) dipnot numarasi + girintili metin.
+  #   (2) blok yerinden alinir, "[Dipnot N: metin]" satiri olarak ACIK PARAGRAFIN SONUNA (bir sonraki sutun-0 satirindan
+  #   once) konur — ICERIK ATILMAZ (25.08 dersi), yalniz basliga/cumle ortasina girmez.
+  #   (3) govdedeki isaret, ayni sayfada (onceki sayfa no satirindan sonra, bloktan once) ve onceki isaretten SONRA aranir;
+  #   yalniz isaret baglaminda silinir: harfe yapisik ("dâhil8,"), noktalama ardi (", 1" · ".3" · ". 12 D"), standart
+  #   numarasina yapisik ("BDS 3306’da"). Zayif baglam ("kontrolün 14 bulunduğu": harf+bosluk+N+kucuk harf) yalniz guclu
+  #   aday yoksa ve ardindaki sozcuk sira/sure eki degilse ("13 üncü", "12 ay") kullanilir. Bulunamazsa DOKUNULMAZ, sayilir.
+  # BU KURAL SUNU GORMEZ: duz (layout olmayan) cikarim (girinti yok -> blok taninmaz, metin aynen doner) ·
+  #   sira disi numarali dipnot · (a)/(b) gibi PDF metin katmaninda HIC OLMAYAN bent harfleri (27.09 olculdu: BDS 701 p.17).
+  # Donus: [pscustomobject]@{ metin; dipnot; isaret; cozulemeyen }
+  $satirlar = @($metin -split "`r?`n")
+  $n = $satirlar.Count
+  $dolu = @($satirlar | Where-Object { $_.Trim() }).Count
+  $girintili = @($satirlar | Where-Object { $_ -match '^\s{4,}\S' }).Count
+  $sonuc = [pscustomobject]@{ metin=$metin; dipnot=0; isaret=0; cozulemeyen=0; iz=(New-Object System.Collections.Generic.List[string]) }
+  if($dolu -eq 0 -or $girintili -lt ($dolu * 0.2)){ return $sonuc }   # layout degil: dokunma
+  $sayfaDesen = '^\s{10,}(\d{1,3}|\*{3})\s*$'
+  $blokSatiri = New-Object System.Collections.Generic.HashSet[int]
+  $bloklar = New-Object System.Collections.Generic.List[object]
+  $beklenen = 1
+  for($i = 0; $i -lt $n; $i++){
+    $sat = $satirlar[$i]
+    $dNo = -1; $ilkMetin = ''; $govdeBas = -1
+    $tek = [regex]::Match($sat,'^(\d{1,3})\s*$')
+    $bitisik = [regex]::Match($sat,'^(\d{1,3}) (\S.*)$')
+    if($tek.Success){
+      $k = $i + 1; while($k -lt $n -and -not $satirlar[$k].Trim()){ $k++ }
+      if($k -lt $n -and $k -le $i + 2 -and $satirlar[$k] -match '^\s{2,8}\S' -and $satirlar[$k] -notmatch $sayfaDesen){ $dNo = [int]$tek.Groups[1].Value; $govdeBas = $k }
+    } elseif($bitisik.Success -and ($i -eq 0 -or -not $satirlar[$i-1].Trim() -or $blokSatiri.Contains($i-1)) -and $bitisik.Groups[2].Value -cnotmatch '^[a-zçğıöşü]'){
+      $dNo = [int]$bitisik.Groups[1].Value; $ilkMetin = $bitisik.Groups[2].Value.Trim(); $govdeBas = $i + 1
+    }
+    # ek bolumlerinde (BDS 720 Ek 2 ornek raporlari) dipnot numarasi 1'den YENIDEN baslar: 1 her zaman kabul edilir
+    if($dNo -lt 0 -or (($dNo -lt $beklenen -or $dNo -gt $beklenen + 2) -and $dNo -ne 1)){ continue }
+    $parcaMetin = New-Object System.Collections.Generic.List[string]
+    if($ilkMetin){ $parcaMetin.Add($ilkMetin) }
+    [void]$blokSatiri.Add($i)
+    $k = $govdeBas
+    while($k -lt $n){
+      $ks = $satirlar[$k]
+      if(-not $ks.Trim()){ break }
+      if($ks -match $sayfaDesen){ break }
+      if($ks -notmatch '^\s{1,8}\S'){ break }
+      $parcaMetin.Add($ks.Trim()); [void]$blokSatiri.Add($k); $k++
+    }
+    for($b = $i + 1; $b -lt $govdeBas; $b++){ [void]$blokSatiri.Add($b) }
+    if($parcaMetin.Count -eq 0){ [void]$blokSatiri.Remove($i); continue }
+    $bloklar.Add([pscustomobject]@{ no=$dNo; satir=$i; metin=(($parcaMetin -join ' ') -replace '\s{2,}',' ') })
+    $beklenen = $dNo + 1
+    $i = $k - 1
+  }
+  if($bloklar.Count -eq 0){ return $sonuc }
+  # --- govdedeki isaretler
+  $sira = '^(inci|ıncı|üncü|uncu|nci|ncı|ncü|ncu|ay|aylık|yıl|yıllık|gün|günlük|hafta|saat|adet|kez|defa|kat|puan|kişi|ve|veya|ile|ila|ya|yüzde)\b'
+  $sonIsaretSatir = -1; $sonIsaretSutun = -1; $sonBlokSatir = -1
+  foreach($blk in $bloklar){
+    $bolgeBas = 0
+    for($g = $blk.satir - 1; $g -ge 0; $g--){ if($satirlar[$g] -match $sayfaDesen){ $bolgeBas = $g + 1; break } }
+    if($sonIsaretSatir -ge $bolgeBas){ $aramaBas = $sonIsaretSatir } else { $aramaBas = $bolgeBas }
+    $nStr = [string]$blk.no
+    $guclu = $null; $zayif = $null
+    for($g = $aramaBas; $g -lt $blk.satir -and -not $guclu; $g++){
+      if($blokSatiri.Contains($g)){ continue }
+      $gs = $satirlar[$g]
+      $basSutun = if($g -eq $sonIsaretSatir){ $sonIsaretSutun } else { 0 }
+      $adaylar = New-Object System.Collections.Generic.List[object]
+      foreach($m in [regex]::Matches($gs,'(?<=\p{L}{3})' + $nStr + '(?!\d)(?=[\s,.;:)\u201D\u2019]|$)')){ $adaylar.Add([pscustomobject]@{ bas=$m.Index; boy=$m.Length; guc=$true }) }
+      foreach($m in [regex]::Matches($gs,'(?<=[^\d\s][.,;:\u201D\u2019)])( ?)' + $nStr + '(?!\d)(?=\s|$|[,;:])')){
+        $sonrasi = $gs.Substring($m.Index + $m.Length).TrimStart()
+        if($sonrasi -match $sira){ continue }
+        if($gs.Substring(0,$m.Index) -match '(?i)\((tms|tfrs|bds|gds|kys|tsrs)\)$'){ continue }   # "Türkiye Muhasebe Standardı (TMS) 1" standart numarasidir (BDS 570, 27.09)
+        $adaylar.Add([pscustomobject]@{ bas=$m.Index; boy=$m.Length; guc=$true })
+      }
+      foreach($m in [regex]::Matches($gs,'\b(?:BDS|GDS|İHS|IHS|KYS|SBDS)\s?(\d{3,4})' + $nStr + '(?!\d)')){
+        $kok = [int]$m.Groups[1].Value
+        $aile = ($m.Value -replace '[\s\d].*$','').Replace('İ','I')
+        if($STD_NO.ContainsKey($aile) -and ($STD_NO[$aile] -contains $kok)){ $adaylar.Add([pscustomobject]@{ bas=($m.Index + $m.Length - $nStr.Length); boy=$nStr.Length; guc=$true }) }
+      }
+      # "BDS 705 6’te" (numara ile ek arasinda isaret) · "BDS 701’e15" (kesme ekine yapisik isaret)
+      foreach($m in [regex]::Matches($gs,'(?<=\b(?:BDS|GDS|İHS|IHS|SBDS) ?\d{3,4}) ' + $nStr + '(?=[\u2019''])')){ $adaylar.Add([pscustomobject]@{ bas=$m.Index; boy=$m.Length; guc=$true }) }
+      foreach($m in [regex]::Matches($gs,'(?<=\d[\u2019'']\p{L}{1,4})' + $nStr + '(?!\d)(?=[\s,.;:)]|$)')){ $adaylar.Add([pscustomobject]@{ bas=$m.Index; boy=$m.Length; guc=$true }) }
+      # zayif: "kontrolün 14 bulunduğu" · "üzere 2, finansal" · "fonksiyonudur 3. BDS" (harf + bosluk + N)
+      foreach($m in [regex]::Matches($gs,'(?<=\p{L}{2}) ' + $nStr + '(?=( [a-zçğıöşü])|([,.;:](\s|$)))')){
+        $sonrasi = $gs.Substring($m.Index + $m.Length).TrimStart()
+        if($sonrasi -match $sira){ continue }
+        $oncesi = $gs.Substring(0,$m.Index)
+        if($oncesi -match '(?i)\b(madde|maddesi|paragraf|paragrafı|fıkra|bent|ek|tablo|örnek|sayfa|no|numaralı|sayılı|yüzde|ve|veya|ile|ila|kys|bds|gds|ihs|İhs|sbds|tms|tfrs|tsrs)$'){ continue }   # "KYS 1," standart adidir (27.09 olculdu: 3 yanlis silme)
+        $adaylar.Add([pscustomobject]@{ bas=$m.Index; boy=$m.Length; guc=$false })
+      }
+      foreach($a in @($adaylar | Where-Object { $_.bas -ge $basSutun } | Sort-Object bas)){
+        if($a.guc){ if(-not $guclu){ $guclu = [pscustomobject]@{ satir=$g; bas=$a.bas; boy=$a.boy } } }
+        elseif(-not $zayif){ $zayif = [pscustomobject]@{ satir=$g; bas=$a.bas; boy=$a.boy } }
+      }
+    }
+    $sec = if($guclu){ $guclu } else { $zayif }
+    if($sec){
+      $gs = $satirlar[$sec.satir]
+      $satirlar[$sec.satir] = $gs.Substring(0,$sec.bas) + $gs.Substring($sec.bas + $sec.boy)
+      $sonIsaretSatir = $sec.satir; $sonIsaretSutun = $sec.bas
+      $sonuc.isaret++; $sonuc.iz.Add(("SIL [{0}] {1} >> {2}" -f $blk.no,$gs.Trim(),$satirlar[$sec.satir].Trim()))
+    } else { $sonuc.cozulemeyen++; $sonuc.iz.Add(("YOK [{0}] {1}" -f $blk.no,$blk.metin)) }
+  }
+  # --- bloklari tasi: acik paragrafin sonuna, bir sonraki sutun-0 satirindan once
+  $bekleyen = New-Object System.Collections.Generic.List[string]
+  $blokNo = @{}; foreach($blk in $bloklar){ $blokNo[$blk.satir] = $blk }
+  $cikti = New-Object System.Text.StringBuilder
+  for($i = 0; $i -lt $n; $i++){
+    if($blokNo.ContainsKey($i)){ $bekleyen.Add("[Dipnot $($blokNo[$i].no): $($blokNo[$i].metin)]"); continue }
+    if($blokSatiri.Contains($i)){ continue }
+    $sat = $satirlar[$i]
+    if($bekleyen.Count -and $sat -match '^\S' -and $sat -notmatch $sayfaDesen){
+      foreach($d in $bekleyen){ [void]$cikti.AppendLine('     ' + $d) }
+      $bekleyen.Clear()
+    }
+    [void]$cikti.AppendLine($sat)
+  }
+  foreach($d in $bekleyen){ [void]$cikti.AppendLine('     ' + $d) }
+  $sonuc.metin = $cikti.ToString()
+  $sonuc.dipnot = $bloklar.Count
+  return $sonuc
+}
+
+function SY_BdsBaslikBirlestir([string]$metin){
+  # ⚠ 27.09.2026 DERSI — IKI SATIRA SARAN BOLUM BASLIGI (BDS 315 p.19-20 adi "A50-A55 paragrafları)", BDS 300 "(Bkz.: 10 uncu" + "paragraf)").
+  # -layout cikariminda BDS bolum basligi sutun 0'dadir; uzun baslik ikinci satira sarar. Bolucu satirlari tek tek okudugu icin
+  # ikinci yarim ("A50-A55 paragrafları)") baslik sanildi, birinci yarim (>70 kr) GOVDEYE dustu.
+  # KURAL: sutun 0'da, paragraf baslangici ("12." / "A5.") olmayan satir (a) acik parantezle bitiyorsa ya da (b) >=70 kr, noktalamasiz
+  #   ve buyuk harfle basliyorsa, ardindaki sutun-0 satiriyla (o da paragraf baslangici/sayfa no/dipnot degilse) BIRLESTIRILIR (en cok 3).
+  # Yalniz BDS kipi + layout metninde cagrilir. GORMEZ: girintili (sutun 0 olmayan) baslik · tek satirlik ama 180 kr'yi asan baslik.
+  $satirlar = @($metin -split "`r?`n")
+  $doluSay = @($satirlar | Where-Object { $_.Trim() }).Count
+  if($doluSay -eq 0 -or @($satirlar | Where-Object { $_ -match '^\s{4,}\S' }).Count -lt ($doluSay * 0.2)){ return $metin }   # layout degil: dokunma
+  $parDesen = '^(A?\d{1,3}[A-Z]?)\.\s'
+  $cikti = New-Object System.Collections.Generic.List[string]
+  $i = 0
+  while($i -lt $satirlar.Count){
+    $sat = $satirlar[$i]
+    $birlesen = 0
+    while($birlesen -lt 3 -and $i + 1 -lt $satirlar.Count){
+      $kirp = $sat.TrimEnd()
+      if($kirp -notmatch '^\S' -or $kirp -match $parDesen -or $kirp -match '^\d{1,3}$' -or $kirp -match '^\[Dipnot'){ break }
+      if($kirp -match '\.{5,}' -or ($kirp -replace '\((Bkz|Bakınız).*$','') -match '[.:;]'){ break }   # icindekiler satiri / cumle: baslik degil (BDS 210 icindekiler birlesiyordu)
+      $acik = $kirp -match '\((Bkz|Bakınız)[^()]*$'
+      $uzun = $kirp.Length -ge 70 -and $kirp -notmatch '[,!?]$' -and $kirp -cmatch '^[A-ZÇĞİÖŞÜ]'
+      if(-not ($acik -or $uzun)){ break }
+      $sonraki = $satirlar[$i + 1]
+      if($sonraki -notmatch '^\S' -or $sonraki -match $parDesen -or $sonraki.Trim() -match '^\d{1,3}$' -or $sonraki -match '^\[Dipnot'){ break }
+      # (b) uzun satir yalniz ardindaki satir "(Bkz.: …)" ile biten baslik parcasiysa birlesir ("… Sistemi" + "Hakkında … (Bkz.: A48-A49 paragrafları)")
+      if(-not $acik -and $sonraki.TrimEnd() -notmatch '\((Bkz|Bakınız)\.?:(?:[^()]|\([^()]*\))*\)$'){ break }
+      $sat = $kirp + ' ' + $sonraki.Trim()
+      $i++; $birlesen++
+    }
+    $cikti.Add($sat)
+    $i++
+  }
+  return ($cikti -join "`n")
 }
 
 function SY_TmsLayoutDuzle([string]$layoutMetin, [string]$std){
@@ -790,6 +971,88 @@ kisa vade    Isletmenin raporlama donemini izleyen bir yillik donemdir.
   if(@($noktaliAdlar | Where-Object { $_ -match ' p\.(3\.2\.1|3\.2\.2|B2\.1) ' }).Count -ne 3 -or @($noktaliAdlar | Where-Object { $_ -match ' p\.3\.2 ' }).Count){ $dusen += "NOKTALI NUMARA: $($noktaliAdlar -join ' | ')" }
   $bdsT = @(SY_Bol "Kapsam`n1. Bu BDS denetçinin sorumluluklarını düzenler ve uygulanır.`n2. Bu BDS ayrıca raporlamayı da düzenler ve uygulanır.`n20T. Türkiye'ye özgü bu paragraf ayrıca uygulanır ve açıklanır.`n3. Üçüncü paragraf burada yer alır ve uygulanır." 'BDS 720')
   if(@($bdsT | Where-Object { $_.kaynak_ad -match ' p\.20T ' }).Count -ne 1){ $dusen += "BDS T SONEKI: $(@($bdsT | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  # --- 27.09 BDS DIPNOTU + SARAN BASLIK (BDS 200/210/300/315/330/520/701 vakalari) ---------------------------------
+  # (1) poppler layout: dipnot blogu basliga girmez, [Dipnot N] olarak paragraf sonuna gider; govde isareti silinir;
+  #     "2 nci paragrafta" gibi GERCEK sayi silinmez; iki satira saran "(Bkz.:" basligi birlesir; 70 kr ustu Bkz basligi baslik olur.
+  $dnPop = @'
+Planlama Çalışmaları
+9.       Denetçi denetim planını hazırlar ve kapsamını belirler.1
+         Bu plan denetim ekibine duyurulur ve gerektiğinde güncellenir.
+10.      Denetçi, belirtildiği gibi 2 nci paragrafta sayılan hususları dikkate alır; birkaç kontrolün 2 bulunduğu
+         varsayımıyla hazırlanan programlar 13 üncü paragrafta belirtilen şekilde kullanılabilir.
+
+1
+    BDS 220 (Revize), 25 inci paragraf
+2
+    BDS 315, Önemli Yanlışlık Risklerinin Belirlenmesi, 12 nci paragraf
+
+
+                                                  7
+         Bu cümle önceki paragrafın devamıdır ve sayfa geçişinde kalır.
+İlk Denetimlerde Dikkate Alınacak İlâve Hususlar ile İlgili Açıklamalar (Bkz.:
+A24 paragrafı)
+11.      Denetçi ilk denetime başlamadan önce gerekli prosedürleri uygular ve belgeler.
+Küçük İşletmelere Özgü İlk Denetim Hususları ve Uygulamaya İlişkin Açıklamalar (Bkz.: 12 nci paragraf)
+12.      Küçük işletmelerde denetim ekibi tek kişiden oluşabilir ve plan kısa tutulur.
+'@
+  $dnSonuc = SY_DipnotAyikla $dnPop
+  $dnPar = @(SY_Bol (SY_BdsBaslikBirlestir $dnSonuc.metin) 'BDS 300')
+  $dnAd = @($dnPar | ForEach-Object { $_.kaynak_ad })
+  $dn9 = @($dnPar | Where-Object { $_.kaynak_ad -match ' p\.9 ' }); $dn10 = @($dnPar | Where-Object { $_.kaynak_ad -match ' p\.10 ' })
+  if($dnSonuc.dipnot -ne 2){ $dusen += "DIPNOT BLOGU: 2 bekleniyordu, $($dnSonuc.dipnot) ($($dnAd -join ' | '))" }
+  if(@($dnAd | Where-Object { $_ -match ' - (BDS 220|BDS 315,)' }).Count){ $dusen += "DIPNOT BASLIGA GIRDI: $($dnAd -join ' | ')" }
+  if($dn9.Count -ne 1 -or $dn9[0].metin -match 'belirler\.1'){ $dusen += "GOVDE ISARETI SILINMEDI (yapisik): $(if($dn9.Count){ $dn9[0].metin })" }
+  if($dn10.Count -ne 1 -or $dn10[0].metin -notmatch 'kontrolün bulunduğu' -or $dn10[0].metin -notmatch '2 nci paragrafta' -or $dn10[0].metin -notmatch '13 üncü paragrafta'){ $dusen += "GOVDE ISARETI (zayif) / GERCEK SAYI: $(if($dn10.Count){ $dn10[0].metin })" }
+  if($dn10.Count -eq 1 -and ($dn10[0].metin -notmatch '\[Dipnot 1: BDS 220 \(Revize\), 25 inci paragraf\]' -or $dn10[0].metin.IndexOf('geçişinde kalır') -gt $dn10[0].metin.IndexOf('[Dipnot 1'))){ $dusen += "DIPNOT METNI PARAGRAF SONUNA GITMEDI: $($dn10[0].metin)" }
+  if(@($dnAd | Where-Object { $_ -match ' p\.11 - İlk Denetimlerde .* \(Bkz\.: A24 paragrafı\)$' }).Count -ne 1){ $dusen += "SARAN BASLIK BIRLESMEDI: $($dnAd -join ' | ')" }
+  if(@($dnAd | Where-Object { $_ -match ' p\.12 - Küçük İşletmelere Özgü İlk Denetim' }).Count -ne 1){ $dusen += "UZUN (Bkz.) BASLIK TANINMADI: $($dnAd -join ' | ')" }
+  # (2) xpdf layout: "N metin" bicimli dipnot + standart numarasina yapisik isaret ("BDS 2001'ün")
+  $dnXp = @'
+2.       Bu BDS, denetçinin genel amaçları bağlamında anlaşılmalıdır ve BDS 2001'ün hükümlerine bağlıdır.
+         Diğer hükümler de bu bağlamda uygulanır ve değerlendirilir.
+
+1 BDS 200, Bağımsız Denetçinin Genel Amaçları ve Bağımsız Denetimin Bağımsız Denetim Standartlarına Uygun
+  Olarak Yürütülmesi
+
+                                                    6
+3.       Diğer bilgiler finansal tablolarla tutarsız olabilir ve denetçi bunu değerlendirir.
+'@
+  $dxSonuc = SY_DipnotAyikla $dnXp
+  if($dxSonuc.dipnot -ne 1 -or $dxSonuc.isaret -ne 1){ $dusen += "XPDF DIPNOT SAYIMI: blok $($dxSonuc.dipnot) (1) · isaret $($dxSonuc.isaret) (1, 'BDS 2001'ün' standart numarasina yapisik)" }
+  $dxPar = @(SY_Bol (SY_BdsBaslikBirlestir $dxSonuc.metin) 'BDS 720')
+  $dx2 = @($dxPar | Where-Object { $_.kaynak_ad -match ' p\.2$' }); $dx3 = @($dxPar | Where-Object { $_.kaynak_ad -match ' p\.3$' })
+  if($dx2.Count -ne 1 -or $dx2[0].metin -notmatch "BDS 200'ün" -or $dx2[0].metin -notmatch '\[Dipnot 1: BDS 200, .* Olarak Yürütülmesi\]'){ $dusen += "XPDF DIPNOT: $(@($dxPar | ForEach-Object { $_.kaynak_ad + ' :: ' + $_.metin }) -join ' || ')" }
+  if($dx3.Count -ne 1 -or $dx3[0].metin -match 'Yürütülmesi'){ $dusen += "XPDF DIPNOT SONRAKI PARAGRAFA SIZDI: $(@($dxPar | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  # (2b) ekte dipnot numarasi 1'den yeniden baslar (BDS 720 Ek 2)
+  $dnYeniden = "2.       Birinci paragraf metni burada yer alır ve uygulanır.1`n         Devam eden metin burada yer alır.2`n`n1 BDS 200, Genel Amaçlar`n2 BDS 210, Denetim Sözleşmesi`n`n                                                    6`n3.       Ek örnek rapor metni burada yer alır ve uygulanır.1`n         Devam eden metin burada yer alır.`n`n1 Kilit Denetim Konuları bölümü yalnızca borsada işlem gören işletmeler için zorunludur.`n"
+  $dnY = SY_DipnotAyikla $dnYeniden
+  if($dnY.dipnot -ne 3){ $dusen += "DIPNOT YENIDEN NUMARALANMA: 3 blok bekleniyordu, $($dnY.dipnot)" }
+  # (2c) yanlis alarm: "KYS 1," standart adi dipnot isareti sanilip silinmez (BDS 260 / SBDS 2400 / İHS 4400 vakasi)
+  $dnKys = SY_DipnotAyikla "2.       KYS 1, denetim şirketlerinin kalite yönetimini düzenler ve uygulanır.`n         Devam eden metin burada yer alır ve uygulanır.`n`n1 KYS 1 Kalite Yönetimi Standardı`n"
+  if($dnKys.metin -notmatch 'KYS 1, denetim'){ $dusen += 'DIPNOT ISARETI YANLIS ALARM: "KYS 1," silindi' }
+  $dnTms = SY_DipnotAyikla "2.       Örneğin, Türkiye Muhasebe Standardı (TMS) 1 yönetimin değerlendirme yapmasını gerektirir.`n         Devam eden metin burada yer alır ve uygulanır.`n`n1 BDS 570, İşletmenin Sürekliliği`n"
+  if($dnTms.metin -notmatch '\(TMS\) 1 yönetimin'){ $dusen += 'DIPNOT ISARETI YANLIS ALARM: "(TMS) 1" silindi' }
+  # (3) yanlis alarm: layout olmayan (girintisiz) metne DOKUNULMAZ
+  $dnDuz = (($dnPop -split "`r?`n" | ForEach-Object { $_.Trim() }) -join "`n") + "`n`n1 Ocak tarihinde başlayan dönemler için bu hükümler uygulanır."
+  $dd = SY_DipnotAyikla $dnDuz
+  if($dd.dipnot -ne 0 -or $dd.metin -ne $dnDuz -or (SY_BdsBaslikBirlestir $dnDuz) -ne $dnDuz){ $dusen += 'DIPNOT/BASLIK: layout olmayan metin degisti' }
+  # (3b) tirnakla baslayan Bkz basligi (BDS 200 p.A16)
+  $trn = [string][char]0x201C; $trk = [string][char]0x201D
+  $tirnakPar = @(SY_Bol ("A15. Birinci ek paragraf metni burada yer alır ve yeterince uzundur.`n" + $trn + 'Önemli Yanlışlık' + $trk + " Riski (Bkz.: 13(h) paragrafı)`nA16. İkinci ek paragraf metni burada yer alır ve yeterince uzundur.") 'BDS 200')
+  if(@($tirnakPar | Where-Object { $_.kaynak_ad -match ' p\.A16 - .Önemli Yanlışlık. Riski' }).Count -ne 1){ $dusen += "TIRNAKLI BKZ BASLIGI: $(@($tirnakPar | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  # (3c) art arda iki uzun Bkz basligi: ilki KAYBOLMAZ (eski davranis: govdeye)
+  $ikiBas = @(SY_Bol "18. Birinci paragraf metni burada yer alır ve yeterince uzundur.`nİşletme ve Çevresi ile İç Kontrol Sistemi Hakkında Kanaat Edinilmesi Üst Başlığı (Bkz.: A48-A49 paragrafları)`nİşletme ve Çevresi ile Finansal Raporlama Çerçevesi Hakkında Kanaat Edinilmesi (Bkz.: A50-A55 paragrafları)`n19. İkinci paragraf metni burada yer alır ve yeterince uzundur." 'BDS 315')
+  if(-not @($ikiBas | Where-Object { $_.metin -match 'Üst Başlığı' -or $_.kaynak_ad -match 'Üst Başlığı' }).Count -or -not @($ikiBas | Where-Object { $_.kaynak_ad -match ' p\.19 - .*A50-A55' }).Count){ $dusen += "ART ARDA BASLIK KAYBI: $(@($ikiBas | ForEach-Object { $_.kaynak_ad + ' :: ' + $_.metin }) -join ' || ')" }
+  # (3d) eski kuralla baslik sanilan govde parcasi yeni kuralli baslikla ezilirse govdeye doner (KYS 2); iki eski-kural basligi ise ESKISI GIBI (ilki duser)
+  $tersBas = @(SY_Bol "A15. Birinci ek paragraf metni burada yer alır ve yeterince uzundur.`nBu tür tehditlerin düzeyinin değerlendirilmesiyle ilgili etkenler ve`nKaliteyi Gözden Geçiren Kişinin Liyakatine İlişkin Mevzuat (Bkz.: 18(c) paragrafı)`nA16. İkinci ek paragraf metni burada yer alır ve yeterince uzundur." 'KYS 2')
+  if(-not @($tersBas | Where-Object { $_.metin -match 'tehditlerin düzeyinin' }).Count){ $dusen += "EZILEN ESKI-KURAL BASLIGI KAYBOLDU: $(@($tersBas | ForEach-Object { $_.kaynak_ad + ' :: ' + $_.metin }) -join ' || ')" }
+  $ikiEski = @(SY_Bol "1. Birinci paragraf metni burada yer alır ve yeterince uzundur.`nGiriş`nKapsam`n2. İkinci paragraf metni burada yer alır ve yeterince uzundur." 'BDS 999')
+  if(@($ikiEski | Where-Object { $_.metin -match 'Giriş' }).Count -or @($ikiEski | Where-Object { $_.kaynak_ad -eq 'BDS 999 p.2 - Kapsam' }).Count -ne 1){ $dusen += "ESDEGERLIK: iki eski-kural basligi davranisi degisti: $(@($ikiEski | ForEach-Object { $_.kaynak_ad + ' :: ' + $_.metin }) -join ' || ')" }
+  # (4) yanlis alarm: tanim cumlesi "(Bkz.: …)" ile bitse de baslik DEGILDIR (KYS 1) · icindekiler satirlari birlesmez (BDS 210)
+  $kysT = @(SY_Bol "1. Birinci paragraf metni burada yer alır ve yeterince uzundur.`nPersonel: Denetim şirketindeki yönetici ve çalışanlardır. (Bkz.: A20-A21 paragrafı)`n2. İkinci paragraf metni burada yer alır ve yeterince uzundur." 'KYS 1')
+  if(@($kysT | Where-Object { $_.kaynak_ad -match 'Personel' }).Count -or -not @($kysT | Where-Object { $_.metin -match 'çalışanlardır' }).Count){ $dusen += "BKZ BASLIK YANLIS ALARM: $(@($kysT | ForEach-Object { $_.kaynak_ad }) -join ' | ')" }
+  $icindekiler = "Kapsam..................................................................................... 1`nSözleşmenin Kabulünde Dikkate Alınacak İlave Hususlar Hakkında Açıklamalar Bölümü 18-21`nAçıklayıcı Hükümler ve Uygulama`nBu ek bir cümledir. Ayrıntılar için bakınız (Bkz.: A5`nparagrafı) ve sonraki açıklamalar.`n1.       Birinci paragraf metni burada yer alır`n         ve devam eder.`n         ve devam eder.`n         ve devam eder."
+  if((SY_BdsBaslikBirlestir $icindekiler) -ne ($icindekiler -replace "`r","")){ $dusen += 'BASLIK BIRLESTIRME: icindekiler/ uzun satir (Bkz. yok) birlesti' }
   return $dusen
 }
 
@@ -799,8 +1062,9 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09])'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09])'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
+if($YalnizSinav){ exit 0 }
 Write-Host ''
 
 # --- 1) PDF
@@ -903,6 +1167,10 @@ if((-not $duzen) -and ($standart -match '^(BDS|GDS|SBDS|SGDS|İHS)\s')){
     Write-Host '!! CIKARIM BOZUK: satir basi numaralar sayfa numaralarindan az. Elle incele.' -ForegroundColor Red
     exit 1
   }
+  # 27.09: sayfa dibi dipnotlari basliga/govdeye karismasin (SY_DipnotAyikla; secilen cikarim DEGISMEZ, yalniz dipnot yeri)
+  $dipnotSonuc = SY_DipnotAyikla $tamMetin
+  $tamMetin = SY_BdsBaslikBirlestir $dipnotSonuc.metin
+  Write-Host ("  dipnot   : {0} blok paragraf sonuna tasindi · {1} govde isareti silindi · {2} isaret bulunamadi" -f $dipnotSonuc.dipnot,$dipnotSonuc.isaret,$dipnotSonuc.cozulemeyen)
 }
 
 # --- 2) BOL
