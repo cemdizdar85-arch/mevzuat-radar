@@ -207,6 +207,12 @@ foreach($q in $liste){
   foreach($x in $k){ "      - $x" }
   foreach($x in $not){ "      . $x" }
 }
+# AYNI KONU İKİ KEZ (27.09, KGK oturumunun ölçümü): üretici FAZ GM'de hazır soruya kimliği KONUDAN verir (kp-id = konu eşleşmesi);
+#   aynı dosyada aynı konu adlı ikinci soru aynı kp-id'ye düşer ve HİÇ İZ BIRAKMADAN kaybolur (KGK: 85 sorunun 19'u). Katlama
+#   üreticininkiyle aynı (Türkçe harf → ASCII, küçük harf). Bu dosyada bulunursa: ikinci soruyu başka etikete (k…b) taşı.
+$konuSay=@{}; foreach($q2 in $liste){ $kk2=("$($q2.konu)" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c').ToLowerInvariant().Trim(); $konuSay[$kk2]=[int]$konuSay[$kk2]+1 }
+$ciftKonu=@($konuSay.Keys | Where-Object { $konuSay[$_] -gt 1 })
+if($ciftKonu.Count){ ""; "AYNI KONU: KUSUR — üretici aynı konudan yalnız BİR soru alır, fazlası iz bırakmadan kaybolur: $(($ciftKonu | ForEach-Object { "$_ x$($konuSay[$_])" }) -join ', ')"; $temizSay=[Math]::Max(0,$temizSay - @($ciftKonu | ForEach-Object { $konuSay[$_] - 1 } | Measure-Object -Sum).Sum) }
 # CEVAP DAGILIMI (10.09 eklendi) — DOSYA duzeyinde kapi, tek soruya bakarak gorulmez.
 # NEDEN: Meslek Hukuku'nda zor 22/22 ve cok zor 21/21 sorunun dogru cevabi A cikti; "hep A" yazan
 # ogrenci bankadan 100 alirdi. Her soru tek tek kusursuzdu, kusur DAGILIMDAYDI. Sayisal sikli
