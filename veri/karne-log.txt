@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20260921143140
-Username: runnervmlun5p\runner
-RunAs User: runnervmlun5p\runner
+Start time: 20260927031005
+Username: runnervmtr4k5\runner
+RunAs User: runnervmtr4k5\runner
 Configuration Name: 
-Machine: runnervmlun5p (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/44eba049-d8cb-4699-a3c8-53523d3e4751.ps1'
-Process ID: 2250
-PSVersion: 7.6.5
+Machine: runnervmtr4k5 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/63ec0b05-dd6a-4c3b-b575-5c04b192c267.ps1'
+Process ID: 2245
+PSVersion: 7.6.6
 PSEdition: Core
-GitCommitId: 7.6.5
+GitCommitId: 7.6.6
 OS: Ubuntu 24.04.5 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -17,83 +17,67 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Konu sayisi: 5406 (16 donem birlestirilmis)
-  ...100/5406
-  ...200/5406
-  ...300/5406
-  ...400/5406
-  ...500/5406
-  ...600/5406
-  ...700/5406
-  ...800/5406
-  ...900/5406
-  ...1000/5406
-  ...1100/5406
-  ...1200/5406
-  ...1300/5406
-  ...1400/5406
-  ...1500/5406
-  ...1600/5406
-  ...1700/5406
-  ...1800/5406
-  ...1900/5406
-  ...2000/5406
-  ...2100/5406
-  ...2200/5406
-  ...2300/5406
-  ...2400/5406
-  ...2500/5406
-  ...2600/5406
-  ...2700/5406
-  ...2800/5406
-  ...2900/5406
-  ...3000/5406
-  ...3100/5406
-  ...3200/5406
-  ...3300/5406
-  ...3400/5406
-  ...3500/5406
-  ...3600/5406
-  ...3700/5406
-  ...3800/5406
-  ...3900/5406
-  ...4000/5406
-  ...4100/5406
-  ...4200/5406
-  ...4300/5406
-  ...4400/5406
-  ...4500/5406
-  ...4600/5406
-  ...4700/5406
-  ...4800/5406
-  ...4900/5406
-  ...5000/5406
-  ...5100/5406
-  ...5200/5406
-  ...5300/5406
-  ...5400/5406
+Konu sayisi: 3264 (16 donem birlestirilmis)
+  ...100/3264
+  ...500/3264
+  ...600/3264
+  ...700/3264
+  ...800/3264
+  ...900/3264
+  ...1000/3264
+  ...1100/3264
+  ...1200/3264
+  ...1300/3264
+  ...1400/3264
+  ...1800/3264
+  ...1900/3264
+  ...2000/3264
+  ...2100/3264
+  ...2200/3264
+  ...2300/3264
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST100",
+  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
+  "hint": null,
+  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST100",
+  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
+  "hint": null,
+  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
+}"
+PS>TerminatingError(Invoke-WebRequest): "
+{
+  "code": "PGRST100",
+  "details": "unexpected \u0022}\u0022 expecting letter, digit, \u0022-\u0022, \u0022-\u003E\u003E\u0022, \u0022-\u003E\u0022 or delimiter (.)",
+  "hint": null,
+  "message": "\u0022failed to parse logic tree ((metin.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,kaynak_ad.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit,baslik.imatch.kald[i\u0131]ra[c\u00E7].{0,40}kapasit))\u0022 (line 1, column 37)"
+}"
+  ...2400/3264
+  ...2500/3264
+  ...2600/3264
+  ...2700/3264
+  ...2800/3264
+  ...2900/3264
+  ...3000/3264
+  ...3100/3264
 
 =========== KONU-KAYNAK KARNESI ===========
-  URET (kaynak var)        : 5397
-  KAYNAK YOK (once yut)    : 9
-  MEVZUAT-DISI (elle yaz)  : 0
-  OLCULEMEDI (sorgu hatasi): 0
-  hatali sorgu toplami     : 0
-  -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi-kgk.json
+  URET (kaynak var)        : 2625
+  KAYNAK YOK (once yut)    : 1
+  MEVZUAT-DISI (elle yaz)  : 637
+  OLCULEMEDI (sorgu hatasi): 1
+  hatali sorgu toplami     : 1
+  -> /home/runner/work/mevzuat-radar/mevzuat-radar/veri/konu-kaynak-karnesi.json
 
 --- KAYNAK YOK olan, EN COK SORU CIKMIS 20 konu (oncelikli yutma listesi):
-    1 soru | Genel Hukuk Mevzuati       | idarenin anayasal ilkeleri
-    1 soru | Genel Hukuk Mevzuati       | odeme emrine itiraz sayilmama
-    1 soru | Genel Hukuk Mevzuatı       | anonim sirkete sermaye olarak getirilebilecekler
-    1 soru | Genel Hukuk Mevzuatı       | istimval
-    1 soru | Genel Hukuk Mevzuatı       | zilyetlikte hukmen teslim
-    1 soru | Kurumsal Yönetim İlkeleri ve Finansal Yönetim | finansal basarisizlikta mali yapi iyilestirme
-    1 soru | Muhasebe                   | dovizli mevduat donem sonu kaydi
-    1 soru | Muhasebe                   | faiz geliri dogmayan islem
-    1 soru | Muhasebe                   | muhasebe temel kavramlarina aykirilik
+    1 soru | Ekonomi                    | tuketici tercih aksiyomlari
 PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20260921172552
+End time: 20260927043550
 **********************
