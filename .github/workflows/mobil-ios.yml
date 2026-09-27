@@ -124,8 +124,13 @@ jobs:
             || { tail -60 "$RUNNER_TEMP/arsiv.log"; echo "::error title=arsiv::xcodebuild archive dustu"; exit 1; }
           tail -15 "$RUNNER_TEMP/arsiv.log"
           test -d "$RUNNER_TEMP/App.xcarchive" || { echo "::error title=arsiv::App.xcarchive olusmadi"; exit 1; }
-          # Apple girisi yetkisi arsive girdi mi (disa aktarma imzasi bu dosyayi kullanir)
-          find "$RUNNER_TEMP/App.xcarchive" -name "*.xcent" -exec sh -c 'echo "== $1"; cat "$1"' _ {} \; | head -40 || true
+          # 1.7.1: imzasiz arsivde yetki (entitlements) pakete YAZILMIYOR (1.7.0 log'unda .xcent yoktu) -> disa aktarma
+          # imzasi yetkiyi arsivdeki uygulamadan okur. Bu yuzden App.app gecici (ad-hoc) imzayla yetkiyle muhurlenir;
+          # -exportArchive Apple Distribution ile yeniden imzalarken yetkiyi korur (profilde APPLE_ID_AUTH acik).
+          UYG="$RUNNER_TEMP/App.xcarchive/Products/Applications/App.app"
+          codesign --force --sign - --entitlements App/App.entitlements --timestamp=none "$UYG"
+          echo "== arsivdeki yetkiler:"; codesign -d --entitlements :- "$UYG" 2>/dev/null | grep -A2 applesignin \
+            || { echo "::error title=yetki::applesignin arsive islenemedi"; exit 1; }
 
       - name: App Store Connect'e yukle (TestFlight)
         run: |
@@ -147,7 +152,10 @@ jobs:
             -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" > "$RUNNER_TEMP/disari.log" 2>&1 \
             || { tail -60 "$RUNNER_TEMP/disari.log"; echo "::error title=yukleme::xcodebuild -exportArchive dustu"; exit 1; }
           tail -15 "$RUNNER_TEMP/disari.log"
-          grep -iE "applesignin|entitlement" "$RUNNER_TEMP/disari.log" | head -10 || true
+          grep -iE "applesignin|entitlement|profile" "$RUNNER_TEMP/disari.log" | head -10 || true
+          # yuklenen paketin yetkisini dogrula (ipa varsa)
+          IPA=$(ls "$RUNNER_TEMP"/disari/*.ipa 2>/dev/null | head -1 || true)
+          if [ -n "$IPA" ]; then mkdir -p "$RUNNER_TEMP/ipa" && unzip -q -o "$IPA" -d "$RUNNER_TEMP/ipa" && codesign -d --entitlements :- "$RUNNER_TEMP"/ipa/Payload/*.app 2>/dev/null | grep -A2 applesignin || echo "::warning title=yetki::ipa icinde applesignin gorulmedi"; else echo "ipa yerelde yok (dogrudan yuklendi)"; fi
           grep -qiE "EXPORT SUCCEEDED|Upload succeeded" "$RUNNER_TEMP/disari.log" \
             || { echo "::error title=yukleme::basari satiri yok (EXPORT SUCCEEDED / Upload succeeded)"; exit 1; }
           echo "::notice title=TestFlight::Derleme ${{ github.run_number }} yuklendi; App Store Connect isledikten sonra (10-30 dk) TestFlight'ta gorunur."
