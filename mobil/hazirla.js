@@ -127,8 +127,10 @@ fs.mkdirSync(CIKTI, { recursive: true });
 /* ---------- 1. kasa listesi ---------- */
 const kasa = JSON.parse(oku('arac/kasa-modu.json'));
 const kasaSayfalari = (kasa.sayfalar || []).filter((y) => /^kaydir\/(sgs|smmm)\/[a-z0-9-]+\.html$/.test(y));
-kapi('KAPI-KASA', kasaSayfalari.length === (kasa.sayfalar || []).length,
-  'kasa-modu.json beklenmeyen yol içeriyor: ' + (kasa.sayfalar || []).filter((y) => kasaSayfalari.indexOf(y) < 0).join(', '));
+/* 27.09: KGK kasası (kaydir/kgk/) siteye açıldı; uygulamada KGK "hazırlanıyor" → tanınır ama uygulamaya ALINMAZ. Başka her yol yine kapıyı düşürür. */
+const kasaKgk = (kasa.sayfalar || []).filter((y) => /^kaydir\/kgk\/[a-z0-9-]+\.html$/.test(y));
+kapi('KAPI-KASA', kasaSayfalari.length + kasaKgk.length === (kasa.sayfalar || []).length,
+  'kasa-modu.json beklenmeyen yol içeriyor: ' + (kasa.sayfalar || []).filter((y) => kasaSayfalari.indexOf(y) < 0 && kasaKgk.indexOf(y) < 0).join(', '));
 
 /* supabase kütüphanesinin adı paket-kapisi.js'ten okunur (sürüm yükselirse kendiliğinden izler). */
 const kutuphane = (oku('paket-kapisi.js').match(/kutuphane\/supabase-[0-9.]+\.js/) || [])[0];
