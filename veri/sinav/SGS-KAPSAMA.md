@@ -3,11 +3,11 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.885** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.451 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.885** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 484 | 897 | 28,0 | 1118 | 292 | 21 | 9 | 162 | 14 |
+| Finansal Muhasebe | 483 | 897 | 28,0 | 1118 | 292 | 21 | 8 | 162 | 14 |
 | Denetim | 284 | 495 | 15,5 | 692 | 196 | 13 | 6 | 69 | 3 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 62 | 2 | 0 | 21 | 4 |
 | Maliyet Muhasebesi | 139 | 266 | 8,3 | 380 | 104 | 7 | 4 | 24 | 0 |
@@ -28,7 +28,7 @@ Sitede sayfadan okunan soru: **4.885** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **21 konu / 50 soru**
+- 3+ dönem çıkmış: **20 konu / 50 soru**
 - 2 dönem çıkmış: 118 konu / 168 soru
 - 1 dönem çıkmış: 907 konu / 909 soru
 
@@ -36,7 +36,6 @@ Sitede sayfadan okunan soru: **4.885** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Son |
 |---|---|---:|---|
-| Finansal Muhasebe | uluslararasi muhasebe kuruluslari | 7 / 7 | 2024/1 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
 | Finansal Muhasebe | maddi duran varlik dogruluk testi | 3 / 2 | 2017/3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | halifeligin kaldirilmasi | 2 / 2 | 2024/1 |
@@ -91,11 +90,11 @@ Sitede sayfadan okunan soru: **4.885** (kasa modundaki sayfa seçim dosyasından
 | Ders | Konu | Çıkan / dönem | Sitede | Eksik |
 |---|---|---:|---:|---:|
 | Meslek Hukuku | ucret yonetmeligi | 27 / 26 | 14 | 13 |
+| Finansal Muhasebe | uluslararasi muhasebe kuruluslari | 12 / 12 | 3 | 9 |
 | Denetim | maddi duran varlik denetimi | 4 / 4 | 1 | 3 |
 | Meslek Hukuku | haksiz rekabet reklam yasagi | 8 / 8 | 5 | 3 |
 | Yabancı Dil | cumle tamamlama | 55 / 22 | 52 | 3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 7 | 2 |
-| Finansal Muhasebe | ifac bunyesindeki kuruluslar | 5 / 5 | 3 | 2 |
 | Finansal Muhasebe | ozel maliyet itfasi | 4 / 4 | 2 | 2 |
 | Türkçe | yazim kurallari | 15 / 14 | 13 | 2 |
 | Vergi Hukuku | menkul sermaye iradi sayilmayanlar | 3 / 3 | 1 | 2 |
