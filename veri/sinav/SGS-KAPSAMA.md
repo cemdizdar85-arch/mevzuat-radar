@@ -3,18 +3,18 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.886** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.462 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.885** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.462 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 483 | 886 | 27,7 | 1107 | 298 | 20 | 8 | 157 | 5 |
-| Denetim | 283 | 500 | 15,6 | 686 | 194 | 14 | 6 | 69 | 7 |
-| Yabancı Dil | 85 | 321 | 10,0 | 376 | 62 | 2 | 0 | 21 | 5 |
-| Maliyet Muhasebesi | 139 | 267 | 8,3 | 389 | 108 | 8 | 3 | 20 | 0 |
+| Finansal Muhasebe | 483 | 886 | 27,7 | 1109 | 299 | 19 | 8 | 157 | 3 |
+| Denetim | 283 | 500 | 15,6 | 687 | 194 | 15 | 5 | 69 | 6 |
+| Yabancı Dil | 85 | 321 | 10,0 | 377 | 62 | 2 | 0 | 21 | 4 |
+| Maliyet Muhasebesi | 139 | 267 | 8,3 | 384 | 107 | 9 | 3 | 20 | 2 |
 | Matematik | 115 | 254 | 7,9 | 461 | 58 | 4 | 3 | 50 | 1 |
 | Ticaret Hukuku | 128 | 225 | 7,0 | 254 | 76 | 2 | 1 | 49 | 0 |
-| Türkçe | 127 | 225 | 7,0 | 158 | 35 | 9 | 3 | 80 | 4 |
-| Vergi Hukuku | 161 | 203 | 6,3 | 165 | 55 | 4 | 6 | 96 | 0 |
+| Türkçe | 127 | 225 | 7,0 | 159 | 35 | 9 | 3 | 80 | 3 |
+| Vergi Hukuku | 161 | 203 | 6,3 | 164 | 54 | 4 | 6 | 97 | 0 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 221 | 66 | 7 | 3 | 20 | 0 |
 | Ekonomi | 138 | 194 | 6,1 | 164 | 54 | 5 | 3 | 76 | 1 |
 | İş ve Sosyal Güvenlik Hukuku | 97 | 186 | 5,8 | 195 | 55 | 4 | 1 | 37 | 0 |
@@ -28,15 +28,14 @@ Sitede sayfadan okunan soru: **4.886** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **17 konu / 32 soru**
+- 3+ dönem çıkmış: **17 konu / 29 soru**
 - 2 dönem çıkmış: 118 konu / 166 soru
-- 1 dönem çıkmış: 890 konu / 892 soru
+- 1 dönem çıkmış: 891 konu / 893 soru
 
 ## Birden çok dönem çıkmış, sitede hiç sorusu olmayan
 
 | Ders | Konu | Çıkan / dönem | Son |
 |---|---|---:|---|
-| Denetim | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
 | Meslek Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
 | Finansal Muhasebe | maddi duran varlik dogruluk testi | 3 / 2 | 2017/3 |
@@ -89,11 +88,12 @@ Sitede sayfadan okunan soru: **4.886** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Sitede | Eksik |
 |---|---|---:|---:|---:|
-| Yabancı Dil | cumle tamamlama | 55 / 22 | 51 | 4 |
 | Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 4 | 3 |
-| Türkçe | yazim kurallari | 15 / 14 | 12 | 3 |
+| Denetim | maddi duran varlik denetimi | 4 / 4 | 1 | 3 |
+| Yabancı Dil | cumle tamamlama | 55 / 22 | 52 | 3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 7 | 2 |
-| Finansal Muhasebe | muhasebe bilgi sistemi | 16 / 16 | 14 | 2 |
+| Maliyet Muhasebesi | ozel maliyet itfasi | 4 / 4 | 2 | 2 |
+| Türkçe | yazim kurallari | 15 / 14 | 13 | 2 |
 | Ekonomi | keynesyen tuketim fonksiyonu | 4 / 4 | 3 | 1 |
 | Finansal Muhasebe | hisse senedi satisi | 11 / 10 | 10 | 1 |
 | Finansal Muhasebe | depozito iadesi kaydi | 10 / 10 | 9 | 1 |
