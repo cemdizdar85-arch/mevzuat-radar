@@ -67,7 +67,9 @@ if ($SadeceDenetim) { $IndirmeYok = $true; $ExcelYok = $true }
 if (-not $SadeceDenetim -and -not $IndirmeYok) { Adim '1) partiler ambardan iniyor' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'parti-senkron.ps1') -Indir -Yaz -Sinav SMMM -OnEk 'smmm-' *> $null } }
 if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim '2) kapsama tablosu (son 10 yıl, hedef 4.000)' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-kapsama-tablosu.ps1') -Sessiz *> $null } }
 if (-not $ExcelYok) {
-  Adim '3) Excel' { $o = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-basim-excel.ps1') 2>&1; $script:excelSatir = @($o | Where-Object { "$_" -match '^EXCEL:' }) | Select-Object -Last 1 }
+  # 27.09 K6: EAP=Stop altında alt powershell'in stderr'i + 2>&1 betiği öldürür (ölçüldü) -> blokta EAP düşürülür.
+  $eapK6Excel = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+  try { Adim '3) Excel' { $o = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-basim-excel.ps1') 2>&1; $script:excelSatir = @($o | Where-Object { "$_" -match '^EXCEL:' }) | Select-Object -Last 1 } } finally { $ErrorActionPreference = $eapK6Excel }
 }
 # 24.09 (Cem "1.2.3" madde 2): YAKLAŞAN YETERLİLİK DENEME PAKETİ kasanın güncel hâliyle yeniden üretilir (yeni sorular girer,
 #   anahtar yenilenir). Yalnız: oturum tarihi en az 1 gün ileride + paketi zaten var + anahtarı YAYINLANMAMIŞ
@@ -81,7 +83,9 @@ if (-not $SadeceDenetim -and -not $sinavKosusu) {
       if (-not (Test-Path (Join-Path $kok "veri/canli/$kod.enc.json"))) { continue }
       if (Test-Path (Join-Path $kok "veri/canli/anahtar-$kod.json")) { continue }
       Write-Host "== deneme paketi tazeleniyor: $kod ($($o.tarih))" -ForegroundColor Cyan
-      $po = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $kok 'motor/canli-paketle.ps1') -oturum $kod 2>&1
+      # 27.09 K6: stderr satırı (uyarı bile) catch'e düşüp paketi "tazelenemedi" gösteriyordu -> EAP düşürülür.
+      $eapK6Paket = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+      try { $po = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $kok 'motor/canli-paketle.ps1') -oturum $kod 2>&1 } finally { $ErrorActionPreference = $eapK6Paket }
       Write-Host "   $(@($po | Where-Object { "$_" -match 'PAKET HAZIR|URETILMEDI' }) -join ' ')"
     }
   } catch { Write-Host "  ⚠ deneme paketi tazelenemedi (dalga sürer): $($_.Exception.Message)" -ForegroundColor Yellow }

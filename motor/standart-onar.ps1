@@ -145,6 +145,8 @@ foreach($e in $sira){
   $i++
   Yaz ("  [{0}/{1}] {2} ..." -f $i,$sira.Count,$e.std) 'White'
   $cikti = ''
+  # 27.09 K6: EAP=Stop altinda alt betigin stderr'i catch'e dusup BASARILI kosuyu kod=99 gosteriyordu.
+  $eapK6Yut = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
   try {
     # Not: alt betik kendi hatasinda exit 1 verir; burada AKISI DURDURMAZ.
     # Bir standardin PDF'i inmiyorsa digerlerinin onarimi engellenmemeli.
@@ -152,7 +154,7 @@ foreach($e in $sira){
     $kod   = $LASTEXITCODE
   } catch {
     $cikti = "$_"; $kod = 99
-  }
+  } finally { $ErrorActionPreference = $eapK6Yut }
   $ozet = ($cikti -split "`r?`n" | Where-Object { $_ -match 'parca|PDF|KIRMIZI|HATA|yazildi|GERI OKU|indirildi' } | Select-Object -Last 3) -join ' | '
   $kosanlar += [pscustomobject]@{ std=$e.std; kod=$kod; ozet=$ozet }
   Yaz ("        kod={0}  {1}" -f $kod, $ozet) 'DarkGray'

@@ -35,8 +35,11 @@ $girdi = Join-Path $kok "veri\fabrika\smmm-konu-uyum-model-$Kume$sonEk.json"
 if (-not (Test-Path $girdi)) { throw "model sonucu yok: $girdi — önce arac/smmm-konu-uyum-model.ps1 -Kume $Kume" }
 $tabloKonu = @{}; foreach ($r in (Import-Csv (Join-Path $kok 'veri\fabrika\smmm-kapsama.csv') -Encoding UTF8)) { $tabloKonu["$($r.konu)"] = 1 }
 $kosan = @{}
-try { foreach ($e in @(& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'bulut-kosan-etiketler.ps1') -Kati 2>$null)) { if ("$e".Trim()) { $kosan["$e".Trim()] = 1 } } }
+# 27.09 K6: EAP=Stop altında 2>$null bile stderr'i hataya çevirir -> her uyarıda sahte "okunamadı". Karar $LASTEXITCODE'da (aşağıda).
+$eapK6Kosan = $ErrorActionPreference
+try { $ErrorActionPreference = 'Continue'; foreach ($e in @(& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'bulut-kosan-etiketler.ps1') -Kati 2>$null)) { if ("$e".Trim()) { $kosan["$e".Trim()] = 1 } } }
 catch { throw "koşan dalgalar okunamadı — yazmak güvenli değil: $($_.Exception.Message)" }
+finally { $ErrorActionPreference = $eapK6Kosan }
 if ($LASTEXITCODE) { throw 'koşan dalgalar okunamadı (bulut-kosan-etiketler -Kati çıkış ≠ 0) — yazılmadı' }
 # Cem 23.09 ("1.2.3" madde 3): etiket düzeltme DALGALAR BİTTİKTEN SONRA (w11 dahil) — öncelik yanlış anahtarlı sorular.
 # Etiket hatası soruyu yanlış yapmaz, kapsama sayımını bozar; koşan dalgayla aynı anda parti dosyası yazmak çakışma doğurur.

@@ -112,6 +112,18 @@ function KilitBirak($liste, [string]$kolAdi, $kimlik, [bool]$zorlaGec){
   $kalan = @($liste | Where-Object { $birakilan -notcontains $_ })
   return [pscustomobject]@{ birakilan=$birakilan; baskasi=$(if($zorlaGec){ @() } else { $baskasi }); liste=$kalan }
 }
+# 27.09.2026: kilit kaydına oturumun BAŞLANGIÇ NOKTASI (`bas` = açılıştaki HEAD) yazılır. -Kapat tuzak nöbetçisini
+# yalnız commit'SİZ dosyalarda koşuyordu; altın kural "düzenle→commit→it" dediği için kurala uyan her oturumun betiği
+# kapanışta artık commit'siz değildi ve kapıdan HİÇ geçmiyordu (25.09 38268a86: oturum.ps1'e 3 K6 tuzağı böyle girdi).
+# Aynı oturum aynı kolu yeniden açarsa (YENILENDI) ESKİ `bas` korunur - yoksa ilk yarının commit'leri taramadan düşerdi.
+function BasKoru($eskiListe, $yeniListe, [string]$kolAdi, $kimlik, [string]$basSha){
+  $onceki = @($eskiListe | Where-Object { $_.kol -eq $kolAdi -and "$($_.oturum)" -eq $kimlik.oturum -and $_.PSObject.Properties['bas'] -and "$($_.bas)" }) | Select-Object -First 1
+  $deger = $(if($onceki){ "$($onceki.bas)" } else { $basSha })
+  foreach($o in @($yeniListe)){
+    if($o.kol -eq $kolAdi -and "$($o.oturum)" -eq $kimlik.oturum){ $o | Add-Member -NotePropertyName bas -NotePropertyValue $deger -Force }
+  }
+  return $yeniListe
+}
 function KilitSinavi {
   # Kilit mantığının kendi sınavı: sahte kimliklerle, dosyaya yazmadan. Canlı süreç = bu sınav süreci; ölü süreç = olmayan PID.
   $dusen = New-Object System.Collections.Generic.List[string]
@@ -152,13 +164,25 @@ function KilitSinavi {
   $eskiBayat = [pscustomobject]@{ kol='marka'; pid=$oluPid; acilis=(Get-Date).AddHours(-9).ToString('o') }
   $s8 = KilitAl @($eskiGencBaska,$eskiAyniKol,$eskiBayat) 'sinav' $oturumB 'kgk' 'b' $false
   if($s8.sonuc -ne 'ALINDI' -or @($s8.liste | Where-Object { $_.kol -eq 'site' }).Count -ne 1 -or @($s8.temizlenen).Count -ne 2){ $dusen.Add("8 geçiş: sonuç $($s8.sonuc) · site korundu $(@($s8.liste | Where-Object { $_.kol -eq 'site' }).Count) · temizlenen $(@($s8.temizlenen).Count)") }
+  # 9) 27.09 BAŞLANGIÇ NOKTASI: ilk açılış HEAD'i yazar; aynı oturumun yenilemesi ESKİ bas'ı korur;
+  #    başka oturumun bas'ı yeni oturuma geçmez; başka koldaki kayda dokunulmaz.
+  $s9a = BasKoru @() (KilitAl @() 'altyapi' $oturumA '' '' $false).liste 'altyapi' $oturumA 'sha-ilk'
+  $kayitA = @($s9a)[0]
+  $s9b = BasKoru @($kayitA) (KilitAl @($kayitA) 'altyapi' $oturumA '' '' $false).liste 'altyapi' $oturumA 'sha-sonra'
+  $kayitBaska = [pscustomobject]@{ kol='altyapi'; oturum='oturum-B'; pid=$oluPid; is=''; ad=''; acilis=$canliAcilis; bas='sha-B' }
+  $s9c = BasKoru @($kayitBaska) (KilitAl @($kayitBaska) 'altyapi' $oturumA '' '' $false).liste 'altyapi' $oturumA 'sha-yeni'
+  $s9d = BasKoru @($kilitB) @($kilitB, [pscustomobject]@{ kol='altyapi'; oturum='oturum-A'; pid=$canliPid }) 'altyapi' $oturumA 'sha-d'
+  if("$($kayitA.bas)" -ne 'sha-ilk'){ $dusen.Add("9a ilk açılış bas yazmadı: '$($kayitA.bas)'") }
+  if("$(@($s9b)[0].bas)" -ne 'sha-ilk'){ $dusen.Add("9b yenileme eski bas'ı korumadı: '$(@($s9b)[0].bas)'") }
+  if("$(@($s9c | Where-Object { $_.oturum -eq 'oturum-A' })[0].bas)" -ne 'sha-yeni'){ $dusen.Add("9c başka oturumun bas'ı devralındı") }
+  if(@($s9d | Where-Object { $_.kol -eq 'site' })[0].PSObject.Properties['bas']){ $dusen.Add("9d başka koldaki kayda bas yazıldı") }
   return $dusen.ToArray()
 }
 
 if($KilitSinavi){
   $sinavSonucu = @(KilitSinavi)
   if($sinavSonucu.Count){ $sinavSonucu | ForEach-Object { Yaz "  ⛔ $_" 'Red' }; exit 1 }
-  Yaz "KİLİT ÖZ-SINAVI YEŞİL (8 vaka)" 'Green'; exit 0
+  Yaz "KİLİT ÖZ-SINAVI YEŞİL (9 vaka, 9. dört alt vaka)" 'Green'; exit 0
 }
 
 function EskiBicimUyarisi($kayitlar){
@@ -322,7 +346,8 @@ if($Ac){
     exit 3
   }
   if($alim.sonuc -eq 'DEVRALINDI'){ Yaz ("  ⚠ -Zorla: '{0}' kilidi başka oturumdan devralındı ({1})" -f $Kol, $alim.engel.oturum) 'Yellow' }
-  KilitYaz ([pscustomobject]@{ oturumlar = @($alim.liste) })
+  $basSha = "$(git -C $KOK rev-parse HEAD)".Trim()
+  KilitYaz ([pscustomobject]@{ oturumlar = @(BasKoru $liste $alim.liste $Kol $kimlik $basSha) })
   Yaz ("  -> '{0}' {1} (oturum {2}, süreç {3})" -f $Kol, $(if($alim.sonuc -eq 'YENILENDI'){ 'kilidi yenilendi' } else { 'kilitlendi' }), $kimlik.oturum, $kimlik.pid) 'Green'
   if(-not $Is -or -not $Ad){ Yaz "  ⓘ Başka oturumlar seni bulabilsin: -Is `"kısa iş`" -Ad <ListAgents'teki adın> ver ve oturum başlığını '$Kol · <iş>' yap." 'DarkGray' }
 
@@ -372,10 +397,33 @@ if($Kapat){
   # ⚠ Yalnız 🔴 ZARARLI bulgu durdurur; ⚠ RİSKLİ olanlar uyarı kalır.
   $nob = Join-Path $KOK 'arac\tuzak-nobetcisi.ps1'
   if(Test-Path $nob){
-    # 27.09 ÖLÇÜLDÜ: alt powershell'in stderr'i de `2>&1` + EAP=Stop altında NativeCommandError olur ve
-    # -Kapat'ı öldürür (nöbetçinin öz-sınavı `throw` ederse rapor yerine çöküş). EAP burada düşürülür.
-    $eskiEapNob = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
-    try { $nobCikti = & powershell -NoProfile -File $nob -Degisen 2>&1; $nobKod = $LASTEXITCODE } finally { $ErrorActionPreference = $eskiEapNob }
+    # 27.09: iki tarama. (a) commit'siz dosyalar (-Degisen) · (b) oturumun açılışından (`bas`) bu yana COMMIT'LENMİŞ
+    # betikler, yalnız değişen satırlar (-Ref, CI ile aynı kip). (b) olmadan kurala uyan oturum kapıdan hiç geçmiyordu.
+    # GÖRMEZ / yanlış alarm: -Ref bas..HEAD farkı, oturum içinde birleştirilen BAŞKA oturumların satırlarını da içerir;
+    #   onlarda ZARARLI bulgu varsa bu kapanış da durur (satır senin değilse -Birak ile geç, sahibine bildir).
+    #   Bu değişiklikten önce açılmış (bas alanı olmayan) kayıtta (b) yapılamaz - rapor bunu söyler.
+    $taramalar = New-Object System.Collections.Generic.List[object]
+    $taramalar.Add([pscustomobject]@{ ad = 'commit''siz dosyalar'; arg = @('-Degisen') })
+    $kimlikNob = OturumKimligi
+    $kilitNob = KilitOku
+    $benimNob = @(@($(if($kilitNob){ $kilitNob.oturumlar } else { @() })) | Where-Object { "$($_.oturum)" -eq $kimlikNob.oturum -and ($Kol -eq '' -or $_.kol -eq $Kol) })
+    $headNob = "$(git -C $KOK rev-parse HEAD)".Trim()
+    foreach($basNob in @($benimNob | ForEach-Object { if($_.PSObject.Properties['bas']){ "$($_.bas)" } else { '' } } | Select-Object -Unique)){
+      if(-not $basNob){ Yaz "  ⚠ KÖR: kilit kaydında başlangıç noktası yok (eski biçim) - commit'lenmiş betikler TARANMADI" 'Yellow'; continue }
+      if($basNob -eq $headNob){ continue }
+      $ilgiNob = @(git -C $KOK diff --name-only $basNob HEAD | Where-Object { "$_" -match '(\.ps1$)|(^\.github/workflows/.+\.ya?ml$)' })
+      if($LASTEXITCODE -ne 0){ Yaz "  ⚠ KÖR: başlangıç noktası $($basNob.Substring(0,[Math]::Min(8,$basNob.Length))) çözülemedi - commit'lenmiş betikler TARANMADI" 'Yellow'; continue }
+      if($ilgiNob.Count){ $taramalar.Add([pscustomobject]@{ ad = "açılıştan beri commit'lenen $($ilgiNob.Count) betik ($($basNob.Substring(0,8))..HEAD)"; arg = @('-Ref', $basNob) }) }
+    }
+    $nobCikti = @(); $nobKod = 0
+    foreach($tr in $taramalar.ToArray()){
+      # 27.09 ÖLÇÜLDÜ: alt powershell'in stderr'i de `2>&1` + EAP=Stop altında NativeCommandError olur ve
+      # -Kapat'ı öldürür (nöbetçinin öz-sınavı `throw` ederse rapor yerine çöküş). EAP burada düşürülür.
+      $eskiEapNob = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+      try { $trCikti = & powershell -NoProfile -File $nob @($tr.arg) 2>&1; $trKod = $LASTEXITCODE } finally { $ErrorActionPreference = $eskiEapNob }
+      Yaz "  tuzak nöbetçisi: $($tr.ad) -> $(if($trKod -eq 0){ 'temiz' } else { 'BULGU' })" 'DarkGray'
+      if($trKod -ne 0){ $nobKod = $trKod; $nobCikti += @("--- $($tr.ad) ---") + @($trCikti) }
+    }
     if($nobKod -ne 0){
       if($Birak -eq ""){
         Yaz "`n  ⛔ TUZAK NÖBETÇİSİ DURDURDU — değişen betikte bilinen tuzak var:" 'Red'
@@ -411,9 +459,10 @@ if($Kapat){
   $ileri = [int](git -C $KOK rev-list --count origin/main..HEAD)
   if($ileri -gt 0){
     Yaz "  $ileri commit itilecek..." 'Yellow'
+    $itildi = $false
     for($i=1; $i -le 5; $i++){
       git -C $KOK push origin HEAD:main | Out-Null
-      if($LASTEXITCODE -eq 0){ Yaz "  -> itildi (deneme $i)" 'Green'; break }
+      if($LASTEXITCODE -eq 0){ Yaz "  -> itildi (deneme $i)" 'Green'; $itildi = $true; break }
       git -C $KOK fetch origin main -q | Out-Null
       git -C $KOK merge origin/main --no-edit -q | Out-Null
       if(git -C $KOK diff --name-only --diff-filter=U){
@@ -423,6 +472,12 @@ if($Kapat){
         Yaz "  ⛔ itmede çakışma — birleştirme geri alındı, commit'ler yerelde bekliyor; elle çöz (CLAUDE.md reçetesi)" 'Red'; exit 2
       }
       Start-Sleep -Seconds 2
+    }
+    # 27.09 ÖLÇÜLDÜ (klonda, itme adresi bozuk): 5 deneme de düştü, betik hiçbir şey demeden kilidi bırakıp
+    # "OTURUM TEMİZ KAPANDI" / exit 0 verdi -> commit'ler yerelde kalırken oturum bitmiş sanılırdı.
+    if(-not $itildi){
+      Yaz "  ⛔ İTİLEMEDİ — 5 deneme de düştü; $ileri commit yerelde bekliyor. Kilit BIRAKILMADI. Sebebe bak (ağ/yetki), sonra yeniden -Kapat." 'Red'
+      exit 2
     }
   } else { Yaz "  itilecek commit yok" 'Green' }
 

@@ -140,8 +140,10 @@ try {
     $secYol = Join-Path $calisma "secim-$slug.json"
     [IO.File]::WriteAllText($secYol, (ConvertTo-Json -InputObject @($g.Group | Sort-Object etiket, id | ForEach-Object { [ordered]@{ etiket = $_.etiket; id = $_.id; ders = $_.ders; konu = $_.konu; donem = $_.donem } }) -Depth 3), [Text.UTF8Encoding]::new($false))
     $cikti = "smmm-kasa\sayfa-$slug.html"
-    $log = & powershell -NoProfile -File (Join-Path $depoKok 'motor\kaydir-coz.ps1') -SecimDosya $secYol -Cikti $cikti 2>&1
-    $kod = $LASTEXITCODE
+    # 27.09 K6: EAP=Stop + alt powershell stderr + 2>&1 betiği öldürür (ölçüldü); kgk-kasa-yayin.ps1 ile aynı sarmalayıcı.
+    $eapK6Coz = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    try { $log = & powershell -NoProfile -File (Join-Path $depoKok 'motor\kaydir-coz.ps1') -SecimDosya $secYol -Cikti $cikti 2>&1; $kod = $LASTEXITCODE }
+    finally { $ErrorActionPreference = $eapK6Coz }
     $sonKapi = @($log | Where-Object { "$_" -match 'SON KAPI RED' }).Count
     $sayfa = Join-Path $depoKok "sql-yerel\$cikti"
     if ($SiteKabuk -and (Test-Path $sayfa)) {

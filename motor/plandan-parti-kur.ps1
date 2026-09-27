@@ -75,10 +75,14 @@ if((Dizi $ok_kusur).Count){
 if(-not $BayatGec){
   $yerelP = @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip-parti-*.json' -ErrorAction SilentlyContinue).Count
   $ambarP = -1
+  # 27.09 K6: EAP=Stop altinda alt powershell'in TEK stderr satiri catch'e dusup bu kapiyi ATLATIYORDU
+  # (cift basim korumasi sessizce kalkiyordu). Blokta EAP dusurulur; satirlar yine $cikti'ya gelir.
+  $eapK6Senkron=$ErrorActionPreference; $ErrorActionPreference='Continue'
   try{
     $cikti = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $depoKok 'arac\parti-senkron.ps1') -Indir -Sinav $Sinav 2>&1
+    $ErrorActionPreference=$eapK6Senkron
     foreach($satir in @($cikti)){ if("$satir" -match 'ambarda parti:\s*([\d\.]+)'){ $ambarP=[int](($matches[1]) -replace '\.','') } }
-  }catch{ Write-Host "  bayat onbellek kapisi: ambar okunamadi ($($_.Exception.Message.Split([char]10)[0])) - kapi ATLANDI" -ForegroundColor DarkYellow }
+  }catch{ $ErrorActionPreference=$eapK6Senkron; Write-Host "  bayat onbellek kapisi: ambar okunamadi ($($_.Exception.Message.Split([char]10)[0])) - kapi ATLANDI" -ForegroundColor DarkYellow }
   if($ambarP -ge 0){
     if($ambarP -gt $yerelP){
       throw ("BAYAT ONBELLEK - PLAN KURULMADI. Ambarda {0} parti var, yerelde {1}. Aradaki {2} parti BULUTTA uretilmis ve burada YOK; bu haliyle plan o konulari IKINCI KEZ bastirir (para iki kez odenir). Once sunu kos:`n  powershell -NoProfile -File arac/parti-senkron.ps1 -Indir -Yaz`nSonra konu planini tazele (motor/konu-plani.ps1) ve bu betigi yeniden kos.`nBilerek gecmek icin: -BayatGec -BayatGerekce '<neden>'" -f $ambarP,$yerelP,($ambarP-$yerelP))

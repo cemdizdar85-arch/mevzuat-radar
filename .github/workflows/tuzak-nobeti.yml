@@ -35,6 +35,7 @@ on:
 
 permissions:
   contents: read
+  actions: read           # son YESIL kosuyu bulmak icin (asagida, 27.09)
 
 concurrency:
   group: tuzak-nobeti-${{ github.ref }}
@@ -51,10 +52,32 @@ jobs:
 
       - name: Degisen dosyalarda tuzak ara
         shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          # github.event.before: itmeden ONCEKI ana tel ucu. Ilk itmede ya da
-          # zorlanmis gecmiste cozulmeyebilir - nobetci o durumda HEAD~1'e duser.
-          ./arac/tuzak-nobetcisi.ps1 -Ref "${{ github.event.before }}"
+          # ⛔ 27.09.2026 — KIRMIZI UNUTULUYORDU. Olculdu: 12.09-25.09 arasi 7 kosu
+          #   KIRMIZI dustu; her birinde bir SONRAKI itme yalniz KENDI farkina
+          #   (event.before) baktigi icin yesile dondu, bulgu gozden kayboldu.
+          #   27.09'da 7 kirmizinin 5 bulgusu (4 dosya) depoda HALA duruyordu;
+          #   25.09 kirmizisi (oturum.ps1 K6) iki gun sonra butun oturumlari kilitledi.
+          #   Iptal edilen 6 kosunun (cancel-in-progress) farki ise HIC taranmadi.
+          # COZUM: Ref = bu akisin ana teldeki SON YESIL kosusunun commit'i.
+          #   Bulgu duzeltilene kadar her kosu onu yeniden gorur -> kirmizi KALICI.
+          #   Iptal edilen kosularin farki da bir sonrakine dahil olur.
+          # Bulamazsa (ilk kosu / gh hatasi / son yesil HEAD'in atasi degil)
+          #   eski davranis: github.event.before. Hangisi secildi, gunluge yazilir.
+          # GORMEZ: son yesilden ONCE giren bulgular (27.09 oncesi 5 bulgu) -
+          #   onlar ayri is emri; bu adim yalniz yenisinin kaybolmasini onler.
+          $ref = "${{ github.event.before }}"
+          $kaynak = 'event.before'
+          $yesil = "$(gh run list --workflow tuzak-nobeti.yml --branch main --status success --limit 1 --json headSha --jq '.[0].headSha')".Trim()
+          if($yesil){
+            git merge-base --is-ancestor $yesil HEAD
+            if($LASTEXITCODE -eq 0){ $ref = $yesil; $kaynak = 'son yesil kosu' }
+            else { "UYARI: son yesil $yesil HEAD'in atasi degil - event.before kullaniliyor" }
+          } else { "UYARI: son yesil kosu bulunamadi - event.before kullaniliyor" }
+          "Ref: $ref ($kaynak) · aradaki commit: $(git rev-list --count "$ref..HEAD")"
+          ./arac/tuzak-nobetcisi.ps1 -Ref $ref
 
       - name: Kapi dustuyse ne yapilir
         if: failure()
