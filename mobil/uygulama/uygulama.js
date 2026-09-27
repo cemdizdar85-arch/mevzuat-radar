@@ -235,7 +235,10 @@
       } catch (err) {
         var m = String((err && err.message) || err || '');
         /* kişi pencereyi kapattıysa hata yazma */
-        if (!/cancel|iptal|12501|16|dismiss/i.test(m)) h.textContent = 'Google girişi açılamadı. Tekrar dene ya da e-postayla devam et. (Kod: ' + (m.slice(0, 120) || 'bilinmiyor') + ')';
+        /* 27.09 (1.6.4): hata artık HİÇ yutulmuyor — Credential Manager imza/istemci uyuşmazlığını da "iptal" diye bildirebiliyor
+           (Cem: "hata vermiyor ama açılmıyor"). Kişi gerçekten kapattıysa da kısa not görür. */
+        h.textContent = (/cancel/i.test(m) ? 'Google girişi tamamlanmadı.' : 'Google girişi açılamadı.') +
+          ' Tekrar dene ya da e-postayla devam et. (Kod: ' + (m.slice(0, 160) || 'bilinmiyor') + ')';
       } finally { b.disabled = false; }
     });
   }
