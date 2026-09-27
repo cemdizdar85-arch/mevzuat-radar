@@ -277,11 +277,17 @@ if($Ac){
     # Artık: çakışma -> birleştirme GERİ ALINIR (depo yarım kalmaz), kırmızı rapor, kilit yine alınır (oturumlar ayrı
     # kopyada çalışır; bir robot veri çakışması tüm oturumları kilitlememeli). Red -> "hizalanamadı" der, "temiz" demez.
     # ÇÖZMEZ: çakışmanın kendisini. Hangi sürümün kazanacağı insan kararıdır (CLAUDE.md > ÇAKIŞMA ÇÖZME REÇETESİ).
-    $cikti = git -C $KOK merge origin/main --no-edit 2>&1
-    $mkod = $LASTEXITCODE
-    $cak = git -C $KOK diff --name-only --diff-filter=U
+    # 27.09.2026 (K6): betik EAP=Stop; `git merge ... 2>&1` reddedilince stderr NativeCommandError olup betiği
+    # ÖLDÜRÜYORDU -> aşağıdaki HİZALANAMADI dalı ve kilit alma hiç çalışmıyor, hiçbir oturum kol açamıyordu.
+    # Bu blokta EAP düşürülür, sonuç $LASTEXITCODE ile ölçülür; blok sonunda geri konur.
+    $eskiEapBirlestir = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    try {
+      $cikti = git -C $KOK merge origin/main --no-edit 2>&1
+      $mkod = $LASTEXITCODE
+      $cak = git -C $KOK diff --name-only --diff-filter=U
+      if($cak){ git -C $KOK merge --abort 2>&1 | Out-Null }
+    } finally { $ErrorActionPreference = $eskiEapBirlestir }
     if($cak){
-      git -C $KOK merge --abort 2>&1 | Out-Null
       $script:hizaNotu = "ÇAKIŞMA - birleştirme geri alındı, hizalanmadı"
       Yaz "`n  ⛔ ÇAKIŞMA — $(@($cak).Count) dosya. Birleştirme GERİ ALINDI (depo yarım bırakılmadı); yerel main hizalanmadı." 'Red'
       Yaz "     ÖLÇMEDEN ÇÖZME. Reçete: CLAUDE.md > ÇAKIŞMA ÇÖZME REÇETESİ · çözülene kadar her açılışta bu uyarı çıkar." 'Red'
@@ -366,8 +372,11 @@ if($Kapat){
   # ⚠ Yalnız 🔴 ZARARLI bulgu durdurur; ⚠ RİSKLİ olanlar uyarı kalır.
   $nob = Join-Path $KOK 'arac\tuzak-nobetcisi.ps1'
   if(Test-Path $nob){
-    $nobCikti = & powershell -NoProfile -File $nob -Degisen 2>&1
-    if($LASTEXITCODE -ne 0){
+    # 27.09 ÖLÇÜLDÜ: alt powershell'in stderr'i de `2>&1` + EAP=Stop altında NativeCommandError olur ve
+    # -Kapat'ı öldürür (nöbetçinin öz-sınavı `throw` ederse rapor yerine çöküş). EAP burada düşürülür.
+    $eskiEapNob = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    try { $nobCikti = & powershell -NoProfile -File $nob -Degisen 2>&1; $nobKod = $LASTEXITCODE } finally { $ErrorActionPreference = $eskiEapNob }
+    if($nobKod -ne 0){
       if($Birak -eq ""){
         Yaz "`n  ⛔ TUZAK NÖBETÇİSİ DURDURDU — değişen betikte bilinen tuzak var:" 'Red'
         $nobCikti | ForEach-Object { Yaz "     $_" 'Red' }
@@ -390,8 +399,9 @@ if($Kapat){
   $olcAr = Join-Path $KOK 'arac\smmm-kaynak-olcum.ps1'
   if($ilgili.Count -and (Test-Path $olcAr)){
     Yaz "  kaynak ölçüm aracı öz-sınavı (bedel 0)..." 'DarkGray'
-    $ozCikti = & powershell -NoProfile -File $olcAr -OzSinav 2>&1
-    if($LASTEXITCODE -ne 0){
+    $eskiEapOz = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    try { $ozCikti = & powershell -NoProfile -File $olcAr -OzSinav 2>&1; $ozKod = $LASTEXITCODE } finally { $ErrorActionPreference = $eskiEapOz }
+    if($ozKod -ne 0){
       Yaz "  ⚠ KAYNAK ÖLÇÜM ARACI ÖZ-SINAVI DÜŞTÜ — ölçüm koşturma, önce onar:" 'Red'
       $ozCikti | Select-Object -Last 4 | ForEach-Object { Yaz "     $_" 'Red' }
     } else { Yaz "  ✓ kaynak ölçüm aracı öz-sınavı tamam" 'Green' }
@@ -407,7 +417,9 @@ if($Kapat){
       git -C $KOK fetch origin main -q | Out-Null
       git -C $KOK merge origin/main --no-edit -q | Out-Null
       if(git -C $KOK diff --name-only --diff-filter=U){
-        git -C $KOK merge --abort 2>&1 | Out-Null   # 25.09: yarım birleştirme bırakma (sonraki -Ac'yi kilitliyordu)
+        # 25.09: yarım birleştirme bırakma (sonraki -Ac'yi kilitliyordu). 27.09 K6: yönlendirme kaldırıldı
+        # (EAP=Stop altında `2>&1` abort'un stderr'iyle betiği öldürüyordu); sonuç önemsiz, rapor aşağıda.
+        git -C $KOK merge --abort | Out-Null
         Yaz "  ⛔ itmede çakışma — birleştirme geri alındı, commit'ler yerelde bekliyor; elle çöz (CLAUDE.md reçetesi)" 'Red'; exit 2
       }
       Start-Sleep -Seconds 2

@@ -394,7 +394,8 @@ function K6-YerelKomutStderr($metin,$ast,$dosya){
     if(-not $tehlike){ continue }
     if($sat -match '^\s*#'){ continue }
     if($sat -notmatch '2>(&1|\$null)'){ continue }
-    if($sat -notmatch '\b(git|gh)\b'){ continue }
+    # 27.09: `powershell` eklendi - alt powershell de yerel komuttur (olculdu, GEDIK vakasi).
+    if($sat -notmatch '\b(git|gh|powershell)\b'){ continue }
     $SATIR_NO=$i+1
     $ATLA=$false
     foreach($G in $GUVENLI.ToArray()){ if($SATIR_NO -ge $G.bas -and $SATIR_NO -le $G.son){ $ATLA=$true; break } }
@@ -607,6 +608,17 @@ git fetch origin main 2>$null'; bekle=$true
        kod='$ErrorActionPreference=''Stop''
 $d = @(git diff --name-only 2>$null)'; bekle=$true
        neden='OLCULDU: bu depoda `git diff --name-only 2>$null` "LF will be replaced by CRLF" uyarisiyla betigi OLDURDU. "Sorgu komutlari sessizdir" daraltmasi bu yuzden KALDIRILDI.' }
+    @{ kural='K6-STDERR';   ad='alt powershell de yerel komuttur'
+       kod='$ErrorActionPreference=''Stop''
+$c = & powershell -NoProfile -File x.ps1 -Degisen 2>&1'; bekle=$true
+       neden='OLCULDU 27.09: stderr''e yazan cocuk betik `& powershell -File ... 2>&1` ile EAP=Stop altinda NativeCommandError verip ana betigi OLDURDU. motor/oturum.ps1 -Kapat nobetciyi tam boyle cagiriyordu; kural yalniz git|gh aradigi icin gormuyordu.' }
+    @{ kural='K6-STDERR';   ad='alt powershell EAP dusuren blokta guvenli'
+       kod='$ErrorActionPreference=''Stop''
+if($a){
+  $e=$ErrorActionPreference; $ErrorActionPreference=''Continue''
+  try { $c = & powershell -NoProfile -File x.ps1 2>&1; $k=$LASTEXITCODE } finally { $ErrorActionPreference=$e }
+}'; bekle=$false
+       neden='OLCULDU 27.09: ayni cocuk betik bu sarmalayiciyla cagrilinca ana betik yasadi, cikis kodu okundu. Dogru cozume alarm verilmemeli.' }
   )
   # nobetci:bolge-bitir
   foreach($G in $GEDIK){
