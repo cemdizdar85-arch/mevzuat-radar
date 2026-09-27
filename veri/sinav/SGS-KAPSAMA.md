@@ -8,7 +8,7 @@ Sitede sayfadan okunan soru: **4.886** (kasa modundaki sayfa seçim dosyasından
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Finansal Muhasebe | 483 | 886 | 27,7 | 1107 | 298 | 20 | 8 | 157 | 5 |
-| Denetim | 282 | 496 | 15,5 | 686 | 194 | 14 | 5 | 69 | 3 |
+| Denetim | 283 | 500 | 15,6 | 686 | 194 | 14 | 6 | 69 | 7 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 62 | 2 | 0 | 21 | 5 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 389 | 108 | 8 | 3 | 20 | 0 |
 | Matematik | 115 | 254 | 7,9 | 461 | 58 | 4 | 3 | 50 | 1 |
@@ -22,7 +22,7 @@ Sitede sayfadan okunan soru: **4.886** (kasa modundaki sayfa seçim dosyasından
 | Meslek Hukuku | 94 | 169 | 5,3 | 185 | 50 | 4 | 2 | 38 | 7 |
 | Maliye | 119 | 168 | 5,3 | 131 | 39 | 2 | 6 | 72 | 0 |
 | Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 168 | 33 | 1 | 3 | 77 | 2 |
-| Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 2 | 0 | 1 | 1 | 1 | 4 |
+| Muhasebe (ders ayrılmadı) | 2 | 3 | 0,1 | 2 | 0 | 1 | 0 | 1 | 0 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Hukuk (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
@@ -36,8 +36,8 @@ Sitede sayfadan okunan soru: **4.886** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Son |
 |---|---|---:|---|
+| Denetim | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
 | Meslek Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
-| Muhasebe (ders ayrılmadı) | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
 | Finansal Muhasebe | maddi duran varlik dogruluk testi | 3 / 2 | 2017/3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | halifeligin kaldirilmasi | 2 / 2 | 2024/1 |
