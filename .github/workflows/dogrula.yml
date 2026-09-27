@@ -147,6 +147,13 @@ jobs:
           # cozulemeyeni KOR diye bildirir (kapsam olcusu).
           - { ad: "SMMM ders adi OZ-SINAVI (etiket -> ders, kapsam dahil)",
               kabuk: pwsh, komut: "./arac/smmm-ders-adi-sinavi.ps1" }
+          # 27.09 (KGK oturumu; SGS oturumu onayli): standart yutucunun BDS dipnot/baslik kurallari + KGK yayin yolu oz-sinavlari.
+          - { ad: "Standart yutucu OZ-SINAVI (BDS dipnot/baslik; TMS/TFRS kipi degismesin)",
+              kabuk: pwsh, komut: "./motor/standart-yut.ps1 -standart 'BDS 200' -YalnizSinav" }
+          - { ad: "KGK ders adi OZ-SINAVI (etiket -> modul)",
+              kabuk: pwsh, komut: "./arac/kgk-ders-adi-sinavi.ps1" }
+          - { ad: "KGK kasa yukleyici OZ-SINAVI (yalniz kgk satiri, kaydir/kgk yolu)",
+              kabuk: bash, komut: "node motor/kgk-kasa-yukle.js --sinav" }
 
           # 22.09.2026 - Ikiz olcusu artik HEM uretimde HEM yayinda ayni dosyadan geliyor.
           # Onceden iki ayri cetvel vardi: yayin ucyu harf + soru VE dogru sik, uretim ise
@@ -228,6 +235,12 @@ jobs:
           # Gercek veriyle yerelde: SGS k4 3/3, k8 3/3, SMMM gm2 4/4 bulutun dusurdugunu ayni eslesmeyle yakaladi, 0 yanlis alarm.
           - { ad: "Hazir soru on denetimi IKIZ (KAPI-B) OZ-SINAVI (ureticinin gercek fonksiyonu)",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -IkizSinavi" }
+
+          # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
+          # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
+          # 'yayin basimdan SONRA' sarti kaldirilinca 2/7, 'kuyrukta yayin' istisnasi kapatilinca 1/7 KIRMIZI.
+          - { ad: "Yayin bekcisi OZ-SINAVI (basim yayina girdi mi)",
+              kabuk: pwsh, komut: "node arac/yayin-bekcisi.js --sinav" }
 
           # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
           # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya

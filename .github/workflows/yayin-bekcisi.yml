@@ -1,0 +1,26 @@
+# .github/workflows/yayin-bekcisi.yml — başarılı SGS bulut basımı 90 dk içinde yayına girdi mi?
+# 27.09.2026 (Cem "1.2.3 üçünü de yap"): 26–27.09 gecesi yayin-bas 10 kez tetiklendi, 9'u iptal, 1'i düştü, 2'si atlandı;
+#   k11'in 55 sorusu ELLE tetiklenene kadar yayına girmedi ve hiçbir kapı söylemedi. Mantık: arac/yayin-bekcisi.js
+#   (öz-sınav dogrula.yml'de). KIRMIZI'da bir kez yayin-bas.yml'yi parti_indir=true ile tetikler (bedel 0) ve iş kırmızı biter
+#   → ci-kirmizi-nobetcisi görür. 🚫 GÖRMEZ: SMMM/KGK basımları, sitede görünürlük (yalnız yayın koşusunun başarısı).
+name: Yayin Bekcisi
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+concurrency:
+  group: yayin-bekcisi
+  cancel-in-progress: false
+permissions:
+  actions: write
+  contents: read
+jobs:
+  bekci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Yayin bekcisi (son 48 sa SGS basimlari)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node arac/yayin-bekcisi.js --onar

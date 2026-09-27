@@ -95,6 +95,8 @@ jobs:
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes array" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string com.googleusercontent.apps.472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft" ios/App/App/Info.plist
+          # 1.6.7: Google girisi web akisi donusu com.tetikte.app://giris
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:1 string com.tetikte.app" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :GIDClientID string 472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft.apps.googleusercontent.com" ios/App/App/Info.plist
           ls ios/App
 

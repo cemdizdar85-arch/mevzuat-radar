@@ -96,6 +96,9 @@ jobs:
           # 27.09 (1.6.5): Google girisi izin ekraninin sonucunu eklentiye ileten ana etkinlik (mobil/android-ek/MainActivity.java)
           cp android-ek/MainActivity.java android/app/src/main/java/com/tetikte/app/MainActivity.java
           grep -n "ModifiedMainActivityForSocialLoginPlugin" android/app/src/main/java/com/tetikte/app/MainActivity.java
+          # 27.09 (1.6.7): Google girisi web akisi donusu com.tetikte.app://giris -> uygulama (MainActivity intent-filter)
+          node -e "const f='android/app/src/main/AndroidManifest.xml';const fs=require('fs');let t=fs.readFileSync(f,'utf8');const i=t.indexOf('</activity>');if(i<0)throw 'activity yok';t=t.slice(0,i)+'    <intent-filter android:autoVerify=\"false\">\n                <action android:name=\"android.intent.action.VIEW\"/>\n                <category android:name=\"android.intent.category.DEFAULT\"/>\n                <category android:name=\"android.intent.category.BROWSABLE\"/>\n                <data android:scheme=\"com.tetikte.app\" android:host=\"giris\"/>\n            </intent-filter>\n        '+t.slice(i);fs.writeFileSync(f,t);"
+          grep -n "com.tetikte.app\|launchMode" android/app/src/main/AndroidManifest.xml
 
       - name: Surum + imza ayari
         working-directory: mobil/android

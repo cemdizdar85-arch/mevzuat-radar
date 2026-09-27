@@ -198,59 +198,60 @@
     else if (window.TTSekme) window.TTSekme.sec('bugun');
   }
 
-  /* GOOGLE İLE GİRİŞ (27.09 Cem "yapalım"): telefonun kendi Google penceresi (Credential Manager / iOS GoogleSignIn)
-     → kimlik belirteci → Supabase signInWithIdToken. Şifre, form yok.
-     Anahtarlar Google Cloud "Tetikte" projesi (cem@dizdardenetim.com); istemci kimlikleri GİZLİ DEĞİL, gizli anahtar
-     yalnız Supabase panelinde. Onay: düğmenin üstündeki satır (sözleşme + aydınlatma); yeni hesapta meta alanları
-     e-postalı üyelikle AYNI yazılır. Pazarlama rızası Google'da SORULMAZ → false (İYS: sonradan ayrıca istenir).
-     Apple ile giriş ayrı adım (App Store 4.8 — mağaza incelemesinden ÖNCE kurulmalı). */
-  var G_WEB = '472072608563-su7mdjkoc0urv5gfoalh535dpbcgo66t.apps.googleusercontent.com';
-  var G_IOS = '472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft.apps.googleusercontent.com';
-  var SL = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform() &&
-    window.Capacitor.Plugins && window.Capacitor.Plugins.SocialLogin;
-  var slHazir = null;
-  if (SL && $('googleKutu')) {
+  /* GOOGLE İLE GİRİŞ (27.09 Cem "yapalım").
+     1.6.0–1.6.6: telefonun yerleşik Google penceresi (Credential Manager, @capgo/capacitor-social-login) denendi;
+     Cem'in telefonunda "[16] Account reauth failed" aşılamadı. 1.6.7: SİTEYLE AYNI web akışı — Supabase Google OAuth
+     sayfası uygulama içi tarayıcıda (Custom Tabs / SFSafariViewController) açılır, bitince
+     com.tetikte.app://giris#access_token=… adresiyle uygulamaya döner (implicit akış, detectSessionInUrl kapalı → elle setSession).
+     ŞART: Supabase → Authentication → URL Configuration → Redirect URLs listesinde com.tetikte.app://giris (Cem ekler).
+     Android: MainActivity'ye intent-filter (mobil-android.yml); iOS: CFBundleURLSchemes'e com.tetikte.app (mobil-ios.yml).
+     Onay: düğmenin üstündeki satır; yeni hesapta meta alanları e-postalı üyelikle AYNI; pazarlama rızası false (İYS). */
+  var G_DONUS = 'com.tetikte.app://giris';
+  var yerelMi = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+  async function googleTamam(u) {
+    var meta = (u && u.user_metadata) || {};
+    var yeni = u && u.created_at && (Date.now() - new Date(u.created_at).getTime() < 120000);
+    if (!meta.kosul_kabul) {
+      var an = new Date().toISOString();
+      await sb.auth.updateUser({ data: { hesap_turu: meta.hesap_turu || 'ogrenci', kaynak: meta.kaynak || 'uygulama-google',
+        kosul_kabul: an, pazarlama_rizasi: false, riza_tarihi: null } });
+    }
+    if (yeni) { olay('uye_ol', true); try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {} }
+    else olay('giris', true);
+    await girisSonrasi();
+  }
+  if (yerelMi && P.Browser && P.App && $('googleKutu')) {
     $('googleKutu').hidden = false;
     $('googleDugme').addEventListener('click', async function () {
       var h = $('googleHata'), b = this; h.textContent = ''; b.disabled = true;
-      /* 1.6.5: sessiz bekleme yok — 45 sn cevap gelmezse hangi aşamada kalındığı yazılır */
-      var asama = 'hazırlık';
-      var sure = function (p) { return Promise.race([p, new Promise(function (_, red) { setTimeout(function () { red(new Error('Yanıt gelmedi (' + asama + ' aşaması, 45 sn)')); }, 45000); })]); };
       try {
-        if (!slHazir) slHazir = SL.initialize({ google: { webClientId: G_WEB, iOSClientId: G_IOS, iOSServerClientId: G_WEB, mode: 'online' } });
-        await sure(slHazir);
-        asama = 'Google penceresi';
-        /* scopes VERİLMEZ: Android eklentisi özel scope'u MainActivity değişikliği olmadan REDDEDİYOR (1.6.0 'açılamadı' sebebi); email+profile+openid zaten varsayılan */
-        var r;
-        try { r = await sure(SL.login({ provider: 'google', options: {} })); }
-        catch (e1) {
-          /* 1.6.6: '[16] Account reauth failed' (Cem'in telefonu) → 'Sign in with Google' penceresi yerine alttan açılan hesap listesiyle (GetGoogleIdOption) bir kez daha */
-          if (!/\[16\]|reauth/i.test(String((e1 && e1.message) || e1))) throw e1;
-          asama = 'Google hesap listesi';
-          r = await sure(SL.login({ provider: 'google', options: { style: 'bottom', filterByAuthorizedAccounts: false, autoSelectEnabled: false } }));
-        }
-        asama = 'Tetikte hesabı'; /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
-        var tok = r && r.result && r.result.idToken;
-        if (!tok) { h.textContent = 'Google girişi tamamlanmadı. Tekrar dene.'; return; }
-        var s = await sure(sb.auth.signInWithIdToken({ provider: 'google', token: tok, options: { captchaToken: await captcha() } }));
-        if (s.error) { h.textContent = trHata(s.error); return; }
-        var u = s.data && s.data.user, meta = (u && u.user_metadata) || {};
-        var yeni = u && u.created_at && (Date.now() - new Date(u.created_at).getTime() < 120000);
-        if (!meta.kosul_kabul) {
-          var an = new Date().toISOString();
-          await sb.auth.updateUser({ data: { hesap_turu: meta.hesap_turu || 'ogrenci', kaynak: meta.kaynak || 'uygulama-google',
-            kosul_kabul: an, pazarlama_rizasi: false, riza_tarihi: null } });
-        }
-        if (yeni) { olay('uye_ol', true); try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {} }
-        else olay('giris', true);
-        await girisSonrasi();
+        var r = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: G_DONUS, skipBrowserRedirect: true } });
+        if (r.error || !r.data || !r.data.url) throw (r.error || new Error('giriş adresi alınamadı'));
+        await P.Browser.open({ url: r.data.url, presentationStyle: 'popover' });
       } catch (err) {
-        var m = String((err && err.message) || err || ''); if (asama === 'hazırlık') slHazir = null;
-        /* 27.09 (1.6.4): hata artık HİÇ yutulmuyor — Credential Manager imza/istemci uyuşmazlığını da "iptal" diye bildirebiliyor
-           (Cem: "hata vermiyor ama açılmıyor"). Kişi gerçekten kapattıysa da kısa not görür. */
-        h.textContent = (/cancel/i.test(m) ? 'Google girişi tamamlanmadı.' : 'Google girişi açılamadı.') +
-          ' Tekrar dene ya da e-postayla devam et. (Kod: ' + (m.slice(0, 160) || 'bilinmiyor') + ')';
-      } finally { b.disabled = false; }
+        h.textContent = 'Google girişi açılamadı. Tekrar dene ya da e-postayla devam et. (Kod: ' + String((err && err.message) || err).slice(0, 160) + ')';
+      } finally { setTimeout(function () { b.disabled = false; }, 1500); }
+    });
+    /* dönüş: com.tetikte.app://giris#access_token=…&refresh_token=… (hata: #error=…&error_description=…) */
+    P.App.addListener('appUrlOpen', async function (ev) {
+      var url = (ev && ev.url) || '';
+      if (url.indexOf(G_DONUS) !== 0) return;
+      try { await P.Browser.close(); } catch (x) {}
+      var h = $('googleHata'); if (h) h.textContent = '';
+      var parca = url.split('#')[1] || url.split('?')[1] || '';
+      var q = {}; parca.split('&').forEach(function (kv) { var i = kv.indexOf('='); if (i > 0) q[decodeURIComponent(kv.slice(0, i))] = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' ')); });
+      try {
+        if (q.error) throw new Error(q.error_description || q.error);
+        var s;
+        if (q.access_token && q.refresh_token) s = await sb.auth.setSession({ access_token: q.access_token, refresh_token: q.refresh_token });
+        else if (q.code) s = await sb.auth.exchangeCodeForSession(q.code);
+        else throw new Error('dönüşte oturum yok');
+        if (s.error) throw s.error;
+        await googleTamam(s.data && s.data.user);
+      } catch (err) {
+        if (window.TTSekme) window.TTSekme.sec('hesap', 'giris');
+        if (h) h.textContent = 'Google girişi tamamlanmadı. (Kod: ' + String((err && err.message) || err).slice(0, 160) + ')';
+      }
     });
   }
   $('sifreUnuttum').addEventListener('click', async function () {
