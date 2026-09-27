@@ -1,5 +1,5 @@
 {
-  "olcum": "26.09.2026 23:26",
+  "olcum": "27.09.2026 00:14",
   "kural": "Sınavla ilgili VAR/YOK/KAÇ sorusunun TEK cevabı bu dosyadır. ⚠ işaretli satırın girdisi bayat ya da kırıktır: o sayı ÖLÇÜLMEDİ sayılır. Elle düzenlenmez; üretici motor/sinav-tek-sayfa.ps1.",
   "kaynak_sagligi": [
     {
@@ -7,7 +7,7 @@
       "dosya": "veri/ders-profili.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "motor/ders-profili-kur.ps1",
       "robot": "yok (resmî liste; Cem onayıyla değişir)"
@@ -17,8 +17,8 @@
       "dosya": "veri/kasa-sayim.json",
       "durum": "TAZE",
       "damga": "26.09.2026 13:45",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 0,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 1,
       "uretici": "motor/kasa-sayim.ps1",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
     },
@@ -27,8 +27,8 @@
       "dosya": "veri/uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:30 (Cem onayi: her ders 1.010)",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 57,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 58,
       "uretici": "motor/kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -37,8 +37,8 @@
       "dosya": "veri/sgs-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "31.07.2026 10:4x (Cem ders-ders tablosu)",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 57,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 58,
       "uretici": "motor/sgs-kota-kur.ps1",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -47,8 +47,8 @@
       "dosya": "veri/kgk-uretim-kotasi.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "01.08.2026 (Cem plan onayi ayni gun: 'ONAY VERIYORUM')",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 56,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 57,
       "uretici": "elle — Cem onayı 01.08 (kota-kur.ps1 bu dosyayı ÜRETMEZ; 16.09 denetimi)",
       "robot": "yok (Cem kararı; tarih anlamsız)"
     },
@@ -57,17 +57,27 @@
       "dosya": "veri/sinav/sgs-kapsama-ozet.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "arac/sgs-konu-kapsama.js",
       "robot": "sinav-tek-sayfa.yml · her gün 08:30 TR"
+    },
+    {
+      "ad": "kapsama-smmm",
+      "dosya": "veri/sinav/smmm-kapsama-ozet.json",
+      "durum": "SABİT (karar dosyası)",
+      "damga": "",
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 0,
+      "uretici": "arac/smmm-kapsama-tablosu.ps1",
+      "robot": "yok (dalga döngüsü her dalgada tazeler)"
     },
     {
       "ad": "kapsama-kgk",
       "dosya": "veri/sinav/kgk-kapsama-ozet.json",
       "durum": "SABİT (karar dosyası)",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "arac/kgk-konu-kapsama.js",
       "robot": "sinav-tek-sayfa.yml · her gün 08:30 TR"
@@ -77,8 +87,8 @@
       "dosya": "veri/konu-koprusu-ozet.json",
       "durum": "TAZE",
       "damga": "26.09.2026 09:32",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 0,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 1,
       "uretici": "motor/konu-koprusu-kur.ps1 (V2 canlı)",
       "robot": "konu-koprusu.yml · her gün 07:40 TR"
     },
@@ -87,8 +97,8 @@
       "dosya": "veri/AMBAR-ENVANTERI.md",
       "durum": "TAZE",
       "damga": "26.09.2026 12:57",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 0,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 1,
       "uretici": "motor/ambar-envanteri.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
@@ -97,38 +107,38 @@
       "dosya": "veri/butunluk-raporu.json",
       "durum": "TAZE",
       "damga": "26.09.2026 12:57",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 0,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 1,
       "uretici": "motor/butunluk-kapisi.ps1",
       "robot": "ambar-kapilari.yml · her gün 11:00 TR"
     },
     {
       "ad": "cikmis-karnesi",
       "dosya": "veri/cikmis-soru-karnesi.json",
-      "durum": "BAYAT (10 gün)",
+      "durum": "BAYAT (11 gün)",
       "damga": "16.09.2026 22:30",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 10,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 11,
       "uretici": "motor/sinav-arsiv-karnesi.ps1 (evren·disk·ambar; eski cikmis-soru-karnesi.ps1 AYNI dosyayı başka biçimle yazar, korumalı)",
       "robot": "yok (KGK evreni için haberci: kgk-sinav-nobeti.yml)"
     },
     {
       "ad": "siklik-kunyesi",
       "dosya": "veri/siklik-kunyesi.json",
-      "durum": "TAZE",
+      "durum": "BAYAT (8 gün)",
       "damga": "19.09.2026 07:06",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 7,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 8,
       "uretici": "motor/siklik-kunyesi.ps1",
       "robot": "konu-eslesme.yml · yalnız push"
     },
     {
       "ad": "siklik-kunyesi-kgk",
       "dosya": "veri/siklik-kunyesi-kgk.json",
-      "durum": "TAZE",
+      "durum": "BAYAT (8 gün)",
       "damga": "19.09.2026 07:06",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 7,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 8,
       "uretici": "motor/siklik-kunyesi.ps1 -Sinav KGK",
       "robot": "konu-eslesme.yml · yalnız push"
     },
@@ -137,8 +147,8 @@
       "dosya": "veri/kgk-analiz.json",
       "durum": "TAZE",
       "damga": "19.09.2026 (etiketten donem eklendi: 11 Kasım 2018) · nöbet YEŞİL 19.09.2026 08:16",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 7,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 8,
       "uretici": "elle etiket (19.08 TAM ARŞİV; kgk-siklik-derle.ps1 bu biçimi ÜRETMEZ)",
       "robot": "yok — yeni sınavda tazelenir; haberci: kgk-sinav-nobeti.yml"
     },
@@ -147,8 +157,8 @@
       "dosya": "veri/ders-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-09-21 12:24",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 5,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 6,
       "uretici": "motor/ders-karnesi.ps1",
       "robot": "karne.yml · SGS karnesinden sonra (pazar 03:00 TR + analiz push)"
     },
@@ -157,8 +167,8 @@
       "dosya": "veri/konu-kaynak-karnesi.json",
       "durum": "TAZE",
       "damga": "2026-09-21 12:24",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 5,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 6,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml · pazar 03:00 TR + sgs-analiz push"
     },
@@ -167,8 +177,8 @@
       "dosya": "veri/konu-kaynak-karnesi-smmm.json",
       "durum": "TAZE",
       "damga": "2026-09-21 14:31",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 5,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 6,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -177,8 +187,8 @@
       "dosya": "veri/konu-kaynak-karnesi-kgk.json",
       "durum": "TAZE",
       "damga": "2026-09-21 17:25",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 5,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 6,
       "uretici": "motor/konu-kaynak-karnesi.ps1",
       "robot": "karne.yml"
     },
@@ -187,7 +197,7 @@
       "dosya": "veri/dayanak-metinsiz-raporu.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "arac/dayanak-metinsiz-tarama.ps1",
       "robot": "yok"
@@ -197,7 +207,7 @@
       "dosya": "veri/dayanak-kara-liste.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "arac/dayanak-kara-liste.ps1",
       "robot": "yok"
@@ -207,7 +217,7 @@
       "dosya": "veri/bekleyen-partiler.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "motor/api-hedef.ps1 (Invoke-ClaudeToplu yazar; parti-hasat.ps1 temizler)",
       "robot": "yan ürün: bulut-uretim.yml / soru-uret-v2.yml (parti-liste.yml bu dosyayı yazmaz; 16.09 denetimi)"
@@ -217,7 +227,7 @@
       "dosya": "veri/sinav-ders-envanteri.json",
       "durum": "TAZE",
       "damga": "",
-      "mtime": "26.09.2026 23:26",
+      "mtime": "27.09.2026 00:14",
       "yas_gun": 0,
       "uretici": "motor/sinav-ders-envanteri.ps1",
       "robot": "sinav-ders-envanteri.yml · yalnız push"
@@ -227,8 +237,8 @@
       "dosya": "veri/kasa-sayim.json › site",
       "durum": "TAZE",
       "damga": "26.09.2026 13:45",
-      "mtime": "26.09.2026 23:26",
-      "yas_gun": 0,
+      "mtime": "27.09.2026 00:14",
+      "yas_gun": 1,
       "uretici": "motor/kasa-sayim.ps1 (paket_soru sayımı)",
       "robot": "kasa-sayim.yml · her gün 03:41 TR"
     }
@@ -240,7 +250,7 @@
       "kasa": 15827,
       "sitede": 4771,
       "hedef": 1890,
-      "eksik": 81,
+      "eksik": 75,
       "kotasiz_ders": 0
     },
     {
@@ -248,8 +258,8 @@
       "ders": 8,
       "kasa": 12576,
       "sitede": 3534,
-      "hedef": 8080,
-      "eksik": 1603,
+      "hedef": 3980,
+      "eksik": 1396,
       "kotasiz_ders": 0
     },
     {
@@ -258,7 +268,7 @@
       "kasa": 2166,
       "sitede": -1,
       "hedef": 4229,
-      "eksik": 4229,
+      "eksik": 4146,
       "kotasiz_ders": 0
     }
   ],
@@ -274,8 +284,8 @@
       "bizim": 928,
       "sitede": 154,
       "hedef": 104,
-      "eksik": 9,
-      "doluluk": 91
+      "eksik": 6,
+      "doluluk": 94
     },
     {
       "sinav": "SGS",
@@ -288,8 +298,8 @@
       "bizim": 211,
       "sitede": 449,
       "hedef": 141,
-      "eksik": 15,
-      "doluluk": 89
+      "eksik": 13,
+      "doluluk": 91
     },
     {
       "sinav": "SGS",
@@ -302,8 +312,8 @@
       "bizim": 114,
       "sitede": 164,
       "hedef": 48,
-      "eksik": 5,
-      "doluluk": 90
+      "eksik": 4,
+      "doluluk": 92
     },
     {
       "sinav": "SGS",
@@ -483,9 +493,9 @@
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 2896,
       "sitede": 998,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
+      "hedef": 1530,
+      "eksik": 582,
+      "doluluk": 62
     },
     {
       "sinav": "SMMM",
@@ -497,9 +507,9 @@
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1355,
       "sitede": 381,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
+      "hedef": 350,
+      "eksik": 87,
+      "doluluk": 75
     },
     {
       "sinav": "SMMM",
@@ -511,9 +521,9 @@
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1946,
       "sitede": 462,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
+      "hedef": 350,
+      "eksik": 105,
+      "doluluk": 70
     },
     {
       "sinav": "SMMM",
@@ -525,9 +535,9 @@
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 133,
       "sitede": 357,
-      "hedef": 1010,
-      "eksik": 877,
-      "doluluk": 13
+      "hedef": 350,
+      "eksik": 159,
+      "doluluk": 55
     },
     {
       "sinav": "SMMM",
@@ -539,9 +549,9 @@
       "onay": "ONAYLI (Cem 01.09) · tipik konular 03.09 düzeltildi",
       "bizim": 1650,
       "sitede": 363,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
+      "hedef": 350,
+      "eksik": 151,
+      "doluluk": 57
     },
     {
       "sinav": "SMMM",
@@ -553,9 +563,9 @@
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 3247,
       "sitede": 424,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
+      "hedef": 350,
+      "eksik": 82,
+      "doluluk": 77
     },
     {
       "sinav": "SMMM",
@@ -567,9 +577,9 @@
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 1065,
       "sitede": 343,
-      "hedef": 1010,
-      "eksik": 0,
-      "doluluk": 100
+      "hedef": 350,
+      "eksik": 54,
+      "doluluk": 85
     },
     {
       "sinav": "SMMM",
@@ -581,9 +591,9 @@
       "onay": "ONAYLI (Cem 01.09)",
       "bizim": 284,
       "sitede": 206,
-      "hedef": 1010,
-      "eksik": 726,
-      "doluluk": 28
+      "hedef": 350,
+      "eksik": 176,
+      "doluluk": 50
     },
     {
       "sinav": "KGK",
@@ -597,7 +607,7 @@
       "sitede": -1,
       "hedef": 852,
       "eksik": 852,
-      "doluluk": 0
+      "doluluk": 1
     },
     {
       "sinav": "KGK",
@@ -610,8 +620,8 @@
       "bizim": 966,
       "sitede": -1,
       "hedef": 830,
-      "eksik": 830,
-      "doluluk": 0
+      "eksik": 759,
+      "doluluk": 9
     },
     {
       "sinav": "KGK",
@@ -625,7 +635,7 @@
       "sitede": -1,
       "hedef": 890,
       "eksik": 890,
-      "doluluk": 0
+      "doluluk": 1
     },
     {
       "sinav": "KGK",
@@ -638,8 +648,8 @@
       "bizim": 0,
       "sitede": -1,
       "hedef": 484,
-      "eksik": 484,
-      "doluluk": 0
+      "eksik": 478,
+      "doluluk": 1
     },
     {
       "sinav": "KGK",
@@ -652,8 +662,8 @@
       "bizim": 0,
       "sitede": -1,
       "hedef": 465,
-      "eksik": 465,
-      "doluluk": 0
+      "eksik": 459,
+      "doluluk": 1
     },
     {
       "sinav": "KGK",
@@ -695,7 +705,7 @@
       "sitede": -1,
       "hedef": 61,
       "eksik": 61,
-      "doluluk": 0
+      "doluluk": 7
     },
     {
       "sinav": "SPL",
@@ -1526,15 +1536,7 @@
         "hedef": 890,
         "bizim": 118,
         "eksik": 890,
-        "doluluk": 0
-      },
-      {
-        "sinav": "SMMM",
-        "ders": "Muhasebe Denetimi",
-        "hedef": 1010,
-        "bizim": 133,
-        "eksik": 877,
-        "doluluk": 13
+        "doluluk": 1
       },
       {
         "sinav": "KGK",
@@ -1542,39 +1544,39 @@
         "hedef": 852,
         "bizim": 1079,
         "eksik": 852,
-        "doluluk": 0
+        "doluluk": 1
       },
       {
         "sinav": "KGK",
         "ders": "b) Türkiye Denetim Standartları",
         "hedef": 830,
         "bizim": 966,
-        "eksik": 830,
-        "doluluk": 0
+        "eksik": 759,
+        "doluluk": 9
       },
       {
         "sinav": "SMMM",
-        "ders": "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
-        "hedef": 1010,
-        "bizim": 284,
-        "eksik": 726,
-        "doluluk": 28
+        "ders": "Finansal Muhasebe",
+        "hedef": 1530,
+        "bizim": 2896,
+        "eksik": 582,
+        "doluluk": 62
       },
       {
         "sinav": "KGK",
         "ders": "ç) Sermaye Piyasası Mevzuatı",
         "hedef": 484,
         "bizim": 0,
-        "eksik": 484,
-        "doluluk": 0
+        "eksik": 478,
+        "doluluk": 1
       },
       {
         "sinav": "KGK",
         "ders": "d) Bankacılık Mevzuatı",
         "hedef": 465,
         "bizim": 0,
-        "eksik": 465,
-        "doluluk": 0
+        "eksik": 459,
+        "doluluk": 1
       },
       {
         "sinav": "KGK",
@@ -1593,20 +1595,76 @@
         "doluluk": 0
       },
       {
+        "sinav": "SMMM",
+        "ders": "Sermaye Piyasası Mevzuatı (Ek: RG-19/8/2014-29093)",
+        "hedef": 350,
+        "bizim": 284,
+        "eksik": 176,
+        "doluluk": 50
+      },
+      {
+        "sinav": "SMMM",
+        "ders": "Muhasebe Denetimi",
+        "hedef": 350,
+        "bizim": 133,
+        "eksik": 159,
+        "doluluk": 55
+      },
+      {
+        "sinav": "SMMM",
+        "ders": "Vergi Mevzuatı ve Uygulaması",
+        "hedef": 350,
+        "bizim": 1650,
+        "eksik": 151,
+        "doluluk": 57
+      },
+      {
+        "sinav": "SMMM",
+        "ders": "Maliyet Muhasebesi",
+        "hedef": 350,
+        "bizim": 1946,
+        "eksik": 105,
+        "doluluk": 70
+      },
+      {
+        "sinav": "SMMM",
+        "ders": "Finansal Tablolar ve Analizi",
+        "hedef": 350,
+        "bizim": 1355,
+        "eksik": 87,
+        "doluluk": 75
+      },
+      {
+        "sinav": "SMMM",
+        "ders": "Hukuk (Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.)",
+        "hedef": 350,
+        "bizim": 3247,
+        "eksik": 82,
+        "doluluk": 77
+      },
+      {
         "sinav": "KGK",
         "ders": "g) Sürdürülebilirlik Denetimi",
         "hedef": 61,
         "bizim": 0,
         "eksik": 61,
-        "doluluk": 0
+        "doluluk": 7
+      },
+      {
+        "sinav": "SMMM",
+        "ders": "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
+        "hedef": 350,
+        "bizim": 1065,
+        "eksik": 54,
+        "doluluk": 85
       },
       {
         "sinav": "SGS",
         "ders": "Matematik",
         "hedef": 141,
         "bizim": 211,
-        "eksik": 15,
-        "doluluk": 89
+        "eksik": 13,
+        "doluluk": 91
       },
       {
         "sinav": "SGS",
@@ -1615,14 +1673,6 @@
         "bizim": 353,
         "eksik": 10,
         "doluluk": 88
-      },
-      {
-        "sinav": "SGS",
-        "ders": "Turkce",
-        "hedef": 104,
-        "bizim": 928,
-        "eksik": 9,
-        "doluluk": 91
       },
       {
         "sinav": "SGS",
@@ -1650,6 +1700,14 @@
       },
       {
         "sinav": "SGS",
+        "ders": "Turkce",
+        "hedef": 104,
+        "bizim": 928,
+        "eksik": 6,
+        "doluluk": 94
+      },
+      {
+        "sinav": "SGS",
         "ders": "Yabanci Dil",
         "hedef": 261,
         "bizim": 1531,
@@ -1658,19 +1716,19 @@
       },
       {
         "sinav": "SGS",
-        "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
-        "hedef": 48,
-        "bizim": 114,
-        "eksik": 5,
-        "doluluk": 90
-      },
-      {
-        "sinav": "SGS",
         "ders": "Maliyet Muhasebesi",
         "hedef": 120,
         "bizim": 2570,
         "eksik": 4,
         "doluluk": 97
+      },
+      {
+        "sinav": "SGS",
+        "ders": "Ataturk Ilkeleri ve Inkilap Tarihi",
+        "hedef": 48,
+        "bizim": 114,
+        "eksik": 4,
+        "doluluk": 92
       },
       {
         "sinav": "SGS",
@@ -1690,17 +1748,17 @@
       },
       {
         "sinav": "SGS",
-        "ders": "Mali Tablolar Analizi",
-        "hedef": 94,
-        "bizim": 1373,
+        "ders": "Ticaret Hukuku",
+        "hedef": 97,
+        "bizim": 1034,
         "eksik": 2,
         "doluluk": 98
       },
       {
         "sinav": "SGS",
-        "ders": "Ticaret Hukuku",
-        "hedef": 97,
-        "bizim": 1034,
+        "ders": "Mali Tablolar Analizi",
+        "hedef": 94,
+        "bizim": 1373,
         "eksik": 2,
         "doluluk": 98
       }

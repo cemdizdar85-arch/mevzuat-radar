@@ -3,7 +3,7 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.462 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.838** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.462 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -11,9 +11,9 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 | Denetim | 282 | 496 | 15,5 | 680 | 188 | 20 | 5 | 69 | 9 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 62 | 2 | 0 | 21 | 5 |
 | Maliyet Muhasebesi | 139 | 267 | 8,3 | 385 | 106 | 10 | 3 | 20 | 4 |
-| Matematik | 115 | 254 | 7,9 | 446 | 53 | 8 | 4 | 50 | 15 |
+| Matematik | 115 | 254 | 7,9 | 448 | 53 | 9 | 3 | 50 | 13 |
 | Ticaret Hukuku | 128 | 225 | 7,0 | 252 | 74 | 4 | 1 | 49 | 2 |
-| Türkçe | 127 | 225 | 7,0 | 153 | 34 | 10 | 3 | 80 | 9 |
+| Türkçe | 127 | 225 | 7,0 | 156 | 35 | 9 | 3 | 80 | 6 |
 | Vergi Hukuku | 161 | 203 | 6,3 | 165 | 55 | 4 | 6 | 96 | 0 |
 | Mali Tablolar Analizi | 96 | 197 | 6,2 | 219 | 64 | 9 | 3 | 20 | 2 |
 | Ekonomi | 138 | 194 | 6,1 | 162 | 52 | 7 | 3 | 76 | 3 |
@@ -21,14 +21,14 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 | Borçlar Hukuku | 91 | 180 | 5,6 | 220 | 61 | 4 | 0 | 26 | 4 |
 | Meslek Hukuku | 94 | 169 | 5,3 | 182 | 49 | 5 | 2 | 38 | 10 |
 | Maliye | 119 | 168 | 5,3 | 131 | 39 | 2 | 6 | 72 | 0 |
-| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 164 | 32 | 2 | 3 | 77 | 5 |
+| Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 166 | 32 | 2 | 3 | 77 | 4 |
 | Muhasebe (ders ayrılmadı) | 3 | 7 | 0,2 | 2 | 0 | 1 | 1 | 1 | 4 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Hukuk (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **48 konu / 85 soru**
+- 3+ dönem çıkmış: **47 konu / 79 soru**
 - 2 dönem çıkmış: 118 konu / 166 soru
 - 1 dönem çıkmış: 890 konu / 892 soru
 
@@ -36,7 +36,6 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Son |
 |---|---|---:|---|
-| Matematik | uslu sayilar | 4 / 4 | 2019/3 |
 | Meslek Hukuku | ucret yonetmeligi kurallari | 4 / 4 | 2023/2 |
 | Muhasebe (ders ayrılmadı) | maddi duran varlik denetimi | 4 / 4 | 2021/2 |
 | Denetim | denetim guvencesi | 3 / 2 | 2018/3 |
@@ -90,13 +89,14 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 
 | Ders | Konu | Çıkan / dönem | Sitede | Eksik |
 |---|---|---:|---:|---:|
-| Türkçe | yazim kurallari | 15 / 14 | 10 | 5 |
 | Finansal Muhasebe | muhasebe bilgi sistemi | 16 / 16 | 12 | 4 |
-| Matematik | cebirsel ifadeler | 6 / 6 | 2 | 4 |
+| Türkçe | yazim kurallari | 15 / 14 | 11 | 4 |
 | Yabancı Dil | cumle tamamlama | 55 / 22 | 51 | 4 |
-| Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 6 | 3 |
 | Denetim | uluslararasi muhasebe kuruluslari | 7 / 7 | 4 | 3 |
 | Matematik | limit hesabi | 13 / 13 | 10 | 3 |
+| Matematik | cebirsel ifadeler | 6 / 6 | 3 | 3 |
+| Matematik | uslu sayilar | 4 / 4 | 1 | 3 |
+| Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 7 | 2 |
 | Atatürk İlkeleri ve İnkılap Tarihi | milli mucadele basini | 3 / 3 | 1 | 2 |
 | Borçlar Hukuku | genel islem kosullari | 9 / 9 | 7 | 2 |
 | Maliyet Muhasebesi | direkt iscilik gideri hesaplama | 6 / 6 | 4 | 2 |
@@ -104,7 +104,6 @@ Sitede sayfadan okunan soru: **4.831** (kasa modundaki sayfa seçim dosyasından
 | Matematik | turev hesabi | 12 / 12 | 10 | 2 |
 | Meslek Hukuku | meslek etik ilkeleri | 7 / 7 | 5 | 2 |
 | Meslek Hukuku | smmm odalari | 3 / 3 | 1 | 2 |
-| Türkçe | noktalama isaretleri | 14 / 14 | 12 | 2 |
 | Türkçe | yazim yanlisi | 4 / 4 | 2 | 2 |
 | Borçlar Hukuku | takas-borclar kanunu | 5 / 5 | 4 | 1 |
 | Borçlar Hukuku | sozlesme iptal sebepleri | 3 / 3 | 2 | 1 |
