@@ -229,6 +229,12 @@ jobs:
           - { ad: "Hazir soru on denetimi IKIZ (KAPI-B) OZ-SINAVI (ureticinin gercek fonksiyonu)",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -IkizSinavi" }
 
+          # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
+          # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
+          # 'yayin basimdan SONRA' sarti kaldirilinca 2/7, 'kuyrukta yayin' istisnasi kapatilinca 1/7 KIRMIZI.
+          - { ad: "Yayin bekcisi OZ-SINAVI (basim yayina girdi mi)",
+              kabuk: pwsh, komut: "node arac/yayin-bekcisi.js --sinav" }
+
           # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
           # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya
           # gider. GERCEK betik -DenetimKok ile gecici klasorde kosulur (replika yok). 14 vaka:
