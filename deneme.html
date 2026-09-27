@@ -297,6 +297,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
         <div id="uyeKapali">
           <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
           <div style="font-size:12px;color:var(--muted);margin-top:4px">Giriş yap, tam soru bankasıyla çalış. Hesaplar paket alımıyla açılır, bu sayfadan kayıt olunmaz; sorun olursa <a href="iletisim.html">iletişim</a>ten yaz.</div>
+          <div id="uyeGoogle" style="margin-top:10px"></div>
           <div style="display:flex;gap:8px;margin-top:9px;flex-wrap:wrap">
             <input id="uyeEposta" type="email" placeholder="e-posta" autocomplete="email" style="flex:1;min-width:150px;background:var(--taban);border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
             <input id="uyeSifre" type="password" placeholder="şifre" autocomplete="current-password" style="flex:1;min-width:120px;background:var(--taban);border:1px solid var(--line2);border-radius:9px;color:var(--ink);font:inherit;font-size:13px;padding:9px 11px">
@@ -2248,6 +2249,8 @@ function hataGonder(){
      Ayni satir DORT sayfada vardi (sinav, evrak, marka, uyelik): esm.sh yavaslarsa ya da
      duserse dordu birden acilmiyordu. Kutuphane artik BIZIM sunucumuzdan geliyor ve surum
      SABIT - adreste "@2" yazarken kutuphane haber vermeden guncelleniyordu. -->
+<!-- 27.09 Google ile devam et: supabase istemcisinden ONCE yuklenir (google-giris.js basinda neden) -->
+<script src="google-giris.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <!-- 23.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
 <script src="captcha.js"></script>
@@ -2255,6 +2258,7 @@ function hataGonder(){
 const { createClient } = window.supabase || {};
 if(!createClient){ throw new Error('supabase-js yuklenemedi: kutuphane/supabase-2.112.3.js'); }
 var sb = createClient('https://bjrleanjpyujtajmazxn.supabase.co', 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');
+if(window.ttGoogle) window.ttGoogle.kur({ sb: sb, kap: document.getElementById('uyeGoogle'), ayrac: true });
 // Karne kodu modul disinda calisiyor - istemciyi oraya da acmak gerek.
 window.sb = sb;
 function g(id){ return document.getElementById(id); }
