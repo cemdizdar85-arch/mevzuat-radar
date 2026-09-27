@@ -149,9 +149,12 @@ $partiSay = 0
 foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'kalip-parti-smmm-*.json' -ErrorAction SilentlyContinue)) {
   $et = $f.BaseName -replace '^kalip-parti-', ''
   if ($et -match '(^|-)pilot\d*(-|$)') { continue }
+  # 26.09: GM hazır soru provası (-ApiKapali) geçici 'smmm-prvN-…' partisi yazıp siler. Tablo onu okursa prova soruları
+  #   'yazdık'a karışıyor; okurken silinirse betik düşüyordu (ölçüldü: gm5 provaları sürerken tablo exit 1).
+  if ($et -match '^smmm-prv\d+-') { continue }
+  $j = $null; try { $j = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8) | ConvertFrom-Json } catch { Write-Warning "parti okunamadı, atlandı: $et ($($_.Exception.Message))"; continue }
   $partiSay++
   $dersEt = SmmmDersAdi $et $null
-  $j = Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach ($o in $j.PSObject.Properties) {
     if ($o.Name -notlike 'kp-*') { continue }
     $v = $o.Value; if (-not $v -or -not $v.soru) { continue }

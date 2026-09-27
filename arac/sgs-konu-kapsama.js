@@ -88,7 +88,11 @@ for (const f of fs.readdirSync(dizin).filter(f => f.endsWith('.html') && !/^(ind
   for (const m of h.matchAll(/"konu":"([^"]*)"/g)) { siteTop++; const k = dA + '|' + katla(m[1]); if (!site.has(k)) site.set(k, { ad: coz(m[1]), n: 0 }); site.get(k).n++; }
 }
 const siteDisi = [];
-for (const [k, v] of site) { const a = k.split('|')[1]; if (cik.has(a)) cik.get(a).site += v.n; else siteDisi.push([k, v]); }
+// 27.09 (Cem "eksikleri düzgün ölçüyoruz deme, tekrar göz at"): sitede 73 konu adı (250 soru) arşivde birebir yoktu → HİÇBİR kümeye
+//   sayılmıyordu (Matematik ~190 soru: "basit ve bileşik faiz", "olasılık temelleri"…). Sözlükte bu site adı bir küme başına bağlandıysa
+//   (esleme[<site adı>].k = arşivdeki küme başı) soru o kümeye sayılır. Bağ yalnız "aynı konu" ise konur (tek bağ; emin değilse bağlanmaz).
+let siteSozluk = 0;
+for (const [k, v] of site) { const a = k.split('|')[1]; if (cik.has(a)) cik.get(a).site += v.n; else if (es[a] && cik.has(es[a].k)) { cik.get(es[a].k).site += v.n; siteSozluk += v.n; } else siteDisi.push([k, v]); }
 
 // 3) kümele
 let sozlukteYok = 0;
@@ -155,4 +159,4 @@ fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'SGS-KAPSAMA.md'), md.join('\n'
   const L = Object.entries(O).sort((a, b) => a[0].localeCompare(b[0], 'tr')).map(([k, o]) => ({ ders: k, ...o }));
   const top = L.reduce((a, o) => ({ hedef: a.hedef + o.hedef, site: a.site + o.site, eksik: a.eksik + o.eksik }), { hedef: 0, site: 0, eksik: 0 });
   fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'sgs-kapsama-ozet.json'), JSON.stringify({ aciklama: 'SGS ders başına hedef/sitede/eksik — arac/sgs-konu-kapsama.js (son 10 yılda 3+ dönem çıkmış konular; hedef = kat × son 10 yıl çıkan; eski havuz SAYILMAZ).', kat: KAT, yil: YIL, hedef_toplam: top.hedef, site_toplam: top.site, eksik_toplam: top.eksik, dersler: L }, null, 1) + '\n'); }
-console.log(`SGS kapsama: kume ${kume.size} · site ${siteTop} · sozlukte yok ${sozlukteYok} · 3+ donem eksik ${oz(r => r.don >= 3)} (kat ${KAT})`);
+console.log(`SGS kapsama: kume ${kume.size} · site ${siteTop} · sozlukle baglanan site ${siteSozluk} · kume disi site ${siteDisi.reduce((a, x) => a + x[1].n, 0)} · sozlukte yok ${sozlukteYok} · 3+ donem eksik ${oz(r => r.don >= 3)} (kat ${KAT})`);

@@ -156,6 +156,8 @@
       '<div class="durumYazi">' + (bugun >= h ? 'Günlük hedef tamam. Seri korunuyor.' :
         (bugun ? 'Hedefe ' + (h - bugun) + ' soru kaldı.' : 'Günlük hedef ' + h + ' soru. İlk soruyla gün başlar.')) + '</div>' + haftaSeridi(h) + '</div>';
   }
+  /* 27.09: tek harf (P S Ç P C C P) iki kez P, iki kez C veriyordu → standart iki harf */
+  var GUNLER = ['Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct', 'Pz'];
   var KISA = { sgs: 'SGS', yeterlilik: 'Yeterlilik' };
   /* her sınavın günün sorusu (hariç: kahraman kartında gösterilen) */
   function gununSatiri(haric) {
@@ -184,7 +186,7 @@
   /* bu haftanın 7 günü: dolu = hedef tuttu, çerçeve = çözdü ama hedefe varmadı (gerçek kayıt) */
   function haftaSeridi(h) {
     var v = IL.veri(), bas = new Date(), g = (bas.getDay() + 6) % 7, s = '<div class="hafta">';
-    ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'].forEach(function (ad, i) {
+    GUNLER.forEach(function (ad, i) {
       var d = new Date(bas.getFullYear(), bas.getMonth(), bas.getDate() - g + i), n = v.gun[IL.bugun(d.getTime())] || 0;
       s += '<span class="' + (n >= h ? 'dolu' : n ? 'yari' : '') + (i === g ? ' bugun' : '') + '"><i></i>' + ad + '</span>';
     });
@@ -200,7 +202,7 @@
   function ucretsizCiz(v, h, bugun, seri, t) {
     var D0 = window.TT_DURUM, uye = !!(D0 && D0.girisli);
     var secS = seciliSinav();
-    var html = '<div class="bant kompakt"><span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · ilk 3 soru hesapsız') + '</span>' +
+    var html = '<div class="bant kompakt"><span class="etk">' + (uye ? 'Ücretsiz üyeliğin açık' : 'Ücretsiz · kayıt olmadan 3 soru dene') + '</span>' +
       '<h1 class="slogan">Yanlışını böyle öğrenirsin.</h1>' +
       '<p class="soluk">Yanlış şıkta tuzağın adı ve doğrusu anında. 30 soru ücretsiz' +
       (uye ? '.' : '; 3 sorudan sonrası ücretsiz üyelikle.') + '</p></div>' + kahramanKart(secS);
@@ -231,7 +233,7 @@
       var x = paketli[0], pk = (K.paket || []).filter(function (d) { return d.sinav === x.id; }), yk = (K.yakinda || []).filter(function (d) { return d.sinav === x.id; });
       html += '<button type="button" class="teklif" data-teklif="' + x.id + '"><span class="tEtk">Tam paket · ' + esc(x.ad) + '</span>' +
         '<b>Sınavına tam hazırlan.</b><span class="tMadde">' +
-        ['<i></i>' + (pk.length + yk.length) + ' dersin tüm soruları' + (yk.length ? ' (' + yk.length + ' ders hazırlanıyor)' : ''),
+        ['<i></i>' + pk.length + ' dersin tüm soruları',
          '<i></i>Kısa sınav ve en çok çıkanlar', '<i></i>Tuzak ve konu haritası'].join('</span><span class="tMadde">') +
         '</span><span class="tAlt"><span>Tek ödeme · abonelik yok</span><span class="tDugme">' + (uye ? 'Paketi gör' : 'Önce ücretsiz üye ol') + ik('ok') + '</span></span></button>';
     }
@@ -371,7 +373,7 @@
     for (var i = 0; i < 7; i++) { var d = new Date(bugunD.getFullYear(), bugunD.getMonth(), bugunD.getDate() - g0 + i), s = v.gun[IL.bugun(d.getTime())] || 0; gunler.push(s); if (s > enFazla) enFazla = s; }
     var haftaT = gunler.reduce(function (a, b) { return a + b; }, 0);
     html += '<span class="etk">Bu hafta</span><div class="kart"><div class="cubukGrafik">' + gunler.map(function (s, i) {
-      return '<span class="' + (i === g0 ? 'bugun' : '') + '"><i style="height:' + Math.round(s / enFazla * 100) + '%"></i><em>' + (s || '') + '</em>' + ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'][i] + '</span>';
+      return '<span class="' + (i === g0 ? 'bugun' : '') + '"><i style="height:' + Math.round(s / enFazla * 100) + '%"></i><em>' + (s || '') + '</em>' + GUNLER[i] + '</span>';
     }).join('') + '</div><div class="durumYazi">Bu hafta ' + haftaT + ' soru' + (snN ? ' · soru başına ortalama ' + Math.round(snT / snN) + ' sn' : '') + '</div></div>';
 
     /* derslere göre: güçlü / zayıf + açıklama (en az 5 cevap) */

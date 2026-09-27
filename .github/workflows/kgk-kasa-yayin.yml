@@ -74,6 +74,12 @@ jobs:
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
           git add kaydir/kgk arac/kasa-modu.json
+          # 27.09 KILIT: kasa-modu.json'daki her kaydir/kgk satirinin sayfasi AYNI commit'te depoda olmali. Ilk kosuda
+          #   sayfalar .gitignore yuzunden girmedi, liste girdi -> yayin-bas "dosya yok" ile SGS yayinini dusururdu (geri alindi).
+          $liste = @((Get-Content arac/kasa-modu.json -Raw -Encoding UTF8 | ConvertFrom-Json).sayfalar | Where-Object { "$_" -like 'kaydir/kgk/*' })
+          $izli = @(git ls-files kaydir/kgk) + @(git diff --staged --name-only -- kaydir/kgk)
+          $eksik = @($liste | Where-Object { $izli -notcontains $_ })
+          if($eksik.Count){ git reset -q; "::error::kasa-modu.json'da olup depoya girmeyen KGK sayfasi: $($eksik -join ', ') - COMMIT YOK"; exit 1 }
           git diff --staged --quiet
           if($LASTEXITCODE -eq 0){ "degisiklik yok - commit yok."; exit 0 }
           git commit -m "KGK kasa kabuk sayfalari (kgk-kasa-yayin.yml) [veri-operasyonu]"
