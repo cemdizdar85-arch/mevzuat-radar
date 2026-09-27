@@ -428,6 +428,10 @@
     '.soru,.sik{font-variant-numeric:tabular-nums}',
     '.sik{transition:transform .15s cubic-bezier(.2,.9,.3,1.2),border-color .15s}',
     '.sik:active{transform:scale(.98)}',
+    /* 27.09 "soru bittikten sonra çıkamıyorduk": kapatma düğmesi büyük ve belirgin; son adımda alt düğme "Soruya dön" (ttDersCikis) */
+    '.ders .bDersKapat{min-width:44px;min-height:44px;padding:0!important;border-radius:50%!important;font-size:20px!important;font-weight:700;background:var(--bg2)!important;color:var(--yazi)!important;border:0!important}',
+    '.ders .bSonra.ttDon{background:#059669!important;color:#fff!important;border:0!important;font-weight:700;opacity:1!important}',
+    '.ders .sonAdim .btnrow .btn.ana{background:transparent!important;color:var(--yazi)!important;border:1px solid var(--cizgi)!important}',
     /* dönem rozeti: ana sayfadaki frekans rozetiyle aynı — beyaz kapsül, yeşil sinyal noktası */
     '.govde .rozet{display:inline-flex!important;align-self:flex-start;width:fit-content;align-items:center;gap:0;border:1px solid var(--cizgi)!important;background:var(--kart)!important;color:var(--yazi)!important;font-weight:600;border-radius:999px!important}',
     '.govde .rozet:before{width:7px!important;height:7px!important;border-radius:50%;background:#059669!important;vertical-align:0!important}',
@@ -594,4 +598,25 @@
   window.addEventListener('load', function () { setTimeout(kur, 60); });
   /* kasa-yukle.js kartları sonradan (kilitli kasadan) kurabilir: kısa süre yeniden dene */
   var deneme = 0, zam = setInterval(function () { kur(); if (++deneme > 20) clearInterval(zam); }, 500);
+
+  /* ---------- 27.09 adım adım anlatımdan çıkış (ttDersCikis) ----------
+     Sayfa motoru son adımda "Bitti ✓" düğmesini KAPALI (disabled) bırakıyor, altta yalnız yeni bir "Sen çöz" oyunu
+     öneriyor → kişi sorudan çıkamıyordu. Uygulamada son adımın alt düğmesi açılır, "Soruya dön ✓" olur ve paneli kapatır. */
+  (function ttDersCikis() {
+    function duzelt() {
+      [].forEach.call(document.querySelectorAll('.ders .bSonra'), function (b) {
+        var sonMu = b.disabled && /Bitti/.test(b.textContent);
+        if (sonMu) { b.disabled = false; b.textContent = 'Soruya dön ✓'; b.classList.add('ttDon'); }
+        else if (!/Soruya dön/.test(b.textContent)) b.classList.remove('ttDon');
+      });
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.ders .bSonra.ttDon');
+      if (!b) return;
+      e.stopImmediatePropagation(); e.preventDefault();
+      var d = b.closest('.ders'); if (d) d.classList.remove('acik');
+    }, true);
+    new MutationObserver(duzelt).observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['disabled'] });
+    duzelt();
+  })();
 })();

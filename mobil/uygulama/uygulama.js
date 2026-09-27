@@ -280,7 +280,10 @@
     var sa = ayar.saat.split(':');
     await LN.schedule({ notifications: [{
       id: HAT_ID, title: 'Tetikte', body: 'Bugünün soruları seni bekliyor. Birkaç soruyla seriyi koru.',
-      schedule: { on: { hour: +sa[0], minute: +sa[1] } }
+      /* 27.09: isExactNotification:false → eklenti "Alarmlar ve hatırlatıcılar" ayar sayfasını AÇMAZ, kesin olmayan alarm kurar
+         (birkaç dakika sapabilir; çalışma hatırlatması için yeterli). SCHEDULE_EXACT_ALARM izni derlemede manifestten sökülür
+         (mobil-android.yml) — Play, alarm uygulaması olmayana bu izni gerekçesiz vermiyor. */
+      schedule: { on: { hour: +sa[0], minute: +sa[1] }, allowWhileIdle: true }, isExactNotification: false
     }] });
     $('hatNot').textContent = 'Her gün ' + ayar.saat + '’de hatırlatılacak.';
     return true;
@@ -297,6 +300,14 @@
       try { localStorage.setItem(HAT_ANAHTARI, JSON.stringify(yeni)); } catch (e) {}
     };
     $('hatAcik').addEventListener('change', degisti);
+    /* ilk açılış bunu çağırır: izin sonucu beklenir (reddedilirse anahtar kapalı kalır, kişiye söylenir) */
+    window.TTHatirlat = { kur: async function (saat) {
+      $('hatSaat').value = saat; $('hatAcik').checked = true;
+      var tamam = await hatKur({ acik: true, saat: saat }).catch(function () { return false; });
+      if (!tamam) $('hatAcik').checked = false;
+      try { localStorage.setItem(HAT_ANAHTARI, JSON.stringify({ acik: !!tamam, saat: saat })); } catch (e) {}
+      return !!tamam;
+    } };
     $('hatSaat').addEventListener('change', function () { if ($('hatAcik').checked) degisti(); });
   }
 

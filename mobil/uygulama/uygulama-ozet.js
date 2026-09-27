@@ -85,6 +85,7 @@
     '#kurulum .sKart span{color:var(--soluk);font-weight:600}',
     '#kurulum .sKart[aria-pressed=true]{border-color:var(--vurguDolgu)}',
     '#kurulum .hic{margin-top:14px}',
+    '#kurulum .kNotHat{margin:14px 4px 0;color:var(--hata);font-size:14px;line-height:1.45}',
     '#kurulum .kNot{margin:16px 6px 0;font-size:13px;color:var(--soluk);line-height:1.5}'
   ].join('\n');
   document.head.appendChild(st);
@@ -512,10 +513,15 @@
         b.onclick = function () { secili = b.dataset.v; [].forEach.call(e.querySelectorAll('.sKart'), function (x) { x.setAttribute('aria-pressed', x === b); }); if (window.TTHis) window.TTHis.hafif(); };
       });
       e.querySelector('.hic').onclick = bitir;
-      e.querySelector('.kAlt .ana').onclick = function () {
-        $('hatSaat').value = secili;
-        if (!$('hatAcik').checked) $('hatAcik').click(); else $('hatSaat').dispatchEvent(new Event('change'));
-        bitir();
+      /* 27.09: izin reddedilse de sessizce devam ediyordu → sonucu bekle, reddedildiyse söyle, kişi "Devam et"le geçsin */
+      e.querySelector('.kAlt .ana').onclick = async function () {
+        var b = this; b.disabled = true;
+        var tamam = window.TTHatirlat ? await window.TTHatirlat.kur(secili) : false;
+        if (tamam) return bitir();
+        b.disabled = false; b.textContent = 'Hatırlatmasız devam et'; b.onclick = bitir;
+        var n = e.querySelector('.kNotHat');
+        if (!n) { n = document.createElement('p'); n.className = 'kNotHat'; e.querySelector('.kIc').appendChild(n); }
+        n.textContent = 'Bildirim izni verilmedi, hatırlatma kurulmadı. İstersen sonra Hesap → Günlük hatırlatıcı’dan açabilirsin.';
       };
     };
     if (yalnizSinav) adim1(); else karsilama();

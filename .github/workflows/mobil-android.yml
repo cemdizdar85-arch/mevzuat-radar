@@ -89,6 +89,10 @@ jobs:
           node ikon-uret.js
           npx capacitor-assets generate --android --assetPath kaynak/uretilen
           npx cap sync android
+          # 27.09: kesin alarm izni SÖKÜLÜR (local-notifications eklentisi ekliyor; Play alarm uygulaması olmayana vermiyor → ret riski).
+          # Hatırlatıcı isExactNotification:false ile kurulur (uygulama.js). tools:node="remove" birleşik manifestten çıkarır.
+          node -e "const f='android/app/src/main/AndroidManifest.xml';const fs=require('fs');let t=fs.readFileSync(f,'utf8');if(!/xmlns:tools=/.test(t))t=t.replace('<manifest ','<manifest xmlns:tools=\"http://schemas.android.com/tools\" ');t=t.replace('</manifest>','    <uses-permission android:name=\"android.permission.SCHEDULE_EXACT_ALARM\" tools:node=\"remove\"/>\n    <uses-permission android:name=\"android.permission.USE_EXACT_ALARM\" tools:node=\"remove\"/>\n</manifest>');fs.writeFileSync(f,t);"
+          grep -n "EXACT_ALARM\|xmlns:tools" android/app/src/main/AndroidManifest.xml
 
       - name: Surum + imza ayari
         working-directory: mobil/android
