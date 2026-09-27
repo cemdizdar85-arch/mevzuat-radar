@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **27.09.2026 03:15** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **27.09.2026 13:50** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50093 parça · 2715 tekil kaynak | Bütünlük ölçülen: 2715 (delikli: 363; son ölçüm: 27.09.2026) | Sürüm ölçülen: 43 (sorunlu: 3; son ölçüm: 27.09.2026 03:12)
+**ÖZET:** 50120 parça · 2716 tekil kaynak | Bütünlük ölçülen: 2716 (delikli: 361; son ölçüm: 27.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 27.09.2026 13:48)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -1766,6 +1766,7 @@
 | Sigortacilik Tekduzen Hesap Plani ve Izahnamesi Hakkinda Teblig | kanun-madde | 8 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacilik ve Ozel Emeklilik Sektorlerinde Ic Sistemlere Dair Yonetmelik | kanun-madde | 91 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Sigortacılık K. (5684 s.K.) | kanun-madde | 134 | DELİK-İNCELE(par:1/kesik:0/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390) | kanun-madde | 27 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SMK — İtiraz ve bülten (m.18-20) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SMK — Marka koruması (m.4-30) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | SMK (6769 s.K.) | kanun-madde | 225 | DELİK-İNCELE(par:19/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2182,10 +2183,10 @@
 | TFRS 1 | standart-madde | 159 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 10 | standart-madde | 193 | TAM | TUTARLI |
 | TFRS 11 | standart-madde | 96 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TFRS 12 | standart-madde | 84 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | OLCULEMEDI |
+| TFRS 12 | standart-madde | 84 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
 | TFRS 13 | standart-madde | 160 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 14 | standart-madde | 70 | TAM | TUTARLI |
-| TFRS 15 | standart-madde | 242 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | OLCULEMEDI |
+| TFRS 15 | standart-madde | 242 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 16 | standart-madde | 210 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 17 | standart-madde | 370 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TFRS 18 | standart-madde | 288 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
