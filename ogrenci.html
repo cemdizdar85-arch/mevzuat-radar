@@ -92,6 +92,8 @@
         <p class="og-alt" style="margin-top:16px;font-size:13.5px">İşletme hesabı mı arıyorsun? <a class="og-link" href="radar-app.html">Radar paneline git</a>.</p>
       </div>
       <div class="og-kutu">
+        <!-- 27.09 Google ile devam et (google-giris.js; onay satırı düğmenin üstünde, e-postalı üyelikle aynı meta alanları) -->
+        <div id="ogGoogle"></div>
         <label class="og-et" for="ogEposta">E-posta</label><input id="ogEposta" type="email" autocomplete="email" placeholder="ornek@mail.com">
         <label class="og-et" for="ogSifre">Şifre</label><input id="ogSifre" type="password" autocomplete="current-password" placeholder="en az 6 karakter">
         <div class="og-btnler">
@@ -150,6 +152,8 @@
   <p id="ogYuk" class="og-alt">Yükleniyor…</p>
 </div>
 
+<!-- 27.09: supabase istemcisinden ÖNCE - Google dönüşünde ?sonra= geri konur -->
+<script src="google-giris.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <!-- 23.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
 <script src="captcha.js"></script>
@@ -163,6 +167,7 @@
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var sb=window.__pkSb;
+  if(window.ttGoogle) window.ttGoogle.kur({ sb:sb, kap:$('ogGoogle'), ayrac:true });
 
   /* 15.09 PAKETLERİM: sınav başına kart. Sınav adları/sayfaları uye-durumu.js SINAVLAR'dan (tek kaynak). */
   async function paketlerCiz(user){
