@@ -90,6 +90,12 @@ jobs:
           npx cap sync ios
           # sifreleme beyani: yalniz HTTPS (muaf) -> her yuklemede sorulmasin
           /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
+          # Google ile giris (27.09): iOS istemcisinin ters cevrilmis kimligi adres semasi olarak (GoogleSignIn donusu)
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes array" ios/App/App/Info.plist || true
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes array" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string com.googleusercontent.apps.472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :GIDClientID string 472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft.apps.googleusercontent.com" ios/App/App/Info.plist
           ls ios/App
 
       - name: Arsivle (imzasiz; dagitim imzasi yukleme adiminda Apple bulut imzasiyla)

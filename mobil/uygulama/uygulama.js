@@ -186,14 +186,58 @@
         olay('giris', true);
       }
       $('sifre').value = '';
-      await yenile();
-      olayGonder();
-      /* üyelik kapısından gelindiyse kaldığı soruya dön */
-      var don = null; try { don = sessionStorage.getItem('tt_uyg_donus'); sessionStorage.removeItem('tt_uyg_donus'); } catch (x) {}
-      if (don && /^kaydir\/[a-z0-9\/-]+\.html(#s=\d+)?$/.test(don)) location.href = don;
-      else if (window.TTSekme) window.TTSekme.sec('bugun');
+      await girisSonrasi();
     } finally { dg.disabled = false; }
   });
+  async function girisSonrasi() {
+    await yenile();
+    olayGonder();
+    /* üyelik kapısından gelindiyse kaldığı soruya dön */
+    var don = null; try { don = sessionStorage.getItem('tt_uyg_donus'); sessionStorage.removeItem('tt_uyg_donus'); } catch (x) {}
+    if (don && /^kaydir\/[a-z0-9\/-]+\.html(#s=\d+)?$/.test(don)) location.href = don;
+    else if (window.TTSekme) window.TTSekme.sec('bugun');
+  }
+
+  /* GOOGLE İLE GİRİŞ (27.09 Cem "yapalım"): telefonun kendi Google penceresi (Credential Manager / iOS GoogleSignIn)
+     → kimlik belirteci → Supabase signInWithIdToken. Şifre, form yok.
+     Anahtarlar Google Cloud "Tetikte" projesi (cem@dizdardenetim.com); istemci kimlikleri GİZLİ DEĞİL, gizli anahtar
+     yalnız Supabase panelinde. Onay: düğmenin üstündeki satır (sözleşme + aydınlatma); yeni hesapta meta alanları
+     e-postalı üyelikle AYNI yazılır. Pazarlama rızası Google'da SORULMAZ → false (İYS: sonradan ayrıca istenir).
+     Apple ile giriş ayrı adım (App Store 4.8 — mağaza incelemesinden ÖNCE kurulmalı). */
+  var G_WEB = '472072608563-su7mdjkoc0urv5gfoalh535dpbcgo66t.apps.googleusercontent.com';
+  var G_IOS = '472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft.apps.googleusercontent.com';
+  var SL = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform() &&
+    window.Capacitor.Plugins && window.Capacitor.Plugins.SocialLogin;
+  var slHazir = null;
+  if (SL && $('googleKutu')) {
+    $('googleKutu').hidden = false;
+    $('googleDugme').addEventListener('click', async function () {
+      var h = $('googleHata'), b = this; h.textContent = ''; b.disabled = true;
+      try {
+        if (!slHazir) slHazir = SL.initialize({ google: { webClientId: G_WEB, iOSClientId: G_IOS, iOSServerClientId: G_WEB, mode: 'online' } });
+        await slHazir;
+        var r = await SL.login({ provider: 'google', options: { scopes: ['email', 'profile'] } });
+        var tok = r && r.result && r.result.idToken;
+        if (!tok) { h.textContent = 'Google girişi tamamlanmadı. Tekrar dene.'; return; }
+        var s = await sb.auth.signInWithIdToken({ provider: 'google', token: tok, options: { captchaToken: await captcha() } });
+        if (s.error) { h.textContent = trHata(s.error); return; }
+        var u = s.data && s.data.user, meta = (u && u.user_metadata) || {};
+        var yeni = u && u.created_at && (Date.now() - new Date(u.created_at).getTime() < 120000);
+        if (!meta.kosul_kabul) {
+          var an = new Date().toISOString();
+          await sb.auth.updateUser({ data: { hesap_turu: meta.hesap_turu || 'ogrenci', kaynak: meta.kaynak || 'uygulama-google',
+            kosul_kabul: an, pazarlama_rizasi: false, riza_tarihi: null } });
+        }
+        if (yeni) { olay('uye_ol', true); try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {} }
+        else olay('giris', true);
+        await girisSonrasi();
+      } catch (err) {
+        var m = String((err && err.message) || err || '');
+        /* kişi pencereyi kapattıysa hata yazma */
+        if (!/cancel|iptal|12501|16|dismiss/i.test(m)) h.textContent = 'Google girişi açılamadı. Tekrar dene ya da e-postayla devam et.';
+      } finally { b.disabled = false; }
+    });
+  }
   $('sifreUnuttum').addEventListener('click', async function () {
     var ep = $('eposta').value.trim();
     if (!ep) { $('girisHata').textContent = 'Önce e-posta adresini yaz.'; return; }

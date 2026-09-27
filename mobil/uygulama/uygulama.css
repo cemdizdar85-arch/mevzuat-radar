@@ -478,3 +478,16 @@ svg.ik.rozet.amber { background: var(--vurguDolgu); color: #1c1100; }
 .teklif .tAlt { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(248, 250, 252, .12); font-size: 13px; color: #94a3b8; }
 .teklif .tDugme { display: inline-flex; align-items: center; gap: 4px; padding: 11px 16px; border-radius: 999px; background: #f5a524; color: #0f172a; font-weight: 700; font-size: 14.5px; white-space: nowrap; }
 .teklif .tDugme svg { width: 16px; height: 16px; }
+
+/* ---------- 27.09 Google ile giriş: Google'ın marka kuralı (beyaz zemin, renkli G, "Google ile devam et") ---------- */
+#googleKutu { margin-top: 16px; }
+.googleDugme { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 54px; padding: 12px 18px;
+  border: 1px solid var(--cizgi2); border-radius: 999px; background: #fff; color: #1f1f1f; font: 600 16px/1 var(--sistem); box-shadow: var(--golge);
+  transition: transform .15s cubic-bezier(.2, .9, .3, 1.2); }
+.googleDugme:active { transform: scale(.98); }
+.googleDugme:disabled { opacity: .6; }
+.googleDugme svg { width: 20px; height: 20px; flex: none; }
+.googleNot { margin: 10px 4px 0; line-height: 1.5; }
+#googleHata:empty { display: none; }
+.ayrac { display: flex; align-items: center; gap: 12px; margin: 18px 0 2px; color: var(--soluk); font-size: 13px; }
+.ayrac:before, .ayrac:after { content: ""; flex: 1; height: 1px; background: var(--cizgi); }
