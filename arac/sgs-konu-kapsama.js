@@ -91,8 +91,19 @@ const siteDisi = [];
 // 27.09 (Cem "eksikleri düzgün ölçüyoruz deme, tekrar göz at"): sitede 73 konu adı (250 soru) arşivde birebir yoktu → HİÇBİR kümeye
 //   sayılmıyordu (Matematik ~190 soru: "basit ve bileşik faiz", "olasılık temelleri"…). Sözlükte bu site adı bir küme başına bağlandıysa
 //   (esleme[<site adı>].k = arşivdeki küme başı) soru o kümeye sayılır. Bağ yalnız "aynı konu" ise konur (tek bağ; emin değilse bağlanmaz).
-let siteSozluk = 0;
-for (const [k, v] of site) { const a = k.split('|')[1]; if (cik.has(a)) cik.get(a).site += v.n; else if (es[a] && cik.has(es[a].k)) { cik.get(es[a].k).site += v.n; siteSozluk += v.n; } else siteDisi.push([k, v]); }
+// 27.09 DERS KAPISI: site sorusu kümeye yalnız etiketle bağlanıyordu, sayfasının dersine bakılmıyordu. Ölçüldü: 104 soru başka dersin
+//   kümesine sayılıyordu (ör. Borçlar sayfasındaki TBK "ücret sözleşmesi" soruları Meslek Hukuku'ndaki Ücret Yönetmeliği kümesine).
+//   Kural: kümenin dersi (sözlük d) sayfanın dersiyle aynı değilse SAYILMAZ; liste veri/sinav/sgs-site-ders-uyusmaz.json. Sözlükte ders
+//   yoksa ya da "(ders ayrılmadı)" ise kapı bakmaz.
+let siteSozluk = 0; const dersUyusmaz = [];
+const dersUyar = (dA, a) => { const d = es[a] && es[a].d; return !d || d === dA || /ayrılmadı/.test(d); };
+for (const [k, v] of site) {
+  const [dA, a] = k.split('|'); const hedef = cik.has(a) ? a : (es[a] && cik.has(es[a].k) ? es[a].k : null);
+  if (!hedef) { siteDisi.push([k, v]); continue; }
+  if (!dersUyar(dA, a)) { dersUyusmaz.push({ sayfa_ders: dA, konu: v.ad, kume: hedef, kume_ders: es[a].d, soru: v.n }); siteDisi.push([k, v]); continue; }
+  cik.get(hedef).site += v.n; if (hedef !== a) siteSozluk += v.n;
+}
+fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'sgs-site-ders-uyusmaz.json'), JSON.stringify({ aciklama: '27.09 ders kapisi: site sorusu, sayfasinin dersi kumenin dersinden farkliysa kapsamaya SAYILMAZ. Gercekten ayni konuysa sozlukte ders duzeltilir; degilse soru kendi dersinde "cikmista yok" sayilir.', toplam: dersUyusmaz.reduce((s, x) => s + x.soru, 0), kayitlar: dersUyusmaz.sort((x, y) => y.soru - x.soru) }, null, 1));
 
 // 3) kümele
 let sozlukteYok = 0;
@@ -159,4 +170,4 @@ fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'SGS-KAPSAMA.md'), md.join('\n'
   const L = Object.entries(O).sort((a, b) => a[0].localeCompare(b[0], 'tr')).map(([k, o]) => ({ ders: k, ...o }));
   const top = L.reduce((a, o) => ({ hedef: a.hedef + o.hedef, site: a.site + o.site, eksik: a.eksik + o.eksik }), { hedef: 0, site: 0, eksik: 0 });
   fs.writeFileSync(path.join(KOK, 'veri', 'sinav', 'sgs-kapsama-ozet.json'), JSON.stringify({ aciklama: 'SGS ders başına hedef/sitede/eksik — arac/sgs-konu-kapsama.js (son 10 yılda 3+ dönem çıkmış konular; hedef = kat × son 10 yıl çıkan; eski havuz SAYILMAZ).', kat: KAT, yil: YIL, hedef_toplam: top.hedef, site_toplam: top.site, eksik_toplam: top.eksik, dersler: L }, null, 1) + '\n'); }
-console.log(`SGS kapsama: kume ${kume.size} · site ${siteTop} · sozlukle baglanan site ${siteSozluk} · kume disi site ${siteDisi.reduce((a, x) => a + x[1].n, 0)} · sozlukte yok ${sozlukteYok} · 3+ donem eksik ${oz(r => r.don >= 3)} (kat ${KAT})`);
+console.log(`SGS kapsama: kume ${kume.size} · site ${siteTop} · sozlukle baglanan site ${siteSozluk} · ders uyusmaz site ${dersUyusmaz.reduce((s, x) => s + x.soru, 0)} · kume disi site ${siteDisi.reduce((a, x) => a + x[1].n, 0)} · sozlukte yok ${sozlukteYok} · 3+ donem eksik ${oz(r => r.don >= 3)} (kat ${KAT})`);
