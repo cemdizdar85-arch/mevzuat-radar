@@ -28,8 +28,19 @@ $istekBaslik = @{ apikey = $servisAnahtari; Authorization = "Bearer $servisAnaht
 $fabrika = Join-Path $depoKok 'veri\fabrika'
 
 function AmbarGetir([string]$filtre) {
-  $r = Invoke-WebRequest -UseBasicParsing -Uri ("$tabloUcu" + "?select=etiket,icerik&$filtre&order=etiket.asc&limit=200") -Headers $istekBaslik -TimeoutSec 120
-  return @(([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json) | ForEach-Object { $_ })
+  # 27.09 (KGK oturumunun bulgusu): tek istek limit=200 idi, SAYFALAMA YOKTU. Ambarda __hazir/* 200'ü aşınca bulut -Indir yalnız
+  #   alfabetik ilk 200'ü indirdi → KGK koşusu 36283353179 "HAZIR SORU DOSYASI YOK" ile düştü; SGS k11-ms-3/4 günlüğünde tam 200.
+  #   Artık order=etiket.asc ile 200'lük sayfalar, boş/eksik sayfa gelene kadar. ≤200 kayıtta davranış birebir aynı (tek sayfa).
+  $hepsi = New-Object System.Collections.Generic.List[object]; $ofset = 0
+  while ($true) {
+    $r = Invoke-WebRequest -UseBasicParsing -Uri ("$tabloUcu" + "?select=etiket,icerik&$filtre&order=etiket.asc&limit=200&offset=$ofset") -Headers $istekBaslik -TimeoutSec 120
+    $sayfa = @(([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray()) | ConvertFrom-Json) | ForEach-Object { $_ } | Where-Object { $_ })
+    foreach ($s in $sayfa) { $hepsi.Add($s) }
+    if ($sayfa.Count -lt 200) { break }
+    $ofset += 200
+    if ($ofset -gt 20000) { throw 'AmbarGetir: 20.000 kayıt sınırı aşıldı (sonsuz döngü koruması)' }
+  }
+  return $hepsi.ToArray()
 }
 function SoruDizisi($ic) { if ($ic -is [string]) { $ic = ConvertFrom-Json -InputObject $ic }; return @(@($ic.sorular) | ForEach-Object { $_ } | Where-Object { $_ -and $_.soru }) }
 
