@@ -214,11 +214,44 @@
     if (!meta.kosul_kabul) {
       var an = new Date().toISOString();
       await sb.auth.updateUser({ data: { hesap_turu: meta.hesap_turu || 'ogrenci', kaynak: meta.kaynak || 'uygulama-google',
-        kosul_kabul: an, pazarlama_rizasi: false, riza_tarihi: null } });
+        kosul_kabul: an, pazarlama_rizasi: false, riza_tarihi: null } }); /* kaynak: uygulama-google ya da Apple (aynı akış) */
     }
     if (yeni) { olay('uye_ol', true); try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {} }
     else olay('giris', true);
     await girisSonrasi();
+  }
+  /* APPLE İLE GİRİŞ (27.09, App Store 4.8: Google girişi olan uygulamada zorunlu). Yalnız iPhone.
+     Apple geliştirici: com.tetikte.app kimliğinde "Sign in with Apple" AÇIK (API ile, 27.09).
+     Supabase → Providers → Apple: Client IDs = com.tetikte.app (yerel belirteç için gizli anahtar gerekmez). */
+  var SLA = yerelMi && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios' && P.SocialLogin;
+  async function sha256Hex(s) {
+    var b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return [].map.call(new Uint8Array(b), function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+  }
+  if (SLA && $('appleDugme') && $('googleKutu')) {
+    $('googleKutu').hidden = false; $('appleDugme').hidden = false;
+    var aHazir = null;
+    $('appleDugme').addEventListener('click', async function () {
+      var h = $('googleHata'), b = this; h.textContent = ''; b.disabled = true;
+      try {
+        if (!aHazir) aHazir = SLA.initialize({ apple: {} });
+        await aHazir;
+        var ham = [].map.call(crypto.getRandomValues(new Uint8Array(16)), function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+        var r = await SLA.login({ provider: 'apple', options: { scopes: ['email', 'name'], nonce: await sha256Hex(ham) } });
+        var tok = r && r.result && r.result.idToken;
+        if (!tok) throw new Error('Apple kimlik belirteci gelmedi');
+        var s = await sb.auth.signInWithIdToken({ provider: 'apple', token: tok, nonce: ham });
+        if (s.error) throw s.error;
+        var pr = (r.result && r.result.profile) || {};
+        var ad = [pr.givenName, pr.familyName].filter(Boolean).join(' ');
+        if (ad && s.data && s.data.user && !(s.data.user.user_metadata || {}).ad) { try { await sb.auth.updateUser({ data: { ad: ad.slice(0, 60) } }); } catch (x) {} }
+        await googleTamam(s.data && s.data.user);
+      } catch (err) {
+        aHazir = null;
+        var m = String((err && err.message) || err || '');
+        if (!/cancel|1001/i.test(m)) h.textContent = 'Apple girişi açılamadı. Tekrar dene ya da e-postayla devam et. (Kod: ' + m.slice(0, 160) + ')';
+      } finally { b.disabled = false; }
+    });
   }
   if (yerelMi && P.Browser && P.App && $('googleKutu')) {
     $('googleKutu').hidden = false;

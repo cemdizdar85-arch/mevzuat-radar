@@ -95,6 +95,14 @@ jobs:
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes array" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string com.googleusercontent.apps.472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft" ios/App/App/Info.plist
+          # 1.7.0: Apple ile giris yetkisi (App ID'de APPLE_ID_AUTH acik; arsivde CODE_SIGN_ENTITLEMENTS ile)
+          cat > ios/App/App/App.entitlements <<'YETKI'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>com.apple.developer.applesignin</key><array><string>Default</string></array>
+          </dict></plist>
+          YETKI
           # 1.6.7: Google girisi web akisi donusu com.tetikte.app://giris
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:1 string com.tetikte.app" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :GIDClientID string 472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft.apps.googleusercontent.com" ios/App/App/Info.plist
@@ -110,12 +118,14 @@ jobs:
           if [ -d App.xcworkspace ]; then PROJE="-workspace App.xcworkspace"; else PROJE="-project App.xcodeproj"; fi
           xcodebuild $PROJE -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" archive \
-            DEVELOPMENT_TEAM="$TAKIM" PRODUCT_BUNDLE_IDENTIFIER=com.tetikte.app \
+            DEVELOPMENT_TEAM="$TAKIM" PRODUCT_BUNDLE_IDENTIFIER=com.tetikte.app CODE_SIGN_ENTITLEMENTS=App/App.entitlements \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             MARKETING_VERSION="$SURUM" CURRENT_PROJECT_VERSION=${{ github.run_number }} > "$RUNNER_TEMP/arsiv.log" 2>&1 \
             || { tail -60 "$RUNNER_TEMP/arsiv.log"; echo "::error title=arsiv::xcodebuild archive dustu"; exit 1; }
           tail -15 "$RUNNER_TEMP/arsiv.log"
           test -d "$RUNNER_TEMP/App.xcarchive" || { echo "::error title=arsiv::App.xcarchive olusmadi"; exit 1; }
+          # Apple girisi yetkisi arsive girdi mi (disa aktarma imzasi bu dosyayi kullanir)
+          find "$RUNNER_TEMP/App.xcarchive" -name "*.xcent" -exec sh -c 'echo "== $1"; cat "$1"' _ {} \; | head -40 || true
 
       - name: App Store Connect'e yukle (TestFlight)
         run: |
@@ -137,6 +147,7 @@ jobs:
             -authenticationKeyID "$ASC_ANAHTAR_ID" -authenticationKeyIssuerID "$ASC_YAYINCI_ID" > "$RUNNER_TEMP/disari.log" 2>&1 \
             || { tail -60 "$RUNNER_TEMP/disari.log"; echo "::error title=yukleme::xcodebuild -exportArchive dustu"; exit 1; }
           tail -15 "$RUNNER_TEMP/disari.log"
+          grep -iE "applesignin|entitlement" "$RUNNER_TEMP/disari.log" | head -10 || true
           grep -qiE "EXPORT SUCCEEDED|Upload succeeded" "$RUNNER_TEMP/disari.log" \
             || { echo "::error title=yukleme::basari satiri yok (EXPORT SUCCEEDED / Upload succeeded)"; exit 1; }
           echo "::notice title=TestFlight::Derleme ${{ github.run_number }} yuklendi; App Store Connect isledikten sonra (10-30 dk) TestFlight'ta gorunur."
