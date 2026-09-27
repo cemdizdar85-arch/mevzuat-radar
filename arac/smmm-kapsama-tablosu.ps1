@@ -331,3 +331,30 @@ $md.Add('- İkiz süzgecini görmez: yayınlanabilir bir soru, yayında benzeri 
 $md.Add('')
 [IO.File]::WriteAllText((Join-Path $kok 'veri\SMMM-KAPSAMA.md'), ($md -join "`r`n"), (New-Object Text.UTF8Encoding $false))
 if (-not $Sessiz) { 'MD : veri/SMMM-KAPSAMA.md' }
+
+# --- 6) ÖZET (depoya girer): motor/sinav-tek-sayfa.ps1 SMMM hedef/eksiğini buradan okur ---
+# 27.09 (Cem "1.2.3", KGK oturumunun bulgusu): tek sayfa SMMM eksiğini "kota − ESKİ HAVUZ" ile hesaplıyordu; eski havuz
+#   Cem kararıyla sayılmaz, bitirme hedefi 4.000 (bu tablo). CSV veri/fabrika'da (gitignore) — bulut robotu okuyamaz, bu yüzden
+#   ders düzeyinde küçük bir özet yazılır. site = Σ min(yayınlanabilir, hedef) · eksik = Σ açık (engelli dahil) · engelli ayrıca.
+#   Ders adı resmî listeyle (veri/ders-profili.json) eşleşsin diye tek kısaltma açılır.
+#   🚫 GÖRMEZ: "A / B" ortak konuları (hiçbir derse yazılmaz) · ikiz süzgecini (yayınlanabilir ≠ sitede).
+$ozetAd = @{ 'Muh. ve Mali Müş. Meslek Hukuku' = 'Muhasebecilik ve Mali Müşavirlik Meslek Hukuku' }
+$ozetDers = @($satir | Where-Object { $_.ders -and $_.ders -notmatch '/' -and [int]$_.hedef -gt 0 } | Group-Object ders | Sort-Object Name | ForEach-Object {
+    $g = $_.Group
+    [ordered]@{
+      ders          = $(if ($ozetAd.ContainsKey($_.Name)) { $ozetAd[$_.Name] } else { $_.Name })
+      hedef         = [int](($g | Measure-Object hedef -Sum).Sum)
+      site          = [int](($g | ForEach-Object { [Math]::Min([int]$_.yayinlanabilir, [int]$_.hedef) } | Measure-Object -Sum).Sum)
+      eksik         = [int](($g | Measure-Object acik -Sum).Sum)
+      engelli_eksik = [int]((@($g | Where-Object { $_.engel }) | Measure-Object acik -Sum).Sum)
+      konu          = $g.Count
+    } })
+$ozet = [ordered]@{
+  aciklama      = 'SMMM (bitirme) ders başına hedef/sitede/eksik — arac/smmm-kapsama-tablosu.ps1 (hedef 4.000, ders tabanı 350, son 10 yıl; eski havuz SAYILMAZ). site = Σ min(yayınlanabilir, konu hedefi); eksik = Σ konu açığı (engelli dahil).'
+  hedef_toplam  = [int](($ozetDers | ForEach-Object { $_.hedef } | Measure-Object -Sum).Sum)
+  site_toplam   = [int](($ozetDers | ForEach-Object { $_.site } | Measure-Object -Sum).Sum)
+  eksik_toplam  = [int](($ozetDers | ForEach-Object { $_.eksik } | Measure-Object -Sum).Sum)
+  dersler       = $ozetDers
+}
+. (Join-Path $buDizin 'rapor-yaz.ps1')
+RaporYaz -Hedef (Join-Path $kok 'veri\sinav\smmm-kapsama-ozet.json') -Nesne $ozet
