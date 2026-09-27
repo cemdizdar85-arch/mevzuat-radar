@@ -154,7 +154,7 @@ jobs:
           tail -15 "$RUNNER_TEMP/disari.log"
           grep -iE "applesignin|entitlement|profile" "$RUNNER_TEMP/disari.log" | head -10 || true
           # yuklenen paketin yetkisini dogrula (ipa varsa)
-          IPA=$(ls "$RUNNER_TEMP"/disari/*.ipa 2>/dev/null | head -1)
+          IPA=$(ls "$RUNNER_TEMP"/disari/*.ipa 2>/dev/null | head -1 || true)
           if [ -n "$IPA" ]; then mkdir -p "$RUNNER_TEMP/ipa" && unzip -q -o "$IPA" -d "$RUNNER_TEMP/ipa" && codesign -d --entitlements :- "$RUNNER_TEMP"/ipa/Payload/*.app 2>/dev/null | grep -A2 applesignin || echo "::warning title=yetki::ipa icinde applesignin gorulmedi"; else echo "ipa yerelde yok (dogrudan yuklendi)"; fi
           grep -qiE "EXPORT SUCCEEDED|Upload succeeded" "$RUNNER_TEMP/disari.log" \
             || { echo "::error title=yukleme::basari satiri yok (EXPORT SUCCEEDED / Upload succeeded)"; exit 1; }
