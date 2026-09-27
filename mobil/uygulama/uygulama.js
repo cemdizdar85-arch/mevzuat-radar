@@ -216,7 +216,7 @@
       try {
         if (!slHazir) slHazir = SL.initialize({ google: { webClientId: G_WEB, iOSClientId: G_IOS, iOSServerClientId: G_WEB, mode: 'online' } });
         await slHazir;
-        var r = await SL.login({ provider: 'google', options: { scopes: ['email', 'profile'] } });
+        var r = await SL.login({ provider: 'google', options: { scopes: ['email', 'profile'] } }); /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
         var tok = r && r.result && r.result.idToken;
         if (!tok) { h.textContent = 'Google girişi tamamlanmadı. Tekrar dene.'; return; }
         var s = await sb.auth.signInWithIdToken({ provider: 'google', token: tok, options: { captchaToken: await captcha() } });
@@ -234,7 +234,7 @@
       } catch (err) {
         var m = String((err && err.message) || err || '');
         /* kişi pencereyi kapattıysa hata yazma */
-        if (!/cancel|iptal|12501|16|dismiss/i.test(m)) h.textContent = 'Google girişi açılamadı. Tekrar dene ya da e-postayla devam et.';
+        if (!/cancel|iptal|12501|16|dismiss/i.test(m)) h.textContent = 'Google girişi açılamadı. Tekrar dene ya da e-postayla devam et. (Kod: ' + (m.slice(0, 120) || 'bilinmiyor') + ')';
       } finally { b.disabled = false; }
     });
   }
