@@ -216,7 +216,8 @@
       try {
         if (!slHazir) slHazir = SL.initialize({ google: { webClientId: G_WEB, iOSClientId: G_IOS, iOSServerClientId: G_WEB, mode: 'online' } });
         await slHazir;
-        var r = await SL.login({ provider: 'google', options: { scopes: ['email', 'profile'] } }); /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
+        /* scopes VERİLMEZ: Android eklentisi özel scope'u MainActivity değişikliği olmadan REDDEDİYOR (1.6.0 'açılamadı' sebebi); email+profile+openid zaten varsayılan */
+        var r = await SL.login({ provider: 'google', options: {} }); /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
         var tok = r && r.result && r.result.idToken;
         if (!tok) { h.textContent = 'Google girişi tamamlanmadı. Tekrar dene.'; return; }
         var s = await sb.auth.signInWithIdToken({ provider: 'google', token: tok, options: { captchaToken: await captcha() } });
