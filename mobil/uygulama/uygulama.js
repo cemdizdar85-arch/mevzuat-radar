@@ -213,14 +213,19 @@
     $('googleKutu').hidden = false;
     $('googleDugme').addEventListener('click', async function () {
       var h = $('googleHata'), b = this; h.textContent = ''; b.disabled = true;
+      /* 1.6.5: sessiz bekleme yok — 45 sn cevap gelmezse hangi aşamada kalındığı yazılır */
+      var asama = 'hazırlık';
+      var sure = function (p) { return Promise.race([p, new Promise(function (_, red) { setTimeout(function () { red(new Error('Yanıt gelmedi (' + asama + ' aşaması, 45 sn)')); }, 45000); })]); };
       try {
         if (!slHazir) slHazir = SL.initialize({ google: { webClientId: G_WEB, iOSClientId: G_IOS, iOSServerClientId: G_WEB, mode: 'online' } });
-        await slHazir;
+        await sure(slHazir);
+        asama = 'Google penceresi';
         /* scopes VERİLMEZ: Android eklentisi özel scope'u MainActivity değişikliği olmadan REDDEDİYOR (1.6.0 'açılamadı' sebebi); email+profile+openid zaten varsayılan */
-        var r = await SL.login({ provider: 'google', options: {} }); /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
+        var r = await sure(SL.login({ provider: 'google', options: {} }));
+        asama = 'Tetikte hesabı'; /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
         var tok = r && r.result && r.result.idToken;
         if (!tok) { h.textContent = 'Google girişi tamamlanmadı. Tekrar dene.'; return; }
-        var s = await sb.auth.signInWithIdToken({ provider: 'google', token: tok, options: { captchaToken: await captcha() } });
+        var s = await sure(sb.auth.signInWithIdToken({ provider: 'google', token: tok, options: { captchaToken: await captcha() } }));
         if (s.error) { h.textContent = trHata(s.error); return; }
         var u = s.data && s.data.user, meta = (u && u.user_metadata) || {};
         var yeni = u && u.created_at && (Date.now() - new Date(u.created_at).getTime() < 120000);
@@ -233,8 +238,7 @@
         else olay('giris', true);
         await girisSonrasi();
       } catch (err) {
-        var m = String((err && err.message) || err || '');
-        /* kişi pencereyi kapattıysa hata yazma */
+        var m = String((err && err.message) || err || ''); if (asama === 'hazırlık') slHazir = null;
         /* 27.09 (1.6.4): hata artık HİÇ yutulmuyor — Credential Manager imza/istemci uyuşmazlığını da "iptal" diye bildirebiliyor
            (Cem: "hata vermiyor ama açılmıyor"). Kişi gerçekten kapattıysa da kısa not görür. */
         h.textContent = (/cancel/i.test(m) ? 'Google girişi tamamlanmadı.' : 'Google girişi açılamadı.') +
