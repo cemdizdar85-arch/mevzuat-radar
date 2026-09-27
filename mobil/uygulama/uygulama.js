@@ -221,7 +221,14 @@
         await sure(slHazir);
         asama = 'Google penceresi';
         /* scopes VERİLMEZ: Android eklentisi özel scope'u MainActivity değişikliği olmadan REDDEDİYOR (1.6.0 'açılamadı' sebebi); email+profile+openid zaten varsayılan */
-        var r = await sure(SL.login({ provider: 'google', options: {} }));
+        var r;
+        try { r = await sure(SL.login({ provider: 'google', options: {} })); }
+        catch (e1) {
+          /* 1.6.6: '[16] Account reauth failed' (Cem'in telefonu) → 'Sign in with Google' penceresi yerine alttan açılan hesap listesiyle (GetGoogleIdOption) bir kez daha */
+          if (!/\[16\]|reauth/i.test(String((e1 && e1.message) || e1))) throw e1;
+          asama = 'Google hesap listesi';
+          r = await sure(SL.login({ provider: 'google', options: { style: 'bottom', filterByAuthorizedAccounts: false, autoSelectEnabled: false } }));
+        }
         asama = 'Tetikte hesabı'; /* hata kodu ekranda: 28444 = Google Cloud imza/paket eşleşmedi · 16 = hesap yeniden doğrulanamadı */
         var tok = r && r.result && r.result.idToken;
         if (!tok) { h.textContent = 'Google girişi tamamlanmadı. Tekrar dene.'; return; }
