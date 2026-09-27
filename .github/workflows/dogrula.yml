@@ -147,6 +147,13 @@ jobs:
           # cozulemeyeni KOR diye bildirir (kapsam olcusu).
           - { ad: "SMMM ders adi OZ-SINAVI (etiket -> ders, kapsam dahil)",
               kabuk: pwsh, komut: "./arac/smmm-ders-adi-sinavi.ps1" }
+          # 27.09 (KGK oturumu; SGS oturumu onayli): standart yutucunun BDS dipnot/baslik kurallari + KGK yayin yolu oz-sinavlari.
+          - { ad: "Standart yutucu OZ-SINAVI (BDS dipnot/baslik; TMS/TFRS kipi degismesin)",
+              kabuk: pwsh, komut: "./motor/standart-yut.ps1 -standart 'BDS 200' -YalnizSinav" }
+          - { ad: "KGK ders adi OZ-SINAVI (etiket -> modul)",
+              kabuk: pwsh, komut: "./arac/kgk-ders-adi-sinavi.ps1" }
+          - { ad: "KGK kasa yukleyici OZ-SINAVI (yalniz kgk satiri, kaydir/kgk yolu)",
+              kabuk: bash, komut: "node motor/kgk-kasa-yukle.js --sinav" }
 
           # 22.09.2026 - Ikiz olcusu artik HEM uretimde HEM yayinda ayni dosyadan geliyor.
           # Onceden iki ayri cetvel vardi: yayin ucyu harf + soru VE dogru sik, uretim ise

@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **26.09.2026 12:57** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **27.09.2026 03:15** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50060 parça · 2714 tekil kaynak | Bütünlük ölçülen: 2714 (delikli: 360; son ölçüm: 26.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 26.09.2026 12:55)
+**ÖZET:** 50093 parça · 2715 tekil kaynak | Bütünlük ölçülen: 2715 (delikli: 363; son ölçüm: 27.09.2026) | Sürüm ölçülen: 43 (sorunlu: 3; son ölçüm: 27.09.2026 03:12)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -22,7 +22,7 @@
 |---|---|---:|---|---|
 | [ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi) | cikmis-komisyon-cevabi | 403 | DELİK-İNCELE(par:0/kesik:41/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | [ARŞİV] ÇIKMIŞ SINAV (cikmis-soru) | cikmis-soru | 265 | DELİK-İNCELE(par:0/kesik:34/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| [GRUP] TEORİ NOTLARI | teori-notu | 595 | DELİK-İNCELE(par:494/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| [GRUP] TEORİ NOTLARI | teori-notu | 599 | DELİK-İNCELE(par:494/kesik:5/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. Is K. (kidem tazminati | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 1475 s. İş K. (kıdem | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | 2006 YILI SERBEST MUHASEBECİLİK, SERBEST MUHASEBECİ MALİ MÜŞAVİRLİK VE YEMİNLİ MALİ MÜŞAVİRLİK ASGARİ ÜCRET TARİFESİ | kanun-madde | 35 | DELİK-İNCELE(par:0/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -1657,6 +1657,7 @@
 | KYS 1 | standart-madde | 267 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KYS 2 | standart-madde | 84 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KYS Duyuru | standart-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Mal Bildirimi K. (3628 s.K.) | kanun-madde | 29 | DELİK-İNCELE(par:1/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Menşe ve dolaşım belgeleri | rehber | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Merkezi Kayit Kurulusunun Kurulus, Faaliyet, Calisma ve Denetim Esaslari Hakkinda Yonetmelik | kanun-madde | 48 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Merkezi Takas Kuruluslarinin Kurulus ve Calisma Esaslari Hakkinda Genel Yonetmelik | kanun-madde | 98 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -2181,10 +2182,10 @@
 | TFRS 1 | standart-madde | 159 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 10 | standart-madde | 193 | TAM | TUTARLI |
 | TFRS 11 | standart-madde | 96 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
-| TFRS 12 | standart-madde | 84 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:3 resmî metinde de yok) | TUTARLI |
+| TFRS 12 | standart-madde | 84 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | OLCULEMEDI |
 | TFRS 13 | standart-madde | 160 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TFRS 14 | standart-madde | 70 | TAM | TUTARLI |
-| TFRS 15 | standart-madde | 242 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
+| TFRS 15 | standart-madde | 242 | DELİK-İNCELE(par:0/kesik:0/oksuz:2) | OLCULEMEDI |
 | TFRS 16 | standart-madde | 210 | TAM(set-birebir; kapı notu: par:4/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
 | TFRS 17 | standart-madde | 370 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TFRS 18 | standart-madde | 288 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:2 resmî metinde de yok) | TUTARLI |
