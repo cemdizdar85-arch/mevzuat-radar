@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Sayaç reklamı sahnesi</title>
+<!-- 29.09.2026 Cem "videoyu bu metinle kurgula". Kare kare çizilir: bas.js her kare için kare(t) çağırır,
+     ekran görüntüsü alır (zamanlama tarayıcıya bırakılmaz, kare düşmez). Yazılar kur(veri) ile gelir;
+     bas.js onları pazarlama/reklam/sayac-reklami.md'de birebir arar (kapıdan geçen metin = filmdeki metin).
+     GÜVENLİ ALAN (Meta, Reels 9:16): üst %14, alt %35, yanlar %6 yazısız → 360×640'ta x 22–338, y 90–416.
+     Her anlamlı öğe #alan içinde; bas.js taşmayı ölçer (alanDisi) ve taşan karede durur. -->
+<style>
+  :root{ --taban:#0a0c10; --kart:#12151c; --cizgi:#2a303b; --ink:#e8eaed; --soluk:#9aa0a6;
+         --kehribar:#f5a524; --kirmizi:#ff5c5c; --yesil:#3ddc97; --sari:#ffd23f; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ width:360px; height:640px; overflow:hidden; background:var(--taban); color:var(--ink);
+    font-family:"Segoe UI",-apple-system,system-ui,Roboto,Arial,sans-serif; }
+  #alan{ position:absolute; left:22px; top:90px; width:316px; height:326px; display:flex; flex-direction:column; }
+  #etiket{ font-size:10.5px; font-weight:600; color:rgba(232,234,237,.78); margin-bottom:6px; }
+  #ust{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  #cubuk{ flex:1; height:5px; border-radius:3px; background:var(--cizgi); overflow:hidden; }
+  #cubukDolu{ height:100%; width:100%; background:var(--kehribar); transform-origin:left; }
+  #sayac{ width:36px; height:36px; border-radius:50%; border:3px solid var(--kehribar); display:flex; align-items:center;
+    justify-content:center; font-size:19px; font-weight:800; color:var(--kehribar); flex:none; }
+  #orta{ position:relative; overflow:hidden; }
+  #soru{ font-size:11.6px; line-height:1.4; color:var(--ink); overflow:hidden; }  /* kapanırken kendi içinde kırpılır; #orta ölçümü kutuları ölçer */
+  #kutular{ display:flex; flex-direction:column; gap:6px; }
+  .kutu{ border-radius:10px; padding:5px 10px 6px; }
+  #tuzak{ background:#2a2208; border:2px solid var(--sari); }
+  #tuzak b{ display:block; color:var(--sari); font-size:14.5px; line-height:1.2; margin-bottom:2px; }
+  #tuzak span{ font-size:11.8px; line-height:1.3; color:#fff3c4; }
+  #dogrusu{ background:#0b2a1e; border:2px solid var(--yesil); }
+  #dogrusu b{ display:block; color:var(--yesil); font-size:15.5px; line-height:1.2; margin-bottom:2px; }
+  #dogrusu span{ font-size:11.8px; line-height:1.3; color:#d6ffee; }
+  #siklar{ margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .sik{ border:1.5px solid var(--cizgi); background:var(--kart); border-radius:9px; padding:5px 10px; font-size:13.5px; font-weight:700; }
+  .sik:last-child{ grid-column:1 / span 2; }
+  .sik.yanlis{ background:rgba(255,92,92,.2); border-color:var(--kirmizi); color:#ffd0d0; }
+  .sik.dogru{ background:rgba(61,220,151,.17); border-color:var(--yesil); color:#c9ffe6; }
+  /* açılış + kapanış: tam ekran siyah, yazı güvenli alanın ortasında */
+  .perde{ position:absolute; inset:0; background:#000; z-index:5; }
+  .perde .ic{ position:absolute; left:22px; top:90px; width:316px; height:326px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; gap:16px; }
+  #acilis p{ font-size:29px; line-height:1.18; font-weight:800; letter-spacing:-.6px; }
+  #kapanis p{ font-size:27px; font-weight:800; line-height:1.2; letter-spacing:-.5px; }
+  #kapanis .adres{ font-size:23px; color:var(--kehribar); letter-spacing:0; }
+  #lamba{ width:20px; height:20px; border-radius:50%; background:var(--kehribar); }
+  .perde .etiketP{ font-size:10.5px; font-weight:600; color:rgba(232,234,237,.7); position:absolute; top:0; left:0; }
+</style>
+</head>
+<body>
+<div id="alan">
+  <div id="etiket"></div>
+  <div id="ust"><div id="cubuk"><div id="cubukDolu"></div></div><div id="sayac">7</div></div>
+  <div id="orta">
+    <div id="soru"></div>
+    <div id="kutular">
+      <div class="kutu" id="tuzak"><b></b><span></span></div>
+      <div class="kutu" id="dogrusu"><b></b><span></span></div>
+    </div>
+  </div>
+  <div id="siklar"></div>
+</div>
+<div class="perde" id="acilis"><div class="ic"><span class="etiketP"></span><p></p></div></div>
+<div class="perde" id="kapanis"><div class="ic"><span class="etiketP"></span><div id="lamba"></div><p id="kapanisCumle"></p><p class="adres" id="adres"></p></div></div>
+<script>
+/* Zaman çizelgesi (sn) — pazarlama/reklam/sayac-reklami.md ile aynı */
+var Z = { acilisSon:1.0, sayacBas:1.0, sayacSon:8.0, yanlis:8.0, dogru:9.0, kutuBas:9.0, kapanisBas:15.0, son:18.0 };
+var $ = function(id){ return document.getElementById(id); };
+var V = null, SORU_H = 0;
+
+function kur(veri){
+  V = veri;
+  $('etiket').textContent = veri.etiket;
+  Array.prototype.forEach.call(document.querySelectorAll('.etiketP'), function(e){ e.textContent = veri.etiket; });
+  $('acilis').querySelector('p').textContent = veri.acilis;
+  $('soru').textContent = veri.soru;
+  $('siklar').innerHTML = '';
+  veri.siklar.forEach(function(s){
+    var d = document.createElement('div'); d.className = 'sik'; d.dataset.h = s.h; d.textContent = s.h + ') ' + s.m;
+    $('siklar').appendChild(d);
+  });
+  $('tuzak').querySelector('b').textContent = veri.tuzakAd;
+  $('tuzak').querySelector('span').textContent = veri.tuzakNeden;
+  $('dogrusu').querySelector('b').textContent = veri.dogrusu;
+  $('dogrusu').querySelector('span').textContent = veri.kural;
+  $('kapanisCumle').textContent = veri.kapanis;
+  $('adres').textContent = veri.adres;
+  SORU_H = $('soru').scrollHeight;
+  return true;
+}
+
+function arada(t, a, b){ return Math.max(0, Math.min(1, (t - a) / (b - a))); }
+function yumusak(x){ return x * x * (3 - 2 * x); }
+
+function kare(t){
+  var ac = 1 - yumusak(arada(t, 0.85, Z.acilisSon));
+  $('acilis').style.opacity = ac; $('acilis').style.display = ac > 0 ? 'block' : 'none';
+
+  var kalan = Math.max(0, Z.sayacSon - Math.max(t, Z.sayacBas));
+  $('sayac').textContent = t < Z.sayacSon ? String(Math.ceil(kalan - 1e-9)) : '0';
+  $('cubukDolu').style.transform = 'scaleX(' + (kalan / (Z.sayacSon - Z.sayacBas)) + ')';
+  var saniyeIci = (t - Z.sayacBas) % 1;
+  $('sayac').style.transform = (t >= Z.sayacBas && t < Z.sayacSon) ? 'scale(' + (1 + 0.12 * Math.max(0, 1 - saniyeIci * 5)) + ')' : 'scale(1)';
+  $('sayac').style.opacity = t >= Z.sayacSon ? 0.35 : 1;
+
+  Array.prototype.forEach.call(document.querySelectorAll('.sik'), function(el){
+    el.classList.toggle('yanlis', t >= Z.yanlis && el.dataset.h === V.fisiltiHarf);
+    el.classList.toggle('dogru', t >= Z.dogru && el.dataset.h === V.dogruHarf);
+  });
+  /* titreşim yalnız SAĞA (sol sütun güvenli alan kenarında) */
+  var tit = t >= Z.yanlis && t < Z.yanlis + 0.35 ? Math.abs(Math.sin((t - Z.yanlis) * 60)) * 4 * (1 - (t - Z.yanlis) / 0.35) : 0;
+  var yanlisEl = document.querySelector('.sik[data-h="' + V.fisiltiHarf + '"]');
+  if (yanlisEl) yanlisEl.style.transform = 'translateX(' + tit.toFixed(2) + 'px)';
+
+  /* 9 sn: soru metni kapanır (yüksekliği söner), yerine tuzak + doğrusu kutuları gelir — şıklar yerinde kalır */
+  /* SIRALI: önce soru kapanır (0–0,3 sn), sonra kutular girer (0,3–0,6) — üst üste binerse #orta kırpılır (29.09 tam basımda ölçüldü) */
+  var kapan = yumusak(arada(t, Z.kutuBas, Z.kutuBas + 0.3));
+  var kutu = yumusak(arada(t, Z.kutuBas + 0.3, Z.kutuBas + 0.6));
+  $('soru').style.opacity = 1 - kapan;
+  $('soru').style.height = (SORU_H * (1 - kapan)).toFixed(1) + 'px';
+  $('kutular').style.display = kutu > 0 ? 'flex' : 'none';
+  $('kutular').style.opacity = kutu;
+  var dg = yumusak(arada(t, Z.kutuBas + 1.6, Z.kutuBas + 2.05));
+  $('dogrusu').style.opacity = dg;
+
+  var kp = yumusak(arada(t, Z.kapanisBas, Z.kapanisBas + 0.35));
+  $('kapanis').style.opacity = kp; $('kapanis').style.display = kp > 0 ? 'block' : 'none';
+  var nabiz = 0.5 + 0.5 * Math.cos((t - Z.kapanisBas) * Math.PI / 1.1);
+  $('lamba').style.boxShadow = '0 0 0 ' + (6 + 4 * nabiz).toFixed(1) + 'px rgba(245,165,36,.18), 0 0 ' + (20 + 14 * nabiz).toFixed(0) + 'px rgba(245,165,36,.65)';
+}
+
+/* Güvenli alan denetimi: görünür her yazı/öğe x 22–338, y 90–416 içinde mi; #alan içi taşma (kırpılma) var mı */
+function alanDisi(){
+  var hata = [];
+  var secici = '#etiket,#ust,#soru,#kutular .kutu,.sik,#acilis p,#acilis .etiketP,#kapanis p,#kapanis .etiketP,#lamba';
+  Array.prototype.forEach.call(document.querySelectorAll(secici), function(el){
+    var st = getComputedStyle(el); var ata = el.closest('.perde');
+    if (ata && ata.style.display === 'none') return;
+    if (el.closest('#kutular') && $('kutular').style.display === 'none') return;
+    if (parseFloat(st.opacity) === 0 || el.offsetHeight < 1) return;
+    var r = el.getBoundingClientRect();
+    if (r.left < 21.5 || r.right > 338.5 || r.top < 89.5 || r.bottom > 416.5) hata.push((el.id || el.className || el.tagName) + ' ' + [r.left, r.top, r.right, r.bottom].map(function(x){ return x.toFixed(0); }).join(','));
+  });
+  var o = $('orta'); if (o.scrollHeight > o.clientHeight + 1) hata.push('#orta kırpılıyor ' + o.scrollHeight + '>' + o.clientHeight);
+  return hata;
+}
+window.kur = kur; window.kare = kare; window.alanDisi = alanDisi; window.Z = Z;
+</script>
+</body>
+</html>
