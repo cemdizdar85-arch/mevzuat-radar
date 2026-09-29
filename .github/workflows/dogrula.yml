@@ -198,6 +198,13 @@ jobs:
           - { ad: "KAPI-OM ozel maliyet 5 yil kurali OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/ozel-maliyet-kapisi-sinavi.ps1" }
 
+          # 29.09.2026 - KAPI-MA soru METNINDE butunuyle mulga maddeye atif (VUK m.270 vb.). Liste SGS KAPI-MM'nin
+          # (veri/sinav/ambar-mulga-maddeler.json); KAPI-MM'nin yazili korlugu "govdedeki mulga atif"i kapatir. 14 cumle vakasi
+          # (7 yakala / 7 gecir: m.262, m.2700, tutar 270, TTK 270, ic alanlar) + gercek liste + SMMM yayin sarti baglantisi
+          # + 5 mutasyon (her bozmada KIRMIZI, 29.09 olculdu).
+          - { ad: "KAPI-MA mulga madde atfi OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/mulga-atif-kapisi-sinavi.ps1" }
+
           # 29.09.2026 - Bulut soru basim sirasi (bulut-sira.yml cron). Yerel sira betikleri oturuma bagliydi; 27.09'da
           # sessizce oldu, bulut 2 gun bos kaldi. Sinav: pay (toplam + sinav basi, halka tek plan), cift acma (kosan/
           # kuyruktaki/gecmiste acilmis plan), bozuk butce/yol/paralel satirini atlama, KOR gecmis, acil fren, tr-TR

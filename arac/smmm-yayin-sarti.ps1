@@ -21,6 +21,7 @@ $script:MD_LISTE = $null
 . (Join-Path $PSScriptRoot 'had-kapisi.ps1')   # 23.09 KAPI-HAD
 $script:HAD_HARITA = $null
 . (Join-Path $PSScriptRoot 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM
+. (Join-Path $PSScriptRoot 'mulga-atif-kapisi.ps1')   # 29.09 KAPI-MA (liste: SGS KAPI-MM, veri/sinav/ambar-mulga-maddeler.json)
 function SmmmParmakIzi($soruNesne) {
   $parca = @("$($soruNesne.soru)") + @('A', 'B', 'C', 'D', 'E' | ForEach-Object { "$($soruNesne.siklar.$_)" }) + @("$($soruNesne.dogru)".Trim().ToUpperInvariant())
   $bayt = [Text.Encoding]::UTF8.GetBytes(($parca -join [char]0x1E))
@@ -111,6 +112,8 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   if ($hadI) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-HAD yanlış had tutarı: $hadI" } }
   # 27.09 KAPI-OM (Cem "1.2.3"): özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralını anlatan soru geçmez (VUK m.327: kira süresine göre).
   #   Eşdeğerlik 27.09: yayındaki kusurlu 5 soru ÖNCE onarıldı (kc-alan-tamamla), sonra kapı bağlandı → yayından düşen 0 (ölçüm commit mesajında).
+  # 29.09 KAPI-MA: görünen metinde bütünüyle mülga maddeye atıf (kaynak_adlar değil: onları hakem paketi doldurur, ekranda "(Mülga" yazar)
+  $maY = @(MulgaAtifKapisi $v); if ($maY.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-MA $($maY[0])" } }
   $omY = @(OzelMaliyetKapisi $v); if ($omY.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-OM özel maliyette eski beş yıl kuralı ($($omY.Count) cümle)" } }
   foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu) { return [pscustomobject]@{ gecer = $false; neden = 'simülasyon yanlış' } } }
   # 14.09 (Cem "1.2 yap", GM önerisi): simülasyonu HİÇ koşmamış soru da geçmez. Ölçüldü: pilot smmm-pilot-ymeslek-zor kp-01 adımları
