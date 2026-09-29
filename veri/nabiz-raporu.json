@@ -1,21 +1,23 @@
 {
-  "tarih": "29.09.2026 12:00",
-  "durum": "ALARM",
-  "kirmizi": 5,
-  "kurtarma": 1,
+  "tarih": "29.09.2026 18:41",
+  "durum": "KURTARMA",
+  "kirmizi": 0,
+  "kurtarma": 5,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
-  "maddeler": [
-    "ESKALASYON: Kaynak Nobetcisi (ihale+kaynaklar) -> kurtarma ise yaramadi (hic basarili kosu yok). Actions loguna bak.",
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 722.5 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 123.5 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Kasa Sayimi -> kurtarma ise yaramadi (Vitrin kanit sayilari damgasi 24.09.2026 (132 saat eski; esik 48s)). Actions loguna bak.",
-    "ESKALASYON: Kaynak Nobetcisi -> kurtarma ise yaramadi (Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (137 saat eski; esik 36s)). Actions loguna bak."
-  ],
+  "maddeler": [],
   "kurtarilan": [
-    "Kasa Sayimi (vitrin sayilari) -> son basarili kosu 194.9 saat once (esik 30s) -> kurtarma: tetiklendi"
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 140.4 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 729.2 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Smoke Nobetcisi -> son basarili kosu 130.2 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kasa Sayimi -> Vitrin kanit sayilari damgasi 24.09.2026 (139 saat eski; esik 48s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (143 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
   ],
   "kurtarilan_anahtar": [
-    "KOSU:kasa-sayim.yml"
+    "KOSU:kaynak.yml",
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml",
+    "VERI:vitrin-sayilar.json",
+    "VERI:ihale-yurtici.json"
   ]
 }
