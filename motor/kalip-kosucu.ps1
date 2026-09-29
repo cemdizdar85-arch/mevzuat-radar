@@ -526,12 +526,18 @@ try{
 }catch{ "HASAT SAYIM toplanamadı: $($_.Exception.Message)" }
 # seçim (8.1 yayın şartı)
 . (Join-Path $Kok 'arac\smmm-yayin-sarti.ps1'); $smmmOnay=SmmmOnayHarita $Kok   # 14.09 bitirme kör istisnası (yalnız smmm-* etiketinde kullanılır)
+# 30.09 Cem "1.2.3 yap ve kural koy": KAPI-AS + KAPI-EK (arac/soru-kalite-kapisi.ps1). Dört hakem şık açıklamasını okumuyordu;
+# SGS risk taramasında 1.744 sorunun 334'ü kusurluydu. Bu planın YENİ sorusu iki kapıdan birine takılırsa seçilmez (onarılıp yeniden verilir).
+# Eski yayındaki soru bu yoldan geçmez (Cem 30.09 "geri çekilmesin" → onarım kuyruğu). 🚫 GÖRMEZ: sözel kusur, listede olmayan eski kural.
+. (Join-Path $Kok 'arac\soru-kalite-kapisi.ps1'); $kaliteDus=0; $kaliteKor=@()
 $secim=@()
 foreach($s in $satirlar){
   $cf=Join-Path $Kok "veri\fabrika\kalip-parti-$($s.etiket).json"; if(-not (Test-Path $cf)){ continue }
   $c=ConvertFrom-Json -InputObject (Get-Content $cf -Raw -Encoding UTF8)
+  $kalite=SoruKaliteParti $cf; if($script:SORU_KALITE_KOR){ $kaliteKor+="$($s.etiket): $($script:SORU_KALITE_KOR)"; $script:SORU_KALITE_KOR=$null }
   foreach($p in $c.PSObject.Properties){
     $v=$p.Value; if(-not $v.soru){ continue }
+    if($kalite.ContainsKey($p.Name)){ $kaliteDus++; "  KAPI-KALITE: $($s.etiket)/$($p.Name) seçilmedi · $(@($kalite[$p.Name]) -join ' · ')"; continue }
     if("$($v.hakem.karar)" -ne 'EVET'){ continue }
     # 11.09.2026 — Cem: "hakem olmadan soru basmiyorduk niye bastik".
     # Hakem DORT hukum verir (karar · ders_uyum · konu_uyum · tek_anlam) ama bu
@@ -562,7 +568,8 @@ foreach($s in $satirlar){
 }
 $secYol=Join-Path $Kok "veri\sinav\kaydir-secim\$planAd-secim.json"
 [IO.File]::WriteAllText($secYol,(ConvertTo-Json -InputObject @($secim) -Depth 3),[Text.UTF8Encoding]::new($false))
-"SECIM: $($secim.Count) soru (yayın şartı: hakem[karar+ders+konu+tek anlam] ∧ sim ∧ kör ∧ hakem2) -> $secYol"
+"SECIM: $($secim.Count) soru (yayın şartı: hakem[karar+ders+konu+tek anlam] ∧ sim ∧ kör ∧ hakem2 ∧ KAPI-AS/EK) -> $secYol"
+"KAPI-KALITE: $kaliteDus soru açıklama/eski kural kusuruyla seçilmedi$(if($kaliteKor.Count){ " · KÖR $($kaliteKor.Count) parti: $($kaliteKor -join ' | ')" })"
 if(-not $SayfaYok -and $secim.Count){
   & powershell -NoProfile -File (Join-Path $buDizin 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')
   Get-Content (Join-Path $logDir 'builder.log') | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot|SON KAPI' | ForEach-Object { $_.Line }

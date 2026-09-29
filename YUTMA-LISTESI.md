@@ -715,3 +715,9 @@ tek tebliğ yazamadı) — bash'e seyrek filtresi + 120'lik ilk-kez tavanı + 2 
 - BDS 210: 6->66 parca (A28 dahil) - cilizmis
 - Teori notlari parti-2: 28 uretildi + hakem (19 kusursuz, 2 icerik hatasi yakalandi: UIE terim + ciro/defi TTK m.688-689) + 9 duzeltme birebir
 - Hepsi veri/mevzuat/*.json repo vatandasi; yetim testi 0 (sert kapi yesil)
+
+## ⚠️ 30.09.2026 — TMS 28 TEMMUZ DEĞİŞİKLİĞİ AMBARDAN KAYBOLMUŞ, KARAR BELGESİ YENİDEN EKLENDİ
+- **Ölçüm (30.09, Supabase `dokumanlar`):** 26.08 kaydı "p.18 + p.19 PATCH, p.45M eklendi, karar ayrı yayın" diyor; bugün ambarda `TMS 28 p.18` ve `p.19` DEĞİŞİKLİK ÖNCESİ metin ("yatırım amaçlı sigorta fonlarını kapsayan"), `p.45M` YOK, karar belgesi YOK ("Uygun Değer Seçene" metinde 0 eşleşme). Ne zaman/hangi koşuyla kaybolduğu ÖLÇÜLMEDİ (aday: 30.08 yukle.yml kesintisi ya da standart yeniden yutma).
+- **Yapılan:** `veri/mevzuat/kgk-tms28-degisiklik-2026.json` (tur=kanun-madde, 3 parça, 3.676 kar) ambara HEDEFLİ eklendi — başka kayda dokunulmadı; kuru prova → yaz → geri okuma **3/3 birebir** (metin + tür + arama dizini). Karar metni artık aranınca bulunuyor (2 parça).
+- **YAPILMADI:** `TMS 28 p.18/p.19` standart-madde parçaları hâlâ ESKİ, `p.45M` hâlâ YOK. standart-madde tek yazar kuralı (standart-yut / kgk-standart-yut) gereği elle PATCH edilmedi; karar Cem'de. Değişiklik TFRS 18 uygulanınca yürürlüğe girer (45M).
+- **Etki (30.09, `paket_soru` 8.893 soru / 30 sayfa):** TMS 28 p.18/19'a dayanan yayındaki soru **0**. TMS 28'e dayanan 8 SGS Finansal Muhasebe sorusu p.1, 5–10'a dayanıyor (önemli etki, özkaynak yöntemi); gerçeğe uygun değer seçeneğine girmiyor. 2 "konu eşleşmesi" (KVK m.5 istisnaları) yanlış alarm.

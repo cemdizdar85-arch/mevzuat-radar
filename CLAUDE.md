@@ -359,6 +359,30 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
 
 - ⭐ **Sınavla ilgili "var mı / kaç / eksik ne" sorusunun TEK cevabı `veri/SINAV-TEK-SAYFA.md`** (02.09.2026, Cem: "tek yerden, hızlı, güvenilir, kaybolmadan"). 7 bölüm = Cem'in 7 sorusu: dersler · çıkmış sorular · yeterli miyiz · ambar · kaynak sağlığı · yutulmayan mevzuat · basılacaklar. Üretici `motor/sinav-tek-sayfa.ps1`, robot `sinav-tek-sayfa.yml` (her sabah 08:30 TR). Elle düzenlenmez; **⚠ işaretli satır = girdisi bayat/kırık, o sayı "ölçülmedi"dir** — önce bölüm 5'teki girdi tazelenir. Hafızadan sınav rakamı YAZILMAZ, bu sayfadan okunur.
 - ⛔⭐ **RET KÜTÜĞÜ — üretim/hasat turu bitince, istisnasız** (11.09.2026, Cem: *"retleri topla ama bir daha karşılaşmayacak şekilde kurumsal olarak kâğıda dök"*). Tur biter bitmez `powershell -NoProfile -File arac/ret-kutugu.ps1` koşar (bedel 0) → `veri/RET-KUTUGU.md`. **Ret nedenleri okunmadan yeni tur başlatılmaz.** Bir kök neden sınıfı ilk üçe giriyorsa önce ona kapı kurulur — kapısız tekrar üretim aynı parayı ikinci kez yakar. **İlk ölçüm (11.09): 1.288 retin %56,6'sı soruyla değil KAYNAK PAKETİYLE ilgiliydi** (paket cevabı destekleyen hükmü taşımıyor ya da ortadan kesik). Şartname: `SORU-BASMA-KURALLARI.md` bölüm G.
+- ⛔⭐ **YENİ SORU AÇIKLAMA + ESKİ KURAL KAPISI — KİM BASARSA BASSIN, HER SINAVDA** (30.09.2026, Cem: *"1.2.3 yap ve kural koy
+  bundan sonra basılacak olanlara"*). **Olay (ölçüldü 30.09):** SGS risk taramasında elle okunan 1.744 sorunun **334'ü kusurlu**, 27'si
+  yanlış cevaplı / iki doğru şıklıydı. Dört hakem (hakem · kör · simülasyon · hakem2) **soruya ve anahtara** bakıyor; şık açıklamasını
+  (sade.siklar, aciklama, teşhis, adımlar, ikiz) okuyan yoktu, KAPI-KC yalnız doluluk ölçüyordu, sade'yi en ucuz model yazıyordu.
+  Yanlış cevapların kökü kaynaktı (THP 264 1992 metni, mülga VUK m.270, eski %18 KDV): hakem eski paketle kıyaslayıp "doğru" diyor.
+  Kurallar:
+  1. **Yeni soru iki 0 USD kapıdan geçmeden yayına seçilmez:** KAPI-AS `arac/aciklama-sayi-kapisi.js` (yanlış şıkkın açıklaması
+     başka şıkkın sayısını SONUÇ diye anlatıyor) + KAPI-EK `arac/eski-kural-kapisi.js` (liste `arac/eski-kurallar.json`).
+     Bağlı olduğu yerler: `motor/kalip-parti-uret.ps1` FAZ GM (hazır soru girişi) ve `motor/kalip-kosucu.ps1` 8.1 seçimi
+     (köprü `arac/soru-kalite-kapisi.ps1`; node yoksa günlükte `KAPI-KALITE KÖR`). Öz-sınav + mutasyon `dogrula.yml`'de.
+     **Ölçüldü (30.09, elle okunmuş 1.738 SGS sorusu):** KAPI-AS kusurlu 332'nin **10**'unu yakalıyor, temiz 1.406'nın 14'ünde alarm
+     (14'ün elle okunan ≥4'ü okuyucunun kaçırdığı gerçek kusur). KAPI-EK SGS kasa dosyalarında 37, SMMM'de 96 soru işaretledi (KDV %18
+     ağırlıklı, çoğu 2026 ikiz metninde). Yani bu iki kapı **kusurların küçük bir kısmını** görür; "açıklama doğru" DEMEZ.
+  2. **Yeni eski-kural bulgusu listeye girer:** okuma/onarımda resmî kaynakla doğrulanmış eski ya da yanlış kural bulunduysa
+     `arac/eski-kurallar.json`'a `dayanak` + `bulan` ile eklenir ve `eski-kural-kapisi.js --sinav`'a bir yakalama + bir meşru kullanım
+     vakası yazılır (kapı kuralı 5). Kaynağı yazılı olmayan kural listeye girmez.
+  3. **Açıklama hakemi (ücretli, 5. hakem) ölçümsüz açılmaz:** sade/teşhis/adım/ikiz'i anahtar ve kaynakla okuyan model adımı önce küçük
+     ölçümle (≤ 2 USD, yayına giren soru başı bedel + yakalama oranı) koşar, Cem bedeli görüp onaylamadan üretime bağlanmaz.
+  4. **Yayındaki eski soru bu kapılarla ÇEKİLMEZ** (Cem 30.09 "geri çekilmesin, elle düzelt"): bulgular onarım kuyruğuna gider
+     (resmî kaynaktan elle onarım → yeniden hakem yalnız anahtar/kök değişince). Yanlış cevaplı / iki doğru şıklı soru onarılana kadar
+     yayın dışı kalır (Cem onayı 30.09).
+  🚫 GÖRMEZ: sözel açıklama kusuru · adım/ikiz içi hesap hatası · listede olmayan eski kural · kaynak paketindeki eski metnin kendisi
+  (KAPI-MM ayrı) · kasa yayın betikleri (`havuz-kur`, `smmm-kasa-yayin`) bu kapıyı AYRICA çağırmıyor — koşucu seçimi dışından yayına
+  giren yol varsa orada kapı yok (30.09 ölçülmedi, SGS/sınav oturumlarına soruldu).
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.
