@@ -32,7 +32,7 @@
 3. **Alan adı doğrulama:** Business Ayarları → Marka güvenliği → Alan adları → tetikte.com → **DNS TXT** kaydı (siteye dosya koymadan).
 4. **Conversions API belirteci:** Events Manager → pikselin Ayarlar'ı → Conversions API → "Erişim belirteci oluştur". Belirteç **sohbete yazılmaz** → `_yerel-veri-kasasi\meta-capi-token.txt`.
 5. **Hukuk (avukat, iyzico incelemesinden SONRA):** kendi KVKK sayfamız "sürekli aktarım açık rızaya dayandırılmaz" diyor (7499 sonrası m.9). Meta'ya aktarım için **standart sözleşme** (KVKK'ya 5 iş günü içinde bildirim) gerekir. Meta'nın Türkiye için hazır standart sözleşme eki olup olmadığı **ÖLÇÜLMEDİ**. Çerez için ayrıca açık rıza gerekir; bant bunu karşılıyor, yurt dışı aktarım dayanağını karşılamıyor.
-6. **Açılış perdesi:** site hâlâ perde arkasında (`menu.js` PERDE-BASI). Reklam tıklayan herkes "çok yakında" perdesini görür; ölçülebilen tek dönüşüm perde e-postası olur. Reklam ya bir **bekleme listesi kampanyası** olarak (Lead = perde) ya da `gong.ps1` açılışından sonra verilir.
+6. **Açılış perdesi:** site hâlâ perde arkasında (`menu.js` PERDE-BASI). Reklam tıklayan herkes "çok yakında" perdesini görür; ölçülebilen tek dönüşüm perde e-postası olur. **KARAR (Cem 29.09): reklam `gong.ps1` açılışından SONRA verilir;** perde varken reklam ve bekleme listesi kampanyası yok. Hazırlık (hesap, Pixel ID, belirteç, alan adı doğrulama, avukat) açılıştan önce bitirilir ki açılış günü reklam hemen başlayabilsin.
 
 ## Açma adımları (GM, yukarıdakiler bitince — tek commit)
 
