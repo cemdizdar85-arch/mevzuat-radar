@@ -42,11 +42,6 @@
       ['Yatırım teşvik sihirbazı', 'tesvik-sihirbazi.html', 'tesvik yatirim belge 9903 il sektor'],
       ['Destek Radarı', 'destekler.html', 'kosgeb hibe destek cagri eximbank']
     ]],
-    ['İhale', [
-      ['İhale Radarı', 'ihale-radari.html', 'ihale ekap ted ilan kamu'],
-      ['Rakip firma analizi', 'firma-analizi.html', 'rakip firma ihale gecmis'],
-      ['İdare analizi', 'idare-analizi.html', 'idare kurum ihale istatistik']
-    ]],
     ['Marka', [
       ['Marka Radarı', 'marka-radari.html', 'marka yenileme turkpatent'],
       ['Marka itiraz ve benzerlik', 'marka-itiraz.html', 'itiraz benzerlik marka smk'],

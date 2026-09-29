@@ -182,6 +182,36 @@ var RADAR = {
   kurucu:    { ay:{kurulus:599, liste:1299}, sabitYil:3, omurBoyuOran:0.46, kota:KOTA.kurucu }
 };
 
+/* RADAR ABONELİK PLANLARI — radar-fiyat.html sipariş formu bunu okur (29.09, iyzico "aboneliği
+   düzenleyin"). id siparisler.paket'e yazılır (<=40 karakter). Rakam YOK; hepsi RADAR'dan.
+   kdvHaric = sipariş anındaki fiyat, liste = kota dolunca geçilecek fiyat. */
+function radarPlanlari(){
+  var P = [
+    ['radar-tam-ay',     'Tam Paket',               RADAR.tamPaket, 'ay'],
+    ['radar-tam-yil',    'Tam Paket',               RADAR.tamPaket, 'yil'],
+    ['radar-tek-ay',     'Tek Radar',               RADAR.tekRadar, 'ay'],
+    ['radar-tek-yil',    'Tek Radar',               RADAR.tekRadar, 'yil'],
+    ['radar-firma-ay',   'Tek Firma',               RADAR.tekFirma, 'ay'],
+    ['radar-firma-yil',  'Tek Firma',               RADAR.tekFirma, 'yil'],
+    ['radar-kurucu-ay',  'Tam Paket · Kurucu fiyatı', RADAR.kurucu, 'ay']
+  ];
+  return P.map(function(x){
+    var f = x[2][x[3]];
+    return { id:x[0], ad:x[1], donem:x[3], donemAd:(x[3] === 'ay' ? 'Aylık' : 'Yıllık'),
+             ay:(x[3] === 'ay' ? 1 : 12), kdvHaric:f.kurulus, liste:f.liste,
+             kdvDahil:kdvDahil(f.kurulus), tekRadar:(x[2] === RADAR.tekRadar) };
+  });
+}
+function radarPlanBul(id){ return radarPlanlari().filter(function(p){ return p.id === id; })[0] || null; }
+
+/* BANKA — havale/EFT ödeme bilgisi, TEK YER (29.09'a dek satin-al.html içindeydi; radar abonelik
+   formu da aynısını gösterdiği için buraya taşındı). IBAN '[' içerirse sipariş düğmeleri kapalı kalır.
+   Ad ODEME_BANKA: 'BANKA' deneme.html ve kaydir/ sayfalarında SORU dizisinin adı, bu dosya oralarda da yüklenir. */
+var ODEME_BANKA = {
+  ad:   'VakıfBank',
+  iban: 'TR74 0001 5001 5800 7376 2710 72'
+};
+
 /* ---------------------------------------------------------------------------
    DERS / MODÜL LİSTELERİ — ders bazlı satışın karşılığı.
    "2 ders" satmak yetmez; HANGİ iki ders olduğunu satın alma anında sormak

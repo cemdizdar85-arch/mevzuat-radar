@@ -64,7 +64,7 @@ h2{font-size:13px;color:var(--accent2);text-transform:uppercase;letter-spacing:1
     <span id="ustSag"></span>
   </div>
   <div id="ekran"><div class="kutu"><p class="mini">Yükleniyor…</p></div></div>
-  <div class="dip">Radar Paneli · Verilerin Supabase'de, yalnız sana ait (RLS). Uyarılar (ihale · alacak · marka · süre · RG) profiline göre üretilir; robot bildirimleri (e-posta (SMS yol haritasında)) yakında. Tetikte, bir Dizdar Denetim Danışmanlık ve Yazılım A.Ş. yazılımıdır.</div>
+  <div class="dip">Radar Paneli · Verilerin Supabase'de, yalnız sana ait (RLS). Uyarılar (alacak · marka · süre · RG) profiline göre üretilir; robot bildirimleri (e-posta (SMS yol haritasında)) yakında. Tetikte, bir Dizdar Denetim Danışmanlık ve Yazılım A.Ş. yazılımıdır.</div>
 </div>
 
 <!-- 19.08 OLCULDU: supabase-js dis CDN'den (esm.sh) geliyordu - 9 ayri parca, ~1,5 sn.
@@ -114,7 +114,6 @@ const NIYETLER = {
   alacak:  { baslik:'Borçlu VKN\'lerini gir, ilanları biz kollayalım', alan:'f_vkn', ipucu:'Biri konkordato/iflas ilan ederse İİK süresiyle uyarırız.' },
   marka:   { baslik:'Firma unvanını gir, markalarını biz bulalım', alan:'f_marka', ipucu:'Marka adı yazmana gerek yok: robot unvanını TÜRKPATENT kayıtlarında arar, adına tescilli bütün markaları ve yenileme tarihlerini getirir (SMK m.23: koruma 10 yıl, yenileme son 6 ayda).' },
   musavir: { baslik:'İlk mükellefini ekle, her firmaya ayrı radar', alan:'f_ad', ipucu:'Mali müşavirsen tüm mükelleflerini tek panelde izlersin.' },
-  ihale:   { baslik:'İlini ve sektörünü gir, ihaleler sana gelsin', alan:'f_il', ipucu:'İline çıkan ihaleler günlük tek özet mail olarak gelir; son teklif tarihi yaklaşanlar üstte.' },
   firsat:  { baslik:'İlini gir, icradan satış fırsatları sana gelsin', alan:'f_il', ipucu:'İlindeki icra ve açık artırma satışları (makine, stok, taşınmaz) panelde birikir; abonelikte günlük özet maille gelir.' },
   // TAM ABONELIK (30.07 Cem): "sinav harici HER SEYI isteyen olursa tum
   // bilgileri istememiz lazim." Dogru - ama anket gibi degil: her alanin
@@ -139,7 +138,7 @@ function giris(){
     : '';
   ekran.innerHTML=`
     <h1>Radar Paneli</h1>
-    <p class="lead">Firma profilini bir kez gir; ihale, alacak, marka ve süre uyarıları <b style="color:var(--ink)">sadece seni ilgilendireni</b> sana getirsin.</p>
+    <p class="lead">Firma profilini bir kez gir; alacak, marka ve süre uyarıları <b style="color:var(--ink)">sadece seni ilgilendireni</b> sana getirsin.</p>
     ${niyetSatiri}
     <!-- 29.08 IKINCI TUR (Cem: "cok kucuk asagida kalmis, ben bile zor buldum").
          Serit giris kutusunun ALTINDAYDI: uye olmayan kisi once duvari goruyor,
@@ -173,7 +172,7 @@ function giris(){
     </div>
     <!-- 13.09 Cem "öğrenciler için üyelik kapısı yok": öğrenci buraya gelirse firma formuna değil kendi paneline gitsin -->
     <p class="mini" style="margin-top:14px;max-width:440px"><b style="color:var(--ink)">Sınava mı hazırlanıyorsun?</b> <a href="ogrenci.html" style="color:var(--accent)">Öğrenci hesabı aç →</a> (seviye testlerin ve denemelerin kaydedilir)</p>
-    <p class="mini" style="margin-top:18px">Diğer radarlar (ihale · alacak · süre · Resmî Gazete) için sağ alttaki <b style="color:var(--ink)">☰ Araçlar</b>.</p>`;
+    <p class="mini" style="margin-top:18px">Diğer radarlar (alacak · süre · Resmî Gazete) için sağ alttaki <b style="color:var(--ink)">☰ Araçlar</b>.</p>`;
   // 29.08: marka serit giris ekraninda. Betik senkron yuklendigi icin burada
   // hazir olmali; degilse sessiz kalmasin diye load'da bir kez daha denenir.
   (function markaSeridiCiz(){
@@ -422,7 +421,7 @@ function firmaForm(){
   // tam abonelikte "hangi alan hangi radari acar" haritasi acikca gosterilir
   const tamLejant = (ny && ny.tam) ? `
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;margin:0 0 12px">
-      ${[['İl','ihale radarı'],['GTİP kodları','Resmî Gazete radarı'],['Markalar','yenileme nöbeti'],['Borçlu VKN','alacak radarı'],['Telefon','SMS/WhatsApp uyarısı']]
+      ${[['İl','icradan satış fırsatları'],['GTİP kodları','Resmî Gazete radarı'],['Markalar','yenileme nöbeti'],['Borçlu VKN','alacak radarı'],['Telefon','SMS/WhatsApp uyarısı']]
         .map(x=>`<span style="font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:6px 10px"><b style="color:var(--accent2)">${x[0]}</b> → ${x[1]}</span>`).join('')}
     </div>` : '';
   const ipucu = ny ? `<div style="font-size:12.5px;color:var(--muted);margin:0 0 10px">${esc(ny.ipucu)}${ny.tam?'':' <span style="color:var(--dim)">Kalanını sonra panelden tamamlarsın, şimdilik yalnız firma adı yeter.</span>'}</div>${tamLejant}` : '';
@@ -462,7 +461,6 @@ function firmaForm(){
     alacak: ['f_ad','f_vkn','f_kanal','f_tel'],
     gtip:   ['f_ad','f_rol','f_sektor','f_gtip','f_kanal','f_tel'],
     marka:  ['f_ad','f_marka','f_kanal','f_tel'],
-    ihale:  ['f_ad','f_il','f_sektor','f_kanal','f_tel'],
     firsat: ['f_ad','f_il','f_kanal','f_tel']
   };
   const izin = NIYET_ALAN[NIYET];
@@ -492,17 +490,7 @@ async function pano(f){
   const p=$('#pano');
   const gtipChips=(f.gtip_kodlari||[]).map(g=>`<span class="chip">${esc(g)}</span>`).join('')||'<span class="mini">yok</span>';
   const markaChips=(f.markalar||[]).map(m=>`<span class="chip" style="font-family:inherit">${esc(m)}</span>`).join('')||'<span class="mini">yok</span>';
-  // canlı ihale eşleşmesi (il'e göre)
-  if(!IHALE){ try{ IHALE=await (await fetch('veri/ihale-yurtici.json?cb='+Date.now())).json(); }catch(e){ IHALE={ilanlar:[]}; } }
-  const ilU=trUp(f.il);
-  // 31.07: havuz artik hasat robotunda slug ile temizleniyor (yalniz ihale-duyurulari);
-  // uyelik sozu "panelde HEPSINI gorursun" - 4'luk kirpma kaldirildi (emniyet tavani 40).
-  const ihaleMi=x=>("/"+(x.url||"")).split("/").pop().indexOf('ihale-duyurulari')===0 || !!x.tur;
-  const TUR_AD={mal:'Mal alımı',hizmet:'Hizmet alımı',yapim:'Yapım-inşaat'};
-  const eslesen=(IHALE.ilanlar||[]).filter(x=> ihaleMi(x) && ilU && trUp(x.il)===ilU ).slice(0,40);
-  const ihaleHtml = eslesen.length
-    ? eslesen.map(x=>`<div class="radar-kart eslesme"><h4>${esc(x.baslik)}</h4><p>${esc(x.kurum||'')} · ${esc(x.il||'')}${TUR_AD[x.tur]?' · '+TUR_AD[x.tur]:''} · ${esc(x.tarih||'')} · <a href="${esc(x.url)}" target="_blank" rel="noopener">ilan →</a></p></div>`).join('')
-    : `<div class="radar-kart"><p>${ilU?('“'+esc(f.il)+'” için bugün eşleşen ihale yok, robot her gün tarar.'):'İl gir, sana uygun ihaleleri gösterelim.'}</p></div>`;
+  // 29.09 Cem: ihale eşleşmesi panelden kalktı (iyzico incelemesi; İhale Radarı _kapali-araclar/'da).
 
   // ESKI -> YENI SERIDI (17.08). Firma kendi GTIP'ine dokunan degisiklikte
   // "eskiden neydi"yi burada gorur. Yuzde BURADA hesaplanir, modele sorulmaz;
@@ -569,9 +557,6 @@ async function pano(f){
 
     <h2>Bugün seni ilgilendiren mevzuat (RG)</h2>
     ${kartHtml}
-
-    <h2>🇹🇷 Sana uygun güncel ihaleler${eslesen.length?` (${eslesen.length})`:''}</h2>
-    ${ihaleHtml}
 
     <h2>İzlenen radarların</h2>
     <div class="radar-kart ${(f.gtip_kodlari||[]).length?'akt':''}"><span class="durum ${(f.gtip_kodlari||[]).length?'d-akt':'d-bek'}">${(f.gtip_kodlari||[]).length?'● AKTİF':'○ GTİP GİR'}</span><h4>Mevzuat / RG radarı</h4><p>GTİP kodlarına dokunan Resmî Gazete değişikliği çıkınca hap kart + uyarı gelir.</p></div>

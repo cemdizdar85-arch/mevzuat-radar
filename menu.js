@@ -125,9 +125,6 @@ var GRUPLAR=[
   ["radar.html","📰","Bugün Resmî Gazete'de","Günün önemli mevzuat değişiklikleri"],
   ["kartlar.html","💊","Günün Hap Kartları","30 saniyelik özet kartlar"],
   ["destekler.html","🎯","Destek Radarı","Profiline uyan KOSGEB ve destekler"],
-  ["ihale-radari.html","📣","İhale Radarı","Yurt içi + Avrupa ihaleleri"],
-  ["firma-analizi.html","🔎","Rakip Firma Analizi","Firma hangi ihaleleri kaça aldı"],
-  ["idare-analizi.html","🏛️","İdare Analizi","Kurum ne açtı, kaça kapandı, kaç teklif"],
   ["alacak-radari.html","🚨","Alacak Radarı","Müşterin konkordato/iflasta — ilk sen duy"],
   ["marka-radari.html","™️","Marka Radarı","Yenileme + benzer başvuru uyarısı"],
   ["marka-portfoy.html","📋","Marka Portföy Panosu","Tüm markaların, tüm tarihler tek ekranda"],
@@ -441,7 +438,7 @@ function kur(){
     '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
     '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Öğrenci girişi')+'</a><a class="mrxUye" href="'+KOK+'radar-app.html">İşletme girişi</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
-    '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, ihale, fiş…" autocomplete="off">';
+    '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, GTİP…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
     h+='<div class="mrxGrup"><h3>'+g.ad+'</h3><div class="mrxGrid">';
     g.araclar.forEach(function(a){

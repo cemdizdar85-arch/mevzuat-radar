@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
 <title>Radar Abonelik Fiyatları | Tetikte</title>
-<meta name="description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar, İhale Radarı ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
+<meta name="description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
      title/description'ından türetildi; genel kapak kullanılır. -->
 <meta property="og:type" content="website">
@@ -17,13 +17,13 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/radar-fiyat.html">
 <meta property="og:title" content="Radar Abonelik Fiyatları">
-<meta property="og:description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar, İhale Radarı ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
+<meta property="og:description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Radar Abonelik Fiyatları">
-<meta name="twitter:description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar, İhale Radarı ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
+<meta name="twitter:description" content="Alacak ve marka radarı abonelik fiyatları: Tek Firma 299, Tek Radar 599, Tam Paket 999 TL/ay + KDV. Araçlar ve Resmî Gazete Hap Kartı ücretsiz; abonelik yalnız sürekli izleme ve uyarı içindir.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23f5a524'/></svg>">
 <link rel="stylesheet" href="stil.css">
@@ -70,6 +70,32 @@
   .form input,.form select{ flex:1; min-width:190px; background:var(--yuzey); border:1px solid var(--line); border-radius:11px; color:var(--ink); font:inherit; font-size:14px; padding:11px 13px }
   .form button{ background:var(--amber-dolgu); color:#0a0c10; font-weight:800; font-size:14px; padding:11px 22px; border:none; border-radius:11px; cursor:pointer }
   .ok{ display:none; color:var(--green); font-weight:700; font-size:14px; margin-top:8px }
+  /* 29.09 abonelik sipariş formu (satin-al.html ile aynı görünüm; yalnız tema jetonu) */
+  .adim{ font-size:12px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--amber); margin:20px 0 8px; }
+  .donem{ display:flex; gap:8px; margin:0 0 10px; flex-wrap:wrap; }
+  .donem label,.tip label{ display:flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:10px; padding:8px 13px; font-size:14px; cursor:pointer; }
+  .tip{ display:flex; gap:8px; flex-wrap:wrap; }
+  .pk{ display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:0 0 8px; cursor:pointer; }
+  .pk.sec{ border-color:var(--amber); background:color-mix(in srgb,var(--amber) 7%,transparent); }
+  .pk .ad{ font-weight:700; } .pk .er{ font-size:12.5px; color:var(--muted); }
+  .pk .fy{ margin-left:auto; text-align:right; font-size:12px; color:var(--dim); white-space:nowrap; }
+  .pk .fy b{ display:block; font-size:16px; color:var(--ink); }
+  .satir{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .alan{ margin:0 0 12px; } .et{ display:block; font-size:12.5px; color:var(--muted); font-weight:600; margin:0 0 5px; }
+  #abone input[type=text],#abone input[type=email],#abone input[type=tel],#abone textarea,#abone select{ width:100%; background:var(--yuzey); border:1px solid var(--line); border-radius:10px; color:var(--ink); font:inherit; font-size:14px; padding:10px 12px; }
+  #abone textarea{ min-height:70px; resize:vertical; }
+  table.ozet td{ font-size:14px; } table.ozet tr.toplam td{ font-weight:800; font-size:15px; color:var(--amber); border-bottom:none; }
+  .kurallar{ border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin:14px 0; font-size:13.5px; }
+  .kurallar ul{ margin:6px 0 0; padding-left:18px; color:var(--muted); } .kurallar li{ margin:4px 0; }
+  .onay{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; margin:10px 0; cursor:pointer; }
+  .onay input{ margin-top:4px; flex:none; }
+  .btn.gonder{ border:none; width:100%; font-size:15px; cursor:pointer; font-family:inherit; }
+  .btn.gonder:disabled{ opacity:.55; cursor:not-allowed; }
+  .sonuc{ display:none; font-size:14px; font-weight:700; margin-top:10px; }
+  .kv{ display:flex; gap:10px; padding:7px 0; border-bottom:1px solid var(--line2); font-size:14px; flex-wrap:wrap; }
+  .kv b{ min-width:150px; color:var(--muted); font-weight:600; font-size:12.5px; }
+  @media (max-width:700px){ .satir{ grid-template-columns:1fr; }
+    #abone input[type=text],#abone input[type=email],#abone input[type=tel],#abone textarea,#abone select{ font-size:16px; } }
 </style>
 </head>
 <body>
@@ -86,7 +112,8 @@
          UCRETSIZ'e tasindi. Olcum: ihalebul/ihalebulteni/ihalepro ihale bulteni
          ve e-posta uyarisini BEDAVA veriyor (ihaletakip 10 TL/ay). Rakibin
          bedava verdigi seyi 599'a satmak, fiyat listesinin en zayif halkasi
-         olurdu; kiyaslayan oradan bakip gerisini okumazdi. -->
+         olurdu; kiyaslayan oradan bakip gerisini okumazdi.
+         29.09 Cem: Ihale Radari siteden tumden kalkti (iyzico incelemesi) -> bu listeden de cikti. -->
     <div class="p">
       <h3>Ücretsiz</h3>
       <div class="kim">Kendin bak, para verme</div>
@@ -95,7 +122,6 @@
       <div class="kdv">Kart bilgisi istemiyoruz</div>
       <ul>
         <li>Tüm araçlar: alacak taraması, GTİP, ceza asistanı, marka…</li>
-        <li><b>İhale Radarı</b>: yeni ihale ve sonuç takibi</li>
         <li><b>Resmî Gazete Hap Kartı</b>: her sabah günün özeti</li>
         <li><b>Şirket Kuruluşu</b> aracı</li>
         <li>Excel/CSV yükleyip toplu tarama · canlı iflas &amp; konkordato akışı</li>
@@ -124,7 +150,7 @@
         <li class="yok">SMS uyarısı</li>
         <li class="yok">Sınırsız portföy</li>
       </ul>
-      <a class="btn ikincil" href="#abone">Tek Firma'ya abone ol</a>
+      <a class="btn ikincil" href="#abone" data-plan="radar-firma-ay">Tek Firma'ya abone ol</a>
     </div>
 
     <div class="p">
@@ -142,7 +168,7 @@
         <li>Günlük tek özet e-postası</li>
         <li class="yok">Diğer radar</li>
       </ul>
-      <a class="btn ikincil" href="#abone">Tek radara abone ol</a>
+      <a class="btn ikincil" href="#abone" data-plan="radar-tek-ay">Tek radara abone ol</a>
     </div>
 
     <div class="p one">
@@ -161,7 +187,7 @@
         <li>Tek günlük özet: hepsi tek e-postada</li>
         <li>Yeni radarlar çıktığında <b>ücretsiz dahil</b></li>
       </ul>
-      <a class="btn" href="#abone">Tam pakete abone ol</a>
+      <a class="btn" href="#abone" data-plan="radar-tam-ay">Tam pakete abone ol</a>
     </div>
 
   </div>
@@ -201,25 +227,109 @@
     <ul style="margin:0;padding-left:18px;font-size:14px;color:var(--muted)">
       <li><b>SMS uyarısı yok</b> — uyarılar e-posta ile gider. SMS yol haritasında.</li>
       <li><b>Erken uyarı katmanı (Ticaret Sicili taraması) kuruluyor</b> — bugün resmî ilan izleme çalışıyor.</li>
-      <li><b>Kart ödemesi henüz açık değil</b> — abonelikler havale/EFT ile başlıyor (aşağıda).</li>
+      <li><b>Otomatik kart tahsilatı yok</b>: abonelik kendiliğinden yenilenip kartından para çekilmez; her dönem için ödeme bilgisini önceden e-postayla alırsın (aşağıda).</li>
     </ul>
     <p class="kucuk" style="margin:10px 0 0">Bunları satıştan sonra öğrenmeyesin diye buraya yazdık.</p>
   </div>
 
-  <div class="kutu" id="abone">
+  <!-- 29.09 (iyzico "sadece abonelik ödemesi alacaksanız aboneliği düzenleyin"): eski kutu "Kart ödemesi kurulum
+       aşamasında" diyordu ve yalnız e-posta + paket alan bir TALEP formuydu (dönem, KDV dahil tutar, yenileme ve iptal
+       kuralı, sözleşme onayı yoktu). Artık gerçek sipariş: plan + dönem → fatura bilgisi → KDV dökümlü özet → yenileme/
+       iptal kuralı → 3 onay → sipariş no + IBAN. Kayıt satin-al.html ile AYNI yol: siparisler tablosu + e-posta yedeği.
+       Yenileme/iptal cümleleri on-bilgilendirme.html ve teslimat-iade.html ile birebir; biri değişirse üçü değişir. -->
+  <div class="kutu vurgu" id="abone">
     <h2>Abone ol</h2>
-    <p style="margin:0;font-size:14px">Kart ödemesi kurulum aşamasında. Şimdilik abonelikler <b>havale/EFT</b> ile başlıyor:
-    formu bırak, aynı gün fatura bilgileri ve ödeme talimatını e-postana gönderelim; ödeme görünür görünmez izleme başlar.</p>
-    <form class="form" onsubmit="return radarAbone(this)">
-      <input type="text" name="_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0">
-      <input type="email" name="email" required placeholder="ornek@firma.com">
-      <!-- Secenekler fiyat-motoru.js'teki RADAR'dan doldurulur; elle rakam yazilmaz. -->
-      <select name="paket" id="paketSec"></select>
-      <button type="submit">Ödeme bilgilerini gönder →</button>
-    </form>
-    <div class="ok" id="aboneOk">✓ Talebin alındı. Fatura ve ödeme bilgilerini aynı gün e-postana göndereceğiz.</div>
-    <p class="kucuk" style="margin:10px 0 0">Form gönderince iletişim için e-postanı kullanmamızı kabul edersin ·
-    <a href="kvkk.html">KVKK aydınlatma</a></p>
+    <p style="margin:0 0 4px;font-size:14px">Planı ve dönemi seç, fatura bilgilerini gir, siparişi tamamla. Sipariş numaran ve ödeme bilgisi
+    ekranda ve e-postanda olur; ödeme hesabımıza geçtiği gün nöbet başlar, faturan e-postana gelir.</p>
+
+    <div class="adim">1 · Plan ve dönem</div>
+    <div class="donem" role="radiogroup" aria-label="Dönem">
+      <label><input type="radio" name="donem" value="ay" checked> Aylık</label>
+      <label><input type="radio" name="donem" value="yil"> Yıllık <span class="kucuk" id="yilNot"></span></label>
+    </div>
+    <!-- Satırlar fiyat-motoru.js radarPlanlari()'ndan çizilir; sayfada elle rakam yok. -->
+    <div id="planlar"></div>
+    <div class="alan" id="radarSecAlan" style="display:none">
+      <label class="et" for="radarSec">Hangi radar? *</label>
+      <select id="radarSec"><option value="">Seç…</option><option>Alacak Radarı</option><option>Marka Radarı</option></select>
+    </div>
+
+    <div class="adim">2 · Fatura bilgileri</div>
+    <div class="satir">
+      <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
+      <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— uyarılar bu adrese gelir</span></label><input type="email" id="mail" autocomplete="email"></div>
+    </div>
+    <div class="satir">
+      <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
+      <div class="alan"><label class="et">Fatura tipi *</label>
+        <div class="tip"><label><input type="radio" name="ftip" value="kurumsal" checked> Kurumsal</label>
+        <label><input type="radio" name="ftip" value="bireysel"> Bireysel</label></div></div>
+    </div>
+    <div id="kurumsalAlan">
+      <div class="satir">
+        <div class="alan"><label class="et" for="unvan">Ticaret unvanı *</label><input type="text" id="unvan" autocomplete="organization"></div>
+        <div class="alan"><label class="et" for="vkn">Vergi Kimlik No *</label><input type="text" id="vkn" inputmode="numeric" maxlength="11"></div>
+      </div>
+      <div class="alan"><label class="et" for="vd">Vergi dairesi *</label><input type="text" id="vd"></div>
+    </div>
+    <div id="bireyselAlan" style="display:none">
+      <div class="alan"><label class="et" for="tckn">T.C. Kimlik No</label><input type="text" id="tckn" inputmode="numeric" maxlength="11" placeholder="11 hane">
+        <p class="kucuk" style="margin:5px 0 0">Yalnız e-arşiv faturanı düzenlemek için kullanılır. Boş bırakırsan fatura yine adına düzenlenir.</p></div>
+    </div>
+    <div class="alan"><label class="et" for="adres">Fatura adresi * <span style="color:var(--dim)">— il/ilçe dahil</span></label><textarea id="adres" autocomplete="street-address"></textarea></div>
+
+    <div class="adim">3 · Abonelik özeti ve onay</div>
+    <div class="tabsar"><table class="ozet">
+      <tr><td>Plan</td><td class="sag" id="ozPlan">—</td></tr>
+      <tr><td>Dönem</td><td class="sag" id="ozDonem">—</td></tr>
+      <tr><td>Başlangıç</td><td class="sag">Ödemenin hesabımıza geçtiği gün</td></tr>
+      <tr><td>Dönem bedeli (KDV hariç)</td><td class="sag" id="ozNet">—</td></tr>
+      <tr><td>KDV (%<span id="ozKdvOran">20</span>)</td><td class="sag" id="ozKdv">—</td></tr>
+      <tr class="toplam"><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
+    </table></div>
+
+    <div class="kurallar">
+      <b>Yenileme ve iptal</b>
+      <ul>
+        <li>Dönem, ödemenin hesabımızda görüldüğü gün başlar: aylık planda <b>1 ay</b>, yıllık planda <b>12 ay</b>.</li>
+        <li>Abonelik <b>kendiliğinden tahsilatla yenilenmez</b>. Dönem bitmeden önce (aylıkta en az 7 gün, yıllıkta en az 30 gün önce) yenileme bildirimi ve ödeme bilgisi e-postana gelir; yeni dönemin bedeli ödenirse abonelik uzar, ödenmezse dönem sonunda kendiliğinden sona erer.</li>
+        <li>Dilediğin an <b>destek@tetikte.com</b> adresine yazarak bırakırsın: aylık planda sonraki dönem için tahsilat yapılmaz; yıllık planda kalan süreye karşılık gelen kısım 14 gün içinde iade edilir.</li>
+        <li>Yenileme, yenileme tarihindeki güncel fiyattan yapılır; kurucu fiyatının süresi ve oranı yukarıdaki kutuda yazılıdır.</li>
+      </ul>
+    </div>
+
+    <label class="onay"><input type="checkbox" id="onSoz">
+      <span><a href="on-bilgilendirme.html" target="_blank" rel="noopener">Ön Bilgilendirme Formu</a>'nu okudum;
+      <a href="mesafeli-satis.html" target="_blank" rel="noopener">Mesafeli Satış Sözleşmesi</a>'ni,
+      <a href="teslimat-iade.html" target="_blank" rel="noopener">Teslimat ve İade</a> koşullarını ve yukarıdaki yenileme/iptal kurallarını onaylıyorum.</span></label>
+    <label class="onay"><input type="checkbox" id="onIfa">
+      <span>İzleme hizmetinin ödeme onayıyla <b>hemen başlatılmasını</b> istiyorum. Elektronik ortamda anında ifa edilen hizmette
+      yasal cayma hakkı olmadığını biliyorum.</span></label>
+    <label class="onay"><input type="checkbox" id="onKvkk">
+      <span>Sipariş, fatura ve abonelik tanımlama için verilerimin nasıl işlendiğini anlatan
+      <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>'ni okudum.</span></label>
+
+    <input type="text" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0">
+    <button class="btn gonder" id="gonder" type="button">Aboneliği başlat</button>
+    <div class="sonuc" id="sonuc"></div>
+    <p class="kucuk" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra göreceğin hesaba
+    banka havalesi/EFT ile yapılır.</p>
+  </div>
+
+  <div id="tamam" style="display:none">
+    <div class="kutu" style="border-color:color-mix(in srgb,var(--green) 45%,transparent)">
+      <h2 style="color:var(--green)">Aboneliğin alındı</h2>
+      <p style="margin:0 0 12px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün nöbet başlar ve
+      faturan e-posta adresine gelir.</p>
+      <div class="kv"><b>Sipariş no</b><span id="tmNo" style="font-weight:800;color:var(--amber)"></span></div>
+      <div class="kv"><b>Abonelik</b><span id="tmPaket"></span></div>
+      <div class="kv"><b>Tutar (KDV dahil)</b><span id="tmTutar" style="font-weight:800"></span></div>
+      <div class="kv"><b>Alıcı unvan</b><span>Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</span></div>
+      <div class="kv"><b>Banka</b><span id="tmBanka"></span></div>
+      <div class="kv" style="border:none;display:block"><b style="display:block;margin-bottom:4px">IBAN</b><span id="tmIban" style="font:700 15px ui-monospace,Consolas,monospace"></span></div>
+      <p style="margin:12px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına sipariş numaranı yaz.</b>
+      Eşleştirmeyi bununla yapıyoruz; yazmazsan başlangıç gecikir.</p>
+    </div>
   </div>
 
   <div class="kutu">
@@ -230,7 +340,9 @@
     <p style="margin:8px 0;font-size:14px"><b>Kaç borçlu/marka takip edebilirim?</b><br>
     Makul kullanım sınırları içinde sınır koymuyoruz. Yüzlerce VKN'li kurumsal portföyler için bize yaz, birlikte planlayalım.</p>
     <p style="margin:8px 0;font-size:14px"><b>İstediğim zaman bırakabilir miyim?</b><br>
-    Evet. Aylık abonelikte sonraki dönem tahsilat yapılmaz; yıllık abonelikte kalan süreye karşılık gelen kısım iade edilir.</p>
+    Evet, destek@tetikte.com adresine yazman yeter. Aylık abonelikte sonraki dönem tahsilat yapılmaz; yıllık abonelikte kalan süreye karşılık gelen kısım 14 gün içinde iade edilir.</p>
+    <p style="margin:8px 0;font-size:14px"><b>Aylık aboneliğim kendiliğinden yenilenip kartımdan çekilir mi?</b><br>
+    Hayır. Dönem bitmeden en az 7 gün önce yenileme bildirimi ve ödeme bilgisi e-postana gelir; ödersen abonelik uzar, ödemezsen dönem sonunda kendiliğinden biter.</p>
     <p style="margin:8px 0;font-size:14px"><b>Yıllık aboneliğim kaça yenilenir?</b><br>
     Yenileme tarihindeki güncel liste fiyatından yenilenir. Yenilemeden <b>en az 30 gün önce</b> e-postayla bildiririz;
     yenilemek zorunda değilsin, bildirimin ardından hiçbir şey yapmazsan tahsilat yapılmaz.</p>
@@ -239,9 +351,20 @@
     her kartın altında KDV dahil karşılığı gösterilir. KDV mükellefiysen indirim konusu yaparsın.</p>
   </div>
 
+  <div class="kutu">
+    <h2>Satıcı</h2>
+    <div class="kv"><b>Ticaret unvanı</b><span>Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi</span></div>
+    <div class="kv"><b>MERSİS No</b><span>0301130343200001</span></div>
+    <div class="kv"><b>Vergi dairesi / No</b><span>Kordon Vergi Dairesi / 3011303432</span></div>
+    <div class="kv"><b>Adres</b><span>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir</span></div>
+    <div class="kv" style="border:none"><b>E-posta / Telefon</b><span>destek@tetikte.com · 0537 843 80 58</span></div>
+  </div>
+
   <p class="kucuk">Fiyatlar Türk Lirasıdır. Abonelik fiyatları KDV hariç gösterilmiş olup KDV dahil karşılıkları
-  her kartın altında yazılıdır. Tetikte bilgilendirme ve izleme aracıdır; hukuki danışmanlık hizmeti değildir.
-  Satıcı bilgileri ödeme açılışında bu sayfada yayımlanır.</p>
+  her kartın altında ve sipariş özetinde yazılıdır. Tetikte bilgilendirme ve izleme aracıdır; hukuki danışmanlık hizmeti değildir.</p>
+  <p class="kucuk"><a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> ·
+  <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> ·
+  <a href="kvkk.html">KVKK</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></p>
 </div>
 
 <!-- Fiyatlar fiyat-motoru.js'teki RADAR'dan okunur. Sayfada elle yazili
@@ -273,39 +396,155 @@
   document.getElementById('fyKurucu').textContent  = tl(RADAR.kurucu.ay.kurulus);
   document.getElementById('kurucuOran').textContent = Math.round((1 - RADAR.kurucu.omurBoyuOran) * 100);
 
-  /* Abone formunun secenekleri de ayni kaynaktan. */
-  var sec = document.getElementById('paketSec');
-  if(sec){
-    [['Tam Paket', RADAR.tamPaket, 'ay'], ['Tam Paket YILLIK', RADAR.tamPaket, 'yil'],
-     ['Tek Radar', RADAR.tekRadar, 'ay'], ['Tek Radar YILLIK', RADAR.tekRadar, 'yil'],
-     ['Tek Firma', RADAR.tekFirma, 'ay'], ['Tek Firma YILLIK', RADAR.tekFirma, 'yil']
-    ].forEach(function(x){
-      var f = x[1][x[2]].kurulus, birim = x[2] === 'ay' ? ' TL/ay' : ' TL/yıl';
-      var o = document.createElement('option');
-      o.value = x[0] + ' (' + tl(f) + birim + ' + KDV)';
-      o.textContent = x[0] + ' — ' + tl(f) + birim + ' + KDV';
-      sec.appendChild(o);
-    });
-    var k = document.createElement('option');
-    k.value = 'KURUCU: Tam Paket ' + tl(RADAR.kurucu.ay.kurulus) + ' TL/ay + KDV';
-    k.textContent = 'Kurucu fiyatı — Tam Paket ' + tl(RADAR.kurucu.ay.kurulus) + ' TL/ay + KDV';
-    sec.appendChild(k);
-  }
 })();
 
-function radarAbone(f){
-  var e=(f.email.value||"").trim(), p=f.paket.value;
-  if(!e) return false;
-  var hp=f.querySelector("input[name=_hp]"); if(hp&&hp.value) return false;
-  try{
-    fetch("https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task",{method:"POST",headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Content-Type":"application/json",Accept:"application/json"},
-      body:JSON.stringify({email:e,message:"Radar abonelik talebi — paket: "+p,
-      subject:"RADAR ABONELIK TALEBI ("+p+")",from_name:"Tetikte Radar Fiyat"})});
-  }catch(err){}
-  f.style.display="none";
-  var ok=document.getElementById("aboneOk"); if(ok) ok.style.display="block";
-  return false;
+/* ================= ABONELİK SİPARİŞİ (29.09) =================
+   Planlar fiyat-motoru.js radarPlanlari()'ndan; banka ODEME_BANKA'dan. Kayıt satin-al.html ile aynı:
+   siparisler tablosu (RLS biçim kilidi: durum=odeme_bekliyor, odeme=havale, sipariş no deseni) + e-posta yedeği.
+   tutar sütunu tamsayı TL: KDV dahil kuruşlu tutar yuvarlanarak yazılır, tam tutar paket_ad'da ve e-postada durur. */
+var EPOSTA_ENDPOINT = 'https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task';
+var SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
+var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+var KURULUM_TAMAM = ODEME_BANKA.iban.indexOf('[') === -1;
+var PLANLAR = radarPlanlari(), secili = null;
+function $i(id){ return document.getElementById(id); }
+function para(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' TL'; }
+function donemSecili(){ return document.querySelector('input[name=donem]:checked').value; }
+
+(function(){
+  var y = RADAR.tamPaket, bedava = Math.round((y.ay.kurulus * 12 - y.yil.kurulus) / y.ay.kurulus);
+  if(bedava > 0) $i('yilNot').textContent = '(' + bedava + ' ay bedava)';
+  $i('ozKdvOran').textContent = Math.round(KDV_ORAN * 100);
+})();
+
+function planCiz(){
+  var d = donemSecili(), h = '';
+  PLANLAR.filter(function(p){ return p.donem === d; }).forEach(function(p){
+    var birim = p.donem === 'ay' ? ' TL / ay' : ' TL / yıl';
+    var aciklama = p.id === 'radar-kurucu-ay'
+      ? 'Tüm radarlar · ilk ' + tl(RADAR.kurucu.kota) + ' aboneye · ' + RADAR.kurucu.sabitYil + ' yıl sabit'
+      : (p.tekRadar ? 'Alacak ya da marka, biri' : (p.ad === 'Tam Paket' ? 'Tüm radarlar tek abonelikte' : '3 VKN + 3 marka'));
+    h += '<label class="pk' + (secili && secili.id === p.id ? ' sec' : '') + '" data-id="' + p.id + '">'
+       + '<input type="radio" name="plan" value="' + p.id + '"' + (secili && secili.id === p.id ? ' checked' : '') + '>'
+       + '<span><span class="ad">' + p.ad + '</span><br><span class="er">' + aciklama + '</span></span>'
+       + '<span class="fy"><b>' + tl(p.kdvHaric) + birim + ' + KDV</b>KDV dahil ' + para(p.kdvDahil) + '</span></label>';
+  });
+  $i('planlar').innerHTML = h;
 }
+function planSec(id){
+  secili = radarPlanBul(id);
+  if(secili){
+    var r = document.querySelector('input[name=donem][value="' + secili.donem + '"]');
+    if(r) r.checked = true;
+  }
+  planCiz();
+  $i('radarSecAlan').style.display = (secili && secili.tekRadar) ? 'block' : 'none';
+  ozetCiz();
+}
+function ozetCiz(){
+  var p = secili;
+  $i('ozPlan').textContent  = p ? p.ad + (p.tekRadar && $i('radarSec').value ? ' · ' + $i('radarSec').value : '') : 'Yukarıdan bir plan seç';
+  $i('ozDonem').textContent = p ? (p.donem === 'ay' ? 'Aylık (1 ay)' : 'Yıllık (12 ay)') : '—';
+  $i('ozNet').textContent   = p ? para(p.kdvHaric) : '—';
+  $i('ozKdv').textContent   = p ? para(p.kdvDahil - p.kdvHaric) : '—';
+  $i('ozTop').textContent   = p ? para(p.kdvDahil) : '—';
+}
+Array.prototype.forEach.call(document.querySelectorAll('input[name=donem]'), function(r){
+  r.addEventListener('change', function(){
+    /* dönem değişince aynı planın öbür dönemine geç (kurucu yalnız aylık) */
+    if(secili){ var es = radarPlanBul(secili.id.replace(/-(ay|yil)$/, '-' + this.value)); secili = es; }
+    planSec(secili ? secili.id : null);
+  });
+});
+$i('planlar').addEventListener('change', function(e){ if(e.target.name === 'plan') planSec(e.target.value); });
+$i('radarSec').addEventListener('change', ozetCiz);
+/* Kart düğmeleri (data-plan) formda o planı seçer */
+Array.prototype.forEach.call(document.querySelectorAll('a[data-plan]'), function(a){
+  a.addEventListener('click', function(){ planSec(a.getAttribute('data-plan')); });
+});
+Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), function(r){
+  r.addEventListener('change', function(){
+    var k = this.value === 'kurumsal';
+    $i('kurumsalAlan').style.display = k ? 'block' : 'none';
+    $i('bireyselAlan').style.display = k ? 'none' : 'block';
+  });
+});
+planSec(new URLSearchParams(location.search).get('plan'));
+
+function siparisNo(){
+  var d = new Date(), p = function(n){ return (n<10?'0':'') + n; };
+  var harf = 'ACDEFHJKLMNPRTUVXYZ2345679', r = '';
+  for(var i=0;i<4;i++){ r += harf.charAt(Math.floor(Math.random()*harf.length)); }
+  return 'TT-' + d.getFullYear() + p(d.getMonth()+1) + p(d.getDate()) + '-' + r;
+}
+var btn = $i('gonder'), sonuc = $i('sonuc');
+function goster(m, ok){ sonuc.style.display = 'block'; sonuc.innerHTML = m; sonuc.style.color = ok ? 'var(--green)' : 'var(--red)'; }
+function deger(id){ return ($i(id).value || '').trim(); }
+
+btn.addEventListener('click', function(){
+  if(!KURULUM_TAMAM){ goster('Sipariş alımı şu an kapalı.', false); return; }
+  if($i('hp').value) return;
+  if(!secili){ goster('Önce bir plan seç.', false); $i('planlar').scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var radar = secili.tekRadar ? $i('radarSec').value : '';
+  if(secili.tekRadar && !radar){ goster('Tek Radar için hangi radarı istediğini seç.', false); return; }
+  var ad = deger('ad'), mail = deger('mail'), tel = deger('tel'), adres = deger('adres');
+  var ftip = document.querySelector('input[name=ftip]:checked').value;
+  if(ad.length < 3){ goster('Ad soyad yaz.', false); return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.', false); return; }
+  if(tel.replace(/\D/g,'').length < 10){ goster('Geçerli bir telefon gir.', false); return; }
+  var fatura = { tip:ftip };
+  if(ftip === 'kurumsal'){
+    fatura.unvan = deger('unvan'); fatura.vkn = deger('vkn'); fatura.vd = deger('vd');
+    if(!fatura.unvan || !/^\d{10,11}$/.test(fatura.vkn) || !fatura.vd){
+      goster('Kurumsal fatura için unvan, VKN (10 hane) ve vergi dairesi gerekli.', false); return; }
+  } else {
+    fatura.tckn = deger('tckn');
+    if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ goster('T.C. kimlik no 11 hane olmalı.', false); return; }
+  }
+  if(adres.length < 10){ goster('Fatura adresini yaz.', false); return; }
+  if(!$i('onSoz').checked){ goster('Sözleşmeyi ve yenileme/iptal kurallarını onaylaman gerekiyor.', false); return; }
+  if(!$i('onIfa').checked){ goster('Hizmetin hemen başlatılması onayını işaretle.', false); return; }
+  if(!$i('onKvkk').checked){ goster('Aydınlatma metnini okuduğunu işaretle.', false); return; }
+
+  var no = siparisNo();
+  var paketAd = 'Radar aboneliği · ' + secili.ad + (radar ? ' (' + radar + ')' : '') + ' · ' + secili.donemAd
+              + ' · KDV dahil ' + para(secili.kdvDahil);
+  var kayit = { siparis_no:no, paket:secili.id, paket_ad:paketAd.slice(0,120),
+                tutar:Math.round(secili.kdvDahil), liste_fiyat:Math.round(kdvDahil(secili.liste)),
+                ad_soyad:ad, email:mail, telefon:tel, adres:adres, fatura:fatura,
+                odeme:'havale', durum:'odeme_bekliyor' };
+
+  btn.disabled = true; goster('Aboneliğin kaydediliyor…', true);
+  function bitir(){
+    $i('tmNo').textContent = no; $i('tmPaket').textContent = paketAd;
+    $i('tmTutar').textContent = para(secili.kdvDahil);
+    $i('tmBanka').textContent = ODEME_BANKA.ad; $i('tmIban').textContent = ODEME_BANKA.iban;
+    $i('tamam').style.display = 'block'; $i('tamam').scrollIntoView({behavior:'smooth', block:'start'});
+    sonuc.style.display = 'none'; btn.disabled = false;
+  }
+  function basarisiz(){ btn.disabled = false; goster('Sipariş kaydedilemedi. Birazdan tekrar dene ya da <a href="iletisim.html">bize yaz</a>.', false); }
+  /* 19.08 DERSİ: supabase-js sorguları TEMBEL; .then'siz insert hiç gönderilmez. */
+  var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{'apikey':SB_ANON,'Authorization':'Bearer ' + SB_ANON,'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify({ subject:'YENİ ABONELİK ' + no + ' — ' + para(secili.kdvDahil),
+      from_name:'Tetikte Abonelik', email:mail, 'Sipariş no':no, 'Abonelik':paketAd,
+      'KDV hariç':para(secili.kdvHaric), 'KDV dahil':para(secili.kdvDahil),
+      'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres, 'Ödeme':'Havale/EFT',
+      'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade + yenileme/iptal kuralı · anında ifa onayı · aydınlatma okundu · ' + new Date().toISOString() })});
+  if(!window.sb){ posta.then(function(r){ if(r.ok) bitir(); else basarisiz(); }, basarisiz); return; }
+  window.sb.from('siparisler').insert(kayit).then(function(r){
+    if(r && r.error){ posta.then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
+    else { bitir(); }
+  }, function(){ posta.then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); });
+});
+if(!KURULUM_TAMAM){ btn.disabled = true; goster('Sipariş alımı şu an kapalı.', false); }
+</script>
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  var c = (window.supabase||{}).createClient;
+  if(!c){ return; }   /* kütüphane inmezse sipariş e-posta yoluyla yine alınır */
+  window.sb = c(SB_URL, SB_ANON);
+})();
 </script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">

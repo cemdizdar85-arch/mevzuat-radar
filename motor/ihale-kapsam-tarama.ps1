@@ -18,7 +18,8 @@ $ambarYol = Join-Path $kok "veri\mevzuat"
 
 # --- A) SAYFADAKI ATIFLAR ----------------------------------------------------
 $metin = ""
-foreach($p in @("ihale-radari.html")){ $metin += (Get-Content (Join-Path $kok $p) -Raw -Encoding UTF8) }
+# 29.09: sayfa siteden kalktı (iyzico incelemesi) -> _kapali-araclar/ altında duruyor.
+foreach($p in @("_kapali-araclar\ihale-radari.html")){ $metin += (Get-Content (Join-Path $kok $p) -Raw -Encoding UTF8) }
 foreach($p in @("ihale-4734-katilim.json","ihale-4734-ek.json","ihale-yurtdisi-rehber.json")){
   $y = Join-Path $kok "veri\$p"; if(Test-Path $y){ $metin += (Get-Content $y -Raw -Encoding UTF8) }
 }

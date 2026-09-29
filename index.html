@@ -32,14 +32,14 @@
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/">
 <meta property="og:title" content="Tetikte olan kaçırmaz.">
-<meta property="og:description" content="Mevzuat değişikliği, ihale ilanı, marka itirazı, sınav sorusu — hepsini senin yerine izleyen sistem.">
+<meta property="og:description" content="Mevzuat değişikliği, konkordato ilanı, marka itirazı, sınav sorusu — hepsini senin yerine izleyen sistem.">
 <meta property="og:image" content="https://tetikte.com/og-kapak.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Tetikte — Tetikte olan kaçırmaz.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tetikte olan kaçırmaz.">
-<meta name="twitter:description" content="Mevzuat değişikliği, ihale ilanı, marka itirazı, sınav sorusu — hepsini senin yerine izleyen sistem.">
+<meta name="twitter:description" content="Mevzuat değişikliği, konkordato ilanı, marka itirazı, sınav sorusu — hepsini senin yerine izleyen sistem.">
 <meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
 <link rel="stylesheet" href="stil.css">
 <style>
@@ -473,9 +473,6 @@ window.veriAl = (function(){
     <div class="navgroup nl">
       <button class="navtrigger" type="button">Radarlar <span class="car">▾</span></button>
       <div class="dropdown">
-        <a href="ihale-radari.html">İhale Radarı<span>yurt içi + AB ihaleleri</span></a>
-        <a href="firma-analizi.html">Rakip Firma Analizi<span>firma hangi ihaleleri kaça aldı</span></a>
-        <a href="idare-analizi.html">İdare Analizi<span>kurum ne açtı, kaça kapandı, kaç teklif</span></a>
         <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
         <a href="marka-radari.html">Marka Radarı<span>markanla ilgili her şey tek yerde</span></a>
         <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
@@ -1277,7 +1274,7 @@ window.veriAl = (function(){
       /* iş bölümü girişi: açık zeminde, sitenin kendi jetonlarıyla */
       .is-nobet{margin-top:10px;padding-top:34px;border-top:1px solid var(--line);text-align:left}
       .is-nobet .bz-nobet-ust{margin-top:26px}
-      .is-nobet .bz-nobet-sat{grid-template-columns:repeat(3,1fr)}
+      .is-nobet .bz-nobet-sat{grid-template-columns:repeat(2,1fr)} /* 29.09: ihale kutusu kalktı, 3 → 2 */
       @media(max-width:700px){ .is-nobet .bz-nobet-sat{grid-template-columns:1fr} }
     </style>
 
@@ -1292,7 +1289,7 @@ window.veriAl = (function(){
         <h2 style="margin:0;font-family:inherit;font-size:clamp(22px,2.4vw,30px);font-weight:800;color:var(--ink);letter-spacing:-.02em">Üç adım, her sabah.</h2>
       </div>
       <div class="nasil-adimlar">
-        <div class="na"><span class="na-no">1</span><b>Okur</b><p>Resmî Gazete, ihale ilanları ve marka bültenleri her sabah robotla okunur; saat damgası kutuda durur.</p></div>
+        <div class="na"><span class="na-no">1</span><b>Okur</b><p>Resmî Gazete, iflas/konkordato ilanları ve marka bültenleri her sabah robotla okunur; saat damgası kutuda durur.</p></div>
         <div class="na"><span class="na-no">2</span><b>Süzer</b><p>Yalnız seni bağlayanlar kalır: sektörün, ilin. Gerisi elenir, gürültü gelmez.</p></div>
         <div class="na"><span class="na-no">3</span><b>Kaynağıyla bildirir</b><p>Her uyarı madde numarasıyla gelir. Söze değil kaynağa bakarsın.</p></div>
       </div>
@@ -1302,7 +1299,6 @@ window.veriAl = (function(){
       </div>
       <div class="bz-nobet-sat">
         <a class="bz-ns" href="kartlar.html"><b id="ndRg">1 değişiklik</b><span>Resmî Gazete okundu, seni bağlayan kısım ayrıldı</span></a>
-        <a class="bz-ns" href="ihale-radari.html"><b id="ndIhale">250 ilan</b><span>İhale ilanı süzüldü, sektörüne uymayan elendi</span></a>
         <a class="bz-ns" href="gtip.html"><b>15.717</b><span>gümrük tarife kodu, resmî cetvelden</span></a>
       </div>
       <div class="bz-nobet-dip nd-dip" id="ndDip">Sayılar robot koşusundan gelir, her sabah kendiliğinden tazelenir.</div>
@@ -1391,8 +1387,6 @@ window.veriAl = (function(){
           var v = d.veri || {};
           if(typeof v.rg_karti === 'number')
             document.getElementById('ndRg').textContent = v.rg_karti + ' değişiklik';
-          if(typeof v.ihale_ilani === 'number')
-            document.getElementById('ndIhale').textContent = v.ihale_ilani + ' ilan';
 
           /* tarih "31.08.2026 07:03" biçiminde geliyor */
           var p = String(d.tarih || '').split(' ');
@@ -1530,15 +1524,8 @@ window.veriAl = (function(){
          Pazar İstihbaratı (motoru yok, "YAKINDA" tanıtımı). -->
     <div class="mini-baslik" style="margin-top:34px">Öne çıkan araçlar</div>
     <div class="mini-pencereler">
-      <a class="mp" href="ihale-radari.html">
-        <span class="mp-bar"><b>İhale Radarı</b></span>
-        <span class="mp-ic">
-          <span class="mp-tag">YENİ İŞ FIRSATI</span>
-          <span class="mp-b">Sektörüne uyan ihaleyi kaçırma</span>
-          <span class="mp-m">Yurt içi resmî ilanlar + Avrupa (TED) ihaleleri iline ve sektörüne göre süzülür, uyanları tek listede görürsün (günlük e-posta özeti yol haritasında)</span>
-          <span class="mp-git">Sektörünü seç →</span>
-        </span>
-      </a>
+      <!-- 29.09 Cem: İhale Radarı + Rakip Firma Analizi + İdare Analizi siteden kalktı
+           (iyzico incelemesi "ihale radarları kısmını kaldırın"). Sayfalar _kapali-araclar/'da. -->
       <a class="mp" href="alacak-radari.html">
         <span class="mp-bar"><b>Alacak Radarı</b></span>
         <span class="mp-ic">
@@ -1730,7 +1717,7 @@ window.veriAl = (function(){
       <p>Yukarıdaki öne çıkan altı aracın dışında kalanlar. Arama <b style="color:var(--ink)">tüm katalogda</b> çalışır: yaz, saniyede bul.</p>
       <button type="button" class="katalog-ac" id="katalogAc" data-katalog-ac>Listeyi aç <span id="katalogSay"></span></button>
     </div>
-    <input id="aracAra" type="search" placeholder="Ara: ceza, KDV, marka, ihale, fiş, GTİP…" autocomplete="off">
+    <input id="aracAra" type="search" placeholder="Ara: ceza, KDV, marka, GTİP…" autocomplete="off">
     <!-- 30.08: yukaridaki Konular listesinden bir konuya tiklaninca burada
          hangi suzgecin acik oldugu ve KAC arac kaldigi yazar. Sayi DOM'dan
          sayilir, iddia degil: konu listesinde 2 baglanti olup katalogda 1
@@ -1760,9 +1747,6 @@ window.veriAl = (function(){
         <a class="arac" href="radar.html"><div><b>Bugün Resmî Gazete'de</b><span>Bugün çıkan mevzuattan işletmeleri ilgilendirenler, sadeleştirilmiş.</span></div></a>
         <a class="arac" href="kartlar.html"><div><b>Günün Hap Kartları</b><span>Her değişiklik 30 saniyelik kart: ne oldu, ne yapmalısın, kaç para.</span></div></a>
         <a class="arac" href="destekler.html"><div><b>Destek Radarı</b><span>KOSGEB ve devlet desteklerinden profiline uyanları gör.</span></div></a>
-        <a class="arac vitrinde" href="ihale-radari.html"><div><b>İhale Radarı</b><span>Sektörüne uyan yurt içi ve Avrupa ihalelerini kaçırma.</span></div></a>
-        <a class="arac" href="firma-analizi.html"><div><b>Rakip Firma Analizi</b><span>Bir firma kamu ihalelerinde kaç iş aldı, hangi bedelle, ne kırımla, rakibini tanı.</span></div></a>
-        <a class="arac" href="idare-analizi.html"><div><b>İdare Analizi</b><span>Bir kurum geçmişte ne açtı, kaça kapandı, hangi firmalarla çalıştı, ortalama kaç teklif alıyor.</span></div></a>
         <a class="arac" href="radar-app.html?niyet=firsat"><div><b>İcradan Fırsat</b><span>İcra ve açık artırma satış ilanları iline göre süzülür, günlük listelenir (otomatik uyarı yol haritasında).</span></div></a>
         <a class="arac vitrinde" href="alacak-radari.html"><div><b>Alacak Radarı</b><span>Müşterin konkordato veya iflas ilanına düşmüş mü, günü gününe gör; 15 günlük süreyi kaçırma.</span></div></a>
         <a class="arac vitrinde" href="marka-radari.html"><div><b>Marka Radarı <span style="font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--accent2)">· BAŞLANGIÇ</span></b><span>Marka ailesinin evi: unvanından sicil taraması, yenileme hesabı ve aşağıdaki beş aracın hepsi buradan.</span></div></a>
@@ -1944,7 +1928,7 @@ window.veriAl = (function(){
         <h3>Bakış: herkese açık</h3>
         <div style="font-size:13px;color:var(--green);font-weight:700;margin:4px 0 8px">0 TL · hep öyle kalır</div>
         <ul>
-          <li>Tüm hesaplama araçları (GTİP, KDV, ihale, ceza, marka…)</li>
+          <li>Tüm hesaplama araçları (GTİP, KDV, ceza, marka…)</li>
           <li>Günün hap kartları + Bugün Resmî Gazete'de</li>
           <li>Kayıt gerekmeden başla; Nereden Alsam ve Toplu GTİP'te 5 sorgudan sonra ücretsiz üyelik istenir</li>
         </ul>

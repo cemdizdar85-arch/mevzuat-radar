@@ -30,7 +30,6 @@ $SAYFALAR = [ordered]@{
   "/kurulus-evrak.html"  = "Evrak Çantası"
   "/bilgi.html"          = "Bilgi Havuzu"
   "/destekler.html"      = "Destek"
-  "/ihale-radari.html"   = "İhale"
   "/alacak-radari.html"  = "Alacak"
   "/marka-radari.html"   = "Marka"
   "/marka-itiraz.html"   = "İtiraz"
