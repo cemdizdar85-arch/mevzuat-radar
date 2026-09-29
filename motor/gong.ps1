@@ -38,9 +38,7 @@ if($menu -notmatch $deseni){
 
 # ---- 20.08 ONIZLEME SINIRSIZLIGI (Cem: "perde koduyla girene sinirsiz ver, acilista kapat")
 #      ?kapi ile giren deneme cihazlari sayac tanimiyordu; perde kalkarken bu da kapanir.
-$onizDeseni = '(?s)[ 	]*/* ==== ONIZLEME-SINIRSIZ-BASI.*?ONIZLEME-SINIRSIZ-SONU[^
-]**/[ 	]*?
-'
+$onizDeseni = '(?s)[ \t]*/\* ==== ONIZLEME-SINIRSIZ-BASI.*?ONIZLEME-SINIRSIZ-SONU[^\r\n]*\*/[ \t]*\r?\n'
 if($YalnizPerde){
   Write-Host "-YalnizPerde: onizleme sinirsizligi DOKUNULMADI (Cem'in cihazi rahat gezsin)."
 } else {
@@ -80,6 +78,8 @@ if($YalnizPerde){
 }
 git pull --rebase origin main
 git push origin HEAD:main
+# 29.09.2026: push reddedilince betik yine 'VURULDU' diyordu (ilk gercek kosuda oldu) -> sonuc denetlenir.
+if($LASTEXITCODE -ne 0){ Write-Host 'PUSH BASARISIZ - site ACILMADI. git pull --rebase + push elle.'; exit 1 }
 Write-Host ""
 if($YalnizPerde){
   Write-Host "INCELEME ACILISI YAPILDI. 1-2 dk icinde tetikte.com perdesiz servis edilir."

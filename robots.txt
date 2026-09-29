@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
+# 29.09.2026 acilis: ic klasorler dizine girmez (tasarim taslaklarinda eski ihale metni var;
+# _kapali-araclar'da ihale-radari; motor/cikti robot ciktisi). Site bu klasorlerden veri CEKMEZ (olculdu).
+Disallow: /tasarim/
+Disallow: /_kapali-araclar/
+Disallow: /motor/
+Disallow: /arac/
+Disallow: /bulten/
+Disallow: /kaynak-ozetleri/
+Disallow: /mobil/
 
 Sitemap: https://tetikte.com/sitemap.xml
