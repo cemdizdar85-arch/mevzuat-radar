@@ -327,11 +327,6 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-bc-maliyet-kolay-r2/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Doğru şık A açıklaması BOŞ; doğru-cevap açıklaması D şıkkının altında. Açıklamalar kaymış: ACB 70 TL yolunu (D şıkkı), ACC 90 TL yolunu (B şıkkı) anlatıyor; sdC/sdD/sdE şık değerleriyle uyuşmuyor (100/70/140 yerine 90/100/110). Anahtar (130) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-c2-maliyet-zor-r1/kp-04": {
             "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Metinde Kiril harf: sade sdB \"yöntемde\" (е ve м Kiril). Anahtar (6.220) ve ikiz (7.260) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
             "tarih": "2026-09-29",
@@ -439,11 +434,6 @@
         },
         "sgs-t4-fmuh-zor/kp-24": {
             "gerekce": "29.09 risk taramasi grup r4-05: CEVAP YANLIŞ (MUHTEMEL) - THP 408 yalnız \"gelecek YILLARA ait\" farkı taşır; gelecek dönem payı bilanço tarihinde 308'e aktarılır ve itfa 308'den yapılır (aynı parçada #68 bunu doğru soruyor). 1. yıl sonunda 408'de 153.000−30.600−30.600=91.800 kalır; 122.400 itfa edilmemiş farkın 308+408 toplamı. İkiz de aynı hatada (140.000 yerine 70.000). | dayanak: THP 408, 308 (ambar) | anahtar B->şıklarda yok",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-c5-maliyet-zor-r2/kp-15": {
-            "gerekce": "29.09 risk taramasi grup r4-08: CEVAP YANLIŞ (MUHTEMEL) - Kök iç çelişkili: \"başlanan 6.500 birimin 6.000 birimi tamamlanarak ... kalan 1.500 birim\" (6.500−6.000=500). Anahtar D (36) toplam 6.000 aktarım okumasına dayanıyor; kelimesi kelimesine okuma (başlanıp biten 6.000, DS 500 %80) eşdeğer 800+6.000+400=7.200 → 252.000/7.200=35 = C şıkkı. İki savunulabilir cevap. İkiz de miktar dengesi tutmuyor (1.000+6.000≠5.500+500). | dayanak: Safha maliyet FIFO miktar dengesi (hesap) | anahtar D->belirsiz (kök düzeltilmeli; D ya da C)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -609,11 +599,6 @@
         },
         "sgs-e16-mat-kolay/kp-12": {
             "gerekce": "29.09 risk taramasi grup r4-10: AÇIKLAMA KUSURLU (MUHTEMEL) - Adım \"A payı = 15 × 20; B payı = 15: 15 × 20 … \" bozuk etiket | dayanak: matematik — hesap yeniden yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-e16-mat-kolay/kp-17": {
-            "gerekce": "29.09 risk taramasi grup r4-10: AÇIKLAMA KUSURLU (KESİN) - A şıkkı (−1) açıklaması doğru-şık metninin kopyası; C/D/E tuzakları kaymış (C=6'ya \"negatif dal x=−1\", D=10'a \"pozitif dal x=6\", E=12'ye \"12 ile −2 toplamı\"); teşhis ve sade C/D/E aynı kaymada | dayanak: matematik — hesap yeniden yapıldı",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
