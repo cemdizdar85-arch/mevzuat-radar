@@ -632,58 +632,13 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-c5-maliyet-zor-r2/kp-07": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Adımlar \"ters durum\": idari amaçlı itfa payı için \"501-660 GENEL YÖNETİM GİDERİ hesabı\" yazıyor; 660 Kısa Vadeli Borçlanma Gideri, doğrusu 770 (7/A) → 632. Hesap (480.000) doğru. | dayanak: THP 632/660/770 (ambar); TMS 38 p.99",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-c5-maliyet-zor-r2/kp-15": {
             "gerekce": "29.09 risk taramasi grup r4-08: CEVAP YANLIŞ (MUHTEMEL) - Kök iç çelişkili: \"başlanan 6.500 birimin 6.000 birimi tamamlanarak ... kalan 1.500 birim\" (6.500−6.000=500). Anahtar D (36) toplam 6.000 aktarım okumasına dayanıyor; kelimesi kelimesine okuma (başlanıp biten 6.000, DS 500 %80) eşdeğer 800+6.000+400=7.200 → 252.000/7.200=35 = C şıkkı. İki savunulabilir cevap. İkiz de miktar dengesi tutmuyor (1.000+6.000≠5.500+500). | dayanak: Safha maliyet FIFO miktar dengesi (hesap) | anahtar D->belirsiz (kök düzeltilmeli; D ya da C)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-d3-maliyet-cokzor-r1/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Ana soru/hesap doğru (2.400). İkiz kökünde \"714 Direkt İşçilik Ücret Farkı\", \"715 Direkt İşçilik Süre Farkı\" — THP'de yok; doğrusu 722/723. | dayanak: THP 722, 723 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-e16-maliyet-cokzor/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (85.000). sade.sinav \"İmalat Kanunu 275. maddesi; Vergi Usul Kanunu 213. sayı madde 275\" — \"İmalat Kanunu\" diye kanun yok (VUK 213 m.275). | dayanak: VUK (213) m.275 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-e16-maliyet-kolay/kp-01": {
             "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (9.000). Kökte \"731 Direkt İşçilik Giderleri Yansıtma Hesabı\" — 731 GÜG Yansıtma, doğrusu 721. İkiz kökü+ikiz şeması \"723 Direkt İlk Madde ve Malzeme Fiyat Farkları\" — 723 DİŞ Süre Farkı, doğrusu 712. B açıklaması kökte olmayan 750.000 tutarını kullanıyor. | dayanak: THP 712, 721, 723, 731 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-k5-maliyet-cokzor/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (900). sade metni \"ağırlıklı ortalama birim maliyeti yüksek, FIFO düşük bulur\" diyor; soru verisinde tersi: AO 124/178, FIFO 125/180 (FIFO yüksek). | dayanak: Hesap (safha maliyet AO/FIFO)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-maliyet-cokzor-r1-b2/kp-05": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (7.080). Yevmiye şeması (ve ikiz şeması) alacakta \"739 Direkt İşçilik Süre (Verimlilik) Sapması\", \"741 Direkt İşçilik Ücret Sapması\" — THP'de yok; doğrusu 723 ve 722. | dayanak: THP 722, 723 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-maliyet-cokzor-r2-b2/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (1.000). sade kavram tanımında Kiril harfli kelime: \"amortisман\". | dayanak: Yazım (Türkçe harf)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-maliyet-cokzor-r2-b2/kp-04": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (3.600). Yevmiye şeması bozuk: borç 2.400+3.600+6.000=12.000 / alacak 722 18.000 (dengesiz); ikinci kayıt 723 borç 6.000 / hayali \"622 Direkt İşçilik Süre Farkları Yansıtma\" 0 TL (622 Satılan Hizmet Maliyeti). İkiz şemasında olumlu (alacaklı) 722 farkında 151/152/620 borçlanmış — yön ters. | dayanak: THP 722, 723 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-maliyet-cokzor-r4-b2/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (30.000). İkiz verisi imkânsız sonuç üretiyor: ÜMM 800.000−95.000+120.000=825.000; DS YM 750.000+60.000−825.000 = −15.000 (negatif stok) ve ikiz tablosu bunu cevap olarak veriyor. | dayanak: Hesap (üç kademeli SMM)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-maliyet-kolay-r1-b2/kp-04": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (180.000). Adımlardaki \"yanlış yol\" örneği 440.000×(600/3.000)=88.000 diyor; toplam fiziki miktar 2.400 (B şıkkı 110.000) — örnek kendi verisiyle çelişiyor. | dayanak: Hesap (katsayı yöntemi)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
