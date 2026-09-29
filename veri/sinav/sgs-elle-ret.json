@@ -626,6 +626,106 @@
             "gerekce": "29.09 risk taramasi grup r4-06: CEVAP YANLIŞ (KESİN) - Veri tutarsız: F/K 12 ve fiyat 24 -> HBK 2 TL x 100.000 hisse = 200.000 TL net kâr (şık A); aktif kârlılığı/devir hızından 216.000 (şık B). İki şık da verilerden türetilebiliyor; açıklama A yolunu \"çeldirici\" sayıyor ama yol matematiksel olarak geçerli. | dayanak: MTA kârlılık ve piyasa oranları (F/K = Fiyat/HBK) | anahtar B->belirsiz (A ve B)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-mta-zor-r2-a/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Doğru-şık açıklaması \"TMS 1 p.66(c) uyarınca 12 ay içinde realize edilmeyecek alacak cari sayılmaz\" diyor; TMS 1 p.68 ticari alacakları 12 ay dışında olsa da normal faaliyet döngüsü içindeyse CARİ sayar. Anahtar (2,80) yalnız THP/MSUGT 1-yıl ayrımıyla savunulur; TMS okumasıyla C (3,05) da savunulabilir, soru çerçeveyi (THP 1 yıl) açıkça vermeli. İkiz hesabı doğru (3,64). | dayanak: TMS 1 p.66, p.68 (ambar)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-mta-zor-r4/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Sade şık açıklamaları kaymış: sdA B şıkkının tuzağını (basit ortalama 240.000) anlatıyor, sdB A şıkkının tuzağını (73+38-50=61). Ana açıklama ve anahtar (85) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-mta-cokzor/kp-26": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - A şıkkı açıklaması doğru-cevap kalıbıyla (\"Ne soruluyor/Kural/Hesap\") yazılmış ve 800.000/400.000=2 hesabını kural gibi sunuyor (tuzak metni doğru-cevap kalıbına kaymış). Anahtar (8) ve ikiz (6,25) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2b-mta-cokzor/kp-19": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (3.400.000). B açıklaması (\"özkaynağı yabancı kaynak oranına böldün\") 2.266.667 verir, şık 1.700.000; sdA \"850.000 TL\" yabancı kaynak tutarı uydurma (doğrusu 2.040.000; A şıkkı 816.000). | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2b-mta-cokzor/kp-20": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (0,55). Sade sdA, E şıkkının tuzağını anlatıyor (\"başlangıç oranı 0,60\"); A/B/C açıklamaları şık değerlerini (0,32/0,48/0,52) üretmiyor: çeldirici açıklamaları kaymış/uydurma. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2b-mta-cokzor/kp-22": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (3.900.000). A açıklaması bozuk ve kendi içinde çelişkili (\"741.000/0,19 değil, 741.000/0,19 da değil ... 741.000/0,19=3.900.000\"); D/E açıklamaları şık değerlerini üretmiyor. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2b-mta-kolay/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (3). E açıklaması çelişkili: \"toplayıp ortalamasını almadın, paydayı yarıya indirdin\"; sdE \"5.400.000/3.400.000=1,59 ... 6 gibi sonuç\" diyor; 6 ancak 900.000 paydasıyla çıkar. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2b-mta-kolay/kp-09": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (0,30). sdC \"(120.000+60.000+240.000)/600.000 = 0,50\" yazıyor; doğrusu 0,70 (D şıkkı). C açıklaması D açıklamasını tekrar ediyor, 0,50 yolunu anlatmıyor. İkiz soru metninde soru cümlesi eksik. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2b-mta-zor/kp-12": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (1,50). D (1,67) açıklaması ve sdD bunu \"özkaynak çarpanı\" diye anlatıyor; 1,67 = aktif/yabancı kaynak (1/0,60), özkaynak çarpanı 2,50 (E). ACD cümlesi de bozuk (\"2,5 değil 1,67 olarak hesaplanmış hâlidir\"). | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-maliye-cokzor-r1/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-07: GÜNCELLİK RİSKİ (KESİN) - Soru \"2026 yılı ticari kazancı ... aşağıdaki tarifeye göre vergilendirilmektedir\" diyerek 18.000/40.000/98.000 TL dilimli eski tarifeyi 2026 yılına bağlıyor ve %40 dilimini hiç vermiyor; doğru-şık açıklaması GVK m.103 atfı yapıyor. Ambardaki GVK m.103 güncel (parantez içi) tutarlar 190.000/400.000/1.000.000/5.300.000 TL, %40 dilimi var. Hesap kendi verisiyle tutarlı (108.800). İkiz küsuratlı sonuç (122.285,71) veriyor. | dayanak: GVK (193) m.103 (ambar)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-bc-maliyet-kolay-r2/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Doğru şık A açıklaması BOŞ; doğru-cevap açıklaması D şıkkının altında. Açıklamalar kaymış: ACB 70 TL yolunu (D şıkkı), ACC 90 TL yolunu (B şıkkı) anlatıyor; sdC/sdD/sdE şık değerleriyle uyuşmuyor (100/70/140 yerine 90/100/110). Anahtar (130) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-maliyet-zor-r1/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Metinde Kiril harf: sade sdB \"yöntемde\" (е ve м Kiril). Anahtar (6.220) ve ikiz (7.260) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-maliyet-zor-r3/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - C (2.880) şıkkının açıklaması doğru-cevap açıklamasının (3.040) birebir kopyası; sdC anlamsız (\"aynı doğru hesap yöntemi işlemi yanlış uyguladığında\"). Anahtar (3.040) ve ikiz (4.375) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-cokzor-r1/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - sdC yanlış kural: \"SMM tersine açılırken dönem başı eklenir dönem sonu çıkarılmalı\"; tersine açılırken dönem başı mamul ÇIKARILIR, dönem sonu EKLENİR. Anahtar (26.000) ve ikiz (17.900) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-cokzor-r2/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar 40, ancak soru 40.000 TL \"olağan bakım-onarım gideri\"nin SABİT GÜG olduğunu açıkça söylemiyor (yalnız \"genel üretim giderine dahildir\"); hesap bu örtük varsayıma dayanıyor. A şıkkı açıklaması doğru-cevap kalıbında (\"Ne soruluyor\") yazılmış; B (38) açıklamasındaki yol 296.000/8.000=37 verir, şık 38. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-cokzor-r2/kp-09": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - İKİZ hesabı YANLIŞ: Q mamulünün ağırlıklı birimi 18 iken tablo \"birim pay = 18.000/36 = 500\" yazıyor; doğrusu 18.000/18 = 1.000, R payı 10.000 + 3.000 = 13.000, ton başı 6.500 (tablo 4.000). Ana soru anahtarı (3.500) doğru; B (3.000) çeldiricisinin açıklaması değeri üretmiyor. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-cokzor-r2/kp-14": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar (7.200) doğru. sdE \"7.800 bulunur\" diyor; E şıkkı ve kendi yolu 8.000. Açıklamalar Türkçe harfsiz (yari, donusum, esdeger). | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-kolay-r2/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar (600) doğru. sdE yanlış rakamlar: \"60.000 yerine 120.000 ... toplam 150.000, birim 1.500\"; E=900 (GÜG 30.000 yerine 60.000, toplam 90.000). İkiz soru cümlesi eksik. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-kolay-r2/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - A (17.500) şıkkının açıklaması doğru-cevap metninin kopyası (\"Doğrusu 22.750\"); sdA \"Bu seçenek doğru cevapla aynıdır\" diyor (yanlış). sdD dönem başı birim fiyatını 60 TL yazıyor (doğrusu 50). Anahtar (22.750) doğru. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-maliyet-kolay-r2/kp-11": {
+            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Sade doğru açıklamasında yanlış rakam: \"toplam 120.000 TL den 75.000 TL pay alıyor (...=45.000 TL)\"; pay 45.000. Anahtar (75) doğru. İkiz soru cümlesi eksik. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
