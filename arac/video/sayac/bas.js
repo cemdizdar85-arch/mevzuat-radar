@@ -47,7 +47,7 @@ const ortak = {
   tuzakAd, tuzakNeden,
   dogrusu: `Doğrusu ${s.dogru}) ${s.siklar[s.dogru]}`,
   kural: 'Pay eşdeğer miktarla dağıtılır, birim maliyet fiili miktara bölünür.',
-  kapanis: 'Yirmi soru, bedava, üyeliksiz.',
+  kapanis: '30 soruda geçme ihtimalini ölç. Ücretsiz.',
   adres: 'tetikte.com',
 };
 function metinKapisi(veri) {

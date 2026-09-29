@@ -11,6 +11,9 @@ kaynak: veri/feda-ornek-1.json 1. soru (p90-SGS-01-hesapli, feda: bilerek herkes
      "Reklam" + "Yapay zekâ ile üretilmiştir" ibareleri eklendi (Yön. m.18/8 · 371. toplantı);
      fısıltı "D" → "A" (bu soruda D DOĞRU cevap; fısıltı her zaman yanlış şıkkı söyler).
      "Adayların çoğu burada kaybeder" türü cümle YAZILMADI: soru dosyasındaki not GM yazımı, ölçüm değil.
+     29.09 akşam: kapanış "Yirmi soru, bedava, üyeliksiz" → seviye testi. Açılış günü canlıda ölçüldü:
+     deneme.html'deki 20 soruluk ölçüm kutusu GİZLİ (veri/soru-bankasi.json boş); seviye testi çalışıyor
+     ama başta ad/e-posta/telefon istiyor → "üyeliksiz / kayıt yok" YAZILMAZ.
      yz: evet — fısıltı yapay zekâ sesi (Puck) ise ZORUNLU; Cem kendi sesiyle fısıldarsa ve
      görüntüde YZ karakteri yoksa "hayir" yapılabilir. İbare yine de zararsızdır. -->
 
@@ -34,7 +37,7 @@ Köşede sabit, ilk kareden sona: **Reklam · Yapay zekâ ile üretilmiştir**
 9–15 sn · sarı kutu: **Eşdeğer Miktara Bölme Tuzağı** — payı, ürünün gerçek miktarı yerine eşdeğer miktara böldün.
 Yeşil: **Doğrusu D) 120 TL/kg** · Pay eşdeğer miktarla dağıtılır, birim maliyet fiili miktara bölünür.
 
-15–18 sn · kapanış kartı: **Yirmi soru, bedava, üyeliksiz. tetikte.com**
+15–18 sn · kapanış kartı: **30 soruda geçme ihtimalini ölç. Ücretsiz. tetikte.com**
 
 ## Seslendirme
 
@@ -44,7 +47,7 @@ Yeşil: **Doğrusu D) 120 TL/kg** · Pay eşdeğer miktarla dağıtılır, birim
 ## Açıklama metni (Instagram)
 
 Bu sorunun tuzağı: payı eşdeğer miktara bölmek. Birim maliyet her zaman fiili miktara bölünür.
-Tetikte Skoru Ölçümü: 20 karışık soru, üyeliksiz, sonunda skorunu görürsün. tetikte.com
+Staja Giriş seviye testi: 30 soru, ücretsiz. Bitince geçme ihtimalini ve hangi alanda açığın olduğunu görürsün; karnen e-postana gelir. tetikte.com/seviye-testi.html
 
 Reklam · Yapay zekâ ile üretilmiştir.
 #reklam #smmm #stajagiris #maliyetmuhasebesi
