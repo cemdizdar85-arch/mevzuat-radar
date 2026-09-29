@@ -541,6 +541,91 @@
             "gerekce": "29.09 risk taramasi grup r4-04: AÇIKLAMA KUSURLU (KESİN) - Cevap (8.000) 30/360 ay esasıyla tutarlı. Açıklama dayanağı \"VUK m.283 kredi sözleşmesine dayalı borçlar\" — bu hüküm m.285'tir (283 aktif geçici hesap kıymetleri). Ayrıca 01.11-31.12 fiilen 61 gün, açıklama \"60 gün\" diyor; A çeldiricisi Aralık'ı 30 gün sayıyor. İkizde de 92 gün yerine 90. | dayanak: VUK m.285, m.283",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-issgk-cokzor-r1/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - İkiz soru 30 işçili işyeri + 6 yıl kıdemli işçi kuruyor: işçi m.18 iş güvencesi kapsamında olduğundan m.17/6 üç kat kötüye kullanma tazminatı uygulanmaz; ikiz tablo 120.960 TL yanlış kurgu (kendi \"ters durum\" adımıyla da çelişiyor). Ana soru (25 işçi, 4 yıl, 96.320) doğru. | dayanak: 4857 s. İş K. m.17 f.6 (18-21 kapsamı dışı işçi), m.18; 6356 m.25",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11-issgk-zor/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (2049, kadın 65). İkiz tablo \"Yaş haddi 60\" satırı yanlış: erkek için prim şartı 2049da dolar, 1/1/2048 sonrası had 65 (1/1/2044ten itibaren erkek 65). | dayanak: 5510 s.K. m.28/2 (b) yaş tablosu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k5-issgk-cokzor/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Hafif: sade.E şıkkı \"5 aylık tazminat + 8 aylık ücret\" diye anlatıyor; E=918.840 = 19 aylık (8+11). Anahtar ve ana açıklama doğru. | dayanak: 4857 s. İş K. m.21",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k5-issgk-zor/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - İkiz: haftalık 40 saatlik işyerinde 48 saat çalışmada 40-45 arası 5 saat fazla sürelerle çalışma (%25), 45 üstü 3 saat fazla çalışma (%50) olmalı: 5x200+3x240=1.720 TL; ikiz tüm 8 saati %50 ile 1.920 buluyor. Ayrıca sade.C \"13 saat/58 saat\" (doğrusu 12/57), sade.E \"6 saat\" (doğrusu 30 saat) yanlış. | dayanak: 4857 s. İş K. m.41/1-3",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-issgk-kolay-r4-a/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Şık açıklamaları kaymış: A (5.600) açıklaması doğru cevabın gerekçesini tekrar ediyor (tuzak yok); B \"iki hafta\" diyor ama 11.200 = 4 hafta; C \"dört hafta\" diyor ama 16.800 = 6 hafta; E \"altı hafta\" diyor ama 25.600 = 8 hafta x 8 gün. Anahtar D=22.400 doğru. | dayanak: 4857 s. İş K. m.17",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-mta-cokzor-r1/kp-08": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Hafif: AÇ.A \"0,2 katsayısı yerine 0,6 kullanmak 300.000e değil 900.000e götürür\" ters; 0,6 katsayısı 300.000i verir (şık A). Anahtar E=900.000 doğru. | dayanak: MTA ders kuralı (aktif = dönen + duran)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-mta-cokzor-r2/kp-09": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C (200.000) için açıklama YOK; doğru cevabın gerekçesi D anahtarında, D şıkkının (300.000) kendi tuzak açıklaması yok; ayrıca \"D_DUPLICATE_IGNORE\" artık anahtarı kalmış. sade.D/E de 600.000 yolunu anlatıyor (D=300.000 değil). | dayanak: MTA dikey yüzde tekniği",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-mta-kolay-r1/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (MUHTEMEL) - Hafif: sade.A şıkkı (20.000) için \"KVYK 80.000 doğru bulunup DV 120.000, çıkarmayı unutup 20.000 yazılır\" diyor, mantıksız; A tuzağı KVYK=120.000 alınmasıdır (AÇ.A doğru). | dayanak: MTA sürekli sermaye/cari oran",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-mta-cokzor-r1/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Hafif: sade.E ve adımlar \"65-15=%50\" yolunu anlatıyor (sonuç 120.000); E şıkkı 400.000 = 300.000/0,15x0,20. Anahtar B=200.000 doğru. | dayanak: MTA dikey yüzde tekniği",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-mta-kolay-r3/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - İkiz mantıksız: stoklar %25 > dönen varlıklar %15 (stok dönen varlığın parçası) ve \"dönen varlıklar + stoklar toplamı\" mükerrer sayım istiyor. Ana soru (60.000) doğru. | dayanak: THP bilanço düzeni (stoklar dönen varlık grubunda)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-mta-kolay-r4/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (MUHTEMEL) - Hafif: AÇ.C \"kalan yüzdenin (%40) tutarını toplayarak (480.000+480.000x0,60)\" iç çelişkili (%40 der, 0,60 ile çarpar). Anahtar D doğru. | dayanak: MTA dikey yüzde",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-mta-zor-r4/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-06: CEVAP YANLIŞ (MUHTEMEL) - Asit-test oranı resmî komisyon cevaplarında (DV-Stoklar)/KVYK ile hesaplanıyor: (912.500-322.150)/520.000 = 1,135 -> 1,14 = şık C. Anahtar B (1,10) gelecek aylara ait giderleri de düşen alternatif tanıma dayanıyor; iki şık savunulabilir. Aynı bankadaki sgs-c5-mta-zor-r2/kp-07 191 KDVyi düşmeden klasik formül kullanıyor (tutarsız). | dayanak: SMMM Finansal Tablolar ve Analizi komisyon cevapları (ambar: 2008-2017) Asit-Test = (DV - Stoklar)/KVYK | anahtar B->C (komisyon formülü) — belirsiz",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d3-mta-zor-r1/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - sade.C \"toplam yabancı kaynak 4.300.000 TL\" (doğrusu 2.000.000), sade.D \"UVYK 3.600.000, oran 0,875\" (doğrusu 1.300.000, 2,42) yanlış tutarlar. Anahtar B=1,05 doğru. | dayanak: MTA finansal yapı oranları",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-mta-cokzor-r1/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C (611.000) açıklaması BOŞ; doğru gerekçe A anahtarında. Tuzaklar kaymış: AÇ.B \"329.000\" anlatıyor (B=563.650 = finansman gideri düşülmüş), AÇ.D finansman anlatıyor (D=637.000 = brüt satış x0,65), AÇ.E iade düşülmemesini anlatıyor (E=663.000 = 1.020.000x0,65). Teşhis/sade de kaymış. | dayanak: MTA brüt kâr marjı",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-e16-mta-kolay/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (KESİN) - Hafif: sade.C \"toplayarak 530.000\" anlatıyor; C=270.000 (duran varlık - KVYK). Anahtar A doğru. | dayanak: MTA net işletme sermayesi",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-e16-mta-zor/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-06: AÇIKLAMA KUSURLU (MUHTEMEL) - AÇ.C hesapta 45.000yi \"taşıt satış kârı\" diye adlandırıyor; kâr 15.000, NİSe etkisi satış bedelinin (45.000) tamamı (duran varlığın nakde dönmesi). Teşhis B ve AÇ.B de artışı \"kâr\" ile açıklıyor; sade \"15.000 kâr ... +20.000\" karışık. Anahtar C=120.000 doğru. | dayanak: MTA net işletme sermayesini etkileyen işlemler",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-mta-cokzor-r3-a/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-06: CEVAP YANLIŞ (KESİN) - Veri tutarsız: F/K 12 ve fiyat 24 -> HBK 2 TL x 100.000 hisse = 200.000 TL net kâr (şık A); aktif kârlılığı/devir hızından 216.000 (şık B). İki şık da verilerden türetilebiliyor; açıklama A yolunu \"çeldirici\" sayıyor ama yol matematiksel olarak geçerli. | dayanak: MTA kârlılık ve piyasa oranları (F/K = Fiyat/HBK) | anahtar B->belirsiz (A ve B)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
