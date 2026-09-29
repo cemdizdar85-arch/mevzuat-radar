@@ -121,6 +121,36 @@
             "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C (140.000) için açıklama YOK; A şıkkının açıklaması \"Ne soruluyor\" kalıbıyla yazılmış, 100.000 hesaplayıp \"140.000 bulunur\" diyor (karışık/yanlış konumlanmış). Hesap doğru: 180.000−40.000=140.000. | dayanak: THP 159/320",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-maliyet-zor-r1/kp-05": {
+            "gerekce": "29.09 risk taramasi grup B: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar 159.000 soru varsayımıyla doğru; ancak B açıklaması/teşhisi 'vade farkına KDV uygulamak için dayanak yok, KDV'den bağımsız finansman unsurudur, ayrıştırılmaz' diyor — KDVK m.24/c vade farkını KDV matrahına dahil eder (aynı grupta t4-vergi-cokzor/kp-17 bunu doğru anlatıyor) | dayanak: KDVK (3065) m.24/c",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-vergi-cokzor-r2/kp-02": {
+            "gerekce": "29.09 risk taramasi grup B: CEVAP YANLIŞ (MUHTEMEL) - İhracatçının daha düşük bedelle fiilen ihraç etmesi 'imalatçı aleyhine matrah değişikliği' değildir; KDVK m.11/1-c ve GUT II/A-8.9'a göre bu, imalatçının kendi satış bedelinde (kur farkı, ihracatçının imalatçıya düzenlediği fatura) oluşan azalmadır. Soruda böyle bir değişiklik yok → azami iade 1.400.000×%20=280.000 (D). Açıklama/sade 'matrah değişikliği = imalatçı fatura bedeli ile fiili ihraç bedeli farkı' diye yanlış tanım kuruyor | dayanak: KDVK m.11/1-c [3/3]; KDV GUT bolum 348–349 (II/A-8.9) | anahtar E->D",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-vergi-kolay-r1-a/kp-06": {
+            "gerekce": "29.09 risk taramasi grup B: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar 30.000 (alış anındaki fatura KDV'si) savunulabilir; ancak C açıklaması, teşhis ve adımlar 'vade farkı KDV matrahına girmez/dahil değildir' diye genel kural kuruyor — KDVK m.24/c vade farkını matraha dahil eder (satıcı vade farkına KDV hesaplar). Öğrenciye yanlış kural öğretiliyor | dayanak: KDVK (3065) m.24/c",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-vergi-cokzor/kp-26": {
+            "gerekce": "29.09 risk taramasi grup B: AÇIKLAMA KUSURLU (KESİN) - Anahtar 115.735 doğru (31.000 + 84.735). Ama (1) SADE kavram kartı 'girişim sermayesi fonu indirimi'ni eğitim-sağlık harcaması olarak tanımlıyor ve '89. madde ikinci bent (eğitim sağlık)' diyor — yanlış (fon GVK m.89/12, VUK 325/A); (2) soru 2026 için 'asgari ücretin yıllık tutarı 350.000 TL' veriyor, resmî 2026 brüt yıllık 396.360 TL (33.030×12) — GÜNCELLİK RİSKİ de var (sonucu değiştirmiyor); (3) VUK 325/A'daki öz sermayenin %20'si sınırı anılmıyor | dayanak: GVK m.89/1, m.89/12; VUK m.325/A; Asgari Ücret Tespit Kom. Kararı 2026 (RG 26.12.2025/33119)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-vergi-kolay/kp-13": {
+            "gerekce": "29.09 risk taramasi grup B: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar D doğru, teşhis/hap doğru. Ama ADIMLAR 'asıl belirleyici had değil yüzde beş sınırıdır' ve 'ters durum: tutar %5'i aşarsa izaha davet edilemez' diyor — m.370/b'ye göre tutar 870.000'i geçmiyorsa %5 aşılsa da yol açıktır; adım yanlış genelleme öğretiyor | dayanak: VUK m.370/b; VUK GT 588 (870.000)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t4-vergi-zor/kp-15": {
+            "gerekce": "29.09 risk taramasi grup B: GÜNCELLİK RİSKİ (KESİN) - Soru yıl vermeden 'teminat aranmayan üst sınır 1.000.000 TL' veriyor; kanun metnindeki tutar bu olsa da CBK 11414 (RG 13.06.2026) ile 10.000.000 TL uygulanıyor. Sade 'borçtan 1 milyon liraya kadar teminat istenmez' diye güncel kural gibi anlatıyor; güncel değerle 4.600.000 TL borca teminat gerekmez. Hesap sorunun verdiği değerle tutarlı (1.800.000) | dayanak: 6183 m.48 [1/3] + dipnot 21 (CBK 11414)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
