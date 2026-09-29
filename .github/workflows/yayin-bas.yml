@@ -160,6 +160,17 @@ jobs:
           node motor/seviye-havuz-bas.js || echo "::warning::seviye havuzu kurulamadi - eski havuz kaldi (yayin suruyor)"
         shell: bash
 
+      # ⭐ 29.09.2026 (Cem "1.2.3"): "Soru coz" dizini (veri/soru-dizini.json -> sorular.html, seviye testi teklifi)
+      #   13.09'dan beri hic tazelenmiyordu (SGS 3.678 yaziyordu, gercek 4.912; Yeterlilik satista iken "hazirlaniyor").
+      #   Tam sayfalardan + kasa kabuklarindan (servis anahtari) her yayinda kurulur; satis durumu fiyat-motoru.js
+      #   ICERIK_HAZIR'dan. Kurulamazsa YAYIN DURMAZ (eski dizin kalir).
+      - name: Soru dizini
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node motor/soru-dizini.js || echo "::warning::soru dizini kurulamadi - eski dizin kaldi (yayin suruyor)"
+        shell: bash
+
       - name: Kasaya yukle + kabuga cevir
         shell: powershell
         env:
@@ -188,7 +199,7 @@ jobs:
           #   olu kalacakti. 13.09 gecesi kosu 34729587713 tam bu adimda dustu.
           git config merge.tetikte-robot.name "Tetikte robot ciktisi: cakismada yereldeki korunur"
           git config merge.tetikte-robot.driver true
-          git add kaydir/sgs veri/sinav/kaydir-secim veri/cevap-dagilimi.json veri/seviye/sgs-havuz.json
+          git add kaydir/sgs veri/sinav/kaydir-secim veri/cevap-dagilimi.json veri/seviye/sgs-havuz.json veri/soru-dizini.json
           $degisen = @(git diff --cached --name-only)
           if(-not $degisen.Count){ "degisiklik yok - commit ATILMADI"; exit 0 }
           "degisen dosya: $($degisen.Count)"

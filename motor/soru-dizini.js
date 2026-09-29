@@ -22,7 +22,8 @@
 //  Ders sayfası sayılmayan dosyalar: index.html ve adı dersinin adından
 //  türemeyen deneme sayfaları (kapituru-3, muhur-10 gibi).
 //
-//  ÇIKTI: veri/soru-dizini.json · API maliyeti SIFIR · yalnız yerel dosya okur.
+//  ÇIKTI: veri/soru-dizini.json · API maliyeti SIFIR · yerel dosya + (kasa kabuğu için) paket_soru okur.
+//  29.09.2026'dan beri yayin-bas.yml her yayında koşturur; satış durumu fiyat-motoru.js ICERIK_HAZIR'dan.
 //  Kullanım: node motor/soru-dizini.js [--kuru]
 // ============================================================================
 const fs = require('fs');
@@ -72,10 +73,46 @@ function sayfaOku(dosya) {
   try { return JSON.parse(satir.slice(a, b + 1)); } catch (e) { return null; }
 }
 
+// 29.09.2026 ADIM 2: kasa modundaki (SORUSUZ kabuk) sayfanın soruları. SGS'de önce seçim dosyası (ağ yok);
+// yoksa kasadan (paket_soru, sayfa bazında) - yalnız SUPABASE_SERVICE_KEY varsa (yayin-bas.yml'de var).
+// Anahtar yoksa sayfa "atlandı" yazılır, tahmin edilmez.
+async function kasadanSorular(yol) {
+  const K = process.env.SUPABASE_SERVICE_KEY; if (!K) return null;
+  const h = { apikey: K, Authorization: 'Bearer ' + K, 'User-Agent': 'tetikte-soru-dizini/1.0' };
+  const hepsi = [];
+  for (let i = 0; ; i += 1000) {
+    const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=ders,konu,donem:veri->donem,cikmis:veri->cikmis&sayfa=eq.'
+      + encodeURIComponent(yol) + '&order=sira.asc&limit=1000&offset=' + i, { headers: h });
+    if (!r.ok) throw new Error(`kasa okuma ${yol}: HTTP ${r.status}`);
+    const p = await r.json(); hepsi.push(...p);
+    if (p.length < 1000) break;
+  }
+  return hepsi;
+}
+// Satış anahtarı TEK kaynaktan: fiyat-motoru.js ICERIK_HAZIR (sitedeki giriş kapısıyla aynı). Okunamazsa açık sayılır
+// (eski davranış). 29.09 ölçümü: dizin 13.09'dan beri tazelenmiyordu, Yeterlilik satışta iken "hazırlanıyor" yazıyordu.
+function icerikHazir() {
+  try {
+    const m = fs.readFileSync(path.join(KOK, 'fiyat-motoru.js'), 'utf8').match(/var ICERIK_HAZIR\s*=\s*(\{[^}]*\})/);
+    return m ? JSON.parse(m[1].replace(/(\w+)\s*:/g, '"$1":')) : null;
+  } catch (e) { return null; }
+}
+const HAZIR_ANAHTAR = { sgs: 'sgs', smmm: 'yeterlilik', kgk: 'kgk' };
+// Sınav tablosundaki uzun ad ("Hukuk (Ticaret H., …)", "a) Türkiye …", "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku")
+// ile sayfadaki kısa ders adı: önce birebir, sonra parantezsiz ad, sonra KELİME SINIRINDA önek/sonek.
+function dersEsle(sayfalar, dersAd) {
+  const tam = katla(dersAd); if (sayfalar[tam]) return sayfalar[tam];
+  const yalin = katla(adAyir(dersAd).ad); if (sayfalar[yalin]) return sayfalar[yalin];
+  const aday = Object.keys(sayfalar).filter(k => (yalin + ' ').startsWith(k + ' ') || (' ' + yalin).endsWith(' ' + k));
+  return aday.length === 1 ? sayfalar[aday[0]] : null;
+}
+
 const tek = jsonOku(path.join(KOK, 'veri', 'sinav-tek-sayfa.json'));
 const cikti = { uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/soru-dizini.js', sinavlar: [] };
 const rapor = [];
+const HAZIR = icerikHazir();
 
+(async () => {
 for (const S of SINAVLAR) {
   const satirlar = (tek.dersler || []).filter(d => d.sinav === S.tek);
   const dizin = path.join(KOK, 'kaydir', S.kod);
@@ -83,21 +120,25 @@ for (const S of SINAVLAR) {
   if (fs.existsSync(dizin)) {
     for (const f of fs.readdirSync(dizin)) {
       if (!f.endsWith('.html') || f === 'index.html') continue;
-      let sorular = sayfaOku(path.join(dizin, f));
+      let sorular = sayfaOku(path.join(dizin, f)), kasadan = false;
       // 29.09.2026 ADIM 2: kasa modundaki sayfa SORUSUZ kabuktur. SGS'de sayfanın basıldığı seçim dosyası
-      // (veri/sinav/kaydir-secim/yayin-sgs-<ders>.json: etiket, id, ders, konu, donem) aynı soruları sayar.
+      // (veri/sinav/kaydir-secim/yayin-sgs-<ders>.json: etiket, id, ders, konu, donem) aynı soruları sayar;
+      // seçim dosyası olmayan sınavda (Yeterlilik, KGK) kasadan okunur.
       if ((!sorular || !sorular.length) && fs.readFileSync(path.join(dizin, f), 'utf8').includes('data-kasa-sayfa=')) {
         const secim = path.join(KOK, 'veri', 'sinav', 'kaydir-secim', `yayin-${S.kod}-${f.replace(/\.html$/, '.json')}`);
         if (fs.existsSync(secim)) { try { sorular = jsonOku(secim); } catch (e) { sorular = null; } }
+        else { sorular = await kasadanSorular(`kaydir/${S.kod}/${f}`); kasadan = true; }
       }
       if (!sorular || !sorular.length) { rapor.push(`  atlandı (SORULAR yok): kaydir/${S.kod}/${f}`); continue; }
       const dersAdi = String(sorular[0].ders || '').split('|')[0].trim();
-      if (slug(dersAdi) + '.html' !== f) { rapor.push(`  atlandı (ders sayfası değil): kaydir/${S.kod}/${f} · ${sorular.length} soru`); continue; }
+      // Kasa kabuğunun dosya adı kısaltılmış olabilir (smmm/vergi.html = "Vergi Mevzuatı ve Uygulaması"); kabuk zaten
+      // yalnız ders sayfası için kurulur, deneme sayfası kabuk olmaz -> ad kontrolü yalnız gömülü sayfada.
+      if (!kasadan && slug(dersAdi) + '.html' !== f) { rapor.push(`  atlandı (ders sayfası değil): kaydir/${S.kod}/${f} · ${sorular.length} soru`); continue; }
       sayfalar[katla(dersAdi)] = { dosya: `kaydir/${S.kod}/${f}`, ad: dersAdi, sorular };
     }
   }
   const dersler = satirlar.map(d => {
-    const sayfa = sayfalar[katla(d.ders)];
+    const sayfa = dersEsle(sayfalar, d.ders);
     const { ad, alt } = adAyir(sayfa ? sayfa.ad : d.ders);
     let konular = [];
     if (sayfa) {
@@ -122,13 +163,15 @@ for (const S of SINAVLAR) {
   });
   const soru = dersler.reduce((t, d) => t + d.soru, 0);
   const acikDers = dersler.filter(d => d.sayfa).length;
+  const satista = !HAZIR || HAZIR[HAZIR_ANAHTAR[S.kod]] !== false;
+  if (!satista && acikDers) rapor.push(`  ${S.tek}: sayfa var ama fiyat-motoru.js ICERIK_HAZIR kapalı -> "hazırlanıyor"`);
   cikti.sinavlar.push({
     kod: S.kod, ad: S.ad, uzun: S.uzun,
-    durum: acikDers ? 'acik' : 'hazirlaniyor',
+    durum: acikDers && satista ? 'acik' : 'hazirlaniyor',
     ders_sayisi: dersler.length, acik_ders: acikDers, soru, dersler
   });
   rapor.push(`${S.ad} (${S.tek}): ${dersler.length} ders · sayfası olan ${acikDers} · çözülebilir soru ${soru}`);
-  const eslesmeyen = Object.keys(sayfalar).filter(k => !satirlar.some(d => katla(d.ders) === k));
+  const eslesmeyen = Object.keys(sayfalar).filter(k => !satirlar.some(d => dersEsle(sayfalar, d.ders) === sayfalar[k]));
   for (const k of eslesmeyen) rapor.push(`  ⚠ ders listesinde karşılığı yok: ${sayfalar[k].dosya}`);
 }
 
@@ -154,3 +197,4 @@ try { const e = jsonOku(hedef); delete e.uretim; eskiGovde = JSON.stringify(e); 
 const yeniGovde = (() => { const c = JSON.parse(yeni); delete c.uretim; return JSON.stringify(c); })();
 if (eskiGovde === yeniGovde) { console.log('  değişiklik yok - dosyaya dokunulmadı.'); }
 else { fs.writeFileSync(hedef, yeni, 'utf8'); console.log('  yazıldı -> veri/soru-dizini.json'); }
+})().catch(e => { console.error('SORU DİZİNİ DÜŞTÜ: ' + e.message); process.exit(1); });

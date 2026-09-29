@@ -1,5 +1,5 @@
 {
- "uretim": "2026-09-13 17:54",
+ "uretim": "2026-09-29 19:36",
  "uretici": "motor/soru-dizini.js",
  "sinavlar": [
   {
@@ -9,22 +9,22 @@
    "durum": "acik",
    "ders_sayisi": 15,
    "acik_ders": 15,
-   "soru": 3678,
+   "soru": 4912,
    "dersler": [
     {
      "ad": "Türkçe",
      "alt": "",
      "bolum": "Genel Kültür ve Yetenek",
      "sinav_soru": 7,
-     "soru": 77,
+     "soru": 169,
      "sayfa": "kaydir/sgs/turkce.html",
      "konular": [
       {
-       "ad": "yazım kuralları",
+       "ad": "yazim kurallari",
        "donem": 16
       },
       {
-       "ad": "anlatım bozuklugu",
+       "ad": "anlatim bozuklugu",
        "donem": 15
       },
       {
@@ -38,7 +38,7 @@
      "alt": "",
      "bolum": "Genel Kültür ve Yetenek",
      "sinav_soru": 8,
-     "soru": 101,
+     "soru": 465,
      "sayfa": "kaydir/sgs/matematik.html",
      "konular": [
       {
@@ -60,7 +60,7 @@
      "alt": "",
      "bolum": "Genel Kültür ve Yetenek",
      "sinav_soru": 5,
-     "soru": 60,
+     "soru": 170,
      "sayfa": "kaydir/sgs/ataturk-ilkeleri-ve-inkilap-tarihi.html",
      "konular": [
       {
@@ -68,11 +68,11 @@
        "donem": 3
       },
       {
-       "ad": "i. dünya savaşı",
+       "ad": "atatürk dönemi ekonomik çalışmalar",
        "donem": 3
       },
       {
-       "ad": "milli mücadele dönemi",
+       "ad": "atatürk ilkeleri",
        "donem": 3
       }
      ]
@@ -82,9 +82,13 @@
      "alt": "",
      "bolum": "Yabancı Dil",
      "sinav_soru": 10,
-     "soru": 193,
+     "soru": 380,
      "sayfa": "kaydir/sgs/yabanci-dil.html",
      "konular": [
+      {
+       "ad": "bağlaç seçimi",
+       "donem": 18
+      },
       {
        "ad": "cümle tamamlama",
        "donem": 18
@@ -92,10 +96,6 @@
       {
        "ad": "kelime bilgisi",
        "donem": 9
-      },
-      {
-       "ad": "cümle tamamlama-koşul",
-       "donem": 7
       }
      ]
     },
@@ -104,20 +104,20 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 26,
-     "soru": 991,
+     "soru": 1119,
      "sayfa": "kaydir/sgs/finansal-muhasebe.html",
      "konular": [
       {
-       "ad": "muhasebe bilgi sistemi",
+       "ad": "kesin mizan",
        "donem": 10
       },
       {
-       "ad": "tms 40 yatırım amaçlı gayrimenkul",
-       "donem": 8
+       "ad": "mizan turleri ve eşitlikleri",
+       "donem": 10
       },
       {
-       "ad": "gider tahakkuku",
-       "donem": 7
+       "ad": "muhasebe bilgi sistemi",
+       "donem": 10
       }
      ]
     },
@@ -126,7 +126,7 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 8,
-     "soru": 332,
+     "soru": 381,
      "sayfa": "kaydir/sgs/maliyet-muhasebesi.html",
      "konular": [
       {
@@ -138,7 +138,7 @@
        "donem": 7
       },
       {
-       "ad": "normal maliyet yöntemi",
+       "ad": "genel üretim gideri sapması",
        "donem": 7
       }
      ]
@@ -148,7 +148,7 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 8,
-     "soru": 185,
+     "soru": 212,
      "sayfa": "kaydir/sgs/mali-tablolar-analizi.html",
      "konular": [
       {
@@ -170,7 +170,7 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 16,
-     "soru": 620,
+     "soru": 697,
      "sayfa": "kaydir/sgs/denetim.html",
      "konular": [
       {
@@ -192,20 +192,20 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 121,
+     "soru": 161,
      "sayfa": "kaydir/sgs/ekonomi.html",
      "konular": [
+      {
+       "ad": "is lm maliye politikası",
+       "donem": 4
+      },
       {
        "ad": "is-lm para politikası etkinliği",
        "donem": 4
       },
       {
-       "ad": "talep esnekliği",
+       "ad": "laffer eğrisi",
        "donem": 4
-      },
-      {
-       "ad": "marjinal fayda",
-       "donem": 3
       }
      ]
     },
@@ -214,7 +214,7 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 131,
+     "soru": 136,
      "sayfa": "kaydir/sgs/maliye.html",
      "konular": [
       {
@@ -236,7 +236,7 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 157,
+     "soru": 185,
      "sayfa": "kaydir/sgs/meslek-hukuku.html",
      "konular": [
       {
@@ -248,8 +248,8 @@
        "donem": 9
       },
       {
-       "ad": "haksız rekabet reklam yasağı",
-       "donem": 7
+       "ad": "meslekle bağdaşmayan işler",
+       "donem": 9
       }
      ]
     },
@@ -258,7 +258,7 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 140,
+     "soru": 197,
      "sayfa": "kaydir/sgs/is-ve-sosyal-guvenlik-hukuku.html",
      "konular": [
       {
@@ -270,7 +270,7 @@
        "donem": 6
       },
       {
-       "ad": "is sözleşmesi turleri",
+       "ad": "is sözleşmesi şekli",
        "donem": 5
       }
      ]
@@ -280,13 +280,9 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 152,
+     "soru": 163,
      "sayfa": "kaydir/sgs/vergi-hukuku.html",
      "konular": [
-      {
-       "ad": "çek zorunlu unsurlari",
-       "donem": 5
-      },
       {
        "ad": "damga vergisi",
        "donem": 5
@@ -294,6 +290,10 @@
       {
        "ad": "kdv vergiyi doğuran olay",
        "donem": 4
+      },
+      {
+       "ad": "kdv istisnalari",
+       "donem": 3
       }
      ]
     },
@@ -302,11 +302,11 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 247,
+     "soru": 236,
      "sayfa": "kaydir/sgs/ticaret-hukuku.html",
      "konular": [
       {
-       "ad": "genel işlem koşulları",
+       "ad": "işletme devri müteselsil sorumluluk",
        "donem": 9
       },
       {
@@ -314,8 +314,8 @@
        "donem": 7
       },
       {
-       "ad": "çek zorunlu unsurlari",
-       "donem": 5
+       "ad": "ttk haksız rekabet halleri",
+       "donem": 7
       }
      ]
     },
@@ -324,9 +324,13 @@
      "alt": "",
      "bolum": "Alan Bilgisi",
      "sinav_soru": 6,
-     "soru": 171,
+     "soru": 241,
      "sayfa": "kaydir/sgs/borclar-hukuku.html",
      "konular": [
+      {
+       "ad": "genel işlem koşulları",
+       "donem": 9
+      },
       {
        "ad": "sebepsiz zenginleşme",
        "donem": 8
@@ -334,10 +338,6 @@
       {
        "ad": "sözleşme şekli",
        "donem": 5
-      },
-      {
-       "ad": "alacağın devri",
-       "donem": 4
       }
      ]
     }
@@ -347,82 +347,186 @@
    "kod": "smmm",
    "ad": "Staj Bitirme",
    "uzun": "SMMM Yeterlilik Sınavı",
-   "durum": "hazirlaniyor",
+   "durum": "acik",
    "ders_sayisi": 8,
-   "acik_ders": 0,
-   "soru": 0,
+   "acik_ders": 8,
+   "soru": 3872,
    "dersler": [
     {
      "ad": "Finansal Muhasebe",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 1161,
+     "sayfa": "kaydir/smmm/finansal-muhasebe.html",
+     "konular": [
+      {
+       "ad": "amortisman ayirma",
+       "donem": 42
+      },
+      {
+       "ad": "bilanço düzenleme",
+       "donem": 30
+      },
+      {
+       "ad": "şüpheli alacak karşılığı",
+       "donem": 24
+      }
+     ]
     },
     {
      "ad": "Finansal Tablolar ve Analizi",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 407,
+     "sayfa": "kaydir/smmm/finansal-tablolar.html",
+     "konular": [
+      {
+       "ad": "dikey yüzde analizi",
+       "donem": 14
+      },
+      {
+       "ad": "stok devir hızı",
+       "donem": 13
+      },
+      {
+       "ad": "nakit oranı",
+       "donem": 11
+      }
+     ]
     },
     {
      "ad": "Maliyet Muhasebesi",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 484,
+     "sayfa": "kaydir/smmm/maliyet-muhasebesi.html",
+     "konular": [
+      {
+       "ad": "satışların maliyeti tablosu",
+       "donem": 11
+      },
+      {
+       "ad": "satılan ticari mal maliyeti",
+       "donem": 8
+      },
+      {
+       "ad": "satılan mal maliyeti",
+       "donem": 6
+      }
+     ]
     },
     {
      "ad": "Muhasebe Denetimi",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 383,
+     "sayfa": "kaydir/smmm/muhasebe-denetimi.html",
+     "konular": [
+      {
+       "ad": "amortisman ayirma",
+       "donem": 42
+      },
+      {
+       "ad": "şüpheli alacak karşılığı",
+       "donem": 24
+      },
+      {
+       "ad": "etik ilkeler",
+       "donem": 8
+      }
+     ]
     },
     {
      "ad": "Vergi Mevzuatı ve Uygulaması",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 386,
+     "sayfa": "kaydir/smmm/vergi.html",
+     "konular": [
+      {
+       "ad": "gelir vergisi matrahı hesaplama",
+       "donem": 7
+      },
+      {
+       "ad": "gelecek aylara ait gider mahsubu",
+       "donem": 6
+      },
+      {
+       "ad": "beyanname cesitleri",
+       "donem": 5
+      }
+     ]
     },
     {
      "ad": "Hukuk",
-     "alt": "Ticaret H., Borçlar H., İş H., SSK ve Bağ-Kur Mevzuatı, İdari Yargılama H.",
-     "bolum": "Yeterlilik",
-     "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
-    },
-    {
-     "ad": "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 451,
+     "sayfa": "kaydir/smmm/hukuk.html",
+     "konular": [
+      {
+       "ad": "ticari işletme unsurlari",
+       "donem": 4
+      },
+      {
+       "ad": "borcu sona erdiren sebepler",
+       "donem": 4
+      },
+      {
+       "ad": "kıdem tazminatı koşulları",
+       "donem": 4
+      }
+     ]
+    },
+    {
+     "ad": "Meslek Hukuku",
+     "alt": "",
+     "bolum": "Yeterlilik",
+     "sinav_soru": 0,
+     "soru": 360,
+     "sayfa": "kaydir/smmm/meslek-hukuku.html",
+     "konular": [
+      {
+       "ad": "etik ilkeler",
+       "donem": 8
+      },
+      {
+       "ad": "meslekten çıkarma cezası",
+       "donem": 6
+      },
+      {
+       "ad": "müşterek müteselsil sorumluluk",
+       "donem": 6
+      }
+     ]
     },
     {
      "ad": "Sermaye Piyasası Mevzuatı",
      "alt": "",
      "bolum": "Yeterlilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 240,
+     "sayfa": "kaydir/smmm/sermaye-piyasasi.html",
+     "konular": [
+      {
+       "ad": "sermaye piyasası kurumları",
+       "donem": 6
+      },
+      {
+       "ad": "yatırım ortaklığı kuruluş izni",
+       "donem": 4
+      },
+      {
+       "ad": "halka açık ortaklık statüsü",
+       "donem": 3
+      }
+     ]
     }
    ]
   },
@@ -432,53 +536,118 @@
    "uzun": "KGK Bağımsız Denetçilik Sınavı",
    "durum": "hazirlaniyor",
    "ders_sayisi": 8,
-   "acik_ders": 0,
-   "soru": 0,
+   "acik_ders": 6,
+   "soru": 108,
    "dersler": [
     {
      "ad": "Türkiye Muhasebe Standartları",
      "alt": "",
      "bolum": "temel alan (SMMM+YMM)",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 10,
+     "sayfa": "kaydir/kgk/muhasebe-standartlari.html",
+     "konular": [
+      {
+       "ad": "tms 38 maddi olmayan duran varlıklar geliştirme gideri",
+       "donem": 1
+      },
+      {
+       "ad": "tfrs 16 kiralamalar kullanım hakkı varlığı",
+       "donem": 1
+      },
+      {
+       "ad": "tms 19 calisanlara sağlanan faydalar kıdem karşılığı",
+       "donem": 1
+      }
+     ]
     },
     {
      "ad": "Türkiye Denetim Standartları",
      "alt": "",
      "bolum": "temel alan (SMMM+YMM)",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 71,
+     "sayfa": "kaydir/kgk/denetim-standartlari.html",
+     "konular": [
+      {
+       "ad": "tespit edememe riski",
+       "donem": 9
+      },
+      {
+       "ad": "ic kontrol bilesenleri",
+       "donem": 8
+      },
+      {
+       "ad": "bds 600 topluluk denetimi",
+       "donem": 7
+      }
+     ]
     },
     {
-     "ad": "Kurumsal Yönetim İlkeleri ve Finansal Yönetim",
+     "ad": "Kurumsal Yönetim",
      "alt": "",
      "bolum": "temel alan (yalnız SMMM)",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 10,
+     "sayfa": "kaydir/kgk/kurumsal-yonetim.html",
+     "konular": [
+      {
+       "ad": "kurumsal yönetim tebliği komiteler ve gorevleri denetim riskin erken saptanması ücret aday gosterme",
+       "donem": 1
+      },
+      {
+       "ad": "kurumsal yönetim tebliği ilişkili taraf islemleri yaygın ve süreklilik arz eden işlemler",
+       "donem": 1
+      },
+      {
+       "ad": "kurumsal yönetim tebliği genel kurul toplantı usul ve ilkeleri",
+       "donem": 1
+      }
+     ]
     },
     {
      "ad": "Sermaye Piyasası Mevzuatı",
      "alt": "",
      "bolum": "ek alan — sermaye piyasası",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 7,
+     "sayfa": "kaydir/kgk/sermaye-piyasasi.html",
+     "konular": [
+      {
+       "ad": "sermaye piyasası suclari",
+       "donem": 10
+      },
+      {
+       "ad": "nitelikli yatırımcıya satış",
+       "donem": 4
+      },
+      {
+       "ad": "halka arz satış yontemleri",
+       "donem": 4
+      }
+     ]
     },
     {
      "ad": "Bankacılık Mevzuatı",
      "alt": "",
      "bolum": "ek alan — bankacılık",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 6,
+     "sayfa": "kaydir/kgk/bankacilik.html",
+     "konular": [
+      {
+       "ad": "sorunlu alacak yönetimi",
+       "donem": 2
+      },
+      {
+       "ad": "varlık yönetim şirketleri yonetmeligi",
+       "donem": 2
+      },
+      {
+       "ad": "kredi islemleri yonetmeligi kredi acma yetkisi",
+       "donem": 2
+      }
+     ]
     },
     {
      "ad": "Sigortacılık ve Özel Emeklilik Mevzuatı",
@@ -503,9 +672,22 @@
      "alt": "",
      "bolum": "ek alan — sürdürülebilirlik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": []
+     "soru": 4,
+     "sayfa": "kaydir/kgk/surdurulebilirlik-denetimi.html",
+     "konular": [
+      {
+       "ad": "gds 3000 tarihi finansal bilgi dışındaki güvence denetimleri cerceve",
+       "donem": 1
+      },
+      {
+       "ad": "gds 3000 güvence denetiminde kanıt ve önemlilik",
+       "donem": 1
+      },
+      {
+       "ad": "gds 3402 hizmet kurulusundaki kontrollere ilişkin güvence raporları",
+       "donem": 1
+      }
+     ]
     }
    ]
   }
