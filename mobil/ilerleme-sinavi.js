@@ -21,7 +21,9 @@ const MUTASYONLAR = {
   'en-yeni':  ['return tt(b) > tt(a) ? b : a;', 'return a;'],
   'gun-max':  ['g[k] = Math.max(g[k] || 0, b.gun[k]);', 'g[k] = b.gun[k];'],
   'tek-taraf': ['for (k in a) s[k] = a[k];', ''],
-  'ayar':     ['ayar: tt(b.ayar) > tt(a.ayar) ? b.ayar : a.ayar', 'ayar: a.ayar']
+  'ayar':     ['ayar: tt(b.ayar) > tt(a.ayar) ? b.ayar : a.ayar', 'ayar: a.ayar'],
+  'kutu':     ['kutu: haritaBirlestir(a.kutu, b.kutu),', 'kutu: a.kutu,'],
+  'kayit':    ['kayit: haritaBirlestir(a.kayit, b.kayit),', 'kayit: a.kayit,']
 };
 
 if (process.argv.includes('--mutasyon')) {
@@ -85,6 +87,14 @@ t('13 simetrik: a+b = b+a (anahtar sırası hariç)', ayni(r, r2), 'fark var');
 t('14 kendine uygulanınca değişmez (birleşik + birleşik = birleşik)', ayni(birlestir(r, r), r));
 t('15 boş sunucu (ilk eşitleme): telefonun kaydı aynen kalır', J(birlestir(tel, null).cevap) === J(tel.cevap) && birlestir(tel, null).gun['2026-09-26'] === 7);
 t('16 eski biçim konum (sayı) bozulmadan taşınır', birlestir({ surum: 1, konum: { z: 5 } }, null).konum.z.i === 5);
+/* 29.09 site yanlış kutusu (ilerleme-web.js): kutu/kayit/oyun da "soru başına en yeni kazanır" */
+const web = { surum: 1, kutu: { a: { tur: 1, due: 5, t: 100 }, b: { yok: 1, t: 300 } }, kayit: { a: { d: 0, t: 100 } }, oyun: { c: { s: 'tam', t: 50 } } };
+const pc = { surum: 1, kutu: { a: { yok: 1, t: 200 }, b: { tur: 2, due: 9, t: 250 }, c: { tur: 1, due: 7, t: 10 } }, kayit: { a: { d: 1, t: 200 } }, oyun: { c: { s: 'ipuclu', t: 40 } } };
+const wb = birlestir(web, pc);
+t('17 kutudan çıkış damgası (yok) daha yeniyse öbür cihazın eski kutusunu ezer', wb.kutu.a.yok === 1 && wb.kutu.b.yok === 1);
+t('18 yalnız bir cihazdaki kutu kaydı korunur', wb.kutu.c && wb.kutu.c.tur === 1);
+t('19 son cevap ve oyun sonucu en yeni kazanır', wb.kayit.a.d === 1 && wb.oyun.c.s === 'tam');
+t('20 kutu alanı olmayan eski kayıt (uygulama) bozulmaz', J(birlestir({ surum: 1 }, web).kutu) === J(web.kutu));
 
 console.log('ILERLEME-SINAVI: ' + (gecen === toplam ? 'YESIL' : 'KIRMIZI') + ' — ' + gecen + '/' + toplam + (mut ? ' · IL_MUTASYON=' + mut : ''));
 process.exit(gecen === toplam ? 0 : 1);

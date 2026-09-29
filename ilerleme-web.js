@@ -11,8 +11,9 @@
  *
  * YAPAR: cevap kaydı (doğru/yanlış, ders, konu) · kaldığın kart (kaydırınca) · açılışta hesapla eşitle, sonra o karta git
  *        ("Baştan" düğmesiyle) · cevaptan 4 sn sonra ve sayfadan çıkarken hesaba yaz.
- * YAPMAZ / GÖRMEZ: sayfanın kendi yanlış kutusu ve hazırlık skoru (kc_kayit/kc_kutu/kc_oyun) hâlâ tarayıcıda kalır;
- *        tek kart (?tek=1), derin bağlantı (#s=N) ve vitrin sayfalarında kaldığın yer yazılmaz/uygulanmaz;
+ *        29.09 (2. tur): sayfanın yanlış kutusu + hazırlık skoru girdileri (kc_kutu/kc_kayit/kc_oyun) de hesaba taşınır.
+ * YAPMAZ / GÖRMEZ: seri sayacı (kc_seri) ve kâğıt notları (kc_kagit) tarayıcıda kalır; uygulama kutuyu TAŞIR ama göstermez;
+ *        iki cihazda AYNI ANDA çözülürse kutu kaydı "en yeni kazanır"la birleşir (soru başına); tek kart (?tek=1), derin bağlantı (#s=N) ve vitrin sayfalarında kaldığın yer yazılmaz/uygulanmaz;
  *        sinav-gibi.html gibi #akis olmayan sayfalarda hiçbir şey yapmaz.
  */
 (function () {
@@ -97,6 +98,58 @@
         });
       });
     });
+
+    /* 3b) YANLIŞ KUTUSU + HAZIRLIK SKORU (29.09 Cem "1.2.3" madde 3): sayfa motoru bunları KUTU'da tutar ve kc_* ile
+       yalnız bu tarayıcıya yazar. Açılışta hesaptaki kutu sayfaya işlenir (birleşim), sonra sayfanın her yazımı hesaba
+       taşınır. Kutudan çıkan soru silinmez, {yok:1,t} damgası alır (öbür cihaz da çıkarsın). KUTU/kutuKaydet/skorCiz
+       sayfanın global adlarıdır; yoksa (eski sayfa) bu adım atlanır. */
+    kutuEsitle();
+    function kutuEsitle() {
+      if (typeof KUTU === 'undefined' || !KUTU || !Array.isArray(KUTU.kutu)) return;
+      var v = IL.veri(), sirada = {}, k;
+      /* ilk aktarım: yalnız hesapta olmayanı ekle, t=1 (eski) → hesaptaki daha yeni karar kazanır; silme yok */
+      var ek = {};
+      KUTU.kutu.forEach(function (x) { if (!v.kutu[x.id]) ek[x.id] = kutuKaydi(x, 1); });
+      IL.haritaYaz('kutu', ek);
+      var kay = {}, oy = {};
+      KUTU.kayit.forEach(function (r) { var o = v.kayit[r.id]; if (!o || (r.t || 0) > o.t) kay[r.id] = { d: r.dogru ? 1 : 0, t: r.t || 1 }; });
+      KUTU.oyun.forEach(function (r) { var o = v.oyun[r.id]; if (!o || (r.t || 0) > o.t) oy[r.id] = { s: r.sonuc, t: r.t || 1 }; });
+      IL.haritaYaz('kayit', kay); IL.haritaYaz('oyun', oy);
+      /* hesaptan sayfaya: kutu hesaptakinin aynısı olur; kayıt/oyunda hesaptaki daha yeni sonuç sayfa geçmişine eklenir */
+      var bilgi = {}; if (typeof SORULAR !== 'undefined') SORULAR.forEach(function (q) { bilgi[q.id] = q; });
+      KUTU.kutu.length = 0;
+      for (k in v.kutu) { var x = v.kutu[k]; if (!x.yok) KUTU.kutu.push({ id: isNum(k), konu: x.konu, ders: x.ders, donem: x.donem, tur: x.tur, due: x.due, yanlis: x.yanlis }); }
+      var sonYerel = {}; KUTU.kayit.forEach(function (r) { sonYerel[r.id] = r.t || 0; });
+      for (k in v.kayit) if (v.kayit[k].t > (sonYerel[k] || 0)) { var q = bilgi[k] || {}; KUTU.kayit.push({ id: isNum(k), konu: q.konu, ders: q.ders, donem: q.donem, dogru: !!v.kayit[k].d, t: v.kayit[k].t }); }
+      var sonOyun = {}; KUTU.oyun.forEach(function (r) { sonOyun[r.id] = r.t || 0; });
+      for (k in v.oyun) if (v.oyun[k].t > (sonOyun[k] || 0)) KUTU.oyun.push({ id: isNum(k), sonuc: v.oyun[k].s, t: v.oyun[k].t });
+      KUTU.kayit.sort(function (p, r) { return (p.t || 0) - (r.t || 0); });
+      KUTU.oyun.sort(function (p, r) { return (p.t || 0) - (r.t || 0); });
+      /* kutuKaydet yalnız diske yazar, çipleri çizmez → skorCiz ayrıca (29.09 ölçüldü: çip "0" kalıyordu) */
+      try { if (typeof kutuKaydet === 'function') kutuKaydet(); } catch (e) {}
+      try { if (typeof skorCiz === 'function') skorCiz(); } catch (e) {}
+      /* sonra: sayfanın her yazımı (kc_kutu/kc_kayit/kc_oyun değişimi) hesaba taşınır */
+      var iz = izAl();
+      setInterval(function () {
+        var yeni = izAl(); if (yeni === iz) return; iz = yeni;
+        var simd = Date.now(), vv = IL.veri(), kd = {}, varOlan = {};
+        KUTU.kutu.forEach(function (x) {
+          varOlan[x.id] = 1; var o = vv.kutu[x.id];
+          if (!o || o.yok || o.tur !== x.tur || o.due !== x.due || o.yanlis !== x.yanlis) kd[x.id] = kutuKaydi(x, simd);
+        });
+        for (var id in vv.kutu) if (!vv.kutu[id].yok && !varOlan[id]) kd[id] = { yok: 1, t: simd };
+        var kk = {}, oo = {};
+        KUTU.kayit.forEach(function (r) { var o = vv.kayit[r.id]; if (!o || (r.t || 0) > o.t) kk[r.id] = { d: r.dogru ? 1 : 0, t: r.t || simd }; });
+        KUTU.oyun.forEach(function (r) { var o = vv.oyun[r.id]; if (!o || (r.t || 0) > o.t) oo[r.id] = { s: r.sonuc, t: r.t || simd }; });
+        IL.haritaYaz('kutu', kd); IL.haritaYaz('kayit', kk); IL.haritaYaz('oyun', oo);
+        sonraEsitle();
+      }, 2000);
+    }
+    function kutuKaydi(x, t) { return { tur: x.tur, due: x.due, yanlis: x.yanlis || 0, konu: kisa(x.konu), ders: kisa(x.ders), donem: x.donem || 0, t: t }; }
+    function kisa(s) { return s == null ? '' : String(s).slice(0, 80); }
+    /* sayfadaki kimlik sayıysa sayı olarak geri ver (harita anahtarı hep metindir) */
+    function isNum(k) { return /^\d+$/.test(k) && typeof SORULAR !== 'undefined' && SORULAR.length && typeof SORULAR[0].id === 'number' ? +k : k; }
+    function izAl() { try { return (localStorage.getItem('kc_kutu') || '') + '|' + (localStorage.getItem('kc_kayit') || '').slice(-160) + '|' + (localStorage.getItem('kc_oyun') || '').slice(-160); } catch (e) { return ''; } }
 
     /* 4) kaldığın yer: tek kart modunda yazılmaz */
     if (tek) return;

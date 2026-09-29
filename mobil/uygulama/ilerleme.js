@@ -19,7 +19,10 @@
  */
 (function (kok) {
   var ANAHTAR = 'tt_ilerleme';
-  function bos() { return { surum: 1, cevap: {}, bayrak: {}, not: {}, konum: {}, son: null, gun: {}, ayar: { hedef: 10, yazi: 1, t: 0 } }; }
+  /* 29.09 site (ilerleme-web.js): sayfa motorunun yanlış kutusu + hazırlık skoru girdileri de hesaba taşınır.
+     Anahtar = sayfadaki soru kimliği (SORULAR[i].id). kutu = { id: {tur,due,yanlis,konu,ders,donem,t} | {yok:1,t} },
+     kayit = { id: {d:1|0, t} } son cevap, oyun = { id: {s:'tam'|'ipuclu'|..., t} }. Uygulama bu alanları okumaz, taşır. */
+  function bos() { return { surum: 1, cevap: {}, bayrak: {}, not: {}, konum: {}, son: null, gun: {}, ayar: { hedef: 10, yazi: 1, t: 0 }, kutu: {}, kayit: {}, oyun: {} }; }
   function duzelt(v) {
     if (!v || v.surum !== 1) return bos();
     var b = bos(); for (var k in b) if (v[k] === undefined || v[k] === null && k !== 'son') v[k] = b[k];
@@ -50,7 +53,10 @@
       konum: haritaBirlestir(a.konum, b.konum),
       son: enYeni(a.son, b.son) || null,
       gun: g,
-      ayar: tt(b.ayar) > tt(a.ayar) ? b.ayar : a.ayar
+      ayar: tt(b.ayar) > tt(a.ayar) ? b.ayar : a.ayar,
+      kutu: haritaBirlestir(a.kutu, b.kutu),
+      kayit: haritaBirlestir(a.kayit, b.kayit),
+      oyun: haritaBirlestir(a.oyun, b.oyun)
     };
   }
   /* anahtar sırasından bağımsız karşılaştırma (sıra farkı gereksiz sunucu yazımı doğurmasın) */
@@ -104,6 +110,8 @@
     },
     konumYaz: function (yol, i) { var t = Date.now(); veri.konum[yol] = { i: i, t: t }; veri.son = { yol: yol, i: i, t: t }; yaz(); },
     konumu: function (yol) { var k = veri.konum[yol]; return k ? k.i || 0 : 0; },
+    /* genel harita yazımı (site yanlış kutusu): alan = kutu|kayit|oyun; tek diske yazım için toplu */
+    haritaYaz: function (alan, degisim) { if (!veri[alan]) veri[alan] = {}; for (var k in degisim) veri[alan][k] = degisim[k]; yaz(); },
     ayarYaz: function (a) { for (var k in a) veri.ayar[k] = a[k]; veri.ayar.t = Date.now(); yaz(); },
     /* bir sayfanın (dersin) sonuçları: { ok, yan } — ana ekran karnesi */
     dersSonucu: function (yol) {
