@@ -720,6 +720,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-ticaret-kolay-r1-b2",
+        "id":  "kp-07",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "cek uzerindeki kayitlar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-ticaret-kolay-r2-b2",
         "id":  "kp-07",
         "ders":  "Ticaret Hukuku",
@@ -736,23 +744,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ticaret-kolay-r1-b2",
-        "id":  "kp-07",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "cek uzerindeki kayitlar",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t5-ticaret-zor",
-        "id":  "kp-04",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "kambiyo senedi cirosu",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t5-ticaret-cokzor",
         "id":  "kp-04",
         "ders":  "Ticaret Hukuku",
         "konu":  "kambiyo senedi cirosu",
@@ -768,10 +760,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-ticaret-kolay-r3",
-        "id":  "kp-05",
+        "etiket":  "sgs-t5-ticaret-cokzor",
+        "id":  "kp-04",
         "ders":  "Ticaret Hukuku",
-        "konu":  "kambiyo senetleri",
+        "konu":  "kambiyo senedi cirosu",
         "donem":  2,
         "kurtarma":  false
     },
@@ -784,16 +776,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-cokzor",
-        "id":  "kp-14",
+        "etiket":  "sgs-d2-ticaret-kolay-r3",
+        "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
-        "konu":  "kiymetli evrak bono",
+        "konu":  "kambiyo senetleri",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t2-ticaret-zor",
         "id":  "kp-07",
+        "ders":  "Ticaret Hukuku",
+        "konu":  "kiymetli evrak bono",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-ticaret-cokzor",
+        "id":  "kp-14",
         "ders":  "Ticaret Hukuku",
         "konu":  "kiymetli evrak bono",
         "donem":  2,
@@ -824,16 +824,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k5-ticaret-zor",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-ticaret-zor-r1-b2",
+        "id":  "kp-06",
         "ders":  "Ticaret Hukuku",
         "konu":  "limited sirket ozellikleri",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-ticaret-zor",
-        "id":  "kp-05",
+        "etiket":  "sgs-k5-ticaret-zor",
+        "id":  "kp-02",
         "ders":  "Ticaret Hukuku",
         "konu":  "limited sirket ozellikleri",
         "donem":  2,
@@ -856,8 +856,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ticaret-zor-r1-b2",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-ticaret-zor",
+        "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
         "konu":  "limited sirket ozellikleri",
         "donem":  2,
@@ -865,14 +865,6 @@
     },
     {
         "etiket":  "sgs-d3-ticaret-cokzor-r1",
-        "id":  "kp-07",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "limited sirket sermayesi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-ticaret-kolay-r1",
         "id":  "kp-07",
         "ders":  "Ticaret Hukuku",
         "konu":  "limited sirket sermayesi",
