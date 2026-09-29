@@ -242,6 +242,15 @@ jobs:
           - { ad: "Hazir soru on denetimi IKIZ (KAPI-B) OZ-SINAVI (ureticinin gercek fonksiyonu)",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -IkizSinavi" }
 
+          # 29.09.2026 - KAPI-MM mulga madde: ambarda BUTUNUYLE mulga/iptal madde listesi (arac/ambar-mulga-madde.js, 24 madde)
+          # motor paketinden atilir, on denetim kaynak_adlar'da gorurse KUSUR der. Bulucu 7 vaka; mutasyonla olculdu:
+          # bolum basligi silme / ibare istisnasi / Degisik atlama / hukum esigi / iptal dali kapatilinca 5/5 KIRMIZI.
+          # On denetim 3 vaka; Contains kapali 1/3, liste yolu yanlis KOR, hep-yakala 1/3 KIRMIZI.
+          - { ad: "KAPI-MM mulga madde BULUCU OZ-SINAVI (ambar metni -> butunuyle mulga mi)",
+              kabuk: bash, komut: "node arac/ambar-mulga-madde.js --sinav" }
+          - { ad: "KAPI-MM mulga madde ON DENETIM OZ-SINAVI (kaynak_adlar'da mulga madde KUSUR)",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -MulgaSinavi" }
+
           # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
           # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
           # 'yayin basimdan SONRA' sarti kaldirilinca 2/7, 'kuyrukta yayin' istisnasi kapatilinca 1/7 KIRMIZI.

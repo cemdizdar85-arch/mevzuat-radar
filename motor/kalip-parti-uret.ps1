@@ -449,6 +449,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
       # Ölçüldü: kgk-kurfin-30 'yönetim kurulu komiteleri' ← VYŞ Yön. m.1-5, 'sistematik olmayan risk' ← TFRS 17; sigorta 'BES devlet katkısı' ← TTK m.215-217.
       # Etki (9 KGK önbelleği, 306 soru): 3.187 parçadan 254 ayıklanır, 29 paket boşalır (boş paket mevcut "kaynak çekilemedi" kapısıyla hakemden önce düşer).
       if($script:KGK_AILE_RX -and "$($x.kaynak_ad)" -notmatch $script:KGK_AILE_RX){ $script:KAPI_AILE_SAY++; Write-Host "  KAPI-AILE: ders dışı kaynak ailesi atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue }
+      if($script:MULGA_MADDE -and $script:MULGA_MADDE.Contains("$($x.kaynak_ad)")){ $script:KAPI_MM_SAY++; Write-Host "  KAPI-MM: mülga madde paketten atlandı: $($x.kaynak_ad)" -ForegroundColor DarkGray; continue }
       if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") }
     }
     # 03.09 OLCULDU (SMMM 'kambiyo kari kaydi' -> KAYNAK BORCU; oysa THP 646 KAMBIYO KARLARI ambarda):
@@ -457,7 +458,7 @@ function AmbarCek([string[]]$desenler,[int]$tavan=9000){
     if($d.StartsWith('@') -and @($r).Count -eq 0){
       $u2='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&kaynak_ad=ilike.'+[uri]::EscapeDataString($parca[0]+'%')+'&kaynak_ad=imatch.'+[uri]::EscapeDataString($rx)+'&limit=3'
       $r2=$null; try{ $r2=Invoke-RestMethod -Uri $u2 -Headers $SB -TimeoutSec 60 }catch{}
-      foreach($x in @($r2)){ if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ continue }; if($script:KGK_AILE_RX -and "$($x.kaynak_ad)" -notmatch $script:KGK_AILE_RX){ $script:KAPI_AILE_SAY++; continue }; if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
+      foreach($x in @($r2)){ if($script:GK_SAF -and "$($x.kaynak_ad)" -notmatch '^(TEORI|Teori Notu)'){ continue }; if($script:KGK_AILE_RX -and "$($x.kaynak_ad)" -notmatch $script:KGK_AILE_RX){ $script:KAPI_AILE_SAY++; continue }; if($script:MULGA_MADDE -and $script:MULGA_MADDE.Contains("$($x.kaynak_ad)")){ $script:KAPI_MM_SAY++; continue }; if($adlar -notcontains $x.kaynak_ad){ $adlar.Add($x.kaynak_ad); $topla.Add("[$($x.kaynak_ad)] $($x.metin)") } }
     }
     if($adlar.Count -ge 10){ break }
   }
@@ -1934,6 +1935,15 @@ if($Sinav -eq 'KGK'){
   $script:KGK_AILE_RX='(?i)(' + ($aileDesenleri -join ')|(') + ')'
   Write-Host ("KAPI-AILE açık: {0} izinli kaynak deseni ({1})" -f $aileDesenleri.Count,$DersRegex) -ForegroundColor Cyan
 }
+# 29.09 KAPI-MM (Cem "1.2.3 üçünü de yap"): ambarda BÜTÜNÜYLE mülga/iptal madde parçası kaynak paketine ALINMAZ.
+#   Liste veri/sinav/ambar-mulga-maddeler.json (üretici arac/ambar-mulga-madde.js, öz-sınav 7 vaka + 5 mutasyon; 29.09: 24 madde).
+#   Ölçüldü: VUK m.270 satırı yalnız başlık + "(Mülga:14/10/2021-7338/29 md.)" taşıyor; ad araması başlığı eşleştirip pakete
+#   sokuyordu → 17 soru (12 SGS, 5 SMMM) kaynak olarak mülga maddeyi gösteriyordu; SMMM'de 1'inin cevabı da yanlış çıktı (m.262).
+#   EŞDEĞERLİK: liste dosyası yoksa ya da satır listede değilse paket BİREBİR aynı (parmak izi değişmez).
+#   🚫 GÖRMEZ: fıkra düzeyinde iptal · ambar metninde iptali yazmayan madde · sorunun GÖVDESİNDE anılan mülga madde (o KAPI-M'nin işi).
+$script:MULGA_MADDE=New-Object 'System.Collections.Generic.HashSet[string]'; $script:KAPI_MM_SAY=0
+$mmYol=Join-Path (Split-Path -Parent $PSScriptRoot) 'veri\sinav\ambar-mulga-maddeler.json'
+if(Test-Path $mmYol){ try{ foreach($mmx in @((Get-Content $mmYol -Raw -Encoding UTF8 | ConvertFrom-Json).maddeler)){ if($mmx.kaynak_ad){ [void]$script:MULGA_MADDE.Add("$($mmx.kaynak_ad)") } } }catch{ Write-Host "KAPI-MM: liste okunamadı ($($_.Exception.Message)) — süzgeç kapalı" -ForegroundColor Yellow } }
 $YD_DIL_KURAL=@'
 
     YABANCI DİL (İNGİLİZCE) MODU: Bu ders SGS kitapçığının 21–30. soruları gibi İNGİLİZCE yazılır. Soru kökü ve 5 şık İngilizce;
@@ -4347,7 +4357,7 @@ foreach($id in @($don.Keys)){
   if($cvp.PSObject.Properties['kaynak_metin_ozet'] -and $cvp.kaynak_metin_ozet){ $kMetin=$cvp.kaynak_metin_ozet }
   elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
     $parca=New-Object System.Collections.Generic.List[string]
-    foreach($ka in (KaynakSirala $cvp.kaynak_adlar "$($cvp.konu)" 4)){
+    foreach($ka in (KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { -not ($script:MULGA_MADDE -and $script:MULGA_MADDE.Contains("$_")) }) "$($cvp.konu)" 4)){   # 29.09 KAPI-MM: mülga madde sıralamadan önce elenir
       $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
       try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
     }
@@ -4688,7 +4698,7 @@ function KorKaynakPaket($cvp,[int]$tavan){
   # 6 ad; blok bütün alınır, tavanı aşan blok atlanır (ortadan kesilmez, KAPI-KP ile aynı ilke). Gerekçe metni girmez.
   elseif($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
     $korAt=@(); if($cvp.PSObject.Properties['atif_genisletme'] -and $cvp.atif_genisletme){ $korAt=@($cvp.atif_genisletme) }
-    $korSec=@($korAt)+@(KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { $korAt -notcontains $_ }) "$($cvp.konu)" 6)
+    $korSec=@($korAt)+@(KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { $korAt -notcontains $_ -and -not ($script:MULGA_MADDE -and $script:MULGA_MADDE.Contains("$_")) }) "$($cvp.konu)" 6)   # 29.09 KAPI-MM
     $korBoy=0; foreach($hl in $kp){ $korBoy+=$hl.Length+5 }
     foreach($ka in $korSec){
       $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString("$ka")+'&limit=1'
@@ -5076,7 +5086,7 @@ function SadeKaynak($cvp){
   $parca=New-Object System.Collections.Generic.List[string]
   if($cvp.PSObject.Properties['dayanak'] -and "$($cvp.dayanak)".Trim()){ $atifD=@(AtifDesen "$($cvp.dayanak)"); if($atifD.Count){ $atif=AmbarCek $atifD 5000; if($atif.metin){ $parca.Add($atif.metin) } } }
   if($cvp.PSObject.Properties['kaynak_adlar'] -and @($cvp.kaynak_adlar).Count){
-    foreach($ka in (KaynakSirala $cvp.kaynak_adlar "$($cvp.konu)" 4)){
+    foreach($ka in (KaynakSirala @(@($cvp.kaynak_adlar) | Where-Object { -not ($script:MULGA_MADDE -and $script:MULGA_MADDE.Contains("$_")) }) "$($cvp.konu)" 4)){   # 29.09 KAPI-MM: mülga madde sıralamadan önce elenir
       $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&kaynak_ad=eq.'+[uri]::EscapeDataString($ka)+'&limit=1'
       try{ $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 60; if(@($r).Count){ $parca.Add("[$ka] $(@($r)[0].metin)") } }catch{}
     }

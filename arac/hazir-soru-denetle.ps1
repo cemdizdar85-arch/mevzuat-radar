@@ -15,7 +15,7 @@
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
-      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi)
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -77,7 +77,24 @@ if($IkizSinavi){
   Remove-Item -Recurse -Force $gk -ErrorAction SilentlyContinue
   if($hata){ "İKİZ SINAVI KIRMIZI: $hata/$($v.Count)"; exit 1 } else { "İKİZ SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }
-if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi)' }
+# 29.09 KAPI-MM (Cem "1.2.3 üçünü de yap"): kaynak_adlar'da ambarda BÜTÜNÜYLE mülga/iptal madde → KUSUR.
+#   Liste veri/sinav/ambar-mulga-maddeler.json (arac/ambar-mulga-madde.js). Motor aynı listeyle paketten atar; ön denetim yazarı uyarır.
+#   🚫 GÖRMEZ: fıkra düzeyi iptal · listede olmayan (ambar metninde iptali yazmayan) madde · soru gövdesinde anılan mülga kanun (KAPI-M).
+function MulgaListeYukle([string]$kok){ $s=New-Object 'System.Collections.Generic.HashSet[string]'; $y=[IO.Path]::Combine($kok,'veri','sinav','ambar-mulga-maddeler.json')
+  if(Test-Path $y){ foreach($m in @(([IO.File]::ReadAllText($y,[Text.Encoding]::UTF8) | ConvertFrom-Json).maddeler)){ if($m.kaynak_ad){ [void]$s.Add("$($m.kaynak_ad)") } } }; return ,$s }
+function MulgaMaddeKusur($q,$set){ $o=@(); foreach($ad in @($q.kaynak_adlar)){ if("$ad".Trim() -and $set.Contains("$ad")){ $o+="$ad" } }; return $o }
+$MULGA_SET=MulgaListeYukle $depoKokD
+if($MulgaSinavi){
+  $hata=0; $v=@(
+    @('mülga madde kaynak adında -> YAKALA', @('VUK (213 s.K.) m.270 - Gayrimaddi haklar. Gayrimenkullerde maliyet bedeline giren giderler','VUK (213 s.K.) m.269'), $true),
+    @('yürürlükteki komşu madde -> GEÇ', @('VUK (213 s.K.) m.269','VUK (213 s.K.) m.262'), $false),
+    @('kaynak_adlar boş -> GEÇ', @(), $false))
+  if($MULGA_SET.Count -lt 1){ "MÜLGA SINAVI KIRMIZI: liste yüklenemedi/boş (veri/sinav/ambar-mulga-maddeler.json) — kapı KÖR"; exit 1 }
+  foreach($vk in $v){ $yak=[bool]@(MulgaMaddeKusur ([pscustomobject]@{ kaynak_adlar=$vk[1] }) $MULGA_SET).Count; $iyi=($yak -eq $vk[2]); if(-not $iyi){ $hata++ }
+    "  $(if($iyi){'TAMAM'}else{'HATA '}) $($vk[0]) -> $(if($yak){'yakalandı'}else{'geçti'})" }
+  if($hata){ "MÜLGA SINAVI KIRMIZI: $hata/$($v.Count) (liste $($MULGA_SET.Count) madde)"; exit 1 } else { "MÜLGA SINAVI YESIL: $($v.Count)/$($v.Count) (liste $($MULGA_SET.Count) madde)"; exit 0 }
+}
+if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -200,6 +217,7 @@ foreach($q in $liste){
   }
   foreach($x in @(OzelMaliyetKapisi $q)){ $k.Add("KAPI-OM: $x") }   # 27.09: üretici FAZ GM'de aynı işlevle ÜCRETSİZ düşürür
   if($kaynakOlcu){ foreach($ad in @($q.kaynak_adlar)){ if("$ad".Trim() -and $kaynakVar["$ad"] -eq $false){ $k.Add("KAYNAK ADI ambarda yok: '$ad' (paket boş kalır, hakem soruyu atlar)") } } }
+  foreach($ad in @(MulgaMaddeKusur $q $MULGA_SET)){ $k.Add("KAPI-MM: kaynak MÜLGA/İPTAL madde: '$ad' — yürürlükteki maddeye dayandır") }
   # 26.09 KAPI-O (klişe/koku): üreticinin GERÇEK KokuKusur fonksiyonu (AST). Ölçüldü: sgs-k10-yd-kolay 'bu bağlamda' klişesiyle bulutta düşecekti, ön denetim görmüyordu.
   if($ikizAcik){ foreach($x in @(KokuKusur $q)){ $k.Add("KAPI-O: $x") } }
   if($ikizAcik){ foreach($x in @(BenzerlikKusur $q ("hz-{0:d2}" -f $i))){ $k.Add("KAPI-B: $x") }; $don[("hz-{0:d2}" -f $i)]=$q }
