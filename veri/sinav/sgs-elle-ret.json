@@ -386,6 +386,81 @@
             "gerekce": "29.09 risk taramasi grup r4-03: CEVAP YANLIŞ (KESİN) - Kâr 500.000; I. tertip 25.000 + birinci kâr payı 60.000 + ikinci kâr payı 415.000 + II. tertip 41.500 = 541.500, yani kârı aşıyor. \"Kalanın tamamı dağıtılacak\" ise II. tertip=415.000x10/110=37.727; bu sonuç şıklarda yok. İkizde ayrı ve KESİN hata var: mevcut yedek 300.000 = 1.500.000x%20 sınırına ulaşmış, I. tertip 0 olmalı; tablo 30.000 ayırıyor. | dayanak: TTK m.519/1, m.519/2-c | anahtar B->YOK (37.727)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-borclar-kolay-r1/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C için aciklama alanı YOK (yalnız A,B,D,E tuzak metinleri var), adimlar boş; anahtar (5 yıl) doğru | dayanak: TBK m.147/1",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-denetim-kolay-r2/kp-05": {
+            "gerekce": "29.09 risk taramasi grup r4-01: CEVAP YANLIŞ (MUHTEMEL) - Açıklama \"rutin bilgi paylaşımları belgelendirme kapsamına girmez\" diyor; oysa planlanan kapsam/zamanlama bildirimi BDS 260 p.15 zorunlu bildirimi, sözlü yapıldıysa BDS 260 p.24 gereği belgelendirilir → 6 (E) de savunulabilir; iki doğru riski | dayanak: BDS 230 p.10; BDS 260 p.15, p.24 | anahtar C->C (tartışmalı; E savunulabilir)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t5-denetim-cokzor/kp-14": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - İkiz \"hizmet sektöründe ... standardın örnek verdiği oran\" diyor; BDS 320 A8 %5 örneğini yalnız üretim sektörü kâr amaçlı işletme için veriyor. Ana soru ve hesaplar doğru (277.800; ikiz 261.800) | dayanak: BDS 320 p.A8",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t5-denetim-kolay/kp-14": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - İkiz \"ticaret sektörü ... BDS 320 açıklayıcı hükümlerinde bu tür işletme için uygun görülen oran\" diyor; A8 örneği yalnız üretim sektörü. Ana soru doğru (369.300; ikiz 262.000) | dayanak: BDS 320 p.A8",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-ekonomi-cokzor-r2/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (17; ikiz 20). Hap \"Taylor prensibi a>1 şartıdır\" diyor; formülde cari enflasyon ayrıca eklendiği için faizin enflasyona toplam tepkisi 1+a, prensip a>0 ile sağlanır — kavram karışık (ambar TEORİ kaydı da aynı ifadeyi taşıyor) | dayanak: ambar \"TEORI - Taylor prensibi\" (resmî kaynak değil)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-ekonomi-kolay-r1/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (14,5; ikiz 21). Açıklama/hap \"katsayı 1'den büyük olduğu için Taylor prensibine uygun\" diyor; formülde π ayrıca eklendiğinden toplam tepki 1+a — kavram karışık | dayanak: ambar \"TEORI - Taylor prensibi\"",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-ekonomi-cokzor-r2/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (KESİN) - Doğru şık B'nin aciklama alanı BOŞ; \"Ne soruluyor\" metni yanlış şık A altında ve aritmetik hatalı (\"15 = 12,5 + 4a\" — doğrusu 3+8+1=12). Anahtar a=0,75 doğru; ikiz b=0,2 doğru | dayanak: —",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-ekonomi-cokzor/kp-23": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (875.000). İkiz: baz yıl 2024 (=100) verilip \"2026 yıllık enflasyonu %25\" deniyor; 2025 deflatörü bilinmeden 2026 deflatörü bulunamaz, tablo 100×1,25=125 alıyor → ikiz eksik veriyle hatalı çözüm (720.000) | dayanak: —",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-ekonomi-zor/kp-18": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (900; ikiz TF 1.800). Açıklamadaki kural cümlesi \"üretici fazlası ... üçgen alanının yarısıdır\" yanlış ifade (üretici fazlası üçgenin alanıdır, ½·taban·yükseklik); hap doğru | dayanak: —",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-bosluk-finansalmuhasebe/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - Ana soru doğru (80.000). İkiz: 18 aylık peşin kirada 2024 sonrası 15 ayın tamamı \"180 hesabına\" deniyor; 12 ayı aşan 3 ay 280 Gelecek Yıllara Ait Giderler'e gider (kendi hap'ı da 180/280 diyor) | dayanak: THP hesap açıklamaları ambarda yok (yalnız çıkmış sorular)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-cokzor-r1/kp-20": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (180.000). Açıklama/hap genel yönetim gideri payını \"ihtiyari\" diye TMS 16 bağlamında sunuyor; TMS 16 p.19(d) yönetim giderlerini maliyete ALMAZ (ihtiyar VUK m.275 içindir) | dayanak: VUK m.275/4; TMS 16 p.19(d)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-cokzor-r2/kp-11": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (1.200.000). Adımdaki \"Ters durum: kalem parasal olmayan olsaydı → tarihi kur kullanılır\" YANLIŞ: TMS 21 p.42(a) yüksek enflasyonlu para biriminden çevrimde tüm tutarlar (parasal olmayanlar dahil) son bilanço tarihi kapanış kurundan çevrilir | dayanak: TMS 21 p.42(a), p.43",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-cokzor-r2/kp-12": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (80.000). Adımdaki \"Ters durum: itibari değer > nominal → fark 521 Hisse Senedi İptal Kârları...\" yanlış hesap yönlendirmesi (521 ıskat/iptal içindir) | dayanak: THP açıklamaları ambarda yok",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-cokzor-r2/kp-14": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (KESİN) - Açıklamalar kaymış: doğru şık D (240.600) altında \"Fark Atlama Tuzağı ... yalnız 185.750+47.350 topladın\" (C şıkkının tuzak metni), doğru açıklama (\"Ne soruluyor...240.600\") yanlış şık C altında. Anahtar D doğru | dayanak: —",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-kolay-r1/kp-21": {
+            "gerekce": "29.09 risk taramasi grup r4-01: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (30.000). İkiz hedef cümlesi \"380 bakiyesinin 72.000 TL olduğunu bul\" diyor; kendi tablosu ve doğru hesap 96.000−36.000=60.000 | dayanak: —",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
