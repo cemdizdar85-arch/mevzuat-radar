@@ -49,6 +49,17 @@ try {
   }
 } catch (e) {}
 
+/* ---- 29.09 DÖNÜŞÜM ÖLÇÜMÜ (Cem: "dönüşüm kodları + Instagram reklam") ----------
+   donusum.js: Meta Pixel + Conversions API + GoatCounter aynası. PIKSEL_ID boşken
+   Meta'ya hiçbir şey gitmez, bant çıkmaz. PERDE-BASI'ndan ÖNCE: perde açıkken de
+   ölçülsün (perde e-postası = Lead). Mutlak yol: alt klasör sayfalarında da insin. */
+try {
+  if (!window.ttDonusum && !document.querySelector('script[src$="donusum.js"]')) {
+    var dn = document.createElement('script'); dn.src = '/donusum.js'; dn.async = true;
+    (document.head||document.documentElement).appendChild(dn);
+  }
+} catch (e) {}
+
 /* ==== PERDE-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
 /* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
    Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
