@@ -14,7 +14,7 @@ Kod ya da veri dosyasına dokunmadan **ÖNCE** şunu koş:
 powershell -NoProfile -File motor/oturum.ps1 -Ac -Kol "<iş kolu>" -Is "<kısa iş>" -Ad "<ListAgents'teki adın>"
 ```
 
-İş kolu adları: `alacak` · `marka` · `destek` · `ihale` · `sinav` · `kgk` · `site` · `pazarlama` · `altyapi`
+İş kolu adları: `alacak` · `marka` · `destek` · `ihale` · `sinav` (SMMM) · `sgs` · `kgk` · `site` · `pazarlama` · `altyapi`
 
 **Adını öğren, başlığını koy (15.09.2026, Cem "oturum adına iş kolu yazalım"):**
 `ListAgents` çıktısının ilk satırı bu oturumun mesaj adını söyler ("This session is mevzuat-i-i-cc") → `-Ad`e o yazılır.
