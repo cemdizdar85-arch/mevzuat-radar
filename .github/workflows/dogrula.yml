@@ -198,6 +198,13 @@ jobs:
           - { ad: "KAPI-OM ozel maliyet 5 yil kurali OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/ozel-maliyet-kapisi-sinavi.ps1" }
 
+          # 29.09.2026 - Bulut soru basim sirasi (bulut-sira.yml cron). Yerel sira betikleri oturuma bagliydi; 27.09'da
+          # sessizce oldu, bulut 2 gun bos kaldi. Sinav: pay (toplam + sinav basi, halka tek plan), cift acma (kosan/
+          # kuyruktaki/gecmiste acilmis plan), bozuk butce/yol/paralel satirini atlama, KOR gecmis, acil fren, tr-TR
+          # virgul; canli sira dosyasinin her satiri bicimce. Mutasyon: 16 bozma, her biri sinavi KIRMIZI yapmali.
+          - { ad: "Bulut soru sirasi OZ-SINAVI (pay + cift acma + bozuk satir)",
+              kabuk: pwsh, komut: "./arac/bulut-sira-sinavi.ps1" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para

@@ -254,6 +254,16 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   anlık yola düşme yok. `motor/kalip-kosucu.ps1` yerelde **durur** (`MEVZUAT_YEREL_BASIM='<gerekçe>'` ile bilerek açılır — yalnız
   hazır-soru dosyası gibi bu makineye bağlı işler için). Neden: 16.09'da yerel koşular 65 süreç, 281 MB boş RAM, paralellik 1 üretti.
   Yerelde kalan tek iş: planı kurmak, küçük onarım (`kalip-parti-uret.ps1 -PilotId`), ölçüm.
+- ⛔⭐ **PLANLAR BULUT SIRASIYLA AÇILIR, YEREL SIRA BETİĞİ YOK** (29.09.2026, Cem "1.2.3" madde 1). **Olay (ölçüldü):** pay sınırını
+  koruyan yerel bash sıra betikleri Claude oturumuna bağlıydı; 27.09'da bitirme sırası çıkış 4 ile hata yazmadan öldü, gm5-8..22
+  açılmadı, bulut 27.09 15:00 → 29.09 22:00 boş kaldı. Kural: birden çok plan açılacaksa plan commit+push edilir, sonra
+  `powershell -NoProfile -File motor/bulut-sira.ps1 -Ekle -Plan veri/sinav/plan-<sınav>-….json -Butce <USD> [-OlcumKosusu <id>] -Ekleyen "<oturum adı>"`
+  → `veri/sinav/bulut-sira.json` AYNI ÇAĞRIDA commit+push. Robot `bulut-sira.yml` 15 dk'da bir açık `bulut-uretim` koşularını PLAN
+  bazında sayar (halka dahil) ve pay boşsa açar (pay dosyada: toplam 6 · smmm 3 · sgs 3 · kgk 2). "Açıldı mı" GitHub koşu
+  geçmişinden okunur; açılmış plan satırı reddedilir (bilerek yeniden = `-Yeniden`, Cem onayı). Sıraya konan plan **elle açılmaz**
+  (çift ödeme). Durum `-Durum` · kaldır `-Cikar` · acil fren dosyada `"durdur": true`. Bütçe kuralı aynen geçerli: sıraya koymak =
+  açma kararı. Öz-sınav `arac/bulut-sira-sinavi.ps1` (dogrula.yml, 28 vaka + 16 mutasyon). 🚫 GÖRMEZ: sıra dışından aynı
+  planın saniyeler içinde elle açılması · başlığı kalıba uymayan koşunun sınavı (yalnız toplama sayar) · bütçenin onaylı olup olmadığı.
 - ⛔⭐ **TÜM SORULAR, TÜM SINAVLARDA, NE OLURSA OLSUN TOPLU** (16.09.2026, Cem: *"dönen sorular toplu basılacak kural olsun, sadece bu sınav
   değil bütün sınavlarda … tüm sorular ne olursa olsun toplu basılacak"*). Kapıdan dönen sorunun yeniden yazımı dahil (FAZ A ikinci toplu
   parti `AR`/`A1B`). Mekanik kapı: `motor/kalip-parti-uret.ps1` `-Toplu` olmadan ücretli çağrı yapmaz ("TOPLU ZORUNLU"); `motor/kalip-kosucu.ps1`

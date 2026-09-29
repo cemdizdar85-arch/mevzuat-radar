@@ -1,0 +1,59 @@
+# .github/workflows/bulut-sira.yml — SORU BASIM SIRASI (oturumdan bagimsiz)
+#
+# 29.09.2026, Cem "1.2.3 ucunu de yap" madde 1.
+#
+# NIYE: bulut-uretim planlari ayni anda acik kosu sinirini korumak icin her sinav
+# oturumunun KENDI makinesinde koşan bash sira betigiyle aciliyordu. Betik Claude
+# oturumuna bagliydi: 27.09'da bitirme sirasi cikis 4 ile HATA YAZMADAN oldu,
+# gm5-8..22 acilmadi, bulut 27.09 15:00 -> 29.09 22:00 BOS kaldi; KGK da bekledi.
+#
+# NE YAPAR: 15 dk'da bir veri/sinav/bulut-sira.json'u okur, acik bulut-uretim
+# kosularini PLAN bazinda sayar (halka kosulari dahil), pay boşsa siradaki plani
+# acar (gh workflow run bulut-uretim.yml ... butce_usd=<satirdaki>).
+# "Acildi mi?" cevabi GitHub kosu gecmisinden okunur, dosyaya isaret YAZILMAZ
+# (isaret commit'i duserse ayni plan ikinci kez acilirdi = CIFT ODEME).
+#
+# ⛔ bulut-uretim.yml "cron YOK - para harcayan akis kendiliginden kosmaz" der.
+#    Bu akis o kurali DELMEZ: yalniz bir oturumun sıraya BUTCESIYLE koydugu
+#    (commit'lenmis, Cem onayli) plani acar; siraya koymak = acma karari.
+#    Bos sira = hicbir sey acilmaz. Acil fren: bulut-sira.json'da "durdur": true.
+#
+# Karar mantigi: arac/bulut-sira-karar.ps1 · surucu: motor/bulut-sira.ps1
+# Oz-sinav: arac/bulut-sira-sinavi.ps1 (dogrula.yml).
+# Stdout'a yalniz plan yolu + sayi + butce basilir; soru icerigi ASLA (depo public).
+name: Bulut Sira (soru basim kuyrugu)
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+    inputs:
+      kuru:
+        description: "1 = yalniz karar yaz, plan ACMA"
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: read
+  actions: write     # bulut-uretim.yml'i dispatch eder + kosu listesini okur
+
+# Iki tur ayni anda koşarsa ikisi de "pay bos" gorup ayni plani acabilir -> tek sira.
+concurrency:
+  group: bulut-sira
+  cancel-in-progress: false
+
+jobs:
+  dagit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Siradaki planlari paya gore ac
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GIRDI_KURU: ${{ inputs.kuru }}
+        run: |
+          if ("$env:GIRDI_KURU" -eq '1') { ./motor/bulut-sira.ps1 -Dagit -Kuru } else { ./motor/bulut-sira.ps1 -Dagit }
