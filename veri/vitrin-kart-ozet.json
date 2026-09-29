@@ -1,139 +1,139 @@
 {
-  "olcum": "2026-09-27T23:45:25.544Z",
-  "gun": "2026-09-28",
+  "olcum": "2026-09-29T00:56:55.038Z",
+  "gun": "2026-09-29",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 60,
+      "sira": 61,
       "toplam": 70,
-      "id": "sgs-p-ticaret-kolay-r1-b2/kp-02",
-      "ders": "Ticaret Hukuku",
-      "konu": "kıymetli evrak ciro",
-      "donem": 4,
+      "id": "sgs-a6-maliye-zor-r1/kp-03",
+      "ders": "Maliye",
+      "konu": "kamu harcamaları sınıflandırma",
+      "donem": 3,
       "teori": true,
       "rakamSik": false,
-      "soru": "Bir poliçe, ilk lehtar tarafından beyaz ciro ile devredilmiş ve senedi devralan hamil iyiniyetlidir. Borçlu ile önceki hamil arasındaki temel ilişkiden doğan bedelin ödenmediği def'i bakımından aşağıdakilerden hangisi doğrudur?",
+      "soru": "Kamu harcamalarının sınıflandırılmasına ilişkin aşağıdaki ifadelerden hangisi doğrudur?",
       "siklar": {
-        "A": "Borçlu, bu def'iyi iyiniyetli hamile karşı kural olarak ileri süremez",
-        "B": "Borçlu, önceki hamillerle arasındaki her kişisel def'iyi hamile karşı her zaman ileri sürebilir",
-        "C": "Senette yazılı vadeye ilişkin def'i yalnızca kötüniyetli hamile karşı ileri sürülebilir",
-        "D": "Hamil senedi devralırken borçlunun zararına hareket etmiş olsa dahi bu def'i ileri sürülemez",
-        "E": "Temel ilişkinin geçersizliği, senetten doğan borcu da kendiliğinden geçersiz kılar"
+        "A": "Devletin ödediği iç borç faizi, ekonomik sınıflandırmada cari harcama olarak kabul edilir.",
+        "B": "Bir harcamanın hangi bakanlık tarafından yapıldığını gösteren ayrım, fonksiyonel sınıflandırmadır.",
+        "C": "Eğitim ve sağlık alanında yapılan harcamalar, beşeri sermayeye katkısı nedeniyle ekonomik sınıflandırmada her durumda yatırım harcaması olarak kabul edilir.",
+        "D": "Emekli aylığı ödemeleri, karşılığında üretim faktörü kullanıldığından milli gelire doğrudan katkı yapan reel harcamadır.",
+        "E": "Bir kamu hastanesinde yapılan ve binanın ömrünü uzatan büyük onarım harcaması, sermaye stokunu artırdığından yatırım harcaması sayılır."
       },
-      "dogru": "A",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "senet metninden anlaşılan def'iler (vade, şekil eksikliği, zamanaşımı) hamilin iyi ya da kötüniyetli olmasından bağımsız her hamile karşı ileri sürülebilir. Doğrusu: bu tür def'iler iyiniyet aranmaksızın her zaman ileri…"
+          "ad": "Aşırı Genelleme Tuzağı",
+          "metin": "Eğitim ve sağlığın iktisadi anlamda 'beşeri sermaye yatırımı' sayılmasını, bütçe sınıflandırmasında da hep yatırım kabul edilir şeklinde genişletirsin. Doğrusu: Bu alanlardaki personel ve mal-hizmet alımı kalemleri cari…"
         },
-        "E": {
-          "ad": "İlke Karıştırma Tuzağı",
-          "metin": "öğrenci soyutluk ilkesini tersinden okuyup senedin geçerliliğini temel ilişkiye bağlar. Doğrusu: temel ilişki geçersiz olsa bile senetten doğan borç ayakta kalır, denkleştirme sebepsiz zenginleşme hükümleriyle yapılır."
+        "A": {
+          "ad": "Cari-Transfer Karıştırma Tuzağı",
+          "metin": "Faizi personel veya mal-hizmet gideri gibi düzenli bir ödeme olduğu için cari sanırsın. Doğrusu: İç borç faizi karşılığında mal veya hizmet alınmadığından ekonomik sınıflandırmada transfer harcamasıdır."
         },
         "D": {
-          "ad": "İstisna Atlama Tuzağı",
-          "metin": "öğrenci def'ilerin sınırlanması ilkesini mutlak sanır ve kötüniyet istisnasını unutur. Doğrusu: hamil senedi devralırken bilerek borçlunun zararına hareket etmişse def'i yine ileri sürülebilir."
+          "ad": "Reel-Transfer Karıştırma Tuzağı",
+          "metin": "Devlet parayı ödediği için karşılığında bir şey aldığını, dolayısıyla reel harcama olduğunu düşünürsün. Doğrusu: Emekli aylığı karşılıksız satın alma gücü aktarımıdır, transfer harcamasıdır ve milli gelire doğrudan girm…"
         },
         "B": {
-          "ad": "Genelleme Tuzağı",
-          "metin": "öğrenci kişisel def'ilerin her hamile karşı ileri sürülebileceğini sanır, oysa bu yalnız doğrudan o hamille arasındaki kişisel def'iler için geçerlidir. Doğrusu: önceki hamillerle arasındaki kişisel def'iler iyiniyetli …"
+          "ad": "Ölçüt Karıştırma Tuzağı",
+          "metin": "'Kim yaptı' sorusunu fonksiyonel sınıflandırmanın konusu sanırsın. Doğrusu: Harcamayı yapan kurumu gösteren ayrım idari (kurumsal) sınıflandırmadır, fonksiyonel sınıflandırma hizmetin türüne bakar."
         }
       },
-      "hap": "Soyut kıymetli evrakta borçlu, iyiniyetli hamile karşı kişisel def'ileri ileri süremez; senet metninden anlaşılan def'iler ise her hamile karşı ileri sürülebilir.",
+      "hap": "Karşılığında mal veya hizmet alınıp alınmadığına bakılır: alınıyorsa reel (cari ya da yatırım), alınmıyorsa transfer harcamasıdır; sermaye stokunu artıran her onarım ve inşa yatırımdır.",
       "satirlar": [
         [
-          "A) Borçlu, bu def'iyi iyiniyetli hamile karşı kural olarak …",
-          "Soyutluk ilkesi, sonuç (1)"
+          "A) Devletin ödediği iç borç faizi, ekonomik sınıflandırmada…",
+          "p.transfer-faiz"
         ],
         [
-          "B) Borçlu, önceki hamillerle arasındaki her kişisel def'iyi…",
-          "Soyutluk ilkesi, sonuç (1)-(2)"
+          "B) Bir harcamanın hangi bakanlık tarafından yapıldığını gös…",
+          "p.idari-fonksiyonel"
         ],
         [
-          "C) Senette yazılı vadeye ilişkin def'i yalnızca kötüniyetli…",
-          "Soyutluk ilkesi, sonuç (2)"
+          "C) Eğitim ve sağlık alanında yapılan harcamalar, beşeri ser…",
+          "p.cari-egitim-saglik"
         ],
         [
-          "D) Hamil senedi devralırken borçlunun zararına hareket etmi…",
-          "Soyutluk ilkesi, sonuç (1)"
+          "D) Emekli aylığı ödemeleri, karşılığında üretim faktörü kul…",
+          "p.reel-transfer"
         ],
         [
-          "E) Temel ilişkinin geçersizliği, senetten doğan borcu da ke…",
-          "Soyutluk ilkesi, sonuç (3)"
+          "E) Bir kamu hastanesinde yapılan ve binanın ömrünü uzatan b…",
+          "p.yatirim-onarim"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=60",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=61",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 55,
+        "kalan_gun": 54,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 60,
+      "sira": 61,
       "toplam": 70,
-      "id": "smmm-4k-a-fmuh-zor-r6/kp-05",
-      "ders": "Finansal Muhasebe",
-      "konu": "şüpheli alacak tahsili",
-      "donem": 11,
+      "id": "smmm-4k-a-yfta-kolay-r2/kp-05",
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "stok devir süresi",
+      "donem": 7,
       "teori": false,
-      "rakamSik": false,
-      "soru": "İşletme'nin 150.000 ₺ tutarındaki ticari alacağı için, alacağa ilişkin 40.000 ₺ değerindeki ipotek teminatını aşan kısım şüpheli alacak sayılarak karşılık ayrılmıştır. Cari dönemde alacağın tahsilinin imkansız olduğu kesinleşmiş, teminat satılarak 30.000 ₺ tahsil edilmiştir. Buna göre şüpheli alacağın kapatılmasına ilişkin yevmiye kaydı aşağıdakilerden hangisidir?",
+      "rakamSik": true,
+      "soru": "İşletmenin 2026 yılı birinci çeyreğine (3 aylık) ait dönem başı stoku 20.000, dönem sonu stoku 40.000, aynı çeyreğin satılan malın maliyeti 90.000'dir. 1 yıl 360 gün kabul edildiğinde, işletmenin yıllık stok devir süresi kaç gündür?",
       "siklar": {
-        "A": "129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 120.000 / 128 ŞÜPHELİ TİCARİ ALACAKLAR 120.000",
-        "B": "129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 110.000 - 654 KARŞILIK GİDERLERİ 10.000 / 128 ŞÜPHELİ TİCARİ ALACAKLAR 120.000",
-        "C": "129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 110.000 - 681 ÖNCEKİ DÖNEM GİDER VE ZARARLARI 40.000 / 128 ŞÜPHELİ TİCARİ ALACAKLAR 150.000",
-        "D": "129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 110.000 - 681 ÖNCEKİ DÖNEM GİDER VE ZARARLARI 10.000 / 128 ŞÜPHELİ TİCARİ ALACAKLAR 120.000",
-        "E": "128 ŞÜPHELİ TİCARİ ALACAKLAR 120.000 / 129 ŞÜPHELİ TİCARİ ALACAKLAR KARŞILIĞI 110.000 - 681 ÖNCEKİ DÖNEM GİDER VE ZARARLARI 10.000"
+        "A": "10",
+        "B": "20",
+        "C": "30",
+        "D": "40",
+        "E": "120"
       },
-      "dogru": "D",
+      "dogru": "C",
       "tuzak": {
-        "C": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "Teminattan tahsil edilen 30.000 ₺'yi alacaktan düşmeyi atlayıp 128 hesabını tüm 150.000 ile kapattın, bu da zarar fazlasını yanlış hesaplattı. Doğrusu: 128 hesabı 120.000 (150.000-30.000) ile kapanır, fark 10.000 olur."
+        "D": {
+          "ad": "Dönem Sonu Stok Tuzağı",
+          "metin": "Ortalama stok hesaplamayı atlayıp doğrudan dönem sonundaki 40.000'lik stoku paydaya koydun. Doğrusu: dönem sonu stok tek bir andaki fotoğraftır, payda ortalama stok olmalıdır, sonuç 40 değil 30 gündür."
         },
         "E": {
-          "ad": "Taraf Tuzağı",
-          "metin": "Tutarları doğru bulduğun halde kaydın borç-alacak yönünü ters kurdun, alacağın azaldığını borç tarafına yazdın. Doğrusu: 128 hesabı alacaklandırılır, 129 ve 681 hesapları borçlandırılır."
+          "ad": "Yıllığa Çevirmeme Tuzağı",
+          "metin": "Çeyreklik SMM'yi (90.000) hiç yıllığa çevirmeden doğrudan ortalama stoka bölüp 360 gün ile böldün. Doğrusu: pay ve payda aynı dönemi temsil etmeli, çeyreklik SMM önce 4 ile çarpılıp yıllığa çevrilmelidir, sonuç 120 deği…"
         },
         "A": {
-          "ad": "Karşılık-Zarar Tuzağı",
-          "metin": "Tahsil edilemeyen tutarı (120.000) doğrudan karşılık tutarı sandın, teminatı aşan kısmın önceden 110.000 olarak ayrıldığını gözden kaçırdın. Doğrusu: 129 sadece 110.000 ile kapanır, kalan 10.000 fark 681'e borç yazılır."
+          "ad": "Aya Çevirme Tuzağı",
+          "metin": "Çeyrek veriyi yıllığa çeyrek sayısıyla (4 ile) çarpmak yerine ay sayısıyla (12 ile) çarpıp 1.080.000 yıllık SMM elde ettin. Doğrusu: çeyreklik SMM yıllığa 4 ile çarpılarak (360.000) çevrilir, sonuç 10 değil 30 gündür."
         },
         "B": {
-          "ad": "Hesap Seçimi Tuzağı",
-          "metin": "Zarar fazlasını cari dönem karşılık gideri (654) sandın, oysa bu fark önceki dönemde ayrılan karşılığın yetersizliğinden doğar. Doğrusu: fark 681 Önceki Dönem Gider ve Zararları hesabına borç yazılır."
+          "ad": "Dönem Başı Stok Tuzağı",
+          "metin": "Ortalama stok yerine yalnız dönem başındaki 20.000'lik stoku paydaya koydun. Doğrusu: payda daima (dönem başı+dönem sonu)/2 olan ortalama stoktur, sonuç 20 değil 30 gündür."
         }
       },
-      "hap": "Şüpheli alacakta gerçekleşen zarar ayrılan karşılıktan fazlaysa, fark 681 Önceki Dönem Gider ve Zararları hesabına borç yazılır.",
+      "hap": "Dönem içi (çeyreklik/aylık) SMM ile yıllık devir hızı hesaplanacaksa SMM önce yıllığa çevrilir; pay ve payda daima aynı dönemi temsil etmelidir.",
       "satirlar": [
         [
-          "Teminatı aşan kısım (ayrılan karşılık)",
-          "150.000-40.000"
+          "Ortalama Stok",
+          "30.000"
         ],
         [
-          "Tahsil edilemeyen tutar",
-          "150.000-30.000"
+          "Yıllık Satılan Malın Maliyeti (90.000x4)",
+          "360.000"
         ],
         [
-          "Zarar fazlası (681'e borç)",
-          "120.000-110.000"
+          "Yıllık Stok Devir Hızı (360.000/30.000)",
+          "12"
         ],
         [
-          "128 Şüpheli Ticari Alacaklar hesabı alacak yazılacak tutar",
-          "-"
+          "Yıllık Stokta Kalma Süresi (360/12)",
+          "30"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=60",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=61",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 65,
+        "kalan_gun": 64,
         "durum": "YESIL",
         "mail_gunu": false
       }
