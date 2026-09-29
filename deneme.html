@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
@@ -205,6 +205,9 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 .bos{color:var(--muted);font-size:14px;background:rgba(255,194,75,.06);border:1px solid rgba(255,194,75,.25);border-radius:13px;padding:16px 18px}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 .gizli{display:none!important}
+  /* 29.09: boş banka (kayıtsız) - seçiciler ve örnek-oturum notu gizli, yalnız yönlendirme + üye girişi */
+  #ekranKurulum.bosBanka .etiket, #ekranKurulum.bosBanka .secgrup, #ekranKurulum.bosBanka #baslaBtn, #ekranKurulum.bosBanka #ornekNot{ display:none; }
+  #bosMesaj a{ color:var(--accent2); }
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -246,7 +249,10 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <!-- KURULUM -->
   <div id="ekranKurulum">
     <div class="panel">
-      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Soru bankası dolum aşamasında.</b> İlk soru partileri üretim ve onay kapısından geçiyor; her soru çift bağımsız çözücüden ve kaynak denetiminden geçmeden buraya girmez. Açılışta hazır olacak. Bu arada <a href="genc.html">Sınav Haritası</a>ndan hangi konulardan kaç soru çıktığına bakabilirsin.</div>
+      <!-- 29.09 açılış gecesi (Cem "deneme sayfasını düzelt"): kayıtsız ziyaretçide banka boş (veri/soru-bankasi.json
+           09.09'dan beri bilerek boş). Eski metin "açılışta hazır olacak" diyordu; site açıldı. Boş bankada seçiciler
+           gizlenir (#ekranKurulum.bosBanka), ziyaretçi çalışan ücretsiz yollara gider. Kasadan deneme = ADIM 4 (05.10). -->
+      <div id="bosMesaj" class="bos gizli"><b style="color:var(--amber)">Deneme sınavı Sınav Paketi üyelerine açık.</b> Paket üyesiysen aşağıdan giriş yap; soruların yüklenir.<br><br>Ücretsiz başlamak için:<br>🎯 <a href="seviye-testi.html"><b>30 soruda geçme ihtimalini ölç</b></a> · Staja Giriş seviye testi, karnen e-postana gelir.<br>📱 <a href="kaydir/vitrin/sgs.html"><b>Örnek soruları kaydırarak çöz</b></a> · her şıkkın gerekçesiyle.<br><br><a href="satin-al.html"><b>Paketi al →</b></a> · <a href="fiyat.html">fiyatlar</a></div>
       <div class="etiket">0 · Sınav</div>
       <div class="secgrup" id="sinavSec">
         <button class="sec aktif" data-sinav="hepsi">📚 Hepsi</button>
@@ -288,7 +294,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
       </div>
       <button class="basla" id="baslaBtn" onclick="basla()">Sınavı başlat →</button>
       <div id="bankaNot" style="font-size:12px;color:var(--dim);margin-top:12px"></div>
-      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b>: kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="genc.html">Açılınca haber ver →</a></div>
+      <div id="ornekNot" style="font-size:12.5px;color:var(--muted);margin-top:10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.25);border-radius:11px;padding:10px 13px">🔒 Burası <b style="color:var(--ink)">örnek oturum</b>: kalite böyle, banka böyle çalışır. Tam soru bankası (her hafta büyür, ders ders), karne istatistikleri ve kişisel yanlış listesi <b style="color:var(--ink)">Sınav Paketi'nde</b> (<a href="fiyat.html" style="color:var(--accent2)">fiyatlar</a>, sınav gününe kadar her şey dahil). <a href="satin-al.html">Paketi al →</a></div>
       <div id="uyeKutu" style="margin-top:10px;border:1px solid var(--line2);border-radius:11px;padding:12px 13px;background:var(--panel2)">
         <div id="uyeKapali">
           <div style="font-size:13px;font-weight:800;color:var(--ink)">🔑 Paket üyesi misin?</div>
@@ -546,6 +552,8 @@ function kurulumCiz(){
   var dersler={};
   BANKA.forEach(function(s){ if(!sinavUyar(s)) return; dersler[s.ders]=(dersler[s.ders]||0)+1; });
   var adlar=Object.keys(dersler).sort();
+  /* 29.09: boş bankada seçiciler anlamsız → gizli; üye kasası yüklenip kurulumCiz yeniden çağrılınca açılır */
+  document.getElementById('ekranKurulum').classList.toggle('bosBanka', !BANKA.length);
   if(!BANKA.length){
     bosMsg.classList.remove('gizli');
     document.getElementById('baslaBtn').disabled=true;
