@@ -482,6 +482,13 @@ end $$;
 revoke all on function public.elci_panelim() from public;
 grant execute on function public.elci_panelim() to authenticated;
 
+-- 12d) Supabase public şemadaki yeni fonksiyona anon'a EXECUTE'u varsayılan yetkiyle AYRICA verir;
+--      "from public" onu kaldırmaz (29.09 ölçüldü: anon elci_panelim → 200 null). Veri sızmıyordu
+--      (auth.uid() null → null/false), yine de kapı kapalı olsun:
+revoke execute on function public.elci_panelim()             from anon;
+revoke execute on function public.elci_bagla(text)           from anon;
+revoke execute on function public.elci_sozlesme_onayla(text) from anon;
+
 
 -- ---------------------------------------------------------------------------
 --  ⚠️ BASMADAN ÖNCE (29.09): bu dosya siparisler_ekle politikasını YENİDEN yazar (bölüm 8).
