@@ -9,8 +9,10 @@
   Tablolar: radar-app/sql/2026-09-15-elci-programi.sql (basılmadan araç "tablo yok" der ve durur).
 
   Kullanım:
-    elci.ps1 -Ekle -Kod CEMALHOCA -AdSoyad "Cemal Hoca 06" [-Eposta x@y.com] [-Instagram hesap] [-NotYazi "..."]
+    elci.ps1 -Ekle -AdSoyad "Cemal Hoca 06" [-Kod CH47] [-Eposta x@y.com] [-Instagram hesap] [-NotYazi "..."]
         → elçi satırı + 14 gün geçerli BAĞLAMA KODU (yalnız bir kez ekrana basılır; özeti tabloya yazılır)
+          -Kod verilmezse KOD BİÇİMİYLE üretilir (baş harf + 2 rakam, aşağıda)
+    elci.ps1 -KodOnerisi -AdSoyad "Adile Ersoy"   → çevrimdışı kod önerisi (tabloya bakmaz)
     elci.ps1 -BagKoduYenile -Kod CEMALHOCA     → yeni bağlama kodu (eski geçersiz olur; hesap bağlıysa önce bağı çözer: -BagiCoz)
     elci.ps1 -Liste                             → kod · ad · aktif · bağlı mı · koşul onayı · ödeme bilgisi
     elci.ps1 -Pasif -Kod X  /  -Aktif -Kod X    → kodu kapat / aç (geçmiş satışlar raporda kalır)
@@ -25,7 +27,7 @@
 #>
 param(
   [switch]$Ekle, [switch]$BagKoduYenile, [switch]$BagiCoz, [switch]$Liste, [switch]$Pasif, [switch]$Aktif,
-  [switch]$OdemeBilgisi, [switch]$Odeme, [switch]$Rapor, [switch]$Dogrula,
+  [switch]$OdemeBilgisi, [switch]$Odeme, [switch]$Rapor, [switch]$Dogrula, [switch]$KodOnerisi,
   [string]$Kod, [string]$AdSoyad, [string]$Eposta, [string]$Instagram, [string]$NotYazi,
   [string]$Donem, [int]$Tutar = -1
 )
@@ -41,6 +43,38 @@ function ServisBasligi {
   if (-not $anahtarDegeri) { $anahtarDegeri = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
   if (-not $anahtarDegeri) { Write-Host 'SUPABASE_SERVICE_KEY yok (kullanıcı ortam değişkeni).'; exit 1 }
   return @{ apikey = $anahtarDegeri; Authorization = "Bearer $anahtarDegeri" }
+}
+
+<#
+  KOD BİÇİMİ (29.09, Cem "isim değil baş harf + rakam mı, sen belirle" → GM kararı):
+    BAŞ HARFLER (2–3, adın her kelimesinin ilki, Türkçe harf Latin'e) + 2 RAKAM (2–9 arası, rastgele)
+    Cemal Hoca 06 → CH47 · Adile Ersoy → AE83 · İzmir Genç Muhasebeciler Derneği → IGM25
+    Neden: (1) kısa — hikâyede/videoda söylenir, telefonda 4–5 tuşla yazılır; (2) linkte kişinin adı açık
+    durmaz; (3) 0/1 yok → O/I ile karışmaz; (4) sıra numarası değil rastgele → "kaçıncı elçi" okunmaz.
+    Aynı baş harflere 64 rakam çifti düşer; çakışırsa yeniden çekilir, 64'ü de doluysa 3 rakam.
+#>
+function KodOner([string]$adMetni, [string[]]$doluKodlar) {
+  # Hashtable DEĞİL: PS hashtable büyük/küçük harf duyarsız, 'İ' ile 'I' anahtarı çakışıp İ düşüyordu (29.09 ölçüldü: İzmir → harfsiz).
+  $kelimeler = @("$adMetni".Trim() -split '\s+' | Where-Object { $_ -and $_ -notmatch '^\d+$' })
+  $basHarfler = ''
+  foreach ($kelime in ($kelimeler | Select-Object -First 3)) {
+    $ilk = $kelime.Substring(0,1).ToUpper([Globalization.CultureInfo]'tr-TR')
+    $ilk = $ilk -creplace 'Ç','C' -creplace 'Ğ','G' -creplace 'İ','I' -creplace 'Ö','O' -creplace 'Ş','S' -creplace 'Ü','U'
+    # -cmatch ŞART: -match tr-TR'de 'I'yı 'ı'ya katlar, [A-Z]'de bulamaz (29.09: İzmir/Ilgın harfsiz kalıyordu)
+    if ("$ilk" -cmatch '^[A-Z]$') { $basHarfler += "$ilk" }
+  }
+  if ($basHarfler.Length -lt 1) { Write-Host "Addan baş harf çıkmadı: '$adMetni'"; exit 1 }
+  $rakamHavuzu = '23456789'
+  $rastgele = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
+  $bayt = New-Object byte[] 3
+  for ($deneme = 0; $deneme -lt 200; $deneme++) {
+    $rastgele.GetBytes($bayt)
+    $haneSayisi = if ($deneme -lt 150) { 2 } else { 3 }
+    $aday = $basHarfler + (-join (0..($haneSayisi - 1) | ForEach-Object { $rakamHavuzu[$bayt[$_] % 8] }))
+    if ($aday.Length -lt 3) { $aday += $rakamHavuzu[$bayt[2] % 8] }
+    if (@($doluKodlar) -notcontains $aday) { return $aday }
+  }
+  Write-Host 'Boş kod bulunamadı.'; exit 1
 }
 
 function KodNormal([string]$hamKod) {
@@ -98,9 +132,21 @@ function BaglamaYaz([string]$elciKodu) {
 }
 
 # --------------------------------------------------------------------------------------------
+if ($KodOnerisi) {
+  # Çevrimdışı: yalnız öneri basar, tabloya bakmaz (çakışmayı -Ekle denetler).
+  if ("$AdSoyad".Trim().Length -lt 3) { Write-Host '-AdSoyad gerekli.'; exit 1 }
+  Write-Host ("{0} → {1}" -f $AdSoyad, (KodOner $AdSoyad @()))
+  exit 0
+}
+
 if ($Ekle) {
-  $elciKodu = KodNormal $Kod
   if ("$AdSoyad".Trim().Length -lt 3) { Write-Host '-AdSoyad en az 3 karakter.'; exit 1 }
+  if (-not "$Kod".Trim()) {
+    $doluListe = @(Istek 'Get' 'elciler?select=kod' $null $null | ForEach-Object { $_.kod })
+    $Kod = KodOner $AdSoyad $doluListe
+    Write-Host "Kod verilmedi → biçimle üretildi: $Kod"
+  }
+  $elciKodu = KodNormal $Kod
   $varOlan = @(Istek 'Get' "elciler?select=kod&kod=eq.$elciKodu" $null $null)
   if ($varOlan.Count -gt 0 -and $varOlan[0].kod) { Write-Host "Bu kod zaten var: $elciKodu. Başka kod seç ya da -BagKoduYenile kullan."; exit 1 }
   $satir = @{ kod = $elciKodu; ad_soyad = "$AdSoyad".Trim(); aktif = $true; baslangic_kademe = 1 }

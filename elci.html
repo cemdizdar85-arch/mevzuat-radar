@@ -265,7 +265,7 @@
   /* ---- ÖRNEK GÖRÜNÜM (girişsiz) ---- */
   var q = new URLSearchParams(location.search);
   if (q.get('ornek') === '1') {
-    var kod = (q.get('kod') || 'ORNEKELCI').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 12) || 'ORNEKELCI';
+    var kod = (q.get('kod') || 'OE27').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 12) || 'OE27';
     panelCiz({ kod:kod, ad:(q.get('ad') || 'Örnek Elçi').slice(0, 60), aktif:true, sozlesme_surum:KOSUL_SURUM, odeme_bilgisi:false,
       baslangic_kademe:1, donem:{ ad:'SGS 2026-3', baslangic:'2026-09-15', bitis:'2026-11-21' },
       kesin_satis:6, bekleyen_satis:2, iade:1, odeme_bekleyen:3,

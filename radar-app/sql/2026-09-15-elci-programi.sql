@@ -67,7 +67,8 @@ create index if not exists siparisler_elci_idx on public.siparisler (elci_kodu, 
 
 -- ---------------------------------------------------------------------------
 -- 2) ELÇİLER — kod · kişi · başlangıç kademesi
---    kod: büyük harf/rakam, 3–12 karakter (ör. AYSE, KPSSHOCA). Davet kodundan
+--    kod: büyük harf/rakam, 3–12 karakter. 29.09 BİÇİM: baş harfler + 2 rakam (2–9), ör. CH48, IGM85
+--    (arac/elci.ps1 KodOner üretir; ad linkte açık durmaz, 0/1 yok). Davet kodundan
 --    (TT + 4) biçim olarak ayrı, karışmaz.
 --    baslangic_kademe: bu dönem hangi komisyonla başlıyor (1=750, 2=1.000, 3=1.250).
 --    Dönem sonunda elci_donem_raporu'ndaki "sonraki_baslangic" buraya yazılır.
