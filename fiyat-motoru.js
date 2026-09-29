@@ -89,8 +89,11 @@ var TAKSIT_ADET = 3;
    acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
    açılırsa takipçi indirimi ekranda görür ama sipariş indirimsiz yazılır.
    SQL basılıp doğrulandıktan sonra true yapılır.
+   29.09: Yeterlilik TÜM DERSLER de 400 TL (27.09 Cem: 3.490 → 3.090); 1–4 ders merdiveni indirimsiz
+   (1 derste 1.190 − 400 − 750 komisyon zarar yazar). Sunucudaki elci_indirim ile birebir.
+   Elçiler kendi panelinden (elci.html) satış adedini ve komisyonunu görür.
 --------------------------------------------------------------------------- */
-var ELCI = { acik:false, indirim:{ sgs:400 }, bicim:/^[A-Z0-9]{3,12}$/ };
+var ELCI = { acik:false, indirim:{ sgs:400, 'yeterlilik-tum':400 }, bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
    İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında

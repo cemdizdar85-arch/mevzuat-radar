@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<script src="tema-bas.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Elçi Paneli · Tetikte</title>
+<meta name="description" content="Tetikte elçilerinin kendi paneli: elçi kodu, bağlantı, dönem satış adedi, kademe ve komisyon.">
+<link rel="stylesheet" href="stil.css">
+<!--
+  ELÇİ PANELİ (29.09.2026)
+  Cem: "elçiler için özel platform oluşturup hepsi kendi platformuna girmeli".
+  · Giriş: sitenin normal üyeliği (ogrenci.html; e-posta/şifre ya da Google). Oturum yoksa ?sonra=elci.html ile oraya gider.
+  · Eşleşme: e-postayla DEĞİL, tek kullanımlık BAĞLAMA KODUYLA (elci_bagla). Neden: Supabase e-posta onayı 23.09'dan
+    beri kapalı; e-postaya güvenilseydi biri elçinin e-postasıyla üye olup onun paneline girebilirdi.
+  · Veri: yalnız elci_panelim() — sunucu yalnız bağlı hesabın satırını döner. Alıcının adı/e-postası/telefonu
+    hiçbir yoldan gelmez (KVKK); yalnız adet ve tutar.
+  · SQL: radar-app/sql/2026-09-15-elci-programi.sql (bölüm 11–12). Basılmamışsa sayfa bunu açıkça söyler.
+  · Örnek görünüm: elci.html?ornek=1 (&ad=…&kod=…) — girişsiz, uydurma rakamlarla, üstte "ÖRNEK" şeridi. Kişi adı depoya yazılmaz.
+  · Koşul metni sürümü KOSUL_SURUM; metin değişirse sürüm değişir, elçi yeniden onaylar.
+  Açık tema (çalışma ekranı).
+-->
+<style>
+  body{margin:0}
+  .ep{max-width:980px;margin:0 auto;padding:22px 20px 80px;text-align:left}
+  .ep-gizli{display:none !important}
+  .ep h1{font-size:30px;line-height:1.15;margin:8px 0 6px;letter-spacing:-.02em}
+  .ep h2{font-size:19px;margin:0 0 10px}
+  .ep-alt{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 16px;max-width:46em}
+  .ep-kutu{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 14px}
+  .ep-ust{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .ep-ust > span{font-size:13.5px;color:var(--muted)}
+  .ep-serit{background:color-mix(in srgb,var(--amber) 14%,transparent);border:1px solid var(--amber);border-radius:10px;padding:9px 12px;font-size:13.5px;color:var(--ink);margin:0 0 14px}
+  .ep-kod{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .ep-kod b{font-size:34px;letter-spacing:.06em;color:var(--ink);font-variant-numeric:tabular-nums}
+  .ep-link{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .ep-link input{flex:1 1 280px;font:inherit;font-size:14px;padding:10px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+  .ep-btn{font:inherit;font-size:14.5px;font-weight:750;cursor:pointer;border-radius:10px;padding:10px 16px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);text-decoration:none;display:inline-block}
+  .ep-btn:hover{border-color:var(--amber)}
+  .ep-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .ep-btn[disabled]{opacity:.55;cursor:not-allowed}
+  .ep-kartlar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px}
+  .ep-kart{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .ep-kart b{display:block;font-size:28px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+  .ep-kart span{font-size:13px;color:var(--muted);line-height:1.4;display:block;margin-top:4px}
+  .ep-iki{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .ep-buyuk{font-size:32px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+  .ep-kucuk{font-size:13.5px;color:var(--muted);line-height:1.5;margin:6px 0 0}
+  .ep-cubuk{height:10px;border-radius:6px;background:color-mix(in srgb,var(--ink) 10%,transparent);overflow:hidden;margin:12px 0 6px}
+  .ep-cubuk i{display:block;height:100%;background:var(--amber);border-radius:6px}
+  .ep-tablo{width:100%;border-collapse:collapse;font-size:14px}
+  .ep-tablo td,.ep-tablo th{padding:9px 6px;border-top:1px solid var(--line);text-align:left;color:var(--ink)}
+  .ep-tablo th{font-size:12.5px;color:var(--muted);font-weight:700;border-top:0}
+  .ep-tablo td.sag,.ep-tablo th.sag{text-align:right;font-variant-numeric:tabular-nums}
+  .ep-tablo tr.su td{background:color-mix(in srgb,var(--amber) 10%,transparent);font-weight:700}
+  .ep-kosul{margin:0;padding-left:20px;font-size:14.5px;line-height:1.65;color:var(--ink)}
+  .ep-kosul li{margin:0 0 6px}
+  .ep-onay{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--ink);line-height:1.5;margin:14px 0 0}
+  .ep-onay input{margin-top:3px}
+  .ep-hata{font-size:14px;color:var(--red);min-height:1.4em;margin-top:10px}
+  .ep-bilgi{font-size:14px;color:var(--green);min-height:1.4em;margin-top:10px}
+  .ep-giris input{font:inherit;font-size:18px;letter-spacing:.08em;text-transform:uppercase;width:100%;max-width:320px;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+  .ep a.ep-a{color:var(--amber)}
+  details.ep-kutu summary{cursor:pointer;font-weight:750;font-size:16px;color:var(--ink)}
+  @media(max-width:860px){ .ep-kartlar{grid-template-columns:1fr 1fr} .ep-iki{grid-template-columns:1fr} .ep h1{font-size:25px} .ep-kod b{font-size:28px} }
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="ep" id="icerik">
+  <div class="top"><a href="index.html">Tetikte</a> · <a href="ogrenci.html">Hesabım</a> · Elçi Paneli</div>
+
+  <p id="epYuk" class="ep-alt">Yükleniyor…</p>
+
+  <!-- SQL BASILMAMIŞ / HATA -->
+  <section id="epKapali" class="ep-gizli">
+    <h1>Elçi Paneli</h1>
+    <div class="ep-kutu"><p class="ep-alt" style="margin:0" id="epKapaliYazi">Elçi paneli henüz açılmadı. Açıldığında bu adresten gireceksin; kodun ve bağlantın sana e-postayla gelir.</p></div>
+  </section>
+
+  <!-- GİRİŞ YAPMIŞ AMA ELÇİ KAYDINA BAĞLI DEĞİL -->
+  <section id="epBagla" class="ep-gizli">
+    <h1>Elçi Paneli</h1>
+    <p class="ep-alt">Hesabını elçi kaydına bağlamak için sana gönderilen <b>bağlama kodunu</b> yaz. Bu bir kez yapılır; sonra bu hesapla her girişinde panelin açılır.</p>
+    <div class="ep-kutu ep-giris">
+      <label for="epBagKod" style="display:block;font-size:13px;font-weight:700;margin:0 0 6px">Bağlama kodu</label>
+      <input id="epBagKod" type="text" maxlength="20" autocomplete="off" placeholder="örn. K7M2-XR4P-9TAE">
+      <div style="margin-top:12px"><button class="ep-btn ana" id="epBagBtn" type="button">Hesabımı bağla</button></div>
+      <div class="ep-hata" id="epBagHata" role="alert"></div>
+      <p class="ep-kucuk">Giriş yaptığın hesap: <b id="epBagKim">—</b>. Yanlış hesaptaysan <a class="ep-a" href="#" id="epCikis1">çıkış yap</a>.</p>
+      <p class="ep-kucuk">Elçi değil misin? Program hakkında bilgi için <a class="ep-a" href="iletisim.html">bize yaz</a>.</p>
+    </div>
+  </section>
+
+  <!-- KOŞUL ONAYI (ilk giriş ya da koşul sürümü değiştiyse) -->
+  <section id="epKosul" class="ep-gizli">
+    <h1>Elçi Programı Koşulları</h1>
+    <p class="ep-alt">Paneli açmadan önce program koşullarını oku ve onayla. Koşullar bütün elçiler için aynıdır.</p>
+    <div class="ep-kutu">
+      <ol class="ep-kosul" id="epKosulListe"></ol>
+      <label class="ep-onay"><input type="checkbox" id="epKosulOnay"> <span>Elçi Programı Koşulları'nı (sürüm <span id="epKosulSurum"></span>) okudum, kabul ediyorum.</span></label>
+      <div style="margin-top:12px"><button class="ep-btn ana" id="epKosulBtn" type="button" disabled>Onayla ve panele geç</button></div>
+      <div class="ep-hata" id="epKosulHata" role="alert"></div>
+    </div>
+  </section>
+
+  <!-- PANEL -->
+  <section id="epPanel" class="ep-gizli">
+    <div id="epOrnek" class="ep-serit ep-gizli"><b>ÖRNEK GÖRÜNÜM</b> — rakamlar uydurmadır, gerçek satış değildir. Elçi girişinde kendi rakamları görünür.</div>
+    <div class="ep-ust"><h1>Merhaba, <span id="epAd">—</span></h1><span id="epDonem">—</span></div>
+    <p class="ep-alt" id="epPasif" style="color:var(--red)" hidden>Elçi kodun şu an <b>kapalı</b>: yeni siparişlerde indirim uygulanmaz. Bilgi için bize yaz.</p>
+
+    <div class="ep-kutu">
+      <h2>Kodun ve bağlantın</h2>
+      <div class="ep-kod"><b id="epKod">—</b><span class="ep-kucuk" id="epIndirimYazi" style="margin:0"></span></div>
+      <div class="ep-link">
+        <input id="epLink" type="text" readonly aria-label="Elçi bağlantın">
+        <button class="ep-btn ana" id="epKopyala" type="button">Bağlantıyı kopyala</button>
+        <a class="ep-btn" id="epWp" href="#" target="_blank" rel="noopener">WhatsApp'ta paylaş</a>
+      </div>
+      <p class="ep-kucuk" id="epKopyaDurum"></p>
+      <p class="ep-kucuk">Paylaşımlarında <b>#reklam</b> ya da <b>#işbirliği</b> etiketi zorunlu (koşul 6).</p>
+    </div>
+
+    <div class="ep-kartlar">
+      <div class="ep-kart"><b id="epKesin">0</b><span>kesinleşen satış<br>(ödendi + 7 gün geçti)</span></div>
+      <div class="ep-kart"><b id="epBekleyen">0</b><span>ödendi, 7 günlük süre dolmadı</span></div>
+      <div class="ep-kart"><b id="epOdemeBek">0</b><span>sipariş verildi, ödeme bekleniyor</span></div>
+      <div class="ep-kart"><b id="epIade">0</b><span>iade (komisyona girmez)</span></div>
+    </div>
+
+    <div class="ep-iki">
+      <div class="ep-kutu">
+        <h2>Komisyonun (bu dönem)</h2>
+        <div class="ep-buyuk" id="epKomKesin">0 TL</div>
+        <p class="ep-kucuk">kesinleşen · bekleyenler de kesinleşirse <b id="epKomTahmin">0 TL</b></p>
+        <p class="ep-kucuk" id="epOdemeBilgi"></p>
+      </div>
+      <div class="ep-kutu">
+        <h2>Kademen</h2>
+        <div class="ep-buyuk" id="epBirim">750 TL</div>
+        <p class="ep-kucuk">sıradaki her satış için</p>
+        <div class="ep-cubuk" aria-hidden="true"><i id="epCubuk" style="width:0%"></i></div>
+        <p class="ep-kucuk" id="epEsikYazi"></p>
+      </div>
+    </div>
+
+    <div class="ep-kutu">
+      <h2>Komisyon kademeleri</h2>
+      <table class="ep-tablo" id="epKademe">
+        <thead><tr><th>Dönemdeki satış</th><th class="sag">Satış başına</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="ep-kucuk">Yalnız eşik üstü: 10. satıştan itibaren 1.000 TL, öncekiler 750 TL kalır. Ulaştığın kademe sonraki sınav dönemine taşınır, geri inmez.</p>
+    </div>
+
+    <div class="ep-kutu">
+      <h2>Ödemelerin</h2>
+      <table class="ep-tablo" id="epOdemeler">
+        <thead><tr><th>Tarih</th><th>Dönem</th><th class="sag">Tutar</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <details class="ep-kutu">
+      <summary>Program koşulları (onayladığın sürüm: <span id="epOnaySurum">—</span>)</summary>
+      <ol class="ep-kosul" id="epKosulListe2" style="margin-top:12px"></ol>
+    </details>
+
+    <p class="ep-kucuk">Alıcıların adı, e-postası ve telefonu bu panelde gösterilmez; yalnız adet ve tutar görünür (KVKK).</p>
+    <div style="margin-top:18px"><button class="ep-btn" id="epCikis" type="button">Çıkış yap</button></div>
+  </section>
+</div>
+
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  var SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co';
+  var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  var SITE   = 'https://tetikte.com/';
+  /* Koşul metni değişirse sürüm değişir → bütün elçiler yeniden onaylar. */
+  var KOSUL_SURUM = '2026-09-29';
+  var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
+
+  function $(id){ return document.getElementById(id); }
+  function tl(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
+  function goster(id){ ['epYuk','epKapali','epBagla','epKosul','epPanel'].forEach(function(k){ $(k).classList.toggle('ep-gizli', k !== id); }); }
+  function tarih(t){ try { return new Date(String(t).slice(0,10) + 'T12:00:00').toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return t || ''; } }
+  function paketAdi(id){ return id === 'sgs' ? 'Staja Başlama (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : id; }
+
+  function kosullar(ind){
+    var i = Object.keys(ind || {}).filter(function(k){ return ind[k] > 0; })
+              .map(function(k){ return paketAdi(k) + ' paketinde ' + tl(ind[k]); }).join(', ');
+    return [
+      'Elçi koduyla alan kişiye ' + (i || 'belirlenen paketlerde') + ' indirim uygulanır (KDV dahil). Diğer paketlerde kod indirim sağlamaz.',
+      'Komisyon satış başına ödenir: dönemin 1–9. satışı 750 TL, 10–49. satışı 1.000 TL, 50–99. satışı 1.250 TL; 100. satıştan sonrası için ayrıca özel iş birliği konuşulur. Kademe yalnız eşik üstüne uygulanır (geriye dönük değildir).',
+      'Dönem, sınav dönemidir. Bir dönemde ulaştığın kademe sonraki döneme taşınır ve geri inmez.',
+      'Bir satış, ödeme alındıktan 7 gün sonra kesinleşir. İade edilen ya da ödemesi geri alınan satış komisyona girmez. Kesinleşen komisyonlar ayda bir ödenir.',
+      'Kendi kodunla alım yapamazsın; kendine, yakınına ya da uydurma kişilere yönelik düzenlenmiş satışlar komisyona girmez.',
+      'Tetikte ile ilgili her paylaşımında reklam olduğunu açıkça belirtirsin (#reklam ya da #işbirliği). Ücretsiz erişim de bu kapsamdadır.',
+      'Sınavı geçme garantisi, gerçek olmayan başarı oranı ya da resmî kurum onayı gibi yanıltıcı ifadeler kullanmazsın.',
+      'Elçilere program süresince 3 ay ücretsiz tam erişim verilir.',
+      'Alıcıların kimlik bilgileri sana verilmez; panelde yalnız adet ve tutar görünür.',
+      'Komisyon ödemesi için IBAN ve vergi bilgilerini e-postayla iletirsin; bu bilgiler panelde tutulmaz. Ödemeden doğan vergi yükümlülükleri mevzuata göre uygulanır.',
+      'Tetikte programı ve koşulları değiştirebilir; değişiklik bu panelde yeni sürüm olarak gösterilir ve senin onayınla geçerli olur. Kazanılmış komisyon geriye dönük değişmez.'
+    ];
+  }
+  function kosulCiz(el, ind){ $(el).innerHTML = kosullar(ind).map(function(m){ return '<li>' + m + '</li>'; }).join(''); }
+
+  function panelCiz(d, ornek){
+    $('epOrnek').classList.toggle('ep-gizli', !ornek);
+    $('epAd').textContent = d.ad || d.kod;
+    $('epDonem').textContent = d.donem ? d.donem.ad + ' · ' + tarih(d.donem.baslangic) + ' – ' + tarih(d.donem.bitis) : 'Dönem tanımlı değil';
+    $('epPasif').hidden = d.aktif !== false;
+    $('epKod').textContent = d.kod;
+    var ind = d.indirimler || {};
+    $('epIndirimYazi').textContent = 'Kodla alan: ' + Object.keys(ind).filter(function(k){ return ind[k] > 0; })
+                                       .map(function(k){ return paketAdi(k) + ' −' + tl(ind[k]); }).join(' · ');
+    var link = SITE + 'satin-al.html?e=' + encodeURIComponent(d.kod);
+    $('epLink').value = link;
+    $('epWp').href = 'https://wa.me/?text=' + encodeURIComponent('SMMM sınavlarına Tetikte ile hazırlan; bu bağlantıyla indirimli al: ' + link);
+    $('epKesin').textContent = d.kesin_satis;
+    $('epBekleyen').textContent = d.bekleyen_satis;
+    $('epOdemeBek').textContent = d.odeme_bekleyen;
+    $('epIade').textContent = d.iade;
+    $('epKomKesin').textContent = tl(d.komisyon_kesin);
+    $('epKomTahmin').textContent = tl(d.komisyon_tahmini);
+    $('epOdemeBilgi').innerHTML = d.odeme_bilgisi ? '✓ Ödeme bilgin (IBAN) bize ulaştı.'
+      : 'Ödeme bilgin (IBAN + vergi bilgisi) henüz bize ulaşmadı — <a class="ep-a" href="iletisim.html">e-postayla gönder</a>.';
+    $('epBirim').textContent = d.ozel_isbirligi ? 'Özel' : tl(d.siradaki_birim);
+    var n = (d.kesin_satis || 0) + (d.bekleyen_satis || 0);
+    if (d.sonraki_esik) {
+      var onceki = d.sonraki_esik === 10 ? 0 : d.sonraki_esik === 50 ? 9 : 49;
+      var y = Math.max(0, Math.min(100, Math.round((n - onceki) / (d.sonraki_esik - onceki) * 100)));
+      $('epCubuk').style.width = y + '%';
+      $('epEsikYazi').innerHTML = '<b>' + d.sonraki_esik + '. satışa ' + d.sonraki_esik_kalan + ' satış kaldı</b> → ' +
+        (d.sonraki_esik_birim ? 'o satıştan itibaren ' + tl(d.sonraki_esik_birim) : 'özel iş birliği');
+    } else {
+      $('epCubuk').style.width = '100%';
+      $('epEsikYazi').textContent = '100 satışı geçtin — özel iş birliği için seninle iletişime geçeceğiz.';
+    }
+    var su = n >= 99 ? 4 : n >= 49 ? 3 : n >= 9 ? 2 : 1;
+    su = Math.max(su, d.baslangic_kademe || 1);
+    $('epKademe').querySelector('tbody').innerHTML = KADEME.map(function(k){
+      return '<tr' + (k[2] === su ? ' class="su"' : '') + '><td>' + k[0] + (k[2] === su ? ' · şu an buradasın' : '') + '</td><td class="sag">' + (k[1] ? tl(k[1]) : 'özel') + '</td></tr>';
+    }).join('');
+    var od = d.odemeler || [];
+    $('epOdemeler').querySelector('tbody').innerHTML = od.length
+      ? od.map(function(o){ return '<tr><td>' + tarih(o.odeme_tarihi) + '</td><td>' + o.donem + '</td><td class="sag">' + tl(o.tutar_tl) + '</td></tr>'; }).join('')
+      : '<tr><td colspan="3" style="color:var(--muted)">Henüz ödeme yok.</td></tr>';
+    $('epOnaySurum').textContent = d.sozlesme_surum || '—';
+    kosulCiz('epKosulListe2', ind);
+    goster('epPanel');
+  }
+
+  $('epKopyala').addEventListener('click', function(){
+    var v = $('epLink').value;
+    function tamam(){ $('epKopyaDurum').textContent = '✓ Kopyalandı.'; }
+    if (navigator.clipboard) navigator.clipboard.writeText(v).then(tamam, function(){ $('epLink').select(); });
+    else { $('epLink').select(); try { document.execCommand('copy'); tamam(); } catch(e){} }
+  });
+
+  /* ---- ÖRNEK GÖRÜNÜM (girişsiz) ---- */
+  var q = new URLSearchParams(location.search);
+  if (q.get('ornek') === '1') {
+    var kod = (q.get('kod') || 'ORNEKELCI').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 12) || 'ORNEKELCI';
+    panelCiz({ kod:kod, ad:(q.get('ad') || 'Örnek Elçi').slice(0, 60), aktif:true, sozlesme_surum:KOSUL_SURUM, odeme_bilgisi:false,
+      baslangic_kademe:1, donem:{ ad:'SGS 2026-3', baslangic:'2026-09-15', bitis:'2026-11-21' },
+      kesin_satis:6, bekleyen_satis:2, iade:1, odeme_bekleyen:3,
+      komisyon_kesin:4500, komisyon_tahmini:6000, siradaki_birim:750, sonraki_esik:10, sonraki_esik_kalan:2, sonraki_esik_birim:1000,
+      ozel_isbirligi:false, indirimler:{ sgs:400, 'yeterlilik-tum':400 },
+      odemeler:[ { odeme_tarihi:'2026-10-31', donem:'SGS 2026-3', tutar_tl:3000 } ] }, true);
+    $('epCikis').hidden = true;
+    return;
+  }
+
+  var sb = window.supabase.createClient(SB_URL, SB_KEY);
+  function cikis(e){ if (e) e.preventDefault(); sb.auth.signOut().then(function(){ location.reload(); }, function(){ location.reload(); }); }
+  $('epCikis').addEventListener('click', cikis);
+  $('epCikis1').addEventListener('click', cikis);
+
+  function kapali(m){ if (m) $('epKapaliYazi').textContent = m; goster('epKapali'); }
+  function sqlYok(err){ return !!err && (err.code === 'PGRST202' || /Could not find the function/i.test(err.message || '')); }
+
+  async function yukle(){
+    var r = await sb.rpc('elci_panelim');
+    if (r.error) {
+      if (sqlYok(r.error)) return kapali();
+      return kapali('Panel şu an okunamadı. Birkaç dakika sonra yeniden dene; sürerse bize yaz.');
+    }
+    var d = r.data;
+    if (!d) return goster('epBagla');
+    if (d.sozlesme_surum !== KOSUL_SURUM || !d.sozlesme_onay) {
+      $('epKosulSurum').textContent = KOSUL_SURUM;
+      kosulCiz('epKosulListe', d.indirimler);
+      return goster('epKosul');
+    }
+    panelCiz(d, false);
+  }
+
+  $('epKosulOnay').addEventListener('change', function(){ $('epKosulBtn').disabled = !this.checked; });
+  $('epKosulBtn').addEventListener('click', async function(){
+    this.disabled = true; $('epKosulHata').textContent = '';
+    var r = await sb.rpc('elci_sozlesme_onayla', { p_surum:KOSUL_SURUM });
+    if (r.error || r.data !== true) { this.disabled = false; $('epKosulHata').textContent = 'Onay kaydedilemedi. Yeniden dene.'; return; }
+    yukle();
+  });
+
+  $('epBagBtn').addEventListener('click', async function(){
+    var kod = $('epBagKod').value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    $('epBagHata').textContent = '';
+    if (kod.length < 8) { $('epBagHata').textContent = 'Kodu eksiksiz yaz (tireler önemli değil).'; return; }
+    this.disabled = true;
+    var r = await sb.rpc('elci_bagla', { p_kod:kod });
+    this.disabled = false;
+    if (r.error) { $('epBagHata').textContent = sqlYok(r.error) ? 'Elçi paneli henüz açılmadı.' : 'Şu an bağlanamadı. Yeniden dene.'; return; }
+    if (!r.data) { $('epBagHata').textContent = 'Kod doğru değil, süresi dolmuş ya da daha önce kullanılmış. Yeni kod için bize yaz.'; return; }
+    yukle();
+  });
+
+  sb.auth.getSession().then(function(s){
+    var ses = s.data && s.data.session;
+    if (!ses) { location.replace('ogrenci.html?sonra=elci.html'); return; }
+    $('epBagKim').textContent = ses.user.email || '—';
+    yukle().catch(function(){ kapali('Panel şu an okunamadı.'); });
+  }, function(){ kapali('Panel şu an okunamadı.'); });
+})();
+</script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

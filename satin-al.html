@@ -271,14 +271,24 @@ var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
    bos paket satmayiz. Her satirda ayni kapsam icin odenecek RESMI HARC yazar. */
 var PAKETLER = acikPaketler(), secili = null;
 /* 25.09 Cem: "staja giriste yeterlilikle ilgili fiyatlar cikmasin". ?paket=X ile gelen yalniz X'in
-   sinav grubunu (+ 'Ek' grubunu) gorur; elci linki (?e=) paketsiz gelirse SGS'dir (elci indirimi yalniz SGS'de).
-   Parametresiz gelen hepsini gorur; filtreli sayfanin altinda "diger sinavlar" baglantisi durur. */
+   sinav grubunu (+ 'Ek' grubunu) gorur. Parametresiz gelen hepsini gorur; filtreli sayfanin altinda
+   "diger sinavlar" baglantisi durur.
+   29.09: elci linki (?e=) paketsiz gelirse elci indiriminin gecerli oldugu sinav gruplarini gorur
+   (SGS + Yeterlilik; eskiden yalniz SGS). Kod indirimli paket hazir secili gelmez, alici secer. */
 var ODAK_GRUP = (function(){
-  var s = new URLSearchParams(location.search), q = s.get('paket') || (s.get('e') ? 'sgs' : '');
+  var s = new URLSearchParams(location.search), q = s.get('paket');
   var p = q ? paketBul(q) : null;
   return p ? p.grup : '';
 })();
+var ELCI_GRUPLAR = (function(){
+  var s = new URLSearchParams(location.search);
+  if(ODAK_GRUP || !s.get('e') || typeof ELCI === 'undefined' || ELCI.acik !== true) return null;
+  var g = {};
+  Object.keys(ELCI.indirim).forEach(function(id){ var p = paketBul(id); if(p && ELCI.indirim[id] > 0) g[p.grup] = true; });
+  return Object.keys(g).length ? g : null;
+})();
 if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GRUP || p.grup === 'Ek'; }); }
+else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPLAR[p.grup] || p.grup === 'Ek'; }); }
 (function(){
   var kap = document.getElementById('paketler'), grup = '', h = '';
   PAKETLER.forEach(function(p){
@@ -294,7 +304,7 @@ if(ODAK_GRUP){ PAKETLER = PAKETLER.filter(function(p){ return p.grup === ODAK_GR
        + (p.liste > p.fiyat ? '<span>' + (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + '</span>' : '')
        + '<span>' + p.not + '</span></span></label>';
   });
-  if(ODAK_GRUP){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
+  if(ODAK_GRUP || ELCI_GRUPLAR){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
   kap.innerHTML = h;
   kap.addEventListener('change', function(e){
     if(e.target.name !== 'paket') return;
@@ -386,7 +396,12 @@ function elciDenetle(){
   if(!kod){ elciDurumYaz('Kod biçimi geçersiz (3–12 harf/rakam).', 'var(--red)'); ozetCiz(); return; }
   try{ localStorage.setItem('tt_elci', kod); }catch(e){}
   if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
-  if(!(ELCI.indirim[secili.id] > 0)){ elciDurumYaz('Bu kod seçtiğin pakette indirim sağlamıyor.'); ozetCiz(); return; }
+  if(!(ELCI.indirim[secili.id] > 0)){
+    var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); })
+                    .map(function(id){ return paketBul(id).ad; });
+    elciDurumYaz('Elçi kodu bu pakette indirim sağlamıyor' + (gecerli.length ? '; geçerli olduğu paketler: ' + gecerli.join(' · ') + '.' : '.'), 'var(--amber)');
+    ozetCiz(); return;
+  }
   if(!window.sb){ elciDurumYaz('Kod şu an doğrulanamadı; siparişten sonra bize yazarsan kontrol ederiz.', 'var(--amber)'); ozetCiz(); return; }
   elciDurumYaz('Kod kontrol ediliyor…');
   window.sb.rpc('elci_kodu_kontrol', { p_kod:kod, p_paket:secili.id }).then(function(r){
@@ -525,10 +540,14 @@ btn.addEventListener('click', function(){
   }
   function basarisiz(){ btn.disabled = false; goster('Sipariş kaydedilemedi. Birazdan tekrar dene ya da <a href="iletisim.html">bize yaz</a>.', false); }
 
-  /* Sipariş İKİ yere birden düşer: tablo + e-posta. Tablo asıl kayıt, e-posta
+  /* Sipariş İKİ yere düşer: tablo + e-posta. Tablo asıl kayıt, e-posta
      hem Cem'in bildirimi hem de yedek yol - tablo kurulmamışsa sipariş kaybolmasın.
-     19.08 DERSİ: supabase-js sorguları TEMBELDİR, .then'siz insert HİÇ GÖNDERİLMEZ. */
-  var posta = fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},
+     19.08 DERSİ: supabase-js sorguları TEMBELDİR, .then'siz insert HİÇ GÖNDERİLMEZ.
+     29.09: e-posta artık tablodan SONRA gider (eskiden ikisi aynı anda çıkıyordu). Sebep: sunucu elçinin
+     kendi koduyla verdiği siparişi ELCI_KENDI_KODU ile reddeder; aynı anda giden e-posta o siparişi
+     "alındı" diye Cem'e düşürür ve alıcıya indirimli tutarı gösterirdi. */
+  function postala(){
+    return fetch(EPOSTA_ENDPOINT, {method:'POST', headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({ subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(tutar) + ' TL',
         from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(tutar)+' TL',
         'Elçi kodu':(elciKod ? elciKod + ' (−' + tl(elciIndirim) + ' TL)' : '—'),
@@ -536,16 +555,24 @@ btn.addEventListener('click', function(){
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
         'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
         'Onaylar':'Ön bilgilendirme + mesafeli satış + teslimat/iade · anında ifa onayı · aydınlatma okundu · ' + new Date().toISOString() })});
-
-  if(!window.sb){
-    posta.then(function(r){ if(r.ok) bitir(); else basarisiz(); }, basarisiz);
-    return;
   }
+  function yedekYol(){ postala().then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
+  function kendiKodu(err){ return !!err && /ELCI_KENDI_KODU/.test(String(err.message || '') + ' ' + String(err.details || '')); }
+
+  if(!window.sb){ yedekYol(); return; }
   window.sb.from('siparisler').insert(kayit)
     .then(function(r){
-      if(r && r.error){ posta.then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
-      else { bitir(); }
-    }, function(){ posta.then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); });
+      if(r && r.error){
+        if(kendiKodu(r.error)){
+          btn.disabled = false;
+          elciDurumYaz('Kendi elçi kodunla alım yapamazsın. Kodu sil, sipariş kodsuz fiyattan verilir.', 'var(--red)');
+          goster('Sipariş verilmedi: <b>kendi elçi kodunla</b> alım yapılamaz (elçi program koşulları). Elçi kodu alanını boşaltıp yeniden gönder.', false);
+          return;
+        }
+        yedekYol();
+      }
+      else { postala().then(function(){}, function(){}); bitir(); }
+    }, yedekYol);
 });
 
 if(!KURULUM_TAMAM){
