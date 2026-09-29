@@ -907,51 +907,6 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-gm5-mat-r10/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - Sade şık açıklaması kaymış: sade D \"birler basamağına 5 rakamın tamamını seçtin\" (5x4x3=60 = E şıkkı); D=48 için 4 seçenek olmalı (ack D doğru). Sade C de bozuk (\"5 rakamın tamamını (3 tanesini)\"). Anahtar 24 doğru, ikiz 36 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r10/kp-04": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - Sade D ters yazılmış: \"2x + 1 yerine 2x\" (doğrusu: 2x yerine 2x + 1 aldın). Anahtar 8, ikiz 16 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r10/kp-05": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (KESİN) - İKİZ bozuk: (2, 9) noktası y = 4x + 1 doğrusunun ÜSTÜNDE (4·2+1=9); \"paralel ve bu noktadan geçen doğru\" verilen doğrunun kendisi (çakışık), ikiz sorusu dejenere. Ana soru doğru (2). Ayrıca sade B anlamsız (\"ordinat −2'nin değişen değeridir\"). | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r10/kp-07": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (KESİN) - Sade yanlış kural anlatıyor: \"0,25·0,8 iki+iki = dört basamak, 0,0200 = 0,2\" (0,8 tek basamaklı; toplam 3 basamak, 0,200; ayrıca 0,0200=0,02). Sade B de \"iki artı iki eşittir dört basamak demek 0,2\" diyor. Anahtar (3,2) ve ack doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r10/kp-14": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - Sade B \"bir yıllık faiz iki katına çarpıldı\" diyor (bu 4.000 = D şıkkı); B=2.000 yalnız bir yıllık faizdir (ack B doğru). Anahtar 4.400 ve ikiz 4.500 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r13/kp-15": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - İkiz sonucu küsuratlı ve İngilizce ondalık noktayla \"22.31\" (290/13=22,307…); Türkçe gösterimde 22.31 binlik ayırıcı gibi okunur, sonuç tam değil. Ana soru (29) doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r14/kp-06": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - İkiz tablosunda sonuç \"2.4\" (noktalı); Türkçe gösterimde 24 gibi okunabilir, \"2,4\" olmalı. Ana soru (4) ve ikiz hesabı (12/5) doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r15/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - E şıkkı açıklaması mantıkça hatalı: 2^(x+3)=3·2^x tuzağı 5·2^x=80 → 2^x=16 → x=4 verir (B şıkkı), x=16 değil; ack/sade E \"80/5=16\" diyerek 2^x değerini x yerine koyuyor (iki hata birleşik, anlatılmıyor). Anahtar 3 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r16/kp-05": {
-            "gerekce": "29.09 risk taramasi grup r4-11: AÇIKLAMA KUSURLU (MUHTEMEL) - Sade B yanlış iddia: \"3!×3!×2! sonucu verir\" (72, yanlış; doğrusu 3!×3!=36). Sade D de anlamsız. Anahtar 36, ikiz 576 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-gm5-mat-r17/kp-07": {
             "gerekce": "29.09 risk taramasi grup r4-12: AÇIKLAMA KUSURLU (MUHTEMEL) - sade A ters: \"4'ü saydınız\" (saymadınız olmalı); AC dağıtıcı yolu 1+…+5=15 alt uçları (−1,0) sessizce düşürüyor, x≤5 ile toplam 14 olurdu | dayanak: matematik — hesap yeniden yapıldı (resmî kaynak gerekmez)",
             "tarih": "2026-09-29",
