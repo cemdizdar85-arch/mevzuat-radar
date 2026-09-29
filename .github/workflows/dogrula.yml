@@ -471,6 +471,17 @@ jobs:
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js" }
           - { ad: "Mobil ilerleme birlestirme MUTASYON (4 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js --mutasyon" }
+          # 30.09 (Cem "1.2.3 yap ve kural koy"): soru kalite kapilari. KAPI-AS = sik aciklamasi baska sikkin sayisini
+          # sonuc diye anlatiyor mu; KAPI-EK = bilinen eski/yanlis kural (arac/eski-kurallar.json) ogrenciye gorunen metinde mi.
+          # GORMEZ: sozel kusur, listede olmayan eski kural, adim/ikiz ici hesap hatasi (aciklama hakemi isi).
+          - { ad: "Soru aciklama sayi kapisi OZ-SINAVI (KAPI-AS)",
+              kabuk: bash, komut: "node arac/aciklama-sayi-kapisi.js --sinav" }
+          - { ad: "Soru aciklama sayi kapisi MUTASYON (7 kosul bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node arac/aciklama-sayi-kapisi.js --sinav --mutasyon" }
+          - { ad: "Eski kural kapisi OZ-SINAVI (KAPI-EK)",
+              kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav" }
+          - { ad: "Eski kural kapisi MUTASYON",
+              kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav --mutasyon" }
           # 26.09 kisa sinav / en cok cikanlar (mobil/uygulama/uygulama-karma.js): soru secimi dengeli mi,
           # tekrar yok mu, cevap sorunun gercek dersine mi yaziliyor, 1000+ satir sayfalaniyor mu. GORMEZ: RLS/ag.
           - { ad: "Mobil kisa sinav secimi OZ-SINAVI",

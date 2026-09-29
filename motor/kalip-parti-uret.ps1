@@ -176,6 +176,7 @@ if($script:PARMAK_TUZU){ Write-Host "  ONARIM TURU: parmak izi tuzu '$script:PAR
 . (Join-Path $kok 'arac\ikiz-olcusu.ps1')        # 22.09: İKİZ CETVELİ — yayıncıyla AYNI ölçü (üçlü harf, soru+doğru şık). Bkz. BenzerlikKusur.
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')      # 22.09: etiket → ders (yayıncıyla aynı harita); ikiz karşılaştırması ders içinde yapılır
 . (Join-Path $kok 'arac\ozel-maliyet-kapisi.ps1') # 27.09: KAPI-OM özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralı (VUK m.327: kira süresine göre)
+. (Join-Path $kok 'arac\soru-kalite-kapisi.ps1')  # 30.09: KAPI-AS (şık açıklaması başka şıkkın sayısını sonuç diye anlatıyor) + KAPI-EK (arac/eski-kurallar.json)
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
 # bitiş damgası (sql-yerel/kalip-parti-<etiket>.html) varsa ATLAR. Koşan koşucular eski kod olsa da üretici her etikette yeniden okunur.
@@ -3894,6 +3895,7 @@ if($HazirSoru -and -not $SadeceHtml){
     foreach($x in @(MulgaKapisi $cvp)){ $kus.Add("KAPI-M: $x") }
     foreach($x in @(SureKapisi $cvp)){ $kus.Add("KAPI-S: $x") }
     $omH=@(OzelMaliyetKapisi $e); if($omH.Count){ $kus.Add("KAPI-OM: $($omH.Count) cümlede eski 'kira 5 yıldan uzunsa 5 yılda' kuralı (VUK m.327: kira süresine göre)") }   # 27.09: hazır dosyanın TAMAMI (teşhis, sade, konu girişi, adımlar dahil); cümle günlüğe basılmaz (depo/günlük public)
+    foreach($x in @(SoruKaliteKapisi $e)){ $kus.Add($x) }; if($script:SORU_KALITE_KOR){ $rapor.Add("KAPI-KALITE KÖR: $id | $($script:SORU_KALITE_KOR)"); $script:SORU_KALITE_KOR=$null }   # 30.09 Cem "kural koy": hazır dosyanın TAMAMI (sade, teşhis, adımlar, ikiz dahil)
     $cbGm=CikmisCumleKapisi $cvp $SB; foreach($x in @($cbGm.kusur)){ $kus.Add("KAPI-CB: $x") }; foreach($x in @($cbGm.not)){ $rapor.Add("KAPI-CB NOTU: $id | $x") }; if($cbGm.kor){ $rapor.Add("KAPI-CB KÖR: $id | $($cbGm.kor)") }
     foreach($x in @(GunTabaniKapisi $cvp $(if($e.PSObject.Properties['adimlar']){ $e.adimlar } else { @() }))){ $kus.Add("KAPI-GT: $x") }
     $yilH=@([regex]::Matches("$($cvp.soru)",'\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))') | ForEach-Object { [int]$_.Groups[1].Value }); if($yilH.Count -and (($yilH | Measure-Object -Maximum).Maximum -lt (Get-Date).Year)){ $kus.Add("KAPI-Y: sorudaki en yeni yıl $(($yilH | Measure-Object -Maximum).Maximum)") }
@@ -3916,7 +3918,7 @@ if($HazirSoru -and -not $SadeceHtml){
     }
     $cvp | Add-Member -NotePropertyName hesap_kod -NotePropertyValue @() -Force
     if($CAPA.ContainsKey($id)){ $cvp | Add-Member -NotePropertyName capa_metin -NotePropertyValue "$($CAPA[$id])" -Force }
-    $cvp | Add-Member -NotePropertyName gm_kapi -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); kapilar='uzunluk,Ş,H,Ç,O,B,D2,YD,P,M,S,CB,GT,Y,K,adım-aritmetik,adım-Türkçe'; adim=$adimVar }) -Force
+    $cvp | Add-Member -NotePropertyName gm_kapi -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); kapilar='uzunluk,Ş,H,Ç,O,B,D2,YD,P,M,S,OM,AS,EK,CB,GT,Y,K,adım-aritmetik,adım-Türkçe'; adim=$adimVar }) -Force
     $don[$id]=$cvp; CacheYaz
     Write-Host "  HAZIR SORU OK $id [$($cvp.konu)] $(if($adimVar){'soru+adım'}else{'soru'})" -ForegroundColor Green
   }

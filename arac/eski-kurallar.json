@@ -1,0 +1,37 @@
+{
+  "aciklama": "KAPI-EK listesi (arac/eski-kural-kapisi.js). Yalnız RESMÎ KAYNAKTAN doğrulanmış eski/yanlış kural girer; 'dayanak' ve 'bulan' zorunlu. Yeni kural eklenince arac/eski-kural-kapisi.js --sinav'a yakalama + meşru kullanım vakası eklenir (CLAUDE.md kapı kuralı 5).",
+  "kurallar": [
+    {
+      "kod": "EK1",
+      "ad": "KDV genel oranı %18 (güncel %20)",
+      "desen": "(KDV|katma de[gğ]er)[^.;]{0,60}(%\\s?18|y[uü]zde\\s?18)(?!\\d)|(%\\s?18|y[uü]zde\\s?18)(?!\\d)[^.;]{0,40}(KDV|katma de[gğ]er)",
+      "haric": "20(0\\d|1\\d|2[0-3])\\b|önceki|eski\\b|ezber|idi\\b|olarak uygulan[ıi]yordu",
+      "dayanak": "KDV genel oranı 10.07.2023'ten beri %20; SGS risk taraması 30.09.2026 resmî kaynaktan okudu (11 ikiz sorusunda %18, commit 2e174106)",
+      "bulan": "sgs risk taraması 30.09.2026"
+    },
+    {
+      "kod": "EK2",
+      "ad": "630 hesabı genel üretim gideri / GÜG farkı sanılıyor (630 = Araştırma ve Geliştirme Giderleri)",
+      "desen": "\\b630\\b[^.;]{0,40}(genel [uü]retim|G[UÜ]G|fark)|(genel [uü]retim gideri fark|G[UÜ]G fark)[^.;]{0,40}\\b630\\b",
+      "haric": "ara[şs]t[ıi]rma|Ar-?Ge",
+      "dayanak": "THP 630 ARAŞTIRMA VE GELİŞTİRME GİDERLERİ (ambar, MSUGT Sıra No:1); GÜG farkları 732-734",
+      "bulan": "sgs risk taraması r4-09, 30.09.2026"
+    },
+    {
+      "kod": "EK3",
+      "ad": "VUK m.270 atfı (madde 14.10.2021'de mülga, 7338 s.K. m.29)",
+      "desen": "(VUK|Vergi Usul)[^.;]{0,30}(m\\.?\\s?270\\b|madde\\s?270\\b|270\\s?(inci|\\.)\\s?madde)|\\b(m\\.?\\s?270|270\\s?inci madde)[^.;]{0,20}(VUK|Vergi Usul)",
+      "haric": "m[uü]lga",
+      "dayanak": "VUK m.270 mülga (7338 s.K. m.29, 14.10.2021); iktisap bedeline giren giderler m.262 ek fıkraları",
+      "bulan": "sinav (SMMM) oturumu 29.09.2026"
+    },
+    {
+      "kod": "EK4",
+      "ad": "\"VUK'ta yıl 360 gün kabul edilir\" iddiası (VUK'ta böyle bir hüküm yok)",
+      "desen": "(VUK|Vergi Usul)[^.;]{0,40}(y[ıi]l|sene)[^.;]{0,15}360 g[uü]n",
+      "haric": "kabul edilecektir|varsay",
+      "dayanak": "VUK m.285 ve m.287 (ambar) yıl gün sayısı hükmü içermiyor; onarım r4-15 sgs-d2-fmuh-zor-r1/kp-01",
+      "bulan": "onarım r4-15, 30.09.2026"
+    }
+  ]
+}
