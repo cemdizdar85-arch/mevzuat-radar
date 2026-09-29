@@ -60,6 +60,59 @@ try {
   }
 } catch (e) {}
 
+/* ==== PERDE-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
+/* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
+   Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
+   AÇILIŞ GÜNÜ: motor/gong.ps1 bu bloğu işaretlerden tanıyıp siler. */
+try {
+  var q = new URLSearchParams(location.search);
+  if (q.get('kapi') === 'tetikte2026') { localStorage.setItem('mrOnizleme','1'); }
+  /* 05.08: yasal sayfalar perdeden MUAF — odeme kurulusu (iyzico/PayTR) incelemesi
+     mesafeli satis/iade/iletisim/KVKK metinlerini gormek zorunda; bu sayfalarin
+     kanunen de acik olmasi gerekir. Urun icerigi tasimadiklari icin sizinti yok. */
+  /* 14.09: on-bilgilendirme, gizlilik-politikasi, uyelik-sozlesmesi de muaf (ayni gerekce). */
+  var yasalMuaf = /(?:^|\/)(mesafeli-satis|teslimat-iade|iletisim|kvkk|on-bilgilendirme|gizlilik-politikasi|uyelik-sozlesmesi)\.html$/.test(location.pathname);
+  if (localStorage.getItem('mrOnizleme') !== '1' && !yasalMuaf) {
+    var perde = function(){
+      if (document.getElementById('mrPerde')) return;
+      var d = document.createElement('div');
+      d.id = 'mrPerde';
+      d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:var(--taban);color:var(--ink);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif';
+      /* 30.07: perde ziyaretcinin gordugu ILK ekran ve eski markayla duruyordu
+         (koseli T kutusu + yesil nokta + yesil buton). Rebrand kurali: nobet
+         lambasi + kehribar; yesil yalniz durum rengidir, marka rengi degil. */
+      d.innerHTML = '<div style="max-width:460px">'+
+        '<div style="width:18px;height:18px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 7px rgba(245,165,36,.16),0 0 26px rgba(245,165,36,.6);display:inline-block;margin-bottom:20px;animation:mrNbz 2.2s ease-in-out infinite"></div>'+
+        '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte</h1>'+
+        '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
+        '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:var(--ink)">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
+        '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
+        '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:var(--kagit);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px">'+
+        '<button type="submit" style="background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
+        /* 30.07: pasif "katilinca kabul edersin" satiri acik riza DEGILDI -
+           karne formundaki gibi zorunlu onay kutusuna cevrildi (KVKK).
+           kvkk.html koku: perde alt sayfalarda da cikar, mutlak yol sart. */
+        '<label style="display:flex;gap:8px;align-items:flex-start;width:100%;justify-content:center;font-size:11.5px;color:var(--muted);margin-top:10px;text-align:left"><input type="checkbox" required style="margin-top:2px;accent-color:#f5a524;flex:none;width:16px;height:16px;padding:0">'+
+        '<span style="max-width:400px">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İstediğimde çıkabilirim. <a href="/kvkk.html" target="_blank" style="color:#ffc24b">Aydınlatma metni</a></span></label></form>'+
+        '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div></div>';
+      document.body.appendChild(d);
+      document.documentElement.style.overflow = 'hidden';
+      document.getElementById('mrPerdeForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        var em = this.querySelector('input').value.trim();
+        if(!em) return;
+        /* 04.09: web3forms cikti - kendi uc fonksiyonumuz (canli adi quick-task, kod radar-app/edge/form-al.ts) */
+        try { fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:em,subject:'ACILIS PERDESI erken kayit',from_name:'Tetikte Perde'})}); } catch(err){}
+        this.style.display='none';
+        document.getElementById('mrPerdeOk').style.display='block';
+      });
+    };
+    if (document.body) { perde(); } else { document.addEventListener('DOMContentLoaded', perde); }
+    return; /* perde varken menu de kurulmasin */
+  }
+} catch(e) {}
+/* ==== PERDE-SONU (gong.ps1 isaretli blogu buraya kadar siler) ==== */
+
 var GRUPLAR=[
  {ad:"🛃 Gümrük & İthalat", araclar:[
   ["gtip.html","🔎","GTİP · Kaç Vergi Öderim?","İthalatta gümrük vergisi, KDV ve kesintiler"],
@@ -570,6 +623,13 @@ function ttSorguKapisi(anahtar){
 }
 function ttSorguHakki(anahtar){
   try {
+    /* ==== ONIZLEME-SINIRSIZ-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
+    /* 20.08 Cem: "perde koduyla girene sinirsiz ver, acilista kapat".
+       ?kapi=... ile bir kez giren DENEME cihazinda arac sayaci hic islemez;
+       deneyen kisi uye olmadan butun araclari sinirsiz kullanir. Perde kalkinca
+       bu blok da gong.ps1 tarafindan silinir - o an herkes normal 5 hakka doner. */
+    if (localStorage.getItem('mrOnizleme') === '1') return true;
+    /* ==== ONIZLEME-SINIRSIZ-SONU ==== */
     var uye = Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token') > -1; });
     if (uye) return true;
     // 31.07 Cem onayi: sayac AYLIK sifirlanir (NYT/Similarweb modeli - ayda 5 hak;
