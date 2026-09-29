@@ -17,6 +17,7 @@
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
+. (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
 # NEDEN: bu betik sabit 746 kr ile ölçüyordu; bulut koşucusu (motor/kalip-kosucu.ps1 DersTavani) ise her satıra DERSİN tavanını verir:
 #   plan satırında 'tavan' varsa o, yoksa veri/sinav-anatomisi-sgs.json C_ders_kalibi.<ders>.uzunluk.p90 (iki yönlü eşleşme), bulamazsa 350.
@@ -197,6 +198,7 @@ foreach($q in $liste){
     $hgS=@([regex]::Matches($hgM,"(?<![\d.,%$])([1-7]\d\d)(?![\d.,%])\s+(?!$hgB(?![A-Za-zÇĞİÖŞÜçğıöşü]))") | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
     if($hgS.Count){ $k.Add("KAPI-HG riski: '$($hgS -join ', ')' hesap kodu sanılır, hakem paketine THP girer (sayıyı yazıyla yaz ya da birim/% ekle)") }
   }
+  foreach($x in @(OzelMaliyetKapisi $q)){ $k.Add("KAPI-OM: $x") }   # 27.09: üretici FAZ GM'de aynı işlevle ÜCRETSİZ düşürür
   if($kaynakOlcu){ foreach($ad in @($q.kaynak_adlar)){ if("$ad".Trim() -and $kaynakVar["$ad"] -eq $false){ $k.Add("KAYNAK ADI ambarda yok: '$ad' (paket boş kalır, hakem soruyu atlar)") } } }
   # 26.09 KAPI-O (klişe/koku): üreticinin GERÇEK KokuKusur fonksiyonu (AST). Ölçüldü: sgs-k10-yd-kolay 'bu bağlamda' klişesiyle bulutta düşecekti, ön denetim görmüyordu.
   if($ikizAcik){ foreach($x in @(KokuKusur $q)){ $k.Add("KAPI-O: $x") } }

@@ -192,6 +192,12 @@ jobs:
           - { ad: "SMMM kapsama tablosu ES OZ-SINAVI (dongudeki konu adlari tek satira toplansin)",
               kabuk: pwsh, komut: "./arac/smmm-kapsama-es-sinavi.ps1" }
 
+          # 27.09.2026 - KAPI-OM ozel maliyette eski "kira 5 yildan uzunsa 5 yilda" kurali (VUK m.327: kira suresine gore).
+          # 16 cumle vakasi (8 yakala / 8 gecir: TBK kira, 263/260 kendi 5 yili, ic alan, reddeden cumle) + 4 baglanti
+          # (FAZ A, FAZ GM, hazir soru denetimi, SMMM yayin sarti) + 5 mutasyon (her bozmada sinav KIRMIZI, 27.09 olculdu).
+          - { ad: "KAPI-OM ozel maliyet 5 yil kurali OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/ozel-maliyet-kapisi-sinavi.ps1" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para

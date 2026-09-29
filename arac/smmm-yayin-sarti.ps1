@@ -20,6 +20,7 @@ if (-not (Get-Command Get-KodsuzHesapAdi -ErrorAction SilentlyContinue)) { . (Jo
 $script:MD_LISTE = $null
 . (Join-Path $PSScriptRoot 'had-kapisi.ps1')   # 23.09 KAPI-HAD
 $script:HAD_HARITA = $null
+. (Join-Path $PSScriptRoot 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM
 function SmmmParmakIzi($soruNesne) {
   $parca = @("$($soruNesne.soru)") + @('A', 'B', 'C', 'D', 'E' | ForEach-Object { "$($soruNesne.siklar.$_)" }) + @("$($soruNesne.dogru)".Trim().ToUpperInvariant())
   $bayt = [Text.Encoding]::UTF8.GetBytes(($parca -join [char]0x1E))
@@ -108,6 +109,9 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   if ($null -eq $script:HAD_HARITA) { $script:HAD_HARITA = HadHaritaOku (Split-Path -Parent $PSScriptRoot) }
   $hadI = HadIddiasi $v $script:HAD_HARITA @(@($v.kaynak_adlar) | ForEach-Object { MdAnahtar "$_" })
   if ($hadI) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-HAD yanlış had tutarı: $hadI" } }
+  # 27.09 KAPI-OM (Cem "1.2.3"): özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralını anlatan soru geçmez (VUK m.327: kira süresine göre).
+  #   Eşdeğerlik 27.09: yayındaki kusurlu 5 soru ÖNCE onarıldı (kc-alan-tamamla), sonra kapı bağlandı → yayından düşen 0 (ölçüm commit mesajında).
+  $omY = @(OzelMaliyetKapisi $v); if ($omY.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-OM özel maliyette eski beş yıl kuralı ($($omY.Count) cümle)" } }
   foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu) { return [pscustomobject]@{ gecer = $false; neden = 'simülasyon yanlış' } } }
   # 14.09 (Cem "1.2 yap", GM önerisi): simülasyonu HİÇ koşmamış soru da geçmez. Ölçüldü: pilot smmm-pilot-ymeslek-zor kp-01 adımları
   # (çözüm anlatımı) yazılmadığı için simülasyon sessizce atlandı, kural yalnız "yanlış değil" dediğinden anlatımsız + sınanmamış soru seçildi.
