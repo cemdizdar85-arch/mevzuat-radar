@@ -465,7 +465,7 @@ jobs:
           - { ad: "Reklam metni kapisi OZ-SINAVI",
               kabuk: bash, komut: "node arac/reklam-metni-kapisi.js --sinav" }
           - { ad: "Reklam metni kapisi MUTASYON (her kural bozulunca oz-sinav dusmeli)",
-              kabuk: bash, komut: "for m in kelime kurum reklam yz sayi gec beyan; do ! REK_MUTASYON=$m node arac/reklam-metni-kapisi.js --sinav >/dev/null || exit 1; done" }
+              kabuk: bash, komut: "for m in kelime kurum reklam yz sayi gec beyan yorum; do ! REK_MUTASYON=$m node arac/reklam-metni-kapisi.js --sinav >/dev/null || exit 1; done" }
 
           # 29.08 (Cem "2 yap"): kurulu kapilarin hicbiri "bu sayfa gercekten
           # aciliyor mu" diye sormuyordu. Kontrast kapisi RENGI, koku olcer

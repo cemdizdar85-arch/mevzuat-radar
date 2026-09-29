@@ -47,7 +47,8 @@
               node arac/reklam-metni-kapisi.js <dosya.md> (tek dosya — yayından önce)
    Çıkış:     0 temiz · 1 kırmızı ya da KÖR (sitedeki sayı okunamadı)
    Bedel:     0 (yalnız dosya okur)
-   Mutasyon:  REK_MUTASYON=kelime|kurum|reklam|yz|sayi|gec|beyan → öz-sınav KIRMIZI düşmeli
+   İÇ NOT:    <!-- ... --> yorumları yayınlanmaz, TARANMAZ ("Reklam" ibaresi de orada sayılmaz).
+   Mutasyon:  REK_MUTASYON=kelime|kurum|reklam|yz|sayi|gec|beyan|yorum → öz-sınav KIRMIZI düşmeli
    ============================================================================ */
 'use strict';
 const fs = require('fs');
@@ -108,7 +109,9 @@ function reklamiTara(dosyaAdi, ham, sayilar) {
   const bulgular = [];
   const satirlar = ham.split('\n');
   const { beyan, govdeBas } = beyanOku(ham);
-  const govde = ham.slice(govdeBas);
+  // <!-- iç not --> yayınlanmaz → satır numarası bozulmadan boşlukla doldurulur (sayi-iddia-kapisi ile aynı).
+  // Geç işareti ham satırdan okunur (gecisVarMi), yorum silinse de kaybolmaz.
+  const govde = MUT === 'yorum' ? ham.slice(govdeBas) : ham.slice(govdeBas).replace(/<!--[\s\S]*?-->/g, s => s.replace(/[^\n]/g, ' '));
   const govdeK = kucuk(govde);
   const satirNo = poz => ham.slice(0, govdeBas + poz).split('\n').length;   // 1 tabanlı
   const ekle = (kural, satir, bulgu, neden, gecilebilir) => {
@@ -220,6 +223,8 @@ function ozSinav() {
     ['gerekçesiz geç', R + 'Reklam\nKursa gitme. <!-- reklam-kapi:gec -->', 'K-KELIME'],
     ['yanlış alarm yok: "en" başka sözle', R + 'Reklam\nEn son soruyu sen çöz. Seni en zor anında yakalar.', ''],
     ['yanlış alarm yok: "reklamcılık" ibare sayılmaz', R + 'Reklamcılık dersi sorusu', 'K-REKLAM'],
+    ['iç not (yorum) taranmaz', R + '<!-- eski kart "Kursa gitme." 5580 yüzünden çıktı -->\nReklam\nBildiğini sandığın soru eler.', ''],
+    ['yorumdaki "Reklam" ibare sayılmaz', R + '<!-- Reklam ibaresi eklenecek -->\nBildiğini sandığın soru eler.', 'K-REKLAM'],
   ];
   let hata = 0;
   for (const [ad, metin, bek] of V) {
