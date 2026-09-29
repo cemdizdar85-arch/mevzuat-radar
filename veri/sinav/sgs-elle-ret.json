@@ -1397,58 +1397,8 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-gm5-mat-r24/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (MUHTEMEL) - sade.siklar.E ters anlam: \"dosya boyutuna bölmemesi gerekiyordu\" (doğrusu bölmesi). Anahtar B=8 doğru; ikiz 16 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r24/kp-04": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (MUHTEMEL) - sade.siklar.B yanlış denklem: \"(2t + 1 = 3t − 1 yerine 2t + 2 = 3t − 1)\" — doğru 2t+2=3t−3; teşhis C/D t yerine x kullanıyor. Anahtar E=5 doğru; ikiz 7 doğru. MÜKERRER: sgs-gm5-mat-r1/kp-09 ile aynı denklem 4^(x+1)=8^(x−1), cevap 5. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r24/kp-07": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (MUHTEMEL) - E şıkkı açıklaması+sade tutarsız: \"çarpımda virgülü koymadın: 6/0,02=300\" — virgülsüz çarpım 60 olur (60/0,02=3000); sade E \"60'ı 60 alıp 6 ÷ 0,02\". Anahtar C=3 doğru. MÜKERRER: sgs-gm5-mat-r4/kp-03 ile birebir aynı işlem (0,4·0,15/0,02) ve aynı ikiz (0,6·0,25/0,03=5). | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r25/kp-09": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (MUHTEMEL) - sade.siklar.D yanlış bilgi: \"2x aralığının genişliği (12 − (−2) = 14 değil, 12)\" — genişlik 14'tür; cümle bozuk. Anahtar C=8 doğru; ikiz 9 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r25/kp-10": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (KESİN) - İKİZ bozuk: \"ilk anda 3 birim ... 7. saatte\" — ilk an t=0 ise 7 saat sonra 3·2⁷=384; ikiz tablosu 3·2⁶=192 veriyor (ilk anı 1. saat saymış). Ana soru (5·2⁵=160) doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-gm5-mat-r26/kp-03": {
             "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (MUHTEMEL) - İKİZ tablosu 8/15 yerine yuvarlanmış \"0,5333\" gösteriyor; 32/0,5333=60,004 (tam değil). Kesir 8/15 ile yazılmalı. Ana soru 60 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r26/kp-04": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (KESİN) - İKİZ tablosunda ondalık ayırıcı nokta: \"0.5\" → \"0,5\" (ayrıca eğim −1/2, \"büyüklük\" ifadesiyle). İkiz sonucu 7 doğru; ana soru 8 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r26/kp-12": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (KESİN) - İKİZ bozuk: \"altı öğrencinin sınav puanları\" deniyor ama 5 puan veriliyor (84, 76, 91, 63, 79). Açıklık 28 hesabı doğru; ana soru 22 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r4/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (KESİN) - İKİZ kayması: ikiz soru \"ardışık üç tek sayıdan küçük olanı\" (19) istiyor, ikiz tablosunun son satırı \"Sayıların en büyüğü (19 + 4) = 23\". Ana soru 28 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r4/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (MUHTEMEL) - E açıklaması \"çarpımda hiç basamak ayırmadın: 6/0,02=300\" tutarsız (basamak ayrılmazsa 60). Anahtar A=3 doğru. MÜKERRER: sgs-gm5-mat-r24/kp-07 ile aynı soru+aynı ikiz. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-gm5-mat-r6/kp-14": {
-            "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (KESİN) - sade.siklar.A yanlış bilgi: \"9 ay yılın sadece dörtte biridir\" — 9 ay = 3/4 yıl. Anahtar D=9.000 doğru; ikiz 300 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
