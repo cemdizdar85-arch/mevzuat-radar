@@ -365,13 +365,18 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   (sade.siklar, aciklama, teşhis, adımlar, ikiz) okuyan yoktu, KAPI-KC yalnız doluluk ölçüyordu, sade'yi en ucuz model yazıyordu.
   Yanlış cevapların kökü kaynaktı (THP 264 1992 metni, mülga VUK m.270, eski %18 KDV): hakem eski paketle kıyaslayıp "doğru" diyor.
   Kurallar:
-  1. **Yeni soru iki 0 USD kapıdan geçmeden yayına seçilmez:** KAPI-AS `arac/aciklama-sayi-kapisi.js` (yanlış şıkkın açıklaması
-     başka şıkkın sayısını SONUÇ diye anlatıyor) + KAPI-EK `arac/eski-kural-kapisi.js` (liste `arac/eski-kurallar.json`).
-     Bağlı olduğu yerler: `motor/kalip-parti-uret.ps1` FAZ GM (hazır soru girişi) ve `motor/kalip-kosucu.ps1` 8.1 seçimi
-     (köprü `arac/soru-kalite-kapisi.ps1`; node yoksa günlükte `KAPI-KALITE KÖR`). Öz-sınav + mutasyon `dogrula.yml`'de.
-     **Ölçüldü (30.09, elle okunmuş 1.738 SGS sorusu):** KAPI-AS kusurlu 332'nin **10**'unu yakalıyor, temiz 1.406'nın 14'ünde alarm
-     (14'ün elle okunan ≥4'ü okuyucunun kaçırdığı gerçek kusur). KAPI-EK SGS kasa dosyalarında 37, SMMM'de 96 soru işaretledi (KDV %18
-     ağırlıklı, çoğu 2026 ikiz metninde). Yani bu iki kapı **kusurların küçük bir kısmını** görür; "açıklama doğru" DEMEZ.
+  1. **Yeni soru iki 0 USD kapıdan geçmeden yayına seçilmez:** KAPI-AS2 `arac/aciklama-sayi-kapisi.js` (açıklama KAYMASI: doğru şıkkın
+     "Ne soruluyor" çözüm metni başka harfte ya da fazladan harf) + KAPI-EK `arac/eski-kural-kapisi.js` (liste `arac/eski-kurallar.json`,
+     8 kural: KDV %18 · 630=GÜG · VUK m.270 · "VUK'ta yıl 360 gün" · kâr payı stopajı %10 · eski GV dilimleri 18.000/40.000/98.000 ·
+     KV %20 · teminatsız tecil 1.000.000). KAPI-AS1 (şık açıklaması başka şıkkın sayısını sonuç diye anlatıyor) yalnız **NOT** yazar,
+     soru durdurmaz: onarımcılar 93 alarmını elle okudu, SGS'de %54'ü, SMMM'de %76'sı yanlıştı.
+     Bağlı olduğu yerler: `motor/kalip-parti-uret.ps1` FAZ GM (hazır soru girişi), `motor/kalip-kosucu.ps1` 8.1 seçimi ve
+     **`arac/havuz-kur.ps1` yayın seçimi** (SGS sitesine soruyu bu seçer; yalnız kör/hakem2 tarihi ≥ 2026-10-01 olan YENİ soruya
+     uygulanır — eşdeğerlik 30.09: bugünkü tarihle seçim birebir aynı 4.958, başlangıç geri çekilince 40 soru düşüyor). Köprü
+     `arac/soru-kalite-kapisi.ps1`; node yoksa günlükte `KAPI-KALITE KÖR`. Öz-sınav + mutasyon `dogrula.yml`'de.
+     **Ölçüldü (30.09):** bankada KAPI-AS2 233 soru (47'si `SikSirala`'nın teşhis/çeldirici/sade'yi taşımamasından — düzeltildi,
+     `arac/siksirala-sinavi.ps1`; kalanın kökü ölçülmedi). KAPI-EK onarımda 101 sorunun 5'inde yanlış alarm (bilerek konmuş "eski oran"
+     çeldiricisi → istisna genişletildi). Bu kapılar **kusurların küçük bir kısmını** görür; "açıklama doğru" DEMEZ.
   2. **Yeni eski-kural bulgusu listeye girer:** okuma/onarımda resmî kaynakla doğrulanmış eski ya da yanlış kural bulunduysa
      `arac/eski-kurallar.json`'a `dayanak` + `bulan` ile eklenir ve `eski-kural-kapisi.js --sinav`'a bir yakalama + bir meşru kullanım
      vakası yazılır (kapı kuralı 5). Kaynağı yazılı olmayan kural listeye girmez.
@@ -381,8 +386,8 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      (resmî kaynaktan elle onarım → yeniden hakem yalnız anahtar/kök değişince). Yanlış cevaplı / iki doğru şıklı soru onarılana kadar
      yayın dışı kalır (Cem onayı 30.09).
   🚫 GÖRMEZ: sözel açıklama kusuru · adım/ikiz içi hesap hatası · listede olmayan eski kural · kaynak paketindeki eski metnin kendisi
-  (KAPI-MM ayrı) · kasa yayın betikleri (`havuz-kur`, `smmm-kasa-yayin`) bu kapıyı AYRICA çağırmıyor — koşucu seçimi dışından yayına
-  giren yol varsa orada kapı yok (30.09 ölçülmedi, SGS/sınav oturumlarına soruldu).
+  (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1`, `motor/vitrin-soru-sec.ps1` ve SMMM kasa yayını (`smmm-kasa-yayin`) bu kapıyı
+  çağırmıyor (30.09: SGS oturumu bu seçim yollarını bildirdi; SMMM yolu ölçülmedi).
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

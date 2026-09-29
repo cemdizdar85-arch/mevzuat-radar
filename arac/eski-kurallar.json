@@ -32,6 +32,38 @@
       "haric": "kabul edilecektir|varsay",
       "dayanak": "VUK m.285 ve m.287 (ambar) yıl gün sayısı hükmü içermiyor; onarım r4-15 sgs-d2-fmuh-zor-r1/kp-01",
       "bulan": "onarım r4-15, 30.09.2026"
+    },
+    {
+      "kod": "EK5",
+      "ad": "Kâr payı stopajı %10 (22.12.2024'ten beri %15)",
+      "desen": "(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(stopaj|tevkifat)[\\s\\S]{0,40}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])|(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat)|(stopaj|tevkifat)[\\s\\S]{0,30}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat)[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])",
+      "haric": "20(0\\d|1\\d|2[0-4])\\b|önceki|eski\\b|ezber|idi\\b",
+      "dayanak": "GVK m.94/6-b-i oranı 9286 sayılı CBK ile 22.12.2024'ten beri %15; SGS oturumu ambarda okudu 30.09.2026",
+      "bulan": "sgs oturumu 30.09.2026 + onarım smmm-as (smmm-4k-a-fmuh-kolay-r2/kp-19)"
+    },
+    {
+      "kod": "EK6",
+      "ad": "Eski gelir vergisi tarifesi dilimleri 18.000 / 40.000 / 98.000",
+      "desen": "(?<![\\d.])18\\.000(?![\\d.])[\\s\\S]{0,160}(?<![\\d.])40\\.000(?![\\d.])[\\s\\S]{0,160}(?<![\\d.])98\\.000(?![\\d.])",
+      "haric": "varsay|20(0\\d|1\\d|2[0-5])\\b|önceki|eski\\b|idi\\b",
+      "dayanak": "GVK m.103 tarifesi her yıl tebliğle güncellenir (2026: Seri No:332); 18.000/40.000/98.000 eski yıl dilimleri — SGS oturumu ambarda okudu 30.09.2026",
+      "bulan": "sgs oturumu 30.09.2026"
+    },
+    {
+      "kod": "EK7",
+      "ad": "Kurumlar vergisi oranı %20 (KVK m.32: %25)",
+      "desen": "kurumlar vergisi oran[ıi]?[^.;]{0,15}(%\\s?20|y[uü]zde\\s?20)(?!\\d)|(%\\s?20|y[uü]zde\\s?20)(?!\\d)\\s*(oran[ıi]nda\\s*)?kurumlar vergisi",
+      "haric": "ihra[cç]|indirim|yerine|yanl[ıi]ş|Modigliani|kaldıraçsız|kaldiracsiz|\\bVU\\b|20(0\\d|1\\d|2[0-2])\\b|önceki|eski\\b|idi\\b",
+      "dayanak": "KVK m.32 genel oran %25 (ambar); ihracat/üretim indirimli oranlar haric — SGS oturumu ambarda okudu 30.09.2026",
+      "bulan": "sgs oturumu 30.09.2026"
+    },
+    {
+      "kod": "EK8",
+      "ad": "Teminatsız tecil sınırı 1.000.000 TL (CBK 11414 ile 10.000.000 TL)",
+      "desen": "tecil[\\s\\S]{0,120}(?<![\\d.])1\\.000\\.000(?![\\d.])[\\s\\S]{0,120}teminat|tecil[\\s\\S]{0,120}teminat[\\s\\S]{0,120}(?<![\\d.])1\\.000\\.000(?![\\d.])|teminat[\\s\\S]{0,120}(?<![\\d.])1\\.000\\.000(?![\\d.])[\\s\\S]{0,120}tecil|teminat[\\s\\S]{0,120}tecil[\\s\\S]{0,120}(?<![\\d.])1\\.000\\.000(?![\\d.])|(?<![\\d.])1\\.000\\.000(?![\\d.])[\\s\\S]{0,120}tecil[\\s\\S]{0,120}teminat|(?<![\\d.])1\\.000\\.000(?![\\d.])[\\s\\S]{0,120}teminat[\\s\\S]{0,120}tecil",
+      "haric": "20(0\\d|1\\d|2[0-5])\\b|önceki|eski\\b|idi\\b",
+      "dayanak": "6183 s.K. m.48 teminatsız tecil sınırı CBK 11414 ile 10.000.000 TL — SGS oturumu ambarda okudu 30.09.2026",
+      "bulan": "sgs oturumu 30.09.2026"
     }
   ]
 }

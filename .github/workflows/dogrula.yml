@@ -482,6 +482,9 @@ jobs:
               kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav" }
           - { ad: "Eski kural kapisi MUTASYON",
               kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav --mutasyon" }
+          # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
+          - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
+              kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }
           # 26.09 kisa sinav / en cok cikanlar (mobil/uygulama/uygulama-karma.js): soru secimi dengeli mi,
           # tekrar yok mu, cevap sorunun gercek dersine mi yaziliyor, 1000+ satir sayfalaniyor mu. GORMEZ: RLS/ag.
           - { ad: "Mobil kisa sinav secimi OZ-SINAVI",

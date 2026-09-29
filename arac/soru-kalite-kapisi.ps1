@@ -15,7 +15,7 @@ function SoruKaliteKapisi($nesne) {
     [IO.File]::WriteAllText($gecici, (ConvertTo-Json -InputObject $nesne -Depth 14 -Compress), [Text.UTF8Encoding]::new($false))
     $cikti = @(& node $script:SORU_KALITE_JS --tek $gecici)
     if ($LASTEXITCODE -ne 0) { $script:SORU_KALITE_KOR = "node çıkış ${LASTEXITCODE}: $(@($cikti) -join ' ')"; return @() }
-    return @($cikti | Where-Object { "$_" -match '^KAPI-(AS|EK):' })
+    return @($cikti | Where-Object { "$_" -match '^KAPI-(AS2|EK):' })   # NOT-AS1 durdurmaz (30.09 ölçümü: alarmların %54–76'sı yanlış)
   } catch {
     $script:SORU_KALITE_KOR = "çağrılamadı: $($_.Exception.Message)"
     return @()

@@ -64,6 +64,16 @@ function sinav() {
     ['"270 inci madde" yazımı da yakalanır', T({ sade: { dogru: 'Vergi Usul Kanunu 270 inci maddesine göre.' } }), 1],
     ['"VUK\'ta yıl 360 gün" iddiası → EK4', T({ aciklama: { A: 'VUK\'ta yıl 360 gün kabul edilir.' } }), 1],
     ['"360 gün kabul edilecektir" varsayımı alarm vermez', T({ soru: 'Faiz hesabında yıl 360 gün kabul edilecektir.' }), 0],
+    ['EK5 kâr payı stopajı %10 → alarm', T({ aciklama: { A: 'Kâr payı dağıtımında %10 stopaj yapılır.' } }), 1],
+    ['EK5 meşru: "2024 öncesi %10 idi"', T({ aciklama: { A: '2024 yılı sonuna kadar kâr payı stopajı %10 idi.' } }), 0],
+    ['EK6 eski dilimler 18.000/40.000/98.000 → alarm', T({ aciklama: { A: 'Gelir vergisi tarifesi: 18.000 TL\'ye kadar %15, 40.000 TL\'nin 18.000\'i için, 98.000 TL\'nin 40.000\'i için.' } }), 1],
+    ['EK6 meşru: tek başına 18.000 tutarı', T({ aciklama: { A: 'Alış bedeli 18.000 TL, iskonto 40 TL.' } }), 0],
+    ['EK7 KV oranı %20 → alarm', T({ aciklama: { A: 'Kurumlar vergisi oranı %20 uygulanır.' } }), 1],
+    ['EK7 meşru: ihracat indirimli oran', T({ aciklama: { A: 'İhracat kazancına kurumlar vergisi oranı %20 (5 puan indirimli) uygulanır.' } }), 0],
+    ['EK7 meşru: "%20 olarak yanlış okunup"', T({ sade: { siklar: { C: 'Kurumlar vergisi oranı %20 olarak yanlış okunup hesaplanması; %25 kullanılmalı.' } } }), 0],
+    ['EK6 meşru: "dilimler şöyle varsayılmıştır"', T({ soru: 'Tarifenin dilimleri şöyle varsayılmıştır: 0-18.000 TL %15, 18.000-40.000 TL %20, 40.000-98.000 TL %27.' }), 0],
+    ['EK8 teminatsız tecil 1.000.000 → alarm', T({ aciklama: { A: 'Tecil talebinde 1.000.000 TL\'ye kadar teminat aranmaz.' } }), 1],
+    ['EK8 meşru: 10.000.000', T({ aciklama: { A: 'Tecil talebinde 10.000.000 TL\'ye kadar teminat aranmaz.' } }), 0],
     ['model alanı taranmaz (öğrenci görmez)', T({ hakem: { gerekce: 'KDV oranı %18 uygulanır.' } }), 0]
   ];
   let g = 0;

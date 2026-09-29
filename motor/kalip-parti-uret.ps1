@@ -2580,11 +2580,27 @@ function SikSirala($cvp){
   foreach($h in $harf){ $s="$($cvp.siklar.$h)".Trim(); $m=[regex]::Match($s,'^%?\s*(-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?)\s*(₺|TL|%|adet|kg|saat|gün|yıl|ton|birim|TL/kg|TL/adet|TL/saat|TL/ton)?\s*$'); if(-not $m.Success){ return $false }; try{ $deg[$h]=[double]::Parse($m.Groups[1].Value,$trS) }catch{ return $false } }
   if(@($harf | Where-Object { "$($cvp.siklar.$_)" -match '(?i)\b(olumlu|olumsuz|eksik|fazla)\b' }).Count -ge 4){ return $false }
   $sira=@($harf | Sort-Object { $deg[$_] }); if(($sira -join '') -eq ($harf -join '')){ return $false }
-  $yeniS=[ordered]@{}; $yeniA=[ordered]@{}; $yeniDogru=''
-  for($i=0;$i -lt 5;$i++){ $eski=$sira[$i]; $yeni=$harf[$i]; $yeniS[$yeni]="$($cvp.siklar.$eski)"; if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$eski]){ $yeniA[$yeni]=$cvp.aciklama.$eski }; if("$($cvp.dogru)" -eq $eski){ $yeniDogru=$yeni } }
+  $yeniS=[ordered]@{}; $es=@{}; $yeniDogru=''
+  for($i=0;$i -lt 5;$i++){ $eski=$sira[$i]; $yeni=$harf[$i]; $yeniS[$yeni]="$($cvp.siklar.$eski)"; $es[$eski]=$yeni; if("$($cvp.dogru)" -eq $eski){ $yeniDogru=$yeni } }
   if(-not $yeniDogru){ return $false }
-  $cvp.siklar=[pscustomobject]$yeniS; if($yeniA.Count){ $cvp.aciklama=[pscustomobject]$yeniA }; $cvp.dogru=$yeniDogru
+  # 30.09 ÖLÇÜLDÜ (SGS/SMMM onarımı): eski hâl yalnız aciklama'yı ve yalnız PSCustomObject ise taşıyordu; teşhis, çeldirici yolu ve
+  # sade.siklar şık harfine bağlı kaldı → "Ne soruluyor" metni yanlış harfte (bankada 233 kaymanın 47'si sıralanmış sayısal şıklı).
+  # Artık harf anahtarlı BÜTÜN alanlar aynı eşlemeyle taşınır; hashtable/ordered sözlük de desteklenir.
+  $cvp.siklar=[pscustomobject]$yeniS; $cvp.dogru=$yeniDogru
+  foreach($alan in 'aciklama','teshis','celdirici_yol'){ if($cvp.PSObject.Properties[$alan] -and $null -ne $cvp.$alan){ $cvp.$alan=HarfTasi $cvp.$alan $es } }
+  if($cvp.PSObject.Properties['sade'] -and $cvp.sade -and $cvp.sade.PSObject.Properties['siklar'] -and $null -ne $cvp.sade.siklar){ $cvp.sade.siklar=HarfTasi $cvp.sade.siklar $es }
   return $true
+}
+# harf anahtarlı nesneyi (A..E) eski→yeni eşlemesiyle taşır; harf olmayan anahtar yerinde kalır. PSCustomObject ve sözlük kabul eder.
+function HarfTasi($o,[hashtable]$es){
+  $cift=@()
+  if($o -is [System.Collections.IDictionary]){ foreach($k in @($o.Keys)){ $cift+=,@("$k",$o[$k]) } }
+  else { foreach($p in $o.PSObject.Properties){ $cift+=,@($p.Name,$p.Value) } }
+  $y=[ordered]@{}
+  foreach($h in 'A','B','C','D','E'){ foreach($c in $cift){ $hedef=$(if($es.ContainsKey($c[0])){ $es[$c[0]] } else { $c[0] }); if($hedef -eq $h){ $y[$h]=$c[1] } } }
+  foreach($c in $cift){ if(-not $es.ContainsKey($c[0]) -and -not $y.Contains($c[0])){ $y[$c[0]]=$c[1] } }
+  if($o -is [System.Collections.IDictionary]){ return $y }
+  return [pscustomobject]$y
 }
 # 06.09 KAPI-H (Cem "bu beşi geç" #2): HESAP KODU–AD KAPISI. Şık/kayıt metninde geçen her "3 haneli kod + ad" çifti, ambardaki
 # Tekdüzen Hesap Planı adıyla (kaynak_ad "THP 120 - Alıcılar") karşılaştırılır; resmî adın köklerinin yarısından fazlası kodun
