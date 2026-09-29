@@ -121,7 +121,7 @@
         <a class="ep-btn" id="epWp" href="#" target="_blank" rel="noopener">WhatsApp'ta paylaş</a>
       </div>
       <p class="ep-kucuk" id="epKopyaDurum"></p>
-      <p class="ep-kucuk">Paylaşımlarında <b>#reklam</b> ya da <b>#işbirliği</b> etiketi zorunlu (koşul 7).</p>
+      <p class="ep-kucuk">Her paylaşımın <b>en başına</b> <b>#Reklam @tetikte</b> yaz, videoda sesli de söyle. Tek başına #işbirliği yetmez (koşul 7).</p>
     </div>
 
     <div class="ep-kartlar">
@@ -202,10 +202,12 @@
       'Elçi koduyla alan kişiye ' + (i || 'belirlenen paketlerde') + ' indirim uygulanır (KDV dahil). Diğer paketlerde kod indirim sağlamaz.',
       'Komisyon satış başına ödenir: dönemin 1–9. satışı 750 TL, 10–49. satışı 1.000 TL, 50–99. satışı 1.250 TL; 100. satıştan sonrası için ayrıca özel iş birliği konuşulur. Kademe yalnız eşik üstüne uygulanır (geriye dönük değildir).',
       'Dönem, sınav dönemidir. Bir dönemde ulaştığın kademe sonraki döneme taşınır ve geri inmez.',
-      'Bir satış, ödeme alındıktan 7 gün sonra kesinleşir. İade edilen ya da ödemesi geri alınan satış komisyona girmez. Kesinleşen komisyonlar ayda bir ödenir.',
+      'Bir satış, ödeme alındıktan 7 gün sonra kesinleşir. İade edilen ya da ödemesi geri alınan satış komisyona girmez. Bir ay içinde kesinleşen komisyonlar, izleyen ayın 8\'inde ödenir.',
       'Komisyonu ödenmiş bir satış sonradan iade edilir ya da ödemesi geri alınırsa (ör. kart itirazı, mükerrer çekim), o komisyon bir sonraki ödemenden düşülür.',
       'Kendi kodunla alım yapamazsın; kendine, yakınına ya da uydurma kişilere yönelik düzenlenmiş satışlar komisyona girmez.',
-      'Tetikte ile ilgili her paylaşımında reklam olduğunu açıkça belirtirsin (#reklam ya da #işbirliği). Ücretsiz erişim de bu kapsamdadır.',
+      /* 30.09: Ticari Reklam ve HTU Yön. m.23/A (RG 01.07.2026/33297, yürürlük 01.08.2026) — "Reklam" ya da "Tanıtım"
+         ifadesi + reklam verenin adı zorunlu, diğer etiketlerden önce, kaydırmadan görünür; tek başına #işbirliği YETMEZ. */
+      'Tetikte ile ilgili her paylaşımının en başında, diğer tüm etiketlerden önce ve ekranı kaydırmadan görünecek biçimde "#Reklam @tetikte" (ya da "#Tanıtım @tetikte") yazarsın; videoda bunu ayrıca sesli söylersin. Tek başına "#işbirliği" yeterli değildir. İndirim kodu, komisyon ve ücretsiz erişimin her biri paylaşımı reklam yapar.',
       'Sınavı geçme garantisi, gerçek olmayan başarı oranı ya da resmî kurum onayı gibi yanıltıcı ifadeler kullanmazsın; ayrıca Tetikte\'yi "kurs", "dershane" ya da "sınava hazırlık kursu" olarak tanıtmazsın.',
       'Paylaşımlarında fiyatı sitede o gün ilan edilen fiyatla söylersin; eski fiyat içeren paylaşımı güncellersin ya da kaldırırsın.',
       'Tetikte sorularını, cevaplarını ve açıklamalarını toplu olarak kopyalayıp paylaşmazsın; tanıtım için bir-iki örnek ekran serbesttir.',
@@ -233,7 +235,7 @@
                                        .map(function(k){ return paketAdi(k) + ' −' + tl(ind[k]); }).join(' · ');
     var link = SITE + 'satin-al.html?e=' + encodeURIComponent(d.kod);
     $('epLink').value = link;
-    $('epWp').href = 'https://wa.me/?text=' + encodeURIComponent('SMMM sınavlarına Tetikte ile hazırlan; bu bağlantıyla indirimli al: ' + link);
+    $('epWp').href = 'https://wa.me/?text=' + encodeURIComponent('#Reklam @tetikte — SMMM sınavlarına Tetikte ile hazırlan. Bu bağlantıyla alırsan elçi indirimi uygulanır: ' + link);  /* 30.09: Yön. m.23/A etiketi başta; tutar yazılmaz (m.14 önceki fiyat/tarih şartı doğmasın) */
     $('epKesin').textContent = d.kesin_satis;
     $('epBekleyen').textContent = d.bekleyen_satis;
     $('epOdemeBek').textContent = d.odeme_bekleyen;
