@@ -351,6 +351,41 @@
             "gerekce": "29.09 risk taramasi grup r4-02: AÇIKLAMA KUSURLU (KESİN) - Hesap 32.000 doğru; hap \"Öz kaynak toplamı varlıklar toplamından yabancı kaynaklar çıkarılarak bulunmaz\" diyor — yanlış kural (Özkaynak = Varlıklar − Yabancı Kaynaklar). | dayanak: Bilanço eşitliği (MSUGT 1 bilanço ilkeleri)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-maliyet-kolay-r1/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-03: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (300.000/5=60.000). Hap kuruluş-örgütlenme giderini \"özel maliyet niteliğindeki aktifleştirilmiş gider\" diye niteliyor; THP'de 262 Kuruluş ve Örgütlenme ile 264 Özel Maliyetler ayrı hesaplar. Ek: ikizde \"dört yılda itfa\" politikası VUK m.326'daki kurumlar için 5 yıl kuralıyla çelişiyor. | dayanak: MSUGT 1 THP 262; VUK m.326",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-e16-fmuh-zor/kp-08": {
+            "gerekce": "29.09 risk taramasi grup r4-03: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (540.000-400.000=140.000). İkiz sorunun kökü bozuk: \"İhraç bedeli toplamı hesabına kaydedilecek tutar\" diye soruyor; böyle bir hesap yok; tablo 520 için 105.000 veriyor, öğrenci 480.000 de diyebilir. | dayanak: MSUGT 1 THP 520",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-e16b-fmuh-zor/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-03: AÇIKLAMA KUSURLU (MUHTEMEL) - Ana hesap doğru (200.000+5.000+8.000=213.000). İkizde ithal edilen \"makine\" 153 Ticari Mallar hesabına aktarılıyor; işletmede kullanılacak makine 253 hesabına gider, bağlam belirsiz. Ek: doğru şık E için açıklama kaydı yok (aciklama yalnız A-D). | dayanak: MSUGT 1 THP 153/159",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-fmuh-k10c/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-03: CEVAP YANLIŞ (KESİN) - Soru açıkça VUK m.328'e göre kâr soruyor. Ama anahtar satış yılı 2025 için 6 aylık kıst amortisman (25.000) ayırıyor. VUK m.320'de kıst yalnız binek otonun aktife girdiği yıl için var. Gün esası 7338 ile yalnız yeni aktife kaydedilen kıymetlere tanındı; makine 01.01.2021'de alınmış. Satış yılında amortisman ayrılmaz: NDD 500.000-200.000=300.000, kâr 320.000-300.000=20.000 (A). İkiz de aynı hatayı taşıyor (2023 için 3 ay kıst; VUK'a göre NDD 360.000). | dayanak: VUK m.320, m.328; KGK 14.11.2021 sorusu (\"aktiften çıktığı yıl kıst amortisman ayrılır\" YANLIŞ şıkkı) | anahtar B->A",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-fmuh-cokzor-r1/kp-23": {
+            "gerekce": "29.09 risk taramasi grup r4-03: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (24.000). İkizde 6 yıl ömürlü makine için VUK'a göre azalan bakiye oranı \"%30\" veriliyor. Kanunda oran normal oranın iki katıdır, 6 yıl için %33,33 olmalı. İkizin 29.400 sonucu VUK'la çelişiyor (doğru oranla 26.667). | dayanak: VUK mük. m.315/2, mük. m.320/3",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-fmuh-cokzor-r1/kp-38": {
+            "gerekce": "29.09 risk taramasi grup r4-03: AÇIKLAMA KUSURLU (KESİN) - Açıklama, hisse senedi portföyüne (ikizde tahvil portföyüne) TMS 36 p.20-28 uyguluyor: SMDGD, kullanım değeri, işten çıkarma tazminatı. Oysa TMS 36 p.2(e) TFRS 9 kapsamındaki finansal varlıkları kapsam dışı bırakır. Hesap iç tutarlı (18.000) ama soru ile açıklama yanlış standarda dayanıyor; öncül kurgusu hatalı. | dayanak: TMS 36 p.2(e)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-fmuh-cokzor-r2/kp-05": {
+            "gerekce": "29.09 risk taramasi grup r4-03: CEVAP YANLIŞ (KESİN) - Kâr 500.000; I. tertip 25.000 + birinci kâr payı 60.000 + ikinci kâr payı 415.000 + II. tertip 41.500 = 541.500, yani kârı aşıyor. \"Kalanın tamamı dağıtılacak\" ise II. tertip=415.000x10/110=37.727; bu sonuç şıklarda yok. İkizde ayrı ve KESİN hata var: mevcut yedek 300.000 = 1.500.000x%20 sınırına ulaşmış, I. tertip 0 olmalı; tablo 30.000 ayırıyor. | dayanak: TTK m.519/1, m.519/2-c | anahtar B->YOK (37.727)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
