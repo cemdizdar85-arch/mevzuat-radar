@@ -457,6 +457,15 @@ jobs:
               kabuk: bash, komut: "node arac/sayi-iddia-kapisi.js" }
           - { ad: "Sayi iddiasi kapisi OZ-SINAVI",
               kabuk: bash, komut: "node arac/sayi-iddia-kapisi.js --sinav" }
+          # 29.09 (Cem "reklam metni kapisini kur"): pazarlama/reklam/*.md - yasak soz,
+          # "Reklam" ve YZ ibaresi, kurum adi, canli deneme uyarisi, soru sayisi iddiasi.
+          # GORMEZ: dosyaya yazilmamis gorsel yazisi, Meta paneline elle yazilan metin.
+          - { ad: "Reklam metni kapisi (Instagram/Meta reklam metni)",
+              kabuk: bash, komut: "node arac/reklam-metni-kapisi.js" }
+          - { ad: "Reklam metni kapisi OZ-SINAVI",
+              kabuk: bash, komut: "node arac/reklam-metni-kapisi.js --sinav" }
+          - { ad: "Reklam metni kapisi MUTASYON (her kural bozulunca oz-sinav dusmeli)",
+              kabuk: bash, komut: "for m in kelime kurum reklam yz sayi gec beyan; do ! REK_MUTASYON=$m node arac/reklam-metni-kapisi.js --sinav >/dev/null || exit 1; done" }
 
           # 29.08 (Cem "2 yap"): kurulu kapilarin hicbiri "bu sayfa gercekten
           # aciliyor mu" diye sormuyordu. Kontrast kapisi RENGI, koku olcer

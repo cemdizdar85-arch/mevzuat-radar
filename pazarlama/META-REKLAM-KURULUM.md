@@ -55,8 +55,11 @@
 
 ## Reklam kuralları (her görsel/metin bunlardan geçer)
 
+**Kapı (29.09):** her reklam metni `pazarlama/reklam/<ad>.md` olarak yazılır (şablon `_sablon.md`);
+`node arac/reklam-metni-kapisi.js` aşağıdaki kuralların hepsini + sitedeki soru sayısını denetler, her push'ta CI'da koşar.
+
 - Başa **"Reklam"** ibaresi. Yapay zekâ karakteri (SORU) varsa **"Yapay zekâ ile üretilmiştir"** ibaresi eklenir ve Meta'da "AI info" işaretlenir. Dayanak: Ticari Reklam Yön. m.18/8 (01.08.2026). Reklam Kurulu'nun 16.07.2026 toplantısında (371. toplantı), "reklam" ibaresi taşımayan YZ ders uygulaması videosuna 1.083.706 TL ceza verildi.
-- **YASAK kelimeler:** kurs · eğitim · hoca · öğretmen · MEB onaylı · "Türkiye geneli" · "en çok/en iyi" · belgesiz sayı. Sayı yazılacaksa `kaydir/<sınav>/index.html`'deki sayı kullanılır (sayı iddiası kapısı yalnız site sayfalarını denetler, reklam metnini DENETLEMEZ).
+- **YASAK kelimeler:** kurs · eğitim · hoca · öğretmen · MEB onaylı · "Türkiye geneli" · "en çok/en iyi" · belgesiz sayı. Sayı yazılacaksa `kaydir/<sınav>/index.html`'deki sayı kullanılır (reklam metni kapısı aynı sayıyla kıyaslar).
 - TÜRMOB/TESMER/ÖSYM adı ve logosu kullanılmaz. Canlı deneme reklamında "Tetikte'nin kendi denemesi; resmî sınavla bağlantısı yoktur" satırı yer alır.
 
 ## İlk kampanya önerisi (bütçe Cem'de)
