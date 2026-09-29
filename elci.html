@@ -121,7 +121,7 @@
         <a class="ep-btn" id="epWp" href="#" target="_blank" rel="noopener">WhatsApp'ta paylaş</a>
       </div>
       <p class="ep-kucuk" id="epKopyaDurum"></p>
-      <p class="ep-kucuk">Paylaşımlarında <b>#reklam</b> ya da <b>#işbirliği</b> etiketi zorunlu (koşul 6).</p>
+      <p class="ep-kucuk">Paylaşımlarında <b>#reklam</b> ya da <b>#işbirliği</b> etiketi zorunlu (koşul 7).</p>
     </div>
 
     <div class="ep-kartlar">
@@ -181,7 +181,9 @@
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var SITE   = 'https://tetikte.com/';
   /* Koşul metni değişirse sürüm değişir → bütün elçiler yeniden onaylar. */
-  var KOSUL_SURUM = '2026-09-29';
+  /* 2026-09-29 → 2026-09-30: 29.09 gece koşul eki (19 madde). Aynı gün ikinci sürüm tarihle ayrılamadığı için
+     (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder) bir sonraki gün yazıldı; mevcut onaylar yeniden istenir. */
+  var KOSUL_SURUM = '2026-09-30';
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
@@ -193,18 +195,29 @@
   function kosullar(ind){
     var i = Object.keys(ind || {}).filter(function(k){ return ind[k] > 0; })
               .map(function(k){ return paketAdi(k) + ' paketinde ' + tl(ind[k]); }).join(', ');
+    /* 29.09 (Cem "hepsi uygun", elçi görsel tasarım oturumu iletti): mahsup · başlangıç 30 gün · hareketsizlik 90 gün ·
+       kurs/dershane yasağı (5580) · fiyat · içerik · bağımsızlık · süre ve fesih · uyuşmazlık eklendi. 7 gün kesinleşme
+       ve 3 ay ücretsiz erişim AYNEN. Metin avukat okumasından geçecek; değişirse KOSUL_SURUM değişir. */
     return [
       'Elçi koduyla alan kişiye ' + (i || 'belirlenen paketlerde') + ' indirim uygulanır (KDV dahil). Diğer paketlerde kod indirim sağlamaz.',
       'Komisyon satış başına ödenir: dönemin 1–9. satışı 750 TL, 10–49. satışı 1.000 TL, 50–99. satışı 1.250 TL; 100. satıştan sonrası için ayrıca özel iş birliği konuşulur. Kademe yalnız eşik üstüne uygulanır (geriye dönük değildir).',
       'Dönem, sınav dönemidir. Bir dönemde ulaştığın kademe sonraki döneme taşınır ve geri inmez.',
       'Bir satış, ödeme alındıktan 7 gün sonra kesinleşir. İade edilen ya da ödemesi geri alınan satış komisyona girmez. Kesinleşen komisyonlar ayda bir ödenir.',
+      'Komisyonu ödenmiş bir satış sonradan iade edilir ya da ödemesi geri alınırsa (ör. kart itirazı, mükerrer çekim), o komisyon bir sonraki ödemenden düşülür.',
       'Kendi kodunla alım yapamazsın; kendine, yakınına ya da uydurma kişilere yönelik düzenlenmiş satışlar komisyona girmez.',
       'Tetikte ile ilgili her paylaşımında reklam olduğunu açıkça belirtirsin (#reklam ya da #işbirliği). Ücretsiz erişim de bu kapsamdadır.',
-      'Sınavı geçme garantisi, gerçek olmayan başarı oranı ya da resmî kurum onayı gibi yanıltıcı ifadeler kullanmazsın.',
+      'Sınavı geçme garantisi, gerçek olmayan başarı oranı ya da resmî kurum onayı gibi yanıltıcı ifadeler kullanmazsın; ayrıca Tetikte\'yi "kurs", "dershane" ya da "sınava hazırlık kursu" olarak tanıtmazsın.',
+      'Paylaşımlarında fiyatı sitede o gün ilan edilen fiyatla söylersin; eski fiyat içeren paylaşımı güncellersin ya da kaldırırsın.',
+      'Tetikte sorularını, cevaplarını ve açıklamalarını toplu olarak kopyalayıp paylaşmazsın; tanıtım için bir-iki örnek ekran serbesttir.',
+      'Programa katıldıktan sonraki 30 gün içinde en az bir tanıtım paylaşımı yaparsın; yapılmazsa ücretsiz erişim ve kodun kapanır.',
+      '90 gün boyunca ne paylaşım ne satış olursa kodun pasifleşir; o güne kadar kazandığın komisyon yine ödenir.',
       'Elçilere program süresince 3 ay ücretsiz tam erişim verilir.',
       'Alıcıların kimlik bilgileri sana verilmez; panelde yalnız adet ve tutar görünür.',
       'Komisyon ödemesi için IBAN ve vergi bilgilerini e-postayla iletirsin; bu bilgiler panelde tutulmaz. Ödemeden doğan vergi yükümlülükleri mevzuata göre uygulanır.',
-      'Tetikte programı ve koşulları değiştirebilir; değişiklik bu panelde yeni sürüm olarak gösterilir ve senin onayınla geçerli olur. Kazanılmış komisyon geriye dönük değişmez.'
+      'Elçi bağımsızdır; Tetikte\'nin çalışanı, ortağı ya da temsilcisi değildir ve Tetikte adına taahhütte bulunamaz.',
+      'Program bir yıl sürer ve taraflardan biri bitirmedikçe kendiliğinden uzar. İki taraf da 15 gün önceden e-postayla bildirerek, gerekçe göstermeden programı bitirebilir. Bu koşullara aykırılıkta (etiketsiz reklam, yanıltıcı ifade, düzenlenmiş satış gibi) Tetikte programı hemen bitirebilir. Program bittiğinde kodun kapanır; o güne kadar kesinleşmiş komisyonun ödenir.',
+      'Tetikte programı ve koşulları değiştirebilir; değişiklik bu panelde yeni sürüm olarak gösterilir ve senin onayınla geçerli olur. Kazanılmış komisyon geriye dönük değişmez.',
+      'Uyuşmazlıklarda İzmir mahkemeleri ve icra daireleri yetkilidir; taraflar arasındaki e-posta yazışmaları geçerlidir.'
     ];
   }
   function kosulCiz(el, ind){ $(el).innerHTML = kosullar(ind).map(function(m){ return '<li>' + m + '</li>'; }).join(''); }
