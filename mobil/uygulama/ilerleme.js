@@ -14,7 +14,8 @@
  * (radar-app/sql/2026-09-26-ogrenci-ilerleme.sql): soru/bayrak/not/konum başına en yeni t kazanır, günlük
  * sayaçta büyük olan, ayarda en yeni. Birleşik sonuç iki tarafa yazılır; hiçbir taraf diğerini ezmez.
  * Tablo yoksa / ağ yoksa sessizce yerelde kalır. Birleştirme saf (birlestir) → mobil/ilerleme-sinavi.js ölçer.
- * BU DOSYA ŞUNU YAPMAZ: site sayfalarında yüklenmez (site aynı biçimi ayrı görevle kullanacak).
+ * ⚠ 29.09: SİTE DE BU DOSYAYI YÜKLER (ilerleme-web.js → KOK + 'mobil/uygulama/ilerleme.js'). Yolu taşıma/silme,
+ * kayıt biçimini değiştirme: sitedeki "kaldığın yerden devam" kırılır. Değişirse ilerleme-web.js ile birlikte.
  */
 (function (kok) {
   var ANAHTAR = 'tt_ilerleme';

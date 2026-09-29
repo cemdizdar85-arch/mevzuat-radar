@@ -100,6 +100,20 @@
     } catch (e) {}
   }
 
+  /* 29.09 KALDIĞIN YERDEN DEVAM (ilerleme-web.js): uygulamayla aynı kayıt, hesaba eşitlenir. Yalnız Kaydır-Çöz
+     sayfalarında (#akis), sayfa AÇILDIKTAN sonra; betik inmezse sayfa olduğu gibi çalışır (fail-open). */
+  function ilerleme(sb, kullanici) {
+    try {
+      if (!/\/kaydir\//.test(location.pathname)) return;
+      var calistir = function () { if (window.ttIlerlemeWeb) window.ttIlerlemeWeb.kur(sb, kullanici); };
+      if (window.ttIlerlemeWeb) return calistir();
+      var s = document.createElement('script');
+      s.src = KOK + 'ilerleme-web.js';
+      s.onload = calistir;
+      (document.head || kok).appendChild(s);
+    } catch (e) {}
+  }
+
   var zaman = setTimeout(function () { perde('hata'); }, 9000);
 
   function kutuphane(sonra) {
@@ -139,6 +153,7 @@
       if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) {
         ac();                               // ÖNCE sayfa açılır ...
         cihazKorumasi(sb, oturum.user);     // ... SONRA paylaşım koruması (arızada üye içeride kalır)
+        ilerleme(sb, oturum.user);          // ... ve kaldığın yerden devam (hesaba eşitlenir)
         return;
       }
       perde('paket');
