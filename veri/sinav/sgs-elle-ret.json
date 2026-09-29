@@ -1546,6 +1546,196 @@
             "gerekce": "29.09 risk taramasi grup r4-15: CEVAP YANLIŞ (MUHTEMEL) - Kök hangi çerçeveyle (TMS 38 / VUK) itfa istendiğini söylemiyor; adımlar \"260 Haklar hesabı\" diyerek Tekdüzen/VUK çerçevesine işaret ediyor. VUK m.320'de aktife giriş yılında tam yıl → 240.000/5=48.000 = E şıkkı; iki savunulabilir cevap (kör çözücü de işaretledi). Ek: E açıklaması \"maliyeti tam bir yıla böldün\" diyor, 48.000 aslında 240.000/5 tam yıl payı; sade E \"yarım yıl kullanılan\" diyor (4 ay). Onarım: köke \"TMS 38'e göre\" ekle, E anlatımını düzelt | dayanak: TMS 38 p.97; VUK m.320 | anahtar C->C yalnız kök \"TMS 38'e göre\" derse; VUK (m.320 tam yıl) çerçevesinde E (48.000)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-gm5-mat-r7/kp-15": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade A ters yazılmış: \"en küçük değer 3 yerine doğru olan 7\" (doğru olan 7 yerine 3 alınmış olmalı) | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-gm5-mat-r8/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade.dogru eşleme ters: \"sırasıyla x = 0 ve y = 0 yazıp a ve b bul\" — a (x ekseni) y=0 ile, b x=0 ile bulunur | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-gm5-mat-r8/kp-12": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - doğru şık açıklamasında kural hatalı: \"Yalnız A = s(C) − s(A∩B)\" (s(A) olmalı) | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-gm5-mat-r9/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade E anlatımı karışık/ters: \"x yerine x² yapılmış… katsayı 2 unutulup\" — E hatası 2x² almak, yani 2'ye bölmemek | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-gm5-mat-r9/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - ikiz hesabı yanlış: x⊕y=xy−y+x için 5⊕b=5b−b+5=4b+5=19 → b=3,5; ikiz tablosu \"6b=19+5=24, b=4\" yazıyor | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11-mat-zor/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade A (şık 3) C'nin hatasını anlatıyor (\"yalnız x+3=6, eşlenik unutulmuş\" → 6); A açıklaması 6/2=3 diyor | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11-mat-zor/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade A: \"ikinci çarpandaki 1 teriminin işareti yanlış → 27−9=18\" — o hata 3×(11−1)=30 (C) verir; 18, (x−1/x)³'ten 3ab(a−b) çıkarılarak bulunur | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11-mat-zor/kp-05": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade A ters: \"ilk karenin 10.000'ini çıkarman gerekti\" — 36, 10.000'den çıkarılır | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11b-mat-kolay/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - D (128) açıklaması hatayı üretmiyor: ack \"2^7\", sade D \"2^(2+4)=2^6\" → 64 (C şıkkı); 128 ancak (2²)^5 üsleri toplanarak (2^7) çıkar | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k13b-mat-zor/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade B: \"eğimleri topladığını sanmışsın\" −1/2'yi üretmez; B hatası yalnız işaret değiştirmek (teşhis doğru) | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k2-mat-zor/kp-08": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade C: \"2/3 ile 3/4'ü toplarsanız (11/12 gibi)\" yanlış — toplam 17/12 (ack doğru: 17/12−5/6=7/12) | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k5-mat-zor/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade A (63,6) B'nin hatasını anlatıyor (\"6 puanı 6 kg sandın\" → 66); 63,6 = 60+60×0,06 | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-cokzor/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - ack B ve teşhis B (n−1)'i \"üs\" diye anlatıyor — aritmetik dizide katsayıdır, üs değil | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-cokzor/kp-07": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - ikiz sonucu ondalık noktalı \"1.5\" (1,5 olmalı); adımlar \"a+b=30 ile k bulmak HATALI/en sık hata\" diyor — a+b=5k=30 da geçerli yoldur | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-cokzor/kp-11": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - adımlardaki \"Ters durum: (g∘f) verilse t=f(x) yazıp g'nin içine x=(t−3)/2 koyacaktık\" hatalı yöntem anlatıyor | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-cokzor/kp-22": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade B ters: \"%20 indirimi görmezden gelip %10 ile\" yazıyor ama formül 450÷(0,8×1,25) (yani %10 atlanmış). Ek not: \"nakliye gideri maliyete girmez\" genel kural gibi sunuluyor; alış nakliyesi VUK m.262 gereği maliyete zorunlu girer (kök \"taşınmasında\" diyerek belirsiz) | dayanak: Matematik kuralı (hesap yeniden yapıldı) · VUK m.262 (brifte ölçülmüş tuzak)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-cokzor/kp-23": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - doğru şık (D) açıklaması BOŞ; adım formüllerinde bölme işareti düşmüş (\"6 + 10 2 = 8\", \"10 − 6 2 = 2\") | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-kolay/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - adımda yanlış kural ifadesi: \"Ortak kat = büyük olan: 2 ile 3 → 6\" | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-kolay/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - konu giriş örneği yanlış: \"art arda üç daire numarası toplamı 45 → en büyük 17\" (ardışık tam sayıda 14,15,16 → 16) | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-kolay/kp-07": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A (60) açıklaması doğru şık açıklamasının birebir kopyası — k tuzağı anlatılmıyor; adımlar boş | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-kolay/kp-29": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A açıklaması doğru şık kopyası; B/C/D açıklamaları bir şık kaymış (B metni −22'yi, C metni −1'i, D metni x=3'ü anlatıyor; D=5 aslında sabit terimi unutmak); sade D de x=3 anlatıyor; kökte \"fonksiiyonu\" yazım hatası | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-kolay/kp-31": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A (5) açıklaması doğru şık kopyası; sade A 5'i üreten hatayı (f(1)=a+b) anlatmıyor | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-zor/kp-07": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - adımda yanlış kural ifadesi: \"Ortak b = büyük olan: 4 ile 5 → ortak kat 20\" | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-genel-mat-zor/kp-10": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade A ters (\"x²−2x+4 yerine x²+2x+4 yazarsanız\" — tersi olmalı); sade E \"(16+8+4)/1=28\" diyor, şık 14 (=28/2); sade D gerekçesi yanlış; adım doğrudan yerine koymayı (56/8=7) \"HATALI yöntem\" ilan ediyor | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t3-mat-cokzor/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade (doğru ve tüm şıklar) ve konu örneği boş/\"undefined\"; ikiz temiz çıkmıyor: 24b+8=97 → b=89/24≈3,7083 (tabloda \"B=3,7083\") | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-bc-ticaret-kolay-r3/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - C açıklaması \"şart geçerlidir ve bileşik faiz uygulanır, 121.000 TL değil\" diyerek doğru cevabı reddediyor; konu örneği TTK 8/2'yi yanlış aktarıyor (\"ancak cari hesabınız varsa geçerli\") | dayanak: TTK (6102) m.8/2 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-ticaret-kolay-r2/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A (20.000) açıklaması doğru şık açıklamasının birebir kopyası — \"yalnız prim\" tuzağı anlatılmıyor | dayanak: TTK m.344/1 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11-ticaret-cokzor/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade A ve C yer değiştirmiş: A=2.700 hizmet+alacak birlikte (sade A \"yalnız hizmet\" diyor), C=8.800 yalnız hizmet (sade C \"hizmet+alacak\" diyor). Ek: yıl verilmeden 50.000 TL asgari sermaye kullanılıyor (7887 s. CBK, 1/1/2024'ten; güncellik notu) | dayanak: TTK m.580, m.581; 7887 s. CBK — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k11-ticaret-zor/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade B (247.850) hatayı \"binde üç/yüzde üç karışıklığı\" diye anlatıyor; B hatası komisyonun hiç eklenmemesi (yüzde üç karışıklığı E'yi verir) | dayanak: TTK m.796/3, m.810 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k2-ticaret-cokzor/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade metinlerinin tamamında oran \"yüzde yirmibir\" yazıyor (TTK m.344/1: yüzde yirmibeş); hesap 491.500 doğru | dayanak: TTK m.344/1 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-ticaret-kolay-r1/kp-07": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A açıklaması/sadesi 25.000 TL'yi \"limited şirketin eski asgari sermayesi\" diye anlatıyor — eski tutar 10.000 TL (TTK 580/1); B açıklamasında ltd için dayanak \"m.332\" (doğrusu m.580/2); ikiz yok | dayanak: TTK m.580; 7887 s. CBK — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t2-ticaret-kolay/kp-12": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (MUHTEMEL) - sade A (240.000) \"iki kez çıkarıp yarısını alırsanız\" diyor — o işlem 120.000 verir; 240.000 = 600.000−2×180.000 | dayanak: TTK m.474/2 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-bosluk-vergihukuku/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: CEVAP YANLIŞ (KESİN) - DVK m.14'teki \"aslından alınan verginin dörtte biri\" kuralı YALNIZ azami tutardan vergi alınan mukavelenamelerin devri içindir; soruda 80.000 TL azami tutar değil (2023 azami 10.732.371,80 TL) ve açıklama kuralı tüm mukavelenamelere genelliyor → işaretli 20.000 dayanaksız, doğru şık yok; teşhis alanı boş | dayanak: Damga V.K. (488) m.14 — ambardan okundu | anahtar C->yok",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-vergi-zor-r1/kp-10": {
+            "gerekce": "29.09 risk taramasi grup r4-14: CEVAP YANLIŞ (MUHTEMEL) - 6183 m.10/4 \"%15 noksaniyle değerlendirilir\" teminatın KABUL değerlemesidir; m.56'ya göre teminat paraya çevrilerek alacak tahsil edilir — iade = fiili satış bedeli − borç. Açıklama devletin %15'i alıkoyduğunu anlatıyor; borsa değerinden satışta iade 50.000 (B); soru satış bedeli vermiyor, tek doğru yok | dayanak: 6183 s.K. m.10/4, m.56 — ambardan okundu | anahtar A->belirsiz (B savunulabilir)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d3-vergi-kolay-r1/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: GÜNCELLİK RİSKİ (KESİN) - kök yıl vermeden \"azami tutar olan 12.000.000 TL\" diyor; bu bir yılın resmî azami tutarı değil (2023: 10.732.371,80 TL; sonraki yıllar yeniden değerlemeyle daha yüksek — 2024-26 değerleri ambarda ölçülmedi). Kural (azami tutarlı mukavelename devrinde 1/4) doğru | dayanak: Damga V.K. (488) m.14 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d3-vergi-zor-r1/kp-04": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade C (73.000) \"taşınmaz istisnasını düşürmediysen 730.000\" diyor — bu doğru yoldur; C hatası Ar-Ge indirimini düşmemek. Teşhis A dayanağı yanlış: taşınmaz satış kazancı istisnası 5/1-e'dir, 32/C/2-a'daki \"taşınmaz\" ibaresi 5/1-d içindir (5/1-e listede hiç yok) | dayanak: KVK (5520) m.32/C — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k7-vergi-cokzor/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - konu giriş örneği muhasebe yönünü TERS anlatıyor: \"alacağını indirgemek kazanç, borcunu indirgemek gider\" (alacak reeskontu gider, borç reeskontu gelir); sade A (795) ve sade C (5.445) şıkkı üreten hatayı anlatmıyor | dayanak: VUK m.281, m.285 — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-k7-vergi-zor/kp-02": {
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade.dogru \"Eski faturalar (2024, 2025) indirim süresini aşmıştır\" diyor — Aralık 2025 faturası 2026 sonuna kadar indirilebilir ve kendi hesabı 12.380'i indiriyor (çelişki); sade A (22.780) hatayı ters anlatıyor (binek KDV'si indirilmiş olmalı) | dayanak: KDVK m.29/3, m.30/b — ambardan okundu",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
