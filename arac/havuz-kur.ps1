@@ -205,6 +205,16 @@ if(Test-Path $BEKLETME_YOLU){
         $SAYFA_METNI=[IO.File]::ReadAllText($SAYFA_YOLU)
         $SORU_BASI=$SAYFA_METNI.IndexOf('SORULAR=[')
         if($SORU_BASI -ge 0){ foreach($KIMLIK_ESLESME in [regex]::Matches($SAYFA_METNI.Substring($SORU_BASI),'"id":"([^"]+/kp-[0-9A-Za-z]+)"')){ $YAYINDAKI_KIMLIK[$KIMLIK_ESLESME.Groups[1].Value]=1 } }
+        # 29.09.2026 ADIM 2: kasa modundaki sayfa depoda SORUSUZ kabuktur. Yayindaki kimlikler o zaman sayfanin
+        #   basildigi secim dosyasindan okunur (veri/sinav/kaydir-secim/yayin-sgs-<ders>.json = son basimin girdisi;
+        #   SGS oturumu 29.09: sayilar sayfayla birebir). Kabuk degilse eski yol aynen.
+        elseif($SAYFA_METNI.Contains('data-kasa-sayfa=')){
+          $SECIM_YOLU=Join-Path $depoKok ('veri\sinav\kaydir-secim\' + (DosyaAdi "$BEKLETILEN_DERS"))
+          if(Test-Path $SECIM_YOLU){
+            $SECIM_METNI=[IO.File]::ReadAllText($SECIM_YOLU)
+            foreach($SECIM_SATIRI in ($SECIM_METNI | ConvertFrom-Json)){ if("$($SECIM_SATIRI.etiket)" -and "$($SECIM_SATIRI.id)"){ $YAYINDAKI_KIMLIK["$($SECIM_SATIRI.etiket)/$($SECIM_SATIRI.id)"]=1 } }
+          }
+        }
       }
       if(-not $YAYINDAKI_KIMLIK.Count){ throw "YAYIN BEKLETMESI: '$BEKLETILEN_DERS' icin yayindaki sayfadan soru kimligi okunamadi ($SAYFA_YOLU). Ders dondurulamazsa yayin DURUR (sessiz bosaltma yok)." }
       $ONCEKI_ADET=$kova[$BEKLETILEN_DERS].Count

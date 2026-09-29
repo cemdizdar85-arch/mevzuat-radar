@@ -55,10 +55,22 @@ $PLAN=New-Object System.Collections.Generic.List[object]
 foreach($DERS_ADI in @($BEKLETME.dersler)){
   $AYAR=$DERS_ETIKET["$DERS_ADI"]; if(-not $AYAR){ Write-Host "tanımsız ders, atlandı: $DERS_ADI" -ForegroundColor Yellow; continue }
   $SAYFA=[IO.File]::ReadAllText((Join-Path $DEPO_KOK "kaydir\sgs\$($AYAR.sayfa).html")); $BAS=$SAYFA.IndexOf('SORULAR=[')
-  if($BAS -lt 0){ throw "$DERS_ADI sayfası kasa modunda/boş; yayındaki dağılım okunamaz" }
-  $GOVDE=$SAYFA.Substring($BAS); $YAYINDA=@{}; $SAYAC=@{A=0;B=0;C=0;D=0;E=0}
-  foreach($m in [regex]::Matches($GOVDE,'"id":"([^"]+/kp-[0-9A-Za-z]+)"')){ $YAYINDA[$m.Groups[1].Value]=1 }
-  foreach($m in [regex]::Matches($GOVDE,'"dogru":"([A-E])"')){ $SAYAC[$m.Groups[1].Value]++ }
+  $YAYINDA=@{}; $SAYAC=@{A=0;B=0;C=0;D=0;E=0}
+  if($BAS -ge 0){
+    $GOVDE=$SAYFA.Substring($BAS)
+    foreach($m in [regex]::Matches($GOVDE,'"id":"([^"]+/kp-[0-9A-Za-z]+)"')){ $YAYINDA[$m.Groups[1].Value]=1 }
+    foreach($m in [regex]::Matches($GOVDE,'"dogru":"([A-E])"')){ $SAYAC[$m.Groups[1].Value]++ }
+  } elseif($SAYFA.Contains('data-kasa-sayfa=')){
+    # 29.09.2026 ADIM 2: kasa modundaki sayfa SORUSUZ kabuk -> yayındaki kimlik + doğru harf kasadan (paket_soru, sayfa bazında).
+    $KASA_SAYFA="kaydir/sgs/$($AYAR.sayfa).html"
+    for($KASA_KAYMA=0; ; $KASA_KAYMA+=500){
+      $KASA_PARCA=Invoke-RestMethod -Headers $ISTEK_BASLIK -Uri ("https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=id,kasa_dogru:veri->>dogru&sayfa=eq.$([uri]::EscapeDataString($KASA_SAYFA))&order=id.asc&limit=500&offset=$KASA_KAYMA")
+      $KASA_SATIR_SAYISI=0
+      foreach($KASA_SATIR in $KASA_PARCA){ $KASA_SATIR_SAYISI++; $YAYINDA["$($KASA_SATIR.id)"]=1; if("$($KASA_SATIR.kasa_dogru)" -match '^[A-E]$'){ $SAYAC["$($KASA_SATIR.kasa_dogru)"]++ } }
+      if($KASA_SATIR_SAYISI -lt 500){ break }
+    }
+    if(-not $YAYINDA.Count){ throw "$DERS_ADI kabuk sayfası için kasada satır yok ($KASA_SAYFA); yayındaki dağılım okunamaz" }
+  } else { throw "$DERS_ADI sayfası boş; yayındaki dağılım okunamaz" }
   $ADAYLAR=@()
   foreach($f in Get-ChildItem (Join-Path $DEPO_KOK 'veri\fabrika') -Filter 'kalip-parti-sgs-*.json'){
     $ETIKET=$f.BaseName -replace '^kalip-parti-',''; if($ETIKET -notmatch $AYAR.desen -or $ETIKET -match 'pilot'){ continue }

@@ -83,7 +83,13 @@ for (const S of SINAVLAR) {
   if (fs.existsSync(dizin)) {
     for (const f of fs.readdirSync(dizin)) {
       if (!f.endsWith('.html') || f === 'index.html') continue;
-      const sorular = sayfaOku(path.join(dizin, f));
+      let sorular = sayfaOku(path.join(dizin, f));
+      // 29.09.2026 ADIM 2: kasa modundaki sayfa SORUSUZ kabuktur. SGS'de sayfanın basıldığı seçim dosyası
+      // (veri/sinav/kaydir-secim/yayin-sgs-<ders>.json: etiket, id, ders, konu, donem) aynı soruları sayar.
+      if ((!sorular || !sorular.length) && fs.readFileSync(path.join(dizin, f), 'utf8').includes('data-kasa-sayfa=')) {
+        const secim = path.join(KOK, 'veri', 'sinav', 'kaydir-secim', `yayin-${S.kod}-${f.replace(/\.html$/, '.json')}`);
+        if (fs.existsSync(secim)) { try { sorular = jsonOku(secim); } catch (e) { sorular = null; } }
+      }
       if (!sorular || !sorular.length) { rapor.push(`  atlandı (SORULAR yok): kaydir/${S.kod}/${f}`); continue; }
       const dersAdi = String(sorular[0].ders || '').split('|')[0].trim();
       if (slug(dersAdi) + '.html' !== f) { rapor.push(`  atlandı (ders sayfası değil): kaydir/${S.kod}/${f} · ${sorular.length} soru`); continue; }

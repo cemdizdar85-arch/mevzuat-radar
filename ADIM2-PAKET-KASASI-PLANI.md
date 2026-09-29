@@ -135,3 +135,19 @@ düşmüştü** ama ücretsiz testte gösteriliyordu. Tarayıcı provası (yerel
 | 30.09–03.10 | Okuyucu onarımı: `arac/havuz-kur.ps1` bekletme, `arac/sgs-konu-kapsama.js` (sınav/SGS kolu), `arac/sik-kaydir.ps1`, `motor/soru-dizini.js`, `motor/site-nobeti.ps1` 300 KB | Adım 0 YEŞİL |
 | **05.10 sabah** (SGS canlı deneme 04.10 bittikten sonra) | 16 SGS sayfası `kasa-modu.json`'a · deneme setleri yalnız kimlik · `_arsiv`/örnek dosyalar depo dışına · içerik nöbeti tabanı BOŞ | okuyucu onarımı bitti |
 | **07.10 akşam** | Git geçmişi temizliği (izole çıplak klon, `gecmis-temizligi` reçetesi) | 05.10 sonrası ≥1 gün sorunsuz + Cem'e "şimdi basıyorum" sorusu |
+
+### 7.1 29.09 akşam — Cem ikinci "1.2.3"
+- **05.10 geçişi ONAYLANDI.** Zamanlanmış görev `adim2-sgs-kasa-gecisi-0510` (05.10 09:00, Claude uygulaması açıkken):
+  ön koşulları ölçer, kuru prova yapar, **itmeden önce Cem'e sorar**.
+- **Okuyucu onarımı YAPILDI** (takvimde 30.09–03.10'du): `arac/havuz-kur.ps1` bekletme kabukta seçim dosyasından
+  (Türkçe: seçim 169 = kasa 169 = ortak 169) · `arac/sik-kaydir.ps1` kabukta kasadan kimlik + doğru harf (ÖLÇÜLMEDİ: bekletme
+  listesi boş, yol koşmadı; ayrıştırma + tuzak nöbetçisi temiz) · `motor/soru-dizini.js` kabukta seçim dosyası (kuru: SGS 15 ders,
+  4.912) · `motor/site-nobeti.ps1` ders sayfası eşiği 300 KB → 50 KB (Türkçe kabuk canlı 161 KB, imza "Nöbetçi" var).
+  `arac/sgs-konu-kapsama.js` zaten seçim dosyasına düşüyor (SGS oturumu teyit) — dokunulmadı; `yayin-sgs-*.json` SİLİNMEZ.
+- **E-posta onayı ölçüldü:** `auth/v1/settings` → `mailer_autoconfirm: true` (onay KAPALI, 23.09'dan beri). Paket erişimi
+  `auth.uid() = user_id` ile (RLS, e-posta değil) → oturum açan başkasının paketini okuyamaz. **Açık kalan tek yol:** havale
+  sonrası elle paket açma (`veri/sql-siparis.sql` iş akışı madde 3) sipariş e-postasıyla hesabı eşlerse, alıcıdan ÖNCE onun
+  e-postasıyla üye olan biri paketi alır. Çare: 04.10 canlı denemeden sonra onay yeniden AÇILIR (Cem, Supabase → Auth →
+  Email → Confirm email) — o güne kadar elle açmada hesap sipariş e-postasıyla eşleşiyorsa aç, ama alıcıya "paketin şu e-postalı
+  hesaba açıldı" iletisi gider. Mağaza içi satın alma (`magaza-dogrula`) hesabın kendi oturumuyla yazdığı için etkilenmez.
+- **Adım 0 sonucu:** _(Cem denemeyi yapınca buraya yazılır: tarih · turkce.html soru geldi mi · smmm/hukuk.html soru geldi mi)_

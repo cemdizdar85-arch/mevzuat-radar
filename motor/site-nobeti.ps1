@@ -44,7 +44,9 @@ $depoKok=Split-Path -Parent $buDizin
 $HEDEFLER=@(
   @{ ad='ana sayfa';    url='https://tetikte.com/';                                  asgari=60000;  imza='Tetikte' }
   @{ ad='SGS vitrini';  url='https://tetikte.com/kaydir/sgs/';                       asgari=10000;  imza='Kaydır' }
-  @{ ad='ders sayfasi'; url='https://tetikte.com/kaydir/sgs/meslek-hukuku.html';     asgari=300000; imza='Nöbetçi' }
+  # 29.09 ADIM 2: SGS ders sayfaları 05.10'da kasa kabuğuna geçer (~160 KB) → bitirme kabuğuyla aynı eşik 50 KB.
+  #   300 KB kalsaydı geçişten sonra 15 dk'da bir yanlış alarm verirdi (16.09 planındaki uyarı).
+  @{ ad='ders sayfasi'; url='https://tetikte.com/kaydir/sgs/meslek-hukuku.html';     asgari=50000;  imza='Nöbetçi' }
   # 18.09 (Cem "kasadaki soruları siteye bağla"): bitirme ders sayfaları KASA MODUNDA sorusuz kabuktur (ölçüldü: 162 KB;
   #   içerik kasadan gelir) → asgari boy 300 KB DEĞİL, 50 KB. Dizin sayfası 3 KB, ondan kendi satırı ve kendi eşiği var.
   @{ ad='bitirme dizini'; url='https://tetikte.com/kaydir/smmm/';                    asgari=2000;   imza='Kaydır' }
