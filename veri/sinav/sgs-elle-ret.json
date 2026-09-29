@@ -1511,6 +1511,41 @@
             "gerekce": "29.09 risk taramasi grup r4-13: AÇIKLAMA KUSURLU (KESİN) - sade.siklar.A yanlış bilgi: \"9 ay yılın sadece dörtte biridir\" — 9 ay = 3/4 yıl. Anahtar D=9.000 doğru; ikiz 300 doğru. | dayanak: Matematik kuralı (mevzuat yok); hesap baştan yapıldı",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t4-vergi-kolay/kp-17": {
+            "gerekce": "29.09 risk taramasi grup r4-15: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (480.000+26.500+35.000=541.500). A şıkkı (445.000) açıklaması/sadesi \"vade farkı eklenecekken düşülmüş\" diyor; o yol 480.000+26.500-35.000=471.500 verir. 445.000 = 480.000-35.000 (taşıma da atlanmış). Çeldirici anlatımı şıkla uyuşmuyor. Ek: teşhis D ve sade C cümle bozuk | dayanak: KDVK m.24 (ambar)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-zor-r3/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-15: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (198-170=28 → 28.000; tüm çeldiriciler ve ikiz 28.000 tutarlı). Ancak doğru şık açıklaması ve teşhis A/C/D maliyet unsurlarını (nakliye/sigorta eklenir, iskonto düşülür) \"TMS 2 p.6\"ya dayandırıyor; p.6 Tanımlar paragrafıdır, kural p.10-11'de (ölçüm kuralı p.9). Dayanak \"p.1, p.6-7\" de yanlış | dayanak: TMS 2 p.6 Tanımlar, p.9, p.11 Satın alma maliyetleri (ambar)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-ekonomi-zor-r2/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-15: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (2+8+4,5+0,5=15,0; ikiz 20,0). Açıklama C ve teşhis C \"Taylor prensibinin özü a katsayısının 1'den büyük olmasıdır\" diyor; bu formülde prensip toplam enflasyon tepkisinin (1+a) 1'den büyük olmasıdır, a>1 şartı değildir. Sade B cümlesi anlamsız (\"bu denge olmadan toplama ne başlanacağını biliriz\") | dayanak: İktisat teorisi (resmî kaynak yok; öğreti)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-fmuh-cokzor-r3/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-15: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (90.000-80.000=10.000; karşılık 119/644 ile ayrı kapanır). Kök \"nakden satılmıştır\" diyor, çözüm tablosu ve ikiz tablosu tahsilatı \"102 Bankalar borç\" gösteriyor; nakden tahsilat 100 Kasa olmalı (ya da kök \"banka hesabına\" demeli) | dayanak: THP 100/102, 110, 119, 644, 645; VUK m.279",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-fmuh-zor-r1/kp-01": {
+            "gerekce": "29.09 risk taramasi grup r4-15: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (900.000×%24/360×92=55.200; ikiz 122.500 doğru). Ancak C açıklaması \"Vergi Usul Kanunu uygulamasında yıl 360 gün kabul edilir\", sade C \"kanunun uygulamasında yıl 360 gün esas alınır\" diyor; VUK m.285/287'de böyle bir kural yok — 360 gün yalnız sorunun varsayımı | dayanak: VUK m.285, m.287 (ambar)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-p-vergi-zor-r1-a/kp-03": {
+            "gerekce": "29.09 risk taramasi grup r4-15: AÇIKLAMA KUSURLU (KESİN) - Ana soru doğru (530.000). İkiz soru \"Teslim %18 oranında KDV'ye tabidir\" diyor ve 850.000×%18=153.000 hesaplıyor; genel KDV oranı 07/2023'ten beri %20 (2026 bağlamında eskimiş oran). Ayrıca ikiz hedef cümlesi cevabı veriyor (\"153.000 TL olduğunu bul\") | dayanak: KDVK m.28 / genel oran %20 (CBK 7/2023)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-t1-fmuh-kolay/kp-06": {
+            "gerekce": "29.09 risk taramasi grup r4-15: CEVAP YANLIŞ (MUHTEMEL) - Kök hangi çerçeveyle (TMS 38 / VUK) itfa istendiğini söylemiyor; adımlar \"260 Haklar hesabı\" diyerek Tekdüzen/VUK çerçevesine işaret ediyor. VUK m.320'de aktife giriş yılında tam yıl → 240.000/5=48.000 = E şıkkı; iki savunulabilir cevap (kör çözücü de işaretledi). Ek: E açıklaması \"maliyeti tam bir yıla böldün\" diyor, 48.000 aslında 240.000/5 tam yıl payı; sade E \"yarım yıl kullanılan\" diyor (4 ay). Onarım: köke \"TMS 38'e göre\" ekle, E anlatımını düzelt | dayanak: TMS 38 p.97; VUK m.320 | anahtar C->C yalnız kök \"TMS 38'e göre\" derse; VUK (m.320 tam yıl) çerçevesinde E (48.000)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
