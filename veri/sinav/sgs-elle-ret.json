@@ -71,6 +71,56 @@
             "gerekce": "29.09 risk taramasi (R3 asit-test): IKI DOGRU SIK. Notun ana tanimiyla (yalniz stoklar dusulur) cari oran 1,50 = D; anahtar E (1,60) GAAG de dislanirsa cikiyor, soru bu varsayimi vermiyor. 12.09 iki hakem + kor cozum yakalamamis. Onarim: koke varsayim ekle ya da GAAG verisini kaldir.",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-a6-fmuh-cokzor-r1/kp-03": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Gelir vergisi %15 brüt ikramiyeye uygulanıyor (15.000); GVK m.63 gereği SGK işçi payı düşülmüş matraha uygulanmalı (12.900 → net 72.341, şıklarda yok). Anahtar ancak \"oranlar brüte uygulanır\" varsayımıyla doğru; soru metnine bu varsayım açıkça yazılmalı ya da hesap düzeltilmeli. | dayanak: GVK m.63; THP 373/335",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-bosluk-finansalmuhasebe/kp-05": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Şık E, açıklama ve hap reeskont giderini \"652\", izleyen dönem kapanışını \"642\" koduyla veriyor. MSUGT 122 açıklamasının kendisi 652/642 yazsa da plan kodu 657 Reeskont Faiz Giderleri / 647 Reeskont Faiz Gelirleri; aynı bankada soru 31 ve 60 da 647/657 kullanıyor. Kod çelişkisi öğrenciye öğretiliyor (şık metni de düzeltilmeli). | dayanak: THP 122, THP 657, THP 647",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c2-fmuh-zor-r1/kp-14": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C (230.000) için açıklama YOK (aciklama nesnesinde C anahtarı eksik). Hesap doğru: 600.000−120.000−250.000=230.000. | dayanak: THP 320",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-fmuh-zor-r1-2/kp-15": {
+            "gerekce": "29.09 risk taramasi grup C: CEVAP YANLIŞ (KESİN) - Soru \"ilk madde ve malzeme alımı\" diyor ama doğru şık A (ve tüm şıklar) stoku 153 TİCARİ MALLAR hesabına yazıyor; doğru hesap 150 İLK MADDE VE MALZEME. Hiçbir şık doğru değil — ya soru \"ticari mal\" yapılmalı ya şıklar 150 olmalı. | dayanak: THP 150, THP 159 | anahtar A->yok (şıklar 150 ile yeniden yazılmalı)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-fmuh-zor-r1-2/kp-17": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Soru ve açıklamalar stopajı NOMINAL değer (1.000.000×%15=150.000) üzerinden kuruyor; GVK geç. m.67/1-b tevkifat matrahı alış bedeli ile itfa bedeli arasındaki FARK (100.000). B/C açıklamaları (banka 850.000, 193 150.000) yanlış kural öğretiyor. Anahtar E (642 100.000) etkilenmiyor. Kurum mükellefler için oran ayrıca ölçülmedi. | dayanak: GVK geç. m.67/1",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-fmuh-zor-r2-2/kp-19": {
+            "gerekce": "29.09 risk taramasi grup C: GÜNCELLİK RİSKİ (MUHTEMEL) - Soru yıl vermeden KDV oranını %18 veriyor; genel oran 2023/07'den beri %20, güncel oran yapısında %18 yok. Hesap %18 ile tutarlı (258.000) ama öğrenciye eskimiş oran gösteriliyor; %20 ile yeniden kurulmalı. Oran kararnamesi ambarda yok (brif ölçümü esas alındı). | dayanak: KDVK m.28 (+ brif: genel oran %20)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-c5-fmuh-zor-r2/kp-07": {
+            "gerekce": "29.09 risk taramasi grup C: CEVAP YANLIŞ (MUHTEMEL) - İki savunulabilir cevap: anahtar D (132.000 kâr) 1 Nisan 2023 için AYLIK kıst amortisman kullanıyor; dayanak VUK m.328 ve \"normal amortisman\" ifadesi VUK çerçevesi çağırıyor, VUK m.320'ye göre aktife giriş yılı TAM YIL → 3×96.000=288.000, net 192.000, kâr 108.000 = şık B (açıklamada \"tuzak\" deniyor). Soru kıst/TMS 16 varsayımını açıkça vermeli. | dayanak: VUK m.320, m.328 | anahtar D->D veya B (varsayıma göre)",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d2-fmuh-cokzor-r1/kp-07": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Soru \"7/A seçeneğini uygulamakta, amortismanı 796 hesabına\" diyor; 796 AMORTİSMANLAR VE TÜKENME PAYLARI 7/B gider çeşidi hesabıdır, 7/A'da kullanılmaz. Hesap (100.000) doğru; soru metni ve dayanak \"7/B\" olmalı. | dayanak: THP 796, THP 257",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-fmuh-kolay-r1/kp-21": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - C açıklaması \"KDV ancak fatura düzenlendiğinde doğar\" diyor; KDVK m.10/a'ya göre vergiyi doğuran olay hizmetin yapılmasıdır (Aralık). Bu gerekçe yanlış kural öğretiyor; KDV'li tahakkuk (C) vergisel olarak savunulabilir olduğundan anahtar da tartışmalı. | dayanak: KDVK m.10/a; THP 181",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
+        },
+        "sgs-d5-fmuh-zor-r1/kp-24": {
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C (140.000) için açıklama YOK; A şıkkının açıklaması \"Ne soruluyor\" kalıbıyla yazılmış, 100.000 hesaplayıp \"140.000 bulunur\" diyor (karışık/yanlış konumlanmış). Hesap doğru: 180.000−40.000=140.000. | dayanak: THP 159/320",
+            "tarih": "2026-09-29",
+            "kaynak": "sgs-risk-taramasi"
         }
     }
 }
