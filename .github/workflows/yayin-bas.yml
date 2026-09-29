@@ -151,6 +151,15 @@ jobs:
       #   Yukleyici cikis 3 = tablo yok VE kasa modunda sayfa yok -> bugunku gibi devam.
       #   Kabuk yalniz kasa sayfayla ALAN ALAN ayniysa yazilir; degilse akis durur, hic itilmez
       #   (tam sayfa depoya ASLA gitmez).
+      # ⭐ 29.09.2026 ADIM 2 (Cem "1.2.3"): seviye testi havuzu her yayinda tam sayfalardan yeniden kurulur, YALNIZ
+      #   KIMLIK tasir (cevap seviye_kontrol'de). Kasa yukleyicisinden ONCE: yukleyici bu kimlikleri ucretsiz isaretler.
+      #   Neden: dosya 16.09'dan beri elle tazeleniyordu; 29.09'da 675 kimligin 281'i yayindan dusmustu.
+      #   Havuz kurulamazsa YAYIN DURMAZ (ucretsiz test, eski havuzla surer; sayfa metni olmayan kimligi atlar).
+      - name: Seviye testi havuzu (yalniz kimlik)
+        run: |
+          node motor/seviye-havuz-bas.js || echo "::warning::seviye havuzu kurulamadi - eski havuz kaldi (yayin suruyor)"
+        shell: bash
+
       - name: Kasaya yukle + kabuga cevir
         shell: powershell
         env:
@@ -179,7 +188,7 @@ jobs:
           #   olu kalacakti. 13.09 gecesi kosu 34729587713 tam bu adimda dustu.
           git config merge.tetikte-robot.name "Tetikte robot ciktisi: cakismada yereldeki korunur"
           git config merge.tetikte-robot.driver true
-          git add kaydir/sgs veri/sinav/kaydir-secim veri/cevap-dagilimi.json
+          git add kaydir/sgs veri/sinav/kaydir-secim veri/cevap-dagilimi.json veri/seviye/sgs-havuz.json
           $degisen = @(git diff --cached --name-only)
           if(-not $degisen.Count){ "degisiklik yok - commit ATILMADI"; exit 0 }
           "degisen dosya: $($degisen.Count)"

@@ -114,3 +114,24 @@ Gönderildi: 1bb30037 (SQL + reçete) · 84d356c9 (kasa modu altyapısı) · ice
    `node motor/icerik-nobetcisi.js --canli-yok` (KASADA 1) → turkce.html + kasa-modu.json aynı commit → push.
 6. Canlıda anonim: perde çıkıyor, `kaydir/sgs/turkce.html` içinde soru yok. Paketli deneme: **Cem kurucu hesabıyla** Türkçe sayfasını açar.
 7. Bir gün sorunsuz → kalan 14 ders (Meslek öncesi site-nobeti sınırı) → adım 4–5 (deneme seti, seviye testi) → Yol B → geçmiş temizliği.
+
+---
+
+## 7. 29.09.2026 — yeniden ölçüm + Cem "1.2.3 üçünü de yap" (oturum 99da7c)
+
+**Ölçüm (canlı + kasa, 29.09):** Yeterlilik 8 + KGK 6 sayfa zaten kabuk (canlıda `"dogru"` 0). Açık: SGS 16 sayfa
+(Türkçe hariç), `veri/deneme/sgs-set-*` (10, cevaplı), `veri/seviye/sgs-havuz.json` (675 cevap), depoda `kaydir/_arsiv/` 3 sayfa.
+Kasa `paket_soru` 8.897 satır (SGS 4.917 · Yeterlilik 3.872 · KGK 108 · ücretsiz 808). Paketli üyeyle canlı çekim **hiç ölçülmedi**.
+
+**Yapıldı — seviye testi (plandaki 5. adım):** havuz dosyası YALNIZ KİMLİK (482 KB → 60 KB, cevap izi 0); SGS kipi soru
+metnini `ucretsiz_soru`'dan cevapsız alır, doğruyu `rpc/seviye_kontrol` söyler (Yeterlilik kipiyle aynı yol). Havuz her yayında
+`yayin-bas.yml` içinde yeniden kurulur. Yan bulgu: eski havuz 16.09'dan beri tazelenmemişti, 675 kimliğin **281'i yayından
+düşmüştü** ama ücretsiz testte gösteriliyordu. Tarayıcı provası (yerel, dış kayıt uçları kapalı): 30 soru, 30 sunucu kontrolü, sonuç ekranı doğru.
+
+**Takvim (Cem "1.2.3" öneri 3 — "sonra" yok, tarih var):**
+| Tarih | İş | Şart |
+|---|---|---|
+| Cem uygun olduğunda (ASAP) | **Adım 0**: kurucu hesabıyla `kaydir/sgs/turkce.html` + `kaydir/smmm/hukuk.html` açılır, ağ istekleri ölçülür | — |
+| 30.09–03.10 | Okuyucu onarımı: `arac/havuz-kur.ps1` bekletme, `arac/sgs-konu-kapsama.js` (sınav/SGS kolu), `arac/sik-kaydir.ps1`, `motor/soru-dizini.js`, `motor/site-nobeti.ps1` 300 KB | Adım 0 YEŞİL |
+| **05.10 sabah** (SGS canlı deneme 04.10 bittikten sonra) | 16 SGS sayfası `kasa-modu.json`'a · deneme setleri yalnız kimlik · `_arsiv`/örnek dosyalar depo dışına · içerik nöbeti tabanı BOŞ | okuyucu onarımı bitti |
+| **07.10 akşam** | Git geçmişi temizliği (izole çıplak klon, `gecmis-temizligi` reçetesi) | 05.10 sonrası ≥1 gün sorunsuz + Cem'e "şimdi basıyorum" sorusu |

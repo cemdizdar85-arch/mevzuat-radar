@@ -88,9 +88,9 @@ function seviyeKimlikleri() {
   const y = path.join(KOK, 'veri', 'seviye', 'sgs-havuz.json');
   if (!fs.existsSync(y)) return [];
   const h = JSON.parse(fs.readFileSync(y, 'utf8').replace(/^﻿/, ''));
-  // biçim: havuz[ders][zorluk] = [{id, soru, siklar, dogru, sayfa, sira}]
+  // biçim: havuz[ders][zorluk] = [{id, sayfa, sira}] (29.09'dan beri yalnız kimlik; eski biçimde soru/siklar/dogru da vardı)
   const ids = [];
-  (function gez(x) { if (Array.isArray(x)) x.forEach(gez); else if (x && typeof x === 'object') { if (x.id && x.soru) ids.push(String(x.id)); else for (const k in x) gez(x[k]); } })(h.havuz);
+  (function gez(x) { if (Array.isArray(x)) x.forEach(gez); else if (x && typeof x === 'object') { if (typeof x.id === 'string' && x.id) ids.push(x.id); else for (const k in x) gez(x[k]); } })(h.havuz);
   return ids;
 }
 function seviyeIsaretle(satirlar, kimlikler) {

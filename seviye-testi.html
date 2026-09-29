@@ -15,7 +15,8 @@
   -> "geçme olasılığı vermek istiyorum" -> GM üç seçenek sundu, tek yüzdeyi önermedi -> Cem "Şimdi tek yüzde".
   -> "e-posta işlemini yapalım, şu an yok diye önermemezlik yapma" -> karne öğrencinin e-postasına (radar-app/edge/karne-gonder.ts).
   HESAP: seviye-model.js (Rasch + TESMER yönergesine dayanan sınır varsayımı; varsayımlar #nasil bölümünde).
-  SORULAR: veri/seviye/sgs-havuz.json (motor/seviye-havuz-bas.js). 30 soru, ders payına göre; zorluk her cevaptan sonra
+  SORULAR: veri/seviye/sgs-havuz.json (motor/seviye-havuz-bas.js) YALNIZ KİMLİK (29.09 Adım 2); metin Supabase
+  ucretsiz_soru'dan CEVAPSIZ, doğru mu kontrolü rpc/seviye_kontrol'de (IP başına 40/10 dk). 30 soru, ders payına göre; zorluk her cevaptan sonra
   modelin anlık seviye tahminine göre seçilir. Aynı cihaza gösterilen soru tekrar gösterilmez (sv_gorulen); şık sırası karışır.
   VERİ: her cevap anonim cevap_kayit'e (kaynak 'seviye-testi') - açılıştan sonra etiketlerin yerini gerçek zorluk alacak.
   Soru çözme ekranı -> AÇIK tema (09.09 kararı).
@@ -302,6 +303,12 @@
         if(aday.length){ var q=aday[Math.floor(Math.random()*aday.length)]; return {q:q, zorluk:sira[z], ders:yuva.ders, grup:yuva.grup}; }
       }
     }
+    /* 29.09 ADIM 2: kasada metni bulunmayan kimlik havuzdan düşer; ders boş kalırsa test yarıda bitmesin -
+       yuva önce aynı gruptan, olmazsa herhangi bir dersten doldurulur (sonuç grup düzeyinde gösterilir). */
+    if(!yuva.yedek){
+      var adaylar=H.plan.filter(function(p){ return p.ders!==yuva.ders && p.grup===yuva.grup; }).concat(H.plan.filter(function(p){ return p.grup!==yuva.grup; }));
+      for(var a=0;a<adaylar.length;a++){ var r=soruSec({ders:adaylar[a].ders, grup:adaylar[a].grup, yedek:true}); if(r) return r; }
+    }
     return null;
   }
   /* YET: set sırası - dersler serpiştirilir (aynı dersten art arda soru gelmesin), ilk soru FM; sıra her testte aynı */
@@ -328,8 +335,9 @@
   /* YET: doğru harf sayfada YOK - sunucu söyler (seviye_kontrol, IP başına 40/10 dk). "Bilmiyorum"da da sorulur:
      sonuç ekranı "doğrusu X" gösterir. Sunucu cevap veremezse bir kez daha denenir; yine olmazsa soru
      "denetlenemedi" diye işaretlenir ve hesaba GİRMEZ (yanlış sayılmaz - adamı bizim hatamızla cezalandırmayız). */
+  /* 29.09 ADIM 2 (Cem "1.2.3"): SGS kipi de aynı yol - veri/seviye/sgs-havuz.json artık yalnız kimlik taşır,
+     doğru harf sayfaya hiç inmez. Önceden 675 soru cevabıyla birlikte açık dosyadaydı. */
   function kaydet(bilmiyorum){
-    if(!YET) return kaydetYerel(bilmiyorum);
     if(MESGUL) return; MESGUL=true; $('svCevapla').disabled=true; $('svBilmiyorum').disabled=true;
     var asil=bilmiyorum?null:AKTIF.harita[SECILI];
     var sor=function(){ return fetch(SB+'/rest/v1/rpc/seviye_kontrol',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
@@ -384,17 +392,21 @@
   function bitir(){
     if(SAYAC){ clearInterval(SAYAC); SAYAC=null; }
     if(YET) return bitirYet();
-    var t=M.tahmin(CEVAPLAR.map(function(c){ return {zorluk:c.zorluk,dogru:c.dogru}; }));
+    /* 29.09: sunucuya ulaşılamayan soru (denetlenemedi) hesaba girmez - YET kipiyle aynı kural */
+    var sayilan=CEVAPLAR.filter(function(c){ return !c.denetlenemedi; });
+    /* hiçbir cevap denetlenemediyse sonuç uydurulmaz, ücretsiz hak da yanmaz */
+    if(!sayilan.length){ goster('svGiris'); $('svBasla').hidden=false; $('svBasla').textContent='Cevaplar şu an denetlenemedi, biraz sonra yeniden dene'; return; }
+    var t=M.tahmin(sayilan.map(function(c){ return {zorluk:c.zorluk,dogru:c.dogru}; }));
     var gruplar={}, sira=[];
-    CEVAPLAR.forEach(function(c){ if(!gruplar[c.grup]){ gruplar[c.grup]={ad:c.grup,dogru:0,soru:0}; sira.push(c.grup); } gruplar[c.grup].soru++; if(c.dogru) gruplar[c.grup].dogru++; });
+    sayilan.forEach(function(c){ if(!gruplar[c.grup]){ gruplar[c.grup]={ad:c.grup,dogru:0,soru:0}; sira.push(c.grup); } gruplar[c.grup].soru++; if(c.dogru) gruplar[c.grup].dogru++; });
     var liste=sira.map(function(k){return gruplar[k];});
-    var dogruSay=CEVAPLAR.filter(function(c){return c.dogru;}).length;
-    SONUC={ gecme:t.gecme, dogru130:t.dogru130, soru:CEVAPLAR.length, dogru:dogruSay, gruplar:liste, tarih:new Date().toISOString() };
+    var dogruSay=sayilan.filter(function(c){return c.dogru;}).length;
+    SONUC={ gecme:t.gecme, dogru130:t.dogru130, soru:sayilan.length, dogru:dogruSay, gruplar:liste, denetlenemedi:CEVAPLAR.length-sayilan.length, tarih:new Date().toISOString() };
     try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
     /* yanlışlar Kaydır-Çöz yanlış kutusuna (aynı biçim) */
     try{
       var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
-      CEVAPLAR.forEach(function(c){ if(c.dogru) return; var k=kutu.filter(function(x){return x.id===c.id;})[0];
+      CEVAPLAR.forEach(function(c){ if(c.dogru||c.denetlenemedi) return; var k=kutu.filter(function(x){return x.id===c.id;})[0];
         if(k){ k.tur=1; k.due=an+2*86400000; k.yanlis=(k.yanlis||0)+1; } else kutu.push({id:c.id,konu:'',ders:c.ders,donem:0,tur:1,due:an+2*86400000,yanlis:1}); });
       localStorage.setItem('kc_kutu',JSON.stringify(kutu));
     }catch(e){}
@@ -536,9 +548,9 @@
     $('svMesaj').textContent= g>=70 ? 'İyi durumdasın. 130 soruluk tam denemeyle bu sonucu gerçek süre ve gerçek ders dağılımında doğrula.'
       : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında.'
       : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+'.';
-    $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
+    $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
-    var y=CEVAPLAR.filter(function(c){return !c.dogru;});
+    var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
     teklifCiz(g, zayif, y.length);
     /* 14.09: ders sayfaları ve "sınav gibi" pakete dahil (paket-kapisi.js). Paketsiz ziyaretçiyi kilide değil
        teklife yönlendir; paketi olan için "sınav gibi" yolu açık kalır. */
@@ -624,7 +636,36 @@
         });
     });
   }
-  (YET?yetYukle():fetch('veri/seviye/sgs-havuz.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); })).then(function(d){
+  /* 29.09 ADIM 2 SGS: havuz dosyası yalnız kimlik (+sayfa, sıra) taşır; soru metni ucretsiz_soru'dan CEVAPSIZ gelir.
+     Kasada metni olmayan kimlik (yayından düşmüş soru) havuzdan çıkar - soruSec ders boşalırsa yedekten doldurur. */
+  function ucretsizSgsOku(){
+    var hepsi=[];
+    var sayfa=function(n){
+      return fetch(SB+'/rest/v1/ucretsiz_soru?select=id,sayfa,sira,veri&sayfa=like.'+encodeURIComponent('kaydir/sgs/*')+'&order=id.asc&limit=1000&offset='+n,{ headers:{apikey:KEY,Authorization:'Bearer '+KEY} })
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(p){ hepsi=hepsi.concat(p); return p.length===1000?sayfa(n+1000):hepsi; });
+    };
+    return sayfa(0);
+  }
+  function sgsYukle(){
+    return Promise.all([
+      fetch('veri/seviye/sgs-havuz.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }),
+      ucretsizSgsOku()
+    ]).then(function(r){
+      var d=r[0], m={}; r[1].forEach(function(x){ m[x.id]=x; });
+      var kalan=0;
+      Object.keys(d.havuz).forEach(function(ders){ Object.keys(d.havuz[ders]).forEach(function(z){
+        d.havuz[ders][z]=d.havuz[ders][z].map(function(q){
+          var x=m[q.id], v=x&&x.veri;
+          if(!(v&&v.soru&&v.siklar&&Object.keys(v.siklar).length===5)) return null;
+          return { id:q.id, soru:v.soru, siklar:v.siklar, sayfa:x.sayfa, sira:x.sira };
+        }).filter(Boolean);
+        kalan+=d.havuz[ders][z].length;
+      }); });
+      if(kalan<30) throw { eksik:30-kalan };
+      return d;
+    });
+  }
+  (YET?yetYukle():sgsYukle()).then(function(d){
     H=d; $('svBasla').disabled=false; $('svBasla').textContent='Teste başla →';
     /* 16.09: ücretsiz hakkını kullanmış ziyaretçi -> üyelik kutusu (üyede sınır yok) */
     var kapali=(!uyeMi() && hakKullanildi());

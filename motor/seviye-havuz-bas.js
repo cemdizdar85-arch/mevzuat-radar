@@ -16,7 +16,10 @@
 //     (Türkçe, Atatürk, Matematik'te setlere girmeyen soru neredeyse yok) tüm havuzdan tamamlanır.
 //   · Sayfa: aynı cihaza daha önce gösterilen soruyu tekrar göstermez, şık sırasını karıştırır.
 //
-//  ÇIKTI: veri/seviye/sgs-havuz.json · API maliyeti SIFIR.
+//  ÇIKTI: veri/seviye/sgs-havuz.json · API maliyeti SIFIR. 29.09.2026'dan beri YALNIZ KİMLİK (id, sayfa, sıra):
+//  soru metni ucretsiz_soru'dan cevapsız gelir, doğru mu kontrolü sunucuda (seviye_kontrol). Önceden 675 soru
+//  cevabıyla açık dosyadaydı ve 16.09'dan beri tazelenmediği için 281'i yayından düşmüştü (29.09 ölçümü).
+//  Bulutta yayin-bas.yml her yayında koşturur (sayfalar tam basıldıktan, kasa yüklemesinden ÖNCE).
 //  Kaydır-Çöz SGS basımından sonra motor/kaydir-yayin.ps1 koşturur (deneme setlerinden SONRA).
 // ============================================================================
 const fs = require('fs');
@@ -58,12 +61,33 @@ dersler.slice().sort((a, b) => b.artik - a.artik).forEach(d => { if (kalan > 0) 
 const setIdleri = new Set();
 try { const dz = jsonOku(path.join(KOK, 'veri', 'deneme', 'sgs-dizin.json')); dz.setler.forEach(s => jsonOku(path.join(KOK, s.dosya)).sorular.forEach(q => setIdleri.add(q.id))); } catch (e) {}
 
+// 29.09.2026 ADIM 2: kasa modundaki sayfa depoda SORUSUZ kabuktur (motor/kasa-kabuk.js). Kabuğun soruları
+// paket_soru'dan (sayfa + sıra) okunur - yalnız SUPABASE_SERVICE_KEY varsa; yoksa o ders "sayfa yok" düşer
+// (tahminle havuz kurulmaz). Bulutta (yayin-bas.yml) sayfalar tam basıldıktan sonra koşar, kasaya gitmez.
+const UA = 'tetikte-seviye-havuz/1.0';
+async function kasadanOku(yol) {
+  const K = process.env.SUPABASE_SERVICE_KEY; if (!K) return null;
+  const h = { apikey: K, Authorization: 'Bearer ' + K, 'User-Agent': UA };
+  const S = [];
+  for (let i = 0; ; i += 500) {
+    const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=sira,veri&sayfa=eq.' + encodeURIComponent(yol) + '&order=sira.asc&limit=500&offset=' + i, { headers: h });
+    if (!r.ok) throw new Error(`kasa okuma ${yol}: HTTP ${r.status}`);
+    const p = await r.json(); p.forEach(x => { S[x.sira] = x.veri; });
+    if (p.length < 500) break;
+  }
+  return S.length && S.every(Boolean) ? S : null;   // sırada boşluk = eksik yükleme -> kullanılmaz
+}
+
+(async () => {
 const sayfalar = {};
 for (const f of fs.readdirSync(path.join(KOK, 'kaydir', 'sgs'))) {
   if (!f.endsWith('.html') || f === 'index.html') continue;
-  const S = sayfaOku(path.join(KOK, 'kaydir', 'sgs', f)); if (!S || !S.length) continue;
+  const yol = `kaydir/sgs/${f}`, tam = path.join(KOK, 'kaydir', 'sgs', f);
+  let S = sayfaOku(tam);
+  if ((!S || !S.length) && fs.readFileSync(tam, 'utf8').includes('data-kasa-sayfa=')) S = await kasadanOku(yol);
+  if (!S || !S.length) continue;
   const ad = String(S[0].ders || '').split('|')[0].trim(); if (slug(ad) + '.html' !== f) continue;
-  sayfalar[katla(ad)] = { ad, dosya: `kaydir/sgs/${f}`, S };
+  sayfalar[katla(ad)] = { ad, dosya: yol, S };
 }
 
 const hatalar = [], havuz = {}, plan = [], rapor = [];
@@ -80,7 +104,8 @@ for (const d of dersler) {
     const setsiz = uygun.filter(x => !setIdleri.has(x.s.id)), setli = uygun.filter(x => setIdleri.has(x.s.id));
     const secilen = setsiz.slice(0, KUTU).concat(setli.slice(0, Math.max(0, KUTU - setsiz.length)));
     if (secilen.length < d.test) hatalar.push(`${p.ad} ${z}: ${secilen.length} soru, en az ${d.test} gerekli`);
-    havuz[p.ad][z] = secilen.map(x => ({ id: x.s.id, soru: x.s.soru, siklar: x.s.siklar, dogru: x.s.dogru, sayfa: p.dosya, sira: x.sira }));
+    // 29.09 ADIM 2: dosya herkese açık -> YALNIZ kimlik. Metin ucretsiz_soru'dan (cevapsız), doğru seviye_kontrol'den.
+    havuz[p.ad][z] = secilen.map(x => ({ id: x.s.id, sayfa: p.dosya, sira: x.sira }));
     satir.push(`${z} ${secilen.length} (setsiz ${Math.min(setsiz.length, KUTU)})`);
   }
   rapor.push(`${p.ad.padEnd(34)} testte ${d.test} · ${satir.join(' · ')}`);
@@ -108,3 +133,4 @@ const yeni = JSON.stringify(cikti) + '\n';
 let eski = null; try { eski = fs.readFileSync(hedef, 'utf8'); } catch (e) {}
 if (eski === yeni) console.log('  değişiklik yok - dosyaya dokunulmadı');
 else { fs.writeFileSync(hedef, yeni, 'utf8'); console.log(`  yazıldı -> veri/seviye/sgs-havuz.json (${Math.round(yeni.length / 1024)} KB)`); }
+})().catch(e => { console.error('SEVİYE HAVUZU DÜŞTÜ: ' + e.message); process.exit(1); });
