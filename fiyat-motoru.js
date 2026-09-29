@@ -92,8 +92,10 @@ var TAKSIT_ADET = 3;
    29.09: Yeterlilik TÜM DERSLER de 400 TL (27.09 Cem: 3.490 → 3.090); 1–4 ders merdiveni indirimsiz
    (1 derste 1.190 − 400 − 750 komisyon zarar yazar). Sunucudaki elci_indirim ile birebir.
    Elçiler kendi panelinden (elci.html) satış adedini ve komisyonunu görür.
+   29.09 AÇILDI: SQL Cem tarafından basıldı; anonim ölçüm AE42 → sgs 400 · yeterlilik-tum 400 · yeterlilik-1 0
+   (bu nesneyle birebir), panel fonksiyonları anona 401. Site aynı akşam yayına girdi (GONG f28cf522).
 --------------------------------------------------------------------------- */
-var ELCI = { acik:false, indirim:{ sgs:400, 'yeterlilik-tum':400 }, bicim:/^[A-Z0-9]{3,12}$/ };
+var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400 }, bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
    İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında
