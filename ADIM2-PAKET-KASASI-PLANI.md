@@ -150,4 +150,8 @@ düşmüştü** ama ücretsiz testte gösteriliyordu. Tarayıcı provası (yerel
   e-postasıyla üye olan biri paketi alır. Çare: 04.10 canlı denemeden sonra onay yeniden AÇILIR (Cem, Supabase → Auth →
   Email → Confirm email) — o güne kadar elle açmada hesap sipariş e-postasıyla eşleşiyorsa aç, ama alıcıya "paketin şu e-postalı
   hesaba açıldı" iletisi gider. Mağaza içi satın alma (`magaza-dogrula`) hesabın kendi oturumuyla yazdığı için etkilenmez.
+- **İnceleme hesabı (29.09, Cem üçüncü "1.2.3"):** `inceleme@tetikte.com` paketi 'tam' bankanın tamamını okuyor; bitiş
+  2027-12-31 → **2026-10-31** (mobil oturumun önerisi: Google'da 1.6.7 incelemesi sürüyor, "onay + 7 gün" reddettirir). Her
+  yeni mağaza gönderiminden önce mobil oturum +30 gün uzatır. Şifre değişikliği Cem'de.
+- **Soru dizini (d7c0618a):** `veri/soru-dizini.json` artık her yayında kurulur; SGS 4.912 · Yeterlilik 3.872 · KGK hazırlanıyor.
 - **Adım 0 sonucu:** _(Cem denemeyi yapınca buraya yazılır: tarih · turkce.html soru geldi mi · smmm/hukuk.html soru geldi mi)_
