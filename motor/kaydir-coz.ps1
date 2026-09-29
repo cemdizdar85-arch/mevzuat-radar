@@ -1041,7 +1041,13 @@ SORULAR.forEach((s,i)=>{
     h+='</tbody></table></div><div class="btnrow"><button class="btn mavi bKontrol">✔ Kontrol et</button><button class="btn bGoster">Doğruları göster</button><button class="btn bKagitAcO" title="Hesap kâğıdını bu ekranın üstüne aç">✏️ Kâğıdı aç</button></div>';
     satirlar.innerHTML=h;
     const bKgO=satirlar.querySelector('.bKagitAcO'); if(bKgO){ bKgO.addEventListener('click',()=>{ const kg=k.querySelector('.kagit'); if(kg){ kg.classList.add('ustte','acik'); if(kg.dataset.sek==='ciz'){ requestAnimationFrame(()=>{ try{ kanvasBoyut(); }catch(e){} }); } } }); }
-    const normS=t=>String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
+    // 30.09 (Cem "1.2.3"): eski hâl bütün noktaları siliyordu → öğrencinin yazdığı "0.5" 5 okunuyor, doğru cevap yanlış sayılıyordu.
+    // Kural: virgül varsa Türkçe biçim (1.250,5); "96.000" gibi 1-3 hane + üçlü gruplar binliktir; kalan tek nokta ONDALIKtır ("0.5", "2.4").
+    const normS=t=>{ const s=String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/[^\d.,\-]/g,'');   // önce harf/boşluk atılır ("en az 50.000.000 TL")
+      if(s.indexOf(',')>=0) return s.replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
+      if(/^-?[1-9]\d{0,2}(\.\d{3})+$/.test(s)) return s.replace(/\./g,'').replace(/[^\d\-]/g,'');
+      if(/^-?\d*\.\d+$/.test(s)) return s;                     // tek nokta = ondalık ("0.5", "2.4")
+      return s.replace(/\./g,'').replace(/[^\d\-]/g,''); };    // tarih "15.03.2023" gibi çok noktalı: eski davranış (noktalar atılır)
     // Cem 04.09 "tekrar tekrar kontrol edince seri yükseliyor": tablo tamamlanınca kilitlenir, seri BİR kez artar;
     // "Doğruları göster"den sonra tamamlansa da seri artmaz (kendi çözmedi). ↺ Tekrar yeni bir deneme açar.
     let bitti=false, gosterildi=false, ipucuAcildi=false;
