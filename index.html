@@ -14,8 +14,8 @@
      uc arama niyetini birden karsiliyor (mevzuat takibi / GTIP / SMMM sinavi)
      ve ~60 karakterde kaliyor (Google bu civarda kesiyor). -->
 <!-- 13.09 Cem: SPK başlıktan ve kahramandan çıktı - SPK lisanslama soru bankası yok; "bitince eklenir". -->
-<title>Tetikte — SMMM Staja Giriş, Yeterlilik ve KGK sınavı: yanlışını böyle öğrenirsin</title>
-<meta name="description" content="SMMM Staja Giriş (SGS), Yeterlilik ve KGK bağımsız denetçi sınavları için soru bankası: her şıkkın gerekçesi kaynağıyla. Büro ve şirketler için mevzuat nöbeti aynı sayfada.">
+<title>Tetikte — SMMM Staja Giriş ve Yeterlilik sınavı: yanlışını böyle öğrenirsin</title>
+<meta name="description" content="SMMM Staja Giriş (SGS) ve Yeterlilik (staj bitirme) sınavları için soru bankası: her şıkkın gerekçesi, dayandığı madde ile.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -457,35 +457,13 @@ window.veriAl = (function(){
 <nav id="nav">
   <a class="marka" href="#"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>
   <div class="navlinks">
-    <div class="navgroup nl">
-      <button class="navtrigger" type="button">Araçlar <span class="car">▾</span></button>
-      <div class="dropdown">
-        <a href="soru-cevap.html">Net Cevap<span>soru sor, kaynağıyla cevap al</span></a>
-        <a href="gtip.html">GTİP · Kaç Vergi?<span>ithalatta hangi vergiler, kaç</span></a>
-        <a href="risk-taramasi.html">Beyanname Risk Taraması<span>beyan etmeden önce ceza kapıları</span></a>
-        <a href="senaryo-raporu.html">Nereden Alsam?<span>menşe ülke maliyet karşılaştırma</span></a>
-        <a href="hizmet.html">Yurt Dışı Fatura<span>2 No.lu KDV / stopaj hesabı</span></a>
-        <a href="fiyatfarki.html">Credit/Debit Note<span>sonradan gelen fiyat farkı</span></a>
-        <a href="toplu-gtip.html">Toplu GTİP<span>Excel'ini yapıştır, kalem kalem vergi</span></a>
-        <a href="kurulus.html">Şirket Kuruluşu<span>şahıs mı, Ltd mi, AŞ mi</span></a>
-      </div>
-    </div>
-    <div class="navgroup nl">
-      <button class="navtrigger" type="button">Radarlar <span class="car">▾</span></button>
-      <div class="dropdown">
-        <a href="alacak-radari.html">Alacak Radarı<span>müşterin konkordato/iflas ilan etti</span></a>
-        <a href="marka-radari.html">Marka Radarı<span>markanla ilgili her şey tek yerde</span></a>
-        <a href="marka-itiraz.html">Marka İtiraz<span>benzerlik / itiraz analizi</span></a>
-        <a href="destekler.html">Destek Radarı<span>profiline göre KOSGEB, Eximbank</span></a>
-        <a href="radar.html">Bugün RG'de<span>günün mevzuat değişiklikleri</span></a>
-        <a href="kartlar.html">Günün Kartları<span>30 saniyelik hap bilgi</span></a>
-      </div>
-    </div>
-    <a class="nl" href="#fiyat">Abonelik</a>
+    <!-- 30.09 Cem "site sadece SMMM başlama + bitirme": Araçlar/Radarlar açılır menüleri ve İşletme girişi
+         kalktı (sayfalar ve robotları yerinde, menu.js GIZLI listesinde). -->
+    <a class="nl" href="sorular.html">Soru çöz</a>
+    <a class="nl" href="canli-deneme.html">Canlı deneme</a>
+    <a class="nl" href="genc.html">Sınav takvimi</a>
+    <a class="nl" href="fiyat.html">Fiyatlar</a>
     <a class="nl" id="navOgrenci" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Öğrenci girişi</a>
-    <!-- 16.09: hayalet düğmenin rengi üç ayrı kuraldan geçtiği için açık şeritte beyaz kalıyordu
-         (ölçüm: #eef2f7 üstünde #fbfaf8 = 1,08). Renk burada, öğenin kendisinde sabitlendi. -->
-    <a class="btn ghost nl" href="radar-app.html" style="margin-right:4px;color:color-mix(in srgb,var(--ink) 92%,transparent)" title="Büro ve firma paneli">İşletme girişi</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
     <!-- 23.09 Cem "1.2.3 yap": "Ücretsiz Başla" sınav takvimine (genc.html) gidiyordu; sitedeki tek ücretsiz
          vaat seviye testi -> menü düğmesi de oraya. Genç Müşavir Araçlar menüsünde duruyor. -->
@@ -797,7 +775,7 @@ window.veriAl = (function(){
             <div class="bz-sekme" role="tablist" aria-label="Sınav seç">
               <button type="button" role="tab" id="bzSkSgs" data-sinav="sgs" aria-selected="true">SMMM Staja Giriş</button>
               <button type="button" role="tab" id="bzSkYet" data-sinav="yeterlilik" aria-selected="false">Yeterlilik</button>
-              <button type="button" role="tab" id="bzSkKgk" data-sinav="kgk" aria-selected="false">KGK</button>
+              <button type="button" role="tab" id="bzSkKgk" data-sinav="kgk" aria-selected="false" hidden>KGK</button><!-- 30.09: KGK gizli (site yalnız SMMM başlama + bitirme) -->
             </div>
             <h1 class="bz-baslik">Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
             <p class="bz-alt">Her şıkkın gerekçesi var, her gerekçe mevzuattaki maddeye bağlı.</p>
@@ -1318,7 +1296,7 @@ window.veriAl = (function(){
          olmasıydı (ara / kendini tanıt / oku). Artık kapıların altında
          kendi satırında; sayfadaki tek "yaz ve gör" kutusu.
          SİLİNMEDİ - taşındı; 15.717 kayıtlık arama yerinde. -->
-    <div class="gtip-satir">
+    <div class="gtip-satir" hidden style="display:none"><!-- 30.09: site yalnız SMMM sınavları; GTİP arama gizli -->
       <div class="hero-ara">
         <label for="heroAra">İthal edeceğin ürünü yaz, vergisini gör</label>
         <div class="hero-ara-satir">
@@ -1522,8 +1500,8 @@ window.veriAl = (function(){
          zaten yukarıda) · RG hap kartı (iş nöbeti şeridinde) · Destek Radarı · İcradan Fırsat
          (katalogda yoktu, eklendi). BİLEREK düşen: Af/Yapılandırma (kartlar.html'in aynısı) ve
          Pazar İstihbaratı (motoru yok, "YAKINDA" tanıtımı). -->
-    <div class="mini-baslik" style="margin-top:34px">Öne çıkan araçlar</div>
-    <div class="mini-pencereler">
+    <div class="mini-baslik" style="margin-top:34px;display:none" hidden>Öne çıkan araçlar</div><!-- 30.09: işletme rafı gizli -->
+    <div class="mini-pencereler" hidden style="display:none">
       <!-- 29.09 Cem: İhale Radarı + Rakip Firma Analizi + İdare Analizi siteden kalktı
            (iyzico incelemesi "ihale radarları kısmını kaldırın"). Sayfalar _kapali-araclar/'da. -->
       <a class="mp" href="alacak-radari.html">
@@ -1572,7 +1550,7 @@ window.veriAl = (function(){
         </span>
       </a>
     </div>
-    <p class="raf-tumu"><a href="#araclar" data-katalog-ac>Tüm araçlar <span id="rafAracSay"></span> ↓</a></p>
+    <p class="raf-tumu" hidden style="display:none"><a href="#araclar" data-katalog-ac>Tüm araçlar <span id="rafAracSay"></span> ↓</a></p>
 
     <!-- 13.09.2026: rakam şeridi (30.569 / 16.284 / GTİP / "29 araç · ayda 5 sorgu kayıtsız") ve kayan
          "nöbet akışı" bandı KALDIRILDI. Şerit: rakamlar yukarıda zaten var; "29 araç" katalogdaki 39 ile,
@@ -1710,7 +1688,7 @@ window.veriAl = (function(){
      "icradan fırsat", katalogdaki "Takip Radarları"na eklendi). Konu adları katalog grup başlıklarında. -->
 
 <!-- ============ ARAÇLAR VİTRİNİ ============ -->
-<section id="araclar" class="katalog-kapali" style="padding-top:0">
+<section id="araclar" class="katalog-kapali" hidden style="padding-top:0;display:none"><!-- 30.09: araç kataloğu gizli -->
   <div class="sec-in">
     <div class="sec-head reveal">
       <h2>Tüm araçlar</h2>
@@ -1913,7 +1891,7 @@ window.veriAl = (function(){
 
 <!-- ============ FİYATLANDIRMA ============ -->
 <!-- 31.07 Cem: bolum arasi fazla acikti - ust dolgu kisildi -->
-<section id="fiyat" style="padding-top:clamp(24px,4vw,48px)">
+<section id="fiyat" hidden style="padding-top:clamp(24px,4vw,48px);display:none"><!-- 30.09: radar aboneliği bölümü gizli; sınav fiyatları fiyat.html -->
   <div class="sec-in">
     <!-- 30.07 Cem: "fiyatlandirma iyi durmuyor" - hakliydi ama sebep bolum
          degil, fiyat TAKLIDIYDI: baslik fiyat vaat edip fiyat gostermiyordu
@@ -1960,7 +1938,7 @@ window.veriAl = (function(){
   <div class="sec-in">
     <div class="sec-head reveal">
       <h2>Neden bize güvenebilirsin?</h2>
-      <p>Mevzuatta yanlış bilgi; ödenen fazla vergi, kesilen ceza demektir. Bu yüzden tek kuralımız var: her şey resmî kaynaktan, madde madde.</p>
+      <p>Sınavda yanlış öğrenilen bilgi, kaybedilen puandır. Bu yüzden tek kuralımız var: her gerekçe resmî kaynaktan, madde madde.</p>
     </div>
     <div class="bizkim reveal">
       <div>
@@ -1971,8 +1949,8 @@ window.veriAl = (function(){
              hizmet listesi BİLEREK yok - okur öğrenci; iki marka karışmaz (15.09 Cem "Dizdar sınavla ilgili değil").
              Şirketin hizmetleri için künyede dizdardenetim.com bağı. -->
 
-        <p>Tetikte bu işin içinden çıktı: mevzuat değişikliğini kaçırmamak ve "bu soruda neden yanlış yaptım?"
-        sorusunu maddesiyle birlikte cevaplamak için. Kâğıt üstünde kalan bir vaat değil, her gün çalışan bir nöbet.</p>
+        <p>Tetikte bu işin içinden çıktı: "bu soruda neden yanlış yaptım?"
+        sorusunu maddesiyle birlikte cevaplamak için.</p>
         <p class="bk-soz">Herkesin bir hocası var; senin bir nöbetçin var.</p>
       </div>
       <div class="bk-kunye">
@@ -2000,15 +1978,15 @@ window.veriAl = (function(){
            Doğru hâle getirilen metinler aşağıda; hata bildirimi kasaya bağlanınca 6. karttaki söz geri gelebilir. -->
       <div class="gk reveal">
         <h3>Birincil kaynak</h3>
-        <p>Oranlar, süreler ve tutarlar Resmî Gazete, GİB, Kamu İhale Kurumu ve TÜRKPATENT metinlerinden okunur ve kaynağıyla gösterilir. Blog, kulaktan dolma, "internette böyle yazıyor" kaynak sayılmaz.</p>
+        <p>Oranlar, süreler ve tutarlar Resmî Gazete, mevzuat.gov.tr, GİB ve KGK metinlerinden okunur; sorunun altında dayandığı madde yazar. Blog, kulaktan dolma, "internette böyle yazıyor" kaynak sayılmaz.</p>
       </div>
       <div class="gk reveal">
         <h3>Mevzuat madde madde, eksiği de kayıtlı</h3>
-        <p>İhale, Vergi Usul, İcra-İflas, Sınai Mülkiyet ve Gümrük mevzuatı madde madde ambara alındı. Hangi metnin tam, hangisinin eksik okunduğu envanterde işaretli; "bir yeri atladık mı?" tahmine bırakılmaz.</p>
+        <p>Sınav derslerinin dayandığı kanunlar, tebliğler ve standartlar madde madde arşivimize alındı. Hangi metnin tam, hangisinin eksik okunduğu envanterde işaretli; "bir yeri atladık mı?" tahmine bırakılmaz.</p>
       </div>
       <div class="gk reveal">
-        <h3>Çift okuma, sonra hakem</h3>
-        <p>Resmî Gazete'den ürettiğimiz her kart iki ayrı okumadan geçer; iki okuma anlaşamazsa üçüncü bir hakem kontrolü devreye girer.</p>
+        <h3>Hatayı bulunca çekeriz</h3>
+        <p>Soruları yayından sonra da okumaya devam ediyoruz; cevabı yanlış ya da iki şıkkı doğru çıkan soru yayından iner. Hatasız olduğumuzu iddia etmiyoruz.</p>
       </div>
       <div class="gk reveal">
         <h3>Bilmediğimizi uydurmayız</h3>
@@ -2016,13 +1994,13 @@ window.veriAl = (function(){
       </div>
       <div class="gk reveal">
         <h3>Verin nerede, açıkça</h3>
-        <p>Hesap araçlarına girdiğin rakamlar tarayıcında hesaplanır. Bir formu gönderdiğinde ya da radara firma eklediğinde bilgi sunucumuza gelir; üyelik verisi satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
+        <p>Üyeysen çözdüğün sorular ve üyelik bilgin sunucumuzda durur; üyelik verisi satır düzeyinde kilitlidir, başka üye senin kaydını göremez.</p>
         <!-- 16.09: seviye testi sonucu artık e-posta/telefon kapısının arkasında; ne aldığımızı burada da yazıyoruz. -->
         <p>Seviye testinde karneni gönderebilmek için e-posta adresini, istersen telefonunu alırız. Duyuru ve arama izni <b>ayrı ve isteğe bağlı</b> bir kutudadır; işaretlemezsen yalnız karnen gider.</p>
       </div>
       <div class="gk reveal">
         <h3>Söze değil tarihe bak</h3>
-        <p>Sorular yayına çıkmadan bağımsız hakem denetiminden geçer; şüpheye düşen soru yayına alınmaz. Güncel olduğunu söyleyen kutularda tazelik damgası görürsün: verinin ne zaman okunduğu yazar.</p>
+        <p>Güncel olduğunu söyleyen kutularda tazelik damgası görürsün: verinin ne zaman okunduğu yazar.</p><!-- 30.09: "sorular hakem denetiminden geçer; şüpheye düşen soru yayına alınmaz" KALKTI - 30.09 tam okuma yayında kusurlu soru buldu, söz ölçümle desteklenmiyor. -->
         <!-- 16.09: hata bildirimi 13.09'da form kapısına bağlandı (kaydir-coz: kasaya yazılır + bize e-posta düşer).
              13.09 söz denetiminde "yalnız tarayıcıda kalıyor" diye kaldırılan söz, artık kodla karşılanıyor. -->
         <p>Soruda hata görürsen "hata bildir" dersin: bildirimin doğrudan bize düşer, kasaya kaydedilir ve e-postayla ekibe gider.</p>
@@ -2032,7 +2010,7 @@ window.veriAl = (function(){
       <span>Beslendiğimiz resmî kaynaklar:</span>
       <!-- 16.09: sınav tarafının iki ana kaynağı listede yoktu; harç/ücret rakamları TESMER'in kendi
            tarifesinden, denetim standartları KGK'nın kendi metinlerinden okunuyor. -->
-      <b>Resmî Gazete</b><b>GİB</b><b>TESMER</b><b>KGK</b><b>Kamu İhale Kurumu</b><b>TÜRKPATENT</b><b>TCMB</b><b>Basın İlan Kurumu</b>
+      <b>Resmî Gazete</b><b>mevzuat.gov.tr</b><b>GİB</b><b>TESMER</b><b>TÜRMOB</b><b>KGK</b>
     </div>
     <!-- 16.09: buradaki şirket cümlesi bölümün BAŞINDAKİ "Biz kimiz" kutusuna taşındı; iki kez yazılmıyor. -->
     <p class="reveal" style="text-align:center;margin-top:26px;font-size:13.5px;color:var(--dim)">

@@ -636,7 +636,7 @@ function kurulumCiz(){
   // göstermeyiz. Sorular hakem+GM'den geçip yayina alininca kendiliğinden açılır.
   (function(){
     var kb = document.getElementById('kgkSecBtn');
-    if(kb){ kb.style.display = BANKA.some(function(s){ return s.sinav === 'KGK'; }) ? '' : 'none'; }
+    if(kb){ kb.style.display = 'none'; }   /* 30.09 Cem: site yalnız SMMM başlama + bitirme -> KGK her durumda gizli */
   })();
   document.getElementById('modSec').querySelectorAll('.sec').forEach(function(b){
     b.onclick=function(){

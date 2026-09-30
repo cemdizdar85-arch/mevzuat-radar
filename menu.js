@@ -113,7 +113,11 @@ try {
 } catch(e) {}
 /* ==== PERDE-SONU (gong.ps1 isaretli blogu buraya kadar siler) ==== */
 
-var GRUPLAR=[
+/* 30.09 Cem: "site sadece SMMM başlama ve SMMM bitirme sınavları olacak" (açılış Pzt 05.10).
+   Menüde yalnız SINAV grubu kalır. Gümrük, radar ve rehber sayfaları SİLİNMEDİ: robotları çalışır,
+   URL'leri açık; yalnız görünmez (aşağıda GİZLİ ARAÇLAR listesine de eklendi). Geri açmak:
+   grubu GRUPLAR'a geri koy + adı GIZLI listesinden sil + sitemap satırı. */
+var GRUPLAR_GIZLI=[
  {ad:"🛃 Gümrük & İthalat", araclar:[
   ["gtip.html","🔎","GTİP · Kaç Vergi Öderim?","İthalatta gümrük vergisi, KDV ve kesintiler"],
   ["risk-taramasi.html","🛃","Beyanname Risk Taraması","Beyandan önce ceza kapılarını tara"],
@@ -147,6 +151,19 @@ var GRUPLAR=[
   // yakaladi. Ayni durum evrak-app.html'de de vardi (asagida).
   ["marka-app.html","🔐","Marka İzleme — hesabım","Markalarını ekle, yenilemeyi biz takip edelim"]]}
  /* 24.09 Cem: "Muhasebe Bürosu (SMMM)" grubu sitede görünmesin - sonra verilecek (Fiş Fabrikası, Evrak Radarı, Belge Kasası, Süre Hatırlatıcı). */
+];
+var GRUPLAR=[
+ {ad:"🎓 SMMM sınavları", araclar:[
+  ["sorular.html","📚","Soru Çöz","Staja Giriş ve Yeterlilik — sınavını seç, ders ders çöz"],
+  ["seviye-testi.html","📏","Geçme İhtimalini Ölç","30 soru, yaklaşık 30 dakika, ücretsiz"],
+  ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
+  ["canli-deneme.html","📡","Canlı Deneme","Aynı anda, herkese aynı set; katılanlar arasında yüzdelik sıralaman"],
+  ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"],
+  ["genc.html","🗓️","Sınav Takvimi","2026 SMMM sınav takvimi, geri sayımlı"],
+  ["donem-plani.html","🗺️","Dönem Planı","Kalan haftaları haritayla faz faz doldur"],
+  ["songun.html","⏳","Son Gün 5 Saat","Dönem finali + sınav sabahı rehberi"],
+  ["karsilastirma.html","⚖️","Hangisi sana lazım?","Kurs, kitap, ücretsiz banka ve biz — dürüst tablo"],
+  ["fiyat.html","🏷️","Fiyatlar","Staja Giriş ve Yeterlilik paketleri, KDV dahil"]]}
 ];
 
 /* ---- KÖK YOLU (28.08.2026) ------------------------------------------------
@@ -447,9 +464,9 @@ function kur(){
   var mrxUyeVar=(function(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } })();
   var h='<div class="mrxIc"><div class="mrxUst">'+
     '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
-    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Öğrenci girişi')+'</a><a class="mrxUye" href="'+KOK+'radar-app.html">İşletme girişi</a>'+
+    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Öğrenci girişi')+'</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
-    '<input id="mrxAra" type="search" placeholder="🔍  Araç ara: ceza, KDV, marka, GTİP…" autocomplete="off">';
+    '<input id="mrxAra" type="search" placeholder="🔍  Ara: deneme, takvim, fiyat…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
     h+='<div class="mrxGrup"><h3>'+g.ad+'</h3><div class="mrxGrid">';
     g.araclar.forEach(function(a){
@@ -653,7 +670,8 @@ function ttSorguHakki(anahtar){
    sitemap satırlarını geri koy (commit "işletme araçları gizlendi").
    Kendi sayfasında süzmez (kendine bağ). ------------------------------------ */
 (function () {
-  var GIZLI = /(^|\/)(ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index)\.html(?:[?#]|$)/;
+  /* 30.09 Cem "site sadece SMMM başlama + bitirme": gümrük, radar, marka, alacak, rehber ve işletme paneli de gizli. */
+  var GIZLI = /(^|\/)(ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat)\.html(?:[?#]|$)/;
   function suz() {
     var kendi = location.pathname;
     [].forEach.call(document.querySelectorAll('a[href]'), function (a) {
