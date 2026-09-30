@@ -16,7 +16,9 @@ const fs = require('fs'), path = require('path');
 const MUT = process.env.EK_MUTASYON || '';
 const LISTE = JSON.parse(fs.readFileSync(path.join(__dirname, 'eski-kurallar.json'), 'utf8')).kurallar
   .map(k => Object.assign({}, k, { re: new RegExp(k.desen, 'i'), haric: k.haric ? new RegExp(k.haric, 'i') : null }));
-const MODEL_ALAN = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'notlandirici', 'capa_metin', 'capa_kaynak']);
+// 30.09: atif_genisletme (üretimde hakeme çekilen ambar belgelerinin iz kaydı, öğrenci görmez), mukerrer ve aciklama_hakem de model alanı —
+//   kardeş kapılarla (hesap-kodu, bds-atif) aynı liste. Kapanış onarımında 3 yanlış alarm bu alandan geliyordu.
+const MODEL_ALAN = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'notlandirici', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer', 'aciklama_hakem']);
 
 /* öğrenciye görünen metin parçaları: [yol, metin] */
 function parcalar(k) {
@@ -88,6 +90,7 @@ function sinav() {
     ['EK12 meşru: "645\'e yazılır, 649\'a değil"', T({ aciklama: { B: 'Menkul kıymet satış kârı 645\'e yazılır, 649\'a değil.' } }), 0],
     ['EK13 659\'a kambiyo zararı → alarm', T({ aciklama: { A: 'Kur farkından doğan kambiyo zararı 659 hesabına borç yazılır.' } }), 1],
     ['EK13 meşru: 656 Kambiyo Zararları', T({ aciklama: { A: 'Kambiyo zararı 656 Kambiyo Zararları hesabına borç yazılır.' } }), 0],
+    ['atif_genisletme iz kaydı taranmaz (öğrenci görmez)', T({ atif_genisletme: ['TMS 1 p.82 - Kâr veya zarar'] }), 0],
     ['model alanı taranmaz (öğrenci görmez)', T({ hakem: { gerekce: 'KDV oranı %18 uygulanır.' } }), 0]
   ];
   let g = 0;
