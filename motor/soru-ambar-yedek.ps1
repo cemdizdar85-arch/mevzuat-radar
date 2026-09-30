@@ -86,6 +86,13 @@ $VARSAYILAN=[ordered]@{
   'uygulama_olay'   = @{ sira='gun.asc,olay.asc,platform.asc';    sayfa=1000 }   # bilesik anahtar
   'elci_indirim'    = @{ pk='paket';   sayfa=1000 }
   'sinav_donemleri' = @{ pk='ad';      sayfa=1000 }
+  'konu_karti'         = @{ pk='id';        sayfa=200  }
+  'konu_semasi'        = @{ pk='id';        sayfa=200  }
+  'marka_ayna'         = @{ pk='st13';      sayfa=1000 }
+  'marka_ayna_dilim'   = @{ pk='dilim';     sayfa=1000 }
+  'marka_bulten_kutuk' = @{ pk='bulten_no'; sayfa=1000 }
+  # ⚠ marka_bulten (1.727.332 satir, ~4 KB/satir = ~7 GB duz, 30.09 olculdu) BURADA YOK:
+  #   gunluk yedege sigmaz; ayri karar (haftalik/aylik ayri akis) Cem'de.
 }
 # ⛔ KISI VERISI BULUTA/ACTIONS'A GIRMEZ (CLAUDE.md "BULUT GUVENLIGI" madde 4).
 #    Bu kume yalniz Cem'in makinesindeki gunluk gorevle (TETIKTE-KisiVerisiYedek)
@@ -103,6 +110,32 @@ $KISI=[ordered]@{
   'kurulus_nobet'              = @{ pk='id';      sayfa=1000 }
   'uye_ekran'                  = @{ pk='user_id'; sayfa=1000 }
   'elciler'                    = @{ pk='kod';     sayfa=1000 }
+  # 30.09 ikinci tarama (depodaki TUM .sql): uye/odeme/marka musteri tablolari.
+  # Bos olanlar da listede - site acilinca dolacaklar (siparis, abonelik, odeme).
+  'cevap_kaydi'          = @{ pk='id'; sayfa=1000 }
+  'soru_bildirim'        = @{ pk='id'; sayfa=1000 }
+  'form_kayit'           = @{ pk='id'; sayfa=1000 }
+  'istekler'             = @{ pk='id'; sayfa=1000 }
+  'sorular'              = @{ pk='id'; sayfa=1000 }
+  'kullanim_delilleri'   = @{ pk='id'; sayfa=1000 }
+  'markalar'             = @{ pk='id'; sayfa=1000 }
+  'marka_rakip'          = @{ pk='id'; sayfa=1000 }
+  'marka_takip'          = @{ pk='id'; sayfa=1000 }
+  'marka_talep'          = @{ pk='id'; sayfa=1000 }
+  'marka_uyari'          = @{ pk='id'; sayfa=1000 }
+  'marka_uyarilari'      = @{ pk='id'; sayfa=1000 }
+  'marka_durum'          = @{ sira='user_id.asc,marka.asc';          sayfa=1000 }
+  'marka_portfoy'        = @{ sira='user_id.asc,unvan.asc';          sayfa=200  }
+  'marka_takip_gonderim' = @{ sira='takip_id.asc,basvuru_no.asc';    sayfa=1000 }
+  'siparisler'           = @{ pk='id';      sayfa=1000 }
+  'magaza_siparis'       = @{ pk='id';      sayfa=1000 }
+  'abonelikler'          = @{ pk='user_id'; sayfa=1000 }
+  'elci_odemeler'        = @{ pk='id';      sayfa=1000 }
+  'davet_kullanim'       = @{ pk='id';      sayfa=1000 }
+  'canli_sonuc'          = @{ pk='id';      sayfa=1000 }
+  'ogrenci_sonuc'        = @{ pk='id';      sayfa=1000 }
+  'destek_takip'         = @{ pk='id';      sayfa=1000 }
+  'destek_uyari'         = @{ pk='id';      sayfa=1000 }
 }
 if($Kume -eq 'Kisi'){
   if("$env:GITHUB_ACTIONS" -eq 'true'){ throw 'KISI VERISI Actions''ta yedeklenmez (CLAUDE.md bulut guvenligi m.4).' }
