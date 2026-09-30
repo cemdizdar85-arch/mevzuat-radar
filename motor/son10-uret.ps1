@@ -123,6 +123,10 @@ KURALLAR:
        iki yanında boşluk; "TL/kg" gibi birimlerde boşluk YOK). Çarpma: "a × b = sonuç".
    (c) Aynı adımda birden çok hesap varsa noktalı virgülle ayır ve her birine kısa etiket ver:
        "Birim Maliyet = Pay / Fiili Miktar; P: 80.000 (4. adımda bulduk) / 2.000 (soruda verilen) = 40; Q: 240.000 (4. adımda bulduk) / 2.000 (soruda verilen) = 120".
+   (d0) ADIM NUMARASI (30.09 ölçüldü: SGS 1.213, bitirme 2.424 atıf yanlış adımı gösteriyordu; kaymanın çoğu tam +1): adımlar
+       1'den sayılır ve ADIM 1 = "Verilen"/"Soruda ne var" adımıdır, O DA SAYILIR — ilk hesap adımı 2. adımdır. "(N. adımda bulduk)"
+       notundaki N, o sayının "= sonuç" olarak YAZILDIĞI adımın sırasıdır (öğrenci sayfada "Adım N" başlığını görür). Yazmadan önce
+       kontrol et: N. adımın formülü "= <o sayı>" ile bitiyor mu? Bitmiyorsa N yanlıştır.
    (d) Her sayının kimliği parantezle sayının HEMEN ARDINDA: (soruda verilen) ya da (N. adımda bulduk). Parantez içinde
        işleç kullanma. Ok işareti (→) yalnız "genel formül → sayılı hâli" geçişinde; düz yazı, açıklama, "yani" formüle girmez.
    (e) Sonuç formülün EN SONUNDA tek sayı (birimiyle): "= 260 TL/adet". Formül içinde cümle yazma; cümle anlatıma gider.

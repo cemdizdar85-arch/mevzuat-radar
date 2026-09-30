@@ -122,5 +122,11 @@ if (require.main === module) {
     process.exit(sinav() ? 0 : 1);
   } else if (a === '--banka') banka(b || 'sgs', c);
   else if (a === '--taslak') taslak(b || 'sgs', c);
+  else if (a === '--duzelt-parti') {   // üretim içi kullanım için: bir parti dosyasındaki tek adaylı kaymaları yerinde düzeltir (--yaz olmadan kuru)
+    const pf = b, yaz = process.argv.includes('--yaz'); const h = fs.readFileSync(pf, 'utf8'); const bom = h.charCodeAt(0) === 0xfeff; const P = JSON.parse(h.replace(/^﻿/, ''));
+    let n = 0, yol = 0; for (const kp of Object.keys(P)) { if (!/^kp-/.test(kp)) continue; const r = onar(P[kp]); if (r) { P[kp] = r.yeni; n++; yol += r.degisen.length; } }
+    if (yaz && n) fs.writeFileSync(pf, (bom ? '﻿' : '') + JSON.stringify(P, null, 4));
+    console.log('KAPI-ADIM düzelt (' + path.basename(pf) + '): ' + n + ' soru · ' + yol + ' formül' + (yaz ? ' YAZILDI' : ' (kuru)'));
+  }
   else { console.log('--sinav [--mutasyon] | --banka <sgs|smmm|kgk> [cikti.json] | --taslak <sgs|smmm> <klasör>'); process.exit(2); }
 }
