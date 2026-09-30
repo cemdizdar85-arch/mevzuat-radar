@@ -17,6 +17,7 @@
 #    R7 ESKİ MEVZUAT ADI      yürürlükten kalkmış kanun no / eski SPK tebliğ serisi / yerini TFRS'ye bırakmış TMS
 #    R8 ARİTMETİK SAPMA       öğrencinin gördüğü alanlardaki "a x b = c" işlemi yeniden hesaplanınca tutmuyor
 #                             (çekirdek motor/aritmetik-kapisi.ps1 IslemDenetle — AYNEN yüklenir, kopya YOK)
+#    R8y YUMUŞAK SAPMA       10'un kuvveti kadar fark (ondalık nokta / parantezli %) ya da binde 5 altı yuvarlama — öncelik 3
 #    R9 KAPI-AS2 / KAPI-EK    açıklama kayması / bilinen eski kural (arac/soru-kalite-kapisi.js --parti)
 #  🚫 GÖRMEZ: sözel anlam/mantık hatası · yanlış madde numarası (ad doğru, madde yanlış) · listede olmayan eski kural ·
 #     karışık öncelikli işlem (a + b x c) · ambar–yerel parti farkı (önce parti-senkron -Indir). Bu sınıflar "taranmadı"
@@ -118,9 +119,22 @@ function R7Bul($metinler) {
   }
   return @($b | Select-Object -Unique)
 }
+# R8 iki sınıf (30.09 ilk koşu 251 bulgu, örneklem okundu): beklenen/yazan oranı 10'un kuvveti ise çoğunlukla ondalık NOKTA
+# ("590.000*0.25=147.500": işlem doğru, 0,25 yazılmamış) ya da çekirdeğin parantezli %'yi bölmemesi ("(a + b) × %20") → R8y (yazım/yanlış
+# alarm şüphesi, öncelik 3). Binde 5 altı sapma yuvarlama → R8y. Kalanı gerçek aritmetik sapma şüphesi → R8 (öncelik 1).
 function R8Bul($metinler) {
   $b = New-Object System.Collections.Generic.List[string]
-  foreach ($m in $metinler) { foreach ($x in @(IslemDenetle $m.metin)) { $b.Add("$($m.alan): beklenen $($x.beklenen) yazan $($x.yazan) (%$($x.sapmaYuzde))") } }
+  foreach ($m in $metinler) {
+    foreach ($x in @(IslemDenetle $m.metin)) {
+      $yumusak = $false
+      if ([double]$x.yazan -ne 0 -and [double]$x.beklenen -ne 0) {
+        $us = [math]::Log10([math]::Abs([double]$x.beklenen / [double]$x.yazan))
+        if ([math]::Abs($us - [math]::Round($us)) -lt 0.002 -and [math]::Round($us) -ne 0) { $yumusak = $true }
+      }
+      if ([double]$x.sapmaYuzde -lt 0.5) { $yumusak = $true }
+      $b.Add("$(if ($yumusak) { 'Y:' })$($m.alan): beklenen $($x.beklenen) yazan $($x.yazan) (%$($x.sapmaYuzde))")
+    }
+  }
   return @($b)
 }
 
@@ -136,6 +150,8 @@ if ($Sinav) {
     @('R7 TMS 18 yakalanır', { @(R7Bul (OgrenciMetinleri (& $T @{ sade = [ordered]@{ dogru = 'TMS 18 uyarınca hasılat kaydedilir.' } }))).Count -eq 1 }),
     @('R7 iç alan (hakem) taranmaz', { @(R7Bul (OgrenciMetinleri (& $T @{ hakem = [ordered]@{ gerekce = '6762 sayılı Kanun' } }))).Count -eq 0 }),
     @('R8 yanlış işlem', { @(R8Bul (OgrenciMetinleri (& $T @{ adimlar = @([ordered]@{ formul = '100.000 x %20 = 25.000' }) }))).Count -eq 1 }),
+    @('R8y ondalık nokta yumuşak', { $x = @(R8Bul (OgrenciMetinleri (& $T @{ adimlar = @([ordered]@{ formul = '590.000*0.25=147.500' }) }))); $x.Count -eq 1 -and $x[0] -like 'Y:*' }),
+    @('R8 gerçek sapma sert', { $x = @(R8Bul (OgrenciMetinleri (& $T @{ adimlar = @([ordered]@{ formul = '4.000 - 500 = 3.000' }) }))); $x.Count -eq 1 -and $x[0] -notlike 'Y:*' }),
     @('R8 doğru işlem geçer', { @(R8Bul (OgrenciMetinleri (& $T @{ adimlar = @([ordered]@{ formul = '100.000 x %20 = 20.000' }) }))).Count -eq 0 }),
     @('R4 hesaplı', { R4Mu (& $T @{ siklar = [ordered]@{ A = '10.000'; B = '12.500'; C = '15.000'; D = '17.500'; E = 'Hiçbiri' } }) }),
     @('R1 asgari ücret', { @(R1Bul (& $T @{ soru = '2026 yılı asgari ücret brüt tutarı esas alınarak hesaplayınız.' })).Count -ge 1 })
@@ -170,7 +186,7 @@ $kaliteJs = Join-Path $depoKok 'arac/soru-kalite-kapisi.js'
 # --- 3) tarama ---
 $partiOnb = @{}; $kaliteOnb = @{}; $kaliteKor = 0
 $satir = New-Object System.Collections.Generic.List[object]
-$say = [ordered]@{ R1 = 0; R2 = 0; R3 = 0; R4 = 0; R5 = 0; R6 = 0; R7 = 0; R8 = 0; R9 = 0 }
+$say = [ordered]@{ R1 = 0; R2 = 0; R3 = 0; R4 = 0; R5 = 0; R6 = 0; R7 = 0; R8 = 0; R8y = 0; R9 = 0 }
 $retteki = 0
 foreach ($k in $kasa) {
   $anahtar = "$($k.id)"
@@ -196,7 +212,8 @@ foreach ($k in $kasa) {
     if (R4Mu $q) { $sin.Add('R4') }
     $a6 = @(R6Bul $om); if ($a6.Count) { $sin.Add('R6'); $neden.Add('R6: ' + ($a6 -join ' | ')) }
     $a7 = @(R7Bul $om); if ($a7.Count) { $sin.Add('R7'); $neden.Add('R7: ' + ($a7 -join ' | ')) }
-    $a8 = @(R8Bul $om); if ($a8.Count) { $sin.Add('R8'); $neden.Add('R8: ' + ($a8 -join ' | ')) }
+    $a8 = @(R8Bul $om); $a8s = @($a8 | Where-Object { $_ -notlike 'Y:*' })
+    if ($a8s.Count) { $sin.Add('R8'); $neden.Add('R8: ' + ($a8s -join ' | ')) } elseif ($a8.Count) { $sin.Add('R8y'); $neden.Add('R8y: ' + ($a8 -join ' | ')) }
     if ($kaliteOnb[$et].ContainsKey($kp)) { $sin.Add('R9'); $neden.Add('R9: ' + (@($kaliteOnb[$et][$kp]) -join ' · ')) }
   }
   foreach ($s in $sin) { $say[$s]++ }
