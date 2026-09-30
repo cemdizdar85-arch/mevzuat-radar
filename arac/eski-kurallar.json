@@ -64,6 +64,30 @@
       "haric": "20(0\\d|1\\d|2[0-5])\\b|önceki|eski\\b|idi\\b",
       "dayanak": "6183 s.K. m.48 teminatsız tecil sınırı CBK 11414 ile 10.000.000 TL — SGS oturumu ambarda okudu 30.09.2026",
       "bulan": "sgs oturumu 30.09.2026"
+    },
+    {
+      "kod": "EK9",
+      "ad": "TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N'ye taşındı)",
+      "desen": "\\bTMS\\s*1(?![0-9])(?!\\s*[0-9])",
+      "haric": "TFRS\\s*18|yürürlükten kalk|yerini (al|aldı)|eski(den)?\\b|önceki",
+      "dayanak": "TFRS 18 p.C8 (TMS 1'i yürürlükten kaldırır), p.C1 yürürlük 1.1.2027 (ambar, RG 08.05.2025/32894); Cem 30.09 kararı: yeni sürüm esas",
+      "bulan": "SGS TFRS 18 etki ölçümü 30.09.2026 (16 soru TMS 1 atfı)"
+    },
+    {
+      "kod": "EK10",
+      "ad": "TMS 8 eski adı (\"Muhasebe Politikaları, Muhasebe Tahminlerinde Değişiklikler ve Hatalar\"; yeni adı \"Finansal Tabloların Hazırlanmasına İlişkin Esaslar\")",
+      "desen": "Muhasebe Politikaları,?\\s*Muhasebe Tahminlerinde(ki)? Değişiklikler ve Hatalar",
+      "haric": "eski ad|önceki ad|yeni ad",
+      "dayanak": "Ambar TMS 8 kayıtları TFRS 18 sonrası yeni adla (p.6A–6N); Cem 30.09 kararı: yeni sürüm esas",
+      "bulan": "SGS TFRS 18 etki ölçümü 30.09.2026 (3 soru)"
+    },
+    {
+      "kod": "EK11",
+      "ad": "Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti",
+      "desen": "(ödenen|faiz ödeme|temettü ödeme)[^.;]{0,80}(işletme faaliyet)[^.;]{0,60}(sınıflandırılabilir|seçim|seçebilir|politika)|(politika|seçim)[^.;]{0,60}(faiz|temettü)[^.;]{0,60}işletme faaliyet",
+      "haric": "TFRS 18 öncesi|eski (kural|metin|TMS 7)|artık|kaldırıldı|p\\.?\\s*34B|34C|34D|ana faaliyeti",
+      "dayanak": "TMS 7 p.33A, 34A–34D (ambar, TFRS 18 sonrası; eski p.33/34 silinmiş); Cem 30.09 kararı: yeni sürüm esas",
+      "bulan": "SGS TFRS 18 etki ölçümü 30.09.2026 (2 cevabı değişen + 3 açıklama)"
     }
   ]
 }
