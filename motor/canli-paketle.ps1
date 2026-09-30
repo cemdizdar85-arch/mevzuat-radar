@@ -22,7 +22,12 @@
 #  paket sessizce uretilip yayina hazir bekledi (uyari yalnizca ekrana yazildi).
 #  Eksikle devam etmek bilincli bir karardir: -zorla bayragi ister ve paketin
 #  yanina sifresiz KARNE dosyasi yazilir (soru metni YOK, yalniz ders x adet).
-param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla)
+# 01.10.2026 (site oturumu, Cem kararı "1. oturum provası"): Yeterlilik paketi GERÇEK SINAV DÜZENİNDE.
+#   TESMER 2026 Uygulama Yönergesi tablo: 1. oturum 09.00-12.00 Finansal Muhasebe · Maliyet Muhasebesi · Hukuk ·
+#   Sermaye Piyasası Mevzuatı; 2. oturum 14.00-17.00 Finansal Tablolar ve Analizi · Muhasebe Denetimi · Vergi ·
+#   Meslek Hukuku; her ders 20 soru, 45 dk. -YetOturum 1 (varsayılan) | 2 | tam (8 ders, 360 dk). Eski düzen: -YetOturum eski (8x10, 120 dk).
+#   SGS süresi 150 -> 165 dk (SGS 2025/1 Uygulama Kılavuzu: "Sınav Süresi: 165 Dakika").
+param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla, [ValidateSet('1','2','tam','eski')][string]$YetOturum = '1')
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -38,7 +43,12 @@ $sinav = if($oturum -like 'SGS*'){ 'SGS' } elseif($oturum -like 'YET*'){ 'SMMM' 
 #   "kullanilmaz" karari) cekiliyordu. Yeni kasa paket_soru (sinav=smmm; kilitli kasa, Cem onaylari, ikiz kapisi, Kaydir-Coz
 #   bicimi). YET yolu artik oradan okur ve alanlari canli-deneme.html bicimine cevirir. Ucretsiz (herkese acik) sorular
 #   pakete girmez. SGS yolu DEGISMEDI (SGS kolunun karari; bitirme oturumu SGS'ye dokunmaz).
-$KASA = ($sinav -eq 'SMMM')
+# 30.09.2026 (SGS oturumu, Cem onayı "paket betiğinde iki satırlık düzeltme için onay"; site oturumu bildirdi: SGS-0410 paketi yok,
+#   SGS yolu eski soru_havuzu'ndan çekiyordu): SGS de yeni kasadan okur (paket_soru sinav=sgs, ucretsiz=false). Ölçüldü 30.09: kasada
+#   SGS 4.822 soru; ders adları resmî bileşimle birebir; veri alanları (kural, sade.dogru, tuzak, dayanak) KasaCevir'in beklediğiyle aynı;
+#   elle ret listesindeki sorular kasada yok (146'dan 1'i vitrinde, o da ucretsiz=true → pakete girmez).
+$KASA = $true
+$KASA_SINAV = $(if($sinav -eq 'SMMM'){ 'smmm' } else { 'sgs' })
 $UK = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru'
 $HK = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
 # Kaydir-Coz nesnesi -> canli-deneme.html bicimi. aciklama[dogru] = kural + sade anlatim; yanlis sik = tuzak adi + metni;
@@ -95,7 +105,7 @@ $havuz = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
   # kasada benzer_grup kolonu YOK (olculdu 07.08) - cesitlilik KONU TAVANIYLA saglanir
-  $r = @($(if($KASA){ Invoke-RestMethod -Uri "$UK`?select=id,ders,konu&sinav=eq.smmm&ucretsiz=eq.false&order=id&limit=1000&offset=$bas" -Headers $HK -TimeoutSec 180 } else { Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 }) | ForEach-Object { $_ })
+  $r = @($(if($KASA){ Invoke-RestMethod -Uri "$UK`?select=id,ders,konu&sinav=eq.$KASA_SINAV&ucretsiz=eq.false&order=id&limit=1000&offset=$bas" -Headers $HK -TimeoutSec 180 } else { Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 }) | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($x){ $havuz.Add($x) } }
   if($r.Count -lt 1000){ break }
@@ -108,7 +118,13 @@ $rnd = New-Object System.Random
 function Karistir($list){ $a=@($list); for($i=$a.Count-1;$i -gt 0;$i--){ $j=$rnd.Next($i+1); $t=$a[$i]; $a[$i]=$a[$j]; $a[$j]=$t }; return $a }
 $secim = New-Object System.Collections.Generic.List[object]
 $eksikler = @()
-$plan = if($sinav -eq 'SGS'){ $SGS_BILESIM } else { @($YET_DERSLER | ForEach-Object { @{ders=$_; n=10} }) }
+$YET_OTURUM1 = @('Finansal Muhasebe','Maliyet Muhasebesi','Hukuk','Sermaye Piyasası Mevzuatı')
+$YET_OTURUM2 = @('Finansal Tablolar ve Analizi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Meslek Hukuku')
+$plan = if($sinav -eq 'SGS'){ $SGS_BILESIM }
+        elseif($YetOturum -eq 'eski'){ @($YET_DERSLER | ForEach-Object { @{ders=$_; n=10} }) }
+        elseif($YetOturum -eq '1'){ @($YET_OTURUM1 | ForEach-Object { @{ders=$_; n=20} }) }
+        elseif($YetOturum -eq '2'){ @($YET_OTURUM2 | ForEach-Object { @{ders=$_; n=20} }) }
+        else { @(($YET_OTURUM1 + $YET_OTURUM2) | ForEach-Object { @{ders=$_; n=20} }) }
 foreach($p in $plan){
   $aday = Karistir ($havuz | Where-Object { DersEslesirMi $_.ders $p.ders })
   $al=@(); $konuSayac=@{}
@@ -157,7 +173,7 @@ if($paketSoru.Count -lt [Math]::Min(50, $secim.Count)){ throw 'tam metin cekimi 
 
 $govde = [ordered]@{
   oturum=$oturum; sinav=$sinav; uretim=(Get-Date -Format 'dd.MM.yyyy HH:mm')
-  sure_dk = $(if($sinav -eq 'SGS'){ 150 } else { 120 })
+  sure_dk = $(if($sinav -eq 'SGS'){ 165 } elseif($YetOturum -eq 'eski'){ 120 } elseif($YetOturum -eq 'tam'){ 360 } else { 180 })
   sorular = $paketSoru
 }
 $duz = ConvertTo-Json -InputObject $govde -Depth 8 -Compress

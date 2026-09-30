@@ -129,9 +129,10 @@
     durumHesapla: satirlardan,
     /* seçili sınav cihazda hatırlanır; adres #sinav=kgk ile de gelinebilir */
     seciliSinav: function () {
-      var m = /(?:^|[#&?])sinav=(sgs|yeterlilik|kgk)\b/.exec(location.hash + '&' + location.search);
+      /* 30.09 Cem "site sadece SMMM başlama + bitirme": KGK sekmesi gizli; eskiden KGK seçmiş cihaz SGS'ye döner. */
+      var m = /(?:^|[#&?])sinav=(sgs|yeterlilik)\b/.exec(location.hash + '&' + location.search);
       if (m) return m[1];
-      try { var v = localStorage.getItem('tt_sinav'); if (SINAVLAR[v]) return v; } catch (e) {}
+      try { var v = localStorage.getItem('tt_sinav'); if (SINAVLAR[v] && v !== 'kgk') return v; } catch (e) {}
       return 'sgs';
     },
     sinavSec: function (k) { try { if (SINAVLAR[k]) localStorage.setItem('tt_sinav', k); } catch (e) {} }

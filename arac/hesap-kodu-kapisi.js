@@ -24,7 +24,10 @@ const DOLGU = new Set(['hesabi', 'hesap', 've', 'ile', 'veya', 'diger', 'ler', '
 const koklar = s => katla(s).split(' ').filter(w => w.length >= 3 && !DOLGU.has(w)).map(w => w.slice(0, 5));
 
 let THP = null;
-function thp() { if (THP) return THP; THP = fs.existsSync(LISTE) ? JSON.parse(fs.readFileSync(LISTE, 'utf8')).kodlar : {}; return THP; }
+// 30.09 (resmî RG doğrulaması: MSUGT Sıra No:2, RG 16.12.1993/21790, C/12): 652 REESKONT FAİZ GİDERLERİ 657'ye taşındı, 652 BOŞ.
+//   Ambarda 1992 metniyle hâlâ canlı (id 8f00770e…) → --tazele listeye geri getirir; mülga kodlar burada ayrıca düşülür.
+const MULGA_KOD = { '652': '657 REESKONT FAİZ GİDERLERİ (-) — MSUGT Sıra No:2 C/12' };
+function thp() { if (THP) return THP; THP = fs.existsSync(LISTE) ? JSON.parse(fs.readFileSync(LISTE, 'utf8')).kodlar : {}; for (const k of Object.keys(MULGA_KOD)) delete THP[k]; return THP; }
 
 // ad uyumu: yazılan adın kökleri ile THP adının kökleri arasında ortak kök var mı (en az 1 anlamlı ortak kök ya da THP kökünün yarısı)
 const kdvAd = s => String(s).replace(/katma\s+de[ğgĞG]er\s+verg[iİıI]s[iİıI]/gi, 'KDV')   // 30.09: "Diğer Katma Değer Vergisi" = THP "DİĞER KDV"
@@ -120,7 +123,8 @@ function banka(sinav) {
 }
 
 function sinav() {
-  THP = { '200': 'x', '760': 'PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ', '280': 'GELECEK YILLARA AİT GİDERLER', '320': 'SATICILAR', '500': 'SERMAYE', '151': 'YARI MAMULLER-ÜRETİM', '150': 'İLK MADDE VE MALZEME', '733': 'GENEL ÜRETİM GİDERLERİ VERİMLİLİK FARKLARI', '679': 'DİĞER OLAĞANDIŞI GELİR VE KARLAR', '689': 'Diğer Olağandışı Gider ve Zararlar', '521': 'HİSSE SENEDİ İPTAL KARLARI', '620': 'SATILAN MAMULLER MALİYETİ (-)', '621': 'Satılan Ticari Mallar Maliyeti (-)', '254': 'TAŞITLAR', '690': 'DÖNEM KARI VEYA ZARARI', '110': 'HİSSE SENETLERİ', '731': 'Genel Üretim Giderleri Yansıtma Hesabı', '190': 'DEVREDEN KATMA DEĞER VERGİSİ', '191': 'İNDİRİLECEK KDV', '252': 'BİNALAR', '253': 'TESİS, MAKİNE VE CİHAZLAR', '100': 'Kasa', '102': 'Bankalar', '120': 'Alıcılar', '153': 'Ticari Mallar', '220': 'ALICILAR', '481': 'GİDER TAHAKKUKLARI', '522': 'M.D.V. YENİDEN DEĞERLEME ARTIŞLARI', '644': 'KONUSU KALMAYAN KARŞILIKLAR', '770': 'Genel Yönetim Giderleri', '730': 'Genel Üretim Giderleri', '796': 'DİĞER ÇEŞİTLİ GİDERLER' };
+  THP = { '200': 'x', '652': 'REESKONT FAİZ GİDERLERİ (-)', '657': 'REESKONT FAİZ GİDERLERİ (-)', '760': 'PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ', '280': 'GELECEK YILLARA AİT GİDERLER', '320': 'SATICILAR', '500': 'SERMAYE', '151': 'YARI MAMULLER-ÜRETİM', '150': 'İLK MADDE VE MALZEME', '733': 'GENEL ÜRETİM GİDERLERİ VERİMLİLİK FARKLARI', '679': 'DİĞER OLAĞANDIŞI GELİR VE KARLAR', '689': 'Diğer Olağandışı Gider ve Zararlar', '521': 'HİSSE SENEDİ İPTAL KARLARI', '620': 'SATILAN MAMULLER MALİYETİ (-)', '621': 'Satılan Ticari Mallar Maliyeti (-)', '254': 'TAŞITLAR', '690': 'DÖNEM KARI VEYA ZARARI', '110': 'HİSSE SENETLERİ', '731': 'Genel Üretim Giderleri Yansıtma Hesabı', '190': 'DEVREDEN KATMA DEĞER VERGİSİ', '191': 'İNDİRİLECEK KDV', '252': 'BİNALAR', '253': 'TESİS, MAKİNE VE CİHAZLAR', '100': 'Kasa', '102': 'Bankalar', '120': 'Alıcılar', '153': 'Ticari Mallar', '220': 'ALICILAR', '481': 'GİDER TAHAKKUKLARI', '522': 'M.D.V. YENİDEN DEĞERLEME ARTIŞLARI', '644': 'KONUSU KALMAYAN KARŞILIKLAR', '770': 'Genel Yönetim Giderleri', '730': 'Genel Üretim Giderleri', '796': 'DİĞER ÇEŞİTLİ GİDERLER' };
+  for (const k of Object.keys(MULGA_KOD)) delete THP[k];   // gerçek yüklemeyle aynı mülga düşümü
   const V = [
     ['olmayan kod + ad (528 İptal Zararları)', { adimlar: [{ anlatim: '528 İPTAL ZARARLARI hesabına borç' }] }, 'HK-YOK'],
     ['var olan kod yanlış ad (481 Ertelenmiş Vergi)', { aciklama: { A: '481 ERTELENMİŞ VERGİ BORCU hesabına alacak' } }, 'HK-AD'],
@@ -164,6 +168,8 @@ function sinav() {
     ['bitişik yazım → temiz (150 İLKMADDE VE MALZEME)', { sema: { hesap: '150 İLKMADDE VE MALZEME' } }, null],
     ['olağandışı gider 679\'a yazılmış → HK-AD (doğrusu 689)', { sema: { hesap: '679 DİĞER OLAĞANDIŞI GİDER VE ZARARLAR' } }, 'HK-AD'],
     ['yön fiili → temiz (760 ALACAKLANIR, 252 BORÇLANDIRILIR)', { aciklama: { E: 'Gider fazla yazıldığı için 760 ALACAKLANIR; 252 BORÇLANDIRILIR.' } }, null],
+    ['mülga kod → HK-YOK (652 REESKONT, 1993 de 657 ye taşındı)', { sema: { hesap: '652 REESKONT FAİZ GİDERLERİ hesabına borç' } }, 'HK-YOK'],
+    ['güncel kod temiz (657 REESKONT FAİZ GİDERLERİ)', { sema: { hesap: '657 REESKONT FAİZ GİDERLERİ hesabına borç' } }, null],
     ['model alanı taranmaz (hakem)', { hakem: { gerekce: '528 İPTAL ZARARLARI' } }, null],
   ];
   let ok = 0; for (const [ad, q, bek] of V) { const ks = kusurlar(q); const g = bek ? ks.some(k => k.tur === bek) : ks.length === 0; if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad + (g ? '' : ' → ' + JSON.stringify(ks))); }

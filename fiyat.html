@@ -190,7 +190,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
        (teyitsiz tarih yazilmaz); ilan cikinca SINAVLAR dizisine eklenir.
        29.08 olcumu: piyasanin en buyuk ismi (Fuat Hoca) KGK'yi henuz
        fiyatlamamis, on kayit topluyor. Fiyati belli tek KGK urunuyuz. -->
-  <div class="p" data-sinav="kgk">
+  <!-- 30.09 Cem "site sadece SMMM başlama + bitirme": KGK kartı ve iki KGK tablosu gizli (betikler kimliklerini arıyor, silinmedi). -->
+  <div class="p" data-sinav="kgk" hidden style="display:none">
     <span class="rozet" id="rzKgk">ÖN KAYIT</span>
     <h3>Bağımsız Denetçi (KGK)</h3>
     <div class="kim">Sınavına kadar · en az 3 ay</div>
@@ -254,7 +255,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
      4x950 = 3.800 TL; bizim tum moduller 3.990 TL, yani harctan UCUZ DEGIL.
      Yeterlilik'te "her basamak harctan ucuz" diyoruz cunku oyle; burada
      ayni cumleyi kurmak yalan olurdu. KGK'nin capasi KURS fiyatidir. -->
-<div class="kutu vurgu">
+<div class="kutu vurgu" hidden style="display:none">
   <h2>KGK: bir modülün kursu 5.250 TL</h2>
   <div class="tabsar"><table>
     <tr><th>KGK hazırlığının piyasa fiyatı</th><th class="sag">Tutar</th></tr>
@@ -273,7 +274,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 <!-- MUAFIYET TABLOSU: KGK alicisinin ilk sorusu "ben kac konudan sorumluyum".
      Rakiplerin hicbiri fiyat sayfasinda bunu soylemiyor; biz soyleyip
      dogrudan dogru paketi gosteriyoruz. Kaynak KGK'nin kendi sayfasi. -->
-<div class="kutu vurgu">
+<div class="kutu vurgu" hidden style="display:none">
   <h2>Sen kaç konudan sorumlusun?</h2>
   <div class="tabsar"><table id="kgkMuafiyet">
     <tr><th>Durumun</th><th class="sag">Konu</th><th class="sag">Sana uygun paket</th></tr>
@@ -365,7 +366,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <h2>Kalite iddiamızın karşılığı</h2>
   <p style="margin:0;font-size:14px">"Kaliteli soru bankası" demek kolay. Bizde her sorunun bir kanun
   maddesine dayanması <b>şart</b>, ve bunu makine denetliyor: kaynak, rakam, dil, şablon, tuzak,
-  uydurma atıf ve üslup kapıları. Açıklamalarımız yapay zekâya sorulmuyor, <b class="a">kanun metninden doğrulanıyor</b>.</p>
+  uydurma atıf ve üslup kapıları.</p><!-- 30.09: 'Açıklamalarımız yapay zekâya sorulmuyor, kanun metninden doğrulanıyor' KALKTI: açıklamaları model yazıyor, 30.09 tam okuma kusurlu açıklama buldu; söz ispatlanamaz (6502 m.61, Ticari Reklam Yön. m.9). -->
   <p style="margin:8px 0 0;font-size:14px">Sadece son turda <b class="a">466 soruyu kendi elimizle yayından çektik.</b>
   Hata yapmadığımızı iddia etmiyoruz; iddiamız şu: <b>öğrenciye gitmeden yakalıyoruz.</b></p>
   <p class="kucuk" style="margin:10px 0 0">Yine de bir hata görürsen soru ekranındaki ⚑ düğmesiyle bildir:
@@ -510,7 +511,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 // KOTA TABLOSU: kurucu fiyati / liste fiyati / kota (+ sunucudan gelirse kalan yer).
 (function(){
   var t = document.getElementById('kotaTablo');
-  ['sgs','yeterlilik-tum','kgk-tum','yeterlilik-kgk'].forEach(function(id){
+  ['sgs','yeterlilik-tum'].forEach(function(id){   /* 30.09: KGK satırları kalktı */
     var p = paketBul(id);
     var tr = document.createElement('tr');
     tr.innerHTML = '<td>' + p.ad + '</td>'
@@ -529,7 +530,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 /* 24.09 Cem "staja başlamanın içine girdiğimde sadece staja başlama kalsın": seçili sınavın süzgeci.
    Kaynak sırası: ?sinav= (sgs|yeterlilik|kgk|hepsi) > ana sayfadaki sekme (localStorage tt_sinav). Seçim yoksa hepsi. */
 (function(){
-  var ADLAR={ sgs:'Staja Başlama', yeterlilik:'SMMM Yeterlilik', kgk:'Bağımsız Denetçi (KGK)' };
+  var ADLAR={ sgs:'Staja Başlama', yeterlilik:'SMMM Yeterlilik' };   /* 30.09: KGK gizli */
   var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1];
   var sn=q; if(!sn){ try{ sn=localStorage.getItem('tt_sinav'); }catch(e){} }
   if(!sn||sn==='hepsi'||!ADLAR[sn]) return;

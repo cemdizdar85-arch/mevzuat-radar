@@ -23,55 +23,27 @@
   /* ---- ARAC DIZINI ---------------------------------------------------------
      Konu adlari ve arac adlari katalogdan okundu, uydurulmadi.
      'e' alani = ek arama kelimeleri (kisaltma, es anlam, halk agzi).      */
+  /* 30.09 Cem "site sadece SMMM başlama + bitirme": işletme araçları dizinden çıktı (sayfalar yerinde,
+     menu.js GIZLI listesinde). Eski dizin git geçmişinde (bu committen önceki komut.js). */
   var KONULAR = [
-    ['Gümrük ve ithalat', [
-      ['GTİP · Kaç vergi öderim?', 'gtip.html', 'gtip tarife gumruk vergi ithalat kod'],
-      ['Beyanname risk taraması', 'risk-taramasi.html', 'beyanname ceza risk gumruk'],
-      ['Nereden alsam?', 'senaryo-raporu.html', 'mense ulke karsilastirma tedarik'],
-      ['Toplu GTİP kontrolü', 'toplu-gtip.html', 'excel toplu liste gtip'],
-      ['Credit / Debit Note', 'fiyatfarki.html', 'fiyat farki sonradan gelen fatura'],
-      ['Yurt dışı hizmet faturası', 'hizmet.html', 'stopaj 2 nolu kdv yurtdisi yazilim']
-    ]],
-    ['Vergi ve ceza', [
-      ['Net Cevap', 'soru-cevap.html', 'soru sor cevap madde mevzuat'],
-    ]],
-    ['Şirket kuruluşu', [
-      ['Şirket kuruluşu rehberi', 'kurulus.html', 'sahis limited anonim kurulus tur'],
-    ]],
-    ['Teşvik ve destek', [
-      ['Yatırım teşvik sihirbazı', 'tesvik-sihirbazi.html', 'tesvik yatirim belge 9903 il sektor'],
-      ['Destek Radarı', 'destekler.html', 'kosgeb hibe destek cagri eximbank']
-    ]],
-    ['Marka', [
-      ['Marka Radarı', 'marka-radari.html', 'marka yenileme turkpatent'],
-      ['Marka itiraz ve benzerlik', 'marka-itiraz.html', 'itiraz benzerlik marka smk'],
-      ['Marka izleme radarı', 'marka-izleme.html', 'izleme benzer basvuru marka'],
-      ['Marka portföyü', 'marka-portfoy.html', 'portfoy marka liste'],
-      ['Markanla ne yapabilirsin', 'marka-varlik.html', 'lisans devir rehin marka varlik']
-    ]],
-    ['Alacak ve risk', [
-      ['Alacak Radarı', 'alacak-radari.html', 'konkordato iflas alacak musteri risk'],
-      ['İcradan fırsat', 'radar-app.html?niyet=firsat', 'icra satis makine stok firsat']
-    ]],
-    ['Mevzuat nöbeti', [
-      ['Bugün Resmî Gazete\'de', 'radar.html', 'resmi gazete rg degisiklik bugun'],
-      ['Günün hap kartları', 'kartlar.html', 'hap kart ozet gunluk']
-    ]],
     ['SMMM sınavları', [
-      ['Sınav takvimi ve soru bankası', 'genc.html', 'sgs staja giris yeterlilik sinav takvim ogrenci stajyer aday musavir smmm'],
+      ['Soru çöz', 'sorular.html', 'soru coz banka sgs staja giris yeterlilik bitirme ders'],
+      ['Geçme ihtimalini ölç', 'seviye-testi.html', 'seviye test olcum puan ucretsiz'],
+      ['Sınav takvimi', 'genc.html', 'sgs staja giris yeterlilik sinav takvim ogrenci stajyer aday musavir smmm'],
       ['Deneme sınavı', 'deneme.html', 'deneme soru test cozum ogrenci stajyer sinav'],
       ['Canlı deneme', 'canli-deneme.html', 'canli deneme yuzdelik siralama ogrenci sinav'],
+      ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'],
       ['Dönem planı', 'donem-plani.html', 'plan calisma program hafta ogrenci sinav'],
       ['Son gün 5 saat', 'songun.html', 'son gun tekrar sinav sabahi ogrenci']
     ]],
     ['Hesap ve sayfalar', [
-      ['Müşavir paneli', 'radar-app.html?niyet=musavir', 'musavir smmm buro panel coklu mukellef'],
-      ['Giriş / üye ol', 'radar-app.html', 'giris uye kayit hesap oturum'],
-      ['Fiyatlar ve paketler', 'fiyat.html', 'fiyat paket abonelik ucret kac para maliyet'],
+      ['Hesabım / öğrenci girişi', 'ogrenci.html', 'giris uye kayit hesap oturum'],
+      ['Fiyatlar ve paketler', 'fiyat.html', 'fiyat paket ucret kac para'],
       ['İletişim', 'iletisim.html', 'iletisim mail telefon ulas destek yardim'],
       ['Aydınlatma metni (KVKK)', 'kvkk.html', 'kvkk gizlilik veri guvenlik aydinlatma kisisel']
     ]]
   ];
+
 
   /* ---- TURKCE KATLAMA ------------------------------------------------------
      Aramada "musavir" -> "müşavir", "IHALE" -> "ihale" eslesmeli.
@@ -119,6 +91,7 @@
   /* GTIP kodu yazildiysa dogrudan sorguya goturen ozel satir uretilir.
      Gumruk tarife pozisyonu 4, 6, 8, 10 veya 12 hanelidir; nokta serbest. */
   function gtipSatiri(q) {
+    return null; /* 30.09: GTİP gizli (site yalnız SMMM sınavları) */
     var rakam = q.replace(/[.\s]/g, '');
     if (!/^\d{4}(\d{2})?(\d{2})?(\d{2})?(\d{2})?$/.test(rakam)) return null;
     return { ad: rakam + ' kodunu sorgula', yol: 'gtip.html?kod=' + rakam,

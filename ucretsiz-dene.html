@@ -87,7 +87,7 @@
     <nav class="uc-sekme" aria-label="Sınav seç">
       <a href="ucretsiz-dene.html?sinav=sgs" data-sinav="sgs" aria-current="page">SMMM Staja Giriş</a>
       <a href="ucretsiz-dene.html?sinav=yeterlilik" data-sinav="yeterlilik">Yeterlilik</a>
-      <a href="ucretsiz-dene.html?sinav=kgk" data-sinav="kgk">KGK</a>
+      <a href="ucretsiz-dene.html?sinav=kgk" data-sinav="kgk" hidden style="display:none">KGK</a><!-- 30.09: KGK gizli (site yalnız SMMM başlama + bitirme) -->
     </nav>
     <div class="uc-bas" id="ucBas">
       <p class="uc-goz">Ücretsiz dene · üyelik gerekmez</p>
@@ -140,7 +140,7 @@
 (function(){
   if(!window.TetikteUye) return;
   var U=window.TetikteUye, S=U.SINAVLAR, $=function(id){return document.getElementById(id);};
-  var m=/[?&]sinav=(sgs|yeterlilik|kgk)\b/.exec(location.search);
+  var m=/[?&]sinav=(sgs|yeterlilik)\b/.exec(location.search);   /* 30.09: kgk gizli -> SGS */
   var k=m?m[1]:U.seciliSinav(), s=S[k];
   U.sinavSec(k);
   [].forEach.call(document.querySelectorAll('.uc-sekme a'),function(a){
