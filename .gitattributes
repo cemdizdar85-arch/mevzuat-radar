@@ -110,3 +110,11 @@ veri/URUN-KUNYELERI.json  merge=tetikte-robot
 # ============================================================================
 veri/sinav/kaydir-secim/*.json   merge=tetikte-robot
 kaydir/*/*.html                  merge=tetikte-robot
+# 30.09.2026 (Cem "1.2.3"): yayin kosusu 36651126163 itmede DUSTU - "itmede cakisma: veri/cevap-dagilimi.json,
+#   veri/seviye/sgs-havuz.json, veri/soru-dizini.json". Iki yayin kosusu saniyeler arayla ortustu (is 01:05:16,
+#   onceki yayin commit'i 01:05:00). Asagidaki iki dosya da YALNIZ yayin kosusunda, her seferinde SIFIRDAN uretiliyor
+#   (motor/seviye-havuz-bas.js · motor/soru-dizini.js; eski dosyayi yalniz "degismediyse yazma" icin okuyorlar, durum
+#   tasimiyorlar) - yukaridaki olcut aynen tutuyor. Bu ikisi kurala girince cakisma listesinde yalniz cevap-dagilimi
+#   kalir ve yayin-bas.yml'deki olcerek birlestirme yolu (arac/cevap-dagilimi-birlestir.ps1) devreye girer.
+veri/seviye/sgs-havuz.json       merge=tetikte-robot
+veri/soru-dizini.json            merge=tetikte-robot
