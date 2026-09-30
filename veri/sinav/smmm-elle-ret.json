@@ -160,6 +160,56 @@
             "gerekce": "ithalat KDV: açıklama gümrük müşavirliği ücretini matraha katıyor; KDV m.21/c yalnız tescile kadarki giderlerin vergilendirilmeyenlerini katar (müşavirlik KDV'li). İthalat KDV 184.000 (B); müşavirlik faturası KDV'si eklenince 191 toplamı 187.000 (D) - iki şık savunulabilir, gerekçe yanlış.",
             "kaynak": "site oturumu okuması + GM kaynak doğrulaması (veri/mevzuat-hazir/kdv.txt m.21), 23.09.2026",
             "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yvergi-kolay-r4/kp-29": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar C, iki bağımsız okuma: D = tavan)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-4k-a-yvergi-zor-r6/kp-14": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar C, iki bağımsız okuma: D = tavan)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-4k-a-yvergi-zor-r7/kp-04": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar C, iki bağımsız okuma: D = tavan)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-dog1-vergi/kp-67": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar B, iki bağımsız okuma: C)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-olc2-a-vergi/kp-20": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar C, iki bağımsız okuma: D)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-olc2-b-vergi/kp-20": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar A, iki bağımsız okuma: D)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-olc2-b-vergi/kp-39": {
+            "gerekce": "KDVK m.11/1-c + KDV GUT 8.9: ihracatçının dış satış bedeli imalatçının matrahını değiştirmez, tecil edilen vergi ihraçta terkin edilir (iade değil); anahtar yanlış (anahtar D, iki bağımsız okuma: E)",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-4k-a-yvergi-zor-r3/kp-03": {
+            "gerekce": "KDVK m.21/c: KDVye tabi gümrük müşavirliği hizmeti ithalat matrahına girmez; anahtar E yanlış öncüle dayanıyor (iki okuma: C), açıklamalar bir şık kaymış",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-olc2-b-vergi/kp-04": {
+            "gerekce": "GVK m.21: ticari kazancını yıllık beyannameyle bildiren mesken kira istisnasından yararlanamaz; anahtar D yanlış (iki okuma: E); kökte 2025 dilim tutarları",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
+        },
+        "smmm-w13-1-fmuh-cokzor/kp-06": {
+            "gerekce": "KDVK m.46/2: ithalatta KDV gümrükte ödenir, yabancı satıcıya borç yazılmaz; anahtar D yanlış (iki okuma: A), A açıklaması doğru cevabı tuzak diye anlatıyor",
+            "kaynak": "bitirme tam okuma dalga 1 (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 30.09.2026",
+            "tarih": "2026-09-30"
         }
     }
 }
