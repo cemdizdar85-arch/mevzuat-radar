@@ -34,6 +34,10 @@ Aşağıdaki eksikler iki yoldan zarar veriyor:
 
 | 11 | **TMS 1 (158 kayıt)** | TFRS 18 p.C8 TMS 1'i yürürlükten kaldırıyor (p.C1: 1.1.2027 ve sonrası dönemler). Ambarda 158 TMS 1 kaydı künyesiz ve "yürürlükten kalkıyor" işaretsiz duruyor; öbür standartlar TFRS 18'e göre güncel. **Cem 30.09: yeni sürüm esas** → üretim/paket bu kayıtları kaynak almamalı (işaret ya da ayrı sürüm etiketi). Soru tarafında KAPI-EK EK9 TMS 1 atfını durduruyor (2fb8a761). | yutma/etiketleme altyapı/KGK kolunda |
 
+| 12 | **THP 652 (id 8f00770e…)** | MÜLGA: MSUGT Sıra No:2 (RG 16.12.1993/21790) C/12 ile 657'ye taşındı; ambarda 1992 metniyle canlı → aynı hesap iki kodla. KAPI-HK artık 652'yi mülga sayıyor (sitede 7 soru). | kayıt silinmeli/işaretlenmeli |
+| 13 | **THP 649 (a17241ea…) · THP 659 (6508bb92…)** | 1992 eski ad ve açıklama: 649'da "menkul kıymet satış kârları … izlenir", 659'da kambiyo/menkul kıymet zararları. Sıra No:2 C/21 ve C/23 ile yeniden yazıldı (bunlar 645/646, 655/656'da). Üretim eski metinden besleniyor olabilir (SMMM okuyucuları bitirmede 649'a menkul satış kârı yazan sorular buldu). | resmî metinle yeniden yutulmalı |
+| 14 | **THP 645–648, 655–658** | içerik doğru ama metin "MSUGT Sira No:1" diye başlıyor; bu kodlar Sıra No:2 ve 12 ile açıldı | künye düzeltmesi |
+
 Kök ortak: aktarım metin içindeki bir sayıyı ("Seviye 3", dipnot numarası) paragraf başı sanıp kaydı bölüyor. Tarayıcının bu kökte isabetli
 türleri K3 (çift başlık) + K4 (gömülü) — örneklemde 6/6; K1 (noktasız son) daraltma sonrası 1 gerçek / 3 yanlış; K5 (numara atlaması) 0/10.
 Tam aday listesi: `veri/sinav/kesik-paragraf-adaylari.json` (301 aday; ADAY, kusur değil).
