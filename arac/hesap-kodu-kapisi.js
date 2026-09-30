@@ -27,9 +27,9 @@ let THP = null;
 function thp() { if (THP) return THP; THP = fs.existsSync(LISTE) ? JSON.parse(fs.readFileSync(LISTE, 'utf8')).kodlar : {}; return THP; }
 
 // ad uyumu: yazılan adın kökleri ile THP adının kökleri arasında ortak kök var mı (en az 1 anlamlı ortak kök ya da THP kökünün yarısı)
+const kdvAd = s => String(s).replace(/katma\s+de[ğgĞG]er\s+verg[iİıI]s[iİıI]/gi, 'KDV');   // 30.09: "Diğer Katma Değer Vergisi" = THP "DİĞER KDV"
 function adUyar(yazilan, resmi) {
-  const kdv = s => String(s).replace(/katma\s+de[ğgĞG]er\s+verg[iİıI]s[iİıI]/gi, 'KDV');   // 30.09: "Diğer Katma Değer Vergisi" = THP "DİĞER KDV"
-  const a = koklar(kdv(yazilan)), b = koklar(kdv(resmi)); if (!a.length || !b.length) return true;
+  const a = koklar(kdvAd(yazilan)), b = koklar(kdvAd(resmi)); if (!a.length || !b.length) return true;
   const ortak = b.filter(x => a.includes(x)).length;
   if (a.every(x => b.includes(x))) return true;   // yazilan ad resmi adin kisaltmasi/alt kumesi ("253 TESİS", "371 DÖNEM K")
   return ortak >= Math.min(2, Math.ceil(b.length / 2)) || (b.length === 1 && ortak === 1);
@@ -73,7 +73,18 @@ function kusurlar(soru) {
       if (/^Hesa[bp]/i.test(ad) || /İşleyiş|Açıklama/i.test(ad)) continue;
       const adK = ad.replace(/\s+Hesa[bp]\S*(\s.*)?$/i, '').trim();
       const basharf = /^[A-ZÇĞİÖŞÜ][a-zçğıöşü]/.test(adK) && adK.split(/\s+/).some(w => w.length >= 4) && (/^[^.;!?]{0,40}hesa[bp]/i.test(t.slice(m.index, m.index + 60)) || /(Borç|Alacak)\s*[:.]?\s*$/i.test(t.slice(Math.max(0, m.index - 10), m.index)));
-      if (basharf || /^[A-ZÇĞİÖŞÜ .'’()/-]{6,}$/.test(ad.split(/\s{2,}/)[0]) || /[A-ZÇĞİÖŞÜ]{4,}/.test(ad)) { if (!adUyar(adK || ad, K[kod])) ekle('HK-AD', kod, ad + ' ≠ ' + K[kod], alan); }
+      if (basharf || /^[A-ZÇĞİÖŞÜ .'’()/-]{6,}$/.test(ad.split(/\s{2,}/)[0]) || /[A-ZÇĞİÖŞÜ]{4,}/.test(ad)) {
+        if (!adUyar(adK || ad, K[kod])) ekle('HK-AD', kod, ad + ' ≠ ' + K[kod], alan);
+        else {
+          // 30.09 (SMMM oturumu 312 soruluk okumayla ölçtü): yazılan ad BAŞKA bir kodun adına tam uyuyor, kendi kodununkine uymuyor
+          //   ("620 Satılan Ticari Mallar Maliyeti" → 621, "656 Diğer Olağan Gider ve Zararlar" → 659) — ortak kök eşiği bunu geçiriyordu.
+          const a = koklar(kdvAd(adK || ad)), oz = koklar(kdvAd(K[kod]));
+          if (a.length >= 2 && !a.every(x => oz.includes(x))) {
+            const diger = Object.keys(K).find(c => c !== kod && a.every(x => koklar(kdvAd(K[c])).includes(x)));
+            if (diger) ekle('HK-AD', kod, ad + ' ≈ ' + diger + ' ' + K[diger], alan);
+          }
+        }
+      }
     }
     for (const re of [KOD_HESAP, HESAP_KOD]) { re.lastIndex = 0; while ((m = re.exec(t))) { const kod = m[1]; if (/hesapla/i.test(t.slice(m.index, m.index + 40))) continue; if (/^[89]/.test(kod)) continue; if (/g[üu]n/i.test(t.slice(m.index, m.index + 12))) continue; if (/(BDS|TMS|TFRS|UDS|ISA|madde|m\.|p\.)\s*$/i.test(t.slice(Math.max(0, m.index - 12), m.index))) continue; if (!K[kod]) ekle('HK-YOK', kod, '(hesap bağlamı)', alan); } }
   }
@@ -100,7 +111,7 @@ function banka(sinav) {
 }
 
 function sinav() {
-  THP = { '200': 'x', '254': 'TAŞITLAR', '690': 'DÖNEM KARI VEYA ZARARI', '110': 'HİSSE SENETLERİ', '731': 'Genel Üretim Giderleri Yansıtma Hesabı', '190': 'DEVREDEN KATMA DEĞER VERGİSİ', '191': 'İNDİRİLECEK KDV', '252': 'BİNALAR', '253': 'TESİS, MAKİNE VE CİHAZLAR', '100': 'Kasa', '102': 'Bankalar', '120': 'Alıcılar', '153': 'Ticari Mallar', '220': 'ALICILAR', '481': 'GİDER TAHAKKUKLARI', '522': 'M.D.V. YENİDEN DEĞERLEME ARTIŞLARI', '644': 'KONUSU KALMAYAN KARŞILIKLAR', '770': 'Genel Yönetim Giderleri', '730': 'Genel Üretim Giderleri', '796': 'DİĞER ÇEŞİTLİ GİDERLER' };
+  THP = { '200': 'x', '620': 'SATILAN MAMULLER MALİYETİ (-)', '621': 'Satılan Ticari Mallar Maliyeti (-)', '254': 'TAŞITLAR', '690': 'DÖNEM KARI VEYA ZARARI', '110': 'HİSSE SENETLERİ', '731': 'Genel Üretim Giderleri Yansıtma Hesabı', '190': 'DEVREDEN KATMA DEĞER VERGİSİ', '191': 'İNDİRİLECEK KDV', '252': 'BİNALAR', '253': 'TESİS, MAKİNE VE CİHAZLAR', '100': 'Kasa', '102': 'Bankalar', '120': 'Alıcılar', '153': 'Ticari Mallar', '220': 'ALICILAR', '481': 'GİDER TAHAKKUKLARI', '522': 'M.D.V. YENİDEN DEĞERLEME ARTIŞLARI', '644': 'KONUSU KALMAYAN KARŞILIKLAR', '770': 'Genel Yönetim Giderleri', '730': 'Genel Üretim Giderleri', '796': 'DİĞER ÇEŞİTLİ GİDERLER' };
   const V = [
     ['olmayan kod + ad (528 İptal Zararları)', { adimlar: [{ anlatim: '528 İPTAL ZARARLARI hesabına borç' }] }, 'HK-YOK'],
     ['var olan kod yanlış ad (481 Ertelenmiş Vergi)', { aciklama: { A: '481 ERTELENMİŞ VERGİ BORCU hesabına alacak' } }, 'HK-AD'],
@@ -135,6 +146,8 @@ function sinav() {
     ['KDV = Katma Değer Vergisi → temiz (190 Devreden KDV hesabı)', { konu_giris: { yontemler: '190 Devreden KDV hesabı ile 191 İndirilecek Katma Değer Vergisi hesabı' } }, null],
     ['kısa başharfli sözcük ad sayılmaz (253 Ara toplam hesaplanır)', { sade: { siklar: { B: '253 Ara toplam hesaplanır.' } } }, null],
     ['tek büyük harfli sözcük → temiz ((D) 324 EBOB)', { sade: { siklar: { D: '324) EBOB ile bulunur' } } }, null],
+    ['yakın ad başka koda uyuyor (620 Satılan Ticari Mallar Maliyeti → 621)', { adimlar: [{ anlatim: '620 Satılan Ticari Mallar Maliyeti hesabına borç' }] }, 'HK-AD'],
+    ['kendi adı → temiz (621 Satılan Ticari Mallar Maliyeti)', { adimlar: [{ anlatim: '621 Satılan Ticari Mallar Maliyeti hesabına borç' }] }, null],
     ['model alanı taranmaz (hakem)', { hakem: { gerekce: '528 İPTAL ZARARLARI' } }, null],
   ];
   let ok = 0; for (const [ad, q, bek] of V) { const ks = kusurlar(q); const g = bek ? ks.some(k => k.tur === bek) : ks.length === 0; if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad + (g ? '' : ' → ' + JSON.stringify(ks))); }
