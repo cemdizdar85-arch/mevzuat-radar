@@ -1,145 +1,165 @@
 {
-    "aciklama":  "SMMM elle ret: okuyarak bulunan kusurlu soru kasaya GİRMEZ (arac/smmm-kasa-yayin.ps1). Kimlik -\u003e gerekçe. Soru metni YOK. Kalkması için kayıt silinir; soru yeniden yazılınca yeni kimlik alır.",
-    "kayitlar":  {
-                     "smmm-4k-a-yvergi-cokzor-r5/kp-01":  {
-                                                              "gerekce":  "ithalat KDV: açıklama gümrük müşavirliği ücretini matraha katıyor; KDV m.21/c yalnız tescile kadarki giderlerin vergilendirilmeyenlerini katar (müşavirlik KDV\u0027li). İthalat KDV 184.000 (B); müşavirlik faturası KDV\u0027si eklenince 191 toplamı 187.000 (D) - iki şık savunulabilir, gerekçe yanlış.",
-                                                              "kaynak":  "site oturumu okuması + GM kaynak doğrulaması (veri/mevzuat-hazir/kdv.txt m.21), 23.09.2026",
-                                                              "tarih":  "2026-09-23"
-                                                          },
-                     "smmm-w2-ydenetim-zor/kp-01":  {
-                                                        "gerekce":  "soru kökü bozuk: \u0027...hangisinin doğru olduğu soruluyor.\u0027 özet cümlesi, soru cümlesi değil (ÖSYM kalıbı / sözleşme kural 5). İçerik sağlam görünüyor; kök düzeltilince (yeni kimlik) geri gelir.",
-                                                        "kaynak":  "site oturumu okuması + GM okudu, 23.09.2026",
-                                                        "tarih":  "2026-09-23"
-                                                    },
-                     "smmm-4k-a-yvergi-cokzor-r5/kp-02":  {
-                                                              "gerekce":  "izaha davet: soru metni \u00272026 yılı için VUK m.370/b tutarı 862.400 ₺\u0027 diyor; 588 Sıra No.\u0027lu VUK GT (RG 30/12/2025-33124 5. Mük.) ile 1/1/2026\u0027dan geçerli tutar 870.000 TL (ambar m.370 metni). Cevap (%5 testi, %20 ceza = 102.500) değişmiyor ama soru yanlış yasal tutar öğretiyor; tutar düzeltilince yeni kimlikle döner.",
-                                                              "kaynak":  "GM kaynak okuması (m.370/b), 23.09.2026 — Cem \"1.2.3\" izaha davet tutar kontrolü",
-                                                              "tarih":  "2026-09-23"
-                                                          },
-                     "smmm-4k-a-yvergi-zor-r3/kp-07":  {
-                                                           "gerekce":  "VUK m.177/3 karma sınır: soru \u00272026 için belirlenen 1.100.000 ₺ haddi\u0027 diyor (gerçek diye); ambardaki m.177/3 şerhi 2.500.000 TL. Açıklama bu yanlış hadle \u0027I. sınıf tüccar\u0027 sonucuna varıyor; gerçek hadle 1.327.500 \u003c 2.500.000 → II. sınıf. Soru yanlış sonuç öğretiyor.",
-                                                           "kaynak":  "had tutarı taraması (arac/had-tutar-tarama.ps1) + GM okuması, 23.09.2026",
-                                                           "tarih":  "2026-09-23"
-                                                       },
-                     "smmm-4k-a-yvergi-kolay-r4/kp-13":  {
-                                                             "gerekce":  "binek kira: anahtar (D 49.800) sınır içi kiraya ayrıca %70 kısıtı uyguluyor. 311 Seri No.lu GVGT m.13 kiralamada yalnız aylık tavanı uygular (örnekte kiraya %70 yok); m.14/3 %70\u0027i \u0027tamir, bakım, yakıt, sigorta ve benzeri cari giderler\u0027 ile sınırlar. Doğru KKEG yalnız tavanı aşan 30.000 (B). Ayrıca varsayılan tavan 5.500 (2020 tutarı).",
-                                                             "kaynak":  "onay kuyruğu hakemi (p07) kalıp taraması + GM ambar okuması (311 GVGT m.13 [2/7] 885bc786, m.14 [1/4] b264d9d1), 23.09.2026",
-                                                             "tarih":  "2026-09-23"
-                                                         },
-                     "smmm-4k-a-yhukuk-kolay-r5/kp-06":  {
-                                                             "gerekce":  "kollektif/emek ortağı: anahtar D \"aksi kararlaştırılmadıkça zarara katılmaz\". TBK m.623: hüküm yoksa kazanç ve zarar EŞİT; emek ortağının zarardan muafiyeti ancak ANLAŞMAYLA. Doğru şık C.",
-                                                             "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                             "tarih":  "2026-09-23"
-                                                         },
-                     "smmm-4k-a-yhukuk-kolay-r9/kp-04":  {
-                                                             "gerekce":  "kollektif/emek ortağı: anahtar A aynı yanlış kural (varsayılan muafiyet); açıklama ayrıca \"hüküm yoksa sermaye payı oranında\" diyor. TBK m.623: eşit. Doğru şık D.",
-                                                             "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                             "tarih":  "2026-09-23"
-                                                         },
-                     "smmm-4k-a-yhukuk-zor-r1/kp-03":  {
-                                                           "gerekce":  "kollektif/emek ortağı: anahtar C varsayılan zarar muafiyeti öğretiyor (TBK m.623 yalnız anlaşmayla). Kâr oranı zarara da geçerli; emek ortağı dahil. Hiçbir şık tam doğru değil.",
-                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                           "tarih":  "2026-09-23"
-                                                       },
-                     "smmm-4k-a-yhukuk-zor-r2/kp-02":  {
-                                                           "gerekce":  "kollektif/emek ortağı: anahtar D ikinci yarısı yanlış (varsayılan zarar muafiyeti yok, TBK m.623). Doğru şık yok.",
-                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                           "tarih":  "2026-09-23"
-                                                       },
-                     "smmm-4k-a-yhukuk-zor-r6/kp-17":  {
-                                                           "gerekce":  "\"hangisi yanlıştır\": anahtar B yanlış ifade ama A da yanlış (emek ortağı aksi kararlaştırılmadıkça zarara katılmaz — TBK m.623 tersini söyler). İki cevap.",
-                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                           "tarih":  "2026-09-23"
-                                                       },
-                     "smmm-d1-yhukuk-zor-r1-2/kp-08":  {
-                                                           "gerekce":  "\"hangisi yanlıştır\": anahtar C yanlış ifade ama E de yanlış (emek ortağının varsayılan zarar muafiyeti — TBK m.623 yalnız anlaşmayla). İki cevap.",
-                                                           "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                           "tarih":  "2026-09-23"
-                                                       },
-                     "smmm-w1-yhukuk-zor/kp-13":  {
-                                                      "gerekce":  "kollektif zarar hesabı: anahtar D (97.920) emek ortağını varsayılan olarak zarardan çıkarıyor. TBK m.623: kâr oranı zarara da geçerli, muafiyet anlaşma ister → A payı 183.600×%40 = 73.440 (C).",
-                                                      "kaynak":  "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
-                                                      "tarih":  "2026-09-23"
-                                                  },
-                     "smmm-4k-a-yspk-kolay-r1/kp-29":  {
-                                                           "gerekce":  "izahname değişikliği: doğru şık \"yedi iş günü içinde taleplerini geri alma\" diyor; SPK m.8/4 İKİ iş günü. Anahtar yanlış süre öğretiyor (aynı kuralı doğru soran 4 ikiz sorudan biri kalır).",
-                                                           "kaynak":  "GM ambar okuması 6362 SPK m.8/4 (d86102ee): \"yayımlanmasından itibaren iki iş günü içinde taleplerini geri alma hakkı\"; anlamca ikiz ölçümü örnekleminde çelişen çift olarak bulundu, 24.09.2026",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "smmm-4k-a-yspk-kolay-r2/kp-30":  {
-                                                           "gerekce":  "izahname değişikliği: doğru şık \"yedi iş günü içinde taleplerini geri alma\" diyor; SPK m.8/4 İKİ iş günü. Anahtar yanlış süre öğretiyor (aynı kuralı doğru soran 4 ikiz sorudan biri kalır).",
-                                                           "kaynak":  "GM ambar okuması 6362 SPK m.8/4 (d86102ee): \"yayımlanmasından itibaren iki iş günü içinde taleplerini geri alma hakkı\"; anlamca ikiz ölçümü örnekleminde çelişen çift olarak bulundu, 24.09.2026",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "smmm-4k-a-yhukuk-cokzor-r10/kp-01":  {
-                                                               "gerekce":  "kollektif zarar: anahtar D emek ortağını zarardan çıkarıp A\u0027ya 125.000 yüklüyor; TBK m.623: kâr oranı zarara da geçerli, muafiyet anlaşma ister → A 200.000×%50 = 100.000 (C).",
-                                                               "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                               "tarih":  "2026-09-24"
-                                                           },
-                     "smmm-4k-a-yhukuk-cokzor-r2/kp-02":  {
-                                                              "gerekce":  "kollektif/emek ortağı: anahtar C \"aksi kararlaştırılmadığından zarara katılmaz\"; TBK m.623 → kâr oranı zarara da uygulanır, Ece 48.000 (A).",
-                                                              "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                              "tarih":  "2026-09-24"
-                                                          },
-                     "smmm-4k-a-yhukuk-kolay-r8/kp-05":  {
-                                                             "gerekce":  "kollektif/emek ortağı: anahtar B C\u0027yi varsayılan olarak zarardan çıkarıyor (TBK m.623 yalnız anlaşmayla); C\u0027nin kâr oranı da belirsiz → soru kurgusu bozuk.",
-                                                             "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                             "tarih":  "2026-09-24"
-                                                         },
-                     "smmm-4k-a-yhukuk-zor-r3/kp-03":  {
-                                                           "gerekce":  "kollektif/emek ortağı: anahtar E varsayılan zarar muafiyeti; TBK m.623 → zarar kâr oranıyla A, B, C arasında (D).",
-                                                           "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "smmm-4k-a-yhukuk-zor-r4/kp-03":  {
-                                                           "gerekce":  "kollektif/emek ortağı: anahtar D varsayılan zarar muafiyeti; hüküm yoksa TBK m.623/1 → kâr ve zarar EŞİT (C).",
-                                                           "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "smmm-4k-a-yhukuk-zor-r6/kp-01":  {
-                                                           "gerekce":  "kollektif zarar hesabı: anahtar D (40.000) emek ortağını çıkarıyor; TBK m.623 → C 100.000×%32 = 32.000 (A).",
-                                                           "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "smmm-4k-a-yhukuk-zor-r7/kp-03":  {
-                                                           "gerekce":  "kollektif zarar hesabı: anahtar D (62.500) emek ortağını çıkarıyor; TBK m.623 → A 100.000×%50 = 50.000 (B).",
-                                                           "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                           "tarih":  "2026-09-24"
-                                                       },
-                     "smmm-w3-yhukuk-zor/kp-06":  {
-                                                      "gerekce":  "kollektif: anahtar E varsayılan zarar muafiyeti (TBK m.623 tersini söyler); A da yanlış (tescil süresi onbeş gün) → doğru şık yok.",
-                                                      "kaynak":  "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
-                                                      "tarih":  "2026-09-24"
-                                                  },
-                     "smmm-w14-3-fmuh-zor/kp-02":  {
-                                                       "gerekce":  "özel maliyet itfası: kök \u0027kira süresi beş yıldan uzun olduğundan beş yılda itfa\u0027 diye ESKİ THP 264 (MSUGT 1992) kuralını dayatıyor. VUK m.327 (5398 s.K., 2005): \u0027kira veya işletme hakkı süresine göre eşit yüzdelerle itfa edilir\u0027 - 5 yıl sınırı YOK. Kira 6 yıl: 720.000/6x10/12 = 100.000 (A); anahtar C (120.000) eski kurala göre. Açıklama/teşhis/konu girişi de eski kuralı anlatıyor. Kök güncel kuralla yeniden yazılınca (yeni kimlik) geri gelir.",
-                                                       "kaynak":  "SGS oturumu bildirimi + GM okudu; VUK m.327 ambardan okundu, 27.09.2026",
-                                                       "tarih":  "2026-09-27"
-                                                   },
-                     "smmm-w10-2-fmuh-zor/kp-06":  {
-                                                       "gerekce":  "özel maliyet itfası kıst: soru kalan kira süresini 30 AY sayıp ay esasıyla bölüyor (anahtar D 144.000). VUK m.320 (ambardan okundu 29.09): amortisman süresi kıymetin aktife girdiği yıldan başlar; ay kesri yalnız binek otomobilde, gün esası isteğe bağlı. Tam yıl esasıyla kalan süre 2025-2027 = 3 yıl, 2026 payı 120.000 = C (\u0027kıst atlama tuzağı\u0027 diye işaretli şık). İki şık savunulabilir. Kök yöntemi açıkça verecek biçimde (ör. \u0027ay esasıyla\u0027) ya da tam yıl esasıyla yeniden yazılınca yeni kimlikle geri gelir.",
-                                                       "kaynak":  "SGS oturumu m.320 bulgusu + GM okudu; VUK m.320 ve m.327 ambardan okundu, 29.09.2026",
-                                                       "tarih":  "2026-09-29"
-                                                   },
-                     "smmm-w13-1-fmuh-zor/kp-13":  {
-                                                       "gerekce":  "taşıt maliyeti: kök noter-tescil giderini \u0027işletme politikasıyla gider yazılır\u0027 diye maliyet dışı bırakıyor, anahtar C 560.750. VUK m.262 (7338 s.K. 14.10.2021 ek fıkra, ambardan okundu 29.09): iktisap ile doğrudan ilgili resim-harç, noter giderleri maliyet bedeline DAHİL EDİLİR; ÖTV\u0027yi maliyete katmak ise mükellefin tercihi. Buna göre 560.750 + 6.400 = 567.150 = D. Dayanak da yürürlükten kalkmış VUK m.270 (mülga 14.10.2021). Kök m.262\u0027ye göre yeniden yazılınca (ÖTV tercihi açık) yeni kimlikle geri gelir.",
-                                                       "kaynak":  "SGS oturumu m.270 bildirimi + GM okudu; VUK m.262 ve m.270 ambardan okundu, 29.09.2026",
-                                                       "tarih":  "2026-09-29"
-                                                   },
-                     "smmm-w4-fmuh-zor-2/kp-38":  {
-                                                      "gerekce":  "taşıt maliyeti: kök ÖTV\u0027yi maliyete katma tercihini yazmıyor; VUK m.262 (7338 s.K. 2021 ek fıkra) ÖTV\u0027yi maliyete katmayı ya da gider yazmayı mükellefin tercihine bırakır. ÖTV maliyete girerse 253.250 (D, anahtar), gider yazılırsa 205.900 (A) - iki şık savunulabilir. Ayrıca noter-tescil \u0027maliyete eklemeyi tercih etmiştir\u0027 deniyor; m.262/b bu giderleri maliyete ZORUNLU katar. Kök ÖTV tercihini açık yazarak yeniden yazılınca geri gelir.",
-                                                      "kaynak":  "GM taraması (Cem 29.09 1.2.3); VUK m.262 2021 ek fıkraları ambardan okundu, 29.09.2026",
-                                                      "tarih":  "2026-09-29"
-                                                  },
-                     "smmm-w13-2-fmuh-zor/kp-11":  {
-                                                       "gerekce":  "binek otomobil maliyeti: kök ÖTV\u0027yi maliyete katma tercihini yazmıyor (VUK m.262 2021 ek fıkra: mükellef serbest). ÖTV maliyete girerse 979.992 (E, anahtar), gider yazılırsa 700.992 (A) - iki şık savunulabilir. Kök ÖTV tercihini açık yazarak yeniden yazılınca geri gelir.",
-                                                       "kaynak":  "GM taraması (Cem 29.09 1.2.3); VUK m.262 2021 ek fıkraları ambardan okundu, 29.09.2026",
-                                                       "tarih":  "2026-09-29"
-                                                   },
-                     "smmm-w13-1-fmuh-cokzor/kp-08":  {
-                                                          "gerekce":  "taşıt maliyeti: kök tescil-noter giderini \u0027ihtiyari olarak maliyete eklemeyi tercih etmiştir\u0027 diye anlatıyor; VUK m.262/b (7338 s.K. 2021) doğrudan ilgili noter ve harç giderlerini maliyete ZORUNLU katar. Anahtar (C 203.950) yine doğru çıkar ama soru yanlış kural öğretiyor. Kök \u0027ihtiyari\u0027 ifadesi olmadan yeniden yazılınca geri gelir.",
-                                                          "kaynak":  "GM taraması (Cem 29.09 1.2.3); VUK m.262 2021 ek fıkraları ambardan okundu, 29.09.2026",
-                                                          "tarih":  "2026-09-29"
-                                                      }
-                 }
+    "aciklama": "SMMM elle ret: okuyarak bulunan kusurlu soru kasaya GİRMEZ (arac/smmm-kasa-yayin.ps1). Kimlik -> gerekçe. Soru metni YOK. Kalkması için kayıt silinir; soru yeniden yazılınca yeni kimlik alır.",
+    "kayitlar": {
+        "smmm-w2-ydenetim-zor/kp-01": {
+            "gerekce": "soru kökü bozuk: '...hangisinin doğru olduğu soruluyor.' özet cümlesi, soru cümlesi değil (ÖSYM kalıbı / sözleşme kural 5). İçerik sağlam görünüyor; kök düzeltilince (yeni kimlik) geri gelir.",
+            "kaynak": "site oturumu okuması + GM okudu, 23.09.2026",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yvergi-cokzor-r5/kp-02": {
+            "gerekce": "izaha davet: soru metni '2026 yılı için VUK m.370/b tutarı 862.400 ₺' diyor; 588 Sıra No.'lu VUK GT (RG 30/12/2025-33124 5. Mük.) ile 1/1/2026'dan geçerli tutar 870.000 TL (ambar m.370 metni). Cevap (%5 testi, %20 ceza = 102.500) değişmiyor ama soru yanlış yasal tutar öğretiyor; tutar düzeltilince yeni kimlikle döner.",
+            "kaynak": "GM kaynak okuması (m.370/b), 23.09.2026 — Cem \"1.2.3\" izaha davet tutar kontrolü",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yvergi-zor-r3/kp-07": {
+            "gerekce": "VUK m.177/3 karma sınır: soru '2026 için belirlenen 1.100.000 ₺ haddi' diyor (gerçek diye); ambardaki m.177/3 şerhi 2.500.000 TL. Açıklama bu yanlış hadle 'I. sınıf tüccar' sonucuna varıyor; gerçek hadle 1.327.500 < 2.500.000 → II. sınıf. Soru yanlış sonuç öğretiyor.",
+            "kaynak": "had tutarı taraması (arac/had-tutar-tarama.ps1) + GM okuması, 23.09.2026",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yvergi-kolay-r4/kp-13": {
+            "gerekce": "binek kira: anahtar (D 49.800) sınır içi kiraya ayrıca %70 kısıtı uyguluyor. 311 Seri No.lu GVGT m.13 kiralamada yalnız aylık tavanı uygular (örnekte kiraya %70 yok); m.14/3 %70'i 'tamir, bakım, yakıt, sigorta ve benzeri cari giderler' ile sınırlar. Doğru KKEG yalnız tavanı aşan 30.000 (B). Ayrıca varsayılan tavan 5.500 (2020 tutarı).",
+            "kaynak": "onay kuyruğu hakemi (p07) kalıp taraması + GM ambar okuması (311 GVGT m.13 [2/7] 885bc786, m.14 [1/4] b264d9d1), 23.09.2026",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yhukuk-kolay-r5/kp-06": {
+            "gerekce": "kollektif/emek ortağı: anahtar D \"aksi kararlaştırılmadıkça zarara katılmaz\". TBK m.623: hüküm yoksa kazanç ve zarar EŞİT; emek ortağının zarardan muafiyeti ancak ANLAŞMAYLA. Doğru şık C.",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yhukuk-kolay-r9/kp-04": {
+            "gerekce": "kollektif/emek ortağı: anahtar A aynı yanlış kural (varsayılan muafiyet); açıklama ayrıca \"hüküm yoksa sermaye payı oranında\" diyor. TBK m.623: eşit. Doğru şık D.",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yhukuk-zor-r1/kp-03": {
+            "gerekce": "kollektif/emek ortağı: anahtar C varsayılan zarar muafiyeti öğretiyor (TBK m.623 yalnız anlaşmayla). Kâr oranı zarara da geçerli; emek ortağı dahil. Hiçbir şık tam doğru değil.",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yhukuk-zor-r2/kp-02": {
+            "gerekce": "kollektif/emek ortağı: anahtar D ikinci yarısı yanlış (varsayılan zarar muafiyeti yok, TBK m.623). Doğru şık yok.",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yhukuk-zor-r6/kp-17": {
+            "gerekce": "\"hangisi yanlıştır\": anahtar B yanlış ifade ama A da yanlış (emek ortağı aksi kararlaştırılmadıkça zarara katılmaz — TBK m.623 tersini söyler). İki cevap.",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-d1-yhukuk-zor-r1-2/kp-08": {
+            "gerekce": "\"hangisi yanlıştır\": anahtar C yanlış ifade ama E de yanlış (emek ortağının varsayılan zarar muafiyeti — TBK m.623 yalnız anlaşmayla). İki cevap.",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-w1-yhukuk-zor/kp-13": {
+            "gerekce": "kollektif zarar hesabı: anahtar D (97.920) emek ortağını varsayılan olarak zarardan çıkarıyor. TBK m.623: kâr oranı zarara da geçerli, muafiyet anlaşma ister → A payı 183.600×%40 = 73.440 (C).",
+            "kaynak": "GM ambar okuması TBK m.623 (0df932f6) + TTK m.126/227/229 (özel hüküm yok); onay kuyruğu hakemi (p09) bulgusundan yayın taraması, 23.09.2026. Kök: ambar TEORI notu edda1c43 yanlış kural öğretiyor.",
+            "tarih": "2026-09-23"
+        },
+        "smmm-4k-a-yspk-kolay-r1/kp-29": {
+            "gerekce": "izahname değişikliği: doğru şık \"yedi iş günü içinde taleplerini geri alma\" diyor; SPK m.8/4 İKİ iş günü. Anahtar yanlış süre öğretiyor (aynı kuralı doğru soran 4 ikiz sorudan biri kalır).",
+            "kaynak": "GM ambar okuması 6362 SPK m.8/4 (d86102ee): \"yayımlanmasından itibaren iki iş günü içinde taleplerini geri alma hakkı\"; anlamca ikiz ölçümü örnekleminde çelişen çift olarak bulundu, 24.09.2026",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yspk-kolay-r2/kp-30": {
+            "gerekce": "izahname değişikliği: doğru şık \"yedi iş günü içinde taleplerini geri alma\" diyor; SPK m.8/4 İKİ iş günü. Anahtar yanlış süre öğretiyor (aynı kuralı doğru soran 4 ikiz sorudan biri kalır).",
+            "kaynak": "GM ambar okuması 6362 SPK m.8/4 (d86102ee): \"yayımlanmasından itibaren iki iş günü içinde taleplerini geri alma hakkı\"; anlamca ikiz ölçümü örnekleminde çelişen çift olarak bulundu, 24.09.2026",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-cokzor-r10/kp-01": {
+            "gerekce": "kollektif zarar: anahtar D emek ortağını zarardan çıkarıp A'ya 125.000 yüklüyor; TBK m.623: kâr oranı zarara da geçerli, muafiyet anlaşma ister → A 200.000×%50 = 100.000 (C).",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-cokzor-r2/kp-02": {
+            "gerekce": "kollektif/emek ortağı: anahtar C \"aksi kararlaştırılmadığından zarara katılmaz\"; TBK m.623 → kâr oranı zarara da uygulanır, Ece 48.000 (A).",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-kolay-r8/kp-05": {
+            "gerekce": "kollektif/emek ortağı: anahtar B C'yi varsayılan olarak zarardan çıkarıyor (TBK m.623 yalnız anlaşmayla); C'nin kâr oranı da belirsiz → soru kurgusu bozuk.",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-zor-r3/kp-03": {
+            "gerekce": "kollektif/emek ortağı: anahtar E varsayılan zarar muafiyeti; TBK m.623 → zarar kâr oranıyla A, B, C arasında (D).",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-zor-r4/kp-03": {
+            "gerekce": "kollektif/emek ortağı: anahtar D varsayılan zarar muafiyeti; hüküm yoksa TBK m.623/1 → kâr ve zarar EŞİT (C).",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-zor-r6/kp-01": {
+            "gerekce": "kollektif zarar hesabı: anahtar D (40.000) emek ortağını çıkarıyor; TBK m.623 → C 100.000×%32 = 32.000 (A).",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-4k-a-yhukuk-zor-r7/kp-03": {
+            "gerekce": "kollektif zarar hesabı: anahtar D (62.500) emek ortağını çıkarıyor; TBK m.623 → A 100.000×%50 = 50.000 (B).",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-w3-yhukuk-zor/kp-06": {
+            "gerekce": "kollektif: anahtar E varsayılan zarar muafiyeti (TBK m.623 tersini söyler); A da yanlış (tescil süresi onbeş gün) → doğru şık yok.",
+            "kaynak": "GM okuması 24.09.2026 (taslak, sitede değil) — TBK m.623 (ambar 0df932f6); nöbetçi teori notu izleme hazırlığında okundu",
+            "tarih": "2026-09-24"
+        },
+        "smmm-w14-3-fmuh-zor/kp-02": {
+            "gerekce": "özel maliyet itfası: kök 'kira süresi beş yıldan uzun olduğundan beş yılda itfa' diye ESKİ THP 264 (MSUGT 1992) kuralını dayatıyor. VUK m.327 (5398 s.K., 2005): 'kira veya işletme hakkı süresine göre eşit yüzdelerle itfa edilir' - 5 yıl sınırı YOK. Kira 6 yıl: 720.000/6x10/12 = 100.000 (A); anahtar C (120.000) eski kurala göre. Açıklama/teşhis/konu girişi de eski kuralı anlatıyor. Kök güncel kuralla yeniden yazılınca (yeni kimlik) geri gelir.",
+            "kaynak": "SGS oturumu bildirimi + GM okudu; VUK m.327 ambardan okundu, 27.09.2026",
+            "tarih": "2026-09-27"
+        },
+        "smmm-w10-2-fmuh-zor/kp-06": {
+            "gerekce": "özel maliyet itfası kıst: soru kalan kira süresini 30 AY sayıp ay esasıyla bölüyor (anahtar D 144.000). VUK m.320 (ambardan okundu 29.09): amortisman süresi kıymetin aktife girdiği yıldan başlar; ay kesri yalnız binek otomobilde, gün esası isteğe bağlı. Tam yıl esasıyla kalan süre 2025-2027 = 3 yıl, 2026 payı 120.000 = C ('kıst atlama tuzağı' diye işaretli şık). İki şık savunulabilir. Kök yöntemi açıkça verecek biçimde (ör. 'ay esasıyla') ya da tam yıl esasıyla yeniden yazılınca yeni kimlikle geri gelir.",
+            "kaynak": "SGS oturumu m.320 bulgusu + GM okudu; VUK m.320 ve m.327 ambardan okundu, 29.09.2026",
+            "tarih": "2026-09-29"
+        },
+        "smmm-w13-1-fmuh-zor/kp-13": {
+            "gerekce": "taşıt maliyeti: kök noter-tescil giderini 'işletme politikasıyla gider yazılır' diye maliyet dışı bırakıyor, anahtar C 560.750. VUK m.262 (7338 s.K. 14.10.2021 ek fıkra, ambardan okundu 29.09): iktisap ile doğrudan ilgili resim-harç, noter giderleri maliyet bedeline DAHİL EDİLİR; ÖTV'yi maliyete katmak ise mükellefin tercihi. Buna göre 560.750 + 6.400 = 567.150 = D. Dayanak da yürürlükten kalkmış VUK m.270 (mülga 14.10.2021). Kök m.262'ye göre yeniden yazılınca (ÖTV tercihi açık) yeni kimlikle geri gelir.",
+            "kaynak": "SGS oturumu m.270 bildirimi + GM okudu; VUK m.262 ve m.270 ambardan okundu, 29.09.2026",
+            "tarih": "2026-09-29"
+        },
+        "smmm-w4-fmuh-zor-2/kp-38": {
+            "gerekce": "taşıt maliyeti: kök ÖTV'yi maliyete katma tercihini yazmıyor; VUK m.262 (7338 s.K. 2021 ek fıkra) ÖTV'yi maliyete katmayı ya da gider yazmayı mükellefin tercihine bırakır. ÖTV maliyete girerse 253.250 (D, anahtar), gider yazılırsa 205.900 (A) - iki şık savunulabilir. Ayrıca noter-tescil 'maliyete eklemeyi tercih etmiştir' deniyor; m.262/b bu giderleri maliyete ZORUNLU katar. Kök ÖTV tercihini açık yazarak yeniden yazılınca geri gelir.",
+            "kaynak": "GM taraması (Cem 29.09 1.2.3); VUK m.262 2021 ek fıkraları ambardan okundu, 29.09.2026",
+            "tarih": "2026-09-29"
+        },
+        "smmm-w13-2-fmuh-zor/kp-11": {
+            "gerekce": "binek otomobil maliyeti: kök ÖTV'yi maliyete katma tercihini yazmıyor (VUK m.262 2021 ek fıkra: mükellef serbest). ÖTV maliyete girerse 979.992 (E, anahtar), gider yazılırsa 700.992 (A) - iki şık savunulabilir. Kök ÖTV tercihini açık yazarak yeniden yazılınca geri gelir.",
+            "kaynak": "GM taraması (Cem 29.09 1.2.3); VUK m.262 2021 ek fıkraları ambardan okundu, 29.09.2026",
+            "tarih": "2026-09-29"
+        },
+        "smmm-w13-1-fmuh-cokzor/kp-08": {
+            "gerekce": "taşıt maliyeti: kök tescil-noter giderini 'ihtiyari olarak maliyete eklemeyi tercih etmiştir' diye anlatıyor; VUK m.262/b (7338 s.K. 2021) doğrudan ilgili noter ve harç giderlerini maliyete ZORUNLU katar. Anahtar (C 203.950) yine doğru çıkar ama soru yanlış kural öğretiyor. Kök 'ihtiyari' ifadesi olmadan yeniden yazılınca geri gelir.",
+            "kaynak": "GM taraması (Cem 29.09 1.2.3); VUK m.262 2021 ek fıkraları ambardan okundu, 29.09.2026",
+            "tarih": "2026-09-29"
+        },
+        "smmm-4k-a-fmuh-cokzor-r3/kp-04": {
+            "gerekce": "onarim smmm-ek: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-09-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-fmuh-zor-r5/kp-05": {
+            "gerekce": "onarim smmm-ek: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-09-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-w8-2-fmuh-zor/kp-01": {
+            "gerekce": "onarim smmm-ek: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-09-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yhukuk-kolay-r2/kp-10": {
+            "gerekce": "onarim smmm-as: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "tarih": "2026-09-30",
+            "kaynak": "onarim-rehakem"
+        },
+        "smmm-4k-a-yvergi-cokzor-r5/kp-01": {
+            "gerekce": "ithalat KDV: açıklama gümrük müşavirliği ücretini matraha katıyor; KDV m.21/c yalnız tescile kadarki giderlerin vergilendirilmeyenlerini katar (müşavirlik KDV'li). İthalat KDV 184.000 (B); müşavirlik faturası KDV'si eklenince 191 toplamı 187.000 (D) - iki şık savunulabilir, gerekçe yanlış.",
+            "kaynak": "site oturumu okuması + GM kaynak doğrulaması (veri/mevzuat-hazir/kdv.txt m.21), 23.09.2026",
+            "tarih": "2026-09-23"
+        }
+    }
 }
