@@ -405,6 +405,10 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      `veri/sinav/bds-paragraf-basliklari.json` (başlık + gövde KÖK kümesi, metin değil). Atfedilen paragrafın gövdesi konuyu
      taşıyorsa `NOT-BP` (ZAYIF), durdurmaz. **Ölçüldü (60 bulgu resmî metinle yargılandı):** durduran katmanda 24/28 doğru (%86),
      ZAYIF katmanda 30'un 23'ü yanlış alarm. SGS bankası 30.09: 129 bulgulu soru.
+     + **KAPI-BOS** (`arac/bos-alan-kapisi.js`, 30.09): şık açıklaması yok/boş (ekranda "undefined"), yer tutucu değer ("placeholder",
+     "yanilgi", "skip"), A–E dışı anahtar ("F_placeholder", "D2", "A_yanlis"). SGS sitesi 30.09: 42 soru (32'sinde DOĞRU şıkkın açıklaması yok).
+     + **AS2 genişledi** (30.09): "Ne soruluyor:" çözüm kalıbı doğru şıkla birlikte başka şıkta da duruyorsa kayma sayılır (SGS sitesi 193 soru;
+     bitirme R9 162 → 405, SMMM oturumu ölçtü).
   2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
      `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js` · bitirme `arac/smmm-risk-tarama.ps1` (R1–R9, 30.09). Bulgu **çekilmez, onarım kuyruğuna gider**
      (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
