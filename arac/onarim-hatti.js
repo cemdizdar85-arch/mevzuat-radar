@@ -95,6 +95,18 @@ async function ambarParti(e, K) {
   if (!r.ok) throw new Error('ambar ' + r.status); const row = (await r.json())[0] || {}; return typeof row.icerik === 'string' ? JSON.parse(row.icerik) : (row.icerik || {});
 }
 function retYaz(fn) { const o = okuJ(RET); const once = Object.keys(o.j.kayitlar).length; const not = fn(o.j.kayitlar, Object.values(o.j.kayitlar)[0] || {}); fs.writeFileSync(RET, JSON.stringify(o.j, null, 4) + '\n'); return { once, sonra: Object.keys(o.j.kayitlar).length, ...not }; }
+// 30.09 ÖLÇÜLDÜ: t1-fmuh-kolay-b/kp-123 listede "kökte 220 hesap kodu yanlış" gerekçesiyle duruyordu; kalite-ek onarımı yalnız ikizdeki
+//   %18 KDV'yi düzeltti, eski kural onu "açıklama onarımı" sayıp listeden ÇIKARDI → kök hatalı soru yayına döndü (SMMM'de de 1 vaka).
+//   Kural: açıklama onarımı kaydı listeden yalnız listeye GİRİŞ GEREKÇESİ bu parçanın taradığı kusursa çıkarır
+//   (gerekçede "risk taramasi grup <parça>" izi; "-ek" gibi türev klasör kökü sayılır). Aksi hâlde kayıt kalır ve raporlanır.
+function retCikabilir(gerekce, klasor) {
+  const kok = String(klasor).replace(/-ek$/, '');
+  // risk taraması grup-A..D için "grup B" (tiresiz), r4-NN için "grup r4-NN" yazdı — ikisi de tanınır
+  //   (30.09 geriye dönük taramada bu fark 25 meşru kaydı "çıkamaz" gösterdi).
+  const adlar = [kok, ...(/^grup-[A-Z]$/.test(kok) ? [kok.slice(5)] : [])];
+  const g = String(gerekce || '');
+  return adlar.some(a => g.includes('risk taramasi grup ' + a + ':'));
+}
 const retKayit = (ornek, gerekce) => { const r = { gerekce }; if ('tarih' in ornek) r.tarih = new Date().toISOString().slice(0, 10); if ('kaynak' in ornek) r.kaynak = 'onarim-rehakem'; return r; };
 
 async function teslim(K) {
@@ -113,10 +125,12 @@ async function teslim(K) {
     const yerel = okuJ(path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json')).j[kp];
     if (esit(onb[e][kp], yerel)) dog.add(ad); else uys.push(ad);
   }
+  const baskaSebep = [];
   const rr = retYaz((kay, ornek) => { let c = 0, ek = 0;
-    for (const k of u.aciklama) if (dog.has(k) && kay[k]) { delete kay[k]; c++; }
+    for (const k of u.aciklama) if (dog.has(k) && kay[k]) { if (retCikabilir(kay[k].gerekce, path.basename(K))) { delete kay[k]; c++; } else baskaSebep.push(k); }
     for (const k of u.rehakem) if (dog.has(k) && !kay[k]) { kay[k] = retKayit(ornek, `onarim ${path.basename(K)}: anahtar/kok degisti, yeniden hakeme kadar yayin disi`); ek++; }
     return { cikan: c, eklenen: ek }; });
+  if (baskaSebep.length) console.log(`  LİSTEDE BAŞKA SEBEPLE, ÇIKARILMADI (${baskaSebep.length}): ${baskaSebep.join(', ')}`);
   console.log(`${path.basename(K)}: aciklama ${u.aciklama.length} · rehakem ${u.rehakem.length} · red ${u.red.length} · atlanan ${u.atlanan.length} · parti ${u.etiketler.length} (yükleme hatası ${yuk.filter(x => x.cikis).length})`);
   console.log(`  ambar geri okuma ${dog.size}/${u.aciklama.length + u.rehakem.length}${uys.length ? ' · UYUŞMAZ ' + uys.join(',') : ''} · elle ret ${rr.once}→${rr.sonra} (çıkan ${rr.cikan}, eklenen ${rr.eklenen})`);
   for (const r of u.red) if (!/hic fark yok/.test(r)) console.log('  RED ' + r);
@@ -146,12 +160,18 @@ function sinav() {
     ['fark yok → red', karar(e, { ...e }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /fark yok/.test(r.neden)],
     ['alan sırası farkı → eşit', { durum: esit({ a: 1, b: { c: 2, d: 3 } }, { b: { d: 3, c: 2 }, a: 1 }) ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['onarılamadı işareti', karar(e, e, { onarilamadi: 'kapı yanlış alarm' }), r => r.durum === 'onarilamadi'],
+    ['aynı parçanın kusuru → listeden çıkabilir', { durum: retCikabilir('29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - …', 'r4-07') ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['BAŞKA sebeple listede (kp-123 vakası) → çıkamaz', { durum: retCikabilir("Soru kokunde hesap kodu yanlis: '220 ALICILAR'", 'kalite-ek') ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    ['başka parçanın kusuru → çıkamaz', { durum: retCikabilir('29.09 risk taramasi grup r4-01: CEVAP YANLIŞ …', 'r4-07') ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    ['türev klasör (grup-C-ek) kök parçayı tanır', { durum: retCikabilir('29.09 risk taramasi grup C: AÇIKLAMA KUSURLU …', 'grup-C-ek') ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['grup-B klasörü "grup B" gerekçesini tanır', { durum: retCikabilir('29.09 risk taramasi grup B: AÇIKLAMA KUSURLU …', 'grup-B') ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['grup-B klasörü "grup BC" gibi başka grubu tanımaz', { durum: retCikabilir('29.09 risk taramasi grup BC: …', 'grup-B') ? 'x' : 'ok' }, r => r.durum === 'ok'],
   ];
   let ok = 0; for (const [ad, r, t] of V) { const g = t(r); if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad); }
   console.log(`ONARIM HATTI ÖZ-SINAVI ${ok === V.length ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${V.length})`); process.exit(ok === V.length ? 0 : 1);
 }
 
-module.exports = { karar, fark, esit };
+module.exports = { karar, fark, esit, retCikabilir };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
   if (kmt === '--sinav') sinav();
