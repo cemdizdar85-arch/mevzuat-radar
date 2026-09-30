@@ -19,6 +19,9 @@
     konu_koprusu  21.292  <- cikmis sinav arsivinden turetilmis siklik
     bedel_kaydi      423  <- harcama defteri
     kalip_parti      298  <- uretim onbellegi (soru metni + hakem kararlari)
+  30.09 EKLENDI (yedek olcumu: bizim yedegimizde YOKTU): ihale_sonuc 523.264 ·
+    paket_soru 8.806 · ihale_kutuk · uygulama_olay · elci_indirim · sinav_donemleri.
+  KISI VERISI kumesi (-Kume Kisi): uye/cevap/elci tablolari - YALNIZ yerel gorev.
 
   ⛔ SIFRELEME BURADA YAPILMAZ. Bu betik duz NDJSON yazar; sifreleme akista
      (.github/workflows/soru-ambar-yedek.yml) openssl ile yapilir - alacak
@@ -39,7 +42,9 @@
 #>
 param(
   [string]$Kok = '',                 # cikti klasoru (bos = $env:YEDEK_KOK ya da _yedek)
-  [string[]]$Tablolar = @()          # bos = varsayilan liste
+  [string[]]$Tablolar = @(),         # bos = secilen kumenin tamami
+  [ValidateSet('Bulut','Kisi')][string]$Kume = 'Bulut',
+  [int]$SaklaGun = 0                 # >0: $Kok'ta bu kadar gunden eski soru-ambar-* dosyalari silinir (yalniz yerel gorev)
 )
 $ErrorActionPreference='Stop'
 $buDizin=$(if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -73,10 +78,41 @@ $VARSAYILAN=[ordered]@{
   'konu_koprusu' = @{ pk='id';     sayfa=1000 }
   'bedel_kaydi'  = @{ pk='id';     sayfa=1000 }
   'kalip_parti'  = @{ pk='etiket'; sayfa=5    }   # ~350 KB/satir -> sayfa ~1,75 MB
+  # 30.09.2026 (Cem "1 yap"): yedek olcumunde bu tablolar HICBIR bizim yedegimizde yoktu;
+  # tek kopya Supabase'in 7 gunluk fiziksel yedegiydi. Kisi verisi TASIMAYANLAR buraya.
+  'ihale_sonuc'     = @{ pk='anahtar'; sayfa=1000 }   # 523.264 satir, ~0,8 KB/satir; EKAP toplu cekim YOK -> geri gelmez
+  'paket_soru'      = @{ pk='id';      sayfa=200  }   # ~18 KB/satir -> sayfa ~3,6 MB
+  'ihale_kutuk'     = @{ sira='gun.asc,tur.asc';                  sayfa=1000 }   # bilesik anahtar (gun,tur)
+  'uygulama_olay'   = @{ sira='gun.asc,olay.asc,platform.asc';    sayfa=1000 }   # bilesik anahtar
+  'elci_indirim'    = @{ pk='paket';   sayfa=1000 }
+  'sinav_donemleri' = @{ pk='ad';      sayfa=1000 }
 }
+# ⛔ KISI VERISI BULUTA/ACTIONS'A GIRMEZ (CLAUDE.md "BULUT GUVENLIGI" madde 4).
+#    Bu kume yalniz Cem'in makinesindeki gunluk gorevle (TETIKTE-KisiVerisiYedek)
+#    C:\TETIKTE-YEDEK altina (OneDrive DISI) yazilir; betik Actions'ta bu kumeyi REDDEDER.
+#    Olculdu 30.09: e-posta, ad-soyad, odeme_bilgisi, user_id, oturum tasiyorlar.
+$KISI=[ordered]@{
+  'cevap_kayit'                = @{ pk='id';      sayfa=1000 }
+  'cevap_kayit_yedek_20260926' = @{ pk='id';      sayfa=1000 }
+  'kagit_kayit'                = @{ pk='id';      sayfa=1000 }
+  'firma_uyarilari'            = @{ pk='id';      sayfa=1000 }
+  'uye_cihaz_olay'             = @{ pk='id';      sayfa=1000 }
+  'uye_cihazlar'               = @{ sira='user_id.asc,cihaz_id.asc'; sayfa=1000 }
+  'paket_uyeler'               = @{ pk='user_id'; sayfa=1000 }
+  'ogrenci_ilerleme'           = @{ pk='user_id'; sayfa=200  }
+  'kurulus_nobet'              = @{ pk='id';      sayfa=1000 }
+  'uye_ekran'                  = @{ pk='user_id'; sayfa=1000 }
+  'elciler'                    = @{ pk='kod';     sayfa=1000 }
+}
+if($Kume -eq 'Kisi'){
+  if("$env:GITHUB_ACTIONS" -eq 'true'){ throw 'KISI VERISI Actions''ta yedeklenmez (CLAUDE.md bulut guvenligi m.4).' }
+  $VARSAYILAN=$KISI
+}
+# "powershell -File ... -Tablolar a,b" diziyi TEK metin "a,b" olarak verir (30.09 olculdu) -> virgulden bol.
+$Tablolar=@($Tablolar | ForEach-Object { "$_" -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 if($Tablolar.Count){
   $secili=[ordered]@{}
-  foreach($t in $Tablolar){ if($VARSAYILAN.Contains($t)){ $secili[$t]=$VARSAYILAN[$t] } else { throw "bilinmeyen tablo: $t" } }
+  foreach($t in $Tablolar){ if($VARSAYILAN.Contains($t)){ $secili[$t]=$VARSAYILAN[$t] } else { throw "bilinmeyen tablo ($Kume kumesinde yok): $t" } }
   $VARSAYILAN=$secili
 }
 
@@ -96,9 +132,13 @@ foreach($tablo in $VARSAYILAN.Keys){
   $ayar=$VARSAYILAN[$tablo]
   $imlecAlan=$ayar.pk
   $sayfaBoyu=[int]$ayar.sayfa
+  # Bilesik anahtarli kucuk tablolar (tek alanli imlec YOK): sabit sirayla OFFSET.
+  # Offset 15.000'de 500 veriyordu (08.09) -> bu yol yalniz kucuk tablo icin; buyurse DUSER.
+  $ofsetSira="$($ayar.sira)"
   $beklenen=SatirSayisi $tablo
   $hedef=Join-Path $Kok ("soru-ambar-$damga-$tablo.ndjson")
   Write-Host ("{0,-14} bekleniyor {1,7:N0} satir -> {2}" -f $tablo,$beklenen,(Split-Path $hedef -Leaf)) -ForegroundColor Cyan
+  if($ofsetSira -and $beklenen -gt 10000){ throw "$tablo offset yoluyla alinamayacak kadar buyudu ($beklenen satir) - tek alanli imlec tanimla." }
 
   # ⚠ StreamWriter: 200 MB'lik tablo bellege TOPLANMAZ, satir satir akitilir.
   $yazici=New-Object System.IO.StreamWriter($hedef,$false,(New-Object Text.UTF8Encoding $false))
@@ -106,8 +146,12 @@ foreach($tablo in $VARSAYILAN.Keys){
   try{
     $buSayfa=$sayfaBoyu
     while($true){
-      $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
-      if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
+      if($ofsetSira){
+        $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$ofsetSira+'&limit='+$buSayfa+'&offset='+$sayac
+      } else {
+        $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
+        if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
+      }
       $cevap=$null
       foreach($deneme in 1..4){
         try{ $cevap=Invoke-RestMethod -Uri $adres -Headers $AMBAR_BASLIK -TimeoutSec 300; break }
@@ -119,8 +163,12 @@ foreach($tablo in $VARSAYILAN.Keys){
           #    sabit degil uyarlanir yapildi.
           if($buSayfa -gt 1){
             $buSayfa=[Math]::Max(1,[int]($buSayfa/4))
-            $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
-            if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
+            if($ofsetSira){
+              $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$ofsetSira+'&limit='+$buSayfa+'&offset='+$sayac
+            } else {
+              $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
+              if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
+            }
             Write-Host ("   ! sayfa kuculttu -> limit=$buSayfa") -ForegroundColor Yellow
           }
           Start-Sleep -Seconds (3*$deneme)
@@ -132,7 +180,7 @@ foreach($tablo in $VARSAYILAN.Keys){
         $yazici.WriteLine(($satir|ConvertTo-Json -Depth 20 -Compress))
         $sayac++
       }
-      $imlec=$satirlar[-1].$imlecAlan
+      if(-not $ofsetSira){ $imlec=$satirlar[-1].$imlecAlan }
       $sayfa++
       if($satirlar.Count -lt $buSayfa){ break }
       if($sayfa % 10 -eq 0){ Write-Host ("   ... {0:N0}" -f $sayac) -ForegroundColor DarkGray }
@@ -158,3 +206,11 @@ Write-Host ("`nTOPLAM: {0:N0} satir · {1:N1} MB · eksik tablo {2}" -f $toplamS
 # ⛔ Eksik yedekle "yedek aldik" denmez - akis burada DUSER ve artifact yazilmaz.
 if($eksikler.Count){ throw ("YEDEK EKSIK: " + (($eksikler|ForEach-Object{ "$($_.tablo) $($_.yazilan)/$($_.beklenen)" }) -join ' · ')) }
 Write-Host "kunye: soru-ambar-$damga-kunye.json" -ForegroundColor DarkGray
+
+# Yerel gorev icin eskiyi budama - yalniz TAM yedekten SONRA (eksik yedekte yukarida dusuldu).
+if($SaklaGun -gt 0){
+  $esik=(Get-Date).AddDays(-$SaklaGun)
+  $eskiler=@(Get-ChildItem $Kok -File -Filter 'soru-ambar-*' | Where-Object { $_.LastWriteTime -lt $esik })
+  foreach($e in $eskiler){ Remove-Item $e.FullName -Force }
+  Write-Host ("budandi: {0} dosya ({1} gunden eski)" -f $eskiler.Count,$SaklaGun) -ForegroundColor DarkGray
+}
