@@ -514,6 +514,10 @@ jobs:
           # 30.09: KAPI-BOS bos sik aciklamasi / yer tutucu deger / A-E disi anahtar. 15 vaka; 6 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Bos alan kapisi OZ-SINAVI (KAPI-BOS)",
               kabuk: bash, komut: "node arac/bos-alan-kapisi.js --sinav --mutasyon" }
+          # 30.09: KAPI-ADIM adim atfi kaymasi ("X (N. adimda bulduk)" X'in sonuc oldugu adimi gostermiyor) + mekanik onarim. 7 vaka;
+          # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
+          - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",
+              kabuk: bash, komut: "node arac/adim-atif-kapisi.js --sinav --mutasyon" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
           - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
               kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }
