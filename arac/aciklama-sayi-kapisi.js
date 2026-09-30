@@ -59,6 +59,11 @@ function kaymaDenetle(k) {
   const ns = Object.keys(k.aciklama).filter(h => /^\s*Ne soruluyor/i.test(metinAl(k.aciklama[h])));
   if (ns.length && (!ns.includes(k.dogru) || MUT === 'kayma-yok') && MUT !== 'kayma-kapali')
     b.push({ kod: 'AS2', alan: 'aciklama', sik: k.dogru, diger: ns.join(','), not: 'aciklama kaymış: doğru şık ' + k.dogru + ', çözüm metni ("Ne soruluyor") ' + ns.join(',') + ' altında' });
+  // 30.09 (SGS ticaret onarımı 3 kayıtta gördü; sitede 193 soru ölçüldü): "Ne soruluyor: … Kural: …" çözüm kalıbı doğru şıkla BİRLİKTE
+  //   başka şıkta da duruyor → o yanlış şıkta öğrenci tuzak anlatımı yerine çözüm kalıbını görür. İki nokta şart ("Ne soruluyor cümlesindeki…" tuzak cümlesi sayılmaz).
+  const nsTam = Object.keys(k.aciklama).filter(h => /^\s*Ne soruluyor\s*:/i.test(metinAl(k.aciklama[h])));
+  if (nsTam.length > 1 && MUT !== 'coklu-kapali')
+    b.push({ kod: 'AS2', alan: 'aciklama', sik: k.dogru, diger: nsTam.join(','), not: 'çözüm kalıbı ("Ne soruluyor:") birden çok şıkta: ' + nsTam.join(',') });
   const fazla = Object.keys(k.aciklama).filter(h => /^[A-Z]$/.test(h) && k.siklar && !(h in k.siklar));
   if (fazla.length && MUT !== 'fazla-kapali') b.push({ kod: 'AS2', alan: 'aciklama', sik: k.dogru, diger: fazla.join(','), not: 'aciklama şıklarda olmayan harf taşıyor: ' + fazla.join(',') });
   return b;
@@ -121,6 +126,8 @@ function sinav() {
     ['AS2: "Ne soruluyor" doğru şık dışında → kayma', k => { k.aciklama.D = 'Boşu kapasiteye böldün.'; k.aciklama.A = 'Ne soruluyor: 96.000 / 8.000 = 12.'; return k; }, 1],
     ['AS2: açıklamada fazladan F harfi → kayma', k => { k.aciklama.F = 'Fazla metin.'; return k; }, 1],
     ['AS2: doğru şıkta "Ne soruluyor" varsa temiz', k => { k.aciklama.D = 'Ne soruluyor: 96.000 / 8.000 = 12.'; return k; }, 0],
+    ['AS2: çözüm kalıbı doğru şıkla birlikte A\'da da → kayma', k => { k.aciklama.A = 'Ne soruluyor: fark soruluyor. Kural: boşu kapasiteye böl.'; return k; }, 1],
+    ['AS2: "Ne soruluyor cümlesindeki…" tuzak cümlesi kalıp sayılmaz', k => { k.aciklama.C = 'Ne soruluyor cümlesindeki "fark" sözcüğünü toplam sandın.'; return k; }, 0],
     ['iki alan birden kusurlu → iki bulgu', k => { k.aciklama.A = '9 buldun'; k.sade.siklar.A = '16 buldun'; return k; }, 2]
   ];
   let gecen = 0;
@@ -149,7 +156,7 @@ if (require.main === module) {
   if (a.includes('--sinav')) {
     if (a.includes('--mutasyon')) {
       const { spawnSync } = require('child_process');
-      const ler = ['kendi-yok', 'dogru-dahil', 'kok-dahil', 'cok-sayi', 'dogru-say', 'sonuc-yok', 'islem-say', 'kayma-yok', 'kayma-kapali', 'fazla-kapali'];
+      const ler = ['kendi-yok', 'dogru-dahil', 'kok-dahil', 'cok-sayi', 'dogru-say', 'sonuc-yok', 'islem-say', 'kayma-yok', 'kayma-kapali', 'fazla-kapali', 'coklu-kapali'];
       let tutan = 0;
       for (const m of ler) {
         const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { AS_MUTASYON: m }), encoding: 'utf8' });
