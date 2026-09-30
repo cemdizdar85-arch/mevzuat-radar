@@ -488,6 +488,10 @@ jobs:
               kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav" }
           - { ad: "Eski kural kapisi MUTASYON",
               kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav --mutasyon" }
+          # 30.09: KAPI-HK hesap kodu (THP'de olmayan kod / kodun yaninda yanlis ad). 17 vaka; 6 mutasyon (ad uyumu, HK-YOK,
+          # alt kume, yon kelimesi, standart atfi, 8/9 haric) her birinde KIRMIZI (30.09 elle olculdu). THP listesi depoda, ag yok.
+          - { ad: "Hesap kodu kapisi OZ-SINAVI (KAPI-HK)",
+              kabuk: bash, komut: "node arac/hesap-kodu-kapisi.js --sinav" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
           - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
               kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }

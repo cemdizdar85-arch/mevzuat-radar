@@ -388,6 +388,19 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   🚫 GÖRMEZ: sözel açıklama kusuru · adım/ikiz içi hesap hatası · listede olmayan eski kural · kaynak paketindeki eski metnin kendisi
   (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1`, `motor/vitrin-soru-sec.ps1` ve SMMM kasa yayını (`smmm-kasa-yayin`) bu kapıyı
   çağırmıyor (30.09: SGS oturumu bu seçim yollarını bildirdi; SMMM yolu ölçülmedi).
+- ⛔⭐ **HER SINAVDA KALİTE TARAMASI — BASIMDAN ÖNCE VE YAYINDAN ÖNCE** (30.09.2026, Cem: *"bu kural olsun her sınavda bu kontrolleri
+  yapsın"*). SGS, yeterlilik ve KGK'nın **üçünde de** aynı kapılar koşar; bir sınavda koşmuyorsa o sınavın raporuna **"ölçülmedi"** yazılır.
+  1. **Otomatik (0 USD, yeni soru):** `arac/soru-kalite-kapisi.js` = KAPI-AS2 + KAPI-EK + **KAPI-HK** (`arac/hesap-kodu-kapisi.js`,
+     30.09: THP'de olmayan hesap kodu / kodun yanındaki adın THP adıyla uyuşmaması; THP listesi `veri/sinav/thp-hesap-kodlari.json`,
+     ambardan `--tazele`). Adsız "hesap bağlamı" bulgusu yalnız `NOT-HK` yazar, durdurmaz. KAPI-MM (mülga madde) ve KAPI-OM ayrı.
+  2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
+     `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js`. Bulgu **çekilmez, onarım kuyruğuna gider**
+     (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
+  3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
+  4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
+  **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
+  252/100 ad hataları), SMMM 1, KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap (220 yerine 120) · "hesap" kelimesiz
+  tek sayı · ambarda olmayan 7/B'ye özgü kod (yanlış HK-YOK verebilir).
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.
