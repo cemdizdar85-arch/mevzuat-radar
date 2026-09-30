@@ -38,7 +38,12 @@ $sinav = if($oturum -like 'SGS*'){ 'SGS' } elseif($oturum -like 'YET*'){ 'SMMM' 
 #   "kullanilmaz" karari) cekiliyordu. Yeni kasa paket_soru (sinav=smmm; kilitli kasa, Cem onaylari, ikiz kapisi, Kaydir-Coz
 #   bicimi). YET yolu artik oradan okur ve alanlari canli-deneme.html bicimine cevirir. Ucretsiz (herkese acik) sorular
 #   pakete girmez. SGS yolu DEGISMEDI (SGS kolunun karari; bitirme oturumu SGS'ye dokunmaz).
-$KASA = ($sinav -eq 'SMMM')
+# 30.09.2026 (SGS oturumu, Cem onayı "paket betiğinde iki satırlık düzeltme için onay"; site oturumu bildirdi: SGS-0410 paketi yok,
+#   SGS yolu eski soru_havuzu'ndan çekiyordu): SGS de yeni kasadan okur (paket_soru sinav=sgs, ucretsiz=false). Ölçüldü 30.09: kasada
+#   SGS 4.822 soru; ders adları resmî bileşimle birebir; veri alanları (kural, sade.dogru, tuzak, dayanak) KasaCevir'in beklediğiyle aynı;
+#   elle ret listesindeki sorular kasada yok (146'dan 1'i vitrinde, o da ucretsiz=true → pakete girmez).
+$KASA = $true
+$KASA_SINAV = $(if($sinav -eq 'SMMM'){ 'smmm' } else { 'sgs' })
 $UK = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru'
 $HK = @{ apikey=$env:SUPABASE_SERVICE_KEY; Authorization="Bearer $($env:SUPABASE_SERVICE_KEY)" }
 # Kaydir-Coz nesnesi -> canli-deneme.html bicimi. aciklama[dogru] = kural + sade anlatim; yanlis sik = tuzak adi + metni;
@@ -95,7 +100,7 @@ $havuz = New-Object System.Collections.Generic.List[object]
 $bas=0
 while($true){
   # kasada benzer_grup kolonu YOK (olculdu 07.08) - cesitlilik KONU TAVANIYLA saglanir
-  $r = @($(if($KASA){ Invoke-RestMethod -Uri "$UK`?select=id,ders,konu&sinav=eq.smmm&ucretsiz=eq.false&order=id&limit=1000&offset=$bas" -Headers $HK -TimeoutSec 180 } else { Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 }) | ForEach-Object { $_ })
+  $r = @($(if($KASA){ Invoke-RestMethod -Uri "$UK`?select=id,ders,konu&sinav=eq.$KASA_SINAV&ucretsiz=eq.false&order=id&limit=1000&offset=$bas" -Headers $HK -TimeoutSec 180 } else { Invoke-RestMethod -Uri "$U`?select=id,ders,konu&sinav=eq.$sinav&yayin_notu=is.null&order=id&limit=1000&offset=$bas" -Headers $H -TimeoutSec 180 }) | ForEach-Object { $_ })
   if($r.Count -eq 0){ break }
   foreach($x in $r){ if($x){ $havuz.Add($x) } }
   if($r.Count -lt 1000){ break }
