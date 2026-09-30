@@ -39,6 +39,8 @@ function metinleri(o, p, out) {
   if (typeof o === 'object') for (const [k, v] of Object.entries(o)) { if (!p && MODEL.has(k)) continue; metinleri(v, p ? p + '.' + k : k, out); }
   return out;
 }
+// 30.09 hk-65 onarımında elle yargılanan yanlış alarmlar: grup adıyla ya da yerleşik kısaltmayla yazılan doğru kod
+const GRUP_KISA = { '15': /^STOK(LAR)?\b/i, '62': /^S(T)?MM\b/i };
 // 3 haneli kod + ardından BÜYÜK HARFLE ya da Başharfle başlayan ad (en çok 6 kelime)
 const KOD_AD = /(?<![\d.,])\b([1-9]\d{2})\b\s*(?:no\.?(?:lu|lı)?\s*|numaral[ıi]\s*)?(?:[-–—:]\s*)?((?:[A-ZÇĞİÖŞÜ][A-Za-zÇĞİÖŞÜçğıöşü.'’()/]*\s*){1,6})/g;
 const KOD_HESAP = /(?<![\d.,])\b([1-9]\d{2})\b\s*(?:no\.?(?:lu|lı)?\s*|numaral[ıi]\s*)?(?:[-–—]\s*)?(?:nolu\s+)?(?:hesab|hesap|hs\.)/gi;
@@ -54,9 +56,11 @@ function kusurlar(soru) {
     while ((m = KOD_AD.exec(t))) {
       const [, kod, adHam] = m; const ad = adHam.replace(/\s+(TL|₺|Tl)\b.*$/, '').trim();
       if (katla(ad).split(' ').filter(w => w.length >= 3).length < 1) continue;
-      if (/(TUZA|SINAV|KVYK|UVYK|BDS|TMS|TFRS|UDS)/i.test(ad)) continue;   // etiket/standart adi, hesap adi degil
+      if (/(TUZA|SINAV|KVYK|UVYK|BDS|TMS|TFRS|\bUDS\b|MSUGT)/i.test(ad)) continue;   // etiket/standart adi, hesap adi degil
       if (/^(BORÇ|BORC|ALACAK|B|A|KVYK|UVYK|DVYK)(?=[\s).,;]|$)[\s).,;]*$/i.test(ad)) continue;   // yevmiye yonu / oran kisaltmasi, hesap adi degil
-      if (/(BDS|TMS|TFRS|UDS|ISA|IFRS|SDS|BOBİ|KAYDS|madde|m\.|p\.|md\.|say[ıi]l[ıi])\s*$/i.test(t.slice(Math.max(0, m.index - 12), m.index))) continue;   // standart/madde numarasi
+      if (/(BDS|TMS|TFRS|UDS|ISA|IFRS|SDS|BOBİ|KAYDS|Standard[ıi]|Standartlar[ıi]|madde|m\.|p\.|md\.|say[ıi]l[ıi])\s*$/i.test(t.slice(Math.max(0, m.index - 12), m.index))) continue;   // standart/madde numarasi (30.09: "Bağımsız Denetim Standardı 505" yanlış alarmı)
+      if (/\d{3}\s*[\/–-]\s*$/.test(t.slice(Math.max(0, m.index - 6), m.index))) continue;   // birleşik kod "180/280 GELECEK AYLARA-YILLARA" (30.09 yanlış alarm)
+      if (GRUP_KISA[kod.slice(0, 2)] && GRUP_KISA[kod.slice(0, 2)].test(ad)) continue;   // grup kısaltması "153 STOK", "621 STMM" (30.09 yanlış alarm)
       if (/^(TL|Tl|₺|YTL|USD|EUR|Adet|Birim|Gün|Ay|Yıl|Saat|Kg|Ton|Metre|Kişi|İşçi|Adet)\b/i.test(ad)) continue;
       if (!K[kod] && /^[89]/.test(kod)) continue;   // 8 (serbest) ve 9 (nazim) gruplari isletmeye gore acilir, THP listesinde yok
       if (!K[kod]) { if (/[A-ZÇĞİÖŞÜ]{3,}/.test(ad) || /hesab|hesap/i.test(t.slice(m.index, m.index + 80))) ekle('HK-YOK', kod, ad, alan); continue; }
@@ -105,6 +109,13 @@ function sinav() {
     ['etiket → temiz (500 SINAV TUZAĞI)', { teshis: { A: '500 SINAV TUZAĞI: yanlış yol' } }, null],
     ['nazım/serbest grup → temiz (900 hesabı)', { soru: 'Teminat 900 hesabında izlenir.' }, null],
     ['nazım grup adıyla → temiz (910 NAZIM TEMİNAT)', { aciklama: { D: 'Teminat 910 NAZIM TEMİNAT MEKTUPLARI ile izlenir' } }, null],
+    ['uzun standart adı → temiz (Bağımsız Denetim Standardı 505)', { sade: { sinav: 'Bağımsız Denetim Standardı 505 Dış Teyitler kapsamında banka hesapları karşılaştırılır.' } }, null],
+    ['MSUGT künyesi (Sıra No yok) → temiz', { dayanak: 'THP 380 - MSUGT hesap açıklamaları' }, null],
+    ['grup kısaltması → temiz (153 STOK, 621 STMM)', { teshis: { A: '153 STOKLAR artar; 621 STMM hesabına borç' } }, null],
+    ['birleşik kod → temiz (180/280 GELECEK AYLARA-YILLARA)', { hap: '180/280 GELECEK AYLARA-YILLARA AİT GİDERLER' }, null],
+    ['MSUGT künyesi → temiz (THP 380 - MSUGT Sıra No:1)', { teshis: { D: { paragraf: 'THP 380 - MSUGT Sıra No:1' } } }, null],
+    ['grup kısaltması gerçek hatayı örtmez (153 TAŞITLAR)', { aciklama: { A: '153 TAŞITLAR hesabına borç' } }, 'HK-AD'],
+    ['UDS etiketi → temiz (400 UDS NOTU)', { teshis: { B: '400 UDS NOTU: kavram' } }, null],
     ['model alanı taranmaz (hakem)', { hakem: { gerekce: '528 İPTAL ZARARLARI' } }, null],
   ];
   let ok = 0; for (const [ad, q, bek] of V) { const ks = kusurlar(q); const g = bek ? ks.some(k => k.tur === bek) : ks.length === 0; if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad + (g ? '' : ' → ' + JSON.stringify(ks))); }
