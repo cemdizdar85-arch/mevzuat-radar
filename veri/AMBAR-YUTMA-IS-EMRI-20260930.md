@@ -5,6 +5,12 @@
 > Bu eksikler `veri/kesik-metin-adaylari.json` ve `veri/kesik-madde-onarim-onerisi.json`'da **yok** (30.09 grep ile ölçüldü) — mevcut
 > kesik metin taraması bunları görmüyor.
 
+## ⚠ ÖNCELİK (30.09 akşam): satır 12–13 (THP 652 mülga, 649/659 eski 1992 açıklaması) ÖNCE
+
+Üretim bu eski ambar metninden besleniyor: kapı (KAPI-HK 652, KAPI-EK EK12/EK13) yeni soruyu durdurur ama ambar düzelmedikçe
+üretim aynı hatayı basmaya devam eder (boşa para). Site Pazartesi 05.10 açılıyor. Ölçülen etki: SGS sitesinde 652 → 7 soru,
+EK12 (649 + menkul/kambiyo kâr) → 3 soru; bitirme ölçümü SMMM oturumunda.
+
 ## Neden önemli
 
 Kapılar (KAPI-HK `arac/hesap-kodu-kapisi.js`, KAPI-BP `arac/bds-atif-kapisi.js`) ve onarım ajanları doğruluğu **ambardan** okuyor.

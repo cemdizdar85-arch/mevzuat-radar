@@ -83,6 +83,11 @@ function sinav() {
     ['EK11 "seçtiği politika gereği finansman" → alarm (SMMM w14-11 vakası)', T({ hap: 'Ödenen temettü işletmenin seçtiği politika gereği genellikle finansman faaliyeti sayılır.' }), 1],
     ['EK11 "temettü sınıflandırma politikası" → alarm', T({ konu_giris: { terimler: [{ ad: 'Temettü sınıflandırma politikası' }] } }), 1],
     ['EK11 meşru: kâr dağıtım politikası (TTK/SPK kavramı)', T({ aciklama: { A: 'Şirket temettü ödemesini kâr dağıtım politikası çerçevesinde belirler.' } }), 0],
+    ['EK12 649\'a menkul kıymet satış kârı → alarm', T({ adimlar: [{ anlatim: 'Tahvil satışından doğan kâr 649 Diğer Olağan Gelir ve Kârlar hesabına, menkul kıymet satış kârı olarak yazılır.' }] }), 1],
+    ['EK12 meşru: 649 diğer olağan gelir (kira geliri)', T({ adimlar: [{ anlatim: 'Arızi kira geliri 649 Diğer Olağan Gelir ve Kârlar hesabına alacak yazılır.' }] }), 0],
+    ['EK12 meşru: "645\'e yazılır, 649\'a değil"', T({ aciklama: { B: 'Menkul kıymet satış kârı 645\'e yazılır, 649\'a değil.' } }), 0],
+    ['EK13 659\'a kambiyo zararı → alarm', T({ aciklama: { A: 'Kur farkından doğan kambiyo zararı 659 hesabına borç yazılır.' } }), 1],
+    ['EK13 meşru: 656 Kambiyo Zararları', T({ aciklama: { A: 'Kambiyo zararı 656 Kambiyo Zararları hesabına borç yazılır.' } }), 0],
     ['model alanı taranmaz (öğrenci görmez)', T({ hakem: { gerekce: 'KDV oranı %18 uygulanır.' } }), 0]
   ];
   let g = 0;

@@ -88,6 +88,22 @@
       "haric": "TFRS 18 öncesi|eski (kural|metin|TMS 7)|artık|kaldırıldı|p\\.?\\s*34B|34C|34D|ana faaliyeti|dağıtım politika|kâr dağıtım|kar dağıtım",
       "dayanak": "TMS 7 p.33A, 34A–34D (ambar, TFRS 18 sonrası; eski p.33/34 silinmiş); Cem 30.09 kararı: yeni sürüm esas",
       "bulan": "SGS TFRS 18 etki ölçümü 30.09.2026 (2 cevabı değişen + 3 açıklama) + SMMM oturumu 30.09 (smmm-w14-11-yspk-cokzor/kp-01: \"seçtiği politika gereği … finansman\" kaçıyordu)"
+    },
+    {
+      "kod": "EK12",
+      "ad": "649'a menkul kıymet satış kârı / kambiyo kârı yazmak (1992 eski açıklama; güncel: 645 Menkul Kıymet Satış Kârları, 646 Kambiyo Kârları)",
+      "desen": "\\b649\\b[^.;]{0,90}(menkul k[ıi]ymet sat[ıi]ş k[âa]r|kambiyo k[âa]r)|(menkul k[ıi]ymet sat[ıi]ş k[âa]r[ıi]?|kambiyo k[âa]r[ıi]?)[^.;]{0,60}\\b649\\b",
+      "haric": "\\b645\\b|\\b646\\b|1992|eski (açıklama|metin)|değil|yerine",
+      "dayanak": "MSUGT Sıra No:2 (RG 16.12.1993/21790) C/21 — 649 açıklaması yeniden yazıldı; B/11 645, B/12 646 açıldı (resmî RG metni 30.09 okundu)",
+      "bulan": "SMMM oturumu (bitirme okuyucuları) + SGS resmî doğrulama 30.09.2026"
+    },
+    {
+      "kod": "EK13",
+      "ad": "659'a kambiyo zararı / menkul kıymet satış zararı yazmak (1992 eski açıklama; güncel: 655 Menkul Kıymet Satış Zararları, 656 Kambiyo Zararları)",
+      "desen": "\\b659\\b[^.;]{0,90}(menkul k[ıi]ymet sat[ıi]ş zarar|kambiyo zarar)|(menkul k[ıi]ymet sat[ıi]ş zarar[ıi]?|kambiyo zarar[ıi]?)[^.;]{0,60}\\b659\\b",
+      "haric": "\\b655\\b|\\b656\\b|1992|eski (açıklama|metin)|değil|yerine",
+      "dayanak": "MSUGT Sıra No:2 (RG 16.12.1993/21790) C/23 — 659 açıklaması yeniden yazıldı; B/14 655, B/15 656 açıldı (resmî RG metni 30.09 okundu)",
+      "bulan": "SMMM oturumu + SGS resmî doğrulama 30.09.2026"
     }
   ]
 }
