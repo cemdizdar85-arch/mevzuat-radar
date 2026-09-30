@@ -265,6 +265,12 @@ jobs:
           - { ad: "KAPI-MM mulga madde ON DENETIM OZ-SINAVI (kaynak_adlar'da mulga madde KUSUR)",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -MulgaSinavi" }
 
+          # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
+          # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /
+          # fark-yok reddi kapatilinca 5/5 KIRMIZI. Gercek veride 378 taslakta 4 cakismayi (ayni soruya iki parca) reddetti.
+          - { ad: "Onarim hatti karar OZ-SINAVI (beyansiz fark red, anahtar/kok degisince yeniden hakem)",
+              kabuk: bash, komut: "node arac/onarim-hatti.js --sinav" }
+
           # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
           # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
           # 'yayin basimdan SONRA' sarti kaldirilinca 2/7, 'kuyrukta yayin' istisnasi kapatilinca 1/7 KIRMIZI.
