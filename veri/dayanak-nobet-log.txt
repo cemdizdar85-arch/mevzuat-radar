@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20260929184135
+Start time: 20260930064018
 Username: runnervmtr4k5\runner
 RunAs User: runnervmtr4k5\runner
 Configuration Name: 
 Machine: runnervmtr4k5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6c0f89f1-ad0d-4035-9e12-7e21952bef8d.ps1'
-Process ID: 11156
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1e8bc677-b0aa-40e3-be68-6b2e6a6eb9c7.ps1'
+Process ID: 11295
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,11 +17,15 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 0
+Degisen madde : 1
 Haritadaki sayfa: 24
+  ayristirilan cift: 0
+  AYRISTIRILAMAYAN 1 kayit (gozden kacmasin diye yaziliyor):
+     TEORI - Bakım-onarım giderlerinin maliyet niteliği: genel üretim gideri (730), dönem gideri (770/760), aktifleştirme (TMS 16 ve 264 Özel Maliyetler) ayrımı; özel maliyetler ile normal bakım-onarım farkı
 
-TEMIZ: degisen madde yok, etkilenen sayfa yok.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20260929184135
+End time: 20260930064018
 **********************

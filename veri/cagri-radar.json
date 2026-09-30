@@ -1,11 +1,11 @@
 {
-  "guncelleme": "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 29.09.2026 15:47.",
+  "guncelleme": "Kaynaklar dogrudan kurum sitelerinden robotla cekildi. Son cekim: 30.09.2026 05:32.",
   "kaynaklar": [
     {
       "ad": "TÜBİTAK",
       "url": "https://tubitak.gov.tr/tr/destekler/sanayi/ulusal-destek-programlari",
       "durum": "OK (10 çağrı)",
-      "sonUretim": "2026-09-29"
+      "sonUretim": "2026-09-30"
     },
     {
       "ad": "KOSGEB",
@@ -16,14 +16,14 @@
     {
       "ad": "AB",
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals",
-      "durum": "OK (portalda 1019 konu tarandi; tarihi gecerli 423 — açık 157, yakında 266; listede en yakın 100)",
-      "sonUretim": "2026-09-29"
+      "durum": "OK (portalda 1043 konu tarandi; tarihi gecerli 447 — açık 160, yakında 287; listede en yakın 100)",
+      "sonUretim": "2026-09-30"
     },
     {
       "ad": "Kalkınma Ajansları",
       "url": "https://ka.gov.tr/destekler",
       "durum": "OK (26 ajansta güncel 89 destek, 21 tanesi listede)",
-      "sonUretim": "2026-09-29"
+      "sonUretim": "2026-09-30"
     },
     {
       "ad": "TKDK (IPARD)",
@@ -35,7 +35,7 @@
       "ad": "HAMLE",
       "url": "https://www.hamle.gov.tr/Home/CagriPlani",
       "durum": "ÖLÇÜLEMEDİ",
-      "sonUretim": "2026-09-29"
+      "sonUretim": "2026-09-30"
     },
     {
       "ad": "KKYDP / RG tebliği",
@@ -545,19 +545,21 @@
     },
     {
       "kaynak": "AB",
-      "kod": "DIGITAL-2026-BESTUSE-10",
-      "baslik": "Ensuring comprehensive geographical coverage of the Network of Safer Internet Centres (SICs)",
+      "kod": "DIGITAL-2026-AI-PILOTING-10",
+      "baslik": "Apply AI: Piloting AI-based image screening in medical centres",
       "durum": "acik",
       "program": "Dijital Avrupa",
       "acilis": "2026-04-21",
       "sonTarih": "2026-10-01",
       "tarihler": [],
-      "ozet": "Provision of the four key elements required of a Safer Internet Centre, namely:\nA centre for raising awareness among children, parents/carers, teachers and educators as well as other…",
+      "ozet": "One or more proofs-of-concept of replicable, scalable cloud-based AI/GenAI systems for analysis of medical imaging data in a healthcare setting, with demonstration of the role of the…",
       "kim": "DIGITAL Simple Grants",
       "tutar": "",
       "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-BESTUSE-10-NETWORKSICs"
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-AI-PILOTING-10-SCREENING"
     },
     {
       "kaynak": "AB",
@@ -577,6 +579,22 @@
         "buyume"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-BESTUSE-10-EHDS"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "DIGITAL-2026-BESTUSE-10",
+      "baslik": "Ensuring comprehensive geographical coverage of the Network of Safer Internet Centres (SICs)",
+      "durum": "acik",
+      "program": "Dijital Avrupa",
+      "acilis": "2026-04-21",
+      "sonTarih": "2026-10-01",
+      "tarihler": [],
+      "ozet": "Provision of the four key elements required of a Safer Internet Centre, namely:\nA centre for raising awareness among children, parents/carers, teachers and educators as well as other…",
+      "kim": "DIGITAL Simple Grants",
+      "tutar": "",
+      "ozetDil": "en",
+      "asama": [],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-BESTUSE-10-NETWORKSICs"
     },
     {
       "kaynak": "AB",
@@ -600,24 +618,6 @@
     },
     {
       "kaynak": "AB",
-      "kod": "DIGITAL-2026-AI-PILOTING-10",
-      "baslik": "Apply AI: Piloting AI-based image screening in medical centres",
-      "durum": "acik",
-      "program": "Dijital Avrupa",
-      "acilis": "2026-04-21",
-      "sonTarih": "2026-10-01",
-      "tarihler": [],
-      "ozet": "One or more proofs-of-concept of replicable, scalable cloud-based AI/GenAI systems for analysis of medical imaging data in a healthcare setting, with demonstration of the role of the…",
-      "kim": "DIGITAL Simple Grants",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-AI-PILOTING-10-SCREENING"
-    },
-    {
-      "kaynak": "AB",
       "kod": "186165",
       "baslik": "EU National Resource Center for Civil Society Organizations in Serbia",
       "durum": "acik",
@@ -631,40 +631,6 @@
       "ozetDil": "en",
       "asama": [],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/186165/DD/ACT/RS"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "CEF-T-2026-MILMOB",
-      "baslik": "Adaptation of the TEN-T to civilian-defence dual use - studies, works or mixed",
-      "durum": "acik",
-      "program": "Avrupa'yı Bağlama",
-      "acilis": "2026-06-18",
-      "sonTarih": "2026-10-06",
-      "tarihler": [],
-      "ozet": "The objective of this call is to develop dual-use transport infrastructure on the TEN-T and the military mobility networks.\nIn accordance with Article 9(2), point (c), and Article 12 of the…",
-      "kim": "CEF Infrastructure Projects",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-MILMOB-WORKS"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "CEF-T-2026-SUSTMOBGEN",
-      "baslik": "European Maritime Space and Inland ports (AFIF) - works",
-      "durum": "acik",
-      "program": "Avrupa'yı Bağlama",
-      "acilis": "2026-06-18",
-      "sonTarih": "2026-10-06",
-      "tarihler": [],
-      "ozet": "The objective of this call is to modernise maritime transport infrastructure on the TEN-T network and reducing the environmental impact of transport through efficient short sea shipping…",
-      "kim": "CEF Infrastructure Projects",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-SUSTMOBGEN-EMS-WORKS"
     },
     {
       "kaynak": "AB",
@@ -705,43 +671,6 @@
     },
     {
       "kaynak": "AB",
-      "kod": "CEF-T-2026-SIMOBGEN",
-      "baslik": "New technologies and innovation: digitalisation of road transport - works",
-      "durum": "acik",
-      "program": "Avrupa'yı Bağlama",
-      "acilis": "2026-06-18",
-      "sonTarih": "2026-10-06",
-      "tarihler": [],
-      "ozet": "The objective of this call is to modernise transport infrastructure and enhance the digitalisation of road transport on the TEN-T network.\nProjects fostering the deployment of new…",
-      "kim": "CEF Infrastructure Projects",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [
-        "buyume",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-SIMOBGEN-NEWTECH-WORKS"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "CEF-T-2026-COREGEN",
-      "baslik": "Rail – studies, works or mixed",
-      "durum": "acik",
-      "program": "Avrupa'yı Bağlama",
-      "acilis": "2026-06-18",
-      "sonTarih": "2026-10-06",
-      "tarihler": [],
-      "ozet": "The objective of this call is to develop rail transport infrastructure projects on the TEN-T core [1] network\nConstruction/upgrading of cross-border and missing links\nInterconnections…",
-      "kim": "CEF Infrastructure Projects",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-COREGEN-RAIL-WORKS"
-    },
-    {
-      "kaynak": "AB",
       "kod": "187027",
       "baslik": "Borderlands V - West Africa",
       "durum": "acik",
@@ -758,19 +687,21 @@
     },
     {
       "kaynak": "AB",
-      "kod": "CEF-T-2026-COREGEN",
-      "baslik": "Inland waterways – works",
+      "kod": "ESF-2026-POW",
+      "baslik": "Posting of workers: enhancing administrative cooperation and access to information",
       "durum": "acik",
-      "program": "Avrupa'yı Bağlama",
-      "acilis": "2026-06-18",
+      "program": "ESF",
+      "acilis": "2026-04-30",
       "sonTarih": "2026-10-06",
       "tarihler": [],
-      "ozet": "The objective of this call is to develop inland waterway transport infrastructure projects on the TEN-T core network.\nUpgrade of waterways and related infrastructure such as locks and…",
-      "kim": "CEF Infrastructure Projects",
+      "ozet": "This call for proposals supports implementation of the following key principles of the European Pillar of Social Rights: (3) equal opportunities; (5) secure and adaptable employment; (6)…",
+      "kim": "ESF Project Grants",
       "tutar": "",
       "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-COREGEN-IWWP-WORKS"
+      "asama": [
+        "istihdam"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ESF-2026-POW"
     },
     {
       "kaynak": "AB",
@@ -792,21 +723,19 @@
     },
     {
       "kaynak": "AB",
-      "kod": "ESF-2026-POW",
-      "baslik": "Posting of workers: enhancing administrative cooperation and access to information",
+      "kod": "CEF-T-2026-COREGEN",
+      "baslik": "Inland waterways – works",
       "durum": "acik",
-      "program": "ESF",
-      "acilis": "2026-04-30",
+      "program": "Avrupa'yı Bağlama",
+      "acilis": "2026-06-18",
       "sonTarih": "2026-10-06",
       "tarihler": [],
-      "ozet": "This call for proposals supports implementation of the following key principles of the European Pillar of Social Rights: (3) equal opportunities; (5) secure and adaptable employment; (6)…",
-      "kim": "ESF Project Grants",
+      "ozet": "The objective of this call is to develop inland waterway transport infrastructure projects on the TEN-T core network.\nUpgrade of waterways and related infrastructure such as locks and…",
+      "kim": "CEF Infrastructure Projects",
       "tutar": "",
       "ozetDil": "en",
-      "asama": [
-        "istihdam"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ESF-2026-POW"
+      "asama": [],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-COREGEN-IWWP-WORKS"
     },
     {
       "kaynak": "AB",
@@ -829,6 +758,77 @@
     },
     {
       "kaynak": "AB",
+      "kod": "CEF-T-2026-COREGEN",
+      "baslik": "Rail – studies, works or mixed",
+      "durum": "acik",
+      "program": "Avrupa'yı Bağlama",
+      "acilis": "2026-06-18",
+      "sonTarih": "2026-10-06",
+      "tarihler": [],
+      "ozet": "The objective of this call is to develop rail transport infrastructure projects on the TEN-T core [1] network\nConstruction/upgrading of cross-border and missing links\nInterconnections…",
+      "kim": "CEF Infrastructure Projects",
+      "tutar": "",
+      "ozetDil": "en",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-COREGEN-RAIL-WORKS"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "CEF-T-2026-MILMOB",
+      "baslik": "Adaptation of the TEN-T to civilian-defence dual use - studies, works or mixed",
+      "durum": "acik",
+      "program": "Avrupa'yı Bağlama",
+      "acilis": "2026-06-18",
+      "sonTarih": "2026-10-06",
+      "tarihler": [],
+      "ozet": "The objective of this call is to develop dual-use transport infrastructure on the TEN-T and the military mobility networks.\nIn accordance with Article 9(2), point (c), and Article 12 of the…",
+      "kim": "CEF Infrastructure Projects",
+      "tutar": "",
+      "ozetDil": "en",
+      "asama": [],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-MILMOB-WORKS"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "CEF-T-2026-SIMOBGEN",
+      "baslik": "New technologies and innovation: digitalisation of road transport - works",
+      "durum": "acik",
+      "program": "Avrupa'yı Bağlama",
+      "acilis": "2026-06-18",
+      "sonTarih": "2026-10-06",
+      "tarihler": [],
+      "ozet": "The objective of this call is to modernise transport infrastructure and enhance the digitalisation of road transport on the TEN-T network.\nProjects fostering the deployment of new…",
+      "kim": "CEF Infrastructure Projects",
+      "tutar": "",
+      "ozetDil": "en",
+      "asama": [
+        "buyume",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-SIMOBGEN-NEWTECH-WORKS"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "CEF-T-2026-SUSTMOBGEN",
+      "baslik": "European Maritime Space and Inland ports (AFIF) - works",
+      "durum": "acik",
+      "program": "Avrupa'yı Bağlama",
+      "acilis": "2026-06-18",
+      "sonTarih": "2026-10-06",
+      "tarihler": [],
+      "ozet": "The objective of this call is to modernise maritime transport infrastructure on the TEN-T network and reducing the environmental impact of transport through efficient short sea shipping…",
+      "kim": "CEF Infrastructure Projects",
+      "tutar": "",
+      "ozetDil": "en",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/CEF-T-2026-SUSTMOBGEN-EMS-WORKS"
+    },
+    {
+      "kaynak": "AB",
       "kod": "EUBA-EFSA-2026-PLANTS-01",
       "baslik": "Scientific and technical assistance on a foresight activity in the field of plant health to enhance crisis preparedness for the EU territory.",
       "durum": "acik",
@@ -842,24 +842,6 @@
       "ozetDil": "en",
       "asama": [],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EUBA-EFSA-2026-PLANTS-01"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2026-10",
-      "baslik": "Increasing competitiveness and resilience of multimodal freight transport and logistics for competitive supply chains",
-      "durum": "acik",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-06-04",
-      "sonTarih": "2026-10-08",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all the following expected outcomes:\nAdvanced tools and solutions are developed and demonstrated to enhance the competitiveness of European…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 6.5 milyon €; yaklaşık 3 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-06"
     },
     {
       "kaynak": "AB",
@@ -988,6 +970,24 @@
         "arge"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-09"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL5-2026-10",
+      "baslik": "Increasing competitiveness and resilience of multimodal freight transport and logistics for competitive supply chains",
+      "durum": "acik",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-06-04",
+      "sonTarih": "2026-10-08",
+      "tarihler": [],
+      "ozet": "Project results are expected to contribute to all the following expected outcomes:\nAdvanced tools and solutions are developed and demonstrated to enhance the competitiveness of European…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 6.5 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-06"
     },
     {
       "kaynak": "AB",
@@ -1160,22 +1160,6 @@
     {
       "kaynak": "AB",
       "kod": "EDF-EDIP-P-2026-FNLC-CPA",
-      "baslik": "Ammunition, missiles and other explosive weapons",
-      "durum": "acik",
-      "program": "Avrupa Savunma Fonu",
-      "acilis": "2026-04-30",
-      "sonTarih": "2026-10-13",
-      "tarihler": [],
-      "ozet": "The results of the activities should contribute to support common procurement, leading to strengthening the cooperation among Member States and associated countries, as well as to greater…",
-      "kim": "EDF Lump Sum Grants",
-      "tutar": "",
-      "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-P-2026-FNLC-CPA-AMEW"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "EDF-EDIP-P-2026-FNLC-CPA",
       "baslik": "Counter-drone systems",
       "durum": "acik",
       "program": "Avrupa Savunma Fonu",
@@ -1191,21 +1175,19 @@
     },
     {
       "kaynak": "AB",
-      "kod": "EDF-EDIP-USI-2026-LS-IRA",
-      "baslik": "Missiles, ammunition and bombs",
+      "kod": "EDF-EDIP-P-2026-FNLC-CPA",
+      "baslik": "Ammunition, missiles and other explosive weapons",
       "durum": "acik",
       "program": "Avrupa Savunma Fonu",
-      "acilis": "2026-06-17",
+      "acilis": "2026-04-30",
       "sonTarih": "2026-10-13",
       "tarihler": [],
-      "ozet": "Projects are expected to deliver results aligned with the expected results set out in this call topic and to evidence their contribution through dedicated KPIs defined in the proposal.\n•…",
+      "ozet": "The results of the activities should contribute to support common procurement, leading to strengthening the cooperation among Member States and associated countries, as well as to greater…",
       "kim": "EDF Lump Sum Grants",
       "tutar": "",
       "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-USI-2026-LS-IRA-MAB"
+      "asama": [],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-P-2026-FNLC-CPA-AMEW"
     },
     {
       "kaynak": "AB",
@@ -1225,6 +1207,24 @@
         "arge"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-02-TRANSFO-01"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "EDF-EDIP-USI-2026-LS-IRA",
+      "baslik": "Missiles, ammunition and bombs",
+      "durum": "acik",
+      "program": "Avrupa Savunma Fonu",
+      "acilis": "2026-06-17",
+      "sonTarih": "2026-10-13",
+      "tarihler": [],
+      "ozet": "Projects are expected to deliver results aligned with the expected results set out in this call topic and to evidence their contribution through dedicated KPIs defined in the proposal.\n•…",
+      "kim": "EDF Lump Sum Grants",
+      "tutar": "",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-USI-2026-LS-IRA-MAB"
     },
     {
       "kaynak": "AB",
@@ -1308,19 +1308,94 @@
     },
     {
       "kaynak": "AB",
-      "kod": "187517",
-      "baslik": "Strengthening Open Data Publication and Personal Data Protection in Albania",
+      "kod": "DIGITAL-JU-CHIPS-2026-AI1-SG",
+      "baslik": "AI chip demonstrators for EU compute infrastructure",
       "durum": "acik",
-      "program": "EuropeAid",
-      "acilis": "2026-08-25",
+      "program": "Dijital Avrupa",
+      "acilis": "2026-07-07",
       "sonTarih": "2026-10-27",
       "tarihler": [],
-      "ozet": "",
-      "kim": "",
-      "tutar": "",
+      "ozet": "Functional demonstrators of working AI chip prototypes (PCB-level) designed by EU fabless companies and physically integrated with their system partners.\nValidation of AI chip solutions on…",
+      "kim": "DIGITAL JU Simple Grants",
+      "tutar": "Proje başına 500,000 € – 1.0 milyon €; yaklaşık 10 proje desteklenecek",
       "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EuropeAid/187517/DD/ACT/AL"
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-JU-CHIPS-2026-AI1-SG"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-02-two-stage",
+      "baslik": "Efficient energy input from renewable sources and energy management in the process industries (IA) (Processes4Planet and Innovative Advanced Materials for the EU partnerships)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "A significant decarbonisation of processes (measured by the reduction of GHG emissions from the overall system) with broad applicability and economic viability.\nFacilitation of the…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 7.0 milyon € – 9.0 milyon €; yaklaşık 6 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "donusum",
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-MAT-PROD-32-two-stage"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-06",
+      "baslik": "Fast Track to Research and Innovation for breakthroughs in industrial technologies (Research and Innovation Action)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Proposals should describe a credible pathway from their project results and outcomes towards the expected impact of this Destination;\nProposals should enable open-ended breakthrough…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 2.5 milyon €; yaklaşık 8 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-01",
+      "baslik": "Advanced manufacturing for key products (IA) (Made in Europe partnership)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Advanced manufacturing technology and machinery becomes available in Europe for the manufacturing of key and high-performance products;\nWhere relevant, production becomes increasingly…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 6.0 milyon € – 8.0 milyon €; yaklaşık 6 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-02-two-stage",
+      "baslik": "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Industrial jobs are transformed through AI-based human-machine interactions (and skills linked to them) which enhance flexibility, inclusion, well-being, up-skilling, career evolution and…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 4.0 milyon € – 6.0 milyon €; yaklaşık 5 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "istihdam"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage"
     },
     {
       "kaynak": "AB",
@@ -1339,6 +1414,101 @@
         "arge"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-01",
+      "baslik": "Pilot access schemes to Technology Infrastructures for European startups, scaleups and innovative SMEs (CSA)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Proposals should demonstrate the following expected outcomes:\nA sound understanding of the specific needs of industrial users (including but not limited to innovative SMEs, startups and…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 1.5 milyon € – 2.5 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "buyume",
+        "kurulus"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-47"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-01",
+      "baslik": "Circular innovative advanced materials: facilitating the transition from design to markets (RIA) (Innovative Advanced Materials for the EU and Made in Europe partnerships)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Innovative advanced materials designed for circularity are adopted in products faster, through accelerated production and technology uptake;\nBusiness models become available to enhance the…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 5.0 milyon € – 6.5 milyon €; yaklaşık 7 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "buyume",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-06"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-01",
+      "baslik": "Innovative advanced materials and new production processes – reducing dependencies on Critical and Strategic Raw Materials (IA) (Innovative Advanced Materials for the EU and Processes4Planet partnerships)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Reducing dependencies of critical and strategic raw materials through partial or total substitution by safe and sustainable innovative advanced materials and/or via more efficient use of…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 6.0 milyon € – 7.5 milyon €; yaklaşık 6 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "donusum",
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-22"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-01",
+      "baslik": "Expert network on Critical raw materials (CSA)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Strengthening the expert capacity in the EU in a wide range of raw materials along the whole value chain;\nBetter informed and more effective decision-making by the EU and National policy…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 3.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-17"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-06",
+      "baslik": "Fast Track to Innovation for breakthroughs in the Chemical Industry Action Plan  (Research and Innovation Action)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-09-22",
+      "sonTarih": "2027-02-02",
+      "tarihler": [],
+      "ozet": "Proposals should describe a credible pathway from their project results and outcomes towards the expected impact of this Destination;\nEnable the acceleration of the market uptake of…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 2.5 milyon €; yaklaşık 6 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-62"
     },
     {
       "kaynak": "AB",
@@ -1453,174 +1623,6 @@
     },
     {
       "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-06",
-      "baslik": "Fast Track to Innovation for breakthroughs in the Chemical Industry Action Plan  (Research and Innovation Action)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Proposals should describe a credible pathway from their project results and outcomes towards the expected impact of this Destination;\nEnable the acceleration of the market uptake of…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 2.5 milyon €; yaklaşık 6 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-62"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-01",
-      "baslik": "Expert network on Critical raw materials (CSA)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Strengthening the expert capacity in the EU in a wide range of raw materials along the whole value chain;\nBetter informed and more effective decision-making by the EU and National policy…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 3.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-17"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-01",
-      "baslik": "Innovative advanced materials and new production processes – reducing dependencies on Critical and Strategic Raw Materials (IA) (Innovative Advanced Materials for the EU and Processes4Planet partnerships)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Reducing dependencies of critical and strategic raw materials through partial or total substitution by safe and sustainable innovative advanced materials and/or via more efficient use of…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 6.0 milyon € – 7.5 milyon €; yaklaşık 6 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-22"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-01",
-      "baslik": "Circular innovative advanced materials: facilitating the transition from design to markets (RIA) (Innovative Advanced Materials for the EU and Made in Europe partnerships)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Innovative advanced materials designed for circularity are adopted in products faster, through accelerated production and technology uptake;\nBusiness models become available to enhance the…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 5.0 milyon € – 6.5 milyon €; yaklaşık 7 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "buyume",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-06"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-02-two-stage",
-      "baslik": "Efficient energy input from renewable sources and energy management in the process industries (IA) (Processes4Planet and Innovative Advanced Materials for the EU partnerships)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "A significant decarbonisation of processes (measured by the reduction of GHG emissions from the overall system) with broad applicability and economic viability.\nFacilitation of the…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 7.0 milyon € – 9.0 milyon €; yaklaşık 6 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-MAT-PROD-32-two-stage"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-01",
-      "baslik": "Pilot access schemes to Technology Infrastructures for European startups, scaleups and innovative SMEs (CSA)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Proposals should demonstrate the following expected outcomes:\nA sound understanding of the specific needs of industrial users (including but not limited to innovative SMEs, startups and…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 1.5 milyon € – 2.5 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "buyume",
-        "kurulus"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-47"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-06",
-      "baslik": "Fast Track to Research and Innovation for breakthroughs in industrial technologies (Research and Innovation Action)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Proposals should describe a credible pathway from their project results and outcomes towards the expected impact of this Destination;\nProposals should enable open-ended breakthrough…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 2.5 milyon €; yaklaşık 8 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-02-two-stage",
-      "baslik": "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Industrial jobs are transformed through AI-based human-machine interactions (and skills linked to them) which enhance flexibility, inclusion, well-being, up-skilling, career evolution and…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 4.0 milyon € – 6.0 milyon €; yaklaşık 5 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "istihdam"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-01",
-      "baslik": "Advanced manufacturing for key products (IA) (Made in Europe partnership)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-09-22",
-      "sonTarih": "2027-02-02",
-      "tarihler": [],
-      "ozet": "Advanced manufacturing technology and machinery becomes available in Europe for the manufacturing of key and high-performance products;\nWhere relevant, production becomes increasingly…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 6.0 milyon € – 8.0 milyon €; yaklaşık 6 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"
-    },
-    {
-      "kaynak": "AB",
       "kod": "EDF-EDIP-P-2026-2027-FNLC-SA",
       "baslik": "Support for the functioning of SEAPs, including  for the purpose of establishing, managing and maintaining defence industrial readiness pools",
       "durum": "yakinda",
@@ -1634,6 +1636,287 @@
       "ozetDil": "en",
       "asama": [],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-EDIP-P-2026-2027-FNLC-SA-SEAP"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-01",
+      "baslik": "Better understanding, anticipating and addressing the biodiversity benefits and impacts of the clean and digital industries",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all of the following expected outcomes:\nsociety, end-users, industry and decision makers better understand, anticipate and address biodiversity…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 6.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-02"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-02",
+      "baslik": "Networking to scale up living labs for nature restoration solutions and to address bottlenecks to implementation",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all of the following expected outcomes:\nLiving labs working on nature restoration [1] are better connected, they are better involved in policy…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 4.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-03"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-02",
+      "baslik": "Living labs co-creating solutions for the restoration of ecosystems addressing implementation bottlenecks and improving resilience to risks",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all of the following expected outcomes:\nstakeholders are empowered to co-create, deploy and replicate viable ecosystem restoration measures leading…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 10.0 milyon €; yaklaşık 6 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-02"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-01",
+      "baslik": "Understanding the nature and the extent of the effects of PFAS on biodiversity and ecosystem services",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all the following expected outcomes:\nthe mechanistic understanding of PFAS (per- and polyfluoroalkyl substances) effects on biodiversity, on…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 5.7 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-01"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-01",
+      "baslik": "Systemic approaches to accelerate transformative change for biodiversity",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all of the following expected outcomes:\npolicy and decision makers at relevant levels are better equipped to incorporate educational, cultural…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 4.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "buyume",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-03"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-02",
+      "baslik": "Cost-effective biodiversity monitoring for EU policies",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all the following expected outcomes:\nmore precise and more efficient biodiversity monitoring schemes, building on advanced technologies and more…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 5.0 milyon € – 6.0 milyon €; yaklaşık 3 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-05"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-02",
+      "baslik": "Innovative solutions to fight wildlife trafficking and to reduce invasion of invasive alien species",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all the following expected outcomes:\ncustom officers, border guards and relevant law enforcement officers and civil servants from competent…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 13.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-04"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-NATURE-2027-02",
+      "baslik": "Assessing direct and indirect drivers of biodiversity decline of invertebrates",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-13",
+      "sonTarih": "2027-01-14",
+      "tarihler": [],
+      "ozet": "Proposals are expected to contribute to all the following expected outcomes:\nstakeholders involved in biodiversity conservation and restoration activities have an improved understanding of…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 7.5 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-01"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-BRIDGING-2027-01",
+      "baslik": "EU AI Media Platform – modular multilingual public-interest infrastructure for European news and audiovisual media (IA) - Apply AI",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-20",
+      "sonTarih": "2027-02-16",
+      "tarihler": [],
+      "ozet": "The project will support the development of a modular, trustworthy and interoperable AI-enabled infrastructure enabling pan-European public-interest media platform(s) to make available real…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 10.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-09"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-BRIDGING-2027-02",
+      "baslik": "Advancing promising results from Pillar II collaborative research through the innovation journey",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-20",
+      "sonTarih": "2027-01-28",
+      "tarihler": [],
+      "ozet": "Project results are expected to contribute to all the following expected outcomes:\nResearch and Innovation (R&I) solutions funded under Horizon Europe Pillar II are further advanced along…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 2.5 milyon €; yaklaşık 13 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-BRIDGING-2027-01",
+      "baslik": "EU Frontier AI Initiative: Advanced Scaling Frameworks for High-Performance AI Models (RIA) - Apply AI",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-20",
+      "sonTarih": "2027-02-16",
+      "tarihler": [],
+      "ozet": "This topic aims to advance the scientific and technical foundations for the scaling of AI models, enhancing the performance of training and inference processes and providing European AI…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 15.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-13"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-BRIDGING-2027-01",
+      "baslik": "Autonomous Drive Ambition Cities (IA) - Apply AI",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-20",
+      "sonTarih": "2027-02-16",
+      "tarihler": [],
+      "ozet": "Development and demonstration of AI-enabled electric autonomous mobility services (level 4) in urban traffic, improving safety, sustainability, data sharing and commercial scalability…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 15.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum",
+        "buyume"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-10"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-BRIDGING-2027-06",
+      "baslik": "Valorising Horizon project results via innovation ecosystems",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-20",
+      "sonTarih": "2027-02-16",
+      "tarihler": [],
+      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nowners of Horizon project results that are better prepared to bring their products, practices and…",
+      "kim": "HORIZON  Research and Innovation Actions",
+      "tutar": "Proje başına 2.5 milyon € – 4.0 milyon €; yaklaşık 5 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "buyume",
+        "kurulus"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-06-02"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-BRIDGING-2027-01",
+      "baslik": "Large-Scale piloting of next-generation AI-driven digital platforms for a more affordable, secure and sustainable European energy system (IA) - Apply AI",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-10-20",
+      "sonTarih": "2027-02-16",
+      "tarihler": [],
+      "ozet": "Projects are expected to contribute to the following outcomes:\nStrengthened Europe’s technological leadership and sovereignty in the energy sector.\nMarket-ready AI-driven digital platforms…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 15.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-12"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-04",
+      "baslik": "Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-11-17",
+      "sonTarih": "2027-03-18",
+      "tarihler": [],
+      "ozet": "The co-programmed European Partnership for Virtual Worlds will help to develop and promote a thriving industrial and end-user ecosystem in the EU, covering all the aspects of the virtual…",
+      "kim": "HORIZON Coordination and Support Actions",
+      "tutar": "Proje başına 3.0 milyon €; yaklaşık 1 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02"
     },
     {
       "kaynak": "AB",
@@ -1671,6 +1954,25 @@
         "arge"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06"
+    },
+    {
+      "kaynak": "AB",
+      "kod": "HORIZON-CL4-2027-04",
+      "baslik": "Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)",
+      "durum": "yakinda",
+      "program": "Ufuk Avrupa",
+      "acilis": "2026-11-17",
+      "sonTarih": "2027-03-18",
+      "tarihler": [],
+      "ozet": "Demand-side driven validation of open orchestration platforms across the telco-cloud edge continuum unlocking notably the transformative value of AI for European businesses, driving…",
+      "kim": "HORIZON Innovation Actions",
+      "tutar": "Proje başına 19.0 milyon €; yaklaşık 2 proje desteklenecek",
+      "ozetDil": "en",
+      "asama": [
+        "arge",
+        "donusum"
+      ],
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08"
     },
     {
       "kaynak": "AB",
@@ -1763,300 +2065,6 @@
         "arge"
       ],
       "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-05-DIGITAL-EMERGING-03"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-04",
-      "baslik": "Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-18",
-      "tarihler": [],
-      "ozet": "The Apply AI Strategy [1] proposes a comprehensive set of measures to notably harness the transformative potential of AI. It lays down targeted measures to boost AI use in key strategic…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 14.0 milyon €; yaklaşık 3 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-04",
-      "baslik": "Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-18",
-      "tarihler": [],
-      "ozet": "The co-programmed European Partnership for Virtual Worlds will help to develop and promote a thriving industrial and end-user ecosystem in the EU, covering all the aspects of the virtual…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 3.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-04",
-      "baslik": "New approaches for decentralized, federated and sustainable AI data processing (RIA)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-18",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to developing new approaches, tools and techniques that overcome the obstacles of today's centralised AI compute techniques: limits in the…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 17.5 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-04",
-      "baslik": "Horizon scanning and foresight in future enabling digital technologies (CSA)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-18",
-      "tarihler": [],
-      "ozet": "European leadership in foresight activities on future enabling technologies and their transformational potential in industrial, societal and environmental terms.\nIncreased collaboration…",
-      "kim": "HORIZON Coordination and Support Actions",
-      "tutar": "Proje başına 4.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL4-2027-04",
-      "baslik": "Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-18",
-      "tarihler": [],
-      "ozet": "Demand-side driven validation of open orchestration platforms across the telco-cloud edge continuum unlocking notably the transformative value of AI for European businesses, driving…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 19.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Africa-EU CO-FUND action on climate",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nA long-term collaboration on climate change research between the EU and the African Union is…",
-      "kim": "HORIZON Programme Cofund Actions",
-      "tutar": "Proje başına 15.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-11"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Assessing the performance of policy instruments to inform climate change mitigation action",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nEnhanced knowledge of the effectiveness of policy instruments on EU and Member State level to inform…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 3.0 milyon €; yaklaşık 3 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-09"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Advancing understanding, modelling and prediction of extreme events in a changing climate",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nImproved understanding of past and present extreme events in the context of climate change in Europe…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 6.0 milyon €; yaklaşık 3 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-07"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Palaeoclimate science for a better understanding of Earth system dynamics",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to some of the following outcomes:\nBetter process understanding of past climate changes at different time scales, their variability and…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 7.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-08"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Better understanding and attribution of land and ocean carbon sources and sinks",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to some of the following expected outcomes:\nBetter understanding of oceanic carbon dioxide (CO 2 ) sources and sinks, their drivers and dynamics…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 5.0 milyon €; yaklaşık 5 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-12"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Understanding and avoiding maladaptation to climate change",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following outcomes:\nExisting evidence on maladaptation is retrieved comprehensively, and new knowledge is generated for…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 5.0 milyon € – 6.0 milyon €; yaklaşık 3 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-10"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-01",
-      "baslik": "Next generation scenarios for informing climate and sustainability transitions",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-11-17",
-      "sonTarih": "2027-03-04",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to some of the following expected outcomes:\nStrengthened collaboration and integration across research communities, better capturing interactions…",
-      "kim": "HORIZON  Research and Innovation Actions",
-      "tutar": "Proje başına 4.0 milyon €; yaklaşık 6 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-13"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-02",
-      "baslik": "Sustainable and Competitive Cell Production Techniques for Lithium-ion And Sodium-ion Batteries (BATT4EU Partnership)",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-12-03",
-      "sonTarih": "2027-03-31",
-      "tarihler": [],
-      "ozet": "Proposals are expected to contribute to all following points:\nSignificantly enhanced competitiveness, resilience, and sustainability of the European battery cell manufacturing industry…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 18.9 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D2-06"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-02",
-      "baslik": "Co-funding Strategic Energy Technology (SET) Plan renewable fuel value chains at EU, national, regional, and local level",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-12-03",
-      "sonTarih": "2027-03-31",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all of the following expected outcomes:\nAdvance in the realisation of the Strategic Energy Technology (SET) Plan Action of Renewable fuels and…",
-      "kim": "HORIZON Programme Cofund Actions",
-      "tutar": "Proje başına 30.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-08"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-02",
-      "baslik": "Innovative technologies and solutions to improve wave and tidal energy systems",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-12-03",
-      "sonTarih": "2027-03-31",
-      "tarihler": [],
-      "ozet": "Project results are expected to contribute to all following expected outcomes:\nAdvance in the realisation of the Strategic Energy Technology (SET) Plan’s research and innovation priorities…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 43.0 milyon €; yaklaşık 1 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "arge",
-        "donusum"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-09"
-    },
-    {
-      "kaynak": "AB",
-      "kod": "HORIZON-CL5-2027-02",
-      "baslik": "Concentrated solar thermal systems for decarbonising industrial processes",
-      "durum": "yakinda",
-      "program": "Ufuk Avrupa",
-      "acilis": "2026-12-03",
-      "sonTarih": "2027-03-31",
-      "tarihler": [],
-      "ozet": "Renewable heating can be directly used to efficiently decarbonise industrial processes. Concentrated solar thermal technologies offer a great potential to supply renewable heat for industry…",
-      "kim": "HORIZON Innovation Actions",
-      "tutar": "Proje başına 6.0 milyon €; yaklaşık 2 proje desteklenecek",
-      "ozetDil": "en",
-      "asama": [
-        "donusum",
-        "arge"
-      ],
-      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-07"
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2162,22 +2170,6 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "CKA",
-      "baslik": "2026 Yılı Teknik Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-03-01",
-      "sonTarih": "2026-12-29",
-      "tarihler": [],
-      "ozet": "",
-      "kim": "Kamu Kurum ve Kuruluşları · Mahalli İdareler ve Mahalli İdare Birlikleri · Üniversiteler · Kamu Kurumu Niteliğindeki Meslek Kuruluşları · Sivil Toplum Kuruluşları ·…",
-      "tutar": "Program Bütçesi 7.500.000,00 TL Proje Başına Azami Eğitim faaliyetleri için:",
-      "asama": [
-        "donusum"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qamaLbcz01TJ-VTo6-sZ4PBQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "CKA",
       "baslik": "2026 Yılı Fizibilite Desteği Programı",
       "durum": "acik",
       "acilis": "2026-03-01",
@@ -2192,6 +2184,22 @@
         "donusum"
       ],
       "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qXRXLHQRty3d_1yA2oJR-f1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
+      "kod": "CKA",
+      "baslik": "2026 Yılı Teknik Destek Programı",
+      "durum": "acik",
+      "acilis": "2026-03-01",
+      "sonTarih": "2026-12-29",
+      "tarihler": [],
+      "ozet": "",
+      "kim": "Kamu Kurum ve Kuruluşları · Mahalli İdareler ve Mahalli İdare Birlikleri · Üniversiteler · Kamu Kurumu Niteliğindeki Meslek Kuruluşları · Sivil Toplum Kuruluşları ·…",
+      "tutar": "Program Bütçesi 7.500.000,00 TL Proje Başına Azami Eğitim faaliyetleri için:",
+      "asama": [
+        "donusum"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qamaLbcz01TJ-VTo6-sZ4PBQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2228,22 +2236,6 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "GMKA",
-      "baslik": "GMKA Beşeri ve Sosyal Gelişim Teknik Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-03-01",
-      "sonTarih": "2026-10-31",
-      "tarihler": [],
-      "ozet": "Program ile Güney Marmara Bölgesi’nde faaliyet gösteren işletmelerin üretim, planlama, lojistik ve idari süreçlerinde verimliliğin artırılması ve kurumsal kapasitelerinin geliştirilmesi…",
-      "kim": "Güdümlü projenin yürütülmesinde, aynı anda birden fazla kurum ve kuruluş rol alması halinde bu kurum ve kuruluşlardan biri başvuru sahibi olarak…",
-      "tutar": "",
-      "asama": [
-        "buyume"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qdfQV9nf3wV0UhAGml1CNyZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "GMKA",
       "baslik": "GMKA Yönetim Danışmanlığı Teknik Destek Programı",
       "durum": "acik",
       "acilis": "2026-03-01",
@@ -2275,19 +2267,19 @@
     },
     {
       "kaynak": "Kalkınma Ajansları",
-      "kod": "ANKARAKA",
-      "baslik": "ANKARAKA 2026 Yılı Ankara Sağlık Turizmi Teknik Destek Programı",
+      "kod": "GMKA",
+      "baslik": "GMKA Beşeri ve Sosyal Gelişim Teknik Destek Programı",
       "durum": "acik",
-      "acilis": "2026-02-20",
-      "sonTarih": "2026-12-31",
+      "acilis": "2026-03-01",
+      "sonTarih": "2026-10-31",
       "tarihler": [],
-      "ozet": "",
-      "kim": "",
-      "tutar": "Eğitim için azami bütçe 350.000 TL (KDV dâhil)",
+      "ozet": "Program ile Güney Marmara Bölgesi’nde faaliyet gösteren işletmelerin üretim, planlama, lojistik ve idari süreçlerinde verimliliğin artırılması ve kurumsal kapasitelerinin geliştirilmesi…",
+      "kim": "Güdümlü projenin yürütülmesinde, aynı anda birden fazla kurum ve kuruluş rol alması halinde bu kurum ve kuruluşlardan biri başvuru sahibi olarak…",
+      "tutar": "",
       "asama": [
-        "donusum"
+        "buyume"
       ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qUGVaO2He2c5L-NH1kGA0aVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qdfQV9nf3wV0UhAGml1CNyZQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2309,21 +2301,19 @@
     },
     {
       "kaynak": "Kalkınma Ajansları",
-      "kod": "OKA",
-      "baslik": "2026 Yılı Katma Değerli Üretim ve İhracat Odaklı Fizibilite Desteği Programı",
+      "kod": "ANKARAKA",
+      "baslik": "ANKARAKA 2026 Yılı Ankara Sağlık Turizmi Teknik Destek Programı",
       "durum": "acik",
-      "acilis": "2026-02-03",
-      "sonTarih": "2026-12-25",
+      "acilis": "2026-02-20",
+      "sonTarih": "2026-12-31",
       "tarihler": [],
-      "ozet": "Hâlihazırda başka bir finansman kaynağından desteklenen projeler Program kapsamında desteklenemez.",
-      "kim": "Kar amacı güden kuruluşlar, sosyal sorumluluk projeleri için başvuru sahibi, diğer program önceliklerine yönelik projelerde ise ancak iştirakçi…",
-      "tutar": "Program kapsamında desteklenecek proje tekliflerinin asgari bütçesi 1 milyon TL’dir .",
+      "ozet": "",
+      "kim": "",
+      "tutar": "Eğitim için azami bütçe 350.000 TL (KDV dâhil)",
       "asama": [
-        "buyume",
-        "istihdam",
-        "arge"
+        "donusum"
       ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qTxmudzcE8Ihmmjo2IVSUQtQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qUGVaO2He2c5L-NH1kGA0aVQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
@@ -2346,6 +2336,24 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "OKA",
+      "baslik": "2026 Yılı Katma Değerli Üretim ve İhracat Odaklı Fizibilite Desteği Programı",
+      "durum": "acik",
+      "acilis": "2026-02-03",
+      "sonTarih": "2026-12-25",
+      "tarihler": [],
+      "ozet": "Hâlihazırda başka bir finansman kaynağından desteklenen projeler Program kapsamında desteklenemez.",
+      "kim": "Kar amacı güden kuruluşlar, sosyal sorumluluk projeleri için başvuru sahibi, diğer program önceliklerine yönelik projelerde ise ancak iştirakçi…",
+      "tutar": "Program kapsamında desteklenecek proje tekliflerinin asgari bütçesi 1 milyon TL’dir .",
+      "asama": [
+        "buyume",
+        "istihdam",
+        "arge"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qTxmudzcE8Ihmmjo2IVSUQtQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
+      "kod": "OKA",
       "baslik": "2026 Yılı Sosyal Kalkınma ve Girişimcilik Teknik Destek Programı",
       "durum": "acik",
       "acilis": "2026-01-15",
@@ -2364,24 +2372,6 @@
     {
       "kaynak": "Kalkınma Ajansları",
       "kod": "OKA",
-      "baslik": "2026 Yılı Anadoludakiler: Turizm ve Yöresel Değerler Teknik Destek Programı",
-      "durum": "acik",
-      "acilis": "2026-01-15",
-      "sonTarih": "2026-12-25",
-      "tarihler": [],
-      "ozet": "Hâlihazırda başka bir finansman kaynağından desteklenen projeler Program kapsamında desteklenemez.",
-      "kim": "Kar amacı güden kuruluşlar, sosyal sorumluluk projeleri için başvuru sahibi, diğer program önceliklerine yönelik projelerde ise ancak iştirakçi…",
-      "tutar": "Program kapsamında desteklenecek proje tekliflerinin asgari bütçesi 1 milyon TL’dir .",
-      "asama": [
-        "buyume",
-        "istihdam",
-        "arge"
-      ],
-      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qc6HfV3sk_H2bl-GNkVx6JhQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
-    },
-    {
-      "kaynak": "Kalkınma Ajansları",
-      "kod": "OKA",
       "baslik": "2026 Yılı İhracatta İkiz Dönüşüm Teknik Destek Programı",
       "durum": "acik",
       "acilis": "2026-01-15",
@@ -2396,6 +2386,24 @@
         "arge"
       ],
       "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qVit46_PrR0b4EjTLY48wQ1QoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
+    },
+    {
+      "kaynak": "Kalkınma Ajansları",
+      "kod": "OKA",
+      "baslik": "2026 Yılı Anadoludakiler: Turizm ve Yöresel Değerler Teknik Destek Programı",
+      "durum": "acik",
+      "acilis": "2026-01-15",
+      "sonTarih": "2026-12-25",
+      "tarihler": [],
+      "ozet": "Hâlihazırda başka bir finansman kaynağından desteklenen projeler Program kapsamında desteklenemez.",
+      "kim": "Kar amacı güden kuruluşlar, sosyal sorumluluk projeleri için başvuru sahibi, diğer program önceliklerine yönelik projelerde ise ancak iştirakçi…",
+      "tutar": "Program kapsamında desteklenecek proje tekliflerinin asgari bütçesi 1 milyon TL’dir .",
+      "asama": [
+        "buyume",
+        "istihdam",
+        "arge"
+      ],
+      "url": "https://api.ka.gov.tr/redirect/xskIzvClflOp7C_r57M6qc6HfV3sk_H2bl-GNkVx6JhQoGgn2dynZJ0DWSQf0U8V5ocJI0ugAAcfgUluQYxEQw=="
     },
     {
       "kaynak": "Kalkınma Ajansları",
