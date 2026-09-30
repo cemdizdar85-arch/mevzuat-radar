@@ -1,0 +1,52 @@
+# .github/workflows/sgs-onarim-hakem.yml — onarılan SGS sorularının yeniden hakem sonucunu elle ret listesine işler.
+# 30.09.2026 (Cem "1.2.3" madde 3): bu iş Claude oturumuna bağlı yerel bir bekleyicideydi; 27.09'da iki yerel sıra betiği
+#   oturumla birlikte hatasız ölmüştü. Mantık arac/onarim-hatti.js hakem (öz-sınav dogrula.yml'de):
+#   plan-sgs-*onarim*.json'daki pilotId kayıtları elle retteyse ambardan okunur → hakem EVET: listeden çıkar ·
+#   HAYIR: yayın dışı kalır (gerekçeye yazılır) · hakemsiz: bekler. Liste değiştiyse commit + yayın tetiklenir (bedel 0).
+# 🚫 GÖRMEZ: onarım TASLAĞI uygulama (taslaklar yerelde; soru içeriği depoya girmez) · SMMM listesi · hakem2/kör çözüm sonucu.
+# Stdout'ta soru metni yok, yalnız sayılar.
+name: SGS Onarim Hakem Isleme
+on:
+  schedule:
+    - cron: '43 */2 * * *'
+  workflow_run:
+    workflows: ["Bulut Uretim (soru basimi)"]
+    types: [completed]
+  workflow_dispatch:
+concurrency:
+  group: sgs-onarim-hakem
+  cancel-in-progress: false
+permissions:
+  actions: write
+  contents: write
+jobs:
+  hakem:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Yeniden hakem sonucunu elle rete isle
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          shopt -s nullglob
+          planlar=(veri/sinav/plan-sgs-*onarim*.json)
+          if [ ${#planlar[@]} -eq 0 ]; then echo "onarim plani yok"; exit 0; fi
+          node arac/onarim-hatti.js hakem "${planlar[@]}"
+      - name: Degistiyse gonder ve yayini tetikle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- veri/sinav/sgs-elle-ret.json; then echo "elle ret degismedi"; exit 0; fi
+          git config user.name  "tetikte-robot"
+          git config user.email "bildirim@tetikte.com"
+          git add veri/sinav/sgs-elle-ret.json
+          git commit -m "SGS onarim: yeniden hakem sonucu elle rete islendi [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then echo "itildi (deneme $i)"; gh workflow run yayin-bas.yml -f parti_indir=true && echo "yayin tetiklendi"; exit 0; fi
+            git pull --rebase origin main || { git rebase --abort; echo "::error::elle ret birlestirilemedi"; exit 1; }
+            sleep 5
+          done
+          echo "::error::push 5 denemede basarisiz"; exit 1
