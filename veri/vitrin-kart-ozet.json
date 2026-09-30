@@ -1,139 +1,143 @@
 {
-  "olcum": "2026-09-29T00:56:55.038Z",
-  "gun": "2026-09-29",
+  "olcum": "2026-09-30T00:18:28.997Z",
+  "gun": "2026-09-30",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 61,
+      "sira": 62,
       "toplam": 70,
-      "id": "sgs-a6-maliye-zor-r1/kp-03",
-      "ders": "Maliye",
-      "konu": "kamu harcamaları sınıflandırma",
-      "donem": 3,
+      "id": "sgs-t1-genel-turkce-kolay/kp-04",
+      "ders": "Türkçe",
+      "konu": "sozcukte anlam",
+      "donem": 8,
       "teori": true,
       "rakamSik": false,
-      "soru": "Kamu harcamalarının sınıflandırılmasına ilişkin aşağıdaki ifadelerden hangisi doğrudur?",
+      "soru": "Aşağıdaki cümlelerin hangisinde tırnak içindeki sözcük yan anlamda kullanılmıştır?",
       "siklar": {
-        "A": "Devletin ödediği iç borç faizi, ekonomik sınıflandırmada cari harcama olarak kabul edilir.",
-        "B": "Bir harcamanın hangi bakanlık tarafından yapıldığını gösteren ayrım, fonksiyonel sınıflandırmadır.",
-        "C": "Eğitim ve sağlık alanında yapılan harcamalar, beşeri sermayeye katkısı nedeniyle ekonomik sınıflandırmada her durumda yatırım harcaması olarak kabul edilir.",
-        "D": "Emekli aylığı ödemeleri, karşılığında üretim faktörü kullanıldığından milli gelire doğrudan katkı yapan reel harcamadır.",
-        "E": "Bir kamu hastanesinde yapılan ve binanın ömrünü uzatan büyük onarım harcaması, sermaye stokunu artırdığından yatırım harcaması sayılır."
+        "A": "Masanın \"ayağı\" tamirciye götürüldü.",
+        "B": "Onun \"sözleri\" beni derinden etkiledi.",
+        "C": "Bu çocuk gerçekten \"aslan\" gibi cesur.",
+        "D": "\"Türkiye\" maçı üç bir kazandı.",
+        "E": "\"Kökün\" karesini bulmamız isteniyor."
       },
-      "dogru": "E",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Aşırı Genelleme Tuzağı",
-          "metin": "Eğitim ve sağlığın iktisadi anlamda 'beşeri sermaye yatırımı' sayılmasını, bütçe sınıflandırmasında da hep yatırım kabul edilir şeklinde genişletirsin. Doğrusu: Bu alanlardaki personel ve mal-hizmet alımı kalemleri cari…"
+          "ad": "Mecaz Anlam Tuzağı",
+          "metin": "burada benzetme vardır ve gerçek anlamla bağ tamamen kopmuştur, çocuk gerçekten hayvan değildir. Doğrusu: bu kullanım mecaz anlamdır, yan anlam değildir."
         },
-        "A": {
-          "ad": "Cari-Transfer Karıştırma Tuzağı",
-          "metin": "Faizi personel veya mal-hizmet gideri gibi düzenli bir ödeme olduğu için cari sanırsın. Doğrusu: İç borç faizi karşılığında mal veya hizmet alınmadığından ekonomik sınıflandırmada transfer harcamasıdır."
+        "E": {
+          "ad": "Terim Anlam Tuzağı",
+          "metin": "\"kök\" burada matematik bilim dalına özgü bir anlamda kullanılmıştır, günlük dildeki bitki kökü anlamıyla ilgisi yoktur. Doğrusu: bu kullanım terim anlamdır, yan anlam değildir."
         },
         "D": {
-          "ad": "Reel-Transfer Karıştırma Tuzağı",
-          "metin": "Devlet parayı ödediği için karşılığında bir şey aldığını, dolayısıyla reel harcama olduğunu düşünürsün. Doğrusu: Emekli aylığı karşılıksız satın alma gücü aktarımıdır, transfer harcamasıdır ve milli gelire doğrudan girm…"
+          "ad": "Ad Aktarması Tuzağı",
+          "metin": "burada benzetme yoktur, ülke adı doğrudan o ülkenin millî takımının yerine kullanılmıştır. Doğrusu: bu kullanım ad aktarmasıdır (mecaz-ı mürsel), yan anlam değildir."
         },
         "B": {
-          "ad": "Ölçüt Karıştırma Tuzağı",
-          "metin": "'Kim yaptı' sorusunu fonksiyonel sınıflandırmanın konusu sanırsın. Doğrusu: Harcamayı yapan kurumu gösteren ayrım idari (kurumsal) sınıflandırmadır, fonksiyonel sınıflandırma hizmetin türüne bakar."
+          "ad": "Gerçek Anlam Tuzağı",
+          "metin": "öğrenci burada bir aktarım aradığı için mecaz sanır, oysa \"söz\" burada sözlükteki ilk anlamıyla kullanılmıştır. Doğrusu: bu kullanım gerçek anlamdır, yan ya da mecaz değildir."
         }
       },
-      "hap": "Karşılığında mal veya hizmet alınıp alınmadığına bakılır: alınıyorsa reel (cari ya da yatırım), alınmıyorsa transfer harcamasıdır; sermaye stokunu artıran her onarım ve inşa yatırımdır.",
+      "hap": "Yan anlamda gerçek anlamla biçimsel bağ sürer, mecazda bu bağ tamamen kopar.",
       "satirlar": [
         [
-          "A) Devletin ödediği iç borç faizi, ekonomik sınıflandırmada…",
-          "p.transfer-faiz"
+          "A) Masanın \"ayağı\" tamirciye götürüldü.",
+          "Anlam Türleri - Yan Anlam"
         ],
         [
-          "B) Bir harcamanın hangi bakanlık tarafından yapıldığını gös…",
-          "p.idari-fonksiyonel"
+          "B) Onun \"sözleri\" beni derinden etkiledi.",
+          "Anlam Türleri - Gerçek Anlam"
         ],
         [
-          "C) Eğitim ve sağlık alanında yapılan harcamalar, beşeri ser…",
-          "p.cari-egitim-saglik"
+          "C) Bu çocuk gerçekten \"aslan\" gibi cesur.",
+          "Anlam Türleri - Mecaz Anlam"
         ],
         [
-          "D) Emekli aylığı ödemeleri, karşılığında üretim faktörü kul…",
-          "p.reel-transfer"
+          "D) \"Türkiye\" maçı üç bir kazandı.",
+          "Anlam İlişkileri - Ad Aktarması"
         ],
         [
-          "E) Bir kamu hastanesinde yapılan ve binanın ömrünü uzatan b…",
-          "p.yatirim-onarim"
+          "E) \"Kökün\" karesini bulmamız isteniyor.",
+          "Anlam Türleri - Terim Anlam"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=61",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=62",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 54,
+        "kalan_gun": 53,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 61,
+      "sira": 62,
       "toplam": 70,
-      "id": "smmm-4k-a-yfta-kolay-r2/kp-05",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "stok devir süresi",
-      "donem": 7,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı birinci çeyreğine (3 aylık) ait dönem başı stoku 20.000, dönem sonu stoku 40.000, aynı çeyreğin satılan malın maliyeti 90.000'dir. 1 yıl 360 gün kabul edildiğinde, işletmenin yıllık stok devir süresi kaç gündür?",
+      "id": "smmm-w1-yhukuk-zor/kp-01",
+      "ders": "Hukuk",
+      "konu": "ticari işletme unsurlari",
+      "donem": 4,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Bir gıda toptancılığı işletmesinin sahibi, işletmesini bir bütün hâlinde devretmek üzere sözleşme yapmış, sözleşmede malvarlığı unsurlarının kapsamına ilişkin özel bir düzenleme yer almamıştır. 6102 sayılı Türk Ticaret Kanunu'nun 11. maddesine göre bu devre ilişkin aşağıdakilerden hangisi yanlıştır?",
       "siklar": {
-        "A": "10",
-        "B": "20",
-        "C": "30",
-        "D": "40",
-        "E": "120"
+        "A": "Devir sözleşmesi, aksi öngörülmediğinden duran malvarlığını, işletme değerini ve kiracılık hakkını kapsadığı kabul olunur.",
+        "B": "Ticaret unvanı ile diğer fikri mülkiyet hakları da devir kapsamına dahil olur.",
+        "C": "Sürekli olarak işletmeye özgülenen malvarlığı unsurları da devre dahil sayılır.",
+        "D": "Ticari işletmeyi bir bütün hâlinde konu alan devir sözleşmesi yazılı yapılır, ticaret siciline tescil ve ilan edilir.",
+        "E": "İşletmenin bir bütün hâlinde devredilebilmesi için içerdiği malvarlığı unsurlarının ayrı ayrı tasarruf işlemleriyle devredilmesi zorunludur."
       },
-      "dogru": "C",
+      "dogru": "E",
       "tuzak": {
-        "D": {
-          "ad": "Dönem Sonu Stok Tuzağı",
-          "metin": "Ortalama stok hesaplamayı atlayıp doğrudan dönem sonundaki 40.000'lik stoku paydaya koydun. Doğrusu: dönem sonu stok tek bir andaki fotoğraftır, payda ortalama stok olmalıdır, sonuç 40 değil 30 gündür."
-        },
-        "E": {
-          "ad": "Yıllığa Çevirmeme Tuzağı",
-          "metin": "Çeyreklik SMM'yi (90.000) hiç yıllığa çevirmeden doğrudan ortalama stoka bölüp 360 gün ile böldün. Doğrusu: pay ve payda aynı dönemi temsil etmeli, çeyreklik SMM önce 4 ile çarpılıp yıllığa çevrilmelidir, sonuç 120 deği…"
+        "C": {
+          "ad": "Özgüleme Tuzağı",
+          "metin": "Öğrenci, sürekli işletmeye özgülenen malvarlığı unsurlarının ayrıca sözleşmede sayılması gerektiğini düşünür. Doğrusu: bu unsurlar da kanunen aksi öngörülmedikçe kapsama girer, C doğru bir ifadedir."
         },
         "A": {
-          "ad": "Aya Çevirme Tuzağı",
-          "metin": "Çeyrek veriyi yıllığa çeyrek sayısıyla (4 ile) çarpmak yerine ay sayısıyla (12 ile) çarpıp 1.080.000 yıllık SMM elde ettin. Doğrusu: çeyreklik SMM yıllığa 4 ile çarpılarak (360.000) çevrilir, sonuç 10 değil 30 gündür."
+          "ad": "Ters Kapsam Tuzağı",
+          "metin": "Öğrenci, aksi öngörülmemiş sözleşmede duran malvarlığı, işletme değeri ve kiracılık hakkının kapsam dışı kaldığını düşünür. Doğrusu: TTK m.11/3 bu unsurları aksi öngörülmedikçe kapsama dahil sayar, dolayısıyla A doğru b…"
+        },
+        "D": {
+          "ad": "Şekil Şartı Tuzağı",
+          "metin": "Öğrenci, bütün hâlinde devrin şekle bağlı olmadığını, sözlü anlaşmanın yeterli olacağını düşünür. Doğrusu: madde bu devri konu alan sözleşmenin yazılı yapılıp tescil ve ilan edilmesini şart koyar, E doğru bir ifadedir."
         },
         "B": {
-          "ad": "Dönem Başı Stok Tuzağı",
-          "metin": "Ortalama stok yerine yalnız dönem başındaki 20.000'lik stoku paydaya koydun. Doğrusu: payda daima (dönem başı+dönem sonu)/2 olan ortalama stoktur, sonuç 20 değil 30 gündür."
+          "ad": "Fikri Mülkiyet Tuzağı",
+          "metin": "Öğrenci, ticaret unvanı ve fikri mülkiyet haklarının devir sözleşmesinde ayrıca belirtilmesi gerektiğini, aksi halde kapsam dışı kalacağını düşünür. Doğrusu: madde metni bu hakları da aksi öngörülmedikçe kapsama dahil e…"
         }
       },
-      "hap": "Dönem içi (çeyreklik/aylık) SMM ile yıllık devir hızı hesaplanacaksa SMM önce yıllığa çevrilir; pay ve payda daima aynı dönemi temsil etmelidir.",
+      "hap": "TTK m.11/3'e göre ticari işletme, malvarlığı unsurlarının ayrı ayrı tasarruf işlemine gerek olmaksızın bir bütün hâlinde devredilebilir; aksi öngörülmemişse duran malvarlığı, işletme değeri, kiracılık hakkı, ticaret unvanı ve diğer fikri m…",
       "satirlar": [
         [
-          "Ortalama Stok",
-          "30.000"
+          "A) Devir sözleşmesi, aksi öngörülmediğinden duran malvarlığ…",
+          "TTK m.11/3"
         ],
         [
-          "Yıllık Satılan Malın Maliyeti (90.000x4)",
-          "360.000"
+          "B) Ticaret unvanı ile diğer fikri mülkiyet hakları da devir…",
+          "TTK m.11/3"
         ],
         [
-          "Yıllık Stok Devir Hızı (360.000/30.000)",
-          "12"
+          "C) Sürekli olarak işletmeye özgülenen malvarlığı unsurları …",
+          "TTK m.11/3"
         ],
         [
-          "Yıllık Stokta Kalma Süresi (360/12)",
-          "30"
+          "D) Ticari işletmeyi bir bütün hâlinde konu alan devir sözle…",
+          "TTK m.11/3"
+        ],
+        [
+          "E) İşletmenin bir bütün hâlinde devredilebilmesi için içerd…",
+          "TTK m.11/3"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=61",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=62",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 64,
+        "kalan_gun": 63,
         "durum": "YESIL",
         "mail_gunu": false
       }
