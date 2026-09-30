@@ -12,7 +12,7 @@ if (-not $blokEsle.Success) { Write-Host 'KIRMIZI: smmm-yayin-sarti.ps1 içinde 
 $blok = $blokEsle.Value.Replace("(Join-Path `$PSScriptRoot 'aciklama-hakemi-uretim.ps1')", "'" + [IO.Path]::Combine($buDizin, 'aciklama-hakemi-uretim.ps1') + "'")
 
 function S([string]$aciklamaA, [string]$korTarih, [string]$hakem2Tarih, [string]$ah = 'TEMIZ') {
-  $o = [ordered]@{ soru = 'İşletme 100.000 TL + KDV mal satmıştır (KDV oranı %20).'; siklar = [ordered]@{ A = '20.000'; B = '18.000' }; dogru = 'A'; aciklama = [ordered]@{ A = $aciklamaA } }
+  $o = [ordered]@{ soru = 'İşletme 100.000 TL + KDV mal satmıştır (KDV oranı %20).'; siklar = [ordered]@{ A = '20.000'; B = '18.000' }; dogru = 'A'; aciklama = [ordered]@{ A = $aciklamaA; B = 'Tuzak: oran yanlış alınırsa bu tutar bulunur.' } }   # 30.09: B açıklaması KAPI-BOS (boş şık açıklaması) için
   if ($korTarih) { $o.kor_cozum = [ordered]@{ dogru_mu = $true; tarih = $korTarih } }
   if ($hakem2Tarih) { $o.hakem2 = [ordered]@{ karar = 'EVET'; tarih = $hakem2Tarih } }
   if ($ah) { $o.aciklama_hakem = [ordered]@{ karar = $ah } }
