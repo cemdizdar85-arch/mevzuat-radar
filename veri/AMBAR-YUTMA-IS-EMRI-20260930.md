@@ -22,6 +22,20 @@ Aşağıdaki eksikler iki yoldan zarar veriyor:
 | 4 | **BDS 330 p.17** | (b) bendi eksik | KAPI-BP yargısı | yok |
 | 5 | **BDS 580 p.11** ("İşlemlerin Tamlığı") | (b) bendi ("tüm işlemlerin kaydedildiği" beyanı) düşmüş | bp-2 onarımı (`sgs-t1-denetim-zor/kp-23`) | yok |
 
+### Tarayıcıyla bulunanlar (30.09, `arac/kesik-paragraf-tarama.js` + 40 adayın resmî KGK Mavi Kitap metniyle yargısı)
+
+| # | Kaynak | Eksik | Kök |
+|---|---|---|---|
+| 6 | **BDS 540 A39 + "p.3 - Modeller"** | A39 "…kredi zararı modeli veya" diye kopuk; devamı yanlış numarayla "p.3" kaydında | metindeki "Seviye 3" paragraf başı sanılmış |
+| 7 | **TMS 1 p.122 / p.125** | p.122 "(bakınız:" diye kopuk; devamı ve 123–124 "p.125" başlığı altında | bölme hatası |
+| 8 | **TFRS 8 p.25 / "p.1 - Ölçme"** | p.25 "bölüm kar veya" diye kopuk; devamı "p.1" kaydında, başına p.33'ten cümle yapışmış | bölme hatası |
+| 9 | **TFRS 1 p.10** | 60 karakterlik başlık artığı (p.40'ın başlığı), yanlış numaralı çöp kayıt | bölme hatası |
+| 10 | **TMS 7 p.33 / p.34** | BELİRSİZ: ambar TFRS 18 sonrası metni taşıyor (33A, 34A–34D + "Silinmiştir"); KGK 2026 Mavi Kitap 33/34'ü taşıyor | **sürüm kararı Cem'de** |
+
+Kök ortak: aktarım metin içindeki bir sayıyı ("Seviye 3", dipnot numarası) paragraf başı sanıp kaydı bölüyor. Tarayıcının bu kökte isabetli
+türleri K3 (çift başlık) + K4 (gömülü) — örneklemde 6/6; K1 (noktasız son) daraltma sonrası 1 gerçek / 3 yanlış; K5 (numara atlaması) 0/10.
+Tam aday listesi: `veri/sinav/kesik-paragraf-adaylari.json` (301 aday; ADAY, kusur değil).
+
 Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü ambarda bu adla bulamadı; TTK m.189 metni kesik geldi.
 
 ## Yapılacak
