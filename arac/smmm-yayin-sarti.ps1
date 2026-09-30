@@ -31,7 +31,11 @@ function SmmmYeniSoruMu($soruNesne) {
   $t = @("$(if ($soruNesne.kor_cozum) { $soruNesne.kor_cozum.tarih })", "$(if ($soruNesne.hakem2) { $soruNesne.hakem2.tarih })") | Where-Object { $_ } | Sort-Object -Descending | Select-Object -First 1
   return [bool]($t -and "$t" -ge $script:SMMM_KALITE_BASLANGIC)
 }
+# 30.09 AÇIKLAMA HAKEMİ (Cem "b yap"; SGS oturumu bağladı: koşucu 8.1 + havuz-kur): YENİ soru aciklama_hakem.karar = TEMIZ değilse yayına girmez.
+# Model çağrısı YOK — yalnız kayıttaki kararı okur (hakemi koşucu çağırır). Eski soru etkilenmez (aynı YENİ tanımı, AH_BASLANGIC).
+. (Join-Path $PSScriptRoot 'aciklama-hakemi-uretim.ps1')
 function SmmmKaliteNeden([string]$anahtar, $soruNesne) {
+  if (AhSecilemez $soruNesne) { return "AÇIKLAMA HAKEMİ: yeni soru TEMIZ değil ($(if ($soruNesne.PSObject.Properties['aciklama_hakem'] -and $soruNesne.aciklama_hakem) { "$($soruNesne.aciklama_hakem.karar)" } else { 'karar yok' }))" }
   if (-not (SmmmYeniSoruMu $soruNesne)) { return $null }
   $kq = @(SoruKaliteKapisi $soruNesne)
   if ($script:SORU_KALITE_KOR) { Write-Warning "KAPI-KALITE KÖR: $anahtar | $($script:SORU_KALITE_KOR)"; $script:SORU_KALITE_KOR = $null; return $null }

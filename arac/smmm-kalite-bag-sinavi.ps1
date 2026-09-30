@@ -9,12 +9,13 @@ $sartMetin = [IO.File]::ReadAllText([IO.Path]::Combine($buDizin, 'smmm-yayin-sar
 $kopruYol = [IO.Path]::Combine($buDizin, 'soru-kalite-kapisi.ps1')
 $blokEsle = [regex]::Match($sartMetin, '(?s)\$script:SMMM_KALITE_BASLANGIC\s*=.*?(?=\r?\nfunction SmmmParmakIzi)')
 if (-not $blokEsle.Success) { Write-Host 'KIRMIZI: smmm-yayin-sarti.ps1 içinde KAPI-KALITE bloğu bulunamadı' -ForegroundColor Red; exit 1 }
-$blok = $blokEsle.Value
+$blok = $blokEsle.Value.Replace("(Join-Path `$PSScriptRoot 'aciklama-hakemi-uretim.ps1')", "'" + [IO.Path]::Combine($buDizin, 'aciklama-hakemi-uretim.ps1') + "'")
 
-function S([string]$aciklamaA, [string]$korTarih, [string]$hakem2Tarih) {
+function S([string]$aciklamaA, [string]$korTarih, [string]$hakem2Tarih, [string]$ah = 'TEMIZ') {
   $o = [ordered]@{ soru = 'İşletme 100.000 TL + KDV mal satmıştır (KDV oranı %20).'; siklar = [ordered]@{ A = '20.000'; B = '18.000' }; dogru = 'A'; aciklama = [ordered]@{ A = $aciklamaA } }
   if ($korTarih) { $o.kor_cozum = [ordered]@{ dogru_mu = $true; tarih = $korTarih } }
   if ($hakem2Tarih) { $o.hakem2 = [ordered]@{ karar = 'EVET'; tarih = $hakem2Tarih } }
+  if ($ah) { $o.aciklama_hakem = [ordered]@{ karar = $ah } }
   return ([pscustomobject]$o | ConvertTo-Json -Depth 6 | ConvertFrom-Json)
 }
 $ESKI = 'KDV oranı %18 uygulanır.'; $TEMIZ = 'KDV oranı %20 uygulanır; 100.000 x 0,20 = 20.000.'
@@ -25,6 +26,9 @@ $VAKALAR = @(
   @{ ad = 'yayındaki eski soru (kör 15.09) → GEÇER (çekilmez)'; bek = $false; s = (S $ESKI '2026-09-15' '2026-09-16') }
   @{ ad = 'tarihsiz soru → GEÇER (eski sayılır)'; bek = $false; s = (S $ESKI '' '') }
   @{ ad = 'yeni ve temiz soru → GEÇER'; bek = $false; s = (S $TEMIZ '2026-10-02' '2026-10-02') }
+  @{ ad = 'yeni temiz soru, açıklama hakemi kararı YOK → DÜŞER'; bek = $true; s = (S $TEMIZ '2026-10-02' '' '') }
+  @{ ad = 'yeni temiz soru, açıklama hakemi KUSURLU → DÜŞER'; bek = $true; s = (S $TEMIZ '2026-10-02' '' 'KUSURLU') }
+  @{ ad = 'eski soru, açıklama hakemi kararı yok → GEÇER (çekilmez)'; bek = $false; s = (S $TEMIZ '2026-09-15' '' '') }
   @{ ad = 'yeni soru + THP''de yanlış hesap adı (252 Taşıtlar, KAPI-HK) → DÜŞER'; bek = $true; s = (S 'Kayıt: 252 TAŞITLAR hesabı borçlandırılır.' '2026-10-02' '') }
 )
 
@@ -46,6 +50,7 @@ $MUTASYONLAR = @(
   @{ ad = 'bulgu olsa da geçir'; eski = 'if ($kq.Count) { return'; yeni = 'if ($false) { return' }
   @{ ad = 'en yeni tarih yerine en eski'; eski = 'Sort-Object -Descending'; yeni = 'Sort-Object' }
   @{ ad = 'başlangıç geri çekildi (eski soru da düşer)'; eski = "else { '2026-10-01' }"; yeni = "else { '2000-01-01' }" }
+  @{ ad = 'açıklama hakemi denetimi kapalı'; eski = 'if (AhSecilemez $soruNesne)'; yeni = 'if ($false)' }
 )
 foreach ($m in $MUTASYONLAR) {
   if (-not $blok.Contains($m.eski)) { $kirmizi++; Write-Host "  KIRMIZI mutasyon kurulamadı (kapı metni değişmiş): $($m.ad)" -ForegroundColor Red; continue }
