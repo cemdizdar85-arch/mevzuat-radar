@@ -400,8 +400,11 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
-  252/100 ad hataları), SMMM 1, KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap (220 yerine 120) · "hesap" kelimesiz
-  tek sayı · ambarda olmayan 7/B'ye özgü kod (yanlış HK-YOK verebilir).
+  252/100 ad hataları); elle yargılandı: 49 gerçek, 16 yanlış alarm (10'u yalnız NOT-HK). Onarım + yazım genişletmesi (başharfli
+  "252 Taşıtlar hesabı", "(252)", "Borç: 252 …" — SMMM oturumu ölçtü, ilk sürüm yalnız BÜYÜK harfli adı görüyordu) sonrası SGS 18.
+  ⚠ `--banka smmm` yalnız `vitrin-smmm-secim.json`'u (70 soru) okur; sitedeki bitirme kümesi kasadan yayınlanır, bu araçla
+  **ölçülmedi** (SMMM oturumunun R9 taraması AS2+EK+HK: 155 soru). KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap
+  (220 yerine 120) · "hesap" kelimesiz tek sayı · küçük harfle ve hesap bağlamı dışında yazılmış ad · ambarda olmayan 7/B'ye özgü kod.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.
