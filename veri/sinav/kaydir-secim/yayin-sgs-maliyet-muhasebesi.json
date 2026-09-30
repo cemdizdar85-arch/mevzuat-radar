@@ -64,7 +64,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "etiket":  "sgs-d2-maliyet-kolay-r1",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -80,15 +80,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-kolay-r1",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet dagitimi",
-        "donem":  13,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-maliyet-zor1",
+        "etiket":  "sgs-p-maliyet-kolay-r4",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -97,6 +89,14 @@
     },
     {
         "etiket":  "sgs-p-maliyet-kolay-r3",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet dagitimi",
+        "donem":  13,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-maliyet-zor1",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak maliyet dagitimi",
@@ -120,7 +120,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "etiket":  "sgs-p-maliyet-kolay-r1",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
@@ -128,7 +128,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "etiket":  "sgs-p-maliyet-kolay-r4",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri dagitimi",
@@ -424,14 +424,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k5-maliyet-cokzor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "evre maliyet sistemi",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c2-maliyet-cokzor-r3",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -448,6 +440,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k5-maliyet-cokzor",
+        "id":  "kp-01",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "evre maliyet sistemi",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-cokzor-r3",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
@@ -456,16 +456,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-kolay-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-03",
+        "etiket":  "sgs-d2-maliyet-kolay-r1",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
@@ -480,16 +480,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-maliyet-cokzor-r1",
-        "id":  "kp-01",
+        "etiket":  "sgs-maliyet-15",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-maliyet-15",
-        "id":  "kp-05",
+        "etiket":  "sgs-d3-maliyet-cokzor-r1",
+        "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satilan mamul maliyeti",
         "donem":  5,
@@ -616,8 +616,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-maliyet-15",
-        "id":  "kp-13",
+        "etiket":  "sgs-p-maliyet-zor-r2-b2",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet dagitimi",
         "donem":  3,
@@ -632,16 +632,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r2-b2",
-        "id":  "kp-05",
+        "etiket":  "sgs-d2-maliyet-cokzor-r1",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet dagitimi",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-maliyet-kolay-r1",
-        "id":  "kp-03",
+        "etiket":  "sgs-maliyet-15",
+        "id":  "kp-13",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet dagitimi",
         "donem":  3,
@@ -656,18 +656,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-cokzor-r1",
+        "etiket":  "sgs-d3-maliyet-kolay-r1",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "birlesik maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k11b-maliyet-cokzor",
-        "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ekonomik siparis miktari",
         "donem":  3,
         "kurtarma":  false
     },
@@ -688,18 +680,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k5-maliyet-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-k11b-maliyet-cokzor",
+        "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri yukleme",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "genel uretim gideri yukleme",
+        "konu":  "ekonomik siparis miktari",
         "donem":  3,
         "kurtarma":  false
     },
@@ -713,6 +697,22 @@
     },
     {
         "etiket":  "sgs-p-maliyet-zor-r2-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri yukleme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-maliyet-cokzor",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "genel uretim gideri yukleme",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim gideri yukleme",
@@ -736,22 +736,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-06",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak urun maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak urun maliyet dagitimi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
@@ -760,7 +744,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortak urun maliyet dagitimi",
@@ -776,6 +760,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak urun maliyet dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak urun maliyet dagitimi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-maliyet-15",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
@@ -784,7 +784,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart gug sapmasi",
@@ -792,7 +792,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart gug sapmasi",
@@ -812,14 +812,6 @@
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet fark kapanisi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-maliyet-cokzor-r1",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet farklari",
         "donem":  3,
         "kurtarma":  false
     },
@@ -848,6 +840,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d3-maliyet-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet farklari",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-zor-r1",
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
@@ -864,24 +864,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-maliyet-kalip1",
         "id":  "kp-01",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapmasi",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-zor-r4",
-        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
         "donem":  3,
@@ -896,8 +880,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r3",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
         "donem":  3,
@@ -912,8 +896,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
-        "id":  "kp-04",
+        "etiket":  "sgs-p-maliyet-zor-r4",
+        "id":  "kp-03",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-05",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapmasi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r3",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapmasi",
         "donem":  3,
@@ -928,14 +928,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-zor-r1",
-        "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-cokzor-r2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
@@ -944,16 +936,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
-        "id":  "kp-04",
+        "etiket":  "sgs-d2-maliyet-zor-r1",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "uretim maliyeti hesaplama",
         "donem":  3,
@@ -968,7 +952,31 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "etiket":  "sgs-p-maliyet-cokzor-r1-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-cokzor-r4-b2",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r3",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yari mamul maliyeti",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2",
         "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yari mamul maliyeti",
@@ -992,24 +1000,16 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-maliyet-kolay-r4",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yari mamul maliyeti",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-maliyet-kolay-r2",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "yari mamul maliyeti",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-kolay-r3",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "yari mamul maliyeti",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
-        "id":  "kp-06",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ardisik donem satilan mamul maliyeti",
         "donem":  2,
@@ -1032,8 +1032,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-maliyet-cokzor-r3-b2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ardisik donem satilan mamul maliyeti",
         "donem":  2,
@@ -1048,7 +1048,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-cokzor-r3-a",
+        "etiket":  "sgs-p-mta-cokzor-r2-a",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "basit (dogrudan) dagitim yontemi",
@@ -1056,7 +1056,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-mta-cokzor-r2-a",
+        "etiket":  "sgs-p-mta-cokzor-r3-a",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "basit (dogrudan) dagitim yontemi",
@@ -1088,14 +1088,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
-        "id":  "kp-12",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken-normal maliyet birim farki",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-maliyet-p30",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -1104,8 +1096,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r2",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken-normal maliyet birim farki",
         "donem":  2,
@@ -1120,18 +1112,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-maliyet-zor-r2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken-normal maliyet birim farki",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2",
-        "id":  "kp-08",
+        "etiket":  "sgs-p-maliyet-zor-r1",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt ilk madde geriye dogru hesap",
+        "konu":  "degisken-normal maliyet birim farki",
         "donem":  2,
         "kurtarma":  false
     },
@@ -1146,6 +1138,14 @@
     {
         "etiket":  "sgs-d2-maliyet-kolay-r1",
         "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt ilk madde geriye dogru hesap",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r2",
+        "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt ilk madde geriye dogru hesap",
         "donem":  2,
@@ -1176,14 +1176,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r1",
-        "id":  "kp-08",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "esdeger birim hesabi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-cokzor-r2-b2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
@@ -1200,10 +1192,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1",
-        "id":  "kp-09",
+        "etiket":  "sgs-p-maliyet-cokzor-r1",
+        "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "fifo esdeger birim (dimm)",
+        "konu":  "esdeger birim hesabi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -1218,6 +1210,14 @@
     {
         "etiket":  "sgs-p-maliyet-kolay-r3-b2",
         "id":  "kp-08",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "fifo esdeger birim (dimm)",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1",
+        "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo esdeger birim (dimm)",
         "donem":  2,
@@ -1248,14 +1248,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-11",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "maliyet fonksiyonu",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliyet-kolay-r1",
         "id":  "kp-10",
         "ders":  "Maliyet Muhasebesi",
@@ -1264,10 +1256,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-zor-r2",
-        "id":  "kp-05",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "maliyet yontemleri karsilastirma",
+        "konu":  "maliyet fonksiyonu",
         "donem":  2,
         "kurtarma":  false
     },
@@ -1280,16 +1272,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-zor-r1-b2",
-        "id":  "kp-11",
+        "etiket":  "sgs-d2-maliyet-zor-r2",
+        "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "safha maliyet sistemi",
+        "konu":  "maliyet yontemleri karsilastirma",
         "donem":  2,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-13",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "safha maliyet sistemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-zor-r1-b2",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet sistemi",
         "donem":  2,
@@ -1312,14 +1312,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-14",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "satislarin maliyeti tablosu",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
@@ -1329,6 +1321,14 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-14",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "satislarin maliyeti tablosu",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "satislarin maliyeti tablosu",
@@ -1368,6 +1368,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-08",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet iscilik farklari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-maliyet-zor",
         "id":  "kp-01",
         "ders":  "Maliyet Muhasebesi",
@@ -1376,8 +1384,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-08",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet iscilik farklari",
         "donem":  2,
@@ -1392,16 +1400,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-11",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet iscilik farklari",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar sapmasi",
         "donem":  2,
@@ -1416,24 +1416,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-03",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar sapmasi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-07",
+        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma analizi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r3-b2",
-        "id":  "kp-06",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma analizi",
         "donem":  2,
@@ -1480,7 +1480,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d2-maliyet-kolay-r1",
+        "id":  "kp-04",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "tam maliyet yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d5-maliyet-zor-r1",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "tam maliyet yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-maliyet-zor",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam maliyet yontemi",
@@ -1504,22 +1520,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-kolay-r1",
-        "id":  "kp-04",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam maliyet yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-maliyet-zor",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam maliyet yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d5-maliyet-cokzor-r2",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
@@ -1528,7 +1528,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
+        "etiket":  "sgs-p-maliyet-cokzor-r2",
         "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "uretim maliyeti hesaplama",
@@ -1536,7 +1536,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-cokzor-r2",
+        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "uretim maliyeti hesaplama",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-maliyet-kolay-r1-b2",
         "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "uretim maliyeti hesaplama",
@@ -1552,26 +1560,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-maliyet-kolay-r2-b2",
-        "id":  "kp-06",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim maliyeti hesaplama",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-18",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "7-a secenegi genel uretim gideri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-22",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "7-a secenegi uretim maliyeti kaydi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -1585,9 +1577,9 @@
     },
     {
         "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-20",
+        "id":  "kp-22",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "agirlikli ortalama maliyet",
+        "konu":  "7-a secenegi uretim maliyeti kaydi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -1618,6 +1610,14 @@
     {
         "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-19",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "agirlikli ortalama maliyet",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-20",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "agirlikli ortalama maliyet",
         "donem":  1,
@@ -1664,6 +1664,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-38",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "birlesik urun katsayi yontemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-18",
         "ders":  "Maliyet Muhasebesi",
@@ -1680,10 +1688,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-38",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-33",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "birlesik urun katsayi yontemi",
+        "konu":  "degisken maliyet sistemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-16",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "degisken maliyet sistemi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -1696,24 +1712,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-33",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-19",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "degisken maliyet sistemi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-16",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "degisken maliyet sistemi",
         "donem":  1,
@@ -1736,16 +1736,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-maliyet-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-06",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt ilk madde malzeme",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-maliyet-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-maliyet-cokzor",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt ilk madde malzeme",
         "donem":  1,
@@ -1768,8 +1768,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k11-maliyet-zor",
-        "id":  "kp-02",
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik gideri hesaplama",
         "donem":  1,
@@ -1778,14 +1778,6 @@
     {
         "etiket":  "sgs-k5-maliyet-cokzor",
         "id":  "kp-03",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt iscilik gideri hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-maliyet-zor",
-        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik gideri hesaplama",
         "donem":  1,
@@ -1808,6 +1800,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k11-maliyet-zor",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik gideri hesaplama",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-maliyet-cokzor-r2",
         "id":  "kp-16",
         "ders":  "Maliyet Muhasebesi",
@@ -1816,15 +1816,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-35",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-23",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik sure farki",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-35",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik sure farki",
@@ -1840,14 +1840,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-23",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "direkt iscilik sure farki",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-27",
         "ders":  "Maliyet Muhasebesi",
@@ -1856,7 +1848,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-35",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "direkt iscilik sure farki",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-35",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "direkt iscilik sure farki",
@@ -1888,8 +1888,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-23",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-44",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim maliyeti",
         "donem":  1,
@@ -1904,8 +1904,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-28",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-23",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim maliyeti",
         "donem":  1,
@@ -1913,7 +1913,7 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-44",
+        "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "esdeger birim maliyeti",
         "donem":  1,
@@ -1960,14 +1960,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-46",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "fifo yontemi maliyet",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-46",
         "ders":  "Maliyet Muhasebesi",
@@ -1977,6 +1969,14 @@
     },
     {
         "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-46",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "fifo yontemi maliyet",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-46",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "fifo yontemi maliyet",
@@ -2016,7 +2016,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-kolay-r2",
+        "etiket":  "sgs-d5-maliyet-kolay-r1",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim maliyeti dagitimi",
@@ -2024,7 +2024,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-kolay-r1",
+        "etiket":  "sgs-d5-maliyet-kolay-r2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "genel uretim maliyeti dagitimi",
@@ -2040,16 +2040,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-24",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-17",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug dagitimi makine saati",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-17",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-24",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug dagitimi makine saati",
         "donem":  1,
@@ -2064,16 +2064,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-25",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-43",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug kademeli dagitim tablosu",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-43",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-25",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug kademeli dagitim tablosu",
         "donem":  1,
@@ -2088,24 +2088,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-10",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug matematiksel dagitim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-41",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug matematiksel dagitim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-42",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "gug matematiksel dagitim",
         "donem":  1,
@@ -2120,10 +2104,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-42",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "gug yukleme orani",
+        "konu":  "gug matematiksel dagitim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-10",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "gug matematiksel dagitim",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2136,16 +2128,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-maliyet-kolay",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "hareketli ortalama maliyet",
+        "konu":  "gug yukleme orani",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-c5-maliyet-cokzor-r1",
         "id":  "kp-09",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "hareketli ortalama maliyet",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-maliyet-kolay",
+        "id":  "kp-04",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "hareketli ortalama maliyet",
         "donem":  1,
@@ -2176,16 +2176,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-kolay",
-        "id":  "kp-19",
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-08",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "katsayili maliyet dagitimi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "katsayili maliyet dagitimi",
         "donem":  1,
@@ -2200,16 +2200,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-09",
+        "etiket":  "sgs-t1-maliyet-kolay",
+        "id":  "kp-19",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "katsayili maliyet dagitimi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-07",
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-09",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "katsayili maliyet dagitimi",
         "donem":  1,
@@ -2336,6 +2336,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-15",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ortak maliyet-katsayili yontem",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-13",
         "ders":  "Maliyet Muhasebesi",
@@ -2352,26 +2360,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
-        "id":  "kp-15",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ortak maliyet-katsayili yontem",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-maliyet-kolay-r2",
         "id":  "kp-16",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ortalama maliyet esdeger birim",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-maliyet-zor",
-        "id":  "kp-05",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "ozel maliyet itfasi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2384,7 +2376,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
+        "etiket":  "sgs-k2-maliyet-zor",
+        "id":  "kp-05",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "ozel maliyet itfasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-17",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ozel maliyetler bakim onarim",
@@ -2400,7 +2400,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-17",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "ozel maliyetler bakim onarim",
@@ -2416,14 +2416,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-28",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "safha maliyet miktar saglama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
@@ -2432,10 +2424,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-maliyet-cokzor",
-        "id":  "kp-02",
+        "etiket":  "sgs-t1-maliyet-cokzor",
+        "id":  "kp-28",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "safha maliyet-esdeger birim",
+        "konu":  "safha maliyet miktar saglama",
         "donem":  1,
         "kurtarma":  false
     },
@@ -2458,6 +2450,14 @@
     {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-17",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "safha maliyet-esdeger birim",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-e16-maliyet-cokzor",
+        "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "safha maliyet-esdeger birim",
         "donem":  1,
@@ -2504,7 +2504,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-cokzor-r2",
+        "etiket":  "sgs-c5-maliyet-cokzor-r1",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis gug cift yukleme orani",
@@ -2512,7 +2512,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-cokzor-r1",
+        "etiket":  "sgs-c5-maliyet-cokzor-r2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis gug cift yukleme orani",
@@ -2552,6 +2552,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-e16-maliyet-kolay",
+        "id":  "kp-06",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet-gug yukleme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-28",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "siparis maliyet-gug yukleme",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-48",
         "ders":  "Maliyet Muhasebesi",
@@ -2568,23 +2584,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-28",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet-gug yukleme",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-maliyet-kolay",
-        "id":  "kp-06",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "siparis maliyet-gug yukleme",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-maliyet-zor-r1",
+        "etiket":  "sgs-c5-maliyet-zor-r2",
         "id":  "kp-16",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyeti hesaplama",
@@ -2592,7 +2592,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-zor-r2",
+        "etiket":  "sgs-c5-maliyet-zor-r1",
         "id":  "kp-16",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "siparis maliyeti hesaplama",
@@ -2672,14 +2672,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-cokzor",
-        "id":  "kp-29",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet direkt iscilik",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2b-maliyet-zor",
         "id":  "kp-13",
         "ders":  "Maliyet Muhasebesi",
@@ -2688,7 +2680,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-maliyet-zor",
+        "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-29",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet direkt iscilik",
@@ -2698,6 +2690,14 @@
     {
         "etiket":  "sgs-t2b-maliyet-kolay",
         "id":  "kp-14",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet direkt iscilik",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-maliyet-zor",
+        "id":  "kp-29",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet direkt iscilik",
         "donem":  1,
@@ -2720,6 +2720,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-maliyet-zor-r2",
+        "id":  "kp-02",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet fiyat sapmasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-maliyet-zor-r1",
         "id":  "kp-02",
         "ders":  "Maliyet Muhasebesi",
@@ -2728,15 +2736,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-zor-r2",
-        "id":  "kp-02",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet fiyat sapmasi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c5-maliyet-zor-r2",
+        "etiket":  "sgs-c5-maliyet-zor-r1",
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar farki",
@@ -2744,7 +2744,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-zor-r1",
+        "etiket":  "sgs-c5-maliyet-zor-r2",
         "id":  "kp-05",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet miktar farki",
@@ -2760,24 +2760,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-cokzor",
-        "id":  "kp-12",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapma kapanisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-zor",
         "id":  "kp-24",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "standart maliyet sapma kapanisi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2b-maliyet-kolay",
-        "id":  "kp-15",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "standart maliyet sapma kapanisi",
         "donem":  1,
@@ -2792,16 +2776,32 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-14",
+        "etiket":  "sgs-t2b-maliyet-cokzor",
+        "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "tam maliyet normal maliyet",
+        "konu":  "standart maliyet sapma kapanisi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-kolay",
+        "id":  "kp-15",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "standart maliyet sapma kapanisi",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t2b-maliyet-cokzor",
         "id":  "kp-13",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "tam maliyet normal maliyet",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-14",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam maliyet normal maliyet",
         "donem":  1,
@@ -2824,7 +2824,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-cokzor-r1",
+        "etiket":  "sgs-d5-maliyet-cokzor-r2",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam ve degisken maliyet sistemi",
@@ -2832,7 +2832,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-maliyet-cokzor-r2",
+        "etiket":  "sgs-d5-maliyet-cokzor-r1",
         "id":  "kp-03",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tam ve degisken maliyet sistemi",
@@ -2888,7 +2888,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-kolay-r2",
+        "etiket":  "sgs-c5-maliyet-kolay-r1",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tms 2 stok maliyeti kapsami",
@@ -2896,7 +2896,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-maliyet-kolay-r1",
+        "etiket":  "sgs-c5-maliyet-kolay-r2",
         "id":  "kp-07",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "tms 2 stok maliyeti kapsami",
@@ -2928,14 +2928,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-11",
-        "ders":  "Maliyet Muhasebesi",
-        "konu":  "uretim satis maliyeti hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-maliyet-cokzor",
         "id":  "kp-26",
         "ders":  "Maliyet Muhasebesi",
@@ -2945,15 +2937,23 @@
     },
     {
         "etiket":  "sgs-t2b-maliyet-zor",
-        "id":  "kp-12",
+        "id":  "kp-11",
         "ders":  "Maliyet Muhasebesi",
-        "konu":  "yatirim siparis avansi",
+        "konu":  "uretim satis maliyeti hesaplama",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-maliyet-kolay",
         "id":  "kp-25",
+        "ders":  "Maliyet Muhasebesi",
+        "konu":  "yatirim siparis avansi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2b-maliyet-zor",
+        "id":  "kp-12",
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yatirim siparis avansi",
         "donem":  1,
