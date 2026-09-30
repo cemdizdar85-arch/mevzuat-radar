@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **29.09.2026 14:49** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **30.09.2026 14:53** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50120 parça · 2716 tekil kaynak | Bütünlük ölçülen: 2716 (delikli: 361; son ölçüm: 29.09.2026) | Sürüm ölçülen: 43 (sorunlu: 1; son ölçüm: 29.09.2026 14:47)
+**ÖZET:** 50123 parça · 2717 tekil kaynak | Bütünlük ölçülen: 2717 (delikli: 361; son ölçüm: 30.09.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 30.09.2026 14:51)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2485,6 +2485,7 @@
 | TMS 26 | standart-madde | 38 | TAM(set-birebir; kapı notu: par:1/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 27 | standart-madde | 34 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
 | TMS 28 | standart-madde | 65 | TAM(set-birebir; kapı notu: par:0/kesik:0/oksuz:1 resmî metinde de yok) | TUTARLI |
+| TMS 28 Degisiklikleri - Istiraklerde Gercege Uygun Deger Secenegi (RG 31.07.2026-33326) | kanun-madde | 3 | TAM | TUTARLI |
 | TMS 29 | standart-madde | 41 | TAM(set-birebir; kapı notu: par:2/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 32 | standart-madde | 79 | TAM(set-birebir; kapı notu: par:48/kesik:0/oksuz:0 resmî metinde de yok) | TUTARLI |
 | TMS 32 Ek | standart-madde | 56 | TAM | TUTARLI |
