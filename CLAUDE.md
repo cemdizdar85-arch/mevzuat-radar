@@ -386,8 +386,9 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      (resmî kaynaktan elle onarım → yeniden hakem yalnız anahtar/kök değişince). Yanlış cevaplı / iki doğru şıklı soru onarılana kadar
      yayın dışı kalır (Cem onayı 30.09).
   🚫 GÖRMEZ: sözel açıklama kusuru · adım/ikiz içi hesap hatası · listede olmayan eski kural · kaynak paketindeki eski metnin kendisi
-  (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1`, `motor/vitrin-soru-sec.ps1` ve SMMM kasa yayını (`smmm-kasa-yayin`) bu kapıyı
-  çağırmıyor (30.09: SGS oturumu bu seçim yollarını bildirdi; SMMM yolu ölçülmedi).
+  (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1` ve `motor/vitrin-soru-sec.ps1` bu kapıyı çağırmıyor (30.09: SGS oturumu bu seçim
+  yollarını bildirdi). **Bitirme 30.09'dan beri bağlı:** `arac/smmm-yayin-sarti.ps1` `SmmmKaliteNeden` (aynı YENİ soru tanımı;
+  kasa yayını + kalip-kosucu + kaydir-coz bu şartı çağırır), öz-sınav `arac/smmm-kalite-bag-sinavi.ps1`.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

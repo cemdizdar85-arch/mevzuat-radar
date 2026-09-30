@@ -205,6 +205,16 @@ jobs:
           - { ad: "KAPI-MA mulga madde atfi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/mulga-atif-kapisi-sinavi.ps1" }
 
+          # 30.09.2026 - KAPI-AS2 + KAPI-EK bitirme yayin sartina bagli (yalniz YENI soru: kor/hakem2 tarihi >= 2026-10-01).
+          # 6 vaka (3 dusur / 3 gecir: yayindaki eski soru, tarihsiz, yeni temiz) + bag + 4 mutasyon (30.09 olculdu). Node ister.
+          - { ad: "KAPI-KALITE bitirme yayin sarti bagi OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/smmm-kalite-bag-sinavi.ps1" }
+
+          # 30.09.2026 - Bitirme risk taramasi siniflari (R1/R4/R6 kanun no-ad/R7 eski mevzuat/R8 aritmetik). 12 vaka;
+          # 5 mutasyon (R6 kapali, R7 istisna, ic alan, R8, R4 esigi) her birinde KIRMIZI (30.09 olculdu). Ag yok.
+          - { ad: "SMMM risk taramasi OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/smmm-risk-tarama.ps1 -Sinav" }
+
           # 29.09.2026 - Bulut soru basim sirasi (bulut-sira.yml cron). Yerel sira betikleri oturuma bagliydi; 27.09'da
           # sessizce oldu, bulut 2 gun bos kaldi. Sinav: pay (toplam + sinav basi, halka tek plan), cift acma (kosan/
           # kuyruktaki/gecmiste acilmis plan), bozuk butce/yol/paralel satirini atlama, KOR gecmis, acil fren, tr-TR

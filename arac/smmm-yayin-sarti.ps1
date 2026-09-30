@@ -22,6 +22,22 @@ $script:MD_LISTE = $null
 $script:HAD_HARITA = $null
 . (Join-Path $PSScriptRoot 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM
 . (Join-Path $PSScriptRoot 'mulga-atif-kapisi.ps1')   # 29.09 KAPI-MA (liste: SGS KAPI-MM, veri/sinav/ambar-mulga-maddeler.json)
+# 30.09 KAPI-KALITE (Cem "1.2.3"; CLAUDE.md "YENİ SORU AÇIKLAMA + ESKİ KURAL KAPISI"): KAPI-AS2 + KAPI-EK bitirme yayınına da bağlı.
+# Yalnız YENİ soruya (kör çözüm ya da hakem2 tarihi >= başlangıç; havuz-kur.ps1 ile aynı tanım) — Cem "yayındaki çekilmesin".
+# Node yoksa kapı AÇIK kalır ama her soruda uyarı basar (fail-open, soru-kalite-kapisi.ps1 ile aynı karar).
+. (Join-Path $PSScriptRoot 'soru-kalite-kapisi.ps1')
+$script:SMMM_KALITE_BASLANGIC = $(if ($env:KALITE_BASLANGIC) { $env:KALITE_BASLANGIC } else { '2026-10-01' })   # ortam değişkeni yalnız prova içindir
+function SmmmYeniSoruMu($soruNesne) {
+  $t = @("$(if ($soruNesne.kor_cozum) { $soruNesne.kor_cozum.tarih })", "$(if ($soruNesne.hakem2) { $soruNesne.hakem2.tarih })") | Where-Object { $_ } | Sort-Object -Descending | Select-Object -First 1
+  return [bool]($t -and "$t" -ge $script:SMMM_KALITE_BASLANGIC)
+}
+function SmmmKaliteNeden([string]$anahtar, $soruNesne) {
+  if (-not (SmmmYeniSoruMu $soruNesne)) { return $null }
+  $kq = @(SoruKaliteKapisi $soruNesne)
+  if ($script:SORU_KALITE_KOR) { Write-Warning "KAPI-KALITE KÖR: $anahtar | $($script:SORU_KALITE_KOR)"; $script:SORU_KALITE_KOR = $null; return $null }
+  if ($kq.Count) { return "KAPI-KALITE $($kq -join ' · ')" }
+  return $null
+}
 function SmmmParmakIzi($soruNesne) {
   $parca = @("$($soruNesne.soru)") + @('A', 'B', 'C', 'D', 'E' | ForEach-Object { "$($soruNesne.siklar.$_)" }) + @("$($soruNesne.dogru)".Trim().ToUpperInvariant())
   $bayt = [Text.Encoding]::UTF8.GetBytes(($parca -join [char]0x1E))
@@ -125,5 +141,6 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   }
   if (-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2 -and "$($v.hakem2.karar)" -eq 'EVET')) { return [pscustomobject]@{ gecer = $false; neden = 'hakem2 EVET değil' } }
   $kcEksik = @(SmmmKcEksik $v); if ($kcEksik.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-KC Kaydır-Çöz eksik: $($kcEksik -join ', ')" } }
+  $kaliteN = SmmmKaliteNeden $anahtar $v; if ($kaliteN) { return [pscustomobject]@{ gecer = $false; neden = $kaliteN } }
   return [pscustomobject]@{ gecer = $true; neden = $(if (SmmmKorDogru $v) { 'tüm şartlar' } else { 'tüm şartlar (kör istisnası: Cem onayı + kaynaklı çözüm)' }) }
 }
