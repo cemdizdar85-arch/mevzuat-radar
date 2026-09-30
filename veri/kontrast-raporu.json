@@ -1,56 +1,7 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 213,
-  "koyu_gecis": 66,
-  "koyu_bekleyen": [],
-  "temiz_sayfa": 212,
-  "denetlenen_metin": 21972,
-  "toplam_kirik": 1,
-  "denetlenen_sinir": 6601,
-  "toplam_gorunmez_sinir": 1,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [
-    {
-      "sayfa": "index.html",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "p.bz-fiyat",
-          "kimlik": "#ogrenciFiyat < .bz-cam",
-          "iz": "<p class=\"bz-fiyat\" id=\"ogrenciFiyat\"><b>Staja Giriş soru bankası: 2.995 TL</b> · KDV dahil, sınava kadar · il",
-          "yan": "ust",
-          "oran": 1.118,
-          "esik": 1.12,
-          "cerceve": "rgba(214,180,126,0.18)",
-          "gorunen": "rgb(247,241,231)",
-          "zemin": "rgb(255,255,254)"
-        }
-      ]
-    }
-  ],
-  "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "pano.html",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "span.rz",
-          "yazi": "6 gün önce",
-          "oran": 4.22,
-          "esik": 4.5,
-          "renk": "rgb(138, 98, 36)",
-          "zemin": "rgb(233,226,214)",
-          "iz": "<span class=\"rz sari\">6 gün önce</span>"
-        }
-      ]
-    }
-  ]
+  "chrome_stderr": ""
 }
