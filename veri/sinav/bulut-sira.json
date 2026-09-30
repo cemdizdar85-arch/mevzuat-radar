@@ -2,9 +2,9 @@
     "aciklama":  "Bulut soru basim sirasi (29.09.2026). Elle DUZENLENMEZ: motor/bulut-sira.ps1 -Ekle / -Cikar / -Temizle yazar, sonra commit+push. Robot .github/workflows/bulut-sira.yml 15 dk\u0027da bir paya gore acar. Acildi mi = GitHub kosu gecmisi (dosyaya isaret yazilmaz). Acil fren: durdur=true.",
     "durdur":  false,
     "pay":  {
-                "toplam":  6,
+                "toplam":  8,
                 "smmm":  3,
-                "sgs":  3,
+                "sgs":  5,
                 "kgk":  2
             },
     "varsayilan_paralel":  5,
@@ -39,17 +39,6 @@
                      "olcum_kosusu":  "",
                      "sinav":  "sgs",
                      "eklenme":  "2026-09-29T19:56:12Z",
-                     "ekleyen":  "sinav · SGS kapsama + ölçüm dalgası",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-k13-mu-3.json",
-                     "butce_usd":  "1.45",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-09-29T19:56:24Z",
                      "ekleyen":  "sinav · SGS kapsama + ölçüm dalgası",
                      "yeniden":  false,
                      "not":  ""
@@ -187,17 +176,6 @@
                      "not":  ""
                  },
                  {
-                     "plan":  "veri/sinav/plan-sgs-k14-ucret.json",
-                     "butce_usd":  "0.72",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-09-29T20:18:18Z",
-                     "ekleyen":  "sinav · SGS kapsama + ölçüm dalgası",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
                      "plan":  "veri/sinav/plan-sgs-k16-m270-onarim.json",
                      "butce_usd":  "0.06",
                      "paralel":  5,
@@ -237,6 +215,28 @@
                      "olcum_kosusu":  "",
                      "sinav":  "sgs",
                      "eklenme":  "2026-09-30T20:02:32Z",
+                     "ekleyen":  "sinav · SGS kapsama + ölçüm dalgası",
+                     "yeniden":  false,
+                     "not":  ""
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-sgs-k13-mu-3.json",
+                     "butce_usd":  "1.45",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-09-30T20:28:47Z",
+                     "ekleyen":  "sinav · SGS kapsama + ölçüm dalgası",
+                     "yeniden":  false,
+                     "not":  ""
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-sgs-k14-ucret.json",
+                     "butce_usd":  "0.72",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-09-30T20:29:03Z",
                      "ekleyen":  "sinav · SGS kapsama + ölçüm dalgası",
                      "yeniden":  false,
                      "not":  ""
