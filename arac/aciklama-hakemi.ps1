@@ -65,7 +65,7 @@ $(if ($kaynak) { $kaynak } else { '(yok)' })
   $isler.Add(@{ id = $id; model = $Model; maxTok = $MaxTok; effort = $Effort; icerik = @(@{ type = 'text'; text = $istem }) })
 }
 $kar = 0; foreach ($i in $isler) { $kar += "$($i.icerik[0].text)".Length }
-$girdiJ = [math]::Round($kar / 3.0)   # Türkçe + JSON için temkinli (üst) tahmin
+$girdiJ = [math]::Round($kar / 1.6)   # 30.09 ÖLÇÜLDÜ: /3 tahmini 134K dedi, gerçek 234K (≈1,7 kr/jeton, Türkçe+JSON) → /1,6 temkinli üst tahmin
 $f = $FIYAT[$Model]
 $enKotu = [math]::Round(0.5 * (($girdiJ / 1e6) * $f[0] + (($isler.Count * $MaxTok) / 1e6) * $f[1]), 3)
 "AÇIKLAMA HAKEMİ ÖLÇÜMÜ: $($isler.Count) soru (etiket KUSURLU $(@($bilgi.Values | Where-Object { $_.etiket -eq 'KUSURLU' }).Count) · TEMIZ $(@($bilgi.Values | Where-Object { $_.etiket -eq 'TEMIZ' }).Count)) · model $Model · effort $Effort · maxTok $MaxTok"
@@ -76,15 +76,18 @@ if ($enKotu -gt $Tavan) { throw "EN KÖTÜ DURUM BEDELİ ($enKotu USD) TAVANI ($
 $sonuc = @{}
 if ($HasatBid) {
   $hedefH = Get-TopluBasliklar
-  foreach ($hb in @($HasatBid -split '[,\s]+' | Where-Object { $_ })) { $hs = Get-ClaudeTopluSonuc $hb $hedefH $Etiket; if ($null -eq $hs) { "HASAT: $hb bitmemiş"; continue }; foreach ($hk in @($hs.Keys)) { if ($hk -notlike '__*') { $sonuc[$hk] = $hs[$hk] } } }
+  foreach ($hb in @($HasatBid -split '[,\s]+' | Where-Object { $_ })) { $hs = Get-ClaudeTopluSonuc $hb $hedefH $Etiket $false; if ($null -eq $hs) { "HASAT: $hb bitmemiş"; continue }; foreach ($hk in @($hs.Keys)) { if ($hk -notlike '__*') { $sonuc[$hk] = $hs[$hk] } } }
 }
 $kalan = @($isler | Where-Object { -not $sonuc.ContainsKey($_.id) })
 if ($kalan.Count) { $y = Invoke-ClaudeToplu -Isler $kalan -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu; foreach ($yk in @($y.Keys)) { $sonuc[$yk] = $y[$yk] } }
 if ($sonuc.ContainsKey('__zaman_asimi')) { throw "TOPLU ZAMAN AŞIMI — aynı komutla yeniden koşunca bedava hasat edilir. Çıktı YAZILMADI." }
 
-$tp = 0; $fn = 0; $fp = 0; $tn = 0; $olcul = 0; $cikis = New-Object System.Collections.Generic.List[object]
+$tp = 0; $fn = 0; $fp = 0; $tn = 0; $olcul = 0; $kesik = 0; $cikis = New-Object System.Collections.Generic.List[object]
 foreach ($id in $bilgi.Keys) {
-  $b = $bilgi[$id]; $metin = "$($sonuc[$id])"; $karar = $null; $kus = @()
+  # 30.09 ölçüldü: toplu araç cevabı nesne olarak döndürür ({metin, dur, girdi, cikti ...}); ilk koşu nesneyi metin sanıp 50/50 "ölçülemedi" yazdı
+  $b = $bilgi[$id]; $c = $sonuc[$id]; $metin = $(if ($c -is [hashtable]) { "$($c['metin'])" } elseif ($c -and $c.PSObject.Properties['metin']) { "$($c.metin)" } else { "$c" })
+  $dur = $(if ($c -is [hashtable]) { "$($c['dur'])" } elseif ($c -and $c.PSObject.Properties['dur']) { "$($c.dur)" } else { '' }); if ($dur -eq 'max_tokens') { $kesik++ }
+  $karar = $null; $kus = @()
   $m = [regex]::Match($metin, '\{[\s\S]*\}')
   if ($m.Success) { try { $j = ConvertFrom-Json -InputObject $m.Value; $karar = "$($j.karar)".ToUpper(); $kus = @($j.kusurlar) } catch {} }
   if ($karar -notin @('TEMIZ', 'KUSURLU')) { $olcul++; $karar = 'OLCULEMEDI' }
@@ -94,6 +97,6 @@ foreach ($id in $bilgi.Keys) {
 }
 [IO.File]::WriteAllText($Cikti, (ConvertTo-Json -InputObject @($cikis.ToArray()) -Depth 8), [Text.UTF8Encoding]::new($false))
 $bo = Get-BedelOzet
-"SONUÇ: kusurlu $($tp + $fn)'nin $tp'ini yakaladı · temiz $($fp + $tn)'in $fp'inde alarm · ölçülemedi $olcul"
+"SONUÇ: kusurlu $($tp + $fn)'nin $tp'ini yakaladı · temiz $($fp + $tn)'in $fp'inde alarm · ölçülemedi $olcul (maxTok'ta kesilen $kesik)"
 "BEDEL (defter): $(($bo.satirlar | ForEach-Object { "$($_.model) giriş $($_.girdi) çıkış $($_.cikti) ≈ $($_.usd) USD" }) -join ' · ') · toplam $($bo.toplamUsd) USD"
 "ÇIKTI: $Cikti (soru başı karar + gerekçe; depo dışı)"
