@@ -507,6 +507,10 @@ jobs:
           # govde ZAYIF katmani) her birinde KIRMIZI (30.09 olculdu).
           - { ad: "BDS paragraf atfi kapisi OZ-SINAVI (KAPI-BP)",
               kabuk: bash, komut: "node arac/bds-atif-kapisi.js --sinav" }
+          # 30.09: ambar kesik paragraf taramasi (K1 noktasiz son, K2 bent atlamasi, K3 cift baslik, K4 gomulu, K5 numara atlamasi). 15 vaka;
+          # 9 mutasyon KIRMIZI (30.09 olculdu). ADAY listesi uretir, soru durdurmaz. Ag yok.
+          - { ad: "Kesik paragraf taramasi OZ-SINAVI",
+              kabuk: bash, komut: "node arac/kesik-paragraf-tarama.js --sinav --mutasyon" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
           - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
               kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }
