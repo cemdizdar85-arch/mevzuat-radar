@@ -1,0 +1,87 @@
+# .github/workflows/marka-bulten-yedek.yml — MARKA BULTENI AYLIK YEDEGI (SIFRELI)
+#
+# 30.09.2026 (Cem "1.2.3"). Yedek olcumunde marka_bulten (1.727.332 satir) HICBIR
+# bizim yedegimizde yoktu; tek kopya Supabase'in 7 gunluk fiziksel yedegiydi.
+# 1000 satir = 4.158 KB olculdu -> ~7 GB duz, gunluk yedege sigmaz: AYLIK + ayri akis.
+#
+# Betik dogrudan .ndjson.gz yazar (-Gzip): 7 GB duz dosya runner diskine hic dusmez.
+# Sifreleme soru ambariyla AYNI desen/anahtar (motor/anahtar/alacak-yedek.pub).
+# Cozme: powershell -NoProfile -File motor/soru-ambar-yedek-coz.ps1 -Klasor <artifact klasoru>
+# ⛔ Eksik yedek artifact'a yazilmaz: betik beklenen/yazilan satiri kiyaslar, eksikse DUSER.
+# 🚫 GORMEZ: iki alanli imlecte cift kayit (sayi >= beklenen ise TAM der).
+name: Marka Bulteni Yedegi (aylik, sifreli)
+
+on:
+  schedule:
+    - cron: "37 23 1 * *"     # her ayin 2'si 02:37 TR
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marka-bulten-yedek
+  cancel-in-progress: false
+
+env:
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  yedek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: marka_bulten dok (iki alanli imlec, dogrudan gzip)
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          YEDEK_KOK: ${{ github.workspace }}/_yedek
+        run: |
+          if (-not "$env:SUPABASE_SERVICE_KEY") { throw 'SUPABASE_SERVICE_KEY secret yok - yedek ALINMADI.' }
+          $t0 = Get-Date
+          ./motor/soru-ambar-yedek.ps1 -Kume Marka -Gzip
+          Write-Host ("::notice title=marka yedek::dokum suresi {0:N0} dk" -f ((Get-Date)-$t0).TotalMinutes)
+
+      - name: Sifrele (AES-256 dosya + RSA-4096 anahtar zarfi)
+        run: |
+          set -e
+          cd _yedek
+          for f in soru-ambar-*-kunye.json; do if [ -e "$f" ]; then gzip -9 "$f"; fi; done
+          ls -la
+          openssl rand -base64 32 > k
+          for f in soru-ambar-*.gz; do
+            openssl enc -aes-256-cbc -pbkdf2 -salt -in "$f" -out "$f.enc" -pass file:k
+            rm -f "$f"
+          done
+          openssl pkeyutl -encrypt -pubin -inkey ../motor/anahtar/alacak-yedek.pub -in k -out zarf.k.enc
+          rm -f k
+          ls -la
+          echo "::notice title=marka yedek::sifreli boyut $(du -sh . | cut -f1)"
+
+      - name: Artifact olarak sakla (90 gun, sifreli)
+        uses: actions/upload-artifact@v4
+        with:
+          name: marka-bulten-yedek-${{ github.run_number }}
+          path: _yedek/*.enc
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: B2 silinemez kopya (secret yoksa atlanir)
+        uses: ./.github/actions/b2-yukle
+        with:
+          klasor: _yedek
+          onek: marka-bulten
+          key_id: ${{ secrets.B2_KEY_ID }}
+          app_key: ${{ secrets.B2_APP_KEY }}
+          bucket: ${{ secrets.B2_BUCKET }}
+          endpoint: ${{ secrets.B2_ENDPOINT }}
+
+      - name: Dusunce Cem'e mail
+        if: failure()
+        shell: pwsh
+        run: |
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE - marka bulteni aylik yedegi DUSTU" -Mesaj "Aylik marka_bulten yedegi basarisiz. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

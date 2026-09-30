@@ -22,7 +22,8 @@ const MUT = process.env.KP_MUTASYON || '';
 
 // kayıt adı → {std, par, baslik, parca}
 function ayristir(ad) {
-  const m = String(ad).match(/^((?:BDS|TMS|TFRS|BOBİ|KAYDS)\s+\S+)\s+p\.(A?\d{1,3})[a-z]?\s*-\s*(.*?)(?:\s*\[(\d+)\/(\d+)\])?$/);
+  // 30.09 yargı: "p.10A", "33A" gibi büyük harf ekli numaralar okunmuyordu (31 standartta 268 kayıt taramaya girmiyordu)
+  const m = String(ad).match(/^((?:BDS|TMS|TFRS|BOBİ|KAYDS)\s+\S+)\s+p\.(A?\d{1,3}[A-Z]?)[a-z]?\s*-\s*(.*?)(?:\s*\[(\d+)\/(\d+)\])?$/);
   if (!m) return null;
   return { std: m[1], par: m[2], baslik: m[3].trim(), parca: m[4] ? +m[4] : 1 };
 }
@@ -48,16 +49,25 @@ function denetle(kayitlar) {
       // K1 son: cümle sonu işareti yok (tırnak/parantez kapanışı sonrası da olabilir)
       // 30.09 ilk tarama 1.003 aday verdi; gürültü ayıklandı: sonda "(Bkz.: … paragrafı)" atfı · noktadan sonra dipnot rakamı (".15") ·
       //   p.0 künye/içindekiler kaydı · "[…]" / "*" dipnot işareti.
-      const temizSon = metin.replace(/\s*\((Bkz|Bakınız)[^()]*\)\s*$/i, '.').replace(/([.:;!?…])\s*\d{1,3}\s*$/, '$1').replace(/\s*(\[[^\]]*\]|\*+)\s*$/, '');
-      if (MUT !== 'son' && par !== '0' && !/[.:;!?…](\s*[)"”’»\]])*\s*$/.test(temizSon)) bul('K1-SON', std, par, 'metin "…' + metin.slice(-40) + '" ile bitiyor');
+      const temizSon = metin.replace(/\s*\((Bkz|Bakınız)[^()]*(\([^()]*\)[^()]*)*\)\s*$/i, '.').replace(/([.:;!?…])\s*\d{1,3}\s*$/, '$1').replace(/\s*(\[[^\]]*\]|\*+|“-”|"-")\s*$/, '');
+      // 30.09 yargı (40 aday, resmî metin): K1'in 15/16'sı yanlış alarmdı — metin noktayla TAM bitiyor, arkasına sonraki paragrafın BAŞLIĞI
+      //   yapışmış. Kuyruk (son cümle işaretinden sonrası) büyük harfle başlıyor ve bağlaçla bitmiyorsa kesik sayılmaz. Asıl sinyal:
+      //   hiç cümle işareti yok ya da kuyruk bağlaç/küçük harfli sözcükle bitiyor ("…kredi zararı modeli veya").
+      const sonIs = Math.max(...['.', ':', ';', '!', '?', '…'].map(z => temizSon.lastIndexOf(z)));
+      const kuyruk = sonIs < 0 ? temizSon : temizSon.slice(sonIs + 1).replace(/^[\s)"”’»\]]+/, '');
+      const baslikKuyruk = sonIs >= 0 && /^[\s\d–-]*[A-ZÇĞİÖŞÜ“"(]/.test(kuyruk) && !/\b(ve|veya|ile|gibi|ya da|ancak|ise)\s*$/i.test(kuyruk) && MUT !== 'baslik-kuyruk';
+      if (MUT !== 'son' && par !== '0' && kuyruk.trim() && !baslikKuyruk) bul('K1-SON', std, par, 'metin "…' + metin.slice(-40) + '" ile bitiyor');
       // K2 bent atlaması: satır/cümle içi "(a)" biçimli harf bentleri
-      const harfler = [...new Set((metin.match(/(^|[\s:;,])\(([a-hçğ])\)/g) || []).map(s => s.replace(/.*\(/, '').replace(')', '')))];
+      // 30.09 yargı: K2'nin 8/8'i atıftı ("27 (a) paragrafı", "73'üncü paragrafın (e) bendi", "A190 (a)-(b)") → önünde sayı/A-numarası/
+      //   kapanış parantezi varsa ya da ardında "paragraf/bent/-(/'" geliyorsa atıftır, bent sayılmaz; metinde ":" yoksa liste yok sayılır.
+      //   İkinci denemede yalnız ":"/";" sonrası sayılınca virgülle süren bentler kaçtı ve "yalnız (a)" 919 aday üretti → o kural kaldırıldı.
+      const harfler = !metin.includes(':') ? [] : [...new Set([...metin.matchAll(/(^|[^\dA-Za-z)'’])\s*\(([a-h])\)(?!\s*(paragraf|bend|-\s*\(|['’]))/g)]
+        .filter(z => !/(\d|A\d+[A-Z]?)\s*$/.test(metin.slice(Math.max(0, z.index - 8), z.index + z[1].length))).map(z => z[2]))];
       const sira = 'abcçdefgğh'.replace(/[çğ]/g, '');   // BDS bentleri Latin a-h
       const idx = harfler.map(h => sira.indexOf(h)).filter(i => i >= 0).sort((a, b) => a - b);
       if (idx.length && MUT !== 'bent') {
         const eksik = []; for (let i = 0; i <= idx[idx.length - 1]; i++) if (!idx.includes(i)) eksik.push(sira[i]);
         if (eksik.length) bul('K2-BENT', std, par, 'bent eksik: (' + eksik.join('),(') + ')');
-        else if (idx.length === 1 && MUT !== 'bent-tek') bul('K2-BENT', std, par, 'yalnız (' + sira[idx[0]] + ') bendi var');
       }
       // K4 gömülü: gövdede "N+1." paragraf başı
       const tip = par[0] === 'A' ? 'A' : '', no = parseInt(par.replace('A', ''), 10);
@@ -66,8 +76,14 @@ function denetle(kayitlar) {
         if (!P[hedef] && new RegExp('(^|\\s)' + hedef + '\\.\\s+[A-ZÇĞİÖŞÜ]').test(metin) && MUT !== 'gomulu') { gomulu.add(hedef); bul('K4-GOMULU', std, par, hedef + ' bu kaydın içinde'); }
       }
     }
-    // K5 ana metin numara atlaması (gömülü olanlar hariç)
-    if (MUT !== 'atlama') for (let i = 1; i < anaNo.length; i++) for (let n = anaNo[i - 1] + 1; n < anaNo[i]; n++) if (!gomulu.has(String(n))) bul('K5-ATLAMA', std, String(n), 'p.' + anaNo[i - 1] + ' ile p.' + anaNo[i] + ' arasında kayıt yok');
+    // K5 ana metin numara atlaması (gömülü olanlar hariç). 30.09 yargı: 9/9 yanlış alarm — numara standartta silinmiş; ambarda
+    //   "N–M [Silinmiştir]" / "N [Silinmiştir]" / "“-”" işareti önceki kaydın sonunda duruyor → kapsanan numaralar düşülür.
+    const silinen = new Set();
+    if (MUT !== 'silinmis') for (const p of Object.values(P)) for (const [, t] of p.parcalar) {
+      for (const z of t.matchAll(/(\d{1,3})\s*[–-]\s*(\d{1,3})\s*[\[(]?\s*(Silinmiştir|“-”|"-")/gi)) for (let n = +z[1]; n <= +z[2]; n++) silinen.add(n);
+      for (const z of t.matchAll(/(^|\s)(\d{1,3})\.?\s*[\[(]?\s*(Silinmiştir|“-”|"-")/gi)) silinen.add(+z[2]);
+    }
+    if (MUT !== 'atlama') for (let i = 1; i < anaNo.length; i++) for (let n = anaNo[i - 1] + 1; n < anaNo[i]; n++) if (!gomulu.has(String(n)) && !silinen.has(n)) bul('K5-ATLAMA', std, String(n), 'p.' + anaNo[i - 1] + ' ile p.' + anaNo[i] + ' arasında kayıt yok');
   }
   return out;
 }
@@ -98,7 +114,12 @@ function sinav() {
     { kaynak_ad: 'BDS 250 p.1 - Kapsam', metin: 'Bu standart mevzuatı düzenler.' },
     { kaynak_ad: 'BDS 250 p.1 - Denetçinin Sorumluluğu', metin: 'Devam eden metin burada biter.' },
     { kaynak_ad: 'BDS 250 p.2 - Amaç', metin: 'Tam bir cümle.' },
-    { kaynak_ad: 'BDS 250 p.3 - Tanım', metin: 'Denetçi (a) birinciyi, (c) üçüncüyü yapar.' },
+    { kaynak_ad: 'BDS 250 p.3 - Tanım', metin: 'Denetçi şunları yapar: (a) birinciyi; (c) üçüncüyü.' },
+    { kaynak_ad: 'BDS 800 p.1 - Başlık kuyruğu', metin: 'Metin tam bitiyor. Sonraki Paragrafın Başlığı' },
+    { kaynak_ad: 'BDS 800 p.2 - Bağlaç', metin: 'Beklenen kredi zararı modeli veya' },
+    { kaynak_ad: 'BDS 800 p.3 - Atıf', metin: 'Denetçi 27 (a) paragrafı ve 73 üncü paragrafın (c) bendi uyarınca karar verir. 4–6 [Silinmiştir]' },
+    { kaynak_ad: 'BDS 800 p.7 - Sonra', metin: 'Tam cümle.' },
+    { kaynak_ad: 'BDS 800 p.7A - Ek numara', metin: 'Ek numaralı paragraf noktasız' },
     { kaynak_ad: 'BDS 250 p.4 - Tam bent', metin: 'Denetçi: (a) bir; (b) iki; (c) üç.' },
     { kaynak_ad: 'BDS 250 p.5 - Sorumluluk', metin: 'Denetçi makul güvence elde etmekle sorumludur' },
     { kaynak_ad: 'BDS 250 p.6 - Tırnak', metin: 'Buna "önemli yanlışlık" denir.”' },
@@ -117,6 +138,11 @@ function sinav() {
   const V = [
     ['K3 çift başlık (250 p.1)', var_('K3-CIFT', 'BDS 250 p.1')],
     ['K2 bent atlaması (250 p.3: (b) yok)', var_('K2-BENT', 'BDS 250 p.3')],
+    ['K1 noktadan sonra yapışık başlık → temiz (800 p.1)', !var_('K1-SON', 'BDS 800 p.1')],
+    ['K1 bağlaçla biten kopuk metin (800 p.2)', var_('K1-SON', 'BDS 800 p.2')],
+    ['K2 atıf harfi bent sayılmaz (800 p.3)', !var_('K2-BENT', 'BDS 800 p.3')],
+    ['K5 "4–6 [Silinmiştir]" kapsanan numara atlama değil (800 p.4–6)', !var_('K5-ATLAMA', 'BDS 800 p.5')],
+    ['büyük harf ekli numara okunur (800 p.7A)', var_('K1-SON', 'BDS 800 p.7A')],
     ['K2 tam bent temiz (250 p.4)', !var_('K2-BENT', 'BDS 250 p.4')],
     ['K1 noktasız son (250 p.5)', var_('K1-SON', 'BDS 250 p.5')],
     ['K1 tırnakla biten cümle temiz (250 p.6)', !var_('K1-SON', 'BDS 250 p.6')],
@@ -124,7 +150,6 @@ function sinav() {
     ['K5 gömülü numara atlama sayılmaz (500 p.11)', !var_('K5-ATLAMA', 'BDS 500 p.11')],
     ['K5 atlama (700 p.2 yok)', var_('K5-ATLAMA', 'BDS 700 p.2')],
     ['parçalı kayıt birleşir, K1 yok (700 p.1)', !var_('K1-SON', 'BDS 700 p.1')],
-    ['K2 yalnız (a) (700 p.3)', var_('K2-BENT', 'BDS 700 p.3')],
     ['roma bendi harf sayılmaz (700 p.4)', !var_('K2-BENT', 'BDS 700 p.4')],
     ['"(Bkz.: …)" ile biten paragraf temiz (570 p.1)', !var_('K1-SON', 'BDS 570 p.1')],
     ['noktadan sonra dipnot rakamı temiz (570 p.2)', !var_('K1-SON', 'BDS 570 p.2')],
@@ -140,7 +165,7 @@ if (require.main === module) {
   const [a, b] = process.argv.slice(2);
   if (a === '--sinav') {
     if (process.argv.includes('--mutasyon')) {
-      const { spawnSync } = require('child_process'); let tutan = 0; const ler = ['cift', 'son', 'bent', 'bent-tek', 'gomulu', 'atlama'];
+      const { spawnSync } = require('child_process'); let tutan = 0; const ler = ['cift', 'son', 'bent', 'gomulu', 'atlama', 'baslik-kuyruk', 'silinmis'];
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, KP_MUTASYON: m }, encoding: 'utf8' }); const k = r.status !== 0; if (k) tutan++; console.log('  mutasyon ' + m + (k ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' → KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
     }

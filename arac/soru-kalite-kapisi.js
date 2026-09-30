@@ -6,7 +6,7 @@
 // Günlük PUBLIC: satırlar soru metni taşımaz, yalnız alan adı + kural kodu (+ KAPI-AS'ta şık sayıları).
 'use strict';
 const fs = require('fs');
-const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js'), BP = require('./bds-atif-kapisi.js');
+const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js'), BP = require('./bds-atif-kapisi.js'), BOS = require('./bos-alan-kapisi.js'), ADIM = require('./adim-atif-kapisi.js');
 /* 30.09 ölçümü (onarımcılar 93 AS1 alarmını elle okudu): AS1 alarmlarının SGS'de %54'ü, SMMM'de %76'sı YANLIŞ → AS1 soru DURDURMAZ,
    "NOT-AS1" satırı olarak günlüğe düşer. DURDURANLAR: AS2 (açıklama kayması, yapısal) + EK (onarımda 101 soruda 4 yanlış alarm, hepsi
    bilerek konmuş "eski oran" çeldiricisi — arac/eski-kurallar.json haric'i genişletildi). */
@@ -21,6 +21,12 @@ function satirlar(k) {
   // 30.09 KAPI-BP (Cem "1.2.3"): BDS paragraf atfı. BP-KONU/BP-YOK DURDURUR — 60 bulguluk resmî metin yargısında isabet 24/28 (%86);
   //   BP-ZAYIF (atfedilen paragrafın gövdesi konuyu taşıyor) yalnız NOT-BP — aynı yargıda 30'un 23'ü yanlış alarmdı.
   BP.kusurlar(k).forEach(b => { if (b.tur === 'BP-KOR') return; c.push((b.tur === 'BP-ZAYIF' ? 'NOT-BP: ' : 'KAPI-BP: ') + b.tur + ' BDS ' + b.std + ' ' + b.par + ' ' + b.alan); });
+  // 30.09 KAPI-BOS (Cem "1.2.3"): boş şık açıklaması / yer tutucu değer ("placeholder", "yanilgi", "skip") / A–E dışı anahtar → DURDURUR.
+  //   SGS bankası 30.09: 42 soru; elle bakılan örneklerin hepsi gerçek (tek yanlış alarm — matematik şıkkı "x" — öz-sınavla ayıklandı).
+  BOS.kusurlar(k).forEach(b => c.push('KAPI-BOS: ' + b.tur + ' ' + b.alan));
+  // 30.09 KAPI-ADIM (SMMM + SGS ölçtü): "(N. adımda bulduk)" yanlış adımı gösteriyor. ŞİMDİLİK YALNIZ NOT (SMMM oturumuyla karar): önce
+  //   istem kökü (son10-uret.ps1 kural 7(d0)) + üretimde tek adaylı kaymanın otomatik düzeltilmesi; ancak sonra düzeltilemeyen DURDURUR.
+  ADIM.kusurlar(k).forEach(b => c.push('NOT-ADIM: ' + b.tur + ' ' + b.alan + ' (' + b.N + '. adım' + (b.dogruN ? ' → ' + b.dogruN : '') + ')'));
   return c;
 }
 const a = process.argv.slice(2);

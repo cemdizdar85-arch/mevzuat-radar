@@ -25,14 +25,17 @@
 ================================================================================
 #>
 param(
-  [Parameter(Mandatory=$true)][string]$Dokum,
+  [string]$Dokum = '',
   [string]$Hedef = 'prova_geri_yukle',
   [string]$Anahtar = 'id',
-  [int]$PartiMB = 4
+  [int]$PartiMB = 4,
+  [switch]$SadeceDogrula,         # yazmadan, dolu prova tablosunu dökümle kıyasla
+  [switch]$Bosalt,                # aylık robot: yazmadan ÖNCE ve kıyastan SONRA prova tablosunu boşalt
+  [switch]$YalnizBosalt           # robot düşerse son adım: yalnız boşalt, çık
 )
 $ErrorActionPreference = 'Stop'
 if($Hedef -notlike 'prova_*'){ throw "Hedef '$Hedef' prova_ ile baslamiyor - canli tabloya yazilmaz." }
-if(-not (Test-Path $Dokum)){ throw "dokum yok: $Dokum" }
+if(-not $YalnizBosalt -and -not (Test-Path $Dokum)){ throw "dokum yok: $Dokum" }
 
 $PROVA_ANAHTAR = "$($env:SUPABASE_SERVICE_KEY)".Trim()
 if(-not $PROVA_ANAHTAR){ $PROVA_ANAHTAR = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
@@ -48,12 +51,21 @@ function ProvaSay {
   return [int](("$($y.Headers['Content-Range'])") -split '/')[-1]
 }
 
+$utf8 = New-Object Text.UTF8Encoding $false
+$gonderilen = 0; $parti = 0; $yazmaSn = 0
+if(-not $SadeceDogrula){
+function ProvaBosalt {
+  # ⛔ Yalnız prova_ tablosu (yukarıda denetlendi). DELETE filtresiz reddedilir → anahtar NOT NULL filtresi.
+  $b = $PROVA_BASLIK.Clone(); $b['Prefer'] = 'return=minimal'
+  Invoke-WebRequest -UseBasicParsing -Method Delete -Uri "$PROVA_TABAN/${Hedef}?$Anahtar=not.is.null" -Headers $b -TimeoutSec 600 | Out-Null
+}
+if($YalnizBosalt){ ProvaBosalt; Write-Host ("prova tablosu bosaltildi: {0} satir kaldi" -f (ProvaSay)); return }
+if($Bosalt){ ProvaBosalt }
 $onceki = ProvaSay
 if($onceki -ne 0){ throw "prova tablosu bos degil ($onceki satir) - once bosalt ya da yeniden ac." }
 
-$utf8 = New-Object Text.UTF8Encoding $false
 $okuyucu = New-Object IO.StreamReader($Dokum, $utf8)
-$gonderilen = 0; $parti = 0; $sinir = $PartiMB * 1MB
+$sinir = $PartiMB * 1MB
 $tampon = New-Object Text.StringBuilder
 $saat = [Diagnostics.Stopwatch]::StartNew()
 
@@ -83,6 +95,7 @@ try {
 } finally { $okuyucu.Dispose() }
 $saat.Stop()
 $yazmaSn = [math]::Round($saat.Elapsed.TotalSeconds)
+}
 
 # ⛔ YAZ → GERİ OKU → KIYASLA. Sayı + anahtar kümesi.
 $sonra = ProvaSay
@@ -94,7 +107,10 @@ $imlec = $null
 while($true){
   $adres = "$PROVA_TABAN/${Hedef}?select=$Anahtar&order=$Anahtar.asc&limit=1000"
   if($imlec -ne $null){ $adres += "&$Anahtar=gt." + [uri]::EscapeDataString("$imlec") }
-  $s = @(Invoke-RestMethod -Uri $adres -Headers $PROVA_BASLIK -TimeoutSec 120)
+  # ⛔ PS 5.1: Invoke-RestMethod JSON dizisini TEK nesne olarak boru hattına verir; @(...) onu
+  #    1 öğeli diziye sarar ve "$($r.id)" 30.569 kimliği tek metne yapıştırır (30.09 ilk koşuda
+  #    "eksik 30569 · fazla 1" çıktı). ForEach-Object diziyi açar.
+  $s = @(Invoke-RestMethod -Uri $adres -Headers $PROVA_BASLIK -TimeoutSec 120 | ForEach-Object { $_ })
   if(-not $s.Count){ break }
   foreach($r in $s){ [void]$provaAnahtar.Add("$($r.$Anahtar)") }
   $imlec = $s[-1].$Anahtar
@@ -107,4 +123,31 @@ Write-Host ""
 Write-Host ("DOKUM {0:N0} satir · GONDERILEN {1:N0} ({2} parti) · PROVA TABLOSU {3:N0}" -f $dokumAnahtar.Count, $gonderilen, $parti, $sonra)
 Write-Host ("ANAHTAR: eksik {0} · fazla {1} · yazma suresi {2} sn ({3:N1} dk)" -f $eksik, $fazla, $yazmaSn, ($yazmaSn/60))
 if($eksik -or $fazla -or $sonra -ne $dokumAnahtar.Count){ throw "GERI YAZMA PROVASI DUSTU: sayi/anahtar tutmuyor." }
-Write-Host "✓ geri yazma TAM. Prova tablosunu SQL dosyasindaki DROP satiriyla kaldir." -ForegroundColor Green
+
+# ⛔ İÇERİK: sayı tutması yetmez. Prova tablosu baştan okunur, her satır dökümdeki eşiyle
+#    ALAN ALAN kıyaslanır (değer basılmaz, yalnız farklı ALAN ADI sayılır).
+function Normal($v){ if($null -eq $v){ return 'null' }; return ($v | ConvertTo-Json -Depth 30 -Compress) }
+$dokumSatir = @{}
+$okuyucu = New-Object IO.StreamReader($Dokum, $utf8)
+try { while(($satir = $okuyucu.ReadLine()) -ne $null){ if($satir.Trim()){ $o = $satir | ConvertFrom-Json; $dokumSatir["$($o.$Anahtar)"] = $o } } } finally { $okuyucu.Dispose() }
+$farkliSatir = 0; $alanFark = @{}; $imlec = $null
+while($true){
+  $adres = "$PROVA_TABAN/${Hedef}?select=*&order=$Anahtar.asc&limit=500"
+  if($imlec -ne $null){ $adres += "&$Anahtar=gt." + [uri]::EscapeDataString("$imlec") }
+  $s = @(Invoke-RestMethod -Uri $adres -Headers $PROVA_BASLIK -TimeoutSec 300 | ForEach-Object { $_ })
+  if(-not $s.Count){ break }
+  foreach($r in $s){
+    $d = $dokumSatir["$($r.$Anahtar)"]; $buFarkli = $false
+    foreach($p in $r.PSObject.Properties){
+      if((Normal $p.Value) -ne (Normal $d.($p.Name))){ $buFarkli = $true; $alanFark[$p.Name] = 1 + [int]$alanFark[$p.Name] }
+    }
+    if($buFarkli){ $farkliSatir++ }
+  }
+  $imlec = $s[-1].$Anahtar
+  if($s.Count -lt 500){ break }
+}
+Write-Host ("ICERIK: alan alan farkli satir {0:N0} / {1:N0}" -f $farkliSatir, $dokumSatir.Count)
+foreach($a in ($alanFark.GetEnumerator() | Sort-Object Value -Descending)){ Write-Host ("   farkli alan {0,-24} {1,7:N0} satir" -f $a.Key, $a.Value) -ForegroundColor Yellow }
+if($farkliSatir){ throw "GERI YAZMA PROVASI DUSTU: $farkliSatir satirin icerigi yedektekiyle ayni degil." }
+if($Bosalt){ ProvaBosalt; Write-Host ("prova tablosu bosaltildi: {0} satir kaldi" -f (ProvaSay)) }
+Write-Host ("✓ geri yazma TAM · {0:N0} satir · yazma {1} sn" -f $dokumAnahtar.Count, $yazmaSn) -ForegroundColor Green

@@ -1,0 +1,58 @@
+# .github/actions/b2-yukle — SIFRELI yedegi Backblaze B2'ye (silinemez kova) de yaz
+#
+# 30.09.2026 (Cem "1.2.3"): GitHub artifact'i ile ozel anahtarin bir kopyasi AYNI
+# GitHub hesabinda. Hesap ele gecerse artifact silinir. B2 kovasi "Object Lock -
+# COMPLIANCE" ile acilirsa, Backblaze belgesine gore kilit suresi dolmadan
+# "hicbir kullanici" (hesap sahibi dahil) dosyayi silemez.
+#
+# ⛔ Yalniz .enc (sifreli) dosya yuklenir; klasorde baska dosya varsa DURUR.
+# ⛔ Secret yoksa ADIM ATLANIR (notice), akis kirmizi olmaz - kova Cem acinca devreye girer.
+#    Gereken secret'lar: B2_KEY_ID · B2_APP_KEY · B2_BUCKET · B2_ENDPOINT
+#    (ornek https://s3.eu-central-003.backblazeb2.com). Anahtar YALNIZ yazma yetkili olmali
+#    (deleteFiles YOK) - kilit zaten siler dedirtmez ama ikinci kat.
+# Yukleme sonrasi bir dosyanin kilit kipi okunur ve yazilir: kilit YOKSA uyari (::warning).
+# 🚫 GORMEZ: kovanin varsayilan saklama suresi kac gun (yalniz dosya basina kip + tarih okur).
+name: B2'ye sifreli yedek yukle
+description: Klasordeki .enc dosyalarini B2 kovasina <onek>/<kosu>/ altina yukler
+inputs:
+  klasor:  { description: "yuklenecek klasor (yalniz .enc)", required: true }
+  onek:    { description: "kova icindeki onek (ornek soru-ambar)", required: true }
+  key_id:  { description: "B2_KEY_ID", required: false, default: "" }
+  app_key: { description: "B2_APP_KEY", required: false, default: "" }
+  bucket:  { description: "B2_BUCKET", required: false, default: "" }
+  endpoint: { description: "B2_ENDPOINT", required: false, default: "" }
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        AWS_ACCESS_KEY_ID: ${{ inputs.key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ inputs.app_key }}
+        B2_BUCKET: ${{ inputs.bucket }}
+        B2_ENDPOINT: ${{ inputs.endpoint }}
+        KLASOR: ${{ inputs.klasor }}
+        ONEK: ${{ inputs.onek }}
+        # aws cli v2'nin yeni butunluk basliklari S3-uyumlu servislerde reddedilebiliyor; yalniz gerekince.
+        AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+        AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+      run: |
+        set -euo pipefail
+        if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$B2_BUCKET" ] || [ -z "$B2_ENDPOINT" ]; then
+          echo "::notice title=B2::secret'lar tanimli degil - B2 kopyasi ATLANDI (yalniz GitHub artifact var)"
+          exit 0
+        fi
+        yabanci=$(find "$KLASOR" -maxdepth 1 -type f ! -name '*.enc' | wc -l)
+        if [ "$yabanci" -ne 0 ]; then echo "::error title=B2::$KLASOR icinde .enc olmayan $yabanci dosya var - sifresiz veri yuklenmez"; exit 1; fi
+        adet=$(find "$KLASOR" -maxdepth 1 -type f -name '*.enc' | wc -l)
+        if [ "$adet" -eq 0 ]; then echo "::error title=B2::yuklenecek .enc yok"; exit 1; fi
+        export AWS_DEFAULT_REGION=$(echo "$B2_ENDPOINT" | sed -E 's#https?://s3\.([^.]+)\..*#\1#')
+        hedef="s3://$B2_BUCKET/$ONEK/$(date -u +%Y%m%d-%H%M)-${GITHUB_RUN_ID}"
+        aws s3 cp "$KLASOR" "$hedef/" --recursive --exclude '*' --include '*.enc' --endpoint-url "$B2_ENDPOINT" --only-show-errors
+        echo "B2: $adet dosya -> $ONEK/"
+        ornek=$(find "$KLASOR" -maxdepth 1 -type f -name '*.enc' | head -1 | xargs basename)
+        kilit=$(aws s3api head-object --bucket "$B2_BUCKET" --key "${hedef#s3://$B2_BUCKET/}/$ornek" --endpoint-url "$B2_ENDPOINT" --query '[ObjectLockMode,ObjectLockRetainUntilDate]' --output text || echo "OKUNAMADI")
+        echo "B2 kilit ($ornek): $kilit"
+        case "$kilit" in
+          COMPLIANCE*) echo "::notice title=B2::yuklendi, kilit COMPLIANCE ($kilit)";;
+          *) echo "::warning title=B2::yuklendi ama kilit COMPLIANCE degil ($kilit) - kova Object Lock ayarini kontrol et";;
+        esac

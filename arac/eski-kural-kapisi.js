@@ -74,6 +74,15 @@ function sinav() {
     ['EK6 meşru: "dilimler şöyle varsayılmıştır"', T({ soru: 'Tarifenin dilimleri şöyle varsayılmıştır: 0-18.000 TL %15, 18.000-40.000 TL %20, 40.000-98.000 TL %27.' }), 0],
     ['EK8 teminatsız tecil 1.000.000 → alarm', T({ aciklama: { A: 'Tecil talebinde 1.000.000 TL\'ye kadar teminat aranmaz.' } }), 1],
     ['EK8 meşru: 10.000.000', T({ aciklama: { A: 'Tecil talebinde 10.000.000 TL\'ye kadar teminat aranmaz.' } }), 0],
+    ['EK9 TMS 1 atfı → alarm', T({ aciklama: { A: 'TMS 1 p.82 uyarınca kâr veya zarar tablosunda gösterilir.' } }), 1],
+    ['EK9 meşru: TMS 10–19 (TMS 12) alarm yok', T({ aciklama: { A: 'TMS 12 uyarınca ertelenmiş vergi hesaplanır.' } }), 0],
+    ['EK9 meşru: "TFRS 18 TMS 1\'in yerini aldı"', T({ aciklama: { A: 'TFRS 18, TMS 1\'in yerini aldı.' } }), 0],
+    ['EK10 TMS 8 eski adı → alarm', T({ dayanak: 'TMS 8 Muhasebe Politikaları, Muhasebe Tahminlerinde Değişiklikler ve Hatalar' }), 1],
+    ['EK11 faiz ödemesi işletme faaliyetinde seçimlik → alarm', T({ aciklama: { A: 'Ödenen faiz işletme faaliyetlerinde de sınıflandırılabilir; bu bir politika seçimidir.' } }), 1],
+    ['EK11 meşru: ana faaliyeti finansman olan işletme (p.34B)', T({ aciklama: { A: 'Ana faaliyeti müşteriye finansman olan işletmede ödenen faiz işletme faaliyetinde sınıflandırılabilir (p.34B).' } }), 0],
+    ['EK11 "seçtiği politika gereği finansman" → alarm (SMMM w14-11 vakası)', T({ hap: 'Ödenen temettü işletmenin seçtiği politika gereği genellikle finansman faaliyeti sayılır.' }), 1],
+    ['EK11 "temettü sınıflandırma politikası" → alarm', T({ konu_giris: { terimler: [{ ad: 'Temettü sınıflandırma politikası' }] } }), 1],
+    ['EK11 meşru: kâr dağıtım politikası (TTK/SPK kavramı)', T({ aciklama: { A: 'Şirket temettü ödemesini kâr dağıtım politikası çerçevesinde belirler.' } }), 0],
     ['model alanı taranmaz (öğrenci görmez)', T({ hakem: { gerekce: 'KDV oranı %18 uygulanır.' } }), 0]
   ];
   let g = 0;
