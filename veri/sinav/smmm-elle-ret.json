@@ -445,6 +445,116 @@
             "gerekce": "CEVAP YANLIŞ — Kullanım değeri hesaplanmışken TMS 36 p.18 gereği yüksek olan 890.000 esas alınır; zarar 50.000. (ikinci göz: B)",
             "kaynak": "bitirme tam okuma (ilk okuyucu + bağımsız ikinci göz, ambar metniyle), GM 01.10.2026",
             "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yvergi-kolay-r6/kp-08": {
+            "gerekce": "CEVAP YANLIŞ (hakem, KDVK m.11/1-c + KDV GUT 8.9/8.11: ihracatçının dış satış bedeli imalatçı matrahını değiştirmez) — doğru: C",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yvergi-zor-r2/kp-08": {
+            "gerekce": "CEVAP YANLIŞ (hakem, KDVK m.11/1-c + KDV GUT 8.9/8.11: ihracatçının dış satış bedeli imalatçı matrahını değiştirmez) — doğru: D",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yvergi-zor-r2/kp-21": {
+            "gerekce": "CEVAP YANLIŞ (hakem, KDVK m.11/1-c + KDV GUT 8.9/8.11: ihracatçının dış satış bedeli imalatçı matrahını değiştirmez) — doğru: C",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-olc2-a-vergi/kp-39": {
+            "gerekce": "CEVAP YANLIŞ (hakem, KDVK m.11/1-c + KDV GUT 8.9/8.11: ihracatçının dış satış bedeli imalatçı matrahını değiştirmez) — doğru: C",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w4-yvergi-zor/kp-09": {
+            "gerekce": "CEVAP YANLIŞ (hakem, KDVK m.11/1-c + KDV GUT 8.9/8.11: ihracatçının dış satış bedeli imalatçı matrahını değiştirmez) — doğru: C",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-fmuh-kolay-r10/kp-01": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — THP 391 yalnız 391>191 hâlini (360'a aktarım) düzenler; indirilemeyen fazla için THP 190 'Devreden KDV' hesabı tanımlıdır, dolayısıyla THP'ye uygun kayıtta 191 130.000 alacaklanır ve 40.000 190'a borç yazılır. C '191 90.000 alacaklandırı… (doğru: YOK: 391 B 90.000 + 190 B 40.000 / 191 A 130.000)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-ydenetim-kolay-r2/kp-17": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — BDS 220 p.4 ekibin sorumluluklarını üç bent (A, B, C) olarak sayar; p.2 sistemin tasarımını şirkete verir (D). E ise p.5'teki bilgilendirici cümledir ('bilgi sağlayabilir'), p.4 listesinde bir sorumluluk olarak yer almaz; 'BDS 220 uyarın… (doğru: İKİ: D/E)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-ydenetim-zor-r5/kp-08": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — Kök 'bu kapsamdaki doğrudan sorumluluklar' diyor; BDS 220 p.4 yalnız üç bendi (A, B, C) sayar. E p.2 gereği şirketin sorumluluğu, D ise p.5'teki 'bilgi sağlayabilir' tespitidir, sorumluluk olarak düzenlenmemiştir; 'doğrudan' kelimesi D i… (doğru: İKİ: E/D)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yfta-kolay-r6/kp-26": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — TMS 34 p.20(a) karşılaştırmayı 'bir önceki finansal yılsonu' bilançosuyla ister; cari yıl başı (açılış) bakiyeleri önceki yılsonu bakiyelerinin aynısı olduğundan B, D ile özdeş sonucu veriyor ve açıklama da bu farkı kavramsal gerekçeyle … (doğru: İKİ: D/B)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yhukuk-kolay-r3/kp-12": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — TTK m.629/1 limitedde AŞ hükümlerini kıyasen uygular; m.371/3 temsil yetkisinin sınırlandırılmasının iyiniyetli üçüncü kişiye hüküm ifade etmediğini, yalnız merkez/şube ve birlikte kullanma sınırlamalarının tescil-ilanla geçerli olduğunu… (doğru: YOK: sınırlama türü verilmemiş; m.371/3+629/1 uyarınca genel sınırlama iyiniyetli tedarikçiye ileri sürülemez)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yhukuk-kolay-r4/kp-12": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — AŞ'de temsil yetkisinin sınırlandırılmasında özel hüküm TTK m.371/3: sınırlama iyiniyetli üçüncü kişiye hüküm ifade etmez (merkez/şube ve birlikte kullanma hariç). Kök sınırlamanın türünü vermediğinden genel okumada D'nin sonucu (ileri s… (doğru: İKİ: A/D)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yvergi-zor-r5/kp-18": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — KDVK m.30/c parantez hükmü faydalı ömrünü tamamlayıp zayi olan ATİK'e ait daha önce indirilmiş KDV'nin düzeltilmemesini sağlar; yeni dönem indirimi doğurmaz ve m.29/3 indirim hakkını izleyen takvim yılıyla sınırlar. 'Bu dönem indirebilec… (doğru: A)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-4k-a-yvergi-zor-r5/kp-19": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — VUK m.344 cezayı 'ziyaa uğratılan verginin' katı olarak keser; kök ise 120.000/180.000'i MATRAH olarak veriyor ve vergi oranlarını vermiyor. Matrahın üç katını alan D (980.000) yanlış; ayrıca kök m.340'ı yanlış aktarıyor (m.340 vergi cez… (doğru: YOK: 287.000 (KDV %20, KV %25 varsayımıyla; oranlar kökte yok))",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w10-2-fmuh-zor/kp-10": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — VUK m.262/c (ambarda okundu) stoka giriş tarihine kadarki faizi zorunlu kılar (283.500=D), ancak parantez içi 'faiz giderlerinin diğer kısımlarını maliyet bedeline ithal etmekte ... mükellefler serbesttirler' der; kök mükellefin tercihin… (doğru: İKİ: D/E)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w1-fmuh-cokzor/kp-06": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — Kök 1.500'ün hesaplanmasında TCMB %40 oranının 'da yanlışlıkla dikkate alındığını' söylüyor; lafzen 1.500 %40 ile bulunmuşsa nominal 1.500×38.160/2.160=26.500 (B), senet oranı %20 ile 51.500 (E). VUK m.281 (ambarda) senette oran açıksa o… (doğru: İKİ: E/B)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w1-yvergi-cokzor/kp-01": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — GVK m.7 son fıkra (ambarda): ödeme yabancı memlekette yapılmışsa 'Türkiye'de ödiyenin ... hesaplarına intikal ettirilmesi' de değerlendirmedir; ödeyen Türkiye'de faaliyet gösteren İşletme C'nin ayrı kişiliği olmayan şubesi olduğundan gid… (doğru: İKİ: C/E)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w1-yvergi-zor/kp-13": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — KVK m.19/3-c (ambarda) nakit sınırını 'verilecek iştirak hisselerinin itibari değerinin %10'u' olarak koyar; kök F'nin vereceği hisselerin itibari değerini vermiyor, 900.000 (B) ancak itibari=emsal bedel varsayımıyla çıkıyor. G'nin itiba… (doğru: YOK: kökte F hisselerinin itibari değeri yok)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w3-ymeslek-cokzor/kp-09": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — 3568 m.48 [2/2] beş yılda iki alıkoymadan sonra meslekten çıkarma der, ancak hemen ardından 'Disiplin kurulları bir derece ağır veya bir derece hafif disiplin cezasının uygulanmasına karar verebilirler' hükmünü istisnasız koyar; SMMM içi… (doğru: İKİ: D/B)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w4-fmuh-cokzor/kp-41": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — Kök iskonto yöntemini belirtmiyor; iç iskontoyla 4.200×37.800/1.800=88.200 (C), dış iskontoyla 4.200×36.000/1.800=84.000 (B) ve ikisi de şıklarda. VUK m.281 yalnız 'kıymetine irca' der, yöntem koymaz; uygulamada dış iskonto yaygın olduğu… (doğru: İKİ: C/B)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w4-fmuh-zor-2/kp-03": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — Vade sonunda eski tahvil itibari 90.000 ile itfa olur, 64 grubu (642 faiz) geliri 90.000−87.400=2.600'dür; yeni tahvilin 95.600 alış bedeli aktifleşir, iki alış bedelinin farkı (8.200) gelir değildir ve THP 111 işleyişinde böyle bir kâr … (doğru: YOK: 2.600)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w4-yvergi-zor/kp-04": {
+            "gerekce": "CEVAP YANLIŞ (hakem, iki okuyucu ayrışmıştı) — Kök 2026 dağıtımı için 'GVK m.94 uyarınca kesinti oranı %10'dur' diyerek mülga oranı yürürlükteki hüküm diye veriyor; ambardaki GVK 94 BKK m.1/6-b-i 9286 s. CK ile 22.12.2024'ten beri %15. Güncel oranla 1.182.750×0,85=1.005.337,50 şıklar… (doğru: YOK: 1.005.337,50)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
+        },
+        "smmm-w5-fmuh-cokzor/kp-11": {
+            "gerekce": "İKİ ŞIK SAVUNULABİLİR (hakem, iki okuyucu ayrışmıştı) — VUK m.275/4 'Genel idare giderlerinden mamule düşen hisse; (Bu hissenin mamulün maliyetine katılması ihtiyaridir.)' der ve m.273 imal giderlerini maliyet sayar; kök genel yönetim payının 'bu imalata dağıtılmıştır' dediğinden 106.750+4.80… (doğru: İKİ: E/C)",
+            "kaynak": "bitirme tam okuma (ilk okuyucu + ikinci göz ayrıştı → hakem, ambar metniyle), GM 01.10.2026",
+            "tarih": "2026-10-01"
         }
     }
 }
