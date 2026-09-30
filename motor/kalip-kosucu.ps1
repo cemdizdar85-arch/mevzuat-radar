@@ -530,6 +530,14 @@ try{
 # SGS risk taramasında 1.744 sorunun 334'ü kusurluydu. Bu planın YENİ sorusu iki kapıdan birine takılırsa seçilmez (onarılıp yeniden verilir).
 # Eski yayındaki soru bu yoldan geçmez (Cem 30.09 "geri çekilmesin" → onarım kuyruğu). 🚫 GÖRMEZ: sözel kusur, listede olmayan eski kural.
 . (Join-Path $Kok 'arac\soru-kalite-kapisi.ps1'); $kaliteDus=0; $kaliteKor=@()
+# 30.09 Cem "b yap": AÇIKLAMA HAKEMİ yeni üretime bağlı (arac/aciklama-hakemi-uretim.ps1). Yeni soru (kör/hakem2 tarihi >= 2026-10-01)
+# açıklama hakeminden TEMIZ almadıysa seçilmez. -SadeceSecim (bedel 0) iken hakem ÇAĞRILMAZ; kararı olmayan yeni soru yine seçilmez.
+. (Join-Path $Kok 'arac\aciklama-hakemi-uretim.ps1'); $ahDus=0
+if(-not $SadeceSecim){
+  try{ $ahR=AciklamaHakemUretim $Kok $satirlar $(if("$env:MEVZUAT_BUTCE_USD" -match '^\d'){ PlanHarcama } else { 0 })
+    "AÇIKLAMA HAKEMİ: aday $($ahR.aday) · gönderilen $($ahR.gonderilen) · TEMIZ $($ahR.temiz) · KUSURLU $($ahR.kusurlu) · ölçülemedi $($ahR.olculemedi) · bütçe yetmedi $($ahR.butce_yok) · ≈$($ahR.usd) USD" }
+  catch{ "AÇIKLAMA HAKEMİ KÖR: $($_.Exception.Message) (kararı olmayan yeni soru seçilmez)" }
+}
 $secim=@()
 foreach($s in $satirlar){
   $cf=Join-Path $Kok "veri\fabrika\kalip-parti-$($s.etiket).json"; if(-not (Test-Path $cf)){ continue }
@@ -538,6 +546,7 @@ foreach($s in $satirlar){
   foreach($p in $c.PSObject.Properties){
     $v=$p.Value; if(-not $v.soru){ continue }
     if($kalite.ContainsKey($p.Name)){ $kaliteDus++; "  KAPI-KALITE: $($s.etiket)/$($p.Name) seçilmedi · $(@($kalite[$p.Name]) -join ' · ')"; continue }
+    if(AhSecilemez $v){ $ahDus++; continue }   # 30.09: yeni soru açıklama hakeminden TEMIZ almadı (ya da kararı yok)
     if("$($v.hakem.karar)" -ne 'EVET'){ continue }
     # 11.09.2026 — Cem: "hakem olmadan soru basmiyorduk niye bastik".
     # Hakem DORT hukum verir (karar · ders_uyum · konu_uyum · tek_anlam) ama bu
@@ -569,6 +578,7 @@ foreach($s in $satirlar){
 $secYol=Join-Path $Kok "veri\sinav\kaydir-secim\$planAd-secim.json"
 [IO.File]::WriteAllText($secYol,(ConvertTo-Json -InputObject @($secim) -Depth 3),[Text.UTF8Encoding]::new($false))
 "SECIM: $($secim.Count) soru (yayın şartı: hakem[karar+ders+konu+tek anlam] ∧ sim ∧ kör ∧ hakem2 ∧ KAPI-AS/EK) -> $secYol"
+"AÇIKLAMA HAKEMİ SEÇİM: $ahDus yeni soru TEMIZ kararı olmadığı için seçilmedi"
 "KAPI-KALITE: $kaliteDus soru açıklama/eski kural kusuruyla seçilmedi$(if($kaliteKor.Count){ " · KÖR $($kaliteKor.Count) parti: $($kaliteKor -join ' | ')" })"
 if(-not $SayfaYok -and $secim.Count){
   & powershell -NoProfile -File (Join-Path $buDizin 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')

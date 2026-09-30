@@ -380,8 +380,14 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   2. **Yeni eski-kural bulgusu listeye girer:** okuma/onarımda resmî kaynakla doğrulanmış eski ya da yanlış kural bulunduysa
      `arac/eski-kurallar.json`'a `dayanak` + `bulan` ile eklenir ve `eski-kural-kapisi.js --sinav`'a bir yakalama + bir meşru kullanım
      vakası yazılır (kapı kuralı 5). Kaynağı yazılı olmayan kural listeye girmez.
-  3. **Açıklama hakemi (ücretli, 5. hakem) ölçümsüz açılmaz:** sade/teşhis/adım/ikiz'i anahtar ve kaynakla okuyan model adımı önce küçük
-     ölçümle (≤ 2 USD, yayına giren soru başı bedel + yakalama oranı) koşar, Cem bedeli görüp onaylamadan üretime bağlanmaz.
+  3. **Açıklama hakemi (ücretli, 5. hakem) YENİ ÜRETİME BAĞLI** (Cem 30.09 "b yap"). Ölçüldü (50 etiketli SGS sorusu, Opus 5.5 medium,
+     toplu): elle kusurlu 25'in 20'si yakalandı, elle temiz 25'in 12'sinde alarm (okunan gerekçelerin çoğu gerçek kusur); soru başı
+     ≈0,017 USD. Yer: `motor/kalip-kosucu.ps1` 8.1 seçiminden önce `arac/aciklama-hakemi-uretim.ps1` (çekirdek `arac/aciklama-hakemi-cekirdek.ps1`,
+     yazım `arac/aciklama-hakem-yaz.js`); karar kayda `aciklama_hakem` olarak yazılır, harcama bedel defterine "<parti>/AH" (plan bütçesine sayılır),
+     kalan bütçe en kötü durumu karşılamıyorsa GÖNDERİLMEZ. YENİ soru (kör/hakem2 ≥ 2026-10-01) `aciklama_hakem.karar = TEMIZ` değilse
+     koşucu seçimine ve `arac/havuz-kur.ps1` yayınına GİRMEZ (eşdeğerlik 30.09: bugünkü tarihle SGS seçimi aynı 4.902; başlangıç geri çekilince
+     4.902'nin tamamı düşüyor). SMMM yayın şartı (`arac/smmm-yayin-sarti.ps1`) ve onarım hattının model alanı listesi ayrıca bağlanmalı
+     (SMMM ve SGS oturumlarına bildirildi). Model/effort kısılmaz (TASARRUF = YALNIZ İSRAF).
   4. **Yayındaki eski soru bu kapılarla ÇEKİLMEZ** (Cem 30.09 "geri çekilmesin, elle düzelt"): bulgular onarım kuyruğuna gider
      (resmî kaynaktan elle onarım → yeniden hakem yalnız anahtar/kök değişince). Yanlış cevaplı / iki doğru şıklı soru onarılana kadar
      yayın dışı kalır (Cem onayı 30.09).

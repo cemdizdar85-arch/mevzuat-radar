@@ -28,41 +28,12 @@ $FIYAT = @{ 'claude-opus-5-5' = @(4, 20); 'claude-sonnet-5-5' = @(2, 10); 'claud
 if (-not $FIYAT.ContainsKey($Model)) { throw "fiyatı bilinmeyen model: $Model (bedel hesaplanamaz, gönderilmez)" }
 
 $orn = Get-Content $Orneklem -Raw -Encoding UTF8 | ConvertFrom-Json
-function Kisalt($v, [int]$n) { if ($null -eq $v) { return $null }; $s = $(if ($v -is [string]) { $v } else { ConvertTo-Json -InputObject $v -Depth 12 -Compress }); if ($s.Length -gt $n) { $s.Substring(0, $n) + ' …(kısaltıldı)' } else { $s } }
+. (Join-Path $PSScriptRoot 'aciklama-hakemi-cekirdek.ps1')   # 30.09: istem + karar okuma + bedel defteri üretim koşucusuyla ORTAK
 $isler = New-Object System.Collections.Generic.List[object]; $bilgi = @{}; $sira = 0
 foreach ($q in @($orn.sorular)) {
-  $sira++; $k = $q.kayit; $id = "q$sira"
+  $sira++; $id = "q$sira"
   $bilgi[$id] = [pscustomobject]@{ anahtar = "$($q.anahtar)"; etiket = "$($q.etiket)"; kusur_notu = "$($q.kusur_notu)" }
-  $gorunen = [ordered]@{
-    soru = $k.soru; siklar = $k.siklar; dogru = $k.dogru; aciklama = $k.aciklama
-    sade = $(if ($k.sade) { [ordered]@{ dogru = $k.sade.dogru; siklar = $k.sade.siklar } } else { $null })
-    teshis = $k.teshis; celdirici_yol = $k.celdirici_yol
-    adimlar = $(if ($k.adimlar) { @($k.adimlar | ForEach-Object { [ordered]@{ anlatim = $_.anlatim; formul = $_.formul } }) } else { $null })
-    ikiz = $(if ($k.ikiz) { [ordered]@{ ikiz_soru = $k.ikiz.ikiz_soru; tablo = $k.ikiz.tablo; hedef_cumle = $k.ikiz.hedef_cumle } } else { $null })
-    hap = $k.hap; dayanak = $k.dayanak
-  }
-  $kaynak = Kisalt $k.kaynak_metin_ozet 5000
-  $istem = @"
-Sen SMMM staja başlama (SGS) sınavı soru bankasında ÇÖZÜM ANLATIMINI denetleyen bir hakemsin. Soru kökü, şıklar ve doğru cevap harfi doğru kabul edilir; senin işin öğrenciye gösterilen AÇIKLAMA metinlerinin doğru olup olmadığıdır.
-
-Denetle:
-1. Her YANLIŞ şık için aciklama.X, sade.siklar.X, teshis.X ve celdirici_yol.X: anlatılan hata gerçekten o şıkkın KENDİ sayısını ya da ifadesini üretiyor mu? Başka şıkkın yolunu anlatıyorsa, sonucu yanlış yazıyorsa ya da açıklamalar bir harf kaymışsa (çözüm metni doğru şıkta değilse) KUSUR.
-2. DOĞRU şıkkın anlatımı (aciklama.<doğru>, sade.dogru, adimlar): kural doğru mu, her ara rakam ve sonuç tutuyor mu? Her hesabı kendin yeniden yap.
-3. İkiz soru: ikiz_soru ile tablo tutarlı mı, sonuç doğru mu, hedef_cumle cevabı açıkça veriyor mu?
-4. Hesap kodu, kanun maddesi, oran: yanlışsa ya da güncel değilse (ör. KDV genel oranı %20, kurumlar vergisi %25, kâr payı stopajı %15) KUSUR. Kuralı yalnız aşağıdaki KAYNAK metne ve bu listeye dayanarak değerlendir; emin değilsen kusur deme.
-Yazım, noktalama ve üslup kusurlarını SAYMA. Yalnız somut, gösterilebilir hata kusurdur; şüphe kusur değildir.
-
-YALNIZ şu JSON'u döndür, başka hiçbir şey yazma:
-{"karar":"TEMIZ" ya da "KUSURLU","kusurlar":[{"alan":"ör. sade.siklar.B","neden":"en çok 25 kelime"}]}
-
-SORU (öğrencinin gördüğü alanlar, JSON):
-$(ConvertTo-Json -InputObject $gorunen -Depth 12 -Compress)
-
-KAYNAK (sorunun dayandığı metin özeti):
-$(if ($kaynak) { $kaynak } else { '(yok)' })
-"@
-  $istem = $istem -replace "`r`n", "`n"
-  $isler.Add(@{ id = $id; model = $Model; maxTok = $MaxTok; effort = $Effort; icerik = @(@{ type = 'text'; text = $istem }) })
+  $isler.Add((AciklamaHakemIs $id $q.kayit $Model $Effort $MaxTok))
 }
 $kar = 0; foreach ($i in $isler) { $kar += "$($i.icerik[0].text)".Length }
 $girdiJ = [math]::Round($kar / 1.6)   # 30.09 ÖLÇÜLDÜ: /3 tahmini 134K dedi, gerçek 234K (≈1,7 kr/jeton, Türkçe+JSON) → /1,6 temkinli üst tahmin
@@ -71,7 +42,6 @@ $enKotu = [math]::Round(0.5 * (($girdiJ / 1e6) * $f[0] + (($isler.Count * $MaxTo
 "AÇIKLAMA HAKEMİ ÖLÇÜMÜ: $($isler.Count) soru (etiket KUSURLU $(@($bilgi.Values | Where-Object { $_.etiket -eq 'KUSURLU' }).Count) · TEMIZ $(@($bilgi.Values | Where-Object { $_.etiket -eq 'TEMIZ' }).Count)) · model $Model · effort $Effort · maxTok $MaxTok"
 "TAHMİN: girdi ~$girdiJ jeton · EN KÖTÜ DURUM toplu bedel $enKotu USD (her cevap maxTok'a kadar) · tavan $Tavan USD"
 if ($Kuru) { "KURU: istek gönderilmedi."; exit 0 }
-if ($enKotu -gt $Tavan) { throw "EN KÖTÜ DURUM BEDELİ ($enKotu USD) TAVANI ($Tavan USD) AŞIYOR — gönderilmedi. Soru sayısını ya da -MaxTok'u düşür, ya da Cem'e yeni tavan sor." }
 
 $sonuc = @{}
 if ($HasatBid) {
@@ -79,17 +49,18 @@ if ($HasatBid) {
   foreach ($hb in @($HasatBid -split '[,\s]+' | Where-Object { $_ })) { $hs = Get-ClaudeTopluSonuc $hb $hedefH $Etiket $false; if ($null -eq $hs) { "HASAT: $hb bitmemiş"; continue }; foreach ($hk in @($hs.Keys)) { if ($hk -notlike '__*') { $sonuc[$hk] = $hs[$hk] } } }
 }
 $kalan = @($isler | Where-Object { -not $sonuc.ContainsKey($_.id) })
+# 30.09: kapı yalnız GÖNDERİLECEK istekleri sayar (bitmiş partiden bedava hasat edilen bedel doğurmaz)
+$karK = 0; foreach ($i in $kalan) { $karK += "$($i.icerik[0].text)".Length }
+$enKotu = [math]::Round(0.5 * ((($karK / 1.6) / 1e6) * $f[0] + (($kalan.Count * $MaxTok) / 1e6) * $f[1]), 3)
+if ($kalan.Count) { "GÖNDERİLECEK: $($kalan.Count) istek · en kötü durum $enKotu USD" }
+if ($enKotu -gt $Tavan) { throw "EN KÖTÜ DURUM BEDELİ ($enKotu USD) TAVANI ($Tavan USD) AŞIYOR — gönderilmedi. Soru sayısını ya da -MaxTok'u düşür, ya da Cem'e yeni tavan sor." }
 if ($kalan.Count) { $y = Invoke-ClaudeToplu -Isler $kalan -Etiket $Etiket -BeklemeDk ([int]$env:MEVZUAT_TOPLU_BEKLE_DK) -OnbelleksizToplu; foreach ($yk in @($y.Keys)) { $sonuc[$yk] = $y[$yk] } }
 if ($sonuc.ContainsKey('__zaman_asimi')) { throw "TOPLU ZAMAN AŞIMI — aynı komutla yeniden koşunca bedava hasat edilir. Çıktı YAZILMADI." }
 
 $tp = 0; $fn = 0; $fp = 0; $tn = 0; $olcul = 0; $kesik = 0; $cikis = New-Object System.Collections.Generic.List[object]
 foreach ($id in $bilgi.Keys) {
-  # 30.09 ölçüldü: toplu araç cevabı nesne olarak döndürür ({metin, dur, girdi, cikti ...}); ilk koşu nesneyi metin sanıp 50/50 "ölçülemedi" yazdı
-  $b = $bilgi[$id]; $c = $sonuc[$id]; $metin = $(if ($c -is [hashtable]) { "$($c['metin'])" } elseif ($c -and $c.PSObject.Properties['metin']) { "$($c.metin)" } else { "$c" })
-  $dur = $(if ($c -is [hashtable]) { "$($c['dur'])" } elseif ($c -and $c.PSObject.Properties['dur']) { "$($c.dur)" } else { '' }); if ($dur -eq 'max_tokens') { $kesik++ }
-  $karar = $null; $kus = @()
-  $m = [regex]::Match($metin, '\{[\s\S]*\}')
-  if ($m.Success) { try { $j = ConvertFrom-Json -InputObject $m.Value; $karar = "$($j.karar)".ToUpper(); $kus = @($j.kusurlar) } catch {} }
+  $b = $bilgi[$id]; $kr = AciklamaHakemKarar $sonuc[$id]; if ($kr.dur -eq 'max_tokens') { $kesik++ }
+  $karar = $kr.karar; $kus = @($kr.kusurlar)
   if ($karar -notin @('TEMIZ', 'KUSURLU')) { $olcul++; $karar = 'OLCULEMEDI' }
   elseif ($b.etiket -eq 'KUSURLU' -and $karar -eq 'KUSURLU') { $tp++ } elseif ($b.etiket -eq 'KUSURLU') { $fn++ }
   elseif ($karar -eq 'KUSURLU') { $fp++ } else { $tn++ }
@@ -97,6 +68,15 @@ foreach ($id in $bilgi.Keys) {
 }
 [IO.File]::WriteAllText($Cikti, (ConvertTo-Json -InputObject @($cikis.ToArray()) -Depth 8), [Text.UTF8Encoding]::new($false))
 $bo = Get-BedelOzet
-"SONUÇ: kusurlu $($tp + $fn)'nin $tp'ini yakaladı · temiz $($fp + $tn)'in $fp'inde alarm · ölçülemedi $olcul (maxTok'ta kesilen $kesik)"
+# 30.09: ölçüm harcaması da bedel defterine (eskiden yalnız üretici yazıyordu; ilk ölçümün 0,83 USD'si defterde yoktu). Yalnız hasat = 0 → satır yok.
+if ($bo.toplamUsd -gt 0) { [void](AciklamaHakemBedelYaz $Etiket $depoKok) }
+$banka = @($cikis | Where-Object { $_.etiket -eq 'BANKA' })
+if ($banka.Count) {
+  # 30.09 B dalgası: etiketsiz yayındaki sorular → yalnız ALARM ORANI (etiketli ölçümde temizlerin ~yarısındaki alarmların çoğu gerçek kusurdu)
+  $grup = @{}; foreach ($x in $banka) { $s = "$($x.anahtar)" -replace '-.*$', ''; if (-not $grup[$s]) { $grup[$s] = @(0, 0, 0) }; $grup[$s][0]++; if ($x.hakem -eq 'KUSURLU') { $grup[$s][1]++ } elseif ($x.hakem -eq 'OLCULEMEDI') { $grup[$s][2]++ } }
+  "SONUÇ (banka): $(($grup.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value[1])/$($_.Value[0]) KUSURLU (ölçülemedi $($_.Value[2]))" }) -join ' · ') · maxTok'ta kesilen $kesik"
+} else {
+  "SONUÇ: kusurlu $($tp + $fn)'nin $tp'ini yakaladı · temiz $($fp + $tn)'in $fp'inde alarm · ölçülemedi $olcul (maxTok'ta kesilen $kesik)"
+}
 "BEDEL (defter): $(($bo.satirlar | ForEach-Object { "$($_.model) giriş $($_.girdi) çıkış $($_.cikti) ≈ $($_.usd) USD" }) -join ' · ') · toplam $($bo.toplamUsd) USD"
 "ÇIKTI: $Cikti (soru başı karar + gerekçe; depo dışı)"

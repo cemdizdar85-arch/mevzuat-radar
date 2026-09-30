@@ -48,6 +48,7 @@ $depoKok=Split-Path -Parent $here
 # YENİ = kör çözüm ya da hakem2 tarihi >= $KALITE_BASLANGIC (onarılıp yeniden hakemden geçen eski soru da yeni sayılır).
 # Eski yayındaki soru bu kapıyla ÇEKİLMEZ (Cem 30.09 "geri çekilmesin, elle düzelt" → onarım kuyruğu). node yoksa KÖR yazılır, kapı açık kalır.
 . (Join-Path $here 'soru-kalite-kapisi.ps1')
+. (Join-Path $here 'aciklama-hakemi-uretim.ps1'); $ahDusen=0   # yalnız AhSecilemez kullanılır (model çağrısı YOK); başlangıç AH_BASLANGIC (vars. 2026-10-01)
 $KALITE_BASLANGIC=$(if($env:KALITE_BASLANGIC){ $env:KALITE_BASLANGIC } else { '2026-10-01' }); $kaliteDusen=0; $kaliteKor=0   # ortam değişkeni yalnız prova içindir
 function YeniSoruMu($v){ $t=@("$(if($v.kor_cozum){ $v.kor_cozum.tarih })","$(if($v.hakem2){ $v.hakem2.tarih })") | Where-Object { $_ } | Sort-Object -Descending | Select-Object -First 1; return [bool]($t -and "$t" -ge $KALITE_BASLANGIC) }
 $ok=Test-OlcumKapilari -Sessiz
@@ -165,6 +166,7 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
     foreach($sa in 'simulasyon_sonnet','simulasyon'){ if($v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu){ $simOk=$false } }
     if(-not $simOk){ continue }
     if($kalite.ContainsKey($p.Name) -and (YeniSoruMu $v)){ $kaliteDusen++; Write-Host "  KAPI-KALITE: $et/$($p.Name) seçilmedi · $(@($kalite[$p.Name]) -join ' · ')" -ForegroundColor Yellow; continue }
+    if(AhSecilemez $v){ $ahDusen++; continue }   # 30.09 Cem "b yap": YENİ soru açıklama hakeminden TEMIZ almadıysa yayına girmez (arac/aciklama-hakemi-uretim.ps1)
     $gecen++
     $SORU_DERSI=$ders
     if($DERS_DUZELTME_TABLOSU.ContainsKey("$et/$($p.Name)")){ $SORU_DERSI=$DERS_DUZELTME_TABLOSU["$et/$($p.Name)"]; $DUZELTILEN_SORU_SAYISI++ }
@@ -179,6 +181,7 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
 }
 Write-Host ("taranan {0:N0} soru · YAYIN SARTINI saglayan {1:N0}" -f $toplam,$gecen) -ForegroundColor Cyan
 Write-Host ("KAPI-KALITE (yeni soru, {0} ve sonrası): seçilmeyen {1} · KÖR parti {2}" -f $KALITE_BASLANGIC,$kaliteDusen,$kaliteKor) -ForegroundColor Cyan
+Write-Host ("AÇIKLAMA HAKEMİ (yeni soru): TEMIZ kararı olmadığı için seçilmeyen {0}" -f $ahDusen) -ForegroundColor Cyan
 if($KONU_DUZELTME_TABLOSU.Count){ Write-Host ("KONU DUZELTMESI: {0} kayit · uygulanan {1}" -f $KONU_DUZELTME_TABLOSU.Count,$KONU_DUZELTILEN_SAYISI) -ForegroundColor Cyan }
 if($DERS_DUZELTME_TABLOSU.Count){ Write-Host ("DERS DUZELTMESI: {0} kayit · uygulanan {1} · uygulanmayan {2} (soru havuzda yok / yayin sartini gecmiyor)" -f $DERS_DUZELTME_TABLOSU.Count,$DUZELTILEN_SORU_SAYISI,($DERS_DUZELTME_TABLOSU.Count-$DUZELTILEN_SORU_SAYISI)) -ForegroundColor Cyan }
 if($disSinav.Count){
