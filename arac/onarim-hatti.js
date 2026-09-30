@@ -106,7 +106,7 @@ async function teslim(K) {
   const Y = path.join('C:\\TETIKTE-YEDEK',`onarim-${path.basename(K)}-${kuru.zaman.replace(/[:.]/g, '')}`); fs.mkdirSync(Y, { recursive: true });
   for (const e of kuru.etiketler) fs.copyFileSync(path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json'), path.join(Y, 'kalip-parti-' + e + '.json'));
   const u = uygula(K, true, atla);
-  const yuk = u.etiketler.map(e => ({ e, cikis: ps(['-File', 'arac/parti-senkron.ps1', '-Yukle', '-Etiket', e, '-Sinav', 'SGS', '-Yaz']).status }));
+  const yuk = u.etiketler.map(e => ({ e, cikis: ps(['-File', 'arac/parti-senkron.ps1', '-Yukle', '-Etiket', e, '-Sinav', sinav, '-Yaz']).status }));
   const Kk = anahtar(); const onb = {}; const dog = new Set(), uys = [];
   for (const ad of [...u.aciklama, ...u.rehakem]) {
     const [e, kp] = ad.split('/'); if (!onb[e]) onb[e] = await ambarParti(e, Kk);
