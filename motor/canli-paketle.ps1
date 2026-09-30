@@ -22,7 +22,12 @@
 #  paket sessizce uretilip yayina hazir bekledi (uyari yalnizca ekrana yazildi).
 #  Eksikle devam etmek bilincli bir karardir: -zorla bayragi ister ve paketin
 #  yanina sifresiz KARNE dosyasi yazilir (soru metni YOK, yalniz ders x adet).
-param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla)
+# 01.10.2026 (site oturumu, Cem kararı "1. oturum provası"): Yeterlilik paketi GERÇEK SINAV DÜZENİNDE.
+#   TESMER 2026 Uygulama Yönergesi tablo: 1. oturum 09.00-12.00 Finansal Muhasebe · Maliyet Muhasebesi · Hukuk ·
+#   Sermaye Piyasası Mevzuatı; 2. oturum 14.00-17.00 Finansal Tablolar ve Analizi · Muhasebe Denetimi · Vergi ·
+#   Meslek Hukuku; her ders 20 soru, 45 dk. -YetOturum 1 (varsayılan) | 2 | tam (8 ders, 360 dk). Eski düzen: -YetOturum eski (8x10, 120 dk).
+#   SGS süresi 150 -> 165 dk (SGS 2025/1 Uygulama Kılavuzu: "Sınav Süresi: 165 Dakika").
+param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla, [ValidateSet('1','2','tam','eski')][string]$YetOturum = '1')
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -113,7 +118,13 @@ $rnd = New-Object System.Random
 function Karistir($list){ $a=@($list); for($i=$a.Count-1;$i -gt 0;$i--){ $j=$rnd.Next($i+1); $t=$a[$i]; $a[$i]=$a[$j]; $a[$j]=$t }; return $a }
 $secim = New-Object System.Collections.Generic.List[object]
 $eksikler = @()
-$plan = if($sinav -eq 'SGS'){ $SGS_BILESIM } else { @($YET_DERSLER | ForEach-Object { @{ders=$_; n=10} }) }
+$YET_OTURUM1 = @('Finansal Muhasebe','Maliyet Muhasebesi','Hukuk','Sermaye Piyasası Mevzuatı')
+$YET_OTURUM2 = @('Finansal Tablolar ve Analizi','Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Meslek Hukuku')
+$plan = if($sinav -eq 'SGS'){ $SGS_BILESIM }
+        elseif($YetOturum -eq 'eski'){ @($YET_DERSLER | ForEach-Object { @{ders=$_; n=10} }) }
+        elseif($YetOturum -eq '1'){ @($YET_OTURUM1 | ForEach-Object { @{ders=$_; n=20} }) }
+        elseif($YetOturum -eq '2'){ @($YET_OTURUM2 | ForEach-Object { @{ders=$_; n=20} }) }
+        else { @(($YET_OTURUM1 + $YET_OTURUM2) | ForEach-Object { @{ders=$_; n=20} }) }
 foreach($p in $plan){
   $aday = Karistir ($havuz | Where-Object { DersEslesirMi $_.ders $p.ders })
   $al=@(); $konuSayac=@{}
@@ -162,7 +173,7 @@ if($paketSoru.Count -lt [Math]::Min(50, $secim.Count)){ throw 'tam metin cekimi 
 
 $govde = [ordered]@{
   oturum=$oturum; sinav=$sinav; uretim=(Get-Date -Format 'dd.MM.yyyy HH:mm')
-  sure_dk = $(if($sinav -eq 'SGS'){ 150 } else { 120 })
+  sure_dk = $(if($sinav -eq 'SGS'){ 165 } elseif($YetOturum -eq 'eski'){ 120 } elseif($YetOturum -eq 'tam'){ 360 } else { 180 })
   sorular = $paketSoru
 }
 $duz = ConvertTo-Json -InputObject $govde -Depth 8 -Compress
