@@ -48,6 +48,8 @@ function kusurlar(k) {
       if (!t.trim() || /^\s*[-–—.]*\s*$/.test(t)) ekle('BOS-ACIK', 'aciklama.' + h, h === k.dogru ? 'DOĞRU şıkkın açıklaması yok' : 'şık açıklaması yok');
     }
   }
+  // 01.10 (kapanış onarımı ölçtü: borclar-kolay-r4-bulut/kp-02): alan VAR ama boş dize — sayfada boş kutu çıkar
+  if (MUT !== 'bos-dize') for (const a of ['hap', 'dayanak', 'notlandirici', 'sinav_taktigi']) if (a in k && typeof k[a] === 'string' && !k[a].trim()) ekle('BOS-KALINTI', a, 'alan boş');
   // BOS-KALINTI: görünen alanlarda yer tutucu değer
   if (MUT !== 'kalinti') {
     for (const alan of GORUNEN) for (const [yol, t] of gez(k[alan], alan, [])) {
@@ -93,6 +95,7 @@ function sinav() {
     ['dummy:"remove"', k => { k.dummy = 'remove'; return k; }, 'BOS-ANAHTAR'],
     ['tablo hücresi "-" meşru → temiz', k => k, null],
     ['model alanındaki "placeholder" taranmaz', k => k, null],
+    ['hap boş dize → KALINTI', k => { k.hap = '  '; return k; }, 'BOS-KALINTI'],
     ['matematik şıkkı "x" meşru → temiz', k => { k.siklar.B = 'x'; k.teori_ikiz = { siklar: { B: 'x' } }; return k; }, null],
     ['"x" sözcük içinde meşru ("x ve y değişkeni") → temiz', k => { k.soru = 'x ve y değişkenleri için çözünüz.'; return k; }, null],
   ];
@@ -107,7 +110,7 @@ if (require.main === module) {
   const [a, b, c] = process.argv.slice(2);
   if (a === '--sinav') {
     if (process.argv.includes('--mutasyon')) {
-      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik']; let tutan = 0;
+      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize']; let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, BOS_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' → KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
     }
