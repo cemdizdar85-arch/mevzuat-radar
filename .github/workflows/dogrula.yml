@@ -502,6 +502,11 @@ jobs:
           # alt kume, yon kelimesi, standart atfi, 8/9 haric) her birinde KIRMIZI (30.09 elle olculdu). THP listesi depoda, ag yok.
           - { ad: "Hesap kodu kapisi OZ-SINAVI (KAPI-HK)",
               kabuk: bash, komut: "node arac/hesap-kodu-kapisi.js --sinav" }
+          # 30.09: KAPI-BP BDS paragraf atfi (olmayan paragraf / komsu paragrafin konusu). 19 vaka; 10 mutasyon (komsu penceresi,
+          # genel sozcuk suzgeci, dogru konu, BP-YOK, model alani, standart yok, A/ana metin ayrimi, arada BDS, gomulu paragraf,
+          # govde ZAYIF katmani) her birinde KIRMIZI (30.09 olculdu).
+          - { ad: "BDS paragraf atfi kapisi OZ-SINAVI (KAPI-BP)",
+              kabuk: bash, komut: "node arac/bds-atif-kapisi.js --sinav" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
           - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
               kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }

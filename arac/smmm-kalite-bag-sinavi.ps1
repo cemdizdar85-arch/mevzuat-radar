@@ -25,6 +25,7 @@ $VAKALAR = @(
   @{ ad = 'yayındaki eski soru (kör 15.09) → GEÇER (çekilmez)'; bek = $false; s = (S $ESKI '2026-09-15' '2026-09-16') }
   @{ ad = 'tarihsiz soru → GEÇER (eski sayılır)'; bek = $false; s = (S $ESKI '' '') }
   @{ ad = 'yeni ve temiz soru → GEÇER'; bek = $false; s = (S $TEMIZ '2026-10-02' '2026-10-02') }
+  @{ ad = 'yeni soru + THP''de yanlış hesap adı (252 Taşıtlar, KAPI-HK) → DÜŞER'; bek = $true; s = (S 'Kayıt: 252 TAŞITLAR hesabı borçlandırılır.' '2026-10-02' '') }
 )
 
 function VakaKos([string]$blokKaynak) {

@@ -394,14 +394,22 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   1. **Otomatik (0 USD, yeni soru):** `arac/soru-kalite-kapisi.js` = KAPI-AS2 + KAPI-EK + **KAPI-HK** (`arac/hesap-kodu-kapisi.js`,
      30.09: THP'de olmayan hesap kodu / kodun yanındaki adın THP adıyla uyuşmaması; THP listesi `veri/sinav/thp-hesap-kodlari.json`,
      ambardan `--tazele`). Adsız "hesap bağlamı" bulgusu yalnız `NOT-HK` yazar, durdurmaz. KAPI-MM (mülga madde) ve KAPI-OM ayrı.
+     + **KAPI-BP** (`arac/bds-atif-kapisi.js`, 30.09): BDS paragraf atfı güncel metinde yok (BP-YOK) ya da atıf cümlesi komşu
+     paragrafın konusunu anıp atfedileninkini anmıyor (BP-KONU; eski numaralama — BDS 500'de A25→A29 … A31→A35 kaydı). Liste
+     `veri/sinav/bds-paragraf-basliklari.json` (başlık + gövde KÖK kümesi, metin değil). Atfedilen paragrafın gövdesi konuyu
+     taşıyorsa `NOT-BP` (ZAYIF), durdurmaz. **Ölçüldü (60 bulgu resmî metinle yargılandı):** durduran katmanda 24/28 doğru (%86),
+     ZAYIF katmanda 30'un 23'ü yanlış alarm. SGS bankası 30.09: 129 bulgulu soru.
   2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
      `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js` · bitirme `arac/smmm-risk-tarama.ps1` (R1–R9, 30.09). Bulgu **çekilmez, onarım kuyruğuna gider**
      (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
   3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
   4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
   **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
-  252/100 ad hataları), SMMM 1, KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap (220 yerine 120) · "hesap" kelimesiz
-  tek sayı · ambarda olmayan 7/B'ye özgü kod (yanlış HK-YOK verebilir).
+  252/100 ad hataları); elle yargılandı: 49 gerçek, 16 yanlış alarm (10'u yalnız NOT-HK). Onarım + yazım genişletmesi (başharfli
+  "252 Taşıtlar hesabı", "(252)", "Borç: 252 …" — SMMM oturumu ölçtü, ilk sürüm yalnız BÜYÜK harfli adı görüyordu) sonrası SGS 18.
+  ⚠ `--banka smmm` yalnız `vitrin-smmm-secim.json`'u (70 soru) okur; sitedeki bitirme kümesi kasadan yayınlanır, bu araçla
+  **ölçülmedi** (SMMM oturumunun R9 taraması AS2+EK+HK: 155 soru). KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap
+  (220 yerine 120) · "hesap" kelimesiz tek sayı · küçük harfle ve hesap bağlamı dışında yazılmış ad · ambarda olmayan 7/B'ye özgü kod.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

@@ -15,12 +15,12 @@
                                   "R7":  2,
                                   "R8":  74,
                                   "R8y":  177,
-                                  "R9":  155
+                                  "R9":  162
                               },
-                 "oncelik1":  250,
-                 "oncelik2":  803,
-                 "oncelik3":  1226,
-                 "isaretsiz":  1587,
+                 "oncelik1":  256,
+                 "oncelik2":  804,
+                 "oncelik3":  1223,
+                 "isaretsiz":  1583,
                  "kalite_kor_parti":  0,
                  "taranmayan":  "sözel anlam/mantık hatası · yanlış madde no (ad doğru) · listede olmayan eski kural · karışık öncelikli işlem · ambar-yerel parti farkı"
              },
@@ -68,6 +68,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-fmuh-cokzor-r5/kp-01",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 644 ikiz.ikiz_soru",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-fmuh-kolay-r1/kp-29",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -78,13 +88,14 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-4k-a-fmuh-kolay-r2/kp-07",
+                      "anahtar":  "smmm-4k-a-fmuh-kolay-r2/kp-02",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
+                                       "R1",
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 644 adimlar.4.formul",
+                      "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 329 ikiz.ikiz_soru",
                       "oncelik":  1
                   },
                   {
@@ -106,16 +117,6 @@
                                        "R9"
                                    ],
                       "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 630 ikiz_sema.kayitlar.0.ogeler.borc.0.hesap",
-                      "oncelik":  1
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-fmuh-kolay-r3/kp-09",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1",
-                                       "R9"
-                                   ],
-                      "neden":  "R1: vergi oranı || R9: KAPI-HK: HK-AD 621 adimlar.6.formul",
                       "oncelik":  1
                   },
                   {
@@ -144,15 +145,6 @@
                                        "R8"
                                    ],
                       "neden":  "R8: adimlar[6].formul: beklenen 810 yazan 128 (%84.2)",
-                      "oncelik":  1
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-fmuh-kolay-r4-2/kp-04",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R9"
-                                   ],
-                      "neden":  "R9: KAPI-HK: HK-AD 190 adimlar.6.formul",
                       "oncelik":  1
                   },
                   {
@@ -206,23 +198,13 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-4k-a-fmuh-zor-r3/kp-03",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4",
-                                       "R9"
-                                   ],
-                      "neden":  "R9: KAPI-HK: HK-AD 190 adimlar.6.formul",
-                      "oncelik":  1
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-fmuh-zor-r3/kp-19",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 523 adimlar.9.formul",
+                      "neden":  "R9: KAPI-HK: HK-AD 523 adimlar.9.formul · KAPI-HK: HK-AD 523 adimlar.9.anlatim",
                       "oncelik":  1
                   },
                   {
@@ -234,6 +216,15 @@
                                        "R9"
                                    ],
                       "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 523 adimlar.6.formul",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-fmuh-zor-r4/kp-13",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 733 ikiz.ikiz_soru · KAPI-HK: HK-AD 733 konu_giris.terimler.3.ad",
                       "oncelik":  1
                   },
                   {
@@ -265,23 +256,22 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-fmuh-zor-r8/kp-02",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 101 verilenler.5.anlam",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-fmuh-zor-r8/kp-07",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-HK: HK-AD 660 adimlar.6.formul",
-                      "oncelik":  1
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-fmuh-zor-r9/kp-02",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1",
-                                       "R4",
-                                       "R9"
-                                   ],
-                      "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 190 adimlar.8.formul",
                       "oncelik":  1
                   },
                   {
@@ -322,7 +312,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 150 adimlar.1.formul",
+                      "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 150 adimlar.1.formul · KAPI-HK: HK-AD 150 adimlar.1.anlatim",
                       "oncelik":  1
                   },
                   {
@@ -333,6 +323,15 @@
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-AS2: aciklama kaymış: doğru şık D, çözüm metni (\"Ne soruluyor\") C altında",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-maliyet-kolay-r2/kp-23",
+                      "sayfa":  "maliyet-muhasebesi",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 782 ikiz.ikiz_soru",
                       "oncelik":  1
                   },
                   {
@@ -376,13 +375,23 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-maliyet-zor-r1/kp-11",
+                      "sayfa":  "maliyet-muhasebesi",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 231 adimlar.1.anlatim",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-maliyet-zor-r1/kp-22",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 751 ikiz_sema.kayitlar.0.ogeler.alacak.0.hesap · KAPI-HK: HK-AD 750 ikiz_sema.kayitlar.1.ogeler.alacak.0.hesap",
+                      "neden":  "R9: KAPI-HK: HK-AD 750 ikiz.ikiz_soru · KAPI-HK: HK-AD 751 ikiz.ikiz_soru",
                       "oncelik":  1
                   },
                   {
@@ -396,13 +405,24 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-maliyet-zor-r2/kp-09",
+                      "sayfa":  "maliyet-muhasebesi",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 151 ikiz.ikiz_soru",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-maliyet-zor-r2/kp-17",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
                                        "R4",
-                                       "R8"
+                                       "R8",
+                                       "R9"
                                    ],
-                      "neden":  "R8: sema.ogeler.adimlar[0].islem: beklenen 4000 yazan 3500 (%12.5)",
+                      "neden":  "R8: sema.ogeler.adimlar[0].islem: beklenen 4000 yazan 3500 (%12.5) || R9: KAPI-HK: HK-AD 120 adimlar.1.anlatim",
                       "oncelik":  1
                   },
                   {
@@ -413,6 +433,16 @@
                                        "R8"
                                    ],
                       "neden":  "R8: adimlar[3].formul: beklenen -79 yazan 20 (%125.32)",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-maliyet-zor-r3/kp-13",
+                      "sayfa":  "maliyet-muhasebesi",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 231 adimlar.1.anlatim",
                       "oncelik":  1
                   },
                   {
@@ -691,16 +721,6 @@
                                        "R8"
                                    ],
                       "neden":  "R8: adimlar[1].formul: beklenen 100.0988 yazan 2437500 (%2434993.78)",
-                      "oncelik":  1
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-yfta-zor-r3/kp-14",
-                      "sayfa":  "finansal-tablolar",
-                      "siniflar":  [
-                                       "R4",
-                                       "R9"
-                                   ],
-                      "neden":  "R9: KAPI-HK: HK-AD 153 teshis.B.gercek",
                       "oncelik":  1
                   },
                   {
@@ -1092,6 +1112,15 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-ab2-a-maliyet/kp-53",
+                      "sayfa":  "maliyet-muhasebesi",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 792 teori_ikiz.soru",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-ab2-b-maliyet/kp-33",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
@@ -1195,16 +1224,6 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-gm2-1-fmuh-zor/kp-03",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4",
-                                       "R9"
-                                   ],
-                      "neden":  "R9: KAPI-HK: HK-AD 190 sema.kayitlar.0.ogeler.alacak.1.hesap",
-                      "oncelik":  1
-                  },
-                  {
                       "anahtar":  "smmm-gm3-2-fmuh-zor/kp-02",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -1245,6 +1264,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-gm4-5-maliyet-zor/kp-01",
+                      "sayfa":  "maliyet-muhasebesi",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 632 adimlar.6.formul",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-gm5-10-fmuh-zor/kp-08",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -1256,16 +1285,6 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-gm5-10-fmuh-zor/kp-10",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4",
-                                       "R9"
-                                   ],
-                      "neden":  "R9: KAPI-HK: HK-AD 190 sema.kayitlar.0.ogeler.alacak.1.hesap",
-                      "oncelik":  1
-                  },
-                  {
                       "anahtar":  "smmm-gm5-11-fmuh-zor/kp-03",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -1274,6 +1293,15 @@
                                        "R9"
                                    ],
                       "neden":  "R1: yıl + tutar, vergi oranı || R9: KAPI-HK: HK-YOK 693 verilenler.4.ad",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-gm5-13-ydenetim-zor/kp-01",
+                      "sayfa":  "muhasebe-denetimi",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 253 teori_ikiz.soru",
                       "oncelik":  1
                   },
                   {
@@ -1293,7 +1321,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 198 ikiz_sema.kayitlar.1.ogeler.alacak.0.hesap",
+                      "neden":  "R9: KAPI-HK: HK-AD 198 ikiz.ikiz_soru · KAPI-HK: HK-AD 198 ikiz_sema.kayitlar.1.ogeler.alacak.0.hesap",
                       "oncelik":  1
                   },
                   {
@@ -1397,7 +1425,7 @@
                       "siniflar":  [
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 712 ikiz_sema.kayitlar.0.ogeler.alacak.1.hesap",
+                      "neden":  "R9: KAPI-HK: HK-AD 712 ikiz.tablo.satirlar.2.0",
                       "oncelik":  1
                   },
                   {
@@ -1421,16 +1449,6 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-w10-2-fmuh-kolay/kp-01",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1",
-                                       "R9"
-                                   ],
-                      "neden":  "R1: vergi oranı || R9: KAPI-HK: HK-AD 760 dayanak",
-                      "oncelik":  1
-                  },
-                  {
                       "anahtar":  "smmm-w10-3-fmuh-zor/kp-06",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -1439,6 +1457,25 @@
                                        "R9"
                                    ],
                       "neden":  "R1: yıl + tutar || R9: KAPI-HK: HK-AD 243 sema.kayitlar.0.ogeler.alacak.0.hesap",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-w10-3-fmuh-zor/kp-11",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 112 adimlar.7.formul",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-w10-4-fmuh-zor/kp-06",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 723 ikiz.hedef_cumle · KAPI-HK: HK-AD 723 konu_giris.sinavda",
                       "oncelik":  1
                   },
                   {
@@ -1509,7 +1546,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-EK: EK2 konu_giris.nedir (630 hesabı genel üretim gideri / GÜG farkı sanılıyor (630 = Araştırma ve Geliştirme Giderleri)) · KAPI-HK: HK-AD 723 ikiz_sema.kayitlar.0.ogeler.borc.1.hesap · KAPI-HK: HK-YOK 633 ikiz_sema.kayitlar.1.ogeler.alacak.1.hesap",
+                      "neden":  "R9: KAPI-EK: EK2 konu_giris.nedir (630 hesabı genel üretim gideri / GÜG farkı sanılıyor (630 = Araştırma ve Geliştirme Giderleri)) · KAPI-HK: HK-AD 723 ikiz.ikiz_soru · KAPI-HK: HK-YOK 633 ikiz_sema.kayitlar.1.ogeler.alacak.1.hesap",
                       "oncelik":  1
                   },
                   {
@@ -1531,16 +1568,6 @@
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-HK: HK-AD 137 sema.kayitlar.0.ogeler.borc.1.hesap",
-                      "oncelik":  1
-                  },
-                  {
-                      "anahtar":  "smmm-w11-4-fmuh-zor/kp-01",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4",
-                                       "R9"
-                                   ],
-                      "neden":  "R9: KAPI-HK: HK-AD 190 adimlar.7.formul",
                       "oncelik":  1
                   },
                   {
@@ -1572,7 +1599,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R1: vergi oranı || R9: KAPI-EK: EK7 ikiz.ikiz_soru (Kurumlar vergisi oranı %20 (KVK m.32: %25))",
+                      "neden":  "R1: vergi oranı || R9: KAPI-EK: EK7 ikiz.ikiz_soru (Kurumlar vergisi oranı %20 (KVK m.32: %25)) · KAPI-HK: HK-AD 690 dayanak_alinti",
                       "oncelik":  1
                   },
                   {
@@ -1698,6 +1725,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-w13-4-fmuh-zor/kp-21",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 523 adimlar.6.anlatim",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-w14-10-ydenetim-cokzor/kp-02",
                       "sayfa":  "muhasebe-denetimi",
                       "siniflar":  [
@@ -1769,13 +1806,13 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-w14-3-fmuh-zor/kp-04",
+                      "anahtar":  "smmm-w14-5-fmuh-zor/kp-02",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 659 adimlar.5.formul",
+                      "neden":  "R9: KAPI-HK: HK-AD 690 dayanak_alinti",
                       "oncelik":  1
                   },
                   {
@@ -1898,6 +1935,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-w2-fmuh-zor/kp-05",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-HK: HK-AD 110 sade.kavramlar.0.kaynak",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-w2-yfta-cokzor/kp-02",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
@@ -1975,7 +2022,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R1: vergi oranı || R9: KAPI-HK: HK-AD 791 sema.kayitlar.0.ogeler.borc.0.hesap",
+                      "neden":  "R1: vergi oranı || R9: KAPI-HK: HK-AD 791 sema.kayitlar.0.ogeler.borc.0.hesap · KAPI-HK: HK-AD 791 adimlar.1.anlatim",
                       "oncelik":  1
                   },
                   {
@@ -2148,7 +2195,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 655 sema.kayitlar.2.ogeler.borc.1.hesap",
+                      "neden":  "R9: KAPI-HK: HK-AD 655 sema.kayitlar.2.ogeler.borc.1.hesap · KAPI-HK: HK-AD 656 konu_giris.harita",
                       "oncelik":  1
                   },
                   {
@@ -2159,6 +2206,16 @@
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-HK: HK-AD 180 ikiz.tablo.satirlar.4.0",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-w4-fmuh-zor/kp-22",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R1",
+                                       "R9"
+                                   ],
+                      "neden":  "R1: gecikme/tecil/reeskont faizi, yıl + tutar || R9: KAPI-HK: HK-AD 644 aciklama.D",
                       "oncelik":  1
                   },
                   {
@@ -2234,15 +2291,14 @@
                       "oncelik":  1
                   },
                   {
-                      "anahtar":  "smmm-w5-fmuh-cokzor/kp-27",
+                      "anahtar":  "smmm-w5-fmuh-kolay/kp-19",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R1",
                                        "R4",
-                                       "R8y",
                                        "R9"
                                    ],
-                      "neden":  "R1: vergi oranı || R8y: Y:adimlar[8].formul: beklenen 5197000 yazan 51970 (%99) || R9: KAPI-HK: HK-AD 190 adimlar.7.formul",
+                      "neden":  "R1: vergi oranı || R9: KAPI-HK: HK-AD 690 dayanak_alinti",
                       "oncelik":  1
                   },
                   {
@@ -2442,7 +2498,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-HK: HK-AD 733 sema.kayitlar.0.ogeler.alacak.0.hesap",
+                      "neden":  "R9: KAPI-HK: HK-AD 733 ikiz.ikiz_soru",
                       "oncelik":  1
                   },
                   {
@@ -2624,16 +2680,6 @@
                       "oncelik":  2
                   },
                   {
-                      "anahtar":  "smmm-4k-a-fmuh-kolay-r2/kp-02",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1",
-                                       "R4"
-                                   ],
-                      "neden":  "R1: yıl + tutar",
-                      "oncelik":  2
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-fmuh-kolay-r2/kp-05",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -2688,6 +2734,15 @@
                       "siniflar":  [
                                        "R1",
                                        "R4"
+                                   ],
+                      "neden":  "R1: vergi oranı",
+                      "oncelik":  2
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-fmuh-kolay-r3/kp-09",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R1"
                                    ],
                       "neden":  "R1: vergi oranı",
                       "oncelik":  2
@@ -3189,6 +3244,16 @@
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R1"
+                                   ],
+                      "neden":  "R1: yıl + tutar",
+                      "oncelik":  2
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-fmuh-zor-r9/kp-02",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R1",
+                                       "R4"
                                    ],
                       "neden":  "R1: yıl + tutar",
                       "oncelik":  2
@@ -7250,6 +7315,15 @@
                       "oncelik":  2
                   },
                   {
+                      "anahtar":  "smmm-w10-2-fmuh-kolay/kp-01",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R1"
+                                   ],
+                      "neden":  "R1: vergi oranı",
+                      "oncelik":  2
+                  },
+                  {
                       "anahtar":  "smmm-w10-2-fmuh-kolay/kp-07",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -9188,15 +9262,6 @@
                       "oncelik":  2
                   },
                   {
-                      "anahtar":  "smmm-w4-fmuh-zor/kp-22",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1"
-                                   ],
-                      "neden":  "R1: gecikme/tecil/reeskont faizi, yıl + tutar",
-                      "oncelik":  2
-                  },
-                  {
                       "anahtar":  "smmm-w4-fmuh-zor/kp-25",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -9421,6 +9486,17 @@
                       "oncelik":  2
                   },
                   {
+                      "anahtar":  "smmm-w5-fmuh-cokzor/kp-27",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R1",
+                                       "R4",
+                                       "R8y"
+                                   ],
+                      "neden":  "R1: vergi oranı || R8y: Y:adimlar[8].formul: beklenen 5197000 yazan 51970 (%99)",
+                      "oncelik":  2
+                  },
+                  {
                       "anahtar":  "smmm-w5-fmuh-cokzor/kp-30",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -9444,16 +9520,6 @@
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R1"
-                                   ],
-                      "neden":  "R1: vergi oranı",
-                      "oncelik":  2
-                  },
-                  {
-                      "anahtar":  "smmm-w5-fmuh-kolay/kp-19",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1",
-                                       "R4"
                                    ],
                       "neden":  "R1: vergi oranı",
                       "oncelik":  2
@@ -10530,15 +10596,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-4k-a-fmuh-cokzor-r5/kp-01",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-fmuh-cokzor-r5/kp-02",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -10657,6 +10714,15 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-fmuh-kolay-r2/kp-03",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-fmuh-kolay-r2/kp-07",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4"
@@ -11053,6 +11119,15 @@
                       "oncelik":  3
                   },
                   {
+                      "anahtar":  "smmm-4k-a-fmuh-zor-r3/kp-03",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-fmuh-zor-r3/kp-04",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -11234,15 +11309,6 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-fmuh-zor-r7/kp-07",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-fmuh-zor-r8/kp-02",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4"
@@ -12392,15 +12458,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-4k-a-maliyet-zor-r1/kp-11",
-                      "sayfa":  "maliyet-muhasebesi",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-maliyet-zor-r1/kp-13",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
@@ -12474,15 +12531,6 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-maliyet-zor-r2/kp-07",
-                      "sayfa":  "maliyet-muhasebesi",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-maliyet-zor-r2/kp-09",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
                                        "R4"
@@ -12628,15 +12676,6 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-maliyet-zor-r3/kp-12",
-                      "sayfa":  "maliyet-muhasebesi",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-maliyet-zor-r3/kp-13",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
                                        "R4"
@@ -13905,6 +13944,15 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-yfta-zor-r3/kp-12",
+                      "sayfa":  "finansal-tablolar",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-yfta-zor-r3/kp-14",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
                                        "R4"
@@ -15883,6 +15931,15 @@
                       "oncelik":  3
                   },
                   {
+                      "anahtar":  "smmm-gm2-1-fmuh-zor/kp-03",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
                       "anahtar":  "smmm-gm2-1-fmuh-zor/kp-05",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -16352,15 +16409,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-gm4-5-maliyet-zor/kp-01",
-                      "sayfa":  "maliyet-muhasebesi",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-gm4-5-maliyet-zor/kp-02",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
@@ -16398,6 +16446,15 @@
                   },
                   {
                       "anahtar":  "smmm-gm5-10-fmuh-zor/kp-07",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
+                      "anahtar":  "smmm-gm5-10-fmuh-zor/kp-10",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4"
@@ -17282,15 +17339,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-w10-3-fmuh-zor/kp-11",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-w10-3-yfta-cokzor/kp-01",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
@@ -17634,6 +17682,15 @@
                   },
                   {
                       "anahtar":  "smmm-w11-4-fmuh-kolay/kp-03",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
+                      "anahtar":  "smmm-w11-4-fmuh-zor/kp-01",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4"
@@ -18212,15 +18269,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-w13-4-fmuh-zor/kp-21",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-w13-4-fmuh-zor/kp-24",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -18437,6 +18485,15 @@
                       "oncelik":  3
                   },
                   {
+                      "anahtar":  "smmm-w14-3-fmuh-zor/kp-04",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R4"
+                                   ],
+                      "neden":  "",
+                      "oncelik":  3
+                  },
+                  {
                       "anahtar":  "smmm-w14-3-fmuh-zor/kp-05",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -18493,15 +18550,6 @@
                   },
                   {
                       "anahtar":  "smmm-w14-5-fmuh-cokzor/kp-03",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
-                      "anahtar":  "smmm-w14-5-fmuh-zor/kp-02",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4"
@@ -18886,15 +18934,6 @@
                   },
                   {
                       "anahtar":  "smmm-w2-fmuh-kolay/kp-02",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
-                      "anahtar":  "smmm-w2-fmuh-zor/kp-05",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R4"
@@ -21882,6 +21921,15 @@
                       "oncelik":  4
                   },
                   {
+                      "anahtar":  "smmm-4k-a-fmuh-kolay-r4-2/kp-04",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+
+                                   ],
+                      "neden":  "",
+                      "oncelik":  4
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-fmuh-kolay-r5/kp-11",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -22134,15 +22182,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-4k-a-fmuh-zor-r4/kp-13",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-fmuh-zor-r4/kp-18",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -22306,15 +22345,6 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-maliyet-kolay-r2/kp-13",
-                      "sayfa":  "maliyet-muhasebesi",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-maliyet-kolay-r2/kp-23",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
 
@@ -29541,15 +29571,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-ab2-a-maliyet/kp-53",
-                      "sayfa":  "maliyet-muhasebesi",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-ab2-a-maliyet/kp-55",
                       "sayfa":  "maliyet-muhasebesi",
                       "siniflar":  [
@@ -31044,15 +31065,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-gm5-13-ydenetim-zor/kp-01",
-                      "sayfa":  "muhasebe-denetimi",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-gm5-13-ydenetim-zor/kp-02",
                       "sayfa":  "muhasebe-denetimi",
                       "siniflar":  [
@@ -31531,15 +31543,6 @@
                   },
                   {
                       "anahtar":  "smmm-w10-4-fmuh-kolay/kp-06",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
-                      "anahtar":  "smmm-w10-4-fmuh-zor/kp-06",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
 
