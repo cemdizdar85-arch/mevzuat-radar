@@ -84,10 +84,10 @@
     {
       "kod": "EK11",
       "ad": "Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti",
-      "desen": "(ödenen|faiz ödeme|temettü ödeme)[^.;]{0,80}(işletme faaliyet)[^.;]{0,60}(sınıflandırılabilir|seçim|seçebilir|politika)|(politika|seçim)[^.;]{0,60}(faiz|temettü)[^.;]{0,60}işletme faaliyet",
-      "haric": "TFRS 18 öncesi|eski (kural|metin|TMS 7)|artık|kaldırıldı|p\\.?\\s*34B|34C|34D|ana faaliyeti",
+      "desen": "(ödenen|faiz ödeme|temettü ödeme)[^.;]{0,80}(işletme faaliyet)[^.;]{0,60}(sınıflandırılabilir|seçim|seçebilir|politika)|(politika|seçim)[^.;]{0,60}(faiz|temettü)[^.;]{0,60}işletme faaliyet|(faiz|temettü)[^.;]{0,80}(seçtiği|seçmiş|benimse[a-zçğıöşü]*)[^.;]{0,40}politika|(faiz|temettü)[^.;]{0,20}sınıflandırma politikas|sınıflandırma politikas[^.;]{0,40}(faiz|temettü)",
+      "haric": "TFRS 18 öncesi|eski (kural|metin|TMS 7)|artık|kaldırıldı|p\\.?\\s*34B|34C|34D|ana faaliyeti|dağıtım politika|kâr dağıtım|kar dağıtım",
       "dayanak": "TMS 7 p.33A, 34A–34D (ambar, TFRS 18 sonrası; eski p.33/34 silinmiş); Cem 30.09 kararı: yeni sürüm esas",
-      "bulan": "SGS TFRS 18 etki ölçümü 30.09.2026 (2 cevabı değişen + 3 açıklama)"
+      "bulan": "SGS TFRS 18 etki ölçümü 30.09.2026 (2 cevabı değişen + 3 açıklama) + SMMM oturumu 30.09 (smmm-w14-11-yspk-cokzor/kp-01: \"seçtiği politika gereği … finansman\" kaçıyordu)"
     }
   ]
 }
