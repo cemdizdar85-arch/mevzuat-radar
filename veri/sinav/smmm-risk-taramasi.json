@@ -15,12 +15,12 @@
                                   "R7":  2,
                                   "R8":  73,
                                   "R8y":  175,
-                                  "R9":  405
+                                  "R9":  419
                               },
-                 "oncelik1":  493,
-                 "oncelik2":  756,
-                 "oncelik3":  1174,
-                 "isaretsiz":  1446,
+                 "oncelik1":  507,
+                 "oncelik2":  754,
+                 "oncelik3":  1171,
+                 "isaretsiz":  1437,
                  "kalite_kor_parti":  0,
                  "taranmayan":  "sözel anlam/mantık hatası · yanlış madde no (ad doğru) · listede olmayan eski kural · karışık öncelikli işlem · ambar-yerel parti farkı"
              },
@@ -253,6 +253,17 @@
                                        "R9"
                                    ],
                       "neden":  "R1: vergi oranı || R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,B,C,D,E",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-fmuh-zor-r2/kp-28",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R1",
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R1: yıl + tutar || R9: KAPI-EK: EK9 teshis.A.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.B.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.C.gercek (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.C.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.D.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.E.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 dayanak (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 aciklama.C (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 aciklama.E (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.0 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.2 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.3 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.4 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.5 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı))",
                       "oncelik":  1
                   },
                   {
@@ -789,6 +800,15 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-ydenetim-kolay-r2/kp-08",
+                      "sayfa":  "muhasebe-denetimi",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-ANAHTAR siklar.sema_notu",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-ydenetim-kolay-r2/kp-20",
                       "sayfa":  "muhasebe-denetimi",
                       "siniflar":  [
@@ -1101,6 +1121,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-yfta-kolay-r6/kp-21",
+                      "sayfa":  "finansal-tablolar",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-EK: EK9 ikiz.tablo.satirlar.0.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 ikiz.tablo.satirlar.1.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 sade.kavramlar.0.kaynak (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 sade.kavramlar.1.kaynak (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.A.gercek (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.A.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.B.gercek (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.B.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.C.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.D.gercek (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.D.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.E.gercek (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.E.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 adimlar.1.anlatim (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 dayanak (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 aciklama.B (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 aciklama.D (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 konu_giris.desen (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 cozum_tablo.satirlar.0.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 cozum_tablo.satirlar.1.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.0 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.2 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.3 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.4 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.5 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı))",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-yfta-kolay-r6/kp-25",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
@@ -1200,7 +1230,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R1: yıl + tutar || R9: KAPI-AS2: aciklama kaymış: doğru şık C, çözüm metni (\"Ne soruluyor\") D altında",
+                      "neden":  "R1: yıl + tutar || R9: KAPI-AS2: aciklama kaymış: doğru şık C, çözüm metni (\"Ne soruluyor\") D altında · KAPI-BOS: BOS-ANAHTAR aciklama.D2 · KAPI-BOS: BOS-KALINTI aciklama.D2",
                       "oncelik":  1
                   },
                   {
@@ -1230,6 +1260,15 @@
                                        "R4"
                                    ],
                       "neden":  "R3: ad|TEORI - Asit-test (likidite) oranlari",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-yfta-zor-r5/kp-19",
+                      "sayfa":  "finansal-tablolar",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-EK: EK9 hap (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 sade.kavramlar.0.kaynak (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 sema.baslik (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 soru (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.A.gercek (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.A.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.B.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.C.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.D.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teshis.E.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 adimlar.1.formul (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 dayanak (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 aciklama.A (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 konu_giris.desen (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teori_ikiz.soru (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 teori_ikiz.gerekce (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.0 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.1 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.2 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.3 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.4 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 atif_genisletme.5 (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı))",
                       "oncelik":  1
                   },
                   {
@@ -1328,7 +1367,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,C",
+                      "neden":  "R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,C · KAPI-BOS: BOS-ANAHTAR aciklama.B2",
                       "oncelik":  1
                   },
                   {
@@ -1417,6 +1456,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-yhukuk-kolay-r7/kp-03",
+                      "sayfa":  "hukuk",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-ANAHTAR aciklama.ayrik_not",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-yhukuk-kolay-r7/kp-22",
                       "sayfa":  "hukuk",
                       "siniflar":  [
@@ -1502,6 +1551,15 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-4k-a-yhukuk-zor-r10/kp-05",
+                      "sayfa":  "hukuk",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-KALINTI teori_ikiz.siklar.D2",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-4k-a-yhukuk-zor-r9/kp-02",
                       "sayfa":  "hukuk",
                       "siniflar":  [
@@ -1517,6 +1575,15 @@
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,B,C,D,E",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-ymeslek-cokzor-r2/kp-01",
+                      "sayfa":  "meslek-hukuku",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-KALINTI hap",
                       "oncelik":  1
                   },
                   {
@@ -1716,6 +1783,15 @@
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-AS2: aciklama kaymış: doğru şık D, çözüm metni (\"Ne soruluyor\") A altında",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-4k-a-yspk-kolay-r2/kp-21",
+                      "sayfa":  "sermaye-piyasasi",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-ANAHTAR siklar.D2",
                       "oncelik":  1
                   },
                   {
@@ -2140,7 +2216,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,B · KAPI-AS2: aciklama şıklarda olmayan harf taşıyor: F",
+                      "neden":  "R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,B · KAPI-AS2: aciklama şıklarda olmayan harf taşıyor: F · KAPI-BOS: BOS-ANAHTAR aciklama.F",
                       "oncelik":  1
                   },
                   {
@@ -2319,6 +2395,15 @@
                                        "R9"
                                    ],
                       "neden":  "R8y: Y:celdirici_yol.C: beklenen 2026 yazan 2030 (%0.2) || R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,B",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-ab-b-hukuk/kp-02",
+                      "sayfa":  "hukuk",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-ANAHTAR siklar.dogru",
                       "oncelik":  1
                   },
                   {
@@ -3254,6 +3339,16 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-w14-11-yspk-cokzor/kp-01",
+                      "sayfa":  "sermaye-piyasasi",
+                      "siniflar":  [
+                                       "R1",
+                                       "R9"
+                                   ],
+                      "neden":  "R1: yıl + tutar || R9: KAPI-EK: EK11 hap (Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti) · KAPI-EK: EK11 teshis.B.ayirt (Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti) · KAPI-EK: EK11 teshis.B.gercek (Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti) · KAPI-EK: EK11 teshis.C.ayirt (Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti) · KAPI-EK: EK11 konu_giris.terimler.2.ad (Faiz/temettü ödemesinin işletme faaliyetinde sınıflandırılabileceği (seçimlik) anlatımı — TMS 7 p.33A/34A (TFRS 18 sonrası) ödenen faiz ve temettü finansman faaliyeti)",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-w14-12-yhukuk-zor/kp-02",
                       "sayfa":  "hukuk",
                       "siniflar":  [
@@ -3806,6 +3901,15 @@
                       "oncelik":  1
                   },
                   {
+                      "anahtar":  "smmm-w3-fmuh-zor/kp-19",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-EK: EK9 teshis.B.paragraf (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı))",
+                      "oncelik":  1
+                  },
+                  {
                       "anahtar":  "smmm-w3-fmuh-zor/kp-20",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -3813,6 +3917,15 @@
                                        "R9"
                                    ],
                       "neden":  "R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,D",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-w3-fmuh-zor/kp-22",
+                      "sayfa":  "finansal-muhasebe",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-KALINTI teshis.B",
                       "oncelik":  1
                   },
                   {
@@ -3975,6 +4088,16 @@
                                        "R8"
                                    ],
                       "neden":  "R8: adimlar[4].formul: beklenen -59 yazan 0.4 (%100.68) | celdirici_yol.C: beklenen -141600000 yazan 960000 (%100.68)",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-w3-yfta-cokzor/kp-16",
+                      "sayfa":  "finansal-tablolar",
+                      "siniflar":  [
+                                       "R4",
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-EK: EK9 konu (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı)) · KAPI-EK: EK9 konu_sapma_isareti (TMS 1 atfı (TFRS 18 p.C8 ile yürürlükten kalkıyor; hükümler TFRS 18 ve TMS 8 p.6A–6N\u0027ye taşındı))",
                       "oncelik":  1
                   },
                   {
@@ -4493,7 +4616,7 @@
                                        "R4",
                                        "R9"
                                    ],
-                      "neden":  "R1: vergi oranı || R9: KAPI-EK: EK1 celdirici_yol.B (KDV genel oranı %18 (güncel %20))",
+                      "neden":  "R1: vergi oranı || R9: KAPI-EK: EK1 celdirici_yol.B (KDV genel oranı %18 (güncel %20)) · KAPI-BOS: BOS-ANAHTAR aciklama.F_yer_tutucu · KAPI-BOS: BOS-ANAHTAR dummy",
                       "oncelik":  1
                   },
                   {
@@ -4613,7 +4736,7 @@
                       "siniflar":  [
                                        "R9"
                                    ],
-                      "neden":  "R9: KAPI-AS2: aciklama şıklarda olmayan harf taşıyor: F",
+                      "neden":  "R9: KAPI-AS2: aciklama şıklarda olmayan harf taşıyor: F · KAPI-BOS: BOS-ANAHTAR aciklama.F",
                       "oncelik":  1
                   },
                   {
@@ -4759,6 +4882,15 @@
                                        "R9"
                                    ],
                       "neden":  "R1: yıl + tutar || R8y: Y:celdirici_yol.A: beklenen 0.3586 yazan 35.86 (%9899.06) | Y:celdirici_yol.C: beklenen 0.4312 yazan 43.11 (%9897.44) | Y:celdirici_yol.D: beklenen 0.4846 yazan 48.46 (%9899.4) | Y:celdirici_yol.E: beklenen 0.6222 yazan 62.22 (%9899.86) || R9: KAPI-AS2: çözüm kalıbı (\"Ne soruluyor:\") birden çok şıkta: A,B",
+                      "oncelik":  1
+                  },
+                  {
+                      "anahtar":  "smmm-w9-1-yhukuk-cokzor/kp-02",
+                      "sayfa":  "hukuk",
+                      "siniflar":  [
+                                       "R9"
+                                   ],
+                      "neden":  "R9: KAPI-BOS: BOS-ANAHTAR siklar.cozum_tablo_placeholder",
                       "oncelik":  1
                   },
                   {
@@ -5364,16 +5496,6 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-fmuh-zor-r2/kp-19",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1",
-                                       "R4"
-                                   ],
-                      "neden":  "R1: yıl + tutar",
-                      "oncelik":  2
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-fmuh-zor-r2/kp-28",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
                                        "R1",
@@ -10108,15 +10230,6 @@
                   {
                       "anahtar":  "smmm-w14-11-fmuh-zor/kp-04",
                       "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-                                       "R1"
-                                   ],
-                      "neden":  "R1: yıl + tutar",
-                      "oncelik":  2
-                  },
-                  {
-                      "anahtar":  "smmm-w14-11-yspk-cokzor/kp-01",
-                      "sayfa":  "sermaye-piyasasi",
                       "siniflar":  [
                                        "R1"
                                    ],
@@ -15254,15 +15367,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-4k-a-yfta-kolay-r6/kp-21",
-                      "sayfa":  "finansal-tablolar",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-yfta-kolay-r7/kp-01",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
@@ -16112,15 +16216,6 @@
                                        "R8y"
                                    ],
                       "neden":  "R8y: Y:celdirici_yol.A: beklenen 200000 yazan 2000 (%99)",
-                      "oncelik":  3
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-yhukuk-kolay-r7/kp-03",
-                      "sayfa":  "hukuk",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
                       "oncelik":  3
                   },
                   {
@@ -20965,15 +21060,6 @@
                       "oncelik":  3
                   },
                   {
-                      "anahtar":  "smmm-w3-yfta-cokzor/kp-16",
-                      "sayfa":  "finansal-tablolar",
-                      "siniflar":  [
-                                       "R4"
-                                   ],
-                      "neden":  "",
-                      "oncelik":  3
-                  },
-                  {
                       "anahtar":  "smmm-w3-yfta-kolay/kp-12",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
@@ -24140,15 +24226,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-4k-a-ydenetim-kolay-r2/kp-08",
-                      "sayfa":  "muhasebe-denetimi",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-ydenetim-kolay-r2/kp-09",
                       "sayfa":  "muhasebe-denetimi",
                       "siniflar":  [
@@ -25967,15 +26044,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-4k-a-yfta-zor-r5/kp-19",
-                      "sayfa":  "finansal-tablolar",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-yfta-zor-r6/kp-06",
                       "sayfa":  "finansal-tablolar",
                       "siniflar":  [
@@ -26894,15 +26962,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-4k-a-yhukuk-zor-r10/kp-05",
-                      "sayfa":  "hukuk",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-yhukuk-zor-r10/kp-08",
                       "sayfa":  "hukuk",
                       "siniflar":  [
@@ -27381,15 +27440,6 @@
                   },
                   {
                       "anahtar":  "smmm-4k-a-ymeslek-cokzor-r10/kp-01",
-                      "sayfa":  "meslek-hukuku",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
-                      "anahtar":  "smmm-4k-a-ymeslek-cokzor-r2/kp-01",
                       "sayfa":  "meslek-hukuku",
                       "siniflar":  [
 
@@ -29171,15 +29221,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-4k-a-yspk-kolay-r2/kp-21",
-                      "sayfa":  "sermaye-piyasasi",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-4k-a-yspk-kolay-r2/kp-23",
                       "sayfa":  "sermaye-piyasasi",
                       "siniflar":  [
@@ -30252,15 +30293,6 @@
                   },
                   {
                       "anahtar":  "smmm-ab-a-hukuk/kp-18",
-                      "sayfa":  "hukuk",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
-                      "anahtar":  "smmm-ab-b-hukuk/kp-02",
                       "sayfa":  "hukuk",
                       "siniflar":  [
 
@@ -34076,24 +34108,6 @@
                       "oncelik":  4
                   },
                   {
-                      "anahtar":  "smmm-w3-fmuh-zor/kp-19",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
-                      "anahtar":  "smmm-w3-fmuh-zor/kp-22",
-                      "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
                       "anahtar":  "smmm-w3-fmuh-zor/kp-26",
                       "sayfa":  "finansal-muhasebe",
                       "siniflar":  [
@@ -35761,15 +35775,6 @@
                   {
                       "anahtar":  "smmm-w9-1-fmuh-kolay/kp-07",
                       "sayfa":  "finansal-muhasebe",
-                      "siniflar":  [
-
-                                   ],
-                      "neden":  "",
-                      "oncelik":  4
-                  },
-                  {
-                      "anahtar":  "smmm-w9-1-yhukuk-cokzor/kp-02",
-                      "sayfa":  "hukuk",
                       "siniflar":  [
 
                                    ],
