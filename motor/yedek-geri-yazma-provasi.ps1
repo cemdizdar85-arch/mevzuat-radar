@@ -25,15 +25,17 @@
 ================================================================================
 #>
 param(
-  [Parameter(Mandatory=$true)][string]$Dokum,
+  [string]$Dokum = '',
   [string]$Hedef = 'prova_geri_yukle',
   [string]$Anahtar = 'id',
   [int]$PartiMB = 4,
-  [switch]$SadeceDogrula          # yazmadan, dolu prova tablosunu dökümle kıyasla
+  [switch]$SadeceDogrula,         # yazmadan, dolu prova tablosunu dökümle kıyasla
+  [switch]$Bosalt,                # aylık robot: yazmadan ÖNCE ve kıyastan SONRA prova tablosunu boşalt
+  [switch]$YalnizBosalt           # robot düşerse son adım: yalnız boşalt, çık
 )
 $ErrorActionPreference = 'Stop'
 if($Hedef -notlike 'prova_*'){ throw "Hedef '$Hedef' prova_ ile baslamiyor - canli tabloya yazilmaz." }
-if(-not (Test-Path $Dokum)){ throw "dokum yok: $Dokum" }
+if(-not $YalnizBosalt -and -not (Test-Path $Dokum)){ throw "dokum yok: $Dokum" }
 
 $PROVA_ANAHTAR = "$($env:SUPABASE_SERVICE_KEY)".Trim()
 if(-not $PROVA_ANAHTAR){ $PROVA_ANAHTAR = "$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
@@ -52,6 +54,13 @@ function ProvaSay {
 $utf8 = New-Object Text.UTF8Encoding $false
 $gonderilen = 0; $parti = 0; $yazmaSn = 0
 if(-not $SadeceDogrula){
+function ProvaBosalt {
+  # ⛔ Yalnız prova_ tablosu (yukarıda denetlendi). DELETE filtresiz reddedilir → anahtar NOT NULL filtresi.
+  $b = $PROVA_BASLIK.Clone(); $b['Prefer'] = 'return=minimal'
+  Invoke-WebRequest -UseBasicParsing -Method Delete -Uri "$PROVA_TABAN/${Hedef}?$Anahtar=not.is.null" -Headers $b -TimeoutSec 600 | Out-Null
+}
+if($YalnizBosalt){ ProvaBosalt; Write-Host ("prova tablosu bosaltildi: {0} satir kaldi" -f (ProvaSay)); return }
+if($Bosalt){ ProvaBosalt }
 $onceki = ProvaSay
 if($onceki -ne 0){ throw "prova tablosu bos degil ($onceki satir) - once bosalt ya da yeniden ac." }
 
@@ -140,4 +149,5 @@ while($true){
 Write-Host ("ICERIK: alan alan farkli satir {0:N0} / {1:N0}" -f $farkliSatir, $dokumSatir.Count)
 foreach($a in ($alanFark.GetEnumerator() | Sort-Object Value -Descending)){ Write-Host ("   farkli alan {0,-24} {1,7:N0} satir" -f $a.Key, $a.Value) -ForegroundColor Yellow }
 if($farkliSatir){ throw "GERI YAZMA PROVASI DUSTU: $farkliSatir satirin icerigi yedektekiyle ayni degil." }
-Write-Host "✓ geri yazma TAM. Prova tablosunu SQL dosyasindaki DROP satiriyla kaldir." -ForegroundColor Green
+if($Bosalt){ ProvaBosalt; Write-Host ("prova tablosu bosaltildi: {0} satir kaldi" -f (ProvaSay)) }
+Write-Host ("✓ geri yazma TAM · {0:N0} satir · yazma {1} sn" -f $dokumAnahtar.Count, $yazmaSn) -ForegroundColor Green

@@ -43,8 +43,10 @@
 param(
   [string]$Kok = '',                 # cikti klasoru (bos = $env:YEDEK_KOK ya da _yedek)
   [string[]]$Tablolar = @(),         # bos = secilen kumenin tamami
-  [ValidateSet('Bulut','Kisi')][string]$Kume = 'Bulut',
-  [int]$SaklaGun = 0                 # >0: $Kok'ta bu kadar gunden eski soru-ambar-* dosyalari silinir (yalniz yerel gorev)
+  [ValidateSet('Bulut','Kisi','Marka')][string]$Kume = 'Bulut',
+  [int]$SaklaGun = 0,                # >0: $Kok'ta bu kadar gunden eski soru-ambar-* dosyalari silinir (yalniz yerel gorev)
+  [switch]$Gzip,                     # dogrudan .ndjson.gz yazar (marka_bulten ~7 GB duz; runner diskine sigmaz)
+  [int]$DenemeSayfa = 0              # >0: tablo basina en fazla bu kadar sayfa (yalniz yerel deneme; kunye EKSIK der)
 )
 $ErrorActionPreference='Stop'
 $buDizin=$(if($PSScriptRoot){ $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -137,6 +139,14 @@ $KISI=[ordered]@{
   'destek_takip'         = @{ pk='id';      sayfa=1000 }
   'destek_uyari'         = @{ pk='id';      sayfa=1000 }
 }
+# 30.09 (Cem "1.2.3"): marka_bulten AYLIK ayri akista (.github/workflows/marka-bulten-yedek.yml).
+#   1.727.332 satir, 1000 satir = 4.158 KB olculdu. Bilesik anahtar (basvuru_no, bulten_no) ->
+#   IKI ALANLI IMLEC: or=(a.gt.X,and(a.eq.X,b.gt.Y)). Offset bu boyda 500/57014 verir (08.09).
+#   Kisi verisi DEGIL: TURKPATENT bulteninde yayimlanmis kamuya acik kayit.
+$MARKA=[ordered]@{
+  'marka_bulten' = @{ imlec2=@('basvuru_no','bulten_no'); sayfa=1000 }
+}
+if($Kume -eq 'Marka'){ $VARSAYILAN=$MARKA }
 if($Kume -eq 'Kisi'){
   if("$env:GITHUB_ACTIONS" -eq 'true'){ throw 'KISI VERISI Actions''ta yedeklenmez (CLAUDE.md bulut guvenligi m.4).' }
   $VARSAYILAN=$KISI
@@ -168,23 +178,41 @@ foreach($tablo in $VARSAYILAN.Keys){
   # Bilesik anahtarli kucuk tablolar (tek alanli imlec YOK): sabit sirayla OFFSET.
   # Offset 15.000'de 500 veriyordu (08.09) -> bu yol yalniz kucuk tablo icin; buyurse DUSER.
   $ofsetSira="$($ayar.sira)"
+  $iki=@($ayar.imlec2 | Where-Object { $_ })
   $beklenen=SatirSayisi $tablo
-  $hedef=Join-Path $Kok ("soru-ambar-$damga-$tablo.ndjson")
+  $hedef=Join-Path $Kok ("soru-ambar-$damga-$tablo.ndjson" + $(if($Gzip){'.gz'}else{''}))
   Write-Host ("{0,-14} bekleniyor {1,7:N0} satir -> {2}" -f $tablo,$beklenen,(Split-Path $hedef -Leaf)) -ForegroundColor Cyan
   if($ofsetSira -and $beklenen -gt 10000){ throw "$tablo offset yoluyla alinamayacak kadar buyudu ($beklenen satir) - tek alanli imlec tanimla." }
 
   # ⚠ StreamWriter: 200 MB'lik tablo bellege TOPLANMAZ, satir satir akitilir.
-  $yazici=New-Object System.IO.StreamWriter($hedef,$false,(New-Object Text.UTF8Encoding $false))
-  $sayac=0; $imlec=$null; $sayfa=0
+  if($Gzip){
+    $gzDosya=[IO.File]::Create($hedef)
+    $gzAkis=New-Object System.IO.Compression.GZipStream($gzDosya,[IO.Compression.CompressionLevel]::Optimal)
+    $yazici=New-Object System.IO.StreamWriter($gzAkis,(New-Object Text.UTF8Encoding $false))
+  } else {
+    $yazici=New-Object System.IO.StreamWriter($hedef,$false,(New-Object Text.UTF8Encoding $false))
+  }
+  $sayac=0; $imlec=$null; $imlec2=$null; $sayfa=0
+  # Sayfa adresi uc yoldan biri: sabit sirali OFFSET (kucuk bilesik) · IKI ALANLI imlec · tek alanli imlec.
+  function SayfaAdresi([int]$boy){
+    if($ofsetSira){ return $AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$ofsetSira+'&limit='+$boy+'&offset='+$sayac }
+    if($iki.Count -eq 2){
+      $a=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$iki[0]+'.asc,'+$iki[1]+'.asc&limit='+$boy
+      if($imlec -ne $null){
+        # Deger cift tirnakla: basvuru_no '2024/012345' gibi; tirnak/ters bolu kacirilir.
+        $v1='"'+("$imlec" -replace '\\','\\' -replace '"','\"')+'"'; $v2='"'+("$imlec2" -replace '\\','\\' -replace '"','\"')+'"'
+        $a+='&or='+[uri]::EscapeDataString("($($iki[0]).gt.$v1,and($($iki[0]).eq.$v1,$($iki[1]).gt.$v2))")
+      }
+      return $a
+    }
+    $a=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$boy
+    if($imlec -ne $null){ $a+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
+    return $a
+  }
   try{
     $buSayfa=$sayfaBoyu
     while($true){
-      if($ofsetSira){
-        $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$ofsetSira+'&limit='+$buSayfa+'&offset='+$sayac
-      } else {
-        $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
-        if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
-      }
+      $adres=SayfaAdresi $buSayfa
       $cevap=$null
       foreach($deneme in 1..4){
         try{ $cevap=Invoke-RestMethod -Uri $adres -Headers $AMBAR_BASLIK -TimeoutSec 300; break }
@@ -196,12 +224,7 @@ foreach($tablo in $VARSAYILAN.Keys){
           #    sabit degil uyarlanir yapildi.
           if($buSayfa -gt 1){
             $buSayfa=[Math]::Max(1,[int]($buSayfa/4))
-            if($ofsetSira){
-              $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$ofsetSira+'&limit='+$buSayfa+'&offset='+$sayac
-            } else {
-              $adres=$AMBAR_TABAN+'/'+$tablo+'?select=*&order='+$imlecAlan+'.asc&limit='+$buSayfa
-              if($imlec -ne $null){ $adres+='&'+$imlecAlan+'=gt.'+[uri]::EscapeDataString("$imlec") }
-            }
+            $adres=SayfaAdresi $buSayfa
             Write-Host ("   ! sayfa kuculttu -> limit=$buSayfa") -ForegroundColor Yellow
           }
           Start-Sleep -Seconds (3*$deneme)
@@ -213,9 +236,11 @@ foreach($tablo in $VARSAYILAN.Keys){
         $yazici.WriteLine(($satir|ConvertTo-Json -Depth 20 -Compress))
         $sayac++
       }
-      if(-not $ofsetSira){ $imlec=$satirlar[-1].$imlecAlan }
+      if($iki.Count -eq 2){ $imlec=$satirlar[-1].($iki[0]); $imlec2=$satirlar[-1].($iki[1]) }
+      elseif(-not $ofsetSira){ $imlec=$satirlar[-1].$imlecAlan }
       $sayfa++
       if($satirlar.Count -lt $buSayfa){ break }
+      if($DenemeSayfa -gt 0 -and $sayfa -ge $DenemeSayfa){ break }
       if($sayfa % 10 -eq 0){ Write-Host ("   ... {0:N0}" -f $sayac) -ForegroundColor DarkGray }
     }
   } finally { $yazici.Close(); $yazici.Dispose() }

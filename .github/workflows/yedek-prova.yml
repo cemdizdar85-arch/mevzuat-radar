@@ -1,0 +1,110 @@
+# .github/workflows/yedek-prova.yml — AYLIK YEDEK PROVASI (indir → coz → geri yaz → kiyasla)
+#
+# 30.09.2026 (Cem "1.2.3"): ayni gun elle yapilan prova robota cevrildi. "Yedek var"
+# ile "geri donebiliriz" ayni sey degil; bu akis ikincisini ayda bir OLCER.
+#
+#   1) En son soru-ambar-yedek-N artifact'ini indirir.
+#   2) ALACAK_YEDEK_KEY ile cozer; motor/soru-ambar-yedek-coz.ps1 her tabloyu kunyeyle sayar.
+#   3) soru_havuzu dokumunu KALICI ve BOS duran prova_geri_yukle tablosuna yazar
+#      (radar-app/sql/2026-09-30-yedek-geri-yazma-provasi.sql; RLS acik, anon 401),
+#      anahtar kumesini ve ALAN ALAN icerigi kiyaslar, tabloyu yeniden bosaltir.
+#   4) Sonucu Cem'e mail atar (her kosuda).
+#
+# ⛔ Gunluge soru metni BASILMAZ: betikler yalniz sayi, sure ve farkli ALAN ADI yazar.
+# ⛔ Cozulmus dosya artifact'e konmaz, is sonunda silinir.
+# 🚫 GORMEZ: dokumanlar/ihale_sonuc gibi diger tablolarin geri yazma suresi (yalniz sayilari) ·
+#    auth.users · kisi verisi tablolari (yerel yedekte) · soru_havuzu'na yeni sutun eklenince
+#    prova tablosu eskir → yazma DUSER (bu bilerek: sema kaymasi da bir geri donus riskidir).
+name: Yedek Provasi (aylik)
+
+on:
+  schedule:
+    - cron: "11 2 3 * *"      # her ayin 3'u 05:11 TR
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: yedek-prova
+  cancel-in-progress: false
+
+env:
+  RESEND_KEY: ${{ secrets.RESEND_KEY }}
+  RESEND_FROM: ${{ secrets.RESEND_FROM }}
+
+jobs:
+  prova:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: En son soru ambari yedegini indir
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $H = @{ Authorization = "Bearer $env:GITHUB_TOKEN"; Accept = 'application/vnd.github+json'; 'User-Agent' = 'MevzuatRadar-YedekProva' }
+          $hep = @()
+          foreach ($s in 1..5) {
+            $r = Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/actions/artifacts?per_page=100&page=$s" -Headers $H
+            $hep += @($r.artifacts); if (@($r.artifacts).Count -lt 100) { break }
+          }
+          $a = $hep | Where-Object { -not $_.expired -and $_.name -like 'soru-ambar-yedek-*' } | Sort-Object created_at -Descending | Select-Object -First 1
+          if (-not $a) { Write-Host '::error title=yedek prova::soru-ambar-yedek artifact yok'; exit 1 }
+          $yas = ((Get-Date).ToUniversalTime() - [datetime]$a.created_at).TotalHours
+          Write-Host ("::notice title=yedek prova::{0} ({1:N0} MB, {2:N0} saat once)" -f $a.name, ($a.size_in_bytes/1MB), $yas)
+          if ($yas -gt 48) { Write-Host "::warning title=yedek prova::en yeni yedek $([math]::Round($yas)) saatlik - gunluk yedek aksiyor olabilir" }
+          $t0 = Get-Date
+          Invoke-WebRequest -Uri $a.archive_download_url -Headers $H -OutFile yedek.zip
+          Expand-Archive yedek.zip -DestinationPath _prova -Force
+          Remove-Item yedek.zip
+          Write-Host ("::notice title=yedek prova::indirme {0:N0} sn" -f ((Get-Date)-$t0).TotalSeconds)
+
+      - name: Coz ve kunyeyle say
+        shell: pwsh
+        env:
+          ALACAK_YEDEK_KEY: ${{ secrets.ALACAK_YEDEK_KEY }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not "$env:ALACAK_YEDEK_KEY") { throw 'ALACAK_YEDEK_KEY secret yok' }
+          $k = '/tmp/ozel.key'
+          [IO.File]::WriteAllText($k, "$env:ALACAK_YEDEK_KEY`n"); chmod 600 $k
+          try {
+            $t0 = Get-Date
+            ./motor/soru-ambar-yedek-coz.ps1 -Klasor _prova -Anahtar $k -Hedef _prova/_cozuldu
+            Write-Host ("::notice title=yedek prova::cozme + kunye sayimi TAM ({0:N0} sn)" -f ((Get-Date)-$t0).TotalSeconds)
+          } finally { Remove-Item $k -Force -ErrorAction SilentlyContinue }
+
+      - name: soru_havuzu'nu prova tablosuna geri yaz ve alan alan kiyasla
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $d = Get-ChildItem _prova/_cozuldu -Filter '*-soru_havuzu.ndjson' | Select-Object -First 1
+          if (-not $d) { throw 'soru_havuzu dokumu yok' }
+          $t0 = Get-Date
+          ./motor/yedek-geri-yazma-provasi.ps1 -Dokum $d.FullName -Bosalt
+          Write-Host ("::notice title=yedek prova::geri yazma + icerik kiyasi TAM ({0:N0} sn toplam)" -f ((Get-Date)-$t0).TotalSeconds)
+
+      - name: Prova tablosunu bosalt (dusse bile)
+        if: always()
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./motor/yedek-geri-yazma-provasi.ps1 -YalnizBosalt
+
+      - name: Cozulmus dosyalari sil
+        if: always()
+        run: rm -rf _prova yedek.zip
+
+      - name: Sonucu Cem'e mail
+        if: always()
+        shell: pwsh
+        run: |
+          $durum = "${{ job.status }}"
+          ./arac/alarm-maili.ps1 -Konu ("TETIKTE - aylik yedek provasi: {0}" -f $durum) -Mesaj "Aylik yedek provasi kostu: en son soru ambari yedegi indirildi, cozuldu, her tablo kunyeyle sayildi, soru_havuzu prova tablosuna geri yazilip alan alan kiyaslandi. Sonuc: $durum. Sureler ve sayilar kosu sayfasindaki notice satirlarinda: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

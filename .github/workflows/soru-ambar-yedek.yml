@@ -92,3 +92,12 @@ jobs:
           retention-days: 90
           if-no-files-found: error
           compression-level: 0   # zaten gzip'li; ikinci sikistirma bosa CPU
+      - name: B2 silinemez kopya (secret yoksa atlanir)
+        uses: ./.github/actions/b2-yukle
+        with:
+          klasor: _yedek
+          onek: soru-ambar
+          key_id: ${{ secrets.B2_KEY_ID }}
+          app_key: ${{ secrets.B2_APP_KEY }}
+          bucket: ${{ secrets.B2_BUCKET }}
+          endpoint: ${{ secrets.B2_ENDPOINT }}
