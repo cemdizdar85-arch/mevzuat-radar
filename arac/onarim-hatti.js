@@ -21,7 +21,11 @@
 // ============================================================================
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const KOK = path.resolve(__dirname, '..');
-const MODEL = ['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet'];
+// 30.09: aciklama_hakem (5. hakem, yeni üretim — CLAUDE.md SINAV kural 3) de model alanı. Hakem AÇIKLAMAYI okuduğu için her onarımda
+//   (açıklama yolu dahil) SİLİNİR → onarılan YENİ soru yeniden açıklama hakeminden geçene kadar seçilmez (SGS soru kontrolü oturumu 30.09).
+//   Yayındaki eski sorularda bu alan yok; onlar etkilenmez.
+const MODEL = ['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'aciklama_hakem'];
+const HER_ONARIMDA_SIL = ['aciklama_hakem'];
 let RET = path.join(KOK, 'veri', 'sinav', 'sgs-elle-ret.json');
 // 30.09 (Cem "SMMM taslaklarını sen uygula"): teslim etiket önekinden sınavı bulur. Hepsi smmm- → SMMM elle ret listesi
 //   (arac/smmm-kasa-yayin.ps1 okur); karışık klasör DURUR. sgs- için davranış aynı. parti-senkron sınavı etiketten zaten ayırıyor.
@@ -56,7 +60,7 @@ function karar(eski, tam, bey) {
   const kritik = tam.soru !== eski.soru || tam.dogru !== eski.dogru || !esit(tam.siklar, eski.siklar) || !!(bey && bey.kok_degisti);
   const yeni = JSON.parse(JSON.stringify(tam));
   if (kritik) { for (const m of MODEL) delete yeni[m]; return { durum: 'rehakem', yeni }; }
-  for (const m of MODEL) { if (eski[m] !== undefined) yeni[m] = eski[m]; else delete yeni[m]; }
+  for (const m of MODEL) { if (eski[m] !== undefined && !HER_ONARIMDA_SIL.includes(m)) yeni[m] = eski[m]; else delete yeni[m]; }
   return { durum: 'aciklama', yeni };
 }
 
@@ -154,6 +158,7 @@ function sinav() {
   const e = { soru: 'Kök', dogru: 'B', siklar: { A: '1', B: '2' }, aciklama: { A: 'a', B: 'b' }, hakem: { karar: 'EVET' } };
   const V = [
     ['yalnız açıklama → hakem korunur', karar(e, { ...e, aciklama: { A: 'a2', B: 'b' }, hakem: undefined }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.hakem && r.yeni.hakem.karar === 'EVET'],
+    ['yalnız açıklama → aciklama_hakem SİLİNİR (hakem korunur)', karar({ ...e, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && !r.yeni.aciklama_hakem && r.yeni.hakem && r.yeni.hakem.karar === 'EVET'],
     ['anahtar değişti → hakem silinir', karar(e, { ...e, dogru: 'A' }, { degisen_alanlar: ['dogru'] }), r => r.durum === 'rehakem' && !r.yeni.hakem],
     ['şık değişti → yeniden hakem', karar(e, { ...e, siklar: { A: '3', B: '2' } }, { degisen_alanlar: ['siklar.A'] }), r => r.durum === 'rehakem'],
     ['beyansız fark → red', karar(e, { ...e, aciklama: { A: 'a', B: 'b2' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /izinsiz/.test(r.neden)],

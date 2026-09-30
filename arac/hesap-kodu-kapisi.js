@@ -17,7 +17,7 @@
 const fs = require('fs'), path = require('path');
 const KOK = path.resolve(__dirname, '..');
 const LISTE = path.join(KOK, 'veri', 'sinav', 'thp-hesap-kodlari.json');
-const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer']);
+const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer', 'aciklama_hakem']);
 
 const katla = s => String(s || '').toLocaleLowerCase('tr').replace(/ı/g, 'i').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 const DOLGU = new Set(['hesabi', 'hesap', 've', 'ile', 'veya', 'diger', 'ler', 'lar', 'mdv', 'm', 'd', 'v']);

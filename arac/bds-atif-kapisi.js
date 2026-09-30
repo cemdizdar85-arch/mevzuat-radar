@@ -17,7 +17,7 @@
 const fs = require('fs'), path = require('path');
 const KOK = path.resolve(__dirname, '..');
 const LISTE = path.join(KOK, 'veri', 'sinav', 'bds-paragraf-basliklari.json');
-const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer']);
+const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer', 'aciklama_hakem']);
 // Başlıkta konu taşımayan kökler (her BDS'de geçer) — konu anahtarından çıkarılır
 const GENEL = new Set(['denet', 'kanit', 'prose', 'bilgi', 'genel', 'ilisk', 'uygul', 'gerek', 'bagim', 'hakki', 'kapsa', 'yurur', 'giris', 'tanim', 'amac', 'amaci', 'parag', 'nolu', 'bkz']);
 
