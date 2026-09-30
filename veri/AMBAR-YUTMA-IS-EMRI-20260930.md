@@ -32,6 +32,8 @@ Aşağıdaki eksikler iki yoldan zarar veriyor:
 | 9 | **TFRS 1 p.10** | 60 karakterlik başlık artığı (p.40'ın başlığı), yanlış numaralı çöp kayıt | bölme hatası |
 | 10 | **TMS 7 p.33 / p.34** | ~~BELİRSİZ~~ **KARAR (Cem 30.09): YENİ SÜRÜM ESAS** — ambar TFRS 18 sonrası metni taşıyor (33A, 34A–34D + "Silinmiştir"); ambar DOĞRU, eski sürüme çekilmez. İş: soru bankası yeni sürüme hizalanır | KAPANDI (ambar) — soru hizalaması SGS/SMMM/KGK oturumlarında |
 
+| 11 | **TMS 1 (158 kayıt)** | TFRS 18 p.C8 TMS 1'i yürürlükten kaldırıyor (p.C1: 1.1.2027 ve sonrası dönemler). Ambarda 158 TMS 1 kaydı künyesiz ve "yürürlükten kalkıyor" işaretsiz duruyor; öbür standartlar TFRS 18'e göre güncel. **Cem 30.09: yeni sürüm esas** → üretim/paket bu kayıtları kaynak almamalı (işaret ya da ayrı sürüm etiketi). Soru tarafında KAPI-EK EK9 TMS 1 atfını durduruyor (2fb8a761). | yutma/etiketleme altyapı/KGK kolunda |
+
 Kök ortak: aktarım metin içindeki bir sayıyı ("Seviye 3", dipnot numarası) paragraf başı sanıp kaydı bölüyor. Tarayıcının bu kökte isabetli
 türleri K3 (çift başlık) + K4 (gömülü) — örneklemde 6/6; K1 (noktasız son) daraltma sonrası 1 gerçek / 3 yanlış; K5 (numara atlaması) 0/10.
 Tam aday listesi: `veri/sinav/kesik-paragraf-adaylari.json` (301 aday; ADAY, kusur değil).
