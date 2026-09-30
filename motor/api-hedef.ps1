@@ -772,7 +772,9 @@ function Get-BedelFiyat{
   # 16.09 (Cem tasarruf talimatı adım 1): fiyatlar platform.claude.com/docs/en/about-claude/pricing sayfasından OKUNDU (16.09.2026):
   #   Sonnet 5 girdi 2 / çıktı 10 · Opus 5 girdi 5 / çıktı 25 · Haiku 4.5 girdi 1 / çıktı 5 (USD, milyon jeton). Toplu istek %50, önbellek okuma 0,1× · 5 dk yazma 1,25×.
   #   Eski tablo Sonnet 3/15 ve Opus 15/75 idi; defterdeki 'BEDEL TOPLAM' ~1,4 kat şişik çıkıyordu (12.09-15.09 arası 41,48 USD yazmış, gerçeği 29,31 USD). Yalnız rapor rakamı; üretim davranışı değişmez.
-  $f = @{ 'claude-sonnet-5'=@(2,10); 'claude-opus-5'=@(5,25); 'claude-haiku-4-5-20251001'=@(1,5); 'claude-haiku-4-5'=@(1,5) }
+  # 30.09: Opus 5.5 4/20 · Sonnet 5.5 2/10 (claude-api başvurusu, 25.09 önbelleği). Eşleşme EN UZUN anahtarla (Get-BedelOzet):
+  #   eskiden 'claude-opus-5-5' hem 'claude-opus-5*' hem kendi anahtarına uyuyor, hashtable sırasına göre 5/25 ile yazılabiliyordu.
+  $f = @{ 'claude-sonnet-5'=@(2,10); 'claude-sonnet-5-5'=@(2,10); 'claude-opus-5'=@(5,25); 'claude-opus-5-5'=@(4,20); 'claude-haiku-4-5-20251001'=@(1,5); 'claude-haiku-4-5'=@(1,5) }
   $ez = Read-ApiEnv 'MEVZUAT_FIYAT_JSON'
   if($ez){ try{ $j = ConvertFrom-Json -InputObject $ez; foreach($p in $j.PSObject.Properties){ $f[$p.Name] = @([double]$p.Value[0],[double]$p.Value[1]) } }catch{} }
   return $f
@@ -780,7 +782,7 @@ function Get-BedelFiyat{
 function Get-BedelOzet{
   $f = Get-BedelFiyat; $satir = @(); $toplam = 0.0; $bilinmeyen = @()
   foreach($m in ($global:MEVZUAT_BEDEL.Keys | Sort-Object)){
-    $b = $global:MEVZUAT_BEDEL[$m]; $fy = $null; $mAd = ($m -replace '\|toplu$',''); foreach($k in $f.Keys){ if($mAd -like "$k*"){ $fy = $f[$k] } }
+    $b = $global:MEVZUAT_BEDEL[$m]; $fy = $null; $mAd = ($m -replace '\|toplu$',''); $kUz = -1; foreach($k in $f.Keys){ if($mAd -like "$k*" -and $k.Length -gt $kUz){ $fy = $f[$k]; $kUz = $k.Length } }
     $usd = $null
     $carpan = $(if($m -like '*|toplu'){ 0.5 } else { 1.0 })   # 08.09: toplu istek yarı fiyat (varsayım; konsoldan doğrulanır)
     if($fy){ $usd = $carpan * (($b.girdi/1e6)*$fy[0] + ($b.onOku/1e6)*$fy[0]*0.1 + ($b.onYaz/1e6)*$fy[0]*1.25 + ($b.cikti/1e6)*$fy[1]); $toplam += $usd } else { $bilinmeyen += $m }
