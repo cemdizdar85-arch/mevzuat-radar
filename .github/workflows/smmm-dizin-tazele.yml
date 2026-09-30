@@ -1,0 +1,57 @@
+# BITIRME DIZINI SAYI TAZELEME (0 USD) — kaydir/smmm/index.html   30.09.2026 (Cem "1.2.3")
+#
+# NIYE: dizin sayfasi (arac/smmm-kaydir-dizin.ps1) hicbir robota bagli degildi. 30.09 olculdu: sayfa 24.09'dan beri
+# "2729 soru" yaziyordu, kasada 3.869 vardi; sayfanin kendisi "Soru sayilari her yayinda tazelenir" diyordu.
+# NASIL: SMMM kasa yayini her bitince (+ her sabah guvenlik agi) kasadan ders ders sayar, sayfayi yeniden yazar.
+# Sayfa degismediyse commit yok. Betik kasa okunamazsa ya da bir ders 0/kabuksuzsa DURUR, sayfa yazilmaz (eski kalir).
+# Gunluge yalniz ders adi + sayi basilir, soru metni basilmaz (bulut guvenligi kurali 2).
+# 🚫 GORMEZ: sitedeki baska sayfalarin soru sayisi iddialari (arac/sayi-iddia-kapisi.js) · kasadaki sorunun ders
+#   sayfasinda gercekten acilip acilmadigi (yalniz paket_soru satiri sayilir).
+name: SMMM dizin sayi tazeleme (0 USD)
+
+on:
+  workflow_run:
+    workflows: ['SMMM Kasa Yayini (0 USD)']
+    types: [completed]
+  schedule:
+    - cron: '50 5 * * *'      # 08:50 TR - 07:20 kasa yayinindan sonra guvenlik agi
+  workflow_dispatch:
+
+concurrency:
+  group: smmm-dizin-tazele
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  dizin:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dizini kasadan yeniden yaz
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ErrorActionPreference = 'Continue'
+          & powershell -NoProfile -File ./arac/smmm-kaydir-dizin.ps1 -Yaz
+          if($LASTEXITCODE){ "::error::bitirme dizini yazilamadi ($LASTEXITCODE) - eski sayfa duruyor"; exit $LASTEXITCODE }
+
+      - name: Degistiyse depoya bas
+        shell: bash
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add kaydir/smmm/index.html
+          if git diff --staged --quiet; then
+            echo "sayi degismedi - commit yok."
+          else
+            git commit -m "Bitirme dizini soru sayisi kasadan tazelendi [veri-operasyonu]"
+            for i in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && exit 0 || sleep 10
+            done
+            echo "::error::push 5 denemede basarisiz"; exit 1
+          fi

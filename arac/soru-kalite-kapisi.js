@@ -6,7 +6,7 @@
 // Günlük PUBLIC: satırlar soru metni taşımaz, yalnız alan adı + kural kodu (+ KAPI-AS'ta şık sayıları).
 'use strict';
 const fs = require('fs');
-const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js');
+const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js');
 /* 30.09 ölçümü (onarımcılar 93 AS1 alarmını elle okudu): AS1 alarmlarının SGS'de %54'ü, SMMM'de %76'sı YANLIŞ → AS1 soru DURDURMAZ,
    "NOT-AS1" satırı olarak günlüğe düşer. DURDURANLAR: AS2 (açıklama kayması, yapısal) + EK (onarımda 101 soruda 4 yanlış alarm, hepsi
    bilerek konmuş "eski oran" çeldiricisi — arac/eski-kurallar.json haric'i genişletildi). */
@@ -14,6 +14,10 @@ function satirlar(k) {
   const c = [];
   AS.denetle(k).forEach(b => c.push(b.kod === 'AS2' ? 'KAPI-AS2: ' + b.not : 'NOT-AS1: ' + b.alan + ' ' + b.sik + ' şıkkı yerine ' + b.diger + ' şıkkının sayısını sonuç diye anlatıyor olabilir'));
   EK.denetle(k).forEach(b => c.push('KAPI-EK: ' + b.kod + ' ' + b.alan + ' (' + b.kural + ')'));
+  // 30.09 KAPI-HK (Cem "1.2.3, bu kural olsun her sınavda"): THP'de olmayan kod / kodun yanında yanlış hesap adı → DURDURUR.
+  //   Adsız "(hesap bağlamı)" bulgusu gürültülü (SGS bankasında 19 bulgunun bir kısmı tutar/gün) → yalnız NOT-HK.
+  //   Satır soru metni taşımaz: tür + kod + alan.
+  HK.kusurlar(k).forEach(b => c.push((b.tur === 'HK-YOK' && /hesap bağlamı/.test(b.ad) ? 'NOT-HK: ' : 'KAPI-HK: ') + b.tur + ' ' + b.kod + ' ' + b.alan));
   return c;
 }
 const a = process.argv.slice(2);

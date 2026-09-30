@@ -386,8 +386,25 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      (resmî kaynaktan elle onarım → yeniden hakem yalnız anahtar/kök değişince). Yanlış cevaplı / iki doğru şıklı soru onarılana kadar
      yayın dışı kalır (Cem onayı 30.09).
   🚫 GÖRMEZ: sözel açıklama kusuru · adım/ikiz içi hesap hatası · listede olmayan eski kural · kaynak paketindeki eski metnin kendisi
-  (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1`, `motor/vitrin-soru-sec.ps1` ve SMMM kasa yayını (`smmm-kasa-yayin`) bu kapıyı
-  çağırmıyor (30.09: SGS oturumu bu seçim yollarını bildirdi; SMMM yolu ölçülmedi).
+  (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1` ve `motor/vitrin-soru-sec.ps1` bu kapıyı çağırmıyor (30.09: SGS oturumu bu seçim
+  yollarını bildirdi). **Bitirme 30.09'dan beri bağlı:** `arac/smmm-yayin-sarti.ps1` `SmmmKaliteNeden` (aynı YENİ soru tanımı;
+  kasa yayını + kalip-kosucu + kaydir-coz bu şartı çağırır), öz-sınav `arac/smmm-kalite-bag-sinavi.ps1`.
+- ⛔⭐ **HER SINAVDA KALİTE TARAMASI — BASIMDAN ÖNCE VE YAYINDAN ÖNCE** (30.09.2026, Cem: *"bu kural olsun her sınavda bu kontrolleri
+  yapsın"*). SGS, yeterlilik ve KGK'nın **üçünde de** aynı kapılar koşar; bir sınavda koşmuyorsa o sınavın raporuna **"ölçülmedi"** yazılır.
+  1. **Otomatik (0 USD, yeni soru):** `arac/soru-kalite-kapisi.js` = KAPI-AS2 + KAPI-EK + **KAPI-HK** (`arac/hesap-kodu-kapisi.js`,
+     30.09: THP'de olmayan hesap kodu / kodun yanındaki adın THP adıyla uyuşmaması; THP listesi `veri/sinav/thp-hesap-kodlari.json`,
+     ambardan `--tazele`). Adsız "hesap bağlamı" bulgusu yalnız `NOT-HK` yazar, durdurmaz. KAPI-MM (mülga madde) ve KAPI-OM ayrı.
+  2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
+     `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js` · bitirme `arac/smmm-risk-tarama.ps1` (R1–R9, 30.09). Bulgu **çekilmez, onarım kuyruğuna gider**
+     (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
+  3. **Elle okuma örneklemi:** kapıların göremediği sözel kusur için her sınavda ≥150 soruluk örneklem okunur, kusur oranı rapora yazılır.
+  4. **Raporda üç sayı ayrı:** elle ret listesinde kaç · sitede hâlâ kaç · gerçekten onarılan kaç. "Düzeltiyoruz" denmez.
+  **Ölçüldü (30.09, KAPI-HK banka):** SGS 65 soru (HK-AD 55, HK-YOK 19; ertelenmiş vergi 281/291/438/480, 522/523 ihraç iskontoları,
+  252/100 ad hataları); elle yargılandı: 49 gerçek, 16 yanlış alarm (10'u yalnız NOT-HK). Onarım + yazım genişletmesi (başharfli
+  "252 Taşıtlar hesabı", "(252)", "Borç: 252 …" — SMMM oturumu ölçtü, ilk sürüm yalnız BÜYÜK harfli adı görüyordu) sonrası SGS 18.
+  ⚠ `--banka smmm` yalnız `vitrin-smmm-secim.json`'u (70 soru) okur; sitedeki bitirme kümesi kasadan yayınlanır, bu araçla
+  **ölçülmedi** (SMMM oturumunun R9 taraması AS2+EK+HK: 155 soru). KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap
+  (220 yerine 120) · "hesap" kelimesiz tek sayı · küçük harfle ve hesap bağlamı dışında yazılmış ad · ambarda olmayan 7/B'ye özgü kod.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.
