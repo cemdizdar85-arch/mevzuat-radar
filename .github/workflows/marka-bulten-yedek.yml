@@ -81,7 +81,7 @@ jobs:
           endpoint: ${{ secrets.B2_ENDPOINT }}
 
       - name: Dusunce Cem'e mail
-        if: failure()
+        if: failure() || cancelled()   # 30.09: 330 dk tavaninda IPTAL olan kosu failure() sayilmadi, mail gitmedi
         shell: pwsh
         run: |
-          ./arac/alarm-maili.ps1 -Konu "TETIKTE - marka bulteni aylik yedegi DUSTU" -Mesaj "Aylik marka_bulten yedegi basarisiz. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE - marka bulteni aylik yedegi DUSTU/IPTAL" -Mesaj "Aylik marka_bulten yedegi basarisiz. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
