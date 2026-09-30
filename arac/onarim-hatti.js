@@ -22,7 +22,15 @@
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const KOK = path.resolve(__dirname, '..');
 const MODEL = ['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet'];
-const RET = path.join(KOK, 'veri', 'sinav', 'sgs-elle-ret.json');
+let RET = path.join(KOK, 'veri', 'sinav', 'sgs-elle-ret.json');
+// 30.09 (Cem "SMMM taslaklarını sen uygula"): teslim etiket önekinden sınavı bulur. Hepsi smmm- → SMMM elle ret listesi
+//   (arac/smmm-kasa-yayin.ps1 okur); karışık klasör DURUR. sgs- için davranış aynı. parti-senkron sınavı etiketten zaten ayırıyor.
+function retSec(etiketler) {
+  const smmm = etiketler.filter(e => /^smmm-/.test(e)).length;
+  if (smmm && smmm !== etiketler.length) throw new Error('klasörde SGS ve SMMM etiketi karışık — ayrı klasörlerle teslim et');
+  RET = path.join(KOK, 'veri', 'sinav', smmm ? 'smmm-elle-ret.json' : 'sgs-elle-ret.json');
+  return smmm ? 'SMMM' : 'SGS';
+}
 
 const kan = v => Array.isArray(v) ? v.map(kan) : (v && typeof v === 'object') ? Object.keys(v).sort().reduce((o, k) => (o[k] = kan(v[k]), o), {}) : v;
 const esit = (a, b) => JSON.stringify(kan(a)) === JSON.stringify(kan(b));
@@ -80,7 +88,8 @@ function uygula(K, yaz, atla = new Set()) {
   return out;
 }
 const ps = (args, env) => cp.spawnSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', ...args], { cwd: KOK, encoding: 'utf8', env: { ...process.env, ...(env || {}) } });
-const anahtar = () => { const r = ps(['-Command', "[Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')"]); return (r.stdout || '').trim(); };
+// Anahtar: önce ortam (bulut işi GitHub Secret'ı buraya koyar), yoksa Windows kullanıcı değişkeni (yerel). Hiçbir yere yazdırılmaz.
+const anahtar = () => { if ((process.env.SUPABASE_SERVICE_KEY || '').trim()) return process.env.SUPABASE_SERVICE_KEY.trim(); if (process.platform !== 'win32') return ''; const r = ps(['-Command', "[Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User')"]); return (r.stdout || '').trim(); };
 async function ambarParti(e, K) {
   const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=icerik&etiket=eq.' + encodeURIComponent(e), { headers: { apikey: K, Authorization: 'Bearer ' + K, 'User-Agent': 'mevzuat-radar-robot/1.0' } });
   if (!r.ok) throw new Error('ambar ' + r.status); const row = (await r.json())[0] || {}; return typeof row.icerik === 'string' ? JSON.parse(row.icerik) : (row.icerik || {});
@@ -93,6 +102,7 @@ async function teslim(K) {
   const atla = new Set((kos.stdout || '').split(/\s+/).filter(Boolean));
   const kuru = uygula(K, false, atla);
   if (!kuru.etiketler.length) return console.log(`${path.basename(K)}: uygulanacak kayıt yok · atlanan ${kuru.atlanan.length} · red ${kuru.red.length}`);
+  const sinav = retSec(kuru.etiketler); console.log(`${path.basename(K)}: sınav ${sinav} · elle ret ${path.basename(RET)}`);
   const Y = path.join('C:\\TETIKTE-YEDEK',`onarim-${path.basename(K)}-${kuru.zaman.replace(/[:.]/g, '')}`); fs.mkdirSync(Y, { recursive: true });
   for (const e of kuru.etiketler) fs.copyFileSync(path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json'), path.join(Y, 'kalip-parti-' + e + '.json'));
   const u = uygula(K, true, atla);
