@@ -30,7 +30,7 @@ Aşağıdaki eksikler iki yoldan zarar veriyor:
 | 7 | **TMS 1 p.122 / p.125** | p.122 "(bakınız:" diye kopuk; devamı ve 123–124 "p.125" başlığı altında | bölme hatası |
 | 8 | **TFRS 8 p.25 / "p.1 - Ölçme"** | p.25 "bölüm kar veya" diye kopuk; devamı "p.1" kaydında, başına p.33'ten cümle yapışmış | bölme hatası |
 | 9 | **TFRS 1 p.10** | 60 karakterlik başlık artığı (p.40'ın başlığı), yanlış numaralı çöp kayıt | bölme hatası |
-| 10 | **TMS 7 p.33 / p.34** | BELİRSİZ: ambar TFRS 18 sonrası metni taşıyor (33A, 34A–34D + "Silinmiştir"); KGK 2026 Mavi Kitap 33/34'ü taşıyor | **sürüm kararı Cem'de** |
+| 10 | **TMS 7 p.33 / p.34** | ~~BELİRSİZ~~ **KARAR (Cem 30.09): YENİ SÜRÜM ESAS** — ambar TFRS 18 sonrası metni taşıyor (33A, 34A–34D + "Silinmiştir"); ambar DOĞRU, eski sürüme çekilmez. İş: soru bankası yeni sürüme hizalanır | KAPANDI (ambar) — soru hizalaması SGS/SMMM/KGK oturumlarında |
 
 Kök ortak: aktarım metin içindeki bir sayıyı ("Seviye 3", dipnot numarası) paragraf başı sanıp kaydı bölüyor. Tarayıcının bu kökte isabetli
 türleri K3 (çift başlık) + K4 (gömülü) — örneklemde 6/6; K1 (noktasız son) daraltma sonrası 1 gerçek / 3 yanlış; K5 (numara atlaması) 0/10.
