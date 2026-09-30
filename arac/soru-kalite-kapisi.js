@@ -6,7 +6,7 @@
 // Günlük PUBLIC: satırlar soru metni taşımaz, yalnız alan adı + kural kodu (+ KAPI-AS'ta şık sayıları).
 'use strict';
 const fs = require('fs');
-const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js');
+const AS = require('./aciklama-sayi-kapisi.js'), EK = require('./eski-kural-kapisi.js'), HK = require('./hesap-kodu-kapisi.js'), BP = require('./bds-atif-kapisi.js');
 /* 30.09 ölçümü (onarımcılar 93 AS1 alarmını elle okudu): AS1 alarmlarının SGS'de %54'ü, SMMM'de %76'sı YANLIŞ → AS1 soru DURDURMAZ,
    "NOT-AS1" satırı olarak günlüğe düşer. DURDURANLAR: AS2 (açıklama kayması, yapısal) + EK (onarımda 101 soruda 4 yanlış alarm, hepsi
    bilerek konmuş "eski oran" çeldiricisi — arac/eski-kurallar.json haric'i genişletildi). */
@@ -18,6 +18,9 @@ function satirlar(k) {
   //   Adsız "(hesap bağlamı)" bulgusu gürültülü (SGS bankasında 19 bulgunun bir kısmı tutar/gün) → yalnız NOT-HK.
   //   Satır soru metni taşımaz: tür + kod + alan.
   HK.kusurlar(k).forEach(b => c.push((b.tur === 'HK-YOK' && /hesap bağlamı/.test(b.ad) ? 'NOT-HK: ' : 'KAPI-HK: ') + b.tur + ' ' + b.kod + ' ' + b.alan));
+  // 30.09 KAPI-BP (Cem "1.2.3"): BDS paragraf atfı. BP-KONU/BP-YOK DURDURUR — 60 bulguluk resmî metin yargısında isabet 24/28 (%86);
+  //   BP-ZAYIF (atfedilen paragrafın gövdesi konuyu taşıyor) yalnız NOT-BP — aynı yargıda 30'un 23'ü yanlış alarmdı.
+  BP.kusurlar(k).forEach(b => { if (b.tur === 'BP-KOR') return; c.push((b.tur === 'BP-ZAYIF' ? 'NOT-BP: ' : 'KAPI-BP: ') + b.tur + ' BDS ' + b.std + ' ' + b.par + ' ' + b.alan); });
   return c;
 }
 const a = process.argv.slice(2);

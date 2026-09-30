@@ -394,6 +394,11 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   1. **Otomatik (0 USD, yeni soru):** `arac/soru-kalite-kapisi.js` = KAPI-AS2 + KAPI-EK + **KAPI-HK** (`arac/hesap-kodu-kapisi.js`,
      30.09: THP'de olmayan hesap kodu / kodun yanındaki adın THP adıyla uyuşmaması; THP listesi `veri/sinav/thp-hesap-kodlari.json`,
      ambardan `--tazele`). Adsız "hesap bağlamı" bulgusu yalnız `NOT-HK` yazar, durdurmaz. KAPI-MM (mülga madde) ve KAPI-OM ayrı.
+     + **KAPI-BP** (`arac/bds-atif-kapisi.js`, 30.09): BDS paragraf atfı güncel metinde yok (BP-YOK) ya da atıf cümlesi komşu
+     paragrafın konusunu anıp atfedileninkini anmıyor (BP-KONU; eski numaralama — BDS 500'de A25→A29 … A31→A35 kaydı). Liste
+     `veri/sinav/bds-paragraf-basliklari.json` (başlık + gövde KÖK kümesi, metin değil). Atfedilen paragrafın gövdesi konuyu
+     taşıyorsa `NOT-BP` (ZAYIF), durdurmaz. **Ölçüldü (60 bulgu resmî metinle yargılandı):** durduran katmanda 24/28 doğru (%86),
+     ZAYIF katmanda 30'un 23'ü yanlış alarm. SGS bankası 30.09: 129 bulgulu soru.
   2. **Banka taraması (0 USD, yayındaki soru):** her büyük basım dalgası bitince ve yayından önce banka taranır —
      `node arac/hesap-kodu-kapisi.js --banka <sgs|smmm|kgk>` + SGS `arac/sgs-risk-tarama.js` · bitirme `arac/smmm-risk-tarama.ps1` (R1–R9, 30.09). Bulgu **çekilmez, onarım kuyruğuna gider**
      (`arac/onarim-hatti.js`); yanlış cevaplı / iki doğru şıklı soru onarılana kadar yayın dışı.
