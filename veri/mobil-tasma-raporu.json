@@ -1,6 +1,6 @@
 {
-  "tarih": "2026-10-01 21:53:29",
-  "durum": "YESIL",
+  "tarih": "2026-10-01 22:32:33",
+  "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
     375,
@@ -10,9 +10,68 @@
   "olcum_toplam": 132,
   "olculen": 132,
   "KOR": 0,
-  "yeni_kusur_sayfa": 0,
-  "taban_borcu_sayfa": 14,
-  "yeni_kusur": [],
+  "yeni_kusur_sayfa": 4,
+  "taban_borcu_sayfa": 13,
+  "yeni_kusur": [
+    {
+      "sayfa": "durum.html@320",
+      "kayma": true,
+      "sw": 352,
+      "kesik": [
+        {
+          "oge": "table.dt",
+          "sag": 331,
+          "yazi": "Nöbet Durum Ne diyor Veri kapısı TEMİZ 1 dosya den"
+        },
+        {
+          "oge": "table.dt",
+          "sag": 352,
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 13 11 01"
+        }
+      ]
+    },
+    {
+      "sayfa": "elci-aydinlatma.html@320",
+      "kayma": true,
+      "sw": 358,
+      "kesik": [
+        {
+          "oge": "table.ea-tablo",
+          "sag": 358,
+          "yazi": "Veri Amaç Hukuki sebep Ad soyad, e-posta adresi, t"
+        }
+      ]
+    },
+    {
+      "sayfa": "toplu-gtip.html@320",
+      "kayma": true,
+      "sw": 486,
+      "kesik": [
+        {
+          "oge": "table",
+          "sag": 486,
+          "yazi": "A: GTİP KODU (ZORUNLU) B: MENŞE ÜLKE (BOŞ BIRAKILA"
+        },
+        {
+          "oge": "input#csvDosya",
+          "sag": 323,
+          "yazi": ""
+        }
+      ]
+    },
+    {
+      "sayfa": "ucretsiz-dene.html@320",
+      "kayma": true,
+      "sw": 362,
+      "kesik": [
+        {
+          "oge": "span",
+          "sag": 362,
+          "yazi": "Paketleri gör →Paketin varsa giriş yap"
+        }
+      ]
+    }
+  ],
   "taban_borcu": [
     {
       "sayfa": "alacak-radari.html@320",
@@ -213,17 +272,6 @@
     },
     {
       "sayfa": "toplu-gtip.html",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "table",
-          "sag": 486,
-          "yazi": "A: GTİP KODU (ZORUNLU) B: MENŞE ÜLKE (BOŞ BIRAKILA"
-        }
-      ]
-    },
-    {
-      "sayfa": "toplu-gtip.html@320",
       "kayma": true,
       "kesik": [
         {
