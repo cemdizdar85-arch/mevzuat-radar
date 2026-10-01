@@ -170,3 +170,12 @@ input[type=checkbox],input[type=radio]{
   /* 23.09 TEK TEMA: koyuda stil-acik.css kapanınca zemini hiçbir dosya vermiyordu (body şeffaf, tuval beyaz) ->
      seviye-testi / ogrenci koyuda beyaz zemine beyaz yazı (1,0). Tuval koyu paletin zemini. */
   html[data-theme="dark"]{background:var(--bg)}
+/* ---- TABAN YAZI TİPİ (02.10.2026) ------------------------------------------
+   Ölçüldü (66 sayfa, başsız Chrome): 10 sayfanın gövdesi ve h1'i "Times New Roman"a
+   düşüyordu (ogrenci, sorular, seviye-testi, sinav-gibi, ucretsiz-dene, elci, elci-programi,
+   elci-aydinlatma, durum, pano) — bu sayfalarda font-family hiç yoktu, tarayıcı varsayılanı
+   serif. :where() özgüllüğü 0: kendi yazı tipini tanımlayan sayfa (index vb.) ve stil-acik.css'in
+   serif başlık kuralı her zaman kazanır; yalnız TANIMSIZ sayfa tabana düşer. Form öğeleri
+   tarayıcı yazı tipini almasın diye kalıtır (giriş formu). */
+:where(body){font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}
+:where(button,input,select,textarea){font:inherit}
