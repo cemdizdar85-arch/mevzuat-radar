@@ -31,6 +31,12 @@ gerekçe commit mesajına yazılarak tazelenir.
 | 7 | KAPI-KALITE bitirme bağı | Öz-sınav 15/16: vaka "yeni soru ISO tarih (01.10 08:00) → DÜŞER" KIRMIZI | **sinav (SMMM)** | Tarih sınırı/saat dilimi şüphesi — ÖLÇÜLMEDİ |
 | 8 | Türkçe katlama | Riskli satır 174 → **316**; taban 31.08'den, 35 betikte artış (en büyük: `kalip-parti-uret.ps1` +81, `standart-yut.ps1` +19) | **altyapı** (betik sahipleriyle) | Her satır okunmalı: ASCII-sabit ise taban+gerekçe, değilse `Katla` |
 
+## Ek (02.10)
+- **Site kolu açılışa kadar tek oturuma ayrıldı:** `veri/KOL-AYIRMA.json` → "Google üye ol amblemi tasarımı" (05.10 23:59).
+  Site maddeleri (1–4) o oturumun sırasında.
+- **Mobil taşma 320px şerit:** 59d89b56 (`menu.js`) ile kapandı; 9 hukuk/kurumsal sayfa yerelde 18/18 temiz.
+  Bulut tabanı yeniden kuruldu (linux 14 kayıt; Linux yazı tipiyle 4 hukuk sayfası 375px'te hâlâ borç).
+
 ## 🚫 Bu iş emri şunu GÖRMEZ
 - Yalnız 36928575112 koşusu okundu; sonraki push'lar yeni kırmızı getirmiş olabilir.
 - "Rapor yayınla" adımı (kontrast/açılış/ihale) push çakışmasında `|| true` ile sessiz geçiyor; raporların depoya
