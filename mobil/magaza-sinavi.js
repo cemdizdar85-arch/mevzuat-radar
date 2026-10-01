@@ -148,7 +148,7 @@ t('C2 sınav tarihleri ve süre fiyat-motoru.js ile aynı',
   else {
     for (const sn of ['sgs', 'yeterlilik']) {
       const site = new Function('sinavi', m[0] + ' return kapsar;')(sn);
-      for (const p of ['', 'tam', 'kurucu', 'sgs', 'sgs-x', 'sinav-249', 'yeterlilik', 'yeterlilik-2', 'yeterlilik-kgk', 'smmm', 'kgk', 'kgk-2', 'son15', 'radar']) {
+      for (const p of ['', 'tam', 'kurucu', 'sgs', 'sgs-x', 'sinav-249', 'yeterlilik', 'yeterlilik-2', 'yeterlilik-kgk', 'smmm', 'kgk', 'kgk-2', 'radar']) {
         const edge = X.paketSinavlari(p).indexOf(sn) >= 0;
         if (site(p) !== edge) { dfark++; dnot += ' [' + p + '/' + sn + ' site ' + site(p) + ' edge ' + edge + ']'; }
       }

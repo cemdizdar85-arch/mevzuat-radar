@@ -181,8 +181,8 @@ var FIYAT = {
   kgk:            [ null, {kurulus:1490,liste:1990}, {kurulus:2490,liste:3290},
                           {kurulus:3190,liste:4190} ],
   kgkTum:         { kurulus:3990, liste:5490 },
-  yeterlilikKgk:  { kurulus:5990, liste:8490 },
-  son15:          { kurulus:890,  liste:890  }
+  yeterlilikKgk:  { kurulus:5990, liste:8490 }
+  /* 02.10.2026 Cem: "son 15 gün planımız yok" -> son15 (890 TL) kaldırıldı; ürün hiçbir sınavı açmıyordu. */
 };
 
 /* ---------------------------------------------------------------------------
@@ -399,11 +399,6 @@ function paketler(){
            kota:KOTA.kgk, erisim:'İki sınava da kadar · en az 3 ay', sinav:null,
            harcYazi:'Ayrı ayrı ' + tl(FIYAT.yeterlilikTum.kurulus + FIYAT.kgkTum.kurulus) + ' TL',
            acik:(ICERIK_HAZIR.yeterlilik && ICERIK_HAZIR.kgk) });
-
-  L.push({ id:'son15', grup:'Ek', ad:'Son 15 Gün planı',
-           fiyat:FIYAT.son15.kurulus, liste:FIYAT.son15.liste, kota:null,
-           erisim:'Sınavdan 15 gün önce açılır', sinav:null,
-           harcYazi:'Paketlere dahildir; tek de alınır', acik:true });
 
   /* Ortak alanlar */
   L.forEach(function(p){
