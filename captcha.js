@@ -38,7 +38,8 @@
      - Canlı sınav sayfası (canli-deneme.html) giriş istemez; oraya bağlı DEĞİL.
    ============================================================================ */
 (function(){
-  var AYAR = window.TT_CAPTCHA = window.TT_CAPTCHA || { ACIK: false, SITE_ANAHTARI: '' };
+  /* 01.10.2026 Cem: AÇILDI (adım 2). Site anahtarı herkese açıktır, gizli anahtar yalnız Supabase panelinde. */
+  var AYAR = window.TT_CAPTCHA = window.TT_CAPTCHA || { ACIK: true, SITE_ANAHTARI: '0x4AAAAAAFLbkRtRcjMK9cnY' };
   var BETIK = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
   var betikSozu = null;
 
