@@ -272,7 +272,9 @@ function raporYaz(icerik){
     else if (s.kesikSayi || s.kayma) borc.push(s);
     if (s.kesikSayi < b.kesik || (!s.kayma && b.kayma)) odenen.push(s.sayfa);
   }
-  raporYaz({
+  /* 02.10: birkaç sayfalık deneme koşusu raporu YAZMAZ - rapor depoda izleniyor; kısmi koşu
+     onu ezip ana klasörü kirletiyordu (başka oturumun birleştirmesini durdurdu). */
+  if (!secili.length) raporYaz({
     durum: yeni.length ? 'KIRMIZI' : (olculemeyen.length ? 'KOR' : 'YESIL'), ci,
     genislik: [GENISLIK, DAR], sayfa_toplam: sayfalar.length, olcum_toplam: sayfalar.length * 2, olculen: olculen.length, KOR: olculemeyen.length,
     yeni_kusur_sayfa: yeni.length, taban_borcu_sayfa: borc.length,
