@@ -463,11 +463,11 @@ window.veriAl = (function(){
     <a class="nl" href="canli-deneme.html">Canlı deneme</a>
     <a class="nl" href="genc.html">Sınav takvimi</a>
     <a class="nl" href="fiyat.html">Fiyatlar</a>
-    <a class="nl" id="navOgrenci" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Öğrenci girişi</a>
+    <a class="nl" id="navOgrenci" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Giriş yap</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
     <!-- 23.09 Cem "1.2.3 yap": "Ücretsiz Başla" sınav takvimine (genc.html) gidiyordu; sitedeki tek ücretsiz
          vaat seviye testi -> menü düğmesi de oraya. Genç Müşavir Araçlar menüsünde duruyor. -->
-    <a class="btn" href="seviye-testi.html">Ücretsiz Başla</a>
+    <a class="btn" href="seviye-testi.html">Ücretsiz test</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
@@ -939,7 +939,7 @@ window.veriAl = (function(){
         son=d||son; bzDugmeCiz();
         var nav=document.getElementById('navOgrenci');
         if(nav&&son.oturum){ nav.textContent='Hesabım'; nav.title=son.eposta||'Öğrenci hesabın'; }
-        /* üye olmuş kişiye "Ücretsiz Başla" gösterilmez */
+        /* üye olmuş kişiye "Ücretsiz test" gösterilmez */
         var basla=document.querySelector('#nav a.btn[href="seviye-testi.html"]'); if(basla) basla.hidden=!!son.oturum;
       }
       /* olay, bu betik okunmadan ateşlenmiş olabilir (ziyaretçide söz anında çözülür) -> söz de dinlenir */
@@ -1223,7 +1223,7 @@ window.veriAl = (function(){
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
           ic+=' · <a href="fiyat.html?sinav='+sn+'">Paket ayrıntısı →</a>';   /* 24.09: fiyat sayfası seçili sınavı gösterir */
           /* 24.09 Cem "ücretsiz üye olu kaldırmak lazım, burda ücretli üyelik SATMAYACAK mıyız": kartın tek çağrısı SATIŞ.
-             Ücretsiz giriş sayfada zaten iki yerde (üst şerit "Ücretsiz Başla", kahraman "Geçme ihtimalini ölç").
+             Ücretsiz giriş sayfada zaten iki yerde (üst şerit "Ücretsiz test", kahraman "Geçme ihtimalini ölç").
              Satıştaki sınav -> Satın al (SGS doğrudan ödeme; ders/modül seçimli sınavlar fiyat sayfasında seçer) ·
              satışta değil (ICERIK_HAZIR false) -> Ön kayıt ol (fiyat.html ile aynı hedef) · paketi açık -> fiyat hiç gösterilmez */
           var ds=(UYE&&UYE.sinavlar&&UYE.sinavlar[sn])||{};

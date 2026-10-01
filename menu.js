@@ -464,7 +464,7 @@ function kur(){
   var mrxUyeVar=(function(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } })();
   var h='<div class="mrxIc"><div class="mrxUst">'+
     '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
-    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Öğrenci girişi')+'</a>'+
+    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Giriş yap')+'</a>'+
     '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
     '<input id="mrxAra" type="search" placeholder="🔍  Ara: deneme, takvim, fiyat…" autocomplete="off">';
   GRUPLAR.forEach(function(g){
