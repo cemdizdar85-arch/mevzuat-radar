@@ -1,5 +1,5 @@
 /* ============================================================================
-   BOT KORUMASI (Cloudflare Turnstile) — HAZIR, KAPALI
+   BOT KORUMASI (Cloudflare Turnstile) — SİTE TARAFI AÇIK (01.10), SUPABASE PANELİ KAPALI
    23.09.2026, Cem "2 yap": turnstile'lı formlar hazır dursun, canlıya alınmasın.
 
    NEDEN: 23.09'da e-posta onayı kapatıldı; sahte hesap açmak kolaylaştı. Koruma
@@ -56,10 +56,16 @@
     return betikSozu;
   }
 
-  /* Her giriş/üyelik çağrısı için TAZE token (Turnstile token'ı tek kullanımlıktır).
-     Kapalıyken ya da alınamazsa undefined döner — çağıran sayfa kırılmaz. */
-  window.ttCaptchaToken = function(){
-    if (!AYAR.ACIK || !AYAR.SITE_ANAHTARI) return Promise.resolve(undefined);
+  /* 02.10.2026 Cem "1.2.3 yap": ÖN-ALIM + TEKRAR. 01.10 ölçümü (Cem'in Chrome'u, 3 deneme):
+     token düğmeye basınca isteniyordu → 6–8 sn bekleme, 3'te 1 15 sn'de gelmedi.
+     Şimdi: sayfa açılınca bir token arka planda alınır ve bekletilir (Turnstile token'ı
+     300 sn geçerli, tek kullanımlık → 270 sn'den eskisi atılır). Düğmeye basınca hazırsa
+     anında verilir ve yerine yenisi alınmaya başlanır; gelmezse bir kez daha denenir. */
+  var OMUR_MS = 270000, SURE_MS = 20000;
+  var hazir = null;      // { token, an }
+  var yolda = null;      // arka planda süren alım sözü
+
+  function tekAl(){
     return betikYukle().then(function(){
       return new Promise(function(coz){
         var kap = document.createElement('div');
@@ -72,7 +78,7 @@
           if (kap.parentNode) kap.parentNode.removeChild(kap);
           coz(deger);
         };
-        setTimeout(function(){ kapat(undefined); }, 15000);
+        setTimeout(function(){ kapat(undefined); }, SURE_MS);
         try {
           kimlik = window.turnstile.render(kap, {
             sitekey: AYAR.SITE_ANAHTARI,
@@ -84,5 +90,39 @@
         } catch(e){ kapat(undefined); }
       });
     }).catch(function(){ return undefined; });
+  }
+
+  /* Arka planda bir token al ve beklet (aynı anda tek alım). */
+  function onAl(){
+    if (yolda) return yolda;
+    yolda = tekAl().then(function(t){
+      yolda = null;
+      if (t) hazir = { token: t, an: Date.now() };
+      return t;
+    });
+    return yolda;
+  }
+  function bekleyeniAl(){
+    if (hazir && Date.now() - hazir.an < OMUR_MS){ var t = hazir.token; hazir = null; return t; }
+    hazir = null; return undefined;
+  }
+
+  /* Her giriş/üyelik çağrısı için TEK KULLANIMLIK token. Kapalıyken ya da iki denemede
+     alınamazsa undefined döner — çağıran sayfa kırılmaz. */
+  window.ttCaptchaToken = function(){
+    if (!AYAR.ACIK || !AYAR.SITE_ANAHTARI) return Promise.resolve(undefined);
+    var t = bekleyeniAl();
+    if (t){ onAl(); return Promise.resolve(t); }
+    var dene = function(){ return onAl().then(function(){ return bekleyeniAl(); }); };
+    return dene().then(function(t1){
+      if (t1){ onAl(); return t1; }
+      return dene().then(function(t2){ if (t2) onAl(); return t2; });
+    });
   };
+
+  /* Sayfa açılınca ilk token'ı arka planda hazırla. */
+  if (AYAR.ACIK && AYAR.SITE_ANAHTARI){
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ onAl(); });
+    else onAl();
+  }
 })();
