@@ -439,8 +439,8 @@
     this.disabled = true; $('epKosulHata').textContent = '';
     var r = await sb.rpc('elci_sozlesme_onayla', { p_surum:KOSUL_SURUM });
     if (r.error || r.data !== true) { this.disabled = false; $('epKosulHata').textContent = 'Onay kaydedilemedi. Yeniden dene.'; return; }
-    /* 01.10 sözleşme 4.2: onaylanan sürümün PDF'i elçinin e-postasına (edge elci-sozlesme; aynı sürüm ikinci kez gitmez). Gitmese de panel açılır. */
-    try { sb.functions.invoke('elci-sozlesme', { body:{ surum:KOSUL_SURUM } }).catch(function(){}); } catch(e){}
+    /* 01.10 sözleşme 4.2: onaylanan sürümün PDF'i elçinin e-postasına (edge kodu radar-app/edge/elci-sozlesme.ts, CANLI ADI rapid-responder — Supabase panelinin verdiği ad, sonradan değişmiyor; aynı sürüm ikinci kez gitmez). Gitmese de panel açılır. */
+    try { sb.functions.invoke('rapid-responder', { body:{ surum:KOSUL_SURUM } }).catch(function(){}); } catch(e){}
     yukle();
   });
 
