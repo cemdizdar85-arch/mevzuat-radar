@@ -65,7 +65,12 @@
   .og-paket .og-paket-alt{font-size:13.5px;color:var(--muted)}
   .og-paket .og-btnler{margin-top:10px}
   .og-uyari{background:color-mix(in srgb,var(--amber) 10%,transparent);border:1px solid var(--amber);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink);margin:14px 0 0}
-  @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px} }
+  /* 01.10 Cem "1.2.3 yap": onay kutuları "Hesap aç"ın bölümünde - giriş yapana ait sanılmasın (metin aynen) */
+  .og-yeni{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+  .og-yeni .og-btnler{margin-top:12px}
+  @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px}
+    /* 01.10: telefonda form üç bilgi kartının ARKASINDA kalıyordu (375px ölçüldü) -> başlık + tek cümle, sonra form */
+    .og-iki{gap:0} .og-sol{display:contents} .og-sol>*{order:2} .og-sol>h1,.og-sol>.og-ilk{order:0} .og-iki>.og-kutu{order:1;margin:0 0 22px} }
 </style>
 </head>
 <body>
@@ -76,13 +81,13 @@
   <!-- ÜYE DEĞİLSE -->
   <section id="ogGiris" class="og-gizli">
     <div class="og-iki">
-      <div>
+      <div class="og-sol">
         <!-- 25.09 Cem: "biz ücretsizi kapattık, sadece ücretsiz 30 deneme soruyu çözüyor; burayı ne yapalım" -> sayfa ÜCRETSİZ
              ÜYELİK vaat etmez. Ana iş paket sahibinin girişi; hesap açma kalır (satın alma hesabı e-postaya bağlar, şifreyi
              alıcı burada koyar). Paketi olmayana iki yol: ücretsiz 30 soruluk ölçüm + paketler. Rakip: UWorld/Becker üst
              şeritte "Log in" ayrı, satın alma ayrı; giriş sayfası üyelik satmaz. -->
         <h1>Öğrenci girişi</h1>
-        <p class="og-alt">Paketini aldığın e-postayla giriş yap. Seviye testlerin, denemelerin ve yanlış kutun hesabında durur; telefonda da bilgisayarda da aynı yerden devam edersin.</p>
+        <p class="og-alt og-ilk">Paketini aldığın e-postayla giriş yap. Seviye testlerin, denemelerin ve yanlış kutun hesabında durur; telefonda da bilgisayarda da aynı yerden devam edersin.</p>
         <p class="og-alt" style="margin-top:10px;font-size:14px">Henüz paketin yok mu? <a class="og-link" href="seviye-testi.html">30 soruda geçme ihtimalini ücretsiz ölç →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
         <ul class="og-maddeler">
           <li><b>Geçme ihtimalin nasıl değişiyor?</b>Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör.</li>
@@ -98,11 +103,13 @@
         <label class="og-et" for="ogSifre">Şifre</label><input id="ogSifre" type="password" autocomplete="current-password" placeholder="en az 6 karakter">
         <div class="og-btnler">
           <button class="og-btn ana" id="ogGirisBtn" type="button">Giriş yap</button>
-          <button class="og-btn" id="ogKayit" type="button">Hesap aç</button>
         </div>
-        <p class="og-alt" style="margin:8px 0 0;font-size:12.5px">İlk kez mi geliyorsun? Paketi aldığın e-postayı yaz, bir şifre belirle, "Hesap aç"a bas.</p>
-        <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
-        <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
+        <div class="og-yeni">
+          <p class="og-alt" style="margin:0;font-size:12.5px"><b>İlk kez mi geliyorsun?</b> Paketi aldığın e-postayı yaz, bir şifre belirle, "Hesap aç"a bas.</p>
+          <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
+          <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
+          <div class="og-btnler"><button class="og-btn" id="ogKayit" type="button">Hesap aç</button></div>
+        </div>
         <div class="og-hata" id="ogHata" role="alert"></div>
         <p style="font-size:13px;margin:6px 0 0"><a class="og-link" href="#" id="ogSifremi">Şifremi unuttum</a></p>
       </div>
