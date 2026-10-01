@@ -290,6 +290,12 @@ jobs:
           # fark-yok reddi kapatilinca 5/5 KIRMIZI. Gercek veride 378 taslakta 4 cakismayi (ayni soruya iki parca) reddetti.
           - { ad: "Onarim hatti karar OZ-SINAVI (beyansiz fark red, anahtar/kok degisince yeniden hakem)",
               kabuk: bash, komut: "node arac/onarim-hatti.js --sinav" }
+          # 02.10.2026 - KAPI-FU fiyat-urun (arac/fiyat-urun-kapisi.js): satistaki paket hicbir sinavi acmiyorsa ya da sayfa olmayan paketi aniyorsa KIRMIZI.
+          # 10 vaka; mutasyonla olculdu: karsiliksiz 1/10, paket-yok 2/10, kor 1/10 KIRMIZI. a0a66f51^ motorunda son15'i yakaladi.
+          - { ad: "KAPI-FU fiyat-urun OZ-SINAVI (satistaki paket bir sinav aciyor mu)",
+              kabuk: bash, komut: "node arac/fiyat-urun-kapisi.js --sinav" }
+          - { ad: "KAPI-FU fiyat-urun GERCEK DEPO (satistaki her paketin karsiligi var)",
+              kabuk: bash, komut: "node arac/fiyat-urun-kapisi.js" }
 
           # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
           # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
