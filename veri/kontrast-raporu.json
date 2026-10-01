@@ -6,9 +6,9 @@
   "koyu_gecis": 68,
   "koyu_bekleyen": [],
   "temiz_sayfa": 216,
-  "denetlenen_metin": 22055,
+  "denetlenen_metin": 22063,
   "toplam_kirik": 1,
-  "denetlenen_sinir": 6611,
+  "denetlenen_sinir": 6612,
   "toplam_gorunmez_sinir": 1,
   "olculemeyen": 0,
   "esik": {
@@ -24,7 +24,7 @@
         {
           "oge": "p.bz-fiyat",
           "kimlik": "#ogrenciFiyat < .bz-cam",
-          "iz": "<p class=\"bz-fiyat\" id=\"ogrenciFiyat\"><b>Staja Giriş soru bankası: 2.995 TL</b> · KDV dahil, sınava kadar · il",
+          "iz": "<p class=\"bz-fiyat\" id=\"ogrenciFiyat\"><b>Staja Giriş soru bankası: 2.496 TL + KDV</b><br><b>KDV dahil 2.995 TL",
           "yan": "ust",
           "oran": 1.118,
           "esik": 1.12,
@@ -43,12 +43,12 @@
       "ornekler": [
         {
           "oge": "span.rz",
-          "yazi": "6 gün önce",
+          "yazi": "7 gün önce",
           "oran": 4.22,
           "esik": 4.5,
           "renk": "rgb(138, 98, 36)",
           "zemin": "rgb(233,226,214)",
-          "iz": "<span class=\"rz sari\">6 gün önce</span>"
+          "iz": "<span class=\"rz sari\">7 gün önce</span>"
         }
       ]
     }
