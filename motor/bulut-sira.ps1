@@ -34,7 +34,8 @@ param(
   [switch]$Yeniden,
   [string]$Not = '',
   [string]$Ekleyen = '',
-  [string]$SiraYolu = ''
+  [string]$SiraYolu = '',
+  [string]$BekleKosu = ''   # bitiş tetiği: önce bu bulut-uretim koşusunun kapanması beklenir (01.10)
 )
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -191,6 +192,17 @@ if ($Cikar) {
 # ---------------------------------------------------------------- -Durum / -Dagit
 if (-not ($Durum -or $Dagit)) { throw "Kip seç: -Ekle · -Cikar · -Temizle · -Durum · -Dagit [-Kuru]" }
 $nesne = SiraOku
+if ($Dagit -and $BekleKosu -match '^\d+$') {
+  # 01.10: bitiş tetiği koşunun SON ADIMINDAN gelir; o an koşu hâlâ 'in_progress' sayılır ve yuva boş görünmez.
+  # En çok 10 dk kapanması beklenir; kapanmazsa yine sayılır (o koşu açık sayılır, yedek cron sonra doldurur).
+  $kapandi = $false
+  foreach ($bk in 1..60) {
+    $bd = ((GhCagir @('run', 'view', $BekleKosu, '--json', 'status')) | ConvertFrom-Json)
+    if ("$($bd.status)" -eq 'completed') { $kapandi = $true; break }
+    Start-Sleep -Seconds 10
+  }
+  "BİTİŞ TETİĞİ: koşu $BekleKosu $(if ($kapandi) { 'kapandı' } else { '10 dk içinde KAPANMADI — açık sayılıyor' })"
+}
 $gec = KosuGecmisi
 $sonuc = BsKarar -Ayar $nesne -Kosular $gec.kosular -PlanDenetle $planDenetle -PencereBasi $gec.en_eski -PencereTam $gec.tam
 KararYaz $sonuc $gec
