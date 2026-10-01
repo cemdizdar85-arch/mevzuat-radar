@@ -109,14 +109,16 @@ Aşağıdaki tabloyu satış için değil, doğru kararı verebilesin diye yazd�
       <td>Değişir <span class="kucuk">(bir kurum 4.500 açıklıyor, çoğu sayı vermiyor)</span></td>
       <td>Kitabın hacmi kadar</td>
       <td>3.737 <span class="kucuk">(kendi sitesinde yazıyor)</span></td>
-      <td class="biz">29.064 üretildi<br><span class="kucuk">onarım turundan geçenler kademeli açılıyor (sayı 07.08.2026 ölçümü)</span></td>
+      <!-- 02.10: eski "29.064 üretildi (07.08)" yayındaki sayı değildi; sayı veri/soru-dizini.json'dan (aşağıdaki betik) -->
+      <td class="biz" id="bizSoru">Staja Giriş 4.897 · Yeterlilik 3.879<br><span class="kucuk">yayındaki çözümlü soru (01.10.2026 sayımı)</span></td>
     </tr>
     <tr>
       <td class="satirbas">Açıklama nereden</td>
       <td class="k">Hocanın anlatımı</td>
       <td class="k">Yazarın çözümü</td>
       <td class="h">Yapay zekâ üretiyor</td>
-      <td class="biz e">Kanun metninden doğrulanır<br><span class="kucuk">her sorunun madde numarası yazılı</span></td>
+      <!-- 02.10: "Kanun metninden doğrulanır" kaldırıldı (30.09'da fiyat.html'den aynı gerekçeyle çıkmıştı: ölçümle ispatlanamıyor) -->
+      <td class="biz e">Dayandığı madde altında yazar<br><span class="kucuk">hata görürsen sorudan bildirirsin</span></td>
     </tr>
     <tr>
       <td class="satirbas">Mevzuat değişince</td>
@@ -180,12 +182,13 @@ Aşağıdaki tabloyu satış için değil, doğru kararı verebilesin diye yazd�
     <li><b>Konuyu hiç bilmiyorsan:</b> kurs ya da konu kitabı. Sonra antrenman için buraya gel.</li>
     <li><b>Konuyu biliyor ama soruda takılıyorsan:</b> doğrudan buraya. Sorun bilgi değil, refleks.</li>
     <li><b>Bütçen sıfırsa:</b> ücretsiz kaynaklar gerçekten işe yarar, meslek odalarının ücretsiz deneme
-    kitapçıkları ve ücretsiz online bankalar var. Bizim de günde 15 soruluk ücretsiz katmanımız var,
-    kart bilgisi istemiyoruz.</li>
+    kitapçıkları ve ücretsiz online bankalar var. Bizde de 30 soruluk ücretsiz seviye testi var;
+    üyelik ve kart bilgisi istemiyoruz.</li>
+    <!-- 02.10 Cem: eski "günde 15 soruluk ücretsiz katman" (deneme.html) — günlük ücretsiz katman açılırsa geri al -->
     <li><b>Kursa zaten para verdiysen:</b> Tetikte kursun yerine değil, <b>yanına</b> geçer, kurs anlatır,
     biz çözdürürüz.</li>
   </ul>
-  <a class="btn" href="deneme.html">Ücretsiz çözmeye başla</a>
+  <a class="btn" href="seviye-testi.html">Ücretsiz testi başlat</a>
   <a class="btn ikincil" href="fiyat.html">Fiyatlar</a>
 </div>
 
@@ -207,6 +210,15 @@ canlı yayın veya sertifika içermez. Sorular özgün üretimdir; çıkmış s�
     document.getElementById('bizFiyat').innerHTML = 'SGS ' + tl(s.fiyat) + ' TL<br><span class="kucuk">Yeterlilik '
       + tl(Math.min.apply(null, y)) + '–' + tl(Math.max.apply(null, y)) + ' (kurucu fiyatları, KDV dahil)</span>';
   }catch(e){}
+  /* 02.10: soru sayısı sorular.html ile aynı kaynaktan; yalnız durum 'acik' sınavlar (KGK açılışta görünmez) */
+  fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d||!d.sinavlar) return;
+    var ad={sgs:'Staja Giriş',smmm:'Yeterlilik'};
+    var p=d.sinavlar.filter(function(s){return s.durum==='acik'&&ad[s.kod];}).map(function(s){return ad[s.kod]+' '+tl(s.soru);});
+    if(!p.length) return;
+    var t=String(d.uretim||'').slice(0,10).split('-').reverse().join('.');
+    document.getElementById('bizSoru').innerHTML=p.join(' · ')+'<br><span class="kucuk">yayındaki çözümlü soru ('+t+' sayımı)</span>';
+  }).catch(function(){});
 })();
 </script>
 </body>
