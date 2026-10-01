@@ -213,6 +213,12 @@ var css=''+
 '@media(max-width:600px){#mrxGeri{padding:15px 4px 15px 0}'+
  '#mrxGeri.mrxGeriPul{padding:14px 16px;font-size:14px}}'+
 '@media print{#mrxGeri,.mrxAyrac{display:none!important}}'+
+/* 02.10 (Cem "1.2.3 yap"): 320px'te şerit (Ana sayfa · marka · Ara · tema) 328–376px'e taşıyordu
+   (veri/mobil-tasma-taban.json 9 yasal sayfa + radar/kurulus). Dar ekranda "Ana sayfa" yazısı
+   gizlenir, ok kalır (aria-label "Ana sayfaya git" zaten var) + ayraç gider; yine sığmazsa
+   şerit ikinci satıra sarar (son çare, kesik yerine). */
+'@media(max-width:360px){.top #mrxGeri{font-size:0}.top #mrxGeri .ok{font-size:18px;margin:0}'+
+ '.top .mrxAyrac{display:none}.top{flex-wrap:wrap;row-gap:4px}}'+
 /* tepe şeridi tam genişlik — hesap yorumu seritTamGenislik()'te.
    Kutuyu kabından 50vw taşırıp aynı payı iç dolgu olarak geri veriyoruz:
    kutu ekranı kaplıyor, YAZI içerik sütununun tam üstünde kalıyor
