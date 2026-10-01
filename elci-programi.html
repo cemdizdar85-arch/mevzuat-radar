@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<script src="tema-bas.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Elçi Programı · Tetikte</title>
+<meta name="description" content="SMMM sınavlarına hazırlanan kitleni Tetikte ile buluştur: takipçine indirim kodu, sana her kesinleşen satıştan komisyon. Başvur, onaylanınca kodun ve panelin hazır.">
+<link rel="canonical" href="https://tetikte.com/elci-programi.html">
+<link rel="stylesheet" href="stil.css">
+<!--
+  ELÇİ PROGRAMI TANITIM + BAŞVURU (01.10.2026, Cem "üçünü de yap")
+  Rakip deseni: Trendyol (influencer.trendyol.com: açık başvuru, elle onay, kendi paneli) ·
+  Amazon (gelirortakligi.amazon.com.tr: davetle). Bizde: açık başvuru, Cem elle onaylar, panel tetikte.com/elci.html.
+  HUKUK (Masaüstü/Tetikte-Hukuk):
+   · Kazanç VAADİ YOK: "ayda X TL kazan" yazılmaz — yalnız satış başı tutar (Ticari Reklam Yön. m.9 ispat yükü;
+     Doğrudan Satışlar Yön. m.5/3 "hızlı zengin olma" dili). Toplam/garanti rakam da yazılmaz.
+   · Tek seviye, bedel yok, satış Tetikte–alıcı arasında: sözleşme v2 Madde 3 ile aynı dil.
+   · 18 yaş şartı (sözleşme 1.2; Doğrudan Satışlar Yön. m.7/1 ile de uyumlu).
+   · Başvuru verisi için aydınlatma bu sayfada (KVKK m.10 + Tebliğ m.5); hukuki sebep m.5/2-c (sözleşme kurulmadan
+     önceki adımlar). Pazarlama rızası İSTENMEZ.
+  Rakamlar fiyat-motoru.js'ten (FIYAT + ELCI.indirim) okunur — fiyat değişince sayfa kendiliğinden uyar.
+  Komisyon kademeleri sunucudaki elci_komisyon() ile aynı: 750 / 1.000 / 1.250, eşik üstü, kademe taşınır.
+  Başvuru satin-al.html'deki e-posta ucuna (quick-task) gider; Cem'e "ELÇİ BAŞVURUSU" konulu e-posta düşer.
+-->
+<style>
+  body{margin:0}
+  .eb{max-width:980px;margin:0 auto;padding:22px 20px 80px;text-align:left}
+  .eb h1{font-size:34px;line-height:1.15;margin:10px 0 10px;letter-spacing:-.02em}
+  .eb h2{font-size:21px;margin:30px 0 10px}
+  .eb-alt{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 16px;max-width:46em}
+  .eb-btn{font:inherit;font-size:15px;font-weight:750;cursor:pointer;border-radius:10px;padding:11px 18px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);text-decoration:none;display:inline-block}
+  .eb-btn:hover{border-color:var(--amber)}
+  .eb-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
+  .eb-btn[disabled]{opacity:.55;cursor:not-allowed}
+  .eb-uc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .eb-kart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .eb-kart .no{display:inline-block;font-weight:800;color:var(--amber);font-size:13px;letter-spacing:.06em;margin-bottom:6px}
+  .eb-kart b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+  .eb-kart p{margin:0;font-size:14.5px;line-height:1.55;color:var(--muted)}
+  .eb-iki{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .eb-tablo{width:100%;border-collapse:collapse;font-size:15px}
+  .eb-tablo td,.eb-tablo th{padding:10px 8px;border-top:1px solid var(--line);text-align:left;color:var(--ink)}
+  .eb-tablo th{font-size:12.5px;color:var(--muted);font-weight:700;border-top:0}
+  .eb-tablo td.sag,.eb-tablo th.sag{text-align:right;font-variant-numeric:tabular-nums}
+  .eb-not{font-size:13.5px;color:var(--muted);line-height:1.6;margin:8px 0 0}
+  .eb-liste{margin:0;padding-left:20px;font-size:15px;line-height:1.65;color:var(--ink)}
+  .eb-liste li{margin:0 0 6px}
+  .eb-form{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
+  .eb-form .tam{grid-column:1 / -1}
+  .eb-form label.et{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:0 0 4px}
+  .eb-form input[type=text],.eb-form input[type=email],.eb-form input[type=tel],.eb-form input[type=url],.eb-form select,.eb-form textarea{font:inherit;font-size:15px;width:100%;box-sizing:border-box;padding:10px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+  .eb-form textarea{min-height:84px;resize:vertical}
+  .eb-onay{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--ink);line-height:1.5}
+  .eb-onay input{margin-top:3px}
+  .eb-hata{font-size:14px;color:var(--red);min-height:1.4em;margin-top:10px}
+  .eb-tamam{background:color-mix(in srgb,var(--green) 12%,transparent);border:1px solid var(--green);border-radius:12px;padding:14px 16px;font-size:15px;color:var(--ink)}
+  .eb a.eb-a{color:var(--amber)}
+  details.eb-kart summary{cursor:pointer;font-weight:750;color:var(--ink)}
+  @media(max-width:820px){ .eb-uc,.eb-iki,.eb-form{grid-template-columns:1fr} .eb h1{font-size:27px} }
+</style>
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe atla</a>
+<div class="eb" id="icerik">
+  <div class="top"><a href="index.html">Tetikte</a> · Elçi Programı</div>
+
+  <h1>Tetikte Elçi Programı</h1>
+  <p class="eb-alt">SMMM sınavlarına hazırlanan bir kitlen varsa, Tetikte'yi onlarla buluştur. Takipçin senin kodunla indirimli alır; kesinleşen her satıştan sana komisyon ödenir. Satış, ödeme ve destek bizde — sen yalnız kendi bağlantını paylaşırsın.</p>
+  <p><a class="eb-btn ana" href="#basvur">Başvur →</a> &nbsp; <a class="eb-btn" href="elci.html">Elçi girişi</a></p>
+
+  <h2>Nasıl işler?</h2>
+  <div class="eb-uc">
+    <div class="eb-kart"><span class="no">1</span><b>Başvur</b><p>Aşağıdaki formu doldur. Başvurunu inceleyip e-postayla dönüş yaparız.</p></div>
+    <div class="eb-kart"><span class="no">2</span><b>Kodunu al</b><p>Onaylanınca sana özel kodun (ör. AE42) ve paneline giriş için bağlama kodun e-postayla gelir.</p></div>
+    <div class="eb-kart"><span class="no">3</span><b>Paylaş, takip et</b><p>Bağlantını paylaş. Kaç satış geldiğini, komisyonunu ve ödemelerini <a class="eb-a" href="elci.html">elçi panelinden</a> izle.</p></div>
+  </div>
+
+  <h2>Takipçine ne sağlar?</h2>
+  <div class="eb-kart"><table class="eb-tablo" id="ebIndirim"><thead><tr><th>Paket</th><th class="sag">Sitede</th><th class="sag">Kodunla</th></tr></thead><tbody></tbody></table>
+    <p class="eb-not">Fiyatlar KDV dahildir ve sitede o gün geçerli fiyattır. Kod diğer paketlerde indirim sağlamaz.</p></div>
+
+  <h2>Sana ne sağlar?</h2>
+  <div class="eb-iki">
+    <div class="eb-kart"><b>Satış başına komisyon</b>
+      <table class="eb-tablo"><thead><tr><th>Sınav dönemindeki satış</th><th class="sag">Satış başına</th></tr></thead><tbody>
+        <tr><td>1 – 9. satış</td><td class="sag">750 TL</td></tr>
+        <tr><td>10 – 49. satış</td><td class="sag">1.000 TL</td></tr>
+        <tr><td>50 – 99. satış</td><td class="sag">1.250 TL</td></tr>
+        <tr><td>100. satıştan sonra</td><td class="sag">ayrıca görüşülür</td></tr>
+      </tbody></table>
+      <p class="eb-not">Kademe eşik üstüne uygulanır (10. satıştan itibaren 1.000 TL). Ulaştığın kademe sonraki sınav dönemine taşınır, geri inmez. Satış, ödemeden 7 gün sonra kesinleşir; bir ay içinde kesinleşen komisyonlar izleyen ayın 8'inde ödenir.</p></div>
+    <div class="eb-kart"><b>3 ay ücretsiz tam erişim</b><p>Tanıttığın ürünü bilerek anlat: programa katıldığında Tetikte'ye 3 ay ücretsiz tam erişim açılır.</p>
+      <b style="margin-top:14px">Kendi panelin</b><p>Kodun, bağlantın, satış adetlerin, komisyonun ve ödemelerin tek ekranda. Alıcıların kimliği paylaşılmaz; yalnız adet ve tutar görünür.</p>
+      <b style="margin-top:14px">Bağımsızsın</b><p>Ne zaman, nerede, nasıl paylaşacağına sen karar verirsin. Kimseyi sisteme getirmen, paket alman ya da bir bedel ödemen gerekmez. Başka markaları da tanıtabilirsin.</p></div>
+  </div>
+
+  <h2>Kimler başvurabilir?</h2>
+  <ul class="eb-liste">
+    <li>18 yaşını doldurmuş olanlar.</li>
+    <li>SMMM sınavları (Staja Başlama, Yeterlilik, Bağımsız Denetçilik), muhasebe ya da mali müşavirlik üzerine içerik üretenler.</li>
+    <li>Öğrenci toplulukları, meslek dernekleri ve kitlesi sınava hazırlananlardan oluşan sayfalar.</li>
+  </ul>
+
+  <h2>Paylaşım kuralları (özet)</h2>
+  <ul class="eb-liste">
+    <li>Her paylaşımın en başında <b>#Reklam @tetikte</b> yazılır; YouTube ve canlı yayında ayrıca sesli söylenir. Tek başına #işbirliği yeterli değildir.</li>
+    <li>Sınav geçme garantisi, gerçek olmayan başarı oranı ya da resmî kurum onayı iddia edilmez; Tetikte "kurs" ya da "dershane" olarak tanıtılmaz.</li>
+    <li>Fiyat, sitedeki güncel fiyatla söylenir. Onaysız toplu e-posta/SMS gönderilmez; izinsiz çekiliş yapılmaz.</li>
+  </ul>
+  <p class="eb-not">Koşulların tamamı, başvurun onaylandığında elçi panelinde gösterilir ve senin onayınla geçerli olur.</p>
+
+  <h2 id="basvur">Başvuru formu</h2>
+  <div class="eb-kart" id="ebFormKutu">
+    <div class="eb-form">
+      <div><label class="et" for="ebAd">Ad soyad *</label><input id="ebAd" type="text" maxlength="100" autocomplete="name"></div>
+      <div><label class="et" for="ebEposta">E-posta *</label><input id="ebEposta" type="email" maxlength="160" autocomplete="email"></div>
+      <div><label class="et" for="ebTel">Telefon <span style="color:var(--dim)">(isteğe bağlı)</span></label><input id="ebTel" type="tel" maxlength="30" autocomplete="tel"></div>
+      <div><label class="et" for="ebKitle">Kitlen en çok hangi sınava hazırlanıyor? *</label>
+        <select id="ebKitle"><option value="">Seç</option><option>Staja Başlama (SGS)</option><option>SMMM Yeterlilik</option><option>Bağımsız Denetçilik (KGK)</option><option>Karışık / genel muhasebe</option></select></div>
+      <div class="tam"><label class="et" for="ebHesap">Paylaşım yaptığın hesap(lar) *</label><input id="ebHesap" type="text" maxlength="300" placeholder="ör. instagram.com/hesabin · youtube.com/@kanalin"></div>
+      <div><label class="et" for="ebTakipci">Yaklaşık takipçi / üye sayısı *</label>
+        <select id="ebTakipci"><option value="">Seç</option><option>1.000'den az</option><option>1.000 – 10.000</option><option>10.000 – 50.000</option><option>50.000'den fazla</option></select></div>
+      <div><label class="et" for="ebTur">Sen kimsin? *</label>
+        <select id="ebTur"><option value="">Seç</option><option>İçerik üreticisi</option><option>Sınava hazırlanan aday</option><option>Öğrenci topluluğu / kulüp</option><option>Meslek derneği</option><option>Diğer</option></select></div>
+      <div class="tam"><label class="et" for="ebNot">Kısaca kendini ve kitleni anlat <span style="color:var(--dim)">(isteğe bağlı)</span></label><textarea id="ebNot" maxlength="1000"></textarea></div>
+      <label class="eb-onay tam"><input type="checkbox" id="ebYas"> <span>18 yaşını doldurdum. *</span></label>
+      <label class="eb-onay tam"><input type="checkbox" id="ebAyd"> <span>Aşağıdaki <a class="eb-a" href="#aydinlatma">başvuru aydınlatma metnini</a> okudum. *</span></label>
+      <div class="tam"><button class="eb-btn ana" id="ebGonder" type="button">Başvuruyu gönder</button><div class="eb-hata" id="ebHata" role="alert"></div></div>
+    </div>
+  </div>
+  <div class="eb-tamam" id="ebTamam" hidden>✓ Başvurun alındı. İnceleyip <b id="ebTamamEposta"></b> adresine e-postayla dönüş yapacağız.</div>
+
+  <details class="eb-kart" id="aydinlatma" style="margin-top:18px">
+    <summary>Elçi başvurusu aydınlatma metni</summary>
+    <div class="eb-not" style="margin-top:10px">
+      <p><b>Veri sorumlusu:</b> Dizdar Denetim Danışmanlık ve Yazılım A.Ş. (Tetikte), Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir.</p>
+      <p><b>İşlenen veriler ve amaç:</b> Bu formda verdiğin ad soyad, e-posta, telefon (verdiysen), paylaşım hesapların, kitle ve takipçi bilgisi ile notun; başvurunun değerlendirilmesi, seninle iletişim kurulması ve onaylanırsa elçi sözleşmesinin kurulması amacıyla işlenir.</p>
+      <p><b>Hukuki sebep:</b> 6698 sayılı Kanun m.5/2-c — sözleşmenin kurulmasıyla doğrudan ilgili olması (kurulmadan önceki adımlar). Bu form için açık rıza istenmez; pazarlama iletisi gönderilmez.</p>
+      <p><b>Toplama yöntemi ve aktarım:</b> Veriler bu form aracılığıyla elektronik olarak toplanır ve başvuruyu Tetikte'ye ileten e-posta altyapısı üzerinden işlenir; bu altyapının sunucuları yurt dışındadır (Avrupa Birliği). Veriler başka bir üçüncü kişiye aktarılmaz.</p>
+      <p><b>Saklama:</b> Başvuru onaylanmazsa veriler değerlendirme bitince silinir; onaylanırsa elçi sözleşmesi süresince ve yasal saklama süreleri boyunca tutulur.</p>
+      <p><b>Hakların:</b> Kanunun 11. maddesindeki haklarını (bilgi isteme, düzeltme, silme vb.) <a class="eb-a" href="iletisim.html">iletişim sayfasındaki</a> adrese yazarak kullanabilirsin. Ayrıntı: <a class="eb-a" href="kvkk.html">KVKK Aydınlatma Metni</a>.</p>
+    </div>
+  </details>
+
+  <h2>Sık sorulanlar</h2>
+  <details class="eb-kart" style="margin-bottom:10px"><summary>Satışı ben mi yapacağım?</summary><p class="eb-not">Hayır. Takipçin senin bağlantınla tetikte.com'a gelir ve satın almayı bizimle yapar. Ödeme, fatura ve destek bizde; sen yalnız tanıtırsın.</p></details>
+  <details class="eb-kart" style="margin-bottom:10px"><summary>Bir ücret ödemem ya da paket almam gerekiyor mu?</summary><p class="eb-not">Hayır. Programa katılmak ve programda kalmak için hiçbir bedel yoktur.</p></details>
+  <details class="eb-kart" style="margin-bottom:10px"><summary>Başka elçi getirirsem kazanç var mı?</summary><p class="eb-not">Hayır. Program tek seviyelidir; yalnız kendi kodunla gelen satışlardan komisyon alırsın.</p></details>
+  <details class="eb-kart" style="margin-bottom:10px"><summary>Komisyon nasıl ödenir, vergisi ne olur?</summary><p class="eb-not">Komisyon IBAN'ına havale edilir. Sosyal içerik üreticisi hesabın (GVK 20/B) varsa ödeme o hesaba yapılır; vergi kesintisi ve belge düzeni mevzuata göre uygulanır.</p></details>
+  <details class="eb-kart"><summary>Panele nereden gireceğim?</summary><p class="eb-not"><a class="eb-a" href="elci.html">tetikte.com/elci.html</a> — sitenin normal hesabınla girersin. Hesabım sayfasında da "Elçi Panelim" düğmesi görünür.</p></details>
+</div>
+
+<script src="fiyat-motoru.js"></script>
+<script>
+(function(){
+  var EPOSTA_ENDPOINT = "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task";
+  var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  function $(id){ return document.getElementById(id); }
+  function tlx(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
+
+  /* İndirim tablosu fiyat-motoru.js'ten: ELCI.indirim + paketBul(id).fiyat */
+  try {
+    var satir = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); }).map(function(id){
+      var p = paketBul(id), ind = ELCI.indirim[id];
+      return '<tr><td>' + p.ad + '</td><td class="sag">' + tlx(p.fiyat) + '</td><td class="sag"><b>' + tlx(Math.max(0, p.fiyat - ind)) + '</b></td></tr>';
+    }).join('');
+    $('ebIndirim').querySelector('tbody').innerHTML = satir || '<tr><td colspan="3">İndirim bilgisi şu an gösterilemiyor.</td></tr>';
+  } catch(e) { $('ebIndirim').querySelector('tbody').innerHTML = '<tr><td colspan="3">İndirim bilgisi şu an gösterilemiyor.</td></tr>'; }
+
+  function deger(id){ return ($(id).value || '').trim(); }
+  $('ebGonder').addEventListener('click', function(){
+    var h = $('ebHata'); h.textContent = '';
+    var ad = deger('ebAd'), eposta = deger('ebEposta'), hesap = deger('ebHesap');
+    if (ad.length < 3) { h.textContent = 'Ad soyad yaz.'; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(eposta)) { h.textContent = 'Geçerli bir e-posta yaz.'; return; }
+    if (hesap.length < 3) { h.textContent = 'Paylaşım yaptığın en az bir hesabı yaz.'; return; }
+    if (!deger('ebKitle') || !deger('ebTakipci') || !deger('ebTur')) { h.textContent = 'Seçmeli alanları doldur.'; return; }
+    if (!$('ebYas').checked) { h.textContent = 'Program 18 yaşını doldurmuş olanlara açık.'; return; }
+    if (!$('ebAyd').checked) { h.textContent = 'Aydınlatma metnini okuduğunu işaretle.'; return; }
+    var b = this; b.disabled = true; b.textContent = 'Gönderiliyor…';
+    fetch(EPOSTA_ENDPOINT, { method:'POST',
+      headers:{ apikey:SB_ANON, Authorization:'Bearer ' + SB_ANON, 'Content-Type':'application/json', Accept:'application/json' },
+      body: JSON.stringify({ subject:'ELÇİ BAŞVURUSU — ' + ad, from_name:'Tetikte Elçi Başvurusu', email:eposta,
+        'Ad Soyad':ad, 'E-posta':eposta, 'Telefon':(deger('ebTel') || '—'), 'Hesaplar':hesap,
+        'Takipçi':deger('ebTakipci'), 'Kitle':deger('ebKitle'), 'Tür':deger('ebTur'), 'Not':(deger('ebNot') || '—'),
+        'Onaylar':'18 yaş beyanı · başvuru aydınlatma metni okundu · ' + new Date().toISOString() }) })
+    .then(function(r){
+      if (!r.ok) throw new Error('durum ' + r.status);
+      $('ebFormKutu').hidden = true; $('ebTamamEposta').textContent = eposta; $('ebTamam').hidden = false;
+      $('ebTamam').scrollIntoView({ behavior:'smooth', block:'center' });
+    }).catch(function(){
+      b.disabled = false; b.textContent = 'Başvuruyu gönder';
+      h.innerHTML = 'Başvuru gönderilemedi. Birazdan tekrar dene ya da <a class="eb-a" href="iletisim.html">bize yaz</a>.';
+    });
+  });
+})();
+</script>
+<script src="menu.js" defer></script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

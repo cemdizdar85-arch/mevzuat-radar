@@ -112,6 +112,12 @@
   <!-- ÜYEYSE -->
   <section id="ogPanel" class="og-gizli">
     <div class="og-ust"><h1>Hesabım</h1><span id="ogKim"></span></div>
+    <!-- 01.10 Cem: elçi hesabına "Elçi Panelim" düğmesi. Yalnız elci_panelim() dolu dönerse (hesap bağlama koduyla
+         elçi kaydına bağlıysa) görünür; elçi olmayan hiç görmez. Panel: elci.html. -->
+    <div id="ogElci" class="og-uyari og-gizli" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+      <span>Elçi hesabın: <b id="ogElciKod"></b> · kodun, satışların ve komisyonun panelinde.</span>
+      <a class="og-btn ana" href="elci.html">Elçi Panelim →</a>
+    </div>
     <div class="og-bolum" style="margin-top:8px">
       <h2>Paketlerim</h2>
       <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
@@ -282,6 +288,10 @@
     if(sonraGit()) return;
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
     $('ogKim').textContent=user.email||'';
+    /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
+    sb.rpc('elci_panelim').then(function(r){
+      if(r && !r.error && r.data && r.data.kod){ $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli'); }
+    }, function(){});
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     cihazlarimCiz().catch(function(){ $('ogCihazlar').innerHTML='<p class="og-alt" style="margin:0">Cihaz bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;
