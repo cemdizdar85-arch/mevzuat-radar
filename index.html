@@ -344,7 +344,8 @@
   footer{border-top:1px solid var(--line);padding:38px clamp(18px,4vw,42px);background:var(--bg)}
   .foot-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;
     align-items:center;justify-content:space-between;font-size:12.5px;color:var(--dim)}
-  .foot-in a{color:var(--muted);text-decoration:none;margin-left:18px}
+  /* 02.10: margin-left:18px kalktı - araç bağları gidince yalnız cümle içi bağlar kaldı, boşluk "bir   Dizdar" diye kayıyordu. */
+  .foot-in a{color:var(--muted);text-decoration:none}
   .foot-in a:hover{color:var(--ink)}
   .disclaimer{max-width:1180px;margin:14px auto 0;font-size:11px;color:var(--dim);line-height:1.6}
 
@@ -356,19 +357,17 @@
      --panel/--panel2 BEYAZ kalır. İlk denemede zemin var(--panel)=beyaz + yazı var(--ink)=beyaz oldu,
      kutu görünmez çıktı (tarayıcıda ölçüldü: bRenk rgb(255,255,255)). Bu yüzden yüzey jetondan
      TÜRETİLİYOR: ink'in saydam payı. Hem koyu bantta hem koyu temada doğru çalışır. */
-  .bizkim{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:start;
+  /* 02.10 (Cem "1.2.3 yap", rakip ölçümü): künye kutusu kalktı - Becker/UWorld/Surgent/Gleim'in dördünde de
+     unvan+adres YALNIZ altbilgide; bizde aynı sayfada 4 kez geçiyordu. Tek sütun, künye iletisim.html + altbilgide. */
+  .bizkim{display:grid;grid-template-columns:1fr;gap:20px;align-items:start;
     background:color-mix(in srgb,var(--ink) 6%,transparent);border:1px solid var(--line2);
     border-radius:16px;padding:22px 24px;margin:0 0 22px}
   .bizkim h3{font-size:20px;margin:0 0 8px}
   .bizkim p{font-size:14.5px;line-height:1.65;color:var(--muted);margin:0 0 10px}
   .bizkim p b{color:var(--ink)}
   .bizkim .bk-soz{font-size:15px;line-height:1.6;color:var(--ink);border-left:2px solid var(--amber);padding-left:12px;margin:12px 0 0}
-  .bizkim .bk-kunye{font-size:13px;line-height:1.85;color:var(--muted);
-    background:color-mix(in srgb,var(--ink) 5%,transparent);
-    border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);border-radius:12px;padding:14px 16px}
-  .bizkim .bk-kunye b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:4px}
-  .bizkim .bk-kunye a{color:color-mix(in srgb,var(--amber) 55%,var(--ink));font-weight:700;text-decoration:none}
-  @media(max-width:760px){ .bizkim{grid-template-columns:1fr;padding:18px} }
+  .bizkim .bk-bag{color:color-mix(in srgb,var(--amber) 55%,var(--ink));font-weight:700;text-decoration:none}
+  @media(max-width:760px){ .bizkim{padding:18px} }
   .guven-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:760px){.guven-grid{grid-template-columns:1fr}}
   .gk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
@@ -381,6 +380,7 @@
   .kaynak-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
     gap:11px 20px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line);
     font-size:13px;color:var(--dim)}
+  .kaynak-bar span{margin-right:8px} /* 02.10: stil-sade gap:6px 0 iken "kaynaklar:Resmî Gazete" bitişik çıkıyordu */
   .kaynak-bar b{color:var(--muted);font-weight:700;letter-spacing:.2px;
     padding:6px 13px;border:1px solid var(--line2);border-radius:9px;background:var(--bg2)}
 
@@ -1974,20 +1974,11 @@ window.veriAl = (function(){
         Kurucusu <b>Cem Dizdar</b>. Şirket vergi, iç denetim, IFRS raporlaması, maliyet sistemleri, ERP mimarisi ve finansal yazılım alanında çalışıyor.</p>
         <!-- 25.09 Cem "öneri: yap": IFRS + maliyet eklendi (sınav dersleriyle örtüşen uzmanlık = güven). Birleşme-devir gibi
              hizmet listesi BİLEREK yok - okur öğrenci; iki marka karışmaz (15.09 Cem "Dizdar sınavla ilgili değil").
-             Şirketin hizmetleri için künyede dizdardenetim.com bağı. -->
+             02.10: künye kutusu kalktı; MERSİS/sicil/adres altbilgide + iletisim.html'de, dizdardenetim.com altbilgide. -->
 
         <p>Tetikte bu işin içinden çıktı: "bu soruda neden yanlış yaptım?"
-        sorusunu maddesiyle birlikte cevaplamak için.</p>
+        sorusunu maddesiyle birlikte cevaplamak için. <a class="bk-bag" href="iletisim.html">Hakkımızda ve tam künye →</a></p>
         <p class="bk-soz">Herkesin bir hocası var; senin bir nöbetçin var.</p>
-      </div>
-      <div class="bk-kunye">
-        <b>Künye</b>
-        Dizdar Denetim Danışmanlık ve Yazılım A.Ş.<br>
-        MERSİS 0301130343200001<br>
-        Ticaret Sicil No 270764 · İzmir<br>
-        Alsancak Mah. Atatürk Cad. No:378/B · Konak/İzmir<br>
-        <a href="iletisim.html">İletişim ve tam künye →</a><br>
-        <a href="https://www.dizdardenetim.com" target="_blank" rel="noopener">Şirketin hizmetleri: dizdardenetim.com →</a>
       </div>
     </div>
     <div class="guven-grid">
@@ -2039,9 +2030,7 @@ window.veriAl = (function(){
            tarifesinden, denetim standartları KGK'nın kendi metinlerinden okunuyor. -->
       <b>Resmî Gazete</b><b>mevzuat.gov.tr</b><b>GİB</b><b>TESMER</b><b>TÜRMOB</b><b>KGK</b>
     </div>
-    <!-- 16.09: buradaki şirket cümlesi bölümün BAŞINDAKİ "Biz kimiz" kutusuna taşındı; iki kez yazılmıyor. -->
-    <p class="reveal" style="text-align:center;margin-top:26px;font-size:13.5px;color:var(--dim)">
-      Şirketin kendi sitesi: <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700;text-decoration:none">dizdardenetim.com</a></p>
+    <!-- 02.10: "Şirketin kendi sitesi: dizdardenetim.com" satırı kalktı - aynı bağ altbilgide var (sayfada 3. tekrarıydı). -->
   </div>
 </section>
 
@@ -2049,20 +2038,8 @@ window.veriAl = (function(){
 <footer>
   <div class="foot-in">
     <span>© 2026 Tetikte · bir <a href="https://dizdardenetim.com" target="_blank" rel="noopener" style="color:var(--muted);font-weight:600">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</a> yazılımı · <a href="mailto:destek@tetikte.com" style="color:var(--muted)">destek@tetikte.com</a></span>
-    <span>
-      <a href="gtip.html">GTİP Kontrolü</a>
-      <a href="risk-taramasi.html">Risk Taraması</a>
-      <a href="senaryo-raporu.html">Menşe Raporu</a>
-      <a href="hizmet.html">Hizmet Faturası</a>
-      <a href="fiyatfarki.html">Fiyat Farkı</a>
-      <a href="toplu-gtip.html">Toplu GTİP</a>
-      <a href="marka-radari.html">Marka Radarı</a>
-      <a href="destekler.html">Destek Radarı</a>
-      <a href="kurulus.html">Şirket Kuruluşu</a>
-      <a href="radar.html">Bugün RG'de</a>
-      <a href="kartlar.html">Günün Kartları</a>
-      <a href="kvkk.html">KVKK</a>
-    </span>
+    <!-- 02.10: buradaki 11 araç bağı (gtip…kartlar) kalktı - 30.09 kararıyla bu sayfalar menu.js GIZLI listesinde,
+         altbilgide açık kalmışlardı. KVKK bağı aşağıdaki yasal satırda var. -->
   </div>
   <!-- 14.09: ödeme kuruluşu incelemesi yasal sayfaları ANA SAYFADAN doğrudan ulaşılabilir arar
        (iyzico: "ana sayfada doğrudan ulaşılabilecek İletişim"). Ana sayfanın kendi kvkk bağlantısı
@@ -2079,8 +2056,10 @@ window.veriAl = (function(){
     <a href="elci-programi.html">Elçi Programı</a>
     <br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · MERSİS 0301130343200001 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · destek@tetikte.com · 0537 843 80 58
   </p>
-  <p class="disclaimer">Tetikte bir bilgilendirme platformudur; hukuki mütalaa vermez,
-  beyanname düzenlemez. Tüm kartlar kaynak mevzuata bağlanır ve uzman doğrulamasından geçer.</p>
+  <!-- 02.10: "Tüm kartlar ... uzman doğrulamasından geçer" kalktı - ölçülmemiş söz (6502 m.61) ve kartlar gizli ürün. -->
+  <p class="disclaimer">Tetikte bir bilgilendirme ve sınav hazırlık platformudur; hukuki mütalaa vermez,
+  beyanname düzenlemez. Sorunun altında dayandığı mevzuat yazar.</p>
+  <!-- "Her soru..." diye yazılmadı: 13.09 söz denetimi mutlak "her"i 1. karttan da kaldırmıştı (ölçülemez). -->
 </footer>
 
 <script>
