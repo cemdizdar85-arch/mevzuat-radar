@@ -382,6 +382,11 @@
     .bizkim .bk-foto figcaption{margin-top:0} }
   .guven-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:760px){.guven-grid{grid-template-columns:1fr}}
+  /* 02.10 Cem (canlı ekran, 2000 px): "burda boşluk çok". Açılışta kahramanın hemen altına #guven geliyor;
+     ölçüldü: kahraman içeriği ile başlık arası ~200 px (gövde alt 64 + ortalama 37 + 22 + bölüm üst 74).
+     Bölüm üst dolgusu 74 -> 44, kahraman gövde alt 64 -> 36, kahraman asgari boy 680 -> 630 (boy sabit
+     kalınca dolgu kısmak içeriği yalnız ortalıyordu) => 2000 px'te ~200 -> 129 px. */
+  #guven{padding-top:clamp(32px,3.6vw,44px)}
   .gk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
     padding:26px 26px;position:relative;overflow:hidden;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 24px 50px -30px rgba(0,0,0,.85)}
@@ -607,7 +612,7 @@ window.veriAl = (function(){
         --bz-bronz:#cfa163; --bz-bronz-acik:#eccb96; --bz-bronz-koyu:#8d6c38;
         --bz-cta-yazi:#221704;
         position:relative;overflow:hidden;background:var(--bz-gece);
-        min-height:680px;display:flex;flex-direction:column;text-align:left}
+        min-height:630px;display:flex;flex-direction:column;text-align:left}   /* 02.10: 680 -> 630, #guven notuna bak */
       .bz-kah .bz-sahne{position:absolute;top:0;bottom:0;left:50%;width:min(100%,1600px);transform:translateX(-50%);
         z-index:0;overflow:hidden;perspective:1500px;
         -webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
@@ -630,7 +635,7 @@ window.veriAl = (function(){
 
       .bz-kah .bz-govde{position:relative;z-index:4;flex:1;display:grid;
         grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:center;
-        width:100%;max-width:1240px;margin:0 auto;box-sizing:border-box;padding:150px 40px 64px}
+        width:100%;max-width:1240px;margin:0 auto;box-sizing:border-box;padding:150px 40px 36px}
       .bz-kah .bz-goz{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;
         color:var(--bz-bronz);margin:0 0 20px}
       .bz-kah .bz-baslik{font-size:52px;line-height:1.08;letter-spacing:-.033em;color:var(--bz-ak);
