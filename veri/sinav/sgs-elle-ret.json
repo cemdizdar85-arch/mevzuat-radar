@@ -26,65 +26,18 @@
             "kaynak": "sinav/bitirme oturumu okumasi (arac/had-tutar-tarama.ps1) + site oturumu VUK GT 588 EK m.177 metnini ambardan okudu (ad67d45a), 24.09.2026",
             "tarih": "2026-09-24"
         },
-        "sgs-c5-fmuh-kolay-r2/kp-05": {
-            "gerekce": "Ticari mal deger dusuklugu icin TMS 36 ve 'gercege uygun deger' anilmis; stoklar TMS 36 kapsami disinda, dogrusu TMS 2 (net gerceklesebilir deger). Rakam (25.000) tesaduf dogru, kavram yanlis.",
-            "kaynak": "25.09 tum-banka etiket denetimi okuyucusu isaretledi; GM soru metnini okuyup dogruladi"
-        },
-        "sgs-d4-turkce-kolay-r2/kp-01": {
-            "gerekce": "Iki dogru cevap: anahtar B dogru, ama A ('Kardesimde boyle bir kitap yok') da dogru cumle - bulunma eki -de bitisik ('kardesimin elinde'). Yazar 'kardesim de' hatasini kastetmis, yazildigi haliyle ikinci dogru olusmus.",
-            "kaynak": "25.09 GM okumasi (teori notu etki olcumu sirasinda)"
-        },
-        "sgs-p-fmuh-cokzor-r3/kp-22": {
-            "gerekce": "27.09 ozel maliyet denetimi (VUK m.327, 5398 s.K. 2005: itfa KIRA SURESINE gore; THP 264 MSUGT 1992 metnindeki 5 yil siniri vergide gecersiz). CEVAP YANLIS: kok 5 yilda itfa diyor, kira 7 yil; anahtar C=20.000, guncel kurala gore 14.286 (A). Kok, anahtar ve ikiz yeniden yazilmali.",
-            "tarih": "2026-09-27"
-        },
-        "sgs-p-fmuh-zor-r2/kp-21": {
-            "gerekce": "29.09 VUK m.270 denetimi (7338 s.K. ile 14.10.2021 mulga; m.262 ek fikralari: noter/harc/tapu maliyete ZORUNLU, OTV/KDV/BSMV/KKDF emtia disi kiymette TERCIHLI). ANAHTAR TARTISMALI (yayinda degil): THP 271 'arama amaci ile yapilan ve bununla ilgili giderler' -> arama ekibinin arac kirasi da girer, E savunulabilir. Kok yeniden kurulmali.",
-            "tarih": "2026-09-29",
-            "kaynak": "m270-denetimi"
-        },
         "sgs-a6-fmuh-cokzor-r1/kp-03": {
-            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Gelir vergisi %15 brüt ikramiyeye uygulanıyor (15.000); GVK m.63 gereği SGK işçi payı düşülmüş matraha uygulanmalı (12.900 → net 72.341, şıklarda yok). Anahtar ancak \"oranlar brüte uygulanır\" varsayımıyla doğru; soru metnine bu varsayım açıkça yazılmalı ya da hesap düzeltilmeli. | dayanak: GVK m.63; THP 373/335",
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Gelir vergisi %15 brüt ikramiyeye uygulanıyor (15.000); GVK m.63 gereği SGK işçi payı düşülmüş matraha uygulanmalı (12.900 → net 72.341, şıklarda yok). Anahtar ancak \"oranlar brüte uygulanır\" varsayımıyla doğru; soru metnine bu varsayım açıkça yazılmalı ya da hesap düzeltilmeli. | dayanak: GVK m.63; THP 373/335 | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
         "sgs-bosluk-finansalmuhasebe/kp-05": {
-            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Şık E, açıklama ve hap reeskont giderini \"652\", izleyen dönem kapanışını \"642\" koduyla veriyor. MSUGT 122 açıklamasının kendisi 652/642 yazsa da plan kodu 657 Reeskont Faiz Giderleri / 647 Reeskont Faiz Gelirleri; aynı bankada soru 31 ve 60 da 647/657 kullanıyor. Kod çelişkisi öğrenciye öğretiliyor (şık metni de düzeltilmeli). | dayanak: THP 122, THP 657, THP 647",
+            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Şık E, açıklama ve hap reeskont giderini \"652\", izleyen dönem kapanışını \"642\" koduyla veriyor. MSUGT 122 açıklamasının kendisi 652/642 yazsa da plan kodu 657 Reeskont Faiz Giderleri / 647 Reeskont Faiz Gelirleri; aynı bankada soru 31 ve 60 da 647/657 kullanıyor. Kod çelişkisi öğrenciye öğretiliyor (şık metni de düzeltilmeli). | dayanak: THP 122, THP 657, THP 647 | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
         "sgs-c2-fmuh-zor-r1/kp-14": {
             "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Doğru şık C (230.000) için açıklama YOK (aciklama nesnesinde C anahtarı eksik). Hesap doğru: 600.000−120.000−250.000=230.000. | dayanak: THP 320",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-c5-fmuh-zor-r1-2/kp-15": {
-            "gerekce": "29.09 risk taramasi grup C: CEVAP YANLIŞ (KESİN) - Soru \"ilk madde ve malzeme alımı\" diyor ama doğru şık A (ve tüm şıklar) stoku 153 TİCARİ MALLAR hesabına yazıyor; doğru hesap 150 İLK MADDE VE MALZEME. Hiçbir şık doğru değil — ya soru \"ticari mal\" yapılmalı ya şıklar 150 olmalı. | dayanak: THP 150, THP 159 | anahtar A->yok (şıklar 150 ile yeniden yazılmalı)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-c5-fmuh-zor-r1-2/kp-17": {
-            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Soru ve açıklamalar stopajı NOMINAL değer (1.000.000×%15=150.000) üzerinden kuruyor; GVK geç. m.67/1-b tevkifat matrahı alış bedeli ile itfa bedeli arasındaki FARK (100.000). B/C açıklamaları (banka 850.000, 193 150.000) yanlış kural öğretiyor. Anahtar E (642 100.000) etkilenmiyor. Kurum mükellefler için oran ayrıca ölçülmedi. | dayanak: GVK geç. m.67/1",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-c5-fmuh-zor-r2-2/kp-19": {
-            "gerekce": "29.09 risk taramasi grup C: GÜNCELLİK RİSKİ (MUHTEMEL) - Soru yıl vermeden KDV oranını %18 veriyor; genel oran 2023/07'den beri %20, güncel oran yapısında %18 yok. Hesap %18 ile tutarlı (258.000) ama öğrenciye eskimiş oran gösteriliyor; %20 ile yeniden kurulmalı. Oran kararnamesi ambarda yok (brif ölçümü esas alındı). | dayanak: KDVK m.28 (+ brif: genel oran %20)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-c5-fmuh-zor-r2/kp-07": {
-            "gerekce": "29.09 risk taramasi grup C: CEVAP YANLIŞ (MUHTEMEL) - İki savunulabilir cevap: anahtar D (132.000 kâr) 1 Nisan 2023 için AYLIK kıst amortisman kullanıyor; dayanak VUK m.328 ve \"normal amortisman\" ifadesi VUK çerçevesi çağırıyor, VUK m.320'ye göre aktife giriş yılı TAM YIL → 3×96.000=288.000, net 192.000, kâr 108.000 = şık B (açıklamada \"tuzak\" deniyor). Soru kıst/TMS 16 varsayımını açıkça vermeli. | dayanak: VUK m.320, m.328 | anahtar D->D veya B (varsayıma göre)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-d2-fmuh-cokzor-r1/kp-07": {
-            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (KESİN) - Soru \"7/A seçeneğini uygulamakta, amortismanı 796 hesabına\" diyor; 796 AMORTİSMANLAR VE TÜKENME PAYLARI 7/B gider çeşidi hesabıdır, 7/A'da kullanılmaz. Hesap (100.000) doğru; soru metni ve dayanak \"7/B\" olmalı. | dayanak: THP 796, THP 257",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-d5-fmuh-kolay-r1/kp-21": {
-            "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - C açıklaması \"KDV ancak fatura düzenlendiğinde doğar\" diyor; KDVK m.10/a'ya göre vergiyi doğuran olay hizmetin yapılmasıdır (Aralık). Bu gerekçe yanlış kural öğretiyor; KDV'li tahakkuk (C) vergisel olarak savunulabilir olduğundan anahtar da tartışmalı. | dayanak: KDVK m.10/a; THP 181",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -108,43 +61,8 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-fmuh-k10c/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-03: CEVAP YANLIŞ (KESİN) - Soru açıkça VUK m.328'e göre kâr soruyor. Ama anahtar satış yılı 2025 için 6 aylık kıst amortisman (25.000) ayırıyor. VUK m.320'de kıst yalnız binek otonun aktife girdiği yıl için var. Gün esası 7338 ile yalnız yeni aktife kaydedilen kıymetlere tanındı; makine 01.01.2021'de alınmış. Satış yılında amortisman ayrılmaz: NDD 500.000-200.000=300.000, kâr 320.000-300.000=20.000 (A). İkiz de aynı hatayı taşıyor (2023 için 3 ay kıst; VUK'a göre NDD 360.000). | dayanak: VUK m.320, m.328; KGK 14.11.2021 sorusu (\"aktiften çıktığı yıl kıst amortisman ayrılır\" YANLIŞ şıkkı) | anahtar B->A",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-fmuh-cokzor-r1/kp-38": {
-            "gerekce": "29.09 risk taramasi grup r4-03: AÇIKLAMA KUSURLU (KESİN) - Açıklama, hisse senedi portföyüne (ikizde tahvil portföyüne) TMS 36 p.20-28 uyguluyor: SMDGD, kullanım değeri, işten çıkarma tazminatı. Oysa TMS 36 p.2(e) TFRS 9 kapsamındaki finansal varlıkları kapsam dışı bırakır. Hesap iç tutarlı (18.000) ama soru ile açıklama yanlış standarda dayanıyor; öncül kurgusu hatalı. | dayanak: TMS 36 p.2(e)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-p-fmuh-cokzor-r2/kp-05": {
             "gerekce": "29.09 risk taramasi grup r4-03: CEVAP YANLIŞ (KESİN) - Kâr 500.000; I. tertip 25.000 + birinci kâr payı 60.000 + ikinci kâr payı 415.000 + II. tertip 41.500 = 541.500, yani kârı aşıyor. \"Kalanın tamamı dağıtılacak\" ise II. tertip=415.000x10/110=37.727; bu sonuç şıklarda yok. İkizde ayrı ve KESİN hata var: mevcut yedek 300.000 = 1.500.000x%20 sınırına ulaşmış, I. tertip 0 olmalı; tablo 30.000 ayırıyor. | dayanak: TTK m.519/1, m.519/2-c | anahtar B->YOK (37.727)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-mta-zor-r2-a/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Doğru-şık açıklaması \"TMS 1 p.66(c) uyarınca 12 ay içinde realize edilmeyecek alacak cari sayılmaz\" diyor; TMS 1 p.68 ticari alacakları 12 ay dışında olsa da normal faaliyet döngüsü içindeyse CARİ sayar. Anahtar (2,80) yalnız THP/MSUGT 1-yıl ayrımıyla savunulur; TMS okumasıyla C (3,05) da savunulabilir, soru çerçeveyi (THP 1 yıl) açıkça vermeli. İkiz hesabı doğru (3,64). | dayanak: TMS 1 p.66, p.68 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t2b-mta-cokzor/kp-19": {
-            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (MUHTEMEL) - Anahtar doğru (3.400.000). B açıklaması (\"özkaynağı yabancı kaynak oranına böldün\") 2.266.667 verir, şık 1.700.000; sdA \"850.000 TL\" yabancı kaynak tutarı uydurma (doğrusu 2.040.000; A şıkkı 816.000). | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t2b-mta-cokzor/kp-20": {
-            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (0,55). Sade sdA, E şıkkının tuzağını anlatıyor (\"başlangıç oranı 0,60\"); A/B/C açıklamaları şık değerlerini (0,32/0,48/0,52) üretmiyor: çeldirici açıklamaları kaymış/uydurma. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t2b-mta-cokzor/kp-22": {
-            "gerekce": "29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - Anahtar doğru (3.900.000). A açıklaması bozuk ve kendi içinde çelişkili (\"741.000/0,19 değil, 741.000/0,19 da değil ... 741.000/0,19=3.900.000\"); D/E açıklamaları şık değerlerini üretmiyor. | dayanak: Kendi hesabım (verilen veriyle yeniden çözüldü)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-maliye-cokzor-r1/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-07: GÜNCELLİK RİSKİ (KESİN) - Soru \"2026 yılı ticari kazancı ... aşağıdaki tarifeye göre vergilendirilmektedir\" diyerek 18.000/40.000/98.000 TL dilimli eski tarifeyi 2026 yılına bağlıyor ve %40 dilimini hiç vermiyor; doğru-şık açıklaması GVK m.103 atfı yapıyor. Ambardaki GVK m.103 güncel (parantez içi) tutarlar 190.000/400.000/1.000.000/5.300.000 TL, %40 dilimi var. Hesap kendi verisiyle tutarlı (108.800). İkiz küsuratlı sonuç (122.285,71) veriyor. | dayanak: GVK (193) m.103 (ambar)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -218,16 +136,6 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-t4-fmuh-kolay/kp-39": {
-            "gerekce": "29.09 risk taramasi grup r4-05: GÜNCELLİK RİSKİ (KESİN) - Hesap kökteki %10 ile tutarlı (803.700) ama tam mükellef kurumun gerçek kişi ortağa dağıttığı kâr payında stopaj 22.12.2024'ten beri %15; kök yıl/varsayım demeden \"%10 kesinti yapmıştır\" diyor. %15 ile 759.050 çıkar, şıklarda yok. İkiz de %10. | dayanak: GVK m.94/6-a; BKK 2009/14592 m.1/6-a (9286 CBK, yür. 22.12.2024) (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t4-fmuh-zor/kp-24": {
-            "gerekce": "29.09 risk taramasi grup r4-05: CEVAP YANLIŞ (MUHTEMEL) - THP 408 yalnız \"gelecek YILLARA ait\" farkı taşır; gelecek dönem payı bilanço tarihinde 308'e aktarılır ve itfa 308'den yapılır (aynı parçada #68 bunu doğru soruyor). 1. yıl sonunda 408'de 153.000−30.600−30.600=91.800 kalır; 122.400 itfa edilmemiş farkın 308+408 toplamı. İkiz de aynı hatada (140.000 yerine 70.000). | dayanak: THP 408, 308 (ambar) | anahtar B->şıklarda yok",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-t2b-maliyet-cokzor/kp-03": {
             "gerekce": "29.09 risk taramasi grup r4-10: AÇIKLAMA KUSURLU (KESİN) - Teşhis D \"225.000 TL Ege/Toros payı, üç pay 600.000\" (doğrusu 227.250 / 606.000); teşhis E \"150.000 pay\" (doğrusu 151.500); sade D \"227.500\" (doğrusu 227.250) | dayanak: TMS 2 p.13-14 (ambar); TEORI notları (MSUGT hesap açıklamaları ambarda yalnız teori notu olarak)",
             "tarih": "2026-09-29",
@@ -259,22 +167,12 @@
             "kaynak": "sgs-risk-taramasi"
         },
         "sgs-e16-mat-zor/kp-02": {
-            "gerekce": "29.09 risk taramasi grup r4-10: AÇIKLAMA KUSURLU (KESİN) - SORU VERİSİ gerçek dışı: anne+baba yaş toplamı 10, çocuk 2 (ikizde toplam 30, çocuk 5); matematik tutarlı ama bağlam imkânsız. Adımda \"kaç TL… yani kaç yaş\" kalıntısı | dayanak: matematik — hesap yeniden yapıldı",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-genel-mat-cokzor/kp-22": {
-            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade B ters: \"%20 indirimi görmezden gelip %10 ile\" yazıyor ama formül 450÷(0,8×1,25) (yani %10 atlanmış). Ek not: \"nakliye gideri maliyete girmez\" genel kural gibi sunuluyor; alış nakliyesi VUK m.262 gereği maliyete zorunlu girer (kök \"taşınmasında\" diyerek belirsiz) | dayanak: Matematik kuralı (hesap yeniden yapıldı) · VUK m.262 (brifte ölçülmüş tuzak)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-genel-mat-kolay/kp-29": {
-            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A açıklaması doğru şık kopyası; B/C/D açıklamaları bir şık kaymış (B metni −22'yi, C metni −1'i, D metni x=3'ü anlatıyor; D=5 aslında sabit terimi unutmak); sade D de x=3 anlatıyor; kökte \"fonksiiyonu\" yazım hatası | dayanak: Matematik kuralı (hesap yeniden yapıldı)",
+            "gerekce": "29.09 risk taramasi grup r4-10: AÇIKLAMA KUSURLU (KESİN) - SORU VERİSİ gerçek dışı: anne+baba yaş toplamı 10, çocuk 2 (ikizde toplam 30, çocuk 5); matematik tutarlı ama bağlam imkânsız. Adımda \"kaç TL… yani kaç yaş\" kalıntısı | dayanak: matematik — hesap yeniden yapıldı | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
         "sgs-p-ticaret-kolay-r1/kp-07": {
-            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A açıklaması/sadesi 25.000 TL'yi \"limited şirketin eski asgari sermayesi\" diye anlatıyor — eski tutar 10.000 TL (TTK 580/1); B açıklamasında ltd için dayanak \"m.332\" (doğrusu m.580/2); ikiz yok | dayanak: TTK m.580; 7887 s. CBK — ambardan okundu",
+            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - A açıklaması/sadesi 25.000 TL'yi \"limited şirketin eski asgari sermayesi\" diye anlatıyor — eski tutar 10.000 TL (TTK 580/1); B açıklamasında ltd için dayanak \"m.332\" (doğrusu m.580/2); ikiz yok | dayanak: TTK m.580; 7887 s. CBK — ambardan okundu | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -283,87 +181,13 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-c5-fmuh-zor-r1-3/kp-10": {
-            "gerekce": "30.09 onarim kalite-as: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-d5-maliyet-cokzor-r1/kp-07": {
-            "gerekce": "30.09 onarim kalite-as: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-t1-genel-mat-cokzor/kp-29": {
-            "gerekce": "30.09 onarim kalite-as: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-t1-genel-maliye-cokzor/kp-06": {
-            "gerekce": "30.09 onarim kalite-ek: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-t1-fmuh-kolay-b/kp-123": {
-            "gerekce": "Soru kokunde hesap kodu yanlis: '220 ALICILAR' yaziyor; Tekduzen Hesap Plani'nda Alicilar 120 (220 uzun vadeli). Tutar (120.000) dogru ama ogrenciye yanlis kod ogretiyor. | 30.09 GERI ALINDI: kalite-ek onarimi yalniz ikizdeki %18 KDV yi duzeltti, kokteki 220 hatasi duruyor; onarim-hatti aciklama yoluyla yanlislikla cikarmisti",
-            "kaynak": "25.09 tum-banka etiket denetimi okuyucusu isaretledi; GM soru metnini okuyup dogruladi"
-        },
-        "sgs-bosluk-ticarethukuku/kp-03": {
-            "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (MUHTEMEL): ibraz suresi bir gun kaymis (TTK m.796/3, m.706); ikizde de | onarilana kadar yayin disi (Cem 30.09)",
-            "tarih": "2026-09-30",
-            "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
-        },
-        "sgs-t1-ticaret-cokzor/kp-32": {
-            "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (KESIN): tapuya tescil de kurucu (TMK m.705); dogru kume siklarda yok | onarilana kadar yayin disi (Cem 30.09)",
-            "tarih": "2026-09-30",
-            "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
-        },
-        "sgs-p-ticaret-zor-r2/kp-03": {
-            "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (MUHTEMEL): iki aykiri ifade (B ve E), E TTK m.8/2 yi yanlis aktariyor | onarilana kadar yayin disi (Cem 30.09)",
-            "tarih": "2026-09-30",
-            "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
-        },
-        "sgs-t1-genel-turkce-zor/kp-15": {
-            "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (MUHTEMEL): E de mecaz okunabilir; teori notu deyim ici sozcuk sorulmaz | onarilana kadar yayin disi (Cem 30.09)",
-            "tarih": "2026-09-30",
-            "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
-        },
         "sgs-gm5-tr-r2/kp-11": {
             "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (KESIN): iki dogru sik (B ve C), TDK yazim kurali | onarilana kadar yayin disi (Cem 30.09)",
             "tarih": "2026-09-30",
             "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
         },
-        "sgs-t1-genel-yd-cokzor/kp-23": {
-            "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (MUHTEMEL): sik dil bilgisi olarak dogru; aciklamadaki kural yanlis | onarilana kadar yayin disi (Cem 30.09)",
-            "tarih": "2026-09-30",
-            "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
-        },
-        "sgs-t1-genel-yd-zor/kp-31": {
-            "gerekce": "risk taramasi grup sozel-2: CEVAP YANLIS (KESIN): iki dogru sik (A ve B), before + simple past da dogru | onarilana kadar yayin disi (Cem 30.09)",
-            "tarih": "2026-09-30",
-            "kaynak": "30.09 SGS sozel orneklem okumasi (2. yari), ambar metniyle"
-        },
-        "sgs-t1-denetim-kolay/kp-01": {
-            "gerekce": "onarim sozel-1: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-fmuh-30/kp-19": {
-            "gerekce": "onarim hk-65: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
         "sgs-fmuh-ek15/kp-01": {
-            "gerekce": "onarim hk-65: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-t1-denetim-zor/kp-73": {
-            "gerekce": "onarim hk-65: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-fmuh-30/kp-31": {
-            "gerekce": "onarim hk-7: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
+            "gerekce": "onarim hk-65: anahtar/kok degisti, yeniden hakeme kadar yayin disi | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-30",
             "kaynak": "onarim-rehakem"
         },
@@ -393,7 +217,7 @@
             "kaynak": "30.09 SGS ticaret hukuku tam okuma (224 soru), ambar metniyle"
         },
         "sgs-t1-ticaret-cokzor/kp-11": {
-            "gerekce": "risk taramasi grup tic-2: CEVAP YANLIS (MUHTEMEL): D \"özel denetçi seçimi 616'da devredilemez yetki değildir\" diyor; TTK 616/1-j genel kurulun kanunla yetkilendirildiği her konuyu devredilemez sayar, 618/3-b öze | onarilana kadar yayin disi (Cem 30.09)",
+            "gerekce": "risk taramasi grup tic-2: CEVAP YANLIS (MUHTEMEL): D \"özel denetçi seçimi 616'da devredilemez yetki değildir\" diyor; TTK 616/1-j genel kurulun kanunla yetkilendirildiği her konuyu devredilemez sayar, 618/3-b öze | onarilana kadar yayin disi (Cem 30.09) | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-30",
             "kaynak": "30.09 SGS ticaret hukuku tam okuma (224 soru), ambar metniyle"
         },
@@ -452,11 +276,6 @@
             "tarih": "2026-09-30",
             "kaynak": "onarim-rehakem"
         },
-        "sgs-t1-ticaret-cokzor/kp-43": {
-            "gerekce": "onarim tic-B: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
         "sgs-t2-ticaret-zor/kp-15": {
             "gerekce": "onarim tic-B: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
             "tarih": "2026-09-30",
@@ -507,11 +326,6 @@
             "tarih": "2026-09-30",
             "kaynak": "30.09 TFRS 18 etki olcumu, ambar metniyle"
         },
-        "sgs-c5-fmuh-kolay-r2/kp-11": {
-            "gerekce": "onarim tfrs18: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
         "sgs-c5-fmuh-zor-r1-2/kp-07": {
             "gerekce": "onarim tfrs18: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
             "tarih": "2026-09-30",
@@ -543,16 +357,6 @@
             "kaynak": "onarim-rehakem"
         },
         "sgs-t1-fmuh-cokzor/kp-05": {
-            "gerekce": "onarim tfrs18: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-t1-fmuh-kolay-b/kp-124": {
-            "gerekce": "onarim tfrs18: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
-            "tarih": "2026-09-30",
-            "kaynak": "onarim-rehakem"
-        },
-        "sgs-t1-fmuh-kolay-b/kp-183": {
             "gerekce": "onarim tfrs18: anahtar/kok degisti, yeniden hakeme kadar yayin disi",
             "tarih": "2026-09-30",
             "kaynak": "onarim-rehakem"
