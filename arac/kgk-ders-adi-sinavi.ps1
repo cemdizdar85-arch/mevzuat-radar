@@ -9,6 +9,7 @@
     eski-hat     : eski hat deseni boşaltılır            · konu       : konu sözlüğü boşaltılır
     kimlik       : KgkYayinSarti'nin 'kgk-' kimlik şartı kaldırılır
     sart         : KgkYayinSarti her soruyu geçirir
+    aciklama-hakemi : AhSecilemez her zaman $false (yeni soru açıklama hakemi kararsız geçer) — 02.10
 #>
 param([switch]$Sessiz)
 $ErrorActionPreference = 'Stop'
@@ -25,6 +26,7 @@ switch ($mutasyon) {
   'konu' { $script:KGK_KONU_ES = @{} }
   'kimlik' { function KgkYayinSarti([string]$anahtar, $soruNesne, $onayHarita) { return (SmmmYayinSarti $anahtar $soruNesne $onayHarita) } }
   'sart' { function KgkYayinSarti([string]$anahtar, $soruNesne, $onayHarita) { return [pscustomobject]@{ gecer = $true; neden = 'mutasyon' } } }
+  'aciklama-hakemi' { function AhSecilemez($v) { return $false } }   # 02.10: açıklama hakemi bağı koparılır
 }
 
 $kalan = New-Object System.Collections.Generic.List[string]
@@ -101,6 +103,15 @@ $bozmalar = [ordered]@{
   'sade anlatım yok (KAPI-KC)' = { param($q) $q.sade = $null }
 }
 foreach ($bz in $bozmalar.GetEnumerator()) { $q = TamSoru; & $bz.Value $q; Denetle "düşer: $($bz.Key)" (-not (KgkYayinSarti 'kgk-sinav/kp-01' $q $bos).gecer) }
+# 02.10 (Cem "kgk açıklama hakemine bağla"): KGK şartı SmmmYayinSarti → SmmmKaliteNeden → AhSecilemez yoluyla AÇIKLAMA HAKEMİNİ
+#   zaten taşıyor (02.10 gerçek soruyla ölçüldü: kgk-d1-tds-cokzor-1/kp-01). Bu vakalar o bağın sessizce kopmasını yakalar.
+#   YENİ soru = kör/hakem2 tarihi >= 2026-10-01 (arac/aciklama-hakemi-uretim.ps1 AhYeniMi). Eski soru etkilenmez.
+$ahYeni = { param($q, $karar) $q.kor_cozum | Add-Member -NotePropertyName tarih -NotePropertyValue '2026-10-02' -Force
+  if ($karar) { $q | Add-Member -NotePropertyName aciklama_hakem -NotePropertyValue ([pscustomobject]@{ karar = $karar }) -Force } }
+$q = TamSoru; & $ahYeni $q $null;     $r = KgkYayinSarti 'kgk-sinav/kp-01' $q $bos; Denetle "düşer: YENİ soru, açıklama hakemi kararı yok ($($r.neden))" ((-not $r.gecer) -and "$($r.neden)" -like 'AÇIKLAMA HAKEMİ*')
+$q = TamSoru; & $ahYeni $q 'KUSURLU'; $r = KgkYayinSarti 'kgk-sinav/kp-01' $q $bos; Denetle "düşer: YENİ soru, açıklama hakemi KUSURLU ($($r.neden))" ((-not $r.gecer) -and "$($r.neden)" -like 'AÇIKLAMA HAKEMİ*')
+$q = TamSoru; & $ahYeni $q 'TEMIZ';   $r = KgkYayinSarti 'kgk-sinav/kp-01' $q $bos; Denetle "açıklama hakemi TEMIZ olan YENİ soru hakem yüzünden düşmez ($($r.neden))" ("$($r.neden)" -notlike 'AÇIKLAMA HAKEMİ*')
+$q = TamSoru;                          $r = KgkYayinSarti 'kgk-sinav/kp-01' $q $bos; Denetle 'ESKİ soru (tarihsiz) açıklama hakemi aranmadan geçer' ($r.gecer)
 # eski mevzuat: dayandığı madde değişen soru (motor/soru-dayanak-nobetcisi.ps1 listesi) geçmez; soru yeniden yazılınca (iz değişir) geçer
 $q = TamSoru; $script:MD_LISTE = @{ 'kgk-sinav/kp-01' = [pscustomobject]@{ anahtar = 'kgk-sinav/kp-01'; iz = (MdIcerikIzi $q); kaynak = 'ad|BDS 200'; tur = 'degisti'; tarih = '27.09.2026' } }
 Denetle 'düşer: mevzuat değişti (eski standart metni)' (-not (KgkYayinSarti 'kgk-sinav/kp-01' $q $bos).gecer)
