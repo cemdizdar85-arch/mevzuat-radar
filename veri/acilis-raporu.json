@@ -1,17 +1,103 @@
 {
-  "tarih": "2026-10-01 18:46:34",
-  "durum": "YESIL",
+  "tarih": "2026-10-01 21:25:38",
+  "durum": "KIRMIZI",
   "ci": true,
   "sayfa": 66,
   "bekleme_ms": 6000,
   "yakalanmamis_hata_sayfa": 0,
   "asili_yuklenme_sayfa": 0,
-  "dis_kaynak_sayfa": 0,
+  "dis_kaynak_sayfa": 5,
   "eksik_kaynak_sayfa": 0,
   "olculemeyen": 0,
   "yakalanmamis_hata": [],
   "asili_yuklenme": [],
-  "dis_kaynak": [],
+  "dis_kaynak": [
+    {
+      "sayfa": "deneme.html",
+      "kaynaklar": [
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/b/d76008a69eab/api.js",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/w1763/0x4AAAAAAFLbkRtRcjMK9cnY/auto/fbE/new/normal?lang",
+          "tur": "Document"
+        }
+      ]
+    },
+    {
+      "sayfa": "elci.html",
+      "kaynaklar": [
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/b/d76008a69eab/api.js",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/xtamq/0x4AAAAAAFLbkRtRcjMK9cnY/auto/fbE/new/normal?lang",
+          "tur": "Document"
+        }
+      ]
+    },
+    {
+      "sayfa": "marka-app.html",
+      "kaynaklar": [
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/b/d76008a69eab/api.js",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/5u0qi/0x4AAAAAAFLbkRtRcjMK9cnY/auto/fbE/new/normal?lang",
+          "tur": "Document"
+        }
+      ]
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "kaynaklar": [
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/b/d76008a69eab/api.js",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/k6dva/0x4AAAAAAFLbkRtRcjMK9cnY/auto/fbE/new/normal?lang",
+          "tur": "Document"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar-app.html",
+      "kaynaklar": [
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/turnstile/v0/b/d76008a69eab/api.js",
+          "tur": "Script"
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/ndt79/0x4AAAAAAFLbkRtRcjMK9cnY/auto/fbE/new/normal?lang",
+          "tur": "Document"
+        }
+      ]
+    }
+  ],
   "eksik_kaynak": [],
   "olculemeyenler": []
 }
