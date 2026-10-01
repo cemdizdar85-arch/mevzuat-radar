@@ -905,7 +905,7 @@ window.veriAl = (function(){
             } }catch(e){}
             /* 01.10: tek ders ikincil yol (Surgent kalıbı "Only need one section?") - ana düğme tüm dersler */
             try{ if(secili==='yeterlilik'&&s.alTek&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]){
-              durumEl.insertAdjacentHTML('afterbegin','<a href="'+s.alTek+'" style="color:var(--amber);font-weight:700;text-decoration:none">Birkaç dersin mi kaldı? Ders başı'+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den →</a><br>");
+              durumEl.insertAdjacentHTML('afterbegin','<a href="'+s.alTek+'" style="color:var(--amber);font-weight:700;text-decoration:none">Birkaç dersin mi kaldı? Ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den →</a><br>");
             } }catch(e){}
           }
         } else {

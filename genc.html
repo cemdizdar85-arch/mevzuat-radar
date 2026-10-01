@@ -147,7 +147,8 @@ td b{color:var(--ink)}
   /* Geri sayim TURMOB'un resmi takviminden; sahte sayac degil. Tarihler
      robotla degistirilmez, elle teyitle guncellenir. */
   (function(){
-    function gun(t){ return Math.ceil((new Date(t+'T09:00:00+03:00') - new Date())/86400000); }
+    /* 02.10: takvim günü, Türkiye saati (aynı sayfanın akışıyla ve sorular.html ile aynı sayı) */
+    function gun(t){ var b=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Istanbul'}); return Math.round((Date.parse(t+'T00:00:00Z')-Date.parse(b+'T00:00:00Z'))/86400000); }
     var a=gun('2026-11-21'), b=gun('2026-11-28');
     var e1=document.getElementById('ikSgs'), e2=document.getElementById('ikYet');
     if(e1) e1.textContent = a>0 ? a : '0';
@@ -411,8 +412,8 @@ fetch('veri/smmm-analiz.json?'+Date.now()).then(r=>r.json()).then(d=>{
     {t:'2026-11-21', ad:'Staja Giriş 3. Dönem SINAVI'},
     {t:'2026-11-28', ad:'SMMM Yeterlilik 3. Dönem SINAVI'}
   ];
-  const bugun=new Date(); bugun.setHours(0,0,0,0);
-  const kalan=o=>Math.round((new Date(o.t+'T00:00:00')-bugun)/86400000);
+  const trBugun=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Istanbul'});
+  const kalan=o=>Math.round((Date.parse(o.t+'T00:00:00Z')-Date.parse(trBugun+'T00:00:00Z'))/86400000);
   const gelecek=olaylar.map(o=>({...o,g:kalan(o)})).filter(o=>o.g>=0).slice(0,3);
   document.getElementById('sayac').innerHTML=gelecek.map((o,i)=>
     '<div class="skart'+(i===0?' yakin':'')+'"><div class="et">'+(i===0?'⏰ EN YAKIN':'SIRADA')+'</div>'+

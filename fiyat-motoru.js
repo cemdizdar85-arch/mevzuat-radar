@@ -288,9 +288,11 @@ function indirimYuzde(kurulus, liste){
   if(!liste || liste <= kurulus) return 0;
   return Math.round((1 - kurulus / liste) * 100);
 }
+/* 02.10: TAKVİM GÜNÜ farkı (Türkiye saatiyle bugün → sınav günü). Eski hâl saat farkını yukarı yuvarlıyordu
+   (ceil, sınav 09:00): gece yarısından sonra bir gün fazla çıkıyor, sorular.html ile 1 gün ayrışıyordu (58↔57). */
 function gunFarki(t){
-  var s = new Date(t + 'T09:00:00+03:00');
-  return Math.ceil((s - new Date()) / 86400000);
+  var trBugun = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Istanbul' }); /* YYYY-MM-DD */
+  return Math.round((Date.parse(t + 'T00:00:00Z') - Date.parse(trBugun + 'T00:00:00Z')) / 86400000);
 }
 function sinav(anahtar){
   return SINAVLAR.filter(function(x){ return x.anahtar === anahtar; })[0] || null;
