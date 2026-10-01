@@ -453,3 +453,58 @@ function kurucuSatir(sinavAnahtar, kalanlar){
   var k = kalanlar[sinavAnahtar];
   return k > 0 ? 'Kalan kurucu yeri: ' + tl(k) : 'Kurucu kontenjanı doldu';
 }
+
+/* ---------------------------------------------------------------------------
+   PAKET KIYASI — 01.10.2026 (Cem "1.2.3 yap", madde 1). "Tüm dersler"in yanında, aynı 8 dersi
+   bizim 1–4 derslik paketlerimizle almanın EN UCUZ yolu yazılır. Kıyas rakibin değil kendi
+   GÜNCEL fiyatımızladır (BPP ACCA kalıbı "compared with purchasing separately"); eski fiyat
+   ya da indirim iddiası değildir (Yön. m.14/3 dışı). "8 × tek ders" yazmak kıyası şişirirdi
+   (en ucuz yol 4+4) → en ucuz kombinasyon hesaplanır, elle rakam yazılmaz.
+   Dönen: { tutar: KDV dahil toplam, parca: [4,4] } — tüm paket daha ucuz değilse null.
+--------------------------------------------------------------------------- */
+function yeterlilikAyriEnAz(alan){
+  alan = alan || 'kurulus';
+  var N = (DERSLER.yeterlilik || []).length, en = [0], yol = [[]];
+  for(var d = 1; d <= N; d++){
+    en[d] = Infinity; yol[d] = null;
+    for(var k = 1; k <= 4 && k <= d; k++){
+      var f = FIYAT.yeterlilik[k] && FIYAT.yeterlilik[k][alan];
+      if(f && en[d - k] + f < en[d]){ en[d] = en[d - k] + f; yol[d] = yol[d - k].concat([k]); }
+    }
+  }
+  var tum = FIYAT.yeterlilikTum[alan];
+  if(!N || !isFinite(en[N]) || en[N] <= tum) return null;
+  return { tutar:en[N], parca:yol[N].sort(function(a, b){ return b - a; }) };
+}
+
+/* ---------------------------------------------------------------------------
+   EN ÇOK SEÇİLEN — 01.10.2026 (Cem "1.2.3 yap", madde 2). Etiket TAHMİNLE konmaz: yalnız ödenmiş
+   siparişlerden sayılır (SQL radar-app/sql/2026-10-01-paket-secim-sayac.sql, kişi verisi yok).
+   Etiket ancak sınavda en az EN_COK_SECILEN_ESIK ödenmiş sipariş varsa ve birinci paket TEK başına
+   öndeyse çıkar; fonksiyon basılmamışsa / sayı azsa / eşitlik varsa HİÇ çıkmaz (Ek A-7: gerçeğe
+   aykırı popülerlik iddiası haksız uygulama). cb(paketId | null).
+--------------------------------------------------------------------------- */
+var EN_COK_SECILEN_ESIK = 30;
+var __secimSoz = null;
+function enCokSecilen(sinavAnahtar, cb){
+  if(!__secimSoz){
+    __secimSoz = (typeof fetch !== 'function') ? Promise.resolve(null) :
+      fetch(KURUCU_SB.url + '/rest/v1/rpc/paket_secim_sayac', { method:'POST',
+        headers:{ apikey:KURUCU_SB.key, Authorization:'Bearer ' + KURUCU_SB.key, 'Content-Type':'application/json' }, body:'{}' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ return Array.isArray(d) ? d : null; })
+      .catch(function(){ return null; });
+  }
+  __secimSoz.then(function(d){
+    var sonuc = null;
+    try{
+      if(d){
+        var L = d.filter(function(x){ var p = x && paketBul(x.paket); return p && p.sinav === sinavAnahtar && typeof x.satilan === 'number'; });
+        var top = L.reduce(function(a, x){ return a + x.satilan; }, 0);
+        L.sort(function(a, b){ return b.satilan - a.satilan; });
+        if(top >= EN_COK_SECILEN_ESIK && L[0] && (!L[1] || L[0].satilan > L[1].satilan)) sonuc = L[0].paket;
+      }
+    }catch(e){ sonuc = null; }
+    try{ cb(sonuc); }catch(e){}
+  });
+}

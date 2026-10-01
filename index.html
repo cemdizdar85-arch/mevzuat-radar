@@ -1896,6 +1896,17 @@ window.veriAl = (function(){
     b.addEventListener('click',()=>say(b.dataset.olcum,'Konu süzgeci: '+ad));
   });
 
+  // 2b) SATIN AL YOLLARI (01.10 Cem "1.2.3 yap", madde 3) - kahramanda "tum dersler" dugmesi mi,
+  //     "birkac dersin mi kaldi" baglantisi mi, karttaki "Satin al" mi tiklaniyor? Dugmeler sinav
+  //     sekmesiyle yeniden cizildigi icin dinleyici belgeye baglanir; yalniz yer + paket gonderilir.
+  document.addEventListener('click',e=>{
+    const a=e.target.closest&&e.target.closest('a[href*="satin-al.html?paket="]'); if(!a) return;
+    const yer=a.id==='bzCta'?'kahraman-dugme':a.closest('#bzDurum')?'kahraman-tek-ders':a.closest('#ogrenciFiyat')?'kart':null;
+    if(!yer) return;
+    const pk=(/paket=([a-z0-9-]+)/.exec(a.getAttribute('href'))||[])[1]||'?';
+    say('satin-al-yolu/'+yer+'/'+pk,'Satın al yolu: '+yer+' · '+pk);
+  });
+
   // 3) KATALOG SATIRLARI - katalog vitrine gore ne kadar tutuyor?
   document.querySelectorAll('#araclar .arac').forEach(a=>{
     const ad=duz((a.querySelector('b')||a).textContent);

@@ -278,6 +278,13 @@ var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
    Icerigi hazir olmayan paket (acik:false) listede GORUNMEZ; dolu gorunen
    bos paket satmayiz. Her satirda ayni kapsam icin odenecek RESMI HARC yazar. */
 var PAKETLER = acikPaketler(), secili = null;
+/* 01.10 (Cem "1.2.3 yap", madde 1): tüm derslerin yanında aynı 8 dersi bizim 1–4 ders paketleriyle almanın EN UCUZ yolu.
+   Rakam fiyat-motoru.js yeterlilikAyriEnAz'dan; eski fiyat/indirim iddiası değil, bugünkü kendi fiyatlarımızla kıyas. */
+function ayriKiyas(){
+  var k = (typeof yeterlilikAyriEnAz === 'function') ? yeterlilikAyriEnAz('kurulus') : null;
+  if(!k) return '';
+  return '<span class="harc" style="display:block;color:var(--ink);font-weight:700">Aynı ' + DERSLER.yeterlilik.length + ' dersi ayrı paketlerle (' + k.parca.join(' + ') + ' ders) alsan en az ' + fiyatAna('yeterlilik-tum', k.tutar) + '</span>';
+}
 /* 25.09 Cem: "staja giriste yeterlilikle ilgili fiyatlar cikmasin". ?paket=X ile gelen yalniz X'in
    sinav grubunu (+ 'Ek' grubunu) gorur. Parametresiz gelen hepsini gorur; filtreli sayfanin altinda
    "diger sinavlar" baglantisi durur.
@@ -306,7 +313,10 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
        + '<span><span class="ad">' + p.ad + '</span><br>'
        + (p.kim ? '<span class="er" style="color:var(--amber)">' + p.kim + '</span><br>' : '')
        + '<span class="er">' + p.erisim + '</span>'
-       + '<span class="harc">' + p.harcYazi + '</span></span>'
+       + '<span class="harc">' + p.harcYazi + '</span>'
+       + (p.id === 'yeterlilik-tum' ? ayriKiyas() : '')
+       + '<span class="enCok" data-pk="' + p.id + '" style="display:none;color:var(--amber);font-weight:700;font-size:12px;margin-top:3px">En çok seçilen</span>'
+       + '</span>'
        + '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
        + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
        + (p.liste > p.fiyat ? '<span>' + (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
@@ -314,9 +324,18 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
   });
   if(ODAK_GRUP || ELCI_GRUPLAR){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
   kap.innerHTML = h;
+  /* 01.10 (madde 2): "En çok seçilen" yalnız ödenmiş siparişten, eşik ve tek başına öncülükle (fiyat-motoru.js enCokSecilen) */
+  ['yeterlilik'].forEach(function(sn){   /* SGS tek paket: etiket anlamsız */
+    enCokSecilen(sn, function(id){
+      if(!id) return;
+      var el = kap.querySelector('.enCok[data-pk="' + id + '"]'); if(el) el.style.display = 'block';
+    });
+  });
   kap.addEventListener('change', function(e){
     if(e.target.name !== 'paket') return;
     secili = paketBul(e.target.value);
+    /* 01.10 (madde 3): hangi paket seçiliyor - yalnız paket kimliği, kişi verisi yok (index.html VİTRİN ÖLÇÜMÜ şerhi geçerli) */
+    try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/sec/' + secili.id, title:'Satın al: paket seçildi · ' + secili.ad, event:true }); }catch(err){}
     Array.prototype.forEach.call(kap.querySelectorAll('.pk'), function(el){
       el.classList.toggle('sec', el.getAttribute('data-id') === e.target.value);
     });
@@ -579,7 +598,11 @@ btn.addEventListener('click', function(){
         }
         yedekYol();
       }
-      else { postala().then(function(){}, function(){}); bitir(); }
+      else {
+        /* 01.10 (madde 3): sipariş kaydı oluştu - yalnız paket kimliği (ödeme değil; ödeme sayısı paket_secim_sayac'ta) */
+        try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/siparis/' + secili.id, title:'Sipariş verildi · ' + secili.ad, event:true }); }catch(err){}
+        postala().then(function(){}, function(){}); bitir();
+      }
     }, yedekYol);
 });
 
