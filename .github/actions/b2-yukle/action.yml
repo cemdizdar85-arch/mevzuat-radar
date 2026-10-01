@@ -10,8 +10,9 @@
 #    Gereken secret'lar: B2_KEY_ID · B2_APP_KEY · B2_BUCKET · B2_ENDPOINT
 #    (ornek https://s3.eu-central-003.backblazeb2.com). Anahtar YALNIZ yazma yetkili olmali
 #    (deleteFiles YOK) - kilit zaten siler dedirtmez ama ikinci kat.
-# Yukleme sonrasi bir dosyanin kilit kipi okunur ve yazilir: kilit YOKSA uyari (::warning).
-# 🚫 GORMEZ: kovanin varsayilan saklama suresi kac gun (yalniz dosya basina kip + tarih okur).
+# Yukleme sonrasi bir dosyanin kilit kipi okunmaya calisilir: kilit YOKSA uyari (::warning).
+# 🚫 GORMEZ: kovanin varsayilan saklama suresi · yalniz-yazma anahtariyla kilidin kendisi (01.10 kurulum:
+#    kova tetikte-yedek-f2d3qz, EU Central, Object Lock varsayilan 35 gun, yasam dongusu 36+1 gun).
 name: B2'ye sifreli yedek yukle
 description: Klasordeki .enc dosyalarini B2 kovasina <onek>/<kosu>/ altina yukler
 inputs:
@@ -54,5 +55,8 @@ runs:
         echo "B2 kilit ($ornek): $kilit"
         case "$kilit" in
           COMPLIANCE*) echo "::notice title=B2::yuklendi, kilit COMPLIANCE ($kilit)";;
+          # 01.10 olculdu: anahtar BILEREK "Write Only" (okuyamaz, silemez) -> head-object 403, kilit buradan
+          # GORULEMEZ. Kilit Backblaze panelinden (Browse Files -> dosya -> Object Lock) dogrulanir.
+          OKUNAMADI) echo "::notice title=B2::yuklendi; kilit bu anahtarla okunamaz (yalniz-yazma) - Backblaze panelinden dogrula";;
           *) echo "::warning title=B2::yuklendi ama kilit COMPLIANCE degil ($kilit) - kova Object Lock ayarini kontrol et";;
         esac
