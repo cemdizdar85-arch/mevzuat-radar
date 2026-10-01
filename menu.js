@@ -158,7 +158,7 @@ var GRUPLAR=[
   ["seviye-testi.html","📏","Geçme İhtimalini Ölç","30 soru, yaklaşık 30 dakika, ücretsiz"],
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
   ["canli-deneme.html","📡","Canlı Deneme","Aynı anda, herkese aynı set; katılanlar arasında yüzdelik sıralaman"],
-  ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"],
+  /* 02.10 gizli (sayfa boş). Geri almak: bu satırı aç + GIZLI regex + komut.js + sitemap: ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"], */
   ["genc.html","🗓️","Sınav Takvimi","2026 SMMM sınav takvimi, geri sayımlı"],
   ["donem-plani.html","🗺️","Dönem Planı","Kalan haftaları haritayla faz faz doldur"],
   ["songun.html","⏳","Son Gün 5 Saat","Dönem finali + sınav sabahı rehberi"],
@@ -679,7 +679,8 @@ function ttSorguHakki(anahtar){
    Kendi sayfasında süzmez (kendine bağ). ------------------------------------ */
 (function () {
   /* 30.09 Cem "site sadece SMMM başlama + bitirme": gümrük, radar, marka, alacak, rehber ve işletme paneli de gizli. */
-  var GIZLI = /(^|\/)(ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat)\.html(?:[?#]|$)/;
+  /* 02.10: tuzak (Günün Tuzağı) eklendi — robot 0 soru tarıyor, sayfa boş. Geri almak: "tuzak|" sil. */
+  var GIZLI = /(^|\/)(tuzak|ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat)\.html(?:[?#]|$)/;
   function suz() {
     var kendi = location.pathname;
     [].forEach.call(document.querySelectorAll('a[href]'), function (a) {

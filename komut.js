@@ -32,7 +32,7 @@
       ['Sınav takvimi', 'genc.html', 'sgs staja giris yeterlilik sinav takvim ogrenci stajyer aday musavir smmm'],
       ['Deneme sınavı', 'deneme.html', 'deneme soru test cozum ogrenci stajyer sinav'],
       ['Canlı deneme', 'canli-deneme.html', 'canli deneme yuzdelik siralama ogrenci sinav'],
-      ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'],
+      /* 02.10 gizli: ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'], */
       ['Dönem planı', 'donem-plani.html', 'plan calisma program hafta ogrenci sinav'],
       ['Son gün 5 saat', 'songun.html', 'son gun tekrar sinav sabahi ogrenci']
     ]],
