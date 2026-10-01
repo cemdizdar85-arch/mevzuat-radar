@@ -2796,6 +2796,20 @@ KURALLAR (KALIP SOZLESMESI - kural 19-25 seti):
 5. SEMA: tur alani YALNIZ su dort degerden biri olabilir: "yevmiye" | "eleme" | "karar" | "akis" (baska ad/varyant YASAK). Bu ders KAYIT dersiyse ve soru bir islemin muhasebesine dokunuyorsa tur=yevmiye ZORUNLUDUR ({"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"181 GELIR TAHAKKUKLARI","tutar":"..."}],"alacak":[...]}}) - T-cetveli budur. SORUNUN KENDI VERISIYLE, jenerik yasak.
 6. hap (tek cumle kalici kural), sinav_taktigi (1 cumle), notlandirici (en cok puan kaybettiren nokta).
 7. Rakamlar her katmanda BIREBIR tutarli.
+7b. AÇIKLAMA KUSUR LİSTESİ (02.10.2026, açıklama hakeminin yayındaki 1.000 soruda bulduğu 991 kusurdan; SGS %48,
+   Yeterlilik %59 kusurlu). JSON'u vermeden önce HER maddeyi kendi açıklamanda kontrol et:
+   (i)   KAVRAM: anlattığın kural KAYNAK PAKETİNDEKİ kuralla aynı olmalı; paketin söylemediği kuralı yazma (en sık kusur).
+   (ii)  ATIF: madde/fıkra/bent/paragraf/KURAL numarasını PAKETTEN al; fıkra sırasını metinden say (ör. BDS 500 A27, A31 değil).
+   (iii) HESAP KODU: kod ve adı THP ile aynı (150 İlk Madde ve Malzeme · 151 Yarı Mamuller-Üretim · 152 Mamuller ·
+         153 Ticari Mallar · 191 İndirilecek KDV alıcıda · 391 Hesaplanan KDV satıcıda · 611 satış indirimi gelir
+         azaltıcıdır, gider değildir · 620/621 ayrımı · 689 olağandışı zarar, 656 kambiyo zararı).
+   (iv)  ŞIK YOLU: her yanlış şıkkın açıklaması (aciklama, sade.siklar, celdirici_yol, teshis) O ŞIKKIN SAYISINI
+         gerçekten üretmeli; başka şıkkın yolunu anlatma, hesabı yeniden yap.
+   (v)   ARİTMETİK: her "a × b = c" yeniden hesaplanır; yuvarlamayı yaz; ondalık virgül.
+   (vi)  ADIM ATFI: "(N. adımda bulduk)" N = değerin "= sonuç" olarak yazıldığı adım; ADIM 1 "Verilen" satırıdır, sayılır.
+   (vii) "SORUDA VERİLEN" yalnız kökte gerçekten yazan değer için; hesaplanan değere bu etiketi koyma, adımını yaz.
+   (viii) ✓/✗: kapanışta yalnız doğru şık ✓; "değildir/yanlıştır" sorularında işaretleri ters koyma.
+   (ix)  TEŞHİS SOMUT: "öğrenci şunu yaptı → şu sayıyı buldu"; "yanlış verilerle yapılmış" gibi belirsiz cümle yazma.
 8. DERS KAPSAMI (RESMI - 01.09): {DERS_TARIF}
    Bu kapsamin DISINA cikan soru uretme; konu kapsama uymuyorsa soruyu KAPSAMA
    UYAN acisiyla kur (or. TMS konusu geldiyse KAYIT boyutunu sor, olcum teknigi degil).

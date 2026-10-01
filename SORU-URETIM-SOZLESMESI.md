@@ -156,6 +156,7 @@ BAĞLANMADI.** Bağlanana kadar RAG motoru sınav dilini uygulamıyor.
 | **B20** | **Ölçmediğine "var/yok" denmez.** Ölçülmemiş = "ölçülmedi". | değişmez | insan |
 | **B21** | **Aynı soru iki kez üretilmez** · **boşa para harcanmaz** · **kaliteden ödün verilmez** · **önce ölç, yut, sonra bas.** Kapı kaldırılmaz. | 09.09 | hepsi |
 | **B22** | **Madde tavanı:** bir parçadan en çok 8 soru. Aynı maddeden sınırsız soru çıkarsa havuz tekrara düşer. | 10.09 | mekanik |
+| **B23** | **AÇIKLAMA KUSUR LİSTESİ — her sınavda (SGS · Yeterlilik/SPK · KGK)** (Cem 02.10: *"hataların hepsini kural olarak yazalım, bir daha soru basınca aynı şeyle karşılaşmayalım"*). Kaynak: açıklama hakeminin yayındaki 1.000 soruda bulduğu 991 kusur (SGS %48, Yeterlilik %59 kusurlu; anahtar kelimeyle kaba sınıflama, elle doğrulanmadı): **kavram kaynakla çelişiyor 437** · **hesap kodu/THP adı 183** · **madde/fıkra/paragraf atfı 172** · adım atfı 65 · şık açıklaması başka şıkkın yolu 52 · işlem tutmuyor 32 · teşhis belirsiz 29 · "soruda verilen" ama kökte yok 15 · ✓/✗ ters 6. Dokuz madde üretim istemine yazıldı (`motor/kalip-parti-uret.ps1` madde 7b) ve onarım brifinin kontrol listesidir. | 02.10 | istem + açıklama hakemi (yeni soru, SGS + Yeterlilik); kapı: KAPI-HK, KAPI-BP (yalnız BDS), KAPI-ADIM, KAPI-AS2, R8 (yalnız Yeterlilik). **Kapısı YOK:** kavram, kanun fıkra atfı, "soruda verilen", teşhis belirsizliği → yalnız ücretli hakem görür. **KGK yayınına açıklama hakemi/kalite şartı BAĞLI DEĞİL (02.10 ölçüldü: kgk betiklerinde yok)** — KGK açılmadan bağlanmalı. |
 
 ---
 
