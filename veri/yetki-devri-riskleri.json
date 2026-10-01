@@ -1,5 +1,5 @@
 {
-  "tarih": "01.10.2026 22:33",
+  "tarih": "01.10.2026 22:34",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
@@ -57,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 415,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -2032,37 +2032,37 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 133,
+      "satir": 134,
       "iddia": "30 gün",
       "metin": "ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 221,
+      "satir": 222,
       "iddia": "en az 6",
       "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 281,
+      "satir": 282,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 327,
+      "satir": 328,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 371,
+      "satir": 372,
       "iddia": "en az 6",
       "metin": "if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 391,
+      "satir": 392,
       "iddia": "en az 6",
       "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
     },
