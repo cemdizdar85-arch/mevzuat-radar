@@ -25,7 +25,9 @@ function AciklamaHakemUretim([string]$Kok, $satirlar, [double]$planHarcanan = 0,
   $rapor = [ordered]@{ aday = 0; gonderilen = 0; temiz = 0; kusurlu = 0; olculemedi = 0; butce_yok = 0; usd = 0 }
   . (Join-Path $Kok 'motor\api-hedef.ps1')
   . (Join-Path $Kok 'arac\aciklama-hakemi-cekirdek.ps1')
-  $model = 'claude-opus-5-5'; $maxTok = 1600
+  # 01.10 ÖLÇÜLDÜ (B dalgası, 250 yayındaki soru): maxTok 1.600'de 16 cevap kesildi ve 3.200 ile yeniden koşulunca 15'i KUSURLU çıktı
+  #   (hakem kusurlu soruda uzun düşünüyor) → 3.200. Kesilen cevap = karar yok = soru seçilmez ama bedel ödenmiş olur.
+  $model = 'claude-opus-5-5'; $maxTok = 3200
   $isler = New-Object System.Collections.Generic.List[object]; $harita = @{}
   foreach ($s in @($satirlar)) {
     $cf = Join-Path $Fabrika "kalip-parti-$($s.etiket).json"; if (-not (Test-Path $cf)) { continue }
