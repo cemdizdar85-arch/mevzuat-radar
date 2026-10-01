@@ -48,6 +48,8 @@ param(
 #   zaten YALNIZ ZARARLI bulguda 1 (bkz. betik sonu) - yani eski birikim
 #   kapiyi bloke etmez, yeni tuzak iceri giremez.
 $ErrorActionPreference='Stop'
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'   # kimlik-denetimi.ps1 (02.10)
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
 

@@ -45,6 +45,12 @@
       "ne": "tipografi-deneme.html — yukarıdaki stil dosyasının çektiği font dosyaları",
       "neden": "Aynı deneme sayfası.",
       "duserse": "Yalnız deneme sayfası etkilenir."
+    },
+    {
+      "sunucu": "challenges.cloudflare.com",
+      "ne": "Cloudflare Turnstile bot koruması (captcha.js) — ogrenci, deneme, elci, marka-app, radar-app; giriş/üyelik çağrıları",
+      "neden": "Cem 01.10 açtı (ef62e251, captcha.js adım 2): 23.09'da e-posta onayı kapatıldı, sahte hesap açmak kolaylaştı. Açılış kapısı 02.10'da bu sunucuyu listesiz buldu, listeye o gün eklendi.",
+      "duserse": "Supabase panelinde captcha KAPALIYKEN (01.10 hali) etkisiz: token yok sayılır, giriş çalışır. Panel AÇILINCA gerçek kesinti: token alınamazsa (reklam engelleyici de keser) kişi giriş yapamaz/üye olamaz, ttCaptchaToken() 15 sn sonra boş döner. Bu yüzden panel açılmadan önce bu sunucunun erişilebilirliği ölçülmeli."
     }
   ]
 }

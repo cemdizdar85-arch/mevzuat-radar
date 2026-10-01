@@ -32,6 +32,8 @@ param(
   [string]$Donem, [int]$Tutar = -1
 )
 $ErrorActionPreference = 'Stop'
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'   # kimlik-denetimi.ps1 (02.10)
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 
 $SUPA_KOK  = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1'

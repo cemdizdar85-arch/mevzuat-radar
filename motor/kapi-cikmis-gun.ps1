@@ -26,6 +26,8 @@
 #  Kullanan: motor/kalip-parti-uret.ps1 (FAZ A + FAZ GM) · arac/kapi-cikmis-gun-provasi.ps1
 #  Ambar çekilemezse KAPI-CB KÖR kalır ve bunu söyler (sessizce geçmez).
 # ============================================================================
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'   # kimlik-denetimi.ps1 (02.10)
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 $KCB_ESIK = 0.80
 $KCB_SERT_ADET = 2
 

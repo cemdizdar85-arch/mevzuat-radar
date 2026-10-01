@@ -41,6 +41,10 @@ function YapiBozukMu([string]$metin){
   $ilk = $t[0]; $son = $t[$t.Length-1]
   if($ilk -eq '{' -and $son -eq '}'){ return $false }
   if($ilk -eq '[' -and $son -eq ']'){ return $false }
+  # 02.10: tek metin degeri de gecerli JSON'dur - veri/sinav/konu/*.json (257 dosya, tek konu adi,
+  # ornek "yonetim beyanlari") bu kural yuzunden "YAPI BOZUK" sayiliyordu; 257'si de parse ediliyor.
+  # Kesik metin ("abc) yine bozuk: kapanis tirnagi kacis degilse gecer.
+  if($ilk -eq '"' -and $t.Length -ge 2 -and $son -eq '"' -and $t[$t.Length-2] -ne '\'){ return $false }
   return $true
 }
 $SINAV = @(
@@ -50,7 +54,11 @@ $SINAV = @(
   @{ ad='kesik yazma';       m='{ "a": 1';                                     c=$false; y=$true  },
   @{ ad='bos dosya';         m='';                                             c=$false; y=$true  },
   # "=======" metin ICINDE gecerse kusur DEGILDIR - yalniz satir basinda sayilir
-  @{ ad='metin icinde esittir'; m='{ "not": "a ======= b" }';                  c=$false; y=$false }
+  @{ ad='metin icinde esittir'; m='{ "not": "a ======= b" }';                  c=$false; y=$false },
+  # 02.10: tek metin degeri (konu dosyasi) gecerli; kesik metin bozuk
+  @{ ad='tek metin degeri';  m='"yonetim beyanlari"';                          c=$false; y=$false },
+  @{ ad='kesik metin';       m='"yonetim beyan';                               c=$false; y=$true  },
+  @{ ad='tek tirnak';        m='"';                                            c=$false; y=$true  }
 )
 $kotu = @($SINAV | Where-Object { (CakismaVarMi $_.m) -ne $_.c -or (YapiBozukMu $_.m) -ne $_.y })
 if($kotu.Count){

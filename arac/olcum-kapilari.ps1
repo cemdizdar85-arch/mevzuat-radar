@@ -1,4 +1,6 @@
 ﻿#requires -Version 5.1
+$PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'   # kimlik-denetimi.ps1 (02.10)
+$PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/1.0'
 <#
 ================================================================================
   OLCUM KAPILARI — olcum aracinin KENDISINI denetler  (11.09.2026)

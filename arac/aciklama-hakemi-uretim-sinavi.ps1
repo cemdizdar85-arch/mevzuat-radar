@@ -7,8 +7,10 @@ param([switch]$Mutasyon)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 if ($Mutasyon) {
+  # 02.10: CI (Linux) runner'da 'powershell' YOK, 'pwsh' var - mutasyon isi bu yuzden hep KIRMIZI dusuyordu
+  $psExe = if (Get-Command powershell -ErrorAction SilentlyContinue) { 'powershell' } else { 'pwsh' }
   $tut = 0; $ler = 'yeni-hep', 'butce-yok', 'karar-yok'
-  foreach ($m in $ler) { $env:AHS_MUTASYON = $m; & powershell -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath | Out-Null; $d = $LASTEXITCODE -ne 0; if ($d) { $tut++ }; "  mutasyon $m $(if($d){'KIRMIZI (doğru)'}else{'YESIL (YANLIŞ)'})" }
+  foreach ($m in $ler) { $env:AHS_MUTASYON = $m; & $psExe -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath | Out-Null; $d = $LASTEXITCODE -ne 0; if ($d) { $tut++ }; "  mutasyon $m $(if($d){'KIRMIZI (doğru)'}else{'YESIL (YANLIŞ)'})" }
   $env:AHS_MUTASYON = $null; "MUTASYON: $tut/$($ler.Count) → KIRMIZI"; if ($tut -ne $ler.Count) { exit 1 }; exit 0
 }
 . (Join-Path $depoKok 'arac\aciklama-hakemi-uretim.ps1')
