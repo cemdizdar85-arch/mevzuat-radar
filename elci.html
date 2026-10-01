@@ -113,7 +113,7 @@
       <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a> (sürüm <span id="epKosulSurum"></span>)</p>
       <label class="ep-onay"><input type="checkbox" id="epKosulOnay"> <span>Elçi Programı Katılım Sözleşmesi'ni okudum, kabul ediyorum.</span></label>
       <!-- 01.10 TBK m.21: aleyhe hükümler AYRICA gösterilip AYRICA kabul edilir, yoksa "yazılmamış" sayılabilir (sözleşme 4.2) -->
-      <label class="ep-onay"><input type="checkbox" id="epKosulAleyhe"> <span>Şu hükümleri <b>ayrıca okudum ve kabul ediyorum</b>: komisyonun satışın kesinleşmesine bağlı olması ve iade edilen satışın komisyonunun sonraki ödememden düşülmesi (Madde 6.3, 6.5) · kodun kapanma koşulları (Madde 9) · aykırı paylaşım nedeniyle Tetikte'ye verilen cezanın bana rücu edilmesi (Madde 8.3) · sözleşmenin feshi (Madde 12).</span></label>
+      <label class="ep-onay"><input type="checkbox" id="epKosulAleyhe"> <span>Şu hükümleri <b>ayrıca okudum ve kabul ediyorum</b>: komisyonun satışın kesinleşmesine bağlı olması ve iade edilen satışın komisyonunun sonraki ödememden düşülmesi (Madde 6.3, 6.5) · Yeterlilik 1–4 ders paketi satışlarının kademeye sayılmaması (Madde 6.8) · kodun kapanma koşulları (Madde 9) · aykırı paylaşım nedeniyle Tetikte'ye verilen cezanın bana rücu edilmesi (Madde 8.3) · sözleşmenin feshi (Madde 12).</span></label>
       <div style="margin-top:12px"><button class="ep-btn ana" id="epKosulBtn" type="button" disabled>Onayla ve panele geç</button></div>
       <div class="ep-hata" id="epKosulHata" role="alert"></div>
     </div>
@@ -221,7 +221,7 @@
 
 <h2>MADDE 4 — KURULUŞ</h2>
 <p><b>4.1.</b> Tetikte, Elçiye tek kullanımlık bir bağlama kodu iletir. Elçi Panele kendi hesabıyla girip bu kodu yazdığında hesabı elçi kaydına bağlanır.</p>
-<p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda kurulur. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur.</p>
+<p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda kurulur. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 6.8 ders paketlerinin kademeye sayılmaması, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur.</p>
 
 <h2>MADDE 5 — ALICIYA İNDİRİM</h2>
 <p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde indirim ders başına 50 TL'dir; bu paketlerin komisyonu Madde 6.8'dedir. Tutarlar Panelde güncel olarak gösterilir.</p>
@@ -234,7 +234,7 @@
 <tr><td>SMMM Yeterlilik — 4 ders</td><td>200 TL</td><td>3.090 → 2.890 TL</td></tr></table>
 
 <h2>MADDE 6 — KOMİSYON VE ÖDEME</h2>
-<p><b>6.1.</b> Madde 5'teki tabloda yer alan paketlerde komisyon, kesinleşen her satış için ödenir:</p>
+<p><b>6.1.</b> Staja Başlama (SGS) ve SMMM Yeterlilik — tüm dersler paketlerinde komisyon, kesinleşen her satış için aşağıdaki kademeyle ödenir. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinin komisyonu bu kademeye tabi değildir; yalnız Madde 6.8'e göre ödenir.</p>
 <table><tr><th>Dönemdeki satış</th><th>Satış başına komisyon</th></tr>
 <tr><td>1 – 9. satış</td><td>750 TL</td></tr><tr><td>10 – 49. satış</td><td>1.000 TL</td></tr>
 <tr><td>50 – 99. satış</td><td>1.250 TL</td></tr><tr><td>100. satıştan sonra</td><td>taraflar ayrıca görüşür</td></tr></table>
@@ -305,8 +305,8 @@
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var SITE   = 'https://tetikte.com/';
   /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
-     2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı). */
-  var KOSUL_SURUM = '2026-10-03';
+     2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı) → 2026-10-04: 6.1 tek dersi açıkça kademe dışı bırakır (Madde 5 tablosuna atıf TBK m.23 belirsizliği doğuruyordu) + 6.8 aleyhe onay kutusuna. */
+  var KOSUL_SURUM = '2026-10-04';
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
