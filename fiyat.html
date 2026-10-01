@@ -314,22 +314,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   soruyu çözerek öğrenirsin</b>; her sorunun altında hangi kanun maddesinden geldiği yazıyor.</p>
 </div>
 
-<!-- 02.10 Cem "son 15 gün planımız yok": kutu GİZLİ. Tek gerçek ürün dayanağı Son 15 Gün'dü (890 TL ayrı satış);
-     o kalkınca kalan "tek başına" fiyatlar ayrı satılmayan uydurma değer olur (29.08 dersi 6, 6502). Silinmedi, karar Cem'de. -->
-<div class="kutu" hidden style="display:none">
-  <h2>Bir sorunun kaç para ettiğini merak edersen</h2>
-  <div class="tabsar"><table>
-    <tr><th>İçindekiler</th><th class="sag">Tek başına</th></tr>
-    <tr><td>Soru bankası: her sorunun kanun maddesiyle</td><td class="sag">1.490 TL</td></tr>
-    <tr><td>Birebir Prova motoru (resmî ders dağılımı)</td><td class="sag">690 TL</td></tr>
-    <tr><td>Son 15 Gün planı</td><td class="sag">890 TL</td></tr>
-    <tr><td>Zayıf konu karnesi + çalışma önerisi</td><td class="sag">490 TL</td></tr>
-    <tr><td><b>Toplam değer</b></td><td class="sag"><b>3.560 TL</b></td></tr>
-    <tr><td><b>Paket fiyatı</b></td><td class="sag"><b class="a" id="yiginFiyat">2.490 TL + KDV · KDV dahil 2.988 TL</b></td></tr>
-  </table></div>
-  <p class="kucuk" style="margin-top:10px">Son 15 Gün'ü gerçekten 890 TL'ye ayrı satıyoruz; uydurma bir "değer" değil,
-  aşağıda fiyatı yazan gerçek ürün.</p>
-</div>
+<!-- 02.10 Cem "değer tablosunu sil": "Bir sorunun kaç para ettiği" değer yığını SİLİNDİ. Tek ayrı satılan kalemi
+     Son 15 Gün'dü; o kalkınca kalan "tek başına" fiyatlar ayrı satılmayan uydurma değer olurdu (29.08 dersi 6, 6502). -->
 
 <div class="kutu vurgu">
   <!-- 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" - "7 gün koşulsuz iade" paragrafı kalktı; erteleme sözü kaldı. -->
@@ -466,8 +452,6 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
   if(x[1] === 'kgk'){ document.getElementById('rzKgk').textContent = 'YENİ'; }
 });
 
-// Deger yigini kutusundaki paket fiyati.
-document.getElementById('yiginFiyat').textContent = fiyatAna('sgs', pSgs.fiyat) + (fiyatDahilNot('sgs', pSgs.fiyat) ? ' · ' + fiyatDahilNot('sgs', pSgs.fiyat) : '');
 document.getElementById('vurusFiyat').textContent = tl(pSgs.fiyat) + ' TL';   /* 01.10: kurs fiyatı KDV dahil yazılı → kıyas aynı temelde (KDV dahil) kalır */
 document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 
