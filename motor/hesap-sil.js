@@ -1,7 +1,7 @@
 // motor/hesap-sil.js — "HESABIMI SİL" BAŞVURUSU (14.09.2026)
 //
 // kvkk.html sözü: "hesabın kapatılmasından sonra 30 gün içinde silinir" + "kayıtlı e-posta
-// adresinizden info@dizdardenetim.com'a 'hesabımı sil' yazmanız yeterlidir". Bu betik o sözü
+// adresinizden destek@tetikte.com'a 'hesabımı sil' yazmanız yeterlidir". Bu betik o sözü
 // tek komuta indirir. Başvuru KAYITLI adresten gelmediyse ÇALIŞTIRMA (kimlik teyidi yok demektir).
 //
 //   node motor/hesap-sil.js --eposta ad@ornek.com          KURU: hesap + her tablodaki satır sayısı
