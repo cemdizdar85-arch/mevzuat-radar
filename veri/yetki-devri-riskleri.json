@@ -1,11 +1,11 @@
 {
-  "tarih": "01.10.2026 16:10",
+  "tarih": "01.10.2026 16:14",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
-  "sayfa": 64,
+  "sayfa": 65,
   "atifli_iddia": 281,
-  "dayanaksiz_iddia": 386,
+  "dayanaksiz_iddia": 390,
   "kirmizi_aday": 29,
   "yeni_aday": 0,
   "yeni": [],
@@ -84,14 +84,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -844,6 +844,30 @@
       "satir": 211,
       "iddia": "24 saat",
       "metin": "else { snf='yesil'; bas='HER ŞEY YOLUNDA'; ack='Tüm nöbetçiler temiz, son 24 saatte kırmızı iş akışı yok.'; }"
+    },
+    {
+      "sayfa": "elci-programi.html",
+      "satir": 89,
+      "iddia": "1.000 TL",
+      "metin": "10 – 49. satış 1.000 TL"
+    },
+    {
+      "sayfa": "elci-programi.html",
+      "satir": 90,
+      "iddia": "1.250 TL",
+      "metin": "50 – 99. satış 1.250 TL"
+    },
+    {
+      "sayfa": "elci-programi.html",
+      "satir": 93,
+      "iddia": "1.000 TL",
+      "metin": "Kademe eşik üstüne uygulanır (10. satıştan itibaren 1.000 TL). Ulaştığın kademe sonraki sınav dönemine taşınır, geri inmez. Satış, ödemeden 7 gün sonra kesinleşir; bir ay içinde ke"
+    },
+    {
+      "sayfa": "elci-programi.html",
+      "satir": 94,
+      "iddia": "3 ay",
+      "metin": "3 ay ücretsiz tam erişim Tanıttığın ürünü bilerek anlat: programa katıldığında Tetikte'ye 3 ay ücretsiz tam erişim açılır."
     },
     {
       "sayfa": "elci.html",
@@ -2017,37 +2041,37 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 120,
+      "satir": 126,
       "iddia": "30 gün",
       "metin": "ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 208,
+      "satir": 214,
       "iddia": "en az 6",
       "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 268,
+      "satir": 274,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 310,
+      "satir": 320,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 354,
+      "satir": 364,
       "iddia": "en az 6",
       "metin": "if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 374,
+      "satir": 384,
       "iddia": "en az 6",
       "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
     },
