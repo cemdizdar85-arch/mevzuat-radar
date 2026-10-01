@@ -1,17 +1,23 @@
 {
-  "tarih": "01.10.2026 10:07",
+  "tarih": "01.10.2026 12:24",
   "durum": "ALARM",
-  "kirmizi": 5,
-  "kurtarma": 0,
+  "kirmizi": 1,
+  "kurtarma": 4,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [
-    "ESKALASYON: Kaynak Nobetcisi (ihale+kaynaklar) -> kurtarma ise yaramadi (son basarili kosu 179.9 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 768.6 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 169.7 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Kaynak Nobetcisi -> kurtarma ise yaramadi (Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (183 saat eski; esik 36s)). Actions loguna bak.",
-    "KURTARILAMADI: Yanveri Onarici -> Ithalat Gn.Md. duyuru sinyali damgasi 27.09.2026 10:04 (96 saat eski; esik 96s) -> DISPATCH-HATA: Response status code does not indicate success: 404 (Not Found)."
+    "KURTARILAMADI: Yanveri Onarici -> Ithalat Gn.Md. duyuru sinyali damgasi 27.09.2026 10:04 (98 saat eski; esik 96s) -> DISPATCH-HATA: Response status code does not indicate success: 404 (Not Found)."
   ],
-  "kurtarilan": [],
-  "kurtarilan_anahtar": []
+  "kurtarilan": [
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> hic basarili kosu yok -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 770.9 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Smoke Nobetcisi -> son basarili kosu 171.9 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (185 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
+  ],
+  "kurtarilan_anahtar": [
+    "KOSU:kaynak.yml",
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml",
+    "VERI:ihale-yurtici.json"
+  ]
 }
