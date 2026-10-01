@@ -566,6 +566,21 @@ jobs:
               kabuk: bash, komut: "node arac/acilis-kapisi.js",
               rapor: "veri/acilis-raporu.json" }
 
+          # 01.10 (Cem "1.2.3 ucunu de yap"): 7a42436b'deki uzun fiyat satiri satin-al.html'de
+          # telefonda fiyat sutununu 441px'e tasirdi ("2.490 T..." kesik); sayfa yana KAYMIYORDU,
+          # hicbir kapi telefona bakmiyordu, elle olcumde bulundu. Bu kapi koku .html'leri 375px
+          # mobil oykunmeyle acar: A) sayfa yana kayiyor mu B) icerik kesik mi. CIRCIR:
+          # veri/mobil-tasma-taban.json (01.10: 66 sayfanin 2'si, kartlar + toplu-gtip).
+          # Gercek vakayla olculdu: 7a42436b surumu KIRMIZI, duzeltilmis surum YESIL.
+          # GORMEZ: 375 disi genislik, tiklayinca acilan icerik, kaydir/ alti (dosya basinda tam liste).
+          - { ad: "Mobil tasma kapisi (telefonda 375px icerik kesik mi)",
+              kabuk: bash, komut: "node arac/mobil-tasma-kapisi.js",
+              rapor: "veri/mobil-tasma-raporu.json" }
+          # 9 vaka (5'i yanlis alarm vakasi); 6 mutasyon (esik, kaydirilabilir kap, tam gizli slayt,
+          # fixed, bos sus, yatay kayma) her birinde KIRMIZI (01.10 yerelde olculdu).
+          - { ad: "Mobil tasma kapisi OZ-SINAVI + MUTASYON",
+              kabuk: bash, komut: "node arac/mobil-tasma-kapisi.js --sinav --mutasyon" }
+
           # 12.09 (Cem "1.2.3 ucunu de yap"): ana sayfanin Nobetci kutusu
           # "son robot kosusu 07.09 - 5 gun once" yazip KIRMIZI yandi. ROBOT
           # HIC GUN ATLAMAMISTI: damga izi 04.09-12.09 gunde iki kosu, bosluk
