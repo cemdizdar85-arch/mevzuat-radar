@@ -228,7 +228,7 @@
 <h2>MADDE 5 — ALICIYA İNDİRİM</h2>
 <p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde indirim ders başına 50 TL'dir; bu paketlerin komisyonu Madde 6.8'dedir. Tutarlar Panelde güncel olarak gösterilir.</p>
 <table><tr><th>Paket</th><th>İndirim</th><th>01.10.2026 fiyatıyla (KDV dahil)</th></tr>
-<tr><td>Staja Başlama (SGS)</td><td>400 TL</td><td>2.988 → 2.588 TL</td></tr>
+<tr><td>Staja Giriş (SGS)</td><td>400 TL</td><td>2.988 → 2.588 TL</td></tr>
 <tr><td>SMMM Yeterlilik — tüm dersler (8 ders)</td><td>400 TL</td><td>3.468 → 3.068 TL</td></tr>
 <tr><td>SMMM Yeterlilik — 1 ders</td><td>50 TL</td><td>1.188 → 1.138 TL</td></tr>
 <tr><td>SMMM Yeterlilik — 2 ders</td><td>100 TL</td><td>1.908 → 1.808 TL</td></tr>
@@ -236,7 +236,7 @@
 <tr><td>SMMM Yeterlilik — 4 ders</td><td>200 TL</td><td>2.988 → 2.788 TL</td></tr></table>
 
 <h2>MADDE 6 — KOMİSYON VE ÖDEME</h2>
-<p><b>6.1.</b> Staja Başlama (SGS) ve SMMM Yeterlilik — tüm dersler paketlerinde komisyon, kesinleşen her satış için aşağıdaki kademeyle ödenir. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinin komisyonu bu kademeye tabi değildir; yalnız Madde 6.8'e göre ödenir.</p>
+<p><b>6.1.</b> Staja Giriş (SGS) ve SMMM Yeterlilik — tüm dersler paketlerinde komisyon, kesinleşen her satış için aşağıdaki kademeyle ödenir. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinin komisyonu bu kademeye tabi değildir; yalnız Madde 6.8'e göre ödenir.</p>
 <table><tr><th>Dönemdeki satış</th><th>Satış başına komisyon</th></tr>
 <tr><td>1 – 9. satış</td><td>750 TL</td></tr><tr><td>10 – 49. satış</td><td>1.000 TL</td></tr>
 <tr><td>50 – 99. satış</td><td>1.250 TL</td></tr><tr><td>100. satıştan sonra</td><td>taraflar ayrıca görüşür</td></tr></table>
@@ -322,14 +322,14 @@
   var SITE   = 'https://tetikte.com/';
   /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
      2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı) → 2026-10-04: 6.1 tek dersi açıkça kademe dışı bırakır (Madde 5 tablosuna atıf TBK m.23 belirsizliği doğuruyordu) + 6.8 aleyhe onay kutusuna → 2026-10-05 (Cem "hepsini yap"): 6.6 tutarlar BRÜT + %15 kesinti/20B, 6.4 kendi adına hesap, 6.9 itiraz, 3.5 masraf, 9.4 yeniden açma, 4.2 imzasız + onay kopyası e-postaya, 11.2 aydınlatma adresi → 2026-10-06 (Cem "ayrıntılı yazalım, okuyan anlasın"): 6.6 a–g, brüt/net örnek tablosu, bildirim yoksa ödeme yok, yanlış bildirim rücu → 2026-10-07 (Cem "evet ekle"): 9.1 paylaşım = bağlantının e-postayla bildirimi ya da koda bağlı satış; 9.2 buna bağlandı. → 2026-10-08 (Cem 01.10 "evet sözleşmeyi de güncelle"): Madde 5 örnek sütunu 01.10 fiyatlarıyla (SGS 2.490 + KDV, Yeterlilik merdiveni + KDV); indirim tutarları DEĞİŞMEDİ. */
-  var KOSUL_SURUM = '2026-10-08';
+  var KOSUL_SURUM = '2026-10-09'; /* 2026-10-09 (Cem 02.10 "düzelt"): SGS ürün adı Madde 5 ve 6.1'de "Staja Giriş (SGS)" (sitenin tamamıyla aynı); PDF bu sürümden yeniden üretildi (10-08 PDF'i hiç üretilmemişti, indirilen PDF 10-07 idi) */
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
   function tl(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
   function goster(id){ ['epYuk','epKapali','epBagla','epKosul','epPanel'].forEach(function(k){ $(k).classList.toggle('ep-gizli', k !== id); }); }
   function tarih(t){ try { return new Date(String(t).slice(0,10) + 'T12:00:00').toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return t || ''; } }
-  function paketAdi(id){ var m = /^yeterlilik-([1-4])$/.exec(id); return id === 'sgs' ? 'Staja Başlama (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : m ? 'Yeterlilik ' + m[1] + ' ders' : id; }
+  function paketAdi(id){ var m = /^yeterlilik-([1-4])$/.exec(id); return id === 'sgs' ? 'Staja Giriş (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : m ? 'Yeterlilik ' + m[1] + ' ders' : id; }
 
   /* 01.10 (Cem "onay yap"): onay ekranı TAM SÖZLEŞMEYİ gösterir (sözleşme v2, 16 madde). Metin template#sozlesmeMetni'de;
      kaynak Masaüstü/Tetikte-Hukuk/Tetikte-Elci-Sozlesmesi-v2 ile birebir, PDF'i elci-sozlesmesi.pdf. Eski 19 maddelik özet
