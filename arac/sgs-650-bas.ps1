@@ -292,4 +292,4 @@ foreach($eski in @('borclar-hukuku-ticaret-ve-borclar','ticaret-hukuku-ticaret-v
 
 Write-Host "`nBASIM BASLIYOR (bedel 0 - yalniz onbellekten cizim)..." -ForegroundColor Cyan
 & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $depoKok 'motor\kaydir-yayin.ps1') `
-    -Sinav sgs -SecimDosya $masterAd -Baslik 'Staja Başlama (SGS) · Kaydır-Çöz'
+    -Sinav sgs -SecimDosya $masterAd -Baslik 'Staja Giriş (SGS) · Kaydır-Çöz'

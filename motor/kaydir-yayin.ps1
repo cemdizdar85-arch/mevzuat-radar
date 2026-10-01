@@ -4,7 +4,7 @@
 #   kaydir/<sinav>/index.html        (ders kartları, soru sayıları; stil.css + stil-acik.css; noindex)
 # Sayfalar depo klasörüne yazılır ama COMMIT EDİLMEZ; siteye çıkması (menü/index/sitemap "beş yer" + üye kapısı) Cem'in kararıdır.
 # Kullanım: powershell -NoProfile -File motor/kaydir-yayin.ps1 -Sinav sgs -SecimDosya parti30-secim.json
-param([string]$Sinav='sgs',[string]$SecimDosya='parti30-secim.json',[string]$Baslik='Staja Başlama (SGS) · Kaydır-Çöz')
+param([string]$Sinav='sgs',[string]$SecimDosya='parti30-secim.json',[string]$Baslik='Staja Giriş (SGS) · Kaydır-Çöz')
 $ErrorActionPreference='Stop'
 $kok=Split-Path $PSScriptRoot -Parent
 $secYol=Join-Path $kok "veri\sinav\kaydir-secim\$SecimDosya"; if(-not (Test-Path $secYol)){ throw "seçim dosyası yok: $secYol" }

@@ -30,7 +30,7 @@ var KDV_ORAN = 0.20;
 /* Tarihler TÜRMOB 2026 resmî sınav takviminden (22.07.2026'da okundu).
    KGK Kasım 2026 sınavının kesin günü henüz İLAN EDİLMEDİ — teyitsiz tarih yazılmaz. */
 var SINAVLAR = [
-  { ad:'Staja Başlama', tarih:'2026-11-21', yazi:'21 Kasım 2026', anahtar:'sgs' },
+  { ad:'Staja Giriş', tarih:'2026-11-21', yazi:'21 Kasım 2026', anahtar:'sgs' },
   { ad:'Yeterlilik',    tarih:'2026-11-28', yazi:'28 Kasım 2026', anahtar:'yeterlilik' }
 ];
 
@@ -345,7 +345,7 @@ function erisimYazi(anahtar){
 function paketler(){
   var L = [];
 
-  L.push({ id:'sgs', grup:'Staja Başlama (SGS)', ad:'Staja Başlama — soru bankası',
+  L.push({ id:'sgs', grup:'Staja Giriş (SGS)', ad:'Staja Giriş — soru bankası',
            fiyat:FIYAT.sgs.kurulus, liste:FIYAT.sgs.liste, kota:KOTA.sgs,
            erisim:erisimYazi('sgs'), sinav:'sgs',
            harcYazi:'Sınav başvuru bedeli ' + tl(HARC.sgs.basvuru) + ' TL', acik:true });
