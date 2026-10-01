@@ -23,11 +23,14 @@
    - Yalnız EN DIŞTAKİ taşan öğe raporlanır (iç içe 8 span tek kusurdur).
 
    CIRCIR: ilk kurulumda var olan borç veri/mobil-tasma-taban.json'a yazılır
-   (sayfa -> kesik öğe sayısı + yatay kayma). Tabanı AŞAN ya da tabanda olmayan
+   (ORTAM -> sayfa -> kesik öğe sayısı + yatay kayma; "linux" = bulut, "win32" = Cem'in
+   makinesi — yazı tipi farkı yüzünden ayrı, 02.10 ölçüldü). Tabanı AŞAN ya da tabanda olmayan
    sayfadaki yeni kusur KIRMIZI. Borç ödenince taban kendiliğinden inmez:
    node arac/mobil-tasma-kapisi.js --tazele
 
    BU KAPI ŞUNU GÖRMEZ:
+     - Gerçek telefon yazı tipi (Android Roboto, iPhone SF) ölçülmez: bulut Linux yazı tipiyle,
+       Cem'in makinesi Windows yazı tipiyle ölçer (02.10: Linux daha geniş, taşma orada önce çıkar).
      - 375 ve 320px dışındaki genişlikler (768px tablet, yatay telefon) ölçülmez.
      - 320px ölçümü yeniden yükleme yapmaz: genişliği yalnız AÇILIŞTA okuyan betik
        (JS ile kurulan yerleşim) 375'teki halinde kalır.
@@ -242,19 +245,25 @@ function raporYaz(icerik){
   }
 
   const olculen = sonuc.filter(s => !s.olculemedi), olculemeyen = sonuc.filter(s => s.olculemedi);
+  /* 02.10 ölçüldü: taban ORTAM BAŞINA. Aynı iletisim.html 375px'te Windows'ta temiz, GitHub
+     Linux runner'ında 394px'e taşıyor (yazı tipi farkı). Windows'ta kurulan taban bulutta kapıyı
+     kalıcı kırmızı yapıyordu. Bulut tabanı bulutta kurulur: gh workflow run mobil-tasma-taban.yml */
+  const ORTAM = process.platform;
+  let butun = {};
+  try { butun = JSON.parse(fs.readFileSync(TABAN_YOL, 'utf8')); } catch (e) {}
   if (arg.includes('--tazele')) {
     if (secili.length) { console.log('  --tazele yalniz butun sayfalarla kosar.'); bitir(1); }
     if (olculemeyen.length) { console.log('  KOR sayfa var (' + olculemeyen.length + '), taban yazilmadi.'); bitir(1); }
     const taban = {};
     for (const s of olculen) if (s.kesikSayi || s.kayma) taban[s.sayfa] = { kesik: s.kesikSayi, kayma: s.kayma };
-    fs.writeFileSync(TABAN_YOL, JSON.stringify(taban, null, 2) + '\n');
-    console.log('  Taban yazildi: ' + Object.keys(taban).length + ' sayfada borc. ' + path.relative(KOK, TABAN_YOL));
+    butun[ORTAM] = taban;
+    fs.writeFileSync(TABAN_YOL, JSON.stringify(butun, null, 2) + '\n');
+    console.log('  Taban yazildi (' + ORTAM + '): ' + Object.keys(taban).length + ' kayitta borc. ' + path.relative(KOK, TABAN_YOL));
     bitir(0);
   }
 
-  let taban = null;
-  try { taban = JSON.parse(fs.readFileSync(TABAN_YOL, 'utf8')); } catch (e) {}
-  if (!taban) { console.log('  KOR — taban yok (' + path.relative(KOK, TABAN_YOL) + '). Kur: node arac/mobil-tasma-kapisi.js --tazele'); bitir(1); }
+  const taban = butun[ORTAM] || null;
+  if (!taban) { console.log('  KOR — bu ortamin (' + ORTAM + ') tabani yok (' + path.relative(KOK, TABAN_YOL) + '). Kur: node arac/mobil-tasma-kapisi.js --tazele' + (ci ? '  (bulutta: gh workflow run mobil-tasma-taban.yml)' : '')); bitir(1); }
 
   const yeni = [], borc = [], odenen = [];
   for (const s of olculen) {

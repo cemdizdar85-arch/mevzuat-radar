@@ -1,0 +1,41 @@
+# .github/workflows/mobil-tasma-taban.yml — MOBIL TASMA KAPISI: BULUT (linux) TABANINI KUR / INDIR (02.10.2026)
+#
+# Neden ayri akis: kapi (arac/mobil-tasma-kapisi.js) dogrula.yml'de Linux runner'da kosar ve yazi tipi
+# Windows'takinden genis; ayni sayfa (iletisim.html, 375px) Windows'ta temiz, runner'da 394px'e tasiyor
+# (02.10 olculdu). Windows'ta kurulan taban bulutta kapiyi kalici kirmizi yapiyordu. Bulut tabani
+# BULUTTA kurulur; borc odenince (bir sayfa duzeltilince) taban da bununla indirilir.
+#   gh workflow run mobil-tasma-taban.yml
+# Yalniz veri/mobil-tasma-taban.json'un "linux" bolumunu yazar; "win32" bolumune dokunmaz.
+# GORMEZ: gercek telefon yazi tipi (Roboto / SF) - ne Windows ne runner tabani onu olcer.
+# Bedel: 0 USD (depo public). Elle tetiklenir; cron YOK (tabani sessizce indirmek borcu gizlerdi).
+name: Mobil tasma tabani (bulut)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mobil-tasma-taban
+  cancel-in-progress: false
+
+jobs:
+  taban:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Tabani kur (linux)
+        run: node arac/mobil-tasma-kapisi.js --tazele
+      - name: Tabani yayinla
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add veri/mobil-tasma-taban.json
+          git diff --cached --quiet && { echo "taban degismedi"; exit 0; }
+          git commit -m "Mobil tasma tabani (linux) [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase --autostash && git push && exit 0; sleep 5; done
+          exit 1
