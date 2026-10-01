@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-01 21:33:29",
+  "tarih": "2026-10-01 21:43:24",
   "durum": "YESIL",
   "ci": true,
   "genislik": [
@@ -11,7 +11,7 @@
   "olculen": 132,
   "KOR": 0,
   "yeni_kusur_sayfa": 0,
-  "taban_borcu_sayfa": 21,
+  "taban_borcu_sayfa": 14,
   "yeni_kusur": [],
   "taban_borcu": [
     {
@@ -42,41 +42,9 @@
       ]
     },
     {
-      "sayfa": "gizlilik-politikasi.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 328,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 378,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
       "sayfa": "iletisim.html",
       "kayma": true,
       "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 394,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "iletisim.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 344,
-          "yazi": "Ara"
-        },
         {
           "oge": "button#mrxTema.mrxTemaSerit",
           "sag": 394,
@@ -184,17 +152,6 @@
       ]
     },
     {
-      "sayfa": "kvkk.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 353,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
       "sayfa": "mesafeli-satis.html",
       "kayma": true,
       "kesik": [
@@ -206,41 +163,9 @@
       ]
     },
     {
-      "sayfa": "mesafeli-satis.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 341,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 391,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
       "sayfa": "on-bilgilendirme.html",
       "kayma": true,
       "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 406,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "on-bilgilendirme.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 356,
-          "yazi": "Ara"
-        },
         {
           "oge": "button#mrxTema.mrxTemaSerit",
           "sag": 406,
@@ -287,22 +212,6 @@
       ]
     },
     {
-      "sayfa": "teslimat-iade.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 322,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 372,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
       "sayfa": "toplu-gtip.html",
       "kayma": true,
       "kesik": [
@@ -323,24 +232,16 @@
           "yazi": "A: GTİP KODU (ZORUNLU) B: MENŞE ÜLKE (BOŞ BIRAKILA"
         }
       ]
-    },
-    {
-      "sayfa": "uyelik-sozlesmesi.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 324,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 374,
-          "yazi": "☀"
-        }
-      ]
     }
   ],
-  "odenen_borc": [],
+  "odenen_borc": [
+    "gizlilik-politikasi.html@320",
+    "iletisim.html@320",
+    "kvkk.html@320",
+    "mesafeli-satis.html@320",
+    "on-bilgilendirme.html@320",
+    "teslimat-iade.html@320",
+    "uyelik-sozlesmesi.html@320"
+  ],
   "olculemeyenler": []
 }
