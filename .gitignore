@@ -136,6 +136,8 @@ _kaynak/
 /_*.txt
 /*.bin
 /*.pdf
+# 01.10: elçi sözleşmesi sitede indirilir (elci.html 'PDF olarak indir'); kasıtlı istisna, 268 KB.
+!/elci-sozlesmesi.pdf
 
 # 07.09 - oturum.ps1 -Kapat -Birak kutugu: bu makinede kimin neyi neden
 # biraktigini tutar. OTURUM-KILIDI.json gibi YERELDIR; depoya girerse her

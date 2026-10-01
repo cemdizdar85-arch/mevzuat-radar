@@ -64,6 +64,16 @@
   .ep-giris input{font:inherit;font-size:18px;letter-spacing:.08em;text-transform:uppercase;width:100%;max-width:320px;box-sizing:border-box;padding:11px 12px;border-radius:9px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
   .ep a.ep-a{color:var(--amber)}
   details.ep-kutu summary{cursor:pointer;font-weight:750;font-size:16px;color:var(--ink)}
+  /* 01.10 tam sözleşme (template#sozlesmeMetni) — kaydırılabilir kutu */
+  .ep-sz{max-height:420px;overflow:auto;border:1px solid var(--line2);border-radius:10px;padding:12px 16px;background:var(--bg);font-size:14px;line-height:1.6;color:var(--ink)}
+  .ep-sz h2{font-size:15px;margin:16px 0 6px}
+  .ep-sz h2:first-child{margin-top:0}
+  .ep-sz p{margin:0 0 8px}
+  .ep-sz ol{margin:0 0 8px;padding-left:20px}
+  .ep-sz li{margin:0 0 6px}
+  .ep-sz table{border-collapse:collapse;margin:4px 0 10px;font-size:13.5px}
+  .ep-sz td,.ep-sz th{border:1px solid var(--line2);padding:5px 9px;text-align:left}
+  .ep-sz th{color:var(--muted)}
   @media(max-width:860px){ .ep-kartlar{grid-template-columns:1fr 1fr} .ep-iki{grid-template-columns:1fr} .ep h1{font-size:25px} .ep-kod b{font-size:28px} }
 </style>
 </head>
@@ -99,8 +109,11 @@
     <h1>Elçi Programı Koşulları</h1>
     <p class="ep-alt">Paneli açmadan önce program koşullarını oku ve onayla. Koşullar bütün elçiler için aynıdır.</p>
     <div class="ep-kutu">
-      <ol class="ep-kosul" id="epKosulListe"></ol>
-      <label class="ep-onay"><input type="checkbox" id="epKosulOnay"> <span>Elçi Programı Koşulları'nı (sürüm <span id="epKosulSurum"></span>) okudum, kabul ediyorum.</span></label>
+      <div class="ep-sz" id="epKosulListe" tabindex="0" aria-label="Elçi Programı Katılım Sözleşmesi"></div>
+      <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a> (sürüm <span id="epKosulSurum"></span>)</p>
+      <label class="ep-onay"><input type="checkbox" id="epKosulOnay"> <span>Elçi Programı Katılım Sözleşmesi'ni okudum, kabul ediyorum.</span></label>
+      <!-- 01.10 TBK m.21: aleyhe hükümler AYRICA gösterilip AYRICA kabul edilir, yoksa "yazılmamış" sayılabilir (sözleşme 4.2) -->
+      <label class="ep-onay"><input type="checkbox" id="epKosulAleyhe"> <span>Şu hükümleri <b>ayrıca okudum ve kabul ediyorum</b>: komisyonun satışın kesinleşmesine bağlı olması ve iade edilen satışın komisyonunun sonraki ödememden düşülmesi (Madde 6.3, 6.5) · Yeterlilik 1–4 ders paketi satışlarının kademeye sayılmaması (Madde 6.8) · kodun kapanma koşulları (Madde 9) · aykırı paylaşım nedeniyle Tetikte'ye verilen cezanın bana rücu edilmesi (Madde 8.3) · sözleşmenin feshi (Madde 12).</span></label>
       <div style="margin-top:12px"><button class="ep-btn ana" id="epKosulBtn" type="button" disabled>Onayla ve panele geç</button></div>
       <div class="ep-hata" id="epKosulHata" role="alert"></div>
     </div>
@@ -121,7 +134,7 @@
         <a class="ep-btn" id="epWp" href="#" target="_blank" rel="noopener">WhatsApp'ta paylaş</a>
       </div>
       <p class="ep-kucuk" id="epKopyaDurum"></p>
-      <p class="ep-kucuk">Her paylaşımın <b>en başına</b> <b>#Reklam @tetikte</b> yaz, videoda sesli de söyle. Tek başına #işbirliği yetmez (koşul 7).</p>
+      <p class="ep-kucuk">Her paylaşımın <b>en başına</b> <b>#Reklam @tetikte</b> yaz, videoda sesli de söyle. Tek başına #işbirliği yetmez (sözleşme Madde 7.1).</p>
     </div>
 
     <div class="ep-kartlar">
@@ -147,6 +160,13 @@
       </div>
     </div>
 
+    <!-- 01.10 tek ders (sözleşme 6.8): ders başı 150 TL, kademeye sayılmaz; sunucu alanları ders_* (2026-10-01-elci-ders-komisyonu.sql) -->
+    <div class="ep-kutu">
+      <h2>Ders paketleri (Yeterlilik 1–4 ders)</h2>
+      <p class="ep-kucuk" style="margin-top:0">Takipçine ders başına 50 TL indirim; sana <b>ders başına 150 TL</b> (1 ders 150 · 2 ders 300 · 3 ders 450 · 4 ders 600 TL). Bu satışlar kademeye sayılmaz.</p>
+      <p class="ep-kucuk"><b id="epDersKesin">0</b> kesinleşen · <b id="epDersBek">0</b> süresi dolmamış satış · komisyon <b id="epDersKom">0 TL</b> (bekleyenlerle <b id="epDersKomT">0 TL</b>)</p>
+    </div>
+
     <div class="ep-kutu">
       <h2>Komisyon kademeleri</h2>
       <table class="ep-tablo" id="epKademe">
@@ -166,7 +186,8 @@
 
     <details class="ep-kutu">
       <summary>Program koşulları (onayladığın sürüm: <span id="epOnaySurum">—</span>)</summary>
-      <ol class="ep-kosul" id="epKosulListe2" style="margin-top:12px"></ol>
+      <div class="ep-sz" id="epKosulListe2" style="margin-top:12px"></div>
+      <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a></p>
     </details>
 
     <p class="ep-kucuk">Alıcıların adı, e-postası ve telefonu bu panelde gösterilmez; yalnız adet ve tutar görünür (KVKK).</p>
@@ -174,56 +195,130 @@
   </section>
 </div>
 
+<!-- 01.10 TAM SÖZLEŞME v2 (sürüm KOSUL_SURUM). Kaynak: Masaüstü/Tetikte-Hukuk/Tetikte-Elci-Sozlesmesi-v2; değişirse PDF (elci-sozlesmesi.pdf) + KOSUL_SURUM birlikte. -->
+<template id="sozlesmeMetni">
+<h2>MADDE 1 — TARAFLAR</h2>
+<p><b>1.1.</b> Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi · MERSİS: 0301130343200001 · Kordon Vergi Dairesi / 3011303432 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir · E-posta: destek@tetikte.com · Web: tetikte.com (<b>"Tetikte"</b>).</p>
+<p><b>1.2.</b> Bu sözleşmeyi Elçi Panelinde onaylayan ve hesabı Tetikte'nin ilettiği bağlama koduyla elçi kaydına bağlanmış, <b>18 yaşını doldurmuş</b> gerçek kişi ya da tüzel kişi (<b>"Elçi"</b>).</p>
+
+<h2>MADDE 2 — TANIMLAR</h2>
+<ol>
+  <li><b>Elçi kodu:</b> Tetikte'nin Elçiye tahsis ettiği, baş harfler ve rakamlardan oluşan tanıtım kodu (ör. AE42).</li>
+  <li><b>Elçi bağlantısı:</b> Elçi kodunu içeren adres (tetikte.com/satin-al.html?e=KOD).</li>
+  <li><b>Panel:</b> tetikte.com/elci.html; Elçinin kodunu, bağlantısını, satış adetlerini, komisyonunu ve ödemelerini gördüğü sayfa.</li>
+  <li><b>Satış:</b> Elçi koduyla tetikte.com'da verilen ve bedeli Tetikte'ye ödenmiş sipariş.</li>
+  <li><b>Kesinleşme:</b> Satış bedelinin ödenmesinden itibaren 7 günün, satış iade edilmeden ya da ödeme geri alınmadan geçmesi.</li>
+  <li><b>Dönem:</b> Bir sınav dönemi (ör. "SGS 2026-3": 15.09.2026 – 21.11.2026). Dönemler Panelde gösterilir.</li>
+</ol>
+
+<h2>MADDE 3 — KONU VE İLİŞKİNİN NİTELİĞİ</h2>
+<p><b>3.1.</b> Bu sözleşme, Elçinin Tetikte'yi kendi kitlesine tanıtması, Elçi koduyla gelen alıcıya indirim uygulanması ve kesinleşen her satış için Elçiye komisyon ödenmesine ilişkin hak ve yükümlülükleri düzenler.</p>
+<p><b>3.2.</b> Elçi yalnız tanıtım yapar ve kendi kodunu paylaşır. <b>Satış sözleşmesi yalnız Tetikte ile alıcı arasında, tetikte.com üzerinden kurulur.</b> Elçi satış yapmaz, Tetikte adına sözleşme kurmaz, ödeme ya da bedel tahsil etmez, stok tutmaz, Tetikte adına taahhütte bulunamaz.</p>
+<p><b>3.3.</b> Program tek seviyelidir. Elçi başka elçi kazandırmaz; başka bir elçinin satışından pay, prim ya da ödül almaz.</p>
+<p><b>3.4.</b> Elçiden programa katılmak ya da programda kalmak için hiçbir bedel, paket, aidat ya da satın alma yükümlülüğü istenmez.</p>
+<p><b>3.5.</b> Elçi bağımsızdır; Tetikte'nin çalışanı, ortağı, temsilcisi, bayisi ya da distribütörü değildir. Tetikte Elçiye çalışma saati, yer, yöntem ya da içerik talimatı vermez; Elçi ne zaman, nerede ve nasıl paylaşım yapacağına kendisi karar verir.</p>
+<p><b>3.6.</b> Elçiye hiçbir bölge, müşteri çevresi ya da tekel hakkı verilmez. Tetikte aynı anda sınırsız sayıda elçiyle çalışabilir; Elçi başka markaları da tanıtabilir.</p>
+
+<h2>MADDE 4 — KURULUŞ</h2>
+<p><b>4.1.</b> Tetikte, Elçiye tek kullanımlık bir bağlama kodu iletir. Elçi Panele kendi hesabıyla girip bu kodu yazdığında hesabı elçi kaydına bağlanır.</p>
+<p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda kurulur. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 6.8 ders paketlerinin kademeye sayılmaması, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur.</p>
+
+<h2>MADDE 5 — ALICIYA İNDİRİM</h2>
+<p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde indirim ders başına 50 TL'dir; bu paketlerin komisyonu Madde 6.8'dedir. Tutarlar Panelde güncel olarak gösterilir.</p>
+<table><tr><th>Paket</th><th>İndirim</th><th>30.09.2026 fiyatıyla</th></tr>
+<tr><td>Staja Başlama (SGS)</td><td>400 TL</td><td>2.995 → 2.595 TL</td></tr>
+<tr><td>SMMM Yeterlilik — tüm dersler (8 ders)</td><td>400 TL</td><td>3.490 → 3.090 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 1 ders</td><td>50 TL</td><td>1.190 → 1.140 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 2 ders</td><td>100 TL</td><td>1.990 → 1.890 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 3 ders</td><td>150 TL</td><td>2.590 → 2.440 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 4 ders</td><td>200 TL</td><td>3.090 → 2.890 TL</td></tr></table>
+
+<h2>MADDE 6 — KOMİSYON VE ÖDEME</h2>
+<p><b>6.1.</b> Staja Başlama (SGS) ve SMMM Yeterlilik — tüm dersler paketlerinde komisyon, kesinleşen her satış için aşağıdaki kademeyle ödenir. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinin komisyonu bu kademeye tabi değildir; yalnız Madde 6.8'e göre ödenir.</p>
+<table><tr><th>Dönemdeki satış</th><th>Satış başına komisyon</th></tr>
+<tr><td>1 – 9. satış</td><td>750 TL</td></tr><tr><td>10 – 49. satış</td><td>1.000 TL</td></tr>
+<tr><td>50 – 99. satış</td><td>1.250 TL</td></tr><tr><td>100. satıştan sonra</td><td>taraflar ayrıca görüşür</td></tr></table>
+<p><b>6.2.</b> Kademe yalnız eşik üstüne uygulanır, geriye dönük değildir (10. satıştan itibaren 1.000 TL; önceki 9 satış 750 TL kalır). Bir dönemde ulaşılan kademe sonraki döneme taşınır ve geri inmez.</p>
+<p><b>6.3.</b> Komisyon hakkı, satışın kesinleşmesi koşuluna bağlıdır. Kesinleşmeden önce iade edilen ya da ödemesi geri alınan satış için komisyon doğmaz.</p>
+<p><b>6.4.</b> Bir ay içinde kesinleşen komisyonlar, izleyen ayın 8'inde Elçinin bildirdiği IBAN'a ödenir.</p>
+<p><b>6.5. Mahsup.</b> Komisyonu ödenmiş bir satış sonradan iade edilir ya da ödemesi geri alınırsa (ör. kart itirazı, mükerrer çekim), o komisyon Elçinin sonraki hak edişinden düşülür.</p>
+<p><b>6.6. Vergi.</b> Elçi, ödeme için IBAN'ını ve vergi durumunu (Gelir Vergisi Kanunu mükerrer 20/B kapsamında sosyal içerik üreticisi hesabı olup olmadığı dahil) e-postayla yazılı bildirir; bu bilgiler Panelde tutulmaz. Elçi 20/B hesabı bildirirse ödeme yalnız o hesaba yapılır. Ödemeden doğan vergi kesintisi ve belge düzeni mevzuata göre uygulanır.</p>
+<p><b>6.7.</b> Bu sözleşmede Elçiye asgari satış, hedef ya da garanti tutar yükletilmez ve vaat edilmez.</p>
+<p><b>6.8. Ders paketleri.</b> SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde komisyon, satın alınan ders başına 150 TL'dir (1 ders 150 TL · 2 ders 300 TL · 3 ders 450 TL · 4 ders 600 TL). Bu satışlar Madde 6.1'deki satış sırasına ve kademeye sayılmaz; Madde 6.3, 6.4 ve 6.5 bunlara da uygulanır.</p>
+
+<h2>MADDE 7 — PAYLAŞIM KURALLARI</h2>
+<ol>
+  <li><b>Reklam etiketi.</b> Tetikte ile ilgili her paylaşımda reklam olduğu açıkça belirtilir:
+    <br>a) Instagram gönderi, reels ve hikâyede: paylaşımın en başında, diğer tüm etiketlerden önce ve ekranı kaydırmadan görünecek biçimde <b>"#Reklam @tetikte"</b> (ya da "#Tanıtım @tetikte"). Tek başına "#işbirliği" yeterli değildir.
+    <br>b) YouTube videosu, uzun video ve canlı yayında: yukarıdaki yazılı ibareye ek olarak sözlü olarak "Bu video Tetikte reklamı içermektedir."
+    <br>c) Yalnız sesli paylaşımda: yayının başında sözlü olarak "Tetikte hakkında reklam içerir."
+    <br>İndirim kodu, komisyon ve ücretsiz erişimin her biri paylaşımı reklam yapar.</li>
+  <li><b>Yanıltıcı ifade yasağı.</b> Sınavı geçme garantisi, gerçek olmayan başarı oranı, resmî kurum (TÜRMOB, TESMER, MEB, KGK vb.) onayı ya da bağlantısı iddia edilmez. Tetikte "kurs", "dershane", "ders", "eğitim programı" ya da "sınava hazırlık kursu" olarak tanıtılmaz.</li>
+  <li><b>Fiyat.</b> Fiyat, sitede o gün ilan edilen fiyatla söylenir; eski fiyat içeren paylaşım güncellenir ya da kaldırılır. İndirim tutarı söylenecekse Panelde verilen hazır metin kullanılır.</li>
+  <li><b>Kendi kullanımı izlenimi.</b> Elçiye ücretsiz verilen erişim, Elçinin kendisinin satın aldığı izlenimi verecek biçimde sunulmaz.</li>
+  <li><b>İçerik.</b> Tetikte soruları, cevapları ve açıklamaları toplu olarak kopyalanıp paylaşılmaz; tanıtım için bir-iki örnek ekran serbesttir.</li>
+  <li><b>İleti gönderimi.</b> Elçi, Tetikte'yi tanıtmak için alıcının önceden onayı olmadan toplu e-posta, SMS ya da benzeri ticari elektronik ileti göndermez.</li>
+  <li><b>Çekiliş.</b> Elçi, Tetikte'nin yazılı onayı ve gerekiyorsa Milli Piyango İdaresi izni olmadan Tetikte adına ya da Tetikte ürünüyle çekiliş, piyango ya da ödüllü kampanya düzenlemez ve duyurmaz.</li>
+  <li><b>Kendi kodu.</b> Elçi kendi koduyla alım yapamaz; kendine, yakınına ya da uydurma kişilere yönelik düzenlenmiş satışlar komisyona girmez.</li>
+</ol>
+
+<h2>MADDE 8 — DENETİM VE RÜCU</h2>
+<p><b>8.1.</b> Tetikte, Elçinin Tetikte'ye ilişkin paylaşımlarını örneklem yoluyla inceleyebilir.</p>
+<p><b>8.2.</b> Madde 7'ye aykırı bir paylaşım Elçiye e-postayla bildirilir; Elçi paylaşımı 24 saat içinde düzeltir ya da kaldırır.</p>
+<p><b>8.3.</b> Elçinin Madde 7'ye aykırı paylaşımı nedeniyle Tetikte'ye verilen idari para cezası ve Tetikte'nin katlandığı masraflar Elçiye rücu edilir.</p>
+
+<h2>MADDE 9 — KODUN AÇIK KALMASI</h2>
+<p><b>9.1.</b> Elçi kodu, katılımdan sonraki 30 gün içinde Elçinin en az bir tanıtım paylaşımı yapması koşuluyla açık kalır. Bu bir yükümlülük değildir; paylaşım yapılmaması hâlinde Elçiye herhangi bir yaptırım uygulanmaz, yalnız kod ve ücretsiz erişim kapanır.</p>
+<p><b>9.2.</b> 90 gün boyunca ne paylaşım ne satış olursa kod pasifleşir.</p>
+<p><b>9.3.</b> Kod kapanmadan en az 7 gün önce Elçiye e-postayla bildirim yapılır. Kodun kapanması, o güne kadar doğmuş komisyonları etkilemez.</p>
+
+<h2>MADDE 10 — ÜCRETSİZ ERİŞİM</h2>
+<p>Elçiye program süresince 3 ay ücretsiz tam erişim verilir.</p>
+
+<h2>MADDE 11 — KİŞİSEL VERİLER</h2>
+<p><b>11.1.</b> Alıcıların kimlik bilgileri Elçiye verilmez; Panelde yalnız adet ve tutar görünür.</p>
+<p><b>11.2.</b> Tetikte, Elçinin adı soyadı, e-posta adresi, sosyal medya hesabı, IBAN ve vergi bilgileri ile koduna bağlı satış adet ve tutarlarını bu sözleşmenin kurulması ve ifası ile yasal yükümlülüklerini yerine getirmek amacıyla işler. Ayrıntılar Elçi Aydınlatma Metnindedir.</p>
+
+<h2>MADDE 12 — SÜRE VE FESİH</h2>
+<p><b>12.1.</b> Sözleşme 6 ay sürelidir. Süre sonunda ancak Elçinin Panelden açık onayıyla 6 ay daha yenilenir; onay verilmezse kendiliğinden sona erer.</p>
+<p><b>12.2.</b> İki taraf da 15 gün önceden e-postayla bildirerek, gerekçe göstermeden sözleşmeyi feshedebilir.</p>
+<p><b>12.3.</b> Tetikte şu ağır aykırılıklarda sözleşmeyi derhal feshedebilir: kendi koduyla ya da düzenlenmiş/sahte satış; etiketsiz reklam ya da yanıltıcı ifadenin Madde 8.2 bildirimine rağmen 24 saat içinde düzeltilmemesi; hukuka aykırı içerik; izinsiz çekiliş; onaysız toplu ileti gönderimi. Diğer aykırılıklarda Tetikte önce 7 gün süreli yazılı uyarı yapar.</p>
+<p><b>12.4.</b> Sözleşme sona erdiğinde kod kapanır; sona erme tarihine kadar yapılmış satışların kesinleşen komisyonları ödenir.</p>
+
+<h2>MADDE 13 — DEĞİŞİKLİK</h2>
+<p>Tetikte koşullarda değişiklik önerebilir; öneri Panelde değişen maddeler işaretlenerek gösterilir. Değişiklik yalnız Elçinin açık onayıyla ve onay tarihinden sonraki satışlar için geçerli olur. Onaylamayan Elçi için mevcut koşullar süre sonuna kadar sürer ya da Elçi sözleşmeyi tazminatsız feshedebilir. Onaydan önce doğmuş komisyonlar etkilenmez.</p>
+
+<h2>MADDE 14 — BİLDİRİMLER VE KAYITLAR</h2>
+<p>Taraflar arasındaki bildirimler e-postayla yapılır: Tetikte için destek@tetikte.com, Elçi için Tetikte kayıtlarındaki e-posta adresi. Elçinin Paneldeki onay kayıtları ve taraflar arasındaki e-posta yazışmaları saklanır.</p>
+
+<h2>MADDE 15 — UYUŞMAZLIK</h2>
+<p>Bu sözleşmeden doğan uyuşmazlıklarda Türk hukuku uygulanır ve kanunen yetkili mahkemeler ile icra daireleri yetkilidir. Elçinin tacir olması hâlinde İzmir (Merkez) Mahkemeleri ve İcra Daireleri yetkilidir.</p>
+
+<h2>MADDE 16 — KISMİ HÜKÜMSÜZLÜK VE YÜRÜRLÜK</h2>
+<p>Bu sözleşmenin herhangi bir hükmünün geçersizliği diğer hükümlerin geçerliliğini etkilemez. 16 maddeden oluşan bu sözleşme, Elçinin Panelde onay verdiği anda yürürlüğe girer.</p>
+</template>
 <script src="kutuphane/supabase-2.112.3.js"></script>
+
 <script>
 (function(){
   var SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co';
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var SITE   = 'https://tetikte.com/';
-  /* Koşul metni değişirse sürüm değişir → bütün elçiler yeniden onaylar. */
-  /* 2026-09-29 → 2026-09-30: 29.09 gece koşul eki (19 madde). Aynı gün ikinci sürüm tarihle ayrılamadığı için
-     (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder) bir sonraki gün yazıldı; mevcut onaylar yeniden istenir. */
-  var KOSUL_SURUM = '2026-09-30';
+  /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
+     2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı) → 2026-10-04: 6.1 tek dersi açıkça kademe dışı bırakır (Madde 5 tablosuna atıf TBK m.23 belirsizliği doğuruyordu) + 6.8 aleyhe onay kutusuna. */
+  var KOSUL_SURUM = '2026-10-04';
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
   function tl(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
   function goster(id){ ['epYuk','epKapali','epBagla','epKosul','epPanel'].forEach(function(k){ $(k).classList.toggle('ep-gizli', k !== id); }); }
   function tarih(t){ try { return new Date(String(t).slice(0,10) + 'T12:00:00').toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return t || ''; } }
-  function paketAdi(id){ return id === 'sgs' ? 'Staja Başlama (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : id; }
+  function paketAdi(id){ var m = /^yeterlilik-([1-4])$/.exec(id); return id === 'sgs' ? 'Staja Başlama (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : m ? 'Yeterlilik ' + m[1] + ' ders' : id; }
 
-  function kosullar(ind){
-    var i = Object.keys(ind || {}).filter(function(k){ return ind[k] > 0; })
-              .map(function(k){ return paketAdi(k) + ' paketinde ' + tl(ind[k]); }).join(', ');
-    /* 29.09 (Cem "hepsi uygun", elçi görsel tasarım oturumu iletti): mahsup · başlangıç 30 gün · hareketsizlik 90 gün ·
-       kurs/dershane yasağı (5580) · fiyat · içerik · bağımsızlık · süre ve fesih · uyuşmazlık eklendi. 7 gün kesinleşme
-       ve 3 ay ücretsiz erişim AYNEN. Metin avukat okumasından geçecek; değişirse KOSUL_SURUM değişir. */
-    return [
-      'Elçi koduyla alan kişiye ' + (i || 'belirlenen paketlerde') + ' indirim uygulanır (KDV dahil). Diğer paketlerde kod indirim sağlamaz.',
-      'Komisyon satış başına ödenir: dönemin 1–9. satışı 750 TL, 10–49. satışı 1.000 TL, 50–99. satışı 1.250 TL; 100. satıştan sonrası için ayrıca özel iş birliği konuşulur. Kademe yalnız eşik üstüne uygulanır (geriye dönük değildir).',
-      'Dönem, sınav dönemidir. Bir dönemde ulaştığın kademe sonraki döneme taşınır ve geri inmez.',
-      'Bir satış, ödeme alındıktan 7 gün sonra kesinleşir. İade edilen ya da ödemesi geri alınan satış komisyona girmez. Bir ay içinde kesinleşen komisyonlar, izleyen ayın 8\'inde ödenir.',
-      'Komisyonu ödenmiş bir satış sonradan iade edilir ya da ödemesi geri alınırsa (ör. kart itirazı, mükerrer çekim), o komisyon bir sonraki ödemenden düşülür.',
-      'Kendi kodunla alım yapamazsın; kendine, yakınına ya da uydurma kişilere yönelik düzenlenmiş satışlar komisyona girmez.',
-      /* 30.09: Ticari Reklam ve HTU Yön. m.23/A (RG 01.07.2026/33297, yürürlük 01.08.2026) — "Reklam" ya da "Tanıtım"
-         ifadesi + reklam verenin adı zorunlu, diğer etiketlerden önce, kaydırmadan görünür; tek başına #işbirliği YETMEZ. */
-      'Tetikte ile ilgili her paylaşımının en başında, diğer tüm etiketlerden önce ve ekranı kaydırmadan görünecek biçimde "#Reklam @tetikte" (ya da "#Tanıtım @tetikte") yazarsın; videoda bunu ayrıca sesli söylersin. Tek başına "#işbirliği" yeterli değildir. İndirim kodu, komisyon ve ücretsiz erişimin her biri paylaşımı reklam yapar.',
-      'Sınavı geçme garantisi, gerçek olmayan başarı oranı ya da resmî kurum onayı gibi yanıltıcı ifadeler kullanmazsın; ayrıca Tetikte\'yi "kurs", "dershane" ya da "sınava hazırlık kursu" olarak tanıtmazsın.',
-      'Paylaşımlarında fiyatı sitede o gün ilan edilen fiyatla söylersin; eski fiyat içeren paylaşımı güncellersin ya da kaldırırsın.',
-      'Tetikte sorularını, cevaplarını ve açıklamalarını toplu olarak kopyalayıp paylaşmazsın; tanıtım için bir-iki örnek ekran serbesttir.',
-      'Programa katıldıktan sonraki 30 gün içinde en az bir tanıtım paylaşımı yaparsın; yapılmazsa ücretsiz erişim ve kodun kapanır.',
-      '90 gün boyunca ne paylaşım ne satış olursa kodun pasifleşir; o güne kadar kazandığın komisyon yine ödenir.',
-      'Elçilere program süresince 3 ay ücretsiz tam erişim verilir.',
-      'Alıcıların kimlik bilgileri sana verilmez; panelde yalnız adet ve tutar görünür.',
-      'Komisyon ödemesi için IBAN ve vergi bilgilerini e-postayla iletirsin; bu bilgiler panelde tutulmaz. Ödemeden doğan vergi yükümlülükleri mevzuata göre uygulanır.',
-      'Elçi bağımsızdır; Tetikte\'nin çalışanı, ortağı ya da temsilcisi değildir ve Tetikte adına taahhütte bulunamaz.',
-      'Program bir yıl sürer ve taraflardan biri bitirmedikçe kendiliğinden uzar. İki taraf da 15 gün önceden e-postayla bildirerek, gerekçe göstermeden programı bitirebilir. Bu koşullara aykırılıkta (etiketsiz reklam, yanıltıcı ifade, düzenlenmiş satış gibi) Tetikte programı hemen bitirebilir. Program bittiğinde kodun kapanır; o güne kadar kesinleşmiş komisyonun ödenir.',
-      'Tetikte programı ve koşulları değiştirebilir; değişiklik bu panelde yeni sürüm olarak gösterilir ve senin onayınla geçerli olur. Kazanılmış komisyon geriye dönük değişmez.',
-      'Uyuşmazlıklarda İzmir mahkemeleri ve icra daireleri yetkilidir; taraflar arasındaki e-posta yazışmaları geçerlidir.'
-    ];
-  }
-  function kosulCiz(el, ind){ $(el).innerHTML = kosullar(ind).map(function(m){ return '<li>' + m + '</li>'; }).join(''); }
-
+  /* 01.10 (Cem "onay yap"): onay ekranı TAM SÖZLEŞMEYİ gösterir (sözleşme v2, 16 madde). Metin template#sozlesmeMetni'de;
+     kaynak Masaüstü/Tetikte-Hukuk/Tetikte-Elci-Sozlesmesi-v2 ile birebir, PDF'i elci-sozlesmesi.pdf. Eski 19 maddelik özet
+     KALDIRILDI (iki ayrı metin, ikisinin farklılaşması demekti). Metin değişirse KOSUL_SURUM + PDF + template birlikte. */
+  function kosulCiz(el){ var tp = $('sozlesmeMetni'); $(el).innerHTML = tp ? tp.innerHTML : '<p>Sözleşme metni yüklenemedi; <a class="ep-a" href="elci-sozlesmesi.pdf">PDF\'i aç</a>.</p>'; }
   function panelCiz(d, ornek){
     $('epOrnek').classList.toggle('ep-gizli', !ornek);
     $('epAd').textContent = d.ad || d.kod;
@@ -236,12 +331,17 @@
     var link = SITE + 'satin-al.html?e=' + encodeURIComponent(d.kod);
     $('epLink').value = link;
     $('epWp').href = 'https://wa.me/?text=' + encodeURIComponent('#Reklam @tetikte — SMMM sınavlarına Tetikte ile hazırlan. Bu bağlantıyla alırsan elçi indirimi uygulanır: ' + link);  /* 30.09: Yön. m.23/A etiketi başta; tutar yazılmaz (m.14 önceki fiyat/tarih şartı doğmasın) */
-    $('epKesin').textContent = d.kesin_satis;
-    $('epBekleyen').textContent = d.bekleyen_satis;
+    /* kartlar TOPLAM satış (kademeli + ders paketi); kademe çubuğu aşağıda yalnız kademeli satışla */
+    $('epKesin').textContent = (d.kesin_satis || 0) + (d.ders_kesin_satis || 0);
+    $('epBekleyen').textContent = (d.bekleyen_satis || 0) + (d.ders_bekleyen_satis || 0);
     $('epOdemeBek').textContent = d.odeme_bekleyen;
     $('epIade').textContent = d.iade;
-    $('epKomKesin').textContent = tl(d.komisyon_kesin);
-    $('epKomTahmin').textContent = tl(d.komisyon_tahmini);
+    $('epKomKesin').textContent = tl((d.komisyon_kesin || 0) + (d.ders_komisyon_kesin || 0));
+    $('epKomTahmin').textContent = tl((d.komisyon_tahmini || 0) + (d.ders_komisyon_tahmini || 0));
+    $('epDersKesin').textContent = d.ders_kesin_satis || 0;
+    $('epDersBek').textContent = d.ders_bekleyen_satis || 0;
+    $('epDersKom').textContent = tl(d.ders_komisyon_kesin);
+    $('epDersKomT').textContent = tl(d.ders_komisyon_tahmini);
     $('epOdemeBilgi').innerHTML = d.odeme_bilgisi ? '✓ Ödeme bilgin (IBAN) bize ulaştı.'
       : 'Ödeme bilgin (IBAN + vergi bilgisi) henüz bize ulaşmadı — <a class="ep-a" href="iletisim.html">e-postayla gönder</a>.';
     $('epBirim').textContent = d.ozel_isbirligi ? 'Özel' : tl(d.siradaki_birim);
@@ -285,7 +385,8 @@
       baslangic_kademe:1, donem:{ ad:'SGS 2026-3', baslangic:'2026-09-15', bitis:'2026-11-21' },
       kesin_satis:6, bekleyen_satis:2, iade:1, odeme_bekleyen:3,
       komisyon_kesin:4500, komisyon_tahmini:6000, siradaki_birim:750, sonraki_esik:10, sonraki_esik_kalan:2, sonraki_esik_birim:1000,
-      ozel_isbirligi:false, indirimler:{ sgs:400, 'yeterlilik-tum':400 },
+      ozel_isbirligi:false, indirimler:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':50, 'yeterlilik-2':100, 'yeterlilik-3':150, 'yeterlilik-4':200 },
+      ders_kesin_satis:2, ders_bekleyen_satis:1, ders_komisyon_kesin:450, ders_komisyon_tahmini:600,
       odemeler:[ { odeme_tarihi:'2026-10-31', donem:'SGS 2026-3', tutar_tl:3000 } ] }, true);
     $('epCikis').hidden = true;
     return;
@@ -315,7 +416,9 @@
     panelCiz(d, false);
   }
 
-  $('epKosulOnay').addEventListener('change', function(){ $('epKosulBtn').disabled = !this.checked; });
+  function onayDurum(){ $('epKosulBtn').disabled = !($('epKosulOnay').checked && $('epKosulAleyhe').checked); }
+  $('epKosulOnay').addEventListener('change', onayDurum);
+  $('epKosulAleyhe').addEventListener('change', onayDurum);
   $('epKosulBtn').addEventListener('click', async function(){
     this.disabled = true; $('epKosulHata').textContent = '';
     var r = await sb.rpc('elci_sozlesme_onayla', { p_surum:KOSUL_SURUM });

@@ -380,7 +380,7 @@ function ozetCiz(){
    "bu kod bu pakette kaç TL indirir?" diye sorar (elci_kodu_kontrol); asıl indirim
    sipariş yazılırken SUNUCUDA damgalanır. Sorulamazsa indirim 0 kalır: ekranda
    gösterip siparişte vermemek, hiç göstermemekten kötüdür. */
-var elciIndirim = 0, elciSira = 0;
+var elciIndirim = 0, elciSira = 0;   /* 01.10: tek ders paketlerinde de ders başı 50 TL indirim (ELCI.indirim) */
 function elciAcik(){ return typeof ELCI !== 'undefined' && ELCI.acik === true; }
 function elciTemizle(s){
   s = (s || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,12);
