@@ -405,6 +405,19 @@ jobs:
           "yeniden tetiklendi: halka $sonraki (ayni plan; concurrency grubu bu is bitince baslatir)"
           if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - zincir surdu ama bu halka KIRMIZI"; exit 1 }
 
+      # 01.10.2026 - BITIS TETIGI. Bulut sirasi robotu (bulut-sira.yml) cron'la 15 dk'da bir yazilmisti; olculdu 29.09 23:39 ->
+      # 01.10 00:12 UTC arasi 29 saatte yalniz 6 kez kostu (GitHub schedule gecikmesi). Bu is biterken robotu cagirir; robot
+      # BU kosunun kapanmasini bekler (bekle_kosu), sonra bosalan yuvaya siradaki plani acar. Cron yedek kalir.
+      # Is basarisiz/iptal olsa da kosar (yuva yine bosalir). Dusmesi bu isi KIRMIZI yapmaz (uyari).
+      - name: Bulut sirasini uyandir (yuva bosaliyor)
+        if: always()
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run bulut-sira.yml --ref main -f bekle_kosu="${{ github.run_id }}"
+          if($LASTEXITCODE){ "::warning::bulut sirasi uyandirilamadi - cron yedegi acar"; exit 0 } else { "bulut sirasi uyandirildi (bekle_kosu=${{ github.run_id }})" }
+
       # ⛔ KOSU GUNLUGU ARTIFACT'I KALDIRILDI (12.09, ilk kosudan ONCE olculdu).
       #    Ilk surumde veri/fabrika/kosucu-log/** yukleniyordu. Olctum:
       #      · parti gunlukleri 200 KB'a cikiyor ve kaynak paketinden MEVZUAT

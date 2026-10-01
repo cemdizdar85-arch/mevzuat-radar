@@ -106,6 +106,11 @@ $baglar = @(
   @{ dosya = 'motor/bulut-sira.ps1'; desen = 'BsKarar -Ayar'; ad = 'sürücü BsKarar ile karar veriyor' }
   @{ dosya = 'motor/bulut-sira.ps1'; desen = 'butce_usd=\$\(\$kr\.butce\)'; ad = 'dispatch bütçeyi normalize değerden geçiriyor' }
   @{ dosya = '.github/workflows/dogrula.yml'; desen = 'bulut-sira-sinavi\.ps1'; ad = 'öz-sınav dogrula.yml matrisinde' }
+  # 01.10 bitiş tetiği (cron 29 saatte 6 kez koştu): bulut-uretim her koşuda — düşse/iptal olsa da — robotu kendi run id'siyle uyandırır
+  @{ dosya = '.github/workflows/bulut-uretim.yml'; desen = 'name: Bulut sirasini uyandir[^\n]*\n\s*if: always\(\)'; ad = 'bitiş tetiği: bulut-uretim son adımı if: always()' }
+  @{ dosya = '.github/workflows/bulut-uretim.yml'; desen = 'gh workflow run bulut-sira\.yml --ref main -f bekle_kosu="\$\{\{ github\.run_id \}\}"'; ad = 'bitiş tetiği: robot kendi run id''siyle çağrılıyor' }
+  @{ dosya = '.github/workflows/bulut-sira.yml'; desen = '-BekleKosu "\$env:GIRDI_BEKLE"'; ad = 'robot bekle_kosu girdisini sürücüye geçiriyor' }
+  @{ dosya = 'motor/bulut-sira.ps1'; desen = "'run', 'view', \`$BekleKosu"; ad = 'sürücü tetikleyen koşunun kapanmasını bekliyor' }
 )
 foreach ($b in $baglar) {
   $say = ([regex]::Matches((Oku $b.dosya), $b.desen)).Count

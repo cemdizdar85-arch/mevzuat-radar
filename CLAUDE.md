@@ -258,8 +258,9 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   koruyan yerel bash sıra betikleri Claude oturumuna bağlıydı; 27.09'da bitirme sırası çıkış 4 ile hata yazmadan öldü, gm5-8..22
   açılmadı, bulut 27.09 15:00 → 29.09 22:00 boş kaldı. Kural: birden çok plan açılacaksa plan commit+push edilir, sonra
   `powershell -NoProfile -File motor/bulut-sira.ps1 -Ekle -Plan veri/sinav/plan-<sınav>-….json -Butce <USD> [-OlcumKosusu <id>] -Ekleyen "<oturum adı>"`
-  → `veri/sinav/bulut-sira.json` AYNI ÇAĞRIDA commit+push. Robot `bulut-sira.yml` 15 dk'da bir açık `bulut-uretim` koşularını PLAN
-  bazında sayar (halka dahil) ve pay boşsa açar (pay dosyada: toplam 6 · smmm 3 · sgs 3 · kgk 2). "Açıldı mı" GitHub koşu
+  → `veri/sinav/bulut-sira.json` AYNI ÇAĞRIDA commit+push. Robot `bulut-sira.yml` her `bulut-uretim` koşusu bitince uyanır (bitiş
+  tetiği, 01.10: cron 29 saatte yalnız 6 kez koşmuştu; cron yedek), açık koşuları PLAN bazında sayar (halka dahil) ve pay boşsa
+  açar (pay tablosu dosyada; rakamı buradan değil dosyadan oku). "Açıldı mı" GitHub koşu
   geçmişinden okunur; açılmış plan satırı reddedilir (bilerek yeniden = `-Yeniden`, Cem onayı). Sıraya konan plan **elle açılmaz**
   (çift ödeme). Durum `-Durum` · kaldır `-Cikar` · acil fren dosyada `"durdur": true`. Bütçe kuralı aynen geçerli: sıraya koymak =
   açma kararı. Öz-sınav `arac/bulut-sira-sinavi.ps1` (dogrula.yml, 28 vaka + 16 mutasyon). 🚫 GÖRMEZ: sıra dışından aynı

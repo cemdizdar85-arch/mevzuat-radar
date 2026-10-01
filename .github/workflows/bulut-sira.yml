@@ -7,7 +7,7 @@
 # oturumuna bagliydi: 27.09'da bitirme sirasi cikis 4 ile HATA YAZMADAN oldu,
 # gm5-8..22 acilmadi, bulut 27.09 15:00 -> 29.09 22:00 BOS kaldi; KGK da bekledi.
 #
-# NE YAPAR: 15 dk'da bir veri/sinav/bulut-sira.json'u okur, acik bulut-uretim
+# NE YAPAR: her bulut-uretim kosusu bitince (bitis tetigi, 01.10) + yedek cron 15 dk'da bir veri/sinav/bulut-sira.json'u okur, acik bulut-uretim
 # kosularini PLAN bazinda sayar (halka kosulari dahil), pay boşsa siradaki plani
 # acar (gh workflow run bulut-uretim.yml ... butce_usd=<satirdaki>).
 # "Acildi mi?" cevabi GitHub kosu gecmisinden okunur, dosyaya isaret YAZILMAZ
@@ -33,6 +33,11 @@ on:
         required: false
         default: "0"
         type: string
+      bekle_kosu:
+        description: "Bitis tetigi (bulut-uretim son adimi doldurur): once bu kosunun kapanmasi beklenir, sonra pay sayilir. Elle bos birak."
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -55,5 +60,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GIRDI_KURU: ${{ inputs.kuru }}
+          GIRDI_BEKLE: ${{ inputs.bekle_kosu }}
         run: |
-          if ("$env:GIRDI_KURU" -eq '1') { ./motor/bulut-sira.ps1 -Dagit -Kuru } else { ./motor/bulut-sira.ps1 -Dagit }
+          if ("$env:GIRDI_KURU" -eq '1') { ./motor/bulut-sira.ps1 -Dagit -Kuru -BekleKosu "$env:GIRDI_BEKLE" } else { ./motor/bulut-sira.ps1 -Dagit -BekleKosu "$env:GIRDI_BEKLE" }
