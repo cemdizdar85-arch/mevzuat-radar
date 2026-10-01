@@ -1,11 +1,11 @@
 {
-    "olcum":  "16.09.2026 09:42",
+    "olcum":  "21.09.2026 14:42",
     "kural":  "TAM: resmî maddelerin ≤%5\u0027i ambarda yok · EKSİK: \u003e%5 · mülga maddeler eksik sayılmaz · ek/geçici maddeler ayrı dizidir, kıyasa girmez",
     "ozet":  {
-                 "olculen":  133,
-                 "TAM":  132,
+                 "olculen":  132,
+                 "TAM":  131,
                  "EKSIK":  1,
-                 "olculemedi":  0
+                 "olculemedi":  1
              },
     "belgeler":  [
                      {
@@ -1831,14 +1831,14 @@
                      {
                          "belge":  "Yatirim Hizmetleri ve Faaliyetleri Tebligi (III-37.1)",
                          "ambar_madde":  83,
-                         "en_buyuk":  83,
-                         "resmi_madde":  83,
+                         "en_buyuk":  0,
+                         "resmi_madde":  0,
                          "mulga":  0,
                          "eksik":  0,
                          "fazla":  0,
                          "eksik_ornek":  "",
                          "fazla_ornek":  "",
-                         "durum":  "TAM",
+                         "durum":  "İNDİRME HATASI: Uzak ad çözülemedi: \u0027www.mevzuat.gov.tr\u0027",
                          "adres_notu":  "kayıtlı adres bozuk (mevzuatmetin/GN:no.pdf) → GeneratePdf ile alındı",
                          "url":  "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=18576\u0026mevzuatTur=Teblig\u0026mevzuatTertip=5"
                      },
@@ -1853,8 +1853,8 @@
                          "eksik_ornek":  "",
                          "fazla_ornek":  "",
                          "durum":  "TAM",
-                         "adres_notu":  "kayıtlı adres bozuk (mevzuatmetin/GN:no.pdf) → GeneratePdf ile alındı",
-                         "url":  "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=19131\u0026mevzuatTur=Teblig\u0026mevzuatTertip=5"
+                         "adres_notu":  "indirilemez kaynak; resmî metin depodan okundu (veri/mevzuat-hazir/spk-yatirim-kurulus-teblig.txt)",
+                         "url":  ""
                      },
                      {
                          "belge":  "Yatirimci Tazmin Merkezi Yonetmeligi",
@@ -1867,8 +1867,8 @@
                          "eksik_ornek":  "",
                          "fazla_ornek":  "",
                          "durum":  "TAM",
-                         "adres_notu":  "",
-                         "url":  "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=20561\u0026mevzuatTur=KurumVeKurulusYonetmeligi\u0026mevzuatTertip=5"
+                         "adres_notu":  "indirilemez kaynak; resmî metin depodan okundu (veri/mevzuat-hazir/spk-ytm-yon.txt)",
+                         "url":  ""
                      }
                  ]
 }
