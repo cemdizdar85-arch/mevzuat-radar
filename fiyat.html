@@ -173,6 +173,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="liste" id="lsYet"></div>
     <div class="kdv">tüm dersler · <span id="ktYet"></span></div>
 <div class="kdv" id="khYet"></div>
+    <div class="kdv" id="ayYet" style="color:var(--ink);font-weight:700"></div><!-- 01.10: aynı dersleri ayrı paketlerle almanın en ucuz yolu (fiyat-motoru.js yeterlilikAyriEnAz) -->
     <ul>
       <li><b>Tek ders <span id="fyYet1">—</span>'den başlar</b> — kaldığın dersi seç</li>
       <li>Sınırsız soru: sekiz dersin tamamı</li>
@@ -457,6 +458,8 @@ document.getElementById('erYet').textContent = pYet.erisim;
 
 // "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
 document.getElementById('fyYet1').textContent = fiyatAna('yeterlilik-1', paketBul('yeterlilik-1').fiyat);   /* 01.10: '+ KDV' */
+(function(){ var k = yeterlilikAyriEnAz('kurulus'), e = document.getElementById('ayYet');
+  if(k && e) e.textContent = 'Aynı ' + DERSLER.yeterlilik.length + ' dersi ayrı paketlerle (' + k.parca.join(' + ') + ' ders) alsan en az ' + fiyatAna('yeterlilik-tum', k.tutar); })();
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
 document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 

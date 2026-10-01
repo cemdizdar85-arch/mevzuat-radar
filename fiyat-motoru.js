@@ -374,7 +374,7 @@ function paketler(){
   var KGK_KIM = {
     1:'Kaldığın tek konu için',
     2:'YMM ruhsatlısına düşen kapsam',
-    3:'SMMM ruhsatlısına düşen kapsam — en çok alınan'
+    3:'SMMM ruhsatlısına düşen kapsam'   /* 01.10: "en çok alınan" silindi - ölçülmemiş iddia (Ek A-7); etiket enCokSecilen'den gelir */
   };
   for(var m = 1; m <= 3; m++){
     L.push({ id:'kgk-' + m, grup:'Bağımsız Denetçilik (KGK)',
