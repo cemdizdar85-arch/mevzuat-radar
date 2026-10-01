@@ -80,7 +80,7 @@
     <div class="madde"><span class="n">1</span><span>İlan edilen gün ve saatte site üzerinden oturum açılır, <b>herkese aynı soru seti</b>, aynı süre. Oturuma, kaydı önceki gün 23:59'a kadar açılmış <b>üyeler</b> girer.</span></div>
     <div class="madde"><span class="n">2</span><span>Süre bitince cevap anahtarı ve her sorunun <b>kaynak maddesiyle</b> açıklaması açılır.</span></div>
     <div class="madde"><span class="n">3</span><span>Sonuçlar toplanır; <b>yüzdelik sıralaman</b> (katılan Tetikte üyeleri arasında) açıklanır, "80 aldım" değil, "katılanların %12'sinin önündeyim" dersin. Sınavın bağıl değerlendirmesinin tek gerçekçi karşılığı budur.</span></div>
-    <div class="madde"><span class="n">4</span><span>Seri <b>dönüşümlüdür</b>: bir hafta Staja Giriş (sınavı 21.11.2026), ertesi hafta Yeterlilik (sınavı 28.11.2026). Herkes kendi sınavının oturumuna girer; ikisine hazırlanan ikisine de girebilir.</span></div>
+    <div class="madde"><span class="n">4</span><span>İki sınavın oturumu <b>ayrı haftalarda</b>: önce Staja Giriş (sınavı 21.11.2026), bir hafta sonra Yeterlilik (sınavı 28.11.2026). Herkes kendi sınavının oturumuna girer; ikisine hazırlanan ikisine de girebilir.</span></div>
   </div>
 
   <!-- 07.08 KILITLI-SET MOTORU: sinav salonu. Sorular sifreli paketle onceden
@@ -189,7 +189,7 @@
 
   <div class="kart">
     <h2>Listeye yazıl</h2>
-    <p>Tarih açıklandığında ve oturum açıldığında e-postana haber gelir. Başka hiçbir şey için kullanılmaz.</p>
+    <p>Oturum açılmadan önce ve yeni oturum eklendiğinde e-postana haber gelir. Başka hiçbir şey için kullanılmaz.</p>
     <form id="kayitForm">
       <input type="email" id="kayitEposta" placeholder="e-posta adresin" required>
       <button type="submit">Haber ver</button>
@@ -201,6 +201,8 @@
 <script>
 fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   if(!d || !d.oturumlar) return;
+  /* 02.10 Cem: "gizli": true oturumlar (01.11/08.11 genel prova, "prova yok") hiç çizilmez; kayıt json'da durur */
+  d.oturumlar = d.oturumlar.filter(function(o){ return !o.gizli; });
   CANLI_TAKVIM = d.oturumlar;
   if(typeof uyeKartGuncelle === 'function') uyeKartGuncelle(d.oturumlar);
   var simdi = new Date();
@@ -220,6 +222,8 @@ fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).
   var tk = document.getElementById('takvim');
   d.oturumlar.forEach(function(o){
     var gecti = kapanis(o) <= simdi, suruyor = !gecti && zamani(o) <= simdi;
+    /* 02.10: geçmiş oturum satırı takvime çizilmez (23.08/30.08 "tamamlandı" site kapalıyken yapılmıştı) */
+    if(gecti) return;
     var sat = document.createElement('div');
     sat.style.cssText = 'display:flex;gap:10px;font-size:13.5px;margin:6px 0;color:' + (gecti ? 'var(--dim)' : 'var(--muted)');
     sat.innerHTML = '<span style="min-width:88px;font-weight:700;color:' + (gecti ? 'var(--dim)' : 'var(--amber)') + '">' + o.tarih + '</span><span><b>' + (o.sinav || '') + '</b> · ' + o.ad + (gecti ? ' · tamamlandı' : (suruyor ? ' · ŞU AN SÜRÜYOR' : ' · ' + o.saat)) + '</span>';
