@@ -43,11 +43,6 @@
             "tarih": "2026-09-29",
             "kaynak": "m270-denetimi"
         },
-        "sgs-c2-mta-zor-r3/kp-02": {
-            "gerekce": "29.09 risk taramasi (R3 asit-test): IKI DOGRU SIK. Notun ana tanimiyla (yalniz stoklar dusulur) cari oran 1,50 = D; anahtar E (1,60) GAAG de dislanirsa cikiyor, soru bu varsayimi vermiyor. 12.09 iki hakem + kor cozum yakalamamis. Onarim: koke varsayim ekle ya da GAAG verisini kaldir.",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-a6-fmuh-cokzor-r1/kp-03": {
             "gerekce": "29.09 risk taramasi grup C: AÇIKLAMA KUSURLU (MUHTEMEL) - Gelir vergisi %15 brüt ikramiyeye uygulanıyor (15.000); GVK m.63 gereği SGK işçi payı düşülmüş matraha uygulanmalı (12.900 → net 72.341, şıklarda yok). Anahtar ancak \"oranlar brüte uygulanır\" varsayımıyla doğru; soru metnine bu varsayım açıkça yazılmalı ya da hesap düzeltilmeli. | dayanak: GVK m.63; THP 373/335",
             "tarih": "2026-09-29",
@@ -93,83 +88,18 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-d5-vergi-cokzor-r2/kp-02": {
-            "gerekce": "29.09 risk taramasi grup B: CEVAP YANLIŞ (MUHTEMEL) - İhracatçının daha düşük bedelle fiilen ihraç etmesi 'imalatçı aleyhine matrah değişikliği' değildir; KDVK m.11/1-c ve GUT II/A-8.9'a göre bu, imalatçının kendi satış bedelinde (kur farkı, ihracatçının imalatçıya düzenlediği fatura) oluşan azalmadır. Soruda böyle bir değişiklik yok → azami iade 1.400.000×%20=280.000 (D). Açıklama/sade 'matrah değişikliği = imalatçı fatura bedeli ile fiili ihraç bedeli farkı' diye yanlış tanım kuruyor | dayanak: KDVK m.11/1-c [3/3]; KDV GUT bolum 348–349 (II/A-8.9) | anahtar E->D",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-vergi-cokzor/kp-26": {
-            "gerekce": "29.09 risk taramasi grup B: AÇIKLAMA KUSURLU (KESİN) - Anahtar 115.735 doğru (31.000 + 84.735). Ama (1) SADE kavram kartı 'girişim sermayesi fonu indirimi'ni eğitim-sağlık harcaması olarak tanımlıyor ve '89. madde ikinci bent (eğitim sağlık)' diyor — yanlış (fon GVK m.89/12, VUK 325/A); (2) soru 2026 için 'asgari ücretin yıllık tutarı 350.000 TL' veriyor, resmî 2026 brüt yıllık 396.360 TL (33.030×12) — GÜNCELLİK RİSKİ de var (sonucu değiştirmiyor); (3) VUK 325/A'daki öz sermayenin %20'si sınırı anılmıyor | dayanak: GVK m.89/1, m.89/12; VUK m.325/A; Asgari Ücret Tespit Kom. Kararı 2026 (RG 26.12.2025/33119)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t4-vergi-zor/kp-15": {
-            "gerekce": "29.09 risk taramasi grup B: GÜNCELLİK RİSKİ (KESİN) - Soru yıl vermeden 'teminat aranmayan üst sınır 1.000.000 TL' veriyor; kanun metnindeki tutar bu olsa da CBK 11414 (RG 13.06.2026) ile 10.000.000 TL uygulanıyor. Sade 'borçtan 1 milyon liraya kadar teminat istenmez' diye güncel kural gibi anlatıyor; güncel değerle 4.600.000 TL borca teminat gerekmez. Hesap sorunun verdiği değerle tutarlı (1.800.000) | dayanak: 6183 m.48 [1/3] + dipnot 21 (CBK 11414)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-fmuh-kolay-r1/kp-17": {
-            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (MUHTEMEL) - Kök \"taşıma giderini kendisi üstlenmiş\" diyor; THP 612 yalnız \"satıcı tarafından alıcı hesabına\" ödenen sevk giderini kapsar, satıcının kendi üstlendiği nakliye 760 Pazarlama Satış Dağıtım Giderleri’ne gider. Şıklarda 760 olmadığı için C en yakın; kök \"alıcı hesabına ödemiş\" diye düzeltilmeli | dayanak: THP 612, THP 760",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-p-fmuh-zor-r3/kp-13": {
-            "gerekce": "29.09 risk taramasi grup D: CEVAP YANLIŞ (KESİN) - Binek otoda kıst nedeniyle ayrılmayan bakiye ve azalan bakiyelerde son yıla devreden bakiye itfa süresinin son yılında (3 yıllık süre aktife girdiği 2024’te başlar → 2026) tamamen yok edilir: 150.000+375.000+375.000 = 900.000. Anahtar 712.500; hap \"eksik kalan süre son yıla eklenir\" deyip uygulamıyor | dayanak: VUK m.320/2, VUK mük. m.315/3 | anahtar B->E",
+            "gerekce": "29.09 risk taramasi grup D: CEVAP YANLIŞ (KESİN) - Binek otoda kıst nedeniyle ayrılmayan bakiye ve azalan bakiyelerde son yıla devreden bakiye itfa süresinin son yılında (3 yıllık süre aktife girdiği 2024’te başlar → 2026) tamamen yok edilir: 150.000+375.000+375.000 = 900.000. Anahtar 712.500; hap \"eksik kalan süre son yıla eklenir\" deyip uygulamıyor | dayanak: VUK m.320/2, VUK mük. m.315/3 | anahtar B->E | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
         "sgs-t1-fmuh-cokzor-b/kp-169": {
-            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (KESİN) - Aracı kurumun menkul kıymet alım komisyonu BSMV’ye tabidir ve KDV’den istisnadır; kök/açıklama \"komisyon üzerinden %20 KDV → 191\" diyor (ikizde %18 KDV). Tutar kendi verisine göre tutarlı | dayanak: KDVK m.17/4-e; Gider Vergileri K. m.28/2",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-kolay/kp-07": {
-            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (KESİN) - Adımda \"292 Ertelenmiş Vergi Varlığı\" yazıyor; THP 292 = Diğer KDV. Ayrıca \"geçerli vergi oranı %20\" KVK m.32’deki %25 ile uyuşmuyor (soru verisi olarak hesap tutarlı) | dayanak: THP 292; KVK m.32/1",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-zor-b/kp-152": {
-            "gerekce": "29.09 risk taramasi grup D: GÜNCELLİK RİSKİ (KESİN) - Kök \"2026 yılında … %18 KDV dahil 123.900\" diyor; 2026’da genel oran %20. %20 ile net 103.250 → reeskont yaklaşık 4.917 çıkar, şıklarda yok; soru yeniden kurulmalı (ikiz de %18) | dayanak: KDV genel oranı (CBK, ambarda yok)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-zor/kp-07": {
-            "gerekce": "29.09 risk taramasi grup D: GÜNCELLİK RİSKİ (KESİN) - Kök \"Kurumlar vergisi oranı %20’dir\" diyor; 2026’da KVK m.32/1 oranı %25. Ayrıca adımda \"391 Ertelenmiş Vergi Borcu / 291 Ertelenmiş Vergi Varlığı\" var (THP 391 = Hesaplanan KDV, 291 = Gelecek Yıllarda İndirilecek KDV) | dayanak: KVK m.32/1; THP 391, 291",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-zor/kp-08": {
-            "gerekce": "29.09 risk taramasi grup D: CEVAP YANLIŞ (MUHTEMEL) - Faturada peşin ödeme için yapılan kasa iskontosu da bir fiyat indirimidir; TMS 2 p.11’e göre satın alma maliyetinden düşülür → 196.200. Ayrıca adım/teşhis kasa iskontosunu \"602 Diğer Gelirler\"e yazdırıyor; 602 satıcının hasılat hesabıdır | dayanak: TMS 2 p.11; THP 602; VUK m.262 | anahtar C->B",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-zor/kp-36": {
-            "gerekce": "29.09 risk taramasi grup D: CEVAP YANLIŞ (KESİN) - THP 119’a göre satılan kısmın karşılığı (7.500) 644’e, satış kârı (105.000−100.000 = 5.000) 645’e yazılır. C şıkkı 12.500’ün tamamını 644’e yazıyor; A karşılığı kapatmıyor. Hiçbir şık tam doğru değil, şıklar yeniden yazılmalı | dayanak: THP 119, THP 644, THP 645 | anahtar C->yok",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-zor/kp-42": {
-            "gerekce": "29.09 risk taramasi grup D: GÜNCELLİK RİSKİ (MUHTEMEL) - Kök \"ücretin %20,5’i işveren sigorta primi\" diyor; 2026’da 5510 m.81: MYÖ işveren %12 (7566), KVS %2,25, GSS işveren %7,5 → %21,75 (işsizlik hariç). %20,5 eski oranlar (ikizde %22 ve KDV %18) | dayanak: 5510 m.81",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-zor/kp-85": {
-            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (MUHTEMEL) - Kök gün esasını \"VUK m.320/4\" diye gösteriyor; gün esası m.320/3, süre seçimi m.320/4. Hesap (36.000) doğru | dayanak: VUK m.320/3-4",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t2-fmuh-cokzor/kp-76": {
-            "gerekce": "29.09 risk taramasi grup D: CEVAP YANLIŞ (MUHTEMEL) - Kök \"makine için … nakliye sigortası 8.000\" diyor; iktisapla ilgili nakliye sigortası maliyete girer (VUK m.262, TMS 16) → (443.000×1,2) − 250.000 = 281.600 (E). Açıklama sigortayı \"maliyetle ilgisiz\" sayıyor. \"1 yıllık\" dönem sigortası kastediliyorsa kök düzeltilmeli | dayanak: VUK m.262; TMS 16 | anahtar D->E",
+            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (KESİN) - Aracı kurumun menkul kıymet alım komisyonu BSMV’ye tabidir ve KDV’den istisnadır; kök/açıklama \"komisyon üzerinden %20 KDV → 191\" diyor (ikizde %18 KDV). Tutar kendi verisine göre tutarlı | dayanak: KDVK m.17/4-e; Gider Vergileri K. m.28/2 | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
         "sgs-t2-fmuh-zor/kp-64": {
-            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (MUHTEMEL) - Kök ve açıklama kredili satışı \"220 ALICILAR\"a yazıyor; vade bir yılı aşmadıkça 120 Alıcılar kullanılır (220 uzun vadeli). Tutar (376.000) doğru; adımlar boş | dayanak: THP 120, THP 220",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t3-fmuh-kolay/kp-01": {
-            "gerekce": "29.09 risk taramasi grup D: GÜNCELLİK RİSKİ (MUHTEMEL) - Kök \"yasalaşmış vergi oranı %20\" diyor; KVK m.32/1’de yasalaşmış oran %25. Soru verisi olarak hesap tutarlı ama yasal oran iddiası yanlış | dayanak: KVK m.32/1",
+            "gerekce": "29.09 risk taramasi grup D: AÇIKLAMA KUSURLU (MUHTEMEL) - Kök ve açıklama kredili satışı \"220 ALICILAR\"a yazıyor; vade bir yılı aşmadıkça 120 Alıcılar kullanılır (220 uzun vadeli). Tutar (376.000) doğru; adımlar boş | dayanak: THP 120, THP 220 | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -190,61 +120,6 @@
         },
         "sgs-p-fmuh-cokzor-r2/kp-05": {
             "gerekce": "29.09 risk taramasi grup r4-03: CEVAP YANLIŞ (KESİN) - Kâr 500.000; I. tertip 25.000 + birinci kâr payı 60.000 + ikinci kâr payı 415.000 + II. tertip 41.500 = 541.500, yani kârı aşıyor. \"Kalanın tamamı dağıtılacak\" ise II. tertip=415.000x10/110=37.727; bu sonuç şıklarda yok. İkizde ayrı ve KESİN hata var: mevcut yedek 300.000 = 1.500.000x%20 sınırına ulaşmış, I. tertip 0 olmalı; tablo 30.000 ayırıyor. | dayanak: TTK m.519/1, m.519/2-c | anahtar B->YOK (37.727)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-c2-denetim-kolay-r2/kp-05": {
-            "gerekce": "29.09 risk taramasi grup r4-01: CEVAP YANLIŞ (MUHTEMEL) - Açıklama \"rutin bilgi paylaşımları belgelendirme kapsamına girmez\" diyor; oysa planlanan kapsam/zamanlama bildirimi BDS 260 p.15 zorunlu bildirimi, sözlü yapıldıysa BDS 260 p.24 gereği belgelendirilir → 6 (E) de savunulabilir; iki doğru riski | dayanak: BDS 230 p.10; BDS 260 p.15, p.24 | anahtar C->C (tartışmalı; E savunulabilir)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-fmuh-cokzor-r4/kp-13": {
-            "gerekce": "29.09 risk taramasi grup r4-04: AÇIKLAMA KUSURLU (KESİN) - Sayı doğru (105.000). B açıklaması \"780 Finansman Giderleri sonuç hesabıdır ve 690'a borç yazılarak devredilir\" diyor; THP'de 780 maliyet hesabıdır, 781 yansıtma ile 66 grubuna (660) aktarılır, 690'a doğrudan devredilmez. Soru kökü de 780'i sonuç hesabı gibi sunuyor. | dayanak: THP 780, 781, 660, 690",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-fmuh-kolay-r2/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-04: CEVAP YANLIŞ (KESİN) - 01.12.2026-31.01.2027 = 62 gün (31+31); açıklama 61 gün sayıp 61.000/61=1.000 bulmuş. Doğrusu 61.000/62×31=30.500 TL; şıklarda yok. (İkiz 62 gün kullanıyor, tutarlı.) | dayanak: THP 381; dönemsellik | anahtar C->yok (doğru sonuç 30.500)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-fmuh-kolay-r3/kp-14": {
-            "gerekce": "29.09 risk taramasi grup r4-04: CEVAP YANLIŞ (MUHTEMEL) - Soru \"yapılacak kayıtta\" diyor, tarih (ödeme anı mı 31.12.2026 mı) vermiyor. Anahtar 31.12.2026 bilanço esasıyla 12.000 (B). Ödeme anında THP 280 \"gelecek yıllara ait\" okunursa 2027+2028=36.000 (D) ya da ödeme tarihinden 12 ay sonrası 24.000 (C) da savunulabilir. Köke \"31.12.2026 itibarıyla\" eklenmeli. | dayanak: THP 180, 280 | anahtar B->belirsiz (B/C/D)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-cokzor-b/kp-126": {
-            "gerekce": "29.09 risk taramasi grup r4-04: CEVAP YANLIŞ (MUHTEMEL) - TFRS 8 p.15: ek FAALİYET BÖLÜMLERİ %75'e ulaşılıncaya kadar raporlanabilir bölüm yapılır; bölüm bütün olarak eklenir. 700.000→750.000 için eklenebilecek en küçük bölüm G=60.000 (toplam 760.000). Anahtar 50.000 yalnız açık tutar; \"dahil edilmesi gereken en az dış hasılat\" iki türlü okunuyor. | dayanak: TFRS 8 p.13, p.15 | anahtar A->B (60.000) savunulabilir",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-cokzor-b/kp-155": {
-            "gerekce": "29.09 risk taramasi grup r4-04: AÇIKLAMA KUSURLU (KESİN) - Cevap doğru (720.000, soru \"(faiz)\" diyor). D açıklaması \"banka komisyon gideri finansman gideri değildir\" diyor; THP 780 borçlanmayla ilgili faiz, kur farkı, KOMİSYON ve benzeri giderleri finansman gideri sayar; VUK 262/c kredilere ilişkin giderleri de maliyete katar. | dayanak: THP 780; VUK m.262/c",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-cokzor/kp-15": {
-            "gerekce": "29.09 risk taramasi grup r4-04: AÇIKLAMA KUSURLU (KESİN) - Sayı doğru (50.000). Stok değer düşüklüğü TMS 36 p.28 ile anlatılıyor; TMS 36 p.2(a) stokları kapsam dışı bırakır, doğru dayanak TMS 2 (net gerçekleşebilir değer). | dayanak: TMS 36 p.2(a); TMS 2",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-cokzor/kp-65": {
-            "gerekce": "29.09 risk taramasi grup r4-04: AÇIKLAMA KUSURLU (KESİN) - Cevap (43.000) faizin stoka giriş sonrasına ait olması halinde doğru. Açıklama \"m.262/c uyarınca stok finansmanına ait kredi faizi mükellefin tercihine bağlıdır\" diyor; VUK 262/c (2021): emtiada stoklara girdiği tarihe kadarki faiz/kur farkı maliyete ZORUNLU, yalnız sonraki kısım tercihli. Soru faizin dönemini vermiyor (stoka giriş öncesiyse 44.600=E). | dayanak: VUK m.262/c",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-t1-fmuh-kolay/kp-37": {
-            "gerekce": "29.09 risk taramasi grup r4-04: AÇIKLAMA KUSURLU (KESİN) - Cevap (8.000) 30/360 ay esasıyla tutarlı. Açıklama dayanağı \"VUK m.283 kredi sözleşmesine dayalı borçlar\" — bu hüküm m.285'tir (283 aktif geçici hesap kıymetleri). Ayrıca 01.11-31.12 fiilen 61 gün, açıklama \"60 gün\" diyor; A çeldiricisi Aralık'ı 30 gün sayıyor. İkizde de 92 gün yerine 90. | dayanak: VUK m.285, m.283",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-d2-mta-zor-r4/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-06: CEVAP YANLIŞ (MUHTEMEL) - Asit-test oranı resmî komisyon cevaplarında (DV-Stoklar)/KVYK ile hesaplanıyor: (912.500-322.150)/520.000 = 1,135 -> 1,14 = şık C. Anahtar B (1,10) gelecek aylara ait giderleri de düşen alternatif tanıma dayanıyor; iki şık savunulabilir. Aynı bankadaki sgs-c5-mta-zor-r2/kp-07 191 KDVyi düşmeden klasik formül kullanıyor (tutarsız). | dayanak: SMMM Finansal Tablolar ve Analizi komisyon cevapları (ambar: 2008-2017) Asit-Test = (DV - Stoklar)/KVYK | anahtar B->C (komisyon formülü) — belirsiz",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-p-mta-cokzor-r3-a/kp-03": {
-            "gerekce": "29.09 risk taramasi grup r4-06: CEVAP YANLIŞ (KESİN) - Veri tutarsız: F/K 12 ve fiyat 24 -> HBK 2 TL x 100.000 hisse = 200.000 TL net kâr (şık A); aktif kârlılığı/devir hızından 216.000 (şık B). İki şık da verilerden türetilebiliyor; açıklama A yolunu \"çeldirici\" sayıyor ama yol matematiksel olarak geçerli. | dayanak: MTA kârlılık ve piyasa oranları (F/K = Fiyat/HBK) | anahtar B->belirsiz (A ve B)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -328,11 +203,6 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-t1-fmuh-zor/kp-83": {
-            "gerekce": "29.09 risk taramasi grup r4-05: AÇIKLAMA KUSURLU (MUHTEMEL) - Kökün \"kıst uygulanır\" varsayımıyla hesap doğru (185.000). Ancak açıklama ay esaslı kıstı VUK 328'e dayandırıyor: VUK 320'de ilk yıl gün esası isteğe bağlı (ay değil, 275/365), satış yılında kıst amortisman yok. Kök \"VUK 328'e göre\" dediği için vergi kuralı yanlış öğretiliyor. | dayanak: VUK m.320, m.328 (ambar)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-t2-fmuh-cokzor/kp-39": {
             "gerekce": "29.09 risk taramasi grup r4-05: AÇIKLAMA KUSURLU (MUHTEMEL) - Hesap doğru (74.850). Açıklama 540 Yasal Yedeklerin sermayeye eklenebildiğini koşulsuz anlatıyor; TTK 462/1 kanuni yedek akçenin yalnız serbestçe kullanılabilen kısmına izin verir, 519/3'e göre sermayenin yarısını aşmayan kısım serbest değildir. Kök bu koşulu vermiyor. | dayanak: TTK m.462/1, m.519/3 (ambar)",
             "tarih": "2026-09-29",
@@ -355,11 +225,6 @@
         },
         "sgs-t4-fmuh-zor/kp-24": {
             "gerekce": "29.09 risk taramasi grup r4-05: CEVAP YANLIŞ (MUHTEMEL) - THP 408 yalnız \"gelecek YILLARA ait\" farkı taşır; gelecek dönem payı bilanço tarihinde 308'e aktarılır ve itfa 308'den yapılır (aynı parçada #68 bunu doğru soruyor). 1. yıl sonunda 408'de 153.000−30.600−30.600=91.800 kalır; 122.400 itfa edilmemiş farkın 308+408 toplamı. İkiz de aynı hatada (140.000 yerine 70.000). | dayanak: THP 408, 308 (ambar) | anahtar B->şıklarda yok",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-e16-maliyet-kolay/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-08: AÇIKLAMA KUSURLU (KESİN) - Hesap doğru (9.000). Kökte \"731 Direkt İşçilik Giderleri Yansıtma Hesabı\" — 731 GÜG Yansıtma, doğrusu 721. İkiz kökü+ikiz şeması \"723 Direkt İlk Madde ve Malzeme Fiyat Farkları\" — 723 DİŞ Süre Farkı, doğrusu 712. B açıklaması kökte olmayan 750.000 tutarını kullanıyor. | dayanak: THP 712, 721, 723, 731 (ambar)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
@@ -398,11 +263,6 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-t1-fmuh-kolay/kp-06": {
-            "gerekce": "29.09 risk taramasi grup r4-15: CEVAP YANLIŞ (MUHTEMEL) - Kök hangi çerçeveyle (TMS 38 / VUK) itfa istendiğini söylemiyor; adımlar \"260 Haklar hesabı\" diyerek Tekdüzen/VUK çerçevesine işaret ediyor. VUK m.320'de aktife giriş yılında tam yıl → 240.000/5=48.000 = E şıkkı; iki savunulabilir cevap (kör çözücü de işaretledi). Ek: E açıklaması \"maliyeti tam bir yıla böldün\" diyor, 48.000 aslında 240.000/5 tam yıl payı; sade E \"yarım yıl kullanılan\" diyor (4 ay). Onarım: köke \"TMS 38'e göre\" ekle, E anlatımını düzelt | dayanak: TMS 38 p.97; VUK m.320 | anahtar C->C yalnız kök \"TMS 38'e göre\" derse; VUK (m.320 tam yıl) çerçevesinde E (48.000)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-t1-genel-mat-cokzor/kp-22": {
             "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - sade B ters: \"%20 indirimi görmezden gelip %10 ile\" yazıyor ama formül 450÷(0,8×1,25) (yani %10 atlanmış). Ek not: \"nakliye gideri maliyete girmez\" genel kural gibi sunuluyor; alış nakliyesi VUK m.262 gereği maliyete zorunlu girer (kök \"taşınmasında\" diyerek belirsiz) | dayanak: Matematik kuralı (hesap yeniden yapıldı) · VUK m.262 (brifte ölçülmüş tuzak)",
             "tarih": "2026-09-29",
@@ -418,23 +278,8 @@
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
-        "sgs-bosluk-vergihukuku/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-14: CEVAP YANLIŞ (KESİN) - DVK m.14'teki \"aslından alınan verginin dörtte biri\" kuralı YALNIZ azami tutardan vergi alınan mukavelenamelerin devri içindir; soruda 80.000 TL azami tutar değil (2023 azami 10.732.371,80 TL) ve açıklama kuralı tüm mukavelenamelere genelliyor → işaretli 20.000 dayanaksız, doğru şık yok; teşhis alanı boş | dayanak: Damga V.K. (488) m.14 — ambardan okundu | anahtar C->yok",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
         "sgs-c5-vergi-zor-r1/kp-10": {
-            "gerekce": "29.09 risk taramasi grup r4-14: CEVAP YANLIŞ (MUHTEMEL) - 6183 m.10/4 \"%15 noksaniyle değerlendirilir\" teminatın KABUL değerlemesidir; m.56'ya göre teminat paraya çevrilerek alacak tahsil edilir — iade = fiili satış bedeli − borç. Açıklama devletin %15'i alıkoyduğunu anlatıyor; borsa değerinden satışta iade 50.000 (B); soru satış bedeli vermiyor, tek doğru yok | dayanak: 6183 s.K. m.10/4, m.56 — ambardan okundu | anahtar A->belirsiz (B savunulabilir)",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-d3-vergi-kolay-r1/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-14: GÜNCELLİK RİSKİ (KESİN) - kök yıl vermeden \"azami tutar olan 12.000.000 TL\" diyor; bu bir yılın resmî azami tutarı değil (2023: 10.732.371,80 TL; sonraki yıllar yeniden değerlemeyle daha yüksek — 2024-26 değerleri ambarda ölçülmedi). Kural (azami tutarlı mukavelename devrinde 1/4) doğru | dayanak: Damga V.K. (488) m.14 — ambardan okundu",
-            "tarih": "2026-09-29",
-            "kaynak": "sgs-risk-taramasi"
-        },
-        "sgs-k7-vergi-cokzor/kp-01": {
-            "gerekce": "29.09 risk taramasi grup r4-14: AÇIKLAMA KUSURLU (KESİN) - konu giriş örneği muhasebe yönünü TERS anlatıyor: \"alacağını indirgemek kazanç, borcunu indirgemek gider\" (alacak reeskontu gider, borç reeskontu gelir); sade A (795) ve sade C (5.445) şıkkı üreten hatayı anlatmıyor | dayanak: VUK m.281, m.285 — ambardan okundu",
+            "gerekce": "29.09 risk taramasi grup r4-14: CEVAP YANLIŞ (MUHTEMEL) - 6183 m.10/4 \"%15 noksaniyle değerlendirilir\" teminatın KABUL değerlemesidir; m.56'ya göre teminat paraya çevrilerek alacak tahsil edilir — iade = fiili satış bedeli − borç. Açıklama devletin %15'i alıkoyduğunu anlatıyor; borsa değerinden satışta iade 50.000 (B); soru satış bedeli vermiyor, tek doğru yok | dayanak: 6183 s.K. m.10/4, m.56 — ambardan okundu | anahtar A->belirsiz (B savunulabilir) | HAKEM HAYIR (yeniden onarim gerekir)",
             "tarih": "2026-09-29",
             "kaynak": "sgs-risk-taramasi"
         },
