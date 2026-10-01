@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **30.09.2026 14:53** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **01.10.2026 15:22** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50123 parça · 2717 tekil kaynak | Bütünlük ölçülen: 2717 (delikli: 361; son ölçüm: 30.09.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 30.09.2026 14:51)
+**ÖZET:** 50127 parça · 2717 tekil kaynak | Bütünlük ölçülen: 2717 (delikli: 361; son ölçüm: 01.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 01.10.2026 15:20)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -414,7 +414,7 @@
 | CB Kararı 7887 - AŞ/Ltd asgari sermaye artırımı (RG 25.11.2023) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Çek K. (5941 s.K.) | kanun-madde | 27 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Çevre K. (2872 s.K.) | kanun-madde | 94 | DELİK-İNCELE(par:5/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| CMK (5271 s.K.) | kanun-madde | 416 | DELİK-İNCELE(par:4/kesik:8/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| CMK (5271 s.K.) | kanun-madde | 416 | DELİK-İNCELE(par:4/kesik:7/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Dahilde İşleme Rejimi Kararı (2005/8391) | kanun-madde | 87 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Dahilde İşleme Rejimi Tebliği (İhracat 2006/12) | kanun-madde | 141 | DELİK-İNCELE(par:0/kesik:0/oksuz:3) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Damga V.K. (488 s.K.) | kanun-madde | 83 | DELİK-İNCELE(par:2/kesik:16/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
@@ -595,7 +595,7 @@
 | Gider Vergileri K. (6802 s.K.) | kanun-madde | 34 | DELİK-İNCELE(par:51/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gümrük K. — Ceza ve itiraz (m.234-244) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gümrük K. — Ekonomik etkili rejimler (m.79-135) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| Gümrük K. (4458 s.K.) | kanun-madde | 318 | DELİK-İNCELE(par:0/kesik:33/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| Gümrük K. (4458 s.K.) | kanun-madde | 322 | DELİK-İNCELE(par:0/kesik:31/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gümrük kıymeti (4458 | rehber | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Gümrük Yönetmeliği | kanun-madde | 698 | DELİK-İNCELE(par:101/kesik:1/oksuz:4) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Guvence Hesabi Yonetmeligi | kanun-madde | 31 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
