@@ -86,7 +86,7 @@ Karar 25.09: SGS + Yeterlilik birlikte · fiyat = site kuruluş fiyatı ÷ 0,85 
 
 | Ürün kimliği (Play) | Ad | Site | **Play fiyatı** |
 |---|---|---:|---:|
-| `sgs` | Staja Başlama (SGS) | 2.995 | **3.524 TL** (Play basamağı 3.529,99; 27.09 kurucu fiyatı) |
+| `sgs` | Staja Başlama (SGS) | 2.988 | **3.516 TL** (01.10 kurucu fiyatı 2.490 + KDV; Play'de hâlâ 27.09 basamağı 3.529,99 — Cem elle indirecek) |
 | `yeterlilik_1` | Yeterlilik — 1 ders | 1.190 | **1.400 TL** |
 | `yeterlilik_2` | Yeterlilik — 2 ders | 1.990 | **2.342 TL** |
 | `yeterlilik_3` | Yeterlilik — 3 ders | 2.590 | **3.048 TL** |
@@ -114,7 +114,7 @@ Sıra (hepsi yapılmadan satış açılmaz; eksik adımda uygulama "Paketler şu
 **Sınırlar (bilerek):** hesapta başka sınavın AKTİF paketi varsa ikinci sınav uygulamadan alınamaz
 (`paket_uyeler` kişi başına tek satır; uygulama ödemeden ÖNCE söyler). İade/iptal edilen ödemenin
 erişimi kendiliğinden kapanmaz (izlenmiyor). Elçi kodu mağazada yok. Kota (ilk 1.000 kurucu, 27.09) mağazada
-otomatik değişmez — kota dolunca Play fiyatı elle güncellenir (SGS liste 5.990 ÷ 0,85 = 7.048; Yeterlilik liste merdiveni ×2).
+otomatik değişmez — kota dolunca Play fiyatı elle güncellenir (SGS liste 5.988 ÷ 0,85 = 7.045; Yeterlilik liste merdiveni ×2).
 
 ## 🍎 Uygulama içi satın alma (App Store) — 26.09.2026
 

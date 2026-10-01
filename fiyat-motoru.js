@@ -83,7 +83,7 @@ var TAKSIT_ADET = 3;
 
 /* ---------------------------------------------------------------------------
    ELÇİ KODU — 15.09.2026 Cem kararı: elçi koduyla alan takipçiye SGS'de 400 TL
-   indirim; 25.09'da 480'e çıkmıştı, 27.09 CEM KARARIYLA yine 400 TL KDV dahil (2.995 → 2.595). İndirimin geçerliliğine SUNUCU karar verir
+   indirim; 25.09'da 480'e çıkmıştı, 27.09 CEM KARARIYLA yine 400 TL KDV dahil (2.995 → 2.595; 01.10 fiyatıyla 2.988 → 2.588). İndirimin geçerliliğine SUNUCU karar verir
    (radar-app/sql/2026-09-15-elci-programi.sql · siparis_elci_damga); buradaki
    rakam yalnız EKRAN gösterimidir ve sunucudaki elci_indirim tablosuyla AYNI olmalı.
    acik=false iken satin-al.html'de kod alanı HİÇ görünmez: SQL basılmadan
@@ -159,8 +159,12 @@ var FIYAT = {
      ödeyen) / liste 5.990; Yeterlilik merdiveninin listesi kurucu × 2 (tüm dersler 3.490 / 6.990). Hepsi KDV dahil.
      Liste fiyatı gerçekten uygulanacak fiyattır (video paketleri 5.900'e, canlı kurslar 8.500-14.000'e çıkıyor);
      'yüzde 50 indirim' DENMEZ (o fiyattan satış yapılmadı, m.14/3) -> '1.000 kurucudan sonra 5.990 TL' denir.
-     Kalan (elçisiz, KDV + %8 kart + %25 KV sonrası): 2.995 -> ~1.690 · 5.990 -> ~3.380 · elçili 750 komisyonla ~900. */
-  sgs:            { kurulus:2995, liste:5990 },
+     Kalan (elçisiz, KDV + %8 kart + %25 KV sonrası): 2.995 -> ~1.690 · 5.990 -> ~3.380 · elçili 750 komisyonla ~900.
+     01.10.2026 CEM KARARI ("tamam 2490 tl artı kdv uygula"; şart: KDV dahil 3.000'i geçmesin): kurucu 2.490 + KDV = 2.988 /
+     liste 4.990 + KDV = 5.988. Ekranda '+ KDV' tam sayı çıksın diye KDV dahil tutar 1,2'nin katı. Elçi kodu 400 TL KDV dahil
+     DEĞİŞMEDİ → takipçi 2.588 öder (Cem'in elçilere ilk paylaşımı "2.590, 400 TL indirim"; söz tutulur).
+     Kalan (tahmin, 750 komisyon, %25 KV): elçili havale ~1.055 / kart ~900. Fiyat düştü → m.14 sahte indirim riski yok. */
+  sgs:            { kurulus:2988, liste:5988 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
      4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080

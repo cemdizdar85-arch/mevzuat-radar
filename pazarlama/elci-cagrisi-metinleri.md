@@ -130,7 +130,7 @@ Kısaca:
 
 — Sana her hafta özgün soru + çözümü gönderiyoruz. Sorular bize ait,
   çıkmış sınav sorusu değil; istediğin biçimde kullanabilirsin.
-— Takipçine özel kod: ilk 1.000 kurucuya 2.995 TL olan paketi 2.595 TL'ye alıyorlar (1.000 kurucudan sonra paket 5.990 TL).
+— Takipçine özel kod: ilk 1.000 kurucuya 2.490 TL + KDV (KDV dahil 2.988 TL) olan paketi KDV dahil 2.588 TL'ye alıyorlar (1.000 kurucudan sonra paket 4.990 TL + KDV).
 — Sana pay: 1–9 satış 750 TL, 10–49 satış 1.000 TL, 50–99 satış 1.250 TL.
   100 üzerini ayrı konuşuyoruz. Kazandığın kademe sonraki döneme taşınır.
 — Ödeme iade süresi dolduktan sonra aylık, hesabına.
@@ -159,8 +159,8 @@ tetikte.com
 | Rakam | Kaynak | Tarih |
 |---|---|---|
 | 35 dönem, 3.248 tekil konu | `veri/siklik-kunyesi.json` | 22.09.2026 |
-| SGS paket 2.995 TL KDV dahil (ilk 1.000 kurucu), sonra 5.990 | 27.09 Cem kararı | 27.09.2026 |
-| Kod indirimi 400 TL → 2.595 TL | 15.09 Cem onayı (tutar 27.09 fiyatıyla) | 27.09.2026 |
+| SGS paket 2.490 + KDV = 2.988 TL (ilk 1.000 kurucu), sonra 4.990 + KDV = 5.988 | 01.10 Cem kararı ("2490 tl artı kdv uygula") | 01.10.2026 |
+| Kod indirimi 400 TL KDV dahil → 2.588 TL | 15.09 Cem onayı (tutar 01.10 fiyatıyla) | 01.10.2026 |
 | Komisyon 750 / 1.000 / 1.250 | 15.09 Cem onayı (yalnız eşik üstü, kademe taşınır) | 15.09.2026 |
 | Açık paket yalnız SGS | `fiyat-motoru.js` → `ICERIK_HAZIR` | 22.09.2026 |
 
