@@ -15,8 +15,10 @@
    CAPTCHA: signInWithOAuth captchaToken ALMAZ; Supabase captcha koruması e-posta/şifre uçlarındadır, /authorize'da
    değil. captcha.js açılsa da bu düğmeye bir şey eklenmez.
 
-   RENK: Google marka kuralı — beyaz zemin, #1f1f1f yazı, #747775 çerçeve, renkli G. Bu üç sabit bilerek sabittir
-   (tema jetonu olursa koyu temada Google düğmesi olmaktan çıkar); renk-sabiti tabanında bu dosyaya 3 yazıldı.
+   RENK (01.10, Cem: "sonradan konmuş gibi"): koyu panelde bembeyaz hap sayfanın en parlak öğesiydi. Google'ın
+   marka kuralı açık VE koyu çeşit tanır (koyu: koyu zemin, gri çerçeve, açık yazı); renkli G ve "Google ile devam et"
+   yazısı değişmez. Bu yüzden zemin/yazı/çerçeve tema jetonu (--bg/--ink/--line2): koyu temada koyu, açıkta açık
+   düğme olur. Köşe 10px = sitedeki .og-btn (eski 999px hap formda tek yuvarlak öğeydi).
 
    BU DOSYA ŞUNU GÖRMEZ / YAPMAZ:
      - Supabase → Authentication → URL Configuration listesinde dönüş adresi yoksa Supabase kişiyi "Site URL"e
@@ -57,12 +59,12 @@
       '.tt-google-not{font-size:12.5px;line-height:1.5;color:var(--muted);margin:0 0 8px}' +
       '.tt-google-not a{color:var(--amber)}' +
       '.tt-google{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;box-sizing:border-box;min-height:44px;padding:10px 16px;' +
-        'border-radius:999px;border:1px solid #747775;background:#fff;color:#1f1f1f;' +
+        'border-radius:10px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);' +
         'font-family:inherit;font-size:15px;font-weight:600;line-height:1.2;cursor:pointer}' +
-      '.tt-google:hover{box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 30%,transparent)}' +
+      '.tt-google:hover{background:color-mix(in srgb,var(--ink) 6%,var(--bg))}' +
       '.tt-google:focus-visible{outline:2px solid var(--amber);outline-offset:2px}' +
       '.tt-google:disabled{opacity:.6;cursor:wait}' +
-      '.tt-google svg{width:20px;height:20px;flex:none}' +
+      '.tt-google svg{width:18px;height:18px;flex:none}' +
       '.tt-google-hata{font-size:13px;color:var(--red);margin:6px 0 0}' +
       '.tt-google-hata:empty{display:none}' +
       '.tt-google-ayrac{display:flex;align-items:center;gap:10px;margin:14px 0 2px;font-size:12.5px;color:var(--muted)}' +
