@@ -41,6 +41,14 @@ th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
 th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px;width:180px}
 .tablosar{overflow-x:auto;border:1px solid var(--line);border-radius:13px;margin-top:8px;background:var(--panel)}
 .bosluk{color:var(--red);font-weight:700;background:rgba(255,107,94,.08);border:1px dashed rgba(255,107,94,.4);border-radius:6px;padding:1px 8px}
+/* 02.10 kurucu fotoğrafı (Cem "3 yap"): ana sayfadaki karenin eşi, ofiste masa başı. Unvan yok, yalnız "Tetikte'nin kurucusu". */
+.kurucu{float:right;width:170px;margin:4px 0 12px 22px;text-align:center}
+.kurucu img{display:block;width:170px;height:213px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+.kurucu figcaption{font-size:12.5px;line-height:1.4;color:var(--muted);margin-top:8px}
+.kurucu figcaption b{display:block;color:var(--ink);font-size:13.5px}
+@media(max-width:560px){.kurucu{float:none;width:auto;display:flex;align-items:center;gap:14px;margin:0 0 14px;text-align:left}
+  .kurucu img{width:84px;height:105px;border-radius:12px}.kurucu figcaption{margin-top:0}}
+h2{clear:both}
 .dip{font-size:11.5px;color:var(--dim);margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
 </style>
 <style>
@@ -57,6 +65,10 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <div class="top"><span class="logo">T</span><a href="index.html">Tetikte</a> · Hakkımızda &amp; İletişim</div>
   
   <h1 id="hakkimizda">Hakkımızda</h1>
+  <figure class="kurucu">
+    <img src="kurucu-masa.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Cem Dizdar, Tetikte'nin kurucusu, İzmir'deki ofiste">
+    <figcaption><b>Cem Dizdar</b>Tetikte'nin kurucusu</figcaption>
+  </figure>
   <p><b>Tetikte, işinin ve sınavının nöbetçisi.</b> İki şey yapıyoruz:</p>
   <ul style="font-size:14px;color:var(--muted)">
     <li><b style="color:var(--ink)">Sınava hazırlık:</b> SMMM Staja Giriş, Yeterlilik ve KGK sınavlarına hazırlananlara soru bankası, her şıkkın gerekçeli açıklaması, deneme sınavları ve geçme ihtimalini ölçen seviye testi sunuyoruz. Her soru kaynak mevzuata bağlıdır.</li>
