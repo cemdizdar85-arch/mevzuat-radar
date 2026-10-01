@@ -9,7 +9,7 @@
 //    +1 1.050 · +2 121 · −1 30 · yok 291. Kök: üretimde adimlar[0] "Verilen" satırı sayılmadan numara verilmiş.
 //  🚫 GÖRMEZ: "adımda bulduk" dışındaki atıf biçimleri ("yukarıda bulduğumuz", "Adım 3'teki") · anlatim alanı · aynı değer iki adımda
 //     sonuçsa (belirsiz → onarılmaz) · sonucu "=" ile değil "→" ile yazılmış adım.
-//  Kullanım: node arac/adim-atif-kapisi.js --sinav [--mutasyon] | --banka <sgs|smmm|kgk> [cikti.json] | --taslak <sgs|smmm> <klasör>
+//  Kullanım: node arac/adim-atif-kapisi.js --sinav [--mutasyon] | --banka <sgs|smmm|kgk> [cikti.json] | --kasa <smmm|sgs> [cikti.json] | --taslak <sgs|smmm> <klasör>
 // ============================================================================
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -71,6 +71,34 @@ function banka(sinav, cikti) {
   console.log(`KAPI-ADIM banka (${sinav}): okunan ${okunan} · bulgulu soru ${sonuc.length} · ${JSON.stringify(tur)} · mekanik onarılabilir soru ${onarilabilir}`);
   if (cikti) fs.writeFileSync(cikti, JSON.stringify(sonuc, null, 1));
 }
+// 02.10 (Cem "1.2.3"): --banka yalnız kaydir-secim yayin/vitrin listelerini okur; SMMM'de bu yalnız VİTRİN (70 soru) — sitedeki
+//   bitirme kümesi KASADAN (paket_soru) yayınlanır. --kasa <sinav>: kimlikleri kasadan alır (yalnız id; içerik çekilmez), elle reti
+//   düşer, içeriği yerel partiden okur. KÖR (kasada var, yerel partide yok) ayrıca sayılır — "temiz" sayılmaz.
+//   Anahtar: SUPABASE_SERVICE_KEY (ortam). Ağ yoksa / anahtar yoksa DURUR.
+async function kasa(sinav, cikti) {
+  const KEY = String(process.env.SUPABASE_SERVICE_KEY || '').trim(); if (!KEY) { console.log('SUPABASE_SERVICE_KEY yok — kasa okunamaz'); process.exit(2); }
+  const ids = [];
+  for (let ofs = 0; ; ofs += 1000) {
+    const r = await fetch(`https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=id&sinav=eq.${sinav}&order=id.asc&limit=1000&offset=${ofs}`,
+      { headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'User-Agent': 'mevzuat-radar-robot/1.0' } });
+    if (!r.ok) { console.log('kasa okunamadı: HTTP ' + r.status); process.exit(2); }
+    const d = await r.json(); for (const x of d) if (x.id) ids.push(String(x.id)); if (d.length < 1000) break;
+  }
+  if (!ids.length) { console.log('kasada ' + sinav + ' sorusu 0 — durdu'); process.exit(2); }
+  const retY = path.join(KOK, 'veri', 'sinav', sinav + '-elle-ret.json');
+  const ret = fs.existsSync(retY) ? (JSON.parse(fs.readFileSync(retY, 'utf8').replace(/^﻿/, '')).kayitlar || {}) : {};
+  const P = {}; let okunan = 0, kor = 0, rette = 0, onarilabilir = 0; const sonuc = [], tur = {};
+  for (const id of ids) {
+    if (ret[id]) { rette++; continue; }
+    const [e, kp] = id.split('/'); const pf = path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json');
+    if (!(e in P)) P[e] = fs.existsSync(pf) ? JSON.parse(fs.readFileSync(pf, 'utf8').replace(/^﻿/, '')) : null;
+    const k = P[e] && P[e][kp]; if (!k) { kor++; continue; } okunan++;
+    const b = incele(k); if (b.length) { sonuc.push({ anahtar: id, kusurlar: b }); for (const x of b) tur[x.tur] = (tur[x.tur] || 0) + 1; if (onar(k)) onarilabilir++; }
+  }
+  const kayan = sonuc.filter(x => x.kusurlar.some(k => k.tur === 'ADIM-KAYMA')).length;
+  console.log(`KAPI-ADIM kasa (${sinav}): kasada ${ids.length} · elle rette ${rette} · okunan ${okunan} · KÖR (yerel partide yok) ${kor} · bulgulu soru ${sonuc.length} (KAYMA taşıyan ${kayan}) · ${JSON.stringify(tur)} · mekanik onarılabilir soru ${onarilabilir}`);
+  if (cikti) fs.writeFileSync(cikti, JSON.stringify(sonuc, null, 1));
+}
 function taslak(sinav, klasor) {
   const ret = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'sinav', sinav + '-elle-ret.json'), 'utf8').replace(/^﻿/, '')).kayitlar || {};
   fs.mkdirSync(path.join(klasor, '_tam'), { recursive: true }); let n = 0, kalan = 0;
@@ -121,6 +149,7 @@ if (require.main === module) {
     }
     process.exit(sinav() ? 0 : 1);
   } else if (a === '--banka') banka(b || 'sgs', c);
+  else if (a === '--kasa') kasa(b || 'smmm', c).catch(e => { console.log('kasa hatası: ' + e.message); process.exit(2); });
   else if (a === '--taslak') taslak(b || 'sgs', c);
   else if (a === '--duzelt-parti') {   // üretim içi kullanım için: bir parti dosyasındaki tek adaylı kaymaları yerinde düzeltir (--yaz olmadan kuru)
     const pf = b, yaz = process.argv.includes('--yaz'); const h = fs.readFileSync(pf, 'utf8'); const bom = h.charCodeAt(0) === 0xfeff; const P = JSON.parse(h.replace(/^﻿/, ''));
