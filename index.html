@@ -368,6 +368,18 @@
   .bizkim .bk-soz{font-size:15px;line-height:1.6;color:var(--ink);border-left:2px solid var(--amber);padding-left:12px;margin:12px 0 0}
   .bizkim .bk-bag{color:color-mix(in srgb,var(--amber) 55%,var(--ink));font-weight:700;text-decoration:none}
   @media(max-width:760px){ .bizkim{padding:18px} }
+  /* 02.10 kurucu fotoğrafı (Cem "bunu koy"): gerçek çekim, kurucu videolarıyla aynı ahşap+yeşil zemin.
+     Unvan YOK (RG 24.2.2025 ek fıkra) - yalnız "Tetikte'nin kurucusu". Tabelalı kare BİLEREK seçilmedi (iki marka karışmaz). */
+  .bizkim.foto{grid-template-columns:150px 1fr;gap:24px}
+  .bizkim .bk-foto{margin:0;text-align:center}
+  .bizkim .bk-foto img{display:block;width:150px;height:188px;object-fit:cover;border-radius:14px;border:1px solid var(--line2)}
+  .bizkim .bk-foto figcaption{font-size:12.5px;line-height:1.4;color:var(--muted);margin-top:8px}
+  .bizkim .bk-foto figcaption b{display:block;color:var(--ink);font-size:13.5px}
+  /* Telefonda yan yana sütun yazıyı 176px'e sıkıştırıyordu (360px ölçüldü) → foto+ad üstte bir satır, yazı tam genişlik. */
+  @media(max-width:560px){ .bizkim.foto{grid-template-columns:1fr;gap:14px}
+    .bizkim .bk-foto{display:flex;align-items:center;gap:14px;text-align:left}
+    .bizkim .bk-foto img{width:84px;height:105px;border-radius:12px}
+    .bizkim .bk-foto figcaption{margin-top:0} }
   .guven-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:760px){.guven-grid{grid-template-columns:1fr}}
   .gk{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
@@ -1967,7 +1979,11 @@ window.veriAl = (function(){
       <h2>Neden bize güvenebilirsin?</h2>
       <p>Sınavda yanlış öğrenilen bilgi, kaybedilen puandır. Bu yüzden tek kuralımız var: her gerekçe resmî kaynaktan, madde madde.</p>
     </div>
-    <div class="bizkim reveal">
+    <div class="bizkim foto reveal">
+      <figure class="bk-foto">
+        <img src="kurucu.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Cem Dizdar, Tetikte'nin kurucusu">
+        <figcaption><b>Cem Dizdar</b>Tetikte'nin kurucusu</figcaption>
+      </figure>
       <div>
         <h3>Biz kimiz?</h3>
         <p>Tetikte'yi İzmir'de kurulu bir anonim şirket yapıyor: <b>Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</b>
