@@ -124,6 +124,29 @@ function BasKoru($eskiListe, $yeniListe, [string]$kolAdi, $kimlik, [string]$basS
   }
   return $yeniListe
 }
+# --------------------------------------------------------------------------
+#  KOL AYIRMA — 02.10.2026 (Cem "1.2.3 üçünü de yap")
+#  NEDEN: 01.10'da "açılışa kadar site işleri tek oturumda" kararı verildi; 02.10'a kadar site kolu
+#  DÖRT oturum arasında el değiştirdi (fiyat · yeterlilik fiyat sırası · fotoğraf · boşluk). Kilit yalnız
+#  "şu an kim tutuyor"u bilir; "bu kol kime ayrıldı"yı bilmez. veri/KOL-AYIRMA.json bir kolu bir tarihe
+#  kadar TEK mesaj adına (-Ad) ayırır; başka adla -Ac DURUR. Cem -Zorla ile geçer. Süre bitince kendiliğinden düşer.
+#  GÖRMEZ: -Ad'ı ayrılan adla yazan başka oturumu (ad beyana dayanır, kimlik değildir) · kilit almadan düzenleme.
+# --------------------------------------------------------------------------
+$AYIRMA = Join-Path $KOK 'veri\KOL-AYIRMA.json'
+function AyirmaOku {
+  if(Test-Path $AYIRMA){ try { return (Get-Content $AYIRMA -Raw -Encoding UTF8 | ConvertFrom-Json) } catch { return $null } }
+  return $null
+}
+function AyirmaEngeli($ayirma, [string]$kolAdi, [string]$istekAdi, [datetime]$simdi){
+  if(-not $ayirma){ return $null }
+  $p = $ayirma.PSObject.Properties[$kolAdi]; if(-not $p){ return $null }
+  $v = $p.Value
+  $bitis = $null; try { $bitis = [datetime]::Parse("$($v.bitis)") } catch { return $null }
+  if($simdi -gt $bitis){ return $null }
+  if("$istekAdi".Trim() -and "$istekAdi".Trim() -eq "$($v.ad)".Trim()){ return $null }
+  return $v
+}
+
 function KilitSinavi {
   # Kilit mantığının kendi sınavı: sahte kimliklerle, dosyaya yazmadan. Canlı süreç = bu sınav süreci; ölü süreç = olmayan PID.
   $dusen = New-Object System.Collections.Generic.List[string]
@@ -176,13 +199,23 @@ function KilitSinavi {
   if("$(@($s9b)[0].bas)" -ne 'sha-ilk'){ $dusen.Add("9b yenileme eski bas'ı korumadı: '$(@($s9b)[0].bas)'") }
   if("$(@($s9c | Where-Object { $_.oturum -eq 'oturum-A' })[0].bas)" -ne 'sha-yeni'){ $dusen.Add("9c başka oturumun bas'ı devralındı") }
   if(@($s9d | Where-Object { $_.kol -eq 'site' })[0].PSObject.Properties['bas']){ $dusen.Add("9d başka koldaki kayda bas yazıldı") }
+  # 10) 02.10 KOL AYIRMA: süresi geçmemiş ayırmada başka ad DURUR; ayrılan ad, süresi geçmiş ayırma ve başka kol GEÇER; boş ad DURUR
+  $ayr = [pscustomobject]@{ site = [pscustomobject]@{ ad='site-tek'; bitis=(Get-Date).AddDays(1).ToString('o') };
+                            marka = [pscustomobject]@{ ad='marka-tek'; bitis=(Get-Date).AddDays(-1).ToString('o') } }
+  $simdi = Get-Date
+  if(-not (AyirmaEngeli $ayr 'site' 'baska-oturum' $simdi)){ $dusen.Add("10a ayrılmış kol başka ada AÇILDI") }
+  if(AyirmaEngeli $ayr 'site' 'site-tek' $simdi){ $dusen.Add("10b ayrılan ad kendi kolunu açamadı") }
+  if(AyirmaEngeli $ayr 'marka' 'baska-oturum' $simdi){ $dusen.Add("10c süresi geçmiş ayırma hâlâ engel") }
+  if(AyirmaEngeli $ayr 'sinav' 'baska-oturum' $simdi){ $dusen.Add("10d ayrılmamış kol engellendi") }
+  if(-not (AyirmaEngeli $ayr 'site' '' $simdi)){ $dusen.Add("10e adsız -Ac ayrılmış kolu açtı") }
+  if(AyirmaEngeli $null 'site' 'x' $simdi){ $dusen.Add("10f ayırma dosyası yokken engel") }
   return $dusen.ToArray()
 }
 
 if($KilitSinavi){
   $sinavSonucu = @(KilitSinavi)
   if($sinavSonucu.Count){ $sinavSonucu | ForEach-Object { Yaz "  ⛔ $_" 'Red' }; exit 1 }
-  Yaz "KİLİT ÖZ-SINAVI YEŞİL (9 vaka, 9. dört alt vaka)" 'Green'; exit 0
+  Yaz "KİLİT ÖZ-SINAVI YEŞİL (10 vaka, 9. dört alt vaka, 10. altı alt vaka: kol ayırma)" 'Green'; exit 0
 }
 
 function EskiBicimUyarisi($kayitlar){
@@ -336,6 +369,15 @@ if($Ac){
   # 30.08: sahibi ölü kilit temizlenir (çöken oturum kolu saatlerce kapatmasın).
   # 15.09: sahip = Claude oturumu (OturumKimligi). Canlı oturumun kilidi yaşına bakılmadan yalnız -Zorla ile ezilir.
   $kimlik = OturumKimligi
+  # 02.10 KOL AYIRMA: kol bir oturuma ayrılmışsa başka ad kilit ALAMAZ (kilit boş olsa bile)
+  $ayrilan = AyirmaEngeli (AyirmaOku) $Kol $Ad (Get-Date)
+  if($ayrilan -and -not $Zorla){
+    Yaz "`n  ⛔ '$Kol' kolu $($ayrilan.bitis) tarihine kadar '$($ayrilan.ad)' oturumuna AYRILDI ($($ayrilan.veren)):" 'Red'
+    Yaz "     $($ayrilan.neden)" 'Red'
+    Yaz "     Bu kolun işini o oturuma mesajla ver: SendMessage -> '$($ayrilan.ad)' (adres ListAgents'te). Ayırmayı yalnız Cem kaldırır (veri/KOL-AYIRMA.json) ya da -Zorla." 'Red'
+    exit 3
+  }
+  if($ayrilan -and $Zorla){ Yaz ("  ⚠ -Zorla: '{0}' kolunun '{1}' ayırması aşıldı" -f $Kol, $ayrilan.ad) 'Yellow' }
   $alim = KilitAl $liste $Kol $kimlik $Is $Ad ([bool]$Zorla)
   foreach($o in @($alim.temizlenen)){ Yaz ("  ⚠ sahipsiz/eski kilit temizlendi: {0} (süreç {1})" -f $o.kol, $o.pid) 'Yellow' }
   if($alim.sonuc -eq 'ENGEL'){
