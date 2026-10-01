@@ -132,7 +132,8 @@ var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
    ayrıca soruluyor). İSTİSNA: fiyat.html kurs kıyas cümlesi (vurusFiyat) KDV dahil kalır — kurs fiyatı KDV dahil
    yazılmışken bizimkini hariç yazmak farklı temelde kıyas olurdu (karşılaştırmalı reklam).
 --------------------------------------------------------------------------- */
-var KDV_HARIC_GOSTER = { sgs:true };
+/* 01.10 (aynı gece) Cem "bitirme artı kdv olarak göster": Yeterlilik paketleri de '+ KDV' (anahtar paket kimliğiyle). */
+var KDV_HARIC_GOSTER = { sgs:true, 'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
 function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL + KDV' : tl(n) + ' TL'; }
 function fiyatDahilNot(id, n){ return KDV_HARIC_GOSTER[id] ? 'KDV dahil ' + tl(n) + ' TL' : ''; }
 
@@ -166,12 +167,16 @@ var FIYAT = {
      Kalan (tahmin, 750 komisyon, %25 KV): elçili havale ~1.055 / kart ~900. Fiyat düştü → m.14 sahte indirim riski yok. */
   sgs:            { kurulus:2988, liste:5988 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
-     1 ders 1.190 < 1.260 · 2 ders 1.990 < 2.520 · 3 ders 2.590 < 3.780
-     4 ders 3.090 < 5.040 · tüm dersler 3.490 < 10.080
+     1 ders 1.188 < 1.260 · 2 ders 1.908 < 2.520 · 3 ders 2.508 < 3.780
+     4 ders 2.988 < 5.040 · tüm dersler 3.468 < 10.080 (01.10 fiyatları, KDV dahil)
      ⚠ 27.09: liste (kurucu x 2) harçtan PAHALI; 'harçtan ucuz' cümlesi yalnız kurucu fiyatı için doğrudur. */
-  yeterlilik:     [ null, {kurulus:1190,liste:2390}, {kurulus:1990,liste:3990},
-                          {kurulus:2590,liste:5190}, {kurulus:3090,liste:6190} ],
-  yeterlilikTum:  { kurulus:3490, liste:6990 },
+  /* 01.10.2026 CEM KARARI ("bitirme artı kdv olarak göster" + tablo onayı): '+ KDV' tam sayı çıksın diye KDV dahil
+     tutarlar 1,2'nin katı; hepsi eski fiyatın altında, hepsi hâlâ harçtan ucuz (1.188 < 1.260 …).
+     Ekranda: 990 / 1.590 / 2.090 / 2.490 / tüm 2.890 + KDV · liste ×2 (1.980 / 3.180 / 4.180 / 4.980 / 5.780 + KDV).
+     Elçi indirimi KDV dahil aynı (tüm 400, ders başı 50) → sunucu elci_indirim değişmedi. */
+  yeterlilik:     [ null, {kurulus:1188,liste:2376}, {kurulus:1908,liste:3816},
+                          {kurulus:2508,liste:5016}, {kurulus:2988,liste:5976} ],
+  yeterlilikTum:  { kurulus:3468, liste:6936 },
   /* KGK modül merdiveni — çapa e-sınav harcı: 7 konu × 950 = 6.650 TL */
   kgk:            [ null, {kurulus:1490,liste:1990}, {kurulus:2490,liste:3290},
                           {kurulus:3190,liste:4190} ],

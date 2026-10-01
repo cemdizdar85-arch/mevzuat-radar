@@ -848,7 +848,7 @@ window.veriAl = (function(){
         try{
           if(typeof FIYAT==='undefined'||typeof tl!=='function') return '';
           if(sn==='sgs'&&FIYAT.sgs) return ' — '+fiyatAna('sgs',FIYAT.sgs.kurulus);
-          if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) return ' — ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den";
+          if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) return ' — ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den";
           if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgk[1]) return ' — modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den";
         }catch(e){}
         return '';
@@ -878,9 +878,11 @@ window.veriAl = (function(){
             durumEl.textContent='Önce ücretsiz dene: 30 soru · yaklaşık '+(s.olcDk||30)+' dakika · üyelik gerekmez';   /* 24.09: süre sınava göre (uye-durumu.js olcDk) */
             /* 01.10 Cem "fiyat yükseleceğini farklı bir yerde tekrar göster": kurucu → liste geçişi düğmelerin altında, ücretsiz satırının ÜSTÜNDE.
                Rakamlar FIYAT/KOTA'dan; '%50 indirim' ve üstü çizili YOK (27.09 dil kuralı, Yön. m.14/3). */
-            try{ if(secili==='sgs'&&typeof FIYAT!=='undefined'&&FIYAT.sgs&&typeof KOTA!=='undefined'&&KOTA.sgs&&FIYAT.sgs.liste>FIYAT.sgs.kurulus){
-              var fs=FIYAT.sgs, dn=function(n){ var x=fiyatDahilNot('sgs',n); return x?' ('+x+')':''; };
-              durumEl.innerHTML='<b>İlk '+tl(KOTA.sgs)+' kurucuya '+fiyatAna('sgs',fs.kurulus)+'</b>'+dn(fs.kurulus)+' · sonra '+fiyatAna('sgs',fs.liste)+dn(fs.liste)+'<br>'+durumEl.textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+            /* 01.10 (aynı gece): Yeterlilik'te de aynı satır, tüm dersler paketiyle. */
+            try{ var kp=(secili==='sgs')?['sgs',FIYAT.sgs,'']:(secili==='yeterlilik')?['yeterlilik-tum',FIYAT.yeterlilikTum,'tüm dersler ']:null;
+              if(kp&&kp[1]&&typeof KOTA!=='undefined'&&KOTA[secili]&&kp[1].liste>kp[1].kurulus){
+              var fs=kp[1], dn=function(n){ var x=fiyatDahilNot(kp[0],n); return x?' ('+x+')':''; };
+              durumEl.innerHTML='<b>İlk '+tl(KOTA[secili])+' kurucuya '+kp[2]+fiyatAna(kp[0],fs.kurulus)+'</b>'+dn(fs.kurulus)+' · sonra '+fiyatAna(kp[0],fs.liste)+dn(fs.liste)+'<br>'+durumEl.textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;');
             } }catch(e){}
           }
         } else {
@@ -1207,7 +1209,8 @@ window.veriAl = (function(){
         function satir(sn){
           var ic='';
           if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b>'+(fiyatDahilNot('sgs',f.kurulus)?'<br><b>'+fiyatDahilNot('sgs',f.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?' ('+fiyatDahilNot('sgs',f.liste)+')':''):'');   /* 01.10 Cem: +KDV ana, dahil altında */ }
-          else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+tl(t.liste)+' TL':''); }
+          else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; var yd=function(n){ var x=fiyatDahilNot('yeterlilik-tum',n); return x?' ('+x+')':''; };   /* 01.10 Cem: bitirme de +KDV ana, dahil yanında */
+            ic='<b>Yeterlilik: ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den, "+(n?n+' dersin ':'')+'tamamı '+fiyatAna('yeterlilik-tum',t.kurulus)+'</b>'+(yd(t.kurulus)?'<br><b>'+fiyatDahilNot('yeterlilik-tum',t.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+fiyatAna('yeterlilik-tum',t.liste)+yd(t.liste):''); }
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('kgk',k); }
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';

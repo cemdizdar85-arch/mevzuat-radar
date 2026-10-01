@@ -171,10 +171,10 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="kim" id="erYet">Sınavına kadar</div>
     <div class="gunluk" id="fyYet">— <small>TL</small></div>
     <div class="liste" id="lsYet"></div>
-    <div class="kdv">tüm dersler · KDV dahil · <span id="ktYet"></span></div>
+    <div class="kdv">tüm dersler · <span id="ktYet"></span></div>
 <div class="kdv" id="khYet"></div>
     <ul>
-      <li><b>Tek ders <span id="fyYet1">—</span> TL'den başlar</b> — kaldığın dersi seç</li>
+      <li><b>Tek ders <span id="fyYet1">—</span>'den başlar</b> — kaldığın dersi seç</li>
       <li>Sınırsız soru: sekiz dersin tamamı</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
       <li>Her sorunun <b>kanun maddesine bağı</b></li>
@@ -401,7 +401,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <a href="kvkk.html">KVKK Aydınlatma Metni</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></p>
 </div>
 
-<p class="kucuk">Fiyatlar Türk Lirasıdır. Staja Başlama fiyatı KDV hariç gösterilir, KDV dahil toplamı hemen altında yazar; diğer paketlerin fiyatları KDV dahildir. Ödenecek tutar her zaman KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
+<p class="kucuk">Fiyatlar Türk Lirasıdır. Staja Başlama ve SMMM Yeterlilik fiyatları KDV hariç gösterilir, KDV dahil toplamı hemen yanında yazar; resmî harç kıyas tablosu ile KGK fiyatları KDV dahildir. Ödenecek tutar her zaman KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
 deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
@@ -456,7 +456,7 @@ document.getElementById('erSgs').textContent = pSgs.erisim;
 document.getElementById('erYet').textContent = pYet.erisim;
 
 // "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
-document.getElementById('fyYet1').textContent = tl(paketBul('yeterlilik-1').fiyat);
+document.getElementById('fyYet1').textContent = fiyatAna('yeterlilik-1', paketBul('yeterlilik-1').fiyat);   /* 01.10: '+ KDV' */
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
 document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 

@@ -87,11 +87,11 @@ Karar 25.09: SGS + Yeterlilik birlikte · fiyat = site kuruluş fiyatı ÷ 0,85 
 | Ürün kimliği (Play) | Ad | Site | **Play fiyatı** |
 |---|---|---:|---:|
 | `sgs` | Staja Başlama (SGS) | 2.988 | **3.516 TL** (01.10 kurucu fiyatı 2.490 + KDV; Play'de hâlâ 27.09 basamağı 3.529,99 — Cem elle indirecek) |
-| `yeterlilik_1` | Yeterlilik — 1 ders | 1.190 | **1.400 TL** |
-| `yeterlilik_2` | Yeterlilik — 2 ders | 1.990 | **2.342 TL** |
-| `yeterlilik_3` | Yeterlilik — 3 ders | 2.590 | **3.048 TL** |
-| `yeterlilik_4` | Yeterlilik — 4 ders | 3.090 | **3.636 TL** |
-| `yeterlilik_tum` | Yeterlilik — tüm dersler | 3.490 | **4.106 TL** |
+| `yeterlilik_1` | Yeterlilik — 1 ders | 1.188 | **1.398 TL** (01.10: 990 + KDV; Play'de eski 1.400 basamağı — Cem elle günceller) |
+| `yeterlilik_2` | Yeterlilik — 2 ders | 1.908 | **2.245 TL** (01.10: 1.590 + KDV; Play eski) |
+| `yeterlilik_3` | Yeterlilik — 3 ders | 2.508 | **2.951 TL** (01.10: 2.090 + KDV; Play eski) |
+| `yeterlilik_4` | Yeterlilik — 4 ders | 2.988 | **3.516 TL** (01.10: 2.490 + KDV; Play eski) |
+| `yeterlilik_tum` | Yeterlilik — tüm dersler | 3.468 | **4.080 TL** (01.10: 2.890 + KDV; Play eski) |
 
 Sıra (hepsi yapılmadan satış açılmaz; eksik adımda uygulama "Paketler şu an yüklenemedi" ya da
 "Satın alma şu an kapalı" der, **para alınmaz**):
