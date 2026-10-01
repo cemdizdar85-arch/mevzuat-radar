@@ -495,9 +495,11 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
   ['sgs','yeterlilik-tum'].forEach(function(id){   /* 30.09: KGK satırları kalktı */
     var p = paketBul(id);
     var tr = document.createElement('tr');
+    /* 02.10: tablo KDV dahil basıyordu, sayfa notu "KDV hariç gösterilir" diyor → motorun yardımcısıyla (01.10 kararı) */
+    var dahil = function(n){ var d = fiyatDahilNot(id, n); return d ? '<br><span class="kucuk">' + d + '</span>' : ''; };
     tr.innerHTML = '<td>' + p.ad + '</td>'
-      + '<td class="sag simdi">' + tl(p.fiyat) + ' TL</td>'
-      + '<td class="sag">' + tl(p.liste) + ' TL</td>'
+      + '<td class="sag simdi">' + fiyatAna(id, p.fiyat) + dahil(p.fiyat) + '</td>'
+      + '<td class="sag">' + fiyatAna(id, p.liste) + dahil(p.liste) + '</td>'
       + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' kurucu' : '—') + '<br><span class="kucuk kurucuKalan"></span></td>';
     t.appendChild(tr);
     if(p.sinav && p.kota){
