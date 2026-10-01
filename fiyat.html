@@ -102,7 +102,7 @@
 </div>
 
 <h1>Fiyatlar</h1>
-<p class="alt">Gizli ücret yok, teklif formu yok. Yazan fiyat, KDV dahil ödeyeceğin tutarın kendisidir.</p>
+<p class="alt">Gizli ücret yok, teklif formu yok. Ödeyeceğin KDV dahil toplam her fiyatın hemen altında yazar.</p>
 
 <!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
      fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge.
@@ -149,7 +149,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
     <div class="kim" id="erSgs">Sınavına kadar</div>
     <div class="gunluk" id="fySgs">— <small>TL</small></div>
     <div class="liste" id="lsSgs"></div>
-    <div class="kdv">kurucu fiyatı · KDV dahil · <span id="ktSgs"></span></div>
+    <div class="kdv">kurucu fiyatı · <span id="ktSgs"></span></div>
 <div class="kdv" id="khSgs"></div>
     <ul>
       <li>Sınırsız soru: bankanın tamamı</li>
@@ -298,7 +298,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   </table></div>
   <p class="kucuk" style="margin-top:10px"><b>Sahte indirim yapmıyoruz:</b> "Sonrası" sütunundaki rakam,
   kurucu kontenjanı dolduğunda gerçekten uygulayacağımız fiyattır. Kalan kurucu yeri sayısı ödeme kayıtlarımızdan
-  gelir; "son 3 saat" sayacı, üstü çizili uydurma fiyat ya da kampanya tiyatrosu yok. Fiyatların hepsi KDV dahildir.
+  gelir; "son 3 saat" sayacı, üstü çizili uydurma fiyat ya da kampanya tiyatrosu yok. Ödeyeceğin KDV dahil toplam her fiyatın yanında yazar.
   <b>Kurucu fiyatına giren bir yıl boyunca o fiyatta kalır.</b></p>
 </div>
 
@@ -401,7 +401,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <a href="kvkk.html">KVKK Aydınlatma Metni</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></p>
 </div>
 
-<p class="kucuk">Fiyatlar Türk Lirasıdır ve hepsi KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
+<p class="kucuk">Fiyatlar Türk Lirasıdır. Staja Başlama fiyatı KDV hariç gösterilir, KDV dahil toplamı hemen altında yazar; diğer paketlerin fiyatları KDV dahildir. Ödenecek tutar her zaman KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası,
 deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
@@ -428,7 +428,7 @@ function kart(id, p){
   var ls = document.getElementById('ls' + id);
   if(p.liste > p.fiyat){
     /* 25.09 Cem: '%' rozeti ve üstü çizili liste kaldırıldı (hiç uygulanmamış fiyat çizilemez); ileriye dönük yazılır. */
-    ls.textContent = (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'Sonra ') + fiyatAna(pid, p.liste);
+    ls.textContent = (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'Sonra ') + fiyatAna(pid, p.liste) + (fiyatDahilNot(pid, p.liste) ? ' (' + fiyatDahilNot(pid, p.liste) + ')' : '');
   }
   var kt = document.getElementById('kt' + id);
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' kurucu'; }
@@ -438,7 +438,7 @@ function kart(id, p){
   if(kh){
     kh.textContent = hr ? fiyatDahilNot(pid, p.fiyat) : '';
     if(p.sinav && p.kota && p.liste > p.fiyat){
-      kurucuKalan(function(k){ var t = kurucuSatir(p.sinav, k); if(t){ kh.textContent = t; kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; } });
+      kurucuKalan(function(k){ var t = kurucuSatir(p.sinav, k); if(t){ kh.textContent = (hr ? fiyatDahilNot(pid, p.fiyat) + ' · ' : '') + t;   /* 01.10: dahil tutar kalan sayısıyla ezilmesin */ kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; } });
     }
   }
   if(hr){ kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; kh.style.fontSize = '13px'; }
@@ -470,8 +470,8 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 });
 
 // Deger yigini kutusundaki paket fiyati.
-document.getElementById('yiginFiyat').textContent = fiyatAna('sgs', pSgs.fiyat);
-document.getElementById('vurusFiyat').textContent = fiyatAna('sgs', pSgs.fiyat);
+document.getElementById('yiginFiyat').textContent = fiyatAna('sgs', pSgs.fiyat) + (fiyatDahilNot('sgs', pSgs.fiyat) ? ' · ' + fiyatDahilNot('sgs', pSgs.fiyat) : '');
+document.getElementById('vurusFiyat').textContent = tl(pSgs.fiyat) + ' TL';   /* 01.10: kurs fiyatı KDV dahil yazılı → kıyas aynı temelde (KDV dahil) kalır */
 document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 
 // HARC KARSILASTIRMASI: her basamak harctan ucuz mu, tablo kendisi gostersin.

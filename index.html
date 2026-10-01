@@ -876,6 +876,12 @@ window.veriAl = (function(){
             yaz(cta,'Satın al'+kahramanTutar(secili)+' →',s.al||s.fiyat);
             yaz(cta2,'Geçme ihtimalini ölç (ücretsiz)',s.olc); cta2.classList.add('bz-cta-ikincil');
             durumEl.textContent='Önce ücretsiz dene: 30 soru · yaklaşık '+(s.olcDk||30)+' dakika · üyelik gerekmez';   /* 24.09: süre sınava göre (uye-durumu.js olcDk) */
+            /* 01.10 Cem "fiyat yükseleceğini farklı bir yerde tekrar göster": kurucu → liste geçişi düğmelerin altında, ücretsiz satırının ÜSTÜNDE.
+               Rakamlar FIYAT/KOTA'dan; '%50 indirim' ve üstü çizili YOK (27.09 dil kuralı, Yön. m.14/3). */
+            try{ if(secili==='sgs'&&typeof FIYAT!=='undefined'&&FIYAT.sgs&&typeof KOTA!=='undefined'&&KOTA.sgs&&FIYAT.sgs.liste>FIYAT.sgs.kurulus){
+              var fs=FIYAT.sgs, dn=function(n){ var x=fiyatDahilNot('sgs',n); return x?' ('+x+')':''; };
+              durumEl.innerHTML='<b>İlk '+tl(KOTA.sgs)+' kurucuya '+fiyatAna('sgs',fs.kurulus)+'</b>'+dn(fs.kurulus)+' · sonra '+fiyatAna('sgs',fs.liste)+dn(fs.liste)+'<br>'+durumEl.textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+            } }catch(e){}
           }
         } else {
           if(d.durum==='aktif'){
@@ -1200,7 +1206,7 @@ window.veriAl = (function(){
         function kota(sn,f){ return (f.liste>f.kurulus&&K[sn])?' · ilk '+tl(K[sn])+' kurucuya kurucu fiyatı':''; }
         function satir(sn){
           var ic='';
-          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b> · KDV dahil, sınava kadar'+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste):''); }
+          if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b>'+(fiyatDahilNot('sgs',f.kurulus)?'<br><b>'+fiyatDahilNot('sgs',f.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?' ('+fiyatDahilNot('sgs',f.liste)+')':''):'');   /* 01.10 Cem: +KDV ana, dahil altında */ }
           else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; ic='<b>Yeterlilik: ders başı '+tl(FIYAT.yeterlilik[1].kurulus)+" TL'den, "+(n?n+' dersin ':'')+'tamamı '+tl(t.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+tl(t.liste)+' TL':''); }
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('kgk',k); }
           if(!ic) return '';
@@ -1929,7 +1935,7 @@ window.veriAl = (function(){
         <a class="btn ghost" href="fiyat.html" style="margin-top:10px">Fiyatları ve paketleri gör →</a>
       </div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:22px;font-size:12.5px;color:var(--dim)">Görüntüleme her zaman ücretsiz kalır. Büro, şirket ve sınav paketleri <a href="fiyat.html" style="color:var(--accent2)">fiyat sayfasında</a>; KDV dahil, açık.</p>
+    <p class="reveal" style="text-align:center;margin-top:22px;font-size:12.5px;color:var(--dim)">Görüntüleme her zaman ücretsiz kalır. Büro, şirket ve sınav paketleri <a href="fiyat.html" style="color:var(--accent2)">fiyat sayfasında</a>; KDV dahil toplam her fiyatın yanında, açık.</p>
   </div>
 </section>
 

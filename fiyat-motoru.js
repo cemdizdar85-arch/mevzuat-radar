@@ -127,8 +127,12 @@ var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
    27.09.2026 CEM KARARI ("tamam bu fiyatları uygula"): KAPATILDI. Ana rakam KDV dahil yazılır —
    Ticari Reklam ve HTU Yön. m.13/2 "reklamda fiyat tüm vergiler dahil toplam satış fiyatı" (resmî metin
    26.09'da mevzuat.gov.tr'den okundu). Rakiplerin bir kısmı '+KDV' yazıyor; bu bizim için kıyas avantajı.
+   01.10.2026 CEM KARARI (22:17, KDV oturumu iletti: "sitede kdv hariç rakam görmek istiyorum"): YENİDEN AÇILDI, riski bilerek.
+   Ana rakam '+ KDV', KDV dahil toplam HER YERDE hemen altında/yanında; ödeme özeti KDV dahil. Yalnız SGS (yeterlilik
+   ayrıca soruluyor). İSTİSNA: fiyat.html kurs kıyas cümlesi (vurusFiyat) KDV dahil kalır — kurs fiyatı KDV dahil
+   yazılmışken bizimkini hariç yazmak farklı temelde kıyas olurdu (karşılaştırmalı reklam).
 --------------------------------------------------------------------------- */
-var KDV_HARIC_GOSTER = { sgs:false };
+var KDV_HARIC_GOSTER = { sgs:true };
 function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL + KDV' : tl(n) + ' TL'; }
 function fiyatDahilNot(id, n){ return KDV_HARIC_GOSTER[id] ? 'KDV dahil ' + tl(n) + ' TL' : ''; }
 
