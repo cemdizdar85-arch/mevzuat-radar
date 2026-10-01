@@ -23,7 +23,11 @@ as $$
   with odenen as (
     select s.paket from public.siparisler s where s.durum = 'odendi'
     union all
-    select m.paket from public.magaza_siparis m where m.durum in ('verildi','tuketildi') and m.paket is not null
+    -- 02.10 DÜZELTME: magaza_siparis.paket SATIN ALINAN ürün değil, paket_uyeler'e yazılan BİRLEŞİK
+    -- paket (magaza-dogrula.ts hakKarari: 1 dersi olan 1 ders daha alırsa 'yeterlilik-2' yazılır).
+    -- Seçim sayımı alınan ürünü saymalı → urun kimliğinden eşlenir (URUNLER: yeterlilik_1 → yeterlilik-1).
+    select case when m.urun ~ '^(sgs|yeterlilik_[1-4]|yeterlilik_tum)$' then replace(m.urun, '_', '-') else m.paket end
+      from public.magaza_siparis m where m.durum in ('verildi','tuketildi')
   )
   select o.paket, count(*)::int
     from odenen o
