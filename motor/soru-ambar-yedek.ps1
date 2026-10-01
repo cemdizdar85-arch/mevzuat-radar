@@ -210,7 +210,7 @@ foreach($tablo in $VARSAYILAN.Keys){
     return $a
   }
   try{
-    $buSayfa=$sayfaBoyu
+    $buSayfa=$sayfaBoyu; $ardisik=0
     while($true){
       $adres=SayfaAdresi $buSayfa
       $cevap=$null
@@ -223,14 +223,18 @@ foreach($tablo in $VARSAYILAN.Keys){
           #    (satir agirligi artikca) bu kendiliginden devreye girsin diye
           #    sabit degil uyarlanir yapildi.
           if($buSayfa -gt 1){
-            $buSayfa=[Math]::Max(1,[int]($buSayfa/4))
+            $buSayfa=[Math]::Max(1,[int]($buSayfa/4)); $ardisik=0
             $adres=SayfaAdresi $buSayfa
-            Write-Host ("   ! sayfa kuculttu -> limit=$buSayfa") -ForegroundColor Yellow
+            Write-Host ("   ! sayfa kuculttu -> limit=$buSayfa (" + $_.Exception.Message + ")") -ForegroundColor Yellow
           }
           Start-Sleep -Seconds (3*$deneme)
         }
       }
       $satirlar=@($cevap)
+      # ⛔ GERI BUYUME (01.10.2026): 30.09 marka kosusunda 22:03'teki tek gecici hata sayfayi 1000 → 1'e
+      #    indirdi ve bir daha BUYUTMEDI; 1,14 milyon satir 40 dk'da inmisken kalan 5 saat saniyede 1 satir
+      #    ilerledi, is 330 dk tavaninda iptal oldu (1.173.219 / 1.727.332). 20 ardisik basarili sayfada boy ikiye katlanir
+      #    - asagida, 'son sayfa mi' kontrolunden SONRA (once buyurse dolu sayfa 'yarim' sanilip dongu erken biter).
       if(-not $satirlar.Count){ break }
       foreach($satir in $satirlar){
         $yazici.WriteLine(($satir|ConvertTo-Json -Depth 20 -Compress))
@@ -241,6 +245,9 @@ foreach($tablo in $VARSAYILAN.Keys){
       $sayfa++
       if($satirlar.Count -lt $buSayfa){ break }
       if($DenemeSayfa -gt 0 -and $sayfa -ge $DenemeSayfa){ break }
+      # 20 ardisik basarili sayfadan sonra buyur: hata gercekten 'yanit cok buyuk' ise (kalip_parti 12.09) gidip gelmesin.
+      $ardisik++
+      if($buSayfa -lt $sayfaBoyu -and $ardisik -ge 20){ $buSayfa=[Math]::Min($sayfaBoyu, $buSayfa*2); $ardisik=0 }
       if($sayfa % 10 -eq 0){ Write-Host ("   ... {0:N0}" -f $sayac) -ForegroundColor DarkGray }
     }
   } finally { $yazici.Close(); $yazici.Dispose() }
