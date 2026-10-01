@@ -46,7 +46,7 @@ function slug(s) { return katla(s).replace(/ /g, '-'); }
 // Sınavların sitedeki adı - adayın dili (09.09 TESMER menüsü ölçümü).
 const SINAVLAR = [
   { kod: 'sgs', tek: 'SGS', ad: 'Staja Giriş', uzun: 'SMMM Staja Başlama Sınavı' },
-  { kod: 'smmm', tek: 'SMMM', ad: 'Staj Bitirme', uzun: 'SMMM Yeterlilik Sınavı' },
+  { kod: 'smmm', tek: 'SMMM', ad: 'Yeterlilik', /* 02.10: görünür ad tek (eski: Staj Bitirme) */ uzun: 'SMMM Yeterlilik Sınavı' },
   { kod: 'kgk', tek: 'KGK', ad: 'Bağımsız Denetçilik', uzun: 'KGK Bağımsız Denetçilik Sınavı' }
 ];
 // sinav-tek-sayfa'da SGS bölüm adları harf katlanmış yazılı; ekranda düzgün Türkçe.

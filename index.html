@@ -31,16 +31,16 @@
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/">
-<meta property="og:title" content="Tetikte olan kaçırmaz.">
-<meta property="og:description" content="Mevzuat değişikliği, konkordato ilanı, marka itirazı, sınav sorusu — hepsini senin yerine izleyen sistem.">
-<meta property="og:image" content="https://tetikte.com/og-kapak.png">
+<meta property="og:title" content="Yanlışını, sebebiyle birlikte öğren · Tetikte">
+<meta property="og:description" content="SMMM Staja Giriş ve Yeterlilik soru bankası — her şıkkın gerekçesi, dayandığı maddeyle.">
+<meta property="og:image" content="https://tetikte.com/og-kapak-sinav.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Tetikte — Tetikte olan kaçırmaz.">
+<meta property="og:image:alt" content="Tetikte — SMMM Staja Giriş ve Yeterlilik soru bankası">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tetikte olan kaçırmaz.">
-<meta name="twitter:description" content="Mevzuat değişikliği, konkordato ilanı, marka itirazı, sınav sorusu — hepsini senin yerine izleyen sistem.">
-<meta name="twitter:image" content="https://tetikte.com/og-kapak.png">
+<meta name="twitter:title" content="Yanlışını, sebebiyle birlikte öğren · Tetikte">
+<meta name="twitter:description" content="SMMM Staja Giriş ve Yeterlilik soru bankası — her şıkkın gerekçesi, dayandığı maddeyle.">
+<meta name="twitter:image" content="https://tetikte.com/og-kapak-sinav.png">
 <link rel="stylesheet" href="stil.css">
 <style>
   /* Bu sayfaya ozel tonlar; gerisi stil.css'ten gelir. */
@@ -987,8 +987,12 @@ window.veriAl = (function(){
           return '<div class="bz-rk" style="'+st+'"><span class="bz-rk-kod">RG '+esc(r[1])+' · '+esc(r[0])+'</span><span class="bz-rk-bas">'+esc(r[2])+'</span></div>';
         }).join('');
       }
-      kartCiz(ARKA);
-      fetch('veri/kartlar-guncel.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
+      /* 02.10 (açılış: site = SGS + Yeterlilik): arka plandaki Resmî Gazete kartları radar dönemi kalıntısı
+         (Jandarma, alkollü içki, nükleer tesis…) — SMMM adayına anlamsız. Kartlar ÇİZİLMEZ; dizi ve kod yerinde.
+         AÇILIŞ SONRASI geri almak: RG_ARKA_ACIK = true. */
+      var RG_ARKA_ACIK = false;
+      if(RG_ARKA_ACIK) kartCiz(ARKA);
+      if(RG_ARKA_ACIK) fetch('veri/kartlar-guncel.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
         var k=d&&d.kartlar; if(!k||!k.length) return;
         var tarih=String(d.gun||'').replace(/-/g,'.');
         var on=k.slice(0,2).map(function(r){ var m=String(r.url||'').match(/(\d{8}-\d+)\.htm/); return [m?m[1]:'', tarih, r.baslik||'']; });

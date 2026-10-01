@@ -8,7 +8,8 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Soru Çöz · Sınavını seç | Tetikte</title>
-<meta name="description" content="Staja Giriş, Staj Bitirme ve Bağımsız Denetçilik: sınavını seç, dersler sınavdaki ağırlığıyla sıralı, her soru çözümüyle.">
+<!-- 02.10: eski açıklama "Staja Giriş, Staj Bitirme ve Bağımsız Denetçilik…" — KGK açılınca geri al -->
+<meta name="description" content="SMMM Staja Giriş ve Yeterlilik: sınavını seç, dersler sınavdaki ağırlığıyla sıralı, her soru çözümüyle.">
 <link rel="stylesheet" href="stil.css">
 <!--
   SORU ÇÖZ KAPISI (13.09.2026)
@@ -244,6 +245,10 @@
     fetch('veri/deneme/sgs-dizin.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
   ]).then(function(r){
     DIZIN=r[0]; TAKVIM=r[1]; if(r[2]&&r[2].setler&&r[2].setler.length) DENEME[r[2].sinav]=r[2];
+    /* 02.10 Cem (açılış: site = SGS + Yeterlilik): yalnız açık sınav çizilir -> KGK ("hazirlaniyor") görünmez.
+       Görünür ad tek: "Staj Bitirme" -> "Yeterlilik". AÇILIŞ SONRASI KGK'yı geri almak için bu iki satırı kaldır. */
+    if(DIZIN&&DIZIN.sinavlar){ DIZIN.sinavlar=DIZIN.sinavlar.filter(function(s){return s.durum==='acik';});
+      DIZIN.sinavlar.forEach(function(s){ if(s.kod==='smmm'){ s.ad='Yeterlilik'; } }); }
     if(!DIZIN||!DIZIN.sinavlar||!DIZIN.sinavlar.length){
       sinavlarEl.innerHTML=''; derslerEl.innerHTML='<p class="sc-yuk">Sınav listesi şu an okunamadı. Sayfayı yenilemeyi dene.</p>'; return;
     }

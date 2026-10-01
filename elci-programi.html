@@ -101,7 +101,7 @@
   <h2>Kimler başvurabilir?</h2>
   <ul class="eb-liste">
     <li>18 yaşını doldurmuş olanlar.</li>
-    <li>SMMM sınavları (Staja Başlama, Yeterlilik, Bağımsız Denetçilik), muhasebe ya da mali müşavirlik üzerine içerik üretenler.</li>
+    <li>SMMM sınavları (Staja Giriş, Yeterlilik), muhasebe ya da mali müşavirlik üzerine içerik üretenler.</li>
     <li>Öğrenci toplulukları, meslek dernekleri ve kitlesi sınava hazırlananlardan oluşan sayfalar.</li>
   </ul>
 
@@ -120,7 +120,7 @@
       <div><label class="et" for="ebEposta">E-posta *</label><input id="ebEposta" type="email" maxlength="160" autocomplete="email"></div>
       <div><label class="et" for="ebTel">Telefon <span style="color:var(--dim)">(isteğe bağlı)</span></label><input id="ebTel" type="tel" maxlength="30" autocomplete="tel"></div>
       <div><label class="et" for="ebKitle">Kitlen en çok hangi sınava hazırlanıyor? *</label>
-        <select id="ebKitle"><option value="">Seç</option><option>Staja Başlama (SGS)</option><option>SMMM Yeterlilik</option><option>Bağımsız Denetçilik (KGK)</option><option>Karışık / genel muhasebe</option></select></div>
+        <select id="ebKitle"><option value="">Seç</option><option>Staja Başlama (SGS)</option><option>SMMM Yeterlilik</option><option hidden disabled>Bağımsız Denetçilik (KGK)</option><!-- 02.10 KGK gizli; açılış sonrası hidden disabled kaldır --><option>Karışık / genel muhasebe</option></select></div>
       <div class="tam"><label class="et" for="ebHesap">Paylaşım yaptığın hesap(lar) *</label><input id="ebHesap" type="text" maxlength="300" placeholder="ör. instagram.com/hesabin · youtube.com/@kanalin"></div>
       <div><label class="et" for="ebTakipci">Yaklaşık takipçi / üye sayısı *</label>
         <select id="ebTakipci"><option value="">Seç</option><option>1.000'den az</option><option>1.000 – 10.000</option><option>10.000 – 50.000</option><option>50.000'den fazla</option></select></div>
