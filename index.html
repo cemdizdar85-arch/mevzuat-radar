@@ -848,7 +848,9 @@ window.veriAl = (function(){
         try{
           if(typeof FIYAT==='undefined'||typeof tl!=='function') return '';
           if(sn==='sgs'&&FIYAT.sgs) return ' — '+fiyatAna('sgs',FIYAT.sgs.kurulus);
-          if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) return ' — ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den";
+          /* 01.10 Cem "önce tüm sınavı yaz": tam paketli rakiplerin hepsi (Becker, UWorld, Gleim) ana yolda paketi gösterir;
+             "…'den" en düşük fiyatla açmak ders ders satanların (BPP) kalıbı. Tek ders altta ikincil bağlantı. */
+          if(sn==='yeterlilik'&&FIYAT.yeterlilikTum){ var nd=(typeof DERSLER!=='undefined'&&DERSLER.yeterlilik)?DERSLER.yeterlilik.length:0; return ' — '+(nd?nd+' dersin ':'')+'tamamı '+fiyatAna('yeterlilik-tum',FIYAT.yeterlilikTum.kurulus); }
           if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgk[1]) return ' — modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den";
         }catch(e){}
         return '';
@@ -883,6 +885,10 @@ window.veriAl = (function(){
               if(kp&&kp[1]&&typeof KOTA!=='undefined'&&KOTA[secili]&&kp[1].liste>kp[1].kurulus){
               var fs=kp[1], dn=function(n){ var x=fiyatDahilNot(kp[0],n); return x?' ('+x+')':''; };
               durumEl.innerHTML='<b>İlk '+tl(KOTA[secili])+' kurucuya '+kp[2]+fiyatAna(kp[0],fs.kurulus)+'</b>'+dn(fs.kurulus)+' · sonra '+fiyatAna(kp[0],fs.liste)+dn(fs.liste)+'<br>'+durumEl.textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+            } }catch(e){}
+            /* 01.10: tek ders ikincil yol (Surgent kalıbı "Only need one section?") - ana düğme tüm dersler */
+            try{ if(secili==='yeterlilik'&&s.alTek&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]){
+              durumEl.insertAdjacentHTML('afterbegin','<a href="'+s.alTek+'" style="color:var(--amber);font-weight:700;text-decoration:none">Birkaç dersin mi kaldı? Ders başı'+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den →</a><br>");
             } }catch(e){}
           }
         } else {
@@ -1210,7 +1216,8 @@ window.veriAl = (function(){
           var ic='';
           if(sn==='sgs'){ var f=FIYAT.sgs; ic='<b>Staja Giriş soru bankası: '+fiyatAna('sgs',f.kurulus)+'</b>'+(fiyatDahilNot('sgs',f.kurulus)?'<br><b>'+fiyatDahilNot('sgs',f.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('sgs',f)+(f.liste>f.kurulus?', sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?' ('+fiyatDahilNot('sgs',f.liste)+')':''):'');   /* 01.10 Cem: +KDV ana, dahil altında */ }
           else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; var yd=function(n){ var x=fiyatDahilNot('yeterlilik-tum',n); return x?' ('+x+')':''; };   /* 01.10 Cem: bitirme de +KDV ana, dahil yanında */
-            ic='<b>Yeterlilik: ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den, "+(n?n+' dersin ':'')+'tamamı '+fiyatAna('yeterlilik-tum',t.kurulus)+'</b>'+(yd(t.kurulus)?'<br><b>'+fiyatDahilNot('yeterlilik-tum',t.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+fiyatAna('yeterlilik-tum',t.liste)+yd(t.liste):''); }
+            ic='<b>Yeterlilik: '+(n?n+' dersin ':'')+'tamamı '+fiyatAna('yeterlilik-tum',t.kurulus)+'</b>'+(yd(t.kurulus)?'<br><b>'+fiyatDahilNot('yeterlilik-tum',t.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+fiyatAna('yeterlilik-tum',t.liste)+yd(t.liste):'')
+              +' · tek ders '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den";   /* 01.10 Cem "önce tüm sınav": paket önde, tek ders sonda */ }
           else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('kgk',k); }
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
@@ -1222,7 +1229,7 @@ window.veriAl = (function(){
           var ds=(UYE&&UYE.sinavlar&&UYE.sinavlar[sn])||{};
           if(ds.durum==='aktif') return '';
           if(HZ[sn]){
-            var al=(sn==='sgs')?'satin-al.html?paket=sgs':'fiyat.html?sinav='+sn;
+            var al=(sn==='sgs')?'satin-al.html?paket=sgs':(sn==='yeterlilik')?'satin-al.html?paket=yeterlilik-tum':'fiyat.html?sinav='+sn;   /* 01.10: yeterlilik tüm dersler seçili ödemeye */
             var tutar=(sn==='sgs')?' — '+fiyatAna('sgs',FIYAT.sgs.kurulus):'';
             ic+='<a class="bz-uye bz-al" href="'+al+'">'+(ds.durum==='bitmis'?'Paketini yenile':'Satın al')+tutar+' →</a>';
           } else {

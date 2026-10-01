@@ -42,7 +42,9 @@
       /* 24.09 satışa açılınca gereken alanlar. sinav-gibi.html yalnız SGS'dir -> Yeterlilik'te giriş = kendi soru bankası.
          Satın alma ders seçimli -> fiyat sayfasına (Yeterlilik kartı). Ücretsiz deneme = 70 soruluk açık vitrin. */
       gir: 'kaydir/smmm/index.html', devam: 'kaydir/smmm/index.html',
-      al: 'fiyat.html?sinav=yeterlilik', vitrin: 'kaydir/vitrin/smmm.html?vitrin=1',
+      /* 01.10 Cem "önce tüm sınavı yaz": Becker/UWorld/Gleim gibi ana yol tam paket; düğme doğrudan ödemeye, tüm dersler
+         seçili gelir (1–4 ders paketleri aynı listede durur). Tek ders kahramanda ikincil bağlantı (alTek). */
+      al: 'satin-al.html?paket=yeterlilik-tum', alTek: 'satin-al.html?paket=yeterlilik-1', vitrin: 'kaydir/vitrin/smmm.html?vitrin=1',
       fiyat: 'fiyat.html'
     },
     kgk: {
