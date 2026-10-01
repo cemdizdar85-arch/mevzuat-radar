@@ -28,7 +28,9 @@
    node arac/mobil-tasma-kapisi.js --tazele
 
    BU KAPI ŞUNU GÖRMEZ:
-     - 375px dışındaki genişlikler (320px eski telefon, 768px tablet) ölçülmez.
+     - 375 ve 320px dışındaki genişlikler (768px tablet, yatay telefon) ölçülmez.
+     - 320px ölçümü yeniden yükleme yapmaz: genişliği yalnız AÇILIŞTA okuyan betik
+       (JS ile kurulan yerleşim) 375'teki halinde kalır.
      - Kullanıcı etkileşimiyle açılan içerik (paket seçince açılan ders kutusu,
        sipariş sonrası havale ekranı) — yalnız açılıştaki hal ölçülür.
      - Ağdan geç gelen içerik bekleme süresini (3,5 sn) aşarsa ölçülmez.
@@ -50,6 +52,9 @@ const { tarayiciAc, bekle } = require('./tarayici.js');
 const KOK       = path.resolve(__dirname, '..');
 const PORT      = 8143;                // kontrast 8137, acilis 8141
 const GENISLIK  = 375, YUKSEKLIK = 812;
+/* 02.10 (Cem "1.2.3 yap"): 320px eski/küçük telefon. Sayfa YENİDEN YÜKLENMEZ - 375 ölçümünden
+   sonra ekran daraltılır, yerleşim yeniden kurulur, yeniden ölçülür. Taban anahtarı "sayfa@320". */
+const DAR       = 320;
 const BEKLE_MS  = 3500;
 const RAPOR_YOL = path.join(KOK, 'veri', 'mobil-tasma-raporu.json');
 const TABAN_YOL = path.join(KOK, 'veri', 'mobil-tasma-taban.json');
@@ -121,15 +126,22 @@ const VAKALAR = [
   { ad: 'kısmen kırpılmış yazı (sarmalayıcı overflow:hidden)', kayma: false, kesik: true,
     html: SAR('<div style="overflow:hidden;width:100%"><div style="width:500px">Bu yazının sonu ekranın dışında kalır ve okunamaz.</div></div>') },
   { ad: 'içi boş geniş kutu sayfayı kaydırıyor (yalnız A görür)', kayma: true, kesik: false,
-    html: SAR('<div style="width:600px;height:10px"></div><p>Yazı</p>') }
+    html: SAR('<div style="width:600px;height:10px"></div><p>Yazı</p>') },
+  { ad: '350px kutu: 375\'te sığar', kayma: false, kesik: false,
+    html: SAR('<div style="width:350px">Bu kutu 375 ekrana sığar ama 320 ekrana sığmaz.</div>') },
+  { ad: '350px kutu: 320\'de taşar (dar ekran ölçülüyor mu)', genislik: DAR, kayma: true, kesik: true,
+    html: SAR('<div style="width:350px">Bu kutu 375 ekrana sığar ama 320 ekrana sığmaz.</div>') }
 ];
-const MUTASYONLAR = ['sinir', 'kaydir', 'tam-gizli', 'sabit', 'bos', 'sw'];
+const MUTASYONLAR = ['sinir', 'kaydir', 'tam-gizli', 'sabit', 'bos', 'sw', 'dar'];
 
+async function ekran(t, oturum, genislik){
+  await t.cdp.cagir('Emulation.setDeviceMetricsOverride',
+    { width: genislik, height: YUKSEKLIK, deviceScaleFactor: 2, mobile: true }, oturum);
+}
 async function sekmeAc(t){
   const c = await t.cdp.cagir('Target.createTarget', { url: 'about:blank' });
   const a = await t.cdp.cagir('Target.attachToTarget', { targetId: c.targetId, flatten: true });
-  await t.cdp.cagir('Emulation.setDeviceMetricsOverride',
-    { width: GENISLIK, height: YUKSEKLIK, deviceScaleFactor: 2, mobile: true }, a.sessionId);
+  await ekran(t, a.sessionId, GENISLIK);
   await t.cdp.cagir('Page.enable', {}, a.sessionId);
   return { hedef: c.targetId, oturum: a.sessionId };
 }
@@ -145,6 +157,7 @@ async function sinav(t, mutasyonMu){
   const tur = async (mut) => {
     let dogru = 0; const yanlis = [];
     for (const v of VAKALAR) {
+      await ekran(t, s.oturum, mut === 'dar' ? GENISLIK : (v.genislik || GENISLIK));
       await t.cdp.cagir('Page.navigate', { url: 'data:text/html;charset=utf-8,' + encodeURIComponent(v.html) }, s.oturum);
       await bekle(250);
       const o = await olc(t, s.oturum, mut);
@@ -217,6 +230,10 @@ function raporYaz(icerik){
       await bekle(BEKLE_MS);
       const o = await olc(t, s.oturum, '');
       sonuc.push({ sayfa, kayma: o.kayma, sw: o.sw, kesikSayi: o.kesikSayi, kesik: o.kesik });
+      await ekran(t, s.oturum, DAR);
+      await bekle(400);
+      const d = await olc(t, s.oturum, '');
+      sonuc.push({ sayfa: sayfa + '@' + DAR, kayma: d.kayma, sw: d.sw, kesikSayi: d.kesikSayi, kesik: d.kesik });
     } catch (e) {
       sonuc.push({ sayfa, olculemedi: true, sebep: String(e.message).slice(0, 80) });
     } finally {
@@ -248,14 +265,14 @@ function raporYaz(icerik){
   }
   raporYaz({
     durum: yeni.length ? 'KIRMIZI' : (olculemeyen.length ? 'KOR' : 'YESIL'), ci,
-    genislik: GENISLIK, sayfa_toplam: sayfalar.length, olculen: olculen.length, KOR: olculemeyen.length,
+    genislik: [GENISLIK, DAR], sayfa_toplam: sayfalar.length, olcum_toplam: sayfalar.length * 2, olculen: olculen.length, KOR: olculemeyen.length,
     yeni_kusur_sayfa: yeni.length, taban_borcu_sayfa: borc.length,
     yeni_kusur: yeni.map(s => ({ sayfa: s.sayfa, kayma: s.kayma, sw: s.sw, kesik: s.kesik })),
     taban_borcu: borc.map(s => ({ sayfa: s.sayfa, kayma: s.kayma, kesik: s.kesik.slice(0, 4) })),
     odenen_borc: odenen,
     olculemeyenler: olculemeyen.map(s => ({ sayfa: s.sayfa, sebep: s.sebep }))
   });
-  console.log('  Olculen ' + olculen.length + '/' + sayfalar.length + (olculemeyen.length ? ' · KOR ' + olculemeyen.length : '') +
+  console.log('  Olculen ' + olculen.length + '/' + (sayfalar.length * 2) + ' (sayfa x 375/' + DAR + ')' + (olculemeyen.length ? ' · KOR ' + olculemeyen.length : '') +
               ' · YENI kusur ' + yeni.length + ' sayfa · taban borcu ' + borc.length + ' sayfa' +
               (odenen.length ? ' · odenen borc ' + odenen.length + ' (tabani indir: --tazele)' : ''));
   for (const s of yeni.slice(0, 15)) {

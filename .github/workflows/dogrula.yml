@@ -48,9 +48,19 @@ on:
 # yalniz denetliyor ve rapor birakiyor. Veri yazan akislarda (kaynak.yml,
 # ihale-yutma) iptal etmek yarim is birakirdi; oralarda cancel-in-progress
 # KAPALI ve concurrency yalniz siraya sokmak icin kullaniliyor.
+#
+# 02.10 OLCUMU (Cem "1.2.3 ucunu de yap"): yukaridaki karar tersine dondu. Son 100
+# kosunun (30.09 04:46 - 01.10 20:56) 71'i IPTAL, 28'i kirmizi, 0'i yesil; push'larin
+# yalniz 6'si robot isaretli - gerisi paralel Claude oturumlarinin commit'leri, birkac
+# dakikada bir. 4-5 dk'lik kapilar (kontrast, acilis, mobil tasma) pratikte HIC
+# bitmiyordu: kapi VARDI ama OLCMUYORDU. Yeni hal: kosan kosu BITER; arada gelen
+# push'lar sirada bekler ve GitHub sirada yalniz EN YENI bekleyeni tutar (aradakiler
+# atlanir). Yani her zaman en son push denetlenir, kosular yine ust uste binmez
+# (concurrency grubu tek kosu garantisi verir). Bedel: son push'un sonucu en fazla
+# bir kosu suresi (~6 dk) gecikir. GORMEZ: atlanan ara push'lar ayrica denetlenmez.
 concurrency:
   group: dogrula-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # --- Sir bekcisi ayri duruyor: satir ici cok satirli bash betigi, matrise
