@@ -380,7 +380,7 @@ function ozetCiz(){
    "bu kod bu pakette kaç TL indirir?" diye sorar (elci_kodu_kontrol); asıl indirim
    sipariş yazılırken SUNUCUDA damgalanır. Sorulamazsa indirim 0 kalır: ekranda
    gösterip siparişte vermemek, hiç göstermemekten kötüdür. */
-var elciIndirim = 0, elciSira = 0, elciDersKodu = false;   /* 01.10: tek ders paketinde kod indirimsiz taşınır (elçiye ders başı 150 TL) */
+var elciIndirim = 0, elciSira = 0;   /* 01.10: tek ders paketlerinde de ders başı 50 TL indirim (ELCI.indirim) */
 function elciAcik(){ return typeof ELCI !== 'undefined' && ELCI.acik === true; }
 function elciTemizle(s){
   s = (s || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,12);
@@ -391,16 +391,11 @@ function elciDurumYaz(m, renk){ var d = document.getElementById('elciDurum'); d.
 function elciDenetle(){
   if(!elciAcik()) return;
   var ham = document.getElementById('elci').value, kod = elciTemizle(ham), sira = ++elciSira;
-  elciIndirim = 0; elciDersKodu = false;
+  elciIndirim = 0;
   if(!ham.trim()){ elciDurumYaz(''); ozetCiz(); return; }
   if(!kod){ elciDurumYaz('Kod biçimi geçersiz (3–12 harf/rakam).', 'var(--red)'); ozetCiz(); return; }
   try{ localStorage.setItem('tt_elci', kod); }catch(e){}
   if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
-  if(ELCI.dersKomisyon && ELCI.dersKomisyon[secili.id] > 0){
-    elciDersKodu = true;
-    elciDurumYaz('Bu pakette elçi indirimi yok; kodu bırakırsan alımın seni yönlendiren elçiye yazılır.');
-    ozetCiz(); return;
-  }
   if(!(ELCI.indirim[secili.id] > 0)){
     var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); })
                     .map(function(id){ return paketBul(id).ad; });
@@ -519,7 +514,7 @@ btn.addEventListener('click', function(){
 
   var no = siparisNo();
   var tutar = odenecekTutar();
-  var elciKod = (elciIndirim > 0 || elciDersKodu) ? elciTemizle(deger('elci')) : '';
+  var elciKod = elciIndirim > 0 ? elciTemizle(deger('elci')) : '';
   var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar,
                 liste_fiyat:secili.liste, dersler:(secili.ders || secili.modul || null),
                 secilen_dersler:(secilenD.length ? secilenD : null),

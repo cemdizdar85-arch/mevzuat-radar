@@ -94,12 +94,12 @@ var TAKSIT_ADET = 3;
    Elçiler kendi panelinden (elci.html) satış adedini ve komisyonunu görür.
    29.09 AÇILDI: SQL Cem tarafından basıldı; anonim ölçüm AE42 → sgs 400 · yeterlilik-tum 400 · yeterlilik-1 0
    (bu nesneyle birebir), panel fonksiyonları anona 401. Site aynı akşam yayına girdi (GONG f28cf522).
-   01.10 TEK DERS (Cem "150 tl olsun"): 1–4 ders paketinde alıcıya indirim YOK, elçiye DERS BAŞINA 150 TL
+   01.10 TEK DERS (Cem "150 tl olsun" + "50 olsun"): 1–4 ders paketinde alıcıya DERS BAŞINA 50 TL indirim (8 ders × 50 = tüm dersler 400), elçiye DERS BAŞINA 150 TL
    komisyon; kademe sayacına girmez. Sunucu: radar-app/sql/2026-10-01-elci-ders-komisyonu.sql
    (elci_indirim.sabit_komisyon_tl). dersKomisyon buradaki ekran gösterimidir, sunucuyla birebir olmalı.
-   SQL basılmadan bu paketlerde kod tetikleyicide düşer (zararsız: indirim zaten yok, yalnız komisyon yazılmaz).
+   ⚠ SQL basılmadan elci_kodu_kontrol bu paketlerde 0 döner → satın almada 'kod bulunamadı' yazar, indirim uygulanmaz.
 --------------------------------------------------------------------------- */
-var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400 },
+var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':50, 'yeterlilik-2':100, 'yeterlilik-3':150, 'yeterlilik-4':200 },
              dersKomisyon:{ 'yeterlilik-1':150, 'yeterlilik-2':300, 'yeterlilik-3':450, 'yeterlilik-4':600 },
              bicim:/^[A-Z0-9]{3,12}$/ };
 

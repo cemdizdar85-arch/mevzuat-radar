@@ -4,17 +4,18 @@
 --  KARAR (Cem 01.10 akşam, "150 tl olsun hepsini yapalım"):
 --    SMMM Yeterlilik 1–4 derslik paketlerinde elçi koduyla gelen satışa
 --    DERS BAŞINA 150 TL komisyon (1 ders 150 · 2 ders 300 · 3 ders 450 · 4 ders 600).
---    - Alıcıya indirim YOK (1 derste 1.190 − 400 indirim − komisyon payımızı yarıya indirirdi).
+--    - Alıcıya DERS BAŞINA 50 TL indirim (Cem 01.10 '50 olsun': tüm dersler 8 ders × 50 = 400 ile orantılı):
+--      1 ders 1.190 → 1.140 · 2 ders 1.990 → 1.890 · 3 ders 2.590 → 2.440 · 4 ders 3.090 → 2.890.
 --    - Kademe sayacına SAYILMAZ: sayılsaydı 1.190'lık satışlarla 10. satışa çıkılıp SGS'de
 --      1.000 TL kademesine geçilirdi. Kademe yalnız SGS + Yeterlilik tüm dersler satışlarıyla işler.
 --    - Kesinleşme (7 gün), iade, mahsup, ödeme günü (izleyen ayın 8'i) aynı.
---    Sözleşme: sürüm 2026-10-02, Madde 5 + 6.8 (elci.html KOSUL_SURUM).
+--    Sözleşme: sürüm 2026-10-03, Madde 5 tablosu + 6.8 (elci.html KOSUL_SURUM).
 --
 --  ÖNCEKİ DURUM (2026-09-15-elci-programi.sql): 1–4 ders paketinde elci_indirim satırı yoktu →
 --  siparis_elci_damga kodu DÜŞÜRÜYORDU; elçi bu satışları hiç göremiyordu.
 --
---  NASIL: elci_indirim'e sabit_komisyon_tl kolonu. Satırı olan pakette kod artık düşmez
---  (indirim 0). Sipariş yazılırken tetikleyici komisyonu siparise DAMGALAR
+--  NASIL: elci_indirim'e 1–4 ders satırları (indirim 50/100/150/200) + sabit_komisyon_tl kolonu.
+--  Satırı olan pakette kod artık düşmez; elci_kodu_kontrol bu paketlerde indirimi döner. Sipariş yazılırken tetikleyici komisyonu siparise DAMGALAR
 --  (siparisler.elci_sabit_komisyon_tl) — tablo sonradan değişse de geçmiş satış değişmez.
 --  Damgalı satış kademe sayımından çıkar, ayrı toplanır.
 --
@@ -37,10 +38,10 @@ do $$ begin
 end $$;
 
 insert into public.elci_indirim (paket, indirim_tl, sabit_komisyon_tl) values
-  ('yeterlilik-1', 0, 150),
-  ('yeterlilik-2', 0, 300),
-  ('yeterlilik-3', 0, 450),
-  ('yeterlilik-4', 0, 600)
+  ('yeterlilik-1',  50, 150),
+  ('yeterlilik-2', 100, 300),
+  ('yeterlilik-3', 150, 450),
+  ('yeterlilik-4', 200, 600)
 on conflict (paket) do update set indirim_tl = excluded.indirim_tl, sabit_komisyon_tl = excluded.sabit_komisyon_tl;
 
 
@@ -231,9 +232,9 @@ revoke execute on function public.elci_panelim() from anon;
 -- ---------------------------------------------------------------------------
 --  DOĞRULAMA — bastıktan sonra SQL editörde:
 --   a) select paket, indirim_tl, sabit_komisyon_tl from elci_indirim order by paket;
---        sgs 400 null · yeterlilik-1 0 150 · -2 0 300 · -3 0 450 · -4 0 600 · yeterlilik-tum 400 null
+--        sgs 400 null · yeterlilik-1 50 150 · -2 100 300 · -3 150 450 · -4 200 600 · yeterlilik-tum 400 null
 --   b) select column_name from information_schema.columns
 --       where table_name='siparisler' and column_name='elci_sabit_komisyon_tl';            -- 1 satır
 --   c) select kod, kesin_satis, ders_kesin_satis, ders_komisyon_tl, toplam_komisyon_tl from elci_donem_raporu;
---   d) Anonim: elci_kodu_kontrol('AE42','yeterlilik-1') = 0 (indirim yok — DOĞRU; kod yine siparişe yazılır)
+--   d) Anonim: elci_kodu_kontrol('AE42','yeterlilik-1') = 50 · ('AE42','yeterlilik-4') = 200 · ('AE42','sgs') = 400
 -- ---------------------------------------------------------------------------

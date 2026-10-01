@@ -163,7 +163,7 @@
     <!-- 01.10 tek ders (sözleşme 6.8): ders başı 150 TL, kademeye sayılmaz; sunucu alanları ders_* (2026-10-01-elci-ders-komisyonu.sql) -->
     <div class="ep-kutu">
       <h2>Ders paketleri (Yeterlilik 1–4 ders)</h2>
-      <p class="ep-kucuk" style="margin-top:0">Takipçine indirim yok; sana <b>ders başına 150 TL</b> (1 ders 150 · 2 ders 300 · 3 ders 450 · 4 ders 600 TL). Bu satışlar kademeye sayılmaz.</p>
+      <p class="ep-kucuk" style="margin-top:0">Takipçine ders başına 50 TL indirim; sana <b>ders başına 150 TL</b> (1 ders 150 · 2 ders 300 · 3 ders 450 · 4 ders 600 TL). Bu satışlar kademeye sayılmaz.</p>
       <p class="ep-kucuk"><b id="epDersKesin">0</b> kesinleşen · <b id="epDersBek">0</b> süresi dolmamış satış · komisyon <b id="epDersKom">0 TL</b> (bekleyenlerle <b id="epDersKomT">0 TL</b>)</p>
     </div>
 
@@ -224,10 +224,14 @@
 <p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda kurulur. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur.</p>
 
 <h2>MADDE 5 — ALICIYA İNDİRİM</h2>
-<p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde alıcıya indirim uygulanmaz; bu satışlar Madde 6.8'e göre komisyona girer. Tutarlar Panelde güncel olarak gösterilir.</p>
+<p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde indirim ders başına 50 TL'dir; bu paketlerin komisyonu Madde 6.8'dedir. Tutarlar Panelde güncel olarak gösterilir.</p>
 <table><tr><th>Paket</th><th>İndirim</th><th>30.09.2026 fiyatıyla</th></tr>
 <tr><td>Staja Başlama (SGS)</td><td>400 TL</td><td>2.995 → 2.595 TL</td></tr>
-<tr><td>SMMM Yeterlilik — tüm dersler</td><td>400 TL</td><td>3.490 → 3.090 TL</td></tr></table>
+<tr><td>SMMM Yeterlilik — tüm dersler (8 ders)</td><td>400 TL</td><td>3.490 → 3.090 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 1 ders</td><td>50 TL</td><td>1.190 → 1.140 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 2 ders</td><td>100 TL</td><td>1.990 → 1.890 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 3 ders</td><td>150 TL</td><td>2.590 → 2.440 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 4 ders</td><td>200 TL</td><td>3.090 → 2.890 TL</td></tr></table>
 
 <h2>MADDE 6 — KOMİSYON VE ÖDEME</h2>
 <p><b>6.1.</b> Madde 5'teki tabloda yer alan paketlerde komisyon, kesinleşen her satış için ödenir:</p>
@@ -301,15 +305,15 @@
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var SITE   = 'https://tetikte.com/';
   /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
-     2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam). */
-  var KOSUL_SURUM = '2026-10-02';
+     2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı). */
+  var KOSUL_SURUM = '2026-10-03';
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
   function tl(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
   function goster(id){ ['epYuk','epKapali','epBagla','epKosul','epPanel'].forEach(function(k){ $(k).classList.toggle('ep-gizli', k !== id); }); }
   function tarih(t){ try { return new Date(String(t).slice(0,10) + 'T12:00:00').toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return t || ''; } }
-  function paketAdi(id){ return id === 'sgs' ? 'Staja Başlama (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : id; }
+  function paketAdi(id){ var m = /^yeterlilik-([1-4])$/.exec(id); return id === 'sgs' ? 'Staja Başlama (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : m ? 'Yeterlilik ' + m[1] + ' ders' : id; }
 
   /* 01.10 (Cem "onay yap"): onay ekranı TAM SÖZLEŞMEYİ gösterir (sözleşme v2, 16 madde). Metin template#sozlesmeMetni'de;
      kaynak Masaüstü/Tetikte-Hukuk/Tetikte-Elci-Sozlesmesi-v2 ile birebir, PDF'i elci-sozlesmesi.pdf. Eski 19 maddelik özet
@@ -381,7 +385,7 @@
       baslangic_kademe:1, donem:{ ad:'SGS 2026-3', baslangic:'2026-09-15', bitis:'2026-11-21' },
       kesin_satis:6, bekleyen_satis:2, iade:1, odeme_bekleyen:3,
       komisyon_kesin:4500, komisyon_tahmini:6000, siradaki_birim:750, sonraki_esik:10, sonraki_esik_kalan:2, sonraki_esik_birim:1000,
-      ozel_isbirligi:false, indirimler:{ sgs:400, 'yeterlilik-tum':400 },
+      ozel_isbirligi:false, indirimler:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':50, 'yeterlilik-2':100, 'yeterlilik-3':150, 'yeterlilik-4':200 },
       ders_kesin_satis:2, ders_bekleyen_satis:1, ders_komisyon_kesin:450, ders_komisyon_tahmini:600,
       odemeler:[ { odeme_tarihi:'2026-10-31', donem:'SGS 2026-3', tutar_tl:3000 } ] }, true);
     $('epCikis').hidden = true;
