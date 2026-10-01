@@ -1,6 +1,6 @@
 {
-  "tarih": "2026-10-01 21:22:38",
-  "durum": "KIRMIZI",
+  "tarih": "2026-10-01 21:33:29",
+  "durum": "YESIL",
   "ci": true,
   "genislik": [
     375,
@@ -10,13 +10,13 @@
   "olcum_toplam": 132,
   "olculen": 132,
   "KOR": 0,
-  "yeni_kusur_sayfa": 13,
-  "taban_borcu_sayfa": 6,
-  "yeni_kusur": [
+  "yeni_kusur_sayfa": 0,
+  "taban_borcu_sayfa": 21,
+  "yeni_kusur": [],
+  "taban_borcu": [
     {
       "sayfa": "alacak-radari.html@320",
       "kayma": true,
-      "sw": 335,
       "kesik": [
         {
           "oge": "div.ai-kart",
@@ -33,7 +33,6 @@
     {
       "sayfa": "gizlilik-politikasi.html",
       "kayma": true,
-      "sw": 378,
       "kesik": [
         {
           "oge": "button#mrxTema.mrxTemaSerit",
@@ -45,7 +44,6 @@
     {
       "sayfa": "gizlilik-politikasi.html@320",
       "kayma": true,
-      "sw": 378,
       "kesik": [
         {
           "oge": "button.kp-dugme",
@@ -60,9 +58,35 @@
       ]
     },
     {
+      "sayfa": "iletisim.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 394,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "iletisim.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 344,
+          "yazi": "Ara"
+        },
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 394,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
       "sayfa": "kartlar.html",
       "kayma": true,
-      "sw": 590,
       "kesik": [
         {
           "oge": "span.hap.eski",
@@ -86,161 +110,6 @@
         }
       ]
     },
-    {
-      "sayfa": "kurulus.html",
-      "kayma": true,
-      "sw": 420,
-      "kesik": [
-        {
-          "oge": "b",
-          "sag": 382,
-          "yazi": "İlk 12 ayın tarihli takvimi (telefonuna ekle)"
-        },
-        {
-          "oge": "b",
-          "sag": 420,
-          "yazi": "Unvanın tescile takılır mı? · Ortaklar sözleşmesi"
-        },
-        {
-          "oge": "b",
-          "sag": 412,
-          "yazi": "Merak ettiklerin (LTD mi AŞ mi, satış vergisi...)"
-        }
-      ]
-    },
-    {
-      "sayfa": "kurulus.html@320",
-      "kayma": true,
-      "sw": 420,
-      "kesik": [
-        {
-          "oge": "b",
-          "sag": 353,
-          "yazi": "Kaça mal olur? (2026 tarifesi, kaynaklı)"
-        },
-        {
-          "oge": "b",
-          "sag": 382,
-          "yazi": "İlk 12 ayın tarihli takvimi (telefonuna ekle)"
-        },
-        {
-          "oge": "b",
-          "sag": 420,
-          "yazi": "Unvanın tescile takılır mı? · Ortaklar sözleşmesi"
-        },
-        {
-          "oge": "b",
-          "sag": 412,
-          "yazi": "Merak ettiklerin (LTD mi AŞ mi, satış vergisi...)"
-        }
-      ]
-    },
-    {
-      "sayfa": "mesafeli-satis.html",
-      "kayma": true,
-      "sw": 391,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 391,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "mesafeli-satis.html@320",
-      "kayma": true,
-      "sw": 391,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 341,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 391,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "on-bilgilendirme.html",
-      "kayma": true,
-      "sw": 406,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 406,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "radar-fiyat.html@320",
-      "kayma": true,
-      "sw": 327,
-      "kesik": [
-        {
-          "oge": "span.fy",
-          "sag": 327,
-          "yazi": "999 TL / ay + KDV KDV dahil 1.198,80 TL"
-        },
-        {
-          "oge": "span.fy",
-          "sag": 325,
-          "yazi": "599 TL / ay + KDV KDV dahil 718,80 TL"
-        }
-      ]
-    },
-    {
-      "sayfa": "radar.html",
-      "kayma": true,
-      "sw": 389,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 389,
-          "yazi": "Ara"
-        }
-      ]
-    },
-    {
-      "sayfa": "teslimat-iade.html@320",
-      "kayma": true,
-      "sw": 372,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 322,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 372,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "uyelik-sozlesmesi.html@320",
-      "kayma": true,
-      "sw": 374,
-      "kesik": [
-        {
-          "oge": "button.kp-dugme",
-          "sag": 324,
-          "yazi": "Ara"
-        },
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 374,
-          "yazi": "☀"
-        }
-      ]
-    }
-  ],
-  "taban_borcu": [
     {
       "sayfa": "kartlar.html@320",
       "kayma": true,
@@ -268,12 +137,97 @@
       ]
     },
     {
+      "sayfa": "kurulus.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "b",
+          "sag": 382,
+          "yazi": "İlk 12 ayın tarihli takvimi (telefonuna ekle)"
+        },
+        {
+          "oge": "b",
+          "sag": 420,
+          "yazi": "Unvanın tescile takılır mı? · Ortaklar sözleşmesi"
+        },
+        {
+          "oge": "b",
+          "sag": 412,
+          "yazi": "Merak ettiklerin (LTD mi AŞ mi, satış vergisi...)"
+        }
+      ]
+    },
+    {
+      "sayfa": "kurulus.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "b",
+          "sag": 353,
+          "yazi": "Kaça mal olur? (2026 tarifesi, kaynaklı)"
+        },
+        {
+          "oge": "b",
+          "sag": 382,
+          "yazi": "İlk 12 ayın tarihli takvimi (telefonuna ekle)"
+        },
+        {
+          "oge": "b",
+          "sag": 420,
+          "yazi": "Unvanın tescile takılır mı? · Ortaklar sözleşmesi"
+        },
+        {
+          "oge": "b",
+          "sag": 412,
+          "yazi": "Merak ettiklerin (LTD mi AŞ mi, satış vergisi...)"
+        }
+      ]
+    },
+    {
       "sayfa": "kvkk.html@320",
       "kayma": true,
       "kesik": [
         {
           "oge": "button#mrxTema.mrxTemaSerit",
           "sag": 353,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "mesafeli-satis.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 391,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "mesafeli-satis.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 341,
+          "yazi": "Ara"
+        },
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 391,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "on-bilgilendirme.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 406,
           "yazi": "☀"
         }
       ]
@@ -295,6 +249,33 @@
       ]
     },
     {
+      "sayfa": "radar-fiyat.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "span.fy",
+          "sag": 327,
+          "yazi": "999 TL / ay + KDV KDV dahil 1.198,80 TL"
+        },
+        {
+          "oge": "span.fy",
+          "sag": 325,
+          "yazi": "599 TL / ay + KDV KDV dahil 718,80 TL"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 389,
+          "yazi": "Ara"
+        }
+      ]
+    },
+    {
       "sayfa": "radar.html@320",
       "kayma": true,
       "kesik": [
@@ -302,6 +283,22 @@
           "oge": "button.kp-dugme",
           "sag": 389,
           "yazi": "Ara"
+        }
+      ]
+    },
+    {
+      "sayfa": "teslimat-iade.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 322,
+          "yazi": "Ara"
+        },
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 372,
+          "yazi": "☀"
         }
       ]
     },
@@ -326,10 +323,24 @@
           "yazi": "A: GTİP KODU (ZORUNLU) B: MENŞE ÜLKE (BOŞ BIRAKILA"
         }
       ]
+    },
+    {
+      "sayfa": "uyelik-sozlesmesi.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 324,
+          "yazi": "Ara"
+        },
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 374,
+          "yazi": "☀"
+        }
+      ]
     }
   ],
-  "odenen_borc": [
-    "iletisim.html@320"
-  ],
+  "odenen_borc": [],
   "olculemeyenler": []
 }
