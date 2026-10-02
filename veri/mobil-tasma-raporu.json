@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-02 07:36:34",
+  "tarih": "2026-10-02 13:01:29",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -10,26 +10,9 @@
   "olcum_toplam": 132,
   "olculen": 132,
   "KOR": 0,
-  "yeni_kusur_sayfa": 6,
-  "taban_borcu_sayfa": 11,
+  "yeni_kusur_sayfa": 5,
+  "taban_borcu_sayfa": 10,
   "yeni_kusur": [
-    {
-      "sayfa": "durum.html@320",
-      "kayma": true,
-      "sw": 352,
-      "kesik": [
-        {
-          "oge": "table.dt",
-          "sag": 338,
-          "yazi": "Nöbet Durum Ne diyor Veri kapısı TEMİZ 1 dosya den"
-        },
-        {
-          "oge": "table.dt",
-          "sag": 352,
-          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 5 4 02/1"
-        }
-      ]
-    },
     {
       "sayfa": "elci-aydinlatma.html@320",
       "kayma": true,
@@ -275,22 +258,6 @@
       ]
     },
     {
-      "sayfa": "radar-fiyat.html@320",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "span.fy",
-          "sag": 327,
-          "yazi": "999 TL / ay + KDV KDV dahil 1.198,80 TL"
-        },
-        {
-          "oge": "span.fy",
-          "sag": 325,
-          "yazi": "599 TL / ay + KDV KDV dahil 718,80 TL"
-        }
-      ]
-    },
-    {
       "sayfa": "radar.html",
       "kayma": true,
       "kesik": [
@@ -324,6 +291,8 @@
       ]
     }
   ],
-  "odenen_borc": [],
+  "odenen_borc": [
+    "radar-fiyat.html@320"
+  ],
   "olculemeyenler": []
 }
