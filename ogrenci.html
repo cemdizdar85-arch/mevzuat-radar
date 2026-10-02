@@ -68,6 +68,24 @@
   /* 01.10 Cem "1.2.3 yap": onay kutuları "Hesap aç"ın bölümünde - giriş yapana ait sanılmasın (metin aynen) */
   .og-yeni{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
   .og-yeni .og-btnler{margin-top:12px}
+  /* 02.10 KURUMSAL GİRİŞ (Cem: "üyeliği kurumsal firmalar gibi yap"; rakip raporu _rakip-uyelik-raporu-20261002.md,
+     17 site: ayrımı görülen 12/12'de giriş ve kayıt AYRI). Tek formda "Giriş yap" + "Hesap aç" vardı; tarayıcının
+     doldurduğu eski şifreyle farkında olmadan hesap açıldı (02.10 ölçüldü). Artık dört ekran: giriş · üye ol ·
+     şifremi unuttum · yeni şifre. Her ekranda tek ana düğme. */
+  .og-sekmeler{display:flex;border-bottom:1px solid var(--line);margin:-4px 0 16px}
+  .og-sekme{font:inherit;font-size:15px;font-weight:700;flex:1;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 6px;color:var(--muted);cursor:pointer}
+  .og-sekme[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--amber)}
+  .og-sekme:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .og-form .og-btn.ana{width:100%;margin-top:14px;text-align:center}
+  .og-et-satir{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:10px 0 4px}
+  .og-et-satir label.og-et{margin:0}
+  .og-et-satir a,.og-goster{font-size:12.5px}
+  .og-goster{font:inherit;font-size:12.5px;background:none;border:0;padding:0;color:var(--amber);cursor:pointer}
+  .og-ipucu{font-size:12.5px;color:var(--muted);margin:4px 0 0}
+  .og-alt-link{font-size:13.5px;color:var(--muted);margin:14px 0 0;text-align:center}
+  .og-gonderildi{background:color-mix(in srgb,var(--green) 10%,transparent);border:1px solid color-mix(in srgb,var(--green) 45%,transparent);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.55;color:var(--ink);margin:12px 0 0}
+  .og-gonderildi ul{margin:6px 0 0;padding-left:18px}
+  .og-baslik2{font-size:18px;margin:0 0 4px}
   @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px}
     /* 01.10: telefonda form üç bilgi kartının ARKASINDA kalıyordu (375px ölçüldü) -> başlık + tek cümle, sonra form */
     .og-iki{gap:0} .og-sol{display:contents} .og-sol>*{order:2} .og-sol>h1,.og-sol>.og-ilk{order:0} .og-iki>.og-kutu{order:1;margin:0 0 22px} }
@@ -86,7 +104,7 @@
              ÜYELİK vaat etmez. Ana iş paket sahibinin girişi; hesap açma kalır (satın alma hesabı e-postaya bağlar, şifreyi
              alıcı burada koyar). Paketi olmayana iki yol: ücretsiz 30 soruluk ölçüm + paketler. Rakip: UWorld/Becker üst
              şeritte "Log in" ayrı, satın alma ayrı; giriş sayfası üyelik satmaz. -->
-        <h1>Giriş yap</h1>
+        <h1 id="ogBaslik">Giriş yap</h1>
         <p class="og-alt og-ilk">Paketini aldığın e-postayla giriş yap. Seviye testlerin, denemelerin ve yanlış kutun hesabında durur; telefonda da bilgisayarda da aynı yerden devam edersin.</p>
         <p class="og-alt" style="margin-top:10px;font-size:14px">Henüz paketin yok mu? <a class="og-link" href="seviye-testi.html">30 soruda geçme ihtimalini ücretsiz ölç →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
         <ul class="og-maddeler">
@@ -98,21 +116,77 @@
         <p class="og-alt" hidden style="margin-top:16px;font-size:13.5px">İşletme hesabı mı arıyorsun? <a class="og-link" href="radar-app.html">Radar paneline git</a>.</p>
       </div>
       <div class="og-kutu">
+        <!-- 02.10 iki sekme: giriş ve üyelik AYRI formlar (tarayıcı eski şifreyi kayıt formuna dolduramaz) -->
+        <div class="og-sekmeler" role="tablist" id="ogSekmeler">
+          <button class="og-sekme" role="tab" type="button" id="sekGiris" aria-controls="ogFormGiris" aria-selected="true">Giriş yap</button>
+          <button class="og-sekme" role="tab" type="button" id="sekKayit" aria-controls="ogFormKayit" aria-selected="false">Üye ol</button>
+        </div>
         <!-- 27.09 Google ile devam et (google-giris.js; onay satırı düğmenin üstünde, e-postalı üyelikle aynı meta alanları) -->
         <div id="ogGoogle"></div>
-        <label class="og-et" for="ogEposta">E-posta</label><input id="ogEposta" type="email" autocomplete="email" placeholder="ornek@mail.com">
-        <label class="og-et" for="ogSifre">Şifre</label><input id="ogSifre" type="password" autocomplete="current-password" placeholder="en az 6 karakter">
-        <div class="og-btnler">
-          <button class="og-btn ana" id="ogGirisBtn" type="button">Giriş yap</button>
-        </div>
-        <div class="og-yeni">
-          <p class="og-alt" style="margin:0;font-size:12.5px"><b>İlk kez mi geliyorsun?</b> Paketi aldığın e-postayı yaz, bir şifre belirle, "Hesap aç"a bas.</p>
-          <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
-          <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
-          <div class="og-btnler"><button class="og-btn" id="ogKayit" type="button">Hesap aç</button></div>
-        </div>
-        <div class="og-hata" id="ogHata" role="alert"></div>
-        <p style="font-size:13px;margin:6px 0 0"><a class="og-link" href="#" id="ogSifremi">Şifremi unuttum</a></p>
+
+        <!-- GİRİŞ -->
+        <form class="og-form" id="ogFormGiris" role="tabpanel" aria-labelledby="sekGiris" novalidate>
+          <label class="og-et" for="ogEposta">E-posta</label>
+          <input id="ogEposta" name="email" type="email" autocomplete="username" inputmode="email" placeholder="ornek@mail.com" required>
+          <div class="og-et-satir"><label class="og-et" for="ogSifre">Şifre</label><a class="og-link" href="#sifremi-unuttum" id="ogSifremi">Şifremi unuttum</a></div>
+          <input id="ogSifre" name="password" type="password" autocomplete="current-password" required>
+          <button class="og-goster" type="button" data-goster="ogSifre">Şifreyi göster</button>
+          <button class="og-btn ana" id="ogGirisBtn" type="submit">Giriş yap</button>
+          <div class="og-hata" id="ogHata" role="alert"></div>
+          <p class="og-alt-link">Hesabın yok mu? <a class="og-link" href="#uye-ol" data-git="kayit">Üye ol</a></p>
+        </form>
+
+        <!-- ÜYE OL: new-password = tarayıcı kayıtlı şifreyi buraya DOLDURMAZ, yeni şifre önerir -->
+        <form class="og-form og-gizli" id="ogFormKayit" role="tabpanel" aria-labelledby="sekKayit" novalidate>
+          <label class="og-et" for="ogKEposta">E-posta</label>
+          <input id="ogKEposta" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Paketi aldığın / alacağın e-posta" required>
+          <label class="og-et" for="ogKSifre">Şifre belirle</label>
+          <input id="ogKSifre" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
+          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogKSifre ogKSifre2">Şifreyi göster</button></p>
+          <label class="og-et" for="ogKSifre2">Şifreyi tekrar yaz</label>
+          <input id="ogKSifre2" name="new-password-2" type="password" autocomplete="new-password" minlength="8" required>
+          <div class="og-yeni" style="margin-top:12px">
+            <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
+            <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
+          </div>
+          <button class="og-btn ana" id="ogKayit" type="submit">Hesabımı oluştur</button>
+          <div class="og-hata" id="ogKHata" role="alert"></div>
+          <p class="og-alt-link">Zaten hesabın var mı? <a class="og-link" href="#giris" data-git="giris">Giriş yap</a></p>
+        </form>
+
+        <!-- ŞİFREMİ UNUTTUM -->
+        <form class="og-form og-gizli" id="ogFormSifremi" novalidate>
+          <h2 class="og-baslik2">Şifreni sıfırla</h2>
+          <p class="og-alt" style="margin:0 0 4px;font-size:14px">Hesabının e-posta adresini yaz; şifreni yenilemen için bir bağlantı gönderelim.</p>
+          <label class="og-et" for="ogSEposta">E-posta</label>
+          <input id="ogSEposta" name="email" type="email" autocomplete="username" inputmode="email" required>
+          <button class="og-btn ana" id="ogSGonder" type="submit">Sıfırlama bağlantısı gönder</button>
+          <div class="og-hata" id="ogSHata" role="alert"></div>
+          <div class="og-gonderildi og-gizli" id="ogSTamam" role="status">
+            <b>E-postanı kontrol et.</b> <span id="ogSAdres"></span> adresine kayıtlı bir hesap varsa şifre yenileme bağlantısını gönderdik.
+            <ul>
+              <li>E-posta <b>hesap@tetikte.com</b> adresinden gelir; birkaç dakika sürebilir.</li>
+              <li>Gelen kutunda yoksa <b>Gereksiz / Spam</b> klasörüne bak.</li>
+              <li>Bağlantı tek kullanımlıktır, 1 saat geçerlidir.</li>
+            </ul>
+            <p style="margin:8px 0 0"><button class="og-goster" type="button" id="ogSTekrar" disabled>Tekrar gönder</button> <span id="ogSSayac" class="og-ipucu"></span></p>
+            <p class="og-ipucu" style="margin-top:8px">Hâlâ gelmedi mi? <a class="og-link" href="mailto:destek@tetikte.com?subject=%C5%9Eifre%20s%C4%B1f%C4%B1rlama">destek@tetikte.com</a> adresine yaz.</p>
+          </div>
+          <p class="og-alt-link"><a class="og-link" href="#giris" data-git="giris">← Girişe dön</a></p>
+        </form>
+
+        <!-- YENİ ŞİFRE (e-postadaki bağlantıyla gelindi) -->
+        <form class="og-form og-gizli" id="ogFormYeni" novalidate>
+          <h2 class="og-baslik2">Yeni şifreni belirle</h2>
+          <p class="og-alt" style="margin:0 0 4px;font-size:14px" id="ogYKim"></p>
+          <label class="og-et" for="ogYSifre">Yeni şifre</label>
+          <input id="ogYSifre" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
+          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogYSifre ogYSifre2">Şifreyi göster</button></p>
+          <label class="og-et" for="ogYSifre2">Yeni şifreyi tekrar yaz</label>
+          <input id="ogYSifre2" name="new-password-2" type="password" autocomplete="new-password" minlength="8" required>
+          <button class="og-btn ana" id="ogYKaydet" type="submit">Şifremi kaydet</button>
+          <div class="og-hata" id="ogYHata" role="alert"></div>
+        </form>
       </div>
     </div>
   </section>
@@ -166,6 +240,15 @@
   <p id="ogYuk" class="og-alt">Yükleniyor…</p>
 </div>
 
+<!-- 02.10: şifre yenileme bağlantısıyla mı gelindi? supabase-js adresteki #...type=recovery kısmını okuyup SİLMEDEN
+     önce yakalanır (aksi halde oturum açılır ve kişi yeni şifre sormadan panele düşer). Süresi dolmuş bağlantı
+     #error_code=otp_expired ile döner; google-giris.js bunu "Google girişi tamamlanmadı" sanıyordu. -->
+<script>
+(function(){ var h=location.hash||'';
+  window.__ttKurtarma = /(?:^#|&)type=recovery(?:&|$)/.test(h);
+  window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\+?link|email%20link/i.test(h));
+})();
+</script>
 <!-- 27.09: supabase istemcisinden ÖNCE - Google dönüşünde ?sonra= geri konur -->
 <script src="google-giris.js"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
@@ -218,9 +301,10 @@
   function trHata(e){
     var k=(e&&(e.code||e.error_code))||'', m=(e&&e.message)||'';
     if(/captcha/i.test(k+m)) return 'Güvenlik doğrulaması tamamlanamadı. Sayfayı yenileyip tekrar dene; reklam engelleyici açıksa bu site için kapat.';
-    if(/invalid_credentials/i.test(k)||/invalid login/i.test(m)) return 'E-posta veya şifre hatalı. Hesabın yoksa "Hesap aç"a bas.';
-    if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';
-    if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap"ı dene.';
+    if(/invalid_credentials/i.test(k)||/invalid login/i.test(m)) return 'E-posta veya şifre hatalı. Şifreni hatırlamıyorsan "Şifremi unuttum"a bas; hesabın yoksa "Üye ol" sekmesinden aç.';
+    if(/weak_password/i.test(k)||/at least \d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';
+    if(/same_password/i.test(k)||/different from the old/i.test(m)) return 'Yeni şifre eskisiyle aynı olamaz.';
+    if(/user_already_exists/i.test(k)||/already registered/i.test(m)) return 'Bu e-posta zaten kayıtlı. "Giriş yap" sekmesini kullan.';
     if(/validation_failed/i.test(k)||/invalid.*email/i.test(m)) return 'E-posta adresi geçerli görünmüyor.';
     if(/email_not_confirmed/i.test(k)) return 'E-postanı doğrulaman gerekiyor: gelen kutunu kontrol et.';
     /* 23.09: proje geneli e-posta tavanı (Auth → Rate Limits, 23.09'da saatte 30
@@ -359,40 +443,151 @@
   function girisGoster(){
     $('ogYuk').classList.add('og-gizli'); $('ogPanel').classList.add('og-gizli'); $('ogGiris').classList.remove('og-gizli');
   }
-  $('ogGirisBtn').addEventListener('click',async function(){
-    $('ogHata').className='og-hata'; $('ogHata').textContent='';
-    var r=await sb.auth.signInWithPassword({email:$('ogEposta').value.trim(),password:$('ogSifre').value,options:{captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)}});
-    if(r.error){ $('ogHata').textContent=trHata(r.error); denemeYolu($('ogHata'),r.error); return; }
-    panel(r.data.user);
+
+  /* 02.10 KURUMSAL GİRİŞ — dört ekran. Adres: #uye-ol / #sifremi-unuttum doğrudan açar (başka sayfalar bağlayabilir). */
+  var EKRAN={ giris:{form:'ogFormGiris',baslik:'Giriş yap',sekme:true},
+              kayit:{form:'ogFormKayit',baslik:'Üye ol',sekme:true,aciklama:'Paketi aldığın (ya da alacağın) e-postayla hesabını aç. Seviye testlerin, denemelerin ve yanlış kutun hesabında durur; telefonda da bilgisayarda da aynı yerden devam edersin.'},
+              sifremi:{form:'ogFormSifremi',baslik:'Şifreni sıfırla',sekme:false,aciklama:'Hesabının e-posta adresine bir bağlantı göndeririz; bağlantıdan yeni şifreni belirlersin. Sonuçların ve paketin olduğu gibi kalır.'},
+              yeni:{form:'ogFormYeni',baslik:'Yeni şifre belirle',sekme:false,aciklama:'Yeni şifreni iki kez yaz ve kaydet. Kaydettikten sonra doğrudan hesabına geçersin.'} };
+  var EPOSTA_DESEN=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, SIFRE_EN_AZ=8;
+  function ekranAc(ad,odak){
+    var e=EKRAN[ad]||EKRAN.giris;
+    Object.keys(EKRAN).forEach(function(k){ $(EKRAN[k].form).classList.toggle('og-gizli',k!==ad); });
+    $('ogSekmeler').classList.toggle('og-gizli',!e.sekme);
+    $('ogGoogle').classList.toggle('og-gizli',!e.sekme);
+    $('sekGiris').setAttribute('aria-selected',String(ad==='giris'));
+    $('sekKayit').setAttribute('aria-selected',String(ad==='kayit'));
+    $('ogBaslik').textContent=e.baslik;
+    var ilkP=document.querySelector('.og-ilk'); if(ilkP){ if(!ilkP.dataset.asil) ilkP.dataset.asil=ilkP.textContent; ilkP.textContent=e.aciklama||ilkP.dataset.asil; }
+    /* bir ekrandan ötekine geçerken yazılan e-posta taşınır (kişi iki kez yazmasın) */
+    var ep=[ 'ogEposta','ogKEposta','ogSEposta' ].map(function(i){ return $(i).value.trim(); }).filter(Boolean)[0]||'';
+    ['ogEposta','ogKEposta','ogSEposta'].forEach(function(i){ if(!$(i).value.trim()) $(i).value=ep; });
+    if(odak!==false){ var ilk=$(e.form).querySelector('input:not([type=checkbox])'); if(ilk) setTimeout(function(){ try{ ilk.focus({preventScroll:true}); }catch(x){} },0); }
+  }
+  $('sekGiris').addEventListener('click',function(){ ekranAc('giris'); });
+  $('sekKayit').addEventListener('click',function(){ ekranAc('kayit'); });
+  document.querySelectorAll('[data-git]').forEach(function(a){ a.addEventListener('click',function(ev){ ev.preventDefault(); ekranAc(a.getAttribute('data-git')); }); });
+  $('ogSifremi').addEventListener('click',function(ev){ ev.preventDefault(); ekranAc('sifremi'); });
+  /* şifreyi göster / gizle */
+  document.querySelectorAll('[data-goster]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var ids=b.getAttribute('data-goster').split(' '), ac=$(ids[0]).type==='password';
+      ids.forEach(function(i){ $(i).type=ac?'text':'password'; });
+      b.textContent=ac?'Şifreyi gizle':'Şifreyi göster';
+    });
   });
-  $('ogKayit').addEventListener('click',async function(){
-    var h=$('ogHata'); h.className='og-hata'; h.textContent='';
-    if(!$('ogKosul').checked){ h.textContent='Hesap açmak için koşulları ve aydınlatma metnini kabul etmen gerekiyor.'; return; }
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('ogEposta').value.trim())){ h.textContent='E-posta adresini yaz.'; return; }
-    if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }
-    var an=new Date().toISOString(), riza=$('ogRiza').checked;
-    var r=await sb.auth.signUp({ email:$('ogEposta').value.trim(), password:$('ogSifre').value,
-      options:{ captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null } } });
-    if(r.error){ h.textContent=trHata(r.error); denemeYolu(h,r.error); return; }
-    if(r.data.session){ panel(r.data.user); }
-    else { h.className='og-bilgi'; h.textContent='Hesabın açıldı. E-postana bir doğrulama bağlantısı geldiyse ona tıkla, sonra giriş yap.'; }
+  function hataYaz(id,metin){ var h=$(id); h.className='og-hata'; h.textContent=metin||''; }
+  async function captchaJeton(){ return window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined; }
+  function mesgul(btn,evet,yazi){ btn.disabled=evet; if(yazi) btn.textContent=yazi; }
+
+  /* GİRİŞ */
+  $('ogFormGiris').addEventListener('submit',async function(ev){
+    ev.preventDefault(); hataYaz('ogHata','');
+    var ep=$('ogEposta').value.trim(), sf=$('ogSifre').value;
+    if(!EPOSTA_DESEN.test(ep)){ hataYaz('ogHata','E-posta adresini yaz.'); $('ogEposta').focus(); return; }
+    if(!sf){ hataYaz('ogHata','Şifreni yaz.'); $('ogSifre').focus(); return; }
+    var b=$('ogGirisBtn'); mesgul(b,true,'Giriş yapılıyor…');
+    try{
+      var r=await sb.auth.signInWithPassword({email:ep,password:sf,options:{captchaToken:await captchaJeton()}});
+      if(r.error){ hataYaz('ogHata',trHata(r.error)); denemeYolu($('ogHata'),r.error); return; }
+      panel(r.data.user);
+    } finally { mesgul(b,false,'Giriş yap'); }
   });
-  $('ogSifremi').addEventListener('click',async function(e){
-    e.preventDefault(); var h=$('ogHata'), ep=$('ogEposta').value.trim();
-    if(!ep){ h.className='og-hata'; h.textContent='Önce e-posta adresini yaz.'; return; }
-    var r=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html',captchaToken:(window.ttCaptchaToken ? await window.ttCaptchaToken() : undefined)});
-    h.className=r.error?'og-hata':'og-bilgi'; h.textContent=r.error?trHata(r.error):'Şifre yenileme bağlantısı e-postana gönderildi.';
+
+  /* ÜYE OL */
+  $('ogFormKayit').addEventListener('submit',async function(ev){
+    ev.preventDefault(); hataYaz('ogKHata','');
+    var ep=$('ogKEposta').value.trim(), s1=$('ogKSifre').value, s2=$('ogKSifre2').value;
+    if(!EPOSTA_DESEN.test(ep)){ hataYaz('ogKHata','E-posta adresini yaz.'); $('ogKEposta').focus(); return; }
+    if(s1.length<SIFRE_EN_AZ){ hataYaz('ogKHata','Şifre en az '+SIFRE_EN_AZ+' karakter olmalı.'); $('ogKSifre').focus(); return; }
+    if(s1!==s2){ hataYaz('ogKHata','İki şifre aynı değil. Tekrar yaz.'); $('ogKSifre2').focus(); return; }
+    if(!$('ogKosul').checked){ hataYaz('ogKHata','Hesap açmak için Üyelik Koşulları\'nı ve KVKK Aydınlatma Metni\'ni kabul etmen gerekiyor.'); return; }
+    var b=$('ogKayit'); mesgul(b,true,'Hesabın oluşturuluyor…');
+    try{
+      var an=new Date().toISOString(), riza=$('ogRiza').checked;
+      var r=await sb.auth.signUp({ email:ep, password:s1,
+        options:{ captchaToken:await captchaJeton(), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null } } });
+      if(r.error){
+        /* kayıtlı adres: kişiyi girişe al, e-postayı taşı */
+        if(/user_already_exists/i.test(r.error.code||'')||/already registered/i.test(r.error.message||'')){
+          $('ogEposta').value=ep; $('ogSifre').value=''; ekranAc('giris');
+          hataYaz('ogHata','Bu e-postayla zaten bir hesabın var. Şifrenle giriş yap ya da "Şifremi unuttum"a bas.'); return;
+        }
+        hataYaz('ogKHata',trHata(r.error)); denemeYolu($('ogKHata'),r.error); return;
+      }
+      if(r.data.session){ panel(r.data.user); return; }
+      /* e-posta doğrulaması açıksa (bugün kapalı) ya da adres zaten kayıtlıysa Supabase oturumsuz döner */
+      var h=$('ogKHata'); h.className='og-bilgi';
+      h.textContent='Neredeyse bitti: '+ep+' adresine bir doğrulama bağlantısı gönderdik. Bağlantıya tıklayınca hesabın açılır. Bu adresle daha önce üye olduysan "Giriş yap"ı kullan.';
+    } finally { mesgul(b,false,'Hesabımı oluştur'); }
   });
+
+  /* ŞİFREMİ UNUTTUM — Supabase güvenlik gereği "böyle bir hesap yok" demez; mesaj da öyle kurulur. */
+  var sayacZamani=null;
+  function tekrarSayaci(sn){
+    var b=$('ogSTekrar'), y=$('ogSSayac'); b.disabled=true; clearInterval(sayacZamani);
+    var kalan=sn; y.textContent='('+kalan+' sn sonra)';
+    sayacZamani=setInterval(function(){ kalan--; if(kalan<=0){ clearInterval(sayacZamani); y.textContent=''; b.disabled=false; } else y.textContent='('+kalan+' sn sonra)'; },1000);
+  }
+  async function sifirlamaGonder(){
+    hataYaz('ogSHata','');
+    var ep=$('ogSEposta').value.trim();
+    if(!EPOSTA_DESEN.test(ep)){ hataYaz('ogSHata','Hesabının e-posta adresini yaz.'); $('ogSEposta').focus(); return; }
+    var b=$('ogSGonder'); mesgul(b,true,'Gönderiliyor…');
+    try{
+      var r=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html',captchaToken:await captchaJeton()});
+      if(r.error){ hataYaz('ogSHata',trHata(r.error)); return; }
+      $('ogSAdres').textContent=ep; $('ogSTamam').classList.remove('og-gizli');
+      b.classList.add('og-gizli'); tekrarSayaci(60);   /* 60 sn = Supabase "kullanıcı başına en kısa aralık" ayarı */
+    } finally { mesgul(b,false,'Sıfırlama bağlantısı gönder'); }
+  }
+  $('ogFormSifremi').addEventListener('submit',function(ev){ ev.preventDefault(); sifirlamaGonder(); });
+  $('ogSTekrar').addEventListener('click',function(){ sifirlamaGonder(); });
+
+  /* YENİ ŞİFRE — e-postadaki bağlantıyla gelindi (window.__ttKurtarma) ya da Supabase PASSWORD_RECOVERY olayı */
+  var kurtarmaModu=!!window.__ttKurtarma;
+  function yeniSifreEkrani(user){
+    kurtarmaModu=true; girisGoster(); ekranAc('yeni');
+    $('ogYKim').textContent=user&&user.email ? user.email+' hesabı için yeni bir şifre belirle.' : 'Hesabın için yeni bir şifre belirle.';
+  }
+  $('ogFormYeni').addEventListener('submit',async function(ev){
+    ev.preventDefault(); hataYaz('ogYHata','');
+    var s1=$('ogYSifre').value, s2=$('ogYSifre2').value;
+    if(s1.length<SIFRE_EN_AZ){ hataYaz('ogYHata','Şifre en az '+SIFRE_EN_AZ+' karakter olmalı.'); $('ogYSifre').focus(); return; }
+    if(s1!==s2){ hataYaz('ogYHata','İki şifre aynı değil. Tekrar yaz.'); $('ogYSifre2').focus(); return; }
+    var b=$('ogYKaydet'); mesgul(b,true,'Kaydediliyor…');
+    try{
+      var r=await sb.auth.updateUser({password:s1});
+      if(r.error){
+        var oturumYok=/session|jwt|not.*auth/i.test((r.error.code||'')+' '+(r.error.message||''));
+        hataYaz('ogYHata', oturumYok ? 'Bağlantının süresi dolmuş. "Şifremi unuttum"dan yenisini iste.' : trHata(r.error)); return;
+      }
+      kurtarmaModu=false;
+      try{ history.replaceState(history.state,'',location.pathname+location.search); }catch(x){}
+      var u=(await sb.auth.getUser()).data.user;
+      panel(u).then(function(){ var k=$('ogKasaUyari'); if(k){ k.classList.remove('og-gizli'); k.textContent='Şifren güncellendi. Bundan sonra yeni şifrenle giriş yaparsın.'; } });
+    } finally { mesgul(b,false,'Şifremi kaydet'); }
+  });
+
   $('ogCikis').addEventListener('click',function(){ sb.auth.signOut().then(function(){ location.reload(); }); });
 
-  /* şifre yenileme bağlantısıyla dönüldüyse yeni şifre sorulur */
-  sb.auth.onAuthStateChange(function(olay){
+  sb.auth.onAuthStateChange(function(olay,oturum){
     if(olay!=='PASSWORD_RECOVERY') return;
-    var yeni=prompt('Yeni şifreni yaz (en az 6 karakter):');
-    if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }
-    sb.auth.updateUser({password:yeni}).then(function(r){ alert(r.error?('Şifre değişmedi: '+trHata(r.error)):'Şifren yenilendi.'); });
+    setTimeout(function(){ yeniSifreEkrani(oturum&&oturum.user); },0);
   });
-  sb.auth.getSession().then(function(r){ var s=r.data&&r.data.session; if(s) panel(s.user); else girisGoster(); }).catch(girisGoster);
+  /* adresle gelen ekran: #uye-ol / #sifremi-unuttum */
+  var hashEkran = /^#uye-ol$/.test(location.hash) ? 'kayit' : /^#sifremi-unuttum$/.test(location.hash) ? 'sifremi' : null;
+  sb.auth.getSession().then(function(r){
+    var s=r.data&&r.data.session;
+    if(kurtarmaModu){ if(s) yeniSifreEkrani(s.user); else { girisGoster(); ekranAc('sifremi'); hataYaz('ogSHata','Bağlantı açılamadı ya da süresi dolmuş. Yeni bir bağlantı iste.'); } return; }
+    if(s){ panel(s.user); return; }
+    girisGoster();
+    if(window.__ttKurtarmaHata){
+      ekranAc('sifremi'); hataYaz('ogSHata','Şifre yenileme bağlantısının süresi dolmuş ya da daha önce kullanılmış. Aşağıdan yenisini iste.');
+      var gh=document.querySelector('#ogGoogle .tt-google-hata'); if(gh) gh.textContent='';   /* google-giris.js bunu Google hatası sanır */
+      try{ history.replaceState(history.state,'',location.pathname+location.search); }catch(x){}
+    } else ekranAc(hashEkran||'giris', !!hashEkran);
+  }).catch(girisGoster);
 })();
 </script>
 <script src="sinav-sonucu.js" defer></script>
