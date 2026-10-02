@@ -2,6 +2,12 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<!-- 02.10.2026 Cem (iyzico: "sitenizi yalnız abonelik ödemesi alacak şekilde düzenleyin"): radar aboneliği SATILMIYOR.
+     Sayfa silinmedi/taşınmadı (24.09 yapısal denetçi dersi); açılınca sınav fiyatlarına yönlenir, sipariş formu kapalı
+     (KURULUM_TAMAM=false). Geri almak: bu üç satırı sil + KURULUM_TAMAM satırını eski hâline getir. -->
+<meta http-equiv="refresh" content="0;url=fiyat.html">
+<meta name="robots" content="noindex">
+<script>location.replace('fiyat.html');</script>
 <script src="tema-bas.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -405,7 +411,7 @@
 var EPOSTA_ENDPOINT = 'https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task';
 var SB_URL  = 'https://bjrleanjpyujtajmazxn.supabase.co';
 var SB_ANON = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
-var KURULUM_TAMAM = ODEME_BANKA.iban.indexOf('[') === -1;
+var KURULUM_TAMAM = false;   // 02.10 radar aboneliği satılmıyor (eski: ODEME_BANKA.iban.indexOf('[') === -1)
 var PLANLAR = radarPlanlari(), secili = null;
 function $i(id){ return document.getElementById(id); }
 function para(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' TL'; }
