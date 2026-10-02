@@ -1,6 +1,329 @@
 {
-  "tarih": "2026-10-02 04:28:20",
-  "durum": "KOR",
-  "sebep": "port-yok",
-  "ci": true
+  "tarih": "2026-10-02 06:50:00",
+  "durum": "KIRMIZI",
+  "ci": true,
+  "genislik": [
+    375,
+    320
+  ],
+  "sayfa_toplam": 66,
+  "olcum_toplam": 132,
+  "olculen": 132,
+  "KOR": 0,
+  "yeni_kusur_sayfa": 6,
+  "taban_borcu_sayfa": 11,
+  "yeni_kusur": [
+    {
+      "sayfa": "durum.html@320",
+      "kayma": true,
+      "sw": 352,
+      "kesik": [
+        {
+          "oge": "table.dt",
+          "sag": 331,
+          "yazi": "Nöbet Durum Ne diyor Veri kapısı TEMİZ 1 dosya den"
+        },
+        {
+          "oge": "table.dt",
+          "sag": 352,
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 5 4 02/1"
+        }
+      ]
+    },
+    {
+      "sayfa": "elci-aydinlatma.html@320",
+      "kayma": true,
+      "sw": 358,
+      "kesik": [
+        {
+          "oge": "table.ea-tablo",
+          "sag": 358,
+          "yazi": "Veri Amaç Hukuki sebep Ad soyad, e-posta adresi, t"
+        }
+      ]
+    },
+    {
+      "sayfa": "kartlar.html",
+      "kayma": true,
+      "sw": 603,
+      "kesik": [
+        {
+          "oge": "span.hap.yeni",
+          "sag": 597,
+          "yazi": "güvenlik, emniyet ve nükleer güvence gereklerini g"
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 603,
+          "yazi": "sahanın onaylanması veya bir faaliyetin yetkilendi"
+        },
+        {
+          "oge": "span.hap.eski",
+          "sag": 437,
+          "yazi": "Herhangi bir yetkilendirme başvurusunda bulunmadan"
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 410,
+          "yazi": "İlk onay veya yetkilendirme başvurusuyla birlikte"
+        },
+        {
+          "oge": "span.hap.eski",
+          "sag": 459,
+          "yazi": "Damping soruşturması açılması ve usul esaslarının "
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 590,
+          "yazi": "Tamamlanan soruşturmanın sonucunda alınan kararın "
+        },
+        {
+          "oge": "span.hap.eski",
+          "sag": 430,
+          "yazi": "Zhejiang Juba Welding Equipments Manufacturing Co."
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 389,
+          "yazi": "Zhejiang Juba Mechanical & Electrical Co., Ltd."
+        }
+      ]
+    },
+    {
+      "sayfa": "kartlar.html@320",
+      "kayma": true,
+      "sw": 603,
+      "kesik": [
+        {
+          "oge": "span.hap.yeni",
+          "sag": 597,
+          "yazi": "güvenlik, emniyet ve nükleer güvence gereklerini g"
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 603,
+          "yazi": "sahanın onaylanması veya bir faaliyetin yetkilendi"
+        },
+        {
+          "oge": "span.hap.eski",
+          "sag": 437,
+          "yazi": "Herhangi bir yetkilendirme başvurusunda bulunmadan"
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 410,
+          "yazi": "İlk onay veya yetkilendirme başvurusuyla birlikte"
+        },
+        {
+          "oge": "span.hap.eski",
+          "sag": 459,
+          "yazi": "Damping soruşturması açılması ve usul esaslarının "
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 590,
+          "yazi": "Tamamlanan soruşturmanın sonucunda alınan kararın "
+        },
+        {
+          "oge": "span.hap.eski",
+          "sag": 430,
+          "yazi": "Zhejiang Juba Welding Equipments Manufacturing Co."
+        },
+        {
+          "oge": "span.hap.yeni",
+          "sag": 389,
+          "yazi": "Zhejiang Juba Mechanical & Electrical Co., Ltd."
+        }
+      ]
+    },
+    {
+      "sayfa": "toplu-gtip.html@320",
+      "kayma": true,
+      "sw": 486,
+      "kesik": [
+        {
+          "oge": "table",
+          "sag": 486,
+          "yazi": "A: GTİP KODU (ZORUNLU) B: MENŞE ÜLKE (BOŞ BIRAKILA"
+        },
+        {
+          "oge": "input#csvDosya",
+          "sag": 323,
+          "yazi": ""
+        }
+      ]
+    },
+    {
+      "sayfa": "ucretsiz-dene.html@320",
+      "kayma": true,
+      "sw": 362,
+      "kesik": [
+        {
+          "oge": "span",
+          "sag": 362,
+          "yazi": "Paketleri gör →Paketin varsa giriş yap"
+        }
+      ]
+    }
+  ],
+  "taban_borcu": [
+    {
+      "sayfa": "alacak-radari.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "div.ai-kart",
+          "sag": 335,
+          "yazi": "📊 MAKRO SİNYAL · COĞRAFİ YOĞUNLUK Arşivdeki 5.920"
+        },
+        {
+          "oge": "div#aiResmi.ai-kart",
+          "sag": 335,
+          "yazi": "🏦 RESMÎ · TBB RİSK MERKEZİ · 2026 OCAK-HAZİRAN (K"
+        }
+      ]
+    },
+    {
+      "sayfa": "gizlilik-politikasi.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 378,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "iletisim.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 394,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "kurulus.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "b",
+          "sag": 382,
+          "yazi": "İlk 12 ayın tarihli takvimi (telefonuna ekle)"
+        },
+        {
+          "oge": "b",
+          "sag": 420,
+          "yazi": "Unvanın tescile takılır mı? · Ortaklar sözleşmesi"
+        },
+        {
+          "oge": "b",
+          "sag": 412,
+          "yazi": "Merak ettiklerin (LTD mi AŞ mi, satış vergisi...)"
+        }
+      ]
+    },
+    {
+      "sayfa": "kurulus.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "b",
+          "sag": 353,
+          "yazi": "Kaça mal olur? (2026 tarifesi, kaynaklı)"
+        },
+        {
+          "oge": "b",
+          "sag": 382,
+          "yazi": "İlk 12 ayın tarihli takvimi (telefonuna ekle)"
+        },
+        {
+          "oge": "b",
+          "sag": 420,
+          "yazi": "Unvanın tescile takılır mı? · Ortaklar sözleşmesi"
+        },
+        {
+          "oge": "b",
+          "sag": 412,
+          "yazi": "Merak ettiklerin (LTD mi AŞ mi, satış vergisi...)"
+        }
+      ]
+    },
+    {
+      "sayfa": "mesafeli-satis.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 391,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "on-bilgilendirme.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 406,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar-fiyat.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "span.fy",
+          "sag": 327,
+          "yazi": "999 TL / ay + KDV KDV dahil 1.198,80 TL"
+        },
+        {
+          "oge": "span.fy",
+          "sag": 325,
+          "yazi": "599 TL / ay + KDV KDV dahil 718,80 TL"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 389,
+          "yazi": "Ara"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 389,
+          "yazi": "Ara"
+        }
+      ]
+    },
+    {
+      "sayfa": "toplu-gtip.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "table",
+          "sag": 486,
+          "yazi": "A: GTİP KODU (ZORUNLU) B: MENŞE ÜLKE (BOŞ BIRAKILA"
+        }
+      ]
+    }
+  ],
+  "odenen_borc": [],
+  "olculemeyenler": []
 }
