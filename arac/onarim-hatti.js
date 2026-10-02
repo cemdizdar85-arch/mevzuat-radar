@@ -143,8 +143,11 @@ async function teslim(K) {
 // Yeniden hakem kapsamı AÇIK kaynaktan: verilen plan dosyalarının pilotId'leri (gerekçe metnine bakılmaz — risk taramasından
 // gelen yanlış cevaplı kayıtların gerekçesinde "yeniden hakem" ifadesi yok, metinle arama onları kaçırırdı).
 async function hakem(planlar) {
+  // 02.10: SMMM planları da işlenir — liste etiket önekinden seçilir (teslim ile aynı retSec; karışık plan kümesi DURUR).
+  const planSatir = []; for (const p of planlar) for (const r of JSON.parse(fs.readFileSync(path.resolve(p), 'utf8').replace(/^﻿/, ''))) planSatir.push(r);
+  if (planSatir.length) retSec([...new Set(planSatir.map(r => String(r.etiket)))]);
   const o = okuJ(RET); const bekSet = new Set();
-  for (const p of planlar) for (const r of JSON.parse(fs.readFileSync(path.resolve(p), 'utf8').replace(/^﻿/, ''))) for (const kp of String(r.pilotId || '').split(',').filter(Boolean)) bekSet.add(r.etiket + '/' + kp);
+  for (const r of planSatir) for (const kp of String(r.pilotId || '').split(',').filter(Boolean)) bekSet.add(r.etiket + '/' + kp);
   const bek = [...bekSet].filter(k => o.j.kayitlar[k]);
   const Kk = anahtar(); const onb = {}; const evet = [], hayir = [], bekliyor = [];
   for (const ad of bek) { const [e, kp] = ad.split('/'); if (!onb[e]) onb[e] = await ambarParti(e, Kk); const q = onb[e][kp] || {};
