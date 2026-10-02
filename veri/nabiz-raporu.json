@@ -1,20 +1,23 @@
 {
-  "tarih": "02.10.2026 18:43",
+  "tarih": "02.10.2026 23:10",
   "durum": "ALARM",
-  "kirmizi": 4,
-  "kurtarma": 1,
+  "kirmizi": 1,
+  "kurtarma": 4,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [
-    "ESKALASYON: Kaynak Nobetcisi (ihale+kaynaklar) -> kurtarma ise yaramadi (son basarili kosu 212.5 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 801.2 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 202.2 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Kaynak Nobetcisi -> kurtarma ise yaramadi (Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (215 saat eski; esik 36s)). Actions loguna bak."
+    "ESKALASYON: Kasa Sayimi -> kurtarma ise yaramadi (Vitrin kanit sayilari damgasi 30.09.2026 (71 saat eski; esik 48s)). Actions loguna bak."
   ],
   "kurtarilan": [
-    "Kasa Sayimi -> Vitrin kanit sayilari damgasi 30.09.2026 (67 saat eski; esik 48s) -> kurtarma: tetiklendi"
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 216.9 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 805.7 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Smoke Nobetcisi -> son basarili kosu 206.7 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (220 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
   ],
   "kurtarilan_anahtar": [
-    "VERI:vitrin-sayilar.json"
+    "KOSU:kaynak.yml",
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml",
+    "VERI:ihale-yurtici.json"
   ]
 }
