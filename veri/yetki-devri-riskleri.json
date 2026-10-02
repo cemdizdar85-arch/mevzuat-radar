@@ -1,11 +1,11 @@
 {
-  "tarih": "02.10.2026 13:03",
+  "tarih": "02.10.2026 19:04",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
   "sayfa": 66,
   "atifli_iddia": 292,
-  "dayanaksiz_iddia": 388,
+  "dayanaksiz_iddia": 390,
   "kirmizi_aday": 30,
   "yeni_aday": 1,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     }
   ],
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -190,7 +190,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2026,45 +2026,57 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 93,
+      "satir": 111,
       "iddia": "7 gün",
       "metin": "Geçme ihtimalin nasıl değişiyor? Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 134,
+      "satir": 145,
+      "iddia": "En az 8",
+      "metin": "En az 8 karakter. Şifreyi göster"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 170,
+      "iddia": "1 saat",
+      "metin": "Bağlantı tek kullanımlıktır, 1 saat geçerlidir."
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 184,
+      "iddia": "En az 8",
+      "metin": "En az 8 karakter. Şifreyi göster"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 208,
       "iddia": "30 gün",
       "metin": "ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 222,
-      "iddia": "en az 6",
-      "metin": "if(/weak_password/i.test(k)||/at least 6/i.test(m)) return 'Şifre en az 6 karakter olmalı.';"
+      "satir": 249,
+      "iddia": "%20",
+      "metin": "window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\\+?link|email%20link/i.test(h));"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 282,
+      "satir": 305,
+      "iddia": "en az 8",
+      "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 366,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 328,
+      "satir": 412,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
-    },
-    {
-      "sayfa": "ogrenci.html",
-      "satir": 372,
-      "iddia": "en az 6",
-      "metin": "if(($('ogSifre').value||'').length<6){ h.textContent='Şifre en az 6 karakter olmalı.'; return; }"
-    },
-    {
-      "sayfa": "ogrenci.html",
-      "satir": 392,
-      "iddia": "en az 6",
-      "metin": "if(!yeni||yeni.length<6){ alert('Şifre değişmedi: en az 6 karakter olmalı. Bağlantıyı yeniden isteyebilirsin.'); return; }"
     },
     {
       "sayfa": "on-bilgilendirme.html",
