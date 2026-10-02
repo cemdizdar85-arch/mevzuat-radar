@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-02 03:30:04",
+  "tarih": "2026-10-02 03:39:00",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -11,7 +11,7 @@
   "olculen": 132,
   "KOR": 0,
   "yeni_kusur_sayfa": 6,
-  "taban_borcu_sayfa": 9,
+  "taban_borcu_sayfa": 11,
   "yeni_kusur": [
     {
       "sayfa": "durum.html@320",
@@ -21,12 +21,12 @@
         {
           "oge": "table.dt",
           "sag": 331,
-          "yazi": "Nöbet Durum Ne diyor Veri kapısı TEMİZ 1 dosya den"
+          "yazi": "Nöbet Durum Ne diyor Veri kapısı TEMİZ 2 dosya den"
         },
         {
           "oge": "table.dt",
           "sag": 352,
-          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 8 7 02/1"
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 7 6 02/1"
         }
       ]
     },
@@ -291,6 +291,28 @@
       ]
     },
     {
+      "sayfa": "radar.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 389,
+          "yazi": "Ara"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button.kp-dugme",
+          "sag": 389,
+          "yazi": "Ara"
+        }
+      ]
+    },
+    {
       "sayfa": "toplu-gtip.html",
       "kayma": true,
       "kesik": [
@@ -302,9 +324,6 @@
       ]
     }
   ],
-  "odenen_borc": [
-    "radar.html",
-    "radar.html@320"
-  ],
+  "odenen_borc": [],
   "olculemeyenler": []
 }
