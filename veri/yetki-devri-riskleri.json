@@ -1,11 +1,11 @@
 {
-  "tarih": "02.10.2026 07:30",
+  "tarih": "02.10.2026 12:55",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
   "sayfa": 66,
   "atifli_iddia": 292,
-  "dayanaksiz_iddia": 385,
+  "dayanaksiz_iddia": 388,
   "kirmizi_aday": 30,
   "yeni_aday": 1,
   "yeni": [
@@ -20,49 +20,49 @@
   "kirmizi": [
     {
       "sayfa": "alacak-radari.html",
-      "satir": 228,
+      "satir": 229,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "Konkordatoda alacak kaydı süresi ilan tarihinden 15 gündür (İİK m.299); süresinde kaydını yaptırmayan alacaklı, borçlunun bilançosunda kayıtlı değilse müzakereye alınmaz ve oy kull"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 366,
+      "satir": 367,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// m.299 alacak kaydı 15 günü YALNIZ alacaklıları davet/çağrı ve kesin mühlet"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 370,
+      "satir": 371,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// m.299 konkordato alacak kaydı 15 gün · m.219 iflas alacak kaydı ilandan 1 AY ·"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 381,
+      "satir": 382,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "// KAYIT ÇAĞRISI -> m.299, 15 gün geri sayım (toplantı hariç)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 383,
+      "satir": 384,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "return {tip:'Alacak kaydı', madde:'m.299', gun:15, aciklama:'ilan tarihinden 15 gün', hap:'Komiser alacaklıları kayda çağırıyor. Alacağını 15 gün içinde belgeyle komisere kaydet; b"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 415,
+      "satir": 416,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 953,
+      "satir": 954,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "3 Sana ilan değil, yapılacak iş gelir. \"Müşterin X konkordato ilan etti, İİK m.299, 15 gün içinde alacağını komisere kaydet, yoksa müzakere dışında kalabilirsin.\" Mahkeme, dosya no"
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -250,211 +250,211 @@
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 274,
+      "satir": 275,
       "iddia": "365 gün",
       "metin": "// 365 gün tutuyor, 1 yıldan eskisi hiçbir açık kaynaktan alınamıyor (ölçüldü:"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 276,
+      "satir": 277,
       "iddia": "1 yıl",
       "metin": "// derinleşir — kaynaktan düşeni kasa tutar. Sayfa artık \"son 1 yıl\" DEMEZ;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 279,
+      "satir": 280,
       "iddia": "1 yıl",
       "metin": "// 'arsivDerinligi' bayrağı gelmez → eski \"son 1 yıl\" cümlesi kalır (o durumda"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 280,
+      "satir": 281,
       "iddia": "365 gün",
       "metin": "// kasa gerçekten 365 günle sayıyor; yanlış hüküm kurulmaz — kör kalma kuralı)."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 286,
+      "satir": 287,
       "iddia": "1 yıl",
       "metin": "// büyür). Göç yoksa eski mutlak eşik: 1 yıl iddiasında 300 günün altı eksiktir."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 310,
+      "satir": 311,
       "iddia": "13 ay",
       "metin": "// 28.08 ÖLÇÜLDÜ (ilan.gov.tr API, 5.743 ilan, 13 ay): 'iflas-ve-tasfiye'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 317,
+      "satir": 318,
       "iddia": "1 yıl",
       "metin": "// 28.08 GÖREV 2: sayfa dibindeki \"Veri kaynağı\" bloğu da \"son 1 yılın tamamı"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 334,
+      "satir": 335,
       "iddia": "1 yıl",
       "metin": "// ret_iflas damgası ilan BAŞLIĞINDAN çıkarılıyor. Ölçüm (son 1 yıl, kasadan):"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 357,
+      "satir": 358,
       "iddia": "188 gün",
       "metin": "// seçiliyken kısa kapsamın sebebi bu değil — 'iflas_kaldirma' 188 gün çıkıyor"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 573,
+      "satir": 574,
       "iddia": "365 gun",
       "metin": "// son 365 gun, kasadan sayildi): iflas turunde kesin muhlet 0, gecici muhlet 0,"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 596,
+      "satir": 597,
       "iddia": "%56",
       "metin": "// komiser görevine son YAN HÜKÜM, %56/%42 ile neredeyse her ilanda var):"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 633,
+      "satir": 634,
       "iddia": "30 gün",
       "metin": "// BAYATLIK NÖBETİ (27.08): hasat kırılırsa \"son 30 günde N ilan\" rakamı sessizce"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 634,
+      "satir": 635,
       "iddia": "3 gün",
       "metin": "// küçülür, sayfa hâlâ canlı görünür. En yeni ilanın tarihi ölçülür; 3 günü aşan"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 645,
+      "satir": 646,
       "iddia": "365 gün",
       "metin": "// 04.09: arşiv kaynağın 365 günlük penceresinden derinse bunu AÇIKÇA söyle —"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 647,
+      "satir": 648,
       "iddia": "365 gün",
       "metin": "if(AI_SUNUCU_ARSIV && AI_ARSIV_GUN!==null && AI_ARSIV_GUN>365) h+=' · '+AI_ARSIV_GUN+' günlük arşiv (kaynak yalnız 365 gün tutar; düşen ilanlar bizde kalır) ';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 674,
+      "satir": 675,
       "iddia": "1 yıl",
       "metin": "// 28.08 YANLIŞ HÜKÜM KAPANDI: sayfa \"son 1 yıl\" diye VARSAYIYORDU. Ölçüldü:"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 675,
+      "satir": 676,
       "iddia": "1 yıl",
       "metin": "// konkordato 19.08.2025–28.08.2026 (~1 yıl) ama iflas 06.04.2026–28.08.2026"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 676,
+      "satir": 677,
       "iddia": "7 AY",
       "metin": "// (~4,7 AY) — çünkü 'iflas-ve-tasfiye' alt kategorisi havuzda 06.04 öncesi"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 703,
+      "satir": 704,
       "iddia": "30 gün",
       "metin": "rz.innerHTML='🚨 Son 30 günde '+Number(d.son30).toLocaleString('tr-TR')+' iflas ve konkordato ilanı · biri senin müşterin mi?'"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 746,
+      "satir": 747,
       "iddia": "1 yil",
       "metin": "// 19.08: il dagilimi artik ekrandaki 60 karttan degil, TUM ARSIVDEN (1 yil)"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 866,
+      "satir": 867,
       "iddia": "1 yıl",
       "metin": "// arşiv istatistiği gibi okunuyordu. Ayrıca \"5.889 ilan (son 1 yıl)\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 867,
+      "satir": 868,
       "iddia": "365 gün",
       "metin": "// 5.889 TÜM tabloyu sayar, tür sayaçları ise son 365 günü (5.832) — yan yana"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 872,
+      "satir": 873,
       "iddia": "1 yıl",
       "metin": "// 04.09: göç varsa sayaçlar ARŞİVİN TAMAMINI sayar; \"son 1 yılda\" yalnız"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 873,
+      "satir": 874,
       "iddia": "365 gün",
       "metin": "// göç basılmadıysa (kasa 365 günle sayıyorken) yazılır."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 875,
+      "satir": 876,
       "iddia": "1 yıl",
       "metin": "else y1+='; son 1 yılda '+(tk+ti+td).toLocaleString('tr-TR')+' tanesi ( '+tk.toLocaleString('tr-TR')+' konkordato · '+ti.toLocaleString('tr-TR')+' iflas)';"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 877,
+      "satir": 878,
       "iddia": "1 yıl",
       "metin": "// 28.08: EN ÇOK GÖRÜLEN EKRAN buydu ve \"son 1 yılda … 415 iflas\" derken"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 878,
+      "satir": 879,
       "iddia": "7 ay",
       "metin": "// iflas verisinin yalnız 4,7 ay olduğunu söylemiyordu. Tarih sayfaya"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 889,
+      "satir": 890,
       "iddia": "1 yıl",
       "metin": "sy.innerHTML=basMetin+' — '+(AI_SUNUCU_ARSIV?'arşivde ('+aiPencere()+')':'son 1 yılda')+' bu seçime uyan ilan yok . Başka bir karar durumu ya da tür dene. Bu, borçlunun ilanı yok d"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 891,
+      "satir": 892,
       "iddia": "1 yıl",
       "metin": "// 28.08: \"son 1 yılda\" VARSAYIMI kaldırıldı — ölçülen aralık yazılır."
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1001,
+      "satir": 1002,
       "iddia": "%10",
       "metin": "if(((t1*7 - t2)%10 + 10)%10 !== d[9]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1002,
+      "satir": 1003,
       "iddia": "%10",
       "metin": "if(d.slice(0,10).reduce((a,b)=>a+b,0)%10 !== d[10]) return false;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1012,
+      "satir": 1013,
       "iddia": "% 9",
       "metin": "sum += (tmp === 9) ? 9 : (tmp * Math.pow(2, 9 - i)) % 9;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1014,
+      "satir": 1015,
       "iddia": "% 10",
       "metin": "return v[9] === (10 - (sum % 10)) % 10;"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1098,
+      "satir": 1099,
       "iddia": "1 yil",
       "metin": "// 19.08: TAM ARSIV (5.728 ilan / 1 yil) yalniz tarama aninda yuklenir — sayfa"
     },
     {
       "sayfa": "alacak-radari.html",
-      "satir": 1120,
+      "satir": 1121,
       "iddia": "6 ay",
       "metin": "// okunamaz. Müşavir bu dosyayı dosyaya koyuyor; 6 ay sonra açan kişi neyin"
     },
@@ -1966,19 +1966,19 @@
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 284,
+      "satir": 285,
       "iddia": "10 yıl",
       "metin": "Koruma bitişi (+10 yıl) ${fmt(gercekBitis)}"
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 285,
+      "satir": 286,
       "iddia": "6 ay",
       "metin": "Yenileme penceresi (son 6 ay) ${fmt(gercekAcilis)} → ${fmt(gercekBitis)}"
     },
     {
       "sayfa": "marka-radari.html",
-      "satir": 290,
+      "satir": 291,
       "iddia": "6 ay",
       "metin": "E-postanı bırak; yenileme penceresi açılmadan 6 ay önce ve son günlerde seni uyaralım. Birden fazla markan varsa hepsini takibe alırız (ücretsiz)."
     },
@@ -2011,6 +2011,12 @@
       "satir": 100,
       "iddia": "5 yıl",
       "metin": "İlk 5 yıl bağımlıdır: Uluslararası tescil, ilk beş yıl esas markaya bağlıdır. Esas marka bu sürede reddedilir, geri çekilir, iptal edilir ya da yenilenmezse uluslararası tescil de "
+    },
+    {
+      "sayfa": "mesafeli-satis.html",
+      "satir": 69,
+      "iddia": "en az 3",
+      "metin": "Satın alınan hizmetin kapsamı, süresi (sınav tarihine kadar, en az 3 ay) ve vergiler dahil toplam bedeli, ödeme adımında Üye'ye açıkça gösterilir. Tetikte, ilan edilen fiyatlarda d"
     },
     {
       "sayfa": "mesafeli-satis.html",
@@ -2062,25 +2068,31 @@
     },
     {
       "sayfa": "on-bilgilendirme.html",
-      "satir": 75,
+      "satir": 73,
+      "iddia": "en az 3",
+      "metin": "Tanımlama e-postayla bildirilir. Sınav Paketi, girilecek sınavın tarihine kadar (her durumda en az 3 ay) süren süreli bir abonelik tir; erişim süresi paket ekranında yazılıdır. Sür"
+    },
+    {
+      "sayfa": "on-bilgilendirme.html",
+      "satir": 77,
       "iddia": "1 ay",
       "metin": "Radar aboneliği: Dönem, ödemenin hesabımızda görüldüğü gün başlar: aylık planda 1 ay, yıllık planda 12 ay."
     },
     {
       "sayfa": "on-bilgilendirme.html",
-      "satir": 76,
+      "satir": 78,
       "iddia": "en az 7",
       "metin": "Abonelik kendiliğinden tahsilatla yenilenmez . Dönem bitmeden önce (aylıkta en az 7 gün, yıllıkta en az 30 gün önce)"
     },
     {
       "sayfa": "on-bilgilendirme.html",
-      "satir": 79,
+      "satir": 81,
       "iddia": "14 gün",
       "metin": "aylık planda sonraki dönem için tahsilat yapılmaz; yıllık planda kalan süreye karşılık gelen kısım 14 gün içinde iade edilir."
     },
     {
       "sayfa": "on-bilgilendirme.html",
-      "satir": 81,
+      "satir": 83,
       "iddia": "30 gün",
       "metin": "Kullanım koşulu: Paket en fazla 3 (üç) cihazda kullanılabilir ve aynı anda yalnız bir cihazda açık olabilir; yeni bir cihazdan girildiğinde önceki cihazdaki oturum kapanır. Alıcı, "
     },
@@ -2122,73 +2134,73 @@
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 196,
+      "satir": 202,
       "iddia": "2026 yil",
       "metin": "(1) Enflasyon: TUIK Temmuz 2026 yillik TUFE %31,75 - 599 TL bes yilda"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 207,
+      "satir": 213,
       "iddia": "2026 yıl",
       "metin": "(TÜİK, Temmuz 2026 yıllık TÜFE %31,75) ve sabit bir rakam birkaç yıl içinde anlamsızlaşır."
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 215,
+      "satir": 221,
       "iddia": "1.480 TL",
       "metin": "800 – 1.480 TL/ay bandında (konkordato/iflas takibinde standart abonelik yılda"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 216,
+      "satir": 222,
       "iddia": "9.600 TL",
       "metin": "9.600 TL , kurumsal 17.760 TL ); tek markanın bülten takibi için"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 217,
+      "satir": 223,
       "iddia": "9.000 TL",
       "metin": "vekil firmalarının yıllık ücreti 9.000 TL düzeyinde"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 294,
+      "satir": 300,
       "iddia": "1 ay",
       "metin": "Dönem, ödemenin hesabımızda görüldüğü gün başlar: aylık planda 1 ay , yıllık planda 12 ay ."
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 295,
+      "satir": 301,
       "iddia": "en az 7",
       "metin": "Abonelik kendiliğinden tahsilatla yenilenmez . Dönem bitmeden önce (aylıkta en az 7 gün, yıllıkta en az 30 gün önce) yenileme bildirimi ve ödeme bilgisi e-postana gelir; yeni dönem"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 296,
+      "satir": 302,
       "iddia": "14 gün",
       "metin": "Dilediğin an destek@tetikte.com adresine yazarak bırakırsın: aylık planda sonraki dönem için tahsilat yapılmaz; yıllık planda kalan süreye karşılık gelen kısım 14 gün içinde iade e"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 343,
+      "satir": 349,
       "iddia": "14 gün",
       "metin": "Evet, destek@tetikte.com adresine yazman yeter. Aylık abonelikte sonraki dönem tahsilat yapılmaz; yıllık abonelikte kalan süreye karşılık gelen kısım 14 gün içinde iade edilir."
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 345,
+      "satir": 351,
       "iddia": "en az 7",
       "metin": "Hayır. Dönem bitmeden en az 7 gün önce yenileme bildirimi ve ödeme bilgisi e-postana gelir; ödersen abonelik uzar, ödemezsen dönem sonunda kendiliğinden biter."
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 347,
+      "satir": 353,
       "iddia": "en az 30",
       "metin": "Yenileme tarihindeki güncel liste fiyatından yenilenir. Yenilemeden en az 30 gün önce e-postayla bildiririz;"
     },
     {
       "sayfa": "radar-fiyat.html",
-      "satir": 447,
+      "satir": 453,
       "iddia": "1 ay",
       "metin": "$i('ozDonem').textContent = p ? (p.donem === 'ay' ? 'Aylık (1 ay)' : 'Yıllık (12 ay)') : '—';"
     },
@@ -2422,19 +2434,25 @@
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 75,
+      "satir": 74,
+      "iddia": "en az 3",
+      "metin": "Sınav Paketi, girilecek sınavın tarihine kadar (her durumda en az 3 ay) süren süreli bir aboneliktir; süre sonunda kendiliğinden yenilenmez , yeniden ücret alınmaz."
+    },
+    {
+      "sayfa": "teslimat-iade.html",
+      "satir": 76,
       "iddia": "1 ay",
       "metin": "Radar aboneliği aylık ya da yıllık dönemle satılır. Dönem, ödemenin hesabımızda görüldüğü gün başlar: aylık planda 1 ay, yıllık planda 12 ay."
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 76,
+      "satir": 77,
       "iddia": "en az 7",
       "metin": "Abonelik kendiliğinden tahsilatla yenilenmez . Dönem bitmeden önce (aylıkta en az 7 gün, yıllıkta en az 30 gün önce)"
     },
     {
       "sayfa": "teslimat-iade.html",
-      "satir": 79,
+      "satir": 80,
       "iddia": "14 gün",
       "metin": "yıllık planda kalan süreye karşılık gelen kısım 14 gün içinde ödemenin yapıldığı yönteme iade edilir."
     },
