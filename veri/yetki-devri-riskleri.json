@@ -1,5 +1,5 @@
 {
-  "tarih": "02.10.2026 19:04",
+  "tarih": "02.10.2026 19:23",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     }
   ],
@@ -190,7 +190,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2026,55 +2026,55 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 111,
+      "satir": 122,
       "iddia": "7 gün",
       "metin": "Geçme ihtimalin nasıl değişiyor? Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 145,
+      "satir": 156,
       "iddia": "En az 8",
       "metin": "En az 8 karakter. Şifreyi göster"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 170,
+      "satir": 181,
       "iddia": "1 saat",
       "metin": "Bağlantı tek kullanımlıktır, 1 saat geçerlidir."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 184,
+      "satir": 195,
       "iddia": "En az 8",
       "metin": "En az 8 karakter. Şifreyi göster"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 208,
-      "iddia": "30 gün",
-      "metin": "ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->"
+      "satir": 261,
+      "iddia": "En az 8",
+      "metin": "En az 8 karakter. Şifreyi göster"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 249,
+      "satir": 285,
       "iddia": "%20",
       "metin": "window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\\+?link|email%20link/i.test(h));"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 305,
+      "satir": 348,
       "iddia": "en az 8",
       "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 366,
+      "satir": 409,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 412,
+      "satir": 455,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
