@@ -86,6 +86,17 @@
   .og-gonderildi{background:color-mix(in srgb,var(--green) 10%,transparent);border:1px solid color-mix(in srgb,var(--green) 45%,transparent);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.55;color:var(--ink);margin:12px 0 0}
   .og-gonderildi ul{margin:6px 0 0;padding-left:18px}
   .og-baslik2{font-size:18px;margin:0 0 4px}
+  /* 02.10 sade hesap sayfası */
+  .og-ust-sag{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .og-btn.og-kucuk{font-size:13.5px;padding:7px 12px;font-weight:650}
+  .og-bolum-ust{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .og-bolum-ust h2{margin:0 0 8px}
+  .og-ayarlar{padding:4px 16px}
+  .og-ayarlar .og-satir{align-items:center}
+  .og-ayarlar .og-satir b{font-size:14.5px}
+  .og-ayarlar .og-satir span{font-size:13.5px}
+  #ogDolu .og-grafik{margin-top:4px}
+  #ogSifreForm .og-btn.ana{width:auto;margin-top:0}
   @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px}
     /* 01.10: telefonda form üç bilgi kartının ARKASINDA kalıyordu (375px ölçüldü) -> başlık + tek cümle, sonra form */
     .og-iki{gap:0} .og-sol{display:contents} .og-sol>*{order:2} .og-sol>h1,.og-sol>.og-ilk{order:0} .og-iki>.og-kutu{order:1;margin:0 0 22px} }
@@ -193,48 +204,73 @@
 
   <!-- ÜYEYSE -->
   <section id="ogPanel" class="og-gizli">
-    <div class="og-ust"><h1>Hesabım</h1><span id="ogKim"></span></div>
+    <!-- 02.10 Cem ("görüntüsü çok kötü, gereksiz bir sürü iş var"): sade hesap sayfası. Boş durumlar TEK kartta;
+         Cihazlarım yalnız aktif pakette; e-posta/şifre/cihaz/çıkış "Hesap ayarları"nda. Veri mantığı aynen. -->
+    <div class="og-ust"><h1>Hesabım</h1><span class="og-ust-sag"><span id="ogKim"></span><button class="og-btn og-kucuk" id="ogCikisUst" type="button">Çıkış yap</button></span></div>
     <!-- 01.10 Cem: elçi hesabına "Elçi Panelim" düğmesi. Yalnız elci_panelim() dolu dönerse (hesap bağlama koduyla
          elçi kaydına bağlıysa) görünür; elçi olmayan hiç görmez. Panel: elci.html. -->
     <div id="ogElci" class="og-uyari og-gizli" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
       <span>Elçi hesabın: <b id="ogElciKod"></b> · kodun, satışların ve komisyonun panelinde.</span>
       <a class="og-btn ana" href="elci.html">Elçi Panelim →</a>
     </div>
+    <div id="ogKasaUyari" class="og-uyari og-gizli"></div>
     <div class="og-bolum" style="margin-top:8px">
-      <h2>Paketlerim</h2>
+      <h2>Paketim</h2>
       <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
     </div>
-    <!-- 23.09 CİHAZLARIM (hesap paylaşım koruması): paket en fazla 3 cihazda, aynı anda tek
-         ekranda açık. Üye cihazlarını görür, eskisini çıkarır (30 günde en fazla 2). -->
-    <div class="og-bolum" id="cihazlarim">
-      <h2>Cihazlarım</h2>
-      <p class="og-alt" style="margin:0 0 8px">Paketin en fazla <b>3 cihazda</b> kullanılabilir ve <b>aynı anda tek ekranda</b> açık olur. Yeni bir cihaz eklemek için eskisini buradan çıkarabilirsin.</p>
-      <div id="ogCihazlar"><p class="og-alt" style="margin:0">Cihazların okunuyor…</p></div>
-    </div>
-    <h2 style="font-size:20px;margin:28px 0 0" id="ogIlerleme">Staja Giriş ilerlemen</h2>
-    <div class="og-kartlar">
-      <div class="og-kart"><b id="ogGun">–</b><span>gün kaldı · <span id="ogTarih">21 Kasım 2026</span></span></div>
-      <div class="og-kart"><b id="ogSonGecme">–</b><span id="ogSonGecmeAlt">son geçme ihtimalin</span></div>
-      <div class="og-kart"><b id="ogKutu">–</b><span id="ogKutuAlt">bugün tekrar edilecek soru</span></div>
-    </div>
-    <div id="ogKasaUyari" class="og-uyari og-gizli"></div>
 
-    <div class="og-bolum">
-      <h2>Geçme ihtimalin</h2>
-      <div class="og-grafik" id="ogGrafik"></div>
-      <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
-    </div>
-
-    <div class="og-bolum">
-      <h2>Sınav gibi denemeler</h2>
-      <div class="og-kutu" id="ogDenemeler"></div>
-      <div class="og-btnler"><a class="og-btn" href="sinav-gibi.html">Sınav gibi çöz (130 soru)</a><a class="og-btn" href="sorular.html#sgs">Ders ders çalış</a></div>
+    <!-- İLERLEME: veri (seviye testi / deneme) yoksa üç "–" kartı, boş grafik ve boş deneme kutusu YERİNE tek kart -->
+    <div class="og-bolum" id="ogIlerlemeBolum">
+      <div class="og-bolum-ust"><h2 id="ogIlerleme">Staja Giriş ilerlemen</h2><span class="og-ipucu" id="ogGeriSayim"></span></div>
+      <div class="og-kutu og-gizli" id="ogBos">
+        <b style="font-size:17px">Henüz bir ölçümün yok</b>
+        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px">30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.</p>
+        <p class="og-alt og-gizli" id="ogBosKutu" style="margin:8px 0 0;font-size:14px"></p>
+        <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogBosTest">Seviye testini çöz →</a><a class="og-btn" href="sorular.html#sgs" id="ogBosCalis">Ders ders çalış</a></div>
+      </div>
+      <div id="ogDolu" class="og-gizli">
+        <div class="og-kartlar">
+          <div class="og-kart"><b id="ogGun">–</b><span>gün kaldı · <span id="ogTarih">21 Kasım 2026</span></span></div>
+          <div class="og-kart"><b id="ogSonGecme">–</b><span id="ogSonGecmeAlt">son geçme ihtimalin</span></div>
+          <div class="og-kart"><b id="ogKutu">–</b><span id="ogKutuAlt">bugün tekrar edilecek soru</span></div>
+        </div>
+        <div class="og-grafik" id="ogGrafik"></div>
+        <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
+        <div class="og-bolum og-gizli" id="ogDenemeBolum">
+          <h2 style="font-size:17px">Sınav gibi denemeler</h2>
+          <div class="og-kutu" id="ogDenemeler"></div>
+          <div class="og-btnler"><a class="og-btn" href="sinav-gibi.html">Sınav gibi çöz (130 soru)</a><a class="og-btn" href="sorular.html#sgs">Ders ders çalış</a></div>
+        </div>
+      </div>
     </div>
 
     <!-- 16.09: gerçek sınav sonucu -> seviye testi kalibrasyonu (sinav-sonucu.js; aynı kutu seviye-testi.html'de de var) -->
     <div id="ssKutu"></div>
 
-    <div class="og-btnler" style="margin-top:28px"><button class="og-btn" id="ogCikis" type="button">Çıkış yap</button></div>
+    <!-- HESAP AYARLARI -->
+    <div class="og-bolum">
+      <h2>Hesap ayarları</h2>
+      <div class="og-kutu og-ayarlar">
+        <div class="og-satir"><div><b>E-posta</b><br><span id="ogAyarEposta"></span></div></div>
+        <div class="og-satir"><div><b>Şifre</b><br><span>Giriş şifreni değiştir.</span></div><button class="og-btn og-kucuk" type="button" id="ogSifreAc">Şifremi değiştir</button></div>
+        <form class="og-form og-gizli" id="ogSifreForm" novalidate style="padding:4px 0 12px">
+          <label class="og-et" for="ogPSifre">Yeni şifre</label>
+          <input id="ogPSifre" type="password" autocomplete="new-password" minlength="8">
+          <label class="og-et" for="ogPSifre2">Yeni şifreyi tekrar yaz</label>
+          <input id="ogPSifre2" type="password" autocomplete="new-password" minlength="8">
+          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogPSifre ogPSifre2">Şifreyi göster</button></p>
+          <div class="og-btnler"><button class="og-btn ana" type="submit" id="ogPKaydet">Şifremi kaydet</button><button class="og-btn" type="button" id="ogSifreKapat">Vazgeç</button></div>
+          <div class="og-hata" id="ogPHata" role="alert"></div>
+        </form>
+        <!-- 23.09 CİHAZLARIM (hesap paylaşım koruması): paket en fazla 3 cihazda, aynı anda tek ekranda açık.
+             02.10: yalnız AKTİF PAKETTE görünür (satin-al.html + on-bilgilendirme.html "Hesabım → Cihazlarım" der; ad aynı kaldı). -->
+        <div class="og-gizli" id="cihazlarim">
+          <div class="og-satir"><div><b>Cihazlarım</b><br><span>Paketin en fazla 3 cihazda kullanılır, aynı anda tek ekranda açık olur.</span></div></div>
+          <div id="ogCihazlar"><p class="og-alt" style="margin:0">Cihazların okunuyor…</p></div>
+        </div>
+        <div class="og-satir"><div><b>Oturum</b><br><span>Bu cihazda hesabından çık.</span></div><button class="og-btn og-kucuk" id="ogCikis" type="button">Çıkış yap</button></div>
+      </div>
+    </div>
   </section>
 
   <p id="ogYuk" class="og-alt">Yükleniyor…</p>
@@ -274,6 +310,13 @@
     if(r.error){ kap.innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; return; }
     var d=U.durumHesapla(r.data,user.email), S=U.SINAVLAR;
     var sinavlar=U.SIRA.filter(function(k){ var x=d.sinavlar[k].durum; return x==='aktif'||x==='bitmis'; });
+    /* 02.10: Cihazlarım yalnız aktif pakette; ilerleme kartının bağları paketin sınavına göre */
+    var aktifler=U.SIRA.filter(function(k){ return d.sinavlar[k].durum==='aktif'; });
+    $('cihazlarim').classList.toggle('og-gizli',!aktifler.length);
+    if(aktifler.length && aktifler.indexOf('sgs')<0 && aktifler.indexOf('yeterlilik')>-1){
+      $('ogIlerleme').textContent='Yeterlilik ilerlemen';
+      $('ogBosTest').href=S.yeterlilik.olc||'seviye-testi.html?sinav=yeterlilik'; $('ogBosCalis').href=S.yeterlilik.devam||'kaydir/smmm/index.html';
+    }
     if(!sinavlar.length){
       kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
         +'<div class="og-btnler"><a class="og-btn ana" href="fiyat.html">Paketleri gör</a><a class="og-btn" href="ucretsiz-dene.html">Ücretsiz dene</a></div></div>';
@@ -379,7 +422,7 @@
   async function panel(user){
     if(sonraGit()) return;
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
-    $('ogKim').textContent=user.email||'';
+    $('ogKim').textContent=user.email||''; $('ogAyarEposta').textContent=user.email||'';
     /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
     sb.rpc('elci_panelim').then(function(r){
       if(r && !r.error && r.data && r.data.kod){ $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli'); }
@@ -416,9 +459,16 @@
     var kutu=yerel('kc_kutu',[]), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
     var vadeli=kutu.filter(function(x){return x&&x.due<=an;}).length;
     $('ogKutu').textContent=vadeli; $('ogKutuAlt').textContent='bugün tekrar edilecek soru · kutuda '+kutu.length;
+    /* 02.10: ölçüm yoksa üç "–" kartı + boş grafik + boş deneme kutusu yerine TEK kart */
+    var ilerlemeVar=seviye.length>0||deneme.length>0;
+    $('ogBos').classList.toggle('og-gizli',ilerlemeVar); $('ogDolu').classList.toggle('og-gizli',!ilerlemeVar);
+    $('ogDenemeBolum').classList.toggle('og-gizli',!deneme.length);
+    if(!ilerlemeVar && kutu.length){ $('ogBosKutu').classList.remove('og-gizli'); $('ogBosKutu').textContent='Yanlış kutunda '+kutu.length+' soru var'+(vadeli?'; bugün '+vadeli+' tanesini tekrar etme sırası.':'.'); }
     fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
       var bugun=new Date(new Date().toDateString()), don=d&&d.sinavlar&&d.sinavlar.SGS&&d.sinavlar.SGS.donemler||[];
-      for(var i=0;i<don.length;i++){ var t=new Date(don[i].tarih+'T00:00:00'); if(t>=bugun){ $('ogGun').textContent=Math.round((t-bugun)/86400000); $('ogTarih').textContent=don[i].tarihYazi; return; } }
+      for(var i=0;i<don.length;i++){ var t=new Date(don[i].tarih+'T00:00:00'); if(t>=bugun){ var gun=Math.round((t-bugun)/86400000); $('ogGun').textContent=gun; $('ogTarih').textContent=don[i].tarihYazi;
+        /* 02.10 geri sayım başlığın yanında (boş kartta da görünsün); takvim SGS'nin — Yeterlilik başlığında yazılmaz */
+        if(/^Staja/.test($('ogIlerleme').textContent)) $('ogGeriSayim').textContent='Sınava '+gun+' gün · '+don[i].tarihYazi; return; } }
     }).catch(function(){ var t=new Date(SINAV_TARIHI+'T00:00:00'); $('ogGun').textContent=Math.max(0,Math.round((t-new Date(new Date().toDateString()))/86400000)); });
   }
 
@@ -569,7 +619,27 @@
     } finally { mesgul(b,false,'Şifremi kaydet'); }
   });
 
-  $('ogCikis').addEventListener('click',function(){ sb.auth.signOut().then(function(){ location.reload(); }); });
+  function cikisYap(){ sb.auth.signOut().then(function(){ location.reload(); }); }
+  $('ogCikis').addEventListener('click',cikisYap);
+  $('ogCikisUst').addEventListener('click',cikisYap);
+
+  /* 02.10 Hesap ayarları → Şifremi değiştir (oturum açıkken; e-posta gerekmez) */
+  $('ogSifreAc').addEventListener('click',function(){ $('ogSifreForm').classList.remove('og-gizli'); $('ogSifreAc').classList.add('og-gizli'); $('ogPSifre').focus(); });
+  $('ogSifreKapat').addEventListener('click',function(){ $('ogSifreForm').classList.add('og-gizli'); $('ogSifreAc').classList.remove('og-gizli'); $('ogPSifre').value=''; $('ogPSifre2').value=''; hataYaz('ogPHata',''); });
+  $('ogSifreForm').addEventListener('submit',async function(ev){
+    ev.preventDefault(); hataYaz('ogPHata','');
+    var s1=$('ogPSifre').value, s2=$('ogPSifre2').value;
+    if(s1.length<SIFRE_EN_AZ){ hataYaz('ogPHata','Şifre en az '+SIFRE_EN_AZ+' karakter olmalı.'); $('ogPSifre').focus(); return; }
+    if(s1!==s2){ hataYaz('ogPHata','İki şifre aynı değil. Tekrar yaz.'); $('ogPSifre2').focus(); return; }
+    var b=$('ogPKaydet'); mesgul(b,true,'Kaydediliyor…');
+    try{
+      var r=await sb.auth.updateUser({password:s1});
+      if(r.error){ hataYaz('ogPHata',/reauth/i.test((r.error.code||'')+(r.error.message||''))?'Güvenlik için önce çıkış yapıp yeniden giriş yap, sonra tekrar dene.':trHata(r.error)); return; }
+      $('ogPSifre').value=''; $('ogPSifre2').value='';
+      var h=$('ogPHata'); h.className='og-bilgi'; h.textContent='Şifren güncellendi. Bundan sonra yeni şifrenle giriş yaparsın.';
+      setTimeout(function(){ $('ogSifreKapat').click(); },2500);
+    } finally { mesgul(b,false,'Şifremi kaydet'); }
+  });
 
   sb.auth.onAuthStateChange(function(olay,oturum){
     if(olay!=='PASSWORD_RECOVERY') return;
