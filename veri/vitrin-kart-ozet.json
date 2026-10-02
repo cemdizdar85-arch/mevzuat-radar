@@ -1,143 +1,135 @@
 {
-  "olcum": "2026-10-01T00:28:59.993Z",
-  "gun": "2026-10-01",
+  "olcum": "2026-10-02T00:39:55.843Z",
+  "gun": "2026-10-02",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 63,
+      "sira": 64,
       "toplam": 70,
-      "id": "sgs-c2-fmuh-kolay-r1/kp-06",
-      "ders": "Finansal Muhasebe",
-      "konu": "özkaynak hesaplama",
-      "donem": 5,
+      "id": "sgs-p-mta-cokzor-r4/kp-02",
+      "ders": "Mali Tablolar Analizi",
+      "konu": "cari oran analizi",
+      "donem": 6,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı sonu bazı bilanço kalemlerine ait tutarlar şöyledir: 500 SERMAYE hesabı 200.000 TL, 540 YASAL YEDEKLER hesabı 15.000 TL, 570 GEÇMİŞ YILLAR KARLARI hesabı 10.000 TL, 590 DÖNEM NET KARI hesabı 25.000 TL, 529 DİĞER SERMAYE YEDEKLERİ hesabı 5.000 TL ve kısa vadeli banka kredisi 40.000 TL'dir. Verilen bilgilere göre işletmenin özkaynaklar toplamı kaç TL'dir?",
+      "soru": "İşletmenin 2026 yılı cari oranı 1,80'dir. Kısa vadeli yabancı kaynaklar toplamı 240.000 TL, uzun vadeli yabancı kaynaklar toplamı 90.000 TL'dir. Dönen varlıklar içinde 100 KASA 15.000 TL, 101 ALINAN ÇEKLER 20.000 TL, 102 BANKALAR 40.000 TL, 120 ALICILAR 90.000 TL, 121 ALACAK SENETLERİ 30.000 TL, 191 İNDİRİLECEK KDV 25.000 TL bulunmaktadır. Buna göre 153 TİCARİ MALLAR hesabının bakiyesi kaç TL'dir?",
       "siklar": {
-        "A": "215.000",
-        "B": "230.000",
-        "C": "250.000",
-        "D": "255.000",
-        "E": "295.000"
+        "A": "122.000",
+        "B": "212.000",
+        "C": "237.000",
+        "D": "242.000",
+        "E": "374.000"
       },
-      "dogru": "D",
+      "dogru": "B",
       "tuzak": {
         "C": {
           "ad": "Kapsam Tuzağı",
-          "metin": "529 DİĞER SERMAYE YEDEKLERİ hesabını az bilinen bir kalem olduğu için toplamdan atladın. Doğrusu: Bu hesap sermaye yedekleri grubunda olup özkaynak toplamına dahildir."
+          "metin": "191 İNDİRİLECEK KDV hesabını dönen varlık saymayıp bilinenler toplamından çıkardın. Doğrusu: 191 hesabı dönen varlık grubundadır ve toplamda kalmalıdır."
         },
         "E": {
-          "ad": "Hesap Sınıflandırma Tuzağı",
-          "metin": "Kısa vadeli banka kredisini de özkaynak toplamına ekledin. Doğrusu: Banka kredisi yabancı kaynak grubundadır, özkaynak hesabına dahil edilmez."
+          "ad": "İki Kaynağın Karışımı Tuzağı",
+          "metin": "Kısa ve uzun vadeli yabancı kaynakları toplayıp cari oranla çarparak dönen varlık toplamını şişirdin. Doğrusu: Cari oran yalnız kısa vadeli yabancı kaynaklarla kurulur, uzun vadeli kaynak formüle girmez."
+        },
+        "D": {
+          "ad": "Eksik Toplama Tuzağı",
+          "metin": "121 ALACAK SENETLERİ tutarını bilinen kalemler toplamına eklemeyi unuttun. Doğrusu: Tüm verilen dönen varlık kalemleri bilinenler toplamına dahil edilmelidir."
         },
         "A": {
-          "ad": "Ters İşaret Tuzağı",
-          "metin": "Kısa vadeli banka kredisini özkaynak toplamından düşerek borç kalemini özkaynağa karıştırdın. Doğrusu: Banka kredisi bir yabancı kaynaktır, özkaynak hesaplamasına hiç girmez."
-        },
-        "B": {
-          "ad": "Zamanlama Tuzağı",
-          "metin": "590 DÖNEM NET KÂRI hesabını henüz dağıtılmadığı için özkaynak saymadın. Doğrusu: Dönem net karı bilanço tarihinde dağıtılmamışsa özkaynaklar içinde yer alır."
+          "ad": "Uzun Vadeli Yabancı Kaynak Tuzağı",
+          "metin": "Uzun vadeli yabancı kaynağı dönen varlık kalemi gibi bilinen toplamdan düşürdün. Doğrusu: Uzun vadeli yabancı kaynaklar cari oran hesabına hiç girmez."
         }
       },
-      "hap": "Özkaynaklar toplamı; sermaye, sermaye yedekleri, kâr yedekleri ve dönem/geçmiş yıl karlarının toplamından oluşur, yabancı kaynak hesapları bu toplama girmez.",
+      "hap": "Cari oran Dönen Varlıklar/Kısa Vadeli Yabancı Kaynaklar'dır; uzun vadeli yabancı kaynak bu orana hiçbir şekilde girmez.",
       "satirlar": [
         [
-          "540 YASAL YEDEKLER",
-          "15.000"
+          "Dönen Varlıklar Toplamı (1,80 x 240.000)",
+          "432.000"
         ],
         [
-          "570 GEÇMİŞ YILLAR KÂRLARI",
-          "10.000"
+          "Bilinen Dönen Varlık Kalemleri Toplamı (15.000+20.000+40.000+90.000+30.000+25.000)",
+          "220.000"
         ],
         [
-          "590 DÖNEM NET KÂRI",
-          "25.000"
-        ],
-        [
-          "529 DİĞER SERMAYE YEDEKLERİ",
-          "5.000"
-        ],
-        [
-          "Özkaynaklar Toplamı",
-          "255.000"
+          "153 TİCARİ MALLAR (432.000 - 220.000)",
+          "212.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=63",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=64",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 52,
+        "kalan_gun": 51,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 63,
+      "sira": 64,
       "toplam": 70,
-      "id": "smmm-w1-yspk-cokzor/kp-01",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "bağımsız denetim sorumluluğu",
-      "donem": 3,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun bağımsız denetim sorumluluğuna ilişkin hükümleri ile denetçi türlerine ilişkin genel ilkeler birlikte değerlendirildiğinde, aşağıdaki ifadelerden hangisi doğrudur?",
+      "id": "smmm-4k-a-maliyet-cokzor-r6/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "mamul birim maliyeti",
+      "donem": 4,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Nova Otomasyon Üretim İşletmesi normal maliyet yöntemini uygulamaktadır. 2026 yılında 5.000 birim mamul üretilmiş, üretilen mamulün birim maliyeti normal maliyet yöntemine göre 100 ₺ olarak hesaplanmıştır. Dönem içinde direkt ilk madde ve malzeme gideri 150.000 ₺, değişken genel üretim gideri 80.000 ₺, fiili sabit genel üretim gideri 200.000 ₺'dir; kapasite kullanım oranı yüzde 75'tir. Dönem başı yarı mamul stoku 40.000 ₺, dönem sonu yarı mamul stoku 80.000 ₺'dir. Ayrıca dönemde 70.000 ₺ genel yönetim gideri gerçekleşmiştir. İşletmenin direkt işçilik gideri kaç ₺'dir?",
       "siklar": {
-        "A": "Bağımsız denetim kuruluşunun finansal tablo denetimi çalışmasında iç denetim biriminin bulgularından yararlanılmış olması, denetim kuruluşunun mevzuata uygun denetlenmemeden kaynaklanan sorumluluğunu iç denetim birimine devreder.",
-        "B": "Derecelendirme ve değerleme kuruluşları, düzenledikleri raporlarda yer alan yanlış, yanıltıcı veya eksik bilgilerden dolayı sorumlu tutulamaz; sorumluluk yalnız bağımsız denetim kuruluşuna aittir.",
-        "C": "Bağımsız denetim kuruluşları, denetledikleri finansal tablo ve raporların mevzuata uygun olarak denetlenmemesi nedeniyle doğabilecek zararlardan, raporu imzalayan denetçilerle birlikte sorumludur.",
-        "D": "Türkiye'de bağımsız denetim standartlarının belirlenmesi ve denetçilerin yetkilendirilmesi görevi TÜRMOB'a aittir.",
-        "E": "Finansal tablo denetiminde bağımsız denetim kuruluşu görüş bildirdiği için, denetlenen tablolardaki her türlü hata ve hileden kesin olarak sorumlu tutulur ve mutlak bir güvence verir."
+        "A": "80.000",
+        "B": "110.000",
+        "C": "120.000",
+        "D": "160.000",
+        "E": "230.000"
       },
-      "dogru": "C",
+      "dogru": "D",
       "tuzak": {
-        "D": {
-          "ad": "Kurum Karıştırma Tuzağı",
-          "metin": "TÜRMOB meslek örgütüdür, düzenleyici-denetleyici otorite değildir. Doğrusu: standart belirleme ve yetkilendirme görevi Kamu Gözetimi, Muhasebe ve Denetim Standartları Kurumu'na (KGK) aittir."
+        "C": {
+          "ad": "Yarı Mamul Düzeltmesi Tuzağı",
+          "metin": "Üretilen mamul maliyetini doğrudan toplam üretim maliyeti sayıp dönem başı ve dönem sonu yarı mamul stok farkını hiç düzeltmedin. Doğrusu: toplam üretim maliyeti, üretilen mamul maliyetinden yarı mamul stok farkı arındı…"
         },
         "E": {
-          "ad": "Mutlak Güvence Tuzağı",
-          "metin": "Bağımsız denetim makul güvence verir, mutlak/garanti güvence vermez ve her hatadan otomatik sorumlu tutulmaz. Doğrusu: sorumluluk ancak mevzuata uygun denetlenmeme hali gerçekleştiğinde ve raporu imzalayanlarla birlikte…"
+          "ad": "Dönem Gideri Katmanı Tuzağı",
+          "metin": "Genel yönetim giderini üretim maliyetinin bir parçası sayıp toplam üretim maliyetine ekledin. Doğrusu: genel yönetim gideri dönem giderirdir, üretim maliyetine hiç girmez, toplam üretim maliyeti 540.000 ₺'de kalır."
         },
         "A": {
-          "ad": "Devir Tuzağı",
-          "metin": "BDS 610 kapsamında iç denetimin çalışmasından yararlanılması, bağımsız denetçinin sorumluluğunu iç denetim birimine devretmez. Doğrusu: dış denetçi kendi görüşünün ve sorumluluğunun tamamından bizzat sorumludur."
+          "ad": "Yarı Mamul İşareti Tuzağı",
+          "metin": "Dönem başı ve dönem sonu yarı mamul farkını ters yönde uyguladın, sanki toplam üretim maliyeti üretilen mamul maliyetinden büyükmüş gibi işlem yaptın. Doğrusu: toplam üretim maliyeti üretilen mamul maliyetinden dönem ba…"
         },
         "B": {
-          "ad": "Kapsam Dışı Bırakma Tuzağı",
-          "metin": "Kanun derecelendirme ve değerleme kuruluşlarını sorumluluk dışında bırakmaz. Doğrusu: bu kuruluşlar da düzenledikleri raporlardaki yanlış, yanıltıcı ve eksik bilgilerden kendi başlarına sorumludur."
+          "ad": "Kapasite Kullanım Oranı Tuzağı",
+          "metin": "Normal maliyet yönteminde sabit genel üretim giderinin tamamını yükleyip kapasite kullanım oranını hiç uygulamadın. Doğrusu: sabit genel üretim giderinin yalnız kullanılan kapasiteye (yüzde 75'ine) düşen 150.000 ₺'lik k…"
         }
       },
-      "hap": "Bağımsız denetim kuruluşu, mevzuata uygun denetlenmemeden doğan zarardan raporu imzalayan denetçiyle BİRLİKTE sorumludur; bu sorumluluk devredilmez ve mutlak değil, makul güvence esasına dayanır.",
+      "hap": "Üretilen mamul maliyeti ile toplam üretim maliyeti arasındaki fark her zaman dönem başı ve dönem sonu yarı mamul stoklarıdır; normal maliyet yönteminde sabit genel üretim gideri kapasite kullanım oranıyla çarpılmadan asla üretime yüklenmez.",
       "satirlar": [
         [
-          "A) Bağımsız denetim kuruluşunun finansal tablo denetimi çal…",
-          "BDS 610"
+          "Üretilen mamul maliyeti (5.000x100)",
+          "500.000"
         ],
         [
-          "B) Derecelendirme ve değerleme kuruluşları, düzenledikleri …",
-          "m.63/1"
+          "Toplam üretim maliyeti (500.000-40.000+80.000)",
+          "540.000"
         ],
         [
-          "C) Bağımsız denetim kuruluşları, denetledikleri finansal ta…",
-          "m.63/1"
+          "Yüklenen sabit genel üretim gideri (200.000x0,75)",
+          "150.000"
         ],
         [
-          "D) Türkiye'de bağımsız denetim standartlarının belirlenmesi…",
-          "660 s.KHK"
+          "Yüklenen genel üretim gideri toplamı (80.000+150.000)",
+          "230.000"
         ],
         [
-          "E) Finansal tablo denetiminde bağımsız denetim kuruluşu gör…",
-          "m.63/1"
+          "Direkt işçilik gideri (540.000-150.000-230.000)",
+          "160.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=63",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=64",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 62,
+        "kalan_gun": 61,
         "durum": "YESIL",
         "mail_gunu": false
       }

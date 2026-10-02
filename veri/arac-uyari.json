@@ -1,8 +1,22 @@
 {
-  "tarih": "01.10.2026 18:24",
-  "rg_gun": "01-10-2026",
-  "kart": 2,
-  "etkilenen_dosya": 0,
+  "tarih": "02.10.2026 01:43",
+  "rg_gun": "02-10-2026",
+  "kart": 5,
+  "etkilenen_dosya": 1,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": []
+  "uyarilar": [
+    {
+      "dosya": "veri/gtip-durum.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
+      "hasat": "motor/tablo-hasat.ps1",
+      "eslesme_sayisi": 1,
+      "eslesmeler": [
+        {
+          "anahtar": "gozetim",
+          "kart_basligi": "Sivil havacılığın uydu ve yer tabanlı seyrüsefer sistemleri uçuş kontrol yönetmeliği"
+        }
+      ]
+    }
+  ]
 }

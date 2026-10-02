@@ -3,7 +3,8 @@
 #   oturumla birlikte hatasız ölmüştü. Mantık arac/onarim-hatti.js hakem (öz-sınav dogrula.yml'de):
 #   plan-sgs-*onarim*.json'daki pilotId kayıtları elle retteyse ambardan okunur → hakem EVET: listeden çıkar ·
 #   HAYIR: yayın dışı kalır (gerekçeye yazılır) · hakemsiz: bekler. Liste değiştiyse commit + yayın tetiklenir (bedel 0).
-# 🚫 GÖRMEZ: onarım TASLAĞI uygulama (taslaklar yerelde; soru içeriği depoya girmez) · SMMM listesi · hakem2/kör çözüm sonucu.
+# 02.10: SMMM (plan-smmm-*onarim-hakem*.json → smmm-elle-ret.json → smmm-kasa-yayin) de işlenir.
+# 🚫 GÖRMEZ: onarım TASLAĞI uygulama (taslaklar yerelde; soru içeriği depoya girmez) · hakem2/kör çözüm sonucu.
 # Stdout'ta soru metni yok, yalnız sayılar.
 name: SGS Onarim Hakem Isleme
 on:
@@ -35,6 +36,30 @@ jobs:
           planlar=(veri/sinav/plan-sgs-*onarim*.json)
           if [ ${#planlar[@]} -eq 0 ]; then echo "onarim plani yok"; exit 0; fi
           node arac/onarim-hatti.js hakem "${planlar[@]}"
+      # 02.10: SMMM (Yeterlilik) onarım planları da — ayrı çağrı (onarim-hatti etiket önekinden smmm-elle-ret.json'u seçer)
+      - name: SMMM yeniden hakem sonucunu elle rete isle
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          shopt -s nullglob
+          planlar=(veri/sinav/plan-smmm-*onarim-hakem*.json)
+          if [ ${#planlar[@]} -eq 0 ]; then echo "smmm onarim plani yok"; exit 0; fi
+          node arac/onarim-hatti.js hakem "${planlar[@]}"
+      - name: SMMM degistiyse gonder ve kasa yayinini tetikle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- veri/sinav/smmm-elle-ret.json; then echo "smmm elle ret degismedi"; exit 0; fi
+          git config user.name  "tetikte-robot"
+          git config user.email "bildirim@tetikte.com"
+          git add veri/sinav/smmm-elle-ret.json
+          git commit -m "SMMM onarim: yeniden hakem sonucu elle rete islendi [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then echo "itildi (deneme $i)"; gh workflow run smmm-kasa-yayin.yml && echo "smmm yayin tetiklendi"; exit 0; fi
+            git pull --rebase --autostash origin main || { git rebase --abort; echo "::error::smmm elle ret birlestirilemedi"; exit 1; }
+            sleep 5
+          done
+          echo "::error::push 5 denemede basarisiz"; exit 1
       - name: Degistiyse gonder ve yayini tetikle
         env:
           GH_TOKEN: ${{ github.token }}
