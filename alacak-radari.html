@@ -203,7 +203,7 @@ body::before{content:"";position:absolute;top:0;left:0;right:0;height:440px;back
           <input type="file" id="dosya" accept=".xlsx,.xls,.csv,.pdf,.txt">
         </label>
         <div class="yukle-durum" id="yukleDurum"></div>
-        <div style="font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.6;text-align:center">Toplu taramada ücretsiz deneme <b style="color:var(--muted)">listenin ilk 25 satırı</b> ve <b style="color:var(--muted)">3 eşleşme</b> ile sınırlıdır. Tamamı + işaretlenmiş Excel çıktısı <a href="radar-fiyat.html?nereden=alacak-excel" style="color:var(--accent2);font-weight:700">abonelikte</a>.</div>
+        <div style="font-size:11.5px;color:var(--dim);margin-top:7px;line-height:1.6;text-align:center">Toplu taramada ücretsiz deneme <b style="color:var(--muted)">listenin ilk 25 satırı</b> ve <b style="color:var(--muted)">3 eşleşme</b> ile sınırlıdır.</div><!-- 02.10 Cem (iyzico): radar aboneliği satılmıyor; eski: "Tamamı + işaretlenmiş Excel çıktısı abonelikte" -->
       </div>
     </details>
   </div>
@@ -1304,7 +1304,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           // KİLİTLİ KART: eşleşme VAR, kim olduğu abonelikte. Sayı gizlenmez —
           // "kaç riskli var" ücretsiz, "kimler" abonelikte (Cem 19.08 kararı).
           html += '<div class="kart risk" style="opacity:.92">'
-            +'<span class="rozet risk">🔒 '+turAdi+' eşleşmesi · abonelikte açılır</span>'
+            +'<span class="rozet risk">🔒 '+turAdi+' eşleşmesi · ayrıntı kapalı</span>'
             +'<h3 style="filter:blur(4px);user-select:none">'+aiKac(k.borclu||'••••••••')+'</h3>'
             +'<div class="belg">Bu kayıtta <b style="color:var(--ink)">gerçek bir eşleşme</b> var. <b style="color:var(--ink)">Listenin hangi satırı</b> olduğu, borçlunun adı, mahkeme/dosya bilgisi, yasal süresi ve ilan bağlantısı abonelikte görünür.</div>'
             +'</div>';
@@ -1359,8 +1359,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
           + (window.SON_TARAMA_KILITLI ? window.SON_TARAMA_KILITLI+' eşleşme daha kilitli' : 'Listenin tamamı taranmadı') + '</div>'
           +'<div style="font-size:13px;color:var(--muted);line-height:1.6">'
           + (atlanan ? 'Ücretsiz taramada listenin <b style="color:var(--ink)">ilk 25 satırı</b> taranır; senin dosyanda <b style="color:var(--ink)">'+atlanan+' satır daha</b> var. ' : '')
-          + 'Abonelikte <b style="color:var(--ink)">5.000 satıra kadar</b> tek seferde taranır, bütün eşleşmeler açık gelir ve sonucu <b style="color:var(--ink)">işaretlenmiş Excel</b> olarak indirirsin.</div>'
-          +'<div style="margin-top:12px"><a href="radar-fiyat.html" class="btn" style="text-decoration:none;display:inline-block;margin:0">Abonelik seçeneklerini gör →</a></div></div>';
+          + '</div></div>';   /* 02.10 Cem (iyzico): abonelik metni + "Abonelik seçeneklerini gör" düğmesi kaldırıldı (radar aboneliği satılmıyor) */
       }
     } else if(kasaCalisti){
       html += temizKarti;
@@ -1434,8 +1433,7 @@ async function kontrol(toplu){ if(typeof ttSorguKapisi==='function' && !ttSorguK
         + (abn
             ? '<button class="btn" onclick="taramaExcelIndir()" style="margin:0">📥 Sonucu Excel olarak indir</button>'
               + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Excel dosyası bilgisayarında oluşturulur; yüklediğin dosya bize hiç ulaşmadı.</div>'
-            : '<a href="radar-fiyat.html?nereden=alacak-excel" class="btn" style="margin:0;text-decoration:none;display:inline-block">🔒 İşaretlenmiş Excel’i indir · abonelikte</a>'
-              + '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Tek tek firma araması ücretsizdir. Listeyi toplu tarayıp <b style="color:var(--muted)">işaretlenmiş dosyayı geri almak</b> abonelikte.</div>')
+            : '<div style="font-size:11.5px;color:var(--dim);margin-top:8px">Tek tek firma araması ücretsizdir.</div>')   /* 02.10 Cem (iyzico): "Excel · abonelikte" bağı kaldırıldı */
         + '</div>';
     }
   }catch(e){}
