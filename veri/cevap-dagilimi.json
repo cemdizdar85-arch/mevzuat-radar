@@ -1,5 +1,5 @@
 {
-    "olcum":  "2026-10-01 19:44",
+    "olcum":  "2026-10-02 01:40",
     "kaynak":  "kaydir/sgs/*.html (basili sayfalar)",
     "hedef_pay":  0.2,
     "gercek_sgs_kiyas":  {
@@ -13,140 +13,140 @@
                              "not":  "veri/sgs-arsiv kitapciklarinin sonundaki anahtar tablosu (5 kitapcik)"
                          },
     "genel":  {
-                  "n":  4897,
+                  "n":  4670,
                   "say":  {
-                              "E":  932,
-                              "D":  987,
-                              "B":  1006,
-                              "C":  1021,
-                              "A":  951
+                              "E":  871,
+                              "D":  946,
+                              "B":  961,
+                              "C":  980,
+                              "A":  912
                           },
-                  "kikare":  5.7
+                  "kikare":  8
               },
     "dersler":  {
                     "Ataturk Ilkeleri ve Inkilap Tarihi":  {
-                                                               "n":  174,
+                                                               "n":  173,
                                                                "say":  {
                                                                            "A":  36,
-                                                                           "B":  35,
+                                                                           "B":  36,
                                                                            "C":  34,
                                                                            "D":  34,
-                                                                           "E":  35
+                                                                           "E":  33
                                                                        },
-                                                               "kikare":  0.1,
+                                                               "kikare":  0.2,
                                                                "hukum":  "dengeli",
                                                                "taban":  0.1
                                                            },
                     "Borclar Hukuku":  {
-                                           "n":  239,
+                                           "n":  218,
                                            "say":  {
-                                                       "A":  49,
-                                                       "B":  48,
-                                                       "C":  47,
+                                                       "A":  45,
+                                                       "B":  46,
+                                                       "C":  39,
                                                        "D":  50,
-                                                       "E":  45
+                                                       "E":  38
                                                    },
-                                           "kikare":  0.3,
+                                           "kikare":  2.3,
                                            "hukum":  "dengeli",
                                            "taban":  0.1
                                        },
                     "Denetim":  {
-                                    "n":  714,
+                                    "n":  658,
                                     "say":  {
-                                                "A":  150,
-                                                "B":  142,
-                                                "C":  134,
-                                                "D":  143,
-                                                "E":  145
+                                                "A":  139,
+                                                "B":  132,
+                                                "C":  123,
+                                                "D":  134,
+                                                "E":  130
                                             },
-                                    "kikare":  0.9,
+                                    "kikare":  1,
                                     "hukum":  "dengeli",
                                     "taban":  0.9
                                 },
                     "Ekonomi":  {
-                                    "n":  166,
+                                    "n":  158,
                                     "say":  {
-                                                "A":  31,
-                                                "B":  33,
-                                                "C":  35,
-                                                "D":  34,
-                                                "E":  33
+                                                "A":  30,
+                                                "B":  31,
+                                                "C":  33,
+                                                "D":  33,
+                                                "E":  31
                                             },
-                                    "kikare":  0.3,
+                                    "kikare":  0.2,
                                     "hukum":  "dengeli",
                                     "taban":  0.1
                                 },
                     "Finansal Muhasebe":  {
-                                              "n":  1068,
+                                              "n":  996,
                                               "say":  {
-                                                          "A":  209,
-                                                          "B":  228,
-                                                          "C":  224,
-                                                          "D":  206,
-                                                          "E":  201
+                                                          "A":  201,
+                                                          "B":  203,
+                                                          "C":  221,
+                                                          "D":  190,
+                                                          "E":  181
                                                       },
-                                              "kikare":  2.6,
+                                              "kikare":  4.6,
                                               "hukum":  "dengeli",
                                               "taban":  2.1
                                           },
                     "Is ve Sosyal Guvenlik Hukuku":  {
-                                                         "n":  200,
+                                                         "n":  186,
                                                          "say":  {
-                                                                     "A":  43,
-                                                                     "B":  43,
-                                                                     "C":  37,
-                                                                     "D":  38,
-                                                                     "E":  39
+                                                                     "A":  41,
+                                                                     "B":  41,
+                                                                     "C":  33,
+                                                                     "D":  36,
+                                                                     "E":  35
                                                                  },
-                                                         "kikare":  0.8,
+                                                         "kikare":  1.4,
                                                          "hukum":  "dengeli",
                                                          "taban":  0.5
                                                      },
                     "Mali Tablolar Analizi":  {
-                                                  "n":  209,
+                                                  "n":  201,
                                                   "say":  {
-                                                              "A":  32,
-                                                              "B":  49,
+                                                              "A":  31,
+                                                              "B":  46,
                                                               "C":  53,
-                                                              "D":  43,
-                                                              "E":  32
+                                                              "D":  42,
+                                                              "E":  29
                                                           },
-                                                  "kikare":  8.9,
-                                                  "hukum":  "dengeli",
+                                                  "kikare":  10.2,
+                                                  "hukum":  "sapma",
                                                   "taban":  8.2
                                               },
                     "Maliye":  {
-                                   "n":  139,
+                                   "n":  133,
                                    "say":  {
-                                               "A":  33,
-                                               "B":  26,
-                                               "C":  25,
+                                               "A":  30,
+                                               "B":  28,
+                                               "C":  21,
                                                "D":  28,
-                                               "E":  27
+                                               "E":  26
                                            },
-                                   "kikare":  1.4,
+                                   "kikare":  1.8,
                                    "hukum":  "dengeli",
                                    "taban":  0.1
                                },
                     "Maliyet Muhasebesi":  {
-                                               "n":  390,
+                                               "n":  377,
                                                "say":  {
-                                                           "A":  54,
-                                                           "B":  80,
-                                                           "C":  111,
-                                                           "D":  90,
-                                                           "E":  55
+                                                           "A":  51,
+                                                           "B":  77,
+                                                           "C":  108,
+                                                           "D":  89,
+                                                           "E":  52
                                                        },
-                                               "kikare":  30,
+                                               "kikare":  31.7,
                                                "hukum":  "DENGESIZ",
                                                "taban":  29.2
                                            },
                     "Matematik":  {
-                                      "n":  464,
+                                      "n":  470,
                                       "say":  {
-                                                  "A":  91,
-                                                  "B":  99,
-                                                  "C":  88,
+                                                  "A":  92,
+                                                  "B":  101,
+                                                  "C":  91,
                                                   "D":  95,
                                                   "E":  91
                                               },
@@ -155,67 +155,67 @@
                                       "taban":  0.8
                                   },
                     "Meslek Hukuku":  {
-                                          "n":  188,
+                                          "n":  167,
                                           "say":  {
-                                                      "A":  38,
-                                                      "B":  36,
-                                                      "C":  38,
-                                                      "D":  37,
-                                                      "E":  39
+                                                      "A":  34,
+                                                      "B":  32,
+                                                      "C":  32,
+                                                      "D":  33,
+                                                      "E":  36
                                                   },
-                                          "kikare":  0.1,
+                                          "kikare":  0.3,
                                           "hukum":  "dengeli",
                                           "taban":  0.1
                                       },
                     "Ticaret Hukuku":  {
-                                           "n":  223,
+                                           "n":  220,
                                            "say":  {
-                                                       "A":  43,
-                                                       "B":  42,
-                                                       "C":  46,
-                                                       "D":  43,
+                                                       "A":  42,
+                                                       "B":  45,
+                                                       "C":  44,
+                                                       "D":  40,
                                                        "E":  49
                                                    },
-                                           "kikare":  0.7,
+                                           "kikare":  1,
                                            "hukum":  "dengeli",
                                            "taban":  0.1
                                        },
                     "Turkce":  {
-                                   "n":  173,
+                                   "n":  172,
                                    "say":  {
                                                "A":  35,
                                                "B":  35,
                                                "C":  33,
                                                "D":  35,
-                                               "E":  35
+                                               "E":  34
                                            },
                                    "kikare":  0.1,
                                    "hukum":  "dengeli",
                                    "taban":  0
                                },
                     "Vergi Hukuku":  {
-                                         "n":  172,
+                                         "n":  167,
                                          "say":  {
-                                                     "A":  36,
+                                                     "A":  35,
                                                      "B":  35,
-                                                     "C":  36,
-                                                     "D":  34,
+                                                     "C":  35,
+                                                     "D":  31,
                                                      "E":  31
                                                  },
-                                         "kikare":  0.5,
+                                         "kikare":  0.6,
                                          "hukum":  "dengeli",
                                          "taban":  0.5
                                      },
                     "Yabanci Dil":  {
-                                        "n":  378,
+                                        "n":  374,
                                         "say":  {
-                                                    "A":  71,
-                                                    "B":  75,
+                                                    "A":  70,
+                                                    "B":  73,
                                                     "C":  80,
-                                                    "D":  77,
+                                                    "D":  76,
                                                     "E":  75
                                                 },
-                                        "kikare":  0.6,
+                                        "kikare":  0.7,
                                         "hukum":  "dengeli",
                                         "taban":  0
                                     }
