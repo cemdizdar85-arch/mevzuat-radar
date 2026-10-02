@@ -3,9 +3,9 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-10-01 15:20:31 UTC
-- commit: 4ada6398c0bcd90ac3c588ec0ca63ed14351588a
-- kosu no: 61
+- zaman: 2026-10-02 14:40:00 UTC
+- commit: 016549d7cf1513fd83dea0c475489f53f2426965
+- kosu no: 62
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
