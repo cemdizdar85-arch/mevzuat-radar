@@ -134,8 +134,19 @@
   function bugun() { return new Date().toISOString().slice(0, 10); }
   function aktifMi(satir) { return !satir.bitis || satir.bitis >= bugun(); }
 
+  /* 02.10 APPLE 3.1.1 (Cem "tamam" = B1): iPhone'da uygulama içi satış KAPALIYKEN başka yerden (site) alınmış
+     paket uygulamada AÇILMAZ — Apple, uygulamada açılan ücretli içeriğin uygulama içinden de satın alınabilmesini
+     şart koşuyor (3.1.3(b)). Bu sürede iPhone'da yalnız ücretsiz örnek sorular. Değer derlemede
+     magaza-urunleri.json "ios_satis"tan yazılır (hazirla.js işareti değiştirir; işaret bulunamazsa derleme durur).
+     Android ve site etkilenmez. */
+  var IOS_SATIS = false; /*HAZIRLA:IOS_SATIS*/
+  function iosKilitli() {
+    try { return !IOS_SATIS && !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios'); } catch (e) { return false; }
+  }
+
   /* Paket satırları: ağdan; ağ yoksa son başarılı okuma (en fazla CEVRIMDISI_GUN gün). */
   async function paketler(sb, kullaniciId) {
+    if (iosKilitli()) return { satir: [], cevrimdisi: false, iosKilit: true };
     try {
       var r = await sb.from('paket_uyeler').select('paket,bitis').eq('user_id', kullaniciId);
       if (r.error) throw r.error;

@@ -144,6 +144,8 @@
     mod = m;
     $('modUye').setAttribute('aria-pressed', m === 'uye'); $('modGiris').setAttribute('aria-pressed', m === 'giris');
     $('adSatir').hidden = m !== 'uye'; $('onaySatir').hidden = m !== 'uye'; $('sifreUnuttum').hidden = m !== 'giris';
+    /* 02.10: üye ol'a geçerken kutudaki (tarayıcının doldurduğu ya da giriş için yazılan) şifre taşınmaz */
+    $('sifre2Satir').hidden = m !== 'uye'; if (m === 'uye') { $('sifre').value = ''; $('sifre2').value = ''; }
     $('girisGonder').textContent = m === 'uye' ? 'Ücretsiz üye ol' : 'Giriş yap';
     $('girisBaslik').textContent = m === 'uye' ? 'Ücretsiz üye ol' : 'Giriş yap';
     $('girisAlt').textContent = m === 'uye' ? '30 ücretsiz soru, açıklamaları ve karnen açılır. İlerlemen tüm cihazlarında saklanır.'
@@ -167,7 +169,9 @@
     var h = $('girisHata'); h.textContent = '';
     var ep = $('eposta').value.trim(), sf = $('sifre').value;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ep)) { h.textContent = 'E-posta adresini yaz.'; return; }
-    if (sf.length < 6) { h.textContent = 'Şifre en az 6 karakter olmalı.'; return; }
+    if (!sf) { h.textContent = 'Şifreni yaz.'; return; }
+    if (mod === 'uye' && sf.length < 8) { h.textContent = 'Şifre en az 8 karakter olmalı.'; return; }
+    if (mod === 'uye' && sf !== $('sifre2').value) { h.textContent = 'İki şifre aynı değil. Tekrar yaz.'; return; }
     var dg = $('girisGonder'); dg.disabled = true;
     try {
       if (mod === 'uye') {
@@ -176,7 +180,13 @@
         var u = await sb.auth.signUp({ email: ep, password: sf, options: { captchaToken: await captcha(), data: {
           hesap_turu: 'ogrenci', kaynak: 'uygulama', ad: $('ad').value.trim().slice(0, 60),
           kosul_kabul: an, pazarlama_rizasi: riza, riza_tarihi: riza ? an : null } } });
-        if (u.error) { h.textContent = /already|registered|exists/i.test(u.error.message || '') ? 'Bu e-postayla zaten hesap var. "Giriş yap"a geç.' : trHata(u.error); return; }
+        if (u.error) {
+          if (/already|registered|exists/i.test((u.error.code || '') + ' ' + (u.error.message || ''))) {
+            modSec('giris'); $('sifre').value = '';
+            $('girisHata').textContent = 'Bu e-postayla zaten bir hesabın var. Şifrenle giriş yap ya da "Şifremi unuttum"a bas.'; return;
+          }
+          h.textContent = trHata(u.error); return;
+        }
         if (!u.data.session) { h.textContent = 'Hesabın açıldı. E-postana gelen bağlantıya tıkla, sonra giriş yap.'; modSec('giris'); return; }
         olay('uye_ol', true);
         try { localStorage.setItem('tt_teklif_hosgeldin', '1'); } catch (x) {}
@@ -289,9 +299,14 @@
   }
   $('sifreUnuttum').addEventListener('click', async function () {
     var ep = $('eposta').value.trim();
-    if (!ep) { $('girisHata').textContent = 'Önce e-posta adresini yaz.'; return; }
-    var r = await sb.auth.resetPasswordForEmail(ep, { redirectTo: SIFRE_DONUS, captchaToken: await captcha() });
-    $('girisHata').textContent = r.error ? trHata(r.error) : 'Şifre yenileme bağlantısı e-postana gönderildi.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ep)) { $('girisHata').textContent = 'Önce hesabının e-posta adresini yaz.'; return; }
+    var b = this; b.disabled = true;
+    try {
+      var r = await sb.auth.resetPasswordForEmail(ep, { redirectTo: SIFRE_DONUS, captchaToken: await captcha() });
+      /* 02.10: Supabase hesap varlığını söylemez; mesaj da öyle. Bağlantı tetikte.com'da "Yeni şifre belirle" ekranını açar. */
+      $('girisHata').textContent = r.error ? trHata(r.error)
+        : ep + ' adresine kayıtlı bir hesap varsa şifre yenileme bağlantısı gönderdik (hesap@tetikte.com). Gelen kutunda yoksa Gereksiz klasörüne bak. Bağlantıda yeni şifreni belirle, sonra buradan giriş yap. Gelmezse: destek@tetikte.com';
+    } finally { setTimeout(function () { b.disabled = false; }, 60000); }
   });
   $('cikis').addEventListener('click', async function () {
     await window.TT.cikis(sb);

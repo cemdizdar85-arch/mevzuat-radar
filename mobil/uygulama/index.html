@@ -75,7 +75,9 @@
     <form id="girisForm" class="kart" autocomplete="on" novalidate>
       <label id="adSatir">Adın<input id="ad" type="text" autocomplete="given-name" maxlength="60"></label>
       <label>E-posta<input id="eposta" type="email" inputmode="email" autocomplete="username" required></label>
-      <label>Şifre<input id="sifre" type="password" autocomplete="new-password" minlength="6" required></label>
+      <label>Şifre<input id="sifre" type="password" autocomplete="new-password" minlength="8" required></label>
+      <!-- 02.10 sitedeki kurumsal girişle aynı: üye olurken şifre iki kez (yanlış yazılan şifreyle hesap açılmasın) -->
+      <label id="sifre2Satir">Şifreyi tekrar yaz<input id="sifre2" type="password" autocomplete="new-password" minlength="8"></label>
       <div id="onaySatir">
         <label class="anahtar onay"><input id="kosul" type="checkbox"> <span><button type="button" class="bagIc" data-dis="https://tetikte.com/uyelik-sozlesmesi.html">Üyelik sözleşmesini</button> ve <button type="button" class="bagIc" data-dis="https://tetikte.com/kvkk.html">aydınlatma metnini</button> okudum, kabul ediyorum.</span></label>
         <label class="anahtar onay"><input id="riza" type="checkbox"> <span>Kampanya ve duyurular e-postama gelsin (isteğe bağlı).</span></label>

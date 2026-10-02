@@ -231,6 +231,11 @@ if (fs.existsSync(magazaYolu)) {
   katalog.dersler = m.dersler || {};
   katalog.iosSatis = m.ios_satis === true;   // App Store satış anahtarı (magaza-urunleri.json)
 }
+/* 02.10 B1: iPhone'da satış kapalıyken web paketi açılmaz — ortak.js'teki değer magaza-urunleri.json'dan yazılır */
+const IOS_ISARET = 'var IOS_SATIS = false; /*HAZIRLA:IOS_SATIS*/';
+const ortakKaynak = fs.readFileSync(path.join(MOBIL, 'uygulama', 'ortak.js'), 'utf8');
+kapi('KAPI-SATIS', ortakKaynak.split(IOS_ISARET).length - 1 === 1, 'ortak.js IOS_SATIS işareti tam 1 kez bulunmalı');
+yaz('ortak.js', ortakKaynak.split(IOS_ISARET).join('var IOS_SATIS = ' + (katalog.iosSatis === true) + '; /*HAZIRLA:IOS_SATIS*/'));
 katalog.derleme = process.env.TT_DERLEME || new Date().toISOString().slice(0, 10);
 yaz('katalog.js', '/* hazirla.js üretir, elle düzenlenmez */\nwindow.TT_KATALOG=' + JSON.stringify(katalog) + ';\n');
 

@@ -29,7 +29,7 @@ const HAZIRLA = path.join(__dirname, 'hazirla.js');
 
 /* --------- mutasyon kipi: kendini her kapı kör edilmiş olarak koşar, düşmesini bekler --------- */
 if (process.argv.includes('--mutasyon')) {
-  let tutan = 0; const MUT = ['kasa', 'sizinti', 'satis', 'yama', 'ucretsiz'];
+  let tutan = 0; const MUT = ['kasa', 'sizinti', 'satis', 'yama', 'ucretsiz', 'ioskilit'];
   for (const m of MUT) {
     const r = spawnSync(process.execPath, [__filename], { env: Object.assign({}, process.env, { HZ_MUTASYON: m }), encoding: 'utf8' });
     const dustu = r.status !== 0;
@@ -159,6 +159,29 @@ for (const v of VAKALAR) {
   sonuc('kapsar()/sinaviBul() paket-kapisi.js ile aynı (' + 15 * 3 + ' paket×sınav + 4 yol)', tamam, not);
 }
 
+/* --------------------------- 02.10 B1: iPhone'da satış kapalıyken web paketi açılmaz --------------------------- */
+{
+  let kaynak = fs.readFileSync(path.join(__dirname, 'uygulama', 'ortak.js'), 'utf8');
+  if (process.env.HZ_MUTASYON === 'ioskilit') kaynak = kaynak.replace('if (iosKilitli())', 'if (false)');
+  const dene = async (platform, iosSatis) => {
+    let sorgu = 0;
+    const kutu = { window: platform ? { Capacitor: { getPlatform: () => platform } } : {}, localStorage: { setItem() {}, getItem() { return null; } }, navigator: {}, indexedDB: null };
+    vm.createContext(kutu);
+    vm.runInContext(iosSatis ? kaynak.replace('var IOS_SATIS = false; /*HAZIRLA:IOS_SATIS*/', 'var IOS_SATIS = true;') : kaynak, kutu);
+    const sb = { from: () => ({ select: () => ({ eq: async () => { sorgu++; return { data: [{ paket: 'sgs', bitis: null }], error: null }; } }) }) };
+    const r = await kutu.window.TT.paketler(sb, 'u1');
+    return { acar: kutu.window.TT.acarMi(r.satir, 'sgs'), sorgu };
+  };
+  (async () => {
+    const ios = await dene('ios', false), iosAcik = await dene('ios', true), android = await dene('android', false), web = await dene(null, false);
+    const tamam = ios.acar === false && ios.sorgu === 0 && iosAcik.acar === true && android.acar === true && web.acar === true;
+    sonuc('iPhone satış kapalı → web paketi açılmaz; iPhone satış açık / Android / web → açılır', tamam,
+      JSON.stringify({ ios, iosAcik, android, web }));
+    console.log('HAZIRLA-SINAVI: ' + (gecen === toplam ? 'YESIL' : 'KIRMIZI') + ' — ' + gecen + '/' + toplam + (process.env.HZ_MUTASYON ? ' · HZ_MUTASYON=' + process.env.HZ_MUTASYON : ''));
+    process.exitCode = gecen === toplam ? 0 : 1;
+  })();
+}
+
 /* --------------------------- kasa sorgusu biçimi --------------------------- */
 {
   const ky = fs.readFileSync(path.join(DEPO, 'kasa-yukle.js'), 'utf8');
@@ -174,6 +197,4 @@ for (const v of VAKALAR) {
     .concat(kalip('yol').filter((s) => uy.indexOf(s) < 0).map((s) => 'uygulama: ' + s));
   sonuc('kasa sorgusu kasa-yukle.js ↔ uygulama.js aynı biçimde', eksik.length === 0, eksik.join(' | '));
 }
-
-console.log('HAZIRLA-SINAVI: ' + (gecen === toplam ? 'YESIL' : 'KIRMIZI') + ' — ' + gecen + '/' + toplam + (process.env.HZ_MUTASYON ? ' · HZ_MUTASYON=' + process.env.HZ_MUTASYON : ''));
-process.exit(gecen === toplam ? 0 : 1);
+/* sonuç satırı ve çıkış kodu iPhone vakası (eşzamansız) bitince yazılır — process.exit burada çağrılırsa o vaka hiç koşmaz */
