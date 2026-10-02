@@ -1456,14 +1456,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-ticaret-k10d",
-        "id":  "kp-01",
-        "ders":  "Borçlar Hukuku",
-        "konu":  "genel islem kosullari",
-        "donem":  9,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-borclar-zor",
         "id":  "kp-01",
         "ders":  "Borçlar Hukuku",
@@ -14544,6 +14536,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d3-fmuh-cokzor-r2",
+        "id":  "kp-10",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "oz kaynak toplami hesabi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d3-fmuh-cokzor-r3",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
@@ -14556,22 +14556,6 @@
         "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "oz kaynak toplami hesabi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d3-fmuh-cokzor-r2",
-        "id":  "kp-10",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "oz kaynak toplami hesabi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-cokzor-r3",
-        "id":  "kp-22",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "ozel maliyet itfasi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14608,8 +14592,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-cokzor",
-        "id":  "kp-11",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak hesaplari",
         "donem":  2,
@@ -14624,8 +14608,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-31",
+        "etiket":  "sgs-k1-fmuh-cokzor",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynak hesaplari",
         "donem":  2,
@@ -14640,16 +14624,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-27",
+        "etiket":  "sgs-p-fmuh-cokzor-r2",
+        "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynaklar hesaplama",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r2",
-        "id":  "kp-20",
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynaklar hesaplama",
         "donem":  2,
@@ -14660,6 +14644,14 @@
         "id":  "kp-24",
         "ders":  "Finansal Muhasebe",
         "konu":  "ozkaynaklar hesaplama",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-cokzor-r2",
+        "id":  "kp-21",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "reeskont kaydi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14680,10 +14672,18 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r2",
-        "id":  "kp-21",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-34",
         "ders":  "Finansal Muhasebe",
-        "konu":  "reeskont kaydi",
+        "konu":  "satilan ticari mal maliyeti",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k10-fmuh-cokzor",
+        "id":  "kp-04",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "satilan ticari mal maliyeti",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14713,17 +14713,9 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-34",
+        "id":  "kp-33",
         "ders":  "Finansal Muhasebe",
-        "konu":  "satilan ticari mal maliyeti",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k10-fmuh-cokzor",
-        "id":  "kp-04",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "satilan ticari mal maliyeti",
+        "konu":  "satilan ticari mallar maliyeti",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14744,10 +14736,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-33",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-46",
         "ders":  "Finansal Muhasebe",
-        "konu":  "satilan ticari mallar maliyeti",
+        "konu":  "satis iskontosu kaydi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -14760,15 +14752,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-46",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "satis iskontosu kaydi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-zor",
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "satis iskontosu kaydi",
@@ -14776,7 +14760,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-03",
         "ders":  "Finansal Muhasebe",
         "konu":  "satis iskontosu kaydi",
@@ -14800,6 +14784,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t3-fmuh-kolay",
+        "id":  "kp-07",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "senet iskonto kaydi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-e16-fmuh-zor",
         "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
@@ -14809,14 +14801,6 @@
     },
     {
         "etiket":  "sgs-t3-fmuh-zor",
-        "id":  "kp-07",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "senet iskonto kaydi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t3-fmuh-kolay",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "senet iskonto kaydi",
@@ -14840,8 +14824,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k10-fmuh-zor",
-        "id":  "kp-06",
+        "etiket":  "sgs-c5-fmuh-zor-r1",
+        "id":  "kp-02",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye kaydi",
         "donem":  2,
@@ -14856,15 +14840,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-k10-fmuh-zor",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "sermaye kaydi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-kolay",
         "id":  "kp-47",
         "ders":  "Finansal Muhasebe",
         "konu":  "siparis avansi mahsubu",
@@ -14872,7 +14856,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-47",
         "ders":  "Finansal Muhasebe",
         "konu":  "siparis avansi mahsubu",
@@ -14896,8 +14880,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-cokzor-r1",
-        "id":  "kp-18",
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "stok degerleme yontemi",
         "donem":  2,
@@ -14912,8 +14896,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-11",
+        "etiket":  "sgs-p-fmuh-cokzor-r1",
+        "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "stok degerleme yontemi",
         "donem":  2,
@@ -14928,16 +14912,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-fmuh-zor-r1",
-        "id":  "kp-12",
+        "etiket":  "sgs-t1-fmuh-cokzor",
+        "id":  "kp-52",
         "ders":  "Finansal Muhasebe",
         "konu":  "supheli alacak karsiligi",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
-        "id":  "kp-52",
+        "etiket":  "sgs-d3-fmuh-zor-r1",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "supheli alacak karsiligi",
         "donem":  2,
@@ -14984,16 +14968,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-fmuh-zor-r2",
-        "id":  "kp-12",
+        "etiket":  "sgs-c2-fmuh-zor-r1-2",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 10 kontrol gucu olmayan paylar",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r1-2",
-        "id":  "kp-01",
+        "etiket":  "sgs-p-fmuh-zor-r2",
+        "id":  "kp-12",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 10 kontrol gucu olmayan paylar",
         "donem":  2,
@@ -15004,6 +14988,14 @@
         "id":  "kp-19",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 10 kontrol gucu olmayan paylar",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-fmuh-kolay-r2",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tfrs 16 kiralamalar",
         "donem":  2,
         "kurtarma":  false
     },
@@ -15026,14 +15018,6 @@
     {
         "etiket":  "sgs-k5-fmuh-cokzor",
         "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tfrs 16 kiralamalar",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-fmuh-kolay-r2",
-        "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "tfrs 16 kiralamalar",
         "donem":  2,
@@ -15080,16 +15064,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1",
-        "id":  "kp-20",
+        "etiket":  "sgs-c2-fmuh-cokzor-r1-2",
+        "id":  "kp-01",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 16 maliyet bedeli",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-cokzor-r1-2",
-        "id":  "kp-01",
+        "etiket":  "sgs-c2-fmuh-cokzor-r1",
+        "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 16 maliyet bedeli",
         "donem":  2,
@@ -15104,7 +15088,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor",
+        "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-44",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 23 ozellikli varlik",
@@ -15112,7 +15096,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor",
+        "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-44",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 23 ozellikli varlik",
@@ -15128,6 +15112,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-fmuh-kolay-r1",
+        "id":  "kp-18",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 28 ozkaynak yontemi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-fmuh-zor-r1",
         "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
@@ -15138,14 +15130,6 @@
     {
         "etiket":  "sgs-p-fmuh-cokzor-r2",
         "id":  "kp-23",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 28 ozkaynak yontemi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-fmuh-kolay-r1",
-        "id":  "kp-18",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 28 ozkaynak yontemi",
         "donem":  2,
@@ -15168,6 +15152,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-20",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "tms 8 muhasebe politikasi degisikligi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-zor",
         "id":  "kp-40",
         "ders":  "Finansal Muhasebe",
@@ -15178,14 +15170,6 @@
     {
         "etiket":  "sgs-t1-fmuh-cokzor",
         "id":  "kp-40",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "tms 8 muhasebe politikasi degisikligi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-20",
         "ders":  "Finansal Muhasebe",
         "konu":  "tms 8 muhasebe politikasi degisikligi",
         "donem":  2,
@@ -15312,16 +15296,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r1",
-        "id":  "kp-14",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-32",
         "ders":  "Finansal Muhasebe",
         "konu":  "amortisman yontemleri",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-32",
+        "etiket":  "sgs-c5-fmuh-zor-r1",
+        "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "amortisman yontemleri",
         "donem":  1,
@@ -15336,14 +15320,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
-        "id":  "kp-13",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "aralikli envanter smm hesabi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-kolay-r2-2",
         "id":  "kp-15",
         "ders":  "Finansal Muhasebe",
@@ -15352,8 +15328,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-148",
+        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "aralikli envanter smm hesabi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-82",
         "ders":  "Finansal Muhasebe",
         "konu":  "aralikli envanter stok hesabi",
         "donem":  1,
@@ -15368,8 +15352,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-82",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-148",
         "ders":  "Finansal Muhasebe",
         "konu":  "aralikli envanter stok hesabi",
         "donem":  1,
@@ -15401,7 +15385,7 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-173",
+        "id":  "kp-142",
         "ders":  "Finansal Muhasebe",
         "konu":  "arama giderleri 271",
         "donem":  1,
@@ -15409,7 +15393,7 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-142",
+        "id":  "kp-173",
         "ders":  "Finansal Muhasebe",
         "konu":  "arama giderleri 271",
         "donem":  1,
@@ -15424,8 +15408,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-fmuh-zor-b",
+        "id":  "kp-153",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "avans mahsup kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-153",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "avans mahsup kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k1-fmuh-zor",
+        "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "avans mahsup kaydi",
         "donem":  1,
@@ -15448,34 +15448,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k1-fmuh-zor",
-        "id":  "kp-27",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "avans mahsup kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor-b",
-        "id":  "kp-153",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "avans mahsup kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-c5-fmuh-zor-r2",
         "id":  "kp-14",
         "ders":  "Finansal Muhasebe",
         "konu":  "avans mahsuplu ilk madde alimi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-86",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "azalan bakiyeler amortisman yontemi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15496,7 +15472,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r2-2",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-86",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "azalan bakiyeler amortisman yontemi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-fmuh-zor-r1-2",
         "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "azalan bakiyeler amortismani",
@@ -15504,7 +15488,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-zor-r1-2",
+        "etiket":  "sgs-c5-fmuh-zor-r2-2",
         "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
         "konu":  "azalan bakiyeler amortismani",
@@ -15528,14 +15512,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-zor",
-        "id":  "kp-90",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "banka kredisi geri odemesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t2-fmuh-cokzor",
         "id":  "kp-95",
         "ders":  "Finansal Muhasebe",
@@ -15544,16 +15520,24 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
-        "id":  "kp-11",
+        "etiket":  "sgs-t2-fmuh-zor",
+        "id":  "kp-90",
         "ders":  "Finansal Muhasebe",
-        "konu":  "banka kredisi odeme kaydi",
+        "konu":  "banka kredisi geri odemesi",
         "donem":  1,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-k1-fmuh-zor",
         "id":  "kp-26",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "banka kredisi odeme kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c5-fmuh-kolay-r1-2",
+        "id":  "kp-11",
         "ders":  "Finansal Muhasebe",
         "konu":  "banka kredisi odeme kaydi",
         "donem":  1,
@@ -15592,16 +15576,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-27",
+        "etiket":  "sgs-t2-fmuh-kolay",
+        "id":  "kp-84",
         "ders":  "Finansal Muhasebe",
         "konu":  "birinci tertip yedek akce",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-fmuh-kolay",
-        "id":  "kp-84",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-27",
         "ders":  "Finansal Muhasebe",
         "konu":  "birinci tertip yedek akce",
         "donem":  1,
@@ -15632,14 +15616,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-maliyet-cokzor-r1",
-        "id":  "kp-06",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "borclanma maliyetleri tms23",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-maliyet-cokzor-r2",
         "id":  "kp-04",
         "ders":  "Finansal Muhasebe",
@@ -15650,6 +15626,14 @@
     {
         "etiket":  "sgs-d2-maliyet-cokzor-r3",
         "id":  "kp-01",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "borclanma maliyetleri tms23",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-maliyet-cokzor-r1",
+        "id":  "kp-06",
         "ders":  "Finansal Muhasebe",
         "konu":  "borclanma maliyetleri tms23",
         "donem":  1,
@@ -15704,7 +15688,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r1-3",
+        "etiket":  "sgs-c5-fmuh-kolay-r2-3",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "dava konusu supheli alacak kaydi",
@@ -15712,7 +15696,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-kolay-r2-3",
+        "etiket":  "sgs-c5-fmuh-kolay-r1-3",
         "id":  "kp-07",
         "ders":  "Finansal Muhasebe",
         "konu":  "dava konusu supheli alacak kaydi",
@@ -15752,7 +15736,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-zor-b",
+        "etiket":  "sgs-t1-fmuh-cokzor-b",
         "id":  "kp-96",
         "ders":  "Finansal Muhasebe",
         "konu":  "diger borc ve gider karsiliklari",
@@ -15760,7 +15744,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
         "id":  "kp-96",
         "ders":  "Finansal Muhasebe",
         "konu":  "diger borc ve gider karsiliklari",
@@ -15776,7 +15760,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-96",
         "ders":  "Finansal Muhasebe",
         "konu":  "diger borc ve gider karsiliklari",
@@ -15808,6 +15792,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-fmuh-kolay",
+        "id":  "kp-31",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem kâri zarari devri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-31",
         "ders":  "Finansal Muhasebe",
@@ -15817,30 +15809,6 @@
     },
     {
         "etiket":  "sgs-t4-fmuh-kolay",
-        "id":  "kp-31",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem kâri zarari devri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-kolay",
-        "id":  "kp-32",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem net kâri hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-136",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "donem net kâri hesaplama",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-32",
         "ders":  "Finansal Muhasebe",
         "konu":  "donem net kâri hesaplama",
@@ -15856,6 +15824,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t4-fmuh-zor",
+        "id":  "kp-32",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem net kâri hesaplama",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-136",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "donem net kâri hesaplama",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
@@ -15864,7 +15848,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
         "konu":  "donem net zarari kapanisi",
@@ -15872,7 +15856,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-zor",
+        "etiket":  "sgs-t4-fmuh-kolay",
         "id":  "kp-29",
         "ders":  "Finansal Muhasebe",
         "konu":  "donem net zarari kapanisi",
@@ -15896,6 +15880,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c5-fmuh-cokzor-r1",
+        "id":  "kp-13",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "doviz borc senedi reeskont-tasarruf degeri",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-fmuh-cokzor-r2",
         "id":  "kp-13",
         "ders":  "Finansal Muhasebe",
@@ -15904,10 +15896,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-fmuh-cokzor-r1",
-        "id":  "kp-13",
+        "etiket":  "sgs-t1-fmuh-kolay-b",
+        "id":  "kp-131",
         "ders":  "Finansal Muhasebe",
-        "konu":  "doviz borc senedi reeskont-tasarruf degeri",
+        "konu":  "doviz kredisi kapatma",
         "donem":  1,
         "kurtarma":  false
     },
@@ -15921,22 +15913,6 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-131",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "doviz kredisi kapatma",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-kolay-b",
-        "id":  "kp-137",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik (sabit kiymet) satisi kaydi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-137",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik (sabit kiymet) satisi kaydi",
@@ -15945,6 +15921,14 @@
     },
     {
         "etiket":  "sgs-t1-fmuh-cokzor-b",
+        "id":  "kp-137",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik (sabit kiymet) satisi kaydi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-fmuh-zor-b",
         "id":  "kp-137",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik (sabit kiymet) satisi kaydi",
@@ -15992,16 +15976,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-fmuh-kolay",
-        "id":  "kp-83",
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-23",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-23",
+        "etiket":  "sgs-t1-fmuh-kolay",
+        "id":  "kp-83",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi",
         "donem":  1,
@@ -16012,14 +15996,6 @@
         "id":  "kp-10",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik satisi amortisman",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-fmuh-kolay",
-        "id":  "kp-11",
-        "ders":  "Finansal Muhasebe",
-        "konu":  "duran varlik takasi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -16048,6 +16024,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-e16-fmuh-kolay",
+        "id":  "kp-11",
+        "ders":  "Finansal Muhasebe",
+        "konu":  "duran varlik takasi",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-t4-fmuh-zor",
         "id":  "kp-26",
         "ders":  "Finansal Muhasebe",
@@ -16056,7 +16040,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-kolay",
+        "etiket":  "sgs-t4-fmuh-cokzor",
         "id":  "kp-26",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
@@ -16072,16 +16056,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t4-fmuh-cokzor",
-        "id":  "kp-26",
+        "etiket":  "sgs-c2-fmuh-zor-r2",
+        "id":  "kp-17",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-fmuh-zor-r2",
-        "id":  "kp-17",
+        "etiket":  "sgs-t4-fmuh-kolay",
+        "id":  "kp-26",
         "ders":  "Finansal Muhasebe",
         "konu":  "duran varlik takasi",
         "donem":  1,
@@ -16112,7 +16096,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-fmuh-cokzor-r2",
+        "etiket":  "sgs-d5-fmuh-cokzor-r1",
         "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
         "konu":  "envanter defteri",
@@ -16120,7 +16104,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-fmuh-cokzor-r1",
+        "etiket":  "sgs-d5-fmuh-cokzor-r2",
         "id":  "kp-16",
         "ders":  "Finansal Muhasebe",
         "konu":  "envanter defteri",
@@ -19256,23 +19240,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-issgk-kolay-r2",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d5-issgk-kolay-r1",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika uyeligi",
@@ -19288,23 +19256,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-issgk-p30",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika uyeligi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-a6-issgk-cokzor-r1",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika uyeligi",
@@ -19320,18 +19272,34 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-d5-issgk-kolay-r1",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "toplu is sozlesmesi",
+        "konu":  "sendika uyeligi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-issgk-p30",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika uyeligi",
         "donem":  6,
         "kurtarma":  false
     },
     {
         "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-01",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "toplu is sozlesmesi",
+        "konu":  "sendika uyeligi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-a6-issgk-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika uyeligi",
         "donem":  6,
         "kurtarma":  false
     },
@@ -19361,14 +19329,6 @@
     },
     {
         "etiket":  "sgs-k5-issgk-zor",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "toplu is sozlesmesi",
-        "donem":  6,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k5-issgk-cokzor",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "toplu is sozlesmesi",
@@ -19408,42 +19368,34 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "toplu is sozlesmesi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-issgk-cokzor",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "toplu is sozlesmesi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "toplu is sozlesmesi",
+        "donem":  6,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-bc-borclar-kolay-r2",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi sekli",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-issgk-cokzor-r2",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-issgk-k10e",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-cokzor-r3",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-cokzor-r4-a",
-        "id":  "kp-01",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
         "donem":  5,
         "kurtarma":  false
     },
@@ -19456,7 +19408,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-issgk-k10e",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi turleri",
@@ -19472,14 +19432,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi turleri",
-        "donem":  5,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-issgk-cokzor-r3-a",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19488,11 +19440,35 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r2-a",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "belirli sureli is sozlesmesi",
-        "donem":  4,
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-cokzor-r2",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-cokzor-r4-a",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi turleri",
+        "donem":  5,
         "kurtarma":  false
     },
     {
@@ -19504,16 +19480,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-kolay-r1",
+        "etiket":  "sgs-p-issgk-kolay-r2-a",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is sozlesmesi feshi",
+        "konu":  "belirli sureli is sozlesmesi",
         "donem":  4,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
-        "id":  "kp-01",
+        "etiket":  "sgs-k5-issgk-zor",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi feshi",
         "donem":  4,
@@ -19528,7 +19504,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k5-issgk-zor",
+        "etiket":  "sgs-d3-issgk-kolay-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is sozlesmesi feshi",
@@ -19544,6 +19520,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is sozlesmesi feshi",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-kolay-r1",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "yillik ucretli izin",
+        "donem":  4,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-issgk-kolay-r3",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19552,7 +19544,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-kolay-r1",
+        "etiket":  "sgs-c2-issgk-zor-r3",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "yillik ucretli izin",
@@ -19576,14 +19568,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-zor-r3",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "yillik ucretli izin",
-        "donem":  4,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19592,24 +19576,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
-        "id":  "kp-06",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "calisma ve dinlenme sureleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d2-issgk-zor-r1",
         "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "calisma ve dinlenme sureleri",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-issgk-zor",
-        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "calisma ve dinlenme sureleri",
         "donem":  3,
@@ -19624,7 +19592,31 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "calisma ve dinlenme sureleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "calisma ve dinlenme sureleri",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-issgk-kolay-r2",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "esit islem borcu",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-issgk-kolay-r3",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "esit islem borcu",
@@ -19641,14 +19633,6 @@
     },
     {
         "etiket":  "sgs-c2-issgk-kolay-r1",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "esit islem borcu",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-issgk-kolay-r3",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "esit islem borcu",
@@ -19688,6 +19672,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k11-issgk-kolay",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is guvencesi",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-k5-issgk-cokzor",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19704,10 +19696,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k11-issgk-kolay",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-issgk-kolay-r3-a",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is guvencesi",
+        "konu":  "İs kanunu kapsami",
         "donem":  3,
         "kurtarma":  false
     },
@@ -19728,34 +19720,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-kolay-r3-a",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "İs kanunu kapsami",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-d3-issgk-kolay-r1",
         "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "İs kanunu kapsami",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-c2-issgk-kolay-r2",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi sayilmayan haller",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-zor-r1",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi sayilmayan haller",
         "donem":  3,
         "kurtarma":  false
     },
@@ -19768,7 +19736,23 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-c2-issgk-kolay-r2",
+        "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi sayilmayan haller",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-issgk-cokzor-r3-a",
+        "id":  "kp-04",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi sayilmayan haller",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-p-issgk-zor-r1",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilmayan haller",
@@ -19792,16 +19776,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-cokzor-r3",
-        "id":  "kp-01",
+        "etiket":  "sgs-d5-issgk-kolay-r1",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isci ucretleri",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d5-issgk-kolay-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-d2-issgk-cokzor-r3",
+        "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isci ucretleri",
         "donem":  3,
@@ -19816,8 +19800,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-cokzor-r1",
-        "id":  "kp-03",
+        "etiket":  "sgs-p-issgk-cokzor-r1",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
         "donem":  3,
@@ -19832,15 +19816,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r1",
-        "id":  "kp-02",
+        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
         "donem":  3,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3",
+        "etiket":  "sgs-c2-issgk-cokzor-r1",
         "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isveren vekili",
@@ -19864,31 +19848,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k5-issgk-zor",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sigortali sayilma",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-issgk-zor",
-        "id":  "kp-04",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sigortali sayilma",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-issgk-kolay",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sigortali sayilma",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k11-issgk-kolay",
+        "id":  "kp-01",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sigortali sayilma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d3-issgk-cokzor-r4",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sigortali sayilma",
@@ -19904,6 +19872,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-k2-issgk-kolay",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sigortali sayilma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k5-issgk-zor",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sigortali sayilma",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d5-issgk-cokzor-r1",
         "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19912,26 +19896,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-cokzor-r4",
-        "id":  "kp-01",
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sigortali sayilma",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-issgk-cokzor-r1",
-        "id":  "kp-02",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sureli fesih",
-        "donem":  3,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-kolay-r2-a",
-        "id":  "kp-03",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sureli fesih",
         "donem":  3,
         "kurtarma":  false
     },
@@ -19952,6 +19920,22 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-kolay-r2-a",
+        "id":  "kp-03",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sureli fesih",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-cokzor-r1",
+        "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sureli fesih",
+        "donem":  3,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-issgk-kolay-r3",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -19960,7 +19944,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
+        "etiket":  "sgs-k2-issgk-zor",
         "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucret hukumleri",
@@ -19976,7 +19960,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-issgk-zor",
+        "etiket":  "sgs-bosluk-svesosyalguvenlikhukuku",
         "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucret hukumleri",
@@ -20032,7 +20016,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k5-issgk-zor",
+        "etiket":  "sgs-c2-issgk-cokzor-r1",
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fazla calisma",
@@ -20048,7 +20032,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-cokzor-r1",
+        "etiket":  "sgs-k5-issgk-zor",
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fazla calisma",
@@ -20056,7 +20040,15 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-kolay-r2",
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "gecici is iliskisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-kolay-r2",
         "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "gecici is iliskisi",
@@ -20080,24 +20072,16 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-d3-issgk-kolay-r2",
+        "id":  "kp-06",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "gecici is iliskisi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-d2-issgk-kolay-r1",
         "id":  "kp-06",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "gecici is iliskisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d2-issgk-kolay-r2",
-        "id":  "kp-06",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "gecici is iliskisi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "gecici is iliskisi",
         "donem":  2,
@@ -20112,16 +20096,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-issgk-cokzor",
-        "id":  "kp-05",
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "grev lokavt",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-issgk-zor",
-        "id":  "kp-07",
+        "etiket":  "sgs-k2-issgk-cokzor",
+        "id":  "kp-05",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "grev lokavt",
         "donem":  2,
@@ -20144,14 +20128,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-11",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "grev lokavt yasagi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k11-issgk-cokzor",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20160,18 +20136,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c2-issgk-cokzor-r1",
-        "id":  "kp-05",
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi meslek hastaligi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-issgk-zor-r1-a",
-        "id":  "kp-05",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi meslek hastaligi",
+        "konu":  "grev lokavt yasagi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -20192,6 +20160,30 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-zor-r1-a",
+        "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi meslek hastaligi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-c2-issgk-cokzor-r1",
+        "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi meslek hastaligi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-09",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "is kazasi sigortasi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-p-issgk-kolay-r1-a",
         "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20208,14 +20200,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-k2-issgk-zor",
-        "id":  "kp-09",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kazasi sigortasi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-12",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20224,16 +20208,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-cokzor-r1",
-        "id":  "kp-07",
+        "etiket":  "sgs-c5-issgk-kolay-r2",
+        "id":  "kp-02",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ise iade arabuluculuk",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-kolay-r2",
-        "id":  "kp-02",
+        "etiket":  "sgs-d3-issgk-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ise iade arabuluculuk",
         "donem":  2,
@@ -20248,14 +20232,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-issgk-cokzor-r3-a",
-        "id":  "kp-05",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "isletme toplu is sozlesmesi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-k13-issgk-kolay",
         "id":  "kp-01",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20264,8 +20240,24 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-p-issgk-cokzor-r3-a",
+        "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isletme toplu is sozlesmesi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c5-issgk-zor-r1",
         "id":  "kp-02",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "isyeri devri",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-d2-issgk-cokzor-r1",
+        "id":  "kp-07",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "isyeri devri",
         "donem":  2,
@@ -20288,24 +20280,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d2-issgk-cokzor-r1",
-        "id":  "kp-07",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "isyeri devri",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-issgk-zor",
-        "id":  "kp-08",
+        "etiket":  "sgs-d3-issgk-zor-r1",
+        "id":  "kp-06",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "kisa uzun vadeli sigorta kollari",
         "donem":  2,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-d3-issgk-zor-r1",
-        "id":  "kp-06",
+        "etiket":  "sgs-k2-issgk-zor",
+        "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "kisa uzun vadeli sigorta kollari",
         "donem":  2,
@@ -20320,22 +20304,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-08",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "kismi sureli is sozlesmesi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-08",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "kismi sureli is sozlesmesi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-zor",
         "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20346,6 +20314,22 @@
     {
         "etiket":  "sgs-d2-issgk-cokzor-r1",
         "id":  "kp-05",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "kismi sureli is sozlesmesi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-08",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "kismi sureli is sozlesmesi",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-08",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "kismi sureli is sozlesmesi",
         "donem":  2,
@@ -20392,6 +20376,14 @@
         "kurtarma":  false
     },
     {
+        "etiket":  "sgs-t1-issgk-cokzor",
+        "id":  "kp-10",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "uzun vadeli sigorta kollari",
+        "donem":  2,
+        "kurtarma":  false
+    },
+    {
         "etiket":  "sgs-c2-issgk-cokzor-r1",
         "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20401,10 +20393,10 @@
     },
     {
         "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-10",
+        "id":  "kp-29",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "uzun vadeli sigorta kollari",
-        "donem":  2,
+        "konu":  "fazla calisma hukumleri",
+        "donem":  1,
         "kurtarma":  false
     },
     {
@@ -20425,14 +20417,6 @@
     },
     {
         "etiket":  "sgs-t1-issgk-cokzor",
-        "id":  "kp-29",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "fazla calisma hukumleri",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-30",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fiili hizmet suresi zammi",
@@ -20440,7 +20424,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-30",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "fiili hizmet suresi zammi",
@@ -20480,8 +20464,8 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-26",
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-15",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "haciz siniri",
         "donem":  1,
@@ -20496,16 +20480,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-15",
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-26",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "haciz siniri",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-27",
+        "etiket":  "sgs-t1-issgk-zor",
+        "id":  "kp-23",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is guvencesi kapsami",
         "donem":  1,
@@ -20520,18 +20504,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-23",
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-27",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is guvencesi kapsami",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-e16-issgk-kolay",
-        "id":  "kp-10",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kanunu calisma sureleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -20544,10 +20520,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-zor",
-        "id":  "kp-25",
+        "etiket":  "sgs-e16-issgk-kolay",
+        "id":  "kp-10",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "is kanunu fesih",
+        "konu":  "is kanunu calisma sureleri",
         "donem":  1,
         "kurtarma":  false
     },
@@ -20576,7 +20552,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
+        "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -20584,7 +20560,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-cokzor",
+        "etiket":  "sgs-t1-issgk-kolay",
         "id":  "kp-34",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "is kazasi sayilan haller",
@@ -20648,7 +20624,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-zor",
+        "etiket":  "sgs-t1-ticaret-kolay",
         "id":  "kp-25",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ozel istihdam burolari gecici is",
@@ -20656,7 +20632,7 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-ticaret-kolay",
+        "etiket":  "sgs-t1-ticaret-zor",
         "id":  "kp-25",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ozel istihdam burolari gecici is",
@@ -20666,6 +20642,14 @@
     {
         "etiket":  "sgs-k2-issgk-cokzor",
         "id":  "kp-07",
+        "ders":  "İş ve Sosyal Güvenlik Hukuku",
+        "konu":  "sendika guvenceleri (yonetici-temsilci)",
+        "donem":  1,
+        "kurtarma":  false
+    },
+    {
+        "etiket":  "sgs-k2-issgk-kolay",
+        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika guvenceleri (yonetici-temsilci)",
         "donem":  1,
@@ -20682,14 +20666,6 @@
     {
         "etiket":  "sgs-c5-denetim-zor-r2",
         "id":  "kp-07",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika guvenceleri (yonetici-temsilci)",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-k2-issgk-kolay",
-        "id":  "kp-03",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "sendika guvenceleri (yonetici-temsilci)",
         "donem":  1,
@@ -20728,14 +20704,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-issgk-kolay",
-        "id":  "kp-16",
-        "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendika yetkisi dusmesi",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-issgk-cokzor",
         "id":  "kp-16",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
@@ -20744,10 +20712,10 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-cokzor-r1",
-        "id":  "kp-10",
+        "etiket":  "sgs-t1-issgk-kolay",
+        "id":  "kp-16",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
-        "konu":  "sendikalar kanunu tanimlari",
+        "konu":  "sendika yetkisi dusmesi",
         "donem":  1,
         "kurtarma":  false
     },
@@ -20824,16 +20792,16 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-c5-issgk-cokzor-r1",
-        "id":  "kp-04",
+        "etiket":  "sgs-t2-issgk-cokzor",
+        "id":  "kp-11",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucretin odenmemesi hakli fesih",
         "donem":  1,
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t2-issgk-cokzor",
-        "id":  "kp-11",
+        "etiket":  "sgs-c5-issgk-cokzor-r1",
+        "id":  "kp-04",
         "ders":  "İş ve Sosyal Güvenlik Hukuku",
         "konu":  "ucretin odenmemesi hakli fesih",
         "donem":  1,
@@ -22920,14 +22888,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-bc-maliye-cokzor-r2",
-        "id":  "kp-02",
-        "ders":  "Maliye",
-        "konu":  "otomatik istikrarlandiricilar",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-maliye-zor-r2",
         "id":  "kp-03",
         "ders":  "Maliye",
@@ -23004,14 +22964,6 @@
         "id":  "kp-02",
         "ders":  "Maliye",
         "konu":  "vergi tarifesi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-p-maliye-kolay-r2-a",
-        "id":  "kp-03",
-        "ders":  "Maliye",
-        "konu":  "vergi yansimasi",
         "donem":  2,
         "kurtarma":  false
     },
@@ -26773,14 +26725,6 @@
         "ders":  "Maliyet Muhasebesi",
         "konu":  "yatirim siparis avansi",
         "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-d4-mat-kolay-r4",
-        "id":  "kp-01",
-        "ders":  "Matematik",
-        "konu":  "denklem cozme",
-        "donem":  7,
         "kurtarma":  false
     },
     {
@@ -32968,14 +32912,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-p-ticaret-zor-r2-b2",
-        "id":  "kp-05",
-        "ders":  "Ticaret Hukuku",
-        "konu":  "temsil yetkisinin sona ermesi",
-        "donem":  2,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-p-ticaret-zor-r1-b2",
         "id":  "kp-05",
         "ders":  "Ticaret Hukuku",
@@ -34328,14 +34264,6 @@
         "kurtarma":  false
     },
     {
-        "etiket":  "sgs-t1-genel-turkce-zor",
-        "id":  "kp-04",
-        "ders":  "Türkçe",
-        "konu":  "sozcukte anlam",
-        "donem":  8,
-        "kurtarma":  false
-    },
-    {
         "etiket":  "sgs-t1-genel-turkce-kolay",
         "id":  "kp-04",
         "ders":  "Türkçe",
@@ -35164,14 +35092,6 @@
         "id":  "kp-29",
         "ders":  "Türkçe",
         "konu":  "duzeltme isareti",
-        "donem":  1,
-        "kurtarma":  false
-    },
-    {
-        "etiket":  "sgs-t1-genel-turkce-zor",
-        "id":  "kp-30",
-        "ders":  "Türkçe",
-        "konu":  "kalip soz kullanimi",
         "donem":  1,
         "kurtarma":  false
     },
