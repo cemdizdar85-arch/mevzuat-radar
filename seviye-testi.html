@@ -112,7 +112,7 @@
       <li>Karnen e-postana gelir; yanlışlarını Nöbetçi adım adım anlatır</li>
     </ul>
     <!-- 21.09: kapı öne alındığı için sürpriz olmasın - ne isteneceği başlamadan ÖNCE yazılır. -->
-    <p class="sv-not" style="margin:0 0 16px">Başlamadan önce adını, e-postanı ve telefonunu soracağız — karnen oraya gidecek. Ücretsiz, kart istenmez.</p>
+    <p class="sv-not" style="margin:0 0 16px">Hemen başlarsın, önce form yok. Bitirince karnen için adını, e-postanı ve telefonunu soracağız. Ücretsiz, kart istenmez.</p>
     <p class="sv-onceki" id="svOnceki" hidden></p>
     <button class="sv-btn ana" id="svBasla" type="button" disabled>Soru yükleniyor…</button>
     <p class="sv-not">Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez (cevabın sıradaki sorunun zorluğunu belirler). "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.</p>
@@ -140,7 +140,7 @@
   <section id="svOnKapi" class="sv-gizli">
     <div class="sv-kutu">
       <h2>Son adım: karnen nereye gelsin?</h2>
-      <p class="sv-alt" style="margin:0 0 4px">30 soruyu bitirdiğinde geçme ihtimalin ve alan alan karnen hazır olacak. Karnen sınav gününe kadar elinin altında dursun diye e-postana da gönderiyoruz.</p>
+      <p class="sv-alt" style="margin:0 0 4px">Sonucun hazır: geçme ihtimalin ve alan alan karnen bir adım ötede. Karnen sınav gününe kadar elinin altında dursun diye e-postana da gönderiyoruz.</p>
       <form id="svOnKapiForm" novalidate>
         <label class="sv-etiket" for="svAd">Adın soyadın <span class="sv-zorunlu">*</span></label>
         <input type="text" id="svAd" placeholder="Ahmet Yılmaz" autocomplete="name" required>
@@ -173,7 +173,7 @@
           <label><input type="checkbox" id="svIzinArama"> Telefonla arama</label>
           <label><input type="checkbox" id="svIzinWa"> WhatsApp</label>
         </div>
-        <button class="sv-btn ana" type="submit" id="svGonder">Teste başla →</button>
+        <button class="sv-btn ana" type="submit" id="svGonder">Sonucumu göster →</button>
         <div class="sv-durum" id="svDurum" role="status"></div>
       </form>
     </div>
@@ -372,7 +372,7 @@
      diğer herkes ad + e-posta + TELEFON (zorunlu) + sınav + dönem vermeden soru göremez. */
   function basla(){
     if(!uyeMi() && hakKullanildi()){ goster('svGiris'); $('svHakBitti').hidden=false; $('svBasla').hidden=true; return; }
-    if(!uyeMi() && !kayitOku()){ goster('svOnKapi'); $('svAd').focus(); return; }
+    /* 03.10 (Cem, V2 madde 16 "test sonuna al"): form artık testten ÖNCE değil SONRA - bkz. sonucuAc() */
     testeBasla();
   }
   function testeBasla(){
@@ -411,11 +411,16 @@
       localStorage.setItem('kc_kutu',JSON.stringify(kutu));
     }catch(e){}
     /* 16.09: ücretsiz hak burada tükenir (test bitti). Üyede sınır yok. */
-    hakYaz();
-    /* 21.09: kapı öne alındı -> sonuç artık BEKLETİLMEZ, hemen çizilir.
-       Bilgisini ön kapıda vermiş ziyaretçinin karnesi arkadan gönderilir; gönderi düşse bile sonuç ekranda durur. */
-    sonucCiz(liste);
-    if(!uyeMi()) karneGonder();
+    /* 03.10: ücretsiz hak SONUÇ GÖSTERİLİNCE yanar (formu doldurmadan çıkan yeniden çözebilir). */
+    sonucuAc(function(){ hakYaz(); sonucCiz(liste); });
+  }
+  /* 03.10 SONUÇ KAPISI (V2 madde 16): üye ya da bilgisini daha önce vermiş kişi sonucu hemen görür;
+     diğerleri önce ad + e-posta + telefon (Cem 21.09: telefon zorunlu) verir, sonra sonuç çizilir ve karne gider. */
+  var BEKLEYEN=null;
+  function sonucuAc(ciz){
+    if(uyeMi()){ ciz(); return; }
+    if(kayitOku()){ ciz(); karneGonder(); return; }
+    BEKLEYEN=ciz; goster('svOnKapi'); try{ $('svAd').focus(); }catch(e){}
   }
   function yanlisKutusu(){
     try{
@@ -431,9 +436,8 @@
     SONUC={ gecme:t.gecme, dogru130:0, soru:CEVAPLAR.length, dogru:dogruSay, gruplar:liste, tezkiye:t.tezkiye,
             denetlenemedi:CEVAPLAR.filter(function(c){return c.denetlenemedi;}).length, tarih:new Date().toISOString() };
     try{ var gecmis=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru,durum:x.durum};}),tarih:SONUC.tarih}); localStorage.setItem(ANAH_SONUC,JSON.stringify(gecmis.slice(-20))); }catch(e){}
-    yanlisKutusu(); hakYaz();
-    sonucCizYet();
-    if(!uyeMi()) karneGonder();
+    yanlisKutusu();
+    sonucuAc(function(){ hakYaz(); sonucCizYet(); });
   }
   var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
   function sonucCizYet(){
@@ -550,7 +554,7 @@
     var d={}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||!c.ders) return; if(!d[c.ders]) d[c.ders]={ad:c.ders,soru:0,yanlis:0,sayfa:c.sayfa}; d[c.ders].soru++; if(!c.dogru) d[c.ders].yanlis++; if(!d[c.ders].sayfa&&c.sayfa) d[c.ders].sayfa=c.sayfa; });
     var dl=Object.keys(d).map(function(k){ return d[k]; }).filter(function(x){ return x.yanlis>0; }).sort(function(a,b){ return b.yanlis-a.yanlis || (b.yanlis/b.soru)-(a.yanlis/a.soru); });
     var h='';
-    if(guclu&&zayif&&guclu!==zayif) h+='<p style="margin:0 0 6px"><b>Güçlü alanın:</b> '+esc(guclu.ad)+' ('+guclu.dogru+'/'+guclu.soru+') · <b>Çalışman gereken:</b> '+esc(zayif.ad)+' ('+zayif.dogru+'/'+zayif.soru+')</p>';
+    if(guclu&&zayif&&guclu!==zayif&&guclu.dogru>0&&guclu.dogru/guclu.soru>zayif.dogru/zayif.soru) h+='<p style="margin:0 0 6px"><b>Güçlü alanın:</b> '+esc(guclu.ad)+' ('+guclu.dogru+'/'+guclu.soru+') · <b>Çalışman gereken:</b> '+esc(zayif.ad)+' ('+zayif.dogru+'/'+zayif.soru+')</p>';
     if(dl.length){
       var x=dl[0];
       h+='<p style="margin:0 0 12px"><b>Bugün şunu yap:</b> '+esc(x.ad)+' dersinden 10 soru çöz; bu testte oradan '+x.soru+' sorunun '+x.yanlis+' tanesinde takıldın. Yaklaşık 15 dakika.</p>'
@@ -585,7 +589,10 @@
     goster('svSonuc');
   }
 
-  /* ÖN KAPI (21.09.2026 Cem) — test bu formdan sonra başlar. Telefon ZORUNLU (Cem kararı).
+  /* ⚠ 03.10.2026 (Cem, V2 madde 16 "test sonuna al"): bu form artık SONUÇ KAPISI - test formsuz başlar, form 30 soru
+     bitince sonuçtan önce çıkar (sonucuAc). Aşağıdaki 21.09 notundaki "testten önce / yarıda bırakan da elimizde" ARTIK
+     GEÇERLİ DEĞİL: yarıda bırakanın kaydı gelmez (bedeli bu; karşılığında teste girmeden form doldurtulmuyor).
+     ÖN KAPI (21.09.2026 Cem) — test bu formdan sonra başlar. Telefon ZORUNLU (Cem kararı).
      Aday burada yakalanır: testi yarıda bıraksa bile kaydı bizde kalır (aşağıdaki "aday" gönderisi).
      Sonuç gönderimi testin sonunda karneGonder() ile yapılır.
      ⛔ Gönderi düşerse test YİNE başlar: adamın önüne sunucu hatamızı çıkarmayız, kayıt cihazda durur. */
@@ -622,7 +629,7 @@
         cozulen_test:YET?'yeterlilik':'sgs', hazirlandigi_sinav:k.sinav, donem:donem, kvkk:'evet', iletisim_izni:kanal.length?kanal.join(' + '):'hayir',
         iys_kayitli:'HAYIR - HICBIR kanaldan (e-posta/SMS/arama) tanitim iletisi gonderilmez', _hp:$('svHp').value }) }).catch(function(){}); }catch(e2){}
     durum.textContent=''; durum.className='sv-durum';
-    testeBasla();
+    if(BEKLEYEN){ var ciz=BEKLEYEN; BEKLEYEN=null; ciz(); karneGonder(); } else testeBasla();
   });
 
   $('svBasla').addEventListener('click',basla);
