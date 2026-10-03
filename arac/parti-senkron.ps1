@@ -29,7 +29,9 @@ param(
   [string]$OnEk = '',              # 16.09: yalniz bu onekle baslayan partiler (or. 'smmm-'); bos = hepsi
   [string]$Sinav  = 'SGS',
   [switch]$Zorla,                  # damga kiyaslamasini atla
-  [switch]$Yaz                     # olmadan: kuru kosu
+  [switch]$Yaz,                    # olmadan: kuru kosu
+  [switch]$Eski,                   # 03.10: eski tek tek + PS cevirmeli indirme (esdegerlik provasi icin)
+  [string]$Hedef = ''              # 03.10: indirme klasoru (bos = veri\fabrika); prova ayri klasore indirir
 )
 $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -121,21 +123,63 @@ if($Yukle){
 
 # --- INDIR: ambar -> yerel ----------------------------------------------------
 $al=New-Object System.Collections.Generic.List[string]
+$atlanan=0
 foreach($et in $ambar.Keys){
+  # 03.10.2026: etiketinde "/" olan kayıtlar soru partisi DEĞİL, sistem kaydı (__bekleyen/msgbatch_*, __hazir/*). Dosya adına
+  #   yazılamadıkları için HİÇBİR ZAMAN diske inmediler - ama her yayında içerikleriyle tamamen indirilip atılıyorlardı:
+  #   bulut günlüğü 03.10: "INDIRILECEK 14,240" -> 11.765'i bu kayıt, her biri "indirilemedi" satırı (34 dk'nın çoğu).
+  #   Atlamak diske yazılanı DEĞİŞTİRMEZ (zaten yazılamıyorlardı). Onları okuyan kendi yolundan okur (arac/bekleyen-senkron.ps1).
+  if($et -like '*/*'){ $atlanan++; continue }
   if($yerel.ContainsKey($et) -and -not $Zorla -and $yerel[$et].LastWriteTimeUtc -ge $ambar[$et].guncelleme){ continue }
   $al.Add($et)
 }
 $a=Dizi $al
-Write-Host ("INDIRILECEK: {0:N0} parti" -f $a.Count) -ForegroundColor Green
+Write-Host ("INDIRILECEK: {0:N0} parti (sistem kaydı atlandı: {1:N0})" -f $a.Count,$atlanan) -ForegroundColor Green
 if(-not $Yaz){ Write-Host "`nKURU KOSU - dosya yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
+$hedefKlasor = if($Hedef){ New-Item -ItemType Directory -Force $Hedef | Out-Null; (Resolve-Path $Hedef).Path } else { $fabrika }
 $n=0; $hata=0
+# 03.10.2026 (Cem "1 ve 2 yap"): HIZLI YOL. Bulutta bu dongu her yayinda 34,5 dk suruyordu (2.491 parti, tek tek;
+#   her parti PS nesnesine cevrilip ConvertTo-Json -Depth 20 ile yeniden yaziliyordu - PS 5.1'de en yavas adim).
+#   Simdi: ambarin dondurdugu HAM JSON'daki icerik oldugu gibi yazilir (yeniden cevirme yok) + 8 parti AYNI ANDA iner.
+#   Okuyucular dosyayi JSON olarak ayristirir; bicim (girinti) farki onlar icin yoktur. Esdegerlik: arac/parti-senkron-prova.ps1
+#   (iki yolun dosyalari AYRISTIRILIP alan alan kiyaslanir, ambarin tamami). Bir parti hizli yolda dusmezse eski yoldan denenir.
+#   GORMEZ: ambar icerik alani nesne degilse (null/dizi) hizli yol o partiyi eski yola birakir.
+if(-not $Eski -and $a.Count){
+  Add-Type -AssemblyName System.Net.Http
+  $hc = New-Object System.Net.Http.HttpClient; $hc.Timeout = [TimeSpan]::FromSeconds(300)
+  [void]$hc.DefaultRequestHeaders.TryAddWithoutValidation('apikey', $KEY)
+  [void]$hc.DefaultRequestHeaders.TryAddWithoutValidation('Authorization', "Bearer $KEY")
+  [void]$hc.DefaultRequestHeaders.TryAddWithoutValidation('Accept', 'application/vnd.pgrst.object+json')
+  [void]$hc.DefaultRequestHeaders.TryAddWithoutValidation('User-Agent', 'mevzuat-radar-robot/1.0')
+  $kalan = New-Object System.Collections.Generic.List[string]
+  for($i=0; $i -lt $a.Count; $i+=8){
+    $grup = @($a[$i..([Math]::Min($i+7,$a.Count-1))])
+    $isler = @($grup | ForEach-Object { [pscustomobject]@{ et=$_; is=$hc.GetStringAsync($TABAN+'?select=icerik&etiket=eq.'+[uri]::EscapeDataString($_)) } })
+    try{ [void][Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($isler | ForEach-Object { $_.is })) }catch{ }
+    foreach($x in $isler){
+      if($x.is.Status -ne 'RanToCompletion'){ $kalan.Add($x.et); continue }
+      $g = $x.is.Result.Trim(); $on = '{"icerik":'
+      if(-not $g.StartsWith($on) -or -not $g.EndsWith('}')){ $kalan.Add($x.et); continue }
+      $ic = $g.Substring($on.Length, $g.Length - $on.Length - 1).Trim()
+      if(-not $ic.StartsWith('{')){ $kalan.Add($x.et); continue }
+      # 03.10 tam prova: bir etiket dosya yoluna yazılamadı (DirectoryNotFound) ve tüm hızlı yolu durdurdu - eski yol bunu
+      #   parti başına yakalıyordu; aynı davranış: yazılamayan parti eski yola bırakılır (orada da hata sayılır)
+      try{ [IO.File]::WriteAllText((Join-Path $hedefKlasor "kalip-parti-$($x.et).json"),$ic,[Text.UTF8Encoding]::new($false)) }catch{ $kalan.Add($x.et); continue }
+      $n++
+    }
+    if($n -and ($n % 200 -lt 8)){ Write-Host ("  ... {0}/{1}" -f $n,$a.Count) -ForegroundColor DarkGray }
+  }
+  $hc.Dispose()
+  if($kalan.Count){ Write-Host ("  hizli yolda inmeyen {0} parti eski yoldan deneniyor" -f $kalan.Count) -ForegroundColor Yellow }
+  $a = Dizi $kalan
+}
 foreach($et in $a){
   $u=$TABAN+'?select=icerik&etiket=eq.'+[uri]::EscapeDataString($et)
   try{
     $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 300
     $s=@($r); if(-not $s.Count){ continue }
     $j=ConvertTo-Json -InputObject $s[0].icerik -Depth 20
-    [IO.File]::WriteAllText((Join-Path $fabrika "kalip-parti-$et.json"),$j,[Text.UTF8Encoding]::new($false))
+    [IO.File]::WriteAllText((Join-Path $hedefKlasor "kalip-parti-$et.json"),$j,[Text.UTF8Encoding]::new($false))
     $n++
     if($n % 20 -eq 0){ Write-Host ("  ... {0}/{1}" -f $n,$a.Count) -ForegroundColor DarkGray }
   }catch{ Write-Host ("  ! indirilemedi {0}: {1}" -f $et,$_.Exception.Message) -ForegroundColor Red; $hata++ }

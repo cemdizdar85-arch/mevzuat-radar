@@ -592,6 +592,9 @@ $html=@'
 /* Özgüllük: ürünün ".cipler.acikEk .cip2.ek{display:inline-block}" kuralı (0,4,0) "Daha fazla"
    açılınca ":root[data-tek] .cHata"yı (0,3,0) eziyordu - ölçüldü. Seçici (0,5,0)'a çıkarıldı, !important yok. */
 :root[data-tek] .cipler .cip2.cHata{display:none}
+/* 03.10 (Cem "Nöbetçi kartına sen bak"): tek kartta Kâğıt düğmesi alttan sağ üste - telefonda çerçeve kısa, soru/şık metninin
+   üstüne biniyordu (canlı 390 px ölçüldü); üst köşe tek kipte boş (sayaç ve çipler gizli). Düğme kalır (13.09 Cem seçimi). */
+:root[data-tek] .kagitAc{bottom:auto;top:8px;right:8px;padding:5px 10px;font-size:.78em}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
