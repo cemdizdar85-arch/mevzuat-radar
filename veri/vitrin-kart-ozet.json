@@ -1,135 +1,143 @@
 {
-  "olcum": "2026-10-02T00:39:55.843Z",
-  "gun": "2026-10-02",
+  "olcum": "2026-10-03T00:23:08.722Z",
+  "gun": "2026-10-03",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 64,
+      "sira": 65,
       "toplam": 70,
-      "id": "sgs-p-mta-cokzor-r4/kp-02",
-      "ders": "Mali Tablolar Analizi",
-      "konu": "cari oran analizi",
-      "donem": 6,
+      "id": "sgs-p-maliyet-cokzor-r4/kp-02",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "evre maliyet sistemi",
+      "donem": 5,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı cari oranı 1,80'dir. Kısa vadeli yabancı kaynaklar toplamı 240.000 TL, uzun vadeli yabancı kaynaklar toplamı 90.000 TL'dir. Dönen varlıklar içinde 100 KASA 15.000 TL, 101 ALINAN ÇEKLER 20.000 TL, 102 BANKALAR 40.000 TL, 120 ALICILAR 90.000 TL, 121 ALACAK SENETLERİ 30.000 TL, 191 İNDİRİLECEK KDV 25.000 TL bulunmaktadır. Buna göre 153 TİCARİ MALLAR hesabının bakiyesi kaç TL'dir?",
+      "soru": "Evre (safha) maliyet sistemi uygulayan bir tekstil işletmesinde 2026 yılı dönem verileri şöyledir: direkt ilk madde ve malzeme gideri 245.000 TL, direkt işçilik gideri 132.500 TL, genel üretim gideri 87.350 TL, genel yönetim gideri 42.000 TL (213 sayılı Vergi Usul Kanununun 275 inci maddesi uyarınca mamul maliyetine dahil edilmemiştir). Dönem başı yarı mamul stoku 38.000 TL, dönem başı mamul stoku 56.500 TL, dönem sonu mamul stoku 61.200 TL'dir. Bu verilerle hesaplanan satılan mamul maliyeti 453.150 TL olduğuna göre, dönem sonu yarı mamul stoku kaç TL'dir?",
       "siklar": {
-        "A": "122.000",
-        "B": "212.000",
-        "C": "237.000",
-        "D": "242.000",
-        "E": "374.000"
+        "A": "7.000",
+        "B": "31.000",
+        "C": "87.000",
+        "D": "54.400",
+        "E": "45.000"
       },
-      "dogru": "B",
+      "dogru": "E",
       "tuzak": {
         "C": {
           "ad": "Kapsam Tuzağı",
-          "metin": "191 İNDİRİLECEK KDV hesabını dönen varlık saymayıp bilinenler toplamından çıkardın. Doğrusu: 191 hesabı dönen varlık grubundadır ve toplamda kalmalıdır."
-        },
-        "E": {
-          "ad": "İki Kaynağın Karışımı Tuzağı",
-          "metin": "Kısa ve uzun vadeli yabancı kaynakları toplayıp cari oranla çarparak dönen varlık toplamını şişirdin. Doğrusu: Cari oran yalnız kısa vadeli yabancı kaynaklarla kurulur, uzun vadeli kaynak formüle girmez."
-        },
-        "D": {
-          "ad": "Eksik Toplama Tuzağı",
-          "metin": "121 ALACAK SENETLERİ tutarını bilinen kalemler toplamına eklemeyi unuttun. Doğrusu: Tüm verilen dönen varlık kalemleri bilinenler toplamına dahil edilmelidir."
+          "metin": "Genel Yönetim Giderini, ihtiyari olmasına rağmen toplam üretim maliyetine dahil edersen bu tutara ulaşırsın. Doğrusu: 213 sayılı Vergi Usul Kanununun 275 inci maddesine göre genel yönetim giderinin mamule yüklenmesi iht…"
         },
         "A": {
-          "ad": "Uzun Vadeli Yabancı Kaynak Tuzağı",
-          "metin": "Uzun vadeli yabancı kaynağı dönen varlık kalemi gibi bilinen toplamdan düşürdün. Doğrusu: Uzun vadeli yabancı kaynaklar cari oran hesabına hiç girmez."
+          "ad": "Eksik Katman Tuzağı",
+          "metin": "Dönem başı yarı mamul stokunu üretilen mamul maliyetine eklemeyi unutup doğrudan toplam üretim maliyetinden yola çıkarsan bu tutara ulaşırsın. Doğrusu: üç kademeli geçişte dönem başı yarı mamul stoku mutlaka eklenir."
+        },
+        "D": {
+          "ad": "Kademe Karıştırma Tuzağı",
+          "metin": "Dönem başı ve dönem sonu MAMUL stoklarının yerini değiştirip dönem sonu stokunu eklersen bu tutar çıkar. Doğrusu: satılan mamul maliyeti kademesinde dönem başı mamul EKLENİR, dönem sonu mamul ÇIKARILIR."
+        },
+        "B": {
+          "ad": "İşaret Ters Çevirme Tuzağı",
+          "metin": "Dönem başı yarı mamul stokunu çıkarıp dönem sonu yarı mamul stokunu eklersen sapma ters yönde hesaplanır. Doğrusu: üretilen mamul maliyetinde dönem başı yarı mamul EKLENİR, dönem sonu yarı mamul ÇIKARILIR."
         }
       },
-      "hap": "Cari oran Dönen Varlıklar/Kısa Vadeli Yabancı Kaynaklar'dır; uzun vadeli yabancı kaynak bu orana hiçbir şekilde girmez.",
+      "hap": "Genel Yönetim Gideri mamul maliyetine ihtiyari dahil edilir; üç kademeli satılan mamul maliyeti geçişinde her stok kendi kademesinde düzeltilir.",
       "satirlar": [
         [
-          "Dönen Varlıklar Toplamı (1,80 x 240.000)",
-          "432.000"
+          "Üretilen Mamul Maliyeti (502.850 - x)",
+          "502.850 - x"
         ],
         [
-          "Bilinen Dönen Varlık Kalemleri Toplamı (15.000+20.000+40.000+90.000+30.000+25.000)",
-          "220.000"
+          "+ Dönem Başı Mamul Stoku",
+          "56.500"
         ],
         [
-          "153 TİCARİ MALLAR (432.000 - 220.000)",
-          "212.000"
+          "- Dönem Sonu Mamul Stoku",
+          "61.200"
+        ],
+        [
+          "Satılan Mamul Maliyeti (verilen)",
+          "453.150"
+        ],
+        [
+          "Dönem Sonu Yarı Mamul Stoku (x)",
+          "45.000"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=64",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=65",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-13",
         "bitis": "2026-11-22",
-        "kalan_gun": 51,
+        "kalan_gun": 50,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 64,
+      "sira": 65,
       "toplam": 70,
-      "id": "smmm-4k-a-maliyet-cokzor-r6/kp-01",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "mamul birim maliyeti",
-      "donem": 4,
+      "id": "smmm-dog1-vergi/kp-01",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "gelir vergisi matrahı hesabı",
+      "donem": 3,
       "teori": false,
       "rakamSik": true,
-      "soru": "Nova Otomasyon Üretim İşletmesi normal maliyet yöntemini uygulamaktadır. 2026 yılında 5.000 birim mamul üretilmiş, üretilen mamulün birim maliyeti normal maliyet yöntemine göre 100 ₺ olarak hesaplanmıştır. Dönem içinde direkt ilk madde ve malzeme gideri 150.000 ₺, değişken genel üretim gideri 80.000 ₺, fiili sabit genel üretim gideri 200.000 ₺'dir; kapasite kullanım oranı yüzde 75'tir. Dönem başı yarı mamul stoku 40.000 ₺, dönem sonu yarı mamul stoku 80.000 ₺'dir. Ayrıca dönemde 70.000 ₺ genel yönetim gideri gerçekleşmiştir. İşletmenin direkt işçilik gideri kaç ₺'dir?",
+      "soru": "Tam mükellef gerçek kişi Bay (F)'nin 2026 takvim yılı gelirleri şöyledir: Türkiye'deki ticari işletmesinden elde ettiği safi ticari kazanç 512.400 ₺'dir. Almanya'da bulunan bir gayrimenkulünden elde ettiği kira gelirinin safi tutarı 168.750 ₺'dir. Tam mükellef (G) A.Ş.'den elde ettiği kâr payı brüt 785.400 ₺'dir (kâr dağıtımı sırasında tevkifat yapılmıştır). 193 sayılı Gelir Vergisi Kanunu'na göre Bay (F)'nin 2026 yılı gelir vergisi matrahı kaç ₺'dir?",
       "siklar": {
-        "A": "80.000",
-        "B": "110.000",
-        "C": "120.000",
-        "D": "160.000",
-        "E": "230.000"
+        "A": "681.150",
+        "B": "905.100",
+        "C": "1.466.550",
+        "D": "1.297.800",
+        "E": "1.073.850"
       },
-      "dogru": "D",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Yarı Mamul Düzeltmesi Tuzağı",
-          "metin": "Üretilen mamul maliyetini doğrudan toplam üretim maliyeti sayıp dönem başı ve dönem sonu yarı mamul stok farkını hiç düzeltmedin. Doğrusu: toplam üretim maliyeti, üretilen mamul maliyetinden yarı mamul stok farkı arındı…"
-        },
-        "E": {
-          "ad": "Dönem Gideri Katmanı Tuzağı",
-          "metin": "Genel yönetim giderini üretim maliyetinin bir parçası sayıp toplam üretim maliyetine ekledin. Doğrusu: genel yönetim gideri dönem giderirdir, üretim maliyetine hiç girmez, toplam üretim maliyeti 540.000 ₺'de kalır."
+          "ad": "İstisna İhmali Tuzağı",
+          "metin": "Yurt dışı kira geliri doğru şekilde matraha katılmış ancak kâr payının yarısının GVK m.22 gereği istisna olduğu gözden kaçırılarak kâr payının brüt tutarı eklenmiştir. Doğrusu: kâr payının yalnız 392.700 ₺'lik vergiye t…"
         },
         "A": {
-          "ad": "Yarı Mamul İşareti Tuzağı",
-          "metin": "Dönem başı ve dönem sonu yarı mamul farkını ters yönde uyguladın, sanki toplam üretim maliyeti üretilen mamul maliyetinden büyükmüş gibi işlem yaptın. Doğrusu: toplam üretim maliyeti üretilen mamul maliyetinden dönem ba…"
+          "ad": "Nihai Vergileme Tuzağı",
+          "metin": "Kâr payının tamamı üzerinden tevkifat yapıldığı için bu kazancın nihai olarak vergilendiği ve matraha hiç girmeyeceği düşünülmüştür. Doğrusu: GVK m.22 gereği kâr payının yarısı istisna, kalan yarısı matraha dahil edilme…"
+        },
+        "D": {
+          "ad": "İkiz Atlama Tuzağı",
+          "metin": "Hem yurt dışı kira geliri matrah dışı bırakılmış hem de kâr payının yarısının istisna olduğu unutularak kâr payının tamamı eklenmiştir. Doğrusu: yurt dışı kira m.3 gereği dahil edilmeli, kâr payının yarısı m.22 gereği i…"
         },
         "B": {
-          "ad": "Kapasite Kullanım Oranı Tuzağı",
-          "metin": "Normal maliyet yönteminde sabit genel üretim giderinin tamamını yükleyip kapasite kullanım oranını hiç uygulamadın. Doğrusu: sabit genel üretim giderinin yalnız kullanılan kapasiteye (yüzde 75'ine) düşen 150.000 ₺'lik k…"
+          "ad": "Dar Mükellef Yanılgısı Tuzağı",
+          "metin": "Bay (F) tam mükellef olduğu halde yurt dışındaki gayrimenkulden elde edilen kira geliri matrah dışında bırakılmıştır. Doğrusu: GVK m.3 gereği tam mükellef, Türkiye içinde ve dışında elde ettiği kazançların tamamı üzerin…"
         }
       },
-      "hap": "Üretilen mamul maliyeti ile toplam üretim maliyeti arasındaki fark her zaman dönem başı ve dönem sonu yarı mamul stoklarıdır; normal maliyet yönteminde sabit genel üretim gideri kapasite kullanım oranıyla çarpılmadan asla üretime yüklenmez.",
+      "hap": "Tam mükellef gerçek kişi, Türkiye içinde ve dışında elde ettiği tüm kazanç ve iratları matraha dahil eder; kâr paylarının yalnız yarısı GVK m.22 gereği istisnadır.",
       "satirlar": [
         [
-          "Üretilen mamul maliyeti (5.000x100)",
-          "500.000"
+          "Yurt dışı kira geliri (safi, GMSİ)",
+          "168.750"
         ],
         [
-          "Toplam üretim maliyeti (500.000-40.000+80.000)",
-          "540.000"
+          "Kâr payı (brüt)",
+          "785.400"
         ],
         [
-          "Yüklenen sabit genel üretim gideri (200.000x0,75)",
-          "150.000"
+          "Kâr payının istisna tutarı (GVK m.22, yarısı)",
+          "392.700"
         ],
         [
-          "Yüklenen genel üretim gideri toplamı (80.000+150.000)",
-          "230.000"
+          "Vergiye tabi kâr payı",
+          "392.700"
         ],
         [
-          "Direkt işçilik gideri (540.000-150.000-230.000)",
-          "160.000"
+          "Gelir Vergisi Matrahı",
+          "1.073.850"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=64",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=65",
       "havuz": {
         "adet": 70,
         "ilk_gun": "2026-09-23",
         "bitis": "2026-12-02",
-        "kalan_gun": 61,
+        "kalan_gun": 60,
         "durum": "YESIL",
         "mail_gunu": false
       }
