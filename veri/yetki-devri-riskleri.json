@@ -1,11 +1,11 @@
 {
-  "tarih": "03.10.2026 06:01",
+  "tarih": "03.10.2026 06:29",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
   "sayfa": 66,
-  "atifli_iddia": 285,
-  "dayanaksiz_iddia": 386,
+  "atifli_iddia": 289,
+  "dayanaksiz_iddia": 383,
   "kirmizi_aday": 30,
   "yeni_aday": 1,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     }
   ],
@@ -57,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 416,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -190,7 +190,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -202,7 +202,7 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 1550,
+      "satir": 1586,
       "iddia": "15 gün",
       "kanun": "299",
       "metin": "İİK m.299: alacaklılar ilandan itibaren 15 gün içinde alacağını bildirir; radar resmî ilanları günlük tarar ve listeler (VKN eşleşme uyarısı yol haritasında)"
@@ -1438,109 +1438,91 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 147,
-      "iddia": "% 85",
-      "metin": "mask-image:radial-gradient(ellipse 95% 85% at 55% 28%,#000,transparent 82%)}"
-    },
-    {
-      "sayfa": "index.html",
-      "satir": 339,
+      "satir": 342,
       "iddia": "%3",
       "metin": "select{appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2393a1b3' stroke"
     },
     {
       "sayfa": "index.html",
-      "satir": 630,
+      "satir": 633,
       "iddia": "% 55",
       "metin": "background:radial-gradient(60% 55% at 74% 16%,rgba(207,161,99,.22),transparent 62%),"
     },
     {
       "sayfa": "index.html",
-      "satir": 735,
+      "satir": 738,
       "iddia": "09 GÜN",
       "metin": "/* 16.09 GÜNCELLEME (Cem, canlı ekran: \"ekranın böyle olması mantıklı değil, yarısı öyle yarısı böyle\"):"
     },
     {
       "sayfa": "index.html",
-      "satir": 1057,
+      "satir": 1066,
       "iddia": "2 gün",
       "metin": "/* YANLIŞ KUTUSU: ürün (kaydir-coz) yanlış cevabı bu tarayıcıda kc_kutu'ya yazar - 2 gün sonra vade, o gün doğruysa 7 gün sonra son tur."
     },
     {
       "sayfa": "index.html",
-      "satir": 1064,
+      "satir": 1073,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru burada yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Ku"
     },
     {
       "sayfa": "index.html",
-      "satir": 1066,
+      "satir": 1075,
       "iddia": "7 gün",
       "metin": "else if(tekrar) kanca('Doğru — ilk tekrarı geçtin.','7 gün sonra son bir kez karşına çıkacak; onu da bilirsen kutundan çıkar.','');"
     },
     {
       "sayfa": "index.html",
-      "satir": 1078,
+      "satir": 1087,
       "iddia": "5 adet",
       "metin": "/* 25.09 Cem: \"5 adet çıktı diyoruz ... sonra TESMER eski sınav sorularını kullanıyor demesinler\"."
     },
     {
       "sayfa": "index.html",
-      "satir": 1127,
+      "satir": 1136,
       "iddia": "2 gün",
       "metin": "ozetEl.textContent=(SINAV_AD[aktifSinav]||'Bu sınavın')+' soru bankası hazırlanıyor. Açıldığında burada her gün bir soru olacak: şıkkı seçersin, Nöbetçi neden doğru ya da yanlış ol"
     },
     {
       "sayfa": "index.html",
-      "satir": 1201,
+      "satir": 1210,
       "iddia": "%100",
       "metin": "Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·"
     },
     {
       "sayfa": "index.html",
-      "satir": 1202,
-      "iddia": "%96",
-      "metin": "\"Nöbetçi anlatsın\" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir)."
-    },
-    {
-      "sayfa": "index.html",
-      "satir": 1203,
-      "iddia": "%40",
-      "metin": "BİLEREK YAZILMADI: \"ikizini sen çöz\" - yalnız %40'ında var. -->"
-    },
-    {
-      "sayfa": "index.html",
-      "satir": 1213,
+      "satir": 1225,
       "iddia": "2 gün",
-      "metin": "4 Unutma Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar."
+      "metin": "4 Tekrar çöz 2 gün sonra karşına yeniden çıkar; o gün de bilirsen 7 gün sonra bir kez daha."
     },
     {
       "sayfa": "index.html",
-      "satir": 1370,
+      "satir": 1405,
       "iddia": "3 gün",
       "metin": "/* Sınav geçtiyse geri sayım yazılmaz - \"eksi 3 gün\" demek yerine"
     },
     {
       "sayfa": "index.html",
-      "satir": 1386,
+      "satir": 1421,
       "iddia": "5 gün",
       "metin": "bugünün saatiyle kıyaslanınca \"5 gün önce\" yazıp KIRMIZI yanıyor:"
     },
     {
       "sayfa": "index.html",
-      "satir": 1417,
+      "satir": 1452,
       "iddia": "1 gün",
       "metin": "TAKVİM GÜNÜYDÜ. Gece yarısı geçince dünkü 05:39 koşusu \"1 gün"
     },
     {
       "sayfa": "index.html",
-      "satir": 1420,
+      "satir": 1455,
       "iddia": "30 saat",
       "metin": "bir koşar; bayatlık SAATLE ölçülür ve eşik 30 saat (bir koşu"
     },
     {
       "sayfa": "index.html",
-      "satir": 1596,
+      "satir": 1632,
       "iddia": "5 gün",
       "metin": "robot bugün koştuğu hâlde dosya değişmediği için 5 gün eskide kalıyordu. Akış bandı raftaki"
     },
