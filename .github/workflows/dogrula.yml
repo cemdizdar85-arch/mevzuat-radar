@@ -558,6 +558,10 @@ jobs:
           # sonra 12 mutasyon KIRMIZI (03.10 olculdu). Ag yok.
           - { ad: "Yanlis yol kapisi OZ-SINAVI + MUTASYON (KAPI-YY)",
               kabuk: bash, komut: "node arac/yanlis-yol-kapisi.js --sinav --mutasyon" }
+          # 03.10: YARIM-TR olcum araci (Y1 yarim Turkce "borcunu", Y2 Turkce harfsiz "ogrenci"; KAPI-TR'nin <60 karakter korlugu).
+          # Yalniz OLCUM, uretime/yayina bagli degil. 14 vaka; once bozulmamis oz-sinav, sonra 6 mutasyon KIRMIZI (03.10 olculdu). Ag yok.
+          - { ad: "Yarim Turkce taramasi OZ-SINAVI + MUTASYON (YARIM-TR)",
+              kabuk: bash, komut: "node arac/yarim-turkce-tarama.js --sinav --mutasyon" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
           - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
               kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }
