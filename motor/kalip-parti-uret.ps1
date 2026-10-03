@@ -1326,6 +1326,16 @@ $OZEL_NOT=@{
   # 02.09 ders-uyum hakemi yakalamasi
   'tms 2 stoklar'          = "DERS UYARISI (hakem yakaladi): NGD/GUD gibi ileri OLCUM-KAVRAM ayrimlari Denetim/ileri MTA'ya kacar. Burada stoklarin KAYIT boyutunu sor: 153 Ticari Mallar maliyetine neyin girip neyin girmedigi (nakliye, sigorta, alis iskontosu), 157 Diger Stoklar, deger dusuklugu karsiliginin (158) ayrilma KAYDI. Sade tutarlarla, tek islem."
 }
+# 03.10 S3 kök nedeni: aynı notların Türkçe harfli sürümü (FAZ A istemine "ÖZEL UYARI" olarak eklenir). Anahtarlar AYNI (ASCII, konu adı
+#   küçük harfle eşleşir); değerde yalnız harf değişti (c→ç g→ğ i→ı I→İ o→ö s→ş u→ü a→â). Yalnız $script:KURAL0310 açıkken kullanılır.
+$OZEL_NOT_TR=@{
+  'supheli alacak karsiligi' = "DİKKAT (hakem yakaladı): Vergi Usul Kanunu 323'e göre karşılık, dava/icra aşamasındaki alacağın (KDV dahil tutar kabul edilir) TEMİNATTAN GERİ KALAN kısmı için ayrılır; dönem içi tahsilat düşülür. DAVA/İCRA MASRAFI ALACAĞA EKLENMEZ - ayrı gider olarak (659/770) kaydedilir. Çıkmış sınav bu masrafı tuzak olarak verir (108.000 doğru, 110.000 tuzak); soruda masraf veriliyorsa DOĞRU şık masrafsız tutar, masraflı tutar ÇELDİRİCİ olur."
+  'kar dagitimi kaydi' ="DİKKAT (hakem yakaladı): TTK m.519/2-c'ye göre II. tertip kanuni yedek, 'pay sahiplerine %5 kâr payı ödendikten sonra KARA KATILACAK KİŞİLERE DAĞITILMASI KARARLAŞTIRILAN TOPLAM TUTARIN %10'u'dur - 'dağıtım sonrası kalan tutarın %10'u' DEĞİLDİR. Hesabı bu doğru kuralla kur."
+  'muhasebe bilgi sistemi' = "DERS UYARISI (hakem yakaladı): belgenin vergi-hukuku geçerliliğini SORMA; belge->yevmiye->defter KAYIT AKIŞINI ve muhasebe sürecindeki rolünü sor (FMuh boyutu)."
+  'amortisman ayirma'      = "DERS UYARISI (hakem yakaladı): amortisman HESAPLAMA tekniği/oran seçimi Vergi Hukuku'na kaçar; burada AYIRMA KAYDINI sor - 7xx/730 gider, 257 Birikmiş Amortismanlar işleyişi, doğrudan/endirekt kayıt yöntemi. Hesap sade tutulur (düz amortisman, tam yıl)."
+  'gelir tablosu hesaplari'= "DERS UYARISI (hakem yakaladı): dikey yüzde/oran analizi Mali Tablolar Analizi'ne kaçar; burada 6xx GELİR TABLOSU HESAPLARININ İŞLEYİŞİNİ sor - hangi işlem hangi hesaba, yansıtma/kapanış kayıtları, brüt satıştan net kâra akışın KAYIT boyutu."
+  'tms 2 stoklar'          = "DERS UYARISI (hakem yakaladı): NGD/GUD gibi ileri ÖLÇÜM-KAVRAM ayrımları Denetim/ileri MTA'ya kaçar. Burada stokların KAYIT boyutunu sor: 153 Ticari Mallar maliyetine neyin girip neyin girmediği (nakliye, sigorta, alış iskontosu), 157 Diğer Stoklar, değer düşüklüğü karşılığının (158) ayrılma KAYDI. Sade tutarlarla, tek işlem."
+}
 
 # --- YAZIM KAPISI (02.09 Cem: "soru cevap kismini begenmedim") ---------------
 # Olculdu: 30 sorunun 26'sinda ASCII yazim kusuru vardi ("Dogrusu", "Tuzagi").
@@ -1887,6 +1897,10 @@ if($Zorluk -eq 'kolay'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 4-6 a
 #   🚫 GÖRMEZ: saat dilimi (bulut UTC, kayıt yerel saat) sınırda birkaç saat kayabilir · FAZ U (eski soru kurtarma) istemi bilerek
 #   değişmedi · istem yumuşak kapıdır — mekanik karşılığı arac/soru-kalite-kapisi.js YENİ2 (KAPI-YY/ADIM/TR/BOS-KALIP); S6/S7/S8'in kapısı yok.
 #   KAPI EKLENDİ — VERİ: istem yalnız YENİ üretimi etkiler; yayındaki soru bu değişiklikle değişmez (onarım kuyruğu ayrı iş).
+#   03.10 (Cem "1.2.3 üçünü de yap", S3 kök nedeni) AYNI anahtar Türkçe harfli istem sürümlerini de seçer: $soruIstemTR · $yevmiyeIstemTR ·
+#   $ikizYevIstemTR · RolBasligiTR · $OZEL_NOT_TR · FAZ A {KALIP}/tip yedeği/tavan-aştı notu · KAPI-SS/HS/KH/KV yeniden yazım notları · sade
+#   "önceki cevap" notu. Eski ASCII sürümler SİLİNMEZ (kapalıyken bayt bayt aynı). 🚫 GÖRMEZ: hakem/olumsuz kök/ikinci bakış istemleri
+#   (çıktıları yayına çıkmaz) ASCII kaldı; kapı fonksiyonlarının ürettiği kusur metinleri ve $sadeSebep ASCII; son10 adım istemi zaten Türkçe.
 $KURAL0310_BAS='2026-10-04'
 $script:KURAL0310=$false
 if("$env:MEVZUAT_KURAL_0310" -eq '1'){ $script:KURAL0310=$true }
@@ -2347,6 +2361,73 @@ function RolBasligi([string]$ders,[string]$konu){
   }
   [void]$s.AppendLine("ORTAK: her yanlis sik HEM kesin yanlis HEM ogrencinin gercekten yapabilecegi bir hatanin sonucu olmali.")
   [void]$s.AppendLine("=== ROL BITTI ===")
+  return $s.ToString()
+}
+# 03.10 S3 kök nedeni: rol başlığı FAZ A isteminin BAŞINA konur; ASCII yazımı modele örnek oluyordu. Aynı başlığın Türkçe harfli sürümü —
+#   yalnız harf (c→ç g→ğ i→ı I→İ o→ö s→ş u→ü); kategori ANAHTARLARI (switch, $KATEGORI_DERS) ASCII kalır, ekrana yalnız Türkçe adı yazılır.
+#   ⛔ İstem baytı koruması: yalnız $script:KURAL0310 açıkken çağrılır (FAZ A'daki $rolB satırı); kapalıyken RolBasligi bayt bayt aynı.
+function RolBasligiTR([string]$ders,[string]$konu){
+  $kat=KategoriBul $ders
+  if(-not $kat){ return '' }                      # kategori çözülemezse rol başlığı EKLENMEZ
+  $rolKatAd=@{ 'MUHASEBE VE DENETIM'='MUHASEBE VE DENETİM'; 'HUKUK VE MEVZUAT'='HUKUK VE MEVZUAT'; 'SOZEL VE YABANCI DIL'='SÖZEL VE YABANCI DİL'; 'MATEMATIK VE SAYISAL'='MATEMATİK VE SAYISAL'; 'KAVRAMSAL VE TEORIK'='KAVRAMSAL VE TEORİK' }[$kat]
+  if(-not $rolKatAd){ $rolKatAd=$kat }
+  $s=New-Object System.Text.StringBuilder
+  [void]$s.AppendLine("=== ROL ===")
+  [void]$s.AppendLine("[KATEGORİ] $rolKatAd   (bu etiket DERSTEN türetildi; DEĞİŞTİREMEZSİN)")
+  switch($kat){
+    'MUHASEBE VE DENETIM' {
+      [void]$s.AppendLine("Katı bir Tekdüzen Hesap Planı / TMS-TFRS / Vergi uzmanısın.")
+      $k=HesapKalibi $ders $konu
+      $onayli=@(); if($k){ $onayli=@(@($k.dogru_hesaplar) | ForEach-Object { "$_" }) }
+      if($onayli.Count -and $k -and [bool]$k.dogrulandi){
+        [void]$s.AppendLine("ONAYLI HESAPLAR (YALNIZ bunlar + çekirdek): " + ($onayli -join ', '))
+        [void]$s.AppendLine("Bu küme dışında hesap KULLANAMAZSIN. Yetmiyorsa uydurma:")
+        [void]$s.AppendLine("  HATA: Onaylı hesap kümesi yetersiz. Eksik: <hangi işlem için hangi hesap>")
+      } elseif($onayli.Count){
+        [void]$s.AppendLine("BEKLENEN HESAPLAR (yol gösterici, mühürsüz): " + ($onayli -join ', '))
+        [void]$s.AppendLine("Başka hesap kullanacaksan KAYNAK METNİNDE tanımını görmüş olmalısın.")
+      } else {
+        [void]$s.AppendLine("Bu konunun onaylı hesap kümesi HENÜZ YOK. Kural: YALNIZ kaynak paketinde")
+        [void]$s.AppendLine("tanımını GÖRDÜĞÜN hesapları kullan; ezberinden hesap ekleme.")
+      }
+      [void]$s.AppendLine("ÇEKİRDEK HESAPLAR (her kayıtta serbest): " + ($CEKIRDEK_HESAPLAR -join ', '))
+      $env2=StandartEnvanteri
+      if($env2.Count){
+        $std=@(); foreach($on in @('BDS','TMS','TFRS','TSRS')){ if($env2.ContainsKey($on) -and $env2[$on].Count){ $std += ($on + ' ' + (($env2[$on]) -join ',')) } }
+        if($std.Count){ [void]$s.AppendLine("ONAYLI STANDARTLAR (yalnız bu numaralar anılabilir): " + ($std -join ' | ')) }
+      }
+      [void]$s.AppendLine("KAYNAK ADLARI: TMS, TFRS, BOBİ FRS, KÜMİ FRS, MSUGT Sıra No:1 Tekdüzen Hesap Planı, VUK, TTK. 'UFRS' ve 'TDHP İzahnamesi' AMBARDA YOKTUR.")
+    }
+    'HUKUK VE MEVZUAT' {
+      [void]$s.AppendLine("Katı bir Mevzuat ve Atıf Denetçisisin.")
+      [void]$s.AppendLine("HESAP KODU ARAMA - bu derste hesap kodu yokluğu kusur DEĞİLDİR.")
+      [void]$s.AppendLine("Madde numarası HAFIZADAN yazılmaz; kaynak paketinde okuduğun künye yazılır.")
+      [void]$s.AppendLine("Kurum adı yürürlükteki olmalı (KGK, SPK, TÜRMOB, TESMER, SGK); SSK ve TMSK MÜLGADIR.")
+      [void]$s.AppendLine("Süre ve had/oran kaynaktan alınır; yıla bağlı tutar soruda SAYI olarak verilir.")
+      [void]$s.AppendLine("Yetmiyorsa: HATA: Onaylı madde kümesi yetersiz. Eksik: <hangi hüküm>")
+    }
+    'SOZEL VE YABANCI DIL' {
+      [void]$s.AppendLine("Uzman bir Dilbilimci ve Ölçme-Değerlendirme Uzmanısın.")
+      [void]$s.AppendLine("HESAP KODU ve KANUN MADDESİ ARAMA - yokluğu kusur DEĞİLDİR.")
+      [void]$s.AppendLine("İmla ve noktalama TDK kurallarına (yabancı dilde o dilin standardına) uyar.")
+      [void]$s.AppendLine("Dil çapası Oxford/Cambridge DEĞİL, BU SINAVIN çıkmış sorularıdır.")
+    }
+    'MATEMATIK VE SAYISAL' {
+      [void]$s.AppendLine("Katı bir Mantık ve İşlem Denetçisisin.")
+      [void]$s.AppendLine("HESAP KODU ve KANUN MADDESİ ARAMA - yokluğu kusur DEĞİLDİR.")
+      [void]$s.AppendLine("Kurguyu arka planda ADIM ADIM çözerek sağlamasını yap; sonuç şıkla birebir tutmalı.")
+      [void]$s.AppendLine("Veri eksiği ('x tam sayı mı belirtilmemiş') kapatılır; kök TEK büyüklük ister.")
+    }
+    'KAVRAMSAL VE TEORIK' {
+      [void]$s.AppendLine("Uzman bir İktisat Teorisi ve Model Denetçisisin.")
+      [void]$s.AppendLine("HESAP KODU ve KANUN MADDESİ ARAMA - yokluğu kusur DEĞİLDİR.")
+      [void]$s.AppendLine("Muafiyet 'kaynaksız yaz' DEMEK DEĞİLDİR: tanım ve model kaynak paketinden alınır.")
+      [void]$s.AppendLine("Doğru şık TEK bir teorik tanıma dayanır; 'bazı yaklaşımlara göre' olmaz.")
+      [void]$s.AppendLine("Sayısal kurgu varsa işlem ispatı şart.")
+    }
+  }
+  [void]$s.AppendLine("ORTAK: her yanlış şık HEM kesin yanlış HEM öğrencinin gerçekten yapabileceği bir hatanın sonucu olmalı.")
+  [void]$s.AppendLine("=== ROL BİTTİ ===")
   return $s.ToString()
 }
 # --- KAPI-SS: STANDART SETI (11.09.2026) -------------------------------------
@@ -2938,8 +3019,176 @@ Cevap YALNIZ JSON:
 === KONU === {KONU}  (cikmis arsivde {DONEM} ayri donemde soruldu)
 === KAYNAK METNI (ambardan) === {KAYNAK}
 '@
+# ⭐ 03.10.2026 S3 KÖK NEDENİ — İSTEMİN TÜRKÇE HARFLİ SÜRÜMÜ (Cem 03.10 "1.2.3 üçünü de yap", GM önerisi 2). Yukarıdaki istem büyük
+#   ölçüde ASCII yazılmıştı ("Nobetci", "sinavinin", "dogru", "sik"); model bu yazımı taklit edip açıklamayı Türkçe harfsiz üretiyordu
+#   (03.10 sitede SGS 86 + SMMM 52 soru; KAPI-TR yeni soruda durduruyor ama kök istem). Aşağıdaki sürüm AYNI metnin Türkçe harfli
+#   yazımıdır: yalnız c→ç g→ğ i→ı I→İ o→ö s→ş u→ü (a→â) değişti; anlam, kural, JSON alan adı, yer tutucu ({...}, <<<DEGISKEN>>>) aynı.
+#   Tek ek: baştaki "Bütün metinleri Türkçe karakterlerle … yaz" satırı. Mekanik denetim (03.10 prova): ilk satır çıkarılıp harfler
+#   ASCII'ye katlanınca eski istemle BİREBİR. Bilerek ASCII kalanlar: JSON alan adları (dogru, siklar, teshis, cozum_tablo …), tur
+#   değerleri ("yevmiye" | "eleme" | "karar" | "akis"), kural 3'teki KUSUR örnekleri ("Dogrusu", "Tuzagi"), "SINAV-DILI-SOZLUGU" veri adı.
+#   ⛔ İSTEM BAYTI KORUMASI: yalnız $script:KURAL0310 açıkken kullanılır (koşul: adım istemi üstündeki not). Kapalıyken eski istem BAYT
+#   BAYT aynı gider — eski etiketlerin ödenmiş toplu partileri o istemin parmak iziyle hasat edilir; eski sürüm bu yüzden SİLİNMEZ.
+$soruIstemTR=@'
+Bütün metinleri Türkçe karakterlerle (ç, ğ, ı, ö, ş, ü, İ) yaz; ASCII yazım yasak.
+Sen "Nöbetçi" adlı hoca-yazarsın. {SINAV} sınavının {DERS} dersinden, verilen KONUda, SIFIRDAN bir sınav sorusu üret. Üniversite mezunu gence, gerçek sınav ayarında.
+KURALLAR (KALIP SÖZLEŞMESİ - kural 19-25 seti):
+1. YALNIZ aşağıdaki KAYNAK METNİNE dayan; kural/oran/tanım kaynaktan. Senaryo tutarları serbest.
+2. 5 şık, TEK doğru; her yanlış şık BİR ADLI TUZAĞIN sonucu.
+2a. ŞIK DENGESİ (04.09 Cem "cevap belli, sınavda böyle mi?" → 7 çıkmış sapma sorusu ölçüldü): tutar + YÖN birlikte
+    sorulan şıklarda (sapma/fark/yükleme) her tutar İKİ YÖNLE de görünür: 2 tutar × 2 yön + 1 tek şık (üçüncü tutar ya da
+    "Sapma yok"). Örnek (SGS 2020/3): 20.000 olumlu · 30.000 olumlu · 30.000 olumsuz · 40.000 olumlu · 40.000 olumsuz.
+    Tek bir tutarın iki yönle, diğerlerinin tek yönle verilmesi YASAK (cevap tutardan belli olur). Yön kelimesi sınav
+    dilidir: "olumlu / olumsuz" (lehte/aleyhte sınavda geçmez); genel üretim gideri yüklemesinde "eksik yükleme / fazla
+    yükleme". Genel ilke her şık tipinde: doğru şık, biçimiyle (tek farklı hesap, tek farklı birim, tek çift, en uzun
+    cümle) ele vermez; sayı şıklarında beş tutar birbirinden farklı ve küçükten büyüğe sıralı yazılır.
+    Sayı şıklarında BİRİM YAZILMAZ, birim kökte durur (06.09 ölçüm, çıkmış kitapçıklar: "kaç ₺'dir? A) 19.200 B) 20.200";
+    şık "19.200 TL" değil "19.200"). Yön kelimesi (olumlu/olumsuz, eksik/fazla yükleme) şıkta kalır.{SAYI_SIRA_KURAL}
+    BU DERSİN ÇIKMIŞ ŞIK KALIBI (ölçüldü): {SIK_KALIP}
+3. AÇIKLAMA - her şık için TEK PARÇA DÜZ METİN STRING (nesne/alt-alan YASAK).
+   TÜRKÇE HARFLER TAM YAZILIR: "Doğrusu", "Tuzağı", "Kural", "Hesap" - ASCII yazım
+   ("Dogrusu", "Tuzagi") KUSURDUR, sayfada öyle görünür ve ürünü ucuzlatır.
+   3a-0. "Ne soruluyor" cümlesi CEVABI İMA ETMEZ (06.09 kalıp-6 dersi: "ticari borçların az gösterilmesi riski…" yazınca doğru şık
+       belli oldu). "Hangisi yanlıştır/doğrudur/değildir" sorusunda "beş ifadeden hangisinin BDS 500'e aykırı olduğu soruluyor"
+       gibi GENEL yazılır; ayırt edici olgu (yön, tutar, hesap) "Kural" ve "Doğrusu" parçalarında kalır.
+   3a. DOĞRU ŞIK: "Ne soruluyor: <tek cümle> Kural: <dayanaktan çıkan kural>
+       Hesap: <sayı zinciri, hesaplıysa> Doğrusu: <tek cümle sonuç>"
+   3b. YANLIŞ ŞIKLAR: "Ne soruluyor" CÜMLESİNİ TEKRARLAMA - öğrenci onu doğru şıkta
+       zaten okudu. Doğrudan tuzağa gir: "<Ad> Tuzağı: <öğrencinin nasıl düşündüğü>
+       Doğrusu: <tek cümle>". Yanlış şık açıklaması EN FAZLA 2 CÜMLE / 250 karakter.
+3c. TUZAK ADLARI ÇEŞİTLİ OLACAK: aynı parti içinde 'Ters Kayıt' gibi tek bir tuzak
+   adını iki soruda birden kullanma. Her yanlış şık FARKLI bir kavram yanılgısını
+   temsil etsin: hesap seçimi, taraf (borç/alacak), tutar/oran, zamanlama (dönem),
+   kapsam (hangi işlem), belge/kanıt, vergi katmanı gibi.
+3d. ÇELDİRİCİ DERİNLİĞİ: 'doğru kaydın aynısını ters çevirmek' UCUZ çeldiricidir -
+   partide en fazla bir kez kullan. İyi çeldirici, öğrencinin GERÇEKTEN yapabileceği
+   hatayı taşır (yanlış hesap kodu, gün kesri unutma, KDV'yi matraha katma gibi).
+4. HESAPLI konuysa ÇÖZÜM TABLOSU ZORUNLU ({"basliklar":[...],"satirlar":[[...]]}, ilk kolon kalem, SON SATIR SONUÇ). Teorik konuysa cozum_tablo null olabilir ama ŞEMA ZORUNLU.
+4b. MALİ TABLO FORMU (Cem: "bilanço/gelir tablosu gibi görelim"): konu finansal durum/
+   bilanço/oran tipiyse tablo BİLANÇO düzeninde kurulur - bölüm başlığı AYRI SATIR olur
+   ve tutar kolonları '-' bırakılır (ör. ["DÖNEN VARLIKLAR","-"]), altına kalemler,
+   sonra ["Dönen Varlıklar Toplamı","120.000"]. Gelir tablosu tipiyse GELİR TABLOSU
+   akışı (Brüt Satışlar'dan aşağı). Yevmiye tipiyse şema tur=yevmiye zaten T-cetveli verir.
+4c. DENKLEM SORULARI (05.09 Cem, karşılıklı dağıtım incelemesi — başabaş, standart maliyet, karşılıklı dağıtım gibi
+   denklemle çözülen her konu): (i) Gider yeri/ürün/kalem adları HARF DEĞİL AD ile anılır ("Bakım-Onarım toplamı",
+   "Yemekhane toplamı"; A/B yazılmaz çünkü şık harfleriyle karışır). (ii) Çözüm tablosu SAYISAL satırlardan kurulur
+   (kendi gideri, karşı taraftan gelen pay, giden pay, düzeltilmiş toplam, karşı tarafın toplamı, SAĞLAMA); tablo
+   hücresine denklem metni yazılmaz, denklem açıklamaya gider. (iii) Soru kökü TEK ANLAMLI olur: istenen büyüklük
+   açıkça adlandırılır ("dağıtıma esas toplam (düzeltilmiş) maliyeti kaç TL'dir?"); iki farklı okunuşla iki farklı
+   şıkka çıkan kök YASAK (ör. "esas üretim yerlerine dağıtılacak toplam" hem 100.000 hem 90.000 okunur).
+4d. VERİLENLER (06.09 Cem: "soruda çok veri var, tabloda ikisi; hiç bilmeyene böyle olmuyor"): JSON'a "verilenler" listesi ekle:
+   soru metnindeki HER sayı ayrı satır {"ad","deger","anlam"} — ad sınav dilinde kısa ad, deger metindeki yazımıyla birimiyle,
+   anlam tek cümle: bu sayı nedir, hesapta nerede kullanılır (hiç bilmeyene). Ekran tabloyu VERİLENLER → HESAP → SONUÇ düzeninde çizer;
+   bu yüzden cozum_tablo'da soruda VERİLEN sayı için ayrı satır AÇMA (verilen satırı hesap bloğunda tekrarlanmaz), tablo yalnız hesaplanan satırları taşır.
+5. ŞEMA: tur alanı YALNIZ şu dört değerden biri olabilir: "yevmiye" | "eleme" | "karar" | "akis" (başka ad/varyant YASAK). Bu ders KAYIT dersiyse ve soru bir işlemin muhasebesine dokunuyorsa tur=yevmiye ZORUNLUDUR ({"tur":"yevmiye","baslik":"...","ogeler":{"borc":[{"hesap":"181 GELİR TAHAKKUKLARI","tutar":"..."}],"alacak":[...]}}) - T-cetveli budur. SORUNUN KENDİ VERİSİYLE, jenerik yasak.
+6. hap (tek cümle kalıcı kural), sinav_taktigi (1 cümle), notlandirici (en çok puan kaybettiren nokta).
+7. Rakamlar her katmanda BİREBİR tutarlı.
+7b. AÇIKLAMA KUSUR LİSTESİ (02.10.2026, açıklama hakeminin yayındaki 1.000 soruda bulduğu 991 kusurdan; SGS %48,
+   Yeterlilik %59 kusurlu). JSON'u vermeden önce HER maddeyi kendi açıklamanda kontrol et:
+   (i)   KAVRAM: anlattığın kural KAYNAK PAKETİNDEKİ kuralla aynı olmalı; paketin söylemediği kuralı yazma (en sık kusur).
+   (ii)  ATIF: madde/fıkra/bent/paragraf/KURAL numarasını PAKETTEN al; fıkra sırasını metinden say (ör. BDS 500 A27, A31 değil).
+   (iii) HESAP KODU: kod ve adı THP ile aynı (150 İlk Madde ve Malzeme · 151 Yarı Mamuller-Üretim · 152 Mamuller ·
+         153 Ticari Mallar · 191 İndirilecek KDV alıcıda · 391 Hesaplanan KDV satıcıda · 611 satış indirimi gelir
+         azaltıcıdır, gider değildir · 620/621 ayrımı · 689 olağandışı zarar, 656 kambiyo zararı).
+   (iv)  ŞIK YOLU: her yanlış şıkkın açıklaması (aciklama, sade.siklar, celdirici_yol, teshis) O ŞIKKIN SAYISINI
+         gerçekten üretmeli; başka şıkkın yolunu anlatma, hesabı yeniden yap.
+   (v)   ARİTMETİK: her "a × b = c" yeniden hesaplanır; yuvarlamayı yaz; ondalık virgül.
+   (vi)  ADIM ATFI: "(N. adımda bulduk)" N = değerin "= sonuç" olarak yazıldığı adım; ADIM 1 "Verilen" satırıdır, sayılır.
+   (vii) "SORUDA VERİLEN" yalnız kökte gerçekten yazan değer için; hesaplanan değere bu etiketi koyma, adımını yaz.
+   (viii) ✓/✗: kapanışta yalnız doğru şık ✓; "değildir/yanlıştır" sorularında işaretleri ters koyma.
+   (ix)  TEŞHİS SOMUT: "öğrenci şunu yaptı → şu sayıyı buldu"; "yanlış verilerle yapılmış" gibi belirsiz cümle yazma.
+8. DERS KAPSAMI (RESMİ - 01.09): {DERS_TARIF}
+   Bu kapsamın DIŞINA çıkan soru üretme; konu kapsama uymuyorsa soruyu KAPSAMA
+   UYAN açısıyla kur (ör. TMS konusu geldiyse KAYIT boyutunu sor, ölçüm tekniği değil).
+9. UZUNLUK - SINAV AYARI (02.09 Cem kararı, çıkmış sınav ölçümüyle): soru gövdesi
+   (şıklar HARİÇ) EN FAZLA {TAVAN} KARAKTER. Gerçek {DERS} sorularının ölçülen kalıbı:
+   {KALIP}. Bu bir üslup tercihi değil KAPIDIR - aşan soru reddedilip yeniden yazılır.
+   NASIL KISALTILIR: tek işlem anlat (olay zinciri şart değilse kurma), şirket/kişi
+   hikâyesi ve gereksiz tarih-adres detayı yazma, "aşağıdakilerden hangisidir" ile bitir.
+   Gerçek sınav örneği (251 kr): "İşletme, gerçek kişiden kiraladığı yönetim binasına ait
+   olan 100.000 TL'lik temmuz ayı kira tutarını %20 gelir vergisi kesintisi (stopaj)
+   yaptıktan sonra banka aracılığıyla ödemiştir. Söz konusu işleme ilişkin muhasebe kaydı
+   aşağıdakilerden hangisidir?" - ZORLUK AYRIMDA olur, kelime sayısında DEĞİL.
+9b. SON KONTROL - MEKANİK KAPILAR (20.09.2026). Aşağıdaki dört kusur, soru yazıldıktan
+   sonra KOD tarafından ölçülür; takılan soru reddedilip PARA ÖDENEREK yeniden yazılır.
+   İkisi de senin tek başına önleyebileceğin şeyler - JSON'u vermeden önce kendin bak:
+   (a) TUTARLAR: gövdede dört ya da daha çok tutar varsa HEPSİ onbinlik yuvarlak OLAMAZ
+       (100.000 + 250.000 + 80.000 + 30.000 gibi bir dizi kapıya takılır). Gerçek sınav
+       tutarları karışıktır: 12.500 · 47.350 · 183.600 gibi değerler kullan, hesap yine
+       tam çıksın. Tutarların en az biri yuvarlak olmayan bir sayı olsun.
+   (b) YER TUTUCU AD YOK: "ABC A.Ş.", "XYZ Ltd.", "X İşletmesi" YASAK; "İşletme" yaz.
+   (c) YAZIM: uzun tire (—) ve üç nokta (…) KULLANMA; klişe bağlayıcı yazma
+       ("bu bağlamda", "önem arz etmektedir", "unutulmamalıdır ki", "dikkat edilmesi
+       gereken", "söz konusu olduğunda").
+   (e) DAYANAK ALINTISI ZORUNLU (20.09.2026 ölçümü): sorunun dayandığı kural, KAYNAK
+       PAKETİNDE açıkça yazan bir cümle olmalıdır. O cümleyi "dayanak_alinti" alanına
+       BİREBİR kopyala (en az 40 karakter, paketten kes-yapıştır; kendi cümlenle yazma).
+       Paket sorulacak kuralı TAŞIMIYORSA konuyu zorlama: paketin TAŞIDIĞI bir hükmü sor.
+       NİYE: 20.09 ölçümü - Vergi dersinde hakem reddinin 10'u, SPK'da 3'ü "kaynakta bu
+       kural yok" gerekçesiyle geldi (hesap_uyum=YOK). Yani soru doğru olabilir ama
+       kaynaksızdır; kaynaksız soru YAYINA GİREMEZ ve yeniden yazımı PARA yakar.
+   (d) SAYI ŞIKLI SORUDA ÇELDİRİCİ YOLU ZORUNLU: doğru şık dışındaki HER SAYISAL şık için
+       celdirici_yol alanına o şıkkın tutarını VEREN hesabı yaz. BİÇİM (madde 13'le AYNI,
+       makine böyle okuyor): "<hesap> = <şıkkın tutarı> (<hatanın adı>)".
+       Örnek: "950.000 - 845.000 = 105.000 (tazminatı elden çıkarma maliyetine kattı)".
+       Çok adımlı yol ';' ile ayrılır, SON adım şıkkın tutarını vermelidir:
+       "862.500*0,05 = 43.125; 215.625 - 43.125 = 172.500 (finansman giderini düşmedi)".
+       ⛔ '=' İŞARETİ ZORUNLU - yalnızca ifade yazılırsa ("120000*0.20") kapı "'=' yok"
+       diyerek soruyu geri çevirir ve YENİDEN YAZDIRIR (20.09'da bu kural yanlış
+       yazılmıştı: "yalnız rakam ve işleç" deniyordu, kapıyla çelişiyordu).
+       Bir şık "yanlış yolu olmayan" bir sayı olamaz - her çeldirici, öğrencinin
+       yapabileceği SOMUT bir hatanın sonucudur.
+<<<DEGISKEN>>>
+10. SORU TİPİ (02.09 - gerçek sınavın tip dağılımından gelen kota): {TIP_TARIF}
+11. SINAV DİLİ (03.09 - 1.042 çıkmış kitapçık ölçüldü, veri: SINAV-DILI-SOZLUGU):
+{DIL}
+    Her sınavda ORTAK: "THP" kısaltması YASAK (çıkmış sorularda 0 kez geçer) - gerekiyorsa
+    "Tekdüzen Hesap Planı" yaz, çoğu zaman hiç anma; "DVK" yerine "Damga Vergisi Kanunu";
+    "İş K." yerine "İş Kanunu"; KDV, TMS, TFRS, BDS, TL kısaltmaları serbesttir (sınav öyle yazar).
+    Maliyet kısaltmaları YASAK (06.09, kalıp-4 pilotu): "DB YM / DS YM / GÜG / DİMM / DİG / FIFO" yazma; sınav "dönem başı yarı
+    mamul", "dönem sonu yarı mamul", "genel üretim gideri", "direkt ilk madde ve malzeme", "direkt işçilik", "ilk giren ilk çıkar
+    yöntemi" der. Soru, şık, açıklama, tablo ve adımlarda aynı kural.
+    Şirket adı: çoğunlukla sınav gibi "İşletme" de; unvan gerekiyorsa sektör + tür biçiminde gerçekçi ve HER SORUDA FARKLI bir ad kur
+    (istemdeki hiçbir örneği kopyalama). "ABC / XYZ A.Ş." gibi yer tutucu unvan YASAK (08.09 pilot ölçümü: istem bunu önerdiği için her soru
+    KAPI-O'dan bir tur yaktı; örnek ad verilince de model aynı adı her soruya yazdı). Açıklama, hap ve tuzak metinleri de bu dile uyar.
+12. TEŞHİS (07.09 Ö54, "Yanlışını böyle öğrenirsin"): JSON'a "teshis" nesnesi ekle, HER ŞIK için {"yanilgi","gercek","ayirt","paragraf"}:
+    yanilgi = bu şıkkı seçen öğrencinin KAFASINDAKİ yanlış inanç, "sen" diliyle tek cümle ("Elden çıkarırken şirketin katlandığı her
+    masrafı elden çıkarma maliyeti sanıyorsun"); DOĞRU şık için yanilgi = bu şıkkı ELEYEN öğrencinin yanılgısı.
+    gercek = kuralın kendisi + kaynak, en çok iki cümle ("TMS 36 p.28 yalnız satışa doğrudan bağlı ek masrafı sayar; tazminat
+    TMS 37'nin konusudur"). ayirt = öğrencinin bir daha yanılmamak için kendine soracağı TEK soru ("Varlığı satmasam da bu para
+    çıkar mıydı?"). paragraf = kısa kaynak künyesi ("p.28", "m.328"). Jargon yok, tuzak adı yazma. Bu alanlar açıklama metnini
+    DEĞİŞTİRMEZ, ona ek gelir; hesaplı soruda da yazılır (yanilgi = atlanan katman).
+14. HESAP PLANI ve ADLANDIRMA (07.09 Cem "hepsine evet": K2, K3, Ö37): para birimi "TL" yazılır (₺ yazma). Hesap planı TEKDÜZEN'dir (MSUGT):
+    TMS/TFRS konularında da Tekdüzen kodları ve resmî adları kullanılır (250 ARAZİ VE ARSALAR; "250 Yatırım Amaçlı Gayrimenkuller" gibi TFRS-eki
+    adları YASAK, o KGK sınavına aittir). Soru gövdesinde mamul/gider yeri harfle anılabilir (A, B, C — sınav böyle yazar); açıklama,
+    adım ve ikizde "A mamulü" gibi tam adla anılır, şık harfleriyle karışmaz.
+13. ÇELDİRİCİ DOĞRULAMA — KAPI-Ç (07.09 Cem: "sınavda en çok çıkan, kandırmacılı çok seçenekli, zor"): HESAPLAMA sorusunda JSON'a "celdirici_yol"
+    ekle: her YANLIŞ şık için o şıkkın tutarına götüren YANLIŞ YOL formülü, SAYILARLA, sonu "= <şık tutarı>", ardından parantezde hatanın adı
+    ("C":"950.000 - 845.000 = 105.000 (tazminatı elden çıkarma maliyetine kattın)"). Formül gerçekten o tutarı VERMELİ: makine hesaplar,
+    tutmayan soru geri döner. Her yanlış şık gerçekten yapılabilecek bir hatanın sonucu olur (atlanan katman, yanlış ölçü, ters işaret,
+    yüzde puanı/oran karışıklığı, çeldirici verilenin hesaba katılması); rastgele sayı YASAK. TEORİ sorusunda karşılığı: en az iki şık AYNI
+    paragraf/maddeden, tek kelime ya da ölçüt farkıyla ayrılır (yakın-şık); bütün yanlış şıklar kaynakta karşılığı olan gerçek ifadelerdir.
+16. YASAL PARAMETRE — KAPI-P (08.09): yıla bağlı had/oran/tavan (asgari ücret, kıdem tazminatı tavanı, KDV/SGK/damga/stopaj oranı, gecikme
+    zammı, yeniden değerleme oranı, istisna haddi, defter tutma/fatura sınırı, vergi tarifesi) soruda geçiyorsa SAYISI soruda VERİLİR
+    ("KDV oranı %20", "kıdem tazminatı tavanının 50.000 TL olduğu varsayılmıştır"). Hafızadan yıl parametresi kullanılmaz; sınav da böyle yapar.
+17. DAYANAK DOĞRULUĞU (08.09 pilot: "kredi faiz tahakkuku" sorusuna VUK m.283 yazıldı, o madde AKTİF geçici hesap kıymetlerini tanımlar, hakem düşürdü):
+    "dayanak" alanına yazdığın madde/paragraf, DOĞRU ŞIKKIN KURALINI KOYAN parçadır; konuyla "ilgili görünen" ya da yalnız hesap adını
+    anan madde değil. Kaynak paketinde o kuralı OKUDUĞUN parçanın künyesini yaz; kaynak paketinde kuralı koyan parça yoksa dayanağa
+    yalnız hesap planı künyesini yaz ("THP 780 / 381") ve kanun maddesi UYDURMA. Yürürlükten kalkmış kanun/standart/kurum anılmaz (KAPI-M);
+    süresi geçmiş tarih ya da eski yılın had/oranı kullanılmaz (KAPI-S). Bent düzeyi: "213 sayılı VUK m.323/1", "TMS 36 p.22(b)".
+15. YIL — KAPI-Y (07.09 Cem: "şu an {YIL} yılındayız, sorular {YIL} yılını versin"): olay yılları BUGÜNE göre kurulur. Sorulan dönem
+    {YIL} yılıdır ("{YIL} yılı amortisman gideri", "{YIL} dönemi"); edinme/başlangıç tarihleri daha eski olabilir ama sorudaki EN YENİ yıl
+    {YIL} olmalıdır. Geçmiş yılın dönemini sorma. Tutarı yıldan yıla değişen kalemlerde (oran, tavan, had) sayıyı soruda VER, hafızadan yazma.
+BİÇİM ÇAPASI - aşağıdaki onaylı örnekle AYNI ses/uzunluk/şık yapısı:
+{ORNEK}
+Cevap YALNIZ JSON:
+{"soru":"...","siklar":{"A":"...","B":"...","C":"...","D":"...","E":"..."},"dogru":"X","aciklama":{...},"teshis":{"A":{"yanilgi":"...","gercek":"...","ayirt":"...","paragraf":"..."},"B":{...},"C":{...},"D":{...},"E":{...}},"celdirici_yol":{"<yanlış şık>":"<sayılı yanlış yol> = <şık tutarı> (<hatanın adı>)",...},"hap":"...","sinav_taktigi":"...","notlandirici":"...","sema":{...},"cozum_tablo":{...veya null},"verilenler":[{"ad":"...","deger":"...","anlam":"..."}],"dayanak":"kısa künye","dayanak_alinti":"<KAYNAK METNİNDEN BİREBİR kopyalanmış, sorunun dayandığı cümle - en az 40 karakter>"}
+=== KONU === {KONU}  (çıkmış arşivde {DONEM} ayrı dönemde soruldu)
+=== KAYNAK METNİ (ambardan) === {KAYNAK}
+'@
+if($script:KURAL0310){ $soruIstem=$soruIstemTR }
 # 13.09 Cem "bir iki ve üçü": SGS ile bitirme adayı farklı; "Universite mezunu gence" SGS adayını anlatır → yalnız SMMM'de bitirme adayı tarifi (SGS/KGK metni aynı)
-if($Sinav -eq 'SMMM'){ $soruIstem=$soruIstem.Replace('Universite mezunu gence, gercek sinav ayarinda.','Stajını tamamlamış, meslekte çalışan SMMM Yeterlilik (bitirme) adayına; ileri düzey senaryo, gerçek sınav ayarında.') }
+#   03.10: ikinci .Replace Türkçe harfli istemin (KURAL0310 açık) çapasıdır; eski istemde bu dize yok → eski istem bayt bayt aynı kalır.
+if($Sinav -eq 'SMMM'){ $soruIstem=$soruIstem.Replace('Universite mezunu gence, gercek sinav ayarinda.','Stajını tamamlamış, meslekte çalışan SMMM Yeterlilik (bitirme) adayına; ileri düzey senaryo, gerçek sınav ayarında.').Replace('Üniversite mezunu gence, gerçek sınav ayarında.','Stajını tamamlamış, meslekte çalışan SMMM Yeterlilik (bitirme) adayına; ileri düzey senaryo, gerçek sınav ayarında.') }
 if($script:PARA_BIRIMI -eq '₺'){ $soruIstem=$soruIstem.Replace('para birimi "TL" yazılır (₺ yazma).','para birimi "₺" yazılır (TL yazma; bu sınavın son iki dönemi ₺ kullanıyor, kök "kaç ₺''dir?").') }   # 13.09 Cem kararı
 # 03.10 ÜRETİM KURALLARI S1–S8 → 7b (x)–(xv). Yalnız $script:KURAL0310 açıkken (istem baytı koruması: bkz. adım istemi üstündeki not).
 $KURAL0310_SORU=@'
@@ -3462,6 +3711,7 @@ foreach($gecisA in $(if($script:A_UC_GECIS){ @(1,2,3) } else { @(1,2) })){ if($g
     continue
   }
   $ekNot=if($OZEL_NOT.ContainsKey($konuLc)){ "`nOZEL UYARI: $($OZEL_NOT[$konuLc])" } else { '' }
+  if($script:KURAL0310 -and $OZEL_NOT_TR.ContainsKey($konuLc)){ $ekNot="`nÖZEL UYARI: $($OZEL_NOT_TR[$konuLc])" }   # 03.10 Türkçe harfli sürüm (yalnız KURAL0310 açıkken)
   # 05.09 Cem "soru zor değildi; sınavda en çok çıkan konu, zor ve katmanlı olsun": zorluk kelime sayısında değil KATMAN sayısında.
   if($Zorluk -eq 'zor'){ $ekNot+=@"
 
@@ -3542,7 +3792,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   # 11.09 Cem "belgeyi FAZ A'ya baglayalim": rol basligi istemin BASINA konur.
   # Kategori dersten turetilir, hesap/standart kumeleri makineden gelir.
   # Kategori cozulemezse baslik EKLENMEZ (bos string) - eski davranis korunur.
-  $rolB = RolBasligi $DersRegex "$($ky.konu)"
+  if($script:KURAL0310){ $rolB = RolBasligiTR $DersRegex "$($ky.konu)" }   # 03.10 Türkçe harfli rol başlığı (istem baytı koruması: yalnız açıkken)
+  else { $rolB = RolBasligi $DersRegex "$($ky.konu)" }
   # ⭐⛔ 17.09.2026 KURAL 2b — ÇELDİRİCİ YAYILIMI. VARSAYILAN KAPALI, ANAHTARI `MEVZUAT_SAYI_SIRA=1`.
   #   NİYE KAPALI: parmak izi doğrudan İSTEM METNİNDEN hesaplanıyor (api-hedef.ps1 Get-IcerikParmak). İstem bir harf
   #   değişirse bulutta GÖNDERİLMİŞ ve ÖDENMİŞ toplu partiler artık eşleşmez, bedava hasat edilemez ve aynı iş İKİNCİ KEZ
@@ -3577,11 +3828,11 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     hesabı ve gerçek çeldirici yollarını koru. Bu kural yalnız beş şıkkın BEŞİ DE SAYI olan soruda geçerlidir.
 "@
   }
-  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SAYI_SIRA_KURAL}',$SAYI_SIRA_KURAL).Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"}else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
+  $ist=$rolB + $soruIstem.Replace('{YIL}',"$((Get-Date).Year)").Replace('{SAYI_SIRA_KURAL}',$SAYI_SIRA_KURAL).Replace('{SIK_KALIP}',$SIK_KALIP).Replace('{DIL}',$(if($script:YD_MOD){ $DIL_KURAL + $YD_DIL_KURAL } else { $DIL_KURAL })).Replace('{SINAV}',$Sinav).Replace('{DERS}',$DersRegex).Replace('{DERS_TARIF}',$DERS_TARIF).Replace('{KONU}',(KonuGoster "$($ky.konu)")).Replace('{DONEM}',"$($ky.donem)").Replace('{ORNEK}',$(if($CAPA.ContainsKey($id)){ $CAPA[$id] } else { $ornekSoru })).Replace('{KAYNAK}',$amb.metin).Replace('{TAVAN}',"$UZUNLUK_TAVAN").Replace('{KALIP}',$(if($KALIP_TIP){ if($script:KURAL0310){"medyan uzunluk $UZUNLUK_TAVAN kr civarı, tip dağılımı $KALIP_TIP"} else {"medyan uzunluk $UZUNLUK_TAVAN kr civari, tip dagilimi $KALIP_TIP"} }else{"medyan $UZUNLUK_TAVAN kr"})).Replace('{TIP_TARIF}',$(
     $buTip=''
     if($TIP_HEDEF.Count){ $ix=($KONULAR.IndexOf($kk)); if($ix -lt 0){ $ix=0 }; if($ix -lt $TIP_HEDEF.Count){ $buTip=$TIP_HEDEF[$ix] } }
     if($CAPA_TIP.ContainsKey($id) -and $TIP_TARIF.ContainsKey($CAPA_TIP[$id])){ $buTip=$CAPA_TIP[$id]; Write-Host "  tip çapadan: $id -> $buTip" -ForegroundColor DarkGray }   # 06.09: çapa teori ise soru teori (fmuh-k10 dersi)
-    if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }
+    if($buTip -and $TIP_TARIF.ContainsKey($buTip)){ $TIP_TARIF[$buTip] } elseif($script:KURAL0310){ 'Konuya en uygun tipi seç (kayıt / hesaplama / teori).' } else { 'Konuya en uygun tipi sec (kayit / hesaplama / teori).' }   # 03.10: Türkçe harfli yalnız KURAL0310 açıkken
   ))+$ekNot
   # UZUNLUK KAPISI (02.09): asan soru KABUL EDILMEZ - 2 kez kisaltma istenir.
   # 02.09 HIZ: MaxTok 20.000'di ama gercek cevap ~1.900 karakter (olculdu) - yuksek
@@ -3592,7 +3843,7 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   $onarimIstem=$null   # 17.09 hedefli onarım: 1. deneme yalnız yüzey kusuruyla dönerse 2. denemenin istemi (bkz. HedefliOnarimIstemi)
   foreach($deneme in 1..2){
     $istBu=$ist
-    if($deneme -gt 1){ if($onarimIstem){ $istBu=$onarimIstem } else { $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." } }
+    if($deneme -gt 1){ if($onarimIstem){ $istBu=$onarimIstem } elseif($script:KURAL0310){ $istBu=$ist+"`nDİKKAT: önceki denemende soru gövdesi TAVANI AŞTI. Bu kez $UZUNLUK_TAVAN karakteri KESİNLİKLE aşma - senaryoyu tek işleme indir, hikâyeyi at." } else { $istBu=$ist+"`nDIKKAT: onceki denemende soru govdesi TAVANI ASTI. Bu kez $UZUNLUK_TAVAN karakteri KESINLIKLE asma - senaryoyu tek isleme indir, hikayeyi at." } }   # 03.10: Türkçe harfli yalnız KURAL0310 açıkken
     $y=$null
     # 02.09 gece KGK partisinde OLCULDU: KGK sorularinin HEPSI 8k'da kesilip 20k ile yeniden
     # gidiyor (her soru iki cagri = iki kat sure). KGK/SMMM uzun kaynak metniyle dusunuyor;
@@ -3678,7 +3929,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   $ssKusur=@(StandartSetiKapisi $aday)
   if($ssKusur.Count -and $deneme -eq 1){
     Write-Host "  KAPI-SS (standart seti) ($id): $($ssKusur[0]) - yeniden" -ForegroundColor Magenta
-    $ist=$ist+"`nKAPI-SS DUSTU: $($ssKusur[0]). Ambarda bulunmayan standart numarasi ANMA; yalniz kaynak paketinde gordugun standartlari kullan."
+    if($script:KURAL0310){ $ist=$ist+"`nKAPI-SS DÜŞTÜ: $($ssKusur[0]). Ambarda bulunmayan standart numarası ANMA; yalnız kaynak paketinde gördüğün standartları kullan." }   # 03.10 Türkçe harfli (yalnız KURAL0310)
+    else { $ist=$ist+"`nKAPI-SS DUSTU: $($ssKusur[0]). Ambarda bulunmayan standart numarasi ANMA; yalniz kaynak paketinde gordugun standartlari kullan." }
     KapiSay 'd1-SS' "$id|1"
     continue
   }
@@ -3688,7 +3940,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
     $hsK=HesapKalibi $DersRegex "$($ky.konu)"
     if($hsK -and [bool]$hsK.dogrulandi -and $deneme -eq 1){
       Write-Host "  KAPI-HS (hesap seti, MUHURLU) ($id): $($hsKusur[0]) - yeniden" -ForegroundColor Magenta
-      $ist=$ist+"`nKAPI-HS DUSTU: $($hsKusur[0]). Soruyu, konunun ONAYLI hesap kumesindeki hesaplarla yeniden yaz."
+      if($script:KURAL0310){ $ist=$ist+"`nKAPI-HS DÜŞTÜ: $($hsKusur[0]). Soruyu, konunun ONAYLI hesap kümesindeki hesaplarla yeniden yaz." }   # 03.10 Türkçe harfli (yalnız KURAL0310)
+      else { $ist=$ist+"`nKAPI-HS DUSTU: $($hsKusur[0]). Soruyu, konunun ONAYLI hesap kumesindeki hesaplarla yeniden yaz." }
       KapiSay 'd1-HS' "$id|1"
       continue
     }
@@ -3702,7 +3955,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   $khKusur=@(Get-KodsuzHesapAdi "$($aday.siklar.$($aday.dogru))")
   if($khKusur.Count -and $deneme -eq 1){
     Write-Host "  KAPI-KH (kodsuz hesap adi) ($id): $($khKusur -join ', ') - yeniden" -ForegroundColor DarkYellow
-    $ist=$ist+"`nKAPI-KH DUSTU: sikta '$($khKusur -join ", ")' hesabi ADIYLA anilmis ama KODU yazilmamis. Her hesap adinin onune THP kodunu yaz (ornek: '521 Hisse Senedi Iptal Karlari')."
+    if($script:KURAL0310){ $ist=$ist+"`nKAPI-KH DÜŞTÜ: şıkta '$($khKusur -join ", ")' hesabı ADIYLA anılmış ama KODU yazılmamış. Her hesap adının önüne THP kodunu yaz (örnek: '521 Hisse Senedi İptal Kârları')." }   # 03.10 Türkçe harfli (yalnız KURAL0310)
+    else { $ist=$ist+"`nKAPI-KH DUSTU: sikta '$($khKusur -join ", ")' hesabi ADIYLA anilmis ama KODU yazilmamis. Her hesap adinin onune THP kodunu yaz (ornek: '521 Hisse Senedi Iptal Karlari')." }
     KapiSay 'd1-KH' "$id|1"
     continue
   }
@@ -3711,7 +3965,8 @@ ZORLUK: ÇOK ZOR (sınavın en zor %7'si — elemeyi belirleyen soru ayarı):
   $kvKusur2=@(KokSikVaadiKapisi $aday)
   if($kvKusur2.Count -and $deneme -eq 1){
     Write-Host "  KAPI-KV (kok-sik vaadi) ($id): $($kvKusur2[0]) - yeniden" -ForegroundColor DarkYellow
-    $ist=$ist+"`nKAPI-KV DUSTU: $($kvKusur2[0]). Ya siklari TAM KAYIT olarak yaz (borclu ve alacakli taraf birlikte), ya da soru kokunu tek tarafi soracak sekilde degistir."
+    if($script:KURAL0310){ $ist=$ist+"`nKAPI-KV DÜŞTÜ: $($kvKusur2[0]). Ya şıkları TAM KAYIT olarak yaz (borçlu ve alacaklı taraf birlikte), ya da soru kökünü tek tarafı soracak şekilde değiştir." }   # 03.10 Türkçe harfli (yalnız KURAL0310)
+    else { $ist=$ist+"`nKAPI-KV DUSTU: $($kvKusur2[0]). Ya siklari TAM KAYIT olarak yaz (borclu ve alacakli taraf birlikte), ya da soru kokunu tek tarafi soracak sekilde degistir." }
     KapiSay 'd1-KV' "$id|1"
     continue
   }
@@ -5238,6 +5493,7 @@ foreach($gecisS in @(1,2,3)){ if($gecisS -ne 3 -and -not $Toplu){ continue }; $s
       $ham = $ham -replace '\s+',' '
       Write-Host ("  SADE COZULEMEDI ({0}) tur {1}/2: {2} · ham: {3}" -f $id,$tur,$sadeSebep,$ham) -ForegroundColor Red
       $sadeN=$null
+      if($tur -eq 1 -and $script:KURAL0310){ $istS+="`n`nÖNCEKİ CEVAP KULLANILAMADI ($sadeSebep). YALNIZ geçerli JSON dön, önce/sonra hiçbir metin yazma. `dogru_sade` alanı BOŞ BIRAKILAMAZ."; continue }   # 03.10 Türkçe harfli (yalnız KURAL0310)
       if($tur -eq 1){ $istS+="`n`nONCEKI CEVAP KULLANILAMADI ($sadeSebep). YALNIZ gecerli JSON don, once/sonra hicbir metin yazma. `dogru_sade` alani BOS BIRAKILAMAZ."; continue }
       break
     }
@@ -5724,6 +5980,21 @@ ISTISNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (ornek: ozkaynak = aktif - borc
 === COZUM TABLOSU === {TABLO}
 === DOGRU ACIKLAMA === {ACIK}
 '@
+# 03.10 S3 kök nedeni: aynı istemin Türkçe harfli sürümü (kayıt başlığı ve hesap adı ekrana çıkar: "1) Malin satisi" taklidi). Yalnız harf
+#   (c→ç g→ğ i→ı I→İ o→ö s→ş u→ü) + baştaki "Türkçe karakterle yaz" satırı; JSON alan adları ve "yok"/"yevmiye" değerleri aynı.
+#   ⛔ İstem baytı koruması: yalnız $script:KURAL0310 açıkken (bkz. adım istemi notu); kapalıyken eski istem bayt bayt aynı.
+$yevmiyeIstemTR=@'
+Bütün metinleri Türkçe karakterlerle (ç, ğ, ı, ö, ş, ü, İ) yaz; ASCII yazım yasak.
+Aşağıdaki çözülmüş muhasebe sorusunun YEVMİYE KAYDINI/KAYITLARINI (T-cetveli) üret. Rakamlar soru/tablodakiyle BİREBİR; hesap adları Tekdüzen Hesap Planı kod+adıyla ("121 ALACAK SENETLERİ" gibi).
+ZİNCİR KURALI (Cem 01.09): Soruda birden fazla işlem (OLAY ZİNCİRİ) varsa her işlemin maddesi AYRI kayıt olarak SIRAYLA verilir - örnek: 1) Satış kaydı: 120 ALICILAR borç / 600 YURTİÇİ SATIŞLAR alacak + 391 HESAPLANAN KDV alacak, 2) Poliçenin kabulü: 121 ALACAK SENETLERİ borç / 120 ALICILAR alacak. Öğrenci "bu kayıt nereden geldi" diye görmeli. Tek işlem varsa tek kayıt yeterli.
+BAŞLIK KURALI (02.09 - SIZINTI YASAĞI): Kayıt başlığı öğrenciye kaydı KENDİSİ yaptırdığımız oyunda da görünür. Bu yüzden başlık YALNIZCA "N) <tarih varsa tarih> - <işlemin adı>" olur; örnek: "2) 22.03.2026 - Poliçenin teslim alınması", "1) Malın satışı". Başlığa HESAP ADI/KODU, TUTAR, ORAN, YÖNTEM ADI (FIFO, normal amortisman vb.), MADDE NUMARASI ve GEREKÇE YAZILMAZ - bunlar cevabın kendisidir. Başlık 45 karakteri aşmaz.
+Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","kayitlar":[{"baslik":"1) ...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}]}
+İSTİSNA: Soru KAVRAMSAL ya da SALT HESAPLAMA ise (örnek: özkaynak = aktif - borçlar hesabı, TMS kavram sorusu) ve yevmiye kaydı GERÇEKTEN uygulanmıyorsa UYDURMA kayıt yazma - şu JSON'u döndür: {"tur":"yok","sebep":"tek cümle neden"}
+=== SORU === {SORU}
+=== ÇÖZÜM TABLOSU === {TABLO}
+=== DOĞRU AÇIKLAMA === {ACIK}
+'@
+if($script:KURAL0310){ $yevmiyeIstem=$yevmiyeIstemTR }
 foreach($gecisY in @(1,2,3)){ if($gecisY -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisY -eq 1); $script:DALGA2_TOPLA=($gecisY -eq 2 -and -not $IkinciDalgaKapat)   # 16.09: yevmiye fazı toplu yola alındı (Cem israf talimatı md.3)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
@@ -5779,6 +6050,18 @@ Ikiz sorunun rakamlariyla kayit KURULAMIYORSA: {"tur":"yok","sebep":"tek cumle"}
 === IKIZ SORU === {IKIZSORU}
 === IKIZ TABLO (dogru degerler) === {IKIZTABLO}
 '@
+# 03.10 S3 kök nedeni: Türkçe harfli sürüm (yalnız harf + baştaki "Türkçe karakterle yaz" satırı). Yalnız $script:KURAL0310 açıkken.
+$ikizYevIstemTR=@'
+Bütün metinleri Türkçe karakterlerle (ç, ğ, ı, ö, ş, ü, İ) yaz; ASCII yazım yasak.
+Aşağıda bir muhasebe sorusunun ASIL YEVMİYE KAYDI/KAYITLARI ve aynı yöntemin İKİZ sorusu (farklı rakamlar) var.
+İKİZ SORUNUN yevmiye kaydını üret: hesap yapısı asıl kayıtla AYNI mantıkta, tutarlar İKİZ SORUNUN rakamlarından hesaplanır (ikiz tablosuyla BİREBİR tutarlı). Hesap adları Tekdüzen kod+adıyla. Zincir varsa her işlem ayrı numaralı kayıt.
+Cevap YALNIZ JSON: {"tur":"yevmiye","baslik":"...","kayitlar":[{"baslik":"1) ...","ogeler":{"borc":[{"hesap":"...","tutar":"..."}],"alacak":[{"hesap":"...","tutar":"..."}]}}]}
+İkiz sorunun rakamlarıyla kayıt KURULAMIYORSA: {"tur":"yok","sebep":"tek cümle"}
+=== ASIL KAYIT === {ASIL}
+=== İKİZ SORU === {IKIZSORU}
+=== İKİZ TABLO (doğru değerler) === {IKIZTABLO}
+'@
+if($script:KURAL0310){ $ikizYevIstem=$ikizYevIstemTR }
 foreach($gecisI in @(1,2,3)){ if($gecisI -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisI -eq 1); $script:DALGA2_TOPLA=($gecisI -eq 2 -and -not $IkinciDalgaKapat)   # 16.09: ikiz yevmiye fazı toplu yola alındı (Cem israf talimatı md.3)
 foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
