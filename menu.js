@@ -438,13 +438,25 @@ function kur(){
       +'font-size:11.5px;font-weight:600;color:var(--muted);text-decoration:none}'
       +'#ttAltMenu a[aria-current=page]{color:var(--ink)}#ttAltMenu a[aria-current=page] svg{stroke:var(--amber-dolgu)}'
       +'#ttAltMenu svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'
-      +'body.tt-alt-menu{padding-bottom:calc(64px + env(safe-area-inset-bottom))}body.tt-alt-menu #mrxFab{display:none!important}}';
+      +'body.tt-alt-menu{padding-bottom:calc(64px + env(safe-area-inset-bottom))}body.tt-alt-menu #mrxFab{display:none!important}'
+      /* 03.10 canlı tarama: telefonda üst şeritteki ☰ ekrandan taşıp kesiliyordu, "Ücretsiz başla" iki satıra kırılıyordu.
+         Alt menü gezinmeyi taşıdığı için bu sayfalarda ☰ gizlenir, üst düğme tek satır kalır. */
+      +'body.tt-alt-menu .mobbtn{display:none!important}body.tt-alt-menu #nav a.btn{white-space:nowrap}}';
     document.head.appendChild(st2);
-    var nav=document.createElement('nav'); nav.id='ttAltMenu'; nav.setAttribute('aria-label','Alt menü');
+    /* 03.10 canlı tarama: <nav> idi; index.html'in genel "nav{position:fixed;top:0…}" kuralı bunu da yakalıyordu ->
+       telefonda menü bütün ekranı kaplayıp ana sayfayı örttü. Öğe <div role=navigation>; sayfa nav kuralları uygulanmaz. */
+    var nav=document.createElement('div'); nav.id='ttAltMenu'; nav.setAttribute('role','navigation'); nav.setAttribute('aria-label','Alt menü');
     nav.innerHTML=OGELER.map(function(o){
       return '<a href="'+o[0]+'"'+(o[0]===aktif?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+o[2]+'"/></svg>'+o[1]+'</a>';
     }).join('');
     document.body.appendChild(nav); document.body.classList.add('tt-alt-menu');
+    /* 03.10 canlı tarama: koyu zeminli sayfada (sorular.html, body.bz-koyu) jetonlar açık temadan geliyordu -> beyaz şerit üstünde
+       açık yazı, etkin etiket görünmüyordu. Renkler sayfanın KENDİ zemin/yazı renginden alınır; her temada uyumlu. */
+    try{ var bs=getComputedStyle(document.body), zemin=bs.backgroundColor, yazi=bs.color;
+      if(zemin && zemin!=='rgba(0, 0, 0, 0)' && zemin!=='transparent'){ nav.style.background=zemin; }
+      if(yazi){ nav.style.color=yazi; nav.style.borderTopColor='color-mix(in srgb,'+yazi+' 16%,transparent)';
+        [].forEach.call(nav.querySelectorAll('a'),function(a){ a.style.color=yazi; a.style.opacity=a.getAttribute('aria-current')?'1':'.72'; if(a.getAttribute('aria-current')) a.style.fontWeight='800'; }); }
+    }catch(e){}
   })();
 
   /* ============================================================================
