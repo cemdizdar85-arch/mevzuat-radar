@@ -1,157 +1,157 @@
 {
-  "olcum": "2026-10-03T21:34:41.441Z",
+  "olcum": "2026-10-03T23:07:20.615Z",
   "gun": "2026-10-04",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 12,
-      "toplam": 66,
-      "id": "sgs-d2-issgk-kolay-r4/kp-01",
-      "ders": "İş ve Sosyal Güvenlik Hukuku",
-      "konu": "sendika üyeliği",
-      "donem": 6,
+      "sira": 6,
+      "toplam": 10,
+      "id": "sgs-t3-turkce-zor/kp-01",
+      "ders": "Türkçe",
+      "konu": "yazım kuralları",
+      "donem": 16,
       "teori": true,
       "rakamSik": false,
-      "soru": "Ahmet, metal işkolunda faaliyet gösteren iki farklı işverene ait işyerinde aynı dönemde çalışmakta olup bu işkolunda kurulu iki ayrı sendikaya üye olmak istemektedir. 6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu'na göre aşağıdakilerden hangisi doğrudur?",
+      "soru": "Aşağıdaki cümlelerin hangisinde yazım kuralına aykırı bir kullanım vardır?",
       "siklar": {
-        "A": "Ahmet, aynı işkolunda aynı anda yalnızca bir sendikaya üye olabilir; farklı işverenlere bağlı olması bu kuralı değiştirmez.",
-        "B": "Ahmet, aynı işkolunda ve aynı zamanda farklı işverenlere ait işyerlerinde çalıştığından birden çok sendikaya üye olabilir.",
-        "C": "Ahmet, on sekiz yaşını doldurmadıkça hiçbir işçi sendikasına üye olamaz.",
-        "D": "Ahmet'in sendikaya üyeliği, işverenine yazılı başvuruda bulunması ile kazanılır.",
-        "E": "Ahmet aynı işkolunda birden fazla sendikaya üye olursa, farklı işverenlere bağlı olması gözetilmeksizin ikinci üyeliği her durumda geçersizdir."
+        "A": "Öğretmen de bizim gibi çok üzüldü.",
+        "B": "Sabahki toplantıya herkes geldi.",
+        "C": "Bu çanta senin mi, benim mi?",
+        "D": "Yarın Mehmet te bizimle aynı saatte buluşacak.",
+        "E": "Kardeşim, sınavda çok heyecanlandığını söyledi."
       },
-      "dogru": "B",
+      "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Yaş Tuzağı",
-          "metin": "On sekiz yaşın işçi sendikasına üyelik için aranan yaş olduğunu düşünürsün. Doğrusu: m.17/1'e göre işçi sendikasına üyelik için aranan yaş on beştir."
+          "ad": "Ek Kaynaşması Tuzağı",
+          "metin": "soru eki 'mi'nin kendisinden önceki sözcükle bitişmesi gerektiğini düşünürsün. Doğrusu: 'mi' daima ayrı yazılır, yalnız kendisinden SONRA gelen ekler bitişir; cümle kuralına uygundur."
         },
         "E": {
-          "ad": "İstisnayı Yok Sayma Tuzağı",
-          "metin": "Birden çok üyelik yasağının hiçbir istisnası olmadığını düşünürsün. Doğrusu: m.17/3, farklı işverenlere ait işyerlerinde çalışanları bu yasağın dışında tutar, dolayısıyla üyelik geçersiz sayılmaz."
-        },
-        "D": {
-          "ad": "Kazanım Yolu Tuzağı",
-          "metin": "Üyeliğin işverene yapılan yazılı başvuru ile kazanıldığını sanırsın. Doğrusu: m.17/5'e göre üyelik, Bakanlıkça sağlanan elektronik başvuru sistemine e-Devlet kapısından yapılan başvuru ve sendikanın kabulü ile kazanılır."
+          "ad": "Ayırma Yanılgısı Tuzağı",
+          "metin": "'sınavda' sözcüğünü bağlaç 'da' ile karıştırıp 'sınav da' biçiminde ayrı yazılması gerektiğini düşünürsün. Doğrusu: burada 'sınav' sözcüğüne bulunma hâli eki '-da' eklenmiştir, bu ek bitişik yazılır; cümle kuralına uygu…"
         },
         "A": {
-          "ad": "Genel Kural Tuzağı",
-          "metin": "Aynı işkolunda ve aynı zamanda birden çok sendikaya üyelik yasağının istisnasız uygulandığını sanırsın. Doğrusu: Kanun, farklı işverenlere ait işyerlerinde çalışanlar için bu yasağa açıkça istisna getirir."
-        }
-      },
-      "hap": "Aynı işkolunda aynı anda birden çok sendikaya üyelik yasaktır; ancak farklı işverenlere ait işyerlerinde çalışan işçiler bu yasağın dışındadır.",
-      "satirlar": [
-        [
-          "A) Ahmet, aynı işkolunda aynı anda yalnızca bir sendikaya ü…",
-          "p.m.17/3"
-        ],
-        [
-          "B) Ahmet, aynı işkolunda ve aynı zamanda farklı işverenlere…",
-          "p.m.17/3"
-        ],
-        [
-          "C) Ahmet, on sekiz yaşını doldurmadıkça hiçbir işçi sendika…",
-          "p.m.17/1"
-        ],
-        [
-          "D) Ahmet'in sendikaya üyeliği, işverenine yazılı başvuruda …",
-          "p.m.17/5"
-        ],
-        [
-          "E) Ahmet aynı işkolunda birden fazla sendikaya üye olursa, …",
-          "p.m.17/3"
-        ]
-      ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=12",
-      "havuz": {
-        "adet": 66,
-        "ilk_gun": "2026-10-04",
-        "bitis": "2026-12-09",
-        "kalan_gun": 66,
-        "durum": "YESIL",
-        "mail_gunu": false
-      },
-      "basim": {
-        "durum": "KIRMIZI",
-        "eksik": 4,
-        "secim": 70,
-        "sayfa": 66
-      }
-    },
-    "smmm": {
-      "ad": "SMMM Yeterlilik",
-      "sira": 12,
-      "toplam": 66,
-      "id": "smmm-w7-2-ymeslek-zor/kp-01",
-      "ders": "Meslek Hukuku",
-      "konu": "müşterek müteselsil sorumluluk",
-      "donem": 6,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "Bir yeminli mali müşavirin tasdik ettiği KDV iadesi raporunda, tasdik kapsamındaki işlemlerden 40.000 ₺, kapsam dışı bir dönemin matrah farkından da 25.000 ₺ vergi ziyaı tespit edilmiştir. 3568 sayılı Kanun m.12'ye göre, YMM'nin müşterek ve müteselsil sorumluluğu hakkında hangisi doğrudur?",
-      "siklar": {
-        "A": "Yeminli mali müşavir, mükellefle birlikte yalnızca tasdikin kapsamıyla sınırlı olarak vergi ve cezalardan müteselsilen sorumlu olur.",
-        "B": "Yeminli mali müşavir, tasdik ettiği dönemle sınırlı olmaksızın mükellefin tüm vergi borçlarından tek başına sorumludur.",
-        "C": "Yeminli mali müşavirin sorumluluğu yalnızca disiplin niteliğindedir; tasdikten doğan mali sorumluluk ayrıca doğmaz.",
-        "D": "Yeminli mali müşavir, tasdik kapsamı dışındaki matrah farkından da mükellefle birlikte müteselsilen sorumlu olur.",
-        "E": "Yeminli mali müşavirin mali sorumluluğu, savunma yazısına otuz gün içinde cevap vermemesiyle ortadan kalkar."
-      },
-      "dogru": "A",
-      "tuzak": {
-        "C": {
-          "ad": "Sorumluluk Türü Karıştırma Tuzağı",
-          "metin": "öğrenci, mali sorumluluk raporu ile disiplin sorumluluğu raporunun ayrı ayrı düzenlendiğini, mali sorumluluğun da bağımsız olarak var olduğunu gözden kaçırır. Doğrusu: disiplin sorumluluğu ayrı bir rapordur, bu tasdikin…"
-        },
-        "E": {
-          "ad": "Savunma Süresi Karıştırma Tuzağı",
-          "metin": "öğrenci, otuz günlük savunma süresinin geçmesiyle savunma hakkının kaybedilmesini, mali sorumluluğun sona ermesiyle aynı şey sanır. Doğrusu: savunma hakkından vazgeçilmiş sayılması yalnızca savunma usulüne ilişkindir, t…"
-        },
-        "D": {
-          "ad": "Kapsam Genişletme Tuzağı",
-          "metin": "öğrenci, tasdik edilen mükellefin bütün işlemlerinin otomatik olarak sorumluluk alanına girdiğini düşünür. Doğrusu: sorumluluk açıkça 'tasdikin kapsamı ile sınırlı' olduğundan, kapsam dışı dönem matrah farkı bu sorumlul…"
+          "ad": "Bitişik Yazım Tuzağı",
+          "metin": "'de' bağlacını bulunma hâli ekiyle karıştırıp bitişik yazılması gerektiğini düşünürsün. Doğrusu: bağlaç olan 'de' cümleden çıkarılabilir, bu yüzden her zaman ayrı yazılır; cümle kuralına uygundur."
         },
         "B": {
-          "ad": "Tek Başınalık Tuzağı",
-          "metin": "öğrenci müşterek müteselsil sorumluluğu, mükellefin de sorumlu olduğunu unutup yeminli mali müşavirin yalnız başına tüm borcu üstlendiği bir yapı gibi düşünür. Doğrusu: sorumluluk mükellefle BİRLİKTE müşterektir, tek ba…"
+          "ad": "Ayrı Yazım Tuzağı",
+          "metin": "'-ki' ekini bağlaç 'ki' ile karıştırıp ayrı yazılması gerektiğini düşünürsün. Doğrusu: burada 'sabah' sözcüğüne sıfat yapan '-ki' eklenmiştir, bu ek bitişik yazılır; cümle kuralına uygundur."
         }
       },
-      "hap": "Yeminli mali müşavirin tasdikten doğan müşterek ve müteselsil sorumluluğu, mükellefle BİRLİKTE ve yalnızca tasdikin KAPSAMI ile SINIRLI olarak doğar.",
+      "hap": "Bağlaç olan 'de/da' cümleden çıkarılabilir, her zaman ayrı yazılır ve asla sertleşmez; hâl eki '-de/-da' ise bitişik yazılır ve sertleşebilir.",
       "satirlar": [
         [
-          "A) Yeminli mali müşavir, mükellefle birlikte yalnızca tasdi…",
-          "m.12/1"
+          "A) Öğretmen de bizim gibi çok üzüldü.",
+          "TDK Yazım Kuralları - 'de' bağlacı"
         ],
         [
-          "B) Yeminli mali müşavir, tasdik ettiği dönemle sınırlı olma…",
-          "m.12/1"
+          "B) Sabahki toplantıya herkes geldi.",
+          "TDK Yazım Kuralları - '-ki' eki"
         ],
         [
-          "C) Yeminli mali müşavirin sorumluluğu yalnızca disiplin nit…",
-          "Ek fıkra"
+          "C) Bu çanta senin mi, benim mi?",
+          "TDK Yazım Kuralları - 'mi' soru eki"
         ],
         [
-          "D) Yeminli mali müşavir, tasdik kapsamı dışındaki matrah fa…",
-          "m.12/1"
+          "D) Yarın Mehmet te bizimle aynı saatte buluşacak.",
+          "TDK Yazım Kuralları - 'de/da' bağlacının sertleşmezliği"
         ],
         [
-          "E) Yeminli mali müşavirin mali sorumluluğu, savunma yazısın…",
-          "Ek fıkra"
+          "E) Kardeşim, sınavda çok heyecanlandığını söyledi.",
+          "TDK Yazım Kuralları - bulunma hâli eki"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=12",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=6",
       "havuz": {
-        "adet": 66,
+        "adet": 10,
         "ilk_gun": "2026-10-04",
-        "bitis": "2026-12-09",
-        "kalan_gun": 66,
-        "durum": "YESIL",
+        "bitis": "2026-10-14",
+        "kalan_gun": 10,
+        "durum": "DONGU",
         "mail_gunu": false
       },
       "basim": {
         "durum": "YESIL",
         "eksik": 0,
-        "secim": 66,
-        "sayfa": 66
+        "secim": 10,
+        "sayfa": 10
+      }
+    },
+    "smmm": {
+      "ad": "SMMM Yeterlilik",
+      "sira": 6,
+      "toplam": 10,
+      "id": "smmm-4k-a-yspk-zor-r8/kp-01",
+      "ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "sermaye piyasası kurumları",
+      "donem": 6,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun 35. maddesinde, bu Kanuna göre faaliyette bulunabilecek sermaye piyasası kurumları tek tek sayılmıştır. Buna göre, aşağıdakilerden hangisi 6362 sayılı Kanun'un 35. maddesinde sayılan sermaye piyasası kurumlarından biri değildir?",
+      "siklar": {
+        "A": "Merkezî takas kuruluşları",
+        "B": "Konut finansmanı ve varlık finansmanı fonları",
+        "C": "Veri depolama kuruluşları",
+        "D": "Varlık kiralama şirketleri",
+        "E": "Mevduat kabul eden bankalar"
+      },
+      "dogru": "E",
+      "tuzak": {
+        "C": {
+          "ad": "Yeni Kurum Yabancılaşması Tuzağı",
+          "metin": "Öğrenci veri depolama kuruluşlarını teknik-idari bir birim sanıp Kanun kapsamı dışında görür. Doğrusu: Veri depolama kuruluşları madde 35/1-h bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        },
+        "A": {
+          "ad": "Kapsam Daraltma Tuzağı",
+          "metin": "Öğrenci takas kuruluşlarını borsa bünyesinde bir birim sanıp ayrı bir kurum türü olarak Kanun'da sayılmadığını düşünür. Doğrusu: Merkezî takas kuruluşları madde 35/1-g bendinde sermaye piyasası kurumu olarak açıkça sayı…"
+        },
+        "D": {
+          "ad": "Sukuk Aracı Karıştırma Tuzağı",
+          "metin": "Öğrenci varlık kiralama şirketlerini yalnız kira sertifikası çıkaran bir araç sanıp ayrı kurum sayılmadığını düşünür. Doğrusu: Varlık kiralama şirketleri madde 35/1-f bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        },
+        "B": {
+          "ad": "Fon-Kurum Karıştırma Tuzağı",
+          "metin": "Öğrenci tüzel kişiliği bulunmayan fonların kurum sayılmayacağını düşünür. Doğrusu: Konut finansmanı ve varlık finansmanı fonları madde 35/1-e bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        }
+      },
+      "hap": "6362 sayılı Kanun m.35'te sayılan sermaye piyasası kurumları arasında bankalar yoktur; bankalar 5411 sayılı Bankacılık Kanunu'na tabidir.",
+      "satirlar": [
+        [
+          "A) Merkezî takas kuruluşları",
+          "m.35/1-g"
+        ],
+        [
+          "B) Konut finansmanı ve varlık finansmanı fonları",
+          "m.35/1-e"
+        ],
+        [
+          "C) Veri depolama kuruluşları",
+          "m.35/1-h"
+        ],
+        [
+          "D) Varlık kiralama şirketleri",
+          "m.35/1-f"
+        ],
+        [
+          "E) Mevduat kabul eden bankalar",
+          "m.35/1"
+        ]
+      ],
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=6",
+      "havuz": {
+        "adet": 10,
+        "ilk_gun": "2026-10-04",
+        "bitis": "2026-10-14",
+        "kalan_gun": 10,
+        "durum": "DONGU",
+        "mail_gunu": false
+      },
+      "basim": {
+        "durum": "YESIL",
+        "eksik": 0,
+        "secim": 10,
+        "sayfa": 10
       }
     }
   }
