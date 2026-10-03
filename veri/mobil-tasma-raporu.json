@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-03 21:05:54",
+  "tarih": "2026-10-03 21:15:19",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -11,7 +11,7 @@
   "olculen": 134,
   "KOR": 0,
   "yeni_kusur_sayfa": 3,
-  "taban_borcu_sayfa": 2,
+  "taban_borcu_sayfa": 4,
   "yeni_kusur": [
     {
       "sayfa": "durum.html@320",
@@ -72,6 +72,28 @@
           "yazi": "☀"
         }
       ]
+    },
+    {
+      "sayfa": "mesafeli-satis.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 391,
+          "yazi": "☀"
+        }
+      ]
+    },
+    {
+      "sayfa": "on-bilgilendirme.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "button#mrxTema.mrxTemaSerit",
+          "sag": 406,
+          "yazi": "☀"
+        }
+      ]
     }
   ],
   "odenen_borc": [
@@ -80,8 +102,6 @@
     "kartlar.html@320",
     "kurulus.html",
     "kurulus.html@320",
-    "mesafeli-satis.html",
-    "on-bilgilendirme.html",
     "radar-fiyat.html@320",
     "radar.html",
     "radar.html@320",
