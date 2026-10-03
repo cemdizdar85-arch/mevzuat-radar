@@ -171,11 +171,13 @@ $SAY=@{}   # katlanmis -> @{ 'yazim'=adet }
 #   yayında yeni olduğu için her yayında; yerelde 70 soruluk vitrin 2 saatte bitmedi. Sayım artık arac/sozluk-hizli.ps1 ([TtSozluk]::Ekle,
 #   derlenmiş C#): 72,8 sn. Eşdeğerlik ambarın TAMAMINDA: SOZ+ENF+IVAR bayt bayt aynı (arac/sozluk-hizli-prova.ps1; mutasyon yakalıyor).
 # yeni bir dosya yoksa oradan yüklenir (SOZ + ENF en sık biçim + IVAR i/İ ile başlayan biçim var mı).
-$SOZ_YOL=Join-Path $ONB_DIR 'turkce-sozluk-onbellek.json'; $SOZ=@{}; $ENF=@{}; $IVAR=@{}; $sozYuklendi=$false
-$cacheDosyalar=@(Get-ChildItem (Join-Path $kok 'veri\fabrika\kalip-parti-*.json'))
-if(Test-Path $SOZ_YOL){ $enYeni=($cacheDosyalar | Measure-Object LastWriteTime -Maximum).Maximum; if((Get-Item $SOZ_YOL).LastWriteTime -gt $enYeni){ try{ $sj=Get-Content $SOZ_YOL -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $sj.SOZ.PSObject.Properties){ $SOZ[$p.Name]="$($p.Value)" }; foreach($p in $sj.ENF.PSObject.Properties){ $ENF[$p.Name]="$($p.Value)" }; foreach($p in $sj.IVAR.PSObject.Properties){ $IVAR[$p.Name]=$true }; $sozYuklendi=$true }catch{ $SOZ=@{}; $ENF=@{}; $IVAR=@{}; $sozYuklendi=$false } } }
-if(-not $sozYuklendi){
+# 03.10 (madde 1): önbellek SEKMELİ METİN + C# okuma/yazma (eski JSON + PS döngüsü ders başına 18 sn; 15 derste ~4 dk).
+#   Sözlükler yalnız ARANIR (dolaşılmaz) -> yükleme sırası sonucu değiştirmez. Eşdeğerlik: JSON'dan yüklenen = TSV'den yüklenen (03.10 ölçüldü).
 . (Join-Path $kok 'arac\sozluk-hizli.ps1')
+$SOZ_YOL=Join-Path $ONB_DIR 'turkce-sozluk-onbellek.tsv'; $SOZ=@{}; $ENF=@{}; $IVAR=@{}; $sozYuklendi=$false
+$cacheDosyalar=@(Get-ChildItem (Join-Path $kok 'veri\fabrika\kalip-parti-*.json'))
+if(Test-Path $SOZ_YOL){ $enYeni=($cacheDosyalar | Measure-Object LastWriteTime -Maximum).Maximum; if((Get-Item $SOZ_YOL).LastWriteTime -gt $enYeni){ try{ [TtSozluk]::Yukle($SOZ_YOL,$SOZ,$ENF,$IVAR); $sozYuklendi=$true }catch{ $SOZ=@{}; $ENF=@{}; $IVAR=@{}; $sozYuklendi=$false } } }
+if(-not $sozYuklendi){
 foreach($cf in $cacheDosyalar){
   try{ $c=Get-Content $cf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json }catch{ continue }
   foreach($pp in $c.PSObject.Properties){
@@ -195,7 +197,7 @@ foreach($k in $SAY.Keys){
   if($enSikBicim){ $ENF[$k]=$enSikBicim }
   if($enIyi -and $enIyiN -ge 2 -and $enIyiN -ge 3*$asciiN){ $SOZ[$k]=$enIyi }
 }
-[IO.File]::WriteAllText($SOZ_YOL,(ConvertTo-Json -InputObject @{ SOZ=$SOZ; ENF=$ENF; IVAR=$IVAR } -Depth 3 -Compress),[Text.UTF8Encoding]::new($false))
+[TtSozluk]::Yaz($SOZ_YOL,$SOZ,$ENF,$IVAR)
 }
 # 05.09: korpusta yeterince geçmeyen sık maliyet/muhasebe kelimeleri (tabloda "yuklenir", "kismi", "Bos" kalıyordu) — sabit yedek
 $SABIT_SOZ=@{ yuklenir='yüklenir'; yuklenen='yüklenen'; yuklenecek='yüklenecek'; yukleme='yükleme'; kismi='kısmı'; kisim='kısım'; bos='boş'; uretim='üretim'; degisken='değişken'; kullanim='kullanım'; orani='oranı'; gideri='gideri'; toplami='toplamı'; kapasite='kapasite'; calismayan='çalışmayan'; sapmasi='sapması'; farki='farkı'; esdeger='eşdeğer'; birim='birim'; dagitim='dağıtım'; dagitimi='dağıtımı'; sonucu='sonucu'; tutari='tutarı'; hesabi='hesabı'; maliyeti='maliyeti'; isci='işçi'; iscilik='işçilik'; iscilik_='işçilik'; hammadde='hammadde'; malzeme='malzeme'; yari='yarı'; mamul='mamul'; satilan='satılan'; satis='satış'; satislar='satışlar'; donem='dönem'; donemi='dönemi'; gelir='gelir'; kar='kâr'; kari='kârı'; zarar='zarar'; zarari='zararı'; olcek='ölçek'; olcum='ölçüm'; yontemi='yöntemi'; yontem='yöntem'; oran='oran'; oranla='oranla'; carpim='çarpım'; bolum='bölüm'; eksik='eksik'; fazla='fazla'; yuk='yük'; sabit='sabit'; gercek='gerçek'; gerceklesen='gerçekleşen'; buyuk='büyük'; kucuk='küçük'; ucret='ücret'; ucreti='ücreti'; ayrilan='ayrılan'; ayrilmis='ayrılmış'; islem='işlem'; isletme='işletme'; sirket='şirket'; ortak='ortak'; urun='ürün'; urunler='ürünler'; urunu='ürünü'; agirlik='ağırlık'; agirlikli='ağırlıklı'; fiili='fiili'; butce='bütçe'; butcelenen='bütçelenen'; standart='standart'; olculen='ölçülen' }

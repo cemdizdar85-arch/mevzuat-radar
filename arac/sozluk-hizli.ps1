@@ -54,6 +54,26 @@ public static class TtSozluk {
       h[lw] = (int)h[lw] + 1;
     }
   }
+  // 03.10 (madde 1): sözlük ÖNBELLEĞİ sekmeli metin. Satır: "S<TAB>kök<TAB>biçim" | "E<TAB>kök<TAB>biçim" | "I<TAB>kök".
+  // Anahtarlar düzenli ifadenin harf sınıfından gelir (sekme/satır sonu taşıyamaz). Tablolar PS'de @{} ile kurulur,
+  // burada yalnız doldurulur (aynı karşılaştırıcı). PS'deki eski JSON yolu: ders başına 18 sn (2.491 parti, 03.10).
+  public static void Yaz(string yol, Hashtable soz, Hashtable enf, Hashtable ivar) {
+    StringBuilder sb = new StringBuilder();
+    foreach (DictionaryEntry e in soz) sb.Append("S\t").Append((string)e.Key).Append('\t').Append(Convert.ToString(e.Value)).Append('\n');
+    foreach (DictionaryEntry e in enf) sb.Append("E\t").Append((string)e.Key).Append('\t').Append(Convert.ToString(e.Value)).Append('\n');
+    foreach (DictionaryEntry e in ivar) sb.Append("I\t").Append((string)e.Key).Append('\n');
+    System.IO.File.WriteAllText(yol, sb.ToString(), new UTF8Encoding(false));
+  }
+  public static void Yukle(string yol, Hashtable soz, Hashtable enf, Hashtable ivar) {
+    foreach (string sat in System.IO.File.ReadAllLines(yol, new UTF8Encoding(false))) {
+      if (sat.Length < 3) continue;
+      string[] p = sat.Split('\t');
+      if (p[0] == "S" && p.Length == 3) soz[p[1]] = p[2];
+      else if (p[0] == "E" && p.Length == 3) enf[p[1]] = p[2];
+      else if (p[0] == "I" && p.Length == 2) ivar[p[1]] = true;
+      else throw new Exception("sozluk onbellegi bozuk satir: " + sat);
+    }
+  }
 }
 '@
 }
