@@ -56,7 +56,101 @@ Sure 'soru seçimi'
 # Sozluk, elimizdeki DOGRU Turkce metinlerden (tum cache'lerdeki soru/sik/hap/taktik alanlari) kurulur:
 # katlanmis kelime -> en sik gorulen Turkce yazim. ASCII bicimi de gercek kelime olarak korpusta yasiyorsa
 # (kasa, ve, bu...) DOKUNULMAZ; Turkce bicim en az 3 kat sikse degistirilir.
+# ---- turkce-onar  (03.10.2026: Katla + TurkceOnar + korumalar TEK YERDE. arac/turkce-onar-sinavi.ps1 bu bölgeyi AYNEN yükler —
+#      kopya YOK; işaretleri silme/yeniden adlandırma, sınav KÖR kalır. Bölge yalnız işlev ve sabit tanımlar; $SOZ/$ENF/$IVAR dışarıda kurulur.)
+# 03.10 YAMA (Cem, sitedeki kasada görüldü): sözlük her ASCII kelimeyi korpustaki en sık Türkçe biçimle değiştiriyordu; üç sınıf HATA üretti:
+#   (1) kesmeden sonraki ek: 'çocuk'tur → 'çocuk'tür (ek kökün ünlüsüne uyar, sözlükle yazılamaz)  → kesmeden sonraki kelimeye dokunulmaz
+#   (2) İngilizce metin: WHICH → WHİCH                                                               → İngilizce kelime/parça/dizeye dokunulmaz
+#   (3) anlamı belirsiz kelime: Esasi → Esası (Kanun-i Esasi), bol → böl, hala → hâlâ                  → $TURKCE_ONAR_KORU listesi
+# 🚫 GÖRMEZ (03.10 ölçümünde kalan): tırnaksız, İngilizce işlev sözcüğü taşımayan kısa İngilizce parça ("going concern", tek kelime "Sure");
+#    kesmesiz yazılmış ek ("KDV nin"); listede olmayan belirsiz kelime (alim/alım, katip/katıp, iste/işte); büyük harf kısaltmanın küçük
+#    yazımı sözlükte ı'lı biçime gider (iii → ııı, iasb → ıasb, fifo → fıfo — sözlük kurulumunun kusuru, bu yama dokunmadı);
+#    I ile başlayıp ı taşıyan kelime (Isı → İsı).
 function Katla([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'Â','a' -creplace 'â','a' -creplace 'Î','i' -creplace 'î','i' -creplace 'Û','u' -creplace 'û','u').ToLowerInvariant() }
+# (3) KORUNAN KELİMELER — ASCII biçimi kendi başına GEÇERLİ ve FARKLI anlamlı Türkçe kelime; sözlük hangisinin kastedildiğini bilemez,
+#     dokunulmaz (küçük/büyük/TÜMÜ BÜYÜK hepsi). Yeni kelime YALNIZ buraya, gerekçesiyle eklenir. 03.10 ölçümü: eşdeğerlik provası
+#     (2.491 parti) eski işlevin yaptığı dönüşümler içinden seçildi.
+$TURKCE_ONAR_KORU=@{
+  'tur'   = 'tur (gezi, devre) / tür; ayrıca ek: ''çocuk''tur'
+  'bol'   = 'bol (çok) / böl'
+  'hala'  = 'hala (akraba) / hâlâ'
+  'asli'  = 'asli (esasa ilişkin: asli unsur, asli edim) / aslı'
+  'esasi' = 'Kanun-i Esasi, esasi (temel) / esası'
+  'asil'  = 'asil (asil üye, asil borçlu) / asıl'
+  'ucu'   = 'ucu (uç) / üçü'
+  'ucun'  = 'ucun (uç) / üçün'
+  'ucunu' = 'ucunu (uç) / üçünü'
+  'kara'  = 'kara (kara para, kara yolu) / kâra'
+  'kati'  = 'kati (katî: kesin hüküm) / katı'
+}
+# (2) İNGİLİZCE — KESİN: Türkçede kelime olarak geçmeyen İngilizce işlev sözcükleri. Bu kelimeye hiçbir yerde dokunulmaz (WHICH → WHİCH olmaz)
+#     ve parça/dize sayımında "kesin" İngilizce kanıtı sayılır. BELİRSİZ: Türkçede de kelime (is≈iş, an, it, be, has, her, on, in, at, not...);
+#     yalnız sayıma katılır, tek başına kanıt değildir.
+$TURKCE_ONAR_EN_KESIN=New-Object 'System.Collections.Generic.HashSet[string]' ([string[]]@('the','of','and','to','which','that','for','with','was','are','by','will','would','should','have','could','been','were','this','these','those','from','what','who','whom','whose','when','where','why','how','they','them','their','there','she','you','your','we','our','my','its','him','does','did','didn','doesn','isn','aren','wasn','weren','won','since','until','because','about','into','than','then','also','only','must','might','shall','being','having','very','more','most','some','any','each','every','other','such','while','or','if')),([StringComparer]::OrdinalIgnoreCase)
+$TURKCE_ONAR_EN_BELIRSIZ=New-Object 'System.Collections.Generic.HashSet[string]' ([string[]]@('is','an','it','be','has','had','her','his','he','on','in','at','as','not','no','so','but','do','can','may','am','me','a','yes','don')),([StringComparer]::OrdinalIgnoreCase)
+# parça = cümle ya da tırnak içi; ayırıcı . ! ? ; : satır sonu " “ ” « » ( ) [ ] ve kelime arasında OLMAYAN ' ’ ‘ (KDV'nin içindeki kesme ayırıcı değil)
+# ⚠ PS tek tırnaklı dizede ’ ‘ de TIRNAK sayılır (dizeyi kapatır): tipografik işaretler bu yüzden [char] kodu / \u kaçışıyla yazılır
+$TURKCE_ONAR_KESME="'"+[char]0x2019+[char]0x2018                                        # ' ’ ‘
+$TURKCE_ONAR_TIRNAK='"'+[char]0x201C+[char]0x201D+[char]0x00AB+[char]0x00BB+$TURKCE_ONAR_KESME   # " “ ” « » ' ’ ‘
+$TURKCE_ONAR_PARCA_RX=[regex]'(?:[^.!?;:\r\n"\u201C\u201D\u00AB\u00BB()\[\]''\u2018\u2019]|(?<=[\p{L}\d])[''\u2018\u2019](?=\p{L}))+'
+# T\u00fcrk\u00e7e KANITI: T\u00fcrk\u00e7e harfli kelime \u00b7 s\u00f6zl\u00fc\u011f\u00fcn T\u00fcrk\u00e7e bildi\u011fi ASCII kelime ($SOZ anahtar\u0131: cumle, ozne, sanip) \u00b7 ASCII T\u00fcrk\u00e7e i\u015flev s\u00f6zc\u00fc\u011f\u00fc.
+# 03.10 e\u015fde\u011ferlik provas\u0131: yaln\u0131z \u0130ngilizce say\u0131m\u0131yla yabanc\u0131 dil A\u00c7IKLAMALARI ("Because/since SEBEP bildirir; cumlede ...") \u0130ngilizce
+# say\u0131ld\u0131, 636 do\u011fru onar\u0131m (ozne \u2192 \u00f6zne, cumle \u2192 c\u00fcmle) kayboluyordu. Par\u00e7a art\u0131k T\u00fcrk\u00e7e kan\u0131t\u0131 \u0130ngilizceden fazlaysa \u0130ngilizce say\u0131lmaz.
+$TURKCE_ONAR_TR_ISLEV=New-Object 'System.Collections.Generic.HashSet[string]' ([string[]]@('ve','bir','bu','ile','olarak','da','de','ki','ise','gibi','veya','ama','ya','en','daha','olan','olur','sonra','kadar','hem','ancak','yani','sadece','icin','degil','cunku')),([StringComparer]::OrdinalIgnoreCase)
+$TURKCE_ONAR_EN_ORAN=0.25   # yo\u011funluk e\u015fi\u011fi: \u0130ngilizce d\u00fczyaz\u0131da bu listeler kelimelerin ~%40'\u0131
+function TurkceOnarEnSay([string]$p){ $enTop=0; $enKesin=0; $kelN=0; $trKanit=0
+  foreach($km in [regex]::Matches($p,'\p{L}+')){ $kelN++; $kv=$km.Value
+    if($TURKCE_ONAR_EN_KESIN.Contains($kv)){ $enTop++; $enKesin++ } elseif($TURKCE_ONAR_EN_BELIRSIZ.Contains($kv)){ $enTop++ }
+    elseif($kv -cmatch '[\u00e7\u011f\u0131\u00f6\u015f\u00fc\u00c7\u011e\u0130\u00d6\u015e\u00dc\u00e2\u00ee\u00fb]' -or $TURKCE_ONAR_TR_ISLEV.Contains($kv) -or ($SOZ -and $SOZ.ContainsKey($kv.ToLowerInvariant()))){ $trKanit++ } }
+  return @($enTop,$enKesin,$kelN,$trKanit) }
+# par\u00e7a \u0130ngilizce mi: en az 1 kesin s\u00f6zc\u00fck \u00b7 en az 2 \u0130ngilizce s\u00f6zc\u00fck (t\u0131rna\u011fa biti\u015fik par\u00e7ada 1 yeter) \u00b7 kelimelerin >=%25'i \u00b7 T\u00fcrk\u00e7e kan\u0131t\u0131
+#   \u0130ngilizcenin yar\u0131s\u0131n\u0131 a\u015fmaz (t\u0131rna\u011fa biti\u015fik k\u0131sa par\u00e7ada: \u0130ngilizceyi a\u015fmaz). 03.10 ikinci prova: '<= \u0130ngilizce' ile
+#   "Bosluga 'who is' veya 'who has' koyup cumle anlamli oluyor mu?" 4'e 4 \u0130ngilizce say\u0131l\u0131yor, T\u00fcrk\u00e7esi onar\u0131lm\u0131yordu.
+function TurkceOnarEnMi($say,[bool]$tirnakli){ return ($say[1] -ge 1 -and $say[0] -ge $(if($tirnakli){1}else{2}) -and $say[0] -ge $TURKCE_ONAR_EN_ORAN*$say[2] -and $say[3] -le $(if($tirnakli){$say[0]}else{$say[0]/2})) }
+# \u0130ngilizce say\u0131lan aral\u0131klar [ba\u015f,son): (a) D\u0130ZE \u0130ngilizceyse dizenin tamam\u0131; (b) de\u011filse her PAR\u00c7A (c\u00fcmle / t\u0131rnak aras\u0131) ayr\u0131 \u00f6l\u00e7\u00fcl\u00fcr \u2014
+# T\u00fcrk\u00e7e a\u00e7\u0131klamadaki tek \u0130ngilizce \u00f6rnek c\u00fcmle korunur, T\u00fcrk\u00e7e c\u00fcmleler onar\u0131lmaya devam eder.
+function TurkceOnarEnAralik([string]$t){ $enAr=New-Object 'System.Collections.Generic.List[int[]]'
+  if(-not $t -or $t -cnotmatch '[A-Za-z]{2}'){ return ,$enAr }
+  if(TurkceOnarEnMi (TurkceOnarEnSay $t) $false){ $enAr.Add([int[]]@(0,$t.Length)); return ,$enAr }
+  foreach($pm in $TURKCE_ONAR_PARCA_RX.Matches($t)){ $ps=TurkceOnarEnSay $pm.Value; if($ps[1] -lt 1){ continue }
+    $bas=$pm.Index; $son=$pm.Index+$pm.Length
+    $tirnakli=(($bas -gt 0 -and $TURKCE_ONAR_TIRNAK.IndexOf($t[$bas-1]) -ge 0) -or ($son -lt $t.Length -and $TURKCE_ONAR_TIRNAK.IndexOf($t[$son]) -ge 0))
+    if(TurkceOnarEnMi $ps $tirnakli){ $enAr.Add([int[]]@($bas,$son)) } }
+  return ,$enAr }
+function TurkceOnar([string]$t){
+  if(-not $t){ return $t }
+  $enAraliklar=TurkceOnarEnAralik $t   # aşağıdaki kelime işleyicisi bu değişkeni (ve $t'yi) işlev kapsamından okur
+  # kelime siniri Turkce harfleri de kapsar: "çıkarılan" icindeki "kar" parcasi ayri kelime sanilip "kâr" yapilmasin
+  $onarilan=[regex]::Replace($t,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}',{ param($m) $w=$m.Value; $ix=$m.Index
+      # 03.10 (1) KESME: harf/rakamdan sonra gelen ' ’ ‘ işaretinin hemen ardındaki kelime EKTİR ('çocuk'tur, KDV'nin, 10'uncu) — dokunulmaz
+      if($ix -ge 2 -and $TURKCE_ONAR_KESME.IndexOf($t[$ix-1]) -ge 0 -and [char]::IsLetterOrDigit($t[$ix-2])){ return $w }
+      # 03.10 (3) KORUNAN kelime
+      $kucukW=$w.ToLowerInvariant(); if($TURKCE_ONAR_KORU.ContainsKey($kucukW)){ return $w }
+      # 03.10 (2) İNGİLİZCE: kesin işlev sözcüğü · Türk alfabesinde olmayan harf (w q x: WHICH, QUIZ) · İngilizce aralık içi
+      if($TURKCE_ONAR_EN_KESIN.Contains($w)){ return $w }
+      if($w -match '[wqx]'){ return $w }
+      foreach($ea in $enAraliklar){ if($ix -ge $ea[0] -and $ix -lt $ea[1]){ return $w } }
+      # bas harfi buyuk I olan kelime (Iptal, Isletme): korpusta 'i' ile baslayan bicimi varsa İ yapilir
+      if($w -cmatch '^I[a-zçğıöşü]'){ $k0=Katla $w; if($IVAR.ContainsKey($k0)){ $w='İ'+$w.Substring(1)
+          # 03.10: gövde ASCII ise sözlükteki i'li biçimle tamamlanır (Isletme → İşletme; önceden yarım kalıyordu: İsletme)
+          if($w.Substring(1) -cnotmatch '[çğıöşüÇĞİÖŞÜâîû]' -and $SOZ.ContainsKey($k0) -and $SOZ[$k0].StartsWith('i')){ return ('İ'+$SOZ[$k0].Substring(1)) } } }
+      if($w -cmatch '[çğıöşüÇĞİÖŞÜâîû]'){ return $w }; $k=$w.ToLowerInvariant()
+      # TAMAMEN BUYUK kelime (HISSE, IPTAL, SENEDI): korpustaki en sik kucuk bicim tr-TR ile buyutulur -> HİSSE, İPTAL, SENEDİ
+      if($w.Length -ge 3 -and $w -ceq $w.ToUpperInvariant() -and $ENF.ContainsKey($k)){ return [cultureinfo]::GetCultureInfo('tr-TR').TextInfo.ToUpper($ENF[$k]) }
+      if(-not $SOZ.ContainsKey($k)){ return $w }; $y=$SOZ[$k]
+      # buyuk harf Turkce kurala gore (tr-TR: i->İ, ı->I); invariant kultur 'ı'yi buyutmuyordu ("KARLARı")
+      $TI=[cultureinfo]::GetCultureInfo('tr-TR').TextInfo
+      if($w -ceq $TI.ToUpper($w)){ return $TI.ToUpper($y) }
+      if($w.Substring(0,1) -ceq $TI.ToUpper($w.Substring(0,1))){ return ($TI.ToUpper($y.Substring(0,1))+$y.Substring(1)) }
+      return $y })
+  # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
+  $onarilan=[regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
+  # 06.09 (kalıp-4): sınav dili kısaltma açımı — sınav "dönem başı yarı mamul", "ilk giren ilk çıkar" der; DB YM / GÜG / FIFO demez
+  foreach($cf in @(@('\bDB\s+YM\b','dönem başı yarı mamul'),@('\bDS\s+YM\b','dönem sonu yarı mamul'),@('\bYM\b','yarı mamul'),@('\bGÜG\b','genel üretim gideri'),@('\bDİMM\b','direkt ilk madde ve malzeme'),@('\bDİG\b','direkt işçilik gideri'),@('\bFIFO yöntemi(ni|nde|yle)?\b','ilk giren ilk çıkar yöntemi$1'),@("\bFIFO'(da|nda|ya)\b","ilk giren ilk çıkar yönteminde"),@('\bFIFO\b','ilk giren ilk çıkar (FIFO)'))){ $onarilan=[regex]::Replace($onarilan,$cf[0],$cf[1]) }
+  $onarilan=[regex]::Replace($onarilan,'(?<=[.!?]\s|^)dönem başı yarı mamul','Dönem başı yarı mamul')
+  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "olumlu yani olumlu" → "olumlu"
+}
+# ---- /turkce-onar
 # 07.09 Cem: "oran her yerde YÜZDE" kuralı (şartname 3) tablo HÜCRESİNE uygulanmıyordu — Maliyet ortak maliyet sorusunda
 # "Dağıtım Oranı 0,3333 / 0,6667 / 1" çıktı. Kalem adı 'oran' içeren ve BÜTÜN değerleri (0,1] aralığında olan satır yüzdeye çevrilir
 # ("Cari oran 1,5" gibi 1'i aşan satırlara dokunulmaz). Formül tarafı JS oranYuzde'de (4 haneli ondalık + "0,3333 (%33,33)" katlama).
@@ -103,28 +197,6 @@ foreach($k in $SAY.Keys){
 $SABIT_SOZ=@{ yuklenir='yüklenir'; yuklenen='yüklenen'; yuklenecek='yüklenecek'; yukleme='yükleme'; kismi='kısmı'; kisim='kısım'; bos='boş'; uretim='üretim'; degisken='değişken'; kullanim='kullanım'; orani='oranı'; gideri='gideri'; toplami='toplamı'; kapasite='kapasite'; calismayan='çalışmayan'; sapmasi='sapması'; farki='farkı'; esdeger='eşdeğer'; birim='birim'; dagitim='dağıtım'; dagitimi='dağıtımı'; sonucu='sonucu'; tutari='tutarı'; hesabi='hesabı'; maliyeti='maliyeti'; isci='işçi'; iscilik='işçilik'; iscilik_='işçilik'; hammadde='hammadde'; malzeme='malzeme'; yari='yarı'; mamul='mamul'; satilan='satılan'; satis='satış'; satislar='satışlar'; donem='dönem'; donemi='dönemi'; gelir='gelir'; kar='kâr'; kari='kârı'; zarar='zarar'; zarari='zararı'; olcek='ölçek'; olcum='ölçüm'; yontemi='yöntemi'; yontem='yöntem'; oran='oran'; oranla='oranla'; carpim='çarpım'; bolum='bölüm'; eksik='eksik'; fazla='fazla'; yuk='yük'; sabit='sabit'; gercek='gerçek'; gerceklesen='gerçekleşen'; buyuk='büyük'; kucuk='küçük'; ucret='ücret'; ucreti='ücreti'; ayrilan='ayrılan'; ayrilmis='ayrılmış'; islem='işlem'; isletme='işletme'; sirket='şirket'; ortak='ortak'; urun='ürün'; urunler='ürünler'; urunu='ürünü'; agirlik='ağırlık'; agirlikli='ağırlıklı'; fiili='fiili'; butce='bütçe'; butcelenen='bütçelenen'; standart='standart'; olculen='ölçülen' }
 foreach($k0 in $SABIT_SOZ.Keys){ if(-not $SOZ.ContainsKey($k0)){ $SOZ[$k0]=$SABIT_SOZ[$k0] } }
 "turkce sozluk: $($SOZ.Count) kelime (en sık biçim $($ENF.Count) kök)$(if($sozYuklendi){ ' · önbellekten' } else { ' · yeniden kuruldu' })"
-function TurkceOnar([string]$t){
-  if(-not $t){ return $t }
-  # kelime siniri Turkce harfleri de kapsar: "çıkarılan" icindeki "kar" parcasi ayri kelime sanilip "kâr" yapilmasin
-  $onarilan=[regex]::Replace($t,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}',{ param($m) $w=$m.Value
-      # bas harfi buyuk I olan kelime (Iptal, Isletme): korpusta 'i' ile baslayan bicimi varsa İ yapilir
-      if($w -cmatch '^I[a-zçğıöşü]'){ $k0=Katla $w; if($IVAR.ContainsKey($k0)){ $w='İ'+$w.Substring(1) } }
-      if($w -cmatch '[çğıöşüÇĞİÖŞÜâîû]'){ return $w }; $k=$w.ToLowerInvariant()
-      # TAMAMEN BUYUK kelime (HISSE, IPTAL, SENEDI): korpustaki en sik kucuk bicim tr-TR ile buyutulur -> HİSSE, İPTAL, SENEDİ
-      if($w.Length -ge 3 -and $w -ceq $w.ToUpperInvariant() -and $ENF.ContainsKey($k)){ return [cultureinfo]::GetCultureInfo('tr-TR').TextInfo.ToUpper($ENF[$k]) }
-      if(-not $SOZ.ContainsKey($k)){ return $w }; $y=$SOZ[$k]
-      # buyuk harf Turkce kurala gore (tr-TR: i->İ, ı->I); invariant kultur 'ı'yi buyutmuyordu ("KARLARı")
-      $TI=[cultureinfo]::GetCultureInfo('tr-TR').TextInfo
-      if($w -ceq $TI.ToUpper($w)){ return $TI.ToUpper($y) }
-      if($w.Substring(0,1) -ceq $TI.ToUpper($w.Substring(0,1))){ return ($TI.ToUpper($y.Substring(0,1))+$y.Substring(1)) }
-      return $y })
-  # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
-  $onarilan=[regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
-  # 06.09 (kalıp-4): sınav dili kısaltma açımı — sınav "dönem başı yarı mamul", "ilk giren ilk çıkar" der; DB YM / GÜG / FIFO demez
-  foreach($cf in @(@('\bDB\s+YM\b','dönem başı yarı mamul'),@('\bDS\s+YM\b','dönem sonu yarı mamul'),@('\bYM\b','yarı mamul'),@('\bGÜG\b','genel üretim gideri'),@('\bDİMM\b','direkt ilk madde ve malzeme'),@('\bDİG\b','direkt işçilik gideri'),@('\bFIFO yöntemi(ni|nde|yle)?\b','ilk giren ilk çıkar yöntemi$1'),@("\bFIFO'(da|nda|ya)\b","ilk giren ilk çıkar yönteminde"),@('\bFIFO\b','ilk giren ilk çıkar (FIFO)'))){ $onarilan=[regex]::Replace($onarilan,$cf[0],$cf[1]) }
-  $onarilan=[regex]::Replace($onarilan,'(?<=[.!?]\s|^)dönem başı yarı mamul','Dönem başı yarı mamul')
-  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "olumlu yani olumlu" → "olumlu"
-}
 "deneme: " + (TurkceOnar 'Simdi farki hesapliyoruz: satis hasilati sermaye payini gecerse artan kisim kar sayilir. 100 KASA (BORC) 130.000 TL')
 # 04.09 Cem "@{ne_soruluyor=...} bu ne?": model açıklamayı bazen YAPILI nesne döndürüyor; string'e çevrilince PS
 # hashtable dökümü ekrana düşüyordu. Üreticideki AciklamaDuz'un aynısı: alanlardan okunur metin derlenir.
