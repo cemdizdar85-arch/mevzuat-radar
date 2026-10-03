@@ -640,6 +640,10 @@ jobs:
           # Nobetci akisi saglam/kancasiz); 7 mutasyonun 7'si KIRMIZI (03.10 yerelde olculdu). data: sayfalar, ag gerekmez.
           - { ad: "Canli tarama OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node motor/canli-tarama.js --sinav --mutasyon" }
+          # 03.10: sure-nobeti.yml oz-sinavi - 6 vaka (sabit, hizlanma, 2,5 kat ALARM, kucuk adim gurultusu, +16 dk ama 2 kat alti,
+          # gecmis yetersiz KOR); 2 mutasyon (kat, esik) KIRMIZI (03.10 yerelde olculdu). Ag gerekmez.
+          - { ad: "Sure nobetcisi OZ-SINAVI + MUTASYON",
+              kabuk: bash, komut: "node motor/sure-nobetcisi.js --sinav --mutasyon" }
 
           # 12.09 (Cem "1.2.3 ucunu de yap"): ana sayfanin Nobetci kutusu
           # "son robot kosusu 07.09 - 5 gun once" yazip KIRMIZI yandi. ROBOT

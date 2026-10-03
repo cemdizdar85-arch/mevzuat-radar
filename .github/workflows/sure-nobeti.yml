@@ -1,0 +1,40 @@
+# .github/workflows/sure-nobeti.yml — SÜRE NÖBETÇİSİ (03.10.2026, Cem "1.2.3 üçünü de yap")
+# Yayın akışlarının (yayin-bas, smmm-kasa-yayin) adım sürelerini her sabah okur; bir adım önceki koşuların ortancasının
+# 2 katını aşıp en az 10 dk uzadıysa Cem'e e-posta. Neden: 03.10'da yayının 80 dk'ya çıktığı ancak elle bulundu (sözlük
+# kurulumu parti sayısıyla 70 kat büyümüştü; 11.765 sistem kaydı her yayında boşuna iniyordu). Depoya yazmaz.
+# Öz-sınav: dogrula.yml matrisinde (node motor/sure-nobetcisi.js --sinav --mutasyon).
+name: Sure Nobeti
+on:
+  schedule:
+    - cron: '0 5 * * *'      # 08:00 TR
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Oz-sinav
+        run: node motor/sure-nobetcisi.js --sinav
+      - name: Sureleri olc
+        id: olc
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node motor/sure-nobetcisi.js --cikti "$RUNNER_TEMP/sure.txt"
+      - name: ALARM ise Cem'e gonder
+        if: steps.olc.outcome == 'failure'
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          $f = Join-Path $env:RUNNER_TEMP 'sure.txt'
+          $m = if (Test-Path $f) { Get-Content $f -Raw -Encoding utf8 } else { 'Sure nobetcisi KOR: rapor yok. Gunluge bak.' }
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE sure nobeti ALARM - bir yayin adimi buyudu' -Mesaj $m
+      - name: Sonuc
+        if: steps.olc.outcome == 'failure'
+        run: exit 1
