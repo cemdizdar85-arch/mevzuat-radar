@@ -697,6 +697,8 @@ window.veriAl = (function(){
       .bz-kah .bz-cerceve{border:1px solid rgba(214,180,126,.26);border-radius:12px;overflow:hidden;
         background:var(--bz-gece2);margin-bottom:11px}
       .bz-kah .bz-cerceve iframe{display:block;width:100%;height:540px;border:0}
+      /* 03.10 (Cem "Nöbetçi kartına sen bak"): telefonda 540 px çerçevede uzun soru şıkları aşağı itiyordu (308x542 ölçüldü) */
+      @media(max-width:700px){ .bz-kah .bz-cerceve iframe{height:min(78vh,720px)} }
       .bz-kah .bz-yuk{padding:26px 14px;text-align:center;font-size:12.5px;color:var(--bz-ak-sonuk)}
       .bz-kah .bz-surucu{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
       .bz-kah .bz-ileri{font:inherit;font-size:13.5px;font-weight:750;cursor:pointer;
