@@ -159,18 +159,27 @@ sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
   </div>
   <div class="satir">
     <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
-    <!-- Calisma Arkadasim: davet kodu. Adresteki ?d=KOD ile kendiliginden dolar
-         (arkadasin paylastigi bagbantidan gelinmisse). Elle de yazilabilir. -->
-    <div class="alan"><label class="et" for="davet">Davet kodu <span style="color:var(--dim)">— varsa; ikinize de +1 ay</span></label>
-      <input type="text" id="davet" maxlength="6" placeholder="örn. TT7K2M" style="text-transform:uppercase"></div>
   </div>
-  <!-- 15.09 Elçi kodu: elçinin takipçisine verdiği indirim kodu. ELCI.acik=false iken
-       (sunucu SQL'i basılmadan) bu satır HİÇ görünmez. İndirimi SUNUCU damgalar;
-       buradaki gösterim elci_kodu_kontrol() cevabına dayanır. -->
-  <div class="satir" id="elciSatir" style="display:none">
-    <div class="alan"><label class="et" for="elci">Elçi kodu <span style="color:var(--dim)">— size özel indirim kodu varsa</span></label>
-      <input type="text" id="elci" maxlength="12" placeholder="örn. CH48" style="text-transform:uppercase" autocomplete="off">
-      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p></div>
+  <!-- 03.10 (Cem "gm önerilerini yap"; büyük firmalardaki gibi): davet kodu + elçi kodu TEK kutu.
+       Tek bağlantı "İndirim ya da davet kodun var mı?" → tek alan + Uygula. Kod türü ayrımı: davet biçimine
+       (DAVET_BICIM) uyuyorsa önce elci_kodu_kontrol sorulur (TT ile başlayan elçi kodu çakışabilir), >0 ise
+       elçi, değilse davet; biçime uymuyorsa elçi. İki kod BİRLİKTE kullanılabilir (bugünkü kural): kabul edilen
+       kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
+       Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
+  <div class="alan" style="margin-bottom:12px">
+    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">İndirim ya da davet kodun var mı?</a>
+    <div id="kodKutu" hidden>
+      <label class="et" for="kod">İndirim / davet kodu</label>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <input type="text" id="kod" maxlength="12" placeholder="Kodunu yaz" style="text-transform:uppercase;flex:1;min-width:0" autocomplete="off">
+        <button type="button" class="btn" id="kodUygula" style="margin:0;width:auto;padding-left:16px;padding-right:16px;white-space:nowrap">Uygula</button>
+      </div>
+      <p class="kucuk" id="kodDurum" style="margin:5px 0 0"></p>
+      <div id="kodRozet"></div>
+      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p>
+    </div>
+    <input type="hidden" id="davet">
+    <div id="elciSatir" style="display:none"><input type="hidden" id="elci"></div>
   </div>
 
   <label class="et">Fatura tipi *</label>
@@ -483,6 +492,50 @@ function davetKodOku(){
 (function(){
   var k = davetKodOku();
   if(k){ document.getElementById('davet').value = k; }
+})();
+
+/* ---- 03.10: TEK KOD KUTUSU (davet + elçi) — ayrıntı HTML yorumunda ---- */
+(function(){
+  function $(i){ return document.getElementById(i); }
+  var ac = $('kodAc'), kutu = $('kodKutu'), inp = $('kod'), dur = $('kodDurum'), roz = $('kodRozet');
+  function goster(){ kutu.hidden = false; ac.hidden = true; }
+  function durum(m, renk){ dur.textContent = m || ''; dur.style.color = renk || 'var(--dim)'; }
+  function rozetCiz(){
+    var h = '', d = $('davet').value, e = $('elci').value;
+    if(d){ h += '<p class="kucuk" style="margin:6px 0 0;color:var(--green)">✓ Davet kodu <b>' + d + '</b>: ikinize de +1 ay · <a href="#" data-sil="davet">kaldır</a></p>'; }
+    if(e){ h += '<p class="kucuk" style="margin:6px 0 0">Elçi kodu <b>' + e + '</b> · <a href="#" data-sil="elci">kaldır</a></p>'; }
+    roz.innerHTML = h;
+  }
+  roz.addEventListener('click', function(ev){
+    var s = ev.target.getAttribute && ev.target.getAttribute('data-sil'); if(!s) return;
+    ev.preventDefault(); $(s).value = '';
+    try{ localStorage.removeItem(s === 'elci' ? 'tt_elci' : 'tt_davet'); }catch(e){}
+    if(s === 'elci'){ elciDenetle(); }
+    rozetCiz();
+  });
+  function davetSay(k){ $('davet').value = k; try{ localStorage.setItem('tt_davet', k); }catch(e){} inp.value = ''; durum(''); rozetCiz(); }
+  function elciSay(k){ $('elci').value = k; inp.value = ''; durum(''); elciDenetle(); rozetCiz(); }
+  function uygula(){
+    var s = String(inp.value || '').trim().toUpperCase().replace(/\s+/g, '');
+    if(!s){ durum('Önce kodu yaz.', 'var(--amber)'); return; }
+    var dv = DAVET_BICIM.test(s), el = elciAcik() && ELCI.bicim.test(s);
+    if(dv && el && secili && window.sb){
+      durum('Kod kontrol ediliyor…');
+      window.sb.rpc('elci_kodu_kontrol', { p_kod:s, p_paket:secili.id }).then(function(r){
+        var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
+        if(v > 0){ elciSay(s); } else { davetSay(s); }
+      }, function(){ davetSay(s); });
+      return;
+    }
+    if(dv){ davetSay(s); return; }
+    if(el){ elciSay(s); return; }
+    durum('Bu kodu tanıyamadık; harfleri kontrol et.', 'var(--red)');
+  }
+  ac.addEventListener('click', function(e){ e.preventDefault(); goster(); inp.focus(); });
+  $('kodUygula').addEventListener('click', uygula);
+  inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); uygula(); } });
+  if($('davet').value || $('elci').value){ goster(); }
+  rozetCiz();
 })();
 
 /* ---- fatura tipi ---- */
