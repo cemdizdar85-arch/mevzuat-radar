@@ -38,6 +38,8 @@ const SAYFALAR = [
   ['ogrenci.html', ['#ogGiris'], true, false],
   ['kaydir/sgs/turkce.html', ['body'], false, true],
   ['kaydir/vitrin/sgs.html', ['body'], false, true],
+  ['kaydir/vitrin/smmm.html', ['body'], false, true],
+  ['kaydir/smmm/finansal-muhasebe.html', ['body'], false, true],   // Yeterlilik kabuğu (smmm-kasa-yayin -SiteKabuk kurar)
 ];
 
 /* Sayfada koşan ölçüm (bozma anahtarları öz-sınav içindir) */
