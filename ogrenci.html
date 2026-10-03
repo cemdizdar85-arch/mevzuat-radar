@@ -214,8 +214,21 @@
       <a class="og-btn ana" href="elci.html">Elçi Panelim →</a>
     </div>
     <div id="ogKasaUyari" class="og-uyari og-gizli"></div>
+    <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())
+         + son durum sayıları + Yanlışlarım bağlantısı. Kaynak bu tarayıcıdaki son 500 cevap ve yanlış kutusu. -->
+    <div class="og-bolum og-gizli" id="ogSimdi" style="margin-top:8px">
+      <div class="og-kutu">
+        <span class="og-paket-et" id="ogSimdiBas">Şimdi bunu yap</span>
+        <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
+        <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">İstersen başka bir konu seç</a></div>
+        <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
+      </div>
+    </div>
     <div class="og-bolum" style="margin-top:8px">
       <h2>Paketim</h2>
+      <!-- 03.10 (V2 madde 18): havale siparişi verilmiş, paket henüz açılmamışsa "Ödemen kontrol ediliyor".
+           Kaynak satin-al.html'in bu cihaza yazdığı tt_siparisler (sipariş tablosu dışarıya kapalı; kişi verisi okunmaz). -->
+      <div id="ogSiparis"></div>
       <div class="og-paketler" id="ogPaketler"><p class="og-alt" style="margin:0">Paket bilgin okunuyor…</p></div>
     </div>
 
@@ -294,6 +307,7 @@
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js"></script>
+<script src="calisma-ozet.js"></script>
 <script>
 (function(){
   'use strict';
@@ -309,6 +323,7 @@
     var r=await sb.from('paket_uyeler').select('paket,bitis,dersler').eq('user_id',user.id);
     if(r.error){ kap.innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; return; }
     var d=U.durumHesapla(r.data,user.email), S=U.SINAVLAR;
+    siparisCiz(d);
     var sinavlar=U.SIRA.filter(function(k){ var x=d.sinavlar[k].durum; return x==='aktif'||x==='bitmis'; });
     /* 02.10: Cihazlarım yalnız aktif pakette; ilerleme kartının bağları paketin sınavına göre */
     var aktifler=U.SIRA.filter(function(k){ return d.sinavlar[k].durum==='aktif'; });
@@ -339,6 +354,33 @@
       return h+'</div>';
     }).join('');
   }
+  /* 03.10 V2 madde 18: bu cihazdan verilmiş havale siparişi, o sınavın paketi henüz açık değilse "kontrol ediliyor".
+     Paket açılınca kayıt kendiliğinden silinir. 10 günü geçmişse "bize yaz" der (havale 1-2 iş gününde görünür). */
+  function siparisCiz(d){
+    var kap=$('ogSiparis'); if(!kap) return;
+    var liste=yerel('tt_siparisler',[]); if(!Array.isArray(liste)) liste=[];
+    var sinavOf=function(p){ return p==='sgs'?'sgs':/^yeterlilik/.test(p)?'yeterlilik':/^kgk/.test(p)?'kgk':''; };
+    var kalan=liste.filter(function(x){ var s=sinavOf(x&&x.paket); return s && !(d.sinavlar[s]&&d.sinavlar[s].durum==='aktif'); });
+    if(kalan.length!==liste.length){ try{ localStorage.setItem('tt_siparisler',JSON.stringify(kalan)); }catch(e){} }
+    kap.innerHTML=kalan.map(function(x){
+      var gun=Math.floor((Date.now()-new Date(x.tarih))/86400000);
+      return '<div class="og-paket" style="margin-bottom:12px"><span class="og-paket-et">Sipariş '+esc(x.no)+'</span><b>Ödemen kontrol ediliyor</b>'
+        +'<span class="og-paket-alt">'+esc(x.paket_ad||'')+(x.tutar?' · '+esc(Number(x.tutar).toLocaleString('tr-TR'))+' TL':'')+'. Havaleyi hesabımızda gördüğümüz gün paketin açılır ve e-postana haber gelir.</span>'
+        +(gun>=10?'<p class="og-alt" style="margin:8px 0 0;font-size:13.5px">Siparişin '+gun+' gün önce verildi. Ödeme yaptıysan dekontu <a class="og-link" href="mailto:destek@tetikte.com?subject='+encodeURIComponent('Sipariş '+x.no)+'">destek@tetikte.com</a> adresine gönder.</p>':'')
+        +'</div>';
+    }).join('');
+  }
+  function simdiCiz(){
+    if(!window.ttCalisma) return;
+    window.ttCalisma.oneri(function(s,o){
+      $('ogSimdiBas').textContent=s.baslik; $('ogSimdiMetin').textContent=s.metin; $('ogSimdiBtn').textContent=s.dugme+' →'; $('ogSimdiBtn').href=s.adres;
+      var p=[];
+      if(o.cozulen) p.push('Çözülen '+o.cozulen+' · doğru %'+o.dogruYuzde+' · yanlış '+o.yanlis);
+      p.push('tekrar bekleyen '+o.kutuToplam);
+      $('ogSonDurum').innerHTML=esc(p.join(' · '))+' · <a class="og-link" href="yanlislarim.html">Yanlışlarım →</a>';
+      $('ogSimdi').classList.remove('og-gizli');
+    });
+  }
   var SINAV_TARIHI='2026-11-21';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir */
 
   function trHata(e){
@@ -354,7 +396,9 @@
        ölçüldü) aşılınca "bir dakika bekle" demek yanlıştı — tavan SAATLİK. */
     if(/over_email_send_rate_limit/i.test(k)||/email rate limit/i.test(m)) return 'Şu an kayıt yoğunluğu var, doğrulama e-postası gönderilemedi. Birkaç dakika sonra tekrar dene.';
     if(/rate limit/i.test(k+m)) return 'Çok sık denendi. Bir dakika bekleyip tekrar dene.';
-    return m||'Bir sorun oldu, tekrar dene.';
+    /* 03.10 V2 madde 52: tanınmayan hatada Supabase'in ham İngilizce mesajı basılıyordu; ayrıntı yalnız konsola */
+    try{ if(m) console.warn('giris hatasi:', k, m); }catch(x){}
+    return 'İşlem sırasında bir sorun oluştu. Lütfen tekrar dene; sürerse destek@tetikte.com adresine yaz.';
   }
   /* 24.09 (canlı deneme yük testi): IP başına kayıt/giriş tavanı (5 dk'da 30) mobil operatörde
      kalabalıkta "Çok sık denendi" döndürür (1.008 tarayıcı testinde 25/56 ölçüldü). Kişi canlı
@@ -427,6 +471,7 @@
     sb.rpc('elci_panelim').then(function(r){
       if(r && !r.error && r.data && r.data.kod){ $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli'); }
     }, function(){});
+    try{ simdiCiz(); }catch(e){}
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     cihazlarimCiz().catch(function(){ $('ogCihazlar').innerHTML='<p class="og-alt" style="margin:0">Cihaz bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;

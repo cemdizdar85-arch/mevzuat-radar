@@ -364,6 +364,8 @@
       <span class="iban" id="tmIban" data-kopyala=""></span></div>
     <p style="margin:12px 0 0;font-size:14px"><b style="color:var(--amber)">Açıklama alanına sipariş numaranı yaz.</b>
     Eşleştirmeyi bununla yapıyoruz; yazmazsan hesabının açılması gecikir.</p>
+    <p style="margin:10px 0 0;font-size:14px"><b>Durum: ödemen kontrol ediliyor.</b> Siparişini bu cihazda
+    <a href="ogrenci.html">Hesabım</a> sayfasında görürsün; paketin açılınca orada "Açık" yazar.</p>
     <p class="kucuk" style="margin:10px 0 0">Sipariş özeti e-posta adresine de gönderildi.
     Bir sorun olursa <a href="iletisim.html">iletişim</a> sayfasından bize yaz.</p>
   </div>
@@ -857,6 +859,11 @@ btn.addEventListener('click', function(){
     document.getElementById('tmUnvan').textContent = 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş.';
     document.getElementById('tmBanka').textContent = BANKA.ad;
     document.getElementById('tmIban').textContent  = BANKA.iban;
+    /* 03.10 V2 madde 18: Hesabım bu cihazda "Ödemen kontrol ediliyor" göstersin (paket açılınca kendiliğinden silinir).
+       Yalnız sipariş no + paket + tutar + tarih; ad, adres, telefon cihaza yazılmaz. */
+    try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) ts = [];
+      ts.push({ no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar, tarih:new Date().toISOString() });
+      localStorage.setItem('tt_siparisler', JSON.stringify(ts.slice(-5))); }catch(e){}
     document.getElementById('tamam').style.display = 'block';
     document.getElementById('duzen').style.display = 'none'; document.getElementById('mbar').hidden = true; document.body.classList.remove('mbar-var');
     document.getElementById('tamam').scrollIntoView({behavior:'smooth', block:'start'});

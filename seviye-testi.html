@@ -453,6 +453,7 @@
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · tezkiye notu '+SONUC.tezkiye+' alındı · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru · sınavda 50\'yi geçme ihtimali %'+x.p50+'</span></div>'; }).join('');
     $('svTez').hidden=false;
+    try{ bugunCiz(liste); }catch(e){}
     $('svTeklifBaslik').textContent=risk.length?'Riskli derslerini Nöbetçi\'yle kapat':'Yanlışlarının nedenini öğren';
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
     $('svTeklifMetin').innerHTML='Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır'+(y.length?'; bu testteki <b>'+y.length+' yanlışının</b> anlatımı da orada.':'.')+' Banka açıldığı gün haber almak için ücretsiz üye ol.';
@@ -538,6 +539,27 @@
       $('svTeklifMetin').innerHTML=metin(banka,set);
     });
   }
+  /* 03.10 (Cem, V2 madde 17): sonuç yalnız puan vermesin - güçlü alan + çalışılacak alan + "Bugün şunu yap".
+     Ders, bu testteki cevaplardan (CEVAPLAR.ders) seçilir: en çok yanlış/bilmiyorum, eşitse en düşük oran.
+     Bağlantı sorunun kendi ders sayfası (c.sayfa); paketsiz kişiyi o sayfanın paket kapısı karşılar. */
+  function bugunCiz(liste){
+    var kap=$('svBugun');
+    if(!kap){ kap=document.createElement('div'); kap.id='svBugun'; kap.className='sv-kutu'; kap.style.margin='16px 0'; $('svGruplar').insertAdjacentElement('afterend',kap); }
+    var g=(liste||[]).filter(function(x){ return x&&x.soru>=2; }).sort(function(a,b){ return b.dogru/b.soru-a.dogru/a.soru; });
+    var guclu=g.length?g[0]:null, zayif=g.length?g[g.length-1]:null;
+    var d={}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||!c.ders) return; if(!d[c.ders]) d[c.ders]={ad:c.ders,soru:0,yanlis:0,sayfa:c.sayfa}; d[c.ders].soru++; if(!c.dogru) d[c.ders].yanlis++; if(!d[c.ders].sayfa&&c.sayfa) d[c.ders].sayfa=c.sayfa; });
+    var dl=Object.keys(d).map(function(k){ return d[k]; }).filter(function(x){ return x.yanlis>0; }).sort(function(a,b){ return b.yanlis-a.yanlis || (b.yanlis/b.soru)-(a.yanlis/a.soru); });
+    var h='';
+    if(guclu&&zayif&&guclu!==zayif) h+='<p style="margin:0 0 6px"><b>Güçlü alanın:</b> '+esc(guclu.ad)+' ('+guclu.dogru+'/'+guclu.soru+') · <b>Çalışman gereken:</b> '+esc(zayif.ad)+' ('+zayif.dogru+'/'+zayif.soru+')</p>';
+    if(dl.length){
+      var x=dl[0];
+      h+='<p style="margin:0 0 12px"><b>Bugün şunu yap:</b> '+esc(x.ad)+' dersinden 10 soru çöz; bu testte oradan '+x.soru+' sorunun '+x.yanlis+' tanesinde takıldın. Yaklaşık 15 dakika.</p>'
+        +(x.sayfa?'<a class="sv-btn ana" style="text-decoration:none;display:inline-block" href="'+esc(x.sayfa)+'">Başla →</a>':'');
+    } else {
+      h+='<p style="margin:0"><b>Bugün şunu yap:</b> 130 soruluk sınav gibi denemeyle bu sonucu gerçek süre ve ders dağılımında doğrula.</p>';
+    }
+    kap.innerHTML=h;
+  }
   function sonucCiz(liste){
     var g=SONUC.gecme, sinif=g>=70?'yuksek':g>=40?'orta':'dusuk';
     $('svYuzde').textContent=g;
@@ -551,6 +573,7 @@
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
+    try{ bugunCiz(liste); }catch(e){}
     teklifCiz(g, zayif, y.length);
     /* 14.09: ders sayfaları ve "sınav gibi" pakete dahil (paket-kapisi.js). Paketsiz ziyaretçiyi kilide değil
        teklife yönlendir; paketi olan için "sınav gibi" yolu açık kalır. */

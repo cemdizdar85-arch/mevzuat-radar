@@ -45,7 +45,7 @@ function slug(s) { return katla(s).replace(/ /g, '-'); }
 
 // Sınavların sitedeki adı - adayın dili (09.09 TESMER menüsü ölçümü).
 const SINAVLAR = [
-  { kod: 'sgs', tek: 'SGS', ad: 'Staja Giriş', uzun: 'SMMM Staja Başlama Sınavı' },
+  { kod: 'sgs', tek: 'SGS', ad: 'Staja Giriş', uzun: 'SMMM Staja Giriş Sınavı' },   // 03.10: sitede ad "Staja Giriş" (02.10 kararı); sorular.html bu satırı gösteriyordu
   { kod: 'smmm', tek: 'SMMM', ad: 'Yeterlilik', /* 02.10: görünür ad tek (eski: Staj Bitirme) */ uzun: 'SMMM Yeterlilik Sınavı' },
   { kod: 'kgk', tek: 'KGK', ad: 'Bağımsız Denetçilik', uzun: 'KGK Bağımsız Denetçilik Sınavı' }
 ];

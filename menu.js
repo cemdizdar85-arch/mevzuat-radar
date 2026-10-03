@@ -416,6 +416,37 @@ function kur(){
   fab.id='mrxFab'; fab.type='button'; fab.textContent='☰ Araçlar';
   document.body.appendChild(fab);
 
+  /* 03.10.2026 MOBİL ALT MENÜ (Cem, V2 madde 24 "hepsini yap"): telefonda (<760 px) öğrenci sayfalarının altında
+     Ana sayfa · Sınavlar · Yanlışlar · Deneme · Hesabım. Yalnız aşağıdaki listedeki sayfalarda; satın alma (kendi
+     tutar çubuğu var), soru çözme ve sınav ekranlarında ÇIKMAZ. Bu sayfalarda yüzen "Araçlar" düğmesi telefonda gizlenir
+     (ikisi üst üste biniyordu). Masaüstünde hiçbir şey değişmez. */
+  (function(){
+    var yol=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+    var SAYFALAR=['','index.html','sorular.html','yanlislarim.html','ogrenci.html','fiyat.html','ucretsiz-dene.html','genc.html'];
+    if(SAYFALAR.indexOf(yol)<0) return;
+    var OGELER=[['index.html','Ana sayfa','M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z'],
+                ['sorular.html','Sınavlar','M5 4h14v16H5zM8 8h8M8 12h8M8 16h5'],
+                ['yanlislarim.html','Yanlışlar','M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4'],
+                ['sinav-gibi.html','Deneme','M12 7v5l3 2M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18z'],
+                ['ogrenci.html','Hesabım','M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0']];
+    var aktif=yol===''?'index.html':yol;
+    var st2=document.createElement('style');
+    st2.textContent='#ttAltMenu{display:none}'
+      +'@media(max-width:759px){#ttAltMenu{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--kagit,var(--panel));'
+      +'border-top:1px solid var(--line2);padding:4px 4px calc(4px + env(safe-area-inset-bottom))}'
+      +'#ttAltMenu a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;justify-content:center;'
+      +'font-size:11.5px;font-weight:600;color:var(--muted);text-decoration:none}'
+      +'#ttAltMenu a[aria-current=page]{color:var(--ink)}#ttAltMenu a[aria-current=page] svg{stroke:var(--amber-dolgu)}'
+      +'#ttAltMenu svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'
+      +'body.tt-alt-menu{padding-bottom:calc(64px + env(safe-area-inset-bottom))}body.tt-alt-menu #mrxFab{display:none!important}}';
+    document.head.appendChild(st2);
+    var nav=document.createElement('nav'); nav.id='ttAltMenu'; nav.setAttribute('aria-label','Alt menü');
+    nav.innerHTML=OGELER.map(function(o){
+      return '<a href="'+o[0]+'"'+(o[0]===aktif?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+o[2]+'"/></svg>'+o[1]+'</a>';
+    }).join('');
+    document.body.appendChild(nav); document.body.classList.add('tt-alt-menu');
+  })();
+
   /* ============================================================================
      TEMA DÜĞMESİ (16.09.2026) — Cem: "site koyu, beyaz bir koyu yapalım; bir de oraya
      bir şey koy, bas beyaz olsun." Açık/koyu artık ZİYARETÇİNİN kararı.

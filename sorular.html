@@ -106,6 +106,10 @@
   .sc-deneme-alt{font-size:14px;color:var(--muted);line-height:1.5}
   .sc-deneme-git{font-size:15px;font-weight:750;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));
     border-radius:10px;padding:11px 20px;white-space:nowrap}
+  .sc-alanlar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+  .sc-alanlar a{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;
+                color:var(--bz-ak);text-decoration:none;font-weight:700;font-size:14px;background:var(--bz-gece2)}
+  .sc-alanlar a:hover{border-color:var(--amber-dolgu)}
   .sc-seviye{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;text-decoration:none;color:inherit;
     margin:0 0 12px;padding:16px 22px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);transition:border-color .15s}
   .sc-seviye:hover{border-color:var(--bz-bronz)}
@@ -135,7 +139,8 @@
     <div class="sc-bas">
       <p class="sc-goz">Soru çöz</p>
       <h1>Hangi sınava hazırlanıyorsun?</h1>
-      <p>Sınavını seç. Dersler sınavdaki ağırlığıyla sıralı; her sorunun her şıkkı gerekçesiyle, gerekçesi mevzuattaki maddesiyle.</p>
+      <!-- 03.10: "gerekçesi mevzuattaki maddesiyle" mutlak iddiası ana sayfada 02.10'da yumuşatılmıştı (açıklama hakemi ölçümü); burada da aynı dil -->
+      <p>Sınavını seç. Dersler sınavdaki ağırlığıyla sıralı; her şıkkın gerekçesi var, dayandığı kaynak altında yazar.</p>
     </div>
     <div class="sc-sinavlar" id="scSinavlar" role="group" aria-label="Sınav seçimi">
       <div class="sc-yuk" style="color:var(--bz-ak-sonuk)">Sınavlar yükleniyor…</div>
@@ -215,7 +220,10 @@
     var seviyeKart=(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="seviye-testi.html"><span><b>Ücretsiz: 30 soruda geçme ihtimalini ölç</b>'
       +'<span class="sc-deneme-alt">Üyeliksiz, kartsız. Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin, zayıf alanın ve istersen e-postana karne.</span></span><span class="sc-seviye-git">Ölç →</span></a>'
       +'<p class="sc-aciklama" style="margin:-4px 0 14px">Önce ürünü görmek istersen: <a href="kaydir/vitrin/sgs.html">15 dersten örnek soruları çözümleriyle çöz →</a></p>':'';
-    var h=seviyeKart+denemeKart+'<div class="sc-gbas"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
+    /* 03.10 (Cem, V2 madde 13): sınav seçilince ilgili alanlar tek satırda - Dersler · Deneme · Yanlışlarım · Son durum · Hesabım */
+    var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'
+      +(dn?'<a href="sinav-gibi.html">Deneme</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
+    var h=alanlar+seviyeKart+denemeKart+'<div class="sc-gbas" id="sc-dersler"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
         ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'
         :'Bu sınavın soruları hakem ve çözüm kapılarından geçiyor. Açıldığında dersler burada, Staja Giriş\'teki gibi ders ders görünecek.')+'</p>';
