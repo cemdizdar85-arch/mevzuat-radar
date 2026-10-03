@@ -62,7 +62,7 @@ jobs:
           echo "::notice title=marka yedek::sifreli boyut $(du -sh . | cut -f1)"
 
       - name: Artifact olarak sakla (90 gun, sifreli)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: marka-bulten-yedek-${{ github.run_number }}
           path: _yedek/*.enc
