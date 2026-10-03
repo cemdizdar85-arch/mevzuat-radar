@@ -24,8 +24,10 @@ concurrency:
   group: smmm-kasa-yayin
   cancel-in-progress: false
 
+# 03.10.2026 (Cem "1. yap"): kabuk kurulumu (-SiteKabuk) buraya tasindi -> kaydir/smmm kabuklarini itmek icin yazma izni.
+#   Itilen yalniz kaydir/smmm/*.html (SORUSUZ kabuk; motor/kasa-kabuk.js esdegerlik kapisi) + arac/kasa-modu.json.
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   yayin:
@@ -33,6 +35,8 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # 03.10: kabuk itmesinde merge icin gecmis gerekli (yayin-bas.yml ile ayni)
 
       # 23.09 KAPI-HAD: yayin sarti guncel had tutarlarini veri/sinav/had-guncel.json'dan okur (ambardaki kanun serhleri).
       # Once tazelenir; duserse eski dosya kalir (kapi eski had ile calisir, yayin DURMAZ).
@@ -49,7 +53,42 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           $ErrorActionPreference = 'Continue'   # alt surecin stderr satiri adimi dusurmesin; cikis kodu asagida okunur
-          & powershell -NoProfile -File ./arac/smmm-kasa-yayin.ps1 -Yaz
+          # 03.10.2026 (Cem "1. yap"): -SiteKabuk -> ders sayfalari depoda SORUSUZ KABUK olarak yeni kaliple kurulur.
+          #   Neden: kalip (motor/kaydir-coz.ps1 $html) degisince bitirme sayfalari ancak bu makinede saatler suren yerel
+          #   -SiteKabuk kosusuyla yenileniyordu (03.10'da iki yerel deneme 2 saat sinirina takildi; demo dugmesi, "Bilmiyorum"
+          #   bitirme sayfalarina gecemedi). Kabuk yazilamazsa (kasa ile sayfa alan alan esdegersiz) betik sayfayi SILER,
+          #   depoya soru icerigi gitmez. Kabuk kapisinin gunluge bastigi yalniz kimlik/sira (motor/kasa-kabuk.js esdeger()).
+          & powershell -NoProfile -File ./arac/smmm-kasa-yayin.ps1 -Yaz -SiteKabuk
           $kod = $LASTEXITCODE
           "kasa yayini cikis kodu: $kod"
           if($kod){ "::error::bitirme kasa yayini dustu ($kod) - sorular ambarda duruyor; yeniden: gh workflow run smmm-kasa-yayin.yml"; exit $kod }
+
+      # 03.10.2026: yeni kalipla kurulan bitirme kabuklarini it. Yalniz kaydir/smmm + arac/kasa-modu.json.
+      #   Kabukta soru icerigi yok (data-kasa-sayfa isareti + boyut kapisi betikte); yine de itmeden once ikinci kez bakilir.
+      #   Stderr YONLENDIRME YOK (K6 - yayin-bas.yml "Degisen varsa ite" notu): basarili push bile adimi olduruyordu.
+      - name: Bitirme kabuklarini it
+        shell: powershell
+        run: |
+          git config user.name  "tetikte-robot"
+          git config user.email "bildirim@tetikte.com"
+          git config merge.tetikte-robot.name "Tetikte robot ciktisi: cakismada yereldeki korunur"
+          git config merge.tetikte-robot.driver true
+          foreach($f in Get-ChildItem kaydir/smmm -Filter *.html){
+            $ham = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
+            if($f.Name -ne 'index.html' -and ($ham -notmatch 'data-kasa-sayfa=' -or $ham -match 'const SORULAR=\[\{')){ "::error::KABUK DEGIL: $($f.Name) - soru icerigi depoya gitmesin diye ITILMEDI"; exit 1 }
+          }
+          git add kaydir/smmm arac/kasa-modu.json
+          $degisen = @(git diff --cached --name-only)
+          if(-not $degisen.Count){ "kabuklarda degisiklik yok - commit ATILMADI"; exit 0 }
+          "degisen dosya: $($degisen.Count)"
+          git commit -m "Bitirme kabuklari yeni kaliple (smmm-kasa-yayin kosusu ${{ github.run_number }})"
+          for($i=1; $i -le 5; $i++){
+            git push origin HEAD:main | Out-Null
+            if($LASTEXITCODE -eq 0){ "itildi (deneme $i)"; exit 0 }
+            git fetch origin main -q
+            git merge origin/main --no-edit -q
+            $cakisma = @(git diff --name-only --diff-filter=U)
+            if($cakisma.Count){ "::error::itme cakismasi: $($cakisma -join ', ') - elle bakilmali"; exit 1 }
+            Start-Sleep -Seconds (5 * $i)
+          }
+          "::error::5 denemede itilemedi"; exit 1
