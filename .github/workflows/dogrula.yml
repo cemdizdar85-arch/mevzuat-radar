@@ -233,6 +233,17 @@ jobs:
           - { ad: "Turkce onarim MUTASYON (10 koruma bozulunca sinav duser mi)",
               kabuk: pwsh, komut: "./arac/turkce-onar-sinavi.ps1 -Mutasyon" }
 
+          # 03.10.2026 - Kisaltma acimi TEK KAYNAK: arac/kisaltma-acim.json (uretim_yedek = kalip-parti-uret.ps1 TerimOnar,
+          # yayin = kaydir-coz.ps1 TurkceOnar) + arac/kisaltma-acim.ps1 (KisaltmaDeseni = kesme korumasi tek yer). 03.10'da
+          # "GUG'un" -> "genel uretim gideri'un" iki yerde ayri ayri duzeltilmisti. 38 vaka (iki kumede kesme, FIFO'da, DB YM sirasi,
+          # mesru veri YMM/GUGLER, bozuk/eksik dosyada ACIK hata, iki betigin ortak listeye bagi). Mutasyon: kesme islevi, kesme
+          # bayragi, sira ters, kume karisik, bos kume, bos satir, bayrak yok, bilinmeyen kume -> 8/8 KIRMIZI (03.10 olculdu).
+          # turkce-onar-sinavi.ps1'in 'kisaltma-kesme' mutasyonu da artik bu ortak yardimciyi bozar (11/11 KIRMIZI, 03.10).
+          - { ad: "Kisaltma acimi OZ-SINAVI (ortak liste + kesme korumasi)",
+              kabuk: pwsh, komut: "./arac/kisaltma-acim-sinavi.ps1" }
+          - { ad: "Kisaltma acimi MUTASYON (8 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/kisaltma-acim-sinavi.ps1 -Mutasyon" }
+
           # 29.09.2026 - Bulut soru basim sirasi (bulut-sira.yml cron). Yerel sira betikleri oturuma bagliydi; 27.09'da
           # sessizce oldu, bulut 2 gun bos kaldi. Sinav: pay (toplam + sinav basi, halka tek plan), cift acma (kosan/
           # kuyruktaki/gecmiste acilmis plan), bozuk butce/yol/paralel satirini atlama, KOR gecmis, acil fren, tr-TR
@@ -624,9 +635,9 @@ jobs:
           # fixed, bos sus, yatay kayma) her birinde KIRMIZI (01.10 yerelde olculdu).
           - { ad: "Mobil tasma kapisi OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/mobil-tasma-kapisi.js --sinav --mutasyon" }
-          # 03.10 (Cem "1.2.3"): canli tarama robotunun (canli-tarama.yml) oz-sinavi - 8 vaka (temiz, tasma,
-          # alt menu ORTME = 03.10 ana sayfa vakasi, eksik oge, JS hatasi, menu yeri, eski/yeni kalip);
-          # 6 mutasyonun 6'si KIRMIZI (03.10 yerelde olculdu). data: sayfalar, ag gerekmez.
+          # 03.10 (Cem "1.2.3"): canli tarama robotunun (canli-tarama.yml) oz-sinavi - 10 vaka (temiz, tasma,
+          # alt menu ORTME = 03.10 ana sayfa vakasi, eksik oge, JS hatasi, menu yeri, eski/yeni kalip,
+          # Nobetci akisi saglam/kancasiz); 7 mutasyonun 7'si KIRMIZI (03.10 yerelde olculdu). data: sayfalar, ag gerekmez.
           - { ad: "Canli tarama OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node motor/canli-tarama.js --sinav --mutasyon" }
 

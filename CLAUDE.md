@@ -36,6 +36,12 @@ bir değişiklik yapmadan ÖNCE: `ListAgents` + `-Durum` ile başka oturumun ayn
 yaz ve **ilk başlayan devam eder**, sonra gelen çekilir ve kendi değişikliğini geri alır. Düzenleme sırasında "dosya diskte
 değişti" uyarısı gelirse DUR: başka oturum aynı dosyadadır, önce mesajlaş.
 
+**Uzun iş ayrı kopyada (03.10.2026, Cem "1 ve 2 yap").** Ambarın tamamında prova, ajan/işçi koşturan iş ya da saatler süren
+basım ortak klasörde YAPILMAZ: `powershell -NoProfile -File arac/ayri-kopya.ps1 -Ac -Ad <iş-adı>` → `C:\TETIKTE-CALISMA\<iş-adı>`
+(origin/main, dalsız; `veri\fabrika` ana önbelleğe bağlı). İş bitince kopyada commit + `git push origin HEAD:main`, sonra `-Kapat`
+(commit'siz/itilmemiş iş varsa kapatmaz). Neden: 03.10'da öteki oturumun her `merge --autostash`'i ortak klasördeki provanın
+dosyasını kaldırıp geri koydu; prova makineyi de boğdu (boş RAM 123 MB, 16 işçi).
+
 ---
 
 ## 🔴 KAPANIŞ PROTOKOLÜ — iş biter bitmez, "sonra" yok

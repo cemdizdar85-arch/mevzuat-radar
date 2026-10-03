@@ -15,6 +15,8 @@
  *    PERDE    önizleme kapısı varken açılış perdesi duruyor
  *    MENU     alt menü olması gereken yerde yok / olmaması gereken yerde var
  *    KALIP    ders/vitrin sayfası eski kalıpta ("Bilmiyorum" yok ya da demo düğmesi ?demo=1 koşulsuz)
+ *    NOBETCI  ana sayfa akışı (telefon): "Nöbetçi çözsün" -> soru çerçevede açılıyor mu -> şık seçince
+ *             "kutuna düştü" kancası çıkıyor mu (ana sayfanın en önemli etkileşimi; 03.10 Cem "1.2.3")
  *  KIRMIZIda çıkış 1 + (iş akışında) Cem'e e-posta. Rapor dosyaya yazılır, depoya yazılmaz.
  *
  *  🚫 GÖRMEZ: tıklayınca açılan içerik · oturum isteyen içerik (Hesabım paneli, paketli soru) · listede
@@ -89,6 +91,26 @@ async function sekme(t, en, telefon) {
   return { o, id: c.targetId };
 }
 
+/* NÖBETÇİ AKIŞI: düğme hazır olana kadar bekler, tıklar, çerçevedeki görünen kartın ilk şıkkını seçer, kancayı bekler.
+   Çerçeve aynı kökenden (tetikte.com/kaydir/vitrin) - içine erişilebilir. GÖRMEZ: doğru şık seçildiğindeki kanca metni. */
+async function nobetciAkis(t, o) {
+  if (MUT === 'nobetci') return [];
+  const ev = async x => (await t.cdp.cagir('Runtime.evaluate', { expression: x, returnByValue: true }, o)).result.value;
+  for (let i = 0; i < 20 && !(await ev("(()=>{const b=document.getElementById('bzIleri');return !!b&&!b.disabled})()")); i++) await bekle(500);
+  if (!(await ev("!!document.getElementById('bzIleri')"))) return ['NOBETCI düğme yok'];
+  await ev("document.getElementById('bzIleri').click()");
+  // çerçeve loading="lazy": ekranda görünmeden içeriği inmez (kullanıcı düğmenin yanında görür) -> ekrana getir
+  await bekle(300); await ev("(()=>{const c=document.getElementById('bzCerceve');if(c)c.scrollIntoView({block:'start'})})()");
+  let ic = null;
+  for (let i = 0; i < 24; i++) { await bekle(500);
+    ic = await ev("(()=>{const f=document.querySelector('#bzCerceve iframe');if(!f)return 'cerceve-yok';const d=f.contentDocument;if(!d)return 'erisim-yok';const ks=[...d.querySelectorAll('#akis .kart')];const k=ks.find(x=>{const r=x.getBoundingClientRect();return r.height>0&&r.bottom>0&&r.top<f.contentWindow.innerHeight;});return k&&k.querySelector('.sik')?'hazir':'soru-yok'})()");
+    if (ic === 'hazir') break; }
+  if (ic !== 'hazir') return ['NOBETCI çerçeve: ' + ic];
+  await ev("(()=>{const f=document.querySelector('#bzCerceve iframe');const d=f.contentDocument;const ks=[...d.querySelectorAll('#akis .kart')];const k=ks.find(x=>{const r=x.getBoundingClientRect();return r.height>0&&r.bottom>0&&r.top<f.contentWindow.innerHeight;});k.querySelector('.sik').click();})()");
+  for (let i = 0; i < 12; i++) { await bekle(500); if (await ev("(()=>{const k=document.getElementById('bzKanca');return !!k&&!k.hidden})()")) return []; }
+  return ['NOBETCI şık seçildi ama kanca çıkmadı'];
+}
+
 async function sinav(t) {
   const sar = b => 'data:text/html;charset=utf-8,' + encodeURIComponent('<!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><body style="margin:0">' + b + '</body>');
   const MENU = '<div id="ttAltMenu" style="position:fixed;left:0;right:0;bottom:0;height:56px">m</div>';
@@ -111,6 +133,16 @@ async function sinav(t) {
     const ok = turler === beklenenTur.slice().sort().join(',');
     if (ok) dogru++; else yanlis.push(ad + ' (beklenen [' + beklenenTur + '], ölçülen [' + turler + '])');
   }
+  /* Nöbetçi akışı vakaları: srcdoc çerçeve aynı kökendir. Sağlam: şık postMessage atar -> kanca. Bozuk: şık bir şey yapmaz. */
+  const nobet = (saglam) => sar('<button id="bzIleri">N</button><div id="bzCerceve" hidden></div><div id="bzKanca" hidden>k</div><script>'
+    + 'document.getElementById("bzIleri").onclick=function(){var c=document.getElementById("bzCerceve");c.hidden=false;var f=document.createElement("iframe");'
+    + 'f.srcdoc=' + JSON.stringify('<div id="akis"><section class="kart" style="height:200px"><button class="sik">A</button></section></div><script>document.querySelector(".sik").onclick=function(){' + (saglam ? 'parent.postMessage({tetikte:"vitrin-cevap",dogru:false},"*")' : '') + '}<\/script>').replace(/<\//g, '<\\/') + ';c.appendChild(f);};'   // iç </script> dış betiği kapatmasın
+    + 'addEventListener("message",function(e){if(e.data&&e.data.tetikte==="vitrin-cevap")document.getElementById("bzKanca").hidden=false;});</script>');
+  for (const [ad, saglam, bekTur] of [['Nöbetçi akışı sağlam', true, []], ['Nöbetçi akışı kancasız (bozuk)', false, ['NOBETCI']]]) {
+    await t.cdp.cagir('Page.navigate', { url: nobet(saglam) }, s.o); await bekle(600);
+    const ih = await nobetciAkis(t, s.o); const turler = ih.map(x => x.split(' ')[0]).join(',');
+    VAKA.push([ad]); if (turler === bekTur.join(',')) dogru++; else yanlis.push(ad + ' (beklenen [' + bekTur + '], ölçülen [' + ih.join(' | ') + '])');
+  }
   console.log('CANLI TARAMA OZ-SINAVI' + (MUT ? ' [mutasyon ' + MUT + ']' : '') + ': ' + dogru + '/' + VAKA.length);
   yanlis.forEach(y => console.log('  YANLIS: ' + y));
   return yanlis.length ? 1 : 0;
@@ -124,7 +156,7 @@ async function sinav(t) {
     let kod = await sinav(t);
     t.kapat();
     if (args.includes('--mutasyon') && !MUT) {
-      const { execFileSync } = require('child_process'); let dusen = 0; const M = ['tasma', 'ortme', 'eksik', 'hata', 'menu', 'kalip'];
+      const { execFileSync } = require('child_process'); let dusen = 0; const M = ['tasma', 'ortme', 'eksik', 'hata', 'menu', 'kalip', 'nobetci'];
       for (const m of M) {
         let kirmizi = false;
         try { execFileSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, CT_MUTASYON: m }, stdio: 'pipe' }); } catch (e) { kirmizi = true; }
@@ -147,13 +179,24 @@ async function sinav(t) {
       let ih;
       try { const r = await sayfaOlc(t, s.o, TABAN + '/' + sayfa, bek); ih = degerlendir(r.o, bek, menu, tel, kalip && en === 390, r.eksik, kaynak, en); }
       catch (e) { kor++; ih = ['KOR ' + e.message]; }
+      /* 03.10: dağıtım anına denk gelen ölçüm geçici KIRMIZI verdi (alt menü yok; 2 dk sonra temiz). Kırmızıysa bir kez
+         yeniden ölçülür; ikinci ölçüm de kırmızıysa raporlanır. KALIP (dosya içeriği) yeniden ölçülmez, geçici olamaz. */
+      if (ih.length && !ih.every(x => x.startsWith('KALIP'))) {
+        await bekle(5000);
+        try { const r2 = await sayfaOlc(t, s.o, TABAN + '/' + sayfa, bek); ih = degerlendir(r2.o, bek, menu, tel, kalip && en === 390, r2.eksik, kaynak, en); } catch (e) {}
+      }
       if (ih.length) kirmizi++;
       satir.push((ih.length ? 'KIRMIZI ' : 'temiz   ') + String(en).padEnd(5) + sayfa + (ih.length ? '  -> ' + ih.join(' · ') : ''));
+    }
+    if (tel) {   // Nöbetçi akışı yalnız telefonda (ana sayfanın asıl kullanımı)
+      let ih; try { await t.cdp.cagir('Page.navigate', { url: TABAN + '/index.html' }, s.o); await bekle(2500); ih = await nobetciAkis(t, s.o); } catch (e) { kor++; ih = ['KOR ' + e.message]; }
+      if (ih.length) kirmizi++;
+      satir.push((ih.length ? 'KIRMIZI ' : 'temiz   ') + String(en).padEnd(5) + 'index.html · Nöbetçi akışı' + (ih.length ? '  -> ' + ih.join(' · ') : ''));
     }
     try { await t.cdp.cagir('Target.closeTarget', { targetId: s.id }); } catch (e) {}
   }
   t.kapat();
-  const ozet = 'CANLI TARAMA: ' + (SAYFALAR.length * 2) + ' ölçüm · KIRMIZI ' + kirmizi + (kor ? ' (KOR ' + kor + ')' : '');
+  const ozet = 'CANLI TARAMA: ' + (SAYFALAR.length * 2 + 1) + ' ölçüm · KIRMIZI ' + kirmizi + (kor ? ' (KOR ' + kor + ')' : '');
   console.log(ozet); satir.forEach(x => console.log('  ' + x));
   if (cikti) fs.writeFileSync(cikti, ozet + '\n\n' + satir.join('\n') + '\n', 'utf8');
   process.exit(kirmizi ? 1 : 0);
