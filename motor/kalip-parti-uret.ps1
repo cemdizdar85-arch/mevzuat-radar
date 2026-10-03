@@ -3277,7 +3277,8 @@ function TerimOnar([string]$t){
     if($p -match '^["“”]$'){ [void]$cikti.Append($p); $icerde=-not $icerde; continue }
     if($icerde){ [void]$cikti.Append($p); continue }
     $y=$p
-    foreach($c in $DIL_TERIM){ $kar=$c[1]; $y=[regex]::Replace($y,$c[0],{ param($m) if($m.Value.Substring(0,1) -cmatch '[A-ZÇĞİÖŞÜ]' -and $m.Value -cne $m.Value.ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))){ (($kar -split ' ') | ForEach-Object { if($_ -eq 've'){ $_ } else { $_.Substring(0,1).ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))+$_.Substring(1) } }) -join ' ' } else { $kar } }) }
+    # 03.10: terimden hemen sonra kesme varsa DEĞİŞTİRİLMEZ — "GÜG'ün" → "genel üretim gideri'ün" yazıyordu (ambarda ~80 yer, elle onarıldı)
+    foreach($c in $DIL_TERIM){ $kar=$c[1]; $y=[regex]::Replace($y,('(?:'+$c[0]+')(?![''\u2019])'),{ param($m) if($m.Value.Substring(0,1) -cmatch '[A-ZÇĞİÖŞÜ]' -and $m.Value -cne $m.Value.ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))){ (($kar -split ' ') | ForEach-Object { if($_ -eq 've'){ $_ } else { $_.Substring(0,1).ToUpper([cultureinfo]::GetCultureInfo('tr-TR'))+$_.Substring(1) } }) -join ' ' } else { $kar } }) }
     # 05.09 (kalıp-1 sorusu): model "lehte (olumlu)" yazmış, onarım "olumlu (olumlu)dur" üretmişti → aynı kelimenin parantez tekrarı silinir
     $y=[regex]::Replace($y,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
     $y=[regex]::Replace($y,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "lehte yani olumlu" → "olumlu yani olumlu" → "olumlu"

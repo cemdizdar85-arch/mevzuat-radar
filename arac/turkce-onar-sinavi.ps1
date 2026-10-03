@@ -40,6 +40,7 @@ $MUTASYONLAR = [ordered]@{
   'en-tr-kanit' = @('-and $say[3] -le $(if($tirnakli){$say[0]}else{$say[0]/2}))', ')')
   'en-tr-yari' = @('else{$say[0]/2}', 'else{$say[0]}')
   'i-basi'    = @('-and $SOZ[$k0].StartsWith(''i'')', '-and $false')
+  'kisaltma-kesme' = @('(''(?:''+$cf[0]+'')(?![''''\u2019])'')', '$cf[0]')
 }
 
 if ($Mutasyon) {
@@ -92,6 +93,7 @@ function Vaka([string]$ad, [string]$girdi, [string]$beklenen) {
 
 # --- DÜZELTMESİ gerekenler ---
 Vaka 'ASCII → Türkçe (ayni)' 'ayni' 'aynı'
+Vaka 'kısaltma açımı: kesmeli GÜG açılmaz (GÜG''ün), kesmesiz açılır' 'GÜG''ün payı ve GÜG toplamı' 'GÜG''ün payı ve genel üretim gideri toplamı'
 Vaka 'ASCII → Türkçe (ogrenci, cümle başı büyük)' 'Ogrenci ayni kayit icin' 'Öğrenci aynı kayıt için'
 Vaka 'TÜMÜ BÜYÜK tr-TR (BORC → BORÇ)' '100 KASA (BORC)' '100 KASA (BORÇ)'
 Vaka 'TÜMÜ BÜYÜK İ (HISSE → HİSSE)' 'HISSE' 'HİSSE'
