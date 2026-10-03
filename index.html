@@ -697,6 +697,8 @@ window.veriAl = (function(){
       .bz-kah .bz-cerceve{border:1px solid rgba(214,180,126,.26);border-radius:12px;overflow:hidden;
         background:var(--bz-gece2);margin-bottom:11px}
       .bz-kah .bz-cerceve iframe{display:block;width:100%;height:540px;border:0}
+      /* 03.10 (Cem "Nöbetçi kartına sen bak"): telefonda 540 px çerçevede uzun soru şıkları aşağı itiyordu (308x542 ölçüldü) */
+      @media(max-width:700px){ .bz-kah .bz-cerceve iframe{height:min(78vh,720px)} }
       .bz-kah .bz-yuk{padding:26px 14px;text-align:center;font-size:12.5px;color:var(--bz-ak-sonuk)}
       .bz-kah .bz-surucu{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
       .bz-kah .bz-ileri{font:inherit;font-size:13.5px;font-weight:750;cursor:pointer;
@@ -1109,6 +1111,10 @@ window.veriAl = (function(){
       /* tema kart açıkken değişirse iframe aynı soruda yeni temayla yeniden yüklenir */
       document.addEventListener('tt-tema',function(){ var f=cerceveEl.querySelector('iframe'); if(acik&&f) f.src=temaliYol()+sira; });
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
+      /* 03.10 (Cem "1.2.3"): günün sorusu (vitrin-kunye/kart-ozet) inmeden tıklanırsa kartta yazan soru ile açılan soru
+         farklı olabiliyordu (canlıda ~5 sn ölçüldü). Veri gelene kadar düğme kısa süre bekler; 8 sn'de gelmezse yine açılır. */
+      var hazirBekle=function(ac){ ileriEl.disabled=!ac; ileriEl.textContent=ac?'Nöbetçi çözsün →':'Soru hazırlanıyor…'; };
+      hazirBekle(false); var hazirZaman=setTimeout(function(){ hazirBekle(true); },8000);
       function sinavKart(sn){
         aktifSinav=sn||'sgs';
         if(window.ttFiyatGoster) window.ttFiyatGoster(aktifSinav);   /* 24.09: fiyat satırı seçili sınavı izler */
@@ -1174,6 +1180,7 @@ window.veriAl = (function(){
         var seciliBtn=document.querySelector('.bz-sekme button[aria-selected="true"]');
         var ilkSinav=seciliBtn?seciliBtn.getAttribute('data-sinav'):aktifSinav;
         if(ilkSinav&&ilkSinav!=='sgs') sinavKart(ilkSinav); else { aktifSinav='sgs'; afisCiz(); }
+        clearTimeout(hazirZaman); hazirBekle(true);   /* 03.10: kart metni ile açılacak soru artık aynı */
         var bag=document.getElementById('bzBaska');
         if(bag) bag.addEventListener('click',function(e){ e.preventDefault(); if(aktifSinav!=='sgs') return; tekrar=null; sira=(sira+1)%d.kartlar.length; sgsSira=sira; sgsTekrar=null; afisCiz(); });
       });
