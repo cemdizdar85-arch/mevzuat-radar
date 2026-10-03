@@ -127,8 +127,12 @@ jobs:
             if($retli.Count){ "::warning::VITRIN BASILMADI (vitrin-$($v.s): elle retteki $($retli.Count) soru secimde)"; continue }
             $dosya = "kaydir/vitrin/$($v.s).html"; $once = if(Test-Path $dosya){ (Get-Item $dosya).LastWriteTimeUtc } else { $null }
             # ⛔ Günlük HERKESE AÇIK (CLAUDE.md bulut güvenliği 2): kaydir-coz çıktısı süzülür, soru metni basılmaz
-            & powershell -NoProfile -File motor/kaydir-coz.ps1 -SecimDosya "vitrin-$($v.s)-secim.json" -Cikti "..\kaydir\vitrin\$($v.s).html" | Where-Object { "$_" -match 'secim dosyasi|yazildi|YOK:|Exception|Cannot' }
-            $kod = $LASTEXITCODE
+            #   *>&1: alt sürecin hata akışı da süzgeçten geçsin (yoksa süzgeci atlayıp günlüğe düşer). Bu akışta
+            #   EAP='stop' olduğu için yönlendirilen stderr adımı öldürür (K6, aşağıdaki "Degisen varsa ite" notu) ->
+            #   yalnız bu çağrı için 'Continue'; çıkış kodu yine $LASTEXITCODE'dan okunur.
+            $eapEski = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+            & powershell -NoProfile -File motor/kaydir-coz.ps1 -SecimDosya "vitrin-$($v.s)-secim.json" -Cikti "..\kaydir\vitrin\$($v.s).html" *>&1 | Where-Object { "$_" -match 'secim dosyasi|yazildi|YOK:|Exception|Cannot' } | ForEach-Object { "$_".Substring(0, [Math]::Min(160, "$_".Length)) }
+            $kod = $LASTEXITCODE; $ErrorActionPreference = $eapEski
             if($kod -ne 0 -or -not (Test-Path $dosya) -or ((Get-Item $dosya).LastWriteTimeUtc -eq $once)){ "::warning::VITRIN BASILMADI (vitrin-$($v.s): cikis $kod, dosya yenilenmedi)"; continue }
             "vitrin: $dosya ($([math]::Round((Get-Item $dosya).Length/1KB)) KB) · secim $(@($sec).Count) soru"
           }
