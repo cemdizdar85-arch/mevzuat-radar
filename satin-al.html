@@ -445,7 +445,13 @@ function elciDenetle(){
     var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
     elciIndirim = v > 0 ? v : 0;
     if(elciIndirim > 0){ elciDurumYaz('✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
-    else { elciDurumYaz('Bu kod bulunamadı ya da artık geçerli değil.', 'var(--red)'); }
+    else {
+      /* 03.10 (Cem "2 yap"): geçersiz kod formda durmaz — alan ve tt_elci boşalır, yalnız uyarı kalır */
+      document.getElementById('elci').value = '';
+      try{ localStorage.removeItem('tt_elci'); }catch(e){}
+      elciDurumYaz('“' + kod + '” geçerli bir kod değil ya da süresi dolmuş.', 'var(--red)');
+      if(typeof window.kodRozetCiz === 'function') window.kodRozetCiz();
+    }
     ozetCiz();
   }, function(){ if(sira === elciSira){ elciDurumYaz('Kod şu an doğrulanamadı.', 'var(--amber)'); ozetCiz(); } });
 }
@@ -506,6 +512,7 @@ function davetKodOku(){
     if(e){ h += '<p class="kucuk" style="margin:6px 0 0">Elçi kodu <b>' + e + '</b> · <a href="#" data-sil="elci">kaldır</a></p>'; }
     roz.innerHTML = h;
   }
+  window.kodRozetCiz = rozetCiz;
   roz.addEventListener('click', function(ev){
     var s = ev.target.getAttribute && ev.target.getAttribute('data-sil'); if(!s) return;
     ev.preventDefault(); $(s).value = '';
