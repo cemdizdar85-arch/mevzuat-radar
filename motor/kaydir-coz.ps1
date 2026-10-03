@@ -167,11 +167,15 @@ function OranYuzdeSatir($sat){
 }
 $SAY=@{}   # katlanmis -> @{ 'yazim'=adet }
 # 04.09 ÖLÇÜLDÜ: sözlük kurulumu 100 sn (36 cache, yüz binlerce kelime × Katla). Sözlük diske yazılır; cache'lerden
+# ⚠ 03.10 YENİDEN ÖLÇÜLDÜ (ÖLÇEK: 2.491 parti, 344.340 metin): PS döngüsüyle sayım 3.587 sn (60 dk) - bulutta önbellek her
+#   yayında yeni olduğu için her yayında; yerelde 70 soruluk vitrin 2 saatte bitmedi. Sayım artık arac/sozluk-hizli.ps1 ([TtSozluk]::Ekle,
+#   derlenmiş C#): 72,8 sn. Eşdeğerlik ambarın TAMAMINDA: SOZ+ENF+IVAR bayt bayt aynı (arac/sozluk-hizli-prova.ps1; mutasyon yakalıyor).
 # yeni bir dosya yoksa oradan yüklenir (SOZ + ENF en sık biçim + IVAR i/İ ile başlayan biçim var mı).
 $SOZ_YOL=Join-Path $ONB_DIR 'turkce-sozluk-onbellek.json'; $SOZ=@{}; $ENF=@{}; $IVAR=@{}; $sozYuklendi=$false
 $cacheDosyalar=@(Get-ChildItem (Join-Path $kok 'veri\fabrika\kalip-parti-*.json'))
 if(Test-Path $SOZ_YOL){ $enYeni=($cacheDosyalar | Measure-Object LastWriteTime -Maximum).Maximum; if((Get-Item $SOZ_YOL).LastWriteTime -gt $enYeni){ try{ $sj=Get-Content $SOZ_YOL -Raw -Encoding UTF8 | ConvertFrom-Json; foreach($p in $sj.SOZ.PSObject.Properties){ $SOZ[$p.Name]="$($p.Value)" }; foreach($p in $sj.ENF.PSObject.Properties){ $ENF[$p.Name]="$($p.Value)" }; foreach($p in $sj.IVAR.PSObject.Properties){ $IVAR[$p.Name]=$true }; $sozYuklendi=$true }catch{ $SOZ=@{}; $ENF=@{}; $IVAR=@{}; $sozYuklendi=$false } } }
 if(-not $sozYuklendi){
+. (Join-Path $kok 'arac\sozluk-hizli.ps1')
 foreach($cf in $cacheDosyalar){
   try{ $c=Get-Content $cf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json }catch{ continue }
   foreach($pp in $c.PSObject.Properties){
@@ -181,7 +185,7 @@ foreach($cf in $cacheDosyalar){
     if($v.aciklama){ foreach($h in 'A','B','C','D','E'){ if($v.aciklama.PSObject.Properties[$h] -and $v.aciklama.$h -is [string]){ $metinler+="$($v.aciklama.$h)" } } }
     foreach($a0 in @($v.adimlar)){ if($a0 -and $a0.PSObject.Properties['anlatim']){ $metinler+="$($a0.anlatim)" } }
     if($v.sade){ $metinler+="$($v.sade.dogru)"; foreach($kv0 in @($v.sade.kavramlar)){ if($kv0){ $metinler+="$($kv0.tanim)" } } }
-    foreach($mt in $metinler){ foreach($m in [regex]::Matches($mt,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}')){ $w=$m.Value; $lw=$w.ToLower([cultureinfo]::GetCultureInfo('tr-TR')); $k=Katla $w; if(-not $SAY.ContainsKey($k)){ $SAY[$k]=@{} }; if(-not $SAY[$k].ContainsKey($lw)){ $SAY[$k][$lw]=0 }; $SAY[$k][$lw]++ } }
+    foreach($mt in $metinler){ [TtSozluk]::Ekle($SAY,$mt) }   # 03.10: eski PS iç döngüsünün birebir C# karşılığı (Katla + tr-TR küçültme + aynı karşılaştırıcı)
   }
 }
 foreach($k in $SAY.Keys){
