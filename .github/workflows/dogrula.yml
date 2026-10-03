@@ -534,6 +534,10 @@ jobs:
           # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",
               kabuk: bash, komut: "node arac/adim-atif-kapisi.js --sinav --mutasyon" }
+          # 03.10: KAPI-YY "Yanlis yol:"/"En sik hata" adiminin sonucu bir celdirici sikka variyor mu (YY-SIKSIZ / YY-DOGRU).
+          # Yalniz NOT, uretime/yayina bagli degil. 17 vaka; once bozulmamis oz-sinav, sonra 12 mutasyon KIRMIZI (03.10 olculdu). Ag yok.
+          - { ad: "Yanlis yol kapisi OZ-SINAVI + MUTASYON (KAPI-YY)",
+              kabuk: bash, komut: "node arac/yanlis-yol-kapisi.js --sinav --mutasyon" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.
           - { ad: "SikSirala OZ-SINAVI (siralamada aciklama kaymasi yok)",
               kabuk: pwsh, komut: "./arac/siksirala-sinavi.ps1" }
