@@ -2,6 +2,9 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<!-- 03.10 V2 madde 34: sayfa güvenlik politikası (CSP). Satır içi betik/stil açık (sayfa yapısı gereği); kazancı: enjekte edilmiş bir betik
+     veriyi bu listede olmayan bir adrese gönderemez, yabancı betik yüklenemez. Yeni dış kaynak eklenirse buraya da yazılır. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at https://challenges.cloudflare.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: mevzuatradar.goatcounter.com https://www.facebook.com; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co mevzuatradar.goatcounter.com https://www.facebook.com https://connect.facebook.net; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; object-src 'none'">
 <script src="tema-bas.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -923,7 +926,7 @@ if(!KURULUM_TAMAM){
   window.sb = c(SB_URL, SB_ANON);
 })();
 </script>
-<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

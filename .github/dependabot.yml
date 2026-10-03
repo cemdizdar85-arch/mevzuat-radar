@@ -1,0 +1,18 @@
+# 03.10.2026 (Cem, V2 madde 48 "hepsini yap"): kütüphane güvenlik açıkları için otomatik tarama.
+# Dependabot doğrudan ana tele YAZMAZ; yalnız çekme isteği (PR) açar, birleştirme elle yapılır.
+# Kapsam: mobil uygulamanın npm paketleri (mobil/package.json) + iş akışlarındaki GitHub Actions sürümleri.
+# GÖRMEZ: kutuphane/supabase-2.112.3.js gibi depoya elle konmuş kopyalar (paket yöneticisinde değiller) - onlar elle izlenir.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/mobil"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5

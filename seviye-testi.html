@@ -479,12 +479,12 @@
       var ds=SONUC.gruplar.map(function(x){ return {ad:x.ad,dogru:x.dogru,soru:x.soru,durum:x.durum}; }).filter(function(x){ return x.soru>0; });
       var ts=ds.reduce(function(a,x){return a+x.soru;},0), td=ds.reduce(function(a,x){return a+x.dogru;},0);
       var karneY=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
-        body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'yeterlilik', _hp:'', sonuc:{ gecme:SONUC.gecme, soru:ts, dogru:td, tezkiye:SONUC.tezkiye, dersler:ds } }) })
+        body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'yeterlilik', _hp:(($('svHp')||{}).value||''), sonuc:{ gecme:SONUC.gecme, soru:ts, dogru:td, tezkiye:SONUC.tezkiye, dersler:ds } }) })
         .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
       fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
         body:JSON.stringify({ subject:'SEVIYE TESTI sonucu (Yeterlilik)', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
           cozulen_test:'yeterlilik', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru, tezkiye:String(SONUC.tezkiye),
-          dersler:SONUC.gruplar.map(function(x){ return x.ad+' '+x.dogru+'/'+x.soru+' '+(DURUM_AD[x.durum]||''); }).join(' · '), _hp:'' }) }).catch(function(){});
+          dersler:SONUC.gruplar.map(function(x){ return x.ad+' '+x.dogru+'/'+x.soru+' '+(DURUM_AD[x.durum]||''); }).join(' · '), _hp:(($('svHp')||{}).value||'') }) }).catch(function(){});
       karneY.then(function(ok){
         var d=$('svKarneDurum'); d.hidden=false;
         d.textContent = ok ? 'Karnen '+k.eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'
@@ -495,14 +495,14 @@
     var ozet={ gecme:SONUC.gecme, dogru130:SONUC.dogru130, soru:SONUC.soru, dogru:SONUC.dogru,
                gruplar:SONUC.gruplar.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}) };
     var karne=fetch(SB+'/functions/v1/karne-gonder',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
-      body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'sgs', _hp:'', sonuc:ozet }) })
+      body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'sgs', _hp:(($('svHp')||{}).value||''), sonuc:ozet }) })
       .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
     fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
       /* DİKKAT: iki ayrı "sınav" var - cozulen_test her zaman SGS (havuz SGS), hazirlandigi_sinav
          adayın ön kapıda söylediğidir. Aynı ada konursa kasada biri diğeri sanılır. */
       body:JSON.stringify({ subject:'SEVIYE TESTI sonucu', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
         cozulen_test:'sgs', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru,
-        tahmini_dogru_130:String(SONUC.dogru130), _hp:'' }) }).catch(function(){});
+        tahmini_dogru_130:String(SONUC.dogru130), _hp:(($('svHp')||{}).value||'') }) }).catch(function(){});
     karne.then(function(ok){
       var d=$('svKarneDurum'); d.hidden=false;
       d.textContent = ok ? 'Karnen '+k.eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'

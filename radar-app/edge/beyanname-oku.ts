@@ -21,20 +21,22 @@ const ISO_GRUP: Record<string, string> = { CN:"du", JP:"du", IN:"du", RU:"du", T
 const SB_URL_RL = "https://bjrleanjpyujtajmazxn.supabase.co";
 const SB_ANON_RL = Deno.env.get("SB_PUBLISHABLE") ?? "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
 async function rlAsti(ip: string): Promise<boolean> {
-  if (!ip || ip === "anon") return false;
+  // 03.10 V2 madde 28: ÜCRETLİ uç - arızada KAPALI. IP okunamazsa ya da sayaç cevap vermezse istek geçmez
+  // (eskiden geçiyordu: sayaç bozulunca sınırsız ücretli çağrı). Bedeli: sayaç arızasında bu uç da durur.
+  if (!ip || ip === "anon") return true;
   try {
     const r = await fetch(`${SB_URL_RL}/rest/v1/rpc/rate_limit_check`, {
       method: "POST",
       headers: { "content-type": "application/json", apikey: SB_ANON_RL, Authorization: `Bearer ${SB_ANON_RL}` },
       body: JSON.stringify({ p_ip: ip, p_limit: 6, p_pencere_sn: 60 }),
     });
-    if (!r.ok) return false;
+    if (!r.ok) return true;
     return (await r.json()) === false;
-  } catch { return false; }
+  } catch { return true; }
 }
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "e178cdb068a93770";
+const KOD_IMZA = "6c21935d8c1db068";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });

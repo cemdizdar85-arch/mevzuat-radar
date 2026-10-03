@@ -2,6 +2,9 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<!-- 03.10 V2 madde 34: sayfa güvenlik politikası (CSP). Satır içi betik/stil açık (sayfa yapısı gereği); kazancı: enjekte edilmiş bir betik
+     veriyi bu listede olmayan bir adrese gönderemez, yabancı betik yüklenemez. Yeni dış kaynak eklenirse buraya da yazılır. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at https://challenges.cloudflare.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: mevzuatradar.goatcounter.com https://www.facebook.com; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co mevzuatradar.goatcounter.com https://www.facebook.com https://connect.facebook.net; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; object-src 'none'">
 <script src="tema-bas.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -581,10 +584,17 @@
     var ep=$('ogEposta').value.trim(), sf=$('ogSifre').value;
     if(!EPOSTA_DESEN.test(ep)){ hataYaz('ogHata','E-posta adresini yaz.'); $('ogEposta').focus(); return; }
     if(!sf){ hataYaz('ogHata','Şifreni yaz.'); $('ogSifre').focus(); return; }
+    /* 03.10 V2 madde 30: tarayıcı tarafı fren - 5 hatalı denemeden sonra artan bekleme (30 sn, 60 sn, 120 sn … en çok 10 dk).
+       Kalıcı kilit YOK (talimat: gerçek kullanıcı kilitlenmez). Asıl koruma sunucuda (Supabase IP sınırı + captcha);
+       bu fren yalnız sayfadan elle/otomatik deneme hızını düşürür, doğrudan API çağrısını DURDURMAZ. */
+    var fr=yerel('tt_giris_fren',{n:0,t:0}), simdi=Date.now();
+    if(fr.n>=5){ var bek=Math.min(600,30*Math.pow(2,fr.n-5))*1000, kalan=fr.t+bek-simdi;
+      if(kalan>0){ hataYaz('ogHata','Çok sayıda hatalı deneme oldu. '+Math.ceil(kalan/1000)+' saniye sonra tekrar dene; şifreni hatırlamıyorsan "Şifremi unuttum"u kullan.'); return; } }
     var b=$('ogGirisBtn'); mesgul(b,true,'Giriş yapılıyor…');
     try{
       var r=await sb.auth.signInWithPassword({email:ep,password:sf,options:{captchaToken:await captchaJeton()}});
-      if(r.error){ hataYaz('ogHata',trHata(r.error)); denemeYolu($('ogHata'),r.error); return; }
+      if(r.error){ try{ localStorage.setItem('tt_giris_fren',JSON.stringify({n:(fr.n||0)+1,t:Date.now()})); }catch(x){} hataYaz('ogHata',trHata(r.error)); denemeYolu($('ogHata'),r.error); return; }
+      try{ localStorage.removeItem('tt_giris_fren'); }catch(x){}
       panel(r.data.user);
     } finally { mesgul(b,false,'Giriş yap'); }
   });

@@ -70,16 +70,18 @@ function skorla(tok: string[], hay: string): number {
 // sayacı görür (in-memory'nin isolate-dağılımı zaafı yok). IP başına 60 sn'de 12.
 // Fail-open: RPC hata verirse engellemez (kullanıcıyı mağdur etmez).
 async function rlAsti(ip: string): Promise<boolean> {
-  if (!ip || ip === "anon") return false;
+  // 03.10 V2 madde 28: ÜCRETLİ uç - arızada KAPALI. IP okunamazsa ya da sayaç cevap vermezse istek geçmez
+  // (eskiden geçiyordu: sayaç bozulunca sınırsız ücretli çağrı). Bedeli: sayaç arızasında bu uç da durur.
+  if (!ip || ip === "anon") return true;
   try {
     const r = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, {
       method: "POST",
       headers: { "content-type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
       body: JSON.stringify({ p_ip: ip, p_limit: 12, p_pencere_sn: 60 }),
     });
-    if (!r.ok) return false;
+    if (!r.ok) return true;
     return (await r.json()) === false;   // RPC true=izin, false=limit aşıldı → rlAsti true=engelle
-  } catch { return false; }
+  } catch { return true; }
 }
 
 // ---- OZETLEYICI: once Anthropic, olurse OpenRouter --------------------------
@@ -184,7 +186,7 @@ function kisiselGizle(metin) {
 // GIZLE-BITIR
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "5ad0eec8fa3a43bb";
+const KOD_IMZA = "f347baae26023366";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
