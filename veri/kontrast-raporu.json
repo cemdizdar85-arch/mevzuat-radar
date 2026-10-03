@@ -5,11 +5,11 @@
   "sayfa": 219,
   "koyu_gecis": 69,
   "koyu_bekleyen": [],
-  "temiz_sayfa": 218,
-  "denetlenen_metin": 20304,
-  "toplam_kirik": 3,
-  "denetlenen_sinir": 6232,
-  "toplam_gorunmez_sinir": 30,
+  "temiz_sayfa": 219,
+  "denetlenen_metin": 20360,
+  "toplam_kirik": 0,
+  "denetlenen_sinir": 6246,
+  "toplam_gorunmez_sinir": 31,
   "olculemeyen": 0,
   "esik": {
     "normal": 4.5,
@@ -17,6 +17,23 @@
     "sinir": 1.12
   },
   "gorunmez_sinir_sayfalar": [
+    {
+      "sayfa": "alacak-radari.html",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "p.bz-fiyat",
+          "kimlik": "#ogrenciFiyat < .bz-cam",
+          "iz": "<p class=\"bz-fiyat\" id=\"ogrenciFiyat\"><b>Staja Giriş soru bankası: 2.490 TL + KDV</b><br><b>KDV dahil 2.988 TL",
+          "yan": "ust",
+          "oran": 1.118,
+          "esik": 1.12,
+          "cerceve": "rgba(214,180,126,0.18)",
+          "gorunen": "rgb(247,241,231)",
+          "zemin": "rgb(255,255,254)"
+        }
+      ]
+    },
     {
       "sayfa": "alacakli-rehberi.html",
       "adet": 1,
@@ -529,39 +546,5 @@
     }
   ],
   "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "alacak-radari.html",
-      "adet": 3,
-      "ornekler": [
-        {
-          "oge": "p",
-          "yazi": "Ben senin yerine cevap vermem; çözümü ad",
-          "oran": 3.91,
-          "esik": 4.5,
-          "renk": "rgb(147, 161, 179)",
-          "zemin": "rgb(30,64,116)",
-          "iz": "<p>Ben senin yerine cevap vermem; çözümü adım adım açarım, takıldığın yerde durursun. Dün yanlış yaptığın soru"
-        },
-        {
-          "oge": "p",
-          "yazi": "Cevabın dayandığı madde ya da standart, ",
-          "oran": 3.91,
-          "esik": 4.5,
-          "renk": "rgb(147, 161, 179)",
-          "zemin": "rgb(30,64,116)",
-          "iz": "<p>Cevabın dayandığı madde ya da standart, açıklamanın altında yazar. Hata görürsen sorudan bildirirsin.</p>"
-        },
-        {
-          "oge": "p",
-          "yazi": "Sınav gününe kadar erişim; kendiliğinden",
-          "oran": 3.91,
-          "esik": 4.5,
-          "renk": "rgb(147, 161, 179)",
-          "zemin": "rgb(30,64,116)",
-          "iz": "<p>Sınav gününe kadar erişim; kendiliğinden yenilenmez. <a href=\"fiyat.html\">Fiyatlar →</a></p>"
-        }
-      ]
-    }
-  ]
+  "kirik_sayfalar": []
 }
