@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Node 22: arac/tarayici.js yerlesik WebSocket kullanir (Node 20'de YOK - 02.10 ilk kosu
       # "WebSocket is not defined" ile KOR dustu). dogrula.yml runner'in kendi Node'unu kullanir.
       - uses: actions/setup-node@v4

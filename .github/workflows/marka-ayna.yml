@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 330      # uzun ama sinirli; takilirsa gece bitmeden durur
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Ayna hasadi
         shell: pwsh

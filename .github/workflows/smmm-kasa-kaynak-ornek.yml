@@ -50,7 +50,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 350
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Durumu ambardan indir (bekleyen toplu partiler + defter)
         shell: powershell

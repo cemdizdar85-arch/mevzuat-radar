@@ -32,7 +32,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # 23.09 KAPI-HAD: yayin sarti guncel had tutarlarini veri/sinav/had-guncel.json'dan okur (ambardaki kanun serhleri).
       # Once tazelenir; duserse eski dosya kalir (kapi eski had ile calisir, yayin DURMAZ).

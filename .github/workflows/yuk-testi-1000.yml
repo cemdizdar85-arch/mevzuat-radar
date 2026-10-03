@@ -47,7 +47,7 @@ jobs:
       kod: ${{ steps.z.outputs.kod }}
       liste: ${{ steps.z.outputs.liste }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - id: z
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - env:
@@ -82,7 +82,7 @@ jobs:
       matrix:
         no: ${{ fromJSON(needs.zaman.outputs.liste) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - name: Playwright kur
@@ -106,7 +106,7 @@ jobs:
     if: ${{ always() && needs.zaman.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - env:

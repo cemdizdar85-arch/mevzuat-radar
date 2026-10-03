@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Node kur
         uses: actions/setup-node@v4

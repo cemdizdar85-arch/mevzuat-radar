@@ -20,7 +20,7 @@ jobs:
   uret:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Ozgun soru uret (5 kapili)
         shell: pwsh
         env:

@@ -64,7 +64,7 @@ jobs:
             girdi: kgk-analiz.json
             cikti: konu-kaynak-karnesi-kgk.json
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Karneyi yenile (${{ matrix.sinav }})
         shell: pwsh
         env:

@@ -50,7 +50,7 @@ jobs:
       PLAY_VAR: ${{ secrets.MOBIL_PLAY_SERVIS_JSON != '' && 'evet' || '' }}
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Anahtar var mi (yoksa hic derleme)
         env:

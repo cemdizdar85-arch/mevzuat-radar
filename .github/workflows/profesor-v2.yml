@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 330
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # 02.08 Cem: "sorular ne zaman kontrolden gecip sisteme girecek?" — cevabin
       # rakami bu adimdan cikar. OLCUM modu PARA HARCAMAZ: kasadaki yayin

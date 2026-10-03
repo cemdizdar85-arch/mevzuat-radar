@@ -28,7 +28,7 @@ jobs:
   oku:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: qpdf kur (MSUGT 226 sayfa - API siniri 100, parcalamak sart)
         run: sudo apt-get update -qq && sudo apt-get install -y -qq qpdf
       - name: BDS + MSUGT gorsel okuma

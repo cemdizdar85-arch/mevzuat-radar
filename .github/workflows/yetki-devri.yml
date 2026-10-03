@@ -40,7 +40,7 @@ jobs:
   denetle:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # 29.08 KOR KALMA, IKINCI TUR: bu adim 29.08'de yine kirmizi bitti ama
       # raporda yeni_aday=0 yaziyordu - yani "YENI aday var" sebebi DEGILDI ve
       # gercek sebep gorulemedi (is gunlugu depo yoneticisi yetkisi istiyor;

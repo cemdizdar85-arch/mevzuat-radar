@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Once siklik tablosu tazelenir (kitapcik haritasi degismis olabilir)
       - name: Siklik kunyesi

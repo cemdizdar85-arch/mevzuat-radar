@@ -157,11 +157,11 @@ jobs:
       # Anahtar (KASA_OKUMA_TOKEN, yalniz tetikte-kasa contents:read) Cem tarafindan eklenince adim kendiliginden calisir; yokken is AYNEN eskisi gibi.
       KASA_VAR: ${{ secrets.KASA_OKUMA_TOKEN != '' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Gizli kasa (anahtar varsa)
         if: env.KASA_VAR == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: cemdizdar85-arch/tetikte-kasa
           token: ${{ secrets.KASA_OKUMA_TOKEN }}

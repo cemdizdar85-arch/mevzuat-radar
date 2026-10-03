@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Mukerrer sayidaki eski teblig metinleri yalniz PDF (19.08.2026):
       # pdftotext metin denemesi, pdftoppm gomulu-font PDF'i sayfa goruntusune

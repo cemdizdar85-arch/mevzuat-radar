@@ -38,7 +38,7 @@ jobs:
   tek-sayfa:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # 25.09 (Cem "gm önerilerini sen yap"): SGS konu kapsama — ders · konu · son 10 yıl · sitede · eksik.
       # Eşleme sözlüğü veri/sinav/sgs-konu-es.json; model/ağ yok. Dosyada zaman damgası yok → değişmezse commit yok.
