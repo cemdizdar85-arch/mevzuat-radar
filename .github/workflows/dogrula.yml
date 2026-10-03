@@ -225,6 +225,14 @@ jobs:
           - { ad: "SMMM risk taramasi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-risk-tarama.ps1 -Sinav" }
 
+          # 03.10.2026 - Sayfa basimindaki Turkce onarim (motor/kaydir-coz.ps1 TurkceOnar): sitede 'cocuk'tur -> 'cocuk'tur(u),
+          # WHICH -> WHICH(I noktali), Esasi -> Esasi(ı) goruldu. Gercek bolge (# ---- turkce-onar) AYNEN yuklenir, sahte kucuk sozlukle
+          # 29 vaka (11 duzelt / 18 bozma). Mutasyon: kesme, liste, en-kelime, en-harf, en-parca, en-yogun, en-tirnak, en-tr-kanit, en-tr-yari, i-basi -> 10/10 KIRMIZI (03.10 olculdu).
+          - { ad: "Turkce onarim OZ-SINAVI (kesme eki, Ingilizce, belirsiz kelime)",
+              kabuk: pwsh, komut: "./arac/turkce-onar-sinavi.ps1" }
+          - { ad: "Turkce onarim MUTASYON (10 koruma bozulunca sinav duser mi)",
+              kabuk: pwsh, komut: "./arac/turkce-onar-sinavi.ps1 -Mutasyon" }
+
           # 29.09.2026 - Bulut soru basim sirasi (bulut-sira.yml cron). Yerel sira betikleri oturuma bagliydi; 27.09'da
           # sessizce oldu, bulut 2 gun bos kaldi. Sinav: pay (toplam + sinav basi, halka tek plan), cift acma (kosan/
           # kuyruktaki/gecmiste acilmis plan), bozuk butce/yol/paralel satirini atlama, KOR gecmis, acil fren, tr-TR

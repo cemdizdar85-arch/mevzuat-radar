@@ -1,0 +1,39 @@
+# .github/workflows/huni-raporu.yml — HER SABAH HUNİ RAPORU (03.10.2026, Cem "2 yap", V2 madde 55-56)
+#
+# Ne yapar: motor/huni-raporu.js GoatCounter'dan dün + son 7 günün huni adımlarını çeker
+# (ana sayfa -> seviye testi -> form -> fiyat -> satın alma -> sipariş), metin dosyasına yazar;
+# arac/alarm-maili.ps1 dosyayı Cem'e e-postayla gönderir.
+# ⛔ Depoya HİÇBİR ŞEY yazmaz (commit yok) ve tabloyu günlüğe BASMAZ: Actions günlüğü herkese açık,
+#    dönüşüm oranları rakibe açılmasın. Artifact yüklemez.
+# Anahtar: GOATCOUNTER_TOKEN (secret, "Read statistics"). Yoksa mail yalnız kurulum notunu taşır.
+# Öz-sınav: node motor/huni-raporu.js --sinav (bu akışın ilk adımı; düşerse mail gitmez).
+name: Huni Raporu
+on:
+  schedule:
+    - cron: '15 6 * * *'     # 09:15 TR
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  rapor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Oz-sinav
+        run: node motor/huni-raporu.js --sinav
+      - name: Raporu cikar
+        env:
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+        run: node motor/huni-raporu.js --cikti "$RUNNER_TEMP/huni.txt"
+      - name: Cem'e gonder
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          $f = Join-Path $env:RUNNER_TEMP 'huni.txt'
+          if (-not (Test-Path $f)) { Write-Host 'rapor dosyasi yok'; exit 0 }
+          $m = Get-Content $f -Raw -Encoding utf8
+          $tarih = (Get-Date).ToUniversalTime().AddHours(3).ToString('dd.MM.yyyy')
+          ./arac/alarm-maili.ps1 -Konu "TETIKTE huni raporu - $tarih" -Mesaj $m

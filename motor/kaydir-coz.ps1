@@ -56,7 +56,101 @@ Sure 'soru seçimi'
 # Sozluk, elimizdeki DOGRU Turkce metinlerden (tum cache'lerdeki soru/sik/hap/taktik alanlari) kurulur:
 # katlanmis kelime -> en sik gorulen Turkce yazim. ASCII bicimi de gercek kelime olarak korpusta yasiyorsa
 # (kasa, ve, bu...) DOKUNULMAZ; Turkce bicim en az 3 kat sikse degistirilir.
+# ---- turkce-onar  (03.10.2026: Katla + TurkceOnar + korumalar TEK YERDE. arac/turkce-onar-sinavi.ps1 bu bölgeyi AYNEN yükler —
+#      kopya YOK; işaretleri silme/yeniden adlandırma, sınav KÖR kalır. Bölge yalnız işlev ve sabit tanımlar; $SOZ/$ENF/$IVAR dışarıda kurulur.)
+# 03.10 YAMA (Cem, sitedeki kasada görüldü): sözlük her ASCII kelimeyi korpustaki en sık Türkçe biçimle değiştiriyordu; üç sınıf HATA üretti:
+#   (1) kesmeden sonraki ek: 'çocuk'tur → 'çocuk'tür (ek kökün ünlüsüne uyar, sözlükle yazılamaz)  → kesmeden sonraki kelimeye dokunulmaz
+#   (2) İngilizce metin: WHICH → WHİCH                                                               → İngilizce kelime/parça/dizeye dokunulmaz
+#   (3) anlamı belirsiz kelime: Esasi → Esası (Kanun-i Esasi), bol → böl, hala → hâlâ                  → $TURKCE_ONAR_KORU listesi
+# 🚫 GÖRMEZ (03.10 ölçümünde kalan): tırnaksız, İngilizce işlev sözcüğü taşımayan kısa İngilizce parça ("going concern", tek kelime "Sure");
+#    kesmesiz yazılmış ek ("KDV nin"); listede olmayan belirsiz kelime (alim/alım, katip/katıp, iste/işte); büyük harf kısaltmanın küçük
+#    yazımı sözlükte ı'lı biçime gider (iii → ııı, iasb → ıasb, fifo → fıfo — sözlük kurulumunun kusuru, bu yama dokunmadı);
+#    I ile başlayıp ı taşıyan kelime (Isı → İsı).
 function Katla([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'Â','a' -creplace 'â','a' -creplace 'Î','i' -creplace 'î','i' -creplace 'Û','u' -creplace 'û','u').ToLowerInvariant() }
+# (3) KORUNAN KELİMELER — ASCII biçimi kendi başına GEÇERLİ ve FARKLI anlamlı Türkçe kelime; sözlük hangisinin kastedildiğini bilemez,
+#     dokunulmaz (küçük/büyük/TÜMÜ BÜYÜK hepsi). Yeni kelime YALNIZ buraya, gerekçesiyle eklenir. 03.10 ölçümü: eşdeğerlik provası
+#     (2.491 parti) eski işlevin yaptığı dönüşümler içinden seçildi.
+$TURKCE_ONAR_KORU=@{
+  'tur'   = 'tur (gezi, devre) / tür; ayrıca ek: ''çocuk''tur'
+  'bol'   = 'bol (çok) / böl'
+  'hala'  = 'hala (akraba) / hâlâ'
+  'asli'  = 'asli (esasa ilişkin: asli unsur, asli edim) / aslı'
+  'esasi' = 'Kanun-i Esasi, esasi (temel) / esası'
+  'asil'  = 'asil (asil üye, asil borçlu) / asıl'
+  'ucu'   = 'ucu (uç) / üçü'
+  'ucun'  = 'ucun (uç) / üçün'
+  'ucunu' = 'ucunu (uç) / üçünü'
+  'kara'  = 'kara (kara para, kara yolu) / kâra'
+  'kati'  = 'kati (katî: kesin hüküm) / katı'
+}
+# (2) İNGİLİZCE — KESİN: Türkçede kelime olarak geçmeyen İngilizce işlev sözcükleri. Bu kelimeye hiçbir yerde dokunulmaz (WHICH → WHİCH olmaz)
+#     ve parça/dize sayımında "kesin" İngilizce kanıtı sayılır. BELİRSİZ: Türkçede de kelime (is≈iş, an, it, be, has, her, on, in, at, not...);
+#     yalnız sayıma katılır, tek başına kanıt değildir.
+$TURKCE_ONAR_EN_KESIN=New-Object 'System.Collections.Generic.HashSet[string]' ([string[]]@('the','of','and','to','which','that','for','with','was','are','by','will','would','should','have','could','been','were','this','these','those','from','what','who','whom','whose','when','where','why','how','they','them','their','there','she','you','your','we','our','my','its','him','does','did','didn','doesn','isn','aren','wasn','weren','won','since','until','because','about','into','than','then','also','only','must','might','shall','being','having','very','more','most','some','any','each','every','other','such','while','or','if')),([StringComparer]::OrdinalIgnoreCase)
+$TURKCE_ONAR_EN_BELIRSIZ=New-Object 'System.Collections.Generic.HashSet[string]' ([string[]]@('is','an','it','be','has','had','her','his','he','on','in','at','as','not','no','so','but','do','can','may','am','me','a','yes','don')),([StringComparer]::OrdinalIgnoreCase)
+# parça = cümle ya da tırnak içi; ayırıcı . ! ? ; : satır sonu " “ ” « » ( ) [ ] ve kelime arasında OLMAYAN ' ’ ‘ (KDV'nin içindeki kesme ayırıcı değil)
+# ⚠ PS tek tırnaklı dizede ’ ‘ de TIRNAK sayılır (dizeyi kapatır): tipografik işaretler bu yüzden [char] kodu / \u kaçışıyla yazılır
+$TURKCE_ONAR_KESME="'"+[char]0x2019+[char]0x2018                                        # ' ’ ‘
+$TURKCE_ONAR_TIRNAK='"'+[char]0x201C+[char]0x201D+[char]0x00AB+[char]0x00BB+$TURKCE_ONAR_KESME   # " “ ” « » ' ’ ‘
+$TURKCE_ONAR_PARCA_RX=[regex]'(?:[^.!?;:\r\n"\u201C\u201D\u00AB\u00BB()\[\]''\u2018\u2019]|(?<=[\p{L}\d])[''\u2018\u2019](?=\p{L}))+'
+# T\u00fcrk\u00e7e KANITI: T\u00fcrk\u00e7e harfli kelime \u00b7 s\u00f6zl\u00fc\u011f\u00fcn T\u00fcrk\u00e7e bildi\u011fi ASCII kelime ($SOZ anahtar\u0131: cumle, ozne, sanip) \u00b7 ASCII T\u00fcrk\u00e7e i\u015flev s\u00f6zc\u00fc\u011f\u00fc.
+# 03.10 e\u015fde\u011ferlik provas\u0131: yaln\u0131z \u0130ngilizce say\u0131m\u0131yla yabanc\u0131 dil A\u00c7IKLAMALARI ("Because/since SEBEP bildirir; cumlede ...") \u0130ngilizce
+# say\u0131ld\u0131, 636 do\u011fru onar\u0131m (ozne \u2192 \u00f6zne, cumle \u2192 c\u00fcmle) kayboluyordu. Par\u00e7a art\u0131k T\u00fcrk\u00e7e kan\u0131t\u0131 \u0130ngilizceden fazlaysa \u0130ngilizce say\u0131lmaz.
+$TURKCE_ONAR_TR_ISLEV=New-Object 'System.Collections.Generic.HashSet[string]' ([string[]]@('ve','bir','bu','ile','olarak','da','de','ki','ise','gibi','veya','ama','ya','en','daha','olan','olur','sonra','kadar','hem','ancak','yani','sadece','icin','degil','cunku')),([StringComparer]::OrdinalIgnoreCase)
+$TURKCE_ONAR_EN_ORAN=0.25   # yo\u011funluk e\u015fi\u011fi: \u0130ngilizce d\u00fczyaz\u0131da bu listeler kelimelerin ~%40'\u0131
+function TurkceOnarEnSay([string]$p){ $enTop=0; $enKesin=0; $kelN=0; $trKanit=0
+  foreach($km in [regex]::Matches($p,'\p{L}+')){ $kelN++; $kv=$km.Value
+    if($TURKCE_ONAR_EN_KESIN.Contains($kv)){ $enTop++; $enKesin++ } elseif($TURKCE_ONAR_EN_BELIRSIZ.Contains($kv)){ $enTop++ }
+    elseif($kv -cmatch '[\u00e7\u011f\u0131\u00f6\u015f\u00fc\u00c7\u011e\u0130\u00d6\u015e\u00dc\u00e2\u00ee\u00fb]' -or $TURKCE_ONAR_TR_ISLEV.Contains($kv) -or ($SOZ -and $SOZ.ContainsKey($kv.ToLowerInvariant()))){ $trKanit++ } }
+  return @($enTop,$enKesin,$kelN,$trKanit) }
+# par\u00e7a \u0130ngilizce mi: en az 1 kesin s\u00f6zc\u00fck \u00b7 en az 2 \u0130ngilizce s\u00f6zc\u00fck (t\u0131rna\u011fa biti\u015fik par\u00e7ada 1 yeter) \u00b7 kelimelerin >=%25'i \u00b7 T\u00fcrk\u00e7e kan\u0131t\u0131
+#   \u0130ngilizcenin yar\u0131s\u0131n\u0131 a\u015fmaz (t\u0131rna\u011fa biti\u015fik k\u0131sa par\u00e7ada: \u0130ngilizceyi a\u015fmaz). 03.10 ikinci prova: '<= \u0130ngilizce' ile
+#   "Bosluga 'who is' veya 'who has' koyup cumle anlamli oluyor mu?" 4'e 4 \u0130ngilizce say\u0131l\u0131yor, T\u00fcrk\u00e7esi onar\u0131lm\u0131yordu.
+function TurkceOnarEnMi($say,[bool]$tirnakli){ return ($say[1] -ge 1 -and $say[0] -ge $(if($tirnakli){1}else{2}) -and $say[0] -ge $TURKCE_ONAR_EN_ORAN*$say[2] -and $say[3] -le $(if($tirnakli){$say[0]}else{$say[0]/2})) }
+# \u0130ngilizce say\u0131lan aral\u0131klar [ba\u015f,son): (a) D\u0130ZE \u0130ngilizceyse dizenin tamam\u0131; (b) de\u011filse her PAR\u00c7A (c\u00fcmle / t\u0131rnak aras\u0131) ayr\u0131 \u00f6l\u00e7\u00fcl\u00fcr \u2014
+# T\u00fcrk\u00e7e a\u00e7\u0131klamadaki tek \u0130ngilizce \u00f6rnek c\u00fcmle korunur, T\u00fcrk\u00e7e c\u00fcmleler onar\u0131lmaya devam eder.
+function TurkceOnarEnAralik([string]$t){ $enAr=New-Object 'System.Collections.Generic.List[int[]]'
+  if(-not $t -or $t -cnotmatch '[A-Za-z]{2}'){ return ,$enAr }
+  if(TurkceOnarEnMi (TurkceOnarEnSay $t) $false){ $enAr.Add([int[]]@(0,$t.Length)); return ,$enAr }
+  foreach($pm in $TURKCE_ONAR_PARCA_RX.Matches($t)){ $ps=TurkceOnarEnSay $pm.Value; if($ps[1] -lt 1){ continue }
+    $bas=$pm.Index; $son=$pm.Index+$pm.Length
+    $tirnakli=(($bas -gt 0 -and $TURKCE_ONAR_TIRNAK.IndexOf($t[$bas-1]) -ge 0) -or ($son -lt $t.Length -and $TURKCE_ONAR_TIRNAK.IndexOf($t[$son]) -ge 0))
+    if(TurkceOnarEnMi $ps $tirnakli){ $enAr.Add([int[]]@($bas,$son)) } }
+  return ,$enAr }
+function TurkceOnar([string]$t){
+  if(-not $t){ return $t }
+  $enAraliklar=TurkceOnarEnAralik $t   # aşağıdaki kelime işleyicisi bu değişkeni (ve $t'yi) işlev kapsamından okur
+  # kelime siniri Turkce harfleri de kapsar: "çıkarılan" icindeki "kar" parcasi ayri kelime sanilip "kâr" yapilmasin
+  $onarilan=[regex]::Replace($t,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}',{ param($m) $w=$m.Value; $ix=$m.Index
+      # 03.10 (1) KESME: harf/rakamdan sonra gelen ' ’ ‘ işaretinin hemen ardındaki kelime EKTİR ('çocuk'tur, KDV'nin, 10'uncu) — dokunulmaz
+      if($ix -ge 2 -and $TURKCE_ONAR_KESME.IndexOf($t[$ix-1]) -ge 0 -and [char]::IsLetterOrDigit($t[$ix-2])){ return $w }
+      # 03.10 (3) KORUNAN kelime
+      $kucukW=$w.ToLowerInvariant(); if($TURKCE_ONAR_KORU.ContainsKey($kucukW)){ return $w }
+      # 03.10 (2) İNGİLİZCE: kesin işlev sözcüğü · Türk alfabesinde olmayan harf (w q x: WHICH, QUIZ) · İngilizce aralık içi
+      if($TURKCE_ONAR_EN_KESIN.Contains($w)){ return $w }
+      if($w -match '[wqx]'){ return $w }
+      foreach($ea in $enAraliklar){ if($ix -ge $ea[0] -and $ix -lt $ea[1]){ return $w } }
+      # bas harfi buyuk I olan kelime (Iptal, Isletme): korpusta 'i' ile baslayan bicimi varsa İ yapilir
+      if($w -cmatch '^I[a-zçğıöşü]'){ $k0=Katla $w; if($IVAR.ContainsKey($k0)){ $w='İ'+$w.Substring(1)
+          # 03.10: gövde ASCII ise sözlükteki i'li biçimle tamamlanır (Isletme → İşletme; önceden yarım kalıyordu: İsletme)
+          if($w.Substring(1) -cnotmatch '[çğıöşüÇĞİÖŞÜâîû]' -and $SOZ.ContainsKey($k0) -and $SOZ[$k0].StartsWith('i')){ return ('İ'+$SOZ[$k0].Substring(1)) } } }
+      if($w -cmatch '[çğıöşüÇĞİÖŞÜâîû]'){ return $w }; $k=$w.ToLowerInvariant()
+      # TAMAMEN BUYUK kelime (HISSE, IPTAL, SENEDI): korpustaki en sik kucuk bicim tr-TR ile buyutulur -> HİSSE, İPTAL, SENEDİ
+      if($w.Length -ge 3 -and $w -ceq $w.ToUpperInvariant() -and $ENF.ContainsKey($k)){ return [cultureinfo]::GetCultureInfo('tr-TR').TextInfo.ToUpper($ENF[$k]) }
+      if(-not $SOZ.ContainsKey($k)){ return $w }; $y=$SOZ[$k]
+      # buyuk harf Turkce kurala gore (tr-TR: i->İ, ı->I); invariant kultur 'ı'yi buyutmuyordu ("KARLARı")
+      $TI=[cultureinfo]::GetCultureInfo('tr-TR').TextInfo
+      if($w -ceq $TI.ToUpper($w)){ return $TI.ToUpper($y) }
+      if($w.Substring(0,1) -ceq $TI.ToUpper($w.Substring(0,1))){ return ($TI.ToUpper($y.Substring(0,1))+$y.Substring(1)) }
+      return $y })
+  # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
+  $onarilan=[regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
+  # 06.09 (kalıp-4): sınav dili kısaltma açımı — sınav "dönem başı yarı mamul", "ilk giren ilk çıkar" der; DB YM / GÜG / FIFO demez
+  foreach($cf in @(@('\bDB\s+YM\b','dönem başı yarı mamul'),@('\bDS\s+YM\b','dönem sonu yarı mamul'),@('\bYM\b','yarı mamul'),@('\bGÜG\b','genel üretim gideri'),@('\bDİMM\b','direkt ilk madde ve malzeme'),@('\bDİG\b','direkt işçilik gideri'),@('\bFIFO yöntemi(ni|nde|yle)?\b','ilk giren ilk çıkar yöntemi$1'),@("\bFIFO'(da|nda|ya)\b","ilk giren ilk çıkar yönteminde"),@('\bFIFO\b','ilk giren ilk çıkar (FIFO)'))){ $onarilan=[regex]::Replace($onarilan,$cf[0],$cf[1]) }
+  $onarilan=[regex]::Replace($onarilan,'(?<=[.!?]\s|^)dönem başı yarı mamul','Dönem başı yarı mamul')
+  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "olumlu yani olumlu" → "olumlu"
+}
+# ---- /turkce-onar
 # 07.09 Cem: "oran her yerde YÜZDE" kuralı (şartname 3) tablo HÜCRESİNE uygulanmıyordu — Maliyet ortak maliyet sorusunda
 # "Dağıtım Oranı 0,3333 / 0,6667 / 1" çıktı. Kalem adı 'oran' içeren ve BÜTÜN değerleri (0,1] aralığında olan satır yüzdeye çevrilir
 # ("Cari oran 1,5" gibi 1'i aşan satırlara dokunulmaz). Formül tarafı JS oranYuzde'de (4 haneli ondalık + "0,3333 (%33,33)" katlama).
@@ -103,28 +197,6 @@ foreach($k in $SAY.Keys){
 $SABIT_SOZ=@{ yuklenir='yüklenir'; yuklenen='yüklenen'; yuklenecek='yüklenecek'; yukleme='yükleme'; kismi='kısmı'; kisim='kısım'; bos='boş'; uretim='üretim'; degisken='değişken'; kullanim='kullanım'; orani='oranı'; gideri='gideri'; toplami='toplamı'; kapasite='kapasite'; calismayan='çalışmayan'; sapmasi='sapması'; farki='farkı'; esdeger='eşdeğer'; birim='birim'; dagitim='dağıtım'; dagitimi='dağıtımı'; sonucu='sonucu'; tutari='tutarı'; hesabi='hesabı'; maliyeti='maliyeti'; isci='işçi'; iscilik='işçilik'; iscilik_='işçilik'; hammadde='hammadde'; malzeme='malzeme'; yari='yarı'; mamul='mamul'; satilan='satılan'; satis='satış'; satislar='satışlar'; donem='dönem'; donemi='dönemi'; gelir='gelir'; kar='kâr'; kari='kârı'; zarar='zarar'; zarari='zararı'; olcek='ölçek'; olcum='ölçüm'; yontemi='yöntemi'; yontem='yöntem'; oran='oran'; oranla='oranla'; carpim='çarpım'; bolum='bölüm'; eksik='eksik'; fazla='fazla'; yuk='yük'; sabit='sabit'; gercek='gerçek'; gerceklesen='gerçekleşen'; buyuk='büyük'; kucuk='küçük'; ucret='ücret'; ucreti='ücreti'; ayrilan='ayrılan'; ayrilmis='ayrılmış'; islem='işlem'; isletme='işletme'; sirket='şirket'; ortak='ortak'; urun='ürün'; urunler='ürünler'; urunu='ürünü'; agirlik='ağırlık'; agirlikli='ağırlıklı'; fiili='fiili'; butce='bütçe'; butcelenen='bütçelenen'; standart='standart'; olculen='ölçülen' }
 foreach($k0 in $SABIT_SOZ.Keys){ if(-not $SOZ.ContainsKey($k0)){ $SOZ[$k0]=$SABIT_SOZ[$k0] } }
 "turkce sozluk: $($SOZ.Count) kelime (en sık biçim $($ENF.Count) kök)$(if($sozYuklendi){ ' · önbellekten' } else { ' · yeniden kuruldu' })"
-function TurkceOnar([string]$t){
-  if(-not $t){ return $t }
-  # kelime siniri Turkce harfleri de kapsar: "çıkarılan" icindeki "kar" parcasi ayri kelime sanilip "kâr" yapilmasin
-  $onarilan=[regex]::Replace($t,'[A-Za-zÇĞİÖŞÜçğıöşüÂâÎîÛû]{3,}',{ param($m) $w=$m.Value
-      # bas harfi buyuk I olan kelime (Iptal, Isletme): korpusta 'i' ile baslayan bicimi varsa İ yapilir
-      if($w -cmatch '^I[a-zçğıöşü]'){ $k0=Katla $w; if($IVAR.ContainsKey($k0)){ $w='İ'+$w.Substring(1) } }
-      if($w -cmatch '[çğıöşüÇĞİÖŞÜâîû]'){ return $w }; $k=$w.ToLowerInvariant()
-      # TAMAMEN BUYUK kelime (HISSE, IPTAL, SENEDI): korpustaki en sik kucuk bicim tr-TR ile buyutulur -> HİSSE, İPTAL, SENEDİ
-      if($w.Length -ge 3 -and $w -ceq $w.ToUpperInvariant() -and $ENF.ContainsKey($k)){ return [cultureinfo]::GetCultureInfo('tr-TR').TextInfo.ToUpper($ENF[$k]) }
-      if(-not $SOZ.ContainsKey($k)){ return $w }; $y=$SOZ[$k]
-      # buyuk harf Turkce kurala gore (tr-TR: i->İ, ı->I); invariant kultur 'ı'yi buyutmuyordu ("KARLARı")
-      $TI=[cultureinfo]::GetCultureInfo('tr-TR').TextInfo
-      if($w -ceq $TI.ToUpper($w)){ return $TI.ToUpper($y) }
-      if($w.Substring(0,1) -ceq $TI.ToUpper($w.Substring(0,1))){ return ($TI.ToUpper($y.Substring(0,1))+$y.Substring(1)) }
-      return $y })
-  # 05.09 (kalıp-1): üretici terim onarımı "lehte (olumlu)" → "olumlu (olumlu)dur" bırakmıştı; aynı kelimenin parantez tekrarı silinir
-  $onarilan=[regex]::Replace($onarilan,'(?i)\b(\p{L}+)\s*\(\1\)','$1')
-  # 06.09 (kalıp-4): sınav dili kısaltma açımı — sınav "dönem başı yarı mamul", "ilk giren ilk çıkar" der; DB YM / GÜG / FIFO demez
-  foreach($cf in @(@('\bDB\s+YM\b','dönem başı yarı mamul'),@('\bDS\s+YM\b','dönem sonu yarı mamul'),@('\bYM\b','yarı mamul'),@('\bGÜG\b','genel üretim gideri'),@('\bDİMM\b','direkt ilk madde ve malzeme'),@('\bDİG\b','direkt işçilik gideri'),@('\bFIFO yöntemi(ni|nde|yle)?\b','ilk giren ilk çıkar yöntemi$1'),@("\bFIFO'(da|nda|ya)\b","ilk giren ilk çıkar yönteminde"),@('\bFIFO\b','ilk giren ilk çıkar (FIFO)'))){ $onarilan=[regex]::Replace($onarilan,$cf[0],$cf[1]) }
-  $onarilan=[regex]::Replace($onarilan,'(?<=[.!?]\s|^)dönem başı yarı mamul','Dönem başı yarı mamul')
-  return [regex]::Replace($onarilan,'(?i)\b(\p{L}+),?\s+yani\s+(?=\1)','')   # "olumlu yani olumlu" → "olumlu"
-}
 "deneme: " + (TurkceOnar 'Simdi farki hesapliyoruz: satis hasilati sermaye payini gecerse artan kisim kar sayilir. 100 KASA (BORC) 130.000 TL')
 # 04.09 Cem "@{ne_soruluyor=...} bu ne?": model açıklamayı bazen YAPILI nesne döndürüyor; string'e çevrilince PS
 # hashtable dökümü ekrana düşüyordu. Üreticideki AciklamaDuz'un aynısı: alanlardan okunur metin derlenir.
@@ -532,6 +604,11 @@ $html=@'
 .govde{flex:1;overflow-y:auto;padding-bottom:90px}
 .rozet{display:inline-block;font-size:.72em;color:var(--altin);border:1px solid color-mix(in srgb,var(--altin) 50%,transparent);border-radius:20px;padding:2px 9px;margin-bottom:8px}
 .soru{font-weight:600;font-size:1.02em;line-height:1.45;margin:0 0 12px}
+.bilmiyorum{display:block;margin:10px 0 0;background:none;border:1px dashed var(--cizgi);color:var(--dim);border-radius:12px;padding:10px 13px;width:100%;font:inherit;font-size:.9em;cursor:pointer}
+.kutuNot{margin-top:6px;font-size:.88em;color:var(--dim)}
+.tekrarUyari{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:10px 12px;font-size:.92em;display:flex;align-items:center;gap:8px;max-width:calc(100% - 24px);box-shadow:0 8px 24px color-mix(in srgb,var(--yazi) 18%,transparent)}
+.tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
+.tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
 .sik{display:block;width:100%;text-align:left;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:12px 13px;margin:7px 0;font-size:.95em;cursor:pointer;transition:transform .08s}.sik:active{transform:scale(.985)}
 .sik b{color:var(--dim);margin-right:6px}.sik.dogru{border-color:var(--yesil);background:color-mix(in srgb,var(--yesil) 12%,transparent)}.sik.yanlis{border-color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 12%,transparent)}.sik:disabled{cursor:default}
 .ipucu{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:var(--dim);font-size:.8em;pointer-events:none;animation:zipla 1.6s ease-in-out infinite}
@@ -806,14 +883,18 @@ function kutuEkraniAc(){
    +sk.ders.map(d=>'<div class="dersSat"><span>'+esc(d.ad)+'</span><div class="bar"><i style="width:'+d.yuzde+'%"></i></div><b>%'+d.yuzde+'</b></div>').join('')
    +'<div class="et" style="margin-top:14px">📥 Yanlış kutusu ('+KUTU.kutu.length+')</div>'
    +(KUTU.kutu.length?KUTU.kutu.map(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); return '<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t&&i>=0?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>'; }).join(''):'<p class="ipnot">Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.</p>')
-   +'<div class="btnrow" style="margin-top:14px"><button class="btn" id="kutuIleri">⏩ Demo: 2 gün ileri sar</button><button class="btn gri" id="kutuSifirla">Verileri sıfırla</button></div>'
+   +(/[?&]demo=1\b/.test(location.search)?'<div class="btnrow" style="margin-top:14px"><button class="btn" id="kutuIleri">⏩ Demo: 2 gün ileri sar</button><button class="btn gri" id="kutuSifirla">Verileri sıfırla</button></div>':'')   /* 03.10 V2 madde 11: herkese açıktı - yalnız ?demo=1 */
    +'<p class="ipnot">Nasıl çalışır: yanlış → kutuya girer, 2 gün sonra geri gelir; o gün doğru bilirsen 7 gün sonra bir kez daha gelir; onu da bilirsen kutudan çıkar ve ustalık tam sayılır.</p></div>';
   e.classList.add('acik');
   e.querySelector('#kutuKapat').addEventListener('click',()=>e.classList.remove('acik'));
-  e.querySelector('#kutuIleri').addEventListener('click',()=>{ KUTU.ileri+=2*GUN; kutuKaydet(); kutuEkraniAc(); skorCiz(); });
-  e.querySelector('#kutuSifirla').addEventListener('click',()=>{ if(confirm('Skor, kutu ve seri sıfırlansın mı?')){ KUTU.kayit=[]; KUTU.kutu=[]; KUTU.ileri=0; kutuKaydet(); location.reload(); } });
+  if(e.querySelector('#kutuIleri')) e.querySelector('#kutuIleri').addEventListener('click',()=>{ KUTU.ileri+=2*GUN; kutuKaydet(); kutuEkraniAc(); skorCiz(); });
+  if(e.querySelector('#kutuSifirla')) e.querySelector('#kutuSifirla').addEventListener('click',()=>{ if(confirm('Skor, kutu ve seri sıfırlansın mı?')){ KUTU.kayit=[]; KUTU.kutu=[]; KUTU.ileri=0; kutuKaydet(); location.reload(); } });
   e.querySelectorAll('.kutuCoz').forEach(b=>b.addEventListener('click',()=>{ e.classList.remove('acik'); kartSifirla(parseInt(b.dataset.i)); }));
 }
+// 03.10 (Cem, V2 madde 11): sayfa acilinca bu derste vadesi gelen kutu sorusu varsa tek satir uyari; tiklayinca kutu acilir
+setTimeout(()=>{ try{ if(VITRIN) return; const ids=new Set(SORULAR.map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
+  const u=document.createElement('div'); u.className='tekrarUyari'; u.innerHTML='🔁 <b>Bugün tekrar zamanı:</b> bu derste '+v+' soru <button type="button" class="tuAc">Şimdi çöz</button><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
+  document.body.appendChild(u); u.querySelector('.tuAc').addEventListener('click',()=>{ u.remove(); kutuEkraniAc(); }); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },1200);
 const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const nrm=t=>String(t||'').toLowerCase().replace(/tl/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
 const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
@@ -827,7 +908,7 @@ SORULAR.forEach((s,i)=>{
   const sv=seviyeHesapla(s);
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
    +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
-   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div></div>'
+   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div><button class="bilmiyorum" type="button">Bilmiyorum</button></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="Ara sonuçlarını satır satır yaz; tabloyla eşleşenler cevaptan sonra işaretlenir.&#10;Hesabı sen yaparsın, kâğıt yapmaz."></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'
    +'<button class="kagitAc" title="Hesap kâğıdı">✏️ Kâğıt</button>'
@@ -853,8 +934,11 @@ SORULAR.forEach((s,i)=>{
   k.querySelectorAll('.sikCiz').forEach(x=>x.addEventListener('click',e=>{ e.stopPropagation(); if(durum.cevap[i]!==undefined) return; x.closest('.sik').classList.toggle('cizili'); }));
   // 06.09 rakip dersi: soru süresi — kart görünür olunca başlar, cevapta durur; cevap satırında gösterilir, kasaya gider
   if(!durum.t0) durum.t0={}; if(!durum.sn) durum.sn={};
-  k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>{
-    if(durum.cevap[i]!==undefined) return; const h=b.dataset.h; durum.cevap[i]=h;
+  // 03.10 (Cem, V2 madde 8): cevap isleyicisi tek fonksiyon - sik tiklamasi cevapla(b,harf), "Bilmiyorum" cevapla(null,'').
+  // Bos dize = bos birakildi: yanlis sayilir, kutuya duser, dogrusu ve aciklama gosterilir.
+  const cevapla=(b,h)=>{
+    if(durum.cevap[i]!==undefined) return; durum.cevap[i]=h;
+    { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.style.display='none'; }
     if(durum.t0[i]){ durum.sn[i]=Math.round((Date.now()-durum.t0[i])/1000); }
     const elenen=[...k.querySelectorAll('.sik.cizili')].map(x=>x.dataset.h);
     k.querySelectorAll('.sik').forEach(x=>{ x.disabled=true; if(x.dataset.h===s.dogru) x.classList.add('dogru'); });
@@ -871,7 +955,8 @@ SORULAR.forEach((s,i)=>{
     const thAll=s.teshis||null; const thS=thAll?thAll[h]:null; const thD=thAll?thAll[s.dogru]:null;
     const kk=k.querySelector('.konuK'); if(kk&&s.konuGiris&&s.konuGiris.panel_ornek){ kk.innerHTML='<b>📌 Konu:</b> '+esc(s.konuGiris.nedir||'')+' <span class="ornekK">'+esc(s.konuGiris.panel_ornek)+'</span>'; kk.style.display='block'; }
     if(dogruMu){ durum.dogru++; geri.className='geri ok'; geri.innerHTML='✅ <b>Doğru.</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:ilkCumle(s.kural)))+sureH; }
-    else { b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML=(thS&&thS.yanilgi)?('❌ <b>Senin seçimin '+h+'.</b> Ne sanıyorsun: '+esc(thS.yanilgi)+sureH):('❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH); }
+    else if(!h){ geri.className='geri'; geri.innerHTML='🤷 <b>Bilmiyorum dedin.</b> Tahmin etmekten iyidir; doğrusu ve nedeni aşağıda.'+sureH; }
+    else { if(b) b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML=(thS&&thS.yanilgi)?('❌ <b>Senin seçimin '+h+'.</b> Ne sanıyorsun: '+esc(thS.yanilgi)+sureH):('❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH); }
     // dogruda tekrar satiri yok (sik zaten yesil); yanlista tek satir "Dogrusu"
     const nedenKisa=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; const oz=k.querySelector('.ozet'); if(dogruMu){ oz.style.display='none'; }
     else if(thS&&thS.gercek){ oz.innerHTML='<b>Aslında:</b> '+esc(thS.gercek)+(thS.paragraf?' <i>('+esc(thS.paragraf)+')</i>':'')+(thS.ayirt?'<br><b>Nereden anlarsın:</b> '+esc(thS.ayirt):'')+'<br>✅ <b>Doğrusu '+s.dogru+':</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():String(s.siklar[s.dogru])))); }
@@ -897,7 +982,14 @@ SORULAR.forEach((s,i)=>{
     if(og||kvH||sikH){ const nedenT=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; k.querySelector('.ogret').innerHTML=sikH+kvH+(og?'<div class="et">📘 Hesapları tanı</div>'+og+(nedenT&&!dogruMu?'<p class="neden"><b>Neden bu hesap?</b> '+esc(sdSik?sdSik:nedenT.trim().replace(/THP'de özel olarak /,''))+'</p>':''):''); const cO=k.querySelector('.cOgret'); if(cO&&!og){ cO.textContent=sikH?'📋 Şıklar':'📘 Kavramlar'; } }
     else { const cO=k.querySelector('.cOgret'); if(cO) cO.style.display='none'; }
     document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
+    const kutudaydi=KUTU.kutu.some(x=>x.id===s.id);
     cevapKaydet(s,dogruMu);   // yanlis kutusu + hazirlik skoru
+    // 03.10 (Cem, V2 madde 11): tekrar sistemi gorunur - cevaptan hemen sonra kutunun ne yaptigi tek satirla yazar
+    if(!VITRIN){ const kk=KUTU.kutu.find(x=>x.id===s.id); let kn='';
+      if(!dogruMu) kn='📥 Bu soru yanlış kutuna düştü; <b>2 gün sonra</b> yeniden karşına çıkacak.';
+      else if(kutudaydi&&kk&&kk.tur>=2) kn='🔁 Tekrarı bildin; <b>7 gün sonra</b> bir kez daha gelecek.';
+      else if(kutudaydi&&!kk) kn='🎓 İki tekrarı da bildin; soru kutudan çıktı.';
+      if(kn){ const d=document.createElement('div'); d.className='kutuNot'; d.innerHTML=kn; geri.appendChild(d); } }
     // 13.09 Cem "1.2.3 yap": ana sayfa cercevesi cevabi duysun (yanlista "kutuna dustu" kancasi). Yalniz vitrin + ayni koken.
     if(VITRIN&&window.parent!==window){ try{ window.parent.postMessage({tetikte:'vitrin-cevap',id:s.id,dogru:!!dogruMu},location.origin); }catch(e){} }
     // TEK ANA DUGME (Cem 03.09 "gencleri sikar mi?"): yanlista Nobetci, dogruda Sen yap birincil; gerisi "Daha fazla"da
@@ -916,7 +1008,9 @@ SORULAR.forEach((s,i)=>{
     // 06.09: kâğıt eşlemesi cevaptan hemen sonra kâğıdın altına + kasaya kayıt (Cem "1 ve 3 yap")
     try{ cevapKasayaYaz(h,dogruMu,durum.sn[i],elenen); akranYuzdesi(); }catch(e){}   // 06.09 R1: cevap kaydı + akran yüzdesi
     try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
-  }));
+  };
+  k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>cevapla(b,b.dataset.h)));
+  { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
   const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); setTimeout(()=>panelKaydir(hedef),30); } };
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
@@ -974,7 +1068,7 @@ SORULAR.forEach((s,i)=>{
       .then(r=>r.ok?r.json():null).then(rows=>{ if(!rows||!rows.length) return; const top=rows.reduce((a,r)=>a+Number(r.n||0),0); if(top<5) return;   // 5 cevaptan az: yüzde yanıltır, gösterme
         const say={}; rows.forEach(r=>{ say[String(r.secim)]=Number(r.n||0); });
         k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
-        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
+        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')&&durum.cevap[i]){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
       .catch(()=>{}); }catch(e){}
   }
   function kagitKasayaYaz(secH,dogruMu){ if(VITRIN) return;
