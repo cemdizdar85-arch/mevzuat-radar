@@ -90,8 +90,23 @@ async function kasaOku() {
   console.log('  kaynak: kasa (paket_soru, sinav=sgs) ' + satir.length + ' satır · elle ret atlandı ' + Object.keys(ELLE_RET).length);
   return sayfalar;
 }
+// Bulut yayınında (yayin-bas.yml "Sayfalari bas") ders sayfaları bu anda TAM basılı (SORULAR dolu, kasaya yükleme
+// sonra): o koşunun yeni sorularıyla kurulur. Sayfalar kabuksa (yerel/ara koşu) kaynak kasadır. Çıktı ikisinde de YALNIZ KİMLİK.
+function sayfaOkuHepsi() {
+  const dizin = path.join(KOK, 'kaydir', 'sgs'); const s = {};
+  for (const f of fs.readdirSync(dizin)) {
+    if (!f.endsWith('.html') || f === 'index.html') continue;
+    const S = sayfaOku(path.join(dizin, f)); if (!S || !S.length) continue;
+    const ad = String(S[0].ders || '').split('|')[0].trim();
+    if (slug(ad) + '.html' !== f) continue;
+    const temiz = S.map((q, sira) => ({ q, sira })).filter(x => !ELLE_RET[String(x.q.id)]);
+    s[katla(ad)] = { dosya: `kaydir/sgs/${f}`, ad, sorular: temiz.map(x => x.q), siralar: temiz.map(x => x.sira) };
+  }
+  return s;
+}
 (async () => {
-const sayfalar = await kasaOku();
+const tamSayfa = sayfaOkuHepsi();
+const sayfalar = Object.keys(tamSayfa).length >= 10 ? (console.log('  kaynak: tam basılı ders sayfaları (' + Object.keys(tamSayfa).length + ' ders)'), tamSayfa) : await kasaOku();
 const hatalar = [];
 const setler = Array.from({ length: SET }, () => []);
 const plan = [];

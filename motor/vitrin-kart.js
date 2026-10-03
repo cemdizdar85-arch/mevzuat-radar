@@ -21,8 +21,11 @@ const fs = require('fs'); const path = require('path'); const crypto = require('
 // ---------------------------------------------------------------------------
 function gunSayisi(etiket) { const [y, m, d] = String(etiket).split('-').map(Number); return Math.floor(Date.UTC(y, m - 1, d) / 86400000); }
 function gunEkle(etiket, n) { return new Date((gunSayisi(etiket) + n) * 86400000).toISOString().slice(0, 10); }
+const KUCUK_HAVUZ = process.env.VK_MUTASYON === 'kucuk' ? 0 : 30;
 function havuzDurumu(adet, ilkGun, bugun) {
   const kalan = adet - (gunSayisi(bugun) - gunSayisi(ilkGun));
+  // 04.10 (Cem "sadece 30 soru açık"): vitrin sınav başına 10 - küçük havuz BİLEREK döner; "tekrar ediyor" maili gitmez.
+  if (adet < KUCUK_HAVUZ) return { adet, ilk_gun: ilkGun, bitis: gunEkle(ilkGun, adet), kalan_gun: kalan, durum: 'DONGU', mail_gunu: false };
   const durum = kalan <= 0 ? 'KIRMIZI' : (kalan <= 7 ? 'SARI' : 'YESIL');
   const mailGunu = [7, 3, 1, 0].includes(kalan) || (kalan < 0 && (-kalan) % 7 === 0);
   return { adet, ilk_gun: ilkGun, bitis: gunEkle(ilkGun, adet), kalan_gun: kalan, durum, mail_gunu: mailGunu };
@@ -53,7 +56,8 @@ if (process.argv.includes('--sinav')) {
     ['tekrar başladı',      70, '2026-09-13', '2026-11-22', 0,   'KIRMIZI', true,  '2026-11-22'],
     ['3 gün geçti (sessiz)',70, '2026-09-13', '2026-11-25', -3,  'KIRMIZI', false, '2026-11-22'],
     ['1 hafta geçti',       70, '2026-09-13', '2026-11-29', -7,  'KIRMIZI', true,  '2026-11-22'],
-    ['yıl dönümü',          10, '2026-12-28', '2027-01-02', 5,   'SARI',    false, '2027-01-07']
+    ['yıl dönümü',          40, '2026-12-28', '2027-01-02', 35,  'YESIL',   false, '2027-02-06'],
+    ['küçük havuz bilerek döner (10)', 10, '2026-10-04', '2026-10-25', -11, 'DONGU', false, '2026-10-14']
   ];
   let kotu = 0;
   for (const [ad, adet, ilk, bugun, kalan, durum, mail, bitis] of vakalar) {

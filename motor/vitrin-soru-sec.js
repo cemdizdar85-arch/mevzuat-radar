@@ -115,6 +115,35 @@ let haric = {};
 let haricKonu = {};
 try { const hj = jsonOku(path.join(kok, 'arac', 'vitrin-haric.json')); haric = hj.haric || {}; haricKonu = hj.haric_konu || {}; } catch (e) { haric = {}; }
 let _haric = 0;
+
+// --- KIRPMA KİPİ (04.10.2026, Cem "1.2.3 üçünü de yap": vitrin sınav başına 10) ---
+// Cem: "sadece 30 soru açık olacak" - açık katman seviye testi (30, cevapsız); vitrin Nöbetçi çözümüyle açık olduğu için
+// 66'dan 10'a. Yeni seçim YAPMAZ: mevcut (elle okunmuş) seçimden sınav ağırlığına göre N soru ayırır, dersleri serpiştirir.
+// Kullanım: node motor/vitrin-soru-sec.js <sinav> --kirp=10 [--kuru]
+const kirpArg = argv.find(a => a.startsWith('--kirp='));
+if (kirpArg) {
+  const N = parseInt(kirpArg.split('=')[1], 10);
+  const hedefYol = path.join(kok, 'veri', 'sinav', 'kaydir-secim', 'vitrin-' + sinav + '-secim.json');
+  const eski = jsonOku(hedefYol);
+  const grup = {}; eski.forEach(e => { const d = katla(e.ders); (grup[d] = grup[d] || []).push(e); });
+  const dersler = Object.keys(grup);
+  const enAz = Math.min(...Object.values(agirlik).concat([5]));
+  const w = {}; dersler.forEach(d => { w[d] = agirlik[d] || enAz; });
+  const W = dersler.reduce((t, d) => t + w[d], 0);
+  const kota = {}; let dag = 0;
+  const art = dersler.map(d => { const ham = N * w[d] / W; kota[d] = Math.min(grup[d].length, Math.floor(ham)); dag += kota[d]; return { d, k: ham - Math.floor(ham) }; })
+    .sort((a, b) => (b.k - a.k) || (w[b.d] - w[a.d]));
+  for (let tur = 0; dag < N && tur < 50; tur++) for (const { d } of art) { if (dag >= N) break; if (kota[d] < grup[d].length) { kota[d]++; dag++; } }
+  const secim = [];
+  dersler.forEach(d => grup[d].slice(0, kota[d]).forEach((e, r) => secim.push({ e, a: (r + 0.5) / kota[d], w: w[d] })));
+  secim.sort((x, y) => (x.a - y.a) || (y.w - x.w));
+  const yeni = secim.map(x => x.e);
+  console.log('KIRPMA ' + sinav + ': ' + eski.length + ' -> ' + yeni.length);
+  dersler.filter(d => kota[d]).sort((a, b) => w[b] - w[a]).forEach(d => console.log('  ' + String(kota[d]).padStart(2) + ' · ' + d + ' (ağırlık ' + w[d] + ')'));
+  if (!kuru) { fs.writeFileSync(hedefYol, JSON.stringify(yeni, null, 2) + '\n', 'utf8'); console.log('  yazıldı -> ' + path.relative(kok, hedefYol)); }
+  else console.log('  KURU - dosyaya yazılmadı');
+  process.exit(0);
+}
 (async () => {
 // 04.10.2026: elle ret listesindeki soru seçilmez - yayin-bas.yml vitrin adımı seçimde ret görürse vitrini HİÇ basmıyor.
 let elleRet = {};
