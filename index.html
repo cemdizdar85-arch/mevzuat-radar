@@ -476,15 +476,14 @@ window.veriAl = (function(){
   <div class="navlinks">
     <!-- 30.09 Cem "site sadece SMMM başlama + bitirme": Araçlar/Radarlar açılır menüleri ve İşletme girişi
          kalktı (sayfalar ve robotları yerinde, menu.js GIZLI listesinde). -->
-    <a class="nl" href="sorular.html">Soru çöz</a>
-    <a class="nl" href="canli-deneme.html">Canlı deneme</a>
-    <a class="nl" href="genc.html">Sınav takvimi</a>
+    <!-- 03.10 Cem (V2 madde 5): menü = Sınavlar · Fiyatlar · Giriş yap · Ücretsiz başla (Canlı deneme gizli, Sınav takvimi menüden çıktı) -->
+    <a class="nl" href="sorular.html">Sınavlar</a>
     <a class="nl" href="fiyat.html">Fiyatlar</a>
     <a class="nl" id="navOgrenci" href="ogrenci.html" title="Sınava hazırlanan öğrenci hesabı">Giriş yap</a>
     <!-- 30.07: iki soluk buton yan yana goz kaciriyordu; birincil eylem DOLU olur -->
     <!-- 23.09 Cem "1.2.3 yap": "Ücretsiz Başla" sınav takvimine (genc.html) gidiyordu; sitedeki tek ücretsiz
          vaat seviye testi -> menü düğmesi de oraya. Genç Müşavir Araçlar menüsünde duruyor. -->
-    <a class="btn" href="seviye-testi.html">Ücretsiz test</a>
+    <a class="btn" href="seviye-testi.html">Ücretsiz başla</a>
     <button class="mobbtn" type="button" aria-label="Menü" onclick="window.MRMenu?MRMenu.ac():location.hash='araclar'">☰</button>
   </div>
 </nav>
@@ -796,7 +795,8 @@ window.veriAl = (function(){
             </div>
             <h1 class="bz-baslik">Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
             <!-- 02.10 Cem "2 yap": eski "her gerekçe mevzuattaki maddeye bağlı" mutlak iddiası 01.10 açıklama hakemi ölçümüyle çelişiyordu -->
-            <p class="bz-alt">Her şıkkın gerekçesi var, dayandığı madde altında yazar.</p>
+            <!-- 03.10 Cem (V2 madde 3) -->
+            <p class="bz-alt">Sadece doğru cevabı görme; neden yanlış yaptığını öğren.</p>
             <!-- 12.09 Cem: "ziyaretçi girmesin, tam bitmedi" -> vitrine gidiyordu.
                  13.09 Cem: "soru çözmeye başla dediğinde direkt sorular geliyor; başta sınavlar gelmeli,
                  altında ders ders" -> SINAV SEÇİMİ sayfasına (sorular.html). Site hâlâ açılış perdesinin arkasında. -->
