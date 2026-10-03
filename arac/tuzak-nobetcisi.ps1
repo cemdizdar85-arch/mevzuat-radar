@@ -313,6 +313,36 @@ function K5-BomsuzTurkce($metin,$ast,$dosya){
   return $bul.ToArray()
 }
 
+function K8-HashtableSayim($metin,$ast,$dosya){
+  # 03.10.2026 (Cem "1.2.3"): bos @{} anahtarlari VERIDEN doldurulup .Count ile sayilirsa, veride "count" diye bir
+  # anahtar varsa .Count SAYIYI DEGIL O KAYDI dondurur (PS uye erisimi once anahtara bakar). Olculdu: motor/kaydir-coz.ps1
+  # sozluk satiri "(en sik bicim count kok)" yazdi - sayi yerine kelime. Care: .PSBase.Count (her zaman gercek sayi).
+  # GORMEZ: .Keys/.Values (ayni tuzak ama cok yaygin + dogru kullanim; acmak kurt masali olurdu) · sabit anahtarli @{a=1}
+  #   (anahtari koddan, risk yok) · hashtable'in baska degiskene aktarilip orada sayilmasi.
+  if($env:TN_MUT -eq 'K8'){ return @() }   # mutasyon: kural kapali -> oz-sinav KIRMIZI dusmeli
+  $bul=New-Object System.Collections.Generic.List[object]
+  $bos=@{}; $veri=@{}
+  foreach($x in $ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.AssignmentStatementAst] },$true)){
+    $sol=$x.Left; $sag=$x.Right
+    if($sol -is [System.Management.Automation.Language.VariableExpressionAst]){
+      $h=$sag.Find({ param($n) $n -is [System.Management.Automation.Language.HashtableAst] },$true)
+      if($h -and $h.KeyValuePairs.Count -eq 0 -and $sag.Extent.Text.Trim() -match '^@\{\s*\}$'){ $bos[$sol.VariablePath.UserPath.ToLowerInvariant()]=$true }
+    }
+    if($sol -is [System.Management.Automation.Language.IndexExpressionAst] -and $sol.Target -is [System.Management.Automation.Language.VariableExpressionAst]){
+      if(-not ($sol.Index -is [System.Management.Automation.Language.ConstantExpressionAst])){ $veri[$sol.Target.VariablePath.UserPath.ToLowerInvariant()]=$true }
+    }
+  }
+  foreach($m in $ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.MemberExpressionAst] },$true)){
+    if(-not ($m.Expression -is [System.Management.Automation.Language.VariableExpressionAst])){ continue }
+    if(-not ($m.Member -is [System.Management.Automation.Language.StringConstantExpressionAst]) -or $m.Member.Value -ne 'Count'){ continue }
+    $ad=$m.Expression.VariablePath.UserPath.ToLowerInvariant()
+    if($bos.ContainsKey($ad) -and $veri.ContainsKey($ad)){
+      $bul.Add([pscustomobject]@{ satir=$m.Extent.StartLineNumber; agir=$false
+        ileti=('HASHTABLE .Count: $'+$m.Expression.VariablePath.UserPath+' anahtarlari veriden geliyor; veride "count" anahtari varsa .Count o kaydi dondurur (03.10 kaydir-coz sozluk satiri). Care: .PSBase.Count') })
+    }
+  }
+  return $bul.ToArray()
+}
 function K6-YerelKomutStderr($metin,$ast,$dosya){
   # PS 5.1: yerel bir komutun stderr'i `2>&1` ile birlestirilince her satir
   # NativeCommandError KAYDINA cevrilir. $ErrorActionPreference='Stop' altinda
@@ -419,6 +449,7 @@ $KURALLAR=@(
   @{ ad='K5-BOMSUZ';    fn=(Get-Item function:K5-BomsuzTurkce);       yml=$false }
   @{ ad='K6-STDERR';    fn=(Get-Item function:K6-YerelKomutStderr);   yml=$true  }
   @{ ad='K7-TAKMAAD';   fn=(Get-Item function:K7-TakmaAdCakismasi);   yml=$false }
+  @{ ad='K8-SAYIM';     fn=(Get-Item function:K8-HashtableSayim);     yml=$false }
 )
 
 # ---------------------------------------------------------------------------
@@ -459,6 +490,16 @@ $d=@($l)' }
 R "x"';                                         iyi='function Degistir([string]$a){ $a }
 Degistir "x"' }
     @{ kural='K7-TAKMAAD';   kotu='function H([double]$t){ $t }';   iyi='function HadVaka([double]$t){ $t }' }
+    # K8 (03.10): veriden dolan bos @{} + .Count -> yakala; .PSBase.Count ve sabit anahtarli tablo -> alarm YOK
+    @{ kural='K8-SAYIM';     kotu='$h=@{}
+foreach($w in $l){ $h[$w]=1 }
+"say $($h.Count)"'; iyi='$h=@{}
+foreach($w in $l){ $h[$w]=1 }
+"say $($h.PSBase.Count)"' }
+    @{ kural='K8-SAYIM';     kotu='$s=@{}
+$s[$k]=2
+$n=$s.Count'; iyi='$t=@{a=1;b=2}
+$n=$t.Count' }
     @{ kural='K4-SIRASIZ';   kotu='$u="https://x.supabase.co/rest/v1/t?select=a&ad=ilike.%25x%25&limit=1"'; iyi='$u="https://x.supabase.co/rest/v1/t?select=a&order=a.asc&limit=5"' }
     # eq. ile TEKIL alan sorgusu belirlidir - alarm verilmemeli (olculdu 12.09:
     # kaynak_ad 3.000 ornekte tekil; kural 2 yanlis alarm uretmisti).

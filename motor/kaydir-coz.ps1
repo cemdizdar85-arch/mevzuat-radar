@@ -200,7 +200,7 @@ foreach($k in $SAY.Keys){
 # 05.09: korpusta yeterince geçmeyen sık maliyet/muhasebe kelimeleri (tabloda "yuklenir", "kismi", "Bos" kalıyordu) — sabit yedek
 $SABIT_SOZ=@{ yuklenir='yüklenir'; yuklenen='yüklenen'; yuklenecek='yüklenecek'; yukleme='yükleme'; kismi='kısmı'; kisim='kısım'; bos='boş'; uretim='üretim'; degisken='değişken'; kullanim='kullanım'; orani='oranı'; gideri='gideri'; toplami='toplamı'; kapasite='kapasite'; calismayan='çalışmayan'; sapmasi='sapması'; farki='farkı'; esdeger='eşdeğer'; birim='birim'; dagitim='dağıtım'; dagitimi='dağıtımı'; sonucu='sonucu'; tutari='tutarı'; hesabi='hesabı'; maliyeti='maliyeti'; isci='işçi'; iscilik='işçilik'; iscilik_='işçilik'; hammadde='hammadde'; malzeme='malzeme'; yari='yarı'; mamul='mamul'; satilan='satılan'; satis='satış'; satislar='satışlar'; donem='dönem'; donemi='dönemi'; gelir='gelir'; kar='kâr'; kari='kârı'; zarar='zarar'; zarari='zararı'; olcek='ölçek'; olcum='ölçüm'; yontemi='yöntemi'; yontem='yöntem'; oran='oran'; oranla='oranla'; carpim='çarpım'; bolum='bölüm'; eksik='eksik'; fazla='fazla'; yuk='yük'; sabit='sabit'; gercek='gerçek'; gerceklesen='gerçekleşen'; buyuk='büyük'; kucuk='küçük'; ucret='ücret'; ucreti='ücreti'; ayrilan='ayrılan'; ayrilmis='ayrılmış'; islem='işlem'; isletme='işletme'; sirket='şirket'; ortak='ortak'; urun='ürün'; urunler='ürünler'; urunu='ürünü'; agirlik='ağırlık'; agirlikli='ağırlıklı'; fiili='fiili'; butce='bütçe'; butcelenen='bütçelenen'; standart='standart'; olculen='ölçülen' }
 foreach($k0 in $SABIT_SOZ.Keys){ if(-not $SOZ.ContainsKey($k0)){ $SOZ[$k0]=$SABIT_SOZ[$k0] } }
-"turkce sozluk: $($SOZ.Count) kelime (en sık biçim $($ENF.Count) kök)$(if($sozYuklendi){ ' · önbellekten' } else { ' · yeniden kuruldu' })"
+"turkce sozluk: $($SOZ.PSBase.Count) kelime (en sık biçim $($ENF.PSBase.Count) kök)$(if($sozYuklendi){ ' · önbellekten' } else { ' · yeniden kuruldu' })"
 "deneme: " + (TurkceOnar 'Simdi farki hesapliyoruz: satis hasilati sermaye payini gecerse artan kisim kar sayilir. 100 KASA (BORC) 130.000 TL')
 # 04.09 Cem "@{ne_soruluyor=...} bu ne?": model açıklamayı bazen YAPILI nesne döndürüyor; string'e çevrilince PS
 # hashtable dökümü ekrana düşüyordu. Üreticideki AciklamaDuz'un aynısı: alanlardan okunur metin derlenir.
@@ -474,7 +474,7 @@ for($i=0;$i -lt $sorular.Count;$i++){
   # ikiz (oyun) tablosu da aynı onarımdan geçer: Türkçe harf + hesap adı
   if($s.oyun -and $s.oyun.tur -eq 'tablo' -and $s.oyun.tablo){ $yeniO=@(); foreach($st in $s.oyun.tablo.satirlar){ $yeniO+=,@(@($st) | ForEach-Object { $c=TurkceOnar "$_"; foreach($m in [regex]::Matches($c,'(?<![\d.,])([1-7]\d{2})\s+hesa(?:p|bı|bına)\b')){ $kod=$m.Groups[1].Value; $t2=ThpTanim $kod; if($t2){ $c=[regex]::Replace($c,'(?<![\d.,])'+$kod+'\s+hesa(?:p|bı|bına)\b',("$kod "+$t2.ad+' hesabı')) } }; $c }) }; $sorular[$i].oyun.tablo.satirlar=$yeniO }
   $sorular[$i].hesaplar=$hs
-  "  hesap sozlugu [$($s.konu)]: $($hs.Count)/$($kodlar.Count) kod bulundu"
+  "  hesap sozlugu [$($s.konu)]: $($hs.PSBase.Count)/$($kodlar.Count) kod bulundu"
 }
 Sure 'hesap sözlüğü'
 # --- 1. SEN ANLAT anahtar kavramlar (ucretsiz surum): hap + kural + adimlardan ayirt edici kokler + dogru siktaki hesap kodlari
