@@ -2,9 +2,9 @@
     "aciklama":  "Bulut soru basim sirasi (29.09.2026). Elle DUZENLENMEZ: motor/bulut-sira.ps1 -Ekle / -Cikar / -Temizle yazar, sonra commit+push. Robot .github/workflows/bulut-sira.yml 15 dk\u0027da bir paya gore acar. Acildi mi = GitHub kosu gecmisi (dosyaya isaret yazilmaz). Acil fren: durdur=true.",
     "durdur":  false,
     "pay":  {
-                "toplam":  8,
+                "toplam":  6,
                 "smmm":  3,
-                "sgs":  5,
+                "sgs":  3,
                 "kgk":  2
             },
     "varsayilan_paralel":  5,
@@ -20,6 +20,17 @@
                      "ekleyen":  "Patron sitesi SMMM staj soruları [9c8c83]",
                      "yeniden":  false,
                      "not":  "onarimda aciklama_hakem silinen 2 yeni soru (Cem 03.10)"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-sgs-k24-onarim-hakem.json",
+                     "butce_usd":  "0.6",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-10-03T04:48:38Z",
+                     "ekleyen":  "Patron sitesi SMMM staj soruları [9c8c83]",
+                     "yeniden":  false,
+                     "not":  "6 kok duzeltmesi yeniden hakem (Cem 03.10)"
                  }
              ]
 }

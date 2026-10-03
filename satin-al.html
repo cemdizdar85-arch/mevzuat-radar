@@ -33,14 +33,65 @@
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--bg); color:var(--ink);
         font-family:"Segoe UI",system-ui,-apple-system,sans-serif; line-height:1.6; }
-  .s{ max-width:1060px; margin:0 auto; padding:30px 18px 80px; }
-  h1{ font-size:clamp(23px,4vw,30px); margin:0 0 6px; letter-spacing:-.5px; }
-  .alt{ color:var(--muted); font-size:15px; margin:0 0 22px; }
+  .s{ max-width:1100px; margin:0 auto; padding:30px 20px 96px; }
+  h1{ font-size:clamp(25px,4vw,32px); margin:0 0 8px; letter-spacing:-.6px; }
+  .alt{ color:var(--muted); font-size:15.5px; margin:0 0 12px; max-width:62ch; }
   a{ color:var(--link); }
+  .bas{ margin:8px 0 26px; }
+  .guven{ list-style:none; display:flex; flex-wrap:wrap; gap:8px 18px; margin:0; padding:0; font-size:12.5px; color:var(--muted); }
+  .guven li{ display:flex; align-items:center; gap:7px; }
+  .guven li::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--amber-dolgu); flex:none; }
 
-  .adim{ font-size:12px; letter-spacing:.8px; text-transform:uppercase; color:var(--amber);
-         font-weight:800; margin:26px 0 10px; }
-  .kutu{ background:var(--kart); border:1px solid var(--line); border-radius:12px; padding:16px 19px; margin:12px 0; }
+  .kutu{ background:var(--kart); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin:14px 0; }
+  .kutu.ic{ background:color-mix(in srgb,var(--ink) 3%,var(--kart)); border-color:transparent; padding:16px 18px; }
+
+  /* --- 03.10 iki kolon + akordiyon --- */
+  .duzen{ display:block; }
+  @media (min-width:960px){
+    .duzen{ display:grid; grid-template-columns:minmax(0,3fr) minmax(320px,2fr); gap:32px; align-items:start; }
+    .sag{ position:sticky; top:20px; }
+    .sag .ozet{ margin-top:0; }
+  }
+  .akd{ background:var(--kart); border:1px solid var(--line); border-radius:14px; margin:0 0 14px; }
+  .akd-bas{ display:flex; align-items:center; gap:14px; width:100%; background:none; border:0; color:var(--ink);
+            font:inherit; text-align:left; padding:18px 22px; cursor:pointer; border-radius:14px; }
+  .akd-bas:focus-visible{ outline:2px solid var(--amber-dolgu); outline-offset:2px; }
+  .akd-no{ width:28px; height:28px; border-radius:50%; display:inline-grid; place-items:center; flex:none;
+           font-size:13px; font-weight:800; background:color-mix(in srgb,var(--ink) 8%,transparent); color:var(--muted); }
+  .akd.acik .akd-no{ background:var(--amber-dolgu); color:var(--amber-uzeri); }
+  .akd.tamam:not(.acik) .akd-no{ background:color-mix(in srgb,var(--green) 18%,transparent); color:var(--green); }
+  .akd.tamam:not(.acik) .akd-no::before{ content:"✓"; }
+  .akd.tamam:not(.acik) .akd-no{ font-size:0; }
+  .akd.tamam:not(.acik) .akd-no::before{ font-size:14px; }
+  .akd-baslik{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .akd-ad{ font-weight:800; font-size:16px; letter-spacing:-.2px; }
+  .akd-ozet{ display:none; font-size:13px; color:var(--muted); overflow-wrap:anywhere; }
+  .akd.tamam:not(.acik) .akd-ozet{ display:block; }
+  .akd-degis{ display:none; font-size:13px; font-weight:700; color:var(--link); }
+  .akd.tamam:not(.acik) .akd-degis{ display:inline; }
+  .akd-govde{ display:grid; grid-template-rows:0fr; }
+  .hazir .akd-govde{ transition:grid-template-rows .32s ease; }
+  .akd.acik .akd-govde{ grid-template-rows:1fr; }
+  .akd-ic{ overflow:hidden; min-height:0; padding:0 22px; }
+  .akd.acik .akd-ic{ padding-bottom:22px; }
+  .akd-hata{ display:none; margin:12px 0 0; font-size:13.5px; font-weight:600; color:var(--red); }
+  .akd-devam{ margin-top:16px; }
+  @media (min-width:560px){ .akd-devam{ width:auto; min-width:180px; padding-left:28px; padding-right:28px; } }
+  .ozet-bas{ display:flex; align-items:center; gap:12px; font-weight:800; font-size:16px; margin:0 0 12px; }
+  .ozet .akd-no{ background:color-mix(in srgb,var(--amber-dolgu) 30%,transparent); color:var(--ink); }
+  .satici summary{ cursor:pointer; font-weight:700; font-size:14px; color:var(--muted); }
+  .satici[open] summary{ margin-bottom:8px; }
+  /* mobil yapışkan çubuk */
+  .mbar{ position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; align-items:center; gap:12px;
+         padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:var(--kart);
+         border-top:1px solid var(--line); box-shadow:0 -8px 24px -12px color-mix(in srgb,var(--ink) 30%,transparent); }
+  .mbar[hidden]{ display:none; }
+  .mbar-tutar{ display:flex; flex-direction:column; line-height:1.25; min-width:0; }
+  .mbar-tutar span{ font-size:11.5px; color:var(--dim); }
+  .mbar-tutar b{ font-size:18px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .mbar .btn{ margin:0; flex:1; padding:12px; }
+  @media (min-width:960px){ .mbar{ display:none !important; } }
+  @media (prefers-reduced-motion:reduce){ .hazir .akd-govde{ transition:none; } }
   .kutu h2{ font-size:16px; margin:0 0 8px; }
   .kucuk{ font-size:12px; color:var(--dim); }
 
@@ -65,26 +116,32 @@
   }
   .pk .fy span{ display:block; font-size:11px; color:var(--dim); }
   .pk .fy s{ display:block; font-size:12px; color:var(--dim); }
-  .pk .harc{ display:block; font-size:11.5px; color:var(--green); margin-top:3px; }
+  .pk .harc{ display:block; font-size:11.5px; color:var(--muted); margin-top:3px; }   /* 03.10: yeşilden soft griye (Cem talimatı) */
   .dersListe{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:7px; }
-  .dersListe label{ display:flex; align-items:center; gap:9px; background:var(--kagit);
-       border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:13.5px; cursor:pointer; }
+  .dersListe label{ display:flex; align-items:center; gap:9px; background:color-mix(in srgb,var(--ink) 5%,var(--kart));
+       border:1px solid transparent; border-radius:10px; padding:9px 12px; font-size:13.5px; cursor:pointer; }
   .dersListe label.sec{ border-color:rgba(245,165,36,.6); }
   .dersListe input{ accent-color:var(--amber); width:16px; height:16px; flex:none; }
   .dersListe label.kapali{ opacity:.45; cursor:not-allowed; }
 
   /* --- form --- */
   .satir{ display:flex; gap:12px; flex-wrap:wrap; }
-  .alan{ flex:1; min-width:220px; margin-bottom:12px; }
-  label.et{ display:block; font-size:12.5px; color:var(--muted); margin-bottom:5px; }
+  .alan{ flex:1; min-width:220px; margin-bottom:16px; }
+  label.et{ display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+  /* 03.10: sert ince kenarlık yerine dolgulu alan; odakta marka sarısı alt çizgi + yumuşak parlama */
   input[type=text],input[type=email],input[type=tel],textarea,select{
-      width:100%; background:var(--kagit); border:1px solid var(--line); border-radius:10px;
-      color:var(--ink); font:inherit; font-size:14px; padding:10px 12px; }
-  textarea{ min-height:70px; resize:vertical; }
-  input:focus,textarea:focus,select:focus{ outline:none; border-color:rgba(245,165,36,.55); }
-  .tip{ display:flex; gap:10px; margin-bottom:12px; }
-  .tip label{ flex:1; display:flex; align-items:center; gap:8px; background:var(--kagit); border:1px solid var(--line);
-              border-radius:10px; padding:10px 12px; font-size:14px; cursor:pointer; }
+      width:100%; background:color-mix(in srgb,var(--ink) 6%,var(--kart)); border:1px solid transparent;
+      border-bottom-color:color-mix(in srgb,var(--ink) 16%,transparent); border-radius:10px;
+      color:var(--ink); font:inherit; font-size:14px; padding:12px 14px;
+      transition:background .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  textarea{ min-height:76px; resize:vertical; }
+  input[type=text]:hover,input[type=email]:hover,input[type=tel]:hover,textarea:hover{ background:color-mix(in srgb,var(--ink) 8%,var(--kart)); }
+  input:focus,textarea:focus,select:focus{ outline:none; background:color-mix(in srgb,var(--ink) 3%,var(--kart));
+      border-bottom-color:var(--amber-dolgu); box-shadow:inset 0 -1px 0 var(--amber-dolgu), 0 0 0 3px color-mix(in srgb,var(--amber-dolgu) 28%,transparent); }
+  .tip{ display:flex; gap:10px; margin-bottom:16px; }
+  .tip label{ flex:1; display:flex; align-items:center; gap:8px; background:color-mix(in srgb,var(--ink) 5%,var(--kart)); border:1px solid transparent;
+              border-radius:10px; padding:11px 14px; font-size:14px; cursor:pointer; }
+  .tip label:has(input:checked){ border-color:color-mix(in srgb,var(--amber-dolgu) 70%,transparent); }
   .tip input{ accent-color:var(--amber); width:16px; height:16px; }
   .onay{ display:flex; gap:9px; align-items:flex-start; font-size:13px; color:var(--muted); margin-top:10px; }
   .onay input{ margin-top:3px; accent-color:var(--amber); width:16px; height:16px; flex:none; }
@@ -112,6 +169,10 @@
   /* 24.09 mobil denetim: form yazısı 14 px idi -> iPhone Safari 16 px altındaki kutuya dokununca sayfayı
      zorla yakınlaştırır (ödeme formunda kopuş). Telefonda 16 px; yatay taşma 0, paket satırı 154 px tıklanır. */
   @media (max-width:700px){ input[type=text],input[type=email],input[type=tel],textarea,select{ font-size:16px; } }
+  @media (max-width:959px){ body.mbar-var .s{ padding-bottom:120px; }
+    /* 03.10: ödeme ekranında menu.js'in yüzen "Araçlar" düğmesi mobilde gizli (alanların ve çubuğun üstüne biniyordu) */
+    #mrxFab{ display:none !important; } }
+  @media (max-width:560px){ .kutu{ padding:16px; } .akd-bas{ padding:16px; } .akd-ic{ padding:0 16px; } .s{ padding-left:16px; padding-right:16px; } }
 </style>
 </head>
 <body>
@@ -129,48 +190,87 @@
   <code>fiyat-motoru.js</code> içindeki <code>ODEME_BANKA</code> satırını doldur.
 </div>
 
-<h1>Satın Al</h1>
-<p class="alt">Paketi seç, bilgilerini gir, havale/EFT ile öde. Ödeyeceğin KDV dahil toplam her paketin altında ve özet tabloda yazar; başka ücret yok.</p>
+<!-- 03.10 TASARIM YENİLEMESİ (Cem'in tasarım talimatı, "Büyük firmaların rakip stratejisi" oturumu devretti):
+     masaüstünde iki kolon (solda adımlar, sağda kaydırınca sabit "Sipariş özeti"), adımlar akordiyon
+     (1 Paket · 2 Bilgilerin; tamamlanan adım tek satırlık özete döner), mobilde tek kolon + altta yapışkan
+     "tutar + Siparişi tamamla" çubuğu. Sipariş kaydına giden alanlar, rpc'ler ve üç onay kutusunun metni DEĞİŞMEDİ.
+     ⚠ "Tüm fiyatlarımıza KDV dahildir" YAZILMAZ: kartta ana fiyat "+ KDV" gösterilir (Cem 25.09 kararı). -->
+<header class="bas">
+  <h1>Satın al</h1>
+  <p class="alt">Paketini seç, bilgilerini tamamla; ödeyeceğin tutar KDV dahil olarak özette yazar, sonradan eklenen ücret yok.</p>
+  <ul class="guven">
+    <li>E-arşiv fatura</li>
+    <li>Havale/EFT ile ödeme, kart bilgisi istenmez</li>
+    <li>Satıcı: Dizdar Denetim A.Ş.</li>
+  </ul>
+</header>
 
-<div class="adim">1 · Paket</div>
-<div id="paketler"></div>
-<p class="kucuk" style="margin-top:2px">Erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
-sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
-<b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
-<!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
-<p class="kucuk" style="margin-top:6px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da bilgisayarda da
-çalışırsın; cihazlarını <a href="ogrenci.html#cihazlarim">Hesabım → Cihazlarım</a>'dan yönetirsin.</p>
+<div class="duzen" id="duzen">
+<div class="sol">
 
-<!-- Ders bazli paket secilince HANGI dersler oldugu sorulur. Sormazsak
-     erisimi neye acacagimizi bilemeyiz; "2 ders aldim" tek basina yetmez. -->
-<div class="kutu" id="dersKutu" style="display:none">
-  <h2 id="dersBaslik">Hangi dersler?</h2>
-  <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
-  <div id="dersListe" class="dersListe"></div>
-  <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
-  erişim süren içinde bir kez ücretsiz değiştiririz.</p>
-</div>
+<section class="akd acik" id="akd1" data-adim="1">
+  <button type="button" class="akd-bas" aria-expanded="true" aria-controls="akd1g">
+    <span class="akd-no">1</span>
+    <span class="akd-baslik"><span class="akd-ad">Paket</span><span class="akd-ozet" id="akd1o"></span></span>
+    <span class="akd-degis">Değiştir</span>
+  </button>
+  <div class="akd-govde" id="akd1g"><div class="akd-ic">
+    <div id="paketler"></div>
+    <p class="kucuk" style="margin-top:2px">Erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
+    sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
+    <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
+    <!-- 23.09 hesap paylasim korumasi (cihaz-kapisi.js) - kural satin almadan ONCE gorunsun (Cem "1 yap") -->
+    <p class="kucuk" style="margin-top:6px"><b>Paketin 3 cihazda, aynı anda tek ekranda kullanılır.</b> Telefonda da bilgisayarda da
+    çalışırsın; cihazlarını <a href="ogrenci.html#cihazlarim">Hesabım → Cihazlarım</a>'dan yönetirsin.</p>
 
-<div class="adim">2 · Bilgilerin</div>
-<div class="kutu">
+    <!-- Ders bazli paket secilince HANGI dersler oldugu sorulur. Sormazsak
+         erisimi neye acacagimizi bilemeyiz; "2 ders aldim" tek basina yetmez. -->
+    <div class="kutu ic" id="dersKutu" style="display:none">
+      <h2 id="dersBaslik">Hangi dersler?</h2>
+      <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
+      <div id="dersListe" class="dersListe"></div>
+      <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
+      erişim süren içinde bir kez ücretsiz değiştiririz.</p>
+    </div>
+    <p class="akd-hata" id="akd1h" role="alert"></p>
+    <button type="button" class="btn akd-devam" data-devam="1">Devam</button>
+  </div></div>
+</section>
+
+<section class="akd" id="akd2" data-adim="2">
+  <button type="button" class="akd-bas" aria-expanded="false" aria-controls="akd2g">
+    <span class="akd-no">2</span>
+    <span class="akd-baslik"><span class="akd-ad">Bilgilerin</span><span class="akd-ozet" id="akd2o"></span></span>
+    <span class="akd-degis">Değiştir</span>
+  </button>
+  <div class="akd-govde" id="akd2g"><div class="akd-ic">
   <div class="satir">
     <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
     <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"></div>
   </div>
   <div class="satir">
     <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
-    <!-- Calisma Arkadasim: davet kodu. Adresteki ?d=KOD ile kendiliginden dolar
-         (arkadasin paylastigi bagbantidan gelinmisse). Elle de yazilabilir. -->
-    <div class="alan"><label class="et" for="davet">Davet kodu <span style="color:var(--dim)">— varsa; ikinize de +1 ay</span></label>
-      <input type="text" id="davet" maxlength="6" placeholder="örn. TT7K2M" style="text-transform:uppercase"></div>
   </div>
-  <!-- 15.09 Elçi kodu: elçinin takipçisine verdiği indirim kodu. ELCI.acik=false iken
-       (sunucu SQL'i basılmadan) bu satır HİÇ görünmez. İndirimi SUNUCU damgalar;
-       buradaki gösterim elci_kodu_kontrol() cevabına dayanır. -->
-  <div class="satir" id="elciSatir" style="display:none">
-    <div class="alan"><label class="et" for="elci">Elçi kodu <span style="color:var(--dim)">— size özel indirim kodu varsa</span></label>
-      <input type="text" id="elci" maxlength="12" placeholder="örn. CH48" style="text-transform:uppercase" autocomplete="off">
-      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p></div>
+  <!-- 03.10 (Cem "gm önerilerini yap"; büyük firmalardaki gibi): davet kodu + elçi kodu TEK kutu.
+       Tek bağlantı "İndirim ya da davet kodun var mı?" → tek alan + Uygula. Kod türü ayrımı: davet biçimine
+       (DAVET_BICIM) uyuyorsa önce elci_kodu_kontrol sorulur (TT ile başlayan elçi kodu çakışabilir), >0 ise
+       elçi, değilse davet; biçime uymuyorsa elçi. İki kod BİRLİKTE kullanılabilir (bugünkü kural): kabul edilen
+       kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
+       Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
+  <div class="alan" style="margin-bottom:14px">
+    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">İndirim ya da davet kodun var mı?</a>
+    <div id="kodKutu" hidden>
+      <label class="et" for="kod">İndirim / davet kodu</label>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <input type="text" id="kod" maxlength="12" placeholder="Kodunu yaz" style="text-transform:uppercase;flex:1;min-width:0" autocomplete="off">
+        <button type="button" class="btn" id="kodUygula" style="margin:0;width:auto;padding-left:16px;padding-right:16px;white-space:nowrap">Uygula</button>
+      </div>
+      <p class="kucuk" id="kodDurum" style="margin:5px 0 0"></p>
+      <div id="kodRozet"></div>
+      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p>
+    </div>
+    <input type="hidden" id="davet">
+    <div id="elciSatir" style="display:none"><input type="hidden" id="elci"></div>
   </div>
 
   <label class="et">Fatura tipi *</label>
@@ -195,12 +295,27 @@ sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
   </div>
 
   <div class="alan" style="margin-bottom:0"><label class="et" for="adres">Fatura adresi * <span style="color:var(--dim)">— il/ilçe dahil</span></label><textarea id="adres" autocomplete="street-address"></textarea></div>
-</div>
+    <p class="akd-hata" id="akd2h" role="alert"></p>
+    <button type="button" class="btn akd-devam" data-devam="2">Devam</button>
+  </div></div>
+</section>
 
-<div class="adim">3 · Özet ve onay</div>
-<div class="kutu ozet">
+<details class="kutu satici">
+  <summary>Satıcı bilgileri</summary>
+  <div class="kv"><b>Ticaret unvanı</b><span>Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi</span></div>
+  <div class="kv"><b>MERSİS No</b><span>0301130343200001</span></div>
+  <div class="kv"><b>Vergi dairesi / No</b><span>Kordon Vergi Dairesi / 3011303432</span></div>
+  <div class="kv"><b>Adres</b><span>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir</span></div>
+  <div class="kv" style="border:none"><b>E-posta / Telefon</b><span>destek@tetikte.com · 0537 843 80 58</span></div>
+</details>
+
+</div><!-- /sol -->
+
+<aside class="sag">
+<div class="kutu ozet" id="ozetKart">
+  <div class="ozet-bas"><span class="akd-no">3</span> Özet ve onay</div>
   <table>
-    <tr><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
+    <tr id="ozPkSatir"><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
     <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
     <tr id="ozIndSatir" style="display:none"><td>Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
@@ -225,10 +340,18 @@ sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
   <p class="kucuk" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra
   göreceğin hesaba banka havalesi/EFT ile yapılır.</p>
 </div>
+</aside>
+</div><!-- /duzen -->
+
+<!-- Mobil: özet kartı ekranda değilken altta tutar + düğme (kart görünür olunca gizlenir) -->
+<div class="mbar" id="mbar" hidden>
+  <div class="mbar-tutar"><span>Ödenecek (KDV dahil)</span><b id="mbTop">—</b></div>
+  <button type="button" class="btn" id="mbGit">Siparişi tamamla</button>
+</div>
 
 <!-- ================= SIPARIS SONRASI ODEME TALIMATI ================= -->
 <div id="tamam">
-  <div class="kutu" style="border-color:rgba(61,220,151,.45)">
+  <div class="kutu" style="border-color:color-mix(in srgb,var(--green) 45%,transparent)">
     <h2 style="color:var(--green)">Siparişin alındı</h2>
     <p style="margin:0 0 12px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
     hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
@@ -244,15 +367,6 @@ sınav ertelenirse süren yine uzar. Yeşil satır, aynı kapsam için
     <p class="kucuk" style="margin:10px 0 0">Sipariş özeti e-posta adresine de gönderildi.
     Bir sorun olursa <a href="iletisim.html">iletişim</a> sayfasından bize yaz.</p>
   </div>
-</div>
-
-<div class="kutu">
-  <h2>Satıcı</h2>
-  <div class="kv"><b>Ticaret unvanı</b><span>Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi</span></div>
-  <div class="kv"><b>MERSİS No</b><span>0301130343200001</span></div>
-  <div class="kv"><b>Vergi dairesi / No</b><span>Kordon Vergi Dairesi / 3011303432</span></div>
-  <div class="kv"><b>Adres</b><span>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir</span></div>
-  <div class="kv" style="border:none"><b>E-posta / Telefon</b><span>destek@tetikte.com · 0537 843 80 58</span></div>
 </div>
 
 <p class="kucuk">Fiyatlar Türk Lirasıdır; ödenecek tutar KDV dahildir. Tetikte bir hazırlık aracıdır; soru bankası, deneme ve
@@ -362,7 +476,11 @@ function secilenDersler(){
 }
 function dersCiz(){
   var kutu = document.getElementById('dersKutu'), n = dersSayisi(secili);
-  if(!n){ kutu.style.display = 'none'; document.getElementById('dersListe').innerHTML = ''; return; }
+  if(!n){ kutu.style.display = 'none'; document.getElementById('dersListe').innerHTML = ''; document.getElementById('dersListe').removeAttribute('data-pk'); return; }
+  /* 03.10: ozetCiz her elçi kodu denetiminde de çağrılır; aynı paket için listeyi yeniden çizmek
+     alıcının seçtiği dersleri siliyordu. Paket değişmediyse yalnız sayaç güncellenir. */
+  if(document.getElementById('dersListe').getAttribute('data-pk') === secili.id){ dersSayacGuncelle(); return; }
+  document.getElementById('dersListe').setAttribute('data-pk', secili.id);
   var havuz = dersHavuzu(secili), kgk = secili.id.indexOf('kgk-') === 0;
   document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : 'Hangi dersler?';
   document.getElementById('dersNot').innerHTML =
@@ -394,12 +512,14 @@ document.getElementById('dersListe').addEventListener('change', dersSayacGuncell
 function ozetCiz(){
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
-  document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Yukarıdan bir paket seç.';
+  document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Bir paket seç.';
+  document.getElementById('ozPkSatir').style.display = secili ? '' : 'none';   /* 03.10: boş durumda "— —" satırı yok */
   var ind = secili ? elciIndirim : 0;
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
   document.getElementById('ozTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
   dersCiz();
+  if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
 }
 
 /* ---- ELÇİ KODU (15.09) ----
@@ -436,7 +556,13 @@ function elciDenetle(){
     var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
     elciIndirim = v > 0 ? v : 0;
     if(elciIndirim > 0){ elciDurumYaz('✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
-    else { elciDurumYaz('Bu kod bulunamadı ya da artık geçerli değil.', 'var(--red)'); }
+    else {
+      /* 03.10 (Cem "2 yap"): geçersiz kod formda durmaz — alan ve tt_elci boşalır, yalnız uyarı kalır */
+      document.getElementById('elci').value = '';
+      try{ localStorage.removeItem('tt_elci'); }catch(e){}
+      elciDurumYaz('“' + kod + '” geçerli bir kod değil ya da süresi dolmuş.', 'var(--red)');
+      if(typeof window.kodRozetCiz === 'function') window.kodRozetCiz();
+    }
     ozetCiz();
   }, function(){ if(sira === elciSira){ elciDurumYaz('Kod şu an doğrulanamadı.', 'var(--amber)'); ozetCiz(); } });
 }
@@ -485,6 +611,175 @@ function davetKodOku(){
   if(k){ document.getElementById('davet').value = k; }
 })();
 
+/* ---- 03.10: TEK KOD KUTUSU (davet + elçi) — ayrıntı HTML yorumunda ---- */
+(function(){
+  function $(i){ return document.getElementById(i); }
+  var ac = $('kodAc'), kutu = $('kodKutu'), inp = $('kod'), dur = $('kodDurum'), roz = $('kodRozet');
+  function goster(){ kutu.hidden = false; ac.hidden = true; }
+  function durum(m, renk){ dur.textContent = m || ''; dur.style.color = renk || 'var(--dim)'; }
+  function rozetCiz(){
+    var h = '', d = $('davet').value, e = $('elci').value;
+    if(d){ h += '<p class="kucuk" style="margin:6px 0 0;color:var(--green)">✓ Davet kodu <b>' + d + '</b>: ikinize de +1 ay · <a href="#" data-sil="davet">kaldır</a></p>'; }
+    if(e){ h += '<p class="kucuk" style="margin:6px 0 0">Elçi kodu <b>' + e + '</b> · <a href="#" data-sil="elci">kaldır</a></p>'; }
+    roz.innerHTML = h;
+  }
+  window.kodRozetCiz = rozetCiz;
+  roz.addEventListener('click', function(ev){
+    var s = ev.target.getAttribute && ev.target.getAttribute('data-sil'); if(!s) return;
+    ev.preventDefault(); $(s).value = '';
+    try{ localStorage.removeItem(s === 'elci' ? 'tt_elci' : 'tt_davet'); }catch(e){}
+    if(s === 'elci'){ elciDenetle(); }
+    rozetCiz();
+  });
+  function davetSay(k){ $('davet').value = k; try{ localStorage.setItem('tt_davet', k); }catch(e){} inp.value = ''; durum(''); rozetCiz(); }
+  function elciSay(k){ $('elci').value = k; inp.value = ''; durum(''); elciDenetle(); rozetCiz(); }
+  function uygula(){
+    var s = String(inp.value || '').trim().toUpperCase().replace(/\s+/g, '');
+    if(!s){ durum('Önce kodu yaz.', 'var(--amber)'); return; }
+    var dv = DAVET_BICIM.test(s), el = elciAcik() && ELCI.bicim.test(s);
+    if(dv && el && secili && window.sb){
+      durum('Kod kontrol ediliyor…');
+      window.sb.rpc('elci_kodu_kontrol', { p_kod:s, p_paket:secili.id }).then(function(r){
+        var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
+        if(v > 0){ elciSay(s); } else { davetSay(s); }
+      }, function(){ davetSay(s); });
+      return;
+    }
+    if(dv){ davetSay(s); return; }
+    if(el){ elciSay(s); return; }
+    durum('Bu kodu tanıyamadık; harfleri kontrol et.', 'var(--red)');
+  }
+  ac.addEventListener('click', function(e){ e.preventDefault(); goster(); inp.focus(); });
+  $('kodUygula').addEventListener('click', uygula);
+  inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); uygula(); } });
+  if($('davet').value || $('elci').value){ goster(); }
+  rozetCiz();
+})();
+
+/* ---- 03.10 AKORDİYON + MOBİL ÇUBUK ----
+   1 Paket · 2 Bilgilerin: aynı anda tek adım açık; "Devam" adımı doğrular, tamamlanan adım tek satırlık özete döner.
+   ?paket= ile gelindiyse (ya da tek paket varsa) 1. adım baştan özet hâlinde, 2. adım açık gelir; geri dönüşte dolu
+   gelen alanlar varsa ilk EKSİK adım açılır. Asıl doğrulama yine "Siparişi tamamla" işleyicisindedir (hata() ile
+   ilgili adımı açar); buradaki denetim yalnız adım geçişi içindir. */
+(function(){
+  function $(i){ return document.getElementById(i); }
+  var adimlar = [null, $('akd1'), $('akd2')];
+  var mobil = window.matchMedia('(max-width:959px)');
+  function azHareket(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function adim1Hata(){
+    if(!secili) return 'Önce bir paket seç.';
+    var n = dersSayisi(secili), s = secilenDersler().length;
+    if(n && s !== n) return 'Tam olarak ' + n + ' ' + (secili.id.indexOf('kgk-') === 0 ? 'modül' : 'ders') + ' seçmelisin (' + s + ' seçtin).';
+    return '';
+  }
+  function adim2Hata(){
+    if(deger('ad').length < 3) return 'Ad soyad yaz.';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(deger('mail'))) return 'Geçerli bir e-posta gir.';
+    if(deger('tel').replace(/\D/g,'').length < 10) return 'Geçerli bir telefon gir.';
+    if(document.querySelector('input[name=ftip]:checked').value === 'kurumsal'){
+      if(!deger('unvan') || !/^\d{10,11}$/.test(deger('vkn')) || !deger('vd')) return 'Kurumsal fatura için unvan, VKN (10 hane) ve vergi dairesi gerekli.';
+    } else {
+      var tc = deger('tckn'); if(tc && !/^\d{11}$/.test(tc)) return 'T.C. kimlik no 11 hane olmalı.';
+    }
+    if(deger('adres').length < 10) return 'Fatura adresini yaz.';
+    return '';
+  }
+  function hataYaz(n, m){ var h = $('akd' + n + 'h'); h.textContent = m || ''; h.style.display = m ? 'block' : 'none'; }
+  function ac(n, kaydir){
+    for(var i = 1; i <= 2; i++){
+      var a = adimlar[i], acik = (i === n), g = a.querySelector('.akd-govde');
+      a.classList.toggle('acik', acik);
+      a.querySelector('.akd-bas').setAttribute('aria-expanded', acik ? 'true' : 'false');
+      if(acik){ g.removeAttribute('inert'); } else { g.setAttribute('inert', ''); }
+    }
+    mbEtiket();
+    if(n && kaydir){
+      setTimeout(function(){ adimlar[n].scrollIntoView({ behavior:azHareket() ? 'auto' : 'smooth', block:'start' }); }, 60);
+    }
+  }
+  function ozeteGit(){
+    var kart = $('ozetKart');
+    if(mobil.matches){ kart.scrollIntoView({ behavior:azHareket() ? 'auto' : 'smooth', block:'start' }); }
+    var bos = ['onSoz','onIfa','onKvkk'].map($).filter(function(x){ return !x.checked; })[0];
+    if(bos){ setTimeout(function(){ bos.focus({ preventScroll:true }); }, mobil.matches ? 450 : 0); }
+  }
+  window.akdOzetCiz = function(){
+    if(secili){
+      $('akd1o').textContent = secili.ad + ' — ' + tl(odenecekTutar()) + ' TL (KDV dahil)';   /* paket adı ders sayısını zaten taşır */
+    } else { $('akd1o').textContent = ''; }
+    $('akd2o').textContent = [deger('ad'), deger('mail')].filter(Boolean).join(' · ');
+    $('mbTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
+    mbEtiket();
+    adimlar[1].classList.toggle('tamam', !adim1Hata());
+    adimlar[2].classList.toggle('tamam', !adim2Hata());
+  };
+  /* 03.10: alt çubuk düğmesi 3. adıma gelinene kadar "Devam" der ve açık adımın Devam'ı gibi çalışır */
+  function acikAdim(){ return adimlar[1].classList.contains('acik') ? 1 : adimlar[2].classList.contains('acik') ? 2 : 0; }
+  function mbEtiket(){ $('mbGit').textContent = (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : 'Siparişi tamamla'; }
+  window.akdHata = function(n, m){ akdOzetCiz(); ac(n, true); hataYaz(n, m); };
+  function devam(n){
+    var m = n === 1 ? adim1Hata() : adim2Hata();
+    hataYaz(n, m);
+    if(m) return;
+    akdOzetCiz();
+    if(n === 1 && adim2Hata()){
+      ac(2, true);
+      var ilk = ['ad','mail','tel','adres'].map($).filter(function(x){ return !x.value.trim(); })[0];
+      if(ilk){ setTimeout(function(){ ilk.focus({ preventScroll:true }); }, 380); }
+      return;
+    }
+    ac(0); ozeteGit();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-devam]'), function(b){
+    b.addEventListener('click', function(){ devam(+b.getAttribute('data-devam')); });
+  });
+  [1, 2].forEach(function(n){
+    adimlar[n].querySelector('.akd-bas').addEventListener('click', function(){
+      ac(adimlar[n].classList.contains('acik') ? 0 : n, false);
+    });
+  });
+  /* yazdıkça özet ve "tamam" işareti güncellenir, adımdaki eski hata silinir */
+  $('akd2g').addEventListener('input', function(){ hataYaz(2, ''); akdOzetCiz(); });
+  $('akd2g').addEventListener('change', function(){ akdOzetCiz(); });
+  $('dersListe').addEventListener('change', function(){ hataYaz(1, ''); akdOzetCiz(); });
+  $('paketler').addEventListener('change', function(){ hataYaz(1, ''); });
+
+  /* mobil çubuk: özet kartı ekranda değilken görünür */
+  var bar = $('mbar'), kartGorunur = false;
+  function barGuncelle(){
+    var goster = mobil.matches && !kartGorunur && $('tamam').style.display !== 'block';
+    bar.hidden = !goster; document.body.classList.toggle('mbar-var', goster);
+  }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){ kartGorunur = e[0].isIntersecting; barGuncelle(); }, { threshold:0.15 }).observe($('ozetKart'));
+  }
+  if(mobil.addEventListener){ mobil.addEventListener('change', barGuncelle); } else if(mobil.addListener){ mobil.addListener(barGuncelle); }
+  $('mbGit').addEventListener('click', function(){
+    var acik = acikAdim(); if(acik){ devam(acik); return; }
+    var m1 = adim1Hata(); if(m1){ akdHata(1, m1); return; }
+    var m2 = adim2Hata(); if(m2){ akdHata(2, m2); return; }
+    var hepsi = ['onSoz','onIfa','onKvkk'].every(function(i){ return $(i).checked; });
+    ozeteGit();
+    if(hepsi){ $('gonder').click(); }
+  });
+
+  function baslat(){
+    /* tarayıcının geri dönüşte geri yüklediği seçim change olayı üretmez; tek paket varsa o seçilir */
+    if(!secili){
+      var r = document.querySelector('input[name=paket]:checked');
+      if(!r && PAKETLER.length === 1){ r = document.querySelector('input[name=paket]'); if(r){ r.checked = true; } }
+      if(r){ r.dispatchEvent(new Event('change', { bubbles:true })); }
+    }
+    var k = document.querySelector('input[name=ftip]:checked');
+    if(k && k.value === 'kurumsal'){ k.dispatchEvent(new Event('change')); }
+    akdOzetCiz();
+    if(adim1Hata()){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
+    barGuncelle();
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ document.body.classList.add('hazir'); }); });
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', baslat); } else { baslat(); }
+})();
+
 /* ---- fatura tipi ---- */
 Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), function(r){
   r.addEventListener('change', function(){
@@ -505,24 +800,26 @@ function siparisNo(){
 var btn = document.getElementById('gonder'), s = document.getElementById('sonuc');
 function goster(m, ok){ s.style.display='block'; s.innerHTML=m; s.style.color = ok ? 'var(--green)' : 'var(--red)'; }
 function deger(id){ return (document.getElementById(id).value || '').trim(); }
+/* 03.10: doğrulama hatası kapanmış adımdaysa o adım yeniden açılır, mesaj adımın içinde de yazılır */
+function hata(m, adim){ if(adim && typeof window.akdHata === 'function') window.akdHata(adim, m); goster(m, false); }
 
 btn.addEventListener('click', function(){
   if(!KURULUM_TAMAM){ goster('Sipariş alımı şu an kapalı.', false); return; }
-  if(!secili){ goster('Önce bir paket seç.', false); return; }
+  if(!secili){ hata('Önce bir paket seç.', 1); return; }
   var ad = deger('ad'), mail = deger('mail'), tel = deger('tel'), adres = deger('adres');
   var ftip = document.querySelector('input[name=ftip]:checked').value;
-  if(ad.length < 3){ goster('Ad soyad yaz.', false); return; }
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ goster('Geçerli bir e-posta gir.', false); return; }
-  if(tel.replace(/\D/g,'').length < 10){ goster('Geçerli bir telefon gir.', false); return; }
-  if(adres.length < 10){ goster('Fatura adresini yaz.', false); return; }
+  if(ad.length < 3){ hata('Ad soyad yaz.', 2); return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ hata('Geçerli bir e-posta gir.', 2); return; }
+  if(tel.replace(/\D/g,'').length < 10){ hata('Geçerli bir telefon gir.', 2); return; }
+  if(adres.length < 10){ hata('Fatura adresini yaz.', 2); return; }
   var fatura = { tip:ftip };
   if(ftip === 'kurumsal'){
     fatura.unvan = deger('unvan'); fatura.vkn = deger('vkn'); fatura.vd = deger('vd');
     if(!fatura.unvan || !/^\d{10,11}$/.test(fatura.vkn) || !fatura.vd){
-      goster('Kurumsal fatura için unvan, VKN (10 hane) ve vergi dairesi gerekli.', false); return; }
+      hata('Kurumsal fatura için unvan, VKN (10 hane) ve vergi dairesi gerekli.', 2); return; }
   } else {
     fatura.tckn = deger('tckn');
-    if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ goster('T.C. kimlik no 11 hane olmalı.', false); return; }
+    if(fatura.tckn && !/^\d{11}$/.test(fatura.tckn)){ hata('T.C. kimlik no 11 hane olmalı.', 2); return; }
   }
   if(!document.getElementById('onSoz').checked){ goster('Mesafeli satış sözleşmesini onaylaman gerekiyor.', false); return; }
   if(!document.getElementById('onIfa').checked){ goster('Hizmetin hemen başlatılması onayını işaretle.', false); return; }
@@ -532,8 +829,7 @@ btn.addEventListener('click', function(){
      bilmeden para almak, tutamayacagimiz bir soz vermek olur. */
   var gerekenDers = dersSayisi(secili), secilenD = secilenDersler();
   if(gerekenDers && secilenD.length !== gerekenDers){
-    goster('Tam olarak ' + gerekenDers + ' ders/modül seçmelisin (' + secilenD.length + ' seçtin).', false);
-    document.getElementById('dersKutu').scrollIntoView({behavior:'smooth', block:'center'});
+    hata('Tam olarak ' + gerekenDers + ' ders/modül seçmelisin (' + secilenD.length + ' seçtin).', 1);
     return;
   }
 
@@ -562,6 +858,7 @@ btn.addEventListener('click', function(){
     document.getElementById('tmBanka').textContent = BANKA.ad;
     document.getElementById('tmIban').textContent  = BANKA.iban;
     document.getElementById('tamam').style.display = 'block';
+    document.getElementById('duzen').style.display = 'none'; document.getElementById('mbar').hidden = true; document.body.classList.remove('mbar-var');
     document.getElementById('tamam').scrollIntoView({behavior:'smooth', block:'start'});
     s.style.display = 'none'; btn.disabled = false;
   }

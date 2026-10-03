@@ -680,7 +680,7 @@ function ttSorguHakki(anahtar){
 (function () {
   /* 30.09 Cem "site sadece SMMM başlama + bitirme": gümrük, radar, marka, alacak, rehber ve işletme paneli de gizli. */
   /* 02.10: tuzak (Günün Tuzağı) eklendi — robot 0 soru tarıyor, sayfa boş. Geri almak: "tuzak|" sil. */
-  var GIZLI = /(^|\/)(tuzak|ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat)\.html(?:[?#]|$)/;
+  var GIZLI = /(^|\/)(tuzak|ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat|canli-deneme)\.html(?:[?#]|$)/;
   function suz() {
     var kendi = location.pathname;
     [].forEach.call(document.querySelectorAll('a[href]'), function (a) {
