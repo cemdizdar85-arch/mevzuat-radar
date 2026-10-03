@@ -170,8 +170,8 @@
      zorla yakınlaştırır (ödeme formunda kopuş). Telefonda 16 px; yatay taşma 0, paket satırı 154 px tıklanır. */
   @media (max-width:700px){ input[type=text],input[type=email],input[type=tel],textarea,select{ font-size:16px; } }
   @media (max-width:959px){ body.mbar-var .s{ padding-bottom:120px; }
-    /* menu.js'in yüzen "Araçlar" düğmesi çubuğun üstüne binmesin */
-    body.mbar-var #mrxFab{ bottom:calc(84px + env(safe-area-inset-bottom)) !important; } }
+    /* 03.10: ödeme ekranında menu.js'in yüzen "Araçlar" düğmesi mobilde gizli (alanların ve çubuğun üstüne biniyordu) */
+    #mrxFab{ display:none !important; } }
   @media (max-width:560px){ .kutu{ padding:16px; } .akd-bas{ padding:16px; } .akd-ic{ padding:0 16px; } .s{ padding-left:16px; padding-right:16px; } }
 </style>
 </head>
@@ -315,7 +315,7 @@
 <div class="kutu ozet" id="ozetKart">
   <div class="ozet-bas"><span class="akd-no">3</span> Özet ve onay</div>
   <table>
-    <tr><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
+    <tr id="ozPkSatir"><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
     <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
     <tr id="ozIndSatir" style="display:none"><td>Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
@@ -512,7 +512,8 @@ document.getElementById('dersListe').addEventListener('change', dersSayacGuncell
 function ozetCiz(){
   document.getElementById('ozAd').textContent  = secili ? secili.ad : '—';
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
-  document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Yukarıdan bir paket seç.';
+  document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Bir paket seç.';
+  document.getElementById('ozPkSatir').style.display = secili ? '' : 'none';   /* 03.10: boş durumda "— —" satırı yok */
   var ind = secili ? elciIndirim : 0;
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
@@ -691,6 +692,7 @@ function davetKodOku(){
       a.querySelector('.akd-bas').setAttribute('aria-expanded', acik ? 'true' : 'false');
       if(acik){ g.removeAttribute('inert'); } else { g.setAttribute('inert', ''); }
     }
+    mbEtiket();
     if(n && kaydir){
       setTimeout(function(){ adimlar[n].scrollIntoView({ behavior:azHareket() ? 'auto' : 'smooth', block:'start' }); }, 60);
     }
@@ -707,9 +709,13 @@ function davetKodOku(){
     } else { $('akd1o').textContent = ''; }
     $('akd2o').textContent = [deger('ad'), deger('mail')].filter(Boolean).join(' · ');
     $('mbTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
+    mbEtiket();
     adimlar[1].classList.toggle('tamam', !adim1Hata());
     adimlar[2].classList.toggle('tamam', !adim2Hata());
   };
+  /* 03.10: alt çubuk düğmesi 3. adıma gelinene kadar "Devam" der ve açık adımın Devam'ı gibi çalışır */
+  function acikAdim(){ return adimlar[1].classList.contains('acik') ? 1 : adimlar[2].classList.contains('acik') ? 2 : 0; }
+  function mbEtiket(){ $('mbGit').textContent = (acikAdim() || adim1Hata() || adim2Hata()) ? 'Devam' : 'Siparişi tamamla'; }
   window.akdHata = function(n, m){ akdOzetCiz(); ac(n, true); hataYaz(n, m); };
   function devam(n){
     var m = n === 1 ? adim1Hata() : adim2Hata();
@@ -749,6 +755,7 @@ function davetKodOku(){
   }
   if(mobil.addEventListener){ mobil.addEventListener('change', barGuncelle); } else if(mobil.addListener){ mobil.addListener(barGuncelle); }
   $('mbGit').addEventListener('click', function(){
+    var acik = acikAdim(); if(acik){ devam(acik); return; }
     var m1 = adim1Hata(); if(m1){ akdHata(1, m1); return; }
     var m2 = adim2Hata(); if(m2){ akdHata(2, m2); return; }
     var hepsi = ['onSoz','onIfa','onKvkk'].every(function(i){ return $(i).checked; });
