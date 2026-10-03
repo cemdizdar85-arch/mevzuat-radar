@@ -1111,6 +1111,10 @@ window.veriAl = (function(){
       /* tema kart açıkken değişirse iframe aynı soruda yeni temayla yeniden yüklenir */
       document.addEventListener('tt-tema',function(){ var f=cerceveEl.querySelector('iframe'); if(acik&&f) f.src=temaliYol()+sira; });
       ileriEl.addEventListener('click',function(){ if(acik) kapat(); else ac(); });
+      /* 03.10 (Cem "1.2.3"): günün sorusu (vitrin-kunye/kart-ozet) inmeden tıklanırsa kartta yazan soru ile açılan soru
+         farklı olabiliyordu (canlıda ~5 sn ölçüldü). Veri gelene kadar düğme kısa süre bekler; 8 sn'de gelmezse yine açılır. */
+      var hazirBekle=function(ac){ ileriEl.disabled=!ac; ileriEl.textContent=ac?'Nöbetçi çözsün →':'Soru hazırlanıyor…'; };
+      hazirBekle(false); var hazirZaman=setTimeout(function(){ hazirBekle(true); },8000);
       function sinavKart(sn){
         aktifSinav=sn||'sgs';
         if(window.ttFiyatGoster) window.ttFiyatGoster(aktifSinav);   /* 24.09: fiyat satırı seçili sınavı izler */
@@ -1176,6 +1180,7 @@ window.veriAl = (function(){
         var seciliBtn=document.querySelector('.bz-sekme button[aria-selected="true"]');
         var ilkSinav=seciliBtn?seciliBtn.getAttribute('data-sinav'):aktifSinav;
         if(ilkSinav&&ilkSinav!=='sgs') sinavKart(ilkSinav); else { aktifSinav='sgs'; afisCiz(); }
+        clearTimeout(hazirZaman); hazirBekle(true);   /* 03.10: kart metni ile açılacak soru artık aynı */
         var bag=document.getElementById('bzBaska');
         if(bag) bag.addEventListener('click',function(e){ e.preventDefault(); if(aktifSinav!=='sgs') return; tekrar=null; sira=(sira+1)%d.kartlar.length; sgsSira=sira; sgsTekrar=null; afisCiz(); });
       });
