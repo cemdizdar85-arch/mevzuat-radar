@@ -29,6 +29,11 @@
    node arac/mobil-tasma-kapisi.js --tazele
 
    BU KAPI ŞUNU GÖRMEZ:
+     - (03.10 canlıda ölçüldü) Sabit konumlu bir öğenin SAYFAYI ÖRTMESİ: mobil alt menü index.html'in genel
+       "nav{position:fixed;top:0}" kuralıyla tam ekran oldu, bu kapı TEMİZ dedi (fixed öğe bilerek sayılmaz).
+       Bu sınıfı motor/canli-tarama.js (ORTME kuralı) görür.
+     - Yerel önizlemede olmayıp canlıda sonradan eklenen öğeler (komut.js "Ara" + tema düğmesi): 03.10'da
+       yanlislarim.html canlıda 390 px'te 443 px'e taştı, yerel ölçüm temizdi. Canlı tarama görür.
      - Gerçek telefon yazı tipi (Android Roboto, iPhone SF) ölçülmez: bulut Linux yazı tipiyle,
        Cem'in makinesi Windows yazı tipiyle ölçer (02.10: Linux daha geniş, taşma orada önce çıkar).
      - 375 ve 320px dışındaki genişlikler (768px tablet, yatay telefon) ölçülmez.
