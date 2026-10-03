@@ -2,7 +2,7 @@
 <style>
 /* 09.09 AÇIK TEMA — Cem 30.08 "site rengini beyaz yaptık, burası siyah kalmış", 09.09 "bas: açık tema".
    Varsayılan = sitenin açık paleti (stil-acik.css değerleri; stil.css BAĞLANMAZ: .kart/.sik/.btn/.kutu seçicileri çakışır).
-   Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. Koyu tema yalnız düğmeyle (data-theme="dark", tarayıcıda kc_tema) ya da ?tema=koyu ile; işletim sistemi izlenmez, site de izlemiyor. */
+   Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. 24.09 Cem: VARSAYILAN KOYU ("sitenin rengi bu olsun"); beyaz yalnız düğmeyle (kc_tema=light) ya da ?tema=acik ile; işletim sistemi izlenmez, site de izlemiyor. */
 :root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#16191d;--metin:#16191d;--dim:#4b5563;--mavi:#1d4ed8;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#a04a08;--ustYazi:#ffffff}
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
@@ -46,6 +46,11 @@
 .govde{flex:1;overflow-y:auto;padding-bottom:90px}
 .rozet{display:inline-block;font-size:.72em;color:var(--altin);border:1px solid color-mix(in srgb,var(--altin) 50%,transparent);border-radius:20px;padding:2px 9px;margin-bottom:8px}
 .soru{font-weight:600;font-size:1.02em;line-height:1.45;margin:0 0 12px}
+.bilmiyorum{display:block;margin:10px 0 0;background:none;border:1px dashed var(--cizgi);color:var(--dim);border-radius:12px;padding:10px 13px;width:100%;font:inherit;font-size:.9em;cursor:pointer}
+.kutuNot{margin-top:6px;font-size:.88em;color:var(--dim)}
+.tekrarUyari{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:10px 12px;font-size:.92em;display:flex;align-items:center;gap:8px;max-width:calc(100% - 24px);box-shadow:0 8px 24px color-mix(in srgb,var(--yazi) 18%,transparent)}
+.tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
+.tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
 .sik{display:block;width:100%;text-align:left;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:12px 13px;margin:7px 0;font-size:.95em;cursor:pointer;transition:transform .08s}.sik:active{transform:scale(.985)}
 .sik b{color:var(--dim);margin-right:6px}.sik.dogru{border-color:var(--yesil);background:color-mix(in srgb,var(--yesil) 12%,transparent)}.sik.yanlis{border-color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 12%,transparent)}.sik:disabled{cursor:default}
 .ipucu{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:var(--dim);font-size:.8em;pointer-events:none;animation:zipla 1.6s ease-in-out infinite}
@@ -320,14 +325,18 @@ function kutuEkraniAc(){
    +sk.ders.map(d=>'<div class="dersSat"><span>'+esc(d.ad)+'</span><div class="bar"><i style="width:'+d.yuzde+'%"></i></div><b>%'+d.yuzde+'</b></div>').join('')
    +'<div class="et" style="margin-top:14px">📥 Yanlış kutusu ('+KUTU.kutu.length+')</div>'
    +(KUTU.kutu.length?KUTU.kutu.map(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); return '<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t&&i>=0?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>'; }).join(''):'<p class="ipnot">Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.</p>')
-   +'<div class="btnrow" style="margin-top:14px"><button class="btn" id="kutuIleri">⏩ Demo: 2 gün ileri sar</button><button class="btn gri" id="kutuSifirla">Verileri sıfırla</button></div>'
+   +(/[?&]demo=1\b/.test(location.search)?'<div class="btnrow" style="margin-top:14px"><button class="btn" id="kutuIleri">⏩ Demo: 2 gün ileri sar</button><button class="btn gri" id="kutuSifirla">Verileri sıfırla</button></div>':'')   /* 03.10 V2 madde 11: herkese açıktı - yalnız ?demo=1 */
    +'<p class="ipnot">Nasıl çalışır: yanlış → kutuya girer, 2 gün sonra geri gelir; o gün doğru bilirsen 7 gün sonra bir kez daha gelir; onu da bilirsen kutudan çıkar ve ustalık tam sayılır.</p></div>';
   e.classList.add('acik');
   e.querySelector('#kutuKapat').addEventListener('click',()=>e.classList.remove('acik'));
-  e.querySelector('#kutuIleri').addEventListener('click',()=>{ KUTU.ileri+=2*GUN; kutuKaydet(); kutuEkraniAc(); skorCiz(); });
-  e.querySelector('#kutuSifirla').addEventListener('click',()=>{ if(confirm('Skor, kutu ve seri sıfırlansın mı?')){ KUTU.kayit=[]; KUTU.kutu=[]; KUTU.ileri=0; kutuKaydet(); location.reload(); } });
+  if(e.querySelector('#kutuIleri')) e.querySelector('#kutuIleri').addEventListener('click',()=>{ KUTU.ileri+=2*GUN; kutuKaydet(); kutuEkraniAc(); skorCiz(); });
+  if(e.querySelector('#kutuSifirla')) e.querySelector('#kutuSifirla').addEventListener('click',()=>{ if(confirm('Skor, kutu ve seri sıfırlansın mı?')){ KUTU.kayit=[]; KUTU.kutu=[]; KUTU.ileri=0; kutuKaydet(); location.reload(); } });
   e.querySelectorAll('.kutuCoz').forEach(b=>b.addEventListener('click',()=>{ e.classList.remove('acik'); kartSifirla(parseInt(b.dataset.i)); }));
 }
+// 03.10 (Cem, V2 madde 11): sayfa acilinca bu derste vadesi gelen kutu sorusu varsa tek satir uyari; tiklayinca kutu acilir
+setTimeout(()=>{ try{ if(VITRIN) return; const ids=new Set(SORULAR.map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
+  const u=document.createElement('div'); u.className='tekrarUyari'; u.innerHTML='🔁 <b>Bugün tekrar zamanı:</b> bu derste '+v+' soru <button type="button" class="tuAc">Şimdi çöz</button><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
+  document.body.appendChild(u); u.querySelector('.tuAc').addEventListener('click',()=>{ u.remove(); kutuEkraniAc(); }); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },1200);
 const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const nrm=t=>String(t||'').toLowerCase().replace(/tl/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
 const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
@@ -341,7 +350,7 @@ SORULAR.forEach((s,i)=>{
   const sv=seviyeHesapla(s);
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
    +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
-   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div></div>'
+   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div><button class="bilmiyorum" type="button">Bilmiyorum</button></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="Ara sonuçlarını satır satır yaz; tabloyla eşleşenler cevaptan sonra işaretlenir.&#10;Hesabı sen yaparsın, kâğıt yapmaz."></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'
    +'<button class="kagitAc" title="Hesap kâğıdı">✏️ Kâğıt</button>'
@@ -367,8 +376,11 @@ SORULAR.forEach((s,i)=>{
   k.querySelectorAll('.sikCiz').forEach(x=>x.addEventListener('click',e=>{ e.stopPropagation(); if(durum.cevap[i]!==undefined) return; x.closest('.sik').classList.toggle('cizili'); }));
   // 06.09 rakip dersi: soru süresi — kart görünür olunca başlar, cevapta durur; cevap satırında gösterilir, kasaya gider
   if(!durum.t0) durum.t0={}; if(!durum.sn) durum.sn={};
-  k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>{
-    if(durum.cevap[i]!==undefined) return; const h=b.dataset.h; durum.cevap[i]=h;
+  // 03.10 (Cem, V2 madde 8): cevap isleyicisi tek fonksiyon - sik tiklamasi cevapla(b,harf), "Bilmiyorum" cevapla(null,'').
+  // Bos dize = bos birakildi: yanlis sayilir, kutuya duser, dogrusu ve aciklama gosterilir.
+  const cevapla=(b,h)=>{
+    if(durum.cevap[i]!==undefined) return; durum.cevap[i]=h;
+    { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.style.display='none'; }
     if(durum.t0[i]){ durum.sn[i]=Math.round((Date.now()-durum.t0[i])/1000); }
     const elenen=[...k.querySelectorAll('.sik.cizili')].map(x=>x.dataset.h);
     k.querySelectorAll('.sik').forEach(x=>{ x.disabled=true; if(x.dataset.h===s.dogru) x.classList.add('dogru'); });
@@ -385,7 +397,8 @@ SORULAR.forEach((s,i)=>{
     const thAll=s.teshis||null; const thS=thAll?thAll[h]:null; const thD=thAll?thAll[s.dogru]:null;
     const kk=k.querySelector('.konuK'); if(kk&&s.konuGiris&&s.konuGiris.panel_ornek){ kk.innerHTML='<b>📌 Konu:</b> '+esc(s.konuGiris.nedir||'')+' <span class="ornekK">'+esc(s.konuGiris.panel_ornek)+'</span>'; kk.style.display='block'; }
     if(dogruMu){ durum.dogru++; geri.className='geri ok'; geri.innerHTML='✅ <b>Doğru.</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:ilkCumle(s.kural)))+sureH; }
-    else { b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML=(thS&&thS.yanilgi)?('❌ <b>Senin seçimin '+h+'.</b> Ne sanıyorsun: '+esc(thS.yanilgi)+sureH):('❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH); }
+    else if(!h){ geri.className='geri'; geri.innerHTML='🤷 <b>Bilmiyorum dedin.</b> Tahmin etmekten iyidir; doğrusu ve nedeni aşağıda.'+sureH; }
+    else { if(b) b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML=(thS&&thS.yanilgi)?('❌ <b>Senin seçimin '+h+'.</b> Ne sanıyorsun: '+esc(thS.yanilgi)+sureH):('❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH); }
     // dogruda tekrar satiri yok (sik zaten yesil); yanlista tek satir "Dogrusu"
     const nedenKisa=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; const oz=k.querySelector('.ozet'); if(dogruMu){ oz.style.display='none'; }
     else if(thS&&thS.gercek){ oz.innerHTML='<b>Aslında:</b> '+esc(thS.gercek)+(thS.paragraf?' <i>('+esc(thS.paragraf)+')</i>':'')+(thS.ayirt?'<br><b>Nereden anlarsın:</b> '+esc(thS.ayirt):'')+'<br>✅ <b>Doğrusu '+s.dogru+':</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():String(s.siklar[s.dogru])))); }
@@ -411,7 +424,14 @@ SORULAR.forEach((s,i)=>{
     if(og||kvH||sikH){ const nedenT=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; k.querySelector('.ogret').innerHTML=sikH+kvH+(og?'<div class="et">📘 Hesapları tanı</div>'+og+(nedenT&&!dogruMu?'<p class="neden"><b>Neden bu hesap?</b> '+esc(sdSik?sdSik:nedenT.trim().replace(/THP'de özel olarak /,''))+'</p>':''):''); const cO=k.querySelector('.cOgret'); if(cO&&!og){ cO.textContent=sikH?'📋 Şıklar':'📘 Kavramlar'; } }
     else { const cO=k.querySelector('.cOgret'); if(cO) cO.style.display='none'; }
     document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
+    const kutudaydi=KUTU.kutu.some(x=>x.id===s.id);
     cevapKaydet(s,dogruMu);   // yanlis kutusu + hazirlik skoru
+    // 03.10 (Cem, V2 madde 11): tekrar sistemi gorunur - cevaptan hemen sonra kutunun ne yaptigi tek satirla yazar
+    if(!VITRIN){ const kk=KUTU.kutu.find(x=>x.id===s.id); let kn='';
+      if(!dogruMu) kn='📥 Bu soru yanlış kutuna düştü; <b>2 gün sonra</b> yeniden karşına çıkacak.';
+      else if(kutudaydi&&kk&&kk.tur>=2) kn='🔁 Tekrarı bildin; <b>7 gün sonra</b> bir kez daha gelecek.';
+      else if(kutudaydi&&!kk) kn='🎓 İki tekrarı da bildin; soru kutudan çıktı.';
+      if(kn){ const d=document.createElement('div'); d.className='kutuNot'; d.innerHTML=kn; geri.appendChild(d); } }
     // 13.09 Cem "1.2.3 yap": ana sayfa cercevesi cevabi duysun (yanlista "kutuna dustu" kancasi). Yalniz vitrin + ayni koken.
     if(VITRIN&&window.parent!==window){ try{ window.parent.postMessage({tetikte:'vitrin-cevap',id:s.id,dogru:!!dogruMu},location.origin); }catch(e){} }
     // TEK ANA DUGME (Cem 03.09 "gencleri sikar mi?"): yanlista Nobetci, dogruda Sen yap birincil; gerisi "Daha fazla"da
@@ -430,7 +450,9 @@ SORULAR.forEach((s,i)=>{
     // 06.09: kâğıt eşlemesi cevaptan hemen sonra kâğıdın altına + kasaya kayıt (Cem "1 ve 3 yap")
     try{ cevapKasayaYaz(h,dogruMu,durum.sn[i],elenen); akranYuzdesi(); }catch(e){}   // 06.09 R1: cevap kaydı + akran yüzdesi
     try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
-  }));
+  };
+  k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>cevapla(b,b.dataset.h)));
+  { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
   const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); setTimeout(()=>panelKaydir(hedef),30); } };
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
@@ -488,7 +510,7 @@ SORULAR.forEach((s,i)=>{
       .then(r=>r.ok?r.json():null).then(rows=>{ if(!rows||!rows.length) return; const top=rows.reduce((a,r)=>a+Number(r.n||0),0); if(top<5) return;   // 5 cevaptan az: yüzde yanıltır, gösterme
         const say={}; rows.forEach(r=>{ say[String(r.secim)]=Number(r.n||0); });
         k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
-        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
+        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')&&durum.cevap[i]){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
       .catch(()=>{}); }catch(e){}
   }
   function kagitKasayaYaz(secH,dogruMu){ if(VITRIN) return;
@@ -555,7 +577,13 @@ SORULAR.forEach((s,i)=>{
     h+='</tbody></table></div><div class="btnrow"><button class="btn mavi bKontrol">✔ Kontrol et</button><button class="btn bGoster">Doğruları göster</button><button class="btn bKagitAcO" title="Hesap kâğıdını bu ekranın üstüne aç">✏️ Kâğıdı aç</button></div>';
     satirlar.innerHTML=h;
     const bKgO=satirlar.querySelector('.bKagitAcO'); if(bKgO){ bKgO.addEventListener('click',()=>{ const kg=k.querySelector('.kagit'); if(kg){ kg.classList.add('ustte','acik'); if(kg.dataset.sek==='ciz'){ requestAnimationFrame(()=>{ try{ kanvasBoyut(); }catch(e){} }); } } }); }
-    const normS=t=>String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
+    // 30.09 (Cem "1.2.3"): eski hâl bütün noktaları siliyordu → öğrencinin yazdığı "0.5" 5 okunuyor, doğru cevap yanlış sayılıyordu.
+    // Kural: virgül varsa Türkçe biçim (1.250,5); "96.000" gibi 1-3 hane + üçlü gruplar binliktir; kalan tek nokta ONDALIKtır ("0.5", "2.4").
+    const normS=t=>{ const s=String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/[^\d.,\-]/g,'');   // önce harf/boşluk atılır ("en az 50.000.000 TL")
+      if(s.indexOf(',')>=0) return s.replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
+      if(/^-?[1-9]\d{0,2}(\.\d{3})+$/.test(s)) return s.replace(/\./g,'').replace(/[^\d\-]/g,'');
+      if(/^-?\d*\.\d+$/.test(s)) return s;                     // tek nokta = ondalık ("0.5", "2.4")
+      return s.replace(/\./g,'').replace(/[^\d\-]/g,''); };    // tarih "15.03.2023" gibi çok noktalı: eski davranış (noktalar atılır)
     // Cem 04.09 "tekrar tekrar kontrol edince seri yükseliyor": tablo tamamlanınca kilitlenir, seri BİR kez artar;
     // "Doğruları göster"den sonra tamamlansa da seri artmaz (kendi çözmedi). ↺ Tekrar yeni bir deneme açar.
     let bitti=false, gosterildi=false, ipucuAcildi=false;
