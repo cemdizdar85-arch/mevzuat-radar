@@ -1,4 +1,4 @@
-﻿# .github/workflows/gorsel-backfill.yml — GORSEL BACKFILL (Batch %50)
+# .github/workflows/gorsel-backfill.yml — GORSEL BACKFILL (Batch %50)
 # Kasadaki tablosuz analiz sorularina exhibit tablosu uretir (Cem 24.07:
 # "hepsinde olsun"). Push (script degisince) + gunluk gece kosusu.
 name: Gorsel Backfill
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 200
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Tablosuz sorulara exhibit uret (Batch %50)
         shell: pwsh
         env:

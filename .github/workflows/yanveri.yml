@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Duyuru sinyali (Ithalat Gn.Md. yeni duyuru var mi)
         continue-on-error: true

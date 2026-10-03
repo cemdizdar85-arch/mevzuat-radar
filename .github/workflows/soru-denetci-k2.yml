@@ -1,4 +1,4 @@
-﻿# .github/workflows/soru-denetci-k2.yml — SORU DENETCISI KATMAN-2 (bedava Gemini)
+# .github/workflows/soru-denetci-k2.yml — SORU DENETCISI KATMAN-2 (bedava Gemini)
 # Katman-1'i gecen durum='katman1-temiz' sorulari bagimsiz Gemini ile icerik dogrular.
 # Gemini onayi -> paket-havuzu (kasaya hazir); suphe -> karantina (GM okumasina).
 # Gunluk free kotaya kadar isler, kalani ertesi gun. Push ile ilk kosu baslar.
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Git kimligi (script ara-kayit commit'leri icin)
         run: |
           git config user.name "mevzuat-radar-bot"

@@ -1,4 +1,4 @@
-﻿# BATCH LISTELE — 0 USD (GET istekleri ucretsiz; YENI GONDERIM YAPMAZ).
+# BATCH LISTELE — 0 USD (GET istekleri ucretsiz; YENI GONDERIM YAPMAZ).
 # 05.08: emir #28/#29 kosusu 31 dakika calisip dustu, rapor yok. Emir #14
 # dersi: parti gonderilmis ama kasaya yazilamamis olabilir - o durumda
 # yeniden uretim AYNI PARAYI IKINCI KEZ odemek olur; dogrusu kurtarPartiler
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

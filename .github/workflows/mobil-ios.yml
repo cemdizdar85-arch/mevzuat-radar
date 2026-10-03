@@ -44,7 +44,7 @@ jobs:
       TAKIM: ${{ secrets.MOBIL_APPLE_TAKIM_ID }}
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Anahtarlar var mi (yoksa hic derleme)
         env:

@@ -17,7 +17,7 @@ jobs:
   ac:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Yayina ac (3/3 gecenler)
         shell: pwsh
         env:

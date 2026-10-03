@@ -42,7 +42,7 @@ jobs:
   nobet:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Sayfalarin okudugu anahtarlar kasadan geliyor mu
         shell: pwsh

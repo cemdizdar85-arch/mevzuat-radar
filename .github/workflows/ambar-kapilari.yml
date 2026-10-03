@@ -43,7 +43,7 @@ jobs:
     env:
       SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # 30.08 UCUNCU ONARIM (olculdu): .gitkeep duzeltmesinden sonra surum
       # karnesi YAZILDI ama 28 standardin 28'i birden "sorunlu" cikti - yerelde

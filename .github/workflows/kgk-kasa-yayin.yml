@@ -40,7 +40,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 350
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Guncel had tutarlarini tazele (KAPI-HAD)
         shell: powershell

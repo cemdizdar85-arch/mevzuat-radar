@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 225      # robot 230'da kendisi durur, bu son emniyet        # bulten basi ~8 dk; 6 bulten rahat siger
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # pdftotext (poppler) ubuntu kosucusunda HAZIR GELMEZ - kurulmali.
       # Bu satir olmadan robot "pdftotext calistirilamadi" diye duser.
@@ -161,7 +161,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Nobet uyarilari
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}

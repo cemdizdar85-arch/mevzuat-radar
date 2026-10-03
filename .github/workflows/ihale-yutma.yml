@@ -62,7 +62,7 @@ jobs:
         serit: [0, 1, 2, 3, 4, 5]
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: pdftotext kur (bulten PDF -> metin)
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
@@ -91,7 +91,7 @@ jobs:
       contents: write
     steps:
       - name: Depoyu al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Kapsama raporu (kutukten olculur)
         shell: pwsh
