@@ -167,7 +167,8 @@
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var GUN=86400000;
-  function anahtar(no){ return 'sg_'+SINAV+'_'+no; }
+  /* 04.10: set kimlik imzası (DIZIN.surum) anahtara girer - setler yeniden kurulunca eski yarım kayıt yeni setle karışmaz */
+  function anahtar(no){ return 'sg_'+SINAV+'_'+no+(DIZIN&&DIZIN.surum?'_'+DIZIN.surum:''); }
   function oku(no){ try{ return JSON.parse(localStorage.getItem(anahtar(no))||'null'); }catch(e){ return null; } }
   function yaz(){ try{ localStorage.setItem(anahtar(SET.no), JSON.stringify(DURUM)); }catch(e){} }
   function sure(sn){ sn=Math.max(0,Math.round(sn)); var s=Math.floor(sn/3600), d=Math.floor(sn%3600/60), x=sn%60; return (s?s+':':'')+(s&&d<10?'0':'')+d+':'+(x<10?'0':'')+x; }
@@ -186,9 +187,32 @@
       +DIZIN.sira_notu+' Süre: '+DIZIN.sure_kaynak+'. '+DIZIN.degerlendirme+' Bu yüzden burada puan değil doğru sayısı gösterilir.';
   }
 
+  /* 04.10 (Cem "sadece 30 soru açık olacak"): set dosyası YALNIZ KİMLİK taşır. Metin, şıklar ve doğru cevap
+     paket-kapisi.js kapıyı açınca RLS'li kasadan (paket_soru: aktif paket + ders) gelir; paketsiz kişiye hiç istek gitmez.
+     Paketinde olmayan dersin sorusu sette görünmez (toplam ona göre düşer). */
+  function kasaDoldur(d){
+    var kapi=window.__pkKapi||Promise.resolve({acik:false});
+    return kapi.then(function(k){
+      if(!k||!k.acik||!k.sb) return null;                    /* perde zaten çizildi */
+      var ids=d.sorular.map(function(q){return q.id;}), parca=[];
+      for(var i=0;i<ids.length;i+=60) parca.push(ids.slice(i,i+60));
+      return Promise.all(parca.map(function(p){
+        return k.sb.from('paket_soru').select('id,veri').in('id',p).then(function(r){ if(r.error) throw r.error; return r.data; });
+      })).then(function(gelen){
+        var v={}; [].concat.apply([],gelen).forEach(function(x){ v[x.id]=x.veri; });
+        d.sorular=d.sorular.filter(function(q){ var s=v[q.id]; if(!s||!s.soru||!s.siklar||!s.dogru) return false;
+          q.soru=s.soru; q.siklar=s.siklar; q.dogru=s.dogru; return true; });
+        d.toplam=d.sorular.length;
+        if(!d.toplam){ alert('Bu setin dersleri paketinde yok. Paketini güncelleyerek açabilirsin.'); return null; }
+        return d;
+      });
+    });
+  }
+
   function setAc(no){
     var bilgi=DIZIN.setler.filter(function(s){return s.no===no;})[0]; if(!bilgi) return;
-    fetch(bilgi.dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
+    fetch(bilgi.dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(kasaDoldur).then(function(d){
+      if(!d) return;
       SET=d; DURUM=oku(no);
       if(DURUM&&DURUM.bitti){ sonucCiz(); return; }
       window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} };
