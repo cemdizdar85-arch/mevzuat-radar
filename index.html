@@ -146,6 +146,9 @@
       radial-gradient(1.4px 1.4px at 8% 52%,rgba(255,255,255,.6),transparent);
     mask-image:radial-gradient(ellipse 95% 85% at 55% 28%,#000,transparent 82%)}
   @keyframes twinkle{0%,100%{opacity:.85}50%{opacity:.45}}
+  /* 03.10 V2 madde 21 (düşük görsel gürültü): eski "derin uzay" yıldız katmanı ve yanıp sönme bronz kahramanda da
+     çalışıyordu (ölçüldü: ::after display:block, animation twinkle). Kapatıldı; kahramanın kendi tasarımı değişmedi. */
+  .hero-sade::after{content:none;animation:none}
   .hero-inner{position:relative;max-width:1180px;margin:0 auto;width:100%;
     display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
   @media(max-width:920px){
@@ -791,7 +794,7 @@ window.veriAl = (function(){
             <div class="bz-sekme" role="tablist" aria-label="Sınav seç">
               <button type="button" role="tab" id="bzSkSgs" data-sinav="sgs" aria-selected="true">SMMM Staja Giriş</button>
               <button type="button" role="tab" id="bzSkYet" data-sinav="yeterlilik" aria-selected="false">Yeterlilik</button>
-              <button type="button" role="tab" id="bzSkKgk" data-sinav="kgk" aria-selected="false" hidden>KGK</button><!-- 30.09: KGK gizli (site yalnız SMMM başlama + bitirme) -->
+              <button type="button" role="tab" id="bzSkKgk" data-sinav="kgk" aria-selected="false">KGK<span class="hz">Hazırlanıyor</span></button><!-- 30.09: KGK gizliydi; 03.10 Cem (V2): görünür, "Hazırlanıyor" - tıklanınca ön kayıt formu (S.kgk.icerik=false) -->
             </div>
             <h1 class="bz-baslik">Yanlışını, sebebiyle birlikte öğren<b>.</b></h1>
             <!-- 02.10 Cem "2 yap": eski "her gerekçe mevzuattaki maddeye bağlı" mutlak iddiası 01.10 açıklama hakemi ölçümüyle çelişiyordu -->
@@ -1023,10 +1026,16 @@ window.veriAl = (function(){
           }
           c.setLineDash([]);
         };
-        var son=0; var dongu=function(z){ if(z-son>40){ isiCiz(z); son=z; } requestAnimationFrame(dongu); };
-        isiCiz(0); if(!durgun) requestAnimationFrame(dongu);
+        /* 03.10 V2 madde 25: yaylar ekran dışındayken de saniyede 25 kez çiziliyordu (telefonda pil). Kahraman görünmüyorsa döngü durur. */
+        var son=0, yayGorunur=true, yayCalisiyor=false;
+        var dongu=function(z){ if(!yayGorunur){ yayCalisiyor=false; return; } if(z-son>40){ isiCiz(z); son=z; } requestAnimationFrame(dongu); };
+        var yayBaslat=function(){ if(!durgun&&!yayCalisiyor){ yayCalisiyor=true; requestAnimationFrame(dongu); } };
+        isiCiz(0); yayBaslat();
+        try{ new IntersectionObserver(function(e){ yayGorunur=e[0].isIntersecting; if(yayGorunur) yayBaslat(); }).observe(document.querySelector('.bz-kah')||document.body); }catch(e){}
         window.addEventListener('resize',function(){ isiCiz(performance.now()); });
-        fetch('veri/sinav-tek-sayfa.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
+        /* 03.10 V2 madde 25: aynı 61 KB dosya sayfa açılışında İKİ kez iniyordu (bu yaylar + kanıt şeridi). İlk çekim
+           paylaşılır; kanıt şeridi ilk turda bunu kullanır, sonraki tazelemelerde kendisi çeker. */
+        (window.__ttsIlk=window.__ttsIlk||fetch('veri/sinav-tek-sayfa.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;})).then(function(d){
           if(d&&d.dersler&&d.dersler.length){ D=d.dersler.map(function(r){return +r.doluluk;}); isiCiz(performance.now()); }
         }).catch(function(){});
       }
@@ -1201,16 +1210,28 @@ window.veriAl = (function(){
          Her adım ÜRÜNDE ÖLÇÜLDÜ (13.09, kaydir/sgs 3.678 soru): şık şık gerekçe (teshis) %100 ·
          "Nöbetçi anlatsın" adımları %96 · yanlış kutusu hepsinde (tarayıcıda, 2 gün sonra geri gelir).
          BİLEREK YAZILMADI: "ikizini sen çöz" - yalnız %40'ında var. -->
-    <section class="nasil" id="nasil" aria-label="Nasıl çalışır" hidden style="display:none"><!-- 24.09: içi boş (dört adım gizli, fiyat satırı günün sorusu kartına taşındı) -->
-      <div class="nasil-bas" hidden style="display:none"><!-- 24.09 Cem: "ilk sayfada olmasın" - dört adım sınav seçildikten sonra gösterilecek -->
+    <!-- 03.10 Cem (V2 madde 4, "hepsini yap"): 24.09'daki "ilk sayfada olmasın" kararının yerine V2 talimatı geçti -
+         dört adım + Ücretsiz dene + üç kart ana sayfada. Her cümle ÜRÜNDE VAR olanı anlatır (13.09 ölçümü yukarıda;
+         yanlış kutusu 2 gün / 7 gün kuralı kaydir ders sayfalarında, sinav-gibi ve seviye testinde). -->
+    <section class="nasil" id="nasil" aria-label="Nasıl çalışır">
+      <div class="nasil-bas">
         <span class="nasil-et">Nasıl çalışır</span>
         <h2>Dört adım, her soruda.</h2>
       </div>
-      <div class="nasil-adimlar nasil-dort" hidden style="display:none">
-        <div class="na"><span class="na-no">1</span><b>Sınavdaki gibi çöz</b><p>Soru sınav kitapçığındaki biçimde gelir. Süren işler, şıkları kâğıttaki gibi çizerek elersin.</p></div>
-        <div class="na"><span class="na-no">2</span><b>Yanlışını gör</b><p>Seçtiğin şıkkın neden yanlış, doğrusunun neden doğru olduğu tek tek yazar.</p></div>
-        <div class="na"><span class="na-no">3</span><b>Nöbetçi anlatsın</b><p>Çözüm adım adım açılır; takıldığın adımda durur, geri dönersin.</p></div>
-        <div class="na"><span class="na-no">4</span><b>Unutma</b><p>Yanlış yaptığın soru kutuna düşer, 2 gün sonra karşına yeniden çıkar.</p></div>
+      <div class="nasil-adimlar nasil-dort">
+        <div class="na"><span class="na-no">1</span><b>Soruyu çöz</b><p>Soru sınav kitapçığındaki biçimde gelir; şıkkını seçersin.</p></div>
+        <div class="na"><span class="na-no">2</span><b>Nedenini öğren</b><p>Seçtiğin şıkkın neden yanlış, doğrusunun neden doğru olduğu tek tek yazar; dayandığı kaynak altında durur.</p></div>
+        <div class="na"><span class="na-no">3</span><b>Yanlışını kaydet</b><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer.</p></div>
+        <div class="na"><span class="na-no">4</span><b>Tekrar çöz</b><p>2 gün sonra karşına yeniden çıkar; o gün de bilirsen 7 gün sonra bir kez daha.</p></div>
+      </div>
+      <div class="v2-dene">
+        <div><b>Ücretsiz dene</b><p>30 soruluk seviye testi. Sonunda hangi derste ne kadar hazır olduğunu görürsün.</p></div>
+        <a class="v2-dene-btn" href="seviye-testi.html">Ücretsiz başla</a>
+      </div>
+      <div class="v2-uc">
+        <div class="v2-kart"><b>Nöbetçi</b><p>Ben senin yerine cevap vermem; çözümü adım adım açarım, takıldığın yerde durursun. Dün yanlış yaptığın soru, vakti gelince yeniden karşına çıkar.</p></div>
+        <div class="v2-kart"><b>Gerçek kaynak</b><p>Cevabın dayandığı madde ya da standart, açıklamanın altında yazar. Hata görürsen sorudan bildirirsin.</p></div>
+        <div class="v2-kart"><b>Abonelik</b><p>Sınav gününe kadar erişim; kendiliğinden yenilenmez. <a href="fiyat.html">Fiyatlar →</a></p></div>
       </div>
       <!-- 16.09 Cem: "yukarıda bilgi vermişiz, bir daha bilgi vermeye gerek var mı?" - HAYIR.
            Kanıt şeridi iki rakamı yan yana koyuyordu: sınav bandı "3.678 çözümlü soru bugün açık",
@@ -1240,10 +1261,11 @@ window.veriAl = (function(){
           else if(sn==='yeterlilik'&&FIYAT.yeterlilik&&FIYAT.yeterlilikTum){ var t=FIYAT.yeterlilikTum, n=(DS.yeterlilik||[]).length; var yd=function(n){ var x=fiyatDahilNot('yeterlilik-tum',n); return x?' ('+x+')':''; };   /* 01.10 Cem: bitirme de +KDV ana, dahil yanında */
             ic='<b>Yeterlilik: '+(n?n+' dersin ':'')+'tamamı '+fiyatAna('yeterlilik-tum',t.kurulus)+'</b>'+(yd(t.kurulus)?'<br><b>'+fiyatDahilNot('yeterlilik-tum',t.kurulus)+'</b> · sınava kadar':' · KDV dahil, sınava kadar')+kota('yeterlilik',t)+(t.liste>t.kurulus?', sonra '+fiyatAna('yeterlilik-tum',t.liste)+yd(t.liste):'')
               +' · tek ders '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den";   /* 01.10 Cem "önce tüm sınav": paket önde, tek ders sonda */ }
-          else if(sn==='kgk'&&FIYAT.kgk&&FIYAT.kgkTum){ var k=FIYAT.kgkTum, m=(DS.kgk||[]).length; ic='<b>KGK: modül başı '+tl(FIYAT.kgk[1].kurulus)+" TL'den, "+(m?m+' modülün ':'')+'tamamı '+tl(k.kurulus)+' TL</b> · KDV dahil, sınava kadar'+kota('kgk',k); }
+          /* 03.10: KGK satışta değil (Hazırlanıyor) - fiyat yazılmaz; eski satır "KDV dahil" diyordu, + KDV kararıyla da çelişiyordu */
+          else if(sn==='kgk'){ ic='<b>KGK — Bağımsız Denetçilik</b>'; }
           if(!ic) return '';
           if(!HZ[sn]) ic+=' · soru bankası hazırlanıyor, şimdilik ön kayıt';
-          ic+=' · <a href="fiyat.html?sinav='+sn+'">Paket ayrıntısı →</a>';   /* 24.09: fiyat sayfası seçili sınavı gösterir */
+          if(HZ[sn]) ic+=' · <a href="fiyat.html?sinav='+sn+'">Paket ayrıntısı →</a>';   /* 24.09: fiyat sayfası seçili sınavı gösterir */
           /* 24.09 Cem "ücretsiz üye olu kaldırmak lazım, burda ücretli üyelik SATMAYACAK mıyız": kartın tek çağrısı SATIŞ.
              Ücretsiz giriş sayfada zaten iki yerde (üst şerit "Ücretsiz test", kahraman "Geçme ihtimalini ölç").
              Satıştaki sınav -> Satın al (SGS doğrudan ödeme; ders/modül seçimli sınavlar fiyat sayfasında seçer) ·
@@ -1285,6 +1307,19 @@ window.veriAl = (function(){
     </style>
     <style>
       .nasil-adimlar.nasil-dort{grid-template-columns:repeat(4,1fr);gap:0 32px}
+      /* 03.10 V2 madde 4: Ücretsiz dene bandı + üç kart (tek vurgu rengi, kart içinde kart yok) */
+      .v2-dene{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;
+               margin:28px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:14px;background:var(--kagit)}
+      .v2-dene b{font-size:17px;color:var(--ink)} .v2-dene p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
+      .v2-dene-btn{display:inline-block;background:var(--amber-dolgu);color:var(--amber-uzeri);font-weight:800;
+                   padding:12px 22px;border-radius:10px;text-decoration:none;white-space:nowrap}
+      .v2-uc{display:grid;grid-template-columns:repeat(3,1fr);gap:0 32px;margin-top:28px}
+      .v2-kart{padding:18px 0 0;border-top:1px solid var(--line)}
+      .v2-kart b{font-size:16px;color:var(--ink)} .v2-kart p{margin:6px 0 0;color:var(--muted);font-size:14.5px;line-height:1.6}
+      .v2-kart a{color:var(--link);font-weight:700;text-decoration:none}
+      @media(max-width:900px){ .v2-uc{grid-template-columns:1fr;gap:18px} }
+      .bz-sekme .hz{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+                    padding:1px 6px;border-radius:6px;background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--muted);vertical-align:middle}
       @media(max-width:1040px){ .nasil-adimlar.nasil-dort{grid-template-columns:1fr 1fr} }
       @media(max-width:900px){ .nasil-adimlar.nasil-dort{grid-template-columns:1fr} }
       /* iş bölümü girişi: açık zeminde, sitenin kendi jetonlarıyla */
@@ -1468,8 +1503,9 @@ window.veriAl = (function(){
          aynı arızasını üretir; Tazelik'e bağlandı. */
       var tr = function(n){ return Number(n).toLocaleString('tr-TR'); };
       Tazelik.kur({ ad: 'kanıt şeridi', cek: function(){
-        fetch(Tazelik.url('veri/sinav-tek-sayfa.json'), {cache:'no-store'})
-        .then(function(y){ return y.ok ? y.json() : null; })
+        var ilk = window.__ttsIlk; window.__ttsIlk = null;
+        (ilk || fetch(Tazelik.url('veri/sinav-tek-sayfa.json'), {cache:'no-store'})
+        .then(function(y){ return y.ok ? y.json() : null; }))
         .then(function(d){
           if(!d) return;
           /* 16.09: kanıt satırı kaldırıldı (knKasa/knDers/knTarih artık sayfada YOK) ->

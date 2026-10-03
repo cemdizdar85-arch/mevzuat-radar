@@ -437,8 +437,9 @@ function kurucuKalan(cb){
         d.forEach(function(x){
           if(x && KOTA[x.sinav] && typeof x.satilan === 'number'){ o[x.sinav] = Math.max(0, KOTA[x.sinav] - x.satilan); n++; }
         });
-        ['sgs','yeterlilik'].forEach(function(k){ if(!(k in o)) o[k] = KOTA[k]; });
-        return o;
+        /* 03.10 (V2 madde 19): eskiden cevapta olmayan sınava tam kota yazılıyordu ("Kalan kurucu yeri: 1.000",
+           ölçülmeden). Sunucu fonksiyonu her zaman iki satır döner; satır yoksa sayı da yazılmaz (kurucuSatir boş döner). */
+        return n ? o : null;
       })
       .catch(function(){ return null; });
   }
