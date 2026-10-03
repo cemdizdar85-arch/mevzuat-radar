@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261002175052
+Start time: 20261003011323
 Username: runnervm8df0l\runner
 RunAs User: runnervm8df0l\runner
 Configuration Name: 
 Machine: runnervm8df0l (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/edf8e5c5-4c58-44d3-82cd-5c6c5f13c184.ps1'
-Process ID: 2557
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2cf3fad8-6f72-4aed-957e-79d0dbe07dc9.ps1'
+Process ID: 2700
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,17 +17,17 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 02-10-2026
-Kart sayisi  : 5
+RG gunu      : 03-10-2026
+Kart sayisi  : 6
 Izlenen dosya: 12
 
 ======================================================================
   RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
 ======================================================================
-  veri/gtip-durum.json   (arac: gtip.html)
-      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
-      hasat  : motor/tablo-hasat.ps1
-      <- Sivil havacılığın uydu ve yer tabanlı seyrüsefer sistemleri uçuş kontrol yönetmeliği
+  veri/gtip-emy-tarim.json   (arac: gtip.html)
+      dayanak: Tarim urunleri - Es Deger Munferit Vergi / EMY
+      hasat  : motor/emy-hasat.ps1
+      <- Tarım ürünleri lisanslı depoculuk yönetmeliğinde sigorta ve ücret düzenlemeleri
 
   YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
   yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
@@ -36,5 +36,5 @@ Izlenen dosya: 12
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261002175052
+End time: 20261003011323
 **********************
