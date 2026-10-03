@@ -620,6 +620,11 @@ jobs:
           # fixed, bos sus, yatay kayma) her birinde KIRMIZI (01.10 yerelde olculdu).
           - { ad: "Mobil tasma kapisi OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/mobil-tasma-kapisi.js --sinav --mutasyon" }
+          # 03.10 (Cem "1.2.3"): canli tarama robotunun (canli-tarama.yml) oz-sinavi - 8 vaka (temiz, tasma,
+          # alt menu ORTME = 03.10 ana sayfa vakasi, eksik oge, JS hatasi, menu yeri, eski/yeni kalip);
+          # 6 mutasyonun 6'si KIRMIZI (03.10 yerelde olculdu). data: sayfalar, ag gerekmez.
+          - { ad: "Canli tarama OZ-SINAVI + MUTASYON",
+              kabuk: bash, komut: "node motor/canli-tarama.js --sinav --mutasyon" }
 
           # 12.09 (Cem "1.2.3 ucunu de yap"): ana sayfanin Nobetci kutusu
           # "son robot kosusu 07.09 - 5 gun once" yazip KIRMIZI yandi. ROBOT

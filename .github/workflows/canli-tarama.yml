@@ -1,0 +1,49 @@
+# .github/workflows/canli-tarama.yml — CANLI TARAMA (03.10.2026, Cem "1.2.3 üçünü de yap")
+#
+# Neden: 03.10'da mobil alt menü ana sayfayı telefonda tam ekran örttü; yerel kapılar yakalamadı,
+# elle koşulan canlı tarama yakaladı. Bu akış o taramayı her yayından sonra ve her sabah koşar.
+# Ne yapar: motor/canli-tarama.js tetikte.com'da 9 sayfayı 390 + 1280 px'te açar (taşma, alt menü örtmesi,
+# eksik öğe, JS hatası, perde, alt menü yeri, ders/vitrin kalıbı). KIRMIZI ise Cem'e e-posta.
+# Depoya yazmaz, artifact yüklemez. Günlükte yalnız sayfa adı + ihlal türü (soru içeriği yok).
+# Öz-sınav: dogrula.yml matrisinde (node motor/canli-tarama.js --sinav --mutasyon).
+name: Canli Tarama
+on:
+  workflow_run:
+    workflows: ["Yayin (havuz kur + sayfa bas + ite)", "SMMM Kasa Yayini (0 USD)"]
+    types: [completed]
+  schedule:
+    - cron: '30 6 * * *'     # 09:30 TR
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: canli-tarama
+  cancel-in-progress: true
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Yayinin canliya inmesini bekle
+        if: github.event_name == 'workflow_run'
+        run: sleep 240     # GitHub Pages dagitimi yayin itmesinden sonra 1-3 dk
+      - name: Oz-sinav
+        run: node motor/canli-tarama.js --sinav
+      - name: Canli tarama
+        id: tara
+        continue-on-error: true
+        run: node motor/canli-tarama.js --cikti "$RUNNER_TEMP/tarama.txt"
+      - name: KIRMIZI ise Cem'e gonder
+        if: steps.tara.outcome == 'failure'
+        shell: pwsh
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          $f = Join-Path $env:RUNNER_TEMP 'tarama.txt'
+          $m = if (Test-Path $f) { Get-Content $f -Raw -Encoding utf8 } else { 'Canli tarama KOR: rapor dosyasi yok (tarayici acilmadi ya da betik dustu). Gunluge bak.' }
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE canli tarama KIRMIZI' -Mesaj $m
+      - name: Sonuc
+        if: steps.tara.outcome == 'failure'
+        run: exit 1
