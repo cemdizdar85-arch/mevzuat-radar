@@ -12,10 +12,13 @@ on:
     workflows: ["Yayin (havuz kur + sayfa bas + ite)", "SMMM Kasa Yayini (0 USD)"]
     types: [completed]
   schedule:
-    - cron: '30 6 * * *'     # 09:30 TR
+    - cron: '30 6 * * *'     # 09:30 TR - KIRMIZI surerse hatirlatma maili de bu kosuda
+    # 03.10: yayin-bas bitislerinden sonra workflow_run TETIKLENMEDI (iki kosu, olculdu; ad bayt bayt ayni) -> gun icine ek kosu
+    - cron: '30 10,14,18 * * *'   # 13:30, 17:30, 21:30 TR
   workflow_dispatch: {}
 permissions:
   contents: read
+  actions: read          # onceki kosunun sonucu (mail yalniz yesil->kirmizi donuste)
 concurrency:
   group: canli-tarama
   cancel-in-progress: true
@@ -34,8 +37,14 @@ jobs:
         id: tara
         continue-on-error: true
         run: node motor/canli-tarama.js --cikti "$RUNNER_TEMP/tarama.txt"
+      - name: Onceki kosunun sonucu
+        id: onceki
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: echo "sonuc=$(gh api "repos/${{ github.repository }}/actions/workflows/canli-tarama.yml/runs?status=completed&per_page=1" --jq '.workflow_runs[0].conclusion' 2>/dev/null)" >> "$GITHUB_OUTPUT"
+      # Mail: yesil->kirmizi donuste, elle tetiklemede ve 09:30 kosusunda (surekli kirmizi gunde bir kez hatirlatir)
       - name: KIRMIZI ise Cem'e gonder
-        if: steps.tara.outcome == 'failure'
+        if: steps.tara.outcome == 'failure' && (steps.onceki.outputs.sonuc != 'failure' || github.event_name == 'workflow_dispatch' || github.event.schedule == '30 6 * * *')
         shell: pwsh
         env:
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
