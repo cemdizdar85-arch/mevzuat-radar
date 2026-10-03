@@ -29,6 +29,20 @@ function havuzDurumu(adet, ilkGun, bugun) {
 }
 function jsonOku(yol) { return JSON.parse(fs.readFileSync(yol, 'utf8').replace(/^﻿/, '')); }
 
+// ---------------------------------------------------------------------------
+// EKSİK BASIM KAPISI (04.10.2026, Cem "1.2 yap")
+// 03.10: vitrin SGS seçimi 70, bulut 66 bastı (4 soru partisinden çıkmıştı); kimse görmedi, ana sayfa afişi 70'te kaldı,
+// "Nöbetçi çözsün" boş kart açtı - ancak canlı tarama günün sırası 66'ya gelince yakaladı. Kapı her gece seçim dosyasındaki
+// soru sayısını basılı sayfadakiyle kıyaslar; sayfa eksikse Cem'e mail (vitrin-kart.yml). Onarım: node motor/vitrin-soru-sec.js <sinav> --onar
+// GÖRMEZ: sayfa sayısı tutup KİMLİKLERİN farklı olması (seçim değişti, sayfa basılmadı) · seçim dosyası olmayan sınav ·
+// künyenin (veri/vitrin-kunye.json) sayfadan ayrışması (o yayin-bas.yml'de aynı adımda tazelenir) · eksik sürdükçe her gece mail.
+// Öz-sınav: --sinav (vaka E1-E4) · mutasyon: VK_MUTASYON=esit (kıyas hep "tamam" der) -> sınav KIRMIZI düşmeli
+function eksikDurumu(secimAdet, sayfaAdet) {
+  if (secimAdet == null) return { durum: 'KOR', eksik: 0 };
+  const eksik = process.env.VK_MUTASYON === 'esit' ? 0 : Math.max(0, secimAdet - sayfaAdet);
+  return { durum: eksik ? 'KIRMIZI' : 'YESIL', eksik, secim: secimAdet, sayfa: sayfaAdet };
+}
+
 // ÖZ-SINAV (karar veren betiğe öz-sınav): node motor/vitrin-kart.js --sinav   (dosyaya YAZMAZ)
 if (process.argv.includes('--sinav')) {
   const vakalar = [
@@ -48,7 +62,13 @@ if (process.argv.includes('--sinav')) {
       console.log('  HATA ' + ad + ': ' + JSON.stringify(s)); kotu++;
     }
   }
-  console.log(kotu ? '  HAVUZ ÖMRÜ ÖZ-SINAVI DÜŞTÜ' : '  HAVUZ ÖMRÜ ÖZ-SINAVI: ' + vakalar.length + '/' + vakalar.length + ' GEÇTİ');
+  const eksikVaka = [['E1 03.10 olayı 70/66', 70, 66, 'KIRMIZI', 4], ['E2 tam', 70, 70, 'YESIL', 0],
+    ['E3 sayfa fazla (eski basım)', 66, 70, 'YESIL', 0], ['E4 seçim dosyası yok', null, 70, 'KOR', 0]];
+  for (const [ad, sec, sayfa, durum, eksik] of eksikVaka) {
+    const s = eksikDurumu(sec, sayfa);
+    if (s.durum !== durum || s.eksik !== eksik) { console.log('  HATA ' + ad + ': ' + JSON.stringify(s)); kotu++; }
+  }
+  console.log(kotu ? '  HAVUZ ÖMRÜ / EKSİK BASIM ÖZ-SINAVI DÜŞTÜ' : '  HAVUZ ÖMRÜ + EKSİK BASIM ÖZ-SINAVI: ' + (vakalar.length + eksikVaka.length) + '/' + (vakalar.length + eksikVaka.length) + ' GEÇTİ');
   process.exit(kotu ? 2 : 0);
 }
 const kok = path.resolve(__dirname, '..');
@@ -103,7 +123,8 @@ for (const [kod, ad] of SINAVLAR) {
     soru: String(s.soru || ''), siklar, dogru: String(s.dogru || ''), tuzak,
     hap: kisalt(s.hap || s.kural || '', 240), satirlar,
     baglanti: 'kaydir/vitrin/' + kod + '.html?vitrin=1&tema=acik#s=' + i,
-    havuz: havuzDurumu(liste.length, ilkGun, gunEtiket)
+    havuz: havuzDurumu(liste.length, ilkGun, gunEtiket),
+    basim: eksikDurumu((() => { try { return jsonOku(path.join(kok, 'veri', 'sinav', 'kaydir-secim', 'vitrin-' + kod + '-secim.json')).length; } catch (e) { return null; } })(), liste.length)
   };
 }
 
@@ -118,5 +139,6 @@ if (JSON.stringify(havuzEski) !== JSON.stringify(havuzYeni)) { fs.writeFileSync(
 for (const [k, v] of Object.entries(sinavlar)) {
   const h = v.havuz;
   console.log('HAVUZ ' + k + ': ' + h.durum + ' · ' + h.adet + ' soru · ilk gün ' + h.ilk_gun + ' · tekrar başlangıcı ' + h.bitis + ' · kalan ' + h.kalan_gun + ' gün' + (h.mail_gunu ? ' · MAİL GÜNÜ' : ''));
+  const b = v.basim; console.log('BASIM ' + k + ': ' + b.durum + (b.durum === 'KOR' ? ' · seçim dosyası yok' : ' · seçim ' + b.secim + ' · sayfa ' + b.sayfa + (b.eksik ? ' · EKSİK ' + b.eksik : '')));
 }
 if (!Object.keys(sinavlar).length) { console.error('hiçbir sınavın vitrin dosyası yok'); process.exit(2); }

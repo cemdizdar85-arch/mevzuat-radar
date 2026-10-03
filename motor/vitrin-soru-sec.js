@@ -82,27 +82,30 @@ function partiVar(etiket, id) {
 // SMMM sayfaları kasa modunda SORUSUZ kabuk (arac/kasa-modu.json); sorular Supabase paket_soru.veri'de ve sayfadaki
 // SORULAR kaydıyla alan alan aynı (motor/kasa-kabuk.js eşdeğerlik kapısı). Sayfada soru yoksa kasadan okunur.
 async function kaynakListeler() {
-  const listeler = [];
+  const listeler = []; let kasaSayfa = 0;
   for (const f of fs.readdirSync(dizin)) {
     if (!f.endsWith('.html') || f === 'index.html') continue;
     const h = fs.readFileSync(path.join(dizin, f), 'utf8');
     const m = h.match(/const SORULAR=(\[\{[\s\S]*?\}\]);\r?\n/);   // git autocrlf: yerelde CRLF olabilir
-    if (!m) { if (!/data-kasa-sayfa=/.test(h)) console.warn('SORULAR bulunamadı: ' + f); continue; }
+    if (!m) { if (/data-kasa-sayfa=/.test(h)) kasaSayfa++; else console.warn('SORULAR bulunamadı: ' + f); continue; }
     try { listeler.push(JSON.parse(m[1])); } catch (e) { console.warn('JSON okunamadı: ' + f); }
   }
-  if (listeler.length || sinav !== 'smmm') return listeler;
+  // 04.10.2026: SGS sayfaları da kasa kabuğuna geçti (15 kabuk; 2 sayfada 12 soru). Eski kural "sayfada soru varsa kasaya
+  // bakma" SGS'de kasadaki binlerce soru yerine 12 soru görüyordu. Kabuk sayfası olan her sınavda kasa okunur, sayfa sorusu eklenir.
+  if (!kasaSayfa) return listeler;
   const K = process.env.SUPABASE_SERVICE_KEY;
-  if (!K) throw new Error('SMMM sayfaları kasa kabuğu ve SUPABASE_SERVICE_KEY yok - kasa okunamadı');
+  if (!K) throw new Error(sinav + ': ' + kasaSayfa + ' sayfa kasa kabuğu ve SUPABASE_SERVICE_KEY yok - kasa okunamadı');
   const h = { apikey: K, Authorization: 'Bearer ' + K };
   const kasa = [];
   for (let i = 0; ; i += 500) {
-    const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=veri&sinav=eq.smmm&order=id.asc&limit=500&offset=' + i, { headers: h });
+    const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?select=veri&sinav=eq.' + sinav + '&order=id.asc&limit=500&offset=' + i, { headers: h });
     if (!r.ok) throw new Error('kasa okunamadı: HTTP ' + r.status);
     const p = await r.json(); for (const x of p) if (x && x.veri) kasa.push(x.veri);
     if (p.length < 500) break;
   }
-  console.log('kaynak: kasa (paket_soru, sinav=smmm) ' + kasa.length + ' soru');
-  return [kasa];
+  console.log('kaynak: kasa (paket_soru, sinav=' + sinav + ') ' + kasa.length + ' soru + sayfada ' + listeler.reduce((t, l) => t + l.length, 0));
+  const kasaId = new Set(kasa.map(s => String(s.id)));
+  return [kasa, ...listeler.map(l => l.filter(s => !kasaId.has(String(s.id))))];
 }
 // 23.09.2026 (Cem "1 ve 2 yap" -> vitrin etiket denetimi): 70 soru elle okundu; konu etiketi soruyla uyuşmayan ya da
 // kökü bozuk soru vitrine girmez - rozetteki "N kez çıktı" etiketten hesaplandığı için yanlış etiket yanlış iddiadır.
@@ -113,11 +116,14 @@ let haricKonu = {};
 try { const hj = jsonOku(path.join(kok, 'arac', 'vitrin-haric.json')); haric = hj.haric || {}; haricKonu = hj.haric_konu || {}; } catch (e) { haric = {}; }
 let _haric = 0;
 (async () => {
-const adaylar = []; let toplam = 0;
+// 04.10.2026: elle ret listesindeki soru seçilmez - yayin-bas.yml vitrin adımı seçimde ret görürse vitrini HİÇ basmıyor.
+let elleRet = {};
+try { elleRet = jsonOku(path.join(kok, 'veri', 'sinav', sinav + '-elle-ret.json')).kayitlar || {}; } catch (e) { elleRet = {}; }
+const adaylar = []; let toplam = 0; const mevcut = new Set();
 for (const liste of await kaynakListeler()) {
   for (const s of liste) {
-    toplam++;
-    if (haric[String(s.id)] || haricKonu[sinav + '|' + katla(s.konu)]) { _haric++; continue; }
+    toplam++; mevcut.add(String(s.id));
+    if (haric[String(s.id)] || haricKonu[sinav + '|' + katla(s.konu)] || elleRet[String(s.id)]) { _haric++; continue; }
     const o = s.olcum || {};
     if (String(o.hakem) !== 'EVET') continue;
     if (!(o.sim && o.sim.dogru === true)) continue;
@@ -140,6 +146,35 @@ for (const liste of await kaynakListeler()) {
   }
 }
 adaylar.sort((a, b) => b._puan - a._puan);
+
+// --- ONARIM KİPİ (04.10.2026, Cem "1.2 yap"): yalnız DÜŞEN soruların yerine aday koyar, gerisine DOKUNMAZ ---
+// 03.10'da 70'lik SGS vitrininin 4 sorusu partisinden çıkmıştı; sayfa 66 basıldı, ana sayfa afişi 70'te kaldı.
+// Baştan seçim 23.09'da elle okunmuş havuzu ve sırayı değiştirirdi. Düşen = kasada/sayfada yok · elle ret · hariç listesi.
+// Yerine: aynı dersten, kalanlarla konusu çakışmayan en yüksek puanlı aday, AYNI SIRAYA (gün sırası kaymaz).
+// Yeni giren soru elle OKUNMADI - çıktı kimlikleri yazar, okunması Cem'e raporlanır.
+if (argv.includes('--onar')) {
+  const hedefYol = path.join(kok, 'veri', 'sinav', 'kaydir-secim', 'vitrin-' + sinav + '-secim.json');
+  const eskiSecim = jsonOku(hedefYol);
+  const dusmus = (e) => { const k = e.etiket + '/' + e.id; return !mevcut.has(k) || !!elleRet[k] || !!haric[k]; };
+  const kalanKonu = new Set(eskiSecim.filter(e => !dusmus(e)).map(e => katla(e.konu)));
+  const kalanId = new Set(eskiSecim.filter(e => !dusmus(e)).map(e => e.etiket + '/' + e.id));
+  const yeniSecim = []; const rapor = [];
+  for (const e of eskiSecim) {
+    if (!dusmus(e)) { yeniSecim.push(e); continue; }
+    const uygun = (a) => !kalanId.has(a.etiket + '/' + a.id) && !kalanKonu.has(katla(a.konu));
+    const y = adaylar.find(a => a._dk === katla(e.ders) && uygun(a)) || adaylar.find(uygun);
+    if (!y) { rapor.push('  ADAY YOK: ' + e.etiket + '/' + e.id + ' çıkarıldı'); continue; }
+    kalanId.add(y.etiket + '/' + y.id); kalanKonu.add(katla(y.konu));
+    yeniSecim.push({ etiket: y.etiket, id: y.id, ders: y.ders, konu: y.konu, donem: y.donem, kurtarma: false });
+    rapor.push('  ' + e.etiket + '/' + e.id + ' -> ' + y.etiket + '/' + y.id + ' (' + y.ders + ' · ' + y.konu + ' · ' + y.donem + ' dönem)');
+  }
+  const degisen = rapor.length;
+  console.log('ONARIM ' + sinav + ': taranan ' + toplam + ' · aday ' + adaylar.length + ' · seçim ' + eskiSecim.length + ' · düşen ' + degisen + ' · yeni seçim ' + yeniSecim.length);
+  rapor.forEach(x => console.log(x));
+  if (degisen && !kuru) { fs.writeFileSync(hedefYol, JSON.stringify(yeniSecim, null, 2) + '\n', 'utf8'); console.log('  yazıldı -> ' + path.relative(kok, hedefYol)); }
+  else if (degisen) console.log('  KURU - dosyaya yazılmadı');
+  process.exit(0);
+}
 
 // --- her ders için konusu tekil, puana göre dizili aday listesi (konu teklik TÜM derslerde ortak) ---
 const konuGordu = new Set();

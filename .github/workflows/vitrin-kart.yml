@@ -45,8 +45,14 @@ jobs:
         run: |
           $o = Get-Content veri/vitrin-kart-ozet.json -Raw -Encoding UTF8 | ConvertFrom-Json
           foreach ($p in $o.sinavlar.PSObject.Properties) {
+            # 04.10 EKSIK BASIM KAPISI (motor/vitrin-kart.js eksikDurumu): secimdeki soru sayfada yoksa her gece mail
+            $b = $p.Value.basim
+            if ($b -and $b.durum -eq 'KIRMIZI') {
+              $mesaj = "Vitrin ($($p.Value.ad)) seciminde $($b.secim) soru var, basili sayfada $($b.sayfa). $($b.eksik) soru partisinden dusmus olabilir; ana sayfa afisi ile Nobetci karti kayar.`n`nYapilacak:`n  node motor/vitrin-soru-sec.js $($p.Name) --onar   (yalniz dusenlerin yerine aday koyar; yeni sorular elle okunur)`n  commit + push, sonra yayin-bas.yml (vitrini bulutta basar, kunyeyi tazeler).`n`nKosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              ./arac/alarm-maili.ps1 -Konu "TETIKTE KIRMIZI - vitrin eksik basildi ($($b.sayfa)/$($b.secim), $($p.Value.ad))" -Mesaj $mesaj
+            }
             $h = $p.Value.havuz
-            if (-not $h -or -not $h.mail_gunu) { continue }
+            if (-not $h -or -not $h.mail_gunu) { continue }   # (havuz omru maili - asagisi)
             $sinavAd = $p.Value.ad
             if ($h.kalan_gun -gt 0) {
               $konu = "TETIKTE - vitrin sorulari $($h.kalan_gun) gun sonra TEKRARA giriyor ($sinavAd)"

@@ -1,5 +1,5 @@
 {
-  "olcum": "2026-10-03T21:18:47.078Z",
+  "olcum": "2026-10-03T21:34:41.441Z",
   "gun": "2026-10-04",
   "sinavlar": {
     "sgs": {
@@ -70,6 +70,12 @@
         "kalan_gun": 66,
         "durum": "YESIL",
         "mail_gunu": false
+      },
+      "basim": {
+        "durum": "KIRMIZI",
+        "eksik": 4,
+        "secim": 70,
+        "sayfa": 66
       }
     },
     "smmm": {
@@ -140,6 +146,12 @@
         "kalan_gun": 66,
         "durum": "YESIL",
         "mail_gunu": false
+      },
+      "basim": {
+        "durum": "YESIL",
+        "eksik": 0,
+        "secim": 66,
+        "sayfa": 66
       }
     }
   }

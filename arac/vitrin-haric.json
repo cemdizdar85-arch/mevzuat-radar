@@ -1,6 +1,10 @@
 {
   "aciklama": "Ana sayfa vitrinine ve seviye testi setine GİRMEYECEK sorular, gerekçeli. Okuyan: motor/vitrin-soru-sec.js. 23.09.2026 Cem \"1 ve 2 yap\": 70 Yeterlilik vitrin sorusu elle okundu; konu etiketi soruyla uyuşmayan ya da kökü bozuk soru çıkarıldı (rozetteki çıkma sayısı etiketten hesaplanıyor, yanlış etiket = yanlış iddia). Bu liste KASADAKİ soruyu düzeltmez - etiket onarımı sınav kolunun işi. haric_konu: etiketi kasada sistematik olarak başka konuya yapışmış konular (\"<sinav>|<katlanmış konu>\"); okunan her örnek yanlıştı. Okuyanlar: motor/vitrin-soru-sec.js + motor/seviye-set-sec.js.",
   "haric": {
+    "sgs-e16-mat-kolay/kp-01": "04.10 vitrin onarımında elle okundu: S1 adım atfı kayması - 3. adımda hesaplanan 2S = 8 için \"(1. adımda bulduk)\" yazıyor (cevap doğru, açıklama kusurlu)",
+    "sgs-e16-mat-cokzor/kp-01": "04.10 vitrin onarımında elle okundu: cevap doğru (n = 9) ama 2. adımda eşitlik zinciri yanlış yazılmış \"3 × B = 54 = 54 / 3 = 18\", 5. adımda \"54 - 36 = 2n = 18\"",
+    "sgs-d4-mat-cokzor-r1/kp-02": "04.10 vitrin onarımında elle okundu: cevap doğru (120) ama kök bozuk kurulmuş - \"A:B, 3:5 oranıyla doğru orantılı\" ve hesaba girmeyen \"D'ye ayrılan 50 TL\" (S8 kök muğlaklığı)",
+    "sgs-d4-mat-zor-r2/kp-02": "04.10 vitrin onarımında elle okundu: cevap doğru (30) ama etiket \"sayı problemi\", soru yaş problemi (rozetteki dönem sayısı etiketten) + 4. adımda \"N − 2 (1. adımda bulduk)\" S1 kayması",
     "smmm-w2-ydenetim-zor/kp-01": "soru kökü bozuk: \"hangisinin doğru olduğu soruluyor\" özet cümlesi, gerçek soru değil",
     "smmm-ab2-b-maliyet/kp-04": "etiket \"satılan mal maliyeti\", soru standart maliyet farkları (722/723/732/733/734)",
     "smmm-w1-ydenetim-zor/kp-02": "etiket \"raporlama standartları\", soru KYS 2 kalite gözden geçirme (#33/#40 ile aynı konu)",

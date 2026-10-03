@@ -645,6 +645,11 @@ jobs:
           - { ad: "Sure nobetcisi OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node motor/sure-nobetcisi.js --sinav --mutasyon" }
 
+          # 04.10 (Cem "1.2 yap"): vitrin EKSIK BASIM kapisi (secim 70 / sayfa 66 olayi) + havuz omru. 12 vaka;
+          # mutasyon VK_MUTASYON=esit (kiyas hep tamam) -> sinav KIRMIZI olmali (04.10 yerelde olculdu: cikis 2).
+          - { ad: "Vitrin kart OZ-SINAVI + MUTASYON",
+              kabuk: bash, komut: "node motor/vitrin-kart.js --sinav && ! VK_MUTASYON=esit node motor/vitrin-kart.js --sinav" }
+
           # 12.09 (Cem "1.2.3 ucunu de yap"): ana sayfanin Nobetci kutusu
           # "son robot kosusu 07.09 - 5 gun once" yazip KIRMIZI yandi. ROBOT
           # HIC GUN ATLAMAMISTI: damga izi 04.09-12.09 gunde iki kosu, bosluk
