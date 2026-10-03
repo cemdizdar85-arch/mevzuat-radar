@@ -376,6 +376,7 @@
     testeBasla();
   }
   function testeBasla(){
+    say('basla');
     CEVAPLAR=[]; SIRA=YET?SET.map(function(x){ return { q:{ id:x.id, soru:x.soru, siklar:x.siklar, sayfa:x.sayfa, sira:x.sira }, zorluk:x.zorluk, ders:x.ders, grup:x.ders }; }):planKur();
     BAS=Date.now(); $('svToplam').textContent=SIRA.length;
     if(SAYAC) clearInterval(SAYAC);
@@ -417,9 +418,15 @@
   /* 03.10 SONUÇ KAPISI (V2 madde 16): üye ya da bilgisini daha önce vermiş kişi sonucu hemen görür;
      diğerleri önce ad + e-posta + telefon (Cem 21.09: telefon zorunlu) verir, sonra sonuç çizilir ve karne gider. */
   var BEKLEYEN=null;
-  function sonucuAc(ciz){
+  /* 03.10 (V2 madde 55, Cem "1 yap"): seviye testi hunisi GoatCounter olay olarak sayılır - yalnız adım adı ve kip
+     (sgs/yet); ad, e-posta, telefon, cevap GİTMEZ. Sayaç inmezse (reklam engelleyici) sessizce geçer. */
+  function say(adim){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({ path:'seviye/'+(YET?'yet':'sgs')+'/'+adim, title:'Seviye testi: '+adim, event:true }); }catch(e){} }
+  function sonucuAc(ciz0){
+    say('bitti');
+    var ciz=function(){ ciz0(); say('sonuc'); };
     if(uyeMi()){ ciz(); return; }
     if(kayitOku()){ ciz(); karneGonder(); return; }
+    say('form-cikti');
     BEKLEYEN=ciz; goster('svOnKapi'); try{ $('svAd').focus(); }catch(e){}
   }
   function yanlisKutusu(){
@@ -629,7 +636,7 @@
         cozulen_test:YET?'yeterlilik':'sgs', hazirlandigi_sinav:k.sinav, donem:donem, kvkk:'evet', iletisim_izni:kanal.length?kanal.join(' + '):'hayir',
         iys_kayitli:'HAYIR - HICBIR kanaldan (e-posta/SMS/arama) tanitim iletisi gonderilmez', _hp:$('svHp').value }) }).catch(function(){}); }catch(e2){}
     durum.textContent=''; durum.className='sv-durum';
-    if(BEKLEYEN){ var ciz=BEKLEYEN; BEKLEYEN=null; ciz(); karneGonder(); } else testeBasla();
+    if(BEKLEYEN){ say('form-dolduruldu'); var ciz=BEKLEYEN; BEKLEYEN=null; ciz(); karneGonder(); } else testeBasla();
   });
 
   $('svBasla').addEventListener('click',basla);
@@ -705,6 +712,7 @@
   }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile'; });
 })();
 </script>
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="sinav-sonucu.js" defer></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
