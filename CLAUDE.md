@@ -425,6 +425,34 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   ⚠ `--banka smmm` yalnız `vitrin-smmm-secim.json`'u (70 soru) okur; sitedeki bitirme kümesi kasadan yayınlanır, bu araçla
   **ölçülmedi** (SMMM oturumunun R9 taraması AS2+EK+HK: 155 soru). KGK yayında 0. 🚫 GÖRMEZ: doğru kod ama bağlamda yanlış hesap
   (220 yerine 120) · "hesap" kelimesiz tek sayı · küçük harfle ve hesap bağlamı dışında yazılmış ad · ambarda olmayan 7/B'ye özgü kod.
+- ⛔⭐ **AÇIKLAMA KATMANI S1–S8 — KİM BASARSA BASSIN (SGS · bitirme · KGK · SPK)** (03.10.2026, Cem: *"bütün çıkan hataları kural
+  yaz, bundan sonra basılacak sınava giriş, bitirme, bağımsız denetim, SPK ne varsa onlarda aynı hatayı istemiyorum"*).
+  **Olay (ölçüldü 02–03.10):** açılış öncesi sitedeki soruların elle okunmasında **anahtarlar sağlamdı** (hakem bulgulu 313 ücretsiz sorunun
+  2'sinde anahtar sorunu, %0,6) — kusur **açıklama/çözüm katmanındaydı**, çünkü basımdaki dört hakem soruya ve anahtara bakıyor, adımları
+  ve şık açıklamalarını okumuyordu. Onarılan: adım atfı 129 soru · yanlış yol 818 soru · hakem bulgusu 311 · içerik 17 · kök 7. Rastgele 12
+  onarımın 5'i gerçek hata, 2'si kozmetik, 4'ü daha iyi ifade → "hakem KUSURLU" ≠ "soru yanlış"; rapor bu ayrımı yapar.
+  İstem: `motor/kalip-parti-uret.ps1` 7b (x)–(xv) + adım kural 9 + sade 5b (yalnız 2026-10-04 sonrası açılan etikette — **istem baytı koruması**:
+  toplu parti parmak izi istemden hesaplanır, eski etiketin ödenmiş partisi bedava hasat edilsin; elle `MEVZUAT_KURAL_0310=1/0`).
+  GM hazır-soru talimatı `SORU-URETIM-SOZLESMESI.md` B24'ü aynen taşır.
+  Kapı: `arac/soru-kalite-kapisi.js`, yalnız **YENİ2** soruda (kör/hakem2 ≥ `KALITE_BASLANGIC_YENI2`, vars. 2026-10-04, ya da tarihsiz
+  üretim girdisi) DURDURUR; eski soruda yalnız `NOT-` yazar (Cem 30.09 "geri çekilmesin" — eskiler onarım kuyruğuna).
+  | Sınıf | Yayında ölçülen (03.10) | Kapı | GÖRMEZ |
+  |---|---|---|---|
+  | S1 "(N. adımda bulduk)" kayması | site SGS 77 · SMMM 64 → onarıldı | KAPI-ADIM | "adımda bulduk" dışı atıf; çok adaylı; küçük sayı (0, 2, 3) yanlış alarmı |
+  | S2 yanlış yol şıksız / doğru cevaba | SGS 257 · SMMM 565 → 818 onarıldı | KAPI-YY (`arac/yanlis-yol-kapisi.js`) | sözel yanlış yol; ara sonucu "=" ile bitmeyen adım; şıkkı çok sayılı soru |
+  | S3 Türkçe harfsiz (ASCII) açıklama | SGS 86 · SMMM 52 · KGK 0 soru (40 örnekte 40 gerçek) | KAPI-TR (`arac/turkce-karakter-kapisi.js`) | < 60 karakter; karışık dize; kök/şık/ikiz |
+  | S4 yer tutucu / istem kalıntısı | SGS 10 · SMMM 27 | KAPI-BOS (BOS-KALIP) | listede olmayan kalıntı |
+  | S5 yanlış hesap kodu/adı (100↔102, 590↔591, 780↔660) | elle | KAPI-HK (kısmen) | doğru kod yanlış bağlam |
+  | S6 yanlış madde/fıkra (İş K. m.8/4, 3568 m.45, 5510 m.28/3, "55 gün 5018'de" → Anayasa m.161) | elle | **YOK** | → açıklama hakemi + ≥150 elle okuma |
+  | S7 uydurma bilgi / hesaplanana "(soruda verilen)" | elle; mekanik onarım 54 soru (98 etiket) | **YOK** | → açıklama hakemi + elle okuma |
+  | S8 kök muğlaklığı (tartışmalı dil bilgisi, eksik çerçeve) | elle 7 soru | **YOK** | → hakem2 + elle okuma |
+  **Eşdeğerlik (03.10, ambar 15.054 soru):** bugünkü tarihle tarihli soruda karar değişen 0; SGS 4.947 / bitirme 3.820 / KGK 108 yayın kümesinde
+  değişen 0. Başlangıç 10-01'e çekilince yeni üretimin SGS 14/140, SMMM 38/176'sı döner (çoğu ADIM-KAYMA). Öz-sınav + mutasyon `dogrula.yml`'de
+  (KAPI-TR 16/16 · 9/9, BOS 24/24 · 9/9, YENİ2 bağı 14/14 · 7/7, KAPI-YY 17/17 · 12/12). **Yanlış alarm ölçüldü:** KAPI-YY ilk kasa
+  okumasında 15'te 2 · onarım sırasında "ara sonuçta kalan" adımlar ajanlarca ~%5–25 "KAPI_YANLIS" sayıldı → yeni üretimin ilk YENİ2
+  partisinde ≥20 dönen soru elle okunur, oran yazılır.
+  **Ayrıca yayın anı dönüştürücüsü:** `motor/kaydir-coz.ps1` `TurkceOnar` ASCII kelimeyi sözlükle Türkçeleştirirken hata üretiyordu
+  ("WHICH→WHİCH", "'çocuk'tur→'tür'", "Esasi→Esası", "bol→böl") — S3 kökten çözülünce bu onarıcıya gerek kalmaz; yaması ayrı commit.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

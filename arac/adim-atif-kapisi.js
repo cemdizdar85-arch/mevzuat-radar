@@ -3,7 +3,8 @@
 //  KAPI-ADIM — ADIM ATFI KAYMASI KAPISI + MEKANİK ONARIM (30.09.2026, SMMM oturumu ölçtü, SGS'de de ölçüldü)
 //  Çözüm adımlarında "<sayı> (N. adımda bulduk)" notu, sitede "adım N" diye gösterilir; site adimlar[j]'yi "Adım j+1" diye numaralar
 //  (kaydir/*.html: title="Adım '+(j+1)+'"; ilk "Verilen" satırı Adım 1). Doğru atıf: değer adimlar[N-1].formul içinde "= <sayı>" sonucu.
-//    ADIM-KAYMA : değer adimlar[N-1]'de sonuç değil, ÖNCEKİ başka bir adımda sonuç (DURDURUR; onar() tek adayda numarayı düzeltir)
+//    ADIM-KAYMA : değer adimlar[N-1]'de sonuç değil, ÖNCEKİ başka bir adımda sonuç (onar() tek adayda numarayı düzeltir). 03.10'dan beri
+//                 soru-kalite-kapisi.js üzerinden YALNIZ YENİ2 soruda (kör/hakem2 ≥ 2026-10-04 ya da tarihsiz) DURDURUR; eskide NOT-ADIM.
 //    ADIM-YOK   : değer hiçbir önceki adımda "= <sayı>" olarak yok (yalnız NOT — biçim farkı olabilir: "= 150.000 TL", yuvarlama)
 //  ÖLÇÜLDÜ (30.09): SMMM bitirme 2.399 soruda 9.409 atıf, 2.424 yanlış (kaymanın 2.072'si +1). SGS sitesi 5.216 atıf, 1.492 yanlış (561 soru):
 //    +1 1.050 · +2 121 · −1 30 · yok 291. Kök: üretimde adimlar[0] "Verilen" satırı sayılmadan numara verilmiş.

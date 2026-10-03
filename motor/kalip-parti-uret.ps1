@@ -1874,6 +1874,45 @@ if($adimIstem.Length -lt 500 -or $css.Length -lt 500){ throw 'son10 sablonlari c
 if($Zorluk -eq 'zor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 6-10 adım (katmanlı soru: her katman kendi adımı).') }   # 05.09 zor ayarı
 if($Zorluk -eq 'cokzor'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 7-12 adım (çok katmanlı soru: her katman ve her tuzak kendi adımı; "Dahil değil" satırı zorunlu).') }
 if($Zorluk -eq 'kolay'){ $adimIstem=$adimIstem.Replace('4. 5-8 adım.','4. 4-6 adım (tek kural, tek işlem; verilenler + kural + hesap + sağlama + yanlış yol).') }
+# ⭐ 03.10.2026 ÜRETİM KURALLARI S1–S7 (Cem: "bütün çıkan hataları kural yaz, bundan sonra basılacak SGS, bitirme, KGK, SPK ne varsa aynı
+#   hatayı istemiyorum"). 02–03.10 elle okumada sitedeki açıklama katmanında bulunan sınıflar: S1 adım atfı kayması · S2 yanlış yol şıkka
+#   varmıyor/doğruya varıyor · S3 Türkçe harfsiz metin · S4 yer tutucu/istem kalıntısı · S5 yanlış hesap kodu/adı · S6 yanlış madde/fıkra ·
+#   S7 soruda olmayan bilgi / "(soruda verilen)" etiketi hesaplanan değerde. Kurallar soru (7b x–xv), adım (9) ve sade (5b) istemine eklenir.
+#   ⛔ İSTEM BAYTI KORUMASI (toplu parmak izi İSTEM METNİNDEN hesaplanır — api-hedef.ps1 Get-IcerikParmak; bkz. 2b MEVZUAT_SAYI_SIRA notu):
+#   istem bir harf değişirse bu etiketin 2026-10-04'ten ÖNCE gönderilmiş ödenmiş toplu partileri eşleşmez ve İKİNCİ KEZ ödenir. Bu yüzden
+#   kurallar YALNIZ şu iki şart birlikteyken eklenir: (1) saat ≥ 2026-10-04 00:00 · (2) bu etiketin bekleyen-partiler kaydında 2026-10-04'ten
+#   önce gönderilmiş parti YOK. Öyle değilse istem dünküyle BAYT BAYT aynıdır (yarım kalan eski plan kendi istemiyle biter, bedava hasat
+#   korunur). 10-04'ten sonra açılan etiket ilk partisinden itibaren yeni istemle yazar; yeniden başlatmada da kayıtları ≥ 10-04 olduğu için
+#   aynı istemi alır (yapışkan). Elle: MEVZUAT_KURAL_0310=1 (bulut BOŞKEN zorla aç) · =0 (kapat).
+#   🚫 GÖRMEZ: saat dilimi (bulut UTC, kayıt yerel saat) sınırda birkaç saat kayabilir · FAZ U (eski soru kurtarma) istemi bilerek
+#   değişmedi · istem yumuşak kapıdır — mekanik karşılığı arac/soru-kalite-kapisi.js YENİ2 (KAPI-YY/ADIM/TR/BOS-KALIP); S6/S7/S8'in kapısı yok.
+#   KAPI EKLENDİ — VERİ: istem yalnız YENİ üretimi etkiler; yayındaki soru bu değişiklikle değişmez (onarım kuyruğu ayrı iş).
+$KURAL0310_BAS='2026-10-04'
+$script:KURAL0310=$false
+if("$env:MEVZUAT_KURAL_0310" -eq '1'){ $script:KURAL0310=$true }
+elseif("$env:MEVZUAT_KURAL_0310" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:mm') -ge "$KURAL0310_BAS 00:00"){
+  $script:KURAL0310=$true
+  foreach($kuralBekleyen in @(Get-BekleyenPartiler)){ if("$($kuralBekleyen.etiket)" -like "$Etiket/*" -and "$($kuralBekleyen.zaman)" -lt $KURAL0310_BAS){ $script:KURAL0310=$false; break } }
+}
+"ÜRETİM KURALLARI 03.10 (S1–S7 istem): $(if($script:KURAL0310){ 'AÇIK' } else { 'KAPALI (istem eski hâliyle bayt bayt aynı — 10-04 öncesi ya da bu etiketin eski partisi var)' })"
+$KURAL0310_ADIM=@'
+9. ÜRETİM KURALLARI (03.10.2026 — sitedeki elle okumada bulunan kusurlar; kod kapıları yeni soruyu DURDURUR):
+   (a) "Yanlış yol" adımının "= <sonuç>" değeri bir ÇELDİRİCİ şıkkın sayısına BİREBİR eşittir (aynı yuvarlama); doğru cevaba eşit
+       olamaz, şıklarda olmayan sayı yazılmaz (KAPI-YY). Önce hangi çeldiriciyi anlatacağını şıklardan seç, hatalı hesabı ona göre kur.
+   (b) "(N. adımda bulduk)" yazmadan önce N. adımın formülünün "= <o sayı>" ile bittiğini kontrol et (KAPI-ADIM; kural 7(d0)).
+   (c) Bütün anlatım ve formül Türkçe harfle (ç ğ ı İ ö ş ü) yazılır; "ayni", "ogrenci", "dusunuyorsun" gibi ASCII yazım soruyu
+       durdurur (KAPI-TR).
+   (d) "(soruda verilen)" yalnız SORU METNİNDE harfiyen geçen değere konur; hesaplanan değer "(N. adımda bulduk)" alır. Soruda olmayan
+       tarih, tutar, kişi, olay yazılmaz.
+   (e) Hesap kodu ve adı Tekdüzen Hesap Planı'ndan (100 KASA ile 102 BANKALAR, 590 ile 591, 780 ile 660 karıştırılmaz); madde/fıkra
+       numarası yalnız açıklamada ya da kaynakta görüldüyse yazılır, görülmediyse numara yazma, kanunun adını yaz.
+   (f) İstem cümlesi ya da yer tutucu yazma ("… sorusu tekrar edilmez", "Seçilmemiş, bu doğru şıktır", "p.28 SINAV TUZAĞI").
+
+'@
+if($script:KURAL0310){
+  if(-not $adimIstem.Contains('Cevap YALNIZ JSON: {"verilen"')){ throw 'KURAL0310: adım isteminde "Cevap YALNIZ JSON" çapası yok (son10-uret.ps1 değişmiş) — kural eklenemedi' }
+  $adimIstem=$adimIstem.Replace('Cevap YALNIZ JSON: {"verilen"',$KURAL0310_ADIM+'Cevap YALNIZ JSON: {"verilen"')
+}
 Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').Value)
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
 
@@ -2902,6 +2941,31 @@ Cevap YALNIZ JSON:
 # 13.09 Cem "bir iki ve üçü": SGS ile bitirme adayı farklı; "Universite mezunu gence" SGS adayını anlatır → yalnız SMMM'de bitirme adayı tarifi (SGS/KGK metni aynı)
 if($Sinav -eq 'SMMM'){ $soruIstem=$soruIstem.Replace('Universite mezunu gence, gercek sinav ayarinda.','Stajını tamamlamış, meslekte çalışan SMMM Yeterlilik (bitirme) adayına; ileri düzey senaryo, gerçek sınav ayarında.') }
 if($script:PARA_BIRIMI -eq '₺'){ $soruIstem=$soruIstem.Replace('para birimi "TL" yazılır (₺ yazma).','para birimi "₺" yazılır (TL yazma; bu sınavın son iki dönemi ₺ kullanıyor, kök "kaç ₺''dir?").') }   # 13.09 Cem kararı
+# 03.10 ÜRETİM KURALLARI S1–S8 → 7b (x)–(xv). Yalnız $script:KURAL0310 açıkken (istem baytı koruması: bkz. adım istemi üstündeki not).
+$KURAL0310_SORU=@'
+   (x)   YANLIŞ YOL (03.10): adımlardaki "Yanlış yol: … = <sonuç> (HATALI)" satırının sonucu bir ÇELDİRİCİ şıkkın değerine BİREBİR
+         eşittir (aynı yuvarlama, aynı yazım); doğru cevaba eşit olamaz; hiçbir şıkka varmayan yanlış yol yazılmaz. celdirici_yol'daki
+         hesapla aynı hesaptır.
+   (xi)  TÜRKÇE HARF (03.10): bütün metin (açıklama, teşhis, sade, hap, adımlar) ç ğ ı İ ö ş ü ile yazılır. "ayni", "ogrenci",
+         "dusunuyorsun" gibi ASCII yazım KUSURDUR; sonradan tahminle düzeltilemez, soru geri döner.
+   (xii) YER TUTUCU YOK (03.10): istemden cümle ya da iç not kopyalama — "Ne soruluyor sorusu tekrar edilmez", "Seçilmemiş, bu doğru
+         şıktır", "Bu soru p.28 SINAV TUZAĞI noktasından geliyor" (kaynak paketinin iç sayfa etiketi) ekrana çıkar. Alanı dolduracak
+         bilgin yoksa kaynağa dön, kalıp cümle yazma.
+   (xiii) KOD VE NUMARA KAYNAKTAN (03.10): hesap kodu ve adı Tekdüzen Hesap Planı'ndan (100 KASA ile 102 BANKALAR, 590 ile 591, 780 ile
+         660 karışmaz); madde/fıkra/bent numarası KAYNAK PAKETİNDE o hükmü taşıyan metinden okunur. Pakette numara yoksa NUMARA YAZMA,
+         yalnız kanunun adını yaz (ölçülen hatalar: İş Kanunu'nda olmayan m.8/4; 3568 m.45 fıkraları; 5510 m.28/3 yerine /5; 55 günlük
+         süre 5018'de değil Anayasa m.161'de).
+   (xiv) UYDURMA YOK (03.10): soruda olmayan tarih, tutar, kişi, olay açıklamaya girmez. "(soruda verilen)" etiketi yalnız kökte
+         harfiyen geçen değere konur; hesaplanan değere "(N. adımda bulduk)" yazılır.
+   (xv)  KÖK TEK ANLAM (03.10): örnek cümle/olay iki kurala da uyabiliyorsa (tartışmalı dil bilgisi örneği gibi) başka örnek seç; kök
+         hangi çerçevede sorulduğunu (dönem, yöntem, taraf, varsayım) açıkça söyler.
+'@
+$KURAL0310_SORU_CAPA='   (ix)  TEŞHİS SOMUT: "öğrenci şunu yaptı → şu sayıyı buldu"; "yanlış verilerle yapılmış" gibi belirsiz cümle yazma.'
+if($script:KURAL0310){
+  $kuralSatirSonu=$(if($soruIstem.Contains($KURAL0310_SORU_CAPA+"`r`n")){ "`r`n" } else { "`n" })
+  if(-not $soruIstem.Contains($KURAL0310_SORU_CAPA+$kuralSatirSonu)){ throw 'KURAL0310: soru isteminde 7b (ix) çapası yok — kural eklenemedi' }
+  $soruIstem=$soruIstem.Replace($KURAL0310_SORU_CAPA+$kuralSatirSonu,$KURAL0310_SORU_CAPA+$kuralSatirSonu+($KURAL0310_SORU -replace "\r?\n",$kuralSatirSonu)+$kuralSatirSonu)
+}
 # --- SINAV DILI (03.09 Cem "1 yap, uretici­ye isle"; olcum scratchpad sinav-dili-sozlugu.ps1, 1.042 belge) -------
 # SGS: kanun kisaltmasi ~0 (VUK 3 / "Vergi Usul Kanunu" 346 / "213 sayili" 251; TTK 0/1079/953; TBK 0/1226/1198;
 #      GVK 0/281/238) -> kanun TAM ADIYLA ve/veya "sayili" ile; hesap "100 KASA" buyuk harf (11.790 kez).
@@ -5103,6 +5167,12 @@ KURALLAR
 6. Yalnız JSON döndür, başka hiçbir şey yazma:
 {"dogru_sade":"...","sinav_dili":"...","siklar_sade":{"A":"...","B":"..."},"kavramlar":[{"ad":"...","tanim":"...","kaynak":"..."}]}
 '@
+# 03.10 ÜRETİM KURALLARI (S2/S3/S4/S6/S7) → sade istemine 5b. Yalnız $script:KURAL0310 açıkken (istem baytı koruması, bkz. adım istemi notu).
+$KURAL0310_SADE_CAPA='5. Türkçe harfleri tam yaz (ç ğ ı İ ö ş ü); ASCII yazma.'
+if($script:KURAL0310){
+  if(-not $sadeIstem.Contains($KURAL0310_SADE_CAPA)){ throw 'KURAL0310: sade isteminde kural 5 çapası yok — kural eklenemedi' }
+  $sadeIstem=$sadeIstem.Replace($KURAL0310_SADE_CAPA,$KURAL0310_SADE_CAPA+' ASCII yazılmış metin ("ayni", "ogrenci") soruyu geri döndürür.'+[Environment]::NewLine+'5b. (03.10) siklar_sade her yanlış şıkta O ŞIKKIN değerine götüren hatayı anlatır, başka şıkkın ya da doğru cevabın yolunu değil. Soruda olmayan tarih, tutar, olay yazma; kaynakta görmediğin madde/fıkra numarası yazma. İstem cümlesi ya da yer tutucu ("Seçilmemiş, bu doğru şıktır", "… tekrar edilmez") yazma; bilgin yoksa kısa ve doğru yaz.')
+}
 function SadeKapi([string]$t){
   # sade katmanda yasak: kısaltma, madde/paragraf numarası, "sayılı", 60 kelimeden uzun
   $y=New-Object System.Collections.Generic.List[string]

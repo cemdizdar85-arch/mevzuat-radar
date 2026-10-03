@@ -1,5 +1,5 @@
 ﻿# arac/soru-kalite-kapisi.ps1 — KAPI-AS + KAPI-EK için PowerShell köprüsü (30.09.2026, Cem "1.2.3 yap ve kural koy")
-# Mantık Node'da (arac/soru-kalite-kapisi.js → aciklama-sayi-kapisi.js + eski-kural-kapisi.js); burada kopya YOK.
+# Mantık Node'da (arac/soru-kalite-kapisi.js → AS2/EK/HK/BP/BOS + 03.10 YENİ2: YY/ADIM/TR/BOS-KALIP); burada kopya YOK.
 # SoruKaliteKapisi $nesne  → @("KAPI-AS: ...","KAPI-EK: ...")   (bulgu yoksa boş dizi)
 # SoruKaliteParti $dosya   → hashtable kp → @(satırlar)           (yalnız bulgulu kp'ler)
 # KÖR: node yoksa / betik düşerse $script:SORU_KALITE_KOR dolar; çağıran günlüğe "KAPI-KALITE KÖR" yazar. Kapı o durumda AÇIK kalır
@@ -15,7 +15,10 @@ function SoruKaliteKapisi($nesne) {
     [IO.File]::WriteAllText($gecici, (ConvertTo-Json -InputObject $nesne -Depth 14 -Compress), [Text.UTF8Encoding]::new($false))
     $cikti = @(& node $script:SORU_KALITE_JS --tek $gecici)
     if ($LASTEXITCODE -ne 0) { $script:SORU_KALITE_KOR = "node çıkış ${LASTEXITCODE}: $(@($cikti) -join ' ')"; return @() }
-    return @($cikti | Where-Object { "$_" -match '^KAPI-(AS2|EK|HK|BP|BOS):' })   # NOT-AS1 / NOT-HK durdurmaz (30.09 ölçümü: AS1 alarmlarının %54–76'sı yanlış). HK 30.09 eklendi (SMMM oturumu bildirdi: tek-soru yolu süzüyordu)
+    # NOT-* durdurmaz (30.09 ölçümü: AS1 alarmlarının %54–76'sı yanlış). HK 30.09 eklendi (SMMM oturumu bildirdi: tek-soru yolu süzüyordu).
+    # 03.10 YENİ2: KAPI-YY / KAPI-ADIM / KAPI-TR (+ KAPI-BOS BOS-KALIP) yalnız YENİ2 soruda (kör/hakem2 ≥ 2026-10-04 ya da tarihsiz üretim
+    # girdisi) KAPI- satırı olarak gelir; YENİ2 kararını Node verir (arac/soru-kalite-kapisi.js yeni2Mi), burada yalnız süzülür.
+    return @($cikti | Where-Object { "$_" -match '^KAPI-(AS2|EK|HK|BP|BOS|YY|ADIM|TR):' })
   } catch {
     $script:SORU_KALITE_KOR = "çağrılamadı: $($_.Exception.Message)"
     return @()

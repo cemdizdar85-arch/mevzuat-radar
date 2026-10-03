@@ -6,10 +6,14 @@
 //    BOS-KALINTI: görünen alanın DEĞERİ yer tutucu: undefined · null · skip · placeholder · TODO · dummy · remove · yanilgi · x
 //                 ya da metin içinde "placeholder"/"undefined"/"lorem" geçiyor
 //    BOS-ANAHTAR: şıklarda ya da açıklamada A–E dışı / bozuk anahtar ("D2", "F_placeholder", "A_yanlis", "dummy", "B_teshis_note")
+//    BOS-KALIP  : (03.10) istem cümlesi / iç etiket ekrana sızmış: "… sorusu/cümlesi tekrar edilmez" · "Seçilmemiş, bu doğru şıktır" ·
+//                 "noktasından geliyor" cümlesinde standart künyesiz "p.28 SINAV TUZAĞI" etiketi. soru-kalite-kapisi.js bunu yalnız YENİ2
+//                 (kör/hakem2 ≥ 2026-10-04) soruda durdurur; eski soruda NOT-BOS.
 //  ÖLÇÜLDÜ (30.09 SGS onarım okumaları, elle): "F_placeholder) yok" şıkkı, boş "D2" şıkkı, hap "placeholder", teşhis değeri "yanilgi"/"skip",
 //    doğru şıkta açıklama yok ("undefined"), aciklama.A_yanlis, dummy:"remove" — hepsi yayındaki sorularda.
 //  🚫 GÖRMEZ: dolu ama anlamsız metin ("…yasak bu") · Türkçe harfsiz yazım · başka şıkkı anlatan açıklama (KAPI-AS ayrı) ·
-//     tablo hücrelerindeki "-" (meşru boş hücre; tablolar taranmaz) · model alanları (hakem/kör…).
+//     tablo hücrelerindeki "-" (meşru boş hücre; tablolar taranmaz) · model alanları (hakem/kör…) · BOS-KALIP listesinde olmayan
+//     başka istem kalıntısı · "p.28" etiketinin "noktasından geliyor" cümlesi dışında geçmesi · kaynaksız ama küçük harfli etiket.
 //  Kullanım: node arac/bos-alan-kapisi.js --sinav [--mutasyon] | --banka <sgs|smmm|kgk> [cikti.json]
 // ============================================================================
 'use strict';
@@ -21,6 +25,22 @@ const HARF = /^[A-E]$/;
 const GORUNEN = ['soru', 'siklar', 'aciklama', 'sade', 'teshis', 'hap', 'dayanak', 'adimlar', 'konu_giris', 'celdirici_yol', 'notlandirici', 'sinav_taktigi', 'teori_ikiz'];
 const YER_TUTUCU = /^\s*(undefined|null|skip|placeholder|todo|dummy|remove|yanilgi|x|n\/a|tbd)\s*$/i;
 const ICINDE = /\b(placeholder|undefined|lorem ipsum)\b/i;
+// 03.10 BOS-KALIP (Cem "bütün çıkan hataları kural yaz"; 02–03.10 elle okumada sitedeki SGS+bitirme açıklamalarında görüldü):
+//   üretim istemindeki talimat cümlesi ya da iç etiket ekrana sızmış. soru-kalite-kapisi.js bunu YALNIZ YENİ2 soruda (≥ 2026-10-04) durdurur.
+//   (1) "Ne soruluyor sorusu/cümlesi tekrar edilmez", "bu cümle tekrar edilmez" — istem 3b'nin kendisi ("tamamlama safhasında tekrar edilmez" meşru)
+//   (2) "Seçilmemiş, bu doğru şıktır" — teşhis/sade yer tutucusu
+//   (3) "Bu soru p.28 SINAV TUZAĞI (1) noktasından geliyor" — kaynak paketinin iç sayfa etiketi; standart künyesi önde ise ("TMS 36 p.28") meşru
+const KALIP = [
+  ['tekrar-edilmez', /\b(sorusu|soru|c[üu]mle(si)?)\s+tekrar\s+edilmez/i],
+  ['secilmemis', /(^|[.;:]\s*)se[çc]ilmemi[şs]\s*[,.]|se[çc]ilmemi[şs],?\s*bu\s+do[ğg]ru\s+[şs][ıi]kt[ıi]r/i],
+];
+const ETIKET_P = /(?<!(?:TMS|TFRS|BDS|IAS|IFRS|UMS|BOBİ FRS|KGK|ISA|SPK)\s*\d{0,4}[A-Z]?\s*)\bp\.\s?\d+[a-z]?\s+[A-ZÇĞİÖŞÜ]{3,}/;
+function kalipBul(t) {
+  if (MUT === 'kalip') return null;
+  for (const [ad, re] of KALIP) if (re.test(t)) return ad;
+  if (/noktas[ıi]ndan\s+geliyor/i.test(t) && (MUT === 'p-etiket-genis' ? /\bp\.\s?\d+\s+[A-ZÇĞİÖŞÜ]{3,}/ : ETIKET_P).test(t)) return 'p-etiketi';
+  return null;
+}
 
 function gez(v, yol, out) {
   if (v == null) return out;
@@ -57,6 +77,7 @@ function kusurlar(k) {
       if (/^\s*x\s*$/i.test(t) && /(^|\.)siklar\./.test(yol) && MUT !== 'x-sik') continue;
       if (YER_TUTUCU.test(t) && !(MUT === 'x-yok' && /^\s*x\s*$/i.test(t))) ekle('BOS-KALINTI', yol, 'yer tutucu değer "' + t.trim().slice(0, 20) + '"');
       else if (MUT !== 'icinde' && ICINDE.test(t)) ekle('BOS-KALINTI', yol, 'metinde yer tutucu sözcük');
+      else { const kb = kalipBul(t); if (kb) ekle('BOS-KALIP', yol, 'üretim kalıntısı kalıp: ' + kb); }
     }
   }
   return out;
@@ -98,6 +119,15 @@ function sinav() {
     ['hap boş dize → KALINTI', k => { k.hap = '  '; return k; }, 'BOS-KALINTI'],
     ['matematik şıkkı "x" meşru → temiz', k => { k.siklar.B = 'x'; k.teori_ikiz = { siklar: { B: 'x' } }; return k; }, null],
     ['"x" sözcük içinde meşru ("x ve y değişkeni") → temiz', k => { k.soru = 'x ve y değişkenleri için çözünüz.'; return k; }, null],
+    // 03.10 BOS-KALIP — yakalama (02–03.10 sitede görülen kalıntılar) + meşru kullanım (kapı kuralı 5)
+    ['"Ne soruluyor sorusu tekrar edilmez" → KALIP', k => { k.aciklama.A = 'Ne soruluyor sorusu tekrar edilmez. Kural: süre 30 gündür.'; return k; }, 'BOS-KALIP'],
+    ['"bu cümle tekrar edilmez" → KALIP', k => { k.sade = { siklar: { B: 'Ne soruluyor: bu cümle tekrar edilmez. Süreyi karıştırdın.' } }; return k; }, 'BOS-KALIP'],
+    ['teşhis "Seçilmemiş, bu doğru şıktır." → KALIP', k => { k.teshis = { C: { yanilgi: 'Seçilmemiş, bu doğru şıktır.' } }; return k; }, 'BOS-KALIP'],
+    ['"Bu soru p.28 SINAV TUZAĞI (1) noktasından geliyor" → KALIP', k => { k.teshis = { B: { ayirt: 'Bu soru p.28 SINAV TUZAĞI (1) noktasından geliyor.' } }; return k; }, 'BOS-KALIP'],
+    ['meşru: "tamamlama safhasında tekrar edilmez" → temiz', k => { k.aciklama.D = 'Doğrusu: dürüstlük değerlendirmesi kabul safhasında yapılır, tamamlama safhasında tekrar edilmez.'; return k; }, null],
+    ['meşru: "Bu soru TMS 36 p.28 KAPSAM noktasından geliyor" (standart künyeli) → temiz', k => { k.hap = 'Bu soru TMS 36 p.28 KAPSAM ayrımı noktasından geliyor.'; return k; }, null],
+    ['meşru: "Bu soru … değerlendirilmesi noktasından geliyor" (etiketsiz) → temiz', k => { k.hap = 'Bu soru iki tarafın ayrı değerlendirilmesi noktasından geliyor.'; return k; }, null],
+    ['meşru: adımda "Bu doğru şıktır." → temiz', k => { k.adimlar = [{ anlatim: 'Sonuç: 100 KASA alacaklı olur. Bu doğru şıktır.' }]; return k; }, null],
   ];
   let ok = 0;
   for (const [ad, f, bek] of V) { const b = kusurlar(f(T())); const g = b.length ? b[0].tur : null; const t = g === bek; if (t) ok++; console.log((t ? '  ✓ ' : '  ✗ ') + ad + (t ? '' : ' → ' + JSON.stringify(b))); }
@@ -110,7 +140,9 @@ if (require.main === module) {
   const [a, b, c] = process.argv.slice(2);
   if (a === '--sinav') {
     if (process.argv.includes('--mutasyon')) {
-      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize']; let tutan = 0;
+      // 03.10: önce bozulmamış öz-sınav (eskiden --mutasyon yalnız bozmaları koşuyordu; YEŞİL olmayan sınav da "9/9 KIRMIZI" verebilirdi)
+      if (!sinav()) { console.log('MUTASYON koşulmadı: bozulmamış öz-sınav zaten KIRMIZI'); process.exit(1); }
+      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize', 'kalip', 'p-etiket-genis']; let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, BOS_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' → KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
     }

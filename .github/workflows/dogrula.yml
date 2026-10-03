@@ -528,14 +528,26 @@ jobs:
           - { ad: "Kesik paragraf taramasi OZ-SINAVI",
               kabuk: bash, komut: "node arac/kesik-paragraf-tarama.js --sinav --mutasyon" }
           # 30.09: KAPI-BOS bos sik aciklamasi / yer tutucu deger / A-E disi anahtar. 15 vaka; 6 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
+          # 03.10: + BOS-KALIP (istem/ic etiket kalintisi: "... tekrar edilmez", "Secilmemis, bu dogru siktir", kaynaksiz "p.28 BUYUK HARF").
+          # 24 vaka (4 yakalama + 4 mesru kullanim eklendi); once bozulmamis oz-sinav, sonra 9 mutasyon KIRMIZI (03.10 olculdu).
           - { ad: "Bos alan kapisi OZ-SINAVI (KAPI-BOS)",
               kabuk: bash, komut: "node arac/bos-alan-kapisi.js --sinav --mutasyon" }
+          # 03.10: KAPI-TR Turkce harfsiz (ASCII) aciklama dizesi (sade/teshis/adimlar/kural/hap/aciklama). 16 vaka (6 yakalama +
+          # Ingilizce, "de facto"/Artemis cakismasi, formul satiri, kisa dize, ozel ad listesi, model alani, soru koku, karisik dize,
+          # isaretsiz dogru Turkce); 9 mutasyon (esik x2, islev, isaret, ek, Ingilizce, formul, Turkce harf, adim alani) KIRMIZI. Ag yok.
+          - { ad: "Turkce karakter kapisi OZ-SINAVI + MUTASYON (KAPI-TR)",
+              kabuk: bash, komut: "node arac/turkce-karakter-kapisi.js --sinav --mutasyon" }
+          # 03.10: soru-kalite-kapisi.js YENI2 baglari (KAPI-YY/ADIM/TR/BOS-KALIP yalniz kor/hakem2 >= 2026-10-04 ya da tarihsiz uretim
+          # girdisinde DURDURUR; eski soruda NOT). 14 vaka; 7 mutasyon (hep eski, hep yeni, tarihsiz eski, dort bag tek tek) KIRMIZI. Ag yok.
+          - { ad: "Soru kalite kapisi YENI2 bag OZ-SINAVI + MUTASYON",
+              kabuk: bash, komut: "node arac/soru-kalite-kapisi.js --sinav --mutasyon" }
           # 30.09: KAPI-ADIM adim atfi kaymasi ("X (N. adimda bulduk)" X'in sonuc oldugu adimi gostermiyor) + mekanik onarim. 7 vaka;
           # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",
               kabuk: bash, komut: "node arac/adim-atif-kapisi.js --sinav --mutasyon" }
           # 03.10: KAPI-YY "Yanlis yol:"/"En sik hata" adiminin sonucu bir celdirici sikka variyor mu (YY-SIKSIZ / YY-DOGRU).
-          # Yalniz NOT, uretime/yayina bagli degil. 17 vaka; once bozulmamis oz-sinav, sonra 12 mutasyon KIRMIZI (03.10 olculdu). Ag yok.
+          # 03.10'dan beri soru-kalite-kapisi.js uzerinden YENI2 soruda DURDURUR (eski soruda NOT). 17 vaka; once bozulmamis oz-sinav,
+          # sonra 12 mutasyon KIRMIZI (03.10 olculdu). Ag yok.
           - { ad: "Yanlis yol kapisi OZ-SINAVI + MUTASYON (KAPI-YY)",
               kabuk: bash, komut: "node arac/yanlis-yol-kapisi.js --sinav --mutasyon" }
           # 30.09: SikSirala sik siralarken teshis/celdirici/sade'yi de tasiyor mu (aciklama kaymasi kokunun bir kismi). GORMEZ: adim ici harf atfi.

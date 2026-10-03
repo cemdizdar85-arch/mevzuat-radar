@@ -14,7 +14,9 @@
 //    SMMM taranan 3.820 · sayısal 1.995 · YY adımlı 1.961 → TAMAM 1.288 · YY-SIKSIZ 553 · YY-DOGRU 12.
 //    Elle okunan 15 bulgunun 13'ü gerçek, 2'si yanlış alarmdı ("500.000'den büyük" sözel; 0,06 ≈ 0,064/0,060) — ikisi düzeltildi,
 //    öz-sınava vaka oldu. Düzeltme sonrası 25 YY-DOGRU elle tarandı: 1'i sınırda ("x = -7 veya x = 5 ikisini yazmak", sözel hata).
-//  DÜZEY: yalnız NOT — soru durdurmaz, üretime/yayına BAĞLI DEĞİL. Yanlış alarm oranı ölçülmeden durdurucu yapılmaz.
+//  DÜZEY (03.10, Cem "bütün çıkan hataları kural yaz"): arac/soru-kalite-kapisi.js üzerinden YALNIZ YENİ2 soruda (kör/hakem2 ≥ 2026-10-04
+//    ya da tarihsiz üretim girdisi) YY-DOGRU / YY-SIKSIZ DURDURUR; eski soruda NOT-YY. Bugün yayında olan hiçbir soru düşmez (eşdeğerlik 03.10).
+//    Ölçülen isabet 13/15 elle okunan bulgu (yukarıda); tam yanlış alarm oranı ÖLÇÜLMEDİ — yeni üretimde dönen soruların ilk partisi okunmalı.
 //  🚫 GÖRMEZ: sözel yanlış yol ("stok kaydı yapılmaz denir") · şıkkı çoklu sayı / sayı+yön sözcüğü olan sorular
 //     ("12.000 olumsuz", "Borç 3.500 / Alacak 3.500", tarih) · yanlış yolun MANTIĞININ doğru olup olmadığı (yalnız sonucun
 //     şıkka varıp varmadığı) · son "=" ara sonuçsa ("= 0,60" ama şık "%60" gibi ölçek farkı) · "Yanlış yol"/"En sık hata"
