@@ -1,143 +1,143 @@
 {
-  "olcum": "2026-10-03T00:23:08.722Z",
-  "gun": "2026-10-03",
+  "olcum": "2026-10-03T21:18:47.078Z",
+  "gun": "2026-10-04",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 65,
-      "toplam": 70,
-      "id": "sgs-p-maliyet-cokzor-r4/kp-02",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "evre maliyet sistemi",
-      "donem": 5,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "Evre (safha) maliyet sistemi uygulayan bir tekstil işletmesinde 2026 yılı dönem verileri şöyledir: direkt ilk madde ve malzeme gideri 245.000 TL, direkt işçilik gideri 132.500 TL, genel üretim gideri 87.350 TL, genel yönetim gideri 42.000 TL (213 sayılı Vergi Usul Kanununun 275 inci maddesi uyarınca mamul maliyetine dahil edilmemiştir). Dönem başı yarı mamul stoku 38.000 TL, dönem başı mamul stoku 56.500 TL, dönem sonu mamul stoku 61.200 TL'dir. Bu verilerle hesaplanan satılan mamul maliyeti 453.150 TL olduğuna göre, dönem sonu yarı mamul stoku kaç TL'dir?",
+      "sira": 12,
+      "toplam": 66,
+      "id": "sgs-d2-issgk-kolay-r4/kp-01",
+      "ders": "İş ve Sosyal Güvenlik Hukuku",
+      "konu": "sendika üyeliği",
+      "donem": 6,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Ahmet, metal işkolunda faaliyet gösteren iki farklı işverene ait işyerinde aynı dönemde çalışmakta olup bu işkolunda kurulu iki ayrı sendikaya üye olmak istemektedir. 6356 sayılı Sendikalar ve Toplu İş Sözleşmesi Kanunu'na göre aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "7.000",
-        "B": "31.000",
-        "C": "87.000",
-        "D": "54.400",
-        "E": "45.000"
+        "A": "Ahmet, aynı işkolunda aynı anda yalnızca bir sendikaya üye olabilir; farklı işverenlere bağlı olması bu kuralı değiştirmez.",
+        "B": "Ahmet, aynı işkolunda ve aynı zamanda farklı işverenlere ait işyerlerinde çalıştığından birden çok sendikaya üye olabilir.",
+        "C": "Ahmet, on sekiz yaşını doldurmadıkça hiçbir işçi sendikasına üye olamaz.",
+        "D": "Ahmet'in sendikaya üyeliği, işverenine yazılı başvuruda bulunması ile kazanılır.",
+        "E": "Ahmet aynı işkolunda birden fazla sendikaya üye olursa, farklı işverenlere bağlı olması gözetilmeksizin ikinci üyeliği her durumda geçersizdir."
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "Genel Yönetim Giderini, ihtiyari olmasına rağmen toplam üretim maliyetine dahil edersen bu tutara ulaşırsın. Doğrusu: 213 sayılı Vergi Usul Kanununun 275 inci maddesine göre genel yönetim giderinin mamule yüklenmesi iht…"
+          "ad": "Yaş Tuzağı",
+          "metin": "On sekiz yaşın işçi sendikasına üyelik için aranan yaş olduğunu düşünürsün. Doğrusu: m.17/1'e göre işçi sendikasına üyelik için aranan yaş on beştir."
         },
-        "A": {
-          "ad": "Eksik Katman Tuzağı",
-          "metin": "Dönem başı yarı mamul stokunu üretilen mamul maliyetine eklemeyi unutup doğrudan toplam üretim maliyetinden yola çıkarsan bu tutara ulaşırsın. Doğrusu: üç kademeli geçişte dönem başı yarı mamul stoku mutlaka eklenir."
+        "E": {
+          "ad": "İstisnayı Yok Sayma Tuzağı",
+          "metin": "Birden çok üyelik yasağının hiçbir istisnası olmadığını düşünürsün. Doğrusu: m.17/3, farklı işverenlere ait işyerlerinde çalışanları bu yasağın dışında tutar, dolayısıyla üyelik geçersiz sayılmaz."
         },
         "D": {
-          "ad": "Kademe Karıştırma Tuzağı",
-          "metin": "Dönem başı ve dönem sonu MAMUL stoklarının yerini değiştirip dönem sonu stokunu eklersen bu tutar çıkar. Doğrusu: satılan mamul maliyeti kademesinde dönem başı mamul EKLENİR, dönem sonu mamul ÇIKARILIR."
+          "ad": "Kazanım Yolu Tuzağı",
+          "metin": "Üyeliğin işverene yapılan yazılı başvuru ile kazanıldığını sanırsın. Doğrusu: m.17/5'e göre üyelik, Bakanlıkça sağlanan elektronik başvuru sistemine e-Devlet kapısından yapılan başvuru ve sendikanın kabulü ile kazanılır."
         },
-        "B": {
-          "ad": "İşaret Ters Çevirme Tuzağı",
-          "metin": "Dönem başı yarı mamul stokunu çıkarıp dönem sonu yarı mamul stokunu eklersen sapma ters yönde hesaplanır. Doğrusu: üretilen mamul maliyetinde dönem başı yarı mamul EKLENİR, dönem sonu yarı mamul ÇIKARILIR."
+        "A": {
+          "ad": "Genel Kural Tuzağı",
+          "metin": "Aynı işkolunda ve aynı zamanda birden çok sendikaya üyelik yasağının istisnasız uygulandığını sanırsın. Doğrusu: Kanun, farklı işverenlere ait işyerlerinde çalışanlar için bu yasağa açıkça istisna getirir."
         }
       },
-      "hap": "Genel Yönetim Gideri mamul maliyetine ihtiyari dahil edilir; üç kademeli satılan mamul maliyeti geçişinde her stok kendi kademesinde düzeltilir.",
+      "hap": "Aynı işkolunda aynı anda birden çok sendikaya üyelik yasaktır; ancak farklı işverenlere ait işyerlerinde çalışan işçiler bu yasağın dışındadır.",
       "satirlar": [
         [
-          "Üretilen Mamul Maliyeti (502.850 - x)",
-          "502.850 - x"
+          "A) Ahmet, aynı işkolunda aynı anda yalnızca bir sendikaya ü…",
+          "p.m.17/3"
         ],
         [
-          "+ Dönem Başı Mamul Stoku",
-          "56.500"
+          "B) Ahmet, aynı işkolunda ve aynı zamanda farklı işverenlere…",
+          "p.m.17/3"
         ],
         [
-          "- Dönem Sonu Mamul Stoku",
-          "61.200"
+          "C) Ahmet, on sekiz yaşını doldurmadıkça hiçbir işçi sendika…",
+          "p.m.17/1"
         ],
         [
-          "Satılan Mamul Maliyeti (verilen)",
-          "453.150"
+          "D) Ahmet'in sendikaya üyeliği, işverenine yazılı başvuruda …",
+          "p.m.17/5"
         ],
         [
-          "Dönem Sonu Yarı Mamul Stoku (x)",
-          "45.000"
+          "E) Ahmet aynı işkolunda birden fazla sendikaya üye olursa, …",
+          "p.m.17/3"
         ]
       ],
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=65",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=12",
       "havuz": {
-        "adet": 70,
-        "ilk_gun": "2026-09-13",
-        "bitis": "2026-11-22",
-        "kalan_gun": 50,
+        "adet": 66,
+        "ilk_gun": "2026-10-04",
+        "bitis": "2026-12-09",
+        "kalan_gun": 66,
         "durum": "YESIL",
         "mail_gunu": false
       }
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 65,
-      "toplam": 70,
-      "id": "smmm-dog1-vergi/kp-01",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "gelir vergisi matrahı hesabı",
-      "donem": 3,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "Tam mükellef gerçek kişi Bay (F)'nin 2026 takvim yılı gelirleri şöyledir: Türkiye'deki ticari işletmesinden elde ettiği safi ticari kazanç 512.400 ₺'dir. Almanya'da bulunan bir gayrimenkulünden elde ettiği kira gelirinin safi tutarı 168.750 ₺'dir. Tam mükellef (G) A.Ş.'den elde ettiği kâr payı brüt 785.400 ₺'dir (kâr dağıtımı sırasında tevkifat yapılmıştır). 193 sayılı Gelir Vergisi Kanunu'na göre Bay (F)'nin 2026 yılı gelir vergisi matrahı kaç ₺'dir?",
+      "sira": 12,
+      "toplam": 66,
+      "id": "smmm-w7-2-ymeslek-zor/kp-01",
+      "ders": "Meslek Hukuku",
+      "konu": "müşterek müteselsil sorumluluk",
+      "donem": 6,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Bir yeminli mali müşavirin tasdik ettiği KDV iadesi raporunda, tasdik kapsamındaki işlemlerden 40.000 ₺, kapsam dışı bir dönemin matrah farkından da 25.000 ₺ vergi ziyaı tespit edilmiştir. 3568 sayılı Kanun m.12'ye göre, YMM'nin müşterek ve müteselsil sorumluluğu hakkında hangisi doğrudur?",
       "siklar": {
-        "A": "681.150",
-        "B": "905.100",
-        "C": "1.466.550",
-        "D": "1.297.800",
-        "E": "1.073.850"
+        "A": "Yeminli mali müşavir, mükellefle birlikte yalnızca tasdikin kapsamıyla sınırlı olarak vergi ve cezalardan müteselsilen sorumlu olur.",
+        "B": "Yeminli mali müşavir, tasdik ettiği dönemle sınırlı olmaksızın mükellefin tüm vergi borçlarından tek başına sorumludur.",
+        "C": "Yeminli mali müşavirin sorumluluğu yalnızca disiplin niteliğindedir; tasdikten doğan mali sorumluluk ayrıca doğmaz.",
+        "D": "Yeminli mali müşavir, tasdik kapsamı dışındaki matrah farkından da mükellefle birlikte müteselsilen sorumlu olur.",
+        "E": "Yeminli mali müşavirin mali sorumluluğu, savunma yazısına otuz gün içinde cevap vermemesiyle ortadan kalkar."
       },
-      "dogru": "E",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "İstisna İhmali Tuzağı",
-          "metin": "Yurt dışı kira geliri doğru şekilde matraha katılmış ancak kâr payının yarısının GVK m.22 gereği istisna olduğu gözden kaçırılarak kâr payının brüt tutarı eklenmiştir. Doğrusu: kâr payının yalnız 392.700 ₺'lik vergiye t…"
+          "ad": "Sorumluluk Türü Karıştırma Tuzağı",
+          "metin": "öğrenci, mali sorumluluk raporu ile disiplin sorumluluğu raporunun ayrı ayrı düzenlendiğini, mali sorumluluğun da bağımsız olarak var olduğunu gözden kaçırır. Doğrusu: disiplin sorumluluğu ayrı bir rapordur, bu tasdikin…"
         },
-        "A": {
-          "ad": "Nihai Vergileme Tuzağı",
-          "metin": "Kâr payının tamamı üzerinden tevkifat yapıldığı için bu kazancın nihai olarak vergilendiği ve matraha hiç girmeyeceği düşünülmüştür. Doğrusu: GVK m.22 gereği kâr payının yarısı istisna, kalan yarısı matraha dahil edilme…"
+        "E": {
+          "ad": "Savunma Süresi Karıştırma Tuzağı",
+          "metin": "öğrenci, otuz günlük savunma süresinin geçmesiyle savunma hakkının kaybedilmesini, mali sorumluluğun sona ermesiyle aynı şey sanır. Doğrusu: savunma hakkından vazgeçilmiş sayılması yalnızca savunma usulüne ilişkindir, t…"
         },
         "D": {
-          "ad": "İkiz Atlama Tuzağı",
-          "metin": "Hem yurt dışı kira geliri matrah dışı bırakılmış hem de kâr payının yarısının istisna olduğu unutularak kâr payının tamamı eklenmiştir. Doğrusu: yurt dışı kira m.3 gereği dahil edilmeli, kâr payının yarısı m.22 gereği i…"
+          "ad": "Kapsam Genişletme Tuzağı",
+          "metin": "öğrenci, tasdik edilen mükellefin bütün işlemlerinin otomatik olarak sorumluluk alanına girdiğini düşünür. Doğrusu: sorumluluk açıkça 'tasdikin kapsamı ile sınırlı' olduğundan, kapsam dışı dönem matrah farkı bu sorumlul…"
         },
         "B": {
-          "ad": "Dar Mükellef Yanılgısı Tuzağı",
-          "metin": "Bay (F) tam mükellef olduğu halde yurt dışındaki gayrimenkulden elde edilen kira geliri matrah dışında bırakılmıştır. Doğrusu: GVK m.3 gereği tam mükellef, Türkiye içinde ve dışında elde ettiği kazançların tamamı üzerin…"
+          "ad": "Tek Başınalık Tuzağı",
+          "metin": "öğrenci müşterek müteselsil sorumluluğu, mükellefin de sorumlu olduğunu unutup yeminli mali müşavirin yalnız başına tüm borcu üstlendiği bir yapı gibi düşünür. Doğrusu: sorumluluk mükellefle BİRLİKTE müşterektir, tek ba…"
         }
       },
-      "hap": "Tam mükellef gerçek kişi, Türkiye içinde ve dışında elde ettiği tüm kazanç ve iratları matraha dahil eder; kâr paylarının yalnız yarısı GVK m.22 gereği istisnadır.",
+      "hap": "Yeminli mali müşavirin tasdikten doğan müşterek ve müteselsil sorumluluğu, mükellefle BİRLİKTE ve yalnızca tasdikin KAPSAMI ile SINIRLI olarak doğar.",
       "satirlar": [
         [
-          "Yurt dışı kira geliri (safi, GMSİ)",
-          "168.750"
+          "A) Yeminli mali müşavir, mükellefle birlikte yalnızca tasdi…",
+          "m.12/1"
         ],
         [
-          "Kâr payı (brüt)",
-          "785.400"
+          "B) Yeminli mali müşavir, tasdik ettiği dönemle sınırlı olma…",
+          "m.12/1"
         ],
         [
-          "Kâr payının istisna tutarı (GVK m.22, yarısı)",
-          "392.700"
+          "C) Yeminli mali müşavirin sorumluluğu yalnızca disiplin nit…",
+          "Ek fıkra"
         ],
         [
-          "Vergiye tabi kâr payı",
-          "392.700"
+          "D) Yeminli mali müşavir, tasdik kapsamı dışındaki matrah fa…",
+          "m.12/1"
         ],
         [
-          "Gelir Vergisi Matrahı",
-          "1.073.850"
+          "E) Yeminli mali müşavirin mali sorumluluğu, savunma yazısın…",
+          "Ek fıkra"
         ]
       ],
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=65",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=12",
       "havuz": {
-        "adet": 70,
-        "ilk_gun": "2026-09-23",
-        "bitis": "2026-12-02",
-        "kalan_gun": 60,
+        "adet": 66,
+        "ilk_gun": "2026-10-04",
+        "bitis": "2026-12-09",
+        "kalan_gun": 66,
         "durum": "YESIL",
         "mail_gunu": false
       }

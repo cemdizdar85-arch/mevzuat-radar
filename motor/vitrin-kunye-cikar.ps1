@@ -29,7 +29,7 @@ param([switch]$Kuru)
 $ErrorActionPreference = "Stop"
 $depoKok = Split-Path -Parent $PSScriptRoot
 if (-not (Test-Path -LiteralPath (Join-Path $depoKok "veri"))) {
-  $gitKok = (git rev-parse --show-toplevel 2>$null)
+  $ErrorActionPreference = "Continue"; $gitKok = (git rev-parse --show-toplevel); $ErrorActionPreference = "Stop"
   if ($gitKok) { $depoKok = ([string]$gitKok).Trim() }
 }
 Set-Location $depoKok
