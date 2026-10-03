@@ -191,7 +191,8 @@
     fetch(bilgi.dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
       SET=d; DURUM=oku(no);
       if(DURUM&&DURUM.bitti){ sonucCiz(); return; }
-      if(!DURUM){ DURUM={ cevap:{}, bayrak:{}, kalanSn:d.sure_dk*60, aktif:0, basla:new Date().toISOString() }; yaz(); }
+      window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} };
+      if(!DURUM){ window.ttSay('deneme/basla/'+no,'Sınav gibi: set '+no+' başladı'); DURUM={ cevap:{}, bayrak:{}, kalanSn:d.sure_dk*60, aktif:0, basla:new Date().toISOString() }; yaz(); }
       AKTIF=DURUM.aktif||0; sinaviBaslat();
     }).catch(function(){ alert('Set yüklenemedi. Sayfayı yenileyip yeniden dene.'); });
   }
@@ -266,6 +267,7 @@
 
   function bitir(sureDoldu){
     if(SAYAC){ clearInterval(SAYAC); SAYAC=null; }
+    try{ window.ttSay&&window.ttSay('deneme/bitti'+(sureDoldu?'/sure':''),'Sınav gibi: bitti'); }catch(e){}
     var dogru=0, yanlis=0, bos=0;
     SET.sorular.forEach(function(q){ var c=DURUM.cevap[q.id]; if(!c) bos++; else if(c===q.dogru) dogru++; else yanlis++; });
     DURUM.bitti=true; DURUM.sureDoldu=!!sureDoldu; DURUM.bitis=new Date().toISOString();
@@ -330,6 +332,8 @@
   }).catch(function(){ $('sgSetler').innerHTML='<p class="sg-alt">Setler şu an yüklenemedi. Sayfayı yenilemeyi dene.</p>'; });
 })();
 </script>
+<!-- 03.10 (Cem "1 yap", V2 madde 55-56): sayaç bu sayfada da - yalnız sayfa/adım adı, kişi verisi yok -->
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

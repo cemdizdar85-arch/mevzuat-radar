@@ -365,6 +365,7 @@
     var sinavOf=function(p){ return p==='sgs'?'sgs':/^yeterlilik/.test(p)?'yeterlilik':/^kgk/.test(p)?'kgk':''; };
     var kalan=liste.filter(function(x){ var s=sinavOf(x&&x.paket); return s && !(d.sinavlar[s]&&d.sinavlar[s].durum==='aktif'); });
     if(kalan.length!==liste.length){ try{ localStorage.setItem('tt_siparisler',JSON.stringify(kalan)); }catch(e){} }
+    if(kalan.length) try{ window.ttSay&&window.ttSay('hesap/odeme-bekliyor','Hesabım: ödeme kontrol ediliyor'); }catch(x){}
     kap.innerHTML=kalan.map(function(x){
       var gun=Math.floor((Date.now()-new Date(x.tarih))/86400000);
       return '<div class="og-paket" style="margin-bottom:12px"><span class="og-paket-et">Sipariş '+esc(x.no)+'</span><b>Ödemen kontrol ediliyor</b>'
@@ -468,6 +469,7 @@
   }
   async function panel(user){
     if(sonraGit()) return;
+    window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} }; window.ttSay('hesap/panel','Hesabım açıldı');
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
     $('ogKim').textContent=user.email||''; $('ogAyarEposta').textContent=user.email||'';
     /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
@@ -620,6 +622,7 @@
         }
         hataYaz('ogKHata',trHata(r.error)); denemeYolu($('ogKHata'),r.error); return;
       }
+      try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:'hesap/kayit',title:'Üye oldu',event:true}); }catch(x){}
       if(r.data.session){ panel(r.data.user); return; }
       /* e-posta doğrulaması açıksa (bugün kapalı) ya da adres zaten kayıtlıysa Supabase oturumsuz döner */
       var h=$('ogKHata'); h.className='og-bilgi';
@@ -716,6 +719,8 @@
 })();
 </script>
 <script src="sinav-sonucu.js" defer></script>
+<!-- 03.10 (Cem "1 yap", V2 madde 55-56): sayaç bu sayfada da - yalnız sayfa/adım adı, kişi verisi yok -->
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>

@@ -241,6 +241,7 @@
   function sec(kod, kullanici){
     if(!DIZIN||!DIZIN.sinavlar.some(function(s){return s.kod===kod;})) return;
     SECILI=kod;
+    window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} }; if(kullanici) window.ttSay('sorular/sinav/'+kod,'Sorular: sınav seçildi · '+kod);
     sinavlarEl.querySelectorAll('.sc-sinav').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-kod')===kod)); });
     dersleriCiz();
     try{ history.replaceState(null,'','#'+kod); }catch(e){}
@@ -268,6 +269,8 @@
 })();
 </script>
 
+<!-- 03.10 (Cem "1 yap", V2 madde 55-56): sayaç bu sayfada da - yalnız sayfa/adım adı, kişi verisi yok -->
+<script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
