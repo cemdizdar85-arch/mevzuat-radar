@@ -1,14 +1,18 @@
-# .github/workflows/duyuru-nobetcisi.yml — KURUM DUYURU NOBETCISI (0 USD)
+# .github/workflows/duyuru-nobetcisi.yml — KURUM DUYURU NOBETCISI + SINAV NOBETI (0 USD)
 # 14.01.2026 TURMOB YK karari (0,25 goturme + hesap makinesi yasagi) RG'de
 # yayimlanmadigi icin ayna goremedi - kurum duyurulari ayri kanaldi ve
-# izlenmiyordu. Bu nobetci TESMER/KGK/SGK/TURKPATENT (+TURMOB/GIB kirmizi
-# adaylari) duyurularini gunde bir tarar; yeniler veri/duyuru-yeni.json'a
-# duser ve commit'lenir. Cem onayi #18 + "baska izlenmeyen varsa izleyelim".
+# izlenmiyordu. Bu nobetci TESMER/KGK/SGK/TURKPATENT/TURMOB (+GIB kirmizi
+# aday) duyurularini tarar; yeniler veri/duyuru-yeni.json'a duser.
+# 05.10.2026 SINAV NOBETI (Cem "Sinav Nobeti haber hattini kuralim"):
+#  - gunde 1 -> 06:15-22:15 TR arasi 2 saatte bir (GitHub cron'u saatlerce gecikebilir - olculdu: site-nobeti 3-6 sa)
+#  - yeni SINAV duyurusu (baslik suzgeci) -> Cem'e mail (arac/alarm-maili.ps1, Resend)
+#  - motor/sinav-nobeti.js -> veri/sinav-nobeti.json + sinav-nobeti.html (sitede kaynakli liste)
+#  - Instagram gorseli bulutta BASILMAZ (artifact yok kurali); yerelde: node motor/sinav-nobeti-gorsel.js
 name: Duyuru Nobetcisi (0 USD)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 5 * * *'   # her gun 08:30 TR
+    - cron: '15 3-19/2 * * *'   # 06:15, 08:15 ... 22:15 TR
 permissions:
   contents: write
 concurrency:
@@ -22,13 +26,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Nobet kos
         shell: pwsh
-        run: ./motor/duyuru-nobetcisi.ps1
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./motor/duyuru-nobetcisi.ps1 -Mail
+      - name: Sinav Nobeti sayfasi
+        if: always()
+        run: node motor/sinav-nobeti.js
       - name: Sonuc commit
         if: always()
         run: |
           git config user.name  "mevzuat-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add veri/duyuru-durum.json veri/duyuru-yeni.json 2>/dev/null || true
-          git diff --cached --quiet || git commit -m "Duyuru nobeti [veri-operasyonu]"
+          git add veri/duyuru-durum.json veri/duyuru-yeni.json veri/sinav-nobeti.json sinav-nobeti.html 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Duyuru nobeti + Sinav Nobeti sayfasi [veri-operasyonu]"
           git pull --rebase --autostash || true
           git push || true
