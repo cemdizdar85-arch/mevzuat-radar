@@ -420,7 +420,7 @@
     sayilan.forEach(function(c){ if(!gruplar[c.grup]){ gruplar[c.grup]={ad:c.grup,dogru:0,soru:0}; sira.push(c.grup); } gruplar[c.grup].soru++; if(c.dogru) gruplar[c.grup].dogru++; });
     var liste=sira.map(function(k){return gruplar[k];});
     var dogruSay=sayilan.filter(function(c){return c.dogru;}).length;
-    SONUC={ gecme:t.gecme, dogru130:t.dogru130, soru:sayilan.length, dogru:dogruSay, gruplar:liste, denetlenemedi:CEVAPLAR.length-sayilan.length, tarih:new Date().toISOString() };
+    SONUC={ gecme:t.gecme, dogru130:t.dogru130, dogru130Alt:t.dogru130Alt, dogru130Ust:t.dogru130Ust, soru:sayilan.length, dogru:dogruSay, gruplar:liste, denetlenemedi:CEVAPLAR.length-sayilan.length, tarih:new Date().toISOString() };
     try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
     /* yanlışlar Kaydır-Çöz yanlış kutusuna (aynı biçim) */
     try{
@@ -629,7 +629,7 @@
     $('svMesaj').textContent= g>=70 ? 'İyi durumdasın. 130 soruluk tam denemeyle bu sonucu gerçek süre ve gerçek ders dağılımında doğrula.'
       : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında.'
       : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+'.';
-    $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
+    $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+((SONUC.dogru130Alt!=null&&SONUC.dogru130Ust!=null)?' (büyük ihtimalle '+SONUC.dogru130Alt+'–'+SONUC.dogru130Ust+' arası; 30 soruluk ölçüm kesin değil)':'')+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
     try{ bugunCiz(liste); }catch(e){}

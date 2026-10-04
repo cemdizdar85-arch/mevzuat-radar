@@ -71,7 +71,12 @@
     var w=sonsal(cevaplar), ort=0, oran=0, gecme=0;
     IZGARA.forEach(function(t,i){ ort+=w[i]*t; var p=beklenenOran(t); oran+=w[i]*p; gecme+=w[i]*esikAltinda(p); });
     var gorunen=Math.min(TAVAN,Math.max(TABAN,gecme));
-    return { theta:ort, oran:oran, dogru130:Math.round(oran*130), gecmeHam:gecme, gecme:Math.round(gorunen*100) };
+    /* 04.10 Cem (rakip: Kaplan aralık gösterir): "130'da 8" tek sayısı sahte kesinlik. Sonsal dağılımdan %80 aralık
+       (10. ve 90. yüzdelik): her ızgara noktasının beklenen doğru sayısı, ağırlığıyla birikimli. */
+    var sira=IZGARA.map(function(t,i){ return { d:beklenenOran(t)*130, w:w[i] }; }).sort(function(x,y){ return x.d-y.d; });
+    function yuzdelik(q){ var b=0; for(var i=0;i<sira.length;i++){ b+=sira[i].w; if(b>=q) return sira[i].d; } return sira[sira.length-1].d; }
+    return { theta:ort, oran:oran, dogru130:Math.round(oran*130), dogru130Alt:Math.floor(yuzdelik(0.10)), dogru130Ust:Math.ceil(yuzdelik(0.90)),
+             gecmeHam:gecme, gecme:Math.round(gorunen*100) };
   }
   /* uyarlama: sıradaki sorunun zorluğu, o anki yetenek tahminine en yakın etiket */
   function sonrakiZorluk(cevaplar){
@@ -98,6 +103,11 @@
       bekle('doğru sayısı arttıkça ihtimal azalmaz (0..20)', tekduze);
       var kolayDogru=tahmin([{zorluk:'kolay',dogru:true}]).theta, cokzorDogru=tahmin([{zorluk:'cokzor',dogru:true}]).theta;
       bekle('çok zor soruyu bilmek kolayı bilmekten fazla yükseltir', cokzorDogru>kolayDogru);
+      // 04.10 aralık: nokta tahmini aralığın içinde; çok soru aralığı daraltır
+      var a10=tahmin(uret(10,function(i){return i<5;})), a30=tahmin(uret(30,function(i){return i<15;}));
+      bekle('aralık: alt <= tahmin <= üst', a30.dogru130Alt<=a30.dogru130 && a30.dogru130<=a30.dogru130Ust);
+      bekle('30 soru aralığı 10 sorudan dar', (a30.dogru130Ust-a30.dogru130Alt) < (a10.dogru130Ust-a10.dogru130Alt));
+      bekle('aralık 0..130 içinde', a10.dogru130Alt>=0 && a10.dogru130Ust<=130);
       bekle('eşik: %50 doğru -> sınırı geçme 0, %90 -> 1, %70 -> 0,5', esikAltinda(0.5)===0 && esikAltinda(0.9)===1 && Math.abs(esikAltinda(0.7)-0.5)<0.01);
       bekle('uyarlama: hep doğru -> çok zor, hep yanlış -> kolay', sonrakiZorluk(uret(6,function(){return true;}))==='cokzor' && sonrakiZorluk(uret(6,function(){return false;}))==='kolay');
       console.log('SEVİYE MODELİ öz-sınav: '+(7-hata)+'/7'+'  · örnek: 20/20 -> %'+hepsi.gecme+' ('+hepsi.dogru130+'/130), 14/20 -> %'+yarim.gecme+' ('+yarim.dogru130+'/130), 0/20 -> %'+hic.gecme+' ('+hic.dogru130+'/130)');
