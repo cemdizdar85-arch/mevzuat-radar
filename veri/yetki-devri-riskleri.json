@@ -1,11 +1,11 @@
 {
-  "tarih": "04.10.2026 19:26",
+  "tarih": "04.10.2026 19:28",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
   "sayfa": 69,
   "atifli_iddia": 286,
-  "dayanaksiz_iddia": 356,
+  "dayanaksiz_iddia": 357,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -1847,31 +1847,37 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 277,
+      "satir": 278,
       "iddia": "En az 8",
       "metin": "En az 8 karakter. Şifreyi göster"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 301,
+      "satir": 302,
       "iddia": "%20",
       "metin": "window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\\+?link|email%20link/i.test(h));"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 404,
+      "satir": 387,
+      "iddia": "10 GÜN",
+      "metin": "/* 04.10 GÜNLÜK GÖREV (Cem \"beş maddeyi yapalım\", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 416,
       "iddia": "en az 8",
       "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 467,
+      "satir": 479,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 525,
+      "satir": 537,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
