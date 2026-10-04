@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-04 18:12:43",
+  "tarih": "2026-10-04 18:39:01",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -10,13 +10,25 @@
   "olcum_toplam": 138,
   "olculen": 138,
   "KOR": 0,
-  "yeni_kusur_sayfa": 13,
+  "yeni_kusur_sayfa": 14,
   "taban_borcu_sayfa": 4,
   "yeni_kusur": [
     {
+      "sayfa": "durum.html",
+      "kayma": true,
+      "sw": 396,
+      "kesik": [
+        {
+          "oge": "table.dt",
+          "sag": 396,
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 11 10 04"
+        }
+      ]
+    },
+    {
       "sayfa": "durum.html@320",
       "kayma": true,
-      "sw": 338,
+      "sw": 397,
       "kesik": [
         {
           "oge": "table.dt",
@@ -25,8 +37,8 @@
         },
         {
           "oge": "table.dt",
-          "sag": 330,
-          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 12 10 04"
+          "sag": 396,
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 11 10 04"
         }
       ]
     },
