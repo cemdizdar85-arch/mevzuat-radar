@@ -80,7 +80,7 @@
           (s.dersler || []).forEach(function (x) {
             if (!x.sayfa) return;
             var konular = (x.konular || []).map(function (k) { return k.ad; }).join(' ');
-            KAYIT.push({ ad: x.ad, yol: '/' + x.sayfa, konu: s.ad + ' dersleri', ara: katla(x.ad + ' ' + konular + ' ' + s.ad + ' ' + (s.uzun || '')) });
+            KAYIT.push({ ad: x.ad, yol: '/' + x.sayfa, konu: s.ad + ' dersleri', ara: katla(x.ad + ' ' + konular + ' ' + (x.ara || '') + ' ' + s.ad + ' ' + (s.uzun || '')) });
           });
         });
         if (acik && girdi) ciz(girdi.value);

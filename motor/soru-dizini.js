@@ -140,7 +140,7 @@ for (const S of SINAVLAR) {
   const dersler = satirlar.map(d => {
     const sayfa = dersEsle(sayfalar, d.ders);
     const { ad, alt } = adAyir(sayfa ? sayfa.ad : d.ders);
-    let konular = [];
+    let konular = [], ara = '';
     if (sayfa) {
       const enCok = new Map();
       for (const s of sayfa.sorular) {
@@ -151,6 +151,8 @@ for (const S of SINAVLAR) {
         if (!eski || donem > eski.donem) enCok.set(anahtar, { ad: k, donem });
       }
       konular = [...enCok.values()].filter(x => x.donem > 0).sort((x, y) => y.donem - x.donem).slice(0, 3);
+      /* 04.10: site araması (komut.js) ders sayfasını konu adıyla bulsun -> katlanmış konu adları, ders başına en çok 120 */
+      ara = [...enCok.keys()].slice(0, 120).join(' ');
     }
     return {
       ad, alt,
@@ -158,7 +160,8 @@ for (const S of SINAVLAR) {
       sinav_soru: +d.sinav_soru || 0,
       soru: sayfa ? sayfa.sorular.length : 0,
       sayfa: sayfa ? sayfa.dosya : null,
-      konular
+      konular,
+      ara
     };
   });
   const soru = dersler.reduce((t, d) => t + d.soru, 0);
