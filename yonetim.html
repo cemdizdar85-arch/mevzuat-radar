@@ -73,7 +73,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     <h2>Üyeler</h2>
     <div class="suzgec">
       <select id="fSinav" aria-label="Sınava göre süz"><option value="">Tüm sınavlar</option><option>Staja Giriş</option><option>Yeterlilik</option><option>Tümü (tam paket)</option><option>Belirsiz</option></select>
-      <select id="fKaynak" aria-label="Kaynağa göre süz"><option value="">Tüm kaynaklar</option><option>Ücretli</option><option>Elçi ile ücretli</option><option>Hediye</option><option>Ücretsiz üye</option></select>
+      <select id="fKaynak" aria-label="Kaynağa göre süz"><option value="">Tüm kaynaklar</option><option>Ücretli</option><option>Elçi ile ücretli</option><option>Hediye</option><option>Elle verilmiş</option><option>Ücretsiz üye</option></select>
       <input id="fAra" type="search" placeholder="E-posta ya da elçi kodu ara" aria-label="Ara">
     </div>
     <div class="kaydir"><table id="tUye"></table></div>
@@ -111,17 +111,23 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       || (u.cozdugu ? (u.cozdugu.indexOf('sgs')>-1&&u.cozdugu.indexOf('smmm')>-1 ? 'Staja Giriş' : (u.cozdugu.indexOf('smmm')>-1?'Yeterlilik':'Staja Giriş')) : '')
       || 'Belirsiz';
   }
+  /* 04.10 Cem'in ekranı: inceleme@ ve kurucu hesabı "Ücretli" görünüyordu - paketleri SQL'le elle verilmişti.
+     Ücretli = bu e-postayla ÖDENMİŞ sipariş var. Paket var ama ödenmiş sipariş ve hediye kaydı yoksa "Elle verilmiş". */
+  var ODENEN={};
   function kaynakBul(u){
     var aktif=u.paket&&(!u.bitis||u.bitis>=bugun);
     var elci=u.siparis_elci||u.kayit_elci||'';
+    var od=ODENEN[String(u.eposta||'').toLowerCase()];
     if(u.hediye&&aktif) return { ad:'Hediye', sinif:'e-hediye', elci:elci };
-    if(aktif&&u.siparis_elci) return { ad:'Elçi ile ücretli', sinif:'e-elci', elci:elci };
-    if(aktif) return { ad:'Ücretli', sinif:'e-ucretli', elci:elci };
+    if(aktif&&od&&od.elci) return { ad:'Elçi ile ücretli', sinif:'e-elci', elci:od.elci };
+    if(aktif&&od) return { ad:'Ücretli', sinif:'e-ucretli', elci:elci };
+    if(aktif) return { ad:'Elle verilmiş', sinif:'e-hediye', elci:elci };
     return { ad:'Ücretsiz üye', sinif:'e-bos', elci:elci };
   }
 
   var VERI=null;
   function ciz(){
+    ODENEN={}; VERI.siparisler.forEach(function(s){ if(s.durum==='odendi'){ var k=String(s.eposta||'').toLowerCase(); ODENEN[k]=ODENEN[k]||{}; if(s.elci) ODENEN[k].elci=s.elci; } });
     var uyeler=VERI.uyeler.map(function(u){ var k=kaynakBul(u); return Object.assign({},u,{ sinav:sinavBul(u), kaynak:k.ad, sinif:k.sinif, elci:k.elci }); });
     var yedi=Date.now()-7*86400000;
     $('sToplam').textContent=uyeler.length;
@@ -130,7 +136,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('sBekleyen').textContent=VERI.siparisler.filter(function(s){ return s.durum==='odeme_bekliyor'; }).length;
 
     /* çapraz tablo: satır = kaynak, sütun = sınav */
-    var SIN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'], KAY=['Ücretli','Elçi ile ücretli','Hediye','Ücretsiz üye'];
+    var SIN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'], KAY=['Ücretli','Elçi ile ücretli','Hediye','Elle verilmiş','Ücretsiz üye'];
     var h='<tr><th>Kaynak</th>'+SIN.map(function(s){ return '<th>'+s+'</th>'; }).join('')+'<th>Toplam</th></tr>';
     KAY.concat(['Toplam']).forEach(function(k){
       var satir=uyeler.filter(function(u){ return k==='Toplam'||u.kaynak===k; });
