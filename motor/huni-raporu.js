@@ -37,6 +37,10 @@ const ADIMLAR = [
   ['Form çıktı (üye değil)',    /^seviye\/(sgs|yet)\/form-cikti$/],
   ['Formu doldurdu',            /^seviye\/(sgs|yet)\/form-dolduruldu$/],
   ['Sonucu gördü',              /^seviye\/(sgs|yet)\/sonuc$/],
+  /* 04.10 Cem "sınav sonunda üye olsun": form kapısı kalktı (form adımları eski veri için duruyor); özet açık, rapor hesapla */
+  ['Rapor kilidini gördü',      /^seviye\/(sgs|yet)\/kilit-gordu$/],
+  ['Hesap aç dedi',             /^seviye\/(sgs|yet)\/kilit-hesap-ac$/],
+  ['Raporu hesapla açtı',       /^seviye\/(sgs|yet)\/rapor-acildi$/],
   ['Fiyat sayfası',             /^\/fiyat\.html$/],
   ['Satın alma sayfası',        /^\/satin-al\.html$/],
   ['Paket seçti',               /^satin-al\/sec\//],

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>30 soruda geçme ihtimalini ölç · Staja Giriş | Tetikte</title>
+<title>30 soruda seviyeni ölç · Staja Giriş | Tetikte</title>
 <link rel="canonical" href="https://tetikte.com/seviye-testi.html">
 <meta name="description" content="Staja Giriş için 30 soruluk uyarlamalı seviye testi: bitince geçme ihtimalin, tahmini doğru sayın ve en zayıf alanın.">
 <link rel="stylesheet" href="stil.css">
@@ -28,6 +28,7 @@
   ortalama >= 60, tezkiye ortalamaya girer).
 -->
 <style>
+[hidden]{display:none!important}   /* 04.10: .sv-tez{display:...} hidden'ı eziyordu - SGS raporunda Yeterlilik'in tezkiye kutusu görünüyordu */
   body{margin:0}
   .sv{max-width:760px;margin:0 auto;padding:22px 20px 80px;text-align:left}
   .sv-gizli{display:none !important}
@@ -105,15 +106,15 @@
   <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Seviye testi</div>
 
   <section id="svGiris">
-    <h1>30 soruda geçme ihtimalini ölç</h1>
+    <h1>30 soruda seviyeni ölç</h1>
     <p class="sv-alt">Staja Giriş için. Sorular sınavdaki ders ağırlığıyla gelir; bildikçe zorlaşır, bilemedikçe kolaylaşır. Yaklaşık 30 dakika.</p>
     <ul class="sv-maddeler">
       <li>Bitince <b>geçme ihtimalin</b> ve 130 soruluk sınavda tahmini doğru sayın</li>
       <li>Hangi alanda (muhasebe, hukuk, ekonomi-maliye, genel kültür) açığın olduğu</li>
-      <li>Karnen e-postana gelir; yanlışlarını Nöbetçi adım adım anlatır</li>
+      <li>Ders ders raporun, "bugün şunu yap" planın ve yanlışların ücretsiz hesabınla açılır</li>
     </ul>
     <!-- 21.09: kapı öne alındığı için sürpriz olmasın - ne isteneceği başlamadan ÖNCE yazılır. -->
-    <p class="sv-not" style="margin:0 0 16px">Hemen başlarsın, önce form yok. Bitirince karnen için adını, e-postanı ve telefonunu soracağız. Ücretsiz, kart istenmez.</p>
+    <p class="sv-not" style="margin:0 0 16px">Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.</p>
     <p class="sv-onceki" id="svOnceki" hidden></p>
     <button class="sv-btn ana" id="svBasla" type="button" disabled>Soru yükleniyor…</button>
     <p class="sv-not">Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez (cevabın sıradaki sorunun zorluğunu belirler). "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.</p>
@@ -202,6 +203,18 @@
       <p class="sv-mesaj" id="svMesaj"></p>
       <p class="sv-not" id="svDetay"></p>
     </div>
+    <!-- 04.10 Cem ("1 ve 2 yap"; "sınav sonunda üye olmasını sağlasak"): özet herkese AÇIK, ayrıntılı rapor ücretsiz HESAPLA.
+         Eski sonuç kapısı (ad + e-posta + telefon formu, 21.09/03.10) artık çıkmaz; yerine bu kart. Hesap açınca ogrenci.html
+         ?sonra= ile buraya ?rapor=1 döner, bu cihazdaki son rapor (sv_son_rapor) tamamıyla çizilir. -->
+    <div class="sv-kutu" id="svKilit" hidden>
+      <h2 style="margin:0 0 6px">Raporunun tamamı hazır</h2>
+      <p class="sv-alt" id="svKilitMetin" style="margin:0 0 12px"></p>
+      <div class="sv-dugmeler">
+        <a class="sv-btn ana" id="svKilitAc" href="ogrenci.html?sonra=seviye-testi.html%3Frapor%3D1#uye-ol" style="text-decoration:none">Ücretsiz hesap aç, raporu gör →</a>
+        <a class="sv-btn" id="svKilitGiris" href="ogrenci.html?sonra=seviye-testi.html%3Frapor%3D1" style="text-decoration:none">Hesabım var, giriş yap</a>
+      </div>
+      <p class="sv-not" style="margin:10px 0 0">Ücretsiz, kart istenmez. Google ile tek tıkla açılır; sonucun hesabına kaydedilir.</p>
+    </div>
     <div class="sv-gruplar" id="svGruplar"></div>
     <!-- YET: tezkiye notu ortalamaya ayrı ders gibi girer (m.16/b); verilmezse en düşük kabul notu 80 (m.9) -->
     <label class="sv-tez" id="svTez" hidden>Staj tezkiye notun (biliyorsan): <input type="number" id="svTezNot" min="80" max="100" step="1" placeholder="80"> <span>ortalamaya ayrı bir ders gibi girer</span></label>
@@ -225,9 +238,11 @@
 
     <div class="sv-dugmeler" id="svYollar" style="margin-bottom:16px"></div>
 
+    <div id="svYanlisBolum">
     <h2 style="font-size:19px;margin:18px 0 4px">Bilemediğin sorular</h2>
     <p class="sv-not" style="margin-top:0">Yanlışların yanlış kutuna düştü; 2 gün sonra ders sayfasında yeniden karşına çıkar.</p>
     <div id="svYanlislar"></div>
+    </div>
 
     <!-- 16.09: kalibrasyon kutusu (sinav-sonucu.js) - "geçme ihtimali" iddiasının arkasında durabilmek
          için gerçek sınav sonuçlarını toplayan tek yer. 21.11.2026 sonrası hesap bu kayıtlarla ayarlanır. -->
@@ -422,14 +437,31 @@
   /* 03.10 (V2 madde 55, Cem "1 yap"): seviye testi hunisi GoatCounter olay olarak sayılır - yalnız adım adı ve kip
      (sgs/yet); ad, e-posta, telefon, cevap GİTMEZ. Sayaç inmezse (reklam engelleyici) sessizce geçer. */
   function say(adim){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({ path:'seviye/'+(YET?'yet':'sgs')+'/'+adim, title:'Seviye testi: '+adim, event:true }); }catch(e){} }
+  /* 04.10 Cem ("1 ve 2 yap"): SONUÇ KAPISI KALKTI. Özet (geçme ihtimali, seviye, mesaj, tahmini doğru) herkese hemen görünür;
+     ders ders rapor + "Bugün şunu yap" + bilemediğin sorular ücretsiz HESAPLA açılır (kilitUygula). Rapor bu cihazda saklanır
+     (sv_son_rapor), hesap açınca ?rapor=1 ile tamamı çizilir. Daha önce formu doldurmuş kişiye karne yine gider (kayitOku). */
   function sonucuAc(ciz0){
     say('bitti');
-    var ciz=function(){ ciz0(); say('sonuc'); };
-    if(uyeMi()){ ciz(); return; }
-    if(kayitOku()){ ciz(); karneGonder(); return; }
-    say('form-cikti');
-    BEKLEYEN=ciz; goster('svOnKapi'); try{ $('svAd').focus(); }catch(e){}
+    raporSakla();
+    ciz0(); say('sonuc'); kilitUygula();
+    if(kayitOku()) karneGonder();
   }
+  function raporSakla(){
+    try{ localStorage.setItem('sv_son_rapor', JSON.stringify({ yet:YET, sonuc:SONUC, tarih:new Date().toISOString(),
+      cevaplar:CEVAPLAR.map(function(c){ return { ders:c.ders, dogru:c.dogru, denetlenemedi:c.denetlenemedi, secim:c.secim, dogruHarf:c.dogruHarf,
+        dogruMetin:c.dogruMetin, soru:c.soru, sayfa:c.sayfa, sira:c.sira, id:c.id }; }) })); }catch(e){}
+  }
+  function kilitUygula(){
+    var uye=uyeMi();
+    ['svGruplar','svBugun','svYollar','svYanlisBolum'].forEach(function(id){ var e=$(id); if(e) e.hidden=!uye; });
+    if(YET&&$('svTez')) $('svTez').hidden=!uye;
+    $('svKilit').hidden=uye;
+    if(uye) return;
+    var y=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi; }).length;
+    $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(y?' ve bilemediğin <b>'+y+' sorunun</b> doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, sonraki testte gelişimini gör.';
+    say('kilit-gordu');
+  }
+  try{ $('svKilitAc').addEventListener('click',function(){ say('kilit-hesap-ac'); }); $('svKilitGiris').addEventListener('click',function(){ say('kilit-giris'); }); }catch(e){}
   function yanlisKutusu(){
     try{
       var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
@@ -652,8 +684,8 @@
   /* YET: set (kimlik) depodan, soru metni ucretsiz_soru'dan (cevapsız). 30 sorunun HEPSİ gelmeden test açılmaz:
      eksik setle ölçülen "geçme ihtimali" başka bir testin sonucu olurdu. */
   function yetYukle(){
-    document.title='30 soruda geçme ihtimalini ölç · Yeterlilik | Tetikte';
-    $('svGiris').querySelector('h1').textContent='30 soruda geçme ihtimalini ölç';
+    document.title='30 soruda seviyeni ölç · Yeterlilik | Tetikte';
+    $('svGiris').querySelector('h1').textContent='30 soruda seviyeni ölç';
     $('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaşık 40 dakika.';
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
     $('svGiris').querySelectorAll('.sv-not')[0].textContent='Başlamadan önce adını, e-postanı ve telefonunu soracağız; soru bankası açıldığında sana oradan haber vereceğiz. Ücretsiz, kart istenmez.';
@@ -711,6 +743,17 @@
     /* "yeniden çözersen farklı sorular gelir" sözü ÜYEYE aittir; hakkını kullanmış ziyaretçiye söylenmez */
     try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali||YET?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
   }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile'; });
+  /* 04.10: hesap açıp dönen (ogrenci.html ?sonra=seviye-testi.html?rapor=1) -> bu cihazdaki son raporun TAMAMI */
+  try{
+    if(/[?&]rapor=1\b/.test(location.search)){
+      var sr=JSON.parse(localStorage.getItem('sv_son_rapor')||'null');
+      if(sr&&sr.sonuc){
+        YET=!!sr.yet; SONUC=sr.sonuc; CEVAPLAR=sr.cevaplar||[];
+        if(YET) sonucCizYet(); else sonucCiz(SONUC.gruplar||[]);
+        kilitUygula(); say('rapor-acildi');
+      }
+    }
+  }catch(e){}
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

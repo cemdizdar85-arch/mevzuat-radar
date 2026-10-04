@@ -258,7 +258,7 @@ footer p{margin:0 0 8px}
         <span class="sinav kapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
       </div>
       <div class="kah-alt">
-        <a class="btn btn-vurgu" id="cta1" href="seviye-testi.html">Ücretsiz seviye testi — 30 soru</a>
+        <a class="btn btn-vurgu" id="cta1" href="seviye-testi.html">30 soruda seviyeni ölç</a>
         <a class="btn btn-ikinci" id="cta2" href="satin-al.html?paket=sgs">Satın al</a>
       </div>
       <p class="durum" id="durum">Üyelik gerekmez · yaklaşık 30 dakika</p>
@@ -306,8 +306,8 @@ footer p{margin:0 0 8px}
 <section class="bolum">
   <div class="ic dene">
     <div>
-      <h2>Ücretsiz dene</h2>
-      <p>30 soruluk seviye testi: hangi derste ne kadar hazırsın, sonunda görürsün. Üyelik gerekmez.</p>
+      <h2>30 soruda seviyeni ölç</h2>
+      <p>Ücretsiz. Bitirince geçme ihtimalini ve seviyeni hemen görürsün; ders ders raporun ve çalışma planın ücretsiz hesabınla açılır.</p>
     </div>
     <a class="btn btn-ana" href="seviye-testi.html">Ücretsiz başla</a>
   </div>
@@ -385,10 +385,10 @@ footer p{margin:0 0 8px}
       c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Ücretsiz sorular →'; c2.href=S.dene;
       du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.';
     } else {
-      c1.textContent='Ücretsiz seviye testi — 30 soru'; c1.href=S.olc;
+      c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc;   /* 04.10 Cem: 'ücretsiz dene' değil 'seviyeni ölç' */
       c2.textContent='Satın al'+tutar(secili); c2.href=S.al||S.fiyat;
       var k=kurucuSatiri(secili), dk=S.olcDk||30;
-      du.innerHTML=(k?k+'<br>':'')+'Önce ücretsiz dene: 30 soru · yaklaşık '+dk+' dakika · üyelik gerekmez';
+      du.innerHTML=(k?k+'<br>':'')+'Ücretsiz · 30 soru · yaklaşık '+dk+' dakika · sonucun hemen görünür';
       try{ if(secili==='yeterlilik'&&S.alTek&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) du.insertAdjacentHTML('beforeend','<br><a href="'+S.alTek+'">Birkaç dersin mi kaldı? Ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den →</a>"); }catch(e){}
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
