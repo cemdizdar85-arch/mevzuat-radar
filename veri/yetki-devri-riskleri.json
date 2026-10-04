@@ -1,11 +1,11 @@
 {
-  "tarih": "04.10.2026 08:11",
+  "tarih": "04.10.2026 08:29",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
   "sayfa": 68,
   "atifli_iddia": 285,
-  "dayanaksiz_iddia": 355,
+  "dayanaksiz_iddia": 354,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1101,19 +1101,13 @@
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 338,
+      "satir": 337,
       "iddia": "1 ay",
-      "metin": "ikinize de +1 ay erişim eklenir. Kimse fiyattan kırmıyor; ikiniz de daha uzun çalışıyorsunuz."
+      "metin": "· \"+1 ay\"ı ekleyen davet_uygula() fonksiyonunu hiçbir şey çağırmıyor (yalnız service_role; robot/edge/panel yok)"
     },
     {
       "sayfa": "fiyat.html",
-      "satir": 342,
-      "iddia": "%30",
-      "metin": "uygulayan mekanizma yoktu (yari fiyat / %30 sozleriyle ayni gerekce, d40e202d). -->"
-    },
-    {
-      "sayfa": "fiyat.html",
-      "satir": 529,
+      "satir": 526,
       "iddia": "1.635 TL",
       "metin": "/* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */"
     },
