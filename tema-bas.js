@@ -21,6 +21,17 @@
    GÖRMEZ: stil-acik.css bağlı olmayan sayfalar (arsiv/kartlar-* gibi yalnız koyu olanlar) açık temaya
    geçemez - orada tema hiç değişmez. Kaydır-Çöz sayfalarının kendi düğmesi kendi yerinde kalır (aynı anahtar).
    ========================================================================== */
+/* 04.10.2026 GİRİŞ DÖNÜŞÜ YEDEĞİ (Cem'in Google girişi ana sayfaya "#access_token=..." ile düştü; şeritte "Giriş yap" kaldı =
+   giriş TAMAMLANMADI). Sebep: google-giris.js redirectTo = /ogrenci.html; Supabase'in izinli dönüş adresleri listesinde yoksa
+   Site URL'e (kök) atar ve kök sayfa oturumu işlemez. Kalıcı çözüm panelde (Authentication -> URL Configuration -> Redirect URLs:
+   https://tetikte.com/ogrenci.html). Bu satır her sayfanın başında: anahtarlı ya da hatalı dönüş hangi sayfaya düşerse düşsün,
+   adres karması korunarak hesap sayfasına aktarılır (orada supabase-js oturumu kurar, google-giris.js ?sonra='yı geri koyar). */
+try {
+  if (/(?:^#|&)(?:access_token|refresh_token|error_description)=/.test(location.hash) && !/\/ogrenci\.html$/i.test(location.pathname)) {
+    location.replace('/ogrenci.html' + location.hash);
+  }
+} catch (e) {}
+
 (function(){
   if (window.TetikteTema) return;
   var KEY = 'kc_tema', d = document.documentElement;
