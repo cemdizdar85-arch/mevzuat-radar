@@ -1,8 +1,8 @@
 {
-  "olcum_zamani": "2026-10-03T11:34:19.6813392+00:00",
+  "olcum_zamani": "2026-10-04T12:15:25.1372504+00:00",
   "aciklama": "Yerel veri/*.json dosyalarindan olculdu. Supabase kasasindaki tablolar buradan GORUNMEZ - onlar icin 'olculmedi' gecerlidir.",
-  "toplam_json": 488,
-  "zamanli_robot": 88,
+  "toplam_json": 484,
+  "zamanli_robot": 89,
   "urunler": [
     {
       "urun": "Alacak Radarı",
@@ -24,9 +24,9 @@
       "yuz": "marka-radari.html",
       "yuz_var": true,
       "dosya_sayisi": 10,
-      "kayit_sayisi": 10763,
+      "kayit_sayisi": 10193,
       "olculemeyen": 0,
-      "son_guncelleme": "2026-10-03 10:21:46 +0000",
+      "son_guncelleme": "2026-10-04 10:12:58 +0000",
       "kasa": "marka_talep · marka_rakip · marka_durum — kasa içeriği buradan ÖLÇÜLMEDİ",
       "robotlar": [
         "kaynak.yml [13 0 * * *]",
@@ -43,7 +43,7 @@
       "dosya_sayisi": 7,
       "kayit_sayisi": 307,
       "olculemeyen": 0,
-      "son_guncelleme": "2026-10-03 10:21:46 +0000",
+      "son_guncelleme": "2026-10-04 10:12:58 +0000",
       "kasa": "destek_takip — kasa içeriği buradan ÖLÇÜLMEDİ",
       "robotlar": "kaynak.yml [13 0 * * *]",
       "robot_sayisi": 1
@@ -53,9 +53,9 @@
       "yuz": "ihale-radari.html",
       "yuz_var": false,
       "dosya_sayisi": 17,
-      "kayit_sayisi": 116561,
+      "kayit_sayisi": 116504,
       "olculemeyen": 0,
-      "son_guncelleme": "2026-10-03 10:28:35 +0000",
+      "son_guncelleme": "2026-10-04 10:54:59 +0000",
       "kasa": "ihale (gizli kasa) — kasa içeriği buradan ÖLÇÜLMEDİ",
       "robotlar": [
         "ihale-gunluk-tamlik.yml [0 4 * * *]",
@@ -70,10 +70,10 @@
       "urun": "Sınav / Soru",
       "yuz": "soru-cevap.html",
       "yuz_var": true,
-      "dosya_sayisi": 61,
-      "kayit_sayisi": 40464,
+      "dosya_sayisi": 60,
+      "kayit_sayisi": 40380,
       "olculemeyen": 0,
-      "son_guncelleme": "2026-10-03 11:14:47 +0000",
+      "son_guncelleme": "2026-10-04 10:46:12 +0000",
       "kasa": "soru bankası (RLS korumalı) — kasa içeriği buradan ÖLÇÜLMEDİ",
       "robotlar": [
         "ders-etiket.yml [10 4 * * 1]",
@@ -103,9 +103,9 @@
       "yuz": "radar.html",
       "yuz_var": true,
       "dosya_sayisi": 17,
-      "kayit_sayisi": 1396,
+      "kayit_sayisi": 1392,
       "olculemeyen": 0,
-      "son_guncelleme": "2026-10-03 10:31:31 +0000",
+      "son_guncelleme": "2026-10-04 11:12:57 +0000",
       "kasa": "madde_ara — kasa içeriği buradan ÖLÇÜLMEDİ",
       "robotlar": [
         "duyuru-nobetcisi.yml [30 5 * * *]",
