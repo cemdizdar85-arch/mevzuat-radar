@@ -1,0 +1,1934 @@
+{
+ "olcum": "2026-10-04",
+ "donem": 31,
+ "ozet": [
+  {
+   "ders": "Finansal Muhasebe",
+   "banka": 1133,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 34
+  },
+  {
+   "ders": "Finansal Tablolar ve Analizi",
+   "banka": 414,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 15
+  },
+  {
+   "ders": "Maliyet Muhasebesi",
+   "banka": 483,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 8
+  },
+  {
+   "ders": "Muhasebe Denetimi",
+   "banka": 385,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 14
+  },
+  {
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "banka": 366,
+   "ilk10_yok": 0,
+   "ilk10_az": 2,
+   "sozluk_disi": 13
+  },
+  {
+   "ders": "Hukuk",
+   "banka": 441,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 6
+  },
+  {
+   "ders": "Meslek Hukuku",
+   "banka": 353,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 5
+  },
+  {
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "banka": 245,
+   "ilk10_yok": 0,
+   "ilk10_az": 0,
+   "sozluk_disi": 1
+  }
+ ],
+ "satirlar": {
+  "Finansal Muhasebe": [
+   {
+    "konu": "Amortisman",
+    "donem": 31,
+    "soru": 49,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV kayıtları ve mahsubu",
+    "donem": 30,
+    "soru": 54,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Ticari mal alış ve satış kayıtları",
+    "donem": 30,
+    "soru": 38,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Gelecek dönemlere ait gelir-giderler ve tahakkuklar",
+    "donem": 28,
+    "soru": 101,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Bilanço ve gelir tablosu düzenleme",
+    "donem": 27,
+    "soru": 79,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Menkul kıymet işlemleri ve değerlemesi",
+    "donem": 24,
+    "soru": 66,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Dönem kârı vergi karşılığı ve peşin ödenen vergiler",
+    "donem": 23,
+    "soru": 37,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Çek ve senet işlemleri",
+    "donem": 21,
+    "soru": 81,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Alış ve satış iadeleri, iskontoları",
+    "donem": 21,
+    "soru": 57,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Banka kredileri ve faiz tahakkuku",
+    "donem": 20,
+    "soru": 59,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Şüpheli ve değersiz alacaklar",
+    "donem": 19,
+    "soru": 103,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maddi duran varlıkların elden çıkarılması",
+    "donem": 18,
+    "soru": 43,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Ücret tahakkuku ve bordro",
+    "donem": 18,
+    "soru": 35,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maddi duran varlık edinimi ve sonradan yapılan harcamalar",
+    "donem": 18,
+    "soru": 32,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sayım ve tesellüm farkları",
+    "donem": 18,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Mevduat faizi ve stopajı",
+    "donem": 18,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Döviz işlemleri ve kur değerlemesi",
+    "donem": 18,
+    "soru": 7,
+    "durum": "AZ"
+   },
+   {
+    "konu": "Verilen ve alınan avanslar",
+    "donem": 17,
+    "soru": 39,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Dönem sonu stok / SMM hesabı",
+    "donem": 15,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İştirakler ve bağlı ortaklıklar",
+    "donem": 14,
+    "soru": 45,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Senet reeskontu",
+    "donem": 14,
+    "soru": 35,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kira ve serbest meslek ödemelerinde stopaj",
+    "donem": 14,
+    "soru": 8,
+    "durum": "AZ"
+   },
+   {
+    "konu": "Kâr dağıtımı",
+    "donem": 11,
+    "soru": 21,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maddi olmayan duran varlıklar ve özel maliyetler",
+    "donem": 11,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Banka mutabakatı ve kayda alınmamış işlemler",
+    "donem": 11,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sermaye artırımı ve azaltımı",
+    "donem": 10,
+    "soru": 16,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Stok değer düşüklüğü ve stok kayıpları",
+    "donem": 10,
+    "soru": 9,
+    "durum": "AZ"
+   },
+   {
+    "konu": "Kapanış kayıtları",
+    "donem": 9,
+    "soru": 36,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Açılış kaydı",
+    "donem": 9,
+    "soru": 18,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yenileme fonu",
+    "donem": 9,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maliyet hesapları ve yansıtma (7/A–7/B)",
+    "donem": 8,
+    "soru": 59,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Çıkarılmış bono ve tahviller",
+    "donem": 7,
+    "soru": 12,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Depozito ve teminatlar",
+    "donem": 7,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Şirket kuruluşu ve sermaye taahhüdü",
+    "donem": 7,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Ortaklarla cari işlemler",
+    "donem": 5,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Malzeme ve diğer stoklar",
+    "donem": 5,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kıdem tazminatı",
+    "donem": 5,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Finansal kiralama",
+    "donem": 4,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Geçmiş yıl zararlarının kapatılması",
+    "donem": 4,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kanunen kabul edilmeyen giderler (KKEG)",
+    "donem": 3,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Vadesi geçmiş ve ertelenmiş vergi/SGK borçları",
+    "donem": 3,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Vadeli alış-satış ve vade farkı",
+    "donem": 3,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Üretim maliyeti ve mamul hesapları",
+    "donem": 2,
+    "soru": 54,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Stok maliyet yöntemleri (FIFO vb.)",
+    "donem": 2,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Tekdüzen hesap planı ve bilanço sınıflaması",
+    "donem": 1,
+    "soru": 36,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yeniden değerleme (TMS 16)",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yatırım amaçlı gayrimenkuller (TMS 40)",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   }
+  ],
+  "Finansal Tablolar ve Analizi": [
+   {
+    "konu": "Faaliyet (devir hızı) oranları",
+    "donem": 26,
+    "soru": 101,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Likidite oranları",
+    "donem": 20,
+    "soru": 58,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Mali yapı oranları",
+    "donem": 19,
+    "soru": 44,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kârlılık oranları",
+    "donem": 19,
+    "soru": 42,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Dikey analiz",
+    "donem": 11,
+    "soru": 58,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Trend analizi",
+    "donem": 10,
+    "soru": 48,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yatay analiz (karşılaştırmalı tablolar)",
+    "donem": 7,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İşletme sermayesi",
+    "donem": 5,
+    "soru": 23,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Nakit akış tablosu",
+    "donem": 5,
+    "soru": 20,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Faaliyet döngüsü ve nakit döngüsü",
+    "donem": 5,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Bilanço ve gelir tablosunun düzenlenmesi",
+    "donem": 5,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Piyasa değeri oranları",
+    "donem": 3,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Du Pont analizi",
+    "donem": 1,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Temel muhasebe kavramları",
+    "donem": 1,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kayıt hatalarının oranlara etkisi",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Satışların maliyeti tablosu",
+    "donem": 1,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TMS 1 Finansal tabloların sunuluşu",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İçsel büyüme ve otofinansman",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Enflasyon ve reel değişim",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Serbest nakit akışları",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İflas tahmini (Altman Z-skoru)",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kaldıraç dereceleri",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   }
+  ],
+  "Maliyet Muhasebesi": [
+   {
+    "konu": "Safha (evre) maliyet sistemi",
+    "donem": 21,
+    "soru": 86,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Genel üretim giderlerinin mamullere yüklenmesi",
+    "donem": 15,
+    "soru": 90,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Üretilen ve satılan mamul maliyeti (satışların maliyeti tablosu)",
+    "donem": 13,
+    "soru": 74,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Ortak (birleşik) mamul maliyeti",
+    "donem": 13,
+    "soru": 51,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sipariş (parti) maliyet sistemi",
+    "donem": 10,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Gider dağıtımı (birinci ve ikinci dağıtım)",
+    "donem": 9,
+    "soru": 54,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Üretim kayıpları ve fire",
+    "donem": 9,
+    "soru": 21,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maliyet unsurları ve gider sınıflandırması",
+    "donem": 8,
+    "soru": 38,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Tekdüzen hesap planı 7 grubu ve MSUGT esasları",
+    "donem": 7,
+    "soru": 20,
+    "durum": "tamam"
+   },
+   {
+    "konu": "7/A maliyet kayıtları (yevmiye)",
+    "donem": 7,
+    "soru": 14,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yan ürün maliyeti",
+    "donem": 6,
+    "soru": 32,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Satılan ticari mal maliyeti ve brüt satış kârı",
+    "donem": 6,
+    "soru": 23,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Standart maliyet ve sapmalar",
+    "donem": 5,
+    "soru": 47,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Hizmet işletmelerinde maliyet (740-741-622)",
+    "donem": 4,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Direkt ilk madde ve malzeme (stok çıkış yöntemleri)",
+    "donem": 3,
+    "soru": 21,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maliyet muhasebesinin amaçları ve muhasebe bilgi sistemi",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Maliyet-hacim-kâr (başabaş) analizi",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Faaliyete dayalı maliyetleme",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   }
+  ],
+  "Muhasebe Denetimi": [
+   {
+    "konu": "Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları",
+    "donem": 9,
+    "soru": 14,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim riski",
+    "donem": 7,
+    "soru": 33,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İç kontrol sistemi",
+    "donem": 7,
+    "soru": 22,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Bağımsız denetçi, sorumlu denetçi ve denetim ekibi",
+    "donem": 7,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetimin tanımı, amacı, unsurları ve güvence düzeyi",
+    "donem": 6,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kalite yönetimi ve kalite kontrol",
+    "donem": 5,
+    "soru": 87,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim raporu ve görüş türleri",
+    "donem": 5,
+    "soru": 32,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim kanıtı",
+    "donem": 5,
+    "soru": 27,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Hile ve hata",
+    "donem": 5,
+    "soru": 24,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Hesap denetimi ve düzeltme kayıtları",
+    "donem": 5,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İç denetim",
+    "donem": 5,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Bağımsızlık",
+    "donem": 5,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim kıstası",
+    "donem": 4,
+    "soru": 14,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Etik kurallar",
+    "donem": 4,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Mesleki şüphecilik ve mesleki muhakeme",
+    "donem": 4,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Önemlilik",
+    "donem": 4,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim ve denetçi türleri",
+    "donem": 4,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Genel kabul görmüş denetim standartları",
+    "donem": 4,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Çalışma kağıtları ve denetim dosyası",
+    "donem": 3,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim kuruluşu, yetkilendirme ve resmi sicil",
+    "donem": 3,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim faaliyetine ilişkin kısıtlamalar ve denetim dışı hizmetler",
+    "donem": 3,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Reklam yasağı ve haksız rekabet",
+    "donem": 3,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Uygulamalı mesleki eğitim",
+    "donem": 3,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Şeffaflık raporu",
+    "donem": 2,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim süreci ve aşamaları",
+    "donem": 2,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Döngü yaklaşımı ve hesap–belge ilişkileri",
+    "donem": 2,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KGK gözetimi, inceleme ve yaptırımlar",
+    "donem": 2,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kamu yararını ilgilendiren kuruluşlar (KAYİK)",
+    "donem": 2,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim planlaması ve denetim stratejisi",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Risk odaklı denetim",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetim ücreti ve tarifesi",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Geleneksel denetim yöntemleri",
+    "donem": 2,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Dış teyit (doğrulama)",
+    "donem": 1,
+    "soru": 24,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kanıt toplama teknikleri",
+    "donem": 1,
+    "soru": 17,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Analitik prosedürler",
+    "donem": 1,
+    "soru": 12,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Geçerli finansal raporlama çerçeveleri",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İlk denetimler ve açılış bakiyeleri",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Rotasyon",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Stok sayımına katılım",
+    "donem": 1,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yazılı beyanlar",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Bilanço tarihinden sonraki olaylar",
+    "donem": 1,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Denetimin tamamlanması",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İlişkili taraflar",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Riskin erken saptanması (TTK 378)",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   }
+  ],
+  "Vergi Mevzuatı ve Uygulaması": [
+   {
+    "konu": "GVK › Yıllık beyan ve gelir vergisi hesabı",
+    "donem": 25,
+    "soru": 6,
+    "durum": "AZ"
+   },
+   {
+    "konu": "GVK › Gayrimenkul sermaye iradı",
+    "donem": 18,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Menkul sermaye iradı",
+    "donem": 14,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Ücret gelirleri",
+    "donem": 13,
+    "soru": 2,
+    "durum": "AZ"
+   },
+   {
+    "konu": "GVK › Ticari kazanç",
+    "donem": 11,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Defter ve belge düzeni",
+    "donem": 11,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Kurumlar vergisi matrahı (KKEG, istisnalar)",
+    "donem": 10,
+    "soru": 34,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Değerleme",
+    "donem": 10,
+    "soru": 32,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Vergi cezaları",
+    "donem": 10,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV › Matrah ve özel matrah",
+    "donem": 10,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Beyannamede indirimler (GVK 89)",
+    "donem": 10,
+    "soru": 1,
+    "durum": "AZ"
+   },
+   {
+    "konu": "GVK › Serbest meslek kazancı",
+    "donem": 9,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Vergilendirme süreci (tarh, tebliğ, tahakkuk, tahsil)",
+    "donem": 8,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Mükellefiyet türleri ve yerleşme",
+    "donem": 7,
+    "soru": 20,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Beyanname çeşitleri ve beyan zamanı",
+    "donem": 7,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Telif kazançları istisnası (GVK 18)",
+    "donem": 7,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV › İndirim",
+    "donem": 6,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "ÖTV › Mükellef ve vergiyi doğuran olay",
+    "donem": 6,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV › Konu ve vergiyi doğuran olay",
+    "donem": 6,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Mükellef ve vergi sorumlusu",
+    "donem": 6,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Birleşme, devir ve tasfiye",
+    "donem": 5,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Örtülü sermaye",
+    "donem": 5,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Diğer istisnalar ve muaflıklar",
+    "donem": 5,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Defter beyan sistemi",
+    "donem": 5,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV › İhraç kaydıyla teslim ve iade",
+    "donem": 4,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Zamanaşımı",
+    "donem": 4,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Diğer kazanç ve iratlar",
+    "donem": 4,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "VUK › Hesap hataları ve düzeltme",
+    "donem": 3,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Kurum mükellefleri ve mükellefiyet türleri",
+    "donem": 3,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Gelir tanımı ve unsurları",
+    "donem": 3,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Pişmanlık ve ıslah",
+    "donem": 3,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV › İstisnalar",
+    "donem": 3,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "6183 › Haciz, ihtiyati haciz ve istihkak",
+    "donem": 3,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Zarar mahsubu (GVK 88)",
+    "donem": 3,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "6183 › Ödeme zamanı, ödeme emri ve takip",
+    "donem": 3,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Finansman gideri kısıtlaması",
+    "donem": 3,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "VUK › İzaha davet",
+    "donem": 2,
+    "soru": 31,
+    "durum": "tamam"
+   },
+   {
+    "konu": "6183 › Teminat ve kefalet",
+    "donem": 2,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › Süreler, mühlet ve mücbir sebep",
+    "donem": 2,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "ÖTV › İstisnalar",
+    "donem": 2,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "6183 › Tahsil zamanaşımı",
+    "donem": 2,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Geçici vergi",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "6183 › Tecil",
+    "donem": 1,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Damga vergisi",
+    "donem": 1,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Veraset ve intikal vergisi",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "6183 › Kanuni temsilci ve ortakların sorumluluğu",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Transfer fiyatlandırması",
+    "donem": 1,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KDV › Tevkifat",
+    "donem": 1,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "KVK › Sermaye azaltımı",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "VUK › İşe başlama ve bildirim ödevleri",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Motorlu taşıtlar vergisi",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "GVK › Vergiye uyumlu mükellef indirimi (GVK 121)",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "KVK › Yurt içi asgari kurumlar vergisi",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "KDV › Hasılat esaslı vergilendirme",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "6183 › Aciz hali",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Dijital hizmet vergisi",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Emlak vergisi",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   }
+  ],
+  "Hukuk": [
+   {
+    "konu": "Borçlar › Zamanaşımı",
+    "donem": 7,
+    "soru": 23,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › İş sözleşmesinin feshi",
+    "donem": 6,
+    "soru": 16,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticari işletme",
+    "donem": 6,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Borç ilişkisi: unsurlar, kaynaklar ve borç türleri",
+    "donem": 6,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Tacir sıfatı ve tacir olmanın hükümleri",
+    "donem": 5,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › Yıllık ücretli izin ve diğer izinler",
+    "donem": 5,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › Dava açma süreleri ve idareye başvuru",
+    "donem": 5,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticari davalar ve zorunlu arabuluculuk",
+    "donem": 5,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticaret sicili",
+    "donem": 5,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › İş sözleşmesi türleri",
+    "donem": 4,
+    "soru": 27,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Haksız fiil ve kusursuz sorumluluk",
+    "donem": 4,
+    "soru": 21,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Kısa vadeli sigorta kolları",
+    "donem": 4,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Şahıs şirketleri (kollektif ve komandit)",
+    "donem": 4,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Tacir yardımcıları",
+    "donem": 4,
+    "soru": 14,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › Yürütmenin durdurulması ve tahsilatın durması",
+    "donem": 4,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Bildirim yükümlülükleri (işe giriş, işten ayrılış, işyeri bildirgesi)",
+    "donem": 4,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › Dava açma usulü ve ilk inceleme",
+    "donem": 4,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › Kararların sonuçları ve yerine getirilmesi",
+    "donem": 4,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Hukuka Giriş › Hukukun kaynakları ve uygulanması",
+    "donem": 4,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticaret şirketleri: türler ve genel hükümler",
+    "donem": 3,
+    "soru": 22,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › Çalışma süreleri, fazla çalışma ve telafi çalışması",
+    "donem": 3,
+    "soru": 20,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Uzun vadeli sigorta kolları",
+    "donem": 3,
+    "soru": 18,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Sebepsiz zenginleşme",
+    "donem": 3,
+    "soru": 17,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Sözleşmenin geçersizliği (kesin hükümsüzlük, aşırı yararlanma)",
+    "donem": 3,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticari işler ve ticari iş karinesi",
+    "donem": 3,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Anonim şirket",
+    "donem": 3,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticaret hukukunun kaynakları ve ticari örf-âdet",
+    "donem": 3,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Kıymetli evrak ve kambiyo senetleri (genel hükümler)",
+    "donem": 3,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Kira sözleşmesi",
+    "donem": 3,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › İşçi ve işverenin borçları",
+    "donem": 3,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › İş sözleşmesinin tanımı ve unsurları",
+    "donem": 3,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › Görev ve yetki (merci tayini)",
+    "donem": 3,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › İşyeri bildirimi ve çalışma hayatının denetimi",
+    "donem": 3,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Özel borç ilişkileri (diğer tipik sözleşmeler)",
+    "donem": 3,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › Kanun yolları",
+    "donem": 3,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Sözleşme serbestisi ve sözleşmenin kurulması",
+    "donem": 2,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Çek",
+    "donem": 2,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › İş Kanununun kapsamı ve temel kavramlar",
+    "donem": 2,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Borcun sona ermesi",
+    "donem": 2,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › Kıdem tazminatı ve fesih tazminatları",
+    "donem": 2,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Sigortalılık (kapsam ve başlangıç)",
+    "donem": 2,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari Yargı › İYUK kapsamı, dava türleri ve yargılama usulü",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › İrade sakatlıkları",
+    "donem": 1,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › Ücret",
+    "donem": 1,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Borcun ifası ve temerrüt",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Haksız rekabet",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İş Hukuku › Asıl işveren–alt işveren ilişkisi",
+    "donem": 1,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Genel işlem koşulları",
+    "donem": 1,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Temsil",
+    "donem": 1,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Ticaret unvanı",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Prime esas kazanç ve temel tanımlar",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Denetim, idari para cezaları ve teşvik yaptırımları",
+    "donem": 1,
+    "soru": 4,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Medeni Hukuk › Kişiler hukuku (hak ve fiil ehliyeti)",
+    "donem": 1,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlar › Hukuki işlem ve türleri",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Taşıma işleri",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TTK › Poliçe",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SGK › Genel sağlık sigortası",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   }
+  ],
+  "Meslek Hukuku": [
+   {
+    "konu": "Disiplin cezaları ve gerektiren haller",
+    "donem": 15,
+    "soru": 44,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Mesleki sözleşme (zorunluluk, asgari içerik, fesih)",
+    "donem": 12,
+    "soru": 25,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yasak işler ve meslekle bağdaşan/bağdaşmayan haller",
+    "donem": 11,
+    "soru": 23,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Reklam yasağı ve reklam yoluyla haksız rekabet",
+    "donem": 9,
+    "soru": 17,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Temel etik ilkeler",
+    "donem": 9,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Disiplin usulü (soruşturma, tedbir, itiraz)",
+    "donem": 8,
+    "soru": 29,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Odaların kuruluşu, amaçları ve organları",
+    "donem": 8,
+    "soru": 25,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Meslek mensubu olmanın genel ve özel şartları",
+    "donem": 8,
+    "soru": 22,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Etik ilkelere yönelik tehditler",
+    "donem": 7,
+    "soru": 23,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Tehditlere karşı önlemler",
+    "donem": 7,
+    "soru": 20,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Meslek mensubunun vergi ve ceza hukuku sorumluluğu",
+    "donem": 6,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Haksız rekabet halleri (ücret ve mesleki ilişkiler)",
+    "donem": 5,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Mesleğin konusu",
+    "donem": 4,
+    "soru": 15,
+    "durum": "tamam"
+   },
+   {
+    "konu": "TÜRMOB organları, görevleri ve gelirleri",
+    "donem": 4,
+    "soru": 14,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Meslek mensubunun ücreti (Ücret Esasları Yönetmeliği)",
+    "donem": 4,
+    "soru": 11,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Odaların gelirleri",
+    "donem": 4,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Çalışanlar listesinden ve meslek kütüğünden silinme",
+    "donem": 4,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Staj",
+    "donem": 3,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Meslek sırrı",
+    "donem": 2,
+    "soru": 12,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Defter ve belgelerin saklanması ve iadesi",
+    "donem": 2,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Meslek sınavları (Sınav Yönetmeliği)",
+    "donem": 2,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Haksız rekabetle mücadele (kurul ve davalar)",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sürekli mesleki geliştirme eğitimi",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Muhasebe Sistemi Uygulama Genel Tebliği (mali tablolar)",
+    "donem": 2,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Yeminli mali müşavirlik ve tasdik",
+    "donem": 1,
+    "soru": 21,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Etik Kurulu",
+    "donem": 1,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İşyeri (büro) açma ve bildirim",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Meslek unvanlarının korunması",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Oda ve Birlik organlarının denetimi",
+    "donem": 1,
+    "soru": 1,
+    "durum": "tamam"
+   }
+  ],
+  "Sermaye Piyasası Mevzuatı": [
+   {
+    "konu": "Yatırım ortaklıkları",
+    "donem": 12,
+    "soru": 22,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sermaye piyasası suçları (genel) ve yargılama usulü",
+    "donem": 11,
+    "soru": 19,
+    "durum": "tamam"
+   },
+   {
+    "konu": "SPK denetimi ve idari tedbirler",
+    "donem": 9,
+    "soru": 24,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yatırım kuruluşları ve yatırım hizmetleri",
+    "donem": 9,
+    "soru": 17,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sermaye piyasasının temel kavramları ve unsurları",
+    "donem": 9,
+    "soru": 16,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Halka arz ve satış yöntemleri",
+    "donem": 9,
+    "soru": 13,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Halka açık ortaklık statüsü",
+    "donem": 7,
+    "soru": 6,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borçlanma araçları, teminatlı menkul kıymetler ve BASK",
+    "donem": 6,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kayıtlı sermaye sistemi",
+    "donem": 6,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kaydileştirme, merkezi takas ve saklama kuruluşları",
+    "donem": 6,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Piyasa bozucu eylemler, bilgi suistimali ve piyasa dolandırıcılığı",
+    "donem": 6,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İzahname ve ihraç belgesi",
+    "donem": 5,
+    "soru": 16,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Finansal raporlama ve bağımsız denetim",
+    "donem": 5,
+    "soru": 10,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İzahname ve kamuyu aydınlatma belgelerinden sorumluluk",
+    "donem": 5,
+    "soru": 9,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Paylar: türleri, imtiyazlar ve pay sahipliği hakları",
+    "donem": 5,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kâr payı ve kâr payı avansı",
+    "donem": 5,
+    "soru": 7,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Borsalar ve piyasa işleticileri",
+    "donem": 5,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Sermaye piyasası kurumları (genel)",
+    "donem": 5,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yatırım fonları ve portföy yönetim şirketleri",
+    "donem": 4,
+    "soru": 16,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Örtülü kazanç aktarımı ve ilişkili taraf işlemleri",
+    "donem": 4,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kira sertifikası ve varlık kiralama şirketleri",
+    "donem": 4,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kripto varlıklar ve kripto varlık hizmet sağlayıcıları",
+    "donem": 4,
+    "soru": 3,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Kamuyu aydınlatma ve özel durumlar",
+    "donem": 4,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Yatırımcı Tazmin Merkezi",
+    "donem": 4,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Önemli nitelikteki işlemler ve ayrılma hakkı",
+    "donem": 3,
+    "soru": 8,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Gayrimenkul sertifikası",
+    "donem": 3,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "İdari para cezaları",
+    "donem": 3,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Türev araçlar",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Birleşme ve bölünme",
+    "donem": 2,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Proje, konut ve varlık finansmanı",
+    "donem": 2,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Yönetim kontrolü ve pay alım teklifi",
+    "donem": 2,
+    "soru": 0,
+    "durum": "YOK"
+   },
+   {
+    "konu": "Kitle fonlaması",
+    "donem": 1,
+    "soru": 5,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Halka açık ortaklık yönetimi ve genel kurul",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Türkiye Sermaye Piyasaları Birliği",
+    "donem": 1,
+    "soru": 2,
+    "durum": "tamam"
+   },
+   {
+    "konu": "Ortaklıktan çıkarma ve satma hakları",
+    "donem": 1,
+    "soru": 0,
+    "durum": "YOK"
+   }
+  ]
+ }
+}
