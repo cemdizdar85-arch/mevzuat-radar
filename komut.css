@@ -62,6 +62,14 @@ html.kp-kilit{overflow:hidden}
   border-radius:8px;padding:6px 9px 6px 12px;transition:border-color .15s,color .15s}
 .kp-dugme:hover{color:var(--ink);border-color:var(--line2)}
 @media(max-width:640px){ .kp-dugme kbd{display:none} .kp-dugme{padding:6px 12px} }
+/* 04.10 Cem (ekran görüntüsü: "Ara çubuğu niye böyle görünüyor"): Ctrl/K kutuları bazı makinelerde eş aralıklı yazı
+   tipi gelmediği için BOŞ kutu olarak görünüyordu; öğrenci için de gereksiz gürültü. Kutular kalktı, yerine büyüteç.
+   Ctrl+K kısayolu çalışmaya devam eder (komut.js), yalnız ipucu gösterilmez. */
+.kp-dugme kbd{display:none}
+.kp-dugme{padding:6px 12px 6px 10px}
+.kp-dugme::before{content:"";width:14px;height:14px;flex:none;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") center/contain no-repeat}
 
 /* --- klavye odagi: sitede hic yoktu, palet onu da getiriyor --- */
 :focus-visible{outline:2px solid var(--accent2);outline-offset:2px;

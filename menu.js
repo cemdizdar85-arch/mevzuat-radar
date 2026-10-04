@@ -71,11 +71,16 @@ function ttOdemeBandi(yer) {
     var st = document.createElement('style'); st.id = 'ttOdemeStil';
     st.textContent = '#ttOdemeBandi{max-width:980px;margin:18px auto 0;padding:0 18px 90px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:12px;color:var(--dim);line-height:1.6}' +
       '#ttOdemeBandi img{height:24px;width:auto;max-width:100%;display:block}' +
+      '#ttOdemeBandi .ob-marka{text-decoration:none}#ttOdemeBandi .ob-soz{font-size:13px;font-weight:650;color:var(--muted)}' +
+      '#ttOdemeBandi .ob-ara{flex-basis:100%;height:0}' +
       '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}';
     (document.head || document.documentElement).appendChild(st);
   }
   var b = document.createElement('div'); b.id = 'ttOdemeBandi';
-  b.innerHTML = '<img class="ob-acik" src="/gorsel/odeme/iyzico-logo-bandi.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
+  /* 04.10 Cem "Tetikte ismimiz sadece yukarıda görünüyor, aşağıda olmaz mı": her sayfanın dibinde logo + ana cümle */
+  b.innerHTML = '<a class="marka ob-marka" href="/index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:20px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>' +
+    '<span class="ob-soz">Yanlışını, sebebiyle birlikte öğren.</span><span class="ob-ara" aria-hidden="true"></span>' +
+    '<img class="ob-acik" src="/gorsel/odeme/iyzico-logo-bandi.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
     '<img class="ob-koyu" src="/gorsel/odeme/iyzico-logo-bandi-beyaz.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
     '<span>🔒 Bu sitedeki bütün bağlantılar SSL (HTTPS) ile şifrelenir.</span>';
   yer.appendChild(b);
