@@ -42,6 +42,8 @@
   .sc-ust:before{content:"";position:absolute;inset:0;pointer-events:none;
     background:radial-gradient(55% 70% at 80% 0%,rgba(207,161,99,.20),transparent 62%),
       radial-gradient(40% 60% at 0% 100%,rgba(207,161,99,.08),transparent 70%)}
+  /* 04.10 (V2 madde 21 'gradient minimum', Cem 'kırık beyaz'): bronz parıltı yalnız koyu temada */
+  html:not([data-theme="dark"]) .sc-ust:before{display:none}
   .sc-ic{position:relative;max-width:1180px;margin:0 auto;padding:0 28px}
   .sc-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
   .sc-marka{display:inline-flex;align-items:center;gap:10px;color:var(--bz-ak);text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.01em}
@@ -61,6 +63,10 @@
   .sc-sinav:hover{border-color:rgba(214,180,126,.45);transform:translateY(-2px)}
   .sc-sinav:focus-visible{outline:2px solid var(--bz-bronz-acik);outline-offset:3px}
   .sc-sinav[aria-pressed="true"]{border-color:var(--bz-bronz);background:rgba(207,161,99,.10);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+  /* 04.10 açık tema: kartlar ana sayfadaki sınav düğmeleriyle aynı dil (beyaz yüzey, ince çerçeve, seçili = lacivert çerçeve + amber şerit) */
+  html:not([data-theme="dark"]) .sc-sinav{background:var(--kagit);border-color:var(--line2)}
+  html:not([data-theme="dark"]) .sc-sinav:hover{border-color:var(--ink)}
+  html:not([data-theme="dark"]) .sc-sinav[aria-pressed="true"]{background:var(--kagit);border-color:var(--ink);box-shadow:inset 4px 0 0 var(--amber-dolgu)}
   .sc-sinav .sc-kod{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--bz-bronz)}
   .sc-sinav .sc-ad{font-size:23px;font-weight:750;color:var(--bz-ak);letter-spacing:-.015em}
   .sc-sinav .sc-uzun{font-size:13px;color:var(--bz-ak-sonuk)}

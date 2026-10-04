@@ -154,7 +154,8 @@ input[type=checkbox],input[type=radio]{
   box-shadow:0 0 .3em color-mix(in srgb,var(--marka-lamba-1) 70%,transparent)}
 /* 14.09 BRONZ KOYU PALET — tek kaynak. sorular.html'deki kopya buraya taşındı; ucretsiz-dene.html de okur.
    index.html kahramanı kendi kopyasını taşıyor (ayrı iş, eşdeğerlik provasıyla taşınır). */
-  body.bz-koyu{
+  /* 04.10: palet YALNIZ koyu temada (Cem 'kırık beyaz'); açık temada sorular/ucretsiz-dene sitenin geri kalanı gibi */
+  html[data-theme="dark"] body.bz-koyu{
     --bz-gece:#0a0b0e; --bz-gece2:#12151b;
     --bz-ak:#f2f4f8; --bz-ak-govde:#aab3c0; --bz-ak-sonuk:#78828f;
     --bz-bronz:#cfa163; --bz-bronz-acik:#eccb96; --bz-cta-yazi:#221704;
@@ -166,7 +167,7 @@ input[type=checkbox],input[type=radio]{
     --taban:var(--bz-gece);
     background:var(--bz-gece);color:var(--ink)}
   /* 23.09: stil-acik.css ".top a{color:... !important}" koyu tasarımlı sayfanın marka yazısını koyu şeritte koyu boyuyordu (1,12). */
-  body.bz-koyu .top a.sc-marka, body.bz-koyu .top a.uc-marka{color:var(--bz-ak) !important}
+  html[data-theme="dark"] body.bz-koyu .top a.sc-marka, html[data-theme="dark"] body.bz-koyu .top a.uc-marka{color:var(--bz-ak) !important}
   /* 23.09 TEK TEMA: koyuda stil-acik.css kapanınca zemini hiçbir dosya vermiyordu (body şeffaf, tuval beyaz) ->
      seviye-testi / ogrenci koyuda beyaz zemine beyaz yazı (1,0). Tuval koyu paletin zemini. */
   html[data-theme="dark"]{background:var(--bg)}

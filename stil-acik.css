@@ -142,13 +142,15 @@ nav{background:rgba(251,250,248,.86);backdrop-filter:blur(14px) saturate(1.2)}
      indirilir ve YALNIZ Turkce'ye kirpilir - dis istek 0 kalir.
    ========================================================================== */
 
+/* 04.10.2026 (Cem: yeni ana sayfa "tamam yap" -> bütün sayfalar aynı görsel dilde): başlıklar artık SERİF DEĞİL,
+   ana sayfadaki gibi gövde ailesinde ve kalın (V2 madde 21 "okunabilir tipografi", tek yazı tipi). 24.08 W1 seçiminin yerine geçti. */
 h1,h2,h3,h4,
 .sk b,.mp-bar b,.konu b,.arac b,.rgk h4,.fkart h3{
-  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
-  font-weight:600;
-  letter-spacing:-.2px}
+  font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;
+  font-weight:750;
+  letter-spacing:-.3px}
 
-h1{font-size:clamp(32px,4.4vw,54px);line-height:1.12;letter-spacing:-1.1px;font-weight:600}
+h1{font-size:clamp(32px,4.4vw,54px);line-height:1.1;letter-spacing:-1.2px;font-weight:800}
 h1 .g{text-decoration-color:#f5a524;text-decoration-thickness:4px;text-underline-offset:8px}
 h2{font-size:clamp(23px,2.7vw,32px);letter-spacing:-.5px;font-weight:600}
 .sk b{font-size:19px}
@@ -325,8 +327,8 @@ nav .navlinks a.btn.ghost:hover,nav a.btn.ghost:hover{border-color:#8a6224}
 .kutu,.kart,.adim,.app-card,.item,.blok,.giris,.md{
   border-color:var(--line2)}
 
-/* baslik ailesi arac sayfalarinda da serif olsun - tek dil */
-h1,h2,h3,h4,.top b{font-family:"Source Serif 4",Georgia,serif;font-weight:600}
+/* baslik ailesi her sayfada AYNI (04.10: serif kalktı, gövde ailesi - yukarıdaki not) */
+h1,h2,h3,h4,.top b{font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;font-weight:750}
 
 /* rakam ve kod her yerde mono */
 .soru,.deg,.stepno,code,.iban,.kod,td:last-child{font-variant-numeric:tabular-nums}
@@ -501,9 +503,9 @@ nav .marka-ad,nav .marka .i{color:#16191d}
    Kontrast kapısı ölçümüyle ayarlandı: açık zeminde bronzun açık tonu metin/dolgu
    olarak 3,5-3,7 ölçtü -> üçlü bir basamak koyulaştırıldı (5,2+).
    ============================================================================ */
-html body .bz-kah{
+html body .bz-kah, html body.bz-koyu{   /* 04.10: sorular + ucretsiz-dene açık temada da bu bronz açık değerleri okur */
   --bz-gece:#fbfaf8; --bz-gece2:#f4f2ee;
-  --bz-ak:#16191d; --bz-ak-govde:#4b5563; --bz-ak-sonuk:#5f6875;
+  --bz-ak:#0f1b2d; --bz-ak-govde:#3d4b63; --bz-ak-sonuk:#5f6875;   /* 04.10 lacivert (eski #16191d / #4b5563) */
   --bz-bronz:#6b4a1c; --bz-bronz-acik:#8a6224; --bz-bronz-koyu:#4f3714;
   --bz-cta-yazi:#fbfaf8}
 html body .bz-kah .bz-rk{
