@@ -66,14 +66,17 @@ function KodOner([string]$adMetni, [string[]]$doluKodlar) {
     if ("$ilk" -cmatch '^[A-Z]$') { $basHarfler += "$ilk" }
   }
   if ($basHarfler.Length -lt 1) { Write-Host "Addan baş harf çıkmadı: '$adMetni'"; exit 1 }
-  $rakamHavuzu = '23456789'
+  # 04.10 Cem "6 haneli verelim": 4 haneli kod (AE42) deneyerek bulunabiliyordu ve açık depoda yazıyordu.
+  # Artık 6 karakter: en çok 2 baş harf + karışmayan havuzdan rastgele (0/O, 1/I, 8/B yok). 'TT' ile başlamaz
+  # (satin-al.html davet biçimi TT+4 ile çakışmasın). Kalan 4 rastgele karakter: 26^4 ≈ 457.000 olasılık.
+  $basHarfler = $basHarfler.Substring(0, [Math]::Min(2, $basHarfler.Length))
+  if ($basHarfler -eq 'TT') { $basHarfler = 'T' }
+  $havuz = 'ACDEFHJKLMNPRTUVXYZ2345679'
   $rastgele = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
-  $bayt = New-Object byte[] 3
+  $bayt = New-Object byte[] 6
   for ($deneme = 0; $deneme -lt 200; $deneme++) {
     $rastgele.GetBytes($bayt)
-    $haneSayisi = if ($deneme -lt 150) { 2 } else { 3 }
-    $aday = $basHarfler + (-join (0..($haneSayisi - 1) | ForEach-Object { $rakamHavuzu[$bayt[$_] % 8] }))
-    if ($aday.Length -lt 3) { $aday += $rakamHavuzu[$bayt[2] % 8] }
+    $aday = $basHarfler + (-join (0..(6 - $basHarfler.Length - 1) | ForEach-Object { $havuz[$bayt[$_] % $havuz.Length] }))
     if (@($doluKodlar) -notcontains $aday) { return $aday }
   }
   Write-Host 'Boş kod bulunamadı.'; exit 1
