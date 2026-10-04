@@ -458,6 +458,8 @@
     ['svGruplar','svBugun','svYollar','svYanlisBolum'].forEach(function(id){ var e=$(id); if(e) e.hidden=!uye; });
     if(YET&&$('svTez')) $('svTez').hidden=!uye;
     $('svKilit').hidden=uye;
+    /* 04.10 site turu: üyesiz ikinci test zaten svHakBitti duvarına düşüyor -> düğme bunu baştan söylesin */
+    $('svYeniden').textContent=uye?(YET?'Testi yeniden çöz':'Testi yeniden çöz (farklı sorular)'):'Yeniden çözmek için ücretsiz hesap aç';
     if(uye) return;
     var y=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi; }).length;
     $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(y?' ve bilemediğin <b>'+y+' sorunun</b> doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, sonraki testte gelişimini gör.';
@@ -690,7 +692,7 @@
     $('svGiris').querySelector('h1').textContent='30 soruda seviyeni ölç';
     $('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaşık 40 dakika.';
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
-    $('svGiris').querySelectorAll('.sv-not')[0].textContent='Başlamadan önce adını, e-postanı ve telefonunu soracağız; soru bankası açıldığında sana oradan haber vereceğiz. Ücretsiz, kart istenmez.';
+    $('svGiris').querySelectorAll('.sv-not')[0].textContent='Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.';
     $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.';
     $('svHakBitti').querySelector('a[href="kaydir/vitrin/sgs.html"]').setAttribute('href','kaydir/vitrin/smmm.html');
     $('svYeniden').textContent='Testi yeniden çöz';
