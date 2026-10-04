@@ -1,21 +1,21 @@
 # TOPLU KUYRUK HIZI — gönderildiği saate göre bekleme
 
-> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-03 21:39 · son 7 gün · biten parti 4151 · bedel 0
+> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-04 06:11 · son 7 gün · biten parti 2823 · bedel 0
 > Kaynak: Anthropic toplu parti kaydı (created_at → ended_at). Saat = partinin gönderildiği **TR** saati.
 > 🚫 Parti büyüklüğünü ayırmaz; yalnız bizim hesabımızın partilerine bakar.
 
 | TR saat | parti | istek | medyan dk | %90 dk | en uzun dk |
 |---:|---:|---:|---:|---:|---:|
-| 00:00 | 305 | 745 | 3 | 24 | 269 |
-| 01:00 | 572 | 1550 | 2 | 16 | 498 |
-| 02:00 | 202 | 808 | 2 | 11 | 1,003 |
-| 03:00 | 431 | 929 | 2 | 7 | 1,288 |
-| 04:00 | 277 | 609 | 4 | 14 | 291 |
-| 05:00 | 419 | 940 | 2 | 12 | 281 |
-| 06:00 | 201 | 592 | 2 | 10 | 741 |
-| 07:00 | 212 | 870 | 2 | 8 | 573 |
-| 08:00 | 241 | 646 | 3 | 118 | 675 |
-| 09:00 | 114 | 395 | 7 | 26 | 140 |
+| 00:00 | 249 | 648 | 4 | 22 | 269 |
+| 01:00 | 426 | 1358 | 3 | 24 | 498 |
+| 02:00 | 77 | 344 | 3 | 300 | 1,003 |
+| 03:00 | 86 | 370 | 6 | 241 | 1,288 |
+| 04:00 | 83 | 275 | 6 | 74 | 291 |
+| 05:00 | 253 | 555 | 3 | 13 | 281 |
+| 06:00 | 165 | 483 | 2 | 17 | 741 |
+| 07:00 | 80 | 329 | 4 | 106 | 573 |
+| 08:00 | 112 | 400 | 5 | 124 | 675 |
+| 09:00 | 115 | 415 | 7 | 26 | 140 |
 | 10:00 | 70 | 243 | 15 | 98 | 617 |
 | 11:00 | 20 | 117 | 71 | 105 | 196 |
 | 12:00 | 121 | 508 | 10 | 163 | 690 |
@@ -31,8 +31,8 @@
 | 22:00 | 82 | 523 | 21 | 151 | 216 |
 | 23:00 | 156 | 1161 | 4 | 63 | 82 |
 
-**Son 24 saat:** biten parti 74 · medyan 2 dk · %90 4 dk · **şu an bekleyen 0 parti, en eskisi 0 dk** (liste sınırı: son 60 sayfa)
+**Son 24 saat:** biten parti 75 · medyan 2 dk · %90 4 dk · **şu an bekleyen 0 parti, en eskisi 0 dk** (liste sınırı: son 60 sayfa)
 **Kuyruk durumu: NORMAL**
-**Genel:** medyan 3 dk · %90 74 dk · parti 4151
+**Genel:** medyan 4 dk · %90 115 dk · parti 2823
 
 Kural koymak için: bir saat diliminin medyanı ötekilerden **belirgin ve birkaç gün üst üste** düşükse o saat "tercih" olur. Tek gecelik veri kural değildir.
