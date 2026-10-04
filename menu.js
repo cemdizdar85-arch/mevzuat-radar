@@ -437,9 +437,50 @@ function seritTamGenislik(){
   t.classList.add('mrxSeritGenis');
 }
 
+/* ── ORTAK ÜST ŞERİT (04.10.2026, Cem: "üst şerit de ana sayfa gibi olsun - yap bunları da") ──────────────
+   Ana sayfa V2 madde 4/5 menüsüyle yenilendi; alt sayfalarda her biri farklı bir ".top" iz satırı kalmıştı
+   ("Tetikte · Soru çöz · Seviye testi", "tetikte", "T Tetikte · Genç Müşavir"...). Artık alt sayfanın .top'u kaldırılır,
+   yerine ana sayfadakiyle AYNI şerit gelir: tetikte · Sınavlar · Fiyatlar · Giriş yap/Hesabım · [Ücretsiz başla].
+   komut.js "Ara"yı ve tema düğmesini "nav .navlinks"e koyar -> yerleri aynı kalır. Logo ana sayfaya döndüğü için
+   "← Geri" pulu bu şeritte kurulmaz. DOKUNULMAZ: ana sayfa (kendi #nav'ı) · kaydir/ soru kartları (uygulama şeridi) · perde.
+   Renk yalnız jeton; stil-acik.css'in "nav .navlinks a{... !important}" kuralı daha özgül seçiciyle aşılır. */
+function ustSeritKur(){
+  var ad=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  if(!KOK && (ad==='index.html'||ad==='')) return false;
+  if(/\/kaydir\//.test(location.pathname)) return false;
+  if(document.getElementById('ttUst')||document.getElementById('nav')) return false;
+  var top=document.querySelector('.top'); if(!top) return false;
+  var uye=false; try{ uye=Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){}
+  var st=document.createElement('style'); st.id='ttUstStil';
+  st.textContent='html body #ttUst{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}'+
+    '#ttUst .ic{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:22px;height:64px}'+
+    'html body #ttUst a.ust-logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:21px;letter-spacing:-.4px;color:var(--ink)!important}'+
+    '#ttUst a.ust-logo i{width:11px;height:11px;border-radius:50%;background:var(--amber-dolgu);display:inline-block}'+
+    '#ttUst .navlinks{margin-left:auto;display:flex;align-items:center;gap:20px}'+
+    'html body #ttUst .navlinks a.nl{color:var(--muted)!important;text-decoration:none;font-weight:600;font-size:15.5px}'+
+    'html body #ttUst .navlinks a.nl:hover,html body #ttUst .navlinks a.nl[aria-current=page]{color:var(--ink)!important}'+
+    'html body #ttUst .navlinks a.ust-cta{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:10px;background:var(--ink);color:var(--bg)!important;font-weight:750;font-size:15px;text-decoration:none;white-space:nowrap}'+
+    '#ttUst a:focus-visible{outline:3px solid var(--link);outline-offset:3px;border-radius:6px}'+
+    '@media(max-width:760px){#ttUst .navlinks a.nl{display:none}#ttUst .ic{gap:10px}#ttUst .navlinks{gap:10px}}'+
+    '@media(max-width:420px){html body #ttUst a.ust-logo{font-size:19px}html body #ttUst .navlinks a.ust-cta{padding:0 12px}}'+
+    /* 04.10 mobil taşma kapısı: 320 px'te yasal sayfalarda şerit 335 px oldu (logo + Ara + tema + düğme) -> en darda sıkılaşır */
+    '@media(max-width:360px){#ttUst .ic{padding:0 10px;gap:6px}#ttUst .navlinks{gap:5px}html body #ttUst a.ust-logo{font-size:17px;gap:6px}html body #ttUst .navlinks a.ust-cta{padding:0 9px;font-size:13.5px;min-height:40px}#ttUst .kp-dugme kbd{display:none}}'+
+    '@media(min-width:761px){#mrxFab{display:none!important}}';
+  document.head.appendChild(st);
+  var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
+  function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
+  n.innerHTML='<div class="ic"><a class="ust-logo" href="'+KOK+'index.html"><i aria-hidden="true"></i>tetikte</a><div class="navlinks">'+
+    bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
+    '<a class="ust-cta" href="'+KOK+'seviye-testi.html">Ücretsiz başla</a></div></div>';
+  top.parentNode.removeChild(top);
+  document.body.insertBefore(n,document.body.firstChild);
+  return true;
+}
+
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
-  try{ geriKur(); }catch(e){}
+  var ortakSerit=false; try{ ortakSerit=ustSeritKur(); }catch(e){}
+  if(!ortakSerit){ try{ geriKur(); }catch(e){} }
   try{ seritTamGenislik(); }catch(e){}
 
   var fab=document.createElement('button');
