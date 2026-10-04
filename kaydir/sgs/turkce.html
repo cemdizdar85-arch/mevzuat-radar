@@ -3,7 +3,8 @@
 /* 09.09 AÇIK TEMA — Cem 30.08 "site rengini beyaz yaptık, burası siyah kalmış", 09.09 "bas: açık tema".
    Varsayılan = sitenin açık paleti (stil-acik.css değerleri; stil.css BAĞLANMAZ: .kart/.sik/.btn/.kutu seçicileri çakışır).
    Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. 24.09 Cem: VARSAYILAN KOYU ("sitenin rengi bu olsun"); beyaz yalnız düğmeyle (kc_tema=light) ya da ?tema=acik ile; işletim sistemi izlenmez, site de izlemiyor. */
-:root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#16191d;--metin:#16191d;--dim:#4b5563;--mavi:#1d4ed8;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#a04a08;--ustYazi:#ffffff}
+/* 04.10 (Cem: kart ekranı da sitenin görsel dilinde): yazı lacivert (eski #16191d), ikincil lacivert-gri (eski #4b5563), vurgu laciverte çekildi (eski parlak mavi #1d4ed8), altın = site amberi (eski #a04a08). Zemin SAF BEYAZ kalır (09.09 Cem). */
+:root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#0f1b2d;--metin:#0f1b2d;--dim:#3d4b63;--mavi:#1f3b73;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#8a6224;--ustYazi:#ffffff}
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 :root[data-vitrin] .temaB{display:none}
@@ -37,7 +38,7 @@
 /* 03.10 (Cem "Nöbetçi kartına sen bak"): tek kartta Kâğıt düğmesi alttan sağ üste - telefonda çerçeve kısa, soru/şık metninin
    üstüne biniyordu (canlı 390 px ölçüldü); üst köşe tek kipte boş (sayaç ve çipler gizli). Düğme kalır (13.09 Cem seçimi). */
 :root[data-tek] .kagitAc{bottom:auto;top:8px;right:8px;padding:5px 10px;font-size:.78em}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
 .ust{display:flex;justify-content:space-between;align-items:center;font-size:.78em;color:var(--dim);margin-bottom:8px}
