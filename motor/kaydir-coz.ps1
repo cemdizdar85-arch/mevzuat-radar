@@ -745,6 +745,7 @@ $html=@'
 .adimK.sonAdim{border-color:var(--yesil)}
 .adimBar{display:flex;gap:4px;padding:0 14px 6px}.adimBar i{flex:1;height:5px;border-radius:3px;background:var(--cizgi);display:block;cursor:pointer}.adimBar i.gecti{background:color-mix(in srgb,var(--altin) 55%,transparent)}.adimBar i.simdi{background:var(--altin)}
 .ders .altc{display:flex;justify-content:space-between;align-items:center;padding:8px 14px 14px;font-size:.82em;color:var(--dim);gap:10px}
+@media(max-width:760px){:root:not([data-vitrin]) .ders .altc{padding-left:54px}}   /* 04.10 telefon turu: sol alttaki tema düğmesi "◀ Geri"nin üstüne biniyordu */
 .ders .altc .btn{min-width:64px}.ders .altc .btn:disabled{opacity:.3}
 .tt td.gizliH{color:transparent;position:relative}.tt td.gizliH::after{content:'?';color:var(--dim);position:absolute;left:0;right:0;text-align:right;padding-right:9px;font-weight:700}
 .tt td.acildi{animation:yan .5s ease}@keyframes yan{from{background:color-mix(in srgb,var(--altin) 50%,transparent)}to{background:transparent}}
