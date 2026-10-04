@@ -31,7 +31,7 @@ const MUT = process.env.CT_MUTASYON || '';
 
 /* [sayfa, beklenen öğeler, alt menü telefonda olmalı mı, kalıp denetimi] */
 const SAYFALAR = [
-  ['index.html', ['#nav', '#nasil .na', '.v2-uc .v2-kart'], true, false],
+  ['index.html', ['#nav', '#ekran', '#nasil .adimlar li', '.uc > div'], true, false],   // 04.10: yeni ana sayfa (V2 madde 4)
   ['sorular.html', ['.sc-sinav'], true, false],
   ['yanlislarim.html', ['#ylKutu', '#durum'], true, false],
   ['satin-al.html?paket=sgs', ['#akd1', '#akd2', '#ozetKart', '#kodAc'], false, false],
