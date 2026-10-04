@@ -126,6 +126,8 @@ for (const [kod, ad] of SINAVLAR) {
     teori: !!s.teori, rakamSik,
     soru: String(s.soru || ''), siklar, dogru: String(s.dogru || ''), tuzak,
     hap: kisalt(s.hap || s.kural || '', 240), satirlar,
+    // 04.10 (V2 madde 4 "Mevzuat dayanağı: ..."): ana sayfanın cevaplanmış soru kartı dayanağı gösterir
+    dayanak: kisalt(s.dayanak || '', 220),
     baglanti: 'kaydir/vitrin/' + kod + '.html?vitrin=1&tema=acik#s=' + i,
     havuz: havuzDurumu(liste.length, ilkGun, gunEtiket),
     basim: eksikDurumu((() => { try { return jsonOku(path.join(kok, 'veri', 'sinav', 'kaydir-secim', 'vitrin-' + kod + '-secim.json')).length; } catch (e) { return null; } })(), liste.length)
