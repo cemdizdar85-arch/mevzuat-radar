@@ -261,9 +261,9 @@
        kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
        Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
   <div class="alan" style="margin-bottom:14px">
-    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">İndirim ya da davet kodun var mı?</a>
+    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">İndirim kodun var mı?</a>
     <div id="kodKutu" hidden>
-      <label class="et" for="kod">İndirim / davet kodu</label>
+      <label class="et" for="kod">İndirim kodu</label>
       <div style="display:flex;gap:8px;align-items:stretch">
         <input type="text" id="kod" maxlength="12" placeholder="Kodunu yaz" style="text-transform:uppercase;flex:1;min-width:0" autocomplete="off">
         <button type="button" class="btn" id="kodUygula" style="margin:0;width:auto;padding-left:16px;padding-right:16px;white-space:nowrap">Uygula</button>
@@ -607,6 +607,9 @@ function davetTemizle(s){
   return DAVET_BICIM.test(s) ? s : '';
 }
 function davetKodOku(){
+  /* 04.10 Cem "+1 ay sözünü kaldır": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor.
+     Kod okunmaz, siparişe davet kodu yazılmaz. Program kurulunca bu satır kaldırılır (fiyat.html'deki önkoşul notu). */
+  return '';
   var q = davetTemizle(new URLSearchParams(location.search).get('d'));
   if(q){ try{ localStorage.setItem('tt_davet', q); }catch(e){} return q; }
   try{ return davetTemizle(localStorage.getItem('tt_davet')); }catch(e){ return ''; }
@@ -641,7 +644,7 @@ function davetKodOku(){
   function uygula(){
     var s = String(inp.value || '').trim().toUpperCase().replace(/\s+/g, '');
     if(!s){ durum('Önce kodu yaz.', 'var(--amber)'); return; }
-    var dv = DAVET_BICIM.test(s), el = elciAcik() && ELCI.bicim.test(s);
+    var dv = false, el = elciAcik() && ELCI.bicim.test(s);   /* 04.10: davet (+1 ay) kapalı - yalnız indirim kodu */
     if(dv && el && secili && window.sb){
       durum('Kod kontrol ediliyor…');
       window.sb.rpc('elci_kodu_kontrol', { p_kod:s, p_paket:secili.id }).then(function(r){
