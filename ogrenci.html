@@ -482,6 +482,16 @@
     window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} }; window.ttSay('hesap/panel','Hesabım açıldı');
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');
     $('ogKim').textContent=user.email||''; $('ogAyarEposta').textContent=user.email||'';
+    /* 04.10 Cem: girişten sonra üst şerit de "Hesabım · Soru çöz" olsun (menu.js açılışta girişsiz kurmuştu) */
+    try{ var nl=document.querySelector('#ttUst a.nl[href$="ogrenci.html"]'); if(nl) nl.textContent='Hesabım';
+      var ct=document.querySelector('#ttUst a.ust-cta'); if(ct){ ct.textContent='Soru çöz'; ct.setAttribute('href', ct.getAttribute('href').replace(/seviye-testi\.html$/,'sorular.html')); } }catch(e){}
+    /* 04.10 Cem "yönetimi buradan görmem gerekmez mi": yönetim bağlantısı YALNIZ yöneticide. Yetki sunucuda
+       (yonetim_ozet yönetici değilse YETKI_YOK döner); bağlantı yalnız kolaylık, bilen başkası açsa da veri görmez. */
+    sb.rpc('yonetim_ozet').then(function(r){
+      if(!r || r.error) return;
+      var a=document.createElement('a'); a.href='yonetim.html'; a.className='og-btn og-kucuk'; a.textContent='Yönetim';
+      a.style.marginRight='6px'; $('ogCikisUst').parentNode.insertBefore(a, $('ogCikisUst'));
+    }, function(){});
     /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
     sb.rpc('elci_panelim').then(function(r){
       if(r && !r.error && r.data && r.data.kod){ $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli'); }
