@@ -41,9 +41,17 @@ $depoKok=Split-Path -Parent $buDizin
 # ⚠ ASGARI BAYT canli olcumden turetildi (12.09 08:30), %60'ina cekildi ki
 #   normal icerik dalgalanmasi alarm uretmesin:
 #     ana sayfa 133.074 · kaydir/sgs 23.767 · ders sayfasi 734.403
+#   04.10 (Cem "uptime alarmını kur"): yeni ana sayfa 35 KB -> eski 60.000 eşiği 04.10 sabahından beri YANLIŞ ALARM
+#   veriyordu. Eşikler 04.10 canlı boyunun ~%55'i; imzalar sayfanın kendi başlığından. kaydir/sgs/ taslak dizin
+#   (ziyaretçi yönleniyor) yerine gerçek vitrin. Satış yolu sayfaları (sorular · seviye · fiyat · satın al · hesap) eklendi.
 $HEDEFLER=@(
-  @{ ad='ana sayfa';    url='https://tetikte.com/';                                  asgari=60000;  imza='Tetikte' }
-  @{ ad='SGS vitrini';  url='https://tetikte.com/kaydir/sgs/';                       asgari=10000;  imza='Kaydır' }
+  @{ ad='ana sayfa';    url='https://tetikte.com/';                                  asgari=20000;  imza='Yanlışını, sebebiyle' }
+  @{ ad='sinavlar';     url='https://tetikte.com/sorular.html';                      asgari=12000;  imza='Hangi sınava' }
+  @{ ad='seviye testi'; url='https://tetikte.com/seviye-testi.html';                 asgari=35000;  imza='30 soruda seviyeni ölç' }
+  @{ ad='fiyatlar';     url='https://tetikte.com/fiyat.html';                        asgari=20000;  imza='Kurucu fiyatı' }
+  @{ ad='satin al';     url='https://tetikte.com/satin-al.html';                     asgari=30000;  imza='Siparişi tamamla' }
+  @{ ad='hesabim';      url='https://tetikte.com/ogrenci.html';                      asgari=30000;  imza='Şifremi unuttum' }
+  @{ ad='SGS vitrini';  url='https://tetikte.com/kaydir/vitrin/sgs.html';            asgari=150000; imza='Nöbetçi' }
   # 29.09 ADIM 2: SGS ders sayfaları 05.10'da kasa kabuğuna geçer (~160 KB) → bitirme kabuğuyla aynı eşik 50 KB.
   #   300 KB kalsaydı geçişten sonra 15 dk'da bir yanlış alarm verirdi (16.09 planındaki uyarı).
   @{ ad='ders sayfasi'; url='https://tetikte.com/kaydir/sgs/meslek-hukuku.html';     asgari=50000;  imza='Nöbetçi' }
@@ -80,6 +88,55 @@ function Olc($hedef){
 
 $sonuclar=New-Object System.Collections.Generic.List[object]
 foreach($h in $HEDEFLER){ $sonuclar.Add((Olc $h)) }
+
+# ---- ARKA UÇ (04.10): sayfa ayakta ama Supabase düşmüşse giriş, kasa ve seviye testi çalışmaz -------------------
+# Yayın anahtarı sitede zaten açık (huni-raporu.js ile aynı); servis anahtarı KULLANILMAZ. Her istek 3 deneme.
+$SB='https://bjrleanjpyujtajmazxn.supabase.co'; $SBK='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg'
+$sbBas=@{ apikey=$SBK; Authorization="Bearer $SBK"; 'User-Agent'='Tetikte-SiteNobeti/1.0' }
+function Api($ad,$url,[scriptblock]$denetle){
+  $sonHata=''
+  foreach($deneme in 1..$Deneme){
+    try{
+      $t0=Get-Date
+      $c=Invoke-WebRequest -Uri $url -Headers $sbBas -TimeoutSec $ZamanAsimi -UseBasicParsing
+      $sure=[int]((Get-Date)-$t0).TotalMilliseconds
+      $kusur="$(& $denetle $c.Content)"
+      return [pscustomobject]@{ ad=$ad; url=($url -replace '\?.*$',''); durum=$(if($kusur){'KIRMIZI'}else{'YESIL'})
+                                kod=[int]$c.StatusCode; bayt="$($c.Content)".Length; ms=$sure; kusur=$kusur; deneme=$deneme }
+    }catch{ $sonHata=$_.Exception.Message; if($deneme -lt $Deneme){ Start-Sleep -Seconds (5*$deneme) } }
+  }
+  return [pscustomobject]@{ ad=$ad; url=($url -replace '\?.*$',''); durum='KIRMIZI'; kod=0; bayt=0; ms=0; kusur="$Deneme denemede yanit yok: $sonHata"; deneme=$Deneme }
+}
+# giriş servisi (site girişi auth.tetikte.com üzerinden)
+$sonuclar.Add((Api 'giris servisi' 'https://auth.tetikte.com/auth/v1/health' { param($g) if("$g" -notmatch 'version|GoTrue|name'){ 'beklenen saglik cevabi yok' } }))
+# veritabanı: ücretsiz görünümden tek satır
+$sonuclar.Add((Api 'veritabani' "$SB/rest/v1/ucretsiz_soru?select=id&order=id.asc&limit=3" { param($g) $j=$g|ConvertFrom-Json; if($j.Count -lt 1){ 'ucretsiz_soru bos dondu' } }))
+# SEVİYE TESTLERİ: 04.10'da Yeterlilik seti 30'un 4'ünü kasada bulamadı, sayfa "Sorular hazırlanıyor"da kaldı ve
+# hiçbir nöbetçi görmedi. Yeterlilik: sabit 30'un HEPSİ ücretsiz görünümde olmalı. SGS: havuzdan en az test_soru kadar.
+function KimlikSay($ids){
+  $bulunan=0
+  for($i=0;$i -lt $ids.Count;$i+=60){
+    $parca=$ids[$i..([Math]::Min($i+59,$ids.Count-1))]
+    $liste=[uri]::EscapeDataString((($parca|ForEach-Object{ '"' + ($_ -replace '"','') + '"' }) -join ','))
+    $c=Invoke-WebRequest -Uri "$SB/rest/v1/ucretsiz_soru?select=id&id=in.($liste)" -Headers $sbBas -TimeoutSec $ZamanAsimi -UseBasicParsing
+    $satir=$c.Content|ConvertFrom-Json; $bulunan+=$satir.Count   # K2: @(...|ConvertFrom-Json) PS 5.1'de diziyi tek öğe sayar
+  }
+  return $bulunan
+}
+foreach($sv in @(@{ ad='seviye testi Yeterlilik'; dosya='veri\seviye\smmm-set.json' }, @{ ad='seviye testi SGS'; dosya='veri\seviye\sgs-havuz.json' })){
+  $o=[pscustomobject]@{ ad=$sv.ad; url=$sv.dosya; durum='YESIL'; kod=200; bayt=0; ms=0; kusur=''; deneme=1 }
+  try{
+    $j=Get-Content (Join-Path $depoKok $sv.dosya) -Raw -Encoding UTF8 | ConvertFrom-Json
+    if($j.sorular){ $ids=@($j.sorular|ForEach-Object{ $_.id }); $gerek=$ids.Count }
+    else{ $ids=New-Object System.Collections.Generic.List[string]
+          foreach($d in $j.havuz.PSObject.Properties){ foreach($z in $d.Value.PSObject.Properties){ foreach($q in @($z.Value)){ $ids.Add([string]$q.id) } } }
+          $ids=$ids.ToArray(); $gerek=[int]$j.test_soru }
+    $n=KimlikSay $ids; $o.bayt=$n
+    if($n -lt $gerek){ $o.durum='KIRMIZI'; $o.kusur="ucretsiz havuzda $n / $($ids.Count) soru var, test $gerek ister - sayfa 'Sorular hazirlaniyor'da kalir" }
+    elseif($j.sorular -and $n -lt $ids.Count){ $o.durum='KIRMIZI'; $o.kusur="sabit setin $($ids.Count - $n) sorusu kasada yok (node motor/seviye-set-sec.js smmm --onar)" }
+  }catch{ $o.durum='KIRMIZI'; $o.kod=0; $o.kusur="olculemedi: $($_.Exception.Message)" }
+  $sonuclar.Add($o)
+}
 $dizi=$sonuclar.ToArray()
 
 foreach($s in $dizi){
