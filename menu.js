@@ -60,6 +60,28 @@ try {
   }
 } catch (e) {}
 
+/* 04.10.2026 iyzico başvuru şartı: KİMLİK satırı + ödeme/güven bandı - tek yerden (yasal altbilgi, perde, ana sayfa).
+   Kimlik kaynağı iletisim.html künye tablosu (ticaret unvanı, MERSİS, sicil, vergi dairesi/no, adres, iletişim).
+   PERDE-BASI işaretinin DIŞINDA: açılışta gong.ps1 perdeyi silince de kalır. Yollar KÖKTEN (alt klasör sayfaları için). */
+var TT_KIMLIK = 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · MERSİS 0301130343200001 · Ticaret Sicil 270764 (İzmir) · ' +
+  'Kordon V.D. 3011303432 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · destek@tetikte.com · 0537 843 80 58';
+function ttOdemeBandi(yer) {
+  if (!yer || document.getElementById('ttOdemeBandi')) return;
+  if (!document.getElementById('ttOdemeStil')) {
+    var st = document.createElement('style'); st.id = 'ttOdemeStil';
+    st.textContent = '#ttOdemeBandi{max-width:980px;margin:18px auto 0;padding:0 18px 90px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:12px;color:var(--dim);line-height:1.6}' +
+      '#ttOdemeBandi img{height:24px;width:auto;max-width:100%;display:block}' +
+      '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}';
+    (document.head || document.documentElement).appendChild(st);
+  }
+  var b = document.createElement('div'); b.id = 'ttOdemeBandi';
+  b.innerHTML = '<img class="ob-acik" src="/gorsel/odeme/iyzico-logo-bandi.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
+    '<img class="ob-koyu" src="/gorsel/odeme/iyzico-logo-bandi-beyaz.svg" width="429" height="32" alt="iyzico ile Öde · Mastercard · Visa · American Express · Troy" loading="lazy">' +
+    '<span>🔒 Bu sitedeki bütün bağlantılar SSL (HTTPS) ile şifrelenir.</span>';
+  yer.appendChild(b);
+}
+window.ttOdemeBandi = ttOdemeBandi;
+
 /* ==== PERDE-BASI (gong.ps1 bu isaretler arasini siler - ELLE DOKUNMA) ==== */
 /* ---- AÇILIŞ PERDESİ (23.07.2026, Cem: site bitmeden insanlar gezmesin) ----
    Gizli anahtar: siteye bir kez ?kapi=tetikte2026 ile girilince cihaz tanınır.
@@ -85,7 +107,7 @@ try {
         '<div style="width:18px;height:18px;border-radius:50%;background:#f5a524;box-shadow:0 0 0 7px rgba(245,165,36,.16),0 0 26px rgba(245,165,36,.6);display:inline-block;margin-bottom:20px;animation:mrNbz 2.2s ease-in-out infinite"></div>'+
         '<h1 style="font-size:30px;letter-spacing:-1px;margin:0 0 10px">Tetikte</h1>'+
         '<style>@keyframes mrNbz{0%,100%{opacity:1}50%{opacity:.4}}</style>'+
-        '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:var(--ink)">İşinin nöbetçisi çok yakında.</b><br>Mevzuatı senin yerine izleyen sistem son hazırlıklarını yapıyor. Açılışta ilk sen haber al — Kurucu Üye avantajı ilk gelenlerin.</p>'+
+        '<p style="color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 20px"><b style="color:var(--ink)">SMMM Staja Giriş ve Yeterlilik soru bankası çok yakında.</b><br>Yanlışını, sebebiyle birlikte öğren: her şıkkın gerekçesi, dayandığı maddeyle. Açılışta ilk sen haber al — kurucu fiyatı ilk gelenlerin.</p>'+
         '<form id="mrPerdeForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+
         '<input type="email" required placeholder="e-posta adresin" style="flex:1;min-width:200px;background:var(--kagit);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:inherit;font-size:14px;padding:12px 14px">'+
         '<button type="submit" style="background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:14px;padding:12px 22px;border:none;border-radius:11px;cursor:pointer">Haber ver →</button>'+
@@ -94,8 +116,16 @@ try {
            kvkk.html koku: perde alt sayfalarda da cikar, mutlak yol sart. */
         '<label style="display:flex;gap:8px;align-items:flex-start;width:100%;justify-content:center;font-size:11.5px;color:var(--muted);margin-top:10px;text-align:left"><input type="checkbox" required style="margin-top:2px;accent-color:#f5a524;flex:none;width:16px;height:16px;padding:0">'+
         '<span style="max-width:400px">E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İstediğimde çıkabilirim. <a href="/kvkk.html" target="_blank" style="color:#ffc24b">Aydınlatma metni</a></span></label></form>'+
-        '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div></div>';
+        '<div id="mrPerdeOk" style="display:none;color:#3ddc97;font-weight:700;font-size:14px;margin-top:12px">✓ Kaydın alındı — açılışta ilk sen duyacaksın.</div>' +
+        /* 04.10 iyzico: inceleyici açılıştan önce perdeyi görür -> yasal bağlantılar + kimlik + ödeme bandı perdede de */
+        '<p style="font-size:12px;color:var(--muted);line-height:1.8;margin:22px 0 0">' +
+        '<a href="/iletisim.html" style="color:var(--muted)">Hakkımızda ve İletişim</a> · <a href="/mesafeli-satis.html" style="color:var(--muted)">Mesafeli Satış Sözleşmesi</a> · ' +
+        '<a href="/teslimat-iade.html" style="color:var(--muted)">Teslimat ve İade</a> · <a href="/gizlilik-politikasi.html" style="color:var(--muted)">Gizlilik Politikası</a> · ' +
+        '<a href="/on-bilgilendirme.html" style="color:var(--muted)">Ön Bilgilendirme</a> · <a href="/kvkk.html" style="color:var(--muted)">KVKK</a><br>' + TT_KIMLIK + '</p>' +
+        '<div id="mrPerdeBant" style="display:flex;justify-content:center;margin-top:12px"></div></div>';
       document.body.appendChild(d);
+      try { ttOdemeBandi(document.getElementById('mrPerdeBant')); var pb=document.getElementById('ttOdemeBandi'); if(pb){ pb.style.padding='0'; pb.style.justifyContent='center'; } } catch(e){}
+      d.style.overflowY = 'auto';
       document.documentElement.style.overflow = 'hidden';
       document.getElementById('mrPerdeForm').addEventListener('submit', function(e){
         e.preventDefault();
@@ -594,11 +624,18 @@ function kur(){
         '<a href="' + KOK + 'kvkk.html" style="color:var(--muted);text-decoration:none">KVKK Aydınlatma</a> · ' +
         /* 01.10 Cem: elçi programı herkese açık başvuru (Trendyol influencer deseni) */
         '<a href="' + KOK + 'elci-programi.html" style="color:var(--muted);text-decoration:none">Elçi Programı</a>' +
-        '<br>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · İzmir · destek@tetikte.com' +
+        '<br>' + TT_KIMLIK +
         '<br><span data-veri-damgasi></span>';
       document.body.appendChild(yf);
     }
   } catch (e) {}
+
+  /* ── ÖDEME / GÜVEN BANDI (04.10.2026, Cem: iyzico başvuru şartı) ──────────────
+     iyzico domainde istedi: Kimlik · Mesafeli Satış · Teslimat ve İade · İletişim · Gizlilik Politikası · SSL ·
+     "iyzico ile Öde" + Visa + MasterCard logoları. Logolar iyzico'nun RESMÎ logo paketinden (docs.iyzico.com →
+     Ek Bilgiler → iyzico Logo Paketi, footer_iyzico_ile_ode bandı; elle çizilmedi): gorsel/odeme/. Koyu temada beyaz bant.
+     Sayfada #ttOdemeBandi varsa (ana sayfa kendi altbilgisinde taşır) eklenmez. */
+  try { ttOdemeBandi(document.body); } catch (e) {}
 
   /* ── VERİ TAZELİK DAMGASI (25.08.2026) ─────────────────────────────────
      Cem: "bir daha site okunmayan eskide kalmayacak · son güncellenme
