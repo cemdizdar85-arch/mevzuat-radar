@@ -53,6 +53,7 @@ const EK = [
   ['Sınav gibi başladı',        /^deneme\/basla\//],
   ['Sınav gibi bitti',          /^deneme\/bitti/],
   ['Sorular: sınav seçti',      /^sorular\/sinav\//],
+  ['Karne hesaba gitti',        /^seviye\/(sgs|yet)\/karne-uye$/],   // 04.10 Cem: karne hesap açılınca e-postaya
 ];
 
 function topla(hits) {

@@ -445,6 +445,7 @@
     raporSakla();
     ciz0(); say('sonuc'); kilitUygula();
     if(kayitOku()) karneGonder();
+    else if(uyeMi()){ try{ uyeKarnesi((JSON.parse(localStorage.getItem('sv_son_rapor')||'{}')).tarih); }catch(e){} }
   }
   function raporSakla(){
     var tarih=new Date().toISOString();
@@ -462,7 +463,7 @@
     $('svYeniden').textContent=uye?(YET?'Testi yeniden çöz':'Testi yeniden çöz (farklı sorular)'):'Yeniden çözmek için ücretsiz hesap aç';
     if(uye) return;
     var y=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi; }).length;
-    $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(y?' ve bilemediğin <b>'+y+' sorunun</b> doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, sonraki testte gelişimini gör.';
+    $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(y?' ve bilemediğin <b>'+y+' sorunun</b> doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, karnen e-postana gelsin, sonraki testte gelişimini gör.';
     say('kilit-gordu');
   }
   try{ $('svKilitAc').addEventListener('click',function(){ say('kilit-hesap-ac'); }); $('svKilitGiris').addEventListener('click',function(){ say('kilit-giris'); }); }catch(e){}
@@ -517,8 +518,16 @@
      (1) karne-gonder -> karne adayın e-postasına + form_kayit'a düşer,
      (2) quick-task   -> ad/telefon/sınav/dönem + kanal izinleri bizim kasamıza (karne-gonder bu alanları tanımıyor).
      ⛔ Gönderi düşse bile sonuç GÖSTERİLİR: adam 30 soruyu çözdü, bizim sunucu hatamız yüzünden eli boş kalmaz. */
-  function karneGonder(){
-    var k=kayitOku(); if(!k||!SONUC) return;
+  /* 04.10 Cem "karne maili hesap açılınca gitsin": formu dolduran yoksa ÜYE hesabının e-postası kullanılır.
+     Adres supabase-js'in cihazdaki oturum kaydından okunur (sb-...-auth-token -> user.email); ağ isteği yok. */
+  function uyeEposta(){ try{ var a=Object.keys(localStorage).filter(function(x){ return x.indexOf('-auth-token')>-1; })[0]; if(!a) return '';
+    var v=JSON.parse(localStorage.getItem(a)||'null'); return (v&&v.user&&v.user.email)||(v&&v.currentSession&&v.currentSession.user&&v.currentSession.user.email)||''; }catch(e){ return ''; } }
+  /* aynı rapor için bir kez (sv_karne_tarih) */
+  function uyeKarnesi(tarih){ var ep=uyeEposta(); if(!ep||!SONUC) return;
+    try{ if(tarih && localStorage.getItem('sv_karne_tarih')===tarih) return; localStorage.setItem('sv_karne_tarih', tarih||''); }catch(e){}
+    say('karne-uye'); karneGonder({ eposta:ep, izin_eposta:false, uye:true }); }
+  function karneGonder(kAlt){
+    var k=kAlt||kayitOku(); if(!k||!SONUC) return;
     /* YET (23.09 Cem "3 yap"): karne-gonder 'yeterlilik' kabul ediyor (radar-app/edge/karne-gonder.ts dogrulaYet);
        fonksiyon panelden yayınlanana kadar 400 döner -> yedek mesaj, sonuç ekranda kalır. Aday + sonuç kaydı quick-task ile
        her durumda bize düşer. Soru/doğru sayısı DERSLERDEN toplanır: sunucuya ulaşılamayan soru hesaba girmediği için
@@ -756,6 +765,7 @@
         if(YET) sonucCizYet(); else sonucCiz(SONUC.gruplar||[]);
         kilitUygula(); say('rapor-acildi');
         if(uyeMi()) try{ localStorage.setItem('sv_rapor_goruldu', sr.tarih||''); }catch(e){}   /* ogrenci.html "raporun hazır" kartı bir daha çıkmasın */
+        if(uyeMi() && !kayitOku()) uyeKarnesi(sr.tarih);   /* 04.10: hesabı yeni açan -> karnesi hesabın e-postasına */
       }
     }
   }catch(e){}
