@@ -332,16 +332,13 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   Biz sözümüzü tutabileceğimiz yerde veriyoruz.</p>
 </div>
 
-<div class="kutu">
-  <h2>Çalışma Arkadaşım: indirim değil, süre</h2>
-  <p style="margin:0;font-size:14px">Her üyeye <b>3 davet kodu</b> veriyoruz. Davet ettiğin arkadaşın üye olursa
-  <b class="a">ikinize de +1 ay</b> erişim eklenir. Kimse fiyattan kırmıyor; ikiniz de daha uzun çalışıyorsunuz.</p>
-  <p class="kucuk" style="margin:8px 0 0">Bu sınavda en çok kaybettiren şey yalnız çalışmak ve yarıda bırakmak.
-  İkili çalışanların ortak prova tablosu olur; kimin nerede olduğunu ikiniz de görürsünüz.</p>
-  <!-- 25.09 Cem ("2 yap"): "Üç arkadaş getirene Yeterlilik'e geçişte yarı fiyat" sozu KALDIRILDI;
-       uygulayan mekanizma yoktu (yari fiyat / %30 sozleriyle ayni gerekce, d40e202d). -->
-
-</div>
+<!-- 04.10 Cem ("1 ve 2 yap"): "Çalışma Arkadaşım" bölümü KALDIRILDI - söz karşılıksızdı (04.10 kodda ölçüldü):
+     · üye kendi davet kodunu hiçbir sayfada göremiyor (ogrenci.html'de davet_kodu yok)
+     · "+1 ay"ı ekleyen davet_uygula() fonksiyonunu hiçbir şey çağırmıyor (yalnız service_role; robot/edge/panel yok)
+     · "ortak prova tablosu" diye bir şey yok.
+     Veritabanı tarafı basılı (veri/sql-davet-kodu.sql, 30.08). Geri açmak için önce: Hesabım'da kod kartı + sipariş
+     onayında davet_uygula() + prova tablosu (ya da cümlesi çıkar). Eski metin: git show HEAD~1:fiyat.html
+     25.09 notu da geçerli: "üç arkadaş getirene yarı fiyat" sözü aynı gerekçeyle kalkmıştı (d40e202d). -->
 
 <!-- 02.10 Cem "son 15 gün planımız yok": "Son 15 Gün" kutusu (890 TL, paketlere dahil) kaldırıldı. -->
 
