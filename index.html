@@ -42,6 +42,7 @@
      ====================================================================================================== -->
 <style>
 *{box-sizing:border-box}
+[hidden]{display:none!important}   /* 04.10: .hukum{display:grid} / .ek-goster{inline-block} hidden'ı eziyordu - gizli panel boş kutu olarak yer kaplıyordu */
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;font-size:17px;line-height:1.6}
 .atla{position:absolute;left:-999px;top:8px;background:var(--kagit);color:var(--ink);padding:8px 12px;border-radius:8px;z-index:99}
@@ -123,6 +124,18 @@ h1 em{font-style:normal;color:var(--amber)}
 .siklar li.sen .et{color:var(--red)}
 .siklar li.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent)}
 .siklar li.dogru .et{color:var(--green)}
+/* 04.10 etkileşimli kart: şık = düğme (klavye ile seçilebilir); li çerçeveyi taşır, düğme içini */
+.siklar li{padding:0}
+.siklar .sikb{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;width:100%;padding:9px 12px;border-radius:10px;cursor:pointer;color:inherit;font:inherit;line-height:inherit}
+.siklar .sikb:hover:not(:disabled){background:var(--bg2)}
+.siklar .sikb:focus-visible{outline:3px solid var(--link);outline-offset:1px}
+.siklar .sikb:disabled{cursor:default}
+.siklar li:not(.sen):not(.dogru):has(.sikb:disabled){opacity:.72}
+.siklar li:has(.sikb:not(:disabled)):hover{border-color:var(--ink)}
+.ek-davet{margin:-4px 0 10px;font-size:14px;font-weight:700;color:var(--amber)}
+.ek-goster{display:inline-block;margin-top:10px;font-size:13.5px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.ek-goster:hover{color:var(--ink)}
+.sonuc .d{color:var(--green)}
 .hukum{border-top:1px solid var(--line);padding:16px 18px;display:grid;gap:12px}
 .sonuc{font-weight:800;font-size:17px}
 .sonuc .y{color:var(--red)}
@@ -185,7 +198,8 @@ footer p{margin:0 0 8px}
   .ekran-govde{padding:14px 16px}
   .soru{font-size:16px;margin-bottom:10px}
   .siklar{gap:6px}
-  .siklar li{padding:7px 11px;font-size:14.5px}
+  .siklar li{font-size:14.5px}
+  .siklar .sikb{padding:7px 11px}
   .hukum{padding:12px 16px;gap:9px}
   .ekran-dip{padding:0 16px 14px}
   .ekran-not{display:none}
@@ -201,7 +215,8 @@ footer p{margin:0 0 8px}
   /* kısa ekranda kart da sığsın: şıklar ve hüküm sıkı, "Neden" 2 satır (tamamı Nöbetçi kartında) */
   .soru{font-size:15px;line-height:1.45;margin-bottom:8px}
   .siklar{gap:5px}
-  .siklar li{padding:5px 10px;font-size:14px;line-height:1.35}
+  .siklar li{font-size:14px;line-height:1.35}
+  .siklar .sikb{padding:5px 10px}
   .hukum{padding:10px 16px;gap:7px}
   .sonuc{font-size:15.5px}
   .hukum h3{font-size:12px;margin-bottom:1px}
@@ -249,14 +264,16 @@ footer p{margin:0 0 8px}
       <p class="durum" id="durum">Üyelik gerekmez · yaklaşık 30 dakika</p>
     </div>
 
-    <!-- V2 madde 4: "Bir gerçek soru ekranı göster. Kullanıcı bir cevap seçmiş olsun." Veri: robotun günün sorusu.
-         "Senin cevabın" = sorunun İLK TUZAK şıkkı (üretimde en tipik yanlış diye yazılan) - rastgele değil. -->
+    <!-- V2 madde 4 "gerçek soru ekranı" + 04.10 Cem kararı: ETKİLEŞİMLİ. Ziyaretçi şıkkı seçer, hüküm paneli açılır.
+         "Cevabı göster"de gösterilen yanlış = sorunun İLK TUZAK şıkkı (üretimde en tipik yanlış diye yazılan) - rastgele değil. -->
     <div class="ekran" id="ekran">
       <div class="ekran-bas"><span id="ekDers">Günün sorusu</span><b>Günün sorusu</b></div>
       <div class="ekran-govde">
         <p class="ek-rozet" id="ekRozet" hidden></p>
         <p class="soru" id="ekSoru">Günün sorusu yükleniyor…</p>
+        <p class="ek-davet" id="ekDavet" hidden>Sen olsan hangisini işaretlerdin?</p>
         <ol class="siklar" id="ekSiklar"></ol>
+        <a class="ek-goster" id="ekGoster" href="#" hidden>Cevabı ve nedenini göster</a>
       </div>
       <div class="hukum" id="ekHukum" hidden>
         <div class="sonuc" id="ekSonuc"></div>
@@ -393,25 +410,50 @@ footer p{margin:0 0 8px}
     kapat();
     if(!o||!o.siklar){
       $('ekDers').textContent='Günün sorusu'; $('ekSoru').textContent='Bu sınavın günün sorusu hazırlanıyor.';
-      $('ekSiklar').innerHTML=''; $('ekHukum').hidden=true; $('bzIleri').disabled=true; $('bzIleri').textContent='Hazırlanıyor';
+      $('ekSiklar').innerHTML=''; $('ekHukum').hidden=true; $('ekDavet').hidden=true; $('ekGoster').hidden=true; $('bzIleri').disabled=true; $('bzIleri').textContent='Hazırlanıyor';
       return;
     }
     var tz=o.tuzak||{}, sen=Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]||'';
     $('ekDers').textContent=(AD[secili]||'')+' · '+(o.ders||'');
     /* rozet: SGS = künyenin taranan dönem sayısı ile 'son N sınavın M tanesinde'; Yeterlilik = 'çıkmış sınavlarda N kez' (eski kartla aynı cümleler) */
     var rz=$('ekRozet'); if(o.donem){ rz.textContent='📌 '+((secili==='sgs'&&TARANAN)?'Bu konudan son '+TARANAN+' sınavın '+o.donem+' tanesinde soru geldi':'Bu konudan çıkmış sınavlarda '+o.donem+' kez soru geldi'); rz.hidden=false; } else rz.hidden=true;
-    $('ekSoru').textContent=o.soru||'';
+    $('ekSoru').textContent=o.soru||''; $('ekSiklar').removeAttribute('data-cevaplandi');
+    /* 04.10 Cem "etkileşimli olsun, senin dediğin olsun": kart ÇÖZÜLMEMİŞ gelir, ziyaretçi şıkkını seçer -> aynı hüküm paneli
+       (Sen / Doğru / Neden? / Mevzuat dayanağı) açılır. Seçmeden bakmak isteyene "Cevabı ve nedenini göster" (en sık yanlışla). */
     $('ekSiklar').innerHTML=Object.keys(o.siklar).sort().map(function(h){
-      var c=h===o.dogru?'dogru':(h===sen?'sen':''), et=h===o.dogru?'Doğru ✓':(h===sen?'Senin cevabın ✕':'');
-      return '<li class="'+c+'"><b>'+h+')</b><span>'+esc(o.siklar[h])+'</span>'+(et?'<span class="et">'+et+'</span>':'')+'</li>';
+      return '<li><button type="button" class="sikb" data-h="'+h+'"><b>'+h+')</b><span>'+esc(o.siklar[h])+'</span></button></li>';
     }).join('');
-    if(sen){
-      $('ekSonuc').innerHTML='<span class="y">Yanlış.</span> Sen: '+sen+' · Doğru: '+esc(o.dogru);
-      var t=tz[sen]||{}, m=String(t.metin||''); m=m.charAt(0).toLocaleUpperCase('tr')+m.slice(1);
-      $('ekNeden').innerHTML=(t.ad?'<b>'+esc(t.ad)+'.</b> ':'')+esc(m);
-    } else { $('ekSonuc').textContent='Doğru cevap: '+o.dogru; $('ekNeden').textContent=o.hap||''; }
+    $('ekDavet').hidden=false; $('ekGoster').hidden=false; $('ekHukum').hidden=true;
+    [].forEach.call($('ekSiklar').querySelectorAll('.sikb'),function(b){
+      b.addEventListener('click',function(){ cevapla(o,b.getAttribute('data-h'),false); });
+    });
+    $('ekGoster').onclick=function(e){ e.preventDefault(); cevapla(o,sen,true); };
+    $('bzIleri').disabled=false; $('bzIleri').textContent='Nöbetçiyle öğren →';
+  }
+  /* sec: seçilen şık · goster: ziyaretçi seçmedi, "Cevabı göster"e bastı (sec = en sık yanlış, yani ilk tuzak) */
+  function cevapla(o,sec,goster){
+    if($('ekSiklar').getAttribute('data-cevaplandi')==='1') return;
+    $('ekSiklar').setAttribute('data-cevaplandi','1');
+    var tz=o.tuzak||{}, dogru=(sec===o.dogru);
+    say('anasayfa/'+(goster?'cevabi-goster':(dogru?'sik-dogru':'sik-yanlis'))+'/'+secili, goster?'Ana sayfa: cevabı gösterdi':'Ana sayfa: kartta şık seçti');
+    [].forEach.call($('ekSiklar').querySelectorAll('.sikb'),function(b){
+      var h=b.getAttribute('data-h'); b.disabled=true;
+      var li=b.parentNode, et='';
+      if(h===o.dogru){ li.className='dogru'; et='Doğru ✓'; }
+      else if(h===sec){ li.className='sen'; et=goster?'En sık yanlış ✕':'Senin cevabın ✕'; }
+      if(et) b.insertAdjacentHTML('beforeend','<span class="et">'+et+'</span>');
+    });
+    /* neden: yanlışta seçilen şıkkın tuzağı; doğruda en çok düşülen tuzak (ilk tuzak) */
+    var tuzakSik=dogru?Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]:sec;
+    var t=(tuzakSik&&tz[tuzakSik])||{}, m=String(t.metin||''); m=m.charAt(0).toLocaleUpperCase('tr')+m.slice(1);
+    if(goster) $('ekSonuc').innerHTML='Doğru cevap: '+esc(o.dogru)+(sec?' · En sık yapılan yanlış: '+esc(sec):'');
+    else if(dogru) $('ekSonuc').innerHTML='<span class="d">Doğru.</span> Sen: '+esc(sec)+(tuzakSik?' · En çok düşülen tuzak '+esc(tuzakSik)+' şıkkında':'');
+    else $('ekSonuc').innerHTML='<span class="y">Yanlış.</span> Sen: '+esc(sec)+' · Doğru: '+esc(o.dogru);
+    $('ekNeden').innerHTML=t.metin?((t.ad?'<b>'+esc(t.ad)+'.</b> ':'')+esc(m)):esc(o.hap||'');
     $('ekDayanak').textContent=o.dayanak||''; $('ekDayanakKutu').hidden=!o.dayanak;
-    $('ekHukum').hidden=false; $('bzIleri').disabled=false; $('bzIleri').textContent='Nöbetçiyle öğren →';
+    $('ekDavet').hidden=true; $('ekGoster').hidden=true; $('ekHukum').hidden=false;
+    /* açılan panelin altı ekran dışında kalmasın: yalnız gerekiyorsa, yumuşak kaydır */
+    try{ var r=$('bzIleri').getBoundingClientRect(); if(r.bottom>innerHeight) $('bzIleri').scrollIntoView({block:'nearest',behavior:'smooth'}); }catch(e){}
   }
   function kapat(){ acik=false; $('bzCerceve').hidden=true; $('bzCerceve').innerHTML=''; $('bzKanca').hidden=true; if(!$('bzIleri').disabled) $('bzIleri').textContent='Nöbetçiyle öğren →'; }
   function temaliYol(o){
