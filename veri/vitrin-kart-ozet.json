@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-10-04T00:25:33.872Z",
-  "gun": "2026-10-04",
+  "olcum": "2026-10-04T23:55:22.380Z",
+  "gun": "2026-10-05",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 6,
+      "sira": 7,
       "toplam": 10,
-      "id": "sgs-t3-turkce-zor/kp-01",
-      "ders": "Türkçe",
-      "konu": "yazım kuralları",
-      "donem": 16,
+      "id": "sgs-t1-meslek-kolay/kp-01",
+      "ders": "Meslek Hukuku",
+      "konu": "disiplin cezalari",
+      "donem": 11,
       "teori": true,
       "rakamSik": false,
-      "soru": "Aşağıdaki cümlelerin hangisinde yazım kuralına aykırı bir kullanım vardır?",
+      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
       "siklar": {
-        "A": "Öğretmen de bizim gibi çok üzüldü.",
-        "B": "Sabahki toplantıya herkes geldi.",
-        "C": "Bu çanta senin mi, benim mi?",
-        "D": "Yarın Mehmet te bizimle aynı saatte buluşacak.",
-        "E": "Kardeşim, sınavda çok heyecanlandığını söyledi."
+        "A": "Uyarma",
+        "B": "Kınama",
+        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
+        "D": "Yeminli sıfatını kaldırma",
+        "E": "Meslekten çıkarma"
       },
-      "dogru": "D",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Ek Kaynaşması Tuzağı",
-          "metin": "soru eki 'mi'nin kendisinden önceki sözcükle bitişmesi gerektiğini düşünürsün. Doğrusu: 'mi' daima ayrı yazılır, yalnız kendisinden SONRA gelen ekler bitişir; cümle kuralına uygundur."
-        },
-        "E": {
-          "ad": "Ayırma Yanılgısı Tuzağı",
-          "metin": "'sınavda' sözcüğünü bağlaç 'da' ile karıştırıp 'sınav da' biçiminde ayrı yazılması gerektiğini düşünürsün. Doğrusu: burada 'sınav' sözcüğüne bulunma hâli eki '-da' eklenmiştir, bu ek bitişik yazılır; cümle kuralına uygu…"
+          "ad": "Bağımsızlık İhlali Tuzağı",
+          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
         },
         "A": {
-          "ad": "Bitişik Yazım Tuzağı",
-          "metin": "'de' bağlacını bulunma hâli ekiyle karıştırıp bitişik yazılması gerektiğini düşünürsün. Doğrusu: bağlaç olan 'de' cümleden çıkarılabilir, bu yüzden her zaman ayrı yazılır; cümle kuralına uygundur."
+          "ad": "İlk Aşama Tuzağı",
+          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
+        },
+        "D": {
+          "ad": "Yeminli Sıfatı Tuzağı",
+          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
         },
         "B": {
-          "ad": "Ayrı Yazım Tuzağı",
-          "metin": "'-ki' ekini bağlaç 'ki' ile karıştırıp ayrı yazılması gerektiğini düşünürsün. Doğrusu: burada 'sabah' sözcüğüne sıfat yapan '-ki' eklenmiştir, bu ek bitişik yazılır; cümle kuralına uygundur."
+          "ad": "Tekerrür Tuzağı",
+          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
         }
       },
-      "hap": "Bağlaç olan 'de/da' cümleden çıkarılabilir, her zaman ayrı yazılır ve asla sertleşmez; hâl eki '-de/-da' ise bitişik yazılır ve sertleşebilir.",
+      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
       "satirlar": [
         [
-          "A) Öğretmen de bizim gibi çok üzüldü.",
-          "TDK Yazım Kuralları - 'de' bağlacı"
+          "A) Uyarma",
+          "p.48/1"
         ],
         [
-          "B) Sabahki toplantıya herkes geldi.",
-          "TDK Yazım Kuralları - '-ki' eki"
+          "B) Kınama",
+          "p.48/1"
         ],
         [
-          "C) Bu çanta senin mi, benim mi?",
-          "TDK Yazım Kuralları - 'mi' soru eki"
+          "C) Geçici olarak mesleki faaliyetten alıkoyma",
+          "p.48/2"
         ],
         [
-          "D) Yarın Mehmet te bizimle aynı saatte buluşacak.",
-          "TDK Yazım Kuralları - 'de/da' bağlacının sertleşmezliği"
+          "D) Yeminli sıfatını kaldırma",
+          "p.48/1"
         ],
         [
-          "E) Kardeşim, sınavda çok heyecanlandığını söyledi.",
-          "TDK Yazım Kuralları - bulunma hâli eki"
+          "E) Meslekten çıkarma",
+          "p.48/2"
         ]
       ],
-      "dayanak": "TDK Yazım Kuralları - 'de/da' bağlacı ve bulunma hâli eki ayrımı",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=6",
+      "dayanak": "3568 sayılı SMMM K. m.48",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=7",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 10,
+        "kalan_gun": 9,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 6,
+      "sira": 7,
       "toplam": 10,
-      "id": "smmm-4k-a-yspk-zor-r8/kp-01",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "sermaye piyasası kurumları",
-      "donem": 6,
+      "id": "smmm-w7-1-yhukuk-zor/kp-01",
+      "ders": "Hukuk",
+      "konu": "borcu sona erdiren sebepler",
+      "donem": 4,
       "teori": true,
       "rakamSik": false,
-      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun 35. maddesinde, bu Kanuna göre faaliyette bulunabilecek sermaye piyasası kurumları tek tek sayılmıştır. Buna göre, aşağıdakilerden hangisi 6362 sayılı Kanun'un 35. maddesinde sayılan sermaye piyasası kurumlarından biri değildir?",
+      "soru": "Mobilya üreticisi İşletme'nin, tedarikçisi Kişi'den 2019 yılında verdiği ödünç paraya ilişkin 60.000 ₺ alacağı vardır. Kişi'nin de İşletme'den 2023 yılında teslim ettiği malzeme bedeline ilişkin 60.000 ₺ alacağı bulunmaktadır. İşletme'nin alacağı, iki borcun birlikte var olduğu 2023 yılında zamanaşımına uğramamışken, 2026 yılında zamanaşımına uğramış ve İşletme takas beyanını bu tarihte yapmıştır. Buna göre, aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "Merkezî takas kuruluşları",
-        "B": "Konut finansmanı ve varlık finansmanı fonları",
-        "C": "Veri depolama kuruluşları",
-        "D": "Varlık kiralama şirketleri",
-        "E": "Mevduat kabul eden bankalar"
+        "A": "Takas beyanının zamanaşımı süresi dolduktan sonra yapılmış olması, İşletme'nin takas hakkını ortadan kaldırır.",
+        "B": "İşletme'nin alacağı, iki borcun birlikte var olduğu anda zamanaşımına uğramamış olduğundan, takas beyanı geçerli olarak ileri sürülebilir.",
+        "C": "Alacaklardan birinin ödünç bedeline, diğerinin malzeme bedeline dayanması, edimlerin özdeş sayılmasını engellediğinden takas mümkün değildir.",
+        "D": "Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uyarınca hiçbir koşulda takasa konu edilemeyeceğinden İşletme'nin beyanı sonuçsuzdur.",
+        "E": "Taraflar arasında alacaklı ve borçlu sıfatları aynı kişide birleştiğinden borç zaten sona ermiş olup takas beyanına gerek kalmamıştır."
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Yeni Kurum Yabancılaşması Tuzağı",
-          "metin": "Öğrenci veri depolama kuruluşlarını teknik-idari bir birim sanıp Kanun kapsamı dışında görür. Doğrusu: Veri depolama kuruluşları madde 35/1-h bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kapsam Tuzağı",
+          "metin": "Alacakların farklı hukuki kaynaklardan (ödünç, malzeme bedeli) doğmasının edim özdeşliğini bozduğunu düşünürsün. Doğrusu: TBK m.139/1 aynı cins ve nitelikte edimi esas alır, her iki alacak da para borcu olduğundan özdeş…"
         },
-        "A": {
-          "ad": "Kapsam Daraltma Tuzağı",
-          "metin": "Öğrenci takas kuruluşlarını borsa bünyesinde bir birim sanıp ayrı bir kurum türü olarak Kanun'da sayılmadığını düşünür. Doğrusu: Merkezî takas kuruluşları madde 35/1-g bendinde sermaye piyasası kurumu olarak açıkça sayı…"
+        "E": {
+          "ad": "Kurum Karıştırma Tuzağı",
+          "metin": "Alacaklı-borçlu sıfatlarının birleşmesini (m.135) takas ile aynı olaya uygularsın. Doğrusu: Birleşme, alacaklı ve borçlunun aynı kişide toplanmasını gerektirir; olayda İşletme ve Kişi ayrı kişiler olduğundan birleşme sö…"
         },
         "D": {
-          "ad": "Sukuk Aracı Karıştırma Tuzağı",
-          "metin": "Öğrenci varlık kiralama şirketlerini yalnız kira sertifikası çıkaran bir araç sanıp ayrı kurum sayılmadığını düşünür. Doğrusu: Varlık kiralama şirketleri madde 35/1-f bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kural Genelleme Tuzağı",
+          "metin": "Zamanaşımına uğramış her alacağın takasa konu olamayacağını genel kural sayarsın. Doğrusu: TBK m.139/3 bu genel kurala açık bir istisna getirir; takas edilebilir anda zamanaşımı dolmamışsa takas ileri sürülebilir."
         },
-        "B": {
-          "ad": "Fon-Kurum Karıştırma Tuzağı",
-          "metin": "Öğrenci tüzel kişiliği bulunmayan fonların kurum sayılmayacağını düşünür. Doğrusu: Konut finansmanı ve varlık finansmanı fonları madde 35/1-e bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        "A": {
+          "ad": "Zamanlama Tuzağı",
+          "metin": "Beyanın hangi tarihte yapıldığını belirleyici sanırsın. Doğrusu: TBK m.139/3'e göre önemli olan iki borcun birlikte var olduğu andaki durumdur, beyanın sonradan yapılması hakkı ortadan kaldırmaz."
         }
       },
-      "hap": "6362 sayılı Kanun m.35'te sayılan sermaye piyasası kurumları arasında bankalar yoktur; bankalar 5411 sayılı Bankacılık Kanunu'na tabidir.",
+      "hap": "Zamanaşımına uğramış alacağın takası, borçların birlikte var olduğu (takas edilebilir hale geldiği) anda zamanaşımı henüz dolmamışsa geçerlidir.",
       "satirlar": [
         [
-          "A) Merkezî takas kuruluşları",
-          "m.35/1-g"
+          "A) Takas beyanının zamanaşımı süresi dolduktan sonra yapılm…",
+          "TBK m.139/3"
         ],
         [
-          "B) Konut finansmanı ve varlık finansmanı fonları",
-          "m.35/1-e"
+          "B) İşletme'nin alacağı, iki borcun birlikte var olduğu anda…",
+          "TBK m.139/3"
         ],
         [
-          "C) Veri depolama kuruluşları",
-          "m.35/1-h"
+          "C) Alacaklardan birinin ödünç bedeline, diğerinin malzeme b…",
+          "TBK m.139/1"
         ],
         [
-          "D) Varlık kiralama şirketleri",
-          "m.35/1-f"
+          "D) Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uya…",
+          "TBK m.139/3"
         ],
         [
-          "E) Mevduat kabul eden bankalar",
-          "m.35/1"
+          "E) Taraflar arasında alacaklı ve borçlu sıfatları aynı kişi…",
+          "TBK m.135"
         ]
       ],
-      "dayanak": "6362 sayılı Sermaye Piyasası Kanunu m.35/1",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=6",
+      "dayanak": "TBK m.139/3",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=7",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 10,
+        "kalan_gun": 9,
         "durum": "DONGU",
         "mail_gunu": false
       },
