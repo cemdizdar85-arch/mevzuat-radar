@@ -32,6 +32,14 @@ try {
   }
 } catch (e) {}
 
+/* 04.10.2026 ELÇİ İZİ (Cem: "ne kadarı elçi ile geldi"): elçi linki (?e=KOD) hangi sayfaya düşerse düşsün kod cihazda
+   saklanır (tt_elci); satin-al.html indirimde, ogrenci.html / google-giris.js üyelik kaydında kullanır. Kodun geçerliliği
+   burada DENETLENMEZ (indirim sunucuda elci_kodu_kontrol ile); yalnız biçim. */
+try {
+  var elciQ = (location.search.match(/[?&]e=([A-Za-z0-9]{3,12})(?:&|$)/) || [])[1];
+  if (elciQ) localStorage.setItem('tt_elci', elciQ.toUpperCase());
+} catch (e) {}
+
 (function(){
   if (window.TetikteTema) return;
   var KEY = 'kc_tema', d = document.documentElement;

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'">
+<script src="tema-bas.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yönetim | Tetikte</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<!-- 04.10.2026 YÖNETİM EKRANI (Cem: "ne kadar üye geldiğini, ne kadarı elçi ile geldiğini, hangi staja başlama ile
+     bitirme ile kimin geldiğini bakabileceğim yer olmalı ... bunu ben göreceğim sadece").
+     Veri tek kaynaktan: rpc/yonetim_ozet (radar-app/sql/2026-10-04-yonetim-ozet.sql). YETKİ SUNUCUDA: fonksiyon
+     çağıranın yoneticiler tablosunda olmasını şart koşar; bu sayfanın adresini bilen başka üye "yetkin yok" görür.
+     Sayfa hiçbir menüde/site haritasında yok, arama motoruna kapalı. Kişi verisi yalnız giriş yapmış yöneticinin
+     tarayıcısına iner; sayaca/günlüğe gitmez (bu sayfada sayaç betiği YOK). -->
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;line-height:1.5}
+a{color:var(--link)}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 80px}
+.top{font-size:13px;color:var(--dim);margin-bottom:14px}
+h1{font-size:clamp(24px,4vw,30px);margin:4px 0 4px;letter-spacing:-.5px}
+h2{font-size:17px;margin:28px 0 10px}
+.alt{color:var(--muted);margin:0 0 18px;font-size:14.5px}
+.kutu{background:var(--kagit);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.sayilar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.sayilar .kutu b{display:block;font-size:28px;line-height:1.1}
+.sayilar .kutu span{color:var(--muted);font-size:13.5px}
+@media(max-width:700px){.sayilar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kaydir{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:var(--kagit)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--muted);font-weight:700;font-size:12.5px;position:sticky;top:0;background:var(--kagit)}
+td.s{text-align:right;font-variant-numeric:tabular-nums}
+.suzgec{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.suzgec select,.suzgec input{font:inherit;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line2);background:var(--kagit);color:var(--ink);min-height:40px}
+.suzgec input{flex:1;min-width:180px}
+.etiket{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line2)}
+.e-ucretli{color:var(--green);border-color:color-mix(in srgb,var(--green) 45%,transparent)}
+.e-elci{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 45%,transparent)}
+.e-hediye{color:var(--link);border-color:color-mix(in srgb,var(--link) 45%,transparent)}
+.e-bos{color:var(--muted)}
+.durum{padding:18px;border-radius:12px;background:var(--kagit);border:1px solid var(--line)}
+.not{color:var(--dim);font-size:12.5px;margin-top:8px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="index.html">Tetikte</a> · Yönetim</div>
+  <h1>Yönetim</h1>
+  <p class="alt" id="yOlcum">Yükleniyor…</p>
+
+  <div class="durum" id="yDurum" hidden></div>
+
+  <div id="yIcerik" hidden>
+    <div class="sayilar">
+      <div class="kutu"><b id="sToplam">0</b><span>toplam üye</span></div>
+      <div class="kutu"><b id="sYedi">0</b><span>son 7 günde yeni üye</span></div>
+      <div class="kutu"><b id="sPaketli">0</b><span>aktif paketli</span></div>
+      <div class="kutu"><b id="sBekleyen">0</b><span>ödeme bekleyen sipariş</span></div>
+    </div>
+
+    <h2>Kim nereden geldi, hangi sınava</h2>
+    <div class="kaydir"><table id="tCapraz"></table></div>
+    <p class="not">Sınav: paketten; paket yoksa son siparişten; o da yoksa çözdüğü seviye testinden. Elçi: siparişteki kod ya da üye olurken taşıdığı elçi linki.</p>
+
+    <h2>Elçiler</h2>
+    <div class="kaydir"><table id="tElci"></table></div>
+
+    <h2>Üyeler</h2>
+    <div class="suzgec">
+      <select id="fSinav" aria-label="Sınava göre süz"><option value="">Tüm sınavlar</option><option>Staja Giriş</option><option>Yeterlilik</option><option>Tümü (tam paket)</option><option>Belirsiz</option></select>
+      <select id="fKaynak" aria-label="Kaynağa göre süz"><option value="">Tüm kaynaklar</option><option>Ücretli</option><option>Elçi ile ücretli</option><option>Hediye</option><option>Ücretsiz üye</option></select>
+      <input id="fAra" type="search" placeholder="E-posta ya da elçi kodu ara" aria-label="Ara">
+    </div>
+    <div class="kaydir"><table id="tUye"></table></div>
+    <p class="not" id="uSay"></p>
+
+    <h2>Siparişler</h2>
+    <div class="kaydir"><table id="tSiparis"></table></div>
+  </div>
+</div>
+
+<script src="kutuphane/supabase-2.112.3.js"></script>
+<script>
+(function(){
+  var $=function(i){ return document.getElementById(i); };
+  var sb=window.__pkSb||(window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg'));
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function tarih(t){ if(!t) return '—'; try{ return new Date(t).toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }catch(e){ return String(t).slice(0,10); } }
+  function tl(n){ return Number(n||0).toLocaleString('tr-TR')+' TL'; }
+  function durum(h){ $('yOlcum').textContent=''; $('yDurum').hidden=false; $('yDurum').innerHTML=h; }
+  var bugun=new Date().toISOString().slice(0,10);
+
+  /* paket / sipariş / seviye -> sınav adı (uye-durumu.js paketSinavlari ile aynı eşleme) */
+  function sinavAd(p){
+    p=String(p||'').toLowerCase();
+    if(!p) return '';
+    if(p==='tam'||p==='kurucu') return 'Tümü (tam paket)';
+    if(p==='sgs'||p.indexOf('sgs-')===0||p==='sinav-249') return 'Staja Giriş';
+    if(p==='smmm'||p==='yeterlilik'||p.indexOf('yeterlilik')===0) return 'Yeterlilik';
+    if(p.indexOf('kgk')===0) return 'KGK';
+    return '';
+  }
+  function sinavBul(u){
+    var aktif=u.paket&&(!u.bitis||u.bitis>=bugun);
+    return (aktif&&sinavAd(u.paket)) || sinavAd(u.siparis_paket)
+      || (u.cozdugu ? (u.cozdugu.indexOf('sgs')>-1&&u.cozdugu.indexOf('smmm')>-1 ? 'Staja Giriş' : (u.cozdugu.indexOf('smmm')>-1?'Yeterlilik':'Staja Giriş')) : '')
+      || 'Belirsiz';
+  }
+  function kaynakBul(u){
+    var aktif=u.paket&&(!u.bitis||u.bitis>=bugun);
+    var elci=u.siparis_elci||u.kayit_elci||'';
+    if(u.hediye&&aktif) return { ad:'Hediye', sinif:'e-hediye', elci:elci };
+    if(aktif&&u.siparis_elci) return { ad:'Elçi ile ücretli', sinif:'e-elci', elci:elci };
+    if(aktif) return { ad:'Ücretli', sinif:'e-ucretli', elci:elci };
+    return { ad:'Ücretsiz üye', sinif:'e-bos', elci:elci };
+  }
+
+  var VERI=null;
+  function ciz(){
+    var uyeler=VERI.uyeler.map(function(u){ var k=kaynakBul(u); return Object.assign({},u,{ sinav:sinavBul(u), kaynak:k.ad, sinif:k.sinif, elci:k.elci }); });
+    var yedi=Date.now()-7*86400000;
+    $('sToplam').textContent=uyeler.length;
+    $('sYedi').textContent=uyeler.filter(function(u){ return new Date(u.kayit).getTime()>=yedi; }).length;
+    $('sPaketli').textContent=uyeler.filter(function(u){ return u.kaynak!=='Ücretsiz üye'; }).length;
+    $('sBekleyen').textContent=VERI.siparisler.filter(function(s){ return s.durum==='odeme_bekliyor'; }).length;
+
+    /* çapraz tablo: satır = kaynak, sütun = sınav */
+    var SIN=['Staja Giriş','Yeterlilik','Tümü (tam paket)','Belirsiz'], KAY=['Ücretli','Elçi ile ücretli','Hediye','Ücretsiz üye'];
+    var h='<tr><th>Kaynak</th>'+SIN.map(function(s){ return '<th>'+s+'</th>'; }).join('')+'<th>Toplam</th></tr>';
+    KAY.concat(['Toplam']).forEach(function(k){
+      var satir=uyeler.filter(function(u){ return k==='Toplam'||u.kaynak===k; });
+      h+='<tr><td><b>'+k+'</b></td>'+SIN.map(function(s){ return '<td class="s">'+satir.filter(function(u){ return u.sinav===s; }).length+'</td>'; }).join('')+'<td class="s"><b>'+satir.length+'</b></td></tr>';
+    });
+    var elciliUcretsiz=uyeler.filter(function(u){ return u.kaynak==='Ücretsiz üye'&&u.elci; }).length;
+    h+='<tr><td colspan="6" class="not" style="white-space:normal">Ücretsiz üyelerden '+elciliUcretsiz+' kişi elçi linkiyle gelmiş (henüz almamış).</td></tr>';
+    $('tCapraz').innerHTML=h;
+
+    /* elçiler */
+    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Linkle üye olan</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th></tr>';
+    VERI.elciler.forEach(function(e){
+      var od=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odendi'; });
+      var bk=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odeme_bekliyor'; });
+      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td></tr>';
+    });
+    if(!VERI.elciler.length) eh+='<tr><td colspan="7" class="not">Henüz elçi yok.</td></tr>';
+    $('tElci').innerHTML=eh;
+
+    /* üye listesi (süzgeçli) */
+    var fs=$('fSinav').value, fk=$('fKaynak').value, fa=$('fAra').value.trim().toLowerCase();
+    var liste=uyeler.filter(function(u){ return (!fs||u.sinav===fs)&&(!fk||u.kaynak===fk)&&(!fa||String(u.eposta).toLowerCase().indexOf(fa)>-1||String(u.elci).toLowerCase().indexOf(fa)>-1); });
+    var uh='<tr><th>E-posta</th><th>Kayıt</th><th>Son giriş</th><th>Sınav</th><th>Kaynak</th><th>Elçi</th><th>Paket</th><th>Bitiş</th><th>Giriş yolu</th></tr>';
+    liste.forEach(function(u){
+      uh+='<tr><td>'+esc(u.eposta)+'</td><td>'+tarih(u.kayit)+'</td><td>'+tarih(u.son_giris)+'</td><td>'+esc(u.sinav)+'</td><td><span class="etiket '+u.sinif+'">'+esc(u.kaynak)+'</span></td><td>'+esc(u.elci||'—')+'</td><td>'+esc(u.paket||'—')+(u.dersler&&u.dersler.length?' ('+u.dersler.length+' ders)':'')+'</td><td>'+tarih(u.bitis)+'</td><td>'+esc(u.yol)+'</td></tr>';
+    });
+    $('tUye').innerHTML=uh;
+    $('uSay').textContent=liste.length+' / '+uyeler.length+' üye gösteriliyor.';
+
+    /* siparişler */
+    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi</th><th>Durum</th></tr>';
+    VERI.siparisler.forEach(function(s){
+      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':'')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td></tr>';
+    });
+    if(!VERI.siparisler.length) sh+='<tr><td colspan="8" class="not">Henüz sipariş yok.</td></tr>';
+    $('tSiparis').innerHTML=sh;
+  }
+  ['fSinav','fKaynak','fAra'].forEach(function(i){ $(i).addEventListener('input',function(){ if(VERI) ciz(); }); });
+
+  (async function(){
+    var o=(await sb.auth.getSession()).data.session;
+    if(!o){ durum('Bu sayfa için giriş yapman gerekiyor. <a href="ogrenci.html?sonra=yonetim.html">Giriş yap →</a>'); return; }
+    var r=await sb.rpc('yonetim_ozet');   /* supabase-js tembel: await edilmeden gitmez */
+    if(r.error){
+      if(/YETKI_YOK|42501|permission/i.test((r.error.message||'')+(r.error.code||''))){ durum('Bu sayfa yalnız yöneticiye açık.'); return; }
+      if(/PGRST202|Could not find the function/i.test((r.error.message||'')+(r.error.code||''))){ durum('Yönetim fonksiyonu henüz kurulmamış (radar-app/sql/2026-10-04-yonetim-ozet.sql).'); return; }
+      durum('Veri okunamadı: '+esc(r.error.message||'bilinmeyen hata')); return;
+    }
+    VERI=Object.assign({uyeler:[],siparisler:[],elciler:[]}, r.data||{});
+    $('yOlcum').textContent='Son okuma: '+new Date(VERI.olcum||Date.now()).toLocaleString('tr-TR')+' · sayfayı yenileyince tazelenir.';
+    $('yIcerik').hidden=false; ciz();
+  })().catch(function(e){ durum('Veri okunamadı: '+esc(e&&e.message)); });
+})();
+</script>
+<link rel="stylesheet" href="stil-acik.css">
+</body>
+</html>

@@ -623,7 +623,7 @@
     try{
       var an=new Date().toISOString(), riza=$('ogRiza').checked;
       var r=await sb.auth.signUp({ email:ep, password:s1,
-        options:{ captchaToken:await captchaJeton(), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null } } });
+        options:{ captchaToken:await captchaJeton(), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null, elci_kodu:(function(){ try{ return localStorage.getItem('tt_elci')||null; }catch(e){ return null; } })() } } });   /* 04.10: elçi izi (yonetim.html) */
       if(r.error){
         /* kayıtlı adres: kişiyi girişe al, e-postayı taşı */
         if(/user_already_exists/i.test(r.error.code||'')||/already registered/i.test(r.error.message||'')){

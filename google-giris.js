@@ -84,7 +84,8 @@
     ss.sil(ONAY);
     if (meta.kosul_kabul) return;
     await sb.auth.updateUser({ data: { hesap_turu: meta.hesap_turu || 'ogrenci', kaynak: meta.kaynak || 'site-google',
-      kosul_kabul: onay, pazarlama_rizasi: false, riza_tarihi: null } });
+      kosul_kabul: onay, pazarlama_rizasi: false, riza_tarihi: null,
+      elci_kodu: (function(){ try { return localStorage.getItem('tt_elci') || null; } catch (e) { return null; } })() } });   /* 04.10: elçi izi */
   }
 
   function kur(o){
