@@ -383,6 +383,16 @@
       p.push('tekrar bekleyen '+o.kutuToplam);
       $('ogSonDurum').innerHTML=esc(p.join(' · '))+' · <a class="og-link" href="yanlislarim.html">Yanlışlarım →</a>';
       $('ogSimdi').classList.remove('og-gizli');
+      /* 04.10 Cem ("1.2.3"): seviye testinde kilitli kalan rapor bu cihazdaysa ve henüz açılmadıysa "Şimdi bunu yap" o olur.
+         E-postayla kayıt olup onay bağlantısıyla buraya düşen kişi de raporuna tek tıkla ulaşır (?sonra= o yolda kaybolabiliyor). */
+      try{
+        var sr=JSON.parse(localStorage.getItem('sv_son_rapor')||'null');
+        if(sr&&sr.sonuc&&sr.tarih&&localStorage.getItem('sv_rapor_goruldu')!==sr.tarih){
+          $('ogSimdiBas').textContent='Seviye testi raporun hazır';
+          $('ogSimdiMetin').textContent='Geçme ihtimalin %'+sr.sonuc.gecme+'. Ders ders güçlü ve zayıf yanların, "bugün şunu yap" planın ve bilemediğin soruların cevabı seni bekliyor.';
+          $('ogSimdiBtn').textContent='Raporu aç →'; $('ogSimdiBtn').href='seviye-testi.html?rapor=1';
+        }
+      }catch(e){}
     });
   }
   var SINAV_TARIHI='2026-11-21';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir */

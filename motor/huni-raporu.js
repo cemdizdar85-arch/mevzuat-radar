@@ -79,6 +79,10 @@ function tablo(dun, hafta) {
   }
   satir.push('');
   for (const [ad] of EK) satir.push(pad(ad, 28) + pad(String(dun.say[ad] || 0), 8) + String(hafta.say[ad] || 0));
+  /* 04.10 Cem ("1.2.3"): seviye testi sonu üyelik kartının dönüşümü tek satır - ilk hafta sonunda kart metnine bununla karar verilir */
+  const k = hafta.say['Rapor kilidini gördü'] || 0, ha = hafta.say['Hesap aç dedi'] || 0, ra = hafta.say['Raporu hesapla açtı'] || 0;
+  satir.push('');
+  satir.push('KİLİT DÖNÜŞÜMÜ (7 gün): kilidi gören ' + k + ' → hesap aç diyen ' + ha + ' (' + yuzde(ha, k) + ') → raporu açan ' + ra + ' (' + yuzde(ra, ha) + ')');
   return satir.join('\n');
 }
 

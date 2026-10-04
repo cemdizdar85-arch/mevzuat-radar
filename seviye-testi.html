@@ -447,7 +447,9 @@
     if(kayitOku()) karneGonder();
   }
   function raporSakla(){
-    try{ localStorage.setItem('sv_son_rapor', JSON.stringify({ yet:YET, sonuc:SONUC, tarih:new Date().toISOString(),
+    var tarih=new Date().toISOString();
+    try{ if(uyeMi()) localStorage.setItem('sv_rapor_goruldu', tarih); }catch(e){}   /* üye raporu zaten tam görüyor */
+    try{ localStorage.setItem('sv_son_rapor', JSON.stringify({ yet:YET, sonuc:SONUC, tarih:tarih,
       cevaplar:CEVAPLAR.map(function(c){ return { ders:c.ders, dogru:c.dogru, denetlenemedi:c.denetlenemedi, secim:c.secim, dogruHarf:c.dogruHarf,
         dogruMetin:c.dogruMetin, soru:c.soru, sayfa:c.sayfa, sira:c.sira, id:c.id }; }) })); }catch(e){}
   }
@@ -751,6 +753,7 @@
         YET=!!sr.yet; SONUC=sr.sonuc; CEVAPLAR=sr.cevaplar||[];
         if(YET) sonucCizYet(); else sonucCiz(SONUC.gruplar||[]);
         kilitUygula(); say('rapor-acildi');
+        if(uyeMi()) try{ localStorage.setItem('sv_rapor_goruldu', sr.tarih||''); }catch(e){}   /* ogrenci.html "raporun hazır" kartı bir daha çıkmasın */
       }
     }
   }catch(e){}

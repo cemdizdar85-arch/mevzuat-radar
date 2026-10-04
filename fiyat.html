@@ -111,7 +111,7 @@
      ("harcin iki kati"). Manset capasi CANLI KURS tabanina alindi: 8.500 TL KDV dahil,
      15.09.2026 rakip olcumu (kurumun kendi sitesi). Rakip adi YAZILMAZ. Harc alt satirda kalir. -->
 <div class="vurus">
-  <div class="buyuk">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor.<br>Biz <b id="vurusFiyat">2.988 TL</b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
+  <div class="buyuk">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor.<br>Biz <b id="vurusFiyat">2.490 TL + KDV <span style="font-weight:600">(KDV dahil 2.988 TL)</span></b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
   <p>Kurs fiyatları kurumların kendi sitelerinden, 15.09.2026'da okundu (KDV dahil karşılığıyla). Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
@@ -453,7 +453,8 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
   if(x[1] === 'kgk'){ document.getElementById('rzKgk').textContent = 'YENİ'; }
 });
 
-document.getElementById('vurusFiyat').textContent = tl(pSgs.fiyat) + ' TL';   /* 01.10: kurs fiyatı KDV dahil yazılı → kıyas aynı temelde (KDV dahil) kalır */
+/* 04.10 Cem (+KDV dili): ana rakam '+ KDV', KDV dahil yanında - kurs fiyatı KDV dahil yazılı olduğu için kıyas temeli (KDV dahil) GÖRÜNÜR kalır (01.10) */
+document.getElementById('vurusFiyat').innerHTML = (typeof fiyatAna==='function' ? fiyatAna('sgs', pSgs.fiyat) : tl(pSgs.fiyat) + ' TL') + (typeof fiyatDahilNot==='function' && fiyatDahilNot('sgs', pSgs.fiyat) ? ' <span style="font-weight:600">(' + fiyatDahilNot('sgs', pSgs.fiyat) + ')</span>' : '');
 document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 
 // HARC KARSILASTIRMASI: her basamak harctan ucuz mu, tablo kendisi gostersin.
