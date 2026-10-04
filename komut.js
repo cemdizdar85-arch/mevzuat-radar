@@ -66,6 +66,28 @@
     });
   });
 
+  /* 04.10 site turu (Cem "her tuşa bas"): "amortisman" yazan "Eşleşme yok" görüyordu - dizinde ders/konu yoktu.
+     Açık sınavların dersleri ve konu adları soru dizininden (veri/soru-dizini.json, sorular.html ile aynı kaynak)
+     palet ilk açıldığında bir kez yüklenir. Ders sayfası paketsize paket kapısını gösterir (giriş / paketler). */
+  var dizinYuklendi = false;
+  function dersleriYukle() {
+    if (dizinYuklendi) return; dizinYuklendi = true;
+    try {
+      fetch('/veri/soru-dizini.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+        if (!d || !d.sinavlar) return;
+        d.sinavlar.forEach(function (s) {
+          if (s.durum !== 'acik') return;
+          (s.dersler || []).forEach(function (x) {
+            if (!x.sayfa) return;
+            var konular = (x.konular || []).map(function (k) { return k.ad; }).join(' ');
+            KAYIT.push({ ad: x.ad, yol: '/' + x.sayfa, konu: s.ad + ' dersleri', ara: katla(x.ad + ' ' + konular + ' ' + s.ad + ' ' + (s.uzun || '')) });
+          });
+        });
+        if (acik && girdi) ciz(girdi.value);
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   /* ---- ESLESTIRME ----------------------------------------------------------
      Puanlama: adin basindan eslesme > ad icinde > ek kelimelerde.
      Boylece "marka" yazinca "Marka Radari" once, "Markanla ne
@@ -111,7 +133,7 @@
         '<div class="kp-ust">' +
           '<input class="kp-girdi" type="text" role="combobox" aria-expanded="true" ' +
                  'aria-controls="kp-liste" aria-autocomplete="list" autocomplete="off" ' +
-                 'spellcheck="false" placeholder="Ara: marka, ceza, GTİP kodu, sınav…">' +
+                 'spellcheck="false" placeholder="Ara: ders, konu, sayfa… (ör. amortisman)">' +
           '<kbd class="kp-esc">esc</kbd>' +
         '</div>' +
         '<ul class="kp-liste" id="kp-liste" role="listbox" aria-label="Sonuçlar"></ul>' +
@@ -145,7 +167,8 @@
     secili = 0;
 
     if (!sonuc.length) {
-      liste.innerHTML = '<li class="kp-yok">Eşleşme yok. Katalogda aramayı dene.</li>';
+      liste.innerHTML = '<li class="kp-yok">Eşleşme yok.</li><li class="kp-satir" role="option" id="kp-s0" data-i="0" data-yol="/sorular.html" aria-selected="false"><span>Bütün dersler: Sınavlar sayfası</span></li>';
+      sonuc = [{ ad: 'Bütün dersler', yol: '/sorular.html', konu: '' }];
       sayim.textContent = 'sonuç yok';
       return;
     }
@@ -195,6 +218,7 @@
     document.documentElement.classList.add('kp-kilit');
     girdi.value = '';
     ciz('');
+    dersleriYukle();
     girdi.focus();
   }
 
