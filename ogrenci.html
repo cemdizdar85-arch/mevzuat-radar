@@ -225,6 +225,7 @@
         <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
         <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">İstersen başka bir konu seç</a></div>
         <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
+        <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
       </div>
     </div>
     <div class="og-bolum" style="margin-top:8px">
@@ -383,6 +384,17 @@
       p.push('tekrar bekleyen '+o.kutuToplam);
       $('ogSonDurum').innerHTML=esc(p.join(' · '))+' · <a class="og-link" href="yanlislarim.html">Yanlışlarım →</a>';
       $('ogSimdi').classList.remove('og-gizli');
+      /* 04.10 GÜNLÜK GÖREV (Cem "beş maddeyi yapalım", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk
+         görüşünde vadesi gelen tekrar (en çok 20) + 10 yeni soru; gün içinde tekrar yaptıkça küçülmesin diye o gün için sabitlenir. */
+      try{
+        var gun=new Date(o.an).toDateString(), g=JSON.parse(localStorage.getItem('tt_gorev')||'null');
+        if(!g||g.gun!==gun){ g={ gun:gun, tekrar:Math.min(20,o.vadeli||0), yeni:10 }; localStorage.setItem('tt_gorev',JSON.stringify(g)); }
+        var hedef=g.tekrar+g.yeni, yapilan=Math.min(hedef,o.bugunCozulen||0);
+        $('ogGorevYazi').textContent= yapilan>=hedef ? '✓ Bugünün işi tamam. Serini korudun.' : 'Bugünün işi: '+(g.tekrar?g.tekrar+' tekrar + ':'')+g.yeni+' yeni soru';
+        $('ogGorevSay').textContent=yapilan+' / '+hedef;
+        $('ogGorevCubuk').style.width=Math.round(100*yapilan/hedef)+'%';
+        $('ogGorev').classList.remove('og-gizli');
+      }catch(e){}
       /* 04.10 Cem ("1.2.3"): seviye testinde kilitli kalan rapor bu cihazdaysa ve henüz açılmadıysa "Şimdi bunu yap" o olur.
          E-postayla kayıt olup onay bağlantısıyla buraya düşen kişi de raporuna tek tıkla ulaşır (?sonra= o yolda kaybolabiliyor). */
       try{

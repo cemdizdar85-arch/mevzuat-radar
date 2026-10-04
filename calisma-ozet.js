@@ -94,6 +94,8 @@
       zayifDers: dersler.length ? dersler[dersler.length - 1] : null,
       sonSeviye: sv.length ? sv[sv.length - 1] : null,
       sonSeviyeYet: svYet.length ? svYet[svYet.length - 1] : null,
+      /* 04.10 günlük görev (Cem "beş maddeyi yapalım", rakip BPP): bugün (yerel gün) çözülen cevap sayısı */
+      bugunCozulen: kayit.filter(function(x){ return x && x.t && new Date(x.t).toDateString() === new Date(an).toDateString(); }).length,
       an: an
     };
   }
