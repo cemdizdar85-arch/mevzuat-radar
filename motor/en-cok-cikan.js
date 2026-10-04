@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 /* ============================================================================
- *  EN ÇOK ÇIKAN KONULAR SAYFASI (04.10.2026, Cem: "en çok çıkan konulardan ... bizi tanıtacak, rakiplerden öne geçirecek";
- *  "1.2.3 üçünü de yap": dönem sayısı ölçüsü + sayfa + Instagram karuseli)
+ *  EN ÇOK ÇIKAN KONULAR SAYFASI (04.10.2026, Cem: "en çok çıkan konulardan ... bizi tanıtacak, rakiplerden öne geçirecek")
  *
- *  NE YAPAR: çıkmış sınav kitapçıklarının konu analizinden "son 10 yılda en çok çıkan 30 konu" sayfasını DÜZ HTML olarak basar
- *  (arama motoru doğrudan okusun diye liste sayfanın içinde). Soru AÇMAZ: soru bankası pakette kalır; sayfa seviye testine,
- *  örnek sorulara ve ders sayfasına (paket kapısı) yönlendirir.
- *  ÖLÇÜ: "kaç sınav döneminde soruldu" (32 dönem, 2016+). "Kaç soru" DEĞİL - Finansal Muhasebe'de her yevmiye satırı ayrı
- *  soru sayıldığı için soru sayısı şişkin görünür (hafıza: smmm-analiz FM ~39 "soru"/sınav).
- *  KAYNAK: veri/fabrika/sgs-konu-kapsama.json (arac/... kapsama tablosu; fabrika YEREL, depoya girmez) -> bu betik YEREL koşar,
- *  çıktı (en-cok-cikan-konular-sgs.html) depoya girer. Tablo tazelenince yeniden koşulur.
- *  🚫 GÖRMEZ: çıkmış soruyu konuya bağlayan köprünün hatası (köprü yanlışsa sayı da yanlış - sayfada yöntem notu var) ·
- *     konu adlarının Türkçe görünen biçimi elle yazılmış ADLAR sözlüğünden gelir; sözlükte olmayan konu ASCII adıyla düşer (uyarı basar).
+ *  ⛔ 04.10 YENİDEN YAZILDI — Cem: "sınav konuları önemli, doğru bilgi verelim, yanlış olmasın". İlk sürüm konu ETİKETİ sayımıyla
+ *  (veri/fabrika/sgs-konu-kapsama.json) basılmıştı; etiketler parçalıydı, rakamlar düşüktü (muhasebe bilgi sistemi 16 → okunarak 28).
+ *  Sayfa yayından çekildi. Artık TEK KAYNAK: veri/sinav/sgs-konu-okuma.json (arac/sgs-konu-okuma.js — her aday çıkmış soru
+ *  tek tek OKUNDU, e=1 olanlar sayılır). Her satırın altında kanıt: dönem + A kitapçığı soru no. Kural: CLAUDE.md
+ *  "DIŞARI ÇIKAN SINAV RAKAMI ÖNCE SORU METNİYLE DOĞRULANIR".
+ *
+ *  NE YAPAR: düz HTML basar (arama motoru listeyi okusun). Soru AÇMAZ; seviye testine, örnek sorulara, ders sayfasına yönlendirir.
+ *  ÖLÇÜ: "kaç sınav döneminde soruldu" (32 dönem, 2016/1–2026/2). Sayı ALT SINIRDIR (aday ifadesi geçmeyen soru sayılmadı).
+ *  🚫 GÖRMEZ: 82 aday konu dışındaki konular (sayfada yazılı) · Matematik (formül OCR'ı bozuk, sayı eksik → listeye alınmaz) ·
+ *     konu genişliği eşit değil ("kıymetli evrak" geniş, "Lozan" dar) · okuyucunun sınırda kararı.
  *  Kullanım: node motor/en-cok-cikan.js sgs [--kuru]
  * ==========================================================================*/
 'use strict';
@@ -19,53 +19,45 @@ const fs = require('fs'), path = require('path');
 const KOK = path.join(__dirname, '..');
 const SINAV = process.argv[2] || 'sgs';
 const KURU = process.argv.includes('--kuru');
-if (SINAV !== 'sgs') { console.error('şimdilik yalnız sgs (Yeterlilik konu adları gruplanmadan basılmaz - parçalı adlar düşük sayı veriyor)'); process.exit(2); }
+const ADET = 20;
+if (SINAV !== 'sgs') { console.error('şimdilik yalnız sgs (Yeterlilik okunarak sayılmadı)'); process.exit(2); }
 
-// Çıkmış analizindeki katlanmış konu adı -> sayfada görünen Türkçe ad (elle, 04.10)
-const ADLAR = {
-  'ucret yonetmeligi': 'Meslek mensubu ücret yönetmeliği', 'cumle tamamlama': 'Cümle tamamlama', 'muhasebe bilgi sistemi': 'Muhasebe bilgi sistemi',
-  'baglac kullanimi': 'Bağlaç kullanımı', 'yazim kurallari': 'Yazım kuralları', 'preposition secimi': 'Edat (preposition) seçimi',
-  'noktalama isaretleri': 'Noktalama işaretleri', 'ortak maliyet dagitimi': 'Ortak maliyet dağıtımı', 'limit hesabi': 'Limit hesabı',
-  'anlatim bozuklugu': 'Anlatım bozukluğu', 'kelime bilgisi': 'Kelime bilgisi', 'dikey yuzde analizi': 'Dikey yüzde analizi',
-  'nakit akis tablosu': 'Nakit akış tablosu', 'uluslararasi muhasebe kuruluslari': 'Uluslararası muhasebe kuruluşları',
-  'turev hesabi': 'Türev hesabı', 'disiplin cezalari': 'Disiplin cezaları', 'denetim kaniti yeterliligi': 'Denetim kanıtının yeterliliği',
-  'toplu is sozlesmesi': 'Toplu iş sözleşmesi', 'hisse senedi satisi': 'Hisse senedi satışı', 'kelime bilgisi (fiil secimi)': 'Kelime bilgisi: fiil seçimi',
-  'sebepsiz zenginlesme': 'Sebepsiz zenginleşme', 'depozito iadesi kaydi': 'Depozito iadesi kaydı', 'yatay analiz': 'Yatay analiz',
-  'denklem cozme': 'Denklem çözme', 'genel islem kosullari': 'Genel işlem koşulları', 'analitik prosedurler': 'Analitik prosedürler',
-  'tms 40 yatirim amacli gayrimenkul': 'TMS 40 yatırım amaçlı gayrimenkuller', 'donem kari zarari hesabi': 'Dönem kârı / zararı hesabı',
-  'denetim kaniti guvenilirligi': 'Denetim kanıtının güvenilirliği', 'lozan konferansi': 'Lozan Konferansı',
-  'net isletme sermayesi': 'Net işletme sermayesi', 'siparis maliyet sistemi': 'Sipariş maliyet sistemi',
-};
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const slug = s => String(s).toLocaleLowerCase('tr').replace(/ç/g, 'c').replace(/ğ/g, 'g').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ş/g, 's').replace(/ü/g, 'u').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
-const kap = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'fabrika', 'sgs-konu-kapsama.json'), 'utf8'));
-const DONEM = kap.pencere || 32, YIL = kap.yil || 2016;
+const ok = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'sinav', 'sgs-konu-okuma.json'), 'utf8'));
+const DONEM = ok.donem, PENCERE = ok.pencere;
+// okuma dosyasındaki kısa ders adı → sitedeki ders adı
+const DERS = { 'Muhasebe': 'Finansal Muhasebe', 'İktisat': 'Ekonomi', 'Atatürk İlkeleri': 'Atatürk İlkeleri ve İnkılap Tarihi' };
+const dersAd = d => DERS[d] || d;
 const dizin = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'soru-dizini.json'), 'utf8')).sinavlar.find(x => x.kod === 'sgs');
 const dersSayfa = {}, dersSoru = {}; dizin.dersler.forEach(d => { dersSayfa[d.ad] = d.sayfa; dersSoru[d.ad] = d.sinav_soru; });
-const top = kap.satirlar.slice().sort((a, b) => b.don - a.don || b.son - a.son || String(b.sonD).localeCompare(String(a.sonD))).slice(0, 30);
-const eksikAd = top.filter(x => !ADLAR[x.konu]).map(x => x.konu);
-if (eksikAd.length) console.warn('⚠ Türkçe adı olmayan konu (ASCII görünecek): ' + eksikAd.join(', '));
+
+const srt = d => { const [y, n] = d.split('/'); return +y * 10 + +n; };
+const K = {};
+for (const x of ok.kararlar) { if (!x.e) continue; const r = K[x.konu] = K[x.konu] || { ders: dersAd(x.ders), konu: x.konu, kanit: [] }; r.kanit.push(x); }
+const hepsi = Object.values(K).map(r => {
+  const don = [...new Set(r.kanit.map(z => z.donem))].sort((p, q) => srt(p) - srt(q));
+  r.kanit.sort((p, q) => srt(p.donem) - srt(q.donem) || p.soru - q.soru);
+  return { ...r, don: don.length, soru: r.kanit.length, son: don[don.length - 1] };
+}).sort((p, q) => q.don - p.don || q.soru - p.soru || srt(q.son) - srt(p.son));
+const top = hepsi.filter(x => x.ders !== 'Matematik').slice(0, ADET);
 const eksikDers = top.filter(x => !dersSayfa[x.ders]).map(x => x.ders);
 if (eksikDers.length) { console.error('KIRMIZI: ders sayfası bulunamadı: ' + [...new Set(eksikDers)].join(', ')); process.exit(3); }
 const dersSay = {}; top.forEach(x => { dersSay[x.ders] = (dersSay[x.ders] || 0) + 1; });
 const dersSira = Object.keys(dersSay).sort((a, b) => dersSay[b] - dersSay[a]);
-const tarih = new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-const enCok = dersSira[0];
+const tarih = ok.olcum.split('-').reverse().join('.');
 
-const satirlar = top.map((x, i) => {
-  const ad = ADLAR[x.konu] || x.konu;
-  return `<li class="ek-satir"><span class="ek-no">${i + 1}</span><div class="ek-govde"><h3 class="ek-ad">${esc(ad)}</h3><p class="ek-alt">${esc(x.ders)} · sorulduğu dönem: <b>${x.don} / ${DONEM}</b> · en son <b>${esc(x.sonD)}</b></p></div>`
-    + `<span class="ek-cubuk" aria-hidden="true"><i style="width:${Math.round(100 * x.don / DONEM)}%"></i></span>`
-    + `<a class="ek-git" href="${esc(dersSayfa[x.ders])}">Soru çöz →</a></li>`;
-}).join('\n');
+const kanitYaz = r => r.kanit.map(z => `${z.donem} s.${z.soru}`).join(' · ');
+const satirlar = top.map((x, i) => `<li class="ek-satir"><span class="ek-no">${i + 1}</span><div class="ek-govde"><h3 class="ek-ad">${esc(x.konu)}</h3><p class="ek-alt">${esc(x.ders)} · sorulduğu dönem: <b>${x.don} / ${DONEM}</b> · en son <b>${esc(x.son)}</b></p>`
+  + `<details class="ek-kanit"><summary>Kanıt: hangi sınav, kaçıncı soru (${x.soru} soru)</summary><p>${esc(kanitYaz(x))}</p></details></div>`
+  + `<span class="ek-cubuk" aria-hidden="true"><i style="width:${Math.round(100 * x.don / DONEM)}%"></i></span>`
+  + `<a class="ek-git" href="${esc(dersSayfa[x.ders])}">Soru çöz →</a></li>`).join('\n');
 const dersOzet = dersSira.map(d => `<li><b>${esc(d)}</b>: listede ${dersSay[d]} konu · sınavda ${dersSoru[d] || '?'} soru</li>`).join('');
 
 const SSS = [
-  ['Staja Giriş Sınavında en çok hangi konular çıkıyor?', `Son ${YIL} sonrası ${DONEM} sınav döneminde en sık sorulan konu "${ADLAR[top[0].konu] || top[0].konu}" (${top[0].don} dönem). Listenin tamamı yukarıda; her satırda konunun kaç dönemde sorulduğu ve en son ne zaman çıktığı yazıyor.`],
-  ['Bu sayılar nasıl hesaplandı?', `TESMER'in yayımladığı çıkmış soru kitapçıklarındaki her soru bir konuya bağlandı; her konu için, ${YIL}'dan bu yana kaç ayrı sınav döneminde en az bir soru geldiği sayıldı. Soru sayısı değil dönem sayısı kullanıldı, çünkü tek bir dönemde aynı konudan çok soru gelmesi o konunun her sınavda çıkacağı anlamına gelmez.`],
-  ['Listede olmayan konulara çalışmalı mıyım?', 'Evet. Liste "nereden başlamalı" sorusunun cevabıdır, sınırı değildir. Her ders sınavda kendi ağırlığıyla yer alır (ders ders özet yukarıda); listede az görünen bir ders de puanını etkiler.'],
-  [`En çok hangi dersten konu var?`, `Bu ilk 30'da en çok konu ${enCok} dersinden (${dersSay[enCok]} konu). Ders ağırlığı ise TESMER'in ders dağılımına göre: örneğin Finansal Muhasebe sınavda ${dersSoru['Finansal Muhasebe'] || 26} soru.`],
+  ['Staja Giriş Sınavında en çok hangi konular çıkıyor?', `${PENCERE} arasındaki ${DONEM} sınav döneminde, okuyarak saydığımız konular içinde en sık sorulan "${top[0].konu}" (${top[0].don} dönem). Her satırın altında o konunun çıktığı sınav ve soru numarası yazıyor.`],
+  ['Bu sayılar nasıl hesaplandı?', `${DONEM} dönemin çıkmış soru kitapçığında ${ok.aday_konu} aday konuyla ilgili sözcüklerin geçtiği ${ok.aday_soru} soru tek tek okundu. Sözcük yalnız bir şıkta ya da bağlamda geçiyorsa soru sayılmadı; yalnız o konuyu gerçekten soran sorular sayıldı. Sayı, o konudan kaç ayrı sınav döneminde en az bir soru geldiğidir.`],
+  ['Listede olmayan konulara çalışmalı mıyım?', 'Evet. Liste "nereden başlamalı" sorusunun cevabıdır, sınırı değildir. Her ders sınavda kendi ağırlığıyla yer alır; listede az görünen bir ders de puanını etkiler. Matematik bu listede yok çünkü kitapçıklardaki formüller metne güvenilir biçimde çevrilemedi; sayısı eksik çıkardı.'],
+  ['Sayılar kesin mi?', 'Sayılar alt sınırdır: aynı konu hiç beklenmedik bir sözcükle sorulduysa sayıya girmemiş olabilir. Fazla sayım yoktur; her sayılan soru okunarak doğrulandı ve sınav-soru numarasıyla listelendi.'],
 ];
 
 const html = `<!doctype html>
@@ -74,16 +66,16 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <script src="tema-bas.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Staja Giriş Sınavı: Son 10 Yılda En Çok Çıkan 30 Konu (2026) | Tetikte</title>
-<meta name="description" content="SMMM Staja Giriş Sınavında ${YIL}'dan bu yana ${DONEM} sınav döneminde en sık sorulan 30 konu: her konunun kaç dönemde çıktığı ve en son ne zaman sorulduğu. Çıkmış kitapçıkların konu analizi.">
+<title>Staja Giriş Sınavı: Son 10 Yılda En Sık Sorulan ${ADET} Konu (kanıtlı) | Tetikte</title>
+<meta name="description" content="SMMM Staja Giriş Sınavında ${PENCERE} arası ${DONEM} sınav döneminde en sık sorulan ${ADET} konu. Çıkmış sorular tek tek okunarak sayıldı; her konunun altında sınav ve soru numarası.">
 <link rel="canonical" href="https://tetikte.com/en-cok-cikan-konular-sgs.html">
-<meta property="og:title" content="Staja Giriş: son 10 yılda en çok çıkan 30 konu">
-<meta property="og:description" content="Çıkmış kitapçıkların konu analizi: hangi konu kaç sınav döneminde soruldu.">
+<meta property="og:title" content="Staja Giriş: son 10 yılda en sık sorulan ${ADET} konu (kanıtlı)">
+<meta property="og:description" content="Çıkmış sorular tek tek okunarak sayıldı; her rakamın yanında sınav ve soru numarası.">
 <meta property="og:url" content="https://tetikte.com/en-cok-cikan-konular-sgs.html">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="stil.css">
-<!-- ÜRETİLEN SAYFA: motor/en-cok-cikan.js (elle düzenlenmez; veri tazelenince yeniden basılır). Basım: ${tarih} -->
+<!-- ÜRETİLEN SAYFA: motor/en-cok-cikan.js ← veri/sinav/sgs-konu-okuma.json (elle düzenlenmez). Ölçüm: ${tarih} -->
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: SSS.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) })}</script>
 <style>
 *{box-sizing:border-box}
@@ -100,6 +92,9 @@ h2{font-size:19px;margin:30px 0 12px}
 .ek-no{font-weight:800;font-size:18px;color:var(--amber);text-align:center}
 .ek-ad{margin:0;font-size:16px;line-height:1.3}
 .ek-alt{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.ek-kanit{margin-top:4px;font-size:12.5px;color:var(--muted)}
+.ek-kanit summary{cursor:pointer;color:var(--link)}
+.ek-kanit p{margin:4px 0 0;line-height:1.5}
 .ek-cubuk{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
 .ek-cubuk i{display:block;height:100%;background:var(--amber-dolgu);border-radius:99px}
 .ek-git{font-weight:700;font-size:13.5px;white-space:nowrap;text-decoration:none}
@@ -115,13 +110,13 @@ h2{font-size:19px;margin:30px 0 12px}
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html">Sınavlar</a> · En çok çıkan konular</div>
+  <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html">Sınavlar</a> · En sık sorulan konular</div>
   <main>
-  <h1>Staja Giriş Sınavı: son 10 yılda en çok çıkan 30 konu</h1>
-  <p class="alt">${YIL}'dan bu yana yapılan ${DONEM} sınav döneminin çıkmış soru kitapçıklarını konu konu saydık. Aşağıdaki liste, hangi konunun kaç dönemde sorulduğunu ve en son ne zaman çıktığını gösterir.</p>
-  <p class="yontem"><b>Yöntem:</b> TESMER'in yayımladığı çıkmış soru kitapçıklarındaki her soru bir konuya bağlandı. Sayı, o konudan <b>kaç ayrı sınav döneminde</b> en az bir soru geldiğidir (soru sayısı değil). Konu eşleştirmesi Tetikte analizidir; kesin konu kapsamı için TESMER yönergesi esastır. Veri: ${tarih}.</p>
+  <h1>Staja Giriş Sınavı: son 10 yılda en sık sorulan ${ADET} konu</h1>
+  <p class="alt">${PENCERE} arasındaki ${DONEM} sınav döneminin çıkmış sorularını <b>tek tek okuyarak</b> saydık. Her konunun altında, o konunun hangi sınavda kaçıncı soru olarak çıktığı yazıyor; kendin kontrol edebilirsin.</p>
+  <p class="yontem"><b>Yöntem:</b> ${ok.aday_konu} aday konuyla ilgili sözcüklerin geçtiği ${ok.aday_soru} soru okundu; sözcük yalnız bir şıkta geçiyorsa soru sayılmadı. Sayı, o konudan <b>kaç ayrı sınav döneminde</b> en az bir soru geldiğidir ve <b>alt sınırdır</b>. Soru numaraları A kitapçığına göredir. Kaynak: ${DONEM - 5} dönem TESMER'in yayımladığı kitapçık; 2024/2–2025/3 arası 5 dönem başka bir sitede yayımlanmış kitapçık. Matematik formüller metne güvenilir çevrilemediği için listede yok. Ölçüm: ${tarih}.</p>
 
-  <h2>İlk 30 konu</h2>
+  <h2>İlk ${ADET} konu</h2>
   <ol class="ek-liste">
 ${satirlar}
   </ol>
@@ -150,6 +145,6 @@ ${SSS.map(([q, a]) => `  <h3>${esc(q)}</h3>\n  <p>${esc(a)}</p>`).join('\n')}
 </html>
 `;
 const hedef = path.join(KOK, 'en-cok-cikan-konular-sgs.html');
-if (KURU) { console.log('kuru: ' + top.length + ' konu, ' + dersSira.length + ' ders; ilk: ' + (ADLAR[top[0].konu] || top[0].konu) + ' (' + top[0].don + '/' + DONEM + ')'); process.exit(0); }
+if (KURU) { top.forEach((x, i) => console.log(String(i + 1).padStart(2), x.ders, '›', x.konu, x.don + '/' + DONEM, 'son ' + x.son)); process.exit(0); }
 fs.writeFileSync(hedef, html, 'utf8');
-console.log('en-cok-cikan-konular-sgs.html: ' + top.length + ' konu, ' + dersSira.length + ' ders');
+console.log('en-cok-cikan-konular-sgs.html: ' + top.length + ' konu, ' + dersSira.length + ' ders (kaynak veri/sinav/sgs-konu-okuma.json)');
