@@ -100,6 +100,44 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
   const dersler = Object.keys(agac);
   if (!dersler.length) throw new Error('aday yok');
 
+  /* --onar (04.10, site turu): canlıda Yeterlilik testi "Sorular hazırlanıyor"da kaldı - setin 4 sorusu kasadan çıkmıştı
+     (onarım/ret), sayfa eksik setle ölçmüyor. Set BAŞTAN seçilmez (öbür 26 soru ve ölçüm sürekliliği korunur):
+     yalnız kasada olmayan ya da hariç listesine giren kimlik, aynı dersten aynı kurallarla değiştirilir -
+     önce aynı konu + aynı zorluk, sonra setin kullanmadığı konu (son10 sırası) + aynı zorluk, sonra en yakın zorluk. */
+  if (argv.includes('--onar')) {
+    const hedef = path.join(KOK, 'veri', 'seviye', SINAV + '-set.json');
+    const eski = jsonOku(hedef);
+    const kasaId = new Set(kasa.map(r => r.id));
+    const kullanilan = new Set(eski.sorular.map(s => s.id));
+    const degisen = [];
+    const yeni = eski.sorular.map(s => {
+      if (kasaId.has(s.id) && !haric[s.id]) return s;
+      const dk = dersK(s.ders), konular = Object.values(agac[dk] || {}).sort((a, b) => b.son10 - a.son10 || b.cikmis - a.cikmis || a.konu.localeCompare(b.konu, 'tr'));
+      const setKonu = new Set(eski.sorular.filter(x => dersK(x.ders) === dk && x.id !== s.id).map(x => katla(x.konu)));
+      const aday = (kon, z) => kon.z[z].filter(q => !kullanilan.has(q.id)).sort((x, y) => (x.vitrinde - y.vitrinde) || x.id.localeCompare(y.id))[0];
+      let sec = null;
+      const ayni = konular.find(k => katla(k.konu) === katla(s.konu));
+      if (ayni) { const q = aday(ayni, s.zorluk); if (q) sec = { kon: ayni, z: s.zorluk, q }; }
+      for (const zs of [[s.zorluk], ['cokzor', 'zor', 'kolay']]) {
+        if (sec) break;
+        for (const kon of konular) { if (setKonu.has(katla(kon.konu))) continue; const z = zs.find(z => aday(kon, z)); if (z) { sec = { kon, z, q: aday(kon, z) }; break; } }
+      }
+      if (!sec) { degisen.push(s.id + ' -> BULUNAMADI'); return s; }
+      kullanilan.add(sec.q.id);
+      degisen.push(`${s.ders}: ${s.id} [${s.konu}/${s.zorluk}] -> ${sec.q.id} [${sec.kon.konu}/${sec.z}]`);
+      return { id: sec.q.id, ders: dersAd[dk] || s.ders, konu: sec.kon.konu, zorluk: sec.z, son10: sec.kon.son10, cikmis: sec.kon.cikmis, son_soruldu: sec.kon.son_soruldu };
+    });
+    console.log(`SEVİYE SETİ ONARIM (${SINAV}) · ${eski.sorular.length} soru · değişen ${degisen.length}`);
+    degisen.forEach(x => console.log('  ' + x));
+    if (degisen.some(x => /BULUNAMADI/.test(x))) { console.error('KIRMIZI: yerine soru bulunamayan var - yazılmadı'); process.exit(3); }
+    if (!degisen.length || KURU) { console.log(degisen.length ? '  kuru - yazılmadı' : '  değişiklik yok'); return; }
+    eski.sorular = yeni;
+    eski.onarim = (eski.onarim || []).concat([{ tarih: new Date().toISOString(), neden: 'kasadan çıkan soru', degisen }]);
+    fs.writeFileSync(hedef, JSON.stringify(eski, null, 2) + '\n', 'utf8');
+    console.log('  yazıldı -> ' + path.relative(KOK, hedef));
+    return;
+  }
+
   // ders kotası: Cem kararı (KOTA); tabloda olmayan ders ya da toplam ADET değilse DUR
   const eksik = Object.keys(KOTA).filter(d => !agac[d]), fazla = dersler.filter(d => !(d in KOTA));
   if (eksik.length || fazla.length) throw new Error('ders eşleşmedi - eksik: ' + eksik.join(',') + ' · tanımsız: ' + fazla.join(','));

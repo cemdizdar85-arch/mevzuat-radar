@@ -116,7 +116,7 @@
       "son_soruldu": "2026/2"
     },
     {
-      "id": "smmm-4k-a-ydenetim-zor-r1/kp-03",
+      "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
       "ders": "Muhasebe Denetimi",
       "konu": "denetim görüş turleri",
       "zorluk": "zor",
@@ -188,13 +188,13 @@
       "son_soruldu": "2020/2"
     },
     {
-      "id": "smmm-4k-a-ymeslek-kolay-r1/kp-08",
+      "id": "smmm-4k-a-ymeslek-kolay-r10/kp-07",
       "ders": "Meslek Hukuku",
       "konu": "etik ilkelere tehditler",
       "zorluk": "kolay",
-      "son10": 7,
+      "son10": 17,
       "cikmis": 3,
-      "son_soruldu": "2026/1"
+      "son_soruldu": "2026/2"
     },
     {
       "id": "smmm-w7-2-ymeslek-zor/kp-01",
@@ -251,7 +251,7 @@
       "son_soruldu": "2026/1"
     },
     {
-      "id": "smmm-4k-a-yvergi-zor-r3/kp-01",
+      "id": "smmm-gm2-1-yvergi-zor/kp-01",
       "ders": "Vergi Mevzuatı ve Uygulaması",
       "konu": "beyanname cesitleri",
       "zorluk": "zor",
@@ -269,13 +269,25 @@
       "son_soruldu": "2026/2"
     },
     {
-      "id": "smmm-w1-yvergi-cokzor/kp-01",
+      "id": "smmm-w14-6-yvergi-cokzor/kp-02",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "serbest meslek kazancı hesaplama ve beyani",
+      "konu": "serbest meslek kazancı beyani",
       "zorluk": "cokzor",
-      "son10": 2,
-      "cikmis": 1,
+      "son10": 6,
+      "cikmis": 2,
       "son_soruldu": "2024/2"
+    }
+  ],
+  "onarim": [
+    {
+      "tarih": "2026-10-04T15:06:37.301Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Muhasebe Denetimi: smmm-4k-a-ydenetim-zor-r1/kp-03 [denetim görüş turleri/zor] -> smmm-4k-a-ydenetim-zor-r5/kp-04 [denetim görüş turleri/zor]",
+        "Meslek Hukuku: smmm-4k-a-ymeslek-kolay-r1/kp-08 [etik ilkelere tehditler/kolay] -> smmm-4k-a-ymeslek-kolay-r10/kp-07 [etik ilkelere tehditler/kolay]",
+        "Vergi Mevzuatı ve Uygulaması: smmm-4k-a-yvergi-zor-r3/kp-01 [beyanname cesitleri/zor] -> smmm-gm2-1-yvergi-zor/kp-01 [beyanname cesitleri/zor]",
+        "Vergi Mevzuatı ve Uygulaması: smmm-w1-yvergi-cokzor/kp-01 [serbest meslek kazancı hesaplama ve beyani/cokzor] -> smmm-w14-6-yvergi-cokzor/kp-02 [serbest meslek kazancı beyani/cokzor]"
+      ]
     }
   ]
 }
