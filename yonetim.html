@@ -42,6 +42,16 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
 .e-elci{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 45%,transparent)}
 .e-hediye{color:var(--link);border-color:color-mix(in srgb,var(--link) 45%,transparent)}
 .e-bos{color:var(--muted)}
+.btn{font:inherit;font-size:13px;font-weight:700;padding:6px 11px;border-radius:8px;border:1px solid var(--line2);background:var(--kagit);color:var(--ink);cursor:pointer;min-height:34px}
+.btn:hover{border-color:var(--amber)}
+.btn.ana{background:var(--amber-dolgu);border-color:var(--amber-dolgu);color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;align-items:end}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted);font-weight:700}
+.form input,.form select{font:inherit;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line2);background:var(--kagit);color:var(--ink);min-height:40px}
+#yMesaj{position:sticky;top:0;z-index:5;margin:0 0 12px;padding:10px 14px;border-radius:10px;font-weight:700;background:var(--kagit);border:1px solid var(--line2)}
+#yMesaj.iyi{color:var(--green);border-color:color-mix(in srgb,var(--green) 45%,transparent)}
+#yMesaj.kotu{color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
 .durum{padding:18px;border-radius:12px;background:var(--kagit);border:1px solid var(--line)}
 .not{color:var(--dim);font-size:12.5px;margin-top:8px}
 [hidden]{display:none!important}
@@ -56,6 +66,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   <div class="durum" id="yDurum" hidden></div>
 
   <div id="yIcerik" hidden>
+    <p id="yMesaj" hidden role="status"></p>
     <div class="sayilar">
       <div class="kutu"><b id="sToplam">0</b><span>toplam üye</span></div>
       <div class="kutu"><b id="sYedi">0</b><span>son 7 günde yeni üye</span></div>
@@ -69,6 +80,18 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
 
     <h2>Elçiler</h2>
     <div class="kaydir"><table id="tElci"></table></div>
+    <div class="kutu" style="margin-top:10px">
+      <b>Yeni elçi kodu</b>
+      <div class="form" style="margin-top:8px">
+        <label>Ad soyad<input id="eAd" autocomplete="off"></label>
+        <label>E-posta (isteğe bağlı)<input id="eEposta" type="email" autocomplete="off"></label>
+        <label>Instagram (isteğe bağlı)<input id="eInsta" autocomplete="off"></label>
+        <label>Not (ör. komisyonsuz)<input id="eNot" autocomplete="off"></label>
+        <label>Kod<input id="eKod" autocomplete="off" maxlength="12" style="text-transform:uppercase"></label>
+        <span style="display:flex;gap:6px"><button class="btn" id="eUret" type="button">Kod üret</button><button class="btn ana" id="eEkle" type="button">Kodu oluştur</button></span>
+      </div>
+      <p class="not">Kod 6 karakter; adın baş harfleri + karışmayan karakterler. Tüm sınav paketinde 400 TL, tek derste ders başı 50 TL indirim verir.</p>
+    </div>
 
     <h2>Üyeler</h2>
     <div class="suzgec">
@@ -78,6 +101,18 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     </div>
     <div class="kaydir"><table id="tUye"></table></div>
     <p class="not" id="uSay"></p>
+    <div class="kutu" style="margin-top:10px">
+      <b>Ücretsiz paket ver</b> <span class="not">(kişi önce sitede üye olmuş olmalı)</span>
+      <div class="form" style="margin-top:8px">
+        <label>E-posta<input id="pEposta" type="email" autocomplete="off"></label>
+        <label>Paket<select id="pPaket"><option value="tam">Tam paket (tüm sınavlar)</option><option value="sgs">Staja Giriş</option><option value="yeterlilik-tum">Yeterlilik (tüm dersler)</option></select></label>
+        <label>Bitiş<input id="pBitis" type="date"></label>
+        <label>Neden<input id="pNeden" placeholder="ör. elçi ücretsiz erişim" autocomplete="off"></label>
+        <label>Elçi kodu (varsa)<input id="pElci" autocomplete="off" style="text-transform:uppercase"></label>
+        <span><button class="btn ana" id="pVer" type="button">Paketi ver</button></span>
+      </div>
+      <p class="not">Elçiye sözleşme Madde 10 gereği en fazla 3 ay. "Elçi kodu" alanını doldurunca bitiş kendiliğinden 3 ay sonrasına ayarlanır.</p>
+    </div>
 
     <h2>Siparişler</h2>
     <div class="kaydir"><table id="tSiparis"></table></div>
@@ -147,36 +182,110 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('tCapraz').innerHTML=h;
 
     /* elçiler */
-    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Linkle üye olan</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th></tr>';
+    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Linkle üye olan</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th><th>Paylaşım linki</th><th></th></tr>';
     VERI.elciler.forEach(function(e){
       var od=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odendi'; });
       var bk=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odeme_bekliyor'; });
-      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td></tr>';
+      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td><td>tetikte.com/?e='+esc(e.kod)+'</td><td><button class="btn" data-elci="'+esc(e.kod)+'" data-aktif="'+(e.aktif?0:1)+'">'+(e.aktif?'Kapat':'Aç')+'</button></td></tr>';
     });
-    if(!VERI.elciler.length) eh+='<tr><td colspan="7" class="not">Henüz elçi yok.</td></tr>';
+    if(!VERI.elciler.length) eh+='<tr><td colspan="9" class="not">Henüz elçi yok.</td></tr>';
     $('tElci').innerHTML=eh;
 
     /* üye listesi (süzgeçli) */
     var fs=$('fSinav').value, fk=$('fKaynak').value, fa=$('fAra').value.trim().toLowerCase();
     var liste=uyeler.filter(function(u){ return (!fs||u.sinav===fs)&&(!fk||u.kaynak===fk)&&(!fa||String(u.eposta).toLowerCase().indexOf(fa)>-1||String(u.elci).toLowerCase().indexOf(fa)>-1); });
-    var uh='<tr><th>E-posta</th><th>Kayıt</th><th>Son giriş</th><th>Sınav</th><th>Kaynak</th><th>Elçi</th><th>Paket</th><th>Bitiş</th><th>Giriş yolu</th></tr>';
+    var uh='<tr><th>E-posta</th><th>Kayıt</th><th>Son giriş</th><th>Sınav</th><th>Kaynak</th><th>Elçi</th><th>Paket</th><th>Bitiş</th><th>Giriş yolu</th><th></th></tr>';
     liste.forEach(function(u){
-      uh+='<tr><td>'+esc(u.eposta)+'</td><td>'+tarih(u.kayit)+'</td><td>'+tarih(u.son_giris)+'</td><td>'+esc(u.sinav)+'</td><td><span class="etiket '+u.sinif+'">'+esc(u.kaynak)+'</span></td><td>'+esc(u.elci||'—')+'</td><td>'+esc(u.paket||'—')+(u.dersler&&u.dersler.length?' ('+u.dersler.length+' ders)':'')+'</td><td>'+tarih(u.bitis)+'</td><td>'+esc(u.yol)+'</td></tr>';
+      uh+='<tr><td>'+esc(u.eposta)+'</td><td>'+tarih(u.kayit)+'</td><td>'+tarih(u.son_giris)+'</td><td>'+esc(u.sinav)+'</td><td><span class="etiket '+u.sinif+'">'+esc(u.kaynak)+'</span></td><td>'+esc(u.elci||'—')+'</td><td>'+esc(u.paket||'—')+(u.dersler&&u.dersler.length?' ('+u.dersler.length+' ders)':'')+'</td><td>'+tarih(u.bitis)+'</td><td>'+esc(u.yol)+'</td><td>'+((u.kaynak==='Hediye'||u.kaynak==='Elle verilmiş')?'<button class="btn" data-kapat="'+esc(u.eposta)+'" data-hediye="'+(u.kaynak==='Hediye'?1:0)+'">Paketi kapat</button>':'')+'</td></tr>';
     });
     $('tUye').innerHTML=uh;
     $('uSay').textContent=liste.length+' / '+uyeler.length+' üye gösteriliyor.';
 
     /* siparişler */
-    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi</th><th>Durum</th></tr>';
+    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi</th><th>Durum</th><th></th></tr>';
     VERI.siparisler.forEach(function(s){
-      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':'')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td></tr>';
+      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':'')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':'')+'</td></tr>';
     });
-    if(!VERI.siparisler.length) sh+='<tr><td colspan="8" class="not">Henüz sipariş yok.</td></tr>';
+    if(!VERI.siparisler.length) sh+='<tr><td colspan="9" class="not">Henüz sipariş yok.</td></tr>';
     $('tSiparis').innerHTML=sh;
   }
   ['fSinav','fKaynak','fAra'].forEach(function(i){ $(i).addEventListener('input',function(){ if(VERI) ciz(); }); });
 
-  (async function(){
+  /* ---- 04.10 İŞLEMLER (Cem: "her gün SQL basamam ... Amazon/Trendyol nasıl yapıyorsa"): günlük işler düğmeyle.
+     Sunucu fonksiyonları radar-app/sql/2026-10-05-yonetim-islemleri.sql; her biri önce yönetici mi diye bakar. ---- */
+  var YUKLE=null;
+  var SINAV_GUNU={ sgs:'2026-11-21', yeterlilik:'2026-11-28' };   /* fiyat-motoru.js SINAVLAR ile aynı */
+  function gunEkle(n){ return new Date(Date.now()+n*86400000).toISOString().slice(0,10); }
+  function enGec(a,b){ return a>b?a:b; }
+  /* satın alma bitişi: sınav günü, ama hiçbir zaman 3 aydan kısa değil (fiyat.html sözü) */
+  function satisBitis(paket){ var g=/^sgs/.test(paket)?SINAV_GUNU.sgs:SINAV_GUNU.yeterlilik; return enGec(g, gunEkle(92)); }
+  var HATA={ YETKI_YOK:'Yetkin yok.', SIPARIS_YOK:'Sipariş bulunamadı.', HESAP_YOK:'Bu e-postayla açılmış hesap yok; kişi önce sitede üye olmalı.',
+    AKTIF_PAKET_VAR:'Bu kişinin zaten aktif (muhtemelen parayla alınmış) paketi var.', HEDIYE_DEGIL:'Bu paket hediye kaydında yok; parayla alınmış olabilir.',
+    PAKET_YOK:'Bu kişide paket yok.', KOD_VAR:'Bu kod zaten var; başka kod üret.', KOD_GECERSIZ:'Kod 6-12 harf/rakam olmalı.', NEDEN_GEREKLI:'Neden yaz.',
+    BITIS_GECERSIZ:'Bitiş bugünden sonra olmalı.', PAKET_GECERSIZ:'Paket seç.' };
+  function hataYazi(e){ var m=String(e&&e.message||e||''); for(var k in HATA){ if(m.indexOf(k)>-1) return HATA[k]; }
+    if(/DURUM_/.test(m)) return 'Bu sipariş artık ödeme beklemiyor ('+m.replace(/.*DURUM_/,'').toLowerCase()+').';
+    if(/PGRST202|Could not find the function/i.test(m)) return 'İşlem henüz kurulmamış (veritabanı göçü bekliyor).';
+    return 'İşlem yapılamadı: '+m; }
+  function mesaj(m, iyi){ var e=$('yMesaj'); e.hidden=false; e.className=iyi?'iyi':'kotu'; e.textContent=m; try{ e.scrollIntoView({block:'nearest'}); }catch(x){} }
+  async function islem(ad, arg, basari){
+    var r=await sb.rpc(ad, arg);
+    if(r.error){ mesaj(hataYazi(r.error), false); return null; }
+    mesaj(basari(r.data||{}), true); if(YUKLE) await YUKLE(); return r.data;
+  }
+  document.addEventListener('click', async function(ev){
+    var b=ev.target.closest&&ev.target.closest('button'); if(!b) return;
+    if(b.dataset.onay){
+      var bit=satisBitis(b.dataset.paket);
+      if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+bit+' tarihine kadar açılır.')) return;
+      b.disabled=true;
+      await islem('yonetim_siparis_onayla', { p_no:b.dataset.onay, p_bitis:bit }, function(d){
+        return d.paket==='ACILAMADI' ? 'Sipariş ödendi işaretlendi AMA paket açılamadı: '+(d.not||'hesap yok')
+                                     : '✓ '+d.eposta+': ödendi, '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'; });
+      b.disabled=false;
+    } else if(b.dataset.iptal){
+      if(!confirm(b.dataset.iptal+' iptal edilsin mi? (Ödeme gelmediyse)')) return;
+      await islem('yonetim_siparis_iptal', { p_no:b.dataset.iptal, p_neden:'yonetim' }, function(){ return '✓ Sipariş iptal edildi.'; });
+    } else if(b.dataset.kapat){
+      var zorla=b.dataset.hediye!=='1';
+      if(!confirm(b.dataset.kapat+' kişisinin paketi kapatılsın mı?'+(zorla?'\n(Bu paket hediye kaydında yok, elle verilmiş.)':''))) return;
+      await islem('yonetim_paket_kapat', { p_eposta:b.dataset.kapat, p_neden:'yonetim ekranından', p_zorla:zorla }, function(d){ return '✓ '+d.eposta+': paket kapatıldı.'; });
+    } else if(b.dataset.elci){
+      var ac=b.dataset.aktif==='1';
+      if(!confirm(b.dataset.elci+' kodu '+(ac?'açılsın':'kapatılsın')+' mı?')) return;
+      await islem('yonetim_elci_durum', { p_kod:b.dataset.elci, p_aktif:ac }, function(d){ return '✓ '+d.kod+' '+(d.aktif?'açıldı':'kapatıldı')+'.'; });
+    } else if(b.id==='eUret'){
+      $('eKod').value=kodUret($('eAd').value);
+    } else if(b.id==='eEkle'){
+      var kod=String($('eKod').value||'').toUpperCase().replace(/[^A-Z0-9]/g,''), ad=$('eAd').value.trim();
+      if(ad.length<3){ mesaj('Elçinin adını yaz.', false); return; }
+      if(!kod){ kod=kodUret(ad); $('eKod').value=kod; }
+      if(!confirm(ad+' için '+kod+' kodu oluşturulsun mu?')) return;
+      var d=await islem('yonetim_elci_ekle', { p_kod:kod, p_ad:ad, p_eposta:$('eEposta').value.trim()||null, p_instagram:$('eInsta').value.trim()||null, p_not:$('eNot').value.trim()||null },
+        function(d){ return '✓ '+d.kod+' oluşturuldu. Paylaşım linki: tetikte.com/?e='+d.kod; });
+      if(d){ ['eAd','eEposta','eInsta','eNot','eKod'].forEach(function(i){ $(i).value=''; }); }
+    } else if(b.id==='pVer'){
+      var ep=$('pEposta').value.trim(), bitis=$('pBitis').value, neden=$('pNeden').value.trim(), elci=$('pElci').value.trim().toUpperCase();
+      if(!ep||!bitis||!neden){ mesaj('E-posta, bitiş ve neden gerekli.', false); return; }
+      if(!confirm(ep+' kişisine '+$('pPaket').value+' paketi '+bitis+' tarihine kadar verilsin mi?')) return;
+      var v=await islem('yonetim_paket_ver', { p_eposta:ep, p_paket:$('pPaket').value, p_bitis:bitis, p_neden:neden, p_elci:elci||null, p_zorla:false },
+        function(d){ return '✓ '+d.eposta+': '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'; });
+      if(v){ ['pEposta','pNeden','pElci'].forEach(function(i){ $(i).value=''; }); }
+    }
+  });
+  $('pElci').addEventListener('input', function(){ if(this.value.trim()) $('pBitis').value=gunEkle(90); });
+  /* 6 karakterlik kod: en çok 2 baş harf + karışmayan havuz (arac/elci.ps1 KodOner ile aynı kural); TT ile başlamaz */
+  function kodUret(ad){
+    var HARF={'ç':'C','ğ':'G','ı':'I','i':'I','ö':'O','ş':'S','ü':'U','Ç':'C','Ğ':'G','İ':'I','Ö':'O','Ş':'S','Ü':'U'};
+    var bas=String(ad||'').trim().split(/\s+/).filter(Boolean).slice(0,2).map(function(k){ var c=k.charAt(0); return (HARF[c]||c).toUpperCase(); }).join('').replace(/[^A-Z]/g,'');
+    if(bas==='TT') bas='T';
+    var havuz='ACDEFHJKLMNPRTUVXYZ2345679', b=new Uint8Array(6), k=bas; crypto.getRandomValues(b);
+    for(var i=0;k.length<6;i++) k+=havuz[b[i]%havuz.length];
+    return k;
+  }
+  $('pBitis').value=gunEkle(90);
+
+  async function yukle(){
     var o=(await sb.auth.getSession()).data.session;
     if(!o){ durum('Bu sayfa için giriş yapman gerekiyor. <a href="ogrenci.html?sonra=yonetim.html">Giriş yap →</a>'); return; }
     var r=await sb.rpc('yonetim_ozet');   /* supabase-js tembel: await edilmeden gitmez */
@@ -188,7 +297,9 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     VERI=Object.assign({uyeler:[],siparisler:[],elciler:[]}, r.data||{});
     $('yOlcum').textContent='Son okuma: '+new Date(VERI.olcum||Date.now()).toLocaleString('tr-TR')+' · sayfayı yenileyince tazelenir.';
     $('yIcerik').hidden=false; ciz();
-  })().catch(function(e){ durum('Veri okunamadı: '+esc(e&&e.message)); });
+  }
+  YUKLE=yukle;
+  yukle().catch(function(e){ durum('Veri okunamadı: '+esc(e&&e.message)); });
 })();
 </script>
 <link rel="stylesheet" href="stil-acik.css">

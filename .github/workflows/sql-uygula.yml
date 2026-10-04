@@ -1,0 +1,77 @@
+# .github/workflows/sql-uygula.yml — VERİTABANI GÖÇLERİ OTOMATİK (04.10.2026)
+#
+# Cem 04.10: "pazartesi SQL bas deme ... bu firmalar bu işi nasıl yapıyorsa o olsun, her gün ona basamam ...
+# Amazon / Trendyol nasıl yapıyorsa sitemi ona göre kur". Kurumsal düzen: şema değişikliği elle SQL Editor'den
+# DEĞİL, depoya giren göç dosyasıyla, otomatik ve kayıtlı uygulanır (admin-panel şartnamesi: "şema/SQL göçü CI'da").
+#
+# KURAL:
+#   · Yalnız radar-app/sql/ altında adı 2026-10-05 ve SONRASI tarihle başlayan .sql dosyaları (eski dosyalar
+#     geçmişte elle basıldı, UYGULANDI.md'de; yeniden çalıştırılmaz). TASLAK-* hiç uygulanmaz.
+#   · Her dosya TEK işlemde (-1) ve ilk hatada durarak (ON_ERROR_STOP) uygulanır: yarım göç olmaz.
+#   · Uygulanan dosya + içerik özeti (sha256) veritabanındaki public._goc_kutugu tablosuna yazılır; aynı dosya iki
+#     kez uygulanmaz. Uygulanmış dosyanın İÇERİĞİ sonradan değişirse hat UYGULAMAZ, kırmızı düşer (değişiklik yeni
+#     dosyayla yapılır - kurumsal kural: göç dosyası değiştirilmez).
+#   · Hata olursa Cem'e alarm maili.
+# ⛔ Bağlantı adresi yalnız GitHub Secret'ta (SUPABASE_DB_URL); günlüğe basılmaz (GitHub maskeler, psql -q).
+# 🚫 GÖRMEZ: göçün mantıksal doğruluğu (o, dosyayı yazan oturumun işi + dosyadaki "ölçü" sorguları) ·
+#    Supabase panelinden elle yapılan değişiklik (kütüğe girmez).
+name: SQL Uygula (veritabani gocleri)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'radar-app/sql/*.sql'
+      - '.github/workflows/sql-uygula.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sql-uygula
+  cancel-in-progress: false      # iki göç aynı anda koşmasın, sırayla
+
+jobs:
+  uygula:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gocleri uygula
+        env:
+          DB: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DB:-}" ]; then echo "SUPABASE_DB_URL tanimli degil - kurulum bekliyor"; exit 1; fi
+          command -v psql >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client >/dev/null; }
+          export PGCONNECT_TIMEOUT=20
+          psql "$DB" -q -v ON_ERROR_STOP=1 -c "create table if not exists public._goc_kutugu (dosya text primary key, sha256 text not null, uygulandi timestamptz not null default now()); alter table public._goc_kutugu enable row level security; revoke all on public._goc_kutugu from anon, authenticated;"
+          uygulanan=0; atlanan=0
+          for f in $(ls radar-app/sql/*.sql | sort); do
+            ad=$(basename "$f")
+            case "$ad" in TASLAK-*) continue;; esac
+            tarih=${ad:0:10}
+            [[ "$tarih" =~ ^20[0-9]{2}-[0-9]{2}-[0-9]{2}$ ]] || continue
+            [[ "$tarih" < "2026-10-05" ]] && continue
+            sha=$(sha256sum "$f" | cut -d' ' -f1)
+            eski=$(psql "$DB" -qtA -v ON_ERROR_STOP=1 -c "select sha256 from public._goc_kutugu where dosya = '$ad'")
+            if [ -n "$eski" ]; then
+              if [ "$eski" != "$sha" ]; then echo "KIRMIZI: $ad zaten uygulanmis ama icerigi degismis (goc dosyasi degistirilmez, yeni dosya yaz)"; exit 1; fi
+              atlanan=$((atlanan+1)); continue
+            fi
+            echo "uygulaniyor: $ad"
+            psql "$DB" -q -1 -v ON_ERROR_STOP=1 -f "$f"
+            psql "$DB" -q -v ON_ERROR_STOP=1 -c "insert into public._goc_kutugu (dosya, sha256) values ('$ad', '$sha')"
+            echo "  ✓ $ad"
+            uygulanan=$((uygulanan+1))
+          done
+          echo "GOC: uygulanan $uygulanan · onceden uygulanmis $atlanan"
+          echo "### SQL gocleri: uygulanan $uygulanan · onceden uygulanmis $atlanan" >> "$GITHUB_STEP_SUMMARY"
+      - name: Hata olursa Cem'e mail
+        if: failure()
+        shell: pwsh
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: ./arac/alarm-maili.ps1 -Konu 'TETIKTE KIRMIZI - veritabani gocu uygulanamadi' -Mesaj "SQL Uygula isi dustu. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
