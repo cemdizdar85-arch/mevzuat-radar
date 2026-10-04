@@ -120,7 +120,7 @@
     </div>
     <p class="uc-ornek">Önce ürünü görmek istersen: <a href="kaydir/vitrin/sgs.html">15 dersten örnek soruları çözümleriyle çöz →</a></p>
     <div class="uc-paket" id="ucPaket">
-      <p><b>Beğendiysen tamamı pakette:</b> <span id="ucBanka">binlerce çözümlü soru</span>, gerçek sınav dağılımında deneme setleri, "sınav gibi" süreli mod ve ilerleme paneli.</p>
+      <p><b>Beğendiysen tamamı pakette:</b> <span id="ucBanka">sınırsız soru</span>, gerçek sınav dağılımında deneme setleri, "sınav gibi" süreli mod ve ilerleme paneli.</p>
       <span><a href="fiyat.html">Paketleri gör →</a><a class="uc-ikinci" href="ogrenci.html">Paketin varsa giriş yap</a></span>
     </div>
   </main>
@@ -130,7 +130,7 @@
   /* Rakamlar elle yazılmaz: soru bankası büyüklüğü soru-dizini.json'dan okunur. */
   fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
     var s=d&&d.sinavlar&&d.sinavlar.filter(function(x){return x.kod==='sgs';})[0];
-    if(s&&s.soru) document.getElementById('ucBanka').textContent=Number(s.soru).toLocaleString('tr-TR')+' çözümlü soru';
+    /* 04.10 Cem: "sınırsız soru" deniyor, adet yazılmaz */
   }).catch(function(){});
 })();
 </script>

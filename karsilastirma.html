@@ -112,7 +112,7 @@ Aşağıdaki tabloyu satış için değil, doğru kararı verebilesin diye yazd�
       <td>Kitabın hacmi kadar</td>
       <td>3.737 <span class="kucuk">(kendi sitesinde yazıyor)</span></td>
       <!-- 02.10: eski "29.064 üretildi (07.08)" yayındaki sayı değildi; sayı veri/soru-dizini.json'dan (aşağıdaki betik) -->
-      <td class="biz" id="bizSoru">Staja Giriş 4.897 · Yeterlilik 3.879<br><span class="kucuk">yayındaki çözümlü soru (01.10.2026 sayımı)</span></td>
+      <td class="biz" id="bizSoru">Sınırsız soru<br><span class="kucuk">sınavına kadar bankanın tamamı</span></td>
     </tr>
     <tr>
       <td class="satirbas">Açıklama nereden</td>
@@ -219,7 +219,7 @@ canlı yayın veya sertifika içermez. Sorular özgün üretimdir; çıkmış s�
     var p=d.sinavlar.filter(function(s){return s.durum==='acik'&&ad[s.kod];}).map(function(s){return ad[s.kod]+' '+tl(s.soru);});
     if(!p.length) return;
     var t=String(d.uretim||'').slice(0,10).split('-').reverse().join('.');
-    document.getElementById('bizSoru').innerHTML=p.join(' · ')+'<br><span class="kucuk">yayındaki çözümlü soru ('+t+' sayımı)</span>';
+    /* 04.10 Cem "sınırsız soru diyoruz, adet vermeyelim": hücre sabit kalır */
   }).catch(function(){});
 })();
 </script>

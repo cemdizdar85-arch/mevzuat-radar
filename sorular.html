@@ -186,7 +186,7 @@
       return '<button type="button" class="sc-sinav" data-kod="'+esc(s.kod)+'" aria-pressed="'+(s.kod===SECILI)+'">'
         +'<span class="sc-kod">'+esc(s.uzun)+'</span>'
         +'<span class="sc-ad">'+esc(s.ad)+'</span>'
-        +'<span class="sc-say"><b>'+s.ders_sayisi+' ders</b>'+(acik?' · <b>'+sayi(s.soru)+'</b> çözümlü soru':'')+'</span>'
+        +'<span class="sc-say"><b>'+s.ders_sayisi+' ders</b>'+(acik?' · <b>sınırsız soru</b>':'')  /* 04.10 Cem: "sınırsız soru diyoruz, adet vermeyelim" */+'</span>'
         +(ss?'<span class="sc-gun">Sınava '+ss.gun+' gün · '+esc(ss.yazi)+'</span>':'')
         +'<span class="sc-cip '+(acik?'acik':'hazir')+'">'+(acik?'Soru çözmeye hazır':'Hazırlanıyor')+'</span>'
         +'</button>';
@@ -201,7 +201,7 @@
     var pay=(d.sinav_soru>0&&sinavToplam>0)?' · %'+Math.round(100*d.sinav_soru/sinavToplam):'';
     var agirlik=(d.sinav_soru>0||d.soru)?'<span class="sc-agirlik">'
         +(d.sinav_soru>0?'<b>Sınavda '+d.sinav_soru+' soru'+pay+'</b>':'<span></span>')
-        +(d.soru?'<span>'+sayi(d.soru)+' çözümlü soru</span>':'')+'</span>':'';
+        /* 04.10 Cem: ders kartında soru adedi gösterilmez */+'</span>':'';
     var ic='<span><span class="sc-dad">'+esc(d.ad)+'</span>'+(d.alt?'<span class="sc-dalt" style="display:block">'+esc(d.alt)+'</span>':'')+'</span>'
       /* 14.09: ders sayfaları pakete dahil (paket-kapisi.js); kartta açıkça yazılır */
       +'<span class="sc-git">'+(d.sayfa?'🔒 Pakete dahil →':'Hazırlanıyor')+'</span>'+agirlik;
@@ -241,7 +241,7 @@
       h+='<section class="sc-bolum">'+(sira.length>1&&baslik?'<h3>'+esc(baslik)+(toplam?'<s>· sınavda '+toplam+' soru</s>':'')+'</h3>':'')
         +'<div class="sc-dersler">'+liste.map(function(d){return dersKart(d,sinavToplam,acik);}).join('')+'</div></section>';
     });
-    h+='<p class="sc-not">Sınavdaki soru sayıları TESMER yönergesindeki ders dağılımından; sınav tarihi TÜRMOB 2026 resmî takviminden. Çözümlü soru sayısı yayındaki sayfalardan her basımda yeniden sayılır.</p>';
+    h+='<p class="sc-not">Sınavdaki soru sayıları TESMER yönergesindeki ders dağılımından; sınav tarihi TÜRMOB 2026 resmî takviminden.</p>';
     derslerEl.innerHTML=h;
   }
 

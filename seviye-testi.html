@@ -565,7 +565,7 @@
     var metin=function(banka, set){
       return (g>=70 ? '130 soruluk, gerçek süreli ve gerçek ders dağılımlı deneme setleriyle hazır olup olmadığını gör. '
           : 'En zayıf alanın '+zAd+'; orada her soruyu çözerken yanlış şıkkın neden yanlış olduğunu Nöbetçi adım adım anlatır. ')
-        +'Tam bankada '+(banka?'<b>'+banka+' çözümlü soru</b>':'bütün dersler')+(set?', <b>'+set+' deneme seti</b>':', deneme setleri')+' ve "sınav gibi" süreli mod var.'
+        +'Pakette <b>sınırsız soru</b>'+  /* 04.10 Cem: adet verilmez */ (set?', <b>'+set+' deneme seti</b>':', deneme setleri')+' ve "sınav gibi" süreli mod var.'
         +(yanlisSay?' Bu testteki <b>'+yanlisSay+' yanlışının</b> anlatımı da orada.':'');
     };
     $('svTeklifMetin').innerHTML=metin(null,null);
