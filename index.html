@@ -85,6 +85,7 @@ html body .kah-alt .btn{white-space:normal;max-width:100%}
 .soru,.siklar li span,.hukum p,.durum{overflow-wrap:anywhere}
 @media(max-width:420px){ #nav .ic{gap:10px} .logo{font-size:19px} html body #nav .navlinks a.btn-ana{padding:0 12px} }
 
+
 /* kahraman */
 .kah{padding:56px 0 64px}
 .kah > .ic{display:grid;grid-template-columns:1fr 470px;gap:56px;align-items:start}
@@ -165,6 +166,45 @@ h1 em{font-style:normal;color:var(--amber)}
 footer{border-top:1px solid var(--line);padding:28px 0 4px;font-size:13.5px;color:var(--dim)}
 footer a{color:var(--muted)}
 footer p{margin:0 0 8px}
+/* 04.10 Cem (ekran görüntüsü): "sığmıyor bilgisayar ekranına" - dizüstünde düğmeler ve kartın altı ekranın dışında kalıyordu.
+   Masaüstünde kahraman sıkılaşır; kısa ekranda (yükseklik < 820 px) bir basamak daha. Telefon düzeni değişmez.
+   Menü şeritte olduğu için masaüstünde "Araçlar" yüzen düğmesi gizli (alt sayfalarla aynı). */
+@media(min-width:761px){ #mrxFab{display:none!important} }
+@media(min-width:981px){
+  .kah{padding:36px 0 44px}
+  .kah > .ic{grid-template-columns:1fr 450px;gap:48px}
+  html body .kah h1{font-size:clamp(36px,3.9vw,52px);margin-bottom:14px}   /* html body: stil-acik.css h1 boyutunu eziyordu */
+  .alt{margin-bottom:22px;font-size:18px}
+  .sinav{min-height:50px;font-size:16.5px}
+  .secim{gap:8px}
+  .kah-alt{margin-top:18px}
+  .ekran-bas{padding:10px 16px}
+  .ekran-govde{padding:14px 16px}
+  .soru{font-size:16px;margin-bottom:10px}
+  .siklar{gap:6px}
+  .siklar li{padding:7px 11px;font-size:14.5px}
+  .hukum{padding:12px 16px;gap:9px}
+  .ekran-dip{padding:0 16px 14px}
+  .ekran-not{display:none}
+  #ekNeden{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media(min-width:981px) and (max-height:820px){
+  .kah{padding:24px 0 36px}
+  html body .kah h1{font-size:clamp(34px,3.2vw,44px)}
+  .alt{font-size:17px;margin-bottom:18px}
+  .sinav{min-height:46px}
+  .btn{min-height:44px}
+  .hukum p{font-size:14px}
+  /* kısa ekranda kart da sığsın: şıklar ve hüküm sıkı, "Neden" 2 satır (tamamı Nöbetçi kartında) */
+  .soru{font-size:15px;line-height:1.45;margin-bottom:8px}
+  .siklar{gap:5px}
+  .siklar li{padding:5px 10px;font-size:14px;line-height:1.35}
+  .hukum{padding:10px 16px;gap:7px}
+  .sonuc{font-size:15.5px}
+  .hukum h3{font-size:12px;margin-bottom:1px}
+  #ekNeden{-webkit-line-clamp:2}
+  .ekran-dip .btn{min-height:42px}
+}
 </style>
 </head>
 <body>
