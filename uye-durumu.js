@@ -31,7 +31,7 @@
     sgs: {
       kod: 'sgs', ad: 'Staja Giriş', uzun: 'SMMM Staja Giriş (SGS)', icerik: true,
       dene: 'ucretsiz-dene.html?sinav=sgs', olc: 'seviye-testi.html',
-      gir: 'sinav-gibi.html', devam: 'kaydir/sgs/index.html',
+      gir: 'sinav-gibi.html', devam: 'sorular.html#sgs',   /* 04.10 site turu: kaydir/sgs/index.html taslak dizin (adet + ASCII konu) -> resmî ders listesi */
       al: 'satin-al.html?paket=sgs', fiyat: 'fiyat.html'
     },
     yeterlilik: {
@@ -41,7 +41,7 @@
       olc: 'seviye-testi.html?sinav=yeterlilik', olcDk: 40,
       /* 24.09 satışa açılınca gereken alanlar. sinav-gibi.html yalnız SGS'dir -> Yeterlilik'te giriş = kendi soru bankası.
          Satın alma ders seçimli -> fiyat sayfasına (Yeterlilik kartı). Ücretsiz deneme = 70 soruluk açık vitrin. */
-      gir: 'kaydir/smmm/index.html', devam: 'kaydir/smmm/index.html',
+      gir: 'sorular.html#smmm', devam: 'sorular.html#smmm',
       /* 01.10 Cem "önce tüm sınavı yaz": Becker/UWorld/Gleim gibi ana yol tam paket; düğme doğrudan ödemeye, tüm dersler
          seçili gelir (1–4 ders paketleri aynı listede durur). Tek ders kahramanda ikincil bağlantı (alTek). */
       al: 'satin-al.html?paket=yeterlilik-tum', alTek: 'satin-al.html?paket=yeterlilik-1', vitrin: 'kaydir/vitrin/smmm.html?vitrin=1',

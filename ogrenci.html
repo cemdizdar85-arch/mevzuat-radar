@@ -333,7 +333,7 @@
     $('cihazlarim').classList.toggle('og-gizli',!aktifler.length);
     if(aktifler.length && aktifler.indexOf('sgs')<0 && aktifler.indexOf('yeterlilik')>-1){
       $('ogIlerleme').textContent='Yeterlilik ilerlemen';
-      $('ogBosTest').href=S.yeterlilik.olc||'seviye-testi.html?sinav=yeterlilik'; $('ogBosCalis').href=S.yeterlilik.devam||'kaydir/smmm/index.html';
+      $('ogBosTest').href=S.yeterlilik.olc||'seviye-testi.html?sinav=yeterlilik'; $('ogBosCalis').href=S.yeterlilik.devam||'sorular.html#smmm';
     }
     if(!sinavlar.length){
       kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'

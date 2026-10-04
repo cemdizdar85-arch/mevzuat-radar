@@ -838,7 +838,7 @@ const VITRIN=/[?&]vitrin=1/.test(location.search);
 const TEK=/[?&]tek=1/.test(location.search);
 (function(){ const d=document.documentElement; const q=(location.search.match(/[?&]tema=(koyu|acik)/)||[])[1]; let t=null; try{ t=localStorage.getItem('kc_tema'); }catch(e){}
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
-  if(t!=='light') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 24.09 Cem: varsayılan koyu */
+  if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 04.10 Cem (V2 madde 21): varsayılan AÇIK, site ile aynı (tema-bas.js); 24.09 'koyu' kararının yerine */
   if(VITRIN) d.setAttribute('data-vitrin','1');
   if(TEK) d.setAttribute('data-tek','1');
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;
