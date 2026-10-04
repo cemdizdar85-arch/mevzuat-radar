@@ -1,0 +1,71 @@
+# .github/workflows/edge-yukle.yml — SUPABASE UÇ FONKSİYONLARI OTOMATİK YÜKLENİR (04.10.2026)
+#
+# Cem 04.10: "üye olanlar, ücret ödeyenlerin hepsi Amazon / Trendyol gibi otomatik olsun". Fonksiyonlar bugüne dek
+# Supabase panelinden ELLE yükleniyordu (edge-nobeti.yml 14.09'da "depoda yeni, canlıda eski" yakaladı).
+# Artık radar-app/edge/YAYIN.json'da listeli fonksiyonlar push'ta Supabase CLI ile yüklenir, sonra ?surum=1 ile canlı
+# imza depodakiyle kıyaslanır (arac/edge-imza.js). Eşleşmezse KIRMIZI + alarm maili.
+# ⛔ Anahtar: SUPABASE_ACCESS_TOKEN (GitHub Secret; yalnız Edge Functions okuma-yazma, tek proje, 01.10.2027'ye dek -
+#    süresi dolmadan Cem yeniler). Günlüğe basılmaz.
+# 🚫 GÖRMEZ: YAYIN.json'da olmayan fonksiyonlar (eski, panelden yüklenenler) · fonksiyonun Supabase secrets'ı (RESEND_KEY vb. panelde).
+name: Edge Yukle (Supabase fonksiyonlari)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'radar-app/edge/*.ts'
+      - 'radar-app/edge/YAYIN.json'
+      - '.github/workflows/edge-yukle.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edge-yukle
+  cancel-in-progress: false
+
+jobs:
+  yukle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Yukle ve dogrula
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_ACCESS_TOKEN:-}" ]; then echo "SUPABASE_ACCESS_TOKEN tanimli degil"; exit 1; fi
+          REF=bjrleanjpyujtajmazxn
+          mkdir -p supabase/functions
+          printf 'project_id = "%s"\n' "$REF" > supabase/config.toml
+          node -e 'const y=require("./radar-app/edge/YAYIN.json");for(const f of y.fonksiyonlar)console.log(f.dosya+" "+f.ad+" "+(f.jwt?"1":"0"))' > liste.txt
+          hata=0
+          while read -r dosya ad jwt; do
+            mkdir -p "supabase/functions/$ad"
+            cp "radar-app/edge/$dosya" "supabase/functions/$ad/index.ts"
+            bayrak=""; [ "$jwt" = "0" ] && bayrak="--no-verify-jwt"
+            echo "yukleniyor: $ad"
+            supabase functions deploy "$ad" --project-ref "$REF" $bayrak --use-api
+            beklenen=$(grep -oE 'const KOD_IMZA = "[0-9a-f]{16}"' "radar-app/edge/$dosya" | grep -oE '[0-9a-f]{16}' || true)
+            canli=""
+            for i in 1 2 3 4 5 6; do
+              canli=$(curl -s "https://$REF.supabase.co/functions/v1/$ad?surum=1" | grep -oE '"surum":"[^"]+"' | cut -d'"' -f4 || true)
+              [ -n "$canli" ] && [ "$canli" = "$beklenen" ] && break
+              sleep 5
+            done
+            if [ -n "$beklenen" ] && [ "$canli" != "$beklenen" ]; then echo "KIRMIZI: $ad canli imza '$canli' != depo '$beklenen'"; hata=1; else echo "  ✓ $ad canli = depo ($canli)"; fi
+          done < liste.txt
+          exit $hata
+      - name: Hata olursa Cem'e mail
+        if: failure()
+        shell: pwsh
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE KIRMIZI - uc fonksiyon yuklenemedi' -Mesaj "Edge Yukle isi dustu. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

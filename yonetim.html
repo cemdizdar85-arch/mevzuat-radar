@@ -238,10 +238,13 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     if(b.dataset.onay){
       var bit=satisBitis(b.dataset.paket);
       if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+bit+' tarihine kadar açılır.')) return;
-      b.disabled=true;
-      await islem('yonetim_siparis_onayla', { p_no:b.dataset.onay, p_bitis:bit }, function(d){
+      b.disabled=true; var onayNo=b.dataset.onay;
+      var sonuc=await islem('yonetim_siparis_onayla', { p_no:b.dataset.onay, p_bitis:bit }, function(d){
         return (d.paket==='ACILAMADI'||d.paket==='BEKLIYOR') ? '✓ Sipariş ödendi. '+(d.not||'Kişi üye olunca paketi kendiliğinden açılır.')
                                      : '✓ '+d.eposta+': ödendi, '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'; });
+      /* 04.10: müşteriye 'ödemen onaylandı, paketin açıldı' maili (siparis-bildirim; bir kez, yalnız ödenmiş siparişte) */
+      if(sonuc){ try{ var mr=await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim',{ method:'POST', headers:{'Content-Type':'application/json',apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg',Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg'}, body:JSON.stringify({tur:'acildi',no:onayNo}) }); var mj=await mr.json().catch(function(){return {};});
+        var e=$('yMesaj'); e.textContent+= (mr.ok&&mj.success) ? ' Müşteriye bilgi maili gitti.' : ' (Müşteri maili gönderilemedi; elle haber ver.)'; }catch(x){} }
       b.disabled=false;
     } else if(b.dataset.iptal){
       if(!confirm(b.dataset.iptal+' iptal edilsin mi? (Ödeme gelmediyse)')) return;

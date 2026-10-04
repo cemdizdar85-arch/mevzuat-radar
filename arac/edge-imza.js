@@ -19,7 +19,7 @@ const KLASOR = path.join(__dirname, '..', 'radar-app', 'edge');
 const SATIR = /const KOD_IMZA = "([0-9a-f]{16})";/;
 const SIFIR = '0000000000000000';
 // canlı ad -> depo dosyası (quick-task'ın kodu form-al.ts; ad tarihsel)
-const ESLEME = { 'quick-task': 'form-al.ts', 'beyanname-oku': 'beyanname-oku.ts', 'karne-gonder': 'karne-gonder.ts', 'net-cevap': 'net-cevap.ts', 'magaza-dogrula': 'magaza-dogrula.ts', 'rapid-responder': 'elci-sozlesme.ts' };   // 01.10: elçi sözleşme e-postası; canlı adı panelin verdiği 'rapid-responder'
+const ESLEME = { 'quick-task': 'form-al.ts', 'beyanname-oku': 'beyanname-oku.ts', 'karne-gonder': 'karne-gonder.ts', 'net-cevap': 'net-cevap.ts', 'magaza-dogrula': 'magaza-dogrula.ts', 'rapid-responder': 'elci-sozlesme.ts', 'siparis-bildirim': 'siparis-bildirim.ts' };   // 04.10: müşteri sipariş mailleri, edge-yukle.yml otomatik yükler   // 01.10: elçi sözleşme e-postası; canlı adı panelin verdiği 'rapid-responder'
 
 function normal(metin) { return metin.replace(/^﻿/, '').replace(/\r\n/g, '\n'); }
 function imzaHesapla(metin) {

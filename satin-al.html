@@ -912,6 +912,11 @@ btn.addEventListener('click', function(){
         /* 01.10 (madde 3): sipariş kaydı oluştu - yalnız paket kimliği (ödeme değil; ödeme sayısı paket_secim_sayac'ta) */
         try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/siparis/' + secili.id, title:'Sipariş verildi · ' + secili.ad, event:true }); }catch(err){}
         postala().then(function(){}, function(){}); bitir();
+        /* 04.10 (Cem "Amazon/Trendyol gibi otomatik"): müşteriye "siparişin alındı" maili - no + tutar + IBAN.
+           Yalnız sipariş no gider; alıcı adresi ve içerik sunucuda siparişten okunur (radar-app/edge/siparis-bildirim.ts). */
+        try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
+          headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
+          body: JSON.stringify({ tur:'alindi', no:no }), keepalive:true }).catch(function(){}); }catch(err){}
       }
     }, yedekYol);
 });
