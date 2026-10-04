@@ -354,7 +354,9 @@
   /* 29.09 ADIM 2 (Cem "1.2.3"): SGS kipi de aynı yol - veri/seviye/sgs-havuz.json artık yalnız kimlik taşır,
      doğru harf sayfaya hiç inmez. Önceden 675 soru cevabıyla birlikte açık dosyadaydı. */
   function kaydet(bilmiyorum){
-    if(MESGUL) return; MESGUL=true; $('svCevapla').disabled=true; $('svBilmiyorum').disabled=true;
+    if(MESGUL) return;
+    if(!AKTIF||CEVAPLAR.length>=SIRA.length) return;   /* 04.10 bilgisayar turu: test bitince gizli düğmeye basan betik 30'un üstüne cevap yazdı ("6 / 35") - sayı testi aşamaz */
+    MESGUL=true; $('svCevapla').disabled=true; $('svBilmiyorum').disabled=true;
     var asil=bilmiyorum?null:AKTIF.harita[SECILI];
     var sor=function(){ return fetch(SB+'/rest/v1/rpc/seviye_kontrol',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
       body:JSON.stringify({ p_id:AKTIF.q.id, p_secim:asil||'' }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){ if(!j||j.hata||!j.dogru) throw 0; return j; }); };
