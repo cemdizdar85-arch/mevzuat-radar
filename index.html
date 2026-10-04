@@ -240,9 +240,11 @@ footer p{margin:0 0 8px}
       <a class="nl" href="sorular.html">Sınavlar</a>
       <a class="nl" href="fiyat.html">Fiyatlar</a>
       <a class="nl" id="navOgrenci" href="ogrenci.html">Giriş yap</a>
-      <a class="btn btn-ana" href="seviye-testi.html">Ücretsiz başla</a>
+      <a class="btn btn-ana" id="navCta" href="seviye-testi.html">Ücretsiz başla</a>
     </div>
   </div>
+  <script>/* 04.10 Cem: girişliyken şerit bir an "Giriş yap · Ücretsiz başla" gösteriyordu (Supabase yüklenene dek) -> oturum anahtarı cihazdaysa hemen çevir (menu.js ile aynı ölçüt) */
+  try{ if(Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; })){ document.getElementById('navOgrenci').textContent='Hesabım'; var c=document.getElementById('navCta'); c.textContent='Soru çöz'; c.href='sorular.html'; } }catch(e){}</script>
 </nav>
 
 <main id="icerik">
@@ -401,7 +403,8 @@ footer p{margin:0 0 8px}
       dugmeCiz(); ekranCiz();
     });
   });
-  if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); if(d&&d.oturum){ var g=$('navOgrenci'); if(g) g.textContent='Hesabım'; } });
+  if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
+    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Ücretsiz başla'; c.href=ok?'sorular.html':'seviye-testi.html'; } });
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
   function ozetim(){ return OZET&&OZET.sinavlar&&OZET.sinavlar[OZET_ANAHTAR[secili]]; }
