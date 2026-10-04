@@ -39,6 +39,10 @@ param(
   [int]$Son10Tavan = 0, [int]$KonuBasiTavan = 0,
   # Var olan (koşan/bitmiş) bir dalgayı yalnız DENETLER: plan kurmaz, Excel yazmaz, ihlalde dosya SİLMEZ.
   [switch]$SadeceDenetim,
+  # 05.10.2026 (Cem "1.2.3", GM1): plan OKUNMUŞ konuya bağlanır — kapsama tablosu soru kütüğüyle koşar, ardından
+  #   arac/smmm-okunmus-kapsama.js → veri/fabrika/smmm-okunmus-kapsama.csv; plan kurucu ve KONU DENETİMİ bu tabloyu okur.
+  #   Verilmezse eski (kasa etiketli) tablo — davranış aynı.
+  [switch]$Okunmus,
   # YALNIZ ÖZ-SINAV İÇİN (arac/smmm-dalga-dongu-sinavi.ps1): adım 1-4 atlanır, KONU DENETİMİ bu kökteki
   # veri/fabrika/smmm-kapsama.csv + veri/sinav/plan-smmm-*.json + veri/sinav/konu/*.json üzerinde koşar.
   # İhlalde silme davranışı gerçek koşuyla AYNIDIR (sınav onu da ölçer).
@@ -65,7 +69,14 @@ function Adim([string]$ad, [scriptblock]$is) {
 if (-not $SadeceDenetim -and -not $sinavKosusu -and (Get-ChildItem (Join-Path $kok 'veri/sinav') -Filter "plan-smmm-$Etiket-*.json" -ErrorAction SilentlyContinue)) { throw "'$Etiket' etiketli plan zaten var — aynı etiketle ikinci dalga kurulmaz" }
 if ($SadeceDenetim) { $IndirmeYok = $true; $ExcelYok = $true }
 if (-not $SadeceDenetim -and -not $IndirmeYok) { Adim '1) partiler ambardan iniyor' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'parti-senkron.ps1') -Indir -Yaz -Sinav SMMM -OnEk 'smmm-' *> $null } }
-if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim '2) kapsama tablosu (son 10 yıl, hedef 4.000)' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-kapsama-tablosu.ps1') -Sessiz *> $null } }
+$tabloGoreli = $(if ($Okunmus) { 'veri/fabrika/smmm-okunmus-kapsama.csv' } else { 'veri/fabrika/smmm-kapsama.csv' })
+if (-not $SadeceDenetim -and -not $sinavKosusu) {
+  if ($Okunmus) {
+    $kutukYol = Join-Path $kok 'veri/fabrika/smmm-kapsama-kutuk.json'
+    Adim '2) kapsama tablosu + soru kütüğü' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-kapsama-tablosu.ps1') -Sessiz -SoruKutugu $kutukYol *> $null }
+    Adim '2b) OKUNMUŞ kapsama tablosu' { & node (Join-Path $buDizin 'smmm-okunmus-kapsama.js') --kutuk $kutukYol | ForEach-Object { Write-Host "   $_" } }
+  } else { Adim '2) kapsama tablosu (son 10 yıl, hedef 4.000)' { & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $buDizin 'smmm-kapsama-tablosu.ps1') -Sessiz *> $null } }
+}
 if (-not $ExcelYok) {
   # 27.09 K6: EAP=Stop altında alt powershell'in stderr'i + 2>&1 betiği öldürür (ölçüldü) -> blokta EAP düşürülür.
   $eapK6Excel = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
@@ -90,13 +101,13 @@ if (-not $SadeceDenetim -and -not $sinavKosusu) {
     }
   } catch { Write-Host "  ⚠ deneme paketi tazelenemedi (dalga sürer): $($_.Exception.Message)" -ForegroundColor Yellow }
 }$plArg = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $buDizin 'smmm-plan-kur.ps1'), '-PlanSayisi', "$PlanSayisi", '-PlanBasinaSoru', "$PlanBasinaSoru", '-Etiket', $Etiket, '-CikmisEsik', "$CikmisEsik")
-if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }; if ($HaricDers) { $plArg += @('-HaricDers', $HaricDers) }; if ($YalnizHicYok) { $plArg += '-YalnizHicYok' }; if ($DusukEsikYok) { $plArg += @('-DusukEsikDersler', 'YOK') }; if ($Son10Tavan -gt 0) { $plArg += @('-Son10Tavan', "$Son10Tavan") }; if ($KonuBasiTavan -gt 0) { $plArg += @('-KonuBasiTavan', "$KonuBasiTavan") }
+if ($Rezerve) { $plArg += @('-RezerveEtiket', $Rezerve) }; if ($YalnizDers) { $plArg += @('-YalnizDers', $YalnizDers) }; if ($HicYokOnce) { $plArg += '-HicYokOnce' }; if ($HaricDers) { $plArg += @('-HaricDers', $HaricDers) }; if ($YalnizHicYok) { $plArg += '-YalnizHicYok' }; if ($DusukEsikYok) { $plArg += @('-DusukEsikDersler', 'YOK') }; if ($Son10Tavan -gt 0) { $plArg += @('-Son10Tavan', "$Son10Tavan") }; if ($KonuBasiTavan -gt 0) { $plArg += @('-KonuBasiTavan', "$KonuBasiTavan") }; if ($Okunmus) { $plArg += @('-Tablo', $tabloGoreli) }
 if (-not $SadeceDenetim -and -not $sinavKosusu) { Adim "4) plan kuruluyor ($Etiket, rezerv: $(if($Rezerve){$Rezerve}else{'yok'}))" { & powershell @plArg *> "$env:TEMP\plan-$Etiket.txt" } }
 
 # --- 5) KONU DENETİMİ ---
 Write-Host '== 5) konu denetimi' -ForegroundColor Cyan
 $tablo = @{}
-foreach ($r in @(Import-Csv (Join-Path $kok 'veri/fabrika/smmm-kapsama.csv') -Encoding UTF8)) { $tablo[(Nrm $r.konu)] = $r }
+foreach ($r in @(Import-Csv (Join-Path $kok $tabloGoreli) -Encoding UTF8)) { $tablo[(Nrm $r.konu)] = $r }
 # koşan dalgaların planlanmış soruları (rezerv) + bu dalga
 $planli = @{}
 foreach ($rz in @(@($Rezerve -split ',') + $Etiket | ForEach-Object { "$_".Trim() } | Where-Object { $_ })) {

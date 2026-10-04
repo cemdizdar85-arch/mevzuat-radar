@@ -173,8 +173,14 @@ jobs:
           # Sinav 11 vaka: yakalama + yanlis alarm + sinir + on suzgec esiginin guvenli olmasi.
           # 24.09.2026: +9 vaka ANLAMCA IKIZ (IkizAnlamMi: ayni ders+konu+ilk kaynak, soru>=0,40, dogru sik>=0,60,
           # sik yazili ve rakamlari ayni). Mutasyonla olculdu: rakam/harf/grup/sik/soru sarti kaldirilinca KIRMIZI (5/5).
+          # 05.10.2026: +8 vaka SAYI IKIZI (IkizSayiMi: dogru siktaki tutarlar ayni + kok tutar >=0,50 + soru >=0,35).
+          # Mutasyonla olculdu: IKIZ_SAYI_MUTASYON=tutar|kok|harf -> her biri KIRMIZI (27/28).
           - { ad: "Ikiz olcusu OZ-SINAVI (uretim ve yayin TEK cetvel)",
               kabuk: pwsh, komut: "./arac/ikiz-olcusu-sinavi.ps1" }
+          # 05.10.2026: OKUNMUS kapsama tablosu (plan okunmus konuya bagli). 13 vaka. Mutasyonla olculdu:
+          # OKT_MUTASYON=taban|kesir|kopru|dogrudan -> her biri KIRMIZI.
+          - { ad: "Okunmus kapsama tablosu OZ-SINAVI (Yeterlilik plan bagi)",
+              kabuk: bash, komut: "node arac/smmm-okunmus-kapsama.js --sinav" }
 
           # 24.09.2026 - Uretimde ANLAMCA IKIZ (KAPI-B): kalip-parti-uret.ps1 CALISTIRILMAZ (para harcar); gercek
           # BenzerlikKusur AST ile yuklenir, sahte parti/havuz/ambar paketiyle cagrilir. 7 vaka. Mutasyonla olculdu:

@@ -48,6 +48,7 @@ param(
   #   KONU seçtirir. Çoklu soru ZORLUK dilimleriyle alınır: tavan 3 = zor + çok zor + kolay.
   #   Daha fazlası ayrı tur (tur=2) ister.
   [int]$KonuBasiTavan = 3,
+  [string]$Tablo = '',   # 05.10: okunmuş kapsama tablosu (veri/fabrika/smmm-okunmus-kapsama.csv); boşsa eski tablo
   # 23.09: kapsama tablosu bu kadar saatten eskiyse plan KURULMAZ (bkz. BAYAT TABLO KAPISI).
   [int]$TabloTazelikSaat = 12,
   [switch]$Zorla,
@@ -114,7 +115,9 @@ foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\sinav\konu') -Filter 'smmm-w
 #   konuyu yeniden basar. Bu yüzden tablo yaşı ölçülür.
 #   🚫 GÖRMEZ: tablo taze ama parti dosyaları ambardan inmemişse tablo yine eksiktir
 #     (kapsama betiği bunu ayrıca kontrol eder: parti dosyası < 50 ise durur).
-$csvYol = Join-Path $kok 'veri\fabrika\smmm-kapsama.csv'
+# 05.10.2026 (Cem "1.2.3", GM1): -Tablo ile OKUNMUŞ kapsama tablosu (arac/smmm-okunmus-kapsama.js, aynı sütunlar) verilebilir.
+#   Verilmezse eski tablo (davranış aynı).
+$csvYol = $(if ($Tablo) { $(if ([IO.Path]::IsPathRooted($Tablo)) { $Tablo } else { Join-Path $kok $Tablo }) } else { Join-Path $kok 'veri\fabrika\smmm-kapsama.csv' })
 if (-not (Test-Path $csvYol)) { throw "kapsama tablosu yok: $csvYol — once arac/smmm-kapsama-tablosu.ps1 kosulur (CLAUDE.md: plan TABLODAN kurulur)" }
 $yas = [int]((Get-Date) - (Get-Item $csvYol).LastWriteTime).TotalHours
 if ($yas -gt $TabloTazelikSaat -and -not $Zorla) {

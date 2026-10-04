@@ -361,6 +361,14 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      kontrolü ya da silme kapatılınca sınav KIRMIZI düşüyor. Plan kurucunun SEÇİMİNİ ölçmez (o ayrı betik).
      **Plan satır tavanı 8** (`smmm-plan-kur.ps1 -SatirTavan`, 23.09): bulut işi aynı anda 8 satır koşturur; 9–15 satırlı
      plan iki sıra koşuyordu. Dalga yine aynı toplam soruyu basar, yalnız daha çok plana bölünür.
+  8. ⭐ **OKUNMUŞ TABLO (05.10.2026, Cem "1.2.3" GM1):** etiket sayımlı tablo okunmuş eşlemeyle ölçüldü: 983 açığın **229'u**
+     okumaya göre zaten dolu konulara para yazıyordu (Kalite yönetimi hedefin 64 üstünde, tablo 11 açık; "yıllık beyan + GV hesabı"
+     okunmuş açık 50, tablo 15). Plan artık okunmuş konuya bağlanabilir: `arac/smmm-dalga-dongu.ps1 -Okunmus` → kapsama tablosu
+     soru kütüğüyle (`-SoruKutugu`) + `arac/smmm-okunmus-kapsama.js` (hedef = okunmuş çıkmış DÖNEM sayısı, `veri/sinav/smmm-konu-okuma.json`;
+     mevcut = `veri/sinav/smmm-banka-esleme.json` + köprü) → `veri/fabrika/smmm-okunmus-kapsama.csv` → plan kurucu `-Tablo` + KONU DENETİMİ
+     aynı tabloyla. Yeni soru `konu` alanına **okunmuş adı aynen** yazar (tablo doğrudan sayar). `-Okunmus` verilmezse eski yol aynen
+     (eşdeğerlik 05.10: plan kurucu 29 konu + 4 plan dosyası 0 fark; tablo 8.295 satır 0 fark). 🚫 GÖRMEZ: tek okuyucu eşlemesinin hatası ·
+     köprüsüz kasa anahtarındaki site dışı soru (05.10: 49 geçer soru KÖR) · eski kısır listesi okunmuş adlara bağlanmadı.
   **Tablonun körlükleri yazılıdır:** konu adı yazım farklarını tek konuya indirmez · "çıkmış" köprüden gelir, köprü yanlışsa hedef de
   yanlıştır · ikiz süzgecinin yayında eleyeceğini görmez. Bu üçü **"ölçülmedi"** sayılır, "yok" sayılmaz.
 

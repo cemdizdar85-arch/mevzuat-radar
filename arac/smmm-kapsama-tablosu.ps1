@@ -167,7 +167,7 @@ foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'kalip-par
     $yazdik[$n] = 1 + [int]$yazdik[$n]
     $gecerMi = [bool](SmmmYayinSarti "$et/$($o.Name)" $v $onay).gecer
     if ($gecerMi) { $yayin[$n] = 1 + [int]$yayin[$n] }
-    if ($SoruKutugu) { $kutuk["$et/$($o.Name)"] = @{ n = $n; g = $gecerMi } }
+    if ($SoruKutugu) { $kutuk["$et/$($o.Name)"] = @{ n = $n; g = $gecerMi; d = $(if ($dersEt) { $dersEt } else { '' }) } }
     if (-not $dersKonu.ContainsKey($n)) { $dersKonu[$n] = $(if ($dersEt) { $dersEt } else { '' }) }
   }
 }
@@ -265,7 +265,7 @@ if ($SoruKutugu) {
   $kOut = @{}
   foreach ($id in $kutuk.Keys) {
     $n = $kutuk[$id].n; $s = $satirHarita[$n]
-    $kOut[$id] = @{ anahtar = $n; gecer = $kutuk[$id].g; son10 = $(if ($s) { [int]$s.son10 } else { 0 }); hedef = $(if ($s) { [int]$s.hedef } else { 0 }); acik = $(if ($s) { [int]$s.acik } else { 0 }) }
+    $kOut[$id] = @{ anahtar = $n; gecer = $kutuk[$id].g; ders = $kutuk[$id].d; son10 = $(if ($s) { [int]$s.son10 } else { 0 }); hedef = $(if ($s) { [int]$s.hedef } else { 0 }); acik = $(if ($s) { [int]$s.acik } else { 0 }) }
   }
   [IO.File]::WriteAllText($SoruKutugu, ($kOut | ConvertTo-Json -Depth 3 -Compress), (New-Object Text.UTF8Encoding($false)))
 }
