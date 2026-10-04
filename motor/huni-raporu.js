@@ -54,6 +54,11 @@ const EK = [
   ['Sınav gibi bitti',          /^deneme\/bitti/],
   ['Sorular: sınav seçti',      /^sorular\/sinav\//],
   ['Karne hesaba gitti',        /^seviye\/(sgs|yet)\/karne-uye$/],   // 04.10 Cem: karne hesap açılınca e-postaya
+  // 04.10 Cem "1 ve 2 yap": soru kartı araçları kullanılıyor mu (sayfa açılışı başına bir kez sayılır, paket-kapisi.js)
+  ['Kart: İşaretle açtı',       /^kart\/isaretle-ac$/],
+  ['Kart: kelime işaretledi',   /^kart\/isaret$/],
+  ['Kart: Notum açtı',          /^kart\/notum-ac$/],
+  ['Kart: not yazdı',           /^kart\/notum-yaz$/],
 ];
 
 function topla(hits) {
