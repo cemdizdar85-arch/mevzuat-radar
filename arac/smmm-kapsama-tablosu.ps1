@@ -65,7 +65,11 @@ param(
   #   Sonra her dersin payı KENDİ konularına sıklıkla dağıtılır (en büyük kalan, toplam yine TAM 4.000).
   #   Dersi bilinmeyen konular (ders boş) tabansız, ağırlığıyla pay alır. 0 → eski davranış (düz sıklık).
   #   🚫 GÖRMEZ: dersin GERÇEK sınavdaki soru sayısını (analiz sayımıyla ağırlık veriyor, taban bunu yumuşatıyor).
-  [int]$DersTaban = 350
+  [int]$DersTaban = 350,
+  # ⭐ 05.10.2026 (Cem "1.2.3", plan bağı ölçümü): soru başına tablo anahtarını (Nrm + eşleme sözlüğü sonrası konu) ve
+  #   yayın şartı sonucunu bu JSON'a yazar → okunmuş eşlemeyle (veri/sinav/smmm-banka-karsilama.json) soru soru kıyas.
+  #   Verilmezse davranış AYNEN eskisi (tablo çıktısı değişmez). Soru metni YAZILMAZ (yalnız kimlik, anahtar, geçer).
+  [string]$SoruKutugu = ''
 )
 $ErrorActionPreference = 'Stop'
 $buDizin = $(if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path })
@@ -144,7 +148,7 @@ foreach ($dd in @((Get-Content $anYol -Raw -Encoding UTF8 | ConvertFrom-Json).do
 }
 
 # --- 3) BİZDE NE VAR: parti dosyaları ---
-$yazdik = @{}; $yayin = @{}; $dersKonu = @{}
+$yazdik = @{}; $yayin = @{}; $dersKonu = @{}; $kutuk = @{}
 $partiSay = 0
 foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'kalip-parti-smmm-*.json' -ErrorAction SilentlyContinue)) {
   $et = $f.BaseName -replace '^kalip-parti-', ''
@@ -161,7 +165,9 @@ foreach ($f in (Get-ChildItem (Join-Path $kok 'veri\fabrika') -Filter 'kalip-par
     $n = Nrm "$($v.konu)"; if (-not $n) { continue }
     if ($es.ContainsKey($n)) { $n = $es[$n] }
     $yazdik[$n] = 1 + [int]$yazdik[$n]
-    if ((SmmmYayinSarti "$et/$($o.Name)" $v $onay).gecer) { $yayin[$n] = 1 + [int]$yayin[$n] }
+    $gecerMi = [bool](SmmmYayinSarti "$et/$($o.Name)" $v $onay).gecer
+    if ($gecerMi) { $yayin[$n] = 1 + [int]$yayin[$n] }
+    if ($SoruKutugu) { $kutuk["$et/$($o.Name)"] = @{ n = $n; g = $gecerMi } }
     if (-not $dersKonu.ContainsKey($n)) { $dersKonu[$n] = $(if ($dersEt) { $dersEt } else { '' }) }
   }
 }
@@ -253,6 +259,16 @@ foreach ($n in $tumKonu) {
     })
 }
 
+if ($SoruKutugu) {
+  # soru → tablo anahtarı + konunun tablo satırı (hedef/açık); okunmuş eşlemeyle kıyas için
+  $satirHarita = @{}; foreach ($s in $satir) { $satirHarita[(Nrm "$($s.konu)")] = $s }
+  $kOut = @{}
+  foreach ($id in $kutuk.Keys) {
+    $n = $kutuk[$id].n; $s = $satirHarita[$n]
+    $kOut[$id] = @{ anahtar = $n; gecer = $kutuk[$id].g; son10 = $(if ($s) { [int]$s.son10 } else { 0 }); hedef = $(if ($s) { [int]$s.hedef } else { 0 }); acik = $(if ($s) { [int]$s.acik } else { 0 }) }
+  }
+  [IO.File]::WriteAllText($SoruKutugu, ($kOut | ConvertTo-Json -Depth 3 -Compress), (New-Object Text.UTF8Encoding($false)))
+}
 $csv = Join-Path $kok 'veri\fabrika\smmm-kapsama.csv'
 $satir | Sort-Object @{e = { $_.ders } }, @{e = { $_.acik }; Descending = $true } | Export-Csv -NoTypeInformation -Encoding UTF8 $csv
 
