@@ -3,7 +3,8 @@
 /* 09.09 AÇIK TEMA — Cem 30.08 "site rengini beyaz yaptık, burası siyah kalmış", 09.09 "bas: açık tema".
    Varsayılan = sitenin açık paleti (stil-acik.css değerleri; stil.css BAĞLANMAZ: .kart/.sik/.btn/.kutu seçicileri çakışır).
    Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. 24.09 Cem: VARSAYILAN KOYU ("sitenin rengi bu olsun"); beyaz yalnız düğmeyle (kc_tema=light) ya da ?tema=acik ile; işletim sistemi izlenmez, site de izlemiyor. */
-:root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#16191d;--metin:#16191d;--dim:#4b5563;--mavi:#1d4ed8;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#a04a08;--ustYazi:#ffffff}
+/* 04.10 (Cem: kart ekranı da sitenin görsel dilinde): yazı lacivert (eski #16191d), ikincil lacivert-gri (eski #4b5563), vurgu laciverte çekildi (eski parlak mavi #1d4ed8), altın = site amberi (eski #a04a08). Zemin SAF BEYAZ kalır (09.09 Cem). */
+:root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#0f1b2d;--metin:#0f1b2d;--dim:#3d4b63;--mavi:#1f3b73;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#8a6224;--ustYazi:#ffffff}
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 :root[data-vitrin] .temaB{display:none}
@@ -34,7 +35,10 @@
 /* Özgüllük: ürünün ".cipler.acikEk .cip2.ek{display:inline-block}" kuralı (0,4,0) "Daha fazla"
    açılınca ":root[data-tek] .cHata"yı (0,3,0) eziyordu - ölçüldü. Seçici (0,5,0)'a çıkarıldı, !important yok. */
 :root[data-tek] .cipler .cip2.cHata{display:none}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
+/* 03.10 (Cem "Nöbetçi kartına sen bak"): tek kartta Kâğıt düğmesi alttan sağ üste - telefonda çerçeve kısa, soru/şık metninin
+   üstüne biniyordu (canlı 390 px ölçüldü); üst köşe tek kipte boş (sayaç ve çipler gizli). Düğme kalır (13.09 Cem seçimi). */
+:root[data-tek] .kagitAc{bottom:auto;top:8px;right:8px;padding:5px 10px;font-size:.78em}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
 .ust{display:flex;justify-content:space-between;align-items:center;font-size:.78em;color:var(--dim);margin-bottom:8px}
@@ -443,7 +447,10 @@ SORULAR.forEach((s,i)=>{
     // maliyet TEKNİĞİNİN kaynağı değil, güven zedeler. MSUGT Sıra No 2 deseni bağlanana dek Maliyet'te ve metin yoksa gizli.
     // 07.09 K6: Maliyet'te kaynak listesi MSUGT Sıra No 2 taşıyorsa "Kaynağı göster" AÇIK (teknik kaynağı bağlandı); yalnız VUK/teori notu ise eskisi gibi gizli
     const msugtVar=!!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.some(x=>/UYGULAMA GENEL TEBL|MSUGT/i.test(String((x&&x.ad)||x))));
-    if((/maliyet/i.test(String(s.ders||''))&&!msugtVar)||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)){ const el=k.querySelector('.cKaynak'); if(el) el.style.display='none'; }
+    /* 04.10 (V2 madde 20 + 63 "mevzuat dayanağı görülebiliyor mu"): resmî metin alıntısı yoksa (SGS 0/4.947) düğme gizlenmez,
+       sorunun dayanağını (s.dayanak, SGS 4.945/4.947 dolu) gösterir. İkisi de yoksa gizlenir. */
+    { const el=k.querySelector('.cKaynak'); const listeVar=!((/maliyet/i.test(String(s.ders||''))&&!msugtVar)||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)); k.dataset.kaynakListe=listeVar?'1':'';
+      if(el){ if(!listeVar&&!String(s.dayanak||'').trim()) el.style.display='none'; else if(!listeVar) el.textContent='📜 Dayanak'; } }
     if((!dogruMu||!oyunVar)&&bDersC){ bDersC.classList.add('birincil'); } else if(bOyunC){ bOyunC.classList.add('birincil'); if(bDersC) bDersC.classList.add('ek'); }
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
     k.classList.add('cevaplandi'); const kg=k.querySelector('.kagit'); if(kg) kg.classList.remove('acik');   // 06.09: kâğıt kapanır, cevap paneli yerini alır; "✏️ Kâğıdım" ile geri açılır
@@ -522,7 +529,7 @@ SORULAR.forEach((s,i)=>{
   window.addEventListener('resize',()=>{ if(kagit.dataset.sek==='ciz'&&(kagit.classList.contains('acik')||(matchMedia('(min-width:900px)').matches&&!k.classList.contains('cevaplandi')))) kanvasBoyut(); });
   k.querySelector('.cOgret').addEventListener('click',e=>sekAc('ogret',e.currentTarget));
   // 📜 KAYNAGI GOSTER: ambardaki gercek metin, hakemin dogruladigi cumle sari
-  k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length){ ic.innerHTML='<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>panelKaydir(mk,true),250); });
+  k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length||!k.dataset.kaynakListe){ const dy=String(s.dayanak||'').trim(); ic.innerHTML=dy?'<div class="kaynakAd">Dayanak</div><div class="kaynakMetin">'+esc(dy)+'</div><p class="ipnot">Sorunun dayanağı. Resmî metinden alıntı bu soruya henüz eklenmedi.</p>':'<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>panelKaydir(mk,true),250); });
   // 🚩 HATA BILDIR — 13.09.2026 (Cem "1.2.3 yap"): bildirim eskiden YALNIZ tarayıcıda kalıyordu, bize ulaşmıyordu.
   // Artık sitenin form kapısına gider (radar-app/edge/form-al.ts, canlı adı quick-task): Frankfurt kasasına yazılır + Cem'e mail.
   // Kapının kendi korumaları: köken listesi, bal küpü, IP başına 10 dk'da 10 gönderi, alan boy tavanı. Yerel kopya da tutulur.
