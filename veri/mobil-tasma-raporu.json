@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-04 00:59:20",
+  "tarih": "2026-10-04 01:39:17",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -11,17 +11,17 @@
   "olculen": 136,
   "KOR": 0,
   "yeni_kusur_sayfa": 3,
-  "taban_borcu_sayfa": 4,
+  "taban_borcu_sayfa": 0,
   "yeni_kusur": [
     {
       "sayfa": "durum.html@320",
       "kayma": true,
-      "sw": 327,
+      "sw": 349,
       "kesik": [
         {
           "oge": "table.dt",
-          "sag": 327,
-          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 11 9 04/"
+          "sag": 349,
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 11 10 04"
         }
       ]
     },
@@ -50,58 +50,17 @@
       ]
     }
   ],
-  "taban_borcu": [
-    {
-      "sayfa": "gizlilik-politikasi.html",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 378,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "iletisim.html",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 394,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "mesafeli-satis.html",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 391,
-          "yazi": "☀"
-        }
-      ]
-    },
-    {
-      "sayfa": "on-bilgilendirme.html",
-      "kayma": true,
-      "kesik": [
-        {
-          "oge": "button#mrxTema.mrxTemaSerit",
-          "sag": 406,
-          "yazi": "☀"
-        }
-      ]
-    }
-  ],
+  "taban_borcu": [],
   "odenen_borc": [
     "alacak-radari.html@320",
+    "gizlilik-politikasi.html",
+    "iletisim.html",
     "kartlar.html",
     "kartlar.html@320",
     "kurulus.html",
     "kurulus.html@320",
+    "mesafeli-satis.html",
+    "on-bilgilendirme.html",
     "radar-fiyat.html@320",
     "radar.html",
     "radar.html@320",
