@@ -5,6 +5,8 @@
 > Bu eksikler `veri/kesik-metin-adaylari.json` ve `veri/kesik-madde-onarim-onerisi.json`'da **yok** (30.09 grep ile ölçüldü) — mevcut
 > kesik metin taraması bunları görmüyor.
 
+## ⚠ ÖNCELİK (05.10): satır 15–16 (GV tarifesi) — Yeterlilik vergi basımı (yıllık beyan + ücret) bunu bekliyor; ölçüm koşusu 2025 gelirleriyle (Seri 329, ambarda) sınırlı tutuldu
+
 ## ⚠ ÖNCELİK (30.09 akşam): satır 12–13 (THP 652 mülga, 649/659 eski 1992 açıklaması) ÖNCE
 
 Üretim bu eski ambar metninden besleniyor: kapı (KAPI-HK 652, KAPI-EK EK12/EK13) yeni soruyu durdurur ama ambar düzelmedikçe
@@ -43,6 +45,8 @@ Aşağıdaki eksikler iki yoldan zarar veriyor:
 | 12 | **THP 652 (id 8f00770e…)** | MÜLGA: MSUGT Sıra No:2 (RG 16.12.1993/21790) C/12 ile 657'ye taşındı; ambarda 1992 metniyle canlı → aynı hesap iki kodla. KAPI-HK artık 652'yi mülga sayıyor (sitede 7 soru). | kayıt silinmeli/işaretlenmeli |
 | 13 | **THP 649 (a17241ea…) · THP 659 (6508bb92…)** | 1992 eski ad ve açıklama: 649'da "menkul kıymet satış kârları … izlenir", 659'da kambiyo/menkul kıymet zararları. Sıra No:2 C/21 ve C/23 ile yeniden yazıldı (bunlar 645/646, 655/656'da). Üretim eski metinden besleniyor olabilir (SMMM okuyucuları bitirmede 649'a menkul satış kârı yazan sorular buldu). | resmî metinle yeniden yutulmalı |
 | 14 | **THP 645–648, 655–658** | içerik doğru ama metin "MSUGT Sira No:1" diye başlıyor; bu kodlar Sıra No:2 ve 12 ile açıldı | künye düzeltmesi |
+| 15 | **GVGT Seri No: 332** (2026 maktu had ve tutarlar, GVK m.103 tarifesi 2026) | Ambarda **0 kayıt** (`kaynak_ad ilike '%SERİ NO: 332%'`, 05.10). En güncel tarife tebliği Seri 329 (2025 gelirleri). Yerel dosya var: `veri/mevzuat-hazir/gvkgt332.txt`. Etki: 2026 ücret/geçici vergi hesabı soruları 2025 tarifesiyle üretilebilir. | sinav kolu 05.10 (Cem "1.2.3", GM3) | resmî metinle yutulmalı (madde başına kayıt) |
+| 16 | **GVK m.103 (kayıt `GVK (193 s.K.) m.103`)** | 2019 metni + güncel tutarlar parantez içinde iç içe ("18.000 TL'ye (190.000 TL) kadar % 15 …"), son satır m.104 kaydının başlığına taşmış: `m.104 - TL) fazlası % % % % 40 oranında vergilendirilir`. Dilim oranları m.104'te "% % % %" diye boş. | sinav kolu 05.10 | m.103/m.104 sınırı düzeltilip yeniden yutulmalı; parantezli güncel tutar düzeni tek tarifeye ayrılmalı |
 
 Kök ortak: aktarım metin içindeki bir sayıyı ("Seviye 3", dipnot numarası) paragraf başı sanıp kaydı bölüyor. Tarayıcının bu kökte isabetli
 türleri K3 (çift başlık) + K4 (gömülü) — örneklemde 6/6; K1 (noktasız son) daraltma sonrası 1 gerçek / 3 yanlış; K5 (numara atlaması) 0/10.
