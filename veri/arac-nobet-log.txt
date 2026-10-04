@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261003161155
+Start time: 20261004003544
 Username: runnervm8df0l\runner
 RunAs User: runnervm8df0l\runner
 Configuration Name: 
 Machine: runnervm8df0l (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0112d3db-d8ba-4ffd-aa33-e409788f7bef.ps1'
-Process ID: 2556
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/239059e1-1314-48b6-abae-cb297df08387.ps1'
+Process ID: 2321
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,24 +17,12 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 03-10-2026
-Kart sayisi  : 6
+RG gunu      : 04-10-2026
+Kart sayisi  : 1
 Izlenen dosya: 12
 
-======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
-======================================================================
-  veri/gtip-emy-tarim.json   (arac: gtip.html)
-      dayanak: Tarim urunleri - Es Deger Munferit Vergi / EMY
-      hasat  : motor/emy-hasat.ps1
-      <- Tarım ürünleri lisanslı depoculuk yönetmeliğinde sigorta ve ücret düzenlemeleri
-
-  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
-  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
-  -> veri/arac-uyari.json
-
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
 **********************
 PowerShell transcript end
-End time: 20261003161155
+End time: 20261004003544
 **********************
