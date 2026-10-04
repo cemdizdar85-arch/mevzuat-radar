@@ -529,11 +529,15 @@ function kur(){
     document.body.appendChild(nav); document.body.classList.add('tt-alt-menu');
     /* 03.10 canlı tarama: koyu zeminli sayfada (sorular.html, body.bz-koyu) jetonlar açık temadan geliyordu -> beyaz şerit üstünde
        açık yazı, etkin etiket görünmüyordu. Renkler sayfanın KENDİ zemin/yazı renginden alınır; her temada uyumlu. */
-    try{ var bs=getComputedStyle(document.body), zemin=bs.backgroundColor, yazi=bs.color;
+    /* 04.10 telefon turu: renk yalnız açılışta okunuyordu -> koyu temaya geçince alt menü kırık beyaz kalıyordu.
+       Tema değişince ('tt-tema' olayı) yeniden okunur; tema geçişi bitsin diye bir kare beklenir. */
+    function renkAl(){ try{ var bs=getComputedStyle(document.body), zemin=bs.backgroundColor, yazi=bs.color;
       if(zemin && zemin!=='rgba(0, 0, 0, 0)' && zemin!=='transparent'){ nav.style.background=zemin; }
       if(yazi){ nav.style.color=yazi; nav.style.borderTopColor='color-mix(in srgb,'+yazi+' 16%,transparent)';
         [].forEach.call(nav.querySelectorAll('a'),function(a){ a.style.color=yazi; a.style.opacity=a.getAttribute('aria-current')?'1':'.72'; if(a.getAttribute('aria-current')) a.style.fontWeight='800'; }); }
-    }catch(e){}
+    }catch(e){} }
+    renkAl();
+    document.addEventListener('tt-tema',function(){ setTimeout(renkAl,60); setTimeout(renkAl,400); setTimeout(renkAl,900); });
   })();
 
   /* ============================================================================
