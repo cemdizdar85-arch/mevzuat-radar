@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-04 07:54:48",
+  "tarih": "2026-10-04 08:26:25",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -10,8 +10,8 @@
   "olcum_toplam": 136,
   "olculen": 136,
   "KOR": 0,
-  "yeni_kusur_sayfa": 3,
-  "taban_borcu_sayfa": 0,
+  "yeni_kusur_sayfa": 13,
+  "taban_borcu_sayfa": 4,
   "yeni_kusur": [
     {
       "sayfa": "durum.html@320",
@@ -26,7 +26,7 @@
         {
           "oge": "table.dt",
           "sag": 349,
-          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 6 4 04/1"
+          "yazi": "İş Koşu Kırmızı Son koşu Dogrulama Kapisi 6 5 04/1"
         }
       ]
     },
@@ -43,6 +43,102 @@
       ]
     },
     {
+      "sayfa": "gizlilik-politikasi.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "iletisim.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "kvkk.html",
+      "kayma": true,
+      "sw": 388,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "kvkk.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "mesafeli-satis.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "on-bilgilendirme.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "teslimat-iade.html",
+      "kayma": true,
+      "sw": 388,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "teslimat-iade.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
       "sayfa": "ucretsiz-dene.html@320",
       "kayma": true,
       "sw": 362,
@@ -53,19 +149,84 @@
           "yazi": "Paketleri gör →Paketin varsa giriş yap"
         }
       ]
+    },
+    {
+      "sayfa": "uyelik-sozlesmesi.html",
+      "kayma": true,
+      "sw": 388,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "uyelik-sozlesmesi.html@320",
+      "kayma": true,
+      "sw": 335,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 335,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
     }
   ],
-  "taban_borcu": [],
+  "taban_borcu": [
+    {
+      "sayfa": "gizlilik-politikasi.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "iletisim.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "mesafeli-satis.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "on-bilgilendirme.html",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "div.navlinks",
+          "sag": 388,
+          "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    }
+  ],
   "odenen_borc": [
     "alacak-radari.html@320",
-    "gizlilik-politikasi.html",
-    "iletisim.html",
     "kartlar.html",
     "kartlar.html@320",
     "kurulus.html",
     "kurulus.html@320",
-    "mesafeli-satis.html",
-    "on-bilgilendirme.html",
     "radar-fiyat.html@320",
     "radar.html",
     "radar.html@320",
