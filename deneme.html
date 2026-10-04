@@ -1249,7 +1249,9 @@ function cevabiGor(tekrarMi){
   // soru konusu onceden doldurulmus halde soru-cevap sayfasina koprulenir.
   // Ad "hoca/musavir" DEGIL: unvan reklam yasagi (RG 24.2.2025) + cevap veren
   // insan degil motor - marka dilindeki "nobetci" kimligi kullanilir (Cem 26.08).
-  h+='<div style="margin-top:10px"><a href="soru-cevap.html?soru='+encodeURIComponent('('+String(s.ders||'')+') '+String(s.konu||''))+'" target="_blank" rel="noopener" style="display:inline-block;border:1px solid rgba(120,180,255,.45);background:rgba(120,180,255,.08);border-radius:9px;padding:8px 12px;font-size:12.5px;color:var(--ink);text-decoration:none">🛡️ <b>Nöbetçiye sor</b> · bu konuyu kaynak maddesiyle anlattır →</a></div>';
+  /* 04.10 Cem 'beş maddeyi yapalım' (madde 2): bağlantı gizli soru-cevap.html'e gidiyor, menu.js GIZLI onu ana sayfaya atıyordu
+     (paket sahibi kırık düğme görüyordu). Net Cevap ücretli yapay zekâ + kalite/hukuk ölçülmedi -> kontrollü 'anlamadım' gelene dek KAPALI.
+     Eski satır git geçmişinde (bu committen önceki deneme.html). */
   h+=notKutusu(s);   // 03.08: kendi notum (UWorld/Becker'da var)
   // SIKLIK KUNYESI (SINAV-KURALLARI D9, 02.08) — 35 donemlik cikmis kitapcik
   // sayimindan. Uydurma motivasyon DEGIL olcum; sayim yoksa kunye GOSTERILMEZ.
