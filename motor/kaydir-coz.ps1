@@ -614,6 +614,15 @@ $html=@'
 .govde{flex:1;overflow-y:auto;padding-bottom:90px}
 .rozet{display:inline-block;font-size:.72em;color:var(--altin);border:1px solid color-mix(in srgb,var(--altin) 50%,transparent);border-radius:20px;padding:2px 9px;margin-bottom:8px}
 .soru{font-weight:600;font-size:1.02em;line-height:1.45;margin:0 0 12px}
+/* 04.10 🖍 İşaretle + 📝 Notum (Cem "beş maddeyi yapalım"; rakip UWorld / Becker) */
+.soruArac{display:flex;gap:6px;justify-content:flex-end;margin:-2px 0 4px}
+.soruArac .arac{all:unset;box-sizing:border-box;cursor:pointer;font-size:.76em;font-weight:700;color:var(--dim);border:1px solid var(--cizgi);border-radius:999px;padding:4px 10px;min-height:28px;display:inline-flex;align-items:center}
+.soruArac .arac.acik{color:var(--yazi);border-color:var(--altin)}
+.vurguKip .soru{cursor:text;outline:1px dashed var(--altin);outline-offset:4px;border-radius:4px}
+.soru mark{background:color-mix(in srgb,var(--altin) 35%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.notumKutu[hidden]{display:none}.notumKutu{margin:0 0 12px}
+.notumAlan{width:100%;box-sizing:border-box;font:inherit;font-size:.9em;border:1px solid var(--cizgi);border-radius:10px;padding:8px 10px;background:var(--kart);color:var(--yazi);resize:vertical}
+.notumDurum{font-size:.74em;color:var(--dim);margin-top:2px;min-height:1em}
 .bilmiyorum{display:block;margin:10px 0 0;background:none;border:1px dashed var(--cizgi);color:var(--dim);border-radius:12px;padding:10px 13px;width:100%;font:inherit;font-size:.9em;cursor:pointer}
 .kutuNot{margin-top:6px;font-size:.88em;color:var(--dim)}
 .tekrarUyari{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:10px 12px;font-size:.92em;display:flex;align-items:center;gap:8px;max-width:calc(100% - 24px);box-shadow:0 8px 24px color-mix(in srgb,var(--yazi) 18%,transparent)}
@@ -862,6 +871,19 @@ try{ durum.seri=parseInt(localStorage.getItem('kc_seri')||'0')||0; }catch(e){}
 const GUN=86400000; const KUTU={ kayit:[], kutu:[], oyun:[], ileri:0 };   // ileri: demo icin "zaman ileri sarma" (ms)
 try{ KUTU.kayit=JSON.parse(localStorage.getItem('kc_kayit')||'[]'); KUTU.kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'); KUTU.oyun=JSON.parse(localStorage.getItem('kc_oyun')||'[]'); KUTU.ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0; }catch(e){}
 const simdi=()=>Date.now()+KUTU.ileri;
+/* 04.10 📝 NOTUM: cihazda (kc_not) + giriş yapmışsa hesapta (soru_not; her üye yalnız kendi notunu görür - RLS) */
+function notKaydet(id,metin,durumEl,dugme){ metin=String(metin||'').slice(0,1000); let o={}; try{ o=JSON.parse(localStorage.getItem('kc_not')||'{}'); }catch(e){}
+  if(metin.trim()) o[id]=metin; else delete o[id]; try{ localStorage.setItem('kc_not',JSON.stringify(o)); }catch(e){}
+  if(dugme) dugme.textContent=metin.trim()?'📝 Notum ✓':'📝 Notum';
+  const sb=window.__pkSb; if(!sb||!sb.auth){ if(durumEl) durumEl.textContent='Bu cihazda saklandı.'; return; }
+  sb.auth.getSession().then(r=>{ const ss=r&&r.data&&r.data.session; if(!ss){ if(durumEl) durumEl.textContent='Bu cihazda saklandı. Giriş yaparsan hesabına da kaydedilir.'; return; }
+    const q=metin.trim() ? sb.from('soru_not').upsert({ user_id:ss.user.id, soru_id:id, metin:metin, guncel:new Date().toISOString() }) : sb.from('soru_not').delete().eq('soru_id',id);
+    q.then(x=>{ if(durumEl) durumEl.textContent=(x&&x.error)?'Bu cihazda saklandı (hesaba yazılamadı).':'Hesabına kaydedildi.'; }, ()=>{ if(durumEl) durumEl.textContent='Bu cihazda saklandı.'; }); }); }
+function notlariCek(){ const sb=window.__pkSb; if(!sb||!sb.auth) return; sb.auth.getSession().then(r=>{ const ss=r&&r.data&&r.data.session; if(!ss) return;
+  sb.from('soru_not').select('soru_id,metin').limit(5000).then(x=>{ if(!x||x.error||!Array.isArray(x.data)) return; let o={}; try{ o=JSON.parse(localStorage.getItem('kc_not')||'{}'); }catch(e){}
+    x.data.forEach(n=>{ o[n.soru_id]=n.metin; }); try{ localStorage.setItem('kc_not',JSON.stringify(o)); }catch(e){}
+    document.querySelectorAll('.notumAlan').forEach(t=>{ const v=o[t.dataset.id]; if(v&&!t.value){ t.value=v; const g=t.closest('.govde'), b=g&&g.querySelector('.bNotum'); if(b) b.textContent='📝 Notum ✓'; } }); }, ()=>{}); }); }
+setTimeout(notlariCek,2500);   /* paket-kapisi.js oturumu kurduktan sonra hesaptaki notlar bu cihaza iner */
 function kutuKaydet(){ try{ localStorage.setItem('kc_kayit',JSON.stringify(KUTU.kayit.slice(-500))); localStorage.setItem('kc_kutu',JSON.stringify(KUTU.kutu)); localStorage.setItem('kc_oyun',JSON.stringify(KUTU.oyun.slice(-500))); localStorage.setItem('kc_ileri',String(KUTU.ileri)); }catch(e){} }
 // 05.09 Cem "ipucu sayısını Hazırlık Skoru'na yansıt": Sen çöz sonucu kaydedilir — tam (ipuçsuz) = +0,25 ustalık,
 // ipuçlu = +0,12, doğruları göster = 0. Yanlış Kutusu'na girmez; yalnız skora işler.
@@ -918,7 +940,7 @@ SORULAR.forEach((s,i)=>{
   // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
   const sv=seviyeHesapla(s);
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
-   +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
+   +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><div class="soruArac"><button class="arac bVurgu" type="button" title="Kelimeye dokun ya da metni seç; sarıya boyanır, yeniden dokununca silinir">🖍 İşaretle</button><button class="arac bNotum" type="button">📝 Notum</button></div><p class="soru">'+esc(s.soru)+'</p><div class="notumKutu" hidden><textarea class="notumAlan" data-id="'+esc(s.id)+'" maxlength="1000" rows="3" placeholder="Bu soruya notun: yalnız sen görürsün"></textarea><div class="notumDurum"></div></div><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div><button class="bilmiyorum" type="button">Bilmiyorum</button></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="Ara sonuçlarını satır satır yaz; tabloyla eşleşenler cevaptan sonra işaretlenir.&#10;Hesabı sen yaparsın, kâğıt yapmaz."></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'
@@ -1027,6 +1049,33 @@ SORULAR.forEach((s,i)=>{
   { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
   const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); setTimeout(()=>panelKaydir(hedef),30); } };
+  // ===== 🖍 İŞARETLE + 📝 NOTUM (04.10 Cem "beş maddeyi yapalım"; rakip UWorld / Becker) - işaret cihazda (kc_vurgu),
+  // not cihazda (kc_not) + giriş yapmışsa hesapta (soru_not, radar-app/sql/2026-10-05-soru-not.sql)
+  { const p=k.querySelector('.soru'), bV=k.querySelector('.bVurgu'), bN=k.querySelector('.bNotum'), nK=k.querySelector('.notumKutu'), nA=k.querySelector('.notumAlan'), nD=k.querySelector('.notumDurum');
+    if(p&&bV){
+      const ham=String(s.soru||''), VK='kc_vurgu';
+      const oku=()=>{ try{ return JSON.parse(localStorage.getItem(VK)||'{}'); }catch(e){ return {}; } };
+      const yaz=o=>{ try{ const ks=Object.keys(o); if(ks.length>1500) delete o[ks[0]]; localStorage.setItem(VK,JSON.stringify(o)); }catch(e){} };
+      const birles=a=>{ a.sort((x,y)=>x[0]-y[0]); const r=[]; a.forEach(x=>{ const l=r[r.length-1]; if(l&&x[0]<=l[1]) l[1]=Math.max(l[1],x[1]); else r.push([x[0],x[1]]); }); return r; };
+      const ciz=()=>{ const a=(oku()[s.id]||[]).filter(x=>x[0]>=0&&x[1]<=ham.length&&x[0]<x[1]); let h='',i=0; a.forEach(x=>{ h+=esc(ham.slice(i,x[0]))+'<mark>'+esc(ham.slice(x[0],x[1]))+'</mark>'; i=x[1]; }); p.innerHTML=h+esc(ham.slice(i)); };
+      const ofset=(dugum,o)=>{ let t=0; const w=document.createTreeWalker(p,NodeFilter.SHOW_TEXT); let n; while((n=w.nextNode())){ if(n===dugum) return t+o; t+=n.textContent.length; } return dugum===p?(o>0?ham.length:0):-1; };
+      const ekle=(a,b)=>{ if(a<0||b<=a) return; const o=oku(), l=o[s.id]||[]; const ic=l.findIndex(x=>x[0]<=a&&x[1]>=b); if(ic>-1) l.splice(ic,1); else l.push([a,b]); o[s.id]=birles(l); if(!o[s.id].length) delete o[s.id]; yaz(o); ciz(); };
+      ciz();
+      let secimAni=0; const kel=/[\p{L}\p{N}%'’-]/u; const genislet=(a,b)=>{ while(a>0&&kel.test(ham[a-1])) a--; while(b<ham.length&&kel.test(ham[b])) b++; return [a,b]; };
+      bV.addEventListener('click',()=>{ const ac=k.classList.toggle('vurguKip'); bV.classList.toggle('acik',ac); bV.textContent=ac?'🖍 İşaretleme açık':'🖍 İşaretle'; });
+      p.addEventListener('mouseup',()=>{ if(!k.classList.contains('vurguKip')) return; const sel=getSelection(); if(!sel||sel.isCollapsed||!p.contains(sel.anchorNode)||!p.contains(sel.focusNode)) return; const r=sel.getRangeAt(0); let a=ofset(r.startContainer,r.startOffset), b=ofset(r.endContainer,r.endOffset); if(a>b){ const t=a; a=b; b=t; } sel.removeAllRanges(); secimAni=Date.now(); const g=genislet(a,b); ekle(g[0],g[1]); });
+      p.addEventListener('click',e=>{ if(!k.classList.contains('vurguKip')||Date.now()-secimAni<400) return; const sel=getSelection(); if(sel&&!sel.isCollapsed) return; let dn=null, of=0;
+        if(document.caretRangeFromPoint){ const r=document.caretRangeFromPoint(e.clientX,e.clientY); if(r){ dn=r.startContainer; of=r.startOffset; } }
+        else if(document.caretPositionFromPoint){ const c=document.caretPositionFromPoint(e.clientX,e.clientY); if(c){ dn=c.offsetNode; of=c.offset; } }
+        if(!dn) return; const o=ofset(dn,of); if(o<0) return; const g=genislet(o,o); ekle(g[0],g[1]); });
+    }
+    if(bN&&nK&&nA){
+      let v=null; try{ v=JSON.parse(localStorage.getItem('kc_not')||'{}')[s.id]; }catch(e){}
+      if(v){ nA.value=v; bN.textContent='📝 Notum ✓'; }
+      bN.addEventListener('click',()=>{ nK.hidden=!nK.hidden; bN.classList.toggle('acik',!nK.hidden); if(!nK.hidden) nA.focus(); });
+      let zam=null; nA.addEventListener('input',()=>{ clearTimeout(zam); nD.textContent='…'; zam=setTimeout(()=>notKaydet(s.id,nA.value,nD,bN),700); });
+    }
+  }
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
   // ===== ✏️ HESAP KÂĞIDI (06.09 Cem "1.2.3 yap, telefona uysun") — hesaplamaz (TESMER: hesap makinesi yasak), yazı + parmak çizimi, soru başına saklanır
   const kagit=k.querySelector('.kagit'), kYaz=kagit.querySelector('.kagitYaz'), kCiz=kagit.querySelector('.kagitCiz'), kNot=kagit.querySelector('.kagitNot'), kAc=k.querySelector('.kagitAc');
