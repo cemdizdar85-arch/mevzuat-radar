@@ -240,7 +240,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       if(!confirm(b.dataset.onay+' · '+b.dataset.eposta+' · '+tl(b.dataset.tutar)+'\n\nHavale hesaba geçti mi? Onaylarsan sipariş "ödendi" olur ve paket '+bit+' tarihine kadar açılır.')) return;
       b.disabled=true;
       await islem('yonetim_siparis_onayla', { p_no:b.dataset.onay, p_bitis:bit }, function(d){
-        return d.paket==='ACILAMADI' ? 'Sipariş ödendi işaretlendi AMA paket açılamadı: '+(d.not||'hesap yok')
+        return (d.paket==='ACILAMADI'||d.paket==='BEKLIYOR') ? '✓ Sipariş ödendi. '+(d.not||'Kişi üye olunca paketi kendiliğinden açılır.')
                                      : '✓ '+d.eposta+': ödendi, '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'; });
       b.disabled=false;
     } else if(b.dataset.iptal){
