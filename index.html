@@ -113,6 +113,8 @@ h1 em{font-style:normal;color:var(--amber)}
 @media(max-width:520px){ .ekran-bas b{display:none} }
 .ekran-govde{padding:18px}
 .soru{font-size:16.5px;font-weight:600;margin:0 0 14px;line-height:1.55}
+/* 04.10 Cem "soruların üzerinde sınavda kaç kere çıktı yazıyorduk": eski kartın rozeti geri (sayı KONUNUN sıklığı, sorunun değil - 25.09 kuralı) */
+.ek-rozet{display:inline-block;margin:0 0 10px;padding:3px 10px;border:1px solid var(--line2);border-radius:20px;font-size:13px;font-weight:700;color:var(--amber);background:var(--bg2)}
 .siklar{list-style:none;margin:0;padding:0;display:grid;gap:7px}
 .siklar li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;line-height:1.45}
 .siklar li b{flex:none;width:22px}
@@ -204,6 +206,11 @@ footer p{margin:0 0 8px}
   .sonuc{font-size:15.5px}
   .hukum h3{font-size:12px;margin-bottom:1px}
   #ekNeden{-webkit-line-clamp:2}
+  .ek-rozet{margin-bottom:5px;font-size:12px;padding:1px 8px}
+  .ekran-bas{padding:7px 16px}
+  .siklar{gap:4px}
+  .dayanak h3{display:inline;margin-right:6px}
+  .dayanak p{display:inline}
   .ekran-dip .btn{min-height:42px}
 }
 </style>
@@ -247,6 +254,7 @@ footer p{margin:0 0 8px}
     <div class="ekran" id="ekran">
       <div class="ekran-bas"><span id="ekDers">Günün sorusu</span><b>Günün sorusu</b></div>
       <div class="ekran-govde">
+        <p class="ek-rozet" id="ekRozet" hidden></p>
         <p class="soru" id="ekSoru">Günün sorusu yükleniyor…</p>
         <ol class="siklar" id="ekSiklar"></ol>
       </div>
@@ -329,7 +337,7 @@ footer p{margin:0 0 8px}
   function say(yol,baslik){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:yol,title:baslik||yol,event:true}); }catch(e){} }
   var U=window.TetikteUye, UYE={oturum:false,sinavlar:{}};
   var secili=(U&&U.seciliSinav)?U.seciliSinav():'sgs';
-  var OZET=null, acik=false;
+  var OZET=null, acik=false, TARANAN=0;
   var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik'};
 
   /* ---- 1) DÜĞMELER: sınav × üye durumu (15.09 karar tablosu, sade hâli). Rakam YALNIZ fiyat-motoru.js'ten. ---- */
@@ -390,6 +398,8 @@ footer p{margin:0 0 8px}
     }
     var tz=o.tuzak||{}, sen=Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]||'';
     $('ekDers').textContent=(AD[secili]||'')+' · '+(o.ders||'');
+    /* rozet: SGS = künyenin taranan dönem sayısı ile 'son N sınavın M tanesinde'; Yeterlilik = 'çıkmış sınavlarda N kez' (eski kartla aynı cümleler) */
+    var rz=$('ekRozet'); if(o.donem){ rz.textContent='📌 '+((secili==='sgs'&&TARANAN)?'Bu konudan son '+TARANAN+' sınavın '+o.donem+' tanesinde soru geldi':'Bu konudan çıkmış sınavlarda '+o.donem+' kez soru geldi'); rz.hidden=false; } else rz.hidden=true;
     $('ekSoru').textContent=o.soru||'';
     $('ekSiklar').innerHTML=Object.keys(o.siklar).sort().map(function(h){
       var c=h===o.dogru?'dogru':(h===sen?'sen':''), et=h===o.dogru?'Doğru ✓':(h===sen?'Senin cevabın ✕':'');
@@ -436,6 +446,7 @@ footer p{margin:0 0 8px}
 
   dugmeCiz();
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',dugmeCiz);
+  fetch('veri/vitrin-kunye.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(k){ if(k&&k.taranan_donem){ TARANAN=k.taranan_donem; if(OZET) ekranCiz(); } }).catch(function(){});
   fetch('veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){ OZET=d; ekranCiz(); }).catch(function(){ ekranCiz(); });
 })();
 </script>
