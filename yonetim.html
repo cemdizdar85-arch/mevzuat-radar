@@ -116,6 +116,18 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
 
     <h2>Siparişler</h2>
     <div class="kaydir"><table id="tSiparis"></table></div>
+
+    <h2>Nöbetçi (yapay zekâ) kullanımı</h2>
+    <div class="sayilar">
+      <div class="kutu"><b id="nBugun">–</b><span>bugün soru</span></div>
+      <div class="kutu"><b id="nAy">–</b><span>bu ay soru</span></div>
+      <div class="kutu"><b id="nUsd">–</b><span>bu ay harcanan (tavan 100 USD)</span></div>
+      <div class="kutu"><b id="nOrt">–</b><span>soru başı ortalama</span></div>
+    </div>
+    <p class="not" id="nNot"></p>
+
+    <h2>Ekibe gelen sorular</h2>
+    <div id="ekipListe"></div>
   </div>
 </div>
 
@@ -303,6 +315,43 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   }
   YUKLE=yukle;
   yukle().catch(function(e){ durum('Veri okunamadı: '+esc(e&&e.message)); });
+
+  /* 04.10 Nöbetçi kullanımı + Ekibe gelen sorular (radar-app/sql/2026-10-05-nobetci-sor.sql; yalnız yönetici) */
+  async function nobetciYukle(){
+    var o=await sb.rpc('yonetim_nobetci_ozet');
+    if(o.error){ $('nNot').textContent=/PGRST202|Could not find/i.test(o.error.message||'')?'Nöbetçi henüz kurulmamış (göç bekliyor).':'Nöbetçi verisi okunamadı.'; }
+    else { var d=o.data||{}; $('nBugun').textContent=d.bugun_soru||0; $('nAy').textContent=d.ay_soru||0; $('nUsd').textContent=Number(d.ay_usd||0).toFixed(2)+' $';
+      $('nOrt').textContent=Number(d.ort_usd||0).toFixed(3)+' $'; $('nNot').textContent='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0); }
+    var e=await sb.rpc('yonetim_ekip_sorulari');
+    var L=$('ekipListe');
+    if(e.error){ L.innerHTML='<p class="not">Ekip soruları okunamadı.</p>'; return; }
+    var liste=e.data||[];
+    if(!liste.length){ L.innerHTML='<p class="not">Henüz soru yok.</p>'; return; }
+    L.innerHTML=liste.map(function(x){
+      return '<div class="kutu" style="margin:0 0 10px"><div class="not" style="margin:0 0 6px">#'+x.id+' · '+tarih(x.tarih)+' · '+esc(x.eposta||'—')+' · '+esc(x.soru_id)+' · <b>'+(x.durum==='bekliyor'?'cevap bekliyor':'cevaplandı')+'</b></div>'
+        +(x.soru_kisa?'<p style="margin:0 0 6px;font-size:13.5px"><b>Soru:</b> '+esc(x.soru_kisa)+'</p>':'')
+        +'<p style="margin:0 0 6px"><b>Öğrenci:</b> '+esc(x.mesaj)+'</p>'
+        +(x.nobetci_cevap?'<details style="margin:0 0 6px"><summary class="not">Nöbetçi\'nin verdiği cevap</summary><p style="white-space:pre-wrap;font-size:13.5px">'+esc(x.nobetci_cevap)+'</p></details>':'')
+        +(x.durum==='bekliyor'
+          ? '<textarea data-ekip="'+x.id+'" rows="4" style="width:100%;box-sizing:border-box;font:inherit;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line2);background:var(--kagit);color:var(--ink)" placeholder="Cevabın (öğrenciye e-postayla gider, Tetikte ekibi imzasıyla)"></textarea><div style="margin-top:6px"><button class="btn ana" data-ekipgonder="'+x.id+'">Cevabı gönder</button></div>'
+          : '<p style="margin:0;white-space:pre-wrap"><b>Cevap:</b> '+esc(x.cevap||'')+'</p>')
+        +'</div>';
+    }).join('');
+  }
+  nobetciYukle().catch(function(){});
+  document.addEventListener('click', async function(ev){
+    var b=ev.target.closest&&ev.target.closest('button[data-ekipgonder]'); if(!b) return;
+    var id=Number(b.dataset.ekipgonder), ta=document.querySelector('textarea[data-ekip="'+id+'"]'), metin=(ta&&ta.value||'').trim();
+    if(metin.length<3){ mesaj('Cevap yaz.', false); return; }
+    if(!confirm('#'+id+' cevabı öğrenciye e-postayla gönderilsin mi?')) return;
+    b.disabled=true;
+    var r=await sb.rpc('yonetim_ekip_cevapla', { p_id:id, p_cevap:metin });
+    if(r.error){ mesaj(hataYazi(r.error), false); b.disabled=false; return; }
+    var o=(await sb.auth.getSession()).data.session;
+    var m=await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/nobetci-sor',{ method:'POST', headers:{'Content-Type':'application/json',apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg',Authorization:'Bearer '+(o&&o.access_token)}, body:JSON.stringify({islem:'ekip_cevap',id:id}) }).then(function(x){return x.ok;},function(){return false;});
+    mesaj(m?'✓ Cevap kaydedildi ve öğrenciye e-postayla gitti.':'Cevap kaydedildi ama e-posta gönderilemedi; öğrenciye elle haber ver.', m);
+    nobetciYukle().catch(function(){});
+  });
 })();
 </script>
 <link rel="stylesheet" href="stil-acik.css">

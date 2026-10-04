@@ -160,3 +160,38 @@
     } catch (e) { clearTimeout(zaman); perde('hata'); }
   });
 })();
+
+/* 04.10 Cem "1 ve 2 yap": soru kartı araçlarının KULLANIM SAYACI (ilk hafta "kullanılıyor mu?" sorusu için).
+   Yalnız olay adı gider (kart/isaretle-ac, kart/isaret, kart/notum-ac, kart/notum-yaz) - soru metni, not metni, kişi verisi GİTMEZ.
+   Aynı olay bir sayfa açılışında bir kez sayılır (kişi başı yaklaşık kullanım, tıklama yağmuru değil). Sayaç GoatCounter (sitenin geri kalanıyla aynı). */
+(function () {
+  if (window.__kartSayac) return; window.__kartSayac = true;
+  var sayildi = {};
+  function say(ad) {
+    if (sayildi[ad]) return; sayildi[ad] = 1;
+    var gonder = function () { try { window.goatcounter.count({ path: 'kart/' + ad, title: 'Soru kartı: ' + ad, event: true }); } catch (e) {} };
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') return gonder();
+    if (!document.querySelector('script[data-goatcounter]')) {
+      var s = document.createElement('script'); s.async = true; s.src = '//gc.zgo.at/count.js';
+      s.setAttribute('data-goatcounter', 'https://mevzuatradar.goatcounter.com/count');
+      s.setAttribute('data-goatcounter-settings', '{"no_onload": true}');
+      document.head.appendChild(s);
+    }
+    var n = 0, t = setInterval(function () { if (window.goatcounter && typeof window.goatcounter.count === 'function') { clearInterval(t); gonder(); } else if (++n > 40) clearInterval(t); }, 250);
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target && e.target.closest && e.target.closest('.bVurgu, .bNotum');
+    if (b) { say(b.classList.contains('bVurgu') ? 'isaretle-ac' : 'notum-ac'); return; }
+    if (e.target && e.target.closest && e.target.closest('.vurguKip .soru')) say('isaret');
+  }, true);
+  document.addEventListener('input', function (e) { if (e.target && e.target.classList && e.target.classList.contains('notumAlan')) say('notum-yaz'); }, true);
+})();
+
+/* 04.10 "💬 Nöbetçiye sor": soru sayfalarında nobetci-sor.js yüklenir (kart şablonuna dokunmadan; basım gerekmez).
+   Sayaç: Nöbetçi düğmesi de yukarıdaki kart sayacına katılır (kart/nobetci-ac). */
+(function () {
+  if (!/\/kaydir\//.test(location.pathname) || window.__nobetciYuklendi) return; window.__nobetciYuklendi = true;
+  var bu = document.querySelector('script[src*="paket-kapisi.js"]'), kok = bu ? bu.src.replace(/paket-kapisi\.js.*$/, '') : '/';
+  var s = document.createElement('script'); s.src = kok + 'nobetci-sor.js'; s.defer = true; document.head.appendChild(s);
+  document.addEventListener('click', function (e) { var b = e.target && e.target.closest && e.target.closest('.bNobetci'); if (b && window.goatcounter && window.goatcounter.count) { try { window.goatcounter.count({ path: 'kart/nobetci-ac', title: 'Soru kartı: nobetci-ac', event: true }); } catch (x) {} } }, true);
+})();
