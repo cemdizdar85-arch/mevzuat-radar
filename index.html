@@ -78,6 +78,12 @@ html body .btn-ikinci:hover{border-color:var(--ink)}
 html body #nav .navlinks a.nl{color:var(--muted)!important}
 html body #nav .navlinks a.nl:hover{color:var(--ink)!important}
 html body #nav .navlinks a.btn-ana{color:var(--bg)!important}
+/* 04.10 canlı tarama (bulut, Linux yazı tipi): 390 px'te sayfa 400 px oldu, yerelde (Windows) taşma yoktu. Geniş yedek
+   yazı tipinde tek satıra zorlanan düğme/metin taşar -> kahraman düğmeleri gerekirse iki satıra iner, uzun kelime kırılır. */
+html body .kah-alt .btn{white-space:normal;max-width:100%}
+.kah > .ic > div{min-width:0}
+.soru,.siklar li span,.hukum p,.durum{overflow-wrap:anywhere}
+@media(max-width:420px){ #nav .ic{gap:10px} .logo{font-size:19px} html body #nav .navlinks a.btn-ana{padding:0 12px} }
 
 /* kahraman */
 .kah{padding:56px 0 64px}
