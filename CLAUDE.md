@@ -459,6 +459,15 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   partisinde ≥20 dönen soru elle okunur, oran yazılır.
   **Ayrıca yayın anı dönüştürücüsü:** `motor/kaydir-coz.ps1` `TurkceOnar` ASCII kelimeyi sözlükle Türkçeleştirirken hata üretiyordu
   ("WHICH→WHİCH", "'çocuk'tur→'tür'", "Esasi→Esası", "bol→böl") — S3 kökten çözülünce bu onarıcıya gerek kalmaz; yaması ayrı commit.
+- ⛔⭐ **DIŞARI ÇIKAN SINAV RAKAMI ÖNCE SORU METNİYLE DOĞRULANIR, YANINDA KANITI YAZAR** (04.10.2026, Cem: *"bu sınav
+  konuları önemli, insanlara doğru bilgi verelim, yanlış olmasın"* → "1.2.3 üçünü de yap"). Sitede, Instagram'da, reklamda,
+  videoda, mailde öğrenciye giden her sınav rakamı ("şu konu X dönemde çıktı", "en çok çıkan", "her sınavda N soru") yayından
+  önce **çıkmış sorunun metni okunarak** sayılır ve rakamın yanında kanıtı durur (dönem + soru no, ya da kanıt listesine bağlantı).
+  Konu ETİKETİNDEN (`veri/sgs-analiz.json` konuSayim, kapsama tabloları) çıkan rakam dışarı verilmez — etiketler iç planlama içindir.
+  **Olay (ölçüldü 04.10):** "en çok çıkan 30 konu" sayfası etiket sayımıyla basıldı; metin taramasında "muhasebe bilgi sistemi"
+  16→28, "sebepsiz zenginleşme" 10→25, "disiplin" 12→32, "Lozan" 8→21 dönem çıktı (aynı konu birden çok etikete bölünmüş),
+  kaynak satırı 5 dönemi yanlışlıkla TESMER'e yazıyordu. Sayfa açılıştan önce çekildi (noindex + yönlendirme).
+  Kaynak satırı kitapçığın gerçek kaynağını yazar (TESMER resmî / ikincil yayım ayrı). "Garanti", "kesin çıkar" yazılmaz.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.
