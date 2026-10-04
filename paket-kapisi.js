@@ -186,3 +186,12 @@
   }, true);
   document.addEventListener('input', function (e) { if (e.target && e.target.classList && e.target.classList.contains('notumAlan')) say('notum-yaz'); }, true);
 })();
+
+/* 04.10 "💬 Nöbetçiye sor": soru sayfalarında nobetci-sor.js yüklenir (kart şablonuna dokunmadan; basım gerekmez).
+   Sayaç: Nöbetçi düğmesi de yukarıdaki kart sayacına katılır (kart/nobetci-ac). */
+(function () {
+  if (!/\/kaydir\//.test(location.pathname) || window.__nobetciYuklendi) return; window.__nobetciYuklendi = true;
+  var bu = document.querySelector('script[src*="paket-kapisi.js"]'), kok = bu ? bu.src.replace(/paket-kapisi\.js.*$/, '') : '/';
+  var s = document.createElement('script'); s.src = kok + 'nobetci-sor.js'; s.defer = true; document.head.appendChild(s);
+  document.addEventListener('click', function (e) { var b = e.target && e.target.closest && e.target.closest('.bNobetci'); if (b && window.goatcounter && window.goatcounter.count) { try { window.goatcounter.count({ path: 'kart/nobetci-ac', title: 'Soru kartı: nobetci-ac', event: true }); } catch (x) {} } }, true);
+})();

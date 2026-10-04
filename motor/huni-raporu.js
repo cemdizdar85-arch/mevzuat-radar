@@ -59,6 +59,7 @@ const EK = [
   ['Kart: kelime işaretledi',   /^kart\/isaret$/],
   ['Kart: Notum açtı',          /^kart\/notum-ac$/],
   ['Kart: not yazdı',           /^kart\/notum-yaz$/],
+  ['Kart: Nöbetçi açtı',        /^kart\/nobetci-ac$/],
 ];
 
 function topla(hits) {

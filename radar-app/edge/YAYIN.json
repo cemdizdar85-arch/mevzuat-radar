@@ -1,6 +1,15 @@
 {
   "_not": "04.10.2026 - .github/workflows/edge-yukle.yml bu listedeki fonksiyonlari OTOMATIK yukler (Cem: Amazon/Trendyol duzeni). Panelden elle yuklenmis eskiler (quick-task, karne-gonder, rapid-responder...) burada YOK: canli ayarlari (JWT, ad) dogrulanmadan otomatige alinmaz. Eklerken: dosya + canli ad + jwt.",
   "fonksiyonlar": [
-    { "dosya": "siparis-bildirim.ts", "ad": "siparis-bildirim", "jwt": false }
+    {
+      "dosya": "siparis-bildirim.ts",
+      "ad": "siparis-bildirim",
+      "jwt": false
+    },
+    {
+      "dosya": "nobetci-sor.ts",
+      "ad": "nobetci-sor",
+      "jwt": false
+    }
   ]
 }
