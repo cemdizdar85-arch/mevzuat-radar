@@ -108,7 +108,8 @@ h1 em{font-style:normal;color:var(--amber)}
 /* gerçek soru ekranı: tek yüzey, iç kart yok */
 .ekran{background:var(--kagit);border:1px solid var(--line2);border-radius:16px;overflow:hidden}
 .ekran-bas{display:flex;justify-content:space-between;gap:10px;padding:13px 18px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--dim)}
-.ekran-bas b{color:var(--ink)}
+.ekran-bas b{color:var(--ink);white-space:nowrap}
+.ekran-bas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}   /* 04.10 Cem ekran görüntüsü: uzun ders adında üst satır iki satıra kırılıyordu */
 @media(max-width:520px){ .ekran-bas b{display:none} }
 .ekran-govde{padding:18px}
 .soru{font-size:16.5px;font-weight:600;margin:0 0 14px;line-height:1.55}
@@ -212,7 +213,7 @@ footer p{margin:0 0 8px}
 <!-- 03.10 Cem (V2 madde 5): menü = Sınavlar · Fiyatlar · Giriş yap · Ücretsiz başla -->
 <nav id="nav" aria-label="Ana menü">
   <div class="ic">
-    <a class="logo" href="index.html"><i aria-hidden="true"></i>tetikte</a>
+    <a class="marka logo" href="index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:22px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>
     <div class="navlinks">
       <a class="nl" href="sorular.html">Sınavlar</a>
       <a class="nl" href="fiyat.html">Fiyatlar</a>
@@ -244,7 +245,7 @@ footer p{margin:0 0 8px}
     <!-- V2 madde 4: "Bir gerçek soru ekranı göster. Kullanıcı bir cevap seçmiş olsun." Veri: robotun günün sorusu.
          "Senin cevabın" = sorunun İLK TUZAK şıkkı (üretimde en tipik yanlış diye yazılan) - rastgele değil. -->
     <div class="ekran" id="ekran">
-      <div class="ekran-bas"><span id="ekDers">Günün sorusu</span><b>Gerçek soru · her gün değişir</b></div>
+      <div class="ekran-bas"><span id="ekDers">Günün sorusu</span><b>Günün sorusu</b></div>
       <div class="ekran-govde">
         <p class="soru" id="ekSoru">Günün sorusu yükleniyor…</p>
         <ol class="siklar" id="ekSiklar"></ol>
