@@ -74,4 +74,5 @@ jobs:
         env:
           RESEND_KEY:  ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
-        run: ./arac/alarm-maili.ps1 -Konu 'TETIKTE KIRMIZI - veritabani gocu uygulanamadi' -Mesaj "SQL Uygula isi dustu. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE KIRMIZI - veritabani gocu uygulanamadi' -Mesaj "SQL Uygula isi dustu. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
