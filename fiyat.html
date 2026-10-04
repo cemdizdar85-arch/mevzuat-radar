@@ -175,7 +175,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 <div class="kdv" id="khYet"></div>
     <div class="kdv" id="ayYet" style="color:var(--ink);font-weight:700"></div><!-- 01.10: aynı dersleri ayrı paketlerle almanın en ucuz yolu (fiyat-motoru.js yeterlilikAyriEnAz) -->
     <ul>
-      <li><b>Tek ders <span id="fyYet1">—</span>'den başlar</b> — kaldığın dersi seç</li>
+      <li><a href="satin-al.html?paket=yeterlilik-1" style="color:inherit"><b>Tek ders <span id="fyYet1">—</span>'den başlar</b> — kaldığın dersi seç →</a></li>   <!-- 04.10 Cem "bitirme tek ders alamıyor sanki": satır tıklanır, ders seçimli ödemeye gider -->
       <li>Sınırsız soru: sekiz dersin tamamı</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
       <li>Her sorunun <b>dayandığı madde</b> altında yazar</li>
@@ -449,6 +449,7 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
   if(!ICERIK_HAZIR[x[1]]) return;
   var a = document.getElementById('al' + x[0]), on = document.getElementById('on' + x[0]);
   a.textContent = 'Satın al — kurucu fiyatından'; a.href = 'satin-al.html?paket=' + x[2];
+  a.classList.remove('ikincil');   /* 04.10 Cem: "birinde turuncu var diğerinde yok" -> satıştaki her paketin düğmesi ana renk */
   if(on) on.remove();
   if(x[1] === 'kgk'){ document.getElementById('rzKgk').textContent = 'YENİ'; }
 });
