@@ -163,9 +163,7 @@
           <input id="ogKEposta" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Paketi aldığın / alacağın e-posta" required>
           <label class="og-et" for="ogKSifre">Şifre belirle</label>
           <input id="ogKSifre" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
-          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogKSifre ogKSifre2">Şifreyi göster</button></p>
-          <label class="og-et" for="ogKSifre2">Şifreyi tekrar yaz</label>
-          <input id="ogKSifre2" name="new-password-2" type="password" autocomplete="new-password" minlength="8" required>
+          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogKSifre">Şifreyi göster</button></p>
           <div class="og-yeni" style="margin-top:12px">
             <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
             <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
@@ -643,10 +641,9 @@
   /* ÜYE OL */
   $('ogFormKayit').addEventListener('submit',async function(ev){
     ev.preventDefault(); hataYaz('ogKHata','');
-    var ep=$('ogKEposta').value.trim(), s1=$('ogKSifre').value, s2=$('ogKSifre2').value;
+    var ep=$('ogKEposta').value.trim(), s1=$('ogKSifre').value;   /* 05.10 Cem "kolay üyelik": şifre tekrar kutusu kalktı ("Şifreyi göster" düğmesi var) */
     if(!EPOSTA_DESEN.test(ep)){ hataYaz('ogKHata','E-posta adresini yaz.'); $('ogKEposta').focus(); return; }
     if(s1.length<SIFRE_EN_AZ){ hataYaz('ogKHata','Şifre en az '+SIFRE_EN_AZ+' karakter olmalı.'); $('ogKSifre').focus(); return; }
-    if(s1!==s2){ hataYaz('ogKHata','İki şifre aynı değil. Tekrar yaz.'); $('ogKSifre2').focus(); return; }
     if(!$('ogKosul').checked){ hataYaz('ogKHata','Hesap açmak için Üyelik Koşulları\'nı ve KVKK Aydınlatma Metni\'ni kabul etmen gerekiyor.'); return; }
     var b=$('ogKayit'); mesgul(b,true,'Hesabın oluşturuluyor…');
     try{
@@ -742,6 +739,9 @@
     if(olay!=='PASSWORD_RECOVERY') return;
     setTimeout(function(){ yeniSifreEkrani(oturum&&oturum.user); },0);
   });
+  /* 05.10 Cem ("kolay üyelik"): satın alma sonrası "Hesabımı aç" ile gelen e-posta (satin-al.html bitir → localStorage
+     tt_kayit_eposta; URL'ye kişisel veri YAZILMAZ). Kişi siparişteki adresi yeniden yazmasın, paket aynı e-postaya bağlansın. */
+  try{ var kEp=localStorage.getItem('tt_kayit_eposta')||''; if(kEp && EPOSTA_DESEN.test(kEp)){ ['ogEposta','ogKEposta','ogSEposta'].forEach(function(i){ if(!$(i).value.trim()) $(i).value=kEp; }); } }catch(e){}
   /* adresle gelen ekran: #uye-ol / #sifremi-unuttum */
   var hashEkran = /^#uye-ol$/.test(location.hash) ? 'kayit' : /^#sifremi-unuttum$/.test(location.hash) ? 'sifremi' : null;
   sb.auth.getSession().then(function(r){

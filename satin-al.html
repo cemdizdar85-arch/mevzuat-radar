@@ -249,7 +249,7 @@
   <div class="akd-govde" id="akd2g"><div class="akd-ic">
   <div class="satir">
     <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
-    <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"></div>
+    <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"><div class="kucuk" id="oturumNot" hidden style="margin-top:4px;color:var(--green)"></div></div>
   </div>
   <div class="satir">
     <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
@@ -361,6 +361,12 @@
       <button type="button" id="kartOde" class="btn" style="width:100%;font-weight:800">💳 Kartla öde — paketin hemen açılsın</button>
       <p class="kucuk" style="margin:8px 0 0">Ödeme iyzico'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. Taksit yok.</p>
       <p class="kucuk" id="kartHata" style="margin:6px 0 0;color:var(--red)"></p>
+    </div>
+    <!-- 05.10 Cem ("kolay üyelik ve ödeme"): hesabı olmayan alıcı aynı ekranda hesabını açsın; e-posta ogrenci.html'e localStorage ile gider -->
+    <div id="hesapKutu" hidden style="margin:0 0 14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);border-radius:12px">
+      <b>Son adım: hesabını aç, paketin oraya açılsın.</b>
+      <p class="kucuk" style="margin:6px 0 10px">Siparişteki e-postayla (<b id="hesapEp"></b>) ücretsiz hesap aç; ödemen onaylanınca paket kendiliğinden bu hesaba bağlanır. Google ile açacaksan aynı e-postalı Google hesabını seç.</p>
+      <a class="btn" href="ogrenci.html#uye-ol" id="hesapAc" style="text-decoration:none">Hesabımı aç (1 dakika) →</a>
     </div>
     <p style="margin:0 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
     hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
@@ -746,6 +752,7 @@ function davetKodOku(){
     hataYaz(n, m);
     if(m) return;
     akdOzetCiz();
+    if(n === 2 || !adim2Hata()) adimSay('bilgiler');
     if(n === 1 && adim2Hata()){
       ac(2, true);
       var ilk = ['ad','mail','tel','adres'].map($).filter(function(x){ return !x.value.trim(); })[0];
@@ -766,6 +773,7 @@ function davetKodOku(){
   $('akd2g').addEventListener('input', function(){ hataYaz(2, ''); akdOzetCiz(); });
   $('akd2g').addEventListener('change', function(){ akdOzetCiz(); });
   $('dersListe').addEventListener('change', function(){ hataYaz(1, ''); akdOzetCiz(); });
+  ['onSoz','onIfa','onKvkk'].forEach(function(i){ $(i).addEventListener('change', function(){ if(['onSoz','onIfa','onKvkk'].every(function(k){ return $(k).checked; })) adimSay('onaylar'); }); });
   $('paketler').addEventListener('change', function(){ hataYaz(1, ''); });
 
   /* mobil çubuk: özet kartı ekranda değilken görünür */
@@ -827,6 +835,7 @@ function kartHazirla(no){
   var hb = document.getElementById('havaleBaslik'); if(hb) hb.textContent = 'Ya da havale/EFT ile öde: ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün hesabın açılır ve e-arşiv faturan e-posta adresine gelir.';
   var b = document.getElementById('kartOde'), h = document.getElementById('kartHata');
   b.onclick = async function(){
+    adimSay('kart');
     b.disabled = true; h.textContent = ''; b.textContent = 'iyzico ödeme sayfası açılıyor…';
     try{
       var r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=baslat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ siparis_no:no }) });
@@ -847,6 +856,11 @@ function siparisNo(){
   return 'TT-' + d.getFullYear() + p(d.getMonth()+1) + p(d.getDate()) + '-' + r;
 }
 
+/* 05.10 Cem ("2 ve 3 yap"): satın alma huni ölçümü. GoatCounter olayı, KİŞİSEL VERİ YOK; her adım sayfa açılışı başına bir kez.
+   Adımlar: bilgiler (2. adım geçti) · onaylar (3 kutu işaretli) · gonder (Siparişi tamamla) · siparis-bitti · hesap-kutusu · kart · hesap-ac.
+   Paket seçimi ve sipariş kaydı eski olaylarla da sayılıyor (satin-al/sec/*, satin-al/siparis/*). */
+function adimSay(ad){ var S = window.__ttAdim || (window.__ttAdim = {}); if(S[ad]) return; S[ad] = 1;   /* sayaç window'da: betik sırasından bağımsız */
+  try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/adim/' + ad, title:'Satın alma adımı: ' + ad, event:true }); }catch(e){} }
 var btn = document.getElementById('gonder'), s = document.getElementById('sonuc');
 function goster(m, ok){ s.style.display='block'; s.innerHTML=m; s.style.color = ok ? 'var(--green)' : 'var(--red)'; }
 function deger(id){ return (document.getElementById(id).value || '').trim(); }
@@ -854,6 +868,7 @@ function deger(id){ return (document.getElementById(id).value || '').trim(); }
 function hata(m, adim){ if(adim && typeof window.akdHata === 'function') window.akdHata(adim, m); goster(m, false); }
 
 btn.addEventListener('click', function(){
+  adimSay('gonder');
   if(!KURULUM_TAMAM){ goster('Sipariş alımı şu an kapalı.', false); return; }
   if(!secili){ hata('Önce bir paket seç.', 1); return; }
   var ad = deger('ad'), mail = deger('mail'), tel = deger('tel'), adres = deger('adres');
@@ -902,6 +917,10 @@ btn.addEventListener('click', function(){
 
   function bitir(){
     kartHazirla(no);
+    adimSay('siparis-bitti');
+    try{ document.getElementById('hesapAc').onclick = function(){ adimSay('hesap-ac'); }; }catch(e){}
+    /* 05.10: giriş yapmamış alıcıya aynı ekranda hesap açtır (paket aynı e-postaya bağlanır) */
+    try{ var hEp = deger('mail'); if(!window.ttOturumEposta){ localStorage.setItem('tt_kayit_eposta', hEp); document.getElementById('hesapEp').textContent = hEp; document.getElementById('hesapKutu').hidden = false; adimSay('hesap-kutusu'); } }catch(e){}
     document.getElementById('tmNo').textContent    = no;
     document.getElementById('tmPaket').textContent = secili.ad;
     document.getElementById('tmTutar').textContent = tl(tutar) + ' TL';
@@ -975,6 +994,15 @@ if(!KURULUM_TAMAM){
   var c = (window.supabase||{}).createClient;
   if(!c){ return; }   /* kutuphane inmezse siparis e-posta yoluyla yine alinir */
   window.sb = c(SB_URL, SB_ANON);
+  /* 05.10 Cem ("kolay üyelik ve ödeme"): giriş yapmış kişi ad/e-postayı yeniden yazmasın; paket bu hesaba açılır */
+  try{ window.sb.auth.getSession().then(function(r){
+    var u = r && r.data && r.data.session && r.data.session.user; window.ttOturumEposta = (u && u.email) || '';
+    if(!u || !u.email) return;
+    var m = document.getElementById('mail'); if(m && !m.value.trim()) m.value = u.email;
+    var md = u.user_metadata || {}, ad = md.full_name || md.name || ''; var a = document.getElementById('ad'); if(a && !a.value.trim() && ad) a.value = ad;
+    var n = document.getElementById('oturumNot'); if(n){ n.textContent = '✓ Giriş yaptın: paketin ' + u.email + ' hesabına açılır.'; n.hidden = false; }
+    if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
+  }).catch(function(){}); }catch(e){}
 })();
 </script>
 <script data-goatcounter="mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
