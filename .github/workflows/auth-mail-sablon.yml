@@ -1,0 +1,61 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/auth-mail-sablon.yml
+# NEDEN VAR (05.10.2026, Cem: "30 soruyu cozdukten sonra nasil bir rapor atiyorsun ... sifre yenilemek
+# isteyenlerde ayni sey gecerli"): sifre yenileme / hesap maillerinin SABLONU Supabase Auth ayarinda durur,
+# depoda yoktu; kimse ne yazdigini okuyamiyordu.
+#  kip=oku   : yalniz OKUR. Gunluge yalniz konu satirlari + govdenin duz metne cevrilmis ilk 300 harfi +
+#              gonderen adi/adresi basilir. SMTP sifresi ve hicbir anahtar BASILMAZ (depo public, gunluk acik).
+#  kip=yaz   : radar-app/auth-mail/*.html + konular.json'u Supabase'e yazar (PATCH config/auth), sonra okur.
+# Anahtar: secrets.SUPABASE_ACCESS_TOKEN (edge-yukle.yml ile ayni; 01.10.2027'de biter).
+# 🚫 GORMEZ: mailin gelen kutusuna mi spam'e mi dustugu (yalniz ayari okur).
+name: Auth mail sablonu (oku / yaz)
+on:
+  workflow_dispatch:
+    inputs:
+      kip:
+        description: "oku | yaz"
+        required: true
+        default: "oku"
+permissions:
+  contents: read
+jobs:
+  sablon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Yaz (yalniz kip=yaz)
+        if: ${{ github.event.inputs.kip == 'yaz' }}
+        env:
+          TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          node -e '
+            const fs=require("fs"), d="radar-app/auth-mail/";
+            const k=JSON.parse(fs.readFileSync(d+"konular.json","utf8"));
+            const govde={};
+            for (const [tur, konu] of Object.entries(k)) {
+              const f=d+tur+".html"; if(!fs.existsSync(f)) { console.error("YOK: "+f); process.exit(1); }
+              govde["mailer_subjects_"+tur]=konu; govde["mailer_templates_"+tur+"_content"]=fs.readFileSync(f,"utf8");
+            }
+            fs.writeFileSync("/tmp/govde.json", JSON.stringify(govde));
+            console.log("yazilacak: "+Object.keys(k).join(", "));
+          '
+          kod=$(curl -s -o /tmp/yaz.out -w "%{http_code}" -X PATCH "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/config/auth" \
+            -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data @/tmp/govde.json)
+          echo "PATCH http $kod"
+          test "$kod" = "200"
+      - name: Oku
+        env:
+          TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          kod=$(curl -s -o /tmp/auth.json -w "%{http_code}" "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/config/auth" -H "Authorization: Bearer $TOKEN")
+          echo "GET http $kod"; test "$kod" = "200"
+          node -e '
+            const c=JSON.parse(require("fs").readFileSync("/tmp/auth.json","utf8"));
+            const duz=s=>String(s||"").replace(/<style[\s\S]*?<\/style>/g," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim().slice(0,300);
+            console.log("gonderen adi: "+(c.smtp_sender_name||"(yok)")+" | gonderen adres: "+(c.smtp_admin_email||"(yok)")+" | smtp: "+(c.smtp_host?"ozel":"Supabase varsayilan"));
+            console.log("site_url: "+c.site_url+" | yonlendirme izinleri: "+(c.uri_allow_list||"").split(",").length+" adet");
+            for (const t of ["recovery","confirmation","magic_link","email_change","invite","reauthentication"]) {
+              console.log("--- "+t);
+              console.log("konu : "+(c["mailer_subjects_"+t]||"(varsayilan)"));
+              console.log("govde: "+(duz(c["mailer_templates_"+t+"_content"])||"(varsayilan)"));
+            }
+          '
