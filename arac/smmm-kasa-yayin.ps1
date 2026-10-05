@@ -127,6 +127,8 @@ if ($sayiEski.Count) { $dusen['(bilgi) eski-eski sayı ikizi çifti, düşmedi']
 if ($SadeceSecim) {
   # prova: seçilen kimlikler (soru metni YOK) → eşdeğerlik kıyası için
   $env:SMMM_SECIM_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
+  # 05.10: eski-eski sayı ikizi çiftleri (kimlik~kimlik, uzun olan solda) → onarım kuyruğu listesi
+  $env:SMMM_SAYI_IKIZ_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($sayiEski.Keys) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
   "SADECE SEÇİM: yazım yok, çıkılıyor"; exit 0
 }
 # ⭐ 24.09.2026 ONAY YAYIN KAPISI (Cem "1.2.3"): Cem'in ONAY verdiği soru yayında değilse NEDENİ söylenir.

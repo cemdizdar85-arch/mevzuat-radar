@@ -1,0 +1,221 @@
+{
+ "olcum": "2026-10-05",
+ "kural": "arac/ikiz-olcusu.ps1 IkizSayiMi (dogru siktaki tutarlar ayni + kok tutar Jaccard>=0,50 + soru>=0,35); arac/smmm-kasa-yayin.ps1 -SadeceSecim",
+ "not": "Yayindan CEKILMEDI (Cem 30.09 geri cekilmesin). Her ciftte uzun olan kalsin; yeniden_yaz baska veriyle (tutar/senaryo) onarim kuyruguna. Soru metni YOK.",
+ "cift": 41,
+ "ders": {
+  "Finansal Muhasebe": 17,
+  "Maliyet Muhasebesi": 9,
+  "Muhasebe Denetimi": 3,
+  "Finansal Tablolar ve Analizi": 3,
+  "Sermaye Piyasası Mevzuatı": 1,
+  "Vergi Mevzuatı ve Uygulaması": 8
+ },
+ "ciftler": [
+  {
+   "kalsin": "smmm-4k-a-fmuh-kolay-r1/kp-06",
+   "yeniden_yaz": "smmm-4k-a-fmuh-kolay-r7/kp-07",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-kolay-r2/kp-25",
+   "yeniden_yaz": "smmm-4k-a-fmuh-kolay-r1/kp-16",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-kolay-r3/kp-08",
+   "yeniden_yaz": "smmm-4k-a-fmuh-kolay-r7/kp-08",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-kolay-r3/kp-23",
+   "yeniden_yaz": "smmm-4k-a-fmuh-zor-r1/kp-24",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-kolay-r4/kp-13",
+   "yeniden_yaz": "smmm-4k-a-fmuh-kolay-r1/kp-14",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-zor-r3/kp-18",
+   "yeniden_yaz": "smmm-4k-a-fmuh-zor-r2/kp-08",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-zor-r4/kp-09",
+   "yeniden_yaz": "smmm-4k-a-fmuh-kolay-r1/kp-23",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-zor-r4/kp-09",
+   "yeniden_yaz": "smmm-4k-a-fmuh-zor-r3/kp-04",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-zor-r6/kp-08",
+   "yeniden_yaz": "smmm-4k-a-fmuh-zor-r8/kp-04",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-zor-r7/kp-01",
+   "yeniden_yaz": "smmm-4k-a-fmuh-zor-r8/kp-03",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-fmuh-zor-r7/kp-07",
+   "yeniden_yaz": "smmm-w4-fmuh-kolay/kp-33",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r2/kp-07",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r2-2/kp-07",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r2/kp-07",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r3-2/kp-11",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r2-2/kp-02",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r1/kp-14",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r2-2/kp-07",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r3-2/kp-11",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r7/kp-19",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r6/kp-18",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r8/kp-16",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r8/kp-07",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r8/kp-16",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r9/kp-12",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r9/kp-08",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r9/kp-09",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-maliyet-kolay-r9/kp-12",
+   "yeniden_yaz": "smmm-4k-a-maliyet-kolay-r8/kp-07",
+   "ders": "Maliyet Muhasebesi"
+  },
+  {
+   "kalsin": "smmm-4k-a-ydenetim-kolay-r7/kp-01",
+   "yeniden_yaz": "smmm-4k-a-ydenetim-zor-r3/kp-01",
+   "ders": "Muhasebe Denetimi"
+  },
+  {
+   "kalsin": "smmm-4k-a-ydenetim-kolay-r7/kp-01",
+   "yeniden_yaz": "smmm-4k-a-ydenetim-zor-r5/kp-01",
+   "ders": "Muhasebe Denetimi"
+  },
+  {
+   "kalsin": "smmm-4k-a-ydenetim-zor-r3/kp-01",
+   "yeniden_yaz": "smmm-4k-a-ydenetim-zor-r5/kp-01",
+   "ders": "Muhasebe Denetimi"
+  },
+  {
+   "kalsin": "smmm-4k-a-yfta-kolay-r2/kp-17",
+   "yeniden_yaz": "smmm-4k-a-yfta-zor-r5/kp-10",
+   "ders": "Finansal Tablolar ve Analizi"
+  },
+  {
+   "kalsin": "smmm-4k-a-yfta-kolay-r5/kp-01",
+   "yeniden_yaz": "smmm-4k-a-yfta-kolay-r2/kp-21",
+   "ders": "Finansal Tablolar ve Analizi"
+  },
+  {
+   "kalsin": "smmm-4k-a-yspk-kolay-r2/kp-08",
+   "yeniden_yaz": "smmm-4k-a-yspk-kolay-r3/kp-10",
+   "ders": "Sermaye Piyasası Mevzuatı"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-kolay-r2/kp-05",
+   "yeniden_yaz": "smmm-d1-yvergi-kolay-r2/kp-04",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-kolay-r3/kp-29",
+   "yeniden_yaz": "smmm-4k-a-yvergi-kolay-r4/kp-21",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-kolay-r3/kp-29",
+   "yeniden_yaz": "smmm-4k-a-yvergi-kolay-r7/kp-17",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-kolay-r4/kp-07",
+   "yeniden_yaz": "smmm-4k-a-yvergi-kolay-r3/kp-01",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-kolay-r7/kp-17",
+   "yeniden_yaz": "smmm-4k-a-yvergi-kolay-r4/kp-21",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-kolay-r8/kp-16",
+   "yeniden_yaz": "smmm-4k-a-yvergi-kolay-r7/kp-19",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-zor-r2/kp-04",
+   "yeniden_yaz": "smmm-olc2-a-vergi/kp-13",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-4k-a-yvergi-zor-r7/kp-02",
+   "yeniden_yaz": "smmm-olc2-a-vergi/kp-13",
+   "ders": "Vergi Mevzuatı ve Uygulaması"
+  },
+  {
+   "kalsin": "smmm-d1-yfta-kolay-r2/kp-01",
+   "yeniden_yaz": "smmm-4k-a-yfta-kolay-r4/kp-23",
+   "ders": "Finansal Tablolar ve Analizi"
+  },
+  {
+   "kalsin": "smmm-w10-4-fmuh-cokzor/kp-04",
+   "yeniden_yaz": "smmm-w9-1-fmuh-kolay/kp-07",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-w11-2-fmuh-cokzor/kp-13",
+   "yeniden_yaz": "smmm-w4-fmuh-kolay/kp-35",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-w5-fmuh-kolay/kp-05",
+   "yeniden_yaz": "smmm-w4-fmuh-kolay/kp-35",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-w5-fmuh-zor/kp-20",
+   "yeniden_yaz": "smmm-w9-3-fmuh-zor/kp-11",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-w9-1-fmuh-cokzor/kp-12",
+   "yeniden_yaz": "smmm-4k-a-fmuh-kolay-r1-2/kp-16",
+   "ders": "Finansal Muhasebe"
+  },
+  {
+   "kalsin": "smmm-w9-4-fmuh-cokzor/kp-06",
+   "yeniden_yaz": "smmm-w8-4-fmuh-cokzor/kp-09",
+   "ders": "Finansal Muhasebe"
+  }
+ ]
+}
