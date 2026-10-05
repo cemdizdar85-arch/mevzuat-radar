@@ -57,6 +57,22 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
 **D. Yeterlilik vergi ölçümünde (gm6/gm7) çıkanlar:** kökte yıl = bugün (KAPI-Y) · yılsız kanun tutarı yerine o yılın tebliği
 (GVK 2026: `SERİ NO:332`) · kişi adı kısa · bir dosyada bir konu.
 
+**E. gm8 ikinci göz ölçümünde (05.10, 15 soru, 5 dosya, 14 okuma) bulunan sınıflar — yazarken baştan uygula:**
+1. **Oranın dayanağı oranı koyan düzenlemedir**, kanun maddesi değil: kâr payı stopajı "%15 (2009/14592 sayılı BKK m.1/6-a, 9286 sayılı CBK
+   ile değişik)"; tarife "GVK m.103 + o yılın GVGT'si (2026: SERİ NO:332 m.3/3)". Kanun maddesinde yazmayan oran o maddeye bağlanmaz.
+2. **Atıf biçimi her alanda aynı:** `m.X/fıkra` ya da `m.X/fıkra-bent`; numaralı fıkrası olmayan maddede "birinci fıkrasının (1) numaralı
+   bendinin (b) alt bendi" (m.86/1-b). Ambar paragraf sırasından okunur (m.74: /1 bentler, /3 götürü gider, /4 para cezası).
+3. **Sınır ifadesi kanundaki gibi:** m.86/1-c "vergiye tâbi gelir toplamı" (istisna içindeki kısım girmez), m.21 "gayrisafi tutarları toplamı".
+   Kısaltılmaz; iki toplam aynı soruda geçiyorsa karışır.
+4. **Varsayım yerine kaynak:** ambarda olan parametre (2026 asgari ücret: ASGARİ ÜCRET TESPİT KOMİSYONU KARARI, RG 26.12.2025/33119) kökte
+   "kabul edilecektir" diye uydurulmaz. Kaynakta yoksa senaryo o parametreye çarpmaz (B11).
+5. **Yürürlük:** "Bu madde hükümleri … tarihine kadar uygulanır" diyen geçici maddeye (ör. GVK geç. m.67 → 31.12.2025) uzatması ambarda
+   yoksa dayanılmaz.
+6. **Kural cümlesi kanun alıntısı gibi yazılmaz** ("GVK m.86/1-c: …" önekiyle kanunda olmayan cümle yok); uygulama yolu "m.X gereği …" diye
+   çıkarım olarak anlatılır. Listeyi kapatan "yalnız" kanunda kapalı değilse kullanılmaz.
+7. **Adımda dayanılan her madde açıklamanın "Kural:" kısmında da anılır**; sınır kontrolü kendi adımında, toplam bulunduktan SONRA.
+8. Kökte ödeme biçimi/yıl/kesinti yapılıp yapılmadığı gibi sonucu değiştiren her olgu açıkça yazılır (yemek bedeli banka mı nakit mi).
+
 ## İKİNCİ GÖZ (zorunlu, gönderimden önce)
 Soruyu YAZMAYAN ayrı bir okuyucu her soruyu ambar kaynağıyla birlikte okur: (1) anahtarı kendisi bağımsız çözer, (2) A ve B listesini
 işaretler, (3) karar: TEMİZ / DÜZELT (ne) / ÇIKAR. Anahtar anlaşmazlığı ya da ÇIKAR → soru gönderilmez. Düzeltme yazara döner, ön denetim
