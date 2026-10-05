@@ -59,6 +59,20 @@ try {
     if (koyu) d.setAttribute('data-theme', 'dark'); else d.removeAttribute('data-theme');
     acikBaglar().forEach(function(l){ l.disabled = koyu; });
     var cs = document.querySelector('meta[name="color-scheme"]'); if (cs) cs.setAttribute('content', koyu ? 'dark' : 'light');
+    /* 05.10 SİYAH PARLAMA (Cem: "beyaz ekrandayız, bir yere basınca siyah ekran görünüyor"): stil.css koyu TABANLA başlıyor
+       (--bg #06090f), açık tema stil-acik.css sayfa SONUNDA bağlı → tarayıcı sona varmadan ilk kareyi koyu boyuyordu.
+       Açık temada ilk kareden itibaren zemin ve yazı rengi açık temanınkiyle (stil-acik.css :root --bg #fbfaf8, --ink #0f1b2d)
+       boyanır; sayfa tamamen yüklenince (load) bu erken kat kaldırılır, gerisini stil-acik.css taşır.
+       Özgüllük (0,1,1)/(0,1,2): stil.css'in html/body kuralını !important olmadan geçer. Koyu temada hiç eklenmez/silinir. */
+    var erken = document.getElementById('tt-erken-acik');
+    if (!koyu && !erken && document.readyState !== 'complete') {
+      erken = document.createElement('style'); erken.id = 'tt-erken-acik';
+      /* TEMA-ERKEN-BASLA (stil-acik.css :root degerleri; esitligi arac/tema-erken-esitlik.js denetler) */
+      erken.textContent = 'html:not([data-theme="dark"]){--marka-lamba-1:#f5a524;--marka-lamba-2:#ffc24b;--bg:#fbfaf8;--bg2:#f4f2ee;--panel:#ffffff;--panel2:#f7f5f1;--line:#e6e2da;--line2:#d5d0c6;--ink:#0f1b2d;--muted:#3d4b63;--dim:#5f6875;--accent:#8a6224;--accent2:#92400e;--grad:linear-gradient(135deg,#f5a524 0%,#ffc24b 100%);--red:#b91c1c;--amber:#8a6224;--amber-dolgu:#f5a524;--amber-uzeri:var(--ink);--green:#146f35;--link:#1d4ed8;--taban:#fbfaf8;--yuzey:#f4f2ee;--kagit:#ffffff;--kart:#ffffff;--slate:#5b6672;--slate-bg:#eef0f3;--red-bg:#fdecea;--amber-bg:#fff6e0;--green-bg:#e8f6ec;--shadow:0 1px 2px rgba(20,25,30,.05),0 8px 24px -16px rgba(20,25,30,.18);background:#fbfaf8;color-scheme:light}html:not([data-theme="dark"]) body{background:#fbfaf8;color:#0f1b2d}';
+      /* TEMA-ERKEN-BITIR */
+      (document.head || d).appendChild(erken);
+      window.addEventListener('load', function(){ var e = document.getElementById('tt-erken-acik'); if (e) e.remove(); });
+    } else if (koyu && erken) { erken.remove(); }
     /* ayrıştırma sürerken sonradan gelen stil-acik bağını geldiği an kapat */
     if (koyu && !gozcu && window.MutationObserver && document.readyState === 'loading') {
       gozcu = new MutationObserver(function(ks){
