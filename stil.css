@@ -180,3 +180,6 @@ input[type=checkbox],input[type=radio]{
    tarayıcı yazı tipini almasın diye kalıtır (giriş formu). */
 :where(body){font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}
 :where(button,input,select,textarea){font:inherit}
+
+/* 05.10 Cem: logo buyudu (menu.js 28px); dar telefonda menu sigsin diye 24px */
+@media(max-width:420px){ .ust-logo{--marka-olcu:24px !important} }

@@ -474,7 +474,7 @@ function ustSeritKur(){
   document.head.appendChild(st);
   var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
   function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
-  n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+'index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:22px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
+  n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+'index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
     bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
     (uye ? '<a class="ust-cta" href="'+KOK+'sorular.html">Soru çöz</a>' : '<a class="ust-cta" href="'+KOK+'seviye-testi.html">Ücretsiz başla</a>')+'</div></div>';

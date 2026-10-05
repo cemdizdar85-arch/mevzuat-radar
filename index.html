@@ -54,7 +54,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offse
 /* üst şerit (menu.js tema düğmesini, komut.js "Ara"yı .navlinks içine koyar) */
 #nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
 #nav .ic{display:flex;align-items:center;gap:22px;height:64px}
-.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:21px;letter-spacing:-.4px;color:var(--ink)}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:28px;letter-spacing:-.4px;color:var(--ink)}
 .logo i{width:11px;height:11px;border-radius:50%;background:var(--amber-dolgu);display:inline-block}
 .navlinks{margin-left:auto;display:flex;align-items:center;gap:20px}
 .navlinks a.nl{text-decoration:none;font-weight:600;font-size:15.5px;color:var(--muted)}
@@ -84,7 +84,7 @@ html body #nav .navlinks a.btn-ana{color:var(--bg)!important}
 html body .kah-alt .btn{white-space:normal;max-width:100%}
 .kah > .ic > div{min-width:0}
 .soru,.siklar li span,.hukum p,.durum{overflow-wrap:anywhere}
-@media(max-width:420px){ #nav .ic{gap:10px} .logo{font-size:19px} html body #nav .navlinks a.btn-ana{padding:0 12px} }
+@media(max-width:420px){ #nav .ic{gap:10px} .logo{font-size:24px} html body #nav .navlinks a.btn-ana{padding:0 12px} }
 
 
 /* kahraman */
@@ -94,11 +94,11 @@ html body .kah-alt .btn{white-space:normal;max-width:100%}
 h1{font-size:clamp(36px,5.2vw,58px);line-height:1.06;letter-spacing:-1.6px;margin:0 0 18px;font-weight:800}
 h1 em{font-style:normal;color:var(--amber)}
 .alt{font-size:clamp(17px,1.6vw,20px);color:var(--muted);margin:0 0 30px;max-width:30em}
-.secim-bas{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 10px}
-.secim{display:grid;gap:10px;max-width:440px}
-.sinav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:0 18px;background:var(--kagit);border:1.5px solid var(--line2);border-radius:12px;text-decoration:none;font-weight:750;font-size:17px;color:var(--ink);font-family:inherit;cursor:pointer;text-align:left;width:100%}
+.secim-bas{font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 12px}   /* 05.10 Cem: secim alani daha buyuk, hemen gorulsun */
+.secim{display:grid;gap:12px;max-width:540px}
+.sinav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:70px;padding:0 22px;background:var(--kagit);border:1.5px solid var(--line2);border-radius:12px;text-decoration:none;font-weight:800;font-size:19.5px;color:var(--ink);font-family:inherit;cursor:pointer;text-align:left;width:100%}
 .sinav:hover{border-color:var(--ink)}
-.sinav small{font-weight:600;color:var(--dim);font-size:14px}
+.sinav small{font-weight:650;color:var(--muted);font-size:14.5px;text-align:right}
 .sinav[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--amber-dolgu)}
 .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
 .kah-alt{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
@@ -191,8 +191,8 @@ footer p{margin:0 0 8px}
   .kah > .ic{grid-template-columns:1fr 450px;gap:48px}
   html body .kah h1{font-size:clamp(36px,3.9vw,52px);margin-bottom:14px}   /* html body: stil-acik.css h1 boyutunu eziyordu */
   .alt{margin-bottom:22px;font-size:18px}
-  .sinav{min-height:50px;font-size:16.5px}
-  .secim{gap:8px}
+  .sinav{min-height:60px;font-size:18px}
+  .secim{gap:10px}
   .kah-alt{margin-top:18px}
   .ekran-bas{padding:10px 16px}
   .ekran-govde{padding:14px 16px}
@@ -235,7 +235,7 @@ footer p{margin:0 0 8px}
 <!-- 03.10 Cem (V2 madde 5): menü = Sınavlar · Fiyatlar · Giriş yap · Ücretsiz başla -->
 <nav id="nav" aria-label="Ana menü">
   <div class="ic">
-    <a class="marka logo" href="index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:22px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>
+    <a class="marka logo" href="index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>
     <div class="navlinks">
       <a class="nl" href="sorular.html">Sınavlar</a>
       <a class="nl" href="fiyat.html">Fiyatlar</a>
@@ -255,8 +255,8 @@ footer p{margin:0 0 8px}
       <p class="alt">Sadece doğru cevabı görme; neden yanlış yaptığını öğren. Her sorunun dayandığı madde yanında.</p>
       <p class="secim-bas" id="secimBas">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas">
-        <button class="sinav" type="button" data-sinav="sgs" aria-pressed="true">SMMM Staja Giriş <small>21 Kasım 2026</small></button>
-        <button class="sinav" type="button" data-sinav="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>28 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="sgs" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
         <span class="sinav kapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
       </div>
       <div class="kah-alt">
@@ -419,7 +419,8 @@ footer p{margin:0 0 8px}
     var tz=o.tuzak||{}, sen=Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]||'';
     $('ekDers').textContent=(AD[secili]||'')+' · '+(o.ders||'');
     /* rozet: SGS = künyenin taranan dönem sayısı ile 'son N sınavın M tanesinde'; Yeterlilik = 'çıkmış sınavlarda N kez' (eski kartla aynı cümleler) */
-    var rz=$('ekRozet'); if(o.donem){ rz.textContent='📌 '+((secili==='sgs'&&TARANAN)?'Bu konudan son '+TARANAN+' sınavın '+o.donem+' tanesinde soru geldi':'Bu konudan çıkmış sınavlarda '+o.donem+' kez soru geldi'); rz.hidden=false; } else rz.hidden=true;
+    /* 05.10 KALDIRILDI: o.donem konu ETIKETI sayimi (vitrin-kart-ozet); 'son 35 sinavin 11' disiplin icin okunarak sayilanla (32'de 31) celisiyordu. Kural: CLAUDE.md 'disari cikan sinav rakami soru metniyle dogrulanir'. Okunmus sayima (veri/sinav/sgs-konu-okuma.json) baglaninca geri gelir. */
+    var rz=$('ekRozet'); if(false && o.donem){ rz.textContent='📌 '+((secili==='sgs'&&TARANAN)?'Bu konudan son '+TARANAN+' sınavın '+o.donem+' tanesinde soru geldi':'Bu konudan çıkmış sınavlarda '+o.donem+' kez soru geldi'); rz.hidden=false; } else rz.hidden=true;
     $('ekSoru').textContent=o.soru||''; $('ekSiklar').removeAttribute('data-cevaplandi');
     /* 04.10 Cem "etkileşimli olsun, senin dediğin olsun": kart ÇÖZÜLMEMİŞ gelir, ziyaretçi şıkkını seçer -> aynı hüküm paneli
        (Sen / Doğru / Neden? / Mevzuat dayanağı) açılır. Seçmeden bakmak isteyene "Cevabı ve nedenini göster" (en sık yanlışla). */
