@@ -500,6 +500,16 @@ function dersCiz(){
   document.getElementById('dersListe').innerHTML = havuz.map(function(d){
     return '<label><input type="checkbox" value="' + d + '"><span>' + d + '</span></label>';
   }).join('');
+  /* 05.10 Cem: seviye testinden "Riskli derslerini aç" ile gelen (?dersler=Ad|Ad) dersler hazır işaretli gelir.
+     Ad eşleşmezse (yazım farkı) o ders atlanır, öğrenci kendisi seçer; paket tavanını aşmaz. */
+  try{
+    var on = (new URLSearchParams(location.search).get('dersler') || '').split('|')
+      .map(function(x){ x = x.trim().toLocaleLowerCase('tr-TR'); return x === 'hukuk' ? 'temel hukuk' : x; })   /* seviye seti (veri/seviye/smmm-set.json) "Hukuk" der */
+      .filter(Boolean), isaret = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('#dersListe input'), function(i){
+      if(isaret < n && on.indexOf(i.value.toLocaleLowerCase('tr-TR')) > -1){ i.checked = true; isaret++; }
+    });
+  }catch(e){}
   kutu.style.display = 'block';
   dersSayacGuncelle();
 }

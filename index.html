@@ -386,7 +386,7 @@ footer p{margin:0 0 8px}
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
       c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
-      var dk=S.olcDk||30;
+      var dk=(secili==='yeterlilik'?40:0)||S.olcDk||30;   /* 05.10: Yeterlilik testi 40 dk; uye-durumu.js olcDk yüklenmeden çizilirse 30 kalıyordu */
       du.innerHTML='Ücretsiz · 30 soru · yaklaşık '+dk+' dakika · sonucun hemen görünür';
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}

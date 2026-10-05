@@ -525,7 +525,7 @@
         $('svTeklifFiyat').hidden=false;
       }
     }catch(e){}
-    $('svTeklifAna').textContent=tek?'Riskli '+(rN===1?'dersini':'derslerini')+' aç →':'Tam bankayı aç →'; $('svTeklifAna').setAttribute('href','satin-al.html?paket='+pid);
+    $('svTeklifAna').textContent=tek?'Riskli '+(rN===1?'dersini':'derslerini')+' aç →':'Tam bankayı aç →'; $('svTeklifAna').setAttribute('href','satin-al.html?paket='+pid+(tek?'&dersler='+encodeURIComponent(risk.map(ad).join('|')):''));
     $('svTeklifIkinci').textContent='Önce örnek soruları çöz'; $('svTeklifIkinci').setAttribute('href','kaydir/vitrin/smmm.html');
     $('svYollar').innerHTML='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+'<div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
