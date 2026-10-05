@@ -29,6 +29,26 @@
 export const GRUP_ADLARI = ["Muhasebe", "Hukuk", "Ekonomi ve Maliye", "Genel Kültür ve Yabancı Dil"];
 export const IZINLI_KOKEN = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL_KOKEN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
+// KURUMSAL-MAIL-BASLA — 05.10.2026 Cem ("kurumsal bir yapı yap ... diğerlerine de bunu yapalım"): bütün müşteri
+// maillerinin ORTAK kabuğu. Edge fonksiyonları TEK DOSYA yüklenir (edge-yukle.yml) → bu blok karne-gonder, siparis-bildirim,
+// elci-sozlesme, nobetci-sor'da AYNEN durur; birinde değişirse hepsinde değiştir (şifre maili radar-app/auth-mail/recovery.html
+// aynı görünüm, Supabase panelinden). Mail istemcileri CSS/SVG çizmez: tablo düzeni + satır içi stil; logo gorsel/logo-mail.png
+// (Outlook ilk açılışta resmi gizleyebilir → alt="Tetikte"). "neden" yalnız sabit metin alır (kullanıcı verisi GİRMEZ).
+export function kurumsalMail(ic: string, neden: string): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f3f4f6;padding:28px 12px;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px">
+<tr><td style="padding:26px 32px 18px;border-bottom:1px solid #f0f1f3"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="Tetikte" style="display:block;border:0;outline:none"></td></tr>
+<tr><td style="padding:26px 32px 6px;color:#16191d;font-size:15px;line-height:1.6">${ic}</td></tr>
+<tr><td style="padding:14px 32px 26px"><p style="margin:0;font-size:14px;color:#16191d">Saygılarımızla,<br><b>Tetikte Destek Ekibi</b></p></td></tr>
+<tr><td style="padding:18px 32px;background:#fafafa;border-top:1px solid #f0f1f3;border-radius:0 0 12px 12px;font-size:12px;line-height:1.6;color:#6b7280">
+<b style="color:#16191d">Sınava tetikte gir.</b><br>
+<b style="color:#4b5563">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</b><br>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir<br>
+<a href="mailto:destek@tetikte.com" style="color:#6b7280">destek@tetikte.com</a> · 0532 344 80 58 · <a href="https://tetikte.com" style="color:#6b7280">tetikte.com</a><br>
+<span style="color:#9ca3af">${neden} <a href="https://tetikte.com/kvkk.html" style="color:#9ca3af">Kişisel verilerin korunması</a></span></td></tr>
+</table></td></tr></table>`;
+}
+// KURUMSAL-MAIL-BITIR
+
 export function kokenIzinli(o: string | null): boolean { return !!o && (IZINLI_KOKEN.has(o) || YEREL_KOKEN.test(o)); }
 export function epostaGecerli(e: string): boolean { return /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(e) && e.length <= 254; }
 function tamsayi(v: unknown, alt: number, ust: number): number | null {
@@ -109,9 +129,8 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
     `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
   const renk: Record<string, string> = { guclu: "#15803d", sinirda: "#8d6c38", riskli: "#b91c1c" };
-  const g = s.dersler.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;color:${renk[x.durum]}">${DURUM_AD[x.durum]}</td></tr>`).join("");
-  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
-<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · SMMM Yeterlilik seviye testi</p>
+  const g = s.dersler.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;white-space:nowrap">${x.dogru} / ${x.soru}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;color:${renk[x.durum]}">${DURUM_AD[x.durum]}</td></tr>`).join("");
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · SMMM Yeterlilik seviye testi</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · bu testte ${s.dogru} / ${s.soru} · tezkiye ${s.tezkiye}</p>
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
@@ -121,9 +140,7 @@ ${bugun ? `<p style="margin:0 0 16px;background:#fdf6ec;border-left:3px solid #f
 <p style="margin:0 0 18px"><a href="${site}${t.yol}" style="background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block">${kacis(t.dugme)}</a>
 &nbsp; <a href="${site}/kaydir/vitrin/smmm.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Yeterlilik'te her dersten en az 50 ve ortalamada en az 60 gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi.</p>
-<p style="font-size:15px;font-weight:800;color:#16191d;margin:0 0 8px">Sınava tetikte gir.</p>
-<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
-</div>`;
+`, "Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın.");
   return { konu: `Yeterlilik karnen: geçme ihtimalin %${s.gecme}${risk.length ? `, ${risk.length} riskli ders` : ""}`, metin, html };
 }
 
@@ -195,9 +212,8 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
   const vurgu = (x: { ad: string }) => x === enZayif && kacan > 0;
-  const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb${vurgu(x) ? ";font-weight:700;color:#b91c1c" : ""}">${kacis(x.ad)}${vurgu(x) ? " · önce burası" : ""}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td></tr>`).join("");
-  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
-<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Staja Giriş seviye testi</p>
+  const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb${vurgu(x) ? ";font-weight:700;color:#b91c1c" : ""}">${kacis(x.ad)}${vurgu(x) ? " · önce burası" : ""}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;white-space:nowrap">${x.dogru} / ${x.soru}</td></tr>`).join("");
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Staja Giriş seviye testi</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · 130 soruda tahmini doğru: yaklaşık <b>${s.dogru130}</b> · bu testte ${s.dogru} / ${s.soru}</p>
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
@@ -208,9 +224,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 <p style="margin:0 0 18px"><a href="${site}/satin-al.html?paket=sgs" style="background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block">Tam bankayı aç →</a>
 &nbsp; <a href="${site}/kaydir/vitrin/sgs.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. <a href="${site}/seviye-testi.html#nasil" style="color:#6b7280">Ayrıntı</a></p>
-<p style="font-size:15px;font-weight:800;color:#16191d;margin:0 0 8px">Sınava tetikte gir.</p>
-<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
-</div>`;
+`, "Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın.");
   return { konu: `Seviye testi karnen: geçme ihtimalin %${s.gecme}`, metin, html };
 }
 
@@ -218,7 +232,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "2cdf4bb977289bfd";
+const KOD_IMZA = "677687fa575a7146";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");

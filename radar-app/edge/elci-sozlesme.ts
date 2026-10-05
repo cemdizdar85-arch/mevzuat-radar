@@ -23,6 +23,26 @@
 
 export const IZINLI_KOKEN = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL_KOKEN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
+// KURUMSAL-MAIL-BASLA — 05.10.2026 Cem ("kurumsal bir yapı yap ... diğerlerine de bunu yapalım"): bütün müşteri
+// maillerinin ORTAK kabuğu. Edge fonksiyonları TEK DOSYA yüklenir (edge-yukle.yml) → bu blok karne-gonder, siparis-bildirim,
+// elci-sozlesme, nobetci-sor'da AYNEN durur; birinde değişirse hepsinde değiştir (şifre maili radar-app/auth-mail/recovery.html
+// aynı görünüm, Supabase panelinden). Mail istemcileri CSS/SVG çizmez: tablo düzeni + satır içi stil; logo gorsel/logo-mail.png
+// (Outlook ilk açılışta resmi gizleyebilir → alt="Tetikte"). "neden" yalnız sabit metin alır (kullanıcı verisi GİRMEZ).
+export function kurumsalMail(ic: string, neden: string): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f3f4f6;padding:28px 12px;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px">
+<tr><td style="padding:26px 32px 18px;border-bottom:1px solid #f0f1f3"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="Tetikte" style="display:block;border:0;outline:none"></td></tr>
+<tr><td style="padding:26px 32px 6px;color:#16191d;font-size:15px;line-height:1.6">${ic}</td></tr>
+<tr><td style="padding:14px 32px 26px"><p style="margin:0;font-size:14px;color:#16191d">Saygılarımızla,<br><b>Tetikte Destek Ekibi</b></p></td></tr>
+<tr><td style="padding:18px 32px;background:#fafafa;border-top:1px solid #f0f1f3;border-radius:0 0 12px 12px;font-size:12px;line-height:1.6;color:#6b7280">
+<b style="color:#16191d">Sınava tetikte gir.</b><br>
+<b style="color:#4b5563">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</b><br>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir<br>
+<a href="mailto:destek@tetikte.com" style="color:#6b7280">destek@tetikte.com</a> · 0532 344 80 58 · <a href="https://tetikte.com" style="color:#6b7280">tetikte.com</a><br>
+<span style="color:#9ca3af">${neden} <a href="https://tetikte.com/kvkk.html" style="color:#9ca3af">Kişisel verilerin korunması</a></span></td></tr>
+</table></td></tr></table>`;
+}
+// KURUMSAL-MAIL-BITIR
+
 export function kokenIzinli(o: string | null): boolean { return !!o && (IZINLI_KOKEN.has(o) || YEREL_KOKEN.test(o)); }
 export function surumGecerli(s: unknown): s is string { return typeof s === "string" && /^20\d{2}-[01]\d-[0-3]\d$/.test(s); }
 function kacis(s: string): string { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
@@ -46,8 +66,7 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
     ``,
     `Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş.`,
   ].join("\n");
-  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
-<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Elçi Programı</p>
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Elçi Programı</p>
 <p>Merhaba ${kacis(p.ad)},</p>
 <p>Tetikte Elçi Programı Katılım Sözleşmesi'ni elçi panelinde onayladın. <b>Onayladığın metnin PDF kopyası ektedir.</b></p>
 <table style="border-collapse:collapse;margin:0 0 14px;font-size:14px">
@@ -58,15 +77,14 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
 </table>
 <p style="font-size:13.5px;color:#4b5563">Bu e-postayı saklamanı öneririz. Aynı metin: <a href="${p.site}/elci-sozlesmesi-${p.surum}.pdf" style="color:#8d6c38">elci-sozlesmesi-${kacis(p.surum)}.pdf</a> · <a href="${p.site}/elci-aydinlatma.html" style="color:#8d6c38">Elçi Aydınlatma Metni</a></p>
 <p style="font-size:13.5px;color:#4b5563">Sorun ya da itiraz için bu e-postayı yanıtlayabilir ya da destek@tetikte.com adresine yazabilirsin.</p>
-<p style="font-size:12px;color:#9ca3af;margin:0">Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</p>
-</div>`;
+`, "Bu e-posta, Tetikte Elçi Programı sözleşmesini onayladığın için gönderilmiştir.");
   return { konu, metin, html };
 }
 
 // ---------------------------------------------------------------------------
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME.
-const KOD_IMZA = "b8eedfedc348104b";
+const KOD_IMZA = "55919919c8900c9a";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");

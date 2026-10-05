@@ -21,7 +21,7 @@
 //  ⚠ IBAN fiyat-motoru.js ODEME_BANKA ile AYNI olmalı (orada değişirse burada da).
 // ============================================================================
 
-const KOD_IMZA = "7ec6e0a532a52e2d";
+const KOD_IMZA = "70ee50d10fae7ba5";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -29,6 +29,26 @@ const izinli = (o: string | null) => !!o && (IZINLI.has(o) || YEREL.test(o));
 const kacis = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const tl = (n: number) => Number(n || 0).toLocaleString("tr-TR") + " TL";
 const tarih = (d: string | null) => { if (!d) return ""; const [y, a, g] = String(d).slice(0, 10).split("-"); return `${g}.${a}.${y}`; };
+
+// KURUMSAL-MAIL-BASLA — 05.10.2026 Cem ("kurumsal bir yapı yap ... diğerlerine de bunu yapalım"): bütün müşteri
+// maillerinin ORTAK kabuğu. Edge fonksiyonları TEK DOSYA yüklenir (edge-yukle.yml) → bu blok karne-gonder, siparis-bildirim,
+// elci-sozlesme, nobetci-sor'da AYNEN durur; birinde değişirse hepsinde değiştir (şifre maili radar-app/auth-mail/recovery.html
+// aynı görünüm, Supabase panelinden). Mail istemcileri CSS/SVG çizmez: tablo düzeni + satır içi stil; logo gorsel/logo-mail.png
+// (Outlook ilk açılışta resmi gizleyebilir → alt="Tetikte"). "neden" yalnız sabit metin alır (kullanıcı verisi GİRMEZ).
+export function kurumsalMail(ic: string, neden: string): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f3f4f6;padding:28px 12px;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px">
+<tr><td style="padding:26px 32px 18px;border-bottom:1px solid #f0f1f3"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="Tetikte" style="display:block;border:0;outline:none"></td></tr>
+<tr><td style="padding:26px 32px 6px;color:#16191d;font-size:15px;line-height:1.6">${ic}</td></tr>
+<tr><td style="padding:14px 32px 26px"><p style="margin:0;font-size:14px;color:#16191d">Saygılarımızla,<br><b>Tetikte Destek Ekibi</b></p></td></tr>
+<tr><td style="padding:18px 32px;background:#fafafa;border-top:1px solid #f0f1f3;border-radius:0 0 12px 12px;font-size:12px;line-height:1.6;color:#6b7280">
+<b style="color:#16191d">Sınava tetikte gir.</b><br>
+<b style="color:#4b5563">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</b><br>Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir<br>
+<a href="mailto:destek@tetikte.com" style="color:#6b7280">destek@tetikte.com</a> · 0532 344 80 58 · <a href="https://tetikte.com" style="color:#6b7280">tetikte.com</a><br>
+<span style="color:#9ca3af">${neden} <a href="https://tetikte.com/kvkk.html" style="color:#9ca3af">Kişisel verilerin korunması</a></span></td></tr>
+</table></td></tr></table>`;
+}
+// KURUMSAL-MAIL-BITIR
 
 export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; tutar: number }) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
@@ -43,8 +63,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     "Siparişi verdiğin e-postayla tetikte.com'da ücretsiz hesap açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir.",
   ];
-  const html = `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#0f1b2d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
-<p>Merhaba ${kacis(ad)},</p><p>Tetikte siparişin alındı. Ödemeni aşağıdaki hesaba <b>havale/EFT</b> ile yapınca paketin açılır.</p>
+  const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p>Tetikte siparişin alındı. Ödemeni aşağıdaki hesaba <b>havale/EFT</b> ile yapınca paketin açılır.</p>
 <table style="border-collapse:collapse;margin:10px 0">
 <tr><td style="padding:4px 14px 4px 0;color:#3d4b63">Sipariş no</td><td><b>${kacis(s.siparis_no)}</b></td></tr>
 <tr><td style="padding:4px 14px 4px 0;color:#3d4b63">Paket</td><td>${kacis(s.paket_ad || s.paket)}</td></tr>
@@ -56,8 +75,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 </table>
 <p>Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.</p>
 <p>Siparişi verdiğin e-postayla <a href="https://tetikte.com/ogrenci.html#uye-ol">tetikte.com'da ücretsiz hesap</a> açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.</p>
-<p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>
-<p style="color:#3d4b63">Sınava tetikte gir.</p></div>`;
+<p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };
 }
 
@@ -71,13 +89,11 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const satirlar = [`Merhaba ${ad},`, "", `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`,
     `Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`, "", giris, "", "https://tetikte.com/ogrenci.html", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir."];
-  const html = `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#0f1b2d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
-<p>Merhaba ${kacis(ad)},</p><p><b>${kacis(s.siparis_no)}</b> numaralı siparişinin ödemesi hesabımıza geçti.</p>
+  const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p><b>${kacis(s.siparis_no)}</b> numaralı siparişinin ödemesi hesabımıza geçti.</p>
 <p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>
 <p>${kacis(giris)}</p>
 <p><a href="https://tetikte.com/ogrenci.html" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
-<p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>
-<p style="color:#3d4b63">Sınava tetikte gir.</p></div>`;
+<p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };
 }
 
