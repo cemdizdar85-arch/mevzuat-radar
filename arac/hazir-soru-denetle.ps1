@@ -16,7 +16,7 @@
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
-      [string]$HarfPlani='',[switch]$HarfPlaniSinavi)
+      [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -164,6 +164,32 @@ function HarfPlani([int]$K,[int]$Z=3){
   $p=@(); for($i=0;$i -lt $K;$i++){ $s=@(); for($j=0;$j -lt $Z;$j++){ $s+=$(if($mut -eq 'sabit'){ 'C' } elseif($mut -eq 'tek'){ "$($L[$i % 5])" } else { "$($L[($i + 2*$j) % 5])" }) }; $p+=,$s }
   return ,$p
 }
+# 05.10.2026 KAPALI LİSTE NOTU (Cem "1.2.3" GM3): gm8 GMSİ çok zorda "yalnız cezalar düşülmez" / "m.74/4'e göre indirilemeyen para cezaları
+#   ve vergi cezalarıdır" — kanun listeyi kapatmıyor, aynı soruda istisnaya düşen gider payı da indirilmiyordu; yalnız ikinci göz yakaladı.
+#   Açıklama/teşhis/sade/adımlarda kalıbı arar, YALNIZ NOT yazar (durdurmaz). GÖRMEZ: "sadece", "bir tek", olumlu kapalı liste
+#   ("indirilecek giderler şunlardır"), şık ve kök metni (kökte meşru). "kabul edilmeyen" (KKEG terimi) ve "düzeye indirilemez" bilerek dışarıda (05.10: 5.212 hazır soruda 12 notun 9'u bu ikisiydi).
+function MetinTopla($o){ if($null -eq $o){ return @() }; if($o -is [string]){ return @($o) }
+  if($o -is [System.Collections.IEnumerable]){ $r=@(); foreach($x in $o){ $r+=@(MetinTopla $x) }; return $r }
+  if($o -is [pscustomobject]){ $r=@(); foreach($p in $o.PSObject.Properties){ $r+=@(MetinTopla $p.Value) }; return $r }; return @() }
+function KapaliListeNot($q){
+  if("$env:DENETLE_KAPALI_MUTASYON" -eq 'kapali'){ return @() }
+  $out=@()
+  foreach($alan in 'aciklama','teshis','sade','adimlar'){ if(-not $q.PSObject.Properties[$alan]){ continue }
+    foreach($t in @(MetinTopla $q.$alan)){
+      $m=[regex]::Match("$t",'(?i)\byaln[ıi]z(ca)?\b[^.;:]{0,60}?\b(d[üu][şs][üu]lmez|(?<!d[üu]zeye )indirilemez|kabul edilmez|say[ıi]lmaz|gider yaz[ıi]lamaz)')
+      if(-not $m.Success){ $m=[regex]::Match("$t",'(?i)\b(indirilemeyen|d[üu][şs][üu]lemeyen)\b[^.;:]{0,80}?\S+[dt][ıiuü]r\b') }
+      if($m.Success){ $out+="KAPALI LİSTE ($alan): '$($m.Value)' — kanun listeyi kapatıyor mu? kapatmıyorsa 'X ise indirilemez' yaz (not, durdurmaz)"; break } } }
+  return $out
+}
+if($KapaliSinavi){
+  $v=@(@('gm8 sade: yalnız cezalar düşülmez',[pscustomobject]@{ sade=[pscustomobject]@{ siklar=[pscustomobject]@{ B='vergi gider olarak düşülür, yalnız cezalar düşülmez.' } } },1),
+       @('gm8 açıklama: indirilemeyen ... cezalarıdır',[pscustomobject]@{ aciklama=[pscustomobject]@{ B="m.74/4'e göre indirilemeyen para cezaları ve vergi cezalarıdır." } },1),
+       @('düzeltilmiş: X ise indirilemez',[pscustomobject]@{ aciklama=[pscustomobject]@{ B="para cezaları ve vergi cezaları ise m.74/4'e göre hasılattan gider olarak indirilemez." } },0),
+       @('yalnız olumlu (yasaksız)',[pscustomobject]@{ aciklama='Yalnız gerçek kişiler bu beyannameyi verir.' },0),
+       @('kökte kalıp aranmaz',[pscustomobject]@{ soru='Aşağıdakilerden hangisi yalnız cezalar düşülmez ilkesine aykırıdır?' },0))
+  $h=0; foreach($x in $v){ $c=@(KapaliListeNot $x[1]).Count; if($c -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $c (beklenen $($x[2]))" } }
+  if($h){ "KAPALI LISTE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPALI LISTE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
 if($HarfPlani){
   if($HarfPlani -match '^\d+$'){ $kon=@(1..[int]$HarfPlani | ForEach-Object { "konu $_" }) } else { $konJ=Get-Content -Raw -Encoding UTF8 $HarfPlani | ConvertFrom-Json; $kon=@($konJ) }
   $p=HarfPlani $kon.Count; $zad=@('kolay','zor','cokzor')
@@ -300,6 +326,7 @@ foreach($q in $liste){
   foreach($x in @(KaliteTek $q)){ if("$x" -like 'NOT-*'){ $not.Add("$x") } else { $k.Add("KAPI-KALITE $x") } }
   foreach($x in @(GercekKapiC $q)){ $k.Add("KAPI-Ç (üretici): $x") }
   foreach($x in @(TersSadeNot $q)){ $not.Add($x) }
+  foreach($x in @(KapaliListeNot $q)){ $not.Add($x) }
   foreach($x in @(SimOnKontrol $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }
   # adım aritmetiği (AritmetikKusur taklidi) + ';' zinciri
   $n=0; foreach($a in @($q.adimlar)){ $n++; $f="$($a.formul)"

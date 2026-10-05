@@ -89,6 +89,16 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
    `powershell -NoProfile -File arac/hazir-soru-denetle.ps1 -HarfPlani veri/sinav/konu/<etiket>-kolay.json` → her konu için kolay/zor/çok zor
    harfi; her zorluk dosyasında harfler dengeli, her konunun üç sorusu üç ayrı harf. Yazar plandaki harften ayrılmaz.
 
+## DALGA DÜZENİ (05.10, gm8 düzeltme turunda ölçülen sıra — atlanmaz)
+1. **Harf planı** (`-HarfPlani <konu dosyası>`) → yazara aynen verilir.
+2. **Yazar** doğrudan `veri/fabrika/hazir-gmN-<etiket>-<zorluk>.json` adıyla yazar (konu başına ayrı dosya YOK). Neden: ön denetimin sıkı
+   bitirme modu (KAPI-K sözlüğü, adım/sade/simülasyon KUSUR) etiketi dosya adından okur; gm8'de yazarlar `k2.json` adıyla yazdı, sıkı mod
+   koşmadı, denetim ayrı kopyada ikinci kez koşturuldu.
+3. **Ön denetim sıkı modda + ikiz:** `-Dosya <dosya> -IkizEtiket smmm-gmN-<etiket>-<zorluk>` → 0 KUSUR.
+4. **İkinci göz** (aşağıda) — her dosya bağımsız okuyucu; düzeltme olduysa düzeltilen soruyu YENİ okuyucu okur (öncekinin sonucunu görmez).
+5. **Yükle + geri oku:** `arac/hazir-senkron.ps1 -Yukle -Ad gmN-…`; ambardan inen içerik yerelle (anahtar sırası hariç) birebir.
+6. Plan (`hazirSoru`; düzeltilmiş ve önbellekte "GM geçti" kaydı olan soru için `pilotId` + `hazirYenileId`) → commit → `motor/bulut-sira.ps1 -Ekle`.
+
 ## İKİNCİ GÖZ (zorunlu, gönderimden önce)
 Soruyu YAZMAYAN ayrı bir okuyucu her soruyu ambar kaynağıyla birlikte okur: (1) anahtarı kendisi bağımsız çözer, (2) A ve B listesini
 işaretler, (3) karar: TEMİZ / DÜZELT (ne) / ÇIKAR. Anahtar anlaşmazlığı ya da ÇIKAR → soru gönderilmez. Düzeltme yazara döner, ön denetim
