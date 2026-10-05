@@ -41,6 +41,7 @@ jobs:
           set -euo pipefail
           if [ -z "${SUPABASE_ACCESS_TOKEN:-}" ]; then echo "SUPABASE_ACCESS_TOKEN tanimli degil"; exit 1; fi
           REF=bjrleanjpyujtajmazxn
+          PUB=sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg   # 05.10: jwt:true fonksiyonun ?surum=1 ucu basliksiz 401 verir; herkese acik anahtar
           mkdir -p supabase/functions
           printf 'project_id = "%s"\n' "$REF" > supabase/config.toml
           node -e 'const y=require("./radar-app/edge/YAYIN.json");for(const f of y.fonksiyonlar)console.log(f.dosya+" "+f.ad+" "+(f.jwt?"1":"0"))' > liste.txt
