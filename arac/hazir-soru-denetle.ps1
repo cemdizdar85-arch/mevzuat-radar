@@ -15,7 +15,7 @@
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
-      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi)
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -101,12 +101,34 @@ function YilKusurOlc([string]$soru,[int]$yilBu){
   $en=$(if("$env:DENETLE_YIL_MUTASYON" -eq 'enkucuk'){ ($yl | Measure-Object -Minimum).Minimum } else { ($yl | Measure-Object -Maximum).Maximum })
   if($en -lt $yilBu){ return "sorudaki en yeni yil $en, bugun $yilBu" }; return ''
 }
+# 05.10.2026 B25: hazır soruda adım + sade (yazar yazar). Mutasyon: $env:DENETLE_ADIM_MUTASYON = adim | sade
+function AdimSadeEksik($q){
+  $o=@()
+  if("$env:DENETLE_ADIM_MUTASYON" -ne 'adim' -and -not ($q.PSObject.Properties['adimlar'] -and @($q.adimlar).Count -ge 2)){ $o+="ADIM YOK: 'adimlar' (en az 2 adım: 1. adım 'Verilen') yazar tarafından yazılır (sözleşme B25)" }
+  if("$env:DENETLE_ADIM_MUTASYON" -ne 'sade' -and -not ($q.PSObject.Properties['sade'] -and $q.sade -and "$($q.sade.dogru)".Trim() -and $q.sade.siklar)){ $o+="SADE YOK: 'sade' {dogru, sinav, siklar} yazar tarafından yazılır (sözleşme B25)" }
+  return $o
+}
+function KaliteTek($q){
+  $js=Join-Path $depoKokD 'arac\soru-kalite-kapisi.js'; if(-not (Test-Path $js) -or -not (Get-Command node -ErrorAction SilentlyContinue)){ return @('NOT-KALITE KÖR: node ya da arac/soru-kalite-kapisi.js yok') }
+  $tmp=[IO.Path]::Combine([IO.Path]::GetTempPath(),"hazir-kalite-$([guid]::NewGuid().ToString('N')).json")
+  [IO.File]::WriteAllText($tmp,(ConvertTo-Json -InputObject $q -Depth 12),(New-Object Text.UTF8Encoding($false)))
+  try{ $o=@(& node $js --tek $tmp 2>&1 | ForEach-Object { "$_".Trim() } | Where-Object { $_ }) } finally { Remove-Item $tmp -ErrorAction SilentlyContinue }
+  return $o
+}
+if($AdimSinavi){
+  $tam=[pscustomobject]@{ adimlar=@([pscustomobject]@{formul='Verilen: a'},[pscustomobject]@{formul='b = 1'}); sade=[pscustomobject]@{ dogru='x'; siklar=[pscustomobject]@{A='a'} } }
+  $adimsiz=[pscustomobject]@{ sade=$tam.sade }; $tekAdim=[pscustomobject]@{ adimlar=@([pscustomobject]@{formul='x'}); sade=$tam.sade }
+  $sadesiz=[pscustomobject]@{ adimlar=$tam.adimlar }; $bosSade=[pscustomobject]@{ adimlar=$tam.adimlar; sade=[pscustomobject]@{ dogru=' '; siklar=$null } }
+  $v=@(@('tam (adım+sade)',$tam,0),@('adım yok',$adimsiz,1),@('tek adım',$tekAdim,1),@('sade yok',$sadesiz,1),@('sade boş',$bosSade,1),@('ikisi yok',[pscustomobject]@{soru='x'},2))
+  $h=0; foreach($x in $v){ $c=@(AdimSadeEksik $x[1]).Count; if($c -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $c bulgu (beklenen $($x[2]))" } }
+  if($h){ "ADIM/SADE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "ADIM/SADE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
 if($YilSinavi){
   # gm6 gerçek vaka sınıfı: "2025 yılı gelirleri" (KUSUR) · aynı soru "2026 yılı Mart ayında verilecek beyanname" ile (ok) · kanun no sayılmaz
   $v=@(@('2025 yılı gelirleri için yıllık beyan','KUSUR'),@('2025 yılı gelirleri için 2026 yılı Mart ayında verilecek beyanname','ok'),@('2025 gelirleri, beyan 2026''da','ok'),@('6183 ve 2004 sayılı Kanun hükümlerine göre','ok'),@('5520 s. Kanun ve 2004 s. Kanun','ok'),@('yıl geçmeyen soru','ok'),@('2024 ve 2025 yılları','KUSUR'))
   $h=0; foreach($x in $v){ $c=$(if(YilKusurOlc $x[0] 2026){ 'KUSUR' } else { 'ok' }); if($c -ne $x[1]){ $h++; "  DUSTU: '$($x[0])' -> $c (beklenen $($x[1]))" } }
   if($h){ "KAPI-Y SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-Y SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
-}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi)' }
+}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -126,7 +148,7 @@ elseif($Ders){
 # 05.10.2026 BİTİRME KAPI-K (gm6 ölçüm koşusu: 15 hazır sorunun 9'u bulutta KAPI-K ile düştü, bu betik 'ok' demişti — SMMM yolu yoktu).
 #   Etiket (ya da dosya adı) smmm- ile başlıyor ve -Ders verilmemişse sözlük üreticinin SMMM yolundan kurulur (arac/kapi-k-sozluk.ps1 KapiKSmmmSozlukKur).
 if(-not $YABANCI_DIL_DENETIMI -and -not $Ders){
-  $etK=$(if($IkizEtiket){ $IkizEtiket } else { ([IO.Path]::GetFileNameWithoutExtension($Dosya) -replace '^hazir-','smmm-' ) })
+  $etK=$(if($IkizEtiket){ $IkizEtiket } elseif([IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(gm\d+-.*)$'){ 'smmm-' + $Matches[1] } else { '' })   # yalnız bitirme GM dosyası
   if($etK -match '^smmm-'){
     . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1'); $dersK=SmmmDersAdi $etK $null
     $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
@@ -135,6 +157,9 @@ if(-not $YABANCI_DIL_DENETIMI -and -not $Ders){
   }
 }
 $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
+# B25 sertliği: bitirme (smmm-) etiketinde ADIM/SADE YOK kusurdur; öteki sınavlarda uyarı (o kolların kararı)
+$GM_ET=$(if($IkizEtiket){ $IkizEtiket } elseif([IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(gm\d+-.*)$'){ 'smmm-' + $Matches[1] } else { '' })   # bitirme GM dosyası hazir-gmN-…
+$GM_SERT=[bool]($GM_ET -match '^smmm-')
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count) | uzunluk tavani: $UZ_TAVAN kr"
 if($kapiK){ "KAPI-K sozlugu: genis $($kapiK.genis.Keys.Count) · dar $($kapiK.dar.Keys.Count) (soru $($kapiK.aralik -join '-')) · $($kapiK.blok) blok · son $Pencere donem: $($kapiK.donemler -join ', ')" }
 $i=0; $temizSay=0
@@ -181,6 +206,13 @@ foreach($q in $liste){
   if($q.celdirici_yol){ foreach($p in @($q.celdirici_yol.PSObject.Properties)){ $v="$($p.Value)"; if($v -match ';'){ $k.Add("celdirici $($p.Name) icinde ';'") }
       if($sayisal){ $son=[regex]::Matches(($v -replace '\([^)]*\)',''),'=\s*(-?[\d\.,]+)'); if($son.Count){ $cv=Sayi $son[$son.Count-1].Groups[1].Value; $sv=Sayi "$($q.siklar.($p.Name))"; if($null -ne $cv -and $null -ne $sv -and [math]::Abs($cv-$sv) -gt [math]::Max(0.5,[math]::Abs($sv)*0.005)){ $k.Add("celdirici $($p.Name) sonucu $cv != sik $sv") } } }
       if("$($p.Name)" -eq "$($q.dogru)"){ $k.Add("celdirici dogru sikta ($($p.Name))") } } }
+  # 05.10.2026 GM ADIM/SADE (Cem "1.2.3", sözleşme B25): gm6+gm7 ölçümü — hazır soruda adimlar yoktu, adımı bulut modeli yazdı;
+  #   12 parti sorusunun en az 6'sı o katmanda düştü (ADIM-KAYMA, YY-SIKSIZ, simülasyon, AH "6. adımda bulduk"), teori sorusunda adım
+  #   hiç yazılmadı ("simülasyon koşamadı"). Bitirmede (smmm-) adım/sade yoksa KUSUR, öteki sınavlarda uyarı.
+  foreach($x in @(AdimSadeEksik $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }
+  # 05.10.2026 KAPI-KALITE yerelde: bulut FAZ GM'in SoruKaliteKapisi'si (arac/soru-kalite-kapisi.js --tek; KAPI-AS2/EK/HK/BP/BOS/TR/YY/ADIM).
+  #   gm7'de 5 soru bununla düştü, ön denetim görmüyordu. Hazır soru tarihsiz = YENİ2 → NOT- dışındaki her satır durdurur.
+  foreach($x in @(KaliteTek $q)){ if("$x" -like 'NOT-*'){ $not.Add("$x") } else { $k.Add("KAPI-KALITE $x") } }
   # adım aritmetiği (AritmetikKusur taklidi) + ';' zinciri
   $n=0; foreach($a in @($q.adimlar)){ $n++; $f="$($a.formul)"
     if($f -match ';' -and $f -match '=.*;.*='){ $k.Add("adim $n formulde ';' zinciri") }
