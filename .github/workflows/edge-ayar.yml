@@ -1,0 +1,38 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/edge-ayar.yml
+# NEDEN VAR (05.10.2026, Cem: "ikisine de ulasiyorum" -> formlar destek@tetikte.com'a): uc fonksiyonlarin
+# GIZLI OLMAYAN ayarlarini (alici e-posta adresi gibi) panele girmeden degistirmek.
+# YALNIZ izin listesindeki adlar yazilir; anahtar/sifre bu akisla YAZILMAZ (deger gunlukte gorunur, depo public).
+# Calistirma: gh workflow run edge-ayar.yml -f ad=FORM_ALICI -f deger=destek@tetikte.com
+# 🚫 GORMEZ: ayarin yazildiktan sonra fonksiyonda gercekten kullanildigini (fonksiyon kendi ?tani=1 ile soyler).
+name: Edge ayari (gizli olmayan)
+on:
+  workflow_dispatch:
+    inputs:
+      ad:
+        description: "Ayar adi (izin listesi: FORM_ALICI)"
+        required: true
+        type: choice
+        options: [FORM_ALICI]
+      deger:
+        description: "Yeni deger"
+        required: true
+permissions:
+  contents: read
+jobs:
+  ayar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Yaz
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          AD: ${{ github.event.inputs.ad }}
+          DEGER: ${{ github.event.inputs.deger }}
+        run: |
+          set -euo pipefail
+          case "$AD" in FORM_ALICI) echo "$DEGER" | grep -Eq '^[^@ ]+@[^@ ]+\.[a-z]{2,}$' || { echo "e-posta bicimi degil"; exit 1; } ;; *) echo "izin listesinde yok"; exit 1 ;; esac
+          supabase secrets set "$AD=$DEGER" --project-ref bjrleanjpyujtajmazxn
+          echo "yazildi: $AD"

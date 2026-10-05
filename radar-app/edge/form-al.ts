@@ -48,7 +48,7 @@ const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = (Deno.env.get("SUPABASE_ANON_KEY") ?? "").trim();
 const RESEND_KEY = (Deno.env.get("RESEND_KEY") ?? "").trim();
 const RESEND_FROM = (Deno.env.get("RESEND_FROM") ?? "Tetikte <bildirim@tetikte.com>").trim();
-const ALICI = (Deno.env.get("FORM_ALICI") ?? "info@dizdardenetim.com").trim();
+const ALICI = (Deno.env.get("FORM_ALICI") ?? "destek@tetikte.com").trim();   // 05.10 Cem: "ikisine de ulaşıyorum" -> varsayılan destek@; canlı değer FORM_ALICI (edge-ayar.yml)
 
 const IZINLI_KOKEN = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 // Yerel geliştirme: arac/yerel-sunucu.js rastgele port alabiliyor (04.09: 56194).
@@ -143,7 +143,7 @@ async function mailGonder(konu: string, satirlar: [string, string][], yanitAdres
 }
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "afa687dd9971b46a";
+const KOD_IMZA = "a39c97838e83b12d";
 
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
