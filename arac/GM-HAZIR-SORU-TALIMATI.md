@@ -18,7 +18,8 @@
 
 ## Kaynak — hafızadan rakam YAZILMAZ
 Rakam, oran, had yalnız AMBARDAN (`dokumanlar.kaynak_ad`). Kullanılan her kaydın adı `kaynak_adlar`'a birebir yazılır (ön denetim ambarda arar).
-Yıla bağlı had: kanun kaydındaki parantezli tutar yılını SÖYLEMEZ → tutarı o yılın genel tebliğinden al (ör. GVK 2025 hadleri GVGT Seri 329).
+Yıla bağlı had: kanun kaydındaki parantezli tutar yılını SÖYLEMEZ → tutarı o yılın genel tebliğinden al (ör. GVK 2026 tarifesi ve hadleri GVGT `SERİ NO:332` — ambarda adı BOŞLUKSUZ; 2025 için `SERİ NO: 329`). Ambar araması geniş desenle yapılır (`%NO:332%`) — 05.10'da boşluklu arama "yok" dedi, kayıt vardı.
+GVK m.22 (kâr payı istisnası) 05.10'da ambara eklendi.
 
 ## Ücretsiz kapılar (bulut bunlarla soruyu PARA HARCAMADAN düşürür)
 - **KAPI-Y:** kökteki EN YENİ yıl = bugünün yılı. Geçmiş yıl soruluyorsa kökte bugünün yılı bağlamı verilir

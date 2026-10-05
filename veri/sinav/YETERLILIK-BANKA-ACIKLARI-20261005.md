@@ -22,7 +22,7 @@
 - Ücret: tabloda "Ücret gelirleri"ne denk ağırlıklı satır yok; ücretli varyantların son10'u 0.
 - Plan kurucu `-KonuBasiTavan 3` ile konu başına en çok 3 soru basar → tablo yoluyla bu konuya bir dalgada ≤3 soru gider.
 
-**Kaynak (ambar, 05.10 okundu):** GVK m.103 kaydı 2019 metni + güncel tutarlar parantez içinde iç içe, sonu m.104 başlığına taşmış ("TL) fazlası % % % % 40"). Ambardaki en güncel tarife tebliği **GVGT Seri 329** (2025 gelirleri: 158.000 / 330.000 / 800.000 (ücret 1.200.000) / 4.300.000). **Seri 332 (2026 tarifesi) ambarda YOK** — yalnız yerel `veri/mevzuat-hazir/gvkgt332.txt` (190.000 / 400.000 / 1.000.000 (ücret 1.500.000) …). m.23/18 (asgari ücret istisnası, 7349) ve m.86/1-b (dördüncü dilim) ambarda güncel. Asgari ücretin 2026 tutarı ambarda **ölçülmedi** → kökte verilmeli.
+**Kaynak (ambar, 05.10 okundu):** GVK m.103 kaydı 2019 metni + güncel tutarlar parantez içinde iç içe, sonu m.104 başlığına taşmış ("TL) fazlası % % % % 40"). Ambardaki en güncel tarife tebliği **GVGT Seri 329** (2025 gelirleri: 158.000 / 330.000 / 800.000 (ücret 1.200.000) / 4.300.000). **Seri 332 (2026 tarifesi) ambarda YOK** — yalnız yerel `veri/mevzuat-hazir/gvkgt332.txt` (190.000 / 400.000 / 1.000.000 (ücret 1.500.000) …). m.23/18 (asgari ücret istisnası, 7349) ve m.86/1-b (dördüncü dilim) ambarda güncel. Asgari ücretin 2026 tutarı ambarda **ölçülmedi** → kökte verilmeli. **⚠ DÜZELTME 05.10 (aynı oturum): "Seri 332 ambarda YOK" YANLIŞ — ambarda 11 kayıt var, adı boşluksuz ("SERİ NO:332"); ilk arama boşluklu yazıldı. 2026 tarifesi ambarda. Ölçüm koşusunun "2025 gelirleri" kurgusu bu yanlış bulguya dayanıyordu.**
 
 ## 2. Plan bağı — kasa etiketli tablo ↔ okunmuş eşleme
 
@@ -208,3 +208,10 @@ Kök nedenler:
 2. **Adım/sade katmanını bulut modeli yazıyor:** hazır soruda `adimlar` yok; KAPI-ADIM/YY ve simülasyon düşüşleri, AH'nin "6. adımda bulduk"
    ve sade toplam hataları bu katmanda. Teori sorusunda adım hiç yazılmıyor → "simülasyon koşamadı" (gm3'te de aynı).
 3. İçerik kusuru 1: m.75 bent atfı (AH, kolay MSİ).
+
+## 5. Düzeltmeler ve GM 1.2.3 (05.10, ikinci tur)
+
+- **Seri 332 ambarda VAR** (11 kayıt, `GELİR VERGİSİ GENEL TEBLİĞİ (SERİ NO:332) m.N`) — bölüm 1 ve iş emri satır 15 düzeltildi. Hakem HAYIR'ın (bölüm 4) kökü buna göre: yazar 2025 haddini kullandı, paket 2026 kaydını gösterdi → 2026 tarifesiyle yazılsaydı çelişki olmazdı (ölçülmedi).
+- **GVK m.22 ambara eklendi** (`arac/ambar-gvk22-ekle-20261005.js`, 2 kayıt, dipnotsuz, geri okundu birebir).
+- Var olan kaydı değiştiren iş emri satırları (16 m.103, 18 yılsız tutarlar, 19 m.88 başlığı) YAPILMADI: dayanak nöbetçisi etkisi ölçülmeden kayıt metni değişmez; kaynak_ad değişirse soru bağı kopar.
+- **B25**: GM yazarı adım + sade yazar; ön denetim ADIM YOK / SADE YOK + KAPI-KALITE (c73c1064). Kalıcı talimat `arac/GM-HAZIR-SORU-TALIMATI.md`.
