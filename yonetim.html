@@ -238,7 +238,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     /* siparişler */
     var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi</th><th>Durum</th><th></th></tr>';
     VERI.siparisler.forEach(function(s){
-      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':'')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':'')+'</td></tr>';
+      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':'')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
     });
     if(!VERI.siparisler.length) sh+='<tr><td colspan="9" class="not">Henüz sipariş yok.</td></tr>';
     $('tSiparis').innerHTML=sh;
@@ -283,6 +283,11 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     } else if(b.dataset.iptal){
       if(!confirm(b.dataset.iptal+' iptal edilsin mi? (Ödeme gelmediyse)')) return;
       await islem('yonetim_siparis_iptal', { p_no:b.dataset.iptal, p_neden:'yonetim' }, function(){ return '✓ Sipariş iptal edildi.'; });
+    } else if(b.dataset.iade){
+      /* 05.10: iade iyzico panelinden (ya da havale geri) YAPILDIKTAN SONRA basılır: sipariş 'iade', paket kapanır, elçi komisyonuna girmez */
+      if(!confirm(b.dataset.iade+' iade edildi olarak işaretlensin mi?\n\nÖNCE parayı iyzico panelinden (ya da havaleyle) geri gönderdiğinden emin ol.\nAlıcının paketi kapanır, elçi komisyonuna girmez.')) return;
+      var iNo=b.dataset.iade;
+      await islem('yonetim_siparis_iade', { p_no:iNo, p_neden:'yonetim ekranından' }, function(d){ return '✓ '+iNo+' iade olarak işaretlendi'+(d.paket_kapandi?', '+d.eposta+' paketi kapatıldı':'')+(d.elci?' (elçi '+d.elci+' komisyonuna girmez)':'')+'.'; });
     } else if(b.dataset.kapat){
       var zorla=b.dataset.hediye!=='1';
       if(!confirm(b.dataset.kapat+' kişisinin paketi kapatılsın mı?'+(zorla?'\n(Bu paket hediye kaydında yok, elle verilmiş.)':''))) return;
