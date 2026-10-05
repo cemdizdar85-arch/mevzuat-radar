@@ -1,12 +1,21 @@
 {
   "uretici": "arac/root-jeton-tarama.js",
-  "olcum": "2026-09-28T14:26:36.067Z",
-  "durum": "YESIL",
-  "taranan_dosya": 707,
-  "ayrisan_dosya": 19,
-  "okunurluk": 32,
-  "bilgi": 23,
-  "yeni_okunurluk": [],
+  "olcum": "2026-10-05T15:14:50.018Z",
+  "durum": "SARI",
+  "taranan_dosya": 775,
+  "ayrisan_dosya": 15,
+  "okunurluk": 31,
+  "bilgi": 19,
+  "yeni_okunurluk": [
+    {
+      "dosya": "motor/kaydir-coz.ps1",
+      "tur": "uretici",
+      "jeton": "--dim",
+      "deger": "#3d4b63",
+      "ortak": "#8f9dae",
+      "sinif": "okunurluk"
+    }
+  ],
   "gormez": ":root disindaki yerel tanimlar · arsiv/ · calisma aninda basilan renkler",
   "kayitlar": [
     {
@@ -50,14 +59,6 @@
       "sinif": "okunurluk"
     },
     {
-      "dosya": "firma-analizi.html",
-      "tur": "sayfa",
-      "jeton": "--amber",
-      "deger": "#ffb020",
-      "ortak": "#ffc24b",
-      "sinif": "bilgi"
-    },
-    {
       "dosya": "fiyat.html",
       "tur": "sayfa",
       "jeton": "--amber",
@@ -79,38 +80,6 @@
       "jeton": "--muted",
       "deger": "#9aa0a6",
       "ortak": "#93a1b3",
-      "sinif": "okunurluk"
-    },
-    {
-      "dosya": "idare-analizi.html",
-      "tur": "sayfa",
-      "jeton": "--amber",
-      "deger": "#ffb020",
-      "ortak": "#ffc24b",
-      "sinif": "bilgi"
-    },
-    {
-      "dosya": "ihale-radari.html",
-      "tur": "sayfa",
-      "jeton": "--amber",
-      "deger": "#ffb020",
-      "ortak": "#ffc24b",
-      "sinif": "bilgi"
-    },
-    {
-      "dosya": "index.html",
-      "tur": "sayfa",
-      "jeton": "--grad",
-      "deger": "linear-gradient(135deg,#f5a524 0%,#ffce6a 100%)",
-      "ortak": "linear-gradient(135deg,#f5a524 0%,#ffc24b 100%)",
-      "sinif": "bilgi"
-    },
-    {
-      "dosya": "index.html",
-      "tur": "sayfa",
-      "jeton": "--panel2",
-      "deger": "#101927",
-      "ortak": "#0a0f17",
       "sinif": "okunurluk"
     },
     {
@@ -333,7 +302,7 @@
       "dosya": "motor/kaydir-coz.ps1",
       "tur": "uretici",
       "jeton": "--dim",
-      "deger": "#4b5563",
+      "deger": "#3d4b63",
       "ortak": "#8f9dae",
       "sinif": "okunurluk"
     },
