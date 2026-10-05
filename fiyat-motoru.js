@@ -136,6 +136,11 @@ var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
 var KDV_HARIC_GOSTER = { sgs:true, 'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
 function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL + KDV' : tl(n) + ' TL'; }
 function fiyatDahilNot(id, n){ return KDV_HARIC_GOSTER[id] ? 'KDV dahil ' + tl(n) + ' TL' : ''; }
+/* 05.10 Cem ("KDV'yi küçük göster, bas bas KDV gösteriyorsun"): HTML basan yerler için aynı metin, KDV ekleri küçük ve
+   soluk (stil.css .kdv-ek / .kdv-dahil). Metin ve rakam yukarıdakilerle AYNI; yalnız görünüş. KDV dahil toplam okunur
+   boyda kalır (en az 12px) - Fiyat Etiketi Yön. tüketiciye toplamın görünmesini ister. */
+function fiyatAnaHtml(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL<small class="kdv-ek"> + KDV</small>' : tl(n) + ' TL'; }
+function fiyatDahilHtml(id, n){ var d = fiyatDahilNot(id, n); return d ? ' <small class="kdv-dahil">(' + d + ')</small>' : ''; }
 
 /* ---------------------------------------------------------------------------
    FİYATLAR — kuruluş / liste çifti. TL, KDV DAHİL (sınav tarafı). Rakamlar hep KDV dahil tutulur;

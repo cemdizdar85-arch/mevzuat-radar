@@ -520,7 +520,7 @@
     try{
       var fp=tek?(FIYAT.yeterlilik&&FIYAT.yeterlilik[rN]):FIYAT.yeterlilikTum;
       if(fp){
-        $('svTeklifFiyat').innerHTML='<b>'+(tek?rN+' ders ':'Tüm dersler ')+fiyatAna(pid,fp.kurulus)+'</b>'+(fiyatDahilNot(pid,fp.kurulus)?' ('+fiyatDahilNot(pid,fp.kurulus)+')':'')+' · sınava kadar erişim'
+        $('svTeklifFiyat').innerHTML='<b>'+(tek?rN+' ders ':'Tüm dersler ')+fiyatAnaHtml(pid,fp.kurulus)+'</b>'+fiyatDahilHtml(pid,fp.kurulus)+' · sınava kadar erişim'
           +(fp.liste>fp.kurulus&&typeof KOTA!=='undefined'&&KOTA.yeterlilik?' · ilk '+tl(KOTA.yeterlilik)+' kurucuya kurucu fiyatı (sonra '+fiyatAna(pid,fp.liste)+')':'');
         $('svTeklifFiyat').hidden=false;
       }
@@ -599,7 +599,7 @@
     try{
       if(typeof FIYAT!=='undefined'&&FIYAT.sgs){
         var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
-        $('svTeklifFiyat').innerHTML='<b>'+fiyatAna('sgs',f.kurulus)+'</b> ('+(fiyatDahilNot('sgs',f.kurulus)||'KDV dahil')+') · sınava kadar erişim (en az '+ay+' ay)'
+        $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml('sgs',f.kurulus)+'</b>'+(fiyatDahilHtml('sgs',f.kurulus)||' (KDV dahil)')+' · sınava kadar erişim (en az '+ay+' ay)'
           +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' kurucuya kurucu fiyatı (sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?', '+fiyatDahilNot('sgs',f.liste):'')+')':'')
           ;   /* 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" */
         $('svTeklifFiyat').hidden=false;

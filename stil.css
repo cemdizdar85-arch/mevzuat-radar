@@ -183,3 +183,7 @@ input[type=checkbox],input[type=radio]{
 
 /* 05.10 Cem: logo buyudu (menu.js 28px); dar telefonda menu sigsin diye 24px */
 @media(max-width:420px){ .ust-logo{--marka-olcu:24px !important} }
+
+/* 05.10 Cem ("KDV'yi küçük göster"): fiyat-motoru.js fiyatAnaHtml / fiyatDahilHtml ekleri. Dahil toplam en az 12px (okunur kalır). */
+.kdv-ek{font-size:max(11px,.55em);font-weight:500;color:var(--muted);letter-spacing:0}
+.kdv-dahil{font-size:max(12px,.5em);font-weight:500;color:var(--muted);letter-spacing:0;white-space:nowrap}

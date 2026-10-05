@@ -110,9 +110,13 @@
      25.09 Cem ("3 yap"): fiyat 3.390'a cikinca harc (1.635) capa olarak ters calisiyordu
      ("harcin iki kati"). Manset capasi CANLI KURS tabanina alindi: 8.500 TL KDV dahil,
      15.09.2026 rakip olcumu (kurumun kendi sitesi). Rakip adi YAZILMAZ. Harc alt satirda kalir. -->
+<!-- 05.10 Cem ("rakiplerin adını yazmıyoruz ama örnek olarak o fiyatları alalım"): kıyas TÜR + ARALIK ile, ad YOK.
+     05.10.2026 okuması (kurumların kendi siteleri, KDV dahil karşılık; KDV'si yazmayan yazdığı gibi):
+     CANLI 8.500 – 16.800 (5 kurum; en yüksek 14.000+KDV) · VİDEO 4.500 – 7.700 (3 kurum; canlı kaydı+kamp karması hariç).
+     Bir kurum fiyatı sitede göstermiyordu, sayılmadı. Yeniden okuma: kampanya bitişlerinde ve her dönem başında. -->
 <div class="vurus">
-  <div class="buyuk">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor.<br>Biz <b id="vurusFiyat">2.490 TL + KDV <span style="font-weight:600">(KDV dahil 2.988 TL)</span></b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
-  <p>Kurs fiyatları kurumların kendi sitelerinden, 15.09.2026'da okundu (KDV dahil karşılığıyla). Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
+  <div class="buyuk">Canlı hazırlık kursları <b>8.500 – 16.800 TL</b>.<br>Video ders paketleri <b>4.500 – 7.700 TL</b>.<br>Biz <b id="vurusFiyat">2.490 TL + KDV <span style="font-weight:600">(KDV dahil 2.988 TL)</span></b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
+  <p>Kurs ve video fiyatları kurumların kendi sitelerinden 05.10.2026'da okundu; KDV dahil karşılığıyla yazıldı. Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
 
@@ -308,8 +312,8 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 <div class="kutu">
   <h2>Biz kurs değiliz, kursun yapmadığını yapıyoruz</h2>
   <!-- 02.10: eski "8.400 – 39.900 TL (29.08, yedi kurum)" sayfanın manşetindeki 15.09 ölçümüyle (8.500'den) çelişiyordu; tek ölçüme indirildi -->
-  <p style="margin:0;font-size:14px">Canlı hazırlık kursları <b>8.500 TL</b>'den başlıyor
-  (15.09.2026'da kurumların kendi sitesinden okundu) ve iyi iş yapıyorlar: konuyu anlatıyorlar.
+  <p style="margin:0;font-size:14px">Canlı hazırlık kursları <b>8.500 – 16.800 TL</b>
+  (05.10.2026'da kurumların kendi sitesinden okundu) ve iyi iş yapıyorlar: konuyu anlatıyorlar.
   Ama sınav, konuyu <b>bilmekle</b> değil, soruyu <b>çözmekle</b> kazanılıyor.</p>
   <p style="margin:10px 0 0;font-size:14px">Kursa gidiyorsan Tetikte antrenman salonun olur.
   Kursa gitmiyorsan zaten tek ihtiyacın bu. <b class="a">208 saat ders dinleyecek vaktin yoksa,
@@ -410,7 +414,7 @@ function kart(id, p){
   var ls = document.getElementById('ls' + id);
   if(p.liste > p.fiyat){
     /* 25.09 Cem: '%' rozeti ve üstü çizili liste kaldırıldı (hiç uygulanmamış fiyat çizilemez); ileriye dönük yazılır. */
-    ls.textContent = (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'Sonra ') + fiyatAna(pid, p.liste) + (fiyatDahilNot(pid, p.liste) ? ' (' + fiyatDahilNot(pid, p.liste) + ')' : '');
+    ls.innerHTML = (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'Sonra ') + fiyatAnaHtml(pid, p.liste) + fiyatDahilHtml(pid, p.liste);   /* 05.10: KDV ekleri küçük */
   }
   var kt = document.getElementById('kt' + id);
   if(kt && p.kota){ kt.textContent = 'ilk ' + tl(p.kota) + ' kurucu'; }
@@ -418,12 +422,13 @@ function kart(id, p){
   // sunucu sayiyi vermezse bos kalir (uydurma sayi yazilmaz).
   var kh = document.getElementById('kh' + id);
   if(kh){
-    kh.textContent = hr ? fiyatDahilNot(pid, p.fiyat) : '';
+    /* 05.10 Cem: KDV dahil satırı soluk/küçük; kalan kurucu sayısı (varsa) kalın */
+    var dahilH = hr ? '<span class="kdv-dahil" style="font-size:13px">' + fiyatDahilNot(pid, p.fiyat) + '</span>' : '';
+    kh.innerHTML = dahilH;
     if(p.sinav && p.kota && p.liste > p.fiyat){
-      kurucuKalan(function(k){ var t = kurucuSatir(p.sinav, k); if(t){ kh.textContent = (hr ? fiyatDahilNot(pid, p.fiyat) + ' · ' : '') + t;   /* 01.10: dahil tutar kalan sayısıyla ezilmesin */ kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; } });
+      kurucuKalan(function(k){ var t = kurucuSatir(p.sinav, k); if(t){ kh.innerHTML = (dahilH ? dahilH + ' · ' : '') + '<b style="color:var(--ink)">' + t + '</b>';   /* 01.10: dahil tutar kalan sayısıyla ezilmesin */ } });
     }
   }
-  if(hr){ kh.style.color = 'var(--ink)'; kh.style.fontWeight = '700'; kh.style.fontSize = '13px'; }
 }
 /* KGK karti SMMM PAKETINI gosterir (3 konu), "dort konunun tamami"ni degil:
    KGK'da alicinin buyuk cogunlugu SMMM ve KGK'nin kendi sayfasina gore SMMM
@@ -438,9 +443,9 @@ document.getElementById('erSgs').textContent = pSgs.erisim;
 document.getElementById('erYet').textContent = pYet.erisim;
 
 // "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
-document.getElementById('fyYet1').textContent = fiyatAna('yeterlilik-1', paketBul('yeterlilik-1').fiyat);   /* 01.10: '+ KDV' */
+document.getElementById('fyYet1').innerHTML = fiyatAnaHtml('yeterlilik-1', paketBul('yeterlilik-1').fiyat);   /* 01.10: '+ KDV' */
 (function(){ var k = yeterlilikAyriEnAz('kurulus'), e = document.getElementById('ayYet');
-  if(k && e) e.textContent = 'Aynı ' + DERSLER.yeterlilik.length + ' dersi ayrı paketlerle (' + k.parca.join(' + ') + ' ders) alsan en az ' + fiyatAna('yeterlilik-tum', k.tutar); })();
+  if(k && e) e.innerHTML = 'Aynı ' + DERSLER.yeterlilik.length + ' dersi ayrı paketlerle (' + k.parca.join(' + ') + ' ders) alsan en az ' + fiyatAnaHtml('yeterlilik-tum', k.tutar); })();
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
 document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 
@@ -455,7 +460,7 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 });
 
 /* 04.10 Cem (+KDV dili): ana rakam '+ KDV', KDV dahil yanında - kurs fiyatı KDV dahil yazılı olduğu için kıyas temeli (KDV dahil) GÖRÜNÜR kalır (01.10) */
-document.getElementById('vurusFiyat').innerHTML = (typeof fiyatAna==='function' ? fiyatAna('sgs', pSgs.fiyat) : tl(pSgs.fiyat) + ' TL') + (typeof fiyatDahilNot==='function' && fiyatDahilNot('sgs', pSgs.fiyat) ? ' <span style="font-weight:600">(' + fiyatDahilNot('sgs', pSgs.fiyat) + ')</span>' : '');
+document.getElementById('vurusFiyat').innerHTML = fiyatAnaHtml('sgs', pSgs.fiyat) + fiyatDahilHtml('sgs', pSgs.fiyat);   /* 05.10 Cem: KDV ekleri küçük */
 document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 
 // HARC KARSILASTIRMASI: her basamak harctan ucuz mu, tablo kendisi gostersin.
@@ -501,8 +506,8 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
     /* 02.10: tablo KDV dahil basıyordu, sayfa notu "KDV hariç gösterilir" diyor → motorun yardımcısıyla (01.10 kararı) */
     var dahil = function(n){ var d = fiyatDahilNot(id, n); return d ? '<br><span class="kucuk">' + d + '</span>' : ''; };
     tr.innerHTML = '<td>' + p.ad + '</td>'
-      + '<td class="sag simdi">' + fiyatAna(id, p.fiyat) + dahil(p.fiyat) + '</td>'
-      + '<td class="sag">' + fiyatAna(id, p.liste) + dahil(p.liste) + '</td>'
+      + '<td class="sag simdi">' + fiyatAnaHtml(id, p.fiyat) + dahil(p.fiyat) + '</td>'
+      + '<td class="sag">' + fiyatAnaHtml(id, p.liste) + dahil(p.liste) + '</td>'
       + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' kurucu' : '—') + '<br><span class="kucuk kurucuKalan"></span></td>';
     t.appendChild(tr);
     if(p.sinav && p.kota){
