@@ -25,7 +25,11 @@ param([switch]$Yaz, [switch]$IndirmeYok, [double]$IkizEsik = 0.60, [double]$Ikiz
   #   -SiteKabuk: sayfalar kaydir/smmm/<slug>.html'e kurulur, hemen ardından motor/kasa-kabuk.js --yaz ile SORUSUZ kabuğa
   #   çevrilir (eşdeğerlik kapısı: kasadaki satırlar sayfadaki SORULAR ile alan alan aynı olmalı) ve YALNIZ kabuk diskte kalır.
   #   Kabuk yazılamazsa (eşdeğerlik tutmazsa) sayfa SİLİNİR — depoda soru içeriği bırakılmaz.
-  [switch]$SiteKabuk)
+  [switch]$SiteKabuk,
+  # 05.10.2026 (Cem "1.2.3", GM2) SAYI İKİZİ (arac/ikiz-olcusu.ps1 IkizSayiMi): çiftin YENİ sorusu (SmmmYeniSoruMu) düşer;
+  #   iki eski soru arasındaki sayı ikizi yalnız SAYILIR (Cem 30.09 "geri çekilmesin, elle düzelt" — onarım kuyruğuna).
+  #   -SayiIkizYok: kural kapalı (eşdeğerlik provası). -SadeceSecim: seçim satırlarını basar, hiçbir şey yazmadan çıkar (prova).
+  [switch]$SayiIkizYok, [switch]$SadeceSecim)
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 . (Join-Path $PSScriptRoot 'smmm-yayin-sarti.ps1')
@@ -88,11 +92,12 @@ foreach ($f in @(Get-ChildItem $fabrika -Filter 'kalip-parti-smmm-*.json')) {
     if (-not $ders) { $dusen['ders çözülemedi'] = 1 + [int]$dusen['ders çözülemedi']; continue }
     $aday.Add([pscustomobject]@{ etiket = $et; id = $p.Name; ders = $ders; konu = "$($v.konu)"; donem = [int]$v.donem; boy = "$($v.soru)".Length
         uc = (Ucluler (Katla "$($v.soru)")); ucD = (Ucluler (Katla "$($v.siklar.$("$($v.dogru)".Trim().ToUpperInvariant()))"))
-        ai = (IkizAnlamIz (IkizAnlamGrup $ders "$($v.konu)" $v.kaynak_adlar) "$($v.soru)" (IkizDogruMetin $v)) })
+        ai = (IkizAnlamIz (IkizAnlamGrup $ders "$($v.konu)" $v.kaynak_adlar) "$($v.soru)" (IkizDogruMetin $v))
+        si = (IkizSayiIz "$($v.soru)" (IkizDogruMetin $v)); yeni = (SmmmYeniSoruMu $v) })
   }
 }
 # KAPI-IK (ders içinde, iki ölçüt)
-$ikizDisi = @{}; $anlamIkiz = @{}
+$ikizDisi = @{}; $anlamIkiz = @{}; $sayiIkiz = @{}; $sayiEski = @{}
 foreach ($g in @($aday | Group-Object ders)) {
   $l = @($g.Group | Sort-Object @{ e = { $_.boy }; Descending = $true }, etiket, id)   # uzun olan önce → kalan
   for ($i = 0; $i -lt $l.Count; $i++) {
@@ -103,13 +108,27 @@ foreach ($g in @($aday | Group-Object ders)) {
       if ($klasik) { $ikizDisi[$kj] = "$($l[$i].etiket)|$($l[$i].id)"; continue }
       # 24.09 (Cem "1.2.3" madde 3): ANLAMCA İKİZ — aynı ders+konu+ilk kaynak, soru ≥0,40, doğru şık ≥0,60 (yazılı, rakamlar aynı).
       # Ölçüm ve sınır arac/ikiz-olcusu.ps1 IkizAnlamMi başlığında; yayındaki 2.859 soruda ~57 eler.
-      if (-not $AnlamIkizYok -and (IkizAnlamMi $l[$i].ai $l[$j].ai)) { $ikizDisi[$kj] = "$($l[$i].etiket)|$($l[$i].id)"; $anlamIkiz[$kj] = 1 }
+      if (-not $AnlamIkizYok -and (IkizAnlamMi $l[$i].ai $l[$j].ai)) { $ikizDisi[$kj] = "$($l[$i].etiket)|$($l[$i].id)"; $anlamIkiz[$kj] = 1; continue }
+      # 05.10 SAYI İKİZİ: yalnız YENİ soru düşer (j yeniyse j; j eskiyse ve i yeniyse i — i düşünce iç döngü biter)
+      if (-not $SayiIkizYok -and (IkizSayiMi $l[$i].si $l[$j].si)) {
+        $ki = "$($l[$i].etiket)|$($l[$i].id)"
+        if ($l[$j].yeni) { $ikizDisi[$kj] = $ki; $sayiIkiz[$kj] = 1; continue }
+        if ($l[$i].yeni) { $ikizDisi[$ki] = $kj; $sayiIkiz[$ki] = 1; break }
+        $sayiEski["$ki~$kj"] = 1
+      }
     }
   }
 }
 $secim = @($aday | Where-Object { -not $ikizDisi.ContainsKey("$($_.etiket)|$($_.id)") })
-if ($ikizDisi.Count) { $dusen['KAPI-IK ikiz'] = $ikizDisi.Count - $anlamIkiz.Count }; if ($anlamIkiz.Count) { $dusen['KAPI-IK anlam ikiz'] = $anlamIkiz.Count }
+if ($ikizDisi.Count) { $dusen['KAPI-IK ikiz'] = $ikizDisi.Count - $anlamIkiz.Count - $sayiIkiz.Count }; if ($anlamIkiz.Count) { $dusen['KAPI-IK anlam ikiz'] = $anlamIkiz.Count }
+if ($sayiIkiz.Count) { $dusen['KAPI-IK sayı ikizi (yeni soru)'] = $sayiIkiz.Count }
+if ($sayiEski.Count) { $dusen['(bilgi) eski-eski sayı ikizi çifti, düşmedi'] = $sayiEski.Count }
 "SMMM KASA SEÇİMİ: aday $($aday.Count) · seçilen $($secim.Count) · düşen: $(($dusen.GetEnumerator() | Sort-Object Name | ForEach-Object { "$($_.Name) $($_.Value)" }) -join ' · ')"
+if ($SadeceSecim) {
+  # prova: seçilen kimlikler (soru metni YOK) → eşdeğerlik kıyası için
+  $env:SMMM_SECIM_CIKTI | Where-Object { $_ } | ForEach-Object { [IO.File]::WriteAllText($_, ((@($secim | ForEach-Object { "$($_.etiket)/$($_.id)" }) | Sort-Object) -join "`n"), (New-Object Text.UTF8Encoding($false))) }
+  "SADECE SEÇİM: yazım yok, çıkılıyor"; exit 0
+}
 # ⭐ 24.09.2026 ONAY YAYIN KAPISI (Cem "1.2.3"): Cem'in ONAY verdiği soru yayında değilse NEDENİ söylenir.
 #   Olay: onaylı 55 sorunun 55'i ret kütüğünde KAPI-KOR ile kayıtlıydı ve bu betik onları onaydan bağımsız eliyordu —
 #   yayında 0/55, kimse görmedi. Normal düşüş: ikiz kapısı · ELLE RET · yayın şartı (soru değişti → onay parmak izi

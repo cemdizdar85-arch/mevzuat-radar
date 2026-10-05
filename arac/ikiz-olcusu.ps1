@@ -108,3 +108,36 @@ function IkizAnlamMi($a, $b) {
   if ((IkizBenzerlik $a.ucD $b.ucD) -lt $script:IKIZ_ANLAM_SIK) { return $false }
   return $true
 }
+
+# ⭐ 05.10.2026 — SAYI İKİZİ (Cem "1.2.3", GM2): aynı veri + aynı cevap, başka cümle.
+#   NİYE: harf cetveli (soru ≥0,60 VE doğru şık ≥0,60) ve anlam ikizi (aynı konu etiketi + doğru şık YAZILI ≥25 harf) sayısal
+#   cevaplı kopyayı görmüyordu. ÖLÇÜLDÜ (05.10, Denetim dersi, sitedeki 385 soru): yayın cetveli 0 çift; ama
+#   smmm-4k-a-ydenetim-kolay-r7/kp-01 · zor-r3/kp-01 · zor-r5/kp-01 aynı tutarlar (150.000 alacak, 30.000 teminat) ve aynı
+#   cevap (108.000) ile üçü birden yayında — soru benzerliği 0,42–0,45.
+#   KURAL: doğru şıktaki TUTARLAR (binlik ayraçlı: 108.000, 1.250.000,50) aynı ve boş değil + kökteki tutar kümesi Jaccard
+#   ≥0,50 + soru üçlü-harf benzerliği ≥0,35. Aynı ders içinde aranır (çağıran karar verir).
+#   ÖLÇÜLDÜ (05.10, 6.649 parti sorusundan seçilen 97 aday çift, iki sorunun tamamı okunarak): bu kural 54 çift seçti →
+#     46 İKİZ · 8 YAKIN (aynı veri, başka soru) · 0 AYRI; okunan 56 ikizin 10'unu kaçırdı. Okunan AYRI'ların soru benzerliği
+#     en çok 0,25'ti (kanun no/tarih eşleşmesi, farklı konuda aynı tutar çifti) — 0,35 eşiği bunları ayırıyor.
+#     Tutar yalnız BİNLİK AYRAÇLI sayıdır: kanun numarası (6362), yıl (2026), gün (10) eşleşme saymaz (AYRI'ların ana kaynağı).
+#   🚫 GÖRMEZ: tutarı 1.000'in altında olan ya da ayraçsız yazılmış hesap sorusu ikizi · tutarları değiştirilmiş aynı kalıp
+#     (bilinçli serbest: sayı değişkeni) · sözel ikiz (harf/anlam cetveli işi) · ölçüm yalnız 97 adayda yapıldı, dışında ölçülmedi.
+#   Öz-sınav: arac/ikiz-olcusu-sinavi.ps1 (mutasyon: $env:IKIZ_SAYI_MUTASYON = tutar | kok | harf).
+$script:IKIZ_SAYI_KOK = 0.50; $script:IKIZ_SAYI_SORU = 0.35
+function IkizTutarlar([string]$s) {
+  $h = New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach ($m in [regex]::Matches("$s", '\d{1,3}(?:\.\d{3})+(?:,\d+)?')) { [void]$h.Add($m.Value) }
+  return , $h
+}
+function IkizSayiIz([string]$soru, [string]$dogruSik) {
+  $d = IkizTutarlar $dogruSik
+  return [pscustomobject]@{ tutD = ((@($d) | Sort-Object) -join '|'); tutS = (IkizTutarlar $soru); uc = (IkizUcluler (IkizKatla $soru)) }
+}
+function IkizSayiMi($a, $b) {
+  if (-not $a -or -not $b) { return $false }
+  $mut = "$env:IKIZ_SAYI_MUTASYON"
+  if ($mut -ne 'tutar' -and (-not $a.tutD -or $a.tutD -ne $b.tutD)) { return $false }
+  if ($mut -ne 'kok' -and (IkizBenzerlik $a.tutS $b.tutS) -lt $script:IKIZ_SAYI_KOK) { return $false }
+  if ($mut -ne 'harf' -and (IkizBenzerlik $a.uc $b.uc) -lt $script:IKIZ_SAYI_SORU) { return $false }
+  return $true
+}

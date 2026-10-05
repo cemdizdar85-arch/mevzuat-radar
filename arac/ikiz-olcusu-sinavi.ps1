@@ -89,6 +89,25 @@ Vaka 'ANLAM SINIRI: ayni cevap ama soru metni cok farkli (<0,40) -> AYRI (bilinc
 Vaka 'ANLAM: grup bos (konu/kaynak yok) -> AYRI' (IkizAnlamMi (AI '' 'a' 'b') (AI '' 'a' 'b')) $false
 if ((IkizAnlamGrup 'Hukuk' 'haksiz fiil' @('TEORI - x', 'TBK (6098 s.K.) m.49')) -eq 'Hukuk|haksiz fiil|TBK (6098 s.K.) m.49') { $gecen++; if (-not $Sessiz) { '  OK    IkizAnlamGrup TEORI notunu atlayip ilk resmi kaynagi alir' } } else { $kalan.Add("IkizAnlamGrup yanlis: '$(IkizAnlamGrup 'Hukuk' 'haksiz fiil' @('TEORI - x', 'TBK (6098 s.K.) m.49'))'") }
 
+# --- 05.10 SAYI İKİZİ (IkizSayiMi) — gerçek vaka sınıfları (Denetim 108.000 üçlüsü; okunan AYRI'lar), metin kısaltıldı
+function SayIz([string]$s, [string]$d) { return (IkizSayiIz $s $d) }
+$s1 = SayIz 'Anadolu Tekstil AS nin bir musterisinden olan 150.000 TL (KDV dahil) alacagi icin 2026 yilinda dava acilmistir. Alacagin 30.000 TL lik kismi ipotekle teminat altindadir. VUK 323 e gore ayrilabilecek supheli alacak karsiligi kac TL dir?' '108.000'
+$s2 = SayIz 'Isletmenin ticari faaliyetinden dogan ve dava safhasina intikal eden 150.000 TL tutarindaki alacaginin 30.000 TL lik kismi ipotekle teminat altina alinmistir. Ayrilabilecek supheli alacak karsiligi tutari nedir?' '108.000 TL'
+Vaka 'SAYI: ayni tutarlar + ayni cevap, baska cumle (harf cetveli kacirir) -> IKIZ' (IkizSayiMi $s1 $s2) $true
+Vaka 'SAYI kontrol: ayni cift harf cetvelinde AYRI (yeni olcut gercekten ek)' (IkizMi (P 'Anadolu Tekstil AS nin bir musterisinden olan 150.000 TL (KDV dahil) alacagi icin 2026 yilinda dava acilmistir. Alacagin 30.000 TL lik kismi ipotekle teminat altindadir. VUK 323 e gore ayrilabilecek supheli alacak karsiligi kac TL dir?' '108.000') (P 'Isletmenin ticari faaliyetinden dogan ve dava safhasina intikal eden 150.000 TL tutarindaki alacaginin 30.000 TL lik kismi ipotekle teminat altina alinmistir. Ayrilabilecek supheli alacak karsiligi tutari nedir?' '108.000 TL')) $false
+$s3 = SayIz 'Isletmenin bir musterisinden olan alacagi icin dava acilmistir. Alacaga ait mal bedeli 100.000 TL ve KDV 20.000 TL dir; 12.000 TL lik kismi teminatlidir. Supheli alacak karsiligi kac TL dir?' '108.000'
+Vaka 'SAYI: ayni cevap ama BASKA veri (kok tutarlari ortusmuyor) -> AYRI' (IkizSayiMi $s1 $s3) $false
+$s4 = SayIz 'Anadolu Tekstil AS nin bir musterisinden olan 150.000 TL (KDV dahil) alacagi icin 2026 yilinda dava acilmistir. Alacagin 30.000 TL lik kismi ipotekle teminat altindadir. VUK 323 e gore ayrilabilecek supheli alacak karsiligi kac TL dir?' '120.000'
+Vaka 'SAYI: ayni veri ama BASKA cevap -> AYRI' (IkizSayiMi $s1 $s4) $false
+$s5 = SayIz 'Uretim isletmesinde fiili genel uretim gideri 180.000 TL, yuklenen genel uretim gideri 150.000 TL dir. Eksik yuklenen tutar hangi hesaba kaydedilir ve tutari nedir?' '30.000 TL eksik yukleme'
+$s6 = SayIz 'Bir makinenin defter degeri 180.000 TL, geri kazanilabilir tutari 150.000 TL dir. TMS 36 ya gore deger dusuklugu zarari kac TL dir?' '30.000 TL'
+Vaka 'SAYI yanlis alarm: farkli konuda ayni tutar cifti (okunan AYRI sinifi, soru benzerligi dusuk) -> AYRI' (IkizSayiMi $s5 $s6) $false
+$s7 = SayIz '6362 sayili Sermaye Piyasasi Kanunu kapsaminda halka acik ortakliklarin ayin 10 una kadar yapmasi gereken bildirim hangisidir?' '6362 sayili Kanun m.10'
+$s8 = SayIz '6362 sayili Sermaye Piyasasi Kanunu m.21 e gore ortulu kazanc aktarimi ayin 10 unda tespit edilirse hangi yaptirim uygulanir?' '6362 sayili Kanun m.10'
+Vaka 'SAYI yanlis alarm: kanun no / gun eslesmesi (tutar degil) -> AYRI' (IkizSayiMi $s7 $s8) $false
+Vaka 'SAYI: dogru sikta tutar yok -> AYRI (cokmeden)' (IkizSayiMi (SayIz 'a' 'b') (SayIz 'a' 'b')) $false
+Vaka 'SAYI: null iz -> AYRI (cokmeden)' (IkizSayiMi $null $s1) $false
+
 ''
 "IKIZ OLCUSU OZ-SINAVI: {0}/{1} gecti" -f $gecen, ($gecen + $kalan.Count)
 if ($kalan.Count) { foreach ($k in $kalan) { Write-Host "  KIRMIZI: $k" -ForegroundColor Red }; exit 1 }
