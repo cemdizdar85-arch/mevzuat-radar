@@ -21,7 +21,7 @@
 //  ⚠ IBAN fiyat-motoru.js ODEME_BANKA ile AYNI olmalı (orada değişirse burada da).
 // ============================================================================
 
-const KOD_IMZA = "0a7f0b463cd3ad8f";
+const KOD_IMZA = "7ec6e0a532a52e2d";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -41,9 +41,9 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     `Açıklama: ${s.siparis_no}  (havale açıklamasına yalnız sipariş numaranı yaz)`, "",
     "Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.",
     "Siparişi verdiğin e-postayla tetikte.com'da ücretsiz hesap açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.", "",
-    "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Tetikte · Yanlışını, sebebiyle birlikte öğren.",
+    "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir.",
   ];
-  const html = `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#0f1b2d;max-width:560px">
+  const html = `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#0f1b2d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
 <p>Merhaba ${kacis(ad)},</p><p>Tetikte siparişin alındı. Ödemeni aşağıdaki hesaba <b>havale/EFT</b> ile yapınca paketin açılır.</p>
 <table style="border-collapse:collapse;margin:10px 0">
 <tr><td style="padding:4px 14px 4px 0;color:#3d4b63">Sipariş no</td><td><b>${kacis(s.siparis_no)}</b></td></tr>
@@ -57,7 +57,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 <p>Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.</p>
 <p>Siparişi verdiğin e-postayla <a href="https://tetikte.com/ogrenci.html#uye-ol">tetikte.com'da ücretsiz hesap</a> açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.</p>
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>
-<p style="color:#3d4b63">Tetikte · Yanlışını, sebebiyle birlikte öğren.</p></div>`;
+<p style="color:#3d4b63">Sınava tetikte gir.</p></div>`;
   return { konu, metin: satirlar.join("\n"), html };
 }
 
@@ -70,14 +70,14 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     : "Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.";
   const satirlar = [`Merhaba ${ad},`, "", `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`,
     `Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`, "", giris, "", "https://tetikte.com/ogrenci.html", "",
-    "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Tetikte · Yanlışını, sebebiyle birlikte öğren."];
-  const html = `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#0f1b2d;max-width:560px">
+    "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir."];
+  const html = `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#0f1b2d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
 <p>Merhaba ${kacis(ad)},</p><p><b>${kacis(s.siparis_no)}</b> numaralı siparişinin ödemesi hesabımıza geçti.</p>
 <p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>
 <p>${kacis(giris)}</p>
 <p><a href="https://tetikte.com/ogrenci.html" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>
-<p style="color:#3d4b63">Tetikte · Yanlışını, sebebiyle birlikte öğren.</p></div>`;
+<p style="color:#3d4b63">Sınava tetikte gir.</p></div>`;
   return { konu, metin: satirlar.join("\n"), html };
 }
 

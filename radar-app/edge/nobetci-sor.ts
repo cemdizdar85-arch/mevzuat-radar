@@ -17,7 +17,7 @@
 // ============================================================================
 import Anthropic from "npm:@anthropic-ai/sdk";
 
-const KOD_IMZA = "57d1422ba51714f6";
+const KOD_IMZA = "507a95504cf2443a";
 const GUNLUK = 10, AYLIK_USD = 100, MODEL = "claude-opus-5-5";
 const FIYAT: Record<string, [number, number]> = {           // USD / milyon token (girdi, çıktı) - 2026-09-25 tablosu
   "claude-opus-5-5": [4, 20], "claude-opus-5": [5, 25], "claude-opus-4-8": [5, 25], "claude-sonnet-5-5": [2, 10], "claude-fable-5-1": [10, 50],
@@ -102,7 +102,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     if (e.cevap_mail) return cevap(200, { success: true, zaten: true });
     const metin = `Merhaba,\n\n"Ekibe sor" ile ilettiğin sorunun cevabı:\n\n${e.cevap}\n\n— Senin sorun: ${e.mesaj}\n\nTetikte ekibi · Yanlışını, sebebiyle birlikte öğren.`;
     const ok = await mail(e.eposta, "Sorunun cevabı geldi · Tetikte ekibi", metin,
-      `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;max-width:560px"><p>Merhaba,</p><p>"Ekibe sor" ile ilettiğin sorunun cevabı:</p><div style="border-left:3px solid #f3a52a;padding:6px 12px;white-space:pre-wrap">${kacis(e.cevap)}</div><p style="color:#3d4b63">Senin sorun: ${kacis(e.mesaj)}</p><p style="color:#3d4b63">Tetikte ekibi · Yanlışını, sebebiyle birlikte öğren.</p></div>`);
+      `<div style="font-family:-apple-system,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px"><p>Merhaba,</p><p>"Ekibe sor" ile ilettiğin sorunun cevabı:</p><div style="border-left:3px solid #f3a52a;padding:6px 12px;white-space:pre-wrap">${kacis(e.cevap)}</div><p style="color:#3d4b63">Senin sorun: ${kacis(e.mesaj)}</p><p style="color:#3d4b63">Tetikte ekibi · Yanlışını, sebebiyle birlikte öğren.</p></div>`);
     if (ok) await svc(`ekibe_soru?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ cevap_mail: new Date().toISOString() }) });
     return cevap(ok ? 200 : 502, { success: ok });
   }

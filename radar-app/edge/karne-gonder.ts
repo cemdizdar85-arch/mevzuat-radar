@@ -110,7 +110,7 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
   ].join("\n");
   const renk: Record<string, string> = { guclu: "#15803d", sinirda: "#8d6c38", riskli: "#b91c1c" };
   const g = s.dersler.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;color:${renk[x.durum]}">${DURUM_AD[x.durum]}</td></tr>`).join("");
-  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px">
+  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
 <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · SMMM Yeterlilik seviye testi</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · bu testte ${s.dogru} / ${s.soru} · tezkiye ${s.tezkiye}</p>
@@ -196,7 +196,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
   ].join("\n");
   const vurgu = (x: { ad: string }) => x === enZayif && kacan > 0;
   const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb${vurgu(x) ? ";font-weight:700;color:#b91c1c" : ""}">${kacis(x.ad)}${vurgu(x) ? " · önce burası" : ""}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td></tr>`).join("");
-  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px">
+  const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px"><img src="https://tetikte.com/gorsel/logo-mail.png" width="137" height="40" alt="tetikte" style="display:block;border:0;outline:none;margin:0 0 16px">
 <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Staja Giriş seviye testi</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · 130 soruda tahmini doğru: yaklaşık <b>${s.dogru130}</b> · bu testte ${s.dogru} / ${s.soru}</p>
@@ -218,7 +218,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "dd19fc3e695d7516";
+const KOD_IMZA = "2cdf4bb977289bfd";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
