@@ -18,12 +18,13 @@ const TR = require(path.join(__dirname, 'turkce-karakter-kapisi.js'));
 const KEY = (process.env.SUPABASE_SERVICE_KEY || '').trim();
 const API = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/';
 const KURU = process.argv.includes('--kuru');
-const KISA_ASCII = /\b(sayili|isletme|odeme|isci|isveren|sirket|yonetmelik|teblig|ozel|gorev|ucret|degisik|gecici|kurulus|sozlesme|hukum)\b/i;
+// 05.10 genişletildi: Yeterlilik uçtan uca denemesinde "MSUGT Sira No:1 Tekduzen Hesap Plani" dayanağı eski listeden kaçtı
+const KISA_ASCII = /\b(sayili|isletme|odeme|isci|isveren|sirket|yonetmelik|yonetmeligi|teblig|tebligi|ozel|gorev|ucret|degisik|gecici|kurulus|sozlesme|hukum|sira|tekduzen|plani|duzenleme|islem|islemleri|mukellef|degerleme|yukumlu)\b/i;
 
 function kartBulgu(k) {
   const b = [], sade = (k.sade && typeof k.sade === 'object') ? k.sade : { dogru: k.sade };
   const bak = (ad, v) => { if (v == null || v === '') return; const t = String(v);
-    if (TR.asciiTurkce(t)) b.push('KART-TR ' + ad); else if (KISA_ASCII.test(t) && !/[çğıöşüÇĞİÖŞÜ]/.test(t)) b.push('KART-TR ' + ad); };
+    if (TR.asciiTurkce(t)) b.push('KART-TR ' + ad); else if (KISA_ASCII.test(t)) b.push('KART-TR ' + ad); };   // listedeki kelimeler YALNIZ harfsiz yazımda geçer → karışık dizede de kusur (05.10: "Sira No:1 Tekduzen Hesap Plani - Tekdüzen ...")
   bak('sade.dogru', sade.dogru); bak('kural', k.kural); bak('dayanak', k.dayanak);
   for (const [h, tz] of Object.entries(k.tuzak || {})) { bak('tuzak.' + h + '.ad', tz && tz.ad); bak('tuzak.' + h + '.metin', tz && tz.metin); }
   if (!sade.dogru) b.push('KART-BOS sade.dogru');
