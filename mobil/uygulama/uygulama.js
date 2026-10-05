@@ -317,7 +317,10 @@
   /* hesap silme: uygulama içinden (Apple 5.1.1(v)); SQL hesabimi_sil basılmamışsa eski yol (e-posta) */
   $('hesapSil').addEventListener('click', async function () {
     if (!confirm('Hesabın ve ilerlemen kalıcı olarak silinir. Hesabında açık bir paket varsa o da silinir ve geri alınamaz. Devam edilsin mi?')) return;
-    var s = await sb.rpc('hesabimi_sil').catch(function (x) { return { error: x }; });
+    /* 05.10: sorgu nesnesinde .catch YOK (supabase-js 2.112.3, ölçüldü: "b.catch is not a function") —
+       eski satır OK'tan sonra hata verip isteği HİÇ göndermiyordu; derleme 30'a kadar kimse silemedi. */
+    var s;
+    try { s = await sb.rpc('hesabimi_sil'); } catch (x) { s = { error: x }; }
     if (!s.error && s.data && s.data.tamam) {
       olay('hesap_sil'); olayGonder();
       await window.TT.cikis(sb).catch(function () {});
@@ -326,6 +329,8 @@
       location.reload();
       return;
     }
+    /* sessizce mail açma: kullanıcı neden silinmediğini görsün, e-posta yolunu kendisi seçsin */
+    if (!confirm('Hesabın şu an silinemedi. İnternet bağlantını kontrol edip yeniden deneyebilirsin.\n\nSilme talebini ' + HESAP_SIL_EPOSTA + ' adresine e-postayla göndermek ister misin?')) return;
     var ep = ($('hesapEposta').textContent || '').replace(/^.*: /, '');
     var govde = 'Merhaba,\n\nTetikte hesabımın ve verilerimin silinmesini istiyorum.\nHesap e-postası: ' + ep + '\n';
     location.href = 'mailto:' + HESAP_SIL_EPOSTA + '?subject=' + encodeURIComponent('hesabımı sil') + '&body=' + encodeURIComponent(govde);
