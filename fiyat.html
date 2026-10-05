@@ -115,8 +115,8 @@
      CANLI 8.500 – 16.800 (5 kurum; en yüksek 14.000+KDV) · VİDEO 4.500 – 7.700 (3 kurum; canlı kaydı+kamp karması hariç).
      Bir kurum fiyatı sitede göstermiyordu, sayılmadı. Yeniden okuma: kampanya bitişlerinde ve her dönem başında. -->
 <div class="vurus">
-  <div class="buyuk">Canlı hazırlık kursları <b>8.500 – 16.800 TL</b>.<br>Video ders paketleri <b>4.500 – 7.700 TL</b>.<br>Biz <b id="vurusFiyat">2.490 TL + KDV <span style="font-weight:600">(KDV dahil 2.988 TL)</span></b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
-  <p>Kurs ve video fiyatları kurumların kendi sitelerinden 05.10.2026'da okundu; KDV dahil karşılığıyla yazıldı. Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
+  <div class="buyuk">Canlı hazırlık kursları <b>8.500 – 16.800 TL</b>.<br>Video ders paketleri <b>4.500 – 7.700 TL</b>.<br>Biz <b id="vurusFiyat">2.988 TL</b> istiyoruz, üstelik her soruyu sen çözüyorsun.</div>
+  <p>Kurs ve video fiyatları kurumların kendi sitelerinden 05.10.2026'da okundu. Bu kutudaki bütün fiyatlar KDV dahildir. Kalırsan sınav başvuru bedeli 1.635 TL'yi yeniden ödersin, üstüne dört ay kaybedersin.
   Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Sınav ve Eğitim Ücretleri</a> (29.08.2026'da okundu).</p>
 </div>
 
@@ -460,7 +460,8 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 });
 
 /* 04.10 Cem (+KDV dili): ana rakam '+ KDV', KDV dahil yanında - kurs fiyatı KDV dahil yazılı olduğu için kıyas temeli (KDV dahil) GÖRÜNÜR kalır (01.10) */
-document.getElementById('vurusFiyat').innerHTML = fiyatAnaHtml('sgs', pSgs.fiyat) + fiyatDahilHtml('sgs', pSgs.fiyat);   /* 05.10 Cem: KDV ekleri küçük */
+/* 05.10 Cem ('1 ve 2 yap'): kıyas kutusunda bizim rakam da KDV DAHİL - kurs/video aralıkları KDV dahil karşılıkla yazılı, kıyas eşit temelde (karşılaştırmalı reklam). Sayfanın geri kalanı '+ KDV' ana rakamla. */
+document.getElementById('vurusFiyat').textContent = tl(pSgs.fiyat) + ' TL';
 document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 
 // HARC KARSILASTIRMASI: her basamak harctan ucuz mu, tablo kendisi gostersin.
