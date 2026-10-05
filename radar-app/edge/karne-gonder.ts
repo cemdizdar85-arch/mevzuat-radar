@@ -66,23 +66,46 @@ export function dogrulaYet(s: any): { ok: true; sonuc: SonucYet } | { ok: false;
   return { ok: true, sonuc: { gecme, soru, dogru, tezkiye, dersler } };
 }
 
+// 05.10.2026 Cem ("30 soruyu çözdükten sonra nasıl rapor atıyorsun, çok önemli" → "1 yap"): Yeterlilik 24.09'dan beri SATIŞTA;
+// eski "banka açıldığında haber vereceğiz" metni kalktı. Riskli ders sayısına göre teklif (sonuç ekranı teklifCiz ile aynı mantık):
+// 1-4 riskli → o kadar derslik paket, riskli dersler satin-al'da hazır işaretli (?dersler=); yoksa tüm dersler. Rakam yok (fiyat
+// fiyat-motoru.js'te değişebilir; mail kalıcı) - yalnız "ilk 1.000 kurucuya kurucu fiyatı".
+export function riskTeklifYet(s: SonucYet): { yol: string; dugme: string; cumle: string } {
+  const risk = s.dersler.filter(d => d.durum === "riskli");
+  const n = risk.length;
+  if (n >= 1 && n <= 4) {
+    return { yol: `/satin-al.html?paket=yeterlilik-${n}&dersler=${encodeURIComponent(risk.map(d => d.ad).join("|"))}`,
+      dugme: n === 1 ? "Riskli dersini aç →" : "Riskli derslerini aç →",
+      cumle: `Yalnız ${n === 1 ? "riskli dersini" : `riskli ${n} dersini`} alabilirsin; satın alma sayfasında ${n === 1 ? "o ders" : "o dersler"} hazır seçili gelir.` };
+  }
+  return { yol: "/satin-al.html?paket=yeterlilik-tum", dugme: "Tam bankayı aç →", cumle: "Sekiz dersin tamamı tek pakette." };
+}
+
 export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: string } {
   const seviye = s.gecme >= 70 ? "Hazıra yakınsın" : s.gecme >= 40 ? "Sınırdasın" : "Bugün girsen zorlanırsın";
   const risk = s.dersler.filter(d => d.durum === "riskli");
   const oneri = risk.length
     ? `Yeterlilik'te güçlü derslerin seni kurtarmaz: tek bir dersin 50'nin altında kalırsa sınavı kaybedersin. Önce ${risk.length > 3 ? "en zayıf derslerin" : "riskli derslerin"}: ${risk.slice(0, 3).map(d => d.ad).join(", ")}.`
     : s.gecme >= 70 ? "Sekiz dersin hiçbiri riskli görünmüyor. Sınırdaki derslerini sağlamlaştır." : "Hiçbir dersin riskli değil ama çoğu sınırda: ortalamayı 60'ın üstüne çıkaracak birkaç doğru eksik.";
+  const aday = (risk.length ? risk : s.dersler.filter(d => d.durum === "sinirda")).slice().sort((a, b) => a.dogru / a.soru - b.dogru / b.soru);
+  const enZayif = aday[0];
+  const bugun = enZayif && enZayif.soru > enZayif.dogru
+    ? `${enZayif.ad} dersinden 10 soru çöz. Bu testte oradan ${enZayif.soru} sorunun ${enZayif.soru - enZayif.dogru} tanesinde takıldın. Yaklaşık 15 dakika.` : "";
+  const t = riskTeklifYet(s);
   const site = "https://tetikte.com";
+  const banka = `Yeterlilik soru bankası açık: her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi, Tetikte'nin soru yardımcısı, dayandığı maddeyle anlatır. Zayıf olduğun derste kolay sorulardan başlar, adım adım zora çıkar. ${t.cumle} İlk 1.000 kurucuya kurucu fiyatı.`;
   const metin = [
     `Tetikte seviye testi karnen - SMMM Yeterlilik`, ``,
     `Geçme ihtimalin: %${s.gecme} (${seviye})`,
     `Bu testte: ${s.dogru} / ${s.soru} doğru · tezkiye notu ${s.tezkiye} alındı`, ``,
     ...s.dersler.map(d => `${d.ad}: ${d.dogru} / ${d.soru} - ${DURUM_AD[d.durum]}`), ``,
-    oneri, ``,
-    `Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır; banka açıldığında bu adrese haber vereceğiz.`,
-    `Örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/smmm.html`,
-    `Testi yeniden çöz: ${site}/seviye-testi.html?sinav=yeterlilik`, ``,
+    oneri,
+    ...(bugun ? [`Bugün şunu yap: ${bugun}`] : []), ``,
+    banka,
+    `${t.dugme.replace(" →", "")}: ${site}${t.yol}`,
+    `Önce örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/smmm.html`, ``,
     `Nasıl hesaplandı? Bu bir TAHMİNDİR. Yeterlilik'te her dersten en az 50 almak ve derslerin ortalamasının en az 60 olması gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, bu testteki cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi. Ayrıntı: ${site}/seviye-testi.html?sinav=yeterlilik`, ``,
+    `Sınava tetikte gir.`,
     `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
   const renk: Record<string, string> = { guclu: "#15803d", sinirda: "#8d6c38", riskli: "#b91c1c" };
@@ -92,14 +115,16 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · bu testte ${s.dogru} / ${s.soru} · tezkiye ${s.tezkiye}</p>
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
-<p style="margin:0 0 16px">${kacis(oneri)}</p>
-<p style="margin:0 0 10px">Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır; banka açıldığında bu adrese haber vereceğiz.</p>
-<p style="margin:0 0 18px"><a href="${site}/kaydir/vitrin/smmm.html" style="background:#cfa163;color:#221704;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:8px;display:inline-block">Örnek soruları çöz →</a>
-&nbsp; <a href="${site}/seviye-testi.html?sinav=yeterlilik" style="color:#8d6c38;font-weight:700">Testi yeniden çöz</a></p>
+<p style="margin:0 0 10px">${kacis(oneri)}</p>
+${bugun ? `<p style="margin:0 0 16px;background:#fdf6ec;border-left:3px solid #f5a524;padding:10px 12px"><b>Bugün şunu yap:</b> ${kacis(bugun)}</p>` : ""}
+<p style="margin:0 0 10px"><b>Yeterlilik soru bankası açık.</b> Her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi, Tetikte'nin soru yardımcısı, dayandığı maddeyle anlatır. Zayıf olduğun derste kolay sorulardan başlar, adım adım zora çıkar. ${kacis(t.cumle)} <b>İlk 1.000 kurucuya kurucu fiyatı.</b></p>
+<p style="margin:0 0 18px"><a href="${site}${t.yol}" style="background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block">${kacis(t.dugme)}</a>
+&nbsp; <a href="${site}/kaydir/vitrin/smmm.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Yeterlilik'te her dersten en az 50 ve ortalamada en az 60 gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi.</p>
+<p style="font-size:15px;font-weight:800;color:#16191d;margin:0 0 8px">Sınava tetikte gir.</p>
 <p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
 </div>`;
-  return { konu: `Yeterlilik seviye testi karnen: geçme ihtimalin %${s.gecme}`, metin, html };
+  return { konu: `Yeterlilik karnen: geçme ihtimalin %${s.gecme}${risk.length ? `, ${risk.length} riskli ders` : ""}`, metin, html };
 }
 
 // Doğrulama: yalnız sayılar ve bilinen grup adları. Hata varsa null + neden.
@@ -129,6 +154,8 @@ export function dogrula(veri: any): { ok: true; eposta: string; izin: boolean; s
 }
 
 // Mail içeriği TAMAMEN sunucuda: kullanıcı metni yok, yalnız doğrulanmış sayılar.
+// 05.10.2026 Cem ("1 yap"): "Bugün şunu yap" yönlendirmesi (sonuç ekranındaki gibi), Nöbetçi + kolaydan zora sözü,
+// kurucu fiyatı cümlesi (rakamsız) ve marka sözü eklendi. Düğme ana renk.
 export function mailKur(s: Sonuc): { konu: string; metin: string; html: string } {
   const seviye = s.gecme >= 70 ? "Hazıra yakınsın" : s.gecme >= 40 ? "Sınırdasın" : "Bugün girsen zorlanırsın";
   const oneri = s.gecme >= 70
@@ -137,8 +164,13 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
       ? "Seni geçirecek şey birkaç fazla doğru. En zayıf grubundan başla; her yanlışını Nöbetçi adım adım anlatır."
       : "Sınava zaman var. En zayıf grubundan başla; yanlışların kutuna düşer, 2 gün sonra yeniden karşına çıkar.";
   const enZayif = s.gruplar.slice().sort((a, b) => a.dogru / a.soru - b.dogru / b.soru)[0];
+  const kacan = enZayif.soru - enZayif.dogru;
+  const bugun = kacan > 0
+    ? `${enZayif.ad} grubundan 10 soru çöz. Bu testte oradan ${enZayif.soru} sorunun ${kacan} tanesinde takıldın. Yaklaşık 15 dakika.`
+    : `130 soruluk sınav gibi denemeyle bu sonucu gerçek süre ve ders dağılımında doğrula.`;
   const satirlar = s.gruplar.map(g => `${g.ad}: ${g.dogru} / ${g.soru}`).join("\n");
   const site = "https://tetikte.com";
+  const paket = `Pakette sınavına kadar sınırsız soru, deneme setleri ve "sınav gibi" süreli mod var. Her yanlışının nedenini Nöbetçi, Tetikte'nin soru yardımcısı, dayandığı maddeyle anlatır; zayıf olduğun derste kolay sorulardan başlar, adım adım zora çıkar.`;
   const metin = [
     `Tetikte seviye testi karnen - Staja Giriş`,
     ``,
@@ -150,28 +182,33 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     ``,
     `En çok çalışman gereken grup: ${enZayif.ad}`,
     oneri,
+    `Bugün şunu yap: ${bugun}`,
     ``,
-    `Tam soru bankası, deneme setleri ve "sınav gibi" süreli mod pakette; bu testteki yanlışlarının adım adım anlatımı da orada.`,
+    `${paket} İlk 1.000 kurucuya kurucu fiyatı.`,
     `Tam bankayı aç: ${site}/satin-al.html?paket=sgs`,
     `Önce örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/sgs.html`,
     `Testi yeniden çöz: ${site}/seviye-testi.html`,
     ``,
     `Nasıl hesaplandı? Bu bir TAHMİNDİR. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, bu testteki cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. Ayrıntı: ${site}/seviye-testi.html#nasil`,
     ``,
+    `Sınava tetikte gir.`,
     `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
-  const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td></tr>`).join("");
+  const vurgu = (x: { ad: string }) => x === enZayif && kacan > 0;
+  const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb${vurgu(x) ? ";font-weight:700;color:#b91c1c" : ""}">${kacis(x.ad)}${vurgu(x) ? " · önce burası" : ""}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td></tr>`).join("");
   const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#16191d;max-width:560px">
 <p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Staja Giriş seviye testi</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · 130 soruda tahmini doğru: yaklaşık <b>${s.dogru130}</b> · bu testte ${s.dogru} / ${s.soru}</p>
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
 <p style="margin:0 0 6px"><b>En çok çalışman gereken grup:</b> ${kacis(enZayif.ad)}</p>
-<p style="margin:0 0 16px">${kacis(oneri)}</p>
-<p style="margin:0 0 10px">Tam soru bankası, deneme setleri ve "sınav gibi" süreli mod pakette; bu testteki yanlışlarının adım adım anlatımı da orada.</p>
-<p style="margin:0 0 18px"><a href="${site}/satin-al.html?paket=sgs" style="background:#cfa163;color:#221704;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:8px;display:inline-block">Tam bankayı aç →</a>
+<p style="margin:0 0 10px">${kacis(oneri)}</p>
+<p style="margin:0 0 16px;background:#fdf6ec;border-left:3px solid #f5a524;padding:10px 12px"><b>Bugün şunu yap:</b> ${kacis(bugun)}</p>
+<p style="margin:0 0 10px">${kacis(paket).replace("sınırsız soru", "<b>sınırsız soru</b>")} <b>İlk 1.000 kurucuya kurucu fiyatı.</b></p>
+<p style="margin:0 0 18px"><a href="${site}/satin-al.html?paket=sgs" style="background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block">Tam bankayı aç →</a>
 &nbsp; <a href="${site}/kaydir/vitrin/sgs.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. <a href="${site}/seviye-testi.html#nasil" style="color:#6b7280">Ayrıntı</a></p>
+<p style="font-size:15px;font-weight:800;color:#16191d;margin:0 0 8px">Sınava tetikte gir.</p>
 <p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
 </div>`;
   return { konu: `Seviye testi karnen: geçme ihtimalin %${s.gecme}`, metin, html };
@@ -181,7 +218,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "3a6b24a10487f851";
+const KOD_IMZA = "6ece135eabca2eb2";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");

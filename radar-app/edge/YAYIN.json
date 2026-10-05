@@ -1,5 +1,5 @@
 {
-  "_not": "04.10.2026 - .github/workflows/edge-yukle.yml bu listedeki fonksiyonlari OTOMATIK yukler (Cem: Amazon/Trendyol duzeni). Panelden elle yuklenmis eskiler (quick-task, karne-gonder, rapid-responder...) burada YOK: canli ayarlari (JWT, ad) dogrulanmadan otomatige alinmaz. Eklerken: dosya + canli ad + jwt.",
+  "_not": "04.10.2026 - .github/workflows/edge-yukle.yml bu listedeki fonksiyonlari OTOMATIK yukler (Cem: Amazon/Trendyol duzeni). Panelden elle yuklenmis eskiler (quick-task, karne-gonder, rapid-responder...) burada YOK: canli ayarlari (JWT, ad) dogrulanmadan otomatige alinmaz. Eklerken: dosya + canli ad + jwt. | 05.10: karne-gonder eklendi (canli JWT acik: ?surum=1 auth basliksiz 401 UNAUTHORIZED_NO_AUTH_HEADER verdi; site publishable anahtarla cagiriyor). Canli surum 23.09 Yeterlilik karnesinden ONCEKIYDI (05689ba2), panelden hic yayinlanmamisti.",
   "fonksiyonlar": [
     {
       "dosya": "siparis-bildirim.ts",
@@ -15,6 +15,11 @@
       "dosya": "iyzico-odeme.ts",
       "ad": "iyzico-odeme",
       "jwt": false
+    },
+    {
+      "dosya": "karne-gonder.ts",
+      "ad": "karne-gonder",
+      "jwt": true
     }
   ]
 }
