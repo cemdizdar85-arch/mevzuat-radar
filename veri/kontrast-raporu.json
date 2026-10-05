@@ -1,14 +1,14 @@
 {
-  "durum": "YESIL",
+  "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
   "sayfa": 229,
   "koyu_gecis": 74,
   "koyu_bekleyen": [],
-  "temiz_sayfa": 229,
-  "denetlenen_metin": 17771,
-  "toplam_kirik": 0,
-  "denetlenen_sinir": 5069,
+  "temiz_sayfa": 227,
+  "denetlenen_metin": 17874,
+  "toplam_kirik": 2,
+  "denetlenen_sinir": 5046,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 0,
   "esik": {
@@ -18,5 +18,36 @@
   },
   "gorunmez_sinir_sayfalar": [],
   "olculemeyenler": [],
-  "kirik_sayfalar": []
+  "kirik_sayfalar": [
+    {
+      "sayfa": "kaydir/vitrin/sgs.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "a",
+          "yazi": "Seviyeni ölç →",
+          "oran": 1.73,
+          "esik": 4.5,
+          "renk": "rgb(0, 0, 238)",
+          "zemin": "rgb(30,32,38)",
+          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
+        }
+      ]
+    },
+    {
+      "sayfa": "kaydir/vitrin/smmm.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "a",
+          "yazi": "Seviyeni ölç →",
+          "oran": 1.73,
+          "esik": 4.5,
+          "renk": "rgb(0, 0, 238)",
+          "zemin": "rgb(30,32,38)",
+          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
+        }
+      ]
+    }
+  ]
 }
