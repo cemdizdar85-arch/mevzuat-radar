@@ -1,22 +1,22 @@
 {
     "aciklama":  "SMMM (bitirme) ders başına hedef/sitede/eksik — arac/smmm-kapsama-tablosu.ps1 (hedef 4.000, ders tabanı 350, son 10 yıl; eski havuz SAYILMAZ). site = Σ min(yayınlanabilir, konu hedefi); eksik = Σ konu açığı (engelli dahil).",
     "hedef_toplam":  3980,
-    "site_toplam":  2941,
-    "eksik_toplam":  1039,
+    "site_toplam":  2895,
+    "eksik_toplam":  1085,
     "dersler":  [
                     {
                         "ders":  "Finansal Muhasebe",
                         "hedef":  1530,
-                        "site":  1142,
-                        "eksik":  388,
+                        "site":  1096,
+                        "eksik":  434,
                         "engelli_eksik":  9,
                         "konu":  526
                     },
                     {
                         "ders":  "Finansal Tablolar ve Analizi",
                         "hedef":  350,
-                        "site":  292,
-                        "eksik":  58,
+                        "site":  293,
+                        "eksik":  57,
                         "engelli_eksik":  15,
                         "konu":  97
                     },
@@ -55,16 +55,16 @@
                     {
                         "ders":  "Sermaye Piyasası Mevzuatı",
                         "hedef":  350,
-                        "site":  207,
-                        "eksik":  143,
+                        "site":  208,
+                        "eksik":  142,
                         "engelli_eksik":  28,
                         "konu":  117
                     },
                     {
                         "ders":  "Vergi Mevzuatı ve Uygulaması",
                         "hedef":  350,
-                        "site":  227,
-                        "eksik":  123,
+                        "site":  225,
+                        "eksik":  125,
                         "engelli_eksik":  18,
                         "konu":  147
                     }
