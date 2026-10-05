@@ -313,7 +313,7 @@ jobs:
             if($s){ "HAZIR OZET $($lg.BaseName): alinan $($s.Matches[0].Groups[1].Value) · dusen $($s.Matches[0].Groups[2].Value)" } }
           foreach($f in @(Get-ChildItem veri/fabrika -Filter 'hazir-dusen-*.json' -File -ErrorAction SilentlyContinue)){
             try{ foreach($d in @((Get-Content $f.FullName -Raw -Encoding UTF8 | ConvertFrom-Json))){ if(-not $d){ continue }
-              $kod=@([regex]::Matches("$($d.sebep)",'KAPI-[A-Z0-9ÇŞĞÜÖİ]+|uzunluk|konu bu etiketin|eksik') | ForEach-Object { $_.Value } | Sort-Object -Unique) -join ','
+              $kod=@([regex]::Matches("$($d.sebep)",'KAPI-[^\s:,·]+|ADIM [A-ZÇŞĞÜÖİ]+|uzunluk|konu bu etiketin|eksik') | ForEach-Object { $_.Value } | Sort-Object -Unique) -join ','
               "HAZIR DUSTU $($f.BaseName -replace '^hazir-dusen-','') | $($d.konu) | $kod" } }catch{ "HAZIR DUSTU okunamadi: $($f.Name)" } }
 
       - name: Sonucu ambara yaz (KOSU DUSSE BILE)
