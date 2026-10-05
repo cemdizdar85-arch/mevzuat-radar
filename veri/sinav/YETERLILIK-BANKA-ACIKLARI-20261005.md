@@ -186,3 +186,25 @@ Eşdeğerlik: `-SoruKutugu` eklenince tablo çıktısı 1.111 parti / 6.649 soru
 - smmm-4k-a-ydenetim-zor-r6/kp-15
 - smmm-4k-a-ydenetim-zor-r4/kp-21
 - smmm-4k-a-ydenetim-kolay-r7/kp-01
+
+## 4. Vergi ölçüm koşusu (GM yolu, okunmuş plandan) — SONUÇ 05.10
+
+| | gm6 | gm7 (gm6'nın düzeltilmişi) | toplam |
+|---|---:|---:|---:|
+| yazılan hazır soru | 15 | 13 | 28 |
+| ücretsiz kod kapısından geçip partiye giren | 2 | 10 | 12 |
+| **yayın şartını geçen** | 0 | **1** | **1** |
+| bedel (bulut günlüğü, ≈USD) | 0,14 | 1,05 | **≈1,19** |
+
+**Yayına giren soru başı ≈1,2 USD** (kıyas: gm2 0,065 · w11–w13 0,29). Büyük basım ÖNERİLMEZ.
+
+Düşme nedenleri (12 parti sorusu): simülasyon yanlış 3 · açıklama hakemi KUSURLU 3 · hakem HAYIR 2 · adım yok → simülasyon koşamadı 2 ·
+simülasyon koşmadı 1 · KAPI-YY 1. gm6'nın 13'ü girişte KAPI-Y (talimat "2025 yılı" dedi; üretici kuralı en yeni yıl = bugün) ve KAPI-K
+(SMMM test sözlüğü) ile düştü → ön denetime eklendi (73e179f9; gm6'nın 13/13'ünü yakalıyor).
+
+Kök nedenler:
+1. **Kaynak paketi yıl karışıklığı:** iki hakem HAYIR'ın ikisi de ambardan — GVK m.21 kaydı 58.000 (2026) taşıyor, yıl yazmıyor; hakem 2025
+   haddini (47.000, Seri 329) yanlış saydı. Seri 329 m.3/2 ve geçici m.67 pakete girmedi. → `veri/AMBAR-YUTMA-IS-EMRI-20260930.md` satır 15–18.
+2. **Adım/sade katmanını bulut modeli yazıyor:** hazır soruda `adimlar` yok; KAPI-ADIM/YY ve simülasyon düşüşleri, AH'nin "6. adımda bulduk"
+   ve sade toplam hataları bu katmanda. Teori sorusunda adım hiç yazılmıyor → "simülasyon koşamadı" (gm3'te de aynı).
+3. İçerik kusuru 1: m.75 bent atfı (AH, kolay MSİ).
