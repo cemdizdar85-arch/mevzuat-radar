@@ -309,6 +309,10 @@ jobs:
               kabuk: bash, komut: "node arac/ambar-mulga-madde.js --sinav" }
           - { ad: "KAPI-MM mulga madde ON DENETIM OZ-SINAVI (kaynak_adlar'da mulga madde KUSUR)",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -MulgaSinavi" }
+          # 05.10.2026: hazir soru on denetiminde KAPI-Y (ureticiyle ayni yil kurali). gm6'da 15 hazir sorunun 12'si bulutta
+          # bununla dustu, on denetim gormuyordu. 7 vaka; DENETLE_YIL_MUTASYON=sayili|enkucuk -> KIRMIZI (2/2).
+          - { ad: "Hazir soru on denetimi KAPI-Y (yil) OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -YilSinavi" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /

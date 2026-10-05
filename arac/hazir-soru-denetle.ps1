@@ -15,7 +15,7 @@
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
-      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi)
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -94,7 +94,19 @@ if($MulgaSinavi){
     "  $(if($iyi){'TAMAM'}else{'HATA '}) $($vk[0]) -> $(if($yak){'yakalandı'}else{'geçti'})" }
   if($hata){ "MÜLGA SINAVI KIRMIZI: $hata/$($v.Count) (liste $($MULGA_SET.Count) madde)"; exit 1 } else { "MÜLGA SINAVI YESIL: $($v.Count)/$($v.Count) (liste $($MULGA_SET.Count) madde)"; exit 0 }
 }
-if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi)' }
+# 05.10.2026 KAPI-Y yıl ölçüsü (üretici motor/kalip-parti-uret.ps1 FAZ A satırıyla AYNI desen). Mutasyon: $env:DENETLE_YIL_MUTASYON = sayili | enkucuk
+function YilKusurOlc([string]$soru,[int]$yilBu){
+  $desen=$(if("$env:DENETLE_YIL_MUTASYON" -eq 'sayili'){ '\b(20[0-3]\d)\b' } else { '\b(20[0-3]\d)\b(?!\s*(sayılı|s\.))' })
+  $yl=@([regex]::Matches("$soru",$desen) | ForEach-Object { [int]$_.Groups[1].Value }); if(-not $yl.Count){ return '' }
+  $en=$(if("$env:DENETLE_YIL_MUTASYON" -eq 'enkucuk'){ ($yl | Measure-Object -Minimum).Minimum } else { ($yl | Measure-Object -Maximum).Maximum })
+  if($en -lt $yilBu){ return "sorudaki en yeni yil $en, bugun $yilBu" }; return ''
+}
+if($YilSinavi){
+  # gm6 gerçek vaka sınıfı: "2025 yılı gelirleri" (KUSUR) · aynı soru "2026 yılı Mart ayında verilecek beyanname" ile (ok) · kanun no sayılmaz
+  $v=@(@('2025 yılı gelirleri için yıllık beyan','KUSUR'),@('2025 yılı gelirleri için 2026 yılı Mart ayında verilecek beyanname','ok'),@('2025 gelirleri, beyan 2026''da','ok'),@('6183 ve 2004 sayılı Kanun hükümlerine göre','ok'),@('5520 s. Kanun ve 2004 s. Kanun','ok'),@('yıl geçmeyen soru','ok'),@('2024 ve 2025 yılları','KUSUR'))
+  $h=0; foreach($x in $v){ $c=$(if(YilKusurOlc $x[0] 2026){ 'KUSUR' } else { 'ok' }); if($c -ne $x[1]){ $h++; "  DUSTU: '$($x[0])' -> $c (beklenen $($x[1]))" } }
+  if($h){ "KAPI-Y SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-Y SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -110,6 +122,17 @@ elseif($Ders){
   $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
   if(Test-Path $kutup){ . $kutup; $kapiK=KapiKSozlukKur -DersRegex $Ders -Pencere $Pencere }
   if(-not $kapiK){ "UYARI: KAPI-K sozlugu kurulamadi (ambar/anahtar/analiz dosyasi) - bu kapi OLCULMEDI" }
+}
+# 05.10.2026 BİTİRME KAPI-K (gm6 ölçüm koşusu: 15 hazır sorunun 9'u bulutta KAPI-K ile düştü, bu betik 'ok' demişti — SMMM yolu yoktu).
+#   Etiket (ya da dosya adı) smmm- ile başlıyor ve -Ders verilmemişse sözlük üreticinin SMMM yolundan kurulur (arac/kapi-k-sozluk.ps1 KapiKSmmmSozlukKur).
+if(-not $YABANCI_DIL_DENETIMI -and -not $Ders){
+  $etK=$(if($IkizEtiket){ $IkizEtiket } else { ([IO.Path]::GetFileNameWithoutExtension($Dosya) -replace '^hazir-','smmm-' ) })
+  if($etK -match '^smmm-'){
+    . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1'); $dersK=SmmmDersAdi $etK $null
+    $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
+    if($dersK -and (Test-Path $kutup)){ . $kutup; $kapiK=KapiKSmmmSozlukKur -DersRegex $dersK }
+    if(-not $kapiK){ "UYARI: bitirme KAPI-K sozlugu kurulamadi ($etK) - bu kapi OLCULMEDI" } else { "BITIRME KAPI-K: ders $dersK" }
+  }
 }
 $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count) | uzunluk tavani: $UZ_TAVAN kr"
@@ -188,6 +211,9 @@ foreach($q in $liste){
   }
   $brm=@($sikM | Where-Object { $_ -match '(₺|TL|%|adet|kg|saat)' }).Count
   if($sayiN -ge 2 -and $brm -eq 1 -and $dogruS -match '(₺|TL|%|adet|kg|saat)'){ $k.Add("KAPI-S birim yalniz dogru sikta") }
+  # 05.10.2026 KAPI-Y (üretici 07.09 Cem "2025 değil 2026 versin"): kökte yıl geçiyorsa en yenisi bugünün yılı olmalı; "2004 sayılı" sayılmaz.
+  #   gm6'da 15 hazır sorunun 12'si bulutta bununla düştü, bu betik görmüyordu. Desen motor/kalip-parti-uret.ps1 FAZ A ile AYNI.
+  $yk=YilKusurOlc "$($q.soru)" (Get-Date).Year; if($yk){ $k.Add("KAPI-Y $yk") }
   # KAPI-K GERÇEK SÖZLÜK: -Ders verildiyse üreticinin kuralı birebir uygulanır (geniş sözlükte yok → kusur;
   # dar sözlükte yok VE gövdede >=2 kez → kusur). Üretici, dönen kelime sayısı >=2 ise soruyu DÜŞÜRÜR, 1 ise
   # yalnız rapora not düşer — bu ayrım burada da korunur, tek kelime KUSUR sayılmaz.

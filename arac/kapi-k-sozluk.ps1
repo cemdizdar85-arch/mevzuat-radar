@@ -60,7 +60,7 @@ function KapiKBloklar([string]$Sinav='SGS',[int]$Pencere=7){
   $BASLIK = @{ apikey=$KEY; Authorization="Bearer $KEY" }
   $lst = New-Object System.Collections.Generic.List[object]
   foreach($dn in $sonD){
-    $u = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&tur=eq.cikmis-soru&kaynak_ad=ilike.' + [uri]::EscapeDataString("CIKMIS SINAV - $Sinav $($dn.donem) (%ingilizce)") + '&limit=1'
+    $u = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=metin&tur=eq.cikmis-soru&kaynak_ad=ilike.' + [uri]::EscapeDataString("CIKMIS SINAV - $Sinav $($dn.donem) (%ingilizce)") + '&order=kaynak_ad.asc&limit=1'   # 05.10: üreticiyle aynı (order'sız limit=1 rastgele belge, K4)
     $rB = $null
     try{
       $r = Invoke-WebRequest -Uri $u -Headers $BASLIK -UseBasicParsing -UserAgent 'mevzuat-radar-robot/1.0' -TimeoutSec 120
@@ -97,6 +97,28 @@ function KapiKSozlukKur([Parameter(Mandatory)][string]$DersRegex,[string]$Sinav=
     }
   }
   return [pscustomobject]@{ genis=$genis; dar=$dar; aralik=$aralik; blok=@($b.bloklar).Count; donemler=$b.donemler; kaynak=$b.kaynak }
+}
+
+# ⭐ 05.10.2026 BİTİRME (SMMM) SÖZLÜĞÜ (Cem "1.2.3", gm6 ölçüm koşusu): üretici SMMM'de sözlüğü SGS penceresinden DEĞİL, SMMM TEST
+#   kitapçıklarından kurar (GENİŞ = bütün SMMM test kitapçıkları, DAR = dersin kitapçıkları; motor/kalip-parti-uret.ps1 "13.09 SMMM ÇAPA").
+#   Bu araç yalnız SGS yolunu biliyordu → gm6'da 15 hazır sorunun 9'u bulutta KAPI-K ile düştü, ön denetim hepsine 'ok' demişti.
+#   KOPYA YOK: SmmmTestBloklari / SmmmDersKodu / Katla2 üreticiden AST ile alınır (üretici değişirse bu da değişir).
+#   🚫 GÖRMEZ: bulut koşusu anındaki kitapçık listesi (ambar arada değişirse) · üretici kitapçık çekemezse KAPI-K'yı bulutta KAPATIR (KÖR), burada ise null döner.
+function KapiKSmmmSozlukKur([Parameter(Mandatory)][string]$DersRegex){
+  $uy = Join-Path (KapiKDepoKok) 'motor\kalip-parti-uret.ps1'; if(-not (Test-Path $uy)){ return $null }
+  $tk=$null; $hk=$null; $ast=[System.Management.Automation.Language.Parser]::ParseFile($uy,[ref]$tk,[ref]$hk)
+  $gerek=@('Katla2','SmmmDersKodu','SmmmTestBloklari')
+  $fn=@($ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] },$true) | Where-Object { $gerek -contains $_.Name })
+  if($fn.Count -lt $gerek.Count){ return $null }
+  $KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'); if(-not $KEY){ $KEY = $env:SUPABASE_SERVICE_KEY }; if(-not $KEY){ return $null }
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+  $SB=@{ apikey=$KEY; Authorization="Bearer $KEY"; 'User-Agent'='mevzuat-radar-robot/1.0' }; $script:SMMM_BLOK=$null
+  foreach($f in $fn){ . ([scriptblock]::Create($f.Extent.Text)) }
+  $kod = SmmmDersKodu $DersRegex; $tum=@(SmmmTestBloklari)
+  if(-not $tum.Count){ return $null }
+  $genis=@{}; $dar=$(if(@($tum | Where-Object { $_.kod -eq $kod }).Count){ @{} } else { $null })
+  foreach($bl in $tum){ $darMi=($bl.kod -eq $kod); foreach($w in ((Katla2 $bl.metin) -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -ge 5){ $on=$w.Substring(0,5); $genis[$on]=1; if($darMi -and $dar){ $dar[$on]=1 } } } }
+  return [pscustomobject]@{ genis=$genis; dar=$dar; aralik=@("smmm-$kod"); blok=$tum.Count; donemler=@('SMMM test'); kaynak='ambar (üretici SmmmTestBloklari)' }
 }
 
 # Üreticideki PencereKavram'ın birebir aynısı: kelime -> sebep sözlüğü döner.
