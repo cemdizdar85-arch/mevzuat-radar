@@ -85,6 +85,9 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
    bütün seçenekler ya da genel formül adımda yazılır.
 4. **Doğru şık dağılımı (A4):** bir dosyada bir harf %40'ı aşmasın (ön denetim `SIK DAGILIMI` satırı uyarır). Sayısal şıklar artan sıralı
    olduğundan harf, çeldiricilerin doğru cevaba göre büyük/küçük kurulmasıyla seçilir; yazara dosya başında hedef harf verilir.
+   **Harf planı yazımdan ÖNCE üretilir ve yazara aynen verilir** (05.10, gm8'de sonradan düzeltmek çeldiricileri yeniden kurdurdu):
+   `powershell -NoProfile -File arac/hazir-soru-denetle.ps1 -HarfPlani veri/sinav/konu/<etiket>-kolay.json` → her konu için kolay/zor/çok zor
+   harfi; her zorluk dosyasında harfler dengeli, her konunun üç sorusu üç ayrı harf. Yazar plandaki harften ayrılmaz.
 
 ## İKİNCİ GÖZ (zorunlu, gönderimden önce)
 Soruyu YAZMAYAN ayrı bir okuyucu her soruyu ambar kaynağıyla birlikte okur: (1) anahtarı kendisi bağımsız çözer, (2) A ve B listesini

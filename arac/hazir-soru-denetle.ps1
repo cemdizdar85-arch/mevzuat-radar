@@ -15,7 +15,8 @@
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
-      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi)
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
+      [string]$HarfPlani='',[switch]$HarfPlaniSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -153,6 +154,30 @@ function SimOnKontrol($q){
   # 05.10 gerçek vaka (gm8 VUK çok zor, doğru 'I ve III'): öncüllü cevap da teoridir; 4 harf ölçütü onu kaçırıyordu
   if($ds -match '[A-Za-zÇĞİÖŞÜçğıöşü]{4,}' -or $ds.Trim() -match '^(I{1,3}|IV|V)(\s*(,|ve|ile)\s*(I{1,3}|IV|V))*\s*$'){ return @("SIM: doğru şık cümle (teori sorusu) ama cozum_tablo var — üretici sayısal ikiz kurar, öğrenci simülasyonu çalışmaz; tabloyu kaldır, doldur/verilen [] (talimat F.2)") }
   return @()
+}
+# 05.10.2026 HARF PLANI (Cem "1.2.3" GM3): gm8'de doğru şık yığıldı (kolay dosya B %80, çok zor C %60); sonradan düzeltmek çeldiricileri
+#   yeniden kurdurdu (bir yazar + bir okuyucu turu daha). Plan yazımdan ÖNCE verilir: konu i, zorluk j → 'ABCDE'[(i + 2j) mod 5].
+#   Her zorluk dosyasında harf sayıları en çok 1 farklı (5+ konuda hiçbir harf %40'ı aşmaz), her konunun 3 sorusu üç ayrı harf.
+#   GÖRMEZ: dosyada önceden duran (yeniden yazılmayan) soruların harfleri; plan yalnız yeni yazılan konular içindir.
+function HarfPlani([int]$K,[int]$Z=3){
+  $L='ABCDE'; $mut="$env:DENETLE_HARF_MUTASYON"
+  $p=@(); for($i=0;$i -lt $K;$i++){ $s=@(); for($j=0;$j -lt $Z;$j++){ $s+=$(if($mut -eq 'sabit'){ 'C' } elseif($mut -eq 'tek'){ "$($L[$i % 5])" } else { "$($L[($i + 2*$j) % 5])" }) }; $p+=,$s }
+  return ,$p
+}
+if($HarfPlani){
+  if($HarfPlani -match '^\d+$'){ $kon=@(1..[int]$HarfPlani | ForEach-Object { "konu $_" }) } else { $konJ=Get-Content -Raw -Encoding UTF8 $HarfPlani | ConvertFrom-Json; $kon=@($konJ) }
+  $p=HarfPlani $kon.Count; $zad=@('kolay','zor','cokzor')
+  "HARF PLANI ($($kon.Count) konu) — yazar doğru şıkkı bu harfe koyar, çeldiricileri buna göre büyük/küçük kurar:"
+  for($i=0;$i -lt $kon.Count;$i++){ "  $($kon[$i]) → kolay $($p[$i][0]) · zor $($p[$i][1]) · cokzor $($p[$i][2])" }
+  for($j=0;$j -lt 3;$j++){ $c=@($p | ForEach-Object { $_[$j] } | Group-Object | ForEach-Object { "$($_.Name)$($_.Count)" }); "  $($zad[$j]) dosyası: $($c -join ' ')" }
+  exit 0
+}
+if($HarfPlaniSinavi){
+  $h=0; $n=0
+  foreach($K in 1..12){ $p=HarfPlani $K; $tav=[math]::Ceiling($K/5)
+    for($j=0;$j -lt 3;$j++){ $n++; $mx=(@($p | ForEach-Object { $_[$j] }) | Group-Object | Measure-Object Count -Maximum).Maximum; if($mx -gt $tav){ $h++; "  DUSTU: K=$K zorluk $j en çok $mx > $tav" } }
+    for($i=0;$i -lt $K;$i++){ $n++; if(@($p[$i] | Select-Object -Unique).Count -ne 3){ $h++; "  DUSTU: K=$K konu $i harfleri ayrı değil ($($p[$i] -join ''))" } } }
+  if($h){ "HARF PLANI SINAVI KIRMIZI: $h/$n"; exit 1 } else { "HARF PLANI SINAVI YESIL: $n/$n"; exit 0 }
 }
 if($SimSinavi){
   $tb=[pscustomobject]@{ basliklar=@('a','b'); satirlar=@(@('x','1')) }

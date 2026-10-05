@@ -325,6 +325,10 @@ jobs:
           # DENETLE_SIM_MUTASYON=kapali -> KIRMIZI (2/4).
           - { ad: "Hazir soru on denetimi SIM on kontrol OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -SimSinavi" }
+          # 05.10.2026 - Harf plani (yazimdan once dogru sik harfi): K=1..12 konu, dosya basina denge + konu basina 3 ayri harf.
+          # DENETLE_HARF_MUTASYON=sabit -> KIRMIZI 111/114 · =tek -> KIRMIZI 78/114.
+          - { ad: "Hazir soru HARF PLANI OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -HarfPlaniSinavi" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /
