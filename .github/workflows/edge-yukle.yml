@@ -54,7 +54,7 @@ jobs:
             beklenen=$(grep -oE 'const KOD_IMZA = "[0-9a-f]{16}"' "radar-app/edge/$dosya" | grep -oE '[0-9a-f]{16}' || true)
             canli=""
             for i in 1 2 3 4 5 6; do
-              canli=$(curl -s "https://$REF.supabase.co/functions/v1/$ad?surum=1" | grep -oE '"surum":"[^"]+"' | cut -d'"' -f4 || true)
+              canli=$(curl -s "https://$REF.supabase.co/functions/v1/$ad?surum=1" -H "apikey: $PUB" -H "Authorization: Bearer $PUB" | grep -oE '"surum":"[^"]+"' | cut -d'"' -f4 || true)
               [ -n "$canli" ] && [ "$canli" = "$beklenen" ] && break
               sleep 5
             done
