@@ -856,6 +856,35 @@ const TEK=/[?&]tek=1/.test(location.search);
     ikon(); b.addEventListener('click',()=>{ const y=d.getAttribute('data-theme')==='dark'?'light':'dark'; if(y==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme'); try{ localStorage.setItem('kc_tema',y); }catch(e){} ikon(); }); });
 })();
 const SORULAR=__JSON__;
+/* 05.10 SEVİYEYE GÖRE SIRA (Cem: "bu derste iyi değilsen kolaydan başlıyoruz; siteyi böyle kuralım").
+   Seviye testinin son sonucu (cihazda: SGS sv_sonuclar, Yeterlilik sv_sonuclar_yet) bu dersin oranını verir:
+   <%50 → kolay → zor → çok zor · ≥%75 → çok zor → zor → kolay · arası → sıra değişmez. Zorluk sorunun kimliğinden
+   (-kolay- / -zor- / -cokzor-), bilinmeyen 'orta'. Kararlı sıralama (aynı zorlukta yayın sırası korunur).
+   SGS'de testte bir dersten 1-2 soru düşer → dersin soru sayısı 3'ten azsa dersin GRUBUNUN oranı kullanılır.
+   Vitrin (?vitrin=1) ve test hiç çözülmemişse sıra değişmez; test yoksa davet satırı çıkar.
+   GÖRMEZ: başka cihazda çözülmüş test (cihazda saklanıyor) · konu bazında seviye. */
+const SIRA_NOTU=(function(){ try{
+  if(/[?&]vitrin=1/.test(location.search)||!SORULAR.length) return null;
+  const yet=/\/smmm\//.test(location.pathname); const ders=String(SORULAR[0].ders||'');
+  let g=[]; try{ g=JSON.parse(localStorage.getItem(yet?'sv_sonuclar_yet':'sv_sonuclar')||'[]'); }catch(e){}
+  const son=Array.isArray(g)&&g.length?g[g.length-1]:null;
+  if(!son) return {tur:'davet',yet};
+  let d=(son.dersler&&son.dersler[ders])||null, ad=ders;
+  if(!d){ const x=(son.gruplar||[]).find(x=>x.ad===ders); if(x) d={dogru:x.dogru,soru:x.soru}; }
+  if(d&&d.soru<3&&d.grup){ const x=(son.gruplar||[]).find(y=>y.ad===d.grup); if(x&&x.soru>=3){ d={dogru:x.dogru,soru:x.soru}; ad=d.grup||x.ad; } }
+  if(!d||!d.soru) return {tur:'davet',yet};
+  const oran=d.dogru/d.soru; const zr=s=>{ const m=String(s.id||'').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/); return (s.zorluk||(m&&m[1])||'orta'); };
+  const SIRA=oran<0.5?{kolay:0,orta:1,zor:2,cokzor:3}:(oran>=0.75?{cokzor:0,zor:1,orta:2,kolay:3}:null);
+  if(SIRA){ const s2=SORULAR.map((s,i)=>({s,i})).sort((a,b)=>(SIRA[zr(a.s)]-SIRA[zr(b.s)])||(a.i-b.i)).map(x=>x.s); SORULAR.splice(0,SORULAR.length,...s2); }
+  return {tur:oran<0.5?'kolay':(oran>=0.75?'zor':'karma'),dogru:d.dogru,soru:d.soru,ad,yet};
+}catch(e){ return null; } })();
+setTimeout(()=>{ try{ if(!SIRA_NOTU) return; const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
+  const t=SIRA_NOTU.tur==='davet' ? '🎯 <b>Bu dersi sana göre sıralayalım:</b> 30 soruda seviyeni ölç, zayıfsan kolaydan başlatalım. <a href="../../seviye-testi.html'+(SIRA_NOTU.yet?'?sinav=yeterlilik':'')+'">Seviyeni ölç →</a>'
+        : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
+        : SIRA_NOTU.tur==='zor' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>zor sorulardan başlıyoruz</b>.'
+        : '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: kolay ve zor sorular karışık geliyor.';
+  u.innerHTML=t+'<button type="button" class="tuKapat" aria-label="Kapat">✕</button>'; document.body.appendChild(u);
+  u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); setTimeout(()=>{ try{ u.remove(); }catch(e){} },12000); }catch(e){} },700);
 // 06.09 seviye: ölçümden türer (bkz. kart kurulumu). k = sınıf anahtarı, ad = ekran adı (Nöbet dili: Isınma / Nöbet / Alarm), neden = ipucu.
 function seviyeHesapla(s){
   const o=s.olcum||{}; const tip=s.tip||'teori'; const ders=String(s.ders||'');
@@ -940,7 +969,7 @@ SORULAR.forEach((s,i)=>{
   // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
   const sv=seviyeHesapla(s);
   k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
-   +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><div class="soruArac"><button class="arac bVurgu" type="button" title="Kelimeye dokun ya da metni seç; sarıya boyanır, yeniden dokununca silinir">🖍 İşaretle</button><button class="arac bNotum" type="button">📝 Notum</button></div><p class="soru">'+esc(s.soru)+'</p><div class="notumKutu" hidden><textarea class="notumAlan" data-id="'+esc(s.id)+'" maxlength="1000" rows="3" placeholder="Bu soruya notun: yalnız sen görürsün"></textarea><div class="notumDurum"></div></div><div class="siklar">'
+   +'<div class="govde"><div class="soruArac"><button class="arac bVurgu" type="button" title="Kelimeye dokun ya da metni seç; sarıya boyanır, yeniden dokununca silinir">🖍 İşaretle</button><button class="arac bNotum" type="button">📝 Notum</button></div><p class="soru">'+esc(s.soru)+'</p><div class="notumKutu" hidden><textarea class="notumAlan" data-id="'+esc(s.id)+'" maxlength="1000" rows="3" placeholder="Bu soruya notun: yalnız sen görürsün"></textarea><div class="notumDurum"></div></div><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div><button class="bilmiyorum" type="button">Bilmiyorum</button></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="Ara sonuçlarını satır satır yaz; tabloyla eşleşenler cevaptan sonra işaretlenir.&#10;Hesabı sen yaparsın, kâğıt yapmaz."></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'

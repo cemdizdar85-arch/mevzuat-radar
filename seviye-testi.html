@@ -421,7 +421,10 @@
     var liste=sira.map(function(k){return gruplar[k];});
     var dogruSay=sayilan.filter(function(c){return c.dogru;}).length;
     SONUC={ gecme:t.gecme, dogru130:t.dogru130, dogru130Alt:t.dogru130Alt, dogru130Ust:t.dogru130Ust, soru:sayilan.length, dogru:dogruSay, gruplar:liste, denetlenemedi:CEVAPLAR.length-sayilan.length, tarih:new Date().toISOString() };
-    try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
+    /* 05.10 SEVİYEYE GÖRE SIRA (Cem "bu derste iyi değilsen kolaydan başlıyoruz"): ders bazında da saklanır; soru sayfası
+       (motor/kaydir-coz.ps1) o dersin sırasını buna göre kurar. SGS'de bir dersten 1-2 soru düşer → sayfa grubu da okur. */
+    var dersler={}; sayilan.forEach(function(c){ var d=dersler[c.ders]||(dersler[c.ders]={dogru:0,soru:0,grup:c.grup}); d.soru++; if(c.dogru) d.dogru++; });
+    try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),dersler:dersler,tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
     /* yanlışlar Kaydır-Çöz yanlış kutusuna (aynı biçim) */
     try{
       var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
