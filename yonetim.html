@@ -128,6 +128,11 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
 
     <h2>Ekibe gelen sorular</h2>
     <div id="ekipListe"></div>
+
+    <h2>Kart ödemesi (iyzico) denemesi</h2>
+    <p class="not">Gerçek kartla <b>5 TL</b> ödenir; sipariş ve paket oluşmaz, yalnız ödeme hattı uçtan uca sınanır. Kart bilgisini iyzico sayfasına sen girersin, bize gelmez. Sonra 5 TL'yi iyzico panelinden iade et.</p>
+    <p id="kartSonuc" class="not"></p>
+    <button class="btn ana" id="kartDene" type="button">Kartla 5 TL dene</button>
   </div>
 </div>
 
@@ -139,6 +144,23 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function tarih(t){ if(!t) return '—'; try{ return new Date(t).toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }catch(e){ return String(t).slice(0,10); } }
   function tl(n){ return Number(n||0).toLocaleString('tr-TR')+' TL'; }
+  /* 05.10 iyzico 5 TL kart denemesi (radar-app/edge/iyzico-odeme.ts ?islem=deneme; sunucu yöneticiyi ayrıca doğrular) */
+  (function(){
+    var k=new URLSearchParams(location.search).get('kart'), ks=$('kartSonuc');
+    if(k&&ks){ ks.textContent = k==='ok' ? '✓ 5 TL kart ödemesi iyzico tarafından DOĞRULANDI. Şimdi iyzico panelinden iade et.' : '✗ Kart ödemesi doğrulanmadı (reddedildi ya da yarıda kaldı). Kayıt kart_odemeleri tablosunda.'; ks.style.color = k==='ok' ? 'var(--green)' : 'var(--red)'; }
+    var b=$('kartDene'); if(!b) return;
+    b.addEventListener('click', async function(){
+      b.disabled=true; ks.textContent='iyzico ödeme sayfası hazırlanıyor…'; ks.style.color='';
+      try{
+        var o=(await sb.auth.getSession()).data.session; if(!o){ ks.textContent='Önce giriş yap.'; b.disabled=false; return; }
+        var r=await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=deneme',{ method:'POST', headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+o.access_token }, body:'{}' });
+        var j=await r.json().catch(function(){ return {}; });
+        if(j.odemeSayfasi){ location.href=j.odemeSayfasi; return; }
+        ks.textContent='Başlatılamadı: '+(j.hata||r.status)+(j.errorMessage?' — '+j.errorMessage:''); ks.style.color='var(--red)';
+      }catch(e){ ks.textContent='Bağlantı hatası.'; ks.style.color='var(--red)'; }
+      b.disabled=false;
+    });
+  })();
   function durum(h){ $('yOlcum').textContent=''; $('yDurum').hidden=false; $('yDurum').innerHTML=h; }
   var bugun=new Date().toISOString().slice(0,10);
 
