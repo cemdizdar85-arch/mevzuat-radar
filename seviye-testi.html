@@ -510,10 +510,23 @@
     try{ bugunCiz(liste); }catch(e){}
     $('svTeklifBaslik').textContent=risk.length?'Riskli derslerini Nöbetçi\'yle kapat':'Yanlışlarının nedenini öğren';
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
-    $('svTeklifMetin').innerHTML='Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır'+(y.length?'; bu testteki <b>'+y.length+' yanlışının</b> anlatımı da orada.':'.')+' Banka açıldığı gün haber almak için ücretsiz üye ol.';
+    /* 05.10 Cem ("1 ve 2 yap"): Yeterlilik 24.09'dan beri satışta; eski "banka açıldığı gün haber al" metni teklif yerine
+       üyeliğe gönderiyordu. Teklif artık riskli ders sayısına göre: 1-4 riskli ders → o kadar derslik paket, yoksa tüm dersler.
+       Rakam YALNIZ fiyat-motoru.js'ten; okunamazsa fiyatsız cümle + tüm dersler bağlantısı. */
+    var rN=risk.length, tek=(rN>=1&&rN<=4), pid=tek?'yeterlilik-'+rN:'yeterlilik-tum';
+    $('svTeklifMetin').innerHTML='Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır'+(y.length?'; bu testteki <b>'+y.length+' yanlışının</b> anlatımı da orada.':'.')
+      +(tek?' Riskli '+(rN===1?'dersin':rN+' dersin')+' için yalnız '+(rN===1?'o dersi':'o dersleri')+' alabilirsin.':' Sekiz dersin tamamı tek pakette.');
     $('svTeklifFiyat').hidden=true;
-    $('svTeklifAna').textContent='Ücretsiz üye ol →'; $('svTeklifAna').setAttribute('href','ogrenci.html');
-    $('svTeklifIkinci').textContent='Örnek soruları çöz'; $('svTeklifIkinci').setAttribute('href','kaydir/vitrin/smmm.html');
+    try{
+      var fp=tek?(FIYAT.yeterlilik&&FIYAT.yeterlilik[rN]):FIYAT.yeterlilikTum;
+      if(fp){
+        $('svTeklifFiyat').innerHTML='<b>'+(tek?rN+' ders ':'Tüm dersler ')+fiyatAnaHtml(pid,fp.kurulus)+'</b>'+fiyatDahilHtml(pid,fp.kurulus)+' · sınava kadar erişim'
+          +(fp.liste>fp.kurulus&&typeof KOTA!=='undefined'&&KOTA.yeterlilik?' · ilk '+tl(KOTA.yeterlilik)+' kurucuya kurucu fiyatı (sonra '+fiyatAna(pid,fp.liste)+')':'');
+        $('svTeklifFiyat').hidden=false;
+      }
+    }catch(e){}
+    $('svTeklifAna').textContent=tek?'Riskli '+(rN===1?'dersini':'derslerini')+' aç →':'Tam bankayı aç →'; $('svTeklifAna').setAttribute('href','satin-al.html?paket='+pid+(tek?'&dersler='+encodeURIComponent(risk.map(ad).join('|')):''));
+    $('svTeklifIkinci').textContent='Önce örnek soruları çöz'; $('svTeklifIkinci').setAttribute('href','kaydir/vitrin/smmm.html');
     $('svYollar').innerHTML='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+'<div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
     $('nasil').hidden=true; $('nasilYet').hidden=false;
@@ -586,7 +599,7 @@
     try{
       if(typeof FIYAT!=='undefined'&&FIYAT.sgs){
         var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
-        $('svTeklifFiyat').innerHTML='<b>'+fiyatAna('sgs',f.kurulus)+'</b> ('+(fiyatDahilNot('sgs',f.kurulus)||'KDV dahil')+') · sınava kadar erişim (en az '+ay+' ay)'
+        $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml('sgs',f.kurulus)+'</b>'+(fiyatDahilHtml('sgs',f.kurulus)||' (KDV dahil)')+' · sınava kadar erişim (en az '+ay+' ay)'
           +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' kurucuya kurucu fiyatı (sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?', '+fiyatDahilNot('sgs',f.liste):'')+')':'')
           ;   /* 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" */
         $('svTeklifFiyat').hidden=false;

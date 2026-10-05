@@ -15,7 +15,7 @@
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
-      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi)
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -115,6 +115,42 @@ function KaliteTek($q){
   try{ $o=@(& node $js --tek $tmp 2>&1 | ForEach-Object { "$_".Trim() } | Where-Object { $_ }) } finally { Remove-Item $tmp -ErrorAction SilentlyContinue }
   return $o
 }
+# 05.10.2026 GERÇEK KAPI-Ç (gm8 ölçümü: GMSİ'nin 3 hazır sorusu bulutta KAPI-Ç "yanlış yol çözülemedi" ile düştü — yollar "… ve …" ile
+#   zincirlenmişti; bu betiğin KAPI-Ç taklidi görmedi). KOPYA YOK: CeldiriciYolKapisi + SayiCozC üreticiden AST ile alınır.
+#   Mutasyon: $env:DENETLE_KAPIC_MUTASYON=kapali → işlev boş döner (öz-sınav KIRMIZI düşmeli).
+$script:KAPIC_YUKLU=$false
+function GercekKapiC($q){
+  if("$env:DENETLE_KAPIC_MUTASYON" -eq 'kapali'){ return @() }
+  if(-not $script:KAPIC_YUKLU){
+    $uy=[IO.Path]::Combine($depoKokD,'motor','kalip-parti-uret.ps1'); $tk=$null; $hk=$null
+    $ast=[System.Management.Automation.Language.Parser]::ParseFile($uy,[ref]$tk,[ref]$hk)
+    $bul=@($ast.FindAll({ param($n) $n -is [System.Management.Automation.Language.FunctionDefinitionAst] },$true) | Where-Object { @('CeldiriciYolKapisi','SayiCozC') -contains $_.Name })
+    if($bul.Count -lt 2){ return @('KAPI-Ç KÖR: üreticide CeldiriciYolKapisi/SayiCozC bulunamadı') }
+    foreach($f in $bul){ . ([scriptblock]::Create($f.Extent.Text)); Set-Item -Path ("function:script:"+$f.Name) -Value (Get-Item ("function:"+$f.Name)).ScriptBlock }
+    $script:KAPIC_YUKLU=$true
+  }
+  return @(CeldiriciYolKapisi $q)
+}
+# 05.10.2026 TERS SADE (uyarı): olumsuz kökte ("hangisi yanlıştır") doğru OLMAYAN şıkkın sade metni "doğru seç/cevap/işaretle" diyorsa öğrenci
+#   ters okur (onarım okuyucusu buldu). Banka ölçümü (05.10): olumsuz kökü 1.509 soruda 6 aday, bir kısmı meşru ("doğru seçilse de") → DURDURMAZ.
+function TersSadeNot($q){
+  if("$env:DENETLE_TERS_MUTASYON" -eq 'kapali'){ return @() }
+  if("$($q.soru)" -notmatch '(?i)yanlıştır|değildir|söylenemez|yer almaz|bulunmaz'){ return @() }
+  $s=$(if($q.PSObject.Properties['sade'] -and $q.sade -and $q.sade.siklar){ $q.sade.siklar } else { $null }); if(-not $s){ return @() }
+  $o=@(); foreach($h in 'A','B','C','D','E'){ if($h -eq "$($q.dogru)"){ continue }; if("$($s.$h)" -match '(?i)do[gğ]ru(yu)?\s*(se[cç]|i[sş]aretle|cevap)'){ $o+="TERS SADE: olumsuz kökte $h şıkkının sade metni 'doğru seç/cevap' diyor" } }
+  return $o
+}
+if($KapiCSinavi){
+  # vaka: ';' ile zincir → üretici çözer (KUSUR yok) · '… ve …' zinciri → "çözülemedi" (gm8 GMSİ sınıfı) · ters sade uyarısı
+  $tb=[pscustomobject]@{ basliklar=@('Kalem','Tutar'); satirlar=@(@('a','100'),@('b','200')) }
+  $sk=[pscustomobject]@{ A='80'; B='120'; C='150'; D='200'; E='300' }
+  $iyi=[pscustomobject]@{ soru='x'; dogru='C'; siklar=$sk; cozum_tablo=$tb; celdirici_yol=[pscustomobject]@{ A='100 - 20 = 80'; B='100 + 20 = 120'; D='100 x 2 = 200'; E='100 + 200 = 300' } }
+  $kotu=[pscustomobject]@{ soru='x'; dogru='C'; siklar=$sk; cozum_tablo=$tb; celdirici_yol=[pscustomobject]@{ A='100 - 20 = 80 ve 80 x %10 = 8 (yanlış)'; B='100 + 20 = 120'; D='100 x 2 = 200'; E='100 + 200 = 300' } }
+  $ters=[pscustomobject]@{ soru='Aşağıdakilerden hangisi yanlıştır?'; dogru='E'; sade=[pscustomobject]@{ siklar=[pscustomobject]@{ A='Bu ifade kaynakla uyumlu, doğru seçersin'; B='x'; C='x'; D='x'; E='x' } } }
+  $v=@(@('noktalı virgül zinciri çözülür → bulgu yok',@(GercekKapiC $iyi).Count,0),@("'ve' zinciri çözülemez → bulgu",[int](@(GercekKapiC $kotu).Count -ge 1),1),@('olumsuz kökte ters sade → uyarı',@(TersSadeNot $ters).Count,1),@('olumlu kökte ters sade aranmaz',@(TersSadeNot ([pscustomobject]@{ soru='Hangisi doğrudur?'; dogru='E'; sade=$ters.sade })).Count,0))
+  $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
+  if($h){ "KAPI-C/TERS SADE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-C/TERS SADE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
 if($AdimSinavi){
   $tam=[pscustomobject]@{ adimlar=@([pscustomobject]@{formul='Verilen: a'},[pscustomobject]@{formul='b = 1'}); sade=[pscustomobject]@{ dogru='x'; siklar=[pscustomobject]@{A='a'} } }
   $adimsiz=[pscustomobject]@{ sade=$tam.sade }; $tekAdim=[pscustomobject]@{ adimlar=@([pscustomobject]@{formul='x'}); sade=$tam.sade }
@@ -128,7 +164,7 @@ if($YilSinavi){
   $v=@(@('2025 yılı gelirleri için yıllık beyan','KUSUR'),@('2025 yılı gelirleri için 2026 yılı Mart ayında verilecek beyanname','ok'),@('2025 gelirleri, beyan 2026''da','ok'),@('6183 ve 2004 sayılı Kanun hükümlerine göre','ok'),@('5520 s. Kanun ve 2004 s. Kanun','ok'),@('yıl geçmeyen soru','ok'),@('2024 ve 2025 yılları','KUSUR'))
   $h=0; foreach($x in $v){ $c=$(if(YilKusurOlc $x[0] 2026){ 'KUSUR' } else { 'ok' }); if($c -ne $x[1]){ $h++; "  DUSTU: '$($x[0])' -> $c (beklenen $($x[1]))" } }
   if($h){ "KAPI-Y SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-Y SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
-}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi)' }
+}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -213,6 +249,8 @@ foreach($q in $liste){
   # 05.10.2026 KAPI-KALITE yerelde: bulut FAZ GM'in SoruKaliteKapisi'si (arac/soru-kalite-kapisi.js --tek; KAPI-AS2/EK/HK/BP/BOS/TR/YY/ADIM).
   #   gm7'de 5 soru bununla düştü, ön denetim görmüyordu. Hazır soru tarihsiz = YENİ2 → NOT- dışındaki her satır durdurur.
   foreach($x in @(KaliteTek $q)){ if("$x" -like 'NOT-*'){ $not.Add("$x") } else { $k.Add("KAPI-KALITE $x") } }
+  foreach($x in @(GercekKapiC $q)){ $k.Add("KAPI-Ç (üretici): $x") }
+  foreach($x in @(TersSadeNot $q)){ $not.Add($x) }
   # adım aritmetiği (AritmetikKusur taklidi) + ';' zinciri
   $n=0; foreach($a in @($q.adimlar)){ $n++; $f="$($a.formul)"
     if($f -match ';' -and $f -match '=.*;.*='){ $k.Add("adim $n formulde ';' zinciri") }
@@ -310,4 +348,8 @@ if($metinli.Count -ge 5){
   elseif($bos.Count -and $metinli.Count -ge 10){ "  - UYARI: hic kullanilmayan harf var ($($bos -join ', '))" }
   else{ "  - ok" }
 }
+# 05.10.2026 A4 ŞIK DAĞILIMI (sözleşme A4, kapısı yoktu): doğru harf dağılımı + uyarı (≥5 soruda bir harf %40'ı aşarsa). DURDURMAZ
+#   (sayısal şıklar artan sıralı → harf değere bağlı; yazar çeldirici değerleriyle yönlendirir). gm8'de 15 sorunun 12'si B/C idi.
+$dag=@{}; foreach($q0 in @($liste)){ $hd="$($q0.dogru)".Trim().ToUpperInvariant(); if($hd){ $dag[$hd]=1+[int]$dag[$hd] } }
+"SIK DAGILIMI: " + ((@('A','B','C','D','E') | ForEach-Object { "$_ $([int]$dag[$_])" }) -join ' · ') + $(if(@($liste).Count -ge 5 -and @($dag.Values | Where-Object { $_ / [double]@($liste).Count -gt 0.40 }).Count){ "  ⚠ A4: bir harf %40'ı aşıyor — çeldirici değerleriyle doğru şıkkı başka harfe taşı (durdurmaz)" } else { '' })
 "ozet: $temizSay/$($liste.Count) soru kusursuz"

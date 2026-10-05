@@ -73,6 +73,19 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
 7. **Adımda dayanılan her madde açıklamanın "Kural:" kısmında da anılır**; sınır kontrolü kendi adımında, toplam bulunduktan SONRA.
 8. Kökte ödeme biçimi/yıl/kesinti yapılıp yapılmadığı gibi sonucu değiştiren her olgu açıkça yazılır (yemek bedeli banka mı nakit mi).
 
+**F. gm8 bulut sonucundan (05.10: 15 gönderildi → 12 hakem EVET, açıklama hakemi 10/10 TEMİZ, 7 yayına; kayıp içerikten değil biçimden):**
+1. **Çeldirici yolu biçimi (KAPI-Ç):** her yanlış şık için TEK zincir; çok adım `;` ile ayrılır, SON parça `işlem = şık değeri`. "… ve …" ile
+   zincirleme YASAK (üretici çözemez, soru düşer — GMSİ 3/3 böyle düştü). Açıklama notu yalnız EN SONDA parantezde: `105.000 + 225.000 = 330.000;
+   330.000 x %85 = 280.500 (istisnayı unuttu)`. Ön denetim artık üreticinin gerçek KAPI-Ç işlevini koşar.
+2. **Teori sorusuna `cozum_tablo` YAZILMAZ** (VUK/kavram soruları): tablo varsa üretici soruyu hesap sorusu sanıp sayısal ikiz kurar, öğrenci
+   simülasyonu metin cevabı çözemez ("U" ≠ "(U)'nun 2019 faturaları") ya da hiç koşmaz → yayına girmez (gm8: VUK 3/3). Teoride `adimlar`
+   yazılır (Ne soruluyor → Kural → Bu olayda → Doğru şık), `doldur: []`, `verilen: []`.
+3. **Adımlar kuralı GENEL öğretir:** simüle öğrenci adımları okuyup İKİZ soruyu (aynı kural, başka değer) çözer. Kural yalnız sorudaki değer için
+   anlatılırsa ikizde "yetmedi" der (gm8 GV zor: yalnız 2. derece engellilik tutarı anlatıldı, ikiz 3. dereceyi sordu). Parametreli kuralda
+   bütün seçenekler ya da genel formül adımda yazılır.
+4. **Doğru şık dağılımı (A4):** bir dosyada bir harf %40'ı aşmasın (ön denetim `SIK DAGILIMI` satırı uyarır). Sayısal şıklar artan sıralı
+   olduğundan harf, çeldiricilerin doğru cevaba göre büyük/küçük kurulmasıyla seçilir; yazara dosya başında hedef harf verilir.
+
 ## İKİNCİ GÖZ (zorunlu, gönderimden önce)
 Soruyu YAZMAYAN ayrı bir okuyucu her soruyu ambar kaynağıyla birlikte okur: (1) anahtarı kendisi bağımsız çözer, (2) A ve B listesini
 işaretler, (3) karar: TEMİZ / DÜZELT (ne) / ÇIKAR. Anahtar anlaşmazlığı ya da ÇIKAR → soru gönderilmez. Düzeltme yazara döner, ön denetim

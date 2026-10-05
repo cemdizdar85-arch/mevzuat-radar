@@ -316,6 +316,11 @@ jobs:
           # 05.10.2026 (sozlesme B25): hazir soruda adim + sade yazarin isi. 6 vaka; DENETLE_ADIM_MUTASYON=adim|sade -> KIRMIZI (2/2).
           - { ad: "Hazir soru on denetimi ADIM/SADE (B25) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -AdimSinavi" }
+          # 05.10.2026: on denetimde URETICININ GERCEK KAPI-C islevi (AST) + ters sade uyarisi. gm8'de GMSI'nin 3 hazir sorusu
+          # bulutta KAPI-C ile dustu; yeni on denetim 3/3'unu ayni nedenle yakaliyor, oteki 12'ye ok. 4 vaka;
+          # DENETLE_KAPIC_MUTASYON=kapali ve DENETLE_TERS_MUTASYON=kapali -> her biri KIRMIZI (1/4).
+          - { ad: "Hazir soru on denetimi KAPI-C (uretici) + ters sade OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KapiCSinavi" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /

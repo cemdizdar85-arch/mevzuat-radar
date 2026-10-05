@@ -203,7 +203,7 @@
   <p class="alt">Paketini seç, bilgilerini tamamla; ödeyeceğin tutar KDV dahil olarak özette yazar, sonradan eklenen ücret yok.</p>
   <ul class="guven">
     <li>E-arşiv fatura</li>
-    <li>Havale/EFT ile ödeme, kart bilgisi istenmez</li>
+    <li id="odemeYolu">Havale/EFT ile ödeme</li>
     <li>Satıcı: Dizdar Denetim A.Ş.</li>
   </ul>
 </header>
@@ -500,6 +500,16 @@ function dersCiz(){
   document.getElementById('dersListe').innerHTML = havuz.map(function(d){
     return '<label><input type="checkbox" value="' + d + '"><span>' + d + '</span></label>';
   }).join('');
+  /* 05.10 Cem: seviye testinden "Riskli derslerini aç" ile gelen (?dersler=Ad|Ad) dersler hazır işaretli gelir.
+     Ad eşleşmezse (yazım farkı) o ders atlanır, öğrenci kendisi seçer; paket tavanını aşmaz. */
+  try{
+    var on = (new URLSearchParams(location.search).get('dersler') || '').split('|')
+      .map(function(x){ x = x.trim().toLocaleLowerCase('tr-TR'); return x === 'hukuk' ? 'temel hukuk' : x; })   /* seviye seti (veri/seviye/smmm-set.json) "Hukuk" der */
+      .filter(Boolean), isaret = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('#dersListe input'), function(i){
+      if(isaret < n && on.indexOf(i.value.toLocaleLowerCase('tr-TR')) > -1){ i.checked = true; isaret++; }
+    });
+  }catch(e){}
   kutu.style.display = 'block';
   dersSayacGuncelle();
 }
@@ -808,6 +818,9 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
    buradan yalnız sipariş no gider. KART_ACIK=false iken düğme yalnız ?kart=1 ile görünür (Cem'in gerçek deneme alımı). */
 var KART_ACIK = false;
 function kartAcik(){ try{ return KART_ACIK || new URLSearchParams(location.search).get('kart') === '1'; }catch(e){ return KART_ACIK; } }
+/* 05.10 Cem: üstteki güven satırı KART_ACIK'a bağlı - bayrak açılınca kendiliğinden "Kartla ya da havale/EFT" der.
+   Eski "kart bilgisi istenmez" sözü kalktı: kart açılınca yalan olurdu. Kart bilgisi bizde değil iyzico'nun sayfasında girilir. */
+(function(){ var o = document.getElementById('odemeYolu'); if(o && kartAcik()) o.textContent = 'Kartla (iyzico güvencesiyle) ya da havale/EFT ile ödeme'; })();
 function kartHazirla(no){
   var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
   k.hidden = false;
