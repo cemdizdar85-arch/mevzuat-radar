@@ -64,7 +64,7 @@ try {
    Kimlik kaynağı iletisim.html künye tablosu (ticaret unvanı, MERSİS, sicil, vergi dairesi/no, adres, iletişim).
    PERDE-BASI işaretinin DIŞINDA: açılışta gong.ps1 perdeyi silince de kalır. Yollar KÖKTEN (alt klasör sayfaları için). */
 var TT_KIMLIK = 'Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · MERSİS 0301130343200001 · Ticaret Sicil 270764 (İzmir) · ' +
-  'Kordon V.D. 3011303432 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · destek@tetikte.com · 0537 843 80 58';
+  'Kordon V.D. 3011303432 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · destek@tetikte.com · 0532 344 80 58';
 function ttOdemeBandi(yer) {
   if (!yer || document.getElementById('ttOdemeBandi')) return;
   if (!document.getElementById('ttOdemeStil')) {
