@@ -356,7 +356,13 @@
 <div id="tamam">
   <div class="kutu" style="border-color:color-mix(in srgb,var(--green) 45%,transparent)">
     <h2 style="color:var(--green)">Siparişin alındı</h2>
-    <p style="margin:0 0 12px;font-size:14px">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
+    <!-- 05.10 iyzico KART: düğme yalnız kartAcik() iken görünür (bugün ?kart=1 ile; deneme geçince KART_ACIK=true) -->
+    <div id="kartKutu" hidden style="margin:0 0 14px;padding:12px 14px;border:1px solid var(--line2);border-radius:12px;background:var(--kagit)">
+      <button type="button" id="kartOde" class="btn" style="width:100%;font-weight:800">💳 Kartla öde — paketin hemen açılsın</button>
+      <p class="kucuk" style="margin:8px 0 0">Ödeme iyzico'nun güvenli sayfasında yapılır; kart bilgin bize gelmez. Taksit yok.</p>
+      <p class="kucuk" id="kartHata" style="margin:6px 0 0;color:var(--red)"></p>
+    </div>
+    <p style="margin:0 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
     hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
     <div class="kv"><b>Sipariş no</b><span id="tmNo" style="font-weight:800;color:var(--amber)"></span></div>
     <div class="kv"><b>Paket</b><span id="tmPaket"></span></div>
@@ -798,6 +804,29 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
 });
 
 /* ---- siparis no: gun + rastgele; kullaniciya okunur, havale aciklamasina yazilir ---- */
+/* 05.10 iyzico KART ÖDEMESİ. Tutar SUNUCUDA hesaplanır (radar-app/edge/iyzico-odeme.ts ?islem=baslat);
+   buradan yalnız sipariş no gider. KART_ACIK=false iken düğme yalnız ?kart=1 ile görünür (Cem'in gerçek deneme alımı). */
+var KART_ACIK = false;
+function kartAcik(){ try{ return KART_ACIK || new URLSearchParams(location.search).get('kart') === '1'; }catch(e){ return KART_ACIK; } }
+function kartHazirla(no){
+  var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
+  k.hidden = false;
+  var hb = document.getElementById('havaleBaslik'); if(hb) hb.textContent = 'Ya da havale/EFT ile öde: ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün hesabın açılır ve e-arşiv faturan e-posta adresine gelir.';
+  var b = document.getElementById('kartOde'), h = document.getElementById('kartHata');
+  b.onclick = async function(){
+    b.disabled = true; h.textContent = ''; b.textContent = 'iyzico ödeme sayfası açılıyor…';
+    try{
+      var r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=baslat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ siparis_no:no }) });
+      var j = await r.json().catch(function(){ return {}; });
+      if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
+      h.textContent = j.hata === 'tutar guncel fiyatla uyusmuyor' ? 'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
+    }catch(e){ h.textContent = 'Bağlantı hatası. Havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
+    b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın';
+  };
+}
+/* iyzico'dan başarısız dönüş: ?odeme=hata&no=... */
+(function(){ try{ var q = new URLSearchParams(location.search); if(q.get('odeme') === 'hata'){ var d = document.createElement('div'); d.className = 'kutu'; d.style.borderColor = 'var(--red)'; d.innerHTML = '<b style="color:var(--red)">Kart ödemesi tamamlanmadı.</b> Kartından para çekilmediyse siparişin ödeme bekliyor durumunda; havale ile ödeyebilir ya da yeniden deneyebilirsin. Sipariş no: <b>' + String(q.get('no') || '—').replace(/[^A-Z0-9-]/g, '') + '</b>'; document.addEventListener('DOMContentLoaded', function(){ var m = document.querySelector('main') || document.body; m.insertBefore(d, m.firstChild); }); } }catch(e){} })();
+
 function siparisNo(){
   var d = new Date(), p = function(n){ return (n<10?'0':'') + n; };
   var harf = 'ACDEFHJKLMNPRTUVXYZ2345679', r = '';
@@ -859,6 +888,7 @@ btn.addEventListener('click', function(){
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
 
   function bitir(){
+    kartHazirla(no);
     document.getElementById('tmNo').textContent    = no;
     document.getElementById('tmPaket').textContent = secili.ad;
     document.getElementById('tmTutar').textContent = tl(tutar) + ' TL';

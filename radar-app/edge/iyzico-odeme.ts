@@ -13,7 +13,7 @@
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit (kapalı, enabledInstallments [1]) · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "e0a0fb62c7117537";
+const KOD_IMZA = "4d91d2efeea1d5f6";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -163,7 +163,7 @@ Deno.serve(async (req) => {
     if (o.ok) {
       try { await fetch(`${SB_URL}/functions/v1/siparis-bildirim`, { method: "POST", headers: { "Content-Type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` }, body: JSON.stringify({ tur: "acildi", no: k.siparis_no }) }); } catch { /* mail düşerse ödeme bozulmaz */ }
     }
-    return yonlen(`${SITE}/hesabim.html?odeme=${o.ok ? "ok" : "kontrol"}&no=${encodeURIComponent(k.siparis_no)}`);
+    return yonlen(`${SITE}/ogrenci.html?odeme=${o.ok ? "ok" : "kontrol"}&no=${encodeURIComponent(k.siparis_no)}`);
   }
   return cevap(404, { hata: "bilinmeyen islem" });
 });

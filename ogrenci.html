@@ -109,6 +109,13 @@
 <a class="atla" href="#icerik">İçeriğe atla</a>
 <div class="og" id="icerik">
   <div class="top"><a href="index.html">Tetikte</a> · <a href="sorular.html#sgs">Soru çöz</a> · Hesabım</div>
+  <!-- 05.10 iyzico kart ödemesi dönüşü (?odeme=ok|kontrol&no=...) -->
+  <div id="odemeSonuc" hidden style="margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid var(--line2);background:var(--kagit);font-size:14.5px"></div>
+  <script>(function(){ try{ var q=new URLSearchParams(location.search), o=q.get('odeme'), e=document.getElementById('odemeSonuc'); if(!o||!e) return;
+    var no=String(q.get('no')||'').replace(/[^A-Z0-9-]/g,'');
+    e.innerHTML = o==='ok' ? '<b style="color:var(--green)">✓ Ödemen alındı.</b> Sipariş no <b>'+no+'</b>. Bu e-postayla hesabın varsa paketin açıldı; yoksa aynı e-postayla üye olduğun anda kendiliğinden açılır. Onay e-postan yolda.'
+                           : '<b style="color:var(--amber)">Ödemen alındı, paketin açılışı kontrol ediliyor.</b> Sipariş no <b>'+no+'</b>. Birkaç dakika içinde açılmazsa <a href="iletisim.html">bize yaz</a>.';
+    e.hidden=false; }catch(x){} })();</script>
 
   <!-- ÜYE DEĞİLSE -->
   <section id="ogGiris" class="og-gizli">
