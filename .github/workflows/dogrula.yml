@@ -321,6 +321,10 @@ jobs:
           # DENETLE_KAPIC_MUTASYON=kapali ve DENETLE_TERS_MUTASYON=kapali -> her biri KIRMIZI (1/4).
           - { ad: "Hazir soru on denetimi KAPI-C (uretici) + ters sade OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KapiCSinavi" }
+          # 05.10.2026 - SIM on kontrol: cumle/oncullu dogru sikli teori sorusunda cozum_tablo (gm8 VUK kp-05 x3 simulasyonda dustu).
+          # DENETLE_SIM_MUTASYON=kapali -> KIRMIZI (2/4).
+          - { ad: "Hazir soru on denetimi SIM on kontrol OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -SimSinavi" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /

@@ -1,6 +1,6 @@
 ﻿# HAZIR SORU ÖN DENETİMİ (09.09.2026, GM t2b yazımı) — 0 USD, model çağrısı YOK.
 # NE YAPAR: -HazirSoru ile basılacak GM yazımı soru dosyasını, üreticinin kod kapılarını taklit ederek ÖNCEDEN ölçer:
-#   şık artan sıra · KokuKusur (onbinlik tutar, uzun tire) · uzunluk tavanı · KAPI-Ç çeldirici yolu (';' yasağı + sonuç uyumu)
+#   şık artan sıra · KokuKusur (onbinlik tutar, uzun tire) · uzunluk tavanı · KAPI-Ç çeldirici yolu (sonuç uyumu + üreticinin gerçek KAPI-Ç'si)
 #   · adım aritmetiği (zincir eşitlik) · doldur koordinatı · tablo son satırı = doğru şık · KAPI-K pencere sözlüğü · ASCII Türkçe.
 # NEDEN: Cem'in DÖRT KURALI — kusur koşuda değil YAZIMDA yakalanır, düşen soru yeniden basım bedeli demektir.
 #   Maliyet zor koşusunda ölçüldü: bu betikten geçen 25 sorunun 25'i yayınlanabilir çıktı.
@@ -15,7 +15,7 @@
 #   -Ders, üretici çağrısındaki -DersRegex ile AYNI yazılır (ders aralığı üreticinin $DERS_ARALIK tablosundan okunur).
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
-      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi)
+      [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -140,6 +140,29 @@ function TersSadeNot($q){
   $o=@(); foreach($h in 'A','B','C','D','E'){ if($h -eq "$($q.dogru)"){ continue }; if("$($s.$h)" -match '(?i)do[gğ]ru(yu)?\s*(se[cç]|i[sş]aretle|cevap)'){ $o+="TERS SADE: olumsuz kökte $h şıkkının sade metni 'doğru seç/cevap' diyor" } }
   return $o
 }
+# 05.10.2026 SİMÜLASYON ÖN KONTROLÜ (gm8: VUK'un 3 teori sorusu bulutta öğrenci simülasyonunda kaldı). Üretici cozum_tablo görünce soruyu
+#   HESAP sorusu sayar (FAZ Ö teoriMi = tablo yok ∧ yevmiye değil), sayısal ikiz kurar; doğru şık CÜMLE ise simüle öğrenci tek sayı veremez
+#   ("U" ≠ "(U)'nun 2019 faturaları") ya da sim hiç koşmaz. Kural: doğru şıkkı cümle olan soruda cozum_tablo olmaz (talimat F.2).
+#   Cümle ölçütü üreticinin KAPI-Ç'sindeki ile aynı: şıkta ≥4 harfli kelime. Mutasyon: $env:DENETLE_SIM_MUTASYON=kapali.
+#   🚫 GÖRMEZ: hesap sorusunda ikizin kurulup kurulamayacağı (model fazı) · simüle öğrencinin anlatımı yetersiz bulması.
+function SimOnKontrol($q){
+  if("$env:DENETLE_SIM_MUTASYON" -eq 'kapali'){ return @() }
+  $tbl=($q.PSObject.Properties['cozum_tablo'] -and $q.cozum_tablo -and @($q.cozum_tablo.satirlar).Count -ge 1)
+  if(-not $tbl){ return @() }
+  $ds="$($q.siklar.("$($q.dogru)".Trim().ToUpperInvariant()))"
+  # 05.10 gerçek vaka (gm8 VUK çok zor, doğru 'I ve III'): öncüllü cevap da teoridir; 4 harf ölçütü onu kaçırıyordu
+  if($ds -match '[A-Za-zÇĞİÖŞÜçğıöşü]{4,}' -or $ds.Trim() -match '^(I{1,3}|IV|V)(\s*(,|ve|ile)\s*(I{1,3}|IV|V))*\s*$'){ return @("SIM: doğru şık cümle (teori sorusu) ama cozum_tablo var — üretici sayısal ikiz kurar, öğrenci simülasyonu çalışmaz; tabloyu kaldır, doldur/verilen [] (talimat F.2)") }
+  return @()
+}
+if($SimSinavi){
+  $tb=[pscustomobject]@{ basliklar=@('a','b'); satirlar=@(@('x','1')) }
+  $teoriTablo=[pscustomobject]@{ dogru='B'; siklar=[pscustomobject]@{ A='Alıcı düzenler'; B='Satıcı düzenler'; C='c'; D='d'; E='e' }; cozum_tablo=$tb }
+  $teoriTablosuz=[pscustomobject]@{ dogru='B'; siklar=$teoriTablo.siklar }
+  $hesapTablo=[pscustomobject]@{ dogru='B'; siklar=[pscustomobject]@{ A='100'; B='120'; C='150'; D='200'; E='300' }; cozum_tablo=$tb }
+  $v=@(@('teori + tablo → bulgu',@(SimOnKontrol $teoriTablo).Count,1),@('teori tablosuz → yok',@(SimOnKontrol $teoriTablosuz).Count,0),@('hesap + tablo → yok',@(SimOnKontrol $hesapTablo).Count,0),@('öncüllü teori (I ve III) + tablo → bulgu',@(SimOnKontrol ([pscustomobject]@{ dogru='C'; siklar=[pscustomobject]@{ A='Yalnız I'; B='I ve II'; C='I ve III'; D='II ve III'; E='I, II ve III' }; cozum_tablo=$tb })).Count,1))
+  $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
+  if($h){ "SIM ON KONTROL SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "SIM ON KONTROL SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
 if($KapiCSinavi){
   # vaka: ';' ile zincir → üretici çözer (KUSUR yok) · '… ve …' zinciri → "çözülemedi" (gm8 GMSİ sınıfı) · ters sade uyarısı
   $tb=[pscustomobject]@{ basliklar=@('Kalem','Tutar'); satirlar=@(@('a','100'),@('b','200')) }
@@ -164,7 +187,7 @@ if($YilSinavi){
   $v=@(@('2025 yılı gelirleri için yıllık beyan','KUSUR'),@('2025 yılı gelirleri için 2026 yılı Mart ayında verilecek beyanname','ok'),@('2025 gelirleri, beyan 2026''da','ok'),@('6183 ve 2004 sayılı Kanun hükümlerine göre','ok'),@('5520 s. Kanun ve 2004 s. Kanun','ok'),@('yıl geçmeyen soru','ok'),@('2024 ve 2025 yılları','KUSUR'))
   $h=0; foreach($x in $v){ $c=$(if(YilKusurOlc $x[0] 2026){ 'KUSUR' } else { 'ok' }); if($c -ne $x[1]){ $h++; "  DUSTU: '$($x[0])' -> $c (beklenen $($x[1]))" } }
   if($h){ "KAPI-Y SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-Y SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
-}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi)' }
+}if(-not $Dosya){ throw '-Dosya zorunlu (ya da -TavanSinavi / -IkizSinavi / -MulgaSinavi / -YilSinavi / -AdimSinavi / -KapiCSinavi / -SimSinavi)' }
 $UZ_TAVAN=$(if($Tavan -gt 0){ $Tavan } elseif($Ders){ DersTavaniOlc $Ders $depoKokD } else { 746 })
 function Duz([string]$s){ ("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() }
 function Sayi([string]$t){ $m=[regex]::Match("$t",'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:,\d+)?'); if($m.Success){ try{ return [double]::Parse($m.Value,$trS) }catch{ return $null } }; return $null }
@@ -238,8 +261,9 @@ foreach($q in $liste){
   if($tutar.Count -ge 4 -and -not @($tutar | Where-Object { $_ % 10000 -ne 0 }).Count){ $k.Add("tutarlarin hepsi onbinlik ($($tutar.Count))") }
   if("$($q.soru)" -match '—|…'){ $k.Add('uzun tire / uc nokta') }
   if("$($q.soru)".Length -gt $UZ_TAVAN){ $k.Add("soru uzun $("$($q.soru)".Length) kr > ders tavani $UZ_TAVAN (bulut koşucusu bu soruyu ÜCRETSİZ kapıda düşürür)") }
-  # KAPI-Ç: çeldirici yolunda ';' yasak; formül sonucu şık tutarıyla uyumlu
-  if($q.celdirici_yol){ foreach($p in @($q.celdirici_yol.PSObject.Properties)){ $v="$($p.Value)"; if($v -match ';'){ $k.Add("celdirici $($p.Name) icinde ';'") }
+  # KAPI-Ç: formül sonucu şık tutarıyla uyumlu. 05.10.2026: eski "';' yasak" taklidi kaldırıldı — üretici (kalip-parti-uret.ps1
+  #   ~2807) son ';' parçasını alır, talimat F.1 çok adımlı yolu ';' ile ister; taklit gm8 GMSİ k2'de 9 sahte KUSUR verdi.
+  if($q.celdirici_yol){ foreach($p in @($q.celdirici_yol.PSObject.Properties)){ $v="$($p.Value)"
       if($sayisal){ $son=[regex]::Matches(($v -replace '\([^)]*\)',''),'=\s*(-?[\d\.,]+)'); if($son.Count){ $cv=Sayi $son[$son.Count-1].Groups[1].Value; $sv=Sayi "$($q.siklar.($p.Name))"; if($null -ne $cv -and $null -ne $sv -and [math]::Abs($cv-$sv) -gt [math]::Max(0.5,[math]::Abs($sv)*0.005)){ $k.Add("celdirici $($p.Name) sonucu $cv != sik $sv") } } }
       if("$($p.Name)" -eq "$($q.dogru)"){ $k.Add("celdirici dogru sikta ($($p.Name))") } } }
   # 05.10.2026 GM ADIM/SADE (Cem "1.2.3", sözleşme B25): gm6+gm7 ölçümü — hazır soruda adimlar yoktu, adımı bulut modeli yazdı;
@@ -251,6 +275,7 @@ foreach($q in $liste){
   foreach($x in @(KaliteTek $q)){ if("$x" -like 'NOT-*'){ $not.Add("$x") } else { $k.Add("KAPI-KALITE $x") } }
   foreach($x in @(GercekKapiC $q)){ $k.Add("KAPI-Ç (üretici): $x") }
   foreach($x in @(TersSadeNot $q)){ $not.Add($x) }
+  foreach($x in @(SimOnKontrol $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }
   # adım aritmetiği (AritmetikKusur taklidi) + ';' zinciri
   $n=0; foreach($a in @($q.adimlar)){ $n++; $f="$($a.formul)"
     if($f -match ';' -and $f -match '=.*;.*='){ $k.Add("adim $n formulde ';' zinciri") }
@@ -351,5 +376,5 @@ if($metinli.Count -ge 5){
 # 05.10.2026 A4 ŞIK DAĞILIMI (sözleşme A4, kapısı yoktu): doğru harf dağılımı + uyarı (≥5 soruda bir harf %40'ı aşarsa). DURDURMAZ
 #   (sayısal şıklar artan sıralı → harf değere bağlı; yazar çeldirici değerleriyle yönlendirir). gm8'de 15 sorunun 12'si B/C idi.
 $dag=@{}; foreach($q0 in @($liste)){ $hd="$($q0.dogru)".Trim().ToUpperInvariant(); if($hd){ $dag[$hd]=1+[int]$dag[$hd] } }
-"SIK DAGILIMI: " + ((@('A','B','C','D','E') | ForEach-Object { "$_ $([int]$dag[$_])" }) -join ' · ') + $(if(@($liste).Count -ge 5 -and @($dag.Values | Where-Object { $_ / [double]@($liste).Count -gt 0.40 }).Count){ "  ⚠ A4: bir harf %40'ı aşıyor — çeldirici değerleriyle doğru şıkkı başka harfe taşı (durdurmaz)" } else { '' })
+"SIK DAGILIMI: " + ((@('A','B','C','D','E') | ForEach-Object { "$_ $([int]$dag[$_])" }) -join ' · ') + $(if(@($liste).Count -ge 5 -and @($dag.Values | Where-Object { $_ / [double]@($liste).Count -gt 0.40 }).Count){ "  ⚠ A4: bir harf %40'ı aşıyor — çeldirici değerleriyle doğru şıkkı başka harfe taşı (durdurmaz)" } else { '' }) + "  · ONERI (siradaki dogru siklar bu harflere): " + ((@('A','B','C','D','E') | Sort-Object { [int]$dag[$_] }, { $_ } | Select-Object -First 2) -join ', ')
 "ozet: $temizSay/$($liste.Count) soru kusursuz"
