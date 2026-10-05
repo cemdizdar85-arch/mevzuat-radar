@@ -9,7 +9,7 @@
 //   yetki = "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: anahtarın ödeme yetkisinin açık olup olmadığı (taksit sorgusu yalnız kimliği doğrular).
 
-const KOD_IMZA = "cce445476503e410";
+const KOD_IMZA = "4d3a1fdddda5d580";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const UC = { canli: "https://api.iyzipay.com", test: "https://sandbox-api.iyzipay.com" };
 
@@ -34,7 +34,7 @@ async function iyzicoCagir(taban: string, api: string, gizli: string, yol: strin
 async function servisMi(req: Request) {
   const t = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "").trim();
   if (!t) return false;
-  const r = await fetch(`${SB_URL}/rest/v1/yoneticiler?select=eposta&limit=1`, { headers: { apikey: t, Authorization: `Bearer ${t}` } });
+  const r = await fetch(`${SB_URL}/rest/v1/yoneticiler?select=*&limit=1`, { headers: { apikey: t } });
   return r.status === 200;
 }
 
