@@ -68,6 +68,15 @@
   .sv-seviye.yuksek{color:var(--green);border:1px solid var(--green)}
   .sv-mesaj{font-size:16px;line-height:1.6;color:var(--ink);margin:6px 0 0}
   .sv-gruplar{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 16px}
+  .sv-nb-kart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 12px}
+  .sv-nb-ust{margin:0 0 8px;font-size:12px;color:var(--muted)}
+  .sv-nb-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink)}
+  .sv-nb-sen,.sv-nb-dogru{padding:10px 12px;border-radius:0 8px 8px 0;margin:0 0 10px}
+  .sv-nb-sen{border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}
+  .sv-nb-dogru{border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 8%,transparent)}
+  .sv-nb-sen b{color:var(--red)} .sv-nb-dogru b{color:var(--green)}
+  .sv-nb-sen p,.sv-nb-dogru p{margin:6px 0 0;font-size:14px;color:var(--ink)}
+  .sv-nb-kilit{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--muted);font-size:14px;margin:0 0 16px}
   .sv-grup{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
   .sv-grup b{display:block;font-size:14px;color:var(--ink)}
   .sv-grup span{font-size:13px;color:var(--muted)}
@@ -221,6 +230,9 @@
 
     <!-- 14.09 Cem "ücretsiz denemeyi pazarlamanın merkezine koyalım": test bitince TAM BANKA teklifi.
          Rakamlar elle yazılmaz: banka büyüklüğü soru-dizini.json, set sayısı deneme/sgs-dizin.json, fiyat fiyat-motoru.js. -->
+    <!-- 05.10 Cem ("30 soruyu çözen bizim anlatımımızı görmeyecek, en iyi olduğumuz yer"): ilk 3 yanlışın Nöbetçi anlatımı, ücretsiz.
+         Veri rpc/seviye_aciklama (yalnız ücretsiz soru, kalite dışlananlar hariç; radar-app/sql/2026-10-05-seviye-aciklama.sql). -->
+    <div id="svNobetci" hidden></div>
     <div class="sv-kutu" id="svTeklif">
       <h2 id="svTeklifBaslik">Tam bankayı aç</h2>
       <p class="sv-alt" id="svTeklifMetin" style="margin:0 0 12px"></p>
@@ -490,6 +502,32 @@
     sonucuAc(function(){ hakYaz(); sonucCizYet(); });
   }
   var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
+  /* 05.10 NÖBETÇİ YANLIŞINI ANLATIYOR: ilk yanlışların (bilmiyorum hariç) anlatımı sunucudan, en çok 3. Kalanı kilitli → teklif.
+     Sunucu kusurlu/eksik anlatımlı soruyu atlar; bu yüzden 8 aday gönderilir. Hiç gelmezse bölüm gizli kalır (sessiz). */
+  function nobetciCiz(){
+    var kap=$('svNobetci'); if(!kap) return;
+    var yanlis=CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi && c.secim; });
+    var tum=CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi; }).length;
+    if(!yanlis.length){ kap.hidden=true; return; }
+    var gonder=yanlis.slice(0,8).map(function(c){ return { id:c.id, secim:c.secim }; });
+    fetch(SB+'/rest/v1/rpc/seviye_aciklama',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+      body:JSON.stringify({ p_cevaplar:gonder }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){
+      var l=(j&&j.liste)||[]; if(!l.length){ kap.hidden=true; return; }
+      var soruMetni={}; CEVAPLAR.forEach(function(c){ soruMetni[c.id]={ soru:c.soru, ders:c.ders }; });
+      var h='<h2 style="margin:0 0 6px">Nöbetçi yanlışlarını anlatıyor</h2>'
+        +'<p class="sv-alt" style="margin:0 0 14px">Testte '+tum+' yanlışın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
+      l.forEach(function(x,i){ var s=soruMetni[x.id]||{};
+        h+='<div class="sv-nb-kart"><p class="sv-nb-ust">'+esc(String(s.ders||'').split('|')[0])+' · Yanlış '+(i+1)+' / '+tum+'</p>'
+          +(s.soru?'<p class="sv-nb-soru">'+esc(s.soru)+'</p>':'')
+          +'<div class="sv-nb-sen"><b>Senin cevabın '+esc(x.secim)+') '+esc(x.secim_metin||'')+'</b><p><b style="color:var(--ink)">'+esc(x.tuzak_ad||'Tuzak')+':</b> '+esc(x.tuzak_metin||'')+'</p></div>'
+          +'<div class="sv-nb-dogru"><b>Doğrusu '+esc(x.dogru)+') '+esc(x.dogru_metin||'')+'</b><p>'+esc(x.aciklama||'')+'</p></div>'
+          +(x.kural?'<p style="margin:0 0 6px;font-size:14px"><b>Kural:</b> '+esc(x.kural)+'</p>':'')
+          +(x.dayanak?'<p style="margin:0;font-size:13px;color:var(--muted)">📜 Dayanak: '+esc(x.dayanak)+'</p>':'')+'</div>'; });
+      if(tum>l.length){ var al=($('svTeklifAna')||{}).getAttribute?$('svTeklifAna').getAttribute('href'):'fiyat.html';
+        h+='<div class="sv-nb-kilit">🔒 Kalan '+(tum-l.length)+' yanlışının anlatımı ve bankanın tamamı pakette.<div style="margin-top:10px"><a class="sv-btn ana" style="text-decoration:none;display:inline-block" href="'+esc(al)+'">Tam bankayı aç →</a></div></div>'; }
+      kap.innerHTML=h; kap.hidden=false; say('nobetci-anlatti');
+    }).catch(function(){ kap.hidden=true; });
+  }
   function sonucCizYet(){
     var g=SONUC.gecme, sinif=g>=70?'yuksek':g>=40?'orta':'dusuk', liste=SONUC.gruplar;
     $('svKunyeSonuc').textContent='Yeterlilik · geçme ihtimalin';
@@ -529,7 +567,7 @@
     $('svTeklifIkinci').textContent='Önce örnek soruları çöz'; $('svTeklifIkinci').setAttribute('href','kaydir/vitrin/smmm.html');
     $('svYollar').innerHTML='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+'<div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
-    $('nasil').hidden=true; $('nasilYet').hidden=false;
+    $('nasil').hidden=true; $('nasilYet').hidden=false; try{ nobetciCiz(); }catch(e){}
     goster('svSonuc');
   }
   /* 21.09: ön kapıda alınan bilgiyle karne + sonuç gönderimi. İki gönderi:
@@ -656,7 +694,7 @@
       +'<a class="sv-btn" href="sinav-gibi.html" style="text-decoration:none">Paketin varsa: sınav gibi çöz (130 soru)</a>';
     /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
     $('svYollar').innerHTML=yollar;
-    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
+    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>'; try{ nobetciCiz(); }catch(e){}
     goster('svSonuc');
   }
 
