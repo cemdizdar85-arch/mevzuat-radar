@@ -121,6 +121,27 @@ function KapiKSmmmSozlukKur([Parameter(Mandatory)][string]$DersRegex){
   return [pscustomobject]@{ genis=$genis; dar=$dar; aralik=@("smmm-$kod"); blok=$tum.Count; donemler=@('SMMM test'); kaynak='ambar (üretici SmmmTestBloklari)' }
 }
 
+# 05.10.2026 SÖZLÜK ÖNBELLEĞİ (Cem "1.2.3" GM3): gm9'da 5 GM yazarının ikisi kökü sınamak için KAPI-K'nın node kopyasını kendi kurdu;
+#   ön denetim dosya başına ~5 dk sürüyor ve en çok yeniden yazım KAPI-K'dan geldi. Önbellek SÖZLÜĞÜ saklar, ölçüm yine KapiKOlc'dur
+#   (mantık kopyası yok). Dosya veri/fabrika/ altında (git dışı). 🚫 GÖRMEZ: önbellek ömrü içinde ambara eklenen kitapçık.
+function KapiKSozlukYaz($Sozluk,[string]$Yol){
+  $o=[pscustomobject]@{ olcum=(Get-Date).ToString('s'); kaynak="$($Sozluk.kaynak)"; blok=$Sozluk.blok; aralik=@($Sozluk.aralik); genis=@($Sozluk.genis.Keys | Sort-Object); dar=$(if($Sozluk.dar){ @($Sozluk.dar.Keys | Sort-Object) } else { $null }) }
+  [IO.File]::WriteAllText($Yol,($o | ConvertTo-Json -Depth 4 -Compress),(New-Object Text.UTF8Encoding $false))
+}
+function KapiKSozlukOku([string]$Yol){
+  $j=Get-Content -Raw -Encoding UTF8 $Yol | ConvertFrom-Json
+  $genis=@{}; foreach($k in @($j.genis)){ $genis["$k"]=1 }
+  $dar=$null; if($null -ne $j.dar -and "$env:DENETLE_KOKDENE_MUTASYON" -ne 'darsiz'){ $dar=@{}; foreach($k in @($j.dar)){ $dar["$k"]=1 } }
+  return [pscustomobject]@{ genis=$genis; dar=$dar; aralik=@($j.aralik); blok=$j.blok; donemler=@('SMMM test'); kaynak="önbellek $($j.olcum) ($($j.kaynak))"; olcum=[datetime]$j.olcum }
+}
+function KapiKSmmmSozlukOnbellek([Parameter(Mandatory)][string]$DersRegex,[int]$SaatTavan=12,[switch]$Tazele){
+  $kat=Join-Path (KapiKDepoKok) 'veri\fabrika'; if(-not (Test-Path $kat)){ New-Item -ItemType Directory -Force $kat | Out-Null }
+  $ad=($DersRegex -replace '[^A-Za-z0-9]+','-').Trim('-').ToLowerInvariant(); $yol=Join-Path $kat "kapi-k-smmm-$ad.json"
+  if(-not $Tazele -and (Test-Path $yol)){ $s=KapiKSozlukOku $yol; if(((Get-Date)-$s.olcum).TotalHours -lt $SaatTavan){ return $s } }
+  $s=KapiKSmmmSozlukKur -DersRegex $DersRegex; if(-not $s){ return $null }
+  KapiKSozlukYaz $s $yol; return $s
+}
+
 # Üreticideki PencereKavram'ın birebir aynısı: kelime -> sebep sözlüğü döner.
 #   GENİŞ'te yok            -> kusur (kaç kez geçtiğine bakılmaz)
 #   GENİŞ'te var, DAR'da yok -> yalnız gövdede >=2 kez geçiyorsa kusur

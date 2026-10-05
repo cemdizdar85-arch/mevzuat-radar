@@ -16,7 +16,8 @@
 # GM hazır soru dosyası ÖN DENETİMİ (0 USD): üreticinin kod kapılarını çalıştırmadan taklit eder.
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
-      [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi)
+      [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi,
+      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -189,6 +190,27 @@ if($KapaliSinavi){
        @('kökte kalıp aranmaz',[pscustomobject]@{ soru='Aşağıdakilerden hangisi yalnız cezalar düşülmez ilkesine aykırıdır?' },0))
   $h=0; foreach($x in $v){ $c=@(KapaliListeNot $x[1]).Count; if($c -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $c (beklenen $($x[2]))" } }
   if($h){ "KAPALI LISTE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPALI LISTE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
+# 05.10.2026 KÖK DENEME (Cem "1.2.3" GM3): yazar kökü yazarken bitirme KAPI-K'yı saniyede sınar. Sözlük önbellekten
+#   (arac/kapi-k-sozluk.ps1 KapiKSmmmSozlukOnbellek, 12 saat), ölçüm denetimin aynı KapiKOlc'u. Tam denetimin yerine GEÇMEZ.
+#   Kullanım: -KokDene "<metin>" ya da -KokDene <hazır dosya.json> · -IkizEtiket smmm-<etiket> (ders buradan) · -KokTazele
+if($KokDeneSinavi){
+  . (Join-Path $depoKokD 'arac\kapi-k-sozluk.ps1')
+  $sz=[pscustomobject]@{ genis=@{ kitap=1; muhas=1; vergi=1; beyan=1; faali=1 }; dar=@{ kitap=1; vergi=1 }; aralik=@('smmm-x'); blok=1; kaynak='sinav' }
+  $gy=Join-Path ([IO.Path]::GetTempPath()) "kokdene-sinav-$PID.json"; KapiKSozlukYaz $sz $gy; $oku=KapiKSozlukOku $gy; Remove-Item $gy -ErrorAction SilentlyContinue
+  $v=@('vergi beyanname kitapta','muhasebe muhasebe faaliyet faaliyetleri','zemberek kelimesi geçiyor','beyanname tek kez')
+  $h=0; foreach($t in $v){ $a=(@((KapiKOlc $t $sz).GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) | Sort-Object) -join ','; $b=(@((KapiKOlc $t $oku).GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) | Sort-Object) -join ','; if($a -ne $b){ $h++; "  DUSTU: '$t' -> taze [$a] / onbellek [$b]" } }
+  if($h){ "KOK DENEME SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KOK DENEME SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
+if($KokDene){
+  . (Join-Path $depoKokD 'arac\kapi-k-sozluk.ps1'); . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1')
+  $etKD=$(if($IkizEtiket){ $IkizEtiket } elseif($KokDene -match 'hazir-(gm\d+-[^\\/]*?)(-p\d+)?\.json$'){ 'smmm-' + $Matches[1] } else { '' })
+  $dersKD=$(if($etKD){ SmmmDersAdi $etKD $null } else { $null }); if(-not $dersKD){ throw '-KokDene: ders çözülemedi; -IkizEtiket smmm-<etiket> ver' }
+  $szKD=KapiKSmmmSozlukOnbellek -DersRegex $dersKD -Tazele:$KokTazele; if(-not $szKD){ "KOK DENEME: sözlük kurulamadı ($dersKD) - OLCULMEDI"; exit 2 }
+  "KOK DENEME: $dersKD · sözlük $($szKD.kaynak) · genis $($szKD.genis.Keys.Count) dar $(if($szKD.dar){ $szKD.dar.Keys.Count } else { 'yok' })"
+  $kokler=$(if($KokDene -like '*.json' -and (Test-Path $KokDene)){ $kj=Get-Content -Raw -Encoding UTF8 $KokDene | ConvertFrom-Json; @($kj) | ForEach-Object { [pscustomobject]@{ ad="$($_.konu)"; metin="$($_.soru)" } } } else { ,[pscustomobject]@{ ad='metin'; metin=$KokDene } })
+  foreach($kk in @($kokler)){ $e=KapiKOlc $kk.metin $szKD; $d=@($e.Keys | Sort-Object | ForEach-Object { "$_ ($($e[$_]))" }); $sonuc=$(if($e.Keys.Count -ge 2){ 'DUSER' } elseif($e.Keys.Count -eq 1){ 'not' } else { 'ok' }); "  $sonuc · $($kk.ad) · $($d -join ', ')" }
+  exit 0
 }
 if($HarfPlani){
   if($HarfPlani -match '^\d+$'){ $kon=@(1..[int]$HarfPlani | ForEach-Object { "konu $_" }) } else { $konJ=Get-Content -Raw -Encoding UTF8 $HarfPlani | ConvertFrom-Json; $kon=@($konJ) }

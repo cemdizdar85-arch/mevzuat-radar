@@ -333,6 +333,10 @@ jobs:
           # DENETLE_KAPALI_MUTASYON=kapali -> KIRMIZI (2/5).
           - { ad: "Hazir soru KAPALI LISTE notu OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KapaliSinavi" }
+          # 05.10.2026 - Kok deneme: KAPI-K sozlugu onbellege yazilip okununca KapiKOlc ayni sonucu verir.
+          # DENETLE_KOKDENE_MUTASYON=darsiz -> KIRMIZI (1/4).
+          - { ad: "Hazir soru KOK DENEME (KAPI-K onbellek) OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KokDeneSinavi" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /

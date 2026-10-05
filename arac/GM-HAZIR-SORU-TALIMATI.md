@@ -89,11 +89,29 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
    `powershell -NoProfile -File arac/hazir-soru-denetle.ps1 -HarfPlani veri/sinav/konu/<etiket>-kolay.json` → her konu için kolay/zor/çok zor
    harfi; her zorluk dosyasında harfler dengeli, her konunun üç sorusu üç ayrı harf. Yazar plandaki harften ayrılmaz.
 
+**G. gm9 ikinci göz ölçümünden (05.10, 30 soru, 5 yazar, 13 okuma; anahtar sorunu 0, 1 soru çıkarıldı) — yazarken baştan uygula:**
+1. **E6 yazılıydı, beş yazarın dördü yine çiğnedi** (teshis.*.gercek'te "GVK m.X: <çıkarım>" — p1 23, p4 22, p2 21 cümle sonradan
+   düzeltildi). Kural aynı: önekli cümle ambar metniyle BİREBİR; değilse önek yok, "m.X gereği …". Kesik alıntı da yasak (VUK m.340'ın
+   "… ile 359 uncu maddede ve diğer kanunlarda" kısmı atılmıştı).
+2. **Çeldirici = TEK yanlış.** Öğrenci bir hata yapar, öteki her kuralı (sınır kontrolleri dahil) doğru uygular ve o şıkka varır.
+   Öncüllü (I/II/III/IV) soruda her yanlış şık doğru kombinasyondan TEK ifadeyle ayrılır. (gm9: çok zor MSİ'de C kooperatif yolu yarı
+   istisnayı atlıyordu; çok zor VUK'ta iki şık üç ifadeyle ayrılıyordu → soru dalgadan çıktı.)
+3. **Atıf zinciri açıklamada:** bir madde başkasını uyguluyorsa bağı kuran cümle yazılır (VUK m.333 "m.10 hükmü vergi cezaları hakkında da
+   uygulanır"). Fıkra kayıtları düşürülmez (m.10/5 "tasfiye edilerek ticaret sicilinden silinmiş" ≠ "tasfiye"; tasfiye dönemi → tasfiye memuru).
+4. **Kökte olmayan bilgi olgu gibi yazılmaz** ("yurt içi müşterilerden kazanç" — kök yalnız toplamı ve yurt dışı kısmı veriyordu → "diğer kazanç").
+5. **Ambar araması:** desen yalnız baştan eşleşir; ortadaki parça için `%…%` (ör. `%SERİ NO: 311%` — adda boşluk var; boşluksuz arama
+   "ambarda yok" sanıldı, YANLIŞTI).
+6. **KAPI-K kelimelerini yazarken sına** (aşağıda DALGA DÜZENİ 2a): gm9'da en çok yeniden yazım bundandı ("avukat, müvekkil, kiracısı, ısıtma,
+   hasılat, kardeş, ihale, tahliye, sponsorluk, bilezik" SMMM test sözlüğünde yok).
+
 ## DALGA DÜZENİ (05.10, gm8 düzeltme turunda ölçülen sıra — atlanmaz)
 1. **Harf planı** (`-HarfPlani <konu dosyası>`) → yazara aynen verilir.
 2. **Yazar** doğrudan `veri/fabrika/hazir-gmN-<etiket>-<zorluk>.json` adıyla yazar (konu başına ayrı dosya YOK). Neden: ön denetimin sıkı
    bitirme modu (KAPI-K sözlüğü, adım/sade/simülasyon KUSUR) etiketi dosya adından okur; gm8'de yazarlar `k2.json` adıyla yazdı, sıkı mod
    koşmadı, denetim ayrı kopyada ikinci kez koşturuldu.
+2a. **Kök denemesi (1–2 sn, ikiz yok):** `arac/hazir-soru-denetle.ps1 -KokDene "<kök metni>" -IkizEtiket smmm-gmN-<etiket>-<zorluk>`
+   ya da `-KokDene <dosya.json>`; `DUSER` satırı = bulut bu kökü KAPI-K'da düşürür. Sözlük önbellekte 12 saat (`-KokTazele` yeniler).
+   Tam denetimin YERİNE GEÇMEZ (adım, sade, ikiz, KAPI-Ç, simülasyon ön kontrolü yalnız tam denetimde).
 3. **Ön denetim sıkı modda + ikiz:** `-Dosya <dosya> -IkizEtiket smmm-gmN-<etiket>-<zorluk>` → 0 KUSUR.
 4. **İkinci göz** (aşağıda) — her dosya bağımsız okuyucu; düzeltme olduysa düzeltilen soruyu YENİ okuyucu okur (öncekinin sonucunu görmez).
 5. **Yükle + geri oku:** `arac/hazir-senkron.ps1 -Yukle -Ad gmN-…`; ambardan inen içerik yerelle (anahtar sırası hariç) birebir.
@@ -103,6 +121,14 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
 Soruyu YAZMAYAN ayrı bir okuyucu her soruyu ambar kaynağıyla birlikte okur: (1) anahtarı kendisi bağımsız çözer, (2) A ve B listesini
 işaretler, (3) karar: TEMİZ / DÜZELT (ne) / ÇIKAR. Anahtar anlaşmazlığı ya da ÇIKAR → soru gönderilmez. Düzeltme yazara döner, ön denetim
 yeniden koşar. Kapıların GÖRMEDİĞİ sınıflar (madde/fıkra atfı, uydurma, kök muğlaklığı, kavram) yalnız burada ve bulut hakemlerinde yakalanır.
+**Karar ölçütü (gm9'da ölçüldü: ölçütsüz her yeni okuyucu yeni bir üslup ayrıntısı bulup döngü açtı):**
+- KUSUR = anahtarı değiştiren ya da iki şıkkı savunulur kılan · kaynakla ÇELİŞEN kural/oran/madde/fıkra/tutar · bir şıkkın gerekçesini/yolunu
+  yanlış yapan · kökte olmayan bilgiyi olgu gibi yazan · önekli alıntısı ambar metnine aykırı.
+- NOT (kusur değil) = üslup, uzunluk, daha iyi ifade, eksik ama yanlış olmayan bilgi. Not soruyu geri göndermez.
+- **Son tur:** bir soru en çok iki düzeltme turu alır; ondan sonraki okumada hâlâ KUSUR varsa soru dalgadan ÇIKAR ve konusu o zorluğun
+  konu dosyasından da çıkarılır (yoksa üretici boş yere okunmamış model sorusu yazar). gm9: zor VUK cezaları 4 okumada TEMİZ'e vardı;
+  çok zor VUK defter-belge son okumada KUSUR → çıktı.
+- Okuyucu talimatı (`IKINCI-GOZ.md`) okuyucuya bu ölçütle verilir; ambar örnek komutu `"%<desen>%"` biçimindedir.
 
 ## Teslimden önce (zorunlu)
 `powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya <dosya> -IkizEtiket smmm-<etiket>`
