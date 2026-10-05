@@ -215,3 +215,4 @@ Kök nedenler:
 - **GVK m.22 ambara eklendi** (`arac/ambar-gvk22-ekle-20261005.js`, 2 kayıt, dipnotsuz, geri okundu birebir).
 - Var olan kaydı değiştiren iş emri satırları (16 m.103, 18 yılsız tutarlar, 19 m.88 başlığı) YAPILMADI: dayanak nöbetçisi etkisi ölçülmeden kayıt metni değişmez; kaynak_ad değişirse soru bağı kopar.
 - **B25**: GM yazarı adım + sade yazar; ön denetim ADIM YOK / SADE YOK + KAPI-KALITE (c73c1064). Kalıcı talimat `arac/GM-HAZIR-SORU-TALIMATI.md`.
+- **DÜZELTME (geç. m.67):** gm8 ikinci gözünde "geç. m.67 31.12.2025'te bitti, 2026 uzatması ambarda yok" denmişti — YANLIŞ: 10680 sayılı CBK (RG 11/12/2025) ile 31/12/2030'a uzatma ambarda var ama dipnot `gec. m.68 [2/2]` kaydına kaymış (iş emri satır 20). gm8 MSİ sorularının geç. m.67'den arındırılması zararsız, gereksizdi. Yayındaki 2 repo sorusu (gm4-12 zor/çok zor kp-01) Cem "onar" ile gelir yılı 2025'e taşınarak onarıldı (yanlış yerdeki dipnota dayanmasın diye).
