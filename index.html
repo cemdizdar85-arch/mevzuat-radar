@@ -265,7 +265,7 @@ footer p{margin:0 0 8px}
         <a class="btn btn-vurgu" id="cta1" href="seviye-testi.html">30 soruda seviyeni ölç</a>
         <a class="btn btn-ikinci" id="cta2" href="fiyat.html">Paketleri gör</a>
       </div>
-      <p class="durum" id="durum">Üyelik gerekmez · yaklaşık 30 dakika</p>
+      <p class="durum" id="durum">Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.</p>
     </div>
 
     <!-- V2 madde 4 "gerçek soru ekranı" + 04.10 Cem kararı: ETKİLEŞİMLİ. Ziyaretçi şıkkı seçer, hüküm paneli açılır.
@@ -388,8 +388,9 @@ footer p{margin:0 0 8px}
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
       c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
-      var dk=(secili==='yeterlilik'?40:0)||S.olcDk||30;   /* 05.10: Yeterlilik testi 40 dk; uye-durumu.js olcDk yüklenmeden çizilirse 30 kalıyordu */
-      du.innerHTML='Ücretsiz · 30 soru · yaklaşık '+dk+' dakika · sonucun hemen görünür';
+      /* 05.10 Cem ('30 soru çöz altında sınavdaki seviyeni gör desem'): alt satır testin SONUCUNU söyler (ekranda gerçekten çıkan iki şey).
+         Süre seviye-testi.html'de yazar; ana sayfada süre işi zahmetli gösteriyordu. */
+      du.innerHTML='Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.';
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
     [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-sinav')===secili?'true':'false'); });
