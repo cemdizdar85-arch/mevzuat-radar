@@ -1,5 +1,5 @@
 {
-  "_not": "04.10.2026 - .github/workflows/edge-yukle.yml bu listedeki fonksiyonlari OTOMATIK yukler (Cem: Amazon/Trendyol duzeni). Panelden elle yuklenmis eskiler (quick-task, karne-gonder, rapid-responder...) burada YOK: canli ayarlari (JWT, ad) dogrulanmadan otomatige alinmaz. Eklerken: dosya + canli ad + jwt. | 05.10: karne-gonder eklendi (canli JWT acik: ?surum=1 auth basliksiz 401 UNAUTHORIZED_NO_AUTH_HEADER verdi; site publishable anahtarla cagiriyor). Canli surum 23.09 Yeterlilik karnesinden ONCEKIYDI (05689ba2), panelden hic yayinlanmamisti.",
+  "_not": "04.10.2026 - .github/workflows/edge-yukle.yml bu listedeki fonksiyonlari OTOMATIK yukler (Cem: Amazon/Trendyol duzeni). Panelden elle yuklenmis eskiler (quick-task, karne-gonder, rapid-responder...) burada YOK: canli ayarlari (JWT, ad) dogrulanmadan otomatige alinmaz. Eklerken: dosya + canli ad + jwt. | 05.10: karne-gonder eklendi (canli JWT acik: ?surum=1 auth basliksiz 401 UNAUTHORIZED_NO_AUTH_HEADER verdi; site publishable anahtarla cagiriyor). Canli surum 23.09 Yeterlilik karnesinden ONCEKIYDI (05689ba2), panelden hic yayinlanmamisti. | 05.10 (Cem \"2 yap\"): elle yuklenenlerin hepsi otomatige alindi; jwt canlidan olculdu (?surum=1 basliksiz 401 = jwt:true). Geride olanlar: net-cevap + beyanname-oku (03.10 madde 28 ucretli uc ariza-kapali hiz siniri hic yuklenmemisti), magaza-dogrula (26.09 App Store ayagi, ios_satis=false).",
   "fonksiyonlar": [
     {
       "dosya": "siparis-bildirim.ts",
@@ -19,6 +19,31 @@
     {
       "dosya": "karne-gonder.ts",
       "ad": "karne-gonder",
+      "jwt": true
+    },
+    {
+      "dosya": "net-cevap.ts",
+      "ad": "net-cevap",
+      "jwt": false
+    },
+    {
+      "dosya": "beyanname-oku.ts",
+      "ad": "beyanname-oku",
+      "jwt": true
+    },
+    {
+      "dosya": "magaza-dogrula.ts",
+      "ad": "magaza-dogrula",
+      "jwt": false
+    },
+    {
+      "dosya": "form-al.ts",
+      "ad": "quick-task",
+      "jwt": true
+    },
+    {
+      "dosya": "elci-sozlesme.ts",
+      "ad": "rapid-responder",
       "jwt": true
     }
   ]

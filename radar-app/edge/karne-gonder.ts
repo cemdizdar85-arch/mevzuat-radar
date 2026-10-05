@@ -106,7 +106,7 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
     `Önce örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/smmm.html`, ``,
     `Nasıl hesaplandı? Bu bir TAHMİNDİR. Yeterlilik'te her dersten en az 50 almak ve derslerin ortalamasının en az 60 olması gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, bu testteki cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi. Ayrıntı: ${site}/seviye-testi.html?sinav=yeterlilik`, ``,
     `Sınava tetikte gir.`,
-    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
+    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
   const renk: Record<string, string> = { guclu: "#15803d", sinirda: "#8d6c38", riskli: "#b91c1c" };
   const g = s.dersler.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;color:${renk[x.durum]}">${DURUM_AD[x.durum]}</td></tr>`).join("");
@@ -122,7 +122,7 @@ ${bugun ? `<p style="margin:0 0 16px;background:#fdf6ec;border-left:3px solid #f
 &nbsp; <a href="${site}/kaydir/vitrin/smmm.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Yeterlilik'te her dersten en az 50 ve ortalamada en az 60 gerekir; tezkiye notu ortalamaya ayrı bir ders gibi girer (Sınav Yönetmeliği m.16/b). Tahmin, cevaplarından ve sorunun zorluğundan hesaplanır; zorluk etiketleri henüz gerçek adaylarla ölçülmedi.</p>
 <p style="font-size:15px;font-weight:800;color:#16191d;margin:0 0 8px">Sınava tetikte gir.</p>
-<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
+<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
 </div>`;
   return { konu: `Yeterlilik karnen: geçme ihtimalin %${s.gecme}${risk.length ? `, ${risk.length} riskli ders` : ""}`, metin, html };
 }
@@ -192,7 +192,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     `Nasıl hesaplandı? Bu bir TAHMİNDİR. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, bu testteki cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. Ayrıntı: ${site}/seviye-testi.html#nasil`,
     ``,
     `Sınava tetikte gir.`,
-    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · Kişisel verilerin: ${site}/kvkk.html`,
+    `Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte - Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · Kişisel verilerin: ${site}/kvkk.html`,
   ].join("\n");
   const vurgu = (x: { ad: string }) => x === enZayif && kacan > 0;
   const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb${vurgu(x) ? ";font-weight:700;color:#b91c1c" : ""}">${kacis(x.ad)}${vurgu(x) ? " · önce burası" : ""}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right">${x.dogru} / ${x.soru}</td></tr>`).join("");
@@ -209,7 +209,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 &nbsp; <a href="${site}/kaydir/vitrin/sgs.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
 <p style="font-size:12.5px;color:#6b7280;margin:0 0 10px"><b>Nasıl hesaplandı?</b> Bu bir tahmindir. Staja Giriş'te puan bağıl hesaplanır ve geçme sınırı her dönem değişir; resmî sınır yayımlanmaz. Tahmin, cevaplarından ve TESMER yönergesindeki "%80 doğruyla geçilen, %60 doğruyla kalınan sınavlar oldu" bilgisine dayanan bir sınır varsayımından hesaplanır. <a href="${site}/seviye-testi.html#nasil" style="color:#6b7280">Ayrıntı</a></p>
 <p style="font-size:15px;font-weight:800;color:#16191d;margin:0 0 8px">Sınava tetikte gir.</p>
-<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · info@dizdardenetim.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
+<p style="font-size:12px;color:#9ca3af;margin:0">Bu e-postayı, seviye testinin sonunda karneni istediğin için aldın. Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · destek@tetikte.com · <a href="${site}/kvkk.html" style="color:#9ca3af">Kişisel verilerin</a></p>
 </div>`;
   return { konu: `Seviye testi karnen: geçme ihtimalin %${s.gecme}`, metin, html };
 }
@@ -218,7 +218,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "6ece135eabca2eb2";
+const KOD_IMZA = "dd19fc3e695d7516";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
