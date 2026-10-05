@@ -261,7 +261,7 @@ footer p{margin:0 0 8px}
       </div>
       <div class="kah-alt">
         <a class="btn btn-vurgu" id="cta1" href="seviye-testi.html">30 soruda seviyeni ölç</a>
-        <a class="btn btn-ikinci" id="cta2" href="satin-al.html?paket=sgs">Satın al</a>
+        <a class="btn btn-ikinci" id="cta2" href="fiyat.html">Paketleri gör</a>
       </div>
       <p class="durum" id="durum">Üyelik gerekmez · yaklaşık 30 dakika</p>
     </div>
@@ -369,22 +369,8 @@ footer p{margin:0 0 8px}
   var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik'};
 
   /* ---- 1) DÜĞMELER: sınav × üye durumu (15.09 karar tablosu, sade hâli). Rakam YALNIZ fiyat-motoru.js'ten. ---- */
-  function tutar(sn){
-    try{
-      if(sn==='sgs'&&FIYAT.sgs) return ' — '+fiyatAna('sgs',FIYAT.sgs.kurulus);
-      if(sn==='yeterlilik'&&FIYAT.yeterlilikTum) return ' — tüm dersler '+fiyatAna('yeterlilik-tum',FIYAT.yeterlilikTum.kurulus);
-    }catch(e){} return '';
-  }
-  function kurucuSatiri(sn){
-    try{
-      var kp=(sn==='sgs')?['sgs',FIYAT.sgs,'']:(sn==='yeterlilik')?['yeterlilik-tum',FIYAT.yeterlilikTum,'tüm dersler ']:null;
-      if(!kp||!kp[1]||typeof KOTA==='undefined'||!KOTA[sn]||!(kp[1].liste>kp[1].kurulus)) return '';
-      var dn=function(n){ var x=fiyatDahilNot(kp[0],n); return x?' ('+x+')':''; };
-      return '<b>İlk '+tl(KOTA[sn])+' kurucuya '+kp[2]+fiyatAna(kp[0],kp[1].kurulus)+'</b>'+dn(kp[1].kurulus)+' · sonra '+fiyatAna(kp[0],kp[1].liste)+dn(kp[1].liste);
-    }catch(e){ return ''; }
-  }
   function dugmeCiz(){
-    var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs'};
+    var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
     var c1=$('cta1'), c2=$('cta2'), du=$('durum');
@@ -397,10 +383,11 @@ footer p{margin:0 0 8px}
       du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.';
     } else {
       c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc;   /* 04.10 Cem: 'ücretsiz dene' değil 'seviyeni ölç' */
-      c2.textContent='Satın al'+tutar(secili); c2.href=S.al||S.fiyat;
-      var k=kurucuSatiri(secili), dk=S.olcDk||30;
-      du.innerHTML=(k?k+'<br>':'')+'Ücretsiz · 30 soru · yaklaşık '+dk+' dakika · sonucun hemen görünür';
-      try{ if(secili==='yeterlilik'&&S.alTek&&FIYAT.yeterlilik&&FIYAT.yeterlilik[1]) du.insertAdjacentHTML('beforeend','<br><a href="'+S.alTek+'">Birkaç dersin mi kaldı? Ders başı '+fiyatAna('yeterlilik-1',FIYAT.yeterlilik[1].kurulus)+"'den →</a>"); }catch(e){}
+      /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
+         YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
+      c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
+      var dk=S.olcDk||30;
+      du.innerHTML='Ücretsiz · 30 soru · yaklaşık '+dk+' dakika · sonucun hemen görünür';
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
     [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-sinav')===secili?'true':'false'); });
