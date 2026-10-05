@@ -113,6 +113,9 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
     ? `${enZayif.ad} dersinden 10 soru çöz. Bu testte oradan ${enZayif.soru} sorunun ${enZayif.soru - enZayif.dogru} tanesinde takıldın. Yaklaşık 15 dakika.` : "";
   const t = riskTeklifYet(s);
   const site = "https://tetikte.com";
+  // 05.10 Cem "1.2.3" GM1: sonuç ekranında Nöbetçi anlatımı başladı; mail o anlatımın devamını hatırlatır (yalnız sayı, iddia yok)
+  const kacanY = s.soru - s.dogru;
+  const nbY = kacanY > 0 ? `Bu testteki ${kacanY} yanlış ya da boş cevabının her birini Nöbetçi, düştüğün tuzağı ve dayandığı maddeyle anlatır; bu anlatımların tamamı pakette.` : "";
   const banka = `Yeterlilik soru bankası açık: her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi, Tetikte'nin soru yardımcısı, dayandığı maddeyle anlatır. Zayıf olduğun derste kolay sorulardan başlar, adım adım zora çıkar. ${t.cumle} İlk 1.000 kurucuya kurucu fiyatı.`;
   const metin = [
     `Tetikte seviye testi karnen - SMMM Yeterlilik`, ``,
@@ -121,6 +124,7 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
     ...s.dersler.map(d => `${d.ad}: ${d.dogru} / ${d.soru} - ${DURUM_AD[d.durum]}`), ``,
     oneri,
     ...(bugun ? [`Bugün şunu yap: ${bugun}`] : []), ``,
+    ...(nbY ? [nbY] : []),
     banka,
     `${t.dugme.replace(" →", "")}: ${site}${t.yol}`,
     `Önce örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/smmm.html`, ``,
@@ -136,6 +140,7 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
 <p style="margin:0 0 10px">${kacis(oneri)}</p>
 ${bugun ? `<p style="margin:0 0 16px;background:#fdf6ec;border-left:3px solid #f5a524;padding:10px 12px"><b>Bugün şunu yap:</b> ${kacis(bugun)}</p>` : ""}
+${nbY ? `<p style="margin:0 0 10px">${kacis(nbY)}</p>` : ""}
 <p style="margin:0 0 10px"><b>Yeterlilik soru bankası açık.</b> Her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi, Tetikte'nin soru yardımcısı, dayandığı maddeyle anlatır. Zayıf olduğun derste kolay sorulardan başlar, adım adım zora çıkar. ${kacis(t.cumle)} <b>İlk 1.000 kurucuya kurucu fiyatı.</b></p>
 <p style="margin:0 0 18px"><a href="${site}${t.yol}" style="background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block">${kacis(t.dugme)}</a>
 &nbsp; <a href="${site}/kaydir/vitrin/smmm.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
@@ -187,6 +192,9 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     : `130 soruluk sınav gibi denemeyle bu sonucu gerçek süre ve ders dağılımında doğrula.`;
   const satirlar = s.gruplar.map(g => `${g.ad}: ${g.dogru} / ${g.soru}`).join("\n");
   const site = "https://tetikte.com";
+  // 05.10 Cem "1.2.3" GM1: sonuç ekranında Nöbetçi anlatımı başladı; mail o anlatımın devamını hatırlatır (yalnız sayı, iddia yok)
+  const kacanT = s.soru - s.dogru;
+  const nb = kacanT > 0 ? `Bu testteki ${kacanT} yanlış ya da boş cevabının her birini Nöbetçi, düştüğün tuzağı ve dayandığı maddeyle anlatır; bu anlatımların tamamı pakette.` : "";
   const paket = `Pakette sınavına kadar sınırsız soru, deneme setleri ve "sınav gibi" süreli mod var. Her yanlışının nedenini Nöbetçi, Tetikte'nin soru yardımcısı, dayandığı maddeyle anlatır; zayıf olduğun derste kolay sorulardan başlar, adım adım zora çıkar.`;
   const metin = [
     `Tetikte seviye testi karnen - Staja Giriş`,
@@ -201,6 +209,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     oneri,
     `Bugün şunu yap: ${bugun}`,
     ``,
+    ...(nb ? [nb] : []),
     `${paket} İlk 1.000 kurucuya kurucu fiyatı.`,
     `Tam bankayı aç: ${site}/satin-al.html?paket=sgs`,
     `Önce örnek soruları çöz (ücretsiz): ${site}/kaydir/vitrin/sgs.html`,
@@ -220,6 +229,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 <p style="margin:0 0 6px"><b>En çok çalışman gereken grup:</b> ${kacis(enZayif.ad)}</p>
 <p style="margin:0 0 10px">${kacis(oneri)}</p>
 <p style="margin:0 0 16px;background:#fdf6ec;border-left:3px solid #f5a524;padding:10px 12px"><b>Bugün şunu yap:</b> ${kacis(bugun)}</p>
+${nb ? `<p style="margin:0 0 10px">${kacis(nb)}</p>` : ""}
 <p style="margin:0 0 10px">${kacis(paket).replace("sınırsız soru", "<b>sınırsız soru</b>")} <b>İlk 1.000 kurucuya kurucu fiyatı.</b></p>
 <p style="margin:0 0 18px"><a href="${site}/satin-al.html?paket=sgs" style="background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block">Tam bankayı aç →</a>
 &nbsp; <a href="${site}/kaydir/vitrin/sgs.html" style="color:#8d6c38;font-weight:700">Önce örnek soruları çöz (ücretsiz)</a></p>
@@ -232,7 +242,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "677687fa575a7146";
+const KOD_IMZA = "624a19682aa6f8b3";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");

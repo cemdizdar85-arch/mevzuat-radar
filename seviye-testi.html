@@ -506,20 +506,21 @@
      Sunucu kusurlu/eksik anlatımlı soruyu atlar; bu yüzden 8 aday gönderilir. Hiç gelmezse bölüm gizli kalır (sessiz). */
   function nobetciCiz(){
     var kap=$('svNobetci'); if(!kap) return;
-    var yanlis=CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi && c.secim; });
+    /* 05.10 GM3: önce işaretli yanlışlar (tuzaklı kart), sonra 'bilmiyorum' (yalnız doğrunun nedeni) - hiç işaretlemeyen de Nöbetçi'yi görsün */
+    var yanlis=CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi && c.secim; }).concat(CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi && !c.secim; }));
     var tum=CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi; }).length;
     if(!yanlis.length){ kap.hidden=true; return; }
-    var gonder=yanlis.slice(0,8).map(function(c){ return { id:c.id, secim:c.secim }; });
+    var gonder=yanlis.slice(0,8).map(function(c){ return { id:c.id, secim:c.secim||'' }; });
     fetch(SB+'/rest/v1/rpc/seviye_aciklama',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
       body:JSON.stringify({ p_cevaplar:gonder }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){
       var l=(j&&j.liste)||[]; if(!l.length){ kap.hidden=true; return; }
       var soruMetni={}; CEVAPLAR.forEach(function(c){ soruMetni[c.id]={ soru:c.soru, ders:c.ders }; });
       var h='<h2 style="margin:0 0 6px">Nöbetçi yanlışlarını anlatıyor</h2>'
-        +'<p class="sv-alt" style="margin:0 0 14px">Testte '+tum+' yanlışın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
+        +'<p class="sv-alt" style="margin:0 0 14px">Testte '+tum+' yanlış ya da boş cevabın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
       l.forEach(function(x,i){ var s=soruMetni[x.id]||{};
-        h+='<div class="sv-nb-kart"><p class="sv-nb-ust">'+esc(String(s.ders||'').split('|')[0])+' · Yanlış '+(i+1)+' / '+tum+'</p>'
+        h+='<div class="sv-nb-kart"><p class="sv-nb-ust">'+esc(String(s.ders||'').split('|')[0])+' · '+(x.secim?'Yanlış':'Boş')+' '+(i+1)+' / '+tum+'</p>'
           +(s.soru?'<p class="sv-nb-soru">'+esc(s.soru)+'</p>':'')
-          +'<div class="sv-nb-sen"><b>Senin cevabın '+esc(x.secim)+') '+esc(x.secim_metin||'')+'</b><p><b style="color:var(--ink)">'+esc(x.tuzak_ad||'Tuzak')+':</b> '+esc(x.tuzak_metin||'')+'</p></div>'
+          +(x.secim?'<div class="sv-nb-sen"><b>Senin cevabın '+esc(x.secim)+') '+esc(x.secim_metin||'')+'</b><p><b style="color:var(--ink)">'+esc(x.tuzak_ad||'Tuzak')+':</b> '+esc(x.tuzak_metin||'')+'</p></div>':'<div class="sv-nb-sen"><b>Bu soruyu boş geçtin</b><p>Doğrusunu ve nedenini Nöbetçi anlatıyor.</p></div>')
           +'<div class="sv-nb-dogru"><b>Doğrusu '+esc(x.dogru)+') '+esc(x.dogru_metin||'')+'</b><p>'+esc(x.aciklama||'')+'</p></div>'
           +(x.kural?'<p style="margin:0 0 6px;font-size:14px"><b>Kural:</b> '+esc(x.kural)+'</p>':'')
           +(x.dayanak?'<p style="margin:0;font-size:13px;color:var(--muted)">📜 Dayanak: '+esc(x.dayanak)+'</p>':'')+'</div>'; });
