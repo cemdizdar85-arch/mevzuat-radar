@@ -50,6 +50,11 @@ async function istek(yol, secenek) {
     const kod = [...new Set(t)]; kod.forEach(x => { say[x] = (say[x] || 0) + 1; });
     dis.push({ id, neden: kod.join(' · ').slice(0, 300) });
   }
+  // 05.10 elle okuma retleri (arac/vitrin-elle-ret.json) kapı bulgularına EKLENİR - tablo baştan yazılınca silinmesinler
+  try { const er = JSON.parse(require('fs').readFileSync(path.join(__dirname, 'vitrin-elle-ret.json'), 'utf8')).ret || [];
+    const var_ = new Set(dis.map(x => x.id)), ids = new Set(hepsi.map(x => x.id));
+    for (const r of er) { if (!ids.has(r.id)) continue; if (var_.has(r.id)) { const d = dis.find(x => x.id === r.id); d.neden = (d.neden + ' · ' + r.neden).slice(0, 300); } else dis.push({ id: r.id, neden: String(r.neden).slice(0, 300) }); say['ELLE'] = (say['ELLE'] || 0) + 1; }
+  } catch (e) { console.log('VITRIN-KALITE: elle ret listesi okunamadı (' + e.message + ')'); }
   console.log(`VITRIN-KALITE: ücretsiz ${hepsi.length} · dışlanan ${dis.length} · vitrinde ${hepsi.length - dis.length}`);
   console.log(Object.entries(say).sort((a, b) => b[1] - a[1]).map(([k, v]) => '  ' + k + ' ' + v).join('\n'));
   if (KURU) return;

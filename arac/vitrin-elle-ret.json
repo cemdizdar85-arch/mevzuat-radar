@@ -1,0 +1,14 @@
+{
+  "_not": "05.10.2026 Cem '1 yap' (vitrinden 50 soruluk elle okuma). Elle okumada KUSURLU / ANAHTAR-ŞÜPHELİ çıkan ücretsiz sorular. arac/vitrin-aciklama-kalite.js bu listeyi her koşuda dışlama tablosuna EKLER (kapı tablosu baştan yazılınca silinmesinler). Soru onarılınca buradan elle çıkarılır (gerekçeyle). Yalnız kimlik + kısa neden; soru metni YOK (depo public).",
+  "olcum": "2026-10-05 elle okuma, 50 soru (tohum 20261005): TEMİZ 25 · KOZMETİK 17 · KUSURLU 7 · ANAHTAR-ŞÜPHELİ 1",
+  "ret": [
+    { "id": "sgs-c5-ekonomi-kolay-r1/kp-10", "neden": "ELLE-KUSURLU: baz etkisi tanımı ters (açıklama + kural)" },
+    { "id": "sgs-c5-borclar-zor-r2/kp-06", "neden": "ELLE-KUSURLU: TBK m.80 fıkra atıfları tutarsız (kural 80/2, tuzaklar 80/1-80/3)" },
+    { "id": "sgs-c5-denetim-zor-r2/kp-02", "neden": "ELLE-KUSURLU: C tuzağı 'fiziki inceleme' yanlış (izleme/tracing); kural cümlesi bozuk" },
+    { "id": "sgs-d4-yd-cokzor-r2/kp-07", "neden": "ELLE-KUSURLU: A tuzağı yanılgıyı ters anlatıyor (because of)" },
+    { "id": "sgs-d3-ticaret-cokzor-r2/kp-04", "neden": "ELLE-ANAHTAR-ŞÜPHELİ: HMK m.222 (7251 eki) ile D de doğru olabilir; dayanak TTK m.64 yerine m.83" },
+    { "id": "sgs-t1-genel-inkilap-kolay/kp-05", "neden": "ELLE-KUSURLU: E şıkkı Sivas/Erzurum karışık, kök muğlak (S8)" },
+    { "id": "sgs-d3-ticaret-cokzor-r1/kp-07", "neden": "ELLE-KUSURLU: limited asgari sermaye TTK m.580 iken kural/dayanak m.332" },
+    { "id": "sgs-t1-genel-maliye-zor/kp-21", "neden": "ELLE-KUSURLU: A tuzak_ad'da istem kalıntısı ('Ne soruluyor' + 'Kural:'); C gerekçesi anlamsız" }
+  ]
+}
