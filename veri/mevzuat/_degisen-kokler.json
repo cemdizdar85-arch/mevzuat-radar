@@ -1984,41 +1984,49 @@
                                                        ]
                                    },
                      "ad|TEORI - turk medeni kanunu":  {
-                                                           "tarih":  "2026-10-06 20:49",
-                                                           "kaynak":  "ambar-kaynak-duzelt-20261006.ps1",
-                                                           "belirsiz":  false,
-                                                           "belirtecler":  [
-                                                                               "asgar",
-                                                                               "!bitir",
-                                                                               "metni",
-                                                                               "#18",
-                                                                               "yasin",
-                                                                               "!evlen",
-                                                                               "#1938",
-                                                                               "sinir",
-                                                                               "degil",
-                                                                               "#88",
-                                                                               "#743",
-                                                                               "yasla",
-                                                                               "bitir",
-                                                                               "#15",
-                                                                               "#3453",
-                                                                               "esit",
-                                                                               "evlen"
-                                                                           ]
-                                                       },
+                       "tarih": "2026-10-06 20:49",
+                       "kaynak": "ambar-kaynak-duzelt-20261006.ps1",
+                       "belirsiz": false,
+                       "belirtecler": [
+                         "esit"
+                       ],
+                       "otomatik_belirtecler": [
+                         "asgar",
+                         "!bitir",
+                         "metni",
+                         "#18",
+                         "yasin",
+                         "!evlen",
+                         "#1938",
+                         "sinir",
+                         "degil",
+                         "#88",
+                         "#743",
+                         "yasla",
+                         "bitir",
+                         "#15",
+                         "#3453",
+                         "esit",
+                         "evlen"
+                       ],
+                       "elle_daraltma": "SGS 06.10: notta düzeltilen TEK iddia \"evlenmede kadın-erkek yaş eşitliği\" (743 s.K. m.88 1926: erkek 18, kadın 17). Otomatik belirteçler yeni cümlenin sıradan kelimeleri (degil, metni, evlen) → yaş eşitliği öğretmeyen sağlam soruları da çekiyordu. Daraltınca bankada yalnız sgs-t1-genel-inkilap-zor/kp-03 (iki doğru şık, E şıkkı değişiyor) değiyor; öteki etkilenenler elle okundu, açıklama düzeyinde onarıldı (veri/sinav/VITRIN-ONARIM-20261006.md)."
+                     },
                      "ad|TEORI - birinci sanayi plani sumerbank":  {
-                                                                       "tarih":  "2026-10-06 20:49",
-                                                                       "kaynak":  "ambar-kaynak-duzelt-20261006.ps1",
-                                                                       "belirsiz":  false,
-                                                                       "belirtecler":  [
-                                                                                           "banka",
-                                                                                           "kurma",
-                                                                                           "veril",
-                                                                                           "degil",
-                                                                                           "#4",
-                                                                                           "sise"
-                                                                                       ]
-                                                                   }
+                       "tarih": "2026-10-06 20:49",
+                       "kaynak": "ambar-kaynak-duzelt-20261006.ps1",
+                       "belirsiz": false,
+                       "belirtecler": [
+                         "pasab"
+                       ],
+                       "otomatik_belirtecler": [
+                         "banka",
+                         "kurma",
+                         "veril",
+                         "degil",
+                         "#4",
+                         "sise"
+                       ],
+                       "elle_daraltma": "SGS 06.10: notta düzeltilen TEK iddia \"Paşabahçe cam (1935) Sümerbank fabrikası\" (kurumsal tarihçe: cam görevi 1934 İş Bankası). Otomatik belirteçler (banka, degil, kurma) sağlam soruları çekiyordu; içerik izi yalnız kök+şık olduğundan açıklaması onarılan soru engelden çıkamazdı. Daraltınca bankada değen soru 0; Sümerbank+cam geçen 13 soru elle okundu: 4 açıklama onarımı, 1 şık değişimi (sgs-t1-genel-inkilap-cokzor/kp-19, yeniden hakem), 8 doğru."
+                     }
                  }
 }
