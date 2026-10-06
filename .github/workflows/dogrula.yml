@@ -345,6 +345,10 @@ jobs:
           # TUZAK_AYIR_MUTASYON=kapali -> KIRMIZI (5/11).
           - { ad: "Tuzak adi ayirici OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/tuzak-ayir.ps1 -Sinav" }
+          # 06.10.2026 - Konu girisi "kim belirler" secenekleri: KURAL0610 kapaliyken eski istemle bayt bayt ayni; yeni listede genel kultur/SPK/Hukuk muhasebe listesi almaz.
+          # KIM_SECENEK_MUTASYON=eski-bozuk -> KIRMIZI (2/35) · =yeni-kapali -> KIRMIZI (8/35).
+          - { ad: "Kim secenek (istem bayti korumasi) OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/kim-secenek.ps1 -Sinav" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /
