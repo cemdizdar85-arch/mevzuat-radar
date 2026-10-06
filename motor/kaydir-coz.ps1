@@ -218,7 +218,8 @@ function AciklamaDuz($a){
   if($p.Count -eq 0){ foreach($pr in $a.PSObject.Properties){ $p.Add("$($pr.Value)") } }
   return ($p -join ' ')
 }
-function TuzakAyir([string]$a){ $mt=[regex]::Match($a,'^([^:]{3,60}):\s*(.*)$'); if($mt.Success){ return @{ ad=($mt.Groups[1].Value.Trim() -replace '^\[|\]$','' -replace '\]\s*',' '); metin=$mt.Groups[2].Value.Trim() } }; return @{ ad='Tuzak'; metin=$a } }
+# 06.10.2026: tuzak adı ayırıcı arac/tuzak-ayir.ps1'e taşındı (kalıntı koruması + öz-sınav; 'Ne soruluyor' başlık olmasın). Eski kural TuzakAyirHam'da aynen.
+. (Join-Path $kok 'arac\tuzak-ayir.ps1')
 # yapılı yanlış-şık açıklamasında tuzak metni 'tuzak' alanındadır ("[Genel Üretim Gideri İhmali] Tuzağı: ..."); ad oradan alınır,
 # "Ne soruluyor" satırı tuzak adı sanılmaz (04.09 kp-28'de görüldü)
 function TuzakMetin($a){
