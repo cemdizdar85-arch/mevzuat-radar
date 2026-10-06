@@ -1,0 +1,22 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/hatirlatma-deneme.yml
+# NEDEN VAR (06.10.2026, Cem "deneme mailini at"): hatirlatma dizisinin 4 ornek maili YALNIZ Cem'e (ALARM_ALICI, "[DENEME]").
+# Gercek kisilere gitmez, kayit yazmaz. Ayri akis: hatirlatma-dizisi.yml'ye girdi ile tetikleme GitHub'da HTTP 500 verdi (06.10).
+name: Hatirlatma deneme maili (yalniz Cem)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deneme:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: 4 ornek mail Cem'e
+        env:
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/hatirlatma-dizisi.mjs --deneme
