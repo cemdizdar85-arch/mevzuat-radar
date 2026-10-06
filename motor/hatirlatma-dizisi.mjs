@@ -137,6 +137,18 @@ async function ana() {
     for (const t of ['gun7', 'ilerleme', 'son-hafta', 'paket3']) { const m = mailKur(t, 'sgs', { gecme: '%37', tarih: '2026-10-06T10:00:00Z', zayif: 'Muhasebe' }, 'ornek@ornek.com'); fs.writeFileSync(path.join(ornek, t + '.html'), `<!-- Konu: ${m.konu} -->\n` + m.html); console.log(`${t}: ${m.konu}`); }
     console.log('imza: ' + imza()); return;
   }
+  /* --deneme: 4 türün örneği YALNIZ ALARM_ALICI'ya (Cem), konu "[DENEME]" ile; kayıt yazılmaz, gerçek kişiye gitmez */
+  if (process.argv.includes('--deneme')) {
+    if (!RESEND_KEY) throw new Error('RESEND_KEY yok');
+    let n = 0;
+    for (const t of ['gun7', 'paket3', 'ilerleme', 'son-hafta']) {
+      const m = mailKur(t, 'sgs', { gecme: '%37', tarih: '2026-10-06T10:00:00Z', zayif: 'Muhasebe' }, ALARM);
+      const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: RESEND_FROM, to: [ALARM], subject: '[DENEME] ' + m.konu, text: m.metin, html: m.html }) });
+      if (r.ok) n++; await new Promise(r => setTimeout(r, 600));
+    }
+    console.log(`DENEME: ${n}/4 mail Cem'e gitti`); if (n < 4) process.exitCode = 1; return;
+  }
   if (!SK) throw new Error('SUPABASE_SERVICE_KEY yok');
   const ayar = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'hatirlatma-ayar.json'), 'utf8'));
   const im = imza(), acik = !process.argv.includes('--kuru') && ayar.gonderim_acik === true && ayar.onayli_imza === im;
