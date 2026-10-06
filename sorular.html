@@ -159,12 +159,19 @@
   <div id="scDersler"><div class="sc-yuk">Dersler yükleniyor…</div></div>
 </main>
 
+<!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
+<script src="uye-durumu.js"></script>
 <script>
 (function(){
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var sayi=function(n){return Number(n||0).toLocaleString('tr-TR');};
   var sinavlarEl=document.getElementById('scSinavlar'), derslerEl=document.getElementById('scDersler');
   var DIZIN=null, TAKVIM=null, SECILI=null, DENEME={};
+  /* 07.10: paket durumu (dizin kodu -> uye-durumu sınav adı). null = paket yok/bilinmiyor; {dersler:null} = tüm dersler açık */
+  var PAKET={}, UYE_KOD={sgs:'sgs', smmm:'yeterlilik', kgk:'kgk'};
+  function trk(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/s+/g,' ').trim(); }
+  function dersAcik(kod, ad){ var p=PAKET[kod]; if(!p) return false; if(!p.dersler||!p.dersler.length) return true;
+    return p.dersler.some(function(x){ return trk(x)===trk(ad); }); }
   /* takvimdeki anahtar: dizin kodu -> sinav-takvimi.json sinavlar.<KOD> */
   var TAKVIM_KOD={sgs:'SGS', smmm:'SMMM', kgk:'KGK'};
   /* Alan Bilgisi 100 soru, Genel Kültür 20, Yabancı Dil 10 - büyükten küçüğe */
@@ -204,7 +211,7 @@
         /* 04.10 Cem: ders kartında soru adedi gösterilmez */+'</span>':'';
     var ic='<span><span class="sc-dad">'+esc(d.ad)+'</span>'+(d.alt?'<span class="sc-dalt" style="display:block">'+esc(d.alt)+'</span>':'')+'</span>'
       /* 14.09: ders sayfaları pakete dahil (paket-kapisi.js); kartta açıkça yazılır */
-      +'<span class="sc-git">'+(d.sayfa?'🔒 Pakete dahil →':'Hazırlanıyor')+'</span>'+agirlik;
+      +'<span class="sc-git">'+(d.sayfa?(dersAcik(SECILI,d.ad)?'Çöz →':'🔒 Pakete dahil →'):'Hazırlanıyor')+'</span>'+agirlik;
     return d.sayfa&&acik?'<a class="sc-ders" href="'+esc(d.sayfa)+'">'+ic+'</a>':'<div class="sc-ders kapali">'+ic+'</div>';
   }
 
@@ -220,7 +227,7 @@
     var denemeKart=(acik&&dn)?'<a class="sc-deneme" href="sinav-gibi.html"><span><span class="sc-deneme-et">Sınav gibi çöz</span>'
       +'<b>'+dn.toplam_soru+' soru · '+dn.sure_dk+' dakika · gerçek ders dağılımı</b>'
       +'<span class="sc-deneme-alt">Çözerken cevap görünmez; bitince ders ders karne ve her yanlışın Nöbetçi anlatımı. '+dn.set_sayisi+' set, aynı soru iki kez gelmez.</span></span>'
-      +'<span class="sc-deneme-git">🔒 Pakete dahil →</span></a>':'';
+      +'<span class="sc-deneme-git">'+(PAKET[s.kod]?'Başla →':'🔒 Pakete dahil →')+'</span></a>':'';
     /* 14.09 Cem "deneme amaçlı sadece kendin dene": üyeliksiz ücretsiz katman en üstte.
        23.09 Cem "1.2.3 yap": "Ücretsiz dene" ve "30 soruda ölç" iki kart aynı teste çıkıyordu -> TEK kart;
        örnek sorular kartın altında küçük bağlantı (ucretsiz-dene.html'deki düzenin aynısı). Yalnız SGS için hazır. */
@@ -258,6 +265,14 @@
     try{ history.replaceState(null,'','#'+kod); }catch(e){}
     if(kullanici&&window.matchMedia('(max-width:900px)').matches){ document.getElementById('icerik').scrollIntoView({behavior:'smooth',block:'start'}); }
   }
+
+  /* 07.10: paket bilgisi gelince (girişliyse) kartlar yeniden çizilir; hata/girişsizde kilit etiketi kalır */
+  try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){
+    var degisti=false;
+    Object.keys(UYE_KOD).forEach(function(kod){ var o=d&&d.sinavlar&&d.sinavlar[UYE_KOD[kod]];
+      if(o&&o.durum==='aktif'){ PAKET[kod]={dersler:o.dersler||null}; degisti=true; } });
+    if(degisti&&DIZIN&&SECILI) dersleriCiz();
+  }); }catch(e){}
 
   Promise.all([
     fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
