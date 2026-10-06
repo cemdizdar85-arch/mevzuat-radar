@@ -24,6 +24,10 @@ function TuzakAyir([string]$a){
   $m=[regex]::Match($u,'(?:^|[.;]\s+|\s)([A-ZÇĞİÖŞÜ][^.:;]{1,58}?Tuza[gğ][iı])\s*:\s*(.*)$')
   if($m.Success){ return @{ ad=$m.Groups[1].Value.Trim(); metin=$m.Groups[2].Value.Trim() } }
   $r=([regex]::Replace($u,'(?i)^Ne soruluyor\s*:\s*.*?(?=\s(?:Kural|Hesap|Bu olayda|Do[gğ]rusu)\s*:|$)','')).Trim()
+  # 06.10 (t427 örneklemi): arkasında başlık yoksa cümle bütünüyle gidiyor, metin ham kalıyordu → yalnız 'Ne soruluyor:' etiketi atılır.
+  if(-not $r){ $r=([regex]::Replace($u,'(?i)^Ne soruluyor\s*:\s*','')).Trim() }
+  # 06.10: boş hesap yuvası 'Hesap: -' artığı (511 bulgulu şıkın 5'inde)
+  if("$env:TUZAK_AYIR_MUTASYON" -ne 'hesap-artik'){ $r=([regex]::Replace($r,'(?i)\s*Hesap\s*:\s*[-–—](?=\s|$)',' ')).Trim() -replace '\s{2,}',' ' }
   return @{ ad='Tuzak'; metin=$(if($r){ $r } else { $u }) }
 }
 if($MyInvocation.InvocationName -ne '.' -and @($args) -contains '-Sinav'){
@@ -42,5 +46,8 @@ if($MyInvocation.InvocationName -ne '.' -and @($args) -contains '-Sinav'){
   $h=0; foreach($x in $v){ $r=TuzakAyir $x[0]; if("$($r.ad)" -cne $x[1]){ $h++; "  DUSTU: '$($x[0].Substring(0,[math]::Min(50,$x[0].Length)))' -> '$($r.ad)' (beklenen '$($x[1])')" } }
   # kalıntı metinden atılmalı: R3'te metin "Ne soruluyor" ile başlamamalı
   $r3=TuzakAyir $v[0][0]; if("$($r3.metin)" -match '^Ne soruluyor'){ $h++; '  DUSTU: R3 metninde "Ne soruluyor" kaldı' }
-  if($h){ "TUZAK AYIR SINAVI KIRMIZI: $h/$($v.Count+1)"; exit 1 } else { "TUZAK AYIR SINAVI YESIL: $($v.Count+1)/$($v.Count+1)"; exit 0 }
+  $r4=TuzakAyir 'Ne soruluyor: işletmenin cari oranı 1,6 sanıldı.'; if("$($r4.metin)" -cne 'işletmenin cari oranı 1,6 sanıldı.'){ $h++; "  DUSTU: başlıksız 'Ne soruluyor:' etiketi atılmadı -> '$($r4.metin)'" }
+  $r5=TuzakAyir 'Kural: süre 30 gündür. Hesap: - Doğrusu: 30 gün.'; if("$($r5.metin)" -match 'Hesap\s*:\s*-'){ $h++; "  DUSTU: 'Hesap: -' artığı kaldı -> '$($r5.metin)'" }
+  $n=$v.Count+3
+  if($h){ "TUZAK AYIR SINAVI KIRMIZI: $h/$n"; exit 1 } else { "TUZAK AYIR SINAVI YESIL: $n/$n"; exit 0 }
 }
