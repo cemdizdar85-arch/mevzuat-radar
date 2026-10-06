@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Günün sorusu paylaşım — Tetikte</title>
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="stil-acik.css">
+<style>
+  .gs-kap{max-width:1100px;margin:28px auto;padding:0 16px}
+  .gs-kap h1{font-size:24px;margin:0 0 6px;color:var(--ink)}
+  .gs-alt{margin:0 0 22px;color:var(--muted)}
+  .gs-sinav{margin:0 0 34px}
+  .gs-sinav h2{font-size:19px;margin:0 0 12px;color:var(--ink)}
+  .gs-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .gs-kart{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .gs-kart h3{font-size:15px;margin:0 0 8px;color:var(--ink)}
+  .gs-kart img{width:100%;height:auto;border-radius:8px;border:1px solid var(--line);display:block}
+  .gs-kart textarea{width:100%;min-height:120px;margin:10px 0 8px;font:inherit;font-size:13px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);box-sizing:border-box}
+  .gs-dug{display:flex;gap:8px;flex-wrap:wrap}
+  .gs-dug a,.gs-dug button{font:inherit;font-size:14px;font-weight:700;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;cursor:pointer}
+</style>
+</head>
+<body style="background:var(--bg);color:var(--ink)">
+<!-- 07.10.2026 (Cem "günlük 1 soru: Instagram + site"): robotun her sabah bastığı Instagram kareleri (motor/gunun-sorusu-gorsel.js,
+     .github/workflows/gunun-sorusu.yml). Ana sayfa kartıyla AYNI soru. Bu sayfa yalnız ekip içindir (noindex, menüde yok). -->
+<main class="gs-kap">
+  <h1>Günün sorusu: Instagram kareleri</h1>
+  <p class="gs-alt" id="gsTarih">Yükleniyor…</p>
+  <div id="gsGovde"></div>
+</main>
+<script>
+(function(){
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik'};
+  fetch('veri/gunun-sorusu.json?t='+Date.now(),{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+    document.getElementById('gsTarih').textContent='Tarih: '+d.tarih+' · Önce dünün cevabını, sonra bugünün sorusunu paylaş. Görseli indir, metni kopyala.';
+    var h=''; ['sgs','yeterlilik'].forEach(function(s){ var x=(d.sinavlar||{})[s]; if(!x) return; var v='?t='+encodeURIComponent(d.tarih);
+      h+='<section class="gs-sinav"><h2>'+AD[s]+' <small style="color:var(--muted);font-weight:500">(liste sırası '+x.sira+'/'+x.toplam+')</small></h2><div class="gs-izgara">'
+        +['cevap','soru'].map(function(t){ var img='gorsel/gunun/'+s+'-'+t+'.png'+v, metin=t==='soru'?x.soru_metni:x.cevap_metni;
+          return '<div class="gs-kart"><h3>'+(t==='soru'?'2) Bugünün sorusu':'1) Dünün cevabı')+'</h3><img src="'+img+'" alt="'+AD[s]+' '+t+'" loading="lazy">'
+            +'<textarea readonly>'+esc(metin)+'</textarea><div class="gs-dug"><a href="'+img+'" download="tetikte-'+s+'-'+t+'-'+d.tarih+'.png">Görseli indir</a>'
+            +'<button type="button" data-kopya>Metni kopyala</button></div></div>'; }).join('')+'</div></section>'; });
+    document.getElementById('gsGovde').innerHTML=h||'<p>Bugün için görsel yok.</p>';
+    [].forEach.call(document.querySelectorAll('[data-kopya]'),function(b){ b.addEventListener('click',function(){ var t=b.closest('.gs-kart').querySelector('textarea');
+      try{ navigator.clipboard.writeText(t.value).then(function(){ b.textContent='Kopyalandı ✓'; }); }catch(e){ t.select(); document.execCommand('copy'); b.textContent='Kopyalandı ✓'; } }); });
+  }).catch(function(){ document.getElementById('gsTarih').textContent='Günün sorusu dosyası henüz yok (robot her sabah 07:00\'de basar).'; });
+})();
+</script>
+</body>
+</html>

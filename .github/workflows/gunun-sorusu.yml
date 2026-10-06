@@ -1,0 +1,43 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/gunun-sorusu.yml
+# NEDEN VAR (07.10.2026, Cem "gunluk 1 soru: hem Instagram gunun sorusu hem sitede" -> "2 yapalim"):
+#   her sabah 07:00 TR, ana sayfa kartiyla AYNI sorunun Instagram karelerini (bugunun sorusu + dunun cevabi, iki sinav) basar,
+#   gorsel/gunun/*.png + veri/gunun-sorusu.json olarak depoya isler; paylasim sayfasi gunun-sorusu.html. Instagram'a OTOMATIK
+#   paylasmaz. Liste ve icerik veri/vitrin-hesap.json'dan (vitrin-kalite akisi 06:30'da tazeler).
+# GUNLUK PUBLIC: betik yalniz soru KIMLIGI basar; gorseller zaten ana sayfada gosterilen ucretsiz sorulardir.
+name: Gunun sorusu gorselleri (07:00 TR)
+on:
+  schedule:
+    - cron: "0 4 * * *"      # 07:00 TR
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: gunun-sorusu
+  cancel-in-progress: false
+jobs:
+  bas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Turkce yazi tipi (yedek)
+        run: sudo apt-get install -y -qq fonts-dejavu-core >/dev/null || true
+      - name: Gorselleri bas
+        env:
+          CHROME: google-chrome
+        run: node motor/gunun-sorusu-gorsel.js
+      - name: Depoya isle
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@tetikte.com"
+          git add gorsel/gunun veri/gunun-sorusu.json || true
+          git diff --cached --quiet && { echo "degisiklik yok"; exit 0; }
+          git commit -m "Gunun sorusu gorselleri [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git push; then echo "islendi (deneme $i)"; break; fi
+            git pull --rebase --autostash || true
+            sleep $((i*15))
+          done
