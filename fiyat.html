@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b1a18">
-<title>Fiyatlar | Tetikte</title>
+<title>Paket fiyatlarımız | Tetikte</title>
 <link rel="canonical" href="https://tetikte.com/fiyat.html">
 <meta name="description" content="SMMM Staja Giriş ve Yeterlilik soru bankası. Staja Giriş ilk 1.000 kurucuya 2.490 TL + KDV (KDV dahil 2.988 TL); Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
 <!-- Paylaşım etiketleri (30.08, arac/paylasim-etiketi.ps1). Sayfanın kendi
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="Tetikte">
 <meta property="og:url" content="https://tetikte.com/fiyat.html">
-<meta property="og:title" content="Fiyatlar">
+<meta property="og:title" content="Paket fiyatlarımız">
 <meta property="og:description" content="SMMM Staja Giriş ve Yeterlilik soru bankası. Staja Giriş ilk 1.000 kurucuya 2.490 TL + KDV (KDV dahil 2.988 TL); Yeterlilik'te her basamak resmî harçtan ucuz. Gizli ücret yok.">
 <meta property="og:image" content="https://tetikte.com/og-kapak-sinav.png">
 <meta property="og:image:width" content="1200">
@@ -82,7 +82,8 @@
   .dersMerdiven a:hover{ border-color:var(--ink); }
   .dersMerdiven a span{ display:block; font-size:12.5px; color:var(--muted); }
   .dersMerdiven a strong{ display:block; font-size:16px; margin-top:2px; }
-  .dersMerdiven a strong small{ font-size:11px; font-weight:600; }
+  .dersMerdiven a strong{ white-space:nowrap; }
+  .dersMerdiven a strong small{ display:block; font-size:11px; font-weight:600; color:var(--muted); }   /* "+ KDV" fiyatın altında: dar (3 sütun) görünümde kelime kelime kırılmasın */
   .dersMerdiven p{ margin:8px 0 0; font-size:12.5px; color:var(--muted); }
   .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
   .p li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
@@ -112,8 +113,8 @@
   <a class="ust-marka" href="index.html">tetikte</a>
 </div>
 
-<h1>Fiyatlar</h1>
-<p class="alt">Gizli ücret yok, teklif formu yok. Ödeyeceğin KDV dahil toplam her fiyatın hemen altında yazar.</p>
+<h1 style="text-align:center">Paket fiyatlarımız</h1>   <!-- 07.10 Cem: "Fiyatlar kalması hoş değil, paket fiyatlarımız desek"; başlık bloğu kartla aynı hizada, ortada -->
+<p class="alt" style="text-align:center">Gizli ücret yok, teklif formu yok. Ödeyeceğin KDV dahil toplam her fiyatın hemen altında yazar.</p>
 
 <!-- ACILIS VURUSU (02.08 Cem onayi): Cem'in "sinava tekrar girme parasina bize uye olun"
      fikri, TESMER'in KENDI 2026 ucret tarifesindeki rakamla kuruldu. Iddia degil, belge.
@@ -568,7 +569,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
     if(!var_){ var tk=document.getElementById('takvim'); if(tk) gz(tk,true); var kn=document.querySelector('.kaynakNot'); if(kn) gz(kn,true); }
   }
   var s=document.getElementById('secSatir');
-  if(s){ s.innerHTML='<b>'+ADLAR[sn]+'</b> fiyatı · <a href="fiyat.html?sinav=hepsi">Diğer sınavların fiyatları →</a>'; s.hidden=false; }
+  if(s){ s.innerHTML='<b>'+ADLAR[sn]+'</b> paket fiyatı · <a href="fiyat.html?sinav=hepsi">Diğer sınavların fiyatları →</a>'; s.hidden=false; }
 })();
 </script>
 <!-- 03.10 (Cem "1 yap", V2 madde 55-56): sayaç bu sayfada da - yalnız sayfa/adım adı, kişi verisi yok -->
