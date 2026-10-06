@@ -25,6 +25,8 @@
       '.no-dugmeler button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}' +
       /* 06.10 Cem (telefon): "bir alta kayarak oynatıyor, aynı yerde oynaması lazım" - sahne SABİT boy, içerik içinde akar (takip) */
       '.no-sahne{position:relative;height:clamp(320px,60vh,460px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.no-sahne::-webkit-scrollbar{display:none}.no-sahne.duz{height:auto;overflow:visible}' +
+      /* 07.10 Cem ('soru bilgisayarda yarım görünüyor'): seçim aşamasında çerçeve sorunun tamamını gösterir; anlatım başlayınca sabit boya döner */
+      '.no-sahne.secimde{height:auto!important;overflow:visible!important}' +
       '.no-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}' +
       '.no-siklar{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}.no-siklar li{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;line-height:1.45;color:var(--ink);transition:background .6s,border-color .6s}' +
       '.no-siklar.secilir li{cursor:pointer}.no-siklar.secilir li:hover{border-color:var(--ink)}.no-siklar.secilir li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}' +
@@ -143,7 +145,7 @@
       temizle(); i = n; adim = 0; yazilan = null;
       if (i >= kartlar.length) return sonEkran();
       sahne.classList.toggle('duz', !!duz); kayAnim++; kayHedef = 0; kayCalisiyor = false; sahne.scrollTop = 0;
-      sahne.innerHTML = kartHtml(kartlar[i]); kap.querySelector('.no-sayac').textContent = '· ' + (i + 1) + ' / ' + kartlar.length;
+      sahne.innerHTML = kartHtml(kartlar[i]); sahne.classList.toggle('secimde', secimVar(kartlar[i])); kap.querySelector('.no-sayac').textContent = '· ' + (i + 1) + ' / ' + kartlar.length;
       plan = planKur(); cubuk();
       if (duz || dur) { if (duz) { hepsiniAc(); adim = plan.length; cubuk(); } return; }
       ilerle();
@@ -167,7 +169,7 @@
         var yaz = function () { if (gs) gs.textContent = 'Seçmezsen Nöbetçi ' + kalan + ' sn sonra anlatmaya başlar.'; }; yaz();
         geriSay = setInterval(function () { kalan = Math.max(0, kalan - 1); yaz(); }, 1000);
         zaman = setTimeout(function () { var k = kartlar[i]; kartlar[i] = Object.assign({}, k, { secimBitti: true }); olay('secmedi');
-          var dv = sahne.querySelector('.no-davet'), sl = sahne.querySelector('.no-siklar'); if (dv) dv.hidden = true; if (sl) sl.classList.remove('secilir');
+          var dv = sahne.querySelector('.no-davet'), sl = sahne.querySelector('.no-siklar'); if (dv) dv.hidden = true; if (sl) sl.classList.remove('secilir'); sahne.classList.remove('secimde');
           if (geriSay) { clearInterval(geriSay); geriSay = null; } adim++; cubuk(); ilerle(); }, a[2]);
         return;
       }
@@ -176,7 +178,7 @@
       adim++; cubuk(); zaman = setTimeout(ilerle, a[2] || 400);
     }
     function sonEkran() {
-      temizle(); i = kartlar.length; sahne.classList.remove('duz'); kayAnim++; kayHedef = 0; kayCalisiyor = false; sahne.scrollTop = 0; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
+      temizle(); i = kartlar.length; sahne.classList.remove('duz'); sahne.classList.remove('secimde'); kayAnim++; kayHedef = 0; kayCalisiyor = false; sahne.scrollTop = 0; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
       kap.querySelector('.no-sayac').textContent = '';
       var s = o.son || {};
       sahne.innerHTML = '<div class="no-son"><p>' + (s.metin || 'Bankadaki her soru böyle anlatılır.') + '</p>' +
@@ -203,7 +205,7 @@
     }
     /* görünür olunca başlar (sayfanın altında kalmışsa boşa oynamasın) */
     var basladi = false;
-    if (!duz && kartlar.length) { sahne.innerHTML = kartHtml(kartlar[0]); kap.querySelector('.no-sayac').textContent = '· 1 / ' + kartlar.length; }   // başlamadan önce soru görünsün (boş kart değil)
+    if (!duz && kartlar.length) { sahne.innerHTML = kartHtml(kartlar[0]); sahne.classList.toggle('secimde', secimVar(kartlar[0])); kap.querySelector('.no-sayac').textContent = '· 1 / ' + kartlar.length; }   // başlamadan önce soru görünsün (boş kart değil)
     function basla() { if (basladi) return; basladi = true; olay('basladi'); kartAc(0); }
     if (duz) { oynaD.textContent = '▶'; metinGorunum(); olay('metin-varsayilan'); return; }
     /* 06.10 Cem (telefon): kart ekranda büyük ölçüde görünmeden başlamaz; ekrandan çıkınca durur, geri gelince kaldığı yerden sürer
