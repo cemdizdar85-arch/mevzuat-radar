@@ -656,11 +656,19 @@
   /* 03.10 (Cem, V2 madde 17): sonuç yalnız puan vermesin - güçlü alan + çalışılacak alan + "Bugün şunu yap".
      Ders, bu testteki cevaplardan (CEVAPLAR.ders) seçilir: en çok yanlış/bilmiyorum, eşitse en düşük oran.
      Bağlantı sorunun kendi ders sayfası (c.sayfa); paketsiz kişiyi o sayfanın paket kapısı karşılar. */
+  /* 06.10 (Cem: "5/30 aldım, başlangıç noktan ekonomi ve maliye dedi; çok çıkandan başlamalı"): başlangıç grubu en düşük
+     YÜZDE ile seçiliyordu - 0/4 Ekonomi, 3/14 Muhasebe'nin önüne geçiyordu; oysa sınavda Ekonomi-Maliye 12, Muhasebe 58 soru.
+     Artık: sınavda KAYBEDİLEN tahmini soru = (1 - bu testteki oran) x grubun 130 soruluk sınavdaki sorusu (veri/sgs-sinav-yapisi.json).
+     Eşitlikte sınavda payı büyük olan. Grup tabloda yoksa test sorusu x 130/30. karne-gonder.ts aynı kuralı kullanır. */
+  var SGS_GRUP_SINAV={'Muhasebe':58,'Hukuk':30,'Ekonomi ve Maliye':12,'Genel Kültür ve Yabancı Dil':30};
+  function grupSinav(x){ return SGS_GRUP_SINAV[x.ad]||Math.round(x.soru*130/30); }
+  function grupKayip(x){ return x.soru?(1-x.dogru/x.soru)*grupSinav(x):0; }
+  function oncelikGrup(liste){ return (liste||[]).slice().sort(function(a,b){ return grupKayip(b)-grupKayip(a) || grupSinav(b)-grupSinav(a); })[0]; }
   function bugunCiz(liste){
     var kap=$('svBugun');
     if(!kap){ kap=document.createElement('div'); kap.id='svBugun'; kap.className='sv-kutu'; kap.style.margin='16px 0'; $('svGruplar').insertAdjacentElement('afterend',kap); }
     var g=(liste||[]).filter(function(x){ return x&&x.soru>=2; }).sort(function(a,b){ return b.dogru/b.soru-a.dogru/a.soru; });
-    var guclu=g.length?g[0]:null, zayif=g.length?g[g.length-1]:null;
+    var guclu=g.length?g[0]:null, zayif=oncelikGrup(g);
     var d={}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||!c.ders) return; if(!d[c.ders]) d[c.ders]={ad:c.ders,soru:0,yanlis:0,sayfa:c.sayfa}; d[c.ders].soru++; if(!c.dogru) d[c.ders].yanlis++; if(!d[c.ders].sayfa&&c.sayfa) d[c.ders].sayfa=c.sayfa; });
     var dl=Object.keys(d).map(function(k){ return d[k]; }).filter(function(x){ return x.yanlis>0; }).sort(function(a,b){ return b.yanlis-a.yanlis || (b.yanlis/b.soru)-(a.yanlis/a.soru); });
     var h='';
@@ -679,11 +687,11 @@
     $('svYuzde').textContent=g;
     $('svSeviye').textContent=g>=70?'Hazıra yakınsın':g>=40?'Sınırdasın':'Bugün girsen zorlanırsın';
     $('svSeviye').className='sv-seviye '+sinif;
-    var zayif=liste.slice().sort(function(a,b){ return a.dogru/a.soru-b.dogru/b.soru; })[0];
+    var zayif=oncelikGrup(liste), neden=zayif?' (sınavın '+grupSinav(zayif)+' sorusu bu gruptan; bu testte '+zayif.soru+' sorunun '+zayif.dogru+' tanesini bildin)':'';
     var gun=Math.max(0,Math.round((new Date('2026-11-21T00:00:00')-new Date(new Date().toDateString()))/86400000));
     $('svMesaj').textContent= g>=70 ? 'İyi durumdasın. 130 soruluk tam denemeyle bu sonucu gerçek süre ve gerçek ders dağılımında doğrula.'
-      : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında.'
-      : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+'.';
+      : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında'+neden+'.'
+      : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+neden+'.';
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+((SONUC.dogru130Alt!=null&&SONUC.dogru130Ust!=null)?' (büyük ihtimalle '+SONUC.dogru130Alt+'–'+SONUC.dogru130Ust+' arası; 30 soruluk ölçüm kesin değil)':'')+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
