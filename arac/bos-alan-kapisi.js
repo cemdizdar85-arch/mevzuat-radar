@@ -42,6 +42,24 @@ function kalipBul(t) {
   return null;
 }
 
+// 06.10 BOS-KALIP 'tuzak-adi' (Cem "1.2.3"; sinav oturumu t3-olcum): YANLIŞ şıkkın açıklaması tuzak adıyla değil doğru şıkkın çözüm
+//   kalıbıyla başlıyor ("Ne soruluyor: …", tek başına "Kural:/Hesap:/Doğrusu:", "…tekrar edilmez/tekrar etmeden…") → ders sayfası tuzak
+//   adını "Ne soruluyor" diye basıyordu (SMMM yayında 241 soru; yalnız 4'ünü eski BOS-KALIP görüyordu). Desen arac/tuzak-ayir.ps1
+//   TUZAK_KALINTI ile AYNI (sayfa dönüştürücüsü görünümü onarır; bu kapı yeni üretimde kökü durdurur). Doğru şık taranmaz (orada meşru).
+//   🚫 GÖRMEZ: tuzak adlı ama içeriği başka şıkkı anlatan açıklama (KAPI-AS) · doğru şıkkın tuzak etiketli olması.
+const TUZAK_KALINTI = /^(ne soruluyor|kural|hesap|bu olayda|do[gğ]rusu)$|^ne soruluyor|ne soruluyor\?|tekrar edilmez|tekrarlanmaz|tekrarlamadan|tekrar etmeden/i;
+function tuzakAdiKalinti(k) {
+  if (MUT === 'tuzak-adi' || !k || !k.aciklama || typeof k.aciklama !== 'object') return [];
+  const out = [];
+  for (const h of ['A', 'B', 'C', 'D', 'E']) {
+    if (h === k.dogru) continue; const v = k.aciklama[h]; if (typeof v !== 'string') continue;
+    const m = /^([^:]{3,60}):/.exec(v.trim()); if (!m) continue;
+    const ad = m[1].trim().replace(/^\[|\]$/g, '').replace(/\]\s*/g, ' ');
+    if (TUZAK_KALINTI.test(ad)) out.push('aciklama.' + h);
+  }
+  return out;
+}
+
 function gez(v, yol, out) {
   if (v == null) return out;
   if (typeof v === 'string') { out.push([yol, v]); return out; }
@@ -80,6 +98,7 @@ function kusurlar(k) {
       else { const kb = kalipBul(t); if (kb) ekle('BOS-KALIP', yol, 'üretim kalıntısı kalıp: ' + kb); }
     }
   }
+  for (const yol of tuzakAdiKalinti(k)) if (!out.some(b => b.alan === yol && b.tur === 'BOS-KALIP')) ekle('BOS-KALIP', yol, 'üretim kalıntısı kalıp: tuzak-adi (yanlış şık açıklaması çözüm kalıbıyla başlıyor)');
   return out;
 }
 
@@ -124,10 +143,16 @@ function sinav() {
     ['"bu cümle tekrar edilmez" → KALIP', k => { k.sade = { siklar: { B: 'Ne soruluyor: bu cümle tekrar edilmez. Süreyi karıştırdın.' } }; return k; }, 'BOS-KALIP'],
     ['teşhis "Seçilmemiş, bu doğru şıktır." → KALIP', k => { k.teshis = { C: { yanilgi: 'Seçilmemiş, bu doğru şıktır.' } }; return k; }, 'BOS-KALIP'],
     ['"Bu soru p.28 SINAV TUZAĞI (1) noktasından geliyor" → KALIP', k => { k.teshis = { B: { ayirt: 'Bu soru p.28 SINAV TUZAĞI (1) noktasından geliyor.' } }; return k; }, 'BOS-KALIP'],
-    ['meşru: "tamamlama safhasında tekrar edilmez" → temiz', k => { k.aciklama.D = 'Doğrusu: dürüstlük değerlendirmesi kabul safhasında yapılır, tamamlama safhasında tekrar edilmez.'; return k; }, null],
+    ['meşru: "tamamlama safhasında tekrar edilmez" → temiz', k => { k.aciklama.D = 'Safha Karıştırma Tuzağı: Doğrusu: dürüstlük değerlendirmesi kabul safhasında yapılır, tamamlama safhasında tekrar edilmez.'; return k; }, null],
     ['meşru: "Bu soru TMS 36 p.28 KAPSAM noktasından geliyor" (standart künyeli) → temiz', k => { k.hap = 'Bu soru TMS 36 p.28 KAPSAM ayrımı noktasından geliyor.'; return k; }, null],
     ['meşru: "Bu soru … değerlendirilmesi noktasından geliyor" (etiketsiz) → temiz', k => { k.hap = 'Bu soru iki tarafın ayrı değerlendirilmesi noktasından geliyor.'; return k; }, null],
     ['meşru: adımda "Bu doğru şıktır." → temiz', k => { k.adimlar = [{ anlatim: 'Sonuç: 100 KASA alacaklı olur. Bu doğru şıktır.' }]; return k; }, null],
+    // 06.10 tuzak-adi — yakalama (t3-olcum sınıfları) + meşru adlar (kapı kuralı 5)
+    ['yanlış şık "Ne soruluyor: …" ile başlıyor → KALIP', k => { k.aciklama.A = 'Ne soruluyor: dönem kârı. Kural: götürü gider. Doğrusu: 120.000.'; return k; }, 'BOS-KALIP'],
+    ['yanlış şık "Kural: …" ile başlıyor → KALIP', k => { k.aciklama.B = 'Kural: m.40 gereği %70 indirilir.'; return k; }, 'BOS-KALIP'],
+    ['yanlış şık tuzak adsız "Doğrusu: …" ile başlıyor → KALIP (06.10 kararı: yanlış şık "<Ad> Tuzağı:" ile başlar)', k => { k.aciklama.D = 'Doğrusu: dürüstlük değerlendirmesi kabul safhasında yapılır.'; return k; }, 'BOS-KALIP'],
+    ['meşru: "Kural Tuzağı: …" → temiz', k => { k.aciklama.D = 'Kural Tuzağı: kuralı ters uyguladın.'; return k; }, null],
+    ['meşru: "Hesap Seçimi Tuzağı: …" → temiz', k => { k.aciklama.E = 'Hesap Seçimi Tuzağı: 191 yerine 391 seçtin.'; return k; }, null],
   ];
   let ok = 0;
   for (const [ad, f, bek] of V) { const b = kusurlar(f(T())); const g = b.length ? b[0].tur : null; const t = g === bek; if (t) ok++; console.log((t ? '  ✓ ' : '  ✗ ') + ad + (t ? '' : ' → ' + JSON.stringify(b))); }
@@ -142,7 +167,7 @@ if (require.main === module) {
     if (process.argv.includes('--mutasyon')) {
       // 03.10: önce bozulmamış öz-sınav (eskiden --mutasyon yalnız bozmaları koşuyordu; YEŞİL olmayan sınav da "9/9 KIRMIZI" verebilirdi)
       if (!sinav()) { console.log('MUTASYON koşulmadı: bozulmamış öz-sınav zaten KIRMIZI'); process.exit(1); }
-      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize', 'kalip', 'p-etiket-genis']; let tutan = 0;
+      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize', 'kalip', 'p-etiket-genis', 'tuzak-adi']; let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, BOS_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' → KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
     }
