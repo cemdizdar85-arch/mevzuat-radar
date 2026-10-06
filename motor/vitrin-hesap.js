@@ -42,7 +42,9 @@ function kartKur(satir, disli) {
   const aciklama = (v.sade || {}).dogru;
   if (!sen || !t.metin || !aciklama || /^undefined$/i.test(String(aciklama).trim())) return { neden: 'anlatım eksik' };
   return { kart: { id: satir.id, ders: String(satir.ders || '').split('|')[0].trim(), soru: v.soru, siklar: sk, secim: sen, dogru: v.dogru,
-    tuzak_ad: t.ad || '', tuzak_metin: t.metin, aciklama, kural: buyukBas(v.kural), dayanak: temizDayanak(v.dayanak) } };
+    tuzak_ad: t.ad || '', tuzak_metin: t.metin, aciklama,
+    // 07.10 'Sen çöz': ziyaretçi hangi yanlışı seçerse onun tuzağı anlatılır
+    tuzaklar: Object.fromEntries(Object.entries(v.tuzak || {}).filter(([hf, x]) => hf !== v.dogru && sk[hf] != null && x && x.metin).map(([hf, x]) => [hf, { ad: x.ad || '', metin: x.metin }])), kural: buyukBas(v.kural), dayanak: temizDayanak(v.dayanak) } };
 }
 
 async function sb(yol) {
@@ -80,13 +82,14 @@ function sinav() {
     tuzak: { A: { ad: 'T', metin: 'm' } }, sade: { dogru: 'neden' }, kural: 'kural', dayanak: 'VUK m.1 (teori notu: iç)' } });
   const k = kartKur(iyi(), false);
   b('sağlam soru karta girer, dayanaktan iç not silinir, kural büyük harfle', k.kart && k.kart.dayanak === 'VUK m.1' && k.kart.kural === 'Kural' && k.kart.secim === 'A');
+  b('her yanlış şıkkın tuzağı karta girer, doğru şık girmez', k.kart && k.kart.tuzaklar.A && k.kart.tuzaklar.A.metin === 'm' && !k.kart.tuzaklar.B);
   b('ücretsizden çıkan soru düşer (06.10 olayı)', kartKur({ ...iyi(), ucretsiz: false }, false).neden === 'ücretsiz değil');
   b('vitrin dışlama listesindeki soru düşer', kartKur(iyi(), true).neden === 'vitrin dışlama listesinde');
   b('kasada olmayan soru düşer', kartKur(undefined, false).neden === 'kasada yok');
   const uzun = iyi(); uzun.veri.siklar.C = 'x'.repeat(41); b('uzun şıklı soru düşer (karta sığmaz)', kartKur(uzun, false).neden === 'şık uzun');
   const bos = iyi(); bos.veri.sade.dogru = 'undefined'; b('açıklaması "undefined" olan soru düşer', kartKur(bos, false).neden === 'anlatım eksik');
   const tz = iyi(); tz.veri.tuzak = {}; b('tuzağı olmayan soru düşer', kartKur(tz, false).neden === 'anlatım eksik');
-  console.log(`VİTRİN HESAP öz-sınav: ${7 - h}/7`); process.exitCode = h ? 1 : 0;
+  console.log(`VİTRİN HESAP öz-sınav: ${8 - h}/8`); process.exitCode = h ? 1 : 0;
 }
 
 if (require.main === module) { if (process.argv.includes('--sinav')) sinav(); else ana().catch(e => { console.log('VİTRİN HESAP HATA: ' + e.message); process.exitCode = 1; }); }

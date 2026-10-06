@@ -416,13 +416,14 @@ footer p{margin:0 0 8px}
      ücretsizden çıkan / dışlanan soru robotça düşer, boşsa günün sorusu oynar. */
   var VITRIN_HESAP={};
   function ekranCiz(){
-    var o=ozetim(), kap=$('ekOynatici'), VL=VITRIN_HESAP[secili]||[];
+    var o=ozetim(), kap=$('ekOynatici'), VL=VITRIN_HESAP[secili]||[]; $('bzIleri').hidden=false;   /* liste boşsa eski 'Kendin çöz' yolu */
     if(VL.length&&window.NobetciOynatici){ var v=VL[Math.floor(Date.now()/864e5)%VL.length]; kapat();
       $('ekDers').textContent=(AD[secili]||'')+' · '+v.ders; kap.innerHTML='';
-      window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:v.soru, siklar:v.siklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış', tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin,
+      window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış', tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin,
         dogru:v.dogru, aciklama:v.aciklama, kural:v.kural, dayanak:v.dayanak }],{ son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
+        etkilesim:25000,   /* hesaplı soruyu çözmeye yetecek süre; geri sayım görünür */   /* 07.10 Cem: 'sen çöz diyelim, kaymasın dursun, o çözsün; basmazsa biz kaydırarak çözelim' */
         olay:function(ad){ say('ana/nobetci/'+ad,'Ana sayfa Nöbetçi: '+ad); } });
-      $('bzIleri').disabled=!(o&&o.baglanti); $('bzIleri').textContent='Başka soru çöz →'; return; }
+      $('bzIleri').hidden=true; return; }   /* 07.10 Cem: 'Başka soru çöz' saçma - kalktı; ziyaretçi bu soruyu kartta çözer */
     kapat();
     if(!o||!o.siklar||!window.NobetciOynatici){
       $('ekDers').textContent='Günün sorusu'; kap.innerHTML='<p class="soru" style="padding:18px;margin:0">Bu sınavın günün sorusu hazırlanıyor.</p>';
@@ -442,7 +443,7 @@ footer p{margin:0 0 8px}
     });
     $('bzIleri').disabled=false; $('bzIleri').textContent='Kendin çöz →';
   }
-  function kapat(){ acik=false; $('bzCerceve').hidden=true; $('bzCerceve').innerHTML=''; $('bzKanca').hidden=true; if(!$('bzIleri').disabled) $('bzIleri').textContent=((VITRIN_HESAP[secili]||[]).length?'Başka soru çöz →':'Kendin çöz →'); }
+  function kapat(){ acik=false; $('bzCerceve').hidden=true; $('bzCerceve').innerHTML=''; $('bzKanca').hidden=true; if(!$('bzIleri').disabled) $('bzIleri').textContent='Kendin çöz →'; }
   function temaliYol(o){
     var koyu=window.TetikteTema?window.TetikteTema.koyuMu():false;
     return o.baglanti.replace('vitrin=1','vitrin=1&tek=1').replace(/tema=(koyu|acik)/,'tema='+(koyu?'koyu':'acik'));

@@ -96,6 +96,14 @@ async function sekme(t, en, telefon) {
 async function nobetciAkis(t, o) {
   if (MUT === 'nobetci') return [];
   const ev = async x => (await t.cdp.cagir('Runtime.evaluate', { expression: x, returnByValue: true }, o)).result.value;
+  /* 07.10 (Cem: 'Başka soru çöz saçma; sen çöz'): ana sayfa kartı artık şıkları SEÇTİRİR. Seçilebilir şık varsa yeni akış ölçülür:
+     bir şık seçilir -> Nöbetçi'nin 'senin cevabın' bloğu açılmalı. Yoksa (liste boş, günün sorusu) eski 'Kendin çöz' akışı. */
+  for (let i = 0; i < 12 && !(await ev("!!document.querySelector('#ekOynatici .no-siklar.secilir li[data-h]') || !!(document.getElementById('bzIleri')&&!document.getElementById('bzIleri').hidden&&!document.getElementById('bzIleri').disabled)")); i++) await bekle(500);
+  if (await ev("!!document.querySelector('#ekOynatici .no-siklar.secilir li[data-h]')")) {
+    await ev("document.querySelector('#ekOynatici .no-siklar.secilir li[data-h]').click()");
+    for (let i = 0; i < 16; i++) { await bekle(500); if (await ev("!!document.querySelector('#ekOynatici .no-sen.acik')")) return []; }
+    return ['NOBETCI şık seçildi ama anlatım açılmadı'];
+  }
   for (let i = 0; i < 20 && !(await ev("(()=>{const b=document.getElementById('bzIleri');return !!b&&!b.disabled})()")); i++) await bekle(500);
   if (!(await ev("!!document.getElementById('bzIleri')"))) return ['NOBETCI düğme yok'];
   await ev("document.getElementById('bzIleri').click()");
@@ -138,6 +146,14 @@ async function sinav(t) {
     + 'document.getElementById("bzIleri").onclick=function(){var c=document.getElementById("bzCerceve");c.hidden=false;var f=document.createElement("iframe");'
     + 'f.srcdoc=' + JSON.stringify('<div id="akis"><section class="kart" style="height:200px"><button class="sik">A</button></section></div><script>document.querySelector(".sik").onclick=function(){' + (saglam ? 'parent.postMessage({tetikte:"vitrin-cevap",dogru:false},"*")' : '') + '}<\/script>').replace(/<\//g, '<\\/') + ';c.appendChild(f);};'   // iç </script> dış betiği kapatmasın
     + 'addEventListener("message",function(e){if(e.data&&e.data.tetikte==="vitrin-cevap")document.getElementById("bzKanca").hidden=false;});</script>');
+  /* 07.10 'Sen çöz' vakaları: şık seçilince .no-sen.acik açılmalı */
+  const senCoz = (saglam) => sar('<div id="ekOynatici"><ol class="no-siklar secilir"><li data-h="A">A</li></ol><div class="no-blok no-sen">s</div></div><script>'
+    + 'document.querySelector("li").onclick=function(){' + (saglam ? 'document.querySelector(".no-sen").classList.add("acik")' : '') + '};</script>');
+  for (const [ad, saglam, bekTur] of [['Sen çöz sağlam', true, []], ['Sen çöz anlatımsız (bozuk)', false, ['NOBETCI']]]) {
+    await t.cdp.cagir('Page.navigate', { url: senCoz(saglam) }, s.o); await bekle(600);
+    const ih = await nobetciAkis(t, s.o); const turler = ih.map(x => x.split(' ')[0]).join(',');
+    VAKA.push([ad]); if (turler === bekTur.join(',')) dogru++; else yanlis.push(ad + ' (beklenen [' + bekTur + '], ölçülen [' + ih.join(' | ') + '])');
+  }
   for (const [ad, saglam, bekTur] of [['Nöbetçi akışı sağlam', true, []], ['Nöbetçi akışı kancasız (bozuk)', false, ['NOBETCI']]]) {
     await t.cdp.cagir('Page.navigate', { url: nobet(saglam) }, s.o); await bekle(600);
     const ih = await nobetciAkis(t, s.o); const turler = ih.map(x => x.split(' ')[0]).join(',');

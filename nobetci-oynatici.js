@@ -6,7 +6,7 @@
    Üstte hikâye çubuğu (kart başına bir dilim), ⏸/▶, ⟨ ⟩, "metin olarak göster". Hareket azaltma tercihi olan cihazda düz metin açılır.
 
    KULLANIM: NobetciOynatici.kur(kap, kartlar, { son:{metin, dugme, href, sinif}, olay:function(ad){}, baslik, alt })
-     kartlar: [{ ust, soru, siklar ({A..E}, varsa önce şıklar görünür, sonra işaretlenir), secim, sen_etiket (vars. "Senin cevabın"), secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
+     kartlar: [{ ust, soru, tuzaklar ({harf:{ad,metin}} - o.etkilesim ile 'Sen çöz' aşaması açılır), siklar ({A..E}, varsa önce şıklar görünür, sonra işaretlenir), secim, sen_etiket (vars. "Senin cevabın"), secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
      olay adları: basladi · kart-N · son · paket · metin · durdur
    Renkler yalnız tema jetonu (stil.css). 🚫 GÖRMEZ: anlatımın doğruluğu (o vitrin kalite listesinin işi).
 ============================================================================ */
@@ -27,6 +27,8 @@
       '.no-sahne{position:relative;height:clamp(320px,60vh,460px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.no-sahne::-webkit-scrollbar{display:none}.no-sahne.duz{height:auto;overflow:visible}' +
       '.no-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}' +
       '.no-siklar{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}.no-siklar li{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;line-height:1.45;color:var(--ink);transition:background .6s,border-color .6s}' +
+      '.no-siklar.secilir li{cursor:pointer}.no-siklar.secilir li:hover{border-color:var(--ink)}.no-siklar.secilir li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}' +
+      '.no-davet{margin:0 0 8px;font-size:14px;font-weight:700;color:var(--amber,var(--ink))}.no-davet small{font-weight:500;color:var(--muted)}' +
       '.no-siklar li b{flex:none}.no-siklar li em{margin-left:auto;padding-left:8px;flex:none;font-style:normal;font-size:12px;font-weight:800;white-space:nowrap}' +
       '.no-siklar li.sen{border-color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent)}.no-siklar li.sen em{color:var(--red)}' +
       '.no-siklar li.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent)}.no-siklar li.dogru em{color:var(--green)}' +
@@ -57,6 +59,7 @@
   function kur(kap, kartlar, o) {
     o = o || {}; stil();
     var olay = function (ad) { try { o.olay && o.olay(ad); } catch (e) {} };
+    var ilkKartlar = kartlar.slice();
     var duz = hareketAz(), i = 0, adim = 0, plan = [], zaman = null, dur = false, yazilan = null, bitti = {};
     kap.innerHTML = (o.baslik ? '<h2 style="margin:0 0 6px">' + esc(o.baslik) + '</h2>' : '') + (o.alt ? '<p class="sv-alt" style="margin:0 0 14px">' + o.alt + '</p>' : '') +
       '<div class="no-kap" role="region" aria-label="Nöbetçi anlatımı"><div class="no-cubuk">' + kartlar.map(function () { return '<span class="no-dilim"><i></i></span>'; }).join('') + '</div>' +
@@ -85,12 +88,13 @@
       if (blok) kaydir(sahne.scrollTop + fark);                    // blok açılışı: yumuşak iniş
       else { sahne.scrollTop += fark; kayHedef = Math.max(kayHedef, sahne.scrollTop); }   // yazarken: yeni satır başlarken çerçeve o satır kadar iner (gecikme yok)
     }
-    function temizle() { if (zaman) { clearTimeout(zaman); zaman = null; } }
+    function temizle() { if (zaman) { clearTimeout(zaman); zaman = null; } if (geriSay) { clearInterval(geriSay); geriSay = null; } }
     function kartHtml(k) {
       var ad = adimlar(k.aciklama);
       return '<p class="no-soru-ust" style="margin:0 0 6px;font-size:12px;color:var(--muted)">' + esc(k.ust || '') + '</p>' +
         (k.soru ? '<p class="no-soru">' + esc(k.soru) + '</p>' : '') +
-        (k.siklar ? '<ol class="no-siklar">' + Object.keys(k.siklar).sort().map(function (hf) { return '<li data-h="' + esc(hf) + '"><b>' + esc(hf) + ')</b><span>' + esc(k.siklar[hf]) + '</span><em></em></li>'; }).join('') + '</ol>' : '') +
+        (secimVar(k) ? '<p class="no-davet">Sen olsan hangisini işaretlerdin? <small class="no-geri">Bir şıkka dokun.</small></p>' : '') +
+        (k.siklar ? '<ol class="no-siklar' + (secimVar(k) ? ' secilir' : '') + '">' + Object.keys(k.siklar).sort().map(function (hf) { return '<li data-h="' + esc(hf) + '"' + (secimVar(k) ? ' tabindex="0" role="button"' : '') + '><b>' + esc(hf) + ')</b><span>' + esc(k.siklar[hf]) + '</span><em></em></li>'; }).join('') + '</ol>' : '') +
         '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>' + esc(k.sen_etiket || 'Senin cevabın') + ' ' + esc(k.secim) + ')' + (k.siklar ? '' : ' ' + esc(k.secim_metin || '')) + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
           : '<b>Bu soruyu boş geçtin</b><p><span data-yaz="Doğrusunu ve nedenini birlikte görelim."></span></p>') + '</div>' +
         '<div class="no-blok no-dogru" data-a="dogru"><b>Doğrusu ' + esc(k.dogru) + ')' + (k.siklar ? '' : ' ' + esc(k.dogru_metin || '')) + '</b><p>' +
@@ -102,7 +106,11 @@
     function planKur() {
       var p = [], q = sahne.querySelector('.no-soru'), sl = sahne.querySelector('.no-siklar'), k = kartlar[i] || {};
       var okun = (q ? q.textContent.length : 0) + (sl ? sl.textContent.length : 0);
-      p.push(['bekle', null, okun ? Math.min(sl ? 10000 : 4500, (sl ? 1800 : 1200) + okun * (sl ? 12 : 15)) : 800]);
+      var okuma = okun ? Math.min(sl ? 10000 : 4500, (sl ? 1800 : 1200) + okun * (sl ? 12 : 15)) : 800;
+      if (secimVar(k)) p.push(['secim', null, Math.max(okuma, o.etkilesim || 12000)]);
+      else if (!k.secilen) p.push(['bekle', null, okuma]);
+      else p.push(['bekle', null, 600]);
+      if (sl && k.secilen && k.secilen === k.dogru) p.push(['isaret', sl.querySelector('[data-h="' + k.dogru + '"]'), 1400, 'dogru']);   // doğruyu bilen anında görsün
       if (sl && k.secim) p.push(['isaret', sl.querySelector('[data-h="' + k.secim + '"]'), 1700, 'sen']);
       var sen = sahne.querySelector('[data-a="sen"]'); p.push(['ac', sen, 600]);
       sen.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); }); p.push(['bekle', null, 1800]);
@@ -113,7 +121,18 @@
       p.push(['bekle', null, 3500]);
       return p;
     }
-    function isaretle(li, tur) { if (!li) return; li.classList.add(tur); var em = li.querySelector('em'); if (em) em.textContent = tur === 'dogru' ? 'Doğru ✓' : ((kartlar[i] && kartlar[i].sen_etiket) ? 'En sık yanlış ✕' : 'Senin cevabın ✕'); }
+    function isaretle(li, tur) { if (!li) return; li.classList.add(tur); var em = li.querySelector('em'), k0 = kartlar[i] || {}, bu = li.getAttribute('data-h') === k0.secilen;
+      if (em) em.textContent = tur === 'dogru' ? (bu ? 'Doğru ✓ senin cevabın' : 'Doğru ✓') : (bu || (!k0.secilen && !k0.sen_etiket) ? 'Senin cevabın ✕' : 'En sık yanlış ✕'); }
+    /* seçim aşaması: kartın tüm tuzakları varsa ve henüz seçilmediyse */
+    function secimVar(k) { return !!(o.etkilesim && k && k.siklar && k.tuzaklar && !k.secilen && !k.secimBitti && !duz); }
+    var geriSay = null;
+    function sec(harf) {
+      var k = kartlar[i]; if (!secimVar(k) || !k.siklar[harf]) return;
+      var n = Object.assign({}, k, { secilen: harf });
+      if (harf === k.dogru) { n.sen_etiket = 'Doğru bildin! Çoğu aday burada şuna düşüyor:'; olay('secti-dogru'); }
+      else { var t = k.tuzaklar[harf] || {}; n.secim = harf; n.sen_etiket = 'Senin cevabın'; n.tuzak_ad = t.ad || ''; n.tuzak_metin = t.metin || 'Bu şık doğru değil; doğru cevabın hesabı aşağıda adım adım.'; olay('secti-yanlis'); }
+      kartlar[i] = n; if (!basladi) { basladi = true; olay('basladi'); } oto = false; if (dur) { dur = false; oynaD.textContent = '⏸'; } kartAc(i);
+    }
     function hepsiniAc() {
       var k0 = kartlar[i] || {}; sahne.querySelectorAll('.no-siklar').forEach(function (l) { if (k0.secim) isaretle(l.querySelector('[data-h="' + k0.secim + '"]'), 'sen'); isaretle(l.querySelector('[data-h="' + k0.dogru + '"]'), 'dogru'); });
       sahne.querySelectorAll('.no-blok,.no-kural,.no-dayanak').forEach(function (e) { e.classList.add('acik'); });
@@ -143,6 +162,15 @@
         })();
         return;
       }
+      if (a[0] === 'secim') {
+        var kalan = Math.round(a[2] / 1000), gs = sahne.querySelector('.no-geri');
+        var yaz = function () { if (gs) gs.textContent = 'Seçmezsen Nöbetçi ' + kalan + ' sn sonra anlatmaya başlar.'; }; yaz();
+        geriSay = setInterval(function () { kalan = Math.max(0, kalan - 1); yaz(); }, 1000);
+        zaman = setTimeout(function () { var k = kartlar[i]; kartlar[i] = Object.assign({}, k, { secimBitti: true }); olay('secmedi');
+          var dv = sahne.querySelector('.no-davet'), sl = sahne.querySelector('.no-siklar'); if (dv) dv.hidden = true; if (sl) sl.classList.remove('secilir');
+          if (geriSay) { clearInterval(geriSay); geriSay = null; } adim++; cubuk(); ilerle(); }, a[2]);
+        return;
+      }
       if (a[0] === 'isaret' && a[1]) isaretle(a[1], a[3]);
       if (a[0] === 'ac') { a[1].classList.add('acik'); var el = a[1]; setTimeout(function () { takip(el, true); }, 60); }
       adim++; cubuk(); zaman = setTimeout(ilerle, a[2] || 400);
@@ -157,12 +185,14 @@
       if (!bitti.son) { bitti.son = 1; olay('son'); }
     }
     function oynaDurdur(d, otomatik) { dur = d; oynaD.textContent = dur ? '▶' : '⏸'; oynaD.setAttribute('aria-label', dur ? 'Oynat' : 'Durdur'); if (dur) { temizle(); if (!otomatik) olay('durdur'); } else if (i < kartlar.length) ilerle(); }
+    kap.addEventListener('keydown', function (ev) { var li = ev.target.closest && ev.target.closest('.no-siklar.secilir li[data-h]'); if (li && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); sec(li.getAttribute('data-h')); } });
     kap.addEventListener('click', function (ev) {
+      var li = ev.target.closest('.no-siklar.secilir li[data-h]'); if (li) { sec(li.getAttribute('data-h')); return; }
       var b = ev.target.closest('[data-d]'); if (!b) return; var d = b.getAttribute('data-d');
       if (d === 'oyna') { oto = false; if (duz) { duz = false; dur = false; kartAc(i); oynaD.textContent = '⏸'; } else oynaDurdur(!dur); }
       else if (d === 'ileri') kartAc(Math.min(kartlar.length, i + 1));
       else if (d === 'geri') kartAc(Math.max(0, i - (i >= kartlar.length ? 1 : (adim > 2 ? 0 : 1))));
-      else if (d === 'bastan') { duz = false; oynaDurdur(false); kartAc(0); }
+      else if (d === 'bastan') { duz = false; kartlar = ilkKartlar.slice(); oynaDurdur(false); kartAc(0); }   // baştan: seçim aşaması yeniden
       else if (d === 'paket') olay('paket');
       else if (d === 'metin') { olay('metin'); temizle(); duz = true; oynaD.textContent = '▶'; metinGorunum(); }
     });
