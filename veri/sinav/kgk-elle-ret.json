@@ -1,5 +1,15 @@
 {
-    "aciklama":  "KGK elle ret (26.09.2026, SMMM smmm-elle-ret.json'un eşi): okuyarak bulunan kusurlu KGK sorusu kilitli kasaya GİRMEZ (arac/smmm-kasa-yayin.ps1 -Sinav KGK). Kimlik (etiket/kp-NN) -> {gerekce, kaynak, tarih}. Soru metni YOK. Kalkması için kayıt silinir; soru yeniden yazılınca yeni kimlik alır.",
-    "kayitlar":  {
-                 }
+    "aciklama": "KGK elle ret (26.09.2026, SMMM smmm-elle-ret.json'un eşi): okuyarak bulunan kusurlu KGK sorusu kilitli kasaya GİRMEZ (arac/smmm-kasa-yayin.ps1 -Sinav KGK). Kimlik (etiket/kp-NN) -> {gerekce, kaynak, tarih}. Soru metni YOK. Kalkması için kayıt silinir; soru yeniden yazılınca yeni kimlik alır.",
+    "kayitlar": {
+        "kgk-o2-tds-zor/kp-10": {
+            "gerekce": "IKI SIK SAVUNULUR: kok BDS 720 genel diyor ama Turkiye uygulamasinda 2T/21T/22T geregi diger bilgiler (faaliyet raporu) denetlenir; \"denetlendigi\" diyen sik savunulur, aciklamadaki \"diger bilgiler denetlenmez\" 2T ile celisir. Kok T paragrafina gore yeniden kurulmali.",
+            "kaynak": "KGK ikinci goz 07.10 (BDS 720 p.2T, p.21T, p.22T)",
+            "tarih": "2026-10-07"
+        },
+        "kgk-o2-tds-zor/kp-30": {
+            "gerekce": "IKI SIK SAVUNULUR: BDS 315 Ek 3 p.23 yan sozlesme ornegini muvazaali islem VE yonetimin kontrolleri ihlali birlikte sayan cumleye baglar; olayda yonetim musterilerle birlikte hareket ediyor, muvazaa sikki da savunulur. Celdirici p.23 disindan kurulmali ya da kok musterisiz yapilmali.",
+            "kaynak": "KGK ikinci goz 07.10 (BDS 315 Ek 3 p.22-23)",
+            "tarih": "2026-10-07"
+        }
+    }
 }
