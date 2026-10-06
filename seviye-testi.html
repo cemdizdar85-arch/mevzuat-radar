@@ -671,6 +671,18 @@
     }
     kap.innerHTML='<h3>Sonucunun ayrıntısı</h3><div class="sv-ayr-ic">'+k.join('')+'</div>'; kap.hidden=!k.length;
     try{ konuEkle(); }catch(e){}
+    /* 07.10 Cem ("başka adaylarla kıyası ölçerek ekleyelim; aday geldikten sonra"): sunucu (rpc/seviye_kiyas,
+       radar-app/sql/2026-10-07-seviye-kiyas.sql) 100 biten test birikmeden acik=false döner -> kart HİÇ çizilmez.
+       Dönen yalnız n + yüzde; kişi verisi yok. "aday" değil "biten test" denir (aynı kişi iki kez çözmüş olabilir). */
+    try{
+      var dg=C.filter(function(c){ return c.dogru; }).length;
+      fetch(SB+'/rest/v1/rpc/seviye_kiyas',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+        body:JSON.stringify({ p_sinav:YET?'smmm':'sgs', p_dogru:dg }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){
+        if(!j||!j.acik||!(j.n>=100)) return; var ic=kap.querySelector('.sv-ayr-ic'); if(!ic||kap.querySelector('.sv-kiyas')) return;
+        var d=document.createElement('div'); d.className='sv-ayr-k sv-kiyas';
+        d.innerHTML='<b>Öteki adaylarla</b><p>Senden az doğru yapanların oranı: <b style="display:inline;margin:0">%'+j.altinda+'</b> (bu testi bitiren '+Number(j.n).toLocaleString('tr-TR')+' test içinde).</p><p style="color:var(--muted);font-size:12.5px">Yalnız bu 30 soruluk test kıyaslanır; gerçek sınavdaki sıranı göstermez.</p>';
+        ic.appendChild(d); }).catch(function(){});
+    }catch(e){}
   }
   /* 05.10 NÖBETÇİ YANLIŞINI ANLATIYOR: ilk yanlışların (bilmiyorum hariç) anlatımı sunucudan, en çok 3. Kalanı kilitli → teklif.
      Sunucu kusurlu/eksik anlatımlı soruyu atlar; bu yüzden 8 aday gönderilir. Hiç gelmezse bölüm gizli kalır (sessiz). */
