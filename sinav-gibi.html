@@ -101,6 +101,8 @@
   }
 </style>
 <script src="paket-kapisi.js"></script>
+<!-- 07.10: yanlış kutusu hesaba (üye girişliyse; paket-kapisi.js'in istemcisini kullanır) -->
+<script src="kutu-esitle.js"></script>
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -311,6 +313,7 @@
       });
       localStorage.setItem('kc_kutu',JSON.stringify(kutu));
     }catch(e){}
+    try{ if(window.ttKutuEsitle) window.ttKutuEsitle.esitle(); }catch(e){}   /* 07.10: üyede hesaba (kutu-esitle.js) */
   }
 
   /* ---------- 3) SONUÇ ---------- */

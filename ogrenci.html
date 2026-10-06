@@ -324,6 +324,8 @@
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js"></script>
 <script src="calisma-ozet.js"></script>
+<!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
+<script src="kutu-esitle.js"></script>
 <script>
 (function(){
   'use strict';
@@ -564,6 +566,8 @@
   document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){
     b.addEventListener('click',function(){ ILR.elle=true; var s=b.getAttribute('data-sinav'); try{ window.TetikteUye&&TetikteUye.sinavSec(s); }catch(e){} ilerlemeCiz(s); });
   });
+  /* 07.10: kutu-esitle.js hesaptaki yanlış kutusunu cihaza işleyince sayılar yeniden çizilir */
+  document.addEventListener('tetikte-kutu',function(){ if(ILR.secili) ilerlemeCiz(ILR.secili); try{ simdiCiz(); }catch(e){} });
   var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
   function ilerlemeCiz(s){
     ILR.secili=s;

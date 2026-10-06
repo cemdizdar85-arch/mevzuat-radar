@@ -302,8 +302,9 @@
 <script src="seviye-model-yet.js"></script>
 <script src="fiyat-motoru.js"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
-<script src="nobetci-oynatici.js?v=20261007e"></script>
+<script src="nobetci-oynatici.js?v=20261007f"></script>
 <script src="uye-durumu.js"></script>
+<script src="kutu-esitle.js"></script>
 <script>
 (function(){
   'use strict';
@@ -517,6 +518,7 @@
         if(k){ k.tur=1; k.due=an+2*86400000; k.yanlis=(k.yanlis||0)+1; } else kutu.push({id:c.id,konu:'',ders:c.ders,donem:0,tur:1,due:an+2*86400000,yanlis:1}); });
       localStorage.setItem('kc_kutu',JSON.stringify(kutu));
     }catch(e){}
+    try{ if(window.ttKutuEsitle) window.ttKutuEsitle.esitle(); }catch(e){}   /* 07.10: üyede yanlış kutusu hesaba (kutu-esitle.js) */
     /* 16.09: ücretsiz hak burada tükenir (test bitti). Üyede sınır yok. */
     /* 03.10: ücretsiz hak SONUÇ GÖSTERİLİNCE yanar (formu doldurmadan çıkan yeniden çözebilir). */
     sonucuAc(function(){ hakYaz(); sonucCiz(liste); });
@@ -564,6 +566,7 @@
         if(k){ k.tur=1; k.due=an+2*86400000; k.yanlis=(k.yanlis||0)+1; } else kutu.push({id:c.id,konu:'',ders:c.ders,donem:0,tur:1,due:an+2*86400000,yanlis:1}); });
       localStorage.setItem('kc_kutu',JSON.stringify(kutu));
     }catch(e){}
+    try{ if(window.ttKutuEsitle) window.ttKutuEsitle.esitle(); }catch(e){}   /* 07.10: üyede yanlış kutusu hesaba (kutu-esitle.js) */
   }
   function bitirYet(){
     var t=yetHesap(), dogruSay=CEVAPLAR.filter(function(c){return c.dogru;}).length;
