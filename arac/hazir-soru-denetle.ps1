@@ -178,7 +178,9 @@ function TersSadeNot($q){
 # K6 FIKRA ATFI (sözleşme B24 S6, kanunlar için kapısı yoktu): "m.X/Y" atfında X maddesi sorunun kaynak_adlar'ındaysa ambar metninde
 #   "(Y)" fıkrası aranır; madde numaralı fıkralıysa ((1) var) ve (Y) yoksa KUSUR. Mutasyon: =fikra.
 #   🚫 GÖRMEZ: kaynak_adlar'da olmayan madde (ölçülmedi notu) · fıkrası numarasız eski kanun · bent harfi · standart paragrafı (BDS → KAPI-BP).
-function KgkMetinler($q){ $o=@(); foreach($alan in 'aciklama','teshis','sade','adimlar','celdirici_yol','hap','sinav_taktigi'){ if($q.PSObject.Properties[$alan]){ foreach($t in @(MetinTopla $q.$alan)){ $o+=,@($alan,"$t") } } }; return $o }
+# 07.10 (sinav kolu SMMM banka ölçümü: 2.225 harf bulgusunun 1.324'ü adım ŞABLON alanından — adimlar[].sik='A'): tek harflik değer
+#   (alan anahtarı gibi duran "A") metin değildir, ölçülmez.
+function KgkMetinler($q){ $o=@(); foreach($alan in 'aciklama','teshis','sade','adimlar','celdirici_yol','hap','sinav_taktigi'){ if($q.PSObject.Properties[$alan]){ foreach($t in @(MetinTopla $q.$alan)){ if("$t".Trim() -match '^[A-E]$'){ continue }; $o+=,@($alan,"$t") } } }; return $o }
 # 07.10.2026 SMMM BAĞI (sinav kolu ölçümü): K4/K5/K6 bitirme (smmm-) etiketinde de koşar. Etiket: -IkizEtiket smmm-…/kgk-… ya da dosya adı
 #   hazir-kgk-… · hazir-gmN-… (→ smmm-gmN-…) · hazir-smmm-…. SGS'de değişen yok. Durdurma: KGK'da üçü KUSUR; SMMM'de kip satırı (ölçüm).
 #   Mutasyon: $env:DENETLE_KGK_MUTASYON=smmm → SMMM bağı kapanır (öz-sınav "bağ: smmm" vakaları düşer).
@@ -202,10 +204,12 @@ function HarfAnmaKusur($q){
     if($m.Success){ $gor[$p[0]]=1; $s=[Math]::Max(0,$m.Index-30); $out+="HARF ANMA ($($p[0])): '…$($p[1].Substring($s,[Math]::Min(70,$p[1].Length-$s)))…' — şık yer değiştirir; harf değil İÇERİK an ('bildirimi kaldıran seçenek')" } }
   return $out
 }
-function SayiKatla([string]$s){ return ("$s" -replace '[.\s]','' -replace ',0+$','') }
+# 07.10 (sinav kolu ölçümü, 311 bulgunun 1 yanlış alarmı): "35,1800" ↔ "35,18" — virgülden sonraki SONDAKİ sıfırlar atılır; tarih
+#   parçası ("31.12.2025" kökte, "2025 (soruda verilen)" açıklamada) için kökteki sayının nokta/eğik çizgi parçaları da kümeye girer.
+function SayiKatla([string]$s){ $t = ("$s" -replace '[.\s]',''); if($t -match ','){ $t = ($t -replace '0+$','') -replace ',$','' }; return $t }
 function SorudaVerilenKusur($q){
   if("$env:DENETLE_KGK_MUTASYON" -eq 'verilen'){ return @() }
-  $kok=@{}; foreach($m in [regex]::Matches("$($q.soru)",'\d[\d.,]*')){ $kok[(SayiKatla ($m.Value.TrimEnd('.',',')))]=1 }
+  $kok=@{}; foreach($m in [regex]::Matches("$($q.soru)",'\d[\d.,/]*')){ $v=$m.Value.TrimEnd('.',',','/'); $kok[(SayiKatla $v)]=1; if($v -match '[./]'){ foreach($pr in ($v -split '[./]')){ if($pr){ $kok[(SayiKatla $pr)]=1 } } } }
   $out=@(); $gor=@{}
   foreach($p in @(KgkMetinler $q)){
     foreach($m in [regex]::Matches($p[1],'(?<s>\d[\d.,]*)\s*(?:TL|%|gün|ay|yıl|adet)?\s*\(soruda verilen\)')){
@@ -225,7 +229,11 @@ function FikraAtifKusur($q,$metinler){
       $an="$($kanunlar -join '|')|$md|$f"; if($gor.ContainsKey($an)){ continue }; $gor[$an]=1
       if($kanunlar.Count -ne 1){ continue }   # madde kaynak_adlar'da yok ya da iki kanunda aynı numara → ölçülmez
       $govde=($esl | Sort-Object | ForEach-Object { $metinler[$_] }) -join ' '
-      if($govde -match '\(\s*1\s*\)' -and $govde -notmatch ('\(\s*' + $f + '\s*\)')){ $out+="FIKRA ATFI ($($p[0])): 'm.$md/$f' — $($kanunlar[0]) m.$md metninde ($f) fıkrası YOK (S6: numara kaynak metinden okunur)" } } }
+      # 07.10 (sinav kolu ölçümü: 55 fıkra bulgusunun 19'u yanlış alarm — GVK m.40, İYUK m.28, BKK m.1, 5510 m.3'te metnin İÇİNDE "(1)" bent
+      #   numarası geçiyordu, "m.X/Y" bent atfıydı): madde numaralı fıkralı sayılır YALNIZ "MADDE X –" başlığının hemen ardından "(1)" geliyorsa
+      #   (araya değişiklik künyesi "(Değişik: …)" girebilir).
+      $fikrali = $govde -match '(?i)madde\s+\d+(?:/[A-ZÇĞİÖŞÜ])?\s*[–—‐-]\s*(?:\([^)]{0,80}\)\s*)*\(\s*1\s*\)'
+      if($fikrali -and $govde -notmatch ('\(\s*' + $f + '\s*\)')){ $out+="FIKRA ATFI ($($p[0])): 'm.$md/$f' — $($kanunlar[0]) m.$md metninde ($f) fıkrası YOK (S6: numara kaynak metinden okunur)" } } }
   return $out
 }
 # 05.10.2026 SİMÜLASYON ÖN KONTROLÜ (gm8: VUK'un 3 teori sorusu bulutta öğrenci simülasyonunda kaldı). Üretici cozum_tablo görünce soruyu
@@ -325,6 +333,11 @@ if($KgkKapiSinavi){
     @('verilen: kökte geçen sayı',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Önemlilik 400.000 TL olarak belirlenmiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 400.000 TL (soruda verilen)' }) })).Count),0),
     @('fıkra: m.35/3 yok',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='SPKn m.35/3 gereği kurul düzenler.' } }) $mt).Count),1),
     @('fıkra: m.35/2 var',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='6362 sayılı Kanun m.35/2 gereği Kurul düzenler.' } }) $mt).Count),0),
+    @('fıkra: metin içi "(1)" bent numarası → fıkralı sayılmaz (GVK m.40 vakası)',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='GVK m.40/5 gereği gider indirilir.' } }) @{ 'Gelir Vergisi K. (193 s.K.) m.40 [1/2]'='Safi kazancın tespiti için aşağıdaki giderler indirilir: 1. (1) numaralı bentte sayılan genel giderler; 5. Amortismanlar.' }).Count),0),
+    @('fıkra: künyeli "MADDE 35 – (Değişik: …) (1)" fıkralı sayılır',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='SPKn m.35/4 gereği.' } }) @{ 'Sermaye Piyasası K. (6362 s.K.) m.35'='MADDE 35 – (Değişik: 1/1/2020-7000/1 md.) (1) Kurumlar şunlardır. (2) Kurul düzenler.' }).Count),1),
+    @('verilen: "35,1800" kökte "35,18"',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Kur 35,18 TL olarak verilmiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 35,1800 TL (soruda verilen)' }) })).Count),0),
+    @('verilen: tarih parçası "2025" kökte 31.12.2025',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Raporlama dönemi 31.12.2025 tarihinde sona ermiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 2025 (soruda verilen)' }) })).Count),0),
+    @('harf: adım şablon alanı sik=A ölçülmez',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Hangisi?'; adimlar=@([pscustomobject]@{ sik='A'; anlatim='Doğru cevap: görüş vermekten kaçınma.' }) })).Count),0),
     @('fıkra: numarasız madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Bankacılık K. m.24/2 gereği komite kurulur.' } }) $mt).Count),0),
     @('fıkra: kaynak_adlar''da olmayan madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='TTK m.397/4 gereği denetçi seçilir.' } }) $mt).Count),0),
     @('bağ: smmm hazir-gm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-gm9-1-yvergi-zor.json')),1),
