@@ -3,11 +3,11 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.945** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.944** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 483 | 897 | 28,0 | 1103 | 295 | 30 | 3 | 155 | 22 |
+| Finansal Muhasebe | 483 | 897 | 28,0 | 1102 | 295 | 30 | 3 | 155 | 22 |
 | Denetim | 284 | 495 | 15,5 | 717 | 213 | 3 | 0 | 68 | 0 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 63 | 1 | 0 | 21 | 1 |
 | Maliyet Muhasebesi | 139 | 266 | 8,3 | 387 | 110 | 2 | 1 | 26 | 0 |
