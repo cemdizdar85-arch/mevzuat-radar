@@ -48,6 +48,10 @@ function kartKur(satir, disli, setli) {
   return { kart: { id: satir.id, ders: String(satir.ders || '').split('|')[0].trim(), soru: v.soru, siklar: sk, secim: sen, dogru: v.dogru,
     tuzak_ad: t.ad || '', tuzak_metin: t.metin, aciklama,
     // 07.10 'Sen çöz': ziyaretçi hangi yanlışı seçerse onun tuzağı anlatılır
+    // 07.10 Cem ("bankada tek tek açıklıyoruz, hangi hesaba; burada kısa olmuş"): bankadaki adım adım çözüm + yevmiye kaydı karta gelir.
+    // "Soru bize şunları vermiş" adımı (verilenAdim) atlanır - soru zaten ekranda. Adımı olmayan kartta eski kısa açıklama oynar.
+    adimlar: (Array.isArray(v.adimlar) ? v.adimlar : []).filter(x => x && !x.verilenAdim && (x.anlatim || x.formul)).map(x => ({ a: String(x.anlatim || '').trim(), f: String(x.formul || '').trim() })),
+    kayitlar: (Array.isArray(v.kayitlar) ? v.kayitlar : []).map(y => ({ baslik: y.baslik || '', kayit: (y.kayit || []).map(s => ({ hesap: s.hesap, taraf: s.taraf, tutar: s.tutar })) })),
     tuzaklar: Object.fromEntries(Object.entries(v.tuzak || {}).filter(([hf, x]) => hf !== v.dogru && sk[hf] != null && x && x.metin).map(([hf, x]) => [hf, { ad: x.ad || '', metin: x.metin }])), kural: buyukBas(v.kural), dayanak: temizDayanak(v.dayanak) } };
 }
 
@@ -82,7 +86,7 @@ async function ana() {
 }
 
 function sinav() {
-  let h = 0; const b = (ad, k) => { console.log((k ? '  geçti  ' : '  DÜŞTÜ  ') + ad); if (!k) h++; };
+  let h = 0, n = 0; const b = (ad, k) => { n++; console.log((k ? "  geçti  " : "  DÜŞTÜ  ") + ad); if (!k) h++; };
   const iyi = () => ({ id: 'x', ders: 'Finansal Muhasebe|a', ucretsiz: true, veri: { soru: 'S?', dogru: 'B', siklar: { A: '1', B: '2', C: '3', D: '4', E: '5' },
     tuzak: { A: { ad: 'T', metin: 'm' } }, sade: { dogru: 'neden' }, kural: 'kural', dayanak: 'VUK m.1 (teori notu: iç)' } });
   const k = kartKur(iyi(), false);
@@ -94,8 +98,14 @@ function sinav() {
   b('kasada olmayan soru düşer', kartKur(undefined, false).neden === 'kasada yok');
   const uzun = iyi(); uzun.veri.siklar.C = 'x'.repeat(41); b('uzun şıklı soru düşer (karta sığmaz)', kartKur(uzun, false).neden === 'şık uzun');
   const bos = iyi(); bos.veri.sade.dogru = 'undefined'; b('açıklaması "undefined" olan soru düşer', kartKur(bos, false).neden === 'anlatım eksik');
+  const ad = iyi(); ad.veri.adimlar = [{ verilenAdim: true, anlatim: 'Soru bize verdi', formul: 'V' }, { anlatim: 'Oranı bul', formul: '1/2 = %50' }];
+  ad.veri.kayitlar = [{ baslik: 'Tahsil', kayit: [{ hesap: '102 BANKALAR', taraf: 'B', tutar: '5' }, { hesap: '120 ALICILAR', taraf: 'A', tutar: '5' }] }];
+  const adk = kartKur(ad, false).kart;
+  b('bankadaki adımlar karta gelir, "soru bize verdi" adımı düşer', adk.adimlar.length === 1 && adk.adimlar[0].f === '1/2 = %50');
+  b('yevmiye kaydı hesap/taraf/tutarla karta gelir', adk.kayitlar.length === 1 && adk.kayitlar[0].kayit[1].taraf === 'A');
+  b('adımsız soru boş adımla gelir (oynatıcı kısa açıklamaya düşer)', kartKur(iyi(), false).kart.adimlar.length === 0);
   const tz = iyi(); tz.veri.tuzak = {}; b('tuzağı olmayan soru düşer', kartKur(tz, false).neden === 'anlatım eksik');
-  console.log(`VİTRİN HESAP öz-sınav: ${9 - h}/9`); process.exitCode = h ? 1 : 0;
+  console.log(`VİTRİN HESAP öz-sınav: ${n - h}/${n}`); process.exitCode = h ? 1 : 0;
 }
 
 if (require.main === module) { if (process.argv.includes('--sinav')) sinav(); else ana().catch(e => { console.log('VİTRİN HESAP HATA: ' + e.message); process.exitCode = 1; }); }

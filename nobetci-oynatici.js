@@ -33,7 +33,14 @@
       '.no-siklar{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}.no-siklar li{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;line-height:1.45;color:var(--ink);transition:background .6s,border-color .6s}' +
       '.no-siklar.secilir li{cursor:pointer}.no-siklar.secilir li:hover{border-color:var(--ink)}.no-siklar.secilir li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}' +
       '.no-davet{margin:0 0 8px;font-size:14px;font-weight:700;color:var(--amber,var(--ink))}.no-davet small{font-weight:500;color:var(--muted)}' +
-      '.no-bekle{display:block;margin:8px 0 0;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel,var(--bg));color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}.no-bekle:hover{border-color:var(--amber,var(--ink))}' +
+      /* 07.10 Cem "tam sığmıyor": davet tek satıra iner (düğme metnin yanında, küçük), şıklar sıkı */
+      '.no-sahne.secimde .no-siklar li{padding:5px 10px}.no-sahne.secimde .no-soru{margin-bottom:8px;font-size:14.5px;line-height:1.45}' +
+      /* kısa (rakam) şıklar iki sütun: 5 şık 3 satıra iner, soru + şıklar kısa ekrana sığar */
+      '@media (min-width:360px){.no-siklar.iki{grid-template-columns:1fr 1fr}}' +
+      '.no-f:not(.acik){display:none}.no-f.acik{animation:noAc .45s;color:var(--green)}' +
+      '.no-kayit{border-left:3px solid var(--ink);background:color-mix(in srgb,var(--ink) 5%,transparent)}.no-yev{margin:8px 0 0;font-size:13px}.no-yev-b{color:var(--muted);margin:0 0 3px}' +
+      '.no-yev-s{display:grid;grid-template-columns:1fr auto auto;gap:10px;font-variant-numeric:tabular-nums;padding:2px 0;border-bottom:1px dashed var(--line)}.no-yev-s span:nth-child(2),.no-yev-s span:nth-child(3){min-width:74px;text-align:right}.no-yev-s.a span:first-child{padding-left:22px}' +
+      '.no-bekle{display:inline-block;vertical-align:baseline;margin:0 0 0 4px;padding:2px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel,var(--bg));color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}.no-bekle:hover{border-color:var(--amber,var(--ink))}' +
       '.no-siklar li b{flex:none}.no-siklar li em{margin-left:auto;padding-left:8px;flex:none;font-style:normal;font-size:12px;font-weight:800;white-space:nowrap}' +
       '.no-siklar li.sen{border-color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent)}.no-siklar li.sen em{color:var(--red)}' +
       '.no-siklar li.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent)}.no-siklar li.dogru em{color:var(--green)}' +
@@ -70,7 +77,7 @@
       '<div class="no-kap" role="region" aria-label="Nöbetçi anlatımı"><div class="no-cubuk">' + kartlar.map(function () { return '<span class="no-dilim"><i></i></span>'; }).join('') + '</div>' +
       '<div class="no-ust"><span class="no-nobetci">🛡️ Nöbetçi anlatıyor <span class="no-sayac"></span></span><span class="no-dugmeler">' +
       '<button type="button" data-d="geri" aria-label="Önceki yanlış">⟨</button><button type="button" data-d="oyna" aria-label="Durdur">⏸</button><button type="button" data-d="ileri" aria-label="Sonraki yanlış">⟩</button></span></div>' +
-      '<div class="no-sahne" aria-live="polite"></div><div class="no-alt"><span></span><button type="button" data-d="metin">Hepsini metin olarak göster</button></div></div>';
+      '<div class="no-sahne" aria-live="polite"></div></div>';   /* 07.10 Cem: "hepsini metin olarak göster mantıklı değil" - bağlantı kalktı (hareket azaltma tercihli cihaz yine düz metin açar) */
     var sahne = kap.querySelector('.no-sahne'), dilim = kap.querySelectorAll('.no-dilim i'), oynaD = kap.querySelector('[data-d="oyna"]');
     /* 06.10 Cem ("biraz yavaş kaysın"): sahnenin içi kendi animasyonuyla, ağır kayar (tarayıcının hızlı smooth'u değil) */
     /* 07.10 Cem ("yazarken alt kırılımda kalıyor, görünmüyor"): her harfte animasyonu BAŞTAN başlatıyordu (38 ms'de kesilip
@@ -95,15 +102,24 @@
     }
     function temizle() { if (zaman) { clearTimeout(zaman); zaman = null; } if (geriSay) { clearInterval(geriSay); geriSay = null; } }
     function kartHtml(k) {
-      var ad = adimlar(k.aciklama);
+      /* 07.10 Cem ("biz bankada tek tek açıklıyoruz, hangi hesaba; burada kısa bir şey olmuş"): kartta bankadaki ADIM ADIM çözüm varsa
+         o anlatılır - her adımın cümlesi yazılır, hesabı (formül) altında belirir; yevmiye kaydı varsa en sonda hesap hesap gösterilir.
+         Adımı olmayan kart eski hâliyle (kısa açıklama cümleleri) oynar. */
+      var ad = (k.adimlar && k.adimlar.length) ? [] : adimlar(k.aciklama);
+      var adimHtml = (k.adimlar && k.adimlar.length) ? k.adimlar.map(function (x, n) {
+          return '<span class="no-adim" data-yaz="' + esc((n + 1) + '. ' + (x.a || '')) + '"></span>' + (x.f ? '<span class="no-adim hesap no-f" data-goster="1">' + esc(x.f) + '</span>' : ''); }).join('')
+        : ad.map(function (x) { return '<span class="no-adim' + (x.hesap ? ' hesap' : '') + '" data-yaz="' + esc(x.t) + '"></span>'; }).join('');
+      var kayitHtml = (k.kayitlar && k.kayitlar.length) ? '<div class="no-blok no-kayit" data-a="kayit"><b>Yevmiye kaydı</b>' + k.kayitlar.map(function (y) {
+          return '<div class="no-yev">' + (y.baslik ? '<div class="no-yev-b">' + esc(y.baslik) + '</div>' : '') + (y.kayit || []).map(function (s) {
+            return '<div class="no-yev-s' + (s.taraf === 'A' ? ' a' : '') + '"><span>' + esc(s.hesap) + '</span><span>' + (s.taraf === 'A' ? '' : esc(s.tutar)) + '</span><span>' + (s.taraf === 'A' ? esc(s.tutar) : '') + '</span></div>'; }).join('') + '</div>'; }).join('') + '</div>' : '';
       return '<p class="no-soru-ust" style="margin:0 0 6px;font-size:12px;color:var(--muted)">' + esc(k.ust || '') + '</p>' +
         (k.soru ? '<p class="no-soru">' + esc(k.soru) + '</p>' : '') +
-        (secimVar(k) ? '<p class="no-davet">Sen olsan hangisini işaretlerdin? <small class="no-geri">Bir şıkka dokun.</small> <button type="button" class="no-bekle" data-d="bekle">Süreyi durdur, kendim çözeyim</button></p>' : '') +
-        (k.siklar ? '<ol class="no-siklar' + (secimVar(k) ? ' secilir' : '') + '">' + Object.keys(k.siklar).sort().map(function (hf) { return '<li data-h="' + esc(hf) + '"' + (secimVar(k) ? ' tabindex="0" role="button"' : '') + '><b>' + esc(hf) + ')</b><span>' + esc(k.siklar[hf]) + '</span><em></em></li>'; }).join('') + '</ol>' : '') +
+        (secimVar(k) ? '<p class="no-davet">Sen olsan hangisini işaretlerdin? <small class="no-geri">Bir şıkka dokun.</small> <button type="button" class="no-bekle" data-d="bekle">Durdur, kendim çözeyim</button></p>' : '') +
+        (k.siklar ? '<ol class="no-siklar' + (secimVar(k) ? ' secilir' : '') + (Object.keys(k.siklar).every(function (hf) { return String(k.siklar[hf]).length <= 22; }) ? ' iki' : '') + '">' + Object.keys(k.siklar).sort().map(function (hf) { return '<li data-h="' + esc(hf) + '"' + (secimVar(k) ? ' tabindex="0" role="button"' : '') + '><b>' + esc(hf) + ')</b><span>' + esc(k.siklar[hf]) + '</span><em></em></li>'; }).join('') + '</ol>' : '') +
         '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>' + esc(k.sen_etiket || 'Senin cevabın') + ' ' + esc(k.secim) + ')' + (k.siklar ? '' : ' ' + esc(k.secim_metin || '')) + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
           : '<b>Bu soruyu boş geçtin</b><p><span data-yaz="Doğrusunu ve nedenini birlikte görelim."></span></p>') + '</div>' +
         '<div class="no-blok no-dogru" data-a="dogru"><b>Doğrusu ' + esc(k.dogru) + ')' + (k.siklar ? '' : ' ' + esc(k.dogru_metin || '')) + '</b><p>' +
-        ad.map(function (x) { return '<span class="no-adim' + (x.hesap ? ' hesap' : '') + '" data-yaz="' + esc(x.t) + '"></span>'; }).join('') + '</p></div>' +
+        adimHtml + '</p></div>' + kayitHtml +
         (k.kural ? '<p class="no-kural" data-a="kural"><b>Kural:</b> ' + esc(k.kural) + '</p>' : '') +
         (k.dayanak ? '<p class="no-dayanak" data-a="dayanak">📜 Dayanak: ' + esc(k.dayanak) + '</p>' : '');
     }
@@ -121,7 +137,10 @@
       sen.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); }); p.push(['bekle', null, 1800]);
       if (sl) p.push(['isaret', sl.querySelector('[data-h="' + k.dogru + '"]'), 1500, 'dogru']);
       var dg = sahne.querySelector('[data-a="dogru"]'); p.push(['ac', dg, 700]);
-      dg.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); p.push(['bekle', null, e.classList.contains('hesap') ? 1100 : 500]); });
+      dg.querySelectorAll('[data-yaz],[data-goster]').forEach(function (e) {
+        if (e.hasAttribute('data-goster')) { p.push(['ac', e, 1700]); return; }   // formül yazılmaz, belirir (okuma süresi kadar durur)
+        p.push(['yaz', e]); p.push(['bekle', null, e.classList.contains('hesap') ? 1100 : 500]); });
+      var ky = sahne.querySelector('[data-a="kayit"]'); if (ky) p.push(['ac', ky, 3500]);
       ['kural', 'dayanak'].forEach(function (a) { var e = sahne.querySelector('[data-a="' + a + '"]'); if (e) p.push(['ac', e, a === 'kural' ? 1600 : 900]); });
       p.push(['bekle', null, 3500]);
       return p;
@@ -140,7 +159,7 @@
     }
     function hepsiniAc() {
       var k0 = kartlar[i] || {}; sahne.querySelectorAll('.no-siklar').forEach(function (l) { if (k0.secim) isaretle(l.querySelector('[data-h="' + k0.secim + '"]'), 'sen'); isaretle(l.querySelector('[data-h="' + k0.dogru + '"]'), 'dogru'); });
-      sahne.querySelectorAll('.no-blok,.no-kural,.no-dayanak').forEach(function (e) { e.classList.add('acik'); });
+      sahne.querySelectorAll('.no-blok,.no-kural,.no-dayanak,.no-f').forEach(function (e) { e.classList.add('acik'); });
       sahne.querySelectorAll('[data-yaz]').forEach(function (e) { e.textContent = e.getAttribute('data-yaz'); e.classList.remove('no-imlec'); });
     }
     function cubuk() { for (var j = 0; j < dilim.length; j++) dilim[j].style.width = j < i ? '100%' : j > i ? '0' : Math.round(100 * adim / Math.max(1, plan.length)) + '%'; }
@@ -169,7 +188,7 @@
       }
       if (a[0] === 'secim') {
         var kalan = Math.round(a[2] / 1000), gs = sahne.querySelector('.no-geri');
-        var yaz = function () { if (gs) gs.textContent = 'Seçmezsen Nöbetçi ' + kalan + ' sn sonra anlatmaya başlar.'; }; yaz();
+        var yaz = function () { if (gs) gs.textContent = kalan + ' sn sonra Nöbetçi anlatır.'; }; yaz();
         geriSay = setInterval(function () { kalan = Math.max(0, kalan - 1); yaz(); }, 1000);
         zaman = setTimeout(function () { secimBitir('secmedi'); }, a[2]);
         return;
