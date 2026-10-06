@@ -17,7 +17,11 @@
 const fs = require('fs'), path = require('path');
 const KOK = path.resolve(__dirname, '..');
 const LISTE = path.join(KOK, 'veri', 'sinav', 'thp-hesap-kodlari.json');
-const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer', 'aciklama_hakem']);
+// 07.10 (Cem "1.2.3", SGS vitrin onarımı): 'hesaplar' = yayın dönüştürücüsünün (motor/kaydir-coz.ps1 ThpTanim) ambardaki THP RESMÎ
+//   tanımından kopyaladığı sözlük; yazılmış açıklama değil. Resmî metni THP ad listesiyle sınamak yanlış alarm üretiyordu:
+//   "690 Dönem Kar veya Zararı" ↔ "Karı" (sgs-k5-fmuh-cokzor/kp-04), THP 122 metnindeki 652 atfı (sgs-c5-ekonomi-cokzor-r2/kp-08).
+//   Parti kayıtlarında bu alan yok → üretim/yayın şartı etkilenmez; yalnız basılmış (paket_soru) kayıtta taranmaz.
+const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer', 'aciklama_hakem', ...(process.env.HK_MUTASYON === 'hesaplar-tara' ? [] : ['hesaplar'])]);
 
 const katla = s => String(s || '').toLocaleLowerCase('tr').replace(/ı/g, 'i').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 const DOLGU = new Set(['hesabi', 'hesap', 've', 'ile', 'veya', 'diger', 'ler', 'lar', 'mdv', 'm', 'd', 'v']);
@@ -171,6 +175,8 @@ function sinav() {
     ['mülga kod → HK-YOK (652 REESKONT, 1993 de 657 ye taşındı)', { sema: { hesap: '652 REESKONT FAİZ GİDERLERİ hesabına borç' } }, 'HK-YOK'],
     ['güncel kod temiz (657 REESKONT FAİZ GİDERLERİ)', { sema: { hesap: '657 REESKONT FAİZ GİDERLERİ hesabına borç' } }, null],
     ['model alanı taranmaz (hakem)', { hakem: { gerekce: '528 İPTAL ZARARLARI' } }, null],
+    ['07.10: THP resmî sözlüğü (hesaplar) taranmaz', { hesaplar: { '122': { ad: 'ALACAK SENETLERİ REESKONTU (-)', tanim: '652 REESKONT FAİZ GİDERLERİ hesabına gider yazılır' } } }, null],
+    ['07.10: aynı metin açıklamada YİNE yakalanır', { aciklama: { A: '652 REESKONT FAİZ GİDERLERİ hesabına borç' } }, 'HK-YOK'],
   ];
   let ok = 0; for (const [ad, q, bek] of V) { const ks = kusurlar(q); const g = bek ? ks.some(k => k.tur === bek) : ks.length === 0; if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad + (g ? '' : ' → ' + JSON.stringify(ks))); }
   console.log(`KAPI-HK ÖZ-SINAVI ${ok === V.length ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${V.length})`); process.exit(ok === V.length ? 0 : 1);
@@ -179,7 +185,12 @@ function sinav() {
 module.exports = { kusurlar, adUyar };
 if (require.main === module) {
   const a = process.argv[2];
-  if (a === '--sinav') sinav();
+  if (a === '--sinav' && process.argv.includes('--mutasyon')) {   // 07.10: 'hesaplar' yeniden taranırsa öz-sınav KIRMIZI olmalı
+    const cp = require('child_process'); const r = cp.spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, HK_MUTASYON: 'hesaplar-tara' }, encoding: 'utf8' });
+    const kr = r.status !== 0; console.log('  mutasyon hesaplar-tara ' + (kr ? 'KIRMIZI (doğru)' : 'YEŞİL (SINAV KÖR!)'));
+    const n = cp.spawnSync(process.execPath, [__filename, '--sinav'], { encoding: 'utf8' }); console.log(n.stdout.trim().split(/\r?\n/).pop()); process.exit(kr && n.status === 0 ? 0 : 1);
+  }
+  else if (a === '--sinav') sinav();
   else if (a === '--tazele') tazele().catch(e => { console.error(e.message); process.exit(1); });
   else if (a === '--banka') { const s = banka(process.argv[3] || 'sgs'); if (process.argv[4]) fs.writeFileSync(process.argv[4], JSON.stringify(s, null, 1)); }
   else { console.log('--sinav | --tazele | --banka <sgs|smmm|kgk> [cikti.json]'); process.exit(2); }

@@ -586,7 +586,7 @@ jobs:
           # 30.09: KAPI-HK hesap kodu (THP'de olmayan kod / kodun yaninda yanlis ad). 17 vaka; 6 mutasyon (ad uyumu, HK-YOK,
           # alt kume, yon kelimesi, standart atfi, 8/9 haric) her birinde KIRMIZI (30.09 elle olculdu). THP listesi depoda, ag yok.
           - { ad: "Hesap kodu kapisi OZ-SINAVI (KAPI-HK)",
-              kabuk: bash, komut: "node arac/hesap-kodu-kapisi.js --sinav" }
+              kabuk: bash, komut: "node arac/hesap-kodu-kapisi.js --sinav --mutasyon" }
           # 30.09: KAPI-BP BDS paragraf atfi (olmayan paragraf / komsu paragrafin konusu). 19 vaka; 10 mutasyon (komsu penceresi,
           # genel sozcuk suzgeci, dogru konu, BP-YOK, model alani, standart yok, A/ana metin ayrimi, arada BDS, gomulu paragraf,
           # govde ZAYIF katmani) her birinde KIRMIZI (30.09 olculdu).
