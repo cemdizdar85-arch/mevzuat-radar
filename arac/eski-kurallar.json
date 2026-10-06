@@ -144,6 +144,14 @@
       "haric": "önceki|eski\\b|idi\\b|Tuza[ğg][ıi]|varsay|art[ıi][şs]|art[ıi]r|zam\\b|uygula(d[ıi]|yorsun|m[ıi][şs])|kar[ıi][şs]t[ıi]r",
       "dayanak": "BKK 2009/14592 m.1/2-b (serbest meslek kazancı %20), m.1/5-a (GVK m.70 kira %20) — sinav kolu konu girişi okumasında ambarda okundu 06.10.2026",
       "bulan": "sinav kolu 06.10 konu girişi okuması: gm5-16-fmuh-zor/kp-05, w11-3-fmuh-cokzor/kp-02 vb. (sitede)"
+    },
+    {
+      "kod": "EK19",
+      "ad": "Gayrimenkul sermaye iradı (kira) stopajına %10 oran atfı (GVK m.94/5-a: %20)",
+      "desen": "(gayrimenkul sermaye irad[ıi]|GMS[İI])[\\s\\S]{0,60}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)[\\s\\S]{0,40}(gayrimenkul sermaye irad[ıi]|GMS[İI])",
+      "haric": "önceki|eski\\b|idi\\b|m[üu]lga|art[ıi][şs]|art[ıi]r|gider|götürü|g[öo]t[üu]r[üu]|%25",
+      "dayanak": "BKK 2009/14592 m.1/5-a (GVK m.70 mal ve hakların kiralanması karşılığı ödemeler %20) — ambarda okundu 07.10.2026",
+      "bulan": "sinav kolu 07.10 konu girişi okuması: w3-yvergi-zor/kp-06 (sitede; aciklama.B, teshis.B, celdirici_yol.B \"GMSİ %10\")"
     }
   ]
 }
