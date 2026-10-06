@@ -58,9 +58,12 @@
 
 ## Modül sırası ve önkoşul (07.10)
 - Denetim Standartları → Muhasebe Standartları → Finansal Yönetim → Kurumsal Yönetim → Sürdürülebilirlik.
-- **SPK · Bankacılık · Sigortacılık (kaynağı kanun) basılmaz** — ambarda madde sonuna sonraki madde başlığı sızıyor (SPK m.35'e 35/A başlığı
-  sızdı → iki doğru şık). Yutucu düzeltildi (122d1279) ama veri TAZELEME BEKLİYOR (altyapı kolu, `arac/baslik-tasima-20261006.ps1 -Yaz`).
-  Tazeleme ana tele girmeden bu modüllere yazım başlamaz.
+- **Başlık sızması (madde sonuna sonraki başlık):** yutucu düzeltildi (122d1279). 07.10 altyapı: Bankacılık (255 kayıt) + Sigortacılık
+  (106) TAZELENDİ (928af587) → yazılabilir. **SPK (6362) henüz tazelenmedi** (m.35'e 35/A başlığı sızmıştı → iki doğru şık); bulut boşalınca
+  yazılacak — o zamana dek SPK'ya yazım YOK.
+- **Standartlarda da sızma var** (07.10 altyapı ölçümü: 4.240 paragrafta 610 başlık kuyruğu adayı, örneklem 39/40 gerçek; Etik 317, TFRS 124,
+  TMS 94, BDS 29). 122d1279 standart yutucusunu KAPSAMIYOR. Yazarken: paragraf metninin sonundaki noktalamasız başlık parçası hükmün parçası
+  DEĞİLDİR — ona dayanan şık/açıklama yazılmaz (ör. BDS 701 p.13 sonu "…Denetçi Raporunda Bildirilmediği").
 
 ## Teslimden önce (zorunlu)
 ```
