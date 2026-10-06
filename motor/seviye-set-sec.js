@@ -69,6 +69,12 @@ if (csvYas > 24) console.warn(`⚠ kapsama tablosu ${Math.round(csvYas)} saat es
 // --- hariç + vitrin ---
 let haric = {}, haricKonu = {};
 try { const h = jsonOku(path.join(KOK, 'arac', 'vitrin-haric.json')); haric = h.haric || {}; haricKonu = h.haric_konu || {}; } catch (e) {}
+/* 07.10 (sınav oturumu uyarısı): onarımda yerine konan soru herkese açık olur -> elle rette olan ASLA aday değil (ret yayından
+   önce de eklenebilir); önce bağımsız çözülmüş ücretsiz liste (veri/sinav/smmm-ucretsiz.json) aranır, ondan gelen soru "okunmadi" taşımaz. */
+let elleRet = new Set(), dogrulanmis = new Set();
+try { elleRet = new Set(Object.keys(jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-elle-ret.json')).kayitlar || {})); } catch (e) { console.error('smmm-elle-ret.json okunamadı - onarım YAPILMAZ'); process.exit(5); }
+try { for (const x of jsonOku(path.join(KOK, 'arac', 'vitrin-elle-ret.json')).ret || []) elleRet.add(x.id); } catch (e) {}   // vitrin okumasında KUSURLU çıkan da aday değil
+try { dogrulanmis = new Set((jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-ucretsiz.json')).kimlikler || []).map(k => k.id)); } catch (e) {}
 const vitrin = new Set();
 try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'vitrin-smmm-secim.json'))) vitrin.add(x.etiket + '/' + x.id); } catch (e) {}
 
@@ -112,10 +118,11 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
     const kullanilan = new Set(eski.sorular.map(s => s.id)), kullanilanEski = new Set(kullanilan);
     const degisen = [];
     const yeni = eski.sorular.map(s => {
-      if (kasaId.has(s.id) && !haric[s.id]) return s;
+      if (kasaId.has(s.id) && !haric[s.id] && !elleRet.has(s.id)) return s;   // 07.10: rete giren set sorusu yayını beklemeden değişir
       const dk = dersK(s.ders), konular = Object.values(agac[dk] || {}).sort((a, b) => b.son10 - a.son10 || b.cikmis - a.cikmis || a.konu.localeCompare(b.konu, 'tr'));
       const setKonu = new Set(eski.sorular.filter(x => dersK(x.ders) === dk && x.id !== s.id).map(x => katla(x.konu)));
-      const aday = (kon, z) => kon.z[z].filter(q => !kullanilan.has(q.id)).sort((x, y) => (x.vitrinde - y.vitrinde) || x.id.localeCompare(y.id))[0];
+      const aday = (kon, z) => kon.z[z].filter(q => !kullanilan.has(q.id) && !elleRet.has(q.id))
+        .sort((x, y) => (dogrulanmis.has(y.id) - dogrulanmis.has(x.id)) || (x.vitrinde - y.vitrinde) || x.id.localeCompare(y.id))[0];
       let sec = null;
       const ayni = konular.find(k => katla(k.konu) === katla(s.konu));
       if (ayni) { const q = aday(ayni, s.zorluk); if (q) sec = { kon: ayni, z: s.zorluk, q }; }
@@ -127,7 +134,7 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
       kullanilan.add(sec.q.id);
       degisen.push(`${s.ders}: ${s.id} [${s.konu}/${s.zorluk}] -> ${sec.q.id} [${sec.kon.konu}/${sec.z}]`);
       return { id: sec.q.id, ders: dersAd[dk] || s.ders, konu: sec.kon.konu, zorluk: sec.z, son10: sec.kon.son10, cikmis: sec.kon.cikmis, son_soruldu: sec.kon.son_soruldu,
-        ...(OTOMATIK ? { okunmadi: new Date().toISOString().slice(0, 10) } : {}) };
+        ...(OTOMATIK && !dogrulanmis.has(sec.q.id) ? { okunmadi: new Date().toISOString().slice(0, 10) } : {}) };
     });
     console.log(`SEVİYE SETİ ONARIM (${SINAV}) · ${eski.sorular.length} soru · değişen ${degisen.length}`);
     degisen.forEach(x => console.log('  ' + x));

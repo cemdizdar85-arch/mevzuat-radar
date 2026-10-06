@@ -8,11 +8,11 @@
   "onay": null,
   "sorular": [
     {
-      "id": "smmm-4k-a-fmuh-kolay-r1/kp-01",
+      "id": "smmm-4k-a-fmuh-kolay-r4/kp-01",
       "ders": "Finansal Muhasebe",
       "konu": "amortisman ayirma",
       "zorluk": "kolay",
-      "son10": 29,
+      "son10": 31,
       "cikmis": 43,
       "son_soruldu": "2025/3"
     },
@@ -26,11 +26,11 @@
       "son_soruldu": "2026/1"
     },
     {
-      "id": "smmm-4k-a-fmuh-zor-r7/kp-02",
+      "id": "smmm-4k-a-fmuh-zor-r3/kp-03",
       "ders": "Finansal Muhasebe",
       "konu": "kdv mahsup kaydı",
       "zorluk": "zor",
-      "son10": 21,
+      "son10": 22,
       "cikmis": 14,
       "son_soruldu": "2025/2"
     },
@@ -116,21 +116,21 @@
       "son_soruldu": "2026/2"
     },
     {
-      "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
+      "id": "smmm-4k-a-ydenetim-zor-r6/kp-04",
       "ders": "Muhasebe Denetimi",
-      "konu": "denetim görüş turleri",
+      "konu": "mesleki muhakeme",
       "zorluk": "zor",
       "son10": 3,
       "cikmis": 3,
-      "son_soruldu": "2026/2"
+      "son_soruldu": "2026/1"
     },
     {
-      "id": "smmm-w2-yfta-kolay/kp-01",
+      "id": "smmm-4k-a-yfta-kolay-r1/kp-02",
       "ders": "Finansal Tablolar ve Analizi",
-      "konu": "stok devir hızı",
+      "konu": "dikey yüzde analizi",
       "zorluk": "kolay",
-      "son10": 15,
-      "cikmis": 13,
+      "son10": 14,
+      "cikmis": 15,
       "son_soruldu": "2026/2"
     },
     {
@@ -297,6 +297,16 @@
         "Muhasebe Denetimi: smmm-4k-a-ydenetim-zor-r1/kp-04 [denetim kistasi/zor] -> smmm-4k-a-ydenetim-zor-r10/kp-01 [denetim kistasi/zor]",
         "Hukuk: smmm-4k-a-yhukuk-kolay-r1/kp-06 [is sözleşmesi tanımı ve unsurlari/kolay] -> smmm-4k-a-yhukuk-kolay-r5/kp-01 [is sözleşmesi tanımı ve unsurlari/kolay]",
         "Sermaye Piyasası Mevzuatı: smmm-w3-yspk-zor/kp-01 [sermaye piyasası kurumları/zor] -> smmm-gm1-1-yspk-zor/kp-01 [sermaye piyasası kurumları/zor]"
+      ]
+    },
+    {
+      "tarih": "2026-10-06T22:39:39.586Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Finansal Muhasebe: smmm-4k-a-fmuh-kolay-r1/kp-01 [amortisman ayirma/kolay] -> smmm-4k-a-fmuh-kolay-r4/kp-01 [amortisman ayirma/kolay]",
+        "Finansal Muhasebe: smmm-4k-a-fmuh-zor-r7/kp-02 [kdv mahsup kaydı/zor] -> smmm-4k-a-fmuh-zor-r3/kp-03 [kdv mahsup kaydı/zor]",
+        "Muhasebe Denetimi: smmm-4k-a-ydenetim-zor-r5/kp-04 [denetim görüş turleri/zor] -> smmm-4k-a-ydenetim-zor-r6/kp-04 [mesleki muhakeme/zor]",
+        "Finansal Tablolar ve Analizi: smmm-w2-yfta-kolay/kp-01 [stok devir hızı/kolay] -> smmm-4k-a-yfta-kolay-r1/kp-02 [dikey yüzde analizi/kolay]"
       ]
     }
   ]
