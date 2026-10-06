@@ -5,7 +5,7 @@
    Sıra (her kart): soru → senin şıkkın + tuzak → doğru şık → açıklama cümle cümle (hesap adımları ayrı satır) → kural + dayanak.
    Üstte hikâye çubuğu (kart başına bir dilim), ⏸/▶, ⟨ ⟩, "metin olarak göster". Hareket azaltma tercihi olan cihazda düz metin açılır.
 
-   KULLANIM: NobetciOynatici.kur(kap, kartlar, { son:{metin, dugme, href}, olay:function(ad){}, baslik, alt })
+   KULLANIM: NobetciOynatici.kur(kap, kartlar, { son:{metin, dugme, href, sinif}, olay:function(ad){}, baslik, alt })
      kartlar: [{ ust, soru, secim, secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
      olay adları: basladi · kart-N · son · paket · metin · durdur
    Renkler yalnız tema jetonu (stil.css). 🚫 GÖRMEZ: anlatımın doğruluğu (o vitrin kalite listesinin işi).
@@ -117,7 +117,7 @@
       kap.querySelector('.no-sayac').textContent = '';
       var s = o.son || {};
       sahne.innerHTML = '<div class="no-son"><p>' + (s.metin || 'Bankadaki her soru böyle anlatılır.') + '</p>' +
-        (s.href ? '<a class="sv-btn ana" data-d="paket" style="text-decoration:none;display:inline-block" href="' + esc(s.href) + '">' + esc(s.dugme || 'Tam bankayı aç →') + '</a>' : '') +
+        (s.href ? '<a class="' + esc(s.sinif || 'sv-btn ana') + '" data-d="paket" style="text-decoration:none;display:inline-block" href="' + esc(s.href) + '">' + esc(s.dugme || 'Tam bankayı aç →') + '</a>' : '') +
         '<div style="margin-top:12px"><button type="button" data-d="bastan" style="background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer">Baştan izle</button></div></div>';
       if (!bitti.son) { bitti.son = 1; olay('son'); }
     }
@@ -134,7 +134,7 @@
     function metinGorunum() {
       var h = ''; kartlar.forEach(function (k) { h += '<div style="border-top:1px solid var(--line);padding-top:12px;margin-top:12px">' + kartHtml(k) + '</div>'; });
       sahne.innerHTML = h; hepsiniAc(); kap.querySelector('.no-sayac').textContent = ''; for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
-      var s = o.son || {}; if (s.href) sahne.insertAdjacentHTML('beforeend', '<div class="no-son" style="padding:16px 0 4px"><p>' + (s.metin || '') + '</p><a class="sv-btn ana" data-d="paket" style="text-decoration:none;display:inline-block" href="' + esc(s.href) + '">' + esc(s.dugme || 'Tam bankayı aç →') + '</a></div>');
+      var s = o.son || {}; if (s.href) sahne.insertAdjacentHTML('beforeend', '<div class="no-son" style="padding:16px 0 4px"><p>' + (s.metin || '') + '</p><a class="' + esc(s.sinif || 'sv-btn ana') + '" data-d="paket" style="text-decoration:none;display:inline-block" href="' + esc(s.href) + '">' + esc(s.dugme || 'Tam bankayı aç →') + '</a></div>');
     }
     /* görünür olunca başlar (sayfanın altında kalmışsa boşa oynamasın) */
     var basladi = false;

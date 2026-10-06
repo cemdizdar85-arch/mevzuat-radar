@@ -86,6 +86,11 @@ function konuSiklik(ders, konu) {
   return { k: kk, w: (kumeDonem.get(kk) || new Set()).size };
 }
 
+// 06.10: elle okumada ANAHTARI şüpheli bulunan soru seviye testine GİRMEZ (yanlış anahtar adayın puanını yanlış sayar).
+// Liste arac/vitrin-elle-ret.json (neden "ELLE-ANAHTAR..."); onarılıp listeden çıkınca kendiliğinden geri döner.
+const anahtarSupheli = new Set();
+try { for (const r of jsonOku(path.join(KOK, 'arac', 'vitrin-elle-ret.json')).ret || []) if (/^ELLE-ANAHTAR/.test(r.neden || '')) anahtarSupheli.add(r.id); } catch (e) {}
+
 const setIdleri = new Set();
 try { const dz = jsonOku(path.join(KOK, 'veri', 'deneme', 'sgs-dizin.json')); dz.setler.forEach(s => jsonOku(path.join(KOK, s.dosya)).sorular.forEach(q => setIdleri.add(q.id))); } catch (e) {}
 
@@ -127,7 +132,7 @@ for (const d of dersler) {
   havuz[p.ad] = {};
   const satir = [];
   for (const z of ZORLUKLAR) {
-    const uygun = p.S.map((s, sira) => ({ s, sira })).filter(x => zorluk(String(x.s.id)) === z && x.s.soru && x.s.siklar && Object.keys(x.s.siklar).length === 5 && x.s.siklar[x.s.dogru])
+    const uygun = p.S.map((s, sira) => ({ s, sira })).filter(x => zorluk(String(x.s.id)) === z && x.s.soru && x.s.siklar && Object.keys(x.s.siklar).length === 5 && x.s.siklar[x.s.dogru] && !anahtarSupheli.has(x.s.id))
       .sort((a, b) => String(a.s.id).localeCompare(String(b.s.id)));
     // eski seçim (alfabe) yalnız karşılaştırma raporu için
     const eski = uygun.filter(x => !setIdleri.has(x.s.id)).slice(0, KUTU).concat(uygun.filter(x => setIdleri.has(x.s.id))).slice(0, KUTU);

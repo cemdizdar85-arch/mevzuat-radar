@@ -1,0 +1,48 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/sinav-oncesi-hatirlatma.yml
+# NEDEN VAR (06.10.2026, Cem "1.2.3 ucunu de yap" - GM2): sinava 1 hafta kala, seviye testinde hatirlatma izni veren
+# adaylara "seviyeni yeniden olc" maili. ZAMANLANMIS DEGIL: yalniz elle tetiklenir ve Cem onayi ister.
+#   kuru (varsayilan): yalniz alici SAYISI.  gonder: onay girdisi "<sinav> <YYYY-MM-DD> Cem onayi" olmali (bugunun tarihi).
+# Gunluk PUBLIC: betik e-posta/ad/yuzde basmaz, yalniz sayi. Cift gonderim form_kayit kaydiyla engellenir.
+# GORMEZ: izni geri alan kisi ("ret" yaniti elle form_kayit'a "Hatirlatma reddi" yazilir).
+name: Sinav oncesi hatirlatma (Cem onayli)
+on:
+  workflow_dispatch:
+    inputs:
+      sinav:
+        description: "sgs | yeterlilik"
+        required: true
+        default: sgs
+      gonder:
+        description: "true = gercekten gonder (yoksa yalniz sayi)"
+        required: true
+        default: "false"
+      onay:
+        description: "Gonderimde zorunlu: '<sinav> <YYYY-MM-DD> Cem onayi'"
+        required: false
+        default: ""
+permissions:
+  contents: read
+concurrency:
+  group: sinav-oncesi-hatirlatma
+  cancel-in-progress: false
+jobs:
+  hatirlat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Say ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          HATIRLATMA_ONAY: ${{ inputs.onay }}
+          SINAV: ${{ inputs.sinav }}
+          GONDER: ${{ inputs.gonder }}
+        run: |
+          set -euo pipefail
+          case "$SINAV" in sgs|yeterlilik) ;; *) echo "sinav sgs|yeterlilik olmali"; exit 1;; esac
+          if [ "$GONDER" = "true" ]; then node motor/sinav-oncesi-hatirlatma.mjs --sinav "$SINAV" --gonder; else node motor/sinav-oncesi-hatirlatma.mjs --sinav "$SINAV"; fi

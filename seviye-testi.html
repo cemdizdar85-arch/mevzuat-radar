@@ -308,7 +308,16 @@
   function kayitYaz(k){ try{ localStorage.setItem('sv_kayit',JSON.stringify(k)); }catch(e){} }
   /* 16.09: üye mi? (oturum anahtarı cihazda) - uye-durumu.js ile aynı ölçüt; üyede sonuç kapısı ve tek-hak sınırı YOK */
   function uyeMi(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } }
-  function hakKullanildi(){ try{ return localStorage.getItem(ANAH_HAK)==='1'; }catch(e){ return false; } }
+  /* 06.10 (Cem "1.2.3" GM2): sınava 7 gün kala (Cem: 2 değil 1 hafta) bir ücretsiz hak daha - son testi o pencereden ÖNCE çözmüş kişi yeniden
+     ölçülebilsin (ilerlemesini görür; sınava yakın test kalibrasyona girer, seviye-model.js). Pencerede bir kez: yeni sonuç
+     pencere içinde tarihlenince hak yine kapanır. Tarihler veri/sinav-takvimi.json (SGS 21.11, Yeterlilik 28.11). */
+  var SINAV_GUNU=YET?'2026-11-28':'2026-11-21';
+  function sonIkiHafta(){ var s=new Date(SINAV_GUNU+'T00:00:00'), a=new Date(s-7*86400000), n=new Date(); return n>=a&&n<s?a:null; }
+  function hakKullanildi(){ try{ if(localStorage.getItem(ANAH_HAK)!=='1') return false;
+    var a=sonIkiHafta(); if(!a) return true;
+    var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'), son=g.length?new Date(g[g.length-1].tarih):null;
+    return !!(son&&son>=a);   /* son test pencereden önceyse hak yeniden açık */
+  }catch(e){ return false; } }
   function hakYaz(){ try{ localStorage.setItem(ANAH_HAK,'1'); }catch(e){} }
   function karistir(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
   function gorulen(){ try{ return JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); }catch(e){ return []; } }
