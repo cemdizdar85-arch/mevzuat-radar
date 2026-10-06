@@ -179,6 +179,14 @@ function TersSadeNot($q){
 #   "(Y)" fıkrası aranır; madde numaralı fıkralıysa ((1) var) ve (Y) yoksa KUSUR. Mutasyon: =fikra.
 #   🚫 GÖRMEZ: kaynak_adlar'da olmayan madde (ölçülmedi notu) · fıkrası numarasız eski kanun · bent harfi · standart paragrafı (BDS → KAPI-BP).
 function KgkMetinler($q){ $o=@(); foreach($alan in 'aciklama','teshis','sade','adimlar','celdirici_yol','hap','sinav_taktigi'){ if($q.PSObject.Properties[$alan]){ foreach($t in @(MetinTopla $q.$alan)){ $o+=,@($alan,"$t") } } }; return $o }
+# 07.10.2026 SMMM BAĞI (sinav kolu ölçümü): K4/K5/K6 bitirme (smmm-) etiketinde de koşar. Etiket: -IkizEtiket smmm-…/kgk-… ya da dosya adı
+#   hazir-kgk-… · hazir-gmN-… (→ smmm-gmN-…) · hazir-smmm-…. SGS'de değişen yok. Durdurma: KGK'da üçü KUSUR; SMMM'de kip satırı (ölçüm).
+#   Mutasyon: $env:DENETLE_KGK_MUTASYON=smmm → SMMM bağı kapanır (öz-sınav "bağ: smmm" vakaları düşer).
+#   🚫 GÖRMEZ: etiketsiz/başka adlı SMMM dosyası (hazir-<başka>.json, -IkizEtiket verilmemiş) — kapılar koşmaz, söylenmez.
+function Kgk3Etiket([string]$ikizEt,[string]$dosyaY){ $b=[IO.Path]::GetFileNameWithoutExtension("$dosyaY")
+  if($ikizEt){ if($ikizEt -match '^(kgk|smmm)-'){ return $ikizEt }; return '' }
+  if($b -match '^hazir-(kgk-.*)$'){ return $Matches[1] }; if($b -match '^hazir-(gm\d+-.*)$'){ return 'smmm-' + $Matches[1] }; if($b -match '^hazir-(smmm-.*)$'){ return $Matches[1] }; return '' }
+function Kgk3Acik([string]$et){ if($et -match '^kgk-'){ return $true }; if("$env:DENETLE_KGK_MUTASYON" -ne 'smmm' -and $et -match '^smmm-'){ return $true }; return $false }
 function HarfAnmaKusur($q){
   if("$env:DENETLE_KGK_MUTASYON" -eq 'harf'){ return @() }
   # 07.10 düzeltme (KGK ambar envanteri, 584 cümle): formül '(t x B)' ve 'p.98C)' yanlış alarmdı; 'doğrusu B' ve '→ B' kaçıyordu.
@@ -318,7 +326,13 @@ if($KgkKapiSinavi){
     @('fıkra: m.35/3 yok',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='SPKn m.35/3 gereği kurul düzenler.' } }) $mt).Count),1),
     @('fıkra: m.35/2 var',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='6362 sayılı Kanun m.35/2 gereği Kurul düzenler.' } }) $mt).Count),0),
     @('fıkra: numarasız madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Bankacılık K. m.24/2 gereği komite kurulur.' } }) $mt).Count),0),
-    @('fıkra: kaynak_adlar''da olmayan madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='TTK m.397/4 gereği denetçi seçilir.' } }) $mt).Count),0))
+    @('fıkra: kaynak_adlar''da olmayan madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='TTK m.397/4 gereği denetçi seçilir.' } }) $mt).Count),0),
+    @('bağ: smmm hazir-gm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-gm9-1-yvergi-zor.json')),1),
+    @('bağ: smmm hazir-smmm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-smmm-gm-p1-yfta.json')),1),
+    @('bağ: smmm -IkizEtiket açık',[int](Kgk3Acik (Kgk3Etiket 'smmm-gm5-1-fmuh-zor' 'x.json')),1),
+    @('bağ: kgk dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-kgk-gm-tms-r1.json')),1),
+    @('bağ: sgs dosyası kapalı',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-denetim-zor-1.json')),0),
+    @('bağ: sgs -IkizEtiket kapalı (dosya adı gm olsa da)',[int](Kgk3Acik (Kgk3Etiket 'sgs-k10-yd-kolay' 'hazir-gm9-1-yvergi-zor.json')),0))
   $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
   if($h){ "KGK KAPI SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KGK KAPI SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }
@@ -427,6 +441,7 @@ $GM_SERT=[bool]($GM_ET -match '^smmm-')
 #   ön kontrolü KUSUR (bitirmeyle aynı; bulut aynı üreticiyi koşar) + K4/K5/K6 kapıları. SGS/SMMM'de değişen yok.
 $KGK_ET=$(if($IkizEtiket -match '^kgk-'){ $IkizEtiket } elseif(-not $IkizEtiket -and [IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(kgk-.*)$'){ $Matches[1] } else { '' })
 $KGK_SERT=[bool]$KGK_ET -and "$env:DENETLE_KGK_MUTASYON" -ne 'sert'
+$KGK3_ACIK=Kgk3Acik $(if($KGK_ET){ $KGK_ET } else { Kgk3Etiket $IkizEtiket $Dosya })   # 07.10 SMMM BAĞI: K4/K5/K6 kgk- ve smmm- etiketinde
 # 07.10.2026 K9 KGK UZUNLUK TAVANI: bulut koşucusu (motor/kalip-kosucu.ps1 DersTavani, sinav=KGK) Muhasebe Standartları'na
 #   veri/sinav-anatomisi-kgk.json 'Finansal Muhasebe' p90'ını (661), öteki bütün KGK modüllerine 'Denetim' p90'ını (784) verir; bu betik
 #   KGK'da sabit 746 kullanıyordu → TMS sorusu 662–746 kr arası 'ok' alıp bulutta ÜCRETSİZ kapıda düşerdi. Kural koşucuyla aynı.
@@ -504,11 +519,11 @@ foreach($q in $liste){
   #   12 parti sorusunun en az 6'sı o katmanda düştü (ADIM-KAYMA, YY-SIKSIZ, simülasyon, AH "6. adımda bulduk"), teori sorusunda adım
   #   hiç yazılmadı ("simülasyon koşamadı"). Bitirmede (smmm-) adım/sade yoksa KUSUR, öteki sınavlarda uyarı.
   foreach($x in @(AdimSadeEksik $q)){ if($GM_SERT -or $KGK_SERT){ $k.Add($x) } else { $not.Add($x) } }
-  if($KGK_ET){
-    foreach($x in @(HarfAnmaKusur $q)){ $k.Add("KGK $x") }
-    foreach($x in @(SorudaVerilenKusur $q)){ $k.Add("KGK $x") }
-    if($kaynakOlcu){ $kmF=@{}; foreach($ad in @($q.kaynak_adlar)){ if($kaynakMetin.ContainsKey("$ad")){ $kmF["$ad"]=$kaynakMetin["$ad"] } }; foreach($x in @(FikraAtifKusur $q $kmF)){ $k.Add("KGK $x") } }
-    else { $not.Add('KGK FIKRA ATFI: ÖLÇÜLMEDİ (kaynak metni okunmadı)') }
+  if($KGK3_ACIK){   # KGK: üçü KUSUR · SMMM: harf not, verilen durdur, fıkra not (07.10 banka ölçümü)
+    foreach($x in @(HarfAnmaKusur $q)){ if($KGK_ET){ $k.Add("KGK $x") } else { $not.Add("SMMM $x") } }
+    foreach($x in @(SorudaVerilenKusur $q)){ if($KGK_ET){ $k.Add("KGK $x") } else { $k.Add("SMMM $x") } }
+    if($kaynakOlcu){ $kmF=@{}; foreach($ad in @($q.kaynak_adlar)){ if($kaynakMetin.ContainsKey("$ad")){ $kmF["$ad"]=$kaynakMetin["$ad"] } }; foreach($x in @(FikraAtifKusur $q $kmF)){ if($KGK_ET){ $k.Add("KGK $x") } else { $not.Add("SMMM $x") } } }
+    else { $not.Add("$(if($KGK_ET){ 'KGK' } else { 'SMMM' }) FIKRA ATFI: ÖLÇÜLMEDİ (kaynak metni okunmadı)") }
   }
   # 05.10.2026 KAPI-KALITE yerelde: bulut FAZ GM'in SoruKaliteKapisi'si (arac/soru-kalite-kapisi.js --tek; KAPI-AS2/EK/HK/BP/BOS/TR/YY/ADIM).
   #   gm7'de 5 soru bununla düştü, ön denetim görmüyordu. Hazır soru tarihsiz = YENİ2 → NOT- dışındaki her satır durdurur.
