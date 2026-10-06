@@ -16,7 +16,10 @@
 #  Kullanim: -Kuru (varsayilan; yalniz sayar, rapor yazar)  ·  -Yaz (bulut-kosan-etiketler -Kati bos degilse DURUR)
 #  BU ARAC SUNU GORMEZ: madde-damga'nin bu yazimdan sonraki ilk kosusu disinda baska bir anda ambara yazan isi.
 # ============================================================================
-param([switch]$Yaz, [string]$Rapor = '')
+param([switch]$Yaz, [string]$Rapor = '', [string]$Atla = '', [switch]$KosanVarAtlaIle)
+# 06.10 Cem "etkilenmeyenleri simdi yaz": -Atla "slug,slug" = bulutta kosan partilerin soru kaynak baglarinin dustugu kaynaklar
+#   (hazir soru planlarinda hazir dosyadaki kaynak_adlar). -KosanVarAtlaIle verilirse kosan parti varken DURMAZ, yalniz -Atla
+#   listesini yazmaz. Liste bos verilemez.
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path; $kok = Split-Path -Parent $here
 $SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co'
@@ -39,6 +42,8 @@ function KelimeSay($dizi){ $c=@{}; foreach($m in $dizi){ foreach($w in ("$m" -sp
 
 $man = Get-Content (Join-Path $kok 'veri\mevzuat-kaynaklar.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $durum = Get-Content (Join-Path $kok 'veri\mevzuat\_durum.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$atlaKume = New-Object 'System.Collections.Generic.HashSet[string]'; foreach($x in ($Atla -split ',')){ if($x.Trim()){ [void]$atlaKume.Add($x.Trim()) } }
+if($KosanVarAtlaIle -and -not $atlaKume.Count){ throw '-KosanVarAtlaIle icin -Atla listesi gerekli' }
 $say = [ordered]@{ kaynak=0; metin_yok=0; hash_farkli=0; kilavuz_bolum=0; degisiklik_yok=0; ad_farkli=0; kelime_eksilen=0; ambar_farkli=0; ambar_okunamadi=0; yazilacak_kaynak=0; yazilacak_kayit=0; baslik_dolan=0; anahtar=0 }
 $atlanan = New-Object System.Collections.Generic.List[object]; $plan = New-Object System.Collections.Generic.List[object]
 foreach($law in $man.kanunlar){
@@ -46,6 +51,7 @@ foreach($law in $man.kanunlar){
   $txt = if(Test-Path $hz){ $hz } elseif(Test-Path $tx){ $tx } else { $null }
   if(-not $txt -or -not (Test-Path $ay)){ $say.metin_yok++; continue }
   $say.kaynak++
+  if($atlaKume.Contains("$($law.slug)")){ $atlanan.Add([pscustomobject]@{ slug=$law.slug; neden='bulutta kosan parti kaynagi (-Atla)' }); continue }
   if($law.PSObject.Properties['parcalayici'] -and "$($law.parcalayici)" -eq 'kilavuz-bolum'){ $say.kilavuz_bolum++; continue }
   $raw = Get-Content $txt -Raw -Encoding UTF8
   $flat = ($raw -replace "\r?\n"," ") -replace "\s+"," "
@@ -112,7 +118,7 @@ if(-not $Yaz){ Write-Host 'KURU KOSU: ambara/dosyaya yazilmadi.'; exit 0 }
 $eapEski = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
 $kosan = @(& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $here 'bulut-kosan-etiketler.ps1') -Kati)
 $kosanKod = $LASTEXITCODE; $ErrorActionPreference = $eapEski
-if($kosanKod -ne 0 -or @($kosan | Where-Object { "$_".Trim() }).Count){ Write-Host ('DURDU: bulutta kosan parti var / okunamadi -> ' + (($kosan | Select-Object -First 5) -join ' ')); exit 2 }
+if($kosanKod -ne 0 -or (-not $KosanVarAtlaIle -and @($kosan | Where-Object { "$_".Trim() }).Count)){ Write-Host ('DURDU: bulutta kosan parti var / okunamadi -> ' + (($kosan | Select-Object -First 5) -join ' ')); exit 2 }
 $govdeDizi = @($yazilacak | ForEach-Object { [ordered]@{ id=$_.id; tur=$_.tur; kaynak_ad=$_.kaynak_ad; baslik=$_.baslik; metin=$_.metin; kaynak_url=$_.kaynak_url; belge_tarihi=$_.belge_tarihi } })
 for($i=0; $i -lt $govdeDizi.Count; $i += 400){
   $dilim = @($govdeDizi[$i..([Math]::Min($i+400,$govdeDizi.Count)-1)])
