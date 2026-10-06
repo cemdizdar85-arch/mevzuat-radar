@@ -67,6 +67,8 @@ function sinav() {
     ['"VUK\'ta yıl 360 gün" iddiası → EK4', T({ aciklama: { A: 'VUK\'ta yıl 360 gün kabul edilir.' } }), 1],
     ['"360 gün kabul edilecektir" varsayımı alarm vermez', T({ soru: 'Faiz hesabında yıl 360 gün kabul edilecektir.' }), 0],
     ['EK5 kâr payı stopajı %10 → alarm', T({ aciklama: { A: 'Kâr payı dağıtımında %10 stopaj yapılır.' } }), 1],
+    ['EK5 "kesinti oranı %10" → alarm (w10-2-yvergi-kolay/kp-01, sitedeydi 06.10)', T({ soru: 'Kâr payı üzerinden vergi sorumlusu sıfatıyla yapılacak kesinti oranı %10\'dur.' }), 1],
+    ['EK5 meşru: kâr payı yok, "%10 kesinti" (indirim)', T({ aciklama: { A: 'Satış bedelinden %10 kesinti yapılarak ödeme alınmıştır.' } }), 0],
     ['EK5 meşru: "2024 öncesi %10 idi"', T({ aciklama: { A: '2024 yılı sonuna kadar kâr payı stopajı %10 idi.' } }), 0],
     ['EK6 eski dilimler 18.000/40.000/98.000 → alarm', T({ aciklama: { A: 'Gelir vergisi tarifesi: 18.000 TL\'ye kadar %15, 40.000 TL\'nin 18.000\'i için, 98.000 TL\'nin 40.000\'i için.' } }), 1],
     ['EK6 meşru: tek başına 18.000 tutarı', T({ aciklama: { A: 'Alış bedeli 18.000 TL, iskonto 40 TL.' } }), 0],
