@@ -65,18 +65,25 @@
       '<div class="no-sahne" aria-live="polite"></div><div class="no-alt"><span></span><button type="button" data-d="metin">Hepsini metin olarak göster</button></div></div>';
     var sahne = kap.querySelector('.no-sahne'), dilim = kap.querySelectorAll('.no-dilim i'), oynaD = kap.querySelector('[data-d="oyna"]');
     /* 06.10 Cem ("biraz yavaş kaysın"): sahnenin içi kendi animasyonuyla, ağır kayar (tarayıcının hızlı smooth'u değil) */
-    var kayHedef = null, kayAnim = 0;
-    function kaydir(hedef, sure) {
-      kayHedef = Math.max(0, Math.min(hedef, sahne.scrollHeight - sahne.clientHeight));
-      var bas = sahne.scrollTop, t0 = performance.now(), id = ++kayAnim, fark = kayHedef - bas; if (Math.abs(fark) < 1) return;
-      (function adimKay(t) { if (id !== kayAnim) return; var x = Math.min(1, (t - t0) / sure), e2 = x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
-        sahne.scrollTop = bas + fark * e2; if (x < 1) requestAnimationFrame(adimKay); })(t0);
+    /* 07.10 Cem ("yazarken alt kırılımda kalıyor, görünmüyor"): her harfte animasyonu BAŞTAN başlatıyordu (38 ms'de kesilip
+       neredeyse hiç kaymıyordu). Artık tek, sürekli bir takip: hedef ilerledikçe çerçeve yumuşakça peşinden iner (kare başına
+       kalan mesafenin %7'si, en az 1 px), kendini yeniden başlatmaz. */
+    var kayHedef = 0, kayCalisiyor = false, kayAnim = 0;
+    function kaydir(hedef) {
+      kayHedef = Math.max(kayHedef, Math.min(hedef, sahne.scrollHeight - sahne.clientHeight));
+      clearTimeout(kaydir.emniyet); kaydir.emniyet = setTimeout(function () { if (sahne.scrollTop < kayHedef - 1) sahne.scrollTop = kayHedef; }, 1400);   // animasyon karesi gelmese de hedefe varır
+      if (kayCalisiyor) return; kayCalisiyor = true; var id = kayAnim;
+      (function adimKay() { if (id !== kayAnim) { kayCalisiyor = false; return; }
+        var d = kayHedef - sahne.scrollTop; if (Math.abs(d) < 1) { kayCalisiyor = false; return; }
+        sahne.scrollTop += (d > 0 ? 1 : -1) * Math.max(1, Math.abs(d) * 0.07); requestAnimationFrame(adimKay); })();
     }
     function takip(e, blok) {
       if (duz || !e) return;
       var r = e.getBoundingClientRect(), s = sahne.getBoundingClientRect(), fark = r.bottom - s.bottom + 14;
       if (blok) fark = Math.min(fark, r.top - s.top - 8);   // blok açılınca üst kenarı sahnenin üstünden kaçmasın
-      if (fark > 0) kaydir(sahne.scrollTop + fark, blok ? Math.max(900, Math.min(1800, fark * 5)) : 600);
+      if (fark <= 0) return;
+      if (blok) kaydir(sahne.scrollTop + fark);                    // blok açılışı: yumuşak iniş
+      else { sahne.scrollTop += fark; kayHedef = Math.max(kayHedef, sahne.scrollTop); }   // yazarken: yeni satır başlarken çerçeve o satır kadar iner (gecikme yok)
     }
     function temizle() { if (zaman) { clearTimeout(zaman); zaman = null; } }
     function kartHtml(k) {
@@ -116,7 +123,7 @@
     function kartAc(n) {
       temizle(); i = n; adim = 0; yazilan = null;
       if (i >= kartlar.length) return sonEkran();
-      sahne.classList.toggle('duz', !!duz); kayAnim++; sahne.scrollTop = 0;
+      sahne.classList.toggle('duz', !!duz); kayAnim++; kayHedef = 0; kayCalisiyor = false; sahne.scrollTop = 0;
       sahne.innerHTML = kartHtml(kartlar[i]); kap.querySelector('.no-sayac').textContent = '· ' + (i + 1) + ' / ' + kartlar.length;
       plan = planKur(); cubuk();
       if (duz || dur) { if (duz) { hepsiniAc(); adim = plan.length; cubuk(); } return; }
@@ -141,7 +148,7 @@
       adim++; cubuk(); zaman = setTimeout(ilerle, a[2] || 400);
     }
     function sonEkran() {
-      temizle(); i = kartlar.length; sahne.classList.remove('duz'); sahne.scrollTop = 0; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
+      temizle(); i = kartlar.length; sahne.classList.remove('duz'); kayAnim++; kayHedef = 0; kayCalisiyor = false; sahne.scrollTop = 0; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
       kap.querySelector('.no-sayac').textContent = '';
       var s = o.son || {};
       sahne.innerHTML = '<div class="no-son"><p>' + (s.metin || 'Bankadaki her soru böyle anlatılır.') + '</p>' +
