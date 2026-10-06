@@ -167,7 +167,7 @@
     var dugme=this.querySelector('button'); dugme.disabled=true;
     fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',
       headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},
-      body:JSON.stringify({email:ep,subject:'ON KAYIT '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
+      body:JSON.stringify({email:ep,subject:'Ön kayıt: '+k,from_name:'Tetikte Ön Kayıt',sinav:k,riza:'bilgilendirme',_hp:$('okHp').value})
     }).then(function(y){ return y.ok?y.json():Promise.reject(y.status); }).then(function(){
       $('okForm').hidden=true; $('okTamam').hidden=false;
     }).catch(function(){ dugme.disabled=false; h.textContent='Kaydın şu an alınamadı. Birazdan yeniden dene ya da destek@tetikte.com adresine yaz.'; });

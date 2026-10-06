@@ -265,11 +265,12 @@
       <p>Bu bir <b>tahmindir</b>. Staja Giriş'te puan bağıl hesaplanır (ortalama 50, standart sapma 10; 60 ve üzeri geçer) ve geçme sınırı her dönem sınava girenlere göre değişir; resmî sınır yayımlanmaz.</p>
       <ul>
         <li><b>Seviyen:</b> 30 cevabından, sorunun zorluğu hesaba katılarak kestirilir (Rasch modeli). Zorluk, sorunun üretimde aldığı kolay / zor / çok zor etiketinden gelir; bu etiketler henüz gerçek adaylarla ölçülmedi.</li>
-        <li><b>130 soruda doğru oranın:</b> o seviyeyle, sınav havuzundaki zorluk karışımında beklenen oran.</li>
+        <li><b>Hangi sorular:</b> her dersten sınavdaki ağırlığı kadar soru gelir (130 soruluk sınavda payı büyük olan derse daha çok); ders içinde çıkmış sınavlarda sık görülen konular önceliklidir.</li>
+        <li><b>130 soruda doğru oranın:</b> o seviyeyle, soru bankamızın zorluk karışımında beklenen oran (gerçek sınavın zorluk karışımı yayımlanmaz).</li>
         <li><b>Geçme sınırı:</b> TESMER Uygulama Yönergesi'ne göre geçmişte "soruların %80'ini doğru cevaplayanların başarılı sayıldığı sınavlar olduğu gibi %60'ını doğru cevaplayanların başarısız bulunduğu sınavlar da olmuştur". Hesapta sınır ortalama %70, ±%7 dağılımla alınır.</li>
-        <li><b>Geçme ihtimali:</b> doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. <b>Ne kadar isabetli?</b> 16.09.2026'da bu modelle 700 sahte aday koşturuldu: 30 soruda tahminin gerçeğinden ortalama sapması <b>±10,7 puan</b> (20 soruda ±12,5 idi), geçer/kalır tarafını ters söyleme oranı %9. Gerçek kesinlik, etiketler adaylarla kalibre edilene kadar bundan düşüktür.</li>
+        <li><b>Geçme ihtimali:</b> doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. <b>Ne kadar isabetli?</b> 16.09.2026'da bu modelle 700 benzetim adayı koşturuldu (gerçek aday değil, modelin kendi ürettiği): 30 soruda tahminin gerçeğinden ortalama sapması <b>±10,7 puan</b> (20 soruda ±12,5 idi), geçer/kalır tarafını ters söyleme oranı %9. Gerçek kesinlik, etiketler adaylarla kalibre edilene kadar bundan düşüktür.</li>
       </ul>
-      <p>21 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
+      <p>21 Kasım 2026 sınavından sonra bu hesap, sonucunu paylaşan adaylardan sınava 2 haftadan yakın testi çözmüş olanların gerçek sonuçlarıyla yeniden ayarlanacak (daha önce çözüp sonra çalışan adayın sonucu bugünkü ölçümü göstermez).</p>
     </details>
     <details class="sv-nasil" id="nasilYet" hidden>
       <summary>Nasıl hesaplandı?</summary>
@@ -280,7 +281,7 @@
         <li><b>Gerçek sınav:</b> her ders için 20 soruluk sınav, bu seviyelerle bilgisayarda binlerce kez oynatılır; "her ders 50'nin üstünde ve ortalama 60'ın üstünde" çıkan oyunların oranı geçme ihtimalindir. Test soruları bilerek sınavdan zor seçildi; hesap gerçek sınavı bu setten kolay kabul eder (varsayım).</li>
         <li><b>Güçlü / Sınırda / Riskli:</b> o dersten 50'yi geçme ihtimalin %80 ve üstü · %50–80 · %50'nin altı.</li>
       </ul>
-      <p>28 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
+      <p>28 Kasım 2026 sınavından sonra bu hesap, sonucunu paylaşan adaylardan sınava 2 haftadan yakın testi çözmüş olanların gerçek sonuçlarıyla yeniden ayarlanacak (daha önce çözüp sonra çalışan adayın sonucu bugünkü ölçümü göstermez).</p>
     </details>
     <div class="sv-dugmeler"><button class="sv-btn" id="svYeniden" type="button">Testi yeniden çöz (farklı sorular)</button></div>
   </section>
@@ -289,6 +290,7 @@
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js"></script>
 <script src="fiyat-motoru.js"></script>
+<script src="nobetci-oynatici.js"></script>
 <script>
 (function(){
   'use strict';
@@ -306,7 +308,16 @@
   function kayitYaz(k){ try{ localStorage.setItem('sv_kayit',JSON.stringify(k)); }catch(e){} }
   /* 16.09: üye mi? (oturum anahtarı cihazda) - uye-durumu.js ile aynı ölçüt; üyede sonuç kapısı ve tek-hak sınırı YOK */
   function uyeMi(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } }
-  function hakKullanildi(){ try{ return localStorage.getItem(ANAH_HAK)==='1'; }catch(e){ return false; } }
+  /* 06.10 (Cem "1.2.3" GM2): sınava 7 gün kala (Cem: 2 değil 1 hafta) bir ücretsiz hak daha - son testi o pencereden ÖNCE çözmüş kişi yeniden
+     ölçülebilsin (ilerlemesini görür; sınava yakın test kalibrasyona girer, seviye-model.js). Pencerede bir kez: yeni sonuç
+     pencere içinde tarihlenince hak yine kapanır. Tarihler veri/sinav-takvimi.json (SGS 21.11, Yeterlilik 28.11). */
+  var SINAV_GUNU=YET?'2026-11-28':'2026-11-21';
+  function sonIkiHafta(){ var s=new Date(SINAV_GUNU+'T00:00:00'), a=new Date(s-7*86400000), n=new Date(); return n>=a&&n<s?a:null; }
+  function hakKullanildi(){ try{ if(localStorage.getItem(ANAH_HAK)!=='1') return false;
+    var a=sonIkiHafta(); if(!a) return true;
+    var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'), son=g.length?new Date(g[g.length-1].tarih):null;
+    return !!(son&&son>=a);   /* son test pencereden önceyse hak yeniden açık */
+  }catch(e){ return false; } }
   function hakYaz(){ try{ localStorage.setItem(ANAH_HAK,'1'); }catch(e){} }
   function karistir(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
   function gorulen(){ try{ return JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); }catch(e){ return []; } }
@@ -322,13 +333,15 @@
   }
   function soruSec(yuva){
     var hedef=M.sonrakiZorluk(CEVAPLAR.map(function(c){ return {zorluk:c.zorluk,dogru:c.dogru}; }));
-    var kullanilan=CEVAPLAR.map(function(c){return c.id;}), gor=gorulen();
+    /* 06.10 (Cem "en çok çıkan konudan yapalım"): kutu konu sıklığıyla kurulu (motor/seviye-havuz-bas.js, w = konunun son 10 yılda
+       çıktığı dönem sayısı); seçim w+1 ağırlıklı, aynı konudan (k) ikinci soru gelmez. w yoksa (eski havuz) eşit ağırlık. */
+    var kullanilan=CEVAPLAR.map(function(c){return c.id;}), gor=gorulen(), kKul=CEVAPLAR.map(function(c){return c.k;}).filter(Boolean);
     var sira=ZSIRA[hedef];
     for(var k=0;k<2;k++){                                 // 1. tur: görülmemiş, 2. tur: görülmüş de olur (havuz tükenirse)
       for(var z=0;z<sira.length;z++){
         var kutu=(H.havuz[yuva.ders]||{})[sira[z]]||[];
-        var aday=kutu.filter(function(q){ return kullanilan.indexOf(q.id)<0 && (k===1||gor.indexOf(q.id)<0); });
-        if(aday.length){ var q=aday[Math.floor(Math.random()*aday.length)]; return {q:q, zorluk:sira[z], ders:yuva.ders, grup:yuva.grup}; }
+        var aday=kutu.filter(function(q){ return kullanilan.indexOf(q.id)<0 && (k===1||gor.indexOf(q.id)<0) && !(q.k&&kKul.indexOf(q.k)>-1); });
+        if(aday.length){ var top=0; aday.forEach(function(x){ top+=(x.w||0)+1; }); var r=Math.random()*top, q=aday[aday.length-1]; for(var i=0;i<aday.length;i++){ r-=(aday[i].w||0)+1; if(r<0){ q=aday[i]; break; } } return {q:q, zorluk:sira[z], ders:yuva.ders, grup:yuva.grup}; }
       }
     }
     /* 29.09 ADIM 2: kasada metni bulunmayan kimlik havuzdan düşer; ders boş kalırsa test yarıda bitmesin -
@@ -380,11 +393,11 @@
   }
   function kaydetYerel(bilmiyorum){
     var asil=bilmiyorum?null:AKTIF.harita[SECILI], dogru=!bilmiyorum&&asil===AKTIF.q.dogru;
-    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
+    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
     /* 23.09: şıklar ekranda KARIŞIK - sonuçta "doğrusu X" adayın GÖRDÜĞÜ harf olmalı (önceden asıl harf yazılıyordu:
        ekranda C'yi gören "doğrusu A" okuyabiliyordu). Harf + şık metni birlikte saklanır. */
     var ekranDogru=Object.keys(AKTIF.harita).filter(function(h){ return AKTIF.harita[h]===AKTIF.q.dogru; })[0]||AKTIF.q.dogru;
-    CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
+    CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
     gorulduEkle(AKTIF.q.id);
     /* anonim cevap kaydı (cevap_kayit, anon yalnız ekler) - gerçek zorluk ölçümü için */
     try{ fetch(SB+'/rest/v1/cevap_kayit',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Prefer:'return=minimal'},
@@ -515,6 +528,19 @@
       body:JSON.stringify({ p_cevaplar:gonder }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){
       var l=(j&&j.liste)||[]; if(!l.length){ kap.hidden=true; return; }
       var soruMetni={}; CEVAPLAR.forEach(function(c){ soruMetni[c.id]={ soru:c.soru, ders:c.ders }; });
+      /* 06.10 OYNATICI (Cem: "video kaydı gibi anlatsın"): kartlar alt alta değil, nobetci-oynatici.js ile sahne sahne oynar.
+         Oynatıcı yüklenmediyse eski düz kart görünümü (aşağıda) çizilir. Başlık 25 yanlışla moral bozmasın: "3'ünü birlikte çözelim". */
+      var al=($('svTeklifAna')||{}).getAttribute?$('svTeklifAna').getAttribute('href'):'fiyat.html', kalan=tum-l.length;
+      if(window.NobetciOynatici){
+        kap.hidden=false;
+        window.NobetciOynatici.kur(kap, l.map(function(x,i){ var s=soruMetni[x.id]||{}; return { ust:String(s.ders||'').split('|')[0]+' · '+(x.secim?'yanlışın':'boş geçtiğin soru'), soru:s.soru, secim:x.secim, secim_metin:x.secim_metin, tuzak_ad:x.tuzak_ad, tuzak_metin:x.tuzak_metin, dogru:x.dogru, dogru_metin:x.dogru_metin, aciklama:x.aciklama, kural:x.kural, dayanak:x.dayanak }; }), {
+          baslik:'Nöbetçi yanlışlarını anlatıyor',
+          alt:(l.length===1?'Bir yanlışını':'Yanlışlarından '+l.length+' tanesini')+' birlikte çözelim. Nöbetçi neden yanıldığını ve doğrusunu adım adım anlatıyor; ücretsiz.',
+          son:{ metin: kalan>0 ? 'Kalan <b>'+kalan+'</b> yanlışını da Nöbetçi böyle anlatır. Bankadaki her soru böyle anlatılır.' : 'Bankadaki her soru böyle anlatılır.', dugme:'Tam bankayı aç →', href:al },
+          olay:function(ad){ say('nobetci/'+ad); }
+        });
+        say('nobetci-anlatti'); return;
+      }
       var h='<h2 style="margin:0 0 6px">Nöbetçi yanlışlarını anlatıyor</h2>'
         +'<p class="sv-alt" style="margin:0 0 14px">Testte '+tum+' yanlış ya da boş cevabın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
       l.forEach(function(x,i){ var s=soruMetni[x.id]||{};
@@ -582,7 +608,11 @@
   /* aynı rapor için bir kez (sv_karne_tarih) */
   function uyeKarnesi(tarih){ var ep=uyeEposta(); if(!ep||!SONUC) return;
     try{ if(tarih && localStorage.getItem('sv_karne_tarih')===tarih) return; localStorage.setItem('sv_karne_tarih', tarih||''); }catch(e){}
-    say('karne-uye'); karneGonder({ eposta:ep, izin_eposta:false, uye:true }); }
+    say('karne-uye'); karneGonder({ eposta:ep, izin_eposta:uyeRiza(), uye:true }); }
+  /* 06.10: üyenin hesap açarken verdiği rıza (ogrenci.html ogRiza -> user_metadata.pazarlama_rizasi) karne kaydına taşınır;
+     önceden üye karnesi hep 'izin yok' yazıyordu, hatırlatma dizisi (motor/hatirlatma-dizisi.mjs) rızayı ayrıca hesaptan da okur. */
+  function uyeRiza(){ try{ var a=Object.keys(localStorage).filter(function(x){ return x.indexOf('-auth-token')>-1; })[0]; if(!a) return false;
+    var v=JSON.parse(localStorage.getItem(a)||'null'), u=(v&&v.user)||(v&&v.currentSession&&v.currentSession.user)||{}; return (u.user_metadata||{}).pazarlama_rizasi===true; }catch(e){ return false; } }
   function karneGonder(kAlt){
     var k=kAlt||kayitOku(); if(!k||!SONUC) return;
     /* YET (23.09 Cem "3 yap"): karne-gonder 'yeterlilik' kabul ediyor (radar-app/edge/karne-gonder.ts dogrulaYet);
@@ -596,7 +626,7 @@
         body:JSON.stringify({ eposta:k.eposta, kvkk:true, izin_ileti:!!k.izin_eposta, sinav:'yeterlilik', _hp:(($('svHp')||{}).value||''), sonuc:{ gecme:SONUC.gecme, soru:ts, dogru:td, tezkiye:SONUC.tezkiye, dersler:ds } }) })
         .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return r.ok&&j.success; }); }).catch(function(){ return false; });
       fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
-        body:JSON.stringify({ subject:'SEVIYE TESTI sonucu (Yeterlilik)', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
+        body:JSON.stringify({ subject:'Seviye testi sonucu (Yeterlilik)', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
           cozulen_test:'yeterlilik', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru, tezkiye:String(SONUC.tezkiye),
           dersler:SONUC.gruplar.map(function(x){ return x.ad+' '+x.dogru+'/'+x.soru+' '+(DURUM_AD[x.durum]||''); }).join(' · '), _hp:(($('svHp')||{}).value||'') }) }).catch(function(){});
       karneY.then(function(ok){
@@ -614,7 +644,7 @@
     fetch(SB+'/functions/v1/quick-task',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},
       /* DİKKAT: iki ayrı "sınav" var - cozulen_test her zaman SGS (havuz SGS), hazirlandigi_sinav
          adayın ön kapıda söylediğidir. Aynı ada konursa kasada biri diğeri sanılır. */
-      body:JSON.stringify({ subject:'SEVIYE TESTI sonucu', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
+      body:JSON.stringify({ subject:'Seviye testi sonucu', from_name:'Tetikte Seviye Testi', ad:k.ad, email:k.eposta, telefon:k.telefon,
         cozulen_test:'sgs', hazirlandigi_sinav:k.sinav, donem:k.donem, gecme_ihtimali:'%'+SONUC.gecme, test:SONUC.dogru+'/'+SONUC.soru,
         tahmini_dogru_130:String(SONUC.dogru130), _hp:(($('svHp')||{}).value||'') }) }).catch(function(){});
     karne.then(function(ok){
@@ -656,11 +686,19 @@
   /* 03.10 (Cem, V2 madde 17): sonuç yalnız puan vermesin - güçlü alan + çalışılacak alan + "Bugün şunu yap".
      Ders, bu testteki cevaplardan (CEVAPLAR.ders) seçilir: en çok yanlış/bilmiyorum, eşitse en düşük oran.
      Bağlantı sorunun kendi ders sayfası (c.sayfa); paketsiz kişiyi o sayfanın paket kapısı karşılar. */
+  /* 06.10 (Cem: "5/30 aldım, başlangıç noktan ekonomi ve maliye dedi; çok çıkandan başlamalı"): başlangıç grubu en düşük
+     YÜZDE ile seçiliyordu - 0/4 Ekonomi, 3/14 Muhasebe'nin önüne geçiyordu; oysa sınavda Ekonomi-Maliye 12, Muhasebe 58 soru.
+     Artık: sınavda KAYBEDİLEN tahmini soru = (1 - bu testteki oran) x grubun 130 soruluk sınavdaki sorusu (veri/sgs-sinav-yapisi.json).
+     Eşitlikte sınavda payı büyük olan. Grup tabloda yoksa test sorusu x 130/30. karne-gonder.ts aynı kuralı kullanır. */
+  var SGS_GRUP_SINAV={'Muhasebe':58,'Hukuk':30,'Ekonomi ve Maliye':12,'Genel Kültür ve Yabancı Dil':30};
+  function grupSinav(x){ return SGS_GRUP_SINAV[x.ad]||Math.round(x.soru*130/30); }
+  function grupKayip(x){ return x.soru?(1-x.dogru/x.soru)*grupSinav(x):0; }
+  function oncelikGrup(liste){ return (liste||[]).slice().sort(function(a,b){ return grupKayip(b)-grupKayip(a) || grupSinav(b)-grupSinav(a); })[0]; }
   function bugunCiz(liste){
     var kap=$('svBugun');
     if(!kap){ kap=document.createElement('div'); kap.id='svBugun'; kap.className='sv-kutu'; kap.style.margin='16px 0'; $('svGruplar').insertAdjacentElement('afterend',kap); }
     var g=(liste||[]).filter(function(x){ return x&&x.soru>=2; }).sort(function(a,b){ return b.dogru/b.soru-a.dogru/a.soru; });
-    var guclu=g.length?g[0]:null, zayif=g.length?g[g.length-1]:null;
+    var guclu=g.length?g[0]:null, zayif=oncelikGrup(g);
     var d={}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||!c.ders) return; if(!d[c.ders]) d[c.ders]={ad:c.ders,soru:0,yanlis:0,sayfa:c.sayfa}; d[c.ders].soru++; if(!c.dogru) d[c.ders].yanlis++; if(!d[c.ders].sayfa&&c.sayfa) d[c.ders].sayfa=c.sayfa; });
     var dl=Object.keys(d).map(function(k){ return d[k]; }).filter(function(x){ return x.yanlis>0; }).sort(function(a,b){ return b.yanlis-a.yanlis || (b.yanlis/b.soru)-(a.yanlis/a.soru); });
     var h='';
@@ -679,11 +717,11 @@
     $('svYuzde').textContent=g;
     $('svSeviye').textContent=g>=70?'Hazıra yakınsın':g>=40?'Sınırdasın':'Bugün girsen zorlanırsın';
     $('svSeviye').className='sv-seviye '+sinif;
-    var zayif=liste.slice().sort(function(a,b){ return a.dogru/a.soru-b.dogru/b.soru; })[0];
+    var zayif=oncelikGrup(liste), neden=zayif?' (sınavın '+grupSinav(zayif)+' sorusu bu gruptan; bu testte '+zayif.soru+' sorunun '+zayif.dogru+' tanesini bildin)':'';
     var gun=Math.max(0,Math.round((new Date('2026-11-21T00:00:00')-new Date(new Date().toDateString()))/86400000));
     $('svMesaj').textContent= g>=70 ? 'İyi durumdasın. 130 soruluk tam denemeyle bu sonucu gerçek süre ve gerçek ders dağılımında doğrula.'
-      : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında.'
-      : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+'.';
+      : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında'+neden+'.'
+      : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+neden+'.';
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+((SONUC.dogru130Alt!=null&&SONUC.dogru130Ust!=null)?' (büyük ihtimalle '+SONUC.dogru130Alt+'–'+SONUC.dogru130Ust+' arası; 30 soruluk ölçüm kesin değil)':'')+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
@@ -797,7 +835,7 @@
         d.havuz[ders][z]=d.havuz[ders][z].map(function(q){
           var x=m[q.id], v=x&&x.veri;
           if(!(v&&v.soru&&v.siklar&&Object.keys(v.siklar).length===5)) return null;
-          return { id:q.id, soru:v.soru, siklar:v.siklar, sayfa:x.sayfa, sira:x.sira };
+          return { id:q.id, soru:v.soru, siklar:v.siklar, sayfa:x.sayfa, sira:x.sira, k:q.k||'', w:q.w||0 };
         }).filter(Boolean);
         kalan+=d.havuz[ders][z].length;
       }); });

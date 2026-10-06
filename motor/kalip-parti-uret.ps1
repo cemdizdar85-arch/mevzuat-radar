@@ -5633,11 +5633,19 @@ if($Sinav -eq 'SMMM'){ $girisIstem=$girisIstem.Replace('konuyu HİÇ bilmeyen bi
 # 07.09 Cem (FMuh gelir tablosu girişi: "hisse senedi satış kârı · denetçi belirler · sen hesaplarsın — ne bu, yanlış"): istem "denetçi belirler"i
 # BÜTÜN derslere örnek veriyordu, model muhasebe sorusunda onu seçti. "kim" seçenekleri DERSE göre verilir + ders dışı belirleyen kapıda düşer.
 $dersAdiG=($DersRegex -replace '[\^\$\\]','')
-$kimDenetim=($dersAdiG -match 'Denetim')
-$kimHukuk=($dersAdiG -match 'Vergi|Ticaret|Borclar|Borçlar|Is ve Sosyal|İş ve Sosyal|Meslek')
-$kimSecenek=$(if($kimDenetim){ 'denetçi mesleki yargıyla belirler · standart (BDS) sabitler · işletme yönetimi yalnız finansal tabloyu ve beyanı hazırlar (belirleyici değildir)' }
-  elseif($kimHukuk){ 'kanun sabitler · mahkeme ya da idare karar verir · taraflar sözleşmeyle belirler · meslek kuruluşu düzenler · mükellef / işveren beyan eder. Denetçi bu derste belirleyici DEĞİLDİR, yazma.' }
-  else { 'işletme yönetimi tahmin eder ya da belirler (faydalı ömür, tamamlanma yüzdesi, normal kapasite) · piyasa fiyatlar (satış bedeli, alış bedeli gibi gerçekleşen tutarlar) · Tekdüzen hesap planı ya da standart tanımlar · kanun sabitler. DENETÇİ bu derste belirleyici DEĞİLDİR, yazma.' })
+# 06.10.2026 (Cem "1.2.3", SGS oturumu ölçtü: muhasebe listesi muhasebe dışı derslerde 8.153 terimde "kanun sabitler / Tekdüzen"):
+#   seçenekler arac/kim-secenek.ps1'e taşındı. KURAL0610 KAPALIYKEN çıktı eski satır içi kodla BAYT BAYT aynı (öz-sınav + üretici
+#   satırlarıyla 18 derste eşdeğerlik, 06.10). AÇILMA şartı KURAL0310 düzeninin aynısı: saat ≥ 2026-10-07 00:00 VE bu etiketin
+#   bekleyen-partiler kaydında 10-07'den önce gönderilmiş parti yok (ödenmiş toplu partiler ikinci kez ödenmesin). Elle: MEVZUAT_KURAL_0610=1/0.
+. (Join-Path $kok 'arac\kim-secenek.ps1')
+$KURAL0610_BAS='2026-10-07'; $script:KURAL0610=$false
+if("$env:MEVZUAT_KURAL_0610" -eq '1'){ $script:KURAL0610=$true }
+elseif("$env:MEVZUAT_KURAL_0610" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:mm') -ge "$KURAL0610_BAS 00:00"){
+  $script:KURAL0610=$true
+  foreach($kuralBekleyen6 in @(Get-BekleyenPartiler)){ if("$($kuralBekleyen6.etiket)" -like "$Etiket/*" -and "$($kuralBekleyen6.zaman)" -lt $KURAL0610_BAS){ $script:KURAL0610=$false; break } }
+}
+$kimSecenek=KimSecenek $dersAdiG $script:KURAL0610
+"KONU GİRİŞİ 'kim belirler' (06.10): $(if($script:KURAL0610){ 'DERSE GÖRE (yeni)' } else { 'ESKİ istem (bayt bayt aynı)' })"
 $girisIstem=$girisIstem.Replace('{KIMSECENEK}',$kimSecenek)
 foreach($gecisG in @(1,2,3)){ if($gecisG -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisG -eq 1); $script:DALGA2_TOPLA=($gecisG -eq 2 -and -not $IkinciDalgaKapat)   # 15.09: 1=topla, 2=toplu cevapla + kalanı İKİNCİ DALGAYA topla, 3=ikinci dalga cevabı (son çare anlık)
 :soruG foreach($id in @($don.Keys)){

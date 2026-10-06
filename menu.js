@@ -137,7 +137,7 @@ try {
         var em = this.querySelector('input').value.trim();
         if(!em) return;
         /* 04.09: web3forms cikti - kendi uc fonksiyonumuz (canli adi quick-task, kod radar-app/edge/form-al.ts) */
-        try { fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:em,subject:'ACILIS PERDESI erken kayit',from_name:'Tetikte Perde'})}); } catch(err){}
+        try { fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{'apikey':'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Authorization':'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg','Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:em,subject:'Açılış perdesi: erken kayıt',from_name:'Tetikte Perde','Açılış bilgilendirme izni':'evet (zorunlu onay kutusu işaretlendi)','Onay metni':'E-postamın, Tetikte açılış bilgilendirmeleri için işlenmesine izin veriyorum. İstediğimde çıkabilirim.','Onay zamanı':new Date().toISOString()})}); } catch(err){}
         this.style.display='none';
         document.getElementById('mrPerdeOk').style.display='block';
       });

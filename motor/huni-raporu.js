@@ -60,6 +60,15 @@ const EK = [
   ['Kart: Notum açtı',          /^kart\/notum-ac$/],
   ['Kart: not yazdı',           /^kart\/notum-yaz$/],
   ['Kart: Nöbetçi açtı',        /^kart\/nobetci-ac$/],
+  // 06.10 Cem "1.2.3" GM3: Nöbetçi oynatıcısı izleniyor mu (seviye sonucu = seviye/<sgs|yet>/nobetci/*, ana sayfa = ana/nobetci/*)
+  ['Nöbetçi: oynatıcı başladı', /^(seviye\/(sgs|yet)|ana)\/nobetci\/basladi$/],
+  ['Nöbetçi: 1. kartı bitirdi', /^(seviye\/(sgs|yet)|ana)\/nobetci\/kart-1$/],
+  ['Nöbetçi: 2. kartı bitirdi', /^(seviye\/(sgs|yet)|ana)\/nobetci\/kart-2$/],
+  ['Nöbetçi: 3. kartı bitirdi', /^(seviye\/(sgs|yet)|ana)\/nobetci\/kart-3$/],
+  ['Nöbetçi: son ekrana geldi', /^(seviye\/(sgs|yet)|ana)\/nobetci\/son$/],
+  ['Nöbetçi: paket düğmesi',    /^(seviye\/(sgs|yet)|ana)\/nobetci\/paket$/],
+  ['Nöbetçi: metne geçti',      /^(seviye\/(sgs|yet)|ana)\/nobetci\/metin/],
+  ['Nöbetçi: durdurdu',         /^(seviye\/(sgs|yet)|ana)\/nobetci\/durdur$/],
 ];
 
 function topla(hits) {

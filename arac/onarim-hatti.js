@@ -29,12 +29,16 @@ const HER_ONARIMDA_SIL = ['aciklama_hakem'];
 let RET = path.join(KOK, 'veri', 'sinav', 'sgs-elle-ret.json');
 // 30.09 (Cem "SMMM taslaklarını sen uygula"): teslim etiket önekinden sınavı bulur. Hepsi smmm- → SMMM elle ret listesi
 //   (arac/smmm-kasa-yayin.ps1 okur); karışık klasör DURUR. sgs- için davranış aynı. parti-senkron sınavı etiketten zaten ayırıyor.
-function retSec(etiketler) {
-  const smmm = etiketler.filter(e => /^smmm-/.test(e)).length;
-  if (smmm && smmm !== etiketler.length) throw new Error('klasörde SGS ve SMMM etiketi karışık — ayrı klasörlerle teslim et');
-  RET = path.join(KOK, 'veri', 'sinav', smmm ? 'smmm-elle-ret.json' : 'sgs-elle-ret.json');
-  return smmm ? 'SMMM' : 'SGS';
+// 07.10 (KGK oturumu, Cem "eksik kuralları yap" K8): kgk- etiketi SGS sayılıyor, onarım SGS elle ret listesine yazılıyordu
+//   (KGK yayını kgk-elle-ret.json okur → rehakem bekleyen KGK sorusu yayında kalırdı). kgk- → KGK; sgs/smmm davranışı aynı.
+function retSecim(etiketler) {
+  const say = r => etiketler.filter(e => r.test(e)).length;
+  const smmm = say(/^smmm-/), kgk = say(/^kgk-/);
+  if ((smmm && smmm !== etiketler.length) || (kgk && kgk !== etiketler.length)) throw new Error('klasörde farklı sınavın etiketi karışık (sgs/smmm/kgk) — ayrı klasörlerle teslim et');
+  if (process.env.ONARIM_MUTASYON === 'kgk-yok') return { sinav: smmm ? 'SMMM' : 'SGS', dosya: smmm ? 'smmm-elle-ret.json' : 'sgs-elle-ret.json' };
+  return smmm ? { sinav: 'SMMM', dosya: 'smmm-elle-ret.json' } : kgk ? { sinav: 'KGK', dosya: 'kgk-elle-ret.json' } : { sinav: 'SGS', dosya: 'sgs-elle-ret.json' };
 }
+function retSec(etiketler) { const s = retSecim(etiketler); RET = path.join(KOK, 'veri', 'sinav', s.dosya); return s.sinav; }
 
 const kan = v => Array.isArray(v) ? v.map(kan) : (v && typeof v === 'object') ? Object.keys(v).sort().reduce((o, k) => (o[k] = kan(v[k]), o), {}) : v;
 const esit = (a, b) => JSON.stringify(kan(a)) === JSON.stringify(kan(b));
@@ -60,9 +64,15 @@ function karar(eski, tam, bey) {
   const kritik = tam.soru !== eski.soru || tam.dogru !== eski.dogru || !esit(tam.siklar, eski.siklar) || !!(bey && bey.kok_degisti);
   const yeni = JSON.parse(JSON.stringify(tam));
   if (kritik) { for (const m of MODEL) delete yeni[m]; return { durum: 'rehakem', yeni }; }
+  // 06.10 (SGS oturumu uyardı, sınav oturumu ölçtü): YENİ soruda (kör/hakem2 ≥ 2026-10-01) aciklama_hakem YAYIN ŞARTI; silinirse soru
+  //   sonraki kasa yayınında siteden düşer (06.10'da 1 SGS sorusu böyle düştü). Böyle bir kayda mekanik açıklama onarımı REDDEDİLİR;
+  //   bilerek geçmek için ONARIM_AH_SIL=1 (sonra açıklama hakemi yeniden koşturulmalı). Eski soruda davranış aynı.
+  if (eski.aciklama_hakem && yeniSoruMu(eski) && process.env.ONARIM_AH_SIL !== '1' && process.env.ONARIM_MUTASYON !== 'ah-koruma-yok')
+    return { durum: 'red', neden: 'YENİ soru: aciklama_hakem silinirdi (yayın şartını kaybeder) — ONARIM_AH_SIL=1 ile bilerek geç, sonra AH yeniden' };
   for (const m of MODEL) { if (eski[m] !== undefined && !HER_ONARIMDA_SIL.includes(m)) yeni[m] = eski[m]; else delete yeni[m]; }
   return { durum: 'aciklama', yeni };
 }
+function yeniSoruMu(k) { const t = [k && k.kor_cozum && k.kor_cozum.tarih, k && k.hakem2 && k.hakem2.tarih].filter(Boolean).map(String).sort().pop(); return !!t && t >= '2026-10-01'; }
 
 const okuJ = p => { const h = fs.readFileSync(p, 'utf8'); return { bom: h.charCodeAt(0) === 0xfeff, j: JSON.parse(h.replace(/^﻿/, '')) }; };
 function uygula(K, yaz, atla = new Set()) {
@@ -162,6 +172,9 @@ function sinav() {
   const V = [
     ['yalnız açıklama → hakem korunur', karar(e, { ...e, aciklama: { A: 'a2', B: 'b' }, hakem: undefined }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && r.yeni.hakem && r.yeni.hakem.karar === 'EVET'],
     ['yalnız açıklama → aciklama_hakem SİLİNİR (hakem korunur)', karar({ ...e, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && !r.yeni.aciklama_hakem && r.yeni.hakem && r.yeni.hakem.karar === 'EVET'],
+    ['YENİ soru (kör 10-02) + aciklama_hakem → açıklama onarımı REDDEDİLİR', karar({ ...e, kor_cozum: { tarih: '2026-10-02' }, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-10-02' }, aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /YENİ soru/.test(r.neden)],
+    ['eski soru (kör 09-20) + aciklama_hakem → onarım geçer, AH silinir', karar({ ...e, kor_cozum: { tarih: '2026-09-20' }, aciklama_hakem: { karar: 'TEMIZ' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-09-20' }, aciklama_hakem: { karar: 'TEMIZ' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama' && !r.yeni.aciklama_hakem],
+    ['YENİ soru AH\'siz → onarım geçer (silinecek bir şey yok)', karar({ ...e, kor_cozum: { tarih: '2026-10-02' } }, { ...e, aciklama: { A: 'a2', B: 'b' }, kor_cozum: { tarih: '2026-10-02' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'aciklama'],
     ['anahtar değişti → hakem silinir', karar(e, { ...e, dogru: 'A' }, { degisen_alanlar: ['dogru'] }), r => r.durum === 'rehakem' && !r.yeni.hakem],
     ['şık değişti → yeniden hakem', karar(e, { ...e, siklar: { A: '3', B: '2' } }, { degisen_alanlar: ['siklar.A'] }), r => r.durum === 'rehakem'],
     ['beyansız fark → red', karar(e, { ...e, aciklama: { A: 'a', B: 'b2' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /izinsiz/.test(r.neden)],
@@ -174,12 +187,16 @@ function sinav() {
     ['türev klasör (grup-C-ek) kök parçayı tanır', { durum: retCikabilir('29.09 risk taramasi grup C: AÇIKLAMA KUSURLU …', 'grup-C-ek') ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['grup-B klasörü "grup B" gerekçesini tanır', { durum: retCikabilir('29.09 risk taramasi grup B: AÇIKLAMA KUSURLU …', 'grup-B') ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['grup-B klasörü "grup BC" gibi başka grubu tanımaz', { durum: retCikabilir('29.09 risk taramasi grup BC: …', 'grup-B') ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    ['kgk- etiketleri → KGK elle ret listesi', retSecim(['kgk-d1-tds-zor-1', 'kgk-gm-ky-r1']), r => r.sinav === 'KGK' && r.dosya === 'kgk-elle-ret.json'],
+    ['sgs- etiketi → SGS (davranış aynı)', retSecim(['sgs-c2-fmuh-zor-r3']), r => r.sinav === 'SGS' && r.dosya === 'sgs-elle-ret.json'],
+    ['smmm- etiketi → SMMM (davranış aynı)', retSecim(['smmm-gm9-1-yvergi-zor']), r => r.sinav === 'SMMM' && r.dosya === 'smmm-elle-ret.json'],
+    ['kgk + sgs karışık → DURUR', { durum: (() => { try { retSecim(['kgk-a', 'sgs-b']); return 'x'; } catch (e) { return 'ok'; } })() }, r => r.durum === 'ok'],
   ];
   let ok = 0; for (const [ad, r, t] of V) { const g = t(r); if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad); }
   console.log(`ONARIM HATTI ÖZ-SINAVI ${ok === V.length ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${V.length})`); process.exit(ok === V.length ? 0 : 1);
 }
 
-module.exports = { karar, fark, esit, retCikabilir };
+module.exports = { karar, fark, esit, retCikabilir, retSecim };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
   if (kmt === '--sinav') sinav();

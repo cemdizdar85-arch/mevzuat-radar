@@ -22,7 +22,11 @@ bekle("desteklenmeyen sınav RED", boz(v => { v.sinav = "smmm"; }) === false);
 bekle("fazladan serbest alan (mesaj) mail içeriğine GİRMEZ", (() => { const v: any = iyi(); v.mesaj = "SPAM-METNI-XYZ"; const r: any = dogrula(v); const m = mailKur(r.sonuc); return r.ok && !m.html.includes("SPAM-METNI-XYZ") && !m.metin.includes("SPAM-METNI-XYZ"); })());
 const m = mailKur((d as any).sonuc);
 bekle("mail: geçme yüzdesi, tahmini doğru, en zayıf grup, 'tahmin' notu, KVKK bağlantısı var",
-  m.konu.includes("%62") && m.html.includes("yaklaşık <b>91</b>") && m.metin.includes("En çok çalışman gereken grup: Ekonomi ve Maliye") && m.metin.includes("Bu bir TAHMİNDİR") && m.html.includes("/kvkk.html"));
+  m.konu.includes("%62") && m.html.includes("yaklaşık <b>91</b>") && m.metin.includes("En çok çalışman gereken grup: Muhasebe") && m.metin.includes("Bu bir TAHMİNDİR") && m.html.includes("/kvkk.html"));
+// 06.10 Cem vakası: 5/30, en düşük YÜZDE Ekonomi (0/4) idi ama sınavda Muhasebe 58, Ekonomi-Maliye 12 soru -> Muhasebe
+const grp = (mu: number, ek: number, hu = 1, gk = 1) => mailKur({ gecme: 5, dogru130: 18, soru: 30, dogru: 5, gruplar: [{ ad: "Muhasebe", dogru: mu, soru: 14 }, { ad: "Hukuk", dogru: hu, soru: 5 }, { ad: "Ekonomi ve Maliye", dogru: ek, soru: 4 }, { ad: "Genel Kültür ve Yabancı Dil", dogru: gk, soru: 7 }] } as any).metin;
+bekle("başlangıç grubu: 3/14 Muhasebe, 0/4 Ekonominin önünde (sınavda kaybedilen soru)", grp(3, 0).includes("En çok çalışman gereken grup: Muhasebe") && grp(3, 0).includes("sınavın 58 sorusu"));
+bekle("başlangıç grubu: Muhasebe 13/14, Hukuk 5/5, GK 7/7 iken 0/4 Ekonomi seçilir (yanlış alarm değil)", grp(13, 0, 5, 7).includes("En çok çalışman gereken grup: Ekonomi ve Maliye"));
 bekle("seviye metni eşikleri: 62 -> Sınırdasın", m.metin.includes("Sınırdasın"));
 bekle("köken: tetikte.com izinli, başka site değil", kokenIzinli("https://tetikte.com") && kokenIzinli("http://localhost:5173") && !kokenIzinli("https://kotu.example"));
 // 23.09 YETERLİLİK

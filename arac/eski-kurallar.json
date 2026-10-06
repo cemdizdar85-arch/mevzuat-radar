@@ -36,10 +36,10 @@
     {
       "kod": "EK5",
       "ad": "Kâr payı stopajı %10 (22.12.2024'ten beri %15)",
-      "desen": "(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(stopaj|tevkifat)[\\s\\S]{0,40}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])|(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat)|(stopaj|tevkifat)[\\s\\S]{0,30}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat)[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])",
+      "desen": "(k[aâ]r pay[ıi]|temett[uü]|k[aâ]r[ıi]?n?[\\s\\S]{0,120}da[ğg][ıi]t)[\\s\\S]{0,160}(stopaj|tevkifat|kesinti)[\\s\\S]{0,40}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)|(k[aâ]r pay[ıi]|temett[uü]|k[aâ]r[ıi]?n?[\\s\\S]{0,120}da[ğg][ıi]t)[\\s\\S]{0,160}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)[\\s\\S]{0,30}(stopaj|tevkifat|kesinti)|(stopaj|tevkifat|kesinti)[\\s\\S]{0,30}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)[\\s\\S]{0,120}(k[aâ]r pay[ıi]|temett[uü]|k[aâ]r[ıi]?n?[\\s\\S]{0,120}da[ğg][ıi]t)|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)[\\s\\S]{0,30}(stopaj|tevkifat|kesinti)[\\s\\S]{0,120}(k[aâ]r pay[ıi]|temett[uü]|k[aâ]r[ıi]?n?[\\s\\S]{0,120}da[ğg][ıi]t)",
       "haric": "20(0\\d|1\\d|2[0-4])\\b|önceki|eski\\b|ezber|idi\\b",
       "dayanak": "GVK m.94/6-b-i oranı 9286 sayılı CBK ile 22.12.2024'ten beri %15; SGS oturumu ambarda okudu 30.09.2026",
-      "bulan": "sgs oturumu 30.09.2026 + onarım smmm-as (smmm-4k-a-fmuh-kolay-r2/kp-19)"
+      "bulan": "sgs oturumu 30.09.2026 + onarım smmm-as (smmm-4k-a-fmuh-kolay-r2/kp-19) · 06.10 sinav kolu: \"kesinti\" eklendi (smmm-w10-2-yvergi-kolay/kp-01 sitedeydi, desen kaciriyordu) · 06.10 sinav kolu: \"kârın … dağıt\" öznesi, mesafe 80→160, \"%10,\" cümle içi virgül (w14-8-fmuh-kolay/kp-01 ve w4-yvergi-zor/kp-04 kökleri kaçıyordu)"
     },
     {
       "kod": "EK6",
@@ -112,6 +112,14 @@
       "haric": "d[üu]zeltme (yap[ıi]lmaz|i[şs]lemi yap[ıi]lmas[ıi]na gerek)|d[üu]zeltilmez|geri al[ıi]nmaz|de[gğ]il|yanl[ıi][şs]|tuza[gğ][ıi]|m[üu]kerrer|al[ıi]m[ıi]nda y[üu]klenilen",
       "dayanak": "KDV Genel Uygulama Tebliği bölüm 1115 (ambar) + KDVK m.30/c parantez hükmü + m.29/3 (ambar, 06.10 okundu)",
       "bulan": "sinav kolu onarım turu 0610d (smmm-4k-a-yvergi-zor-r5/kp-18), 06.10.2026"
+    },
+    {
+      "kod": "EK15",
+      "ad": "Yarışma/çekiliş ikramiyesinde %10 kesinti (VİVK m.16: oran %20, veraset ve intikal vergisi)",
+      "desen": "(yar[ıi][şs]ma|[çc]ekili[şs]|[şs]ans oyun)[\\s\\S]{0,60}ikramiye[\\s\\S]{0,100}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)[\\s\\S]{0,60}(yar[ıi][şs]ma|[çc]ekili[şs]|[şs]ans oyun)[\\s\\S]{0,40}ikramiye",
+      "haric": "önceki|eski\\b|ezber|idi\\b|Tuza[ğg][ıi]",
+      "dayanak": "VİVK m.16 son fıkra: 5602 s. Kanundaki şans oyunları ile yarışma ve çekilişlerde kazanılan ikramiyelerde oran %20; m.7: düzenleyen keser ve beyan eder; m.4/e istisna (2026: 3.918 TL, VİVK GT 47). Ambarda okundu 06.10.2026",
+      "bulan": "sinav kolu 06.10: smmm-gm5-12-fmuh-zor/kp-04 konu girişi (sitede) EK5 genişlemesinde yanlış alarm olarak çıktı, okununca ayrı yanlış görüldü"
     }
   ]
 }

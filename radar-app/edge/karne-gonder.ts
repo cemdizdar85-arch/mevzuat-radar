@@ -134,7 +134,7 @@ export function mailKurYet(s: SonucYet): { konu: string; metin: string; html: st
   ].join("\n");
   const renk: Record<string, string> = { guclu: "#15803d", sinirda: "#8d6c38", riskli: "#b91c1c" };
   const g = s.dersler.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb">${kacis(x.ad)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;white-space:nowrap">${x.dogru} / ${x.soru}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;font-weight:700;color:${renk[x.durum]}">${DURUM_AD[x.durum]}</td></tr>`).join("");
-  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · SMMM Yeterlilik seviye testi</p>
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · SMMM YETERLİLİK SEVİYE TESTİ</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · bu testte ${s.dogru} / ${s.soru} · tezkiye ${s.tezkiye}</p>
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
@@ -178,6 +178,9 @@ export function dogrula(veri: any): { ok: true; eposta: string; izin: boolean; s
 // Mail içeriği TAMAMEN sunucuda: kullanıcı metni yok, yalnız doğrulanmış sayılar.
 // 05.10.2026 Cem ("1 yap"): "Bugün şunu yap" yönlendirmesi (sonuç ekranındaki gibi), Nöbetçi + kolaydan zora sözü,
 // kurucu fiyatı cümlesi (rakamsız) ve marka sözü eklendi. Düğme ana renk.
+// 130 soruluk SGS'de grupların soru sayısı (veri/sgs-sinav-yapisi.json): Muhasebe = FM 26 + Maliyet 8 + MTA 8 + Denetim 16;
+// Hukuk = 5 ders x 6; Ekonomi 6 + Maliye 6; Türkçe 7 + Matematik 8 + Atatürk 5 + Yabancı Dil 10.
+const SGS_GRUP_SINAV: Record<string, number> = { "Muhasebe": 58, "Hukuk": 30, "Ekonomi ve Maliye": 12, "Genel Kültür ve Yabancı Dil": 30 };
 export function mailKur(s: Sonuc): { konu: string; metin: string; html: string } {
   const seviye = s.gecme >= 70 ? "Hazıra yakınsın" : s.gecme >= 40 ? "Sınırdasın" : "Bugün girsen zorlanırsın";
   const oneri = s.gecme >= 70
@@ -185,10 +188,13 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
     : s.gecme >= 40
       ? "Seni geçirecek şey birkaç fazla doğru. En zayıf grubundan başla; her yanlışını Nöbetçi adım adım anlatır."
       : "Sınava zaman var. En zayıf grubundan başla; yanlışların kutuna düşer, 2 gün sonra yeniden karşına çıkar.";
-  const enZayif = s.gruplar.slice().sort((a, b) => a.dogru / a.soru - b.dogru / b.soru)[0];
+  // 06.10 Cem: başlangıç grubu en düşük yüzde değil, sınavda en çok soru kaybettiren grup (seviye-testi.html oncelikGrup ile aynı)
+  const sinavSoru = (x: { ad: string; soru: number }) => SGS_GRUP_SINAV[x.ad] ?? Math.round(x.soru * 130 / 30);
+  const kayip = (x: { ad: string; dogru: number; soru: number }) => x.soru ? (1 - x.dogru / x.soru) * sinavSoru(x) : 0;
+  const enZayif = s.gruplar.slice().sort((a, b) => kayip(b) - kayip(a) || sinavSoru(b) - sinavSoru(a))[0];
   const kacan = enZayif.soru - enZayif.dogru;
   const bugun = kacan > 0
-    ? `${enZayif.ad} grubundan 10 soru çöz. Bu testte oradan ${enZayif.soru} sorunun ${kacan} tanesinde takıldın. Yaklaşık 15 dakika.`
+    ? `${enZayif.ad} grubundan 10 soru çöz; sınavın ${sinavSoru(enZayif)} sorusu bu gruptan. Bu testte oradan ${enZayif.soru} sorunun ${kacan} tanesinde takıldın. Yaklaşık 15 dakika.`
     : `130 soruluk sınav gibi denemeyle bu sonucu gerçek süre ve ders dağılımında doğrula.`;
   const satirlar = s.gruplar.map(g => `${g.ad}: ${g.dogru} / ${g.soru}`).join("\n");
   const site = "https://tetikte.com";
@@ -222,7 +228,7 @@ export function mailKur(s: Sonuc): { konu: string; metin: string; html: string }
   ].join("\n");
   const vurgu = (x: { ad: string }) => x === enZayif && kacan > 0;
   const g = s.gruplar.map(x => `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb${vurgu(x) ? ";font-weight:700;color:#b91c1c" : ""}">${kacis(x.ad)}${vurgu(x) ? " · önce burası" : ""}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;text-align:right;white-space:nowrap">${x.dogru} / ${x.soru}</td></tr>`).join("");
-  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Staja Giriş seviye testi</p>
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · STAJA GİRİŞ SEVİYE TESTİ</p>
 <h1 style="font-size:26px;margin:0 0 4px">Geçme ihtimalin: %${s.gecme}</h1>
 <p style="margin:0 0 14px;color:#4b5563">${kacis(seviye)} · 130 soruda tahmini doğru: yaklaşık <b>${s.dogru130}</b> · bu testte ${s.dogru} / ${s.soru}</p>
 <table style="border-collapse:collapse;width:100%;margin:0 0 14px">${g}</table>
@@ -242,7 +248,7 @@ ${nb ? `<p style="margin:0 0 10px">${kacis(nb)}</p>` : ""}
 // Sunucu bölümü yalnız Deno'da çalışır (Node'daki öz-sınav bu kısmı atlar).
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "624a19682aa6f8b3";
+const KOD_IMZA = "f91e72334f9b5cd6";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");

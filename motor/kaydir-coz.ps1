@@ -82,6 +82,11 @@ $TURKCE_ONAR_KORU=@{
   'ucunu' = 'ucunu (uç) / üçünü'
   'kara'  = 'kara (kara para, kara yolu) / kâra'
   'kati'  = 'kati (katî: kesin hüküm) / katı'
+  # 06.10 (SGS oturumu bildirdi): Roma rakamı bent (iii, vii, viii) sözlükte ı'lı biçime gidiyordu (iii → ııı). 2 harfliler (ii, iv, vi)
+  # zaten 3 harf altı, x'liler [wqx] kuralıyla korunuyor. 'kar' EKLENMEDİ: ASCII metinde çoğunlukla 'kâr' (kâr payı) kastedilir.
+  'iii'   = 'Roma rakamı bent (iii) / ııı'
+  'vii'   = 'Roma rakamı bent (vii)'
+  'viii'  = 'Roma rakamı bent (viii)'
 }
 # (2) İNGİLİZCE — KESİN: Türkçede kelime olarak geçmeyen İngilizce işlev sözcükleri. Bu kelimeye hiçbir yerde dokunulmaz (WHICH → WHİCH olmaz)
 #     ve parça/dize sayımında "kesin" İngilizce kanıtı sayılır. BELİRSİZ: Türkçede de kelime (is≈iş, an, it, be, has, her, on, in, at, not...);

@@ -294,6 +294,15 @@ footer p{margin:0 0 8px}
   </div>
 </section>
 
+<!-- 06.10 (Cem "1.2.3" GM1): "Nöbetçi böyle anlatır" - ürünü anlatmak yerine gösterir. Tek örnek soru, elle okunmuş
+     (sgs-c5-maliyet-zor-r1/kp-02; ücretsiz vitrin sorusu, anlatım rpc/seviye_aciklama ile aynı alanlar). Veri sayfada sabit:
+     sunucuya istek yok (egress). Ekrana gelince oynar (nobetci-oynatici.js). Soru onarılırsa bu kopya ELLE tazelenir. -->
+<section class="bolum" id="nobetciOrnek" aria-labelledby="nbOrnekBas">
+  <div class="ic">
+    <div id="nbOrnek"><h2 id="nbOrnekBas">Nöbetçi yanlışını böyle anlatır</h2></div>
+  </div>
+</section>
+
 <section class="bolum" id="nasil" aria-labelledby="nasilBas">
   <div class="ic">
     <h2 id="nasilBas">Nasıl çalışır?</h2>
@@ -357,6 +366,28 @@ footer p{margin:0 0 8px}
   </div>
 </footer>
 
+<script src="nobetci-oynatici.js"></script>
+<script>
+/* 06.10 ana sayfa Nöbetçi örneği (bkz. #nobetciOrnek yorumu). Olaylar GoatCounter'a ana/nobetci/* (huni raporu sayar). */
+(function(){
+  var kap=document.getElementById('nbOrnek'); if(!kap||!window.NobetciOynatici) return;
+  var say=function(ad){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:'ana/nobetci/'+ad,title:'Ana sayfa Nöbetçi: '+ad,event:true}); }catch(e){} };
+  window.NobetciOynatici.kur(kap,[{
+    ust:'Maliyet Muhasebesi · örnek: aday E şıkkını seçti',
+    soru:"İşletme, direkt ilk madde ve malzeme için standart maliyet yöntemini uygulamaktadır. Bir birim mamul için standart miktar 5 kilogram, standart fiyat kilogram başına 20 TL olarak belirlenmiştir. Döneme ilişkin bilgiler şöyledir: fiilen üretilen mamul miktarı 4.000 adet, fiili tüketilen hammadde miktarı 21.000 kilogram, bu miktara ait toplam fiili direkt ilk madde ve malzeme maliyeti 462.000 TL'dir. Buna göre, direkt ilk madde ve malzeme fiyat sapmasının tutarı ve niteliği aşağıdakilerden hangisidir?",
+    secim:'E', secim_metin:'62.000 olumsuz', tuzak_ad:'Katman Atlama Tuzağı',
+    tuzak_metin:'Toplam sapmayı (462.000-400.000=62.000) hesapladın ama bunun içindeki miktar sapmasını ayrıştırmadan doğrudan fiyat sapması sandın. Doğrusu: fiyat sapmasını bulmak için toplam sapmadan miktar sapmasının ayrıştırılması gerekir.',
+    dogru:'A', dogru_metin:'42.000 olumsuz',
+    aciklama:"Fiili fiyat kilogram başına 22 TL (462.000 ÷ 21.000), standart 20 TL'dir. Fark (22 - 20) × 21.000 = 42.000 TL olup fiili fiyat standarttan yüksek olduğu için olumsuz sapmadır.",
+    kural:'Fiyat sapması, (Fiili Fiyat - Standart Fiyat) x Fiili Miktar formülüyle hesaplanır ve pozitif sonuç olumsuz sapmadır.'
+  }],{
+    baslik:'Nöbetçi yanlışını böyle anlatır',
+    alt:'Sınav tipi bir soru, yanlış bir cevap. Nöbetçi neden yanıldığını ve doğrusunu adım adım gösteriyor.',
+    son:{ metin:'Bankadaki her soru böyle anlatılır. Kendi yanlışlarını görmek için 30 soruluk testi çöz; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'Ücretsiz başla →', href:'seviye-testi.html', sinif:'btn btn-ana' },
+    olay:say
+  });
+})();
+</script>
 <script src="fiyat-motoru.js"></script>
 <script src="uye-durumu.js"></script>
 <script>
