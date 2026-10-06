@@ -79,7 +79,8 @@ foreach ($gerekli in 'Katla', 'TurkceOnar') { if (-not (Get-Command $gerekli -Co
 $SOZ = @{ ayni = 'aynı'; ogrenci = 'öğrenci'; kayit = 'kayıt'; icin = 'için'; borc = 'borç'; isletme = 'işletme'; cumlesini = 'cümlesini'
   bicimde = 'biçimde'; hatayi = 'hatayı'; cumleyi = 'cümleyi'; yanlis = 'yanlış'; cevirir = 'çevirir'; dogru = 'doğru'; ceviri = 'çeviri'; kalir = 'kalır'
   tur = 'tür'; uncu = 'üncü'; bol = 'böl'; hala = 'hâlâ'; asli = 'aslı'; esasi = 'esası'; ucu = 'üçü'; kara = 'kâra'; asil = 'asıl'; kati = 'katı'
-  sure = 'süre'; cumlede = 'cümlede'; tesvike = 'teşvike'; ragmen = 'rağmen'; zitlik = 'zıtlık'; anlatilir = 'anlatılır'; bosluga = 'boşluğa'; cumle = 'cümle'; anlamli = 'anlamlı' }
+  sure = 'süre'; cumlede = 'cümlede'; tesvike = 'teşvike'; ragmen = 'rağmen'; zitlik = 'zıtlık'; anlatilir = 'anlatılır'; bosluga = 'boşluğa'; cumle = 'cümle'; anlamli = 'anlamlı'
+  iii = 'ııı'; vii = 'vıı'; viii = 'vııı' }   # 06.10: gerçek sözlüğün kusuru (Roma rakamı bent ı'lı biçime gidiyordu) - koruma listesi bunu durdurmalı
 $ENF = @{ ayni = 'aynı'; borc = 'borç'; which = 'which'; this = 'this'; quiz = 'quiz'; isletme = 'işletme'; kara = 'kâra'; esasi = 'esası'; sure = 'süre'; hisse = 'hisse' }
 $IVAR = @{ isletme = $true; iptal = $true }
 
@@ -111,6 +112,7 @@ Vaka 'kesme sonrası ek, rakam (9''uncu)' '9''uncu madde' '9''uncu madde'
 Vaka 'kesme sonrası ek, tipografik (9 U+2019 uncu)' ("9$([char]0x2019)uncu madde") ("9$([char]0x2019)uncu madde")   # ’ tek tırnaklı dizeyi KAPATIR, [char] ile
 Vaka 'belirsiz: Kanun-i Esasi' 'Kanun-i Esasi' 'Kanun-i Esasi'
 Vaka 'belirsiz: bol' 'bol miktarda' 'bol miktarda'
+Vaka 'Roma rakamı bent korunur (iii, vii, viii)' 'Bent (iii) ve (vii) ile (viii) ayni' 'Bent (iii) ve (vii) ile (viii) aynı'
 Vaka 'belirsiz: hala' 'hala ve teyze' 'hala ve teyze'
 Vaka 'belirsiz: asli' 'asli unsur' 'asli unsur'
 Vaka 'belirsiz: ucu' 'kalemin ucu' 'kalemin ucu'
