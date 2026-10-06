@@ -120,6 +120,30 @@
       "haric": "önceki|eski\\b|ezber|idi\\b|Tuza[ğg][ıi]",
       "dayanak": "VİVK m.16 son fıkra: 5602 s. Kanundaki şans oyunları ile yarışma ve çekilişlerde kazanılan ikramiyelerde oran %20; m.7: düzenleyen keser ve beyan eder; m.4/e istisna (2026: 3.918 TL, VİVK GT 47). Ambarda okundu 06.10.2026",
       "bulan": "sinav kolu 06.10: smmm-gm5-12-fmuh-zor/kp-04 konu girişi (sitede) EK5 genişlemesinde yanlış alarm olarak çıktı, okununca ayrı yanlış görüldü"
+    },
+    {
+      "kod": "EK16",
+      "ad": "İzaha davette ceza \"dörtte biri\" (VUK m.370: vergi ziyaı cezası %20, yani beşte bir)",
+      "desen": "izah[\\s\\S]{0,200}d[öo]rtte bir|d[öo]rtte bir[\\s\\S]{0,200}izah",
+      "haric": "önceki|eski\\b|idi\\b|Tuza[ğg][ıi]|m[üu]lga",
+      "dayanak": "VUK m.370/1-a (izaha davet: vergi ziyaı cezası %20 oranında kesilir) — sinav kolu konu girişi okumasında ambarda okundu 06.10.2026",
+      "bulan": "sinav kolu 06.10 konu girişi okuması: olc2-a-vergi/kp-18, w1-yvergi-cokzor/kp-08 (sitede)"
+    },
+    {
+      "kod": "EK17",
+      "ad": "VUK m.376 indiriminde \"üçte bir\" (müteakip ceza bendi 7524 ile mülga; indirim yarısı)",
+      "desen": "(m\\.?\\s?376|vadesinde [öo]de|otuz g[üu]n i[çc]inde (?:vergi dairesine )?ba[şs]vur)[\\s\\S]{0,200}[üu][çc]te bir|[üu][çc]te bir[\\s\\S]{0,120}(m\\.?\\s?376|vadesinde [öo]de)",
+      "haric": "önceki|eski\\b|idi\\b|Tuza[ğg][ıi]|m[üu]lga|7524|uzla[şs]",
+      "dayanak": "VUK m.376/1-1 (cezanın yarısı indirilir); 1-2 bendi (müteakip cezalarda üçte bir) 28/7/2024 - 7524/14 ile mülga — ambarda okundu 06.10.2026",
+      "bulan": "sinav kolu 06.10 konu girişi okuması: w3-yvergi-cokzor/kp-18 (sitede; sorunun kendi cevabı yarısı ile hesaplıyordu)"
+    },
+    {
+      "kod": "EK18",
+      "ad": "Kira / serbest meslek (özel ders) stopajı %10 (GVK m.94: %20)",
+      "desen": "(kira|serbest meslek|[öo]zel ders)[\\s\\S]{0,120}(stopaj|tevkifat|kesinti)[\\s\\S]{0,40}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)|(kira|serbest meslek|[öo]zel ders)[\\s\\S]{0,120}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?!\\d|,\\d)[\\s\\S]{0,30}(stopaj|tevkifat|kesinti)",
+      "haric": "önceki|eski\\b|idi\\b|Tuza[ğg][ıi]|varsay|art[ıi][şs]|art[ıi]r|zam\\b|uygula(d[ıi]|yorsun|m[ıi][şs])|kar[ıi][şs]t[ıi]r",
+      "dayanak": "BKK 2009/14592 m.1/2-b (serbest meslek kazancı %20), m.1/5-a (GVK m.70 kira %20) — sinav kolu konu girişi okumasında ambarda okundu 06.10.2026",
+      "bulan": "sinav kolu 06.10 konu girişi okuması: gm5-16-fmuh-zor/kp-05, w11-3-fmuh-cokzor/kp-02 vb. (sitede)"
     }
   ]
 }
