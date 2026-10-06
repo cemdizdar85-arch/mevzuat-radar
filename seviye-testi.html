@@ -318,7 +318,7 @@
 <script src="fiyat-motoru.js"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="uye-durumu.js"></script>
+<script src="uye-durumu.js?v=20261007a"></script>
 <script src="kutu-esitle.js"></script>
 <script>
 (function(){
@@ -344,7 +344,8 @@
   function sonIkiHafta(){ var s=new Date(SINAV_GUNU+'T00:00:00'), a=new Date(s-7*86400000), n=new Date(); return n>=a&&n<s?a:null; }
   /* 07.10 ÜYE HAFTALIK HAK: paket sahibi (TetikteUye durum 'aktif') sınırsız; ücretsiz üye son sonucundan 7 gün sonra.
      Sınavın son haftasında, son sonucu o haftadan önceyse bir ek hak (sonIkiHafta). Dönüş: kalan gün (0 = açık). */
-  var PAKETLI=false, HAFTA_GUN=7;
+  /* 07.10: ilk değer son bilinen durumdan (uye-durumu.js önbelleği) - paketli üye bir an "haftalık hakkın doldu" kutusunu görmesin; sunucu cevabı yine düzeltir */
+  var PAKETLI=(function(){ try{ var o=window.TetikteUye&&TetikteUye.onbellek, s=o&&o.sinavlar&&o.sinavlar[YET?'yeterlilik':'sgs']; return !!(s&&s.durum==='aktif'); }catch(e){ return false; } })(), HAFTA_GUN=7;
   /* 07.10 (Cem "haftalık hakkı hesaba bağla"): üyede son sonuç = cihazdaki ve HESAPTAKİ (ogrenci_sonuc) son sonucun yenisi;
      cihaz değişince hak yeniden açılmasın. Hesap okunamazsa (ağ, tablo) cihazdakiyle devam (fail-open, eskisi gibi). */
   var HESAP_SON=null, HESAP_SOR=null;

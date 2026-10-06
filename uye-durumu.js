@@ -102,7 +102,35 @@
     });
   }
 
+  /* 07.10 Cem ("tetikte'ye üst üste basınca bir anda sanki üyeliğim yok gibi duruyor"): sunucu cevabı gelene kadar sayfa
+     ziyaretçi düğmelerini çiziyordu. Son bilinen durum bu cihazda saklanır (tt_uye_son: yalnız sınav başına durum/bitiş/ders,
+     e-posta YOK), oturum anahtarı varken sayfa İLK ÇİZİMİ bununla yapar; sunucu cevabı gelince yine doğrulanır.
+     Görünüm içindir; kilit sunucuda (RLS) olduğu için bayat önbellek içerik açmaz. 7 günden eski ya da anahtarsız önbellek atılır. */
+  var ONB = 'tt_uye_son';
+  function onbellekOku() {
+    try {
+      if (!anahtarVar()) { localStorage.removeItem(ONB); return null; }
+      var o = JSON.parse(localStorage.getItem(ONB) || 'null');
+      if (!o || !o.sinavlar || !(Date.now() - (o.zaman || 0) < 7 * 86400000)) return null;
+      var d = bos(true, ''), bugun = new Date().toISOString().slice(0, 10);
+      SIRA.forEach(function (k) { var x = o.sinavlar[k]; if (!x) return;
+        var durum = x.durum === 'aktif' && x.bitis && x.bitis < bugun ? 'bitmis' : x.durum;   /* önbellekteyken süresi dolduysa */
+        d.sinavlar[k] = { durum: durum, bitis: x.bitis || null, dersler: x.dersler || null }; });
+      d.onbellek = true; return d;
+    } catch (e) { return null; }
+  }
+  function onbellekYaz(d) {
+    try {
+      if (!d || !d.oturum) { localStorage.removeItem(ONB); return; }
+      if (d.hata || d.onbellek) return;   /* okunamadıysa eski önbellek kalır; önbellekten dönen tazelenmiş sayılmaz (süresi uzamasın) */
+      var s = {}; SIRA.forEach(function (k) { var x = d.sinavlar[k]; s[k] = { durum: x.durum, bitis: x.bitis, dersler: x.dersler }; });
+      localStorage.setItem(ONB, JSON.stringify({ sinavlar: s, zaman: Date.now() }));
+    } catch (e) {}
+  }
+  var ONBELLEK = onbellekOku();
+
   function yay(d) {
+    onbellekYaz(d);
     try { document.dispatchEvent(new CustomEvent('tetikte-uye', { detail: d })); } catch (e) {}
     return d;
   }
@@ -116,7 +144,9 @@
     if (r.error) { var h = bos(true, oturum.user.email); h.hata = true; return h; }
     return satirlardan(r.data, oturum.user.email);
   }).catch(function () { var h = bos(anahtarVar()); h.hata = true; return h; })
-    : Promise.resolve(bos(false))).then(yay);
+    : Promise.resolve(bos(false)))
+    .then(function (d) { return d && d.hata && d.oturum && ONBELLEK ? ONBELLEK : d; })   /* 07.10: sunucu o an okunamadıysa son bilinen durum kalır (üye birden "ziyaretçi"ye düşmesin) */
+    .then(yay);
 
   function tarihYazi(t) {
     if (!t) return '';
@@ -126,6 +156,8 @@
 
   window.TetikteUye = {
     SINAVLAR: SINAVLAR, SIRA: SIRA, hazir: hazir,
+    /* 07.10: son bilinen durum (yoksa null) - ilk çizim bununla, sonra hazir ile doğrulanır */
+    onbellek: ONBELLEK,
     paketSinavlari: paketSinavlari, tarihYazi: tarihYazi,
     /* paket_uyeler satırları -> sınav başına durum (ogrenci.html girişten hemen sonra kendi okuduğu satırla çağırır) */
     durumHesapla: satirlardan,

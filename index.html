@@ -354,14 +354,14 @@ footer p{margin:0 0 8px}
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="fiyat-motoru.js"></script>
-<script src="uye-durumu.js"></script>
+<script src="uye-durumu.js?v=20261007a"></script>
 <script>
 (function(){
   'use strict';
   var $=function(id){return document.getElementById(id);};
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   function say(yol,baslik){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:yol,title:baslik||yol,event:true}); }catch(e){} }
-  var U=window.TetikteUye, UYE={oturum:false,sinavlar:{}};
+  var U=window.TetikteUye, UYE=(U&&U.onbellek)||{oturum:false,sinavlar:{}};   /* 07.10: üye ilk anda ziyaretçi düğmesi görmesin (uye-durumu.js önbelleği) */
   var secili=(U&&U.seciliSinav)?U.seciliSinav():'sgs';
   var OZET=null, acik=false, TARANAN=0;
   var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik'};

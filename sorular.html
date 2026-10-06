@@ -160,7 +160,7 @@
 </main>
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
-<script src="uye-durumu.js"></script>
+<script src="uye-durumu.js?v=20261007a"></script>
 <script>
 (function(){
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
@@ -267,10 +267,13 @@
   }
 
   /* 07.10: paket bilgisi gelince (girişliyse) kartlar yeniden çizilir; hata/girişsizde kilit etiketi kalır */
+  /* 07.10: önce son bilinen durum (uye-durumu.js önbelleği) - paketli üye ilk çizimde kilit etiketi görmesin */
+  try{ var ob=window.TetikteUye&&TetikteUye.onbellek; if(ob) Object.keys(UYE_KOD).forEach(function(kod){ var o=ob.sinavlar&&ob.sinavlar[UYE_KOD[kod]]; if(o&&o.durum==='aktif') PAKET[kod]={dersler:o.dersler||null}; }); }catch(e){}
   try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){
     var degisti=false;
     Object.keys(UYE_KOD).forEach(function(kod){ var o=d&&d.sinavlar&&d.sinavlar[UYE_KOD[kod]];
-      if(o&&o.durum==='aktif'){ PAKET[kod]={dersler:o.dersler||null}; degisti=true; } });
+      if(o&&o.durum==='aktif'){ PAKET[kod]={dersler:o.dersler||null}; degisti=true; }
+      else if(PAKET[kod]&&d&&!d.hata){ delete PAKET[kod]; degisti=true; } });   /* önbellek "açık" dedi, sunucu demiyor -> geri al */
     if(degisti&&DIZIN&&SECILI) dersleriCiz();
   }); }catch(e){}
 
