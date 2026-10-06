@@ -96,3 +96,30 @@ karar değişen 23, yeni bulgu 0, KONU 112→99. "Yeterli ve uygun" istisnası d
 `VITRIN-KALITE: ücretsiz 741 · dışlanan 11 · vitrinde 730` · `tabloya yazıldı 11/11 (vitrine dönen 12)`. Kalan SGS 6'nın 5'i bu turda onarıldı (sonraki yayında düşer),
 1'i kapı yanlış alarmı. SMMM 5 sınav oturumunun. Yeniden hakemdeki 17 soru (v0610 + v0610b) hakem EVET derse sgs-onarim-hakem robotuyla döner.
 Bugün toplam elle onarım (ambara yazılan, geri okunan): 32 + 80 + 9 + 9 + 12 + 9 + 8 + 5 + 17 (kök/şık) + 1.519 (p.28) kayıt. Ücretli harcama: yalnız onaylı iki hakem planı (tavan 1,7 USD).
+
+---
+# DÖRDÜNCÜ TUR (07.10, Cem "1.2.3 üçünü de yap" + site oturumunun günün sorusu okuması)
+
+## GM1 — onarım hattı açıklama hakemi kararını korur (82e3ef3a)
+Yalnız açıklama onarıldıysa ve önceki aciklama_hakem kararı TEMIZ ise karar korunur, `aciklama_hakem.onarim_sonrasi` izi düşülür.
+TEMIZ dışı: YENİ soruda sınav oturumunun 06.10 reddi aynen (ONARIM_AH_SIL=1), eski soruda silinir. Kök/şık/anahtar değişince hepsi silinir.
+Öz-sınav 24/24; mutasyon ah-hep-sil ve ah-koruma-yok KIRMIZI. Etki alanı (yerel ambar): AH taşıyan SGS 24 TEMIZ + 34 KUSURLU, SMMM 25 + 14.
+
+## GM2 — hakem planlarının sonucu: ÖLÇÜLMEDİ (henüz bitmedi)
+plan-sgs-v0610 (11 soru) ve v0610b (6 soru) 06.10 22:20'den beri bulutta toplu hakemde; v0710 (8 soru) sırada (pay dolu).
+Robot sgs-onarim-hakem.yml EVET'leri sgs-elle-ret'ten çıkarıp yayını tetikler. Ölçüt: sgs-elle-ret 59'dan bu 25 sorunun EVET alanları kadar düşmeli.
+
+## GM3 — KAPI-HK THP resmî sözlüğü muafiyeti (41f0105f)
+'hesaplar' (kaydir-coz ThpTanim'in ambardan kopyaladığı resmî THP tanımı) taranmaz. Öz-sınav 47/47, mutasyon KIRMIZI (CI'da).
+Eşdeğerlik: parti kaydı 15.109'da alan 0 (üretim/yayın şartı değişmez); kasa 8.925: yeni bulgu 0, yalancı bulgusu kalkan SGS 15 + SMMM 23.
+
+## Günün sorusu (site 07.10, ücretsiz 55 SGS — FM/Maliyet/MTA; anahtarlar 92/92 doğruydu)
+- 52 açıklama onarımı (ambar 52/52; RET 4'ün 3'ü dahil) → site oturumu 48'ini günün sorusu listesine alıyor.
+- 8 kök/şık düzeltmesi (Cem onayı 0,8 USD) → plan-sgs-v0710: maliyet-zor1/kp-01 veri çelişkisi · c5-mta-zor-r2/kp-07 asit-test formülü ·
+  t2b-mta-zor/kp-06 E 18→60 · c5-fmuh-cokzor-r1-3/kp-02 (anahtar E→C, tutar aynı) · d3-maliyet-cokzor-r1/kp-01 · t1-fmuh-kolay/kp-05 THP 370 ·
+  d2-fmuh-zor-r2/kp-01 vergi öncesi · t1-mta-kolay/kp-27 D 24,15.
+- Ayrıca site 06.10 yeni 6 kart: 5 onarıldı (h4).
+
+## Ölçüm (yayın 37540270299 sonrası)
+`VITRIN-KALITE: ücretsiz 739 · dışlanan 5 · vitrinde 734` · `tabloya yazıldı 5/5 (vitrine dönen 5)` — dışlanan 5'in hiçbiri SGS değil.
+Yeniden hakemdeki SGS: 25 soru (v0610 11 · v0610b 6 · v0710 8), toplam tavan 2,5 USD, hepsi Cem onaylı. sgs-elle-ret 59.
