@@ -1,504 +1,508 @@
 {
- "_not": "05.10.2026 Cem '1 yap' (vitrinden 50 soruluk elle okuma). Elle okumada KUSURLU / ANAHTAR-ŞÜPHELİ çıkan ücretsiz sorular. arac/vitrin-aciklama-kalite.js bu listeyi her koşuda dışlama tablosuna EKLER (kapı tablosu baştan yazılınca silinmesinler). Soru onarılınca buradan elle çıkarılır (gerekçeyle). Yalnız kimlik + kısa neden; soru metni YOK (depo public). · 06.10: OKUNMADI-0610 satırları geçici; kart elle okununca TEMİZ olanlar listeden çıkar, KUSURLU olanların nedeni yazılır.",
- "olcum": "2026-10-06",
- "ret": [
-  {
-   "id": "sgs-c5-ticaret-kolay-r1/kp-06",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: Soru kökü: GVK 37'ye göre kollektif şirket ortağının kâr payı şahsi ticari kazançtır, bu yüzden ölçüt 7/1 (C) olabilir. GVK 7/2 cevabı tartışmalı."
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-cokzor/kp-19",
-   "neden": "ELLE-KUSURLU: dogru_sik/dogru_aciklama: Sümerbank'a \"cam\" fabrikası; Paşabahçe Şişe-Cam İş Bankası'nca kuruldu (muhtemel olgu hatası, teyit önerilir)."
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-zor/kp-03",
-   "neden": "ELLE-KUSURLU: tuzak_metin E yanlış: 1926 Medeni Kanunu'nda evlenme yaşı erkek 18/kadın 17'ydi, eşitlik yoktu; E de gerçekleşmemiş, iki doğru şık var."
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-zor/kp-16",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: \"Hangi ilkenin dış politikaya yansıması\": standart cevap Milliyetçilik (E), kolay/kp-16 da öyle öğretiyor; \"Bağımsızlık\" altı ilkeden değil. B/E tuzakları sorud"
-  },
-  {
-   "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
-   "neden": "ELLE-KUSURLU: D tuzak_metin: \"Payda SMM yerine net satışlar\" yanlış; değiştirilen paydır (495.000/45.000). Pay/payda karışıklığı öğretiyor."
-  },
-  {
-   "id": "smmm-4k-a-ymeslek-zor-r3/kp-03",
-   "neden": "ELLE-KUSURLU: D tuzak_metin ters kurgu: tasdik zaten YMM'ye özgü; \"yalnız SMMM'yi ilgilendirir\" yanılgısı anlamsız ve yanıltıcı."
-  },
-  {
-   "id": "smmm-4k-a-yvergi-zor-r8/kp-01",
-   "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", tuzak_metin \"Kural:/Hesap:\" istem kalıntısı. Hesap 205.400 doğru."
-  },
-  {
-   "id": "smmm-ab2-a-maliyet/kp-02",
-   "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", metinde \"Kural:/Hesap:/Eksik Gider Tuzağı:\" kalıntısı; dayanakta tekrar. Hesap 1.755.800 doğru."
-  },
-  {
-   "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
-   "neden": "ELLE-KUSURLU: Anahtar B doğru. C tuzağı \"Dikkat Çekilen Hususlar başlığı kaldırılmıştır\" diyor; yanlış, BDS 706'da duruyor. Dayanakta paragraf numarası yok."
-  },
-  {
-   "id": "smmm-w3-yspk-zor/kp-01",
-   "neden": "ELLE-KUSURLU: m.35 kitle fonlamayı saymaz (35/A başlığı metne sızmış), E de doğru cevap; E tuzağı yanlış. Kuralda \"ıntıncı\"; A tuzak adı yer tutucu."
-  },
-  {
-   "id": "sgs-e16-turkce-zor/kp-02",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: 'ama' ve 'çünkü'den önce noktalı virgül zorunlu değil (virgül de kullanılır), D/E de savunulabilir; ayrıca nokta konan yerden sonra 'sınıf' küçük harfle başlıyor; A tuzağının adı ('İkinci Sesbilgisi Tuzağı') anlamsız. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k12c-turkce-cokzor/kp-01",
-   "neden": "ELLE-KUSURLU: dogru_aciklama \"E şıkkında 'Ocak ayında' yazılmalıdır\" diyor; büyük harfli yanlış yazımı doğru gibi gösteriyor (doğrusu küçük 'ocak ayında'; kural alanı doğru). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-genel-turkce-cokzor/kp-05",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: cümledeki 'giderken' (git+erken, t>d) ünsüz yumuşaması içeriyor; beş olayın beşi de cümlede var, anahtar E (ünsüz yumuşaması yok) yanlış, doğru şık yok. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k10-yd-kolay/kp-02",
-   "neden": "ELLE-KUSURLU: açıklama ve A/C tuzakları 'kar' (snow) yerine 'kâr' (profit) yazıyor: 'Kâr yoğun şekilde rayları kapattı', 'kâr yağışı'; anlatım anlamsızlaşıyor. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-genel-yd-cokzor/kp-04",
-   "neden": "ELLE-KUSURLU: kural alanı boş, tuzak alanı tamamen yok (yanlış şık seçen adaya anlatım çıkmaz); dayanak Türkçe karaktersiz. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-genel-yd-cokzor/kp-05",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş); ayrıca kök cümlenin mantığı bozuk (bölge boşaltıldığı için depremin olamayacağı sonucu anlamsız). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t2-fmuh-zor/kp-21",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: IAESB 2019'da kaldırılıp danışma paneline dönüştürüldü; D şıkkı ('IAESB ... standartları belirler') da güncel olarak yanlış sayılabilir, D tuzağı bu durumu ters öğretiyor; dayanakta 'ambar metni' iç notu var. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-maliyet-kolay/kp-07",
-   "neden": "ELLE-KUSURLU: kural standart maliyet yönteminde yüklenen GÜG'ü 'fiili faaliyet hacmi x standart oran' diye öğretiyor (standart maliyette standart saat esastır); B/D/dayanakta 'GÜG' kısaltması bozuk değiştirilmiş ('genel üretim gideri'den', 'Genel Üretim Gideri (genel üretim (06.10 okuma)"
-  },
-  {
-   "id": "sgs-c2-mta-kolay-r2/kp-02",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-mta-zor/kp-03",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş); dayanak Türkçe karaktersiz ('hizindan', 'gecis'). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t2b-mta-zor/kp-15",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-denetim-kolay/kp-09",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-p-denetim-kolay-r3/kp-03",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: 'olumlu/olumsuz sapma' yönü denetim standardında tanımlı değil, keyfi; 4.56'da kayıtlı>beklenen 'olumlu' sayılırken burada defter>sayım 'olumsuz' sayılıyor (B/A ikisi de savunulabilir); dayanak 'BDS 600 p.A135' şüpheli. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-c2-denetim-zor-r1/kp-03",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk); tuzak C'de 'p.4(a)(ııı)' yazım bozukluğu. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-a6-denetim-cokzor-r1/kp-03",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: sapmanın 'olumlu/olumsuz' yönü BDS 520'de tanımlı değil; kayıtlı>beklenen 'olumlu' sayılıyor, 4.39'daki konvansiyonla çelişiyor, D/E ikisi de savunulabilir; B/C tuzakları soruda olmayan 'yanlış okuma' uyduruyor. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-denetim-cokzor/kp-04",
-   "neden": "ELLE-KUSURLU: tuzak D: var olmayan 'şartlı olumsuz görüş' türünü 'yanlış beyanın önemli fakat yaygın olmadığı hâllere aittir' diye gerçek bir görüş türüymüş gibi anlatıyor (o hâl şartlı olumlu görüştür). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k5-ekonomi-kolay/kp-01",
-   "neden": "ELLE-KUSURLU: dogru_aciklama: dikey LM'de 'özel yatırım azalmadığı için dışlama olmaz, maliye politikası etkisiz kalır' diyor — yanlış ve kurala aykırı; dikey LM'de TAM dışlama vardır. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-p-ekonomi-kolay-r1-a/kp-04",
-   "neden": "ELLE-KUSURLU: tuzak C: 'Doğrusu' cümlesi 'vazgeçilen mal her zaman paydaki değildir' diyerek kuralı ters/anlamsız veriyor (vazgeçilen mal her zaman paydır, pay). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-genel-ekonomi-zor/kp-03",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk); dayanak 'TESMER Ekonomi Öğreti Notu' atfı şüpheli. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k12-ekonomi-cokzor/kp-01",
-   "neden": "ELLE-KUSURLU: dogru_aciklama: hesap hatası — 'Tüketim 160 + 900 = 1.870' yanlış (160 + 0,8×2.137,5 = 160 + 1.710); ayrıca 'harcanabilir gelir 112,5 olur' artışı tutar gibi yazıyor. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t4-maliye-zor/kp-06",
-   "neden": "ELLE-KUSURLU: dogru_aciklama: esnek olmayan talebi 'malın talebine az sayıda insan ihtiyaç duyuyorsa' diye tanımlıyor — yanlış tanım (inelastiklik fiyat duyarsızlığıdır, alıcı sayısı değil). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-a6-maliye-cokzor-r1/kp-01",
-   "neden": "ELLE-KUSURLU: tuzak A: 'tüm gelir-giderin bütçede yer alması' tanımını 'genellik ilkesi' diye adlandırıyor; Türk maliye literatüründe bu bütünlük ilkesidir, genellik ilkesi ise gayrisafiliğin kendisidir; tuzak D'de 'aynı paragrafta anlatılmıştır' iç kaynak kalıntısı. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-c5-meslek-kolay-r1/kp-01",
-   "neden": "ELLE-KUSURLU: dogru_aciklama/kural: 'çalışma ortaklık veya iş sözleşmesiyle sınırlandırılmıştır' diyerek meslekten yasaklılarla ortaklık/iş sözleşmesiyle çalışılabileceği izlenimi veriyor (yasak mutlak); tuzak A adı yalnız '[Tuzak]' ve metni bozuk ('elemeyi unutan öğrenci v (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k2-meslek-zor/kp-07",
-   "neden": "ELLE-KUSURLU: tuzak D: 'Oda yönetim kurulu kararlarına karşı itiraz mercii Birlik Disiplin Kuruludur' diyor; şık disiplin kurulu kararlarından söz ediyor, ifade organı karıştırıyor ve yanlış bilgi veriyor. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-meslek-zor/kp-24",
-   "neden": "ELLE-KUSURLU: tuzak D: 'üç yıllık dönemde birden fazla suç olmadıkça ve savunma alınmadıkça doğrudan meslekten çıkarma uygulanmaz' diyerek koşullar oluşunca meslekten çıkarmanın uygulanacağı izlenimi veriyor; tekrar hâlinde kanun yalnız bir derece ağır ceza takdiri tanır. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-a6-issgk-cokzor-r1/kp-04",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t4-vergi-kolay/kp-18",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t4-vergi-zor/kp-02",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t2-vergi-cokzor/kp-05",
-   "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t5-ticaret-zor/kp-03",
-   "neden": "ELLE-KUSURLU: dogru_aciklama: imha istemini 'sadece rakipler ve meslek birlikleri gibi kurumlar kullanabilir' diyor; TTK m.56/3'e göre odalar/birlikler yalnız (a)-(c) davalarını açabilir, imha isteyemez — kural alanıyla da çelişiyor. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-c2-borclar-kolay-r1/kp-01",
-   "neden": "ELLE-KUSURLU: kural alanına tuzak metni sızmış ('Sınırsız Gider Tuzağı: öğrenci ... sanır'); dört tuzağın adı yalnız '[Tuzak]' ve metinler 'Kural:' kalıbıyla başlıyor — alanlar bozuk. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-t1-borclar-kolay/kp-11",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: TBK m.8/2'ye göre tarife ve fiyat listesi gönderilmesi öneri SAYILMAZ (istisnasız); C şıkkı da doğru olur. Kural ve tuzak C bunu 'aksi anlaşılmadıkça öneri sayılır' diye yanlış öğretiyor; açıklama da 'davet sayılır ve satıcıyı bağlar' diyerek kendi içinde çeli (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k2-borclar-zor/kp-05",
-   "neden": "ELLE-KUSURLU: dogru_aciklama: bedelin 'alıcı Burak'ın yerleşim yeri Ankara'da' ödeneceğini söylüyor — yanlış ve anahtarla çelişiyor; para borcu alacaklı (satıcı Ali) yerinde, yani Antalya'da ödenir. (06.10 okuma)"
-  },
-  {
-   "id": "sgs-k2-borclar-cokzor/kp-02",
-   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: şüpheli: TBK m.117/2 metni sebepsiz zenginleşmede temerrüdün zenginleşmenin gerçekleştiği tarihte (bildirimsiz) doğduğunu söyler; dayanaktaki 'iyiniyetli zenginleşende bildirim şarttır' istisnası doğrulanamadı — istisna yoksa doğru cevap C olur. Madde metniyle (06.10 okuma)"
-  }
- ],
- "_cikarilan": [
-  {
-   "id": "sgs-c5-ekonomi-kolay-r1/kp-10",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-borclar-zor-r2/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-denetim-zor-r2/kp-02",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d4-yd-cokzor-r2/kp-07",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d3-ticaret-cokzor-r2/kp-04",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-kolay/kp-05",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d3-ticaret-cokzor-r1/kp-07",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-maliye-zor/kp-21",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-a6e-meslek-cokzor/kp-05",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-a6e-meslek-cokzor/kp-14",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-a6e-meslek-cokzor/kp-17",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-a6e-meslek-cokzor/kp-18",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-a6e-meslek-cokzor/kp-21",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-bc-maliyet-zor-r2/kp-01",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-denetim-kolay-r1/kp-13",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-denetim-kolay-r2/kp-09",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-fmuh-kolay-r1/kp-23",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-fmuh-zor-r1-2/kp-02",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-issgk-cokzor-r1/kp-04",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-issgk-cokzor-r1/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c2-maliyet-zor-r1/kp-05",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-borclar-kolay-r3/kp-02",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-borclar-zor-r2/kp-05",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-denetim-cokzor-r1/kp-07",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-denetim-kolay-r1/kp-10",
-   "tarih": "2026-10-06",
-   "gerekce": "okuma notu yanlış: ambar BDS 200 p.22 → A79-A80, p.A80 içeriği kayıtla aynı"
-  },
-  {
-   "id": "sgs-c5-denetim-zor-r1-2/kp-04",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-ekonomi-kolay-r1/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-ekonomi-zor-r1/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-fmuh-cokzor-r1-2/kp-14",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-fmuh-cokzor-r1-3/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-fmuh-kolay-r1-2/kp-10",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-fmuh-zor-r1-2/kp-03",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-fmuh-zor-r1-2/kp-07",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-fmuh-zor-r1-2/kp-09",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliye-cokzor-r1/kp-10",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliye-kolay-r1/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliye-zor-r1/kp-10",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliye-zor-r2/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliyet-kolay-r1/kp-14",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliyet-kolay-r2/kp-16",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliyet-zor-r1/kp-16",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-maliyet-zor-r2/kp-03",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-meslek-kolay-r2/kp-02",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-mta-cokzor-r1/kp-04",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-mta-cokzor-r1/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-mta-cokzor-r2/kp-07",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-vergi-cokzor-r2/kp-08",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-c5-vergi-kolay-r1/kp-14",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d2-ticaret-zor-r1/kp-08",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d4-inkilap-cokzor-r1/kp-01",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d4-turkce-kolay-r1/kp-09",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d4-turkce-kolay-r3/kp-03",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d5-borclar-kolay-r1/kp-04",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d5-borclar-kolay-r2/kp-02",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-d5-ticaret-cokzor-r2/kp-07",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-e16-turkce-kolay/kp-10",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-k13-mat-zor/kp-01",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-k2-borclar-cokzor/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-k5-borclar-cokzor/kp-03",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-cokzor/kp-09",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-zor/kp-21",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-inkilap-zor/kp-25",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-maliye-kolay/kp-06",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  },
-  {
-   "id": "sgs-t1-genel-maliye-zor/kp-08",
-   "tarih": "2026-10-06",
-   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-  }
- ]
+  "_not": "05.10.2026 Cem '1 yap' (vitrinden 50 soruluk elle okuma). Elle okumada KUSURLU / ANAHTAR-ŞÜPHELİ çıkan ücretsiz sorular. arac/vitrin-aciklama-kalite.js bu listeyi her koşuda dışlama tablosuna EKLER (kapı tablosu baştan yazılınca silinmesinler). Soru onarılınca buradan elle çıkarılır (gerekçeyle). Yalnız kimlik + kısa neden; soru metni YOK (depo public). · 06.10: OKUNMADI-0610 satırları geçici; kart elle okununca TEMİZ olanlar listeden çıkar, KUSURLU olanların nedeni yazılır.",
+  "olcum": "2026-10-06",
+  "ret": [
+    {
+      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+      "neden": "ELLE-KUSURLU: D tuzak_metin: \"Payda SMM yerine net satışlar\" yanlış; değiştirilen paydır (495.000/45.000). Pay/payda karışıklığı öğretiyor."
+    },
+    {
+      "id": "smmm-4k-a-ymeslek-zor-r3/kp-03",
+      "neden": "ELLE-KUSURLU: D tuzak_metin ters kurgu: tasdik zaten YMM'ye özgü; \"yalnız SMMM'yi ilgilendirir\" yanılgısı anlamsız ve yanıltıcı."
+    },
+    {
+      "id": "smmm-4k-a-yvergi-zor-r8/kp-01",
+      "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", tuzak_metin \"Kural:/Hesap:\" istem kalıntısı. Hesap 205.400 doğru."
+    },
+    {
+      "id": "smmm-ab2-a-maliyet/kp-02",
+      "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", metinde \"Kural:/Hesap:/Eksik Gider Tuzağı:\" kalıntısı; dayanakta tekrar. Hesap 1.755.800 doğru."
+    },
+    {
+      "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
+      "neden": "ELLE-KUSURLU: Anahtar B doğru. C tuzağı \"Dikkat Çekilen Hususlar başlığı kaldırılmıştır\" diyor; yanlış, BDS 706'da duruyor. Dayanakta paragraf numarası yok."
+    },
+    {
+      "id": "smmm-w3-yspk-zor/kp-01",
+      "neden": "ELLE-KUSURLU: m.35 kitle fonlamayı saymaz (35/A başlığı metne sızmış), E de doğru cevap; E tuzağı yanlış. Kuralda \"ıntıncı\"; A tuzak adı yer tutucu."
+    },
+    {
+      "id": "sgs-e16-turkce-zor/kp-02",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: 'ama' ve 'çünkü'den önce noktalı virgül zorunlu değil (virgül de kullanılır), D/E de savunulabilir; ayrıca nokta konan yerden sonra 'sınıf' küçük harfle başlıyor; A tuzağının adı ('İkinci Sesbilgisi Tuzağı') anlamsız. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k12c-turkce-cokzor/kp-01",
+      "neden": "ELLE-KUSURLU: dogru_aciklama \"E şıkkında 'Ocak ayında' yazılmalıdır\" diyor; büyük harfli yanlış yazımı doğru gibi gösteriyor (doğrusu küçük 'ocak ayında'; kural alanı doğru). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-genel-turkce-cokzor/kp-05",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: cümledeki 'giderken' (git+erken, t>d) ünsüz yumuşaması içeriyor; beş olayın beşi de cümlede var, anahtar E (ünsüz yumuşaması yok) yanlış, doğru şık yok. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k10-yd-kolay/kp-02",
+      "neden": "ELLE-KUSURLU: açıklama ve A/C tuzakları 'kar' (snow) yerine 'kâr' (profit) yazıyor: 'Kâr yoğun şekilde rayları kapattı', 'kâr yağışı'; anlatım anlamsızlaşıyor. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-genel-yd-cokzor/kp-04",
+      "neden": "ELLE-KUSURLU: kural alanı boş, tuzak alanı tamamen yok (yanlış şık seçen adaya anlatım çıkmaz); dayanak Türkçe karaktersiz. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-genel-yd-cokzor/kp-05",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş); ayrıca kök cümlenin mantığı bozuk (bölge boşaltıldığı için depremin olamayacağı sonucu anlamsız). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t2-fmuh-zor/kp-21",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: IAESB 2019'da kaldırılıp danışma paneline dönüştürüldü; D şıkkı ('IAESB ... standartları belirler') da güncel olarak yanlış sayılabilir, D tuzağı bu durumu ters öğretiyor; dayanakta 'ambar metni' iç notu var. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-maliyet-kolay/kp-07",
+      "neden": "ELLE-KUSURLU: kural standart maliyet yönteminde yüklenen GÜG'ü 'fiili faaliyet hacmi x standart oran' diye öğretiyor (standart maliyette standart saat esastır); B/D/dayanakta 'GÜG' kısaltması bozuk değiştirilmiş ('genel üretim gideri'den', 'Genel Üretim Gideri (genel üretim (06.10 okuma)"
+    },
+    {
+      "id": "sgs-c2-mta-kolay-r2/kp-02",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-mta-zor/kp-03",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş); dayanak Türkçe karaktersiz ('hizindan', 'gecis'). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t2b-mta-zor/kp-15",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-denetim-kolay/kp-09",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-p-denetim-kolay-r3/kp-03",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: 'olumlu/olumsuz sapma' yönü denetim standardında tanımlı değil, keyfi; 4.56'da kayıtlı>beklenen 'olumlu' sayılırken burada defter>sayım 'olumsuz' sayılıyor (B/A ikisi de savunulabilir); dayanak 'BDS 600 p.A135' şüpheli. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-c2-denetim-zor-r1/kp-03",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk); tuzak C'de 'p.4(a)(ııı)' yazım bozukluğu. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-a6-denetim-cokzor-r1/kp-03",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: sapmanın 'olumlu/olumsuz' yönü BDS 520'de tanımlı değil; kayıtlı>beklenen 'olumlu' sayılıyor, 4.39'daki konvansiyonla çelişiyor, D/E ikisi de savunulabilir; B/C tuzakları soruda olmayan 'yanlış okuma' uyduruyor. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-denetim-cokzor/kp-04",
+      "neden": "ELLE-KUSURLU: tuzak D: var olmayan 'şartlı olumsuz görüş' türünü 'yanlış beyanın önemli fakat yaygın olmadığı hâllere aittir' diye gerçek bir görüş türüymüş gibi anlatıyor (o hâl şartlı olumlu görüştür). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k5-ekonomi-kolay/kp-01",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: dikey LM'de 'özel yatırım azalmadığı için dışlama olmaz, maliye politikası etkisiz kalır' diyor — yanlış ve kurala aykırı; dikey LM'de TAM dışlama vardır. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-p-ekonomi-kolay-r1-a/kp-04",
+      "neden": "ELLE-KUSURLU: tuzak C: 'Doğrusu' cümlesi 'vazgeçilen mal her zaman paydaki değildir' diyerek kuralı ters/anlamsız veriyor (vazgeçilen mal her zaman paydır, pay). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-genel-ekonomi-zor/kp-03",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk); dayanak 'TESMER Ekonomi Öğreti Notu' atfı şüpheli. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k12-ekonomi-cokzor/kp-01",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: hesap hatası — 'Tüketim 160 + 900 = 1.870' yanlış (160 + 0,8×2.137,5 = 160 + 1.710); ayrıca 'harcanabilir gelir 112,5 olur' artışı tutar gibi yazıyor. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t4-maliye-zor/kp-06",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: esnek olmayan talebi 'malın talebine az sayıda insan ihtiyaç duyuyorsa' diye tanımlıyor — yanlış tanım (inelastiklik fiyat duyarsızlığıdır, alıcı sayısı değil). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-a6-maliye-cokzor-r1/kp-01",
+      "neden": "ELLE-KUSURLU: tuzak A: 'tüm gelir-giderin bütçede yer alması' tanımını 'genellik ilkesi' diye adlandırıyor; Türk maliye literatüründe bu bütünlük ilkesidir, genellik ilkesi ise gayrisafiliğin kendisidir; tuzak D'de 'aynı paragrafta anlatılmıştır' iç kaynak kalıntısı. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-c5-meslek-kolay-r1/kp-01",
+      "neden": "ELLE-KUSURLU: dogru_aciklama/kural: 'çalışma ortaklık veya iş sözleşmesiyle sınırlandırılmıştır' diyerek meslekten yasaklılarla ortaklık/iş sözleşmesiyle çalışılabileceği izlenimi veriyor (yasak mutlak); tuzak A adı yalnız '[Tuzak]' ve metni bozuk ('elemeyi unutan öğrenci v (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k2-meslek-zor/kp-07",
+      "neden": "ELLE-KUSURLU: tuzak D: 'Oda yönetim kurulu kararlarına karşı itiraz mercii Birlik Disiplin Kuruludur' diyor; şık disiplin kurulu kararlarından söz ediyor, ifade organı karıştırıyor ve yanlış bilgi veriyor. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-meslek-zor/kp-24",
+      "neden": "ELLE-KUSURLU: tuzak D: 'üç yıllık dönemde birden fazla suç olmadıkça ve savunma alınmadıkça doğrudan meslekten çıkarma uygulanmaz' diyerek koşullar oluşunca meslekten çıkarmanın uygulanacağı izlenimi veriyor; tekrar hâlinde kanun yalnız bir derece ağır ceza takdiri tanır. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-a6-issgk-cokzor-r1/kp-04",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t4-vergi-kolay/kp-18",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t4-vergi-zor/kp-02",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t2-vergi-cokzor/kp-05",
+      "neden": "ELLE-KUSURLU: dogru_aciklama alanı 'undefined' (boş/bozuk). (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t5-ticaret-zor/kp-03",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: imha istemini 'sadece rakipler ve meslek birlikleri gibi kurumlar kullanabilir' diyor; TTK m.56/3'e göre odalar/birlikler yalnız (a)-(c) davalarını açabilir, imha isteyemez — kural alanıyla da çelişiyor. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-c2-borclar-kolay-r1/kp-01",
+      "neden": "ELLE-KUSURLU: kural alanına tuzak metni sızmış ('Sınırsız Gider Tuzağı: öğrenci ... sanır'); dört tuzağın adı yalnız '[Tuzak]' ve metinler 'Kural:' kalıbıyla başlıyor — alanlar bozuk. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-t1-borclar-kolay/kp-11",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: TBK m.8/2'ye göre tarife ve fiyat listesi gönderilmesi öneri SAYILMAZ (istisnasız); C şıkkı da doğru olur. Kural ve tuzak C bunu 'aksi anlaşılmadıkça öneri sayılır' diye yanlış öğretiyor; açıklama da 'davet sayılır ve satıcıyı bağlar' diyerek kendi içinde çeli (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k2-borclar-zor/kp-05",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: bedelin 'alıcı Burak'ın yerleşim yeri Ankara'da' ödeneceğini söylüyor — yanlış ve anahtarla çelişiyor; para borcu alacaklı (satıcı Ali) yerinde, yani Antalya'da ödenir. (06.10 okuma)"
+    },
+    {
+      "id": "sgs-k2-borclar-cokzor/kp-02",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: şüpheli: TBK m.117/2 metni sebepsiz zenginleşmede temerrüdün zenginleşmenin gerçekleştiği tarihte (bildirimsiz) doğduğunu söyler; dayanaktaki 'iyiniyetli zenginleşende bildirim şarttır' istisnası doğrulanamadı — istisna yoksa doğru cevap C olur. Madde metniyle (06.10 okuma)"
+    }
+  ],
+  "_cikarilan": [
+    {
+      "id": "sgs-c5-ekonomi-kolay-r1/kp-10",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-borclar-zor-r2/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-denetim-zor-r2/kp-02",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d4-yd-cokzor-r2/kp-07",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d3-ticaret-cokzor-r2/kp-04",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-kolay/kp-05",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d3-ticaret-cokzor-r1/kp-07",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-maliye-zor/kp-21",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-05",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-14",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-17",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-18",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-21",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-bc-maliyet-zor-r2/kp-01",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-denetim-kolay-r1/kp-13",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-denetim-kolay-r2/kp-09",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-fmuh-kolay-r1/kp-23",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-fmuh-zor-r1-2/kp-02",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-issgk-cokzor-r1/kp-04",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-issgk-cokzor-r1/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c2-maliyet-zor-r1/kp-05",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-borclar-kolay-r3/kp-02",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-borclar-zor-r2/kp-05",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-denetim-cokzor-r1/kp-07",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-denetim-kolay-r1/kp-10",
+      "tarih": "2026-10-06",
+      "gerekce": "okuma notu yanlış: ambar BDS 200 p.22 → A79-A80, p.A80 içeriği kayıtla aynı"
+    },
+    {
+      "id": "sgs-c5-denetim-zor-r1-2/kp-04",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-ekonomi-kolay-r1/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-ekonomi-zor-r1/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-fmuh-cokzor-r1-2/kp-14",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-fmuh-cokzor-r1-3/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-fmuh-kolay-r1-2/kp-10",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-fmuh-zor-r1-2/kp-03",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-fmuh-zor-r1-2/kp-07",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-fmuh-zor-r1-2/kp-09",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliye-cokzor-r1/kp-10",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliye-kolay-r1/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliye-zor-r1/kp-10",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliye-zor-r2/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliyet-kolay-r1/kp-14",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliyet-kolay-r2/kp-16",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliyet-zor-r1/kp-16",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-maliyet-zor-r2/kp-03",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-meslek-kolay-r2/kp-02",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-mta-cokzor-r1/kp-04",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-mta-cokzor-r1/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-mta-cokzor-r2/kp-07",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-vergi-cokzor-r2/kp-08",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-vergi-kolay-r1/kp-14",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d2-ticaret-zor-r1/kp-08",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d4-inkilap-cokzor-r1/kp-01",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d4-turkce-kolay-r1/kp-09",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d4-turkce-kolay-r3/kp-03",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d5-borclar-kolay-r1/kp-04",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d5-borclar-kolay-r2/kp-02",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-d5-ticaret-cokzor-r2/kp-07",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-e16-turkce-kolay/kp-10",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-k13-mat-zor/kp-01",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-k2-borclar-cokzor/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-k5-borclar-cokzor/kp-03",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-cokzor/kp-09",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-21",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-25",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-maliye-kolay/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-t1-genel-maliye-zor/kp-08",
+      "tarih": "2026-10-06",
+      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+    },
+    {
+      "id": "sgs-c5-ticaret-kolay-r1/kp-06",
+      "tarih": "2026-10-06",
+      "gerekce": "Cem onayıyla anahtar/şık/kök düzeltildi (resmî kaynak: GVK m.52 · 743 s.K. m.88 · Paşabahçe tarihçe · MEB İTA.8.6.1); veri/sinav/sgs-elle-ret.json'da yeniden hakeme kadar yayın dışı (plan-sgs-v0610-onarim-hakem). Hakem EVET → onarılmış hâliyle döner."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-cokzor/kp-19",
+      "tarih": "2026-10-06",
+      "gerekce": "Cem onayıyla anahtar/şık/kök düzeltildi (resmî kaynak: GVK m.52 · 743 s.K. m.88 · Paşabahçe tarihçe · MEB İTA.8.6.1); veri/sinav/sgs-elle-ret.json'da yeniden hakeme kadar yayın dışı (plan-sgs-v0610-onarim-hakem). Hakem EVET → onarılmış hâliyle döner."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-03",
+      "tarih": "2026-10-06",
+      "gerekce": "Cem onayıyla anahtar/şık/kök düzeltildi (resmî kaynak: GVK m.52 · 743 s.K. m.88 · Paşabahçe tarihçe · MEB İTA.8.6.1); veri/sinav/sgs-elle-ret.json'da yeniden hakeme kadar yayın dışı (plan-sgs-v0610-onarim-hakem). Hakem EVET → onarılmış hâliyle döner."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-16",
+      "tarih": "2026-10-06",
+      "gerekce": "Cem onayıyla anahtar/şık/kök düzeltildi (resmî kaynak: GVK m.52 · 743 s.K. m.88 · Paşabahçe tarihçe · MEB İTA.8.6.1); veri/sinav/sgs-elle-ret.json'da yeniden hakeme kadar yayın dışı (plan-sgs-v0610-onarim-hakem). Hakem EVET → onarılmış hâliyle döner."
+    }
+  ]
 }
