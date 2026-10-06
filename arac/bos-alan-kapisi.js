@@ -60,6 +60,17 @@ function tuzakAdiKalinti(k) {
   return out;
 }
 
+// 06.10 BOS-KALIP 'dogru-tuzak' (Cem "1.2.3"; t427 ölçümü): OLUMLU köklü soruda DOĞRU şıkkın açıklaması "<X> Tuzağı:" ile başlıyor →
+//   doğru cevabın kartı bir hatayı anlatıyor (ölçüldü: SMMM 16, SGS 12 soru; örnek maliyet-kolay-r7/kp-18 "10 saati iki kez çıkarıp").
+//   🚫 GÖRMEZ (bilerek): olumsuz kök ("hangisi yanlıştır/değildir/aykırıdır") — orada doğru cevap yanlış ifadedir ve tuzak etiketi o
+//   ifadedeki yanılgıyı adlandırır (SMMM 59, SGS 51; kafa karıştırıcı ama yanlış değil).
+const OLUMSUZ_KOK = /yanl[ıi][sş]t[ıi]r|de[gğ]ildir|say[ıi]lmam|yer almaz|ayk[ıi]r[ıi]d[ıi]r|hangisi.*(de[gğ]il|yoktur)/i;
+function dogruTuzak(k) {
+  if (MUT === 'dogru-tuzak' || !k || !k.aciklama || typeof k.aciklama !== 'object' || OLUMSUZ_KOK.test(String(k.soru || ''))) return null;
+  const v = k.aciklama[k.dogru]; if (typeof v !== 'string') return null;
+  return /^[^:]{3,60}?Tuza[gğ][iı]\s*:/.test(v.trim()) ? 'aciklama.' + k.dogru : null;
+}
+
 function gez(v, yol, out) {
   if (v == null) return out;
   if (typeof v === 'string') { out.push([yol, v]); return out; }
@@ -99,6 +110,7 @@ function kusurlar(k) {
     }
   }
   for (const yol of tuzakAdiKalinti(k)) if (!out.some(b => b.alan === yol && b.tur === 'BOS-KALIP')) ekle('BOS-KALIP', yol, 'üretim kalıntısı kalıp: tuzak-adi (yanlış şık açıklaması çözüm kalıbıyla başlıyor)');
+  { const dt = dogruTuzak(k); if (dt) ekle('BOS-KALIP', dt, 'üretim kalıntısı kalıp: dogru-tuzak (olumlu kökte doğru şıkkın açıklaması tuzak etiketli)'); }
   return out;
 }
 
@@ -151,6 +163,8 @@ function sinav() {
     ['yanlış şık "Ne soruluyor: …" ile başlıyor → KALIP', k => { k.aciklama.A = 'Ne soruluyor: dönem kârı. Kural: götürü gider. Doğrusu: 120.000.'; return k; }, 'BOS-KALIP'],
     ['yanlış şık "Kural: …" ile başlıyor → KALIP', k => { k.aciklama.B = 'Kural: m.40 gereği %70 indirilir.'; return k; }, 'BOS-KALIP'],
     ['yanlış şık tuzak adsız "Doğrusu: …" ile başlıyor → KALIP (06.10 kararı: yanlış şık "<Ad> Tuzağı:" ile başlar)', k => { k.aciklama.D = 'Doğrusu: dürüstlük değerlendirmesi kabul safhasında yapılır.'; return k; }, 'BOS-KALIP'],
+    ['olumlu kökte DOĞRU şık "Çift Düşürme Tuzağı: …" → KALIP', k => { k.aciklama.C = 'Çift Düşürme Tuzağı: 10 saati iki kez çıkardın.'; return k; }, 'BOS-KALIP'],
+    ['meşru: olumsuz kökte ("hangisi yanlıştır") doğru şık tuzak etiketli → temiz', k => { k.soru = 'Aşağıdakilerden hangisi yanlıştır?'; k.aciklama.C = 'Sabitlik Tuzağı: önemlilik düzeyi değişmez sanılır; BDS 320 gereği güncellenir.'; return k; }, null],
     ['meşru: "Kural Tuzağı: …" → temiz', k => { k.aciklama.D = 'Kural Tuzağı: kuralı ters uyguladın.'; return k; }, null],
     ['meşru: "Hesap Seçimi Tuzağı: …" → temiz', k => { k.aciklama.E = 'Hesap Seçimi Tuzağı: 191 yerine 391 seçtin.'; return k; }, null],
   ];
@@ -167,7 +181,7 @@ if (require.main === module) {
     if (process.argv.includes('--mutasyon')) {
       // 03.10: önce bozulmamış öz-sınav (eskiden --mutasyon yalnız bozmaları koşuyordu; YEŞİL olmayan sınav da "9/9 KIRMIZI" verebilirdi)
       if (!sinav()) { console.log('MUTASYON koşulmadı: bozulmamış öz-sınav zaten KIRMIZI'); process.exit(1); }
-      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize', 'kalip', 'p-etiket-genis', 'tuzak-adi']; let tutan = 0;
+      const { spawnSync } = require('child_process'); const ler = ['anahtar', 'acik', 'kalinti', 'icinde', 'x-yok', 'x-sik', 'bos-dize', 'kalip', 'p-etiket-genis', 'tuzak-adi', 'dogru-tuzak']; let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, BOS_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' → KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
     }

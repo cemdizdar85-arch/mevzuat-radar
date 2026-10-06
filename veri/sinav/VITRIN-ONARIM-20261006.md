@@ -31,3 +31,36 @@ Bulutta koşan SGS partisi teslim anında yoktu (`bulut-kosan-etiketler.ps1 -Kat
 ## Not
 06.10 10:29'dan sonra tabloya başka oturumun elle okumasından (e59690f3) 76 yeni SGS kaydı girdi (ELLE-KUSURLU, KART-ICNOT/KALINTI/BOSAD); bu işin kapsamında değildi.
 06.10 ölçüm satırı: `VITRIN-KALITE: ücretsiz 750 · dışlanan 93 · vitrinde 657`.
+
+---
+# İKİNCİ TUR (06.10 öğleden sonra, Cem "1.2.3 üçünde yap")
+
+## GM1 — tabloya elle okumayla giren 76 SGS kaydı
+| | Sayı |
+|---|---|
+| Listede (vitrin-elle-ret + yeni kart kuralları, ilk 39 dışı) | 76 |
+| Onarılan (ambara yazıldı, geri okuma 80/80 — 71'i bu 76'dan + ilk turdaki 8'inde dayanak iç notu + 1 yeni kapının bulduğu kayma) | 71 |
+| Okuma notu yanlış, kayıt doğru (listeden çıktı) | 1 — sgs-c5-denetim-kolay-r1/kp-10 (BDS 200 p.22 → A79-A80; p.A80 içerik aynı) |
+| Hâlâ dışlanan — Cem kararı | 4 |
+
+Anahtar / kök / şık değişen: **0**. Elle okuma notlarının bir kısmı resmî kaynağa göre YANLIŞ çıktı ve o kısım değiştirilmedi
+(ör. 5018 m.2 "76 ve 78" doğru; Mudanya'yı Yunanistan adına İngiltere imzaladı; TBK m.80 atıfları doğru; BDS 500 A31/A35 güncel numaralama).
+`arac/vitrin-elle-ret.json` 74 → 10 (çıkan 64'ün gerekçesi dosyada `_cikarilan`).
+
+**Cem kararı bekleyen 4 (yayında, vitrin dışı):**
+- sgs-c5-ticaret-kolay-r1/kp-06 — CEVAP-YANLIŞ adayı: GVK m.52 son fıkra (ambar okundu) zirai faaliyetli kollektif şirket ortağının kâr payını "şahsi ticari kazanç hükmünde" sayar → m.7/1 (ticari kazanç: işyeri/daimi temsilci) = C; anahtar A (m.7/2). C şıkkı "şirketin" diyor, kanun "kazanç sahibinin".
+- sgs-t1-genel-inkilap-zor/kp-16 — İKİ DOĞRU ŞIK adayı (C bağımsızlık / E milliyetçilik); ambarın iki teori notu iki ayrı şıkkı destekliyor, kolay/kp-16 Milliyetçilik öğretiyor.
+- sgs-t1-genel-inkilap-zor/kp-03 — 743 s. Medeni Kanun metni ambarda yok; "evlenme yaşı eşitliği" ambar notuna dayanıyor, sınanamadı.
+- sgs-t1-genel-inkilap-cokzor/kp-19 — Paşabahçe cam fabrikası: ambar teori notu Sümerbank'a yazıyor, elle okuma İş Bankası diyor; ambar notu sınanmalı.
+
+## GM2 — KAPI-ADIM köklü/kesirli/eksi değer (arac/adim-atif-kapisi.js, 8a57f7df)
+Öz-sınav 11/11 · mutasyon 3/3. Eşdeğerlik ambarın tamamı (2.499 parti, 11.575 soru): karar değişen 77; kasada YENİ2 yayın şartında yeni duran 0 / kalkan 0;
+vitrinde haksız dışlanan 3 döndü, 1 gerçek +1 kayma göründü (sgs-e16-mat-zor/kp-04, aynı turda onarıldı).
+
+## GM3 — kaydir-coz hesap sözlüğü (motor/kaydir-coz.ps1 471, 3c70143f)
+Muhasebe dışı derste şıktaki 3 haneli sonuç THP kodu sayılmaz. Eşdeğerlik kasanın tamamı (8.886): hesaplar değişen SGS 103 (Ekonomi 13 · Matematik 90), muhasebe 0, bitirme 0, KGK 0.
+sgs-c5-ekonomi-cokzor-r2/kp-08 vitrine döndü.
+
+## Son ölçüm (yayın 37442422294 sonrası; kasa yüklendi, yalnız depoya itme adımı çakışmayla düştü → 37504192157 yeniden)
+`VITRIN-KALITE: ücretsiz 745 · dışlanan 12 · vitrinde 733` · `tabloya yazıldı 12/12 (vitrine dönen 73)`
+Kalan SGS 7 = KAPI-BP yanlış alarm 3 (ilk turdan) + Cem kararı 4. SMMM 5 (sınav oturumunun).

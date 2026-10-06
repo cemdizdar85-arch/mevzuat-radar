@@ -10,13 +10,15 @@
 //  Başlık listesi: veri/sinav/bds-paragraf-basliklari.json (ambardan: node arac/bds-atif-kapisi.js --tazele; SUPABASE_SERVICE_KEY).
 //  🚫 GÖRMEZ: başlığı bilgi taşımayan paragraf ("BDS 315, 16 ncı paragraf", "Kapsam", "Giriş") — hüküm verilmez ·
 //     konusu cümlede adıyla geçmeyen yanlış atıf · aralık atfının ("A25–A31") iç paragrafları · BDS dışı standart (TMS/TFRS/ISA) ·
-//     başlık doğru ama paragraf içeriği iddiayı taşımıyor.
+//     başlık doğru ama paragraf içeriği iddiayı taşımıyor · (06.10)
+//     aynı cümlede başka BDS atfının yan cümlesindeki konu (bilerek: o konu öteki atfa aittir).
 //  Kullanım: node arac/bds-atif-kapisi.js --sinav | --tazele | --banka <sgs|smmm|kgk> [cikti.json]
 // ============================================================================
 'use strict';
 const fs = require('fs'), path = require('path');
 const KOK = path.resolve(__dirname, '..');
 const LISTE = path.join(KOK, 'veri', 'sinav', 'bds-paragraf-basliklari.json');
+const MUT = process.env.BP_MUTASYON || '';
 const MODEL = new Set(['hakem', 'hakem2', 'kor_cozum', 'simulasyon_sonnet', 'kaynak_metin_ozet', 'kaynak_adlar', 'capa_metin', 'capa_kaynak', 'atif_genisletme', 'mukerrer', 'aciklama_hakem']);
 // Başlıkta konu taşımayan kökler (her BDS'de geçer) — konu anahtarından çıkarılır
 const GENEL = new Set(['denet', 'kanit', 'prose', 'bilgi', 'genel', 'ilisk', 'uygul', 'gerek', 'bagim', 'hakki', 'kapsa', 'yurur', 'giris', 'tanim', 'amac', 'amaci', 'parag', 'nolu', 'bkz']);
@@ -68,18 +70,40 @@ function kusurlar(soru) {
       const cumle = koklar(t.slice(bas, son));
       const var_ = k => k.every(x => cumle.includes(x));
       if (var_(kp)) continue;                                                  // atfedilen konu cümlede → uyumlu
+      // 06.10 (Cem "1.2.3", SGS vitrin onarımı): aynı cümlede BAŞKA bir BDS atfı varsa onun yan cümlesi "başka konu" sayılmaz —
+      //   başka konu yalnız bu atfın parçasında aranır: önceki BDS anışından sonraki son virgülden (yoksa o anıştan) başlar, sonraki
+      //   BDS anışında biter. TEK YÖNLÜ: atfedilen konu yine tam cümlede aranır → yeni alarm doğmaz, yalnız yanlış alarm kalkar
+      //   (ilk sürüm parçada arayınca BDS 450 p.6(b) doğru atfına yeni alarm verdi — eşdeğerlikte yakalandı).
+      //   Ölçülen yanlış alarmlar: "BDS 550 p.5 … BDS 240 … hile risk değerlendirmesi" (240'ın konusu → 550 p.5), "BDS 550 p.12 …
+      //   BDS 315 ve BDS 240 uyarınca risk değerlendirme". BP_MUTASYON=bds-tek-cumle eski davranış.
+      let pBas = bas, pSon = son;
+      if (MUT !== 'bds-tek-cumle') {
+        // cümle başı "BDS 200 p.5" kısaltma noktasından sayıldıysa o atıf da görülsün diye pencere geri alınır (yalnız bu durumda)
+        const kisa = /BDS\s*\d{3}\b[^.;\n]{0,22}?\bp\.$/.test(t.slice(Math.max(0, bas - 40), bas));
+        const pb = kisa ? Math.max(0, bas - 40) : bas; const once = t.slice(pb, m.index); const oi = once.search(/BDS\s*\d{3}(?![\s\S]*BDS\s*\d{3})/);
+        if (oi >= 0) { const vir = once.lastIndexOf(','); pBas = Math.max(bas, pb + (vir > oi ? vir + 1 : oi)); }
+        const sonra = t.slice(m.index + m[0].length, son); const si = sonra.search(/BDS\s*\d{3}/);
+        if (si >= 0) pSon = m.index + m[0].length + si;
+      }
+      const parca = koklar(t.slice(pBas, pSon));
+      const parcada = k => k.every(x => parca.includes(x));
       // 30.09 ilk banka ölçümü: tüm standart başlıklarıyla kıyas 254 soru/807 bulgu verdi, çoğu genel başlık ("Temel Kavramlar",
       //   "rapor", "kaynak") → yalnız KOMŞU paragraflar (aynı tür A/ana metin, ±8 numara) kıyaslanır: numara kayması imzası budur.
       const tip = par[0] === 'A' ? 'A' : '', no = parseInt(par.replace('A', ''), 10);
       const komsu = Object.entries(S).filter(([p]) => (p[0] === 'A' ? 'A' : '') === tip && p !== par && Math.abs(parseInt(p.replace('A', ''), 10) - no) <= 8).map(([, b]) => b);
-      const baska = [...new Set(komsu.map(anahtar).filter(k => k.length && k.join() !== kp.join() && !k.every(x => kp.includes(x))).map(k => k.join(' ')))]
+      const baskaTam = [...new Set(komsu.map(anahtar).filter(k => k.length && k.join() !== kp.join() && !k.every(x => kp.includes(x))).map(k => k.join(' ')))]
         .filter(k => var_(k.split(' ')))
         .filter(k => k.includes(' ') || !TEKIL_GENEL.has(k));   // tek kökte genel sözcük ("rapor", "sorum") konu sayılmaz (30.09 banka ölçümü)
+      // 06.10: yalnız bu atfın parçasında geçen başka konu sayılır (yukarıdaki not). ⛔ "yeterli ve uygun" ortak kavram istisnası
+      //   DENENDİ VE GERİ ALINDI: eşdeğerlikte 3 GERÇEK kaymayı gizledi (yeterlilik/uygunluk ayrımı BDS 500 p.7'ye atfedilmiş;
+      //   ambar p.7 = ihtiyaca uygunluk ve güvenilirlik; c5-denetim-cokzor-r2/kp-07, d2-denetim-cokzor-r1/kp-13, d5-denetim-kolay-r1/kp-02).
+      const baska = baskaTam.filter(k => MUT === 'bds-tek-cumle' || parcada(k.split(' ')));
       if (!baska.length) continue;
       // 30.09 yargı (60 bulgu, resmî metinle): yanlış alarmların ~25/29'unda atfedilen paragrafın GÖVDESİ cümlenin konusunu taşıyordu
       //   (başlık blok başlığı: "Temel Kavramlar", "Mevzuatta Öngörülen Denetçi Raporu"). Gövde konuyu taşıyorsa ZAYIF (durdurmaz).
+      //   06.10: sınıf eski tam-cümle listesinin ilkiyle belirlenir (daraltma ZAYIF'ı KONU'ya çıkarmasın).
       const govde = (GOVDE[std] && GOVDE[std][par] || '').split(' ');
-      const zayif = baska[0].split(' ').every(x => govde.includes(x));
+      const zayif = baskaTam[0].split(' ').every(x => govde.includes(x));
       out.push({ tur: zayif ? 'BP-ZAYIF' : 'BP-KONU', std, par, alan, not: 'cümle "' + baska[0] + '" diyor; ' + par + ' = ' + S[par].slice(0, 50) });
     }
   }
@@ -134,6 +158,7 @@ function sinav() {
           '700': { '20': 'Denetçinin Görüşü', '21': 'Rapor' } };
   LST['500']['A12'] = 'Analitik İnceleme';   // A35'e 23 uzak: komşu değil
   LST['315'] = { '5': 'Temel Kavramlar', '8': 'Risk Değerlendirme Prosedürleri' };
+  LST['200'] = { '12': 'Denetçinin Genel Amaçları', '17': 'Yeterli ve Uygun Denetim Kanıtı ve Denetim Riski' };
   GOVDE = { '315': { '5': 'yapis risk kontr deger ayrı' } }; GOMULU = { '500': ['11'] };
   const V = [
     ['eski numara: güvenilirlik → A27 (Sorgulama)', { aciklama: { A: 'Dış kaynaklı kanıtın güvenilirliği BDS 500 A27 paragrafında düzenlenir.' } }, 'BP-KONU'],
@@ -155,6 +180,12 @@ function sinav() {
     ['arada başka BDS → doğru standarda bağlanır', { aciklama: { A: 'BDS 700 ve BDS 500 A35 güvenilirlik hükmü.' } }, null],
     ['arada başka BDS → ikinci atıf yine denetlenir', { aciklama: { A: 'BDS 700 ile BDS 500 A27 güvenilirlik hükmü.' } }, 'BP-KONU'],
     ['model alanı taranmaz', { hakem: { gerekce: 'güvenilirlik BDS 500 A27' } }, null],
+    // 06.10: başka BDS atfının yan cümlesi bu atfa yüklenmez (yeterli ve uygun istisnası YOK — gerçek kaymayı gizliyordu)
+    ['başka BDS\'nin yan cümlesindeki konu → temiz', { aciklama: { A: 'BDS 315 güvenilirlik değerlendirmesini ister, BDS 500 A27 da bunu destekler.' } }, null],
+    ['önceki atfın kısaltma noktası ("p.5") cümle sonu sayılmaz', { aciklama: { A: 'BDS 315 p.5 güvenilirlik ister, BDS 500 A27 da bunu destekler.' } }, null],
+    ['"yeterli ve uygun" komşu konusu yine yakalanır (200 p.12 ↔ p.17)', { aciklama: { A: 'Yeterli ve uygun kanıt yoksa BDS 200 p.12 uyarınca görüş verilmez.' } }, 'BP-KONU'],
+    ['önceki cümledeki BDS anışı bu cümleyi daraltmaz', { aciklama: { A: 'Bkz. BDS 315. Güvenilirlik, BDS 500 A27 paragrafında düzenlenir.' } }, 'BP-KONU'],
+    ['aynı parçadaki başka konu yine yakalanır', { aciklama: { A: 'BDS 315 risk ister, güvenilirlik BDS 500 A27 paragrafında düzenlenir.' } }, 'BP-KONU'],
   ];
   let ok = 0;
   for (const [ad, soru, bek] of V) {
@@ -168,7 +199,13 @@ function sinav() {
 module.exports = { kusurlar };
 if (require.main === module) {
   const [a, b, c] = process.argv.slice(2);
-  if (a === '--sinav') sinav();
+  if (a === '--sinav' && process.argv.includes('--mutasyon')) {   // 06.10: eski tek-cümle davranışına dönülürse sınav KIRMIZI olmalı
+    const r = require('child_process').spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, BP_MUTASYON: 'bds-tek-cumle' }, encoding: 'utf8' });
+    const kr = r.status !== 0; console.log('  mutasyon bds-tek-cumle ' + (kr ? 'KIRMIZI (doğru)' : 'YEŞİL (SINAV KÖR!)'));
+    const n = require('child_process').spawnSync(process.execPath, [__filename, '--sinav'], { encoding: 'utf8' });
+    console.log(n.stdout.trim().split('\n').pop()); process.exit(kr && n.status === 0 ? 0 : 1);
+  }
+  else if (a === '--sinav') sinav();
   else if (a === '--tazele') tazele();
   else if (a === '--banka') banka(b || 'sgs', c);
   else { console.log('--sinav | --tazele | --banka <sgs|smmm|kgk> [cikti.json]'); process.exit(2); }

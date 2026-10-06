@@ -1,0 +1,28 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/sabah-kontrol.yml
+# NEDEN VAR (06.10.2026, Cem "2 yap"): her sabah 08:00 TR siteyi, uc fonksiyonlari, yayin akislarini, tuzak adi kalintisini,
+# vitrin tablosunu ve canli Nobetci anlatimini olcer; sonucu (YESIL/SARI/KIRMIZI) Cem'e mail atar. Bilgisayara bagli degildir.
+# Betik: motor/sabah-kontrol.js (gunluge yalniz sayi; soru metni / kisi verisi / anahtar YOK). KIRMIZI'da akis da kirmizi biter.
+name: Sabah kontrolu (08:00 TR)
+on:
+  schedule:
+    - cron: "0 5 * * *"      # 08:00 TR
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  kontrol:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Olc ve mail at
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node motor/sabah-kontrol.js

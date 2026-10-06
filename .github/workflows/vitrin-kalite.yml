@@ -1,0 +1,39 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/vitrin-kalite.yml
+# NEDEN VAR (06.10.2026, Cem "2 yap" — "vitrin aracini GitHub'a tasi"):
+#   Seviye testi sonucunda ucretsiz gosterilen Nobetci anlatimlarinin kalite listesi (public.vitrin_aciklama_dislanan)
+#   bugune kadar Cem'in bilgisayarinda ELLE kosuyordu. 06.10'da iki olay yasandi:
+#   (1) yerel ag kopuklugu araci yazma adiminda kesti, tablo bos kaldi (arac artik once-yaz-sonra-sil);
+#   (2) onarilan sorular liste disina alinip arac koşunca, kasa yayini bitmeden vitrine dondu (sira sorunu).
+#   Cozum: arac kasa yayini BITTIGINDE bulutta kendiliginden kosar (workflow_run), bilgisayara bagli degildir.
+# GUNLUK PUBLIC: arac yalniz sayi ve kural kodu basar (soru metni YOK); anahtar secrets'tan, yazdirilmaz.
+# 🚫 GORMEZ: elle okumanin bulacagi icerik kusurlari (yanlis madde/olgu) — onlar arac/vitrin-elle-ret.json'a elle girer.
+name: Vitrin kalite listesi (Nobetci anlatimi)
+on:
+  workflow_run:
+    workflows: ["Yayin (havuz kur + sayfa bas + ite)", "SMMM Kasa Yayini (0 USD)"]
+    types: [completed]       # yayinin son "ite" adimi dusse de kasa yuklenmis olabilir -> sonuca bakmadan kosar
+  schedule:
+    - cron: "30 3 * * *"     # 06:30 TR emniyet agi (workflow_run kacarsa)
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: vitrin-kalite
+  cancel-in-progress: false
+jobs:
+  kalite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Kalite listesini yaz
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_SERVICE_KEY:-}" ]; then echo "SUPABASE_SERVICE_KEY tanimli degil"; exit 1; fi
+          # ag hatasina karsi bir kez daha dene (arac her adimda tabloyu en az eski hali kadar dolu birakir)
+          node arac/vitrin-aciklama-kalite.js || { echo "ilk deneme dustu, 30 sn sonra tekrar"; sleep 30; node arac/vitrin-aciklama-kalite.js; }
