@@ -27,6 +27,11 @@ function kartBulgu(k) {
     if (TR.asciiTurkce(t)) b.push('KART-TR ' + ad); else if (KISA_ASCII.test(t)) b.push('KART-TR ' + ad); };   // listedeki kelimeler YALNIZ harfsiz yazımda geçer → karışık dizede de kusur (05.10: "Sira No:1 Tekduzen Hesap Plani - Tekdüzen ...")
   bak('sade.dogru', sade.dogru); bak('kural', k.kural); bak('dayanak', k.dayanak);
   for (const [h, tz] of Object.entries(k.tuzak || {})) { bak('tuzak.' + h + '.ad', tz && tz.ad); bak('tuzak.' + h + '.metin', tz && tz.metin); }
+  // 06.10 banka taraması (8.887 soru): tuzak ADINDA istem kalıntısı 249 soru ("Ne soruluyor", "… tekrar edilmez") + boş ad ("A Tuzağı") 12 soru.
+  //   Kart tuzak adını başlık gibi gösterir → vitrin dışı.
+  for (const [h, tz] of Object.entries(k.tuzak || {})) { const ad = String((tz && tz.ad) || '').trim();
+    if (/ne soruluyor|kural\s*:|doğrusu\s*:|placeholder|yanilgi\b/i.test(ad)) b.push('KART-KALINTI tuzak.' + h + '.ad');
+    else if (/^[A-E]\)?\s*(şıkkı\s*)?tuzağı$/i.test(ad)) b.push('KART-BOSAD tuzak.' + h + '.ad'); }
   if (!sade.dogru) b.push('KART-BOS sade.dogru');
   const eksik = Object.keys(k.siklar || {}).filter(h => h !== k.dogru && !(k.tuzak && k.tuzak[h] && k.tuzak[h].metin));
   if (eksik.length) b.push('KART-BOS tuzak ' + eksik.join(''));
