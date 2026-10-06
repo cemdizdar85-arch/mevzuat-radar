@@ -104,6 +104,14 @@
       "haric": "\\b655\\b|\\b656\\b|1992|eski (açıklama|metin)|değil|yerine",
       "dayanak": "MSUGT Sıra No:2 (RG 16.12.1993/21790) C/23 — 659 açıklaması yeniden yazıldı; B/14 655, B/15 656 açıldı (resmî RG metni 30.09 okundu)",
       "bulan": "SMMM oturumu + SGS resmî doğrulama 30.09.2026"
+    },
+    {
+      "kod": "EK14",
+      "ad": "Faydalı ömrünü tamamlayıp zayi olan ATİK'in KDV'si zayi döneminde yeniden/yeni indirim konusu yapılır sanmak (doğrusu: KDVK m.30/c parantez hükmü yalnız alımda indirilmiş KDV'nin düzeltilmemesini sağlar; yeni indirim doğurmaz)",
+      "desen": "faydal[ıi] [öo]mr[üu]n[üu] tamamla(?:[^.;]|\\.(?=\\d)){0,140}zayi(?:[^.;]|\\.(?=\\d)){0,140}(bu d[öo]nem(?:[^.;]|\\.(?=\\d)){0,50}indiri|yeniden indiri|indirime? (eklen|dahil)|indirim konusu yap[ıi]l(ır|abilir)|KDV'?s?i? (istisna olarak )?indirilebilir)",
+      "haric": "d[üu]zeltme (yap[ıi]lmaz|i[şs]lemi yap[ıi]lmas[ıi]na gerek)|d[üu]zeltilmez|geri al[ıi]nmaz|de[gğ]il|yanl[ıi][şs]|tuza[gğ][ıi]|m[üu]kerrer|al[ıi]m[ıi]nda y[üu]klenilen",
+      "dayanak": "KDV Genel Uygulama Tebliği bölüm 1115 (ambar) + KDVK m.30/c parantez hükmü + m.29/3 (ambar, 06.10 okundu)",
+      "bulan": "sinav kolu onarım turu 0610d (smmm-4k-a-yvergi-zor-r5/kp-18), 06.10.2026"
     }
   ]
 }

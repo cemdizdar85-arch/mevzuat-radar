@@ -90,6 +90,11 @@ function sinav() {
     ['EK12 meşru: "645\'e yazılır, 649\'a değil"', T({ aciklama: { B: 'Menkul kıymet satış kârı 645\'e yazılır, 649\'a değil.' } }), 0],
     ['EK13 659\'a kambiyo zararı → alarm', T({ aciklama: { A: 'Kur farkından doğan kambiyo zararı 659 hesabına borç yazılır.' } }), 1],
     ['EK13 meşru: 656 Kambiyo Zararları', T({ aciklama: { A: 'Kambiyo zararı 656 Kambiyo Zararları hesabına borç yazılır.' } }), 0],
+    ['EK14 zayi ATİK KDV\'si bu dönem indirilir → alarm (0610d vakası)', T({ aciklama: { B: 'Faydalı ömrünü tamamlayıp zayi olan forkliftin 4.750 TL KDV\'si bu dönem indirilecek KDV\'ye eklenir.' } }), 1],
+    ['EK14 gerçek ifade (0610d öncesi hap) → alarm', T({ hap: 'KDVK m.30\'a göre zayi olan emtiaya ait KDV indirilemez; ancak faydalı ömrünü tamamlamış amortismana tabi kıymetin zayi olmasında yüklenilen KDV istisna olarak indirilebilir.' }), 1],
+    ['EK14 meşru: kanunun kendi parantez hükmü', T({ dayanak: 'KDVK m.30/c: faydalı ömrünü tamamlayan amortismana tabi iktisadi kıymetlerin zayi olması halinde, bu kıymetlerin alımında yüklenilen vergiler indirilebilir.' }), 0],
+    ['EK14 meşru: "düzeltme yapılmaz"', T({ aciklama: { A: 'Faydalı ömrünü tamamlayıp zayi olan ATİK\'in alımda indirilen KDV\'si için düzeltme yapılmaz.' } }), 0],
+    ['EK14 meşru: yanlış şıkta "Mükerrer İndirim Tuzağı"', T({ aciklama: { B: 'Mükerrer İndirim Tuzağı: faydalı ömrünü tamamlayıp zayi olan forkliftin KDV\'sini bu dönem yeniden indirdin.' } }), 0],
     ['atif_genisletme iz kaydı taranmaz (öğrenci görmez)', T({ atif_genisletme: ['TMS 1 p.82 - Kâr veya zarar'] }), 0],
     ['model alanı taranmaz (öğrenci görmez)', T({ hakem: { gerekce: 'KDV oranı %18 uygulanır.' } }), 0]
   ];
