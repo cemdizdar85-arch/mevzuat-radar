@@ -16,7 +16,7 @@ on:
     - cron: "30 3 * * *"     # 06:30 TR emniyet agi (workflow_run kacarsa)
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write          # 06.10: ana sayfa soru listesi (veri/vitrin-hesap.json) depoya işlenir
 concurrency:
   group: vitrin-kalite
   cancel-in-progress: false
@@ -37,3 +37,24 @@ jobs:
           if [ -z "${SUPABASE_SERVICE_KEY:-}" ]; then echo "SUPABASE_SERVICE_KEY tanimli degil"; exit 1; fi
           # ag hatasina karsi bir kez daha dene (arac her adimda tabloyu en az eski hali kadar dolu birakir)
           node arac/vitrin-aciklama-kalite.js || { echo "ilk deneme dustu, 30 sn sonra tekrar"; sleep 30; node arac/vitrin-aciklama-kalite.js; }
+      # 06.10 (Cem "otomatikleştiremiyor muyuz"): ana sayfa kahraman kartının soruları. Dışlama listesi az önce tazelendi;
+      # ücretsizden çıkan / dışlanan soru burada düşer. Mail atmaz; sabah kontrolü tek satır yazar.
+      - name: Ana sayfa soru listesi
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          node motor/vitrin-hesap.js --sinav
+          node motor/vitrin-hesap.js
+      - name: Depoya işle
+        run: |
+          git config user.name "mevzuat-radar-bot"
+          git config user.email "bot@tetikte.com"
+          git add veri/vitrin-hesap.json || true
+          git diff --cached --quiet && { echo "değişiklik yok"; exit 0; }
+          git commit -m "Ana sayfa soru listesi [veri-operasyonu]"
+          for i in 1 2 3 4 5; do
+            if git push; then echo "işlendi (deneme $i)"; break; fi
+            git pull --rebase --autostash || true
+            sleep $((i*15))
+          done

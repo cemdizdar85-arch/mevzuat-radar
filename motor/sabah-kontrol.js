@@ -68,6 +68,16 @@ async function kasaVeVitrin() {
     n ? not(0, `Nöbetçi anlatımı canlıda dönüyor (${n}/3 kart)`) : not(2, `Nöbetçi anlatımı DÖNMÜYOR (${j.hata || 'boş liste'})`);
   } catch (e) { not(2, `Nöbetçi anlatımı ölçülemedi (${e.message})`); }
 }
+// 06.10 (Cem 'ana sayfa sorularına bekçi, ama mail çok - otomatik olsun'): ana sayfa kartının soru listesi robotça
+// tazelenir (motor/vitrin-hesap.js); burada yalnız TEK SATIR durum. Düşen soru varsa SARI (yerine yenisi elle okunup listeye eklenir).
+async function anaSayfaSorulari() {
+  try {
+    const r = await fetch('https://tetikte.com/veri/vitrin-hesap.json?k=' + Date.now(), { signal: zaman() }); if (!r.ok) return not(1, 'Ana sayfa soruları: liste okunamadı (http ' + r.status + ')');
+    const d = await r.json(), s = (d.sinavlar || {}), dus = d.dusen || [];
+    const metin = 'Ana sayfa soruları: SGS ' + (s.sgs || []).length + ' · Yeterlilik ' + (s.yeterlilik || []).length + ' yayında';
+    dus.length ? not(1, metin + ' · robot ' + dus.length + ' soruyu düşürdü (' + dus.map(x => x.neden).join(', ') + ') - yerine yenisi okunmalı') : not(0, metin);
+  } catch (e) { not(1, 'Ana sayfa soruları: ölçülemedi (' + e.message + ')'); }
+}
 async function siparisler() {
   if (!SK) return;
   try {
@@ -79,7 +89,7 @@ async function siparisler() {
 }
 
 (async () => {
-  for (const f of [siteSayfalari, ucFonksiyonlar, akislar, kasaVeVitrin, siparisler]) { try { await f(); } catch (e) { not(1, f.name + ': ' + e.message); } }
+  for (const f of [siteSayfalari, ucFonksiyonlar, akislar, kasaVeVitrin, siparisler, anaSayfaSorulari]) { try { await f(); } catch (e) { not(1, f.name + ': ' + e.message); } }
   const hukum = ['YEŞİL', 'SARI', 'KIRMIZI'][durum];
   const tarih = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
   console.log(`SABAH KONTROLÜ: ${hukum}`); satir.forEach(s => console.log('  ' + s));
