@@ -64,3 +64,35 @@ sgs-c5-ekonomi-cokzor-r2/kp-08 vitrine döndü.
 ## Son ölçüm (yayın 37442422294 sonrası; kasa yüklendi, yalnız depoya itme adımı çakışmayla düştü → 37504192157 yeniden)
 `VITRIN-KALITE: ücretsiz 745 · dışlanan 12 · vitrinde 733` · `tabloya yazıldı 12/12 (vitrine dönen 73)`
 Kalan SGS 7 = KAPI-BP yanlış alarm 3 (ilk turdan) + Cem kararı 4. SMMM 5 (sınav oturumunun).
+
+---
+# ÜÇÜNCÜ TUR (06.10 akşam, Cem "1.2.3 üçünü de yap" — ikinci turun GM önerileri)
+
+## GM1 — Cem kararı bekleyen 4 soru + bağlı kaynak düzeltmesi
+- Resmî kaynak (web, birincil): 743 s.K. 1926 metni m.88 erkek 18 / kadın 17 (mevzuat.gov.tr 5.3.743.pdf; TBMM S.Sayısı 260) · Paşabahçe kurumsal tarihçe (cam görevi 1934 İş Bankası) · MEB İTA.8.6.1 (tam bağımsızlık dış politika ilkesi) · ambar GVK m.52/m.7.
+- Kök/şık/anahtar düzeltmesi (yeniden hakem, plan-sgs-v0610, Cem onayı 1,1 USD, 11 soru): c5-ticaret-kolay-r1/kp-06 anahtar A→C ·
+  inkilap-zor kp-03 E şıkkı · kp-16 E şıkkı · inkilap-cokzor kp-19 B şıkkı · 4 maliye kökünde yanlış Wagner atfı · c5-fmuh-zor-r1-2/kp-08 ve
+  t1-fmuh-zor-b/kp-166 kâr payı stopajı %10→%15 (BKK 2009/14592, 9286 s. CK) · c5-fmuh-zor-r1-2/kp-07 açıklama hakemi yeniden (onarım hattı silmişti → yayından düşmüştü).
+- Ambar teori notları düzeltildi (arac/ambar-kaynak-duzelt-20261006.ps1, 5b768a96): "turk medeni kanunu" yaş eşitliği · "birinci sanayi plani sumerbank" Paşabahçe.
+  Nöbetçi belirteçleri `elle_daraltma` ile 'esit'/'pasab'a daraltıldı (5e6ad42a; otomatik liste sağlam soruları kalıcı çekecekti — içerik izi yalnız kök+şık). Nöbetçi koştu: 0 soru çekildi.
+- Etkilenen inkılap soruları okundu (13): 8 açıklama onarımı, 5 doğru.
+
+## GM2 — KAPI-BP (0066b5fe)
+Aynı cümledeki başka BDS atfının yan cümlesi bu atfa yüklenmez, tek yönlü (yeni alarm doğmaz). Öz-sınav 24/24, mutasyon KIRMIZI (CI'da). Eşdeğerlik 15.081 soru:
+karar değişen 23, yeni bulgu 0, KONU 112→99. "Yeterli ve uygun" istisnası denendi, 3 GERÇEK kaymayı gizlediği için geri alındı.
+
+## GM3 — ders sayfası kalıntıları
+- konu_giris "p.28" iç notu: SGS 1.519 kayıt mekanik temizlendi (ambar geri okuma 1.519/1.519; açıklama hakemi taşıyan 8 + kalıp dışı 16 atlandı). SMMM 968 → sınav oturumu üstlendi.
+- Yanlış Wagner atfı: 17 aday okundu → 9 onarıldı (4'ünün kökü yeniden hakem planında), 8 doğru.
+- "Dört terim" yanlış "kim" etiketi: site oturumu gösterimde gizledi; ölçüm SGS kasası 4.912 terim artık basılmıyor, kaynak alanında 0. Kök istem (kalip-parti-uret.ps1 5638-5640) sınav oturumunda.
+
+## Site oturumunun 34 kartı (seviye testi havuzu) + yeni 6
+- 34: 29 açıklama onarımı · 5 kök/şık (Türkçe kp-05 beş şıkkın beşi doğru · e16-turkce-zor/kp-02 · t2-fmuh-zor/kp-21 IAESB · 2 denetim sapma yönü) + örtülü sermaye stopajı
+  c2-fmuh-cokzor-r1/kp-22 → plan-sgs-v0610b (Cem onayı 0,6 USD, 6 soru).
+- Yeni giren 6: 5 onarıldı, 1 kapı yanlış alarmı (k5-fmuh-cokzor/kp-04: THP 692 resmî metnindeki "Kar" ↔ "Karı").
+- Okuma notlarının bir kısmı resmî metne göre yanlış çıktı (TBK m.8 tarife=öneri, TBK m.117, TTK m.56/3, 5018 m.2 "76 ve 78", Mudanya) — o kısım değiştirilmedi.
+
+## Ölçüm (yayın 37521562272 sonrası)
+`VITRIN-KALITE: ücretsiz 741 · dışlanan 11 · vitrinde 730` · `tabloya yazıldı 11/11 (vitrine dönen 12)`. Kalan SGS 6'nın 5'i bu turda onarıldı (sonraki yayında düşer),
+1'i kapı yanlış alarmı. SMMM 5 sınav oturumunun. Yeniden hakemdeki 17 soru (v0610 + v0610b) hakem EVET derse sgs-onarim-hakem robotuyla döner.
+Bugün toplam elle onarım (ambara yazılan, geri okunan): 32 + 80 + 9 + 9 + 12 + 9 + 8 + 5 + 17 (kök/şık) + 1.519 (p.28) kayıt. Ücretli harcama: yalnız onaylı iki hakem planı (tavan 1,7 USD).
