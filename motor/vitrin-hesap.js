@@ -28,6 +28,16 @@ const HEDEF = path.join(KOK, 'veri', 'vitrin-hesap.json');
 const SIK_EN_UZUN = 40;
 
 const temizDayanak = s => String(s || '').replace(/\s*\(teori notu:[^)]*\)/i, '').replace(/\s*teori notu:.*$/i, '').trim();
+/* 07.10 Cem "1 yap": kartta "(soruda verilen)" kalabalığı gizlenir (bankaya dokunulmaz). "Soru bize verdi" adımı kartta atlandığı için
+   bankadaki "(3. adımda bulduk)" kartta 2. adımdır -> atıf numarası kartın sırasına çevrilir; atlanan adıma atıf düşer. */
+function kartAdimlari(ham) {
+  ham = Array.isArray(ham) ? ham : [];
+  const yeniNo = {}; let n = 0;
+  ham.forEach((x, i) => { if (x && !x.verilenAdim && (x.anlatim || x.formul)) yeniNo[i + 1] = ++n; });
+  const temiz = s => String(s || '').replace(/\s*\(soruda verilen\)/g, '')
+    .replace(/\s*\((\d+)\. adımda bulduk\)/g, (m, k) => (yeniNo[k] ? ' (' + yeniNo[k] + '. adımda bulduk)' : '')).replace(/\s{2,}/g, ' ').trim();
+  return ham.filter((x, i) => yeniNo[i + 1]).map(x => ({ a: temiz(x.anlatim), f: temiz(x.formul) }));
+}
 const buyukBas = s => { s = String(s || '').trim(); return s ? s.charAt(0).toLocaleUpperCase('tr') + s.slice(1) : s; };
 
 /* tek soru -> kart ya da düşme nedeni (saf işlev, öz-sınavlı) */
@@ -48,6 +58,10 @@ function kartKur(satir, disli, setli) {
   return { kart: { id: satir.id, ders: String(satir.ders || '').split('|')[0].trim(), soru: v.soru, siklar: sk, secim: sen, dogru: v.dogru,
     tuzak_ad: t.ad || '', tuzak_metin: t.metin, aciklama,
     // 07.10 'Sen çöz': ziyaretçi hangi yanlışı seçerse onun tuzağı anlatılır
+    // 07.10 Cem ("bankada tek tek açıklıyoruz, hangi hesaba; burada kısa olmuş"): bankadaki adım adım çözüm + yevmiye kaydı karta gelir.
+    // "Soru bize şunları vermiş" adımı (verilenAdim) atlanır - soru zaten ekranda. Adımı olmayan kartta eski kısa açıklama oynar.
+    adimlar: kartAdimlari(v.adimlar),
+    kayitlar: (Array.isArray(v.kayitlar) ? v.kayitlar : []).map(y => ({ baslik: y.baslik || '', kayit: (y.kayit || []).map(s => ({ hesap: s.hesap, taraf: s.taraf, tutar: s.tutar })) })),
     tuzaklar: Object.fromEntries(Object.entries(v.tuzak || {}).filter(([hf, x]) => hf !== v.dogru && sk[hf] != null && x && x.metin).map(([hf, x]) => [hf, { ad: x.ad || '', metin: x.metin }])), kural: buyukBas(v.kural), dayanak: temizDayanak(v.dayanak) } };
 }
 
@@ -62,6 +76,8 @@ async function ana() {
   const tum = [...(liste.sgs || []), ...(liste.yeterlilik || [])];
   const satirlar = await sb('paket_soru?select=id,ders,ucretsiz,veri&id=in.(' + encodeURIComponent(tum.map(x => '"' + x + '"').join(',')) + ')');
   const disli = new Set((await sb('vitrin_aciklama_dislanan?select=id')).map(x => x.id));
+  // 07.10 (sınav oturumu: "elle rettekileri günün sorusunda kullanma"): SGS + SMMM elle ret listesindeki kimlik de dışlanır (yayın onu kasadan çıkarana dek).
+  for (const f of ['sgs-elle-ret.json', 'smmm-elle-ret.json']) { try { Object.keys(JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'sinav', f), 'utf8')).kayitlar || {}).forEach(id => disli.add(id)); } catch (e) {} }
   let sabitSet = new Set(); try { sabitSet = new Set(JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'seviye', 'smmm-set.json'), 'utf8')).sorular.map(x => x.id)); } catch (e) { throw new Error('smmm-set.json okunamadı - sabit set korunamaz, yazılmadı'); }
   const cikti = { uretici: 'motor/vitrin-hesap.js', liste: 'arac/vitrin-hesap-liste.json', sinavlar: {}, dusen: [] };
   for (const s of ['sgs', 'yeterlilik']) {
@@ -82,7 +98,7 @@ async function ana() {
 }
 
 function sinav() {
-  let h = 0; const b = (ad, k) => { console.log((k ? '  geçti  ' : '  DÜŞTÜ  ') + ad); if (!k) h++; };
+  let h = 0, n = 0; const b = (ad, k) => { n++; console.log((k ? "  geçti  " : "  DÜŞTÜ  ") + ad); if (!k) h++; };
   const iyi = () => ({ id: 'x', ders: 'Finansal Muhasebe|a', ucretsiz: true, veri: { soru: 'S?', dogru: 'B', siklar: { A: '1', B: '2', C: '3', D: '4', E: '5' },
     tuzak: { A: { ad: 'T', metin: 'm' } }, sade: { dogru: 'neden' }, kural: 'kural', dayanak: 'VUK m.1 (teori notu: iç)' } });
   const k = kartKur(iyi(), false);
@@ -94,8 +110,18 @@ function sinav() {
   b('kasada olmayan soru düşer', kartKur(undefined, false).neden === 'kasada yok');
   const uzun = iyi(); uzun.veri.siklar.C = 'x'.repeat(41); b('uzun şıklı soru düşer (karta sığmaz)', kartKur(uzun, false).neden === 'şık uzun');
   const bos = iyi(); bos.veri.sade.dogru = 'undefined'; b('açıklaması "undefined" olan soru düşer', kartKur(bos, false).neden === 'anlatım eksik');
+  const ad = iyi(); ad.veri.adimlar = [{ verilenAdim: true, anlatim: 'Soru bize verdi', formul: 'V' }, { anlatim: 'Oranı bul', formul: '1/2 = %50' }];
+  ad.veri.kayitlar = [{ baslik: 'Tahsil', kayit: [{ hesap: '102 BANKALAR', taraf: 'B', tutar: '5' }, { hesap: '120 ALICILAR', taraf: 'A', tutar: '5' }] }];
+  const adk = kartKur(ad, false).kart;
+  b('bankadaki adımlar karta gelir, "soru bize verdi" adımı düşer', adk.adimlar.length === 1 && adk.adimlar[0].f === '1/2 = %50');
+  b('yevmiye kaydı hesap/taraf/tutarla karta gelir', adk.kayitlar.length === 1 && adk.kayitlar[0].kayit[1].taraf === 'A');
+  const ad2 = iyi(); ad2.veri.adimlar = [{ verilenAdim: true, anlatim: 'V' }, { anlatim: 'Oran', formul: 'A = 10 (soruda verilen) / 20 (soruda verilen) = %50' }, { anlatim: 'Tutar', formul: 'T = 100 × %50 (2. adımda bulduk) = 50' }, { anlatim: 'X', formul: 'Y (1. adımda bulduk)' }];
+  const a2 = kartKur(ad2, false).kart.adimlar;
+  b('"(soruda verilen)" kartta görünmez', a2[0].f === 'A = 10 / 20 = %50');
+  b('adım atfı kartın sırasına kayar (2 -> 1), atlanan adıma atıf düşer', a2[1].f === 'T = 100 × %50 (1. adımda bulduk) = 50' && a2[2].f === 'Y');
+  b('adımsız soru boş adımla gelir (oynatıcı kısa açıklamaya düşer)', kartKur(iyi(), false).kart.adimlar.length === 0);
   const tz = iyi(); tz.veri.tuzak = {}; b('tuzağı olmayan soru düşer', kartKur(tz, false).neden === 'anlatım eksik');
-  console.log(`VİTRİN HESAP öz-sınav: ${9 - h}/9`); process.exitCode = h ? 1 : 0;
+  console.log(`VİTRİN HESAP öz-sınav: ${n - h}/${n}`); process.exitCode = h ? 1 : 0;
 }
 
 if (require.main === module) { if (process.argv.includes('--sinav')) sinav(); else ana().catch(e => { console.log('VİTRİN HESAP HATA: ' + e.message); process.exitCode = 1; }); }

@@ -343,6 +343,9 @@ jobs:
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -OnekSinavi" }
           # 07.10.2026 - KGK kapilari (yalniz kgk- etiketi): K4 sik harfi anma · K5 "(soruda verilen)" kokte yok (S7) ·
           # K6 kanun fikra atfi ambar metninde yok (S6). 11 vaka; DENETLE_KGK_MUTASYON=harf|verilen|fikra -> KIRMIZI.
+          # 07.10.2026 - Standart paragraf baslik kuyrugu (motor/kgk-standart-yut.ps1 son gecisi): 7 vaka; SBK_MUTASYON=kapali -> KIRMIZI 3/7.
+          - { ad: "Standart baslik kuyrugu OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/standart-baslik-kuyrugu.ps1 -Sinav" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.
@@ -572,6 +575,12 @@ jobs:
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js" }
           - { ad: "Mobil ilerleme birlestirme MUTASYON (4 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js --mutasyon" }
+          # 07.10 (Cem "yanlis kutusu da hesaba bagla" + "1.2.3"): site yanlis kutusu + cozulen kaydi hesap esitlemesi
+          # (kutu-esitle.js: uc yonlu kutu, soru basina son cevap). GORMEZ: tablo/RLS/ag, sayfalarin yeniden cizmesi.
+          - { ad: "Site kutu/kayit esitleme OZ-SINAVI (cihazlar arasi kutu ve cozulen kaydi)",
+              kabuk: bash, komut: "node arac/kutu-esitle-sinavi.js" }
+          - { ad: "Site kutu/kayit esitleme MUTASYON (9 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node arac/kutu-esitle-sinavi.js --mutasyon" }
           # 30.09 (Cem "1.2.3 yap ve kural koy"): soru kalite kapilari. KAPI-AS = sik aciklamasi baska sikkin sayisini
           # sonuc diye anlatiyor mu; KAPI-EK = bilinen eski/yanlis kural (arac/eski-kurallar.json) ogrenciye gorunen metinde mi.
           # GORMEZ: sozel kusur, listede olmayan eski kural, adim/ikiz ici hesap hatasi (aciklama hakemi isi).

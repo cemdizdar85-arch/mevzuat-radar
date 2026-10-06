@@ -352,7 +352,7 @@ footer p{margin:0 0 8px}
 </footer>
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
-<script src="nobetci-oynatici.js?v=20261007b"></script>
+<script src="nobetci-oynatici.js?v=20261007h"></script>
 <script src="fiyat-motoru.js"></script>
 <script src="uye-durumu.js"></script>
 <script>
@@ -423,8 +423,8 @@ footer p{margin:0 0 8px}
       /* 07.10: ana sayfada gördüğü soru seviye testinde ona gelmesin (seviye-testi.html sv_gorulen'deki soruyu ilk turda atlar) */
       try{ var gr=JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); if(gr.indexOf(v.id)<0){ gr.push(v.id); localStorage.setItem('sv_gorulen',JSON.stringify(gr.slice(-2000))); } }catch(e){}
       window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış', tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin,
-        dogru:v.dogru, aciklama:v.aciklama, kural:v.kural, dayanak:v.dayanak }],{ son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
-        etkilesim:25000,   /* hesaplı soruyu çözmeye yetecek süre; geri sayım görünür */   /* 07.10 Cem: 'sen çöz diyelim, kaymasın dursun, o çözsün; basmazsa biz kaydırarak çözelim' */
+        dogru:v.dogru, aciklama:v.aciklama, adimlar:v.adimlar, kayitlar:v.kayitlar, kural:v.kural, dayanak:v.dayanak }],{   /* 07.10: bankadaki adımlar + yevmiye */ son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
+        etkilesim:10000,   /* 07.10 Cem: 'sen çöz diyelim, kaymasın dursun' -> 10 sn geri sayım; 'kendim çözeyim' düğmesi süreyi durdurur */
         olay:function(ad){ say('ana/nobetci/'+ad,'Ana sayfa Nöbetçi: '+ad); } });
       $('bzIleri').hidden=true; return; }   /* 07.10 Cem: 'Başka soru çöz' saçma - kalktı; ziyaretçi bu soruyu kartta çözer */
     kapat();

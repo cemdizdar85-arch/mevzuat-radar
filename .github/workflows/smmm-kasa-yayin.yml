@@ -92,3 +92,35 @@ jobs:
             Start-Sleep -Seconds (5 * $i)
           }
           "::error::5 denemede itilemedi"; exit 1
+
+      # 07.10.2026 (Cem "1.2.3" madde 1): Yeterlilik seviye testi SABIT 30 soruluk set (veri/seviye/smmm-set.json). Onarim/ret
+      #   bir soruyu kasadan cikarinca test "Sorular hazirlaniyor"da kaliyordu (04.10 ve 07.10, ikisini de Cem yakaladi).
+      #   Yayindan SONRA: kasada olmayan kimlik ayni ders/zorlukla degisir (--onar), yeni kimlik hemen ucretsiz isaretlenir
+      #   (--isaretle), satir "okunmadi" tarihi tasir (--otomatik) -> sabah kontrolu SARI yazar, soru elle okununca alan silinir.
+      #   BEDEL 0. Gunluge yalniz kimlik basilir. Yerine soru bulunamazsa (cikis 3) set yazilmaz, is KIRMIZI.
+      #   GORMEZ: kasada duran ama yanlis cevapli soru (o elle okumada yakalanir).
+      - name: Seviye setini onar (Yeterlilik)
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          $ErrorActionPreference = 'Continue'
+          node motor/seviye-set-sec.js smmm --onar --otomatik --isaretle
+          $kod = $LASTEXITCODE
+          if($kod){ "::error::seviye seti onarilamadi ($kod) - Yeterlilik seviye testi kapali kalabilir"; exit $kod }
+          git config user.name  "tetikte-robot"
+          git config user.email "bildirim@tetikte.com"
+          git add veri/seviye/smmm-set.json
+          $degisen = @(git diff --cached --name-only)
+          if(-not $degisen.Count){ "seviye seti tam - commit ATILMADI"; exit 0 }
+          git commit -m "Seviye seti: kasadan cikan soru robotca degisti (smmm-kasa-yayin kosusu ${{ github.run_number }}) - okunmadi"
+          for($i=1; $i -le 5; $i++){
+            git push origin HEAD:main | Out-Null
+            if($LASTEXITCODE -eq 0){ "itildi (deneme $i)"; exit 0 }
+            git fetch origin main -q
+            git merge origin/main --no-edit -q
+            $cakisma = @(git diff --name-only --diff-filter=U)
+            if($cakisma.Count){ "::error::itme cakismasi: $($cakisma -join ', ') - elle bakilmali"; exit 1 }
+            Start-Sleep -Seconds (5 * $i)
+          }
+          "::error::5 denemede itilemedi"; exit 1

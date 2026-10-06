@@ -824,8 +824,7 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
 /* ---- siparis no: gun + rastgele; kullaniciya okunur, havale aciklamasina yazilir ---- */
 /* 05.10 iyzico KART ÖDEMESİ. Tutar SUNUCUDA hesaplanır (radar-app/edge/iyzico-odeme.ts ?islem=baslat);
    buradan yalnız sipariş no gider. KART_ACIK=false iken düğme yalnız ?kart=1 ile görünür (Cem'in gerçek deneme alımı). */
-var KART_ACIK = false;
-function kartAcik(){ try{ return KART_ACIK || new URLSearchParams(location.search).get('kart') === '1'; }catch(e){ return KART_ACIK; } }
+/* KART_ACIK + kartAcik() 07.10'dan beri fiyat-motoru.js'te (fiyat sayfası da okuyor) */
 /* 05.10 Cem: üstteki güven satırı KART_ACIK'a bağlı - bayrak açılınca kendiliğinden "Kartla ya da havale/EFT" der.
    Eski "kart bilgisi istenmez" sözü kalktı: kart açılınca yalan olurdu. Kart bilgisi bizde değil iyzico'nun sayfasında girilir. */
 (function(){ var o = document.getElementById('odemeYolu'); if(o && kartAcik()) o.textContent = 'Kartla (iyzico güvencesiyle) ya da havale/EFT ile ödeme'; })();

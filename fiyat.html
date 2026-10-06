@@ -74,6 +74,16 @@
   .tutar{ font-size:14.5px; font-weight:700; color:var(--muted); margin-top:6px; }
   .kdv{ font-size:11.5px; color:var(--dim); margin-top:2px; }
   .p ul{ list-style:none; padding:0; margin:15px 0 0; font-size:13.5px; }
+  /* 07.10 Cem: "yeterlilik fiyatlarına girdiğinde tek ders ve 2, 3 fiyatlarını görse iyi olur" */
+  .dersMerdiven{ margin:16px 0 0; }
+  .dersMerdiven > b{ display:block; font-size:13.5px; margin:0 0 8px; }
+  .dersMerdiven .dm{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .dersMerdiven a{ display:block; padding:10px 8px; border:1px solid var(--line); border-radius:10px; text-align:center; text-decoration:none; color:var(--ink); }
+  .dersMerdiven a:hover{ border-color:var(--ink); }
+  .dersMerdiven a span{ display:block; font-size:12.5px; color:var(--muted); }
+  .dersMerdiven a strong{ display:block; font-size:16px; margin-top:2px; }
+  .dersMerdiven a strong small{ font-size:11px; font-weight:600; }
+  .dersMerdiven p{ margin:8px 0 0; font-size:12.5px; color:var(--muted); }
   .p li{ padding:5px 0 5px 21px; position:relative; color:var(--muted); }
   .p li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
   .p li.yok{ color:var(--dim); } .p li.yok::before{ content:"—"; color:var(--dim); }
@@ -172,8 +182,17 @@
     <div class="kdv">tüm dersler · <span id="ktYet"></span></div>
 <div class="kdv" id="khYet"></div>
     <div class="kdv" id="ayYet" style="color:var(--ink);font-weight:700"></div><!-- 01.10: aynı dersleri ayrı paketlerle almanın en ucuz yolu (fiyat-motoru.js yeterlilikAyriEnAz) -->
+    <!-- 04.10 Cem "bitirme tek ders alamıyor sanki" · 07.10 "tek ders ve 2, 3 fiyatlarını görse": her kutu ders seçimli ödemeye gider; fiyatlar fiyat-motoru.js'den -->
+    <div class="dersMerdiven">
+      <b>Kaldığın dersler için ders ders al:</b>
+      <div class="dm">
+        <a href="satin-al.html?paket=yeterlilik-1"><span>Tek ders</span><strong id="fyYet1">—</strong></a>
+        <a href="satin-al.html?paket=yeterlilik-2"><span>2 ders</span><strong id="fyYet2">—</strong></a>
+        <a href="satin-al.html?paket=yeterlilik-3"><span>3 ders</span><strong id="fyYet3">—</strong></a>
+      </div>
+      <p>Dersi ödeme adımında seçersin.</p>
+    </div>
     <ul>
-      <li><a href="satin-al.html?paket=yeterlilik-1" style="color:inherit"><b>Tek ders <span id="fyYet1">—</span>'den başlar</b> — kaldığın dersi seç →</a></li>   <!-- 04.10 Cem "bitirme tek ders alamıyor sanki": satır tıklanır, ders seçimli ödemeye gider -->
       <li>Sınırsız soru: sekiz dersin tamamı</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
       <li>Her sorunun <b>dayandığı madde</b> altında yazar</li>
@@ -361,10 +380,11 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
      satılabilir ürün göstermek zorunda; o kutu satın almanın önünü kapatıyordu. -->
 <div class="kutu vurgu" id="kayit">
   <h2>Nasıl ödenir</h2>
-  <p style="margin:0;font-size:14px">Paketi seç, bilgilerini gir, <b class="a">banka havalesi / EFT</b> ile öde.
+  <!-- 07.10 Cem "banka havalesi yazıyor, kartı kurduk": iki metin de fiyat-motoru.js kartAcik()'a bağlı; KART_ACIK açılınca (açılış şartı) kendiliğinden kartı anlatır -->
+  <p style="margin:0;font-size:14px" id="nasilOde">Paketi seç, bilgilerini gir, <b class="a">banka havalesi / EFT</b> ile öde.
   Sipariş sonunda hesap bilgisi ve sipariş numaran ekrana gelir; ödemeni gördüğümüz gün erişimin açılır ve
   <b>e-arşiv faturan</b> e-posta adresine gönderilir.</p>
-  <p style="margin:10px 0 0;font-size:14px">Bu adımda kart bilgisi istemiyoruz.</p>
+  <p style="margin:10px 0 0;font-size:14px" id="nasilOdeKart">Bu adımda kart bilgisi istemiyoruz.</p>
   <p style="margin:14px 0 0"><a class="btn" style="display:inline-block;padding:11px 22px" href="satin-al.html">Paketi seç ve satın al</a></p>
   <!-- 02.10 Cem: eski "günde 15 soruyu ücretsiz çöz" (deneme.html) — günlük ücretsiz katman açılırsa geri al -->
   <p class="kucuk" style="margin:12px 0 0">Kararsızsan önce <a href="seviye-testi.html">30 soruluk ücretsiz testle</a>
@@ -442,7 +462,11 @@ document.getElementById('erSgs').textContent = pSgs.erisim;
 document.getElementById('erYet').textContent = pYet.erisim;
 
 // "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
-document.getElementById('fyYet1').innerHTML = fiyatAnaHtml('yeterlilik-1', paketBul('yeterlilik-1').fiyat);   /* 01.10: '+ KDV' */
+if (kartAcik()) {
+  document.getElementById('nasilOde').innerHTML = 'Paketi seç, bilgilerini gir, <b class="a">kartla</b> ya da <b class="a">banka havalesi / EFT</b> ile öde. Kartla ödeyince erişimin hemen açılır; havalede ödemeni gördüğümüz gün açılır. <b>E-arşiv faturan</b> e-posta adresine gönderilir.';
+  document.getElementById('nasilOdeKart').textContent = "Kart bilgin iyzico'nun güvenli ödeme sayfasında girilir; bize gelmez, bizde saklanmaz.";
+}
+[1, 2, 3].forEach(function (n) { var p = paketBul('yeterlilik-' + n); if (p) document.getElementById('fyYet' + n).innerHTML = fiyatAnaHtml(p.id, p.fiyat); });   /* 01.10: '+ KDV' · 07.10: 1-2-3 ders */
 (function(){ var k = yeterlilikAyriEnAz('kurulus'), e = document.getElementById('ayYet');
   if(k && e) e.innerHTML = 'Aynı ' + DERSLER.yeterlilik.length + ' dersi ayrı paketlerle (' + k.parca.join(' + ') + ' ders) alsan en az ' + fiyatAnaHtml('yeterlilik-tum', k.tutar); })();
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);

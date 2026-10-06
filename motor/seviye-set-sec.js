@@ -34,6 +34,7 @@ const SINAV = argv.find(a => !a.startsWith('--') && argv[argv.indexOf(a) - 1] !=
 const ADET = parseInt(al('--adet', '30'), 10);
 const ZOR = al('--zorluk', '20/50/30').split('/').map(Number);
 const KURU = argv.includes('--kuru');
+const OTOMATIK = argv.includes('--otomatik');   // robot onarımı: yeni soru "okunmadi" tarihiyle yazılır (sabah kontrolü SARI)
 const ZORLUKLAR = ['kolay', 'zor', 'cokzor'];
 if (SINAV !== 'smmm') { console.error('şimdilik yalnız smmm (Yeterlilik): kapsama tablosu yalnız bitirmede var'); process.exit(2); }
 if (ZOR.length !== 3 || ZOR.some(isNaN)) { console.error('--zorluk kolay/zor/cokzor, ör. 20/50/30'); process.exit(2); }
@@ -68,6 +69,12 @@ if (csvYas > 24) console.warn(`⚠ kapsama tablosu ${Math.round(csvYas)} saat es
 // --- hariç + vitrin ---
 let haric = {}, haricKonu = {};
 try { const h = jsonOku(path.join(KOK, 'arac', 'vitrin-haric.json')); haric = h.haric || {}; haricKonu = h.haric_konu || {}; } catch (e) {}
+/* 07.10 (sınav oturumu uyarısı): onarımda yerine konan soru herkese açık olur -> elle rette olan ASLA aday değil (ret yayından
+   önce de eklenebilir); önce bağımsız çözülmüş ücretsiz liste (veri/sinav/smmm-ucretsiz.json) aranır, ondan gelen soru "okunmadi" taşımaz. */
+let elleRet = new Set(), dogrulanmis = new Set();
+try { elleRet = new Set(Object.keys(jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-elle-ret.json')).kayitlar || {})); } catch (e) { console.error('smmm-elle-ret.json okunamadı - onarım YAPILMAZ'); process.exit(5); }
+try { for (const x of jsonOku(path.join(KOK, 'arac', 'vitrin-elle-ret.json')).ret || []) elleRet.add(x.id); } catch (e) {}   // vitrin okumasında KUSURLU çıkan da aday değil
+try { dogrulanmis = new Set((jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-ucretsiz.json')).kimlikler || []).map(k => k.id)); } catch (e) {}
 const vitrin = new Set();
 try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'vitrin-smmm-secim.json'))) vitrin.add(x.etiket + '/' + x.id); } catch (e) {}
 
@@ -108,13 +115,14 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
     const hedef = path.join(KOK, 'veri', 'seviye', SINAV + '-set.json');
     const eski = jsonOku(hedef);
     const kasaId = new Set(kasa.map(r => r.id));
-    const kullanilan = new Set(eski.sorular.map(s => s.id));
+    const kullanilan = new Set(eski.sorular.map(s => s.id)), kullanilanEski = new Set(kullanilan);
     const degisen = [];
     const yeni = eski.sorular.map(s => {
-      if (kasaId.has(s.id) && !haric[s.id]) return s;
+      if (kasaId.has(s.id) && !haric[s.id] && !elleRet.has(s.id)) return s;   // 07.10: rete giren set sorusu yayını beklemeden değişir
       const dk = dersK(s.ders), konular = Object.values(agac[dk] || {}).sort((a, b) => b.son10 - a.son10 || b.cikmis - a.cikmis || a.konu.localeCompare(b.konu, 'tr'));
       const setKonu = new Set(eski.sorular.filter(x => dersK(x.ders) === dk && x.id !== s.id).map(x => katla(x.konu)));
-      const aday = (kon, z) => kon.z[z].filter(q => !kullanilan.has(q.id)).sort((x, y) => (x.vitrinde - y.vitrinde) || x.id.localeCompare(y.id))[0];
+      const aday = (kon, z) => kon.z[z].filter(q => !kullanilan.has(q.id) && !elleRet.has(q.id))
+        .sort((x, y) => (dogrulanmis.has(y.id) - dogrulanmis.has(x.id)) || (x.vitrinde - y.vitrinde) || x.id.localeCompare(y.id))[0];
       let sec = null;
       const ayni = konular.find(k => katla(k.konu) === katla(s.konu));
       if (ayni) { const q = aday(ayni, s.zorluk); if (q) sec = { kon: ayni, z: s.zorluk, q }; }
@@ -125,7 +133,8 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
       if (!sec) { degisen.push(s.id + ' -> BULUNAMADI'); return s; }
       kullanilan.add(sec.q.id);
       degisen.push(`${s.ders}: ${s.id} [${s.konu}/${s.zorluk}] -> ${sec.q.id} [${sec.kon.konu}/${sec.z}]`);
-      return { id: sec.q.id, ders: dersAd[dk] || s.ders, konu: sec.kon.konu, zorluk: sec.z, son10: sec.kon.son10, cikmis: sec.kon.cikmis, son_soruldu: sec.kon.son_soruldu };
+      return { id: sec.q.id, ders: dersAd[dk] || s.ders, konu: sec.kon.konu, zorluk: sec.z, son10: sec.kon.son10, cikmis: sec.kon.cikmis, son_soruldu: sec.kon.son_soruldu,
+        ...(OTOMATIK && !dogrulanmis.has(sec.q.id) ? { okunmadi: new Date().toISOString().slice(0, 10) } : {}) };
     });
     console.log(`SEVİYE SETİ ONARIM (${SINAV}) · ${eski.sorular.length} soru · değişen ${degisen.length}`);
     degisen.forEach(x => console.log('  ' + x));
@@ -135,6 +144,17 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
     eski.onarim = (eski.onarim || []).concat([{ tarih: new Date().toISOString(), neden: 'kasadan çıkan soru', degisen }]);
     fs.writeFileSync(hedef, JSON.stringify(eski, null, 2) + '\n', 'utf8');
     console.log('  yazıldı -> ' + path.relative(KOK, hedef));
+    /* --isaretle (07.10, Cem "1.2.3" madde 1): onarım robotta (smmm-kasa-yayin.yml, yayından SONRA) koşar. Yeni kimliğin ücretsiz
+       işareti normalde ertesi yayında yazılırdı -> test bir gün daha kapalı kalırdı. Burada yalnız o kimliklere ucretsiz=true
+       yazılır (sonraki tam yayın da seti okuyup aynı işareti koyar). Yeni soru elle okunmadı: setteki satır okunmadi tarihini
+       taşır, sabah kontrolü SARI yazar; soru okununca alan elle silinir. */
+    if (argv.includes('--isaretle')) {
+      const yeniId = yeni.map(s => s.id).filter(id => !kullanilanEski.has(id));
+      const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?id=in.(' + encodeURIComponent(yeniId.map(i => '"' + i + '"').join(',')) + ')',
+        { method: 'PATCH', headers: { ...hd, 'Content-Type': 'application/json', Prefer: 'return=minimal' }, body: JSON.stringify({ ucretsiz: true }) });
+      if (!r.ok) { console.error('ücretsiz işareti yazılamadı: HTTP ' + r.status + ' (ertesi yayında yazılır)'); process.exitCode = 4; return; }
+      console.log('  ücretsiz işaretlendi: ' + yeniId.length + ' kimlik');
+    }
     return;
   }
 
