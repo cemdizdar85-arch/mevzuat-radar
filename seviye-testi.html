@@ -140,6 +140,8 @@
         <a class="sv-btn ana" id="svHaftaPaket" href="satin-al.html?paket=sgs" style="text-decoration:none">Paketle her gün çalış →</a>
         <a class="sv-btn" href="seviye-testi.html?rapor=1" id="svHaftaRapor" style="text-decoration:none">Son raporumu gör</a>
       </div>
+      <!-- 07.10 Cem "1 ve 2 yap": haftalık hakkını kullanmış üyeye de yarının günün sorusu (her gün geri gelme sebebi) -->
+      <div id="svYarinHafta" style="margin-top:18px"></div>
     </div>
     <div class="sv-kutu" id="svHakBitti" hidden>
       <h2>Ücretsiz ölçümünü kullandın</h2>
@@ -951,22 +953,29 @@
 /* 07.10 Cem ("bir sonraki günün sorusunu"): ücretsiz hakkını kullanmış ziyaretçinin kutusunda YARININ günün sorusu oynar.
    Seçim ana sayfayla aynı formül (gün sırası % liste) + 1 -> yarın ana sayfada ve Instagram'da çıkacak soru. Kutu görünür olunca bir kez kurulur. */
 (function(){
-  var kutu=document.getElementById('svHakBitti'), yer=document.getElementById('svYarin'); if(!kutu||!yer) return;
-  var yet=/(?:^|[?&#])sinav=yeterlilik\b/.test(location.search+'&'+location.hash), kuruldu=false;
+  var yet=/(?:^|[?&#])sinav=yeterlilik\b/.test(location.search+'&'+location.hash), veri=null;
+  function oku(){ return veri || (veri=fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; })); }
+  /* 07.10 "1 ve 2 yap": iki kutu - ücretsiz hakkı bitmiş ziyaretçi (svHakBitti) ve haftalık hakkını kullanmış üye (svHaftaKilit, son ekran paket düğmesi) */
+  [['svHakBitti','svYarin',function(){ return { metin:'Yarın yeni soru gelir. Testi yeniden çözmek ve ders ders karneni görmek ücretsiz üyelikte.', dugme:'Ücretsiz üye ol →', href:'ogrenci.html', sinif:'sv-btn ana' }; }],
+   ['svHaftaKilit','svYarinHafta',function(){ var p=document.getElementById('svHaftaPaket'); return { metin:'Yarın yeni soru gelir. Paketle her gün sınırsız soru çözersin.', dugme:'Paketle her gün çalış →', href:(p&&p.getAttribute('href'))||'satin-al.html', sinif:'sv-btn ana' }; }]
+  ].forEach(function(t){ kutuKur(t[0],t[1],t[2]); });
+  function kutuKur(kutuId, yerId, sonFn){
+  var kutu=document.getElementById(kutuId), yer=document.getElementById(yerId); if(!kutu||!yer) return;
+  var kuruldu=false;
   function kur(){
     if(kuruldu||kutu.hidden) return; kuruldu=true;
-    fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(d){
+    oku().then(function(d){
       var VL=(d&&d.sinavlar&&d.sinavlar[yet?'yeterlilik':'sgs'])||[]; if(!VL.length||!window.NobetciOynatici) return;
       var v=VL[(Math.floor(Date.now()/864e5)+1)%VL.length];
       window.NobetciOynatici.kur(yer,[{ ust:'Yarının sorusu · '+(v.ders||''), soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış',
         tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin, dogru:v.dogru, aciklama:v.aciklama, adimlar:v.adimlar, kayitlar:v.kayitlar, kural:v.kural, dayanak:v.dayanak }],
         { baslik:'Yarının sorusu, herkesten önce', alt:'Her gün yeni bir soru. Çöz, Nöbetçi adım adım anlatsın.',
-          son:{ metin:'Yarın yeni soru gelir. Testi yeniden çözmek ve ders ders karneni görmek ücretsiz üyelikte.', dugme:'Ücretsiz üye ol →', href:'ogrenci.html', sinif:'sv-btn ana' },
-          etkilesim:10000 });
+          son:sonFn(), etkilesim:10000 });
     }).catch(function(){});
   }
   try{ new MutationObserver(kur).observe(kutu,{ attributes:true, attributeFilter:['hidden'] }); }catch(e){}
   kur();
+  }
 })();
 </script>
 </body>
