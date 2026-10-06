@@ -99,6 +99,7 @@ function Dilimle([string]$govde, [int]$boy){
 
 # DIPNOT AYIRICI ortak dosyada (arac/dipnot-ayir.ps1) — iki yutucu ayni kurali kullanir.
 . (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\dipnot-ayir.ps1')
+. (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\standart-baslik-kuyrugu.ps1')   # 07.10 başlık kuyruğu
 
 function Parcala([string]$metin, [string]$kisa){
   $duz = DipnotAyir (($metin -replace "`r", "") -replace "[ \t]+", " ")
@@ -170,6 +171,7 @@ function Parcala([string]$metin, [string]$kisa){
       }
     }
     $kullanilanNo = New-Object System.Collections.Generic.HashSet[string]
+    $ilkParca = $parcalar.Count   # 07.10 başlık kuyruğu son geçişi yalnız paragraf parçalarına (ön bölüm hariç)
     for($i=0; $i -lt $p.Count; $i++){
       $bas = $p[$i].Index
       $son = if($i -lt $p.Count-1){ $p[$i+1].Index } else { $duz.Length }
@@ -208,6 +210,14 @@ function Parcala([string]$metin, [string]$kisa){
                                     baslik=("{0} paragraf {1}" -f $kisa, $no); metin=$dilimler[$d] })
         }
       }
+    }
+    # 07.10 BAŞLIK KUYRUĞU SON GEÇİŞİ (KGK oturumu, Cem "ikisini de yap"; altyapı ölçümü: Etik 317 aday): sonraki bölümün başlığı önceki
+    #   paragrafın SONUNA yapışıyordu ("… davranır.`nMeslekî Davranış"). Adlar/birleşmeler KURULDUKTAN SONRA kuyruk ayrılıp sonraki parçanın
+    #   başına eklenir: kaynak_ad ve parça sayısı ESKİSİYLE AYNI kalır (ilk prova: döngü içinde taşıma U etiketini bozdu, Etik 1147→1135),
+    #   içerik atılmaz. Son parçanın kuyruğu yerinde kalır. Mutasyon: $env:SBK_MUTASYON=kapali (arac/standart-baslik-kuyrugu.ps1).
+    for($k = $ilkParca; $k -lt $parcalar.Count - 1; $k++){
+      $bk = StandartBaslikKuyrugu "$($parcalar[$k].metin)"
+      if($bk.baslik){ $parcalar[$k].metin = $bk.govde; $parcalar[$k+1].metin = "$($bk.baslik)`n$($parcalar[$k+1].metin)" }
     }
     return $parcalar
   }

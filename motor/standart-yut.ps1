@@ -151,6 +151,40 @@ function SY_Bol([string]$metin, [string]$std){
       }
     }
   }
+  # ⭐ 07.10.2026 SARAN UZUN BASLIK (KGK oturumu, Cem "ikisini de yap"; altyapi olcumu: standartlarda 610 baslik kuyrugu adayi).
+  #   BDS kipinde bolum basligi yalniz <=70 kr ise baslik sayiliyordu. PDF'te iki satira saran uzun baslikta 1. satir (>70) ONCEKI
+  #   paragrafin GOVDESINE yapisiyor, 2. satir (kisa) tek basina baslik oluyordu: ambarda "BDS 701 p.13" govdesi "…Denetci Raporunda
+  #   Bildirilmedigi" diye bitiyor, sonraki parca "BDS 701 p.14 - Durumlar" adini aliyordu (ikinci goz 07.10: KAPI-BP yanlis alarmlarinin
+  #   koku). Kural (yalniz satir basi kipi, -layout'un SY_BdsBaslikBirlestir'i yokken): numarali paragraf satirinin HEMEN USTUNDEKI baslik
+  #   bicimli 1 ya da 2 satir (noktalamasiz, buyuk harfle, ';:' yok, <=25 kelime, fiille bitmez, toplam <=180 kr) TEK baslik sayilir.
+  #   Mutasyon: $env:SY_SARAN_MUTASYON=kapali. GORMEZ: uc satira saran baslik · paragraf satirinin ICINE gomulu baslik (onParca yolu ayri).
+  $zorBaslik = New-Object System.Collections.Generic.HashSet[int]
+  if($satirBasiKip -and "$env:SY_SARAN_MUTASYON" -ne 'kapali'){
+    $parRx = '^(?:\S.{0,110}?\s+)?A?\d{1,3}[A-Z]?\.\s+\S'
+    $basBicim = {
+      param([string]$x)
+      $x = $x.Trim()
+      if($x.Length -lt 3 -or $x -match '[.:;,]$' -or $x -match '[;:]' -or $x -cnotmatch '^[A-ZÇĞİÖŞÜ“"]' -or $x -match '^A?\d{1,3}[A-Z]?\.\s' -or $x -match '^\d{1,3}$'){ return $false }
+      if(@($x -split '\s+').Count -gt 25){ return $false }
+      $son = ([regex]::Match($x, '\p{L}+(?=\P{L}*$)')).Value.ToLowerInvariant()
+      if($son -match '(dır|dir|dur|dür|tır|tir|tur|tür|maz|mez|mış|miş|muş|müş)$' -or $son -in @('ve','veya','ile','ya','da','de','için')){ return $false }
+      return $true
+    }
+    $doluSonraki = { param([int]$k) $m = $k + 1; while($m -lt $satirlar.Count -and ($satirlar[$m].Trim().Length -eq 0 -or $sayfaSatiri.Contains($m) -or $satirlar[$m].Trim() -match '^\d{1,3}$')){ $m++ }; return $m }
+    for($bi = 0; $bi -lt $satirlar.Count; $bi++){
+      $b1 = $satirlar[$bi].Trim()
+      if($b1.Length -le 70 -or $b1.Length -gt 180 -or -not (& $basBicim $b1)){ continue }
+      $oncekiBos = ($bi -eq 0) -or $satirlar[$bi-1].Trim() -match '[.:;!?)]$' -or $satirlar[$bi-1].Trim().Length -eq 0   # onceki satir cumleyle bitmeli (govdenin ortasi degil)
+      if(-not $oncekiBos){ continue }
+      $bj = & $doluSonraki $bi; if($bj -ge $satirlar.Count){ continue }
+      $b2 = $satirlar[$bj].Trim()
+      if($b2 -match $parRx){ [void]$zorBaslik.Add($bi); continue }
+      if($b2.Length -le 70 -and (& $basBicim $b2) -and ($b1.Length + 1 + $b2.Length) -le 180){
+        $bk = & $doluSonraki $bj
+        if($bk -lt $satirlar.Count -and $satirlar[$bk].Trim() -match $parRx){ $satirlar[$bi] = "$b1 $b2"; $satirlar[$bj] = ''; [void]$zorBaslik.Add($bi) }
+      }
+    }
+  }
   $satirSirasi = -1
   # ⚠ 15.09.2026 DERSI — BDS/GDS RAKAMLI EKLERI ANA METNIN NUMARALARIYLA CAKISIYORDU.
   # BDS'lerde ekler "Ek 1", "Ek 2" (GDS 3000'de yalniz "Ek") basligiyla TEK SATIRDA durur ve
@@ -335,7 +369,8 @@ function SY_Bol([string]$metin, [string]$std){
     $bkzBaslik = $satirBasiKip -and $s.Length -le 180 -and $s -match '^[^.:;()]{3,}\((Bkz|Bakınız)\.?:(?:[^()]|\([^()]*\))*\)$'
     #   Tirnakla baslayan Bkz basligi da basliktir (BDS 200 "“Önemli Yanlışlık” Riski (Bkz.: 13(h) paragrafı)" govdeye dusuyor, A16 bir onceki basligi aliyordu).
     $tirnakBkz = $bkzBaslik -and $s.Length -gt 1 -and ($s[0] -eq [char]0x201C -or $s[0] -eq [char]0x22) -and ("$($s[1])" -cmatch '[A-ZÇĞİÖŞÜ]')
-    if(($s.Length -le $baslikEsik -or $bkzBaslik) -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and ($s -cmatch '^[A-ZÇĞİÖŞÜ]' -or $tirnakBkz) -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
+    $zorlu = $zorBaslik.Contains($satirSirasi)   # 07.10 saran uzun baslik (yukarida)
+    if(($s.Length -le $baslikEsik -or $bkzBaslik -or $zorlu) -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and ($s -cmatch '^[A-ZÇĞİÖŞÜ]' -or $tirnakBkz) -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
       if($noktaliKip -and $bekleyenBaslik -and $suAn){ $suAn.govde.Add($bekleyenBaslik) }
       # 27.09: yeni kuralla (70 kr ustu / tirnakli Bkz) taninan baslik HIC KULLANILMADAN yerine baska baslik gelirse eskisi gibi govdeye
       #   yazilir (ICERIK ATILMAZ; ust-alt iki baslik art arda: BDS 315 "İşletme ve Çevresi, … (Bkz.: A48-A49)" + "İşletme ve Çevresi ile … (Bkz.: A50-A55)").
@@ -855,6 +890,27 @@ A3. Finansal tablolarin yonetim tarafindan hazirlanmasi soz konusudur.
     if($b[3].kaynak_ad -notmatch 'p\.A3'){ $dusen += "BDS ek paragrafi (A3) cozulemedi: '$($b[3].kaynak_ad)'" }
     if(($b | ForEach-Object { $_.metin }) -join ' ' -match '(?m)^6$'){ $dusen += 'BDS: SAYFA NUMARASI metne girdi' }
   }
+  # --- SARAN UZUN BASLIK (07.10, BDS 701 p.13/p.14 gercek vakasi) ---------
+  $saranOrnek = @"
+1. Bu BDS kilit denetim konularinin bildirilmesini duzenler.
+2. Denetci kilit denetim konularini belirler ve raporunda aciklar.
+Kilit Denetim Konusu Olarak Belirlenen Bir Konunun Denetçi Raporunda Bildirilmediği
+Durumlar
+14. Denetci, mevzuat aciklamayi yasakliyorsa konuyu raporunda bildirmez.
+Diger Hususlarin Bildirilmesine Iliskin Kurallar ve Bu Kurallarin Uygulanmasina Dair Bolum
+15. Denetci diger hususlari ayri bir bolumde bildirir ve gerekcesini yazar.
+16. Bu paragrafin ilk satiri noktalama olmadan devam eder ve ardindan gelen satir
+Buyuk Harfle Baslayan Ama Govdenin Parcasi Olan Bu Uzun Satir Yetmis Karakteri Asiyor Kesinlikle
+17. Son paragraf burada yeterince uzun bir cumleyle biter.
+"@
+  $sr = @(SY_Bol $saranOrnek 'BDS 701')
+  $sr2 = @($sr | Where-Object { $_.kaynak_ad -match 'p\.2( |$)' }); $sr14 = @($sr | Where-Object { $_.kaynak_ad -match 'p\.14( |$)' })
+  $sr15 = @($sr | Where-Object { $_.kaynak_ad -match 'p\.15( |$)' }); $sr16 = @($sr | Where-Object { $_.kaynak_ad -match 'p\.16( |$)' })
+  if($sr2.Count -ne 1 -or $sr2[0].metin -match 'Bildirilmedi'){ $dusen += "SARAN BASLIK: p.2 govdesine baslik yapisti ('$(@($sr2 | ForEach-Object { $_.metin }) -join '|')')" }
+  if($sr14.Count -ne 1 -or $sr14[0].kaynak_ad -notmatch 'p\.14 - Kilit Denetim Konusu .*Bildirilmediği Durumlar$'){ $dusen += "SARAN BASLIK: p.14 adi tam baslik degil ('$(@($sr14 | ForEach-Object { $_.kaynak_ad }) -join '|')')" }
+  if($sr15.Count -ne 1 -or $sr15[0].kaynak_ad -notmatch 'p\.15 - Diger Hususlarin .*Bolum$'){ $dusen += "UZUN TEK SATIR BASLIK: p.15 adi ('$(@($sr15 | ForEach-Object { $_.kaynak_ad }) -join '|')')" }
+  if($sr16.Count -ne 1 -or $sr16[0].metin -notmatch 'Kesinlikle'){ $dusen += 'SARAN BASLIK YANLIS ALARM: govde ortasindaki uzun satir baslik sanildi (p.16 govdesi eksik)' }
+
   $ekC = @($e | Where-Object { $_.kaynak_ad -match 'p\.C21' })
   if($ekC.Count -ne 1){ $dusen += "SATIR BASI NUMARA ('C21 Bu Standart...') cozulemedi ($($ekC.Count))" }
   elseif($ekC[0].metin -notmatch 'yerini alir'){ $dusen += 'SATIR BASI NUMARADA govde kayip' }

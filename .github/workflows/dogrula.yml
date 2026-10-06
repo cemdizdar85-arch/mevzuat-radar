@@ -343,6 +343,9 @@ jobs:
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -OnekSinavi" }
           # 07.10.2026 - KGK kapilari (yalniz kgk- etiketi): K4 sik harfi anma · K5 "(soruda verilen)" kokte yok (S7) ·
           # K6 kanun fikra atfi ambar metninde yok (S6). 11 vaka; DENETLE_KGK_MUTASYON=harf|verilen|fikra -> KIRMIZI.
+          # 07.10.2026 - Standart paragraf baslik kuyrugu (motor/kgk-standart-yut.ps1 son gecisi): 7 vaka; SBK_MUTASYON=kapali -> KIRMIZI 3/7.
+          - { ad: "Standart baslik kuyrugu OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/standart-baslik-kuyrugu.ps1 -Sinav" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.
