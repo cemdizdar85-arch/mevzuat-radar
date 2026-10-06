@@ -400,6 +400,10 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   # 05.10.2026 (gm8 VUK kp-05): GM kapısını geçmiş hazır sorunun önbellek kaydı FAZ GM'de 'continue' ile tutulur; düzeltilmiş dosya
   #   metni yalnız -HazirYenileId ile alınır (kayıt bütün kararlarıyla düşer). Alan YOKSA argüman listesi ESKİSİYLE BİREBİR aynıdır.
   if($s.PSObject.Properties['hazirYenileId'] -and "$($s.hazirYenileId)"){ $arg+=@('-HazirYenileId',"$($s.hazirYenileId)") }
+  # 06.10.2026 (k25 zor kp-01: hakem/hakem2/kör EVET, simülasyon modeli ikizde kendi özetinde 606.000 bulup cevaba 625.350 yazdı):
+  #   pilotId'li satır yalnız simülasyonu (simYenile) ya da adım+simülasyonu (adimYenile) yeniletebilsin. Alan YOKSA argüman listesi aynı.
+  if($s.PSObject.Properties['simYenile'] -and [bool]$s.simYenile){ $arg+=@('-SimYenile') }
+  if($s.PSObject.Properties['adimYenile'] -and [bool]$s.adimYenile){ $arg+=@('-AdimYenile') }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
   # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
   # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.

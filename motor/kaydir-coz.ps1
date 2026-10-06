@@ -468,7 +468,11 @@ $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad
 }
 for($i=0;$i -lt $sorular.Count;$i++){
   $s=$sorular[$i]; $kodlar=New-Object System.Collections.Generic.HashSet[string]
-  foreach($h in $s.siklar.Keys){ foreach($m in [regex]::Matches($s.siklar[$h],'(?<![\d.,])(\d{3})(?![\d.,]|\s*(?:TL|%|adet|gün|yıl|ay))')){ [void]$kodlar.Add($m.Groups[1].Value) } }
+  # 06.10 (Cem "1.2.3", SGS oturumu; site oturumu bıraktı): muhasebe dışı derste şıktaki 3 haneli SONUÇ (ekonomi 102/122/152, matematik 180)
+  #   THP kodu sanılıp soruya hesap sözlüğü ekleniyordu → vitrin KAPI-HK ile düşüyordu (sgs-c5-ekonomi-cokzor-r2/kp-08). Soruda/şıkta "hesab" geçerse yine taranır.
+  #   Kayıt/tablo yolu aynen. Eşdeğerlik (kasa 8.886, paket_soru.veri): hesaplar değişen SGS 103 (Ekonomi 13 · Matematik 90), muhasebe dersleri 0, bitirme 0, KGK 0.
+  $sikKodYok=("$($s.ders)" -match '^(Ekonomi|Matematik|\^?Maliye\$?|T[uü]rk[cç]e|Yabanc[ıi] Dil|Atat[uü]rk.*)$') -and -not (("$($s.soru) "+(@($s.siklar.Values) -join ' ')) -match '(?i)hesab')
+  if(-not $sikKodYok){ foreach($h in $s.siklar.Keys){ foreach($m in [regex]::Matches($s.siklar[$h],'(?<![\d.,])(\d{3})(?![\d.,]|\s*(?:TL|%|adet|gün|yıl|ay))')){ [void]$kodlar.Add($m.Groups[1].Value) } } }
   foreach($r in $s.kayit){ $m=[regex]::Match($r.hesap,'^\d{3}'); if($m.Success){ [void]$kodlar.Add($m.Value) } }
   # 05.09 Cem: tablo hücresinde "680 hesap" gibi çıplak kod → sınav dili "680 Çalışmayan Kısım Gider ve Zararları hesabı"
   $tabloKod=@(); if($s.tablo){ foreach($st in $s.tablo.satirlar){ foreach($c in $st){ foreach($m in [regex]::Matches("$c",'(?<![\d.,])([1-7]\d{2})\s+hesa(?:p|bı|bına)\b')){ [void]$kodlar.Add($m.Groups[1].Value); $tabloKod+=$m.Groups[1].Value } } } }
