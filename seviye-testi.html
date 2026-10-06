@@ -81,6 +81,16 @@
   .sv-grup b{display:block;font-size:14px;color:var(--ink)}
   .sv-grup span{font-size:13px;color:var(--muted)}
   .sv-grup.zayif{border-color:var(--red)}
+  /* 07.10 Cem ("Avrupa rakipler gibi daha ayrıntılı, öğrenci dilinden"): ders kartında sade yorum + ayrıntı bölümü */
+  .sv-grup .sv-yorum{display:block;margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .sv-ayr{margin:16px 0}.sv-ayr h3{margin:0 0 10px;font-size:17px}
+  .sv-ayr-ic{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .sv-ayr-k{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .sv-ayr-k b{display:block;font-size:14px;color:var(--ink);margin:0 0 6px}
+  .sv-ayr-k p{margin:6px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .sv-zr{display:flex;gap:6px}.sv-zr span{flex:1;min-width:0;text-align:center;border:1px solid var(--line);border-radius:10px;padding:6px 4px;font-size:12px;color:var(--muted)}
+  .sv-zr span strong{display:block;font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .sv-sira{margin:0;padding-left:20px}.sv-sira li{margin:0 0 6px;font-size:13.5px;line-height:1.5;color:var(--ink)}
   .sv-grup em{font-style:normal;font-size:12px;font-weight:800;border-radius:99px;padding:1px 8px;margin-left:6px}
   .sv-grup em.guclu{color:var(--green);border:1px solid var(--green)}
   .sv-grup em.sinirda{color:var(--amber);border:1px solid var(--amber)}
@@ -448,11 +458,11 @@
   }
   function kaydetYerel(bilmiyorum){
     var asil=bilmiyorum?null:AKTIF.harita[SECILI], dogru=!bilmiyorum&&asil===AKTIF.q.dogru;
-    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
+    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, sn:Math.round((Date.now()-SORU_BAS)/1000), secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
     /* 23.09: şıklar ekranda KARIŞIK - sonuçta "doğrusu X" adayın GÖRDÜĞÜ harf olmalı (önceden asıl harf yazılıyordu:
        ekranda C'yi gören "doğrusu A" okuyabiliyordu). Harf + şık metni birlikte saklanır. */
     var ekranDogru=Object.keys(AKTIF.harita).filter(function(h){ return AKTIF.harita[h]===AKTIF.q.dogru; })[0]||AKTIF.q.dogru;
-    CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
+    CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, sn:Math.round((Date.now()-SORU_BAS)/1000), secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
     gorulduEkle(AKTIF.q.id);
     /* anonim cevap kaydı (cevap_kayit, anon yalnız ekler) - gerçek zorluk ölçümü için */
     try{ fetch(SB+'/rest/v1/cevap_kayit',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Prefer:'return=minimal'},
@@ -582,6 +592,59 @@
     sonucuAc(function(){ hakYaz(); sonucCizYet(); });
   }
   var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
+  /* 07.10 Cem ("bu sonucu Avrupa rakipler gibi daha ayrıntılı açıklarız, öğrenci dilinden anlayacak şekilde").
+     Rakiplerde (ACCA practice test, UWorld): bölüm bölüm durum, zorluğa göre doğru oranı, soru başına süre, çalışma sırası.
+     Yalnız BU TESTİN cevaplarından sayılır; başka adaylarla kıyas (yüzdelik) YOK - o veriyi ölçmüyoruz, uydurmayız.
+     Konu konu döküm de yok: konu adları kayıtta Türkçe harfsiz duruyor (ör. "amortisman ayirma"); düzgün ad kaynağı gelince eklenir. */
+  function dersSay(ad){ var s={soru:0,dogru:0,yanlis:0,bos:0}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||c.ders!==ad) return; s.soru++; if(c.dogru) s.dogru++; else if(c.secim) s.yanlis++; else s.bos++; }); return s; }
+  function ihtimalSoz(p){ return p<20?'çok düşük':p<40?'düşük':p<60?'yarı yarıya':p<80?'iyi':'yüksek'; }
+  /* kart başına TEK, derse özel cümle (aynı uyarı 7 kartta tekrar etmesin; "ötekiler kurtarmaz" üstteki ana mesajda) */
+  function dersYorum(x){
+    var p=x.p50, s=dersSay(x.ad), bas='50 alma ihtimalin '+ihtimalSoz(p)+' (%'+p+').';
+    var neden = !s.yanlis&&!s.bos ? '' : s.bos>s.yanlis ? ' Çoğunu boş geçtin: konu eksik, önce konuyu çalış.'
+      : s.yanlis>s.bos ? ' İşaretleyip yanıldın: konuyu biliyor gibisin ama çeldiricilere takılıyorsun.' : ' Yanlış ve boşların eşit: hem konu hem soru tipi çalışılmalı.';
+    if(x.durum==='guclu') return bas+' Burada durumun iyi; zamanını riskli derslere ver.';
+    if(x.durum==='sinirda') return bas+' Birkaç doğru fazlası seni güvenli bölgeye taşır.'+neden;
+    return bas+neden;
+  }
+  function sureSoz(sn){ sn=Math.round(sn); return sn>=60?Math.floor(sn/60)+' dk '+(sn%60?sn%60+' sn':''):sn+' sn'; }
+  function ayrintiCiz(liste){
+    var kap=$('svAyrinti');
+    if(!kap){ kap=document.createElement('div'); kap.id='svAyrinti'; kap.className='sv-ayr'; $('svGruplar').insertAdjacentElement('afterend',kap); }
+    var C=CEVAPLAR.filter(function(c){ return !c.denetlenemedi; }); if(!C.length){ kap.hidden=true; return; }
+    var k=[];
+    /* zorluğa göre */
+    var ZA={kolay:'Kolay',zor:'Zor',cokzor:'Çok zor'}, zs={};
+    C.forEach(function(c){ var z=ZA[c.zorluk]?c.zorluk:null; if(!z) return; zs[z]=zs[z]||{s:0,d:0}; zs[z].s++; if(c.dogru) zs[z].d++; });
+    var zk=['kolay','zor','cokzor'].filter(function(z){ return zs[z]; });
+    if(zk.length){
+      var ko=zs.kolay, zo=(zs.zor||zs.cokzor)?{s:(zs.zor?zs.zor.s:0)+(zs.cokzor?zs.cokzor.s:0),d:(zs.zor?zs.zor.d:0)+(zs.cokzor?zs.cokzor.d:0)}:null;
+      var yorum = ko&&ko.s>=2&&ko.d/ko.s<0.6 ? 'Kolay sorularda bile kayıp var: önce temel konuları sağlamlaştır, zor sorular ondan sonra gelir.'
+        : zo&&zo.s>=2&&zo.d/zo.s<0.4 ? 'Temelin var, çok adımlı zor sorularda kayıyorsun: hesabı adım adım kuran sorulara çalış.'
+        : 'Zorluk arttıkça doğru oranın fazla düşmüyor; dağılımın dengeli.';
+      k.push('<div class="sv-ayr-k"><b>Zorluğa göre</b><div class="sv-zr">'+zk.map(function(z){ return '<span><strong>'+zs[z].d+' / '+zs[z].s+'</strong>'+ZA[z]+'</span>'; }).join('')+'</div><p>'+yorum+'</p></div>');
+    }
+    /* cevap alışkanlığı */
+    var yan=C.filter(function(c){ return !c.dogru&&c.secim; }).length, bos=C.filter(function(c){ return !c.dogru&&!c.secim; }).length;
+    if(yan||bos) k.push('<div class="sv-ayr-k"><b>Cevap alışkanlığın</b><p>'+(yan?yan+' soruda bir şık işaretledin ama yanıldın':'')+(yan&&bos?'; ':'')+(bos?bos+' soruda "Bilmiyorum" dedin':'')+'.</p><p>'
+      +(yan>bos?'Yanılgıların çoğu emin olmadan işaretlediğin sorulardan. Bu soruların çeldiricisi tanıdık gelen ama yanlış olan şık; Nöbetçi her yanlış şıkkın neden çekici göründüğünü anlatır.'
+               :'Çoğunda "bilmiyorum" dedin: tahmin etmedin, iyi. Bu sorular eksik konuyu doğrudan gösteriyor; çalışma sıran aşağıda.')+'</p></div>');
+    /* süre */
+    var sl=C.filter(function(c){ return typeof c.sn==='number'&&c.sn>0&&c.sn<3600; });
+    if(sl.length>=5){
+      var ort=sl.reduce(function(a,c){return a+c.sn;},0)/sl.length, dd={};
+      sl.forEach(function(c){ dd[c.ders]=dd[c.ders]||{t:0,n:0}; dd[c.ders].t+=c.sn; dd[c.ders].n++; });
+      var uz=Object.keys(dd).filter(function(d){ return dd[d].n>=2; }).sort(function(a,b){ return dd[b].t/dd[b].n-dd[a].t/dd[a].n; })[0];
+      k.push('<div class="sv-ayr-k"><b>Süre</b><p>Soru başına ortalama <b style="display:inline;margin:0">'+sureSoz(ort)+'</b> düşündün.'+(uz?' En uzun düşündüğün ders: '+esc(String(uz).split('|')[0])+' (soru başına '+sureSoz(dd[uz].t/dd[uz].n)+').':'')+'</p></div>');
+    }
+    /* çalışma sırası (Yeterlilik: 50 alma ihtimali en düşük ders önce) */
+    if(YET){
+      var sira=(liste||[]).filter(function(x){ return x.durum!=='guclu'; }).sort(function(a,b){ return a.p50-b.p50; }).slice(0,4);
+      if(sira.length) k.push('<div class="sv-ayr-k" style="grid-column:1/-1"><b>Çalışma sıran</b><ol class="sv-sira">'+sira.map(function(x){ var s=dersSay(x.ad);
+        return '<li><b style="display:inline;margin:0">'+esc(x.ad)+'</b>: '+x.soru+' sorunun '+x.dogru+' tanesini bildin'+(s.yanlis||s.bos?' ('+[s.yanlis?s.yanlis+' yanlış':'',s.bos?s.bos+' boş':''].filter(Boolean).join(', ')+')':'')+'; 50 alma ihtimalin '+ihtimalSoz(x.p50)+'.</li>'; }).join('')+'</ol></div>');
+    }
+    kap.innerHTML='<h3>Sonucunun ayrıntısı</h3><div class="sv-ayr-ic">'+k.join('')+'</div>'; kap.hidden=!k.length;
+  }
   /* 05.10 NÖBETÇİ YANLIŞINI ANLATIYOR: ilk yanlışların (bilmiyorum hariç) anlatımı sunucudan, en çok 3. Kalanı kilitli → teklif.
      Sunucu kusurlu/eksik anlatımlı soruyu atlar; bu yüzden 8 aday gönderilir. Hiç gelmezse bölüm gizli kalır (sessiz). */
   function nobetciCiz(){
@@ -637,7 +700,8 @@
       : g>=70 ? 'Sekiz dersin hiçbiri riskli görünmüyor. Sınırdaki derslerini sağlamlaştır; sınavda tek bir ders 50\'nin altında kalırsa ortalama kurtarmaz.'
       : 'Hiçbir dersin riskli değil ama çoğu sınırda: ortalamayı 60\'ın üstüne çıkaracak birkaç doğru eksik.';
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · tezkiye notu '+SONUC.tezkiye+' alındı · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
-    $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru · sınavda 50\'yi geçme ihtimali %'+x.p50+'</span></div>'; }).join('');
+    $('svGruplar').innerHTML=liste.map(function(x){ var s=dersSay(x.ad); return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru'+(s.yanlis?' · '+s.yanlis+' yanlış':'')+(s.bos?' · '+s.bos+' boş':'')+'</span><span class="sv-yorum">'+dersYorum(x)+'</span></div>'; }).join('');
+    try{ ayrintiCiz(liste); }catch(e){}
     $('svTez').hidden=false;
     try{ bugunCiz(liste); }catch(e){}
     $('svTeklifBaslik').textContent=risk.length?'Riskli derslerini Nöbetçi\'yle kapat':'Yanlışlarının nedenini öğren';
@@ -763,11 +827,13 @@
   function oncelikGrup(liste){ return (liste||[]).slice().sort(function(a,b){ return grupKayip(b)-grupKayip(a) || grupSinav(b)-grupSinav(a); })[0]; }
   function bugunCiz(liste){
     var kap=$('svBugun');
-    if(!kap){ kap=document.createElement('div'); kap.id='svBugun'; kap.className='sv-kutu'; kap.style.margin='16px 0'; $('svGruplar').insertAdjacentElement('afterend',kap); }
+    if(!kap){ kap=document.createElement('div'); kap.id='svBugun'; kap.className='sv-kutu'; kap.style.margin='16px 0'; ($('svAyrinti')||$('svGruplar')).insertAdjacentElement('afterend',kap); }   /* 07.10: ayrıntıdan sonra */
     var g=(liste||[]).filter(function(x){ return x&&x.soru>=2; }).sort(function(a,b){ return b.dogru/b.soru-a.dogru/a.soru; });
     /* 06.10: Yeterlilik'te her dersin ayrı barajı var -> 'çalışman gereken' oranı en düşük ders (teklifteki riskli ders sırasıyla aynı);
        SGS'de puan 130 sorunun toplamı -> sınavda en çok soru kaybettiren grup (oncelikGrup). */
-    var guclu=g.length?g[0]:null, zayif=YET?(g.length?g[g.length-1]:null):oncelikGrup(g);
+    /* 07.10: Yeterlilik'te "çalışman gereken" = 50 alma ihtimali EN DÜŞÜK ders (ayrıntıdaki "Çalışma sıran"ın 1. satırıyla aynı);
+       önceden en düşük oran eşitlikte sıradakine düşüyordu (0/5 FM yerine 0/3 Meslek Hukuku). */
+    var guclu=g.length?g[0]:null, zayif=YET?(g.slice().sort(function(a,b){ return (a.p50==null?101:a.p50)-(b.p50==null?101:b.p50) || a.dogru/a.soru-b.dogru/b.soru; })[0]||null):oncelikGrup(g);
     var d={}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||!c.ders) return; if(!d[c.ders]) d[c.ders]={ad:c.ders,soru:0,yanlis:0,sayfa:c.sayfa}; d[c.ders].soru++; if(!c.dogru) d[c.ders].yanlis++; if(!d[c.ders].sayfa&&c.sayfa) d[c.ders].sayfa=c.sayfa; });
     var dl=Object.keys(d).map(function(k){ return d[k]; }).filter(function(x){ return x.yanlis>0; }).sort(function(a,b){ return b.yanlis-a.yanlis || (b.yanlis/b.soru)-(a.yanlis/a.soru); });
     var h='';
@@ -794,6 +860,7 @@
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+((SONUC.dogru130Alt!=null&&SONUC.dogru130Ust!=null)?' (büyük ihtimalle '+SONUC.dogru130Alt+'–'+SONUC.dogru130Ust+' arası; 30 soruluk ölçüm kesin değil)':'')+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
     $('svGruplar').innerHTML=liste.map(function(x){ return '<div class="sv-grup'+(x===zayif&&x.dogru<x.soru?' zayif':'')+'"><b>'+esc(x.ad)+'</b><span>'+x.dogru+' / '+x.soru+' doğru'+(x===zayif&&x.dogru<x.soru?' · önce burası':'')+'</span></div>'; }).join('');
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
+    try{ ayrintiCiz(liste); }catch(e){}
     try{ bugunCiz(liste); }catch(e){}
     teklifCiz(g, zayif, y.length);
     /* 14.09: ders sayfaları ve "sınav gibi" pakete dahil (paket-kapisi.js). Paketsiz ziyaretçiyi kilide değil
