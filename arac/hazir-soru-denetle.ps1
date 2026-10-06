@@ -17,7 +17,7 @@
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
       [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi,
-      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi)
+      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi,[switch]$KgkKapiSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -168,6 +168,58 @@ function TersSadeNot($q){
   $o=@(); foreach($h in 'A','B','C','D','E'){ if($h -eq "$($q.dogru)"){ continue }; if("$($s.$h)" -match '(?i)do[gğ]ru(yu)?\s*(se[cç]|i[sş]aretle|cevap)'){ $o+="TERS SADE: olumsuz kökte $h şıkkının sade metni 'doğru seç/cevap' diyor" } }
   return $o
 }
+# ⭐ 07.10.2026 KGK KAPILARI (KGK oturumu, Cem "eksik kuralları yapalım" K4–K6). Yalnız kgk- etiketinde koşar ($KGK_SERT); SGS/SMMM
+#   çıktısı birebir aynı kalır (o kollar isterse açar — not iletildi). Üçü de 0 USD, model çağrısı yok.
+# K4 HARF ANMA: açıklama/teşhis/sade/adım/çeldirici/hap metninde şık HARFİ anılıyor ("C şıkkı", "Cevap B", "A)"). Seviye testi ve şık
+#   kaydırma (arac/sik-kaydir.ps1) şıkların yerini değiştirir → metin yanlış harfi gösterir. Ölçüldü 07.10: yerel KGK hazır dosyalarında
+#   814 sorunun 808'i adımlarda harf anıyor ("Cevap B şıkkıdır."); yeterlilikte 393 soru (279 sitede). Desen sik-kaydir.ps1 HARF_ANAN_DESEN
+#   ile aynı + "(A) Bey" kişi adı istisnası. Mutasyon: $env:DENETLE_KGK_MUTASYON=harf.
+# K5 SORUDA VERİLEN (sözleşme B24 S7, kapısı yoktu): "X (soruda verilen)" etiketli sayı kökte yoksa uydurmadır. Mutasyon: =verilen.
+# K6 FIKRA ATFI (sözleşme B24 S6, kanunlar için kapısı yoktu): "m.X/Y" atfında X maddesi sorunun kaynak_adlar'ındaysa ambar metninde
+#   "(Y)" fıkrası aranır; madde numaralı fıkralıysa ((1) var) ve (Y) yoksa KUSUR. Mutasyon: =fikra.
+#   🚫 GÖRMEZ: kaynak_adlar'da olmayan madde (ölçülmedi notu) · fıkrası numarasız eski kanun · bent harfi · standart paragrafı (BDS → KAPI-BP).
+function KgkMetinler($q){ $o=@(); foreach($alan in 'aciklama','teshis','sade','adimlar','celdirici_yol','hap','sinav_taktigi'){ if($q.PSObject.Properties[$alan]){ foreach($t in @(MetinTopla $q.$alan)){ $o+=,@($alan,"$t") } } }; return $o }
+function HarfAnmaKusur($q){
+  if("$env:DENETLE_KGK_MUTASYON" -eq 'harf'){ return @() }
+  # 07.10 düzeltme (KGK ambar envanteri, 584 cümle): formül '(t x B)' ve 'p.98C)' yanlış alarmdı; 'doğrusu B' ve '→ B' kaçıyordu.
+  $d='(?<![A-Za-zÇĞİÖŞÜçğıöşü0-9(])[A-E]\s*(şıkk|şık\b|seçene)|(?<![A-Za-zÇĞİÖŞÜçğıöşü0-9(+*×/=-])(?<![x×*+/=-]\s)[A-E]\)(?=\s)|(şıkk?ı?|seçenek)\s*[A-E]\b|[Cc]evap\s*[A-E]\b|[Dd]o[gğ]rusu\s*:?\s*[A-E]\b|→\s*[A-E](?![A-Za-zÇĞİÖŞÜçğıöşü0-9.])'
+  # 07.10 ÇIPLAK HARF (KGK ambar onarımında ölçüldü: 770 sorunun 404'ünde "A ve D düşer", "B söyler →" gibi kalıpsız gönderme vardı, kalıp
+  #   deseni görmüyordu): tırnak içi şık metni ve "Ek A" atılınca tek başına duran A–E. Harf KÖKTE de tek başına geçiyorsa (formül değişkeni:
+  #   VL = VU + D) sayılmaz.
+  $cd='(?<![A-Za-zÇĞİÖŞÜçğıöşü0-9(./+*×=-])([A-E])(?![A-Za-zÇĞİÖŞÜçğıöşü0-9)]|\.[A-ZÇĞİÖŞÜ])'
+  $kokHarf=@{}; foreach($km in [regex]::Matches("$($q.soru)",$cd)){ $kokHarf[$km.Groups[1].Value]=1 }
+  $out=@(); $gor=@{}
+  foreach($p in @(KgkMetinler $q)){ if($gor.ContainsKey($p[0])){ continue }; $m=[regex]::Match($p[1],$d)
+    if(-not $m.Success -and "$env:DENETLE_KGK_MUTASYON" -ne 'ciplak'){ $tz=($p[1] -replace '“[^”]*”','' -replace '\bEk [A-E]\b',''); foreach($cm in [regex]::Matches($tz,$cd)){ if(-not $kokHarf.ContainsKey($cm.Groups[1].Value)){ $m=[regex]::Match($p[1],[regex]::Escape($tz.Substring([Math]::Max(0,$cm.Index-10),[Math]::Min(12,$tz.Length-[Math]::Max(0,$cm.Index-10))))); if(-not $m.Success){ $m=[regex]::Match($p[1],'.') }; break } } }
+    if($m.Success){ $gor[$p[0]]=1; $s=[Math]::Max(0,$m.Index-30); $out+="HARF ANMA ($($p[0])): '…$($p[1].Substring($s,[Math]::Min(70,$p[1].Length-$s)))…' — şık yer değiştirir; harf değil İÇERİK an ('bildirimi kaldıran seçenek')" } }
+  return $out
+}
+function SayiKatla([string]$s){ return ("$s" -replace '[.\s]','' -replace ',0+$','') }
+function SorudaVerilenKusur($q){
+  if("$env:DENETLE_KGK_MUTASYON" -eq 'verilen'){ return @() }
+  $kok=@{}; foreach($m in [regex]::Matches("$($q.soru)",'\d[\d.,]*')){ $kok[(SayiKatla ($m.Value.TrimEnd('.',',')))]=1 }
+  $out=@(); $gor=@{}
+  foreach($p in @(KgkMetinler $q)){
+    foreach($m in [regex]::Matches($p[1],'(?<s>\d[\d.,]*)\s*(?:TL|%|gün|ay|yıl|adet)?\s*\(soruda verilen\)')){
+      $s=SayiKatla ($m.Groups['s'].Value.TrimEnd('.',',')); if($gor.ContainsKey($s)){ continue }; $gor[$s]=1
+      if(-not $kok.ContainsKey($s)){ $out+="SORUDA VERİLEN ($($p[0])): '$($m.Value)' — bu sayı kökte YOK (S7: '(soruda verilen)' yalnız kökte harfiyen geçen değere)" } } }
+  return $out
+}
+function FikraAtifKusur($q,$metinler){
+  if("$env:DENETLE_KGK_MUTASYON" -eq 'fikra'){ return @() }
+  $out=@(); $gor=@{}
+  foreach($p in @(KgkMetinler $q)){
+    foreach($m in [regex]::Matches($p[1],'(?<on>.{0,40}?)\bm\.\s*(?<m>\d+(?:/[A-Z])?)\s*/\s*(?<f>\d+)\b')){
+      $md=$m.Groups['m'].Value; $f=$m.Groups['f'].Value; $on=$m.Groups['on'].Value
+      $esl=@($metinler.Keys | Where-Object { $_ -match ('\bm\.' + [regex]::Escape($md) + '(\s|$)') })
+      $no=[regex]::Match($on,'\b(\d{3,4})\b'); if($no.Success -and $esl.Count){ $dar=@($esl | Where-Object { $_ -match ('\(' + $no.Groups[1].Value + ' s\.') }); if($dar.Count){ $esl=$dar } }
+      $kanunlar=@($esl | ForEach-Object { ($_ -replace '\s*\bm\.\d.*$','').Trim() } | Sort-Object -Unique)
+      $an="$($kanunlar -join '|')|$md|$f"; if($gor.ContainsKey($an)){ continue }; $gor[$an]=1
+      if($kanunlar.Count -ne 1){ continue }   # madde kaynak_adlar'da yok ya da iki kanunda aynı numara → ölçülmez
+      $govde=($esl | Sort-Object | ForEach-Object { $metinler[$_] }) -join ' '
+      if($govde -match '\(\s*1\s*\)' -and $govde -notmatch ('\(\s*' + $f + '\s*\)')){ $out+="FIKRA ATFI ($($p[0])): 'm.$md/$f' — $($kanunlar[0]) m.$md metninde ($f) fıkrası YOK (S6: numara kaynak metinden okunur)" } } }
+  return $out
+}
 # 05.10.2026 SİMÜLASYON ÖN KONTROLÜ (gm8: VUK'un 3 teori sorusu bulutta öğrenci simülasyonunda kaldı). Üretici cozum_tablo görünce soruyu
 #   HESAP sorusu sayar (FAZ Ö teoriMi = tablo yok ∧ yevmiye değil), sayısal ikiz kurar; doğru şık CÜMLE ise simüle öğrenci tek sayı veremez
 #   ("U" ≠ "(U)'nun 2019 faturaları") ya da sim hiç koşmaz. Kural: doğru şıkkı cümle olan soruda cozum_tablo olmaz (talimat F.2).
@@ -245,6 +297,30 @@ if($KapaliSinavi){
        @('kökte kalıp aranmaz',[pscustomobject]@{ soru='Aşağıdakilerden hangisi yalnız cezalar düşülmez ilkesine aykırıdır?' },0))
   $h=0; foreach($x in $v){ $c=@(KapaliListeNot $x[1]).Count; if($c -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $c (beklenen $($x[2]))" } }
   if($h){ "KAPALI LISTE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPALI LISTE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
+if($KgkKapiSinavi){
+  $mt=@{ 'Sermaye Piyasası K. (6362 s.K.) m.35'='MADDE 35 – (1) Bu Kanuna göre faaliyette bulunabilecek kurumlar: a) Yatırım kuruluşları. (2) Kurul düzenler.'; 'Bankacılık K. (5411 s.K.) m.24 [1/2]'='Denetim komitesi Madde 24 — Bankaların denetim komitesi kurması zorunludur.' }
+  $v=@(
+    @('harf: "Cevap B şıkkıdır."',(@(HarfAnmaKusur ([pscustomobject]@{ adimlar=@([pscustomobject]@{ anlatim='Cevap B şıkkıdır.' }) })).Count),1),
+    @('harf: "E şıkkı bu yüzden düşer"',(@(HarfAnmaKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ E='E şıkkı bu yüzden düşer.' } })).Count),1),
+    @('harf: içerikle anma geçer',(@(HarfAnmaKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ E='Bildirimi kaldıran seçenek p.14''e aykırıdır.' } })).Count),0),
+    @('harf: "(A) Bey" kişi adı geçer',(@(HarfAnmaKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='(A) Bey denetçidir; BDS 701 p.13(b) uygulanır.' } })).Count),0),
+    @('harf: formül (t x B), (VU+D) ve p.98C) geçer',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Borç D ise?'; aciklama=[pscustomobject]@{ E='VL = VU + (t x B) formülünde vergi kalkanı eklenir; (VU, D, VU+D) sırası; p.98C) istisnası ayrıdır.' } })).Count),0),
+    @('harf: "Doğrusu: B." yakalanır, "Doğrusu: Ağırlıklar" geçer',(@(HarfAnmaKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Tuzak. Doğrusu: B.'; C='Doğrusu: Ağırlıklar toplamı birdir.' } })).Count),1),
+    @('harf: → doğrusu B yakalanır',(@(HarfAnmaKusur ([pscustomobject]@{ adimlar=@([pscustomobject]@{ anlatim='En sık hata (HATALI) → doğrusu B: açıklama yeterlidir.' }) })).Count),1),
+    @('harf: yalnız B''de → B yakalanır',(@(HarfAnmaKusur ([pscustomobject]@{ adimlar=@([pscustomobject]@{ formul='görüş yalnız B''de → B' }) })).Count),1),
+    @('harf: çıplak "A ve D düşer" yakalanır',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Hangisi doğrudur?'; adimlar=@([pscustomobject]@{ anlatim='A ve D raporun başka bölümüne aittir, düşer.' }) })).Count),1),
+    @('harf: kökte değişken D (formül) geçer',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Borç tutarı D = 2.000.000 TL ise VL kaçtır?'; adimlar=@([pscustomobject]@{ formul='VL = VU + t x D' }) })).Count),0),
+    @('harf: tırnaklı şık metnindeki A geçer',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Hangisi?'; adimlar=@([pscustomobject]@{ anlatim='Doğru cevap: “Ek A ve plan A uygulanır”.' }) })).Count),0),
+    @('harf: kökte harf aranmaz',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Aşağıdakilerden hangisi A) şıkkına benzer?' })).Count),0),
+    @('verilen: kökte olmayan sayı',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Önemlilik 400.000 TL olarak belirlenmiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 500.000 TL (soruda verilen)' }) })).Count),1),
+    @('verilen: kökte geçen sayı',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Önemlilik 400.000 TL olarak belirlenmiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 400.000 TL (soruda verilen)' }) })).Count),0),
+    @('fıkra: m.35/3 yok',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='SPKn m.35/3 gereği kurul düzenler.' } }) $mt).Count),1),
+    @('fıkra: m.35/2 var',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='6362 sayılı Kanun m.35/2 gereği Kurul düzenler.' } }) $mt).Count),0),
+    @('fıkra: numarasız madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Bankacılık K. m.24/2 gereği komite kurulur.' } }) $mt).Count),0),
+    @('fıkra: kaynak_adlar''da olmayan madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='TTK m.397/4 gereği denetçi seçilir.' } }) $mt).Count),0))
+  $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
+  if($h){ "KGK KAPI SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KGK KAPI SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }
 # 05.10.2026 KÖK DENEME (Cem "1.2.3" GM3): yazar kökü yazarken bitirme KAPI-K'yı saniyede sınar. Sözlük önbellekten
 #   (arac/kapi-k-sozluk.ps1 KapiKSmmmSozlukOnbellek, 12 saat), ölçüm denetimin aynı KapiKOlc'u. Tam denetimin yerine GEÇMEZ.
@@ -347,6 +423,23 @@ $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
 # B25 sertliği: bitirme (smmm-) etiketinde ADIM/SADE YOK kusurdur; öteki sınavlarda uyarı (o kolların kararı)
 $GM_ET=$(if($IkizEtiket){ $IkizEtiket } elseif([IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(gm\d+-.*)$'){ 'smmm-' + $Matches[1] } else { '' })   # bitirme GM dosyası hazir-gmN-…
 $GM_SERT=[bool]($GM_ET -match '^smmm-')
+# 07.10.2026 KGK SERTLİĞİ (KGK oturumu, Cem K2): kgk- etiketinde (-IkizEtiket kgk-… ya da dosya hazir-kgk-….json) B25 ADIM/SADE YOK ve SIM
+#   ön kontrolü KUSUR (bitirmeyle aynı; bulut aynı üreticiyi koşar) + K4/K5/K6 kapıları. SGS/SMMM'de değişen yok.
+$KGK_ET=$(if($IkizEtiket -match '^kgk-'){ $IkizEtiket } elseif(-not $IkizEtiket -and [IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(kgk-.*)$'){ $Matches[1] } else { '' })
+$KGK_SERT=[bool]$KGK_ET -and "$env:DENETLE_KGK_MUTASYON" -ne 'sert'
+# 07.10.2026 K9 KGK UZUNLUK TAVANI: bulut koşucusu (motor/kalip-kosucu.ps1 DersTavani, sinav=KGK) Muhasebe Standartları'na
+#   veri/sinav-anatomisi-kgk.json 'Finansal Muhasebe' p90'ını (661), öteki bütün KGK modüllerine 'Denetim' p90'ını (784) verir; bu betik
+#   KGK'da sabit 746 kullanıyordu → TMS sorusu 662–746 kr arası 'ok' alıp bulutta ÜCRETSİZ kapıda düşerdi. Kural koşucuyla aynı.
+if($KGK_ET -and $Tavan -le 0){
+  $kgkAn=$(if("$Ders $KGK_ET" -match '(?i)Muhasebe Standart|(^|-)(tms|tfrs)(-|$)'){ 'Finansal Muhasebe' } else { 'Denetim' }); $UZ_TAVAN=784
+  try{ $akY=Join-Path $depoKokD 'veri\sinav-anatomisi-kgk.json'; $pv=[int]((Get-Content $akY -Raw -Encoding UTF8 | ConvertFrom-Json).C_ders_kalibi.$kgkAn.uzunluk.p90); if($pv -gt 0){ $UZ_TAVAN=$pv } }catch{}
+  "KGK UZUNLUK TAVANI: $UZ_TAVAN kr ($kgkAn p90; koşucu DersTavani ile aynı — Muhasebe Standartları etiketi tms/tfrs içermiyorsa -Tavan 661 ver; KGK'da -Ders VERME, SGS sözlüğü kurulur)"
+}
+if($KGK_ET -and -not $YABANCI_DIL_DENETIMI -and -not $Ders -and -not $kapiK){
+  $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
+  if(Test-Path $kutup){ . $kutup; $kapiK=KapiKKgkSozlukOnbellek }
+  if(-not $kapiK){ "UYARI: KGK KAPI-K sozlugu kurulamadi - bu kapi OLCULMEDI" } else { "KGK KAPI-K: tüm KGK kitapçıkları (yalnız ön denetim; bulut KGK'da KAPI-K koşmaz)" }
+}
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count) | uzunluk tavani: $UZ_TAVAN kr"
 if($kapiK){ "KAPI-K sozlugu: genis $($kapiK.genis.Keys.Count) · dar $($kapiK.dar.Keys.Count) (soru $($kapiK.aralik -join '-')) · $($kapiK.blok) blok · son $Pencere donem: $($kapiK.donemler -join ', ')" }
 $i=0; $temizSay=0
@@ -410,7 +503,13 @@ foreach($q in $liste){
   # 05.10.2026 GM ADIM/SADE (Cem "1.2.3", sözleşme B25): gm6+gm7 ölçümü — hazır soruda adimlar yoktu, adımı bulut modeli yazdı;
   #   12 parti sorusunun en az 6'sı o katmanda düştü (ADIM-KAYMA, YY-SIKSIZ, simülasyon, AH "6. adımda bulduk"), teori sorusunda adım
   #   hiç yazılmadı ("simülasyon koşamadı"). Bitirmede (smmm-) adım/sade yoksa KUSUR, öteki sınavlarda uyarı.
-  foreach($x in @(AdimSadeEksik $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }
+  foreach($x in @(AdimSadeEksik $q)){ if($GM_SERT -or $KGK_SERT){ $k.Add($x) } else { $not.Add($x) } }
+  if($KGK_ET){
+    foreach($x in @(HarfAnmaKusur $q)){ $k.Add("KGK $x") }
+    foreach($x in @(SorudaVerilenKusur $q)){ $k.Add("KGK $x") }
+    if($kaynakOlcu){ $kmF=@{}; foreach($ad in @($q.kaynak_adlar)){ if($kaynakMetin.ContainsKey("$ad")){ $kmF["$ad"]=$kaynakMetin["$ad"] } }; foreach($x in @(FikraAtifKusur $q $kmF)){ $k.Add("KGK $x") } }
+    else { $not.Add('KGK FIKRA ATFI: ÖLÇÜLMEDİ (kaynak metni okunmadı)') }
+  }
   # 05.10.2026 KAPI-KALITE yerelde: bulut FAZ GM'in SoruKaliteKapisi'si (arac/soru-kalite-kapisi.js --tek; KAPI-AS2/EK/HK/BP/BOS/TR/YY/ADIM).
   #   gm7'de 5 soru bununla düştü, ön denetim görmüyordu. Hazır soru tarihsiz = YENİ2 → NOT- dışındaki her satır durdurur.
   foreach($x in @(KaliteTek $q)){ if("$x" -like 'NOT-*'){ $not.Add("$x") } else { $k.Add("KAPI-KALITE $x") } }
@@ -418,7 +517,7 @@ foreach($q in $liste){
   foreach($x in @(TersSadeNot $q)){ $not.Add($x) }
   foreach($x in @(KapaliListeNot $q)){ $not.Add($x) }
   if($kaynakOlcu){ foreach($x in @(OnekAlintiNot $q $(if($q.kaynak_adlar){ $kmS=@{}; foreach($ad in @($q.kaynak_adlar)){ if($kaynakMetin.ContainsKey("$ad")){ $kmS["$ad"]=$kaynakMetin["$ad"] } }; $kmS } else { @{} }))){ $not.Add($x) } }
-  foreach($x in @(SimOnKontrol $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }
+  foreach($x in @(SimOnKontrol $q)){ if($GM_SERT -or $KGK_SERT){ $k.Add($x) } else { $not.Add($x) } }
   # adım aritmetiği (AritmetikKusur taklidi) + ';' zinciri
   $n=0; foreach($a in @($q.adimlar)){ $n++; $f="$($a.formul)"
     if($f -match ';' -and $f -match '=.*;.*='){ $k.Add("adim $n formulde ';' zinciri") }

@@ -142,6 +142,36 @@ function KapiKSmmmSozlukOnbellek([Parameter(Mandatory)][string]$DersRegex,[int]$
   KapiKSozlukYaz $s $yol; return $s
 }
 
+# ⭐ 07.10.2026 KGK SÖZLÜĞÜ (KGK oturumu, Cem "eksik kuralları yapalım" K3): KGK'nın KAPI-K sözlüğü yoktu — üretici KGK'da pencere
+#   sözlüğü KURMUYOR (PENCERE_KOK yalnız SGS/SMMM dalında dolar), ön denetim de etiket kgk- iken hiçbir sözlük kurmuyordu → KGK sorusunun
+#   kökü "sınav dili" ölçüsünden hiç geçmedi. Sözlük ambardaki BÜTÜN KGK çıkmış kitapçıklarından (tur=cikmis-soru, 'CIKMIS SINAV - KGK%',
+#   CEVAP belgeleri hariç; 2016–2026, 7 modül karışık) kurulur. KGK kitapçığı modül modül bölünmediği için DAR sözlük yok (yalnız GENİŞ).
+#   🚫 GÖRMEZ: bulutta aynı ölçü YOK (üretici KGK'da KAPI-K koşmaz) → bu yalnız ÖN DENETİM kapısıdır; görüntüden okunan 2 sınav (metin yok).
+function KapiKKgkSozlukKur(){
+  $KEY = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'); if(-not $KEY){ $KEY = $env:SUPABASE_SERVICE_KEY }; if(-not $KEY){ return $null }
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+  $SB=@{ apikey=$KEY.Trim(); Authorization="Bearer $($KEY.Trim())"; 'User-Agent'='mevzuat-radar-robot/1.0' }
+  $genis=@{}; $blok=0; $ofs=0
+  while($true){
+    $u='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=kaynak_ad,metin&tur=eq.cikmis-soru&kaynak_ad=ilike.' + [uri]::EscapeDataString('CIKMIS SINAV - KGK%') + "&order=kaynak_ad.asc&limit=50&offset=$ofs"
+    $sayfa=$null; foreach($d in 1..3){ try{ $r=Invoke-WebRequest -Uri $u -Headers $SB -UseBasicParsing -TimeoutSec 120; $sayfa=ConvertFrom-Json -InputObject ([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray())); break }catch{ Start-Sleep -Seconds 3 } }
+    if($null -eq $sayfa){ return $null }   # yarım sözlük kurulmaz (sessiz eksik = sahte "sınav dili dışı")
+    $liste=@($sayfa | ForEach-Object { $_ }); if(-not $liste.Count){ break }
+    foreach($x in $liste){ if("$($x.kaynak_ad)" -match '(?i)CEVAP'){ continue }; $blok++
+      foreach($w in ((KapiKKatla "$($x.metin)") -replace '[^a-z ]+',' ' -split '\s+')){ if($w.Length -ge 5){ $genis[$w.Substring(0,5)]=1 } } }
+    if($liste.Count -lt 50){ break }; $ofs+=50
+  }
+  if($blok -lt 50){ return $null }   # 07.10 ölçüldü: 120 belgenin ~100'ü kitapçık; 50 altı = çekim eksik
+  return [pscustomobject]@{ genis=$genis; dar=$null; aralik=@('kgk-tum'); blok=$blok; donemler=@('KGK tüm kitapçıklar'); kaynak='ambar (KGK çıkmış kitapçıkları)' }
+}
+function KapiKKgkSozlukOnbellek([int]$SaatTavan=12,[switch]$Tazele){
+  $kat=Join-Path (KapiKDepoKok) 'veri\fabrika'; if(-not (Test-Path $kat)){ New-Item -ItemType Directory -Force $kat | Out-Null }
+  $yol=Join-Path $kat 'kapi-k-kgk-tum.json'
+  if(-not $Tazele -and (Test-Path $yol)){ $s=KapiKSozlukOku $yol; if(((Get-Date)-$s.olcum).TotalHours -lt $SaatTavan){ return $s } }
+  $s=KapiKKgkSozlukKur; if(-not $s){ return $null }
+  KapiKSozlukYaz $s $yol; return $s
+}
+
 # Üreticideki PencereKavram'ın birebir aynısı: kelime -> sebep sözlüğü döner.
 #   GENİŞ'te yok            -> kusur (kaç kez geçtiğine bakılmaz)
 #   GENİŞ'te var, DAR'da yok -> yalnız gövdede >=2 kez geçiyorsa kusur
