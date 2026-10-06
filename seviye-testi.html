@@ -329,8 +329,35 @@
   /* 07.10 ÜYE HAFTALIK HAK: paket sahibi (TetikteUye durum 'aktif') sınırsız; ücretsiz üye son sonucundan 7 gün sonra.
      Sınavın son haftasında, son sonucu o haftadan önceyse bir ek hak (sonIkiHafta). Dönüş: kalan gün (0 = açık). */
   var PAKETLI=false, HAFTA_GUN=7;
-  function haftaKalan(){ if(PAKETLI) return 0; try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(!g.length) return 0;
-      var son=new Date(g[g.length-1].tarih), a=sonIkiHafta(); if(a&&son<a) return 0;
+  /* 07.10 (Cem "haftalık hakkı hesaba bağla"): üyede son sonuç = cihazdaki ve HESAPTAKİ (ogrenci_sonuc) son sonucun yenisi;
+     cihaz değişince hak yeniden açılmasın. Hesap okunamazsa (ağ, tablo) cihazdakiyle devam (fail-open, eskisi gibi). */
+  var HESAP_SON=null, HESAP_SOR=null;
+  function sonSonucTarihi(){ var son=null; try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length) son=new Date(g[g.length-1].tarih); }catch(e){}
+      if(HESAP_SON&&(!son||isNaN(son)||HESAP_SON>son)) son=HESAP_SON; return son&&!isNaN(son)?son:null; }
+  function hesapSonuOku(){
+    if(HESAP_SOR) return HESAP_SOR;
+    HESAP_SOR=(window.TetikteUye&&TetikteUye.hazir?TetikteUye.hazir:Promise.resolve(null)).then(function(d){
+      var s=d&&d.sinavlar&&d.sinavlar[YET?'yeterlilik':'sgs']; PAKETLI=!!(s&&s.durum==='aktif');
+      var sb=window.__pkSb; if(PAKETLI||!sb||!d||!d.oturum) return;
+      /* supabase-js sorgusu tembel: then ile gönderilir. veri.tarih = testin çözüldüğü an (olusturma = aktarım anı olabilir) */
+      return sb.from('ogrenci_sonuc').select('veri').eq('tur','seviye').eq('sinav',YET?'smmm':'sgs').order('olusturma',{ascending:false}).limit(50).then(function(r){
+        if(!r||r.error||!r.data) return;
+        r.data.forEach(function(x){ var t=new Date(x.veri&&x.veri.tarih); if(!isNaN(t)&&(!HESAP_SON||t>HESAP_SON)) HESAP_SON=t; });
+      });
+    }).catch(function(){});
+    return HESAP_SOR;
+  }
+  /* testi bitiren üyenin sonucu hemen hesaba (ogrenci.html'in anahtarı ve biçimiyle aynı: sv-/svy-+tarih, tekil -> çift yazılmaz) */
+  function hesabaYaz(s){
+    try{ if(!uyeMi()) return; (window.TetikteUye&&TetikteUye.hazir?TetikteUye.hazir:Promise.resolve(null)).then(function(d){
+      var sb=window.__pkSb; if(!sb||!d||!d.oturum) return;
+      sb.from('ogrenci_sonuc').upsert([{tur:'seviye',sinav:YET?'smmm':'sgs',anahtar:(YET?'svy-':'sv-')+s.tarih,
+        veri:{gecme:s.gecme,dogru:s.dogru,soru:s.soru,dogru130:s.dogru130||null,gruplar:s.gruplar||null,tarih:s.tarih}}],{onConflict:'user_id,tur,anahtar',ignoreDuplicates:true}).then(function(){},function(){});
+      var t=new Date(s.tarih); if(!HESAP_SON||t>HESAP_SON) HESAP_SON=t;
+    }).catch(function(){}); }catch(e){}
+  }
+  function haftaKalan(){ if(PAKETLI) return 0; try{ var son=sonSonucTarihi(); if(!son) return 0;
+      var a=sonIkiHafta(); if(a&&son<a) return 0;
       var acilis=new Date(son.getTime()+HAFTA_GUN*86400000), fark=acilis-new Date(); return fark>0?Math.ceil(fark/86400000):0; }catch(e){ return 0; } }
   function haftaKilitGoster(){ var n=haftaKalan(); if(!n) return false; var t=new Date(Date.now()+n*86400000);
     $('svHaftaMetin').innerHTML='Bir sonraki ölçümün <b>'+n+' gün sonra</b> ('+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+') açılır; hatırlatmalara izin verdiysen o gün e-postan da gelir. Haftada bir ölçmek gidişatını gösterir; her gün ölçülen 30 soru şansı ölçer. O zamana kadar paketle her gün soru çöz: bütün yanlışlarını Nöbetçi anlatır.';
@@ -438,7 +465,16 @@
      diğer herkes ad + e-posta + TELEFON (zorunlu) + sınav + dönem vermeden soru göremez. */
   function basla(){
     if(!uyeMi() && hakKullanildi()){ goster('svGiris'); $('svHakBitti').hidden=false; $('svBasla').hidden=true; return; }
-    if(uyeMi() && haftaKalan()){ goster('svGiris'); haftaKilitGoster(); return; }   /* 07.10 haftalık hak */
+    if(uyeMi()){
+      /* 07.10: hesaptaki son sonuç gelmeden test açılmaz (en çok 4 sn; gelmezse cihazdakiyle karar verilir) */
+      var b=$('svBasla'), eski=b.textContent; b.disabled=true; b.textContent='Hesabın kontrol ediliyor…';
+      Promise.race([hesapSonuOku(), new Promise(function(r){ setTimeout(r,4000); })]).then(function(){
+        b.disabled=false; b.textContent=eski;
+        if(haftaKalan()){ goster('svGiris'); haftaKilitGoster(); return; }   /* 07.10 haftalık hak */
+        testeBasla();
+      });
+      return;
+    }
     /* 03.10 (Cem, V2 madde 16 "test sonuna al"): form artık testten ÖNCE değil SONRA - bkz. sonucuAc() */
     testeBasla();
   }
@@ -473,7 +509,7 @@
     /* 05.10 SEVİYEYE GÖRE SIRA (Cem "bu derste iyi değilsen kolaydan başlıyoruz"): ders bazında da saklanır; soru sayfası
        (motor/kaydir-coz.ps1) o dersin sırasını buna göre kurar. SGS'de bir dersten 1-2 soru düşer → sayfa grubu da okur. */
     var dersler={}; sayilan.forEach(function(c){ var d=dersler[c.ders]||(dersler[c.ders]={dogru:0,soru:0,grup:c.grup}); d.soru++; if(c.dogru) d.dogru++; });
-    try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),dersler:dersler,tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); }catch(e){}
+    try{ var gecmis=JSON.parse(localStorage.getItem('sv_sonuclar')||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,dogru130:SONUC.dogru130,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru};}),dersler:dersler,tarih:SONUC.tarih}); localStorage.setItem('sv_sonuclar',JSON.stringify(gecmis.slice(-20))); hesabaYaz(gecmis[gecmis.length-1]); }catch(e){}
     /* yanlışlar Kaydır-Çöz yanlış kutusuna (aynı biçim) */
     try{
       var kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
@@ -534,7 +570,7 @@
     var liste=t.dersler.map(function(d){ return {ad:d.ad,dogru:d.dogru,soru:d.soru,durum:d.durum,puan:d.puan,p50:d.p50}; });
     SONUC={ gecme:t.gecme, dogru130:0, soru:CEVAPLAR.length, dogru:dogruSay, gruplar:liste, tezkiye:t.tezkiye,
             denetlenemedi:CEVAPLAR.filter(function(c){return c.denetlenemedi;}).length, tarih:new Date().toISOString() };
-    try{ var gecmis=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru,durum:x.durum};}),tarih:SONUC.tarih}); localStorage.setItem(ANAH_SONUC,JSON.stringify(gecmis.slice(-20))); }catch(e){}
+    try{ var gecmis=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); gecmis.push({gecme:SONUC.gecme,dogru:dogruSay,soru:SONUC.soru,gruplar:liste.map(function(x){return {ad:x.ad,dogru:x.dogru,soru:x.soru,durum:x.durum};}),tarih:SONUC.tarih}); localStorage.setItem(ANAH_SONUC,JSON.stringify(gecmis.slice(-20))); hesabaYaz(gecmis[gecmis.length-1]); }catch(e){}
     yanlisKutusu();
     sonucuAc(function(){ hakYaz(); sonucCizYet(); });
   }
@@ -875,13 +911,14 @@
     var kapali=(!uyeMi() && hakKullanildi());
     if(kapali){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; }
     else if(uyeMi()){ haftaKilitGoster();   /* paket bilgisi gelince yeniden bak: paketliyse kilit kalkar */
-      try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){ var s=d&&d.sinavlar&&d.sinavlar[YET?'yeterlilik':'sgs']; PAKETLI=!!(s&&s.durum==='aktif'); if(PAKETLI){ $('svHaftaKilit').hidden=true; $('svBasla').hidden=false; } }); }catch(e){} }
+      /* 07.10: paket + hesaptaki son sonuç gelince yeniden bak (paketliyse kilit kalkar; başka cihazdaki sonuç kilidi kurar) */
+      hesapSonuOku().then(function(){ if(PAKETLI||!haftaKalan()){ $('svHaftaKilit').hidden=true; $('svBasla').hidden=false; } else haftaKilitGoster(); }); }
     /* "yeniden çözersen farklı sorular gelir" sözü ÜYEYE aittir; hakkını kullanmış ziyaretçiye söylenmez */
     try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali||YET?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
   }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile';
     /* 07.10 Cem "30 soru çözmüştüm, bana 'sorular hazırlanıyor' değil '7 gün sonra dene ya da üye ol' desin": hak/hafta kutusu
        soruların yüklenmesini BEKLEMEZ - yükleme düşse de testi zaten çözmüş olana kendi kutusu gösterilir */
-    try{ if(!uyeMi() && hakKullanildi()){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; } else if(uyeMi()) haftaKilitGoster(); }catch(x){}
+    try{ if(!uyeMi() && hakKullanildi()){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; } else if(uyeMi()){ haftaKilitGoster(); hesapSonuOku().then(function(){ if(!PAKETLI) haftaKilitGoster(); }); } }catch(x){}
     try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'; } }catch(x){}
   });
   /* 04.10: hesap açıp dönen (ogrenci.html ?sonra=seviye-testi.html?rapor=1) -> bu cihazdaki son raporun TAMAMI */
