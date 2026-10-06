@@ -265,11 +265,12 @@
       <p>Bu bir <b>tahmindir</b>. Staja Giriş'te puan bağıl hesaplanır (ortalama 50, standart sapma 10; 60 ve üzeri geçer) ve geçme sınırı her dönem sınava girenlere göre değişir; resmî sınır yayımlanmaz.</p>
       <ul>
         <li><b>Seviyen:</b> 30 cevabından, sorunun zorluğu hesaba katılarak kestirilir (Rasch modeli). Zorluk, sorunun üretimde aldığı kolay / zor / çok zor etiketinden gelir; bu etiketler henüz gerçek adaylarla ölçülmedi.</li>
-        <li><b>130 soruda doğru oranın:</b> o seviyeyle, sınav havuzundaki zorluk karışımında beklenen oran.</li>
+        <li><b>Hangi sorular:</b> her dersten sınavdaki ağırlığı kadar soru gelir (130 soruluk sınavda payı büyük olan derse daha çok); ders içinde çıkmış sınavlarda sık görülen konular önceliklidir.</li>
+        <li><b>130 soruda doğru oranın:</b> o seviyeyle, soru bankamızın zorluk karışımında beklenen oran (gerçek sınavın zorluk karışımı yayımlanmaz).</li>
         <li><b>Geçme sınırı:</b> TESMER Uygulama Yönergesi'ne göre geçmişte "soruların %80'ini doğru cevaplayanların başarılı sayıldığı sınavlar olduğu gibi %60'ını doğru cevaplayanların başarısız bulunduğu sınavlar da olmuştur". Hesapta sınır ortalama %70, ±%7 dağılımla alınır.</li>
-        <li><b>Geçme ihtimali:</b> doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. <b>Ne kadar isabetli?</b> 16.09.2026'da bu modelle 700 sahte aday koşturuldu: 30 soruda tahminin gerçeğinden ortalama sapması <b>±10,7 puan</b> (20 soruda ±12,5 idi), geçer/kalır tarafını ters söyleme oranı %9. Gerçek kesinlik, etiketler adaylarla kalibre edilene kadar bundan düşüktür.</li>
+        <li><b>Geçme ihtimali:</b> doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. <b>Ne kadar isabetli?</b> 16.09.2026'da bu modelle 700 benzetim adayı koşturuldu (gerçek aday değil, modelin kendi ürettiği): 30 soruda tahminin gerçeğinden ortalama sapması <b>±10,7 puan</b> (20 soruda ±12,5 idi), geçer/kalır tarafını ters söyleme oranı %9. Gerçek kesinlik, etiketler adaylarla kalibre edilene kadar bundan düşüktür.</li>
       </ul>
-      <p>21 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
+      <p>21 Kasım 2026 sınavından sonra bu hesap, sonucunu paylaşan adaylardan sınava 2 haftadan yakın testi çözmüş olanların gerçek sonuçlarıyla yeniden ayarlanacak (daha önce çözüp sonra çalışan adayın sonucu bugünkü ölçümü göstermez).</p>
     </details>
     <details class="sv-nasil" id="nasilYet" hidden>
       <summary>Nasıl hesaplandı?</summary>
@@ -280,7 +281,7 @@
         <li><b>Gerçek sınav:</b> her ders için 20 soruluk sınav, bu seviyelerle bilgisayarda binlerce kez oynatılır; "her ders 50'nin üstünde ve ortalama 60'ın üstünde" çıkan oyunların oranı geçme ihtimalindir. Test soruları bilerek sınavdan zor seçildi; hesap gerçek sınavı bu setten kolay kabul eder (varsayım).</li>
         <li><b>Güçlü / Sınırda / Riskli:</b> o dersten 50'yi geçme ihtimalin %80 ve üstü · %50–80 · %50'nin altı.</li>
       </ul>
-      <p>28 Kasım 2026 sınavından sonra, sonucunu paylaşan adayların gerçek puanlarıyla bu hesap yeniden ayarlanacak.</p>
+      <p>28 Kasım 2026 sınavından sonra bu hesap, sonucunu paylaşan adaylardan sınava 2 haftadan yakın testi çözmüş olanların gerçek sonuçlarıyla yeniden ayarlanacak (daha önce çözüp sonra çalışan adayın sonucu bugünkü ölçümü göstermez).</p>
     </details>
     <div class="sv-dugmeler"><button class="sv-btn" id="svYeniden" type="button">Testi yeniden çöz (farklı sorular)</button></div>
   </section>
@@ -289,6 +290,7 @@
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js"></script>
 <script src="fiyat-motoru.js"></script>
+<script src="nobetci-oynatici.js"></script>
 <script>
 (function(){
   'use strict';
@@ -517,6 +519,19 @@
       body:JSON.stringify({ p_cevaplar:gonder }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){
       var l=(j&&j.liste)||[]; if(!l.length){ kap.hidden=true; return; }
       var soruMetni={}; CEVAPLAR.forEach(function(c){ soruMetni[c.id]={ soru:c.soru, ders:c.ders }; });
+      /* 06.10 OYNATICI (Cem: "video kaydı gibi anlatsın"): kartlar alt alta değil, nobetci-oynatici.js ile sahne sahne oynar.
+         Oynatıcı yüklenmediyse eski düz kart görünümü (aşağıda) çizilir. Başlık 25 yanlışla moral bozmasın: "3'ünü birlikte çözelim". */
+      var al=($('svTeklifAna')||{}).getAttribute?$('svTeklifAna').getAttribute('href'):'fiyat.html', kalan=tum-l.length;
+      if(window.NobetciOynatici){
+        kap.hidden=false;
+        window.NobetciOynatici.kur(kap, l.map(function(x,i){ var s=soruMetni[x.id]||{}; return { ust:String(s.ders||'').split('|')[0]+' · '+(x.secim?'yanlışın':'boş geçtiğin soru'), soru:s.soru, secim:x.secim, secim_metin:x.secim_metin, tuzak_ad:x.tuzak_ad, tuzak_metin:x.tuzak_metin, dogru:x.dogru, dogru_metin:x.dogru_metin, aciklama:x.aciklama, kural:x.kural, dayanak:x.dayanak }; }), {
+          baslik:'Nöbetçi yanlışlarını anlatıyor',
+          alt:(l.length===1?'Bir yanlışını':'Yanlışlarından '+l.length+' tanesini')+' birlikte çözelim. Nöbetçi neden yanıldığını ve doğrusunu adım adım anlatıyor; ücretsiz.',
+          son:{ metin: kalan>0 ? 'Kalan <b>'+kalan+'</b> yanlışını da Nöbetçi böyle anlatır. Bankadaki her soru böyle anlatılır.' : 'Bankadaki her soru böyle anlatılır.', dugme:'Tam bankayı aç →', href:al },
+          olay:function(ad){ say('nobetci/'+ad); }
+        });
+        say('nobetci-anlatti'); return;
+      }
       var h='<h2 style="margin:0 0 6px">Nöbetçi yanlışlarını anlatıyor</h2>'
         +'<p class="sv-alt" style="margin:0 0 14px">Testte '+tum+' yanlış ya da boş cevabın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
       l.forEach(function(x,i){ var s=soruMetni[x.id]||{};
