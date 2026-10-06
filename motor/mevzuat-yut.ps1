@@ -53,7 +53,89 @@ function MaddeKendisiMulga([string]$govde){
   if($yenidenler.Count -and $yenidenler[$yenidenler.Count-1].Index -gt $mulgalar[$mulgalar.Count-1].Index){ return $false }
   return $true
 }
-function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
+# --- 06.10.2026 BASLIK SIZMASI (Cem "1.2.3 ucunu de yap"; is emri veri/AMBAR-YUTMA-IS-EMRI-20260930.md satir 23) ---
+# mevzuat.gov.tr metninde madde basligi "MADDE N" satirinin USTUNDE durur ve iki nokta ALMAZ:
+#   "...diger sermaye piyasasi kurumlaridir. Kitle fonlama platformlari MADDE 35/A – (1) ..."
+# Parcala bolmeyi "MADDE N"den yaptigi icin baslik (ve "IKINCI BOLUM ..." gibi bolum basliklari) ONCEKI maddenin
+# sonuna yapisiyordu; sonraki kaydin baslik alani bos kaliyordu. Zarar (olculdu, 06.10): 6362 m.35'in sonunda
+# "Kitle fonlama platformlari" -> smmm-w3-yspk-zor/kp-01 + 6 soru IKI DOGRU SIKLI cikti (commit 2d9d1f89).
+# Olcum: madde sinirinda noktalamasiz biten 23.352 kayit, 17.291 baslik kuyrugu adayi; 100'luk orneklemin 94'u gercek
+# baslik (yanlis 6: 5 'bolum N' uzunluk parcasi - bu kural onlara DOKUNMAZ -, 1 dipnot numarasi "19").
+# Kural: onceki parcanin son GERCEK cumle sonundan (. ! ? … ” ) - numaralandirma "2." "c)" "fff)" ve "md." degil)
+# sonra kalan KUYRUK baslik gibi gorunuyorsa sonraki kaydin BASINA tasinir, baslik alanina da yazilir. kaynak_ad DEGISMEZ.
+# BU KAPI SUNU GORMEZ (bilerek birakilir, tasinmaz): ':' veya ';' ile biten cumleden sonra gelen kuyruk (liste girisi
+#   "sunlardir:" ile karisir) · sondan noktalamasiz son CUMLE ("... yurutur") ile fiille biten baslik (ayni ek) ·
+#   kardes numarali liste ogesiyle ayni numarali hiyerarsik baslik ("b) X" govdede varken "c) Baslik") · dipnotla
+#   yapisik cumle sonu ("sayilir.15 2. Ilgililer" disinda) · KGK standartlari / SPK portali / etik kurallar (baska yutucular).
+$script:TR_HARF = 'abcçdefgğhıijklmnoöprsştuüvyz'
+function KuyrukBaslikMi([string]$t, [string]$onceki){
+  $t = $t.Trim()
+  if($t.Length -lt 3 -or $t.Length -gt 250){ return $false }
+  if(@($t -split '\s+').Count -gt 25){ return $false }
+  if($t -match '[;:](\s|$)'){ return $false }                                  # liste/tanim girisi baslik degildir
+  $gov = $t -creplace '^(?:(?:\d{1,3}|[IVXLC]{1,6})\s*[-–.)]\s*|[a-zçğıöşü]{1,3}\)\s*|[A-ZÇĞİÖŞÜ]\)\s*)+', ''
+  if($gov -cnotmatch '^[A-ZÇĞİÖŞÜ0-9]'){ return $false }                        # kucuk harfle suren cumle
+  if($gov -notmatch '\p{L}{3,}'){ return $false }                               # dipnot numarasi "19"
+  if($gov -match '^\d' -and $gov -cnotmatch '^\d+\s+(sayılı|[A-ZÇĞİÖŞÜ])'){ return $false }
+  $son = ([regex]::Match($t, '\p{L}+(?=\P{L}*$)')).Value.ToLowerInvariant()
+  if($son -match '(ı|i|u|ü)r$|(dır|dir|dur|dür|tır|tir|tur|tür|maz|mez)$' -or ($son -match '(a|e)r$' -and $son -notmatch '(lar|ler)$')){ return $false }   # fiil: "yurutur", "girer"
+  # liste devami: "c) X" kuyrugundan once govdede "b) " varsa son liste ogesidir, baslik degil
+  #   (numarada bicim aynen aranir: "2." icin "1." - fikra numarasi "(1)" kardes SAYILMAZ)
+  $ilk = [regex]::Match($t, '^(?:(?<n>\d{1,3})(?<a>[.)])|\(?(?<h>[a-zçğıöşü]{1,3})\))')
+  $kardes = ''
+  if($ilk.Groups['n'].Success -and [int]$ilk.Groups['n'].Value -gt 1){ $kardes = "$([int]$ilk.Groups['n'].Value - 1)" + [regex]::Escape($ilk.Groups['a'].Value) }
+  elseif($ilk.Groups['h'].Success){
+    $h = $ilk.Groups['h'].Value; $x = $script:TR_HARF.IndexOf($h.Substring(0,1))
+    if($x -gt 0){ $kardes = '\(?' + ([string]$script:TR_HARF[$x-1]) * $h.Length + '\)' }
+  }
+  if($kardes){ $arka = if($onceki.Length -gt 1500){ $onceki.Substring($onceki.Length-1500) } else { $onceki }; if($arka -cmatch "(?<![\S])$kardes\s"){ return $false } }
+  return $true
+}
+# Govdenin sonundaki baslik kuyrugunun baslangic indeksi; yoksa -1.
+function BaslikKuyruguBul([string]$g){
+  $s = $g.TrimEnd()
+  # (akilli tirnaklar \u ile: PS tek tirnakli dizgide U+2019/U+201D dizgiyi KAPATIR)
+  if($s.Length -lt 3 -or $s -match '[.;:!?\u2026\u201D"\u2019)\]]$'){ return -1 }
+  $sinir = [regex]::Matches($s, '(?<=[.!?\u2026\u201D"\u2019)\]]|\p{Ll}[.!?]\d{1,3}|\p{Ll}(?:dır|dir|dur|dür|tır|tir|tur|tür)(?=\s+\p{Lu}))\s+')   # noktasiz cumle sonu: "...mensubunundur Is Kabulu"
+  for($k = $sinir.Count-1; $k -ge 0; $k--){
+    $b = $sinir[$k]; $onceki = $s.Substring(0, $b.Index)
+    $tok = [regex]::Match($onceki, '\S+$').Value
+    if($tok -cmatch '^\(?(\d{1,3}|[a-zçğıöşü]{1,3}|[A-ZÇĞİÖŞÜ]|[IVXLC]{1,6})[.)]$'){ continue }   # numaralandirma
+    if($tok -match '^(md|s|no|vb|vs|bkz|dr|av|prof|sy|rg)\.\)?$'){ continue }                        # kisaltma
+    if(KuyrukBaslikMi $s.Substring($b.Index + $b.Length) $onceki){ return ($b.Index + $b.Length) }
+    return -1
+  }
+  return -1
+}
+# YEDEK YOL - HAM SATIR (06.10, asil vaka bununla yakalandi): 6362 m.35 noktasiz bir LISTEYLE biter
+#   ("... h) Veri depolama kuruluslari / i) ... diger sermaye piyasasi kurumlari / Kitle fonlama platformlari / MADDE 35/A-")
+#   - cumle sonu yok, yukaridaki kural bir sey bulamaz. Ham metinde (pdftotext) baslik KENDI SATIRINDADIR ve MADDE satirinin
+#   hemen ustundedir. Kural: MADDE satirinin ustundeki tek satir baslik bicimindeyse (KuyrukBaslikMi) ve ondan onceki satir
+#   KAYDIRMA degilse (onceki satir + 1 + basligin ilk kelimesi sayfa genisligine - satir boylarinin %95'lik dilimi - sigardi)
+#   o satir "baslik satiri" sayilir. Cumle kurali bos donerse govde bu satirlardan biriyle bitiyorsa o tasinir.
+# BU YOL SUNU GORMEZ: birden cok satirli baslik (yalniz SON satir tasinir; "IKINCI BOLUM" satiri yerinde kalir) ·
+#   sayfa genisligine yakin uzunlukta biten liste ogesinden sonraki baslik (kaydirma sanilir, tasinmaz).
+function BaslikSatirlari([string]$ham){
+  $kume = New-Object 'System.Collections.Generic.HashSet[string]'
+  $sat = @($ham -split '\r?\n' | ForEach-Object { ($_ -replace '\s+',' ').Trim() })
+  $boy = @($sat | Where-Object { $_ } | ForEach-Object { $_.Length } | Sort-Object)
+  if($boy.Count -lt 20){ return ,$kume }
+  $gen = [Math]::Max(60, $boy[[int][Math]::Floor($boy.Count * 0.95)])
+  $maddeRx = [regex]'^(?:MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|MADDE|Madde)\s+\d+(?:/[A-ZÇĞİÖŞÜ])?\s*[-–‐-―−(]'
+  for($j=1; $j -lt $sat.Count; $j++){
+    if(-not $maddeRx.IsMatch($sat[$j])){ continue }
+    $a = $j-1; while($a -ge 0 -and -not $sat[$a]){ $a-- }; if($a -lt 1){ continue }
+    $L = $sat[$a]
+    if($L.Length -gt 120 -or $L -match '[.;:!?\u2026\u201D"\u2019)\]]$'){ continue }
+    $onIx = $a-1; while($onIx -ge 0 -and -not $sat[$onIx]){ $onIx-- }; if($onIx -lt 0){ continue }
+    $onSatir = $sat[$onIx]
+    $ilkK = ($L -split ' ')[0]
+    if($onSatir -notmatch '[.;:!?\u2026\u201D"\u2019)\]]$' -and ($onSatir.Length + 1 + $ilkK.Length) -gt $gen){ continue }   # kaydirma
+    if(KuyrukBaslikMi $L $onSatir){ [void]$kume.Add($L) }
+  }
+  return ,$kume
+}
+function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url, $baslikSatirlari = $null){
   # 14.08 KUSUR (olculdu, Dahilde Isleme Rejimi Karari vakasi): desen madde
   # numarasindan HEMEN SONRA tire bekliyordu. Ama bazi metinlerde degisiklik
   # parantezi ARAYA giriyor ve tire ondan SONRA geliyor:
@@ -98,10 +180,29 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
   $rx = [regex]'(?:(?<pre>\p{Lu}[^:]{1,70}):\s*)?(?<tur>MÜKERRER MADDE|EK GEÇİCİ MADDE|EK MADDE|GEÇİCİ MADDE|Mükerrer MADDE|Ek Geçici MADDE|Ek MADDE|Geçici MADDE|MADDE|Mükerrer Madde|Ek Geçici Madde|Ek Madde|Geçici Madde|Madde)\s+(?<no>\d+(?:/[A-ZÇĞİÖŞÜ])?)\s*(?:\(\s*(?:Değişik|Mülga|Ek|Yeniden|Başlığı|Değiştirilen)[^)]{0,140}\)\s*[:‐-―−-]?|[‐-―−-])'
   $m = $rx.Matches($flatMetin)
   $docs = New-Object System.Collections.Generic.List[object]
+  # 06.10 BASLIK SIZMASI (yukarida): once her parcanin akibeti (mulga / onceki maddeye eklenir / kendi kaydi) bilinir;
+  # kuyruk YALNIZ sonraki parca kendi kaydi olacaksa tasinir (mulga ya da eklenen parcaya tasinsa metin kaybolur/yer degistirirdi).
+  $govdeler = New-Object System.Collections.Generic.List[string]; $akibet = New-Object System.Collections.Generic.List[string]
   for($i=0; $i -lt $m.Count; $i++){
-    $start = $m[$i].Index
     $end = if($i -lt $m.Count-1){ $m[$i+1].Index } else { $flatMetin.Length }
-    $govde = $flatMetin.Substring($start, $end-$start).Trim()
+    $gv = $flatMetin.Substring($m[$i].Index, $end-$m[$i].Index).Trim(); $govdeler.Add($gv)
+    $akibet.Add($(if(MaddeKendisiMulga $gv){ 'mulga' } elseif($gv.Length -lt 60 -and -not ($gv.Length -ge 30 -and $gv.EndsWith('.'))){ 'ekle' } else { 'kayit' }))
+  }
+  $kuyrukBas = @{}; $gelenBaslik = @{}
+  for($i=0; $i -lt $m.Count-1; $i++){
+    if($akibet[$i+1] -ne 'kayit'){ continue }
+    $kb = BaslikKuyruguBul $govdeler[$i]
+    if($kb -le 0 -and $null -ne $baslikSatirlari -and $baslikSatirlari.Count){   # yedek yol: ham satir (BaslikSatirlari)
+      $kel = @($govdeler[$i] -split ' ')
+      for($w = [Math]::Min(25, $kel.Count-1); $w -ge 1; $w--){
+        $aday = ($kel[($kel.Count-$w)..($kel.Count-1)]) -join ' '
+        if($baslikSatirlari.Contains($aday)){ $kb = $govdeler[$i].Length - $aday.Length; break }
+      }
+    }
+    if($kb -gt 0){ $kuyrukBas[$i] = $kb; $gelenBaslik[$i+1] = $govdeler[$i].Substring($kb).Trim() }
+  }
+  for($i=0; $i -lt $m.Count; $i++){
+    $govde = $govdeler[$i]
     $no = $m[$i].Groups['no'].Value; $tur = $m[$i].Groups['tur'].Value; $pre = $m[$i].Groups['pre'].Value.Trim()
     # 14.08 KUSUR (olculdu, Yerli Mali Tebligi vakasi): bu kontrol "(Mülga" gordugu
     # anda maddeyi atiyordu - ama "(Mülga ibare:...)" / "(Mülga fıkra:...)" MADDENIN
@@ -137,8 +238,9 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
     #   gercek madde birlesik kalmaya devam eder; ayrica kirik parcanin kendisi duzeltilmez.
     # Oz-sinav: powershell -File motor/mevzuat-yut.ps1 -OzSinav  (iki vaka: II-19.1 m.19 ayrilir,
     #   "Yururluk: Madde 117 -" birlesir)
-    if($govde.Length -lt 60 -and -not ($govde.Length -ge 30 -and $govde.EndsWith('.'))){
-      if($docs.Count -gt 0){ $docs[$docs.Count-1].metin = "$($docs[$docs.Count-1].metin) $govde" }
+    if($akibet[$i] -eq 'ekle'){
+      $ekGovde = if($kuyrukBas.ContainsKey($i)){ $govde.Substring(0, $kuyrukBas[$i]).TrimEnd() } else { $govde }
+      if($docs.Count -gt 0){ $docs[$docs.Count-1].metin = "$($docs[$docs.Count-1].metin) $ekGovde" }
       continue
     }
     if($tur -match 'kerrer'){ $md = "muk. m.$no" } elseif($tur -match 'Ek Ge'){ $md = "ek gec. m.$no" } elseif($tur -match 'Ge'){ $md = "gec. m.$no" } elseif($tur -match 'Ek'){ $md = "ek m.$no" } else { $md = "m.$no" }
@@ -178,9 +280,22 @@ function Parcala([string]$flatMetin, [string]$kanunAd, [string]$url){
       }
       if($kalan.Length -gt 0){ $parcalar.Add($kalan) }
     }
+    # 06.10 BASLIK SIZMASI: parca sayisi (dolayisiyla kaynak_ad'daki [k/n]) TASIMADAN ONCEKI govdeden hesaplandi;
+    # kuyruk son parcadan dusulur, gelen baslik ilk parcanin basina eklenir. Son parca yalniz kuyruktan ibaretse
+    # tasima iptal edilir (bos kayit/ad degisimi olmasin).
+    if($kuyrukBas.ContainsKey($i)){
+      $kuyruk = $govde.Substring($kuyrukBas[$i]).Trim(); $sonP = $parcalar[$parcalar.Count-1]
+      $kesik = if($sonP.EndsWith($kuyruk)){ $sonP.Substring(0, $sonP.Length - $kuyruk.Length).TrimEnd() } else { '' }
+      if($kesik){ $parcalar[$parcalar.Count-1] = $kesik } else { $gelenBaslik.Remove($i+1) }
+    }
+    $baslikAlan = $pre
+    if($gelenBaslik.ContainsKey($i)){
+      $parcalar[0] = "$($gelenBaslik[$i]) $($parcalar[0])"
+      if(-not $pre){ $baslikAlan = $gelenBaslik[$i] }
+    }
     for($p=0; $p -lt $parcalar.Count; $p++){
       $adTam = if($parcalar.Count -eq 1){ $ad } else { "$ad [$($p+1)/$($parcalar.Count)]" }
-      $docs.Add([ordered]@{ tur="kanun-madde"; kaynak_ad=$adTam; baslik=$pre; metin=$parcalar[$p]; kaynak_url=$url; belge_tarihi=$bugun })
+      $docs.Add([ordered]@{ tur="kanun-madde"; kaynak_ad=$adTam; baslik=$baslikAlan; metin=$parcalar[$p]; kaynak_url=$url; belge_tarihi=$bugun })
     }
   }
   $g=@{}; foreach($d in $docs){ $k=$d.kaynak_ad; if($g.ContainsKey($k)){ $g[$k]++; $d.kaynak_ad="$k ($($g[$k]))" } else { $g[$k]=1 } }
@@ -283,12 +398,72 @@ if($OzSinav){
        metin='Madde 37 - Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, boylece ayri kayit olur. Madde 38 – (Mülga: 22/7/1998 – 4369/82 md.) Ödeme yeri: Madde 39 – Hususi kanunlarında ödeme yeri gösterilmemiş amme alacakları borçlunun ikametgahında ödenir.'
        bekle='m.38'; olmali=$false }
   )
+  # 06.10 - BASLIK SIZMASI vakalari. 'kontrol': cikan belgeler uzerinde dogru olmasi gereken kosul.
+  $uzun = ('kelime ' * 253).Trim() + '.'   # 1.771 kr -> govde 1.785 (<=1800), baslikla 1.830 (>1800)
+  $baslikSinav = @(
+    @{ ad='6362 m.35 -> m.35/A: "Kitle fonlama platformlari" m.35/A basina + baslik alanina tasinir'
+       metin='MADDE 35 – (1) Sermaye piyasası kurumları; aracı kurumlar ve diğer sermaye piyasası kurumlarıdır. Kitle fonlama platformları MADDE 35/A – (1) Kitle fonlaması yoluyla para toplanmasına aracılık eden platformlar Kuruldan izin alır.'
+       kontrol={ param($c) $a=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.35' })[0]; $b=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.35/A' })[0]
+                 $a.metin.EndsWith('kurumlarıdır.') -and $b.metin.StartsWith('Kitle fonlama platformları MADDE 35/A') -and $b.baslik -eq 'Kitle fonlama platformları' } }
+    @{ ad='TTK hiyerarsik baslik "c) Gemiye el konulmasi ..." tasinir'
+       metin='MADDE 1365- (1) Mahkeme ihtiyati haczi uygular. (2) İhtiyati haciz gece ve resmî tatil sayılan zamanlarda da yapılır. c) Gemiye el konulması ve muhafaza tedbirleri MADDE 1366- (1) İhtiyati haczine karar verilen bütün gemiler muhafaza altına alınır.'
+       kontrol={ param($c) $c[0].metin.EndsWith('yapılır.') -and $c[1].baslik -eq 'c) Gemiye el konulması ve muhafaza tedbirleri' } }
+    @{ ad='Liste devami "b) ... c) Diger gelirler" baslik SAYILMAZ (kardes numara)'
+       metin='MADDE 18 – (1) Birliklerin gelirleri şunlardır: a) Giriş aidatı. b) Yıllık aidat. c) Diğer gelirler MADDE 19 – (1) Birliklerin giderleri yönetmelikle belirlenir ve denetlenir.'
+       kontrol={ param($c) $c[0].metin.EndsWith('c) Diğer gelirler') -and -not $c[1].baslik } }
+    @{ ad='Noktasiz son cumle "... yurutur" baslik SAYILMAZ (fiil)'
+       metin='MADDE 8 – (1) Bu Kanun yayımı tarihinde yürürlüğe girer ve yeterince uzun bir govdesi vardir. Bu Kanun hükümlerini Cumhurbaşkanı yürütür MADDE 9 – (1) Geçici hükümler bu maddede sayılmıştır ve uygulanır.'
+       kontrol={ param($c) $c[0].metin.EndsWith('Cumhurbaşkanı yürütür') -and -not $c[1].baslik } }
+    @{ ad='Iki noktali liste girisi "...sunlardir: Baskan ve Yardimci" baslik SAYILMAZ'
+       metin='MADDE 5 – (1) Kurul bu Kanunla kurulmuştur ve yeterince uzun bir govdesi vardir. Kurulun üyeleri şunlardır: Başkan ve Yardımcı MADDE 6 – (1) Kurul ayda bir toplanır ve kararlarını salt çoğunlukla alır.'
+       kontrol={ param($c) $c[0].metin.EndsWith('Başkan ve Yardımcı') -and -not $c[1].baslik } }
+    @{ ad='Dipnot numarasi "19" baslik SAYILMAZ'
+       metin='MADDE 126 – (1) Bu fıkrada yer alan ibare "Cumhurbaşkanı" şeklinde değiştirilmiştir. 19 MADDE 127 – (1) Kurul personeli sürekli görev ve hizmetleri yürütür ve yeterince uzundur.'
+       kontrol={ param($c) $c[0].metin.EndsWith('19') -and -not $c[1].baslik } }
+    @{ ad='Noktasiz "-dir" cumlesinden sonra gelen baslik YALNIZ baslik olarak tasinir (06.10 orneklem #5)'
+       metin='MADDE 23 – (1) Meslek mensubu yanında çalışanları seçer. Çalıştırılacak kişilerde öncelik ruhsatlı meslek mensubunundur İş Kabulü MADDE 24 – (1) Meslek mensubu işi yazılı sözleşme ile kabul eder ve yürütür.'
+       kontrol={ param($c) $c[0].metin.EndsWith('mensubunundur') -and $c[1].baslik -eq 'İş Kabulü' } }
+    @{ ad='Ek etiketi "EK-2" baslik SAYILMAZ (3 harfli kelime yok)'
+       metin='MADDE 127 – (1) Kurul personeli sürekli görev ve hizmetleri yürütür ve yeterince uzundur. EK-2 MADDE 128 – (1) Kurul bütçesi her yıl Kurul kararıyla belirlenir ve yayımlanır.'
+       kontrol={ param($c) $c[0].metin.EndsWith('EK-2') -and -not $c[1].baslik } }
+    @{ ad='Rakamla baslayan cumle kalintisi "2025 yili icin ek tutarlar" baslik SAYILMAZ'
+       metin='MADDE 8 – (1) Tutarlar her yıl yeniden değerleme oranında artırılarak uygulanır. 2025 yılı için ek tutarlar MADDE 9 – (1) Bu Tebliğ yayımı tarihinde yürürlüğe girer ve uygulanır.'
+       kontrol={ param($c) $c[0].metin.EndsWith('ek tutarlar') -and -not $c[1].baslik } }
+    @{ ad='Sonraki madde MULGA -> kuyruk TASINMAZ (yerinde kalir)'
+       metin='MADDE 37 – (1) Bu madde yururluktedir ve yeterince uzun bir govdeye sahiptir, ayri kayit olur. Ödeme yeri MADDE 38 – (Mülga: 22/7/1998 – 4369/82 md.) MADDE 39 – (1) Hususi kanunlarında ödeme yeri gösterilmemiş amme alacakları ödenir.'
+       kontrol={ param($c) $c[0].metin.EndsWith('Ödeme yeri') -and -not $c[1].baslik } }
+    @{ ad='Gelen baslik parca sayisini BOZMAZ: ~1.780 kr govde tek parca kalir, ad [1/2] almaz'
+       metin=("MADDE 1 – (1) Kisa ama yeterince uzun bir ilk madde govdesi vardir ve ayri kayit olur. Uzun başlık burada yer alan bölüm hükümleri MADDE 2 – (1) $uzun")
+       kontrol={ param($c) @($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.2' }).Count -eq 1 -and $c[1].metin.StartsWith('Uzun başlık') } }
+  )
   $gecti = 0; $kaldi = 0
   foreach($s in $sinavlar){
     $cikan = Parcala $s.metin 'SINAV' 'http://ornek'
     $var = @($cikan | Where-Object { "$($_.kaynak_ad)" -match ([regex]::Escape($s.bekle) + '(\s|$)') }).Count -gt 0
     if($var -eq $s.olmali){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) }
     else { $kaldi++; Write-Host ("  KALDI {0} (beklenen: {1}, cikan: {2})" -f $s.ad,$s.olmali,$var) -ForegroundColor Red }
+  }
+  # Yedek yol (ham satir): 6362 m.35'in gercek satir dizilisi. Dolgu satirlari sayfa genisligini (~90) kurar.
+  $dolgu = @(1..24 | ForEach-Object { "Dolgu cümlesi $_ sayfa genişliğini kurmak için yeterince uzun yazılmış bir satırdır ve devam" })
+  $hamListe = (@('MADDE 34 – (1) Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olur.') + $dolgu + @(
+    'gider.', 'MADDE 35 – (1) Sermaye piyasası kurumları aşağıda gösterilmiştir:', 'h) Veri depolama kuruluşları',
+    'ı) Kuruluş ve faaliyet esasları Kurulca belirlenen diğer sermaye piyasası kurumları', 'Kitle fonlama platformları',
+    'MADDE 35/A- (Ek: 28/11/2017-7061/110 md.) (1) Kitle fonlama platformları Kuruldan izin alır.')) -join "`n"
+  $hamKaydirma = (@('MADDE 34 – (1) Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olur.') + $dolgu + @(
+    'gider.', 'MADDE 35 – (1) Sermaye piyasası kurumları aşağıda gösterilmiştir: h) Veri depolama kuruluşları ve faaliyet esasları',
+    'Kurulca belirlenen diğer kurumlar', 'MADDE 36 – (1) Kurul bu maddedeki kurumların faaliyet esaslarını belirler ve izler.')) -join "`n"
+  $baslikSinav += @(
+    @{ ad='YEDEK YOL: noktasiz liste + kendi satirindaki baslik (6362 m.35 -> 35/A) tasinir'; ham=$hamListe
+       kontrol={ param($c) $a=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.35' })[0]; $b=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.35/A' })[0]
+                 $a.metin.EndsWith('kurumları') -and $b.baslik -eq 'Kitle fonlama platformları' } }
+    @{ ad='YEDEK YOL: sayfa genisliginde onceki satir = KAYDIRMA, devam satiri baslik SAYILMAZ'; ham=$hamKaydirma
+       kontrol={ param($c) $a=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.35' })[0]; $a.metin.EndsWith('Kurulca belirlenen diğer kurumlar') } }
+  )
+  foreach($s in $baslikSinav){
+    $cikan = if($s.ham){ $fl = ($s.ham -replace "\r?\n"," ") -replace "\s+"," "; @(Parcala $fl 'SINAV' 'http://ornek' (BaslikSatirlari $s.ham)) } else { @(Parcala $s.metin 'SINAV' 'http://ornek') }
+    $ok = $false; try { $ok = [bool](& $s.kontrol $cikan) } catch {}
+    if($ok){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) }
+    else { $kaldi++; Write-Host ("  KALDI {0}" -f $s.ad) -ForegroundColor Red; $cikan | ForEach-Object { Write-Host ("        [{0}] baslik=[{1}] {2}" -f $_.kaynak_ad,$_.baslik,$_.metin.Substring([Math]::Max(0,$_.metin.Length-70))) } }
   }
   Write-Host ("OZ-SINAV: gecti {0} - kaldi {1}" -f $gecti,$kaldi)
   exit $(if($kaldi){ 1 } else { 0 })
@@ -299,6 +474,9 @@ $SB_ANAHTAR = $env:SUPABASE_SERVICE_KEY
 # key in browser") - UA'siz IRM tarayici sayilip TUM ekleri reddediyordu.
 $H = if($SB_ANAHTAR){ @{ apikey=$SB_ANAHTAR; Authorization="Bearer $SB_ANAHTAR"; 'User-Agent'='mevzuat-radar-robot/1.0' } } else { $null }
 $degisen = New-Object System.Collections.Generic.List[string]
+# 06.10: METNI degisen kaynaklar (hash farkli ya da yedek yol). ZORLA ile yalniz yeniden BOLUNEN (hash ayni) kaynak
+# ambara yazilir ama etki zincirlerine (bilgi tabani kuyrugu + mail, soru askisi) GIRMEZ - hukum degismedi.
+$metinDegisen = New-Object System.Collections.Generic.List[string]
 
 foreach($law in $manifest.kanunlar){
   # ==========================================================================
@@ -333,7 +511,7 @@ foreach($law in $manifest.kanunlar){
           # SILME FRENI (27.08): yedek yol da ayni frene tabi - ambarda bu kalipla
           # kayit VARSA (durum dosyasi ne derse desin) eski repo-JSON canliyi ezemez
           $mevcutSayi=-1
-          try { $wr=Invoke-WebRequest -Uri "$SB_URL/rest/v1/dokumanlar?select=id&limit=1&tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer='count=exact' }) -UseBasicParsing -TimeoutSec 60; $cr="$($wr.Headers['Content-Range'])"; if($cr -match '/(\d+)$'){ $mevcutSayi=[int]$Matches[1] } } catch {}
+          try { $wr=Invoke-WebRequest -Uri "$SB_URL/rest/v1/dokumanlar?select=id&limit=3&order=id.asc&tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer='count=exact' }) -UseBasicParsing -TimeoutSec 60; $cr="$($wr.Headers['Content-Range'])"; if($cr -match '/(\d+)$'){ $mevcutSayi=[int]$Matches[1] } } catch {}
           if($mevcutSayi -ne 0){ Write-Host ("  YEDEK-YOL FREN [{0}]: ambarda {1} kayit var (veya sayim KOR) - yedekten YAZILMADI" -f $law.ad,$mevcutSayi); continue }
           try { Invoke-RestMethod -Method Delete -Uri "$SB_URL/rest/v1/dokumanlar?tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer="return=minimal" }) -TimeoutSec 120 | Out-Null } catch {}
           for($i=0; $i -lt @($hd).Count; $i += 500){
@@ -344,7 +522,7 @@ foreach($law in $manifest.kanunlar){
           # durum izi birak: 'yedek-json' -> her kosuda TEKRAR yuklemez; gercek indirme
           # basarili oldugu ilk gun hash uyusmaz -> kaynaktan yeniden yutulur (ayna kurali)
           $durum[$law.slug] = @{ hash='yedek-json'; son_senkron=$bugun; madde=@($hd).Count; ad=$law.ad }
-          $degisen.Add($law.slug) | Out-Null
+          $degisen.Add($law.slug) | Out-Null; $metinDegisen.Add($law.slug) | Out-Null
           Write-Host ("YEDEKTEN YUKLENDI (indirme yok, repo JSON): {0} -> {1} madde" -f $law.ad, @($hd).Count)
         }
       } catch { Write-Host "  yedek yukleme HATA [$($law.slug)]: $_" }
@@ -386,7 +564,7 @@ foreach($law in $manifest.kanunlar){
   $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
   # 01.09: kilavuz-bolum yapili kaynak (manifest isareti) ozel parcalayiciyla bolunur
-  $docs = if($law.PSObject.Properties['parcalayici'] -and "$($law.parcalayici)" -eq 'kilavuz-bolum'){ ParcalaKilavuz $flat "$($law.ad)" $url } else { Parcala $flat "$($law.ad)" $url }
+  $docs = if($law.PSObject.Properties['parcalayici'] -and "$($law.parcalayici)" -eq 'kilavuz-bolum'){ ParcalaKilavuz $flat "$($law.ad)" $url } else { Parcala $flat "$($law.ad)" $url (BaslikSatirlari $raw) }
   # 02.08 CEM KURALI: madde deseni tutmayan metin (teblig/bolum yapili) ARTIK
   # ATLANMIYOR - bolum bolum yutuluyor. Eski hal "az madde -> atlandi" diyip
   # metni ambarin disinda birakiyordu. Indirme gercekten bozuksa metin cok
@@ -433,10 +611,15 @@ foreach($law in $manifest.kanunlar){
         if(-not $yeniM.ContainsKey($a)){ continue }
         $af = MdAyirtEdici $eskiM[$a] $yeniM[$a]
         if($null -ne $af -and @($af).Count -eq 0){ continue }   # metin aynı
-        $bel=($null -eq $af); $belirtecDizi=@($af)
+        # 06.10 YENIDEN BOLME: kanun metninin hash'i AYNI (ZORLA kosusu) ise fark yalniz parcalayicidan gelir (baslik
+        # tasima, sinir kaymasi); hukum degismedi. Belirtecsiz + belirsiz=false yazilir -> nobetci bu maddeye dayanan soruyu
+        # CEKMEZ (MdSoruDegiyor bos liste). Yazilmasaydi nobetci HEPSINI cekerdi: 06.10 provasi, baslik tasima tek basina
+        # 8.886 yayindaki sorunun 2.146'sini cekecekti (688'i "belirsiz"). Hash farkliysa (gercek degisiklik) eski yol aynen.
+        $saltBolme = (($yhash -eq $eski) -and -not ($dk.Contains($a) -and $dk[$a]))   # bekleyen gercek degisiklik varsa o korunur
+        if($yhash -eq $eski){ $bel=$false; $belirtecDizi=@() } else { $bel=($null -eq $af); $belirtecDizi=@($af) }
         # aynı maddede önceki (henüz nöbetçinin işlemediği olabilecek) değişiklik: belirteçler BİRLEŞİR, biri belirsizse belirsiz
         if($dk.Contains($a) -and $dk[$a]){ if($dk[$a].belirsiz){ $bel=$true }; $belirtecDizi=@(@($belirtecDizi) + @($dk[$a].belirtecler) | Where-Object { $_ } | Select-Object -Unique) }
-        $dk[$a] = [ordered]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); kaynak=$law.slug; belirsiz=$bel; belirtecler=$belirtecDizi }
+        $dk[$a] = [ordered]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); kaynak=$law.slug; belirsiz=$bel; belirtecler=$belirtecDizi; yeniden_bolme=$saltBolme }
         $yeniKayit++
       }
       if($yeniKayit){ [IO.File]::WriteAllText($dkY, (ConvertTo-Json -InputObject ([ordered]@{ aciklama='Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.'; maddeler=$dk }) -Depth 5), (New-Object Text.UTF8Encoding($false))); Write-Host ("  ayırt edici belirteç: {0} madde" -f $yeniKayit) }
@@ -446,7 +629,7 @@ foreach($law in $manifest.kanunlar){
   $json = (@{ belgeler=$docs } | ConvertTo-Json -Depth 6)
   [IO.File]::WriteAllBytes((Join-Path $mevzuatDir "$($law.slug).json"), [Text.Encoding]::UTF8.GetBytes($json))
   $durum[$law.slug] = @{ hash=$yhash; son_senkron=$bugun; madde=$docs.Count; ad=$law.ad }  # DIKKAT: $h yazma — PS case-insensitive, $H(headers+anahtar) ile CAKISIR
-  $degisen.Add($law.slug) | Out-Null
+  $degisen.Add($law.slug) | Out-Null; if($yhash -ne $eski){ $metinDegisen.Add($law.slug) | Out-Null }
   Write-Host ("YENIDEN YUTULDU: {0} -> {1} madde (son senkron {2})" -f $law.ad, $docs.Count, $bugun)
 
   # Supabase: bu kanunun eski satirlarini sil + yeniden yukle (yalniz degisen kanun)
@@ -461,7 +644,7 @@ foreach($law in $manifest.kanunlar){
     # ZORLA_KUCULT=1 ortam degiskeni gecilir. Uc durum: YESIL/KIRMIZI/KOR.
     $mevcutSayi = -1
     try {
-      $wr = Invoke-WebRequest -Uri "$SB_URL/rest/v1/dokumanlar?select=id&limit=1&tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer='count=exact' }) -UseBasicParsing -TimeoutSec 60
+      $wr = Invoke-WebRequest -Uri "$SB_URL/rest/v1/dokumanlar?select=id&limit=3&order=id.asc&tur=eq.kanun-madde&kaynak_ad=like.$q" -Headers ($H + @{ Prefer='count=exact' }) -UseBasicParsing -TimeoutSec 60
       $cr = "$($wr.Headers['Content-Range'])"; if($cr -match '/(\d+)$'){ $mevcutSayi = [int]$Matches[1] }
     } catch { Write-Host "  FREN KOR: mevcut sayilamadi ($_) - guvenli taraf: SILME ATLANDI"; $durum[$law.slug].hash='FREN-KOR'; continue }
     if($mevcutSayi -lt 0){ Write-Host "  FREN KOR: sayim belirsiz - SILME ATLANDI"; $durum[$law.slug].hash='FREN-KOR'; continue }
@@ -489,7 +672,7 @@ $dj = ($durum | ConvertTo-Json -Depth 5)
 [IO.File]::WriteAllBytes($durumYol, [Text.Encoding]::UTF8.GetBytes($dj))
 
 if($degisen.Count -eq 0){ Write-Host "GUNLUK MEVZUAT: hicbir kanun degismemis - is yok." }
-else { Write-Host ("GUNLUK MEVZUAT: {0} kanun yeniden yutuldu -> {1}" -f $degisen.Count, ($degisen -join ', ')) }
+else { Write-Host ("GUNLUK MEVZUAT: {0} kanun yeniden yutuldu -> {1}" -f $degisen.Count, ($degisen -join ', ')) }; if($degisen.Count -gt $metinDegisen.Count){ Write-Host ("  bunlarin {0} tanesi YALNIZ YENIDEN BOLUNDU (metin hash ayni) -> etki zincirlerine girmedi" -f ($degisen.Count - $metinDegisen.Count)) }
 
 # ============================================================================
 # ETKI ZINCIRI (23.07.2026): kanun DEGISTIYSE, o kanuna atif yapan site
@@ -498,12 +681,12 @@ else { Write-Host ("GUNLUK MEVZUAT: {0} kanun yeniden yutuldu -> {1}" -f $degise
 # Hata olsa bile hasadi bozmasin diye tamamen try/catch icinde.
 # ============================================================================
 try {
-  if($degisen.Count -gt 0){
+  if($metinDegisen.Count -gt 0){
     $kbYol = Join-Path $kok "veri/bilgi-tabani.json"
     $kb = Get-Content $kbYol -Raw -Encoding UTF8 | ConvertFrom-Json
     # degisen slug -> kanun adi (manifest'ten); kaynak alaninda ad-parcasi ara
     $adlar = @{}
-    foreach($l in $manifest.kanunlar){ if($degisen -contains $l.slug){ $adlar[$l.slug]=$l.ad } }
+    foreach($l in $manifest.kanunlar){ if($metinDegisen -contains $l.slug){ $adlar[$l.slug]=$l.ad } }
     $etkilenen = New-Object System.Collections.Generic.List[object]
     foreach($kayit in $kb.kayitlar){
       $kk = "$($kayit.kaynak)".ToLowerInvariant()
@@ -529,8 +712,8 @@ try {
       Write-Host ("ETKI ZINCIRI: {0} icerik kaydi degisen kanunlara atif yapiyor -> yeniden-dogrula kuyruguna yazildi." -f $etkilenen.Count)
       if($env:RESEND_KEY){
         $sat = ($etkilenen | Select-Object -First 20 | ForEach-Object { "<li><b>$($_.id)</b> ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)</li>" }) -join ""
-        $html = "<h3>Etki Zinciri uyarisi</h3><p>Bugun degisen kanun(lar): <b>$($degisen -join ', ')</b>. Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).</p><ul>$sat</ul><p>Tetikte — kanun aynasi</p>"
-        $duz = "Etki Zinciri uyarisi`nBugun degisen kanun(lar): $($degisen -join ', '). Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).`n" + (($etkilenen | Select-Object -First 20 | ForEach-Object { "- $($_.id) ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)" }) -join "`n") + "`nTetikte — kanun aynasi"
+        $html = "<h3>Etki Zinciri uyarisi</h3><p>Bugun degisen kanun(lar): <b>$($metinDegisen -join ', ')</b>. Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).</p><ul>$sat</ul><p>Tetikte — kanun aynasi</p>"
+        $duz = "Etki Zinciri uyarisi`nBugun degisen kanun(lar): $($metinDegisen -join ', '). Bu kanunlara atif yapan $($etkilenen.Count) icerik kaydi yeniden dogrulama kuyruguna alindi (icerik canlida, otomatik degisiklik yok).`n" + (($etkilenen | Select-Object -First 20 | ForEach-Object { "- $($_.id) ($($_.konu)) — atif: $($_.kaynak) — degisen: $($_.kanun)" }) -join "`n") + "`nTetikte — kanun aynasi"
         $mb = @{ from=$env:RESEND_FROM; to=@("cemdizdar85@hotmail.com"); subject="Tetikte etki zinciri: degisen kanun $($etkilenen.Count) icerigi etkiliyor"; html=$html; text=$duz } | ConvertTo-Json -Depth 3
         try { Invoke-RestMethod -Method Post -Uri "https://api.resend.com/emails" -Headers @{ Authorization=("Bearer " + ("$env:RESEND_KEY" -replace '[^\x21-\x7E]','')) } -Body ([Text.Encoding]::UTF8.GetBytes($mb)) -ContentType "application/json" | Out-Null } catch { Write-Host "etki maili hatasi: $_" }
       }
@@ -546,10 +729,10 @@ try {
 # hata olsa bile hasat bozulmaz.
 # ============================================================================
 try {
-  if($degisen.Count -gt 0 -and $H){
+  if($metinDegisen.Count -gt 0 -and $H){
     $kanunNolar = New-Object 'System.Collections.Generic.HashSet[string]'
     foreach($l in $manifest.kanunlar){
-      if($degisen -contains $l.slug){
+      if($metinDegisen -contains $l.slug){
         $no = [regex]::Match("$($l.ad)",'\b\d{3,5}\b').Value
         if(-not $no){ $no = [regex]::Match("$($l.slug)",'\d{3,5}').Value }
         if($no){ [void]$kanunNolar.Add($no) }
