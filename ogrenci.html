@@ -126,12 +126,12 @@
              alıcı burada koyar). Paketi olmayana iki yol: ücretsiz 30 soruluk ölçüm + paketler. Rakip: UWorld/Becker üst
              şeritte "Log in" ayrı, satın alma ayrı; giriş sayfası üyelik satmaz. -->
         <h1 id="ogBaslik">Giriş yap</h1>
-        <p class="og-alt og-ilk">E-postanla ya da Google hesabınla giriş yap. Seviye testlerin, denemelerin ve yanlış kutun hesabında durur; telefonda da bilgisayarda da aynı yerden devam edersin.</p>
+        <p class="og-alt og-ilk">E-postanla ya da Google hesabınla giriş yap. Çözdüğün testler, deneme sonuçların ve yanlış yaptığın sorular hesabına kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin.</p>
         <p class="og-alt" style="margin-top:10px;font-size:14px">Henüz paketin yok mu? <a class="og-link" href="seviye-testi.html">30 soruda geçme ihtimalini ücretsiz ölç →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
         <ul class="og-maddeler">
           <li><b>Geçme ihtimalin nasıl değişiyor?</b>Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör.</li>
           <li><b>Deneme sonuçların</b>"Sınav gibi çöz" setlerinde kaç doğru yaptığın set set durur.</li>
-          <li><b>Yanlış kutun</b>Bugün tekrar etmen gereken sorular tek bakışta.</li>
+          <li><b>Yanlışların</b>Yanlış yaptığın her soru 2 gün sonra yeniden karşına çıkar; bugün tekrar etmen gerekenleri burada görürsün.</li><!-- 07.10 Cem "yanlış kutun hesabında durur anlamadım": sade dil -->
         </ul>
         <!-- 02.10: radar paneli gizli (açılış = yalnız sınav); menu.js bağı süzüyor ama cümle kalıyordu. Açılış sonrası hidden'ı kaldır. -->
         <p class="og-alt" hidden style="margin-top:16px;font-size:13.5px">İşletme hesabı mı arıyorsun? <a class="og-link" href="radar-app.html">Radar paneline git</a>.</p>
@@ -583,7 +583,7 @@
 
   /* 02.10 KURUMSAL GİRİŞ — dört ekran. Adres: #uye-ol / #sifremi-unuttum doğrudan açar (başka sayfalar bağlayabilir). */
   var EKRAN={ giris:{form:'ogFormGiris',baslik:'Giriş yap',sekme:true},
-              kayit:{form:'ogFormKayit',baslik:'Üye ol',sekme:true,aciklama:'Paketi aldığın (ya da alacağın) e-postayla hesabını aç. Seviye testlerin, denemelerin ve yanlış kutun hesabında durur; telefonda da bilgisayarda da aynı yerden devam edersin.'},
+              kayit:{form:'ogFormKayit',baslik:'Üye ol',sekme:true,aciklama:'Paketi aldığın (ya da alacağın) e-postayla hesabını aç. Çözdüğün testler, deneme sonuçların ve yanlış yaptığın sorular hesabına kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin.'},
               sifremi:{form:'ogFormSifremi',baslik:'Şifreni sıfırla',sekme:false,aciklama:'Hesabının e-posta adresine bir bağlantı göndeririz; bağlantıdan yeni şifreni belirlersin. Sonuçların ve paketin olduğu gibi kalır.'},
               yeni:{form:'ogFormYeni',baslik:'Yeni şifre belirle',sekme:false,aciklama:'Yeni şifreni iki kez yaz ve kaydet. Kaydettikten sonra doğrudan hesabına geçersin.'} };
   var EPOSTA_DESEN=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, SIFRE_EN_AZ=8;
