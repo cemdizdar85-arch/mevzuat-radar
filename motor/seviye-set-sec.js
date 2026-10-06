@@ -34,6 +34,7 @@ const SINAV = argv.find(a => !a.startsWith('--') && argv[argv.indexOf(a) - 1] !=
 const ADET = parseInt(al('--adet', '30'), 10);
 const ZOR = al('--zorluk', '20/50/30').split('/').map(Number);
 const KURU = argv.includes('--kuru');
+const OTOMATIK = argv.includes('--otomatik');   // robot onarımı: yeni soru "okunmadi" tarihiyle yazılır (sabah kontrolü SARI)
 const ZORLUKLAR = ['kolay', 'zor', 'cokzor'];
 if (SINAV !== 'smmm') { console.error('şimdilik yalnız smmm (Yeterlilik): kapsama tablosu yalnız bitirmede var'); process.exit(2); }
 if (ZOR.length !== 3 || ZOR.some(isNaN)) { console.error('--zorluk kolay/zor/cokzor, ör. 20/50/30'); process.exit(2); }
@@ -108,7 +109,7 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
     const hedef = path.join(KOK, 'veri', 'seviye', SINAV + '-set.json');
     const eski = jsonOku(hedef);
     const kasaId = new Set(kasa.map(r => r.id));
-    const kullanilan = new Set(eski.sorular.map(s => s.id));
+    const kullanilan = new Set(eski.sorular.map(s => s.id)), kullanilanEski = new Set(kullanilan);
     const degisen = [];
     const yeni = eski.sorular.map(s => {
       if (kasaId.has(s.id) && !haric[s.id]) return s;
@@ -125,7 +126,8 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
       if (!sec) { degisen.push(s.id + ' -> BULUNAMADI'); return s; }
       kullanilan.add(sec.q.id);
       degisen.push(`${s.ders}: ${s.id} [${s.konu}/${s.zorluk}] -> ${sec.q.id} [${sec.kon.konu}/${sec.z}]`);
-      return { id: sec.q.id, ders: dersAd[dk] || s.ders, konu: sec.kon.konu, zorluk: sec.z, son10: sec.kon.son10, cikmis: sec.kon.cikmis, son_soruldu: sec.kon.son_soruldu };
+      return { id: sec.q.id, ders: dersAd[dk] || s.ders, konu: sec.kon.konu, zorluk: sec.z, son10: sec.kon.son10, cikmis: sec.kon.cikmis, son_soruldu: sec.kon.son_soruldu,
+        ...(OTOMATIK ? { okunmadi: new Date().toISOString().slice(0, 10) } : {}) };
     });
     console.log(`SEVİYE SETİ ONARIM (${SINAV}) · ${eski.sorular.length} soru · değişen ${degisen.length}`);
     degisen.forEach(x => console.log('  ' + x));
@@ -135,6 +137,17 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
     eski.onarim = (eski.onarim || []).concat([{ tarih: new Date().toISOString(), neden: 'kasadan çıkan soru', degisen }]);
     fs.writeFileSync(hedef, JSON.stringify(eski, null, 2) + '\n', 'utf8');
     console.log('  yazıldı -> ' + path.relative(KOK, hedef));
+    /* --isaretle (07.10, Cem "1.2.3" madde 1): onarım robotta (smmm-kasa-yayin.yml, yayından SONRA) koşar. Yeni kimliğin ücretsiz
+       işareti normalde ertesi yayında yazılırdı -> test bir gün daha kapalı kalırdı. Burada yalnız o kimliklere ucretsiz=true
+       yazılır (sonraki tam yayın da seti okuyup aynı işareti koyar). Yeni soru elle okunmadı: setteki satır okunmadi tarihini
+       taşır, sabah kontrolü SARI yazar; soru okununca alan elle silinir. */
+    if (argv.includes('--isaretle')) {
+      const yeniId = yeni.map(s => s.id).filter(id => !kullanilanEski.has(id));
+      const r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/paket_soru?id=in.(' + encodeURIComponent(yeniId.map(i => '"' + i + '"').join(',')) + ')',
+        { method: 'PATCH', headers: { ...hd, 'Content-Type': 'application/json', Prefer: 'return=minimal' }, body: JSON.stringify({ ucretsiz: true }) });
+      if (!r.ok) { console.error('ücretsiz işareti yazılamadı: HTTP ' + r.status + ' (ertesi yayında yazılır)'); process.exitCode = 4; return; }
+      console.log('  ücretsiz işaretlendi: ' + yeniId.length + ' kimlik');
+    }
     return;
   }
 

@@ -78,6 +78,15 @@ async function anaSayfaSorulari() {
     dus.length ? not(1, metin + ' · robot ' + dus.length + ' soruyu düşürdü (' + dus.map(x => x.neden).join(', ') + ') - yerine yenisi okunmalı') : not(0, metin);
   } catch (e) { not(1, 'Ana sayfa soruları: ölçülemedi (' + e.message + ')'); }
 }
+// 07.10 (Cem "1.2.3" madde 1): Yeterlilik seviye setinde kasadan çıkan soru robotça değişir (smmm-kasa-yayin.yml) ve
+// "okunmadi" tarihi taşır. Okunmamış soru varsa SARI; sette kasada olmayan kimlik ölçülmez (robot o gece onarır).
+async function seviyeSeti() {
+  try {
+    const r = await fetch('https://tetikte.com/veri/seviye/smmm-set.json?k=' + Date.now(), { signal: zaman() }); if (!r.ok) return not(1, 'Seviye seti: okunamadı (http ' + r.status + ')');
+    const s = (await r.json()).sorular || [], ok = s.filter(x => x.okunmadi);
+    ok.length ? not(1, 'Yeterlilik seviye seti: robot ' + ok.length + ' soruyu değiştirdi, elle okunmadı (' + ok.map(x => x.id).join(', ') + ')') : not(0, 'Yeterlilik seviye seti: ' + s.length + ' soru, hepsi okunmuş');
+  } catch (e) { not(1, 'Seviye seti: ölçülemedi (' + e.message + ')'); }
+}
 async function siparisler() {
   if (!SK) return;
   try {
@@ -89,7 +98,7 @@ async function siparisler() {
 }
 
 (async () => {
-  for (const f of [siteSayfalari, ucFonksiyonlar, akislar, kasaVeVitrin, siparisler, anaSayfaSorulari]) { try { await f(); } catch (e) { not(1, f.name + ': ' + e.message); } }
+  for (const f of [siteSayfalari, ucFonksiyonlar, akislar, kasaVeVitrin, siparisler, anaSayfaSorulari, seviyeSeti]) { try { await f(); } catch (e) { not(1, f.name + ': ' + e.message); } }
   const hukum = ['YEŞİL', 'SARI', 'KIRMIZI'][durum];
   const tarih = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
   console.log(`SABAH KONTROLÜ: ${hukum}`); satir.forEach(s => console.log('  ' + s));
