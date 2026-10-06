@@ -1,5 +1,5 @@
 {
-  "tarih": "06.10.2026 22:34",
+  "tarih": "06.10.2026 22:43",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1839,25 +1839,25 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 399,
+      "satir": 401,
       "iddia": "10 GÜN",
       "metin": "/* 04.10 GÜNLÜK GÖREV (Cem \"beş maddeyi yapalım\", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 428,
+      "satir": 430,
       "iddia": "en az 8",
       "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 503,
+      "satir": 505,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 588,
+      "satir": 592,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
@@ -2157,49 +2157,49 @@
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 324,
+      "satir": 325,
       "iddia": "7 gün",
       "metin": "/* 06.10 (Cem \"1.2.3\" GM2): sınava 7 gün kala (Cem: 2 değil 1 hafta) bir ücretsiz hak daha - son testi o pencereden ÖNCE çözmüş kişi yeniden"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 329,
+      "satir": 330,
       "iddia": "7 gün",
       "metin": "/* 07.10 ÜYE HAFTALIK HAK: paket sahibi (TetikteUye durum 'aktif') sınırsız; ücretsiz üye son sonucundan 7 gün sonra."
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 386,
+      "satir": 387,
       "iddia": "10 yıl",
       "metin": "/* 06.10 (Cem \"en çok çıkan konudan yapalım\"): kutu konu sıklığıyla kurulu (motor/seviye-havuz-bas.js, w = konunun son 10 yılda"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 859,
+      "satir": 862,
       "iddia": "10 yıl",
       "metin": "$('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaş"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 919,
+      "satir": 922,
       "iddia": "7 gün",
       "metin": "/* 07.10 Cem \"30 soru çözmüştüm, bana 'sorular hazırlanıyor' değil '7 gün sonra dene ya da üye ol' desin\": hak/hafta kutusu"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 157,
+      "satir": 159,
       "iddia": "2 gün",
       "metin": "Yanlışların yanlış kutuna düştü: 2 gün sonra ders sayfasında yeniden karşına çıkar."
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 234,
+      "satir": 236,
       "iddia": "%5",
       "metin": "if(Math.floor(DURUM.kalanSn)%5===0) yaz();"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 302,
+      "satir": 304,
       "iddia": "2 gün",
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
@@ -2373,13 +2373,13 @@
     },
     {
       "sayfa": "yanlislarim.html",
-      "satir": 86,
+      "satir": 92,
       "iddia": "2 gün",
       "metin": ": 'Yanlış kutun boş. Ders sayfalarında yanlış yaptığın her soru buraya düşer; 2 gün sonra yeniden karşına çıkar, o gün de bilirsen 7 gün sonra bir kez daha.';"
     },
     {
       "sayfa": "yanlislarim.html",
-      "satir": 104,
+      "satir": 110,
       "iddia": "en az 3",
       "metin": "$('ylZor').innerHTML=' Bir konuda en az 3 soru çözünce burada en çok zorlandığın konular görünür. ';"
     },
