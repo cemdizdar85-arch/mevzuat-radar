@@ -165,7 +165,7 @@ async function ana() {
   for (const k of karne) {
     const a = k.alanlar || {}, s = a['Sınav'] === 'Yeterlilik' ? 'yeterlilik' : 'sgs', e = String(k.eposta || '').toLowerCase(); if (!e) continue;
     const onceki = kisi.get(s + '|' + e);
-    kisi.set(s + '|' + e, { s, e, izin: a['Kampanya/hatırlatma izni'] === 'evet' || (onceki && onceki.izin), gecme: a['Geçme ihtimali'], tarih: k.olusturma, zayif: zayifGrup(a['Gruplar'], s) });
+    kisi.set(s + '|' + e, { s, e, izin: a['Kampanya/hatırlatma izni'] === 'evet' || (onceki && onceki.izin), gecme: a['Geçme ihtimali'], tarih: k.olusturma, zayif: zayifGrup(a['Gruplar'] || a['Dersler'], s) });   // 06.10: Yeterlilik karnesi 'Dersler' alanında ('Finansal Muhasebe 2/5 Riskli · …')
   }
   const say = { kisi: kisi.size, izinsiz: 0, cikti: 0, bugunYok: 0, gun7: 0, ilerleme: 0, 'son-hafta': 0, paket3: 0, gitti: 0, dustu: 0 }, liste = [];
   for (const k of kisi.values()) {

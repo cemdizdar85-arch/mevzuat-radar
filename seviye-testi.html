@@ -698,7 +698,9 @@
     var kap=$('svBugun');
     if(!kap){ kap=document.createElement('div'); kap.id='svBugun'; kap.className='sv-kutu'; kap.style.margin='16px 0'; $('svGruplar').insertAdjacentElement('afterend',kap); }
     var g=(liste||[]).filter(function(x){ return x&&x.soru>=2; }).sort(function(a,b){ return b.dogru/b.soru-a.dogru/a.soru; });
-    var guclu=g.length?g[0]:null, zayif=oncelikGrup(g);
+    /* 06.10: Yeterlilik'te her dersin ayrı barajı var -> 'çalışman gereken' oranı en düşük ders (teklifteki riskli ders sırasıyla aynı);
+       SGS'de puan 130 sorunun toplamı -> sınavda en çok soru kaybettiren grup (oncelikGrup). */
+    var guclu=g.length?g[0]:null, zayif=YET?(g.length?g[g.length-1]:null):oncelikGrup(g);
     var d={}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||!c.ders) return; if(!d[c.ders]) d[c.ders]={ad:c.ders,soru:0,yanlis:0,sayfa:c.sayfa}; d[c.ders].soru++; if(!c.dogru) d[c.ders].yanlis++; if(!d[c.ders].sayfa&&c.sayfa) d[c.ders].sayfa=c.sayfa; });
     var dl=Object.keys(d).map(function(k){ return d[k]; }).filter(function(x){ return x.yanlis>0; }).sort(function(a,b){ return b.yanlis-a.yanlis || (b.yanlis/b.soru)-(a.yanlis/a.soru); });
     var h='';
