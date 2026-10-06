@@ -6,7 +6,7 @@
    Üstte hikâye çubuğu (kart başına bir dilim), ⏸/▶, ⟨ ⟩, "metin olarak göster". Hareket azaltma tercihi olan cihazda düz metin açılır.
 
    KULLANIM: NobetciOynatici.kur(kap, kartlar, { son:{metin, dugme, href, sinif}, olay:function(ad){}, baslik, alt })
-     kartlar: [{ ust, soru, secim, sen_etiket (vars. "Senin cevabın"), secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
+     kartlar: [{ ust, soru, siklar ({A..E}, varsa önce şıklar görünür, sonra işaretlenir), secim, sen_etiket (vars. "Senin cevabın"), secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
      olay adları: basladi · kart-N · son · paket · metin · durdur
    Renkler yalnız tema jetonu (stil.css). 🚫 GÖRMEZ: anlatımın doğruluğu (o vitrin kalite listesinin işi).
 ============================================================================ */
@@ -24,8 +24,12 @@
       '.no-dugmeler{display:flex;gap:6px}.no-dugmeler button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;min-width:34px;height:30px;font-size:14px;cursor:pointer}' +
       '.no-dugmeler button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}' +
       /* 06.10 Cem (telefon): "bir alta kayarak oynatıyor, aynı yerde oynaması lazım" - sahne SABİT boy, içerik içinde akar (takip) */
-      '.no-sahne{position:relative;height:clamp(320px,60vh,460px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}.no-sahne.duz{height:auto;overflow:visible}' +
+      '.no-sahne{position:relative;height:clamp(320px,60vh,460px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.no-sahne::-webkit-scrollbar{display:none}.no-sahne.duz{height:auto;overflow:visible}' +
       '.no-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}' +
+      '.no-siklar{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}.no-siklar li{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;line-height:1.45;color:var(--ink);transition:background .6s,border-color .6s}' +
+      '.no-siklar li b{flex:none}.no-siklar li em{margin-left:auto;padding-left:8px;flex:none;font-style:normal;font-size:12px;font-weight:800;white-space:nowrap}' +
+      '.no-siklar li.sen{border-color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent)}.no-siklar li.sen em{color:var(--red)}' +
+      '.no-siklar li.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent)}.no-siklar li.dogru em{color:var(--green)}' +
       '.no-blok{padding:10px 12px;border-radius:0 8px 8px 0;margin:0 0 10px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}' +
       '.no-blok.acik{opacity:1;transform:none}' +
       '.no-sen{border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}.no-sen>b{color:var(--red)}' +
@@ -60,36 +64,51 @@
       '<button type="button" data-d="geri" aria-label="Önceki yanlış">⟨</button><button type="button" data-d="oyna" aria-label="Durdur">⏸</button><button type="button" data-d="ileri" aria-label="Sonraki yanlış">⟩</button></span></div>' +
       '<div class="no-sahne" aria-live="polite"></div><div class="no-alt"><span></span><button type="button" data-d="metin">Hepsini metin olarak göster</button></div></div>';
     var sahne = kap.querySelector('.no-sahne'), dilim = kap.querySelectorAll('.no-dilim i'), oynaD = kap.querySelector('[data-d="oyna"]');
-    function takip(e, yumusak) {
+    /* 06.10 Cem ("biraz yavaş kaysın"): sahnenin içi kendi animasyonuyla, ağır kayar (tarayıcının hızlı smooth'u değil) */
+    var kayHedef = null, kayAnim = 0;
+    function kaydir(hedef, sure) {
+      kayHedef = Math.max(0, Math.min(hedef, sahne.scrollHeight - sahne.clientHeight));
+      var bas = sahne.scrollTop, t0 = performance.now(), id = ++kayAnim, fark = kayHedef - bas; if (Math.abs(fark) < 1) return;
+      (function adimKay(t) { if (id !== kayAnim) return; var x = Math.min(1, (t - t0) / sure), e2 = x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+        sahne.scrollTop = bas + fark * e2; if (x < 1) requestAnimationFrame(adimKay); })(t0);
+    }
+    function takip(e, blok) {
       if (duz || !e) return;
       var r = e.getBoundingClientRect(), s = sahne.getBoundingClientRect(), fark = r.bottom - s.bottom + 14;
-      if (fark > 0) { if (yumusak && sahne.scrollTo) sahne.scrollTo({ top: sahne.scrollTop + fark, behavior: 'smooth' }); else sahne.scrollTop += fark; }
+      if (blok) fark = Math.min(fark, r.top - s.top - 8);   // blok açılınca üst kenarı sahnenin üstünden kaçmasın
+      if (fark > 0) kaydir(sahne.scrollTop + fark, blok ? Math.max(900, Math.min(1800, fark * 5)) : 600);
     }
     function temizle() { if (zaman) { clearTimeout(zaman); zaman = null; } }
     function kartHtml(k) {
       var ad = adimlar(k.aciklama);
       return '<p class="no-soru-ust" style="margin:0 0 6px;font-size:12px;color:var(--muted)">' + esc(k.ust || '') + '</p>' +
         (k.soru ? '<p class="no-soru">' + esc(k.soru) + '</p>' : '') +
-        '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>' + esc(k.sen_etiket || 'Senin cevabın') + ' ' + esc(k.secim) + ') ' + esc(k.secim_metin || '') + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
+        (k.siklar ? '<ol class="no-siklar">' + Object.keys(k.siklar).sort().map(function (hf) { return '<li data-h="' + esc(hf) + '"><b>' + esc(hf) + ')</b><span>' + esc(k.siklar[hf]) + '</span><em></em></li>'; }).join('') + '</ol>' : '') +
+        '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>' + esc(k.sen_etiket || 'Senin cevabın') + ' ' + esc(k.secim) + ')' + (k.siklar ? '' : ' ' + esc(k.secim_metin || '')) + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
           : '<b>Bu soruyu boş geçtin</b><p><span data-yaz="Doğrusunu ve nedenini birlikte görelim."></span></p>') + '</div>' +
-        '<div class="no-blok no-dogru" data-a="dogru"><b>Doğrusu ' + esc(k.dogru) + ') ' + esc(k.dogru_metin || '') + '</b><p>' +
+        '<div class="no-blok no-dogru" data-a="dogru"><b>Doğrusu ' + esc(k.dogru) + ')' + (k.siklar ? '' : ' ' + esc(k.dogru_metin || '')) + '</b><p>' +
         ad.map(function (x) { return '<span class="no-adim' + (x.hesap ? ' hesap' : '') + '" data-yaz="' + esc(x.t) + '"></span>'; }).join('') + '</p></div>' +
         (k.kural ? '<p class="no-kural" data-a="kural"><b>Kural:</b> ' + esc(k.kural) + '</p>' : '') +
         (k.dayanak ? '<p class="no-dayanak" data-a="dayanak">📜 Dayanak: ' + esc(k.dayanak) + '</p>' : '');
     }
     /* adım planı: [tür, öğe, süre] - "ac" bloğu görünür yapar, "yaz" metni harf harf yazar (saniyede ~40 harf), "bekle" durur */
     function planKur() {
-      var p = [], q = sahne.querySelector('.no-soru');
-      p.push(['bekle', null, q ? Math.min(4500, 1200 + q.textContent.length * 15) : 800]);
-      var sen = sahne.querySelector('[data-a="sen"]'); p.push(['ac', sen, 500]);
+      var p = [], q = sahne.querySelector('.no-soru'), sl = sahne.querySelector('.no-siklar'), k = kartlar[i] || {};
+      var okun = (q ? q.textContent.length : 0) + (sl ? sl.textContent.length : 0);
+      p.push(['bekle', null, okun ? Math.min(sl ? 10000 : 4500, (sl ? 1800 : 1200) + okun * (sl ? 12 : 15)) : 800]);
+      if (sl && k.secim) p.push(['isaret', sl.querySelector('[data-h="' + k.secim + '"]'), 1700, 'sen']);
+      var sen = sahne.querySelector('[data-a="sen"]'); p.push(['ac', sen, 600]);
       sen.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); }); p.push(['bekle', null, 1800]);
+      if (sl) p.push(['isaret', sl.querySelector('[data-h="' + k.dogru + '"]'), 1500, 'dogru']);
       var dg = sahne.querySelector('[data-a="dogru"]'); p.push(['ac', dg, 700]);
       dg.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); p.push(['bekle', null, e.classList.contains('hesap') ? 1100 : 500]); });
       ['kural', 'dayanak'].forEach(function (a) { var e = sahne.querySelector('[data-a="' + a + '"]'); if (e) p.push(['ac', e, a === 'kural' ? 1600 : 900]); });
       p.push(['bekle', null, 3500]);
       return p;
     }
+    function isaretle(li, tur) { if (!li) return; li.classList.add(tur); var em = li.querySelector('em'); if (em) em.textContent = tur === 'dogru' ? 'Doğru ✓' : ((kartlar[i] && kartlar[i].sen_etiket) ? 'En sık yanlış ✕' : 'Senin cevabın ✕'); }
     function hepsiniAc() {
+      var k0 = kartlar[i] || {}; sahne.querySelectorAll('.no-siklar').forEach(function (l) { if (k0.secim) isaretle(l.querySelector('[data-h="' + k0.secim + '"]'), 'sen'); isaretle(l.querySelector('[data-h="' + k0.dogru + '"]'), 'dogru'); });
       sahne.querySelectorAll('.no-blok,.no-kural,.no-dayanak').forEach(function (e) { e.classList.add('acik'); });
       sahne.querySelectorAll('[data-yaz]').forEach(function (e) { e.textContent = e.getAttribute('data-yaz'); e.classList.remove('no-imlec'); });
     }
@@ -97,7 +116,7 @@
     function kartAc(n) {
       temizle(); i = n; adim = 0; yazilan = null;
       if (i >= kartlar.length) return sonEkran();
-      sahne.classList.toggle('duz', !!duz); sahne.scrollTop = 0;
+      sahne.classList.toggle('duz', !!duz); kayAnim++; sahne.scrollTop = 0;
       sahne.innerHTML = kartHtml(kartlar[i]); kap.querySelector('.no-sayac').textContent = '· ' + (i + 1) + ' / ' + kartlar.length;
       plan = planKur(); cubuk();
       if (duz || dur) { if (duz) { hepsiniAc(); adim = plan.length; cubuk(); } return; }
@@ -117,6 +136,7 @@
         })();
         return;
       }
+      if (a[0] === 'isaret' && a[1]) isaretle(a[1], a[3]);
       if (a[0] === 'ac') { a[1].classList.add('acik'); var el = a[1]; setTimeout(function () { takip(el, true); }, 60); }
       adim++; cubuk(); zaman = setTimeout(ilerle, a[2] || 400);
     }

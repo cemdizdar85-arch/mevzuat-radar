@@ -420,7 +420,7 @@ footer p{margin:0 0 8px}
     var aciklama=(hesap.length?hesap.map(function(s){ return String(s[0]).replace(/[.…]+$/,'')+' = '+s[1]+'.'; }).join(' ')+' ':'')+String(o.hap||'');
     var tm=String(t.metin||''); tm=tm.charAt(0).toLocaleUpperCase('tr')+tm.slice(1);
     kap.innerHTML='';
-    window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:o.soru, secim:sen, sen_etiket:'En sık yapılan yanlış', secim_metin:sen?o.siklar[sen]:'',
+    window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:o.soru, siklar:o.siklar, secim:sen, sen_etiket:'En sık yapılan yanlış', secim_metin:sen?o.siklar[sen]:'',
       tuzak_ad:t.ad, tuzak_metin:tm, dogru:o.dogru, dogru_metin:o.siklar[o.dogru], aciklama:aciklama, kural:'', dayanak:o.dayanak||'' }],{
       son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
       olay:function(ad){ say('ana/nobetci/'+ad,'Ana sayfa Nöbetçi: '+ad); }
