@@ -17,7 +17,7 @@
 param([string]$Dosya='',[string]$Sozluk='',[string]$Ders='',[int]$Pencere=7,[int]$Tavan=0,[switch]$TavanSinavi,
       [string]$IkizEtiket='',[switch]$IkizYok,[switch]$KaynakYok,[switch]$IkizSinavi,[switch]$MulgaSinavi,[switch]$YilSinavi,[switch]$AdimSinavi,[switch]$KapiCSinavi,[switch]$SimSinavi,
       [string]$HarfPlani='',[switch]$HarfPlaniSinavi,[switch]$KapaliSinavi,
-      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi)
+      [string]$KokDene='',[switch]$KokTazele,[switch]$KokDeneSinavi,[switch]$IkizOnbellekYok,[switch]$IkizOnbellekProva,[switch]$OnekSinavi)
 $trS=[cultureinfo]::GetCultureInfo('tr-TR')
 . (Join-Path (Split-Path -Parent $PSCommandPath) 'ozel-maliyet-kapisi.ps1')   # 27.09 KAPI-OM (üreticiyle aynı işlev; SGS oturumu izniyle eklendi)
 # --- UZUNLUK TAVANI (25.09.2026, Cem "devam et" · SGS k2 ölçümü) ---------------------------------------------------------------
@@ -57,6 +57,32 @@ function IkizFonkYukle([string]$kokY){
   $eksikF=@($gerek | Where-Object { $ad=$_; -not ($bul | Where-Object { $_.Name -eq $ad }) })
   if($eksikF.Count){ throw "İKİZ: üreticide fonksiyon bulunamadı: $($eksikF -join ', ')" }
   return $bul
+}
+# 05.10.2026 İKİZ HAVUZ ÖNBELLEĞİ (Cem "1.2.3" GM3): ölçüldü — tam denetim 157 sn, bunun 136 sn'si ikiz; her koşu 1.140 parti
+#   dosyasını baştan ayrıştırıyordu. Önbellek yalnız HAM alanları saklar (soru, şıklar, doğru metin, ders, kaynak); küme/madde/şık kümesi
+#   yüklenirken ÜRETİCİNİN AYNI işlevleriyle (KelimeKume, SikKume, KokMaddeNo) yeniden hesaplanır. İz = dosya sayısı + en yeni yazım + toplam
+#   boy; iz değişince yeniden kurulur. -IkizOnbellekYok eski yol.
+#   🚫 GÖRMEZ: üreticinin BenzerHavuz satırına yeni alan eklenirse (kayıt alanları burada da elle eklenmeli; -IkizOnbellekProva alan
+#   listesini üreticinin satırıyla karşılaştırır) · aynı saniyede aynı boyla değişen dosya.
+function IkizHavuzSatir($hEt,$id,$v){
+  $sk=[pscustomobject]@{ siklar=[pscustomobject]@{ A="$($v.siklar.A)"; B="$($v.siklar.B)"; C="$($v.siklar.C)"; D="$($v.siklar.D)"; E="$($v.siklar.E)" } }
+  if("$env:DENETLE_IKIZONB_MUTASYON" -eq 'sikyok'){ $sk=[pscustomobject]@{ siklar=[pscustomobject]@{} } }
+  return [pscustomobject]@{ etiket=$hEt; id=$id; konu="$($v.konu)"; soru="$($v.soru)"; siklar=$sk.siklar; ders=$(if($Sinav -eq 'SMMM'){ SmmmDersAdi $hEt $v } else { '' }); dogruMetin=(IkizDogruMetin $v); kaynak=@($v.kaynak_adlar) }
+}
+function IkizHavuzOnbellek([string]$onekH){
+  $fab=Join-Path $kok 'veri\fabrika'; $fs=@(Get-ChildItem $fab -Filter "kalip-parti-$onekH-*.json" -ErrorAction SilentlyContinue)
+  $iz="$($fs.Count)|$(@($fs | ForEach-Object { $_.LastWriteTimeUtc.Ticks } | Measure-Object -Maximum).Maximum)|$(@($fs | Measure-Object Length -Sum).Sum)"
+  $yol=Join-Path $fab "ikiz-havuz-$onekH.json"; $satir=$null; $kaynakAd='önbellek'
+  if(Test-Path $yol){ try{ $c=Get-Content -Raw -Encoding UTF8 $yol | ConvertFrom-Json; if("$($c.iz)" -eq $iz){ $satir=@($c.satir) } }catch{} }
+  if($null -eq $satir){ $kaynakAd='yeniden kuruldu'; $l=New-Object System.Collections.Generic.List[object]
+    foreach($f in $fs){ try{ $j=ConvertFrom-Json -InputObject (Get-Content $f.FullName -Raw -Encoding UTF8); $hEt=($f.BaseName -replace '^kalip-parti-','')
+        foreach($p in $j.PSObject.Properties){ if($p.Value -and $p.Value.soru){ $l.Add((IkizHavuzSatir $hEt $p.Name $p.Value)) } } }catch{} }
+    $satir=$l.ToArray(); [IO.File]::WriteAllText($yol,([pscustomobject]@{ iz=$iz; satir=$satir } | ConvertTo-Json -Depth 6 -Compress),(New-Object Text.UTF8Encoding $false)) }
+  $h=New-Object System.Collections.Generic.List[object]
+  foreach($r in $satir){ if("$($r.etiket)" -eq $Etiket){ continue }
+    $h.Add([pscustomobject]@{ etiket="$($r.etiket)"; id="$($r.id)"; konu="$($r.konu)"; kume=(KelimeKume "$($r.soru)"); sikKume=(SikKume ([pscustomobject]@{ siklar=$r.siklar })); madde=(KokMaddeNo "$($r.soru)");
+      ders="$($r.ders)"; soruMetin="$($r.soru)"; dogruMetin="$($r.dogruMetin)"; parmak=$null; kaynak=@($r.kaynak); ai=$null; si=$null }) }
+  return [pscustomobject]@{ havuz=$h; kaynak=$kaynakAd; dosya=$fs.Count }
 }
 if($IkizSinavi){
   # Sentetik havuz (CI'da ambar yok): geçici kökte bir SGS partisi kurulur; GERÇEK BenzerlikKusur koşar.
@@ -182,6 +208,35 @@ function KapaliListeNot($q){
       if($m.Success){ $out+="KAPALI LİSTE ($alan): '$($m.Value)' — kanun listeyi kapatıyor mu? kapatmıyorsa 'X ise indirilemez' yaz (not, durdurmaz)"; break } } }
   return $out
 }
+# 05.10.2026 ÖNEK ALINTI NOTU (Cem "1.2.3" GM2): talimat E6 ("m.X:" önekli cümle kanunla BİREBİR, değilse "m.X gereği") yazılıydı; gm9'da
+#   beş yazarın dördü çiğnedi, 66 cümle elle düzeltildi. Önekten sonraki cümle (ilk '.'/';'ye kadar) sorunun kaynak_adlar'ındaki o maddenin
+#   ambar metninde (Türkçe harf katlanmış, noktalama atılmış) geçmiyorsa NOT düşer; soruyu durdurmaz (yanlış alarm oranı henüz ölçülüyor).
+#   🚫 GÖRMEZ: kesik ama birebir alıntı (alıntının devamı atılmışsa önek parçası yine metinde geçer) · tebliğ/BKK önekleri · kaynak_adlar'da
+#   o madde yoksa (ÖLÇÜLMEDİ notu) · kanun kısaltması listede değilse.
+function OnekKatla([string]$s){ return ((("$s" -creplace 'İ','i' -creplace 'I','i' -creplace 'ı','i' -creplace 'Ğ','g' -creplace 'ğ','g' -creplace 'Ü','u' -creplace 'ü','u' -creplace 'Ş','s' -creplace 'ş','s' -creplace 'Ö','o' -creplace 'ö','o' -creplace 'Ç','c' -creplace 'ç','c' -creplace 'â','a' -creplace 'î','i' -creplace 'û','u').ToLowerInvariant() -replace '[^a-z0-9]+',' ').Trim()) }
+function OnekAlintiNot($q,$metinler){
+  if("$env:DENETLE_ONEK_MUTASYON" -eq 'kapali'){ return @() }
+  $out=@(); $gor=@{}
+  foreach($alan in 'teshis','aciklama','adimlar','sade'){ if(-not $q.PSObject.Properties[$alan]){ continue }
+    foreach($t in @(MetinTopla $q.$alan)){
+      foreach($m in [regex]::Matches("$t",'\b(?<k>GVK|VUK|KDVK|KVK|ÖTVK|TTK|TBK|TMK|SPKn|İYUK|AATUHK|HMK|DVK|MK)\s*(?:\([^)]{0,20}\)\s*)?m\.\s*(?<m>\d+(?:/[A-Za-z])?)(?<g>[^:.;]{0,30}):\s*(?<a>(?:[^.;]|\.(?=\d)){12,})')){
+        $gp=$m.Groups['g'].Value; if($gp -match '\+|Seri|Tebli|BKK|CBK' -or ($gp.Contains(')') -and -not $gp.Contains('('))){ continue }   # dayanak listesi ("m.103 + GVGT …): hesap") alıntı değil
+        $kan=$m.Groups['k'].Value; $md=$m.Groups['m'].Value; $al=$m.Groups['a'].Value.Trim(); $anah="$kan|$md|$al"; if($gor.ContainsKey($anah)){ continue }; $gor[$anah]=1
+        $esl=@($metinler.Keys | Where-Object { $_ -match ('^' + [regex]::Escape($kan) + '\b.*\bm\.' + [regex]::Escape($md) + '(\b|$)') })
+        if(-not $esl.Count){ $out+="ÖNEK ALINTI ölçülmedi ($alan): '$kan m.${md}:' — kaynak_adlar'da bu madde yok"; continue }
+        $govde=OnekKatla (($esl | ForEach-Object { $metinler[$_] }) -join ' ')
+        if(-not $govde.Contains((OnekKatla $al))){ $kisa=$(if($al.Length -gt 70){ $al.Substring(0,70) + '…' } else { $al }); $out+="ÖNEK ALINTI ($alan): '$kan m.${md}: $kisa' ambar metninde birebir yok → 'm.$md gereği …' yaz (not, durdurmaz)" } } } }
+  return $out
+}
+if($OnekSinavi){
+  $mt=@{ 'GVK (193 s.K.) m.74 - Giderler [1/3]'='Kiraya verilen mal ve haklar için ödenen vergi, resim, harç ve şerefiyeler indirilir.' }
+  $v=@(@('birebir alıntı',[pscustomobject]@{ aciklama=[pscustomobject]@{ B='GVK m.74: Kiraya verilen mal ve haklar için ödenen vergi, resim, harç ve şerefiyeler indirilir.' } },0),
+       @('çıkarım önekle',[pscustomobject]@{ teshis=[pscustomobject]@{ B=[pscustomobject]@{ gercek='GVK m.74/1-5: emlak vergisi gider yazılır ve 18.375 TL indirilir.' } } },1),
+       @('gereği biçimi',[pscustomobject]@{ aciklama=[pscustomobject]@{ B='GVK m.74 gereği emlak vergisi gider yazılır ve 18.375 TL indirilir.' } },0),
+       @('kaynakta madde yok',[pscustomobject]@{ aciklama=[pscustomobject]@{ B='VUK m.10: kanuni temsilci sorumludur ve ödevi vardır.' } },1))
+  $h=0; foreach($x in $v){ $c=@(OnekAlintiNot $x[1] $mt).Count; if($c -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $c (beklenen $($x[2]))" } }
+  if($h){ "ONEK ALINTI SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "ONEK ALINTI SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+}
 if($KapaliSinavi){
   $v=@(@('gm8 sade: yalnız cezalar düşülmez',[pscustomobject]@{ sade=[pscustomobject]@{ siklar=[pscustomobject]@{ B='vergi gider olarak düşülür, yalnız cezalar düşülmez.' } } },1),
        @('gm8 açıklama: indirilemeyen ... cezalarıdır',[pscustomobject]@{ aciklama=[pscustomobject]@{ B="m.74/4'e göre indirilemeyen para cezaları ve vergi cezalarıdır." } },1),
@@ -306,16 +361,29 @@ if(-not $IkizYok){
     $kok=$depoKokD; $Sinav=$ikOnek.ToUpperInvariant(); $Etiket=$ikEt; $CAPA=@{}; $amb=$null; $don=@{}; $script:BENZER_HAVUZ=$null
     $script:GK_DERS=[bool]($ikEt -match '-(yd|mat|turkce|inkilap)-')
     $ikizAcik=$true
+    if($IkizOnbellekProva){
+      # EŞDEĞERLİK PROVASI (havuzun TAMAMI): üreticinin BenzerHavuz'u ile önbellekten kurulan havuz alan alan, soru soru.
+      $script:BENZER_HAVUZ=$null; $taze=@(BenzerHavuz); $ob=(IkizHavuzOnbellek $ikOnek).havuz.ToArray()
+      $kset={ param($x) (@($x) | ForEach-Object { "$_" } | Sort-Object) -join '|' }
+      $alT=(@($taze[0].PSObject.Properties.Name) | Sort-Object) -join ','; $alO=(@($ob[0].PSObject.Properties.Name) | Sort-Object) -join ','
+      $fark=0; $ornek=@(); $ix=@{}; foreach($o in $ob){ $ix["$($o.etiket)/$($o.id)"]=$o }
+      foreach($t in $taze){ $o=$ix["$($t.etiket)/$($t.id)"]; if(-not $o){ $fark++; if($ornek.Count -lt 5){ $ornek+="yok: $($t.etiket)/$($t.id)" }; continue }
+        foreach($al in 'konu','ders','soruMetin','dogruMetin'){ if("$($t.$al)" -cne "$($o.$al)"){ $fark++; if($ornek.Count -lt 5){ $ornek+="$($t.etiket)/$($t.id) $al" } } }
+        foreach($al in 'kume','sikKume','madde','kaynak'){ if((& $kset $t.$al) -cne (& $kset $o.$al)){ $fark++; if($ornek.Count -lt 5){ $ornek+="$($t.etiket)/$($t.id) $al" } } } }
+      "IKIZ ONBELLEK PROVASI: taze $($taze.Count) · önbellek $($ob.Count) · alan listesi $(if($alT -eq $alO){'AYNI'}else{"FARKLI ($alT / $alO)"}) · fark $fark"
+      $ornek | ForEach-Object { "  $_" }; if($fark -or $taze.Count -ne $ob.Count -or $alT -ne $alO){ exit 1 } else { exit 0 }
+    }
+    if(-not $IkizOnbellekYok){ $ho=IkizHavuzOnbellek $ikOnek; $script:BENZER_HAVUZ=$ho.havuz; "İKİZ HAVUZU: $($ho.havuz.Count) soru · $($ho.kaynak)" }
     "İKİZ (KAPI-B): etiket $ikEt · havuz kalip-parti-$ikOnek-*.json = $havuzSay dosya$(if($havuzSay -lt 50){' · ⚠ HAVUZ KÜÇÜK/BAYAT OLABİLİR: arac/parti-senkron.ps1 -Indir -Yaz -Sinav ' + $Sinav})"
   } else { "İKİZ (KAPI-B): ÖLÇÜLMEDİ — etiket önek sgs/smmm/kgk değil ('$ikEt'); -IkizEtiket <etiket> ver" }
 }
 # KAYNAK ADI: benzersiz adlar ambarda birebir aranır (anahtar yoksa ÖLÇÜLMEDİ denir)
-$kaynakVar=@{}; $kaynakOlcu=$false
+$kaynakVar=@{}; $kaynakOlcu=$false; $kaynakMetin=@{}
 if(-not $KaynakYok){
   $sbK="$($env:SUPABASE_SERVICE_KEY)".Trim(); if(-not $sbK){ $sbK="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))".Trim() }
   if($sbK){ [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $adlarT=@($liste | ForEach-Object { @($_.kaynak_adlar) } | Where-Object { "$_".Trim() } | Sort-Object -Unique)
-    foreach($ad in $adlarT){ try{ $r=@(Invoke-RestMethod -Uri ("https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=id&limit=1&kaynak_ad=eq." + [uri]::EscapeDataString("$ad")) -Headers @{ apikey=$sbK; Authorization="Bearer $sbK"; 'User-Agent'='mevzuat-radar-robot/1.0' } -TimeoutSec 60); $kaynakVar["$ad"]=[bool]@($r | Where-Object { $_ -and $_.id }).Count }catch{ $kaynakVar["$ad"]=$null } }
+    foreach($ad in $adlarT){ try{ $r=@(Invoke-RestMethod -Uri ("https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/dokumanlar?select=id,metin&limit=1&kaynak_ad=eq." + [uri]::EscapeDataString("$ad")) -Headers @{ apikey=$sbK; Authorization="Bearer $sbK"; 'User-Agent'='mevzuat-radar-robot/1.0' } -TimeoutSec 60); $bulunan=@($r | Where-Object { $_ -and $_.id }); $kaynakVar["$ad"]=[bool]$bulunan.Count; if($bulunan.Count){ $kaynakMetin["$ad"]="$($bulunan[0].metin)" } }catch{ $kaynakVar["$ad"]=$null } }
     $kaynakOlcu=$true; "KAYNAK ADI: $($adlarT.Count) benzersiz ad · ambarda yok: $(@($kaynakVar.Keys | Where-Object { $kaynakVar[$_] -eq $false }).Count) · okunamadı: $(@($kaynakVar.Keys | Where-Object { $null -eq $kaynakVar[$_] }).Count)"
   } else { "KAYNAK ADI: ÖLÇÜLMEDİ (SUPABASE_SERVICE_KEY yok)" }
 }
@@ -349,6 +417,7 @@ foreach($q in $liste){
   foreach($x in @(GercekKapiC $q)){ $k.Add("KAPI-Ç (üretici): $x") }
   foreach($x in @(TersSadeNot $q)){ $not.Add($x) }
   foreach($x in @(KapaliListeNot $q)){ $not.Add($x) }
+  if($kaynakOlcu){ foreach($x in @(OnekAlintiNot $q $(if($q.kaynak_adlar){ $kmS=@{}; foreach($ad in @($q.kaynak_adlar)){ if($kaynakMetin.ContainsKey("$ad")){ $kmS["$ad"]=$kaynakMetin["$ad"] } }; $kmS } else { @{} }))){ $not.Add($x) } }
   foreach($x in @(SimOnKontrol $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }
   # adım aritmetiği (AritmetikKusur taklidi) + ';' zinciri
   $n=0; foreach($a in @($q.adimlar)){ $n++; $f="$($a.formul)"

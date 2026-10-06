@@ -25,8 +25,20 @@ function kartBulgu(k) {
   const b = [], sade = (k.sade && typeof k.sade === 'object') ? k.sade : { dogru: k.sade };
   const bak = (ad, v) => { if (v == null || v === '') return; const t = String(v);
     if (TR.asciiTurkce(t)) b.push('KART-TR ' + ad); else if (KISA_ASCII.test(t)) b.push('KART-TR ' + ad); };   // listedeki kelimeler YALNIZ harfsiz yazımda geçer → karışık dizede de kusur (05.10: "Sira No:1 Tekduzen Hesap Plani - Tekdüzen ...")
-  bak('sade.dogru', sade.dogru); bak('kural', k.kural); bak('dayanak', k.dayanak);
+  bak('sade.dogru', sade.dogru); bak('kural', k.kural);   // 06.10: dayanak harfsizse kart DIŞLANMAZ - rpc/seviye_aciklama dayanak satırını gizler (2026-10-06-seviye-aciklama-dayanak.sql, aynı liste)
   for (const [h, tz] of Object.entries(k.tuzak || {})) { bak('tuzak.' + h + '.ad', tz && tz.ad); bak('tuzak.' + h + '.metin', tz && tz.metin); }
+  // 06.10 banka taraması (8.887 soru): tuzak ADINDA istem kalıntısı 249 soru ("Ne soruluyor", "… tekrar edilmez") + boş ad ("A Tuzağı") 12 soru.
+  //   Kart tuzak adını başlık gibi gösterir → vitrin dışı.
+  for (const [h, tz] of Object.entries(k.tuzak || {})) { const ad = String((tz && tz.ad) || '').trim();
+    if (/ne soruluyor|kural\s*:|doğrusu\s*:|placeholder|yanilgi\b/i.test(ad)) b.push('KART-KALINTI tuzak.' + h + '.ad');
+    else if (/^[A-E]\)?\s*(şıkkı\s*)?tuzağı$/i.test(ad)) b.push('KART-BOSAD tuzak.' + h + '.ad'); }
+  // 06.10 tam elle okuma (629 kart): dayanak/kural/tuzak metninde üretimden kalan İÇ NOT öğrenciye görünüyor
+  //   ("(mevzuat maddesi yok)", "Kural 2", "kaynak metni", "[1/2]", "Ambar:", "Kaynak paket: TEORİ", "Uygulama: C şıkkı…", "ders notu … madde").
+  const icNot = /mevzuat maddesi yok|\(kaynak metni?\)|kaynak metne göre|\bkural\s*\d|\[\d\/\d\]|\bambar\b|kaynak paket|\bteori\s*par[cç]as|\buygulama\s*:\s*[a-e]?\s*ş[ıi]kk|sınav tuzağı\s*\(\d|ders notu.{0,40}madde\s*\d|sınav tuzağı olarak da vurgulanan/i;
+  // dayanak burada yok: iç not taşıyan dayanağı RPC gizler (2026-10-06-seviye-aciklama-dayanak.sql), kart dışlanmaz
+  for (const [ad, v] of [['kural', k.kural], ['sade.dogru', sade.dogru], ...Object.entries(k.tuzak || {}).map(([h, tz]) => ['tuzak.' + h + '.metin', tz && tz.metin])]) {
+    if (v && icNot.test(String(v))) b.push('KART-ICNOT ' + ad);
+  }
   if (!sade.dogru) b.push('KART-BOS sade.dogru');
   const eksik = Object.keys(k.siklar || {}).filter(h => h !== k.dogru && !(k.tuzak && k.tuzak[h] && k.tuzak[h].metin));
   if (eksik.length) b.push('KART-BOS tuzak ' + eksik.join(''));

@@ -337,6 +337,10 @@ jobs:
           # DENETLE_KOKDENE_MUTASYON=darsiz -> KIRMIZI (1/4).
           - { ad: "Hazir soru KOK DENEME (KAPI-K onbellek) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KokDeneSinavi" }
+          # 05.10.2026 - Onek alinti notu: "GVK m.X:" onekli cumle ambar metninde birebir yoksa NOT (talimat E6).
+          # DENETLE_ONEK_MUTASYON=kapali -> KIRMIZI (2/4).
+          - { ad: "Hazir soru ONEK ALINTI notu OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -OnekSinavi" }
 
           # 30.09.2026 - Onarim hatti (arac/onarim-hatti.js): GM onarim taslagini ambara uygulamadan once karar mantigi.
           # 7 vaka; mutasyonla olculdu: model alani korunmasi / izin denetimi / sik degisimi kritikligi / sirasiz esitlik /
