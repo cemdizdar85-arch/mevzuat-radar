@@ -27,10 +27,13 @@
       '.no-sahne{position:relative;height:clamp(320px,60vh,460px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.no-sahne::-webkit-scrollbar{display:none}.no-sahne.duz{height:auto;overflow:visible}' +
       /* 07.10 Cem ('soru bilgisayarda yarım görünüyor'): seçim aşamasında çerçeve sorunun tamamını gösterir; anlatım başlayınca sabit boya döner */
       '.no-sahne.secimde{height:auto!important;overflow:visible!important}' +
+      /* 07.10 Cem "bu kadar boşluk": açılmamış blok yer KAPLAMAZ (önce yalnız saydamdı, kartın altında boşluk kalıyordu); açılınca kısa geçişle gelir */
+      '.no-blok:not(.acik),.no-kural:not(.acik),.no-dayanak:not(.acik){display:none}@keyframes noAc{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.no-blok.acik,.no-kural.acik,.no-dayanak.acik{animation:noAc .45s}' +
       '.no-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}' +
       '.no-siklar{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}.no-siklar li{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;line-height:1.45;color:var(--ink);transition:background .6s,border-color .6s}' +
       '.no-siklar.secilir li{cursor:pointer}.no-siklar.secilir li:hover{border-color:var(--ink)}.no-siklar.secilir li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}' +
       '.no-davet{margin:0 0 8px;font-size:14px;font-weight:700;color:var(--amber,var(--ink))}.no-davet small{font-weight:500;color:var(--muted)}' +
+      '.no-bekle{display:block;margin:8px 0 0;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel,var(--bg));color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}.no-bekle:hover{border-color:var(--amber,var(--ink))}' +
       '.no-siklar li b{flex:none}.no-siklar li em{margin-left:auto;padding-left:8px;flex:none;font-style:normal;font-size:12px;font-weight:800;white-space:nowrap}' +
       '.no-siklar li.sen{border-color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent)}.no-siklar li.sen em{color:var(--red)}' +
       '.no-siklar li.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent)}.no-siklar li.dogru em{color:var(--green)}' +
@@ -95,7 +98,7 @@
       var ad = adimlar(k.aciklama);
       return '<p class="no-soru-ust" style="margin:0 0 6px;font-size:12px;color:var(--muted)">' + esc(k.ust || '') + '</p>' +
         (k.soru ? '<p class="no-soru">' + esc(k.soru) + '</p>' : '') +
-        (secimVar(k) ? '<p class="no-davet">Sen olsan hangisini işaretlerdin? <small class="no-geri">Bir şıkka dokun.</small></p>' : '') +
+        (secimVar(k) ? '<p class="no-davet">Sen olsan hangisini işaretlerdin? <small class="no-geri">Bir şıkka dokun.</small> <button type="button" class="no-bekle" data-d="bekle">Süreyi durdur, kendim çözeyim</button></p>' : '') +
         (k.siklar ? '<ol class="no-siklar' + (secimVar(k) ? ' secilir' : '') + '">' + Object.keys(k.siklar).sort().map(function (hf) { return '<li data-h="' + esc(hf) + '"' + (secimVar(k) ? ' tabindex="0" role="button"' : '') + '><b>' + esc(hf) + ')</b><span>' + esc(k.siklar[hf]) + '</span><em></em></li>'; }).join('') + '</ol>' : '') +
         '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>' + esc(k.sen_etiket || 'Senin cevabın') + ' ' + esc(k.secim) + ')' + (k.siklar ? '' : ' ' + esc(k.secim_metin || '')) + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
           : '<b>Bu soruyu boş geçtin</b><p><span data-yaz="Doğrusunu ve nedenini birlikte görelim."></span></p>') + '</div>' +
@@ -168,15 +171,22 @@
         var kalan = Math.round(a[2] / 1000), gs = sahne.querySelector('.no-geri');
         var yaz = function () { if (gs) gs.textContent = 'Seçmezsen Nöbetçi ' + kalan + ' sn sonra anlatmaya başlar.'; }; yaz();
         geriSay = setInterval(function () { kalan = Math.max(0, kalan - 1); yaz(); }, 1000);
-        zaman = setTimeout(function () { var k = kartlar[i]; kartlar[i] = Object.assign({}, k, { secimBitti: true }); olay('secmedi');
-          var dv = sahne.querySelector('.no-davet'), sl = sahne.querySelector('.no-siklar'); if (dv) dv.hidden = true; if (sl) sl.classList.remove('secilir'); sahne.classList.remove('secimde');
-          if (geriSay) { clearInterval(geriSay); geriSay = null; } adim++; cubuk(); ilerle(); }, a[2]);
+        zaman = setTimeout(function () { secimBitir('secmedi'); }, a[2]);
         return;
       }
       if (a[0] === 'isaret' && a[1]) isaretle(a[1], a[3]);
       if (a[0] === 'ac') { a[1].classList.add('acik'); var el = a[1]; setTimeout(function () { takip(el, true); }, 60); }
       adim++; cubuk(); zaman = setTimeout(ilerle, a[2] || 400);
     }
+    /* seçim aşaması biter: süre doldu ya da ziyaretçi "Nöbetçi anlatsın" dedi */
+    function secimBitir(neden) { temizle(); var k = kartlar[i]; if (!secimVar(k)) return; kartlar[i] = Object.assign({}, k, { secimBitti: true }); olay(neden);
+      var dv = sahne.querySelector('.no-davet'), sl = sahne.querySelector('.no-siklar'); if (dv) dv.hidden = true; if (sl) sl.classList.remove('secilir'); sahne.classList.remove('secimde');
+      adim++; cubuk(); ilerle(); }
+    /* 07.10 Cem: "sen çöz düğmesi yok, sadece saniye düşüyor" -> süre durdurulabilir; durunca Nöbetçi beklemez, ziyaretçi isterse anlatır */
+    function secimBeklet() { var k = kartlar[i]; if (!secimVar(k)) return; temizle(); olay('bekletti');
+      var gs = sahne.querySelector('.no-geri'), b = sahne.querySelector('.no-bekle');
+      if (gs) gs.textContent = 'Süre durdu, acele yok. Bir şıkka dokun.';
+      if (b) { b.textContent = 'Nöbetçi anlatsın →'; b.setAttribute('data-d', 'anlat'); } }
     function sonEkran() {
       temizle(); i = kartlar.length; sahne.classList.remove('duz'); sahne.classList.remove('secimde'); kayAnim++; kayHedef = 0; kayCalisiyor = false; sahne.scrollTop = 0; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
       kap.querySelector('.no-sayac').textContent = '';
@@ -196,6 +206,8 @@
       else if (d === 'geri') kartAc(Math.max(0, i - (i >= kartlar.length ? 1 : (adim > 2 ? 0 : 1))));
       else if (d === 'bastan') { duz = false; kartlar = ilkKartlar.slice(); oynaDurdur(false); kartAc(0); }   // baştan: seçim aşaması yeniden
       else if (d === 'paket') olay('paket');
+      else if (d === 'bekle') secimBeklet();
+      else if (d === 'anlat') { oto = false; if (dur) { dur = false; oynaD.textContent = '⏸'; } secimBitir('anlat'); }
       else if (d === 'metin') { olay('metin'); temizle(); duz = true; oynaD.textContent = '▶'; metinGorunum(); }
     });
     function metinGorunum() {
