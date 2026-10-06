@@ -54,6 +54,15 @@
    unvan (ABC A.Ş.) yok. Denetçi/işletme adı kısa ve doğal ("Ege Denetim", "(K) A.Ş.").
 9. **KAPI-K (KGK sözlüğü):** kökte KGK kitapçıklarında hiç geçmeyen (≥6 harfli) kelime en çok 1. Ön denetim tüm KGK kitapçıklarından kurulan
    sözlükle ölçer (`KGK KAPI-K` satırı); bulut KGK'da KAPI-K koşmaz — bu yalnız sınav dili kalitesidir, düşen kelimeyi sınav diliyle değiştir.
+11. **T kodlu paragraf (Türkiye uygulaması) esastır** (07.10 ikinci göz, kgk-o2-tds-zor/kp-10 ÇIKAR): BDS 700/705/720'de "2T, 21T, 22T" gibi
+    Türkiye'ye özgü paragraf varsa soru onlara göre kurulur ve kök bunu yazar. Örn. Türkiye'de faaliyet raporu (diğer bilgiler) DENETLENİR
+    (BDS 720 p.2T) — uluslararası p.21-22'ye göre "denetlenmez" diye anlatılan soru iki doğru şıklı olur.
+12. **Tanım tek bende indirgenmez** (07.10, 27 DÜZELT'in en sık sınıfı): tanımın birden çok bendi/şartı varsa (BDS 505 p.6 "yanıt" tanımı,
+    BDS 250 kapsam kısıtı p.27-28, BDS 510 p.10-11 görüş seçenekleri) "yalnız / her / … olur" ile tek bende daraltılmaz.
+13. **"Kural:" kısmına kaynakta olmayan sonuç cümlesi eklenmez** ("böylece yeni risk doğar") ve "gerekebilir" → "gerekir" sertleştirilmez.
+14. **Kavram tanımının kaynağı** (`sade.kavramlar[].kaynak`) tanımın GERÇEKTEN geçtiği paragraftır ve `kaynak_adlar`'a da eklenir
+    (07.10: GDS 3400 p.9 yerine p.4, BDS 500 p.A64 yerine BDS 315 p.12 — hiçbir kapı bu alanı okumuyor).
+15. **Örnek olayda iki ilkeye birden uyan senaryo kurulmaz** (07.10, kp-30: yönetim müşteriyle birlikte → hem muvazaa hem kontrol ihlali).
 10. **Bir dosyada bir konudan BİR soru** (27.09: 85 sorunun 19'u aynı konu adıyla iz bırakmadan kayboldu).
 
 ## Modül sırası ve önkoşul (07.10)
