@@ -23,7 +23,9 @@
       '.no-ust{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px;font-size:12px;color:var(--muted)}' +
       '.no-dugmeler{display:flex;gap:6px}.no-dugmeler button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;min-width:34px;height:30px;font-size:14px;cursor:pointer}' +
       '.no-dugmeler button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}' +
-      '.no-sahne{min-height:260px}.no-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}' +
+      /* 06.10 Cem (telefon): "bir alta kayarak oynatıyor, aynı yerde oynaması lazım" - sahne SABİT boy, içerik içinde akar (takip) */
+      '.no-sahne{position:relative;height:clamp(320px,60vh,460px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}.no-sahne.duz{height:auto;overflow:visible}' +
+      '.no-soru{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}' +
       '.no-blok{padding:10px 12px;border-radius:0 8px 8px 0;margin:0 0 10px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}' +
       '.no-blok.acik{opacity:1;transform:none}' +
       '.no-sen{border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}.no-sen>b{color:var(--red)}' +
@@ -58,6 +60,11 @@
       '<button type="button" data-d="geri" aria-label="Önceki yanlış">⟨</button><button type="button" data-d="oyna" aria-label="Durdur">⏸</button><button type="button" data-d="ileri" aria-label="Sonraki yanlış">⟩</button></span></div>' +
       '<div class="no-sahne" aria-live="polite"></div><div class="no-alt"><span></span><button type="button" data-d="metin">Hepsini metin olarak göster</button></div></div>';
     var sahne = kap.querySelector('.no-sahne'), dilim = kap.querySelectorAll('.no-dilim i'), oynaD = kap.querySelector('[data-d="oyna"]');
+    function takip(e, yumusak) {
+      if (duz || !e) return;
+      var r = e.getBoundingClientRect(), s = sahne.getBoundingClientRect(), fark = r.bottom - s.bottom + 14;
+      if (fark > 0) { if (yumusak && sahne.scrollTo) sahne.scrollTo({ top: sahne.scrollTop + fark, behavior: 'smooth' }); else sahne.scrollTop += fark; }
+    }
     function temizle() { if (zaman) { clearTimeout(zaman); zaman = null; } }
     function kartHtml(k) {
       var ad = adimlar(k.aciklama);
@@ -75,11 +82,11 @@
       var p = [], q = sahne.querySelector('.no-soru');
       p.push(['bekle', null, q ? Math.min(4500, 1200 + q.textContent.length * 15) : 800]);
       var sen = sahne.querySelector('[data-a="sen"]'); p.push(['ac', sen, 500]);
-      sen.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); }); p.push(['bekle', null, 1400]);
+      sen.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); }); p.push(['bekle', null, 1800]);
       var dg = sahne.querySelector('[data-a="dogru"]'); p.push(['ac', dg, 700]);
       dg.querySelectorAll('[data-yaz]').forEach(function (e) { p.push(['yaz', e]); p.push(['bekle', null, e.classList.contains('hesap') ? 1100 : 500]); });
       ['kural', 'dayanak'].forEach(function (a) { var e = sahne.querySelector('[data-a="' + a + '"]'); if (e) p.push(['ac', e, a === 'kural' ? 1600 : 900]); });
-      p.push(['bekle', null, 2600]);
+      p.push(['bekle', null, 3500]);
       return p;
     }
     function hepsiniAc() {
@@ -90,6 +97,7 @@
     function kartAc(n) {
       temizle(); i = n; adim = 0; yazilan = null;
       if (i >= kartlar.length) return sonEkran();
+      sahne.classList.toggle('duz', !!duz); sahne.scrollTop = 0;
       sahne.innerHTML = kartHtml(kartlar[i]); kap.querySelector('.no-sayac').textContent = '· ' + (i + 1) + ' / ' + kartlar.length;
       plan = planKur(); cubuk();
       if (duz || dur) { if (duz) { hepsiniAc(); adim = plan.length; cubuk(); } return; }
@@ -103,17 +111,17 @@
         var e = a[1], tam = e.getAttribute('data-yaz'), n = yazilan && yazilan.e === e ? yazilan.n : 0; e.classList.add('no-imlec');
         (function harf() {
           if (dur) { yazilan = { e: e, n: n }; return; }
-          n = Math.min(tam.length, n + 2); e.textContent = tam.slice(0, n);
-          if (n < tam.length) { zaman = setTimeout(harf, 45); return; }
+          n = Math.min(tam.length, n + 1);   /* 06.10: ~26 harf/sn (okuma hızı; önce 44 idi, kart 18 sn de bitiyordu) */ e.textContent = tam.slice(0, n); takip(e, false);
+          if (n < tam.length) { zaman = setTimeout(harf, 38); return; }
           e.classList.remove('no-imlec'); yazilan = null; adim++; cubuk(); zaman = setTimeout(ilerle, 250);
         })();
         return;
       }
-      if (a[0] === 'ac') a[1].classList.add('acik');
+      if (a[0] === 'ac') { a[1].classList.add('acik'); var el = a[1]; setTimeout(function () { takip(el, true); }, 60); }
       adim++; cubuk(); zaman = setTimeout(ilerle, a[2] || 400);
     }
     function sonEkran() {
-      temizle(); i = kartlar.length; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
+      temizle(); i = kartlar.length; sahne.classList.remove('duz'); sahne.scrollTop = 0; cubuk(); for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
       kap.querySelector('.no-sayac').textContent = '';
       var s = o.son || {};
       sahne.innerHTML = '<div class="no-son"><p>' + (s.metin || 'Bankadaki her soru böyle anlatılır.') + '</p>' +
@@ -121,10 +129,10 @@
         '<div style="margin-top:12px"><button type="button" data-d="bastan" style="background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer">Baştan izle</button></div></div>';
       if (!bitti.son) { bitti.son = 1; olay('son'); }
     }
-    function oynaDurdur(d) { dur = d; oynaD.textContent = dur ? '▶' : '⏸'; oynaD.setAttribute('aria-label', dur ? 'Oynat' : 'Durdur'); if (dur) { temizle(); olay('durdur'); } else if (i < kartlar.length) ilerle(); }
+    function oynaDurdur(d, otomatik) { dur = d; oynaD.textContent = dur ? '▶' : '⏸'; oynaD.setAttribute('aria-label', dur ? 'Oynat' : 'Durdur'); if (dur) { temizle(); if (!otomatik) olay('durdur'); } else if (i < kartlar.length) ilerle(); }
     kap.addEventListener('click', function (ev) {
       var b = ev.target.closest('[data-d]'); if (!b) return; var d = b.getAttribute('data-d');
-      if (d === 'oyna') { if (duz) { duz = false; dur = false; kartAc(i); oynaD.textContent = '⏸'; } else oynaDurdur(!dur); }
+      if (d === 'oyna') { oto = false; if (duz) { duz = false; dur = false; kartAc(i); oynaD.textContent = '⏸'; } else oynaDurdur(!dur); }
       else if (d === 'ileri') kartAc(Math.min(kartlar.length, i + 1));
       else if (d === 'geri') kartAc(Math.max(0, i - (i >= kartlar.length ? 1 : (adim > 2 ? 0 : 1))));
       else if (d === 'bastan') { duz = false; oynaDurdur(false); kartAc(0); }
@@ -133,14 +141,21 @@
     });
     function metinGorunum() {
       var h = ''; kartlar.forEach(function (k) { h += '<div style="border-top:1px solid var(--line);padding-top:12px;margin-top:12px">' + kartHtml(k) + '</div>'; });
-      sahne.innerHTML = h; hepsiniAc(); kap.querySelector('.no-sayac').textContent = ''; for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
+      sahne.classList.add('duz'); sahne.innerHTML = h; hepsiniAc(); kap.querySelector('.no-sayac').textContent = ''; for (var j = 0; j < dilim.length; j++) dilim[j].style.width = '100%';
       var s = o.son || {}; if (s.href) sahne.insertAdjacentHTML('beforeend', '<div class="no-son" style="padding:16px 0 4px"><p>' + (s.metin || '') + '</p><a class="' + esc(s.sinif || 'sv-btn ana') + '" data-d="paket" style="text-decoration:none;display:inline-block" href="' + esc(s.href) + '">' + esc(s.dugme || 'Tam bankayı aç →') + '</a></div>');
     }
     /* görünür olunca başlar (sayfanın altında kalmışsa boşa oynamasın) */
     var basladi = false;
+    if (!duz && kartlar.length) { sahne.innerHTML = kartHtml(kartlar[0]); kap.querySelector('.no-sayac').textContent = '· 1 / ' + kartlar.length; }   // başlamadan önce soru görünsün (boş kart değil)
     function basla() { if (basladi) return; basladi = true; olay('basladi'); kartAc(0); }
     if (duz) { oynaD.textContent = '▶'; metinGorunum(); olay('metin-varsayilan'); return; }
-    if ('IntersectionObserver' in window) { var g = new IntersectionObserver(function (x) { if (x[0].isIntersecting) { g.disconnect(); basla(); } }, { threshold: 0.35 }); g.observe(kap); }
+    /* 06.10 Cem (telefon): kart ekranda büyük ölçüde görünmeden başlamaz; ekrandan çıkınca durur, geri gelince kaldığı yerden sürer
+       (kullanıcının kendi ⏸'sine dokunmaz). */
+    var oto = false;
+    if ('IntersectionObserver' in window) { var g = new IntersectionObserver(function (x) { var o2 = x[0].intersectionRatio;
+        var gerek = Math.min(0.6, (innerHeight * 0.8) / Math.max(1, kap.offsetHeight));   // kısa ekranda kart hiç %60 görünmeyebilir
+        if (o2 >= gerek) { if (!basladi) basla(); else if (oto && dur) { oto = false; oynaDurdur(false, true); } }
+        else if (o2 < 0.2 && basladi && !dur && !duz && i < kartlar.length) { oto = true; oynaDurdur(true, true); } }, { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }); g.observe(kap); }
     else basla();
   }
   kok.NobetciOynatici = { kur: kur, _adimlar: adimlar };
