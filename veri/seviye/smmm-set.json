@@ -62,13 +62,13 @@
       "son_soruldu": "2026/1"
     },
     {
-      "id": "smmm-4k-a-maliyet-cokzor-r3/kp-02",
+      "id": "smmm-gm4-12-maliyet-cokzor/kp-01",
       "ders": "Maliyet Muhasebesi",
-      "konu": "satılan mamul maliyeti tablosu",
+      "konu": "yan ürün maliyeti",
       "zorluk": "cokzor",
-      "son10": 7,
-      "cikmis": 2,
-      "son_soruldu": "2026/2"
+      "son10": 5,
+      "cikmis": 3,
+      "son_soruldu": "2026/1"
     },
     {
       "id": "smmm-4k-a-maliyet-zor-r3/kp-01",
@@ -107,7 +107,7 @@
       "son_soruldu": "2026/2"
     },
     {
-      "id": "smmm-4k-a-ydenetim-zor-r1/kp-04",
+      "id": "smmm-4k-a-ydenetim-zor-r10/kp-01",
       "ders": "Muhasebe Denetimi",
       "konu": "denetim kistasi",
       "zorluk": "zor",
@@ -170,11 +170,11 @@
       "son_soruldu": "2021/3"
     },
     {
-      "id": "smmm-4k-a-yhukuk-kolay-r1/kp-06",
+      "id": "smmm-4k-a-yhukuk-kolay-r5/kp-01",
       "ders": "Hukuk",
       "konu": "is sözleşmesi tanımı ve unsurlari",
       "zorluk": "kolay",
-      "son10": 4,
+      "son10": 6,
       "cikmis": 2,
       "son_soruldu": "2019/3"
     },
@@ -215,7 +215,7 @@
       "son_soruldu": "2023/3"
     },
     {
-      "id": "smmm-w3-yspk-zor/kp-01",
+      "id": "smmm-gm1-1-yspk-zor/kp-01",
       "ders": "Sermaye Piyasası Mevzuatı",
       "konu": "sermaye piyasası kurumları",
       "zorluk": "zor",
@@ -287,6 +287,16 @@
         "Meslek Hukuku: smmm-4k-a-ymeslek-kolay-r1/kp-08 [etik ilkelere tehditler/kolay] -> smmm-4k-a-ymeslek-kolay-r10/kp-07 [etik ilkelere tehditler/kolay]",
         "Vergi Mevzuatı ve Uygulaması: smmm-4k-a-yvergi-zor-r3/kp-01 [beyanname cesitleri/zor] -> smmm-gm2-1-yvergi-zor/kp-01 [beyanname cesitleri/zor]",
         "Vergi Mevzuatı ve Uygulaması: smmm-w1-yvergi-cokzor/kp-01 [serbest meslek kazancı hesaplama ve beyani/cokzor] -> smmm-w14-6-yvergi-cokzor/kp-02 [serbest meslek kazancı beyani/cokzor]"
+      ]
+    },
+    {
+      "tarih": "2026-10-06T22:27:53.212Z",
+      "neden": "kasadan çıkan soru",
+      "degisen": [
+        "Maliyet Muhasebesi: smmm-4k-a-maliyet-cokzor-r3/kp-02 [satılan mamul maliyeti tablosu/cokzor] -> smmm-gm4-12-maliyet-cokzor/kp-01 [yan ürün maliyeti/cokzor]",
+        "Muhasebe Denetimi: smmm-4k-a-ydenetim-zor-r1/kp-04 [denetim kistasi/zor] -> smmm-4k-a-ydenetim-zor-r10/kp-01 [denetim kistasi/zor]",
+        "Hukuk: smmm-4k-a-yhukuk-kolay-r1/kp-06 [is sözleşmesi tanımı ve unsurlari/kolay] -> smmm-4k-a-yhukuk-kolay-r5/kp-01 [is sözleşmesi tanımı ve unsurlari/kolay]",
+        "Sermaye Piyasası Mevzuatı: smmm-w3-yspk-zor/kp-01 [sermaye piyasası kurumları/zor] -> smmm-gm1-1-yspk-zor/kp-01 [sermaye piyasası kurumları/zor]"
       ]
     }
   ]

@@ -878,7 +878,12 @@
       try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){ var s=d&&d.sinavlar&&d.sinavlar[YET?'yeterlilik':'sgs']; PAKETLI=!!(s&&s.durum==='aktif'); if(PAKETLI){ $('svHaftaKilit').hidden=true; $('svBasla').hidden=false; } }); }catch(e){} }
     /* "yeniden çözersen farklı sorular gelir" sözü ÜYEYE aittir; hakkını kullanmış ziyaretçiye söylenmez */
     try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali||YET?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
-  }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile'; });
+  }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile';
+    /* 07.10 Cem "30 soru çözmüştüm, bana 'sorular hazırlanıyor' değil '7 gün sonra dene ya da üye ol' desin": hak/hafta kutusu
+       soruların yüklenmesini BEKLEMEZ - yükleme düşse de testi zaten çözmüş olana kendi kutusu gösterilir */
+    try{ if(!uyeMi() && hakKullanildi()){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; } else if(uyeMi()) haftaKilitGoster(); }catch(x){}
+    try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'; } }catch(x){}
+  });
   /* 04.10: hesap açıp dönen (ogrenci.html ?sonra=seviye-testi.html?rapor=1) -> bu cihazdaki son raporun TAMAMI */
   try{
     if(/[?&]rapor=1\b/.test(location.search)){
