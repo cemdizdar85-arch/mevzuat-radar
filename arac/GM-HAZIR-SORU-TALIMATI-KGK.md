@@ -63,6 +63,9 @@
 14. **Kavram tanımının kaynağı** (`sade.kavramlar[].kaynak`) tanımın GERÇEKTEN geçtiği paragraftır ve `kaynak_adlar`'a da eklenir
     (07.10: GDS 3400 p.9 yerine p.4, BDS 500 p.A64 yerine BDS 315 p.12 — hiçbir kapı bu alanı okumuyor).
 15. **Örnek olayda iki ilkeye birden uyan senaryo kurulmaz** (07.10, kp-30: yönetim müşteriyle birlikte → hem muvazaa hem kontrol ihlali).
+16. **Çeldirici yolunda (`celdirici_yol`) tek haneli ya da ondalıklı yüzde YAZILMAZ** — oran ondalıkla yazılır ("x 0,03", "x 0,035").
+    07.10 ölçüldü: üreticinin KAPI-Ç'si "x %3"ü 0,3, "%3,5"i 0,35 sayıyor → doğru yol "yanlış" görünür, soru bulutta düşer (%30, %25 doğru).
+    Üretici düzeltilene dek (sınav koluna bildirildi) geçerli. Kök ve açıklamada "%3" serbest.
 10. **Bir dosyada bir konudan BİR soru** (27.09: 85 sorunun 19'u aynı konu adıyla iz bırakmadan kayboldu).
 
 ## Modül sırası ve önkoşul (07.10)
