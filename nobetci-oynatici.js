@@ -6,7 +6,7 @@
    Üstte hikâye çubuğu (kart başına bir dilim), ⏸/▶, ⟨ ⟩, "metin olarak göster". Hareket azaltma tercihi olan cihazda düz metin açılır.
 
    KULLANIM: NobetciOynatici.kur(kap, kartlar, { son:{metin, dugme, href, sinif}, olay:function(ad){}, baslik, alt })
-     kartlar: [{ ust, soru, secim, secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
+     kartlar: [{ ust, soru, secim, sen_etiket (vars. "Senin cevabın"), secim_metin, tuzak_ad, tuzak_metin, dogru, dogru_metin, aciklama, kural, dayanak }]
      olay adları: basladi · kart-N · son · paket · metin · durdur
    Renkler yalnız tema jetonu (stil.css). 🚫 GÖRMEZ: anlatımın doğruluğu (o vitrin kalite listesinin işi).
 ============================================================================ */
@@ -63,7 +63,7 @@
       var ad = adimlar(k.aciklama);
       return '<p class="no-soru-ust" style="margin:0 0 6px;font-size:12px;color:var(--muted)">' + esc(k.ust || '') + '</p>' +
         (k.soru ? '<p class="no-soru">' + esc(k.soru) + '</p>' : '') +
-        '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>Senin cevabın ' + esc(k.secim) + ') ' + esc(k.secim_metin || '') + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
+        '<div class="no-blok no-sen" data-a="sen">' + (k.secim ? '<b>' + esc(k.sen_etiket || 'Senin cevabın') + ' ' + esc(k.secim) + ') ' + esc(k.secim_metin || '') + '</b><p><b style="color:var(--ink)">' + esc(k.tuzak_ad || 'Tuzak') + ':</b> <span data-yaz="' + esc(k.tuzak_metin || '') + '"></span></p>'
           : '<b>Bu soruyu boş geçtin</b><p><span data-yaz="Doğrusunu ve nedenini birlikte görelim."></span></p>') + '</div>' +
         '<div class="no-blok no-dogru" data-a="dogru"><b>Doğrusu ' + esc(k.dogru) + ') ' + esc(k.dogru_metin || '') + '</b><p>' +
         ad.map(function (x) { return '<span class="no-adim' + (x.hesap ? ' hesap' : '') + '" data-yaz="' + esc(x.t) + '"></span>'; }).join('') + '</p></div>' +

@@ -8,11 +8,6 @@ on:
   schedule:
     - cron: "0 7 * * *"      # 10:00 TR
   workflow_dispatch:
-    inputs:
-      deneme:
-        description: "true = 4 ornek mail yalniz Cem'e ([DENEME]); gercek kisilere gitmez"
-        required: false
-        default: "false"
 permissions:
   contents: read
 concurrency:
@@ -34,6 +29,4 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
-          DENEME: ${{ inputs.deneme }}
-        run: |
-          if [ "${DENEME:-false}" = "true" ]; then node motor/hatirlatma-dizisi.mjs --deneme; else node motor/hatirlatma-dizisi.mjs; fi
+        run: node motor/hatirlatma-dizisi.mjs
