@@ -1,1987 +1,2024 @@
 {
-  "aciklama": "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
-  "maddeler": {
-    "ad|TEORI - Kollektif sirkette kar dagitimi": {
-      "tarih": "2026-09-24 02:29",
-      "kaynak": "arac/teori-notu-duzelt-20260924.ps1",
-      "belirsiz": true,
-      "belirtecler": [
-        "alir",
-        "sorul",
-        "karda",
-        "ozell",
-        "#623/1",
-        "yani",
-        "#227/3",
-        "gore",
-        "nitel",
-        "anlas",
-        "ortag",
-        "ifade",
-        "#126",
-        "yolla",
-        "deger",
-        "yanli",
-        "yonde",
-        "ilisk",
-        "emegi",
-        "esitt",
-        "edili",
-        "payi",
-        "esit",
-        "bakil",
-        "#623/3",
-        "acik",
-        "payin",
-        "hakka",
-        "aykir"
-      ],
-      "otomatik_belirtecler": [
-        "alir",
-        "sorul",
-        "karda",
-        "ozell",
-        "#623/1",
-        "yani",
-        "#227/3",
-        "gore",
-        "nitel",
-        "anlas",
-        "ortag",
-        "ifade",
-        "#126",
-        "yolla",
-        "deger",
-        "yanli",
-        "yonde",
-        "ilisk",
-        "emegi",
-        "esitt",
-        "edili",
-        "payi",
-        "esit",
-        "bakil",
-        "#623/3",
-        "acik",
-        "payin",
-        "hakka",
-        "aykir"
-      ],
-      "elle_karar": "GM 24.09: anlam TERSİNE döndü (\"sermaye payı oranında\"→\"eşit\", \"emek ortağı zarara katılmaz\"→\"yalnız anlaşmayla\") ama kilit kelimeler (emek, zarar, katıl) iki metinde de var → belirteç yöntemi bu değişikliği göremez; otomatik belirteçler sıradan kelimeler (sorul, gore, ilisk) ve \"sorul\" kökü \"sorumlu\"ya da uyuyor. BELİRSİZ: nota dayanan her soru çekilir; sağlam olanlar (11 SMMM, okundu) ELLE-OKUNDU kanıtıyla geri açılır."
-    },
-    "ad|TEORI - Asit-test (likidite) oranlari": {
-      "tarih": "2026-09-24 02:29",
-      "kaynak": "arac/teori-notu-duzelt-20260924.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "bagim"
-      ],
-      "otomatik_belirtecler": [
-        "komis",
-        "dusul",
-        "#2017/1",
-        "disin",
-        "ticar",
-        "cozum",
-        "smmm",
-        "#2016/1"
-      ],
-      "elle_daraltma": "GM 24.09: notta değişen TEK cümle stok bağımlılık formülü (\"Alacaklar\" → \"Ticari Alacaklar\"); otomatik belirteçler (ticar, smmm, komis…) asit-test hesabında ticari alacak geçen sağlam soruları da çekiyordu (69 sorudan 39). Daraltınca 6 soru (SMMM 1 · SGS 3 · KGK 2), hepsi stok bağımlılık sorusu."
-    },
-    "492|gec1": {
-      "tarih": "2026-09-24 07:17",
-      "kaynak": "harclar",
-      "belirsiz": false,
-      "belirtecler": [
-        "#2025/201",
-        "#8/10/2025",
-        "#2024/103",
-        "#24/9/2025"
-      ]
-    },
-    "492|28": {
-      "tarih": "2026-09-24 07:17",
-      "kaynak": "harclar",
-      "belirsiz": false,
-      "belirtecler": [
-        "#10",
-        "#89",
-        "#8910"
-      ]
-    },
-    "492|29": {
-      "tarih": "2026-09-24 07:17",
-      "kaynak": "harclar",
-      "belirsiz": false,
-      "belirtecler": [
-        "~dokuz",
-        "sonra",
-        "#24/9/2025",
-        "resm"
-      ]
-    },
-    "ad|TEORI - Turkce: buyuk harflerin ve yazimin kurallari": {
-      "tarih": "2026-09-25 15:37",
-      "kaynak": "teori-notu-duzelt-20260925.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "masma",
-        "bembe",
-        "apaci",
-        "yemye",
-        "yavas",
-        "kilav"
-      ]
-    },
-    "ad|TEORI - Bakım-onarım giderlerinin maliyet niteliği: genel üretim gideri (730), dönem gideri (770/760), aktifleştirme (TMS 16 ve 264 Özel Maliyetler) ayrımı; özel maliyetler ile normal bakım-onarım farkı": {
-      "tarih": "2026-09-29 22:16",
-      "kaynak": "teori-ozel-maliyet-duzelt.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "dahi"
-      ]
-    },
-    "4458|232": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "gelme",
-        "birin",
-        "mevcu",
-        "#5911",
-        "#7",
-        "sonra",
-        "#138",
-        "mufet",
-        "olara",
-        "uzere",
-        "#67",
-        "sekli",
-        "#6455",
-        "alan",
-        "tesel",
-        "stajy",
-        "ettir",
-        "kontr"
-      ]
-    },
-    "4458|225": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#133",
-        "#132"
-      ]
-    },
-    "4458|230": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#137",
-        "#136",
-        "#6455",
-        "sekli",
-        "#135",
-        "#28/3/2013",
-        "#9",
-        "alan",
-        "~uc",
-        "~iki",
-        "uncu"
-      ]
-    },
-    "4458|219": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "gelme",
-        "sozle",
-        "karsi",
-        "sonra",
-        "kanun",
-        "#128",
-        "#6552",
-        "uyari",
-        "uygul",
-        "bedel",
-        "#113",
-        "alan",
-        "uncu",
-        "#10/9/2014"
-      ]
-    },
-    "4458|223": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#132",
-        "#129"
-      ]
-    },
-    "4458|242": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "bulun",
-        "gelme",
-        "alan",
-        "yanas",
-        "kanun",
-        "uzere",
-        "#28/3/2013",
-        "yuku",
-        "avary",
-        "yukun",
-        "almad",
-        "liman",
-        "veya",
-        "#6455",
-        "#17",
-        "sonra",
-        "cikar",
-        "#151",
-        "baska",
-        "oldug",
-        "kanit",
-        "durum"
-      ]
-    },
-    "4458|218": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#125126",
-        "~gun",
-        "~on",
-        "onbes",
-        "#127",
-        "#124125",
-        "gelme"
-      ]
-    },
-    "4458|227": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#9",
-        "uncu",
-        "gibi",
-        "#8/10/2025",
-        "~yuz",
-        "sekli",
-        "#135",
-        "alan",
-        "kizar",
-        "#6455",
-        "#2025/200",
-        "#2025/136",
-        "#28/3/2013",
-        "#133"
-      ]
-    },
-    "4458|234": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#140",
-        "#138"
-      ]
-    },
-    "4458|241": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#152",
-        "#17",
-        "#28/3/2013",
-        "#16",
-        "#6455",
-        "gelme"
-      ]
-    },
-    "4458|229": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "~uc",
-        "#6455",
-        "kanun",
-        "#136",
-        "#28/3/2013",
-        "~yil",
-        "sekli",
-        "alan",
-        "~iki",
-        "uncu",
-        "#9"
-      ]
-    },
-    "4458|gec1": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#1/1/2012154",
-        "#154",
-        "#30/9/2026",
-        "#2025/165",
-        "#2023/165",
-        "#1/1/2012153",
-        "#22/7/2025"
-      ]
-    },
-    "4458|228": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#136",
-        "kizar",
-        "~yuz",
-        "gibi",
-        "#2025/136",
-        "#134",
-        "#6455",
-        "edilm",
-        "#133",
-        "#9",
-        "~bir",
-        "kanun",
-        "#8/10/2025",
-        "sekli",
-        "#135",
-        "alan",
-        "#28/3/2013",
-        "#2025/200",
-        "uncu",
-        "sucla"
-      ]
-    },
-    "4458|239": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#147",
-        "#145",
-        "#16",
-        "#6455",
-        "sekli",
-        "numar"
-      ]
-    },
-    "4458|246": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#153",
-        "#152"
-      ]
-    },
-    "4458|217": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#124",
-        "sonra",
-        "~dokuz",
-        "#2025/165",
-        "#2023/165",
-        "#22/7/2025",
-        "#30/9/2026",
-        "~ay",
-        "#5911",
-        "~on",
-        "#67",
-        "#18/6/2009"
-      ]
-    },
-    "4458|238": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#146",
-        "#7164",
-        "#145",
-        "#%6",
-        "#%4",
-        "#29",
-        "cumhu",
-        "#143",
-        "#700",
-        "#14/2/2019",
-        "sekli",
-        "alan",
-        "#126",
-        "uncu",
-        "#2/7/2018",
-        "#144",
-        "kurul",
-        "bakan"
-      ]
-    },
-    "4458|221": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#131",
-        "#127"
-      ]
-    },
-    "4458|226": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#133",
-        "#132"
-      ]
-    },
-    "4458|216": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "bunla",
-        "diger",
-        "basvu",
-        "durum",
-        "edilm",
-        "tahsi",
-        "odenm",
-        "bagli",
-        "yukum",
-        "kayna",
-        "olara",
-        "vergi",
-        "konu",
-        "gumru",
-        "#122",
-        "faizi",
-        "fazla",
-        "gecik",
-        "zammi",
-        "veya",
-        "#2023/165",
-        "#2025/165",
-        "#22/7/2025"
-      ]
-    },
-    "4458|233": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "gumruk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#6455",
-        "sonra",
-        "mevcu",
-        "birin",
-        "tesel",
-        "#136",
-        "stajy",
-        "#5911",
-        "uzere",
-        "#7",
-        "#67",
-        "ettir",
-        "olara",
-        "alan",
-        "gumru",
-        "#137",
-        "mufet",
-        "sekli",
-        "kontr",
-        "#28/3/2013",
-        "gelme",
-        "yardi"
-      ]
-    },
-    "4721|625": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#35",
-        "#36"
-      ]
-    },
-    "4721|851": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#40",
-        "#41"
-      ]
-    },
-    "4721|291": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#19",
-        "#20"
-      ]
-    },
-    "4721|594": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "yonet",
-        "sekli",
-        "#139",
-        "cumhu",
-        "#33",
-        "cikar",
-        "#700",
-        "#2/7/2018",
-        "alan",
-        "uncu",
-        "tuzuk"
-      ]
-    },
-    "4721|303": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#20",
-        "#21"
-      ]
-    },
-    "4721|445": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "olup",
-        "#33326",
-        "sonra",
-        "#16/7/2026",
-        "bakin",
-        "konus",
-        "islen",
-        "#7589",
-        "uzere",
-        "kanun",
-        "#32",
-        "resm",
-        "mevzu",
-        "gorme",
-        "#31/10/2026",
-        "siste",
-        "mezku",
-        "~uc",
-        "bilgi",
-        "#12",
-        "#31/7/2026",
-        "itiba",
-        "~ay",
-        "girme",
-        "girdi",
-        "duzen"
-      ]
-    },
-    "4721|1003": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#46",
-        "#47"
-      ]
-    },
-    "4721|674": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#36",
-        "#37"
-      ]
-    },
-    "4721|340": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "sekli",
-        "#25",
-        "kanun",
-        "#6462",
-        "alan",
-        "inci",
-        "ozurl",
-        "#1",
-        "#25/4/2013",
-        "#26"
-      ]
-    },
-    "4721|1017": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#48",
-        "#49"
-      ]
-    },
-    "4721|713": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#37",
-        "#39"
-      ]
-    },
-    "4721|915": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#41",
-        "#42"
-      ]
-    },
-    "4721|409": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "sekli",
-        "#27",
-        "sakat",
-        "engel",
-        "inci",
-        "kanun",
-        "alan",
-        "#1",
-        "#6462",
-        "#25/4/2013"
-      ]
-    },
-    "4721|417": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#27",
-        "#29"
-      ]
-    },
-    "4721|324": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "~yil",
-        "#25",
-        "edinm",
-        "uzeri",
-        "#2012/203",
-        "#2012/35",
-        "#27/12/2012",
-        "~bes",
-        "islem"
-      ]
-    },
-    "4721|421": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#2/7/2018",
-        "#27",
-        "#139",
-        "kanun",
-        "engel",
-        "uncu",
-        "cumhu",
-        "alan",
-        "inci",
-        "#6462",
-        "ozurl",
-        "kurul",
-        "#28",
-        "yardi",
-        "sekli",
-        "#25/4/2013",
-        "uyele",
-        "bakan",
-        "#700"
-      ]
-    },
-    "4721|614": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#35",
-        "sekli",
-        "yonet",
-        "#139",
-        "cumhu",
-        "tuzuk",
-        "cikar",
-        "#700",
-        "#2/7/2018",
-        "uncu",
-        "alan"
-      ]
-    },
-    "4721|175": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#16"
-      ]
-    },
-    "4721|857": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#40",
-        "#41"
-      ]
-    },
-    "4721|620": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#35",
-        "#36"
-      ]
-    },
-    "4721|1000": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#44",
-        "#46"
-      ]
-    },
-    "4721|446": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "kanun",
-        "olup",
-        "#31/10/2026",
-        "#31/7/2026",
-        "girdi",
-        "sonra",
-        "#7589",
-        "#12",
-        "uzere",
-        "#31",
-        "islen",
-        "duzen",
-        "icin",
-        "mevzu",
-        "mezku",
-        "gorme",
-        "konus",
-        "itiba",
-        "~uc",
-        "resm",
-        "girme",
-        "bilgi",
-        "#16/7/2026",
-        "~ay",
-        "bakin",
-        "#33326",
-        "siste"
-      ]
-    },
-    "4721|313": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#21",
-        "#22"
-      ]
-    },
-    "4721|940": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#42",
-        "#43"
-      ]
-    },
-    "4721|346": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "sekli",
-        "alan",
-        "kanun",
-        "engel",
-        "#26",
-        "#6462",
-        "inci",
-        "ozurl",
-        "#1",
-        "#25/4/2013"
-      ]
-    },
-    "4721|1021": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#48",
-        "#49"
-      ]
-    },
-    "4721|675": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#36",
-        "#37"
-      ]
-    },
-    "4721|997": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#43",
-        "#44"
-      ]
-    },
-    "4721|408": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#26",
-        "#27"
-      ]
-    },
-    "4721|598": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#33",
-        "uzere",
-        "sonra",
-        "#31/3/2011",
-        "kanun",
-        "uncu",
-        "#34",
-        "alan",
-        "#19",
-        "gelme",
-        "#6217"
-      ]
-    },
-    "4721|410": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "sakat",
-        "alan",
-        "kanun",
-        "engel",
-        "#26",
-        "#6462",
-        "inci",
-        "#1",
-        "sekli",
-        "#25/4/2013"
-      ]
-    },
-    "4721|998": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#44",
-        "#45"
-      ]
-    },
-    "4721|593": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#32",
-        "#33"
-      ]
-    },
-    "4721|36": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#49",
-        "#50"
-      ]
-    },
-    "4721|314": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#21",
-        "#22"
-      ]
-    },
-    "4721|609": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#34",
-        "#35"
-      ]
-    },
-    "4721|715": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#37",
-        "#39"
-      ]
-    },
-    "4721|437": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#7445",
-        "#14",
-        "kanun",
-        "uncu",
-        "#28/3/2023",
-        "alan",
-        "sekli",
-        "#29",
-        "#30"
-      ]
-    },
-    "4721|735": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#39",
-        "#40"
-      ]
-    },
-    "4721|599": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#6217",
-        "sonra",
-        "sulh",
-        "noter",
-        "uncu",
-        "#33",
-        "alan",
-        "#31/3/2011",
-        "#19",
-        "gelme",
-        "veya"
-      ]
-    },
-    "4721|195": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#16",
-        "#17"
-      ]
-    },
-    "4721|595": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "cumhu",
-        "sekli",
-        "#139",
-        "#2/7/2018",
-        "alan",
-        "#700",
-        "cikar",
-        "tuzuk",
-        "uncu",
-        "#32"
-      ]
-    },
-    "4721|319": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#27/12/2012",
-        "alan",
-        "uzeri",
-        "edinm",
-        "#2012/35",
-        "edilm",
-        "#2012/203",
-        "~bes",
-        "#22",
-        "#24"
-      ]
-    },
-    "4721|444": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#31",
-        "#32"
-      ]
-    },
-    "4721|1015": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#47",
-        "#48"
-      ]
-    },
-    "4721|420": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "sekli",
-        "#700",
-        "kurul",
-        "#139",
-        "bakan",
-        "alan",
-        "kanun",
-        "engel",
-        "cumhu",
-        "#1",
-        "inci",
-        "#6462",
-        "ozurl",
-        "#28",
-        "#2/7/2018",
-        "yardi",
-        "#25/4/2013",
-        "uncu",
-        "uyele",
-        "#29"
-      ]
-    },
-    "4721|293": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#17",
-        "#20"
-      ]
-    },
-    "4721|733": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#39",
-        "#40"
-      ]
-    },
-    "4721|440": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#31",
-        "#11",
-        "gelme",
-        "#31/10/2026",
-        "birin",
-        "#31/7/2026",
-        "tamam",
-        "~uc",
-        "bilgi",
-        "alan",
-        "girdi",
-        "bilis",
-        "sonra",
-        "gecik",
-        "~gun",
-        "#7589",
-        "dinle",
-        "kanun",
-        "#28/3/2023",
-        "uzere",
-        "islen",
-        "bakin",
-        "duzen",
-        "#33326",
-        "mevzu",
-        "#7445",
-        "porta",
-        "olup",
-        "gorme",
-        "konus",
-        "sekli",
-        "itiba",
-        "resm",
-        "girme",
-        "yargi",
-        "mezku",
-        "~iki",
-        "uncu",
-        "inci",
-        "#16/7/2026",
-        "tahki",
-        "enteg",
-        "~ay",
-        "elekt",
-        "#14",
-        "icind",
-        "siste",
-        "ulusa"
-      ]
-    },
-    "4721|939": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#42",
-        "#43"
-      ]
-    },
-    "4721|306": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#20",
-        "#21"
-      ]
-    },
-    "4721|610": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#700",
-        "#139",
-        "#34",
-        "alan",
-        "tuzuk",
-        "uncu",
-        "cumhu",
-        "cikar",
-        "#2/7/2018",
-        "sekli"
-      ]
-    },
-    "4721|441": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#11",
-        "gelme",
-        "olup",
-        "#31/10/2026",
-        "birin",
-        "talim",
-        "satis",
-        "~uc",
-        "#30",
-        "girdi",
-        "bilis",
-        "sonra",
-        "mevzu",
-        "islen",
-        "uyari",
-        "bakin",
-        "duzen",
-        "porta",
-        "mezku",
-        "kanun",
-        "konus",
-        "#7589",
-        "gorme",
-        "itiba",
-        "enteg",
-        "resm",
-        "girme",
-        "bilgi",
-        "inci",
-        "#16/7/2026",
-        "~ay",
-        "elekt",
-        "yargi",
-        "#31/7/2026",
-        "#33326",
-        "siste",
-        "ulusa"
-      ]
-    },
-    "4721|1012": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#47",
-        "#48"
-      ]
-    },
-    "4721|1027": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#49",
-        "#50"
-      ]
-    },
-    "4721|321": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#24",
-        "#25"
-      ]
-    },
-    "4721|194": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#16",
-        "#17"
-      ]
-    },
-    "4721|913": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#41",
-        "#42"
-      ]
-    },
-    "4721|181": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "sonra",
-        "#30/6/2027",
-        "alan",
-        "edilm",
-        "girec",
-        "~dokuz",
-        "olara",
-        "hukum",
-        "altin",
-        "#4/6/2026",
-        "basla",
-        "sures",
-        "alinm",
-        "resm",
-        "#2025/156",
-        "#2026/131",
-        "~ay",
-        "#16"
-      ]
-    },
-    "4721|289": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#17",
-        "#19"
-      ]
-    },
-    "4721|1006": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "medeni",
-      "belirsiz": false,
-      "belirtecler": [
-        "#46",
-        "#47"
-      ]
-    },
-    "5271|310": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#144",
-        "#140"
-      ]
-    },
-    "5271|322": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#147",
-        "#145"
-      ]
-    },
-    "5271|242": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#82",
-        "#81"
-      ]
-    },
-    "5271|280": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#124125",
-        "#123",
-        "#120121122",
-        "#123124",
-        "#119120121",
-        "#119"
-      ]
-    },
-    "5271|276": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#117",
-        "#116"
-      ]
-    },
-    "5271|319": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#146",
-        "#145"
-      ]
-    },
-    "5271|gec1": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": true,
-      "belirtecler": [
-        null
-      ]
-    },
-    "5271|283": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#129",
-        "#128"
-      ]
-    },
-    "5271|281": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#126",
-        "#125"
-      ]
-    },
-    "5271|299": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#138",
-        "#137"
-      ]
-    },
-    "5271|gec5": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#148149150",
-        "#147148149"
-      ]
-    },
-    "5271|277": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#119",
-        "#116"
-      ]
-    },
-    "5271|254": {
-      "tarih": "2026-10-05 08:55",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "sagla",
-        "besin",
-        "anind",
-        "ortay",
-        "#110",
-        "neden",
-        "!acila",
-        "haric",
-        "tazmi",
-        "!edile",
-        "tespi",
-        "!uzlas",
-        "sorus",
-        "basin",
-        "cikan",
-        "acila",
-        "zarar",
-        "edile",
-        "uzlas",
-        "#113"
-      ]
-    },
-    "5271|247": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#86",
-        "#83"
-      ]
-    },
-    "5271|268": {
-      "tarih": "2026-10-05 08:55",
-      "kaynak": "cmk",
-      "belirsiz": true,
-      "belirtecler": [
-        "#114",
-        "#113"
-      ]
-    },
-    "5271|308": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#142",
-        "#139"
-      ]
-    },
-    "5271|307": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#140",
-        "#138"
-      ]
-    },
-    "5271|232": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#78",
-        "#77"
-      ]
-    },
-    "5271|309": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#143",
-        "#142"
-      ]
-    },
-    "5271|313": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#145",
-        "#144"
-      ]
-    },
-    "5271|272": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#115",
-        "#114"
-      ]
-    },
-    "5271|302": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#138",
-        "#137"
-      ]
-    },
-    "5271|231": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "sonra",
-        "#77",
-        "basla",
-        "~dokuz",
-        "#2024/98",
-        "#2025/149",
-        "~ay",
-        "#10/7/2025",
-        "inci",
-        "#30/9/2026"
-      ]
-    },
-    "5271|291": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#134",
-        "#133"
-      ]
-    },
-    "5271|296": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#135",
-        "#134"
-      ]
-    },
-    "5271|239": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#82",
-        "#81"
-      ]
-    },
-    "5271|278": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#119",
-        "#116"
-      ]
-    },
-    "5271|246": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#83",
-        "neden",
-        "#82",
-        "sonra",
-        "birin",
-        "#24/11/2016",
-        "uzere",
-        "kanun",
-        "#32",
-        "sorus",
-        "#6763"
-      ]
-    },
-    "5271|288": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#133",
-        "#132"
-      ]
-    },
-    "5271|334": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#151",
-        "#150"
-      ]
-    },
-    "5271|293": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#134",
-        "#133"
-      ]
-    },
-    "5271|285": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#130",
-        "#126"
-      ]
-    },
-    "5271|233": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#80",
-        "#78"
-      ]
-    },
-    "5271|311": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#145",
-        "#144"
-      ]
-    },
-    "5271|236": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#81",
-        "#80"
-      ]
-    },
-    "5271|286": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#133",
-        "#129"
-      ]
-    },
-    "5271|234": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#81",
-        "#78"
-      ]
-    },
-    "5271|253": {
-      "tarih": "2026-10-05 08:55",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "basli",
-        "iken",
-        "#97",
-        "sekil",
-        "metne",
-        "basin",
-        "besin",
-        "#106108",
-        "#104105106107",
-        "#112",
-        "#103104105106",
-        "#105107"
-      ]
-    },
-    "5271|248": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#32",
-        "#89"
-      ]
-    },
-    "5271|273": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#116",
-        "#114"
-      ]
-    },
-    "5271|282": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#128",
-        "#123"
-      ]
-    },
-    "5271|320": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#147",
-        "#146"
-      ]
-    },
-    "5271|gec6": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#150",
-        "#147"
-      ]
-    },
-    "5271|297": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#137",
-        "#134"
-      ]
-    },
-    "5271|230": {
-      "tarih": "2026-10-01 06:53",
-      "kaynak": "cmk",
-      "belirsiz": false,
-      "belirtecler": [
-        "#77"
-      ]
-    },
-    "ad|TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter)": {
-      "tarih": "2026-10-02 10:27",
-      "kaynak": "ambar-kaynak-duzelt-20261002.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "#191"
-      ]
-    },
-    "ad|TEORI - Döviz kredisi ve dövizli borçların kur farkı (kur değerlemesi, 656 Kambiyo Zararları, 646 Kambiyo Kârları, VUK m.280)": {
-      "tarih": "2026-10-02 10:27",
-      "kaynak": "ambar-kaynak-duzelt-20261002.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "#656"
-      ]
-    },
-    "ad|TEORI - Amortisman yöntemleri ve hurda değer: normal, azalan bakiyeler, kıst amortisman (VUK ile TMS 16 farkı)": {
-      "tarih": "2026-10-02 10:27",
-      "kaynak": "ambar-kaynak-duzelt-20261002.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "kist"
-      ]
-    },
-    "ad|TEORI - Denetim kanıtı türleri ve güvenilirlik sıralaması: fiziki inceleme, dış doğrulama, belge incelemesi, yeniden hesaplama, sorgulama, analitik prosedürler": {
-      "tarih": "2026-10-02 10:27",
-      "kaynak": "ambar-kaynak-duzelt-20261002.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "#580"
-      ]
-    },
-    "ad|TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)": {
-      "tarih": "2026-10-02 10:27",
-      "kaynak": "ambar-kaynak-duzelt-20261002.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "ister"
-      ]
-    },
-    "213|283": {
-      "tarih": "2026-10-02 10:27",
-      "kaynak": "ambar-kaynak-duzelt-20261002.ps1",
-      "belirsiz": false,
-      "belirtecler": [
-        "muste",
-        "mevdu"
-      ]
-    },
-    "4760|gec3": {
-      "tarih": "2026-10-02 09:02",
-      "kaynak": "otv",
-      "belirsiz": false,
-      "belirtecler": [
-        "#1050",
-        "#150",
-        "#4559",
-        "#5552",
-        "#12,484959",
-        "#8053",
-        "#5250",
-        "#0,700859",
-        "#2,295361",
-        "#497,116359",
-        "#2710.12.45.00.13",
-        "#6359",
-        "#7550",
-        "#23,740461",
-        "#4551",
-        "#1059",
-        "#2710.12.49.00.12",
-        "#22052",
-        "#0,265259",
-        "#8052",
-        "#10052",
-        "#057",
-        "#3750",
-        "#0,286159",
-        "#2710.12.45.00.11",
-        "#7052",
-        "#2710.12.45.00.18",
-        "#8552",
-        "#1.919,138459",
-        "#1,864459",
-        "#15052",
-        "#14,827747",
-        "#5559",
-        "#15,543747",
-        "#4552",
-        "#9052",
-        "#450",
-        "#13,900648",
-        "#3559",
-        "#858",
-        "#1.705,902559",
-        "#0,550",
-        "#2710.12.49.00.11",
-        "#2552",
-        "#87.014",
-        "#950",
-        "#2551",
-        "#1550",
-        "#2,606459",
-        "#5253",
-        "#17052",
-        "#6,750",
-        "#414,777059",
-        "#2710.12.49.00.18",
-        "#626,001859",
-        "#4261",
-        "#135,435559",
-        "#2,690959",
-        "#22053",
-        "#15053",
-        "#61,391459",
-        "#626,001861",
-        "#33387",
-        "#7554",
-        "#135,435561",
-        "#17054",
-        "#5561",
-        "#0,552",
-        "#8,90004749",
-        "#23,740463",
-        "#6,752",
-        "#15055",
-        "#64",
-        "#1052",
-        "#3561",
-        "#30/9/2026",
-        "#2710.12.45.00.1348",
-        "#8554",
-        "#1/10/2026",
-        "#1061",
-        "#4263",
-        "#1.705,902561",
-        "#2,295363",
-        "#7054",
-        "#10054",
-        "#7,90004748",
-        "#2710.12.49.00.1849",
-        "#6,000050",
-        "#4553",
-        "#2553",
-        "#61,391461",
-        "#15054",
-        "#2710.12.49.00.1149",
-        "#3752",
-        "#1552",
-        "#5252",
-        "#452",
-        "#061",
-        "#2554",
-        "#22054",
-        "#6554",
-        "#0,265261",
-        "#22055",
-        "#152",
-        "#4561",
-        "#414,777061",
-        "#497,116361",
-        "#2,606461",
-        "#2710.12.49.00.1249",
-        "#63",
-        "#8055",
-        "#952",
-        "#8054",
-        "#0,700861",
-        "#12,484961",
-        "#2710.12.45.00.1848",
-        "#2,690961",
-        "#87.015",
-        "#6361",
-        "#4554",
-        "#9054",
-        "#0,286161",
-        "#1,864461",
-        "#5455",
-        "#1.919,138461",
-        "#11822",
-        "#2710.12.45.00.1148",
-        "#5554",
-        "#860"
-      ]
-    }
-  }
+    "aciklama":  "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
+    "maddeler":  {
+                     "ad|TEORI - Kollektif sirkette kar dagitimi":  {
+                                                                        "tarih":  "2026-09-24 02:29",
+                                                                        "kaynak":  "arac/teori-notu-duzelt-20260924.ps1",
+                                                                        "belirsiz":  true,
+                                                                        "belirtecler":  [
+                                                                                            "alir",
+                                                                                            "sorul",
+                                                                                            "karda",
+                                                                                            "ozell",
+                                                                                            "#623/1",
+                                                                                            "yani",
+                                                                                            "#227/3",
+                                                                                            "gore",
+                                                                                            "nitel",
+                                                                                            "anlas",
+                                                                                            "ortag",
+                                                                                            "ifade",
+                                                                                            "#126",
+                                                                                            "yolla",
+                                                                                            "deger",
+                                                                                            "yanli",
+                                                                                            "yonde",
+                                                                                            "ilisk",
+                                                                                            "emegi",
+                                                                                            "esitt",
+                                                                                            "edili",
+                                                                                            "payi",
+                                                                                            "esit",
+                                                                                            "bakil",
+                                                                                            "#623/3",
+                                                                                            "acik",
+                                                                                            "payin",
+                                                                                            "hakka",
+                                                                                            "aykir"
+                                                                                        ],
+                                                                        "otomatik_belirtecler":  [
+                                                                                                     "alir",
+                                                                                                     "sorul",
+                                                                                                     "karda",
+                                                                                                     "ozell",
+                                                                                                     "#623/1",
+                                                                                                     "yani",
+                                                                                                     "#227/3",
+                                                                                                     "gore",
+                                                                                                     "nitel",
+                                                                                                     "anlas",
+                                                                                                     "ortag",
+                                                                                                     "ifade",
+                                                                                                     "#126",
+                                                                                                     "yolla",
+                                                                                                     "deger",
+                                                                                                     "yanli",
+                                                                                                     "yonde",
+                                                                                                     "ilisk",
+                                                                                                     "emegi",
+                                                                                                     "esitt",
+                                                                                                     "edili",
+                                                                                                     "payi",
+                                                                                                     "esit",
+                                                                                                     "bakil",
+                                                                                                     "#623/3",
+                                                                                                     "acik",
+                                                                                                     "payin",
+                                                                                                     "hakka",
+                                                                                                     "aykir"
+                                                                                                 ],
+                                                                        "elle_karar":  "GM 24.09: anlam TERSİNE döndü (\"sermaye payı oranında\"→\"eşit\", \"emek ortağı zarara katılmaz\"→\"yalnız anlaşmayla\") ama kilit kelimeler (emek, zarar, katıl) iki metinde de var → belirteç yöntemi bu değişikliği göremez; otomatik belirteçler sıradan kelimeler (sorul, gore, ilisk) ve \"sorul\" kökü \"sorumlu\"ya da uyuyor. BELİRSİZ: nota dayanan her soru çekilir; sağlam olanlar (11 SMMM, okundu) ELLE-OKUNDU kanıtıyla geri açılır."
+                                                                    },
+                     "ad|TEORI - Asit-test (likidite) oranlari":  {
+                                                                      "tarih":  "2026-09-24 02:29",
+                                                                      "kaynak":  "arac/teori-notu-duzelt-20260924.ps1",
+                                                                      "belirsiz":  false,
+                                                                      "belirtecler":  [
+                                                                                          "bagim"
+                                                                                      ],
+                                                                      "otomatik_belirtecler":  [
+                                                                                                   "komis",
+                                                                                                   "dusul",
+                                                                                                   "#2017/1",
+                                                                                                   "disin",
+                                                                                                   "ticar",
+                                                                                                   "cozum",
+                                                                                                   "smmm",
+                                                                                                   "#2016/1"
+                                                                                               ],
+                                                                      "elle_daraltma":  "GM 24.09: notta değişen TEK cümle stok bağımlılık formülü (\"Alacaklar\" → \"Ticari Alacaklar\"); otomatik belirteçler (ticar, smmm, komis…) asit-test hesabında ticari alacak geçen sağlam soruları da çekiyordu (69 sorudan 39). Daraltınca 6 soru (SMMM 1 · SGS 3 · KGK 2), hepsi stok bağımlılık sorusu."
+                                                                  },
+                     "492|gec1":  {
+                                      "tarih":  "2026-09-24 07:17",
+                                      "kaynak":  "harclar",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#2025/201",
+                                                          "#8/10/2025",
+                                                          "#2024/103",
+                                                          "#24/9/2025"
+                                                      ]
+                                  },
+                     "492|28":  {
+                                    "tarih":  "2026-09-24 07:17",
+                                    "kaynak":  "harclar",
+                                    "belirsiz":  false,
+                                    "belirtecler":  [
+                                                        "#10",
+                                                        "#89",
+                                                        "#8910"
+                                                    ]
+                                },
+                     "492|29":  {
+                                    "tarih":  "2026-09-24 07:17",
+                                    "kaynak":  "harclar",
+                                    "belirsiz":  false,
+                                    "belirtecler":  [
+                                                        "~dokuz",
+                                                        "sonra",
+                                                        "#24/9/2025",
+                                                        "resm"
+                                                    ]
+                                },
+                     "ad|TEORI - Turkce: buyuk harflerin ve yazimin kurallari":  {
+                                                                                     "tarih":  "2026-09-25 15:37",
+                                                                                     "kaynak":  "teori-notu-duzelt-20260925.ps1",
+                                                                                     "belirsiz":  false,
+                                                                                     "belirtecler":  [
+                                                                                                         "masma",
+                                                                                                         "bembe",
+                                                                                                         "apaci",
+                                                                                                         "yemye",
+                                                                                                         "yavas",
+                                                                                                         "kilav"
+                                                                                                     ]
+                                                                                 },
+                     "ad|TEORI - Bakım-onarım giderlerinin maliyet niteliği: genel üretim gideri (730), dönem gideri (770/760), aktifleştirme (TMS 16 ve 264 Özel Maliyetler) ayrımı; özel maliyetler ile normal bakım-onarım farkı":  {
+                                                                                                                                                                                                                                           "tarih":  "2026-09-29 22:16",
+                                                                                                                                                                                                                                           "kaynak":  "teori-ozel-maliyet-duzelt.ps1",
+                                                                                                                                                                                                                                           "belirsiz":  false,
+                                                                                                                                                                                                                                           "belirtecler":  [
+                                                                                                                                                                                                                                                               "dahi"
+                                                                                                                                                                                                                                                           ]
+                                                                                                                                                                                                                                       },
+                     "4458|232":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "gelme",
+                                                          "birin",
+                                                          "mevcu",
+                                                          "#5911",
+                                                          "#7",
+                                                          "sonra",
+                                                          "#138",
+                                                          "mufet",
+                                                          "olara",
+                                                          "uzere",
+                                                          "#67",
+                                                          "sekli",
+                                                          "#6455",
+                                                          "alan",
+                                                          "tesel",
+                                                          "stajy",
+                                                          "ettir",
+                                                          "kontr"
+                                                      ]
+                                  },
+                     "4458|225":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#133",
+                                                          "#132"
+                                                      ]
+                                  },
+                     "4458|230":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#137",
+                                                          "#136",
+                                                          "#6455",
+                                                          "sekli",
+                                                          "#135",
+                                                          "#28/3/2013",
+                                                          "#9",
+                                                          "alan",
+                                                          "~uc",
+                                                          "~iki",
+                                                          "uncu"
+                                                      ]
+                                  },
+                     "4458|219":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "gelme",
+                                                          "sozle",
+                                                          "karsi",
+                                                          "sonra",
+                                                          "kanun",
+                                                          "#128",
+                                                          "#6552",
+                                                          "uyari",
+                                                          "uygul",
+                                                          "bedel",
+                                                          "#113",
+                                                          "alan",
+                                                          "uncu",
+                                                          "#10/9/2014"
+                                                      ]
+                                  },
+                     "4458|223":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#132",
+                                                          "#129"
+                                                      ]
+                                  },
+                     "4458|242":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "bulun",
+                                                          "gelme",
+                                                          "alan",
+                                                          "yanas",
+                                                          "kanun",
+                                                          "uzere",
+                                                          "#28/3/2013",
+                                                          "yuku",
+                                                          "avary",
+                                                          "yukun",
+                                                          "almad",
+                                                          "liman",
+                                                          "veya",
+                                                          "#6455",
+                                                          "#17",
+                                                          "sonra",
+                                                          "cikar",
+                                                          "#151",
+                                                          "baska",
+                                                          "oldug",
+                                                          "kanit",
+                                                          "durum"
+                                                      ]
+                                  },
+                     "4458|218":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#125126",
+                                                          "~gun",
+                                                          "~on",
+                                                          "onbes",
+                                                          "#127",
+                                                          "#124125",
+                                                          "gelme"
+                                                      ]
+                                  },
+                     "4458|227":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#9",
+                                                          "uncu",
+                                                          "gibi",
+                                                          "#8/10/2025",
+                                                          "~yuz",
+                                                          "sekli",
+                                                          "#135",
+                                                          "alan",
+                                                          "kizar",
+                                                          "#6455",
+                                                          "#2025/200",
+                                                          "#2025/136",
+                                                          "#28/3/2013",
+                                                          "#133"
+                                                      ]
+                                  },
+                     "4458|234":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#140",
+                                                          "#138"
+                                                      ]
+                                  },
+                     "4458|241":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#152",
+                                                          "#17",
+                                                          "#28/3/2013",
+                                                          "#16",
+                                                          "#6455",
+                                                          "gelme"
+                                                      ]
+                                  },
+                     "4458|229":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "~uc",
+                                                          "#6455",
+                                                          "kanun",
+                                                          "#136",
+                                                          "#28/3/2013",
+                                                          "~yil",
+                                                          "sekli",
+                                                          "alan",
+                                                          "~iki",
+                                                          "uncu",
+                                                          "#9"
+                                                      ]
+                                  },
+                     "4458|gec1":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "gumruk",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#1/1/2012154",
+                                                           "#154",
+                                                           "#30/9/2026",
+                                                           "#2025/165",
+                                                           "#2023/165",
+                                                           "#1/1/2012153",
+                                                           "#22/7/2025"
+                                                       ]
+                                   },
+                     "4458|228":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#136",
+                                                          "kizar",
+                                                          "~yuz",
+                                                          "gibi",
+                                                          "#2025/136",
+                                                          "#134",
+                                                          "#6455",
+                                                          "edilm",
+                                                          "#133",
+                                                          "#9",
+                                                          "~bir",
+                                                          "kanun",
+                                                          "#8/10/2025",
+                                                          "sekli",
+                                                          "#135",
+                                                          "alan",
+                                                          "#28/3/2013",
+                                                          "#2025/200",
+                                                          "uncu",
+                                                          "sucla"
+                                                      ]
+                                  },
+                     "4458|239":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#147",
+                                                          "#145",
+                                                          "#16",
+                                                          "#6455",
+                                                          "sekli",
+                                                          "numar"
+                                                      ]
+                                  },
+                     "4458|246":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#153",
+                                                          "#152"
+                                                      ]
+                                  },
+                     "4458|217":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#124",
+                                                          "sonra",
+                                                          "~dokuz",
+                                                          "#2025/165",
+                                                          "#2023/165",
+                                                          "#22/7/2025",
+                                                          "#30/9/2026",
+                                                          "~ay",
+                                                          "#5911",
+                                                          "~on",
+                                                          "#67",
+                                                          "#18/6/2009"
+                                                      ]
+                                  },
+                     "4458|238":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#146",
+                                                          "#7164",
+                                                          "#145",
+                                                          "#%6",
+                                                          "#%4",
+                                                          "#29",
+                                                          "cumhu",
+                                                          "#143",
+                                                          "#700",
+                                                          "#14/2/2019",
+                                                          "sekli",
+                                                          "alan",
+                                                          "#126",
+                                                          "uncu",
+                                                          "#2/7/2018",
+                                                          "#144",
+                                                          "kurul",
+                                                          "bakan"
+                                                      ]
+                                  },
+                     "4458|221":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#131",
+                                                          "#127"
+                                                      ]
+                                  },
+                     "4458|226":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#133",
+                                                          "#132"
+                                                      ]
+                                  },
+                     "4458|216":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "bunla",
+                                                          "diger",
+                                                          "basvu",
+                                                          "durum",
+                                                          "edilm",
+                                                          "tahsi",
+                                                          "odenm",
+                                                          "bagli",
+                                                          "yukum",
+                                                          "kayna",
+                                                          "olara",
+                                                          "vergi",
+                                                          "konu",
+                                                          "gumru",
+                                                          "#122",
+                                                          "faizi",
+                                                          "fazla",
+                                                          "gecik",
+                                                          "zammi",
+                                                          "veya",
+                                                          "#2023/165",
+                                                          "#2025/165",
+                                                          "#22/7/2025"
+                                                      ]
+                                  },
+                     "4458|233":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "gumruk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#6455",
+                                                          "sonra",
+                                                          "mevcu",
+                                                          "birin",
+                                                          "tesel",
+                                                          "#136",
+                                                          "stajy",
+                                                          "#5911",
+                                                          "uzere",
+                                                          "#7",
+                                                          "#67",
+                                                          "ettir",
+                                                          "olara",
+                                                          "alan",
+                                                          "gumru",
+                                                          "#137",
+                                                          "mufet",
+                                                          "sekli",
+                                                          "kontr",
+                                                          "#28/3/2013",
+                                                          "gelme",
+                                                          "yardi"
+                                                      ]
+                                  },
+                     "4721|625":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#35",
+                                                          "#36"
+                                                      ]
+                                  },
+                     "4721|851":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#40",
+                                                          "#41"
+                                                      ]
+                                  },
+                     "4721|291":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#19",
+                                                          "#20"
+                                                      ]
+                                  },
+                     "4721|594":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "yonet",
+                                                          "sekli",
+                                                          "#139",
+                                                          "cumhu",
+                                                          "#33",
+                                                          "cikar",
+                                                          "#700",
+                                                          "#2/7/2018",
+                                                          "alan",
+                                                          "uncu",
+                                                          "tuzuk"
+                                                      ]
+                                  },
+                     "4721|303":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#20",
+                                                          "#21"
+                                                      ]
+                                  },
+                     "4721|445":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "olup",
+                                                          "#33326",
+                                                          "sonra",
+                                                          "#16/7/2026",
+                                                          "bakin",
+                                                          "konus",
+                                                          "islen",
+                                                          "#7589",
+                                                          "uzere",
+                                                          "kanun",
+                                                          "#32",
+                                                          "resm",
+                                                          "mevzu",
+                                                          "gorme",
+                                                          "#31/10/2026",
+                                                          "siste",
+                                                          "mezku",
+                                                          "~uc",
+                                                          "bilgi",
+                                                          "#12",
+                                                          "#31/7/2026",
+                                                          "itiba",
+                                                          "~ay",
+                                                          "girme",
+                                                          "girdi",
+                                                          "duzen"
+                                                      ]
+                                  },
+                     "4721|1003":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#46",
+                                                           "#47"
+                                                       ]
+                                   },
+                     "4721|674":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#36",
+                                                          "#37"
+                                                      ]
+                                  },
+                     "4721|340":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sekli",
+                                                          "#25",
+                                                          "kanun",
+                                                          "#6462",
+                                                          "alan",
+                                                          "inci",
+                                                          "ozurl",
+                                                          "#1",
+                                                          "#25/4/2013",
+                                                          "#26"
+                                                      ]
+                                  },
+                     "4721|1017":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#48",
+                                                           "#49"
+                                                       ]
+                                   },
+                     "4721|713":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#37",
+                                                          "#39"
+                                                      ]
+                                  },
+                     "4721|915":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#41",
+                                                          "#42"
+                                                      ]
+                                  },
+                     "4721|409":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sekli",
+                                                          "#27",
+                                                          "sakat",
+                                                          "engel",
+                                                          "inci",
+                                                          "kanun",
+                                                          "alan",
+                                                          "#1",
+                                                          "#6462",
+                                                          "#25/4/2013"
+                                                      ]
+                                  },
+                     "4721|417":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#27",
+                                                          "#29"
+                                                      ]
+                                  },
+                     "4721|324":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "~yil",
+                                                          "#25",
+                                                          "edinm",
+                                                          "uzeri",
+                                                          "#2012/203",
+                                                          "#2012/35",
+                                                          "#27/12/2012",
+                                                          "~bes",
+                                                          "islem"
+                                                      ]
+                                  },
+                     "4721|421":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#2/7/2018",
+                                                          "#27",
+                                                          "#139",
+                                                          "kanun",
+                                                          "engel",
+                                                          "uncu",
+                                                          "cumhu",
+                                                          "alan",
+                                                          "inci",
+                                                          "#6462",
+                                                          "ozurl",
+                                                          "kurul",
+                                                          "#28",
+                                                          "yardi",
+                                                          "sekli",
+                                                          "#25/4/2013",
+                                                          "uyele",
+                                                          "bakan",
+                                                          "#700"
+                                                      ]
+                                  },
+                     "4721|614":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#35",
+                                                          "sekli",
+                                                          "yonet",
+                                                          "#139",
+                                                          "cumhu",
+                                                          "tuzuk",
+                                                          "cikar",
+                                                          "#700",
+                                                          "#2/7/2018",
+                                                          "uncu",
+                                                          "alan"
+                                                      ]
+                                  },
+                     "4721|175":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#16"
+                                                      ]
+                                  },
+                     "4721|857":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#40",
+                                                          "#41"
+                                                      ]
+                                  },
+                     "4721|620":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#35",
+                                                          "#36"
+                                                      ]
+                                  },
+                     "4721|1000":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#44",
+                                                           "#46"
+                                                       ]
+                                   },
+                     "4721|446":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "kanun",
+                                                          "olup",
+                                                          "#31/10/2026",
+                                                          "#31/7/2026",
+                                                          "girdi",
+                                                          "sonra",
+                                                          "#7589",
+                                                          "#12",
+                                                          "uzere",
+                                                          "#31",
+                                                          "islen",
+                                                          "duzen",
+                                                          "icin",
+                                                          "mevzu",
+                                                          "mezku",
+                                                          "gorme",
+                                                          "konus",
+                                                          "itiba",
+                                                          "~uc",
+                                                          "resm",
+                                                          "girme",
+                                                          "bilgi",
+                                                          "#16/7/2026",
+                                                          "~ay",
+                                                          "bakin",
+                                                          "#33326",
+                                                          "siste"
+                                                      ]
+                                  },
+                     "4721|313":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#21",
+                                                          "#22"
+                                                      ]
+                                  },
+                     "4721|940":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#42",
+                                                          "#43"
+                                                      ]
+                                  },
+                     "4721|346":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sekli",
+                                                          "alan",
+                                                          "kanun",
+                                                          "engel",
+                                                          "#26",
+                                                          "#6462",
+                                                          "inci",
+                                                          "ozurl",
+                                                          "#1",
+                                                          "#25/4/2013"
+                                                      ]
+                                  },
+                     "4721|1021":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#48",
+                                                           "#49"
+                                                       ]
+                                   },
+                     "4721|675":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#36",
+                                                          "#37"
+                                                      ]
+                                  },
+                     "4721|997":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#43",
+                                                          "#44"
+                                                      ]
+                                  },
+                     "4721|408":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#26",
+                                                          "#27"
+                                                      ]
+                                  },
+                     "4721|598":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#33",
+                                                          "uzere",
+                                                          "sonra",
+                                                          "#31/3/2011",
+                                                          "kanun",
+                                                          "uncu",
+                                                          "#34",
+                                                          "alan",
+                                                          "#19",
+                                                          "gelme",
+                                                          "#6217"
+                                                      ]
+                                  },
+                     "4721|410":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sakat",
+                                                          "alan",
+                                                          "kanun",
+                                                          "engel",
+                                                          "#26",
+                                                          "#6462",
+                                                          "inci",
+                                                          "#1",
+                                                          "sekli",
+                                                          "#25/4/2013"
+                                                      ]
+                                  },
+                     "4721|998":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#44",
+                                                          "#45"
+                                                      ]
+                                  },
+                     "4721|593":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#32",
+                                                          "#33"
+                                                      ]
+                                  },
+                     "4721|36":  {
+                                     "tarih":  "2026-10-01 06:53",
+                                     "kaynak":  "medeni",
+                                     "belirsiz":  false,
+                                     "belirtecler":  [
+                                                         "#49",
+                                                         "#50"
+                                                     ]
+                                 },
+                     "4721|314":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#21",
+                                                          "#22"
+                                                      ]
+                                  },
+                     "4721|609":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#34",
+                                                          "#35"
+                                                      ]
+                                  },
+                     "4721|715":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#37",
+                                                          "#39"
+                                                      ]
+                                  },
+                     "4721|437":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#7445",
+                                                          "#14",
+                                                          "kanun",
+                                                          "uncu",
+                                                          "#28/3/2023",
+                                                          "alan",
+                                                          "sekli",
+                                                          "#29",
+                                                          "#30"
+                                                      ]
+                                  },
+                     "4721|735":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#39",
+                                                          "#40"
+                                                      ]
+                                  },
+                     "4721|599":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#6217",
+                                                          "sonra",
+                                                          "sulh",
+                                                          "noter",
+                                                          "uncu",
+                                                          "#33",
+                                                          "alan",
+                                                          "#31/3/2011",
+                                                          "#19",
+                                                          "gelme",
+                                                          "veya"
+                                                      ]
+                                  },
+                     "4721|195":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#16",
+                                                          "#17"
+                                                      ]
+                                  },
+                     "4721|595":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "cumhu",
+                                                          "sekli",
+                                                          "#139",
+                                                          "#2/7/2018",
+                                                          "alan",
+                                                          "#700",
+                                                          "cikar",
+                                                          "tuzuk",
+                                                          "uncu",
+                                                          "#32"
+                                                      ]
+                                  },
+                     "4721|319":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#27/12/2012",
+                                                          "alan",
+                                                          "uzeri",
+                                                          "edinm",
+                                                          "#2012/35",
+                                                          "edilm",
+                                                          "#2012/203",
+                                                          "~bes",
+                                                          "#22",
+                                                          "#24"
+                                                      ]
+                                  },
+                     "4721|444":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#31",
+                                                          "#32"
+                                                      ]
+                                  },
+                     "4721|1015":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#47",
+                                                           "#48"
+                                                       ]
+                                   },
+                     "4721|420":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sekli",
+                                                          "#700",
+                                                          "kurul",
+                                                          "#139",
+                                                          "bakan",
+                                                          "alan",
+                                                          "kanun",
+                                                          "engel",
+                                                          "cumhu",
+                                                          "#1",
+                                                          "inci",
+                                                          "#6462",
+                                                          "ozurl",
+                                                          "#28",
+                                                          "#2/7/2018",
+                                                          "yardi",
+                                                          "#25/4/2013",
+                                                          "uncu",
+                                                          "uyele",
+                                                          "#29"
+                                                      ]
+                                  },
+                     "4721|293":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#17",
+                                                          "#20"
+                                                      ]
+                                  },
+                     "4721|733":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#39",
+                                                          "#40"
+                                                      ]
+                                  },
+                     "4721|440":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#31",
+                                                          "#11",
+                                                          "gelme",
+                                                          "#31/10/2026",
+                                                          "birin",
+                                                          "#31/7/2026",
+                                                          "tamam",
+                                                          "~uc",
+                                                          "bilgi",
+                                                          "alan",
+                                                          "girdi",
+                                                          "bilis",
+                                                          "sonra",
+                                                          "gecik",
+                                                          "~gun",
+                                                          "#7589",
+                                                          "dinle",
+                                                          "kanun",
+                                                          "#28/3/2023",
+                                                          "uzere",
+                                                          "islen",
+                                                          "bakin",
+                                                          "duzen",
+                                                          "#33326",
+                                                          "mevzu",
+                                                          "#7445",
+                                                          "porta",
+                                                          "olup",
+                                                          "gorme",
+                                                          "konus",
+                                                          "sekli",
+                                                          "itiba",
+                                                          "resm",
+                                                          "girme",
+                                                          "yargi",
+                                                          "mezku",
+                                                          "~iki",
+                                                          "uncu",
+                                                          "inci",
+                                                          "#16/7/2026",
+                                                          "tahki",
+                                                          "enteg",
+                                                          "~ay",
+                                                          "elekt",
+                                                          "#14",
+                                                          "icind",
+                                                          "siste",
+                                                          "ulusa"
+                                                      ]
+                                  },
+                     "4721|939":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#42",
+                                                          "#43"
+                                                      ]
+                                  },
+                     "4721|306":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#20",
+                                                          "#21"
+                                                      ]
+                                  },
+                     "4721|610":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#700",
+                                                          "#139",
+                                                          "#34",
+                                                          "alan",
+                                                          "tuzuk",
+                                                          "uncu",
+                                                          "cumhu",
+                                                          "cikar",
+                                                          "#2/7/2018",
+                                                          "sekli"
+                                                      ]
+                                  },
+                     "4721|441":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#11",
+                                                          "gelme",
+                                                          "olup",
+                                                          "#31/10/2026",
+                                                          "birin",
+                                                          "talim",
+                                                          "satis",
+                                                          "~uc",
+                                                          "#30",
+                                                          "girdi",
+                                                          "bilis",
+                                                          "sonra",
+                                                          "mevzu",
+                                                          "islen",
+                                                          "uyari",
+                                                          "bakin",
+                                                          "duzen",
+                                                          "porta",
+                                                          "mezku",
+                                                          "kanun",
+                                                          "konus",
+                                                          "#7589",
+                                                          "gorme",
+                                                          "itiba",
+                                                          "enteg",
+                                                          "resm",
+                                                          "girme",
+                                                          "bilgi",
+                                                          "inci",
+                                                          "#16/7/2026",
+                                                          "~ay",
+                                                          "elekt",
+                                                          "yargi",
+                                                          "#31/7/2026",
+                                                          "#33326",
+                                                          "siste",
+                                                          "ulusa"
+                                                      ]
+                                  },
+                     "4721|1012":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#47",
+                                                           "#48"
+                                                       ]
+                                   },
+                     "4721|1027":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#49",
+                                                           "#50"
+                                                       ]
+                                   },
+                     "4721|321":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#24",
+                                                          "#25"
+                                                      ]
+                                  },
+                     "4721|194":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#16",
+                                                          "#17"
+                                                      ]
+                                  },
+                     "4721|913":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#41",
+                                                          "#42"
+                                                      ]
+                                  },
+                     "4721|181":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sonra",
+                                                          "#30/6/2027",
+                                                          "alan",
+                                                          "edilm",
+                                                          "girec",
+                                                          "~dokuz",
+                                                          "olara",
+                                                          "hukum",
+                                                          "altin",
+                                                          "#4/6/2026",
+                                                          "basla",
+                                                          "sures",
+                                                          "alinm",
+                                                          "resm",
+                                                          "#2025/156",
+                                                          "#2026/131",
+                                                          "~ay",
+                                                          "#16"
+                                                      ]
+                                  },
+                     "4721|289":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "medeni",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#17",
+                                                          "#19"
+                                                      ]
+                                  },
+                     "4721|1006":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "medeni",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#46",
+                                                           "#47"
+                                                       ]
+                                   },
+                     "5271|310":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#144",
+                                                          "#140"
+                                                      ]
+                                  },
+                     "5271|322":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#147",
+                                                          "#145"
+                                                      ]
+                                  },
+                     "5271|242":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#82",
+                                                          "#81"
+                                                      ]
+                                  },
+                     "5271|280":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#124125",
+                                                          "#123",
+                                                          "#120121122",
+                                                          "#123124",
+                                                          "#119120121",
+                                                          "#119"
+                                                      ]
+                                  },
+                     "5271|276":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#117",
+                                                          "#116"
+                                                      ]
+                                  },
+                     "5271|319":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#146",
+                                                          "#145"
+                                                      ]
+                                  },
+                     "5271|gec1":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "cmk",
+                                       "belirsiz":  true,
+                                       "belirtecler":  [
+                                                           null
+                                                       ]
+                                   },
+                     "5271|283":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#129",
+                                                          "#128"
+                                                      ]
+                                  },
+                     "5271|281":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#126",
+                                                          "#125"
+                                                      ]
+                                  },
+                     "5271|299":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#138",
+                                                          "#137"
+                                                      ]
+                                  },
+                     "5271|gec5":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "cmk",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#148149150",
+                                                           "#147148149"
+                                                       ]
+                                   },
+                     "5271|277":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#119",
+                                                          "#116"
+                                                      ]
+                                  },
+                     "5271|254":  {
+                                      "tarih":  "2026-10-05 08:55",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sagla",
+                                                          "besin",
+                                                          "anind",
+                                                          "ortay",
+                                                          "#110",
+                                                          "neden",
+                                                          "!acila",
+                                                          "haric",
+                                                          "tazmi",
+                                                          "!edile",
+                                                          "tespi",
+                                                          "!uzlas",
+                                                          "sorus",
+                                                          "basin",
+                                                          "cikan",
+                                                          "acila",
+                                                          "zarar",
+                                                          "edile",
+                                                          "uzlas",
+                                                          "#113"
+                                                      ]
+                                  },
+                     "5271|247":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#86",
+                                                          "#83"
+                                                      ]
+                                  },
+                     "5271|268":  {
+                                      "tarih":  "2026-10-05 08:55",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  true,
+                                      "belirtecler":  [
+                                                          "#114",
+                                                          "#113"
+                                                      ]
+                                  },
+                     "5271|308":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#142",
+                                                          "#139"
+                                                      ]
+                                  },
+                     "5271|307":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#140",
+                                                          "#138"
+                                                      ]
+                                  },
+                     "5271|232":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#78",
+                                                          "#77"
+                                                      ]
+                                  },
+                     "5271|309":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#143",
+                                                          "#142"
+                                                      ]
+                                  },
+                     "5271|313":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#145",
+                                                          "#144"
+                                                      ]
+                                  },
+                     "5271|272":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#115",
+                                                          "#114"
+                                                      ]
+                                  },
+                     "5271|302":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#138",
+                                                          "#137"
+                                                      ]
+                                  },
+                     "5271|231":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "sonra",
+                                                          "#77",
+                                                          "basla",
+                                                          "~dokuz",
+                                                          "#2024/98",
+                                                          "#2025/149",
+                                                          "~ay",
+                                                          "#10/7/2025",
+                                                          "inci",
+                                                          "#30/9/2026"
+                                                      ]
+                                  },
+                     "5271|291":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#134",
+                                                          "#133"
+                                                      ]
+                                  },
+                     "5271|296":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#135",
+                                                          "#134"
+                                                      ]
+                                  },
+                     "5271|239":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#82",
+                                                          "#81"
+                                                      ]
+                                  },
+                     "5271|278":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#119",
+                                                          "#116"
+                                                      ]
+                                  },
+                     "5271|246":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#83",
+                                                          "neden",
+                                                          "#82",
+                                                          "sonra",
+                                                          "birin",
+                                                          "#24/11/2016",
+                                                          "uzere",
+                                                          "kanun",
+                                                          "#32",
+                                                          "sorus",
+                                                          "#6763"
+                                                      ]
+                                  },
+                     "5271|288":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#133",
+                                                          "#132"
+                                                      ]
+                                  },
+                     "5271|334":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#151",
+                                                          "#150"
+                                                      ]
+                                  },
+                     "5271|293":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#134",
+                                                          "#133"
+                                                      ]
+                                  },
+                     "5271|285":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#130",
+                                                          "#126"
+                                                      ]
+                                  },
+                     "5271|233":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#80",
+                                                          "#78"
+                                                      ]
+                                  },
+                     "5271|311":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#145",
+                                                          "#144"
+                                                      ]
+                                  },
+                     "5271|236":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#81",
+                                                          "#80"
+                                                      ]
+                                  },
+                     "5271|286":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#133",
+                                                          "#129"
+                                                      ]
+                                  },
+                     "5271|234":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#81",
+                                                          "#78"
+                                                      ]
+                                  },
+                     "5271|253":  {
+                                      "tarih":  "2026-10-05 08:55",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "basli",
+                                                          "iken",
+                                                          "#97",
+                                                          "sekil",
+                                                          "metne",
+                                                          "basin",
+                                                          "besin",
+                                                          "#106108",
+                                                          "#104105106107",
+                                                          "#112",
+                                                          "#103104105106",
+                                                          "#105107"
+                                                      ]
+                                  },
+                     "5271|248":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#32",
+                                                          "#89"
+                                                      ]
+                                  },
+                     "5271|273":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#116",
+                                                          "#114"
+                                                      ]
+                                  },
+                     "5271|282":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#128",
+                                                          "#123"
+                                                      ]
+                                  },
+                     "5271|320":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#147",
+                                                          "#146"
+                                                      ]
+                                  },
+                     "5271|gec6":  {
+                                       "tarih":  "2026-10-01 06:53",
+                                       "kaynak":  "cmk",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#150",
+                                                           "#147"
+                                                       ]
+                                   },
+                     "5271|297":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#137",
+                                                          "#134"
+                                                      ]
+                                  },
+                     "5271|230":  {
+                                      "tarih":  "2026-10-01 06:53",
+                                      "kaynak":  "cmk",
+                                      "belirsiz":  false,
+                                      "belirtecler":  [
+                                                          "#77"
+                                                      ]
+                                  },
+                     "ad|TEORI - Satıştan iadeler kaydı: 610 Satıştan İadeler, KDV düzeltmesi (191) ve iade malın stoka girişi (sürekli envanter, aralıklı envanter)":  {
+                                                                                                                                                                            "tarih":  "2026-10-02 10:27",
+                                                                                                                                                                            "kaynak":  "ambar-kaynak-duzelt-20261002.ps1",
+                                                                                                                                                                            "belirsiz":  false,
+                                                                                                                                                                            "belirtecler":  [
+                                                                                                                                                                                                "#191"
+                                                                                                                                                                                            ]
+                                                                                                                                                                        },
+                     "ad|TEORI - Döviz kredisi ve dövizli borçların kur farkı (kur değerlemesi, 656 Kambiyo Zararları, 646 Kambiyo Kârları, VUK m.280)":  {
+                                                                                                                                                              "tarih":  "2026-10-02 10:27",
+                                                                                                                                                              "kaynak":  "ambar-kaynak-duzelt-20261002.ps1",
+                                                                                                                                                              "belirsiz":  false,
+                                                                                                                                                              "belirtecler":  [
+                                                                                                                                                                                  "#656"
+                                                                                                                                                                              ]
+                                                                                                                                                          },
+                     "ad|TEORI - Amortisman yöntemleri ve hurda değer: normal, azalan bakiyeler, kıst amortisman (VUK ile TMS 16 farkı)":  {
+                                                                                                                                               "tarih":  "2026-10-02 10:27",
+                                                                                                                                               "kaynak":  "ambar-kaynak-duzelt-20261002.ps1",
+                                                                                                                                               "belirsiz":  false,
+                                                                                                                                               "belirtecler":  [
+                                                                                                                                                                   "kist"
+                                                                                                                                                               ]
+                                                                                                                                           },
+                     "ad|TEORI - Denetim kanıtı türleri ve güvenilirlik sıralaması: fiziki inceleme, dış doğrulama, belge incelemesi, yeniden hesaplama, sorgulama, analitik prosedürler":  {
+                                                                                                                                                                                                "tarih":  "2026-10-02 10:27",
+                                                                                                                                                                                                "kaynak":  "ambar-kaynak-duzelt-20261002.ps1",
+                                                                                                                                                                                                "belirsiz":  false,
+                                                                                                                                                                                                "belirtecler":  [
+                                                                                                                                                                                                                    "#580"
+                                                                                                                                                                                                                ]
+                                                                                                                                                                                            },
+                     "ad|TEORI - Alacak senetleri reeskontu hesaplama ve kaydı (122 Reeskont, 657 Reeskont Faiz Giderleri, 647 Reeskont Faiz Gelirleri)":  {
+                                                                                                                                                               "tarih":  "2026-10-02 10:27",
+                                                                                                                                                               "kaynak":  "ambar-kaynak-duzelt-20261002.ps1",
+                                                                                                                                                               "belirsiz":  false,
+                                                                                                                                                               "belirtecler":  [
+                                                                                                                                                                                   "ister"
+                                                                                                                                                                               ]
+                                                                                                                                                           },
+                     "213|283":  {
+                                     "tarih":  "2026-10-02 10:27",
+                                     "kaynak":  "ambar-kaynak-duzelt-20261002.ps1",
+                                     "belirsiz":  false,
+                                     "belirtecler":  [
+                                                         "muste",
+                                                         "mevdu"
+                                                     ]
+                                 },
+                     "4760|gec3":  {
+                                       "tarih":  "2026-10-02 09:02",
+                                       "kaynak":  "otv",
+                                       "belirsiz":  false,
+                                       "belirtecler":  [
+                                                           "#1050",
+                                                           "#150",
+                                                           "#4559",
+                                                           "#5552",
+                                                           "#12,484959",
+                                                           "#8053",
+                                                           "#5250",
+                                                           "#0,700859",
+                                                           "#2,295361",
+                                                           "#497,116359",
+                                                           "#2710.12.45.00.13",
+                                                           "#6359",
+                                                           "#7550",
+                                                           "#23,740461",
+                                                           "#4551",
+                                                           "#1059",
+                                                           "#2710.12.49.00.12",
+                                                           "#22052",
+                                                           "#0,265259",
+                                                           "#8052",
+                                                           "#10052",
+                                                           "#057",
+                                                           "#3750",
+                                                           "#0,286159",
+                                                           "#2710.12.45.00.11",
+                                                           "#7052",
+                                                           "#2710.12.45.00.18",
+                                                           "#8552",
+                                                           "#1.919,138459",
+                                                           "#1,864459",
+                                                           "#15052",
+                                                           "#14,827747",
+                                                           "#5559",
+                                                           "#15,543747",
+                                                           "#4552",
+                                                           "#9052",
+                                                           "#450",
+                                                           "#13,900648",
+                                                           "#3559",
+                                                           "#858",
+                                                           "#1.705,902559",
+                                                           "#0,550",
+                                                           "#2710.12.49.00.11",
+                                                           "#2552",
+                                                           "#87.014",
+                                                           "#950",
+                                                           "#2551",
+                                                           "#1550",
+                                                           "#2,606459",
+                                                           "#5253",
+                                                           "#17052",
+                                                           "#6,750",
+                                                           "#414,777059",
+                                                           "#2710.12.49.00.18",
+                                                           "#626,001859",
+                                                           "#4261",
+                                                           "#135,435559",
+                                                           "#2,690959",
+                                                           "#22053",
+                                                           "#15053",
+                                                           "#61,391459",
+                                                           "#626,001861",
+                                                           "#33387",
+                                                           "#7554",
+                                                           "#135,435561",
+                                                           "#17054",
+                                                           "#5561",
+                                                           "#0,552",
+                                                           "#8,90004749",
+                                                           "#23,740463",
+                                                           "#6,752",
+                                                           "#15055",
+                                                           "#64",
+                                                           "#1052",
+                                                           "#3561",
+                                                           "#30/9/2026",
+                                                           "#2710.12.45.00.1348",
+                                                           "#8554",
+                                                           "#1/10/2026",
+                                                           "#1061",
+                                                           "#4263",
+                                                           "#1.705,902561",
+                                                           "#2,295363",
+                                                           "#7054",
+                                                           "#10054",
+                                                           "#7,90004748",
+                                                           "#2710.12.49.00.1849",
+                                                           "#6,000050",
+                                                           "#4553",
+                                                           "#2553",
+                                                           "#61,391461",
+                                                           "#15054",
+                                                           "#2710.12.49.00.1149",
+                                                           "#3752",
+                                                           "#1552",
+                                                           "#5252",
+                                                           "#452",
+                                                           "#061",
+                                                           "#2554",
+                                                           "#22054",
+                                                           "#6554",
+                                                           "#0,265261",
+                                                           "#22055",
+                                                           "#152",
+                                                           "#4561",
+                                                           "#414,777061",
+                                                           "#497,116361",
+                                                           "#2,606461",
+                                                           "#2710.12.49.00.1249",
+                                                           "#63",
+                                                           "#8055",
+                                                           "#952",
+                                                           "#8054",
+                                                           "#0,700861",
+                                                           "#12,484961",
+                                                           "#2710.12.45.00.1848",
+                                                           "#2,690961",
+                                                           "#87.015",
+                                                           "#6361",
+                                                           "#4554",
+                                                           "#9054",
+                                                           "#0,286161",
+                                                           "#1,864461",
+                                                           "#5455",
+                                                           "#1.919,138461",
+                                                           "#11822",
+                                                           "#2710.12.45.00.1148",
+                                                           "#5554",
+                                                           "#860"
+                                                       ]
+                                   },
+                     "ad|TEORI - turk medeni kanunu":  {
+                                                           "tarih":  "2026-10-06 20:49",
+                                                           "kaynak":  "ambar-kaynak-duzelt-20261006.ps1",
+                                                           "belirsiz":  false,
+                                                           "belirtecler":  [
+                                                                               "asgar",
+                                                                               "!bitir",
+                                                                               "metni",
+                                                                               "#18",
+                                                                               "yasin",
+                                                                               "!evlen",
+                                                                               "#1938",
+                                                                               "sinir",
+                                                                               "degil",
+                                                                               "#88",
+                                                                               "#743",
+                                                                               "yasla",
+                                                                               "bitir",
+                                                                               "#15",
+                                                                               "#3453",
+                                                                               "esit",
+                                                                               "evlen"
+                                                                           ]
+                                                       },
+                     "ad|TEORI - birinci sanayi plani sumerbank":  {
+                                                                       "tarih":  "2026-10-06 20:49",
+                                                                       "kaynak":  "ambar-kaynak-duzelt-20261006.ps1",
+                                                                       "belirsiz":  false,
+                                                                       "belirtecler":  [
+                                                                                           "banka",
+                                                                                           "kurma",
+                                                                                           "veril",
+                                                                                           "degil",
+                                                                                           "#4",
+                                                                                           "sise"
+                                                                                       ]
+                                                                   }
+                 }
 }
