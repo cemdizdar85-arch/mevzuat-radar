@@ -1,14 +1,302 @@
 {
   "_not": "05.10.2026 Cem '1 yap' (vitrinden 50 soruluk elle okuma). Elle okumada KUSURLU / ANAHTAR-ŞÜPHELİ çıkan ücretsiz sorular. arac/vitrin-aciklama-kalite.js bu listeyi her koşuda dışlama tablosuna EKLER (kapı tablosu baştan yazılınca silinmesinler). Soru onarılınca buradan elle çıkarılır (gerekçeyle). Yalnız kimlik + kısa neden; soru metni YOK (depo public).",
-  "olcum": "2026-10-05 elle okuma, 50 soru (tohum 20261005): TEMİZ 25 · KOZMETİK 17 · KUSURLU 7 · ANAHTAR-ŞÜPHELİ 1",
+  "olcum": "2026-10-05 elle okuma, 50 soru (tohum 20261005): TEMİZ 25 · KOZMETİK 17 · KUSURLU 7 · ANAHTAR-ŞÜPHELİ 1 | 2026-10-06 TAM okuma: genel 629 kart (TEMİZ 359 · KOZMETİK 206 · KUSURLU 62 · ANAHTAR-ŞÜPHELİ 2) + Yeterlilik sabit seti 28 (TEMİZ 17 · KOZMETİK 9 · KUSURLU 2)",
   "ret": [
-    { "id": "sgs-c5-ekonomi-kolay-r1/kp-10", "neden": "ELLE-KUSURLU: baz etkisi tanımı ters (açıklama + kural)" },
-    { "id": "sgs-c5-borclar-zor-r2/kp-06", "neden": "ELLE-KUSURLU: TBK m.80 fıkra atıfları tutarsız (kural 80/2, tuzaklar 80/1-80/3)" },
-    { "id": "sgs-c5-denetim-zor-r2/kp-02", "neden": "ELLE-KUSURLU: C tuzağı 'fiziki inceleme' yanlış (izleme/tracing); kural cümlesi bozuk" },
-    { "id": "sgs-d4-yd-cokzor-r2/kp-07", "neden": "ELLE-KUSURLU: A tuzağı yanılgıyı ters anlatıyor (because of)" },
-    { "id": "sgs-d3-ticaret-cokzor-r2/kp-04", "neden": "ELLE-ANAHTAR-ŞÜPHELİ: HMK m.222 (7251 eki) ile D de doğru olabilir; dayanak TTK m.64 yerine m.83" },
-    { "id": "sgs-t1-genel-inkilap-kolay/kp-05", "neden": "ELLE-KUSURLU: E şıkkı Sivas/Erzurum karışık, kök muğlak (S8)" },
-    { "id": "sgs-d3-ticaret-cokzor-r1/kp-07", "neden": "ELLE-KUSURLU: limited asgari sermaye TTK m.580 iken kural/dayanak m.332" },
-    { "id": "sgs-t1-genel-maliye-zor/kp-21", "neden": "ELLE-KUSURLU: A tuzak_ad'da istem kalıntısı ('Ne soruluyor' + 'Kural:'); C gerekçesi anlamsız" }
+    {
+      "id": "sgs-c5-ekonomi-kolay-r1/kp-10",
+      "neden": "ELLE-KUSURLU: baz etkisi tanımı ters (açıklama + kural)"
+    },
+    {
+      "id": "sgs-c5-borclar-zor-r2/kp-06",
+      "neden": "ELLE-KUSURLU: TBK m.80 fıkra atıfları tutarsız (kural 80/2, tuzaklar 80/1-80/3)"
+    },
+    {
+      "id": "sgs-c5-denetim-zor-r2/kp-02",
+      "neden": "ELLE-KUSURLU: C tuzağı 'fiziki inceleme' yanlış (izleme/tracing); kural cümlesi bozuk"
+    },
+    {
+      "id": "sgs-d4-yd-cokzor-r2/kp-07",
+      "neden": "ELLE-KUSURLU: A tuzağı yanılgıyı ters anlatıyor (because of)"
+    },
+    {
+      "id": "sgs-d3-ticaret-cokzor-r2/kp-04",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: HMK m.222 (7251 eki) ile D de doğru olabilir; dayanak TTK m.64 yerine m.83"
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-kolay/kp-05",
+      "neden": "ELLE-KUSURLU: E şıkkı Sivas/Erzurum karışık, kök muğlak (S8)"
+    },
+    {
+      "id": "sgs-d3-ticaret-cokzor-r1/kp-07",
+      "neden": "ELLE-KUSURLU: limited asgari sermaye TTK m.580 iken kural/dayanak m.332"
+    },
+    {
+      "id": "sgs-t1-genel-maliye-zor/kp-21",
+      "neden": "ELLE-KUSURLU: A tuzak_ad'da istem kalıntısı ('Ne soruluyor' + 'Kural:'); C gerekçesi anlamsız"
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-05",
+      "neden": "ELLE-KUSURLU: kural/dayanak/aciklama: Disiplin Yön. m.6'da genel \"kasıtsız özensizlik=kınama\" yok; m.6/n yalnız beyanname imzalama/denetim/tasdik; Kanun m.48 kusurlu iş için "
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-14",
+      "neden": "ELLE-KUSURLU: E tuzak_metin: Bakanlık onayı meslekten çıkarma/alıkoymada düzenlenmiş değil; m.29'a göre yalnız Birlik Disiplin Kurulunun itiraz reddi kararlarında aranır."
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-17",
+      "neden": "ELLE-KUSURLU: dayanak: kınama tanımı m.5 değil m.4/b (m.5 uyarma hâlleri); dogru_aciklama \"geçici alıkoyma kesinleşir\" yanlış, \"gerektirir\" olmalı."
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-18",
+      "neden": "ELLE-KUSURLU: dayanak: Birlik Yön. m.8-9 Birlik gelirleri/tahsildir; Birlik Genel Kurulu seçim ve ibra görevleri m.12'dedir."
+    },
+    {
+      "id": "sgs-a6e-meslek-cokzor/kp-21",
+      "neden": "ELLE-KUSURLU: kural/dayanak/B tuzak: \"açıkça önemsiz olmayan teşvik reddedilir\" TÜRMOB metninde yok; m.46/m.85 ret ancak önlemle tehdit giderilemezse."
+    },
+    {
+      "id": "sgs-bc-maliyet-zor-r2/kp-01",
+      "neden": "ELLE-KUSURLU: B tuzak_metin: yanılgı ters anlatılmış (\"normalde kâr düşük sanılır\" doğru inançtır); \"stokta az sabit gider kalması tam maliyette fazla aktifleşme\" bozuk."
+    },
+    {
+      "id": "sgs-c2-denetim-kolay-r1/kp-13",
+      "neden": "ELLE-KUSURLU: soru+dayanak \"BDS 500 A32\" yanlış paragraf (A32 BDS 520 atfıdır; içerik p.5(c)/A4); tuzak C \"HER ZAMAN telafi etmeyebileceğini\" bozuk."
+    },
+    {
+      "id": "sgs-c2-denetim-kolay-r2/kp-09",
+      "neden": "ELLE-KUSURLU: kural/dayanak \"BDS 500 A31\" yanlış: A31 güvenilirlik paragrafı; testin yönü/ticari borç örneği A27'de."
+    },
+    {
+      "id": "sgs-c2-fmuh-kolay-r1/kp-23",
+      "neden": "ELLE-KUSURLU: dayanak \"Mali Tablolar Analizi ders notu ... (kaynak metni)\" istem kalıntısı/uydurma kaynak. Hesap 600.000/1,25 → 120.000 doğru."
+    },
+    {
+      "id": "sgs-c2-fmuh-zor-r1-2/kp-02",
+      "neden": "ELLE-KUSURLU: dayanak \"(mevzuat maddesi yok)\" istem kalıntısı; kural/tuzak A \"olumsuzdur (olumsuz)\" tekrar kalıntısı. Hesap 9.600 olumsuz doğru."
+    },
+    {
+      "id": "sgs-c2-issgk-cokzor-r1/kp-04",
+      "neden": "ELLE-KUSURLU: tuzak D: \"normal yaşlılık 9000 gün ve 58 yaş\" 4/a sigortalı için yanlış (5510 m.28/2: 7200 gün; 58 yalnız kadın)."
+    },
+    {
+      "id": "sgs-c2-issgk-cokzor-r1/kp-06",
+      "neden": "ELLE-KUSURLU: dayanak \"m.41 [1/2] ve m.41 [2/2]\" parça işareti kalıntısı; içerik (yüzde yüz, 270 saat, m.42) doğru."
+    },
+    {
+      "id": "sgs-c2-maliyet-zor-r1/kp-05",
+      "neden": "ELLE-KUSURLU: dayanak \"(mevzuat maddesi yok)\" kalıntısı; tuzak A \"sorulan kapasite sapması değil bütçe sapmasıdır\" ters okunuyor. Hesap 20.000 olumsuz doğru."
+    },
+    {
+      "id": "sgs-c5-borclar-kolay-r3/kp-02",
+      "neden": "ELLE-KUSURLU: B tuzak_metin istem kalıntısı: \"sınav tuzağı olarak da vurgulanan üzere\"; geri kalan TBK m.27 ile doğru."
+    },
+    {
+      "id": "sgs-c5-borclar-zor-r2/kp-05",
+      "neden": "ELLE-KUSURLU: E tuzak: m.48 temsil hükmü, haksız fiile karşı saklı değil (olgu hatası); D tuzak bozuk: \"miktar\" düşmüş."
+    },
+    {
+      "id": "sgs-c5-denetim-cokzor-r1/kp-07",
+      "neden": "ELLE-KUSURLU: C tuzak: olumsuz teyitte cevapsızlık için alternatif prosedür şartı yok (BDS 505 p.6, p.12); dayanak A35-A38 uzman paragrafları, yanlış."
+    },
+    {
+      "id": "sgs-c5-denetim-kolay-r1/kp-10",
+      "neden": "ELLE-KUSURLU: dayanak ve A tuzağı \"BDS 200 p.A80\"; BDS 200 p.22 şarta bağlı hükümler için A74-A75'e atıf yapıyor."
+    },
+    {
+      "id": "sgs-c5-denetim-zor-r1-2/kp-04",
+      "neden": "ELLE-KUSURLU: kural/tuzak bent harfleri yanlış: dayanak bölümü 50(f), bağımsızlık 50(d), BDS 701 50(g); \"şart koyar\" da abartılı (\"veya\")."
+    },
+    {
+      "id": "sgs-c5-ekonomi-kolay-r1/kp-06",
+      "neden": "ELLE-KUSURLU: tuzak_ad yer tutucu: \"A Tuzağı\", \"B Tuzağı\", \"C Tuzağı\", \"E Tuzağı\"; A tuzağında \"soru bunu sormaz\" kalıntısı."
+    },
+    {
+      "id": "sgs-c5-ekonomi-zor-r1/kp-06",
+      "neden": "ELLE-KUSURLU: B tuzak: \"Açık iş varlığı bu türü yapısaldan ayırır\" ters anlam; \"is yokluğu\" harfsiz."
+    },
+    {
+      "id": "sgs-c5-fmuh-cokzor-r1-2/kp-14",
+      "neden": "ELLE-KUSURLU: kural/dayanak: \"VUK m.262/1-b\" yok; komisyon, 7338 ile eklenen ikinci fıkranın (b) bendinde."
+    },
+    {
+      "id": "sgs-c5-fmuh-cokzor-r1-3/kp-06",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: \"önceki karşılık bu tutarı zaten kapsamıştır\" 26.000'e gönderiyor; çelişik (kastedilen 132.000)."
+    },
+    {
+      "id": "sgs-c5-fmuh-kolay-r1-2/kp-10",
+      "neden": "ELLE-KUSURLU: kural: \"düşük olanla değerlenir\" p.6-7'ye atfedilmiş, doğrusu p.9; A tuzak_metin \"NGD'den düşmek\" yanlış (satış fiyatından)."
+    },
+    {
+      "id": "sgs-c5-fmuh-zor-r1-2/kp-03",
+      "neden": "ELLE-KUSURLU: kural/dayanak: \"yüksek olanı\" tanımı TMS 36 p.18'de; p.20-21 başka hükümler. Rakamlar doğru (100.000)."
+    },
+    {
+      "id": "sgs-c5-fmuh-zor-r1-2/kp-07",
+      "neden": "ELLE-KUSURLU: kural: sorudan bağımsız rakam kalıntısı (+200.000/-80.000); dayanak \"(kaynak metni)\" paragrafsız; A tuzağı \"her durumda\" yanlış (p.14 kiralama istisnası)."
+    },
+    {
+      "id": "sgs-c5-fmuh-zor-r1-2/kp-09",
+      "neden": "ELLE-KUSURLU: kural: editör notu kalıntısı (\"sonuç eski metinle aynı çıkar\"); D/E tuzak \"eklendin\" yazım. Hesap 255.000 doğru."
+    },
+    {
+      "id": "sgs-c5-maliye-cokzor-r1/kp-10",
+      "neden": "ELLE-KUSURLU: kural: madde listesinde 77 düşmüş (\"76 ve 78\"); doğrusu \"68 ve 76-78\" (m.2)."
+    },
+    {
+      "id": "sgs-c5-maliye-kolay-r1/kp-06",
+      "neden": "ELLE-KUSURLU: kural/D tuzağı: görünüşte/gerçek artış ayrımı Wagner kanununa atfedilmiş, yanlış; dayanak Türkçe harfsiz; \"Uniform\" tuzak adı."
+    },
+    {
+      "id": "sgs-c5-maliye-zor-r1/kp-10",
+      "neden": "ELLE-KUSURLU: dayanak: \"Kaynak paket: TEORİ...\" istem kalıntısı; kural \"bu itkiyi\" öncülsüz kesik gönderme."
+    },
+    {
+      "id": "sgs-c5-maliye-zor-r2/kp-06",
+      "neden": "ELLE-KUSURLU: dayanak: ham kaynak etiketi, Türkçe harfsiz; dogru_aciklama \"harcamaları arttırdığını\" aşırı genelleme (vergi indirimi de olabilir)."
+    },
+    {
+      "id": "sgs-c5-maliyet-kolay-r1/kp-14",
+      "neden": "ELLE-KUSURLU: tuzak_metin A: \"genel üretim gideri toplamı yalnız payda görev alır\" — pay yerine payda yazılmış, kendisiyle çelişiyor."
+    },
+    {
+      "id": "sgs-c5-maliyet-kolay-r2/kp-16",
+      "neden": "ELLE-KUSURLU: tuzak_metin D: \"kalan yüzde FIFO'da\" dönem sonu için yanlış; FIFO'da kalan yüzde dönem BAŞI yarı mamule uygulanır; \"yönteminde aittir\" bozuk."
+    },
+    {
+      "id": "sgs-c5-maliyet-zor-r1/kp-16",
+      "neden": "ELLE-KUSURLU: Hesap doğru (1.030.000); dayanak \"(Kural 2, Kural 4, Kural 5)\" iç kaynak numarası, istem kalıntısı."
+    },
+    {
+      "id": "sgs-c5-maliyet-zor-r2/kp-03",
+      "neden": "ELLE-KUSURLU: Hesap doğru (145.000+3.000=148.000); dayanak \"(Kural 2, 4, 5)\" iç kaynak numarası, istem kalıntısı."
+    },
+    {
+      "id": "sgs-c5-meslek-kolay-r2/kp-02",
+      "neden": "ELLE-KUSURLU: Anahtar doğru (EK m.3 teyitli); kural sonunda \"Uygulama: şık ... yazmış\" istem kalıntısı; tuzak E 'baskı' kelimesi şıkta yok."
+    },
+    {
+      "id": "sgs-c5-mta-cokzor-r1/kp-04",
+      "neden": "ELLE-KUSURLU: Hesap doğru (381.250 beklenen, 25.000 olumsuz); dayanak \"Kural 4 (yorum kuralları)\" istem kalıntısı."
+    },
+    {
+      "id": "sgs-c5-mta-cokzor-r1/kp-06",
+      "neden": "ELLE-KUSURLU: Hesap doğru (%20+%25=0,45); dayanak \"ders notu ... madde 5\" iç kaynak numarası, istem kalıntısı."
+    },
+    {
+      "id": "sgs-c5-mta-cokzor-r2/kp-07",
+      "neden": "ELLE-KUSURLU: tuzak_metin D Doğrusu: \"Aktif Özkaynağa bölünerek bulunur\" yanlış formül; doğrusu Özkaynak/(1-kaldıraç)."
+    },
+    {
+      "id": "sgs-c5-ticaret-kolay-r1/kp-06",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: Soru kökü: GVK 37'ye göre kollektif şirket ortağının kâr payı şahsi ticari kazançtır, bu yüzden ölçüt 7/1 (C) olabilir. GVK 7/2 cevabı tartışmalı."
+    },
+    {
+      "id": "sgs-c5-vergi-cokzor-r2/kp-08",
+      "neden": "ELLE-KUSURLU: Dayanak: iç kalıntı (\"mevzuat maddesi yoktur, ambar teori parcasi\") ve Türkçe harfsiz kelimeler (\"ozeti\", \"Dolayli\") öğrenciye görünüyor."
+    },
+    {
+      "id": "sgs-c5-vergi-kolay-r1/kp-14",
+      "neden": "ELLE-KUSURLU: E tuzak_metin: mantığı bozuk (\"süresiz sanıp eksik sanabilir\"). EVK 8'deki dört yıllık uygulama sınırını vermiyor, kuralı süresizmiş gibi onaylıyor."
+    },
+    {
+      "id": "sgs-d2-ticaret-zor-r1/kp-08",
+      "neden": "ELLE-KUSURLU: İstem kalıntısı: kural \"Ne soruluyor sorusunun cevabı burada...\"; tuzak A adı \"Ne soruluyor\", metninde \"Kural:\"."
+    },
+    {
+      "id": "sgs-d4-inkilap-cokzor-r1/kp-01",
+      "neden": "ELLE-KUSURLU: Tuzak A olgu: Yunanistan Mudanya'yı 14 Ekim'de kendisi imzaladı; \"adına İngiltere imza attı\" yanlış, A şıkkı tartışmalı."
+    },
+    {
+      "id": "sgs-d4-turkce-kolay-r1/kp-09",
+      "neden": "ELLE-KUSURLU: dogru_aciklama ve tuzak B: \"Atatürk'ün\"deki -ün iyelik eki değil, ilgi (tamlayan) hâl ekidir; kural da iyeliği örnek veriyor."
+    },
+    {
+      "id": "sgs-d4-turkce-kolay-r3/kp-03",
+      "neden": "ELLE-KUSURLU: tuzak_ad B/E \"Devrik Cümle\": yüklem sonda, cümleler kurallı; kural \"öge türü değil sırası esastır\" yanlış."
+    },
+    {
+      "id": "sgs-d5-borclar-kolay-r1/kp-04",
+      "neden": "ELLE-KUSURLU: kural \"144 üncü maddenin üçüncü fıkrası\" yanlış: m.144 tek fıkra, işçi ücreti 3 numaralı bent (m.144/1-3)."
+    },
+    {
+      "id": "sgs-d5-borclar-kolay-r2/kp-02",
+      "neden": "ELLE-KUSURLU: A tuzak_ad \"Tuzak\", tuzak_metin \"Ne soruluyor...\" istem kalıntısı; D tuzak \"m.72/3\" yanlış, doğrusu m.72/1 ikinci cümle."
+    },
+    {
+      "id": "sgs-d5-ticaret-cokzor-r2/kp-07",
+      "neden": "ELLE-KUSURLU: dogru_sik/dogru_aciklama/B-D tuzak: TTK 8/2'deki \"üç aydan aşağı olmamak\" faizin anaparaya ekleme aralığıdır; 2 aylık sözleşme süresiyle karıştırılmış."
+    },
+    {
+      "id": "sgs-e16-turkce-kolay/kp-10",
+      "neden": "ELLE-KUSURLU: tuzak C \"ilk üç öge tutar\" yanlış (yalnız ilk ikisi tutar); tuzak E \"edat tümleci yerine belirtili nesne\" eşlemesi hatalı (2. sırada dolaylı tümleç)."
+    },
+    {
+      "id": "sgs-k13-mat-zor/kp-01",
+      "neden": "ELLE-KUSURLU: Anahtar 41 doğru; B tuzak_metin \"rakamlar toplamını 9 ile çarptın\" 45'i üretmiyor (9(a+b)=55 çözümsüz) — yanılgı yanlış anlatılmış."
+    },
+    {
+      "id": "sgs-k2-borclar-cokzor/kp-06",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: \"B'nin borcundan düşülür\" yanlış taraf (A'nın borcundan düşülür); \"zamanaşımı zamanında uğrayan\" bozuk cümle. Rakamlar doğru."
+    },
+    {
+      "id": "sgs-k5-borclar-cokzor/kp-03",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: \"Ayla ... borçtan kurtulur\" diyor, doğru şık ve kuralla çelişir (Ayla mahkûm olur); \"kefi\" yazım hatası."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-cokzor/kp-09",
+      "neden": "ELLE-KUSURLU: dogru_aciklama: Musul \"doğrudan 1926'ya ertelendi\" yanlış (ikili görüşme/MC); E tuzak \"komisyon kurulmadan\" yanlış, MC tahkik komisyonu gönderdi."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-cokzor/kp-19",
+      "neden": "ELLE-KUSURLU: dogru_sik/dogru_aciklama: Sümerbank'a \"cam\" fabrikası; Paşabahçe Şişe-Cam İş Bankası'nca kuruldu (muhtemel olgu hatası, teyit önerilir)."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-03",
+      "neden": "ELLE-KUSURLU: tuzak_metin E yanlış: 1926 Medeni Kanunu'nda evlenme yaşı erkek 18/kadın 17'ydi, eşitlik yoktu; E de gerçekleşmemiş, iki doğru şık var."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-16",
+      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: \"Hangi ilkenin dış politikaya yansıması\": standart cevap Milliyetçilik (E), kolay/kp-16 da öyle öğretiyor; \"Bağımsızlık\" altı ilkeden değil. B/E tuzakları sorud"
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-21",
+      "neden": "ELLE-KUSURLU: tuzak_metin D'deki \"Romanya'nın sonradan İtalya'ya yakınlaşması\" olgusu şüpheli/yanlış; kuralda \"Uygulama:\" kalıntısı, A'da küçük harfle \"öğrenci\" kalıbı var."
+    },
+    {
+      "id": "sgs-t1-genel-inkilap-zor/kp-25",
+      "neden": "ELLE-KUSURLU: tuzak_metin D: Sümerler Anadolu halkı değildir (Mezopotamya); dayanak tarih için TESMER yönergesi m.6.2'ye atıf yapıyor; A/D/E küçük harfle başlıyor."
+    },
+    {
+      "id": "sgs-t1-genel-maliye-kolay/kp-06",
+      "neden": "ELLE-KUSURLU: Hesap doğru (50.000×%20=10.000), ancak dayanak \"KDVK m.28\" oran maddesi; matraha ÖTV'nin dahil olması KDVK m.24/c hükmüdür."
+    },
+    {
+      "id": "sgs-t1-genel-maliye-zor/kp-08",
+      "neden": "ELLE-KUSURLU: tuzak_metin E'de istem kalıntısı var: \"Ne soruluyor: ... Kural: ... Hesap: ...\"; hesaplar doğru."
+    },
+    {
+      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+      "neden": "ELLE-KUSURLU: D tuzak_metin: \"Payda SMM yerine net satışlar\" yanlış; değiştirilen paydır (495.000/45.000). Pay/payda karışıklığı öğretiyor."
+    },
+    {
+      "id": "smmm-4k-a-ymeslek-zor-r3/kp-03",
+      "neden": "ELLE-KUSURLU: D tuzak_metin ters kurgu: tasdik zaten YMM'ye özgü; \"yalnız SMMM'yi ilgilendirir\" yanılgısı anlamsız ve yanıltıcı."
+    },
+    {
+      "id": "smmm-4k-a-yvergi-zor-r8/kp-01",
+      "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", tuzak_metin \"Kural:/Hesap:\" istem kalıntısı. Hesap 205.400 doğru."
+    },
+    {
+      "id": "smmm-ab2-a-maliyet/kp-02",
+      "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", metinde \"Kural:/Hesap:/Eksik Gider Tuzağı:\" kalıntısı; dayanakta tekrar. Hesap 1.755.800 doğru."
+    },
+    {
+      "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
+      "neden": "ELLE-KUSURLU: Anahtar B doğru. C tuzağı \"Dikkat Çekilen Hususlar başlığı kaldırılmıştır\" diyor; yanlış, BDS 706'da duruyor. Dayanakta paragraf numarası yok."
+    },
+    {
+      "id": "smmm-w3-yspk-zor/kp-01",
+      "neden": "ELLE-KUSURLU: m.35 kitle fonlamayı saymaz (35/A başlığı metne sızmış), E de doğru cevap; E tuzağı yanlış. Kuralda \"ıntıncı\"; A tuzak adı yer tutucu."
+    }
   ]
 }
