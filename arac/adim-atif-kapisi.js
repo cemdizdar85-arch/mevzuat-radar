@@ -16,14 +16,20 @@
 const fs = require('fs'), path = require('path');
 const KOK = path.resolve(__dirname, '..');
 const MUT = process.env.ADIM_MUTASYON || '';
-const ATIF = /([\d.]+(?:,\d+)?)(\s*(?:₺|TL|gün|adet|birim|%)?\s*\()(\d{1,2})(\.\s*ad[ıi]mda)/g;
+// 06.10 (Cem "1.2.3", SGS vitrin onarımı): değer artık köklü/kesirli yazımın TAMAMI ("5√2", "1/6") — eskisi yalnız son rakamı ("2", "6")
+//   okuyup doğru atfı KAYMA/YOK sayıyordu. Sonuç tarafında eksi işaret de kabul (atıf "95 TL", adım "= -95 TL": zarar tutarı).
+//   Ölçüldü: vitrinden haksız dışlanan 3 SGS sorusu (e16-mat-kolay/kp-04 √, e16b-mat-zor/kp-01 kesir, e16-ekonomi-zor/kp-09 eksi).
+//   ADIM_MUTASYON=eski-deger eski okumaya döner → öz-sınav KIRMIZI olmalı.
+const ATIF = MUT === 'eski-deger' ? /([\d.]+(?:,\d+)?)(\s*(?:₺|TL|gün|adet|birim|%)?\s*\()(\d{1,2})(\.\s*ad[ıi]mda)/g
+  : /((?:[\d.]+(?:,\d+)?[√/])?[\d.]+(?:,\d+)?)(\s*(?:₺|TL|gün|adet|birim|%)?\s*\()(\d{1,2})(\.\s*ad[ıi]mda)/g;
+const ISARET = MUT === 'eski-deger' ? '' : '[-−]?';
 const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 function incele(k) {
   const out = []; if (!k || !Array.isArray(k.adimlar)) return out;
   const A = k.adimlar;
   // "= <sayı>" SONUÇ olmalı: ardından "(soruda verilen)" / "(N. adımda bulduk)" gibi bir not geliyorsa o, değerin KULLANIMIDIR, sonucu değil
-  const sonuc = (j, deger) => j >= 0 && A[j] && new RegExp('=\\s*' + esc(deger) + '(?![\\d,])(?!\\s*(?:₺|TL|gün|adet|birim|%)?\\s*\\()').test(String(A[j].formul || ''));
+  const sonuc = (j, deger) => j >= 0 && A[j] && new RegExp('=\\s*' + ISARET + esc(deger) + '(?![\\d,√/])(?!\\s*(?:₺|TL|gün|adet|birim|%)?\\s*\\()').test(String(A[j].formul || ''));
   A.forEach((a, i) => {
     const f = String((a && a.formul) || '');
     for (const z of f.matchAll(ATIF)) {
@@ -135,6 +141,11 @@ function sinav() {
     ['sonraki adıma işaret eden (değer ancak ileride sonuç) → aday yok, onarılmaz', (() => { const k = T(); k.adimlar[1].formul = 'Brüt kâr = 1.000 − 600 = 400; bkz. 100 (2. adımda bulduk)'; return k; })(), 1, null],
     ['kullanım "= 400 (2. adımda bulduk)" sonuç sayılmaz', (() => { const k = T(); k.adimlar[3].formul = 'Net = 400 (3. adımda bulduk) − 100 (3. adımda bulduk) = 300'; return k; })(), 1, 'Net = 400 (2. adımda bulduk) − 100 (3. adımda bulduk) = 300'],
     ['"TL" birimli atıf da okunur', (() => { const k = T(); k.adimlar[2].formul = 'Vergi = 400 TL (1. adımda bulduk) × %25 = 100'; return k; })(), 1, 'Vergi = 400 TL (2. adımda bulduk) × %25 = 100'],
+    // 06.10: köklü / kesirli değerin tamamı okunur; eksi sonuç büyüklükle eşleşir
+    ['köklü değer "5√2" doğru atıf → temiz', { adimlar: [{ formul: 'Verilen: √50, √18' }, { formul: '√50 = 5√2' }, { formul: '√18 = 3√2' }, { formul: 'Toplam = 5√2 (2. adımda bulduk) + 3√2 (3. adımda bulduk) = 8√2' }] }, 0, undefined],
+    ['köklü değer yanlış adım → KAYMA', { adimlar: [{ formul: 'Verilen: √50, √18' }, { formul: '√50 = 5√2' }, { formul: '√18 = 3√2' }, { formul: 'Toplam = 5√2 (3. adımda bulduk) + 3√2 (3. adımda bulduk) = 8√2' }] }, 1, 'Toplam = 5√2 (2. adımda bulduk) + 3√2 (3. adımda bulduk) = 8√2'],
+    ['kesirli değer "1/6" doğru atıf → temiz', { adimlar: [{ formul: 'Verilen: 6 saat, 12 saat' }, { formul: 'A hızı = 1 ÷ 6 = 1/6' }, { formul: 'B hızı = 1 ÷ 12 = 1/12' }, { formul: 'Birlikte = 1/6 (2. adımda bulduk) + 1/12 (3. adımda bulduk) = 1/4' }] }, 0, undefined],
+    ['eksi sonuç "= -95 TL", atıf "95 TL" → temiz', { adimlar: [{ formul: 'Verilen: gelir 100, gider 195' }, { formul: 'Sonuç = 100 − 195 = -95 TL' }, { formul: 'Zarar = 95 TL (2. adımda bulduk)' }] }, 0, undefined],
   ];
   let ok = 0;
   for (const [ad, k, bek, onarSonra] of V) {
@@ -151,7 +162,7 @@ if (require.main === module) {
   const [a, b, c] = process.argv.slice(2);
   if (a === '--sinav') {
     if (process.argv.includes('--mutasyon')) {
-      const { spawnSync } = require('child_process'); const ler = ['hep-dogru', 'yok-kapali']; let tutan = 0;
+      const { spawnSync } = require('child_process'); const ler = ['hep-dogru', 'yok-kapali', 'eski-deger']; let tutan = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, ADIM_MUTASYON: m }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) tutan++; console.log('  mutasyon ' + m + (kr ? ' KIRMIZI (doğru)' : ' YEŞİL (SINAV KÖR!)')); }
       console.log('MUTASYON: ' + tutan + '/' + ler.length + ' → KIRMIZI'); process.exit(tutan === ler.length ? 0 : 1);
     }
