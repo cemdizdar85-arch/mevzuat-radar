@@ -2181,7 +2181,7 @@ function hataGonder(){
     sonBildirim=Date.now();
     try{
       fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/quick-task',{method:'POST',headers:{"apikey":"sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg","Authorization":"Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg",'Content-Type':'application/json',Accept:'application/json'},
-        body:JSON.stringify({subject:'SORU HATA BILDIRIMI ('+s.id+')',from_name:'Tetikte Deneme',message:'Soru id: '+s.id+' · '+s.ders+' / '+s.konu+'\nBildirim: '+not})});
+        body:JSON.stringify({subject:'Soru hata bildirimi ('+s.id+')',from_name:'Tetikte Deneme',message:'Soru id: '+s.id+' · '+s.ders+' / '+s.konu+'\nBildirim: '+not})});
     }catch(e){}
     // 02.08 (SINAV-KURALLARI H7): bildirim artik KAYDA da gecer. E-posta tek
     // basina yetmiyordu - sayilamiyor, 48 saat takibi olculemiyor ve en onemlisi

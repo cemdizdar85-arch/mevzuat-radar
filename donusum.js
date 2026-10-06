@@ -133,10 +133,11 @@ function eslestir(url, yontem, govde){
   var eposta = j.email || j.eposta || '';
   if (/\/functions\/v1\/quick-task/.test(url)) {
     var k = String(j.subject || '');
-    if (/^ACILIS PERDESI/.test(k)) return ['Lead', { content_name: 'perde' }, eposta];
-    if (/^ON KAYIT/.test(k))       return ['Lead', { content_name: 'on-kayit' }, eposta];
-    if (/^SEVIYE TESTI/.test(k))   return ['Lead', { content_name: 'seviye-testi' }, eposta];
-    if (/^CANLI DENEME kayit/.test(k)) return ['Lead', { content_name: 'canli-deneme' }, eposta];
+    /* 06.10: bildirim konuları Türkçeleşti; eski yazım da tanınır (önbellekteki eski sayfalar) */
+    if (/^(ACILIS PERDESI|Açılış perdesi)/i.test(k)) return ['Lead', { content_name: 'perde' }, eposta];
+    if (/^(ON KAYIT|Ön kayıt)/i.test(k))       return ['Lead', { content_name: 'on-kayit' }, eposta];
+    if (/^(SEVIYE TESTI|Seviye testi)/i.test(k))   return ['Lead', { content_name: 'seviye-testi' }, eposta];
+    if (/^(CANLI DENEME kayit|Canlı deneme kaydı)/i.test(k)) return ['Lead', { content_name: 'canli-deneme' }, eposta];
     if (/^YENİ (SİPARİŞ|ABONELİK)/.test(k)) {
       var v = tutarOku(k);
       return ['InitiateCheckout', v !== undefined ? { content_name: /ABONELİK/.test(k) ? 'radar-abonelik' : 'soru-bankasi', value: v, currency: 'TRY' }

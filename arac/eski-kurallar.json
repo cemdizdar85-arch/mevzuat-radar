@@ -36,10 +36,10 @@
     {
       "kod": "EK5",
       "ad": "Kâr payı stopajı %10 (22.12.2024'ten beri %15)",
-      "desen": "(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(stopaj|tevkifat)[\\s\\S]{0,40}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])|(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat)|(stopaj|tevkifat)[\\s\\S]{0,30}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat)[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])",
+      "desen": "(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(stopaj|tevkifat|kesinti)[\\s\\S]{0,40}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])|(k[aâ]r pay[ıi]|temett[uü])[\\s\\S]{0,80}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat|kesinti)|(stopaj|tevkifat|kesinti)[\\s\\S]{0,30}(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])|(?<![\\d,])(%\\s?10|y[uü]zde\\s?10)(?![\\d,])[\\s\\S]{0,30}(stopaj|tevkifat|kesinti)[\\s\\S]{0,60}(k[aâ]r pay[ıi]|temett[uü])",
       "haric": "20(0\\d|1\\d|2[0-4])\\b|önceki|eski\\b|ezber|idi\\b",
       "dayanak": "GVK m.94/6-b-i oranı 9286 sayılı CBK ile 22.12.2024'ten beri %15; SGS oturumu ambarda okudu 30.09.2026",
-      "bulan": "sgs oturumu 30.09.2026 + onarım smmm-as (smmm-4k-a-fmuh-kolay-r2/kp-19)"
+      "bulan": "sgs oturumu 30.09.2026 + onarım smmm-as (smmm-4k-a-fmuh-kolay-r2/kp-19) · 06.10 sinav kolu: \"kesinti\" eklendi (smmm-w10-2-yvergi-kolay/kp-01 sitedeydi, desen kaciriyordu)"
     },
     {
       "kod": "EK6",

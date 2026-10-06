@@ -1,11 +1,11 @@
 {
-  "tarih": "06.10.2026 18:01",
+  "tarih": "06.10.2026 19:03",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1314,
   "sayfa": 72,
   "atifli_iddia": 286,
-  "dayanaksiz_iddia": 355,
+  "dayanaksiz_iddia": 356,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -57,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 416,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -2115,31 +2115,37 @@
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 269,
+      "satir": 270,
       "iddia": "%80",
       "metin": "Geçme sınırı: TESMER Uygulama Yönergesi'ne göre geçmişte \"soruların %80'ini doğru cevaplayanların başarılı sayıldığı sınavlar olduğu gibi %60'ını doğru cevaplayanların başarısız bu"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 270,
+      "satir": 271,
       "iddia": "%5",
       "metin": "Geçme ihtimali: doğru oranının o dönemin sınırını geçme olasılığı; 30 soruyla kesinlik olmayacağı için %5 ile %95 arasında gösterilir. Ne kadar isabetli? 16.09.2026'da bu modelle 7"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 279,
+      "satir": 280,
       "iddia": "100 puan",
       "metin": "Ders ders: bir derste 3-5 soru var; 3'te 3 \"100 puan\" demek değildir. Az soruda tahmin genel seviyene doğru çekilir."
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 281,
+      "satir": 282,
       "iddia": "%80",
       "metin": "Güçlü / Sınırda / Riskli: o dersten 50'yi geçme ihtimalin %80 ve üstü · %50–80 · %50'nin altı."
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 759,
+      "satir": 327,
+      "iddia": "10 yıl",
+      "metin": "/* 06.10 (Cem \"en çok çıkan konudan yapalım\"): kutu konu sıklığıyla kurulu (motor/seviye-havuz-bas.js, w = konunun son 10 yılda"
+    },
+    {
+      "sayfa": "seviye-testi.html",
+      "satir": 784,
       "iddia": "10 yıl",
       "metin": "$('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaş"
     },

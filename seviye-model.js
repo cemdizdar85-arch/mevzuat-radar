@@ -22,6 +22,9 @@
       resmî sınır yayımlanmaz.)
    4) Geçme ihtimali = Σ_θ sonsal(θ) · P(s ≤ p(θ)). Ekranda %5 ile %95 arasında tutulur:
       30 soruyla "kesin" denmez.
+   KALİBRASYON KURALI (06.10, Cem: "bizden sonra çalışıp girdiyse bu haliyle girdiğini nasıl bileceğiz"): gerçek sonuç
+      yalnız SINAVA 14 GÜNDEN YAKIN çözülmüş son testle eşleştirilir (sinav-sonucu.js test_gecmisi gönderir). Daha eski
+      test + gerçek sonuç çifti modeli ayarlamaz; 'çalışarak ilerleme' ölçümüne gider.
    KALİBRASYON (açık iş): 21.11.2026 sınavından sonra deneme çözenlerin gerçek puanı
    toplanıp b değerleri ve s dağılımı yeniden kestirilir.
 ============================================================================ */
