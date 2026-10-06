@@ -20,7 +20,12 @@
  * Sonra kc_kutu hesaptakinin aynısı olur. Hesaba ulaşılamazsa (ağ, tablo, oturum yok) HİÇBİR ŞEYE DOKUNMAZ.
  * Değişince document'e 'tetikte-kutu' olayı atar (sayfa yeniden çizer).
  *
- * GÖRMEZ: kc_kayit (çözülen/doğru sayısı) ve kc_oyun bu dosyada eşitlenmez (ilerleme-web.js paketli sayfada taşır);
+ * 07.10 2. tur: kc_kayit (çözülen / doğru % / en zor konu) da eşitlenir — bkz. kayitDegisim/kayitKur.
+ *
+ * Öz-sınav: arac/kutu-esitle-sinavi.js (dogrula.yml; --mutasyon).
+ * GÖRMEZ: kc_oyun (skor girdisi) bu dosyada eşitlenmez (ilerleme-web.js paketli sayfada taşır);
+ * yeni cihazda "çözülen" = hesaptaki her sorunun SON cevabı (aynı soruya cihazdaki tekrar cevaplar tek sayılır);
+ * ilerleme-web.js'in yazdığı kayıtta konu/ders yok → o cevaplar yeni cihazda "en zor konu"ya girmez;
  * kc_ileri (vade ileri alma) cihazda kalır; iki cihazda aynı anda değişen aynı soruda "eşitlemesi sonra olan" kazanır
  * (t = eşitleme anı, değişim anı değil).
  */
@@ -72,6 +77,32 @@
     return k;
   }
 
+  /* 07.10 (2. tur, Cem "1.2.3"): ÇÖZÜLEN / DOĞRU % (kc_kayit) da hesaba. kc_kayit bir cevap günlüğüdür
+     [{id,konu,ders,donem,dogru,t}], hesapta soru başına SON cevap durur: veri.kayit = { id: {d:1|0, t, k?, ders?, donem?} }
+     (ilerleme-web.js {d,t} yazar; bu dosya konu/ders'i de ekler ki başka cihazda "en zor konu" çıkabilsin).
+     Silme yok: günlük yalnız büyür (sayfanın "sıfırla"sı hesaptakini silmez — ilerleme-web.js ile aynı). */
+  var KAYIT_TAVAN = 500, BUYUK = 1200000;   /* hesap satırı tavanı 1,5 MB (SQL); 1,2 MB üstünde konu/ders yazılmaz */
+  function kayitDegisim(log, uzak, buyuk) {
+    var son = {}, d = {};
+    log.forEach(function (r) { if (!r || r.id == null) return; var id = String(r.id), t = r.t || 1; if (!son[id] || t >= son[id].t) son[id] = { r: r, t: t }; });
+    for (var id in son) {
+      var r = son[id].r, t = son[id].t, u = uzak[id];
+      if (u && (u.t || 0) >= t) continue;
+      d[id] = buyuk ? { d: r.dogru ? 1 : 0, t: t } : { d: r.dogru ? 1 : 0, t: t, k: String(r.konu || '').slice(0, 60), ders: String(r.ders || '').slice(0, 60), donem: r.donem || 0 };
+    }
+    return d;
+  }
+  function kayitKur(log, uzak, tip) {
+    var sonYerel = {}, yeni = log.slice();
+    log.forEach(function (r) { if (r && r.id != null) { var id = String(r.id); sonYerel[id] = Math.max(sonYerel[id] || 0, r.t || 1); } });
+    for (var id in uzak) {
+      var u = uzak[id]; if (!u || !u.t || u.t <= (sonYerel[id] || 0)) continue;
+      yeni.push({ id: id in tip ? tip[id] : id, konu: u.k || '', ders: u.ders || '', donem: u.donem || 0, dogru: !!u.d, t: u.t });
+    }
+    yeni.sort(function (a, b) { return ((a && a.t) || 0) - ((b && b.t) || 0); });
+    return yeni.slice(-KAYIT_TAVAN);
+  }
+
   async function esitle() {
     if (calisiyor) { tekrar = true; return calisiyor; }
     calisiyor = (async function () {
@@ -87,11 +118,21 @@
         var yerel = oku('kc_kutu', []); if (!Array.isArray(yerel)) yerel = [];
         var izler = oku(IZ, null);
         var d = degisimler(yerel, izler && typeof izler === 'object' ? izler : null, IL.veri().kutu || {}, Date.now());
-        if (Object.keys(d).length) { IL.haritaYaz('kutu', d); if ((await IL.esitle(sb, uid)) === 'yerel') return 'yerel'; }
+        var log = oku('kc_kayit', []); if (!Array.isArray(log)) log = [];
+        var buyuk = JSON.stringify(IL.veri()).length > BUYUK;
+        var dk = kayitDegisim(log, IL.veri().kayit || {}, buyuk);
+        if (Object.keys(d).length || Object.keys(dk).length) {
+          IL.haritaYaz('kutu', d); IL.haritaYaz('kayit', dk);
+          if ((await IL.esitle(sb, uid)) === 'yerel') return 'yerel';
+        }
         var yeni = kutuKur(IL.veri().kutu || {}, yerel), yeniIz = {};
         yeni.forEach(function (x) { yeniIz[String(x.id)] = iz(x); });
-        var degisti = JSON.stringify(yeni) !== JSON.stringify(yerel);
-        try { if (degisti) localStorage.setItem('kc_kutu', JSON.stringify(yeni)); localStorage.setItem(IZ, JSON.stringify(yeniIz)); } catch (e) {}
+        var tip = {}; log.concat(yerel).forEach(function (x) { if (x && x.id != null) tip[String(x.id)] = x.id; });
+        var yeniLog = kayitKur(log, IL.veri().kayit || {}, tip);
+        var logDegisti = yeniLog.length !== log.length || JSON.stringify(yeniLog) !== JSON.stringify(log.slice(-KAYIT_TAVAN));
+        var degisti = JSON.stringify(yeni) !== JSON.stringify(yerel) || logDegisti;
+        try { if (JSON.stringify(yeni) !== JSON.stringify(yerel)) localStorage.setItem('kc_kutu', JSON.stringify(yeni)); localStorage.setItem(IZ, JSON.stringify(yeniIz));
+              if (logDegisti) localStorage.setItem('kc_kayit', JSON.stringify(yeniLog)); } catch (e) {}
         if (degisti) try { document.dispatchEvent(new CustomEvent('tetikte-kutu', { detail: { adet: yeni.length } })); } catch (e) {}
         return degisti ? 'guncellendi' : 'esit';
       } catch (e) { return 'yerel'; }
@@ -101,7 +142,7 @@
     return sonuc;
   }
 
-  window.ttKutuEsitle = { esitle: esitle, degisimler: degisimler, kutuKur: kutuKur };
+  window.ttKutuEsitle = { esitle: esitle, degisimler: degisimler, kutuKur: kutuKur, kayitDegisim: kayitDegisim, kayitKur: kayitKur };
   /* açılışta bir kez (oturum anahtarı yoksa hiçbir istek gitmez) + sekmeden çıkarken */
   if (anahtarVar()) esitle();
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && anahtarVar()) esitle(); });

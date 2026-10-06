@@ -575,6 +575,12 @@ jobs:
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js" }
           - { ad: "Mobil ilerleme birlestirme MUTASYON (4 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js --mutasyon" }
+          # 07.10 (Cem "yanlis kutusu da hesaba bagla" + "1.2.3"): site yanlis kutusu + cozulen kaydi hesap esitlemesi
+          # (kutu-esitle.js: uc yonlu kutu, soru basina son cevap). GORMEZ: tablo/RLS/ag, sayfalarin yeniden cizmesi.
+          - { ad: "Site kutu/kayit esitleme OZ-SINAVI (cihazlar arasi kutu ve cozulen kaydi)",
+              kabuk: bash, komut: "node arac/kutu-esitle-sinavi.js" }
+          - { ad: "Site kutu/kayit esitleme MUTASYON (9 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node arac/kutu-esitle-sinavi.js --mutasyon" }
           # 30.09 (Cem "1.2.3 yap ve kural koy"): soru kalite kapilari. KAPI-AS = sik aciklamasi baska sikkin sayisini
           # sonuc diye anlatiyor mu; KAPI-EK = bilinen eski/yanlis kural (arac/eski-kurallar.json) ogrenciye gorunen metinde mi.
           # GORMEZ: sozel kusur, listede olmayan eski kural, adim/ikiz ici hesap hatasi (aciklama hakemi isi).
