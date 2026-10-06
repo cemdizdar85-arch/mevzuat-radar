@@ -1,53 +1,7 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 229,
-  "koyu_gecis": 74,
-  "koyu_bekleyen": [],
-  "temiz_sayfa": 227,
-  "denetlenen_metin": 17896,
-  "toplam_kirik": 2,
-  "denetlenen_sinir": 5036,
-  "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "kaydir/vitrin/sgs.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Seviyeni ölç →",
-          "oran": 1.73,
-          "esik": 4.5,
-          "renk": "rgb(0, 0, 238)",
-          "zemin": "rgb(30,32,38)",
-          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
-        }
-      ]
-    },
-    {
-      "sayfa": "kaydir/vitrin/smmm.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Seviyeni ölç →",
-          "oran": 1.73,
-          "esik": 4.5,
-          "renk": "rgb(0, 0, 238)",
-          "zemin": "rgb(30,32,38)",
-          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
-        }
-      ]
-    }
-  ]
+  "chrome_stderr": "[2298:2327:1006/173442.634693:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2298:2327:1006/173442.711481:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
 }
