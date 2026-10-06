@@ -1,11 +1,11 @@
 {
-  "tarih": "06.10.2026 23:16",
+  "tarih": "06.10.2026 23:22",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
   "sayfa": 74,
   "atifli_iddia": 286,
-  "dayanaksiz_iddia": 362,
+  "dayanaksiz_iddia": 363,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     }
   ],
@@ -190,7 +190,7 @@
       "sayfa": "elci.html",
       "satir": 231,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2175,13 +2175,19 @@
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 933,
+      "satir": 605,
+      "iddia": "%70",
+      "metin": "toplamı -> rozet bu testteki orandan (%70+ güçlü, %40+ sınırda), cümle \"sınavda bu gruptan kaç soru var, bu oranla kaçını kaçırırsın\". */"
+    },
+    {
+      "sayfa": "seviye-testi.html",
+      "satir": 946,
       "iddia": "10 yıl",
       "metin": "$('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaş"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 993,
+      "satir": 1006,
       "iddia": "7 gün",
       "metin": "/* 07.10 Cem \"30 soru çözmüştüm, bana 'sorular hazırlanıyor' değil '7 gün sonra dene ya da üye ol' desin\": hak/hafta kutusu"
     },
