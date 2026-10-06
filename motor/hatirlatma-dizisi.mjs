@@ -45,6 +45,8 @@ export const SINAVLAR = {
   sgs: { ad: 'Staja Giriş', tarih: '2026-11-21', tarihYazi: '21 Kasım', test: 'seviye-testi.html', paket: /^sgs/ },
   yeterlilik: { ad: 'SMMM Yeterlilik', tarih: '2026-11-28', tarihYazi: '28 Kasım', test: 'seviye-testi.html?sinav=yeterlilik', paket: /^yeterlilik/ },
 };
+/* 06.10: CSS text-transform:uppercase e-posta istemcisinde Türkçe İ'yi düşürüyordu ('STAJA GIRIŞ'); büyük harf metinde, elle (makineden bağımsız) */
+const buyuk = s => String(s).replace(/i/g, 'İ').toUpperCase();
 const kac = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 export const jeton = e => crypto.createHmac('sha256', SK || 'imza-yok').update('ret:' + String(e).toLowerCase()).digest('hex');
 /* ay adı elle: toLocaleDateString Windows ile Linux'ta farklı çıktı verdi, metin imzası makineye göre değişiyordu (06.10 ölçüldü) */
@@ -89,7 +91,7 @@ export function mailKur(tur, sinav, k, e) {
     dugme = 'Paketime git →'; href = `${SITE}/ogrenci.html`;
   } else throw new Error('tür yok: ' + tur);
   const metin = ['Merhaba,', '', ...govde.flatMap(p => [p, '']), `${dugme.replace(' →', '')}: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
-  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · ${kac(S.ad)}</p>
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">${kac(buyuk('Tetikte · ' + S.ad))}</p>
 <h1 style="font-size:24px;margin:0 0 10px">${kac(bas)}</h1>
 ${govde.map(p => `<p style="margin:0 0 12px">${kac(p)}</p>`).join('\n')}
 <p style="margin:4px 0 18px"><a href="${href}" style="${DUGME}">${kac(dugme)}</a></p>
