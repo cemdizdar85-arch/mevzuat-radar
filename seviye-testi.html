@@ -83,6 +83,7 @@
   .sv-grup.zayif{border-color:var(--red)}
   /* 07.10 Cem ("Avrupa rakipler gibi daha ayrıntılı, öğrenci dilinden"): ders kartında sade yorum + ayrıntı bölümü */
   .sv-grup .sv-yorum{display:block;margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .sv-grup .sv-konu{display:block;margin-top:6px;font-size:13px;line-height:1.5;color:var(--muted)}.sv-grup .sv-konu b{display:inline;font-size:13px;color:var(--ink)}
   .sv-ayr{margin:16px 0}.sv-ayr h3{margin:0 0 10px;font-size:17px}
   .sv-ayr-ic{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
   .sv-ayr-k{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
@@ -599,6 +600,18 @@
   function dersSay(ad,alan){ alan=alan||'ders'; var s={soru:0,dogru:0,yanlis:0,bos:0}; CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||c[alan]!==ad) return; s.soru++; if(c.dogru) s.dogru++; else if(c.secim) s.yanlis++; else s.bos++; }); return s; }
   function ihtimalSoz(p){ return p<20?'çok düşük':p<40?'düşük':p<60?'yarı yarıya':p<80?'iyi':'yüksek'; }
   /* kart başına TEK, derse özel cümle (aynı uyarı 7 kartta tekrar etmesin; "ötekiler kurtarmaz" üstteki ana mesajda) */
+  /* 07.10 Cem ("konu adlarını düzeltip takıldığın konuları ekleyelim"): yanlış/boş geçilen soruların konusu. Ad dosyası robot çıktısı
+     (Yeterlilik: sınav oturumunun okuyarak bağladığı ad; Staja Giriş: kasadaki ad kelime kelime Türkçeleştirilmiş). Dosyada adı
+     olmayan soru sayılmaz; dosya gelmezse satır hiç çizilmez. Kartlar çizildikten sonra gelirse sonradan eklenir (konuEkle). */
+  var KONU_AD=null;
+  try{ fetch('veri/seviye/konu-ad.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(j){ KONU_AD=(j&&j.sinavlar)||null; konuEkle(); }).catch(function(){}); }catch(e){}
+  function takilinanKonular(ad,alan){ if(!KONU_AD) return []; var t=KONU_AD[YET?'smmm':'sgs']||{}, say={}, sira=[];
+    CEVAPLAR.forEach(function(c){ if(c.denetlenemedi||c.dogru||c[alan]!==ad) return; var k=t[c.id]; if(!k) return; if(!say[k]){ say[k]=0; sira.push(k); } say[k]++; });
+    return sira.sort(function(a,b){ return say[b]-say[a]; }).slice(0,3); }
+  function konuEkle(){ if(!KONU_AD) return;
+    [].forEach.call(document.querySelectorAll('[data-konu-ad]'),function(el){ if(el.querySelector('.sv-konu')) return;
+      var l=takilinanKonular(el.getAttribute('data-konu-ad'), el.getAttribute('data-konu-alan')||'ders'); if(!l.length) return;
+      var s=document.createElement('span'); s.className='sv-konu'; s.innerHTML='<b>Takıldığın konular:</b> '+l.map(esc).join(' · '); el.appendChild(s); }); }
   function nedenSoz(s){ return !s.yanlis&&!s.bos ? '' : s.bos>s.yanlis ? ' Çoğunu boş geçtin: konu eksik, önce konuyu çalış.'
       : s.yanlis>s.bos ? ' İşaretleyip yanıldın: konuyu biliyor gibisin ama çeldiricilere takılıyorsun.' : ' Yanlış ve boşların eşit: hem konu hem soru tipi çalışılmalı.'; }
   /* 07.10 Cem ("ikisinde de aynı tip yapalım"): Staja Giriş kartı Yeterlilik'le aynı yapı. SGS'de ders barajı yok, puan 130 sorunun
@@ -657,6 +670,7 @@
         return '<li><b style="display:inline;margin:0">'+esc(x.ad)+'</b>: '+x.soru+' sorunun '+x.dogru+' tanesini bildin'+(s.yanlis||s.bos?' ('+[s.yanlis?s.yanlis+' yanlış':'',s.bos?s.bos+' boş':''].filter(Boolean).join(', ')+')':'')+'; 50 alma ihtimalin '+ihtimalSoz(x.p50)+'.</li>'; }).join('')+'</ol></div>');
     }
     kap.innerHTML='<h3>Sonucunun ayrıntısı</h3><div class="sv-ayr-ic">'+k.join('')+'</div>'; kap.hidden=!k.length;
+    try{ konuEkle(); }catch(e){}
   }
   /* 05.10 NÖBETÇİ YANLIŞINI ANLATIYOR: ilk yanlışların (bilmiyorum hariç) anlatımı sunucudan, en çok 3. Kalanı kilitli → teklif.
      Sunucu kusurlu/eksik anlatımlı soruyu atlar; bu yüzden 8 aday gönderilir. Hiç gelmezse bölüm gizli kalır (sessiz). */
@@ -713,7 +727,7 @@
       : g>=70 ? 'Sekiz dersin hiçbiri riskli görünmüyor. Sınırdaki derslerini sağlamlaştır; sınavda tek bir ders 50\'nin altında kalırsa ortalama kurtarmaz.'
       : 'Hiçbir dersin riskli değil ama çoğu sınırda: ortalamayı 60\'ın üstüne çıkaracak birkaç doğru eksik.';
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · tezkiye notu '+SONUC.tezkiye+' alındı · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
-    $('svGruplar').innerHTML=liste.map(function(x){ var s=dersSay(x.ad); return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru'+(s.yanlis?' · '+s.yanlis+' yanlış':'')+(s.bos?' · '+s.bos+' boş':'')+'</span><span class="sv-yorum">'+dersYorum(x)+'</span></div>'; }).join('');
+    $('svGruplar').innerHTML=liste.map(function(x){ var s=dersSay(x.ad); return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'" data-konu-ad="'+esc(x.ad)+'" data-konu-alan="ders"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru'+(s.yanlis?' · '+s.yanlis+' yanlış':'')+(s.bos?' · '+s.bos+' boş':'')+'</span><span class="sv-yorum">'+dersYorum(x)+'</span></div>'; }).join('');
     try{ ayrintiCiz(liste); }catch(e){}
     $('svTez').hidden=false;
     try{ bugunCiz(liste); }catch(e){}
@@ -871,7 +885,7 @@
       : g>=40 ? 'Geçme sınırındasın. Seni geçirecek şey birkaç fazla doğru; en hızlı kazanç '+zayif.ad.toLowerCase()+' tarafında'+neden+'.'
       : 'Bugün girsen zorlanırsın. İyi haber: sınava '+gun+' gün var. Başlangıç noktan '+zayif.ad.toLowerCase()+neden+'.';
     $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · 130 soruluk sınavda tahmini doğru: yaklaşık '+SONUC.dogru130+((SONUC.dogru130Alt!=null&&SONUC.dogru130Ust!=null)?' (büyük ihtimalle '+SONUC.dogru130Alt+'–'+SONUC.dogru130Ust+' arası; 30 soruluk ölçüm kesin değil)':'')+' · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
-    $('svGruplar').innerHTML=liste.map(function(x){ var s=dersSay(x.ad,'grup'), du=grupDurum(x); return '<div class="sv-grup'+(du==='riskli'?' zayif':'')+'"><b>'+esc(x.ad)+'<em class="'+du+'">'+DURUM_AD[du]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru'+(s.yanlis?' · '+s.yanlis+' yanlış':'')+(s.bos?' · '+s.bos+' boş':'')+'</span><span class="sv-yorum">'+grupYorum(x)+'</span></div>'; }).join('');
+    $('svGruplar').innerHTML=liste.map(function(x){ var s=dersSay(x.ad,'grup'), du=grupDurum(x); return '<div class="sv-grup'+(du==='riskli'?' zayif':'')+'" data-konu-ad="'+esc(x.ad)+'" data-konu-alan="grup"><b>'+esc(x.ad)+'<em class="'+du+'">'+DURUM_AD[du]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru'+(s.yanlis?' · '+s.yanlis+' yanlış':'')+(s.bos?' · '+s.bos+' boş':'')+'</span><span class="sv-yorum">'+grupYorum(x)+'</span></div>'; }).join('');
     var y=CEVAPLAR.filter(function(c){return !c.dogru&&!c.denetlenemedi;});
     try{ ayrintiCiz(liste); }catch(e){}
     try{ bugunCiz(liste); }catch(e){}

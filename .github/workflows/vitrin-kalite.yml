@@ -46,11 +46,20 @@ jobs:
           set -euo pipefail
           node motor/vitrin-hesap.js --sinav
           node motor/vitrin-hesap.js
+      # 07.10 (Cem "takıldığın konular"): seviye testi raporunun konu adları (kimlik -> düzgün Türkçe ad). Set/havuz/eşleme
+      # değişince tazelenir; adı olmayan soruda rapor konu göstermez. Bedel 0, günlüğe yalnız sayı.
+      - name: Seviye testi konu adları
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          node motor/seviye-konu-ad.js --sinav
+          node motor/seviye-konu-ad.js
       - name: Depoya işle
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@tetikte.com"
-          git add veri/vitrin-hesap.json || true
+          git add veri/vitrin-hesap.json veri/seviye/konu-ad.json || true
           git diff --cached --quiet && { echo "değişiklik yok"; exit 0; }
           git commit -m "Ana sayfa soru listesi [veri-operasyonu]"
           for i in 1 2 3 4 5; do
