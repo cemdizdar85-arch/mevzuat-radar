@@ -237,13 +237,13 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
   <h2>Bu mesleğin resmî bedeli, daha tek kitap almadan</h2>
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table>
     <tr><th>TESMER 2026 resmî ücreti</th><th class="sag">Tutar</th></tr>
-    <tr><td>Staj dosya ve başvuru bedeli</td><td class="sag">10.500 TL</td></tr>
-    <tr><td><b>Staja Giriş Sınavı başvuru bedeli</b></td><td class="sag"><b class="a">1.635 TL</b></td></tr>
-    <tr><td>Stajyer zorunlu eğitim (3 yıl)</td><td class="sag">7.890 TL</td></tr>
-    <tr><td>Stajyer kimlik kartı</td><td class="sag">1.540 TL</td></tr>
-    <tr><td><b>SMMM Yeterlilik ilk başvuru (8 ders)</b></td><td class="sag"><b class="a">10.080 TL</b></td></tr>
-    <tr><td>Yeterlilik: kaldığın her ders için</td><td class="sag">1.260 TL</td></tr>
-    <tr><td><b>Toplam (yalnızca resmî ücretler)</b></td><td class="sag"><b>31.645 TL</b></td></tr>
+    <tr data-sinav="sgs" data-toplam="10500"><td>Staj dosya ve başvuru bedeli</td><td class="sag">10.500 TL</td></tr>
+    <tr data-sinav="sgs" data-toplam="1635"><td><b>Staja Giriş Sınavı başvuru bedeli</b></td><td class="sag"><b class="a">1.635 TL</b></td></tr>
+    <tr data-sinav="sgs" data-toplam="7890"><td>Stajyer zorunlu eğitim (3 yıl)</td><td class="sag">7.890 TL</td></tr>
+    <tr data-sinav="sgs" data-toplam="1540"><td>Stajyer kimlik kartı</td><td class="sag">1.540 TL</td></tr>
+    <tr data-sinav="yeterlilik" data-toplam="10080"><td><b>SMMM Yeterlilik ilk başvuru (8 ders)</b></td><td class="sag"><b class="a">10.080 TL</b></td></tr>
+    <tr data-sinav="yeterlilik"><td>Yeterlilik: kaldığın her ders için</td><td class="sag">1.260 TL</td></tr>
+    <tr id="tesmerToplam"><td><b>Toplam (yalnızca resmî ücretler)</b></td><td class="sag"><b>31.645 TL</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Kaynak: <a href="https://www.tesmer.org.tr/wp-content/uploads/2024/12/TESMER_2026_yili_ucretler-2.pdf" target="_blank" rel="noopener">TESMER 2026 Yılı Sınav ve Eğitim Ücretleri</a> (kendi PDF'i, 29.08.2026'da okundu).
   Bu tabloyu satış için değil, <b>kararını rakamla verebilesin</b> diye koyduk.</p>
@@ -251,7 +251,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 
 <!-- 29.08: HARC KARSILASTIRMASI. Rakiplerin hicbiri bunu kuramaz cunku onlarin
      fiyatlari harcin 3-5 kati. Rakamlar fiyat-motoru.js'teki HARC'tan gelir. -->
-<div class="kutu vurgu">
+<div class="kutu vurgu" data-sinav="yeterlilik">
   <h2>Yeterlilik: her basamak resmî harçtan ucuz</h2>
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table id="harcYet">
     <tr><th>Kaç dersten sorumlusun</th><th class="sag">Devlete ödeyeceğin harç</th><th class="sag">Tetikte</th></tr>
@@ -502,7 +502,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
   var t = document.getElementById('kotaTablo');
   ['sgs','yeterlilik-tum'].forEach(function(id){   /* 30.09: KGK satırları kalktı */
     var p = paketBul(id);
-    var tr = document.createElement('tr');
+    var tr = document.createElement('tr'); tr.setAttribute('data-sinav', id === 'sgs' ? 'sgs' : 'yeterlilik');   /* 07.10: sınav süzgeci */
     /* 02.10: tablo KDV dahil basıyordu, sayfa notu "KDV hariç gösterilir" diyor → motorun yardımcısıyla (01.10 kararı) */
     var dahil = function(n){ var d = fiyatDahilNot(id, n); return d ? '<br><span class="kucuk">' + d + '</span>' : ''; };
     tr.innerHTML = '<td>' + p.ad + '</td>'
@@ -530,6 +530,11 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
   [].forEach.call(kutu.querySelectorAll('.p[data-sinav]'),function(k){ gz(k,k.getAttribute('data-sinav')!==sn); });
   kutu.classList.add('tek');
   if(sn==='sgs'){ var u=document.getElementById('ucretsizSatir'); if(u) u.hidden=false; }
+  /* 07.10 Cem ("sadece sgs ile ilgili girdiysek sadece sgs olsun, bitirme için de aynısı"): kartların dışındaki tablo satırları
+     ve bölümler de süzülür; resmî ücret toplamı görünen satırlardan yeniden hesaplanır. */
+  [].forEach.call(document.querySelectorAll('[data-sinav]'),function(el){ if(kutu.contains(el)) return; gz(el, el.getAttribute('data-sinav')!==sn); });
+  var top=0, tsat=document.querySelectorAll('tr[data-toplam]'); [].forEach.call(tsat,function(t){ if(t.style.display!=='none') top+=+t.getAttribute('data-toplam'); });
+  var tt=document.getElementById('tesmerToplam'); if(tt){ if(sn==='sgs') tt.querySelector('td.sag b').textContent=top.toLocaleString('tr-TR')+' TL'; else gz(tt,true); }
   /* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */
   var v=document.querySelector('.vurus'); if(v&&sn!=='sgs') gz(v,true);
   /* geri sayım: yalnız seçili sınav (KGK'nın ilanlı tarihi yok -> takvim gizli) */
