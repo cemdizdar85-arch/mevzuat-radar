@@ -70,8 +70,14 @@ async function istek(yol, secenek) {
   console.log(`VITRIN-KALITE: ücretsiz ${hepsi.length} · dışlanan ${dis.length} · vitrinde ${hepsi.length - dis.length}`);
   console.log(Object.entries(say).sort((a, b) => b[1] - a[1]).map(([k, v]) => '  ' + k + ' ' + v).join('\n'));
   if (KURU) return;
-  await istek('vitrin_aciklama_dislanan?id=neq.__hic__', { method: 'DELETE' });
-  for (let i = 0; i < dis.length; i += 200) await istek('vitrin_aciklama_dislanan', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(dis.slice(i, i + 200)) });
+  // 06.10 OLAY: eski sıra "önce hepsini SİL, sonra YAZ" idi; YAZ adımında ağ koptu ("fetch failed") ve tablo BOŞ kaldı →
+  //   o arada kusurlu kartlar vitrine çıkabilirdi. Yeni sıra: önce YAZ (upsert, var olanı günceller), sonra yalnız ARTIK
+  //   dışlanmayanları sil. Her adım arasında tablo en az eski hâli kadar doludur (fazla dışlama güvenli taraftır).
+  for (let i = 0; i < dis.length; i += 200) await istek('vitrin_aciklama_dislanan?on_conflict=id', { method: 'POST', headers: { Prefer: 'return=minimal,resolution=merge-duplicates' }, body: JSON.stringify(dis.slice(i, i + 200).map(x => ({ ...x, olcum: new Date().toISOString() }))) });
+  const yeni = new Set(dis.map(x => x.id));
+  const once = await istek('vitrin_aciklama_dislanan?select=id');
+  const sil = once.map(x => x.id).filter(id => !yeni.has(id));
+  for (let i = 0; i < sil.length; i += 100) await istek('vitrin_aciklama_dislanan?id=in.(' + sil.slice(i, i + 100).map(id => '"' + id.replace(/"/g, '') + '"').join(',') + ')', { method: 'DELETE' });
   const kontrol = await istek('vitrin_aciklama_dislanan?select=id');
-  console.log(`VITRIN-KALITE: tabloya yazıldı ${kontrol.length}/${dis.length}`);
+  console.log(`VITRIN-KALITE: tabloya yazıldı ${kontrol.length}/${dis.length} (vitrine dönen ${sil.length})`);
 })().catch(e => { console.log('VITRIN-KALITE HATA: ' + e.message); process.exitCode = 1; });
