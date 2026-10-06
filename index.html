@@ -113,6 +113,8 @@ h1 em{font-style:normal;color:var(--amber)}
 .ekran-bas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}   /* 04.10 Cem ekran görüntüsü: uzun ders adında üst satır iki satıra kırılıyordu */
 @media(max-width:520px){ .ekran-bas b{display:none} }
 .ekran-govde{padding:18px}
+#ekOynatici .no-kap{border:0;border-radius:0;margin:0;background:transparent;padding:14px 18px 6px}   /* 06.10: oynatıcı kartın içinde, ikinci çerçeve yok */
+#ekOynatici .no-sahne{min-height:300px}
 .soru{font-size:16.5px;font-weight:600;margin:0 0 14px;line-height:1.55}
 /* 04.10 Cem "soruların üzerinde sınavda kaç kere çıktı yazıyorduk": eski kartın rozeti geri (sayı KONUNUN sıklığı, sorunun değil - 25.09 kuralı) */
 .ek-rozet{display:inline-block;margin:0 0 10px;padding:3px 10px;border:1px solid var(--line2);border-radius:20px;font-size:13px;font-weight:700;color:var(--amber);background:var(--bg2)}
@@ -272,34 +274,17 @@ footer p{margin:0 0 8px}
          "Cevabı göster"de gösterilen yanlış = sorunun İLK TUZAK şıkkı (üretimde en tipik yanlış diye yazılan) - rastgele değil. -->
     <div class="ekran" id="ekran">
       <div class="ekran-bas"><span id="ekDers">Günün sorusu</span><b>Günün sorusu</b></div>
-      <div class="ekran-govde">
-        <p class="ek-rozet" id="ekRozet" hidden></p>
-        <p class="soru" id="ekSoru">Günün sorusu yükleniyor…</p>
-        <p class="ek-davet" id="ekDavet" hidden>Sen olsan hangisini işaretlerdin?</p>
-        <ol class="siklar" id="ekSiklar"></ol>
-        <a class="ek-goster" id="ekGoster" href="#" hidden>Cevabı ve nedenini göster</a>
-      </div>
-      <div class="hukum" id="ekHukum" hidden>
-        <div class="sonuc" id="ekSonuc"></div>
-        <div><h3>Neden?</h3><p id="ekNeden"></p></div>
-        <div class="dayanak" id="ekDayanakKutu"><h3>Mevzuat dayanağı</h3><p id="ekDayanak"></p></div>
-      </div>
+      <!-- 06.10 Cem ("en üstteki deneme çerçevesini oynatıcıyla değiştir"): kart artık şık seçtirmez; günün sorusunu Nöbetçi
+           OYNATICISI (nobetci-oynatici.js) video gibi anlatır: soru → en sık yapılan yanlış + tuzağı → doğru → kural → dayanak.
+           Kendin çözmek isteyen "Kendin çöz" ile eski Kaydır çerçevesini açar (#bzIleri/#bzCerceve/#bzKanca: canli-tarama.js izler). -->
+      <div class="ek-oynatici" id="ekOynatici"><p class="soru" style="padding:18px;margin:0">Günün sorusu yükleniyor…</p></div>
       <div class="ekran-dip">
         <button class="btn btn-ana" id="bzIleri" type="button" disabled>Soru hazırlanıyor…</button>
-        <p class="ekran-not" id="ekNot">Nöbetçi, Tetikte'nin soru yardımcısı. Soruyu adım adım çözer: kritik kelime, ilgili kural, şıkların karşılaştırması, sonuç.</p>
+        <p class="ekran-not" id="ekNot">Nöbetçi, Tetikte'nin soru yardımcısı. Her yanlışını tuzağı, kuralı ve dayandığı maddeyle anlatır.</p>
       </div>
       <div class="kanca" id="bzKanca" hidden role="status"><b id="bzKancaBas"></b><p id="bzKancaMetin"></p><small id="bzKancaDip"></small></div>
       <div id="bzCerceve" hidden></div>
     </div>
-  </div>
-</section>
-
-<!-- 06.10 (Cem "1.2.3" GM1): "Nöbetçi böyle anlatır" - ürünü anlatmak yerine gösterir. Tek örnek soru, elle okunmuş
-     (sgs-c5-maliyet-zor-r1/kp-02; ücretsiz vitrin sorusu, anlatım rpc/seviye_aciklama ile aynı alanlar). Veri sayfada sabit:
-     sunucuya istek yok (egress). Ekrana gelince oynar (nobetci-oynatici.js). Soru onarılırsa bu kopya ELLE tazelenir. -->
-<section class="bolum" id="nobetciOrnek" aria-labelledby="nbOrnekBas">
-  <div class="ic">
-    <div id="nbOrnek"><h2 id="nbOrnekBas">Nöbetçi yanlışını böyle anlatır</h2></div>
   </div>
 </section>
 
@@ -367,27 +352,6 @@ footer p{margin:0 0 8px}
 </footer>
 
 <script src="nobetci-oynatici.js"></script>
-<script>
-/* 06.10 ana sayfa Nöbetçi örneği (bkz. #nobetciOrnek yorumu). Olaylar GoatCounter'a ana/nobetci/* (huni raporu sayar). */
-(function(){
-  var kap=document.getElementById('nbOrnek'); if(!kap||!window.NobetciOynatici) return;
-  var say=function(ad){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:'ana/nobetci/'+ad,title:'Ana sayfa Nöbetçi: '+ad,event:true}); }catch(e){} };
-  window.NobetciOynatici.kur(kap,[{
-    ust:'Maliyet Muhasebesi · örnek: aday E şıkkını seçti',
-    soru:"İşletme, direkt ilk madde ve malzeme için standart maliyet yöntemini uygulamaktadır. Bir birim mamul için standart miktar 5 kilogram, standart fiyat kilogram başına 20 TL olarak belirlenmiştir. Döneme ilişkin bilgiler şöyledir: fiilen üretilen mamul miktarı 4.000 adet, fiili tüketilen hammadde miktarı 21.000 kilogram, bu miktara ait toplam fiili direkt ilk madde ve malzeme maliyeti 462.000 TL'dir. Buna göre, direkt ilk madde ve malzeme fiyat sapmasının tutarı ve niteliği aşağıdakilerden hangisidir?",
-    secim:'E', secim_metin:'62.000 olumsuz', tuzak_ad:'Katman Atlama Tuzağı',
-    tuzak_metin:'Toplam sapmayı (462.000-400.000=62.000) hesapladın ama bunun içindeki miktar sapmasını ayrıştırmadan doğrudan fiyat sapması sandın. Doğrusu: fiyat sapmasını bulmak için toplam sapmadan miktar sapmasının ayrıştırılması gerekir.',
-    dogru:'A', dogru_metin:'42.000 olumsuz',
-    aciklama:"Fiili fiyat kilogram başına 22 TL (462.000 ÷ 21.000), standart 20 TL'dir. Fark (22 - 20) × 21.000 = 42.000 TL olup fiili fiyat standarttan yüksek olduğu için olumsuz sapmadır.",
-    kural:'Fiyat sapması, (Fiili Fiyat - Standart Fiyat) x Fiili Miktar formülüyle hesaplanır ve pozitif sonuç olumsuz sapmadır.'
-  }],{
-    baslik:'Nöbetçi yanlışını böyle anlatır',
-    alt:'Sınav tipi bir soru, yanlış bir cevap. Nöbetçi neden yanıldığını ve doğrusunu adım adım gösteriyor.',
-    son:{ metin:'Bankadaki her soru böyle anlatılır. Kendi yanlışlarını görmek için 30 soruluk testi çöz; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'Ücretsiz başla →', href:'seviye-testi.html', sinif:'btn btn-ana' },
-    olay:say
-  });
-})();
-</script>
 <script src="fiyat-motoru.js"></script>
 <script src="uye-durumu.js"></script>
 <script>
@@ -438,58 +402,32 @@ footer p{margin:0 0 8px}
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
   function ozetim(){ return OZET&&OZET.sinavlar&&OZET.sinavlar[OZET_ANAHTAR[secili]]; }
+  /* 06.10 OYNATICI (Cem "en üstteki deneme çerçevesini oynatıcıyla değiştir"): günün sorusu (motor/vitrin-kart.js ->
+     veri/vitrin-kart-ozet.json) Nöbetçi oynatıcısıyla anlatılır. Gösterilen yanlış = sorunun İLK TUZAK şıkkı (üretimde en tipik
+     yanlış diye yazılan; eski "Cevabı göster" ile aynı seçim). Açıklama: satırlar hesap tablosuysa adım adım ("etiket = tutar")
+     + hap (kısa kural). Sınav değişince yeniden kurulur. */
   function ekranCiz(){
-    var o=ozetim();
+    var o=ozetim(), kap=$('ekOynatici');
     kapat();
-    if(!o||!o.siklar){
-      $('ekDers').textContent='Günün sorusu'; $('ekSoru').textContent='Bu sınavın günün sorusu hazırlanıyor.';
-      $('ekSiklar').innerHTML=''; $('ekHukum').hidden=true; $('ekDavet').hidden=true; $('ekGoster').hidden=true; $('bzIleri').disabled=true; $('bzIleri').textContent='Hazırlanıyor';
+    if(!o||!o.siklar||!window.NobetciOynatici){
+      $('ekDers').textContent='Günün sorusu'; kap.innerHTML='<p class="soru" style="padding:18px;margin:0">Bu sınavın günün sorusu hazırlanıyor.</p>';
+      $('bzIleri').disabled=true; $('bzIleri').textContent='Hazırlanıyor';
       return;
     }
-    var tz=o.tuzak||{}, sen=Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]||'';
+    var tz=o.tuzak||{}, sen=Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]||'', t=tz[sen]||{};
     $('ekDers').textContent=(AD[secili]||'')+' · '+(o.ders||'');
-    /* rozet: SGS = künyenin taranan dönem sayısı ile 'son N sınavın M tanesinde'; Yeterlilik = 'çıkmış sınavlarda N kez' (eski kartla aynı cümleler) */
-    /* 05.10 KALDIRILDI: o.donem konu ETIKETI sayimi (vitrin-kart-ozet); 'son 35 sinavin 11' disiplin icin okunarak sayilanla (32'de 31) celisiyordu. Kural: CLAUDE.md 'disari cikan sinav rakami soru metniyle dogrulanir'. Okunmus sayima (veri/sinav/sgs-konu-okuma.json) baglaninca geri gelir. */
-    var rz=$('ekRozet'); if(false && o.donem){ rz.textContent='📌 '+((secili==='sgs'&&TARANAN)?'Bu konudan son '+TARANAN+' sınavın '+o.donem+' tanesinde soru geldi':'Bu konudan çıkmış sınavlarda '+o.donem+' kez soru geldi'); rz.hidden=false; } else rz.hidden=true;
-    $('ekSoru').textContent=o.soru||''; $('ekSiklar').removeAttribute('data-cevaplandi');
-    /* 04.10 Cem "etkileşimli olsun, senin dediğin olsun": kart ÇÖZÜLMEMİŞ gelir, ziyaretçi şıkkını seçer -> aynı hüküm paneli
-       (Sen / Doğru / Neden? / Mevzuat dayanağı) açılır. Seçmeden bakmak isteyene "Cevabı ve nedenini göster" (en sık yanlışla). */
-    $('ekSiklar').innerHTML=Object.keys(o.siklar).sort().map(function(h){
-      return '<li><button type="button" class="sikb" data-h="'+h+'"><b>'+h+')</b><span>'+esc(o.siklar[h])+'</span></button></li>';
-    }).join('');
-    $('ekDavet').hidden=false; $('ekGoster').hidden=false; $('ekHukum').hidden=true;
-    [].forEach.call($('ekSiklar').querySelectorAll('.sikb'),function(b){
-      b.addEventListener('click',function(){ cevapla(o,b.getAttribute('data-h'),false); });
+    var hesap=(o.satirlar||[]).filter(function(s){ return s&&s.length===2&&/^[\d.,%\s-]+(TL)?$/.test(String(s[1]).trim()); });
+    var aciklama=(hesap.length?hesap.map(function(s){ return String(s[0]).replace(/[.…]+$/,'')+' = '+s[1]+'.'; }).join(' ')+' ':'')+String(o.hap||'');
+    var tm=String(t.metin||''); tm=tm.charAt(0).toLocaleUpperCase('tr')+tm.slice(1);
+    kap.innerHTML='';
+    window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:o.soru, secim:sen, sen_etiket:'En sık yapılan yanlış', secim_metin:sen?o.siklar[sen]:'',
+      tuzak_ad:t.ad, tuzak_metin:tm, dogru:o.dogru, dogru_metin:o.siklar[o.dogru], aciklama:aciklama, kural:'', dayanak:o.dayanak||'' }],{
+      son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
+      olay:function(ad){ say('ana/nobetci/'+ad,'Ana sayfa Nöbetçi: '+ad); }
     });
-    $('ekGoster').onclick=function(e){ e.preventDefault(); cevapla(o,sen,true); };
-    $('bzIleri').disabled=false; $('bzIleri').textContent='Nöbetçiyle öğren →';
+    $('bzIleri').disabled=false; $('bzIleri').textContent='Kendin çöz →';
   }
-  /* sec: seçilen şık · goster: ziyaretçi seçmedi, "Cevabı göster"e bastı (sec = en sık yanlış, yani ilk tuzak) */
-  function cevapla(o,sec,goster){
-    if($('ekSiklar').getAttribute('data-cevaplandi')==='1') return;
-    $('ekSiklar').setAttribute('data-cevaplandi','1');
-    var tz=o.tuzak||{}, dogru=(sec===o.dogru);
-    say('anasayfa/'+(goster?'cevabi-goster':(dogru?'sik-dogru':'sik-yanlis'))+'/'+secili, goster?'Ana sayfa: cevabı gösterdi':'Ana sayfa: kartta şık seçti');
-    [].forEach.call($('ekSiklar').querySelectorAll('.sikb'),function(b){
-      var h=b.getAttribute('data-h'); b.disabled=true;
-      var li=b.parentNode, et='';
-      if(h===o.dogru){ li.className='dogru'; et='Doğru ✓'; }
-      else if(h===sec){ li.className='sen'; et=goster?'En sık yanlış ✕':'Senin cevabın ✕'; }
-      if(et) b.insertAdjacentHTML('beforeend','<span class="et">'+et+'</span>');
-    });
-    /* neden: yanlışta seçilen şıkkın tuzağı; doğruda en çok düşülen tuzak (ilk tuzak) */
-    var tuzakSik=dogru?Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]:sec;
-    var t=(tuzakSik&&tz[tuzakSik])||{}, m=String(t.metin||''); m=m.charAt(0).toLocaleUpperCase('tr')+m.slice(1);
-    if(goster) $('ekSonuc').innerHTML='Doğru cevap: '+esc(o.dogru)+(sec?' · En sık yapılan yanlış: '+esc(sec):'');
-    else if(dogru) $('ekSonuc').innerHTML='<span class="d">Doğru.</span> Sen: '+esc(sec)+(tuzakSik?' · En çok düşülen tuzak '+esc(tuzakSik)+' şıkkında':'');
-    else $('ekSonuc').innerHTML='<span class="y">Yanlış.</span> Sen: '+esc(sec)+' · Doğru: '+esc(o.dogru);
-    $('ekNeden').innerHTML=t.metin?((t.ad?'<b>'+esc(t.ad)+'.</b> ':'')+esc(m)):esc(o.hap||'');
-    $('ekDayanak').textContent=o.dayanak||''; $('ekDayanakKutu').hidden=!o.dayanak;
-    $('ekDavet').hidden=true; $('ekGoster').hidden=true; $('ekHukum').hidden=false;
-    /* açılan panelin altı ekran dışında kalmasın: yalnız gerekiyorsa, yumuşak kaydır */
-    try{ var r=$('bzIleri').getBoundingClientRect(); if(r.bottom>innerHeight) $('bzIleri').scrollIntoView({block:'nearest',behavior:'smooth'}); }catch(e){}
-  }
-  function kapat(){ acik=false; $('bzCerceve').hidden=true; $('bzCerceve').innerHTML=''; $('bzKanca').hidden=true; if(!$('bzIleri').disabled) $('bzIleri').textContent='Nöbetçiyle öğren →'; }
+  function kapat(){ acik=false; $('bzCerceve').hidden=true; $('bzCerceve').innerHTML=''; $('bzKanca').hidden=true; if(!$('bzIleri').disabled) $('bzIleri').textContent='Kendin çöz →'; }
   function temaliYol(o){
     var koyu=window.TetikteTema?window.TetikteTema.koyuMu():false;
     return o.baglanti.replace('vitrin=1','vitrin=1&tek=1').replace(/tema=(koyu|acik)/,'tema='+(koyu?'koyu':'acik'));
@@ -497,7 +435,7 @@ footer p{margin:0 0 8px}
   $('bzIleri').addEventListener('click',function(){
     if(acik){ kapat(); return; }
     var o=ozetim(); if(!o||!o.baglanti) return;
-    say('anasayfa/nobetci/'+secili,'Ana sayfa: Nöbetçiyle öğren');
+    say('anasayfa/kendin-coz/'+secili,'Ana sayfa: Kendin çöz');
     var f=document.createElement('iframe'); f.title='Tetikte Nöbetçi — günün sorusu'; f.loading='lazy'; f.src=temaliYol(o);
     $('bzCerceve').innerHTML=''; $('bzCerceve').appendChild(f); $('bzCerceve').hidden=false; acik=true;
     $('bzIleri').textContent='Kapat ✕';

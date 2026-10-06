@@ -32,8 +32,9 @@ import { kurumsalMail } from '../radar-app/edge/karne-gonder.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 
-const KOK = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..');
+const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');   // Türkçe/boşluklu yol: URL çözülür
 const SB = 'https://bjrleanjpyujtajmazxn.supabase.co', SITE = 'https://tetikte.com';
 const SK = (process.env.SUPABASE_SERVICE_KEY || '').trim();
 const RESEND_KEY = (process.env.RESEND_KEY || '').trim(), RESEND_FROM = (process.env.RESEND_FROM || 'Tetikte <bildirim@tetikte.com>').trim();
@@ -44,9 +45,13 @@ export const SINAVLAR = {
   sgs: { ad: 'Staja Giriş', tarih: '2026-11-21', tarihYazi: '21 Kasım', test: 'seviye-testi.html', paket: /^sgs/ },
   yeterlilik: { ad: 'SMMM Yeterlilik', tarih: '2026-11-28', tarihYazi: '28 Kasım', test: 'seviye-testi.html?sinav=yeterlilik', paket: /^yeterlilik/ },
 };
+/* 06.10: CSS text-transform:uppercase e-posta istemcisinde Türkçe İ'yi düşürüyordu ('STAJA GIRIŞ'); büyük harf metinde, elle (makineden bağımsız) */
+const buyuk = s => String(s).replace(/i/g, 'İ').toUpperCase();
 const kac = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 export const jeton = e => crypto.createHmac('sha256', SK || 'imza-yok').update('ret:' + String(e).toLowerCase()).digest('hex');
-const trTarih = t => new Date(t).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', timeZone: 'Europe/Istanbul' });
+/* ay adı elle: toLocaleDateString Windows ile Linux'ta farklı çıktı verdi, metin imzası makineye göre değişiyordu (06.10 ölçüldü) */
+const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const trTarih = t => { const d = new Date(new Date(t).getTime() + 3 * 36e5); return d.getUTCDate() + ' ' + AYLAR[d.getUTCMonth()]; };   // TR saati (UTC+3)
 const DUGME = 'background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block';
 const NEDEN = 'Bu e-postayı, Tetikte seviye testi ve sınav hatırlatmalarına izin verdiğin için aldın.';
 
@@ -86,7 +91,7 @@ export function mailKur(tur, sinav, k, e) {
     dugme = 'Paketime git →'; href = `${SITE}/ogrenci.html`;
   } else throw new Error('tür yok: ' + tur);
   const metin = ['Merhaba,', '', ...govde.flatMap(p => [p, '']), `${dugme.replace(' →', '')}: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
-  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · ${kac(S.ad)}</p>
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">${kac(buyuk('Tetikte · ' + S.ad))}</p>
 <h1 style="font-size:24px;margin:0 0 10px">${kac(bas)}</h1>
 ${govde.map(p => `<p style="margin:0 0 12px">${kac(p)}</p>`).join('\n')}
 <p style="margin:4px 0 18px"><a href="${href}" style="${DUGME}">${kac(dugme)}</a></p>
@@ -97,7 +102,7 @@ ${govde.map(p => `<p style="margin:0 0 12px">${kac(p)}</p>`).join('\n')}
 /* metin imzası: sabit örnek veriyle 4 türün çıktısı (tarih/gün sayısı hariç) - metin değişince değişir */
 export function imza() {
   const k = { gecme: '%37', tarih: '2026-10-06T10:00:00Z', zayif: 'Muhasebe' };
-  const t = ['gun7', 'ilerleme', 'son-hafta', 'paket3'].map(x => { const m = mailKur(x, 'sgs', k, 'ornek@ornek.com'); return m.konu + m.metin; }).join('|').replace(/\d+ gün/g, 'N gün');
+  const t = ['gun7', 'ilerleme', 'son-hafta', 'paket3'].map(x => { const m = mailKur(x, 'sgs', k, 'ornek@ornek.com'); return m.konu + m.metin; }).join('|').replace(/\d+ gün/g, 'N gün').replace(/t=[0-9a-f]{64}/g, 't=X');   // jeton anahtara bağlı, imzaya girmez
   return crypto.createHash('sha256').update(t).digest('hex').slice(0, 16);
 }
 
@@ -131,6 +136,18 @@ async function ana() {
     fs.mkdirSync(ornek, { recursive: true });
     for (const t of ['gun7', 'ilerleme', 'son-hafta', 'paket3']) { const m = mailKur(t, 'sgs', { gecme: '%37', tarih: '2026-10-06T10:00:00Z', zayif: 'Muhasebe' }, 'ornek@ornek.com'); fs.writeFileSync(path.join(ornek, t + '.html'), `<!-- Konu: ${m.konu} -->\n` + m.html); console.log(`${t}: ${m.konu}`); }
     console.log('imza: ' + imza()); return;
+  }
+  /* --deneme: 4 türün örneği YALNIZ ALARM_ALICI'ya (Cem), konu "[DENEME]" ile; kayıt yazılmaz, gerçek kişiye gitmez */
+  if (process.argv.includes('--deneme')) {
+    if (!RESEND_KEY) throw new Error('RESEND_KEY yok');
+    let n = 0;
+    for (const t of ['gun7', 'paket3', 'ilerleme', 'son-hafta']) {
+      const m = mailKur(t, 'sgs', { gecme: '%37', tarih: '2026-10-06T10:00:00Z', zayif: 'Muhasebe' }, ALARM);
+      const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: RESEND_FROM, to: [ALARM], subject: '[DENEME] ' + m.konu, text: m.metin, html: m.html }) });
+      if (r.ok) n++; await new Promise(r => setTimeout(r, 600));
+    }
+    console.log(`DENEME: ${n}/4 mail Cem'e gitti`); if (n < 4) process.exitCode = 1; return;
   }
   if (!SK) throw new Error('SUPABASE_SERVICE_KEY yok');
   const ayar = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'hatirlatma-ayar.json'), 'utf8'));

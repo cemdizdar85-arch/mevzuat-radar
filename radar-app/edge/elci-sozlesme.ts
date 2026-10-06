@@ -66,7 +66,7 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
     ``,
     `Tetikte · Dizdar Denetim Danışmanlık ve Yazılım A.Ş.`,
   ].join("\n");
-  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d6c38;font-weight:700;margin:0 0 6px">Tetikte · Elçi Programı</p>
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · ELÇİ PROGRAMI</p>
 <p>Merhaba ${kacis(p.ad)},</p>
 <p>Tetikte Elçi Programı Katılım Sözleşmesi'ni elçi panelinde onayladın. <b>Onayladığın metnin PDF kopyası ektedir.</b></p>
 <table style="border-collapse:collapse;margin:0 0 14px;font-size:14px">
@@ -84,7 +84,7 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
 // ---------------------------------------------------------------------------
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME.
-const KOD_IMZA = "55919919c8900c9a";
+const KOD_IMZA = "364121495d59e754";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
