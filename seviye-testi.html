@@ -146,8 +146,10 @@
       <p class="sv-alt" style="margin:0 0 12px">Testi yeniden çözmek, ders ders karneni görmek ve yanlışlarını çözmek ücretsiz üyelikte. Hesap açman 1 dakika.</p>
       <div class="sv-dugmeler">
         <a class="sv-btn ana" href="ogrenci.html" style="text-decoration:none">Ücretsiz üye ol →</a>
-        <a class="sv-btn" href="kaydir/vitrin/sgs.html" style="text-decoration:none">Örnek soruları çöz</a>
       </div>
+      <!-- 07.10 Cem: "örnek soruları çöz 10 tane, burada bir tane yapacağız" -> 10 soruluk sayfa yerine kutunun içinde
+           YARININ günün sorusu (ana sayfadaki bugünkünü görmüş olabilir; burada hep yeni bir şey). Betik sayfa sonunda. -->
+      <div id="svYarin" style="margin-top:18px"></div>
     </div>
   </section>
 
@@ -302,7 +304,7 @@
 <script src="seviye-model-yet.js"></script>
 <script src="fiyat-motoru.js"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
-<script src="nobetci-oynatici.js?v=20261007g"></script>
+<script src="nobetci-oynatici.js?v=20261007h"></script>
 <script src="uye-durumu.js"></script>
 <script src="kutu-esitle.js"></script>
 <script>
@@ -863,7 +865,7 @@
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
     $('svGiris').querySelectorAll('.sv-not')[0].textContent='Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.';
     $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.';
-    $('svHakBitti').querySelector('a[href="kaydir/vitrin/sgs.html"]').setAttribute('href','kaydir/vitrin/smmm.html');
+    var svVit=$('svHakBitti').querySelector('a[href="kaydir/vitrin/sgs.html"]'); if(svVit) svVit.setAttribute('href','kaydir/vitrin/smmm.html');   /* 07.10: düğme kalktı (yarının sorusu) */
     $('svYeniden').textContent='Testi yeniden çöz';
     try{ $('svSinav').value='yeterlilik'; }catch(e){}
     return fetch('veri/seviye/smmm-set.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(s){
@@ -945,5 +947,27 @@
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">
+<script>
+/* 07.10 Cem ("bir sonraki günün sorusunu"): ücretsiz hakkını kullanmış ziyaretçinin kutusunda YARININ günün sorusu oynar.
+   Seçim ana sayfayla aynı formül (gün sırası % liste) + 1 -> yarın ana sayfada ve Instagram'da çıkacak soru. Kutu görünür olunca bir kez kurulur. */
+(function(){
+  var kutu=document.getElementById('svHakBitti'), yer=document.getElementById('svYarin'); if(!kutu||!yer) return;
+  var yet=/(?:^|[?&#])sinav=yeterlilik\b/.test(location.search+'&'+location.hash), kuruldu=false;
+  function kur(){
+    if(kuruldu||kutu.hidden) return; kuruldu=true;
+    fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(d){
+      var VL=(d&&d.sinavlar&&d.sinavlar[yet?'yeterlilik':'sgs'])||[]; if(!VL.length||!window.NobetciOynatici) return;
+      var v=VL[(Math.floor(Date.now()/864e5)+1)%VL.length];
+      window.NobetciOynatici.kur(yer,[{ ust:'Yarının sorusu · '+(v.ders||''), soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış',
+        tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin, dogru:v.dogru, aciklama:v.aciklama, adimlar:v.adimlar, kayitlar:v.kayitlar, kural:v.kural, dayanak:v.dayanak }],
+        { baslik:'Yarının sorusu, herkesten önce', alt:'Her gün yeni bir soru. Çöz, Nöbetçi adım adım anlatsın.',
+          son:{ metin:'Yarın yeni soru gelir. Testi yeniden çözmek ve ders ders karneni görmek ücretsiz üyelikte.', dugme:'Ücretsiz üye ol →', href:'ogrenci.html', sinif:'sv-btn ana' },
+          etkilesim:10000 });
+    }).catch(function(){});
+  }
+  try{ new MutationObserver(kur).observe(kutu,{ attributes:true, attributeFilter:['hidden'] }); }catch(e){}
+  kur();
+})();
+</script>
 </body>
 </html>
