@@ -20,7 +20,7 @@
    · Üyelik: signUp user_metadata { hesap_turu:'ogrenci', kosul_kabul, pazarlama_rizasi, riza_tarihi } -
      radar-app.html ile aynı onay alanları (koşullar zorunlu, açık rıza isteğe bağlı ve ayrı).
    · Panel: seviye testi geçmişi + geçme ihtimali grafiği · sınav gibi deneme sonuçları · yanlış kutusu · sınava gün.
-   · Aktarım: bu cihazdaki sonuçlar (sv_sonuclar, sg_sgs_<no>) üyenin hesabına yazılır (ogrenci_sonuc; tekil anahtarla
+   · Aktarım: bu cihazdaki sonuçlar (sv_sonuclar, sv_sonuclar_yet, sg_sgs_<no>[_<surum>]) üyenin hesabına yazılır (ogrenci_sonuc; tekil anahtarla
      iki kez yazılmaz). Tablo basılmamışsa (radar-app/sql/2026-09-13-ogrenci-sonuc.sql) sayfa yalnız cihazdakini gösterir
      ve bunu açıkça söyler.
   Açık tema (çalışma ekranı).
@@ -244,6 +244,11 @@
     <!-- İLERLEME: veri (seviye testi / deneme) yoksa üç "–" kartı, boş grafik ve boş deneme kutusu YERİNE tek kart -->
     <div class="og-bolum" id="ogIlerlemeBolum">
       <div class="og-bolum-ust"><h2 id="ogIlerleme">Staja Giriş ilerlemen</h2><span class="og-ipucu" id="ogGeriSayim"></span></div>
+      <!-- 07.10: iki sınavda da sonuç varsa sekme (SGS / Yeterlilik); tek sınavda gizli -->
+      <div class="og-btnler og-gizli" id="ogSinavSec" role="group" aria-label="Sınav seç" style="margin:0 0 12px">
+        <button class="og-btn og-kucuk" type="button" data-sinav="sgs" aria-pressed="false">Staja Giriş</button>
+        <button class="og-btn og-kucuk" type="button" data-sinav="yeterlilik" aria-pressed="false">Yeterlilik</button>
+      </div>
       <div class="og-kutu og-gizli" id="ogBos">
         <b style="font-size:17px">Henüz bir ölçümün yok</b>
         <p class="og-alt" style="margin:4px 0 0;font-size:14.5px">30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.</p>
@@ -256,6 +261,8 @@
           <div class="og-kart"><b id="ogSonGecme">–</b><span id="ogSonGecmeAlt">son geçme ihtimalin</span></div>
           <div class="og-kart"><b id="ogKutu">–</b><span id="ogKutuAlt">bugün tekrar edilecek soru</span></div>
         </div>
+        <!-- 07.10 Yeterlilik: son testte ders ders durum (seviye-model-yet.js: Güçlü / Sınırda / Riskli; her dersin barajı ayrı) -->
+        <div class="og-kutu og-gizli" id="ogYetDersler" style="margin-top:12px"></div>
         <div class="og-grafik" id="ogGrafik"></div>
         <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
         <div class="og-bolum og-gizli" id="ogDenemeBolum">
@@ -337,9 +344,9 @@
     /* 02.10: Cihazlarım yalnız aktif pakette; ilerleme kartının bağları paketin sınavına göre */
     var aktifler=U.SIRA.filter(function(k){ return d.sinavlar[k].durum==='aktif'; });
     $('cihazlarim').classList.toggle('og-gizli',!aktifler.length);
+    /* 07.10: yalnız Yeterlilik paketi varsa ilerleme Yeterlilik'le açılır (kişi sekmeye kendisi basmadıysa) */
     if(aktifler.length && aktifler.indexOf('sgs')<0 && aktifler.indexOf('yeterlilik')>-1){
-      $('ogIlerleme').textContent='Yeterlilik ilerlemen';
-      $('ogBosTest').href=S.yeterlilik.olc||'seviye-testi.html?sinav=yeterlilik'; $('ogBosCalis').href=S.yeterlilik.devam||'sorular.html#smmm';
+      ILR.paketYet=true; if(ILR.kasa&&!ILR.elle&&(sinavKayit('yeterlilik').length||!sinavKayit('sgs').length)) ilerlemeCiz('yeterlilik');
     }
     if(!sinavlar.length){
       kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
@@ -412,7 +419,7 @@
       }catch(e){}
     });
   }
-  var SINAV_TARIHI='2026-11-21';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir */
+  var SINAV_TARIHI='2026-11-21', SINAV_TARIHI_YET='2026-11-28';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir (yedek) */
 
   function trHata(e){
     var k=(e&&(e.code||e.error_code))||'', m=(e&&e.message)||'';
@@ -447,11 +454,23 @@
   }
   function yerel(k,v){ try{ return JSON.parse(localStorage.getItem(k)||'null')||v; }catch(e){ return v; } }
 
-  /* bu cihazdaki sonuçlar -> ortak biçim */
+  /* bu cihazdaki sonuçlar -> ortak biçim.
+     07.10 (ölçüldü): Yeterlilik seviye sonucu 'sv_sonuclar_yet'te duruyordu, hiç aktarılmıyordu; sinav-gibi.html 04.10'dan beri
+     anahtara set sürümünü ekliyor ('sg_sgs_<no>_<surum>'), burası eksiz 'sg_sgs_<no>' okuyordu -> deneme aktarımı durmuştu.
+     Kasada sinav kodu: SGS 'sgs', Yeterlilik 'smmm' (tablo kısıtı sgs|smmm|kgk; yonetim.html 'smmm'i Yeterlilik okur). */
+  var KASA_KOD={ sgs:'sgs', yeterlilik:'smmm' };
   function cihazSonuclari(){
     var liste=[];
-    (yerel('sv_sonuclar',[])||[]).forEach(function(s){ if(s&&s.tarih&&typeof s.gecme==='number') liste.push({tur:'seviye',anahtar:'sv-'+s.tarih,veri:{gecme:s.gecme,dogru:s.dogru,soru:s.soru,dogru130:s.dogru130||null,gruplar:s.gruplar||null,tarih:s.tarih}}); });
-    for(var no=1;no<=10;no++){ var d=yerel('sg_sgs_'+no,null); if(d&&d.bitti&&d.sonuc) liste.push({tur:'deneme',anahtar:'sg-'+no+'-'+(d.bitis||''),veri:{set:no,dogru:d.sonuc.dogru,yanlis:d.sonuc.yanlis,bos:d.sonuc.bos,tarih:d.bitis||null}}); }
+    [['sv_sonuclar','sv-','sgs'],['sv_sonuclar_yet','svy-','smmm']].forEach(function(k){
+      var g=yerel(k[0],[]); if(!Array.isArray(g)) return;
+      g.forEach(function(s){ if(s&&s.tarih&&typeof s.gecme==='number') liste.push({tur:'seviye',sinav:k[2],anahtar:k[1]+s.tarih,veri:{gecme:s.gecme,dogru:s.dogru,soru:s.soru,dogru130:s.dogru130||null,gruplar:s.gruplar||null,tarih:s.tarih}}); });
+    });
+    /* deneme: eksiz (04.10 öncesi) ve sürüm ekli anahtarların ikisi de; ogrenci_sonuc anahtarı eskisi gibi set+bitiş */
+    var anahtarlar=[]; try{ for(var i=0;i<localStorage.length;i++){ var a=localStorage.key(i); if(/^sg_sgs_\d+(?:_[0-9a-z]+)?$/i.test(a||'')) anahtarlar.push(a); } }catch(e){}
+    anahtarlar.forEach(function(a){
+      var m=/^sg_sgs_(\d+)(?:_([0-9a-z]+))?$/i.exec(a), no=+m[1], d=yerel(a,null);
+      if(d&&d.bitti&&d.sonuc&&d.bitis) liste.push({tur:'deneme',sinav:'sgs',anahtar:'sg-'+no+'-'+d.bitis,veri:{set:no,dogru:d.sonuc.dogru,yanlis:d.sonuc.yanlis,bos:d.sonuc.bos,tarih:d.bitis,surum:m[2]||null}});
+    });
     return liste;
   }
 
@@ -517,21 +536,48 @@
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     cihazlarimCiz().catch(function(){ $('ogCihazlar').innerHTML='<p class="og-alt" style="margin:0">Cihaz bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;
-    /* 1) cihazdakini hesaba aktar (tekil anahtar - iki kez yazılmaz) */
+    /* 1) cihazdakini hesaba aktar (tekil anahtar - iki kez yazılmaz). 07.10: sinav kayda göre (sgs | smmm=Yeterlilik) */
     if(cihaz.length){
-      var r=await sb.from('ogrenci_sonuc').upsert(cihaz.map(function(x){ return {tur:x.tur,sinav:'sgs',anahtar:x.anahtar,veri:x.veri}; }),{onConflict:'user_id,tur,anahtar',ignoreDuplicates:true});
+      var r=await sb.from('ogrenci_sonuc').upsert(cihaz.map(function(x){ return {tur:x.tur,sinav:x.sinav,anahtar:x.anahtar,veri:x.veri}; }),{onConflict:'user_id,tur,anahtar',ignoreDuplicates:true});
       if(r.error){ kasaVar=false; }
     }
-    /* 2) hesaptakini oku */
-    var o=await sb.from('ogrenci_sonuc').select('tur,anahtar,veri,olusturma').eq('sinav','sgs').order('olusturma',{ascending:true}).limit(500);
+    /* 2) hesaptakini oku - iki sınav birden; gösterim seçili sınava göre (ilerlemeCiz) */
+    var o=await sb.from('ogrenci_sonuc').select('tur,sinav,anahtar,veri,olusturma').in('sinav',['sgs','smmm']).order('olusturma',{ascending:true}).limit(500);
     if(o.error){ kasaVar=false; } else { kasa=o.data||[]; }
     if(!kasaVar){
       $('ogKasaUyari').classList.remove('og-gizli');
       $('ogKasaUyari').textContent='Sonuç kasası hazırlanıyor: şu an yalnız bu cihazdaki sonuçların görünüyor. Hazır olunca buradaki sonuçların hesabına kendiliğinden aktarılacak.';
-      kasa=cihaz.map(function(x){ return {tur:x.tur,anahtar:x.anahtar,veri:x.veri,olusturma:x.veri.tarih}; });
+      kasa=cihaz.map(function(x){ return {tur:x.tur,sinav:x.sinav,anahtar:x.anahtar,veri:x.veri,olusturma:x.veri.tarih}; });
     }
-    var seviye=kasa.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
-    var deneme=kasa.filter(function(x){return x.tur==='deneme';});
+    ILR.kasa=kasa;
+    var U=window.TetikteUye, ilk=ILR.paketYet?'yeterlilik':(U&&U.seciliSinav?U.seciliSinav():'sgs');
+    if(ilk!=='yeterlilik') ilk='sgs';
+    /* seçili sınavda hiç sonuç yok, ötekinde var -> ötekiyle aç */
+    var digeri=ilk==='sgs'?'yeterlilik':'sgs';
+    if(!sinavKayit(ilk).length && sinavKayit(digeri).length) ilk=digeri;
+    ilerlemeCiz(ilk);
+  }
+
+  /* 07.10: kasadaki kayıtlar sınav sınav (sinav alanı olmayan eski kayıt = sgs) */
+  var ILR={ kasa:null, secili:null, elle:false, paketYet:false, takvim:null };
+  function sinavKayit(s){ var kod=KASA_KOD[s]; return (ILR.kasa||[]).filter(function(x){ return (x.sinav||'sgs')===kod; }); }
+  document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){
+    b.addEventListener('click',function(){ ILR.elle=true; var s=b.getAttribute('data-sinav'); try{ window.TetikteUye&&TetikteUye.sinavSec(s); }catch(e){} ilerlemeCiz(s); });
+  });
+  var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
+  function ilerlemeCiz(s){
+    ILR.secili=s;
+    var yet=s==='yeterlilik', S=(window.TetikteUye&&TetikteUye.SINAVLAR&&TetikteUye.SINAVLAR[s])||{};
+    var kayit=sinavKayit(s);
+    var iki=sinavKayit('sgs').length>0 && sinavKayit('yeterlilik').length>0;
+    $('ogSinavSec').classList.toggle('og-gizli',!iki);
+    document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){ var a=b.getAttribute('data-sinav')===s; b.classList.toggle('ana',a); b.setAttribute('aria-pressed',String(a)); });
+    $('ogIlerleme').textContent=yet?'Yeterlilik ilerlemen':'Staja Giriş ilerlemen';
+    var olc=S.olc||(yet?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), devam=S.devam||(yet?'sorular.html#smmm':'sorular.html#sgs');
+    $('ogBosTest').href=olc; $('ogTestBtn').href=olc; $('ogBosCalis').href=devam;
+    var seviye=kayit.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
+    /* sinav-gibi.html yalnız SGS'dir: Yeterlilik'te deneme bölümü yok */
+    var deneme=yet?[]:kayit.filter(function(x){return x.tur==='deneme';});
     grafikCiz(seviye);
     var son=seviye[seviye.length-1];
     if(son){
@@ -540,23 +586,39 @@
       $('ogSonGecmeAlt').textContent='son geçme ihtimalin'+(once!==null?' ('+(son.veri.gecme-once>=0?'+':'')+(son.veri.gecme-once)+' puan)':'');
       var gecen=Math.floor((Date.now()-new Date(son.veri.tarih||son.olusturma))/86400000);
       $('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';
-    } else { $('ogSonGecme').textContent='–'; $('ogTestNot').textContent='Henüz seviye testi yok. 30 soruda ilk ölçümünü al.'; }
-    $('ogDenemeler').innerHTML=deneme.length?deneme.sort(function(a,b){return a.veri.set-b.veri.set;}).map(function(x){ return '<div class="og-satir"><b>Set '+x.veri.set+'</b><span>'+x.veri.dogru+' doğru · '+x.veri.yanlis+' yanlış · '+x.veri.bos+' boş</span></div>'; }).join('')
+    } else { $('ogSonGecme').textContent='–'; $('ogSonGecmeAlt').textContent='son geçme ihtimalin'; $('ogTestNot').textContent='Henüz seviye testi yok. 30 soruda ilk ölçümünü al.'; }
+    /* Yeterlilik: her ders ayrı sınav, barajı ayrı -> tek yüzde yetmez; son testin ders durumları (seviye-model-yet.js alanları aynen) */
+    var yd=$('ogYetDersler'), gr=yet&&son&&Array.isArray(son.veri.gruplar)?son.veri.gruplar.filter(function(g){ return g&&g.ad; }):[];
+    if(gr.length){
+      yd.innerHTML='<p class="og-alt" style="margin:0 0 6px;font-size:13.5px">Son testte ders ders durumun (her dersin barajı ayrı):</p>'+gr.map(function(g){
+        return '<div class="og-satir"><b>'+esc(g.ad)+'</b><span>'+(DURUM_AD[g.durum]?esc(DURUM_AD[g.durum])+' · ':'')+esc(g.dogru)+' / '+esc(g.soru)+' doğru</span></div>'; }).join('');
+      yd.classList.remove('og-gizli');
+    } else { yd.innerHTML=''; yd.classList.add('og-gizli'); }
+    $('ogDenemeler').innerHTML=deneme.length?deneme.sort(function(a,b){ return (a.veri.set-b.veri.set)||String(a.veri.tarih||'').localeCompare(String(b.veri.tarih||'')); }).map(function(x){
+        var t=x.veri.tarih?new Date(x.veri.tarih).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}):'';
+        return '<div class="og-satir"><b>Set '+esc(x.veri.set)+(t?' <span style="font-weight:400;color:var(--muted)">· '+esc(t)+'</span>':'')+'</b><span>'+esc(x.veri.dogru)+' doğru · '+esc(x.veri.yanlis)+' yanlış · '+esc(x.veri.bos)+' boş</span></div>'; }).join('')
       :'<p class="og-alt" style="margin:0">Henüz bitirilmiş deneme yok. 130 soruluk "Sınav gibi çöz" setleri seni bekliyor.</p>';
-    var kutu=yerel('kc_kutu',[]), ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
+    var kutu=yerel('kc_kutu',[]); if(!Array.isArray(kutu)) kutu=[];
+    var ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0, an=Date.now()+ileri;
     var vadeli=kutu.filter(function(x){return x&&x.due<=an;}).length;
     $('ogKutu').textContent=vadeli; $('ogKutuAlt').textContent='bugün tekrar edilecek soru · kutuda '+kutu.length;
     /* 02.10: ölçüm yoksa üç "–" kartı + boş grafik + boş deneme kutusu yerine TEK kart */
     var ilerlemeVar=seviye.length>0||deneme.length>0;
     $('ogBos').classList.toggle('og-gizli',ilerlemeVar); $('ogDolu').classList.toggle('og-gizli',!ilerlemeVar);
     $('ogDenemeBolum').classList.toggle('og-gizli',!deneme.length);
+    $('ogBosKutu').classList.add('og-gizli');
     if(!ilerlemeVar && kutu.length){ $('ogBosKutu').classList.remove('og-gizli'); $('ogBosKutu').textContent='Yanlış kutunda '+kutu.length+' soru var'+(vadeli?'; bugün '+vadeli+' tanesini tekrar etme sırası.':'.'); }
-    fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){
-      var bugun=new Date(new Date().toDateString()), don=d&&d.sinavlar&&d.sinavlar.SGS&&d.sinavlar.SGS.donemler||[];
+    /* geri sayım: takvimde SGS 'SGS', Yeterlilik 'SMMM' (veri/sinav-takvimi.json) */
+    $('ogGeriSayim').textContent='';
+    var gunYaz=function(d){
+      if(ILR.secili!==s) return;
+      var bugun=new Date(new Date().toDateString()), k=yet?'SMMM':'SGS', don=d&&d.sinavlar&&d.sinavlar[k]&&d.sinavlar[k].donemler||[];
       for(var i=0;i<don.length;i++){ var t=new Date(don[i].tarih+'T00:00:00'); if(t>=bugun){ var gun=Math.round((t-bugun)/86400000); $('ogGun').textContent=gun; $('ogTarih').textContent=don[i].tarihYazi;
-        /* 02.10 geri sayım başlığın yanında (boş kartta da görünsün); takvim SGS'nin — Yeterlilik başlığında yazılmaz */
-        if(/^Staja/.test($('ogIlerleme').textContent)) $('ogGeriSayim').textContent='Sınava '+gun+' gün · '+don[i].tarihYazi; return; } }
-    }).catch(function(){ var t=new Date(SINAV_TARIHI+'T00:00:00'); $('ogGun').textContent=Math.max(0,Math.round((t-new Date(new Date().toDateString()))/86400000)); });
+        $('ogGeriSayim').textContent='Sınava '+gun+' gün · '+don[i].tarihYazi; return; } }
+    };
+    if(ILR.takvim) return gunYaz(ILR.takvim);
+    fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){ ILR.takvim=d; gunYaz(d); })
+      .catch(function(){ if(ILR.secili!==s) return; var t=new Date((yet?SINAV_TARIHI_YET:SINAV_TARIHI)+'T00:00:00'); $('ogGun').textContent=Math.max(0,Math.round((t-new Date(new Date().toDateString()))/86400000)); $('ogTarih').textContent=t.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}); });
   }
 
   function grafikCiz(seviye){
