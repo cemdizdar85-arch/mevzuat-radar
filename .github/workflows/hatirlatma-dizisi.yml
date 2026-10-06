@@ -1,0 +1,32 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/hatirlatma-dizisi.yml
+# NEDEN VAR (06.10.2026, Cem: "bu mail otomatik atilmasi gerekiyor" + "1 yap"): seviye testi hatirlatma dizisi
+# (7. gun yeniden olc · 14 gunde bir ilerleme · sinava 1 hafta kala · paketliye 3. gun calis) her sabah 10:00 TR.
+# Gonderim arac/hatirlatma-ayar.json ile ACILIR (Cem metin onayi + imza); kapaliyken yalniz SAYI (gidecek kisi varsa Cem'e sayi maili).
+# Gunluk PUBLIC: betik e-posta/ad/yuzde basmaz. Oz-sinav once kosar; duserse gonderim yapilmaz.
+name: Hatirlatma dizisi (seviye testi)
+on:
+  schedule:
+    - cron: "0 7 * * *"      # 10:00 TR
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: hatirlatma-dizisi
+  cancel-in-progress: false
+jobs:
+  hatirlat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Oz-sinav
+        run: node motor/hatirlatma-dizisi.mjs --sinav
+      - name: Say ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/hatirlatma-dizisi.mjs

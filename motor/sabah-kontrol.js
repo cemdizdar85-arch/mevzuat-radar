@@ -68,17 +68,6 @@ async function kasaVeVitrin() {
     n ? not(0, `Nöbetçi anlatımı canlıda dönüyor (${n}/3 kart)`) : not(2, `Nöbetçi anlatımı DÖNMÜYOR (${j.hata || 'boş liste'})`);
   } catch (e) { not(2, `Nöbetçi anlatımı ölçülemedi (${e.message})`); }
 }
-// 06.10 (Cem "1.2.3" GM2): sınava 1 hafta kala hatırlatma maili ONAY ister - gönderimden 3 gün önce başlayıp sabah mailinde
-// hatırlatır (alıcı sayısıyla). Gönderim yalnız sinav-oncesi-hatirlatma.yml + Cem onayıyla; bu işlev göndermez.
-async function hatirlatmaTakvimi() {
-  const pl = [['sgs', '2026-11-14', 'Staja Giriş'], ['yeterlilik', '2026-11-21', 'Yeterlilik']];
-  for (const [s, gun, ad] of pl) {
-    const fark = Math.round((new Date(gun + 'T00:00:00+03:00') - Date.now()) / 864e5); if (fark < 0 || fark > 3) continue;
-    const r = require('child_process').spawnSync(process.execPath, ['motor/sinav-oncesi-hatirlatma.mjs', '--sinav', s], { encoding: 'utf8', env: process.env, timeout: 60000 });
-    const m = /ALICI (d+)/.exec(r.stdout || ''); const n = m ? m[1] : '?';
-    not(1, `${ad} hatırlatma maili ${gun.split('-').reverse().join('.')} günü gidecek: ${n} alıcı · Cem onayı bekliyor (metin: motor/sinav-oncesi-hatirlatma.mjs)`);
-  }
-}
 async function siparisler() {
   if (!SK) return;
   try {
@@ -90,7 +79,7 @@ async function siparisler() {
 }
 
 (async () => {
-  for (const f of [siteSayfalari, ucFonksiyonlar, akislar, kasaVeVitrin, siparisler, hatirlatmaTakvimi]) { try { await f(); } catch (e) { not(1, f.name + ': ' + e.message); } }
+  for (const f of [siteSayfalari, ucFonksiyonlar, akislar, kasaVeVitrin, siparisler]) { try { await f(); } catch (e) { not(1, f.name + ': ' + e.message); } }
   const hukum = ['YEŞİL', 'SARI', 'KIRMIZI'][durum];
   const tarih = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
   console.log(`SABAH KONTROLÜ: ${hukum}`); satir.forEach(s => console.log('  ' + s));

@@ -608,7 +608,11 @@
   /* aynı rapor için bir kez (sv_karne_tarih) */
   function uyeKarnesi(tarih){ var ep=uyeEposta(); if(!ep||!SONUC) return;
     try{ if(tarih && localStorage.getItem('sv_karne_tarih')===tarih) return; localStorage.setItem('sv_karne_tarih', tarih||''); }catch(e){}
-    say('karne-uye'); karneGonder({ eposta:ep, izin_eposta:false, uye:true }); }
+    say('karne-uye'); karneGonder({ eposta:ep, izin_eposta:uyeRiza(), uye:true }); }
+  /* 06.10: üyenin hesap açarken verdiği rıza (ogrenci.html ogRiza -> user_metadata.pazarlama_rizasi) karne kaydına taşınır;
+     önceden üye karnesi hep 'izin yok' yazıyordu, hatırlatma dizisi (motor/hatirlatma-dizisi.mjs) rızayı ayrıca hesaptan da okur. */
+  function uyeRiza(){ try{ var a=Object.keys(localStorage).filter(function(x){ return x.indexOf('-auth-token')>-1; })[0]; if(!a) return false;
+    var v=JSON.parse(localStorage.getItem(a)||'null'), u=(v&&v.user)||(v&&v.currentSession&&v.currentSession.user)||{}; return (u.user_metadata||{}).pazarlama_rizasi===true; }catch(e){ return false; } }
   function karneGonder(kAlt){
     var k=kAlt||kayitOku(); if(!k||!SONUC) return;
     /* YET (23.09 Cem "3 yap"): karne-gonder 'yeterlilik' kabul ediyor (radar-app/edge/karne-gonder.ts dogrulaYet);
