@@ -32,8 +32,9 @@ import { kurumsalMail } from '../radar-app/edge/karne-gonder.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 
-const KOK = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..');
+const KOK = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');   // Türkçe/boşluklu yol: URL çözülür
 const SB = 'https://bjrleanjpyujtajmazxn.supabase.co', SITE = 'https://tetikte.com';
 const SK = (process.env.SUPABASE_SERVICE_KEY || '').trim();
 const RESEND_KEY = (process.env.RESEND_KEY || '').trim(), RESEND_FROM = (process.env.RESEND_FROM || 'Tetikte <bildirim@tetikte.com>').trim();
