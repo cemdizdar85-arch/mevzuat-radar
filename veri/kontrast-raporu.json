@@ -1,53 +1,7 @@
 {
-  "durum": "KIRMIZI",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 231,
-  "koyu_gecis": 75,
-  "koyu_bekleyen": [],
-  "temiz_sayfa": 229,
-  "denetlenen_metin": 18158,
-  "toplam_kirik": 2,
-  "denetlenen_sinir": 5350,
-  "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [],
-  "kirik_sayfalar": [
-    {
-      "sayfa": "kaydir/vitrin/sgs.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Seviyeni ölç →",
-          "oran": 1.73,
-          "esik": 4.5,
-          "renk": "rgb(0, 0, 238)",
-          "zemin": "rgb(30,32,38)",
-          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
-        }
-      ]
-    },
-    {
-      "sayfa": "kaydir/vitrin/smmm.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Seviyeni ölç →",
-          "oran": 1.73,
-          "esik": 4.5,
-          "renk": "rgb(0, 0, 238)",
-          "zemin": "rgb(30,32,38)",
-          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
-        }
-      ]
-    }
-  ]
+  "chrome_stderr": ""
 }
