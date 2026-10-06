@@ -1,6 +1,6 @@
 # TOPLU KUYRUK HIZI — gönderildiği saate göre bekleme
 
-> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-06 06:43 · son 7 gün · biten parti 2513 · bedel 0
+> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-06 16:08 · son 7 gün · biten parti 2526 · bedel 0
 > Kaynak: Anthropic toplu parti kaydı (created_at → ended_at). Saat = partinin gönderildiği **TR** saati.
 > 🚫 Parti büyüklüğünü ayırmaz; yalnız bizim hesabımızın partilerine bakar.
 
@@ -16,23 +16,23 @@
 | 07:00 | 93 | 354 | 3 | 106 | 573 |
 | 08:00 | 115 | 410 | 5 | 124 | 675 |
 | 09:00 | 115 | 415 | 7 | 26 | 140 |
-| 10:00 | 71 | 263 | 15 | 98 | 617 |
-| 11:00 | 22 | 157 | 70 | 99 | 196 |
-| 12:00 | 36 | 229 | 61 | 199 | 690 |
-| 13:00 | 55 | 272 | 44 | 66 | 811 |
+| 10:00 | 77 | 313 | 15 | 98 | 617 |
+| 11:00 | 23 | 177 | 70 | 99 | 196 |
+| 12:00 | 44 | 275 | 56 | 103 | 690 |
+| 13:00 | 56 | 292 | 36 | 66 | 811 |
 | 14:00 | 37 | 231 | 73 | 143 | 160 |
 | 15:00 | 23 | 176 | 72 | 127 | 133 |
 | 16:00 | 26 | 194 | 132 | 365 | 440 |
 | 17:00 | 32 | 184 | 100 | 135 | 226 |
-| 18:00 | 61 | 1495 | 37 | 430 | 1,170 |
-| 19:00 | 71 | 299 | 5 | 62 | 238 |
+| 18:00 | 59 | 1455 | 38 | 430 | 1,170 |
+| 19:00 | 70 | 279 | 5 | 62 | 238 |
 | 20:00 | 75 | 277 | 4 | 32 | 45 |
 | 21:00 | 56 | 279 | 3 | 15 | 45 |
 | 22:00 | 84 | 563 | 16 | 151 | 216 |
 | 23:00 | 158 | 1201 | 4 | 63 | 82 |
 
-**Son 24 saat:** biten parti 86 · medyan 3 dk · %90 9 dk · **şu an bekleyen 0 parti, en eskisi 0 dk** (liste sınırı: son 60 sayfa)
-**Kuyruk durumu: NORMAL**
-**Genel:** medyan 4 dk · %90 109 dk · parti 2513
+**Son 24 saat:** biten parti 48 · medyan 4 dk · %90 7 dk · **şu an bekleyen 6 parti, en eskisi 487 dk** (liste sınırı: son 60 sayfa)
+**Kuyruk durumu: YAVAŞ — en eski bekleyen 2 saati geçti; yeni dalga kuyruğu uzatır, süre belirsiz**
+**Genel:** medyan 4 dk · %90 109 dk · parti 2526
 
 Kural koymak için: bir saat diliminin medyanı ötekilerden **belirgin ve birkaç gün üst üste** düşükse o saat "tercih" olur. Tek gecelik veri kural değildir.
