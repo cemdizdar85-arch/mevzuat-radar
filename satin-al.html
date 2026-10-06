@@ -340,7 +340,7 @@
 
   <button class="btn" id="gonder">Siparişi tamamla</button>
   <div class="sonuc" id="sonuc"></div>
-  <p class="kucuk" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra
+  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra
   göreceğin hesaba banka havalesi/EFT ile yapılır.</p>
 </div>
 </aside>
@@ -829,6 +829,8 @@ function kartAcik(){ try{ return KART_ACIK || new URLSearchParams(location.searc
 /* 05.10 Cem: üstteki güven satırı KART_ACIK'a bağlı - bayrak açılınca kendiliğinden "Kartla ya da havale/EFT" der.
    Eski "kart bilgisi istenmez" sözü kalktı: kart açılınca yalan olurdu. Kart bilgisi bizde değil iyzico'nun sayfasında girilir. */
 (function(){ var o = document.getElementById('odemeYolu'); if(o && kartAcik()) o.textContent = 'Kartla (iyzico güvencesiyle) ya da havale/EFT ile ödeme'; })();
+/* 07.10 Cem ('banka havale EFT diyor, biz kartı kurduk'): sipariş düğmesinin altındaki not da karta göre konuşur */
+(function(){ var o = document.getElementById('odemeNot'); if(o && kartAcik()) o.textContent = 'Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. Kartla ödeyince paketin hemen açılır.'; })();
 function kartHazirla(no){
   var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
   k.hidden = false;
