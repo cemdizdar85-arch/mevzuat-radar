@@ -79,10 +79,64 @@
     return satir.map(function (x) { return x.veri; });
   }
 
+  /* 07.10 PARÇA PARÇA (Cem "1 yap"): ölçüldü - SGS Finansal Muhasebe 1.100 soru, soru başı ~14 KB → ilk soru ~15 MB inince
+     görünüyordu. Şablon destekliyorsa (__kasaEkle, motor/kaydir-coz.ps1 07.10+) ilk ILK satır gelince sayfa açılır, kalanı arkadan
+     tek seferde eklenir (seviye sırası şablonda korunur). Derin bağlantı (#s=N) ve tek kart (?tek=1) eski yoldan (hepsi) - sıra
+     numarası tam listeye göre. Kalan getirilemezse ilk parçanın bekleyenleri yine eklenir, uyarı çıkar. */
+  var ILK = 40;
+  var parcali = ana.textContent.indexOf('__kasaEkle') > -1 && !/#s=\d+/.test(location.hash) && !/[?&]tek=1/.test(location.search);
+  async function kalaniCek(sb) {
+    var satir = [], bas = ILK, TOPLU = 4, bitti = false;
+    while (!bitti) {
+      var istek = [];
+      for (var j = 0; j < TOPLU; j++) {
+        (function (a) {
+          istek.push(sb.from('paket_soru').select('sira,veri').eq('sayfa', sayfa).order('sira', { ascending: true })
+            .range(a, a + PARCA - 1).then(function (r) { if (r.error) throw r.error; return r.data; }));
+        })(bas + j * PARCA);
+      }
+      var gelen = await Promise.all(istek);
+      gelen.forEach(function (p) { satir = satir.concat(p); if (p.length < PARCA) bitti = true; });
+      bas += TOPLU * PARCA;
+    }
+    satir.sort(function (a, b) { return a.sira - b.sira; });
+    return satir.map(function (x) { return x.veri; });
+  }
+  function uyar(metin) {
+    var u = document.createElement('div'); u.setAttribute('role', 'status');
+    u.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:2147480000;max-width:92%;padding:10px 16px;' +
+      'border-radius:12px;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);font-size:14px';
+    u.textContent = metin; document.body.appendChild(u); setTimeout(function () { u.remove(); }, 9000);
+  }
+
   var bekle = window.__pkKapi || Promise.resolve({ acik: false, tur: 'hata' });
   bekle.then(async function (k) {
     if (!k || !k.acik) return;             /* perde zaten çizildi */
     mesaj('Sorular yükleniyor…', 'Soru bankası güvenli kasadan getiriliyor.');
+    if (parcali) {
+      try {
+        var ilk = await k.sb.from('paket_soru').select('sira,veri').eq('sayfa', sayfa).order('sira', { ascending: true }).range(0, ILK - 1);
+        if (ilk.error) throw ilk.error;
+        if (!ilk.data.length) {
+          return mesaj('Bu ders paketinde yok',
+            'Hesabındaki paket bu dersi kapsamıyor. Ders eklemek için paketini güncelleyebilirsin.',
+            dugme('../../satin-al.html', 'Paketi güncelle'));
+        }
+        var devam = ilk.data.length === ILK;
+        window.__KASA_DEVAM = devam;
+        document.getElementById('akis').innerHTML = '';
+        calistir(ilk.data.sort(function (a, b) { return a.sira - b.sira; }).map(function (x) { return x.veri; }));
+        if (!devam) return;
+        var kalan = [];
+        try { kalan = await kalaniCek(k.sb); }
+        catch (e) { uyar('Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.'); }
+        if (typeof window.__kasaEkle === 'function') window.__kasaEkle(kalan); else window.__KASA_DEVAM = false;
+      } catch (e) {
+        mesaj('Sorular getirilemedi', 'Bağlantını kontrol edip sayfayı yenile. Sorun sürerse bize yaz.',
+          dugme(location.href, 'Yeniden dene'));
+      }
+      return;
+    }
     try {
       var sorular = await cek(k.sb);
       if (!sorular.length) {

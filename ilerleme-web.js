@@ -83,7 +83,14 @@
     document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') IL.esitle(sb, uid); });
 
     /* 3) cevap kaydı: sayfanın kendi dinleyicisi şıkları boyadıktan SONRA sonucu okunur (uygulama-kaydir.js ile aynı) */
-    ks.forEach(function (k, i) {
+    ks.forEach(cevapBagla);
+    /* 07.10 parça yükleme (kasa-yukle.js + __kasaEkle): sonradan gelen kartlara da bağlan; kaldığın kart henüz yoksa gelince git */
+    document.addEventListener('tetikte-kasa-ekle', function () {
+      var eski = ks.length; ks = kartlar();
+      for (var j = eski; j < ks.length; j++) cevapBagla(ks[j], j);
+      if (!tek && !derin) { var h = IL.konumu(YOL); if (h >= eski && ks[h] && simdiki() < 1) a.scrollTo({ top: ks[h].offsetTop, behavior: 'instant' }); }
+    });
+    function cevapBagla(k, i) {
       [].forEach.call(k.querySelectorAll('.sik'), function (s) {
         s.addEventListener('click', function () {
           if (k.__ttcevap) return;
@@ -97,7 +104,7 @@
           }, 0);
         });
       });
-    });
+    }
 
     /* 3b) YANLIŞ KUTUSU + HAZIRLIK SKORU (29.09 Cem "1.2.3" madde 3): sayfa motoru bunları KUTU'da tutar ve kc_* ile
        yalnız bu tarayıcıya yazar. Açılışta hesaptaki kutu sayfaya işlenir (birleşim), sonra sayfanın her yazımı hesaba
