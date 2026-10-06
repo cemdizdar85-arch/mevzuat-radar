@@ -47,7 +47,9 @@ export const SINAVLAR = {
 };
 const kac = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 export const jeton = e => crypto.createHmac('sha256', SK || 'imza-yok').update('ret:' + String(e).toLowerCase()).digest('hex');
-const trTarih = t => new Date(t).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', timeZone: 'Europe/Istanbul' });
+/* ay adı elle: toLocaleDateString Windows ile Linux'ta farklı çıktı verdi, metin imzası makineye göre değişiyordu (06.10 ölçüldü) */
+const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const trTarih = t => { const d = new Date(new Date(t).getTime() + 3 * 36e5); return d.getUTCDate() + ' ' + AYLAR[d.getUTCMonth()]; };   // TR saati (UTC+3)
 const DUGME = 'background:#f5a524;color:#1b1206;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:8px;display:inline-block';
 const NEDEN = 'Bu e-postayı, Tetikte seviye testi ve sınav hatırlatmalarına izin verdiğin için aldın.';
 
@@ -98,7 +100,7 @@ ${govde.map(p => `<p style="margin:0 0 12px">${kac(p)}</p>`).join('\n')}
 /* metin imzası: sabit örnek veriyle 4 türün çıktısı (tarih/gün sayısı hariç) - metin değişince değişir */
 export function imza() {
   const k = { gecme: '%37', tarih: '2026-10-06T10:00:00Z', zayif: 'Muhasebe' };
-  const t = ['gun7', 'ilerleme', 'son-hafta', 'paket3'].map(x => { const m = mailKur(x, 'sgs', k, 'ornek@ornek.com'); return m.konu + m.metin; }).join('|').replace(/\d+ gün/g, 'N gün');
+  const t = ['gun7', 'ilerleme', 'son-hafta', 'paket3'].map(x => { const m = mailKur(x, 'sgs', k, 'ornek@ornek.com'); return m.konu + m.metin; }).join('|').replace(/\d+ gün/g, 'N gün').replace(/t=[0-9a-f]{64}/g, 't=X');   // jeton anahtara bağlı, imzaya girmez
   return crypto.createHash('sha256').update(t).digest('hex').slice(0, 16);
 }
 
