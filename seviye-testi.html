@@ -322,13 +322,15 @@
   }
   function soruSec(yuva){
     var hedef=M.sonrakiZorluk(CEVAPLAR.map(function(c){ return {zorluk:c.zorluk,dogru:c.dogru}; }));
-    var kullanilan=CEVAPLAR.map(function(c){return c.id;}), gor=gorulen();
+    /* 06.10 (Cem "en çok çıkan konudan yapalım"): kutu konu sıklığıyla kurulu (motor/seviye-havuz-bas.js, w = konunun son 10 yılda
+       çıktığı dönem sayısı); seçim w+1 ağırlıklı, aynı konudan (k) ikinci soru gelmez. w yoksa (eski havuz) eşit ağırlık. */
+    var kullanilan=CEVAPLAR.map(function(c){return c.id;}), gor=gorulen(), kKul=CEVAPLAR.map(function(c){return c.k;}).filter(Boolean);
     var sira=ZSIRA[hedef];
     for(var k=0;k<2;k++){                                 // 1. tur: görülmemiş, 2. tur: görülmüş de olur (havuz tükenirse)
       for(var z=0;z<sira.length;z++){
         var kutu=(H.havuz[yuva.ders]||{})[sira[z]]||[];
-        var aday=kutu.filter(function(q){ return kullanilan.indexOf(q.id)<0 && (k===1||gor.indexOf(q.id)<0); });
-        if(aday.length){ var q=aday[Math.floor(Math.random()*aday.length)]; return {q:q, zorluk:sira[z], ders:yuva.ders, grup:yuva.grup}; }
+        var aday=kutu.filter(function(q){ return kullanilan.indexOf(q.id)<0 && (k===1||gor.indexOf(q.id)<0) && !(q.k&&kKul.indexOf(q.k)>-1); });
+        if(aday.length){ var top=0; aday.forEach(function(x){ top+=(x.w||0)+1; }); var r=Math.random()*top, q=aday[aday.length-1]; for(var i=0;i<aday.length;i++){ r-=(aday[i].w||0)+1; if(r<0){ q=aday[i]; break; } } return {q:q, zorluk:sira[z], ders:yuva.ders, grup:yuva.grup}; }
       }
     }
     /* 29.09 ADIM 2: kasada metni bulunmayan kimlik havuzdan düşer; ders boş kalırsa test yarıda bitmesin -
@@ -380,11 +382,11 @@
   }
   function kaydetYerel(bilmiyorum){
     var asil=bilmiyorum?null:AKTIF.harita[SECILI], dogru=!bilmiyorum&&asil===AKTIF.q.dogru;
-    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
+    if(AKTIF.denetlenemedi){ CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:false, denetlenemedi:true, dogruHarf:'?', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira }); soruGoster(); return; }
     /* 23.09: şıklar ekranda KARIŞIK - sonuçta "doğrusu X" adayın GÖRDÜĞÜ harf olmalı (önceden asıl harf yazılıyordu:
        ekranda C'yi gören "doğrusu A" okuyabiliyordu). Harf + şık metni birlikte saklanır. */
     var ekranDogru=Object.keys(AKTIF.harita).filter(function(h){ return AKTIF.harita[h]===AKTIF.q.dogru; })[0]||AKTIF.q.dogru;
-    CEVAPLAR.push({ id:AKTIF.q.id, ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
+    CEVAPLAR.push({ id:AKTIF.q.id, k:AKTIF.q.k||'', ders:AKTIF.ders, grup:AKTIF.grup, zorluk:AKTIF.zorluk, secim:asil, dogru:dogru, dogruHarf:ekranDogru, dogruMetin:(AKTIF.q.siklar||{})[AKTIF.q.dogru]||'', soru:AKTIF.q.soru, sayfa:AKTIF.q.sayfa, sira:AKTIF.q.sira });
     gorulduEkle(AKTIF.q.id);
     /* anonim cevap kaydı (cevap_kayit, anon yalnız ekler) - gerçek zorluk ölçümü için */
     try{ fetch(SB+'/rest/v1/cevap_kayit',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Prefer:'return=minimal'},
@@ -805,7 +807,7 @@
         d.havuz[ders][z]=d.havuz[ders][z].map(function(q){
           var x=m[q.id], v=x&&x.veri;
           if(!(v&&v.soru&&v.siklar&&Object.keys(v.siklar).length===5)) return null;
-          return { id:q.id, soru:v.soru, siklar:v.siklar, sayfa:x.sayfa, sira:x.sira };
+          return { id:q.id, soru:v.soru, siklar:v.siklar, sayfa:x.sayfa, sira:x.sira, k:q.k||'', w:q.w||0 };
         }).filter(Boolean);
         kalan+=d.havuz[ders][z].length;
       }); });

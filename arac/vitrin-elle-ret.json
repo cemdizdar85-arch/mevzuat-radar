@@ -1,368 +1,2332 @@
 {
-  "_not": "05.10.2026 Cem '1 yap' (vitrinden 50 soruluk elle okuma). Elle okumada KUSURLU / ANAHTAR-ŞÜPHELİ çıkan ücretsiz sorular. arac/vitrin-aciklama-kalite.js bu listeyi her koşuda dışlama tablosuna EKLER (kapı tablosu baştan yazılınca silinmesinler). Soru onarılınca buradan elle çıkarılır (gerekçeyle). Yalnız kimlik + kısa neden; soru metni YOK (depo public).",
-  "olcum": "2026-10-05 elle okuma, 50 soru (tohum 20261005): TEMİZ 25 · KOZMETİK 17 · KUSURLU 7 · ANAHTAR-ŞÜPHELİ 1 | 2026-10-06 TAM okuma: genel 629 kart (TEMİZ 359 · KOZMETİK 206 · KUSURLU 62 · ANAHTAR-ŞÜPHELİ 2) + Yeterlilik sabit seti 28 (TEMİZ 17 · KOZMETİK 9 · KUSURLU 2)",
-  "ret": [
-    {
-      "id": "sgs-c5-ticaret-kolay-r1/kp-06",
-      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: Soru kökü: GVK 37'ye göre kollektif şirket ortağının kâr payı şahsi ticari kazançtır, bu yüzden ölçüt 7/1 (C) olabilir. GVK 7/2 cevabı tartışmalı."
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-cokzor/kp-19",
-      "neden": "ELLE-KUSURLU: dogru_sik/dogru_aciklama: Sümerbank'a \"cam\" fabrikası; Paşabahçe Şişe-Cam İş Bankası'nca kuruldu (muhtemel olgu hatası, teyit önerilir)."
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-zor/kp-03",
-      "neden": "ELLE-KUSURLU: tuzak_metin E yanlış: 1926 Medeni Kanunu'nda evlenme yaşı erkek 18/kadın 17'ydi, eşitlik yoktu; E de gerçekleşmemiş, iki doğru şık var."
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-zor/kp-16",
-      "neden": "ELLE-ANAHTAR-ŞÜPHELİ: \"Hangi ilkenin dış politikaya yansıması\": standart cevap Milliyetçilik (E), kolay/kp-16 da öyle öğretiyor; \"Bağımsızlık\" altı ilkeden değil. B/E tuzakları sorud"
-    },
-    {
-      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
-      "neden": "ELLE-KUSURLU: D tuzak_metin: \"Payda SMM yerine net satışlar\" yanlış; değiştirilen paydır (495.000/45.000). Pay/payda karışıklığı öğretiyor."
-    },
-    {
-      "id": "smmm-4k-a-ymeslek-zor-r3/kp-03",
-      "neden": "ELLE-KUSURLU: D tuzak_metin ters kurgu: tasdik zaten YMM'ye özgü; \"yalnız SMMM'yi ilgilendirir\" yanılgısı anlamsız ve yanıltıcı."
-    },
-    {
-      "id": "smmm-4k-a-yvergi-zor-r8/kp-01",
-      "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", tuzak_metin \"Kural:/Hesap:\" istem kalıntısı. Hesap 205.400 doğru."
-    },
-    {
-      "id": "smmm-ab2-a-maliyet/kp-02",
-      "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", metinde \"Kural:/Hesap:/Eksik Gider Tuzağı:\" kalıntısı; dayanakta tekrar. Hesap 1.755.800 doğru."
-    },
-    {
-      "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
-      "neden": "ELLE-KUSURLU: Anahtar B doğru. C tuzağı \"Dikkat Çekilen Hususlar başlığı kaldırılmıştır\" diyor; yanlış, BDS 706'da duruyor. Dayanakta paragraf numarası yok."
-    },
-    {
-      "id": "smmm-w3-yspk-zor/kp-01",
-      "neden": "ELLE-KUSURLU: m.35 kitle fonlamayı saymaz (35/A başlığı metne sızmış), E de doğru cevap; E tuzağı yanlış. Kuralda \"ıntıncı\"; A tuzak adı yer tutucu."
-    }
-  ],
-  "_cikarilan": [
-    {
-      "id": "sgs-c5-ekonomi-kolay-r1/kp-10",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-borclar-zor-r2/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-denetim-zor-r2/kp-02",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d4-yd-cokzor-r2/kp-07",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d3-ticaret-cokzor-r2/kp-04",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-kolay/kp-05",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d3-ticaret-cokzor-r1/kp-07",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-maliye-zor/kp-21",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-a6e-meslek-cokzor/kp-05",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-a6e-meslek-cokzor/kp-14",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-a6e-meslek-cokzor/kp-17",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-a6e-meslek-cokzor/kp-18",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-a6e-meslek-cokzor/kp-21",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-bc-maliyet-zor-r2/kp-01",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-denetim-kolay-r1/kp-13",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-denetim-kolay-r2/kp-09",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-fmuh-kolay-r1/kp-23",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-fmuh-zor-r1-2/kp-02",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-issgk-cokzor-r1/kp-04",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-issgk-cokzor-r1/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c2-maliyet-zor-r1/kp-05",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-borclar-kolay-r3/kp-02",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-borclar-zor-r2/kp-05",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-denetim-cokzor-r1/kp-07",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-denetim-kolay-r1/kp-10",
-      "tarih": "2026-10-06",
-      "gerekce": "okuma notu yanlış: ambar BDS 200 p.22 → A79-A80, p.A80 içeriği kayıtla aynı"
-    },
-    {
-      "id": "sgs-c5-denetim-zor-r1-2/kp-04",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-ekonomi-kolay-r1/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-ekonomi-zor-r1/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-fmuh-cokzor-r1-2/kp-14",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-fmuh-cokzor-r1-3/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-fmuh-kolay-r1-2/kp-10",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-fmuh-zor-r1-2/kp-03",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-fmuh-zor-r1-2/kp-07",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-fmuh-zor-r1-2/kp-09",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliye-cokzor-r1/kp-10",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliye-kolay-r1/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliye-zor-r1/kp-10",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliye-zor-r2/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliyet-kolay-r1/kp-14",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliyet-kolay-r2/kp-16",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliyet-zor-r1/kp-16",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-maliyet-zor-r2/kp-03",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-meslek-kolay-r2/kp-02",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-mta-cokzor-r1/kp-04",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-mta-cokzor-r1/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-mta-cokzor-r2/kp-07",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-vergi-cokzor-r2/kp-08",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-c5-vergi-kolay-r1/kp-14",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d2-ticaret-zor-r1/kp-08",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d4-inkilap-cokzor-r1/kp-01",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d4-turkce-kolay-r1/kp-09",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d4-turkce-kolay-r3/kp-03",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d5-borclar-kolay-r1/kp-04",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d5-borclar-kolay-r2/kp-02",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-d5-ticaret-cokzor-r2/kp-07",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-e16-turkce-kolay/kp-10",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-k13-mat-zor/kp-01",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-k2-borclar-cokzor/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-k5-borclar-cokzor/kp-03",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-cokzor/kp-09",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-zor/kp-21",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-inkilap-zor/kp-25",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-maliye-kolay/kp-06",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    },
-    {
-      "id": "sgs-t1-genel-maliye-zor/kp-08",
-      "tarih": "2026-10-06",
-      "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
-    }
-  ]
+ "_not": "05.10.2026 Cem '1 yap' (vitrinden 50 soruluk elle okuma). Elle okumada KUSURLU / ANAHTAR-ŞÜPHELİ çıkan ücretsiz sorular. arac/vitrin-aciklama-kalite.js bu listeyi her koşuda dışlama tablosuna EKLER (kapı tablosu baştan yazılınca silinmesinler). Soru onarılınca buradan elle çıkarılır (gerekçeyle). Yalnız kimlik + kısa neden; soru metni YOK (depo public). · 06.10: OKUNMADI-0610 satırları geçici; kart elle okununca TEMİZ olanlar listeden çıkar, KUSURLU olanların nedeni yazılır.",
+ "olcum": "2026-10-05 elle okuma, 50 soru (tohum 20261005): TEMİZ 25 · KOZMETİK 17 · KUSURLU 7 · ANAHTAR-ŞÜPHELİ 1 | 2026-10-06 TAM okuma: genel 629 kart (TEMİZ 359 · KOZMETİK 206 · KUSURLU 62 · ANAHTAR-ŞÜPHELİ 2) + Yeterlilik sabit seti 28 (TEMİZ 17 · KOZMETİK 9 · KUSURLU 2)",
+ "ret": [
+  {
+   "id": "sgs-c5-ticaret-kolay-r1/kp-06",
+   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: Soru kökü: GVK 37'ye göre kollektif şirket ortağının kâr payı şahsi ticari kazançtır, bu yüzden ölçüt 7/1 (C) olabilir. GVK 7/2 cevabı tartışmalı."
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-cokzor/kp-19",
+   "neden": "ELLE-KUSURLU: dogru_sik/dogru_aciklama: Sümerbank'a \"cam\" fabrikası; Paşabahçe Şişe-Cam İş Bankası'nca kuruldu (muhtemel olgu hatası, teyit önerilir)."
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-zor/kp-03",
+   "neden": "ELLE-KUSURLU: tuzak_metin E yanlış: 1926 Medeni Kanunu'nda evlenme yaşı erkek 18/kadın 17'ydi, eşitlik yoktu; E de gerçekleşmemiş, iki doğru şık var."
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-zor/kp-16",
+   "neden": "ELLE-ANAHTAR-ŞÜPHELİ: \"Hangi ilkenin dış politikaya yansıması\": standart cevap Milliyetçilik (E), kolay/kp-16 da öyle öğretiyor; \"Bağımsızlık\" altı ilkeden değil. B/E tuzakları sorud"
+  },
+  {
+   "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+   "neden": "ELLE-KUSURLU: D tuzak_metin: \"Payda SMM yerine net satışlar\" yanlış; değiştirilen paydır (495.000/45.000). Pay/payda karışıklığı öğretiyor."
+  },
+  {
+   "id": "smmm-4k-a-ymeslek-zor-r3/kp-03",
+   "neden": "ELLE-KUSURLU: D tuzak_metin ters kurgu: tasdik zaten YMM'ye özgü; \"yalnız SMMM'yi ilgilendirir\" yanılgısı anlamsız ve yanıltıcı."
+  },
+  {
+   "id": "smmm-4k-a-yvergi-zor-r8/kp-01",
+   "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", tuzak_metin \"Kural:/Hesap:\" istem kalıntısı. Hesap 205.400 doğru."
+  },
+  {
+   "id": "smmm-ab2-a-maliyet/kp-02",
+   "neden": "ELLE-KUSURLU: A tuzak_ad \"Ne soruluyor\", metinde \"Kural:/Hesap:/Eksik Gider Tuzağı:\" kalıntısı; dayanakta tekrar. Hesap 1.755.800 doğru."
+  },
+  {
+   "id": "smmm-4k-a-ydenetim-zor-r5/kp-04",
+   "neden": "ELLE-KUSURLU: Anahtar B doğru. C tuzağı \"Dikkat Çekilen Hususlar başlığı kaldırılmıştır\" diyor; yanlış, BDS 706'da duruyor. Dayanakta paragraf numarası yok."
+  },
+  {
+   "id": "smmm-w3-yspk-zor/kp-01",
+   "neden": "ELLE-KUSURLU: m.35 kitle fonlamayı saymaz (35/A başlığı metne sızmış), E de doğru cevap; E tuzağı yanlış. Kuralda \"ıntıncı\"; A tuzak adı yer tutucu."
+  },
+  {
+   "id": "sgs-e16-turkce-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12-turkce-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-turkce-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-turkce-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-kolay/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-kolay/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-kolay/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-kolay/kp-14",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-turkce-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-turkce-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-zor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t3-turkce-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-zor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-turkce-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12c-turkce-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-turkce-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-turkce-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-turkce-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-turkce-cokzor-r2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-turkce-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k4-turkce-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-mat-kolay-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-kolay/kp-19",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mat-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-kolay/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-kolay/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-kolay/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-mat-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11b-mat-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-zor/kp-19",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mat-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-mat-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-zor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-zor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-zor/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-mat-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-mat-zor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mat-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-mat-cokzor/kp-19",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mat-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-mat-cokzor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-mat-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11d-mat-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-inkilap-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-kolay/kp-26",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-kolay/kp-30",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-inkilap-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-inkilap-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-kolay/kp-29",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13b-inkilap-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-inkilap-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-inkilap-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-zor/kp-30",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11b-inkilap-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13-inkilap-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13-inkilap-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13-inkilap-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k6-inkilap-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13b-inkilap-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-yd-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10b-yd-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-kolay/kp-12",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-yd-kolay-r3/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-kolay/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-kolay/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-zor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-zor/kp-21",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-zor/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-zor/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-zor/kp-18",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-zor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-yd-zor-r3/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-yd-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-cokzor/kp-15",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-cokzor/kp-18",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-yd-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d4-yd-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-cokzor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-yd-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-cokzor/kp-14",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-cokzor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t3-yd-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-yd-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k3-yd-cokzor/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-fmuh-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k1-fmuh-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-fmuh-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-kolay-r1/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-kolay-r1/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-fmuh-kolay-r1/kp-21",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-fmuh-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-kolay-r1/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-kolay-r2/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-fmuh-kolay/kp-20",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-kolay-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-kolay-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-fmuh-kolay/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-fmuh-kolay/kp-12",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-fmuh-zor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-fmuh-zor/kp-21",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-zor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-zor-r3/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-zor-r2/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k1-fmuh-zor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-fmuh-zor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-fmuh-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-fmuh-zor/kp-17",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-fmuh-zor/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k1-fmuh-zor/kp-23",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-zor-r2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-fmuh-zor/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k10-fmuh-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-fmuh-cokzor-r1/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-fmuh-cokzor-r1/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-fmuh-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-fmuh-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-fmuh-cokzor-r1/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-fmuh-cokzor-r2/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-cokzor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k1-fmuh-cokzor/kp-13",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-fmuh-cokzor-b/kp-187",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-fmuh-cokzor-r1/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-fmuh-cokzor-r4/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ticaret-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-maliyet-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-maliyet-kolay-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-kolay-r1-b2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-maliyet-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-maliyet-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-kolay-r1-b2/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-maliyet-kolay/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-maliyet-kolay-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-maliyet-kolay/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-maliyet-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-maliyet-kolay-r1/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-maliyet-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-maliyet-zor1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-maliyet-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-maliyet-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-maliyet-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-zor-r4/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-maliyet-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-maliyet-zor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-maliyet-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d5-maliyet-zor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-maliyet-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-maliyet-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-zor-r1-b2/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-maliyet-zor/kp-19",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-maliyet-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-maliyet-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-maliyet-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-maliyet-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliyet-cokzor-r2-b2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-maliyet-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-maliyet-cokzor-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-maliyet-cokzor/kp-48",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-maliyet-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-maliyet-cokzor/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-maliyet-cokzor/kp-20",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-maliyet-cokzor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-maliyet-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11b-maliyet-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-mta-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-kolay/kp-14",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-mta-kolay-r1-a/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mta-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-mta-kolay/kp-18",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-mta-kolay-r2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-mta-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-kolay/kp-27",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-bc-mta-kolay-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-mta-kolay-r1-a/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-mta-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-mta-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mta-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mta-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-mta-zor/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-mta-zor/kp-15",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-mta-zor/kp-23",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-mta-cokzor-r1-a/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-mta-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-cokzor/kp-22",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-mta-cokzor-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-mta-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-mta-cokzor-r2/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-mta-cokzor/kp-27",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-mta-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-mta-cokzor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-denetim-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-denetim-kolay/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-denetim-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-kolay-r2/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-kolay-r3/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-denetim-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-denetim-kolay-r1/kp-13",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-denetim-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-kolay-r3/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-kolay-r3/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-kolay-r2/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12b-denetim-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-kolay-r1/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-denetim-zor1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-denetim-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-zor-r3/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-denetim-zor/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-zor-r2/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-zor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-zor-r2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-denetim-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-denetim-zor/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-zor-r2/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c5-denetim-zor-r2/kp-14",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-denetim-zor-r1/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12-denetim-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-denetim-zor/kp-12",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-denetim-zor-r4/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-denetim-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-denetim-cokzor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-cokzor-r1/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-cokzor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-denetim-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-denetim-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-denetim-cokzor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-denetim-cokzor-r2/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-denetim-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d5-denetim-cokzor-r1/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k7-denetim-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-denetim-cokzor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-denetim-cokzor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12-denetim-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-denetim-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-ekonomi-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-ekonomi-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ekonomi-kolay-r2-a/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-kolay/kp-13",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-kolay/kp-26",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-ekonomi-kolay-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ekonomi-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-ekonomi-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ekonomi-kolay-r1-a/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-ekonomi-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-ekonomi-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-zor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-ekonomi-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ekonomi-zor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ekonomi-zor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ekonomi-cokzor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12-ekonomi-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-ekonomi-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ekonomi-cokzor-r1/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-ekonomi-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-ekonomi-cokzor-r2/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-cokzor/kp-25",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-cokzor/kp-29",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-ekonomi-cokzor/kp-33",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-maliye-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliye-kolay-r1-a/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-maliye-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-genel-maliye-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-kolay/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-maliye-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-kolay/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-kolay/kp-12",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-kolay/kp-17",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-zor/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliye-zor-r1-a/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-maliye-zor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-maliye-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-maliye-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-maliye-zor-r1-a/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k7-maliye-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-maliye-cokzor-r1/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-cokzor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-maliye-cokzor/kp-12",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-maliye-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-maliye-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-maliye-cokzor-r1/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-maliye-cokzor-r1/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-meslek-kolay-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6e-meslek-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11b-meslek-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-kolay/kp-23",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-meslek-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-kolay/kp-27",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6e-meslek-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c5-meslek-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-meslek-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-meslek-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6e-meslek-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k12-meslek-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6e-meslek-zor/kp-21",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-meslek-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6e-meslek-zor/kp-19",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-meslek-zor-r1/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d5-meslek-zor-r2/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-meslek-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-meslek-zor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-meslek-zor-r2-a/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-zor/kp-24",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-cokzor/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-meslek-cokzor-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-cokzor/kp-20",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6e-meslek-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-meslek-cokzor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-meslek-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-meslek-cokzor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c5-meslek-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-meslek-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-issgk-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-issgk-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-bc-borclar-kolay-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-issgk-kolay-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-issgk-kolay-r3/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-issgk-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c5-issgk-kolay-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-issgk-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-issgk-kolay-r1-a/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-issgk-kolay-r2-a/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-issgk-kolay-r2-a/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-issgk-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-issgk-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-issgk-zor-r3/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-issgk-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-zor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-zor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-zor/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-issgk-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-issgk-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-issgk-cokzor-r1/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-issgk-cokzor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-issgk-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-issgk-cokzor/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-issgk-cokzor-r1/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-issgk-cokzor-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-issgk-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-vergi-kolay-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-vergi-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-vergi-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c5-vergi-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-vergi-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-vergi-kolay-r1-a/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-vergi-kolay/kp-20",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-vergi-kolay/kp-18",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-a6-vergi-kolay-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13-vergi-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k13-vergi-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k7-vergi-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-vergi-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-vergi-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-vergi-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-vergi-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-vergi-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k7-vergi-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-vergi-zor-r1-a/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-vergi-zor/kp-19",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t4-vergi-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-vergi-cokzor-r3-a/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d5-vergi-cokzor-r2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-vergi-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-e16-vergi-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k5-vergi-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-vergi-cokzor/kp-27",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-vergi-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-vergi-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-bc-vergi-cokzor-r1/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-vergi-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-ticaret-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t5-ticaret-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-ticaret-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ticaret-kolay-r1-b2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-ticaret-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-ticaret-kolay-r3/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-ticaret-kolay/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ticaret-kolay-r1-b2/kp-07",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-15",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ticaret-kolay-r3/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ticaret-kolay-r2/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-ticaret-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t5-ticaret-zor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-ticaret-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-ticaret-zor-r4/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t5-ticaret-zor/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t5-ticaret-zor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-zor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t5-ticaret-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d3-ticaret-zor-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-ticaret-cokzor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ticaret-cokzor-r2-b2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-ticaret-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-cokzor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-ticaret-cokzor/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d5-ticaret-cokzor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-cokzor/kp-33",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-ticaret-cokzor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-cokzor/kp-10",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2-ticaret-cokzor/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-ticaret-cokzor-r4/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-borclar-kolay-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k11-borclar-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-borclar-kolay/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-kolay/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-kolay/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-42",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-borclar-kolay-r1/kp-06",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-kolay/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-borclar-kolay-r1/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-borclar-kolay-r1-b2/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-borclar-kolay-r2/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-borclar-kolay/kp-08",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-borclar-kolay/kp-11",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-zor/kp-47",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-zor/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-zor/kp-04",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-zor/kp-15",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-borclar-zor-r3/kp-03",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-ticaret-zor/kp-09",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-bc-borclar-zor-r1/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-borclar-zor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-k2-borclar-cokzor/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-p-borclar-cokzor-r1-b2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-c2-borclar-cokzor-r2/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t2b-borclar-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-borclar-cokzor-r1/kp-05",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-d2-borclar-cokzor-r3/kp-01",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  },
+  {
+   "id": "sgs-t1-borclar-cokzor/kp-02",
+   "neden": "OKUNMADI-0610: seviye havuzuna konu sıklığıyla yeni girdi; elle okunana kadar Nöbetçi kartı gösterilmez"
+  }
+ ],
+ "_cikarilan": [
+  {
+   "id": "sgs-c5-ekonomi-kolay-r1/kp-10",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-borclar-zor-r2/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-denetim-zor-r2/kp-02",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d4-yd-cokzor-r2/kp-07",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d3-ticaret-cokzor-r2/kp-04",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-kolay/kp-05",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d3-ticaret-cokzor-r1/kp-07",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-maliye-zor/kp-21",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-a6e-meslek-cokzor/kp-05",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-a6e-meslek-cokzor/kp-14",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-a6e-meslek-cokzor/kp-17",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-a6e-meslek-cokzor/kp-18",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-a6e-meslek-cokzor/kp-21",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-bc-maliyet-zor-r2/kp-01",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-denetim-kolay-r1/kp-13",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-denetim-kolay-r2/kp-09",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-fmuh-kolay-r1/kp-23",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-fmuh-zor-r1-2/kp-02",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-issgk-cokzor-r1/kp-04",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-issgk-cokzor-r1/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c2-maliyet-zor-r1/kp-05",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-borclar-kolay-r3/kp-02",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-borclar-zor-r2/kp-05",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-denetim-cokzor-r1/kp-07",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-denetim-kolay-r1/kp-10",
+   "tarih": "2026-10-06",
+   "gerekce": "okuma notu yanlış: ambar BDS 200 p.22 → A79-A80, p.A80 içeriği kayıtla aynı"
+  },
+  {
+   "id": "sgs-c5-denetim-zor-r1-2/kp-04",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-ekonomi-kolay-r1/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-ekonomi-zor-r1/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-fmuh-cokzor-r1-2/kp-14",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-fmuh-cokzor-r1-3/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-fmuh-kolay-r1-2/kp-10",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-fmuh-zor-r1-2/kp-03",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-fmuh-zor-r1-2/kp-07",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-fmuh-zor-r1-2/kp-09",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliye-cokzor-r1/kp-10",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliye-kolay-r1/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliye-zor-r1/kp-10",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliye-zor-r2/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliyet-kolay-r1/kp-14",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliyet-kolay-r2/kp-16",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliyet-zor-r1/kp-16",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-maliyet-zor-r2/kp-03",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-meslek-kolay-r2/kp-02",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-mta-cokzor-r1/kp-04",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-mta-cokzor-r1/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-mta-cokzor-r2/kp-07",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-vergi-cokzor-r2/kp-08",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-c5-vergi-kolay-r1/kp-14",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d2-ticaret-zor-r1/kp-08",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d4-inkilap-cokzor-r1/kp-01",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d4-turkce-kolay-r1/kp-09",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d4-turkce-kolay-r3/kp-03",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d5-borclar-kolay-r1/kp-04",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d5-borclar-kolay-r2/kp-02",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-d5-ticaret-cokzor-r2/kp-07",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-e16-turkce-kolay/kp-10",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-k13-mat-zor/kp-01",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-k2-borclar-cokzor/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-k5-borclar-cokzor/kp-03",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-cokzor/kp-09",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-zor/kp-21",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-inkilap-zor/kp-25",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-maliye-kolay/kp-06",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  },
+  {
+   "id": "sgs-t1-genel-maliye-zor/kp-08",
+   "tarih": "2026-10-06",
+   "gerekce": "SGS oturumu elle onarım (resmî kaynak, onarim-hatti teslim, ambar geri okuma 80/80); bkz. veri/sinav/VITRIN-ONARIM-20261006.md"
+  }
+ ]
 }

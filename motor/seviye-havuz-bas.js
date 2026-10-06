@@ -12,8 +12,8 @@
 //     (Meslek, İş-SGK, Vergi, Ticaret, Borçlar) · Ekonomi ve Maliye · Genel Kültür ve Yabancı Dil.
 //     Tek soruyla ders hakkında hüküm verilmez; grup düzeyinde gösterilir.
 //   · Her ders × zorluk (kolay/zor/çok zor, soru kimliğindeki üretim etiketi) kutusundan en çok
-//     KUTU soru: önce "Sınav gibi çöz" setlerinde OLMAYANLAR (test denemeyi bozmasın), yetmezse
-//     (Türkçe, Atatürk, Matematik'te setlere girmeyen soru neredeyse yok) tüm havuzdan tamamlanır.
+//     KUTU soru: 06.10'dan beri KONU SIKLIĞINA göre (son 10 yılda en çok dönemde çıkan konular önce,
+//     her konudan 1 soru; bkz. konuSiklik). Eşitlikte "Sınav gibi çöz" setlerinde OLMAYANLAR önce.
 //   · Sayfa: aynı cihaza daha önce gösterilen soruyu tekrar göstermez, şık sırasını karıştırır.
 //
 //  ÇIKTI: veri/seviye/sgs-havuz.json · API maliyeti SIFIR. 29.09.2026'dan beri YALNIZ KİMLİK (id, sayfa, sıra):
@@ -58,6 +58,34 @@ dersler.forEach(d => { const tam = d.sinav * TEST_SORU / toplam; d.test = Math.m
 let kalan = TEST_SORU - dersler.reduce((t, d) => t + d.test, 0);
 dersler.slice().sort((a, b) => b.artik - a.artik).forEach(d => { if (kalan > 0) { d.test++; kalan--; } });
 
+// 06.10.2026 KONU SIKLIĞI (Cem: "30 soruyu en çok çıkan konudan yapalım"): kutu önceden kimlik ALFABESİNE göre ilk KUTU soruydu
+// (konu sıklığıyla ilgisiz). Artık her sorunun konusu çıkmış arşivindeki konu kümesine bağlanır (arac/sgs-konu-kapsama.js ile aynı
+// yol: veri/sgs-analiz.json + veri/sinav/sgs-konu-es.json, ders kapısı dahil) ve kümenin SON 10 YILDA kaç dönemde çıktığı (w) bulunur.
+// Kutu: her konudan en çok 1 soru, w büyükten küçüğe; eşitlikte deneme setinde olmayan önce. Sayfa kutudan w ağırlıklı seçer ve
+// aynı konudan ikinci soru vermez (k). w İÇ PLANLAMA içindir (etiket sayımı) - dışarıya rakam olarak verilmez (SINAV RAKAMI KANITLI).
+// 🚫 GÖRMEZ: arşiv etiketinin yanlış konuya bağlanması (sözlük örneklemle ölçüldü) · konu alanı boş/sözlükte olmayan soru (w=0, sona).
+const katla2 = s => String(s || '').replace(/İ/g, 'I').replace(/ı/g, 'i').toLowerCase().replace(/i̇/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u')
+  .replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/[âà]/g, 'a').replace(/î/g, 'i').replace(/û/g, 'u').replace(/['’]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+const SIK_YIL = 2016;
+const konuEs = jsonOku(path.join(KOK, 'veri', 'sinav', 'sgs-konu-es.json')).esleme;
+const kumeDonem = new Map(), etiketVar = new Set();
+for (const d of jsonOku(path.join(KOK, 'veri', 'sgs-analiz.json')).donemler) {
+  const yil = +String(d.donem).split('/')[0];
+  for (const k of Object.keys(d.konuSayim || {})) {
+    const a = katla2(k.replace(/^[^|]*\|/, '')); if (!a) continue; etiketVar.add(a);
+    if (yil < SIK_YIL) continue;
+    const kk = konuEs[a] ? konuEs[a].k : a; if (!kumeDonem.has(kk)) kumeDonem.set(kk, new Set()); kumeDonem.get(kk).add(d.donem);
+  }
+}
+function konuSiklik(ders, konu) {
+  const a = katla2(konu); if (!a) return { k: '', w: 0 };
+  const hedef = etiketVar.has(a) ? a : (konuEs[a] && etiketVar.has(konuEs[a].k) ? konuEs[a].k : null);
+  if (!hedef) return { k: a, w: 0 };
+  const e = konuEs[a] || konuEs[hedef]; if (e && e.d && e.d !== ders && !/ayrılmadı/.test(e.d)) return { k: a, w: 0 };   // ders kapısı
+  const kk = konuEs[hedef] ? konuEs[hedef].k : hedef;
+  return { k: kk, w: (kumeDonem.get(kk) || new Set()).size };
+}
+
 const setIdleri = new Set();
 try { const dz = jsonOku(path.join(KOK, 'veri', 'deneme', 'sgs-dizin.json')); dz.setler.forEach(s => jsonOku(path.join(KOK, s.dosya)).sorular.forEach(q => setIdleri.add(q.id))); } catch (e) {}
 
@@ -90,7 +118,7 @@ for (const f of fs.readdirSync(path.join(KOK, 'kaydir', 'sgs'))) {
   sayfalar[katla(ad)] = { ad, dosya: yol, S };
 }
 
-const hatalar = [], havuz = {}, plan = [], rapor = [];
+const hatalar = [], havuz = {}, plan = [], rapor = [], siklikRapor = [];
 for (const d of dersler) {
   const k = katla(d.ders), p = sayfalar[k];
   if (!p) { hatalar.push('ders sayfası yok: ' + d.ders); continue; }
@@ -101,12 +129,21 @@ for (const d of dersler) {
   for (const z of ZORLUKLAR) {
     const uygun = p.S.map((s, sira) => ({ s, sira })).filter(x => zorluk(String(x.s.id)) === z && x.s.soru && x.s.siklar && Object.keys(x.s.siklar).length === 5 && x.s.siklar[x.s.dogru])
       .sort((a, b) => String(a.s.id).localeCompare(String(b.s.id)));
-    const setsiz = uygun.filter(x => !setIdleri.has(x.s.id)), setli = uygun.filter(x => setIdleri.has(x.s.id));
-    const secilen = setsiz.slice(0, KUTU).concat(setli.slice(0, Math.max(0, KUTU - setsiz.length)));
+    // eski seçim (alfabe) yalnız karşılaştırma raporu için
+    const eski = uygun.filter(x => !setIdleri.has(x.s.id)).slice(0, KUTU).concat(uygun.filter(x => setIdleri.has(x.s.id))).slice(0, KUTU);
+    uygun.forEach(x => Object.assign(x, konuSiklik(p.ad, x.s.konu)));
+    const sirali = uygun.slice().sort((a, b) => b.w - a.w || (setIdleri.has(a.s.id) - setIdleri.has(b.s.id)) || String(a.s.id).localeCompare(String(b.s.id)));
+    const secilen = [], konular = new Set();
+    for (const x of sirali) { if (secilen.length >= KUTU) break; if (x.k && konular.has(x.k)) continue; secilen.push(x); if (x.k) konular.add(x.k); }
+    for (const x of sirali) { if (secilen.length >= KUTU) break; if (!secilen.includes(x)) secilen.push(x); }   // konu yetmezse doldur
     if (secilen.length < d.test) hatalar.push(`${p.ad} ${z}: ${secilen.length} soru, en az ${d.test} gerekli`);
-    // 29.09 ADIM 2: dosya herkese açık -> YALNIZ kimlik. Metin ucretsiz_soru'dan (cevapsız), doğru seviye_kontrol'den.
-    havuz[p.ad][z] = secilen.map(x => ({ id: x.s.id, sayfa: p.dosya, sira: x.sira }));
-    satir.push(`${z} ${secilen.length} (setsiz ${Math.min(setsiz.length, KUTU)})`);
+    // 29.09 ADIM 2: dosya herkese açık -> YALNIZ kimlik (+ konu kümesi k, sıklık w). Metin ucretsiz_soru'dan (cevapsız), doğru seviye_kontrol'den.
+    havuz[p.ad][z] = secilen.map(x => ({ id: x.s.id, sayfa: p.dosya, sira: x.sira, k: x.k, w: x.w }));
+    const ort = L => L.length ? (L.reduce((t, x) => t + (x.w != null ? x.w : konuSiklik(p.ad, x.s.konu).w), 0) / L.length).toFixed(1) : '-';
+    // öz-sınav konu bazında kıyaslar (yeninin İLK n konusu, n = eskinin konu sayısı): eski seçim aynı sık konudan birkaç soru alabiliyordu, yeni seçim her konudan 1 (bilerek çeşitlilik)
+    const konuOrt = L => { const m = new Map(); L.forEach(x => { const s = konuSiklik(p.ad, x.s.konu); m.set(s.k || x.s.id, s.w); }); const v = [...m.values()]; return v.length ? v.reduce((t, w) => t + w, 0) / v.length : 0; };
+    siklikRapor.push({ ders: p.ad, z, eski: +ort(eski) || 0, yeni: +ort(secilen) || 0, eskiK: konuOrt(eski), yeniK: konuOrt(secilen.slice(0, new Set(eski.map(x => konuSiklik(p.ad, x.s.konu).k)).size)), konuEski: new Set(eski.map(x => konuSiklik(p.ad, x.s.konu).k)).size, n: secilen.length, sifir: secilen.filter(x => !x.w).length });
+    satir.push(`${z} ${secilen.length} (ort. dönem eski ${ort(eski)} -> yeni ${ort(secilen)})`);
   }
   rapor.push(`${p.ad.padEnd(34)} testte ${d.test} · ${satir.join(' · ')}`);
 }
@@ -119,10 +156,16 @@ const fm = plan.find(x => katla(x.ders) === 'finansal muhasebe'), den = plan.fin
 if (!fm || fm.adet !== 6 || !den || den.adet !== 4 || !yd || yd.adet !== 2) hatalar.push('plan dağılımı beklenenden farklı (FM 6 / Denetim 4 / YD 2)');
 if (plan.some(x => x.adet < 1)) hatalar.push('sıfır sorulu ders var');
 const grupToplam = {}; plan.forEach(x => grupToplam[x.grup] = (grupToplam[x.grup] || 0) + x.adet);
+// 06.10 öz-sınav: konu sıklığı seçimi eskisinden kötü olamaz (her kutuda yeni ort. >= eski ort.); bir kutuda konu bulunamazsa uyarı
+siklikRapor.forEach(r => { if (r.yeniK + 1e-9 < r.eskiK) hatalar.push(`${r.ders} ${r.z}: konu sıklığı eskisinden düşük (${r.yeniK.toFixed(1)} < ${r.eskiK.toFixed(1)})`); });
+const sifirKutu = siklikRapor.filter(r => r.sifir === r.n);
 
 console.log('SEVİYE HAVUZU (SGS)');
 rapor.forEach(r => console.log('  ' + r));
 console.log('  grup başına soru:', JSON.stringify(grupToplam));
+{ const t = k => (siklikRapor.reduce((s, r) => s + r[k] * r.n, 0) / Math.max(1, siklikRapor.reduce((s, r) => s + r.n, 0))).toFixed(1);
+  console.log(`  KONU SIKLIĞI: kutudaki sorunun konusu son 10 yılda (${SIK_YIL}+) ortalama kaç dönemde çıktı - eski seçim ${t('eski')} · yeni ${t('yeni')}`
+    + (sifirKutu.length ? ` · ⚠ konusu bağlanamayan kutu: ${sifirKutu.map(r => r.ders + ' ' + r.z).join(', ')}` : '')); }
 if (hatalar.length) { console.log('KIRMIZI - yazılmadı:'); hatalar.forEach(h => console.log('  · ' + h)); process.exit(1); }
 if (KURU) { console.log('  kuru koşu - yazılmadı'); process.exit(0); }
 
