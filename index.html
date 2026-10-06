@@ -419,6 +419,8 @@ footer p{margin:0 0 8px}
     var o=ozetim(), kap=$('ekOynatici'), VL=VITRIN_HESAP[secili]||[]; $('bzIleri').hidden=false;   /* liste boşsa eski 'Kendin çöz' yolu */
     if(VL.length&&window.NobetciOynatici){ var v=VL[Math.floor(Date.now()/864e5)%VL.length]; kapat();
       $('ekDers').textContent=(AD[secili]||'')+' · '+v.ders; kap.innerHTML='';
+      /* 07.10: ana sayfada gördüğü soru seviye testinde ona gelmesin (seviye-testi.html sv_gorulen'deki soruyu ilk turda atlar) */
+      try{ var gr=JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); if(gr.indexOf(v.id)<0){ gr.push(v.id); localStorage.setItem('sv_gorulen',JSON.stringify(gr.slice(-2000))); } }catch(e){}
       window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış', tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin,
         dogru:v.dogru, aciklama:v.aciklama, kural:v.kural, dayanak:v.dayanak }],{ son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
         etkilesim:25000,   /* hesaplı soruyu çözmeye yetecek süre; geri sayım görünür */   /* 07.10 Cem: 'sen çöz diyelim, kaymasın dursun, o çözsün; basmazsa biz kaydırarak çözelim' */

@@ -31,8 +31,12 @@ const temizDayanak = s => String(s || '').replace(/\s*\(teori notu:[^)]*\)/i, ''
 const buyukBas = s => { s = String(s || '').trim(); return s ? s.charAt(0).toLocaleUpperCase('tr') + s.slice(1) : s; };
 
 /* tek soru -> kart ya da düşme nedeni (saf işlev, öz-sınavlı) */
-function kartKur(satir, disli) {
+/* 07.10 (Cem 'seviye testindeki sorulardan al'): Yeterlilik seviye testi HERKESE AYNI sabit 30 soru (veri/seviye/smmm-set.json);
+   onlardan biri günün sorusunda cevabıyla gösterilirse test bozulur -> o set kartta kullanılamaz. SGS havuzu (675, rastgele
+   30) için ana sayfa gördüğü soruyu 'görüldü' işaretler (index.html), test onu atlar. */
+function kartKur(satir, disli, setli) {
   if (!satir) return { neden: 'kasada yok' };
+  if (setli) return { neden: 'Yeterlilik seviye testinin sabit setinde' };
   if (satir.ucretsiz !== true) return { neden: 'ücretsiz değil' };
   if (disli) return { neden: 'vitrin dışlama listesinde' };
   const v = satir.veri || {}, sk = v.siklar || {};
@@ -58,11 +62,12 @@ async function ana() {
   const tum = [...(liste.sgs || []), ...(liste.yeterlilik || [])];
   const satirlar = await sb('paket_soru?select=id,ders,ucretsiz,veri&id=in.(' + encodeURIComponent(tum.map(x => '"' + x + '"').join(',')) + ')');
   const disli = new Set((await sb('vitrin_aciklama_dislanan?select=id')).map(x => x.id));
+  let sabitSet = new Set(); try { sabitSet = new Set(JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'seviye', 'smmm-set.json'), 'utf8')).sorular.map(x => x.id)); } catch (e) { throw new Error('smmm-set.json okunamadı - sabit set korunamaz, yazılmadı'); }
   const cikti = { uretici: 'motor/vitrin-hesap.js', liste: 'arac/vitrin-hesap-liste.json', sinavlar: {}, dusen: [] };
   for (const s of ['sgs', 'yeterlilik']) {
     cikti.sinavlar[s] = [];
     for (const id of liste[s] || []) {
-      const k = kartKur(satirlar.find(x => x.id === id), disli.has(id));
+      const k = kartKur(satirlar.find(x => x.id === id), disli.has(id), sabitSet.has(id));
       if (k.kart) cikti.sinavlar[s].push(k.kart); else cikti.dusen.push({ sinav: s, id, neden: k.neden });
     }
   }
@@ -85,11 +90,12 @@ function sinav() {
   b('her yanlış şıkkın tuzağı karta girer, doğru şık girmez', k.kart && k.kart.tuzaklar.A && k.kart.tuzaklar.A.metin === 'm' && !k.kart.tuzaklar.B);
   b('ücretsizden çıkan soru düşer (06.10 olayı)', kartKur({ ...iyi(), ucretsiz: false }, false).neden === 'ücretsiz değil');
   b('vitrin dışlama listesindeki soru düşer', kartKur(iyi(), true).neden === 'vitrin dışlama listesinde');
+  b('Yeterlilik sabit setindeki soru düşer (test bozulmasın)', kartKur(iyi(), false, true).neden === 'Yeterlilik seviye testinin sabit setinde');
   b('kasada olmayan soru düşer', kartKur(undefined, false).neden === 'kasada yok');
   const uzun = iyi(); uzun.veri.siklar.C = 'x'.repeat(41); b('uzun şıklı soru düşer (karta sığmaz)', kartKur(uzun, false).neden === 'şık uzun');
   const bos = iyi(); bos.veri.sade.dogru = 'undefined'; b('açıklaması "undefined" olan soru düşer', kartKur(bos, false).neden === 'anlatım eksik');
   const tz = iyi(); tz.veri.tuzak = {}; b('tuzağı olmayan soru düşer', kartKur(tz, false).neden === 'anlatım eksik');
-  console.log(`VİTRİN HESAP öz-sınav: ${8 - h}/8`); process.exitCode = h ? 1 : 0;
+  console.log(`VİTRİN HESAP öz-sınav: ${9 - h}/9`); process.exitCode = h ? 1 : 0;
 }
 
 if (require.main === module) { if (process.argv.includes('--sinav')) sinav(); else ana().catch(e => { console.log('VİTRİN HESAP HATA: ' + e.message); process.exitCode = 1; }); }
