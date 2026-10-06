@@ -130,6 +130,17 @@
 
     <!-- 16.09.2026 Cem: "üye olmayan bir kere çözsün, sonra üye olsun". Cihazda işaret (sv_hak).
          DÜRÜST SINIR: gizli sekme / tarayıcı verisi silinince aşılır; gerçek sınır sunucuda sayılacak (kart haftası). -->
+    <!-- 07.10 Cem ("haftada bir olsun; her gün 30 soru çözse bizim sattığımızı almayabilir"): ücretsiz üye 7 günde bir ölçer
+         (7. gün hatırlatma maili o gün hakkı açar); paket sahibi sınırsız; sınava son hafta bir ek hak. DÜRÜST SINIR: hak bu
+         cihazdaki son sonuçtan sayılır, başka cihazdan aşılabilir (sunucuda sayım ayrı iş). -->
+    <div class="sv-kutu" id="svHaftaKilit" hidden>
+      <h2>Bu haftaki ölçümünü yaptın</h2>
+      <p class="sv-alt" id="svHaftaMetin" style="margin:0 0 12px"></p>
+      <div class="sv-dugmeler">
+        <a class="sv-btn ana" id="svHaftaPaket" href="satin-al.html?paket=sgs" style="text-decoration:none">Paketle her gün çalış →</a>
+        <a class="sv-btn" href="seviye-testi.html?rapor=1" id="svHaftaRapor" style="text-decoration:none">Son raporumu gör</a>
+      </div>
+    </div>
     <div class="sv-kutu" id="svHakBitti" hidden>
       <h2>Ücretsiz ölçümünü kullandın</h2>
       <p class="sv-alt" style="margin:0 0 12px">Testi yeniden çözmek, ders ders karneni görmek ve yanlışlarını çözmek ücretsiz üyelikte. Hesap açman 1 dakika.</p>
@@ -291,6 +302,7 @@
 <script src="seviye-model-yet.js"></script>
 <script src="fiyat-motoru.js"></script>
 <script src="nobetci-oynatici.js"></script>
+<script src="uye-durumu.js"></script>
 <script>
 (function(){
   'use strict';
@@ -313,6 +325,16 @@
      pencere içinde tarihlenince hak yine kapanır. Tarihler veri/sinav-takvimi.json (SGS 21.11, Yeterlilik 28.11). */
   var SINAV_GUNU=YET?'2026-11-28':'2026-11-21';
   function sonIkiHafta(){ var s=new Date(SINAV_GUNU+'T00:00:00'), a=new Date(s-7*86400000), n=new Date(); return n>=a&&n<s?a:null; }
+  /* 07.10 ÜYE HAFTALIK HAK: paket sahibi (TetikteUye durum 'aktif') sınırsız; ücretsiz üye son sonucundan 7 gün sonra.
+     Sınavın son haftasında, son sonucu o haftadan önceyse bir ek hak (sonIkiHafta). Dönüş: kalan gün (0 = açık). */
+  var PAKETLI=false, HAFTA_GUN=7;
+  function haftaKalan(){ if(PAKETLI) return 0; try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(!g.length) return 0;
+      var son=new Date(g[g.length-1].tarih), a=sonIkiHafta(); if(a&&son<a) return 0;
+      var acilis=new Date(son.getTime()+HAFTA_GUN*86400000), fark=acilis-new Date(); return fark>0?Math.ceil(fark/86400000):0; }catch(e){ return 0; } }
+  function haftaKilitGoster(){ var n=haftaKalan(); if(!n) return false; var t=new Date(Date.now()+n*86400000);
+    $('svHaftaMetin').innerHTML='Bir sonraki ölçümün <b>'+n+' gün sonra</b> ('+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+') açılır; hatırlatmalara izin verdiysen o gün e-postan da gelir. Haftada bir ölçmek gidişatını gösterir; her gün ölçülen 30 soru şansı ölçer. O zamana kadar paketle her gün soru çöz: bütün yanlışlarını Nöbetçi anlatır.';
+    $('svHaftaPaket').setAttribute('href', YET?'satin-al.html?paket=yeterlilik-tum':'satin-al.html?paket=sgs');
+    $('svHaftaKilit').hidden=false; $('svBasla').hidden=true; say('hafta-kilit'); return true; }
   function hakKullanildi(){ try{ if(localStorage.getItem(ANAH_HAK)!=='1') return false;
     var a=sonIkiHafta(); if(!a) return true;
     var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'), son=g.length?new Date(g[g.length-1].tarih):null;
@@ -415,6 +437,7 @@
      diğer herkes ad + e-posta + TELEFON (zorunlu) + sınav + dönem vermeden soru göremez. */
   function basla(){
     if(!uyeMi() && hakKullanildi()){ goster('svGiris'); $('svHakBitti').hidden=false; $('svBasla').hidden=true; return; }
+    if(uyeMi() && haftaKalan()){ goster('svGiris'); haftaKilitGoster(); return; }   /* 07.10 haftalık hak */
     /* 03.10 (Cem, V2 madde 16 "test sonuna al"): form artık testten ÖNCE değil SONRA - bkz. sonucuAc() */
     testeBasla();
   }
@@ -490,7 +513,7 @@
     if(YET&&$('svTez')) $('svTez').hidden=!uye;
     $('svKilit').hidden=uye;
     /* 04.10 site turu: üyesiz ikinci test zaten svHakBitti duvarına düşüyor -> düğme bunu baştan söylesin */
-    $('svYeniden').textContent=uye?(YET?'Testi yeniden çöz':'Testi yeniden çöz (farklı sorular)'):'Yeniden çözmek için ücretsiz hesap aç';
+    $('svYeniden').textContent=uye?(haftaKalan()?'Yeniden ölçüm '+haftaKalan()+' gün sonra açılır':(YET?'Testi yeniden çöz':'Testi yeniden çöz (farklı sorular)')):'Yeniden çözmek için ücretsiz hesap aç';
     if(uye) return;
     var y=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi; }).length;
     $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(y?' ve bilemediğin <b>'+y+' sorunun</b> doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, karnen e-postana gelsin, sonraki testte gelişimini gör.';
@@ -850,6 +873,8 @@
     /* 16.09: ücretsiz hakkını kullanmış ziyaretçi -> üyelik kutusu (üyede sınır yok) */
     var kapali=(!uyeMi() && hakKullanildi());
     if(kapali){ $('svHakBitti').hidden=false; $('svBasla').hidden=true; }
+    else if(uyeMi()){ haftaKilitGoster();   /* paket bilgisi gelince yeniden bak: paketliyse kilit kalkar */
+      try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){ var s=d&&d.sinavlar&&d.sinavlar[YET?'yeterlilik':'sgs']; PAKETLI=!!(s&&s.durum==='aktif'); if(PAKETLI){ $('svHaftaKilit').hidden=true; $('svBasla').hidden=false; } }); }catch(e){} }
     /* "yeniden çözersen farklı sorular gelir" sözü ÜYEYE aittir; hakkını kullanmış ziyaretçiye söylenmez */
     try{ var g=JSON.parse(localStorage.getItem(ANAH_SONUC)||'[]'); if(g.length){ var s=g[g.length-1]; $('svOnceki').hidden=false; $('svOnceki').textContent='Son sonucun: geçme ihtimali %'+s.gecme+' ('+new Date(s.tarih).toLocaleDateString('tr-TR')+').'+(kapali||YET?'':' Yeniden çözersen farklı sorular gelir.'); } }catch(e){}
   }).catch(function(e){ $('svBasla').textContent=(e&&e.eksik)?'Sorular hazırlanıyor, biraz sonra yeniden dene':'Sorular yüklenemedi, sayfayı yenile'; });
