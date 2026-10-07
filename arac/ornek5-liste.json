@@ -1,0 +1,17 @@
+{
+ "_not": "08.10.2026 Cem ('1 yap'): '5 örnek soru' (ornek-sorular.html, ana sayfada 'Paketleri gör' yanında). Seçim: zaten ÜCRETSİZ olan sorulardan (SGS seviye havuzu + vitrin; Yeterlilik smmm-ucretsiz.json, sabit set HARİÇ), son 10 yılda en sık çıkan konuların okunmuş bağıyla (veri/deneme/sgs-sik-kimlik.json, veri/deneme/smmm-sik-dizin.json + smmm-banka-esleme.json), her biri ayrı dersten; sıra kolaydan zora: 2 zor + 3 çok zor (zorluk kimlik etiketinden). 10 sorunun 10'u 08.10'da ELLE OKUNDU: cevap, hesap ve dayanak doğru; TTK m.796/3 + m.810, KDV GUT 8.9 (KDVK 11/1-c), GVK m.74 son fıkra, SPKn m.116/1 ambardaki resmî metinle karşılaştırıldı. Yeni kimlik eklenirken aynı okuma yapılır. Robot: motor/vitrin-hesap.js -> veri/ornek-soru.json (ücretsizden çıkan / dışlanan / elle reddedilen soru kendiliğinden düşer).",
+ "sgs": [
+  "sgs-k11-ticaret-zor/kp-01",
+  "sgs-k5-ekonomi-zor/kp-01",
+  "sgs-d3-mta-cokzor-r3/kp-01",
+  "sgs-d3-maliyet-cokzor-r1/kp-02",
+  "sgs-d5-vergi-cokzor-r2/kp-02"
+ ],
+ "yeterlilik": [
+  "smmm-4k-a-fmuh-zor-r3/kp-02",
+  "smmm-4k-a-yfta-zor-r1/kp-01",
+  "smmm-4k-a-yvergi-cokzor-r2/kp-02",
+  "smmm-w3-maliyet-cokzor/kp-10",
+  "smmm-w3-yspk-cokzor/kp-18"
+ ]
+}

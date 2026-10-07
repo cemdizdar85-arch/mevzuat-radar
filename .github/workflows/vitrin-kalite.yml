@@ -59,7 +59,7 @@ jobs:
         run: |
           git config user.name "mevzuat-radar-bot"
           git config user.email "bot@tetikte.com"
-          git add veri/vitrin-hesap.json veri/seviye/konu-ad.json || true
+          git add veri/vitrin-hesap.json veri/ornek-soru.json veri/seviye/konu-ad.json || true   # 08.10: + 5 örnek soru (ornek-sorular.html)
           git diff --cached --quiet && { echo "değişiklik yok"; exit 0; }
           git commit -m "Ana sayfa soru listesi [veri-operasyonu]"
           for i in 1 2 3 4 5; do
