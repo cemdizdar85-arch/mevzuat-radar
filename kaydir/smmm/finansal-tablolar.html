@@ -311,9 +311,16 @@ const SIRA_NOTU=(function(){ try{
   if(!d||!d.soru) return {tur:'davet',yet};
   const oran=d.dogru/d.soru; const zr=s=>{ const m=String(s.id||'').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/); return (s.zorluk||(m&&m[1])||'orta'); };
   const SIRA=oran<0.5?{kolay:0,orta:1,zor:2,cokzor:3}:(oran>=0.75?{cokzor:0,zor:1,orta:2,kolay:3}:null);
+  window.__siraSira=SIRA?(s=>SIRA[zr(s)]):null;   /* 07.10 parça yükleme (__kasaEkle) aynı ölçütle sıralar */
   if(SIRA){ const s2=SORULAR.map((s,i)=>({s,i})).sort((a,b)=>(SIRA[zr(a.s)]-SIRA[zr(b.s)])||(a.i-b.i)).map(x=>x.s); SORULAR.splice(0,SORULAR.length,...s2); }
   return {tur:oran<0.5?'kolay':(oran>=0.75?'zor':'karma'),dogru:d.dogru,soru:d.soru,ad,yet};
 }catch(e){ return null; } })();
+/* 07.10 PARÇA PARÇA YÜKLEME (Cem "1 yap": Finansal Muhasebe 1.100 soru × ~14 KB tek seferde iniyordu). kasa-yukle.js ilk parçayla
+   açar (window.__KASA_DEVAM), kalanı tek seferde __kasaEkle'ye verir. Seviye sırası varsa ilk parçadan yalnız en öncelikli zorluk
+   gösterilir; kalanı (KASA_BEKLEYEN) gelenlerle birlikte aynı ölçütle sıralanıp sona eklenir → tam yüklemedeki sıranın aynısı. */
+const KASA_BEKLEYEN=[];
+if(window.__KASA_DEVAM&&window.__siraSira){ const R=window.__siraSira, ilk=SORULAR.filter(s=>R(s)===0), geri=SORULAR.filter(s=>R(s)!==0);
+  if(geri.length){ KASA_BEKLEYEN.push(...geri); SORULAR.splice(0,SORULAR.length,...ilk); } }
 setTimeout(()=>{ try{ if(!SIRA_NOTU) return; const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
   const t=SIRA_NOTU.tur==='davet' ? '🎯 <b>Bu dersi sana göre sıralayalım:</b> 30 soruda seviyeni ölç, zayıfsan kolaydan başlatalım. <a href="../../seviye-testi.html'+(SIRA_NOTU.yet?'?sinav=yeterlilik':'')+'">Seviyeni ölç →</a>'
         : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
@@ -399,7 +406,7 @@ const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
 const fmt=n=>n.toLocaleString('tr-TR');
 // 13.09 (Cem "3 yap"): 991 soruluk sayfada her kart 992 nokta çiziyordu -> 983 bin öğe, ilk tepki 5,5 sn. 12 soruya kadar çıktı AYNI; üstünde kart yalnız kendi çevresindeki 15 noktayı çizer.
 function noktalar(i){ const N=SORULAR.length; let a=0,b=N; if(N>12){ a=Math.max(0,Math.min(i-7,N-15)); b=Math.min(N,a+15); } let h=''; for(let j=a;j<b;j++){ h+='<i data-j="'+j+'" class="'+(j===i?'simdi':'')+'"></i>'; } return '<div class="noktalar'+(N>12?' cok':'')+'">'+h+(b===N?'<i data-j="son"></i>':'')+'</div>'; }
-SORULAR.forEach((s,i)=>{
+function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemede sonradan gelen kartlar da aynı kurulumla */
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
   // 06.09 (Cem "bu beşi geç" #4): SEVİYE etiketi ölçümden türer, elle yazılmaz — teori 🟢 Isınma · kayıt/hesap 🟡 Nöbet · Maliyet-MTA hesabı ya da
   // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
@@ -420,7 +427,7 @@ SORULAR.forEach((s,i)=>{
    +'<div class="sek cikmis"><div class="et">📈 Bu konu sınavda nasıl çıktı</div><div class="cikmisIc"></div></div></div>'
    +'<div class="ders"><div class="basl"><span>🎬 Nöbetçi anlatıyor · '+esc(s.konu)+'</span><button class="btn bDersKapat" style="padding:5px 10px">✕</button></div><div class="tabloSar"></div><div class="serit"></div><div class="altc"><button class="btn bOnce">◀ Geri</button><div class="adimBar"></div><button class="btn bSonra">İleri ▶</button></div></div>'
    +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle; fazladan tutar var, hepsini kullanma. Bitince <b>Kontrol et</b>.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
-  akis.appendChild(k);
+  akis.insertBefore(k, akis.querySelector(':scope > .kart.son'));   /* son kart varsa ondan önce (parça yükleme) */
   const panel=k.querySelector('.panel'); const geri=k.querySelector('.geri');
   // 06.09 Cem: "649 yarım görünüyor, geriye dönemiyorum" — scrollIntoView bütün kartı (#akis) kaydırıyordu, cevap ekran dışına çıkıyordu.
   // Kaydırma yalnız PANELİN içinde yapılır; kart yerinden oynamaz. Sticky "cevaba dön" düğmesi panel 160px kayınca görünür.
@@ -1096,15 +1103,25 @@ SORULAR.forEach((s,i)=>{
     bDers.addEventListener('click',()=>{ dersKur(); ders.classList.add('acik'); });
     ders.querySelector('.bDersKapat').addEventListener('click',()=>ders.classList.remove('acik'));
   }
-});
+}
+SORULAR.forEach((s,i)=>kartKur(s,i));
 // --- son kart
 const son=document.createElement('section'); son.className='kart son';
 son.innerHTML='<div class="ust"><span>Nöbet bitti</span>'+noktalar(-1)+'<span>&nbsp;</span></div><div class="govde son" style="display:flex;flex-direction:column;justify-content:center"><div id="sonSkor"></div></div>';
 akis.appendChild(son);
+window.__kasaEkle=function(yeni){ try{
+  const hepsi=KASA_BEKLEYEN.splice(0).concat(yeni||[]), R=window.__siraSira, bas=SORULAR.length;
+  const sirali=R?hepsi.map((s,i)=>({s,i})).sort((a,b)=>(R(a.s)-R(b.s))||(a.i-b.i)).map(x=>x.s):hepsi;
+  sirali.forEach(s=>{ SORULAR.push(s); kartKur(s,SORULAR.length-1); });
+  akis.querySelectorAll(':scope > .kart').forEach(k=>{ if(+k.dataset.i>=bas) k.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); });
+  window.__KASA_DEVAM=false; skorCiz();
+  try{ document.dispatchEvent(new CustomEvent('tetikte-kasa-ekle',{detail:{bas:bas,adet:sirali.length}})); }catch(e){}
+}catch(e){ window.__KASA_DEVAM=false; } };
 document.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); skorCiz();
 if(!durum.t0) durum.t0={}; durum.t0[0]=Date.now();   // ilk kart: süre sayfa açılınca başlar
 akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i.simdi').forEach(n=>n.classList.remove('simdi')); document.querySelectorAll(i>=SORULAR.length?'.noktalar i[data-j="son"]':'.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add('simdi'));
   if(i<SORULAR.length&&durum.cevap[i]===undefined&&!durum.t0[i]) durum.t0[i]=Date.now();   // 06.09: karta gelince süre başlar
+  if(i>=SORULAR.length&&window.__KASA_DEVAM){ document.getElementById('sonSkor').innerHTML='<p style="color:var(--dim)">Kalan sorular geliyor…</p>'; return; }   /* 07.10 parça yükleme */
   if(i>=SORULAR.length){ const c=Object.keys(durum.cevap).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+durum.dogru+' / '+SORULAR.length+'</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(SORULAR.length-durum.dogru)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+durum.dogru+'/'+SORULAR.length+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ akis.scrollBy({top:akis.clientHeight,behavior:'smooth'}); } if(e.key==='ArrowUp'||e.key==='PageUp'){ akis.scrollBy({top:-akis.clientHeight,behavior:'smooth'}); } });
 /* 09.09 derin bağlantı (ana sayfa kartı → günün sorusu): #s=<sıra> kartını açar; yoksa baştan. */
