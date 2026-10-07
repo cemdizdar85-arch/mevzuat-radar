@@ -803,7 +803,7 @@
       karneY.then(function(ok){
         var d=$('svKarneDurum'); d.hidden=false;
         d.textContent = ok ? 'Karnen '+k.eposta+' adresine gönderildi. Birkaç dakikada gelmezse gereksiz (spam) klasörüne bak.'
-                           : 'Sonucun bu ekranda. Yeterlilik soru bankası açıldığında '+k.eposta+' adresine haber vereceğiz.';
+                           : 'Karne e-postası şu an gönderilemedi; sonucun bu ekranda. Sorun düzelince sana ulaşacağız.';   /* 07.10: Yeterlilik açık - eski "banka açıldığında haber" metni kalktı */
       });
       return;
     }

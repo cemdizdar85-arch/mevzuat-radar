@@ -491,6 +491,9 @@ function kur(){
 
   var fab=document.createElement('button');
   fab.id='mrxFab'; fab.type='button'; fab.textContent='☰ Araçlar';
+  /* 07.10 Cem ("eskiden araçlar diye bir şey vardı, sitede şu an araçlar yok"): yüzen "Araçlar" düğmesi kalktı. Gezinti üst şerit
+     (Sınavlar · Fiyatlar · Hesabım · Ara) + telefonda alt menü. Öğe DOM'da gizli kalır (aşağıdaki dinleyiciler kırılmasın). */
+  fab.hidden=true; fab.style.display='none';
   document.body.appendChild(fab);
 
   /* 03.10.2026 MOBİL ALT MENÜ (Cem, V2 madde 24 "hepsini yap"): telefonda (<760 px) öğrenci sayfalarının altında
