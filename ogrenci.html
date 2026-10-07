@@ -586,7 +586,10 @@
       a.style.marginRight='6px'; $('ogCikisUst').parentNode.insertBefore(a, $('ogCikisUst'));
     }, function(){});
     /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
-    sb.rpc('elci_panelim').then(function(r){
+    /* 08.10: Google ile girdiyse ve e-postası bir elçi kaydında yazılıysa önce kendiliğinden bağlanır (elci_google_bagla;
+       SQL yoksa ya da elçi değilse sessiz), sonra panel düğmesi bakılır */
+    var elciBak=function(){ return sb.rpc('elci_panelim'); };
+    sb.rpc('elci_google_bagla').then(elciBak, elciBak).then(function(r){
       if(r && !r.error && r.data && r.data.kod){ $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli'); }
     }, function(){});
     try{ simdiCiz(); }catch(e){}

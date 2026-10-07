@@ -419,6 +419,8 @@
   function sqlYok(err){ return !!err && (err.code === 'PGRST202' || /Could not find the function/i.test(err.message || '')); }
 
   async function yukle(){
+    /* 08.10: Google ile girmiş ve e-postası yönetimde elçi kaydına yazılmışsa hesap kendiliğinden bağlanır */
+    try { await sb.rpc('elci_google_bagla'); } catch (e) {}
     var r = await sb.rpc('elci_panelim');
     if (r.error) {
       if (sqlYok(r.error)) return kapali();
