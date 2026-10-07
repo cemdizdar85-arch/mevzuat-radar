@@ -11,72 +11,6 @@
     "geriye_bakis_gun":  30,
     "sira":  [
                  {
-                     "plan":  "veri/sinav/plan-smmm-gm9-1.json",
-                     "butce_usd":  "4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "smmm",
-                     "eklenme":  "2026-10-06T07:27:16Z",
-                     "ekleyen":  "sinav · yeterlilik banka açıkları [4168e2]",
-                     "yeniden":  true,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-smmm-o0610-onarim-hakem.json",
-                     "butce_usd":  "0.4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "smmm",
-                     "eklenme":  "2026-10-06T09:29:58Z",
-                     "ekleyen":  "sinav · yeterlilik banka açıkları [c919e0]",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-smmm-o0610d-onarim-hakem.json",
-                     "butce_usd":  "0.3",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "smmm",
-                     "eklenme":  "2026-10-06T18:15:13Z",
-                     "ekleyen":  "sinav · yeterlilik banka açıkları [c919e0]",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-smmm-o0610i-onarim-hakem.json",
-                     "butce_usd":  "0.1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "smmm",
-                     "eklenme":  "2026-10-06T18:37:43Z",
-                     "ekleyen":  "sinav · yeterlilik banka açıkları [c919e0]",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-v0610-onarim-hakem.json",
-                     "butce_usd":  "1.1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-06T19:15:56Z",
-                     "ekleyen":  "SGS: vitrinden dışlanan 39 sorunun açıklamasını onar [859277]",
-                     "yeniden":  false,
-                     "not":  "Cem onayi 06.10: 11 soru yeniden hakem (anahtar/sik/kok + aciklama hakemi)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-smmm-o0610m-onarim-hakem.json",
-                     "butce_usd":  "0.4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "smmm",
-                     "eklenme":  "2026-10-06T19:18:28Z",
-                     "ekleyen":  "Yeterlilik banka açıklarını kapat",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
                      "plan":  "veri/sinav/plan-smmm-o0610l-onarim-hakem.json",
                      "butce_usd":  "2.2",
                      "paralel":  5,
@@ -88,48 +22,15 @@
                      "not":  ""
                  },
                  {
-                     "plan":  "veri/sinav/plan-sgs-v0610b-onarim-hakem.json",
-                     "butce_usd":  "0.6",
+                     "plan":  "veri/sinav/plan-smmm-o0710bc-onarim-hakem.json",
+                     "butce_usd":  "4.7",
                      "paralel":  5,
                      "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-06T19:46:54Z",
-                     "ekleyen":  "SGS: vitrinden dışlanan 39 sorunun açıklamasını onar [859277]",
+                     "sinav":  "smmm",
+                     "eklenme":  "2026-10-07T11:18:59Z",
+                     "ekleyen":  "Yeterlilik banka açıklarını kapat",
                      "yeniden":  false,
-                     "not":  "Cem onayi 06.10: 6 soru kok/sik yeniden hakem"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-d1b-tds.json",
-                     "butce_usd":  "10.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-06T21:24:24Z",
-                     "ekleyen":  "Bağımsız denetim soru işi [93c5fa]",
-                     "yeniden":  false,
-                     "not":  "Cem 07.10 11 USD onay (d1b 183 soru)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-d1b2-tds.json",
-                     "butce_usd":  "0.2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-06T21:24:39Z",
-                     "ekleyen":  "Bağımsız denetim soru işi [93c5fa]",
-                     "yeniden":  false,
-                     "not":  "Cem 07.10 11 USD onay (d1b 1 soru)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-v0710-onarim-hakem.json",
-                     "butce_usd":  "0.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-06T22:31:14Z",
-                     "ekleyen":  "SGS: vitrinden dışlanan 39 sorunun açıklamasını onar [859277]",
-                     "yeniden":  false,
-                     "not":  "Cem onayi 07.10: 8 soru kok/sik yeniden hakem (gunun sorusu)"
+                     "not":  ""
                  }
              ]
 }
