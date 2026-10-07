@@ -405,7 +405,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261007k"></script>
+<script src="fiyat-motoru.js?v=20261008a"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -461,7 +461,7 @@ else if(ELCI_GRUPLAR){ PAKETLER = PAKETLER.filter(function(p){ return ELCI_GRUPL
        + '</span>'
        + '<span class="fy"><b>' + fiyatAna(p.id, p.fiyat) + '</b>'
        + (fiyatDahilNot(p.id, p.fiyat) ? '<span style="color:var(--ink);font-weight:700">' + fiyatDahilNot(p.id, p.fiyat) + '</span>' : '')
-       + (p.liste > p.fiyat ? '<span>' + (p.kota ? tl(p.kota) + ' kurucudan sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
+       + (p.liste > p.fiyat ? '<span>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üyeden sonra ' : 'sonra ') + fiyatAna(p.id, p.liste) + (fiyatDahilNot(p.id, p.liste) ? ' (' + fiyatDahilNot(p.id, p.liste) + ')' : '') + '</span>' : '')
        + '<span>' + p.not + '</span></span></label>';
   });
   if(ODAK_GRUP || ELCI_GRUPLAR){ h += '<p class="kucuk" style="margin:10px 0 0"><a href="satin-al.html">Diğer sınavların paketlerini gör →</a></p>'; }
