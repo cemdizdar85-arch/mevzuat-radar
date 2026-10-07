@@ -10,7 +10,8 @@
 //  THP listesi: veri/sinav/thp-hesap-kodlari.json (ambardan: node arac/hesap-kodu-kapisi.js --tazele; SUPABASE_SERVICE_KEY).
 //  🚫 GÖRMEZ: kod doğru ama BAĞLAMDA yanlış hesap (ör. vadesi belirsiz satışta 220 yerine 120; "nakden" ama 102) ·
 //     adsız ve "hesap" kelimesi geçmeyen tek başına sayı · 7/B'ye özgü kodlar ambarda yoksa HK-YOK yanlış alarmı verebilir
-//     (öz-sınavda 7/B kodu 796 vakası var) · kodun adı kısaltılmış/serbest yazılmışsa HK-AD eşik altında kalabilir.
+//     (öz-sınavda 7/B kodu 796 vakası var) · kodun adı kısaltılmış/serbest yazılmışsa HK-AD eşik altında kalabilir ·
+//     07.10: koddan hemen sonra AKTİF/PASİF ile BAŞLAYAN yazım ad sayılmaz (bilanço tarafı) - bu kalıpla yazılmış gerçek yanlış ad görülmez.
 //  Kullanım: node arac/hesap-kodu-kapisi.js --sinav | --tazele | --banka <sgs|smmm|kgk> (yayındaki soruları ölçer)
 //            require('./hesap-kodu-kapisi.js').kusurlar(soru) → [{tur, kod, ad, alan}]
 // ============================================================================
@@ -74,6 +75,9 @@ function kusurlar(soru) {
       if (/\d{3}\s*[\/–-]\s*$/.test(t.slice(Math.max(0, m.index - 6), m.index))) continue;   // birleşik kod "180/280 GELECEK AYLARA-YILLARA" (30.09 yanlış alarm)
       if (GRUP_KISA[kod.slice(0, 2)] && GRUP_KISA[kod.slice(0, 2)].test(ad)) continue;   // grup kısaltması "153 STOK", "621 STMM" (30.09 yanlış alarm)
       if (/^(BOR[ÇC]|ALACAK)LAN/i.test(ad)) continue;   // 30.09 SMMM: "760 ALACAKLANIR" / "BORÇLANDIRILIR" yön fiili, hesap adı değil
+      // 07.10 (Cem "kapıyı düzelt, öz-sınav"; vitrin dışlaması smmm-w3-ydenetim-cokzor/kp-17): "181 AKTİF ... 381 PASİF" bilanço TARAFI,
+      //   hesap adı değil ("HATIRLAMA: 180/280 ve 181 AKTİF; 380/480 ve 381 PASİF"). THP'de AKTİF/PASİF ile başlayan hesap adı yok.
+      if (process.env.HK_MUTASYON !== 'aktif-pasif' && /^(AKT[İI]F|PAS[İI]F)(?=[\s).,;:(]|$)/i.test(ad)) continue;
       if (/^(TL|Tl|₺|YTL|USD|EUR|Adet|Birim|Gün|Ay|Yıl|Saat|Kg|Ton|Metre|Kişi|İşçi|Adet)\b/i.test(ad)) continue;
       if (!K[kod] && /^[89]/.test(kod)) continue;   // 8 (serbest) ve 9 (nazim) gruplari isletmeye gore acilir, THP listesinde yok
       // 30.09 (SMMM oturumu bildirdi): ambarda THP 17 grubu (170/178/179) HİÇ yok → listede grubu olmayan kod için hüküm verilmez (liste eksiği ≠ soru kusuru)
@@ -127,7 +131,7 @@ function banka(sinav) {
 }
 
 function sinav() {
-  THP = { '200': 'x', '652': 'REESKONT FAİZ GİDERLERİ (-)', '657': 'REESKONT FAİZ GİDERLERİ (-)', '760': 'PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ', '280': 'GELECEK YILLARA AİT GİDERLER', '320': 'SATICILAR', '500': 'SERMAYE', '151': 'YARI MAMULLER-ÜRETİM', '150': 'İLK MADDE VE MALZEME', '733': 'GENEL ÜRETİM GİDERLERİ VERİMLİLİK FARKLARI', '679': 'DİĞER OLAĞANDIŞI GELİR VE KARLAR', '689': 'Diğer Olağandışı Gider ve Zararlar', '521': 'HİSSE SENEDİ İPTAL KARLARI', '620': 'SATILAN MAMULLER MALİYETİ (-)', '621': 'Satılan Ticari Mallar Maliyeti (-)', '254': 'TAŞITLAR', '690': 'DÖNEM KARI VEYA ZARARI', '110': 'HİSSE SENETLERİ', '731': 'Genel Üretim Giderleri Yansıtma Hesabı', '190': 'DEVREDEN KATMA DEĞER VERGİSİ', '191': 'İNDİRİLECEK KDV', '252': 'BİNALAR', '253': 'TESİS, MAKİNE VE CİHAZLAR', '100': 'Kasa', '102': 'Bankalar', '120': 'Alıcılar', '153': 'Ticari Mallar', '220': 'ALICILAR', '481': 'GİDER TAHAKKUKLARI', '522': 'M.D.V. YENİDEN DEĞERLEME ARTIŞLARI', '644': 'KONUSU KALMAYAN KARŞILIKLAR', '770': 'Genel Yönetim Giderleri', '730': 'Genel Üretim Giderleri', '796': 'DİĞER ÇEŞİTLİ GİDERLER' };
+  THP = { '200': 'x', '652': 'REESKONT FAİZ GİDERLERİ (-)', '657': 'REESKONT FAİZ GİDERLERİ (-)', '760': 'PAZARLAMA SATIŞ VE DAĞITIM GİDERLERİ', '280': 'GELECEK YILLARA AİT GİDERLER', '320': 'SATICILAR', '500': 'SERMAYE', '151': 'YARI MAMULLER-ÜRETİM', '150': 'İLK MADDE VE MALZEME', '733': 'GENEL ÜRETİM GİDERLERİ VERİMLİLİK FARKLARI', '679': 'DİĞER OLAĞANDIŞI GELİR VE KARLAR', '689': 'Diğer Olağandışı Gider ve Zararlar', '521': 'HİSSE SENEDİ İPTAL KARLARI', '620': 'SATILAN MAMULLER MALİYETİ (-)', '621': 'Satılan Ticari Mallar Maliyeti (-)', '254': 'TAŞITLAR', '690': 'DÖNEM KARI VEYA ZARARI', '110': 'HİSSE SENETLERİ', '731': 'Genel Üretim Giderleri Yansıtma Hesabı', '190': 'DEVREDEN KATMA DEĞER VERGİSİ', '191': 'İNDİRİLECEK KDV', '252': 'BİNALAR', '253': 'TESİS, MAKİNE VE CİHAZLAR', '100': 'Kasa', '102': 'Bankalar', '120': 'Alıcılar', '153': 'Ticari Mallar', '220': 'ALICILAR', '481': 'GİDER TAHAKKUKLARI', '522': 'M.D.V. YENİDEN DEĞERLEME ARTIŞLARI', '644': 'KONUSU KALMAYAN KARŞILIKLAR', '770': 'Genel Yönetim Giderleri', '730': 'Genel Üretim Giderleri', '796': 'DİĞER ÇEŞİTLİ GİDERLER', '181': 'GELİR TAHAKKUKLARI', '381': 'GİDER TAHAKKUKLARI' };
   for (const k of Object.keys(MULGA_KOD)) delete THP[k];   // gerçek yüklemeyle aynı mülga düşümü
   const V = [
     ['olmayan kod + ad (528 İptal Zararları)', { adimlar: [{ anlatim: '528 İPTAL ZARARLARI hesabına borç' }] }, 'HK-YOK'],
@@ -177,6 +181,8 @@ function sinav() {
     ['model alanı taranmaz (hakem)', { hakem: { gerekce: '528 İPTAL ZARARLARI' } }, null],
     ['07.10: THP resmî sözlüğü (hesaplar) taranmaz', { hesaplar: { '122': { ad: 'ALACAK SENETLERİ REESKONTU (-)', tanim: '652 REESKONT FAİZ GİDERLERİ hesabına gider yazılır' } } }, null],
     ['07.10: aynı metin açıklamada YİNE yakalanır', { aciklama: { A: '652 REESKONT FAİZ GİDERLERİ hesabına borç' } }, 'HK-YOK'],
+    ['07.10: bilanço tarafı → temiz (181 AKTİF, 381 PASİF)', { kaynak: { liste: [{ metin: "HATIRLAMA: 180/280 ve 181 AKTİF (bizden alacak/varlık); 380/480 ve 381 PASİF (borç)." }] } }, null],
+    ['07.10: taraf sözcüğü gerçek yanlış adı örtmez (481 GİDER TAHAKKUKLARI doğru, 481 ERTELENMİŞ yanlış)', { aciklama: { A: '481 ERTELENMİŞ VERGİ BORCU pasif hesabına alacak' } }, 'HK-AD'],
   ];
   let ok = 0; for (const [ad, q, bek] of V) { const ks = kusurlar(q); const g = bek ? ks.some(k => k.tur === bek) : ks.length === 0; if (g) ok++; console.log((g ? '  ✓ ' : '  ✗ ') + ad + (g ? '' : ' → ' + JSON.stringify(ks))); }
   console.log(`KAPI-HK ÖZ-SINAVI ${ok === V.length ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${V.length})`); process.exit(ok === V.length ? 0 : 1);
@@ -188,7 +194,10 @@ if (require.main === module) {
   if (a === '--sinav' && process.argv.includes('--mutasyon')) {   // 07.10: 'hesaplar' yeniden taranırsa öz-sınav KIRMIZI olmalı
     const cp = require('child_process'); const r = cp.spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, HK_MUTASYON: 'hesaplar-tara' }, encoding: 'utf8' });
     const kr = r.status !== 0; console.log('  mutasyon hesaplar-tara ' + (kr ? 'KIRMIZI (doğru)' : 'YEŞİL (SINAV KÖR!)'));
-    const n = cp.spawnSync(process.execPath, [__filename, '--sinav'], { encoding: 'utf8' }); console.log(n.stdout.trim().split(/\r?\n/).pop()); process.exit(kr && n.status === 0 ? 0 : 1);
+    // 07.10: AKTİF/PASİF ayıklaması kapatılırsa da öz-sınav KIRMIZI olmalı
+    const r2 = cp.spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, HK_MUTASYON: 'aktif-pasif' }, encoding: 'utf8' });
+    const kr2 = r2.status !== 0; console.log('  mutasyon aktif-pasif ' + (kr2 ? 'KIRMIZI (doğru)' : 'YEŞİL (SINAV KÖR!)'));
+    const n = cp.spawnSync(process.execPath, [__filename, '--sinav'], { encoding: 'utf8' }); console.log(n.stdout.trim().split(/\r?\n/).pop()); process.exit(kr && kr2 && n.status === 0 ? 0 : 1);
   }
   else if (a === '--sinav') sinav();
   else if (a === '--tazele') tazele().catch(e => { console.error(e.message); process.exit(1); });
