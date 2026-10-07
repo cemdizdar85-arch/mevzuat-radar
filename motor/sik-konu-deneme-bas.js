@@ -131,7 +131,8 @@ async function sgs() {
     sinav: 'sgs', tur: 'sik', ad: 'Staja Giriş', baslik: `Staja Giriş · En Çok Sorulan ${SGS_KONU} Konu Denemesi`,
     // 07.10 Cem: ürün adı "En Çok Sorulan 20 Konu Denemesi" - ana sayfa, deneme ve konu sayfaları adı buradan okur
     deneme_ad: `En Çok Sorulan ${SGS_KONU} Konu Denemesi`,
-    alt: `Son 10 yılın çıkmış sınavlarında en sık sorulan ${SGS_KONU} konudan ${SGS_KONU * SGS_PAY} soru: her konudan ${SGS_PAY}. Çözerken cevap görünmez; bitince konu konu karne gelir.`,
+    // 07.10 Cem "anlam karmaşası var": "20 konudan 40 soru: her konudan 2" çıkmış soru sanılıyordu -> ne / biçim / kazanç ayrı cümle
+    alt: `Son 10 yılın sınavlarında en sık sorulan ${SGS_KONU} konu tek denemede. Her konudan ${SGS_PAY} soru, toplam ${SGS_KONU * SGS_PAY} soru, ${SGS_SURE} dakika. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.`,
     kural: [`${SGS_KONU * SGS_PAY} soru`, `${SGS_SURE} dakika`, `${SGS_KONU} konu × ${SGS_PAY} soru`, 'Yanlış doğruyu götürmez', `${setler.length} set, setler arası tekrar yok`],
     not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}, ${ok.donem} dönem; Matematik hariç), "En sık sorulan konular" sayfasıyla aynı. Süre gerçek sınavın soru başı süresiyle (165 dk / 130 soru). Bu konular sınavda kesin çıkar demek değildir.`,
     sonuc_alt: 'Staja Giriş\'te yanlış doğruyu götürmez ve puan bağıl hesaplanır; burada doğru sayısı ve konu konu karne var.',
@@ -212,7 +213,7 @@ async function smmm() {
     uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
     sinav: 'smmm', tur: 'sik', ad: 'Yeterlilik', baslik: `Yeterlilik · Her Dersin En Çok Sorulan ${SM_KONU} Konusu`,
     deneme_ad: `Her Dersin En Çok Sorulan ${SM_KONU} Konusu Denemesi`,
-    alt: `Her dersin çıkmış sınavlarda en sık sorulan ${SM_KONU} konusundan ${SM_SORU} soru, gerçek 2026 düzeninde. Çözerken cevap görünmez; bitince konu konu karne gelir.`,
+    alt: `Her dersin son 10 yılın sınavlarında en sık sorulan ${SM_KONU} konusu tek denemede. Ders başına ${SM_SORU} soru, ${SM_SURE} dakika, gerçek 2026 düzeninde. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.`,
     kural: [`Ders başına ${SM_SORU} soru`, `${SM_SURE} dakika`, 'Yanlış 0,25 götürür', 'Baraj 50', 'Setler arası tekrar yok'],
     not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}), "En sık sorulan konular" sayfasıyla aynı. Konu payı bankadaki soru sayısına göre ayarlanır. Bu konular sınavda kesin çıkar demek değildir.`,
     sonuc_alt: 'Puan: (doğru − yanlış ÷ 4) × 5. Geçme barajı 50.',
