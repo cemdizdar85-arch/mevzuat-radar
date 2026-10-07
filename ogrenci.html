@@ -152,7 +152,6 @@
           <input id="ogEposta" name="email" type="email" autocomplete="username" inputmode="email" placeholder="ornek@mail.com" required>
           <div class="og-et-satir"><label class="og-et" for="ogSifre">Şifre</label><a class="og-link" href="#sifremi-unuttum" id="ogSifremi">Şifremi unuttum</a></div>
           <input id="ogSifre" name="password" type="password" autocomplete="current-password" required>
-          <button class="og-goster" type="button" data-goster="ogSifre">Şifreyi göster</button>
           <button class="og-btn ana" id="ogGirisBtn" type="submit">Giriş yap</button>
           <div class="og-hata" id="ogHata" role="alert"></div>
           <p class="og-alt-link">Hesabın yok mu? <a class="og-link" href="#uye-ol" data-git="kayit">Üye ol</a></p>
@@ -164,7 +163,7 @@
           <input id="ogKEposta" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Paketi aldığın / alacağın e-posta" required>
           <label class="og-et" for="ogKSifre">Şifre belirle</label>
           <input id="ogKSifre" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
-          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogKSifre">Şifreyi göster</button></p>
+          <p class="og-ipucu">En az 8 karakter.</p>
           <div class="og-yeni" style="margin-top:12px">
             <label class="og-onay"><input type="checkbox" id="ogKosul"> <span><a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">Üyelik Koşulları</a>'nı ve <a href="kvkk.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <b>(hesap açmak için zorunlu)</b></span></label>
             <label class="og-onay"><input type="checkbox" id="ogRiza"> <span>Sınav hatırlatmaları ve Tetikte duyuruları için e-posta gönderilmesine <a href="kvkk.html#riza" target="_blank" rel="noopener">açık rıza</a> veriyorum. (isteğe bağlı; her e-postada çıkış bağlantısı olur)</span></label>
@@ -201,7 +200,7 @@
           <p class="og-alt" style="margin:0 0 4px;font-size:14px" id="ogYKim"></p>
           <label class="og-et" for="ogYSifre">Yeni şifre</label>
           <input id="ogYSifre" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
-          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogYSifre ogYSifre2">Şifreyi göster</button></p>
+          <p class="og-ipucu">En az 8 karakter.</p>
           <label class="og-et" for="ogYSifre2">Yeni şifreyi tekrar yaz</label>
           <input id="ogYSifre2" name="new-password-2" type="password" autocomplete="new-password" minlength="8" required>
           <button class="og-btn ana" id="ogYKaydet" type="submit">Şifremi kaydet</button>
@@ -299,7 +298,7 @@
           <input id="ogPSifre" type="password" autocomplete="new-password" minlength="8">
           <label class="og-et" for="ogPSifre2">Yeni şifreyi tekrar yaz</label>
           <input id="ogPSifre2" type="password" autocomplete="new-password" minlength="8">
-          <p class="og-ipucu">En az 8 karakter. <button class="og-goster" type="button" data-goster="ogPSifre ogPSifre2">Şifreyi göster</button></p>
+          <p class="og-ipucu">En az 8 karakter.</p>
           <div class="og-btnler"><button class="og-btn ana" type="submit" id="ogPKaydet">Şifremi kaydet</button><button class="og-btn" type="button" id="ogSifreKapat">Vazgeç</button></div>
           <div class="og-hata" id="ogPHata" role="alert"></div>
         </form>
@@ -336,6 +335,7 @@
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js?v=20261007b"></script>
+<script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261007d"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
@@ -731,7 +731,8 @@
   $('sekKayit').addEventListener('click',function(){ ekranAc('kayit'); });
   document.querySelectorAll('[data-git]').forEach(function(a){ a.addEventListener('click',function(ev){ ev.preventDefault(); ekranAc(a.getAttribute('data-git')); }); });
   $('ogSifremi').addEventListener('click',function(ev){ ev.preventDefault(); ekranAc('sifremi'); });
-  /* şifreyi göster / gizle */
+  /* şifreyi göster / gizle - 08.10: alanın altındaki küçük bağlantılar kalktı (gözden kaçıyordu, Cem "şifreyi göster koysak");
+     her şifre alanının içinde "Göster" düğmesi: sifre-goster.js. Aşağıdaki dinleyici artık eşleşecek öğe bulmaz, zararsız. */
   document.querySelectorAll('[data-goster]').forEach(function(b){
     b.addEventListener('click',function(){
       var ids=b.getAttribute('data-goster').split(' '), ac=$(ids[0]).type==='password';
