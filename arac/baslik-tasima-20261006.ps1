@@ -88,7 +88,13 @@ foreach($p in $plan){
   $ambarAd = @{}; $cift = $false
   foreach($x in $satir){ $a = "$($x.kaynak_ad)"; if(-not $adlar.ContainsKey($a)){ continue }; if($ambarAd.ContainsKey($a)){ $cift = $true }; $ambarAd[$a] = $x }
   $esit = (-not $cift) -and ($ambarAd.PSBase.Count -eq $adlar.PSBase.Count)
-  if($esit){ foreach($a in $adlar.Keys){ if((Bosluk $ambarAd[$a].metin) -cne (Bosluk $adlar[$a].metin) -or "$($ambarAd[$a].baslik)" -cne "$($adlar[$a].baslik)"){ $esit = $false; break } } }
+  # 07.10: yarida kalan -Yaz (upsert bitti, geri okumada baglanti koptu, ayna+isaret yazilmadi) tekrar kosulabilsin: ambar satiri
+  #   ya aynayla ya YENI parcalamayla ayni olmali (ikisi de degilse elle onarim). Upsert tekrari zararsiz (ayni deger).
+  $yeniAd = @{}; foreach($b in $p.yeni){ $yeniAd["$($b.kaynak_ad)"] = $b }
+  if($esit){ foreach($a in $adlar.Keys){
+    $ayniAyna = ((Bosluk $ambarAd[$a].metin) -ceq (Bosluk $adlar[$a].metin) -and "$($ambarAd[$a].baslik)" -ceq "$($adlar[$a].baslik)")
+    $ayniYeni = ((Bosluk $ambarAd[$a].metin) -ceq (Bosluk $yeniAd[$a].metin) -and "$($ambarAd[$a].baslik)" -ceq "$($yeniAd[$a].baslik)")
+    if(-not ($ayniAyna -or $ayniYeni)){ $esit = $false; break } } }
   if(-not $esit){ $say.ambar_farkli++; $atlanan.Add([pscustomobject]@{ slug=$p.law.slug; neden=$(if($cift){'ambarda ayni adla iki satir'}else{'ambar aynayla ayni degil (elle onarim / eksik satir)'}) }); continue }
   $say.yazilacak_kaynak++
   foreach($i in $p.degisen){
@@ -120,17 +126,17 @@ $kosan = @(& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $her
 $kosanKod = $LASTEXITCODE; $ErrorActionPreference = $eapEski
 if($kosanKod -ne 0 -or (-not $KosanVarAtlaIle -and @($kosan | Where-Object { "$_".Trim() }).Count)){ Write-Host ('DURDU: bulutta kosan parti var / okunamadi -> ' + (($kosan | Select-Object -First 5) -join ' ')); exit 2 }
 $govdeDizi = @($yazilacak | ForEach-Object { [ordered]@{ id=$_.id; tur=$_.tur; kaynak_ad=$_.kaynak_ad; baslik=$_.baslik; metin=$_.metin; kaynak_url=$_.kaynak_url; belge_tarihi=$_.belge_tarihi } })
-for($i=0; $i -lt $govdeDizi.Count; $i += 400){
-  $dilim = @($govdeDizi[$i..([Math]::Min($i+400,$govdeDizi.Count)-1)])
+for($i=0; $i -lt $govdeDizi.Count; $i += 100){
+  $dilim = @($govdeDizi[$i..([Math]::Min($i+100,$govdeDizi.Count)-1)])
   $bj = ConvertTo-Json -InputObject $dilim -Depth 4
-  Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar?on_conflict=id" -Headers ($Hb + @{ Prefer='resolution=merge-duplicates,return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($bj)) -TimeoutSec 300 | Out-Null
+  for($dene=1; $dene -le 4; $dene++){ try { Invoke-RestMethod -Method Post -Uri "$SB_URL/rest/v1/dokumanlar?on_conflict=id" -Headers ($Hb + @{ Prefer='resolution=merge-duplicates,return=minimal' }) -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($bj)) -TimeoutSec 300 | Out-Null; break } catch { if($dene -eq 4){ throw }; Start-Sleep -Seconds (15*$dene) } }   # 07.10: baglanti kopmasi
 }
 # geri oku
 $tutan = 0; $tutmayan = New-Object System.Collections.Generic.List[string]
 $idler = @($yazilacak | ForEach-Object { $_.id }); $bek = @{}; foreach($y in $yazilacak){ $bek["$($y.id)"] = $y }
 for($i=0; $i -lt $idler.Count; $i += 150){
   $in = (@($idler[$i..([Math]::Min($i+150,$idler.Count)-1)]) | ForEach-Object { $_ }) -join ','
-  $r = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/dokumanlar?select=id,baslik,metin&id=in.($in)" -Headers $Hb -TimeoutSec 180
+  $r = $null; for($dene=1; $dene -le 3 -and -not $r; $dene++){ try { $r = Invoke-WebRequest -UseBasicParsing -Uri "$SB_URL/rest/v1/dokumanlar?select=id,baslik,metin&id=in.($in)" -Headers $Hb -TimeoutSec 180 } catch { if($dene -eq 3){ throw }; Start-Sleep -Seconds 10 } }   # 07.10: baglanti kopmasi
   foreach($x in @(([Text.Encoding]::UTF8.GetString($r.RawContentStream.ToArray())) | ConvertFrom-Json | ForEach-Object { $_ })){
     $b = $bek["$($x.id)"]; if((Bosluk $x.metin) -ceq (Bosluk $b.metin) -and "$($x.baslik)" -ceq $b.baslik){ $tutan++ } else { $tutmayan.Add($b.kaynak_ad) } }
 }
