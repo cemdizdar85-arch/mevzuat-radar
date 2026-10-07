@@ -145,6 +145,22 @@ DÜZELT 10 soruda) — yazarken baştan uygula:**
 7. **Ambar adı tuzakları:** "Bagimsiz Denetim Yonetmeligi" Türkçe harfsiz kayıtlı; büyük İ ilike ile eşleşmez → İ'siz parçayla ara
    ("%ğımsız Denet%" değil "Bagimsiz Denetim%"). VUK/GVK/KDVK 07.10'da yeniden yutuldu (ad değişti: "GVK (193 s.K.) m.8", "m.22 [2/3]").
 
+**J. gm15 (SPK 20) ikinci göz ölçümünden (08.10; 20 soru, 3 yazar, 4 okuma; anahtar anlaşmazlığı 0, çıkan 0, DÜZELT 11 soru):**
+1. **Suç sorusunda kökte SUÇ ADLANDIRILIR** (ör. "m.107/1 piyasa dolandırıcılığı", "m.106 bilgi suistimali") ya da "genel usul (m.115 ve
+   m.116)" çerçevesi yazılır. Adsız "Kurulun yazılı başvurusu muhakeme şartıdır / dava asliye cezada görülür" kökü, SPKn m.115/A yüzünden iki
+   şıkkı savunulur kılar (bu dalgada üç soruda çıktı).
+2. **SPKn m.115/A kapsamı birebir:** savcının Kurulu beklemeden (gecikmede sakınca varsa) resen soruşturması YALNIZ m.110/A/3'teki suç
+   içindir; m.110/A/1–2 zimmetinde m.115/1 geçerli (Kurulun yazılı başvurusu). Davanın ağır cezada görülmesi (m.115/A/3) ise BÜTÜN m.110/A
+   zimmet suçları içindir. "Kripto zimmetinde savcı resen başlar" genellemesi YANLIŞTIR.
+3. **Etkin pişmanlık kapsamı:** m.107/3 yalnız m.107/1 (işlem bazlı) için; m.107/2 ve m.106'da yok; m.110/3 güveni kötüye kullanmada ayrıca
+   var. "Etkin pişmanlık yalnız dolandırıcılıkta" YANLIŞTIR.
+4. **Satış Tebliği (II-5.2) m.10/2:** fiyat aşağı revize edilirse ilk halka arzda da açıklamayı izleyen ikinci gün başlanabilir — "yalnız
+   borsada işlem gören" demek E6'yı çiğner; kökte "fiyat revizyonu öngörülmemektedir" yazılır.
+5. **İkinci göz okuyucusu önerdiği hap'ı da ölçer:** ≤140 kr ve doğru şık açıklaması + sade.dogru ile 5+ harfli kelime ortaklığı <%60
+   (ön denetimin HAP TEKRAR ölçütü); gm15'te önerilen hapların çoğu bu ölçüte takılıp yazar ikinci kez yazdı.
+6. Ambar adları: Satış Tebliği "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2)" Türkçe harfsiz; SPKn m.108 kaydına 7222 dipnotları
+   karışmış (ceza alt sınırı oradan okunmaz, iş emri).
+
 ## DALGA DÜZENİ (05.10, gm8 düzeltme turunda ölçülen sıra — atlanmaz)
 1. **Harf planı** (`-HarfPlani <konu dosyası>`) → yazara aynen verilir.
 2. **Yazar** doğrudan `veri/fabrika/hazir-gmN-<etiket>-<zorluk>.json` adıyla yazar (konu başına ayrı dosya YOK). Neden: ön denetimin sıkı
