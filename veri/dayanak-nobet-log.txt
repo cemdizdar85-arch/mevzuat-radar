@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261007192446
+Start time: 20261007205454
 Username: runnervm8df0l\runner
 RunAs User: runnervm8df0l\runner
 Configuration Name: 
 Machine: runnervm8df0l (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a22900bd-b919-4ae8-89ac-3c214e8f6479.ps1'
-Process ID: 11383
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/967e8e9c-4dee-4cd5-8eb1-881ac8a98648.ps1'
+Process ID: 11364
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,137 +17,23 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 3842
+Degisen madde : 177
 Haritadaki sayfa: 26
-  ayristirilan cift: 2874
-  AYRISTIRILAMAYAN 552 kayit (gozden kacmasin diye yaziliyor):
-     GVK (193 s.K.) muk. m.121 [1/4] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.17 - Maliye Bakanlığı yetkilidir. Serbest meslek erbabında yaşlılık muaflığı (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.20/D - Yurt dışından elde edilen kazanç ve iratlar için vergi istisnası (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.39 (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.14 (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.15 - Tahsil Usulü hakkındaki Kanun hükümleri uygulanır. Vergi karnesi (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) muk. m.115 (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) muk. m.378 (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) ek m.1 [1/3] (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) ek m.11 - Tarhiyat öncesi uzlaşma [1/2] (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) ek m.12 - Yönetmelikte belirtilir. Ücretlilere vergi iadesinde uzlaşma (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) ek m.13 - Fazla çalışma ücreti [1/2] (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) ek m.14 (gec/ek serisi - normal madde ile eslestirilmedi)
-     VUK (213 s.K.) ek m.18 - Diğer hususlar (gec/ek serisi - normal madde ile eslestirilmedi)
-     KDVK (3065 s.K.) gec. m.1 - Kanunun geçici maddeleri (gec/ek serisi - normal madde ile eslestirilmedi)
+  ayristirilan cift: 0
+  AYRISTIRILAMAYAN 9 kayit (gozden kacmasin diye yaziliyor):
+     BDS 710 Ek p.0 - Giriş
+     BDS 720 Ek 1 p.0 - Giriş
+     BDS 720 Ek 2 p.0 - Giriş
+     BDS 800 Ek p.0 - Giriş
+     BDS 810 Ek p.0 - Giriş
+     GDS 3000 Ek p.0 - Giriş
+     GDS 3402 Ek 1 p.0 - Giriş
+     GDS 3402 Ek 2 p.0 - Giriş
+     GDS 3410 Ek 2 p.0 - Giriş
 
-======================================================================
-  KANUN DEGISTI - 13 SAYFA ETKILENDI
-======================================================================
-  asgari-kv.html
-      <- KVK (5520 s.K.) m.32/B [1/2]
-  bilgi.html
-      <- KVK (5520 s.K.) m.32/B [1/2]
-      <- KVK (5520 s.K.) m.7 [1/2]
-      <- TTK (6102 s.K.) m.344
-  ceza-asistani.html
-      <- VUK (213 s.K.) m.344
-      <- VUK (213 s.K.) m.352
-      <- VUK (213 s.K.) m.359 [1/5]
-      <- VUK (213 s.K.) m.369
-      <- VUK (213 s.K.) m.370 [1/3]
-      <- VUK (213 s.K.) m.376
-  elci.html
-      <- TBK (6098 s.K.) m.21
-      <- TBK (6098 s.K.) m.23
-  fiyatfarki.html
-      <- KVK (5520 s.K.) m.13 [1/5]
-      <- KVK (5520 s.K.) m.30 [1/5]
-  gtip.html
-      <- KDVK (3065 s.K.) m.13 [1/9]
-  hizmet.html
-      <- KDVK (3065 s.K.) m.17 [1/19]
-      <- KVK (5520 s.K.) m.30 [1/5]
-  karne.html
-      <- KVK (5520 s.K.) m.13 [1/5]
-      <- TTK (6102 s.K.) m.1524 [1/2]
-      <- TTK (6102 s.K.) m.376
-      <- TTK (6102 s.K.) m.397 [1/2]
-  kontrol-listesi.html
-      <- TTK (6102 s.K.) m.1524 [1/2]
-      <- TTK (6102 s.K.) m.332
-      <- TTK (6102 s.K.) m.376
-  kurulus-evrak.html
-      <- VUK (213 s.K.) m.153
-      <- TTK (6102 s.K.) m.332
-      <- TTK (6102 s.K.) m.344
-      <- TTK (6102 s.K.) m.580
-  kurulus-nobeti.html
-      <- VUK (213 s.K.) m.153
-      <- VUK (213 s.K.) m.177
-      <- KVK (5520 s.K.) m.14 [1/2]
-      <- KVK (5520 s.K.) m.2 [1/2]
-      <- KVK (5520 s.K.) m.32/B [1/2]
-      <- TBK (6098 s.K.) m.182
-      <- TBK (6098 s.K.) m.444
-      <- TTK (6102 s.K.) m.1
-      <- TTK (6102 s.K.) m.2
-      <- TTK (6102 s.K.) m.3
-      <- TTK (6102 s.K.) m.30
-      <- TTK (6102 s.K.) m.332
-      <- TTK (6102 s.K.) m.344
-      <- TTK (6102 s.K.) m.354
-      <- TTK (6102 s.K.) m.379
-      <- TTK (6102 s.K.) m.396
-      <- TTK (6102 s.K.) m.4 [1/2]
-      <- TTK (6102 s.K.) m.409
-      <- TTK (6102 s.K.) m.41
-      <- TTK (6102 s.K.) m.421 [1/2]
-      <- TTK (6102 s.K.) m.43
-      <- TTK (6102 s.K.) m.46
-      <- TTK (6102 s.K.) m.461
-      <- TTK (6102 s.K.) m.490
-      <- TTK (6102 s.K.) m.492
-      <- TTK (6102 s.K.) m.507
-      <- TTK (6102 s.K.) m.580
-      <- TTK (6102 s.K.) m.585
-      <- TTK (6102 s.K.) m.591
-      <- TTK (6102 s.K.) m.595
-      <- TTK (6102 s.K.) m.596
-      <- TTK (6102 s.K.) m.608
-      <- TTK (6102 s.K.) m.612
-      <- TTK (6102 s.K.) m.617
-      <- TTK (6102 s.K.) m.621
-      <- TTK (6102 s.K.) m.626
-      <- TTK (6102 s.K.) m.64 [1/3]
-  kurulus.html
-      <- GVK (193 s.K.) m.47
-      <- GVK (193 s.K.) m.9 [1/7]
-      <- VUK (213 s.K.) m.177
-      <- VUK (213 s.K.) m.4 [1/2]
-      <- KVK (5520 s.K.) m.1
-      <- KVK (5520 s.K.) m.10 [1/11]
-      <- KVK (5520 s.K.) m.32/B [1/2]
-      <- KVK (5520 s.K.) m.7 [1/2]
-      <- TBK (6098 s.K.) m.620
-      <- TTK (6102 s.K.) m.1524 [1/2]
-      <- TTK (6102 s.K.) m.211
-      <- TTK (6102 s.K.) m.304
-      <- TTK (6102 s.K.) m.332
-      <- TTK (6102 s.K.) m.344
-      <- TTK (6102 s.K.) m.490
-      <- TTK (6102 s.K.) m.580
-      <- TTK (6102 s.K.) m.585
-      <- TTK (6102 s.K.) m.595
-  songun.html
-      <- KDVK (3065 s.K.) m.10 - ÇÜNCÜ BÖLÜM Vergiyi Doğuran Olay Vergiyi doğuran olayın meydana gelmesi [1/2]
-      <- KVK (5520 s.K.) m.1
-      <- TBK (6098 s.K.) m.77
-      <- TTK (6102 s.K.) m.365
-      <- TTK (6102 s.K.) m.64 [1/3]
-
-  Bu sayfalar OKUNUP GUNCELLENMEDEN dogru sayilmaz.
-  -> veri/dayanak-uyari.json
-
-  KOSU BILEREK KIRMIZI BITIYOR: sessiz rapor okunmaz. Bu depoda dort
-  katman 'kuruldu ama kimse gormedi' diye bekledi; bu besincisi olmayacak.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20261007192446
+End time: 20261007205454
 **********************
