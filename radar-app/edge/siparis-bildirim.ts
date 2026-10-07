@@ -55,7 +55,8 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const konu = `Siparişin alındı: ${s.siparis_no} · ${tl(s.tutar)}`;
   const satirlar = [
     `Merhaba ${ad},`, "",
-    `Tetikte siparişin alındı. Ödemeni aşağıdaki hesaba havale/EFT ile yapınca paketin açılır.`, "",
+    // 07.10 Cem kartı açtı (KART_ACIK): sipariş maili kartla ödeyene de doğru konuşur
+    `Tetikte siparişin alındı. Kartla ödediysen paketin hemen açılır, aşağıdaki havale adımını geçebilirsin. Havale/EFT ile ödeyeceksen ödemeni aşağıdaki hesaba yapınca paketin açılır.`, "",
     `Sipariş no: ${s.siparis_no}`, `Paket: ${s.paket_ad || s.paket}`, `Ödenecek tutar (KDV dahil): ${tl(s.tutar)}`, "",
     `Banka: ${BANKA.ad}`, `Alıcı: ${BANKA.alici}`, `IBAN: ${BANKA.iban}`,
     `Açıklama: ${s.siparis_no}  (havale açıklamasına yalnız sipariş numaranı yaz)`, "",
@@ -63,7 +64,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     "Siparişi verdiğin e-postayla tetikte.com'da ücretsiz hesap açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir.",
   ];
-  const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p>Tetikte siparişin alındı. Ödemeni aşağıdaki hesaba <b>havale/EFT</b> ile yapınca paketin açılır.</p>
+  const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p>Tetikte siparişin alındı. <b>Kartla ödediysen</b> paketin hemen açılır, aşağıdaki havale adımını geçebilirsin. <b>Havale/EFT</b> ile ödeyeceksen ödemeni aşağıdaki hesaba yapınca paketin açılır.</p>
 <table style="border-collapse:collapse;margin:10px 0">
 <tr><td style="padding:4px 14px 4px 0;color:#3d4b63">Sipariş no</td><td><b>${kacis(s.siparis_no)}</b></td></tr>
 <tr><td style="padding:4px 14px 4px 0;color:#3d4b63">Paket</td><td>${kacis(s.paket_ad || s.paket)}</td></tr>

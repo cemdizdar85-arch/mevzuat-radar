@@ -236,7 +236,7 @@ function radarPlanBul(id){ return radarPlanlari().filter(function(p){ return p.i
 /* KART ÖDEMESİ — TEK BAYRAK (07.10'a dek satin-al.html içindeydi; fiyat sayfasının "Nasıl ödenir" kutusu da okusun diye buraya
    taşındı, Cem "banka havalesi yazıyor, başka yazan var mı bak"). false iken kart yalnız ?kart=1 ile görünür (Cem'in gerçek
    deneme alımı); deneme + iade doğrulanınca true yapılır ve bütün ödeme metinleri kendiliğinden "kartla ya da havale/EFT" der. */
-var KART_ACIK = false;
+var KART_ACIK = true;   /* 07.10 Cem: "deneme tamam, aç" (iyzico gerçek ortam api.iyzipay.com) */
 function kartAcik(){ try{ return KART_ACIK || new URLSearchParams(location.search).get('kart') === '1'; }catch(e){ return KART_ACIK; } }
 
 /* BANKA — havale/EFT ödeme bilgisi, TEK YER (29.09'a dek satin-al.html içindeydi; radar abonelik
