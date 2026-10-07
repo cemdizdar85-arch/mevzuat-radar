@@ -1,74 +1,66 @@
 {
-  "olcum": "2026-10-06T01:43:28.317Z",
-  "gun": "2026-10-06",
+  "olcum": "2026-10-07T00:34:59.594Z",
+  "gun": "2026-10-07",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 8,
+      "sira": 9,
       "toplam": 10,
-      "id": "sgs-t1-ticaret-kolay/kp-01",
-      "ders": "Ticaret Hukuku",
-      "konu": "genel işlem koşulları",
-      "donem": 9,
-      "teori": true,
+      "id": "sgs-t2-fmuh-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 40 yatırım amaçlı gayrimenkul",
+      "donem": 8,
+      "teori": false,
       "rakamSik": false,
-      "soru": "6098 sayılı Türk Borçlar Kanunu'na göre genel işlem koşulları hakkında aşağıdakilerden hangisi yanlıştır?",
+      "soru": "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026'da tamamlamıştır. İnşaat sürecinde arsa bedeli 850.000 TL, inşaat harcamaları 620.000 TL olup 258 Yapılmakta Olan Yatırımlar hesabındadır. Tamamlanma tarihindeki gerçeğe uygun değeri 1.610.000 TL'dir. Buna göre yapılacak kayıt aşağıdakilerden hangisidir?",
       "siklar": {
-        "A": "Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyla önceden tek başına hazırlayıp karşı tarafa sunduğu sözleşme hükümleridir.",
-        "B": "Bu koşulların sözleşme metninde veya ekinde yer alması, kapsamı, yazı türü ve şekli, nitelendirmede önem taşımaz.",
-        "C": "Aynı amaçla düzenlenen sözleşmelerin metinlerinin özdeş olmaması, bu sözleşmelerin içerdiği hükümlerin genel işlem koşulu sayılmasını engellemez.",
-        "D": "Genel işlem koşulları içeren sözleşmeye konulan bu koşulların her birinin tartışılarak kabul edildiğine ilişkin kayıtlar, kural olarak onları genel işlem koşulu olmaktan çıkarır.",
-        "E": "Genel işlem koşullarıyla ilgili hükümler, sundukları hizmetleri kanun veya yetkili makamlar tarafından verilen izinle yürütmekte olan kişi ve kuruluşların hazırladıkları sözleşmelere de niteliklerine bakılmaksızın uygulanır."
+        "A": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 140.000 TL alacak kaydedilir.",
+        "B": "659 DİĞER OLAĞAN GİDER VE ZARARLAR hesabı 140.000 TL borç kaydedilir.",
+        "C": "258 YAPILMAKTA OLAN YATIRIMLAR hesabı 140.000 TL borç kaydedilir.",
+        "D": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 990.000 TL alacak kaydedilir.",
+        "E": "Fark gerçekleşmemiş kâr sayıldığından hiçbir hesaba kaydedilmez, yalnız dipnotlarda açıklanır."
       },
-      "dogru": "D",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Metin Özdeşliği Tuzağı",
-          "metin": "Öğrenci, sözleşme metinlerinin birebir aynı olması gerektiğini, aksi hâlde genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması bu nitelendirmeyi engellemez, ifade doğrudur."
+          "ad": "Hesap Seçimi Tuzağı",
+          "metin": "farkın, gayrimenkulün transfer edildiği 258 hesabına yazılacağını sanırsın. Doğrusu: 258 hesap yalnız defter değeriyle kapatılır, fark ayrı olarak gelir hesabına kaydedilir."
         },
         "E": {
-          "ad": "Kapsam Daraltma Tuzağı",
-          "metin": "Öğrenci, izinle faaliyet gösteren kuruluşların sözleşmelerinin niteliğine göre bu hükümlerden muaf tutulabileceğini sanır. Doğrusu: Kanun bu sözleşmelere niteliklerine bakılmaksızın uygulanacağını söyler, ifade doğrudur."
+          "ad": "Kapsam Tuzağı",
+          "metin": "ihtiyatlılık düşüncesiyle gerçekleşmemiş kârın hiç kaydedilmeyeceğini sanırsın. Doğrusu: TMS 40 p.65 farkın muhasebeleştirilmemesine değil, doğrudan kâr/zarara yansıtılmasına hükmeder."
         },
-        "A": {
-          "ad": "Tanım Eksikliği Tuzağı",
-          "metin": "öğrenci genel işlem koşulu tanımında ayrıca yazılı şekil gibi bir şart arandığını sanıp bu ifadeyi yanlış sayar; oysa Türk Borçlar Kanunu m.20 genel işlem koşulunu, düzenleyenin ileride çok sayıda benzer sözleşmede kull…"
+        "D": {
+          "ad": "Tutar Tuzağı",
+          "metin": "arsa bedelini defter değerine katmayı unutup 1.610.000-620.000=990.000 hesaplarsın. Doğrusu: defter değeri arsa ve inşaat harcamalarının toplamıdır, 850.000+620.000=1.470.000 alınmalıdır."
         },
         "B": {
-          "ad": "Şekil Şartı Tuzağı",
-          "metin": "Öğrenci, koşulun sözleşme metninde mi ekinde mi yer aldığının ya da yazı türünün nitelendirmeyi etkileyeceğini sanır. Doğrusu: Kanun bu unsurların nitelendirmede önem taşımadığını açıkça belirtir, ifade doğrudur."
+          "ad": "Taraf Tuzağı",
+          "metin": "farkın kâr olduğunu göremeyip zarar sanarak gider hesabına borç yazarsın. Doğrusu: gerçeğe uygun değer defter değerinden büyük olduğundan fark kârdır, gelir hesabına alacak kaydedilir."
         }
       },
-      "hap": "Genel işlem koşullarında tartışılarak kabul edildiğine ilişkin kayıt, TEK BAŞINA o hükmü genel işlem koşulu olmaktan çıkarmaz.",
+      "hap": "Kendi inşa edilen ve gerçeğe uygun değerle izlenen yatırım amaçlı gayrimenkul tamamlandığında, tamamlanma tarihindeki gerçeğe uygun değer ile önceki defter değeri arasındaki fark kâr veya zarar olarak finansal tablolara yansıtılır.",
       "satirlar": [
         [
-          "A) Genel işlem koşulları, düzenleyenin ileride çok sayıda b…",
-          "m.20/1"
+          "Toplam defter değeri (arsa + inşaat harcamaları)",
+          "1.470.000"
         ],
         [
-          "B) Bu koşulların sözleşme metninde veya ekinde yer alması, …",
-          "m.20/2"
+          "Değerleme farkı (1.610.000 - 1.470.000)",
+          "140.000"
         ],
         [
-          "C) Aynı amaçla düzenlenen sözleşmelerin metinlerinin özdeş …",
-          "m.20/3"
-        ],
-        [
-          "D) Genel işlem koşulları içeren sözleşmeye konulan bu koşul…",
-          "m.20/3"
-        ],
-        [
-          "E) Genel işlem koşullarıyla ilgili hükümler, sundukları hiz…",
-          "m.20/4"
+          "649 Diğer Olağan Gelir ve Karlar hesabına alacak kaydedilecek tutar",
+          "140.000"
         ]
       ],
-      "dayanak": "Türk Borçlar Kanunu (6098 s.K.) m.20",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=8",
+      "dayanak": "TMS 40 p.65",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=9",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 8,
+        "kalan_gun": 7,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,63 +73,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 8,
+      "sira": 9,
       "toplam": 10,
-      "id": "smmm-w7-2-fmuh-kolay/kp-01",
-      "ders": "Finansal Muhasebe",
-      "konu": "bilanço düzenleme",
-      "donem": 30,
+      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "stok devir hızı",
+      "donem": 13,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı bilançosunun düzenlenmesinde, toplam anapara bakiyesi 640.000 ₺ olan uzun vadeli banka kredisinden, bilanço tarihinden itibaren bir yıl içinde ödenecek 185.000 ₺'lik taksit tutarı ile buna ilişkin tahakkuk etmiş ancak henüz ödenmemiş 12.500 ₺ faiz bulunmaktadır. Bu tutarların 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri hesabına aktarılacak toplamı kaç ₺'dir?",
+      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır?",
       "siklar": {
-        "A": "12.500",
-        "B": "185.000",
-        "C": "197.500",
-        "D": "640.000",
-        "E": "652.500"
+        "A": "4,5",
+        "B": "6,75",
+        "C": "9",
+        "D": "11",
+        "E": "13,5"
       },
       "dogru": "C",
       "tuzak": {
         "D": {
-          "ad": "Tümünü Aktarma Tuzağı",
-          "metin": "Öğrenci kredinin vade ayrımı yapmadan tamamını kısa vadeli hesaba taşır. Doğrusu: Sadece bir yıl içinde ödenecek 185.000 ₺'lik kısım ile faizi 303 hesabına aktarılır, kalan uzun vadeli olarak izlenir."
+          "ad": "Pay Karıştırma Tuzağı",
+          "metin": "Payda satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjını içerdiğinden kullanılmaz."
         },
         "E": {
-          "ad": "Toplam Anaparaya Faiz Ekleme Tuzağı",
-          "metin": "Öğrenci kredinin tüm anaparasını kısa vadeye alır ve üstüne faizi ekler. Doğrusu: 303 hesabına aktarılacak tutar sadece bir yıl içinde ödenecek 185.000 ₺ ile faizin toplamı olan 197.500 ₺'dir."
+          "ad": "Dönem Başı Stok Tuzağı",
+          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
         },
         "A": {
-          "ad": "Yalnızca Faiz Tuzağı",
-          "metin": "Öğrenci sadece tahakkuk eden faizi 303 hesabına aktarır, anapara taksitini unutur. Doğrusu: 303 hesabı hem taksiti hem faizi kapsar, tutar 185.000+12.500=197.500 olmalıdır."
+          "ad": "Toplam Stok Tuzağı",
+          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
         },
         "B": {
-          "ad": "Yalnızca Anapara Tuzağı",
-          "metin": "Öğrenci taksit tutarını doğru bulur ama tahakkuk eden faizi 303 hesabına eklemeyi unutur. Doğrusu: 303 hesabı anapara taksiti ile faizin toplamını kapsar, 197.500 olmalıdır."
+          "ad": "Dönem Sonu Stok Tuzağı",
+          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: payda ortalama stok olmalıdır, dönem sonu tek bir andaki değerdir."
         }
       },
-      "hap": "Uzun vadeli kredinin bilanço tarihinden itibaren bir yıl içinde ödenecek anapara taksiti, buna ait tahakkuk etmiş ödenmemiş faiziyle birlikte 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri hesabına aktarılır.",
+      "hap": "Stok devir hızının paydası her zaman ORTALAMA stoktur, payı ise satılan malın maliyetidir; satış hasılatı ya da tek bir dönem ucundaki stok kullanılmaz.",
       "satirlar": [
         [
-          "Bir yıl içinde ödenecek anapara taksiti",
-          "185.000"
+          "Dönem Başı Stok",
+          "30.000"
         ],
         [
-          "Tahakkuk eden ödenmemiş faiz",
-          "12.500"
+          "Dönem Sonu Stok",
+          "60.000"
         ],
         [
-          "303 UZUN VADELİ KREDİLERİN ANAPARA TAKSİTLERİ VE FAİZLERİ hesabı aktarılacak toplam",
-          "197.500"
+          "Ortalama Stok",
+          "45.000"
+        ],
+        [
+          "Satılan Malın Maliyeti",
+          "405.000"
+        ],
+        [
+          "Stok Devir Hızı",
+          "9"
         ]
       ],
-      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - 303 Uzun Vadeli Kredilerin Anapara Taksitleri ve Faizleri",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=8",
+      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=9",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 8,
+        "kalan_gun": 7,
         "durum": "DONGU",
         "mail_gunu": false
       },
