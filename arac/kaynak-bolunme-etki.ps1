@@ -30,6 +30,7 @@ param(
   [string[]]$Sinavlar = @(),
   [switch]$Yaz,
   [switch]$OzSinav,            # 07.10: süzgeç + kopuş freni öz-sınavı (ağsız, anahtarsız)
+  [switch]$YalnizOneri,        # 08.10: yalnız "eski ad<TAB>öneriler" basar, partileri taramaz (eşdeğerlik provası)
   [switch]$KopusOnay           # 07.10: "yarıdan fazlası kopuyor" frenini elle aşar (meşru yeniden adlandırma); "yeni 0" freni aşılmaz
 )
 $ErrorActionPreference = 'Stop'
@@ -69,12 +70,47 @@ function OrListesiAyir([string]$ham){
   foreach($k in $parca){ $es = [regex]::Match($k, '^[a-z_]+\.[a-z]+\.(.*)$'); if(-not $es.Success){ return $null }; $v = $es.Groups[1].Value; if(-not $v.StartsWith('"') -and $v -match '[,():]'){ return $null } }
   return ,$parca
 }
+function NumaraKumesi([string]$ad){
+  # "TFRS 18 p.46-47, p.52 - …" → 46,47,52 · "TFRS 18 B98-B105 - …" → B98..B105 · "X p.A14 - …" → A14
+  $sonuc = New-Object System.Collections.Generic.List[string]
+  $bas = ($ad -split ' - ')[0]
+  if($bas.StartsWith($Standart)){ $bas = $bas.Substring($Standart.Length) }   # standart numarası ("TMS 36") paragraf sanılmasın
+  # 08.10: "Ek 5 p.4" → ek numarası (5) paragraf sanılmasın. Eskiden her ek adı fazladan "p.5" önerisi alıyordu (BDS 315'te 4 iki adlı öneri, metin örtüşmesi 0).
+  if($env:KBE_MUTASYON -notin 'ekno','eski'){ $bas = $bas -replace '\bEk\s*\d+\s*',' ' }
+  $noktali = [regex]::Match($bas,'p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){1,3}[A-Z]{0,2})(?=[,\s]|$)')   # 16.09: TFRS 9 "p.3.2.2"
+  if($noktali.Success){ $sonuc.Add($noktali.Groups[1].Value); return $sonuc }
+  foreach($es in [regex]::Matches($bas,'(?:p\.|\s)([A-Z]{0,2})(\d{1,3})([A-Z]{0,2})(?:[-–]([A-Z]{0,2})(\d{1,3}))?(?=[,\s]|$)')){
+    $onek = $es.Groups[1].Value; $ilk = [int]$es.Groups[2].Value
+    if($es.Groups[5].Success -and $es.Groups[5].Value){
+      $son = [int]$es.Groups[5].Value
+      if($son -ge $ilk -and $son - $ilk -le 40){ for($n=$ilk; $n -le $son; $n++){ $sonuc.Add("$onek$n") } }
+    } else { $sonuc.Add("$onek$ilk$($es.Groups[3].Value)") }
+  }
+  return $sonuc
+}
 # 08.10: indirilen parti dosyası BU çağrıda yeniden yazıldı mı. Değilse yerel kopya bayattır, ambara basılmaz.
 #   🚫 GÖRMEZ: dosyanın tazelenip içeriğinin yine de eksik olması (indirme yarım yazdıysa) · saat kayması (2 sn pay).
 function IndirmeTaze([string]$yol, [datetime]$onceUtc){
   if(-not (Test-Path $yol)){ return $false }
   if($env:KBE_MUTASYON -eq 'taze'){ return $true }
   return ((Get-Item $yol).LastWriteTimeUtc -ge $onceUtc)
+}
+# 08.10: aynı paragraf numaralı adaylardan seçim. Önce eski metnin 30 harflik pencerelerinin en çok bulunduğu aday (≥ %30);
+#   örtüşme yoksa eski adla AYNI EK numarasını taşıyan (ek yoksa ana metin) aday; o da yoksa ilk aday (eski davranış).
+#   🚫 GÖRMEZ: eski metin boşsa ve ek etiketi eski adda yanlış yazılmışsa (yalnız ad kuralına kalır).
+function EkNo([string]$ad){ $es = [regex]::Match((($ad -split ' - ')[0]),'\bEk\s*(\d+)'); if($es.Success){ return $es.Groups[1].Value }; return '-' }
+function AdaySec([string]$eskiAd, [string]$eskiHarf, [string[]]$adaylar, $yeniHarfTablo){
+  if(-not $adaylar -or $adaylar.Count -eq 0){ return $null }
+  if($adaylar.Count -eq 1){ return $adaylar[0] }
+  if($env:KBE_MUTASYON -in 'ilk','eski'){ return $adaylar[0] }   # 'eski' = 08.10 öncesi davranış (eşdeğerlik provası)
+  $pencereler = @(); for($i=0; $i -le $eskiHarf.Length-30; $i+=30){ $pencereler += $eskiHarf.Substring($i,30) }
+  if($pencereler.Count){
+    $enIyi = $null; $enIyiOran = 0.0
+    foreach($a in $adaylar){ $m = "$($yeniHarfTablo[$a])"; $oran = @($pencereler | Where-Object { $m.Contains($_) }).Count / $pencereler.Count; if($oran -gt $enIyiOran){ $enIyiOran = $oran; $enIyi = $a } }
+    if($enIyi -and $enIyiOran -ge 0.3){ return $enIyi }
+  }
+  if($env:KBE_MUTASYON -ne 'ek'){ $ayniEk = @($adaylar | Where-Object { (EkNo $_) -eq (EkNo $eskiAd) }); if($ayniEk.Count){ return $ayniEk[0] } }
+  return $adaylar[0]
 }
 if($OzSinav){
   $gecti = 0; $kaldi = 0
@@ -104,6 +140,17 @@ if($OzSinav){
   (Get-Item $gecici).LastWriteTimeUtc = $once.AddSeconds(1)
   Sina 'tazelik: dosya çağrıda yeniden yazılmış → YAZ' (IndirmeTaze $gecici $once)
   Remove-Item $gecici -ErrorAction SilentlyContinue
+  # 08.10 aday seçimi (BDS 315 p.7 ↔ Ek 4 p.7 gerçek vakası; metin harfleri kısaltılmış)
+  $tk = @{ 'X p.7 - Temel Kavramlar' = ('mesleki' * 3 + 'suphecilikdenetcininmeslekiyargisi' * 4); 'X Ek 4 p.7 - Kontrol Çevresi' = ('icdenetimfonksiyonukontrolcevresi' * 6) }
+  $ad2 = @('X Ek 4 p.7 - Kontrol Çevresi','X p.7 - Temel Kavramlar')
+  Sina 'aday: ek önde gelse de METNİ tutan ana metin seçilir' ((AdaySec 'X p.7 - BDS 200, 15-16' ('suphecilikdenetcininmeslekiyargisi' * 3) $ad2 $tk) -eq 'X p.7 - Temel Kavramlar')
+  Sina 'aday: metin yoksa AYNI EK (eski adda ek yok → ana metin)' ((AdaySec 'X p.7 - BDS 200, 15-16' '' $ad2 $tk) -eq 'X p.7 - Temel Kavramlar')
+  Sina 'aday: metin yoksa AYNI EK (eski "Ek 4" → Ek 4)' ((AdaySec 'X Ek 4 p.7 - Hakkında' '' @('X p.7 - Temel Kavramlar','X Ek 4 p.7 - Kontrol Çevresi') $tk) -eq 'X Ek 4 p.7 - Kontrol Çevresi')
+  $Standart = 'BDS 315'
+  Sina 'numara: "Ek 5 p.4" → yalnız 4 (ek no paragraf sayılmaz; 08.10 BDS 315 iki adlı öneri)' ((@(NumaraKumesi 'BDS 315 Ek 5 p.4 - Edinmek') -join ',') -eq '4')
+  Sina 'numara: "p.46-47, p.52" → 46,47,52 (eski davranış)' ((@(NumaraKumesi 'BDS 315 p.46-47, p.52 - x') -join ',') -eq '46,47,52')
+  $Standart = ''
+  Sina 'aday: tek aday aynen'((AdaySec 'X p.9 - a' '' @('X p.9 - b') $tk) -eq 'X p.9 - b')
   Write-Host "OZ-SINAV: gecti $gecti - kaldi $kaldi"; exit $(if($kaldi){ 1 } else { 0 })
 }
 $sbAnahtar = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'); if(-not $sbAnahtar){ $sbAnahtar = $env:SUPABASE_SERVICE_KEY }
@@ -181,22 +228,6 @@ if($BekleyenleriIsle){
 if(-not $Standart -or -not $YedekDosya){ Write-Host '-Standart ve -YedekDosya gerekli (ya da -BekleyenleriIsle).'; exit 1 }
 
 function HarfDizisi([string]$metin){ return (($metin -replace '[^\p{L}]','').ToLowerInvariant()) }
-function NumaraKumesi([string]$ad){
-  # "TFRS 18 p.46-47, p.52 - …" → 46,47,52 · "TFRS 18 B98-B105 - …" → B98..B105 · "X p.A14 - …" → A14
-  $sonuc = New-Object System.Collections.Generic.List[string]
-  $bas = ($ad -split ' - ')[0]
-  if($bas.StartsWith($Standart)){ $bas = $bas.Substring($Standart.Length) }   # standart numarası ("TMS 36") paragraf sanılmasın
-  $noktali = [regex]::Match($bas,'p\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){1,3}[A-Z]{0,2})(?=[,\s]|$)')   # 16.09: TFRS 9 "p.3.2.2"
-  if($noktali.Success){ $sonuc.Add($noktali.Groups[1].Value); return $sonuc }
-  foreach($es in [regex]::Matches($bas,'(?:p\.|\s)([A-Z]{0,2})(\d{1,3})([A-Z]{0,2})(?:[-–]([A-Z]{0,2})(\d{1,3}))?(?=[,\s]|$)')){
-    $onek = $es.Groups[1].Value; $ilk = [int]$es.Groups[2].Value
-    if($es.Groups[5].Success -and $es.Groups[5].Value){
-      $son = [int]$es.Groups[5].Value
-      if($son -ge $ilk -and $son - $ilk -le 40){ for($n=$ilk; $n -le $son; $n++){ $sonuc.Add("$onek$n") } }
-    } else { $sonuc.Add("$onek$ilk$($es.Groups[3].Value)") }
-  }
-  return $sonuc
-}
 
 # --- eski / yeni kayıtlar
 $eskiKayitlar = New-Object System.Collections.Generic.List[object]
@@ -216,14 +247,17 @@ if($fren){ Write-Host "DURDU (kopuş freni): $fren — rapor yazılmadı, taşı
 if($kopanAdlar.Count -eq 0){ Write-Host 'Kopan ad yok — rapor yazılmadı.'; exit 0 }
 
 # --- yeni ad önerileri
+# 08.10 (KGK oturumu): numara → AD LİSTESİ. Eskiden numara başına İLK ad tutuluyordu; ana metin ve ekler aynı numarayı
+#   taşıyınca (BDS 315 p.7 ↔ Ek 4 p.7, BDS 540 p.20 ↔ Ek 1 p.20) öneri yanlış eke gidiyordu: 08.10 metin yargısı 74 bağ (KGK/SMMM 55 onarıldı).
+#   Seçim AdaySec ile: metin örtüşmesi, yoksa aynı ek.
 $yeniNoHaritasi = @{}
-foreach($kayit in $yeniKayitlar){ $noEs = [regex]::Match("$($kayit.kaynak_ad)",'\sp\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:\s|$)'); if($noEs.Success -and -not $yeniNoHaritasi.ContainsKey($noEs.Groups[1].Value)){ $yeniNoHaritasi[$noEs.Groups[1].Value] = "$($kayit.kaynak_ad)" } }
+foreach($kayit in $yeniKayitlar){ $noEs = [regex]::Match("$($kayit.kaynak_ad)",'\sp\.([A-Z]{0,2}\d{1,3}(?:\.\d{1,3}){0,3}[A-Z]{0,2})(?:\s|$)'); if($noEs.Success){ $k = $noEs.Groups[1].Value; if(-not $yeniNoHaritasi.ContainsKey($k)){ $yeniNoHaritasi[$k] = New-Object System.Collections.Generic.List[string] }; if(-not $yeniNoHaritasi[$k].Contains("$($kayit.kaynak_ad)")){ $yeniNoHaritasi[$k].Add("$($kayit.kaynak_ad)") } } }
 $yeniHarf = @{}; foreach($kayit in $yeniKayitlar){ $yeniHarf["$($kayit.kaynak_ad)"] = HarfDizisi "$($kayit.metin)" }
 $oneri = @{}
 foreach($kopanAd in $kopanAdlar){
   $liste = New-Object System.Collections.Generic.List[string]
-  foreach($no in (NumaraKumesi $kopanAd)){ if($yeniNoHaritasi.ContainsKey($no) -and -not $liste.Contains($yeniNoHaritasi[$no])){ $liste.Add($yeniNoHaritasi[$no]) } }
   $eskiHarf = HarfDizisi ((@($eskiKayitlar | Where-Object { "$($_.kaynak_ad)" -eq $kopanAd }) | ForEach-Object { "$($_.metin)" }) -join '')
+  foreach($no in (NumaraKumesi $kopanAd)){ if($yeniNoHaritasi.ContainsKey($no)){ $secilen = AdaySec $kopanAd $eskiHarf $yeniNoHaritasi[$no].ToArray() $yeniHarf; if($secilen -and -not $liste.Contains($secilen)){ $liste.Add($secilen) } } }
   $pencereler = @(); for($i=0; $i -le $eskiHarf.Length-30; $i+=30){ $pencereler += $eskiHarf.Substring($i,30) }
   if($liste.Count -eq 0 -and $pencereler.Count){
     $isabetler = foreach($ad in $yeniHarf.Keys){ $sayi = @($pencereler | Where-Object { $yeniHarf[$ad].Contains($_) }).Count; if($sayi -ge 4){ [pscustomobject]@{ ad=$ad; sayi=$sayi } } }
@@ -231,6 +265,7 @@ foreach($kopanAd in $kopanAdlar){
   }
   $oneri[$kopanAd] = $liste.ToArray()
 }
+if($YalnizOneri){ foreach($k in ($oneri.Keys | Sort-Object)){ Write-Output ("ONERI`t{0}`t{1}" -f $k,(@($oneri[$k]) -join ' ; ')) }; exit 0 }
 
 # --- partiler
 $kopanKume = New-Object System.Collections.Generic.HashSet[string]; foreach($ad in $kopanAdlar){ [void]$kopanKume.Add($ad) }
