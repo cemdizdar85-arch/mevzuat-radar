@@ -136,6 +136,22 @@ function AdimSadeEksik($q){
   if("$env:DENETLE_ADIM_MUTASYON" -ne 'sade' -and -not ($q.PSObject.Properties['sade'] -and $q.sade -and "$($q.sade.dogru)".Trim() -and $q.sade.siklar)){ $o+="SADE YOK: 'sade' {dogru, sinav, siklar} yazar tarafından yazılır (sözleşme B25)" }
   return $o
 }
+# 07.10.2026 B25 hap (Cem "1.2.3"): sitedeki 508 GM sorusunun 497'sinde hap BOŞTU (bulut GM sorusuna hap yazmaz) → "Sen anlat" bölümü boş,
+#   KAPI-BOS BOS-KALINTI. HAP YOK: alan yok/boş ya da >140 kr. HAP TEKRAR: hap'ın 5+ harfli kelimelerinin >=%60'ı doğru şık açıklaması +
+#   sade.dogru içinde → sayfa (motor/kaydir-coz.ps1 ~1047, aynı ölçüt) hap'ı GİZLER, yazılmamış sayılır. Mutasyon: DENETLE_ADIM_MUTASYON = hap | hap-tekrar
+#   GÖRMEZ: sayfanın kural/özet paneli metnini birebir değil, yaklaşık (açıklama + sade) kıyaslar.
+function HapEksik($q){
+  $o=@(); $h="$(if($q.PSObject.Properties['hap']){ $q.hap })".Trim()
+  if("$env:DENETLE_ADIM_MUTASYON" -ne 'hap' -and (-not $h -or $h.Length -gt 140)){ return @("HAP YOK: 'hap' (kuralın tek cümlesi, <=140 kr) yazar tarafından yazılır (sözleşme B25, 07.10)") }
+  if(-not $h -or "$env:DENETLE_ADIM_MUTASYON" -eq 'hap-tekrar'){ return $o }
+  $tr=[Globalization.CultureInfo]::GetCultureInfo('tr-TR')
+  $kel={ param($t) $s=New-Object 'System.Collections.Generic.HashSet[string]'; foreach($m in [regex]::Matches("$t".ToLower($tr),'[a-zçğıöşü]{5,}')){ [void]$s.Add($m.Value) }; ,$s }
+  $ref="$(if($q.aciklama -and $q.dogru){ $q.aciklama.("$($q.dogru)") }) $(if($q.sade){ $q.sade.dogru })"
+  $hk=& $kel $h; $rk=& $kel $ref; if($hk.Count -eq 0){ return $o }
+  $ortak=0; foreach($w in $hk){ if($rk.Contains($w)){ $ortak++ } }
+  if(($ortak/$hk.Count) -ge 0.6){ $o+="HAP TEKRAR: hap'ın kelimelerinin %$([math]::Round(100*$ortak/$hk.Count)) doğru şık açıklamasıyla aynı → sayfa hap'ı gizler; kavram ayrımını yeni cümleyle yaz" }
+  return $o
+}
 function KaliteTek($q){
   $js=Join-Path $depoKokD 'arac\soru-kalite-kapisi.js'; if(-not (Test-Path $js) -or -not (Get-Command node -ErrorAction SilentlyContinue)){ return @('NOT-KALITE KÖR: node ya da arac/soru-kalite-kapisi.js yok') }
   $tmp=[IO.Path]::Combine([IO.Path]::GetTempPath(),"hazir-kalite-$([guid]::NewGuid().ToString('N')).json")
@@ -423,7 +439,15 @@ if($AdimSinavi){
   $sadesiz=[pscustomobject]@{ adimlar=$tam.adimlar }; $bosSade=[pscustomobject]@{ adimlar=$tam.adimlar; sade=[pscustomobject]@{ dogru=' '; siklar=$null } }
   $v=@(@('tam (adım+sade)',$tam,0),@('adım yok',$adimsiz,1),@('tek adım',$tekAdim,1),@('sade yok',$sadesiz,1),@('sade boş',$bosSade,1),@('ikisi yok',[pscustomobject]@{soru='x'},2))
   $h=0; foreach($x in $v){ $c=@(AdimSadeEksik $x[1]).Count; if($c -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $c bulgu (beklenen $($x[2]))" } }
-  if($h){ "ADIM/SADE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "ADIM/SADE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+  # 07.10 hap vakaları (HapEksik): gerçek sınıf = 497 GM sorusunda hap boştu
+  $hq={ param($hap) [pscustomobject]@{ dogru='A'; aciklama=[pscustomobject]@{ A='Ne soruluyor: amortisman. Kural: binek otomobilde kıst amortisman uygulanır. Doğrusu: 120.000.' }; sade=[pscustomobject]@{ dogru='Binek otomobilde ilk yıl kıst amortisman hesaplanır.' }; hap=$hap } }
+  foreach($hv in @(@('hap iyi (yeni kavram ayrımı)','Makine ile binek ayrımı: tam yıl kuralı yalnız binekte gün sayımına döner.',0),@('hap yok','',1),@('hap 141 kr',('a'*141),1),
+                   @('hap tekrar (açıklamanın aynısı)','Binek otomobilde kıst amortisman uygulanır.',1),@('hap boşluk','   ',1))){
+    $c=@(HapEksik (& $hq $hv[1])).Count; if($c -ne $hv[2]){ $h++; "  DUSTU: $($hv[0]) -> $c bulgu (beklenen $($hv[2]))" }
+  }
+  $tH=[pscustomobject]@{ soru='x' }; if(@(HapEksik $tH).Count -ne 1){ $h++; "  DUSTU: hap alanı hiç yok -> beklenen 1" }
+  $nV=$v.Count+6
+  if($h){ "ADIM/SADE SINAVI KIRMIZI: $h/$nV"; exit 1 } else { "ADIM/SADE SINAVI YESIL: $nV/$nV"; exit 0 }
 }
 if($YilSinavi){
   # gm6 gerçek vaka sınıfı: "2025 yılı gelirleri" (KUSUR) · aynı soru "2026 yılı Mart ayında verilecek beyanname" ile (ok) · kanun no sayılmaz
@@ -544,6 +568,7 @@ foreach($q in $liste){
   #   12 parti sorusunun en az 6'sı o katmanda düştü (ADIM-KAYMA, YY-SIKSIZ, simülasyon, AH "6. adımda bulduk"), teori sorusunda adım
   #   hiç yazılmadı ("simülasyon koşamadı"). Bitirmede (smmm-) adım/sade yoksa KUSUR, öteki sınavlarda uyarı.
   foreach($x in @(AdimSadeEksik $q)){ if($GM_SERT -or $KGK_SERT){ $k.Add($x) } else { $not.Add($x) } }
+  foreach($x in @(HapEksik $q)){ if($GM_SERT){ $k.Add($x) } else { $not.Add($x) } }   # 07.10: bitirmede KUSUR, öteki sınavlarda uyarı (o kolların kararı)
   if($KGK3_ACIK){   # KGK: üçü KUSUR · SMMM: harf not, verilen durdur, fıkra not (07.10 banka ölçümü)
     foreach($x in @(HarfAnmaKusur $q)){ if($KGK_ET){ $k.Add("KGK $x") } else { $not.Add("SMMM $x") } }
     foreach($x in @(SorudaVerilenKusur $q)){ if($KGK_ET){ $k.Add("KGK $x") } else { $k.Add("SMMM $x") } }
