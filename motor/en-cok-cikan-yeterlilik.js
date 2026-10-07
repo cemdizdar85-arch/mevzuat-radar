@@ -111,7 +111,7 @@ ${bolum}
   <h2>Bu konularda nerede olduğunu gör</h2>
   <div class="kapi">
     <a href="seviye-testi.html"><b>30 soruda seviyeni ölç</b><span>Ücretsiz. Bitince geçme ihtimalini ve en zayıf alanını görürsün.</span></a>
-    <a href="kaydir/vitrin/smmm.html?vitrin=1"><b>Örnek soruları çöz</b><span>Her şıkkın neden doğru ya da yanlış olduğu, dayandığı maddeyle.</span></a>
+    <a href="index.html?sinav=yeterlilik#ekran"><b>Günün sorusunu çöz</b><span>Her şıkkın neden doğru ya da yanlış olduğu, dayandığı maddeyle.</span></a>
   </div>
 
   <section class="sss">

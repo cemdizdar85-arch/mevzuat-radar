@@ -118,7 +118,7 @@
         <span class="uc-git">Teste başla →</span>
       </a>
     </div>
-    <p class="uc-ornek">Önce ürünü görmek istersen: <a href="kaydir/vitrin/sgs.html">örnek soruları çözümleriyle çöz →</a></p>
+    <p class="uc-ornek">Önce ürünü görmek istersen: <a href="index.html?sinav=sgs#ekran">günün sorusunu Nöbetçi'yle çöz →</a></p>   <!-- 07.10: 10 soruluk sabit sayfa yerine her gün yeni soru -->
     <div class="uc-paket" id="ucPaket">
       <p><b>Beğendiysen tamamı pakette:</b> <span id="ucBanka">sınırsız soru</span>, gerçek sınav dağılımında deneme setleri, "sınav gibi" süreli mod ve ilerleme paneli.</p>
       <span><a href="fiyat.html">Paketleri gör →</a><a class="uc-ikinci" href="ogrenci.html">Paketin varsa giriş yap</a></span>
@@ -149,7 +149,8 @@
   });
   /* Staja Giriş: sayfa olduğu gibi. 24.09: bu sayfanın kartları SGS'nindir; içeriği açılan başka sınav
      (Yeterlilik) kendi açık vitrinine gider - "Yeterlilik giriyorum Staja Giriş çıkıyor" (23.09) tekrarlanmasın. */
-  if(s.icerik){ if(k!=='sgs'&&s.vitrin) location.replace(s.vitrin); return; }
+  /* 07.10 Cem ("ücretsiz soru çöz yine 10 soru çıkıyor"): içeriği açık başka sınav kendi 30 soruluk seviye testine gider (10 soruluk vitrine değil) */
+  if(s.icerik){ if(k!=='sgs'&&(s.olc||s.vitrin)) location.replace(s.olc||s.vitrin); return; }
   document.title='Ön kayıt · '+s.uzun+' | Tetikte';
   $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';

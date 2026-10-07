@@ -56,6 +56,9 @@
   }
   function perde(tur) {
     if (bitti) return; bitti = true;
+    /* 07.10 Cem ("pakete dahil dediğimde ücretsiz soru çöz yine 10 soru çıkıyor"): ücretsiz deneme o sınavın 30 soruluk seviye
+       testine gider (10 soruluk sabit örnek sayfası değil). Sınav sayfa yolundan: kaydir/smmm = Yeterlilik, öteki SGS. */
+    var ucretsiz = KOK + (/\/kaydir\/smmm\//.test(location.pathname) ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
     kapiCoz({ acik: false, tur: tur });
     var baslik, metin, dugmeler;
     if (tur === 'giris') {
@@ -63,17 +66,17 @@
       metin = 'Soru bankasının tamamı, deneme setleri ve "sınav gibi" modu paket sahiplerine açık. Paketin varsa giriş yap.';
       dugmeler = '<a class="pk-ana" href="' + KOK + 'ogrenci.html?sonra=' + sonraAdresi() + '">Giriş yap</a>' +
         '<a href="' + KOK + 'fiyat.html">Paketleri gör</a>' +
-        '<a href="' + KOK + 'ucretsiz-dene.html">Önce ücretsiz dene</a>';
+        '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
     } else if (tur === 'paket') {
       baslik = 'Hesabında aktif paket yok';
       metin = 'Bu sayfa pakete dahil. Paketi aldığında hesabına tanımlanır ve buradan devam edersin.';
       dugmeler = '<a class="pk-ana" href="' + KOK + 'satin-al.html">Paketi al</a>' +
-        '<a href="' + KOK + 'ucretsiz-dene.html">Önce ücretsiz dene</a>';
+        '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
     } else {
       baslik = 'Bağlantı kurulamadı';
       metin = 'Paket bilgin kontrol edilemedi. İnternet bağlantını kontrol edip yeniden dene.';
       dugmeler = '<a class="pk-ana" href="' + location.href.replace(/"/g, '%22') + '">Yeniden dene</a>' +
-        '<a href="' + KOK + 'ucretsiz-dene.html">Ücretsiz dene</a>';
+        '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
     }
     var cizim = function () {
       var d = document.createElement('div');
