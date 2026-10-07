@@ -76,4 +76,16 @@ Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü a
 4. **Kesik metin taraması kör:** bu beşini görmeyen `kesik-metin-adaylari` üreticisine "paragraf ilk cümlede bitiyor / numaralı bent eksik /
    sonraki paragraf numarası gövdede" desenleri eklenmeli (kapı kuralı: öz-sınav + mutasyon).
 
+## 08.10 — Etik Kurallar SAYFA NUMARASI parçaları (KGK oturumu, ölçüldü; YAPILMADI)
+
+- `motor/kgk-standart-yut.ps1` paragraf deseni sayfa sonundan (`\f`) önceki tek başına sayfa numarasını ("227") + sonraki sayfanın
+  büyük harfli başlığını PARAGRAF sanıyor. Etik'te 210 `\f`'nin 162'sinden önce sayı satırı var (2…241, 161/161 ardışık);
+  ~63 sahte parça ("Etik Kurallar p.2", "p.24", "p.227 [1/3]" …), 62 kayıtta sayı cümle ortasında ("mesleki şüphecilik 80 içinde", p.400.5).
+- Denendi (kod geri alındı): sayı satırını atmak metni temizliyor (240 sayı dışında kelime farkı 0) ama 82 ad gidiyor ve numarasız bloklar
+  (KISIM/BÖLÜM girişleri, TERİMLER SÖZLÜĞÜ) ÖNCEKİ paragrafa yapışıyor (sözlük → "p.A990.8 [1/9]"). Doğru çözüm: sayı satırı silinir +
+  numarasız büyük blok kendi adını alır ("Etik Kurallar - Terimler Sözlüğü" gibi), sonra bağ taşıma. Bağ etkisi (ambarın tamamı 15.561 parti):
+  Etik'e toplam 82 bağ, kaybolacak adlara 1 bağ (kgk-d1-tds-kolay-1/kp-12 → "p.227 [1/3]" = Terimler Sözlüğü).
+- Ayrıca p.400.5'te "(b) olumsuz Şekilde bağımsızlık": "olumsuz" kelimesi yerinden kaymış — resmî PDF'le okunmadan düzeltilmez.
+- Prova: scratchpad `2004596f…/scratchpad/kgk-yut-prova/` (yeni3 = sayı silinmiş çıktı, bag-tara.js, kiyas.js).
+
 Kol: kaynak yutma KGK/altyapı işidir; SGS oturumu yutma yapmaz.
