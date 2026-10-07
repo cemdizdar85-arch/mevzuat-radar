@@ -1,11 +1,11 @@
 {
-  "tarih": "07.10.2026 17:25",
+  "tarih": "07.10.2026 17:35",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1321,
   "sayfa": 74,
   "atifli_iddia": 292,
-  "dayanaksiz_iddia": 365,
+  "dayanaksiz_iddia": 366,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 298,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 279,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1329,25 +1329,31 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 302,
+      "satir": 314,
+      "iddia": "10 yıl",
+      "metin": "Son 10 yılın çıkmış sınavlarında en sık sorulan konulardan deneme. Bitince konu konu karne gelir."
+    },
+    {
+      "sayfa": "index.html",
+      "satir": 330,
       "iddia": "7 gün",
       "metin": "yanlış kutusu 2 / 7 gün · deneme (sinav-gibi 130 soru 165 dk 10 set; Yeterlilik Birebir Prova) · canlı deneme yüzdelik (SQL + sayfa)."
     },
     {
       "sayfa": "index.html",
-      "satir": 303,
+      "satir": 331,
       "iddia": "10 yıl",
       "metin": "\"Sık çıkan konuya ağırlık\" 07.10 akşamı SGS için de ölçüldü (veri/sinav/SGS-KAPSAMA.md: hedef = son 10 yılda çıkan soru × 1)."
     },
     {
       "sayfa": "index.html",
-      "satir": 427,
+      "satir": 467,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 491,
+      "satir": 531,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
@@ -2205,19 +2211,19 @@
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 159,
+      "satir": 160,
       "iddia": "2 gün",
       "metin": "Yanlışların yanlış kutuna düştü: 2 gün sonra ders sayfasında yeniden karşına çıkar."
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 236,
+      "satir": 244,
       "iddia": "%5",
       "metin": "if(Math.floor(DURUM.kalanSn)%5===0) yaz();"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 304,
+      "satir": 312,
       "iddia": "2 gün",
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
