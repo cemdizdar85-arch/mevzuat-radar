@@ -36,6 +36,10 @@ Her soruda:
   Teori sorusunda da adım yazılır (Ne soruluyor → Kural → Bu olayda → Doğru şık).
 - `verilen`: soruda verilen değerlerin `cozum_tablo` koordinatları.
 - `sade`: `{dogru, sinav, siklar{A..E}}` — herkesin anlayacağı dilde doğru yol + sınav notu + her şık için tek cümle.
+- `hap` (07.10 eklendi): kuralın akılda kalan TEK cümlesi, ≤140 karakter. Açıklamanın "Kural:" cümlesini tekrar etmez (sayfa,
+  kelimelerin %60'ı kural/doğrusu ile aynıysa hap'ı gizler); "Sen anlat" bölümünde "Nöbetçi böyle anlatırdı:" diye gösterilir.
+  Ölçüldü (07.10): sitedeki 508 GM sorusunun 497'sinde hap BOŞTU — bulut GM sorusuna hap yazmaz, yalnız dosyadakini taşır;
+  model basımlarında FAZ'lar yazıyordu. Boş hap KAPI-BOS'a (BOS-KALINTI) takılır ve "Sen anlat" bölümü boş kalır.
 Bulut bu alanları dosyadan alır, model yazdırmaz (motor/kalip-parti-uret.ps1 FAZ GM).
 
 ## ⭐ BİLİNEN HATA KONTROL LİSTESİ — her soru tek tek (Cem 05.10: "eski kurallar, hakemin bulduğu hatalar kontrol edilsin")
