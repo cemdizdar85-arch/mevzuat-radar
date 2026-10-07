@@ -32,13 +32,49 @@ function DersTavaniOlc([string]$dersRx,[string]$kokYol){
   foreach($p in $an.C_ders_kalibi.PSObject.Properties){ if($dersRx -match [regex]::Escape($p.Name) -or $p.Name -match [regex]::Escape($dersRx)){ return [int]$p.Value.uzunluk.p90 } }
   return 350
 }
+# 07.10.2026 SMMM (bitirme) UZUNLUK TAVANI: SMMM hazır dosyasında (smmm- etiketi / hazir-gmN-… dosyası = $GM_SERT bağlamı) tavan
+#   DersTavaniOlc'a (SGS anatomisi) düşüyordu → Muhasebe Denetimi 342 (SGS 'Denetim'), Vergi 350 (eşleşme yok), Finansal Muhasebe 526
+#   (SGS FM) ya da -Ders yoksa sabit 746. Bulut koşucusu SMMM satırına veri/sinav-anatomisi-smmm.json p90'ını verir (Denetim 554,
+#   Vergi 730, FM 467, Hukuk 308, FTA 293…). KAYNAK (birebir kopya): motor/kalip-kosucu.ps1 $DERS_TAVAN_SMMM kurulumu (~satır 248-255)
+#   + DersTavani SMMM dalı (~satır 276-279): Hashtable @{} doldurma sırası, iki yönlü [regex]::Escape eşleşmesi, ilk eşleşen, yoksa 350.
+#   Koşucu değişirse burası da değişmeli (-TavanSinavi SMMM vakaları anatomiden değil beklenen rakamlardan sınar).
+#   Ders adı plan satırının 'ders' alanıyla aynı kaynaktan: arac/smmm-ders-adi.ps1 SmmmDersAdi (etiket → kanonik ad); çözülemezse -Ders.
+#   🚫 GÖRMEZ: plan satırındaki elle 'tavan' (-Tavan ile verilir) · koşucunun Hashtable sırası başka .NET'te değişirse 'Hukuk' (iki
+#   anahtara da uyar: 308 / 461) · SGS ve KGK yolu bu işleve girmez (davranışları aynen).
+function SmmmTavaniOlc([string]$smmmDers,[string]$kokYol){
+  $tabloS=@{}; $anYS=Join-Path $kokYol 'veri\sinav-anatomisi-smmm.json'
+  if(Test-Path $anYS){ try{ $anS=ConvertFrom-Json -InputObject (Get-Content $anYS -Raw -Encoding UTF8); foreach($p in $anS.C_ders_kalibi.PSObject.Properties){ $tabloS[$p.Name]=[int]$p.Value.uzunluk.p90 } }catch{ } }
+  foreach($k in $tabloS.Keys){ if($smmmDers -match [regex]::Escape($k) -or $k -match [regex]::Escape($smmmDers)){ return $tabloS[$k] } }
+  return 350
+}
+# Tavan seçimi (öncelik): -Tavan > SMMM etiketi (koşucu SMMM dalı) > -Ders (SGS anatomisi) > 746. Mutasyon: $env:DENETLE_TAVAN_MUTASYON='smmm-kapali'.
+function UzTavanSec([int]$tavanP,[string]$dersP,[string]$gmEtP,[string]$kokYol){
+  if($tavanP -gt 0){ return $tavanP }
+  if($gmEtP -match '^smmm-' -and "$env:DENETLE_TAVAN_MUTASYON" -ne 'smmm-kapali'){
+    if(-not (Get-Command SmmmDersAdi -ErrorAction SilentlyContinue)){ . (Join-Path $kokYol 'arac\smmm-ders-adi.ps1') }
+    $sdAd=SmmmDersAdi $gmEtP $null; if(-not $sdAd){ $sdAd=$dersP }
+    if($sdAd){ return (SmmmTavaniOlc $sdAd $kokYol) }
+  }
+  if($dersP){ return (DersTavaniOlc $dersP $kokYol) }
+  return 746
+}
 $depoKokD=Split-Path -Parent $(if($PSScriptRoot){ $PSScriptRoot } else { (Get-Location).Path + '\arac' })
 if($TavanSinavi){
   # Beklenenler anatomi dosyasından DEĞİL, koşucunun 25.09 bulut günlüğünde gördüğümüz sonuçtan: Denetim 342 (6/6 düştü, 373–573 kr),
   # Borçlar 630 (15 sorunun 15'i 258+ kr ile geçti), '^Maliye$' 393 (desen 'Maliye' adını İÇERİR), kısa 'Ataturk Ilke' 243 (ters yön eşleşmesi).
   $vakalar=@(@('Denetim',342),@('Borclar Hukuku|Ticaret ve Borclar',630),@('^Maliye$',393),@('Ataturk Ilke',243),@('Yabanci Dil',350))
   $hata=0; foreach($v in $vakalar){ $olc=DersTavaniOlc $v[0] $depoKokD; $iyi=($olc -eq $v[1]); if(-not $iyi){ $hata++ }; "  $(if($iyi){'TAMAM'}else{'HATA '}) '$($v[0])' -> $olc (beklenen $($v[1]))" }
-  if($hata){ "TAVAN SINAVI KIRMIZI: $hata/$($vakalar.Count)"; exit 1 } else { "TAVAN SINAVI YESIL: $($vakalar.Count)/$($vakalar.Count)"; exit 0 }
+  # 07.10 SMMM vakaları (UzTavanSec = tam denetimin kullandığı seçim): beklenen = koşucu DersTavani SMMM dalı (sinav-anatomisi-smmm p90).
+  #   SGS satırları eski değeri aynen korumalı (-Ders 'Muhasebe Denetimi' smmm etiketi YOKSA hâlâ SGS 'Denetim' 342). Mutasyon:
+  #   $env:DENETLE_TAVAN_MUTASYON='smmm-kapali' → SMMM vakaları 342/350/526'ya döner, sınav KIRMIZI.
+  $vakaS=@(@('SMMM Denetim (-Ders de verilmiş)',0,'Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',554),@('SMMM Vergi',0,'Vergi Mevzuatı ve Uygulaması','smmm-gm12-1-yvergi-zor',730),
+           @('SMMM FM (-Ders yok)',0,'','smmm-gm11-1-fmuh-zor',467),@('SMMM Hukuk',0,'','smmm-gm9-1-yhukuk-kolay',308),@('SMMM Meslek',0,'','smmm-gm7-1-ymeslek-zor',461),
+           @('SMMM -Tavan önce gelir',500,'','smmm-gm13-1-ydenetim-zor',500),
+           @('SGS Denetim aynen',0,'Denetim','',342),@('SGS -Ders Muhasebe Denetimi, smmm etiketi yok: eski değer',0,'Muhasebe Denetimi','',342),
+           @('SGS Borçlar aynen',0,'Borclar Hukuku|Ticaret ve Borclar','sgs-k2-borclar-zor',630),@('etiketsiz, -Ders yok: 746',0,'','',746),@('kgk etiketi bu işleve girmez',0,'','kgk-t1-tms-g5-kolay',746))
+  foreach($v in $vakaS){ $olc=UzTavanSec $v[1] $v[2] $v[3] $depoKokD; $iyi=($olc -eq $v[4]); if(-not $iyi){ $hata++ }; "  $(if($iyi){'TAMAM'}else{'HATA '}) $($v[0]) -> $olc (beklenen $($v[4]))" }
+  $nT=$vakalar.Count+$vakaS.Count
+  if($hata){ "TAVAN SINAVI KIRMIZI: $hata/$nT"; exit 1 } else { "TAVAN SINAVI YESIL: $nT/$nT"; exit 0 }
 }
 # --- KAPI-B İKİZ + KAYNAK ADI (26.09.2026, SGS k4/k8 + SMMM gm2 ölçümü) --------------------------------------------------------
 # NEDEN: bulutta 8 Türkçe (k4), 7 İngilizce (k8) ve 4 SMMM (gm2) hazır soru KAPI-B ile ÜCRETSİZ kapıda düştü; bu betik ve
@@ -369,6 +405,48 @@ if($KgkKapiSinavi){
   $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
   if($h){ "KGK KAPI SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KGK KAPI SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }
+# --- 07.10.2026 KAPI-K SÖZLÜK SEÇİMİ TEK YERDE (yazarların bildirimi: -KokDene'den geçen "dördüncü", "seçememiştir", "ekiple" tam
+#   denetimde düştü) ----------------------------------------------------------------------------------------------------------------
+# KÖK NEDEN (ölçüldü 07.10): tam denetim -Ders verilince sözlüğü SGS penceresinden kurar (KapiKSozlukKur; 'Muhasebe Denetimi' → SGS
+#   soru 73-88, son 7 dönem); -KokDene ise -Ders'i hiç okumadan hep SMMM test kitapçıklarından (KapiKSmmmSozlukOnbellek) kuruyordu.
+#   'dordu' ve 'ekipl' SMMM sözlüğünde VAR, SGS penceresinde YOK → kök denemesi 'not/ok', tam denetim 'DUSER'. ('secem' ikisinde de yok.)
+# ŞİMDİ: ikisi de KapiKSozlukSec'ten geçer, seçim sırası: Yabancı Dil → yok · smmm- etiketi (ya da hazir-gmN-… dosyası) → SMMM test
+#   (-Ders verilse de; 07.10 gm14 ölçümü) · -Ders → SGS pencere · kgk- etiketi → KGK tüm kitapçık. Tek fark: kök denemesi SMMM'de aynı
+#   KapiKSmmmSozlukKur çıktısının önbelleğini okur (≤12 saat, -KokTazele tazeler). Karar kuralı (>=2 kelime DUSER) KapiKKarar'da tek.
+#   🚫 GÖRMEZ: önbellek ömrü içinde ambara eklenen SMMM kitapçığı · SMMM sözlüğünün bulut koşusu anındaki kitapçık listesiyle aynılığı.
+#   Mutasyon: $env:DENETLE_KOKDENE_MUTASYON='eskisozluk' → kök denemesi eski yola (hep SMMM, -Ders yok sayılır) döner.
+if(Test-Path (Join-Path $depoKokD 'arac\kapi-k-sozluk.ps1')){ . (Join-Path $depoKokD 'arac\kapi-k-sozluk.ps1') }
+if(-not (Get-Command SmmmDersAdi -ErrorAction SilentlyContinue)){ . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1') }
+$script:KAPIK_KURUCU=@{ sgs={ param($dR,$pN) KapiKSozlukKur -DersRegex $dR -Pencere $pN }; smmm={ param($dR) KapiKSmmmSozlukKur -DersRegex $dR }
+  smmmOnb={ param($dR,$tz) KapiKSmmmSozlukOnbellek -DersRegex $dR -Tazele:$tz }; kgk={ KapiKKgkSozlukOnbellek } }
+function KapiKSozlukSec([string]$dersP,[int]$pencereP,[string]$ikizEt,[string]$dosyaP,[switch]$Onbellek,[switch]$Tazele){
+  $r=[pscustomobject]@{ sozluk=$null; yol=''; ders=''; yd=$false; mesaj=$null; kgkMesaj=$null }
+  if($dersP -and $dersP -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce'){ $r.yd=$true; $r.yol='yd'; $r.mesaj="YABANCI DİL: KAPI-K ve soru/şıkta ASCII-Türkçe kontrolü üreticide kapalı olduğu için burada da ölçülmez"; return $r }
+  $dosyaAd=$(if($dosyaP){ [IO.Path]::GetFileNameWithoutExtension($dosyaP) } else { '' })
+  $etS=$(if($ikizEt){ $ikizEt } elseif($dosyaAd -match '^hazir-(gm\d+-.*)$'){ 'smmm-' + $Matches[1] } else { '' })   # yalnız bitirme GM dosyası
+  # 07.10 (gm14 yazarının ölçümü, koordinatör kararı): SMMM etiketinde -Ders verilse de sözlük SMMM test kitapçıklarından kurulur
+  #   (bulut üreticisi SMMM'de SGS penceresi KURMAZ). Eskiden -Ders dalı önce geliyordu → 'Vergi Mevzuatı ve Uygulaması' SGS sözlüğü
+  #   alıyordu. Ders adı etiketten (SmmmDersAdi), çözülemezse -Ders. Mutasyon $env:DENETLE_KAPIK_MUTASYON='ders-once' → eski sıra.
+  $smmmOnce=($etS -match '^smmm-' -and "$env:DENETLE_KAPIK_MUTASYON" -ne 'ders-once')
+  if($dersP -and -not $smmmOnce){ $r.yol='sgs'; $r.ders=$dersP; $r.sozluk=& $script:KAPIK_KURUCU.sgs $dersP $pencereP
+    if(-not $r.sozluk){ $r.mesaj="UYARI: KAPI-K sozlugu kurulamadi (ambar/anahtar/analiz dosyasi) - bu kapi OLCULMEDI" }; return $r }
+  if($etS -match '^smmm-'){ $r.yol='smmm'; $r.ders=SmmmDersAdi $etS $null; if(-not $r.ders){ $r.ders=$dersP }
+    if($r.ders){ $r.sozluk=$(if($Onbellek){ & $script:KAPIK_KURUCU.smmmOnb $r.ders ([bool]$Tazele) } else { & $script:KAPIK_KURUCU.smmm $r.ders }) }
+    $r.mesaj=$(if(-not $r.sozluk){ "UYARI: bitirme KAPI-K sozlugu kurulamadi ($etS) - bu kapi OLCULMEDI" } else { "BITIRME KAPI-K: ders $($r.ders)" }); return $r }
+  $etG=$(if($ikizEt -match '^kgk-'){ $ikizEt } elseif(-not $ikizEt -and $dosyaAd -match '^hazir-(kgk-.*)$'){ $Matches[1] } else { '' })
+  if($etG){ $r.yol='kgk'; $r.ders=$etG; $r.sozluk=& $script:KAPIK_KURUCU.kgk
+    $r.kgkMesaj=$(if(-not $r.sozluk){ "UYARI: KGK KAPI-K sozlugu kurulamadi - bu kapi OLCULMEDI" } else { "KGK KAPI-K: tüm KGK kitapçıkları (yalnız ön denetim; bulut KGK'da KAPI-K koşmaz)" }) }
+  return $r
+}
+function KapiKKarar([string]$metinK,$sozlukK){ $e=KapiKOlc -Metin $metinK -Sozluk $sozlukK; return $(if($e.Keys.Count -ge 2){ 'DUSER' } elseif($e.Keys.Count -eq 1){ 'not' } else { 'ok' }) }
+function KokDeneSozluk([string]$dersP,[int]$pencereP,[string]$ikizEt,[string]$kokDeneP,[bool]$tazeleP){
+  $dosyaK=$(if($kokDeneP -like '*.json'){ $kokDeneP } else { '' })
+  if("$env:DENETLE_KOKDENE_MUTASYON" -eq 'eskisozluk'){   # 05.10 eski yol: -Ders yok sayılır, hep SMMM önbelleği
+    $etE=$(if($ikizEt){ $ikizEt } elseif($kokDeneP -match 'hazir-(gm\d+-[^\\/]*?)(-p\d+)?\.json$'){ 'smmm-' + $Matches[1] } else { '' }); $dE=$(if($etE){ SmmmDersAdi $etE $null } else { '' })
+    return [pscustomobject]@{ sozluk=$(if($dE){ & $script:KAPIK_KURUCU.smmmOnb $dE $tazeleP } else { $null }); yol=$(if($dE){ 'smmm' } else { '' }); ders=$dE; yd=$false; mesaj=$null; kgkMesaj=$null }
+  }
+  return (KapiKSozlukSec $dersP $pencereP $ikizEt $dosyaK -Onbellek -Tazele:$tazeleP)
+}
 # 05.10.2026 KÖK DENEME (Cem "1.2.3" GM3): yazar kökü yazarken bitirme KAPI-K'yı saniyede sınar. Sözlük önbellekten
 #   (arac/kapi-k-sozluk.ps1 KapiKSmmmSozlukOnbellek, 12 saat), ölçüm denetimin aynı KapiKOlc'u. Tam denetimin yerine GEÇMEZ.
 #   Kullanım: -KokDene "<metin>" ya da -KokDene <hazır dosya.json> · -IkizEtiket smmm-<etiket> (ders buradan) · -KokTazele
@@ -378,16 +456,36 @@ if($KokDeneSinavi){
   $gy=Join-Path ([IO.Path]::GetTempPath()) "kokdene-sinav-$PID.json"; KapiKSozlukYaz $sz $gy; $oku=KapiKSozlukOku $gy; Remove-Item $gy -ErrorAction SilentlyContinue
   $v=@('vergi beyanname kitapta','muhasebe muhasebe faaliyet faaliyetleri','zemberek kelimesi geçiyor','beyanname tek kez')
   $h=0; foreach($t in $v){ $a=(@((KapiKOlc $t $sz).GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) | Sort-Object) -join ','; $b=(@((KapiKOlc $t $oku).GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) | Sort-Object) -join ','; if($a -ne $b){ $h++; "  DUSTU: '$t' -> taze [$a] / onbellek [$b]" } }
-  if($h){ "KOK DENEME SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KOK DENEME SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
+  # 07.10 YOL BAĞI: aynı argümanla kök denemesi (KokDeneSozluk) ile tam denetim (KapiKSozlukSec) aynı sözlüğü seçmeli → aynı kelimede
+  #   aynı karar. Ambar yok (CI): kurucular sahte sözlüklerle değiştirilir; SGS penceresinde 'dordu'/'ekipl' YOK, SMMM'de VAR (07.10 ölçümü).
+  #   Mutasyon $env:DENETLE_KOKDENE_MUTASYON='eskisozluk' → -Ders'li vakalar ayrışır, sınav KIRMIZI.
+  $sGenis=@{}; foreach($o in 'muhas','denet','bagim','bulgu','rapor'){ $sGenis[$o]=1 }; $mGenis=@{}; foreach($o in (@($sGenis.Keys) + @('dordu','ekipl'))){ $mGenis[$o]=1 }
+  $sahteS=[pscustomobject]@{ genis=$sGenis; dar=$null; aralik=@(73,88); blok=1; kaynak='sahte-sgs' }; $sahteM=[pscustomobject]@{ genis=$mGenis; dar=$null; aralik=@('smmm-x'); blok=1; kaynak='sahte-smmm' }
+  $sahteG=[pscustomobject]@{ genis=@{ denet=1; bagim=1 }; dar=$null; aralik=@('kgk-tum'); blok=1; kaynak='sahte-kgk' }
+  $script:KAPIK_KURUCU=@{ sgs={ param($dR,$pN) $sahteS }; smmm={ param($dR) $sahteM }; smmmOnb={ param($dR,$tz) $sahteM }; kgk={ $sahteG } }
+  $metinler=@('dördüncü bir ekiple denetim','dördüncü denetim raporu','bağımsız denetim bulgusu raporu','ekiple seçememiştir')
+  $durumlar=@(@('-Ders + smmm etiketi','Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('smmm etiketi','','smmm-gm13-1-ydenetim-zor',''),
+              @('hazır dosya adı','','','veri\fabrika\hazir-gm13-1-ydenetim-zor.json'),@('-Ders, etiketsiz','Muhasebe Denetimi','',''),@('kgk etiketi','','kgk-t1-tms-g5-kolay',''),@('Yabancı Dil','Yabanci Dil','sgs-k10-yd-kolay',''))
+  $nB=0; foreach($du in $durumlar){
+    $tam=KapiKSozlukSec $du[1] 7 $du[2] $du[3]; $kd=KokDeneSozluk $du[1] 7 $du[2] $(if($du[3]){ $du[3] } else { 'metin' }) $false
+    foreach($t in $metinler){ $nB++; $kT=$(if($tam.sozluk){ KapiKKarar $t $tam.sozluk } else { "yok:$($tam.yol)" }); $kK=$(if($kd.sozluk){ KapiKKarar $t $kd.sozluk } else { "yok:$($kd.yol)" })
+      if($kT -ne $kK){ $h++; "  DUSTU: [$($du[0])] '$t' -> tam denetim $kT ($($tam.yol)) / kök denemesi $kK ($($kd.yol))" } } }
+  # mutlak çapalar (yalnız eşitlik ölçülseydi iki yol birlikte bozulabilirdi): etiketsiz -Ders → SGS penceresi → DUSER;
+  #   smmm etiketi + -Ders → SMMM sözlüğü → ok (gm14). Mutasyon $env:DENETLE_KAPIK_MUTASYON='ders-once' → ikinci çapa KIRMIZI.
+  $nB++; $ca=KokDeneSozluk 'Muhasebe Denetimi' 7 '' 'metin' $false; if(-not $ca.sozluk -or (KapiKKarar 'dördüncü bir ekiple denetim' $ca.sozluk) -ne 'DUSER'){ $h++; "  DUSTU: çapa: etiketsiz -Ders'li kök denemesi SGS penceresiyle DUSER demeli" }
+  foreach($cs in @(@('Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('Vergi Mevzuatı ve Uygulaması','','veri\fabrika\hazir-gm12-1-yvergi-zor.json'))){ $nB++; $cb=KapiKSozlukSec $cs[0] 7 $cs[1] $cs[2]
+    if($cb.yol -ne 'smmm' -or -not $cb.sozluk -or (KapiKKarar 'dördüncü bir ekiple denetim' $cb.sozluk) -ne 'ok'){ $h++; "  DUSTU: çapa: SMMM etiketi + -Ders '$($cs[0])' SMMM sözlüğü seçmeli (seçilen $($cb.yol))" } }
+  $nT=$v.Count+$nB
+  if($h){ "KOK DENEME SINAVI KIRMIZI: $h/$nT"; exit 1 } else { "KOK DENEME SINAVI YESIL: $nT/$nT"; exit 0 }
 }
 if($KokDene){
-  . (Join-Path $depoKokD 'arac\kapi-k-sozluk.ps1'); . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1')
-  $etKD=$(if($IkizEtiket){ $IkizEtiket } elseif($KokDene -match 'hazir-(gm\d+-[^\\/]*?)(-p\d+)?\.json$'){ 'smmm-' + $Matches[1] } else { '' })
-  $dersKD=$(if($etKD){ SmmmDersAdi $etKD $null } else { $null }); if(-not $dersKD){ throw '-KokDene: ders çözülemedi; -IkizEtiket smmm-<etiket> ver' }
-  $szKD=KapiKSmmmSozlukOnbellek -DersRegex $dersKD -Tazele:$KokTazele; if(-not $szKD){ "KOK DENEME: sözlük kurulamadı ($dersKD) - OLCULMEDI"; exit 2 }
-  "KOK DENEME: $dersKD · sözlük $($szKD.kaynak) · genis $($szKD.genis.Keys.Count) dar $(if($szKD.dar){ $szKD.dar.Keys.Count } else { 'yok' })"
+  $kokSoz=KokDeneSozluk $Ders $Pencere $IkizEtiket $KokDene ([bool]$KokTazele)
+  if($kokSoz.yd){ "KOK DENEME: $($kokSoz.mesaj)"; exit 0 }
+  if(-not $kokSoz.yol){ throw '-KokDene: sözlük yolu çözülemedi; -IkizEtiket smmm-<etiket> / kgk-<etiket> ya da -Ders ver (tam denetimle AYNI argümanı ver)' }
+  if(-not $kokSoz.sozluk){ "KOK DENEME: sözlük kurulamadı ($($kokSoz.yol) $($kokSoz.ders)) - OLCULMEDI"; exit 2 }
+  "KOK DENEME: yol $($kokSoz.yol) · $($kokSoz.ders) · sözlük $($kokSoz.sozluk.kaynak) · genis $($kokSoz.sozluk.genis.Keys.Count) dar $(if($kokSoz.sozluk.dar){ $kokSoz.sozluk.dar.Keys.Count } else { 'yok' }) (tam denetim aynı argümanla aynı sözlüğü seçer)"
   $kokler=$(if($KokDene -like '*.json' -and (Test-Path $KokDene)){ $kj=Get-Content -Raw -Encoding UTF8 $KokDene | ConvertFrom-Json; @($kj) | ForEach-Object { [pscustomobject]@{ ad="$($_.konu)"; metin="$($_.soru)" } } } else { ,[pscustomobject]@{ ad='metin'; metin=$KokDene } })
-  foreach($kk in @($kokler)){ $e=KapiKOlc $kk.metin $szKD; $d=@($e.Keys | Sort-Object | ForEach-Object { "$_ ($($e[$_]))" }); $sonuc=$(if($e.Keys.Count -ge 2){ 'DUSER' } elseif($e.Keys.Count -eq 1){ 'not' } else { 'ok' }); "  $sonuc · $($kk.ad) · $($d -join ', ')" }
+  foreach($kk in @($kokler)){ $e=KapiKOlc $kk.metin $kokSoz.sozluk; $d=@($e.Keys | Sort-Object | ForEach-Object { "$_ ($($e[$_]))" }); "  $(KapiKKarar $kk.metin $kokSoz.sozluk) · $($kk.ad) · $($d -join ', ')" }
   exit 0
 }
 if($HarfPlani){
@@ -465,27 +563,19 @@ $kapiK=$null
 #   YD yazarları report/meeting/credit gibi temel kelimeleri sınav dışı sanıp soruyu fakirleştiriyordu (K3 w3: 6 soru yalnız bu yüzden düştü).
 #   Aynı desen üreticiyle birebir: 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce'.
 $YABANCI_DIL_DENETIMI=[bool]($Ders -and $Ders -match 'Yabanci Dil|Yabancı Dil|Ingilizce|İngilizce')
-if($YABANCI_DIL_DENETIMI){ "YABANCI DİL: KAPI-K ve soru/şıkta ASCII-Türkçe kontrolü üreticide kapalı olduğu için burada da ölçülmez" }
-elseif($Ders){
-  $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
-  if(Test-Path $kutup){ . $kutup; $kapiK=KapiKSozlukKur -DersRegex $Ders -Pencere $Pencere }
-  if(-not $kapiK){ "UYARI: KAPI-K sozlugu kurulamadi (ambar/anahtar/analiz dosyasi) - bu kapi OLCULMEDI" }
-}
+# -Ders → SGS pencere sözlüğü (KapiKSozlukKur) · Yabancı Dil → kapalı.
 # 05.10.2026 BİTİRME KAPI-K (gm6 ölçüm koşusu: 15 hazır sorunun 9'u bulutta KAPI-K ile düştü, bu betik 'ok' demişti — SMMM yolu yoktu).
 #   Etiket (ya da dosya adı) smmm- ile başlıyor ve -Ders verilmemişse sözlük üreticinin SMMM yolundan kurulur (arac/kapi-k-sozluk.ps1 KapiKSmmmSozlukKur).
-if(-not $YABANCI_DIL_DENETIMI -and -not $Ders){
-  $etK=$(if($IkizEtiket){ $IkizEtiket } elseif([IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(gm\d+-.*)$'){ 'smmm-' + $Matches[1] } else { '' })   # yalnız bitirme GM dosyası
-  if($etK -match '^smmm-'){
-    . (Join-Path $depoKokD 'arac\smmm-ders-adi.ps1'); $dersK=SmmmDersAdi $etK $null
-    $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
-    if($dersK -and (Test-Path $kutup)){ . $kutup; $kapiK=KapiKSmmmSozlukKur -DersRegex $dersK }
-    if(-not $kapiK){ "UYARI: bitirme KAPI-K sozlugu kurulamadi ($etK) - bu kapi OLCULMEDI" } else { "BITIRME KAPI-K: ders $dersK" }
-  }
-}
+# 07.10.2026: seçim KapiKSozlukSec'e taşındı (kök denemesiyle ORTAK); ekran satırları aynı. TEK DAVRANIŞ DEĞİŞİKLİĞİ: SMMM etiketinde
+#   -Ders verilse de SMMM sözlüğü (gm14 ölçümü); SGS ve KGK sırası/sözlüğü önceki satırlarla aynı.
+#   KGK sözlüğü de aynı çağrıda kurulur, satırı eski yerinde (KGK uzunluk tavanından sonra) basılır.
+$KKS=KapiKSozlukSec $Ders $Pencere $IkizEtiket $Dosya
+if($KKS.mesaj){ $KKS.mesaj }; $kapiK=$KKS.sozluk
 $liste=Get-Content $Dosya -Raw -Encoding UTF8 | ConvertFrom-Json
 # B25 sertliği: bitirme (smmm-) etiketinde ADIM/SADE YOK kusurdur; öteki sınavlarda uyarı (o kolların kararı)
 $GM_ET=$(if($IkizEtiket){ $IkizEtiket } elseif([IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(gm\d+-.*)$'){ 'smmm-' + $Matches[1] } else { '' })   # bitirme GM dosyası hazir-gmN-…
 $GM_SERT=[bool]($GM_ET -match '^smmm-')
+if($GM_SERT -and $Tavan -le 0){ $UZ_TAVAN=UzTavanSec $Tavan $Ders $GM_ET $depoKokD; "SMMM UZUNLUK TAVANI: $UZ_TAVAN kr (koşucu DersTavani SMMM dalı = sinav-anatomisi-smmm p90; SGS anatomisi kullanılmaz)" }
 # 07.10.2026 KGK SERTLİĞİ (KGK oturumu, Cem K2): kgk- etiketinde (-IkizEtiket kgk-… ya da dosya hazir-kgk-….json) B25 ADIM/SADE YOK ve SIM
 #   ön kontrolü KUSUR (bitirmeyle aynı; bulut aynı üreticiyi koşar) + K4/K5/K6 kapıları. SGS/SMMM'de değişen yok.
 $KGK_ET=$(if($IkizEtiket -match '^kgk-'){ $IkizEtiket } elseif(-not $IkizEtiket -and [IO.Path]::GetFileNameWithoutExtension($Dosya) -match '^hazir-(kgk-.*)$'){ $Matches[1] } else { '' })
@@ -499,11 +589,7 @@ if($KGK_ET -and $Tavan -le 0){
   try{ $akY=Join-Path $depoKokD 'veri\sinav-anatomisi-kgk.json'; $pv=[int]((Get-Content $akY -Raw -Encoding UTF8 | ConvertFrom-Json).C_ders_kalibi.$kgkAn.uzunluk.p90); if($pv -gt 0){ $UZ_TAVAN=$pv } }catch{}
   "KGK UZUNLUK TAVANI: $UZ_TAVAN kr ($kgkAn p90; koşucu DersTavani ile aynı — Muhasebe Standartları etiketi tms/tfrs içermiyorsa -Tavan 661 ver; KGK'da -Ders VERME, SGS sözlüğü kurulur)"
 }
-if($KGK_ET -and -not $YABANCI_DIL_DENETIMI -and -not $Ders -and -not $kapiK){
-  $kutup=Join-Path $(if($PSScriptRoot){ $PSScriptRoot } else { '.' }) 'kapi-k-sozluk.ps1'
-  if(Test-Path $kutup){ . $kutup; $kapiK=KapiKKgkSozlukOnbellek }
-  if(-not $kapiK){ "UYARI: KGK KAPI-K sozlugu kurulamadi - bu kapi OLCULMEDI" } else { "KGK KAPI-K: tüm KGK kitapçıkları (yalnız ön denetim; bulut KGK'da KAPI-K koşmaz)" }
-}
+if($KKS.kgkMesaj){ $KKS.kgkMesaj }   # KGK sözlüğü KapiKSozlukSec'te kuruldu ($KGK_ET, -Ders yok, Yabancı Dil değil — eski koşulun aynısı)
 "dosya: $Dosya | soru: $($liste.Count) | sozluk kok: $($sz.Keys.Count) | uzunluk tavani: $UZ_TAVAN kr"
 if($kapiK){ "KAPI-K sozlugu: genis $($kapiK.genis.Keys.Count) · dar $($kapiK.dar.Keys.Count) (soru $($kapiK.aralik -join '-')) · $($kapiK.blok) blok · son $Pencere donem: $($kapiK.donemler -join ', ')" }
 $i=0; $temizSay=0

@@ -69,7 +69,8 @@
     return betikYukle().then(function(){
       return new Promise(function(coz){
         var kap = document.createElement('div');
-        kap.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:100000';
+        /* 08.10 (telefon taraması): etkileşim isterse görünen kutu telefonda alt menünün (~64 px) üstüne biniyordu -> dar ekranda menünün üstünde */
+        kap.style.cssText = 'position:fixed;right:12px;bottom:' + (innerWidth < 761 ? 'calc(76px + env(safe-area-inset-bottom))' : '12px') + ';z-index:100000;max-width:calc(100% - 24px)';
         document.body.appendChild(kap);
         var bitti = false, kimlik = null;
         var kapat = function(deger){

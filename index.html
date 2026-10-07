@@ -101,6 +101,8 @@ h1 em{font-style:normal;color:var(--amber)}
 .sinav small{font-weight:650;color:var(--muted);font-size:14.5px;text-align:right}
 .sinav[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--amber-dolgu)}
 .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
+/* 08.10 Cem ("telefonda güzel görünmüyor"): 390 px'te ad ile tarih yan yana sığmıyor, ikisi de iki satıra kırılıyordu -> alt alta */
+@media(max-width:560px){ .sinav{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:12px 18px;font-size:18px} .sinav small{text-align:left;font-size:13.5px} }
 .kah-alt{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
 .durum{font-size:14.5px;color:var(--dim);margin-top:12px;max-width:460px}
 .durum b{color:var(--ink)}
@@ -349,7 +351,7 @@ footer p{margin:0 0 8px}
       <div class="ozellik"><h3>Nöbetçi'ye sor</h3><p>Takıldığın soruda kendi sorunu yaz, Nöbetçi o soru üzerinden cevaplasın. Yapay zekâ olduğunu açıkça söyler; yetmezse ekibimize sorarsın.</p><a href="sorular.html">Her soruda, pakette →</a></div>
       <div class="ozellik"><h3>Unuttuğun yeri hatırlatır</h3><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer; 2 gün sonra yeniden karşına çıkar, bilirsen 7 gün sonra son tur.</p><a href="yanlislarim.html">Yanlışlarım →</a></div>
       <div class="ozellik"><h3>Sık çıkan konuya ağırlık</h3><p>Soru bankası son 10 yılın çıkmış sınavlarındaki konu sıklığına göre kurulur: sınavda sık sorulan konuda daha çok soru çözersin.</p><a href="sorular.html">Dersleri gör →</a></div>
-      <div class="ozellik oz-bekle" id="ozDeneme"><h3>Sınav gibi deneme</h3><p id="ozDenemeP">130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.</p><a href="sinav-gibi.html" id="ozDenemeA">Denemeleri gör →</a></div>
+      <div class="ozellik oz-bekle" id="ozDeneme"><h3>Sınav gibi deneme</h3><p id="ozDenemeP">130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.</p><a href="sinav-gibi.html" id="ozDenemeA">Denemeleri gör →</a></div>
     </div>
     <p class="kutu-not" id="kutuNot" hidden></p>
   </div>
@@ -454,8 +456,8 @@ footer p{margin:0 0 8px}
        seviye ölçümü = Yeterlilik seti. Metin deneme.html'deki Birebir Prova açıklamasıyla aynı. */
     setTimeout(function(){ var z=document.getElementById('ozDeneme'); if(z) z.classList.remove('oz-bekle'); },3000);   /* 07.10 yedek */
     try{ var yetSec=(secili==='yeterlilik');
-      $('ozDenemeP').textContent = yetSec ? 'Gerçek 2026 düzeninde ders ders prova: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50. Canlı denemede de yüzdelik sıranı görürsün.'
-                                          : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.';
+      $('ozDenemeP').textContent = yetSec ? 'Gerçek 2026 düzeninde ders ders prova: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50.'
+                                          : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.';
       $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
       $('ozDeneme').classList.remove('oz-bekle');   /* 07.10: seçili sınavın metni yazıldı */
       $('ozOlc').setAttribute('href', yetSec ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');

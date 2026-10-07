@@ -133,7 +133,10 @@ foreach($et in $ambar.Keys){
   if($yerel.ContainsKey($et) -and -not $Zorla -and $yerel[$et].LastWriteTimeUtc -ge $ambar[$et].guncelleme){ continue }
   $al.Add($et)
 }
-$a=Dizi $al
+# 08.10.2026 (KGK oturumu): @(...) SART. Dizi tek elemanli diziyi dondurunce PowerShell onu acar, $a duz metin olur;
+#   hizli yolda $a[0..0] etiketin ILK HARFINI verir ("k"), ambar bos doner, eski yol da bos doner, hata SAYILMAZ:
+#   -Etiket ile her indirme 03.10'dan beri "INDIRILDI: 0 parti · hata 0" diyordu (kaynak-bolunme-etki bu yolu kullanir).
+$a=@(Dizi $al)
 Write-Host ("INDIRILECEK: {0:N0} parti (sistem kaydı atlandı: {1:N0})" -f $a.Count,$atlanan) -ForegroundColor Green
 if(-not $Yaz){ Write-Host "`nKURU KOSU - dosya yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
 $hedefKlasor = if($Hedef){ New-Item -ItemType Directory -Force $Hedef | Out-Null; (Resolve-Path $Hedef).Path } else { $fabrika }
@@ -171,13 +174,13 @@ if(-not $Eski -and $a.Count){
   }
   $hc.Dispose()
   if($kalan.Count){ Write-Host ("  hizli yolda inmeyen {0} parti eski yoldan deneniyor" -f $kalan.Count) -ForegroundColor Yellow }
-  $a = Dizi $kalan
+  $a = @(Dizi $kalan)
 }
 foreach($et in $a){
   $u=$TABAN+'?select=icerik&etiket=eq.'+[uri]::EscapeDataString($et)
   try{
     $r=Invoke-RestMethod -Uri $u -Headers $SB -TimeoutSec 300
-    $s=@($r); if(-not $s.Count){ continue }
+    $s=@($r); if(-not $s.Count){ Write-Host ("  ! ambarda bos dondu {0}" -f $et) -ForegroundColor Red; $hata++; continue }   # 08.10: sessiz gecis "hata 0" yalanini uretiyordu
     $j=ConvertTo-Json -InputObject $s[0].icerik -Depth 20
     [IO.File]::WriteAllText((Join-Path $hedefKlasor "kalip-parti-$et.json"),$j,[Text.UTF8Encoding]::new($false))
     $n++

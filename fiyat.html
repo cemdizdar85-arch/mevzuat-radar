@@ -15,7 +15,8 @@ html.fs-sgs [data-sinav]:not([data-sinav="sgs"]),html.fs-yeterlilik [data-sinav]
 html.fs-sgs .kartlar,html.fs-yeterlilik .kartlar{grid-template-columns:minmax(0,460px);justify-content:center}
 html.fs-yeterlilik .vurus,html.fs-yeterlilik #tesmerToplam{display:none}
 html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
-#tesmerToplam .t-sgs,html.fs-sgs #tesmerToplam .t-hepsi{display:none}html.fs-sgs #tesmerToplam .t-sgs{display:inline}
+#tesmerToplam .t-sgs,html.fs-sgs #tesmerToplam .t-hepsi{display:none}
+@media(max-width:560px){#kotaTablo th:nth-child(4),#kotaTablo td:nth-child(4){display:none}}   /* 08.10: telefonda Kota sütunu harf harf kırılıyordu; bilgi kartta var */html.fs-sgs #tesmerToplam .t-sgs{display:inline}
 </style>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -148,7 +149,8 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
 <!-- 24.09 Cem: "staja başlamanın içine girdiğimde sadece staja başlama kalsın". Sınav seçiliyse (?sinav= ya da
      ana sayfadaki sekme = tt_sinav) yalnız o sınavın kartı görünür; ?sinav=hepsi hepsini gösterir. Rakip ölçümü:
      UWorld CPA sayfası yalnız CPA planlarını gösterir. Ücretsiz kart SGS kartının altına tek satır olarak iner. -->
-<p class="kucuk" id="secSatir" hidden style="margin:0 0 10px;text-align:center"></p>
+<p class="kucuk" id="secSatir" hidden style="margin:0 0 22px;text-align:center"></p><!-- 08.10: 10px'te "SINAVI EN YAKIN" rozeti (top:-11px) bu satıra yapışıyordu -->
+
 <div class="kartlar">
 
   <div class="p" data-sinav="ucretsiz">
@@ -174,9 +176,10 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
     <h3>Staja Giriş</h3>
     <div class="kim" id="erSgs">Sınavına kadar</div>
     <div class="gunluk" id="fySgs">— <small>TL</small></div>
-    <div class="liste" id="lsSgs"></div>
+    <!-- 08.10 Cem ("telefonda güzel görünmüyor"): ödenecek KDV dahil tutar ana fiyatın hemen altında; sonraki (liste) fiyat en sonda -->
+    <div class="kdv" id="khSgs"></div>
     <div class="kdv">kurucu fiyatı · <span id="ktSgs"></span></div>
-<div class="kdv" id="khSgs"></div>
+    <div class="liste" id="lsSgs"></div>
     <ul>
       <li>Sınırsız soru: bankanın tamamı</li>
       <li><b>Birebir Prova</b>: 130 soru, resmî ders dağılımı</li>
@@ -197,9 +200,9 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
     <h3>SMMM Yeterlilik</h3>
     <div class="kim" id="erYet">Sınavına kadar</div>
     <div class="gunluk" id="fyYet">— <small>TL</small></div>
-    <div class="liste" id="lsYet"></div>
+    <div class="kdv" id="khYet"></div>
     <div class="kdv">tüm dersler · <span id="ktYet"></span></div>
-<div class="kdv" id="khYet"></div>
+    <div class="liste" id="lsYet"></div>
     <div class="kdv" id="ayYet" style="color:var(--ink);font-weight:700"></div><!-- 01.10: aynı dersleri ayrı paketlerle almanın en ucuz yolu (fiyat-motoru.js yeterlilikAyriEnAz) -->
     <!-- 04.10 Cem "bitirme tek ders alamıyor sanki" · 07.10 "tek ders ve 2, 3 fiyatlarını görse": her kutu ders seçimli ödemeye gider; fiyatlar fiyat-motoru.js'den -->
     <div class="dersMerdiven">
