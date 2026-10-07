@@ -41,6 +41,11 @@ function denetle(k) {
     for (const r of LISTE) {
       const m = t.match(r.re);
       if (!m) continue;
+      /* 07.10 (EK20–22): kural "sikHaric" taşıyorsa YANLIŞ şıkkın kendi metni sayılmaz — çeldirici o yanılgıyı bilerek taşır
+         (ölçüldü: smmm-4k-a-fmuh-kolay-r2-2/kp-25 siklar.E "KDV'nin tamamı 291 hesabında bekletilir"; rehakem sonrası YENİ soru
+         olunca kapı bu meşru şık yüzünden soruyu durdururdu). Doğru şıkta ve öteki alanlarda aynen yakalar. */
+      const sm = /^siklar\.([A-E])$/.exec(yol);
+      if (r.sikHaric && sm && sm[1] !== String(k.dogru || '') && MUT !== 'sik-haric-yok') continue;
       /* istisna aynı cümlede aranır (ör. "2023 öncesi %18") */
       const cumle = t.slice(Math.max(0, m.index - 120), m.index + m[0].length + 120);
       if (r.haric && r.haric.test(cumle) && MUT !== 'haric-yok') continue;
@@ -112,6 +117,14 @@ function sinav() {
     ['EK19 "GMSİ\'deki %10" → alarm (w3-yvergi-zor/kp-06 celdirici_yol 07.10)', T({ aciklama: { B: '94500*0.10 = 9450 (tevkifat oranını GMSİ\'deki %10 ile karıştırdın)' } }), 1],
     ['EK19 meşru: GMSİ stopajı %20', T({ aciklama: { A: 'Gayrimenkul sermaye iradı niteliğindeki kira ödemelerinde stopaj %20\'dir.' } }), 0],
     ['EK19 meşru: GMSİ kira artışı %10', T({ aciklama: { A: 'Gayrimenkul sermaye iradı olarak alınan kira bu yıl %10 artırılmıştır.' } }), 0],
+    ['EK21 makine KDV\'si 291\'de bekletilip gelecek yıl indirilir → alarm (07.10, 29 soru)', T({ aciklama: { A: 'Makinenin KDV\'si 291 hesabında bekletilir ve gelecek yıl indirilir.' } }), 1],
+    ['EK21 meşru: YANLIŞ şıkkın kendi metni (sikHaric; fmuh-kolay-r2-2/kp-25 E)', T({ siklar: { A: '20.000', B: '18.000', E: 'Kayıt yapılmaz; KDV\'nin tamamı 291 hesabında bekletilir' } }), 0],
+    ['EK21 doğru şıkta aynı yanılgı → alarm (sikHaric yalnız yanlış şık)', T({ dogru: 'E', siklar: { A: '20.000', B: '18.000', E: 'Kayıt yapılmaz; KDV\'nin tamamı 291 hesabında bekletilir' } }), 1],
+    ['EK21 meşru: alım ayında indirilir', T({ aciklama: { A: 'Makinenin KDV\'si alım ayında indirilir; 291\'de bekletilmez sanılır yanılgısı Tuzağı.' } }), 0],
+    ['EK20 "bankalar m.35 listesinde yer almaz" → alarm (07.10, 11 soru)', T({ aciklama: { A: 'Bankalar sermaye piyasası kurumları arasında yer almaz.' } }), 1],
+    ['EK20 meşru: bankalar yatırım kuruluşu olarak sayılır', T({ aciklama: { A: 'Bankalar yatırım kuruluşu olarak sermaye piyasası kurumudur (m.3/1-v, m.35/1-a).' } }), 0],
+    ['EK22 "m.35 listesinde kitle fonlama platformları" → alarm (07.10, 14 soru)', T({ aciklama: { A: 'Kanunun 35. maddesinde sayılan kurumlar arasında kitle fonlama platformları da vardır.' } }), 1],
+    ['EK22 meşru: m.35/A başlığı', T({ aciklama: { A: 'Kitle fonlama platformları m.35/A başlığı altında ayrıca düzenlenir.' } }), 0],
     ['EK14 meşru: "düzeltme yapılmaz"', T({ aciklama: { A: 'Faydalı ömrünü tamamlayıp zayi olan ATİK\'in alımda indirilen KDV\'si için düzeltme yapılmaz.' } }), 0],
     ['EK14 meşru: yanlış şıkta "Mükerrer İndirim Tuzağı"', T({ aciklama: { B: 'Mükerrer İndirim Tuzağı: faydalı ömrünü tamamlayıp zayi olan forkliftin KDV\'sini bu dönem yeniden indirdin.' } }), 0],
     ['atif_genisletme iz kaydı taranmaz (öğrenci görmez)', T({ atif_genisletme: ['TMS 1 p.82 - Kâr veya zarar'] }), 0],
@@ -130,7 +143,7 @@ if (require.main === module) {
   const a = process.argv.slice(2);
   if (a.includes('--sinav')) {
     if (a.includes('--mutasyon')) {
-      const { spawnSync } = require('child_process'); const ler = ['haric-yok', 'model-dahil']; let t = 0;
+      const { spawnSync } = require('child_process'); const ler = ['haric-yok', 'model-dahil', 'sik-haric-yok']; let t = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { EK_MUTASYON: m }), encoding: 'utf8' });
         if (r.status !== 0) t++; console.log('  mutasyon ' + m.padEnd(12) + (r.status !== 0 ? 'KIRMIZI (doğru)' : 'YESIL (YANLIŞ)')); }
       console.log('MUTASYON: ' + t + '/' + ler.length + ' → KIRMIZI'); process.exit(t === ler.length ? 0 : 1);

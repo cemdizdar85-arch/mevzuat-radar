@@ -152,6 +152,33 @@
       "haric": "önceki|eski\\b|idi\\b|m[üu]lga|art[ıi][şs]|art[ıi]r|gider|götürü|g[öo]t[üu]r[üu]|%25",
       "dayanak": "BKK 2009/14592 m.1/5-a (GVK m.70 mal ve hakların kiralanması karşılığı ödemeler %20) — ambarda okundu 07.10.2026",
       "bulan": "sinav kolu 07.10 konu girişi okuması: w3-yvergi-zor/kp-06 (sitede; aciklama.B, teshis.B, celdirici_yol.B \"GMSİ %10\")"
+    },
+    {
+      "kod": "EK20",
+      "ad": "6362: bankaların m.35 sermaye piyasası kurumları dışında sayılması (m.3/1-v bankalar yatırım kuruluşu → m.35/1-a)",
+      "desen": "banka(?!c[ıi]l[ıi]k)(lar[ıi]?)?[^.;]{0,120}(sermaye piyasas[ıi] kurum|m\\.?\\s?35\\b(?!\\/)|35\\. madde|35 ?inci madde|bu maddede|bentlerinde)[^.;]{0,80}(de[ğg]il|yer alma|say[ıi]lma|girme|ge[çc]me|rastlam|yoktur|an[ıi]lmam)|(sermaye piyasas[ıi] kurum|m\\.?\\s?35\\b(?!\\/)|35\\. madde|35 ?inci madde)[^.;]{0,120}banka(?!c[ıi]l[ıi]k)(lar)?[^.;]{0,60}(yer alma|yoktur|say[ıi]lma|de[ğg]il|girme)|(listede|listesinde|say[ıi]mda|bentlerde) (olmayan|yer almayan|bulunmayan|say[ıi]lmayan)[^.;]{0,80}banka(?!c[ıi]l[ıi]k)|banka(?!c[ıi]l[ıi]k)[^.;]{0,40}\\belen(ir|meli|ecek)",
+      "haric": "yat[ıi]r[ıi]m kurulu[şs]u|Bankalar Birli[ğg]i|Merkez Bankas[ıi]|TCMB|Saklama Bankas[ıi]|m\\.?\\s?37\\b|39\\/9|san[ıi]p|sanm[ıi][şs]|indirmedi|bekletip|var m[ıi]?|san[ıi]l|san[ıi]yor|san[ıi]rs|sand[ıi]n|d[üu][şs][üu]n[üu]yorsun|d[üu][şs][üu]nd[üu]n|Tuza[ğg][ıi]|yan[ıi]lg|eski uygulama|m[üu]lga|art[ıi]k (kullan|uygulan)|kullan[ıi]lmaz|yoktur|g[üu]ncel de[ğg]il",
+      "dayanak": "6362 m.3/1-v (yatırım kuruluşu: aracı kurumlar ve bankalar) + m.35/1-a — mevzuat.gov.tr metniyle okundu 07.10.2026",
+      "bulan": "sinav kolu 07.10 onarim-0710c dalgası (106 aday okundu, 44 YANLIS; ajan ölçümü EK20 %0 · EK21 %3 · EK22 %0 yanlış alarm)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK21",
+      "ad": "KDV: amortismana tabi kıymet KDV'sinin 291'de bekletilip sonraki dönem/yıl indirilmesi; teşvikli ithalde ertelenen KDV (192) (KDVK m.29/3, m.13/d, m.16/1-a)",
+      "desen": "\\b291(?![.,]\\d)[^.;]{0,140}(indiril|aktar|bekle|kaydedil|izlen|bakiye|bor[çc])|(indiril|aktar|bekle|kaydedil|izlen)[^.;]{0,60}\\b291(?![.,]\\d)|gelecek y[ıi]llarda indiril|bir y[ıi]ldan (daha )?uzun s[üu]rede indiril|te[şs]vik[^.;]{0,100}(ertelen|\\b192\\b)|\\b192\\b[^.;]{0,100}(ertelen|te[şs]vik)",
+      "haric": "san[ıi]p|sanm[ıi][şs]|indirmedi|bekletip|var m[ıi]?|san[ıi]l|san[ıi]yor|san[ıi]rs|sand[ıi]n|d[üu][şs][üu]n[üu]yorsun|d[üu][şs][üu]nd[üu]n|Tuza[ğg][ıi]|yan[ıi]lg|eski uygulama|m[üu]lga|art[ıi]k (kullan|uygulan)|kullan[ıi]lmaz|yoktur|g[üu]ncel de[ğg]il|al[ıi]m (ay[ıi]nda|d[öo]neminde) indir|13\\/d|istisna",
+      "dayanak": "KDVK m.29/3 (indirim belgenin kaydedildiği dönemde, takvim yılı aşılmadan), m.13/d, m.16/1-a — ambarda okundu 07.10.2026",
+      "bulan": "sinav kolu 07.10 onarim-0710c dalgası (106 aday okundu, 44 YANLIS; ajan ölçümü EK20 %0 · EK21 %3 · EK22 %0 yanlış alarm)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK22",
+      "ad": "6362: kitle fonlama platformlarının m.35/1 sayımında gösterilmesi (m.35/1 a–ı; kitle fonlama m.35/A başlığı)",
+      "desen": "(m\\.?\\s?35\\b(?!\\/)|35\\. madde|35\\/1|35 ?inci madde)[^.;]{0,200}kitle fonlama platform|kitle fonlama platform[^.;]{0,120}(35\\. madde|m\\.?\\s?35\\b(?!\\/)|35\\/1|son f[ıi]kra|son bent|listeye (eklen|dahil)|listede)",
+      "haric": "35\\/A|say[ıi]lmam|yer alma|ba[şs]l[ıi][ğg]|ayr[ıi]ca d[üu]zenlen|san[ıi]p|sanm[ıi][şs]|indirmedi|bekletip|var m[ıi]?|san[ıi]l|san[ıi]yor|san[ıi]rs|sand[ıi]n|d[üu][şs][üu]n[üu]yorsun|d[üu][şs][üu]nd[üu]n|Tuza[ğg][ıi]|yan[ıi]lg|eski uygulama|m[üu]lga|art[ıi]k (kullan|uygulan)|kullan[ıi]lmaz|yoktur|g[üu]ncel de[ğg]il",
+      "dayanak": "6362 m.35/1 a–ı bentleri; kitle fonlama platformları m.35/A başlığı (ambardaki m.35 kaydına sonraki madde başlığı sızmış) — mevzuat.gov.tr metniyle okundu 07.10.2026",
+      "bulan": "sinav kolu 07.10 onarim-0710c dalgası (106 aday okundu, 44 YANLIS; ajan ölçümü EK20 %0 · EK21 %3 · EK22 %0 yanlış alarm)",
+      "sikHaric": true
     }
   ]
 }
