@@ -66,6 +66,14 @@
 16. **Çeldirici yolunda (`celdirici_yol`) tek haneli ya da ondalıklı yüzde YAZILMAZ** — oran ondalıkla yazılır ("x 0,03", "x 0,035").
     07.10 ölçüldü: üreticinin KAPI-Ç'si "x %3"ü 0,3, "%3,5"i 0,35 sayıyor → doğru yol "yanlış" görünür, soru bulutta düşer (%30, %25 doğru).
     Üretici düzeltilene dek (sınav koluna bildirildi) geçerli. Kök ve açıklamada "%3" serbest.
+17. **Kural 12 kısa alanlarda da geçerli** (07.10 TMS turu, 117 soruda 7 DÜZELT'in 3'ü): `sinav_taktigi`, `sade`, `hap` gibi tek cümlelik alanlarda
+    tanım/kural tek şarta indirgenmez ("birçok yıl ürün veren ağaç taşıyıcı bitkidir" — p.5 üç şart arar), liste kapatılmaz ("yalnız FIFO ve ortalama").
+18. **Kökteki kanıt cümlesi hükmün şartıyla çatışmaz** (07.10, TMS 12 p.35 ÇIKAR): standart "güçlü kanıt/karine" şartı arıyorsa kök "başka kanıt
+    yoktur" demez; doğru cevabın dayandığı kanıtı kökte açıkça verir ("imzalı satış sözleşmelerine dayanan bütçe").
+19. **Yıla bağlı eşik kökte verilir** (K7'nin uygulaması; 07.10 BOBİ FRS büyük işletme: ambardaki tek kaynak 2021 kararı): soru eşiğin ezberini
+    değil uygulanışını ölçer ("Ölçütler: aktif 200.000.000 TL, hasılat 400.000.000 TL, 250 çalışan").
+20. **Açıklamada anılan her paragraf `kaynak_adlar`'da** (07.10 ikinci gözün en sık notu: TMS 20 p.7, p.36, TFRS 10 B94 listede yoktu) — hakem
+    paketi o paragrafı görmezse doğru açıklama "kaynaksız" sayılır.
 10. **Bir dosyada bir konudan BİR soru** (27.09: 85 sorunun 19'u aynı konu adıyla iz bırakmadan kayboldu).
 
 ## Modül sırası ve önkoşul (07.10)
