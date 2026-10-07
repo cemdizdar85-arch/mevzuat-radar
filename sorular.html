@@ -169,7 +169,7 @@
   var DIZIN=null, TAKVIM=null, SECILI=null, DENEME={};
   /* 07.10: paket durumu (dizin kodu -> uye-durumu sınav adı). null = paket yok/bilinmiyor; {dersler:null} = tüm dersler açık */
   var PAKET={}, UYE_KOD={sgs:'sgs', smmm:'yeterlilik', kgk:'kgk'};
-  function trk(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/s+/g,' ').trim(); }
+  function trk(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim(); }   /* 07.10: /s+/ (s harfini siliyordu) -> /\s+/ boşluk */
   function dersAcik(kod, ad){ var p=PAKET[kod]; if(!p) return false; if(!p.dersler||!p.dersler.length) return true;
     return p.dersler.some(function(x){ return trk(x)===trk(ad); }); }
   /* takvimdeki anahtar: dizin kodu -> sinav-takvimi.json sinavlar.<KOD> */
