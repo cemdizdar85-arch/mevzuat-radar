@@ -3,14 +3,14 @@
 > Türetilmiştir (`arac/kgk-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (24 sınav). Eski genel muhasebe konuları hedef dışı. Genel Hukuk (2022'den beri sınavda yok) sayılmaz.
 > Eşleme sözlüğü: `veri/sinav/kgk-konu-es.json`. Tam liste: `veri/fabrika/kgk-konu-kapsama.csv`.
 
-Sitede (paket_soru, sinav=kgk): **108** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
+Sitede (paket_soru, sinav=kgk): **179** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
 
-**TOPLAM: hedef 4.229 · sitede 108 · EKSİK 4.146** (1.893 konu)
+**TOPLAM: hedef 4.229 · sitede 179 · EKSİK 4.075** (1.893 konu)
 
 | Modül | Hedefli konu | Son 10 yılda çıkan | Hedef | Sitede | EKSİK | VAR | AZ | Hiç yok (2+ sınav) | Hiç yok (1 sınav) | Eski muhasebe konusu |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | a) Türkiye Muhasebe Standartları | 359 | 852 | 852 | 0 | **852** | 0 | 0 | 172 | 187 | 311 |
-| b) Türkiye Denetim Standartları | 355 | 830 | 830 | 71 | **759** | 2 | 48 | 117 | 188 | 0 |
+| b) Türkiye Denetim Standartları | 355 | 830 | 830 | 142 | **688** | 4 | 48 | 114 | 189 | 0 |
 | c) Finansal Yönetim | 260 | 636 | 636 | 0 | **636** | 0 | 0 | 120 | 140 | 0 |
 | ç) Sermaye Piyasası Mevzuatı | 200 | 484 | 484 | 6 | **478** | 1 | 5 | 89 | 105 | 0 |
 | d) Bankacılık Mevzuatı | 198 | 465 | 465 | 6 | **459** | 0 | 6 | 86 | 106 | 0 |
@@ -25,9 +25,9 @@ Sitede (paket_soru, sinav=kgk): **108** soru · konu kümesi: 2.440 · sözlükt
 
 ## Eksik — sıklık katmanı (plan bu sırayla kurulur)
 
-- Hedefi 5+ soru olan konular: **209 konu / 1484 soru**
+- Hedefi 5+ soru olan konular: **206 konu / 1412 soru**
 - Hedefi 2–4 soru: 632 konu / 1613 soru
-- Hedefi 1 soru: 1049 konu / 1049 soru
+- Hedefi 1 soru: 1050 konu / 1050 soru
 
 ## En büyük 40 eksik
 
@@ -51,12 +51,10 @@ Sitede (paket_soru, sinav=kgk): **108** soru · konu kümesi: 2.440 · sözlükt
 | a) Türkiye Muhasebe Standartları | tms 40 yatirim amacli gayrimenkul | 12 / 11 | 0 | 12 |
 | e) Sigortacılık ve Özel Emeklilik | sigorta sozlesmesi hukumleri | 12 / 11 | 0 | 12 |
 | e) Sigortacılık ve Özel Emeklilik | teknik karsiliklar | 12 / 10 | 0 | 12 |
-| b) Türkiye Denetim Standartları | bds 701 kilit denetim konulari | 13 / 12 | 2 | 11 |
 | a) Türkiye Muhasebe Standartları | tfrs 16 kullanim hakki varligi | 11 / 11 | 0 | 11 |
 | c) Kurumsal Yönetim | faaliyet raporu icerigi | 11 / 11 | 0 | 11 |
 | ç) Sermaye Piyasası Mevzuatı | kar payi avansi | 11 / 11 | 0 | 11 |
 | d) Bankacılık Mevzuatı | banka denetim komitesi | 11 / 11 | 0 | 11 |
-| b) Türkiye Denetim Standartları | bds 300 denetimin planlanması | 11 / 10 | 0 | 11 |
 | ç) Sermaye Piyasası Mevzuatı | yatirimci tazmin merkezi | 11 / 10 | 0 | 11 |
 | a) Türkiye Muhasebe Standartları | tms 16 yeniden degerleme | 11 / 9 | 0 | 11 |
 | c) Kurumsal Yönetim | yatirimci iliskileri bolumu gorevleri | 11 / 7 | 0 | 11 |
@@ -69,7 +67,9 @@ Sitede (paket_soru, sinav=kgk): **108** soru · konu kümesi: 2.440 · sözlükt
 | d) Bankacılık Mevzuatı | kredi sinirlari | 10 / 9 | 0 | 10 |
 | c) Finansal Yönetim | tahvil degerleme | 10 / 8 | 0 | 10 |
 | c) Finansal Yönetim | likidite oranlari | 10 / 7 | 0 | 10 |
-| b) Türkiye Denetim Standartları | bds 510 acilis bakiyeleri | 11 / 11 | 2 | 9 |
 | a) Türkiye Muhasebe Standartları | tfrs 3 serefiye hesaplama | 9 / 9 | 0 | 9 |
 | a) Türkiye Muhasebe Standartları | tms 21 kur farki | 9 / 9 | 0 | 9 |
 | c) Finansal Yönetim | sistematik olmayan risk | 9 / 9 | 0 | 9 |
+| c) Kurumsal Yönetim | bagimsiz uye kriterleri | 9 / 9 | 0 | 9 |
+| ç) Sermaye Piyasası Mevzuatı | kaydilestirme esaslari | 9 / 9 | 0 | 9 |
+| ç) Sermaye Piyasası Mevzuatı | halka acik ortaklik statusu | 9 / 9 | 0 | 9 |
