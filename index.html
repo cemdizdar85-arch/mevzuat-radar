@@ -415,10 +415,17 @@ footer p{margin:0 0 8px}
      Liste ve içerik robot dosyasından (aşağıda); liste boşsa robotun günün sorusu oynar. */
   /* 06.10 (Cem 'otomatikleştiremiyor muyuz'): liste artık robot dosyasından (motor/vitrin-hesap.js -> veri/vitrin-hesap.json);
      ücretsizden çıkan / dışlanan soru robotça düşer, boşsa günün sorusu oynar. */
-  var VITRIN_HESAP={};
+  var VITRIN_HESAP={}, GUNUN=null;
   function ekranCiz(){
     var o=ozetim(), kap=$('ekOynatici'), VL=VITRIN_HESAP[secili]||[]; $('bzIleri').hidden=false;   /* liste boşsa eski 'Kendin çöz' yolu */
-    if(VL.length&&window.NobetciOynatici){ var v=VL[Math.floor(Date.now()/864e5)%VL.length]; kapat();
+    if(VL.length&&window.NobetciOynatici){
+      /* 07.10 Cem ("1 yap"): günün sorusu TEK KAYNAK = veri/gunun-sorusu.json (Instagram görseliyle aynı soru). Liste gün içinde
+         uzayınca formül başka soruya kayıyordu (07.10 sabahı görsel sgs-k5, site sgs-p). Bugünün (TR) dosyası yoksa ya da o soru
+         listeden düştüyse eski formül. */
+      var v=null;
+      try{ var bg=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}), gs=GUNUN&&GUNUN.tarih===bg&&GUNUN.sinavlar&&GUNUN.sinavlar[secili];
+        if(gs&&gs.soru_id) v=VL.filter(function(x){ return x.id===gs.soru_id; })[0]||null; }catch(e){}
+      if(!v) v=VL[Math.floor(Date.now()/864e5)%VL.length]; kapat();
       $('ekDers').textContent=(AD[secili]||'')+' · '+v.ders; kap.innerHTML='';
       /* 07.10: ana sayfada gördüğü soru seviye testinde ona gelmesin (seviye-testi.html sv_gorulen'deki soruyu ilk turda atlar) */
       try{ var gr=JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); if(gr.indexOf(v.id)<0){ gr.push(v.id); localStorage.setItem('sv_gorulen',JSON.stringify(gr.slice(-2000))); } }catch(e){}
@@ -482,8 +489,9 @@ footer p{margin:0 0 8px}
   fetch('veri/vitrin-kunye.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(k){ if(k&&k.taranan_donem){ TARANAN=k.taranan_donem; if(OZET) ekranCiz(); } }).catch(function(){});
   Promise.all([
     fetch('veri/vitrin-kart-ozet.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; }),
-    fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; })
-  ]).then(function(r){ OZET=r[0]; VITRIN_HESAP=(r[1]&&r[1].sinavlar)||{}; ekranCiz(); });
+    fetch('veri/vitrin-hesap.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; }),
+    fetch('veri/gunun-sorusu.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){ return null; })
+  ]).then(function(r){ OZET=r[0]; VITRIN_HESAP=(r[1]&&r[1].sinavlar)||{}; GUNUN=r[2]; ekranCiz(); });
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
