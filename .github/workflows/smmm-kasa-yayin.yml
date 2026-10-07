@@ -63,6 +63,15 @@ jobs:
           "kasa yayini cikis kodu: $kod"
           if($kod){ "::error::bitirme kasa yayini dustu ($kod) - sorular ambarda duruyor; yeniden: gh workflow run smmm-kasa-yayin.yml"; exit $kod }
 
+      # 07.10.2026: Sik Cikan Konular Denemesi Yeterlilik setleri (veri/deneme/smmm-sik-*.json) kasa yayinindan SONRA kurulur.
+      #   Yalniz kimlik yazar (metin/cevap yok). Duserse yayin durmaz, eski setler kalir.
+      - name: Sik cikan konular setlerini tazele
+        shell: powershell
+        continue-on-error: true
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node motor/sik-konu-deneme-bas.js smmm
+
       # 03.10.2026: yeni kalipla kurulan bitirme kabuklarini it. Yalniz kaydir/smmm + arac/kasa-modu.json.
       #   Kabukta soru icerigi yok (data-kasa-sayfa isareti + boyut kapisi betikte); yine de itmeden once ikinci kez bakilir.
       #   Stderr YONLENDIRME YOK (K6 - yayin-bas.yml "Degisen varsa ite" notu): basarili push bile adimi olduruyordu.
@@ -77,7 +86,7 @@ jobs:
             $ham = [IO.File]::ReadAllText($f.FullName, [Text.Encoding]::UTF8)
             if($f.Name -ne 'index.html' -and ($ham -notmatch 'data-kasa-sayfa=' -or $ham -match 'const SORULAR=\[\{')){ "::error::KABUK DEGIL: $($f.Name) - soru icerigi depoya gitmesin diye ITILMEDI"; exit 1 }
           }
-          git add kaydir/smmm arac/kasa-modu.json
+          git add kaydir/smmm arac/kasa-modu.json veri/deneme
           $degisen = @(git diff --cached --name-only)
           if(-not $degisen.Count){ "kabuklarda degisiklik yok - commit ATILMADI"; exit 0 }
           "degisen dosya: $($degisen.Count)"

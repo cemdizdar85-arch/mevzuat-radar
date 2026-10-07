@@ -14,6 +14,9 @@ const KURU = process.argv.includes('--kuru');
 const ADET = 5;
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const ok = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'sinav', 'smmm-konu-okuma.json'), 'utf8'));
+
+// 07.10: Sık Çıkan Konular Denemesi düğmesi - biçim (soru/süre) set dizininden, tek kaynak (motor/sik-konu-deneme-bas.js)
+const SIK_KURAL = (() => { try { const d = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'deneme', 'smmm-sik-dizin.json'), 'utf8')); return d.kural.slice(0, 2).map(esc).join(' · ') + ' · konu konu karne'; } catch (e) { console.error('KIRMIZI: veri/deneme/smmm-sik-dizin.json okunamadı (önce node motor/sik-konu-deneme-bas.js)'); process.exit(4); } })();
 const DONEM = ok.donem, PENCERE = ok.pencere;
 const dizin = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'soru-dizini.json'), 'utf8')).sinavlar.find(x => x.kod === 'smmm');
 const dersSira = dizin.dersler.map(d => d.ad), dersSayfa = {}; dizin.dersler.forEach(d => { dersSayfa[d.ad] = d.sayfa; });
@@ -90,6 +93,10 @@ h2{font-size:19px;margin:30px 0 12px}
 .ek-cubuk i{display:block;height:100%;background:var(--amber-dolgu);border-radius:99px}
 .ders-git{margin:8px 0 0;font-weight:700;font-size:14px}
 @media(max-width:640px){.ek-satir{grid-template-columns:28px 1fr;}.ek-cubuk{grid-column:2}}
+.sik-deneme{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line2);border-left:4px solid var(--amber);border-radius:14px;background:var(--kagit);padding:14px 16px;margin:0 0 20px}
+.sik-deneme b{display:block;font-size:16px;color:var(--ink)}
+.sik-deneme span{font-size:13.5px;color:var(--muted)}
+.sik-deneme a{font-weight:700;text-decoration:none;white-space:nowrap}
 .kapi{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 0}
 .kapi a{display:block;background:var(--kagit);border:1px solid var(--line2);border-radius:14px;padding:16px;text-decoration:none;color:var(--ink)}
 .kapi a b{display:block;font-size:16px;margin-bottom:4px}
@@ -104,6 +111,9 @@ h2{font-size:19px;margin:30px 0 12px}
   <main>
   <h1>SMMM Yeterlilik: ders ders en sık sorulan konular</h1>
   <p class="alt">${PENCERE} arasındaki ${DONEM} sınav döneminin çıkmış sorularını <b>tek tek okuyarak</b> saydık. Yeterlilikte her ders ayrı sınav olduğu için liste ders ders; her konunun altında hangi sınavda kaçıncı soru olarak çıktığı yazıyor.</p>
+
+  <!-- 07.10 Sık Çıkan Konular Denemesi (Cem "ücretli olsun, üstte görünsün"): liste ücretsiz, deneme paketli. Biçim set dizininden. -->
+  <div class="sik-deneme"><div><b>🔒 Bu konulardan deneme çöz</b><span>Pakete dahil · ${SIK_KURAL}</span></div><a href="sinav-gibi.html?tur=sik&amp;sinav=smmm">Denemeyi aç →</a></div>
   <p class="yontem"><b>Yöntem:</b> her dersin ${DONEM} dönemlik sorusunu tek bir okuyucu baştan sona okudu; çok parçalı sorularda her alt soru ölçtüğü konuya bağlandı ve aynı konu her dönemde aynı adla işaretlendi. Sayı, o konudan <b>kaç ayrı sınav döneminde</b> soru geldiğidir. Kaynak: TÜRMOB-TESMER'in yayımladığı klasik sınav soru ve komisyon cevapları (2016/1–2025/3) ile 2026 test kitapçıkları; 2020/3 dönemi elimizde olmadığı için sayılmadı. Konu genişliği derse göre değişir (ör. Hukuk'ta kanun alanı + konu). Ölçüm: ${tarih}.</p>
   <p class="icindekiler">${dersSira.map(d => `<a href="#${esc(dersSayfa[d].replace(/^.*\/|\.html$/g, ''))}">${esc(d)}</a>`).join(' · ')}</p>
 ${bolum}

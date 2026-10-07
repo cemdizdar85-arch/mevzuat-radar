@@ -1,0 +1,168 @@
+{
+ "uretim": "2026-10-07 17:25",
+ "uretici": "motor/sik-konu-deneme-bas.js",
+ "sinav": "sgs",
+ "tur": "sik",
+ "ad": "Staja Giriş",
+ "baslik": "Staja Giriş · sık çıkan konular denemesi",
+ "alt": "Son 10 yılın çıkmış sınavlarında en sık sorulan 20 konudan 40 soru: her konudan 2. Çözerken cevap görünmez; bitince konu konu karne gelir.",
+ "kural": [
+  "40 soru",
+  "50 dakika",
+  "20 konu × 2 soru",
+  "Yanlış doğruyu götürmez",
+  "6 set, setler arası tekrar yok"
+ ],
+ "not": "Konu listesi okunarak sayılmış çıkmış sorulardan (2016/1-2026/2, 32 dönem; Matematik hariç), \"En sık sorulan konular\" sayfasıyla aynı. Süre gerçek sınavın soru başı süresiyle (165 dk / 130 soru). Bu konular sınavda kesin çıkar demek değildir.",
+ "sonuc_alt": "Staja Giriş'te yanlış doğruyu götürmez ve puan bağıl hesaplanır; burada doğru sayısı ve konu konu karne var.",
+ "karne": "konu",
+ "puan": "yok",
+ "liste_sayfa": "en-cok-cikan-konular-sgs.html",
+ "konular": [
+  {
+   "ders": "Ticaret Hukuku",
+   "konu": "Kıymetli evrak (çek, bono, poliçe)",
+   "donem": 32
+  },
+  {
+   "ders": "Mali Tablolar Analizi",
+   "konu": "Oran analizi",
+   "donem": 31
+  },
+  {
+   "ders": "Meslek Hukuku",
+   "konu": "Disiplin cezaları",
+   "donem": 31
+  },
+  {
+   "ders": "Ekonomi",
+   "konu": "Para politikası / Merkez Bankası",
+   "donem": 29
+  },
+  {
+   "ders": "Mali Tablolar Analizi",
+   "konu": "Dikey yüzde analizi",
+   "donem": 28
+  },
+  {
+   "ders": "Finansal Muhasebe",
+   "konu": "Amortisman",
+   "donem": 28
+  },
+  {
+   "ders": "Vergi Hukuku",
+   "konu": "Kurumlar vergisi",
+   "donem": 28
+  },
+  {
+   "ders": "Meslek Hukuku",
+   "konu": "Meslek mensubu ücreti (asgari ücret tarifesi)",
+   "donem": 28
+  },
+  {
+   "ders": "Finansal Muhasebe",
+   "konu": "Muhasebe bilgi sistemi",
+   "donem": 28
+  },
+  {
+   "ders": "Maliyet Muhasebesi",
+   "konu": "Standart maliyet ve farklar",
+   "donem": 27
+  },
+  {
+   "ders": "Maliyet Muhasebesi",
+   "konu": "Ortak (birleşik) maliyet dağıtımı",
+   "donem": 27
+  },
+  {
+   "ders": "Denetim",
+   "konu": "Denetim kanıtı",
+   "donem": 25
+  },
+  {
+   "ders": "Türkçe",
+   "konu": "Yazım kuralları",
+   "donem": 25
+  },
+  {
+   "ders": "Vergi Hukuku",
+   "konu": "Katma değer vergisi",
+   "donem": 25
+  },
+  {
+   "ders": "Meslek Hukuku",
+   "konu": "Meslekle bağdaşmayan işler ve yasaklar",
+   "donem": 24
+  },
+  {
+   "ders": "Finansal Muhasebe",
+   "konu": "Temel muhasebe kavramları",
+   "donem": 23
+  },
+  {
+   "ders": "Maliyet Muhasebesi",
+   "konu": "Safha maliyet / eşdeğer birim",
+   "donem": 23
+  },
+  {
+   "ders": "Borçlar Hukuku",
+   "konu": "Sebepsiz zenginleşme",
+   "donem": 23
+  },
+  {
+   "ders": "Türkçe",
+   "konu": "Noktalama işaretleri",
+   "donem": 21
+  },
+  {
+   "ders": "Denetim",
+   "konu": "Denetim görüşü türleri",
+   "donem": 20
+  }
+ ],
+ "setler": [
+  {
+   "no": 1,
+   "baslik": "Set 1",
+   "sure_dk": 50,
+   "toplam": 40,
+   "dosya": "veri/deneme/sgs-sik-set-01.json"
+  },
+  {
+   "no": 2,
+   "baslik": "Set 2",
+   "sure_dk": 50,
+   "toplam": 40,
+   "dosya": "veri/deneme/sgs-sik-set-02.json"
+  },
+  {
+   "no": 3,
+   "baslik": "Set 3",
+   "sure_dk": 50,
+   "toplam": 40,
+   "dosya": "veri/deneme/sgs-sik-set-03.json"
+  },
+  {
+   "no": 4,
+   "baslik": "Set 4",
+   "sure_dk": 50,
+   "toplam": 40,
+   "dosya": "veri/deneme/sgs-sik-set-04.json"
+  },
+  {
+   "no": 5,
+   "baslik": "Set 5",
+   "sure_dk": 50,
+   "toplam": 40,
+   "dosya": "veri/deneme/sgs-sik-set-05.json"
+  },
+  {
+   "no": 6,
+   "baslik": "Set 6",
+   "sure_dk": 50,
+   "toplam": 40,
+   "dosya": "veri/deneme/sgs-sik-set-06.json"
+  }
+ ],
+ "surum": "aff418e9f8"
+}

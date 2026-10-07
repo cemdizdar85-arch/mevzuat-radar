@@ -98,6 +98,10 @@ if($LASTEXITCODE -ne 0){ throw "soru dizini tazelenemedi (motor/soru-dizini.js c
 if($Sinav -eq 'sgs'){
   & node (Join-Path $PSScriptRoot 'deneme-seti-bas.js')
   if($LASTEXITCODE -ne 0){ throw "deneme setleri tazelenemedi (motor/deneme-seti-bas.js cikis $LASTEXITCODE) - sinav-gibi.html eski sıralara bağlanır" }
+  # 07.10.2026 Sık Çıkan Konular Denemesi setleri (veri/deneme/sgs-sik-*.json). Kaynak KASA: bu koşunun yeni soruları kasaya
+  # sonra yüklendiği için bir sonraki yayında girer. Düşerse YAYIN DURMAZ (eski set kalır; kasadan çekilmiş soru sette atlanır).
+  & node (Join-Path $PSScriptRoot 'sik-konu-deneme-bas.js') sgs
+  if($LASTEXITCODE -ne 0){ Write-Warning "sik cikan konular setleri tazelenemedi (motor/sik-konu-deneme-bas.js cikis $LASTEXITCODE) - eski setler kaldi" }
   # seviye testi havuzu deneme setlerinden SONRA kurulur (setlerde olmayan soruları önceler)
   & node (Join-Path $PSScriptRoot 'seviye-havuz-bas.js')
   if($LASTEXITCODE -ne 0){ throw "seviye havuzu tazelenemedi (motor/seviye-havuz-bas.js cikis $LASTEXITCODE)" }

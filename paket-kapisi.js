@@ -58,7 +58,7 @@
     if (bitti) return; bitti = true;
     /* 07.10 Cem ("pakete dahil dediğimde ücretsiz soru çöz yine 10 soru çıkıyor"): ücretsiz deneme o sınavın 30 soruluk seviye
        testine gider (10 soruluk sabit örnek sayfası değil). Sınav sayfa yolundan: kaydir/smmm = Yeterlilik, öteki SGS. */
-    var ucretsiz = KOK + (/\/kaydir\/smmm\//.test(location.pathname) ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
+    var ucretsiz = KOK + (/\/kaydir\/smmm\//.test(location.pathname) || /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search) ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
     kapiCoz({ acik: false, tur: tur });
     var baslik, metin, dugmeler;
     if (tur === 'giris') {
@@ -144,8 +144,11 @@
          O yol tanınmadığı için sinavi=null kalıyordu ve kapsar() HER aktif pakete "true" diyordu → SGS paketi olan
          bitirme soru bankasını açardı (15.09'da SGS için kapatılan açığın aynısı). Eşleme uye-durumu.js
          paketSinavlari ile AYNI: yeterlilik | yeterlilik-* | smmm | yeterlilik-kgk | tam | kurucu. */
-      var sinavi = /\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs'
-        : (/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik' : null);
+      /* 07.10 Sık Çıkan Konular Denemesi: sinav-gibi.html?sinav=smmm Yeterlilik setidir → Yeterlilik paketi aranır */
+      var sgYet = /sinav-gibi\.html$/.test(location.pathname) && /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search);
+      var sinavi = sgYet ? 'yeterlilik'
+        : (/\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs'
+        : (/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik' : null));
       var kapsar = function (paket) {
         var p = String(paket == null ? '' : paket).trim().toLowerCase();
         if (!sinavi || !p || p === 'tam' || p === 'kurucu') return true;

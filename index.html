@@ -159,6 +159,15 @@ h1 em{font-style:normal;color:var(--amber)}
 
 /* bölümler: hepsi aynı zemin, ayraç çizgi */
 .bolum{padding:64px 0;border-top:1px solid var(--line)}
+/* 07.10 Sık Çıkan Konular Denemesi şeridi (Cem: "üst tarafta görsünler ama ücretli olsun") */
+.sik-serit{padding:0 0 48px}
+.sik-kart{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line2);border-left:4px solid var(--amber);border-radius:16px;background:var(--bg2);padding:22px 26px}
+.sik-kart h2{margin:6px 0 6px;font-size:22px;color:var(--ink)}
+.sik-kart p{margin:0;color:var(--muted);font-size:15px;line-height:1.55;max-width:640px}
+.sik-etiket{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber)}
+.sik-dugme{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.sik-dugme a.sik-liste{font-size:14px;color:var(--ink);font-weight:600}
+@media(max-width:760px){ .sik-serit{padding:0 0 36px} .sik-kart{padding:18px 18px} .sik-kart h2{font-size:20px} .sik-dugme{width:100%} .sik-dugme .btn{width:100%;text-align:center;box-sizing:border-box} }
 @media(max-width:760px){ .bolum{padding:44px 0} }
 .bolum h2{font-size:clamp(26px,3.2vw,36px);letter-spacing:-.8px;line-height:1.15;margin:0 0 28px}
 .adimlar{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:a}
@@ -293,6 +302,25 @@ footer p{margin:0 0 8px}
   </div>
 </section>
 
+<!-- 07.10 Cem ("sınava yaklaşmadan en çok çıkan konulardan sınav" → "ücretli olsun, üye çekelim" → "site üst tarafında görsünler"):
+     ilk ekranın hemen altında. Konu listesi ücretsiz (en-cok-cikan sayfası, kanıtlı); deneme paketli (sinav-gibi.html?tur=sik,
+     paket-kapisi.js). Metin set dizininden (veri/deneme/*-sik-dizin.json "alt") okunur: soru/süre sayısı tek kaynak. -->
+<section class="sik-serit" aria-labelledby="sikBas">
+  <div class="ic">
+    <div class="sik-kart">
+      <div>
+        <span class="sik-etiket">🔒 Pakete dahil · yeni</span>
+        <h2 id="sikBas">Sık Çıkan Konular Denemesi</h2>
+        <p id="sikMetin">Son 10 yılın çıkmış sınavlarında en sık sorulan konulardan deneme. Bitince konu konu karne gelir.</p>
+      </div>
+      <div class="sik-dugme">
+        <a class="btn btn-vurgu" id="sikA" href="sinav-gibi.html?tur=sik">Denemeyi aç →</a>
+        <a class="sik-liste" id="sikListe" href="en-cok-cikan-konular-sgs.html">Konu listesi ücretsiz →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="bolum" id="nasil" aria-labelledby="nasilBas">
   <div class="ic">
     <!-- 07.10 Cem ("Nasıl çalışır ile neler var aynı şeyleri anlatıyor" + "ölçmediğin işler var" + "Nöbetçiye sor, Nöbetçi çözsün var"):
@@ -374,6 +402,17 @@ footer p{margin:0 0 8px}
   var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik'};
 
   /* ---- 1) DÜĞMELER: sınav × üye durumu (15.09 karar tablosu, sade hâli). Rakam YALNIZ fiyat-motoru.js'ten. ---- */
+  /* 07.10 Sık Çıkan Konular Denemesi şeridi: seçili sınava göre adres + set dizinindeki tanım cümlesi */
+  var SIK_ALT={};
+  function sikCiz(yet){
+    var k=yet?'smmm':'sgs';
+    $('sikA').setAttribute('href', yet?'sinav-gibi.html?tur=sik&sinav=smmm':'sinav-gibi.html?tur=sik');
+    $('sikListe').setAttribute('href', yet?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html');
+    if(SIK_ALT[k]){ $('sikMetin').textContent=SIK_ALT[k]; return; }
+    fetch('veri/deneme/'+k+'-sik-dizin.json').then(function(y){ return y.ok?y.json():null; }).then(function(d){
+      if(!d||!d.alt) return; SIK_ALT[k]=d.alt; if((secili==='yeterlilik')===yet) $('sikMetin').textContent=d.alt;
+    }).catch(function(){});
+  }
   function dugmeCiz(){
     var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
@@ -403,6 +442,7 @@ footer p{margin:0 0 8px}
                                           : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.';
       $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
       $('ozOlc').setAttribute('href', yetSec ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
+      sikCiz(yetSec);
     }catch(e){}
     [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-sinav')===secili?'true':'false'); });
   }
