@@ -243,10 +243,15 @@
     });
   }
 
+  /* 07.10 (Cem "burası doğru çalışıyor mu"): gün farkı saat farkından (ceil) hesaplanıyordu -> aynı gün akşam vadesi gelen
+     soru "yarın" yazıyordu; ders sayfasının zaman kaydırması (kc_ileri) da yoktu. Artık TAKVİM günü: bugün/yarın/N gün sonra. */
   function tarihYazi(ms){
     if(!ms) return '';
-    var gun = Math.ceil((ms - Date.now()) / GUN);
-    if(gun <= 0) return 'bugün';
+    var ileri = parseInt(localStorage.getItem('kc_ileri') || '0') || 0;
+    var g0 = new Date(Date.now() + ileri); g0.setHours(0, 0, 0, 0);
+    var g1 = new Date(ms); g1.setHours(0, 0, 0, 0);
+    var gun = Math.round((g1 - g0) / GUN);
+    if(gun <= 0){ var s = new Date(ms - ileri); return 'bugün, saat ' + ('0' + s.getHours()).slice(-2) + ':' + ('0' + s.getMinutes()).slice(-2) + ' sonrası'; }   /* ek yok: '13:00'ten/20:00'den' ses uyumu */
     if(gun === 1) return 'yarın';
     return gun + ' gün sonra';
   }

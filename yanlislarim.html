@@ -40,6 +40,15 @@ h2{font-size:17px;margin:30px 0 10px}
 .bugun{color:var(--amber);font-weight:700}
 .dip{font-size:12.5px;color:var(--dim);margin-top:12px}
 .bos{text-align:left}
+/* 07.10 Cem ("yan yana kare kare olsa daha iyi"): ders ders kart ızgarası - masaüstünde 3-4, telefonda 2 sütun.
+   Vadesi gelen ders turuncu kenarlı. */
+#ylKutu,#ylZor{background:none;border:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+#ylKutu .satir,#ylZor .satir{flex-direction:column;align-items:stretch;justify-content:space-between;gap:12px;background:var(--kagit);border:1px solid var(--line);border-radius:14px;padding:16px}
+#ylKutu .satir.vadeli{border-left:4px solid var(--amber)}
+#ylKutu .satir .btn,#ylZor .satir .btn{text-align:center}
+#ylKutu .dip,#ylKutu .bos,#ylZor > p{grid-column:1/-1}
+#ylKutu .bos,#ylZor > p{background:var(--kagit);border:1px solid var(--line);border-radius:14px;padding:16px}
+@media(max-width:600px){ #ylKutu,#ylZor{grid-template-columns:1fr 1fr;gap:10px} #ylKutu .satir,#ylZor .satir{padding:13px} #ylKutu .satir .btn,#ylZor .satir .btn{padding:10px 8px;white-space:normal} }
 </style>
 </head>
 <body>
@@ -74,7 +83,7 @@ h2{font-size:17px;margin:30px 0 10px}
     <p class="dip">Sayılar ders sayfalarındaki son 500 cevabından hesaplanır. Paketli hesabınla bir ders sayfası açtığında başka cihazdaki çözümlerin de bu cihaza taşınır.</p>
   </div>
 </div>
-<script src="calisma-ozet.js?v=20261007b"></script>
+<script src="calisma-ozet.js?v=20261007c"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (üye girişliyse); hesaptan gelen değişince sayfa yeniden çizilir -->
 <script src="uye-durumu.js?v=20261007b"></script>
 <script src="kutu-esitle.js"></script>
@@ -95,8 +104,9 @@ h2{font-size:17px;margin:30px 0 10px}
     if(o.kutuDers.length){
       $('ylKutu').innerHTML=o.kutuDers.map(function(x){
         var b=C.dersBul(d,x.ders), adres=b?b.sayfa:'sorular.html';
-        var not=x.bugun?'<span class="bugun">bugün '+x.bugun+'</span> · toplam '+x.toplam:'toplam '+x.toplam+(x.enYakin?' · sıradaki tekrar '+C.tarihYazi(x.enYakin):'');
-        return '<div class="satir"><div><div class="ad">'+esc(x.ders)+'</div><div class="not">'+not+'</div></div><a class="btn'+(x.bugun?'':' ikinci')+'" href="'+esc(adres)+'">'+(x.bugun?'Tekrar et':'Derse git')+'</a></div>';
+        /* 07.10 Cem ("Denetim 8 soru diyor ama bu ne"): 'toplam 8' anlaşılmıyordu -> kutuda kaç yanlış, bugün kaçının sırası, sıradaki ne zaman */
+        var not=x.bugun?'<span class="bugun">Bugün '+x.bugun+' soru sırada</span><br>Kutuda '+x.toplam+' yanlış soru':'Kutuda '+x.toplam+' yanlış soru'+(x.enYakin?'<br>Sıradaki tekrar: '+C.tarihYazi(x.enYakin):'');
+        return '<div class="satir'+(x.bugun?' vadeli':'')+'"><div><div class="ad">'+esc(x.ders)+'</div><div class="not">'+not+'</div></div><a class="btn'+(x.bugun?'':' ikinci')+'" href="'+esc(adres)+'">'+(x.bugun?'Tekrar et':'Derse git')+'</a></div>';
       }).join('')+'<p class="dip">Ders sayfasında 📥 yanlış kutusunu açıp "Şimdi çöz"e bas.</p>';
     } else {
       $('ylKutu').innerHTML='<div class="bos"><p style="margin:0 0 12px;color:var(--muted)">Henüz tekrar bekleyen soru yok.</p><a class="btn" href="seviye-testi.html">Seviye testini çöz</a> <a class="btn ikinci" href="sorular.html">Ders ders çalış</a></div>';
