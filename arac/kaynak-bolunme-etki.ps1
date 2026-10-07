@@ -29,7 +29,8 @@ param(
   [switch]$Tasi,
   [string[]]$Sinavlar = @(),
   [switch]$Yaz,
-  [switch]$OzSinav             # 07.10: süzgeç + kopuş freni öz-sınavı (ağsız, anahtarsız)
+  [switch]$OzSinav,            # 07.10: süzgeç + kopuş freni öz-sınavı (ağsız, anahtarsız)
+  [switch]$KopusOnay           # 07.10: "yarıdan fazlası kopuyor" frenini elle aşar (meşru yeniden adlandırma); "yeni 0" freni aşılmaz
 )
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -68,6 +69,13 @@ function OrListesiAyir([string]$ham){
   foreach($k in $parca){ $es = [regex]::Match($k, '^[a-z_]+\.[a-z]+\.(.*)$'); if(-not $es.Success){ return $null }; $v = $es.Groups[1].Value; if(-not $v.StartsWith('"') -and $v -match '[,():]'){ return $null } }
   return ,$parca
 }
+# 08.10: indirilen parti dosyası BU çağrıda yeniden yazıldı mı. Değilse yerel kopya bayattır, ambara basılmaz.
+#   🚫 GÖRMEZ: dosyanın tazelenip içeriğinin yine de eksik olması (indirme yarım yazdıysa) · saat kayması (2 sn pay).
+function IndirmeTaze([string]$yol, [datetime]$onceUtc){
+  if(-not (Test-Path $yol)){ return $false }
+  if($env:KBE_MUTASYON -eq 'taze'){ return $true }
+  return ((Get-Item $yol).LastWriteTimeUtc -ge $onceUtc)
+}
 if($OzSinav){
   $gecti = 0; $kaldi = 0
   function Sina([string]$ad, [bool]$ok){ if($ok){ $script:gecti++; Write-Host "  OK    $ad" } else { $script:kaldi++; Write-Host "  KALDI $ad" -ForegroundColor Red } }
@@ -87,6 +95,15 @@ if($OzSinav){
   Sina 'fren: 370 eskinin 200ü kopuyor → DUR' ([bool](KopusFreni 370 381 200))
   Sina 'fren: 370 eskinin 4ü kopuyor → GEÇ (07.10 gerçek GVK)' (-not (KopusFreni 370 381 4))
   Sina 'fren: TFRS 18 tipi 12 eskinin 5i kopuyor → GEÇ' (-not (KopusFreni 12 14 5))
+  # 08.10 tazelik: parti-senkron -Etiket sessizce indirmeyince yereldeki ESKİ dosya ambara basılıyordu
+  $gecici = Join-Path ([IO.Path]::GetTempPath()) ("kbe-taze-" + [guid]::NewGuid().ToString('N') + '.json')
+  $once = (Get-Date).ToUniversalTime()
+  Sina 'tazelik: dosya yok → YAZMA' (-not (IndirmeTaze $gecici $once))
+  Set-Content -Path $gecici -Value '{}' -Encoding UTF8; (Get-Item $gecici).LastWriteTimeUtc = $once.AddHours(-5)
+  Sina 'tazelik: dosya çağrıdan ÖNCE yazılmış (bayat yerel kopya) → YAZMA' (-not (IndirmeTaze $gecici $once))
+  (Get-Item $gecici).LastWriteTimeUtc = $once.AddSeconds(1)
+  Sina 'tazelik: dosya çağrıda yeniden yazılmış → YAZ' (IndirmeTaze $gecici $once)
+  Remove-Item $gecici -ErrorAction SilentlyContinue
   Write-Host "OZ-SINAV: gecti $gecti - kaldi $kaldi"; exit $(if($kaldi){ 1 } else { 0 })
 }
 $sbAnahtar = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'); if(-not $sbAnahtar){ $sbAnahtar = $env:SUPABASE_SERVICE_KEY }
@@ -118,9 +135,12 @@ function BaglariYaz($bagSatirlari, [string]$damga){
       foreach($bag in $grup.Group){ $ertelenen.Add($bag) }
       continue
     }
+    $indirOnce = (Get-Date).ToUniversalTime().AddSeconds(-2)
     & $kabuk -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Etiket $etiket -Sinav $sinav -Yaz | Out-Null
     $partiYolu = Join-Path $depoKok "veri\fabrika\kalip-parti-$etiket.json"
-    if(-not (Test-Path $partiYolu)){ Write-Host "  $etiket indirilemedi — sıraya yazıldı"; foreach($bag in $grup.Group){ $ertelenen.Add($bag) }; continue }
+    # 08.10 (KGK oturumu): parti-senkron -Etiket 03.10'dan beri SESSİZCE indirmiyordu; bu araç da yereldeki ESKİ dosyayı düzenleyip
+    #   -Yukle ile ambara basıyordu (bayat kopya ambardaki yeniyi ezer). Artık dosya bu çağrıda yeniden yazılmadıysa parti YAZILMAZ.
+    if(-not (IndirmeTaze $partiYolu $indirOnce)){ Write-Host "  $etiket indirilemedi/tazelenmedi — sıraya yazıldı"; foreach($bag in $grup.Group){ $ertelenen.Add($bag) }; continue }
     Copy-Item $partiYolu (Join-Path $kasa "$damga-bolunme-kalip-parti-$etiket.json")
     $partiIcerik = Get-Content $partiYolu -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach($bag in $grup.Group){
@@ -188,6 +208,10 @@ $yeniAdKumesi = New-Object System.Collections.Generic.HashSet[string]; foreach($
 $kopanAdlar = @($eskiKayitlar | ForEach-Object { "$($_.kaynak_ad)" } | Where-Object { -not $yeniAdKumesi.Contains($_) } | Select-Object -Unique)
 Write-Host ("{0}: eski {1} · yeni {2} · kopan ad {3}" -f $Standart,$eskiKayitlar.Count,$yeniKayitlar.Count,$kopanAdlar.Count)
 $fren = KopusFreni @($eskiKayitlar | ForEach-Object { "$($_.kaynak_ad)" } | Select-Object -Unique).Count $yeniKayitlar.Count $kopanAdlar.Count
+# 07.10 (KGK oturumu): -KopusOnay = elle karar verilmiş MEŞRU yeniden adlandırma (BDS 250/402/550: standart-yut başlık düzeltmesi,
+#   eski adların yarıdan fazlası gerçekten yeni başlığı aldı). Yalnız "yarıdan fazla" kuralını aşar; "yeni kayıt 0" freni HER ZAMAN durdurur.
+#   Kullanan, CSV eşlemesini (tek yeni ad + aynı paragraf no) taşımadan ÖNCE ayrıca denetler.
+if($fren -and $KopusOnay -and $yeniKayitlar.Count -gt 0){ Write-Host "KOPUŞ FRENİ ELLE AŞILDI (-KopusOnay): $fren" -ForegroundColor Yellow; $fren = '' }
 if($fren){ Write-Host "DURDU (kopuş freni): $fren — rapor yazılmadı, taşıma yapılmadı. Süzgeci/yedeği kontrol et." -ForegroundColor Red; exit 2 }
 if($kopanAdlar.Count -eq 0){ Write-Host 'Kopan ad yok — rapor yazılmadı.'; exit 0 }
 
