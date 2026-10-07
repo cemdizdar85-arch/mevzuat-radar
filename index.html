@@ -101,6 +101,8 @@ h1 em{font-style:normal;color:var(--amber)}
 .sinav small{font-weight:650;color:var(--muted);font-size:14.5px;text-align:right}
 .sinav[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--amber-dolgu)}
 .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
+/* 08.10 Cem ("telefonda güzel görünmüyor"): 390 px'te ad ile tarih yan yana sığmıyor, ikisi de iki satıra kırılıyordu -> alt alta */
+@media(max-width:560px){ .sinav{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:12px 18px;font-size:18px} .sinav small{text-align:left;font-size:13.5px} }
 .kah-alt{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
 .durum{font-size:14.5px;color:var(--dim);margin-top:12px;max-width:460px}
 .durum b{color:var(--ink)}

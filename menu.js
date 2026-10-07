@@ -73,6 +73,9 @@ function ttOdemeBandi(yer) {
       '#ttOdemeBandi img{height:24px;width:auto;max-width:100%;display:block}' +
       '#ttOdemeBandi .ob-marka{text-decoration:none}#ttOdemeBandi .ob-soz{font-size:13px;font-weight:650;color:var(--muted)}' +
       '#ttOdemeBandi .ob-ara{flex-basis:100%;height:0}' +
+      /* 08.10 Cem ("yanlışın sebebiyle öğren güzel görünmüyor telefonda"): dar ekranda logo ile slogan yan yana sıkışıyordu
+         (logo iri, slogan kalın) -> slogan logonun altında kendi satırında, sade */
+      '@media(max-width:560px){#ttOdemeBandi .ob-soz{flex-basis:100%;margin-top:-6px;font-size:13.5px;font-weight:600;color:var(--dim)}}' +
       '#ttOdemeBandi .ob-koyu{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-acik{display:none}html[data-theme="dark"] #ttOdemeBandi .ob-koyu{display:block}';
     (document.head || document.documentElement).appendChild(st);
   }
