@@ -425,7 +425,7 @@ footer p{margin:0 0 8px}
       var v=null;
       try{ var bg=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}), gs=GUNUN&&GUNUN.tarih===bg&&GUNUN.sinavlar&&GUNUN.sinavlar[secili];
         if(gs&&gs.soru_id) v=VL.filter(function(x){ return x.id===gs.soru_id; })[0]||null; }catch(e){}
-      if(!v) v=VL[Math.floor(Date.now()/864e5)%VL.length]; kapat();
+      if(!v) v=VL[Math.floor((Date.now()+108e5)/864e5)%VL.length]; kapat();   /* Türkiye günü (+3 sa), görsel robotuyla aynı */
       $('ekDers').textContent=(AD[secili]||'')+' · '+v.ders; kap.innerHTML='';
       /* 07.10: ana sayfada gördüğü soru seviye testinde ona gelmesin (seviye-testi.html sv_gorulen'deki soruyu ilk turda atlar) */
       try{ var gr=JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); if(gr.indexOf(v.id)<0){ gr.push(v.id); localStorage.setItem('sv_gorulen',JSON.stringify(gr.slice(-2000))); } }catch(e){}

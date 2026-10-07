@@ -88,10 +88,20 @@ function ana() {
   const d = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'vitrin-hesap.json'), 'utf8')).sinavlar || {};
   fs.mkdirSync(CIKTI, { recursive: true });
   const c = chrome(), logo = 'file://' + path.join(KOK, 'gorsel', 'logo-mail.png').replace(/\\/g, '/').replace(/^([A-Za-z]):/, '/$1:');
-  const gun = Math.floor(simdi / GUN), ozet = { uretici: 'motor/gunun-sorusu-gorsel.js', tarih: new Date(simdi + 3 * 36e5).toISOString().slice(0, 10), sinavlar: {} };
+  /* 07.10 Cem ("1.2 yap"): basım vitrin robotunun ARKASINDAN koşar (gunun-sorusu.yml workflow_run) ve gün içinde birkaç kez
+     tetiklenebilir. Sabah paylaşılan soru gün ortasında değişmesin: bugünün (TR) dosyası zaten basılmışsa DOKUNULMAZ
+     (bilerek yeniden basım: --zorla). Gün sırası TÜRKİYE günüdür (önceden dünya saati günüydü: 00:00-03:00 arası basımda
+     yeni günün tarihine eski günün sorusu yazılıyordu). Dünün cevabı, dün GERÇEKTEN basılan sorudan (eski dosya) alınır;
+     eski dosya dünün değilse formül. */
+  const trGun = Math.floor((simdi + 3 * 36e5) / GUN), tarih = new Date(simdi + 3 * 36e5).toISOString().slice(0, 10);
+  const dunTarih = new Date(simdi + 3 * 36e5 - GUN).toISOString().slice(0, 10);
+  let eski = null; try { eski = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'gunun-sorusu.json'), 'utf8')); } catch (e) {}
+  if (eski && eski.tarih === tarih && !process.argv.includes('--zorla') && !arg('--tarih')) { console.log(`GÜNÜN SORUSU: ${tarih} zaten basılmış - dokunulmadı (yeniden basmak için --zorla)`); return; }
+  const gun = trGun, ozet = { uretici: 'motor/gunun-sorusu-gorsel.js', tarih, sinavlar: {} };
   for (const s of ['sgs', 'yeterlilik']) {
     const L = d[s] || []; if (!L.length) { console.log(`GÜNÜN SORUSU ${s}: liste boş - atlandı`); continue; }
-    const bugun = L[gun % L.length], dun = L[(gun - 1) % L.length];
+    const dunId = eski && eski.tarih === dunTarih && eski.sinavlar && eski.sinavlar[s] && eski.sinavlar[s].soru_id;
+    const bugun = L[gun % L.length], dun = (dunId && L.find(x => x.id === dunId)) || L[(gun - 1 + L.length) % L.length];
     bas(c, soruKare(s, bugun, logo), path.join(CIKTI, s + '-soru.png'));
     bas(c, cevapKare(s, dun, logo), path.join(CIKTI, s + '-cevap.png'));
     ozet.sinavlar[s] = { soru_id: bugun.id, cevap_id: dun.id, soru_metni: metinSoru(s, bugun), cevap_metni: metinCevap(s, dun), sira: (gun % L.length) + 1, toplam: L.length };
