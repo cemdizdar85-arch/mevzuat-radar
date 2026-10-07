@@ -168,6 +168,16 @@ h1 em{font-style:normal;color:var(--amber)}
 .adimlar li::before{content:counter(a);display:block;font-size:15px;font-weight:800;color:var(--amber);margin-bottom:6px}
 .adimlar h3{margin:0 0 4px;font-size:19px}
 .adimlar p{margin:0;color:var(--muted);font-size:15.5px}
+/* 07.10 Cem ("burada Avrupa'daki rakipler gibi bizim yaptıklarımızı yazar mısın"): akışın altında "neler var" kartları.
+   Yalnız bugün sitede ÇALIŞAN özellik; rakam ve "garanti" yok (soru sayısı yazılmaz, 04.10 kuralı). */
+#nasil .ozellik-bas{margin:52px 0 18px;font-size:24px}
+.ozellikler{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){ .ozellikler{grid-template-columns:1fr 1fr} }
+@media(max-width:560px){ .ozellikler{grid-template-columns:1fr} }
+.ozellik{display:flex;flex-direction:column;background:var(--kagit);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+.ozellik h3{margin:0 0 6px;font-size:17px}
+.ozellik p{margin:0 0 12px;color:var(--muted);font-size:15px;line-height:1.55;flex:1}
+.ozellik a{color:var(--amber);font-weight:700;text-decoration:none;font-size:14.5px}
 .dene{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
 .dene h2{margin:0 0 6px}
 .dene p{margin:0;color:var(--muted)}
@@ -298,6 +308,16 @@ footer p{margin:0 0 8px}
       <li><h3>Tekrar çöz</h3><p>2 gün sonra yeniden karşına çıkar; bilirsen 7 gün sonra son tur.</p></li>
     </ol>
     <p class="kutu-not" id="kutuNot" hidden></p>
+
+    <h2 class="ozellik-bas">Tetikte'de neler var?</h2>
+    <div class="ozellikler">
+      <div class="ozellik"><h3>Nöbetçi anlatımı</h3><p>Her yanlış şıkkın neden çekici göründüğünü, doğrusunun hesabını adım adım, gerekiyorsa yevmiye kaydını ve dayandığı maddeyi anlatır.</p><a href="#ekran">Günün sorusunda dene →</a></div>
+      <div class="ozellik"><h3>30 soruda seviye ölçümü</h3><p>Geçme ihtimalin, ders ders durumun, takıldığın konular ve hangi dersten başlaman gerektiği. Ücretsiz, üyelik istemez.</p><a href="seviye-testi.html" id="ozOlc">Ücretsiz başla →</a></div>
+      <div class="ozellik"><h3>Sınav gibi deneme</h3><p>Staja Giriş'te gerçek süreli ve gerçek ders dağılımlı 130 soruluk deneme setleri; Yeterlilik'te ders ders, 100 üzerinden prova.</p><a href="sinav-gibi.html">Denemeleri gör →</a></div>
+      <div class="ozellik"><h3>Canlı deneme</h3><p>Belirlenen günde herkesle aynı anda çözülen deneme. Sınav gününün temposunu önceden yaşarsın.</p><a href="canli-deneme.html">Takvimi gör →</a></div>
+      <div class="ozellik"><h3>Mevzuat ve sınav nöbeti</h3><p>Sorunun dayandığı madde değişirse soru yeniden incelenene kadar yayından çekilir. TESMER ve TÜRMOB duyuruları tek sayfada.</p><a href="sinav-nobeti.html">Duyurular →</a></div>
+      <div class="ozellik"><h3>Her cihazda kaldığın yerden</h3><p>Testlerin, deneme sonuçların ve yanlışların hesabına kaydedilir; telefonda başlayıp bilgisayarda devam edersin.</p><a href="ogrenci.html">Hesabım →</a></div>
+    </div>
   </div>
 </section>
 
