@@ -204,6 +204,11 @@ footer p{margin:0 0 8px}
 @media(min-width:761px){ #mrxFab{display:none!important} }
 @media(min-width:981px){
   .kah{padding:36px 0 44px}
+  /* 07.10 Cem (ekran görüntüsü: "sayfaya tam oturmuyor, alttaki şey yukarıda görünüyor"): Sık Çıkan Konular şeridinin üst
+     kenarı ilk ekranın dibine sarkıyordu. Kahraman ekran yüksekliğini (şerit 64 px hariç) doldurur, içerik dikeyde ortalanır;
+     şerit kaydırınca gelir. İçerik ekrandan uzunsa kendi boyuyla uzar. */
+  .kah{min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);box-sizing:border-box;display:flex;align-items:center}
+  .kah > .ic{width:100%;box-sizing:border-box}
   .kah > .ic{grid-template-columns:1fr 450px;gap:48px}
   html body .kah h1{font-size:clamp(36px,3.9vw,52px);margin-bottom:14px}   /* html body: stil-acik.css h1 boyutunu eziyordu */
   .alt{margin-bottom:22px;font-size:18px}
