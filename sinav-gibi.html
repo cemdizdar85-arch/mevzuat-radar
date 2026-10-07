@@ -364,13 +364,14 @@
 
   if(TUR){
     var yAd=SINAV==='smmm'?'Yeterlilik':'Staja Giriş';
-    document.title=yAd+' · Sık Çıkan Konular Denemesi | Tetikte';
-    $('sgUstSinav').href='sorular.html#'+(SINAV==='smmm'?'smmm':'sgs'); $('sgUstAd').textContent='Sık çıkan konular denemesi';
-    $('sgGirisBaslik').textContent=yAd+' · sık çıkan konular denemesi'; $('sgGirisAlt').textContent='';
+    document.title=yAd+' · En Çok Sorulan Konular Denemesi | Tetikte';
+    $('sgUstSinav').href='sorular.html#'+(SINAV==='smmm'?'smmm':'sgs'); $('sgUstAd').textContent='En çok sorulan konular denemesi';
+    $('sgGirisBaslik').textContent=yAd+' · en çok sorulan konular denemesi'; $('sgGirisAlt').textContent='';
   }
   fetch('veri/deneme/'+SINAV+(TUR?'-sik':'')+'-dizin.json',{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
     DIZIN=d;
     if(d.baslik) $('sgGirisBaslik').textContent=d.baslik;
+    if(d.deneme_ad){ $('sgUstAd').textContent=d.deneme_ad; document.title=(d.ad?d.ad+' · ':'')+d.deneme_ad+' | Tetikte'; }
     if(d.alt) $('sgGirisAlt').textContent=d.alt;
     $('sgKural').innerHTML=d.kural?d.kural.map(function(k){return '<span>'+esc(k)+'</span>';}).join('')
       :'<span>'+d.toplam_soru+' soru</span><span>'+d.sure_dk+' dakika</span><span>5 seçenek</span><span>Yanlış doğruyu götürmez</span><span>'+d.set_sayisi+' set, setler arası tekrar yok</span>';

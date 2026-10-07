@@ -128,7 +128,9 @@ async function sgs() {
   console.log(`  ${setler.length} set × ${SGS_KONU * SGS_PAY} soru · setler arası tekrar 0`);
   yaz('sgs', {
     uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
-    sinav: 'sgs', tur: 'sik', ad: 'Staja Giriş', baslik: 'Staja Giriş · sık çıkan konular denemesi',
+    sinav: 'sgs', tur: 'sik', ad: 'Staja Giriş', baslik: `Staja Giriş · En Çok Sorulan ${SGS_KONU} Konu Denemesi`,
+    // 07.10 Cem: ürün adı "En Çok Sorulan 20 Konu Denemesi" - ana sayfa, deneme ve konu sayfaları adı buradan okur
+    deneme_ad: `En Çok Sorulan ${SGS_KONU} Konu Denemesi`,
     alt: `Son 10 yılın çıkmış sınavlarında en sık sorulan ${SGS_KONU} konudan ${SGS_KONU * SGS_PAY} soru: her konudan ${SGS_PAY}. Çözerken cevap görünmez; bitince konu konu karne gelir.`,
     kural: [`${SGS_KONU * SGS_PAY} soru`, `${SGS_SURE} dakika`, `${SGS_KONU} konu × ${SGS_PAY} soru`, 'Yanlış doğruyu götürmez', `${setler.length} set, setler arası tekrar yok`],
     not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}, ${ok.donem} dönem; Matematik hariç), "En sık sorulan konular" sayfasıyla aynı. Süre gerçek sınavın soru başı süresiyle (165 dk / 130 soru). Bu konular sınavda kesin çıkar demek değildir.`,
@@ -208,7 +210,8 @@ async function smmm() {
   console.log(`  ${tumSet.length} set (${dersSira.length} ders) × ${SM_SORU} soru · setler arası tekrar 0`);
   yaz('smmm', {
     uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
-    sinav: 'smmm', tur: 'sik', ad: 'Yeterlilik', baslik: 'Yeterlilik · sık çıkan konular denemesi',
+    sinav: 'smmm', tur: 'sik', ad: 'Yeterlilik', baslik: `Yeterlilik · Her Dersin En Çok Sorulan ${SM_KONU} Konusu`,
+    deneme_ad: `Her Dersin En Çok Sorulan ${SM_KONU} Konusu Denemesi`,
     alt: `Her dersin çıkmış sınavlarda en sık sorulan ${SM_KONU} konusundan ${SM_SORU} soru, gerçek 2026 düzeninde. Çözerken cevap görünmez; bitince konu konu karne gelir.`,
     kural: [`Ders başına ${SM_SORU} soru`, `${SM_SURE} dakika`, 'Yanlış 0,25 götürür', 'Baraj 50', 'Setler arası tekrar yok'],
     not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}), "En sık sorulan konular" sayfasıyla aynı. Konu payı bankadaki soru sayısına göre ayarlanır. Bu konular sınavda kesin çıkar demek değildir.`,

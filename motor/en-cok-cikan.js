@@ -26,7 +26,9 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&am
 const ok = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'sinav', 'sgs-konu-okuma.json'), 'utf8'));
 
 // 07.10: Sık Çıkan Konular Denemesi düğmesi - biçim (soru/süre) set dizininden, tek kaynak (motor/sik-konu-deneme-bas.js)
-const SIK_KURAL = (() => { try { const d = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'deneme', 'sgs-sik-dizin.json'), 'utf8')); return d.kural.slice(0, 2).map(esc).join(' · ') + ' · konu konu karne'; } catch (e) { console.error('KIRMIZI: veri/deneme/sgs-sik-dizin.json okunamadı (önce node motor/sik-konu-deneme-bas.js)'); process.exit(4); } })();
+let SIK_AD_ = '';
+const SIK_KURAL = (() => { try { const d = JSON.parse(fs.readFileSync(path.join(KOK, 'veri', 'deneme', 'sgs-sik-dizin.json'), 'utf8')); SIK_AD_ = esc(d.deneme_ad || 'Bu konulardan deneme çöz'); return d.kural.slice(0, 2).map(esc).join(' · ') + ' · konu konu karne'; } catch (e) { console.error('KIRMIZI: veri/deneme/sgs-sik-dizin.json okunamadı (önce node motor/sik-konu-deneme-bas.js)'); process.exit(4); } })();
+const SIK_AD = SIK_AD_;
 const DONEM = ok.donem, PENCERE = ok.pencere;
 // okuma dosyasındaki kısa ders adı → sitedeki ders adı
 const DERS = { 'Muhasebe': 'Finansal Muhasebe', 'İktisat': 'Ekonomi', 'Atatürk İlkeleri': 'Atatürk İlkeleri ve İnkılap Tarihi' };
@@ -123,7 +125,7 @@ h2{font-size:19px;margin:30px 0 12px}
   <p class="alt">${PENCERE} arasındaki ${DONEM} sınav döneminin çıkmış sorularını <b>tek tek okuyarak</b> saydık. Her konunun altında, o konunun hangi sınavda kaçıncı soru olarak çıktığı yazıyor; kendin kontrol edebilirsin.</p>
 
   <!-- 07.10 Sık Çıkan Konular Denemesi (Cem "ücretli olsun, üstte görünsün"): liste ücretsiz, deneme paketli. Biçim set dizininden. -->
-  <div class="sik-deneme"><div><b>🔒 Bu konulardan deneme çöz</b><span>Pakete dahil · ${SIK_KURAL}</span></div><a href="sinav-gibi.html?tur=sik">Denemeyi aç →</a></div>
+  <div class="sik-deneme"><div><b>🔒 ${SIK_AD}</b><span>Pakete dahil · ${SIK_KURAL}</span></div><a href="sinav-gibi.html?tur=sik">Denemeyi aç →</a></div>
   <p class="yontem"><b>Yöntem:</b> ${ok.aday_konu} aday konuyla ilgili sözcüklerin geçtiği ${ok.aday_soru} soru okundu; sözcük yalnız bir şıkta geçiyorsa soru sayılmadı. Sayı, o konudan <b>kaç ayrı sınav döneminde</b> en az bir soru geldiğidir ve <b>alt sınırdır</b>. Soru numaraları A kitapçığına göredir. Kaynak: ${DONEM - 5} dönem TESMER'in yayımladığı kitapçık; 2024/2–2025/3 arası 5 dönem başka bir sitede yayımlanmış kitapçık. Matematik formüller metne güvenilir çevrilemediği için listede yok. Ölçüm: ${tarih}.</p>
 
   <h2>İlk ${ADET} konu</h2>

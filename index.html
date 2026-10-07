@@ -315,7 +315,7 @@ footer p{margin:0 0 8px}
     <div class="sik-kart">
       <div>
         <span class="sik-etiket">🔒 Pakete dahil · yeni</span>
-        <h2 id="sikBas">Sık Çıkan Konular Denemesi</h2>
+        <h2 id="sikBas">En Çok Sorulan 20 Konu Denemesi</h2>
         <p id="sikMetin">Son 10 yılın çıkmış sınavlarında en sık sorulan konulardan deneme. Bitince konu konu karne gelir.</p>
       </div>
       <div class="sik-dugme">
@@ -340,7 +340,7 @@ footer p{margin:0 0 8px}
       <div class="ozellik"><h3>Seviyene göre soru</h3><p>Önce 30 soruyla seviyeni ölçeriz. Ders sayfalarında sorular buna göre dizilir: zayıf olduğun derste kolaydan, güçlü olduğun derste zordan başlarsın.</p><a href="seviye-testi.html" id="ozOlc">Seviyeni ölç, ücretsiz →</a></div>
       <div class="ozellik"><h3>Nöbetçi çözer, adım adım anlatır</h3><p>Yalnız doğru cevabı söylemez: yanlış şıkkın seni neden çektiğini, hesabı adım adım, yevmiye kaydını ve dayandığı maddeyi anlatır.</p><a href="#ekran">Günün sorusunda izle →</a></div>
       <div class="ozellik"><h3>Nöbetçi'ye sor</h3><p>Takıldığın soruda kendi sorunu yaz, Nöbetçi o soru üzerinden cevaplasın. Yapay zekâ olduğunu açıkça söyler; yetmezse ekibimize sorarsın.</p><a href="sorular.html">Her soruda, pakette →</a></div>
-      <div class="ozellik"><h3>Unuttuğun yer yakalanır</h3><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer; 2 gün sonra yeniden karşına çıkar, bilirsen 7 gün sonra son tur.</p><a href="yanlislarim.html">Yanlışlarım →</a></div>
+      <div class="ozellik"><h3>Unuttuğun yeri hatırlatır</h3><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer; 2 gün sonra yeniden karşına çıkar, bilirsen 7 gün sonra son tur.</p><a href="yanlislarim.html">Yanlışlarım →</a></div>
       <div class="ozellik"><h3>Sık çıkan konuya ağırlık</h3><p>Soru bankası son 10 yılın çıkmış sınavlarındaki konu sıklığına göre kurulur: sınavda sık sorulan konuda daha çok soru çözersin.</p><a href="sorular.html">Dersleri gör →</a></div>
       <div class="ozellik"><h3>Sınav gibi deneme</h3><p id="ozDenemeP">130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.</p><a href="sinav-gibi.html" id="ozDenemeA">Denemeleri gör →</a></div>
     </div>
@@ -413,9 +413,10 @@ footer p{margin:0 0 8px}
     var k=yet?'smmm':'sgs';
     $('sikA').setAttribute('href', yet?'sinav-gibi.html?tur=sik&sinav=smmm':'sinav-gibi.html?tur=sik');
     $('sikListe').setAttribute('href', yet?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html');
-    if(SIK_ALT[k]){ $('sikMetin').textContent=SIK_ALT[k]; return; }
+    var yaz=function(d){ $('sikMetin').textContent=d.alt; if(d.deneme_ad) $('sikBas').textContent=d.deneme_ad; };
+    if(SIK_ALT[k]){ yaz(SIK_ALT[k]); return; }
     fetch('veri/deneme/'+k+'-sik-dizin.json').then(function(y){ return y.ok?y.json():null; }).then(function(d){
-      if(!d||!d.alt) return; SIK_ALT[k]=d.alt; if((secili==='yeterlilik')===yet) $('sikMetin').textContent=d.alt;
+      if(!d||!d.alt) return; SIK_ALT[k]=d; if((secili==='yeterlilik')===yet) yaz(d);
     }).catch(function(){});
   }
   function dugmeCiz(){
