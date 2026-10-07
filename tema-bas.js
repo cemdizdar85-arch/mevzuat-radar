@@ -40,6 +40,22 @@ try {
   if (elciQ) localStorage.setItem('tt_elci', elciQ.toUpperCase());
 } catch (e) {}
 
+/* 07.10.2026 ESKİ İZ SATIRI PARLAMASI (Cem: "bir yerde başka şey görünüyor sonra kayboluyor"): alt sayfaların .top iz satırı
+   ("Tetikte · Soru çöz · Hesabım") menu.js ustSeritKur() onu silip ortak şeridi koyana dek ~0,3-1 sn görünüyordu (canlı ölçüm:
+   sorular 290->663 ms, deneme 736->1137 ms). menu.js'in dokunduğu sayfalarda (ana sayfa ve kaydir/ hariç) .top baştan gizlenir;
+   menu.js kur() işareti kaldırır. menu.js hiç gelmezse 2,5 sn sonra kendiliğinden açılır (iz satırı kaybolmasın). */
+try {
+  if (!/\/kaydir\//.test(location.pathname) && !/(^|\/)(index\.html)?$/i.test(location.pathname)) {
+    document.documentElement.classList.add('tt-ust-bekle');
+    var ustBekleStil = document.createElement('style');
+    /* .top yer KAPLAMAZ, gövdenin tepesinde ortak şeridin yüksekliği (64 + 1 px çizgi) kadar yer ayrılır: şerit geldiğinde
+       içerik kımıldamaz (canlı ölçüm 07.10: şerit 2-5 sn'de gelip içeriği 65 px itiyordu - satin-al 0,24, yanlislarim 0,03-0,09). */
+    ustBekleStil.textContent = 'html.tt-ust-bekle .top{display:none}html.tt-ust-bekle body{padding-top:65px}';
+    (document.head || document.documentElement).appendChild(ustBekleStil);
+    setTimeout(function(){ document.documentElement.classList.remove('tt-ust-bekle'); }, 2500);
+  }
+} catch (e) {}
+
 (function(){
   if (window.TetikteTema) return;
   var KEY = 'kc_tema', d = document.documentElement;

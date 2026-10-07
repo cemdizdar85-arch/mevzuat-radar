@@ -114,6 +114,7 @@ h1 em{font-style:normal;color:var(--amber)}
 @media(max-width:520px){ .ekran-bas b{display:none} }
 .ekran-govde{padding:18px}
 #ekOynatici .no-kap{border:0;border-radius:0;margin:0;background:transparent;padding:14px 18px 6px}   /* 06.10: oynatıcı kartın içinde, ikinci çerçeve yok */
+#ekOynatici .ek-iskelet{height:clamp(300px,calc(100vh - 350px),500px)}   /* 07.10: yükleme yazısı yerine boş yer (oynatıcı ~ sahne + üst satır) */
 #ekOynatici .no-sahne{min-height:0;height:clamp(260px,calc(100vh - 390px),460px)}   /* 06.10 Cem: "sayfa sığsa" - düğme ekranda kalsın */
 .soru{font-size:16.5px;font-weight:600;margin:0 0 14px;line-height:1.55}
 /* 04.10 Cem "soruların üzerinde sınavda kaç kere çıktı yazıyorduk": eski kartın rozeti geri (sayı KONUNUN sıklığı, sorunun değil - 25.09 kuralı) */
@@ -161,6 +162,8 @@ h1 em{font-style:normal;color:var(--amber)}
 .bolum{padding:64px 0;border-top:1px solid var(--line)}
 /* 07.10 Sık Çıkan Konular Denemesi şeridi (Cem: "üst tarafta görsünler ama ücretli olsun") */
 .sik-serit{padding:0 0 48px}
+.sik-bekle #sikBas,.sik-bekle #sikMetin{visibility:hidden}
+.oz-bekle #ozDenemeP,.oz-bekle #ozDenemeA{visibility:hidden}   /* 07.10: Yeterlilik'te önce Staja Giriş deneme metni görünüyordu */   /* 07.10: seçili sınavın metni gelene dek (yer ayrılı, yanlış sınav metni görünmez) */
 .sik-kart{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line2);border-left:4px solid var(--amber);border-radius:16px;background:var(--bg2);padding:22px 26px}
 .sik-kart h2{margin:6px 0 6px;font-size:22px;color:var(--ink)}
 .sik-kart p{margin:0;color:var(--muted);font-size:15px;line-height:1.55;max-width:640px}
@@ -250,6 +253,7 @@ footer p{margin:0 0 8px}
   .ekran-dip .btn{min-height:42px}
 }
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -296,9 +300,12 @@ footer p{margin:0 0 8px}
       <!-- 06.10 Cem ("en üstteki deneme çerçevesini oynatıcıyla değiştir"): kart artık şık seçtirmez; günün sorusunu Nöbetçi
            OYNATICISI (nobetci-oynatici.js) video gibi anlatır: soru → en sık yapılan yanlış + tuzağı → doğru → kural → dayanak.
            Kendin çözmek isteyen "Kendin çöz" ile eski Kaydır çerçevesini açar (#bzIleri/#bzCerceve/#bzKanca: canli-tarama.js izler). -->
-      <div class="ek-oynatici" id="ekOynatici"><p class="soru" style="padding:18px;margin:0">Günün sorusu yükleniyor…</p></div>
+      <!-- 07.10 Cem ("tetikte basıyom ilk ekran soru yükleniyor diyor... sonra kayboluyor"): yükleme yazısı ve "Soru hazırlanıyor…"
+           düğmesi görünüp kayboluyordu (canlı ölçüm ~0,2 sn). Artık yazısız yer tutucu (oynatıcının yüksekliği) + düğme baştan gizli;
+           ekranCiz() yalnız eski "Kendin çöz" yolunda açar. -->
+      <div class="ek-oynatici" id="ekOynatici"><div class="ek-iskelet" role="status" aria-label="Günün sorusu yükleniyor"></div></div>
       <div class="ekran-dip">
-        <button class="btn btn-ana" id="bzIleri" type="button" disabled>Soru hazırlanıyor…</button>
+        <button class="btn btn-ana" id="bzIleri" type="button" disabled hidden>Soru hazırlanıyor…</button>
         <p class="ekran-not" id="ekNot">Nöbetçi, Tetikte'nin soru yardımcısı. Her yanlışını tuzağı, kuralı ve dayandığı maddeyle anlatır.</p>
       </div>
       <div class="kanca" id="bzKanca" hidden role="status"><b id="bzKancaBas"></b><p id="bzKancaMetin"></p><small id="bzKancaDip"></small></div>
@@ -312,7 +319,7 @@ footer p{margin:0 0 8px}
      paket-kapisi.js). Metin set dizininden (veri/deneme/*-sik-dizin.json "alt") okunur: soru/süre sayısı tek kaynak. -->
 <section class="sik-serit" aria-labelledby="sikBas">
   <div class="ic">
-    <div class="sik-kart">
+    <div class="sik-kart sik-bekle" id="sikKart">
       <div>
         <span class="sik-etiket">🔒 Pakete dahil · yeni</span>
         <h2 id="sikBas">En Çok Sorulan 20 Konu Denemesi</h2>
@@ -342,7 +349,7 @@ footer p{margin:0 0 8px}
       <div class="ozellik"><h3>Nöbetçi'ye sor</h3><p>Takıldığın soruda kendi sorunu yaz, Nöbetçi o soru üzerinden cevaplasın. Yapay zekâ olduğunu açıkça söyler; yetmezse ekibimize sorarsın.</p><a href="sorular.html">Her soruda, pakette →</a></div>
       <div class="ozellik"><h3>Unuttuğun yeri hatırlatır</h3><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer; 2 gün sonra yeniden karşına çıkar, bilirsen 7 gün sonra son tur.</p><a href="yanlislarim.html">Yanlışlarım →</a></div>
       <div class="ozellik"><h3>Sık çıkan konuya ağırlık</h3><p>Soru bankası son 10 yılın çıkmış sınavlarındaki konu sıklığına göre kurulur: sınavda sık sorulan konuda daha çok soru çözersin.</p><a href="sorular.html">Dersleri gör →</a></div>
-      <div class="ozellik"><h3>Sınav gibi deneme</h3><p id="ozDenemeP">130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.</p><a href="sinav-gibi.html" id="ozDenemeA">Denemeleri gör →</a></div>
+      <div class="ozellik oz-bekle" id="ozDeneme"><h3>Sınav gibi deneme</h3><p id="ozDenemeP">130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.</p><a href="sinav-gibi.html" id="ozDenemeA">Denemeleri gör →</a></div>
     </div>
     <p class="kutu-not" id="kutuNot" hidden></p>
   </div>
@@ -413,11 +420,13 @@ footer p{margin:0 0 8px}
     var k=yet?'smmm':'sgs';
     $('sikA').setAttribute('href', yet?'sinav-gibi.html?tur=sik&sinav=smmm':'sinav-gibi.html?tur=sik');
     $('sikListe').setAttribute('href', yet?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html');
-    var yaz=function(d){ $('sikMetin').textContent=d.alt; if(d.deneme_ad) $('sikBas').textContent=d.deneme_ad; };
+    var ac=function(){ $('sikKart').classList.remove('sik-bekle'); };
+    var yaz=function(d){ $('sikMetin').textContent=d.alt; if(d.deneme_ad) $('sikBas').textContent=d.deneme_ad; ac(); };
     if(SIK_ALT[k]){ yaz(SIK_ALT[k]); return; }
+    setTimeout(ac,3000);   /* dizin gelmezse sabit metin görünür */
     fetch('veri/deneme/'+k+'-sik-dizin.json').then(function(y){ return y.ok?y.json():null; }).then(function(d){
-      if(!d||!d.alt) return; SIK_ALT[k]=d; if((secili==='yeterlilik')===yet) yaz(d);
-    }).catch(function(){});
+      if(!d||!d.alt){ ac(); return; } SIK_ALT[k]=d; if((secili==='yeterlilik')===yet) yaz(d);
+    }).catch(ac);
   }
   function dugmeCiz(){
     var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
@@ -443,10 +452,12 @@ footer p{margin:0 0 8px}
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
     /* 07.10 Cem ("1 yap"): "neler var" kartları seçili sınava göre - Yeterlilik'te deneme = deneme.html Birebir Prova (gerçek 2026 düzeni),
        seviye ölçümü = Yeterlilik seti. Metin deneme.html'deki Birebir Prova açıklamasıyla aynı. */
+    setTimeout(function(){ var z=document.getElementById('ozDeneme'); if(z) z.classList.remove('oz-bekle'); },3000);   /* 07.10 yedek */
     try{ var yetSec=(secili==='yeterlilik');
       $('ozDenemeP').textContent = yetSec ? 'Gerçek 2026 düzeninde ders ders prova: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50. Canlı denemede de yüzdelik sıranı görürsün.'
                                           : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne. Canlı denemede de yüzdelik sıranı görürsün.';
       $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
+      $('ozDeneme').classList.remove('oz-bekle');   /* 07.10: seçili sınavın metni yazıldı */
       $('ozOlc').setAttribute('href', yetSec ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
       sikCiz(yetSec);
     }catch(e){}

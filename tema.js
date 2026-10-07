@@ -14,15 +14,20 @@
    ========================================================================== */
 (function(){
   var KEY='kc_tema', d=document.documentElement;
-  function acikBag(){ return document.querySelector('link[href$="stil-acik.css"]'); }
+  /* 07.10: stil-acik.css head'de de bağlı (titreme taraması) -> tek bağ değil hepsi */
   function uygula(koyu){
-    var l=acikBag(); if(l) l.disabled=!!koyu;
+    [].forEach.call(document.querySelectorAll('link[href$="stil-acik.css"]'), function(l){ l.disabled=!!koyu; });
     if(koyu) d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');
     var b=document.getElementById('temaB');
     if(b){ b.textContent=koyu?'☀':'☾'; var et=koyu?'Açık temaya geç':'Koyu temaya geç'; b.setAttribute('aria-label',et); b.title=et; }
   }
+  /* 07.10 (Cem "bir yerde başka şey görünüyor sonra kayboluyor"): ölçüldü - deneme.html'de ilk gelen ziyaretçiye ~1,1. sn'de
+     ~140 ms KOYU ekran. Sebep bu satırdaki eski "varsayılan koyu" (24.09) kararıydı: kc_tema yoksa stil-acik bağını kapatıyor,
+     sonra tema-bas.js/menu.js açığa geri çeviriyordu. Varsayılan 04.10'dan beri AÇIK (tema-bas.js). tema-bas.js yüklü sayfada
+     tema onun işidir; burada hiç dokunulmaz. Yüklü değilse varsayılan açık. */
+  if(window.TetikteTema) return;
   var t=null; try{ t=localStorage.getItem(KEY); }catch(e){}
-  uygula(t!=='light');   /* 24.09 Cem: varsayılan koyu, beyaz yalnız seçilirse */
+  uygula(t==='dark');
   function kur(){
     /* 23.09: tema-bas.js yüklü sayfada düğme menu.js'te, üst şeritte (tek düğme, tek anahtar) - burada kurulmaz */
     if(window.TetikteTema) return;

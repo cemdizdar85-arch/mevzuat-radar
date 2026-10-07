@@ -92,6 +92,7 @@ h1{font-size:clamp(25px,4.4vw,34px);letter-spacing:-.6px;margin:6px 0 8px;line-h
 .sn-baslik:hover{text-decoration:underline}
 .sn-kaynak{font-size:12.5px;color:var(--dim)}
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <div class="wrap">

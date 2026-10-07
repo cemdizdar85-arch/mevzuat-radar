@@ -209,6 +209,9 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   /* 29.09: boş banka (kayıtsız) - seçiciler ve örnek-oturum notu gizli, yalnız yönlendirme + üye girişi */
   #ekranKurulum.bosBanka .etiket, #ekranKurulum.bosBanka .secgrup, #ekranKurulum.bosBanka #baslaBtn, #ekranKurulum.bosBanka #ornekNot{ display:none; }
   #bosMesaj a{ color:var(--accent2); }
+  /* 07.10 (Cem "görünüp kayboluyor"): banka gelmeden tam form (KGK dahil) ~0,2 sn görünüp "üyelere açık" kutusuna dönüyordu.
+     İlk kurulumCiz()'e dek kutunun içi görünmez (yer ayrılı). */
+  #ekranKurulum.kurBekle > *{ visibility:hidden; }
 </style>
 <style>
   /* Marka birligi 29.07: eski "T" kutusu -> nobet lambasi. */
@@ -239,6 +242,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
 .cevapli #gerekceKutu>*:nth-child(n+5){animation-delay:.34s}
 @media(prefers-reduced-motion:reduce){.cevapli #gerekceKutu>*{animation:none}}
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -248,7 +252,7 @@ th{color:var(--dim);font-weight:700;font-size:11px;text-transform:uppercase;lett
   <p class="lead">Özgün sorular; her şıkkın <b style="color:var(--ink)">neden doğru / neden yanlış</b> olduğu, altında kaynak kuralı. Ezber değil, gerekçe. Yanlışın nedenini gördüğün soru, sınavda bir daha yanılmadığın sorudur.</p>
 
   <!-- KURULUM -->
-  <div id="ekranKurulum">
+  <div id="ekranKurulum" class="kurBekle">
     <div class="panel">
       <!-- 29.09 açılış gecesi (Cem "deneme sayfasını düzelt"): kayıtsız ziyaretçide banka boş (veri/soru-bankasi.json
            09.09'dan beri bilerek boş). Eski metin "açılışta hazır olacak" diyordu; site açıldı. Boş bankada seçiciler
@@ -513,6 +517,7 @@ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'
 
 // üye modülü (sayfa sonundaki module script) banka yüklendikten sonra devreye girer
 window.bankaHazir = new Promise(function(res){ window.bankaHazirCoz = res; });
+setTimeout(function(){ var e=document.getElementById('ekranKurulum'); if(e) e.classList.remove('kurBekle'); }, 4000);   /* 07.10 yedek: banka hiç gelmezse kurulum görünür */
 
 fetch('veri/soru-bankasi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   BANKA=(d.sorular||[]).filter(function(s){return s.durum==='yayin';});
@@ -564,6 +569,7 @@ function kurulumCiz(){
   var adlar=Object.keys(dersler).sort();
   /* 29.09: boş bankada seçiciler anlamsız → gizli; üye kasası yüklenip kurulumCiz yeniden çağrılınca açılır */
   document.getElementById('ekranKurulum').classList.toggle('bosBanka', !BANKA.length);
+  document.getElementById('ekranKurulum').classList.remove('kurBekle');
   if(!BANKA.length){
     bosMsg.classList.remove('gizli');
     document.getElementById('baslaBtn').disabled=true;

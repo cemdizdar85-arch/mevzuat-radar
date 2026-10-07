@@ -6,6 +6,10 @@
      veriyi bu listede olmayan bir adrese gönderemez, yabancı betik yüklenemez. Yeni dış kaynak eklenirse buraya da yazılır. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at https://challenges.cloudflare.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: mevzuatradar.goatcounter.com https://www.facebook.com; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co mevzuatradar.goatcounter.com https://www.facebook.com https://connect.facebook.net; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; object-src 'none'">
 <script src="tema-bas.js"></script>
+<!-- 07.10 (Cem "görünüp kaybolan istemiyorum"; canlı ölçüm: "—" yer tutucular + boş paket kutusunun dolması, masaüstü yerleşim kayması
+     0,24-0,30): sipariş alanı fiyat-motoru.js + sayfa betiği doldurana dek görünmez (3 sn yedek). -->
+<script>try{ document.documentElement.classList.add('sa-bekle'); setTimeout(function(){ document.documentElement.classList.remove('sa-bekle'); },3000); }catch(e){}</script>
+<style>html.sa-bekle #duzen,html.sa-bekle #mbar{visibility:hidden}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -177,6 +181,7 @@
     #mrxFab{ display:none !important; } }
   @media (max-width:560px){ .kutu{ padding:16px; } .akd-bas{ padding:16px; } .akd-ic{ padding:0 16px; } .s{ padding-left:16px; padding-right:16px; } }
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -203,7 +208,7 @@
   <p class="alt">Paketini seç, bilgilerini tamamla; ödeyeceğin tutar KDV dahil olarak özette yazar, sonradan eklenen ücret yok.</p>
   <ul class="guven">
     <li>E-arşiv fatura</li>
-    <li id="odemeYolu">Havale/EFT ile ödeme</li>
+    <li id="odemeYolu">Kartla (iyzico güvencesiyle) ya da havale/EFT ile ödeme</li><!-- 07.10: baştan kartlı; kart kapalıysa betik havaleye döndürür -->
     <li>Satıcı: Dizdar Denetim A.Ş.</li>
   </ul>
 </header>
@@ -340,8 +345,7 @@
 
   <button class="btn" id="gonder">Siparişi tamamla</button>
   <div class="sonuc" id="sonuc"></div>
-  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra
-  göreceğin hesaba banka havalesi/EFT ile yapılır.</p>
+  <p class="kucuk" id="odemeNot" style="margin:10px 0 0">Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. Kartla ödeyince paketin hemen açılır.</p>
 </div>
 </aside>
 </div><!-- /duzen -->
@@ -827,9 +831,10 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
 /* KART_ACIK + kartAcik() 07.10'dan beri fiyat-motoru.js'te (fiyat sayfası da okuyor) */
 /* 05.10 Cem: üstteki güven satırı KART_ACIK'a bağlı - bayrak açılınca kendiliğinden "Kartla ya da havale/EFT" der.
    Eski "kart bilgisi istenmez" sözü kalktı: kart açılınca yalan olurdu. Kart bilgisi bizde değil iyzico'nun sayfasında girilir. */
-(function(){ var o = document.getElementById('odemeYolu'); if(o && kartAcik()) o.textContent = 'Kartla (iyzico güvencesiyle) ya da havale/EFT ile ödeme'; })();
+/* 07.10 (titreme taraması): iki metin de sayfada BAŞTAN kartlı gelir (havale→kart değişimi göz önünde oluyordu); kart kapalıysa havaleye döner */
+(function(){ var o = document.getElementById('odemeYolu'); if(o && !kartAcik()) o.textContent = 'Havale/EFT ile ödeme'; })();
 /* 07.10 Cem ('banka havale EFT diyor, biz kartı kurduk'): sipariş düğmesinin altındaki not da karta göre konuşur */
-(function(){ var o = document.getElementById('odemeNot'); if(o && kartAcik()) o.textContent = 'Bu adımda kart bilgisi istenmez. Siparişi tamamlayınca kartla (iyzico güvenli ödeme sayfasında; kart bilgin bize gelmez) ya da havale/EFT ile ödersin. Kartla ödeyince paketin hemen açılır.'; })();
+(function(){ var o = document.getElementById('odemeNot'); if(o && !kartAcik()) o.textContent = 'Bu adımda karta ait hiçbir bilgi istenmez. Ödeme, siparişten sonra göreceğin hesaba banka havalesi/EFT ile yapılır.'; })();
 function kartHazirla(no){
   var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
   k.hidden = false;
@@ -988,6 +993,7 @@ if(!KURULUM_TAMAM){
   document.getElementById('kurulumUyari').style.display = 'block';
   btn.disabled = true;
 }
+document.documentElement.classList.remove('sa-bekle');   /* 07.10: paketler + özet doldu, sipariş alanı görünür */
 </script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script>

@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <script src="tema-bas.js"></script>
+<!-- 07.10 (Cem "bir yerde başka şey görünüyor sonra kayboluyor"): ?sinav=yeterlilik'te giriş kutusu önce Staja Giriş metniyle
+     çiziliyordu (canlı ölçüm ~0,2-0,3 sn). yetYukle() metni değiştirene dek kutu görünmez (yeri ayrılı); 3 sn yedek. -->
+<script>try{ if(/(?:^|[?&#])sinav=yeterlilik\b/.test(location.search+'&'+location.hash)){ document.documentElement.classList.add('sv-yet-bekle'); setTimeout(function(){ document.documentElement.classList.remove('sv-yet-bekle'); },3000); } }catch(e){}</script>
+<style>html.sv-yet-bekle #svGiris{visibility:hidden}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -119,6 +123,7 @@
   details.sv-nasil p,details.sv-nasil li{font-size:14px;line-height:1.6;color:var(--muted)}
   @media(max-width:640px){ .sv h1{font-size:27px} .sv-yuzde{font-size:52px} .sv-gruplar{grid-template-columns:1fr} }
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -136,7 +141,8 @@
     <!-- 21.09: kapı öne alındığı için sürpriz olmasın - ne isteneceği başlamadan ÖNCE yazılır. -->
     <p class="sv-not" style="margin:0 0 16px">Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.</p>
     <p class="sv-onceki" id="svOnceki" hidden></p>
-    <button class="sv-btn ana" id="svBasla" type="button" disabled>Soru yükleniyor…</button>
+    <!-- 07.10: "Soru yükleniyor…" ~0,6 sn görünüp "Teste başla →"ya dönüyordu; düğme baştan son yazısıyla, sorular gelene dek pasif -->
+    <button class="sv-btn ana" id="svBasla" type="button" disabled>Teste başla →</button>
     <p class="sv-not">Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez (cevabın sıradaki sorunun zorluğunu belirler). "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.</p>
 
     <!-- 16.09.2026 Cem: "üye olmayan bir kere çözsün, sonra üye olsun". Cihazda işaret (sv_hak).
@@ -974,6 +980,7 @@
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
     $('svGiris').querySelectorAll('.sv-not')[0].textContent='Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.';
     $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.';
+    document.documentElement.classList.remove('sv-yet-bekle');   /* 07.10: metin Yeterlilik'e döndü, kutu görünür */
     /* 07.10: eski "örnek sorular" düğmesinin adres değişimi kalktı (düğme yok, yerinde yarının sorusu) */
     $('svYeniden').textContent='Testi yeniden çöz';
     try{ $('svSinav').value='yeterlilik'; }catch(e){}

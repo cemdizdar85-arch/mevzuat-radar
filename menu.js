@@ -483,6 +483,8 @@ function ustSeritKur(){
 function kur(){
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   var ortakSerit=false; try{ ortakSerit=ustSeritKur(); }catch(e){}
+  /* 07.10: tema-bas.js eski .top iz satırını bu ana dek gizliyordu (görünüp kaybolmasın) - şerit kuruldu ya da kurulmayacak, aç */
+  document.documentElement.classList.remove('tt-ust-bekle');
   if(!ortakSerit){ try{ geriKur(); }catch(e){} }
   try{ seritTamGenislik(); }catch(e){}
 

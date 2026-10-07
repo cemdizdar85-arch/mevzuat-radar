@@ -104,6 +104,7 @@
     /* 01.10: telefonda form üç bilgi kartının ARKASINDA kalıyordu (375px ölçüldü) -> başlık + tek cümle, sonra form */
     .og-iki{gap:0} .og-sol{display:contents} .og-sol>*{order:2} .og-sol>h1,.og-sol>.og-ilk{order:0} .og-iki>.og-kutu{order:1;margin:0 0 22px} }
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -313,7 +314,8 @@
     </div>
   </section>
 
-  <p id="ogYuk" class="og-alt">Yükleniyor…</p>
+  <p id="ogYuk" class="og-alt" role="status" aria-label="Yükleniyor"></p><!-- 07.10: "Yükleniyor…" yazısı görünüp kayboluyordu; yazısız -->
+
 </div>
 
 <!-- 02.10: şifre yenileme bağlantısıyla mı gelindi? supabase-js adresteki #...type=recovery kısmını okuyup SİLMEDEN

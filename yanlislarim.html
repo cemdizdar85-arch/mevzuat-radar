@@ -6,6 +6,10 @@
      veriyi bu listede olmayan bir adrese gönderemez, yabancı betik yüklenemez. Yeni dış kaynak eklenirse buraya da yazılır. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at https://challenges.cloudflare.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: mevzuatradar.goatcounter.com https://www.facebook.com; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co mevzuatradar.goatcounter.com https://www.facebook.com https://connect.facebook.net; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; object-src 'none'">
 <script src="tema-bas.js"></script>
+<!-- 07.10 (titreme taraması): "Şimdi bunu yap" kutusu sonradan açılıp altındaki başlıkları ~200 px itiyordu (masaüstü kayma 0,12).
+     Başlık dışındaki alan ilk çizim (calisma-ozet.js oneri) bitene dek görünmez; 2,5 sn yedek. -->
+<script>try{ document.documentElement.classList.add('yl-bekle'); setTimeout(function(){ document.documentElement.classList.remove('yl-bekle'); },2500); }catch(e){}</script>
+<style>html.yl-bekle #icerik > :not(.top):not(h1):not(#ylOzet){visibility:hidden}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yanlışlarım | Tetikte</title>
 <meta name="description" content="Yanlış yaptığın sorular, tekrar zamanları ve en çok zorlandığın konular.">
@@ -50,13 +54,15 @@ h2{font-size:17px;margin:30px 0 10px}
 #ylKutu .bos,#ylZor > p{background:var(--kagit);border:1px solid var(--line);border-radius:14px;padding:16px}
 @media(max-width:600px){ #ylKutu,#ylZor{grid-template-columns:1fr 1fr;gap:10px} #ylKutu .satir,#ylZor .satir{padding:13px} #ylKutu .satir .btn,#ylZor .satir .btn{padding:10px 8px;white-space:normal} }
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
 <div class="wrap" id="icerik" role="main">
   <div class="top"><span class="marka-rozet" style="--rozet-olcu:16px" aria-hidden="true"></span><a href="index.html">Tetikte</a> · <a href="ogrenci.html">Hesabım</a> · Yanlışlarım</div>
   <h1>Yanlışlarım</h1>
-  <p class="alt" id="ylOzet">Yükleniyor…</p>
+  <p class="alt" id="ylOzet" aria-busy="true">&nbsp;</p><!-- 07.10: "Yükleniyor…" görünüp kayboluyordu; satırın yeri ayrılı, yazısız -->
+
 
   <div class="kutu" id="ylSimdi" hidden>
     <b id="ylSimdiBas" style="font-size:16px"></b>
@@ -125,6 +131,7 @@ h2{font-size:17px;margin:30px 0 10px}
   });
   C.oneri(function(s){
     $('ylSimdiBas').textContent=s.baslik; $('ylSimdiMetin').textContent=s.metin; $('ylSimdiBtn').textContent=s.dugme+' →'; $('ylSimdiBtn').href=s.adres; $('ylSimdi').hidden=false;
+    document.documentElement.classList.remove('yl-bekle');   /* 07.10: ilk çizim tamam, alan görünür */
   });
   }
 })();

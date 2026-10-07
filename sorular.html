@@ -125,14 +125,18 @@
   .sc-seviye-git{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);white-space:nowrap}
   .sc-not{font-size:13px;color:var(--dim);border-top:1px solid var(--line);padding-top:14px;margin-top:8px;line-height:1.6}
   .sc-yuk{color:var(--dim);font-size:14px;padding:30px 0}
+  .sc-yuk-yer{height:189px}
+  #scDersler > .sc-yuk:only-child:empty{min-height:100vh}   /* 07.10: dersler gelene dek alt bilgi ekranda belirip itilmesin */
 
   @media(max-width:900px){
     .sc-sinavlar{grid-template-columns:1fr;gap:10px}
+    .sc-yuk-yer{height:388px}
     .sc-bas h1{font-size:32px}
     .sc-ic,.sc-govde{padding-left:18px;padding-right:18px}
     .sc-dersler{grid-template-columns:1fr}
   }
 </style>
+<link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 </head>
 <body class="sc-koyu bz-koyu">
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -150,13 +154,15 @@
       <p id="scAlt">Sınavını seç. Dersler sınavdaki ağırlığıyla sıralı; her şıkkın gerekçesi var, dayandığı kaynak altında yazar.</p>
     </div>
     <div class="sc-sinavlar" id="scSinavlar" role="group" aria-label="Sınav seçimi">
-      <div class="sc-yuk" style="color:var(--bz-ak-sonuk)">Sınavlar yükleniyor…</div>
+      <!-- 07.10 (Cem "görünüp kayboluyor"): "Sınavlar yükleniyor…" yazısı kartlara dönerken alttaki her şeyi itiyordu (canlı ölçüm:
+           masaüstü yerleşim kayması 0,47). Yazısız yer tutucu, kartların ölçülen yüksekliğinde (189 px; telefonda iki kart alt alta). -->
+      <div class="sc-yuk-yer" role="status" aria-label="Sınavlar yükleniyor"></div>
     </div>
   </div>
 </header>
 
 <main class="sc-govde" id="icerik">
-  <div id="scDersler"><div class="sc-yuk">Dersler yükleniyor…</div></div>
+  <div id="scDersler"><div class="sc-yuk" role="status" aria-label="Dersler yükleniyor"></div></div>
 </main>
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
