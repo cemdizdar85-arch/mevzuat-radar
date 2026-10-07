@@ -209,7 +209,9 @@ function HarfAnmaKusur($q){
 function SayiKatla([string]$s){ $t = ("$s" -replace '[.\s]',''); if($t -match ','){ $t = ($t -replace '0+$','') -replace ',$','' }; return $t }
 function SorudaVerilenKusur($q){
   if("$env:DENETLE_KGK_MUTASYON" -eq 'verilen'){ return @() }
-  $kok=@{}; foreach($m in [regex]::Matches("$($q.soru)",'\d[\d.,/]*')){ $v=$m.Value.TrimEnd('.',',','/'); $kok[(SayiKatla $v)]=1; if($v -match '[./]'){ foreach($pr in ($v -split '[./]')){ if($pr){ $kok[(SayiKatla $pr)]=1 } } } }
+  $kok=@{}; foreach($m in [regex]::Matches("$($q.soru)",'\d[\d.,/]*')){ $v=$m.Value.TrimEnd('.',',','/'); $kok[(SayiKatla $v)]=1; if($v -match '[./]'){ foreach($pr in ($v -split '[./]')){ if($pr){ $kok[(SayiKatla $pr)]=1 } } }
+    # 07.10 (KGK FY yazarı): kökte "%12" → adımda "0,12 (soruda verilen)" aynı değerdir (yüzde ↔ ondalık); yüzdenin ondalık karşılığı da kümeye girer
+    if("$($q.soru)".Substring(0,$m.Index) -match '%\s*$'){ $dv=0.0; if([double]::TryParse(((SayiKatla $v) -replace ',','.'),[Globalization.NumberStyles]::Any,[Globalization.CultureInfo]::InvariantCulture,[ref]$dv)){ $kok[(SayiKatla (($dv/100).ToString([Globalization.CultureInfo]::InvariantCulture) -replace '\.',','))]=1 } } }
   $out=@(); $gor=@{}
   foreach($p in @(KgkMetinler $q)){
     foreach($m in [regex]::Matches($p[1],'(?<s>\d[\d.,]*)\s*(?:TL|%|gün|ay|yıl|adet)?\s*\(soruda verilen\)')){
@@ -336,6 +338,8 @@ if($KgkKapiSinavi){
     @('fıkra: metin içi "(1)" bent numarası → fıkralı sayılmaz (GVK m.40 vakası)',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='GVK m.40/5 gereği gider indirilir.' } }) @{ 'Gelir Vergisi K. (193 s.K.) m.40 [1/2]'='Safi kazancın tespiti için aşağıdaki giderler indirilir: 1. (1) numaralı bentte sayılan genel giderler; 5. Amortismanlar.' }).Count),0),
     @('fıkra: künyeli "MADDE 35 – (Değişik: …) (1)" fıkralı sayılır',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='SPKn m.35/4 gereği.' } }) @{ 'Sermaye Piyasası K. (6362 s.K.) m.35'='MADDE 35 – (Değişik: 1/1/2020-7000/1 md.) (1) Kurumlar şunlardır. (2) Kurul düzenler.' }).Count),1),
     @('verilen: "35,1800" kökte "35,18"',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Kur 35,18 TL olarak verilmiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 35,1800 TL (soruda verilen)' }) })).Count),0),
+    @('verilen: kökte %12, adımda 0,12 (yüzde↔ondalık)',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Faiz oranı yıllık %12, vade 3 yıldır.'; adimlar=@([pscustomobject]@{ formul='Verilen: 0,12 (soruda verilen); 3 yıl (soruda verilen)' }) })).Count),0),
+    @('verilen: kökte %12, adımda 0,15 → yakalanır',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Faiz oranı yıllık %12, vade 3 yıldır.'; adimlar=@([pscustomobject]@{ formul='Verilen: 0,15 (soruda verilen)' }) })).Count),1),
     @('verilen: tarih parçası "2025" kökte 31.12.2025',(@(SorudaVerilenKusur ([pscustomobject]@{ soru='Raporlama dönemi 31.12.2025 tarihinde sona ermiştir.'; adimlar=@([pscustomobject]@{ formul='Verilen: 2025 (soruda verilen)' }) })).Count),0),
     @('harf: adım şablon alanı sik=A ölçülmez',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Hangisi?'; adimlar=@([pscustomobject]@{ sik='A'; anlatim='Doğru cevap: görüş vermekten kaçınma.' }) })).Count),0),
     @('fıkra: numarasız madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Bankacılık K. m.24/2 gereği komite kurulur.' } }) $mt).Count),0),
