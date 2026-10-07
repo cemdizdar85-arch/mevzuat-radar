@@ -63,9 +63,8 @@
 14. **Kavram tanımının kaynağı** (`sade.kavramlar[].kaynak`) tanımın GERÇEKTEN geçtiği paragraftır ve `kaynak_adlar`'a da eklenir
     (07.10: GDS 3400 p.9 yerine p.4, BDS 500 p.A64 yerine BDS 315 p.12 — hiçbir kapı bu alanı okumuyor).
 15. **Örnek olayda iki ilkeye birden uyan senaryo kurulmaz** (07.10, kp-30: yönetim müşteriyle birlikte → hem muvazaa hem kontrol ihlali).
-16. **Çeldirici yolunda (`celdirici_yol`) tek haneli ya da ondalıklı yüzde YAZILMAZ** — oran ondalıkla yazılır ("x 0,03", "x 0,035").
-    07.10 ölçüldü: üreticinin KAPI-Ç'si "x %3"ü 0,3, "%3,5"i 0,35 sayıyor → doğru yol "yanlış" görünür, soru bulutta düşer (%30, %25 doğru).
-    Üretici düzeltilene dek (sınav koluna bildirildi) geçerli. Kök ve açıklamada "%3" serbest.
+16. ~~Çeldirici yolunda tek haneli yüzde yazılmaz~~ — KALDIRILDI 08.10: üretici KAPI-Ç yüzde hatası f32e6971 ile düzeldi; 08.10 ölçümü
+    "x %3", "x %3,5", "x %30", "x 0,03", "(…) x %3", "x %3 x 2" altı vakanın altısı doğru. "%3" çeldirici yolunda da serbest.
 17. **Kural 12 kısa alanlarda da geçerli** (07.10 TMS turu, 117 soruda 7 DÜZELT'in 3'ü): `sinav_taktigi`, `sade`, `hap` gibi tek cümlelik alanlarda
     tanım/kural tek şarta indirgenmez ("birçok yıl ürün veren ağaç taşıyıcı bitkidir" — p.5 üç şart arar), liste kapatılmaz ("yalnız FIFO ve ortalama").
 18. **Kökteki kanıt cümlesi hükmün şartıyla çatışmaz** (07.10, TMS 12 p.35 ÇIKAR): standart "güçlü kanıt/karine" şartı arıyorsa kök "başka kanıt
