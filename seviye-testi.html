@@ -1073,7 +1073,7 @@
     if(kuruldu||kutu.hidden) return; kuruldu=true;
     oku().then(function(d){
       var VL=(d&&d.sinavlar&&d.sinavlar[yet?'yeterlilik':'sgs'])||[]; if(!VL.length||!window.NobetciOynatici) return;
-      var v=VL[(Math.floor(Date.now()/864e5)+1)%VL.length];
+      var v=VL[(Math.floor((Date.now()+108e5)/864e5)+1)%VL.length];   /* yarın = Türkiye günü + 1 (motor/gunun-sorusu-gorsel.js ile aynı) */
       window.NobetciOynatici.kur(yer,[{ ust:'Yarının sorusu · '+(v.ders||''), soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış',
         tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin, dogru:v.dogru, aciklama:v.aciklama, adimlar:v.adimlar, kayitlar:v.kayitlar, kural:v.kural, dayanak:v.dayanak }],
         { baslik:'Yarının sorusu, herkesten önce', alt:'Her gün yeni bir soru. Çöz, Nöbetçi adım adım anlatsın.',

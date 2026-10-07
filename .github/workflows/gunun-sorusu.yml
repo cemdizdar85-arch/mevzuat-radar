@@ -6,8 +6,13 @@
 # GUNLUK PUBLIC: betik yalniz soru KIMLIGI basar; gorseller zaten ana sayfada gosterilen ucretsiz sorulardir.
 name: Gunun sorusu gorselleri (07:00 TR)
 on:
+  # 07.10 Cem ("1.2 yap"): 07:00 cron 07.10'da 13:40'ta kostu (GitHub gecikmesi). Asil tetik artik vitrin robotunun BITISI:
+  # liste tazelenince hemen basilir. Betik bugunun (TR) dosyasi zaten varsa DOKUNMAZ -> gun icinde soru degismez.
+  workflow_run:
+    workflows: ["Vitrin kalite listesi (Nobetci anlatimi)"]
+    types: [completed]
   schedule:
-    - cron: "0 4 * * *"      # 07:00 TR
+    - cron: "0 4 * * *"      # 07:00 TR yedek
   workflow_dispatch:
 permissions:
   contents: write
@@ -16,6 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   bas:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
