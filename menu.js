@@ -194,10 +194,7 @@ var GRUPLAR=[
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
   ["canli-deneme.html","📡","Canlı Deneme","Aynı anda, herkese aynı set; katılanlar arasında yüzdelik sıralaman"],
   /* 02.10 gizli (sayfa boş). Geri almak: bu satırı aç + GIZLI regex + komut.js + sitemap: ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"], */
-  ["genc.html","🗓️","Sınav Takvimi","2026 SMMM sınav takvimi, geri sayımlı"],
-  ["donem-plani.html","🗺️","Dönem Planı","Kalan haftaları haritayla faz faz doldur"],
-  ["songun.html","⏳","Son Gün 5 Saat","Dönem finali + sınav sabahı rehberi"],
-  ["karsilastirma.html","⚖️","Hangisi sana lazım?","Kurs, kitap, ücretsiz banka ve biz — dürüst tablo"],
+  /* 07.10 Cem ("ulaşamasın bunlara"): genc · donem-plani · songun · karsilastirma GİZLİ; sayfalar silinmedi. */
   ["fiyat.html","🏷️","Fiyatlar","Staja Giriş ve Yeterlilik paketleri, KDV dahil"]]}
 ];
 
@@ -489,12 +486,8 @@ function kur(){
   if(!ortakSerit){ try{ geriKur(); }catch(e){} }
   try{ seritTamGenislik(); }catch(e){}
 
-  var fab=document.createElement('button');
-  fab.id='mrxFab'; fab.type='button'; fab.textContent='☰ Araçlar';
-  /* 07.10 Cem ("eskiden araçlar diye bir şey vardı, sitede şu an araçlar yok"): yüzen "Araçlar" düğmesi kalktı. Gezinti üst şerit
-     (Sınavlar · Fiyatlar · Hesabım · Ara) + telefonda alt menü. Öğe DOM'da gizli kalır (aşağıdaki dinleyiciler kırılmasın). */
-  fab.hidden=true; fab.style.display='none';
-  document.body.appendChild(fab);
+  /* 07.10 Cem ("gizleme, kaldır"): yüzen "☰ Araçlar" düğmesi ve açtığı katalog paneli KALKTI. Gezinti üst şerit
+     (Sınavlar · Fiyatlar · Hesabım · Ara) + telefonda alt menü. GRUPLAR listesi yalnız kayıt olarak duruyor. */
 
   /* 03.10.2026 MOBİL ALT MENÜ (Cem, V2 madde 24 "hepsini yap"): telefonda (<760 px) öğrenci sayfalarının altında
      Ana sayfa · Sınavlar · Yanlışlar · Deneme · Hesabım. Yalnız aşağıdaki listedeki sayfalarda; satın alma (kendi
@@ -502,7 +495,7 @@ function kur(){
      (ikisi üst üste biniyordu). Masaüstünde hiçbir şey değişmez. */
   (function(){
     var yol=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-    var SAYFALAR=['','index.html','sorular.html','yanlislarim.html','ogrenci.html','fiyat.html','ucretsiz-dene.html','genc.html'];
+    var SAYFALAR=['','index.html','sorular.html','yanlislarim.html','ogrenci.html','fiyat.html','ucretsiz-dene.html'];
     if(SAYFALAR.indexOf(yol)<0) return;
     var OGELER=[['index.html','Ana sayfa','M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z'],
                 ['sorular.html','Sınavlar','M5 4h14v16H5zM8 8h8M8 12h8M8 16h5'],
@@ -592,59 +585,7 @@ function kur(){
     if(!yerlestir()){ var zaman=setInterval(function(){ if(yerlestir()||++deneme>20) clearInterval(zaman); },150); }
   })();
 
-  var kap=document.createElement('div'); kap.id='mrxKaplama';
-  /* 15.09: oturum anahtarı cihazdaysa "Öğrenci girişi" yerine "Hesabım" (üye ile yeni gelen ayrı kapı; uye-durumu.js ile aynı ölçüt) */
-  var mrxUyeVar=(function(){ try{ return Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; }); }catch(e){ return false; } })();
-  var h='<div class="mrxIc"><div class="mrxUst">'+
-    '<span class="marka-rozet mrxLogo" aria-hidden="true"></span><b>Tetikte</b>'+
-    '<a href="'+KOK+'index.html">Ana Sayfa</a><a class="mrxUye" href="'+KOK+'ogrenci.html">'+(mrxUyeVar?'Hesabım':'Giriş yap')+'</a>'+
-    '<button id="mrxKapat" type="button" aria-label="Kapat">✕</button></div>'+
-    '<input id="mrxAra" type="search" placeholder="🔍  Ara: deneme, takvim, fiyat…" autocomplete="off">';
-  GRUPLAR.forEach(function(g){
-    h+='<div class="mrxGrup"><h3>'+g.ad+'</h3><div class="mrxGrid">';
-    g.araclar.forEach(function(a){
-      h+='<a class="mrxArac" href="'+KOK+a[0]+'"><span class="em">'+a[1]+'</span><div><b>'+a[2]+'</b><span>'+a[3]+'</span></div></a>';
-    });
-    h+='</div></div>';
-  });
-  h+='<div id="mrxYok">Eşleşen araç yok — başka bir kelime dene.</div></div>';
-  kap.innerHTML=h;
-  document.body.appendChild(kap);
-
-  function ac(){ kap.classList.add('acik'); document.body.style.overflow='hidden';
-    var a=document.getElementById('mrxAra'); a.value=''; suz(''); setTimeout(function(){a.focus();},50); }
-  function kapat(){ kap.classList.remove('acik'); document.body.style.overflow=''; }
-  function suz(t){
-    t=trU(t.trim()); var toplam=0;
-    kap.querySelectorAll('.mrxGrup').forEach(function(g){
-      var sayi=0;
-      g.querySelectorAll('.mrxArac').forEach(function(a){
-        var ok=!t||trU(a.textContent).indexOf(t)>=0;
-        a.style.display=ok?'flex':'none'; if(ok)sayi++;
-      });
-      g.style.display=sayi?'block':'none'; toplam+=sayi;
-    });
-    document.getElementById('mrxYok').style.display=toplam?'none':'block';
-  }
-  fab.addEventListener('click',ac);
-  // Aşağı kaydırırken düğmeyi kenara çek (içeriği örtmesin), yukarı kaydırınca
-  // ya da durunca geri getir. Panel açıkken ve sayfa başındayken hep görünür.
-  var sonY=window.pageYOffset||0;
-  function scr(){
-    if(kap.classList.contains('acik')){ return; }
-    var y=window.pageYOffset||0;
-    if(y<160){ fab.classList.remove('mrxGizli'); }          // sayfa başı: hep görünür
-    else if(y>sonY+6){ fab.classList.add('mrxGizli'); }     // aşağı: kenara çek
-    else if(y<sonY-6){ fab.classList.remove('mrxGizli'); }  // yukarı: geri getir
-    sonY=y;
-  }
-  window.addEventListener('scroll',scr,{passive:true});
-  document.getElementById('mrxKapat').addEventListener('click',kapat);
-  kap.addEventListener('click',function(e){ if(e.target===kap) kapat(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') kapat(); });
-  document.getElementById('mrxAra').addEventListener('input',function(e){ suz(e.target.value); });
-
-  window.MRMenu={ac:ac,kapat:kapat};
+  window.MRMenu={ac:function(){},kapat:function(){}};   /* yalnız çift yükleme koruması (satır 5) */
 
   /* Marka yukseltici: yalniz tepe seritteki (yaninda lamba/logo olan)
      "Tetikte" linkini logo yazisina cevirir; metin ici linklere dokunmaz. */
@@ -814,7 +755,8 @@ function ttSorguHakki(anahtar){
 (function () {
   /* 30.09 Cem "site sadece SMMM başlama + bitirme": gümrük, radar, marka, alacak, rehber ve işletme paneli de gizli. */
   /* 02.10: tuzak (Günün Tuzağı) eklendi — robot 0 soru tarıyor, sayfa boş. Geri almak: "tuzak|" sil. */
-  var GIZLI = /(^|\/)(tuzak|ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat|canli-deneme)\.html(?:[?#]|$)/;
+  /* 07.10 Cem ("ulaşamasın bunlara"): genc · donem-plani · songun · karsilastirma GİZLİ; sayfalar silinmedi. Geri almak: "genc|donem-plani|songun|karsilastirma" sil + sitemap + komut.js. */
+  var GIZLI = /(^|\/)(tuzak|ceza-asistani|asgari-kv|arge-kapi-hesabi|kurulus-evrak|kurulus-nobeti|karne|bilgi|sayfalar\/index|gtip|toplu-gtip|risk-taramasi|senaryo-raporu|hizmet|fiyatfarki|soru-cevap|kurulus|tesvik-sihirbazi|radar|kartlar|destekler|alacak-radari|alacakli-rehberi|marka-radari|marka-portfoy|marka-izleme|marka-itiraz|marka-varlik|marka-app|marka-rapor|radar-app|radar-fiyat|canli-deneme|genc|donem-plani|songun|karsilastirma)\.html(?:[?#]|$)/;
   /* 03.10 V2 madde 39 (+36): gizli sayfalar bağlantısız ama doğrudan adresle açılıyordu (dosya yükleyen beyanname-oku /
      risk-taramasi ücretli model çağırıyor). Önizleme cihazı (?kapi= ile tanınmış, mrOnizleme=1) dışında ana sayfaya döner.
      Sayfalar SİLİNMEDİ ("silmiyoruz, gizliyoruz"). GÖRMEZ: sunucu uçlarını doğrudan çağıran; o koruma uçlardaki hız sınırında. */
