@@ -182,9 +182,12 @@ function BaglariYaz($bagSatirlari, [string]$damga){
       foreach($bag in $grup.Group){ $ertelenen.Add($bag) }
       continue
     }
-    $indirOnce = (Get-Date).ToUniversalTime().AddSeconds(-2)
-    & $kabuk -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Etiket $etiket -Sinav $sinav -Yaz | Out-Null
     $partiYolu = Join-Path $depoKok "veri\fabrika\kalip-parti-$etiket.json"
+    # 08.10: -Zorla ile HER ZAMAN ambardan iner (ambar esastır). Yerelde gönderilmemiş düzenleme olabilir → önce kasaya "yerel-once" yedeği.
+    #   (-Zorla'sız ilk deneme: yereli ambardan yeni görünen 11 parti — az önce indirilmiş, içerik aynı — boşuna sıraya düştü.)
+    if(Test-Path $partiYolu){ Copy-Item $partiYolu (Join-Path $kasa "$damga-yerel-once-kalip-parti-$etiket.json") -Force }
+    $indirOnce = (Get-Date).ToUniversalTime().AddSeconds(-2)
+    & $kabuk -NoProfile -File (Join-Path $PSScriptRoot 'parti-senkron.ps1') -Indir -Etiket $etiket -Sinav $sinav -Zorla -Yaz | Out-Null
     # 08.10 (KGK oturumu): parti-senkron -Etiket 03.10'dan beri SESSİZCE indirmiyordu; bu araç da yereldeki ESKİ dosyayı düzenleyip
     #   -Yukle ile ambara basıyordu (bayat kopya ambardaki yeniyi ezer). Artık dosya bu çağrıda yeniden yazılmadıysa parti YAZILMAZ.
     if(-not (IndirmeTaze $partiYolu $indirOnce)){ Write-Host "  $etiket indirilemedi/tazelenmedi — sıraya yazıldı"; foreach($bag in $grup.Group){ $ertelenen.Add($bag) }; continue }
