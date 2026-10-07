@@ -28,11 +28,67 @@ param(
   [switch]$BekleyenleriIsle,   # 16.09: sıradaki (bulut koşarken ertelenen) taşımaları işler
   [switch]$Tasi,
   [string[]]$Sinavlar = @(),
-  [switch]$Yaz
+  [switch]$Yaz,
+  [switch]$OzSinav             # 07.10: süzgeç + kopuş freni öz-sınavı (ağsız, anahtarsız)
 )
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $depoKok = Split-Path -Parent $PSScriptRoot
+
+# --- 07.10.2026 PARANTEZLİ AD HATASI (iş emri 26, ölçüldü) -------------------------------------------------------------------
+#   Yeni kayıt süzgeci or=(kaynak_ad.eq.X,kaynak_ad.like.X *) idi. PostgREST or= listesinde değerdeki "(" ")" "," sözdizimi
+#   sayılır: -Standart "GVK (193 s.K.)" ile koşunca "yeni 0 kayıt · kopan 370 ad · kopan bağ 2.799" dedi; gerçekte kopan ad 4,
+#   bağlı soru 13. -Tasi -Yaz ile koşulsaydı 2.799 bağı boş öneriyle bozacaktı. Standart adlarında parantez olmadığı için
+#   görülmemişti. Düzeltme: değer PostgREST'in kendi kaçışıyla çift tırnağa alınır ("X", içindeki \ ve " kaçışlı).
+#   İkinci kapı (KOPUŞ FRENİ): yeni kayıt 0 ise ya da eski adların yarıdan fazlası kopuyorsa araç DURUR — süzgeç yine
+#   bozulursa ya da standart henüz yazılmamışsa sessizce yanlış rapor vermez.
+#   BU KAPI ŞUNU GÖRMEZ: gerçekten yarıdan fazlası yeniden adlanan meşru bölme (o zaman -KopusOnay yok; elle karar, rapor DURUR).
+function OrDeger([string]$x){ return '"' + ($x -replace '\\','\\' -replace '"','\"') + '"' }
+function YeniSuzgec([string]$std){
+  return 'or=' + [uri]::EscapeDataString('(kaynak_ad.eq.' + (OrDeger $std) + ',kaynak_ad.like.' + (OrDeger "$std *") + ')') +
+         '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$std Değişiklikleri*")
+}
+function KopusFreni([int]$eskiSayi, [int]$yeniSayi, [int]$kopanSayi){
+  if($eskiSayi -gt 0 -and $yeniSayi -eq 0){ return "yeni kayıt 0 (süzgeç bozuk ya da kaynak ambarda yok)" }
+  if($eskiSayi -ge 4 -and $kopanSayi * 2 -gt $eskiSayi){ return "eski $eskiSayi adın $kopanSayi'i kopuyor (yarıdan fazla)" }
+  return ''
+}
+# PostgREST or= listesinin üst düzey ayrıştırması (tırnak dışındaki virgül/parantez) — öz-sınavın hakemi
+function OrListesiAyir([string]$ham){
+  $ic = [uri]::UnescapeDataString($ham); if($ic -notmatch '^or=\((.*)\)$'){ return $null }; $ic = $Matches[1]
+  $parca = New-Object System.Collections.Generic.List[string]; $buf = ''; $tirnak = $false; $derin = 0
+  for($i=0; $i -lt $ic.Length; $i++){ $c = $ic[$i]
+    if($tirnak){ if($c -eq '\'){ $buf += $c + $ic[$i+1]; $i++; continue }; if($c -eq '"'){ $tirnak = $false }; $buf += $c; continue }
+    if($c -eq '"'){ $tirnak = $true; $buf += $c; continue }
+    if($c -eq '('){ $derin++ } elseif($c -eq ')'){ $derin--; if($derin -lt 0){ return $null } }
+    if($c -eq ',' -and $derin -eq 0){ $parca.Add($buf); $buf = ''; continue }
+    $buf += $c }
+  if($tirnak -or $derin -ne 0){ return $null }; $parca.Add($buf)
+  # PostgREST: tirnaksiz degerde , ( ) : ayrilmis karakterdir -> sozdizimi bozuk sayilir
+  foreach($k in $parca){ $es = [regex]::Match($k, '^[a-z_]+\.[a-z]+\.(.*)$'); if(-not $es.Success){ return $null }; $v = $es.Groups[1].Value; if(-not $v.StartsWith('"') -and $v -match '[,():]'){ return $null } }
+  return ,$parca
+}
+if($OzSinav){
+  $gecti = 0; $kaldi = 0
+  function Sina([string]$ad, [bool]$ok){ if($ok){ $script:gecti++; Write-Host "  OK    $ad" } else { $script:kaldi++; Write-Host "  KALDI $ad" -ForegroundColor Red } }
+  foreach($std in 'TFRS 18','GVK (193 s.K.)','Sermaye Piyasası K. (6362 s.K.)','TİM ve İhr. Birlikleri K. (5910 s.K.)','A "tırnaklı", ad'){
+    $p = OrListesiAyir ((YeniSuzgec $std) -split '&')[0]
+    $beklenen = @(('kaynak_ad.eq.' + (OrDeger $std)), ('kaynak_ad.like.' + (OrDeger "$std *")))   # PS: virgul + dan siki baglanir, parantez sart
+    Sina "süzgeç iki koşul ve tam değer: $std" ($null -ne $p -and $p.Count -eq 2 -and $p[0] -eq $beklenen[0] -and $p[1] -eq $beklenen[1])
+  }
+  # bağımsız (elle yazılmış) beklenen: OrDeger'in kendisiyle kıyas kör olurdu (07.10 mutasyonu bunu gösterdi)
+  $pt = OrListesiAyir ((YeniSuzgec 'A "b", c') -split '&')[0]
+  Sina 'tırnak kaçışı: A "b", c → elle beklenen' ($null -ne $pt -and $pt.Count -eq 2 -and $pt[0] -ceq 'kaynak_ad.eq."A \"b\", c"')
+  $eskiBicim = 'or=' + [uri]::EscapeDataString('(kaynak_ad.eq.GVK (193 s.K.),kaynak_ad.like.GVK (193 s.K.) *)')
+  $pe = OrListesiAyir $eskiBicim
+  Sina 'hakem eski (tırnaksız) biçimi BOZUK görür' ($null -eq $pe -or $pe.Count -ne 2 -or $pe[0] -ne 'kaynak_ad.eq.GVK (193 s.K.)')
+  Sina 'fren: yeni 0 → DUR (07.10 GVK vakası 370/0)' ([bool](KopusFreni 370 0 370))
+  Sina 'fren: küçük kaynak eski 3 · yeni 0 → DUR (yalnız "yeni 0" kuralı yakalar)' ([bool](KopusFreni 3 0 1))
+  Sina 'fren: 370 eskinin 200ü kopuyor → DUR' ([bool](KopusFreni 370 381 200))
+  Sina 'fren: 370 eskinin 4ü kopuyor → GEÇ (07.10 gerçek GVK)' (-not (KopusFreni 370 381 4))
+  Sina 'fren: TFRS 18 tipi 12 eskinin 5i kopuyor → GEÇ' (-not (KopusFreni 12 14 5))
+  Write-Host "OZ-SINAV: gecti $gecti - kaldi $kaldi"; exit $(if($kaldi){ 1 } else { 0 })
+}
 $sbAnahtar = [Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'); if(-not $sbAnahtar){ $sbAnahtar = $env:SUPABASE_SERVICE_KEY }
 if(-not $sbAnahtar){ Write-Host 'SUPABASE_SERVICE_KEY yok'; exit 1 }
 $sbBasliklar = @{ apikey=$sbAnahtar; Authorization="Bearer $sbAnahtar"; 'User-Agent'='mevzuat-radar-robot/1.0' }
@@ -125,13 +181,14 @@ function NumaraKumesi([string]$ad){
 # --- eski / yeni kayıtlar
 $eskiKayitlar = New-Object System.Collections.Generic.List[object]
 foreach($kayit in (Get-Content $YedekDosya -Raw -Encoding UTF8 | ConvertFrom-Json)){ $eskiKayitlar.Add($kayit) }   # PS 5.1: dizi foreach ile açılır
-$suzgec = 'or=(kaynak_ad.eq.' + [uri]::EscapeDataString($Standart) + ',kaynak_ad.like.' + [uri]::EscapeDataString("$Standart *") + ')' +
-          '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$Standart Degisiklikleri*") + '&kaynak_ad=not.like.' + [uri]::EscapeDataString("$Standart Değişiklikleri*")
+$suzgec = YeniSuzgec $Standart   # 07.10: değer tırnaklı (parantezli kanun adları)
 $yeniKayitlar = New-Object System.Collections.Generic.List[object]; $atla = 0
 do { $sayfaAdet = 0; foreach($kayit in (Invoke-RestMethod -Uri "$sbKok/dokumanlar?select=kaynak_ad,metin&$suzgec&order=id&limit=1000&offset=$atla" -Headers $sbBasliklar -TimeoutSec 240)){ $yeniKayitlar.Add($kayit); $sayfaAdet++ }; $atla += 1000 } while($sayfaAdet -eq 1000)
 $yeniAdKumesi = New-Object System.Collections.Generic.HashSet[string]; foreach($kayit in $yeniKayitlar){ [void]$yeniAdKumesi.Add("$($kayit.kaynak_ad)") }
 $kopanAdlar = @($eskiKayitlar | ForEach-Object { "$($_.kaynak_ad)" } | Where-Object { -not $yeniAdKumesi.Contains($_) } | Select-Object -Unique)
 Write-Host ("{0}: eski {1} · yeni {2} · kopan ad {3}" -f $Standart,$eskiKayitlar.Count,$yeniKayitlar.Count,$kopanAdlar.Count)
+$fren = KopusFreni @($eskiKayitlar | ForEach-Object { "$($_.kaynak_ad)" } | Select-Object -Unique).Count $yeniKayitlar.Count $kopanAdlar.Count
+if($fren){ Write-Host "DURDU (kopuş freni): $fren — rapor yazılmadı, taşıma yapılmadı. Süzgeci/yedeği kontrol et." -ForegroundColor Red; exit 2 }
 if($kopanAdlar.Count -eq 0){ Write-Host 'Kopan ad yok — rapor yazılmadı.'; exit 0 }
 
 # --- yeni ad önerileri

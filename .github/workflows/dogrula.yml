@@ -375,6 +375,12 @@ jobs:
           - { ad: "Yayin bekcisi OZ-SINAVI (basim yayina girdi mi)",
               kabuk: pwsh, komut: "node arac/yayin-bekcisi.js --sinav" }
 
+          # 07.10.2026 - Kaynak bolunme etki araci: parantezli kaynak adi (GVK (193 s.K.)) or= suzgecini bozuyordu
+          # ("yeni 0 · kopan 370 · bag 2.799" yanlis raporu; gercek 4 ad / 13 soru). Tirnakli suzgec + kopus freni.
+          # 12 vaka (5 ad bicimi, elle beklenen kacis, eski bicim BOZUK, 5 fren). Mutasyon 6 bozmadan 6 KIRMIZI.
+          - { ad: "Kaynak bolunme etki OZ-SINAVI (parantezli ad suzgeci + kopus freni)",
+              kabuk: pwsh, komut: "./arac/kaynak-bolunme-etki.ps1 -OzSinav" }
+
           # 23.09.2026 - Dalga dongusu KONU DENETIMI (CLAUDE.md SINAV kurali 7). Cem'e gosterilen
           # "DENETIM:" satirini bu denetim uretir; bozulursa sessizce YESIL der, para yanlis konuya
           # gider. GERCEK betik -DenetimKok ile gecici klasorde kosulur (replika yok). 14 vaka:
