@@ -956,12 +956,22 @@ function kartSifirla(i){ const k=akis.children[i]; if(!k) return; delete durum.c
 function kutuEkraniAc(){
   let e=document.getElementById('kutuEkran'); if(!e){ e=document.createElement('div'); e.id='kutuEkran'; e.className='kutuEkran'; document.body.appendChild(e); }
   const sk=skorHesapla(); const t=simdi();
-  const gunStr=ms=>{ const d=Math.ceil((ms-t)/GUN); return d<=0?'<b style="color:var(--yesil)">şimdi hazır</b>':(d+' gün sonra'); };
+  /* 07.10 (Cem "1 yap"): gün farkı saatten ceil ile hesaplanıyordu -> aynı gün akşam vadesi gelen soru "1 gün sonra" yazıyordu.
+     Artık TAKVİM günü (simdi() = kc_ileri dahil), calisma-ozet.js tarihYazi ile aynı hesap: bugün HH:MM sonrası / yarın / N gün sonra. */
+  const gunStr=ms=>{ if(ms<=t) return '<b style="color:var(--yesil)">şimdi hazır</b>';
+    const g0=new Date(t); g0.setHours(0,0,0,0); const g1=new Date(ms); g1.setHours(0,0,0,0); const d=Math.round((g1-g0)/GUN);
+    if(d<=0){ const s=new Date(ms-KUTU.ileri); return 'bugün, saat '+('0'+s.getHours()).slice(-2)+':'+('0'+s.getMinutes()).slice(-2)+' sonrası'; }
+    return d===1?'yarın':(d+' gün sonra'); };
+  /* 07.10 (Cem "1 yap"): kutu bütün dersleri listeliyordu, "Şimdi çöz" yalnız bu sayfadaki soruda çıkıyordu. Artık bu dersin
+     satırları + öteki dersler tek satır özet (Yanlışlarım'a bağlantı). Başlıktaki sayı bu dersinki. */
+  const buDers=[], diger={}; KUTU.kutu.forEach(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); if(i>=0) buDers.push({x,i}); else { const d=x.ders||'Diğer'; diger[d]=(diger[d]||0)+1; } });
+  const digerAd=Object.keys(diger).sort((a,b)=>diger[b]-diger[a]);
   e.innerHTML='<div class="kutuIc"><div class="basl"><span>🎯 Hazırlık skoru ve yanlış kutusu</span><button class="btn" id="kutuKapat" style="padding:5px 10px">✕</button></div>'
    +'<div class="skorBuyuk">%'+sk.toplam+'</div><div class="ipnot">Sınav DNA’sı ağırlıklı: çok çıkan konudaki yanlış daha çok düşürür. Çözülen '+sk.cozulen+' / '+sk.n+' konu · Sen çöz: '+sk.oyunTam+' ipuçsuz (tam puan) · '+sk.oyunIpuclu+' ipuçlu (yarım puan).</div>'
    +sk.ders.map(d=>'<div class="dersSat"><span>'+esc(d.ad)+'</span><div class="bar"><i style="width:'+d.yuzde+'%"></i></div><b>%'+d.yuzde+'</b></div>').join('')
-   +'<div class="et" style="margin-top:14px">📥 Yanlış kutusu ('+KUTU.kutu.length+')</div>'
-   +(KUTU.kutu.length?KUTU.kutu.map(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); return '<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t&&i>=0?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>'; }).join(''):'<p class="ipnot">Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.</p>')
+   +'<div class="et" style="margin-top:14px">📥 Bu dersin yanlış kutusu ('+buDers.length+')</div>'
+   +(buDers.length?buDers.map(({x,i})=>'<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>').join(''):'<p class="ipnot">'+(KUTU.kutu.length?'Bu derste kutuda soru yok.':'Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.')+'</p>')
+   +(digerAd.length?'<p class="ipnot" style="margin-top:8px">Diğer dersler: '+digerAd.map(d=>esc(d)+' '+diger[d]).join(', ')+' · <a href="../../yanlislarim.html">Yanlışlarım →</a></p>':'')
    +(/[?&]demo=1\b/.test(location.search)?'<div class="btnrow" style="margin-top:14px"><button class="btn" id="kutuIleri">⏩ Demo: 2 gün ileri sar</button><button class="btn gri" id="kutuSifirla">Verileri sıfırla</button></div>':'')   /* 03.10 V2 madde 11: herkese açıktı - yalnız ?demo=1 */
    +'<p class="ipnot">Nasıl çalışır: yanlış → kutuya girer, 2 gün sonra geri gelir; o gün doğru bilirsen 7 gün sonra bir kez daha gelir; onu da bilirsen kutudan çıkar ve ustalık tam sayılır.</p></div>';
   e.classList.add('acik');
