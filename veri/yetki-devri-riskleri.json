@@ -1,11 +1,11 @@
 {
-  "tarih": "07.10.2026 17:13",
+  "tarih": "07.10.2026 17:25",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1321,
   "sayfa": 74,
   "atifli_iddia": 292,
-  "dayanaksiz_iddia": 364,
+  "dayanaksiz_iddia": 365,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -1329,25 +1329,25 @@
     },
     {
       "sayfa": "index.html",
-      "satir": 307,
+      "satir": 302,
       "iddia": "7 gün",
       "metin": "yanlış kutusu 2 / 7 gün · deneme (sinav-gibi 130 soru 165 dk 10 set; Yeterlilik Birebir Prova) · canlı deneme yüzdelik (SQL + sayfa)."
     },
     {
       "sayfa": "index.html",
-      "satir": 308,
+      "satir": 303,
       "iddia": "10 yıl",
       "metin": "\"Sık çıkan konuya ağırlık\" 07.10 akşamı SGS için de ölçüldü (veri/sinav/SGS-KAPSAMA.md: hedef = son 10 yılda çıkan soru × 1)."
     },
     {
       "sayfa": "index.html",
-      "satir": 439,
+      "satir": 427,
       "iddia": "10 yıl",
       "metin": "ZOR/ÇOK ZOR finansal muhasebe + maliyet hesap sorularını gün gün döndürür. SGS: konusu son 10 yılda 4-12 dönem çıkmış (konu"
     },
     {
       "sayfa": "index.html",
-      "satir": 503,
+      "satir": 491,
       "iddia": "2 gün",
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
@@ -1833,37 +1833,43 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 290,
+      "satir": 301,
       "iddia": "En az 8",
       "metin": "En az 8 karakter. Şifreyi göster"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 314,
+      "satir": 325,
       "iddia": "%20",
       "metin": "window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\\+?link|email%20link/i.test(h));"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 401,
+      "satir": 418,
       "iddia": "10 GÜN",
       "metin": "/* 04.10 GÜNLÜK GÖREV (Cem \"beş maddeyi yapalım\", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 430,
+      "satir": 420,
+      "iddia": "15 gün",
+      "metin": "07.10 Nöbetçi planı: tavan ve yeni soru evreye göre (yay 20+10 · pekiştir 30+20 · son 15 gün 40+30 · son 3 gün tüm tekrar +"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 482,
       "iddia": "en az 8",
       "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 505,
+      "satir": 557,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 592,
+      "satir": 644,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
