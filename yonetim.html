@@ -217,14 +217,15 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('tCapraz').innerHTML=h;
 
     /* elçiler */
-    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Linkle üye olan</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th><th>Paylaşım linki</th><th></th></tr>';
+    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Linkle üye olan</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th><th>Paylaşım linki</th><th>Hesap</th><th></th></tr>';
     VERI.elciler.forEach(function(e){
       var od=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odendi'; });
       var bk=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odeme_bekliyor'; });
-      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td><td>tetikte.com/?e='+esc(e.kod)+'</td><td><button class="btn" data-elci="'+esc(e.kod)+'" data-aktif="'+(e.aktif?0:1)+'">'+(e.aktif?'Kapat':'Aç')+'</button></td></tr>';
+      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td><td>tetikte.com/satin-al.html?e='+esc(e.kod)+'</td><td class="eh-hesap" data-kod="'+esc(e.kod)+'"><span class="not">…</span></td><td><button class="btn" data-elci="'+esc(e.kod)+'" data-aktif="'+(e.aktif?0:1)+'">'+(e.aktif?'Kapat':'Aç')+'</button></td></tr>';
     });
-    if(!VERI.elciler.length) eh+='<tr><td colspan="9" class="not">Henüz elçi yok.</td></tr>';
+    if(!VERI.elciler.length) eh+='<tr><td colspan="10" class="not">Henüz elçi yok.</td></tr>';
     $('tElci').innerHTML=eh;
+    elciHesapCiz();
 
     /* üye listesi (süzgeçli) */
     var fs=$('fSinav').value, fk=$('fKaynak').value, fa=$('fAra').value.trim().toLowerCase();
@@ -262,6 +263,20 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     if(/DURUM_/.test(m)) return 'Bu sipariş artık ödeme beklemiyor ('+m.replace(/.*DURUM_/,'').toLowerCase()+').';
     if(/PGRST202|Could not find the function/i.test(m)) return 'İşlem henüz kurulmamış (veritabanı göçü bekliyor).';
     return 'İşlem yapılamadı: '+m; }
+  /* 08.10 Cem ("o kişiler burda belli, siteye girip takip etse" -> "1.2 yap"): elçi kendi hesabıyla üye olur, yönetici
+     "Hesaba bağla" der. Önce hesap GÖSTERİLİR (giriş türü, kayıt, son giriş) - e-posta onayı kapalı olduğu için biri elçinin
+     e-postasıyla önce hesap açmış olabilir; Google ile açılmışsa e-posta Google'ca doğrulanmıştır. SQL: 2026-10-08-elci-hesaba-bagla.sql */
+  async function elciHesapCiz(){
+    var r=await sb.rpc('yonetim_elci_hesaplar'), d={};
+    (r.data||[]).forEach(function(x){ d[x.kod]=x; });
+    document.querySelectorAll('#tElci .eh-hesap').forEach(function(td){
+      var x=d[td.dataset.kod];
+      if(r.error){ td.innerHTML='<span class="not">'+(/PGRST202|Could not find/i.test(r.error.message||'')?'kurulum bekliyor':'okunamadı')+'</span>'; return; }
+      td.innerHTML = x&&x.bagli
+        ? '✓ '+esc(x.eposta||'bağlı')+'<br><span class="not">'+(x.sozlesme?'sözleşme onaylı':'sözleşme onayı bekliyor')+'</span> <button class="btn" data-elcicoz="'+esc(td.dataset.kod)+'">Bağı çöz</button>'
+        : '<button class="btn" data-elcibag="'+esc(td.dataset.kod)+'">Hesaba bağla</button>';
+    });
+  }
   function mesaj(m, iyi){ var e=$('yMesaj'); e.hidden=false; e.className=iyi?'iyi':'kotu'; e.textContent=m; try{ e.scrollIntoView({block:'nearest'}); }catch(x){} }
   async function islem(ad, arg, basari){
     var r=await sb.rpc(ad, arg);
@@ -293,6 +308,22 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       var zorla=b.dataset.hediye!=='1';
       if(!confirm(b.dataset.kapat+' kişisinin paketi kapatılsın mı?'+(zorla?'\n(Bu paket hediye kaydında yok, elle verilmiş.)':''))) return;
       await islem('yonetim_paket_kapat', { p_eposta:b.dataset.kapat, p_neden:'yonetim ekranından', p_zorla:zorla }, function(d){ return '✓ '+d.eposta+': paket kapatıldı.'; });
+    } else if(b.dataset.elcibag){
+      var bk=b.dataset.elcibag, ep=(prompt(bk+' kodunu hangi hesaba bağlayalım?\nElçinin tetikte.com\'da üye olduğu e-posta:')||'').trim();
+      if(!ep) return;
+      var hb=await sb.rpc('yonetim_elci_hesap_bul', { p_eposta:ep });
+      if(hb.error){ mesaj(hataYazi(hb.error), false); return; }
+      var hv=hb.data||{};
+      if(!hv.var){ mesaj(ep+' ile açılmış hesap yok. Elçi önce tetikte.com\'a üye olmalı (Google ile girmesi en güvenlisi), sonra yeniden dene.', false); return; }
+      if(hv.bagli_kod && hv.bagli_kod!==bk){ mesaj('Bu hesap zaten '+hv.bagli_kod+' koduna bağlı. Önce o koddan bağı çöz.', false); return; }
+      var sag=(hv.saglayici||[]).map(function(s){ return s==='google'?'Google':(s==='email'?'e-posta + şifre':s); }).join(', ');
+      var uyari=(hv.saglayici||[]).indexOf('google')>-1 ? 'Hesap Google ile açılmış: e-posta Google tarafından doğrulanmış.'
+        : 'DİKKAT: hesap e-posta + şifreyle açılmış ve sitede e-posta onayı kapalı. Bağlamadan önce elçiye bu hesaba kendisinin girdiğini sor.';
+      if(!confirm(bk+' → '+ep+'\n\nGiriş türü: '+sag+'\nKayıt: '+tarih(hv.kayit)+' · Son giriş: '+tarih(hv.son_giris)+'\n\n'+uyari+'\n\nBağlansın mı? Elçi bundan sonra Hesabım\'da "Elçi Panelim"i görür.')) return;
+      await islem('yonetim_elci_hesaba_bagla', { p_kod:bk, p_eposta:ep }, function(d){ return '✓ '+d.kod+' artık '+d.eposta+' hesabına bağlı. Elçiye "tetikte.com\'a gir, Hesabım\'da Elçi Panelim" demen yeterli.'; });
+    } else if(b.dataset.elcicoz){
+      if(!confirm(b.dataset.elcicoz+' kodunun hesap bağı çözülsün mü? (Satışlar ve kod durur; yalnız panel erişimi kalkar.)')) return;
+      await islem('yonetim_elci_bagi_coz', { p_kod:b.dataset.elcicoz }, function(d){ return '✓ '+d.kod+' artık hiçbir hesaba bağlı değil.'; });
     } else if(b.dataset.elci){
       var ac=b.dataset.aktif==='1';
       if(!confirm(b.dataset.elci+' kodu '+(ac?'açılsın':'kapatılsın')+' mı?')) return;
@@ -305,7 +336,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       if(!kod){ kod=kodUret(ad); $('eKod').value=kod; }
       if(!confirm(ad+' için '+kod+' kodu oluşturulsun mu?')) return;
       var d=await islem('yonetim_elci_ekle', { p_kod:kod, p_ad:ad, p_eposta:$('eEposta').value.trim()||null, p_instagram:$('eInsta').value.trim()||null, p_not:$('eNot').value.trim()||null },
-        function(d){ return '✓ '+d.kod+' oluşturuldu. Paylaşım linki: tetikte.com/?e='+d.kod; });
+        function(d){ return '✓ '+d.kod+' oluşturuldu. Paylaşım linki: tetikte.com/satin-al.html?e='+d.kod+' · Elçi tetikte.com\'a üye olunca tablodan "Hesaba bağla".'; });
       if(d){ ['eAd','eEposta','eInsta','eNot','eKod'].forEach(function(i){ $(i).value=''; }); }
     } else if(b.id==='pVer'){
       var ep=$('pEposta').value.trim(), bitis=$('pBitis').value, neden=$('pNeden').value.trim(), elci=$('pElci').value.trim().toUpperCase();
