@@ -318,7 +318,7 @@
 <script src="fiyat-motoru.js"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="uye-durumu.js?v=20261007a"></script>
+<script src="uye-durumu.js?v=20261007b"></script>
 <script src="kutu-esitle.js"></script>
 <script>
 (function(){
@@ -974,7 +974,7 @@
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
     $('svGiris').querySelectorAll('.sv-not')[0].textContent='Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.';
     $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. "Bilmiyorum" diyebilirsin; tahmin etmekten iyidir.';
-    var svVit=$('svHakBitti').querySelector('a[href="kaydir/vitrin/sgs.html"]'); if(svVit) svVit.setAttribute('href','kaydir/vitrin/smmm.html');   /* 07.10: düğme kalktı (yarının sorusu) */
+    /* 07.10: eski "örnek sorular" düğmesinin adres değişimi kalktı (düğme yok, yerinde yarının sorusu) */
     $('svYeniden').textContent='Testi yeniden çöz';
     try{ $('svSinav').value='yeterlilik'; }catch(e){}
     return fetch('veri/seviye/smmm-set.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(s){

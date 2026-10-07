@@ -134,7 +134,7 @@
   }).catch(function(){});
 })();
 </script>
-<script src="uye-durumu.js?v=20261007a"></script>
+<script src="uye-durumu.js?v=20261007b"></script>
 <script>
 /* 15.09 ÜÇ SINAV: seçili sınava göre sayfa. Ön kayıt formu sitenin tek form kapısına gider
    (radar-app/edge/form-al.ts, canlı adı quick-task): Frankfurt kasası + bize mail; köken listesi, bal küpü, hız sınırı sunucuda. */
@@ -150,7 +150,7 @@
   /* Staja Giriş: sayfa olduğu gibi. 24.09: bu sayfanın kartları SGS'nindir; içeriği açılan başka sınav
      (Yeterlilik) kendi açık vitrinine gider - "Yeterlilik giriyorum Staja Giriş çıkıyor" (23.09) tekrarlanmasın. */
   /* 07.10 Cem ("ücretsiz soru çöz yine 10 soru çıkıyor"): içeriği açık başka sınav kendi 30 soruluk seviye testine gider (10 soruluk vitrine değil) */
-  if(s.icerik){ if(k!=='sgs'&&(s.olc||s.vitrin)) location.replace(s.olc||s.vitrin); return; }
+  if(s.icerik){ if(k!=='sgs'&&s.olc) location.replace(s.olc); return; }
   document.title='Ön kayıt · '+s.uzun+' | Tetikte';
   $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';

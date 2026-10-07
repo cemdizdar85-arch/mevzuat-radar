@@ -44,7 +44,7 @@
       gir: 'sorular.html#smmm', devam: 'sorular.html#smmm',
       /* 01.10 Cem "önce tüm sınavı yaz": Becker/UWorld/Gleim gibi ana yol tam paket; düğme doğrudan ödemeye, tüm dersler
          seçili gelir (1–4 ders paketleri aynı listede durur). Tek ders kahramanda ikincil bağlantı (alTek). */
-      al: 'satin-al.html?paket=yeterlilik-tum', alTek: 'satin-al.html?paket=yeterlilik-1', vitrin: 'kaydir/vitrin/smmm.html?vitrin=1',
+      al: 'satin-al.html?paket=yeterlilik-tum', alTek: 'satin-al.html?paket=yeterlilik-1',   /* 07.10: 'vitrin' (10 soruluk sabit sayfa) kalktı - ücretsiz yol 'olc' (30 soruluk seviye testi) */
       fiyat: 'fiyat.html'
     },
     kgk: {
