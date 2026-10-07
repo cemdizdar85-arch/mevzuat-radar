@@ -158,8 +158,11 @@ DÜZELT 10 soruda) — yazarken baştan uygula:**
    borsada işlem gören" demek E6'yı çiğner; kökte "fiyat revizyonu öngörülmemektedir" yazılır.
 5. **İkinci göz okuyucusu önerdiği hap'ı da ölçer:** ≤140 kr ve doğru şık açıklaması + sade.dogru ile 5+ harfli kelime ortaklığı <%60
    (ön denetimin HAP TEKRAR ölçütü); gm15'te önerilen hapların çoğu bu ölçüte takılıp yazar ikinci kez yazdı.
-6. Ambar adları: Satış Tebliği "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2)" Türkçe harfsiz; SPKn m.108 kaydına 7222 dipnotları
-   karışmış (ceza alt sınırı oradan okunmaz, iş emri).
+6. Ambar adları: Satış Tebliği "Sermaye Piyasasi Araclarinin Satisi Tebligi (II-5.2)" Türkçe harfsiz (ambarda 119 kaynak kökü böyle;
+   iş emri 28) — ilike'ta Türkçe harf/İ yerine harfsiz parçayla ara.
+7. ⭐ **DİPNOT MADDE GÖVDESİNE KARIŞMIŞ OLABİLİR (ambar geneli, altyapı ölçtü 08.10: 42.760 kaydın 1.320'si; sgk5510, gümrük, iik, GVK,
+   TCK, CMK, kamu mali, Anayasa, VUK…; iş emri 27):** maddede "… tarihli ve N sayılı Kanunun … maddesiyle … değiştirilmiştir. <sayı>"
+   geçiyorsa o cümle hüküm DEĞİL, dipnottur; tutar/oran/süre hükümdeki (değişmiş) metinden alınır. SPKn m.108'de gözlendi.
 
 ## DALGA DÜZENİ (05.10, gm8 düzeltme turunda ölçülen sıra — atlanmaz)
 1. **Harf planı** (`-HarfPlani <konu dosyası>`) → yazara aynen verilir.
