@@ -418,7 +418,7 @@ function paketler(){
     p.indirim = indirimYuzde(p.fiyat, p.liste);
     /* 25.09 Cem: yüzde rozeti kaldırıldı. Liste fiyatı ÜSTÜ ÇİZİLİ de gösterilmez: o fiyattan hiç satış yapılmadı,
      çizili 'eski fiyat' İndirimli Satış mevzuatında sahte indirim sayılır (29.08 dersi 6). Liste ileriye dönük yazılır. */
-  p.not     = (p.liste > p.fiyat && p.kota) ? 'kurucu fiyatı · ilk ' + tl(p.kota) + ' kurucu' : (p.indirim ? 'kurucu fiyatı' : 'sabit fiyat');
+  p.not     = (p.liste > p.fiyat && p.kota) ? 'açılış fiyatı · ilk ' + tl(p.kota) + ' üye' : (p.indirim ? 'açılış fiyatı' : 'sabit fiyat');   /* 08.10 Cem: "kurucu fiyatı" yerine "açılış fiyatı" */
     p.taksit  = taksitYazi(p.fiyat);
   });
   return L;
@@ -460,7 +460,11 @@ function kurucuKalan(cb){
 function kurucuSatir(sinavAnahtar, kalanlar){
   if(!kalanlar || !(sinavAnahtar in kalanlar)) return '';
   var k = kalanlar[sinavAnahtar];
-  return k > 0 ? 'Kalan kurucu yeri: ' + tl(k) : 'Kurucu kontenjanı doldu';
+  /* 08.10 Cem ("kurucu yerine ne koyalım"): "Kalan kurucu yeri: 1.000" kimsenin almadığını söylüyordu -> kontenjandan
+     ilk satış düşene kadar sayaç YAZILMAZ; sonra "Açılış fiyatıyla kalan yer: N". */
+  var kota = (typeof KOTA !== 'undefined' && KOTA[sinavAnahtar]) || 0;
+  if(kota && k >= kota) return '';
+  return k > 0 ? 'Açılış fiyatıyla kalan yer: ' + tl(k) : 'Açılış fiyatı kontenjanı doldu';
 }
 
 /* ---------------------------------------------------------------------------

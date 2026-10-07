@@ -65,6 +65,17 @@ function kartKur(satir, disli, setli) {
     tuzaklar: Object.fromEntries(Object.entries(v.tuzak || {}).filter(([hf, x]) => hf !== v.dogru && sk[hf] != null && x && x.metin).map(([hf, x]) => [hf, { ad: x.ad || '', metin: x.metin }])), kural: buyukBas(v.kural), dayanak: temizDayanak(v.dayanak) } };
 }
 
+/* 08.10 "5 örnek soru" (arac/ornek5-liste.json -> veri/ornek-soru.json, ornek-sorular.html). Zorluk kimlik etiketinden
+   (-zor/, -cokzor-r1/ ...; motor/seviye-havuz-bas.js ile aynı kalıp). Konu ve "kaç dönemde soruldu" yalnız OKUNMUŞ bağdan
+   (CLAUDE.md "dışarı çıkan sınav rakamı"): SGS veri/deneme/sgs-sik-kimlik.json, Yeterlilik smmm-banka-esleme + smmm-sik-dizin. */
+function zorlukEtiket(id) { const e = String(id || '').split('/')[0]; return /-cokzor(-|$)/.test(e) ? 'çok zor' : /-zor(-|$)/.test(e) ? 'zor' : /-kolay(-|$)/.test(e) ? 'kolay' : ''; }
+function ornekKonu(id, sinav, kaynak) {
+  if (sinav === 'sgs') { const sk = kaynak.sgs, i = sk && sk.kimlik ? sk.kimlik[id] : undefined; if (i == null) return null; const k = sk.konular[i]; return { konu: k.konu, donem: k.donem, toplam: sk.donem }; }
+  const e = kaynak.esleme && kaynak.esleme[id]; if (!e) return null;
+  const k = (e.konular || []).map(kk => (kaynak.yetSik || []).find(z => z.ders === e.ders && z.konu === kk)).find(Boolean);
+  return k ? { konu: k.konu.replace(/ › /g, ' — '), donem: k.donem, toplam: kaynak.yetToplam } : null;
+}
+
 async function sb(yol) {
   const r = await fetch(SB + '/rest/v1/' + yol, { headers: { apikey: SK, Authorization: 'Bearer ' + SK } });
   if (!r.ok) throw new Error(yol.split('?')[0] + ' http ' + r.status); return r.json();
@@ -73,7 +84,8 @@ async function sb(yol) {
 async function ana() {
   if (!SK) throw new Error('SUPABASE_SERVICE_KEY yok');
   const liste = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'vitrin-hesap-liste.json'), 'utf8'));
-  const tum = [...(liste.sgs || []), ...(liste.yeterlilik || [])];
+  let ornek = { sgs: [], yeterlilik: [] }; try { ornek = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'ornek5-liste.json'), 'utf8')); } catch (e) {}
+  const tum = [...(liste.sgs || []), ...(liste.yeterlilik || []), ...(ornek.sgs || []), ...(ornek.yeterlilik || [])];
   const satirlar = await sb('paket_soru?select=id,ders,ucretsiz,veri&id=in.(' + encodeURIComponent(tum.map(x => '"' + x + '"').join(',')) + ')');
   const disli = new Set((await sb('vitrin_aciklama_dislanan?select=id')).map(x => x.id));
   // 07.10 (sınav oturumu: "elle rettekileri günün sorusunda kullanma"): SGS + SMMM elle ret listesindeki kimlik de dışlanır (yayın onu kasadan çıkarana dek).
@@ -90,11 +102,30 @@ async function ana() {
   const ozet = `VİTRİN HESAP: SGS ${cikti.sinavlar.sgs.length}/${(liste.sgs || []).length} · Yeterlilik ${cikti.sinavlar.yeterlilik.length}/${(liste.yeterlilik || []).length}`
     + (cikti.dusen.length ? ' · düşen: ' + cikti.dusen.map(d => d.id + ' (' + d.neden + ')').join(', ') : '');
   console.log(ozet);
+  /* 08.10 5 örnek soru: aynı kart kuralları + zorluk + okunmuş konu sıklığı. Konusu okunmuş bağda bulunamayan soru düşer
+     (sayfada "kaç dönemde soruldu" yazılamaz). */
+  const okuJ = f => { try { return JSON.parse(fs.readFileSync(path.join(KOK, f), 'utf8')); } catch (e) { return null; } };
+  const kaynak = { sgs: okuJ('veri/deneme/sgs-sik-kimlik.json'), esleme: (okuJ('veri/sinav/smmm-banka-esleme.json') || {}).sorular,
+    yetSik: (okuJ('veri/deneme/smmm-sik-dizin.json') || {}).konular, yetToplam: (okuJ('veri/sinav/smmm-konu-okuma.json') || {}).donem };
+  const ornekCikti = { uretici: 'motor/vitrin-hesap.js', liste: 'arac/ornek5-liste.json', sinavlar: {}, dusen: [] };
+  for (const s of ['sgs', 'yeterlilik']) {
+    ornekCikti.sinavlar[s] = [];
+    for (const id of ornek[s] || []) {
+      const k = kartKur(satirlar.find(x => x.id === id), disli.has(id), sabitSet.has(id)), kn = ornekKonu(id, s, kaynak);
+      if (!k.kart) { ornekCikti.dusen.push({ sinav: s, id, neden: k.neden }); continue; }
+      if (!kn) { ornekCikti.dusen.push({ sinav: s, id, neden: 'okunmuş konu bağı yok' }); continue; }
+      ornekCikti.sinavlar[s].push({ ...k.kart, zorluk: zorlukEtiket(id), konu: kn.konu, konu_donem: kn.donem, konu_toplam: kn.toplam });
+    }
+  }
+  console.log(`5 ÖRNEK SORU: SGS ${ornekCikti.sinavlar.sgs.length}/${(ornek.sgs || []).length} · Yeterlilik ${ornekCikti.sinavlar.yeterlilik.length}/${(ornek.yeterlilik || []).length}`
+    + (ornekCikti.dusen.length ? ' · düşen: ' + ornekCikti.dusen.map(d => d.id + ' (' + d.neden + ')').join(', ') : ''));
   if (process.argv.includes('--kuru')) return;
-  const yeni = JSON.stringify(cikti) + '\n';
-  let eski = null; try { eski = fs.readFileSync(HEDEF, 'utf8'); } catch (e) {}
-  if (eski === yeni) console.log('  değişiklik yok - dosyaya dokunulmadı');
-  else { fs.writeFileSync(HEDEF, yeni); console.log('  yazıldı -> veri/vitrin-hesap.json'); }
+  for (const [hedef, nesne, ad] of [[HEDEF, cikti, 'veri/vitrin-hesap.json'], [path.join(KOK, 'veri', 'ornek-soru.json'), ornekCikti, 'veri/ornek-soru.json']]) {
+    const yeni = JSON.stringify(nesne) + '\n';
+    let eski = null; try { eski = fs.readFileSync(hedef, 'utf8'); } catch (e) {}
+    if (eski === yeni) console.log('  ' + ad + ': değişiklik yok - dosyaya dokunulmadı');
+    else { fs.writeFileSync(hedef, yeni); console.log('  yazıldı -> ' + ad); }
+  }
 }
 
 function sinav() {
@@ -121,6 +152,14 @@ function sinav() {
   b('adım atfı kartın sırasına kayar (2 -> 1), atlanan adıma atıf düşer', a2[1].f === 'T = 100 × %50 (1. adımda bulduk) = 50' && a2[2].f === 'Y');
   b('adımsız soru boş adımla gelir (oynatıcı kısa açıklamaya düşer)', kartKur(iyi(), false).kart.adimlar.length === 0);
   const tz = iyi(); tz.veri.tuzak = {}; b('tuzağı olmayan soru düşer', kartKur(tz, false).neden === 'anlatım eksik');
+  // 08.10 5 örnek soru
+  b('zorluk etiketten okunur (-zor/, -cokzor-r2/, -kolay/, etiketsiz)', zorlukEtiket('sgs-k5-ekonomi-zor/kp-01') === 'zor' && zorlukEtiket('smmm-4k-a-yvergi-cokzor-r2/kp-02') === 'çok zor'
+    && zorlukEtiket('sgs-e16-turkce-kolay/kp-02') === 'kolay' && zorlukEtiket('sgs-x-zorluk/kp-01') === '');
+  const kay = { sgs: { donem: 32, kimlik: { 'a/kp-01': 0 }, konular: [{ ders: 'D', konu: 'K', donem: 30 }] }, esleme: { 'b/kp-01': { ders: 'FM', konular: ['Yok', 'GVK › X'] } },
+    yetSik: [{ ders: 'FM', konu: 'GVK › X', donem: 18 }], yetToplam: 31 };
+  const ks = ornekKonu('a/kp-01', 'sgs', kay), ky = ornekKonu('b/kp-01', 'yeterlilik', kay);
+  b('örnek soru konusu okunmuş bağdan gelir (SGS kimlik, Yeterlilik eşleme ∩ sık dizin)', ks && ks.donem === 30 && ks.toplam === 32 && ky && ky.konu === 'GVK — X' && ky.donem === 18 && ky.toplam === 31);
+  b('okunmuş bağı olmayan örnek sorunun konusu yok (düşer)', ornekKonu('z/kp-09', 'sgs', kay) === null && ornekKonu('z/kp-09', 'yeterlilik', kay) === null);
   console.log(`VİTRİN HESAP öz-sınav: ${n - h}/${n}`); process.exitCode = h ? 1 : 0;
 }
 

@@ -94,7 +94,8 @@
   <!-- GİRİŞ YAPMIŞ AMA ELÇİ KAYDINA BAĞLI DEĞİL -->
   <section id="epBagla" class="ep-gizli">
     <h1>Elçi Paneli</h1>
-    <p class="ep-alt">Hesabını elçi kaydına bağlamak için sana gönderilen <b>bağlama kodunu</b> yaz. Bu bir kez yapılır; sonra bu hesapla her girişinde panelin açılır.</p>
+    <!-- 08.10: bağlamayı yönetici de yapar (yonetim.html "Hesaba bağla"); bağlama kodu yedek yol. -->
+    <p class="ep-alt">Hesabın henüz elçi kaydına bağlı değil. <b>Tetikte ekibine bu hesabın e-postasını bildir</b>; bağlandığında bu sayfa ve Hesabım'daki "Elçi Panelim" kendiliğinden açılır. Sana bir bağlama kodu verildiyse aşağıya yazarak kendin de bağlayabilirsin.</p>
     <div class="ep-kutu ep-giris">
       <label for="epBagKod" style="display:block;font-size:13px;font-weight:700;margin:0 0 6px">Bağlama kodu</label>
       <input id="epBagKod" type="text" maxlength="20" autocomplete="off" placeholder="örn. K7M2-XR4P-9TAE">
@@ -418,6 +419,8 @@
   function sqlYok(err){ return !!err && (err.code === 'PGRST202' || /Could not find the function/i.test(err.message || '')); }
 
   async function yukle(){
+    /* 08.10: Google ile girmiş ve e-postası yönetimde elçi kaydına yazılmışsa hesap kendiliğinden bağlanır */
+    try { await sb.rpc('elci_google_bagla'); } catch (e) {}
     var r = await sb.rpc('elci_panelim');
     if (r.error) {
       if (sqlYok(r.error)) return kapali();

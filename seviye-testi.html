@@ -321,7 +321,7 @@
 
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js"></script>
-<script src="fiyat-motoru.js?v=20261007k"></script>
+<script src="fiyat-motoru.js?v=20261008a"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="uye-durumu.js?v=20261007b"></script>
@@ -763,7 +763,7 @@
       var fp=tek?(FIYAT.yeterlilik&&FIYAT.yeterlilik[rN]):FIYAT.yeterlilikTum;
       if(fp){
         $('svTeklifFiyat').innerHTML='<b>'+(tek?rN+' ders ':'Tüm dersler ')+fiyatAnaHtml(pid,fp.kurulus)+'</b>'+fiyatDahilHtml(pid,fp.kurulus)+' · sınava kadar erişim'
-          +(fp.liste>fp.kurulus&&typeof KOTA!=='undefined'&&KOTA.yeterlilik?' · ilk '+tl(KOTA.yeterlilik)+' kurucuya kurucu fiyatı (sonra '+fiyatAna(pid,fp.liste)+')':'');
+          +(fp.liste>fp.kurulus&&typeof KOTA!=='undefined'&&KOTA.yeterlilik?' · ilk '+tl(KOTA.yeterlilik)+' üyeye açılış fiyatı (sonra '+fiyatAna(pid,fp.liste)+')':'');
         $('svTeklifFiyat').hidden=false;
       }
     }catch(e){}
@@ -846,7 +846,7 @@
       if(typeof FIYAT!=='undefined'&&FIYAT.sgs){
         var f=FIYAT.sgs, ay=Math.round((typeof SURE_GUN!=='undefined'?SURE_GUN:90)/30);
         $('svTeklifFiyat').innerHTML='<b>'+fiyatAnaHtml('sgs',f.kurulus)+'</b>'+(fiyatDahilHtml('sgs',f.kurulus)||' (KDV dahil)')+' · sınava kadar erişim (en az '+ay+' ay)'
-          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' kurucuya kurucu fiyatı (sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?', '+fiyatDahilNot('sgs',f.liste):'')+')':'')
+          +(f.liste>f.kurulus&&typeof KOTA!=='undefined'&&KOTA.sgs?' · ilk '+tl(KOTA.sgs)+' üyeye açılış fiyatı (sonra '+fiyatAna('sgs',f.liste)+(fiyatDahilNot('sgs',f.liste)?', '+fiyatDahilNot('sgs',f.liste):'')+')':'')
           ;   /* 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" */
         $('svTeklifFiyat').hidden=false;
       }
