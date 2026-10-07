@@ -1,17 +1,17 @@
 {
-  "olcum": "06.10.2026 17:54",
+  "olcum": "07.10.2026 11:26",
   "aciklama": "Ozel adi kayip yuklenici kayitlari. Olcut: firma adi JENERIK bir sirket ekiyle BASLIYOR (Ticaret/Sanayi/Limited...). Kisalik tek basina kusur DEGILDIR - sahis firmalari ('Mehmet ...') normaldir. Onarim: her kaydin IKN'lerinin sonuc ilani yeniden okunmali.",
   "kaynak": "veri/ihale-firma-ozet.json",
-  "taranan": 62180,
-  "kusurlu": 542,
+  "taranan": 62190,
+  "kusurlu": 543,
   "sinif_coklu_yuklenici": 34,
   "sinif_is_ortakligi": 0,
   "sinif_sahis_eki": 10,
-  "sinif_SADE_KESIK": 498,
-  "sade_kesik_ihale": 12531.0,
-  "sade_kesik_bedel": 64197961041.80999,
-  "etkilenen_ihale": 12767.0,
-  "etkilenen_bedel": 150580466661.71994,
+  "sinif_SADE_KESIK": 499,
+  "sade_kesik_ihale": 12540.0,
+  "sade_kesik_bedel": 64215341701.07999,
+  "etkilenen_ihale": 12776.0,
+  "etkilenen_bedel": 150597847320.98993,
   "kayitlar": [
     {
       "ad": "Yapı Merkezi İnşaat ve Sanayi Anonim Şirketi, YSE Yapı Sanayi ve Ticaret Anonim Şirketi İş Ortaklığı",
@@ -21,36 +21,36 @@
     },
     {
       "ad": "Ticaret Limited Şirketi",
-      "ihaleSayisi": 3639,
-      "toplamBedel": 21513756512.21,
+      "ihaleSayisi": 3643,
+      "toplamBedel": 21529414063.66,
       "ikn": [
-        "2025/1669301",
-        "2025/2460556",
-        "2025/2459752",
-        "2025/2450387",
         "2025/1741901",
+        "2025/2460556",
         "2025/2461732",
-        "2024/1774093",
-        "2024/1773584",
+        "2025/2459752",
+        "2025/1669301",
+        "2025/2450387",
+        "2024/1920595",
+        "2024/1914234",
         "2024/1745430",
-        "2024/1899596"
+        "2024/1920964"
       ]
     },
     {
       "ad": "Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 1161,
-      "toplamBedel": 10470478544.62,
+      "ihaleSayisi": 1163,
+      "toplamBedel": 10470691544.62,
       "ikn": [
         "2025/1466819",
         "2025/2443434",
-        "2024/1773584",
         "2024/1821334",
+        "2025/53398",
         "2024/1821454",
-        "2024/1740484",
-        "2024/1820891",
+        "2024/1821541",
+        "2024/1773584",
+        "2024/1657662",
         "2024/1821612",
-        "2024/1899599",
-        "2025/53398"
+        "2024/1899622"
       ]
     },
     {
@@ -958,6 +958,12 @@
       "ikn": []
     },
     {
+      "ad": "Gıda ve İhtiyaç Maddeleri Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 13,
+      "toplamBedel": 51662917.82,
+      "ikn": []
+    },
+    {
       "ad": "Taahhüt Ticaret ve Sanayi Anonim Şirketi",
       "ihaleSayisi": 2,
       "toplamBedel": 51541614.0,
@@ -979,12 +985,6 @@
       "ad": "Lojistik Taşımacılık Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 4,
       "toplamBedel": 50961283.4,
-      "ikn": []
-    },
-    {
-      "ad": "Gıda ve İhtiyaç Maddeleri Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 11,
-      "toplamBedel": 50217810.0,
       "ikn": []
     },
     {
@@ -2542,14 +2542,14 @@
       "ikn": []
     },
     {
-      "ad": "Nakliyat Hazır Yemek Tekstil Turizm İthalat İhracat Taahhüt Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 1,
+      "ad": "Hizmetleri Limited Şirketi, Envesu Çevre Enerji İnşaat ve Müşavirlik Anonim Şirketi",
+      "ihaleSayisi": 2,
       "toplamBedel": 2000000.0,
       "ikn": []
     },
     {
-      "ad": "Hizmetleri Limited Şirketi, Envesu Çevre Enerji İnşaat ve Müşavirlik Anonim Şirketi",
-      "ihaleSayisi": 2,
+      "ad": "Nakliyat Hazır Yemek Tekstil Turizm İthalat İhracat Taahhüt Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 1,
       "toplamBedel": 2000000.0,
       "ikn": []
     },
@@ -2884,13 +2884,13 @@
       "ikn": []
     },
     {
-      "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Gıda Taşımacılık İnşaat Sanayi Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 1000000.0,
       "ikn": []
     },
     {
-      "ad": "Gıda Taşımacılık İnşaat Sanayi Ticaret Limited Şirketi",
+      "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 1000000.0,
       "ikn": []
@@ -3463,6 +3463,12 @@
       "ad": "Temizlik Malzemeleri Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 3,
       "toplamBedel": 67930.0,
+      "ikn": []
+    },
+    {
+      "ad": "Ticaret Sanayi Anonim Şirketi",
+      "ihaleSayisi": 1,
+      "toplamBedel": 65000.0,
       "ikn": []
     },
     {
