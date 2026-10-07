@@ -53,7 +53,13 @@ const zorluk = id => /cokzor/.test(id) ? 'cokzor' : /-zor/.test(id) ? 'zor' : /k
 // --- kapsama tablosu (son10) ---
 function csvSatir(s) { const o = []; let c = '', q = false; for (const h of s) { if (h === '"') q = !q; else if (h === ',' && !q) { o.push(c); c = ''; } else c += h; } o.push(c); return o; }
 const csvYol = path.join(KOK, 'veri', 'fabrika', 'smmm-kapsama.csv');
-const satirlar = fs.readFileSync(csvYol, 'utf8').replace(/^﻿/, '').split(/\r?\n/).filter(Boolean);
+/* 07.10 sabah ölçümü: kapsama tablosu git'e GİRMEZ (veri/fabrika/*) -> bulut koşucusunda yok; smmm-kasa-yayin.yml'deki onarım adımı
+   ENOENT ile iki koşuyu KIRMIZI bitirdi. Tablo yoksa yalnız --onar çalışır ve aday YALNIZ bağımsız çözülmüş ücretsiz listeden
+   (veri/sinav/smmm-ucretsiz.json) gelir (son10 sırası yok; aynı ders + aynı konu/zorluk önceliği aynı). Tam seçim tablo ister. */
+const TABLOSUZ = !fs.existsSync(csvYol);
+if (TABLOSUZ && !argv.includes('--onar')) { console.error('kapsama tablosu yok (' + csvYol + ') - tam seçim yapılamaz; önce arac/smmm-kapsama-tablosu.ps1'); process.exit(2); }
+if (TABLOSUZ) console.log('ℹ kapsama tablosu yok (bulut) - onarım yalnız doğrulanmış ücretsiz listeden aday alır');
+const satirlar = TABLOSUZ ? ['ders,konu,son10,cikmis,son_soruldu'] : fs.readFileSync(csvYol, 'utf8').replace(/^﻿/, '').split(/\r?\n/).filter(Boolean);
 const bas = csvSatir(satirlar[0]);
 const kapsama = {};
 for (const s of satirlar.slice(1)) {
@@ -63,7 +69,7 @@ for (const s of satirlar.slice(1)) {
   const onceki = kapsama[k];
   if (!onceki || +o.son10 > onceki.son10) kapsama[k] = { son10: +o.son10 || 0, cikmis: +o.cikmis || 0, son_soruldu: o.son_soruldu || '' };
 }
-const csvYas = (Date.now() - fs.statSync(csvYol).mtimeMs) / 3600000;
+const csvYas = TABLOSUZ ? 0 : (Date.now() - fs.statSync(csvYol).mtimeMs) / 3600000;
 if (csvYas > 24) console.warn(`⚠ kapsama tablosu ${Math.round(csvYas)} saat eski - önce arac/smmm-kapsama-tablosu.ps1`);
 
 // --- hariç + vitrin ---
@@ -96,7 +102,7 @@ try { for (const x of jsonOku(path.join(KOK, 'veri', 'sinav', 'kaydir-secim', 'v
     const dk = dersK(r.ders), kk = katla(r.konu || v.konu);
     if (haric[r.id] || haricKonu['smmm|' + kk]) { sayac.haric++; continue; }
     if (String(o.hakem) !== 'EVET' || !(o.sim && o.sim.dogru === true)) { sayac.olcum++; continue; }
-    const kp = kapsama[dk + '|' + kk];
+    const kp = TABLOSUZ ? (dogrulanmis.has(r.id) ? { son10: 1, cikmis: 0, son_soruldu: '' } : null) : kapsama[dk + '|' + kk];
     if (!kp) { sayac.kapsamasiz++; continue; }
     if (!(kp.son10 > 0)) { sayac.son10sifir++; continue; }
     const z = zorluk(r.id); if (!z) { sayac.zorluksuz++; continue; }
