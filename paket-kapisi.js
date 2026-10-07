@@ -58,19 +58,24 @@
     if (bitti) return; bitti = true;
     /* 07.10 Cem ("pakete dahil dediğimde ücretsiz soru çöz yine 10 soru çıkıyor"): ücretsiz deneme o sınavın 30 soruluk seviye
        testine gider (10 soruluk sabit örnek sayfası değil). Sınav sayfa yolundan: kaydir/smmm = Yeterlilik, öteki SGS. */
-    var ucretsiz = KOK + (/\/kaydir\/smmm\//.test(location.pathname) || /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search) ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
+    var yetSayfa = /\/kaydir\/smmm\//.test(location.pathname) || /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search);
+    var ucretsiz = KOK + (yetSayfa ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
+    /* 08.10 Cem ("Staja Giriş sayfasındaysam bitirme fiyatları gelmesin"): satın alma ve fiyat bulunulan sınava odaklı
+       (satin-al ?paket= o sınavın grubunu açar; fiyat ?sinav= tek sınavı gösterir). */
+    var satinAl = KOK + 'satin-al.html?paket=' + (yetSayfa ? 'yeterlilik-1' : 'sgs');
+    var fiyatAdr = KOK + 'fiyat.html?sinav=' + (yetSayfa ? 'yeterlilik' : 'sgs');
     kapiCoz({ acik: false, tur: tur });
     var baslik, metin, dugmeler;
     if (tur === 'giris') {
       baslik = 'Bu bölüm pakete dahil';
       metin = 'Soru bankasının tamamı, deneme setleri ve "sınav gibi" modu paket sahiplerine açık. Paketin varsa giriş yap.';
       dugmeler = '<a class="pk-ana" href="' + KOK + 'ogrenci.html?sonra=' + sonraAdresi() + '">Giriş yap</a>' +
-        '<a href="' + KOK + 'fiyat.html">Paketleri gör</a>' +
+        '<a href="' + fiyatAdr + '">Paketleri gör</a>' +
         '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
     } else if (tur === 'paket') {
       baslik = 'Hesabında aktif paket yok';
       metin = 'Bu sayfa pakete dahil. Paketi aldığında hesabına tanımlanır ve buradan devam edersin.';
-      dugmeler = '<a class="pk-ana" href="' + KOK + 'satin-al.html">Paketi al</a>' +
+      dugmeler = '<a class="pk-ana" href="' + satinAl + '">Paketi al</a>' +
         '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
     } else {
       baslik = 'Bağlantı kurulamadı';

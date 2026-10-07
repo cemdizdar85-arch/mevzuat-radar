@@ -259,27 +259,7 @@
   <div class="satir">
     <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
   </div>
-  <!-- 03.10 (Cem "gm önerilerini yap"; büyük firmalardaki gibi): davet kodu + elçi kodu TEK kutu.
-       Tek bağlantı "İndirim ya da davet kodun var mı?" → tek alan + Uygula. Kod türü ayrımı: davet biçimine
-       (DAVET_BICIM) uyuyorsa önce elci_kodu_kontrol sorulur (TT ile başlayan elçi kodu çakışabilir), >0 ise
-       elçi, değilse davet; biçime uymuyorsa elçi. İki kod BİRLİKTE kullanılabilir (bugünkü kural): kabul edilen
-       kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
-       Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
-  <div class="alan" style="margin-bottom:14px">
-    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">İndirim kodun var mı?</a>
-    <div id="kodKutu" hidden>
-      <label class="et" for="kod">İndirim kodu</label>
-      <div style="display:flex;gap:8px;align-items:stretch">
-        <input type="text" id="kod" maxlength="12" placeholder="Kodunu yaz" style="text-transform:uppercase;flex:1;min-width:0" autocomplete="off">
-        <button type="button" class="btn" id="kodUygula" style="margin:0;width:auto;padding-left:16px;padding-right:16px;white-space:nowrap">Uygula</button>
-      </div>
-      <p class="kucuk" id="kodDurum" style="margin:5px 0 0"></p>
-      <div id="kodRozet"></div>
-      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p>
-    </div>
-    <input type="hidden" id="davet">
-    <div id="elciSatir" style="display:none"><input type="hidden" id="elci"></div>
-  </div>
+  <!-- 08.10: elçi / indirim kodu kutusu "Özet ve onay" kartına taşındı (aşağıda) -->
 
   <label class="et">Fatura tipi *</label>
   <div class="tip">
@@ -324,10 +304,37 @@
   <div class="ozet-bas"><span class="akd-no">3</span> Özet ve onay</div>
   <table>
     <tr id="ozPkSatir"><td id="ozAd">—</td><td class="sag" id="ozFy">—</td></tr>
+    <!-- 08.10 Cem ("indirim alıp fazla ödüyormuş gibi görünüyor"): fiyat sayfası "990 TL + KDV" der, özet yalnız KDV dahil
+         yazıyordu -> liste fiyatının KDV dökümü + kodla ne kadar az ödendiği + faturadaki matrah/KDV. -->
+    <tr id="ozKdvSatir" style="display:none"><td class="kucuk" colspan="2" id="ozKdv"></td></tr>
     <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
     <tr id="ozIndSatir" style="display:none"><td>Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
+    <tr id="ozFatSatir" style="display:none"><td class="kucuk" colspan="2" id="ozFat"></td></tr>
   </table>
+  <!-- 08.10 Cem ("satın alda elçi kodu gelmiyor"): kutu 2. adımın ("Bilgilerin") dibindeydi; adım tamamlanınca kapanıyor,
+       özet ekranındaki kişi kodu girecek yer bulamıyordu. Tutarın hemen altına taşındı (id'ler aynen; JS id ile okur, form yok). -->
+  <!-- 03.10 (Cem "gm önerilerini yap"; büyük firmalardaki gibi): davet kodu + elçi kodu TEK kutu.
+       Tek bağlantı "İndirim ya da davet kodun var mı?" → tek alan + Uygula. Kod türü ayrımı: davet biçimine
+       (DAVET_BICIM) uyuyorsa önce elci_kodu_kontrol sorulur (TT ile başlayan elçi kodu çakışabilir), >0 ise
+       elçi, değilse davet; biçime uymuyorsa elçi. İki kod BİRLİKTE kullanılabilir (bugünkü kural): kabul edilen
+       kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
+       Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
+  <div class="alan" style="margin:12px 0 14px">
+    <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
+    <div id="kodKutu" hidden>
+      <label class="et" for="kod">Elçi / indirim kodu</label>
+      <div style="display:flex;gap:8px;align-items:stretch">
+        <input type="text" id="kod" maxlength="12" placeholder="Kodunu yaz" style="text-transform:uppercase;flex:1;min-width:0" autocomplete="off">
+        <button type="button" class="btn" id="kodUygula" style="margin:0;width:auto;padding-left:16px;padding-right:16px;white-space:nowrap">Uygula</button>
+      </div>
+      <p class="kucuk" id="kodDurum" style="margin:5px 0 0"></p>
+      <div id="kodRozet"></div>
+      <p class="kucuk" id="elciDurum" style="margin:5px 0 0"></p>
+    </div>
+    <input type="hidden" id="davet">
+    <div id="elciSatir" style="display:none"><input type="hidden" id="elci"></div>
+  </div>
 
   <!-- 14.09: Mesafeli Sözleşmeler Yönetmeliği m.5-6 ön bilgilendirme teyidi + m.15 anında ifa onayı
        AÇIKÇA alınır (sözleşme "Üye anında ifaya onay verir" diyordu ama ekranda bu onay yoktu).
@@ -549,6 +556,14 @@ function ozetCiz(){
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
   document.getElementById('ozTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
+  /* 08.10: KDV dökümü (oran fiyat-motoru.js KDV_ORAN) - liste fiyatı '+ KDV' gösterilen paketlerde; faturada kalem = ödenen tutarın matrahı */
+  var oran = (typeof KDV_ORAN === 'number') ? KDV_ORAN : 0.2, iki = function(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}); };
+  var kdvGoster = !!(secili && typeof KDV_HARIC_GOSTER !== 'undefined' && KDV_HARIC_GOSTER[secili.id]);
+  document.getElementById('ozKdvSatir').style.display = kdvGoster ? '' : 'none';
+  if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran)); document.getElementById('ozKdv').textContent = '= ' + tl(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + tl(secili.fiyat - net) + ' TL) · fiyat sayfasındaki tutar'; }
+  document.getElementById('ozFatSatir').style.display = (secili && ind > 0) ? '' : 'none';
+  if(secili && ind > 0){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
+    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; elçi koduyla ' + tl(ind) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
   dersCiz();
   if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
 }
