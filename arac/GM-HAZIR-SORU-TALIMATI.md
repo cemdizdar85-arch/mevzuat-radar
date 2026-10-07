@@ -104,6 +104,25 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
 6. **KAPI-K kelimelerini yazarken sına** (aşağıda DALGA DÜZENİ 2a): gm9'da en çok yeniden yazım bundandı ("avukat, müvekkil, kiracısı, ısıtma,
    hasılat, kardeş, ihale, tahliye, sponsorluk, bilezik" SMMM test sözlüğünde yok).
 
+**H. gm11 (FM 20) + gm12 (Vergi 20) ikinci göz ölçümünden (07.10; 40 soru, 6 yazar, 11 okuma; anahtar anlaşmazlığı 0, çıkan 0,
+DÜZELT 10 soruda) — yazarken baştan uygula:**
+1. **Kaynak hesap kökte yazılır:** para çıkışı/borç ödemesi olan soruda paranın hangi hesaptan çıktığı açıkça yazılır (gm11: iki döviz
+   sorusunda borcun bankadaki dövizden mi ödendiği yazmıyordu → doğal okumada şıksız sonuç).
+2. **Beyan sınırı ÖNCE kontrol edilir:** tevkifatlı gelirde "beyannamede mahsup edilir" ya da "götürü gider seçmiştir" yazmadan önce
+   m.86/1-c sınırı (2026: 400.000) aşılıyor mu bakılır; aşılmıyorsa beyan yok, götürü gider seçilemez (gm12 GMSİ iki tur düştü).
+3. **Yanılgı tutarlılığı (G2'ye ek):** teşhisteki yanılgı sorudaki BÜTÜN kalemlere tutarlı uygulandığında aynı şıkka varmalı; yalnız bir
+   kaleme uygulanıp öteki kalemler doğru hesaplanıyorsa yanılgı adı yanlıştır (gm12 yıllara yaygın inşaat A şıkkı).
+4. **VUK m.280 ≠ m.285:** yabancı para borç/alacak değerleme günü kuruyla (borsa rayici) değerlenir; "kayıtlı tutar" m.285'in genel kuralıdır.
+5. **VUK GT 588 hadleri "m.3 ve ekli liste"**, m.5 değil (m.5 yürütme maddesi; ambar had listesini m.5 parçasına bağlıyor, oradan okuyan
+   yanlış atıf yazar). Kararla değişen oranda (kreş %50 → GVGT 303 m.7, BKK 2018/11674) tebliğ kaydı da `kaynak_adlar`'a girer.
+6. **Gerçekçi bağlam:** kökteki sektör verilen oranla çelişmesin (gm11: "gıda ticareti + tüm işlemlerde %20 KDV" → elektronik eşya).
+7. **Mevduat stopaj oranı ambarda yok** (karar metni yutulmadı, iş emri `veri/AMBAR-YUTMA-IS-EMRI-20260930.md`): oran kökte VERİ olarak
+   verilir, yasal oran iddiası kurulmaz.
+8. **Ön denetimde `-Ders <ders adı>` ver:** verilmezse uzunluk tavanı 746 alınır, ders tavanı ölçülmez (07.10 FM 526). ⚠ Vergi için ön
+   denetim 350 diyor ama gm9'un 529–665 kr kökleri bulutta geçti — iki ölçüm tutarsız, ÖLÇÜLMEDİ; kök ≤460 tutulursa iki durumda da güvenli.
+9. **Adım formülünde `;` zinciri** ön denetimde KUSUR sayılır (F1'deki `;` yalnız `celdirici_yol` içindir): adım tek hesaplı yazılır.
+10. Yazarlar ortak scratchpad'de yardımcı betik adını kendi önekiyle verir (ör. `gm11fm-amb.js`); bir yazarın betiği başkasınca ezildi.
+
 ## DALGA DÜZENİ (05.10, gm8 düzeltme turunda ölçülen sıra — atlanmaz)
 1. **Harf planı** (`-HarfPlani <konu dosyası>`) → yazara aynen verilir.
 2. **Yazar** doğrudan `veri/fabrika/hazir-gmN-<etiket>-<zorluk>.json` adıyla yazar (konu başına ayrı dosya YOK). Neden: ön denetimin sıkı
