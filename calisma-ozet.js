@@ -172,11 +172,23 @@
       }, function(){ bitir(null); });
       return;
     }
-    /* SGS'de 450 KB'lık eşleme indirilmez: eşlemedeki 3.820 kimliğin hepsi "smmm-" önekli (ölçüldü 07.10) */
-    dizin().then(function(d){
-      var es = null;
+    /* SGS konu düzeyi (07.10 ikinci adım): veri/deneme/sgs-sik-kimlik.json — motor/sik-konu-deneme-bas.js'in "Sık çıkan konular
+       denemesi" setlerini kurduğu AYNI bağ (okuma ifadesi kökte + DARALT + ders şartı), havuzun tamamı. Konu listesi ve dönem sayısı
+       en-cok-cikan-konular-sgs.html ile aynı (Matematik hariç en sık 20). Dosya yoksa ders düzeyine düşer.
+       🚫 GÖRMEZ (ek): ifadesi kökte geçmeyen ama konuyu ölçen soru dokunulmuş sayılmaz (havuz alt sınır). */
+    var sgsKimlik = fetch('veri/deneme/sgs-sik-kimlik.json', { cache:'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; });
+    Promise.all([dizin(), sgsKimlik]).then(function(rr){
+      var d = rr[0], sk = rr[1], es = null;
       var sgs = d && d.sinavlar ? d.sinavlar.filter(function(s){ return s.kod === 'sgs'; })[0] : null;
       if(!sgs) return bitir(null);
+      if(sk && Array.isArray(sk.konular) && sk.kimlik){
+        var dok = {}, coz = 0;
+        kayit.forEach(function(x){ var i = x && sk.kimlik[x.id]; if(i == null) return; coz++; dok[i] = 1; });
+        var kl = sk.konular.map(function(k, i){ var b = dersBul(d, k.ders, 'sgs');
+          return { ders:k.ders, konu:k.konu, donSay:k.donem, son:k.son, kanit:k.kanit || [], dokundu:!!dok[i], sayfa:b ? b.sayfa : 'sorular.html#sgs' }; });
+        return bitir({ sinav:'sgs', tur:'konu', cozulen:coz, pencere:sk.pencere, donem:sk.donem, toplamSik:kl.length,
+          dokunulanSik:kl.filter(function(z){ return z.dokundu; }).length, liste:kl.filter(function(z){ return !z.dokundu; }).slice(0, 6) });
+      }
       var say = {}, cozulen = 0;
       kayit.forEach(function(x){ if(!x || yetMi(x, es)) return; cozulen++; var k = kucuk(x.ders); say[k] = (say[k] || 0) + 1; });
       var dersler = (sgs.dersler || []).filter(function(x){ return x.sayfa; });

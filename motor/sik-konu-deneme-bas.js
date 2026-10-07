@@ -137,6 +137,16 @@ async function sgs() {
     konular: top.map(t => ({ ders: t.ders, konu: t.konu, donem: t.don })),
     setler: setler.map((st, i) => ({ no: i + 1, baslik: 'Set ' + (i + 1), sure_dk: SGS_SURE, toplam: st.length, dosya: `veri/deneme/sgs-sik-set-${String(i + 1).padStart(2, '0')}.json` }))
   }, setler);
+  // 07.10 Nöbetçi planı (Hesabım "Hiç dokunmadığın konular", calisma-ozet.js): havuzun TAMAMI kimlik → konu sırası.
+  // Setlerle AYNI bağ (aynı ifade + DARALT + ders şartı) → deneme karnesi ile Hesabım aynı konuyu sayar. YALNIZ KİMLİK.
+  const kimlik = {}; top.forEach((t, i) => havuz[t.konu].forEach(q => { kimlik[q.id] = i; }));
+  if (!KURU && yazDegisirse(path.join(KOK, 'veri', 'deneme', 'sgs-sik-kimlik.json'), {
+    uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
+    not: 'kimlik: soru kimliği → konular[] sırası. Bağ iç eşlemedir (okuma ifadesi kökte), dışarı rakam olarak verilmez.',
+    pencere: ok.pencere, donem: ok.donem,
+    konular: top.map(t => ({ ders: t.ders, konu: t.konu, donem: t.don, son: t.son, kanit: [...new Map(t.kanit.map(z => [z.donem + '/' + z.soru, { donem: z.donem, soru: z.soru }])).values()].sort((a, b) => srt(a.donem) - srt(b.donem) || a.soru - b.soru) })),
+    kimlik
+  }, 'uretim')) console.log(`  sgs-sik-kimlik.json: ${Object.keys(kimlik).length} soru → ${top.length} konu`);
 }
 
 // ---------------------------------------------------------------- YETERLİLİK

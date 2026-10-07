@@ -334,7 +334,7 @@
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js?v=20261007b"></script>
-<script src="calisma-ozet.js?v=20261007"></script>
+<script src="calisma-ozet.js?v=20261007b"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -451,13 +451,14 @@
       if(ILR.secili!==s) return;
       var kap=$('ogDokunma');
       if(!r){ kap.classList.add('og-gizli'); return; }
-      var yet=r.tur==='konu';
+      var yet=r.tur==='konu', ys=r.sinav==='yeterlilik';
+      var kapsam=ys?'Her dersin en sık çıkan 5 konusu, toplam '+r.toplamSik+' konu':'Staja Giriş\'te en sık çıkan '+r.toplamSik+' konu (Matematik hariç)';
       $('ogDokunmaBas').textContent=yet?'Sık çıkıp hiç dokunmadığın konular':'Hiç soru çözmediğin dersler';
       if(!r.liste.length){
-        $('ogDokunmaUst').textContent=yet?'Her dersin en sık çıkan 5 konusunun hepsinden en az bir soru çözdün. Şimdi zayıf olduklarına dön.':'Staja Giriş\'in bütün derslerinden soru çözdün.';
+        $('ogDokunmaUst').textContent=yet?kapsam+': hepsinden en az bir soru çözdün. Şimdi zayıf olduklarına dön.':'Staja Giriş\'in bütün derslerinden soru çözdün.';
         $('ogDokunmaListe').innerHTML='';
       } else if(yet){
-        $('ogDokunmaUst').textContent='Her dersin en sık çıkan 5 konusu, toplam '+r.toplamSik+' konu. Sen bunların '+r.dokunulanSik+' tanesinden soru çözdün. Sıradakiler:';
+        $('ogDokunmaUst').textContent=kapsam+'. Sen bunların '+r.dokunulanSik+' tanesinden soru çözdün. Sıradakiler:';
         $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
           return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(x.ders)+' · '+esc(r.pencere.replace('-','–'))+' arasındaki '+r.donem+' dönemin '+x.donSay+' tanesinde soruldu, en son '+esc(x.son)+'</span>'
             +'<details style="font-size:12.5px;color:var(--muted);margin-top:2px"><summary style="cursor:pointer;color:var(--link)">Kanıt: hangi sınav, kaçıncı soru</summary>'+esc(x.kanit.map(function(z){ return z.donem+' s.'+z.soru; }).join(' · '))+'</details></div>'
@@ -468,7 +469,7 @@
           return '<div class="og-satir"><b>'+esc(x.ders)+'</b><a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
       }
       $('ogDokunmaAlt').innerHTML=yet
-        ?'Sayım, çıkmış soruların metni tek tek okunarak yapıldı. Liste bu cihazdaki son 500 cevabına göre. <a class="og-link" href="en-cok-cikan-konular-yeterlilik.html">Ders ders en sık çıkan konular →</a>'
+        ?'Sayım, çıkmış soruların metni tek tek okunarak yapıldı. Liste bu cihazdaki son 500 cevabına göre. <a class="og-link" href="'+(ys?'en-cok-cikan-konular-yeterlilik.html">Ders ders en sık çıkan konular →':'en-cok-cikan-konular-sgs.html">En sık çıkan konular →')+'</a>'
         :'Liste bu cihazdaki son 500 cevabına göre. Hangi konuların sık çıktığını görmek için: <a class="og-link" href="en-cok-cikan-konular-sgs.html">En sık çıkan konular →</a>';
       kap.classList.remove('og-gizli');
     });
