@@ -406,6 +406,14 @@ if($KapiCSinavi){
   $kotu=[pscustomobject]@{ soru='x'; dogru='C'; siklar=$sk; cozum_tablo=$tb; celdirici_yol=[pscustomobject]@{ A='100 - 20 = 80 ve 80 x %10 = 8 (yanlış)'; B='100 + 20 = 120'; D='100 x 2 = 200'; E='100 + 200 = 300' } }
   $ters=[pscustomobject]@{ soru='Aşağıdakilerden hangisi yanlıştır?'; dogru='E'; sade=[pscustomobject]@{ siklar=[pscustomobject]@{ A='Bu ifade kaynakla uyumlu, doğru seçersin'; B='x'; C='x'; D='x'; E='x' } } }
   $v=@(@('noktalı virgül zinciri çözülür → bulgu yok',@(GercekKapiC $iyi).Count,0),@("'ve' zinciri çözülemez → bulgu",[int](@(GercekKapiC $kotu).Count -ge 1),1),@('olumsuz kökte ters sade → uyarı',@(TersSadeNot $ters).Count,1),@('olumlu kökte ters sade aranmaz',@(TersSadeNot ([pscustomobject]@{ soru='Hangisi doğrudur?'; dogru='E'; sade=$ters.sade })).Count,0))
+  # 07.10 KGK ölçümü: yüzde ayrıştırma ("%3" → 0.3 okunuyordu, doğru yol düşüyordu). B şıkkının yolu sınanır, öteki şıklar düz.
+  # Mutasyon: $env:KAPIC_MUTASYON='eski-yuzde' (üreticide eski iki geçişli sıra) → %3, %3,5, parantez vakaları KIRMIZI.
+  $yuzdeQ={ param($yol,$sik) [pscustomobject]@{ soru='x'; dogru='A'; siklar=[pscustomobject]@{ A='1'; B=$sik; C='2'; D='3'; E='4' }; cozum_tablo=$tb; celdirici_yol=[pscustomobject]@{ B=$yol; C='1 + 1 = 2'; D='1 + 2 = 3'; E='2 + 2 = 4' } } }
+  foreach($yv in @(@('1.000.000 x %3 = 30.000','30.000',0),@('1.000.000 x %3,5 = 35.000','35.000',0),@('1.000.000 x %15 = 150.000','150.000',0),
+                   @('1.000.000 x %30 = 300.000','300.000',0),@('1.000.000 x 0,03 = 30.000','30.000',0),@('(1.000.000 - 200.000) x %3 = 24.000','24.000',0),
+                   @('1.000.000 x %3 = 40.000 (yanlış alarm değil: gerçekten tutmuyor)','40.000',1),@('(1.000.000 - 200.000) x %3 = 30.000','30.000',1))){
+    $v+=,@("yüzde: $($yv[0]) → $($yv[2]) bulgu",@(GercekKapiC (& $yuzdeQ $yv[0] $yv[1])).Count,$yv[2])
+  }
   $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
   if($h){ "KAPI-C/TERS SADE SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KAPI-C/TERS SADE SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }

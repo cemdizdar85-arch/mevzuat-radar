@@ -2820,8 +2820,18 @@ function CeldiriciYolKapisi($aday){
     $solT=[regex]::Replace($solT,'(?<=[\d\)])\s*[xX]\s*(?=[\d\(%])','*')
     # max/min içindeki argüman virgülü ("max(240.000,300.000)") ondalık virgülle karışmasın: binlik noktalı sayı izliyorsa ayraçtır → ' | ' (sonra geri ',')
     $solT=[regex]::Replace($solT,'(?i)\b(max|min)\s*\(([^()]*)\)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $m.Groups[1].Value+'('+([regex]::Replace($m.Groups[2].Value,',(?=\s*\d{1,3}(?:\.\d{3})+(?![\d,]))',' | '))+')' })
-    $solT=[regex]::Replace($solT,'%\s*(\d{1,3}(?:\.\d{3})*(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Groups[1].Value; if($null -eq $v){ $m.Value } else { '('+($v/100).ToString($inv)+')' } })
-    $solT=[regex]::Replace($solT,'(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Value; if($null -eq $v){ $m.Value } else { $v.ToString($inv) } })
+    # 07.10 KGK ölçümü: yüzde dalı "(0.03)" üretiyor, hemen ardından koşan sayı Replace'i "0" ile "03"ü ayrı eşleyip 0.3 yapıyordu
+    # ("1.000.000 x %3 = 30.000" → 300000, "%3,5" → 35, "(1.000.000 - 200.000) x %3" → 240000; doğru soru düşüyordu). Şimdi yüzde ve
+    # sayı TEK geçişte çevrilir: yüzdenin ürettiği ondalık bir daha ayrıştırılmaz. Öteki sayılar aynı desen/aynı çeviriyle.
+    # Mutasyon (öz-sınav KIRMIZI düşmeli): $env:KAPIC_MUTASYON='eski-yuzde' → eski iki geçişli sıra.
+    if("$env:KAPIC_MUTASYON" -eq 'eski-yuzde'){
+      $solT=[regex]::Replace($solT,'%\s*(\d{1,3}(?:\.\d{3})*(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Groups[1].Value; if($null -eq $v){ $m.Value } else { '('+($v/100).ToString($inv)+')' } })
+      $solT=[regex]::Replace($solT,'(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m) $v=SayiCozC $m.Value; if($null -eq $v){ $m.Value } else { $v.ToString($inv) } })
+    } else {
+      $solT=[regex]::Replace($solT,'%\s*(\d{1,3}(?:\.\d{3})*(?:,\d+)?)|(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)',[System.Text.RegularExpressions.MatchEvaluator]{ param($m)
+        if($m.Groups[1].Success){ $v=SayiCozC $m.Groups[1].Value; if($null -eq $v){ $m.Value } else { '('+($v/100).ToString($inv)+')' } }
+        else { $v=SayiCozC $m.Value; if($null -eq $v){ $m.Value } else { $v.ToString($inv) } } })
+    }
     $solT=($solT -replace '\s+',' ').Trim()
     $solT=[regex]::Replace($solT,'(?i)\bmax\s*\(','[Math]::Max('); $solT=[regex]::Replace($solT,'(?i)\bmin\s*\(','[Math]::Min(')   # 08.09: "max(240.000,310.000)" desteklenir
     $solT=$solT -replace '\s*\|\s*',','
