@@ -226,11 +226,22 @@
          + son durum sayıları + Yanlışlarım bağlantısı. Kaynak bu tarayıcıdaki son 500 cevap ve yanlış kutusu. -->
     <div class="og-bolum og-gizli" id="ogSimdi" style="margin-top:8px">
       <div class="og-kutu">
+        <!-- 07.10 Nöbetçi planı: sınava kalan güne göre evre (calisma-ozet.js evre()) -->
+        <p class="og-alt og-gizli" id="ogEvre" style="margin:0 0 8px;font-size:13.5px"></p>
         <span class="og-paket-et" id="ogSimdiBas">Şimdi bunu yap</span>
         <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
         <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">İstersen başka bir konu seç</a></div>
         <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
         <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
+      </div>
+    </div>
+    <!-- 07.10 Nöbetçi planı madde 2: sık çıkıp hiç dokunulmamış konular (Yeterlilik) / dersler (SGS) - calisma-ozet.js dokunulmamis() -->
+    <div class="og-bolum og-gizli" id="ogDokunma" style="margin-top:8px">
+      <div class="og-kutu">
+        <span class="og-paket-et" id="ogDokunmaBas">Hiç dokunmadığın konular</span>
+        <p class="og-alt" id="ogDokunmaUst" style="margin:6px 0 10px;font-size:14px"></p>
+        <div id="ogDokunmaListe"></div>
+        <p class="og-alt" id="ogDokunmaAlt" style="margin:10px 0 0;font-size:12.5px"></p>
       </div>
     </div>
     <div class="og-bolum" style="margin-top:8px">
@@ -323,7 +334,7 @@
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js?v=20261007b"></script>
-<script src="calisma-ozet.js"></script>
+<script src="calisma-ozet.js?v=20261007"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -389,9 +400,15 @@
         +'</div>';
     }).join('');
   }
+  /* 07.10 Nöbetçi planı: öneri ve günlük görev seçili sınava + kalan güne bağlı (ILR.gun gunYaz'dan; yoksa eski davranış) */
+  function sonDenemeAn(){
+    var t=0; ((window.ILR_HAZIR&&ILR.kasa)||[]).forEach(function(x){ if(x&&x.tur==='deneme'&&(x.sinav||'sgs')==='sgs'){ var a=new Date(x.veri&&x.veri.tarih||x.olusturma).getTime(); if(a>t) t=a; } });
+    return t||null;
+  }
   function simdiCiz(){
     if(!window.ttCalisma) return;
-    window.ttCalisma.oneri(function(s,o){
+    var I=window.ILR_HAZIR?ILR:{}, bag={ sinav:I.secili||null, gun:(typeof I.gun==='number'?I.gun:null), sonDeneme:sonDenemeAn() };
+    window.ttCalisma.oneri(function(s,o,ev){
       $('ogSimdiBas').textContent=s.baslik; $('ogSimdiMetin').textContent=s.metin; $('ogSimdiBtn').textContent=s.dugme+' →'; $('ogSimdiBtn').href=s.adres;
       var p=[];
       if(o.cozulen) p.push('Çözülen '+o.cozulen+' · doğru %'+o.dogruYuzde+' · yanlış '+o.yanlis);
@@ -399,12 +416,16 @@
       $('ogSonDurum').innerHTML=esc(p.join(' · '))+' · <a class="og-link" href="yanlislarim.html">Yanlışlarım →</a>';
       $('ogSimdi').classList.remove('og-gizli');
       /* 04.10 GÜNLÜK GÖREV (Cem "beş maddeyi yapalım", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk
-         görüşünde vadesi gelen tekrar (en çok 20) + 10 yeni soru; gün içinde tekrar yaptıkça küçülmesin diye o gün için sabitlenir. */
+         görüşünde vadesi gelen tekrar (en çok 20) + 10 yeni soru; gün içinde tekrar yaptıkça küçülmesin diye o gün için sabitlenir.
+         07.10 Nöbetçi planı: tavan ve yeni soru evreye göre (yay 20+10 · pekiştir 30+20 · son 15 gün 40+30 · son 3 gün tüm tekrar +
+         sık çıkan konudan 15). Evre gün içinde değişirse (sınav sekmesi) görev yeniden kurulur. */
+      var evr=$('ogEvre');
+      if(ev){ evr.textContent='Sınava '+bag.gun+' gün · '+ev.ad+': '+ev.metin; evr.classList.remove('og-gizli'); } else { evr.classList.add('og-gizli'); }
       try{
-        var gun=new Date(o.an).toDateString(), g=JSON.parse(localStorage.getItem('tt_gorev')||'null');
-        if(!g||g.gun!==gun){ g={ gun:gun, tekrar:Math.min(20,o.vadeli||0), yeni:10 }; localStorage.setItem('tt_gorev',JSON.stringify(g)); }
-        var hedef=g.tekrar+g.yeni, yapilan=Math.min(hedef,o.bugunCozulen||0);
-        $('ogGorevYazi').textContent= yapilan>=hedef ? '✓ Bugünün işi tamam. Serini korudun.' : 'Bugünün işi: '+(g.tekrar?g.tekrar+' tekrar + ':'')+g.yeni+' yeni soru';
+        var gun=new Date(o.an).toDateString(), g=JSON.parse(localStorage.getItem('tt_gorev')||'null'), ek=ev?ev.kod:'';
+        if(!g||g.gun!==gun||(g.evre||'')!==ek){ g={ gun:gun, evre:ek, tekrar:Math.min(ev?ev.tekrarTavan:20,o.vadeli||0), yeni:ev?(ev.yeni||ev.sik||0):10, sik:!!(ev&&ev.sik) }; localStorage.setItem('tt_gorev',JSON.stringify(g)); }
+        var hedef=Math.max(1,g.tekrar+g.yeni), yapilan=Math.min(hedef,o.bugunCozulen||0);
+        $('ogGorevYazi').textContent= yapilan>=hedef ? '✓ Bugünün işi tamam. Serini korudun.' : 'Bugünün işi: '+(g.tekrar?g.tekrar+' tekrar'+(g.yeni?' + ':''):'')+(g.yeni?g.yeni+(g.sik?' soru sık çıkan konulardan':' yeni soru'):'');
         $('ogGorevSay').textContent=yapilan+' / '+hedef;
         $('ogGorevCubuk').style.width=Math.round(100*yapilan/hedef)+'%';
         $('ogGorev').classList.remove('og-gizli');
@@ -419,6 +440,37 @@
           $('ogSimdiBtn').textContent='Raporu aç →'; $('ogSimdiBtn').href='seviye-testi.html?rapor=1';
         }
       }catch(e){}
+    }, bag);
+  }
+
+  /* 07.10 Nöbetçi planı madde 2: "Hiç dokunmadığın konular". Rakam yalnız Yeterlilik'te ve metinden okunmuş sayımdan
+     (CLAUDE.md "dışarı çıkan sınav rakamı"): dönem sayısı + kanıt (dönem, soru no). SGS'de ders listesi, rakamsız. */
+  function dokunmaCiz(s){
+    if(!window.ttCalisma||!ttCalisma.dokunulmamis) return;
+    ttCalisma.dokunulmamis(s,function(r){
+      if(ILR.secili!==s) return;
+      var kap=$('ogDokunma');
+      if(!r){ kap.classList.add('og-gizli'); return; }
+      var yet=r.tur==='konu';
+      $('ogDokunmaBas').textContent=yet?'Sık çıkıp hiç dokunmadığın konular':'Hiç soru çözmediğin dersler';
+      if(!r.liste.length){
+        $('ogDokunmaUst').textContent=yet?'Her dersin en sık çıkan 5 konusunun hepsinden en az bir soru çözdün. Şimdi zayıf olduklarına dön.':'Staja Giriş\'in bütün derslerinden soru çözdün.';
+        $('ogDokunmaListe').innerHTML='';
+      } else if(yet){
+        $('ogDokunmaUst').textContent='Her dersin en sık çıkan 5 konusu, toplam '+r.toplamSik+' konu. Sen bunların '+r.dokunulanSik+' tanesinden soru çözdün. Sıradakiler:';
+        $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
+          return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(x.ders)+' · '+esc(r.pencere.replace('-','–'))+' arasındaki '+r.donem+' dönemin '+x.donSay+' tanesinde soruldu, en son '+esc(x.son)+'</span>'
+            +'<details style="font-size:12.5px;color:var(--muted);margin-top:2px"><summary style="cursor:pointer;color:var(--link)">Kanıt: hangi sınav, kaçıncı soru</summary>'+esc(x.kanit.map(function(z){ return z.donem+' s.'+z.soru; }).join(' · '))+'</details></div>'
+            +'<a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
+      } else {
+        $('ogDokunmaUst').textContent='Staja Giriş\'in '+r.toplamSik+' dersinden '+r.dokunulanSik+' tanesinde soru çözdün. Hiç başlamadıkların (sınavda payı büyük olan önce):';
+        $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
+          return '<div class="og-satir"><b>'+esc(x.ders)+'</b><a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
+      }
+      $('ogDokunmaAlt').innerHTML=yet
+        ?'Sayım, çıkmış soruların metni tek tek okunarak yapıldı. Liste bu cihazdaki son 500 cevabına göre. <a class="og-link" href="en-cok-cikan-konular-yeterlilik.html">Ders ders en sık çıkan konular →</a>'
+        :'Liste bu cihazdaki son 500 cevabına göre. Hangi konuların sık çıktığını görmek için: <a class="og-link" href="en-cok-cikan-konular-sgs.html">En sık çıkan konular →</a>';
+      kap.classList.remove('og-gizli');
     });
   }
   var SINAV_TARIHI='2026-11-21', SINAV_TARIHI_YET='2026-11-28';   /* TÜRMOB 2026 resmî takvimi - veri/sinav-takvimi.json'dan tazelenir (yedek) */
@@ -561,7 +613,7 @@
   }
 
   /* 07.10: kasadaki kayıtlar sınav sınav (sinav alanı olmayan eski kayıt = sgs) */
-  var ILR={ kasa:null, secili:null, elle:false, paketYet:false, takvim:null };
+  var ILR={ kasa:null, secili:null, elle:false, paketYet:false, takvim:null, gun:null }; window.ILR_HAZIR=true;
   function sinavKayit(s){ var kod=KASA_KOD[s]; return (ILR.kasa||[]).filter(function(x){ return (x.sinav||'sgs')===kod; }); }
   document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){
     b.addEventListener('click',function(){ ILR.elle=true; var s=b.getAttribute('data-sinav'); try{ window.TetikteUye&&TetikteUye.sinavSec(s); }catch(e){} ilerlemeCiz(s); });
@@ -614,15 +666,20 @@
     if(!ilerlemeVar && kutu.length){ $('ogBosKutu').classList.remove('og-gizli'); $('ogBosKutu').textContent='Yanlış kutunda '+kutu.length+' soru var'+(vadeli?'; bugün '+vadeli+' tanesini tekrar etme sırası.':'.'); }
     /* geri sayım: takvimde SGS 'SGS', Yeterlilik 'SMMM' (veri/sinav-takvimi.json) */
     $('ogGeriSayim').textContent='';
+    /* 07.10 Nöbetçi planı: kalan gün bulununca öneri + görev o sınava göre yeniden çizilir; dokunulmamış konular seçili sınava göre */
+    ILR.gun=null;
+    try{ dokunmaCiz(s); }catch(e){}
+    var gunKoy=function(gun){ ILR.gun=gun; try{ simdiCiz(); }catch(e){} };
     var gunYaz=function(d){
       if(ILR.secili!==s) return;
       var bugun=new Date(new Date().toDateString()), k=yet?'SMMM':'SGS', don=d&&d.sinavlar&&d.sinavlar[k]&&d.sinavlar[k].donemler||[];
       for(var i=0;i<don.length;i++){ var t=new Date(don[i].tarih+'T00:00:00'); if(t>=bugun){ var gun=Math.round((t-bugun)/86400000); $('ogGun').textContent=gun; $('ogTarih').textContent=don[i].tarihYazi;
-        $('ogGeriSayim').textContent='Sınava '+gun+' gün · '+don[i].tarihYazi; return; } }
+        $('ogGeriSayim').textContent='Sınava '+gun+' gün · '+don[i].tarihYazi; gunKoy(gun); return; } }
+      gunKoy(null);
     };
     if(ILR.takvim) return gunYaz(ILR.takvim);
     fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){ ILR.takvim=d; gunYaz(d); })
-      .catch(function(){ if(ILR.secili!==s) return; var t=new Date((yet?SINAV_TARIHI_YET:SINAV_TARIHI)+'T00:00:00'); $('ogGun').textContent=Math.max(0,Math.round((t-new Date(new Date().toDateString()))/86400000)); $('ogTarih').textContent=t.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}); });
+      .catch(function(){ if(ILR.secili!==s) return; var t=new Date((yet?SINAV_TARIHI_YET:SINAV_TARIHI)+'T00:00:00'), gun=Math.round((t-new Date(new Date().toDateString()))/86400000); $('ogGun').textContent=Math.max(0,gun); $('ogTarih').textContent=t.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}); gunKoy(gun>=0?gun:null); });
   }
 
   function grafikCiz(seviye){

@@ -181,11 +181,6 @@ h1 em{font-style:normal;color:var(--amber)}
 .dene{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
 .dene h2{margin:0 0 6px}
 .dene p{margin:0;color:var(--muted)}
-.uc{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
-@media(max-width:860px){ .uc{grid-template-columns:1fr;gap:28px} }
-.uc > div{border-top:3px solid var(--amber-dolgu);padding-top:16px}
-.uc h3{margin:0 0 6px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
-.uc p{margin:0 0 14px;color:var(--muted)}
 .biz{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start}
 @media(max-width:640px){ .biz{grid-template-columns:1fr} .biz img{max-width:180px} }
 .biz img{width:100%;height:auto;border-radius:12px;display:block}
@@ -330,14 +325,7 @@ footer p{margin:0 0 8px}
   </div>
 </section>
 
-<section class="bolum" aria-label="Tetikte'nin üç sözü">
-  <div class="ic uc">
-    <div><h3>Nöbetçi</h3><p>Tetikte'nin soru yardımcısı. Dün yaptığın yanlışlar bugün tekrar karşına çıkar. Unuttuğun yer sınavdan önce yakalanır.</p></div>
-    <div><h3>Gerçek kaynak</h3><p>Cevabın dayanağını görürsün: kanun maddesi, standart paragrafı, tebliğ. "İnternette böyle yazıyor" kaynak sayılmaz.</p></div>
-    <div><h3>Abonelik</h3><p id="abonelikMetin">Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri.</p><a class="btn btn-ikinci" href="fiyat.html">Başla</a></div>
-  </div>
-</section>
-
+<!-- 07.10 Cem "bence bunu kaldıralım": "üç söz" bloğu (Nöbetçi · Gerçek kaynak · Abonelik) kaldırıldı -->
 <section class="bolum" aria-labelledby="bizBas">
   <div class="ic biz">
     <img src="kurucu.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Cem Dizdar, Tetikte'nin kurucusu">
