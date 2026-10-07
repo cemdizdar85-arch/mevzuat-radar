@@ -127,6 +127,24 @@ DÜZELT 10 soruda) — yazarken baştan uygula:**
 9. **Adım formülünde `;` zinciri** ön denetimde KUSUR sayılır (F1'deki `;` yalnız `celdirici_yol` içindir): adım tek hesaplı yazılır.
 10. Yazarlar ortak scratchpad'de yardımcı betik adını kendi önekiyle verir (ör. `gm11fm-amb.js`); bir yazarın betiği başkasınca ezildi.
 
+**I. gm13 (Denetim 20) + gm14 (Vergi 20) ikinci göz ölçümünden (07–08.10; 40 soru, 6 yazar, 8 okuma; anahtar anlaşmazlığı 0,
+çıkan 0, DÜZELT 15 soru — hepsi yeni okuyucudan TEMİZ) — yazarken baştan uygula:**
+1. **Hap'ta kanundaki şart düşürülmez, mutlak konuşulmaz:** "YK ne seçebilir ne kovabilir" (TTK m.399/9 geçici seçim var), "itiraz kapısı
+   kapalıdır" (m.399/7 üç iş günü itiraz), "dördüncü dilim" kaydı düşmüş ücret, m.27/2 "haklı sebep" şartı düşmüş emsal. Hap'ı sorunun KENDİ
+   sayılarıyla sına (gm14: "faiz matrahı büyütür, ödül küçülür" dedi, soruda indirim BÜYÜYORDU). Kanundaki terim: "istisna" (muafiyet değil).
+2. **Alt tutar kökte veri olarak veriliyorsa bağlı oranı kaynaktan doğrula:** BES Devlet katkısında hak kazanma 4632 ek m.1 kademeleri
+   (3 yıl %15 · 6 yıl %35 · 10 yıl %60 · emeklilik/vefat/malullük tamamı); "hak edilen 38.900 / 52.700" hiçbir kademeye uymuyordu.
+3. **Cevabı belirleyen olgu ambarda yoksa kökte VERİ olarak açıkça yazılır** (gm14: "İzmir kalkınmada öncelikli yöre değildir" ambarda
+   yoktu, B ile E'yi o ayırıyordu). Bölge, büyükşehir, sektör teşvik listesi gibi bilgiler.
+4. **Çok tehditli durum tek etiketle yanlış yapılmaz (Etik Kurallar):** uzun süreli ilişki p.540.3'te hem yakınlık hem kişisel çıkar;
+   aile/kişisel ilişki p.521.2'de kişisel çıkar, yakınlık, yıldırma. Öncülde "X: kişisel çıkar" yanlış diye kurulursa iki şık savunulur.
+5. **Aynı dalgada kolay ve çok zor aynı alt konudaysa tuzaklar çakışmasın:** gm14 ithalat matrahı iki soruda aynı üç tuzağı taşıyordu
+   (bulutta KAPI-B benzerlik riski); çok zor soru tuzağı tersine çevirerek (CIF dışında ayrıca ödenen navlun) ayrıştırıldı.
+6. **Yıl kayan tutarlarda yıl kaydı:** "12.000.000 TL (2026'da verilen beyannameler için, GVGT 332 m.3/4)" — tutarın hangi yılın beyannamesine
+   ait olduğu yazılır; 2026 geliri için yeniden değerlenmiş tutar ambarda yoksa "ölçülmedi".
+7. **Ambar adı tuzakları:** "Bagimsiz Denetim Yonetmeligi" Türkçe harfsiz kayıtlı; büyük İ ilike ile eşleşmez → İ'siz parçayla ara
+   ("%ğımsız Denet%" değil "Bagimsiz Denetim%"). VUK/GVK/KDVK 07.10'da yeniden yutuldu (ad değişti: "GVK (193 s.K.) m.8", "m.22 [2/3]").
+
 ## DALGA DÜZENİ (05.10, gm8 düzeltme turunda ölçülen sıra — atlanmaz)
 1. **Harf planı** (`-HarfPlani <konu dosyası>`) → yazara aynen verilir.
 2. **Yazar** doğrudan `veri/fabrika/hazir-gmN-<etiket>-<zorluk>.json` adıyla yazar (konu başına ayrı dosya YOK). Neden: ön denetimin sıkı
