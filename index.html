@@ -309,14 +309,17 @@ footer p{margin:0 0 8px}
     </ol>
     <p class="kutu-not" id="kutuNot" hidden></p>
 
-    <h2 class="ozellik-bas">Tetikte'de neler var?</h2>
+    <!-- 07.10 Cem ("biz seviye ölçüyoruz, ona uygun soru kolay-zor gidiyoruz; bizim yaptığımız dikkat çekecek şeyler"): farkı öne çıkaran sıra.
+         Her cümle sitedeki karşılığıyla eşleşti: seviye sırası motor/kaydir-coz.ps1 SIRA_NOTU (<%50 kolaydan, >=%75 zordan) ·
+         uyarlamalı test ucretsiz-dene.html · yüzdelik sıra canli-deneme.html · madde değişince çekilme soru-dayanak-nobetcisi + yayın şartı. -->
+    <h2 class="ozellik-bas">Tetikte'yi farklı kılan ne?</h2>
     <div class="ozellikler">
-      <div class="ozellik"><h3>Nöbetçi anlatımı</h3><p>Her yanlış şıkkın neden çekici göründüğünü, doğrusunun hesabını adım adım, gerekiyorsa yevmiye kaydını ve dayandığı maddeyi anlatır.</p><a href="#ekran">Günün sorusunda dene →</a></div>
-      <div class="ozellik"><h3>30 soruda seviye ölçümü</h3><p>Geçme ihtimalin, ders ders durumun, takıldığın konular ve hangi dersten başlaman gerektiği. Ücretsiz, üyelik istemez.</p><a href="seviye-testi.html" id="ozOlc">Ücretsiz başla →</a></div>
-      <div class="ozellik"><h3>Sınav gibi deneme</h3><p>Staja Giriş'te gerçek süreli ve gerçek ders dağılımlı 130 soruluk deneme setleri; Yeterlilik'te ders ders, 100 üzerinden prova.</p><a href="sinav-gibi.html">Denemeleri gör →</a></div>
-      <div class="ozellik"><h3>Canlı deneme</h3><p>Belirlenen günde herkesle aynı anda çözülen deneme. Sınav gününün temposunu önceden yaşarsın.</p><a href="canli-deneme.html">Takvimi gör →</a></div>
-      <div class="ozellik"><h3>Mevzuat ve sınav nöbeti</h3><p>Sorunun dayandığı madde değişirse soru yeniden incelenene kadar yayından çekilir. TESMER ve TÜRMOB duyuruları tek sayfada.</p><a href="sinav-nobeti.html">Duyurular →</a></div>
-      <div class="ozellik"><h3>Her cihazda kaldığın yerden</h3><p>Testlerin, deneme sonuçların ve yanlışların hesabına kaydedilir; telefonda başlayıp bilgisayarda devam edersin.</p><a href="ogrenci.html">Hesabım →</a></div>
+      <div class="ozellik"><h3>Seviyene göre soru</h3><p>Önce 30 soruyla seviyeni ölçeriz. Ders sayfalarında sorular buna göre dizilir: zayıf olduğun derste kolaydan, güçlü olduğun derste zordan başlarsın.</p><a href="seviye-testi.html" id="ozOlc">Seviyeni ölç, ücretsiz →</a></div>
+      <div class="ozellik"><h3>Yanlışın nedeni, adım adım</h3><p>Nöbetçi yalnız doğru cevabı söylemez: yanlış şıkkın seni neden çektiğini, hesabı adım adım, yevmiye kaydını ve dayandığı maddeyi anlatır.</p><a href="#ekran">Günün sorusunda dene →</a></div>
+      <div class="ozellik"><h3>Sık çıkan konu önce</h3><p>Soru bankası çıkmış sınavların konu sıklığına göre kurulur. Sınavda sık sorulan konuda daha çok soru çözersin, raporunda da takıldığın konular yazar.</p><a href="sorular.html">Dersleri gör →</a></div>
+      <div class="ozellik"><h3>Sınav gibi deneme</h3><p id="ozDenemeP">130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.</p><a href="sinav-gibi.html" id="ozDenemeA">Denemeleri gör →</a></div>
+      <div class="ozellik"><h3>Canlı deneme, yüzdelik sıran</h3><p>Belirlenen günde herkesle aynı anda, aynı sorularla. "80 aldım" değil, katılanlar arasında yüzde kaçın önünde olduğunu görürsün.</p><a href="canli-deneme.html">Takvimi gör →</a></div>
+      <div class="ozellik"><h3>Eski kuralla çalışmazsın</h3><p>Sorunun dayandığı kanun maddesi değişirse soru yeniden incelenene kadar yayından çekilir. TESMER ve TÜRMOB duyuruları da tek sayfada.</p><a href="sinav-nobeti.html">Sınav duyuruları →</a></div>
     </div>
   </div>
 </section>
@@ -409,6 +412,14 @@ footer p{margin:0 0 8px}
       du.innerHTML='Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.';
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
+    /* 07.10 Cem ("1 yap"): "neler var" kartları seçili sınava göre - Yeterlilik'te deneme = deneme.html Birebir Prova (gerçek 2026 düzeni),
+       seviye ölçümü = Yeterlilik seti. Metin deneme.html'deki Birebir Prova açıklamasıyla aynı. */
+    try{ var yetSec=(secili==='yeterlilik');
+      $('ozDenemeP').textContent = yetSec ? 'Gerçek 2026 düzeninde ders ders prova: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50.'
+                                          : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.';
+      $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
+      $('ozOlc').setAttribute('href', yetSec ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
+    }catch(e){}
     [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-sinav')===secili?'true':'false'); });
   }
   [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){
