@@ -203,11 +203,11 @@
 <template id="sozlesmeMetni">
 <h2>MADDE 1 — TARAFLAR</h2>
 <p><b>1.1.</b> Dizdar Denetim Danışmanlık ve Yazılım Anonim Şirketi · MERSİS: 0301130343200001 · Kordon Vergi Dairesi / 3011303432 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak / İzmir · E-posta: destek@tetikte.com · Web: tetikte.com (<b>"Tetikte"</b>).</p>
-<p><b>1.2.</b> Bu sözleşmeyi Elçi Panelinde onaylayan ve hesabı Tetikte'nin ilettiği bağlama koduyla elçi kaydına bağlanmış, <b>18 yaşını doldurmuş</b> gerçek kişi ya da tüzel kişi (<b>"Elçi"</b>).</p>
+<p><b>1.2.</b> Bu sözleşmeyi Elçi Panelinde onaylayan ve hesabı Madde 4.1'e göre elçi kaydına bağlanmış, <b>18 yaşını doldurmuş</b> gerçek kişi ya da tüzel kişi (<b>"Elçi"</b>).</p>
 
 <h2>MADDE 2 — TANIMLAR</h2>
 <ol>
-  <li><b>Elçi kodu:</b> Tetikte'nin Elçiye tahsis ettiği, baş harfler ve rakamlardan oluşan tanıtım kodu (ör. AE42).</li>
+  <li><b>Elçi kodu:</b> Tetikte'nin Elçiye tahsis ettiği, baş harfler ve rakamlardan oluşan tanıtım kodu (ör. AB12CD).</li>
   <li><b>Elçi bağlantısı:</b> Elçi kodunu içeren adres (tetikte.com/satin-al.html?e=KOD).</li>
   <li><b>Panel:</b> tetikte.com/elci.html; Elçinin kodunu, bağlantısını, satış adetlerini, komisyonunu ve ödemelerini gördüğü sayfa.</li>
   <li><b>Satış:</b> Elçi koduyla tetikte.com'da verilen ve bedeli Tetikte'ye ödenmiş sipariş.</li>
@@ -224,7 +224,7 @@
 <p><b>3.6.</b> Elçiye hiçbir bölge, müşteri çevresi ya da tekel hakkı verilmez. Tetikte aynı anda sınırsız sayıda elçiyle çalışabilir; Elçi başka markaları da tanıtabilir.</p>
 
 <h2>MADDE 4 — KURULUŞ</h2>
-<p><b>4.1.</b> Tetikte, Elçiye tek kullanımlık bir bağlama kodu iletir. Elçi Panele kendi hesabıyla girip bu kodu yazdığında hesabı elçi kaydına bağlanır.</p>
+<p><b>4.1.</b> Elçi, Tetikte'ye kendi adına açtığı üye hesabıyla girer. Tetikte, Elçinin bildirdiği e-posta adresiyle açılmış hesabı, hesabın Elçiye ait olduğunu teyit ettikten sonra elçi kaydına bağlar. Tetikte ayrıca tek kullanımlık bir bağlama kodu da iletebilir; Elçi bu kodu Panelde yazarak hesabını kendisi bağlayabilir. Bağlanan hesap Elçinin kişisel hesabıdır; Elçi giriş bilgilerini üçüncü kişilerle paylaşmaz.</p>
 <p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda elektronik ortamda kurulur; taraflarca ıslak ya da elektronik imzayla ayrıca imzalanmaz. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 6.6 tutarların brüt olması ve vergi kesintisi, Madde 6.8 ders paketlerinin kademeye sayılmaması, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur; onaylanan sürümün PDF kopyası, onay anında Elçinin Tetikte kayıtlarındaki e-posta adresine gönderilir.</p>
 
 <h2>MADDE 5 — ALICIYA İNDİRİM</h2>
@@ -324,7 +324,8 @@
   var SITE   = 'https://tetikte.com/';
   /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
      2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı) → 2026-10-04: 6.1 tek dersi açıkça kademe dışı bırakır (Madde 5 tablosuna atıf TBK m.23 belirsizliği doğuruyordu) + 6.8 aleyhe onay kutusuna → 2026-10-05 (Cem "hepsini yap"): 6.6 tutarlar BRÜT + %15 kesinti/20B, 6.4 kendi adına hesap, 6.9 itiraz, 3.5 masraf, 9.4 yeniden açma, 4.2 imzasız + onay kopyası e-postaya, 11.2 aydınlatma adresi → 2026-10-06 (Cem "ayrıntılı yazalım, okuyan anlasın"): 6.6 a–g, brüt/net örnek tablosu, bildirim yoksa ödeme yok, yanlış bildirim rücu → 2026-10-07 (Cem "evet ekle"): 9.1 paylaşım = bağlantının e-postayla bildirimi ya da koda bağlı satış; 9.2 buna bağlandı. → 2026-10-08 (Cem 01.10 "evet sözleşmeyi de güncelle"): Madde 5 örnek sütunu 01.10 fiyatlarıyla (SGS 2.490 + KDV, Yeterlilik merdiveni + KDV); indirim tutarları DEĞİŞMEDİ. */
-  var KOSUL_SURUM = '2026-10-09'; /* 2026-10-09 (Cem 02.10 "düzelt"): SGS ürün adı Madde 5 ve 6.1'de "Staja Giriş (SGS)" (sitenin tamamıyla aynı); PDF bu sürümden yeniden üretildi (10-08 PDF'i hiç üretilmemişti, indirilen PDF 10-07 idi) */
+  var KOSUL_SURUM = '2026-10-10'; /* 2026-10-10 (Cem 08.10 "sözleşmeyi orda onaylasın, onu yap"): 4.1 hesap bağlama - Tetikte bildirilen e-postayla açılmış hesabı teyit edip bağlar, bağlama kodu yedek; elçiler yeni sürümü panelde yeniden onaylar. PDF bu sürümden üretildi. */
+  /* önceki: */ /* 2026-10-09 (Cem 02.10 "düzelt"): SGS ürün adı Madde 5 ve 6.1'de "Staja Giriş (SGS)" (sitenin tamamıyla aynı); PDF bu sürümden yeniden üretildi (10-08 PDF'i hiç üretilmemişti, indirilen PDF 10-07 idi) */
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
