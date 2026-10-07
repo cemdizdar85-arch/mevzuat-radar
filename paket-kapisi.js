@@ -117,6 +117,22 @@
     } catch (e) {}
   }
 
+  /* 07.10 Cem ("Tekrar et" -> 1 yap): Yanlışlarım/Hesabım "Tekrar et" ders sayfasını #kutu ile açar. Sayfanın kendi
+     kutuEkraniAc() işlevi (Kaydır-Çöz şablonu) hazır olunca bir kez çağrılır; adresten #kutu silinir (yenilemede tekrar açılmasın).
+     İşlev 15 sn içinde gelmezse sessizce vazgeçer (sayfa olduğu gibi çalışır). */
+  function kutuyuAc() {
+    try {
+      if (!/\/kaydir\//.test(location.pathname) || location.hash !== '#kutu') return;
+      var n = 0, t = setInterval(function () {
+        if (typeof window.kutuEkraniAc === 'function' && document.querySelector('#akis .kart')) {
+          clearInterval(t);
+          try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+          window.kutuEkraniAc();
+        } else if (++n > 60) clearInterval(t);
+      }, 250);
+    } catch (e) {}
+  }
+
   var zaman = setTimeout(function () { perde('hata'); }, 9000);
 
   function kutuphane(sonra) {
@@ -158,6 +174,7 @@
       };
       if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) {
         ac();                               // ÖNCE sayfa açılır ...
+        kutuyuAc();                         // 07.10: "Tekrar et" bağlantısı (#kutu) yanlış kutusunu açık getirir
         cihazKorumasi(sb, oturum.user);     // ... SONRA paylaşım koruması (arızada üye içeride kalır)
         ilerleme(sb, oturum.user);          // ... ve kaldığın yerden devam (hesaba eşitlenir)
         return;

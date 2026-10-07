@@ -83,7 +83,7 @@ h2{font-size:17px;margin:30px 0 10px}
     <p class="dip">Sayılar ders sayfalarındaki son 500 cevabından hesaplanır. Paketli hesabınla bir ders sayfası açtığında başka cihazdaki çözümlerin de bu cihaza taşınır.</p>
   </div>
 </div>
-<script src="calisma-ozet.js?v=20261007c"></script>
+<script src="calisma-ozet.js?v=20261007d"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (üye girişliyse); hesaptan gelen değişince sayfa yeniden çizilir -->
 <script src="uye-durumu.js?v=20261007b"></script>
 <script src="kutu-esitle.js"></script>
@@ -106,8 +106,8 @@ h2{font-size:17px;margin:30px 0 10px}
         var b=C.dersBul(d,x.ders), adres=b?b.sayfa:'sorular.html';
         /* 07.10 Cem ("Denetim 8 soru diyor ama bu ne"): 'toplam 8' anlaşılmıyordu -> kutuda kaç yanlış, bugün kaçının sırası, sıradaki ne zaman */
         var not=x.bugun?'<span class="bugun">Bugün '+x.bugun+' soru sırada</span><br>Kutuda '+x.toplam+' yanlış soru':'Kutuda '+x.toplam+' yanlış soru'+(x.enYakin?'<br>Sıradaki tekrar: '+C.tarihYazi(x.enYakin):'');
-        return '<div class="satir'+(x.bugun?' vadeli':'')+'"><div><div class="ad">'+esc(x.ders)+'</div><div class="not">'+not+'</div></div><a class="btn'+(x.bugun?'':' ikinci')+'" href="'+esc(adres)+'">'+(x.bugun?'Tekrar et':'Derse git')+'</a></div>';
-      }).join('')+'<p class="dip">Ders sayfasında 📥 yanlış kutusunu açıp "Şimdi çöz"e bas.</p>';
+        return '<div class="satir'+(x.bugun?' vadeli':'')+'"><div><div class="ad">'+esc(x.ders)+'</div><div class="not">'+not+'</div></div><a class="btn'+(x.bugun?'':' ikinci')+'" href="'+esc(adres+(x.bugun&&b?'#kutu':''))+'">'+(x.bugun?'Tekrar et':'Derse git')+'</a></div>';
+      }).join('')+'<p class="dip">"Tekrar et" ders sayfasını yanlış kutun açık olarak getirir; sırası gelen soruda "Şimdi çöz"e bas.</p>';
     } else {
       $('ylKutu').innerHTML='<div class="bos"><p style="margin:0 0 12px;color:var(--muted)">Henüz tekrar bekleyen soru yok.</p><a class="btn" href="seviye-testi.html">Seviye testini çöz</a> <a class="btn ikinci" href="sorular.html">Ders ders çalış</a></div>';
     }

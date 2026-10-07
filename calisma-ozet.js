@@ -213,8 +213,8 @@
       if(o.vadeli > 0){
         var ilk = o.kutuDers.filter(function(x){ return x.bugun > 0; })[0];
         var b = ilk ? dersBul(d, ilk.ders, kod) : null;
-        sonuc = { baslik:'Bugün tekrar zamanı', metin:'Yanlış kutunda vadesi gelen ' + o.vadeli + ' soru var' + (ilk && ilk.ders ? ' (en çok ' + ilk.ders + ')' : '') + '. Ders sayfasında 📥 yanlış kutusunu açıp "Şimdi çöz"e bas.',
-                  dugme:'Tekrar et', adres: b ? b.sayfa : 'yanlislarim.html' };
+        sonuc = { baslik:'Bugün tekrar zamanı', metin:'Yanlış kutunda vadesi gelen ' + o.vadeli + ' soru var' + (ilk && ilk.ders ? ' (en çok ' + ilk.ders + ')' : '') + '. Tekrar et dersin yanlış kutusunu açık getirir.',
+                  dugme:'Tekrar et', adres: b ? b.sayfa + '#kutu' : 'yanlislarim.html' };   /* 07.10: #kutu -> paket-kapisi.js kutuyuAc */
       } else if(o.zorKonu.length && o.zorKonu[0].dogru / o.zorKonu[0].soru < 0.6){
         var z = o.zorKonu[0], zb = dersBul(d, z.ders, kod);
         sonuc = { baslik:'Şimdi bunu yap', metin:(z.ders ? z.ders + ' / ' : '') + z.konu + ': son ' + z.soru + ' cevabının ' + z.dogru + ' tanesi doğru. Bu dersten 10 soru çöz, yaklaşık 15 dakika.',
