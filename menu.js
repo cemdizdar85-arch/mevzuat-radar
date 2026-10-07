@@ -195,7 +195,7 @@ var GRUPLAR=[
   ["sorular.html","📚","Soru Çöz","Staja Giriş ve Yeterlilik — sınavını seç, ders ders çöz"],
   ["seviye-testi.html","📏","Geçme İhtimalini Ölç","30 soru, yaklaşık 30 dakika, ücretsiz"],
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
-  ["canli-deneme.html","📡","Canlı Deneme","Aynı anda, herkese aynı set; katılanlar arasında yüzdelik sıralaman"],
+  /* 08.10 Cem "canlı deneme kaldır": canli-deneme satırı çıktı (sayfa GİZLİ, GIZLI regex aynen) */
   /* 02.10 gizli (sayfa boş). Geri almak: bu satırı aç + GIZLI regex + komut.js + sitemap: ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"], */
   /* 07.10 Cem ("ulaşamasın bunlara"): genc · donem-plani · songun · karsilastirma GİZLİ; sayfalar silinmedi. */
   ["fiyat.html","🏷️","Fiyatlar","Staja Giriş ve Yeterlilik paketleri, KDV dahil"]]}

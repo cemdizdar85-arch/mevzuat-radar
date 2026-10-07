@@ -30,7 +30,7 @@
       ['Soru çöz', 'sorular.html', 'soru coz banka sgs staja giris yeterlilik bitirme ders'],
       ['Geçme ihtimalini ölç', 'seviye-testi.html', 'seviye test olcum puan ucretsiz'],
       ['Deneme sınavı', 'deneme.html', 'deneme soru test cozum ogrenci stajyer sinav'],
-      ['Canlı deneme', 'canli-deneme.html', 'canli deneme yuzdelik siralama ogrenci sinav'],
+      /* 08.10 Cem "canlı deneme kaldır": arama satırı çıktı (sayfa GİZLİ) */
       /* 02.10 gizli: ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'], */
       /* 07.10 Cem ("ulaşamasın bunlara"): genc · donem-plani · songun · karsilastirma GİZLİ; sayfalar silinmedi. */
     ]],
