@@ -8,7 +8,7 @@
 <script src="tema-bas.js"></script>
 <!-- 07.10 (Cem "görünüp kaybolan istemiyorum"; canlı ölçüm: "—" yer tutucular + boş paket kutusunun dolması, masaüstü yerleşim kayması
      0,24-0,30): sipariş alanı fiyat-motoru.js + sayfa betiği doldurana dek görünmez (3 sn yedek). -->
-<script>try{ document.documentElement.classList.add('sa-bekle'); setTimeout(function(){ document.documentElement.classList.remove('sa-bekle'); },3000); }catch(e){}</script>
+<script>try{ document.documentElement.classList.add('sa-bekle'); setTimeout(function(){ document.documentElement.classList.remove('sa-bekle'); },5000); }catch(e){}</script>
 <style>html.sa-bekle #duzen,html.sa-bekle #mbar{visibility:hidden}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -811,6 +811,9 @@ function davetKodOku(){
     akdOzetCiz();
     if(adim1Hata()){ ac(1); } else if(adim2Hata()){ ac(2); } else { ac(0); }
     barGuncelle();
+    /* 07.10 (titreme): sipariş alanı adımlar kurulunca görünür. Sayfa betiğinin sonunda açılıyordu; canlı telefonda baslat ~1,9 sn'de
+       1. adımı kapatıp 2.'yi açınca alan zıplıyordu (kayma 0,26). 5 sn yedek head'de. */
+    document.documentElement.classList.remove('sa-bekle');
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ document.body.classList.add('hazir'); }); });
   }
   if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', baslat); } else { baslat(); }
@@ -993,7 +996,6 @@ if(!KURULUM_TAMAM){
   document.getElementById('kurulumUyari').style.display = 'block';
   btn.disabled = true;
 }
-document.documentElement.classList.remove('sa-bekle');   /* 07.10: paketler + özet doldu, sipariş alanı görünür */
 </script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script>
