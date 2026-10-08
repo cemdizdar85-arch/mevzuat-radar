@@ -9,7 +9,8 @@
   o0710kor KOR-ONAY-BEKLER=3, üçü de atılan listesinde). Sınav iki yönü ölçer:
     · anlatımı eksik ama öteki şartları tutan soru BEKLEYEN'e düşmeli,
     · öteki gerekçelerle (kaynaklı ✗, hakem2, sim YANLIŞ, KC teşhis, AH KUSURLU …) atılan ATILAN kalmalı,
-    · bayraksız SmmmYayinSarti (koşucu/kaydir-coz yolu) anlatımsız soruyu yine GEÇİRMEMELİ.
+    · bayraksız SmmmYayinSarti (koşucu/kaydir-coz yolu) anlatımsız soruyu yine GEÇİRMEMELİ,
+    · (08.10) kör HİÇBİRİ + kaynaklı ✓ soru da BEKLEYEN'e düşmeli; KK tek başına yayın açmamalı.
   ⛔ REPLİKA YASAK: gerçek arac/smmm-yayin-sarti.ps1 dot-source edilir; SmmmOnaySinifla gerçek
      arac/smmm-onay.ps1'den AST ile çıkarılır.
   -Mutasyon: kilit koşulları tek tek bozulur, her bozmada sınav KIRMIZI düşmeli.
@@ -121,18 +122,34 @@ function SinavKos {
   $s17 = KK (Soru 'kp-17' -Anlatimli) $true; $o17 = @{ "$et/kp-17" = [pscustomobject]@{ karar = 'ONAY'; parmak_izi = (SmmmParmakIzi $s17) } }
   $y = SmmmYayinSarti "$et/kp-17" $s17 $o17
   V 'bayraksız yayın şartı: onaylı + anlatımlı → GEÇER' ($y.gecer) "$($y.gecer) | $($y.neden)"
+  # --- 08.10 kör HİÇBİRİ (üretici artık kaynaklı ikinci çözümü açıyor; liste ve yayın şartı tutarlı işlemeli) ---
+  $s18 = Soru 'kp-18'; $s18.kor_cozum.cevap = 'HİÇBİRİ'; $s18 = KK $s18 $true
+  $r = SmmmOnaySinifla "$et/kp-18" $s18 $bos
+  V 'kör HİÇBİRİ + KK ✓ (anlatımsız) → BEKLEYEN' ($r.sinif -eq 'BEKLEYEN') "$($r.sinif) | $($r.neden)"
+  $s19 = Soru 'kp-19'; $s19.kor_cozum.cevap = 'HİÇBİRİ'
+  $r = SmmmOnaySinifla "$et/kp-19" $s19 $bos
+  V 'kör HİÇBİRİ, KK henüz yok → ATILAN, gerekçe "kör HİÇBİRİ" (tuzak şıkkı değil DENMEZ)' ($r.sinif -eq 'ATILAN' -and $r.neden -like 'kör HİÇBİRİ*') "$($r.sinif) | $($r.neden)"
+  $s20 = Soru 'kp-20' -Anlatimli; $s20.kor_cozum.cevap = 'HİÇBİRİ'; $s20 = KK $s20 $true; $o20 = @{ "$et/kp-20" = [pscustomobject]@{ karar = 'ONAY'; parmak_izi = (SmmmParmakIzi $s20) } }
+  $y = SmmmYayinSarti "$et/kp-20" $s20 $o20
+  V 'kör HİÇBİRİ + KK ✓ + ONAY + anlatımlı → yayın GEÇER' ($y.gecer) "$($y.gecer) | $($y.neden)"
+  $s21 = Soru 'kp-21' -Anlatimli; $s21.kor_cozum.cevap = 'HİÇBİRİ'; $s21 = KK $s21 $true
+  $y = SmmmYayinSarti "$et/kp-21" $s21 $bos
+  V 'kör HİÇBİRİ + KK ✓, ONAY YOK → yayın GEÇMEZ (KK tek başına açmaz)' (-not $y.gecer -and $y.neden -like '*Cem onayı bekliyor*') "$($y.gecer) | $($y.neden)"
+  $s22 = Soru 'kp-22' -Anlatimli; $s22.kor_cozum.cevap = 'HİÇBİRİ'; $s22 = KK $s22 $true; $s22.kor_cozum.cevap = 'C'; $o22 = @{ "$et/kp-22" = [pscustomobject]@{ karar = 'ONAY'; parmak_izi = (SmmmParmakIzi $s22) } }
+  $y = SmmmYayinSarti "$et/kp-22" $s22 $o22
+  V 'KK kör HİÇBİRİ kararına ait, kör sonra C → yayın GEÇMEZ (bayat KK)' (-not $y.gecer -and $y.neden -like '*eski kör çözüme ait*') "$($y.gecer) | $($y.neden)"
   return , $sonuc
 }
 
 function Yukle([string]$sMetin, [string]$oMetin) {
-  return (IslevMetni $sMetin @('SmmmKaliteNeden', 'SmmmYayinSarti')) + "`n" + (IslevMetni $oMetin @('SmmmOnaySinifla'))
+  return (IslevMetni $sMetin @('SmmmKaliteNeden', 'SmmmKorIstisna', 'SmmmYayinSarti')) + "`n" + (IslevMetni $oMetin @('SmmmOnaySinifla'))
 }
 
 if (-not $Mutasyon) {
   . ([scriptblock]::Create((Yukle $sartMetin $onayMetin)))
   $kalan = SinavKos
   ''
-  "ONAY LİSTESİ SINIFLAMA ÖZ-SINAVI: $(17 - $kalan.Count)/17 geçti"
+  "ONAY LİSTESİ SINIFLAMA ÖZ-SINAVI: $(22 - $kalan.Count)/22 geçti"
   if ($kalan.Count) { foreach ($k in $kalan) { Write-Host "  KIRMIZI: $k" -ForegroundColor Red }; exit 1 }
   Write-Host 'YEŞİL' -ForegroundColor Green
   exit 0
@@ -147,6 +164,8 @@ $mutasyonlar = @(
   @{ ad = 'M5 şart: bayrak AH KUSURLU''yu da atlıyor (gevşeme)'; d = 's'; eski = '$ahBeklet = ($AnlatimOncesi -and -not $ahKaydiVar)'; yeni = '$ahBeklet = [bool]$AnlatimOncesi' }
   @{ ad = 'M6 şart: bayraksız yol da simülasyonu atlıyor (koşucu gevşer)'; d = 's'; eski = 'if (-not $AnlatimOncesi -and -not (SmmmSimDogru $v))'; yeni = 'if ($false)' }
   @{ ad = 'M7 liste: tam şart yerine hep anlatım öncesi (bekleyen notu kaybolur)'; d = 'o'; eski = '$digeri = SmmmYayinSarti $anh $v $sahteOnay'; yeni = '$digeri = SmmmYayinSarti $anh $v $sahteOnay -AnlatimOncesi' }
+  @{ ad = 'M8 liste: kör HİÇBİRİ gerekçesi kapalı (08.10)'; d = 'o'; eski = 'elseif ($korHicbiri)'; yeni = 'elseif ($false)' }
+  @{ ad = 'M9 şart: kör istisnası kör cevabını eşlemiyor (bayat KK açar)'; d = 's'; eski = 'if ("$($kaynakli.kor_cevap)" -ne "$($soruNesne.kor_cozum.cevap)")'; yeni = 'if ($false)' }
 )
 $kirmizi = 0
 foreach ($m in $mutasyonlar) {

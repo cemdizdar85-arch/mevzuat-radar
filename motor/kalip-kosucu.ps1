@@ -227,6 +227,15 @@ $harcanan=AyHarcama
 $planYol=$(if(Test-Path $Plan){ $Plan } else { Join-Path $Kok $Plan }); if(-not (Test-Path $planYol)){ throw "plan yok: $planYol" }
 $planAd=[IO.Path]::GetFileNameWithoutExtension($planYol)
 $satirlar=@(ConvertFrom-Json -InputObject (Get-Content $planYol -Raw -Encoding UTF8)); if($satirlar.Count -eq 1 -and $satirlar[0].PSObject.Properties['SyncRoot']){ $satirlar=@($satirlar[0].SyncRoot) }
+# ⛔⭐ 08.10.2026 AYNI ETİKETLİ SATIRLAR (gm12 onarımı ölçüldü: ikinci satır "başka hatta basılıyor" diye 0 koduyla çıktı, eşzamanlı
+#   iki satır aynı önbellek dosyasına yazıp kp-04/kp-05 sonucunu sildi). Bayrakları aynı pilotId'li satırlar TEK satıra birleşir
+#   (pilotId "kp-01,kp-02"); farklı olanlar aynı anda açılmaz, sırayla koşar. Etiketi bir kez geçen satır nesnesi AYNEN kalır.
+#   Ayrıntı + GÖRMEZ: arac/kosucu-satir-birlestir.ps1 · öz-sınav arac/kosucu-satir-sinavi.ps1
+. (Join-Path $Kok 'arac\kosucu-satir-birlestir.ps1')
+$satirCozum=KosucuSatirBirlestir $satirlar
+foreach($satirGunluk in @($satirCozum.gunluk)){ $satirGunluk }
+$satirlar=@($satirCozum.satirlar)
+$tekilSatirlar=@(KosucuTekilEtiket $satirlar)   # seçim · açıklama hakemi · karne etiket başına BİR kez (yoksa aynı parti iki kez sayılır/ödenir)
 $logDir=Join-Path $Kok "veri\fabrika\kosucu-log\$planAd"; New-Item -ItemType Directory -Force $logDir | Out-Null
 $t0=Get-Date; $ozetTum=@()
 # --- DİNAMİK UZUNLUK TAVANI (10.09.2026) -------------------------------------
@@ -318,7 +327,8 @@ function PartiKuyrukBitir($a){
   return [pscustomobject]@{ etiket="$($s.etiket)"; ders="$($s.ders)"; bedel=(($oz | Where-Object { $_ -match 'BEDEL TOPLAM' } | Select-Object -Last 1) -replace '.*≈','' -replace ' USD.*','') }
 }
 
-$kuyruk=New-Object System.Collections.Generic.Queue[object]
+$kuyruk=New-Object System.Collections.Generic.List[object]   # 08.10: Queue → List; aynı etiketli sıralı satır uçan süreç bitene kadar beklesin (KosucuSatirSec)
+$etiketKosuSay=@{}
 # 16.09.2026 (Cem "1.2.3 yap"): PARTİ ÇAKIŞMA KAPISI. Aynı parti iki bulut işinde aynı anda koşarsa ikisi de ambardan indirip
 #   kendi sorusunu işler, sonda tüm parti dosyasını yükler → son yazan öncekinin sonucunu SİLER (16.09'da c5-mta-zor-r2 elle ayrıldı).
 #   bulut-uretim.yml, daha ÖNCE başlamış koşan işlerin planlarındaki etiketleri MEVZUAT_ATLA_ETIKET'e yazar; burada atlanır.
@@ -330,7 +340,7 @@ foreach($s in $satirlar){
     [IO.File]::AppendAllText((Join-Path $logDir 'cakisma-atlanan.log'),("TOPLU ANLIKSIZ (çakışma) · $($s.etiket) · $(Get-Date -Format 'yyyy-MM-dd HH:mm')`r`n"),[Text.UTF8Encoding]::new($false))
     continue
   }
-  $kuyruk.Enqueue($s)
+  $kuyruk.Add($s)
 }
 if($SadeceSecim){ $kuyruk.Clear(); "SADECE SEÇİM: plan partileri koşturulmadı (bedel 0) — seçim, sayfa ve karne önbellekten yeniden kuruluyor" }   # 14.09: kod kapısı/yayın şartı değişince seçimi parti koşturmadan tazelemek için (koşucu önbelleği olmayan partiyi yeniden üretirdi)
 $ucan=New-Object System.Collections.Generic.List[object]
@@ -338,7 +348,9 @@ $durduruldu=$false
 
 while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
  while($ucan.Count -lt $Paralel -and $kuyruk.Count -gt 0 -and -not $durduruldu){
-  $s=$kuyruk.Dequeue()
+  $kuyrukYeri=KosucuSatirSec $kuyruk $ucan
+  if($kuyrukYeri -lt 0){ break }   # kalan satırların hepsi uçan bir etiketin sıralı satırı: o süreç bitince açılır
+  $s=$kuyruk[$kuyrukYeri]; $kuyruk.RemoveAt($kuyrukYeri)
   # 16.09 ÖLÇÜLDÜ (kurtarma-e 35083827921): SON_AN (iş başı +320 dk) geçtikten sonra da yeni parti başlatılıyordu; kuyruk kuyruğu
   #   26 dk'lık payı yedi, iş 350 dk tavanına takılıp İPTAL sayıldı ve zincir adımı atlandı. SON_AN geçtiyse parti BAŞLATILMAZ,
   #   "TOPLU ANLIKSIZ" izi düşülür → zincir sonraki halkada koşturur. SON_AN yoksa (yerel) davranış aynı.
@@ -374,7 +386,8 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   #      1) gorece yolu depo kokune gore cozer (runner CWD'sine guvenmez)
   #      2) yol yoksa DURUR - sessiz dusus yok.
   #    Ayni kapinin ureticideki esi: kalip-parti-uret.ps1 FAZ K.
-  $log=Join-Path $logDir ("$($s.etiket).log")
+  $etiketKosuSay["$($s.etiket)"]=[int]$etiketKosuSay["$($s.etiket)"]+1
+  $log=Join-Path $logDir ($(if($etiketKosuSay["$($s.etiket)"] -eq 1){ "$($s.etiket).log" } else { "$($s.etiket).s$($etiketKosuSay["$($s.etiket)"]).log" }))   # 08.10: sıralı ikinci satır ilkinin günlüğünü ezmesin
   # 🔴 10.09.2026 — FAZ S (-Sade) BU LİSTEDE YOKTU. Ölçüldü: 213 partinin
   # yalnız 15'inde `sade` alanı var, hepsi 04-06.09 arası ELLE koşulan küçük
   # partiler. 07.09'da toplu hatta geçildi, bu argüman listesi yazıldı ve
@@ -407,6 +420,11 @@ while(($kuyruk.Count -gt 0 -and -not $durduruldu) -or $ucan.Count -gt 0){
   # 08.10.2026 (o0710kor: 7 pilotId satırı korYenile'siz açıldı → üretici kayıtlı kör kararını tuttu, kör'ü olmayanları da ele almadı,
   #   0 USD, iş yapılmadı): pilotId'li satır kör çözümü (ve kör ✗ ise kaynaklı ikinci çözümü) yeniletebilsin. Alan YOKSA argüman listesi aynı.
   if($s.PSObject.Properties['korYenile'] -and [bool]$s.korYenile){ $arg+=@('-KorYenile') }
+  # 08.10.2026 (kor-tavan): aynı onarım satırı (aynı pilotId + bayrak) yeniden koşunca onarım tuzu aynı kalır ve ÖNCEKİ partinin cevabı
+  #   bedava hasat edilir — 2.500 tavanla KESİK gelmiş kör/KK cevabı da (ölçüldü: Get-IcerikParmak $script:PARMAK_TUZU'yu okuyor; kesik cevap
+  #   hasatta elenmiyor). Yeni tur için üretici -OnarimTuru'yu 15.09'dan beri destekliyor, koşucu geçirmiyordu. Alan YOKSA argüman listesi aynı
+  #   (08.10: depodaki 331 planın hiçbirinde onarimTuru yok).
+  if($s.PSObject.Properties['onarimTuru'] -and "$($s.onarimTuru)"){ $arg+=@('-OnarimTuru',"$($s.onarimTuru)") }
   # 08.09 13:40 ölçümü: Anthropic toplu sırası tıkandı (10:12'den beri 5 parti, 0 işlenen) → MEVZUAT_TOPLU=0 ortam değişkeni planı ezer, fazlar anlık koşar
   # 09.09 Cem "ara ara deneyelim orayı, rakamı düşürmemiz lazım": MEVZUAT_TOPLU='auto' → motor/toplu-sonda.ps1'in yazdığı sağlık dosyasına bakılır;
   # son 40 dk içinde "acik" ölçülmüşse bu etiket TOPLU (yarı fiyat), değilse anlık. Üretici ayrıca faz bazında MEVZUAT_TOPLU_BEKLE_DK sonra anlığa düşer.
@@ -544,12 +562,12 @@ try{
 # açıklama hakeminden TEMIZ almadıysa seçilmez. -SadeceSecim (bedel 0) iken hakem ÇAĞRILMAZ; kararı olmayan yeni soru yine seçilmez.
 . (Join-Path $Kok 'arac\aciklama-hakemi-uretim.ps1'); $ahDus=0
 if(-not $SadeceSecim){
-  try{ $ahR=AciklamaHakemUretim $Kok $satirlar $(if("$env:MEVZUAT_BUTCE_USD" -match '^\d'){ PlanHarcama } else { 0 })
+  try{ $ahR=AciklamaHakemUretim $Kok $tekilSatirlar $(if("$env:MEVZUAT_BUTCE_USD" -match '^\d'){ PlanHarcama } else { 0 })
     "AÇIKLAMA HAKEMİ: aday $($ahR.aday) · gönderilen $($ahR.gonderilen) · TEMIZ $($ahR.temiz) · KUSURLU $($ahR.kusurlu) · ölçülemedi $($ahR.olculemedi) · bütçe yetmedi $($ahR.butce_yok) · ≈$($ahR.usd) USD" }
   catch{ "AÇIKLAMA HAKEMİ KÖR: $($_.Exception.Message) (kararı olmayan yeni soru seçilmez)" }
 }
 $secim=@()
-foreach($s in $satirlar){
+foreach($s in $tekilSatirlar){   # 08.10: etiket başına bir kez (aynı etiketli iki satır soruyu iki kez seçiyordu)
   $cf=Join-Path $Kok "veri\fabrika\kalip-parti-$($s.etiket).json"; if(-not (Test-Path $cf)){ continue }
   $c=ConvertFrom-Json -InputObject (Get-Content $cf -Raw -Encoding UTF8)
   $kalite=SoruKaliteParti $cf; if($script:SORU_KALITE_KOR){ $kaliteKor+="$($s.etiket): $($script:SORU_KALITE_KOR)"; $script:SORU_KALITE_KOR=$null }
@@ -594,7 +612,7 @@ if(-not $SayfaYok -and $secim.Count){
   & powershell -NoProfile -File (Join-Path $buDizin 'kaydir-coz.ps1') -SecimDosya "$planAd-secim.json" -Cikti "KAYDIR-COZ-$planAd.html" *> (Join-Path $logDir 'builder.log')
   Get-Content (Join-Path $logDir 'builder.log') | Select-String -Pattern 'yazildi|ÖZ-SINAV|Exception|Cannot|SON KAPI' | ForEach-Object { $_.Line }
 }
-$etk=($satirlar | ForEach-Object { $_.etiket }) -join ','
+$etk=($tekilSatirlar | ForEach-Object { $_.etiket }) -join ','
 & powershell -NoProfile -File (Join-Path $buDizin 'soru-karnesi.ps1') -Etiketler $etk -Cikti "KARNE-$planAd.html" *> (Join-Path $logDir 'karne.log')
 Get-Content (Join-Path $logDir 'karne.log') | Select-String -Pattern 'ZORLUK|KARNE:' | ForEach-Object { $_.Line }
 "BEDEL (ders ders, ≈USD): $(($ozetTum | ForEach-Object { "$($_.etiket)=$($_.bedel)" }) -join ' · ')"
