@@ -60,6 +60,28 @@ function SmmmPartiler {
   return , $partiler
 }
 
+# Bir kör ✗ sorunun liste sınıfı. 08.10.2026 KİLİT ONARIMI: üretici kör ✗ + kaynaklı ✓ soruyu anlatım fazlarına ONAYDAN SONRA sokuyor
+# (kalip-parti-uret.ps1 KÖR KAPISI 'ONAY-BEKLIYOR'); burada aynı soru "simülasyon hiç koşmadı" diye atılıyordu → Cem'e hiç ulaşmıyordu.
+# Artık tam şart tutmazsa anlatım öncesi şartlara bakılır (SmmmYayinSarti -AnlatimOncesi); onlar tutuyorsa soru BEKLEYEN'e düşer.
+# Öz-sınav: arac/smmm-onay-liste-sinavi.ps1 (bu işlevi AST ile çıkarıp koşar).
+function SmmmOnaySinifla([string]$anh, $v, $onayH) {
+  $kk = $(if ($v.PSObject.Properties['kor_cozum_kaynakli']) { $v.kor_cozum_kaynakli } else { $null })
+  if (-not ($kk -and [bool]$kk.dogru_mu)) { return [pscustomobject]@{ sinif = 'ATILAN'; neden = $(if ($kk) { "kaynaklı çözüm de yanlış ($($kk.cevap))" } else { 'kaynaklı ikinci çözüm koşmadı (tuzak şıkkı değil ya da eski kayıt)' }); anlatim = '' } }
+  # öteki şartlar: kör istisnası dışında her şey sağlanmış mı (istisnayı geçici olarak "onaylı" sayıp bak)
+  $sahteOnay = @{}; $sahteOnay[$anh] = [pscustomobject]@{ karar = 'ONAY'; parmak_izi = (SmmmParmakIzi $v); tarih = '-' }
+  $digeri = SmmmYayinSarti $anh $v $sahteOnay
+  $anlatim = ''
+  if (-not $digeri.gecer) {
+    $once = SmmmYayinSarti $anh $v $sahteOnay -AnlatimOncesi
+    # gerekçe anlatım ÖNCESİ şarttan: anlatımsız soruda tam şart ilk "adımlar yok"da durup asıl engeli (hakem2, KC teşhis …) gizliyordu
+    if (-not $once.gecer) { return [pscustomobject]@{ sinif = 'ATILAN'; neden = "başka şart sağlanmıyor: $($once.neden)"; anlatim = '' } }
+    $anlatim = "$($digeri.neden)"
+  }
+  $gecerliKarar = $(if ($onayH.ContainsKey($anh) -and "$($onayH[$anh].parmak_izi)" -eq (SmmmParmakIzi $v)) { "$($onayH[$anh].karar)" } else { '' })
+  if ($gecerliKarar) { return [pscustomobject]@{ sinif = 'KARARLI'; neden = $gecerliKarar; anlatim = $anlatim } }
+  return [pscustomobject]@{ sinif = 'BEKLEYEN'; neden = $(if ($anlatim) { "anlatım eksik ($anlatim) → onaydan sonra anlatım fazları koşacak" } else { 'tüm şartlar tamam' }); anlatim = $anlatim }
+}
+
 function HtmlKacis([string]$metin) { return "$metin".Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;') }
 
 if ($Anahtar) {
@@ -77,11 +99,15 @@ if ($Anahtar) {
   Write-Host "KARAR KAYDEDİLDİ: $Anahtar → $Karar (parmak izi $($yeni.parmak_izi.Substring(0,12))…)" -ForegroundColor Green
   $sonuc = SmmmYayinSarti $Anahtar $v (SmmmOnayHarita $depoKok)
   Write-Host "Yayın şartı şimdi: $(if($sonuc.gecer){'GEÇER'}else{'GEÇMEZ'}) — $($sonuc.neden)"
+  if ($Karar -eq 'ONAY' -and -not $sonuc.gecer -and (SmmmYayinSarti $Anahtar $v (SmmmOnayHarita $depoKok) -AnlatimOncesi).gecer) {
+    $parcaK = $Anahtar -split '/', 2
+    Write-Host "ANLATIM FAZLARI BEKLİYOR: smmm-insan-onay.json commit+push → $($parcaK[0]) etiketli özgün plan satırının kopyası + ""pilotId"":""$($parcaK[1])"" (korYenile YOK) → motor/bulut-sira.ps1 -Ekle (bütçeli, bedel sorulur)" -ForegroundColor Yellow
+  }
 }
 
 if ($Liste) {
   $onayH = SmmmOnayHarita $depoKok
-  $bekleyen = New-Object System.Collections.Generic.List[object]; $atilan = New-Object System.Collections.Generic.List[object]
+  $bekleyen = New-Object System.Collections.Generic.List[object]; $atilan = New-Object System.Collections.Generic.List[object]; $onayliAnlatimsiz = New-Object System.Collections.Generic.List[object]
   $partiListesi = SmmmPartiler
   foreach ($parti in $partiListesi) {
     $et = $parti.etiket; $c = $parti.c
@@ -89,25 +115,21 @@ if ($Liste) {
       $v = $p.Value; if (-not $v -or $v -is [string] -or -not $v.PSObject.Properties['soru'] -or -not $v.soru -or -not $v.PSObject.Properties['kor_cozum'] -or -not $v.kor_cozum) { continue }
       if (SmmmKorDogru $v) { continue }
       $anh = "$et/$($p.Name)"
-      $kk = $(if ($v.PSObject.Properties['kor_cozum_kaynakli']) { $v.kor_cozum_kaynakli } else { $null })
-      if (-not ($kk -and [bool]$kk.dogru_mu)) { $atilan.Add([pscustomobject]@{ anahtar = $anh; neden = $(if ($kk) { "kaynaklı çözüm de yanlış ($($kk.cevap))" } else { 'kaynaklı ikinci çözüm koşmadı (tuzak şıkkı değil ya da eski kayıt)' }) }); continue }
-      # öteki şartlar: kör istisnası dışında her şey sağlanmış mı (istisnayı geçici olarak "onaylı" sayıp bak)
-      $sahteOnay = @{}; $sahteOnay[$anh] = [pscustomobject]@{ karar = 'ONAY'; parmak_izi = (SmmmParmakIzi $v); tarih = '-' }
-      $digeri = SmmmYayinSarti $anh $v $sahteOnay
-      if (-not $digeri.gecer) { $atilan.Add([pscustomobject]@{ anahtar = $anh; neden = "başka şart sağlanmıyor: $($digeri.neden)" }); continue }
-      $gecerliKarar = $(if ($onayH.ContainsKey($anh) -and "$($onayH[$anh].parmak_izi)" -eq (SmmmParmakIzi $v)) { "$($onayH[$anh].karar)" } else { '' })
-      if ($gecerliKarar) { continue }
-      $bekleyen.Add([pscustomobject]@{ anahtar = $anh; v = $v; kk = $kk; parmak = (SmmmParmakIzi $v); eskiKarar = $(if ($onayH.ContainsKey($anh)) { "$($onayH[$anh].karar) (soru değiştiği için geçersiz)" } else { '' }) })
+      $snf = SmmmOnaySinifla $anh $v $onayH
+      if ($snf.sinif -eq 'ATILAN') { $atilan.Add([pscustomobject]@{ anahtar = $anh; neden = $snf.neden }); continue }
+      if ($snf.sinif -eq 'KARARLI') { if ($snf.neden -eq 'ONAY' -and $snf.anlatim) { $onayliAnlatimsiz.Add([pscustomobject]@{ anahtar = $anh; neden = $snf.anlatim }) }; continue }
+      $bekleyen.Add([pscustomobject]@{ anahtar = $anh; v = $v; kk = $v.kor_cozum_kaynakli; parmak = (SmmmParmakIzi $v); anlatim = $snf.anlatim; eskiKarar = $(if ($onayH.ContainsKey($anh)) { "$($onayH[$anh].karar) (soru değiştiği için geçersiz)" } else { '' }) })
     }
   }
   $md = New-Object System.Text.StringBuilder
   $html = New-Object System.Text.StringBuilder
   [void]$md.AppendLine('# BİTİRME (SMMM) — CEM ONAY LİSTESİ')
   [void]$md.AppendLine('')
-  $girisMetni = "Üretim: $(Get-Date -Format 'yyyy-MM-dd HH:mm') · arac/smmm-onay.ps1 -Liste · bedel 0. Kör çözüm yanıldı ama KANUN METNİYLE çözen model bizim cevabımızı buldu ve öteki bütün şartlar sağlandı. Karar senin: sohbette ""ONAY"" ya da ""RED"" de. Onay, sorunun o anki metnine bağlıdır; soru değişirse düşer."
+  $girisMetni = "Üretim: $(Get-Date -Format 'yyyy-MM-dd HH:mm') · arac/smmm-onay.ps1 -Liste · bedel 0. Kör çözüm yanıldı ama KANUN METNİYLE çözen model bizim cevabımızı buldu ve öteki bütün şartlar sağlandı (kartında ""Durum"" yazanların anlatımı onaydan sonra yazılır, şartlar o zaman yeniden aranır). Karar senin: sohbette ""ONAY"" ya da ""RED"" de. Onay, sorunun o anki metnine bağlıdır; soru değişirse düşer."
   [void]$md.AppendLine("> $girisMetni")
   [void]$md.AppendLine('')
-  [void]$md.AppendLine("**Onay bekleyen: $($bekleyen.Count)** · Otomatik atılan (kör yanlış, istisna şartı yok): $($atilan.Count)")
+  $anlatimsizSay = @($bekleyen | Where-Object { $_.anlatim }).Count
+  [void]$md.AppendLine("**Onay bekleyen: $($bekleyen.Count)** ($anlatimsizSay'i anlatımsız: onaydan sonra anlatım fazları koşacak) · Otomatik atılan (kör yanlış, istisna şartı yok): $($atilan.Count)$(if($onayliAnlatimsiz.Count){" · Onaylı, anlatım bekleyen: $($onayliAnlatimsiz.Count)"})")
   [void]$html.Append("<h3>Bitirme (SMMM) — onay bekleyen $($bekleyen.Count) soru</h3><p>$(HtmlKacis $girisMetni)</p>")
   foreach ($b in $bekleyen) {
     $v = $b.v; $korH = "$($v.kor_cozum.cevap)"
@@ -126,13 +148,17 @@ if ($Liste) {
     [void]$md.AppendLine("**Kaynaklı ikinci çözüm $($b.kk.cevap) seçti (doğru):** $($b.kk.hesap)$celiski"); [void]$md.AppendLine('')
     [void]$md.AppendLine("**Bizim tuzak açıklamamız ($korH):** $tuzakMetni"); [void]$md.AppendLine('')
     [void]$md.AppendLine("**Dayanak:** $($v.dayanak)")
-    [void]$html.Append("</ul><p><b>Kör çözüm (kaynaksız) $korH seçti:</b> $(HtmlKacis $v.kor_cozum.hesap)</p><p><b>Kaynaklı ikinci çözüm $($b.kk.cevap) seçti (doğru):</b> $(HtmlKacis $b.kk.hesap)$(HtmlKacis $celiski)</p><p><b>Bizim tuzak açıklamamız ($korH):</b> $(HtmlKacis $tuzakMetni)</p><p><b>Dayanak:</b> $(HtmlKacis $v.dayanak)</p>")
+    $anlatimNotu = $(if ($b.anlatim) { "Anlatım henüz yok ($($b.anlatim)) → onaydan sonra anlatım fazları koşacak; yayın şartı (simülasyon dahil) o zaman yeniden aranır." } else { '' })
+    if ($anlatimNotu) { [void]$md.AppendLine(''); [void]$md.AppendLine("**Durum:** $anlatimNotu") }
+    [void]$html.Append("</ul><p><b>Kör çözüm (kaynaksız) $korH seçti:</b> $(HtmlKacis $v.kor_cozum.hesap)</p><p><b>Kaynaklı ikinci çözüm $($b.kk.cevap) seçti (doğru):</b> $(HtmlKacis $b.kk.hesap)$(HtmlKacis $celiski)</p><p><b>Bizim tuzak açıklamamız ($korH):</b> $(HtmlKacis $tuzakMetni)</p><p><b>Dayanak:</b> $(HtmlKacis $v.dayanak)</p>$(if($anlatimNotu){"<p><b>Durum:</b> $(HtmlKacis $anlatimNotu)</p>"})")
   }
+  # 08.10: onay verilmiş ama anlatımı koşmamış soru — anlatım için aynı etiketle pilotId'li plan satırı gerekir (korYenile YOK: kaynaklı karar düşer)
+  if ($onayliAnlatimsiz.Count) { [void]$md.AppendLine(''); [void]$md.AppendLine('---'); [void]$md.AppendLine('## Onaylı, anlatım fazları bekleyen (plan satırı: etiket + pilotId, korYenile YOK)'); foreach ($a in $onayliAnlatimsiz) { [void]$md.AppendLine("- ``$($a.anahtar)`` — $($a.neden)") } }
   if ($atilan.Count) { [void]$md.AppendLine(''); [void]$md.AppendLine('---'); [void]$md.AppendLine('## Otomatik atılanlar (yayına girmez, onay istemez)'); foreach ($a in $atilan) { [void]$md.AppendLine("- ``$($a.anahtar)`` — $($a.neden)") } }
   New-Item -ItemType Directory -Force $fabrika | Out-Null
   $mdYol = Join-Path $fabrika 'SMMM-ONAY-LISTESI.md'
   [IO.File]::WriteAllText($mdYol, $md.ToString(), [Text.UTF8Encoding]::new($false))
-  Write-Host "ONAY LİSTESİ: bekleyen $($bekleyen.Count) · otomatik atılan $($atilan.Count) → veri/fabrika/SMMM-ONAY-LISTESI.md (depoya girmez)"
+  Write-Host "ONAY LİSTESİ: bekleyen $($bekleyen.Count) (anlatımsız $anlatimsizSay) · otomatik atılan $($atilan.Count) · onaylı anlatım bekleyen $($onayliAnlatimsiz.Count) → veri/fabrika/SMMM-ONAY-LISTESI.md (depoya girmez)"
 
   if ($Mail) {
     $takim = @($bekleyen | ForEach-Object { "$($_.anahtar)|$($_.parmak)" } | Sort-Object)

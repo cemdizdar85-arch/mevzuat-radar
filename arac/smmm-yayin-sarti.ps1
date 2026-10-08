@@ -34,8 +34,11 @@ function SmmmYeniSoruMu($soruNesne) {
 # 30.09 AÇIKLAMA HAKEMİ (Cem "b yap"; SGS oturumu bağladı: koşucu 8.1 + havuz-kur): YENİ soru aciklama_hakem.karar = TEMIZ değilse yayına girmez.
 # Model çağrısı YOK — yalnız kayıttaki kararı okur (hakemi koşucu çağırır). Eski soru etkilenmez (aynı YENİ tanımı, AH_BASLANGIC).
 . (Join-Path $PSScriptRoot 'aciklama-hakemi-uretim.ps1')
-function SmmmKaliteNeden([string]$anahtar, $soruNesne) {
-  if (AhSecilemez $soruNesne) { return "AÇIKLAMA HAKEMİ: yeni soru TEMIZ değil ($(if ($soruNesne.PSObject.Properties['aciklama_hakem'] -and $soruNesne.aciklama_hakem) { "$($soruNesne.aciklama_hakem.karar)" } else { 'karar yok' }))" }
+function SmmmKaliteNeden([string]$anahtar, $soruNesne, [switch]$AnlatimOncesi) {
+  # 08.10 -AnlatimOncesi (yalnız arac/smmm-onay.ps1 -Liste): açıklama hakemi HİÇ koşmamışsa bekletilir (anlatımdan sonra koşar); verilmiş KUSURLU karar yine düşürür
+  $ahKaydiVar = [bool]($soruNesne.PSObject.Properties['aciklama_hakem'] -and $soruNesne.aciklama_hakem)
+  $ahBeklet = ($AnlatimOncesi -and -not $ahKaydiVar)
+  if (AhSecilemez $soruNesne) { if (-not $ahBeklet) { return "AÇIKLAMA HAKEMİ: yeni soru TEMIZ değil ($(if ($soruNesne.PSObject.Properties['aciklama_hakem'] -and $soruNesne.aciklama_hakem) { "$($soruNesne.aciklama_hakem.karar)" } else { 'karar yok' }))" } }
   if (-not (SmmmYeniSoruMu $soruNesne)) { return $null }
   $kq = @(SoruKaliteKapisi $soruNesne)
   if ($script:SORU_KALITE_KOR) { Write-Warning "KAPI-KALITE KÖR: $anahtar | $($script:SORU_KALITE_KOR)"; $script:SORU_KALITE_KOR = $null; return $null }
@@ -107,7 +110,14 @@ function SmmmKcEksik($v) {
   if (-not "$($v.dayanak)".Trim()) { $eksik.Add('dayanak') }
   return $eksik.ToArray()   # ⚠ virgülsüz: ", dizi" + çağıranın @() sarması boş listeyi 1 elemanlı yapar (K3) → kapı HER soruyu düşürürdü
 }
-function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
+# ⭐ 08.10.2026 -AnlatimOncesi (YALNIZ arac/smmm-onay.ps1 -Liste çağırır; öteki çağıranlarda bayrak yok → davranış BİREBİR aynı).
+#   KİLİT (ölçüldü 08.10): üreticinin KÖR KAPISI (kalip-parti-uret.ps1 SmmmKorKapisi 'ONAY-BEKLIYOR') kör ✗ + kaynaklı ✓ soruyu
+#   anlatım fazlarına (adım/sade/giriş/ikiz/sim) ONAYDAN SONRA sokar; -Liste ise bu soruyu "simülasyon hiç koşmadı" diye otomatik
+#   atıyordu → onay hiç istenmiyor, anlatım hiç koşmuyor (o0710kor: KOR-ONAY-BEKLER=3, üçü de atılan). Bu bayrakla YALNIZ anlatım
+#   fazlarının üreteceği şeyler bekletilir: simülasyonun HİÇ koşmamış olması · KAPI-KC'de "adımlar"/"sade anlatım" · açıklama hakemi
+#   kaydının HİÇ olmaması. Öteki bütün şartlar (hakem, hakem2, sim YANLIŞ, kaynaklı çözüm, KAPI-*) aynen düşürür.
+#   🚫 GÖRMEZ: anlatım koştuktan sonra simülasyon/KAPI-KALITE/açıklama hakeminin ne diyeceğini — onaydan sonra tam şart yine arar.
+function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita, [switch]$AnlatimOncesi) {
   $v = $soruNesne
   if (-not $v -or -not $v.soru) { return [pscustomobject]@{ gecer = $false; neden = 'soru yok' } }
   # 14.09: doğru şıkkın açıklaması boş soru ekranda "Doğrusu" kısmı boş çıkar (pilot ymeslek-zor kp-01) → geçmez
@@ -138,13 +148,14 @@ function SmmmYayinSarti([string]$anahtar, $soruNesne, $onayHarita) {
   foreach ($sa in 'simulasyon_sonnet', 'simulasyon') { if ($v.PSObject.Properties[$sa] -and $v.$sa -and $v.$sa.PSObject.Properties['dogru_mu'] -and -not [bool]$v.$sa.dogru_mu) { return [pscustomobject]@{ gecer = $false; neden = 'simülasyon yanlış' } } }
   # 14.09 (Cem "1.2 yap", GM önerisi): simülasyonu HİÇ koşmamış soru da geçmez. Ölçüldü: pilot smmm-pilot-ymeslek-zor kp-01 adımları
   # (çözüm anlatımı) yazılmadığı için simülasyon sessizce atlandı, kural yalnız "yanlış değil" dediğinden anlatımsız + sınanmamış soru seçildi.
-  if (-not (SmmmSimDogru $v)) { return [pscustomobject]@{ gecer = $false; neden = $(if (-not ($v.PSObject.Properties['adimlar'] -and @($v.adimlar).Count)) { 'çözüm anlatımı (adımlar) yok → simülasyon koşamadı' } else { 'simülasyon hiç koşmadı' }) } }
+  if (-not $AnlatimOncesi -and -not (SmmmSimDogru $v)) { return [pscustomobject]@{ gecer = $false; neden = $(if (-not ($v.PSObject.Properties['adimlar'] -and @($v.adimlar).Count)) { 'çözüm anlatımı (adımlar) yok → simülasyon koşamadı' } else { 'simülasyon hiç koşmadı' }) } }
   if (-not (SmmmKorDogru $v)) {
     $ist = SmmmKorIstisna $anahtar $v $onayHarita
     if (-not $ist.gecer) { return [pscustomobject]@{ gecer = $false; neden = "kör çözüm yanlış; $($ist.neden)" } }
   }
   if (-not ($v.PSObject.Properties['hakem2'] -and $v.hakem2 -and "$($v.hakem2.karar)" -eq 'EVET')) { return [pscustomobject]@{ gecer = $false; neden = 'hakem2 EVET değil' } }
-  $kcEksik = @(SmmmKcEksik $v); if ($kcEksik.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-KC Kaydır-Çöz eksik: $($kcEksik -join ', ')" } }
-  $kaliteN = SmmmKaliteNeden $anahtar $v; if ($kaliteN) { return [pscustomobject]@{ gecer = $false; neden = $kaliteN } }
+  $kcEksik = @(SmmmKcEksik $v | Where-Object { -not ($AnlatimOncesi -and $_ -in 'adımlar', 'sade anlatım') }); if ($kcEksik.Count) { return [pscustomobject]@{ gecer = $false; neden = "KAPI-KC Kaydır-Çöz eksik: $($kcEksik -join ', ')" } }
+  $kaliteN = SmmmKaliteNeden $anahtar $v -AnlatimOncesi:$AnlatimOncesi; if ($kaliteN) { return [pscustomobject]@{ gecer = $false; neden = $kaliteN } }
+  if ($AnlatimOncesi) { return [pscustomobject]@{ gecer = $true; neden = 'anlatım öncesi şartlar (anlatım fazları onaydan sonra koşar; tam şart o zaman yeniden aranır)' } }
   return [pscustomobject]@{ gecer = $true; neden = $(if (SmmmKorDogru $v) { 'tüm şartlar' } else { 'tüm şartlar (kör istisnası: Cem onayı + kaynaklı çözüm)' }) }
 }

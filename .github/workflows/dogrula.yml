@@ -225,6 +225,10 @@ jobs:
           # 6 vaka (3 dusur / 3 gecir: yayindaki eski soru, tarihsiz, yeni temiz) + bag + 4 mutasyon (30.09 olculdu). Node ister.
           - { ad: "KAPI-KALITE bitirme yayin sarti bagi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-kalite-bag-sinavi.ps1" }
+          # 08.10.2026 - bitirme onay listesi siniflamasi: kor X + kaynakli ikinci cozum dogru soru anlatim fazlari yokken de
+          # Cem onay listesine duser (kilit: uretici anlatimi onaydan sonraya birakiyordu, liste "simulasyon yok" diye atiyordu). 17 vaka + 7 mutasyon.
+          - { ad: "Bitirme onay listesi siniflama OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/smmm-onay-liste-sinavi.ps1" }
 
           # 30.09.2026 - Bitirme risk taramasi siniflari (R1/R4/R6 kanun no-ad/R7 eski mevzuat/R8 aritmetik, R8y ondalik/yuvarlama). 14 vaka;
           # 7 mutasyon (R6 kapali, R7 istisna, ic alan, R8, R4 esigi, R8y hep/10 kuvveti) her birinde KIRMIZI (30.09 olculdu). Ag yok.
