@@ -58,12 +58,9 @@ if($YalnizPerde){
 if($YalnizPerde){
   Write-Host "-YalnizPerde: ROBOTS ACILMADI - robots.txt 'Disallow: /' olarak KALDI, Google dizine almaz."
 } else {
-  $robots = @"
-User-agent: *
-Allow: /
-
-Sitemap: https://tetikte.com/sitemap.xml
-"@
+  # 08.10: robots metni tek kaynaktan (arac/robots-yaz.ps1): Allow + ic klasorler/GIZLI sayfalar Disallow + sitemap
+  . (Join-Path $kok 'arac\robots-yaz.ps1')
+  $robots = RobotsMetni $kok
   [IO.File]::WriteAllText("$kok\robots.txt", $robots, (New-Object Text.UTF8Encoding($false)))
   Write-Host "2/2 ROBOTS ACILDI (Allow: / + sitemap)."
   if(-not (Test-Path "$kok\sitemap.xml")){ Write-Host "UYARI: sitemap.xml YOK - robots ona isaret ediyor!" }

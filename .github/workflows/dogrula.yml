@@ -279,6 +279,11 @@ jobs:
           - { ad: "Bulut soru sirasi OZ-SINAVI (pay + cift acma + bozuk satir)",
               kabuk: pwsh, komut: "./arac/bulut-sira-sinavi.ps1" }
 
+          # 08.10.2026 - Acilis robots.txt metni (gong.ps1 + acilis-seo.ps1 ortak): Allow + ic klasorler + menu.js GIZLI
+          # sayfalari Disallow; haritadaki acik sayfa kapanmamali. Mutasyon 5/5 KIRMIZI (klasor/gizli/md/allow/harita).
+          - { ad: "Acilis robots.txt OZ-SINAVI (gizli sayfa + ic klasor kapali, harita acik)",
+              kabuk: pwsh, komut: "./arac/robots-yaz.ps1 -Sinav" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para
