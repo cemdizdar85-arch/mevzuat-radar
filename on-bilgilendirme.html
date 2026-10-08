@@ -54,25 +54,29 @@ td:first-child{width:34%;color:var(--ink);font-weight:700}
   <h2>2. Hizmetin temel nitelikleri</h2>
   <p>Tetikte'de satılan hizmetler <b>dijitaldir</b>, fiziksel ürün gönderilmez.</p>
   <ul>
-    <li><b>Sınav Paketi:</b> SMMM Staja Giriş ve Yeterlilik sınavlarına hazırlık için soru bankası, her şıkkın gerekçeli açıklaması, deneme sınavları ve ilerleme paneli. Seçilen paketin ders kapsamı satın alma ekranında gösterilir. Ders anlatımı, canlı yayın ve sertifika <b>içermez</b>.</li>
+  <!-- 08.10.2026 (Cem "2 ve 3 yap" + kararlar: cayma B, havale en geç 1 iş günü, erteleme sözü korunur, Ekibe sor 1 iş günü).
+       Dayanak: Mesafeli Söz. Yön. m.5/1 (a, f, g, h, k [24.05.2025 değişikliği, yürürlük 01.01.2026]), m.6/2, m.15/1-ğ,h, m.20/1;
+       6502 m.4/1, m.48 — Tetikte-Hukuk/resmi-*.md + TASLAK-yasal-metinler-2026-10-08.md. iyzico unvanı iyzico.com/gizlilik-politikasi (08.10).
+       "En az 3 ay" kodla uyumlu: bitiş = max(sınav günü, bugün+92) (2026-10-05-kart-odeme.sql, yonetim.html satisBitis). -->
+    <li><b>Sınav Paketi:</b> SMMM Staja Giriş ve Yeterlilik sınavlarına hazırlık için soru bankası, her şıkkın gerekçeli açıklaması, deneme sınavları, ilerleme paneli, <b>Nöbetçi</b> (yapay zekâ ile çalışan soru yardımcısı; kişi başı günde en çok 10 soru; platformun aylık kullanım sınırı dolarsa o ay geçici olarak durur) ve <b>Ekibe sor</b> (sorunuz ekibe gider, cevap en geç 1 iş günü içinde e-postanıza gelir). Seçilen paketin ders kapsamı satın alma ekranında gösterilir. Ders anlatımı, canlı yayın ve sertifika içermez.</li>
 <!-- 02.10.2026 Cem (iyzico): radar aboneliği satılmıyor; bu madde gizlendi, silinmedi (geri almak: hidden kaldır). -->
     <li hidden><b>Radar aboneliği (işletme):</b> firmaya özel alacak (iflas/konkordato ilanı), marka ve yasal süre izleme uyarıları. Plan (Tek Firma · Tek Radar · Tam Paket) ve dönem (aylık · yıllık) <a href="radar-fiyat.html">abonelik sayfasında</a> seçilir.</li>
   </ul>
   <p>Hizmet internet bağlantısı ve güncel bir web tarayıcısıyla (bilgisayar, tablet ya da telefon) kullanılır. Ayrı bir program kurulması gerekmez.</p>
 
   <h2>3. Fiyat</h2>
-  <p>Seçilen paketin adı, erişim süresi ve <b>vergiler dahil toplam bedeli</b> sipariş ekranının "Özet ve onay" bölümünde, sipariş verilmeden önce gösterilir. Fiyatlar Türk Lirasıdır. Sınav paketlerinde fiyat KDV hariç yazılır ve <b>KDV dahil toplam</b> hemen yanında gösterilir; ödenecek tutar her zaman KDV dahildir. Bedelin üstüne kargo, kurulum ya da başka bir ücret eklenmez. Güncel fiyatlar: <a href="fiyat.html">sınav paketleri</a>.</p>
+  <p>Seçilen paketin adı, erişim süresi ve <b>vergiler dahil toplam bedeli</b> sipariş ekranının "Özet ve onay" bölümünde, sipariş verilmeden önce gösterilir. Fiyatlar Türk Lirasıdır. Sınav paketlerinde fiyat KDV hariç yazılır ve <b>KDV dahil toplam</b> hemen yanında gösterilir; ödenecek tutar her zaman KDV dahildir. Bedelin üstüne kargo, kurulum ya da başka bir ücret eklenmez. İndirim ya da elçi kodu kullandıysanız liste fiyatı, indirim tutarı ve ödenecek KDV dahil toplam ayrı ayrı gösterilir. Güncel fiyatlar: <a href="fiyat.html">sınav paketleri</a>.</p>
 
   <h2>4. Ödeme</h2>
-  <p>Ödeme banka havalesi/EFT ile ya da TCMB lisanslı ödeme kuruluşu aracılığıyla kart ile yapılır. Kart bilgileri ödeme kuruluşunun güvenli sayfasında girilir. Kart bilgileri Tetikte'ye ulaşmaz ve <b>Tetikte'de saklanmaz</b>. Fatura elektronik ortamda düzenlenip Alıcı'nın e-posta adresine gönderilir.</p>
+  <p>Ödeme, kartla (tek çekim; taksit yoktur) iyzi Ödeme ve Elektronik Para Hizmetleri A.Ş. ("iyzico") güvenli ödeme sayfasında ya da banka havalesi/EFT ile yapılır. Kart bilgileri ödeme kuruluşunun güvenli sayfasında girilir; <b>Tetikte'ye ulaşmaz ve Tetikte'de saklanmaz.</b> Fatura elektronik ortamda düzenlenip Alıcı'nın e-posta adresine gönderilir.</p>
 
   <h2>5. İfa (teslim) şekli ve süresi</h2>
   <p>Erişim, Alıcı'nın sipariş ekranında yazdığı e-posta adresine bağlı hesaba tanımlanır:</p>
   <ul>
-    <li><b>Kart ile ödemede:</b> ödeme onaylandığı anda,</li>
-    <li><b>Havale/EFT ile ödemede:</b> ödemenin banka hesabında görüldüğü gün.</li>
+    <li><b>Kart ile ödemede:</b> o e-posta adresiyle açılmış bir hesap varsa ödeme onaylandığı anda; hesap yoksa aynı e-posta adresiyle hesap açıldığı anda,</li>
+    <li><b>Havale/EFT ile ödemede:</b> ödemenin banka hesabında görüldüğü gün, en geç 1 iş günü içinde.</li>
   </ul>
-  <p>Tanımlama e-postayla bildirilir. Sınav Paketi, girilecek sınavın tarihine kadar (her durumda en az 3 ay) süren <b>süreli bir abonelik</b>tir; erişim süresi paket ekranında yazılıdır. Süre sonunda <b>kendiliğinden yenilenmez</b>, yeniden ücret alınmaz; sınav ertelenirse süre yeni sınav tarihine kadar ücretsiz uzar.</p>
+  <p>Tanımlama e-postayla bildirilir. Sınav Paketi, girilecek sınavın tarihine kadar (her durumda en az 3 ay) erişim veren, <b>tek seferlik ödemeli</b> bir pakettir; erişim bitiş tarihi paket ekranında yazılıdır. Süre sonunda <b>kendiliğinden yenilenmez</b>, yeniden ücret alınmaz; sınav ertelenirse süre yeni sınav tarihine kadar ücretsiz uzar.</p>
   <!-- 29.09 (iyzico "aboneliği düzenleyin"): abonelik dönemi, yenileme ve iptal kuralı burada, radar-fiyat.html
        formunda ve teslimat-iade.html'de AYNI cümlelerle yazılır. Biri değişirse üçü birlikte değişir. -->
   <!-- 02.10.2026 Cem (iyzico): radar aboneliği satılmıyor; bu madde gizlendi, silinmedi (geri almak: hidden kaldır). -->
@@ -85,17 +89,17 @@ td:first-child{width:34%;color:var(--ink);font-weight:700}
   <p><b>Kullanım koşulu:</b> Paket en fazla <b>3 (üç) cihazda</b> kullanılabilir ve <b>aynı anda yalnız bir cihazda</b> açık olabilir; yeni bir cihazdan girildiğinde önceki cihazdaki oturum kapanır. Alıcı, kayıtlı cihazlarını Hesabım → Cihazlarım bölümünden yönetir; bir cihaz 30 günde en fazla 2 (iki) kez çıkarılabilir.</p>
 
   <h2>6. Cayma hakkı</h2>
-  <p>Mesafeli Sözleşmeler Yönetmeliği m.15/1-ğ uyarınca, <b>elektronik ortamda anında ifa edilen hizmetlerde cayma hakkı kullanılamaz</b>. Alıcı, satın alma adımında hizmetin hemen ifasına başlanmasını onaylar.</p>
+  <p>Sözleşmenin kurulduğu günden başlayarak 14 gün içinde cayma hakkınız vardır. Ancak Mesafeli Sözleşmeler Yönetmeliği m.15/1-(ğ) ve (h) uyarınca, satın alma adımında erişimin hemen başlatılmasını açıkça onayladığınız ve erişim hesabınıza tanımlandığı anda <b>cayma hakkınızı kaybedersiniz</b>. Erişim henüz tanımlanmamışsa (ör. kartla ödenmiş ama hesap açılmamış ya da havalesi henüz görülmemiş sipariş) destek@tetikte.com adresine ya da yukarıdaki adrese yazarak cayabilirsiniz; ödenen tutarın tamamı 14 gün içinde, ödemenin yapıldığı yönteme ve tek seferde iade edilir.</p>
   <!-- 24.09 Cem: "koşulsuz iadeyi siteden kaldıralım" -->
   <p>Hizmetin <b>ayıplı ifasından</b> doğan yasal haklar her hâlde saklıdır. Ayrıntılar: <a href="teslimat-iade.html">Teslimat ve İade</a>.</p>
 
   <h2>7. Şikâyet ve itiraz yolları</h2>
-  <p>Talep ve şikâyetler yukarıdaki e-posta ve telefondan iletilebilir. Uyuşmazlıklarda, Ticaret Bakanlığı'nca her yıl ilan edilen parasal sınırlar içinde Alıcı'nın yerleşim yerindeki ya da işlemin yapıldığı yerdeki <b>Tüketici Hakem Heyeti</b>'ne, sınırı aşan uyuşmazlıklarda <b>Tüketici Mahkemesi</b>'ne başvurulabilir.</p>
+  <p>Talep ve şikâyetler yukarıdaki e-posta, telefon ve adresten iletilebilir. Uyuşmazlıklarda başvurunuzu tüketici hakem heyetine ya da 6502 sayılı Kanun'un 73/A maddesi uyarınca dava açılmadan önce arabulucuya başvurulması şartıyla tüketici mahkemesine yapabilirsiniz.</p>
 
   <h2>8. Sözleşme ve kayıt</h2>
-  <p>Sözleşme dili Türkçedir. Siparişle birlikte <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> kurulur. Sözleşme ve bu formun bilgileri sipariş özetiyle birlikte Alıcı'nın e-posta adresine iletilir. Kişisel veriler <a href="kvkk.html">KVKK Aydınlatma Metni</a>'ne göre işlenir.</p>
+  <p>Sözleşme dili Türkçedir. Siparişle birlikte <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> kurulur. Bu formun ve sözleşmenin sipariş anındaki metni, sipariş onayı e-postasının ekinde size gönderilir. Kişisel veriler <a href="kvkk.html">KVKK Aydınlatma Metni</a>'ne göre işlenir.</p>
 
-  <div class="dip">Son güncelleme: 02.10.2026 · <a href="mesafeli-satis.html">Mesafeli Satış</a> · <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik ve Çerez</a> · <a href="kvkk.html">KVKK</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></div>
+  <div class="dip">Son güncelleme: 08.10.2026 · <a href="mesafeli-satis.html">Mesafeli Satış</a> · <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik ve Çerez</a> · <a href="kvkk.html">KVKK</a> · <a href="iletisim.html">Hakkımızda ve İletişim</a></div>
 </div>
 <script src="menu.js" defer></script>
 <link rel="stylesheet" href="komut.css">
