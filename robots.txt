@@ -1,3 +1,11 @@
+# 08.10.2026 Meta isletme portfoyu alan adi dogrulamasi (index.html facebook-domain-verification): yalniz Meta botlari okur.
+# Arama motorlari acilisa dek KAPALI. arac/acilis-seo.ps1 -Ac bu dosyayi tamamen "Allow: /" ile yeniden yazar.
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
 User-agent: *
 Disallow: /
 
