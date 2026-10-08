@@ -323,7 +323,7 @@ const SIRA_NOTU=(function(){ try{
 const KASA_BEKLEYEN=[];
 if(window.__KASA_DEVAM&&window.__siraSira){ const R=window.__siraSira, ilk=SORULAR.filter(s=>R(s)===0), geri=SORULAR.filter(s=>R(s)!==0);
   if(geri.length){ KASA_BEKLEYEN.push(...geri); SORULAR.splice(0,SORULAR.length,...ilk); } }
-setTimeout(()=>{ try{ if(!SIRA_NOTU) return; const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
+setTimeout(()=>{ try{ if(!SIRA_NOTU||/\/vitrin\/ornek-/.test(location.pathname)) return; /* 08.10: 5 örnek soruda "dersi sıralayalım" daveti ilk sorunun üstüne biniyordu, anlamsız */ const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
   const t=SIRA_NOTU.tur==='davet' ? '🎯 <b>Bu dersi sana göre sıralayalım:</b> 30 soruda seviyeni ölç, zayıfsan kolaydan başlatalım. <a href="../../seviye-testi.html'+(SIRA_NOTU.yet?'?sinav=yeterlilik':'')+'">Seviyeni ölç →</a>'
         : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
         : SIRA_NOTU.tur==='zor' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>zor sorulardan başlıyoruz</b>.'
@@ -608,7 +608,8 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
   // 06.09 R1 (Cem "1 yap"): CEVAP KAYDI + AKRAN YÜZDESİ — her cevap cevap_kayit'e (anon insert), sonra sik_yuzdesi ile
   // "bu şıkkı seçenlerin %N'i" (UWorld). SQL: radar-app/sql/2026-09-06-cevap-kayit.sql; basılmadan 404 sessiz, yüzde çıkmaz.
   function cevapKasayaYaz(secH,dogruMu,sn,elenen){ if(VITRIN) return;
-    try{ const govde={ soru_id:s.id, ders:s.ders, konu:s.konu, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, sn:(sn===undefined?null:sn), elenen:elenen||[], tahmin_dogru:0, tahmin_n:0, oturum:oturumDamga, kaynak:'kaydir-coz' };
+    // 08.10: 5 örnek soru sayfası (kaydir/vitrin/ornek-*.html) kendi kaynak adıyla yazar - örnek sorunun dönüşümü ayrı ölçülsün
+    try{ const govde={ soru_id:s.id, ders:s.ders, konu:s.konu, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, sn:(sn===undefined?null:sn), elenen:elenen||[], tahmin_dogru:0, tahmin_n:0, oturum:oturumDamga, kaynak:(/\/vitrin\/ornek-/.test(location.pathname)?'ornek-soru':'kaydir-coz') };
       fetch(KAG_SB_URL+'/rest/v1/cevap_kayit',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY, Prefer:'return=minimal' }, body:JSON.stringify(govde) }).catch(()=>{}); }catch(e){}
   }
   function akranYuzdesi(){
