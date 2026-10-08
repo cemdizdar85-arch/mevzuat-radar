@@ -785,6 +785,18 @@ jobs:
               kabuk: bash, komut: "node arac/damping-oran-kapisi.js",
               rapor: "veri/damping-oran-log.txt" }
 
+          # 08.10.2026 KAYNAK ETIKETI (?k=) - gruplara/Instagram'a atilan linkten kac ziyaret / test / uye geldi.
+          # Anon yazma yolu actigi icin (acilis guvenlik denetimi 2.6) iki taraf da sinanir:
+          #  - istemci: menu.js KAYNAK-ETIKETI blogu sahte tarayicida (etiketsiz -> 0 istek, suzgec, oturumda 1,
+          #    30 gun, uyelik <= 2 gun + jeton) + 8 mutasyon
+          #  - sunucu: goc GERCEK Postgres'te (runner'da kurulu), gercek anon/authenticated rolleriyle + 10 mutasyon
+          - { ad: "Kaynak etiketi istemci OZ-SINAVI",
+              kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js" }
+          - { ad: "Kaynak etiketi istemci MUTASYON (her bozma kirmizi)",
+              kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js --mutasyon" }
+          - { ad: "Kaynak sayaci sunucu OZ-SINAVI + MUTASYON (Postgres)",
+              kabuk: bash, komut: "bash arac/kaynak-sayac-sinavi.sh" }
+
     steps:
       - name: Depoyu al
         uses: actions/checkout@v4

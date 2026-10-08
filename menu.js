@@ -4,6 +4,69 @@
 (function(){
 if(window.MRMenu) return;
 
+/* ==== KAYNAK-ETIKETI-BASI (arac/kaynak-etiketi-sinavi.js bu işaretler arasını sınar - işaretleri silme) ==== */
+/* ---- 08.10.2026 KAYNAK ETİKETİ: "hangi link kaç kişi getirdi" --------------
+   Gruplara/Instagram'a atılan link ?k=grup-whatsapp gibi bir etiket taşır (yoksa ?utm_source=). Etiket biçim
+   süzgecinden geçer (küçük harf; a-z 0-9 _ -; en çok 32), cihazda 30 gün saklanır (son gelen link kazanır) ve
+   oturumda etiket başına BİR ziyaret sayılır. Seviye testi başlayınca ttKaynak.olay('test'), hesap açılınca
+   ttKaynak.uye() (sunucu ayrıca bakar: hesap <= 2 gün, hesap başına 1). Etiketsiz gelende HİÇBİR istek gitmez.
+   Sunucu: radar-app/sql/2026-10-08-kaynak-sayac.sql - yalnız gün + etiket + olay + adet; IP/e-posta yok.
+   🚫 GÖRMEZ: linki etiketsiz paylaşan · depolaması kapalı tarayıcıda sonraki sayfadaki test/üyelik (ziyaret yine
+   sayılır) · linki bir cihazda açıp başka cihazda üye olan. */
+(function(){
+  var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
+  var DESEN=/^[a-z0-9][a-z0-9_-]{0,31}$/, OMUR=30*86400000, AD='tt_kaynak', OT='tt_kaynak_say', HESAP_GUN=2;
+  function suz(v){ if(v==null) return null; v=String(v).trim().toLowerCase(); return DESEN.test(v)?v:null; }
+  function oku(){
+    try{ var x=JSON.parse(localStorage.getItem(AD)||'null'); if(x&&suz(x.k)===x.k&&Date.now()-x.t<OMUR) return x.k; }catch(e){}
+    try{ return suz(sessionStorage.getItem(AD)); }catch(e){ return null; }
+  }
+  var bellek=[];   /* sessionStorage kapalıysa aynı sayfa içinde çift saymasın */
+  function sayildi(a){
+    if(bellek.indexOf(a)>-1) return true; bellek.push(a);
+    try{ var s=JSON.parse(sessionStorage.getItem(OT)||'[]'); if(s.indexOf(a)>-1) return true; s.push(a); sessionStorage.setItem(OT,JSON.stringify(s.slice(-20))); }catch(e){}
+    return false;
+  }
+  function gonder(fn,govde,jeton){
+    try{
+      var h={'apikey':KEY,'Content-Type':'application/json'}; if(jeton) h.Authorization='Bearer '+jeton;
+      return fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(govde),keepalive:true})
+        .then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; });
+    }catch(e){ return Promise.resolve(null); }
+  }
+  var q=null; try{ q=new URLSearchParams(location.search); }catch(e){}
+  var gelen=q?(suz(q.get('k'))||suz(q.get('utm_source'))):null;
+  if(gelen){
+    try{ localStorage.setItem(AD,JSON.stringify({k:gelen,t:Date.now()})); }catch(e){}
+    try{ sessionStorage.setItem(AD,gelen); }catch(e){}
+    if(!sayildi('ziyaret:'+gelen)) gonder('kaynak_say',{p_etiket:gelen,p_olay:'ziyaret'});
+  }
+  function oturum(){   /* supabase-js'in cihazdaki oturum kaydı (sb-<proje>-auth-token); ağ isteği yok */
+    try{ var a=Object.keys(localStorage).filter(function(x){ return /^sb-.+-auth-token$/.test(x); })[0]; if(!a) return null;
+      var o=JSON.parse(localStorage.getItem(a)); return o&&o.access_token&&o.user&&o.user.id?o:null; }catch(e){ return null; }
+  }
+  var uyeYolda=false;
+  window.ttKaynak={
+    etiket:oku,
+    olay:function(tur){ var k=oku(); if(!k||tur!=='test'||sayildi(tur+':'+k)) return; gonder('kaynak_say',{p_etiket:k,p_olay:tur}); },
+    uye:function(){
+      var k=oku(); if(!k||uyeYolda) return;
+      var o=oturum(); if(!o) return;
+      var id=o.user.id, acilis=Date.parse(o.user.created_at||'');
+      if(!(Date.now()-acilis<HESAP_GUN*86400000)) return;               /* eski hesap: sunucu da saymaz, istek boşa gitmesin */
+      if(o.expires_at&&o.expires_at*1000<Date.now()) return;            /* süresi dolmuş jeton: sonraki sayfada supabase-js tazeler */
+      try{ if(localStorage.getItem(AD+'_uye')===id) return; }catch(e){}
+      uyeYolda=true;
+      gonder('kaynak_uye',{p_etiket:k},o.access_token).then(function(r){
+        if(r===null){ uyeYolda=false; return; }                         /* ağ/yetki hatası: sonraki sayfada yeniden dener */
+        try{ localStorage.setItem(AD+'_uye',id); }catch(e){}
+      });
+    }
+  };
+  window.ttKaynak.uye();
+})();
+/* ==== KAYNAK-ETIKETI-SONU ==== */
+
 /* ---- 14.08 MOBIL DOKUNMA HEDEFI (Cem: "onlari buyut") ----------------------
    Olculdu: ust menu baglantilari mobilde 21px yuksekligindeydi; parmakla
    basmak icin onerilen alt sinir ~44px. Duzeltme YALNIZ MOBILDE (<=600px)
