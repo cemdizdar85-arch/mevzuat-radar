@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261007185433
+Start time: 20261008015807
 Username: runnervm8df0l\runner
 RunAs User: runnervm8df0l\runner
 Configuration Name: 
 Machine: runnervm8df0l (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/57ba9eac-75ff-4934-ab2b-9e856d79c36b.ps1'
-Process ID: 2550
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/e87fb76a-4f0e-4f82-892d-eab529096af8.ps1'
+Process ID: 2676
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,12 +17,28 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 07-10-2026
-Kart sayisi  : 2
+RG gunu      : 08-10-2026
+Kart sayisi  : 5
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 2 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-askiya.json   (arac: gtip.html)
+      dayanak: Ithalat Rejimi V Sayili Liste (askiya alinan sanayi urunleri)
+      hasat  : motor/askiya-hasat.ps1 (yerel rejim2026 klasoru)
+      <- Demiryolu araçları tip onayı yönetmeliğinde değişikliğe gidildi
+  veri/gtip-durum.json   (arac: gtip.html)
+      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
+      hasat  : motor/tablo-hasat.ps1
+      <- Ürün borsasında aracılık faaliyetlerine ilişkin gözetim yönetmeliğinde değişiklik yapıldı
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261007185433
+End time: 20261008015807
 **********************
