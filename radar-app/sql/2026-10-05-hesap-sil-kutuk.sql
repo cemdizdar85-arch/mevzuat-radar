@@ -1,7 +1,7 @@
 -- ============================================================================
 -- HESAP SİLME KÜTÜĞÜ (05.10.2026, Cem: "tümden çözsen bu yolları denemesek")
 -- Olay: iPhone uygulamasında (derleme 30) "Hesabımı sil" → OK → hesap silinmedi; iki hesap da
--- duruyor (adileersoy123@… ve info@dizdardenetim.com). Aynı gün sunucu dışarıdan üç kez ölçüldü:
+-- duruyor (iki deneme hesabı; adresler 08.10 silindi - depo herkese açık). Aynı gün sunucu dışarıdan üç kez ölçüldü:
 -- boş hesap, ogrenci_sonuc'lu hesap ve ogrenci_ilerleme + ogrenci_sonuc'lu hesap → üçü de
 -- {"tamam": true} ile silindi. Yani istek telefondan ya hiç gelmiyor ya da hatayla geliyor — görmüyoruz.
 --
