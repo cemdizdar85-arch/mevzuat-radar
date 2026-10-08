@@ -120,7 +120,9 @@ function Parcala([string]$metin, [string]$kisa){
       # kapsama %100 gorunuyor ama aramada ise yaramiyordu. Parca-boyu kapisi
       # yakaladi; kural her yerde ayni: kesme yok, dilimle.
       if($on.Length -gt 0){
-        $onDilim = Dilimle $on 2000
+        # 09.10: @() ŞART. Ön bölüm ≤2.000 kr ise Dilimle tek elemanlı liste döner, PowerShell onu dizgiye açar, $onDilim[0] ilk HARF olur
+        #   (08.10 ölçümü: 25 belgede ambara yalnız "T"/"B" girmişti). Öz-sınav: arac/kgk-on-bolum-sinavi.ps1
+        $onDilim = @(Dilimle $on 2000)
         for($z=0; $z -lt $onDilim.Count; $z++){
           $ad = if($onDilim.Count -eq 1){ "{0} - on bolum" -f $kisa } else { "{0} - on bolum [{1}/{2}]" -f $kisa, ($z+1), $onDilim.Count }
           $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} on bolum" -f $kisa); metin=$onDilim[$z] })
@@ -172,7 +174,7 @@ function Parcala([string]$metin, [string]$kisa){
       # kapsama %100 gorunuyor ama aramada ise yaramiyordu. Parca-boyu kapisi
       # yakaladi; kural her yerde ayni: kesme yok, dilimle.
       if($on.Length -gt 0){
-        $onDilim = Dilimle $on 2000
+        $onDilim = @(Dilimle $on 2000)   # 09.10: @() şart — yukarıdaki madde yolu notu
         for($z=0; $z -lt $onDilim.Count; $z++){
           $ad = if($onDilim.Count -eq 1){ "{0} - on bolum" -f $kisa } else { "{0} - on bolum [{1}/{2}]" -f $kisa, ($z+1), $onDilim.Count }
           $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} on bolum" -f $kisa); metin=$onDilim[$z] })

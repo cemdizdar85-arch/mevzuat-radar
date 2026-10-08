@@ -387,6 +387,10 @@ jobs:
           # 22 vaka (gercek Parcala ile uctan uca); ESB_MUTASYON=sayfano|bolum|son|icindekiler|ardisik|resmi|kuyruk -> 7/7 KIRMIZI.
           - { ad: "Etik sayfa no + bolum adlari OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/etik-sayfa-bolum.ps1 -Sinav" }
+          # 09.10.2026 - KGK yutucu on bolum (Parcala madde + paragraf yolu): <=2.000 kr on bolum tek elemanli listeden ilk HARFE iniyordu.
+          # 13 vaka (gercek Parcala); KOB_MUTASYON=geri (@() kaldirilir, iki yer) -> KIRMIZI 5/13.
+          - { ad: "KGK yutucu on bolum OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/kgk-on-bolum-sinavi.ps1" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.

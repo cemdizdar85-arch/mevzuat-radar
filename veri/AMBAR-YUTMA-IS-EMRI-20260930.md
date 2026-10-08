@@ -87,9 +87,14 @@ Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü a
   geri gelince 2.500'ü aştı → [1/2]/[2/2]). Gelen 84 ad: başlık blokları + Terimler Sözlüğü [1/13…13/13] + İçindekiler [1/2,2/2].
 - Ambar: yedek `C:\TETIKTE-YEDEK\etik-sayfa-no-20261008\`, 215 PATCH · 92 DELETE · 84 POST, geri okuma ambar = depo dosyası.
   Bağ: kgk-d1-tds-kolay-1/kp-12 "p.227 [1/3]" → "Etik Kurallar - Terimler Sözlüğü [1/13]" (aynı metinle başlıyor). Kopuk Etik bağı 0 / 84.
-- 🔴 AYRI İŞ (ölçüldü 08.10, düzeltilmedi): `Parcala` ön bölümü ≤2.000 karakterse `Dilimle` tek elemanlı listesi dizgiye açılıyor,
-  ambara YALNIZ İLK HARF giriyor ("T", "B"). Depoda 25 belge: BDS 220/250/402/560/600/610/710/800/805/810, BOBİ FRS, GDS 3000/3402,
-  KYS 1/2, Sürekli Eğitim Tebliği, TFRS 1/2/6/11/14/17, TMS 26/32/34. Düzeltme 25 belgenin tazelenmesini ister.
+- ✅ YAPILDI 09.10 (altyapı oturumu): `Parcala` ön bölümü ≤2.000 karakterse `Dilimle` tek elemanlı listesi dizgiye açılıyor,
+  ilk HARF kalıyordu ("T", "B"). Düzeltme `$onDilim = @(Dilimle $on 2000)` (madde + paragraf yolu). Öz-sınav `arac/kgk-on-bolum-sinavi.ps1`
+  (13 vaka, `KOB_MUTASYON=geri` → 5/13 KIRMIZI, dogrula.yml). Eşdeğerlik (36 belge, 08.10 01:5x pdftotext çıktısı): depo = eski kod bayt
+  bayt 36/36; yeni kodla ad kümesi + sıra 0 fark, öteki kayıtlar 0 fark, değişen yalnız 27 "<kısa> - on bolum" metni = beklenen 25 +
+  TSRS 1/2 (eski kayıt "T " + ona yapışmış kısa kırıntıydı; 431→689, 95→239). Ambar: bu 27 addan YALNIZ "Surekli Egitim Tebligi - on bolum"
+  ambarda (öteki 26 belgenin adları ambarda yok, o standartlar başka yutucudan) → 1 PATCH ("B" → 100 kr), yedek
+  `C:\TETIKTE-YEDEK\kgk-on-bolum-20261009\`, geri okuma ambar = yeni çıktı (Etik 1139 · KUMİ 1 · KYS duyuru 4 · SBDS 2410 62 · Sürekli 25).
+  Bağ: 15.722 partide bu ön bölüm adlarına bağ 0.
 - Öteki standartlarda (KYS 1, BDS …) aynı sayfa numarası kusuru ÖLÇÜLMEDİ; kural yalnız Etik'e bağlı.
 
 ### (eski not, 08.10 öğle)
