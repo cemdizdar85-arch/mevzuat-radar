@@ -328,6 +328,7 @@ setTimeout(()=>{ try{ if(!SIRA_NOTU) return; const u=document.createElement('div
         : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
         : SIRA_NOTU.tur==='zor' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>zor sorulardan başlıyoruz</b>.'
         : '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: kolay ve zor sorular karışık geliyor.';
+  /* 08.10 Cem ("telefonda güzel görünmüyor"): metin tek parçada - flex kutuda her metin/kalın/bağlantı ayrı sütun olup kelime kelime kırılıyordu */
   u.innerHTML='<span class="tuMetin">'+t+'</span><button type="button" class="tuKapat" aria-label="Kapat">✕</button>'; document.body.appendChild(u);
   u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); setTimeout(()=>{ try{ u.remove(); }catch(e){} },12000); }catch(e){} },700);
 // 06.09 seviye: ölçümden türer (bkz. kart kurulumu). k = sınıf anahtarı, ad = ekran adı (Nöbet dili: Isınma / Nöbet / Alarm), neden = ipucu.
