@@ -10,6 +10,14 @@
 //   form / karne / hata bildir  form_kayit      satır silinir — AMA duyuru izni "evet" olan satır
 //                                               KALIR: kvkk.html "izin kaydı, ispat için" saklanır der.
 //   takip formu (Kuruluş Nöbeti) kurulus_nobet  satır silinir
+//   SİPARİŞ ONAY KAYDI          form_kayit      konusu "YENİ SİPARİŞ" olan satır 3 YIL sonra silinir (08.10.2026:
+//                                               Mesafeli Sözleşmeler Yön. m.20/1 bilgilendirme+onay kayıtları 3 yıl;
+//                                               Tetikte-Hukuk/resmi-mesafeli-sozlesmeler-yonetmeligi.md). 2 yıl kuralı bu satırlara DOKUNMAZ.
+//   Nöbetçi soruları            nobetci_soru    1 yıl (tarih) sonra silinir   } 08.10.2026 Cem "mevzuat süreleri + kodu düzelt":
+//   Ekibe sor                   ekibe_soru      1 yıl (tarih) sonra silinir   } önceden hiç silinmiyordu (yasal tarama)
+//   paylaşım koruması cihazları uye_cihazlar    son_gorulme 6 ay geride ise silinir
+//   sipariş + kart ödemesi      siparisler,     10 yıl: kaydın yılını izleyen takvim yılı başından 10 yıl (TTK m.82/5-6,
+//                               kart_odemeleri  VUK m.253; resmi-saklama-vuk-ttk.md) — kesim = (bu yıl − 10)'un 1 Ocak'ı
 //   hız sınırı sayacı (IP)      rate_log        1 günden eski satır silinir (sayaç 10 dk'ya bakar;
 //                                               RPC içindeki %5 olasılıklı temizlik trafik azken çalışmıyor —
 //                                               14.09 ölçümü: 2 gün önceki IP satırları duruyordu)
@@ -48,9 +56,17 @@ function rizaKaniti(alanlar) {
   });
 }
 
-function kesimGuvenli(kesim, simdi) {
-  return (simdi.getTime() - kesim.getTime()) >= 729 * GUN;
+function kesimGuvenli(kesim, simdi, enAzGun) {
+  return (simdi.getTime() - kesim.getTime()) >= (enAzGun || 729) * GUN;
 }
+// 08.10: sipariş onay kaydı form_kayit'ta "YENİ SİPARİŞ TT-… — tutar TL" konusuyla durur (satin-al.html form gönderimi)
+function siparisKaydi(konu) {
+  if (process.env.SR_MUTASYON === 'siparis-gormez') return false;
+  return /^\s*YEN[İI]\s+S[İI]PAR[İI][ŞS]/i.test(String(konu || ''));
+}
+function kesimAy(simdi, ay) { const d = new Date(simdi.getTime()); d.setUTCMonth(d.getUTCMonth() - ay); return d; }
+// TTK m.82: süre takvim yılı sonundan işler -> X yılındaki kayıt (X+10) yılı sonuna dek kalır -> kesim = (bu yıl - 10) 1 Ocak
+function kesimTakvim10(simdi) { return new Date(Date.UTC(simdi.getUTCFullYear() - 10, 0, 1)); }
 
 async function istek(yol, secenek) {
   const K = process.env.SUPABASE_SERVICE_KEY;
@@ -105,10 +121,11 @@ async function kos(yaz) {
   }
   // 3) form_kayit: sil, rıza kanıtı kalır
   {
-    const r = await istek(`form_kayit?select=id,alanlar&olusturma=lt.${k2}&order=olusturma.asc&limit=${TAVAN + 1}`);
+    const r = await istek(`form_kayit?select=id,alanlar,konu&olusturma=lt.${k2}&order=olusturma.asc&limit=${TAVAN + 1}`);
     const satir = await r.json();
     if (satir.length > TAVAN) throw new Error(`KAPI: form_kayit ${satir.length} > ${TAVAN}`);
-    const silinecek = satir.filter(s => !rizaKaniti(s.alanlar)).map(s => s.id);
+    const silinecek = satir.filter(s => !rizaKaniti(s.alanlar) && !siparisKaydi(s.konu)).map(s => s.id);
+    const siparisAtlanan = satir.filter(s => siparisKaydi(s.konu)).length;
     let yapilan = 0;
     if (yaz) {
       for (let i = 0; i < silinecek.length; i += 100) {
@@ -116,7 +133,7 @@ async function kos(yaz) {
         yapilan += await sil('form_kayit', `id=in.(${encodeURIComponent(parca)})`);
       }
     }
-    not('form_kayit sil (2 yıl)', silinecek.length, yapilan, `rıza kanıtı olarak kalan: ${satir.length - silinecek.length}`);
+    not('form_kayit sil (2 yıl)', silinecek.length, yapilan, `kalan: rıza kanıtı ${satir.length - silinecek.length - siparisAtlanan} · sipariş onayı (3 yıl kuralında) ${siparisAtlanan}`);
   }
   // 4) kurulus_nobet: sil
   {
@@ -124,6 +141,35 @@ async function kos(yaz) {
     const n = await say('kurulus_nobet', f);
     if (n > TAVAN) throw new Error(`KAPI: kurulus_nobet ${n} > ${TAVAN}`);
     not('kurulus_nobet sil (2 yıl)', n, yaz && n ? await sil('kurulus_nobet', f) : 0);
+  }
+  // 6) 08.10: form_kayit sipariş onayı 3 yıl
+  {
+    const kesim3 = kesimTarihi(simdi, 3);
+    if (!kesimGuvenli(kesim3, simdi, 1094)) throw new Error('KAPI: 3 yıl kesimi bugüne çok yakın');
+    const r = await istek(`form_kayit?select=id,konu&olusturma=lt.${encodeURIComponent(kesim3.toISOString())}&order=olusturma.asc&limit=${TAVAN + 1}`);
+    const satir = await r.json();
+    if (satir.length > TAVAN) throw new Error(`KAPI: form_kayit (3 yıl) ${satir.length} > ${TAVAN}`);
+    const sil3 = satir.filter(s => siparisKaydi(s.konu)).map(s => s.id);
+    let yapilan = 0;
+    if (yaz) for (let i = 0; i < sil3.length; i += 100) {
+      const parca = sil3.slice(i, i + 100).map(id => `"${id}"`).join(',');
+      yapilan += await sil('form_kayit', `id=in.(${encodeURIComponent(parca)})`);
+    }
+    not('form_kayit sipariş onayı sil (3 yıl)', sil3.length, yapilan);
+  }
+  // 7-9) 08.10: Nöbetçi / Ekibe sor 1 yıl, cihaz 6 ay
+  for (const [tablo, sutun, kesim, enAz, ad] of [
+    ['nobetci_soru', 'tarih', kesimTarihi(simdi, 1), 364, 'nobetci_soru sil (1 yıl)'],
+    ['ekibe_soru', 'tarih', kesimTarihi(simdi, 1), 364, 'ekibe_soru sil (1 yıl)'],
+    ['uye_cihazlar', 'son_gorulme', kesimAy(simdi, 6), 180, 'uye_cihazlar sil (son görülme 6 ay)'],
+    ['siparisler', 'olusturma', kesimTakvim10(simdi), 3650, 'siparisler sil (10 yıl, takvim yılı)'],
+    ['kart_odemeleri', 'olusturma', kesimTakvim10(simdi), 3650, 'kart_odemeleri sil (10 yıl, takvim yılı)'],
+  ]) {
+    if (!kesimGuvenli(kesim, simdi, enAz)) throw new Error(`KAPI: ${tablo} kesimi bugüne çok yakın`);
+    const f = `${sutun}=lt.${encodeURIComponent(kesim.toISOString())}`;
+    const n = await say(tablo, f);
+    if (n > TAVAN) throw new Error(`KAPI: ${tablo} ${n} > ${TAVAN}`);
+    not(ad, n, yaz && n ? await sil(tablo, f) : 0);
   }
   // 5) rate_log: 1 günden eski IP satırları
   {
@@ -147,6 +193,21 @@ function sinav() {
   t('pazarlama_rizasi true = kanıt', rizaKaniti({ pazarlama_rizasi: true }));
   t('boş alanlar', !rizaKaniti(null) && !rizaKaniti({}));
   t('mesaj içinde "izin" kelimesi değer değilse kanıt değil', !rizaKaniti({ message: 'izin evet' }));
+  // 08.10 yeni kurallar
+  t('sipariş konusu tanınır (büyük harf, TT no, tutar)', siparisKaydi('YENİ SİPARİŞ TT-20261008-VJY4 — 1.138 TL'));
+  t('sipariş konusu tanınır (ASCII yazım)', siparisKaydi('YENI SIPARIS TT-20261008-VJY4'));
+  t('sipariş konusu tanınır (küçük harf)', siparisKaydi('Yeni sipariş TT-1'));
+  t('karne konusu sipariş değil', !siparisKaydi('Seviye testi karnesi'));
+  t('danışmanlık talebi sipariş değil', !siparisKaydi('DANIŞMANLIK TALEBİ (/hizmet.html)'));
+  t('"sipariş" geçen ama sipariş olmayan konu', !siparisKaydi('Sipariş hakkında soru'));
+  t('boş konu', !siparisKaydi(null) && !siparisKaydi(''));
+  t('6 ay kesimi', kesimAy(s, 6).toISOString() === '2026-03-14T10:00:00.000Z');
+  t('10 yıl takvim kesimi', kesimTakvim10(s).toISOString() === '2016-01-01T00:00:00.000Z');
+  t('1 yıl kesimi 364 gün kapısından geçer', kesimGuvenli(kesimTarihi(s, 1), s, 364));
+  t('6 ay kesimi 180 gün kapısından geçer', kesimGuvenli(kesimAy(s, 6), s, 180));
+  t('3 ay kesimi 180 gün kapısında durur', !kesimGuvenli(kesimAy(s, 3), s, 180));
+  t('10 yıl takvim kesimi 3650 gün kapısından geçer', kesimGuvenli(kesimTakvim10(s), s, 3650));
+  t('3 yıl kesimi 1094 gün kapısından geçer', kesimGuvenli(kesimTarihi(s, 3), s, 1094));
   console.log(hata ? `ÖZ-SINAV DÜŞTÜ (${hata})` : 'ÖZ-SINAV GEÇTİ');
   return hata ? 1 : 0;
 }
@@ -165,4 +226,4 @@ if (require.main === module) {
   }).catch(e => { console.error('SAKLAMA ROBOTU DÜŞTÜ: ' + e.message); process.exit(1); });
 }
 
-module.exports = { kesimTarihi, rizaKaniti, kesimGuvenli };
+module.exports = { kesimTarihi, rizaKaniti, kesimGuvenli, siparisKaydi, kesimAy, kesimTakvim10 };

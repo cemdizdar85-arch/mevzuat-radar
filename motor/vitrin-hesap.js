@@ -120,7 +120,14 @@ async function ana() {
   console.log(`5 ÖRNEK SORU: SGS ${ornekCikti.sinavlar.sgs.length}/${(ornek.sgs || []).length} · Yeterlilik ${ornekCikti.sinavlar.yeterlilik.length}/${(ornek.yeterlilik || []).length}`
     + (ornekCikti.dusen.length ? ' · düşen: ' + ornekCikti.dusen.map(d => d.id + ' (' + d.neden + ')').join(', ') : ''));
   if (process.argv.includes('--kuru')) return;
-  for (const [hedef, nesne, ad] of [[HEDEF, cikti, 'veri/vitrin-hesap.json'], [path.join(KOK, 'veri', 'ornek-soru.json'), ornekCikti, 'veri/ornek-soru.json']]) {
+  /* 08.10 Cem ("5 örnek soru bizim soru paketi gibi değil" -> "yap"): örnek sorular ders sayfasının BİREBİR şablonuyla basılır
+     (motor/kaydir-coz.ps1 -> kaydir/vitrin/ornek-<sgs|smmm>.html, yayin-bas.yml vitrin adımı). Seçim dosyası yalnız robotun GEÇİRDİĞİ
+     sorulardan kurulur: düşen soru sayfadan da düşer. Biçim vitrin-*-secim.json ile aynı. */
+  const secim = s => ornekCikti.sinavlar[s].map(x => ({ etiket: x.id.split('/')[0], id: x.id.split('/')[1], ders: x.ders, konu: x.konu, donem: x.konu_donem, kurtarma: false }));
+  const secimDizin = path.join(KOK, 'veri', 'sinav', 'kaydir-secim');
+  for (const [hedef, nesne, ad] of [[HEDEF, cikti, 'veri/vitrin-hesap.json'], [path.join(KOK, 'veri', 'ornek-soru.json'), ornekCikti, 'veri/ornek-soru.json'],
+    [path.join(secimDizin, 'ornek-sgs-secim.json'), secim('sgs'), 'veri/sinav/kaydir-secim/ornek-sgs-secim.json'],
+    [path.join(secimDizin, 'ornek-smmm-secim.json'), secim('yeterlilik'), 'veri/sinav/kaydir-secim/ornek-smmm-secim.json']]) {
     const yeni = JSON.stringify(nesne) + '\n';
     let eski = null; try { eski = fs.readFileSync(hedef, 'utf8'); } catch (e) {}
     if (eski === yeni) console.log('  ' + ad + ': değişiklik yok - dosyaya dokunulmadı');

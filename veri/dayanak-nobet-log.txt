@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261008015426
-Username: runnervmmprz5\runner
-RunAs User: runnervmmprz5\runner
+Start time: 20261008060505
+Username: runnervm8df0l\runner
+RunAs User: runnervm8df0l\runner
 Configuration Name: 
-Machine: runnervmmprz5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8c9d7f90-8112-4598-85c8-1fce61361bef.ps1'
-Process ID: 11163
+Machine: runnervm8df0l (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/0d6ea2b9-058a-44cb-90d8-1358b2044972.ps1'
+Process ID: 11413
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,80 +17,11 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 1671
-Haritadaki sayfa: 26
-  ayristirilan cift: 907
-  AYRISTIRILAMAYAN 731 kayit (gozden kacmasin diye yaziliyor):
-     GVK (193 s.K.) muk. m.121 [1/4] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.123 - Yetki (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.17 - Maliye Bakanlığı yetkilidir. Serbest meslek erbabında yaşlılık muaflığı (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.20/D - Yurt dışından elde edilen kazanç ve iratlar için vergi istisnası (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) muk. m.39 (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.3 (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.35 [1/5] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.36 (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.47 [1/2] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.56 [1/7] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.58 [1/5] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.61 [1/2] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.67 [1/14] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.72 [1/2] (gec/ek serisi - normal madde ile eslestirilmedi)
-     GVK (193 s.K.) gec. m.75 (gec/ek serisi - normal madde ile eslestirilmedi)
+Degisen madde : 0
+Haritadaki sayfa: 27
 
-======================================================================
-  KANUN DEGISTI - 10 SAYFA ETKILENDI
-======================================================================
-  asgari-kv.html
-      <- KVK (5520 s.K.) m.32/B [1/2]
-  bilgi.html
-      <- KVK (5520 s.K.) m.32/B [1/2]
-      <- KVK (5520 s.K.) m.7 [1/2]
-  ceza-asistani.html
-      <- VUK (213 s.K.) m.112 - Özel ödeme zamanları [1/3]
-      <- VUK (213 s.K.) m.333 - Tüzel kişilerin sorumluluğu
-      <- VUK (213 s.K.) m.352
-      <- VUK (213 s.K.) m.353 [1/8]
-      <- VUK (213 s.K.) m.359 [1/5]
-      <- VUK (213 s.K.) m.370 [1/3]
-      <- VUK (213 s.K.) m.374 - Ceza kesmede zamanaşımı
-  fiyatfarki.html
-      <- KVK (5520 s.K.) m.30 [1/5]
-  gtip.html
-      <- KDVK (3065 s.K.) m.13 [1/9]
-  hizmet.html
-      <- KDVK (3065 s.K.) m.17 [1/19]
-      <- KVK (5520 s.K.) m.30 [1/5]
-  karne.html
-      <- TTK (6102 s.K.) m.397 [1/2]
-  kurulus-evrak.html
-      <- VUK (213 s.K.) m.153
-  kurulus-nobeti.html
-      <- GVK (193 s.K.) m.98 - Verilme zamanı
-      <- VUK (213 s.K.) m.153
-      <- KVK (5520 s.K.) m.32/B [1/2]
-      <- TTK (6102 s.K.) m.354
-      <- TTK (6102 s.K.) m.379
-      <- TTK (6102 s.K.) m.409
-      <- TTK (6102 s.K.) m.46
-      <- TTK (6102 s.K.) m.585
-      <- TTK (6102 s.K.) m.591
-      <- TTK (6102 s.K.) m.608
-      <- TTK (6102 s.K.) m.617
-  kurulus.html
-      <- GVK (193 s.K.) m.47
-      <- GVK (193 s.K.) m.89 [1/10]
-      <- GVK (193 s.K.) m.9 [1/7]
-      <- KVK (5520 s.K.) m.10 [1/11]
-      <- KVK (5520 s.K.) m.32/B [1/2]
-      <- KVK (5520 s.K.) m.7 [1/2]
-      <- TTK (6102 s.K.) m.585
-
-  Bu sayfalar OKUNUP GUNCELLENMEDEN dogru sayilmaz.
-  -> veri/dayanak-uyari.json
-
-  KOSU BILEREK KIRMIZI BITIYOR: sessiz rapor okunmaz. Bu depoda dort
-  katman 'kuruldu ama kimse gormedi' diye bekledi; bu besincisi olmayacak.
+TEMIZ: degisen madde yok, etkilenen sayfa yok.
 **********************
 PowerShell transcript end
-End time: 20261008015426
+End time: 20261008060505
 **********************

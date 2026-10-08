@@ -72,13 +72,16 @@ table.kv tr:last-child td{border-bottom:0}
        platform kalıbı (Kariyer.net: kişi grubuna göre bölümler, açık rıza AYRI metin, amaç-hukuki
        sebep eşleşmesi, "gibi/vb." yok, saklama süresi açık). Aydınlatma Yükümlülüğü Tebliği unsurları:
        veri sorumlusu · amaç · aktarım alıcıları ve amacı · toplama yöntemi ve hukuki sebep · m.11 hakları.
-       HUKUKİ GÖRÜŞ DEĞİLDİR: GM taslağı; unvan ve saklama süreleri Cem kararı. -->
+       HUKUKİ GÖRÜŞ DEĞİLDİR: GM taslağı; unvan ve saklama süreleri Cem kararı.
+       08.10.2026 ARA DÜZELTME (Cem "3 yap": yanlış cümleler düzelsin, yurt dışı bölümünün hukuki çerçevesine dokunulmasın).
+       Kaynak: yasal tarama (kodla karşılaştırma) + Tetikte-Hukuk/TASLAK-yasal-metinler-2026-10-08.md + resmi-*.md (mevzuat tam metin).
+       Saklama süreleri motor/saklama-robotu.js (6042bc9b) ile kodda uygulanıyor. Tam yeni metin yurt dışı standart sözleşmeleri
+       imzalanınca yayınlanacak (Cem kararı, hafıza yasal-metin-kararlari-0810). -->
 
   <div class="uyari">
-    <b>Kısaca:</b> Hesaplama araçları <b>tarayıcınızda</b> çalışır, girdiğiniz rakamlar bize gelmez.
-    Bize veri yalnızca şu durumlarda gelir: <b>üye olduğunuzda</b>, <b>bir form gönderdiğinizde</b>,
-    <b>soru çözdüğünüzde</b> (cevabınız, kimliğinizle eşleştirilmeden) ve <b>soru-cevap aracına soru
-    yazdığınızda</b>. Hangi verinin, neden, ne kadar süre ve kimde durduğu aşağıda tek tek yazılıdır.
+    <b>Kısaca:</b> Bize kişisel veri şu durumlarda gelir: <b>üye olduğunuzda</b> (e-posta ya da Google ile),
+    <b>soru çözdüğünüzde</b>, <b>sipariş verip ödeme yaptığınızda</b>, <b>Nöbetçi'ye ya da ekibe soru yazdığınızda</b>
+    ve <b>bir form gönderdiğinizde</b>. Hangi verinin, neden, ne kadar süre ve kimde durduğu aşağıda tek tek yazılıdır.
   </div>
 
   <p>Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") m.10 ve Aydınlatma
@@ -94,17 +97,21 @@ table.kv tr:last-child td{border-bottom:0}
     <thead><tr><th>Durum</th><th>İşlenen veri</th><th>Amaç</th><th>Hukuki sebep</th><th>Saklama</th></tr></thead>
     <tbody>
       <tr><td><b>Siteyi gezerseniz</b></td><td>Sayfa görüntüleme, tarayıcı türü, dil, ekran genişliği, yaklaşık ülke/şehir (IP adresinden türetilir, IP saklanmaz)</td><td>Hangi sayfaların kullanıldığını ölçmek</td><td>Meşru menfaat (m.5/2-f)</td><td>Sayaç sağlayıcısında toplu istatistik olarak</td></tr>
-      <tr><td><b>Form gönderirseniz, soru-cevap aracını ya da Alacak Radarı sorgusunu kullanırsanız</b> (güvenlik)</td><td>IP adresi ve istek zamanı</td><td>Otomatik ve aşırı sayıda isteği engellemek</td><td>Meşru menfaat (m.5/2-f)</td><td>Kısa süreli sayaçta (sayaç son 10 dakikaya bakar); en geç 1 gün içinde otomatik silinir</td></tr>
-      <tr><td><b>Hesaplama araçlarını kullanırsanız</b> (Yükümlülük Karnesi, GTİP, Fiş Fabrikası, KDV, ceza hesapları)</td><td>Girdiğiniz rakamlar ve dosyalar <b>bize gönderilmez</b>, tarayıcınızda işlenir</td><td>—</td><td>—</td><td>Tutulmaz</td></tr>
+      <tr><td><b>Güvenlik</b> (giriş, kayıt, form ve Nöbetçi ekranları)</td><td>IP adresi ve istek zamanı; giriş ve kayıt ekranlarında otomatik (bot) doğrulaması için Cloudflare Turnstile'ın ürettiği teknik tarayıcı verileri</td><td>Otomatik ve aşırı sayıda isteği, sahte hesap açmayı engellemek</td><td>Meşru menfaat (m.5/2-f)</td><td>IP sayacı: en geç 1 gün içinde otomatik silinir</td></tr>
+      
       <tr><td><b>Soru çözerseniz</b> (Kaydır-Çöz, seviye testi, sınav gibi deneme)</td><td>Çözdüğünüz soru, seçtiğiniz şık, doğru/yanlış, soruya ayırdığınız süre, elediğiniz şıklar, hesap kâğıdına yazdığınız metin ve çizim yapıp yapmadığınız; üye değilseniz tarayıcınızda üretilen <b>rastgele oturum numarası</b> (adınız, e-postanız eklenmez)</td><td>Soruların gerçek zorluğunu ölçmek, "bu şıkkı seçenlerin yüzdesi" gibi anonim istatistik üretmek, soru kalitesini denetlemek</td><td>Meşru menfaat (m.5/2-f)</td><td>En fazla 2 yıl; sonra oturum numarası silinerek yalnız toplu istatistik kalır</td></tr>
       <tr><td><b>Deneme sınavında üyeliğinizle soru çözerseniz</b></td><td>Çözdüğünüz soru, doğru/yanlış, süre (üyeliğinize bağlı)</td><td>Size karne üretmek; en az 20 çözümden sonra kimliksiz ders ortalaması hesaplamak</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Üyelik süresince</td></tr>
-      <tr><td><b>Öğrenci hesabı açarsanız</b></td><td>E-posta adresi, şifre (geri döndürülemez özet olarak), koşul kabul tarihi, seviye testi ve deneme sonuçlarınız</td><td>Hesabınızı kurmak, sonuçlarınızı saklayıp hazırlık paneli ve ilerleme grafiği sunmak</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Üyelik süresince; hesabın kapatılmasından sonra 30 gün içinde silinir</td></tr>
-      <tr><td><b>İşletme (radar) hesabı açarsanız</b></td><td>E-posta adresi, şifre (özet), panelinize kendi isteğinizle girdiğiniz firma izleme bilgileri: firma adı, VKN, takip edilen GTİP kodları, marka adları, il, sektör, belge tarihleri, telefon (bildirim kanalı seçerseniz)</td><td>Size özel uyarı üretmek ve göndermek</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Üyelik süresince; hesabın kapatılmasından sonra 30 gün içinde silinir</td></tr>
-      <tr><td><b>Ücretsiz seviye testine girerseniz</b> (30 soruluk ölçüm)</td><td><b>Ad soyad, e-posta adresi ve telefon numarası</b> (üçü de zorunludur; bu bilgileri vermeden test açılmaz), hazırlandığınızı belirttiğiniz sınav ve dönem, test sonucunuz (geçme ihtimali, doğru sayıları, alan sonuçları), kayıt tarihi</td><td>Testi size açmak, karnenizi e-postanıza göndermek, sonucunuz ve sınav hazırlığınız hakkında size dönüş yapmak; aynı kişiye kötüye kullanım amaçlı çok sayıda gönderimi engellemek</td><td>Talebinizle kurulan hizmet ilişkisi (m.5/2-c)</td><td>2 yıl</td></tr>
-      <tr><td><b>Bir form gönderirseniz</b> ("Haber ver", teklif/talep, takip formları)</td><td>E-posta adresi, formda yazdıklarınız; Yükümlülük Karnesi formunda paylaşmayı seçtiyseniz şirket türü, çalışan sayısı, ciro ve aktif toplamı, yükümlülük başlıkları</td><td>Talebinize dönüş yapmak</td><td>Talebinizle kurulan hizmet ilişkisi (m.5/2-c)</td><td>2 yıl</td></tr>
+      <tr><td><b>Üye olursanız</b> (e-posta ve şifreyle ya da Google ile)</td><td>E-posta adresi; şifreyle üyelikte şifre (geri döndürülemez özet olarak); Google ile girişte Google'ın bize ilettiği e-posta adresi ve girişin Google ile yapıldığı bilgisi; koşul kabul tarihi; hatırlatma izni verip vermediğiniz; bir elçi bağlantısıyla geldiyseniz elçinin kodu; seviye testi ve deneme sonuçlarınız, ilerlemeniz ve yanlış kutunuz</td><td>Hesabınızı kurmak ve korumak, sonuçlarınızı saklayıp hazırlık paneli ve ilerleme grafiği sunmak, elçi komisyonunu doğru elçiye yazmak</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Üyelik süresince; hesabın kapatılmasından sonra 30 gün içinde silinir (sipariş ve fatura kayıtları hariç, aşağıda)</td></tr>
+      <tr><td><b>İşletme (radar) hesabı</b> (bu hizmet şu an yeni kayda kapalıdır; daha önce açılmış hesaplar için)</td><td>E-posta adresi, şifre (özet), panelinize kendi isteğinizle girdiğiniz firma izleme bilgileri: firma adı, VKN, takip edilen GTİP kodları, marka adları, il, sektör, belge tarihleri, telefon (bildirim kanalı seçtiyseniz)</td><td>Size özel uyarı üretmek ve göndermek</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Üyelik süresince; hesabın kapatılmasından sonra 30 gün içinde silinir</td></tr>
+      <tr><td><b>Ücretsiz seviye testi</b> (30 soruluk ölçüm)</td><td>Test <b>form doldurmadan</b> açılır; sonucunuz önce <b>cihazınızda</b> tutulur. Ayrıntılı rapor ve karne için hesap açmanız ya da karne formunu doldurmanız istenir; bu durumda e-posta adresiniz, hazırlandığınız sınav, test sonucunuz (geçme ihtimali, ders ve konu grubu sonuçları), hatırlatma izni verip vermediğiniz ve kayıt tarihi işlenir</td><td>Sonucunuzu göstermek, karnenizi e-postanıza göndermek</td><td>Talebinizle kurulan hizmet ilişkisi (m.5/2-c)</td><td>2 yıl</td></tr>
+      <tr><td><b>Sipariş verirseniz</b></td><td>Ad soyad, e-posta, telefon, fatura adresi; bireysel faturada isteğe bağlı T.C. kimlik numarası; kurumsal faturada ticaret unvanı, vergi kimlik numarası ve vergi dairesi; seçtiğiniz paket ve dersler, tutar; kullandıysanız elçi ya da davet kodu; ön bilgilendirme ve anında ifa onaylarınızın zamanı</td><td>Siparişi kurmak, ödemeyi eşleştirmek, paketi hesabınıza tanımlamak, fatura düzenlemek, elçi komisyonunu hesaplamak, onay verdiğinizi ispat etmek</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c); fatura ve muhasebe kaydı için hukuki yükümlülük (m.5/2-ç); onayların ispatı için bir hakkın tesisi ve korunması (m.5/2-e)</td><td>Ön bilgilendirme ve onay kayıtları 3 yıl; sipariş ve fatura kayıtları, kaydın yılını izleyen takvim yılından başlayarak 10 yıl</td></tr>
+      <tr><td><b>Kartla ödeme yaparsanız</b></td><td>Ödeme kuruluşu iyzico'ya iletilen: ad soyad, e-posta, fatura adresi, T.C. kimlik numaranız (girmediyseniz sistemin gönderdiği sabit bir yer tutucu numara), IP adresiniz, paket adı ve tutar. <b>Kart bilgileriniz bize hiç gelmez</b>; kart iyzico'nun ödeme sayfasında girilir. Bizde kalan: iyzico'nun işlem numarası, tutar ve ödeme durumu</td><td>Ödemeyi almak, ödemeyi siparişle eşleştirmek, ödeme kaydını tutmak</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td><td>Ödeme kaydı, kaydın yılını izleyen takvim yılından başlayarak 10 yıl</td></tr>
+      <tr><td><b>Bir form gönderirseniz</b> ("Haber ver", teklif/talep, takip formları)</td><td>E-posta adresi ve formda yazdıklarınız</td><td>Talebinize dönüş yapmak</td><td>Talebinizle kurulan hizmet ilişkisi (m.5/2-c)</td><td>2 yıl</td></tr>
       <tr><td><b>Soruda hata bildirirseniz</b></td><td>Yazdığınız bildirim metni, ilgili sorunun kimliği ve metni, bildirimin yapıldığı sayfa</td><td>Soruyu incelemek ve gerekiyorsa düzeltmek</td><td>Meşru menfaat (m.5/2-f)</td><td>2 yıl</td></tr>
-      <tr><td><b>Soru-cevap aracına soru yazarsanız</b></td><td>Yazdığınız soru metni</td><td>Cevabı üretmek</td><td>Talebinizle kurulan hizmet ilişkisi (m.5/2-c)</td><td>Soru metni kimliğinizle eşleştirilmez; cevap üretildikten sonra kişisel veri olarak saklanmaz</td></tr>
-      <tr><td><b>Duyuru ve hatırlatmalara izin verirseniz</b></td><td>İzin verdiğiniz kanala göre e-posta adresi ve/veya telefon numarası, <b>hangi kanallara izin verdiğiniz</b> (e-posta, SMS, telefonla arama, WhatsApp — her biri ayrı ayrı işaretlenir) ve izin tarihi</td><td>Sınav hatırlatmaları, hizmet duyuruları ve mevzuat bilgilendirmeleri göndermek</td><td><b>Açık rızanız</b> (m.5/1) — <a href="#riza">ayrı metin</a></td><td>İzin geri alınana kadar; izin kaydı, ispat için mevzuatın öngördüğü süre boyunca</td></tr>
+      <tr><td><b>Nöbetçi'ye (yapay zekâ) soru yazarsanız</b></td><td>Yazdığınız mesaj, sorunun metni, şıkları ve açıklaması, Nöbetçi'nin cevabı, hesap kimliğiniz. <b>Mesajınız yapay zekâ sağlayıcısına olduğu gibi gider; otomatik gizleme yapılmaz</b>: mesaja kimlik numarası, telefon, IBAN gibi kişisel bilgi yazmayın</td><td>Cevabı üretmek, günlük kullanım sınırını uygulamak, hatalı cevapları ve kötüye kullanımı denetlemek</td><td>Sözleşmenin ifası (m.5/2-c)</td><td>1 yıl; hesabınızı silerseniz hemen silinir</td></tr>
+      <tr><td><b>"Ekibe sor" kullanırsanız</b></td><td>Mesajınız, ilgili sorunun kısa metni, Nöbetçi'nin önceki cevabı, e-posta adresiniz</td><td>Sorunuzu ekibe iletmek ve size e-postayla cevap vermek</td><td>Sözleşmenin ifası (m.5/2-c)</td><td>1 yıl; hesabınızı silerseniz hemen silinir</td></tr>
+      <tr><td><b>Paketli hesabınızı kullanırken</b> (paylaşım koruması)</td><td>Cihaz kimliği, cihaz adı, ilk ve son görülme zamanı; paketli sayfalarda ekranda e-posta adresinizden oluşan filigran</td><td>Paketin en çok 3 cihazda ve aynı anda tek ekranda kullanılması kuralını uygulamak, hesabın paylaşılmasını önlemek</td><td>Sözleşmenin ifası (m.5/2-c); meşru menfaat (m.5/2-f)</td><td>Cihaz son kullanımdan 6 ay sonra silinir; hesabınızı silerseniz hemen silinir</td></tr>
+      <tr><td><b>Hatırlatmalara izin verirseniz</b></td><td>E-posta adresi, izin verdiğiniz an, son seviye testi tarihiniz ve sonucunuz, hazırlandığınız sınav, paket sahibi olup olmadığınız, size hangi hatırlatmanın hangi gün gittiği; izni geri aldıysanız bunun kaydı (e-posta adresi yerine tek yönlü şifreli bir işaret)</td><td>Sınav tarihine göre seviye testini yeniden çözmenizi hatırlatmak, aynı kişiye sık gönderimi önlemek, izni ispat etmek</td><td><b>Açık rızanız</b> (m.5/1) — <a href="#riza">ayrı metin</a></td><td>İzin geri alınana kadar; izin ve ret kayıtları ispat için mevzuatın öngördüğü süre boyunca</td></tr>
     </tbody>
   </table>
   </div>
@@ -114,7 +121,7 @@ table.kv tr:last-child td{border-bottom:0}
 
   <h2>2. Özel durumlar</h2>
   <ul>
-    <li><b>Alacak Radarı arşivi:</b> Basın İlan Kurumu Resmî İlan Portalı'nda (ilan.gov.tr)
+    <li><b>Alacak Radarı arşivi</b> (hizmet şu an yeni sorgulara kapalıdır; arşiv tutulmaya devam eder): Basın İlan Kurumu Resmî İlan Portalı'nda (ilan.gov.tr)
     <b>kamuya açık olarak yayımlanmış</b> iflas ve konkordato ilanları arşivlenir. Bu ilanlarda
     borçlu şahıs işletmesiyse ilan metninde geçen T.C. kimlik numarası, <b>yalnızca sizin
     sorgunuzla eşleştirme yapabilmek için</b> saklanır: kimlik numarası hiçbir ekranda, hiçbir
@@ -122,17 +129,15 @@ table.kv tr:last-child td{border-bottom:0}
     olarak yayımlanmaz; yalnızca sorguladığınız kayıt döndürülür. İşleme dayanağı KVKK
     m.5/2-d (ilgili kişinin kendisi tarafından alenileştirilmiş veri) ve m.5/2-e (bir hakkın
     tesisi, kullanılması veya korunması) hükümleridir.</li>
-    <li><b>Alacak taraması için dosya yüklerseniz:</b> Excel/CSV/PDF dosyanız
-    <b>bilgisayarınızdan çıkmaz</b>; tarayıcıda okunur, yalnızca ayıklanan vergi/kimlik
-    numaraları eşleştirme sorgusu olarak gönderilir. Dosyanın kendisi ve içindeki diğer
-    sütunlar (unvan, adres, bakiye) bize <b>hiç ulaşmaz</b> ve saklanmaz.</li>
-    <li><b>Hesap kâğıdı:</b> Soru çözerken hesap kâğıdına yazdıklarınız soru kalitesini ölçmek için
-    kaydedilir. Bu alana <b>kişisel bilgi yazmamanızı</b> rica ederiz.</li>
+    <!-- 08.10: "Alacak taraması için dosya yüklerseniz" maddesi kalktı: hizmet kapalı, dosya zaten hiç gelmiyordu -->
+    <li><b>Hesap kâğıdı ve Nöbetçi mesajı:</b> Hesap kâğıdına ve Nöbetçi'ye yazdıklarınız kaydedilir.
+    Bu alanlara <b>kişisel bilgi yazmamanızı</b> rica ederiz.</li>
   </ul>
 
   <h2>3. Verileri nasıl topluyoruz?</h2>
-  <p>Verileriniz; sitedeki formlara, üyelik ekranlarına ve soru çözme ekranlarına <b>sizin girdiğiniz</b>
-  bilgilerden, elektronik ortamda ve otomatik yollarla toplanır. Ziyaret sayımı, sayfaya eklenen
+  <p>Verileriniz; sitedeki formlara, üyelik, sipariş ve soru çözme ekranlarına <b>sizin girdiğiniz</b>
+  bilgilerden, Google ile girişte Google'ın bize ilettiği bilgilerden ve ödeme kuruluşunun bize ilettiği ödeme sonucundan,
+  elektronik ortamda ve otomatik yollarla toplanır. Ziyaret sayımı, sayfaya eklenen
   bir sayaç kodu ile yapılır. Alacak Radarı arşivi ilan.gov.tr'de kamuya açık ilanlardan toplanır.</p>
 
   <h2>4. Cihazınızda tutulanlar (yerel depolama ve çerez)</h2>
@@ -142,6 +147,8 @@ table.kv tr:last-child td{border-bottom:0}
     <li>yanlış kutunuz ve tekrar tarihleri; hazırlık skoru ve çözüm serisi,</li>
     <li>"sınav gibi" deneme ilerlemeniz ve sonuçları; seviye testi sonuçları ve daha önce gösterilen sorular,</li>
     <li>rastgele oturum numarası (soru çözme kayıtlarında kullanılır, bkz. 1. bölüm),</li>
+    <li>e-posta adresiniz (giriş ve sipariş formunu kolaylaştırmak için), size bir bağlantıyla gelmiş elçi ya da davet kodu, verdiğiniz siparişlerin numarası ve tutarı,</li>
+    <li>paketli hesap için cihaz kimliği,</li>
     <li>tema tercihi, ön izleme izni ve üye oturumu (giriş yaptıysanız).</li>
   </ul>
   <p>Öğrenci hesabı açarsanız cihazınızdaki test ve deneme sonuçları hesabınıza aktarılır.</p>
@@ -155,24 +162,28 @@ table.kv tr:last-child td{border-bottom:0}
     <thead><tr><th>Sağlayıcı</th><th>Ne için</th><th>Aktarılan veri</th><th>Ülke</th></tr></thead>
     <tbody>
       <tr><td><b>Supabase</b></td><td>Veritabanı, üyelik ve kimlik doğrulama, form ve soru çözme kayıtları, sunucu fonksiyonları</td><td>1. bölümde "bize gelen" olarak sayılan verilerin tamamı</td><td>İrlanda (veritabanı ve yedekler); sunucu fonksiyonları Almanya (Frankfurt)</td></tr>
-      <tr><td><b>Resend</b></td><td>E-posta gönderimi (karne, onay, uyarı, form bildirimi)</td><td>Alıcı e-posta adresi ve e-postanın içeriği</td><td>ABD</td></tr>
-      <tr><td><b>GitHub Pages</b></td><td>Site sayfalarının barındırılması</td><td>Sayfayı açtığınızda IP adresiniz ve tarayıcı bilgileriniz, her web sitesinde olduğu gibi barındırma sunucusuna ulaşır; bu kayıtları biz tutmayız</td><td>ABD</td></tr>
+      <tr><td><b>Resend</b></td><td>E-posta gönderimi (karne, sipariş, hatırlatma, ekip cevabı, form bildirimi)</td><td>Alıcı e-posta adresi ve e-postanın içeriği</td><td>ABD</td></tr>
+      <tr><td><b>GitHub</b></td><td>Site sayfalarının barındırılması; otomatik hatırlatma işinin çalıştırılması</td><td>Sayfayı açtığınızda IP adresiniz ve tarayıcı bilgileriniz, her web sitesinde olduğu gibi barındırma sunucusuna ulaşır, bu kayıtları biz tutmayız; hatırlatma işi çalışırken izin vermiş üyelerin e-posta adresi, test tarihi ve sonucu, paket durumu</td><td>ABD</td></tr>
       <tr><td><b>GoatCounter</b></td><td>Ziyaret sayımı</td><td>Sayfa, tarayıcı türü, dil, ekran genişliği; konum için IP kullanılır, IP saklanmaz</td><td>Finlandiya ve Almanya</td></tr>
-      <tr><td><b>Anthropic</b></td><td>Soru-cevap aracında cevabın üretilmesi</td><td>Yalnızca yazdığınız soru metni; içindeki TC kimlik, vergi no, telefon, e-posta ve IBAN gönderilmeden otomatik gizlenir</td><td>ABD</td></tr>
-      <tr><td><b>OpenRouter</b></td><td>Soru-cevap aracında birincil sağlayıcı yanıt veremezse yedek hat</td><td>Yalnızca yazdığınız soru metni; içindeki TC kimlik, vergi no, telefon, e-posta ve IBAN gönderilmeden otomatik gizlenir</td><td>ABD</td></tr>
+      <tr><td><b>Anthropic</b></td><td>Nöbetçi'nin cevabını üretmek</td><td>Nöbetçi'ye yazdığınız mesaj ve ilgili soru (otomatik gizleme yapılmaz)</td><td>ABD</td></tr>
+      <tr><td><b>Google</b></td><td>"Google ile giriş"</td><td>Giriş isteği; kimliğinizi Google hesabınızla Google doğrular ve e-posta adresinizi bize iletir</td><td>ABD ve Google'ın sunucu bulundurduğu diğer ülkeler</td></tr>
+      <tr><td><b>Cloudflare</b></td><td>Giriş ve kayıt ekranlarında otomatik (bot) doğrulaması (Turnstile)</td><td>Tarayıcı ve cihaza ilişkin teknik veriler, IP adresi</td><td>ABD ve Cloudflare'in sunucu bulundurduğu diğer ülkeler</td></tr>
+      
+    <tr><td><b>iyzico</b> (ödeme kuruluşu)</td><td>Kartla ödeme</td><td>Ad soyad, e-posta, fatura adresi, T.C. kimlik numarası, IP adresi, paket ve tutar. iyzico bu veriler için kendi adına <b>bağımsız veri sorumlusudur</b>; ayrıntı <a href="https://www.iyzico.com/gizlilik-politikasi" target="_blank" rel="noopener">iyzico gizlilik politikası</a></td><td>Türkiye</td></tr>
+      <tr><td><b>Bankalar</b></td><td>Havale/EFT ile ödemenin eşleştirilmesi</td><td>Gönderen adı, tutar ve açıklama (bankanın bize zaten ilettiği bilgiler)</td><td>Türkiye</td></tr>
     </tbody>
   </table>
   </div>
 
   <h2>6. Yurt dışına aktarım</h2>
-  <p>Yukarıdaki sağlayıcıların tamamı Türkiye dışındadır; KVKK'da Avrupa Birliği ülkeleri de yurt dışı sayılır, bu yüzden İrlanda, Almanya ve Finlandiya dahil bütün aktarımlar KVKK m.9 kapsamındadır. Kanunun 9. maddesi 7499 sayılı Kanunla
+  <p>Yukarıdaki sağlayıcılardan iyzico ve bankalar dışındakilerin tamamı Türkiye dışındadır; KVKK'da Avrupa Birliği ülkeleri de yurt dışı sayılır, bu yüzden İrlanda, Almanya ve Finlandiya dahil bütün aktarımlar KVKK m.9 kapsamındadır. Kanunun 9. maddesi 7499 sayılı Kanunla
   değiştirilmiştir; yeni düzende yurt dışına aktarım için yeterlilik kararı ya da m.9/4'teki uygun
   güvencelerden biri (standart sözleşme, bağlayıcı şirket kuralları, yazılı taahhüt) aranır; açık rıza
   yalnızca arızi aktarımlar için bir yoldur ve <b>sürekli aktarım açık rızaya dayandırılmaz</b>.</p>
   <p><b>Bugünkü durum, olduğu gibi:</b> Veritabanımız ve kayıtlarınız Avrupa Birliği içinde, <b>İrlanda'dadır</b>. Bu tablodaki
   sağlayıcılar için standart sözleşme süreci yürütülmektedir; bu süreç tamamlanana kadar bu sağlayıcılara
-  giden veri asgaride tutulur: GitHub'a yalnızca sayfayı açarken her sitede olduğu gibi IP ve tarayıcı bilgisi ulaşır, Anthropic ve OpenRouter'a yalnızca yazdığınız
-  soru metni gider, Resend'e yalnızca e-postanın gönderileceği adres ve içeriği gider. Süreç tamamlandığında
+  giden veri asgaride tutulur: GitHub'a sayfayı açarken her sitede olduğu gibi IP ve tarayıcı bilgisi ile hatırlatma işi sırasında yukarıdaki bilgiler ulaşır, Anthropic'e
+  Nöbetçi'ye yazdığınız mesaj ve ilgili soru gider, Resend'e e-postanın gönderileceği adres ve içeriği gider. Süreç tamamlandığında
   dayanak bu bölümde açıkça yazılacaktır.</p>
 
   <h2>7. Haklarınız (KVKK m.11)</h2>
@@ -203,21 +214,15 @@ table.kv tr:last-child td{border-bottom:0}
   formlarda otomatik gönderimi ve aşırı gönderimi engelleyen sınırlar vardır; site bağlantısı şifrelidir (HTTPS).</p>
 
   <h2 id="riza">Ayrı metin: Açık rıza (duyuru ve hatırlatmalar)</h2>
-  <p>Bu metin aydınlatma metninden <b>ayrıdır</b> ve yalnızca işaretlediğiniz kutuyla verilir. Rızayı
-  <b>kanal kanal</b> verirsiniz: yalnız e-postaya izin verip SMS'e vermeyebilirsiniz. Hiçbirini
-  işaretlememeniz aldığınız hiçbir hizmeti etkilemez — seviye testiniz, karneniz ve sonucunuz
-  her hâlükârda size ulaşır. Dilediğiniz an her iletideki çıkış bağlantısıyla veya
-  destek@tetikte.com adresine yazarak geri alabilirsiniz.</p>
+  <p>Bu metin aydınlatma metninden <b>ayrıdır</b> ve yalnızca işaretlediğiniz kutuyla verilir (karne formunda ya da hesap
+  açarken). İşaretlememeniz aldığınız hiçbir hizmeti etkilemez — seviye testiniz, karneniz ve sonucunuz
+  her hâlükârda size ulaşır. Hatırlatma e-postalarını <b>yalnız izin verdiyseniz</b> göndeririz; izninizi dilediğiniz an
+  her e-postadaki <b>"Bu hatırlatmaları bir daha gönderme"</b> bağlantısıyla ya da destek@tetikte.com adresine yazarak geri alabilirsiniz.</p>
   <p style="border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-  "Dizdar Denetim Danışmanlık ve Yazılım A.Ş.'nin, bu sayfadaki Aydınlatma Metni'nde açıklanan kapsamda,
-  <b>işaretlediğim kanallardan</b> (e-posta, SMS, telefonla arama, WhatsApp) bana sınav hatırlatmaları,
-  hizmet duyuruları ve mevzuat bilgilendirmeleri göndermek amacıyla e-posta adresimi ve telefon numaramı
-  işlemesine açık rıza veriyorum."</p>
-  <p>Tanıtım amacıyla gönderilen <b>e-posta, SMS ve telefonla arama</b> 6563 sayılı Kanun kapsamında
-  <b>ticari elektronik iletidir</b> ve izinlerin İleti Yönetim Sistemi'ne (İYS) kaydedilmesi zorunludur.
-  İYS kaydımız tamamlanmadan <b>hiçbir kanaldan tanıtım iletisi göndermiyoruz</b>; izniniz kaydedilir,
-  saklanır ve kayıt tamamlandığında İYS'ye işlenir. Dilediğiniz an izninizi İYS üzerinden (e-Devlet,
-  iys.org.tr veya İYS Mobil) ya da bize yazarak geri alabilirsiniz.</p>
+  "Dizdar Denetim Danışmanlık ve Yazılım A.Ş.'nin, bu sayfadaki Aydınlatma Metni'nde açıklanan kapsamda, sınav tarihime göre
+  seviye testimi yeniden çözmemi hatırlatan ve Tetikte duyurularını içeren <b>e-postaları</b> bana göndermesi amacıyla
+  e-posta adresimi, test tarihimi ve sonucumu işlemesine açık rıza veriyorum."</p>
+  <p>Şu anda yalnızca <b>e-posta</b> ile hatırlatma gönderiyoruz; SMS, telefonla arama ve WhatsApp ile ileti göndermiyoruz.</p>
   <p>Talep ettiğiniz hizmetin kendisi — seviye testi karneniz, sonucunuz, hesabınıza ilişkin bildirimler —
   tanıtım iletisi değildir; bunlar izin kutularından bağımsız olarak size ulaşır.</p>
 
@@ -229,10 +234,14 @@ table.kv tr:last-child td{border-bottom:0}
   21.09.2026 sürümünde ücretsiz seviye testi satırı yeniden yazıldı: test artık ad soyad, e-posta ve
   <b>telefon</b> verildikten sonra açılıyor; hazırlanılan sınav ve dönem de soruluyor. Duyuru izni tek
   kutu olmaktan çıkıp <b>kanal kanal</b> (e-posta / SMS / arama / WhatsApp) alınmaya başlandı ve açık rıza
-  metnine 6563 sayılı Kanun ile İYS kaydına ilişkin paragraf eklendi.</p>
+  metnine 6563 sayılı Kanun ile İYS kaydına ilişkin paragraf eklendi.
+  08.10.2026 sürümünde: seviye testi satırı formsuz akışa göre yeniden yazıldı; sipariş, kartla ödeme (iyzico), Google ile giriş,
+  bot doğrulaması (Cloudflare), Nöbetçi ve Ekibe sor, paylaşım koruması satırları eklendi; Nöbetçi mesajının otomatik gizlendiğini
+  söyleyen yanlış ifade düzeltildi; kullanılmayan yedek yapay zekâ sağlayıcısı ve kapanan hesaplama araçlarına ait satırlar
+  çıkarıldı; saklama süreleri güncellendi; hatırlatma izni ve ileti kanalları bugünkü uygulamaya göre yazıldı.</p>
 
   <div class="dip">
-    Veri sorumlusu: Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · Son güncelleme: 14.09.2026 ·
+    Veri sorumlusu: Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · Son güncelleme: 08.10.2026 ·
     <a href="uyelik-sozlesmesi.html">Üyelik Koşulları</a> · <a href="index.html">Ana sayfa</a>
   </div>
 

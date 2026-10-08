@@ -292,7 +292,7 @@ footer p{margin:0 0 8px}
         <a class="btn btn-vurgu" id="cta1" href="seviye-testi.html">30 soruda seviyeni ölç</a>
         <a class="btn btn-ikinci" id="cta2" href="fiyat.html">Paketleri gör</a>
         <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli -->
-        <a class="btn btn-ikinci" id="cta3" href="ornek-sorular.html?sinav=sgs">5 örnek soru çöz</a>
+        <a class="btn btn-ikinci" id="cta3" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
       </div>
       <p class="durum" id="durum">Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.</p>
     </div>
@@ -438,7 +438,7 @@ footer p{margin:0 0 8px}
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
     var c1=$('cta1'), c2=$('cta2'), du=$('durum'), c3=$('cta3');
     c2.hidden=false;
-    c3.href='ornek-sorular.html?sinav='+(secili==='yeterlilik'?'yeterlilik':'sgs'); c3.hidden=(d.durum==='aktif');   /* 08.10: 5 örnek soru */
+    c3.href='kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html'; c3.hidden=(d.durum==='aktif');   /* 08.10: 5 örnek soru, ders sayfası şablonu (Cem: "soru paketi gibi") */
     if(d.durum==='aktif'){
       c1.textContent='Sınava gir'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam;
       du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':'');

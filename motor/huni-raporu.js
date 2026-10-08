@@ -70,7 +70,10 @@ const EK = [
   ['Nöbetçi: metne geçti',      /^(seviye\/(sgs|yet)|ana)\/nobetci\/metin/],
   ['Nöbetçi: durdurdu',         /^(seviye\/(sgs|yet)|ana)\/nobetci\/durdur$/],
   // 08.10 Cem "1 ve 2 yap": 5 örnek soru pakete dönüşüyor mu (ornek-sorular.html; olay = ornek/<sgs|yeterlilik>/<ad>)
-  ['Örnek: sayfa açıldı',       /^\/ornek-sorular\.html$/],
+  // 08.10: örnek sorular ders sayfası şablonunda (kaydir/vitrin/ornek-*.html; ornek-sorular.html yalnız yönlendirir). Cevap/soru
+  // adımları artık cevap_kayit'te (kaynak 'ornek-soru'); sayaçta yalnız sayfa açılışı + paket tıklaması kalır.
+  ['Örnek: sayfa açıldı',       /^\/kaydir\/vitrin\/ornek-(sgs|smmm)\.html$/],
+  ['Örnek: eski adres',         /^\/ornek-sorular\.html$/],
   ['Örnek: ilk cevap',          /^ornek\/(sgs|yeterlilik)\/basladi$/],
   ['Örnek: doğru cevap',        /^ornek\/(sgs|yeterlilik)\/secti-dogru$/],
   ['Örnek: yanlış cevap',       /^ornek\/(sgs|yeterlilik)\/secti-yanlis$/],
@@ -111,8 +114,9 @@ function tablo(dun, hafta) {
   satir.push('');
   satir.push('KİLİT DÖNÜŞÜMÜ (7 gün): kilidi gören ' + k + ' → hesap aç diyen ' + ha + ' (' + yuzde(ha, k) + ') → raporu açan ' + ra + ' (' + yuzde(ra, ha) + ')');
   /* 08.10: 5 örnek soru dönüşümü - açan → ilk cevabı veren → 5 soruyu bitiren → Paketleri gör (sayfa düğmesi + ana sayfaya göre yüzde) */
-  const oa = hafta.say['Örnek: sayfa açıldı'] || 0, oc = hafta.say['Örnek: ilk cevap'] || 0, o5 = hafta.say['Örnek: 5. soruyu geçti'] || 0, op = hafta.say['Örnek: Paketleri gör'] || 0;
-  satir.push('ÖRNEK SORU DÖNÜŞÜMÜ (7 gün): sayfayı açan ' + oa + ' → cevaplayan ' + oc + ' (' + yuzde(oc, oa) + ') → 5 soruyu bitiren ' + o5 + ' (' + yuzde(o5, oc) + ') → Paketleri gör ' + op + ' (' + yuzde(op, oa) + ')');
+  /* 08.10: örnek sayfası ders şablonuna geçti; cevap adımları cevap_kayit'te (kaynak 'ornek-soru'), sayaçta açılış + paket tıklaması */
+  const oa = hafta.say['Örnek: sayfa açıldı'] || 0, op = hafta.say['Örnek: Paketleri gör'] || 0;
+  satir.push('ÖRNEK SORU DÖNÜŞÜMÜ (7 gün): sayfayı açan ' + oa + ' → pakete tıklayan ' + op + ' (' + yuzde(op, oa) + ') · kaç kişi kaç soru cevapladı: cevap_kayit kaynak=ornek-soru');
   return satir.join('\n');
 }
 
@@ -154,7 +158,7 @@ function sinav() {
     ['yüzde: payda 0 -> —', yuzde(3, 0) === '—'],
   ];
   // 08.10 5 örnek soru adımları
-  const o = topla([{ yol: '/ornek-sorular.html', adet: 50 }, { yol: 'ornek/sgs/basladi', adet: 20, olay: true }, { yol: 'ornek/yeterlilik/basladi', adet: 5, olay: true },
+  const o = topla([{ yol: '/kaydir/vitrin/ornek-sgs.html', adet: 30 }, { yol: '/kaydir/vitrin/ornek-smmm.html', adet: 20 }, { yol: 'ornek/sgs/basladi', adet: 20, olay: true }, { yol: 'ornek/yeterlilik/basladi', adet: 5, olay: true },
     { yol: 'ornek/sgs/kart-5', adet: 9, olay: true }, { yol: 'ornek/sgs/kart-3', adet: 12, olay: true }, { yol: 'ornek/sgs/paket', adet: 4, olay: true }, { yol: 'ana/nobetci/kart-1', adet: 7, olay: true }]);
   vakalar.push(['örnek: iki sınavın ilk cevabı toplanır', o.say['Örnek: ilk cevap'] === 25]);
   vakalar.push(['örnek: kart-5 ve ara kartlar ayrı adım', o.say['Örnek: 5. soruyu geçti'] === 9 && o.say['Örnek: ara sorular'] === 12]);
