@@ -1,6 +1,7 @@
 // iyzico-odeme — KART ÖDEMESİ (05.10.2026, Cem "iyzico onay geldi" + "gerçekte 5 TL'lik ödeme yapalım")
 //   ?surum=1            → kod imzası + hangi anahtar ADLARI tanımlı (değer ASLA dönmez)
 //   ?saglik=1           → (yalnız servis) PARA ÇEKMEYEN taksit sorgusu; anahtar canlı uçta kabul ediliyor mu
+//   ?teshis=1           → (yalnız servis, 08.10) PARA ÇEKMEYEN başlatma isteği 8 biçimde; 9000 hangi alandan geliyor
 //   POST ?islem=deneme  → (yalnız YÖNETİCİ, kullanıcı JWT) 5,00 TL gerçek kart denemesi; sipariş tablosuna dokunmaz
 //   POST ?islem=baslat  → {siparis_no}: ödeme bekleyen siparişin TUTARI SUNUCUDA hesaplanır (fiyat-motoru.js'in
 //                          canlı kopyası + kurucu kotası + sunucunun damgaladığı elçi indirimi); siparişteki tutarla
@@ -13,7 +14,7 @@
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit (kapalı, enabledInstallments [1]) · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "4d91d2efeea1d5f6";
+const KOD_IMZA = "132855a9f5fca4b1";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -110,6 +111,42 @@ Deno.serve(async (req) => {
     if (!(await servisMi(req))) return cevap(403, { hata: "yetki yok" });
     const r = await iyzico("/payment/iyzipos/installment", { locale: "tr", conversationId: "saglik-" + Date.now(), binNumber: "554960", price: "100.0" });
     return cevap(200, { canli: { http: r.http, status: r.status ?? null, errorCode: r.errorCode ?? null } });
+  }
+
+  // ---------------------------------------------------------------- 08.10 teşhis (yalnız servis): errorCode 9000'in kaynağı
+  // 5 TL denemesi "Şu anda işleminizi gerçekleştiremiyoruz" (9000) dönüyor. Başlatma isteği alan alan değiştirilerek
+  // gönderilir; hangi değişiklikte "success" geldiği ölçülür. PARA ÇEKMEZ: initialize yalnız ödeme sayfası kurar, kart girilmez.
+  // Cevapta yalnız durum/hata kodu döner; token, sayfa adresi, anahtar dönmez.
+  if (u.searchParams.get("teshis") === "1") {
+    if (!(await servisMi(req))) return cevap(403, { hata: "yetki yok" });
+    const ornekKimlik = "74300864791"; // iyzico belgelerindeki örnek kimlik no
+    const tam = { buyer: { id: "teshis", name: "Tetikte", surname: "Deneme", gsmNumber: "+905350000000", email: "destek@tetikte.com", identityNumber: ornekKimlik, registrationAddress: "Merkez Mah. Deneme Sok. No:1 Kadikoy", ip: "85.34.78.112", city: "Istanbul", country: "Turkey", zipCode: "34000" },
+      billingAddress: { contactName: "Tetikte Deneme", city: "Istanbul", country: "Turkey", address: "Merkez Mah. Deneme Sok. No:1 Kadikoy", zipCode: "34000" } };
+    const bugun = alici("Tetikte Deneme", "destek@tetikte.com", "", "", ip, "teshis");
+    const sehir = { buyer: { ...bugun.buyer, city: "Istanbul", registrationAddress: "Merkez Mah. Deneme Sok. No:1 Kadikoy" }, billingAddress: { ...bugun.billingAddress, city: "Istanbul", address: "Merkez Mah. Deneme Sok. No:1 Kadikoy" } };
+    const govde = (kisi: unknown, ek: Record<string, unknown> = {}) => {
+      const conv = "TESHIS-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
+      return { locale: "tr", conversationId: conv, price: "5.00", paidPrice: "5.00", currency: "TRY", basketId: conv, paymentGroup: "PRODUCT", callbackUrl: DONUS, enabledInstallments: [1], ...(kisi as object),
+        basketItems: [{ id: conv, name: "Tetikte kart denemesi", category1: "Dijital soru bankasi", itemType: "VIRTUAL", price: "5.00" }], ...ek };
+    };
+    const yol = "/payment/iyzipos/checkoutform/initialize/auth/ecom";
+    const turler: [string, Record<string, unknown>][] = [
+      ["A bugunku istek (ip: cagiranin)", govde(bugun)],
+      ["B sehir Istanbul + acik adres", govde(sehir)],
+      ["C B + ornek kimlik no", govde({ buyer: { ...sehir.buyer, identityNumber: ornekKimlik }, billingAddress: sehir.billingAddress })],
+      ["D tam alici (gsm, posta kodu, sabit ip)", govde(tam)],
+      ["E D + teslimat adresi", govde({ ...tam, shippingAddress: tam.billingAddress })],
+      ["F D + donus adresi tetikte.com", govde(tam, { callbackUrl: `${SITE}/hesabim.html` })],
+      ["G D + taksit alani yok", (() => { const g = govde(tam) as Record<string, unknown>; delete g.enabledInstallments; return g; })()],
+      ["H D + 10 TL", govde(tam, { price: "10.00", paidPrice: "10.00", basketItems: [{ id: "t", name: "Tetikte kart denemesi", category1: "Dijital soru bankasi", itemType: "VIRTUAL", price: "10.00" }] })],
+    ];
+    const sonuc: unknown[] = [];
+    for (const [ad, g] of turler) {
+      const r = await iyzico(yol, g);
+      sonuc.push({ tur: ad, http: r.http, status: r.status ?? null, errorCode: r.errorCode ?? null, errorMessage: r.errorMessage ?? null, errorGroup: r.errorGroup ?? null, sayfa: !!r.paymentPageUrl });
+    }
+    const t = await iyzico("/payment/iyzipos/installment", { locale: "tr", conversationId: "saglik-" + Date.now(), binNumber: "554960", price: "5.00" });
+    return cevap(200, { cagiran_ip_turu: ip.includes(":") ? "IPv6" : (ip ? "IPv4" : "yok"), taksit_sorgusu: { status: t.status ?? null, errorCode: t.errorCode ?? null }, sonuc });
   }
 
   // ---------------------------------------------------------------- yönetici 5 TL denemesi
