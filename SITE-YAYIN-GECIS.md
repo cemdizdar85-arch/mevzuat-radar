@@ -41,6 +41,13 @@ Sayfa yeni bir `veri/…json` çekiyorsa `arac/site-beyaz-liste.txt`'e satır ek
 `dogrula.yml` "Site beyaz liste DENETIMI" KIRMIZI (KOPUK) düşer; yayın akışı **durmaz**, uyarır (o dosya sitede 404 olur).
 Yeni bir robot akışı ana tele itiyorsa: `node arac/site-yayin.js --tetik-yaz` (yoksa dogrula TETIK ile düşer).
 
+## NE ZAMAN — açılış GÜNÜ değil
+
+**09.10 açılış günü Pages kaynağı DEĞİŞTİRİLMEZ** (site oturumu + açılış güvenlik denetimi
+`ACILIS-GUVENLIK-DENETIMI-20261008.md` aynı görüşte, 08.10). Pencere: **10.10–15.10**, sakin bir saatte.
+17.10 SGS canlı denemesinden (anahtar yedeği depodan okunuyor) en az iki gün önce bitmiş ve canlıya karşı
+kıyası YEŞİL olmuş olmalı; değilse geçiş 24.10 Yeterlilik denemesinden sonraya kalır.
+
 ## GEÇİŞ (Cem onayıyla) — iki yoldan biri
 
 **Yol A — Claude yapar (Cem "geç" der):**
