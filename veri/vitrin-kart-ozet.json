@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-10-07T00:34:59.594Z",
-  "gun": "2026-10-07",
+  "olcum": "2026-10-08T00:55:14.477Z",
+  "gun": "2026-10-08",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 9,
+      "sira": 0,
       "toplam": 10,
-      "id": "sgs-t2-fmuh-zor/kp-01",
+      "id": "sgs-t2-fmuh-cokzor/kp-01",
       "ders": "Finansal Muhasebe",
-      "konu": "tms 40 yatırım amaçlı gayrimenkul",
-      "donem": 8,
-      "teori": false,
+      "konu": "muhasebe bilgi sistemi",
+      "donem": 10,
+      "teori": true,
       "rakamSik": false,
-      "soru": "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026'da tamamlamıştır. İnşaat sürecinde arsa bedeli 850.000 TL, inşaat harcamaları 620.000 TL olup 258 Yapılmakta Olan Yatırımlar hesabındadır. Tamamlanma tarihindeki gerçeğe uygun değeri 1.610.000 TL'dir. Buna göre yapılacak kayıt aşağıdakilerden hangisidir?",
+      "soru": "İşletmenin muhasebe departmanı 2026 yılı Aralık ayında şu işlemleri gerçekleştirmiştir: Yevmiyede 153 Ticari Mallar hesabına kaydedilmesi gereken 18.000 TL'lik mal alışı sehven 255 Demirbaşlar hesabına borç kaydedilmiş, karşılığında 100 Kasa hesabı doğru tutarla alacaklandırılmıştır; ayrıca dönem sonu envanter ve değerleme işlemleri tamamlanmıştır. Bu bilgilere göre aşağıdakilerden hangisi her zaman doğrudur?",
       "siklar": {
-        "A": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 140.000 TL alacak kaydedilir.",
-        "B": "659 DİĞER OLAĞAN GİDER VE ZARARLAR hesabı 140.000 TL borç kaydedilir.",
-        "C": "258 YAPILMAKTA OLAN YATIRIMLAR hesabı 140.000 TL borç kaydedilir.",
-        "D": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 990.000 TL alacak kaydedilir.",
-        "E": "Fark gerçekleşmemiş kâr sayıldığından hiçbir hesaba kaydedilmez, yalnız dipnotlarda açıklanır."
+        "A": "Genel geçici mizan, hatalı kayda rağmen borç ve alacak toplamları eşit çıkacağı için bu hata söz konusu mizanda tespit edilemez.",
+        "B": "Kesin mizan, envanter işlemlerinden önce düzenlenen mizandır ve mali tablolar doğrudan bu mizandan çıkarılır.",
+        "C": "Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını eşitsiz hale getireceğinden ilk düzenlenecek mizanda ortaya çıkar.",
+        "D": "Mali tablolar genel geçici mizandan düzenlenir, çünkü bu mizan dönem sonu envanter işlemlerini de kapsar.",
+        "E": "Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizanda hesap kalanları sıfırlanmış olarak görünür."
       },
       "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Hesap Seçimi Tuzağı",
-          "metin": "farkın, gayrimenkulün transfer edildiği 258 hesabına yazılacağını sanırsın. Doğrusu: 258 hesap yalnız defter değeriyle kapatılır, fark ayrı olarak gelir hesabına kaydedilir."
+          "ad": "Mizan Sınırı Tuzağı",
+          "metin": "öğrenci mizanı bir hata denetim aracı sanır, her yanlış kaydın mizanda görüneceğini düşünür. Doğrusu: mizan yalnız iki tarafın toplam eşitliğini gösterir; doğru tutarla ama yanlış hesaba yapılan kayıt eşitliği bozmadığı…"
         },
         "E": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "ihtiyatlılık düşüncesiyle gerçekleşmemiş kârın hiç kaydedilmeyeceğini sanırsın. Doğrusu: TMS 40 p.65 farkın muhasebeleştirilmemesine değil, doğrudan kâr/zarara yansıtılmasına hükmeder."
+          "ad": "Mizan Türü Karıştırma Tuzağı",
+          "metin": "öğrenci kesin mizan ile kapanış mizanını aynı aşama sanır, kalanların ne zaman sıfırlandığını yanlış yerleştirir. Doğrusu: kesin mizanda hesap kalanları hâlâ vardır, kalanların sıfırlanması ancak hesaplar kapatıldıktan …"
         },
         "D": {
-          "ad": "Tutar Tuzağı",
-          "metin": "arsa bedelini defter değerine katmayı unutup 1.610.000-620.000=990.000 hesaplarsın. Doğrusu: defter değeri arsa ve inşaat harcamalarının toplamıdır, 850.000+620.000=1.470.000 alınmalıdır."
+          "ad": "Kapsam-Sıra Karışımı Tuzağı",
+          "metin": "öğrenci genel geçici mizanın da envanter kayıtlarını içerdiğini sanarak iki farklı kuralı (mizan türü sırası ve mali tablo kaynağı) birlikte yanlış kurar. Doğrusu: genel geçici mizan envanterden önceki durumu gösterir, …"
         },
         "B": {
-          "ad": "Taraf Tuzağı",
-          "metin": "farkın kâr olduğunu göremeyip zarar sanarak gider hesabına borç yazarsın. Doğrusu: gerçeğe uygun değer defter değerinden büyük olduğundan fark kârdır, gelir hesabına alacak kaydedilir."
+          "ad": "Sıra Tuzağı",
+          "metin": "öğrenci genel geçici mizan ile kesin mizanın zamanlamasını karıştırır, envanterden önce/sonra ayrımını ters kurar. Doğrusu: kesin mizan envanter ve dönem sonu kayıtlarından SONRA düzenlenir, genel geçici mizan ise envan…"
         }
       },
-      "hap": "Kendi inşa edilen ve gerçeğe uygun değerle izlenen yatırım amaçlı gayrimenkul tamamlandığında, tamamlanma tarihindeki gerçeğe uygun değer ile önceki defter değeri arasındaki fark kâr veya zarar olarak finansal tablolara yansıtılır.",
+      "hap": "Mizan yalnız borç toplamı = alacak toplamı eşitliğini denetler; yanlış hesaba doğru tutarla yapılan kayıt bu eşitliği bozmadığı için hiçbir mizan türünde görünmez.",
       "satirlar": [
         [
-          "Toplam defter değeri (arsa + inşaat harcamaları)",
-          "1.470.000"
+          "A) Genel geçici mizan, hatalı kayda rağmen borç ve alacak t…",
+          "p.mizan sınırı"
         ],
         [
-          "Değerleme farkı (1.610.000 - 1.470.000)",
-          "140.000"
+          "B) Kesin mizan, envanter işlemlerinden önce düzenlenen miza…",
+          "p.mizan türleri"
         ],
         [
-          "649 Diğer Olağan Gelir ve Karlar hesabına alacak kaydedilecek tutar",
-          "140.000"
+          "C) Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını…",
+          "p.mizan sınırı"
+        ],
+        [
+          "D) Mali tablolar genel geçici mizandan düzenlenir, çünkü bu…",
+          "p.mizan türleri"
+        ],
+        [
+          "E) Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizan…",
+          "p.mizan türleri"
         ]
       ],
-      "dayanak": "TMS 40 p.65",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=9",
+      "dayanak": "Muhasebe süreci ve mizan türleri - ders kitabı bilgisi (mizan sınırı ve genel geçici/kesin mizan ayrımı)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 7,
+        "kalan_gun": 6,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,71 +81,67 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 9,
+      "sira": 0,
       "toplam": 10,
-      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "stok devir hızı",
-      "donem": 13,
+      "id": "smmm-w3-fmuh-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "konu": "amortisman ayırma",
+      "donem": 42,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır?",
+      "soru": "İşletme, üretimde kullanmak üzere bir makine satın almıştır. Makinenin fatura bedeli 780.000 ₺, nakliye ve montaj gideri 45.000 ₺'dir. Maliyet bedeli üzerinden %20 normal amortisman uygulanmakta, ayrılan amortismanın %70'i 730 Genel Üretim Giderleri'ne, %30'u 770 Genel Yönetim Giderleri'ne yüklenmektedir. Buna göre, 730 hesabına borç kaydedilecek amortisman tutarı kaç ₺'dir?",
       "siklar": {
-        "A": "4,5",
-        "B": "6,75",
-        "C": "9",
-        "D": "11",
-        "E": "13,5"
+        "A": "46.800",
+        "B": "49.500",
+        "C": "109.200",
+        "D": "115.500",
+        "E": "165.000"
       },
-      "dogru": "C",
+      "dogru": "D",
       "tuzak": {
-        "D": {
-          "ad": "Pay Karıştırma Tuzağı",
-          "metin": "Payda satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjını içerdiğinden kullanılmaz."
+        "C": {
+          "ad": "Maliyete Ekleme Atlama Tuzağı",
+          "metin": "Nakliye ve montaj gideri (45.000) maliyete eklenmeden sadece fatura bedeli (780.000) üzerinden hesaplama yapılırsa bu sonuca ulaşılır. Doğrusu: Varlığı kullanıma hazır hale getirme giderleri maliyet bedeline dahildir, t…"
         },
         "E": {
-          "ad": "Dönem Başı Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
+          "ad": "Dağıtımsız Yükleme Tuzağı",
+          "metin": "Amortismanın tamamının üretime ait olduğu düşünülüp dağıtım hiç yapılmazsa toplam tutar (165.000) 730 hesabına yazılır. Doğrusu: Amortismanın sadece %70'i üretime aittir, tutar 115.500'dür."
         },
         "A": {
-          "ad": "Toplam Stok Tuzağı",
-          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
+          "ad": "Dağıtım Oranı Ters Kullanma Tuzağı",
+          "metin": "Maliyete nakliye-montaj gideri eklenmeden (780.000) ve dağıtım oranları ters uygulanarak (%30) hesaplama yapıldığında bu tutara ulaşılır. Doğrusu: Maliyet 825.000 üzerinden %20 amortisman ayrılıp %70'i üretime yüklenir,…"
         },
         "B": {
-          "ad": "Dönem Sonu Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: payda ortalama stok olmalıdır, dönem sonu tek bir andaki değerdir."
+          "ad": "Pay Karıştırma Tuzağı",
+          "metin": "Doğru maliyet (825.000) üzerinden hesaplanan amortismanın üretim yerine yönetim payı (%30) alınırsa bu tutar çıkar. Doğrusu: 730 hesabına yüklenecek pay üretim oranına (%70) göre 115.500'dür."
         }
       },
-      "hap": "Stok devir hızının paydası her zaman ORTALAMA stoktur, payı ise satılan malın maliyetidir; satış hasılatı ya da tek bir dönem ucundaki stok kullanılmaz.",
+      "hap": "Amortismana esas maliyet bedeli, varlığı kullanıma hazır hale getirmek için yapılan tüm giderleri kapsar ve ayrılan amortisman kullanım alanına göre ilgili gider hesaplarına dağıtılarak 257 hesaba alacak kaydedilir.",
       "satirlar": [
         [
-          "Dönem Başı Stok",
-          "30.000"
+          "Maliyet bedeli (780.000+45.000)",
+          "825.000"
         ],
         [
-          "Dönem Sonu Stok",
-          "60.000"
+          "Yıllık amortisman tutarı (825.000x%20)",
+          "165.000"
         ],
         [
-          "Ortalama Stok",
-          "45.000"
+          "770 Genel Yönetim Giderleri payı (165.000x%30)",
+          "49.500"
         ],
         [
-          "Satılan Malın Maliyeti",
-          "405.000"
-        ],
-        [
-          "Stok Devir Hızı",
-          "9"
+          "730 Genel Üretim Giderleri hesabına borç kaydedilecek tutar (165.000x%70)",
+          "115.500"
         ]
       ],
-      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=9",
+      "dayanak": "VUK m.315",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 7,
+        "kalan_gun": 6,
         "durum": "DONGU",
         "mail_gunu": false
       },
