@@ -270,8 +270,11 @@
   <div id="bireyselAlan">
     <div class="alan"><label class="et" for="tckn">T.C. Kimlik No</label>
       <input type="text" id="tckn" inputmode="numeric" maxlength="11" placeholder="11 hane">
-      <p class="kucuk" style="margin:5px 0 0">Yalnız e-arşiv faturanı düzenlemek için kullanılır, başka hiçbir yerde kullanılmaz.
-      Boş bırakırsan fatura yine adına düzenlenir.</p></div>
+      <!-- 08.10 Cem ("mevzuatı yut, yayınla"): eski cümle "başka hiçbir yerde kullanılmaz" yanlıştı - TCKN kartla ödemede iyzico'ya gidiyor
+           (radar-app/edge/iyzico-odeme.ts identityNumber). Dayanak: KVKK m.10/1-b,c; Aydınlatma Tebliği m.5/1-j; isteğe bağlı olması TCKN rehberi
+           (Tetikte-Hukuk/resmi-kvkk-rehberler.md, TASLAK-yasal-metinler-2026-10-08.md §3 seçenek a). -->
+      <p class="kucuk" style="margin:5px 0 0">İsteğe bağlı. Girersen e-arşiv faturanda kullanılır; kartla ödersen ödeme kuruluşuna (iyzico) da iletilir.
+      Boş bırakırsan fatura yine adına düzenlenir. Ayrıntı: <a href="kvkk.html" target="_blank" rel="noopener">Aydınlatma Metni</a>.</p></div>
   </div>
 
   <div id="kurumsalAlan" style="display:none">
