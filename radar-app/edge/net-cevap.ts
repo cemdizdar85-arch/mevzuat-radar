@@ -186,7 +186,7 @@ function kisiselGizle(metin) {
 // GIZLE-BITIR
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "f347baae26023366";
+const KOD_IMZA = "a80d670972927e54";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
@@ -197,6 +197,10 @@ Deno.serve(async (req) => {
   // Hangi anahtarin TANIMLI oldugunu (yalniz true/false) ve her hattin ne
   // dondugunu soyler. Anahtarin kendisi, on eki, uzunlugu HIC donmez.
   // 21.08'de bu uc olmadigi icin "hata:ai" tek kelimesiyle korlestik.
+  // 08.10 açılış denetimi: tanı ucu ÜCRETLİ özetleyiciyi çağırıyor → hız sınırının ARKASINA alındı (önceden
+  // sınırdan önceydi: herkes döngüyle sınırsız ücretli çağrı yaptırabilirdi).
+  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
+  if (await rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   const url = new URL(req.url);
   if (url.searchParams.get("tani") === "1") {
     const t = await ozetle('SADECE su JSON\'u dondur: {"kapsamda":true,"cevap":"tani","kaynak_no":[1]}');
@@ -207,8 +211,6 @@ Deno.serve(async (req) => {
     });
   }
 
-  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "anon";
-  if (await rlAsti(ip)) return json({ kapsamda: false, neden: "cok fazla istek — biraz sonra tekrar dene" }, 429);
   try {
     const { soru } = await req.json();
     const q = kisiselGizle(String(soru || "")).metin.slice(0, 400);

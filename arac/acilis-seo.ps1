@@ -45,7 +45,9 @@ foreach ($s in $sayfalar) {
   }
 }
 # 2) açılış
-$robotsYeni = "User-agent: *`nAllow: /`n`nSitemap: https://tetikte.com/sitemap.xml`n"
+# 08.10: robots metni tek kaynaktan (gong.ps1 ile aynı): Allow + iç klasörler/GIZLI sayfalar Disallow + sitemap
+. (Join-Path $kok 'arac\robots-yaz.ps1')
+$robotsYeni = RobotsMetni $kok
 if ((Oku 'robots.txt') -ne $robotsYeni) { $yap += 'robots.txt -> Allow: / + Sitemap' ; if ($Ac) { Yaz 'robots.txt' $robotsYeni } }
 foreach ($s in $ACILACAK) {
   $t = Oku $s

@@ -38,10 +38,19 @@ Bilgisayar 1280×760 + telefon 375 genişlik, ekran görüntüsüyle:
 
 Ayrıca: `node motor/canli-tarama.js --taban https://tetikte.com` ve `node motor/sabah-kontrol.js` (YEŞİL/SARI satırları okunur).
 
-## 3 · Perdeyi kaldır
+## 3 · Perdeyi kaldır — İKİ KOMUT, SIRAYLA (Cem "AÇ" deyince)
 
-`powershell -NoProfile -File motor/gong.ps1` — perde (menu.js) + robots.txt birlikte açılır. **Cem "AÇ" deyince.**
-Geri dönüş: o commit `git revert` ile geri alınır.
+> 08.10 denetimi: liste yalnız gong'u yazıyordu; `seviye-testi.html` ve `sorular.html` 13.09'dan kalma `noindex` taşıyor,
+> bunu yalnız `acilis-seo.ps1 -Ac` kaldırır. Gong tek başına koşsaydı iki ana sayfa Google'a kapalı kalırdı.
+
+| # | İş | Kim |
+|---|---|---|
+| 3.1 | `powershell -NoProfile -File arac/acilis-seo.ps1 -Ac` → `DENETIM: YESIL` görülür → `git add seviye-testi.html sorular.html sitemap.xml robots.txt` + commit (`acilis-seo` dosyaya yazar, commit etmez) | Claude |
+| 3.2 | `powershell -NoProfile -File motor/gong.ps1` — perde (menu.js) + önizleme sınırsızlığı + robots.txt (metin `arac/robots-yaz.ps1`'den: iç klasörler + gizli sayfalar Disallow). Kendisi commit + push eder. | Claude |
+| 3.3 | 2 dk sonra gizli pencerede `tetikte.com` perdesiz mi · `robots.txt` Allow mu · `seviye-testi.html` kaynağında noindex yok mu; telefon + bilgisayar görüntüsü | Claude |
+
+Pages `Cache-Control: max-age=600` → eski `menu.js` (perde) tarayıcılarda **10 dk** kalabilir; bu normaldir, 17.10 sınavı için gong en geç 09:15.
+Geri dönüş: iki commit `git revert` ile geri alınır.
 
 ## 4 · Açılış sonrası ilk gün
 

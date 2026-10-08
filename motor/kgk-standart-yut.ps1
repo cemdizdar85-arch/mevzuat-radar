@@ -100,9 +100,13 @@ function Dilimle([string]$govde, [int]$boy){
 # DIPNOT AYIRICI ortak dosyada (arac/dipnot-ayir.ps1) — iki yutucu ayni kurali kullanir.
 . (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\dipnot-ayir.ps1')
 . (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\standart-baslik-kuyrugu.ps1')   # 07.10 başlık kuyruğu
+. (Join-Path (Split-Path -Parent $PSScriptRoot) 'arac\etik-sayfa-bolum.ps1')           # 08.10 Etik sayfa no + bölüm adları
 
 function Parcala([string]$metin, [string]$kisa){
   $duz = DipnotAyir (($metin -replace "`r", "") -replace "[ \t]+", " ")
+  # 08.10 (KGK oturumu): Etik'te \f'den önceki tek başına sayfa numarası paragraf numarası sanılıyordu (81 sahte ad, cümle ortasında sayı).
+  #   YALNIZ Etik Kurallar: öteki standartlarda aynı kusur ölçülmedi, eşdeğerlik provası yapılmadan açılmaz. Ayrıntı arac/etik-sayfa-bolum.ps1.
+  if($kisa -eq 'Etik Kurallar'){ $duz = EtikResmiDuzelt (SayfaNoAyikla $duz) }   # + resmî PDF'le okunmuş kelime kayması düzeltmesi (p.400.5)
   $parcalar = New-Object System.Collections.Generic.List[object]
 
   $rxMadde = [regex]'(?m)^\s*(?<tur>MADDE|Madde|GEÇİCİ MADDE|Geçici MADDE|EK MADDE)\s+(?<no>\d+)\s*[–—-]'
@@ -116,7 +120,9 @@ function Parcala([string]$metin, [string]$kisa){
       # kapsama %100 gorunuyor ama aramada ise yaramiyordu. Parca-boyu kapisi
       # yakaladi; kural her yerde ayni: kesme yok, dilimle.
       if($on.Length -gt 0){
-        $onDilim = Dilimle $on 2000
+        # 09.10: @() ŞART. Ön bölüm ≤2.000 kr ise Dilimle tek elemanlı liste döner, PowerShell onu dizgiye açar, $onDilim[0] ilk HARF olur
+        #   (08.10 ölçümü: 25 belgede ambara yalnız "T"/"B" girmişti). Öz-sınav: arac/kgk-on-bolum-sinavi.ps1
+        $onDilim = @(Dilimle $on 2000)
         for($z=0; $z -lt $onDilim.Count; $z++){
           $ad = if($onDilim.Count -eq 1){ "{0} - on bolum" -f $kisa } else { "{0} - on bolum [{1}/{2}]" -f $kisa, ($z+1), $onDilim.Count }
           $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} on bolum" -f $kisa); metin=$onDilim[$z] })
@@ -152,6 +158,11 @@ function Parcala([string]$metin, [string]$kisa){
   $rxPar = [regex]'(?m)^\s*(?<no>(?:[RA])?\d{1,3}(?:\.\d{1,3}){0,2}\s?A?\d{0,3}|A\d{1,3}|\d{1,3}T)\s+(?=[A-ZÇĞİÖŞÜ(])'
   $p = $rxPar.Matches($duz)
   if($p.Count -ge 10){
+    # 08.10: Etik'te numarasız başlık blokları (KISIM/BÖLÜM girişleri, Terimler Sözlüğü, İçindekiler) da kesim noktasıdır ve kendi adını alır;
+    #   sayfa numarası silinince önceki paragrafa yapışmasınlar. Öteki belgelerde kesim listesi = paragraf eşleşmeleri (davranış aynı).
+    $bb = if($kisa -eq 'Etik Kurallar'){ EtikBolumBasliklari $duz } else { $null }
+    $kesim = if($bb){ EtikKesimBirlestir $p $bb } else { @($p | ForEach-Object { [pscustomobject]@{ Index = $_.Index; Par = $_; Ad = $null } }) }
+    $p = $kesim
     # 02.08 CEM DENETIMI: ilk surumde "80 karakterden kisayi atla" ve "6.000'den
     # uzunu KES" vardi. Olcum: KYS 1'in %27,6'si kaybolmus. Metnin tek satiri
     # bile atilmaz - kisa parca ONCEKINE eklenir, uzun parca DILIMLENIR.
@@ -163,7 +174,7 @@ function Parcala([string]$metin, [string]$kisa){
       # kapsama %100 gorunuyor ama aramada ise yaramiyordu. Parca-boyu kapisi
       # yakaladi; kural her yerde ayni: kesme yok, dilimle.
       if($on.Length -gt 0){
-        $onDilim = Dilimle $on 2000
+        $onDilim = @(Dilimle $on 2000)   # 09.10: @() şart — yukarıdaki madde yolu notu
         for($z=0; $z -lt $onDilim.Count; $z++){
           $ad = if($onDilim.Count -eq 1){ "{0} - on bolum" -f $kisa } else { "{0} - on bolum [{1}/{2}]" -f $kisa, ($z+1), $onDilim.Count }
           $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} on bolum" -f $kisa); metin=$onDilim[$z] })
@@ -177,14 +188,25 @@ function Parcala([string]$metin, [string]$kisa){
       $son = if($i -lt $p.Count-1){ $p[$i+1].Index } else { $duz.Length }
       $govde = $duz.Substring($bas, $son-$bas).Trim()
       if($govde.Length -eq 0){ continue }
-      $no = ($p[$i].Groups['no'].Value -replace '\s','')
+      if($p[$i].Ad){
+        # 08.10 numarasız başlık bloğu: kendi adı ("Etik Kurallar - Bölüm 340"), uzunsa dilimlenir. Aynı ad iki kez = sessiz kayıp → DUR.
+        $bAd = "{0} - {1}" -f $kisa, $p[$i].Ad
+        if(-not $kullanilanNo.Add($bAd)){ throw "Etik başlık adı iki kez: $bAd" }
+        $dilimler = @(if($govde.Length -le 2500){ $govde } else { Dilimle $govde 2500 })   # @(): tek dilim dizgiye açılmasın (ilk prova: yalnız ilk harf kaldı)
+        for($d=0; $d -lt $dilimler.Count; $d++){
+          $ad = if($dilimler.Count -eq 1){ $bAd } else { "{0} [{1}/{2}]" -f $bAd, ($d+1), $dilimler.Count }
+          $parcalar.Add([ordered]@{ tur='standart-madde'; kaynak_ad=$ad; baslik=("{0} {1}" -f $kisa, $p[$i].Ad); metin=$dilimler[$d] })
+        }
+        continue
+      }
+      $no = ($p[$i].Par.Groups['no'].Value -replace '\s','')
       # 16.09 ⚠ AYNI AD = SESSİZ KAYIP. Etik Kurallar'da bir numaranın altında uygulama paragrafları durur ("100.6 U1" … "100.6 U4").
       #   Desen yalnız "100.6"yı alıyordu; dört U paragrafı ve ana hüküm AYNI ADI ("Etik Kurallar p.100.6") taşıdı. Yükleyici ada göre tekilleştirdiği
       #   için 881 parçanın 312'si (≈195 bin kr) ambara hiç girmedi. U etiketi ada eklenir: "p.100.6 U1". Gövdesi U ile başlamayan parçalarda ad AYNEN kalır.
       $uEtiket = [regex]::Match($govde,'^\S+(?:\s+A\d{1,3})?\s+(U\d{1,2})\b')
       # 16.09 ÇAPRAZ ATIF SATIR BAŞINA DÜŞÜNCE: "120.6 U1 paragrafında tanımlanan …", "A400.22 (a) ilâ (c) paragraflarında …" yeni paragraf DEĞİLDİR.
       #   Etiketin ardından küçük harf / "ve" / "ilâ" / tire ya da "(x) ilâ|paragraf" geliyorsa metin ÖNCEKİ parçaya eklenir (atılmaz).
-      $etiketSonu = if($uEtiket.Success){ $uEtiket.Length } else { $p[$i].Groups['no'].Length }
+      $etiketSonu = if($uEtiket.Success){ $uEtiket.Length } else { $p[$i].Par.Groups['no'].Length }
       $sonrasi = $govde.Substring([Math]::Min($etiketSonu,$govde.Length)).TrimStart()
       $atifMi = ($uEtiket.Success -and $sonrasi -cmatch '^(?:[a-zçğıöşüâ]|ve\s|il[âa]\s|[–-])') -or ($sonrasi -cmatch '^\([a-zçğıöşü]{1,2}\)\s+(?:il[âa]\s|paragraf)')
       if($atifMi -and $parcalar.Count -gt 0){ $parcalar[$parcalar.Count-1].metin = $parcalar[$parcalar.Count-1].metin + " " + $govde; continue }
@@ -216,6 +238,8 @@ function Parcala([string]$metin, [string]$kisa){
     #   başına eklenir: kaynak_ad ve parça sayısı ESKİSİYLE AYNI kalır (ilk prova: döngü içinde taşıma U etiketini bozdu, Etik 1147→1135),
     #   içerik atılmaz. Son parçanın kuyruğu yerinde kalır. Mutasyon: $env:SBK_MUTASYON=kapali (arac/standart-baslik-kuyrugu.ps1).
     for($k = $ilkParca; $k -lt $parcalar.Count - 1; $k++){
+      # 08.10: İçindekiler ve belge sonu blokları (Terimler Sözlüğü …) kendi satırlarını taşır; kuyrukları sonraki bloğa geçmez (ilk prova: içindekiler kuyruğu 'Kısım 1'e geçti)
+      if($kisa -eq 'Etik Kurallar' -and (EtikSonBlokMu "$($parcalar[$k].kaynak_ad)")){ continue }
       $bk = StandartBaslikKuyrugu "$($parcalar[$k].metin)"
       if($bk.baslik){ $parcalar[$k].metin = $bk.govde; $parcalar[$k+1].metin = "$($bk.baslik)`n$($parcalar[$k+1].metin)" }
     }

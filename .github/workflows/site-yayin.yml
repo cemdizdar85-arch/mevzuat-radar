@@ -1,0 +1,273 @@
+# .github/workflows/site-yayin.yml — SİTE YAYINI (BEYAZ LİSTE) — 08.10.2026
+#
+# NEDEN: tetikte.com "Deploy from branch" ile deponun KÖKÜNDEN yayınlanıyordu; deponun tamamı herkese açıktı
+# (/CLAUDE.md, /motor/*.ps1, /radar-app/sql/*, /veri/*.md, motor/cikti/ 354 HTML — 08.10 ölçüldü).
+# Bu akış yayına YALNIZ arac/site-beyaz-liste.txt'e uyan dosyaları koyar (arac/site-yayin.js).
+#
+# NE ZAMAN KOŞAR
+#   - elle push (push tetiği)
+#   - ana tele iten HER robot akışı bittiğinde (workflow_run). Robotlar GITHUB_TOKEN ile itiyor ve bu itmeler
+#     "push" tetiğini ÇALIŞTIRMAZ; liste dogrula.yml'de denetlenir (TETIK), --tetik-yaz ile yeniden üretilir.
+#   - her 30 dakikada bir yedek koşu (workflow_run kaçarsa)
+#   - elle (workflow_dispatch) — "zorla: true" son yayın aynı olsa da yeniden dağıtır
+#
+# DAĞITIM YALNIZ Pages kaynağı "GitHub Actions" iken yapılır (API: build_type == workflow). Kaynak hâlâ
+# "Deploy from branch" ise akış yalnız yayın klasörünü kurar + denetler; siteye dokunmaz.
+# Geçiş ve geri dönüş: SITE-YAYIN-GECIS.md (depo kökü; kendisi yayına çıkmaz)
+#
+# DURDURAN: YASAK (iç dosya yayına girdi) · ZORUNLU (index/404/CNAME/robots/harita/canlı tarama sayfası yok).
+# DURDURMAYAN (uyarı): KOPUK (sayfanın andığı dosya listede yok) · TETIK (yeni iten robot listede yok) —
+#   bunlar dogrula.yml'de KIRMIZI düşer; bir kopuk başvuru yüzünden bütün robot verisinin siteye çıkması durmasın.
+# 🚫 GÖRMEZ: sayfanın çalışıp çalışmadığı (canli-tarama.yml) · dizgeyle kurulan yollar (arac/site-esdegerlik.js).
+name: Site Yayini (beyaz liste)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_run:
+    branches: [ main ]
+    types: [ completed ]
+    workflows:
+      # >>> TETIK LISTESI (node arac/site-yayin.js --tetik-yaz uretir; elle duzenlenmez)
+      - "Aciklama Sozlesmesi Olcumu (0 USD)"   # aciklama-sozlesme-olcum.yml
+      - "Aciklama Yenileme"   # aciklama-yenile.yml
+      - "Acilis Tekduzelik Olcumu (0 USD)"   # acilis-tekduzelik-olcum.yml
+      - "Alacak canli damga denetimi"   # alacak-damga-denetimi.yml
+      - "Ambar kapilari (0 USD, laptopsuz)"   # ambar-kapilari.yml
+      - "Aritmetik Kapisi (0 USD)"   # aritmetik-kapisi.yml
+      - "Artifact Nobetcisi"   # artifact-nobeti.yml
+      - "Atif 5018 Olcum"   # atif-5018.yml
+      - "B7 Tani"   # b7-tani.yml
+      - "Batch Listele (0 USD)"   # batch-listele.yml
+      - "Bildirim Nobeti (0 USD)"   # bildirim-nobeti.yml
+      - "Bosluk Dogrulama (0 USD)"   # bosluk-dogrulama.yml
+      - "Yayindan Cekme"   # cekme.yml
+      - "CI Kirmizi Nobetcisi"   # ci-kirmizi-nobeti.yml
+      - "Damping Kiyas Nobeti"   # damping-kiyas.yml
+      - "Dayanak Haritasi"   # dayanak-harita.yml
+      - "Dayanak Kapsami"   # dayanak-kapsam.yml
+      - "Buyuk Denetim - 500 soru (0 USD)"   # denetim-500.yml
+      - "Ders-Etiket Denetimi (0 USD)"   # ders-etiket.yml
+      - "ders-remap"   # ders-remap.yml
+      - "Dil Kusuru Taramasi (0 USD)"   # dil-kusuru-tarama.yml
+      - "Dogrulama Kapisi"   # dogrula.yml
+      - "Dogrusu Ekle (once olcum, 0 USD)"   # dogrusu-ekle.yml
+      - "Duyuru Nobetcisi (0 USD)"   # duyuru-nobetcisi.yml
+      - "Emir Sayimi (0 USD)"   # emir-sayim.yml
+      - "Ders Etiketi Duzeltici"   # etiket-duzelt.yml
+      - "Formul Eksik Taramasi (0 USD)"   # formul-eksik-tarama.yml
+      - "Gece Ajanı"   # gece.yml
+      - "Goc Nobetcisi"   # goc-nobeti.yml
+      - "Gorev nobeti (yerel robotlar yasiyor mu)"   # gorev-nobeti.yml
+      - "Gorsel Backfill"   # gorsel-backfill.yml
+      - "Gozetim Nobeti"   # gozetim.yml
+      - "Gunun sorusu gorselleri (07:00 TR)"   # gunun-sorusu.yml
+      - "Gunun Tuzagi (0 USD)"   # gunun-tuzagi.yml
+      - "Hakem Hasadi (odenmis yargilar)"   # hakem-hasadi.yml
+      - "Hakem Son Okuma (varsayilan 0 USD)"   # hakem-son-okuma.yml
+      - "Hap Onarimi"   # hap-onarim.yml
+      - "Hap Zenginlestirme"   # hap-zengin.yml
+      - "Hesap Kodu Denetimi (0 USD)"   # hesap-kodu-denetimi.yml
+      - "Homoglif Onarimi"   # homoglif-onar.yml
+      - "Ic-Tutarlilik Onarim (~5 USD)"   # ic-tutarlilik-onar.yml
+      - "Ic-Tutarlilik Denetimi (0 USD)"   # ic-tutarlilik.yml
+      - "Ihale bulten tamligi (gunluk)"   # ihale-gunluk-tamlik.yml
+      - "Ihale ozetlerini tazele"   # ihale-ozet-tazele.yml
+      - "Ihale Yutma (backfill)"   # ihale-yutma.yml
+      - "Iki Sinav Konu Karsilastirma (0 USD)"   # iki-sinav-konu.yml
+      - "IP olcumu (kaynak siteler runner'dan iniyor mu)"   # ip-olcum.yml
+      - "Kasa Kalite Taramasi"   # kalite-tarama.yml
+      - "Kapsam Maliyet Olcumu (0 USD)"   # kapsam-maliyet-olcum.yml
+      - "Karantinayi Kasaya Tasi"   # karantina-tasi.yml
+      - "Kardes Kaynak Cikarimi (0 USD)"   # kardes-kaynak.yml
+      - "Konu-Kaynak Karnesi"   # karne.yml
+      - "Karsit Profesor"   # karsit.yml
+      - "Hap Kartlar"   # kartlar.yml
+      - "Kasa Bagi"   # kasa-bag.yml
+      - "Kasa Desen Olcumu (0 USD)"   # kasa-desen-olcum.yml
+      - "Kasa Duzelticisi"   # kasa-duzelt.yml
+      - "Kasa Orneklem (0 USD)"   # kasa-ornek.yml
+      - "Kasa Sayimi"   # kasa-sayim.yml
+      - "Kaynak Butunluk (0 USD)"   # kaynak-butunluk.yml
+      - "Kaynak Onarimi"   # kaynak-onarim.yml
+      - "Kaynak Nobetcisi"   # kaynak.yml
+      - "KGK Kasa Yayini (0 USD)"   # kgk-kasa-yayin.yml
+      - "KGK Sinav Nobetcisi"   # kgk-sinav-nobeti.yml
+      - "Kirmizi Cekme (hakem yargisi)"   # kirmizi-cek.yml
+      - "Konu Dagilim Olcumu (0 USD)"   # konu-dagilim-olcum.yml
+      - "Konu Etiket Hizalamasi (0 USD)"   # konu-eslesme.yml
+      - "Konu koprusu V2 (0 USD, laptopsuz)"   # konu-koprusu.yml
+      - "Kurulus Maliyet Nobetcisi"   # kurulus-maliyet-nobeti.yml
+      - "Kurulus Nobet Postacisi"   # kurulus-nobet-postacisi.yml
+      - "Toplu Kuyruk Hizi (0 USD)"   # kuyruk-hizi.yml
+      - "Olu Link Nobetcisi"   # link.yml
+      - "Marka Aynasi"   # marka-ayna.yml
+      - "Marka Bulteni"   # marka-bulten.yml
+      - "Günlük Kanun Aynası"   # mevzuat.yml
+      - "Mobil tasma tabani (bulut)"   # mobil-tasma-taban.yml
+      - "Mukerrer Eleme (0 USD)"   # mukerrer-ele.yml
+      - "Mulga-Dayanak Cek"   # mulga-cek.yml
+      - "Nabiz Nobetcisi"   # nabiz.yml
+      - "Alacak ilani okuma pilotu"   # okuma-pilotu.yml
+      - "Onarim Motoru (varsayilan 0 USD)"   # onarim-motoru.yml
+      - "Onarim Taramasi"   # onarim-tarama.yml
+      - "Onarim Uygula"   # onarim-uygula.yml
+      - "Orneklem Karantina (0 USD)"   # orneklem-karantina.yml
+      - "Paket Havuzu Tasiyici"   # paket.yml
+      - "Parti Listesi (kayip kimlik kurtarma)"   # parti-liste.yml
+      - "Profesor v2"   # profesor-v2.yml
+      - "Gunluk RG Taramasi"   # radar.yml
+      - "Ithalat Rejimi Nobeti"   # rejim.yml
+      - "RG Nobeti"   # rg-nobeti.yml
+      - "Root jeton taramasi (haftalik uyari)"   # root-jeton-tarama.yml
+      - "Sabah Raporu (0 USD)"   # sabah-raporu.yml
+      - "SGS Onarim Hakem Isleme"   # sgs-onarim-hakem.yml
+      - "SGS Soru Tipi Olcumu (0 USD)"   # sgs-tip-olcum.yml
+      - "SGS yeni kitapcik nobetcisi (0 USD)"   # sgs-yeni-kitapcik.yml
+      - "Sik Hesap Kodu Onerisi (0 USD)"   # sik-hesap-kodu-oneri.yml
+      - "Sik Hesap Kodu Uygula (kasaya yazar)"   # sik-hesap-kodu-uygula.yml
+      - "Sik Istatistigi (0 USD)"   # sik-istatistigi.yml
+      - "Sik Karistirici"   # sik-karistir.yml
+      - "Sinav Analizi"   # sinav-analiz.yml
+      - "Sinav Ders Envanteri (0 USD)"   # sinav-ders-envanteri.yml
+      - "Sinav tek sayfa (0 USD, laptopsuz)"   # sinav-tek-sayfa.yml
+      - "SMMM dizin sayi tazeleme (0 USD)"   # smmm-dizin-tazele.yml
+      - "Bitirme ilgi hakemi (bulut, parali)"   # smmm-ilgi-hakemi.yml
+      - "SMMM Kapsama Tablosu (0 USD)"   # smmm-kapsama.yml
+      - "Bitirme kasa kaynak orneklemi (bulut, parali)"   # smmm-kasa-kaynak-ornek.yml
+      - "SMMM Kasa Yayini (0 USD)"   # smmm-kasa-yayin.yml
+      - "Bitirme onay nobetcisi (0 USD)"   # smmm-onay-nobetcisi.yml
+      - "Bitirme yeni kitapcik nobetcisi (0 USD)"   # smmm-yeni-kitapcik.yml
+      - "Soru Dayanak Nobeti"   # soru-dayanak.yml
+      - "Soru Denetcisi K2"   # soru-denetci-k2.yml
+      - "Soru Istatistigi (K1, 0 USD)"   # soru-istatistik.yml
+      - "Soru Niteligi (0 USD)"   # soru-nitelik.yml
+      - "Soru Uretici v2"   # soru-uret-v2.yml
+      - "Soru Fabrikasi"   # soru-uret.yml
+      - "SPL cikmis sinav arsivi hasati"   # spl-cikmis-hasat.yml
+      - "SPL cikmis sinav arsivi kesfi"   # spl-cikmis-kesif.yml
+      - "Standart Damgasi"   # standart-damga.yml
+      - "Tablo Format Taramasi (0 USD)"   # tablo-format-tarama.yml
+      - "Sinav Takvimi Nobetcisi"   # takvim.yml
+      - "Taslak Denetimi (0 USD)"   # taslak-denetim.yml
+      - "Taslak Gosterici (0 USD)"   # taslak-goster.yml
+      - "Taslak Listesi (0 USD)"   # taslak-liste.yml
+      - "Teori Esleme Olcumu (0 USD)"   # teori-esleme.yml
+      - "Teori Okuma"   # teori-oku.yml
+      - "Terim Taramasi (0 USD)"   # terim-taramasi.yml
+      - "Terim Uygula (kasaya yazar)"   # terim-uygula.yml
+      - "THP Liste Maliyet Olcumu (0 USD)"   # thp-liste-maliyet-olcum.yml
+      - "Toplu Gece Uretimi"   # toplu-uret.yml
+      - "Uretim Maliyet Olcumu (0 USD)"   # uretim-olcum.yml
+      - "Urun kunyesi (her urunun olculmus fotografi)"   # urun-kunyesi.yml
+      - "Uslup Turu"   # uslup-turu.yml
+      - "Radar Uyarı Robotu"   # uyari.yml
+      - "Uye Alarmi"   # uye-alarmi.yml
+      - "Veri Ezici Taramasi"   # veri-ezici-taramasi.yml
+      - "Veri Kapisi"   # veri-kapisi.yml
+      - "Vitrin kalite listesi (Nobetci anlatimi)"   # vitrin-kalite.yml
+      - "Vitrin kart (günün sorusu)"   # vitrin-kart.yml
+      - "Vitrin Sec"   # vitrin.yml
+      - "Yan Veri Nobeti"   # yanveri.yml
+      - "Yayin (havuz kur + sayfa bas + ite)"   # yayin-bas.yml
+      - "Yayin Denetimi (insan gozu, 0 USD)"   # yayin-denetim.yml
+      - "Yayin Kapisi (0 USD)"   # yayin-kapisi.yml
+      - "Yayin Sifirla (perde indir)"   # yayin-sifirla.yml
+      - "Yayina Ac"   # yayina-ac.yml
+      - "Yayindan Cek (500-okuma)"   # yayindan-cek.yml
+      - "yetki-devri-denetcisi"   # yetki-devri.yml
+      - "Yillik Rakam Nobeti"   # yillik-rakam-nobeti.yml
+      - "Yonetmelik Ambar Sayimi (0 USD)"   # yonetmelik-ambar-sayim.yml
+      - "Yonetmelik Kurtarma (0 USD)"   # yonetmelik-kurtar.yml
+      # <<< TETIK LISTESI
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+    inputs:
+      zorla:
+        description: "Son yayin ayni olsa da yeniden dagit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Tek yayın kuyruğu: koşan dağıtım yarıda kesilmez, en yeni bekleyen koşu sonra gelir.
+concurrency:
+  group: site-yayin
+  cancel-in-progress: false
+
+jobs:
+  kur:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read          # Pages kaynağı (build_type) okunur
+      deployments: read    # son dağıtılan commit okunur
+    outputs:
+      dagit: ${{ steps.karar.outputs.dagit }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main          # workflow_run/schedule'da da ana telin EN SON hâli
+          fetch-depth: 1
+
+      - name: Dagitim karari
+        id: karar
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OLAY: ${{ github.event_name }}
+          ZORLA: ${{ inputs.zorla }}
+        run: |
+          R="${{ github.repository }}"
+          BAS=$(git rev-parse HEAD)
+          TUR=$(gh api "repos/$R/pages" --jq .build_type 2>/dev/null || echo okunamadi)
+          echo "Pages kaynagi: $TUR · ana tel: $BAS"
+          if [ "$TUR" != "workflow" ]; then
+            echo "dagit=hayir" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pages kaynagi '$TUR' (GitHub Actions degil) - yalniz kur + denetim, siteye dokunulmadi."
+            exit 0
+          fi
+          # Son BASARILI dagitim (yarida kalan/dusen dagitim "yayinda" sayilmaz)
+          SON=""
+          for SATIR in $(gh api "repos/$R/deployments?environment=github-pages&per_page=15" --jq '.[] | "\(.id):\(.sha)"' 2>/dev/null); do
+            DURUM=$(gh api "repos/$R/deployments/${SATIR%%:*}/statuses?per_page=1" --jq '.[0].state' 2>/dev/null || echo "")
+            if [ "$DURUM" = "success" ]; then SON="${SATIR#*:}"; break; fi
+          done
+          echo "Son dagitilan: ${SON:-yok}"
+          if [ "$OLAY" = "workflow_dispatch" ] && [ "$ZORLA" = "true" ]; then echo "dagit=evet" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ -z "$SON" ] || [ "$OLAY" = "push" ]; then echo "dagit=evet" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$SON" = "$BAS" ]; then echo "dagit=hayir" >> "$GITHUB_OUTPUT"; echo "Ana tel zaten yayinda."; exit 0; fi
+          # Aradaki degisiklik site dosyasina dokunuyor mu? (karsilastirma 300 dosyayi asarsa: dagit)
+          gh api "repos/$R/compare/$SON...$BAS" --jq '.files | length, (.[].filename)' > "$RUNNER_TEMP/fark.txt" 2>/dev/null || echo "300" > "$RUNNER_TEMP/fark.txt"
+          N=$(head -1 "$RUNNER_TEMP/fark.txt")
+          SITE=$(tail -n +2 "$RUNNER_TEMP/fark.txt" | node arac/site-yayin.js --eslesir | wc -l)
+          AYAR=$(tail -n +2 "$RUNNER_TEMP/fark.txt" | grep -c -E '^arac/site-(beyaz-liste\.txt|yayin\.js)$' || true)
+          echo "Degisen $N dosya · site dosyasi $SITE · yayin ayari $AYAR"
+          if [ "$N" -ge 300 ] || [ "$SITE" -gt 0 ] || [ "$AYAR" -gt 0 ]; then echo "dagit=evet" >> "$GITHUB_OUTPUT"; else echo "dagit=hayir" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Yayin klasorunu kur + denetle
+        run: node arac/site-yayin.js --kur _site --denetim --tetik --uyari KOPUK,TETIK
+
+      - name: Yayin paketini yukle
+        if: steps.karar.outputs.dagit == 'evet'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  dagit:
+    needs: kur
+    if: needs.kur.outputs.dagit == 'evet'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.dagitim.outputs.page_url }}
+    steps:
+      - name: GitHub Pages'e dagit
+        id: dagitim
+        uses: actions/deploy-pages@v4

@@ -79,6 +79,10 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     <div class="kaydir"><table id="tCapraz"></table></div>
     <p class="not">Sınav: paketten; paket yoksa son siparişten; o da yoksa çözdüğü seviye testinden. Elçi: siparişteki kod ya da üye olurken taşıdığı elçi linki.</p>
 
+    <h2>Link etiketleri (?k=)</h2>
+    <div class="kaydir"><table id="tKaynak"></table></div>
+    <p class="not" id="kNot">Gruplara atılan linkler: tetikte.com/seviye-testi.html?k=grup-whatsapp gibi. Etiket küçük harf, rakam, - ve _ (en çok 32). Ziyaret: oturumda etiket başına 1 · Test: seviye testine başlayan · Üye: o linkle gelip hesap açan (hesap başına 1). Kişi verisi tutulmaz, yalnız gün + etiket + sayı. Son 60 gün.</p>
+
     <h2>Elçiler</h2>
     <div class="kaydir"><table id="tElci"></table></div>
     <div class="kutu" style="margin-top:10px">
@@ -407,6 +411,21 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     }).join('');
   }
   nobetciYukle().catch(function(){});
+
+  /* 08.10 Link etiketleri: etiket × gün × (ziyaret, test, üye) — radar-app/sql/2026-10-08-kaynak-sayac.sql; yalnız yönetici */
+  async function kaynakYukle(){
+    var r=await sb.rpc('yonetim_kaynak', { p_gun:60 }), T=$('tKaynak');
+    if(r.error){ T.innerHTML=''; $('kNot').textContent=/PGRST202|Could not find/i.test(r.error.message||'')?'Etiket sayacı henüz kurulmamış (göç bekliyor).':/YETKI_YOK|42501/i.test((r.error.message||'')+(r.error.code||''))?'':'Etiket verisi okunamadı.'; return; }
+    var liste=r.data||[], top={};
+    liste.forEach(function(x){ var t=top[x.etiket]||(top[x.etiket]={ziyaret:0,test:0,uye:0}); t.ziyaret+=x.ziyaret; t.test+=x.test; t.uye+=x.uye; });
+    var bas='<tr><th>Gün</th><th>Etiket</th><th>Ziyaret</th><th>Test başladı</th><th>Üye oldu</th></tr>';
+    if(!liste.length){ T.innerHTML=bas+'<tr><td colspan="5">Henüz etiketli ziyaret yok.</td></tr>'; return; }
+    var toplam=Object.keys(top).sort(function(a,b){ return top[b].ziyaret-top[a].ziyaret||a.localeCompare(b); }).map(function(k){
+      return '<tr><td><b>Toplam</b></td><td><b>'+esc(k)+'</b></td><td><b>'+top[k].ziyaret+'</b></td><td><b>'+top[k].test+'</b></td><td><b>'+top[k].uye+'</b></td></tr>'; }).join('');
+    T.innerHTML=bas+toplam+liste.map(function(x){
+      return '<tr><td>'+tarih(x.gun+'T12:00:00')+'</td><td>'+esc(x.etiket)+'</td><td>'+x.ziyaret+'</td><td>'+x.test+'</td><td>'+x.uye+'</td></tr>'; }).join('');
+  }
+  kaynakYukle().catch(function(){});
   document.addEventListener('click', async function(ev){
     var b=ev.target.closest&&ev.target.closest('button[data-ekipgonder]'); if(!b) return;
     var id=Number(b.dataset.ekipgonder), ta=document.querySelector('textarea[data-ekip="'+id+'"]'), metin=(ta&&ta.value||'').trim();

@@ -76,7 +76,28 @@ Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü a
 4. **Kesik metin taraması kör:** bu beşini görmeyen `kesik-metin-adaylari` üreticisine "paragraf ilk cümlede bitiyor / numaralı bent eksik /
    sonraki paragraf numarası gövdede" desenleri eklenmeli (kapı kuralı: öz-sınav + mutasyon).
 
-## 08.10 — Etik Kurallar SAYFA NUMARASI parçaları (KGK oturumu, ölçüldü; YAPILMADI)
+## 08.10 — Etik Kurallar SAYFA NUMARASI parçaları — ✅ YAPILDI 08.10 akşam (KGK oturumu)
+
+- Kural `arac/etik-sayfa-bolum.ps1` (yalnız Etik): \f'den önceki son dolu satır yalnız rakamsa silinir (240 satır, 238/239 ardışık);
+  satır başı KISIM/BÖLÜM/ALT BÖLÜM başlığı kendi adlı blok açar ("Etik Kurallar - Bölüm 340"), ardışık başlıklar tek blok;
+  İçindekiler · Terimler Sözlüğü · Kısaltmalar Listesi · Yürürlük Tarihi ayrı blok, içlerindeki satır başı sayılar paragraf açmaz.
+  p.400.5 "olumsuz" kayması resmî PDF s.81 okunarak düzeltildi ("muhakemesini olumsuz etkileyebilecek" · "(b) Şekilde bağımsızlık").
+- Eşdeğerlik (ambarın tamamı, 1.147 → 1.139): birleşik metinden düşen kelime = 240, dizisi sayfa numarası dizisiyle birebir; başka fark 0
+  (p.400.5 kelime yeri hariç). Giden 92 ad: 81 sayfa no · 10 içindekiler satırı (p.325…p.990) · p.120.16 U2 (sayfa 23'teki devamı
+  geri gelince 2.500'ü aştı → [1/2]/[2/2]). Gelen 84 ad: başlık blokları + Terimler Sözlüğü [1/13…13/13] + İçindekiler [1/2,2/2].
+- Ambar: yedek `C:\TETIKTE-YEDEK\etik-sayfa-no-20261008\`, 215 PATCH · 92 DELETE · 84 POST, geri okuma ambar = depo dosyası.
+  Bağ: kgk-d1-tds-kolay-1/kp-12 "p.227 [1/3]" → "Etik Kurallar - Terimler Sözlüğü [1/13]" (aynı metinle başlıyor). Kopuk Etik bağı 0 / 84.
+- ✅ YAPILDI 09.10 (altyapı oturumu): `Parcala` ön bölümü ≤2.000 karakterse `Dilimle` tek elemanlı listesi dizgiye açılıyor,
+  ilk HARF kalıyordu ("T", "B"). Düzeltme `$onDilim = @(Dilimle $on 2000)` (madde + paragraf yolu). Öz-sınav `arac/kgk-on-bolum-sinavi.ps1`
+  (13 vaka, `KOB_MUTASYON=geri` → 5/13 KIRMIZI, dogrula.yml). Eşdeğerlik (36 belge, 08.10 01:5x pdftotext çıktısı): depo = eski kod bayt
+  bayt 36/36; yeni kodla ad kümesi + sıra 0 fark, öteki kayıtlar 0 fark, değişen yalnız 27 "<kısa> - on bolum" metni = beklenen 25 +
+  TSRS 1/2 (eski kayıt "T " + ona yapışmış kısa kırıntıydı; 431→689, 95→239). Ambar: bu 27 addan YALNIZ "Surekli Egitim Tebligi - on bolum"
+  ambarda (öteki 26 belgenin adları ambarda yok, o standartlar başka yutucudan) → 1 PATCH ("B" → 100 kr), yedek
+  `C:\TETIKTE-YEDEK\kgk-on-bolum-20261009\`, geri okuma ambar = yeni çıktı (Etik 1139 · KUMİ 1 · KYS duyuru 4 · SBDS 2410 62 · Sürekli 25).
+  Bağ: 15.722 partide bu ön bölüm adlarına bağ 0.
+- Öteki standartlarda (KYS 1, BDS …) aynı sayfa numarası kusuru ÖLÇÜLMEDİ; kural yalnız Etik'e bağlı.
+
+### (eski not, 08.10 öğle)
 
 - `motor/kgk-standart-yut.ps1` paragraf deseni sayfa sonundan (`\f`) önceki tek başına sayfa numarasını ("227") + sonraki sayfanın
   büyük harfli başlığını PARAGRAF sanıyor. Etik'te 210 `\f`'nin 162'sinden önce sayı satırı var (2…241, 161/161 ardışık);
@@ -89,3 +110,16 @@ Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü a
 - Prova: scratchpad `2004596f…/scratchpad/kgk-yut-prova/` (yeni3 = sayı silinmiş çıktı, bag-tara.js, kiyas.js).
 
 Kol: kaynak yutma KGK/altyapı işidir; SGS oturumu yutma yapmaz.
+
+## 08.10 gece — KGK t2 (Kurumsal Yönetim + SPK) yazarlarının bulduğu ambar kusurları (YAPILMADI; sorular bu kısımlara DAYANMADI)
+
+| Kayıt | Kusur | Kim buldu |
+|---|---|---|
+| `Sermaye Piyasası K. (6362 s.K.) m.13 [1/2]`, `[2/2]` | (1). ve (6). fıkra metinleri bozuk | spk-g2 yazarı |
+| `Sermaye Piyasası K. (6362 s.K.) m.84 [2/2]`, `m.106`, `m.107` | madde sonuna değişiklik dipnot rakamları karışmış ("8", "14", "15") | spk-g4, spk-g2 yazarları |
+| `SPK Tebliğ (II-26.1) - Pay Alım Teklifi Tebliği (II-26.1) m.8 [1/2]` | m.9 metni bu kaydın içine karışmış | spk-g2 yazarı |
+| `SPK Yönetmelik - Borsalar ve Piyasa İşleticilerinin…` m.5 | ESKİ metin: kuruluş izni "Bakanlar Kurulu" (yürürlükteki 6362 m.65/1: Cumhurbaşkanı) | spk-g3 yazarı |
+| Değişken Sermayeli Yatırım Ortaklıkları tebliği | ambarda YOK (KGK konusu "degisken sermayeli yatirim ortakligi", son 10 yılda 6 soru) → konu t2'den çıkarıldı | KGK oturumu |
+| Kurumsal Yönetim Tebliği (II-17.1) EK (ilkeler) | ayrı kayıt değil, `m.17 [1/24]…[24/24]` dilimlerinin içinde; ilke numarasıyla arama yapılamıyor | KGK oturumu |
+
+Not: KGK ön denetiminin "İKİZ HAVUZU KÜÇÜK/BAYAT (<50 dosya)" uyarısı KGK'da yanlış alarm — ambarda toplam 49 kgk- partisi var, yerel 49/49 (08.10 ölçüldü). Eşik SGS/SMMM için.

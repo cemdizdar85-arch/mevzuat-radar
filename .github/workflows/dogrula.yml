@@ -279,6 +279,21 @@ jobs:
           - { ad: "Bulut soru sirasi OZ-SINAVI (pay + cift acma + bozuk satir)",
               kabuk: pwsh, komut: "./arac/bulut-sira-sinavi.ps1" }
 
+          # 08.10.2026 - Acilis robots.txt metni (gong.ps1 + acilis-seo.ps1 ortak): Allow + ic klasorler + menu.js GIZLI
+          # sayfalari Disallow; haritadaki acik sayfa kapanmamali. Mutasyon 5/5 KIRMIZI (klasor/gizli/md/allow/harita).
+          - { ad: "Acilis robots.txt OZ-SINAVI (gizli sayfa + ic klasor kapali, harita acik)",
+              kabuk: pwsh, komut: "./arac/robots-yaz.ps1 -Sinav" }
+
+          # 08.10.2026 - Site yayini BEYAZ LISTE (arac/site-yayin.js, .github/workflows/site-yayin.yml): tetikte.com'a
+          # yalniz arac/site-beyaz-liste.txt'e uyan dosyalar cikar. Oz-sinav 15 vaka; mutasyon 6/6 KIRMIZI
+          # (yasak/zorunlu/bag/haric/glob/tetik). Gercek depo denetimi: ic dosya yayinda (YASAK), sitenin olmazsa
+          # olmazi yok (ZORUNLU), sayfanin tirnakla andigi dosya listede yok (KOPUK), iten robot site-yayin.yml
+          # tetik listesinde yok (TETIK) -> KIRMIZI. Duzeltme: listeye satir ekle / node arac/site-yayin.js --tetik-yaz
+          - { ad: "Site beyaz liste OZ-SINAVI (mutasyonlu)",
+              kabuk: bash, komut: "node arac/site-yayin.js --sinav --mutasyon" }
+          - { ad: "Site beyaz liste DENETIMI (gercek depo - yasak/zorunlu/kopuk/tetik)",
+              kabuk: bash, komut: "node arac/site-yayin.js --kur /tmp/_site --denetim --tetik" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para
@@ -368,6 +383,14 @@ jobs:
           # 07.10.2026 - Standart paragraf baslik kuyrugu (motor/kgk-standart-yut.ps1 son gecisi): 7 vaka; SBK_MUTASYON=kapali -> KIRMIZI 3/7.
           - { ad: "Standart baslik kuyrugu OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/standart-baslik-kuyrugu.ps1 -Sinav" }
+          # 08.10.2026 - Etik Kurallar sayfa numarasi + bolum adlari + resmi metin duzeltmesi (motor/kgk-standart-yut.ps1 Parcala):
+          # 22 vaka (gercek Parcala ile uctan uca); ESB_MUTASYON=sayfano|bolum|son|icindekiler|ardisik|resmi|kuyruk -> 7/7 KIRMIZI.
+          - { ad: "Etik sayfa no + bolum adlari OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/etik-sayfa-bolum.ps1 -Sinav" }
+          # 09.10.2026 - KGK yutucu on bolum (Parcala madde + paragraf yolu): <=2.000 kr on bolum tek elemanli listeden ilk HARFE iniyordu.
+          # 13 vaka (gercek Parcala); KOB_MUTASYON=geri (@() kaldirilir, iki yer) -> KIRMIZI 5/13.
+          - { ad: "KGK yutucu on bolum OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/kgk-on-bolum-sinavi.ps1" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.
@@ -769,6 +792,18 @@ jobs:
           - { ad: "Damping oran kapisi (okunamayan onlem orani kalmasin)",
               kabuk: bash, komut: "node arac/damping-oran-kapisi.js",
               rapor: "veri/damping-oran-log.txt" }
+
+          # 08.10.2026 KAYNAK ETIKETI (?k=) - gruplara/Instagram'a atilan linkten kac ziyaret / test / uye geldi.
+          # Anon yazma yolu actigi icin (acilis guvenlik denetimi 2.6) iki taraf da sinanir:
+          #  - istemci: menu.js KAYNAK-ETIKETI blogu sahte tarayicida (etiketsiz -> 0 istek, suzgec, oturumda 1,
+          #    30 gun, uyelik <= 2 gun + jeton) + 8 mutasyon
+          #  - sunucu: goc GERCEK Postgres'te (runner'da kurulu), gercek anon/authenticated rolleriyle + 10 mutasyon
+          - { ad: "Kaynak etiketi istemci OZ-SINAVI",
+              kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js" }
+          - { ad: "Kaynak etiketi istemci MUTASYON (her bozma kirmizi)",
+              kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js --mutasyon" }
+          - { ad: "Kaynak sayaci sunucu OZ-SINAVI + MUTASYON (Postgres)",
+              kabuk: bash, komut: "bash arac/kaynak-sayac-sinavi.sh" }
 
     steps:
       - name: Depoyu al
