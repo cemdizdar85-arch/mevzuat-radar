@@ -76,7 +76,23 @@ Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü a
 4. **Kesik metin taraması kör:** bu beşini görmeyen `kesik-metin-adaylari` üreticisine "paragraf ilk cümlede bitiyor / numaralı bent eksik /
    sonraki paragraf numarası gövdede" desenleri eklenmeli (kapı kuralı: öz-sınav + mutasyon).
 
-## 08.10 — Etik Kurallar SAYFA NUMARASI parçaları (KGK oturumu, ölçüldü; YAPILMADI)
+## 08.10 — Etik Kurallar SAYFA NUMARASI parçaları — ✅ YAPILDI 08.10 akşam (KGK oturumu)
+
+- Kural `arac/etik-sayfa-bolum.ps1` (yalnız Etik): \f'den önceki son dolu satır yalnız rakamsa silinir (240 satır, 238/239 ardışık);
+  satır başı KISIM/BÖLÜM/ALT BÖLÜM başlığı kendi adlı blok açar ("Etik Kurallar - Bölüm 340"), ardışık başlıklar tek blok;
+  İçindekiler · Terimler Sözlüğü · Kısaltmalar Listesi · Yürürlük Tarihi ayrı blok, içlerindeki satır başı sayılar paragraf açmaz.
+  p.400.5 "olumsuz" kayması resmî PDF s.81 okunarak düzeltildi ("muhakemesini olumsuz etkileyebilecek" · "(b) Şekilde bağımsızlık").
+- Eşdeğerlik (ambarın tamamı, 1.147 → 1.139): birleşik metinden düşen kelime = 240, dizisi sayfa numarası dizisiyle birebir; başka fark 0
+  (p.400.5 kelime yeri hariç). Giden 92 ad: 81 sayfa no · 10 içindekiler satırı (p.325…p.990) · p.120.16 U2 (sayfa 23'teki devamı
+  geri gelince 2.500'ü aştı → [1/2]/[2/2]). Gelen 84 ad: başlık blokları + Terimler Sözlüğü [1/13…13/13] + İçindekiler [1/2,2/2].
+- Ambar: yedek `C:\TETIKTE-YEDEK\etik-sayfa-no-20261008\`, 215 PATCH · 92 DELETE · 84 POST, geri okuma ambar = depo dosyası.
+  Bağ: kgk-d1-tds-kolay-1/kp-12 "p.227 [1/3]" → "Etik Kurallar - Terimler Sözlüğü [1/13]" (aynı metinle başlıyor). Kopuk Etik bağı 0 / 84.
+- 🔴 AYRI İŞ (ölçüldü 08.10, düzeltilmedi): `Parcala` ön bölümü ≤2.000 karakterse `Dilimle` tek elemanlı listesi dizgiye açılıyor,
+  ambara YALNIZ İLK HARF giriyor ("T", "B"). Depoda 25 belge: BDS 220/250/402/560/600/610/710/800/805/810, BOBİ FRS, GDS 3000/3402,
+  KYS 1/2, Sürekli Eğitim Tebliği, TFRS 1/2/6/11/14/17, TMS 26/32/34. Düzeltme 25 belgenin tazelenmesini ister.
+- Öteki standartlarda (KYS 1, BDS …) aynı sayfa numarası kusuru ÖLÇÜLMEDİ; kural yalnız Etik'e bağlı.
+
+### (eski not, 08.10 öğle)
 
 - `motor/kgk-standart-yut.ps1` paragraf deseni sayfa sonundan (`\f`) önceki tek başına sayfa numarasını ("227") + sonraki sayfanın
   büyük harfli başlığını PARAGRAF sanıyor. Etik'te 210 `\f`'nin 162'sinden önce sayı satırı var (2…241, 161/161 ardışık);

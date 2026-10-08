@@ -383,6 +383,10 @@ jobs:
           # 07.10.2026 - Standart paragraf baslik kuyrugu (motor/kgk-standart-yut.ps1 son gecisi): 7 vaka; SBK_MUTASYON=kapali -> KIRMIZI 3/7.
           - { ad: "Standart baslik kuyrugu OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/standart-baslik-kuyrugu.ps1 -Sinav" }
+          # 08.10.2026 - Etik Kurallar sayfa numarasi + bolum adlari + resmi metin duzeltmesi (motor/kgk-standart-yut.ps1 Parcala):
+          # 22 vaka (gercek Parcala ile uctan uca); ESB_MUTASYON=sayfano|bolum|son|icindekiler|ardisik|resmi|kuyruk -> 7/7 KIRMIZI.
+          - { ad: "Etik sayfa no + bolum adlari OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/etik-sayfa-bolum.ps1 -Sinav" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.
