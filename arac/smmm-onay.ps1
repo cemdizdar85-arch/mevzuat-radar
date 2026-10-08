@@ -66,7 +66,10 @@ function SmmmPartiler {
 # Öz-sınav: arac/smmm-onay-liste-sinavi.ps1 (bu işlevi AST ile çıkarıp koşar).
 function SmmmOnaySinifla([string]$anh, $v, $onayH) {
   $kk = $(if ($v.PSObject.Properties['kor_cozum_kaynakli']) { $v.kor_cozum_kaynakli } else { $null })
-  if (-not ($kk -and [bool]$kk.dogru_mu)) { return [pscustomobject]@{ sinif = 'ATILAN'; neden = $(if ($kk) { "kaynaklı çözüm de yanlış ($($kk.cevap))" } else { 'kaynaklı ikinci çözüm koşmadı (tuzak şıkkı değil ya da eski kayıt)' }); anlatim = '' } }
+  # 08.10: kör HİÇBİRİ dediğinde de üretici kaynaklı ikinci çözümü açar (kalip-parti-uret.ps1 KorKaynakliGerekli); 08.10 öncesi koşmuş
+  #   HİÇBİRİ sorusunda kayıt yoktur → gerekçe bunu ayrı söyler (tuzak şıkkı değil denmez). Sınıf kuralı AYNI: kaynaklı ✓ yoksa ATILAN.
+  $korHicbiri = ("$($v.kor_cozum.cevap)" -ceq 'HİÇBİRİ')
+  if (-not ($kk -and [bool]$kk.dogru_mu)) { return [pscustomobject]@{ sinif = 'ATILAN'; neden = $(if ($kk) { "kaynaklı çözüm de yanlış ($($kk.cevap))" } elseif ($korHicbiri) { 'kör HİÇBİRİ; kaynaklı ikinci çözüm henüz koşmadı (08.10 öncesi kayıt → etiket + pilotId satırı, korYenile YOK)' } else { 'kaynaklı ikinci çözüm koşmadı (tuzak şıkkı değil ya da eski kayıt)' }); anlatim = '' } }
   # öteki şartlar: kör istisnası dışında her şey sağlanmış mı (istisnayı geçici olarak "onaylı" sayıp bak)
   $sahteOnay = @{}; $sahteOnay[$anh] = [pscustomobject]@{ karar = 'ONAY'; parmak_izi = (SmmmParmakIzi $v); tarih = '-' }
   $digeri = SmmmYayinSarti $anh $v $sahteOnay
@@ -133,7 +136,7 @@ if ($Liste) {
   [void]$html.Append("<h3>Bitirme (SMMM) — onay bekleyen $($bekleyen.Count) soru</h3><p>$(HtmlKacis $girisMetni)</p>")
   foreach ($b in $bekleyen) {
     $v = $b.v; $korH = "$($v.kor_cozum.cevap)"
-    $tuzakMetni = $(if ($v.aciklama -and $v.aciklama -isnot [string] -and $v.aciklama.PSObject.Properties[$korH]) { "$($v.aciklama.$korH)" } else { '-' })
+    $tuzakMetni = $(if ($korH -ceq 'HİÇBİRİ') { "kör hiçbir şıkkı seçmedi; kendi bulduğu sonuç: $($v.kor_cozum.sonuc)" } elseif ($v.aciklama -and $v.aciklama -isnot [string] -and $v.aciklama.PSObject.Properties[$korH]) { "$($v.aciklama.$korH)" } else { '-' })   # 08.10 kör HİÇBİRİ kartı
     $celiski = $(if ("$($b.kk.kaynak_celisti)".Trim()) { " · kaynak–ezber çelişkisi: $($b.kk.kaynak_celisti)" } else { '' })
     [void]$md.AppendLine(''); [void]$md.AppendLine("---"); [void]$md.AppendLine("## $($b.anahtar) · $($v.konu)$(if($b.eskiKarar){" · ⚠ eski karar $($b.eskiKarar)"})")
     [void]$md.AppendLine(''); [void]$md.AppendLine("**Soru:** $($v.soru)"); [void]$md.AppendLine('')

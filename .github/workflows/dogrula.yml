@@ -227,8 +227,26 @@ jobs:
               kabuk: pwsh, komut: "./arac/smmm-kalite-bag-sinavi.ps1" }
           # 08.10.2026 - bitirme onay listesi siniflamasi: kor X + kaynakli ikinci cozum dogru soru anlatim fazlari yokken de
           # Cem onay listesine duser (kilit: uretici anlatimi onaydan sonraya birakiyordu, liste "simulasyon yok" diye atiyordu). 17 vaka + 7 mutasyon.
+          # 08.10 (kor-tavan): kor HICBIRI + kaynakli dogru -> BEKLEYEN, KK tek basina yayin acmaz, bayat KK gecmez. 22 vaka + 9 mutasyon.
           - { ad: "Bitirme onay listesi siniflama OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-onay-liste-sinavi.ps1" }
+          - { ad: "Bitirme onay listesi siniflama MUTASYON (9 bozma, her biri KIRMIZI)",
+              kabuk: pwsh, komut: "./arac/smmm-onay-liste-sinavi.ps1 -Mutasyon" }
+          # 08.10.2026 - Kor cozum + kaynakli ikinci cozum cikti tavani 2.500 -> 8.000 (gm12: cevaplar kesikti) ve kor HICBIRI'de
+          # kaynakli ikinci cozum acilir. 23 vaka: parmak izi max_tokens tasimaz (eski odenmis toplu sonuc hasat edilir), 6 kor cagrisi
+          # sabiti kullanir, HICBIRI acar / guncel KK varken acmaz / tuzaksiz A-E ve SGS'de acmaz, kor kapisi + yayin istisnasi tutarli.
+          # Mutasyon 10/10 KIRMIZI (08.10 olculdu). GORMEZ: 8.000'in gercek cagrida yetip yetmedigi.
+          - { ad: "Kor cozum tavani + HICBIRI kaynakli yol OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/kor-tavan-sinavi.ps1" }
+          - { ad: "Kor cozum tavani + HICBIRI kaynakli yol MUTASYON (10 bozma)",
+              kabuk: pwsh, komut: "./arac/kor-tavan-sinavi.ps1 -Mutasyon" }
+          # 08.10.2026 - Kosucu ayni etiketli plan satirlari (gm12: ikinci satir "baska hatta basiliyor" diye 0 koduyla cikti,
+          # eszamanli iki satir kp-04/kp-05 sonucunu sildi). Bayragi ayni pilotId'li satirlar birlesir, farkli olanlar sirayla kosar,
+          # secim/aciklama hakemi etiket basina bir kez; etiketsiz satir gruplanmaz; plan alani onarimTuru uretici -OnarimTuru. 21 vaka + 12 mutasyon (08.10 olculdu). GORMEZ: gercek surec acilisi.
+          - { ad: "Kosucu ayni etiketli satir OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/kosucu-satir-sinavi.ps1" }
+          - { ad: "Kosucu ayni etiketli satir MUTASYON (12 bozma)",
+              kabuk: pwsh, komut: "./arac/kosucu-satir-sinavi.ps1 -Mutasyon" }
 
           # 30.09.2026 - Bitirme risk taramasi siniflari (R1/R4/R6 kanun no-ad/R7 eski mevzuat/R8 aritmetik, R8y ondalik/yuvarlama). 14 vaka;
           # 7 mutasyon (R6 kapali, R7 istisna, ic alan, R8, R4 esigi, R8y hep/10 kuvveti) her birinde KIRMIZI (30.09 olculdu). Ag yok.

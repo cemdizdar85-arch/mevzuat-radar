@@ -5036,6 +5036,17 @@ if($HAKEM_GECMEDI.Count){ Write-Host "  HAKEM ÖNDE: $($HAKEM_GECMEDI.Count) sor
 # Bağımsız ve FARKLI bir model, anlatımı/ikizi/açıklamayı görmeden yalnız soru + şıkları çözer. Cevap doğru şıkla tutmuyorsa soru yayına çıkmaz
 # (koşucu seçimi kor_cozum.dogru_mu ister). Bir kez koşar, karar önbellekte; -KorYenile yeniden verdirir. Teori sorusunda da koşar (şık seçer).
 $script:FAZ_ADI='K'
+# ⭐ 08.10.2026 KÖR + KAYNAKLI İKİNCİ ÇÖZÜM ÇIKTI TAVANI 2.500 → 8.000 (gm12 ölçüldü: Opus 5 kör çağrılarında düşünme jetonları
+#   max_tokens'tan yeniyor; 2.500 tavanda gm12 kör/KK çağrılarının neredeyse hepsi KESİK döndü → JSON yok → "KÖR ÇÖZÜM BOZUK",
+#   soru kör kararı alamadan durdu; para ödendi, karar gelmedi).
+#   PARMAK İZİ KARARI (ölçüldü 08.10): toplu hasat parmak izi YALNIZ istem metninden (+ onarım tuzu) hesaplanır —
+#   motor/api-hedef.ps1 Get-IcerikParmak($icerik) tek parametre; Invoke-ClaudeToplu $parmakHep ve TopluGonder uyum karşılaştırması
+#   maxTok'u OKUMAZ. Yani tavan değişince parmak izi DEĞİŞMEZ; eski etiketlerin ödenmiş toplu sonuçları aynen bedava hasat edilir,
+#   tarih geçidi (KURAL0310 gibi) GEREKMEZ. Öz-sınav: arac/kor-tavan-sinavi.ps1 (parmak izi maxTok'tan bağımsız + 6 çağrı yeri bu sabiti kullanır).
+#   ⚠ BEDELİ: hasat edilen ESKİ sonuç 2.500 tavanla kesik geldiyse aynen kesik gelir (bozuk toplu cevap → mevcut tek anlık tekrar yolu,
+#     artık 8.000 tavanla). Kesik kararı yeniden almak için satır korYenile ile koşar (onarım tuzu → yeni parti).
+#   🚫 GÖRMEZ: 8.000'in de yetmediği çağrı (dur=max_tokens) ayrıca sayılmıyor — "KÖR ÇÖZÜM BOZUK" günlük satırı tek iz.
+$KOR_MAXTOK=8000
 $korIstem=@'
 Sen SMMM sınavına giren çok titiz bir adaysın. Aşağıdaki soruyu YALNIZ soru metnine ve şıklara dayanarak çöz; başka hiçbir bilgi verilmedi, tahmin etme.
 Hesap sorusunda her ara işlemi yaz ve sonucu şıklarla karşılaştır. Şıkların hiçbiri sonucunla tutmuyorsa cevaba "HİÇBİRİ" yaz ve bulduğun sonucu belirt.
@@ -5101,7 +5112,17 @@ function KorKaynakPaket($cvp,[int]$tavan){
 function KorKaynakliGerekli($cvp){
   if($Sinav -ne 'SMMM' -or $KorKaynak -or $ApiKapali -or $SadeceHtml){ return $false }
   if(-not ($cvp.PSObject.Properties['kor_cozum'] -and $cvp.kor_cozum) -or [bool]$cvp.kor_cozum.dogru_mu){ return $false }
-  $kkHarf="$($cvp.kor_cozum.cevap)"; if($kkHarf -notmatch '^[A-E]$'){ return $false }
+  $kkHarf="$($cvp.kor_cozum.cevap)"
+  # ⭐ 08.10.2026 KÖR "HİÇBİRİ" DE KAYNAKLI ÇÖZÜMÜ AÇAR (gm12 ölçüldü: kör hiçbir şıkta sonucunu bulamayınca yol A–E harf istediği için
+  #   KAYNAKLI-YOK'ta kalıyordu → soru ne ikinci çözüm ne Cem onayı gördü, sonraki fazlar hiç koşmadı). HİÇBİRİ'de "tuzak şıkkı"
+  #   sorusu anlamsızdır (kör hiçbir şıkka düşmedi), tuzak şartı aranmaz. Kayıt aynı (kor_cozum_kaynakli, kor_cevap='HİÇBİRİ');
+  #   TEK BAŞINA yayın açmaz: SmmmKorIstisna yine kaynaklı ✓ + Cem ONAY + parmak izi ister. Öz-sınav: arac/kor-tavan-sinavi.ps1.
+  #   🚫 GÖRMEZ: kör A–E seçip tuzak işareti taşımayan soru (eski kural: kaynaklı çözüm açılmaz) · bozuk/boş kör cevabı (açılmaz).
+  if($kkHarf -ceq 'HİÇBİRİ'){
+    if($cvp.PSObject.Properties['kor_cozum_kaynakli'] -and $cvp.kor_cozum_kaynakli -and "$($cvp.kor_cozum_kaynakli.parmak_izi)" -eq (SmmmParmakIzi $cvp) -and "$($cvp.kor_cozum_kaynakli.kor_cevap)" -eq $kkHarf){ return $false }   # bu soru metni için güncel karar var
+    return $true
+  }
+  if($kkHarf -notmatch '^[A-E]$'){ return $false }
   $kkTuzak=$false
   if($cvp.PSObject.Properties['celdirici_yol'] -and $cvp.celdirici_yol -and $cvp.celdirici_yol.PSObject.Properties[$kkHarf] -and "$($cvp.celdirici_yol.$kkHarf)".Trim()){ $kkTuzak=$true }
   if($cvp.aciklama -and $cvp.aciklama.PSObject.Properties[$kkHarf] -and "$($cvp.aciklama.$kkHarf)" -match 'Tuza[gğ]'){ $kkTuzak=$true }
@@ -5120,9 +5141,9 @@ function KorKaynakliCoz([string]$id,$cvp,[string]$sikM){
   # partisine alınır, 3. geçişte cevap kimlikle okunur. İstem/model/tavan aynı. (3. geçişte kör cevabı yeni gelen soru için son çare anlık.)
   if($Toplu){
     $yKK=TopluAlKalici @('KK') $id
-    if(-not $yKK -and (Dalga2Mi)){ TopluTopla $id $KorModel $istKK 2500 '' 'KK'; Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ($id) toplu partiye alındı" -ForegroundColor DarkCyan; return }
+    if(-not $yKK -and (Dalga2Mi)){ TopluTopla $id $KorModel $istKK $KOR_MAXTOK '' 'KK'; Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ($id) toplu partiye alındı" -ForegroundColor DarkCyan; return }
   }
-  if(-not $yKK){ foreach($d in 1..3){ try{ $yKK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istKK -MaxTok 2500; break }catch{ if($d -eq 3){ $yKK=$null }else{ Start-Sleep -Seconds (8*$d) } } } }
+  if(-not $yKK){ foreach($d in 1..3){ try{ $yKK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istKK -MaxTok $KOR_MAXTOK; break }catch{ if($d -eq 3){ $yKK=$null }else{ Start-Sleep -Seconds (8*$d) } } } }
   if(-not $yKK){ $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM ÇAĞRI DÜŞTÜ: $id"); Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ÇAĞRI DÜŞTÜ ($id)" -ForegroundColor Red; return }
   Write-Host ("  KAYNAKLI TOKEN {0}: girdi {1} · cikti {2} · paket {3} kr" -f $id,$yKK.girdi,$yKK.cikti,$kkMetin.Length) -ForegroundColor DarkGray
   $aKK=KorCoz $yKK.metin
@@ -5156,10 +5177,10 @@ foreach($id in @($don.Keys)){
     if($km){ $korEk=$korKaynakEk.Replace('{METIN}',$km) }
   }
   $istK=$korIstem.Replace('{SORU}',"$($cvp.soru)").Replace('{SIKLAR}',$sikM).Replace('{KAYNAK}',$korEk)
-  if($script:ON_GECIS){ TopluTopla $id $KorModel $istK 2500; continue }
+  if($script:ON_GECIS){ TopluTopla $id $KorModel $istK $KOR_MAXTOK; continue }
   $yK=TopluAl 'K' $id; $yKToplu=[bool]$yK
-  if(-not $yK -and (Dalga2Mi)){ TopluTopla $id $KorModel $istK 2500; continue }   # 15.09: ilk dalgada cevap yok -> ikinci toplu dalgaya (anlık değil)
-  if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
+  if(-not $yK -and (Dalga2Mi)){ TopluTopla $id $KorModel $istK $KOR_MAXTOK; continue }   # 15.09: ilk dalgada cevap yok -> ikinci toplu dalgaya (anlık değil)
+  if(-not $yK){ foreach($d in 1..3){ try{ $yK=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok $KOR_MAXTOK; break }catch{ if($d -eq 3){throw}; Start-Sleep -Seconds (8*$d) } } }
   Write-Host ("  KÖR TOKEN {0}: girdi {1} · cikti {2} · model {3}" -f $id,$yK.girdi,$yK.cikti,$KorModel) -ForegroundColor DarkGray
   $aK=KorCoz $yK.metin
   # 13.09 ÖLÇÜLDÜ (GM sgs-gm5-mat-r1 kp-02, kp-08): hakem2'de kapatılan kusurun kör çözüm eşi — toplu cevap ayrıştırılamayınca
@@ -5167,7 +5188,7 @@ foreach($id in @($don.Keys)){
   if((-not $aK -or -not $aK.PSObject.Properties['cevap']) -and $yKToplu){
     $bozukBasK=("$($yK.metin)" -replace '\s+',' '); $bozukBasK=$bozukBasK.Substring(0,[Math]::Min(160,$bozukBasK.Length))
     Write-Host "  KÖR TOPLU CEVAP BOZUK ($id) → anlık bir kez yeniden: $bozukBasK" -ForegroundColor Yellow
-    $yK2=$null; foreach($d in 1..3){ try{ $yK2=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok 2500; break }catch{ if($d -eq 3){ $yK2=$null }; Start-Sleep -Seconds (8*$d) } }
+    $yK2=$null; foreach($d in 1..3){ try{ $yK2=Invoke-ClaudeMesaj -Model $KorModel -Icerik $istK -MaxTok $KOR_MAXTOK; break }catch{ if($d -eq 3){ $yK2=$null }; Start-Sleep -Seconds (8*$d) } }
     if($yK2){ $yK=$yK2; $aK=KorCoz $yK.metin; Write-Host ("  KÖR TOKEN (anlık) {0}: girdi {1} · cikti {2}" -f $id,$yK.girdi,$yK.cikti) -ForegroundColor DarkGray }
   }
   if(-not $aK -or -not $aK.PSObject.Properties['cevap']){ $bozukSonK=("$($yK.metin)" -replace '\s+',' '); Write-Host "  KÖR BOZUK METİN ($id): $($bozukSonK.Substring(0,[Math]::Min(240,$bozukSonK.Length)))" -ForegroundColor DarkYellow }
