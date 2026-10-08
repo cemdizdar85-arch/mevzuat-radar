@@ -1,5 +1,5 @@
 {
-  "tarih": "2026-10-08 06:10:42",
+  "tarih": "2026-10-08 06:24:29",
   "durum": "KIRMIZI",
   "ci": true,
   "genislik": [
@@ -11,7 +11,7 @@
   "olculen": 150,
   "KOR": 0,
   "yeni_kusur_sayfa": 14,
-  "taban_borcu_sayfa": 4,
+  "taban_borcu_sayfa": 5,
   "yeni_kusur": [
     {
       "sayfa": "durum.html@320",
@@ -224,6 +224,17 @@
           "oge": "div.navlinks",
           "sag": 388,
           "yazi": "Ara ☾ Ücretsiz başla"
+        }
+      ]
+    },
+    {
+      "sayfa": "radar-fiyat.html@320",
+      "kayma": true,
+      "kesik": [
+        {
+          "oge": "a",
+          "sag": 324,
+          "yazi": "3 ders 2.090 TL + KDV"
         }
       ]
     }
