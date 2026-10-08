@@ -105,3 +105,16 @@ Ek not (ölçülmedi, doğrulanmalı): onarım ajanları TTK m.189 ve m.473'ü a
 - Prova: scratchpad `2004596f…/scratchpad/kgk-yut-prova/` (yeni3 = sayı silinmiş çıktı, bag-tara.js, kiyas.js).
 
 Kol: kaynak yutma KGK/altyapı işidir; SGS oturumu yutma yapmaz.
+
+## 08.10 gece — KGK t2 (Kurumsal Yönetim + SPK) yazarlarının bulduğu ambar kusurları (YAPILMADI; sorular bu kısımlara DAYANMADI)
+
+| Kayıt | Kusur | Kim buldu |
+|---|---|---|
+| `Sermaye Piyasası K. (6362 s.K.) m.13 [1/2]`, `[2/2]` | (1). ve (6). fıkra metinleri bozuk | spk-g2 yazarı |
+| `Sermaye Piyasası K. (6362 s.K.) m.84 [2/2]`, `m.106`, `m.107` | madde sonuna değişiklik dipnot rakamları karışmış ("8", "14", "15") | spk-g4, spk-g2 yazarları |
+| `SPK Tebliğ (II-26.1) - Pay Alım Teklifi Tebliği (II-26.1) m.8 [1/2]` | m.9 metni bu kaydın içine karışmış | spk-g2 yazarı |
+| `SPK Yönetmelik - Borsalar ve Piyasa İşleticilerinin…` m.5 | ESKİ metin: kuruluş izni "Bakanlar Kurulu" (yürürlükteki 6362 m.65/1: Cumhurbaşkanı) | spk-g3 yazarı |
+| Değişken Sermayeli Yatırım Ortaklıkları tebliği | ambarda YOK (KGK konusu "degisken sermayeli yatirim ortakligi", son 10 yılda 6 soru) → konu t2'den çıkarıldı | KGK oturumu |
+| Kurumsal Yönetim Tebliği (II-17.1) EK (ilkeler) | ayrı kayıt değil, `m.17 [1/24]…[24/24]` dilimlerinin içinde; ilke numarasıyla arama yapılamıyor | KGK oturumu |
+
+Not: KGK ön denetiminin "İKİZ HAVUZU KÜÇÜK/BAYAT (<50 dosya)" uyarısı KGK'da yanlış alarm — ambarda toplam 49 kgk- partisi var, yerel 49/49 (08.10 ölçüldü). Eşik SGS/SMMM için.
