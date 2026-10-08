@@ -25,7 +25,7 @@
 //  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "92bb16ce37a94d5d";
+const KOD_IMZA = "6b41edbdd24f4ba5";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -156,6 +156,26 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
   if (tur === "alindi") {
     if (s.alindi_mail) return cevap(200, { success: true, zaten: true });
     if (s.durum !== "odeme_bekliyor" || Date.now() - new Date(s.olusturma).getTime() > 2 * 3600 * 1000) return cevap(409, { hata: "uygun degil" });
+    // 08.10 HIZ SINIRI (açılış öncesi güvenlik denetimi): siparisler'e anon satır yazabildiği için bir betik başkasının
+    // adresiyle sahte sipariş açıp her birine 'alindi' maili attırabiliyordu (sınırsız; Resend kotası + alan adı itibarı).
+    // (1) aynı alıcıya 24 saatte en çok 3 'alindi' maili (ilike: büyük/küçük harf oyunu sayılır; % _ fazla sayar = güvenli yön)
+    // (2) aynı IP'den 10 dakikada en çok 5 çağrı (rate_limit_check; rate_log 10 dk'dan eskiyi siler → pencere 600 sn).
+    // Sınıra takılan sipariş KAYDI durur (yönetim panelinde görünür), yalnız mail gitmez. Sayaç okunamazsa engellemez.
+    // 🚫 GÖRMEZ: sahte siparişin TABLOYA yazılması (o, ekleme hız sınırlı sunucu fonksiyonuna taşınınca kapanır).
+    const gun = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+    try {
+      const say = await sb(`siparisler?select=id&email=ilike.${encodeURIComponent(String(s.email))}&alindi_mail=gte.${encodeURIComponent(gun)}&limit=3`);
+      if (say.ok && (await say.json()).length >= 3) { console.log(`siparis-bildirim ${no} alindi SINIR alici`); return cevap(429, { hata: "cok sik" }); }
+    } catch { /* sayılamadı: engelleme */ }
+    const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim();
+    if (ip) {
+      try {
+        const rl = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, { method: "POST",
+          headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ p_ip: "siparis-bildirim:" + ip, p_limit: 5, p_pencere_sn: 600 }) });
+        if (rl.ok && (await rl.json()) === false) { console.log(`siparis-bildirim ${no} alindi SINIR ip`); return cevap(429, { hata: "cok sik" }); }
+      } catch { /* sayaç yok: engelleme */ }
+    }
     m = alindiMail(s); damga = "alindi_mail";
   } else {
     if (s.acildi_mail) return cevap(200, { success: true, zaten: true });
