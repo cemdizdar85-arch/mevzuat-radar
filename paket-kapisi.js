@@ -18,7 +18,30 @@
  * site: --taban/--panel/--ink).
  */
 (function () {
-  if (/\/kaydir\/vitrin\//.test(location.pathname)) return;
+  if (/\/kaydir\/vitrin\//.test(location.pathname)) {
+    /* 08.10 Cem ("5 örnek soru bizim soru paketi gibi değil" -> seçenek a): ücretsiz sayfada "Nöbetçi'ye sor" (ücretli yapay zekâ
+       çağrısı) YÜKLENMEZ; yerinde pakete götüren yazı durur. Kart araç satırı (.soruArac) kasa/basım sonrası gelebilir -> izlenir. */
+    var nbYaz = function () {
+      [].forEach.call(document.querySelectorAll('.soruArac'), function (a) {
+        if (a.querySelector('.bNobetciPaket')) return;
+        var l = document.createElement('a'); l.className = 'arac bNobetciPaket'; l.href = '/fiyat.html' + (/smmm/.test(location.pathname) ? '?sinav=yeterlilik' : '?sinav=sgs');
+        l.target = '_top'; l.textContent = '💬 Pakette: Nöbetçi\'ye kendi sorunu sor'; a.appendChild(l);
+      });
+    };
+    /* 08.10 5 örnek soru (kaydir/vitrin/ornek-*.html): şablonda sayaç yok -> yalnız bu sayfalara GoatCounter (sayfa açılışı) +
+       pakete giden tıklama 'ornek/<sinav>/paket' (motor/huni-raporu.js "Örnek:" adımları). Cevaplar cevap_kayit'e kaynak 'ornek-soru'. */
+    var ornekS = (location.pathname.match(/\/kaydir\/vitrin\/ornek-(sgs|smmm)\.html$/) || [])[1];
+    if (ornekS) {
+      try { var gs = document.createElement('script'); gs.async = true; gs.src = '//gc.zgo.at/count.js'; gs.setAttribute('data-goatcounter', 'https://mevzuatradar.goatcounter.com/count'); document.head.appendChild(gs); } catch (e) {}
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest && e.target.closest('a[href*="fiyat.html"],a[href*="satin-al.html"]'); if (!a) return;
+        try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: 'ornek/' + (ornekS === 'smmm' ? 'yeterlilik' : 'sgs') + '/paket', title: '5 örnek soru: paket', event: true }); } catch (x) {}
+      }, true);
+    }
+    var nbBasla = function () { nbYaz(); try { new MutationObserver(function () { nbYaz(); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {} };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', nbBasla); else nbBasla();
+    return;
+  }
 
   var betik = document.currentScript;
   var KOK = betik ? betik.src.replace(/paket-kapisi\.js.*$/, '') : '/';
@@ -219,6 +242,8 @@
    Sayaç: Nöbetçi düğmesi de yukarıdaki kart sayacına katılır (kart/nobetci-ac). */
 (function () {
   if (!/\/kaydir\//.test(location.pathname) || window.__nobetciYuklendi) return; window.__nobetciYuklendi = true;
+  /* 08.10 Cem (seçenek a): ücretsiz vitrin / 5 örnek soru sayfasında ücretli "Nöbetçiye sor" yüklenmez; yerinde "Pakette: ..." bağlantısı (yukarıda) */
+  if (/\/kaydir\/vitrin\//.test(location.pathname)) return;
   var bu = document.querySelector('script[src*="paket-kapisi.js"]'), kok = bu ? bu.src.replace(/paket-kapisi\.js.*$/, '') : '/';
   var s = document.createElement('script'); s.src = kok + 'nobetci-sor.js'; s.defer = true; document.head.appendChild(s);
   document.addEventListener('click', function (e) { var b = e.target && e.target.closest && e.target.closest('.bNobetci'); if (b && window.goatcounter && window.goatcounter.count) { try { window.goatcounter.count({ path: 'kart/nobetci-ac', title: 'Soru kartı: nobetci-ac', event: true }); } catch (x) {} } }, true);

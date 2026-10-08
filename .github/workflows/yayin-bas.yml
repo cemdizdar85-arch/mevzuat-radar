@@ -120,24 +120,28 @@ jobs:
         shell: powershell
         continue-on-error: true
         run: |
-          foreach($v in @(@{s='sgs';r='veri/sinav/sgs-elle-ret.json'},@{s='smmm';r='veri/sinav/smmm-elle-ret.json'})){
-            $sec = Get-Content "veri/sinav/kaydir-secim/vitrin-$($v.s)-secim.json" -Raw -Encoding UTF8 | ConvertFrom-Json   # K2: @(...) ile sarılmaz
+          # 08.10 Cem ("5 örnek soru bizim soru paketi gibi değil" -> "yap"): ornek-sgs / ornek-smmm = 5 örnek soru, ders sayfasının
+          #   BİREBİR şablonuyla (seçim motor/vitrin-hesap.js'in yazdığı veri/sinav/kaydir-secim/ornek-*-secim.json; ornek-sorular.html gösterir)
+          foreach($v in @(@{d='vitrin-sgs';o='sgs';r='veri/sinav/sgs-elle-ret.json'},@{d='vitrin-smmm';o='smmm';r='veri/sinav/smmm-elle-ret.json'},
+                          @{d='ornek-sgs';o='ornek-sgs';r='veri/sinav/sgs-elle-ret.json'},@{d='ornek-smmm';o='ornek-smmm';r='veri/sinav/smmm-elle-ret.json'})){
+            if(-not (Test-Path "veri/sinav/kaydir-secim/$($v.d)-secim.json")){ "::warning::VITRIN SECIM YOK ($($v.d))"; continue }
+            $sec = Get-Content "veri/sinav/kaydir-secim/$($v.d)-secim.json" -Raw -Encoding UTF8 | ConvertFrom-Json   # K2: @(...) ile sarılmaz
             $ret = (Get-Content $v.r -Raw -Encoding UTF8 | ConvertFrom-Json).kayitlar
             $retli = @($sec | Where-Object { $ret.PSObject.Properties.Name -contains "$($_.etiket)/$($_.id)" })
-            if($retli.Count){ "::warning::VITRIN BASILMADI (vitrin-$($v.s): elle retteki $($retli.Count) soru secimde)"; continue }
-            $dosya = "kaydir/vitrin/$($v.s).html"; $once = if(Test-Path $dosya){ (Get-Item $dosya).LastWriteTimeUtc } else { $null }
+            if($retli.Count){ "::warning::VITRIN BASILMADI ($($v.d): elle retteki $($retli.Count) soru secimde)"; continue }
+            $dosya = "kaydir/vitrin/$($v.o).html"; $once = if(Test-Path $dosya){ (Get-Item $dosya).LastWriteTimeUtc } else { $null }
             # ⛔ Günlük HERKESE AÇIK (CLAUDE.md bulut güvenliği 2): kaydir-coz çıktısı süzülür, soru metni basılmaz
             #   *>&1: alt sürecin hata akışı da süzgeçten geçsin (yoksa süzgeci atlayıp günlüğe düşer). Bu akışta
             #   EAP='stop' olduğu için yönlendirilen stderr adımı öldürür (K6, aşağıdaki "Degisen varsa ite" notu) ->
             #   yalnız bu çağrı için 'Continue'; çıkış kodu yine $LASTEXITCODE'dan okunur.
             $eapEski = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
-            & powershell -NoProfile -File motor/kaydir-coz.ps1 -SecimDosya "vitrin-$($v.s)-secim.json" -Cikti "..\kaydir\vitrin\$($v.s).html" *>&1 | Where-Object { "$_" -match 'secim dosyasi|yazildi|YOK:|Exception|Cannot' } | ForEach-Object { "$_".Substring(0, [Math]::Min(160, "$_".Length)) }
+            & powershell -NoProfile -File motor/kaydir-coz.ps1 -SecimDosya "$($v.d)-secim.json" -Cikti "..\kaydir\vitrin\$($v.o).html" *>&1 | Where-Object { "$_" -match 'secim dosyasi|yazildi|YOK:|Exception|Cannot' } | ForEach-Object { "$_".Substring(0, [Math]::Min(160, "$_".Length)) }
             $kod = $LASTEXITCODE; $ErrorActionPreference = $eapEski
-            if($kod -ne 0 -or -not (Test-Path $dosya) -or ((Get-Item $dosya).LastWriteTimeUtc -eq $once)){ "::warning::VITRIN BASILMADI (vitrin-$($v.s): cikis $kod, dosya yenilenmedi)"; continue }
+            if($kod -ne 0 -or -not (Test-Path $dosya) -or ((Get-Item $dosya).LastWriteTimeUtc -eq $once)){ "::warning::VITRIN BASILMADI ($($v.d): cikis $kod, dosya yenilenmedi)"; continue }
             "vitrin: $dosya ($([math]::Round((Get-Item $dosya).Length/1KB)) KB) · secim $(@($sec).Count) soru"
             # 04.10: ana sayfa afişi (veri/vitrin-kunye.json) sayfayla AYNI koşuda tazelenir. 03.10'da sayfa 70->66 soruya
             #   indi (4 seçim partisinden düşmüştü), künye 70'te kaldı; "Nöbetçi çözsün" sıra 66'da boş kart açtı (canlı tarama yakaladı).
-            if($v.s -eq 'sgs'){
+            if($v.d -eq 'vitrin-sgs'){
               $ErrorActionPreference = 'Continue'
               & powershell -NoProfile -File motor/vitrin-kunye-cikar.ps1 *>&1 | Where-Object { "$_" -match 'kart sayisi|yazildi|KIRMIZI' }
               if($LASTEXITCODE -ne 0){ "::warning::VITRIN KUNYE YAZILMADI (cikis $LASTEXITCODE)" }
