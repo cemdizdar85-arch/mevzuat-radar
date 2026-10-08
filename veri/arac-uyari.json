@@ -1,8 +1,35 @@
 {
-  "tarih": "07.10.2026 18:54",
-  "rg_gun": "07-10-2026",
-  "kart": 2,
-  "etkilenen_dosya": 0,
+  "tarih": "08.10.2026 01:58",
+  "rg_gun": "08-10-2026",
+  "kart": 5,
+  "etkilenen_dosya": 2,
   "not": "TRIPWIRE - anahtar kelime eslesmesi. Yanlis alarm verebilir, farkli yazilmis basligi kacirabilir. GM her satiri tek tek okur.",
-  "uyarilar": []
+  "uyarilar": [
+    {
+      "dosya": "veri/gtip-askiya.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Ithalat Rejimi V Sayili Liste (askiya alinan sanayi urunleri)",
+      "hasat": "motor/askiya-hasat.ps1 (yerel rejim2026 klasoru)",
+      "eslesme_sayisi": 1,
+      "eslesmeler": [
+        {
+          "anahtar": "askiya",
+          "kart_basligi": "Demiryolu araçları tip onayı yönetmeliğinde değişikliğe gidildi"
+        }
+      ]
+    },
+    {
+      "dosya": "veri/gtip-durum.json",
+      "arac": "gtip.html",
+      "kaynak_ad": "Gozetim / korunma / kayda bagli ithalat tebligleri",
+      "hasat": "motor/tablo-hasat.ps1",
+      "eslesme_sayisi": 1,
+      "eslesmeler": [
+        {
+          "anahtar": "gozetim",
+          "kart_basligi": "Ürün borsasında aracılık faaliyetlerine ilişkin gözetim yönetmeliğinde değişiklik yapıldı"
+        }
+      ]
+    }
+  ]
 }
