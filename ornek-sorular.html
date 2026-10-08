@@ -32,10 +32,43 @@ h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.6px;margin:0 0 8px;line-hei
 .os-liste b{color:var(--ink)}
 .os-z{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:1px 7px;border-radius:999px;border:1px solid var(--line2);color:var(--ink);margin-right:4px;vertical-align:1px}
 .os-z.cz{border-color:var(--amber-dolgu);background:color-mix(in srgb,var(--amber-dolgu) 16%,transparent)}
-#osOynatici{min-height:420px}
-/* örnek soruda ziyaretçi kendi çözer: geri sayım yok (oynatıcı süresi uzun, sayaç gizli) */
-#osOynatici .no-sayim,#osOynatici .no-ipucu{display:none}
+/* 08.10 Cem ("kaydırma olmasın, kaydırma yapacaksak bütün soruları yapmalıyız"): oynatıcı yok - satın alınan ürün gibi:
+   soru + şıklar durur, seçince anlatımın TAMAMI hemen açılır, "Sonraki soru". Renkler yalnız tema jetonu. */
+#osKart{min-height:420px}
+#osKart:has(.os-son){min-height:0}   /* son ekranda yükleme yeri boşluk bırakmasın */
 .os-yuk{height:420px}
+.os-kart{background:var(--kagit);border:1px solid var(--line);border-radius:16px;padding:16px 18px 18px}
+.os-ust{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.os-ust b{color:var(--ink)}
+.os-soru{font-size:16px;font-weight:600;line-height:1.55;margin:0 0 12px;white-space:pre-line}
+.os-siklar{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:7px}
+.os-siklar.iki{grid-template-columns:1fr 1fr}
+@media(max-width:359px){.os-siklar.iki{grid-template-columns:1fr}}
+.os-sik{display:flex;gap:9px;align-items:flex-start;width:100%;text-align:left;font:inherit;font-size:14.5px;line-height:1.45;color:var(--ink);background:var(--bg);border:1.5px solid var(--line2);border-radius:10px;padding:9px 12px;cursor:pointer}
+.os-sik:hover:not([disabled]){border-color:var(--ink)}
+.os-sik:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+.os-sik[disabled]{cursor:default}
+.os-sik b{flex:none}
+.os-sik em{margin-left:auto;padding-left:8px;flex:none;font-style:normal;font-size:12px;font-weight:800;white-space:nowrap}
+.os-sik.sen{border-color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent)}.os-sik.sen em{color:var(--red)}
+.os-sik.dogru{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,transparent)}.os-sik.dogru em{color:var(--green)}
+.os-bilmem{font:inherit;font-size:13.5px;color:var(--muted);background:none;border:0;text-decoration:underline;cursor:pointer;padding:4px 0}
+.os-anlat[hidden]{display:none}
+.os-blok{padding:11px 13px;border-radius:0 9px 9px 0;margin:12px 0 0}
+.os-blok p{margin:5px 0 0;font-size:14.5px;line-height:1.55}
+.os-blok.sen{border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}.os-blok.sen>b{color:var(--red)}
+.os-blok.iyi{border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 8%,transparent)}.os-blok.iyi>b{color:var(--green)}
+.os-blok.dogru{border-left:3px solid var(--green);background:color-mix(in srgb,var(--green) 6%,transparent)}.os-blok.dogru>b{color:var(--green)}
+.os-adim{margin:7px 0 0;font-size:14.5px;line-height:1.55}
+.os-f{display:block;font-variant-numeric:tabular-nums;font-weight:650;margin:2px 0 0}
+.os-kayit{border-left:3px solid var(--ink);background:color-mix(in srgb,var(--ink) 5%,transparent)}
+.os-yev{margin:8px 0 0;font-size:13.5px}.os-yev-b{color:var(--muted);margin:0 0 3px}
+.os-yev-s{display:grid;grid-template-columns:1fr auto auto;gap:10px;font-variant-numeric:tabular-nums;padding:2px 0;border-bottom:1px dashed var(--line)}
+.os-yev-s span:nth-child(2),.os-yev-s span:nth-child(3){min-width:70px;text-align:right}.os-yev-s.a span:first-child{padding-left:20px}
+.os-kural{margin:12px 0 0;font-size:14.5px}.os-dayanak{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.os-oran{margin:10px 0 0;font-size:13.5px;color:var(--muted)}
+.os-ileri{margin:16px 0 0;display:flex;justify-content:flex-end}
+.os-son b.os-puan{font-size:28px;display:block;margin:2px 0 6px}
 .os-dip{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .os-btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border-radius:12px;font-weight:750;font-size:15.5px;text-decoration:none}
 .os-btn.ana{background:var(--amber-dolgu);color:var(--amber-uzeri)}
@@ -54,8 +87,8 @@ h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.6px;margin:0 0 8px;line-hei
     <a href="ornek-sorular.html?sinav=yeterlilik" data-s="yeterlilik">SMMM Yeterlilik</a>
   </nav>
   <h1 id="osBas">5 örnek soru</h1>
-  <p class="alt" id="osAlt">Son 10 yılın sınavlarında en sık sorulan konulardan, bilerek zor 5 soru. Şıkkını seç; Nöbetçi neden doğru ya da yanlış olduğunu adım adım ve dayandığı maddeyle anlatsın.</p>
-  <div id="osOynatici"><div class="os-yuk" role="status" aria-label="Sorular yükleniyor"></div></div>
+  <p class="alt" id="osAlt">Son 10 yılın sınavlarında en sık sorulan konulardan, bilerek zor 5 soru. Şıkkını seç; neden doğru ya da yanlış olduğunu adım adım ve dayandığı maddeyle hemen gör.</p>
+  <div id="osKart" aria-live="polite"><div class="os-yuk" role="status" aria-label="Sorular yükleniyor"></div></div>
   <div class="os-dip">
     <a class="os-btn ana" id="osPaket" href="fiyat.html">Paketleri gör →</a>
     <a class="os-btn ikinci" id="osOlc" href="seviye-testi.html">30 soruda seviyeni ölç →</a>
@@ -65,7 +98,6 @@ h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.6px;margin:0 0 8px;line-hei
   <ol class="os-liste" id="osListe"></ol>
   <p class="os-not">Konuların kaç dönemde sorulduğunu çıkmış soruları tek tek okuyarak saydık; her konunun hangi sınavda kaçıncı soru olarak çıktığı <a id="osKanit" href="en-cok-cikan-konular-sgs.html">bu sayfada yazıyor</a>. Örnek sorular soru bankasındaki diğer sorularla aynı düzende yazıldı ve aynı denetimlerden geçti.</p>
 </div>
-<script src="nobetci-oynatici.js?v=20261007k"></script>
 <script>
 (function(){
   var $=function(i){ return document.getElementById(i); };
@@ -82,20 +114,87 @@ h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.6px;margin:0 0 8px;line-hei
   $('osKanit').href=s==='yeterlilik'?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html';
   document.title='5 Örnek Soru · '+AD[s]+': En Sık Çıkan Konulardan | Tetikte';
   var say=function(ad){ try{ window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({ path:'ornek/'+s+'/'+ad, title:'5 örnek soru: '+ad, event:true }); }catch(e){} };
+  $('osPaket').addEventListener('click',function(){ say('paket'); });
+  $('osOlc').addEventListener('click',function(){ say('olc'); });
+  /* 08.10 Cem "1 ve 2 yap": (1) adım adım sayaç olayları (basladi · secti-dogru/yanlis · kart-N · son · paket · olc) huni raporuna;
+     (2) her cevap anonim cevap_kayit'e (kaynak 'ornek-soru'; kişi verisi yok, oturum = bu sayfa açılışının rastgele damgası).
+     "Çözenlerin %X'i doğru bildi" sik_yuzdesi'nden (sitedeki BÜTÜN cevaplar: seviye testi + ders sayfaları + burası);
+     30 cevaptan azsa HİÇ yazılmaz (ölçülmemiş oran yok). */
+  var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', ORAN_ESIK=30;
+  var oturum='os-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+  var L=[], i=0, dogruSay=0, cevaplanan={}, basladi=false, kartBas=0;
+  function kaydet(x,harf,dogruMu){
+    try{ fetch(SB+'/rest/v1/cevap_kayit',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY,Prefer:'return=minimal'},
+      body:JSON.stringify({ soru_id:x.id, ders:x.ders, konu:x.konu, secim:harf, dogru:x.dogru, dogru_mu:dogruMu, sn:Math.round((Date.now()-kartBas)/1000), elenen:[], tahmin_dogru:0, tahmin_n:0, oturum:oturum, kaynak:'ornek-soru' }) })
+      .then(function(){ oranYaz(x); }, function(){ oranYaz(x); }); }catch(e){}
+  }
+  function oranYaz(x){
+    try{ fetch(SB+'/rest/v1/rpc/sik_yuzdesi',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY}, body:JSON.stringify({ p_soru_id:x.id }) })
+      .then(function(r){ return r.ok?r.json():[]; }).then(function(a){
+        if(!Array.isArray(a)) return; var n=0, d=0; a.forEach(function(z){ var k=Number(z.n)||0; n+=k; if(z.secim===x.dogru) d+=k; });
+        var e=document.getElementById('osOran'); if(!e||e.getAttribute('data-id')!==x.id||n<ORAN_ESIK) return;
+        e.textContent='Bu soruyu sitede çözenlerde doğru oranı: %'+Math.round(100*d/n)+' ('+n+' cevap).'; e.hidden=false;
+      }).catch(function(){}); }catch(e){}
+  }
+  function adimHtml(x){
+    if(x.adimlar&&x.adimlar.length) return x.adimlar.map(function(a,n){ return '<p class="os-adim">'+(n+1)+'. '+esc(a.a)+(a.f?'<span class="os-f">'+esc(a.f)+'</span>':'')+'</p>'; }).join('');
+    return '<p>'+esc(x.aciklama)+'</p>';
+  }
+  function kayitHtml(x){
+    if(!x.kayitlar||!x.kayitlar.length) return '';
+    return '<div class="os-blok os-kayit"><b>Yevmiye kaydı</b>'+x.kayitlar.map(function(y){ return '<div class="os-yev">'+(y.baslik?'<div class="os-yev-b">'+esc(y.baslik)+'</div>':'')+(y.kayit||[]).map(function(k){
+      var a=k.taraf==='A'; return '<div class="os-yev-s'+(a?' a':'')+'"><span>'+esc(k.hesap)+'</span><span>'+(a?'':esc(k.tutar))+'</span><span>'+(a?esc(k.tutar):'')+'</span></div>'; }).join('')+'</div>'; }).join('')+'</div>';
+  }
+  function kartCiz(){
+    if(i>=L.length) return sonCiz();
+    var x=L[i], H=Object.keys(x.siklar).sort(), kisa=H.every(function(h){ return String(x.siklar[h]).length<=22; });
+    kartBas=Date.now();
+    $('osKart').innerHTML='<div class="os-kart">'+
+      '<div class="os-ust"><span><b>Soru '+(i+1)+' / '+L.length+'</b> · '+esc(x.ders)+' · '+esc(x.konu)+' <span class="os-z'+(x.zorluk==='çok zor'?' cz':'')+'">'+esc(x.zorluk)+'</span></span>'+
+      '<span>Son 10 yılda '+esc(x.konu_donem)+' / '+esc(x.konu_toplam)+' dönemde soruldu · <a href="'+esc($('osKanit').getAttribute('href'))+'">kanıt</a></span></div>'+
+      '<p class="os-soru">'+esc(x.soru)+'</p>'+
+      '<ol class="os-siklar'+(kisa?' iki':'')+'">'+H.map(function(h){ return '<li><button type="button" class="os-sik" data-h="'+esc(h)+'"><b>'+esc(h)+')</b><span>'+esc(x.siklar[h])+'</span><em></em></button></li>'; }).join('')+'</ol>'+
+      '<button type="button" class="os-bilmem" id="osBilmem">Bilmiyorum, cevabı göster</button>'+
+      '<div class="os-anlat" id="osAnlat" hidden></div></div>';
+    [].forEach.call(document.querySelectorAll('#osKart .os-sik'),function(b){ b.addEventListener('click',function(){ sec(b.getAttribute('data-h')); }); });
+    $('osBilmem').addEventListener('click',function(){ sec(null); });
+  }
+  function sec(harf){
+    var x=L[i]; if(cevaplanan[i]) return; cevaplanan[i]=true;
+    if(!basladi){ basladi=true; say('basladi'); }
+    var dogruMu=harf===x.dogru; if(dogruMu) dogruSay++;
+    [].forEach.call(document.querySelectorAll('#osKart .os-sik'),function(b){
+      var h=b.getAttribute('data-h'); b.disabled=true;
+      if(h===x.dogru){ b.classList.add('dogru'); b.querySelector('em').textContent=dogruMu?'Doğru ✓ senin cevabın':'Doğru ✓'; }
+      else if(h===harf){ b.classList.add('sen'); b.querySelector('em').textContent='Senin cevabın ✕'; }
+    });
+    $('osBilmem').hidden=true;
+    var t=harf&&!dogruMu?(x.tuzaklar||{})[harf]:null, enSik=(x.tuzaklar||{})[x.secim];
+    var ilk = harf===null ? '<div class="os-blok sen"><b>Bu soruyu boş geçtin</b><p>Doğrusunu ve nedenini birlikte görelim.</p></div>'
+      : dogruMu ? '<div class="os-blok iyi"><b>Doğru bildin!</b>'+(enSik?'<p>Çoğu aday burada '+esc(x.secim)+') şıkkına düşüyor. <b>'+esc(enSik.ad||'Tuzak')+':</b> '+esc(enSik.metin)+'</p>':'')+'</div>'
+      : '<div class="os-blok sen"><b>Senin cevabın '+esc(harf)+')</b><p><b>'+esc((t&&t.ad)||'Tuzak')+':</b> '+esc((t&&t.metin)||'Bu şık doğru değil; doğru cevabın hesabı aşağıda adım adım.')+'</p></div>';
+    var an=$('osAnlat');
+    an.innerHTML=ilk+'<div class="os-blok dogru"><b>Doğrusu '+esc(x.dogru)+')</b>'+adimHtml(x)+'</div>'+kayitHtml(x)+
+      (x.kural?'<p class="os-kural"><b>Kural:</b> '+esc(x.kural)+'</p>':'')+(x.dayanak?'<p class="os-dayanak">📜 Dayanak: '+esc(x.dayanak)+'</p>':'')+
+      '<p class="os-oran" id="osOran" data-id="'+esc(x.id)+'" hidden></p>'+
+      '<div class="os-ileri"><button type="button" class="os-btn ana" id="osIleri">'+(i+1<L.length?'Sonraki soru →':'Sonucu gör →')+'</button></div>';
+    an.hidden=false;
+    $('osIleri').addEventListener('click',function(){ say('kart-'+(i+1)); i++; kartCiz(); var k=$('osKart'); if(k.getBoundingClientRect().top<0) k.scrollIntoView({block:'start'}); });
+    if(harf) { say(dogruMu?'secti-dogru':'secti-yanlis'); kaydet(x,harf,dogruMu); } else oranYaz(x);
+  }
+  function sonCiz(){
+    say('son');
+    $('osKart').innerHTML='<div class="os-kart os-son"><b class="os-puan">'+L.length+' sorunun '+dogruSay+' tanesini doğru bildin.</b>'+
+      '<p style="margin:0 0 8px">Bankadaki her soru böyle anlatılır: yanlış şıkkın neden çektiği, hesabın adım adım, dayandığı madde. '+esc(AD[s])+' paketinde bankanın tamamı açık.</p>'+
+      '<p style="margin:0;color:var(--muted);font-size:14px">Bu sorular bilerek sınavdan zor seçildi; burada bilemediğin soru sınavda düşebileceğin yerdir.</p></div>';
+  }
   fetch('veri/ornek-soru.json',{cache:'no-cache'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-    var L=(d.sinavlar&&d.sinavlar[s])||[];
-    if(!L.length||!window.NobetciOynatici) throw 0;
-    $('osListe').innerHTML=L.map(function(x,i){ return '<li>'+(i+1)+'. <span class="os-z'+(x.zorluk==='çok zor'?' cz':'')+'">'+esc(x.zorluk)+'</span> <b>'+esc(x.ders)+'</b> · '+esc(x.konu)+'</li>'; }).join('');
-    var kap=$('osOynatici'); kap.innerHTML='';
-    window.NobetciOynatici.kur(kap, L.map(function(x,i){
-      return { ust:'Soru '+(i+1)+' · '+x.ders+' · '+x.konu+' · son 10 yılda '+x.konu_donem+' / '+x.konu_toplam+' dönemde soruldu · '+x.zorluk,
-        soru:x.soru, siklar:x.siklar, tuzaklar:x.tuzaklar, secim:x.secim, sen_etiket:'En sık yapılan yanlış', tuzak_ad:x.tuzak_ad, tuzak_metin:x.tuzak_metin,
-        dogru:x.dogru, aciklama:x.aciklama, adimlar:x.adimlar, kayitlar:x.kayitlar, kural:x.kural, dayanak:x.dayanak }; }),{
-      son:{ metin:'Bankadaki her soru böyle anlatılır: yanlış şıkkın neden çektiği, hesabın adım adım, dayandığı madde. '+AD[s]+' paketinde bankanın tamamı açık.', dugme:'Paketleri gör →', href:'fiyat.html?sinav='+s, sinif:'btn btn-vurgu' },
-      etkilesim:3600000,   /* ziyaretçi kendi seçer; geri sayım gizli (CSS) */
-      olay:function(ad){ say(ad); } });
+    L=(d.sinavlar&&d.sinavlar[s])||[];
+    if(!L.length) throw 0;
+    $('osListe').innerHTML=L.map(function(x,n){ return '<li>'+(n+1)+'. <span class="os-z'+(x.zorluk==='çok zor'?' cz':'')+'">'+esc(x.zorluk)+'</span> <b>'+esc(x.ders)+'</b> · '+esc(x.konu)+'</li>'; }).join('');
+    kartCiz();
   }).catch(function(){
-    $('osOynatici').innerHTML='<p style="margin:0;color:var(--muted)">Örnek sorular şu an yüklenemedi. Sayfayı yenile ya da <a href="index.html#ekran">günün sorusunu çöz</a>.</p>';
+    $('osKart').innerHTML='<p style="margin:0;color:var(--muted)">Örnek sorular şu an yüklenemedi. Sayfayı yenile ya da <a href="index.html#ekran">günün sorusunu çöz</a>.</p>';
   });
 })();
 </script>

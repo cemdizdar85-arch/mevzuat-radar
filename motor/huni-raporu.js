@@ -69,6 +69,17 @@ const EK = [
   ['Nöbetçi: paket düğmesi',    /^(seviye\/(sgs|yet)|ana)\/nobetci\/paket$/],
   ['Nöbetçi: metne geçti',      /^(seviye\/(sgs|yet)|ana)\/nobetci\/metin/],
   ['Nöbetçi: durdurdu',         /^(seviye\/(sgs|yet)|ana)\/nobetci\/durdur$/],
+  // 08.10 Cem "1 ve 2 yap": 5 örnek soru pakete dönüşüyor mu (ornek-sorular.html; olay = ornek/<sgs|yeterlilik>/<ad>)
+  ['Örnek: sayfa açıldı',       /^\/ornek-sorular\.html$/],
+  ['Örnek: ilk cevap',          /^ornek\/(sgs|yeterlilik)\/basladi$/],
+  ['Örnek: doğru cevap',        /^ornek\/(sgs|yeterlilik)\/secti-dogru$/],
+  ['Örnek: yanlış cevap',       /^ornek\/(sgs|yeterlilik)\/secti-yanlis$/],
+  ['Örnek: 1. soruyu geçti',    /^ornek\/(sgs|yeterlilik)\/kart-1$/],
+  ['Örnek: 5. soruyu geçti',    /^ornek\/(sgs|yeterlilik)\/kart-5$/],
+  ['Örnek: son ekran',          /^ornek\/(sgs|yeterlilik)\/son$/],
+  ['Örnek: Paketleri gör',      /^ornek\/(sgs|yeterlilik)\/paket$/],
+  ['Örnek: Seviyeni ölç',       /^ornek\/(sgs|yeterlilik)\/olc$/],
+  ['Örnek: ara sorular',        /^ornek\/(sgs|yeterlilik)\/kart-[234]$/],
 ];
 
 function topla(hits) {
@@ -99,6 +110,9 @@ function tablo(dun, hafta) {
   const k = hafta.say['Rapor kilidini gördü'] || 0, ha = hafta.say['Hesap aç dedi'] || 0, ra = hafta.say['Raporu hesapla açtı'] || 0;
   satir.push('');
   satir.push('KİLİT DÖNÜŞÜMÜ (7 gün): kilidi gören ' + k + ' → hesap aç diyen ' + ha + ' (' + yuzde(ha, k) + ') → raporu açan ' + ra + ' (' + yuzde(ra, ha) + ')');
+  /* 08.10: 5 örnek soru dönüşümü - açan → ilk cevabı veren → 5 soruyu bitiren → Paketleri gör (sayfa düğmesi + ana sayfaya göre yüzde) */
+  const oa = hafta.say['Örnek: sayfa açıldı'] || 0, oc = hafta.say['Örnek: ilk cevap'] || 0, o5 = hafta.say['Örnek: 5. soruyu geçti'] || 0, op = hafta.say['Örnek: Paketleri gör'] || 0;
+  satir.push('ÖRNEK SORU DÖNÜŞÜMÜ (7 gün): sayfayı açan ' + oa + ' → cevaplayan ' + oc + ' (' + yuzde(oc, oa) + ') → 5 soruyu bitiren ' + o5 + ' (' + yuzde(o5, oc) + ') → Paketleri gör ' + op + ' (' + yuzde(op, oa) + ')');
   return satir.join('\n');
 }
 
@@ -139,6 +153,13 @@ function sinav() {
     ['yüzde: 12/30 -> %40', yuzde(12, 30) === '%40'],
     ['yüzde: payda 0 -> —', yuzde(3, 0) === '—'],
   ];
+  // 08.10 5 örnek soru adımları
+  const o = topla([{ yol: '/ornek-sorular.html', adet: 50 }, { yol: 'ornek/sgs/basladi', adet: 20, olay: true }, { yol: 'ornek/yeterlilik/basladi', adet: 5, olay: true },
+    { yol: 'ornek/sgs/kart-5', adet: 9, olay: true }, { yol: 'ornek/sgs/kart-3', adet: 12, olay: true }, { yol: 'ornek/sgs/paket', adet: 4, olay: true }, { yol: 'ana/nobetci/kart-1', adet: 7, olay: true }]);
+  vakalar.push(['örnek: iki sınavın ilk cevabı toplanır', o.say['Örnek: ilk cevap'] === 25]);
+  vakalar.push(['örnek: kart-5 ve ara kartlar ayrı adım', o.say['Örnek: 5. soruyu geçti'] === 9 && o.say['Örnek: ara sorular'] === 12]);
+  vakalar.push(['örnek: ana sayfa Nöbetçi kartı örnek adımına KARIŞMAZ', o.say['Örnek: 1. soruyu geçti'] === undefined && o.say['Nöbetçi: 1. kartı bitirdi'] === 7]);
+  vakalar.push(['örnek: paket düğmesi ve sayfa açılışı sayılır, olay eşleşmeyen yok', o.say['Örnek: Paketleri gör'] === 4 && o.say['Örnek: sayfa açıldı'] === 50 && o.eslesmeyen.length === 0]);
   let k = 0; for (const [ad, ok] of vakalar) { if (!ok) { k++; console.log('  YANLIS: ' + ad); } }
   console.log('HUNI RAPORU OZ-SINAVI: ' + (vakalar.length - k) + '/' + vakalar.length);
   process.exit(k ? 1 : 0);
