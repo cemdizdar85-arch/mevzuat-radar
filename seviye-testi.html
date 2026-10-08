@@ -503,6 +503,7 @@
   }
   function testeBasla(){
     say('basla');
+    try{ if(window.ttKaynak) window.ttKaynak.olay('test'); }catch(e){}   /* 08.10 kaynak etiketi (menu.js): ?k= ile gelenin test başlangıcı; etiketsizde istek yok */
     CEVAPLAR=[]; SIRA=YET?SET.map(function(x){ return { q:{ id:x.id, soru:x.soru, siklar:x.siklar, sayfa:x.sayfa, sira:x.sira }, zorluk:x.zorluk, ders:x.ders, grup:x.ders }; }):planKur();
     BAS=Date.now(); $('svToplam').textContent=SIRA.length;
     if(SAYAC) clearInterval(SAYAC);
