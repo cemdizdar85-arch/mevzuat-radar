@@ -115,6 +115,58 @@ function BaslikKuyruguBul([string]$g){
 #   o satir "baslik satiri" sayilir. Cumle kurali bos donerse govde bu satirlardan biriyle bitiyorsa o tasinir.
 # BU YOL SUNU GORMEZ: birden cok satirli baslik (yalniz SON satir tasinir; "IKINCI BOLUM" satiri yerinde kalir) ·
 #   sayfa genisligine yakin uzunlukta biten liste ogesinden sonraki baslik (kaydirma sanilir, tasinmaz).
+# --- 08.10.2026 SAYFA-ALTI DIPNOT AYIKLAMA (Cem "evet baslat"; is emri veri/AMBAR-YUTMA-IS-EMRI-20260930.md satir 27) ---
+# pdftotext dipnotlari SAYFA SONUNA koyar: [dipnot metni][yalniz numara satiri] bloklari, sonra \f. Duz metne cevrilince
+# dipnot maddenin cumlesinin ORTASINA girer: SPK m.108 "...piyasa dolandiriciligi 20/2/2020 tarihli ve 7222 sayili Kanunun 37 nci
+# maddesiyle ... "iki yildan" ibaresi "uc yildan" seklinde degistirilmistir. 15 ..." -> okuyan ceza alt sinirini yanlis alir
+# (sinav oturumu 08.10, iki bagimsiz okuma). Olcum (08.10, 721 kaynak): 3.265 dipnot ayiklanir, 106 kaynak; ham metindeki dipnot
+# deseninin %86'si (2.317'den 1.992). Orneklem 100'de 99 gercek dipnot; tek yanlis (IIK m.345/b govdesi yutuluyordu) asagidaki
+# "imzadan once cumle sonu" kuraliyla kapandi; 450 kr ustu 126 blogun 126'si dipnot; ayiklananlarda madde basi 0.
+# Kural (sayfa sonundan geriye): yalniz numara satiri -> ustunde en fazla 10 satir icinde EN YAKIN "dipnot acilisi" (tarih +
+# tarihli, "Bu fikrada/maddede...", "N uncu madde...", "Daha once", "Anayasa Mahkemesi"...) -> metin dipnot IMZASI tasimali
+# (tarihli/sayili ... degistiril/eklen/yururlukten kaldiril/metne islen/iptal/bakiniz) -> imzadan ONCE cumle sonu OLMAMALI.
+# Biri tutmazsa blok durur (o numara ve ustu GOVDE sayilir): dipnot kacabilir, govde silinmez.
+# BU KURAL SUNU GORMEZ: sayfa sonunda olmayan dipnot · acilisi listede olmayan dipnot (or. Anayasa metni 66 kalinti) ·
+#   tablo hucresindeki tek sayi (durur, dokunmaz) · sayfayi asan dipnotun govdeye dusen devami.
+# Hash bu ayiklamadan ONCE alinir: kanun metni ayni kalir -> ZORLA ile tazelemede nobetci yeniden_bolme (soru cekmez).
+$script:DIPNOT_ACILIS = [regex]'^(\d{1,4}\s*(üncü|inci|ıncı|uncu|nci|ncı|ncu|ncü)\s+madde|\d{1,2}[./]\d{1,2}[./]\d{4}\s+tarih|Bu\s+(fıkra|madde|bent|bend|bölüm|Bölüm|kısım|Kısım|Kanun|Kanunun|alt|ibare|başlık|Başlık|cetvel|Cetvel|hüküm|ek|Ek)|Daha önce|Anayasa Mahkemesi|Sözkonusu|Söz konusu|\(?Mülga|Danıştay|Yürürlük|Bu değişiklik|Bu hüküm)'
+$script:DIPNOT_IMZA = [regex]'(tarihli ve|tarih ve|tarihli be|sayılı)[\s\S]{0,400}?(değiştiril|eklen|yürürlükten kaldırıl|metne işlen|iptal edil|kanunlaş|çıkarıl|yeniden düzenlen|bakınız|uygulanmaz|yürürlüğe gir)|bakınız|Anayasa Mahkemesi'
+function DipnotAyikla([string]$ham){
+  $sayfalar = $ham -split "`f"; $sayi = 0; $num = '^\s*\d{1,3}\s*$'; $ayiklanan = New-Object System.Collections.Generic.List[string]
+  $yeni = foreach($s in $sayfalar){
+    $sat = @($s -split '\r?\n')
+    $son = $sat.Count - 1; while($son -ge 0 -and -not $sat[$son].Trim()){ $son-- }
+    $kes = $son + 1; $i = $son
+    while($i -ge 0 -and $sat[$i] -match $num){
+      $acilis = -1
+      for($k = $i - 1; $k -ge [Math]::Max(0, $i - 10); $k--){ if(-not $sat[$k].Trim()){ break }; if($sat[$k] -match $num){ break }; if($script:DIPNOT_ACILIS.IsMatch($sat[$k].Trim())){ $acilis = $k; break } }
+      if($acilis -lt 0){ break }
+      $metin = (($sat[$acilis..($i-1)] -join ' ') -replace '\s+',' ').Trim()
+      $im = $script:DIPNOT_IMZA.Match($metin); if(-not $im.Success){ break }
+      $once = $metin.Substring(0, $im.Index) -replace '\b(md|No|E|K|s|vb|Md)\.\s?',' '
+      if($once -cmatch ('[a-zçğıöşü' + [char]0x201D + '")][.;:]\s+\S')){ break }   # imzadan once cumle sonu: govde yutulmasin (IIK m.345/b)
+      $sayi++; $ayiklanan.Add($metin + " " + $sat[$i].Trim()); $kes = $acilis; $i = $acilis - 1; while($i -ge 0 -and -not $sat[$i].Trim()){ $i-- }
+    }
+    if($kes -le 0){ '' } else { ($sat[0..($kes-1)] -join "`n") }
+  }
+  return [pscustomobject]@{ metin = (@($yeni) -join "`f"); sayi = $sayi; ayiklanan = $ayiklanan.ToArray() }
+}
+# Ana akisin dipnot belirlemesi (hash'ten SONRA): oz-sinav bunu dogrudan sinar (mutasyon "ayiklama yapilmiyor" icin)
+function YutmaHami([string]$ham){ return (DipnotAyikla $ham) }
+# Dipnot metinlerini PARCALANMIS kayitlardan cikarir. Parcalama dipnotlu metinle yapildigi icin kaynak_ad ve [k/n] DEGISMEZ.
+# Dipnot iki parcanin ya da iki maddenin sinirina dusmusse (bir kismi bir kayitta, kalani otekinde) BULUNAMAZ ve yerinde kalir
+# (sayilir: "bulunamayan"). Cikarma bosluk-normal metinde birebir alt dizgiyle yapilir; ikinci kez gecen ayni dipnot da cikar.
+function DipnotlariCikar($docs, $ayiklanan){
+  $cikan = 0; $bulunamayan = 0
+  foreach($f in @($ayiklanan)){
+    $fn = (("$f") -replace '\s+',' ').Trim(); if($fn.Length -lt 20){ continue }
+    $bulundu = $false
+    foreach($d in $docs){ $m = (("$($d.metin)") -replace '\s+',' ')
+      if($m.Contains($fn)){ $d.metin = ($m.Replace($fn, ' ') -replace '\s{2,}',' ').Trim(); $bulundu = $true } }
+    if($bulundu){ $cikan++ } else { $bulunamayan++ }
+  }
+  return [pscustomobject]@{ cikan = $cikan; bulunamayan = $bulunamayan }
+}
 function BaslikSatirlari([string]$ham){
   $kume = New-Object 'System.Collections.Generic.HashSet[string]'
   $sat = @($ham -split '\r?\n' | ForEach-Object { ($_ -replace '\s+',' ').Trim() })
@@ -459,6 +511,41 @@ if($OzSinav){
     @{ ad='YEDEK YOL: sayfa genisliginde onceki satir = KAYDIRMA, devam satiri baslik SAYILMAZ'; ham=$hamKaydirma
        kontrol={ param($c) $a=@($c | Where-Object { $_.kaynak_ad -eq 'SINAV m.35' })[0]; $a.metin.EndsWith('Kurulca belirlenen diğer kurumlar') } }
   )
+  # 08.10 DIPNOT vakalari: DipnotAyikla ham metin (satir + \f) uzerinde
+  $dipnotSinav = @(
+    @{ ad='DIPNOT: SPK m.108 sayfa sonu dipnotlari ayiklanir, govde cumlesi birlesir'
+       ham=(@('MADDE 108 – (1) Aşağıdaki hâller bilgi suistimali veya piyasa dolandırıcılığı','20/2/2020 tarihli ve 7222 sayılı Kanunun 37 nci maddesiyle, bu fıkrada yer alan “iki yıldan” ibaresi','“üç yıldan” şeklinde değiştirilmiştir.','15','20/2/2020 tarihli ve 7222 sayılı Kanunun 38 inci maddesiyle, bu fıkrada yer alan ibareleri','değiştirilmiştir.','14') -join "`n") + "`f" + 'sayılmaz: a) Para politikası işlemleri.'
+       kontrol={ param($r) $r.sayi -eq 2 -and (($r.metin -replace '\s+',' ') -notmatch '7222') -and (($r.metin -replace '\s+',' ') -match 'dolandırıcılığı sayılmaz') } }
+    @{ ad='DIPNOT: IIK m.345/b govdesi KORUNUR (imzadan once cumle sonu), gercek dipnot "344 uncu madde" acilisiyla ayiklanir'
+       ham=(@('Madde 345/b – (Ek: 9/11/1988-3494/59 md.)','Bu Kanuna göre yapılan ihalelerde kendisine veya başkasına vaat olunan yarar karşılığında','artırmadan çekilen kimseye bir yıla kadar hapis cezası verilir.','Aracılara da aynı ceza verilir.','344 üncü maddenin başlığı “Nafaka hükmüne uymuyanların cezası:” iken, 17/7/2003 tarihli ve 4949 sayılı','Kanunun 97 nci maddesiyle metne işlendiği şekilde değiştirilmiştir.','128') -join "`n")
+       kontrol={ param($r) $r.sayi -eq 1 -and $r.metin -match 'Aracılara da aynı ceza verilir' -and $r.metin -notmatch '4949' } }
+    @{ ad='DIPNOT: imzadan once cumle sonu varsa blok DURUR (acilis yanlis satirda)'
+       ham=(@('Madde 345/b – (Ek: 9/11/1988-3494/59 md.)','Bu Kanuna göre yapılan ihalelerde yarar karşılığında çekilen kimseye ceza verilir.','Aracılara da aynı ceza verilir. Önceki başlık 17/7/2003 tarihli ve 4949 sayılı','Kanunun 97 nci maddesiyle metne işlendiği şekilde değiştirilmiştir.','128') -join "`n")
+       kontrol={ param($r) $r.sayi -eq 0 -and $r.metin -match 'Aracılara da aynı ceza verilir' } }
+    @{ ad='DIPNOT: tablo hucresindeki tek sayi (acilis yok) DOKUNULMAZ'
+       ham=(@('2) Su altında basınçlı hava içinde çalışmayı','gerektiren işlerde çalışanlar.','60') -join "`n")
+       kontrol={ param($r) $r.sayi -eq 0 -and $r.metin -match '60' } }
+    @{ ad='DIPNOT: imza var ama acilis yok (kucuk harfle suren govde) -> DOKUNULMAZ'
+       ham=(@('(2) Kurul kararları kesindir.','olarak 4949 sayılı Kanunla eklenen hüküm aynen değiştirilmiştir.','9') -join "`n")
+       kontrol={ param($r) $r.sayi -eq 0 -and $r.metin -match '4949' } }
+    @{ ad='DIPNOT: ANA AKIS (YutmaHami + Parcala + DipnotlariCikar) - kayitta 7222 yok, kaynak_ad ve [k/n] AYNI'
+       ham=(@('MADDE 107 – (1) Bu madde yeterince uzun bir govdeye sahiptir ve ayri kayit olur, kurallar burada sayilir.','MADDE 108 – (1) Aşağıdaki hâller piyasa dolandırıcılığı','20/2/2020 tarihli ve 7222 sayılı Kanunun 37 nci maddesiyle ibaresi “üç yıldan” şeklinde değiştirilmiştir.','15') -join "`n") + "`f" + ('sayılmaz. ' + ('kelime ' * 250).Trim() + '.')
+       ana=$true
+       kontrol={ param($r) $r.metin -notmatch '7222' -and $r.metin -match 'dolandırıcılığı sayılmaz' -and $r.adlarAyni -and $r.parcaliVar } }
+    @{ ad='DIPNOT: acilis var ama imza yok -> DOKUNULMAZ'
+       ham=(@('(2) Kurul kararları kesindir.','Bu fıkra hükümleri yönetmelikle düzenlenir ve uygulanır','7') -join "`n")
+       kontrol={ param($r) $r.sayi -eq 0 -and $r.metin -match 'yönetmelikle düzenlenir' } }
+  )
+  foreach($s in $dipnotSinav){
+    if($s.ana){
+      $fl = ($s.ham -replace "`r?`n"," ") -replace "\s+"," "
+      $ref = @(Parcala $fl 'SINAV' 'u') | ForEach-Object { $_.kaynak_ad }   # dipnot cikarilmadan adlar
+      $dz = @(Parcala $fl 'SINAV' 'u'); [void](DipnotlariCikar $dz (YutmaHami $s.ham).ayiklanan)
+      $r = [pscustomobject]@{ metin = (($dz | ForEach-Object { $_.metin }) -join ' '); adlarAyni = ((($dz | ForEach-Object { $_.kaynak_ad }) -join '|') -ceq ($ref -join '|')); parcaliVar = [bool](@($ref | Where-Object { $_ -match '\[1/2\]' }).Count); sayi = 0 }
+    } else { $r = DipnotAyikla $s.ham }
+    $ok = $false; try { $ok = [bool](& $s.kontrol $r) } catch {}
+    if($ok){ $gecti++; Write-Host ("  OK    {0}" -f $s.ad) } else { $kaldi++; Write-Host ("  KALDI {0} (sayi {1})" -f $s.ad, $r.sayi) -ForegroundColor Red }
+  }
   foreach($s in $baslikSinav){
     $cikan = if($s.ham){ $fl = ($s.ham -replace "\r?\n"," ") -replace "\s+"," "; @(Parcala $fl 'SINAV' 'http://ornek' (BaslikSatirlari $s.ham)) } else { @(Parcala $s.metin 'SINAV' 'http://ornek') }
     $ok = $false; try { $ok = [bool](& $s.kontrol $cikan) } catch {}
@@ -559,6 +646,9 @@ foreach($law in $manifest.kanunlar){
   # cikiyor ("M A D D E1 2 -"); Parcala onu madde basi saymiyor, m.12 m.11'in icine yapisiyordu. Tum _txt
   # taramasi: 4 kaynak / 6 madde (bddk-kredi-islemleri m.13/17/20, bes-devlet-katkisi m.12, tahsilatgt11 m.1,
   # vukgt545 m.12). Hash DUZELTMEDEN ONCE alinir -> baska kaynak yeniden yutulmaz; etkilenenler ZORLA ile.
+  # 08.10: sayfa-alti dipnotlari BELIRLENIR (DipnotAyikla); metinden cikarma PARCALAMADAN SONRA yapilir (asagida DipnotlariCikar)
+  #   - once cikarilsaydi uzun maddelerin parca sayisi degisir, kaynak_ad [k/n] kayardi (08.10 kuru kosu: 1.811 ad degisimi).
+  $dipnotSonuc = YutmaHami $raw
   $flat = AralikliMaddeDuzelt $flat
 
   $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
@@ -590,6 +680,8 @@ foreach($law in $manifest.kanunlar){
       $d += $boy; $n++
     }
   }
+  # 08.10 dipnotlar parcalardan cikarilir (adlar/parca sayisi degismez)
+  if($dipnotSonuc.sayi){ $dc = DipnotlariCikar $docs $dipnotSonuc.ayiklanan; Write-Host ("  dipnot cikarildi: {0}/{1} (bulunamayan {2})" -f $dc.cikan, $dipnotSonuc.sayi, $dc.bulunamayan) }
   # KAPSAMA KAPISI (02.08): kaynak metnin yuzde kaci ambara girdi? %98 alti KIRMIZI.
   $ambarKr = ((($docs | ForEach-Object { $_.metin }) -join ' ') -replace '\s+',' ').Length
   $kapsama = if($flat.Length -gt 0){ [math]::Round(100*$ambarKr/$flat.Length,1) } else { 0 }
