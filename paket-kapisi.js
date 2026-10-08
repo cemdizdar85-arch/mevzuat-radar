@@ -38,7 +38,20 @@
         try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: 'ornek/' + (ornekS === 'smmm' ? 'yeterlilik' : 'sgs') + '/paket', title: '5 örnek soru: paket', event: true }); } catch (x) {}
       }, true);
     }
-    var nbBasla = function () { nbYaz(); try { new MutationObserver(function () { nbYaz(); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {} };
+    /* 08.10 Cem ("2 yap"): örnek sayfasının son ekranında (#sonSkor, motor/kaydir-coz.ps1) satın alma adımı yoktu -> en üste
+       "Paketleri gör" + "30 soruda seviyeni ölç". 5 soruluk setin "Hazırlık %" kutusu yanıltıcı (bankanın tamamına göre değil) -> gizli.
+       Normal ders sayfalarına dokunulmaz (bu blok yalnız kaydir/vitrin/ornek-*). */
+    var sonYaz = function () {
+      if (!ornekS) return; var s = document.getElementById('sonSkor');
+      if (!s || !s.querySelector('.buyuk') || s.querySelector('.ornekSatin')) return;
+      var yet = ornekS === 'smmm', d = document.createElement('div'); d.className = 'ornekSatin';
+      d.style.cssText = 'display:flex;flex-direction:column;gap:8px;margin:0 0 14px';
+      d.innerHTML = '<a class="btn ana" target="_top" href="/fiyat.html?sinav=' + (yet ? 'yeterlilik' : 'sgs') + '" style="text-decoration:none;text-align:center">Paketleri gör →</a>' +
+        '<a class="btn mavi" target="_top" href="/seviye-testi.html' + (yet ? '?sinav=yeterlilik' : '') + '" style="text-decoration:none;text-align:center">30 soruda seviyeni ölç →</a>';
+      s.insertBefore(d, s.firstChild);
+      var h = s.querySelector('.skorBuyuk'); if (h) h.style.display = 'none';
+    };
+    var nbBasla = function () { nbYaz(); sonYaz(); try { new MutationObserver(function () { nbYaz(); sonYaz(); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {} };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', nbBasla); else nbBasla();
     return;
   }
