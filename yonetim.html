@@ -421,7 +421,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     var bas='<tr><th>Gün</th><th>Etiket</th><th>Ziyaret</th><th>Test başladı</th><th>Üye oldu</th></tr>';
     if(!liste.length){ T.innerHTML=bas+'<tr><td colspan="5">Henüz etiketli ziyaret yok.</td></tr>'; return; }
     var toplam=Object.keys(top).sort(function(a,b){ return top[b].ziyaret-top[a].ziyaret||a.localeCompare(b); }).map(function(k){
-      return '<tr><td><b>60 gün</b></td><td><b>'+esc(k)+'</b></td><td><b>'+top[k].ziyaret+'</b></td><td><b>'+top[k].test+'</b></td><td><b>'+top[k].uye+'</b></td></tr>'; }).join('');
+      return '<tr><td><b>Toplam</b></td><td><b>'+esc(k)+'</b></td><td><b>'+top[k].ziyaret+'</b></td><td><b>'+top[k].test+'</b></td><td><b>'+top[k].uye+'</b></td></tr>'; }).join('');
     T.innerHTML=bas+toplam+liste.map(function(x){
       return '<tr><td>'+tarih(x.gun+'T12:00:00')+'</td><td>'+esc(x.etiket)+'</td><td>'+x.ziyaret+'</td><td>'+x.test+'</td><td>'+x.uye+'</td></tr>'; }).join('');
   }
