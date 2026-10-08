@@ -27,6 +27,7 @@ a{color:var(--link)}
 .os-sekme a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--amber-dolgu)}
 h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.6px;margin:0 0 8px;line-height:1.15}
 .alt{color:var(--muted);font-size:16px;margin:0 0 16px}
+.os-liste-bas{font-size:15px;margin:26px 0 8px}
 .os-liste{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:4px;font-size:13.5px;color:var(--muted)}
 .os-liste b{color:var(--ink)}
 .os-z{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:1px 7px;border-radius:999px;border:1px solid var(--line2);color:var(--ink);margin-right:4px;vertical-align:1px}
@@ -53,13 +54,15 @@ h1{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.6px;margin:0 0 8px;line-hei
     <a href="ornek-sorular.html?sinav=yeterlilik" data-s="yeterlilik">SMMM Yeterlilik</a>
   </nav>
   <h1 id="osBas">5 örnek soru</h1>
-  <p class="alt" id="osAlt">Son 10 yılın sınavlarında en sık sorulan konulardan, bilerek zor seçildi: 2 zor, 3 çok zor. Şıkkını seç; Nöbetçi neden doğru ya da yanlış olduğunu adım adım ve dayandığı maddeyle anlatsın.</p>
-  <ol class="os-liste" id="osListe"></ol>
+  <p class="alt" id="osAlt">Son 10 yılın sınavlarında en sık sorulan konulardan, bilerek zor 5 soru. Şıkkını seç; Nöbetçi neden doğru ya da yanlış olduğunu adım adım ve dayandığı maddeyle anlatsın.</p>
   <div id="osOynatici"><div class="os-yuk" role="status" aria-label="Sorular yükleniyor"></div></div>
   <div class="os-dip">
     <a class="os-btn ana" id="osPaket" href="fiyat.html">Paketleri gör →</a>
     <a class="os-btn ikinci" id="osOlc" href="seviye-testi.html">30 soruda seviyeni ölç →</a>
   </div>
+  <!-- 08.10 Cem ("bu bilgilere ihtiyaçları yok, varsa sınavın altında ver"): 5 sorunun ders/konu/zorluk listesi soruların ÜSTÜNDEN altına taşındı -->
+  <h2 class="os-liste-bas">Bu 5 soru</h2>
+  <ol class="os-liste" id="osListe"></ol>
   <p class="os-not">Konuların kaç dönemde sorulduğunu çıkmış soruları tek tek okuyarak saydık; her konunun hangi sınavda kaçıncı soru olarak çıktığı <a id="osKanit" href="en-cok-cikan-konular-sgs.html">bu sayfada yazıyor</a>. Örnek sorular soru bankasındaki diğer sorularla aynı düzende yazıldı ve aynı denetimlerden geçti.</p>
 </div>
 <script src="nobetci-oynatici.js?v=20261007k"></script>
