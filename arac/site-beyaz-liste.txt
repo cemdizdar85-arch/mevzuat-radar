@@ -1,0 +1,93 @@
+# SİTE BEYAZ LİSTESİ — tetikte.com'a YALNIZ bu kalıplara uyan dosyalar çıkar (arac/site-yayin.js).
+# "*" bölü işaretini geçmez, "**" her derinliği geçer, "!" ile başlayan satır hariç tutar.
+# Yeni sayfa yeni bir veri dosyası çekiyorsa buraya eklenir; eklenmezse dogrula.yml ve yayın akışı
+# "KOPUK" ile düşer. İç dosya (md/ps1/sql/ts/yml, motor/, arac/, radar-app/ ...) listeye yazılsa bile
+# YASAK denetimi yayını durdurur.
+
+# --- kök: site dosya türleri (kökteki .md/.txt/.json/.bat yayına ÇIKMAZ) ---
+*.html
+*.js
+*.css
+*.png
+*.jpg
+*.svg
+*.webmanifest
+elci-sozlesmesi*.pdf
+CNAME
+robots.txt
+sitemap.xml
+
+# --- site klasörleri ---
+kaydir/**/*.html
+kutuphane/*.js
+kutuphane/*.woff2
+gorsel/**/*.png
+gorsel/**/*.svg
+sayfalar/*.html
+arsiv/*.html              # kartlar.html -> arsiv/index.html -> günlük kart arşivi
+arsiv/degisim/*.html
+
+# --- veri/: YALNIZ sayfaların çektiği dosyalar (08.10 ölçümü: kod içi tırnaklı yol + tarayıcı taraması) ---
+# dizgeyle kurulan yollar (kalıpla):
+veri/deneme/*.json        # sinav-gibi.html: veri/deneme/<sinav>[-sik]-dizin.json -> dizindeki "dosya" (set-NN)
+veri/seviye/*.json        # seviye-testi.html / ucretsiz-dene: havuz + set + konu adı
+veri/canli/*.enc.json     # canli-deneme.html: şifreli paket (veri/canli/<kod>.enc.json)
+veri/canli/anahtar-*.json # canli-deneme.html: sınav anında robotun açtığı anahtar
+veri/canli/sonuc-*.json   # canli-deneme.html: sonuç tablosu
+# tek tek (sayfa -> dosya):
+veri/URUN-KUNYELERI.json
+veri/alacak-ilan.json
+veri/altin-test-taban.json
+veri/baglanmamis-raporu.json
+veri/bilgi-tabani.json
+veri/birlik-urge.json
+veri/cagri-radar.json
+veri/canli-deneme.json
+veri/cvoa-oranlar.json
+veri/damping-gecmis.json
+veri/damping-sorusturma.json
+veri/eximbank-oran.json
+veri/fuar-destek.json
+veri/gecikme-zammi.json
+veri/gtip-*.json
+veri/gunun-sorusu.json
+veri/gunun-tuzagi.json
+veri/iskur-tesvik.json
+veri/kart-durum.json
+veri/kartlar-guncel.json
+veri/kgf-paket.json
+veri/konu-eslesme.json
+veri/kurulus-maliyet.json
+veri/marka-kaynak-nabiz.json
+veri/marka-yeni-basvurular.json
+veri/nabiz-raporu.json
+veri/nice-siniflar.json
+veri/oda-tarifeleri.json
+veri/radar-kiymet.json
+veri/rg-gun-durum.json
+veri/risk-merkezi.json
+veri/saglik-karnesi.json
+veri/sgs-analiz.json
+veri/sik-istatistigi.json
+veri/siklik-kunyesi.json
+veri/siklik-kunyesi-kgk.json
+veri/siklik-kunyesi-smmm.json
+veri/sinav-takvimi.json
+veri/sinav/smmm-banka-esleme.json
+veri/sinav/smmm-konu-okuma.json
+veri/smmm-analiz.json
+veri/soru-bankasi.json
+veri/soru-dizini.json
+veri/tazelik-damgasi.json
+veri/teblig-damga.json
+veri/tesvik-bolgeler.json
+veri/ulke-grup.json
+veri/uyari-ozet.json
+veri/vergi-sabitleri.json
+veri/veri-kapisi-raporu.json
+veri/veri-tazelik-raporu.json
+veri/vitrin-hesap.json
+veri/vitrin-kart-ozet.json
+veri/vitrin-kunye.json
+veri/yanveri-damga.json
+veri/zincir-haritasi.json

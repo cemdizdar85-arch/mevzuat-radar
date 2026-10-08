@@ -284,6 +284,16 @@ jobs:
           - { ad: "Acilis robots.txt OZ-SINAVI (gizli sayfa + ic klasor kapali, harita acik)",
               kabuk: pwsh, komut: "./arac/robots-yaz.ps1 -Sinav" }
 
+          # 08.10.2026 - Site yayini BEYAZ LISTE (arac/site-yayin.js, .github/workflows/site-yayin.yml): tetikte.com'a
+          # yalniz arac/site-beyaz-liste.txt'e uyan dosyalar cikar. Oz-sinav 15 vaka; mutasyon 6/6 KIRMIZI
+          # (yasak/zorunlu/bag/haric/glob/tetik). Gercek depo denetimi: ic dosya yayinda (YASAK), sitenin olmazsa
+          # olmazi yok (ZORUNLU), sayfanin tirnakla andigi dosya listede yok (KOPUK), iten robot site-yayin.yml
+          # tetik listesinde yok (TETIK) -> KIRMIZI. Duzeltme: listeye satir ekle / node arac/site-yayin.js --tetik-yaz
+          - { ad: "Site beyaz liste OZ-SINAVI (mutasyonlu)",
+              kabuk: bash, komut: "node arac/site-yayin.js --sinav --mutasyon" }
+          - { ad: "Site beyaz liste DENETIMI (gercek depo - yasak/zorunlu/kopuk/tetik)",
+              kabuk: bash, komut: "node arac/site-yayin.js --kur /tmp/_site --denetim --tetik" }
+
           # 23.09.2026 - Kor kapisi PARA harcayan ureticinin ortasinda duruyor. Olculdu:
           # kor cozum 262 soruda cevap anahtarindan farkli buldu, sonra yine 2. hakem (261),
           # adimlar (157), simulasyon (153) odendi - yayina giren 0. Kapi gevserse ayni para
