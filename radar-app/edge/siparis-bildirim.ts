@@ -19,9 +19,13 @@
 //  YAYIN: .github/workflows/edge-yukle.yml OTOMATİK (radar-app/edge/YAYIN.json'da listeli). Secrets karne-gonder ile
 //         ortak: RESEND_KEY, RESEND_FROM; SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY Supabase'in kendi değişkenleri.
 //  ⚠ IBAN fiyat-motoru.js ODEME_BANKA ile AYNI olmalı (orada değişirse burada da).
+//  08.10.2026 (Cem "2 ve 3 yap"; yasal tarama: mesafeli-satis/on-bilgilendirme "kopyası e-postanıza iletilir" diyordu, mailde yoktu):
+//  'alindi' mailine Ön Bilgilendirme Formu + Mesafeli Satış Sözleşmesi'nin O ANKİ metni EK olarak gider (kalıcı veri saklayıcısı:
+//  Mesafeli Sözleşmeler Yön. - Tetikte-Hukuk/resmi-mesafeli-sozlesmeler-yonetmeligi.md). Metin tetikte.com'dan gönderim anında okunur,
+//  betik/stil temizlenir, başına sipariş künyesi yazılır. Okunamazsa mail YİNE gider (bağlantılarla) ve günlüğe "ek yok" düşer.
 // ============================================================================
 
-const KOD_IMZA = "70ee50d10fae7ba5";
+const KOD_IMZA = "92bb16ce37a94d5d";
 const BANKA = { ad: "VakıfBank", iban: "TR74 0001 5001 5800 7376 2710 72", alici: "Dizdar Denetim Danışmanlık ve Yazılım A.Ş." };
 const IZINLI = new Set(["https://tetikte.com", "https://www.tetikte.com"]);
 const YEREL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/;
@@ -50,6 +54,23 @@ export function kurumsalMail(ic: string, neden: string): string {
 }
 // KURUMSAL-MAIL-BITIR
 
+// 08.10: sayfayı e-posta ekine çevir (betik, stil, gezinti temizlenir; ana içerik + sipariş künyesi)
+export function ekHtml(sayfa: string, baslik: string, s: { siparis_no: string; paket_ad: string | null; paket: string; tutar: number }, an: string): string {
+  let govde = sayfa;
+  const m = /<body[^>]*>([\s\S]*?)<\/body>/i.exec(sayfa); if (m) govde = m[1];
+  govde = govde.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<link[^>]*>/gi, "")
+    .replace(/<nav[\s\S]*?<\/nav>/gi, "").replace(/<!--[\s\S]*?-->/g, "").replace(/\son[a-z]+="[^"]*"/gi, "");
+  return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>${kacis(baslik)} · ${kacis(s.siparis_no)}</title>
+<style>body{font-family:Segoe UI,Roboto,Arial,sans-serif;max-width:820px;margin:24px auto;padding:0 16px;color:#16191d;line-height:1.55}table{border-collapse:collapse;width:100%}td,th{border:1px solid #d1d5db;padding:6px 8px;text-align:left;vertical-align:top}.kunye{border:1px solid #d1d5db;border-radius:8px;padding:10px 14px;background:#f9fafb;margin:0 0 18px}</style></head><body>
+<div class="kunye"><b>Bu belge, aşağıdaki siparişe ait nüshadır.</b><br>Sipariş no: <b>${kacis(s.siparis_no)}</b> · Paket: ${kacis(s.paket_ad || s.paket)} · Tutar (KDV dahil): ${kacis(tl(s.tutar))}<br>Gönderim zamanı: ${kacis(an)} · Kaynak: tetikte.com</div>
+${govde}</body></html>`;
+}
+// UTF-8 metni base64'e çevir (Resend eki)
+export function b64(metin: string): string {
+  const b = new TextEncoder().encode(metin); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+
 export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: string | null; paket: string; tutar: number }) {
   const ad = (s.ad_soyad || "").split(/\s+/)[0] || "Merhaba";
   const konu = `Siparişin alındı: ${s.siparis_no} · ${tl(s.tutar)}`;
@@ -62,6 +83,8 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
     `Açıklama: ${s.siparis_no}  (havale açıklamasına yalnız sipariş numaranı yaz)`, "",
     "Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.",
     "Siparişi verdiğin e-postayla tetikte.com'da ücretsiz hesap açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.", "",
+    "Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi'nin bu siparişe ait kopyası bu e-postanın ekindedir:",
+    "https://tetikte.com/on-bilgilendirme.html", "https://tetikte.com/mesafeli-satis.html", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir.",
   ];
   const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p>Tetikte siparişin alındı. <b>Kartla ödediysen</b> paketin hemen açılır, aşağıdaki havale adımını geçebilirsin. <b>Havale/EFT</b> ile ödeyeceksen ödemeni aşağıdaki hesaba yapınca paketin açılır.</p>
@@ -76,6 +99,7 @@ export function alindiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
 </table>
 <p>Ödemen hesabımıza geçtiği gün paketin açılır ve sana ayrıca e-posta gelir. E-arşiv faturan da bu adrese gönderilir.</p>
 <p>Siparişi verdiğin e-postayla <a href="https://tetikte.com/ogrenci.html#uye-ol">tetikte.com'da ücretsiz hesap</a> açmadıysan şimdi açabilirsin; ödeme onaylanınca paket o hesaba kendiliğinden bağlanır.</p>
+<p><a href="https://tetikte.com/on-bilgilendirme.html">Ön Bilgilendirme Formu</a> ve <a href="https://tetikte.com/mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a>'nin bu siparişe ait kopyası bu e-postanın <b>ekindedir</b>; saklamanı öneririz.</p>
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };
 }
@@ -151,15 +175,28 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
   const dj = d.ok ? await d.json() : [];
   if (!dj.length) return cevap(200, { success: true, zaten: true });
 
+  // 08.10: 'alindi' mailine sözleşme ekleri (o anki metin). Okunamazsa ek yok, mail yine gider.
+  const ekler: { filename: string; content: string }[] = [];
+  if (tur === "alindi") {
+    const an = new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" });
+    for (const [yol, baslik, ad] of [["on-bilgilendirme.html", "Ön Bilgilendirme Formu", "On-Bilgilendirme-Formu"], ["mesafeli-satis.html", "Mesafeli Satış Sözleşmesi", "Mesafeli-Satis-Sozlesmesi"]]) {
+      try {
+        const y = await fetch(`https://tetikte.com/${yol}`, { headers: { "Cache-Control": "no-cache" } });
+        const t = y.ok ? await y.text() : "";
+        if (t.length > 1000) ekler.push({ filename: `${ad}-${s.siparis_no}.html`, content: b64(ekHtml(t, baslik, s, an)) });
+      } catch { /* ek yok, mail yine gider */ }
+    }
+    if (ekler.length < 2) console.log(`siparis-bildirim ${no} alindi ek eksik (${ekler.length}/2)`);
+  }
   const gonder = await fetch("https://api.resend.com/emails", { method: "POST",
     headers: { Authorization: `Bearer ${RESEND_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ from: RESEND_FROM, to: [s.email], subject: m.konu, text: m.metin, html: m.html, reply_to: "destek@tetikte.com" }) });
+    body: JSON.stringify(Object.assign({ from: RESEND_FROM, to: [s.email], subject: m.konu, text: m.metin, html: m.html, reply_to: "destek@tetikte.com" }, ekler.length ? { attachments: ekler } : {})) });
   if (!gonder.ok) {
     // gönderilemedi: damgayı geri al ki yeniden denenebilsin
     await sb(`siparisler?id=eq.${s.id}`, { method: "PATCH", body: JSON.stringify({ [damga]: null }) });
     console.log(`siparis-bildirim ${no} ${tur} RESEND ${gonder.status}`);
     return cevap(502, { hata: "mail gonderilemedi" });
   }
-  console.log(`siparis-bildirim ${no} ${tur} gonderildi`);
+  console.log(`siparis-bildirim ${no} ${tur} gonderildi${tur === "alindi" ? " ek " + ekler.length : ""}`);
   return cevap(200, { success: true, gonderildi: true });
 });
