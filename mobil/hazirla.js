@@ -210,7 +210,9 @@ for (const klasor of ['kaydir/sgs', 'kaydir/smmm']) {
 let kasaYukle = oku('kasa-yukle.js');
 const yamaSayisi = kasaYukle.split(KASA_YAMA_ESKI).length - 1;
 if (MUTASYON !== 'yama') kasaYukle = kasaYukle.split(KASA_YAMA_ESKI).join(KASA_YAMA_YENI);
-kapi('KAPI-SATIS', yamaSayisi === 1, 'kasa-yukle.js satın alma düğmesi yaması tutmadı (beklenen 1, bulunan ' + yamaSayisi + ') — dosya değişmiş, hazirla.js güncellenmeli');
+/* 09.10: site aynı düğmeyi birden çok yerde kullanabilir (88f4f4bb: "Bu ders paketinde yok" + "paketini güncelle"); yama hepsini
+   siler (split/join), kapı yalnız HİÇ bulunmadıysa düşer. Kalıntı metni 5. bölümdeki SATIS_METNI taraması ayrıca yakalar. */
+kapi('KAPI-SATIS', yamaSayisi >= 1, 'kasa-yukle.js satın alma düğmesi yaması tutmadı (beklenen ≥1, bulunan ' + yamaSayisi + ') — dosya değişmiş, hazirla.js güncellenmeli');
 const karmaSayisi = kasaYukle.split(KARMA_YAMA_ESKI).length - 1;
 kasaYukle = kasaYukle.split(KARMA_YAMA_ESKI).join(KARMA_YAMA_YENI);
 kapi('KAPI-KASA', karmaSayisi === 1, 'kasa-yukle.js karma kancası tutmadı (beklenen 1, bulunan ' + karmaSayisi + ') — cek() imzası değişmiş');
