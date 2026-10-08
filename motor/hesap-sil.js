@@ -57,15 +57,18 @@ async function say(tablo, filtre) {
   console.log(`HESAP SİL · ${yaz ? 'YAZ' : 'KURU'} · ${eposta}`);
   console.log(u ? `  auth kullanıcısı: ${u.id} · açılış ${u.created_at} · tür ${(u.user_metadata || {}).hesap_turu || 'isletme'}` : '  auth kullanıcısı: YOK');
 
-  const epostaTablolari = [['form_kayit', `eposta=ilike.${e}`], ['kurulus_nobet', `eposta=ilike.${e}`], ['leadler', `eposta=ilike.${e}`]];
+  const epostaTablolari = [['form_kayit', `eposta=ilike.${e}`], ['kurulus_nobet', `eposta=ilike.${e}`], ['leadler', `eposta=ilike.${e}`], ['ekibe_soru', `eposta=ilike.${e}`]];
+  /* 08.10.2026 (yasal tarama): bu tabloların auth.users'a bağı (cascade) YOK -> hesapla birlikte silinmiyordu; açıkça silinir.
+     siparisler BİLEREK yok: fatura/sipariş kaydı yasal saklama (TTK m.82, VUK m.253) - saklama-robotu 10 yılda siler. */
+  const bagsizKimlik = u ? [['nobetci_soru', `user_id=eq.${u.id}`], ['ekibe_soru', `user_id=eq.${u.id}`], ['uye_cihazlar', `user_id=eq.${u.id}`], ['ogrenci_ilerleme', `user_id=eq.${u.id}`]] : [];
   const kimlikTablolari = u ? [['firmalar', `user_id=eq.${u.id}`], ['firma_uyarilari', `user_id=eq.${u.id}`], ['paket_uyeler', `user_id=eq.${u.id}`],
     ['abonelikler', `user_id=eq.${u.id}`], ['ogrenci_sonuc', `user_id=eq.${u.id}`]] : [];
-  const tum = epostaTablolari.concat(kimlikTablolari);
+  const tum = epostaTablolari.concat(bagsizKimlik, kimlikTablolari);
   for (const [t, f] of tum) console.log(`  ${t}: ${await say(t, f)}`);
 
   if (!yaz) { console.log('KURU koşu — hiçbir şey silinmedi. Uygulamak için --yaz.'); return; }
 
-  for (const [t, f] of epostaTablolari) {
+  for (const [t, f] of epostaTablolari.concat(bagsizKimlik)) {
     const r = await istek(`/rest/v1/${t}?${f}`, { method: 'DELETE', headers: { Prefer: 'return=minimal,count=exact' } });
     console.log(`  silindi ${t}: ${(r.headers.get('content-range') || '').split('/')[1]}`);
   }
