@@ -48,7 +48,7 @@ $HEDEFLER=@(
   @{ ad='ana sayfa';    url='https://tetikte.com/';                                  asgari=20000;  imza='Yanlışını, sebebiyle' }
   @{ ad='sinavlar';     url='https://tetikte.com/sorular.html';                      asgari=12000;  imza='Hangi sınava' }
   @{ ad='seviye testi'; url='https://tetikte.com/seviye-testi.html';                 asgari=35000;  imza='30 soruda seviyeni ölç' }
-  @{ ad='fiyatlar';     url='https://tetikte.com/fiyat.html';                        asgari=20000;  imza='Kurucu fiyatı' }
+  @{ ad='fiyatlar';     url='https://tetikte.com/fiyat.html';                        asgari=20000;  imza='Açılış fiyatı' }   # 08.10: fiyat-motoru.js "kurucu"→"açılış"; eski imza 3/3 yanlış kırmızı + her koşuda alarm maili (Resend kotası)
   @{ ad='satin al';     url='https://tetikte.com/satin-al.html';                     asgari=30000;  imza='Siparişi tamamla' }
   @{ ad='hesabim';      url='https://tetikte.com/ogrenci.html';                      asgari=30000;  imza='Şifremi unuttum' }
   @{ ad='SGS vitrini';  url='https://tetikte.com/kaydir/vitrin/sgs.html';            asgari=150000; imza='Nöbetçi' }
