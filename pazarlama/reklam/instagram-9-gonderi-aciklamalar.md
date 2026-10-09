@@ -10,6 +10,8 @@ Maskot videoları (02, 05, 08, AB) yapay zekâ karakteri → açıklamada ibare.
 
 ## 01 · Ders kartı: Ticaret Hukuku 32/32 (gün 1)
 
+Staja Giriş sınavı · Ticaret Hukuku
+
 2016'dan bu yana 32 Staja Giriş sınavı yapıldı. Kıymetli evrak (çek, bono, poliçe) 32'sinde de soruldu.
 
 Sorular tek tek okunarak sayıldı; hangi sınavın kaçıncı sorusu olduğu sitede açık: tetikte.com/en-cok-cikan-konular-sgs.html?k=ig
@@ -17,6 +19,8 @@ Sorular tek tek okunarak sayıldı; hangi sınavın kaçıncı sorusu olduğu si
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 ## 02 · Tuzak #1: Finansman Giderini Faaliyet Kârına Dahil Etme Tuzağı (gün 1)
+
+Staja Giriş sınavı · Mali Tablolar Analizi
 
 Faaliyet kârını bulurken finansman giderini de düştüysen 90.000 çıkar. Doğrusu 120.000: finansman gideri faaliyet kârından sonra gelir.
 
@@ -42,11 +46,15 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 ## 05 · Tuzak #2: Tam Yıl Tuzağı (gün 2)
 
+Staja Giriş sınavı · Finansal Muhasebe (TMS 38)
+
 1 Eylül'de alınan yazılım, 5 yıl ömür. Bu yılın itfa payı 48.000 değil 16.000: TMS 38'e göre itfa, varlık kullanıma hazır olduğunda başlar; Eylül'den Aralık'a dört ay. Vergide (VUK m.320) kural tam yıl; soru hangi kurala göre soruyor, ona bak.
 
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 ## 06 · Ders kartı: Meslek Hukuku 31/32 (gün 2)
+
+Staja Giriş sınavı · Meslek Hukuku
 
 Disiplin cezaları son 32 Staja Giriş sınavının 31'inde soruldu. Meslek mensubu ücreti 28'inde, bağdaşmayan işler 24'ünde.
 
@@ -64,6 +72,8 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 ## 08 · Tuzak #6: Satış Tuzağı (gün 3)
 
+Staja Giriş sınavı · Mali Tablolar Analizi
+
 Stok devir hızı 9 mu, 12 mi? 12 diyorsan tuzağa düştün: pay satış değil, satışların maliyeti. Bu hesap son 32 sınavın 7'sinde soruldu.
 
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
@@ -77,6 +87,8 @@ Staja Giriş ve Yeterlilik için soru çözme sitesi açıldı. Yanlış yaptı�
 Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 ## AB · Tuzak #6 hızlı kesim (gün 6, Reels; 08 ile kıyas)
+
+Staja Giriş sınavı · Mali Tablolar Analizi
 
 Stok devir hızı 9 mu, 12 mi? Pay satış değil, satışların maliyeti.
 
