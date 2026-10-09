@@ -1,5 +1,5 @@
 {
-  "olcum": "2026-10-09T02:08:49.2721616Z",
+  "olcum": "2026-10-09T09:02:29.5356303Z",
   "seviye": "YESIL",
   "gerekce": "esiklerin altinda",
   "son_1_saat": 0,
@@ -18,7 +18,9 @@
     "tekrar_saat": 6,
     "kor_tekrar_saat": 24,
     "paylasim_sari": 1,
-    "cihaz_siniri_sari": 3
+    "cihaz_siniri_sari": 3,
+    "kasa_tavan_sari": 1,
+    "kasa_asiri_sari": 1
   },
   "son_alarm": {
     "seviye": "KOR",
@@ -28,6 +30,7 @@
     "yavas bot: saatte 100 / dakikada 15 altinda, cok IP - insandan ayirt edilemez",
     "sahte hesabin niteligi (uydurma alan adi) - e-postaya bilerek bakilmaz",
     "mesru kalabalik da SARI/KIRMIZI yakar - alarm \"bak\" der, \"saldiri var\" demez",
-    "sirali paylasim (biri sabah biri aksam, toplam 3 cihazi asmadan) ekran el degistirmesi az oldugu icin gorunmez"
+    "sirali paylasim (biri sabah biri aksam, toplam 3 cihazi asmadan) ekran el degistirmesi az oldugu icin gorunmez",
+    "kasa: gunde 2.499 satirla sabirla ceken kisi (tavan altinda) - kutukte var, alarmda yok; ekran goruntusu/kamera hic gorunmez"
   ]
 }
