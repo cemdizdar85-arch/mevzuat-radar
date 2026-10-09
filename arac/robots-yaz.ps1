@@ -49,7 +49,7 @@ if ($MyInvocation.InvocationName -ne '.') {
     $hata = @()
     if ($t -notmatch "(?m)^Allow: /$") { $hata += 'Allow: / yok' }
     if ($t -match "(?m)^Disallow: /$") { $hata += 'site tumden kapali' }
-    foreach ($z in @('Disallow: /motor/', 'Disallow: /*.md$', 'Disallow: /fark.html', 'Disallow: /gtip.html', 'Disallow: /canli-deneme.html', 'Sitemap: https://tetikte.com/sitemap.xml')) {
+    foreach ($z in @('Disallow: /motor/', 'Disallow: /*.md$', 'Disallow: /fark.html', 'Disallow: /gtip.html', 'Disallow: /karsilastirma.html', 'Sitemap: https://tetikte.com/sitemap.xml')) {
       if (-not $t.Contains($z)) { $hata += "eksik: $z" }
     }
     # yanlış alarm yönü: haritadaki açık sayfalar kapatılmamalı
