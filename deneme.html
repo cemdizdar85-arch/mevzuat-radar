@@ -521,15 +521,6 @@ setTimeout(function(){ var e=document.getElementById('ekranKurulum'); if(e) e.cl
 
 fetch('veri/soru-bankasi.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   BANKA=(d.sorular||[]).filter(function(s){return s.durum==='yayin';});
-  /* ==== ONIZLEME-SINIRSIZ-BASI (gong.ps1 siler - ELLE DOKUNMA) ==== */
-  /* 20.08 Cem: "sadece bunlara tam yetki". Perde koduyla (?kapi=...) giren DENEME
-     cihazi, henuz denetimde olan vitrin sorularini da gorur - uyelik/paket gerekmez.
-     Ustteki normal satir BILEREK dokunulmadan birakildi: gong bu blogu silince
-     sayfa kendiliginden "yalniz yayindakiler" haline doner. */
-  try{ if(localStorage.getItem('mrOnizleme') === '1'){
-    BANKA=(d.sorular||[]).filter(function(s){ return s.durum==='yayin' || s.durum==='denetimde'; });
-  } }catch(e){}
-  /* ==== ONIZLEME-SINIRSIZ-SONU ==== */
   kurulumCiz(); window.bankaHazirCoz();
 }).catch(function(){ BANKA=[]; kurulumCiz(); window.bankaHazirCoz(); });
 
@@ -1466,12 +1457,6 @@ function duvarGoster(){
 }
 function duvaraTakildiMi(){
   // 29.09: Hazirlik Olcumu (kayitsiza 20 soru) kaldirildi - duvar istisnasi da kalkti.
-  /* ==== ONIZLEME-SINIRSIZ-BASI (gong.ps1 siler - ELLE DOKUNMA) ==== */
-  /* 20.08 Cem: perde koduyla giren deneme cihazi soru duvarina takilmaz.
-     NOT: bu duvari kaldirmak KASAYI acmaz - soru_havuzu okumasi RLS ile
-     paket_uyeler satirina bagli; deneyen kisi yine yalniz ucretsiz bankayi gorur. */
-  try{ if(localStorage.getItem('mrOnizleme') === '1') return false; }catch(e){}
-  /* ==== ONIZLEME-SINIRSIZ-SONU ==== */
   if(window.UYE_MODU){
     if(window.PAKETLI) return false;                 // Sinav Paketi: sinirsiz
     return uyeGunluk() >= UYE_GUNLUK_HAK;            // ucretsiz uye: gunde 15
