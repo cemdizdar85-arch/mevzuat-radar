@@ -18,6 +18,8 @@ Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ik
 
 Kaydet, sınavdan önce bak.
 
+13 dersin hepsini istiyorsan yoruma RÖNTGEN yaz, tamamını DM'den gönderelim.
+
 Bu konudan soru çözmek için tetikte.com'a üye ol: 30 soruda seviyeni ücretsiz ölç, yanlış yaptığın her sorunun nedenini gör. Bağlantı profilde.
 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
