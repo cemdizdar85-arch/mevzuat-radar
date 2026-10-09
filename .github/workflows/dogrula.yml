@@ -651,6 +651,11 @@ jobs:
           # (Cem "bir daha karsilasmayalim"). Oz-sinav 7 vaka + 2 mutasyon (vitrin-kapat, yorum-tara) KIRMIZI; depo taramasi bulgu 0 ister.
           - { ad: "Ucretsiz yol kapisi OZ-SINAVI + depo taramasi (KAPI-UCRETSIZ-YOL)",
               kabuk: bash, komut: "node arac/ucretsiz-yol-kapisi.js --sinav --mutasyon && node arac/ucretsiz-yol-kapisi.js" }
+          # 09.10: Sinav Nobeti -> Telegram ayagi. 7 vaka (metin kurali: yasak kelime yok, "Resmi sinav duyurusu: <link>", son satir
+          # "Kaynak:", HTML kacisi; kutuk: 1. kosu 1 / 2. kosu 0, tohum gitmez, kuru gondermez, anahtarsiz KOR, dusen gonderim damgasiz,
+          # tavan 5, --url zorlamasi) + 4 mutasyon (kutuk kapat, Kaynak sil, yasak kelime ekle, baslangic kapat) her birinde KIRMIZI.
+          - { ad: "Sinav Nobeti Telegram OZ-SINAVI (metin kurali + kutuk)",
+              kabuk: bash, komut: "node motor/sinav-nobeti-telegram.js --sinav --mutasyon" }
           # 30.09: KAPI-BP BDS paragraf atfi (olmayan paragraf / komsu paragrafin konusu). 19 vaka; 10 mutasyon (komsu penceresi,
           # genel sozcuk suzgeci, dogru konu, BP-YOK, model alani, standart yok, A/ana metin ayrimi, arada BDS, gomulu paragraf,
           # govde ZAYIF katmani) her birinde KIRMIZI (30.09 olculdu).

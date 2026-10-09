@@ -6,6 +6,7 @@
  *  sınavla ilgili olanları süzer, birikimli kayda yazar ve sitede kaynaklı listeyi basar.
  *  ⛔ Yalnız RESMÎ BAŞLIK + TARİH + LİNK. Özet/yorum YAZILMAZ (okunmamış duyuruya yorum = "önce resmî kaynak, sonra yaz" ihlali).
  *  ÇIKTI: veri/sinav-nobeti.json (birikimli; robot çıktısı, elle düzenlenmez) + sinav-nobeti.html
+ *  + 09.10: yeni duyuru Telegram kanalına (motor/sinav-nobeti-telegram.js; damga kayıtta `telegram`, aynı duyuru iki kez gitmez)
  *  🚫 GÖRMEZ: başlığında sınav kelimesi olmayan ama sınavı etkileyen duyuru · Resmî Gazete (kanun nöbetçisi ayrı) ·
  *     GİB/KGK (KGK bağlantılarında başlık yok) · TESMER REST'in son 50 kaydı dışındaki geçmiş.
  *  Kullanım: node motor/sinav-nobeti.js [--kuru]
@@ -15,6 +16,7 @@ const fs = require('fs'), path = require('path');
 const KOK = path.join(__dirname, '..');
 const KURU = process.argv.includes('--kuru');
 const KAYIT = path.join(KOK, 'veri', 'sinav-nobeti.json');
+const { telegramGonder } = require(path.join(__dirname, 'sinav-nobeti-telegram.js'));   // 09.10 Telegram ayağı (t.me/tetiktecom)
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) tetikte-sinav-nobeti/1.0';
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const decode = s => String(s).replace(/&#(\d+);/g, (m, d) => String.fromCharCode(+d)).replace(/&#x([0-9a-f]+);/gi, (m, h) => String.fromCharCode(parseInt(h, 16)))
@@ -56,6 +58,11 @@ async function turmob() {
   durum.forEach(d => console.log(`${d.kurum.padEnd(7)} ${d.durum} okunan ${d.okunan}${d.hata ? ' HATA ' + d.hata : ''}`));
   console.log(`sınav duyurusu: yeni ${yeni.length} · toplam ${tum.length}`);
   if (durum.every(d => d.durum === 'KIRMIZI')) { console.error('KIRMIZI: hiçbir kaynak okunamadı — sayfa ve kayıt değiştirilmedi'); process.exitCode = 3; return; }
+  // 09.10 TELEGRAM AYAĞI: yeni (damgasız, 09.10 sonrası görülen) duyuru kanala gider; damga kayda yazılır → aynı duyuru iki kez gitmez.
+  // Anahtar yoksa KÖR yazar, robot düşmez. --telegram-url <link>: belirli duyuruyu (prova) zorla; damgalıysa yine gitmez.
+  const tgUrlI = process.argv.indexOf('--telegram-url');
+  try { await telegramGonder(tum, { kuru: KURU, zorUrl: tgUrlI > 0 ? process.argv[tgUrlI + 1] : null }); }
+  catch (e) { console.error('telegram HATA (sayfa ve kayıt yine yazılır): ' + e.message); }
   if (KURU) { tum.slice(0, 12).forEach(d => console.log(' ', d.tarih, d.kurum, d.baslik)); return; }
   const icerik = { aciklama: 'Sınav Nöbeti: TESMER + TÜRMOB duyurularından SMMM sınavıyla ilgili olanlar (yalnız resmî başlık + tarih + link). Üreten motor/sinav-nobeti.js; elle düzenlenmez.', duyurular: tum };
   const eskiMetin = fs.existsSync(KAYIT) ? fs.readFileSync(KAYIT, 'utf8') : '';

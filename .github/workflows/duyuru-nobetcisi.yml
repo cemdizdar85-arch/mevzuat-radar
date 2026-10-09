@@ -8,6 +8,8 @@
 #  - yeni SINAV duyurusu (baslik suzgeci) -> Cem'e mail (arac/alarm-maili.ps1, Resend)
 #  - motor/sinav-nobeti.js -> veri/sinav-nobeti.json + sinav-nobeti.html (sitede kaynakli liste)
 #  - Instagram gorseli bulutta BASILMAZ (artifact yok kurali); yerelde: node motor/sinav-nobeti-gorsel.js
+# 09.10.2026 TELEGRAM: yeni sinav duyurusu ayni kosuda t.me/tetiktecom kanalina (motor/sinav-nobeti-telegram.js; damga
+#  veri/sinav-nobeti.json'da -> ayni duyuru iki kez gitmez). Anahtar: secret TELEGRAM_BOT_TOKEN (gh secret set TELEGRAM_BOT_TOKEN).
 name: Duyuru Nobetcisi (0 USD)
 on:
   workflow_dispatch:
@@ -30,8 +32,10 @@ jobs:
           RESEND_KEY:  ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: ./motor/duyuru-nobetcisi.ps1 -Mail
-      - name: Sinav Nobeti sayfasi
+      - name: Sinav Nobeti sayfasi + Telegram
         if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}   # 09.10: yeni sinav duyurusu t.me/tetiktecom'a; secret yoksa KOR yazar, dusmez
         run: node motor/sinav-nobeti.js
       - name: Sonuc commit
         if: always()
