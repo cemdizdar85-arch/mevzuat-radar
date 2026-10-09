@@ -2,22 +2,27 @@
   "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 235,
+  "sayfa": 236,
   "koyu_gecis": 77,
   "koyu_bekleyen": [],
   "temiz_sayfa": 231,
-  "denetlenen_metin": 17696,
+  "denetlenen_metin": 17704,
   "toplam_kirik": 4,
   "denetlenen_sinir": 5564,
   "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 0,
+  "olculemeyen": 1,
   "esik": {
     "normal": 4.5,
     "buyuk": 3,
     "sinir": 1.12
   },
   "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [],
+  "olculemeyenler": [
+    {
+      "sayfa": "google87733a2d2d0cc2ab.html",
+      "sebep": "bilinmiyor"
+    }
+  ],
   "kirik_sayfalar": [
     {
       "sayfa": "sorular.html [koyu]",
