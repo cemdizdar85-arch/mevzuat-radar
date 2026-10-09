@@ -1,12 +1,63 @@
-# 08.10.2026 Meta isletme portfoyu alan adi dogrulamasi (index.html facebook-domain-verification): yalniz Meta botlari okur.
-# Arama motorlari acilisa dek KAPALI. arac/acilis-seo.ps1 -Ac bu dosyayi tamamen "Allow: /" ile yeniden yazar.
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Facebot
-Allow: /
-
+# tetikte.com - arac/robots-yaz.ps1 uretir (gong.ps1 / acilis-seo.ps1 -Ac). Elle duzenleme; menu.js GIZLI degisince -Yaz.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /motor/
+Disallow: /arac/
+Disallow: /radar-app/
+Disallow: /sql/
+Disallow: /sql-yerel/
+Disallow: /arsiv/
+Disallow: /sayfalar/
+Disallow: /kaydir/kgk/
+Disallow: /bulten/
+Disallow: /kaynak-ozetleri/
+Disallow: /kaynak-pdf/
+Disallow: /video/
+Disallow: /pazarlama/
+Disallow: /tasarim/
+Disallow: /mobil/
+Disallow: /gelen/
+Disallow: /evrak-app/
+Disallow: /rag-motor/
+Disallow: /kapsam/
+Disallow: /*.md$
+Disallow: /fark.html
+Disallow: /tuzak.html
+Disallow: /ceza-asistani.html
+Disallow: /asgari-kv.html
+Disallow: /arge-kapi-hesabi.html
+Disallow: /kurulus-evrak.html
+Disallow: /kurulus-nobeti.html
+Disallow: /karne.html
+Disallow: /bilgi.html
+Disallow: /sayfalar\/index.html
+Disallow: /gtip.html
+Disallow: /toplu-gtip.html
+Disallow: /risk-taramasi.html
+Disallow: /senaryo-raporu.html
+Disallow: /hizmet.html
+Disallow: /fiyatfarki.html
+Disallow: /soru-cevap.html
+Disallow: /kurulus.html
+Disallow: /tesvik-sihirbazi.html
+Disallow: /radar.html
+Disallow: /kartlar.html
+Disallow: /destekler.html
+Disallow: /alacak-radari.html
+Disallow: /alacakli-rehberi.html
+Disallow: /marka-radari.html
+Disallow: /marka-portfoy.html
+Disallow: /marka-izleme.html
+Disallow: /marka-itiraz.html
+Disallow: /marka-varlik.html
+Disallow: /marka-app.html
+Disallow: /marka-rapor.html
+Disallow: /radar-app.html
+Disallow: /radar-fiyat.html
+Disallow: /canli-deneme.html
+Disallow: /genc.html
+Disallow: /donem-plani.html
+Disallow: /songun.html
+Disallow: /karsilastirma.html
 
-# ACILIS GUNU: Disallow satiri 'Allow: /' yapilacak + sitemap geri acilacak (rebrand kontrol listesi)
+Sitemap: https://tetikte.com/sitemap.xml
