@@ -5,8 +5,9 @@
  * <script type="text/x-tetikte-kasa" id="kasaAna"> içinde çalışmadan bekler ve
  * `const SORULAR=window.__KASA_SORULAR||[]` ile başlar.
  *
- * Akış: paket-kapisi.js kapıyı açar (window.__pkKapi) -> bu dosya paket_soru tablosundan o sayfanın
- * satırlarını sıra ile çeker (RLS: aktif paket + ders) -> window.__KASA_SORULAR -> asıl betiği çalıştırır.
+ * Akış: paket-kapisi.js kapıyı açar (window.__pkKapi) -> bu dosya kasa_soru_getir fonksiyonundan o sayfanın
+ * satırlarını sıra ile çeker (paket + ders kuralı sunucuda; 09.10'dan beri SAYILAN ve TAVANLI okuma, tabloya
+ * doğrudan erişim kapalı) -> window.__KASA_SORULAR -> asıl betiği çalıştırır.
  * Perde çıkarsa kasaya HİÇ istek gitmez. Kasa 0 satır verirse (ders paketinde yok) açıklama gösterilir.
  *
  * Asıl betik DOMContentLoaded/load olaylarına iş bağlıyor (tema düğmesi, #s= kaydırması); bu dosya
@@ -60,23 +61,43 @@
     }
   }
 
+  /* 09.10 KASA ÖLÇER (Cem "indiremesin, en iyisi nasıl yapıyorsa aynısı"): tabloya doğrudan okuma kapandı
+     (radar-app/sql/2026-10-09-kasa-olcer.sql). Satırlar yalnız kasa_soru_getir(p_sayfa, p_bas, p_adet<=100)
+     fonksiyonundan gelir: her çekim üye adına sayılır, tavan (10 dk 1.500 · gün 4.000 · hafta 12.000) aşılınca
+     'KASA_TAVAN:<pencere>' hatası döner. Her satırda 'toplam' var (sayfanın paketli üyeye görünen satır sayısı).
+     mobil/uygulama/uygulama.js dersIndir AYNI çağrıyı kullanır (hazirla-sinavi.js ölçer). */
+  function parca(sb, bas, adet) {
+    /* supabase-js sorgusu tembeldir: await/then olmadan GİTMEZ (19.08 dersi). */
+    return sb.rpc('kasa_soru_getir', { p_sayfa: sayfa, p_bas: bas, p_adet: adet })
+      .then(function (r) { if (r.error) throw r.error; return r.data || []; });
+  }
+  function tavanMi(e) { return /KASA_TAVAN/.test(String((e && (e.message || e.details || e.hint)) || e)); }
+  function tavanMesaji(e) {
+    var p = (String(e && e.message || '').match(/KASA_TAVAN:(\w+)/) || [])[1];
+    var ne = p === '10dk' ? 'son 10 dakikada' : p === 'gun' ? 'bugün' : p === 'hafta' ? 'bu hafta' : 'kısa sürede';
+    mesaj('Soru sınırına ulaştın',
+      'Hesabın ' + ne + ' olağan çalışmanın çok üstünde soru çekti; güvenlik için bir süre durduruldu. ' +
+      'Gerçekten çalışıyorsan ' + (p === '10dk' ? 'birkaç dakika' : 'yarın') + ' yeniden dene; sorun sürerse bize yaz.',
+      dugme('../../ogrenci.html', 'Hesabım'));
+  }
   async function cek(sb) {
-    var ilk = await sb.from('paket_soru').select('sira,veri', { count: 'exact' })
-      .eq('sayfa', sayfa).order('sira', { ascending: true }).range(0, PARCA - 1);
-    if (ilk.error) throw ilk.error;
-    var toplam = ilk.count == null ? ilk.data.length : ilk.count;
+    var ilk = await parca(sb, 0, PARCA);
+    var toplam = ilk.length ? +ilk[0].toplam : 0;
     var istekler = [];
-    for (var i = PARCA; i < toplam; i += PARCA) {
-      /* supabase-js sorgusu tembeldir: await/then olmadan GİTMEZ (19.08 dersi). */
-      istekler.push(sb.from('paket_soru').select('sira,veri')
-        .eq('sayfa', sayfa).order('sira', { ascending: true }).range(i, i + PARCA - 1)
-        .then(function (r) { if (r.error) throw r.error; return r.data; }));
-    }
-    var parcalar = [ilk.data].concat(await Promise.all(istekler));
+    for (var i = PARCA; i < toplam; i += PARCA) istekler.push(parca(sb, i, PARCA));
+    var parcalar = [ilk].concat(await Promise.all(istekler));
     var satir = [].concat.apply([], parcalar);
     satir.sort(function (a, b) { return a.sira - b.sira; });
     if (satir.length !== toplam) throw new Error('eksik satır ' + satir.length + '/' + toplam);
     return satir.map(function (x) { return x.veri; });
+  }
+  /* 09.10 kopya/yazdırma kilidi + telif şeridi (icerik-koruma.js): kapı açılınca, sorulardan önce yüklenir. */
+  function koruma() {
+    try {
+      var me = document.querySelector('script[src$="kasa-yukle.js"]');
+      var s = document.createElement('script'); s.src = (me ? me.getAttribute('src').replace(/kasa-yukle\.js$/, '') : '') + 'icerik-koruma.js';
+      document.body.appendChild(s);
+    } catch (e) {}
   }
 
   /* 07.10 PARÇA PARÇA (Cem "1 yap"): ölçüldü - SGS Finansal Muhasebe 1.100 soru, soru başı ~14 KB → ilk soru ~15 MB inince
@@ -85,18 +106,13 @@
      numarası tam listeye göre. Kalan getirilemezse ilk parçanın bekleyenleri yine eklenir, uyarı çıkar. */
   var ILK = 40;
   var parcali = ana.textContent.indexOf('__kasaEkle') > -1 && !/#s=\d+/.test(location.hash) && !/[?&]tek=1/.test(location.search);
-  async function kalaniCek(sb) {
-    var satir = [], bas = ILK, TOPLU = 4, bitti = false;
-    while (!bitti) {
+  async function kalaniCek(sb, toplam) {
+    var satir = [], bas = ILK, TOPLU = 4;
+    while (bas < toplam) {
       var istek = [];
-      for (var j = 0; j < TOPLU; j++) {
-        (function (a) {
-          istek.push(sb.from('paket_soru').select('sira,veri').eq('sayfa', sayfa).order('sira', { ascending: true })
-            .range(a, a + PARCA - 1).then(function (r) { if (r.error) throw r.error; return r.data; }));
-        })(bas + j * PARCA);
-      }
+      for (var j = 0; j < TOPLU && bas + j * PARCA < toplam; j++) istek.push(parca(sb, bas + j * PARCA, PARCA));
       var gelen = await Promise.all(istek);
-      gelen.forEach(function (p) { satir = satir.concat(p); if (p.length < PARCA) bitti = true; });
+      gelen.forEach(function (p) { satir = satir.concat(p); });
       bas += TOPLU * PARCA;
     }
     satir.sort(function (a, b) { return a.sira - b.sira; });
@@ -112,26 +128,27 @@
   var bekle = window.__pkKapi || Promise.resolve({ acik: false, tur: 'hata' });
   bekle.then(async function (k) {
     if (!k || !k.acik) return;             /* perde zaten çizildi */
+    koruma();
     mesaj('Sorular yükleniyor…', 'Soru bankası güvenli kasadan getiriliyor.');
     if (parcali) {
       try {
-        var ilk = await k.sb.from('paket_soru').select('sira,veri').eq('sayfa', sayfa).order('sira', { ascending: true }).range(0, ILK - 1);
-        if (ilk.error) throw ilk.error;
-        if (!ilk.data.length) {
+        var ilk = await parca(k.sb, 0, ILK);
+        if (!ilk.length) {
           return mesaj('Bu ders paketinde yok',
             'Hesabındaki paket bu dersi kapsamıyor. Ders eklemek için paketini güncelleyebilirsin.',
             dugme('../../satin-al.html', 'Paketi güncelle'));
         }
-        var devam = ilk.data.length === ILK;
+        var toplam = +ilk[0].toplam, devam = toplam > ilk.length;
         window.__KASA_DEVAM = devam;
         document.getElementById('akis').innerHTML = '';
-        calistir(ilk.data.sort(function (a, b) { return a.sira - b.sira; }).map(function (x) { return x.veri; }));
+        calistir(ilk.sort(function (a, b) { return a.sira - b.sira; }).map(function (x) { return x.veri; }));
         if (!devam) return;
         var kalan = [];
-        try { kalan = await kalaniCek(k.sb); }
-        catch (e) { uyar('Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.'); }
+        try { kalan = await kalaniCek(k.sb, toplam); }
+        catch (e) { uyar(tavanMi(e) ? 'Soru sınırına ulaştın: kalan sorular bugün getirilmedi.' : 'Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.'); }
         if (typeof window.__kasaEkle === 'function') window.__kasaEkle(kalan); else window.__KASA_DEVAM = false;
       } catch (e) {
+        if (tavanMi(e)) return tavanMesaji(e);
         mesaj('Sorular getirilemedi', 'Bağlantını kontrol edip sayfayı yenile. Sorun sürerse bize yaz.',
           dugme(location.href, 'Yeniden dene'));
       }
@@ -147,6 +164,7 @@
       document.getElementById('akis').innerHTML = '';
       calistir(sorular);
     } catch (e) {
+      if (tavanMi(e)) return tavanMesaji(e);
       mesaj('Sorular getirilemedi', 'Bağlantını kontrol edip sayfayı yenile. Sorun sürerse bize yaz.',
         dugme(location.href, 'Yeniden dene'));
     }

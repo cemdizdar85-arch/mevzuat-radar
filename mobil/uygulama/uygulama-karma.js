@@ -17,7 +17,6 @@
   var kok = document.documentElement, sayfa = kok.getAttribute('data-kasa-sayfa') || '';
   var SINAV = /^kaydir\/sgs\//.test(sayfa) ? 'sgs' : 'smmm';
   var SURE = n * 90;   // saniye
-  var PARCA = 1000;
   var secilen = [];     // [{ yol, ders }] — kartlar ile aynı sırada
   var sonuc = {};       // i -> true/false
   var ALT = 'max(env(safe-area-inset-bottom),var(--safe-area-inset-bottom,0px))';
@@ -25,16 +24,12 @@
 
   function karistir(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
-  async function hepsi(sb, sutun) {
-    var satir = [], bas = 0;
-    for (;;) {
-      var r = await sb.from('paket_soru').select(sutun).eq('sinav', SINAV).order('id', { ascending: true }).range(bas, bas + PARCA - 1);
-      if (r.error) throw r.error;
-      satir = satir.concat(r.data);
-      if (r.data.length < PARCA) break;
-      bas += PARCA;
-    }
-    return satir;
+  /* 09.10 KASA ÖLÇER: tabloya doğrudan okuma kapandı. Dizin (id, ders, sayfa, donem; içerik YOK, sayılmaz) kasa_dizin(p_sinav)
+     fonksiyonundan tek seferde gelir; soru içeriği kasa_soru_idler(p_ids<=100) ile, sayılır ve tavanlıdır. */
+  async function hepsi(sb) {
+    var r = await sb.rpc('kasa_dizin', { p_sinav: SINAV });
+    if (r.error) throw r.error;
+    return r.data || [];
   }
 
   function sec(liste) {
@@ -56,14 +51,14 @@
     tur: tur,
     yol: function (i) { return secilen[i] ? secilen[i].yol : null; },
     cek: async function (sb) {
-      var liste = await hepsi(sb, tur === 'cok' ? 'id,ders,sayfa,donem:veri->donem' : 'id,ders,sayfa');
+      var liste = await hepsi(sb);
       var s = sec(liste);
       if (!s.length) return [];
       var ids = s.map(function (x) { return x.id; }), veri = {};
       for (var i = 0; i < ids.length; i += 50) {
-        var r = await sb.from('paket_soru').select('id,veri').in('id', ids.slice(i, i + 50));
+        var r = await sb.rpc('kasa_soru_idler', { p_ids: ids.slice(i, i + 50) });
         if (r.error) throw r.error;
-        r.data.forEach(function (x) { veri[x.id] = x.veri; });
+        (r.data || []).forEach(function (x) { veri[x.id] = x.veri; });
       }
       s = s.filter(function (x) { return veri[x.id]; });
       secilen = s.map(function (x) { return { yol: x.sayfa, ders: x.ders }; });

@@ -218,6 +218,7 @@ kasaYukle = kasaYukle.split(KARMA_YAMA_ESKI).join(KARMA_YAMA_YENI);
 kapi('KAPI-KASA', karmaSayisi === 1, 'kasa-yukle.js karma kancası tutmadı (beklenen 1, bulunan ' + karmaSayisi + ') — cek() imzası değişmiş');
 yaz('kasa-yukle.js', kasaYukle);
 kopyala('cihaz-kapisi.js');
+kopyala('icerik-koruma.js');   /* 09.10 kopya/yazdırma kilidi + telif şeridi; kasa-yukle.js kapı açılınca yükler */
 /* bot koruması (Turnstile): sitedekiyle AYNI dosya ve aynı anahtar — sitede açılınca uygulamada da açık olur (26.09) */
 kopyala('captcha.js');
 kopyala(kutuphane);

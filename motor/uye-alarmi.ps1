@@ -51,6 +51,7 @@ $ESIK = [ordered]@{
   sari_dakika = 15; sari_saat = 100; sari_gun = 1000
   tekrar_saat = 6; kor_tekrar_saat = 24
   paylasim_sari = 1; cihaz_siniri_sari = 3
+  kasa_tavan_sari = 1; kasa_asiri_sari = 1     # 09.10 kasa ölçer: tavana takılan / 24 saatte 2.500+ satır çeken üye
 }
 $SEVIYE_SIRA = @{ 'YESIL' = 0; 'SARI' = 1; 'KIRMIZI' = 2; 'KOR' = 3 }
 
@@ -71,6 +72,11 @@ function Get-UyeSeviyesi {
   $cihazSiniriAsan = [int]$SayimGirdisi.cihaz_siniri_24s
   if ($paylasimSupheli -ge $ESIK.paylasim_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$paylasimSupheli uyede ekran 24 saatte 8+ kez el degistirdi (hesap paylasimi belirtisi)" } }
   if ($cihazSiniriAsan -ge $ESIK.cihaz_siniri_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$cihazSiniriAsan uye 24 saatte 4. cihazla girmeye calisti (esik $($ESIK.cihaz_siniri_sari))" } }
+  # 09.10 kasa ölçer (radar-app/sql/2026-10-09-kasa-olcer.sql): soru çekimi sayılır; tavana takılan ya da aşırı çeken üye = toplu indirme belirtisi
+  $kasaTavan = [int]$SayimGirdisi.kasa_tavan_24s
+  $kasaAsiri = [int]$SayimGirdisi.kasa_asiri_24s
+  if ($kasaTavan -ge $ESIK.kasa_tavan_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$kasaTavan uye 24 saatte soru cekme tavanina takildi (toplu indirme belirtisi)" } }
+  if ($kasaAsiri -ge $ESIK.kasa_asiri_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$kasaAsiri uye 24 saatte 2.500+ soru satiri cekti (toplu indirme belirtisi)" } }
   return [pscustomobject]@{ seviye = 'YESIL'; gerekce = 'esiklerin altinda' }
 }
 
@@ -101,7 +107,10 @@ if ($Sinav) {
     @{ ad = 'paylasim supheli 1 uye';    s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; paylasim_supheli = 1; cihaz_siniri_24s = 0 }; bek = 'SARI' },
     @{ ad = 'cihaz siniri 2 (yanlis alarm vermemeli)'; s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; paylasim_supheli = 0; cihaz_siniri_24s = 2 }; bek = 'YESIL' },
     @{ ad = 'cihaz siniri 3 uye';        s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; paylasim_supheli = 0; cihaz_siniri_24s = 3 }; bek = 'SARI' },
-    @{ ad = 'eski sayim (paylasim alani yok)'; s = @{ son_1_saat = 1; son_24_saat = 2; en_yogun_dakika = 1 };           bek = 'YESIL' }
+    @{ ad = 'eski sayim (paylasim alani yok)'; s = @{ son_1_saat = 1; son_24_saat = 2; en_yogun_dakika = 1 };           bek = 'YESIL' },
+    @{ ad = 'kasa tavanina takilan 1 uye';   s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; kasa_tavan_24s = 1; kasa_asiri_24s = 0 }; bek = 'SARI' },
+    @{ ad = 'kasa asiri ceken 1 uye';        s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; kasa_tavan_24s = 0; kasa_asiri_24s = 1 }; bek = 'SARI' },
+    @{ ad = 'kasa 0/0 (yanlis alarm vermemeli)'; s = @{ son_1_saat = 0; son_24_saat = 0; en_yogun_dakika = 0; kasa_tavan_24s = 0; kasa_asiri_24s = 0 }; bek = 'YESIL' }
   )
   $dusen = 0
   foreach ($v in $vakalar) {
@@ -185,6 +194,7 @@ Son 1 saatin en yogun dakikasi: $($sayim.en_yogun_dakika) kayit
 Toplam uye: $($sayim.toplam)
 Hesap paylasimi belirtisi (24 sa, ekran 8+ kez el degistirdi): $([int]$sayim.paylasim_supheli) uye
 4. cihazla girmeye calisan (24 sa): $([int]$sayim.cihaz_siniri_24s) uye
+Soru cekme tavanina takilan (24 sa): $([int]$sayim.kasa_tavan_24s) uye · 2.500+ satir ceken: $([int]$sayim.kasa_asiri_24s) uye · toplam cekilen satir: $([int]$sayim.kasa_cekim_24s)
 
 Ne yapmali:
 - Bir dakikada 30'dan fazla kayit insan hizi degildir; bot olabilir.
@@ -229,7 +239,8 @@ $rapor = [ordered]@{
     'yavas bot: saatte 100 / dakikada 15 altinda, cok IP - insandan ayirt edilemez',
     'sahte hesabin niteligi (uydurma alan adi) - e-postaya bilerek bakilmaz',
     'mesru kalabalik da SARI/KIRMIZI yakar - alarm "bak" der, "saldiri var" demez',
-    'sirali paylasim (biri sabah biri aksam, toplam 3 cihazi asmadan) ekran el degistirmesi az oldugu icin gorunmez'
+    'sirali paylasim (biri sabah biri aksam, toplam 3 cihazi asmadan) ekran el degistirmesi az oldugu icin gorunmez',
+    'kasa: gunde 2.499 satirla sabirla ceken kisi (tavan altinda) - kutukte var, alarmda yok; ekran goruntusu/kamera hic gorunmez'
   )
 }
 if (-not $Kuru) { RaporYaz -Hedef $raporYolu -Nesne $rapor | Out-Null }

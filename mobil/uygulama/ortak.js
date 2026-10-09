@@ -4,9 +4,12 @@
  * (uygulama-kapisi.js üzerinden) bu dosyayı kullanır. Tek iş: Supabase istemcisi +
  * paket kuralı + çevrimdışı önbellek.
  *
- * ÇEVRİMDIŞI: istemcinin fetch'i sarılır. paket_soru ve paket_uyeler GET yanıtları başarılı
- * gelince cihaza (IndexedDB) yazılır; ağ yoksa aynı adres önbellekten verilir. Ağ varsa
- * HER ZAMAN ağ kazanır (önbellek bayat içerik göstermez). Çıkışta önbellek silinir.
+ * ÇEVRİMDIŞI: istemcinin fetch'i sarılır. paket_uyeler GET yanıtları başarılı gelince cihaza
+ * (IndexedDB) yazılır; ağ yoksa aynı adres önbellekten verilir. Ağ varsa HER ZAMAN ağ kazanır
+ * (önbellek bayat içerik göstermez). Çıkışta önbellek silinir.
+ * 09.10 KASA ÖLÇER (Cem "indiremesin"): soru içeriği ARTIK CİHAZA YAZILMAZ — paket_soru'ya doğrudan
+ * okuma kapandı, satırlar kasa_soru_getir/kasa_soru_idler fonksiyonlarından (POST, sayılır, tavanlı) gelir
+ * ve önbellek deseni dışında kalır. İnternetsiz soru çözme bilerek kaldırıldı.
  *
  * PAKET KURALI: paket-kapisi.js / uye-durumu.js paketSinavlari ile AYNI eşleme (18.09 hali).
  * Oradaki kural değişirse burası da değişmeli — mobil/hazirla-sinavi.js bu eşlemenin
@@ -22,7 +25,7 @@
   if (window.TT) return;
   var SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co';
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
-  var ONBELLEK_DESENI = /\/rest\/v1\/(paket_soru|paket_uyeler)\?/;
+  var ONBELLEK_DESENI = /\/rest\/v1\/(paket_uyeler)\?/;   /* 09.10: paket_soru çıkarıldı (içerik cihaza yazılmaz) */
   var CEVRIMDISI_GUN = 7;
   var PAKET_ANAHTARI = 'tt_uyg_paket';
 

@@ -102,6 +102,7 @@
   }
 </style>
 <script src="paket-kapisi.js"></script>
+<script src="icerik-koruma.js"></script><!-- 09.10 kopya/yazdırma kilidi + telif şeridi (paketli içerik) -->
 <!-- 07.10: yanlış kutusu hesaba (üye girişliyse; paket-kapisi.js'in istemcisini kullanır) -->
 <script src="kutu-esitle.js"></script>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
@@ -199,7 +200,9 @@
   }
 
   /* 04.10 (Cem "sadece 30 soru açık olacak"): set dosyası YALNIZ KİMLİK taşır. Metin, şıklar ve doğru cevap
-     paket-kapisi.js kapıyı açınca RLS'li kasadan (paket_soru: aktif paket + ders) gelir; paketsiz kişiye hiç istek gitmez.
+     paket-kapisi.js kapıyı açınca kasadan gelir; paketsiz kişiye hiç istek gitmez.
+     09.10 KASA ÖLÇER: tabloya doğrudan okuma kapandı; satırlar kasa_soru_idler(p_ids<=100) fonksiyonundan gelir, her
+     çekim üye adına sayılır, tavan aşımında 'KASA_TAVAN:<pencere>' (radar-app/sql/2026-10-09-kasa-olcer.sql).
      Paketinde olmayan dersin sorusu sette görünmez (toplam ona göre düşer). */
   function kasaDoldur(d){
     var kapi=window.__pkKapi||Promise.resolve({acik:false});
@@ -208,8 +211,12 @@
       var ids=d.sorular.map(function(q){return q.id;}), parca=[];
       for(var i=0;i<ids.length;i+=60) parca.push(ids.slice(i,i+60));
       return Promise.all(parca.map(function(p){
-        return k.sb.from('paket_soru').select('id,veri').in('id',p).then(function(r){ if(r.error) throw r.error; return r.data; });
-      })).then(function(gelen){
+        return k.sb.rpc('kasa_soru_idler',{p_ids:p}).then(function(r){ if(r.error) throw r.error; return r.data||[]; });
+      })).catch(function(e){
+        if(/KASA_TAVAN/.test(String(e&&e.message||e))){ alert('Soru sınırına ulaştın: hesabın kısa sürede olağan çalışmanın çok üstünde soru çekti. Bir süre sonra yeniden dene.'); return null; }
+        throw e;
+      }).then(function(gelen){
+        if(!gelen) return null;
         var v={}; [].concat.apply([],gelen).forEach(function(x){ v[x.id]=x.veri; });
         d.sorular=d.sorular.filter(function(q){ var s=v[q.id]; if(!s||!s.soru||!s.siklar||!s.dogru) return false;
           q.soru=s.soru; q.siklar=s.siklar; q.dogru=s.dogru; return true; });

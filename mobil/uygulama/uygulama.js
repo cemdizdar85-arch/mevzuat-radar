@@ -43,24 +43,25 @@
     return 'Giriş yapılamadı. Bilgilerini kontrol edip yeniden dene.';
   }
 
-  /* ---------- çevrimdışı indirme: kasa-yukle.js'in çağrılarının AYNISI (önbellek anahtarı eşleşsin) ---------- */
+  /* ---------- ders ön-çekimi: kasa-yukle.js'in çağrılarının AYNISI (hazirla-sinavi.js ölçer) ----------
+     09.10 KASA ÖLÇER (Cem "indiremesin"): tabloya doğrudan okuma kapandı; satırlar kasa_soru_getir(p_sayfa, p_bas, p_adet)
+     fonksiyonundan gelir (sayılır, tavanlı). Fonksiyon çağrısı POST'tur, ortak.js çevrimdışı önbelleği yalnız GET tutar →
+     "İndir" düğmesi artık içeriği cihaza YAZMAZ; bu yüzden düğme gizli (dersKarti(…, false)), paket kuralı/ders listesi aynen. */
   function indirilenler() { try { return JSON.parse(localStorage.getItem(INDIRME_ANAHTARI) || '{}'); } catch (e) { return {}; } }
   function indirildi(yol, adet) {
     var m = indirilenler(); m[yol] = { tarih: new Date().toISOString().slice(0, 10), adet: adet };
     try { localStorage.setItem(INDIRME_ANAHTARI, JSON.stringify(m)); } catch (e) {}
   }
+  function parca(yol, bas, adet) {
+    return sb.rpc('kasa_soru_getir', { p_sayfa: yol, p_bas: bas, p_adet: adet })
+      .then(function (r) { if (r.error) throw r.error; return r.data || []; });
+  }
   async function dersIndir(yol) {
-    var ilk = await sb.from('paket_soru').select('sira,veri', { count: 'exact' })
-      .eq('sayfa', yol).order('sira', { ascending: true }).range(0, PARCA - 1);
-    if (ilk.error) throw ilk.error;
-    var toplam = ilk.count == null ? ilk.data.length : ilk.count;
+    var ilk = await parca(yol, 0, PARCA);
+    var toplam = ilk.length ? +ilk[0].toplam : 0;
     var istekler = [];
-    for (var i = PARCA; i < toplam; i += PARCA) {
-      istekler.push(sb.from('paket_soru').select('sira,veri')
-        .eq('sayfa', yol).order('sira', { ascending: true }).range(i, i + PARCA - 1)
-        .then(function (r) { if (r.error) throw r.error; return r.data.length; }));
-    }
-    var adet = ilk.data.length + (await Promise.all(istekler)).reduce(function (a, b) { return a + b; }, 0);
+    for (var i = PARCA; i < toplam; i += PARCA) istekler.push(parca(yol, i, PARCA).then(function (p) { return p.length; }));
+    var adet = ilk.length + (await Promise.all(istekler)).reduce(function (a, b) { return a + b; }, 0);
     if (adet !== toplam) throw new Error('eksik ' + adet + '/' + toplam);
     indirildi(yol, adet);
     return adet;
@@ -102,9 +103,9 @@
     rozet(k.cevrimdisi || p.cevrimdisi ? 'Çevrimdışı' : '');
     var acik = (K.paket || []).filter(function (d) { return window.TT.acarMi(p.satir, d.sinav); });
     liste.innerHTML = '';
-    acik.forEach(function (d) { liste.appendChild(dersKarti(d, true)); });
+    acik.forEach(function (d) { liste.appendChild(dersKarti(d, false)); });   /* 09.10: İndir gizli (içerik cihaza yazılmaz) */
     goster('ana', acik.length > 0);
-    $('anaNot').textContent = 'Derse dokun, kaldığın sorudan devam et. İndir: internetsiz çözmek için.';
+    $('anaNot').textContent = 'Derse dokun, kaldığın sorudan devam et.';
     durumBildir(true, acik.map(function (d) { return d.yol; }));
     if (window.TTMagaza) window.TTMagaza.goster(sb, k, yenile);
     var sinavlar = {};

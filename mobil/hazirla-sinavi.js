@@ -58,6 +58,7 @@ function kur(degisiklik) {
     'kutuphane/supabase-9.9.9.js': '/* kütüphane */',
     'kasa-yukle.js': "var PARCA = 100; async function cek(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));",
     'cihaz-kapisi.js': '/* cihaz */',
+    'icerik-koruma.js': '/* koruma (09.10) */',
     'captcha.js': '/* captcha */',
     'kaydir/sgs/index.html': '<a class="kart" href="turkce.html"><div class="ad">T&#252;rk&#231;e</div></a>',
     'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html'),
@@ -186,15 +187,17 @@ for (const v of VAKALAR) {
 {
   const ky = fs.readFileSync(path.join(DEPO, 'kasa-yukle.js'), 'utf8');
   const uy = fs.readFileSync(path.join(__dirname, 'uygulama', 'uygulama.js'), 'utf8');
+  /* 09.10 KASA ÖLÇER: iki dosya da kasa_soru_getir(p_sayfa, p_bas, p_adet) fonksiyonunu AYNI imzayla çağırır;
+     tabloya doğrudan okuma (from('paket_soru')) İKİSİNDE DE OLMAMALI (radar-app/sql/2026-10-09-kasa-olcer.sql kapattı). */
   const kalip = (d) => [
     'var PARCA = 100;',
-    ".from('paket_soru').select('sira,veri', { count: 'exact' })",
-    ".eq('sayfa', " + d + ").order('sira', { ascending: true }).range(0, PARCA - 1)",
-    ".from('paket_soru').select('sira,veri')",
-    ".eq('sayfa', " + d + ").order('sira', { ascending: true }).range(i, i + PARCA - 1)"
+    "sb.rpc('kasa_soru_getir', { p_sayfa: " + d + ", p_bas: bas, p_adet: adet })",
+    "+ilk[0].toplam"
   ];
   const eksik = kalip('sayfa').filter((s) => ky.indexOf(s) < 0).map((s) => 'kasa-yukle: ' + s)
-    .concat(kalip('yol').filter((s) => uy.indexOf(s) < 0).map((s) => 'uygulama: ' + s));
-  sonuc('kasa sorgusu kasa-yukle.js ↔ uygulama.js aynı biçimde', eksik.length === 0, eksik.join(' | '));
+    .concat(kalip('yol').filter((s) => uy.indexOf(s) < 0).map((s) => 'uygulama: ' + s))
+    .concat(ky.indexOf("from('paket_soru')") >= 0 ? ['kasa-yukle: tabloya doğrudan okuma kalmış'] : [])
+    .concat(uy.indexOf("from('paket_soru')") >= 0 ? ['uygulama: tabloya doğrudan okuma kalmış'] : []);
+  sonuc('kasa sorgusu kasa-yukle.js ↔ uygulama.js aynı biçimde (fonksiyon, doğrudan tablo yok)', eksik.length === 0, eksik.join(' | '));
 }
 /* sonuç satırı ve çıkış kodu iPhone vakası (eşzamansız) bitince yazılır — process.exit burada çağrılırsa o vaka hiç koşmaz */

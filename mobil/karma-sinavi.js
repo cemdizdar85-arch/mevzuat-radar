@@ -23,25 +23,25 @@ function kasa(adet, dersSayisi) {
   }
   return s;
 }
+/* 09.10 KASA ÖLÇER: seçici tabloyu değil iki fonksiyonu çağırır — kasa_dizin(p_sinav) dizini tek seferde (K6: hepsi okunur),
+   kasa_soru_idler(p_ids) içeriği ≤100'lük paketlerle. Sahte istemci bu iki ucu taklit eder; from() çağrılırsa sınav düşer
+   (doğrudan tablo okuma kapandı). KR_MUTASYON=sayfalama: dizin 1.000'de kesilir → K6 KIRMIZI düşmeli. */
 function sahteSb(satirlar) {
   let okunan = 0;
-  const sb = { okunan: () => okunan, from() {
-    const q = { _in: null, _ara: null, select() { return q; }, eq() { return q; }, order() { return q; },
-      range(a, b) { q._ara = [a, b]; return q; }, in(_, ids) { q._in = ids; return q; },
-      then(coz, red) {
-        let data;
-        if (q._in) data = satirlar.filter((x) => q._in.includes(x.id)).map((x) => ({ id: x.id, veri: x.veri }));
-        else {
-          const [a, b] = q._ara;
-          const ust = MUT === 'sayfalama' ? Math.min(b, 999) : b;
-          data = satirlar.slice(a, ust + 1).map((x) => ({ id: x.id, ders: x.ders, sayfa: x.sayfa, donem: x.veri.donem }));
-          if (MUT === 'sayfalama' && a > 0) data = [];
-          okunan += data.length;
-        }
-        return Promise.resolve({ data, error: null }).then(coz, red);
-      } };
-    return q;
-  } };
+  const sb = { okunan: () => okunan,
+    from() { throw new Error('paket_soru tablosuna doğrudan okuma 09.10\'da kapandı; from() çağrılmamalı'); },
+    rpc(ad, arg) {
+      let data;
+      if (ad === 'kasa_dizin') {
+        data = satirlar.filter((x) => x.sinav === arg.p_sinav).map((x) => ({ id: x.id, ders: x.ders, sayfa: x.sayfa, donem: String(x.veri.donem) }));
+        if (MUT === 'sayfalama') data = data.slice(0, 1000);
+        okunan += data.length;
+      } else if (ad === 'kasa_soru_idler') {
+        if (!Array.isArray(arg.p_ids) || arg.p_ids.length > 100) return Promise.resolve({ data: null, error: { message: 'p_ids 100 sınırı' } });
+        data = satirlar.filter((x) => arg.p_ids.includes(x.id)).map((x) => ({ id: x.id, veri: x.veri }));
+      } else return Promise.resolve({ data: null, error: { message: 'bilinmeyen uç ' + ad } });
+      return Promise.resolve({ data, error: null });
+    } };
   return sb;
 }
 function yukle(arama) {
