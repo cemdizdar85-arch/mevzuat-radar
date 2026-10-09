@@ -17,7 +17,8 @@ Kıymetli evrak (çek, bono, poliçe) 2016'dan bu yana yapılan 32 sınavın 32'
 Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ikinci kartta: kaydır.
 
 Kaydet, sınavdan önce bak.
-13 dersin tamamının röntgenini istiyorsan yoruma RÖNTGEN yaz, PDF'i DM'den gönderelim.
+
+Bu konudan soru çözmek için tetikte.com'a üye ol: 30 soruda seviyeni ücretsiz ölç, yanlış yaptığın her sorunun nedenini gör. Bağlantı profilde.
 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
