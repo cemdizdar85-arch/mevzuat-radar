@@ -109,9 +109,14 @@ jobs:
           sed -i -E "s/versionCode [0-9]+/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"$SURUM\"/" app/build.gradle
           grep -E "versionCode|versionName|applicationId" app/build.gradle
           echo "$ANAHTAR_B64" | base64 -d > app/yukleme.jks
+          # 09.10 (1.8.2): R8 ek kurallari (Google girisinin Class.forName ile aradigi siniflar vb.)
+          cp ../android-ek/tetikte-proguard.pro app/tetikte-proguard.pro
           cat >> app/build.gradle <<'EOF'
 
           // mobil-android.yml ekler: Play yukleme anahtari (sifre ortam degiskeninden, dosyaya yazilmaz)
+          // 09.10.2026: R8 kod + kaynak kucultme (Play "DEX optimizasyonu esigin altinda", son tarih Subat 2027).
+          // setProguardFiles listeyi DEGISTIRIR: sablonun proguard-android.txt'si (-dontoptimize) dusurulur.
+          // Capacitor + eklenti kurallari AAR'lardan consumer kurali olarak ayrica gelir.
           android {
               signingConfigs {
                   yukleme {
@@ -121,7 +126,14 @@ jobs:
                       keyPassword System.getenv('ANAHTAR_SIFRE')
                   }
               }
-              buildTypes { release { signingConfig signingConfigs.yukleme } }
+              buildTypes {
+                  release {
+                      signingConfig signingConfigs.yukleme
+                      minifyEnabled true
+                      shrinkResources true
+                      setProguardFiles([getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'tetikte-proguard.pro'])
+                  }
+              }
           }
           EOF
 
@@ -130,7 +142,14 @@ jobs:
         run: |
           ./gradlew --no-daemon bundleRelease
           ls -la app/build/outputs/bundle/release/
+          ls -la app/build/outputs/mapping/release/
           rm -f app/yukleme.jks
+
+      - name: R8 kapisi (adiyla aranan siniflar korundu mu)
+        working-directory: mobil
+        run: |
+          node r8-kapisi.js --sinav
+          node r8-kapisi.js android/app/build/outputs/mapping/release/mapping.txt android/app/src/main/assets/capacitor.plugins.json
 
       - name: Play'e yukle (servis hesabi varsa)
         id: play
@@ -141,6 +160,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.MOBIL_PLAY_SERVIS_JSON }}
           packageName: com.tetikte.app
           releaseFiles: mobil/android/app/build/outputs/bundle/release/app-release.aab
+          mappingFile: mobil/android/app/build/outputs/mapping/release/mapping.txt
           track: ${{ inputs.kanal }}
           status: ${{ inputs.durum }}
 
