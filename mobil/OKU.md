@@ -40,6 +40,15 @@ Kimlik: **`com.tetikte.app`** (Android + iOS aynı; değişmez, mağazada kalıc
 4. **KAPI-UCRETSIZ:** ücretsiz vitrin sınav başına en çok **30 soru** (Cem 25.09). Sitedeki vitrin 70'er
    soru; uygulamaya ders dağılımı korunarak 30'a kesilir (SGS 15 dersten 1–3'er, SMMM 8 dersten 3–4'er).
 
+5. **KAPI-SAYFA (09.10, Cem "1.8 seviyesini koy · siteye aynıları olsun"):** Kaydır-Çöz dışı site sayfaları
+   (`hazirla.js` `SITE_SAYFALARI`, bugün `seviye-testi.html`) uygulamaya **sorusuz** girer: soruyu sunucudan çeker.
+   Derleme sayfadan canonical, sayaç, `menu.js`, `komut.js/css`, `fiyat-motoru.js`, `uye-durumu.js` etiketlerini söker
+   (her biri TAM 1 kez bulunmalı; sayfa değişirse derleme durur), `stil.css` bağının ardına kütüphane + `ortak.js` +
+   `uygulama-sayfa.js` koyar, satış/hesap bağlarını `index.html#paketler` / `index.html`e, öteki site sayfalarını
+   `https://tetikte.com/…`e, `veri/` çekimlerini siteye çevirir (havuz taze kalır). `uygulama-sayfa.js` sayfanın
+   `uye-durumu.js`'ten beklediği `TetikteUye` + `__pkSb`'yi uygulamanın ayağından verir, iPhone'da satış çağrısı taşıyan
+   öğeleri kaldırır. Öz-sınav 5 vaka + mutasyon `sayfa`. **Site `seviye-testi.html`'i değiştirince `node mobil/hazirla-sinavi.js` koşulmalı.**
+
 ⚠ **Düzeltme (25.09):** ilk sürümde "420 ücretsiz soru" yazıyordu — YANLIŞTI. Sayaç soruyu değil
 `"dogru":` alanını sayıyordu (soru başına birden çok). Gerçek: SGS 70 + SMMM 70 = 140; uygulamada artık 30 + 30 = 60.
 **Kapıların göremediği:** kasa RLS'i (sunucuda), cihazda çalışma, bağlantısız satış cümlesi.

@@ -29,7 +29,7 @@ const HAZIRLA = path.join(__dirname, 'hazirla.js');
 
 /* --------- mutasyon kipi: kendini her kapı kör edilmiş olarak koşar, düşmesini bekler --------- */
 if (process.argv.includes('--mutasyon')) {
-  let tutan = 0; const MUT = ['kasa', 'sizinti', 'satis', 'yama', 'ucretsiz', 'ioskilit'];
+  let tutan = 0; const MUT = ['kasa', 'sizinti', 'satis', 'yama', 'ucretsiz', 'ioskilit', 'sayfa'];
   for (const m of MUT) {
     const r = spawnSync(process.execPath, [__filename], { env: Object.assign({}, process.env, { HZ_MUTASYON: m }), encoding: 'utf8' });
     const dustu = r.status !== 0;
@@ -50,9 +50,28 @@ const VITRIN = (ek, adet) => {
     '<script>const SORULAR=' + JSON.stringify(d) + ';' + (ek || '') + '</script></body></html>';
 };
 
+/* 09.10 site sayfası (seviye testi): hazirla.js SAYFA_SOK işaretlerinin her biri TAM 1 kez + stil.css bağı; satış ve hesap bağı
+   derlemede uygulama ekranına çevrilir. `eksik` verilen işaret sayfadan düşürülür (KAPI-SAYFA vakası). */
+const SEVIYE = (ek, eksik) => {
+  const satir = {
+    canonical: '<link rel="canonical" href="https://tetikte.com/seviye-testi.html">',
+    sayac: '<script data-goatcounter="https://x.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>',
+    menu: '<script src="menu.js" defer></script>', komutcss: '<link rel="stylesheet" href="komut.css">', komut: '<script src="komut.js" defer></script>',
+    fiyat: '<script src="fiyat-motoru.js?v=1"></script>', uye: '<script src="uye-durumu.js?v=1"></script>'
+  };
+  if (eksik) delete satir[eksik];
+  return '<!doctype html><html lang="tr"><head>' + satir.canonical + '<link rel="stylesheet" href="stil.css"></head><body>' +
+    '<a href="satin-al.html?paket=sgs">Tam bankayı aç →</a><a href="ogrenci.html?sonra=x#uye-ol">Hesap</a><a href="kvkk.html">KVKK</a>' +
+    '<script>' + "fetch('veri/seviye/sgs-havuz.json'); var al='fiyat.html';" + (ek || '') + '</script>' +
+    [satir.fiyat, satir.uye, satir.sayac, satir.menu, satir.komutcss, satir.komut].filter(Boolean).join('') + '</body></html>';
+};
+
 function kur(degisiklik) {
   const k = fs.mkdtempSync(path.join(os.tmpdir(), 'hz-sinav-'));
   const d = {
+    'seviye-testi.html': SEVIYE(),
+    'stil.css': '/* stil */', 'stil-acik.css': '/* acik */', 'tema-bas.js': '/* tema */', 'seviye-model.js': '/* m */', 'seviye-model-yet.js': '/* my */',
+    'nobetci-oynatici.js': '/* no */', 'kutu-esitle.js': '/* ke */', 'sinav-sonucu.js': '/* ss */',
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",
     'kutuphane/supabase-9.9.9.js': '/* kütüphane */',
@@ -110,7 +129,16 @@ const VAKALAR = [
   { ad: 'kasa-yukle.js yaması tutmadı (düğme metni değişmiş) → KAPI-SATIS', bekle: 1, desen: /KAPI-SATIS.*yaması tutmadı/,
     d: { 'kasa-yukle.js': "var PARCA = 100; async function cek(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketini yükselt'));" } },
   { ad: 'kasa-yukle.js cek() imzası değişmiş (kısa sınav kancası tutmaz) → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*karma kancası/,
-    d: { 'kasa-yukle.js': "var PARCA = 100; async function cekSorular(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));" } }
+    d: { 'kasa-yukle.js': "var PARCA = 100; async function cekSorular(sb) {} mesaj('x','y', dugme('../../satin-al.html', 'Paketi güncelle'));" } },
+  /* 09.10 site sayfası (seviye testi) */
+  { ad: 'seviye sayfası: satış + hesap bağı uygulama ekranına çevrilir, işaretler sökülür → YEŞİL', bekle: 0, desen: /HAZIRLA: YESIL/ },
+  { ad: 'seviye sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*seviye-testi\.html yok/, d: { 'seviye-testi.html': null } },
+  { ad: 'seviye sayfasında işaret eksik (fiyat-motoru.js) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*fiyat-motoru\.js.*bulunan 0/,
+    d: { 'seviye-testi.html': SEVIYE('', 'fiyat') } },
+  { ad: 'seviye sayfasında cevaplı soru → KAPI-SIZINTI (sayfa vitrin değil)', bekle: 1, desen: /KAPI-SIZINTI.*seviye-testi\.html/,
+    d: { 'seviye-testi.html': SEVIYE('var s={"dogru":"A"};') } },
+  { ad: 'seviye sayfasında çevrilmeyen satış bağı (mesafeli-satis) → KAPI-SATIS', bekle: 1, desen: /KAPI-SATIS.*seviye-testi\.html.*satış sayfasına bağ/,
+    d: { 'seviye-testi.html': SEVIYE("var m='mesafeli-satis.html';") } }
 ];
 
 let gecen = 0, toplam = 0;

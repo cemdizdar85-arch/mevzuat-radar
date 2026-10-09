@@ -157,7 +157,10 @@
   $('modUye').addEventListener('click', function () { modSec('uye'); });
   /* diğer dosyalar: TTGiris.ac('uye'|'giris') → Hesap sekmesinde o form */
   window.TTGiris = { ac: function (m) { modSec(m === 'giris' ? 'giris' : 'uye'); if (window.TTSekme) window.TTSekme.sec('hesap', 'giris'); } };
-  window.addEventListener('hashchange', function () { if (location.hash === '#uyeol') modSec('uye'); else if (location.hash === '#giris') modSec('giris'); });
+  window.addEventListener('hashchange', function () {
+    if (location.hash === '#uyeol') modSec('uye'); else if (location.hash === '#giris') modSec('giris');
+    else if (location.hash === '#paketler' && window.TTSekme) window.TTSekme.sec('hesap', 'paketler');
+  });
   $('modGiris').addEventListener('click', function () { modSec('giris'); });
   function olay(ad, tek) { if (window.TTOlay) window.TTOlay.say(ad, tek); }
   function platformAdi() { return (window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform()) || 'web'; }
@@ -387,7 +390,8 @@
 
   async function yenile() {
     var k = await window.TT.kullanici(sb);
-    if (k) return anaCiz(k);
+    /* 09.10: gömülü site sayfası (seviye testi) satış bağını index.html#paketler'e çevirir → Hesap sekmesindeki Paketler bölümü */
+    if (k) { var r = anaCiz(k); if (location.hash === '#paketler' && window.TTSekme) window.TTSekme.sec('hesap', 'paketler'); return r; }
     girisCiz();
     if (location.hash === '#giris') modSec('giris');
     if (location.hash === '#uyeol') modSec('uye');

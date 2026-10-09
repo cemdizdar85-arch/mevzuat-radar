@@ -49,6 +49,21 @@ const KASA_YAMA_YENI = "''";
 const KARMA_YAMA_ESKI = 'async function cek(sb) {';
 const KARMA_YAMA_YENI = 'async function cek(sb) {\n    if (window.TTKarma) return window.TTKarma.cek(sb);   /* mobil/hazirla.js yaması: uygulama-karma.js */';
 const SINAV_AD = { sgs: 'SGS', yeterlilik: 'SMMM Yeterlilik' };
+/* 09.10 (Cem "1.8 seviyesini koy · siteye aynıları olsun"): Kaydır-Çöz dışı site sayfaları. Soru TAŞIMAZLAR (sunucudan
+   çekerler); derleme siteye özgü parçaları söker (KAPI-SAYFA: her işaret tam 1 kez, yoksa sayfa değişmiştir, derleme durur).
+   Yardımcı betikler aynen kopyalanır; satış bağı taşıyanı (uye-durumu.js, fiyat-motoru.js) kopyalanmaz — uygulama-sayfa.js karşılar. */
+const SITE_SAYFALARI = ['seviye-testi.html'];
+const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js'];
+const SAYFA_SOK = [   // [ad, desen] — her biri sayfada TAM 1 kez bulunmalı, çıktıdan silinir
+  ['canonical', /<link rel="canonical"[^>]*>\n?/],
+  ['sayaç', /<script data-goatcounter=[^>]*><\/script>\n?/],
+  ['menu.js', /<script src="menu\.js" defer><\/script>\n?/],
+  ['komut.css', /<link rel="stylesheet" href="komut\.css">\n?/],
+  ['komut.js', /<script src="komut\.js" defer><\/script>\n?/],
+  ['fiyat-motoru.js', /<script src="fiyat-motoru\.js[^"]*"><\/script>\n?/],
+  ['uye-durumu.js', /<script src="uye-durumu\.js[^"]*"><\/script>\n?/]
+];
+const SAYFA_KANCA = '<link rel="stylesheet" href="stil.css">';   // uygulama betikleri bunun hemen ardına girer (tam 1 kez)
 const UCRETSIZ_SORU = 30;   // Cem 25.09: sınav başına 30 ücretsiz soru
 
 /* Sayfadaki `const SORULAR=[...]` dizisinin başını/sonunu dize kaçışlarına dikkat ederek bulur. */
@@ -152,6 +167,30 @@ for (const yol of kasaSayfalari) {
   const sinav = sinaviBul(yol);
   katalog.paket.push({ yol, baslik: baslikBul(yol), sinav, sinavAd: SINAV_AD[sinav] || '', adet: sayiBul(yol) });
 }
+
+/* ---------- 2b. site sayfaları (sorusuz; seviye testi) ---------- */
+const SAYFA_ETIKET = '<script src="' + kutuphane + '"></script><script src="ortak.js"></script><script src="uygulama-sayfa.js"></script>';
+for (const yol of SITE_SAYFALARI) {
+  if (!var_(yol)) { kapi('KAPI-SAYFA', false, yol + ' yok'); continue; }
+  let html = oku(yol);
+  for (const [ad, desen] of SAYFA_SOK) {
+    const n = say(html, new RegExp(desen.source, 'g'));
+    kapi('KAPI-SAYFA', n === 1, yol + ': "' + ad + '" işareti tam 1 kez olmalı (bulunan ' + n + ') — sayfa değişmiş, hazirla.js güncellenmeli');
+    html = html.replace(new RegExp(desen.source, 'g'), '');
+  }
+  const kanca = say(html, new RegExp(SAYFA_KANCA.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'));
+  kapi('KAPI-SAYFA', kanca === 1, yol + ': stil.css bağı tam 1 kez olmalı (bulunan ' + kanca + ')');
+  html = html.split(SAYFA_KANCA).join(SAYFA_KANCA + SAYFA_ETIKET);
+  /* satış ve site hesabı bağları uygulamanın kendi ekranına; öteki site sayfaları siteye (mutlak); veri dosyaları siteden (havuz taze kalsın) */
+  html = html.replace(/(satin-al|fiyat)\.html(\?[^"'#\s]*)?/g, 'index.html#paketler')
+    .replace(/ogrenci\.html(\?[^"'#\s]*)?(#[a-z-]+)?/g, 'index.html')
+    .replace(/href="([a-z0-9-]+\.html)([^"]*)"/g, (m, ad, kuyruk) =>
+      (ad === 'index.html' || SITE_SAYFALARI.indexOf(ad) >= 0) ? m : 'href="https://tetikte.com/' + ad + kuyruk + '"')
+    .replace(/fetch\('veri\//g, "fetch('https://tetikte.com/veri/");
+  yaz(yol, html);
+  katalog.sayfalar = (katalog.sayfalar || []).concat([yol]);
+}
+if (SITE_SAYFALARI.length) for (const ek of SITE_EK) { if (var_(ek)) kopyala(ek); else kapi('KAPI-SAYFA', false, ek + ' yok (site sayfası yardımcısı)'); }
 
 /* ---------- 3. ücretsiz vitrin (bilinçli açık) ---------- */
 let ucretsizSoru = 0;
