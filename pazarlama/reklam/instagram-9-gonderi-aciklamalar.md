@@ -14,7 +14,9 @@ Staja Giriş sınavı · Ticaret Hukuku
 
 2016'dan bu yana 32 Staja Giriş sınavı yapıldı. Kıymetli evrak (çek, bono, poliçe) 32'sinde de soruldu.
 
-Sorular tek tek okunarak sayıldı; hangi sınavın kaçıncı sorusu olduğu sitede açık: tetikte.com/en-cok-cikan-konular-sgs.html?k=ig
+Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ikinci kartta: kaydır.
+
+Sen hangisinde zorlanıyorsun: çek mi, bono mu, poliçe mi? Yorumlara yaz.
 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
@@ -40,7 +42,7 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 2026/2 Staja Giriş sınavında hangi konular soruldu, kaçıncı soru olarak; yanında aynı konunun son 32 sınavın kaçında çıktığı. Üç kart, kaydır.
 
-Tam liste: tetikte.com/en-cok-cikan-konular-sgs.html?k=ig
+Sorular tek tek okunarak sayıldı.
 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
@@ -58,7 +60,7 @@ Staja Giriş sınavı · Meslek Hukuku
 
 Disiplin cezaları son 32 Staja Giriş sınavının 31'inde soruldu. Meslek mensubu ücreti 28'inde, bağdaşmayan işler 24'ünde.
 
-Kanıtlı liste: tetikte.com/en-cok-cikan-konular-sgs.html?k=ig
+Disiplin cezalarının sorulduğu her sınav ve soru numarası ikinci kartta: kaydır.
 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
