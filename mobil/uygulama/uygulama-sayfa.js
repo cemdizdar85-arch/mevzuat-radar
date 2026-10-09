@@ -57,21 +57,45 @@
   })();
   if (!window.TetikteUye) window.TetikteUye = { hazir: hazir, onbellek: null };
 
-  /* 3. iPhone'da satış çağrısı yok */
+  /* 3. iPhone'da satış çağrısı yok (Apple 08.10 reddi: "How do users unlock exams?" — açılamayan/satışa çağıran hiçbir şey çizilmez).
+     (a) #paketler bağı ve data-tt-satis işaretli öğe kaldırılır; (b) görünür metinde "paket" geçen CÜMLE silinir
+     (ör. seviye testinin haftalık kutusu "O zamana kadar paketle her gün soru çöz…", Yanlışlarım "Paketli hesabınla…"). */
+  var IOS = !!(TT && TT.yalnizUcretsiz && TT.yalnizUcretsiz());
+  var PAKET_CUMLE = /[^.!?\n]*\bpaket\w*[^.!?\n]*[.!?]?\s*/gi;
+  function metinTemizle(kok) {
+    try {
+      var w = document.createTreeWalker(kok, NodeFilter.SHOW_TEXT, null), d, liste = [];
+      while ((d = w.nextNode())) liste.push(d);
+      liste.forEach(function (t) {
+        var e = t.parentNode && t.parentNode.nodeName;
+        if (e === 'SCRIPT' || e === 'STYLE' || e === 'TEXTAREA') return;
+        if (/paket/i.test(t.nodeValue)) t.nodeValue = t.nodeValue.replace(PAKET_CUMLE, '');
+      });
+    } catch (x) {}
+  }
   function satisSok(kapsam) {
-    if (!(TT && TT.yalnizUcretsiz && TT.yalnizUcretsiz())) return;
-    var liste = (kapsam && kapsam.querySelectorAll ? kapsam : document).querySelectorAll('a[href*="#paketler"],[data-tt-satis]');
+    if (!IOS) return;
+    var k = kapsam && kapsam.querySelectorAll ? kapsam : document;
+    var liste = k.querySelectorAll('a[href*="#paketler"],[data-tt-satis]');
     for (var i = 0; i < liste.length; i++) { var e = liste[i]; if (e.parentNode) e.parentNode.removeChild(e); }
+    metinTemizle(k === document ? document.body : k);
   }
   function gozlemci() {
+    if (!IOS) return;
+    document.documentElement.classList.add('tt-ios');
     satisSok(document);
     try {
       new MutationObserver(function (kayitlar) {
         for (var i = 0; i < kayitlar.length; i++) {
-          var ek = kayitlar[i].addedNodes;
-          for (var j = 0; j < ek.length; j++) if (ek[j].nodeType === 1) satisSok(ek[j]);
+          var r = kayitlar[i];
+          if (r.type === 'characterData') { if (/paket/i.test(r.target.nodeValue || '')) metinTemizle(r.target.parentNode || document.body); continue; }
+          var ek = r.addedNodes;
+          for (var j = 0; j < ek.length; j++) {
+            if (ek[j].nodeType === 1) satisSok(ek[j]);
+            else if (ek[j].nodeType === 3 && /paket/i.test(ek[j].nodeValue) && ek[j].parentNode) metinTemizle(ek[j].parentNode);
+          }
         }
-      }).observe(document.documentElement, { childList: true, subtree: true });
+      }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
     } catch (e) {}
   }
   if (document.body) gozlemci(); else document.addEventListener('DOMContentLoaded', gozlemci);

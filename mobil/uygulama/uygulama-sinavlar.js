@@ -146,27 +146,46 @@
     if (o.ucr) {
       var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan, top = o.ucr.adet || 30;
       h += '<a class="ilerKart" href="' + esc(o.ucr.yol) + '"><span class="iUst"><span class="iAd">Örnek sorular<small>' + sayi(top) +
-        ' soru · ilk 3 soru kayıt olmadan</small></span><span class="iDugme">' + (n ? 'Devam et' : 'Başla') + ik('ok') + '</span></span>' +
+        ' soru · ücretsiz</small></span><span class="iDugme">' + (n ? 'Devam et' : 'Başla') + ik('ok') + '</span></span>' +
         '<span class="iCubuk"><i style="width:' + Math.min(100, Math.round(n / top * 100)) + '%"></i></span>' +
         '<span class="iAlt">' + n + ' / ' + top + ' soru çözüldü</span></a>';
     } else h += '<div class="kart bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
     /* 09.10 (Cem "1.8 seviyesini koy · siteye aynıları olsun"): sitedeki 30 soruluk seviye testi uygulamada — seviye-testi.html
        derlemede gömülür (hazirla.js 2b, köprü uygulama-sayfa.js). Ücretsiz içerik: kilitsiz, iPhone'da da görünür. */
-    if (s !== 'kgk' && (K.sayfalar || []).indexOf('seviye-testi.html') >= 0) {
+    if (s !== 'kgk' && sayfaVar('seviye-testi.html')) {
       h += '<a class="ilerKart" href="seviye-testi.html' + (s === 'yeterlilik' ? '?sinav=yeterlilik' : '') + '"><span class="iUst"><span class="iAd">30 soruda seviyeni ölç<small>' +
         'Geçme ihtimalin ve ders ders karnen · 20 dakika</small></span><span class="iDugme">Başla' + ik('ok') + '</span></span></a>';
+    }
+    /* 09.10 1.8.1 canlı deneme (sitedeki canli-deneme.html): ücretsiz, herkes aynı anda; sayfa sıradaki denemeyi kendisi okur */
+    if (s !== 'kgk' && sayfaVar('canli-deneme.html')) {
+      h += '<a class="ilerKart" href="canli-deneme.html"><span class="iUst"><span class="iAd">Canlı deneme<small>' +
+        'Herkesle aynı anda, sınav saatinde · ücretsiz</small></span><span class="iDugme">Aç' + ik('ok') + '</span></span></a>';
     }
     if (yu) { $('sinavUst').innerHTML = h; return; }
 
     /* çalışma yolları: 2×2 kart ızgarası, her yolun kendi renkli ikonu; kilit ve "yakında" köşe rozeti */
+    /* 09.10 1.8.1 "Sınav gibi" = sitedeki sinav-gibi.html (130 soru, 165 dk; yalnız SGS setleri var) */
+    var denemeVar = s === 'sgs' && sayfaVar('sinav-gibi.html');
     h += '<span class="etk">Çalışma</span><div class="bento">';
     YOLLAR.forEach(function (y) {
+      if (y.id === 'deneme') y = { id: y.id, ad: y.ad, alt: denemeVar ? '130 soru, 165 dakika' : y.alt, ikon: y.ikon, renk: y.renk, hazir: denemeVar };
       var kilitli = !acik, gidilir = y.hazir && (y.id === 'dersler' || !kilitli);
       h += '<button type="button" class="bKart ' + y.renk + (y.hazir ? '' : ' yakinda') + '" data-yol="' + y.id + '"' + (gidilir || kilitli ? '' : ' disabled') + '>' +
         '<span class="bIk">' + ik(y.ikon) + '</span>' +
         (!y.hazir ? '<span class="bRozet">Yakında</span>' : kilitli ? '<span class="bRozet kilitR">' + ik('kilit') + '</span>' : '') +
         '<b>' + esc(y.ad) + '</b><small>' + esc(y.alt) + '</small></button>';
     });
+    h += '</div>';
+    /* 09.10 1.8.1 (sitenin ana sayfasıyla aynı): 20 konu denemesi (pakette) · konu listesi + Yanlışlarım (ücretsiz).
+       iPhone'da satış kapalıyken buraya gelinmez (yukarıdaki yu dönüşü): kilitli/pakete çağıran öğe çizilmez. */
+    var konuSayfa = 'en-cok-cikan-konular-' + (s === 'yeterlilik' ? 'yeterlilik' : 'sgs') + '.html';
+    h += '<div class="satirlar" style="margin-top:14px">';
+    if (sayfaVar('sinav-gibi.html')) {
+      h += '<button type="button" class="srt" data-yol="sik">' + ik('alev') + '<span class="ad">En çok sorulan 20 konu denemesi<small>40 soru, 50 dakika' +
+        (acik ? '' : ' · pakette') + '</small></span>' + (acik ? OK : ik('kilit', 'ok')) + '</button>';
+    }
+    if (sayfaVar(konuSayfa)) h += '<a class="srt" href="' + konuSayfa + '">' + ik('kitap') + '<span class="ad">En çok çıkan konular<small>Son 10 yılın listesi · ücretsiz</small></span>' + OK + '</a>';
+    if (sayfaVar('yanlislarim.html')) h += '<a class="srt" href="yanlislarim.html">' + ik('tekrar') + '<span class="ad">Yanlışlarım<small>2 gün sonra yeniden, bilirsen 7 gün sonra son tur</small></span>' + OK + '</a>';
     h += '</div>';
     if (!acik) h += kilitBandi();
     $('sinavUst').innerHTML = h;
@@ -178,9 +197,12 @@
         var kabuk = o.acik[0];
         if (b.dataset.yol === 'kisa') return git('kisa', s, true);
         if (b.dataset.yol === 'cok' && kabuk) location.href = kabuk + '?karma=cok&n=20';
+        if (b.dataset.yol === 'deneme' && denemeVar) location.href = 'sinav-gibi.html';
+        if (b.dataset.yol === 'sik') location.href = 'sinav-gibi.html?tur=sik' + (s === 'yeterlilik' ? '&sinav=smmm' : '');
       };
     });
   }
+  function sayfaVar(y) { return (K.sayfalar || []).indexOf(y) >= 0; }
 
   /* kısa sınav: 10 ya da 20 soru; soru başına 90 sn */
   function kisaCiz(s) {

@@ -48,6 +48,14 @@ Kimlik: **`com.tetikte.app`** (Android + iOS aynı; değişmez, mağazada kalıc
    `https://tetikte.com/…`e, `veri/` çekimlerini siteye çevirir (havuz taze kalır). `uygulama-sayfa.js` sayfanın
    `uye-durumu.js`'ten beklediği `TetikteUye` + `__pkSb`'yi uygulamanın ayağından verir, iPhone'da satış çağrısı taşıyan
    öğeleri kaldırır. Öz-sınav 5 vaka + mutasyon `sayfa`. **Site `seviye-testi.html`'i değiştirince `node mobil/hazirla-sinavi.js` koşulmalı.**
+   **1.8.1 (09.10, Cem "hepsi gelsin"):** + `yanlislarim.html` · `canli-deneme.html` · `en-cok-cikan-konular-{sgs,yeterlilik}.html` ·
+   `sinav-gibi.html` (Sınav gibi + `?tur=sik` 20 konu denemesi; `paket:true` → kapı `uygulama-kapisi.js`, `?sinav=smmm` Yeterlilik paketi
+   arar, site 07.10 ile aynı) · "💬 Nöbetçiye sor" açılmış ders sayfasında (`uygulama-kapisi.js` `ac()` yükler, vitrinde yok) ·
+   örnek sorular sitedeki gibi **5'er** (`kaydir/vitrin/ornek-*.html`). Sayfa başına söküm listesi `SITE_SAYFALARI[].sok`.
+   **Veri köprüsü** (`ortak.js` başı): aynı kökten `…/veri/…` isteği `https://tetikte.com/veri/…`'ye gider (paket veri taşımaz);
+   sayfanın CSP'si varsa derleme `connect-src`'ye siteyi ekler. **iPhone (satış kapalı):** `uygulama-sayfa.js` `#paketler` bağını,
+   `data-tt-satis` öğeyi (`iosGizle`, seviye `svTeklif`) ve görünür metinde "paket" geçen cümleyi siler; sınav ekranında yalnız
+   ücretsiz kartlar (örnek · seviye · canlı deneme) çizilir, Yanlışlarım/konu listesi/denemeler Android'de.
 
 ⚠ **Düzeltme (25.09):** ilk sürümde "420 ücretsiz soru" yazıyordu — YANLIŞTI. Sayaç soruyu değil
 `"dogru":` alanını sayıyordu (soru başına birden çok). Gerçek: SGS 70 + SMMM 70 = 140; uygulamada artık 30 + 30 = 60.

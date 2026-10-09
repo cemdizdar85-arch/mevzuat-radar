@@ -92,7 +92,19 @@
   function ac(sb) {
     if (bitti) return; bitti = true;
     kok.classList.remove('pk-bekle');
+    /* 09.10 1.8.1: paket-kapisi.js gibi istemciyi paylaş (nobetci-sor.js, kutu-esitle.js window.__pkSb okur) */
+    if (!window.__pkSb) window.__pkSb = sb;
     kapiCoz({ acik: true, sb: sb });
+    /* 09.10 1.8.1 "💬 Nöbetçiye sor" (sitede paket-kapisi.js yükler): yalnız açılmış ders sayfasında; vitrinde yok (site 08.10 kararı) */
+    if (/\/kaydir\//.test(location.pathname) && !vitrin && !window.__nobetciYuklendi) {
+      window.__nobetciYuklendi = true;
+      var s = document.createElement('script'); s.src = KOK + 'nobetci-sor.js'; s.defer = true; document.head.appendChild(s);
+    }
+  }
+  /* 09.10 1.8.1: sinav-gibi.html?sinav=smmm Yeterlilik setidir → Yeterlilik paketi aranır (paket-kapisi.js 07.10 ile aynı) */
+  function sayfaSinavi() {
+    if (/sinav-gibi\.html$/.test(location.pathname) && /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search)) return 'yeterlilik';
+    return window.TT.sinaviBul(location.pathname);
   }
   function perde(tur) {
     if (bitti) return; bitti = true;
@@ -158,7 +170,7 @@
       if (!k) { clearTimeout(zaman); return perde('giris'); }
       var p = await window.TT.paketler(sb, k.id);
       clearTimeout(zaman);
-      if (window.TT.acarMi(p.satir, window.TT.sinaviBul(location.pathname))) {
+      if (window.TT.acarMi(p.satir, sayfaSinavi())) {
         ac(sb);
         if (!k.cevrimdisi && !p.cevrimdisi) cihazKorumasi(sb, k);
         return;

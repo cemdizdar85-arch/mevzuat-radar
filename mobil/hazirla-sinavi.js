@@ -61,17 +61,25 @@ const SEVIYE = (ek, eksik) => {
   };
   if (eksik) delete satir[eksik];
   return '<!doctype html><html lang="tr"><head>' + satir.canonical + '<link rel="stylesheet" href="stil.css"></head><body>' +
-    '<a href="satin-al.html?paket=sgs">Tam bankayı aç →</a><a href="ogrenci.html?sonra=x#uye-ol">Hesap</a><a href="kvkk.html">KVKK</a>' +
+    '<div id="svTeklif"><a href="satin-al.html?paket=sgs">Tam bankayı aç →</a></div><a href="ogrenci.html?sonra=x#uye-ol">Hesap</a><a href="kvkk.html">KVKK</a>' +
     '<script>' + "fetch('veri/seviye/sgs-havuz.json'); var al='fiyat.html';" + (ek || '') + '</script>' +
     [satir.fiyat, satir.uye, satir.sayac, satir.menu, satir.komutcss, satir.komut].filter(Boolean).join('') + '</body></html>';
 };
+/* 09.10 1.8.1 öteki site sayfaları: hepsi bütün söküm işaretlerini taşır (listelenmeyen işaret çıktıda kalır, zararsız);
+   sinav-gibi.html ayrıca kökteki paket-kapisi.js etiketini taşır. */
+const SITE_DIGER = ['yanlislarim.html', 'canli-deneme.html', 'en-cok-cikan-konular-sgs.html', 'en-cok-cikan-konular-yeterlilik.html'];
+const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" href="stil.css">', kapisiz ? '' : '<script src="paket-kapisi.js"></script>')
+  .replace('<a href="ogrenci.html', '<a href="sorular.html#sgs">Soru çöz</a><a href="ogrenci.html');
+const SITE_EK_SAHTE = {};
+['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js',
+  'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
 
 function kur(degisiklik) {
   const k = fs.mkdtempSync(path.join(os.tmpdir(), 'hz-sinav-'));
-  const d = {
+  const d = Object.assign({
     'seviye-testi.html': SEVIYE(),
-    'stil.css': '/* stil */', 'stil-acik.css': '/* acik */', 'tema-bas.js': '/* tema */', 'seviye-model.js': '/* m */', 'seviye-model-yet.js': '/* my */',
-    'nobetci-oynatici.js': '/* no */', 'kutu-esitle.js': '/* ke */', 'sinav-sonucu.js': '/* ss */',
+    'sinav-gibi.html': SINAV_GIBI()
+  }, SITE_EK_SAHTE, Object.fromEntries(SITE_DIGER.map((y) => [y, SEVIYE()])), {
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",
     'kutuphane/supabase-9.9.9.js': '/* kütüphane */',
@@ -82,8 +90,8 @@ function kur(degisiklik) {
     'kaydir/sgs/index.html': '<a class="kart" href="turkce.html"><div class="ad">T&#252;rk&#231;e</div></a>',
     'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html'),
     'kaydir/sgs/maliye.html': '<html><script>const SORULAR=[{"dogru":"A"}]</script></html>',
-    'kaydir/vitrin/sgs.html': VITRIN()
-  };
+    'kaydir/vitrin/ornek-sgs.html': VITRIN()
+  });
   Object.assign(d, degisiklik || {});
   for (const [g, icerik] of Object.entries(d)) {
     if (icerik === null) continue;
@@ -107,13 +115,13 @@ function kos(kok) {
 const VAKALAR = [
   { ad: 'temiz kabuk + vitrin → YEŞİL', bekle: 0 },
   { ad: 'vitrinde cevaplı soru + "fiyat" kelimesi → YEŞİL (yanlış alarm yok)', bekle: 0,
-    d: { 'kaydir/vitrin/sgs.html': VITRIN('var not="fiyatı yükselen mal";') } },
+    d: { 'kaydir/vitrin/ornek-sgs.html': VITRIN('var not="fiyatı yükselen mal";') } },
   { ad: 'vitrin 70 soru → 30\'a kesilir (sınav başına 30 ücretsiz)', bekle: 0, desen: /ücretsiz 1 sayfa\/30 soru/,
-    d: { 'kaydir/vitrin/sgs.html': VITRIN('', 70) } },
+    d: { 'kaydir/vitrin/ornek-sgs.html': VITRIN('', 70) } },
   { ad: 'vitrin 12 soru → dokunulmaz (12)', bekle: 0, desen: /ücretsiz 1 sayfa\/12 soru/,
-    d: { 'kaydir/vitrin/sgs.html': VITRIN('', 12) } },
+    d: { 'kaydir/vitrin/ornek-sgs.html': VITRIN('', 12) } },
   { ad: 'vitrinde SORULAR dizisi okunamıyor → KAPI-UCRETSIZ', bekle: 1, desen: /KAPI-UCRETSIZ/,
-    d: { 'kaydir/vitrin/sgs.html': '<html><head><script src="../../paket-kapisi.js"></script></head><body><script>const SORULAR=[{bozuk</script></body></html>' } },
+    d: { 'kaydir/vitrin/ornek-sgs.html': '<html><head><script src="../../paket-kapisi.js"></script></head><body><script>const SORULAR=[{bozuk</script></body></html>' } },
   { ad: 'kasa sayfasında gömülü SORULAR → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*gömülü/,
     d: { 'kaydir/sgs/turkce.html': KABUK('kaydir/sgs/turkce.html', '<script>const SORULAR=[{"x":1}]</script>') } },
   { ad: 'kabuk işareti yok (eski gömülü sayfa listeye yazılmış) → KAPI-KASA', bekle: 1, desen: /KAPI-KASA.*işareti yok/,
@@ -133,12 +141,19 @@ const VAKALAR = [
   /* 09.10 site sayfası (seviye testi) */
   { ad: 'seviye sayfası: satış + hesap bağı uygulama ekranına çevrilir, işaretler sökülür → YEŞİL', bekle: 0, desen: /HAZIRLA: YESIL/ },
   { ad: 'seviye sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*seviye-testi\.html yok/, d: { 'seviye-testi.html': null } },
-  { ad: 'seviye sayfasında işaret eksik (fiyat-motoru.js) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*fiyat-motoru\.js.*bulunan 0/,
+  { ad: 'seviye sayfasında işaret eksik (fiyat-motoru.js) → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*"fiyat".*bulunan 0/,
     d: { 'seviye-testi.html': SEVIYE('', 'fiyat') } },
   { ad: 'seviye sayfasında cevaplı soru → KAPI-SIZINTI (sayfa vitrin değil)', bekle: 1, desen: /KAPI-SIZINTI.*seviye-testi\.html/,
     d: { 'seviye-testi.html': SEVIYE('var s={"dogru":"A"};') } },
   { ad: 'seviye sayfasında çevrilmeyen satış bağı (mesafeli-satis) → KAPI-SATIS', bekle: 1, desen: /KAPI-SATIS.*seviye-testi\.html.*satış sayfasına bağ/,
-    d: { 'seviye-testi.html': SEVIYE("var m='mesafeli-satis.html';") } }
+    d: { 'seviye-testi.html': SEVIYE("var m='mesafeli-satis.html';") } },
+  /* 09.10 1.8.1 */
+  { ad: 'sınav gibi sayfasında paket-kapisi.js etiketi yok → KAPI-SAYFA (kilit uygulamaya taşınamaz)', bekle: 1, desen: /KAPI-SAYFA.*sinav-gibi\.html.*paket-kapisi/,
+    d: { 'sinav-gibi.html': SINAV_GIBI('', true) } },
+  { ad: 'seviye sayfasında iPhone gizleme kimliği (svTeklif) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*svTeklif/,
+    d: { 'seviye-testi.html': SEVIYE().replace('id="svTeklif"', 'id="baska"') } },
+  { ad: 'yanlışlarım sayfası yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*yanlislarim\.html yok/, d: { 'yanlislarim.html': null } },
+  { ad: 'canlı deneme yardımcısı (tema.js) yok → KAPI-SAYFA', bekle: 1, desen: /KAPI-SAYFA.*tema\.js yok/, d: { 'tema.js': null } }
 ];
 
 let gecen = 0, toplam = 0;

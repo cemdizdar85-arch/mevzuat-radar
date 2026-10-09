@@ -23,6 +23,25 @@
  */
 (function () {
   if (window.TT) return;
+  /* 09.10 1.8.1 VERİ KÖPRÜSÜ: uygulamaya gömülen site sayfaları (seviye testi, canlı deneme, sınav gibi…) `veri/…` dosyalarını
+     göreli çeker; o dosyalar pakette YOK (soru havuzu, deneme setleri, canlı paket sitede tazelenir). Aynı kökten /veri/ isteği
+     siteye yönlenir; başka hiçbir istek değişmez. GitHub Pages CORS açık (Access-Control-Allow-Origin: *). */
+  try {
+    if (typeof window.fetch === 'function' && typeof location !== 'undefined' && !window.__ttVeriKoprusu) {
+      window.__ttVeriKoprusu = true;
+      var asilFetch = window.fetch.bind(window);
+      window.fetch = function (girdi, ayar) {
+        try {
+          if (typeof girdi === 'string') {
+            var u = new URL(girdi, location.href);
+            var m = u.protocol === location.protocol && u.host === location.host && u.pathname.match(/\/veri\/.+$/);
+            if (m) girdi = 'https://tetikte.com' + m[0] + u.search;
+          }
+        } catch (e) {}
+        return asilFetch(girdi, ayar);
+      };
+    }
+  } catch (e) {}
   var SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co';
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var ONBELLEK_DESENI = /\/rest\/v1\/(paket_uyeler)\?/;   /* 09.10: paket_soru çıkarıldı (içerik cihaza yazılmaz) */

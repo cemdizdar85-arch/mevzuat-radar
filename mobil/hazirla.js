@@ -38,7 +38,8 @@ const MOBIL = path.join(KOK, 'mobil');
 const CIKTI = path.resolve(arg('--cikti', path.join(MOBIL, 'www')));
 const MUTASYON = process.env.HZ_MUTASYON || '';
 
-const VITRIN = ['kaydir/vitrin/sgs.html', 'kaydir/vitrin/smmm.html'];
+/* 09.10 (Cem "siteye aynıları olsun"): sitenin ana sayfası artık "5 örnek soru çöz" (ornek-*.html) veriyor; eski 10'luk vitrin uygulamadan çıktı */
+const VITRIN = ['kaydir/vitrin/ornek-sgs.html', 'kaydir/vitrin/ornek-smmm.html'];
 const KAPI_ETIKETI = '<script src="../../paket-kapisi.js"></script>';
 const KASA_ISARETI = 'const SORULAR=window.__KASA_SORULAR||[]';
 const SATIS_BAG = /(satin-al|fiyat|radar-fiyat|mesafeli-satis)\.html/i;
@@ -52,18 +53,31 @@ const SINAV_AD = { sgs: 'SGS', yeterlilik: 'SMMM Yeterlilik' };
 /* 09.10 (Cem "1.8 seviyesini koy · siteye aynıları olsun"): Kaydır-Çöz dışı site sayfaları. Soru TAŞIMAZLAR (sunucudan
    çekerler); derleme siteye özgü parçaları söker (KAPI-SAYFA: her işaret tam 1 kez, yoksa sayfa değişmiştir, derleme durur).
    Yardımcı betikler aynen kopyalanır; satış bağı taşıyanı (uye-durumu.js, fiyat-motoru.js) kopyalanmaz — uygulama-sayfa.js karşılar. */
-const SITE_SAYFALARI = ['seviye-testi.html'];
-const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js'];
-const SAYFA_SOK = [   // [ad, desen] — her biri sayfada TAM 1 kez bulunmalı, çıktıdan silinir
-  ['canonical', /<link rel="canonical"[^>]*>\n?/],
-  ['sayaç', /<script data-goatcounter=[^>]*><\/script>\n?/],
-  ['menu.js', /<script src="menu\.js" defer><\/script>\n?/],
-  ['komut.css', /<link rel="stylesheet" href="komut\.css">\n?/],
-  ['komut.js', /<script src="komut\.js" defer><\/script>\n?/],
-  ['fiyat-motoru.js', /<script src="fiyat-motoru\.js[^"]*"><\/script>\n?/],
-  ['uye-durumu.js', /<script src="uye-durumu\.js[^"]*"><\/script>\n?/]
+/* 09.10 1.8.1 (Cem "hepsi gelsin, 1.8.1 olsun"): + Yanlışlarım · canlı deneme · konu listeleri · Sınav gibi / 20 konu denemesi.
+   sok: o sayfada TAM 1 kez bulunması gereken site parçaları (bulunmazsa KAPI-SAYFA, derleme durur).
+   paket: sayfa paket-kapisi.js taşıyor → uygulama-kapisi.js'e çevrilir (kilit uygulamada), uygulama-sayfa.js girmez.
+   iosGizle: iPhone'da satış kapalıyken gizlenecek öğe kimlikleri (Apple 2.1/3.1.1: kilitli ya da satışa çağıran şey çizilmez). */
+const SITE_SAYFALARI = [
+  { yol: 'seviye-testi.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut', 'fiyat', 'uye'], iosGizle: ['svTeklif'] },
+  { yol: 'yanlislarim.html', sok: ['sayac', 'menu', 'komutcss', 'komut', 'uye'] },
+  { yol: 'canli-deneme.html', sok: ['menu', 'komutcss', 'komut'] },
+  { yol: 'en-cok-cikan-konular-sgs.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut'] },
+  { yol: 'en-cok-cikan-konular-yeterlilik.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut'] },
+  { yol: 'sinav-gibi.html', sok: ['sayac', 'menu', 'komutcss', 'komut'], paket: true }
 ];
+const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js',
+  'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js'];
+const SAYFA_SOK = {   // ad → desen
+  canonical: /<link rel="canonical"[^>]*>\n?/,
+  sayac: /<script data-goatcounter=[^>]*><\/script>\n?/,
+  menu: /<script src="menu\.js" defer><\/script>\n?/,
+  komutcss: /<link rel="stylesheet" href="komut\.css">\n?/,
+  komut: /<script src="komut\.js" defer><\/script>\n?/,
+  fiyat: /<script src="fiyat-motoru\.js[^"]*"><\/script>\n?/,
+  uye: /<script src="uye-durumu\.js[^"]*"><\/script>\n?/
+};
 const SAYFA_KANCA = '<link rel="stylesheet" href="stil.css">';   // uygulama betikleri bunun hemen ardına girer (tam 1 kez)
+const KOK_KAPI = '<script src="paket-kapisi.js"></script>';      // kökteki paket sayfasının kapı etiketi (sinav-gibi.html)
 const UCRETSIZ_SORU = 30;   // Cem 25.09: sınav başına 30 ücretsiz soru
 
 /* Sayfadaki `const SORULAR=[...]` dizisinin başını/sonunu dize kaçışlarına dikkat ederek bulur. */
@@ -168,25 +182,48 @@ for (const yol of kasaSayfalari) {
   katalog.paket.push({ yol, baslik: baslikBul(yol), sinav, sinavAd: SINAV_AD[sinav] || '', adet: sayiBul(yol) });
 }
 
-/* ---------- 2b. site sayfaları (sorusuz; seviye testi) ---------- */
+/* ---------- 2b. site sayfaları (sorusuz: seviye testi, yanlışlarım, canlı deneme, konu listeleri, sınav gibi) ---------- */
 const SAYFA_ETIKET = '<script src="' + kutuphane + '"></script><script src="ortak.js"></script><script src="uygulama-sayfa.js"></script>';
-for (const yol of SITE_SAYFALARI) {
+const KOK_KAPI_YENI = '<script src="' + kutuphane + '"></script><script src="ortak.js"></script><script src="uygulama-kapisi.js"></script>';
+const kac = (metin, duz) => metin.split(duz).length - 1;
+const UYG_SAYFA = ['index.html'].concat(SITE_SAYFALARI.map((s) => s.yol));
+for (const sy of SITE_SAYFALARI) {
+  const yol = sy.yol;
   if (!var_(yol)) { kapi('KAPI-SAYFA', false, yol + ' yok'); continue; }
   let html = oku(yol);
-  for (const [ad, desen] of SAYFA_SOK) {
+  for (const ad of sy.sok) {
+    const desen = SAYFA_SOK[ad];
     const n = say(html, new RegExp(desen.source, 'g'));
     kapi('KAPI-SAYFA', n === 1, yol + ': "' + ad + '" işareti tam 1 kez olmalı (bulunan ' + n + ') — sayfa değişmiş, hazirla.js güncellenmeli');
     html = html.replace(new RegExp(desen.source, 'g'), '');
   }
-  const kanca = say(html, new RegExp(SAYFA_KANCA.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'));
-  kapi('KAPI-SAYFA', kanca === 1, yol + ': stil.css bağı tam 1 kez olmalı (bulunan ' + kanca + ')');
-  html = html.split(SAYFA_KANCA).join(SAYFA_KANCA + SAYFA_ETIKET);
-  /* satış ve site hesabı bağları uygulamanın kendi ekranına; öteki site sayfaları siteye (mutlak); veri dosyaları siteden (havuz taze kalsın) */
+  if (sy.paket) {
+    const n = kac(html, KOK_KAPI);
+    kapi('KAPI-SAYFA', n === 1, yol + ': paket-kapisi.js etiketi tam 1 kez olmalı (bulunan ' + n + ')');
+    html = html.split(KOK_KAPI).join(KOK_KAPI_YENI);
+  } else {
+    const n = kac(html, SAYFA_KANCA);
+    kapi('KAPI-SAYFA', n === 1, yol + ': stil.css bağı tam 1 kez olmalı (bulunan ' + n + ')');
+    html = html.split(SAYFA_KANCA).join(SAYFA_KANCA + SAYFA_ETIKET);
+  }
+  /* sayfanın kendi güvenlik politikası (CSP) varsa veri köprüsünün gideceği site eklenir (yanlislarim.html: connect-src 'self' → sitede veri/ 'self'ti) */
+  const csp = kac(html, "connect-src 'self'");
+  kapi('KAPI-SAYFA', csp <= 1, yol + ": connect-src 'self' en çok 1 kez olmalı (bulunan " + csp + ')');
+  html = html.split("connect-src 'self'").join("connect-src 'self' https://tetikte.com");
+  for (const id of sy.iosGizle || []) {
+    const n = kac(html, 'id="' + id + '"');
+    kapi('KAPI-SAYFA', n === 1, yol + ': iPhone gizleme kimliği "' + id + '" tam 1 kez olmalı (bulunan ' + n + ')');
+    html = html.split('id="' + id + '"').join('id="' + id + '" data-tt-satis');
+  }
+  /* satış → uygulamanın Paketler bölümü · hesap → uygulama girişi · soru listesi → uygulama sınav ekranı ·
+     uygulamada olmayan site sayfası → siteye (mutlak) · yerel dosyada ?v= sürüm eki atılır (dosya pakette, önbellek kırıcı gereksiz).
+     veri/ çekimleri ortak.js'teki fetch köprüsüyle siteden gelir (havuz/deneme/canlı paket taze kalır). */
   html = html.replace(/(satin-al|fiyat)\.html(\?[^"'#\s]*)?/g, 'index.html#paketler')
-    .replace(/ogrenci\.html(\?[^"'#\s]*)?(#[a-z-]+)?/g, 'index.html')
+    .replace(/ogrenci\.html(\?[^"'#\s]*)?(#[a-z-]+)?/g, 'index.html#giris')
+    .replace(/sorular\.html(#[a-z]+)?/g, 'index.html')
+    .replace(/((?:src|href)=")([a-z0-9-]+\.(?:js|css))\?v=[^"]*"/g, '$1$2"')
     .replace(/href="([a-z0-9-]+\.html)([^"]*)"/g, (m, ad, kuyruk) =>
-      (ad === 'index.html' || SITE_SAYFALARI.indexOf(ad) >= 0) ? m : 'href="https://tetikte.com/' + ad + kuyruk + '"')
-    .replace(/fetch\('veri\//g, "fetch('https://tetikte.com/veri/");
+      UYG_SAYFA.indexOf(ad) >= 0 ? m : 'href="https://tetikte.com/' + ad + kuyruk + '"');
   yaz(yol, html);
   katalog.sayfalar = (katalog.sayfalar || []).concat([yol]);
 }
