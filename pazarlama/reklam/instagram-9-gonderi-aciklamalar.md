@@ -30,11 +30,17 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 Staja Giriş sınavı · Mali Tablolar Analizi
 
-Faaliyet kârını bulurken finansman giderini de düştüysen 90.000 çıkar. Doğrusu 120.000: finansman gideri faaliyet kârından sonra gelir.
+Faaliyet kârı kaç? Cevabını yorumlara yaz, sonra videoyu izle.
+
+90.000 dediysen tuzağa düştün: finansman giderini de düşmüşsün. Doğrusu 120.000, çünkü finansman gideri faaliyet kârından SONRA gelir.
 
 Tuzak Sözlüğü #1. Her bölümde adı konmuş bir tuzak, gerçek bir soruyla.
 
+Bu tuzağa sınavda düşmemek için tetikte.com'da soru çöz: 30 soruda seviyeni ücretsiz ölç, her yanlışın nedenini gör. Bağlantı profilde.
+
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#stajagiris #sgs #smmmstaj #malitablolaranalizi #muhasebe #tuzaksozlugu
 
 ## 03 · Ürün kartı: "Yanlış yaptın. Nedenini anında gör." (gün 1)
 
