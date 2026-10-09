@@ -1,74 +1,62 @@
 {
-  "olcum": "2026-10-08T00:55:14.477Z",
-  "gun": "2026-10-08",
+  "olcum": "2026-10-09T01:09:33.126Z",
+  "gun": "2026-10-09",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 0,
+      "sira": 1,
       "toplam": 10,
-      "id": "sgs-t2-fmuh-cokzor/kp-01",
-      "ders": "Finansal Muhasebe",
-      "konu": "muhasebe bilgi sistemi",
-      "donem": 10,
-      "teori": true,
+      "id": "sgs-t1-denetim-cokzor/kp-01",
+      "ders": "Denetim",
+      "konu": "denetim kanıtı yeterliliği",
+      "donem": 9,
+      "teori": false,
       "rakamSik": false,
-      "soru": "İşletmenin muhasebe departmanı 2026 yılı Aralık ayında şu işlemleri gerçekleştirmiştir: Yevmiyede 153 Ticari Mallar hesabına kaydedilmesi gereken 18.000 TL'lik mal alışı sehven 255 Demirbaşlar hesabına borç kaydedilmiş, karşılığında 100 Kasa hesabı doğru tutarla alacaklandırılmıştır; ayrıca dönem sonu envanter ve değerleme işlemleri tamamlanmıştır. Bu bilgilere göre aşağıdakilerden hangisi her zaman doğrudur?",
+      "soru": "İşletmenin kayıtlı ticari borç tutarı 940.000 TL'dir. Tedarikçi teyitlerinden 900.000 TL doğrulanmış, teyide yanıt vermeyenler için ödenmemiş faturalardan 75.000 TL ek borç tespit edilmiştir. Dönem içinde iptal edilen sipariş tutarı 5.000 TL'dir. Tespit edilen sapmanın tutarı ve yönü nedir?",
       "siklar": {
-        "A": "Genel geçici mizan, hatalı kayda rağmen borç ve alacak toplamları eşit çıkacağı için bu hata söz konusu mizanda tespit edilemez.",
-        "B": "Kesin mizan, envanter işlemlerinden önce düzenlenen mizandır ve mali tablolar doğrudan bu mizandan çıkarılır.",
-        "C": "Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını eşitsiz hale getireceğinden ilk düzenlenecek mizanda ortaya çıkar.",
-        "D": "Mali tablolar genel geçici mizandan düzenlenir, çünkü bu mizan dönem sonu envanter işlemlerini de kapsar.",
-        "E": "Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizanda hesap kalanları sıfırlanmış olarak görünür."
+        "A": "35.000 az gösterme",
+        "B": "35.000 fazla gösterme",
+        "C": "40.000 az gösterme",
+        "D": "40.000 fazla gösterme",
+        "E": "Sapma yok"
       },
       "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Mizan Sınırı Tuzağı",
-          "metin": "öğrenci mizanı bir hata denetim aracı sanır, her yanlış kaydın mizanda görüneceğini düşünür. Doğrusu: mizan yalnız iki tarafın toplam eşitliğini gösterir; doğru tutarla ama yanlış hesaba yapılan kayıt eşitliği bozmadığı…"
+          "ad": "Çeldirici Veri Yükleme Tuzağı",
+          "metin": "Soruda geçen iptal edilen sipariş tutarını hesaba dahil ederek 900.000+75.000+5.000-940.000 işlemiyle 40.000 TL bulursun; oysa iptal edilen sipariş kayıtlı borçla ilgisiz bir veridir. Doğrusu: İptal edilen sipariş hesab…"
         },
         "E": {
-          "ad": "Mizan Türü Karıştırma Tuzağı",
-          "metin": "öğrenci kesin mizan ile kapanış mizanını aynı aşama sanır, kalanların ne zaman sıfırlandığını yanlış yerleştirir. Doğrusu: kesin mizanda hesap kalanları hâlâ vardır, kalanların sıfırlanması ancak hesaplar kapatıldıktan …"
+          "ad": "Kanıt Karıştırma Tuzağı",
+          "metin": "Teyit ve ödenmemiş fatura farklı kaynaklardan geldiği için birbirini teyit edip sapmayı sıfırladığını düşünürsün; oysa BDS 500 A32 uyarınca farklı kaynaklardan gelen kanıtlar aynı beyanı destekler, birbirini iptal etmez…"
         },
         "D": {
-          "ad": "Kapsam-Sıra Karışımı Tuzağı",
-          "metin": "öğrenci genel geçici mizanın da envanter kayıtlarını içerdiğini sanarak iki farklı kuralı (mizan türü sırası ve mali tablo kaynağı) birlikte yanlış kurar. Doğrusu: genel geçici mizan envanterden önceki durumu gösterir, …"
+          "ad": "Çift Tuzak (Tutar+Yön) Tuzağı",
+          "metin": "Hem çeldirici sipariş tutarını hesaba katıp hem de yönü ters çevirerek 40.000 TL fazla gösterme dersin; bu iki ayrı hatanın üst üste binmesidir. Doğrusu: Doğru hesapta çeldirici veri dışlanır ve yön az göstermedir, sonu…"
         },
         "B": {
-          "ad": "Sıra Tuzağı",
-          "metin": "öğrenci genel geçici mizan ile kesin mizanın zamanlamasını karıştırır, envanterden önce/sonra ayrımını ters kurar. Doğrusu: kesin mizan envanter ve dönem sonu kayıtlarından SONRA düzenlenir, genel geçici mizan ise envan…"
+          "ad": "Yön Tersleme Tuzağı",
+          "metin": "Kayıtlı tutarın gerçek tutardan düşük çıktığını görünce bunu 'fazla gösterme' sanırsın, oysa kayıtlı tutarın düşük kalması az gösterme demektir. Doğrusu: Aynı 35.000 TL fark az gösterme yönündedir, fazla gösterme değild…"
         }
       },
-      "hap": "Mizan yalnız borç toplamı = alacak toplamı eşitliğini denetler; yanlış hesaba doğru tutarla yapılan kayıt bu eşitliği bozmadığı için hiçbir mizan türünde görünmez.",
+      "hap": "İhtiyaca uygunluk test yönüne göre değişir; az gösterme şüphesinde kayıtlı olmayan kalemler (ödenmemiş fatura, teyit dışı borç) test edilir, kayıtlı tutar tek başına yeterli değildir.",
       "satirlar": [
         [
-          "A) Genel geçici mizan, hatalı kayda rağmen borç ve alacak t…",
-          "p.mizan sınırı"
+          "Gerçek borç toplamı (900.000 + 75.000)",
+          "975.000"
         ],
         [
-          "B) Kesin mizan, envanter işlemlerinden önce düzenlenen miza…",
-          "p.mizan türleri"
-        ],
-        [
-          "C) Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını…",
-          "p.mizan sınırı"
-        ],
-        [
-          "D) Mali tablolar genel geçici mizandan düzenlenir, çünkü bu…",
-          "p.mizan türleri"
-        ],
-        [
-          "E) Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizan…",
-          "p.mizan türleri"
+          "Kayıtlı borç - Gerçek toplam farkı (975.000 - 940.000)",
+          "35.000 (az gösterme)"
         ]
       ],
-      "dayanak": "Muhasebe süreci ve mizan türleri - ders kitabı bilgisi (mizan sınırı ve genel geçici/kesin mizan ayrımı)",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=0",
+      "dayanak": "BDS 500 p.A31 (ihtiyaca uygunluk ve test yönü); p.A32 (farklı kaynaklardan kanıtın aynı beyanı desteklemesi)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=1",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 6,
+        "kalan_gun": 5,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,67 +69,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 0,
+      "sira": 1,
       "toplam": 10,
-      "id": "smmm-w3-fmuh-zor/kp-01",
-      "ders": "Finansal Muhasebe",
-      "konu": "amortisman ayırma",
-      "donem": 42,
+      "id": "smmm-4k-a-yfta-zor-r6/kp-01",
+      "ders": "Finansal Tablolar ve Analizi",
+      "konu": "dikey yüzde analizi",
+      "donem": 14,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletme, üretimde kullanmak üzere bir makine satın almıştır. Makinenin fatura bedeli 780.000 ₺, nakliye ve montaj gideri 45.000 ₺'dir. Maliyet bedeli üzerinden %20 normal amortisman uygulanmakta, ayrılan amortismanın %70'i 730 Genel Üretim Giderleri'ne, %30'u 770 Genel Yönetim Giderleri'ne yüklenmektedir. Buna göre, 730 hesabına borç kaydedilecek amortisman tutarı kaç ₺'dir?",
+      "soru": "İşletme, gelir tablosunun dikey yüzde analizinde net satışları taban almaktadır. Satılan malın maliyeti 720.000 ₺ ve net satışların %60'ı, brüt satış kârı net satışların %40'ı, faaliyet giderleri net satışların %25'idir. Faaliyet kârı kaç ₺'dir?",
       "siklar": {
-        "A": "46.800",
-        "B": "49.500",
-        "C": "109.200",
-        "D": "115.500",
-        "E": "165.000"
+        "A": "180.000",
+        "B": "270.000",
+        "C": "288.000",
+        "D": "300.000",
+        "E": "480.000"
       },
-      "dogru": "D",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Maliyete Ekleme Atlama Tuzağı",
-          "metin": "Nakliye ve montaj gideri (45.000) maliyete eklenmeden sadece fatura bedeli (780.000) üzerinden hesaplama yapılırsa bu sonuca ulaşılır. Doğrusu: Varlığı kullanıma hazır hale getirme giderleri maliyet bedeline dahildir, t…"
+          "ad": "Kademe Atlama Tuzağı",
+          "metin": "SMM tutarını net satış sanıp doğrudan brüt kâr yüzdesiyle çarptın (720.000x0,40). Doğrusu: önce net satış 1.200.000 bulunur, faaliyet kârı bu tutarın yüzde 15idir, yani 180.000 dir."
         },
         "E": {
-          "ad": "Dağıtımsız Yükleme Tuzağı",
-          "metin": "Amortismanın tamamının üretime ait olduğu düşünülüp dağıtım hiç yapılmazsa toplam tutar (165.000) 730 hesabına yazılır. Doğrusu: Amortismanın sadece %70'i üretime aittir, tutar 115.500'dür."
+          "ad": "Katman Eksik Tuzağı",
+          "metin": "brüt satış kârını faaliyet giderlerini hiç düşmeden faaliyet kârı sandın (1.200.000x0,40). Doğrusu: faaliyet giderleri brüt kârdan düşülmeden faaliyet kârına ulaşılmaz; sonuç 180.000 dir."
         },
-        "A": {
-          "ad": "Dağıtım Oranı Ters Kullanma Tuzağı",
-          "metin": "Maliyete nakliye-montaj gideri eklenmeden (780.000) ve dağıtım oranları ters uygulanarak (%30) hesaplama yapıldığında bu tutara ulaşılır. Doğrusu: Maliyet 825.000 üzerinden %20 amortisman ayrılıp %70'i üretime yüklenir,…"
+        "D": {
+          "ad": "Yön Karıştırma Tuzağı",
+          "metin": "faaliyet giderleri tutarını brüt kârdan düşmeyi atlayıp onu tek başına faaliyet kârı sandın (1.200.000x0,25). Doğrusu: faaliyet kârı, brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek (%15) hesaplanan tutardır, 180…"
         },
         "B": {
-          "ad": "Pay Karıştırma Tuzağı",
-          "metin": "Doğru maliyet (825.000) üzerinden hesaplanan amortismanın üretim yerine yönetim payı (%30) alınırsa bu tutar çıkar. Doğrusu: 730 hesabına yüklenecek pay üretim oranına (%70) göre 115.500'dür."
+          "ad": "Taban Karıştırma Tuzağı",
+          "metin": "SMM tutarını net satış yerine (1-SMM yüzdesi) ile bölerek net satışı 1.800.000 buldun, halbuki doğru işlem tutarın kendi yüzdesine bölünmesidir. Doğrusu: net satış 720.000/0,60=1.200.000 olup faaliyet kârı 180.000 dir."
         }
       },
-      "hap": "Amortismana esas maliyet bedeli, varlığı kullanıma hazır hale getirmek için yapılan tüm giderleri kapsar ve ayrılan amortisman kullanım alanına göre ilgili gider hesaplarına dağıtılarak 257 hesaba alacak kaydedilir.",
+      "hap": "Gelir tablosu dikey yüzdelerinde taban net satışlardır; bilinen bir kalemin tutarı kendi yüzdesine bölünerek net satış, faaliyet kârı yüzdesi ise brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek bulunur.",
       "satirlar": [
         [
-          "Maliyet bedeli (780.000+45.000)",
-          "825.000"
+          "Net Satışlar",
+          "720.000/0,60"
         ],
         [
-          "Yıllık amortisman tutarı (825.000x%20)",
-          "165.000"
+          "Brüt Satış Kârı",
+          "1.200.000x0,40"
         ],
         [
-          "770 Genel Yönetim Giderleri payı (165.000x%30)",
-          "49.500"
+          "Faaliyet Giderleri",
+          "1.200.000x0,25"
         ],
         [
-          "730 Genel Üretim Giderleri hesabına borç kaydedilecek tutar (165.000x%70)",
-          "115.500"
+          "Faaliyet Kârı Yüzdesi",
+          "%40-%25"
+        ],
+        [
+          "Faaliyet Kârı",
+          "1.200.000x0,15"
         ]
       ],
-      "dayanak": "VUK m.315",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=0",
+      "dayanak": "Teori Notu - Dikey Yuzdelerden Net Satış ve Gelir Tablosu Hesaplari (Mali Tablolar Analizi)",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=1",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 6,
+        "kalan_gun": 5,
         "durum": "DONGU",
         "mail_gunu": false
       },
