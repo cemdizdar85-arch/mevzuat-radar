@@ -12,13 +12,16 @@ Maskot videoları (02, 05, 08, AB) yapay zekâ karakteri → açıklamada ibare.
 
 Staja Giriş sınavı · Ticaret Hukuku
 
-2016'dan bu yana 32 Staja Giriş sınavı yapıldı. Kıymetli evrak (çek, bono, poliçe) 32'sinde de soruldu.
+Kıymetli evrak (çek, bono, poliçe) 2016'dan bu yana yapılan 32 sınavın 32'sinde soruldu. Son sınav 2026/2'de 124. soruydu.
 
 Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ikinci kartta: kaydır.
 
-Sen hangisinde zorlanıyorsun: çek mi, bono mu, poliçe mi? Yorumlara yaz.
+Kaydet, sınavdan önce bak.
+13 dersin tamamının röntgenini istiyorsan yoruma RÖNTGEN yaz, PDF'i DM'den gönderelim.
 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#stajagiris #sgs #smmmstaj #ticarethukuku #kiymetlievrak #muhasebe
 
 ## 02 · Tuzak #1: Finansman Giderini Faaliyet Kârına Dahil Etme Tuzağı (gün 1)
 
