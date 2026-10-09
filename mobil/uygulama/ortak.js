@@ -173,6 +173,8 @@
   window.TT = {
     istemci: istemci, kullanici: kullanici, paketler: paketler, acarMi: acarMi,
     sinaviBul: sinaviBul, kapsar: kapsar, cikis: cikis, onbellekTemizle: temizle,
+    /* 09.10 Apple 2.1 "How do users unlock exams?": iPhone'da satış kapalıyken kilit/paket HİÇ gösterilmez */
+    yalnizUcretsiz: iosKilitli,
     CEVRIMDISI_GUN: CEVRIMDISI_GUN, SB_URL: SB_URL, SB_KEY: SB_KEY
   };
 })();

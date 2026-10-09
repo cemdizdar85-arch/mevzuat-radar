@@ -40,6 +40,9 @@
   /* bu cihazda uygulama içi satış olabilir mi (magaza.js satisAcik ile aynı kural) */
   function satisMumkun() { return yerel() && (platform() === 'android' || (platform() === 'ios' && K.iosSatis === true)); }
   function durum() { return window.TT_DURUM || { girisli: false, acik: [] }; }
+  /* 09.10 Apple 2.1 ("How do users unlock exams?"): iPhone'da satış kapalıyken (B1) açılamayan içerik
+     GÖSTERİLMEZ — kilitli çalışma yolları, kilit bandı, "paketinde yok", ders sayısı yok; yalnız ücretsiz sorular. */
+  function yalnizUcretsiz() { return !!(window.TT && window.TT.yalnizUcretsiz && window.TT.yalnizUcretsiz()); }
 
   /* katalogdan sınav özeti — sayılar YALNIZ katalogdan (uydurma yok) */
   function ozet(s) {
@@ -116,6 +119,7 @@
     sira.forEach(function (x) {
       var o = ozet(x.id), etk, alt;
       if (!o.var_) { etk = '<span class="etiketK">Hazırlanıyor</span>'; alt = 'Uygulamada henüz yok'; }
+      else if (yalnizUcretsiz()) { etk = ''; alt = o.ucr ? sayi(o.ucr.adet || 30) + ' ücretsiz soru' : 'Uygulamada henüz yok'; }
       else {
         etk = o.acik.length ? '<span class="etiketK acik">Paketin açık</span>' : '';
         alt = (o.ucr ? sayi(o.ucr.adet || 30) + ' soru ücretsiz' : '') + (o.paket.length ? ' · ' + (o.paket.length + o.yakin.length) + ' ders' : '');
@@ -131,14 +135,14 @@
   function geriDugmesi(yazi) { return '<button type="button" class="geri" data-geri="1">' + ik('ok') + esc(yazi) + '</button>'; }
 
   function sinavCiz(s) {
-    var o = ozet(s), acik = o.acik.length > 0;
+    var o = ozet(s), acik = o.acik.length > 0, yu = yalnizUcretsiz();
     /* 27.09 Cem "A4 kâğıdı, ayarlar listesi gibi": başlığın altında sınav KAPSÜLÜ (altı çizili bağlantı değil) */
     var h = '<div class="bant yalin"><h1>' + esc(sinavAd(s)) + '</h1>' +
-      '<button type="button" class="hap" data-degistir="1">' + (o.paket.length ? (o.paket.length + o.yakin.length) + ' ders · ' : '') +
+      '<button type="button" class="hap" data-degistir="1">' + (o.paket.length && !yu ? (o.paket.length + o.yakin.length) + ' ders · ' : '') +
       'Sınavı değiştir' + ik('ok').replace('class="ik"', 'class="ik asagi"') + '</button></div>';
 
     /* ücretsiz: ilerleme çubuklu kart (düz satır değil) */
-    h += '<span class="etk" style="margin-top:26px">Ücretsiz dene</span>';
+    h += '<span class="etk" style="margin-top:26px">' + (yu ? 'Sorular' : 'Ücretsiz dene') + '</span>';
     if (o.ucr) {
       var r = IL ? IL.dersSonucu(o.ucr.yol) : { ok: 0, yan: 0 }, n = r.ok + r.yan, top = o.ucr.adet || 30;
       h += '<a class="ilerKart" href="' + esc(o.ucr.yol) + '"><span class="iUst"><span class="iAd">Örnek sorular<small>' + sayi(top) +
@@ -146,6 +150,7 @@
         '<span class="iCubuk"><i style="width:' + Math.min(100, Math.round(n / top * 100)) + '%"></i></span>' +
         '<span class="iAlt">' + n + ' / ' + top + ' soru çözüldü</span></a>';
     } else h += '<div class="kart bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
+    if (yu) { $('sinavUst').innerHTML = h; return; }
 
     /* çalışma yolları: 2×2 kart ızgarası, her yolun kendi renkli ikonu; kilit ve "yakında" köşe rozeti */
     h += '<span class="etk">Çalışma</span><div class="bento">';
@@ -218,6 +223,7 @@
   function ciz() {
     /* görünüm her zaman seçili sınavda; eski "liste" durumu sınavın içine döner */
     var g = gor.g === 'liste' ? 'sinav' : gor.g, s = (IL && IL.veri().ayar.sinav) === 'sgs' ? 'sgs' : 'yeterlilik';
+    if (yalnizUcretsiz() && (g === 'dersler' || g === 'kisa')) g = 'sinav';   // iPhone B1: kilitli görünümlere yol yok
     gor.s = s;
     document.body.setAttribute('data-sinavgor', g);
     if (g !== 'dersler') { $('ana').classList.add('gizle'); $('kilitli').classList.add('gizle'); }

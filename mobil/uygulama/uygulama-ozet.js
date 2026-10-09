@@ -268,7 +268,8 @@
       html += '<span class="etk">Hesap</span><div class="satirlar"><button type="button" class="srt" data-git="uyeol">' + ik('hesap', 'rozet amber') +
         '<span class="ad">Ücretsiz üye ol<small>30 soru, açıklamalar ve karnen açılır; kart istenmez</small></span>' + OK + '</button>' +
         '<button type="button" class="srt" data-git="giris">' + ik('giris', 'rozet') +
-        '<span class="ad">Hesabım var, giriş yap<small>Paketindeki dersler açılır</small></span>' + OK + '</button></div>';
+        '<span class="ad">Hesabım var, giriş yap<small>' +
+        (window.TT && window.TT.yalnizUcretsiz && window.TT.yalnizUcretsiz() ? 'İlerlemen ve karnen hesabından gelir' : 'Paketindeki dersler açılır') + '</small></span>' + OK + '</button></div>';
     }
     bugunB.innerHTML = html;
     tekrarBagla(bugunB);
@@ -408,7 +409,9 @@
     }
 
     /* PAKETLİ: tuzak haritası + konu haritası (paketsize gerçek veri bulanık, kilitli) */
-    var paketli = !paketsiz();
+    /* 09.10 Apple 2.1: iPhone'da satış kapalıyken (B1) kilit gösterilmez — iki harita kişinin KENDİ cevaplarından
+       hesaplanır (ücretli soru içermez), o yüzden iPhone'da açık çizilir */
+    var paketli = !paketsiz() || !!(window.TT && window.TT.yalnizUcretsiz && window.TT.yalnizUcretsiz());
     var tzT = {}; l.forEach(function (c) { if (c.s !== 'ok' && c.tz) tzT[c.tz] = (tzT[c.tz] || 0) + 1; });
     var tzL = Object.keys(tzT).sort(function (a, b) { return tzT[b] - tzT[a]; }).slice(0, 5);
     var tzIc = tzL.length ? tzL.map(function (a) { return '<div class="sira"><span>' + esc(a) + '</span><b>' + tzT[a] + ' kez</b></div>'; }).join('') :

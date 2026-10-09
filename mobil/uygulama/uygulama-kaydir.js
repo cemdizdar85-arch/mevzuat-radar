@@ -556,6 +556,19 @@
     var bitti = n >= top, p = paketOzet();
     if (bitti) olay('soru_30', true); else if (n === ARA) olay('soru_10', true);
     olay('ara_karne');
+    /* 09.10 Apple 2.1 / 3.1.1: iPhone'da satış kapalıyken (B1) "tam paket" tanıtımı YOK — yalnız sonuç.
+       Vitrin sayfasında ortak.js yüklenmez (hazirla.js); window.TT yoksa iPhone'u satış kapalı say (bugün öyle). */
+    var iosUcretsiz = window.TT && window.TT.yalnizUcretsiz ? window.TT.yalnizUcretsiz() :
+      !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios');
+    if (iosUcretsiz) {
+      var e0 = perde('ttAra', '<div class="etk">' + (bitti ? 'Bu bölümü bitirdin' : 'Ara karne · ' + n + ' soru') + '</div>' +
+        '<div class="buyuk">' + ok + '<small> / ' + n + ' doğru</small></div>' +
+        '<h2>' + (bitti ? 'Karnene bak' : 'İyi gidiyorsun') + '</h2>' +
+        '<p>Yanlışlarını ve konu konu başarını Karnem sekmesinde görebilirsin.</p>' +
+        (bitti ? '<a class="birinci" href="' + ANA + '#karne">Karneme git</a>' : '<button type="button" class="birinci">Sorulara devam et</button>'));
+      var d0 = e0.querySelector('button.birinci'); if (d0) d0.onclick = function () { perdeKapat('ttAra'); };
+      return;
+    }
     var e = perde('ttAra', '<div class="etk">' + (bitti ? 'Ücretsiz sorular bitti' : 'Ara karne · ' + n + ' soru') + '</div>' +
       '<div class="buyuk">' + ok + '<small> / ' + n + ' doğru</small></div>' +
       '<h2>' + (bitti ? 'Şimdi tamamına geç' : 'Gerçek sınav bundan çok daha geniş') + '</h2>' +
