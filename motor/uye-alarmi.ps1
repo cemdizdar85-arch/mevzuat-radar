@@ -51,7 +51,7 @@ $ESIK = [ordered]@{
   sari_dakika = 15; sari_saat = 100; sari_gun = 1000
   tekrar_saat = 6; kor_tekrar_saat = 24
   paylasim_sari = 1; cihaz_siniri_sari = 3
-  kasa_tavan_sari = 1; kasa_asiri_sari = 1     # 09.10 kasa ölçer: tavana takılan / 24 saatte 2.500+ satır çeken üye
+  kasa_tavan_sari = 1; kasa_asiri_sari = 1     # 09.10 kasa ölçer: tavana takılan / 24 saatte 2.500+ FARKLI soru çeken üye (10.10: aynı soru 24 saatte bir kez sayılır)
 }
 $SEVIYE_SIRA = @{ 'YESIL' = 0; 'SARI' = 1; 'KIRMIZI' = 2; 'KOR' = 3 }
 
@@ -76,7 +76,7 @@ function Get-UyeSeviyesi {
   $kasaTavan = [int]$SayimGirdisi.kasa_tavan_24s
   $kasaAsiri = [int]$SayimGirdisi.kasa_asiri_24s
   if ($kasaTavan -ge $ESIK.kasa_tavan_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$kasaTavan uye 24 saatte soru cekme tavanina takildi (toplu indirme belirtisi)" } }
-  if ($kasaAsiri -ge $ESIK.kasa_asiri_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$kasaAsiri uye 24 saatte 2.500+ soru satiri cekti (toplu indirme belirtisi)" } }
+  if ($kasaAsiri -ge $ESIK.kasa_asiri_sari) { return [pscustomobject]@{ seviye = 'SARI'; gerekce = "$kasaAsiri uye 24 saatte 2.500+ farkli soru cekti (toplu indirme belirtisi)" } }
   return [pscustomobject]@{ seviye = 'YESIL'; gerekce = 'esiklerin altinda' }
 }
 
@@ -194,7 +194,7 @@ Son 1 saatin en yogun dakikasi: $($sayim.en_yogun_dakika) kayit
 Toplam uye: $($sayim.toplam)
 Hesap paylasimi belirtisi (24 sa, ekran 8+ kez el degistirdi): $([int]$sayim.paylasim_supheli) uye
 4. cihazla girmeye calisan (24 sa): $([int]$sayim.cihaz_siniri_24s) uye
-Soru cekme tavanina takilan (24 sa): $([int]$sayim.kasa_tavan_24s) uye · 2.500+ satir ceken: $([int]$sayim.kasa_asiri_24s) uye · toplam cekilen satir: $([int]$sayim.kasa_cekim_24s)
+Soru cekme tavanina takilan (24 sa): $([int]$sayim.kasa_tavan_24s) uye · 2.500+ farkli soru ceken: $([int]$sayim.kasa_asiri_24s) uye · farkli soru: $([int]$sayim.kasa_tekil_24s) · ham satir (sayfa yuklemesi): $([int]$sayim.kasa_cekim_24s)
 
 Ne yapmali:
 - Bir dakikada 30'dan fazla kayit insan hizi degildir; bot olabilir.
