@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261008185026
+Start time: 20261009021015
 Username: runnervmmprz5\runner
 RunAs User: runnervmmprz5\runner
 Configuration Name: 
 Machine: runnervmmprz5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/458815bb-ec7c-4af4-ad47-897c35113a08.ps1'
-Process ID: 2917
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/22cd0825-1d86-467a-bba1-27ae83d4715b.ps1'
+Process ID: 3004
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,21 +17,17 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 08-10-2026
-Kart sayisi  : 5
+RG gunu      : 09-10-2026
+Kart sayisi  : 4
 Izlenen dosya: 12
 
 ======================================================================
-  RG'DE ILGILI YAYIN VAR - 2 ARAC VERISI ESKIMIS OLABILIR
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
 ======================================================================
-  veri/gtip-askiya.json   (arac: gtip.html)
-      dayanak: Ithalat Rejimi V Sayili Liste (askiya alinan sanayi urunleri)
-      hasat  : motor/askiya-hasat.ps1 (yerel rejim2026 klasoru)
-      <- Demiryolu araçları tip onayı yönetmeliğinde değişikliğe gidildi
   veri/gtip-durum.json   (arac: gtip.html)
       dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
       hasat  : motor/tablo-hasat.ps1
-      <- Ürün borsasında aracılık faaliyetlerine ilişkin gözetim yönetmeliğinde değişiklik yapıldı
+      <- İthalatta Gözetim Uygulanmasına İlişkin Tebliğ'in Ek 1 Listesine Yeni Kalemler Eklenmesi
 
   YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
   yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
@@ -40,5 +36,5 @@ Izlenen dosya: 12
   KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261008185026
+End time: 20261009021015
 **********************
