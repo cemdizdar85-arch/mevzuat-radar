@@ -78,6 +78,14 @@ html body .btn-ana{background:var(--ink);color:var(--bg)!important;border-color:
 html body .btn-vurgu{background:var(--amber-dolgu);color:var(--amber-uzeri)!important;border-color:transparent}
 html body .btn-ikinci{background:transparent;color:var(--ink)!important;border-color:var(--line2)}
 html body .btn-ikinci:hover{border-color:var(--ink)}
+/* 09.10 uygulama bağlantısı (uygulama-indir.js): iPhone'da [data-uygulama] gizli; şerit yalnız Android telefonda */
+[data-uygulama][hidden],#uygSerit[hidden]{display:none!important}
+.uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
+html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
+.uyg-serit{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink)}
+.uyg-serit>span{flex:1 1 auto;min-width:0}
+html body .uyg-serit a{color:var(--ink)!important;font-weight:700;white-space:nowrap}
+.uyg-serit button{flex:none;background:none;border:0;color:var(--muted);font-size:20px;line-height:1;padding:4px 8px;cursor:pointer}
 html body #nav .navlinks a.nl{color:var(--muted)!important}
 html body #nav .navlinks a.nl:hover{color:var(--ink)!important}
 html body #nav .navlinks a.btn-ana{color:var(--bg)!important}
@@ -277,6 +285,8 @@ footer p{margin:0 0 8px}
 </nav>
 
 <main id="icerik">
+<!-- 09.10 Cem ("yeni sürümü siteye koy, herkes görsün"): Android telefondan gelene uygulama şeridi; kapatılabilir (uygulama-indir.js) -->
+<div class="uyg-serit" id="uygSerit" hidden><span>Tetikte artık Android'de. <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play'den indir →</a></span><button type="button" data-kapat aria-label="Şeridi kapat">×</button></div>
 <section class="kah">
   <div class="ic">
     <div>
@@ -297,6 +307,7 @@ footer p{margin:0 0 8px}
         <a class="btn btn-ikinci" id="cta3" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
       </div>
       <p class="durum" id="durum">Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.</p>
+      <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
     </div>
 
     <!-- V2 madde 4 "gerçek soru ekranı" + 04.10 Cem kararı: ETKİLEŞİMLİ. Ziyaretçi şıkkı seçer, hüküm paneli açılır.
@@ -398,7 +409,7 @@ footer p{margin:0 0 8px}
 <footer>
   <div class="ic">
     <p>© 2026 Tetikte · bir <a href="https://dizdardenetim.com" target="_blank" rel="noopener">Dizdar Denetim Danışmanlık ve Yazılım A.Ş.</a> yazılımı · <a href="mailto:destek@tetikte.com">destek@tetikte.com</a></p>
-    <p><a href="iletisim.html">Hakkımızda ve İletişim</a> · <a href="fiyat.html">Fiyatlar</a> · <a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> · <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> · <a href="uyelik-sozlesmesi.html">Üyelik Koşulları</a> · <a href="kvkk.html">KVKK Aydınlatma</a> · <a href="elci-programi.html">Elçi Programı</a></p>
+    <p><a href="iletisim.html">Hakkımızda ve İletişim</a> · <a href="fiyat.html">Fiyatlar</a> · <span data-uygulama><a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulaması</a> · </span><a href="on-bilgilendirme.html">Ön Bilgilendirme Formu</a> · <a href="mesafeli-satis.html">Mesafeli Satış Sözleşmesi</a> · <a href="teslimat-iade.html">Teslimat ve İade</a> · <a href="gizlilik-politikasi.html">Gizlilik, Güvenlik ve Çerez</a> · <a href="uyelik-sozlesmesi.html">Üyelik Koşulları</a> · <a href="kvkk.html">KVKK Aydınlatma</a> · <a href="elci-programi.html">Elçi Programı</a></p>
     <p>Dizdar Denetim Danışmanlık ve Yazılım A.Ş. · MERSİS 0301130343200001 · Ticaret Sicil 270764 (İzmir) · Kordon V.D. 3011303432 · Alsancak Mah. Atatürk Cad. Kavalalı İş Merkezi No:378 B, Konak/İzmir · destek@tetikte.com · 0532 344 80 58</p>
     <p>Tetikte bir bilgilendirme ve sınav hazırlık platformudur; hukuki mütalaa vermez, beyanname düzenlemez. Sorunun altında dayandığı mevzuat yazar.</p>
   </div>
@@ -408,6 +419,7 @@ footer p{margin:0 0 8px}
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="fiyat-motoru.js?v=20261008a"></script>
 <script src="uye-durumu.js?v=20261007b"></script>
+<script src="uygulama-indir.js?v=20261009a"></script>
 <script>
 (function(){
   'use strict';

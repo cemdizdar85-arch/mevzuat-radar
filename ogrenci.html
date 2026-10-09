@@ -29,6 +29,7 @@
   body{margin:0}
   .og{max-width:980px;margin:0 auto;padding:22px 20px 80px;text-align:left}
   .og-gizli{display:none !important}
+  [data-uygulama][hidden]{display:none !important}   /* 09.10 uygulama-indir.js: iPhone'da gizli */
   .og h1{font-size:32px;line-height:1.15;margin:8px 0 8px;letter-spacing:-.02em}
   .og-alt{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 18px;max-width:44em}
   .og-iki{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
@@ -287,6 +288,15 @@
     <!-- 16.09: gerçek sınav sonucu -> seviye testi kalibrasyonu (sinav-sonucu.js; aynı kutu seviye-testi.html'de de var) -->
     <div id="ssKutu"></div>
 
+    <!-- 09.10 Cem ("yeni sürümü siteye koy, herkes görsün"): üyeye mağaza uygulaması. iPhone'da gizli (App Store onayı yok; uygulama-indir.js) -->
+    <div class="og-bolum" data-uygulama>
+      <h2>Telefonda çalış</h2>
+      <div class="og-kutu">
+        <p class="og-alt" style="margin:0 0 10px;font-size:14.5px">Tetikte'nin Android uygulamasında bu hesapla giriş yaparsın; paketin uygulamada da açılır.</p>
+        <div class="og-btnler"><a class="og-btn" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play'den indir →</a></div>
+      </div>
+    </div>
+
     <!-- HESAP AYARLARI -->
     <div class="og-bolum">
       <h2>Hesap ayarları</h2>
@@ -335,6 +345,7 @@
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
 <script src="uye-durumu.js?v=20261007b"></script>
+<script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261007d"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
