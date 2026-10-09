@@ -27,7 +27,10 @@
 (function(){
 if (window.ttDonusum) return;
 
-var PIKSEL_ID = '';   /* Meta Events Manager → Veri kaynakları → Pixel ID (yalnız rakam) */
+var PIKSEL_ID = '1369179971705020';   /* 09.10.2026 Cem "kur o zaman" (B, KVKK m.9 riski Cem'de): dataset "Tetikte", portföy Dizdar Denetim, reklam hesabı Tetikte Reklam */
+/* 09.10.2026: edge 'meta-olay' CANLIDA YOK (?tani=1 → NOT_FOUND) ve META_CAPI_TOKEN üretilmedi → sunucu yolu KAPALI.
+   Açmak: edge yayınla + secret'lar (META_PIXEL_ID, META_CAPI_TOKEN) + ?tani=1 ile ölç, sonra true. */
+var CAPI_ACIK = false;
 var CAPI_UC = 'https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/meta-olay';
 var SB_ANAHTAR = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
 var ONAY_ANAHTAR = 'ttReklamOnay';
@@ -87,6 +90,7 @@ function ozet(eposta){
   }, function(){ return ''; });
 }
 function capiGonder(ad, kimlik, veri, eposta){
+  if (!CAPI_ACIK) return;
   ozet(eposta).then(function(em){
     try {
       /* fetch değil sarılmamış asıl fetch: kanca kendi isteğini yeniden saymasın */

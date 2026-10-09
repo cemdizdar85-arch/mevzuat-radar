@@ -117,8 +117,9 @@ try {
    Meta'ya hiçbir şey gitmez, bant çıkmaz. PERDE-BASI'ndan ÖNCE: perde açıkken de
    ölçülsün (perde e-postası = Lead). Mutlak yol: alt klasör sayfalarında da insin. */
 try {
-  if (!window.ttDonusum && !document.querySelector('script[src$="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js'; dn.async = true;
+  /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
+  if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261009'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
