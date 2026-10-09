@@ -107,3 +107,21 @@ Staja Giriş sınavı · Mali Tablolar Analizi
 Stok devir hızı 9 mu, 12 mi? Pay satış değil, satışların maliyeti.
 
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+## 10 · Ders kartı: Yeterlilik · Finansal Muhasebe · Amortisman 31/31 (10.10, kaydırmalı: 1-kart + 2-kanit)
+
+SMMM Yeterlilik sınavı · Finansal Muhasebe
+
+Amortisman, okuduğumuz 31 Yeterlilik sınavının 31'inde soruldu (2016/1–2026/2). Son sınav 2026/2'de 20. soruydu. 2020/3 kitapçığı elimizde olmadığı için okunmadı.
+
+Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ikinci kartta: kaydır.
+
+Kaydet, sınavdan önce bak.
+
+8 dersin hepsini istiyorsan yoruma RÖNTGEN yaz, Yeterlilik röntgenini DM'den gönderelim.
+
+Bu konudan soru çözmek için tetikte.com'a üye ol: Yeterlilik seviye testini ücretsiz çöz, yanlış yaptığın her sorunun nedenini gör. Bağlantı profilde.
+
+Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#smmm #smmmyeterlilik #bitirmesinavi #finansalmuhasebe #amortisman #muhasebe
