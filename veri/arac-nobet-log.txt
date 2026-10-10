@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261009182051
+Start time: 20261010014851
 Username: runnervmmprz5\runner
 RunAs User: runnervmmprz5\runner
 Configuration Name: 
 Machine: runnervmmprz5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/7179873a-211b-4d46-a407-b6452f672968.ps1'
-Process ID: 2930
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c8b0051a-4d1c-4c78-a732-00bd0b07d863.ps1'
+Process ID: 2968
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,24 +17,12 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 09-10-2026
+RG gunu      : 10-10-2026
 Kart sayisi  : 4
 Izlenen dosya: 12
 
-======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
-======================================================================
-  veri/gtip-durum.json   (arac: gtip.html)
-      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
-      hasat  : motor/tablo-hasat.ps1
-      <- İthalatta Gözetim Uygulanmasına İlişkin Tebliğ'in Ek 1 Listesine Yeni Kalemler Eklenmesi
-
-  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
-  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
-  -> veri/arac-uyari.json
-
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
 **********************
 PowerShell transcript end
-End time: 20261009182051
+End time: 20261010014852
 **********************
