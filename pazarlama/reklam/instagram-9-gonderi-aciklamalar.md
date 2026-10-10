@@ -133,3 +133,35 @@ Bu konudan soru çözmek için tetikte.com'a üye ol: Yeterlilik seviye testini 
 Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #smmm #smmmyeterlilik #bitirmesinavi #finansalmuhasebe #amortisman #muhasebe
+
+## 11 · Canlı deneme: Staja Giriş · 17 Ekim (10.10'dan itibaren; PROFİLDE SABİTLE)
+
+Staja Giriş sınavı · Ücretsiz canlı deneme
+
+17 Ekim Cumartesi, saat 10:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 130 soru, 165 dakika.
+
+Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arasında) ve her yanlışının nedenini, dayanağıyla görürsün.
+
+Katılım ücretsiz. Yerini ayırmak için 16 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
+
+Arkadaşını etiketle, aynı denemede yarışın.
+
+Karakter yapay zekâ ile üretilmiştir. Canlı deneme Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#stajagiris #sgs #smmmstaj #denemesinavi #muhasebe #smmm
+
+## 12 · Canlı deneme: SMMM Yeterlilik · 24 Ekim (17 Ekim denemesinden sonra)
+
+SMMM Yeterlilik sınavı · Ücretsiz canlı deneme
+
+24 Ekim Cumartesi, saat 09:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 80 soru, 180 dakika. Finansal Muhasebe, Maliyet Muhasebesi, Hukuk ve Sermaye Piyasası Mevzuatı.
+
+Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arasında) ve her yanlışının nedenini, dayanağıyla görürsün.
+
+Katılım ücretsiz. Yerini ayırmak için 23 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
+
+Arkadaşını etiketle, aynı denemede yarışın.
+
+Karakter yapay zekâ ile üretilmiştir. Canlı deneme Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#smmmyeterlilik #bitirmesinavi #smmm #denemesinavi #muhasebe
