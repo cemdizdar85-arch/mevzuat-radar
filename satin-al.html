@@ -234,7 +234,7 @@
     <!-- Ders bazli paket secilince HANGI dersler oldugu sorulur. Sormazsak
          erisimi neye acacagimizi bilemeyiz; "2 ders aldim" tek basina yetmez. -->
     <div class="kutu ic" id="dersKutu" style="display:none">
-      <h2 id="dersBaslik">Hangi dersler?</h2>
+      <h2 id="dersBaslik">Hangi sınav dersleri?</h2>
       <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
       <div id="dersListe" class="dersListe"></div>
       <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
@@ -513,7 +513,7 @@ function dersCiz(){
   if(document.getElementById('dersListe').getAttribute('data-pk') === secili.id){ dersSayacGuncelle(); return; }
   document.getElementById('dersListe').setAttribute('data-pk', secili.id);
   var havuz = dersHavuzu(secili), kgk = secili.id.indexOf('kgk-') === 0;
-  document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : 'Hangi dersler?';
+  document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : 'Hangi sınav dersleri?';
   document.getElementById('dersNot').innerHTML =
     '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
     + (kgk ? 'modüllere' : 'derslere') + ' açılır. <span id="dersSayac"></span>';

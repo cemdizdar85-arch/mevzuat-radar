@@ -110,12 +110,13 @@
   <section id="epKosul" class="ep-gizli">
     <h1>Elçi Programı Koşulları</h1>
     <p class="ep-alt">Paneli açmadan önce program koşullarını oku ve onayla. Koşullar bütün elçiler için aynıdır.</p>
+    <p class="ep-kucuk" id="epDegisen"><b>11 Ekim 2026 sürümünde değişenler (Madde 13):</b> Madde 2'ye <b>Hizmet</b> ve <b>Sınav dersi</b> tanımları eklendi. Madde 4.2, 5, 6.1, 6.6-d ve 6.8'deki "ders paketi / ders başına" ifadeleri "sınav dersi soru bankası / sınav dersi başına" oldu. <b>Tutarlar, oranlar ve diğer koşullar değişmedi.</b></p>
     <div class="ep-kutu">
       <div class="ep-sz" id="epKosulListe" tabindex="0" aria-label="Elçi Programı Katılım Sözleşmesi"></div>
       <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a> (sürüm <span id="epKosulSurum"></span>)</p>
       <label class="ep-onay"><input type="checkbox" id="epKosulOnay"> <span>Elçi Programı Katılım Sözleşmesi'ni okudum, kabul ediyorum.</span></label>
       <!-- 01.10 TBK m.21: aleyhe hükümler AYRICA gösterilip AYRICA kabul edilir, yoksa "yazılmamış" sayılabilir (sözleşme 4.2) -->
-      <label class="ep-onay"><input type="checkbox" id="epKosulAleyhe"> <span>Şu hükümleri <b>ayrıca okudum ve kabul ediyorum</b>: komisyonun satışın kesinleşmesine bağlı olması ve iade edilen satışın komisyonunun sonraki ödememden düşülmesi (Madde 6.3, 6.5) · komisyon tutarlarının brüt olması, yasal vergi kesintisinin komisyondan yapılması, vergi bildirimi yapılmadan ödeme yapılmaması ve yanlış bildirimden doğan verginin bana rücu edilmesi (Madde 6.6) · Yeterlilik 1–4 ders paketi satışlarının kademeye sayılmaması (Madde 6.8) · kodun kapanma koşulları (Madde 9) · aykırı paylaşım nedeniyle Tetikte'ye verilen cezanın bana rücu edilmesi (Madde 8.3) · sözleşmenin feshi (Madde 12).</span></label>
+      <label class="ep-onay"><input type="checkbox" id="epKosulAleyhe"> <span>Şu hükümleri <b>ayrıca okudum ve kabul ediyorum</b>: komisyonun satışın kesinleşmesine bağlı olması ve iade edilen satışın komisyonunun sonraki ödememden düşülmesi (Madde 6.3, 6.5) · komisyon tutarlarının brüt olması, yasal vergi kesintisinin komisyondan yapılması, vergi bildirimi yapılmadan ödeme yapılmaması ve yanlış bildirimden doğan verginin bana rücu edilmesi (Madde 6.6) · Yeterlilik 1–4 sınav dersi soru bankası satışlarının kademeye sayılmaması (Madde 6.8) · kodun kapanma koşulları (Madde 9) · aykırı paylaşım nedeniyle Tetikte'ye verilen cezanın bana rücu edilmesi (Madde 8.3) · sözleşmenin feshi (Madde 12).</span></label>
       <div style="margin-top:12px"><button class="ep-btn ana" id="epKosulBtn" type="button" disabled>Onayla ve panele geç</button></div>
       <div class="ep-hata" id="epKosulHata" role="alert"></div>
     </div>
@@ -166,8 +167,8 @@
 
     <!-- 01.10 tek ders (sözleşme 6.8): ders başı 150 TL, kademeye sayılmaz; sunucu alanları ders_* (2026-10-01-elci-ders-komisyonu.sql) -->
     <div class="ep-kutu">
-      <h2>Ders paketleri (Yeterlilik 1–4 ders)</h2>
-      <p class="ep-kucuk" style="margin-top:0">Takipçine ders başına 50 TL indirim; sana <b>ders başına 150 TL</b> (1 ders 150 · 2 ders 300 · 3 ders 450 · 4 ders 600 TL). Bu satışlar kademeye sayılmaz.</p>
+      <h2>Sınav dersi soru bankası (Yeterlilik 1–4 sınav dersi)</h2>
+      <p class="ep-kucuk" style="margin-top:0">Takipçine sınav dersi başına 50 TL indirim; sana <b>sınav dersi başına 150 TL</b> (1 sınav dersi 150 · 2 sınav dersi 300 · 3 sınav dersi 450 · 4 sınav dersi 600 TL). Bu satışlar kademeye sayılmaz.</p>
       <p class="ep-kucuk"><b id="epDersKesin">0</b> kesinleşen · <b id="epDersBek">0</b> süresi dolmamış satış · komisyon <b id="epDersKom">0 TL</b> (bekleyenlerle <b id="epDersKomT">0 TL</b>)</p>
     </div>
 
@@ -212,6 +213,7 @@
   <li><b>Panel:</b> tetikte.com/elci.html; Elçinin kodunu, bağlantısını, satış adetlerini, komisyonunu ve ödemelerini gördüğü sayfa.</li>
   <li><b>Satış:</b> Elçi koduyla tetikte.com'da verilen ve bedeli Tetikte'ye ödenmiş sipariş.</li>
   <li><b>Kesinleşme:</b> Satış bedelinin ödenmesinden itibaren 7 günün, satış iade edilmeden ya da ödeme geri alınmadan geçmesi.</li>
+  <li><b>Hizmet:</b> tetikte.com'da sunulan soru bankası, deneme sınavı ve soru açıklamalarından oluşan çevrimiçi hazırlık yazılımı. Hizmet ders, kurs veya eğitim hizmeti değildir; ders anlatımı, canlı yayın, öğretmen ve sertifika içermez. <b>Sınav dersi:</b> TESMER sınavındaki ders; sınav dersi soru bankası, o sınav dersinin sorularına erişimdir.</li>
   <li><b>Dönem:</b> Bir sınav dönemi (ör. "SGS 2026-3": 15.09.2026 – 21.11.2026). Dönemler Panelde gösterilir.</li>
 </ol>
 
@@ -225,20 +227,20 @@
 
 <h2>MADDE 4 — KURULUŞ</h2>
 <p><b>4.1.</b> Elçi, Tetikte'ye kendi adına açtığı üye hesabıyla girer. Tetikte, Elçinin bildirdiği e-posta adresiyle açılmış hesabı, hesabın Elçiye ait olduğunu teyit ettikten sonra elçi kaydına bağlar. Tetikte ayrıca tek kullanımlık bir bağlama kodu da iletebilir; Elçi bu kodu Panelde yazarak hesabını kendisi bağlayabilir. Bağlanan hesap Elçinin kişisel hesabıdır; Elçi giriş bilgilerini üçüncü kişilerle paylaşmaz.</p>
-<p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda elektronik ortamda kurulur; taraflarca ıslak ya da elektronik imzayla ayrıca imzalanmaz. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 6.6 tutarların brüt olması ve vergi kesintisi, Madde 6.8 ders paketlerinin kademeye sayılmaması, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur; onaylanan sürümün PDF kopyası, onay anında Elçinin Tetikte kayıtlarındaki e-posta adresine gönderilir.</p>
+<p><b>4.2.</b> Sözleşme, Elçinin Panelde bu metni onayladığı anda elektronik ortamda kurulur; taraflarca ıslak ya da elektronik imzayla ayrıca imzalanmaz. Onay ekranında Elçi aleyhine sonuç doğurabilecek hükümler (Madde 6.5 mahsup, Madde 6.6 tutarların brüt olması ve vergi kesintisi, Madde 6.8 sınav dersi soru bankası satışlarının kademeye sayılmaması, Madde 9 kodun kapanması, Madde 12 fesih, Madde 8.3 rücu) ayrıca gösterilir ve Elçi bunları okuduğunu ayrı bir kutuyla onaylar. Onayın tarihi, saati ve onaylanan sürüm Tetikte kayıtlarında tutulur; onaylanan sürümün PDF kopyası, onay anında Elçinin Tetikte kayıtlarındaki e-posta adresine gönderilir.</p>
 
 <h2>MADDE 5 — ALICIYA İNDİRİM</h2>
-<p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde indirim ders başına 50 TL'dir; bu paketlerin komisyonu Madde 6.8'dedir. Tutarlar Panelde güncel olarak gösterilir.</p>
+<p>Elçi koduyla alan kişiye, KDV dahil, aşağıdaki indirim uygulanır; diğer paketlerde kod indirim sağlamaz. SMMM Yeterlilik 1, 2, 3 ve 4 sınav dersinin soru bankası paketlerinde indirim sınav dersi başına 50 TL'dir; bu paketlerin komisyonu Madde 6.8'dedir. Tutarlar Panelde güncel olarak gösterilir.</p>
 <table><tr><th>Paket</th><th>İndirim</th><th>01.10.2026 fiyatıyla (KDV dahil)</th></tr>
 <tr><td>Staja Giriş (SGS)</td><td>400 TL</td><td>2.988 → 2.588 TL</td></tr>
-<tr><td>SMMM Yeterlilik — tüm dersler (8 ders)</td><td>400 TL</td><td>3.468 → 3.068 TL</td></tr>
-<tr><td>SMMM Yeterlilik — 1 ders</td><td>50 TL</td><td>1.188 → 1.138 TL</td></tr>
-<tr><td>SMMM Yeterlilik — 2 ders</td><td>100 TL</td><td>1.908 → 1.808 TL</td></tr>
-<tr><td>SMMM Yeterlilik — 3 ders</td><td>150 TL</td><td>2.508 → 2.358 TL</td></tr>
-<tr><td>SMMM Yeterlilik — 4 ders</td><td>200 TL</td><td>2.988 → 2.788 TL</td></tr></table>
+<tr><td>SMMM Yeterlilik — tüm sınav dersleri (8 sınav dersi)</td><td>400 TL</td><td>3.468 → 3.068 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 1 sınav dersi</td><td>50 TL</td><td>1.188 → 1.138 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 2 sınav dersi</td><td>100 TL</td><td>1.908 → 1.808 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 3 sınav dersi</td><td>150 TL</td><td>2.508 → 2.358 TL</td></tr>
+<tr><td>SMMM Yeterlilik — 4 sınav dersi</td><td>200 TL</td><td>2.988 → 2.788 TL</td></tr></table>
 
 <h2>MADDE 6 — KOMİSYON VE ÖDEME</h2>
-<p><b>6.1.</b> Staja Giriş (SGS) ve SMMM Yeterlilik — tüm dersler paketlerinde komisyon, kesinleşen her satış için aşağıdaki kademeyle ödenir. SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinin komisyonu bu kademeye tabi değildir; yalnız Madde 6.8'e göre ödenir.</p>
+<p><b>6.1.</b> Staja Giriş (SGS) ve SMMM Yeterlilik — tüm sınav dersleri paketlerinde komisyon, kesinleşen her satış için aşağıdaki kademeyle ödenir. SMMM Yeterlilik 1, 2, 3 ve 4 sınav dersinin soru bankası paketlerinin komisyonu bu kademeye tabi değildir; yalnız Madde 6.8'e göre ödenir.</p>
 <table><tr><th>Dönemdeki satış</th><th>Satış başına komisyon</th></tr>
 <tr><td>1 – 9. satış</td><td>750 TL</td></tr><tr><td>10 – 49. satış</td><td>1.000 TL</td></tr>
 <tr><td>50 – 99. satış</td><td>1.250 TL</td></tr><tr><td>100. satıştan sonra</td><td>taraflar ayrıca görüşür</td></tr></table>
@@ -255,12 +257,12 @@
 <tr><td>750 TL</td><td>112,50 TL</td><td>637,50 TL</td></tr>
 <tr><td>1.000 TL</td><td>150,00 TL</td><td>850,00 TL</td></tr>
 <tr><td>1.250 TL</td><td>187,50 TL</td><td>1.062,50 TL</td></tr>
-<tr><td>Ders başına 150 TL</td><td>22,50 TL</td><td>127,50 TL</td></tr></table>
+<tr><td>Sınav dersi başına 150 TL</td><td>22,50 TL</td><td>127,50 TL</td></tr></table>
 <p><b>e) Kesinti Elçinin vergisidir.</b> Kesinti, Elçinin kendi gelir vergisine mahsuben yapılır; Elçi isterse Tetikte kesinti tutarını gösteren belgeyi verir. Elçinin yıllık beyanı ve diğer vergi yükümlülükleri kendisine aittir; Tetikte kesinti dışındaki hiçbir vergiyi üstlenmez.</p>
 <p><b>f) Fatura ya da serbest meslek makbuzu düzenleyen Elçi.</b> Elçi vergi mükellefi olarak fatura ya da serbest meslek makbuzu düzenliyorsa komisyon tutarına KDV dahil değildir; varsa KDV belgede ayrıca gösterilir ve ayrıca ödenir. Bu durumda da mevzuat gerektiriyorsa (b) bendindeki kesinti yapılır.</p>
 <p><b>g) Elçinin bildirimi.</b> Elçi; ödeme hesabının 20/B hesabı olup olmadığını, vergi mükellefiyeti varsa bilgilerini ve kesintinin beyanı için T.C. kimlik numarasını e-postayla yazılı bildirir. Bu bilgiler Panelde tutulmaz. Bildirim yapılmadan ödeme yapılmaz; bildirim gecikirse ödeme, bildirimi izleyen ilk ödeme gününe kalır. Elçinin gerçeğe aykırı ya da eksik bildirimi nedeniyle Tetikte'den istenen vergi, ceza ve faiz Elçiye rücu edilir.</p>
 <p><b>6.7.</b> Bu sözleşmede Elçiye asgari satış, hedef ya da garanti tutar yükletilmez ve vaat edilmez.</p>
-<p><b>6.8. Ders paketleri.</b> SMMM Yeterlilik 1, 2, 3 ve 4 derslik paketlerinde komisyon, satın alınan ders başına 150 TL'dir (1 ders 150 TL · 2 ders 300 TL · 3 ders 450 TL · 4 ders 600 TL). Bu satışlar Madde 6.1'deki satış sırasına ve kademeye sayılmaz; Madde 6.3, 6.4, 6.5 ve 6.6 bunlara da uygulanır.</p>
+<p><b>6.8. Sınav dersi soru bankası paketleri.</b> SMMM Yeterlilik 1, 2, 3 ve 4 sınav dersinin soru bankası paketlerinde komisyon, satın alınan sınav dersi başına 150 TL'dir (1 sınav dersi 150 TL · 2 sınav dersi 300 TL · 3 sınav dersi 450 TL · 4 sınav dersi 600 TL). Bu satışlar Madde 6.1'deki satış sırasına ve kademeye sayılmaz; Madde 6.3, 6.4, 6.5 ve 6.6 bunlara da uygulanır.</p>
 <p><b>6.9. İtiraz.</b> Elçi, Panelde ya da e-postayla bildirilen aylık komisyon hesabına 30 gün içinde e-postayla itiraz edebilir. İtiraz hâlinde Tetikte, ilgili dönemin koda bağlı satış dökümünü (alıcıların kişisel verileri olmadan) Elçiye verir. Bu hüküm Elçinin her türlü delille ispat hakkını ortadan kaldırmaz.</p>
 
 <h2>MADDE 7 — PAYLAŞIM KURALLARI</h2>
@@ -324,7 +326,8 @@
   var SITE   = 'https://tetikte.com/';
   /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
      2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı) → 2026-10-04: 6.1 tek dersi açıkça kademe dışı bırakır (Madde 5 tablosuna atıf TBK m.23 belirsizliği doğuruyordu) + 6.8 aleyhe onay kutusuna → 2026-10-05 (Cem "hepsini yap"): 6.6 tutarlar BRÜT + %15 kesinti/20B, 6.4 kendi adına hesap, 6.9 itiraz, 3.5 masraf, 9.4 yeniden açma, 4.2 imzasız + onay kopyası e-postaya, 11.2 aydınlatma adresi → 2026-10-06 (Cem "ayrıntılı yazalım, okuyan anlasın"): 6.6 a–g, brüt/net örnek tablosu, bildirim yoksa ödeme yok, yanlış bildirim rücu → 2026-10-07 (Cem "evet ekle"): 9.1 paylaşım = bağlantının e-postayla bildirimi ya da koda bağlı satış; 9.2 buna bağlandı. → 2026-10-08 (Cem 01.10 "evet sözleşmeyi de güncelle"): Madde 5 örnek sütunu 01.10 fiyatlarıyla (SGS 2.490 + KDV, Yeterlilik merdiveni + KDV); indirim tutarları DEĞİŞMEDİ. */
-  var KOSUL_SURUM = '2026-10-10'; /* 2026-10-10 (Cem 08.10 "sözleşmeyi orda onaylasın, onu yap"): 4.1 hesap bağlama - Tetikte bildirilen e-postayla açılmış hesabı teyit edip bağlar, bağlama kodu yedek; elçiler yeni sürümü panelde yeniden onaylar. PDF bu sürümden üretildi. */
+  var KOSUL_SURUM = '2026-10-11'; /* 2026-10-11 (Cem 10.10 '1 yap'): 5580 m.3 dil riski - 'ders paketi/ders başına' -> 'sınav dersi soru bankası/sınav dersi başına', Madde 2'ye Hizmet + Sınav dersi tanımı; TUTAR/ORAN DEĞİŞMEDİ. Madde 13 gereği onay ekranında değişenler gösterilir (epDegisen). Elçiler yeniden onaylar; PDF bu sürümden üretildi. */
+  /* önceki: */ var _ESKI_SURUM_1010 = '2026-10-10'; /* 2026-10-10 (Cem 08.10 "sözleşmeyi orda onaylasın, onu yap"): 4.1 hesap bağlama - Tetikte bildirilen e-postayla açılmış hesabı teyit edip bağlar, bağlama kodu yedek; elçiler yeni sürümü panelde yeniden onaylar. PDF bu sürümden üretildi. */
   /* önceki: */ /* 2026-10-09 (Cem 02.10 "düzelt"): SGS ürün adı Madde 5 ve 6.1'de "Staja Giriş (SGS)" (sitenin tamamıyla aynı); PDF bu sürümden yeniden üretildi (10-08 PDF'i hiç üretilmemişti, indirilen PDF 10-07 idi) */
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
@@ -332,7 +335,7 @@
   function tl(n){ return (Number(n) || 0).toLocaleString('tr-TR') + ' TL'; }
   function goster(id){ ['epYuk','epKapali','epBagla','epKosul','epPanel'].forEach(function(k){ $(k).classList.toggle('ep-gizli', k !== id); }); }
   function tarih(t){ try { return new Date(String(t).slice(0,10) + 'T12:00:00').toLocaleDateString('tr-TR', { day:'numeric', month:'long', year:'numeric' }); } catch(e){ return t || ''; } }
-  function paketAdi(id){ var m = /^yeterlilik-([1-4])$/.exec(id); return id === 'sgs' ? 'Staja Giriş (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm dersler' : m ? 'Yeterlilik ' + m[1] + ' ders' : id; }
+  function paketAdi(id){ var m = /^yeterlilik-([1-4])$/.exec(id); return id === 'sgs' ? 'Staja Giriş (SGS)' : id === 'yeterlilik-tum' ? 'Yeterlilik — tüm sınav dersleri' : m ? 'Yeterlilik — ' + m[1] + ' sınav dersi' : id; }
 
   /* 01.10 (Cem "onay yap"): onay ekranı TAM SÖZLEŞMEYİ gösterir (sözleşme v2, 16 madde). Metin template#sozlesmeMetni'de;
      kaynak Masaüstü/Tetikte-Hukuk/Tetikte-Elci-Sozlesmesi-v2 ile birebir, PDF'i elci-sozlesmesi.pdf. Eski 19 maddelik özet
