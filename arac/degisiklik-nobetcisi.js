@@ -83,7 +83,8 @@ const yollar = kok => ({ kutuk: path.join(kok, 'veri', 'sinav', 'degisiklik-kutu
 function kutukOku(kok) { const p = yollar(kok).kutuk; if (!fs.existsSync(p)) return null; return JSON.parse(fs.readFileSync(p, 'utf8').replace(/^﻿/, '')); }
 /* zaman alanı dışında değişmediyse dosyaya hiç dokunma (CLAUDE.md: rapor her koşuda "değişmiş" görünmesin) */
 function yazDegistiyse(p, metin, zamanRe) {
-  if (fs.existsSync(p)) { const eski = fs.readFileSync(p, 'utf8'); if (eski.replace(zamanRe, '') === metin.replace(zamanRe, '')) return false; }
+  /* satır sonu farkı (Windows çıkışı CRLF, koşucu LF) değişiklik sayılmaz */
+  if (fs.existsSync(p)) { const n = s => s.replace(/\r\n/g, '\n').replace(zamanRe, ''); if (n(fs.readFileSync(p, 'utf8')) === n(metin)) return false; }
   fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, metin); return true;
 }
 const KUTUK_ZAMAN = /"son_tarama": "[^"]*"/;
