@@ -119,7 +119,7 @@ try {
 try {
   /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
   if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261009'; dn.async = true;
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261011'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
