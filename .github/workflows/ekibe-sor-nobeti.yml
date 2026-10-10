@@ -35,7 +35,7 @@ jobs:
             -H "Content-Type: application/json" -H "x-servis: $SK" -d '{"islem":"ekip_nobet"}')
           echo "sonuc: $sonuc"
           echo "$sonuc" | grep -q '"success":true' || { echo "::error::nöbet cevabı başarısız"; exit 1; }
-          if echo "$sonuc" | grep -Eq '"(haber_hata|cevap_hata|adres_yok)":[1-9]'; then echo "::error::gönderilemeyen var"; exit 1; fi
+          if echo "$sonuc" | grep -Eq '"(haber_hata|cevap_hata|adres_yok|tesekkur_hata)":[1-9]'; then echo "::error::gönderilemeyen var"; exit 1; fi
 
   # 10.10 (Cem "1.2.3" madde 3): panelde "Hatalı (öğrenci haklı)" işaretlenen soru → <sinav>-elle-ret.json → sınavın kasa yayını.
   # Önce yalnız SAYI sorulur; aktarılacak yoksa depo çekilmez (10 dakikada bir koşuyor). Damga push BAŞARILI olunca vurulur.

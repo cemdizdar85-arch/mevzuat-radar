@@ -17,7 +17,7 @@
 // ============================================================================
 import Anthropic from "npm:@anthropic-ai/sdk";
 
-const KOD_IMZA = "3f55d8168239b6d1";
+const KOD_IMZA = "f982086797bd07d7";
 const GUNLUK = 10, AYLIK_USD = 100, MODEL = "claude-opus-5-5";
 const FIYAT: Record<string, [number, number]> = {           // USD / milyon token (girdi, çıktı) - 2026-09-25 tablosu
   "claude-opus-5-5": [4, 20], "claude-opus-5": [5, 25], "claude-opus-4-8": [5, 25], "claude-sonnet-5-5": [2, 10], "claude-fable-5-1": [10, 50],
@@ -133,7 +133,24 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     for (const e of (h.ok ? await h.json() : [])) (await haberGonder(e)) ? s.haber++ : s.haber_hata++;
     const c = await svc(`ekibe_soru?select=${EKIP_ALAN}&durum=eq.cevaplandi&cevap_mail=is.null&order=tarih.asc&limit=20`);
     for (const e of (c.ok ? await c.json() : [])) { const k = await cevapGonder(e); k === 200 ? s.cevap++ : k === 409 ? s.adres_yok++ : s.cevap_hata++; }
-    return cevap(200, { success: true, ...s });   // yalnız sayı (günlüğe kişi verisi basılmaz)
+    // 10.10 (Cem "1.2.3"): yönetici "Hatalı (öğrenci haklı)" işaretlediyse öğrenciye bir kez teşekkür. Damga ÖNCE (çift mail yok),
+    //   mail düşerse geri alınır. Yönetici notu (itiraz_not) maile GİRMEZ — iç not.
+    let tesekkur = 0, tesekkur_hata = 0;
+    const t = await svc(`ekibe_soru?select=id,user_id,eposta,mesaj&itiraz_hakli=is.true&tesekkur_mail=is.null&order=tarih.asc&limit=20`);
+    for (const e of (t.ok ? await t.json() : [])) {
+      if (!e.eposta && e.user_id) {
+        const a = await fetch(`${SB_URL}/auth/v1/admin/users/${e.user_id}`, { headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` } });
+        e.eposta = a.ok ? String((await a.json()).email || "") : "";
+      }
+      if (!e.eposta) { s.adres_yok++; continue; }
+      const p = await svc(`ekibe_soru?id=eq.${e.id}&tesekkur_mail=is.null`, { method: "PATCH", headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json", Prefer: "return=representation" }, body: JSON.stringify({ tesekkur_mail: new Date().toISOString() }) });
+      if (!p.ok || !(await p.json()).length) continue;
+      const metin = `Merhaba,\n\n"Ekibe sor" ile ilettiğin itirazı inceledik: haklısın, soruda bir hata vardı. Soruyu onarıma aldık; düzeltilene kadar yayından kaldırıldı.\n\nDikkatin ve bize yazdığın için teşekkür ederiz. Senin gibi öğrenciler sayesinde soru bankamız her gün daha iyi oluyor.\n\n— Senin itirazın: ${e.mesaj}\n\nTetikte ekibi`;
+      const ok = await mail(e.eposta, "İtirazın haklı çıktı, teşekkürler · Tetikte ekibi", metin,
+        kurumsalMail(`<p>Merhaba,</p><p>"Ekibe sor" ile ilettiğin itirazı inceledik: <b>haklısın, soruda bir hata vardı.</b> Soruyu onarıma aldık; düzeltilene kadar yayından kaldırıldı.</p><p>Dikkatin ve bize yazdığın için teşekkür ederiz. Senin gibi öğrenciler sayesinde soru bankamız her gün daha iyi oluyor.</p><p style="color:#3d4b63">Senin itirazın: ${kacis(e.mesaj)}</p>`, "Bu e-posta, Ekibe sor ile ilettiğin itiraz üzerine gönderilmiştir."));
+      if (ok) tesekkur++; else { tesekkur_hata++; await svc(`ekibe_soru?id=eq.${e.id}`, { method: "PATCH", body: JSON.stringify({ tesekkur_mail: null }) }); }
+    }
+    return cevap(200, { success: true, ...s, tesekkur, tesekkur_hata });   // yalnız sayı (günlüğe kişi verisi basılmaz)
   }
 
   const jwt = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");

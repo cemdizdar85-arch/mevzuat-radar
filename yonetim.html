@@ -415,12 +415,14 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       var itiraz=!('itiraz_hakli' in x)?'':'<div class="not" style="margin:8px 0 0;display:flex;gap:6px;align-items:center;flex-wrap:wrap">Soru gerçekten hatalı mı? '
         +'<button class="btn'+(x.itiraz_hakli===true?' ana':'')+'" data-ekiphakli="'+x.id+'" data-deger="1">Hatalı (öğrenci haklı)</button>'
         +'<button class="btn'+(x.itiraz_hakli===false?' ana':'')+'" data-ekiphakli="'+x.id+'" data-deger="0">Soru doğru</button>'
-        +(x.itiraz_hakli===true?' · '+(x.ret_aktarim?'✓ onarım listesine girdi ('+tarih(x.ret_aktarim)+'), sonraki yayında siteden çekilir':'⏳ 10 dk içinde onarım listesine girer')+(x.itiraz_not?' · Not: '+esc(x.itiraz_not):''):'')
+        +(x.itiraz_hakli===true?' · '+(('tesekkur_mail' in x)?(x.tesekkur_mail?'✓ öğrenciye teşekkür maili gitti · ':'⏳ teşekkür maili 10 dk içinde · '):'')+(x.ret_aktarim?'✓ onarım listesine girdi ('+tarih(x.ret_aktarim)+'), sonraki yayında siteden çekilir':'⏳ 10 dk içinde onarım listesine girer')+(x.itiraz_not?' · Not: '+esc(x.itiraz_not):''):'')
         +'</div>';
       return '<div class="kutu" style="margin:0 0 10px'+(gec?';border:2px solid var(--red)':'')+'"><div class="not" style="margin:0 0 6px">#'+x.id+' · '+tarih(x.tarih)+' · '+esc(x.eposta||'—')+' · '+esc(x.soru_id)+' · <b>'+(x.durum==='bekliyor'?'cevap bekliyor':'cevaplandı')+'</b>'
         +(gec?' · <b style="color:var(--red)">⏰ '+saat+' saattir bekliyor (söz: 24 saat)</b>':'')
         +(x.durum!=='bekliyor' && ('cevap_goruldu' in x)?' · '+(x.cevap_goruldu?'öğrenci sitede gördü':'öğrenci sitede henüz görmedi'):'')+'</div>'
         +(x.soru_kisa?'<p style="margin:0 0 6px;font-size:13.5px"><b>Soru:</b> '+esc(x.soru_kisa)+'</p>':'')
+        /* 10.10 (Cem "1.2.3"): kasadaki soru (şıklar + doğru + açıklama) kartın içinde — karar için soruyu ayrıca aramak gerekmesin */
+        +'<p style="margin:0 0 6px"><button class="btn" data-ekipsoru="'+esc(x.soru_id)+'" data-kart="'+x.id+'">Soruyu göster (şıklar, doğru cevap, açıklama)</button></p><div id="ekipSoru'+x.id+'"></div>'
         +'<p style="margin:0 0 6px"><b>Öğrenci:</b> '+esc(x.mesaj)+'</p>'
         +(x.nobetci_cevap?'<details style="margin:0 0 6px"><summary class="not">Nöbetçi\'nin verdiği cevap</summary><p style="white-space:pre-wrap;font-size:13.5px">'+esc(x.nobetci_cevap)+'</p></details>':'')
         +(x.durum==='bekliyor'
@@ -452,6 +454,28 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     var o=(await sb.auth.getSession()).data.session;
     return fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/nobetci-sor',{ method:'POST', headers:{'Content-Type':'application/json',apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg',Authorization:'Bearer '+(o&&o.access_token)}, body:JSON.stringify({islem:'ekip_cevap',id:id}) }).then(function(x){return x.ok;},function(){return false;});
   }
+  document.addEventListener('click', async function(ev){
+    var bs=ev.target.closest&&ev.target.closest('button[data-ekipsoru]'); if(!bs) return;
+    var hedef=$('ekipSoru'+bs.dataset.kart); if(!hedef) return;
+    if(hedef.innerHTML){ hedef.innerHTML=''; bs.textContent='Soruyu göster (şıklar, doğru cevap, açıklama)'; return; }
+    bs.disabled=true;
+    var r=await sb.rpc('yonetim_soru_getir',{ p_id:bs.dataset.ekipsoru });
+    bs.disabled=false;
+    if(r.error){ hedef.innerHTML='<p class="not">Soru okunamadı: '+esc(hataYazi(r.error))+'</p>'; return; }
+    var v=r.data; if(!v){ hedef.innerHTML='<p class="not">Bu soru kasada yok (yayından kalkmış ya da kimlik eski).</p>'; return; }
+    var sik=v.siklar||{}, dg=String(v.dogru||''), sade=v.sade||{};
+    var sadeD=typeof sade==='string'?sade:(sade.dogru||''), sadeS=(sade&&typeof sade==='object'&&sade.siklar)||{};
+    hedef.innerHTML='<div style="border:1px solid var(--line2);border-radius:9px;padding:10px 12px;margin:0 0 8px;font-size:14px">'
+      +'<p class="not" style="margin:0 0 6px">'+esc(v.ders||'')+(v.konu?' · '+esc(v.konu):'')+' · '+esc(v.sayfa||'')+'</p>'
+      +'<p style="margin:0 0 8px;white-space:pre-wrap">'+esc(v.soru||'')+'</p>'
+      +Object.keys(sik).sort().map(function(h){ var d=h===dg;
+        return '<p style="margin:0 0 4px'+(d?';font-weight:700;color:var(--green)':'')+'">'+h+') '+esc(sik[h])+(d?' ✓ doğru cevap':'')+'</p>'
+          +(sadeS[h]&&!d?'<p class="not" style="margin:0 0 6px 18px">'+esc(sadeS[h])+'</p>':''); }).join('')
+      +(sadeD?'<p style="margin:8px 0 0"><b>Açıklama (doğru şık):</b> '+esc(sadeD)+'</p>':'')
+      +(v.dayanak?'<p class="not" style="margin:6px 0 0"><b>Dayanak:</b> '+esc(typeof v.dayanak==='string'?v.dayanak:JSON.stringify(v.dayanak))+'</p>':'')
+      +'</div>';
+    bs.textContent='Soruyu gizle';
+  });
   document.addEventListener('click', async function(ev){
     var bh=ev.target.closest&&ev.target.closest('button[data-ekiphakli]'); if(!bh) return;
     var id=Number(bh.dataset.ekiphakli), hakli=bh.dataset.deger==='1', not=null;
