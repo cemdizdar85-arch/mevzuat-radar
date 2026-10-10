@@ -165,6 +165,17 @@
       </div>
     </div>
 
+    <!-- 10.10 (Cem "1.2.3"): paket paket indirim + komisyon tek tabloda (sözleşme 5, 6.1, 6.6-d, 6.8). İndirim sunucudan (d.indirimler),
+         komisyon: kademeli paketlerde d.siradaki_birim, ders paketlerinde DERS_KOMISYON (sunucu elci_indirim.sabit_komisyon_tl ile aynı, 10.10 ölçüldü). -->
+    <div class="ep-kutu">
+      <h2>Paket paket: takipçinin indirimi ve senin komisyonun</h2>
+      <table class="ep-tablo" id="epPaketTablo">
+        <thead><tr><th>Paket</th><th class="sag">Takipçiye indirim</th><th class="sag">Komisyon (brüt)</th><th class="sag">Net (%15 kesintiyle)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="ep-kucuk">SGS ve Yeterlilik tüm sınav dersleri kademeye göre ödenir (şu anki kademen yazılı). 1–4 sınav dersi paketleri sınav dersi başına 150 TL'dir, kademeye sayılmaz. Net sütunu 20/B hesabı olmayan elçi içindir; 20/B hesabında kesintiyi banka yapar (sözleşme 6.6).</p>
+    </div>
+
     <!-- 01.10 tek ders (sözleşme 6.8): ders başı 150 TL, kademeye sayılmaz; sunucu alanları ders_* (2026-10-01-elci-ders-komisyonu.sql) -->
     <div class="ep-kutu">
       <h2>Sınav dersi soru bankası (Yeterlilik 1–4 sınav dersi)</h2>
@@ -330,6 +341,9 @@
   /* önceki: */ /* 2026-10-11 (Cem 10.10 '1 yap'): 5580 m.3 dil riski - 'ders paketi/ders başına' -> 'sınav dersi soru bankası/sınav dersi başına', Madde 2'ye Hizmet + Sınav dersi tanımı; TUTAR/ORAN DEĞİŞMEDİ. Madde 13 gereği onay ekranında değişenler gösterilir (epDegisen). Elçiler yeniden onaylar; PDF bu sürümden üretildi. */
   /* önceki: */ var _ESKI_SURUM_1010 = '2026-10-10'; /* 2026-10-10 (Cem 08.10 "sözleşmeyi orda onaylasın, onu yap"): 4.1 hesap bağlama - Tetikte bildirilen e-postayla açılmış hesabı teyit edip bağlar, bağlama kodu yedek; elçiler yeni sürümü panelde yeniden onaylar. PDF bu sürümden üretildi. */
   /* önceki: */ /* 2026-10-09 (Cem 02.10 "düzelt"): SGS ürün adı Madde 5 ve 6.1'de "Staja Giriş (SGS)" (sitenin tamamıyla aynı); PDF bu sürümden yeniden üretildi (10-08 PDF'i hiç üretilmemişti, indirilen PDF 10-07 idi) */
+  var PAKET_SIRA = ['sgs', 'yeterlilik-tum', 'yeterlilik-1', 'yeterlilik-2', 'yeterlilik-3', 'yeterlilik-4'];
+  var DERS_KOMISYON = { 'yeterlilik-1':150, 'yeterlilik-2':300, 'yeterlilik-3':450, 'yeterlilik-4':600 };  /* sözleşme 6.8 = elci_indirim.sabit_komisyon_tl */
+  function tlKurus(n){ return n.toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' TL'; }
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
 
   function $(id){ return document.getElementById(id); }
@@ -384,6 +398,12 @@
     $('epKademe').querySelector('tbody').innerHTML = KADEME.map(function(k){
       return '<tr' + (k[2] === su ? ' class="su"' : '') + '><td>' + k[0] + (k[2] === su ? ' · şu an buradasın' : '') + '</td><td class="sag">' + (k[1] ? tl(k[1]) : 'özel') + '</td></tr>';
     }).join('');
+    var kadBirim = d.ozel_isbirligi ? null : d.siradaki_birim;
+    $('epPaketTablo').querySelector('tbody').innerHTML = PAKET_SIRA.filter(function(p){ return ind[p] > 0; }).map(function(p){
+      var kom = DERS_KOMISYON[p] || kadBirim;
+      return '<tr><td>' + paketAdi(p) + '</td><td class="sag">' + tl(ind[p]) + '</td><td class="sag">' + (kom ? tl(kom) : 'özel') +
+        (DERS_KOMISYON[p] ? '' : '<br><span class="ep-kucuk">kademene göre</span>') + '</td><td class="sag">' + (kom ? tlKurus(kom * 0.85) : '—') + '</td></tr>';
+    }).join('') || '<tr><td colspan="4" style="color:var(--muted)">İndirim bilgisi okunamadı.</td></tr>';
     var od = d.odemeler || [];
     $('epOdemeler').querySelector('tbody').innerHTML = od.length
       ? od.map(function(o){ return '<tr><td>' + tarih(o.odeme_tarihi) + '</td><td>' + o.donem + '</td><td class="sag">' + tl(o.tutar_tl) + '</td></tr>'; }).join('')

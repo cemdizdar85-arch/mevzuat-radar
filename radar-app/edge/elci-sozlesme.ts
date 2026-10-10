@@ -47,6 +47,19 @@ export function kokenIzinli(o: string | null): boolean { return !!o && (IZINLI_K
 export function surumGecerli(s: unknown): s is string { return typeof s === "string" && /^20\d{2}-[01]\d-[0-3]\d$/.test(s); }
 function kacis(s: string): string { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
+// 10.10.2026 (Cem "1.2.3"): onay mailinde paket paket indirim + komisyon özeti. Kaynak sözleşme Madde 5, 6.1, 6.8
+// (sürüm 2026-10-12) = sunucu elci_indirim (indirim_tl, sabit_komisyon_tl; 10.10 ölçüldü). Sözleşmede tutar değişirse
+// KOSUL_SURUM + PDF + bu tablo birlikte değişir. Bağlayıcı olan PDF'tir; mail bunu yazar.
+export const PAKET_OZET: [string, number, string][] = [
+  ["Staja Giriş (SGS)", 400, "kademeli: 750 / 1.000 / 1.250 TL"],
+  ["SMMM Yeterlilik — tüm sınav dersleri", 400, "kademeli: 750 / 1.000 / 1.250 TL"],
+  ["SMMM Yeterlilik — 1 sınav dersi", 50, "150 TL"],
+  ["SMMM Yeterlilik — 2 sınav dersi", 100, "300 TL"],
+  ["SMMM Yeterlilik — 3 sınav dersi", 150, "450 TL"],
+  ["SMMM Yeterlilik — 4 sınav dersi", 200, "600 TL"],
+];
+const KADEME_NOTU = "Kademe: dönemde 1–9. satış 750 TL · 10–49. satış 1.000 TL · 50–99. satış 1.250 TL (yalnız eşik üstü, geriye dönük değil). 1–4 sınav dersi paketleri kademeye sayılmaz. Tutarlar brüttür; 20/B hesabı yoksa %15 gelir vergisi kesintisi yapılır.";
+
 export function mailKur(p: { ad: string; kod: string; surum: string; onay: string; ozet: string; site: string }) {
   const onayTr = new Date(p.onay).toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" });
   const konu = `Tetikte Elçi Sözleşmesi — onayladığın sürüm (${p.surum})`;
@@ -59,6 +72,10 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
     `Sözleşme sürümü: ${p.surum}`,
     `Onay zamanı: ${onayTr} (Türkiye saati)`,
     `PDF SHA-256 özeti: ${p.ozet}`,
+    ``,
+    `İndirim ve komisyon özeti (bağlayıcı olan ekteki sözleşmedir):`,
+    ...PAKET_OZET.map(([ad, ind, kom]) => `- ${ad}: takipçiye ${ind} TL indirim · sana ${kom}`),
+    KADEME_NOTU,
     ``,
     `Bu e-postayı saklamanı öneririz. Aynı metin: ${p.site}/elci-sozlesmesi-${p.surum}.pdf`,
     `Kişisel verilerin: ${p.site}/elci-aydinlatma.html`,
@@ -75,6 +92,12 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
 <tr><td style="padding:4px 12px 4px 0;color:#6b7280">Onay zamanı</td><td>${kacis(onayTr)} (Türkiye saati)</td></tr>
 <tr><td style="padding:4px 12px 4px 0;color:#6b7280">PDF SHA-256</td><td style="font-family:monospace;font-size:12px;word-break:break-all">${kacis(p.ozet)}</td></tr>
 </table>
+<p style="margin:18px 0 6px"><b>İndirim ve komisyon özeti</b> <span style="font-size:12.5px;color:#6b7280">(bağlayıcı olan ekteki sözleşmedir)</span></p>
+<table style="border-collapse:collapse;margin:0 0 8px;font-size:13.5px;width:100%">
+<tr><th style="text-align:left;padding:6px 8px;border-bottom:1px solid #e5e7eb;color:#6b7280;font-weight:600">Paket</th><th style="text-align:right;padding:6px 8px;border-bottom:1px solid #e5e7eb;color:#6b7280;font-weight:600">Takipçiye indirim</th><th style="text-align:right;padding:6px 8px;border-bottom:1px solid #e5e7eb;color:#6b7280;font-weight:600">Komisyonun (brüt)</th></tr>
+${PAKET_OZET.map(([ad, ind, kom]) => `<tr><td style="padding:6px 8px;border-bottom:1px solid #f0f1f3">${kacis(ad)}</td><td style="padding:6px 8px;border-bottom:1px solid #f0f1f3;text-align:right;white-space:nowrap">${ind} TL</td><td style="padding:6px 8px;border-bottom:1px solid #f0f1f3;text-align:right">${kacis(kom)}</td></tr>`).join("\n")}
+</table>
+<p style="font-size:12.5px;color:#6b7280;margin:0 0 14px">${kacis(KADEME_NOTU)}</p>
 <p style="font-size:13.5px;color:#4b5563">Bu e-postayı saklamanı öneririz. Aynı metin: <a href="${p.site}/elci-sozlesmesi-${p.surum}.pdf" style="color:#8d6c38">elci-sozlesmesi-${kacis(p.surum)}.pdf</a> · <a href="${p.site}/elci-aydinlatma.html" style="color:#8d6c38">Elçi Aydınlatma Metni</a></p>
 <p style="font-size:13.5px;color:#4b5563">Sorun ya da itiraz için bu e-postayı yanıtlayabilir ya da destek@tetikte.com adresine yazabilirsin.</p>
 `, "Bu e-posta, Tetikte Elçi Programı sözleşmesini onayladığın için gönderilmiştir.");
@@ -84,7 +107,7 @@ export function mailKur(p: { ad: string; kod: string; surum: string; onay: strin
 // ---------------------------------------------------------------------------
 const Deno: any = (globalThis as any).Deno;
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME.
-const KOD_IMZA = "364121495d59e754";
+const KOD_IMZA = "badce369df2049c4";
 
 if (Deno && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
