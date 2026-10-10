@@ -413,6 +413,14 @@ jobs:
               kabuk: bash, komut: "node arac/fiyat-urun-kapisi.js --sinav" }
           - { ad: "KAPI-FU fiyat-urun GERCEK DEPO (satistaki her paketin karsiligi var)",
               kabuk: bash, komut: "node arac/fiyat-urun-kapisi.js" }
+          # 10.10.2026 - KAPI-ET elci tutarlari (arac/elci-tutar-kapisi.js): sozlesme (elci.html template Madde 5/6.1/6.8) ile
+          # onay maili (edge elci-sozlesme.ts PAKET_OZET), panel (DERS_KOMISYON, KADEME) ve fiyat-motoru.js ELCI.indirim ayni mi.
+          # 12 vaka (7 fark, 2 kor, 2 yanlis alarm); mutasyonla olculdu: indirim / komisyon / kademe kiyasi kapatilinca 9/12 · 10/12 · 10/12 KIRMIZI.
+          # GORMEZ: sunucu elci_indirim tablosu (servis anahtari) ve PDF'in kendisi.
+          - { ad: "KAPI-ET elci tutarlari OZ-SINAVI (sozlesme = mail = panel = fiyat-motoru)",
+              kabuk: bash, komut: "node arac/elci-tutar-kapisi.js --sinav" }
+          - { ad: "KAPI-ET elci tutarlari GERCEK DEPO",
+              kabuk: bash, komut: "node arac/elci-tutar-kapisi.js" }
 
           # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
           # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
