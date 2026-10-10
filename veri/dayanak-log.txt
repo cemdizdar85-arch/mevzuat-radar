@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261010102739
+Start time: 20261010230153
 Username: runnervmmprz5\runner
 RunAs User: runnervmmprz5\runner
 Configuration Name: 
 Machine: runnervmmprz5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/92d4ff43-47b2-4604-b7ca-ad69b859bbe9.ps1'
-Process ID: 2311
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/a1ae6b33-62ed-4e02-a40d-b708d3b801e3.ps1'
+Process ID: 2233
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -47,18 +47,10 @@ Taranan sayfa: 76
   uyari-teyit.html           1 dayanak
 
 Tekil (kanun, madde) cifti: 118 - ambarda araniyor...
-  ambarda BULUNAN : 117
-  BULUNAMAYAN     : 1
-
-  BULUNAMAYAN ATIFLAR (yanlis numara ya da uydurma olabilir):
-     213 m.372   [ambarda-yok]
-
-  NOT: 'ambarda-yok' KESIN HATA DEMEK DEGIL - madde gecici/ek seri
-  olabilir ya da o kanun ambara henuz tam girmemis olabilir. GM
-  tek tek bakacak. Ama her biri KONTROL EDILMEDEN yayinda kalmaz.
-
--> veri/dayanak-haritasi.json  (27 sayfa, 118 tekil dayanak)
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+KÖR: 2 sorgu hatası (üst üste 0) - ambar sağlıksız, veri/dayanak-haritasi.json DEĞİŞTİRİLMEDİ
 **********************
 PowerShell transcript end
-End time: 20261010102822
+End time: 20261010230732
 **********************
