@@ -2,6 +2,7 @@
 //
 // NEDEN: elçi indirimi ve komisyonu dört ayrı yerde elle yazılı:
 //   1) sözleşme metni   elci.html <template id="sozlesmeMetni"> Madde 5 tablosu + 6.1 kademe + 6.8 ders başı
+//                       + iki güvence cümlesi (Madde 5: indirim ancak Madde 13 onayıyla değişir; 6.8: komisyon fiyattan bağımsız)
 //   2) onay maili       radar-app/edge/elci-sozlesme.ts PAKET_OZET + KADEME_NOTU
 //   3) panel            elci.html DERS_KOMISYON + KADEME
 //   4) satış ekranı     fiyat-motoru.js ELCI.indirim
@@ -42,7 +43,14 @@ function sozlesmeOku(html) {
   const kademe = [...m61[1].matchAll(/<td>([\d.]+) TL<\/td>/g)].map(r => sayi(r[1]));
   const komisyon = {};
   for (const r of m68[0].matchAll(/([1-4]) sınav dersi ([\d.]+) TL/g)) komisyon['yeterlilik-' + r[1]] = sayi(r[2]);
-  return { indirim, komisyon, kademe };
+  // 10.10 (Cem "gizli bir şeyimiz olmasın"): iki güvence cümlesi metinden düşerse KIRMIZI
+  const eksikIfade = [];
+  const m5p = /MADDE 5[\s\S]*?<p>([\s\S]*?)<\/p>/.exec(t[1]);
+  if (MUT !== 'ifade-kor') {
+    if (!m5p || !/indirim tutarları ancak Madde 13'e göre Elçinin onayıyla değişir/.test(m5p[1])) eksikIfade.push('Madde 5: indirim ancak Madde 13 onayıyla değişir');
+    if (!/satış fiyatından bağımsızdır; fiyat değişikliği komisyonu etkilemez/.test(m68[0])) eksikIfade.push('Madde 6.8: komisyon satış fiyatından bağımsızdır');
+  }
+  return { indirim, komisyon, kademe, eksikIfade };
 }
 function mailOku(ts) {
   const b = /PAKET_OZET[^=]*=\s*\[([\s\S]*?)\n\];/.exec(ts);
@@ -79,6 +87,7 @@ function kiyasla(kaynaklar) {
   for (const [ad, v] of Object.entries(kaynaklar)) if (!v) kor.push(ad + ' okunamadı');
   const esas = kaynaklar['sözleşme'];
   if (!esas) return { bulgu, kor };
+  for (const e of esas.eksikIfade || []) bulgu.push('sözleşmede güvence cümlesi yok: ' + e);
   for (const [ad, v] of Object.entries(kaynaklar)) {
     if (!v || ad === 'sözleşme') continue;
     if (v.indirim) for (const p of PAKETLER) {
@@ -128,6 +137,8 @@ function sinav() {
     ['panel kademe 750→800', elci.replace("['1 – 9. satış', 750, 1]", "['1 – 9. satış', 800, 1]"), ts, fm, 'bulgu'],
     ['fiyat-motoru 2 ders indirimi 100→120', elci, ts, fm.replace("'yeterlilik-2':100", "'yeterlilik-2':120"), 'bulgu'],
     ['sözleşme 3 ders indirimi değişti, öbürleri eski', elci.replace('<td>SMMM Yeterlilik — 3 sınav dersi</td><td>150 TL</td>', '<td>SMMM Yeterlilik — 3 sınav dersi</td><td>175 TL</td>'), ts, fm, 'bulgu'],
+    ['Madde 5 güvence cümlesi eski hâline döndü', elci.replace("Tablodaki fiyat sütunu bilgi içindir; indirim tutarları ancak Madde 13'e göre Elçinin onayıyla değişir.", 'Tutarlar Panelde güncel olarak gösterilir.'), ts, fm, 'bulgu'],
+    ['6.8 "fiyattan bağımsız" cümlesi silindi', elci.replace('Bu tutarlar satış fiyatından bağımsızdır; fiyat değişikliği komisyonu etkilemez. ', ''), ts, fm, 'bulgu'],
     ['mail tablosu silinmiş → KÖR', elci, ts.replace('PAKET_OZET', 'PAKET_X'), fm, 'kor'],
     ['sözleşme şablonu yok → KÖR', elci.replace('id="sozlesmeMetni"', 'id="baska"'), ts, fm, 'kor'],
     // yanlış alarm: tutar dışı metin değişikliği bulgu üretmemeli
