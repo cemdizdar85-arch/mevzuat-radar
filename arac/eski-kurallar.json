@@ -188,6 +188,186 @@
       "dayanak": "GVK (193 s.K.) m.22/4 (Ek: 27/12/2023-7491/8 md.): kanuni ve iş merkezi Türkiye'de bulunmayan A.Ş./Ltd. kâr payının yarısı, ödenmiş sermayenin en az %50'sine sahip olunması ve beyanname tarihine kadar Türkiye'ye transfer şartıyla istisna; m.22/5 Cumhurbaşkanı oran yetkisi — veri/mevzuat/gvk.json (belge_tarihi 2026-10-08) okundu 10.10.2026",
       "bulan": "pazarlama oturumu 10.10 (bitirme videosu seçimi, smmm-4k-a-yvergi-zor-r8/kp-01) → sinav kolu onarim-1010-gvk224 (onarım + banka taraması)",
       "sikHaric": true
+    },
+    {
+      "kod": "EK24",
+      "ad": "VUK: \"kıst/ay kesri yalnız binek otomobilde, diğerlerinde tam yıl\" mutlak iddiası (m.320/3: gün esaslı amortisman seçeneği, 7338)",
+      "desen": "(k[ıi]st|ay\\s+kesri|g[üu]n\\s+kesri)[^.]{0,60}(yaln[ıi]z|sadece)\\s+binek|binek[^.]{0,40}d[ıi][şs][ıi]nda[^.]{0,60}(k[ıi]st|kesir)[^.]{0,30}(uygulanmaz|yap[ıi]lmaz|yoktur)|VUK'?(ta|da)\\s+(al[ıi]nd[ıi][ğg][ıi]\\s+y[ıi]l\\s+(da\\s+)?tam\\s+y[ıi]l|k[ıi]st\\s+yok)",
+      "haric": "g[üu]n\\s+esas|zorunlu|320\\s?\\/\\s?3|se[çc]imlik|tercih",
+      "dayanak": "VUK m.320/3 (Ek: 14/10/2021-7338 md.): gün esasına göre amortisman ayrılabilir (seçimlik); binek otomobilde ay kesri zorunlu (m.320/2) — veri/mevzuat/vuk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK25",
+      "ad": "VUK m.261 \"sekiz değerleme ölçüsü\" (7338 ile 9. ölçü eklendi)",
+      "desen": "(261[^.]{0,40})?sekiz\\s+(de[ğg]erleme\\s+)?[öo]l[çc][üu]|8\\s+de[ğg]erleme\\s+[öo]l[çc][üu]",
+      "haric": "2021\\s+[öo]ncesi|7338\\s+[öo]ncesi|dokuz",
+      "dayanak": "VUK m.261/9 (Ek: 14/10/2021-7338/26 md.) — veri/mevzuat/vuk.json \"VUK (213 s.K.) m.261\" okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK26",
+      "ad": "VUK m.328: yenileme yapıldığı hâlde süre sonunda fonda kalan bakiyenin kâra eklendiği iddiası (m.328/4-b: kalan fon sonraki amortismanlardan düşülür; yalnız amortisman ayrılabilecek tutarı AŞAN kısım kâra, 4-c)",
+      "desen": "(s[üu]re(nin)?\\s+sonu(nda)?|[üu][çc][üu]nc[üu]\\s+takvim\\s+y[ıi]l[ıi])[^.]{0,120}(mahsup\\s+edilemeyen|kalan\\s+bakiye|fonda\\s+kalan)[^.]{0,60}(k[âa]r|kazanc)",
+      "haric": "fazla(l[ıi]k|s[ıi])|amortisman\\s+ayr[ıi]labilecek\\s+tutar|yenileme\\s+(ger[çc]ekle[şs]mez|yap[ıi]lmaz)",
+      "dayanak": "VUK m.328/4-b, 4-c (Değişik: 14/10/2021-7338/36 md.) — veri/mevzuat/vuk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK27",
+      "ad": "VUK m.262/c: kıymetin envantere alındığı dönem sonuna kadarki kredi faizinin maliyete eklenmesinin \"seçimlik\" sayılması (o kısım zorunlu; sonrası seçimlik)",
+      "desen": "(stoka\\s+giri[şs]|stoklara\\s+girdi[ğg]i|envantere\\s+al[ıi]nd[ıi][ğg][ıi]|envantere\\s+alma)[^.]{0,40}(tarih|d[öo]nem)[^.]{0,30}(kadar|sonuna\\s+kadar)[^.]{0,60}(tercih|serbest|se[çc]imlik|ihtiyari|iste[ğg]e\\s+ba[ğg]l[ıi])",
+      "haric": "sonraki|sonras[ıi]|di[ğg]er\\s+k[ıi]s[ıi]m|zorunlu",
+      "dayanak": "VUK m.262 (Ek fıkralar: 14/10/2021-7338 md.), (c) bendi — veri/mevzuat/vuk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK28",
+      "ad": "2025–2027 hesap döneminde VUK enflasyon düzeltmesi yapılıyor gibi anlatım (VUK geç. m.37: yapılmaz)",
+      "desen": "(2025|2026|2027)\\s+(y[ıi]l[ıi]\\s+|hesap\\s+d[öo]nemi\\s+)?(sonu\\s+)?enflasyon\\s+d[üu]zeltme(si|sinde)?\\b(?![^.]{0,60}(yap[ıi]lmaz|uygulanmaz|tabi\\s+tutulmaz|ge[çc]ici\\s+(madde\\s+)?37))",
+      "haric": "TMS\\s*29|TFRS|ge[çc]ici\\s+(madde\\s+)?37|yap[ıi]lmaz|tabi\\s+tutulmaz|[şs]artlar[ıi]?\\s+olu[şs]mad",
+      "dayanak": "VUK geç. m.37 (Ek: 24/12/2025-7571) — veri/mevzuat/vuk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK29",
+      "ad": "VUK ek m.1: uzlaşmada vergi aslının da uzlaşma konusu olduğu (7524 ile yalnız cezalar)",
+      "desen": "uzla[şs]\\w*[^.]{0,80}(vergi\\s+asl[ıi]|tarh\\s+edilen\\s+vergi\\s+ve|vergi\\s+ve\\s+ceza)|(vergi\\s+asl[ıi]|vergi\\s+ve\\s+ceza)[^.]{0,80}uzla[şs]",
+      "haric": "uzla[şs]\\w*\\s+(yaln[ıi]z|sadece)\\s+ceza|vergi\\s+asl[ıi]\\s+uzla[şs]ma(ya)?\\s+konu\\s+(edilemez|de[ğg]il)|7524\\s+[öo]ncesi|2024\\s+[öo]ncesi",
+      "dayanak": "VUK ek m.1/1 (28/7/2024-7524/14 md.: \"tarh edilen vergi ve\" ibaresi çıkarıldı, dipnot 150) — veri/mevzuat/vuk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK30",
+      "ad": "Asgari geçim indirimi güncel kurum gibi (GVK m.32, 7349 ile 1/1/2022'den mülga)",
+      "desen": "asgar[iî] ge[çc]im indirimi",
+      "haric": "kald[ıi]r|m[üu]lga|2022|eskiden|uygulanm[ıi][şs]|uygulan[ıi]yordu|7349|eski\\b|önceki",
+      "dayanak": "GVK m.32 mülga (22/12/2021-7349) — veri/mevzuat/gvk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK31",
+      "ad": "2026 tarifesi diye eski yıl dilim tutarı (GV GT 332: 190.000 / 400.000 / 1.000.000 (ücret 1.500.000) / 5.300.000)",
+      "desen": "2026.{0,120}(dilim|tarife).{0,120}(158\\.000|330\\.000|800\\.000|4\\.300\\.000|110\\.000|230\\.000|580\\.000|870\\.000|3\\.000\\.000|1\\.900\\.000)",
+      "haric": "varsay|kabul edil|2025|2024|2023|ÖTV|özel tüketim",
+      "dayanak": "GV Genel Tebliği Seri No:332 m.3/3 (2026 tarifesi) — veri/mevzuat/gvkgt332.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK32",
+      "ad": "2026 mesken kira istisnası eski tutar (GV GT 332: 58.000)",
+      "desen": "2026.{0,120}(mesken|konut).{0,80}istisna.{0,60}(33\\.000|47\\.000|21\\.000|9\\.500)|(mesken|konut).{0,80}istisna.{0,60}(33\\.000|47\\.000|21\\.000|9\\.500).{0,80}2026",
+      "haric": "varsay|kabul edil|2025 y|2024 y|2023 y",
+      "dayanak": "GV GT 332 m.3/2-b (GVK m.21: 58.000 TL) — veri/mevzuat/gvkgt332.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK33",
+      "ad": "2026 binek otomobil aylık kira sınırı eski tutar (GV GT 332: 46.000)",
+      "desen": "2026.{0,150}(ayl[ıi]k kira (bedeli )?s[ıi]n[ıi]r|kira (bedeli )?(tavan|s[ıi]n[ıi]r)).{0,40}(6\\.000|8\\.000|17\\.000|26\\.000|37\\.000)",
+      "haric": "varsay|kabul edil",
+      "dayanak": "GV GT 332 m.3/2-ğ (GVK m.68/5: 46.000 TL) — veri/mevzuat/gvkgt332.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK34",
+      "ad": "Basit usul kazancının beyan edildiği iddiası (GVK mük. m.20/A: 2021'den istisna)",
+      "desen": "basit usul.{0,80}(beyan edilir|beyanname (ile|verir))",
+      "haric": "beyan edilmez|beyanname verilmez|istisna|20\\/A|muhtasar|KDV",
+      "dayanak": "GVK mük. m.20/A (7338) — veri/mevzuat/gvk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK35",
+      "ad": "KDVK geç. m.30 büyük yatırım inşaat KDV iadesinin 2024+ yılına uygulanması (madde 31/12/2023'e kadar)",
+      "desen": "(2024|2025|2026)(?:[^.]|\\.(?=\\d)){0,300}(te[şs]vik belge)(?:[^.]|\\.(?=\\d)){0,200}in[şs]aat(?:[^.]|\\.(?=\\d)){0,200}(KDV|katma de[ğg]er)|ge[çc]ici 30(?:[^.]|\\.(?=\\d)){0,300}(2024|2025|2026)|te[şs]vik belge(?:[^.]|\\.(?=\\d)){0,200}in[şs]aat(?:[^.]|\\.(?=\\d)){0,120}(2024|2025|2026)(?:[^.]|\\.(?=\\d)){0,80}(KDV|katma de[ğg]er)",
+      "haric": "2023 tarihine kadar|sona er|uygulanmaz",
+      "dayanak": "KDVK geç. m.30 (\"31/12/2023 tarihine kadar uygulanmak üzere\") — veri/mevzuat/kdv.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md) · 10.10 kapı banka koşusu: smmm-dog1-vergi/kp-51 (teşvik belgesi yıldan önce yazılmış) kaçıyordu, ikinci sıra eklendi",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK36",
+      "ad": "6183 m.51 gecikme zammı eski oran (CBK 10556, 13/11/2025: aylık %3,7)",
+      "desen": "(6183|m\\.?\\s?51|51\\.? ?(inci )?madde)[^.]{0,120}(%|yüzde ?)\\s?(1,4|1,6|2|2,5|3|3,5|4,5)(?![,\\d])|(%|yüzde ?)\\s?(1,4|1,6|2|2,5|3|3,5|4,5)(?![,\\d])[^.]{0,80}(6183|m\\.?\\s?51)",
+      "haric": "varsay|soruda verilen|parametre|(19|20[01]\\d|202[0-4]) y[ıi]l[ıi]nda",
+      "dayanak": "6183 m.51 dipnotu: 10556 sayılı CBK (RG 13/11/2025) oran %3,7 — veri/mevzuat/aatuhk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK37",
+      "ad": "Damga vergisi azami tutarının eski yıl değeri yılsız kullanılıyor (2026: 29.115.961,10 TL, DV GT 71)",
+      "desen": "(3\\.534\\.679|4\\.814\\.234|10\\.732\\.371|17\\.006\\.516|24\\.477\\.478)",
+      "haric": "20(2[0-5])|y[ıi]l[ıi] azami|varsay",
+      "dayanak": "DVK m.14 + DV Genel Tebliği Seri No:71 (2026 azami tutar) — veri/mevzuat/damgagt71.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK38",
+      "ad": "Ücret damga vergisinin asgari ücret istisnası olmadan brütün tamamından hesaplanması (DVK (2) s. tablo IV-34, 7349: istisna aylık brüt asgari ücrete isabet eden kısım)",
+      "desen": "damga vergisi[^.]{0,60}(binde ?7[,.]6|binde ?7[,.]59|%\\s?0[,.]759?|0[,.]00759)",
+      "haric": "asgari|istisna|basitle|varsay|dikkate al[ıi]nmay|hesaplama d[ıi][şs][ıi]",
+      "dayanak": "DVK (2) sayılı tablo IV-34 parantez hükmü (22/12/2021-7349/4) — veri/mevzuat/damga.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK39",
+      "ad": "VUK m.177 defter tutma haddi diye gerçek dışı tutar (2026: alım 2.500.000 / satış 3.500.000, VUK GT 588)",
+      "desen": "(m\\.?\\s?177|177\\.? ?madde|s[ıi]n[ıi]f t[uü]ccar)[^.]{0,160}(had|s[ıi]n[ıi]r)[^.]{0,40}(?!2\\.500\\.000|3\\.500\\.000|1\\.200\\.000)\\d{1,3}(\\.\\d{3}){2,}",
+      "haric": "varsay|kabul edil|soruda verilen|20(1\\d|2[0-5]) y[ıi]l",
+      "dayanak": "VUK m.177 + VUK GT 588 (2026 hadleri) — diğer-vergi okuması 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK40",
+      "ad": "TTK m.4/2 basit yargılama sınırı sabit 1.000.000 TL (7445: yıllık yeniden değerleme ile artırılır)",
+      "desen": "(bir milyon|1\\.000\\.000|1 milyon) ?(Türk lirası|TL|₺|lira)[^.]{0,80}basit yargılama|basit yargılama[^.]{0,80}(bir milyon|1\\.000\\.000|1 milyon)",
+      "haric": "varsay|artırıl|yeniden değerleme|ek 1|2023 yılında",
+      "dayanak": "TTK m.4/2 (Ek cümle: 28/3/2023-7445/30 md.) — veri/mevzuat/ttk.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK41",
+      "ad": "İleri tarihli çekin erken ibrazında \"ibraz günü ödenir\" (Çek K. geç. m.3/5: 31/12/2028'e kadar erken ibraz geçersiz)",
+      "desen": "(düzenle(n)?me (günü|tarihi)[^.]{0,40}önce[^.]{0,60}ibraz[^.]{0,60}ibraz gün(ü|ünde) öden)|([İi]leri tarih[^.]{0,80}ibraz gün(ü|ünde) öden)|(erken ibraz[^.]{0,60}ibraz gün(ü|ünde) öden)",
+      "haric": "2028|geçici|Çek Kanunu|5941|geçersiz|genel kural",
+      "dayanak": "5941 Çek K. geç. m.3/5 — veri/mevzuat/cek.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK42",
+      "ad": "Askerlik (er/erbaş) borçlanmasına %39 oranı (5510 m.41: %39 yalnız GSS primi ödenmiş kısmi süreli çalışma; askerlik \"diğerleri\" %45)",
+      "desen": "(?<![a-zçğıöşü])(er|erba[sş]\\w*|silah alt[ıi]nda|askerlik)(?![a-zçğıöşü])[^.]{0,80}%\\s?39(?![,\\d])|%\\s?39(?![,\\d])[^.]{0,80}(?<![a-zçğıöşü])(er|erba[sş]\\w*|silah alt[ıi]nda|askerlik)(?![a-zçğıöşü])",
+      "haric": "genel sa[gğ]l[ıi]k sigortas[ıi] prim|GSS",
+      "dayanak": "5510 m.41/1 son cümle (\"(a) bendinde bulunanlar için %32'si diğerleri için %45'i\"; %39 yalnız (i) bendi GSS ödenmiş) — veri/mevzuat/sgk5510.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
+    },
+    {
+      "kod": "EK43",
+      "ad": "SMMM odası nispi aidatı (%1 mesleki kazanç) güncel gibi (Odalar Yön. m.16/b-2 Danıştay 8. D. 11/2/2022 E.2018/4865 K.2022/792 ile iptal)",
+      "desen": "nisp[iî] aidat[^.]{0,120}(%\\s?1\\b|y[üu]zde ?(bir|1)\\b)|(%\\s?1\\b|y[üu]zde ?(bir|1)\\b)[^.]{0,60}nisp[iî] aidat|m\\.?\\s?16/b-?2",
+      "haric": "iptal|Dan[ıi][şs]tay",
+      "dayanak": "Odalar Yönetmeliği m.16/b-2 (\"Danıştay Sekizinci Dairesinin 11/2/2022 … kararı ile iptal alt bent\") — veri/mevzuat/smmm-odalar-yon.json okundu 10.10.2026",
+      "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",
+      "sikHaric": true
     }
   ]
 }
