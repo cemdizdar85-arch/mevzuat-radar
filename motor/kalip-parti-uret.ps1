@@ -176,6 +176,7 @@ if($script:PARMAK_TUZU){ Write-Host "  ONARIM TURU: parmak izi tuzu '$script:PAR
 . (Join-Path $kok 'arac\ikiz-olcusu.ps1')        # 22.09: İKİZ CETVELİ — yayıncıyla AYNI ölçü (üçlü harf, soru+doğru şık). Bkz. BenzerlikKusur.
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')      # 22.09: etiket → ders (yayıncıyla aynı harita); ikiz karşılaştırması ders içinde yapılır
 . (Join-Path $kok 'arac\ozel-maliyet-kapisi.ps1') # 27.09: KAPI-OM özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralı (VUK m.327: kira süresine göre)
+. (Join-Path $here 'model-kod.ps1')              # 10.10: soru verisine model adı girmez — iz alanları ModelKod ile nötr kod (model-a/b/c)
 . (Join-Path $kok 'arac\soru-kalite-kapisi.ps1')  # 30.09: KAPI-AS (şık açıklaması başka şıkkın sayısını sonuç diye anlatıyor) + KAPI-EK (arac/eski-kurallar.json)
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
@@ -3555,7 +3556,7 @@ if(Test-Path $dusenYol){ foreach($x in @((ConvertFrom-Json -InputObject (Get-Con
     $kpAt=$null; $cvp | Add-Member -NotePropertyName kaynak_metin_ozet -NotePropertyValue (PaketKirp $amb.metin "$($cvp.konu)" (PaketTavani 4500) ([ref]$kpAt) "$($ky.dayanak)") -Force
     if($kpAt -and @($kpAt).Count){ Write-Host "  KAPI-KP: $id paket 4500 krk -> konu disi $(@($kpAt).Count) kaynak komple dusuruldu: $(@($kpAt | Select-Object -First 2) -join ' ; ')" -ForegroundColor DarkCyan }
     $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @($amb.adlar) -Force
-    $cvp | Add-Member -NotePropertyName uyarlama -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); model='claude-sonnet-5'; girdi=[int]$yU.girdi; cikti=[int]$yU.cikti; hesap=$hesapMi }) -Force
+    $cvp | Add-Member -NotePropertyName uyarlama -NotePropertyValue ([pscustomobject]@{ tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); model=(ModelKod 'claude-sonnet-5'); girdi=[int]$yU.girdi; cikti=[int]$yU.cikti; hesap=$hesapMi }) -Force
     DilOnarNesne $cvp
     $don[$id]=$cvp; CacheYaz
     Write-Host "  UYARLAMA OK $id [$($e.konu)] $(if($hesapMi){'hesap'}else{'teori/kayıt'})" -ForegroundColor Green
@@ -4967,7 +4968,7 @@ $ih=$hakemIstem.Replace('{KE_ISARET}',$keIsaret).Replace('{DERS}',$DersRegex).Re
         elseif($ibOteki.Count){ $ibNeden="öteki şıklardan kaynağa göre doğru olmayan/teyitsiz: $($ibOteki -join ', ')" }
         else{ $ibTemiz=$true; $ibNeden="$($ibO.gerekce)" }
       }
-      $ibKayit=[pscustomobject][ordered]@{ model='claude-sonnet-5'; ilk_karar='HAYIR'; ilk_gerekce="$($hk.gerekce)"; sonuc=$(if($ibTemiz){'EVET'}else{'HAYIR'}); neden=$ibNeden; ham=$ibO; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+      $ibKayit=[pscustomobject][ordered]@{ model=(ModelKod 'claude-sonnet-5'); ilk_karar='HAYIR'; ilk_gerekce="$($hk.gerekce)"; sonuc=$(if($ibTemiz){'EVET'}else{'HAYIR'}); neden=$ibNeden; ham=$ibO; tarih=(Get-Date -Format 'yyyy-MM-dd') }
       $hk | Add-Member -NotePropertyName ikinci_bakis -NotePropertyValue $ibKayit -Force
       if($ibTemiz){ $hk.karar='EVET' }
       $cvp | Add-Member -NotePropertyName hakem -NotePropertyValue $hk -Force; CacheYaz
@@ -5151,7 +5152,7 @@ function KorKaynakliCoz([string]$id,$cvp,[string]$sikM){
   $cevKK=("$($aKK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
   if($cevKK -match '^H'){ $cevKK='HİÇBİRİ' } elseif($cevKK.Length -gt 1){ $cevKK=$cevKK.Substring(0,1) }
   $dmKK=($cevKK -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
-  $cvp | Add-Member -NotePropertyName kor_cozum_kaynakli -NotePropertyValue ([pscustomobject][ordered]@{ cevap=$cevKK; dogru=$cvp.dogru; dogru_mu=$dmKK; sonuc="$($aKK.sonuc)"; hesap="$($aKK.hesap)"; guven="$($aKK.guven)"; kusur="$($aKK.kusur)"; kaynak_celisti="$($aKK.kaynak_celisti)"; kor_cevap="$($cvp.kor_cozum.cevap)"; parmak_izi=(SmmmParmakIzi $cvp); paket_boy=$kkMetin.Length; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $cvp | Add-Member -NotePropertyName kor_cozum_kaynakli -NotePropertyValue ([pscustomobject][ordered]@{ cevap=$cevKK; dogru=$cvp.dogru; dogru_mu=$dmKK; sonuc="$($aKK.sonuc)"; hesap="$($aKK.hesap)"; guven="$($aKK.guven)"; kusur="$($aKK.kusur)"; kaynak_celisti="$($aKK.kaynak_celisti)"; kor_cevap="$($cvp.kor_cozum.cevap)"; parmak_izi=(SmmmParmakIzi $cvp); paket_boy=$kkMetin.Length; model=(ModelKod $KorModel); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz
   if($dmKK){ Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ✓ ($id): $cevKK → CEM ONAY LİSTESİNE (arac/smmm-onay.ps1 -Liste); onaysız yayına girmez" -ForegroundColor Cyan; $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM DOĞRU → CEM ONAYI BEKLİYOR: $id | kör $($cvp.kor_cozum.cevap), kaynaklı $cevKK | $($aKK.hesap)") }
   else { Write-Host "  KAYNAKLI İKİNCİ ÇÖZÜM ✗ ($id): $cevKK · anahtar $($cvp.dogru) — soru yayına girmez" -ForegroundColor Red; $rapor.Add("KAYNAKLI İKİNCİ ÇÖZÜM DE YANLIŞ: $id | kaynaklı $cevKK, anahtar $($cvp.dogru) | $($aKK.hesap)") }
@@ -5196,7 +5197,7 @@ foreach($id in @($don.Keys)){
   $cev=("$($aK.cevap)".Trim().ToUpperInvariant() -replace '[^A-EHİ]','')
   if($cev -match '^H'){ $cev='HİÇBİRİ' } elseif($cev.Length -gt 1){ $cev=$cev.Substring(0,1) }
   $dm=($cev -eq "$($cvp.dogru)".Trim().ToUpperInvariant())
-  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; kaynak_celisti="$($aK.kaynak_celisti)"; kaynakli=[bool]$KorKaynak; model=$KorModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $cvp | Add-Member -NotePropertyName kor_cozum -NotePropertyValue ([pscustomobject]@{ cevap=$cev; dogru=$cvp.dogru; dogru_mu=$dm; sonuc="$($aK.sonuc)"; hesap="$($aK.hesap)"; guven="$($aK.guven)"; kusur="$($aK.kusur)"; kaynak_celisti="$($aK.kaynak_celisti)"; kaynakli=[bool]$KorKaynak; model=(ModelKod $KorModel); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   if($Sinav -eq 'SMMM' -and $cvp.PSObject.Properties['kor_cozum_kaynakli']){ $cvp.PSObject.Properties.Remove('kor_cozum_kaynakli') }   # 14.09 yalnız bitirme: kör yenilendi → eski kaynaklı karar bayat
   CacheYaz
   if($dm){ Write-Host "  KÖR ÇÖZÜM ✓ ($id): $cev" -ForegroundColor Green } else { Write-Host "  KÖR ÇÖZÜM ✗ ($id): kör $cev · anahtar $($cvp.dogru) · $("$($aK.hesap)".Substring(0,[Math]::Min(160,"$($aK.hesap)".Length)))" -ForegroundColor Red; $rapor.Add("KÖR ÇÖZÜM YANLIŞ: $id | kör $cev, anahtar $($cvp.dogru) | $($aK.hesap)") }
@@ -5284,7 +5285,7 @@ foreach($id in @($don.Keys)){
   # 9 hakem2 reddinin çoğu buydu; sert listesinden çıkarıldı (koku_not'ta kalır).
   $kokuSert=@($koku | Where-Object { ($_ -match '(?i)\b(ABC|XYZ|DEF|KLM)\b|klişe|aynı (kalıp|cümle)|tekrar|uzun tire|em-dash|—|üç nokta|önem arz|bu bağlamda' -or ($detYuvarlak -and $_ -match '(?i)yuvarlak')) -and $_ -notmatch '(?i)(Sanayi|Ticaret|Ltd|Holding|Tekstil|Gıda|İnşaat|Makine)\b.*(A\.Ş\.|Ltd)' -and $_ -notmatch '(?i)birbirinin (tam )?tersi' })
   $karar=$(if("$($aH.sinav_gibi)" -eq 'EVET' -and "$($aH.celdirici_gercek)" -eq 'EVET' -and -not $kokuSert.Count){ 'EVET' } else { 'HAYIR' })   # karar makinede türetilir, modelin kararına güvenilmez
-  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $cvp | Add-Member -NotePropertyName hakem2 -NotePropertyValue ([pscustomobject]@{ karar=$karar; sinav_gibi="$($aH.sinav_gibi)"; sinav_gerekce="$($aH.sinav_gerekce)"; koku=@($kokuSert); koku_not=@($koku | Where-Object { $kokuSert -notcontains $_ }); celdirici_gercek="$($aH.celdirici_gercek)"; celdirici_gerekce="$($aH.celdirici_gerekce)"; zorluk="$($aH.zorluk)"; model=(ModelKod 'claude-sonnet-5'); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz
   if($karar -eq 'EVET'){ Write-Host "  HAKEM2 EVET ($id) · zorluk $($aH.zorluk)" -ForegroundColor Green } else { Write-Host "  HAKEM2 HAYIR ($id): sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')] · $("$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Substring(0,[Math]::Min(200,"$($aH.sinav_gerekce) $($aH.celdirici_gerekce)".Length)))" -ForegroundColor Red; $rapor.Add("HAKEM2 HAYIR: $id | sınav gibi $($aH.sinav_gibi) · çeldirici $($aH.celdirici_gercek) · koku [$($koku -join '; ')]") }
 }
@@ -5572,7 +5573,7 @@ foreach($gecisS in @(1,2,3)){ if($gecisS -ne 3 -and -not $Toplu){ continue }; $s
     else { Write-Host "  KAVRAM DUSTU ($id): '$($kv.ad)' kaynak metninde karşılığı yok ($var/$($kel.Count))" -ForegroundColor DarkYellow }
   }
   $siklarSade=[ordered]@{}; if($sadeN.siklar_sade){ foreach($p in $sadeN.siklar_sade.PSObject.Properties){ if("$($p.Value)".Trim()){ $siklarSade[$p.Name]="$($p.Value)" } } }
-  $sadeObj=[pscustomobject]@{ dogru="$($sadeN.dogru_sade)"; sinav=(DilOnar "$($sadeN.sinav_dili)"); siklar=[pscustomobject]$siklarSade; kavramlar=$kavramlar; model='claude-haiku-4-5'; token="$tokG/$tokC"; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+  $sadeObj=[pscustomobject]@{ dogru="$($sadeN.dogru_sade)"; sinav=(DilOnar "$($sadeN.sinav_dili)"); siklar=[pscustomobject]$siklarSade; kavramlar=$kavramlar; model=(ModelKod 'claude-haiku-4-5'); token="$tokG/$tokC"; tarih=(Get-Date -Format 'yyyy-MM-dd') }
   $cvp | Add-Member -NotePropertyName sade -NotePropertyValue $sadeObj -Force
   CacheYaz; Write-Host "  SADE OK $id · kavram $($kavramlar.Count)"
 }
@@ -5737,7 +5738,7 @@ foreach($gecisG in @(1,2,3)){ if($gecisG -ne 3 -and -not $Toplu){ continue }; $s
   Write-Host ("  GİRİŞ TOKEN {0}: girdi {1} · cikti {2} · model claude-sonnet-5" -f $id,$tokG,$tokC) -ForegroundColor DarkGray
   if(-not $gN){ $rapor.Add("GIRIS BOZUK: $id"); continue }
   $terimL=@(); foreach($tr in @($gN.terimler)){ if($tr -and $tr.ad){ $terimL+=[pscustomobject]@{ ad=(DilOnar "$($tr.ad)"); tanim=(DilOnar "$($tr.tanim)"); kim=$(if($tr.PSObject.Properties['kim']){ DilOnar "$($tr.kim)" } else { '' }); kaynak=$(if($tr.PSObject.Properties['kaynak']){ DilOnar "$($tr.kaynak)" } else { '' }) } } }
-  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); panel_ornek=(DilOnar "$($gN.panel_ornek)"); harita=(DilOnar "$($gN.harita)"); terimler=$terimL; desen=(DilOnar "$($gN.desen)"); model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+  $cvp | Add-Member -NotePropertyName konu_giris -NotePropertyValue ([pscustomobject]@{ nedir=(DilOnar "$($gN.nedir)"); sinavda=(DilOnar "$($gN.sinavda)"); yontemler=(DilOnar "$($gN.yontemler)"); ornek=(DilOnar "$($gN.ornek)"); panel_ornek=(DilOnar "$($gN.panel_ornek)"); harita=(DilOnar "$($gN.harita)"); terimler=$terimL; desen=(DilOnar "$($gN.desen)"); model=(ModelKod 'claude-sonnet-5'); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
   CacheYaz; Write-Host "  GİRİŞ OK $id"
 }
 if($script:ON_GECIS){ TopluGonder 'G' }; if($script:DALGA2_TOPLA){ TopluGonder 'G#2' } }
@@ -5914,12 +5915,12 @@ $($tiKaynak.Substring(0,[Math]::Min(2500,$tiKaynak.Length)))
           $rapor.Add("TEORI IKIZ TUTARSIZ: $id | deneme $tiDeneme | '$tiYanlis' kaynakta aynen geciyor"); continue
         }
       }
-      $cvp | Add-Member -NotePropertyName teori_ikiz -NotePropertyValue ([pscustomobject]@{ soru=(DilOnar "$($tI.soru)"); siklar=$tI.siklar; dogru="$($tI.dogru)".Trim().ToUpperInvariant(); gerekce="$($tI.gerekce)"; model='claude-sonnet-5'; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+      $cvp | Add-Member -NotePropertyName teori_ikiz -NotePropertyValue ([pscustomobject]@{ soru=(DilOnar "$($tI.soru)"); siklar=$tI.siklar; dogru="$($tI.dogru)".Trim().ToUpperInvariant(); gerekce="$($tI.gerekce)"; model=(ModelKod 'claude-sonnet-5'); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
       CacheYaz
     }
     if(-not ($cvp.PSObject.Properties['teori_ikiz'] -and $cvp.teori_ikiz -and $cvp.teori_ikiz.soru)){
       # ikiz yok: eskisi gibi bu sorunun simülasyonu atlanır; SMMM olumsuz kökte tutarlı ikiz çıkmadıysa kapı GEVŞEMEZ → sim YANLIŞ kaydı
-      if($olumsuzTI){ $cvp | Add-Member -NotePropertyName $simAlanT -NotePropertyValue ([pscustomobject]@{ tur='teori'; cevap=''; hedef=''; dogru_mu=$false; eksik="teori ikizi $tiDeneme denemede tutarlı üretilemedi (yanlis_ifade cevap şıkkında yok)"; adimlar=''; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force; CacheYaz; Write-Host "  SIM YANLIŞ ($id, teori): tutarlı ikiz üretilemedi" -ForegroundColor Red; $rapor.Add("SIM YANLIŞ (teori): $id | tutarlı ikiz üretilemedi") }
+      if($olumsuzTI){ $cvp | Add-Member -NotePropertyName $simAlanT -NotePropertyValue ([pscustomobject]@{ tur='teori'; cevap=''; hedef=''; dogru_mu=$false; eksik="teori ikizi $tiDeneme denemede tutarlı üretilemedi (yanlis_ifade cevap şıkkında yok)"; adimlar=''; model=(ModelKod $SimModel); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force; CacheYaz; Write-Host "  SIM YANLIŞ ($id, teori): tutarlı ikiz üretilemedi" -ForegroundColor Red; $rapor.Add("SIM YANLIŞ (teori): $id | tutarlı ikiz üretilemedi") }
       continue
     }
     $ti=$cvp.teori_ikiz
@@ -5954,7 +5955,7 @@ E) $($ti.siklar.E)
     if(-not $oT -or -not $oT.PSObject.Properties['cevap']){ $mC=[regex]::Match("$($yOT.metin)",'"cevap"\s*:\s*"([^"]*)"'); if($mC.Success){ $oT=[pscustomobject]@{ cevap=$mC.Groups[1].Value; neden=''; eksik='' } } }
     if(-not $oT){ $rapor.Add("SIM BOZUK: $id"); continue }
     $cevT="$($oT.cevap)".Trim().ToUpperInvariant(); $dogruT=($cevT -eq "$($ti.dogru)")
-    $cvp | Add-Member -NotePropertyName $simAlanT -NotePropertyValue ([pscustomobject]@{ tur='teori'; cevap=$cevT; hedef="$($ti.dogru)"; dogru_mu=$dogruT; eksik="$($oT.eksik)"; adimlar="$($oT.neden)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
+    $cvp | Add-Member -NotePropertyName $simAlanT -NotePropertyValue ([pscustomobject]@{ tur='teori'; cevap=$cevT; hedef="$($ti.dogru)"; dogru_mu=$dogruT; eksik="$($oT.eksik)"; adimlar="$($oT.neden)"; model=(ModelKod $SimModel); tarih=(Get-Date -Format 'yyyy-MM-dd') }) -Force
     CacheYaz; Write-Host ("  SIM {0} ({1}, teori): cevap {2} · hedef {3}{4}" -f $(if($dogruT){'DOĞRU'}else{'YANLIŞ'}),$id,$cevT,$ti.dogru,$(if("$($oT.eksik)".Trim()){ " · eksik: $($oT.eksik)" } else { '' })) -ForegroundColor $(if($dogruT){'Green'}else{'Red'})
     if(-not $dogruT){ $rapor.Add("SIM YANLIŞ (teori): $id | cevap $cevT hedef $($ti.dogru) | $($oT.eksik)") }
     continue
@@ -6019,7 +6020,7 @@ E) $($ti.siklar.E)
       $hv=$null; $hc=-1; for($c2=@($st).Count-1;$c2 -ge 1;$c2--){ if("$(@($st)[$c2])" -match '\d'){ $hv=& $sayiHedef "$(@($st)[$c2])"; $hc=$c2; break } }
       if($null -eq $hv){ continue }; $tol=$(if([math]::Abs($hv) -ge 100){ [math]::Max(0.5,[math]::Abs($hv)*0.01) } else { [math]::Max(0.02,[math]::Abs($hv)*0.01) })
       if([math]::Abs([math]::Abs($cv)-[math]::Abs($hv)) -le $tol){ $dogruMu=$true; $hedefS="$(@($st)[$hc])"; Write-Host "  SIM HEDEF DÜZELTİLDİ ($id): öğrenci cevabı '$(@($st)[0])' satırıyla eşleşti (kök ortak $ort)" -ForegroundColor DarkYellow; $rapor.Add("SIM HEDEF DUZELTILDI: $id | $(@($st)[0])"); break } } }
-  $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model=$SimModel; tarih=(Get-Date -Format 'yyyy-MM-dd') }
+  $simObj=[pscustomobject]@{ cevap="$($oN.cevap)"; hedef=$hedefS; dogru_mu=$dogruMu; eksik="$($oN.eksik)"; adimlar="$($oN.adimlar)"; model=(ModelKod $SimModel); tarih=(Get-Date -Format 'yyyy-MM-dd') }
   $cvp | Add-Member -NotePropertyName $simAlan -NotePropertyValue $simObj -Force
   CacheYaz; Write-Host ("  SIM {0} ({1}): cevap {2} · hedef {3}{4}" -f $(if($dogruMu){'DOĞRU'}else{'YANLIŞ'}),$id,$oN.cevap,$hedefS,$(if("$($oN.eksik)".Trim()){ " · eksik: $($oN.eksik)" } else { '' })) -ForegroundColor $(if($dogruMu){'Green'}else{'Red'})
   if(-not $dogruMu){ $rapor.Add("SIM YANLIŞ: $id | cevap $($oN.cevap) hedef $hedefS | $($oN.eksik)") }
