@@ -1,11 +1,11 @@
 {
-  "tarih": "10.10.2026 10:52",
+  "tarih": "10.10.2026 13:44",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
   "sayfa": 76,
   "atifli_iddia": 298,
-  "dayanaksiz_iddia": 374,
+  "dayanaksiz_iddia": 376,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -1899,7 +1899,19 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 698,
+      "satir": 626,
+      "iddia": "24 saat",
+      "metin": "/* 10.10 Cem (\"yanlış sorular siteye gelsin\"): ekibe gelen bekleyen soru sayısı düğmede; 24 saati geçen varsa kırmızı. Mail beklemeden görülür. */"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 630,
+      "iddia": "24 saat",
+      "metin": "if(d.ekip_gec){ a.style.borderColor='var(--red)'; a.style.color='var(--red)'; a.title=d.ekip_gec+' soru 24 saati geçti'; }"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 705,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
