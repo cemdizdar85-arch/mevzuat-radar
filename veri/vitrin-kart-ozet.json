@@ -1,62 +1,66 @@
 {
-  "olcum": "2026-10-09T01:09:33.126Z",
-  "gun": "2026-10-09",
+  "olcum": "2026-10-10T00:41:40.526Z",
+  "gun": "2026-10-10",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 1,
+      "sira": 2,
       "toplam": 10,
-      "id": "sgs-t1-denetim-cokzor/kp-01",
-      "ders": "Denetim",
-      "konu": "denetim kanıtı yeterliliği",
-      "donem": 9,
-      "teori": false,
+      "id": "sgs-a6e-yabancidil-p1b/kp-01",
+      "ders": "Yabancı Dil",
+      "konu": "cümle tamamlama",
+      "donem": 18,
+      "teori": true,
       "rakamSik": false,
-      "soru": "İşletmenin kayıtlı ticari borç tutarı 940.000 TL'dir. Tedarikçi teyitlerinden 900.000 TL doğrulanmış, teyide yanıt vermeyenler için ödenmemiş faturalardan 75.000 TL ek borç tespit edilmiştir. Dönem içinde iptal edilen sipariş tutarı 5.000 TL'dir. Tespit edilen sapmanın tutarı ve yönü nedir?",
+      "soru": "Although the audit team had full access to all the accounting records, ----.",
       "siklar": {
-        "A": "35.000 az gösterme",
-        "B": "35.000 fazla gösterme",
-        "C": "40.000 az gösterme",
-        "D": "40.000 fazla gösterme",
-        "E": "Sapma yok"
+        "A": "they were able to complete the whole review well ahead of schedule",
+        "B": "the management refused to sign the letter of representation",
+        "C": "they still could not verify the origin of several large payments",
+        "D": "the financial statements had been prepared in line with the standards",
+        "E": "an independent expert was appointed by the board of directors"
       },
-      "dogru": "A",
+      "dogru": "C",
       "tuzak": {
-        "C": {
-          "ad": "Çeldirici Veri Yükleme Tuzağı",
-          "metin": "Soruda geçen iptal edilen sipariş tutarını hesaba dahil ederek 900.000+75.000+5.000-940.000 işlemiyle 40.000 TL bulursun; oysa iptal edilen sipariş kayıtlı borçla ilgisiz bir veridir. Doğrusu: İptal edilen sipariş hesab…"
+        "D": {
+          "ad": "Yön Tuzağı",
+          "metin": "Tabloların standartlara uygun hazırlanmış olması erişimle aynı yönde olumlu bir yargıdır. Doğrusu: zıtlık için olumsuz bir sonuç gerekir."
         },
         "E": {
-          "ad": "Kanıt Karıştırma Tuzağı",
-          "metin": "Teyit ve ödenmemiş fatura farklı kaynaklardan geldiği için birbirini teyit edip sapmayı sıfırladığını düşünürsün; oysa BDS 500 A32 uyarınca farklı kaynaklardan gelen kanıtlar aynı beyanı destekler, birbirini iptal etmez…"
+          "ad": "Bağlantı Tuzağı",
+          "metin": "Bağımsız uzman atanması ayrı bir olaydır, yan cümleyle zıtlık ilişkisi kurmaz. Doğrusu: ana cümle yan cümlenin beklentisini bozmalıdır."
         },
-        "D": {
-          "ad": "Çift Tuzak (Tutar+Yön) Tuzağı",
-          "metin": "Hem çeldirici sipariş tutarını hesaba katıp hem de yönü ters çevirerek 40.000 TL fazla gösterme dersin; bu iki ayrı hatanın üst üste binmesidir. Doğrusu: Doğru hesapta çeldirici veri dışlanır ve yön az göstermedir, sonu…"
+        "A": {
+          "ad": "Zıtlık Tuzağı",
+          "metin": "'Although' iki yargı arasında zıtlık kurar; erişim kolaylığı ile işin erken bitmesi aynı yönde olduğu için zıtlık doğmaz. Doğrusu: yan cümleyle ters düşen bir sonuç gerekir."
         },
         "B": {
-          "ad": "Yön Tersleme Tuzağı",
-          "metin": "Kayıtlı tutarın gerçek tutardan düşük çıktığını görünce bunu 'fazla gösterme' sanırsın, oysa kayıtlı tutarın düşük kalması az gösterme demektir. Doğrusu: Aynı 35.000 TL fark az gösterme yönündedir, fazla gösterme değild…"
+          "ad": "İlgi Tuzağı",
+          "metin": "Yönetimin beyan mektubunu imzalamaması, kayıtlara erişimle mantıksal olarak bağlanmaz. Doğrusu: sonuç, erişim olgusuyla çelişmelidir."
         }
       },
-      "hap": "İhtiyaca uygunluk test yönüne göre değişir; az gösterme şüphesinde kayıtlı olmayan kalemler (ödenmemiş fatura, teyit dışı borç) test edilir, kayıtlı tutar tek başına yeterli değildir.",
+      "hap": "Although gördüğünde ana cümlede beklenenin TERSİNİ ara; iki olumlu yargı yan yana gelmez.",
       "satirlar": [
         [
-          "Gerçek borç toplamı (900.000 + 75.000)",
-          "975.000"
+          "Ne soruluyor",
+          "'Although' ile başlayan yan cümleyi anlamca tamamlayan ana cümle isteniyor."
         ],
         [
-          "Kayıtlı borç - Gerçek toplam farkı (975.000 - 940.000)",
-          "35.000 (az gösterme)"
+          "Kural",
+          "'Although' zıtlık bağlacıdır; yan cümlede beklenen sonucun tersi ana cümlede yer alır. Burada yan cümle 'tüm kayıtlara tam erişim vardı' diyor; beklenen sonuç 'her şey doğrulandı' olurdu."
+        ],
+        [
+          "Doğru şık",
+          "C) they still could not verify the origin of several large payments"
         ]
       ],
-      "dayanak": "BDS 500 p.A31 (ihtiyaca uygunluk ve test yönü); p.A32 (farklı kaynaklardan kanıtın aynı beyanı desteklemesi)",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=1",
+      "dayanak": "Yabancı Dil dilbilgisi kuralı - Zıtlık bağlaçları (although / though / even though): yan cümlede belirtilen durumun doğal sonucu ana cümlede GERÇEKLEŞMEZ. Cümle tamamlamada ilk adım bağlacın kurduğu anlam ilişkisini (zı…",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=2",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 5,
+        "kalan_gun": 4,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -69,71 +73,63 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 1,
+      "sira": 2,
       "toplam": 10,
-      "id": "smmm-4k-a-yfta-zor-r6/kp-01",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "dikey yüzde analizi",
-      "donem": 14,
+      "id": "smmm-4k-a-maliyet-cokzor-r9/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "satışların maliyeti tablosu",
+      "donem": 12,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletme, gelir tablosunun dikey yüzde analizinde net satışları taban almaktadır. Satılan malın maliyeti 720.000 ₺ ve net satışların %60'ı, brüt satış kârı net satışların %40'ı, faaliyet giderleri net satışların %25'idir. Faaliyet kârı kaç ₺'dir?",
+      "soru": "İşletme, dönem içinde 685.000 ₺ brüt satış gerçekleştirmiştir; satıştan iadeler 12.500 ₺, satış iskontoları 8.700 ₺'dir. Ticari mal dönem başı stoku 47.350 ₺, dönem sonu stoku 39.900 ₺'dir. Ayrıca dönem içinde 65.200 ₺ pazarlama ve genel yönetim gideri, 21.400 ₺ finansman gideri gerçekleşmiştir. Brüt satış kârı 210.150 ₺ olarak hesaplanmıştır. Bu bilgilere göre dönem içi net alışlar tutarı kaç ₺'dir?",
       "siklar": {
-        "A": "180.000",
-        "B": "270.000",
-        "C": "288.000",
-        "D": "300.000",
-        "E": "480.000"
+        "A": "202.700",
+        "B": "446.200",
+        "C": "454.900",
+        "D": "461.100",
+        "E": "467.400"
       },
-      "dogru": "A",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Kademe Atlama Tuzağı",
-          "metin": "SMM tutarını net satış sanıp doğrudan brüt kâr yüzdesiyle çarptın (720.000x0,40). Doğrusu: önce net satış 1.200.000 bulunur, faaliyet kârı bu tutarın yüzde 15idir, yani 180.000 dir."
+          "ad": "İskonto Atlama Tuzağı",
+          "metin": "Satış iskontosunu net satışlar hesaplamasına dahil etmeyi unuttun. Doğrusu: Net satışlar, brüt satışlardan hem iadeler hem iskontolar düşülerek bulunur."
         },
         "E": {
-          "ad": "Katman Eksik Tuzağı",
-          "metin": "brüt satış kârını faaliyet giderlerini hiç düşmeden faaliyet kârı sandın (1.200.000x0,40). Doğrusu: faaliyet giderleri brüt kârdan düşülmeden faaliyet kârına ulaşılmaz; sonuç 180.000 dir."
+          "ad": "Net Satış Atlama Tuzağı",
+          "metin": "Satış indirimlerini hiç düşmeyip brüt satışları net satış olarak kullandın. Doğrusu: Net satışlar brüt satışlardan satıştan iadeler ve iskontolar düşülerek hesaplanır."
         },
         "D": {
-          "ad": "Yön Karıştırma Tuzağı",
-          "metin": "faaliyet giderleri tutarını brüt kârdan düşmeyi atlayıp onu tek başına faaliyet kârı sandın (1.200.000x0,25). Doğrusu: faaliyet kârı, brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek (%15) hesaplanan tutardır, 180…"
+          "ad": "Stok Karıştırma Tuzağı",
+          "metin": "Dönem başı ve dönem sonu ticari mal stoklarını birbirinin yerine kullandın. Doğrusu: Dönem sonu stok maliyetten çıkarılır, dönem başı stok maliyete eklenir."
         },
-        "B": {
-          "ad": "Taban Karıştırma Tuzağı",
-          "metin": "SMM tutarını net satış yerine (1-SMM yüzdesi) ile bölerek net satışı 1.800.000 buldun, halbuki doğru işlem tutarın kendi yüzdesine bölünmesidir. Doğrusu: net satış 720.000/0,60=1.200.000 olup faaliyet kârı 180.000 dir."
+        "A": {
+          "ad": "Brüt Kârı Maliyet Sanma Tuzağı",
+          "metin": "Brüt satış kârını doğrudan satılan ticari malların maliyeti gibi kullanıp alışları buldun. Doğrusu: Önce net satışlardan brüt kâr çıkarılarak satılan maliyet bulunmalıdır."
         }
       },
-      "hap": "Gelir tablosu dikey yüzdelerinde taban net satışlardır; bilinen bir kalemin tutarı kendi yüzdesine bölünerek net satış, faaliyet kârı yüzdesi ise brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek bulunur.",
+      "hap": "Brüt satış kârı net satışlardan hesaplanır; satılan malın maliyeti formülü ters çözülerek alış tutarına ulaşılabilir.",
       "satirlar": [
         [
-          "Net Satışlar",
-          "720.000/0,60"
+          "Net Satışlar (685.000-12.500-8.700)",
+          "663.800"
         ],
         [
-          "Brüt Satış Kârı",
-          "1.200.000x0,40"
+          "Satılan Ticari Malların Maliyeti (663.800-210.150)",
+          "453.650"
         ],
         [
-          "Faaliyet Giderleri",
-          "1.200.000x0,25"
-        ],
-        [
-          "Faaliyet Kârı Yüzdesi",
-          "%40-%25"
-        ],
-        [
-          "Faaliyet Kârı",
-          "1.200.000x0,15"
+          "Dönem İçi Net Alışlar (453.650-47.350+39.900)",
+          "446.200"
         ]
       ],
-      "dayanak": "Teori Notu - Dikey Yuzdelerden Net Satış ve Gelir Tablosu Hesaplari (Mali Tablolar Analizi)",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=1",
+      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Gelir Tablosu Düzeni (600-623 hesap grupları)",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=2",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 5,
+        "kalan_gun": 4,
         "durum": "DONGU",
         "mail_gunu": false
       },
