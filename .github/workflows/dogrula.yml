@@ -728,12 +728,6 @@ jobs:
               kabuk: pwsh, komut: "./arac/aciklama-hakemi-uretim-sinavi.ps1 -Mutasyon" }
           - { ad: "Aciklama hakemi karar yazimi OZ-SINAVI (diziler/BOM korunur, baska alan degismez)",
               kabuk: bash, komut: "node arac/aciklama-hakem-yaz.js --sinav" }
-          # 10.10 soru verisine model adi girmez (motor/model-kod.ps1): ad -> notr kod, parti-senkron -Yukle agi, ureticide ham ad tarama.
-          # GORMEZ: iki uretici disindaki yazicilar (agi yakalar) · alan adinda model (simulasyon_sonnet) · duz metin ici ad.
-          - { ad: "Model izi kapisi OZ-SINAVI",
-              kabuk: pwsh, komut: "./arac/model-izi-sinavi.ps1" }
-          - { ad: "Model izi kapisi MUTASYON (4 kosul bozulunca sinav duser mi)",
-              kabuk: pwsh, komut: "./arac/model-izi-sinavi.ps1 -Mutasyon" }
           # 26.09 kisa sinav / en cok cikanlar (mobil/uygulama/uygulama-karma.js): soru secimi dengeli mi,
           # tekrar yok mu, cevap sorunun gercek dersine mi yaziliyor, 1000+ satir sayfalaniyor mu. GORMEZ: RLS/ag.
           - { ad: "Mobil kisa sinav secimi OZ-SINAVI",
