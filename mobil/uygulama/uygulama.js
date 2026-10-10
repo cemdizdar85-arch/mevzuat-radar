@@ -96,6 +96,7 @@
     goster('giris', false); goster('ana', true); goster('hesap', true); goster('hesapDugmeler', true);
     $('hesapEposta').textContent = k.email || '';
     profilCiz(k);
+    if (!k.cevrimdisi) ekipCiz().catch(function () {});
     var liste = $('liste'); liste.innerHTML = '<div class="iskelet" aria-label="Paket bilgisi okunuyor"><i></i><i></i><i></i></div>';
     var p;
     try { p = await window.TT.paketler(sb, k.id); }
@@ -114,6 +115,41 @@
     $('yakinda').innerHTML = yakin.map(function (d) { return '<li>' + esc(d.baslik) + ' <span class="kucuk">(' + esc(d.sinavAd) + ')</span></li>'; }).join('');
     goster('yakindaKutu', yakin.length > 0);
   }
+
+  /* 10.10 "Ekibe sor" cevapları (radar-app/sql/2026-10-10-ekibe-soru-goruldu.sql). Görülmemiş cevap varsa Hesap sekmesinde nokta;
+     Hesap sekmesi açılınca görüldü damgası (sitedeki bildirim de kapanır). */
+  var ekipYeni = 0;
+  async function ekipCiz() {
+    var r = await sb.from('ekibe_soru').select('id,tarih,soru_kisa,mesaj,durum,cevap,cevap_tarih,cevap_goruldu').order('tarih', { ascending: false }).limit(20);
+    if (!r || r.error || !r.data || !r.data.length) { goster('ekipSorular', false); return; }
+    var gun = function (t) { try { return new Date(t).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' }); } catch (e) { return ''; } };
+    ekipYeni = 0;
+    $('ekipListe').innerHTML = r.data.map(function (x) {
+      var y = x.durum === 'cevaplandi' && !x.cevap_goruldu; if (y) ekipYeni++;
+      var kisa = x.soru_kisa ? (x.soru_kisa.length > 200 ? x.soru_kisa.slice(0, 200) + '…' : x.soru_kisa) : '';
+      return '<div class="kart" style="margin:0 0 10px' + (y ? ';border-color:var(--vurguDolgu)' : '') + '">'
+        + '<p class="soluk kucuk" style="margin:0 0 6px">' + esc(gun(x.tarih)) + (y ? ' · <b style="color:var(--vurgu)">Yeni cevap</b>' : '') + '</p>'
+        + (kisa ? '<p class="soluk kucuk" style="margin:0 0 6px"><b>Soru:</b> ' + esc(kisa) + '</p>' : '')
+        + '<p style="margin:0 0 8px"><b>Senin sorun:</b> ' + esc(x.mesaj) + '</p>'
+        + (x.durum === 'cevaplandi'
+          ? '<div style="border-left:3px solid var(--vurguDolgu);padding:6px 12px;white-space:pre-wrap"><b>Tetikte ekibinin cevabı' + (x.cevap_tarih ? ' (' + esc(gun(x.cevap_tarih)) + ')' : '') + ':</b>\n' + esc(x.cevap) + '</div>'
+          : '<p class="soluk kucuk" style="margin:0">Ekibimiz inceliyor; cevap 24 saat içinde burada ve e-postanda olacak.</p>')
+        + '</div>';
+    }).join('');
+    goster('ekipSorular', true);
+    ekipNokta();
+  }
+  function ekipNokta() {
+    var b = document.querySelector('#sekmeCubugu button[data-sekme="hesap"]'); if (!b) return;
+    var n = b.querySelector('.ekipNokta');
+    if (ekipYeni && document.body.dataset.sekme === 'hesap') {   /* sekme açık: cevap görüldü */
+      ekipYeni = 0; sb.rpc('ekibe_cevap_goruldu').then(function () {}, function () {});
+    }
+    if (ekipYeni && !n) { n = document.createElement('span'); n.className = 'ekipNokta'; n.setAttribute('aria-label', 'yeni cevap');
+      n.style.cssText = 'position:absolute;top:2px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--vurguDolgu)'; b.appendChild(n); }
+    if (!ekipYeni && n) n.remove();
+  }
+  try { new MutationObserver(ekipNokta).observe(document.body, { attributes: true, attributeFilter: ['data-sekme'] }); } catch (e) {}
 
   function girisCiz() {
     goster('ana', false); goster('hesap', false); goster('hesapDugmeler', false); goster('giris', true); rozet('');

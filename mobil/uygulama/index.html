@@ -93,6 +93,13 @@
     <p id="hesapEposta" class="soluk"></p></div>
   </section>
 
+  <!-- 10.10 Cem "1.2.3" (sitedeki ogrenci.html "Ekibe sorduğun sorular" ile aynı): uygulamadan da "Ekibe sor" gönderilebiliyor
+       (ders sayfası sitenin nobetci-sor.js'ini yükler) → cevap burada. Hiç sorusu yoksa gizli; RLS ile yalnız kendi satırları. -->
+  <section id="ekipSorular" class="bolum" data-sekme="hesap" hidden>
+    <span class="etk">Ekibe sorduğun sorular</span>
+    <div id="ekipListe"></div>
+  </section>
+
   <!-- PAKETLER (uygulama içi satın alma; fiyat mağazadan okunur) -->
   <section id="paketler" class="bolum" data-sekme="hesap" hidden>
     <span class="etk">Paketler</span>

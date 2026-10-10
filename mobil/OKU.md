@@ -1,4 +1,4 @@
-# Tetikte mağaza uygulaması (Google Play + App Store)
+﻿# Tetikte mağaza uygulaması (Google Play + App Store)
 
 > 25.09.2026 · Cem "1.2.3 üçünü de yap" + "1 ve 2 yap" (uygulama içi satış, sınav başına 30 ücretsiz) · altyapi kolu.
 > Kısa cevap: **sınavlar mağazaya yüklenmez.** Mağazaya bir kez uygulama kabuğu yüklenir;
@@ -48,6 +48,7 @@ Kimlik: **`com.tetikte.app`** (Android + iOS aynı; değişmez, mağazada kalıc
    `https://tetikte.com/…`e, `veri/` çekimlerini siteye çevirir (havuz taze kalır). `uygulama-sayfa.js` sayfanın
    `uye-durumu.js`'ten beklediği `TetikteUye` + `__pkSb`'yi uygulamanın ayağından verir, iPhone'da satış çağrısı taşıyan
    öğeleri kaldırır. Öz-sınav 5 vaka + mutasyon `sayfa`. **Site `seviye-testi.html`'i değiştirince `node mobil/hazirla-sinavi.js` koşulmalı.**
+   **1.8.2 (10.10, Cem "1.2.3"):** Hesap sekmesinde "Ekibe sorduğun sorular" (sitedeki ogrenci.html ile aynı; ekibin cevabı, "Yeni cevap", Hesap sekmesinde turuncu nokta, sekme açılınca `ekibe_cevap_goruldu()`). Mağazaya YÜKLENMEDİ — Cem onayıyla `mobil-android.yml`.
    **1.8.1 (09.10, Cem "hepsi gelsin"):** + `yanlislarim.html` · `canli-deneme.html` · `en-cok-cikan-konular-{sgs,yeterlilik}.html` ·
    `sinav-gibi.html` (Sınav gibi + `?tur=sik` 20 konu denemesi; `paket:true` → kapı `uygulama-kapisi.js`, `?sinav=smmm` Yeterlilik paketi
    arar, site 07.10 ile aynı) · "💬 Nöbetçiye sor" açılmış ders sayfasında (`uygulama-kapisi.js` `ac()` yükler, vitrinde yok) ·
