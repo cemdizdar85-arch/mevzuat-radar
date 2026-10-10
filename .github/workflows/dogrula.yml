@@ -407,6 +407,10 @@ jobs:
           # fark-yok reddi kapatilinca 5/5 KIRMIZI. Gercek veride 378 taslakta 4 cakismayi (ayni soruya iki parca) reddetti.
           - { ad: "Onarim hatti karar OZ-SINAVI (beyansiz fark red, anahtar/kok degisince yeniden hakem)",
               kabuk: bash, komut: "node arac/onarim-hatti.js --sinav" }
+          # 10.10.2026 - Ekibe sor haklı itiraz → elle ret (arac/ekip-hakli-aktar.js). 8 vaka; mutasyonla olculdu:
+          # onek (tanınmayan önek yazılır) 5/8, ezme (listedeki gerekce ezilir) 7/8, yabanci (ogrenci mesaji depoya) 7/8 KIRMIZI.
+          - { ad: "Ekibe sor HAKLI ITIRAZ aktarim OZ-SINAVI (onek, gerekce ezilmez, ogrenci verisi depoya girmez)",
+              kabuk: bash, komut: "node arac/ekip-hakli-aktar.js --sinav" }
           # 02.10.2026 - KAPI-FU fiyat-urun (arac/fiyat-urun-kapisi.js): satistaki paket hicbir sinavi acmiyorsa ya da sayfa olmayan paketi aniyorsa KIRMIZI.
           # 10 vaka; mutasyonla olculdu: karsiliksiz 1/10, paket-yok 2/10, kor 1/10 KIRMIZI. a0a66f51^ motorunda son15'i yakaladi.
           - { ad: "KAPI-FU fiyat-urun OZ-SINAVI (satistaki paket bir sinav aciyor mu)",

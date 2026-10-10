@@ -399,14 +399,27 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     var o=await sb.rpc('yonetim_nobetci_ozet');
     if(o.error){ $('nNot').textContent=/PGRST202|Could not find/i.test(o.error.message||'')?'Nöbetçi henüz kurulmamış (göç bekliyor).':'Nöbetçi verisi okunamadı.'; }
     else { var d=o.data||{}; $('nBugun').textContent=d.bugun_soru||0; $('nAy').textContent=d.ay_soru||0; $('nUsd').textContent=Number(d.ay_usd||0).toFixed(2)+' $';
-      $('nOrt').textContent=Number(d.ort_usd||0).toFixed(3)+' $'; $('nNot').textContent='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0); }
+      $('nOrt').textContent=Number(d.ort_usd||0).toFixed(3)+' $';
+      /* 10.10 (Cem "1.2.3"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */
+      $('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)
+        +(d.ekip_gec?' · <b style="color:var(--red)">24 saati geçen: '+d.ekip_gec+'</b>':'')
+        +('ekip_hakli' in d?' · İtiraz: <b>'+d.ekip_hakli+'</b> haklı (soru hatalı) · '+d.ekip_haksiz+' haksız · '+Math.max(0,(d.ekip_toplam||0)-d.ekip_hakli-d.ekip_haksiz)+' işaretlenmedi':''); }
     var e=await sb.rpc('yonetim_ekip_sorulari');
     var L=$('ekipListe');
     if(e.error){ L.innerHTML='<p class="not">Ekip soruları okunamadı.</p>'; return; }
     var liste=e.data||[];
     if(!liste.length){ L.innerHTML='<p class="not">Henüz soru yok.</p>'; return; }
     L.innerHTML=liste.map(function(x){
-      return '<div class="kutu" style="margin:0 0 10px"><div class="not" style="margin:0 0 6px">#'+x.id+' · '+tarih(x.tarih)+' · '+esc(x.eposta||'—')+' · '+esc(x.soru_id)+' · <b>'+(x.durum==='bekliyor'?'cevap bekliyor':'cevaplandı')+'</b></div>'
+      var saat=Math.floor((Date.now()-new Date(x.tarih).getTime())/3600000), gec=x.durum==='bekliyor' && saat>=24;
+      /* 10.10 haklı itiraz: işaret + (haklıysa) onarım listesine aktarım durumu; alan gelmiyorsa (göç yok) çıkmaz */
+      var itiraz=!('itiraz_hakli' in x)?'':'<div class="not" style="margin:8px 0 0;display:flex;gap:6px;align-items:center;flex-wrap:wrap">Soru gerçekten hatalı mı? '
+        +'<button class="btn'+(x.itiraz_hakli===true?' ana':'')+'" data-ekiphakli="'+x.id+'" data-deger="1">Hatalı (öğrenci haklı)</button>'
+        +'<button class="btn'+(x.itiraz_hakli===false?' ana':'')+'" data-ekiphakli="'+x.id+'" data-deger="0">Soru doğru</button>'
+        +(x.itiraz_hakli===true?' · '+(x.ret_aktarim?'✓ onarım listesine girdi ('+tarih(x.ret_aktarim)+'), sonraki yayında siteden çekilir':'⏳ 10 dk içinde onarım listesine girer')+(x.itiraz_not?' · Not: '+esc(x.itiraz_not):''):'')
+        +'</div>';
+      return '<div class="kutu" style="margin:0 0 10px'+(gec?';border:2px solid var(--red)':'')+'"><div class="not" style="margin:0 0 6px">#'+x.id+' · '+tarih(x.tarih)+' · '+esc(x.eposta||'—')+' · '+esc(x.soru_id)+' · <b>'+(x.durum==='bekliyor'?'cevap bekliyor':'cevaplandı')+'</b>'
+        +(gec?' · <b style="color:var(--red)">⏰ '+saat+' saattir bekliyor (söz: 24 saat)</b>':'')
+        +(x.durum!=='bekliyor' && ('cevap_goruldu' in x)?' · '+(x.cevap_goruldu?'öğrenci sitede gördü':'öğrenci sitede henüz görmedi'):'')+'</div>'
         +(x.soru_kisa?'<p style="margin:0 0 6px;font-size:13.5px"><b>Soru:</b> '+esc(x.soru_kisa)+'</p>':'')
         +'<p style="margin:0 0 6px"><b>Öğrenci:</b> '+esc(x.mesaj)+'</p>'
         +(x.nobetci_cevap?'<details style="margin:0 0 6px"><summary class="not">Nöbetçi\'nin verdiği cevap</summary><p style="white-space:pre-wrap;font-size:13.5px">'+esc(x.nobetci_cevap)+'</p></details>':'')
@@ -415,6 +428,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
           : '<p style="margin:0;white-space:pre-wrap"><b>Cevap:</b> '+esc(x.cevap||'')+'</p>'
             /* 10.10: cevap kaydedilip mail gitmediyse yeniden gönderme (cevap_mail boş; alan gelmiyorsa düğme çıkmaz) */
             +(('cevap_mail' in x) && !x.cevap_mail ? '<p class="not" style="margin:6px 0 0">⚠ Bu cevap öğrenciye e-postayla GİTMEDİ. <button class="btn ana" data-ekipmail="'+x.id+'">E-postayı gönder</button></p>' : ''))
+        +itiraz
         +'</div>';
     }).join('');
   }
@@ -438,6 +452,19 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     var o=(await sb.auth.getSession()).data.session;
     return fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/nobetci-sor',{ method:'POST', headers:{'Content-Type':'application/json',apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg',Authorization:'Bearer '+(o&&o.access_token)}, body:JSON.stringify({islem:'ekip_cevap',id:id}) }).then(function(x){return x.ok;},function(){return false;});
   }
+  document.addEventListener('click', async function(ev){
+    var bh=ev.target.closest&&ev.target.closest('button[data-ekiphakli]'); if(!bh) return;
+    var id=Number(bh.dataset.ekiphakli), hakli=bh.dataset.deger==='1', not=null;
+    if(hakli){
+      not=prompt('#'+id+': Soru HATALI işaretlenecek. Soru onarım listesine girer ve sonraki yayında siteden çekilir (onarılınca geri gelir).\n\nKısa hata notu (isteğe bağlı; herkese açık depoya yazılır, öğrenci adı/e-postası YAZMA):','');
+      if(not===null) return;
+    } else if(!confirm('#'+id+': Soru DOĞRU (öğrenci yanılmış) olarak işaretlensin mi?')) return;
+    bh.disabled=true;
+    var r=await sb.rpc('yonetim_ekip_hakli',{ p_id:id, p_hakli:hakli, p_not:not });
+    if(r.error){ mesaj(hataYazi(r.error), false); bh.disabled=false; return; }
+    mesaj(hakli?'✓ Hatalı işaretlendi; 10 dakika içinde onarım listesine girer.':'✓ Soru doğru olarak işaretlendi.', true);
+    nobetciYukle().catch(function(){});
+  });
   document.addEventListener('click', async function(ev){
     var bm=ev.target.closest&&ev.target.closest('button[data-ekipmail]'); if(!bm) return;
     var id=Number(bm.dataset.ekipmail);

@@ -36,3 +36,57 @@ jobs:
           echo "sonuc: $sonuc"
           echo "$sonuc" | grep -q '"success":true' || { echo "::error::nöbet cevabı başarısız"; exit 1; }
           if echo "$sonuc" | grep -Eq '"(haber_hata|cevap_hata|adres_yok)":[1-9]'; then echo "::error::gönderilemeyen var"; exit 1; fi
+
+  # 10.10 (Cem "1.2.3" madde 3): panelde "Hatalı (öğrenci haklı)" işaretlenen soru → <sinav>-elle-ret.json → sınavın kasa yayını.
+  # Önce yalnız SAYI sorulur; aktarılacak yoksa depo çekilmez (10 dakikada bir koşuyor). Damga push BAŞARILI olunca vurulur.
+  hakli:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Aktarılacak haklı itiraz var mı
+        id: say
+        env:
+          SK: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          n=$(curl -sS -m 30 "https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/ekibe_soru?select=id&itiraz_hakli=is.true&ret_aktarim=is.null" \
+            -H "apikey: $SK" -H "Authorization: Bearer $SK" | jq 'length')
+          echo "aktarılacak: $n"; echo "n=$n" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.say.outputs.n != '0'
+      - uses: actions/setup-node@v4
+        if: steps.say.outputs.n != '0'
+        with:
+          node-version: "20"
+      - name: Elle rete yaz, gönder, yayını tetikle, damgala
+        if: steps.say.outputs.n != '0'
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node arac/ekip-hakli-aktar.js --sinav
+          node arac/ekip-hakli-aktar.js
+          degisen=$(git diff --name-only -- veri/sinav/smmm-elle-ret.json veri/sinav/sgs-elle-ret.json veri/sinav/kgk-elle-ret.json)
+          if [ -n "$degisen" ]; then
+            git config user.name  "tetikte-robot"
+            git config user.email "bildirim@tetikte.com"
+            git add $degisen
+            git commit -m "Ekibe sor: haklı itiraz elle rete işlendi [veri-operasyonu]"
+            itildi=0
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then itildi=1; echo "itildi (deneme $i)"; break; fi
+              git pull --rebase --autostash origin main || { git rebase --abort; echo "::error::elle ret birlestirilemedi"; exit 1; }
+              sleep 5
+            done
+            [ "$itildi" = 1 ] || { echo "::error::push 5 denemede basarisiz"; exit 1; }
+            echo "$degisen" | grep -q smmm- && gh workflow run smmm-kasa-yayin.yml && echo "smmm yayın tetiklendi" || true
+            echo "$degisen" | grep -q sgs-  && gh workflow run yayin-bas.yml -f parti_indir=true && echo "sgs yayın tetiklendi" || true
+            echo "$degisen" | grep -q kgk-  && gh workflow run kgk-kasa-yayin.yml && echo "kgk yayın tetiklendi" || true
+          else
+            echo "liste değişmedi (hepsi zaten listede ya da tanınmayan önek)"
+          fi
+          node arac/ekip-hakli-aktar.js --damga
