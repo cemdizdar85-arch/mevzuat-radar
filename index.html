@@ -292,7 +292,7 @@ footer p{margin:0 0 8px}
       <a class="nl" href="sorular.html">Sınavlar</a>
       <a class="nl" href="fiyat.html">Fiyatlar</a>
       <a class="nl" id="navOgrenci" href="ogrenci.html">Giriş yap</a>
-      <a class="btn btn-ana" id="navCta" href="seviye-testi.html">Ücretsiz başla</a>
+      <a class="btn btn-ana" id="navCta" href="kaydir/vitrin/ornek-sgs.html">Ücretsiz başla</a>
     </div>
   </div>
   <script>/* 04.10 Cem: girişliyken şerit bir an "Giriş yap · Ücretsiz başla" gösteriyordu (Supabase yüklenene dek) -> oturum anahtarı cihazdaysa hemen çevir (menu.js ile aynı ölçüt) */
@@ -316,12 +316,13 @@ footer p{margin:0 0 8px}
         <span class="sinav kapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
       </div>
       <div class="kah-alt">
-        <a class="btn btn-vurgu" id="cta1" href="seviye-testi.html">30 soruda seviyeni ölç</a>
+        <a class="btn btn-vurgu" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 soru çöz, Nöbetçi anlatsın</a>
         <a class="btn btn-ikinci" id="cta2" href="fiyat.html">Paketleri gör</a>
-        <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli -->
-        <a class="btn btn-ikinci" id="cta3" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
+        <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
+             11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu düğme 30 soruluk ölçüm (dugmeCiz) -->
+        <a class="btn btn-ikinci" id="cta3" href="seviye-testi.html">30 soruda seviyeni ölç</a>
       </div>
-      <p class="durum" id="durum">Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.</p>
+      <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevabından hemen sonra Nöbetçi tuzağı ve doğrusunu anlatır.</p>
       <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
     </div>
 
@@ -467,7 +468,8 @@ footer p{margin:0 0 8px}
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
     var c1=$('cta1'), c2=$('cta2'), du=$('durum'), c3=$('cta3');
     c2.hidden=false;
-    c3.href='kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html'; c3.hidden=(d.durum==='aktif');   /* 08.10: 5 örnek soru, ders sayfası şablonu (Cem: "soru paketi gibi") */
+    var ornek='kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html';
+    c3.href=ornek; c3.textContent='5 örnek soru çöz'; c3.hidden=(d.durum==='aktif');   /* 08.10: 5 örnek soru, ders sayfası şablonu (Cem: "soru paketi gibi") */
     if(d.durum==='aktif'){
       c1.textContent='Sınava gir'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam;
       du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':'');
@@ -475,13 +477,17 @@ footer p{margin:0 0 8px}
       c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Ücretsiz sorular →'; c2.href=S.dene;
       du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.';
     } else {
-      c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc;   /* 04.10 Cem: 'ücretsiz dene' değil 'seviyeni ölç' */
+      /* 11.10 Cem ("30 soruluk denemeyi ölçmeden 5 soruyu çözdürsek ... soru çözen bizim taktiği görmüyor, Nöbetçi anlatsın" → "1.2.3"):
+         üye olmayanın İLK kapısı 5 soru (her cevaptan hemen sonra anlatım; seviye testinde anlatım ancak 30 sorunun sonunda, ilk 3 yanlışta).
+         30 soruluk ölçüm ikinci düğme. Ölçüm: kaynak sayacı 'ornek' adımı (2026-10-11-kaynak-ornek.sql). */
+      c1.textContent='5 soru çöz, Nöbetçi anlatsın'; c1.href=ornek;
+      c3.textContent='30 soruda seviyeni ölç'; c3.href=S.olc;
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
       c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
       /* 05.10 Cem ('30 soru çöz altında sınavdaki seviyeni gör desem'): alt satır testin SONUCUNU söyler (ekranda gerçekten çıkan iki şey).
          Süre seviye-testi.html'de yazar; ana sayfada süre işi zahmetli gösteriyordu. */
-      du.innerHTML='Ücretsiz · 30 soru çöz, sınavı geçme ihtimalini ve en zayıf dersini hemen gör.';
+      du.innerHTML='Ücretsiz, üye olmadan · Her cevabından hemen sonra Nöbetçi tuzağı ve doğrusunu anlatır.';
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
     /* 07.10 Cem ("1 yap"): "neler var" kartları seçili sınava göre - Yeterlilik'te deneme = deneme.html Birebir Prova (gerçek 2026 düzeni),
@@ -505,7 +511,7 @@ footer p{margin:0 0 8px}
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
-    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Ücretsiz başla'; c.href=ok?'sorular.html':'seviye-testi.html'; } });
+    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Ücretsiz başla'; c.href=ok?'sorular.html':'kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html'; } });   /* 11.10: ziyaretçinin kapısı 5 soru */
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
   function ozetim(){ return OZET&&OZET.sinavlar&&OZET.sinavlar[OZET_ANAHTAR[secili]]; }
@@ -536,7 +542,7 @@ footer p{margin:0 0 8px}
       /* 07.10: ana sayfada gördüğü soru seviye testinde ona gelmesin (seviye-testi.html sv_gorulen'deki soruyu ilk turda atlar) */
       try{ var gr=JSON.parse(localStorage.getItem('sv_gorulen')||'[]'); if(gr.indexOf(v.id)<0){ gr.push(v.id); localStorage.setItem('sv_gorulen',JSON.stringify(gr.slice(-2000))); } }catch(e){}
       window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:v.soru, siklar:v.siklar, tuzaklar:v.tuzaklar, secim:v.secim, sen_etiket:'En sık yapılan yanlış', tuzak_ad:v.tuzak_ad, tuzak_metin:v.tuzak_metin,
-        dogru:v.dogru, aciklama:v.aciklama, adimlar:v.adimlar, kayitlar:v.kayitlar, kural:v.kural, dayanak:v.dayanak }],{   /* 07.10: bankadaki adımlar + yevmiye */ son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
+        dogru:v.dogru, aciklama:v.aciklama, adimlar:v.adimlar, kayitlar:v.kayitlar, kural:v.kural, dayanak:v.dayanak }],{   /* 07.10: bankadaki adımlar + yevmiye */ son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 5 soru çöz; her cevabından hemen sonra anlatsın.', dugme:'5 soru çöz →', href:'kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html', sinif:'btn btn-vurgu' },
         etkilesim:10000,   /* 07.10 Cem: 'sen çöz diyelim, kaymasın dursun' -> 10 sn geri sayım; 'kendim çözeyim' düğmesi süreyi durdurur */
         olay:function(ad){ say('ana/nobetci/'+ad,'Ana sayfa Nöbetçi: '+ad); } });
       $('bzIleri').hidden=true; return; }   /* 07.10 Cem: 'Başka soru çöz' saçma - kalktı; ziyaretçi bu soruyu kartta çözer */
@@ -554,7 +560,7 @@ footer p{margin:0 0 8px}
     kap.innerHTML='';
     window.NobetciOynatici.kur(kap,[{ ust:'Günün sorusu', soru:o.soru, siklar:o.siklar, secim:sen, sen_etiket:'En sık yapılan yanlış', secim_metin:sen?o.siklar[sen]:'',
       tuzak_ad:t.ad, tuzak_metin:tm, dogru:o.dogru, dogru_metin:o.siklar[o.dogru], aciklama:aciklama, kural:'', dayanak:o.dayanak||'' }],{
-      son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 30 soruda seviyeni ölç; ilk 3 yanlışının anlatımı ücretsiz.', dugme:'30 soruda seviyeni ölç →', href:(secili==='yeterlilik'?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), sinif:'btn btn-vurgu' },
+      son:{ metin:'Kendi yanlışlarını Nöbetçi böyle anlatır. 5 soru çöz; her cevabından hemen sonra anlatsın.', dugme:'5 soru çöz →', href:'kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html', sinif:'btn btn-vurgu' },
       olay:function(ad){ say('ana/nobetci/'+ad,'Ana sayfa Nöbetçi: '+ad); }
     });
     $('bzIleri').disabled=false; $('bzIleri').textContent='Kendin çöz →';

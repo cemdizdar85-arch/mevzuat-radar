@@ -41,13 +41,44 @@
     /* 08.10 Cem ("2 yap"): örnek sayfasının son ekranında (#sonSkor, motor/kaydir-coz.ps1) satın alma adımı yoktu -> en üste
        "Paketleri gör" + "30 soruda seviyeni ölç". 5 soruluk setin "Hazırlık %" kutusu yanıltıcı (bankanın tamamına göre değil) -> gizli.
        Normal ders sayfalarına dokunulmaz (bu blok yalnız kaydir/vitrin/ornek-*). */
+    /* 11.10 Cem ("1.2.3"): ana sayfanın ilk kapısı bu sayfa oldu. (a) ?k= etiketiyle gelen ziyaretçinin "5 soruyu açtı" adımı
+       kaynak sayacına (menu.js'in KAYNAK-ETIKETI bloğuyla aynı anahtarlar: tt_kaynak, tt_kaynak_say; sunucu
+       2026-10-11-kaynak-ornek.sql). Etiketsizde istek gitmez. (b) son ekranda ÜYE OLMAYANA ilk adım "yanlışlarını kaydet":
+       üyelik → Yanlışlarım (kutu-esitle.js cihazdaki kutuyu hesaba taşır). Üyeye "Yanlışlarım". */
+    var uyeVar = function () { try { return Object.keys(localStorage).some(function (k) { return /^sb-.+-auth-token$/.test(k); }); } catch (e) { return false; } };
+    if (ornekS) try {
+      var kx = JSON.parse(localStorage.getItem('tt_kaynak') || 'null'), ke = kx && Date.now() - kx.t < 30 * 86400000 ? kx.k : null;
+      if (!ke) try { ke = sessionStorage.getItem('tt_kaynak'); } catch (e) {}
+      if (ke && /^[a-z0-9][a-z0-9_-]{0,31}$/.test(ke)) {
+        var ks = []; try { ks = JSON.parse(sessionStorage.getItem('tt_kaynak_say') || '[]'); } catch (e) {}
+        if (ks.indexOf('ornek:' + ke) < 0) {
+          ks.push('ornek:' + ke); try { sessionStorage.setItem('tt_kaynak_say', JSON.stringify(ks.slice(-20))); } catch (e) {}
+          fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/rpc/kaynak_say', { method: 'POST', keepalive: true,
+            headers: { 'apikey': 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ p_etiket: ke, p_olay: 'ornek' }) }).catch(function () {});
+        }
+      }
+    } catch (e) {}
     var sonYaz = function () {
       if (!ornekS) return; var s = document.getElementById('sonSkor');
       if (!s || !s.querySelector('.buyuk') || s.querySelector('.ornekSatin')) return;
       var yet = ornekS === 'smmm', d = document.createElement('div'); d.className = 'ornekSatin';
       d.style.cssText = 'display:flex;flex-direction:column;gap:8px;margin:0 0 14px';
-      d.innerHTML = '<a class="btn ana" target="_top" href="/fiyat.html?sinav=' + (yet ? 'yeterlilik' : 'sgs') + '" style="text-decoration:none;text-align:center">Paketleri gör →</a>' +
-        '<a class="btn mavi" target="_top" href="/seviye-testi.html' + (yet ? '?sinav=yeterlilik' : '') + '" style="text-decoration:none;text-align:center">30 soruda seviyeni ölç →</a>';
+      var kutuN = 0; try { kutuN = (JSON.parse(localStorage.getItem('kc_kutu') || '[]') || []).length; } catch (e) {}
+      var uyelik = uyeVar()
+        ? '<a class="btn ana" target="_top" href="/yanlislarim.html" style="text-decoration:none;text-align:center">Yanlışlarım' + (kutuN ? ' (' + kutuN + ')' : '') + ' →</a>'
+        : '<p style="margin:0;font-size:15px;line-height:1.5;text-align:center">' + (kutuN
+            ? '<b>' + kutuN + ' yanlışın</b> şu an yalnız bu tarayıcıda. Ücretsiz üye ol; 2 gün sonra yeniden karşına gelsin, telefonda da bilgisayarda da.'
+            : 'Ücretsiz üye ol; çözdüğün sorular ve yanlışların hesabında dursun, telefonda da bilgisayarda da.') + '</p>' +
+          '<a class="btn ana" target="_top" href="/ogrenci.html?sonra=yanlislarim.html#uye-ol" style="text-decoration:none;text-align:center">' +
+            (kutuN ? 'Ücretsiz üye ol, yanlışlarımı kaydet →' : 'Ücretsiz üye ol →') + '</a>';
+      d.innerHTML = uyelik +
+        '<a class="btn mavi" target="_top" href="/seviye-testi.html' + (yet ? '?sinav=yeterlilik' : '') + '" style="text-decoration:none;text-align:center">30 soruda seviyeni ölç →</a>' +
+        '<a class="btn" target="_top" href="/fiyat.html?sinav=' + (yet ? 'yeterlilik' : 'sgs') + '" style="text-decoration:none;text-align:center">Paketleri gör →</a>';
+      d.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest && e.target.closest('a[href*="ogrenci.html"]'); if (!a) return;
+        try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: 'ornek/' + (yet ? 'yeterlilik' : 'sgs') + '/uye-ol', title: '5 örnek soru: üye ol', event: true }); } catch (x) {}
+      });
       s.insertBefore(d, s.firstChild);
       var h = s.querySelector('.skorBuyuk'); if (h) h.style.display = 'none';
     };
