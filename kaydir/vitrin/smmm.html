@@ -383,7 +383,6 @@ function kutuEkraniAc(){
    +sk.ders.map(d=>'<div class="dersSat"><span>'+esc(d.ad)+'</span><div class="bar"><i style="width:'+d.yuzde+'%"></i></div><b>%'+d.yuzde+'</b></div>').join('')
    +'<div class="et" style="margin-top:14px">📥 Yanlış kutusu ('+KUTU.kutu.length+')</div>'
    +(KUTU.kutu.length?KUTU.kutu.map(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); return '<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t&&i>=0?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>'; }).join(''):'<p class="ipnot">Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.</p>')
-   +(/[?&]demo=1\b/.test(location.search)?'<div class="btnrow" style="margin-top:14px"><button class="btn" id="kutuIleri">⏩ Demo: 2 gün ileri sar</button><button class="btn gri" id="kutuSifirla">Verileri sıfırla</button></div>':'')   /* 03.10 V2 madde 11: herkese açıktı - yalnız ?demo=1 */
    +'<p class="ipnot">Nasıl çalışır: yanlış → kutuya girer, 2 gün sonra geri gelir; o gün doğru bilirsen 7 gün sonra bir kez daha gelir; onu da bilirsen kutudan çıkar ve ustalık tam sayılır.</p></div>';
   e.classList.add('acik');
   e.querySelector('#kutuKapat').addEventListener('click',()=>e.classList.remove('acik'));

@@ -18,7 +18,7 @@
   · Veri: yalnız elci_panelim() — sunucu yalnız bağlı hesabın satırını döner. Alıcının adı/e-postası/telefonu
     hiçbir yoldan gelmez (KVKK); yalnız adet ve tutar.
   · SQL: radar-app/sql/2026-09-15-elci-programi.sql (bölüm 11–12). Basılmamışsa sayfa bunu açıkça söyler.
-  · Örnek görünüm: elci.html?ornek=1 (&ad=…&kod=…) — girişsiz, uydurma rakamlarla, üstte "ÖRNEK" şeridi. Kişi adı depoya yazılmaz.
+  · Örnek görünüm (?ornek=1) 10.10'da KALDIRILDI (Cem: adres eklerinin hepsi iptal). Kişi adı depoya yazılmaz.
   · Koşul metni sürümü KOSUL_SURUM; metin değişirse sürüm değişir, elçi yeniden onaylar.
   Açık tema (çalışma ekranı).
 -->
@@ -396,20 +396,7 @@
     else { $('epLink').select(); try { document.execCommand('copy'); tamam(); } catch(e){} }
   });
 
-  /* ---- ÖRNEK GÖRÜNÜM (girişsiz) ---- */
-  var q = new URLSearchParams(location.search);
-  if (q.get('ornek') === '1') {
-    var kod = (q.get('kod') || 'OE27').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 12) || 'OE27';
-    panelCiz({ kod:kod, ad:(q.get('ad') || 'Örnek Elçi').slice(0, 60), aktif:true, sozlesme_surum:KOSUL_SURUM, odeme_bilgisi:false,
-      baslangic_kademe:1, donem:{ ad:'SGS 2026-3', baslangic:'2026-09-15', bitis:'2026-11-21' },
-      kesin_satis:6, bekleyen_satis:2, iade:1, odeme_bekleyen:3,
-      komisyon_kesin:4500, komisyon_tahmini:6000, siradaki_birim:750, sonraki_esik:10, sonraki_esik_kalan:2, sonraki_esik_birim:1000,
-      ozel_isbirligi:false, indirimler:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':50, 'yeterlilik-2':100, 'yeterlilik-3':150, 'yeterlilik-4':200 },
-      ders_kesin_satis:2, ders_bekleyen_satis:1, ders_komisyon_kesin:450, ders_komisyon_tahmini:600,
-      odemeler:[ { odeme_tarihi:'2026-10-31', donem:'SGS 2026-3', tutar_tl:3000 } ] }, true);
-    $('epCikis').hidden = true;
-    return;
-  }
+  /* 10.10 Cem ("adres eklerinin hepsini iptal et"): girişsiz ?ornek=1 örnek görünümü kaldırıldı - panel yalnız elçi girişiyle. */
 
   var sb = window.supabase.createClient(SB_URL, SB_KEY);
   function cikis(e){ if (e) e.preventDefault(); sb.auth.signOut().then(function(){ location.reload(); }, function(){ location.reload(); }); }
