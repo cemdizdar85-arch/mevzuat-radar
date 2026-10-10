@@ -18,7 +18,7 @@ Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ik
 
 Kaydet, sınavdan önce bak.
 
-13 dersin hepsini istiyorsan yoruma TETİKTE yaz, tamamını DM'den gönderelim.
+13 dersin hepsini istiyorsan bizi takip et ve yoruma TETİKTE yaz, tamamını DM'den gönderelim.
 
 Bu konudan soru çözmek için tetikte.com'a üye ol: 30 soruda seviyeni ücretsiz ölç, yanlış yaptığın her sorunun nedenini gör. Bağlantı profilde.
 
@@ -118,7 +118,7 @@ Sorular tek tek okunarak sayıldı. Hangi sınavın kaçıncı sorusu olduğu ik
 
 Kaydet, sınavdan önce bak.
 
-8 dersin hepsini istiyorsan yoruma RÖNTGEN yaz, Yeterlilik röntgenini DM'den gönderelim.
+8 dersin hepsini istiyorsan bizi takip et ve yoruma TETİKTE yaz, Yeterlilik röntgenini DM'den gönderelim.
 
 Bu konudan soru çözmek için tetikte.com'a üye ol: Yeterlilik seviye testini ücretsiz çöz, yanlış yaptığın her sorunun nedenini gör. Bağlantı profilde.
 
