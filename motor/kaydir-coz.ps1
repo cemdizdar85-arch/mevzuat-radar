@@ -638,6 +638,10 @@ $html=@'
 .tekrarUyari{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:10px 12px;font-size:.92em;display:flex;align-items:center;gap:8px;max-width:calc(100% - 24px);box-shadow:0 8px 24px color-mix(in srgb,var(--yazi) 18%,transparent)}
 .tekrarUyari .tuMetin{flex:1 1 auto;min-width:0;line-height:1.45}
 .tekrarUyari{width:min(560px,calc(100% - 24px));box-sizing:border-box}
+.setSay{white-space:nowrap}
+.setOzet{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:color-mix(in srgb,var(--yazi) 45%,transparent)}
+.setKutu{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:16px;padding:22px 18px;width:min(420px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
+.setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}
 .tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
 .tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
 .sik{display:block;width:100%;text-align:left;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:12px 13px;margin:7px 0;font-size:.95em;cursor:pointer;transition:transform .08s}.sik:active{transform:scale(.985)}
@@ -914,7 +918,7 @@ function seviyeHesapla(s){
   return {k:'nobet',ad:'🟡 Nöbet',neden:(tip==='kayit'?'Kayıt sorusu: hesap ve taraf seçimi':'Hesap sorusu: verilenleri sırayla işle')};
 }
 const akis=document.getElementById('akis');
-const durum={cevap:{},dogru:0,seri:0};
+const durum={cevap:{},dogru:0,seri:0,ok:{}};   /* ok[i]: true/false — set noktaları + set özeti (10.10) */
 try{ durum.seri=parseInt(localStorage.getItem('kc_seri')||'0')||0; }catch(e){}
 // ===== YANLIS KUTUSU + HAZIRLIK SKORU (Cem 04.09 "1 yap goreyim") — Surgent ReadySCORE + Duolingo Mistakes Hub =====
 const GUN=86400000; const KUTU={ kayit:[], kutu:[], oyun:[], ileri:0 };   // ileri: demo icin "zaman ileri sarma" (ms)
@@ -955,7 +959,7 @@ function skorHesapla(){
   return { toplam: tw?Math.round(tu/tw*100):0, cozulen:cz, n:SORULAR.length, oyunTam:oyTam, oyunIpuclu:oyIp, ders:Object.entries(ders).map(([ad,d])=>({ad,yuzde:d.w?Math.round(d.u/d.w*100):0,cozulen:d.c,n:d.n})) };
 }
 function skorCiz(){ const sk=skorHesapla(); const vade=KUTU.kutu.filter(x=>x.due<=simdi()).length; const azVeri=KUTU.kayit.length<5; document.querySelectorAll('.skorCip').forEach(el=>{ el.textContent=azVeri?'🎯 —':('🎯 %'+sk.toplam); el.title=azVeri?'Hazırlık skoru 5 sorudan sonra görünür':'Hazırlık skoru'; }); /* 05.09: ilk yanlıştan sonra "%4" görmek caydırıcı; 5 cevaptan önce yüzde yok */ document.querySelectorAll('.kutuCip').forEach(el=>{ el.textContent='📥 '+KUTU.kutu.length+(vade?' ·'+vade+' hazır':''); el.classList.toggle('hazir',vade>0); }); }
-function kartSifirla(i){ const k=akis.children[i]; if(!k) return; delete durum.cevap[i]; k.querySelectorAll('.sik').forEach(x=>{ x.disabled=false; x.classList.remove('dogru','yanlis'); }); const p=k.querySelector('.panel'); p.classList.remove('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); k.querySelector('.ipucu').style.display=''; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>{ n.classList.remove('ok','yan'); }); k.scrollIntoView({behavior:'smooth'}); }
+function kartSifirla(i){ const k=akis.children[i]; if(!k) return; delete durum.cevap[i]; delete durum.ok[i];k.querySelectorAll('.sik').forEach(x=>{ x.disabled=false; x.classList.remove('dogru','yanlis'); }); const p=k.querySelector('.panel'); p.classList.remove('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); k.querySelector('.ipucu').style.display=''; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>{ n.classList.remove('ok','yan'); }); k.scrollIntoView({behavior:'smooth'}); }
 function kutuEkraniAc(){
   let e=document.getElementById('kutuEkran'); if(!e){ e=document.createElement('div'); e.id='kutuEkran'; e.className='kutuEkran'; document.body.appendChild(e); }
   const sk=skorHesapla(); const t=simdi();
@@ -991,13 +995,35 @@ const nrm=t=>String(t||'').toLowerCase().replace(/tl/g,'').replace(/[.\s]/g,'').
 const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
 const fmt=n=>n.toLocaleString('tr-TR');
 // 13.09 (Cem "3 yap"): 991 soruluk sayfada her kart 992 nokta çiziyordu -> 983 bin öğe, ilk tepki 5,5 sn. 12 soruya kadar çıktı AYNI; üstünde kart yalnız kendi çevresindeki 15 noktayı çizer.
-function noktalar(i){ const N=SORULAR.length; let a=0,b=N; if(N>12){ a=Math.max(0,Math.min(i-7,N-15)); b=Math.min(N,a+15); } let h=''; for(let j=a;j<b;j++){ h+='<i data-j="'+j+'" class="'+(j===i?'simdi':'')+'"></i>'; } return '<div class="noktalar'+(N>12?' cok':'')+'">'+h+(b===N?'<i data-j="son"></i>':'')+'</div>'; }
+/* 10.10 SET (Cem "1. yap · sorular gizlensin, biz sürekli soru basacağız"): ders 20'lik setlere bölünür; sayaç "Set 3 · 12/20" yazar,
+   bankanın toplamı çözme ekranında görünmez (önce ilk 40 kart "x / 40" yazıp 41. kartta "41 / 1.100"e sıçrıyordu). Son setin boyu
+   ancak bütün sorular gelince (__KASA_DEVAM false) bilinir; o ana dek 20 yazar, __kasaEkle sayaçları tazeler. Set bitince ara özet. */
+const SET=20;
+function setBilgi(i){ const N=SORULAR.length, a=Math.floor(i/SET)*SET, son=!window.__KASA_DEVAM&&a+SET>=N, b=son?N:a+SET; return {no:a/SET+1,a:a,b:b,j:i-a+1,boy:b-a,son:son,cok:N>SET||!!window.__KASA_DEVAM}; }
+function sayacYazi(i){ const t=setBilgi(i); return (t.cok?'Set '+t.no+' · ':'')+t.j+'/'+t.boy; }
+function noktalar(i){ if(i<0) return '<div class="noktalar"></div>'; const t=setBilgi(i); let h=''; for(let j=t.a;j<t.b;j++){ const c=[j===i?'simdi':'',durum.ok[j]===undefined?'':(durum.ok[j]?'ok':'yan')].filter(Boolean).join(' '); h+='<i data-j="'+j+'" class="'+c+'"></i>'; } return '<div class="noktalar'+(t.boy>12?' cok':'')+'">'+h+(t.son?'<i data-j="son"></i>':'')+'</div>'; }
+function sayacTazele(){ akis.querySelectorAll(':scope > .kart').forEach(k=>{ const i=parseInt(k.dataset.i,10); if(!(i>=0)) return; const t=setBilgi(i), s=k.querySelector('.setSay'), il=k.querySelector('.ilerleme'), n=k.querySelector('.noktalar');
+  if(s) s.textContent=sayacYazi(i); if(il){ il.title='Set ilerlemesi: '+t.j+' / '+t.boy; if(il.firstElementChild) il.firstElementChild.style.width=Math.round(t.j/t.boy*100)+'%'; } if(n) n.outerHTML=noktalar(i); }); }
+const SET_GORULEN={};
+function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bir kez gösterildiyse açılmaz */
+  if(SET_GORULEN[no]||TEK) return; const a=no*SET, b=Math.min(a+SET,SORULAR.length); let c=0,ok=0;
+  for(let j=a;j<b;j++){ if(durum.ok[j]!==undefined){ c++; if(durum.ok[j]) ok++; } }
+  if(!c) return; SET_GORULEN[no]=1;
+  const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' özeti');
+  d.innerHTML='<div class="setKutu"><div class="setEtk">Set '+(no+1)+' bitti</div><div class="setSkor">'+ok+'<small> / '+c+' doğru</small></div>'
+    +(c<b-a?'<p>'+(b-a-c)+' soruyu boş geçtin.</p>':'')
+    +(c-ok?'<p>'+(c-ok)+' yanlışın kutuya girdi; 2 gün sonra yeniden karşına çıkar.</p>':'<p>Bu sette hiç yanlışın yok.</p>')
+    +'<button type="button" class="btn ana setDevam">Sonraki sete geç ▶</button>'+(c-ok?'<button type="button" class="btn mavi setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div>';
+  const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape') kapat(); };
+  d.addEventListener('click',e=>{ if(e.target===d) kapat(); }); d.querySelector('.setDevam').addEventListener('click',kapat);
+  const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ kapat(); kutuEkraniAc(); });
+  document.addEventListener('keydown',esc_); document.body.appendChild(d); d.querySelector('.setDevam').focus(); }
 function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemede sonradan gelen kartlar da aynı kurulumla */
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
   // 06.09 (Cem "bu beşi geç" #4): SEVİYE etiketi ölçümden türer, elle yazılmaz — teori 🟢 Isınma · kayıt/hesap 🟡 Nöbet · Maliyet-MTA hesabı ya da
   // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
   const sv=seviyeHesapla(s);
-  k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
+  k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button><span class="setSay">'+sayacYazi(i)+'</span></span></div><div class="ilerleme" title="Set ilerlemesi: '+setBilgi(i).j+' / '+setBilgi(i).boy+'"><i style="width:'+Math.round(setBilgi(i).j/setBilgi(i).boy*100)+'%"></i></div>'
    +'<div class="govde"><div class="soruArac"><button class="arac bVurgu" type="button" title="Kelimeye dokun ya da metni seç; sarıya boyanır, yeniden dokununca silinir">🖍 İşaretle</button><button class="arac bNotum" type="button">📝 Notum</button></div><p class="soru">'+esc(s.soru)+'</p><div class="notumKutu" hidden><textarea class="notumAlan" data-id="'+esc(s.id)+'" maxlength="1000" rows="3" placeholder="Bu soruya notun: yalnız sen görürsün"></textarea><div class="notumDurum"></div></div><div class="siklar">'
    +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div><button class="bilmiyorum" type="button">Bilmiyorum</button></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
@@ -1072,7 +1098,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
     let sikH=''; if(thAll){ const eleme=/yanlıştır|yanlış olan|değildir|söylenemez|olamaz|uygun değildir/i.test(String(s.soru||'')); sikH='<div class="et">📋 Beş şık, beş cümle</div>'+['A','B','C','D','E'].filter(x=>s.siklar[x]).map(x=>{ const tt=thAll[x]||{}; const st=(s.adimlar||[]).find(a=>a.sik===x); const kr=st?String(st.karar||''):(eleme?(x===s.dogru?'yanlış':'doğru'):(x===s.dogru?'doğru':'yanlış')); const dogruIf=!/^y/i.test(kr); const teoriSoru=!!(s.teori||st); const etD=teoriSoru?'doğru ifade ✓':'doğru cevap ✓', etY=teoriSoru?'yanlış ifade ✗':'yanlış cevap ✗'; const yol=(!dogruIf&&s.celdiriciYol&&s.celdiriciYol[x])?s.celdiriciYol[x]:''; return '<div class="hesapK '+(dogruIf?'dog':'yan')+'"><b>'+x+') '+(dogruIf?etD:etY)+'</b>'+(tt.paragraf?' <span class="rol">'+esc(tt.paragraf)+'</span>':'')+(yol?'<div class="yanlisYol">← '+esc(yol)+'</div>':'')+'<div>'+esc(tt.gercek||'')+'</div></div>'; }).join(''); }
     if(og||kvH||sikH){ const nedenT=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; k.querySelector('.ogret').innerHTML=sikH+kvH+(og?'<div class="et">📘 Hesapları tanı</div>'+og+(nedenT&&!dogruMu?'<p class="neden"><b>Neden bu hesap?</b> '+esc(sdSik?sdSik:nedenT.trim().replace(/THP'de özel olarak /,''))+'</p>':''):''); const cO=k.querySelector('.cOgret'); if(cO&&!og){ cO.textContent=sikH?'📋 Şıklar':'📘 Kavramlar'; } }
     else { const cO=k.querySelector('.cOgret'); if(cO) cO.style.display='none'; }
-    document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
+    durum.ok[i]=dogruMu; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
     const kutudaydi=KUTU.kutu.some(x=>x.id===s.id);
     cevapKaydet(s,dogruMu);   // yanlis kutusu + hazirlik skoru
     // 03.10 (Cem, V2 madde 11): tekrar sistemi gorunur - cevaptan hemen sonra kutunun ne yaptigi tek satirla yazar
@@ -1701,15 +1727,17 @@ window.__kasaEkle=function(yeni){ try{
   const sirali=R?hepsi.map((s,i)=>({s,i})).sort((a,b)=>(R(a.s)-R(b.s))||(a.i-b.i)).map(x=>x.s):hepsi;
   sirali.forEach(s=>{ SORULAR.push(s); kartKur(s,SORULAR.length-1); });
   akis.querySelectorAll(':scope > .kart').forEach(k=>{ if(+k.dataset.i>=bas) k.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); });
-  window.__KASA_DEVAM=false; skorCiz();
+  window.__KASA_DEVAM=false; skorCiz(); sayacTazele();
   try{ document.dispatchEvent(new CustomEvent('tetikte-kasa-ekle',{detail:{bas:bas,adet:sirali.length}})); }catch(e){}
-}catch(e){ window.__KASA_DEVAM=false; } };
+}catch(e){ window.__KASA_DEVAM=false; try{ sayacTazele(); }catch(x){} } };
 document.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); skorCiz();
 if(!durum.t0) durum.t0={}; durum.t0[0]=Date.now();   // ilk kart: süre sayfa açılınca başlar
 akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i.simdi').forEach(n=>n.classList.remove('simdi')); document.querySelectorAll(i>=SORULAR.length?'.noktalar i[data-j="son"]':'.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add('simdi'));
   if(i<SORULAR.length&&durum.cevap[i]===undefined&&!durum.t0[i]) durum.t0[i]=Date.now();   // 06.09: karta gelince süre başlar
+  if(i>0&&i%SET===0&&i<SORULAR.length) setOzet(i/SET-1);   /* 10.10: yeni setin ilk kartına gelince biten setin özeti */
   if(i>=SORULAR.length&&window.__KASA_DEVAM){ document.getElementById('sonSkor').innerHTML='<p style="color:var(--dim)">Kalan sorular geliyor…</p>'; return; }   /* 07.10 parça yükleme */
-  if(i>=SORULAR.length){ const c=Object.keys(durum.cevap).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+durum.dogru+' / '+SORULAR.length+'</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(SORULAR.length-durum.dogru)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+durum.dogru+'/'+SORULAR.length+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
+  /* 10.10: son kart da bankanın toplamını yazmaz; çözdüğü soru üzerinden (durum.ok) sayar. */
+  if(i>=SORULAR.length){ const okL=Object.values(durum.ok), c=okL.length, dg=okL.filter(Boolean).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+dg+' / '+c+'</div><div style="color:var(--dim);font-size:.85em">çözdüğün sorularda doğru</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(c-dg)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+dg+'/'+c+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ akis.scrollBy({top:akis.clientHeight,behavior:'smooth'}); } if(e.key==='ArrowUp'||e.key==='PageUp'){ akis.scrollBy({top:-akis.clientHeight,behavior:'smooth'}); } });
 /* 09.09 derin bağlantı (ana sayfa kartı → günün sorusu): #s=<sıra> kartını açar; yoksa baştan. */
 window.addEventListener('load',function(){ try{ var m=location.hash.match(/#s=(\d+)/); var a=document.getElementById('akis'); if(!a) return;

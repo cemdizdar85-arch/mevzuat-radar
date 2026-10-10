@@ -46,7 +46,7 @@ $kartlar = ($satir | ForEach-Object {
     '<a class="kart" href="' + $_.slug + '.html"><div class="ad">' + (HtmlK $_.ad) + '</div><div class="sayi">' + $_.soru + ' soru</div><div class="konu">Nöbetçi çözümüyle; yanlışını anlatır.</div></a>'
   }) -join "`n"
 $html = @"
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><script src="../../tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><!-- 10.10 Cem "sorular gizlensin, biz sürekli soru basacağız": soru adedi ziyaretçiye gösterilmez (SGS dizini 04.10'dan beri aynı). Adet metinde KALIR: mobil/hazirla.js ve arac/sayi-iddia-kapisi.js buradan okur. --><script>if(location.hostname.slice(-11)==='tetikte.com')location.replace('../../sorular.html#smmm');</script><script src="../../tema-bas.js"></script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>SMMM Yeterlilik (staj bitirme) · Kaydır-Çöz · Tetikte</title>
 <link rel="stylesheet" href="../../stil.css"><link rel="stylesheet" href="../../stil-acik.css">
 <style>
@@ -55,16 +55,17 @@ $html = @"
 .kaydirDizin .izgara{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .kaydirDizin .kart{display:block;border:1px solid var(--cizgi);border-radius:14px;padding:14px 16px;text-decoration:none;color:inherit;background:var(--kart)}
 .kaydirDizin .kart:hover{border-color:var(--altin)}
-.kaydirDizin .ad{font-weight:700;margin-bottom:4px}.kaydirDizin .sayi{color:var(--altin);font-weight:700;margin-bottom:6px}.kaydirDizin .konu{color:var(--dim);font-size:.85em;line-height:1.4}
+.kaydirDizin .ad{font-weight:700;margin-bottom:4px}.kaydirDizin .sayi{display:none}.kaydirDizin .konu{color:var(--dim);font-size:.85em;line-height:1.4}
 .kaydirDizin .not{margin-top:22px;color:var(--dim);font-size:.9em;border-top:1px solid var(--cizgi);padding-top:12px}
 </style></head><body>
+<!-- arac/sayi-iddia-kapisi.js karşı sayısı (ziyaretçiye görünmez): $toplam soru · sekiz ders -->
 <main class="kaydirDizin">
 <h1>SMMM Yeterlilik · Kaydır-Çöz</h1>
-<p class="alt">$toplam soru · sekiz ders. Soru bankası kilitli kasada; sayfa açılırken paketine göre yüklenir. Her soru: sınav gibi çöz → yanlışını gör → Nöbetçi adım adım anlatsın → yanlışın 2 gün sonra yeniden karşına çıkar.</p>
+<p class="alt">Sekiz ders. Soru bankası kilitli kasada; sayfa açılırken paketine göre yüklenir. Her soru: sınav gibi çöz → yanlışını gör → Nöbetçi adım adım anlatsın → yanlışın 2 gün sonra yeniden karşına çıkar.</p>
 <div class="izgara">
 $kartlar
 </div>
-<p class="not">Yanlış yaptığın soruyu Nöbetçi adım adım anlatır. Soru sayıları her yayında tazelenir.</p>
+<p class="not">Yanlış yaptığın soruyu Nöbetçi adım adım anlatır.</p>
 </main>
 <script src="../../paket-kapisi.js"></script>
 </body></html>
