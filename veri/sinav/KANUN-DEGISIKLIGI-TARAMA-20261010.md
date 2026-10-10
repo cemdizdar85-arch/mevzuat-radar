@@ -29,8 +29,8 @@ sistematik bulmak. Yöntem `veri/sinav/GVK-22-4-TARAMA-20261010.md` ile aynı. *
 | Okunan değişiklik satırı (tablo) | **165** (140 ilgili · 25 kapsam dışı) |
 | Desen adayı / okunan | 5.902 / 5.241 (aynı soru birden çok desende sayılabilir; 661'i bağlamdan ayıklandı, tam okunmadı — aşağıda) |
 | **Bulgulu tekil soru** | **123** — anahtar yanlış **40** · iki cevaplı **5** · cevap doğru açıklama eski **78** (SGS 39 · Yeterlilik 84) |
-| Elle ret listesinde (yayın dışı, onarılana kadar) | **45** (anahtar yanlış + iki cevaplı; SGS 11 yeni · Yeterlilik 31 yeni + 3 zaten listedeydi) |
-| Onarılan (ambara yazıldı + geri okundu) | **0** — onarım taslakları sonraki adım (aşağıda) |
+| Elle ret listesinde (yayın dışı, onarılana kadar) | tarama sonrası **45** → onarım sonrası **79** (kökü/şıkkı değişen her soru yeniden hakeme kadar yayın dışı; SGS 16 · Yeterlilik 63) |
+| **Onarılan (ambara yazıldı + geri okundu)** | **122 / 123** — SGS 39 · Yeterlilik 83; ambar geri okuma 122/122; 1 kayıt "onarılamadı" (bulgu başka soruya aitti, orada onarıldı — aşağıda) |
 | Sitede hâlâ | yeni elle ret kayıtları bir sonraki kasa/site yayınında düşer; **yayındaki kümeyle kesişim ÖLÇÜLMEDİ** |
 
 En sık kök: **kök "2026" diyor ama 2023–2025 tutarını "varsayım" demeden gerçek tutar gibi yazıyor** (GV tarifesi, mesken istisnası,
@@ -43,6 +43,9 @@ Banka kendi içinde çelişen üç konu (aynı olayda iki zıt cevap): KDVK m.29
 
 ⚠ **5510 m.41 çekincesi:** güncel metin "(a) bendinde bulunanlar için %32'si diğerleri için %45'i" diyor ((a) = doğum borçlanması). 7566'nın
 madde metni ve m.41 dipnotları ambarda kesik; yürürlük (1/1/2026) yürürlük tablosundan. 8 soru bu okumaya göre "anahtar yanlış" sayıldı.
+✅ **Doğrulandı (10.10, onarım oturumu):** mevzuat.gov.tr `1.5.5510.pdf` dipnot 67: "4/12/2025 tarihli ve 7566 sayılı Kanunun 21 inci maddesiyle
+bu fıkrada yer alan '%32'si' ibaresi '(a) bendinde bulunanlar için %32'si diğerleri için %45'i', '%20' ibaresi '%39' şeklinde değiştirilmiştir";
+aynı PDF'in yürürlük tablosunda 7566 → m.41 **1/1/2026**. Okuma doğru: doğum (a) %32 · öbür bentler %45 · (i) bendi + GSS ödenmiş %39.
 
 ## Kapı (KAPI-EK) — EK24–EK43
 `arac/eski-kurallar.json` 20 yeni kural (kaynak + bulan yazılı, hepsi `sikHaric`), `arac/eski-kural-kapisi.js --sinav` her kurala
@@ -64,7 +67,7 @@ EK38 sgs-a6-fmuh-cokzor-r1/kp-03 (ikramiye, zaten elle rette), EK32 smmm-olc2-b-
 | EK30 | Asgari geçim indirimi güncel kurum gibi (GVK m.32, 7349 ile 1/1/2022'den mülga) | 5 | 5 | 0 |
 | EK31 | 2026 tarifesi diye eski yıl dilim tutarı (GV GT 332: 190.000 / 400.000 / 1.000.000 (ücret  | 9 | 9 | 0 |
 | EK32 | 2026 mesken kira istisnası eski tutar (GV GT 332: 58.000) | 4 | 3 | 1 (smmm-olc2-b-vergi/kp-01) |
-| EK33 | 2026 binek otomobil aylık kira sınırı eski tutar (GV GT 332: 46.000) | 1 | 1 | 0 |
+| EK33 | 2026 binek otomobil aylık kira sınırı eski tutar (GV GT 332: 46.000) — 10.10 akşam: "46.000 içindeki 6.000" yanlış alarmı giderildi | 1 | 1 | 0 |
 | EK34 | Basit usul kazancının beyan edildiği iddiası (GVK mük. m.20/A: 2021'den istisna) | 2 | 2 | 0 |
 | EK35 | KDVK geç. m.30 büyük yatırım inşaat KDV iadesinin 2024+ yılına uygulanması (madde 31/12/20 | 2 | 2 | 0 |
 | EK36 | 6183 m.51 gecikme zammı eski oran (CBK 10556, 13/11/2025: aylık %3,7) | 2 | 2 | 0 |
@@ -87,11 +90,48 @@ sorumlu KDV indirilmez, GİO son üç ay, SGK 5 puan genel, MYÖ %20, PEK tavan 
 ruhsat kullandırma hafif ceza, disiplin karar tarihi, tekerrür ikinci kez, kripto SPK dışı, YTM gelir kaydı, TTK asgari sermaye eski tutar.
 
 ## Onarım ve hakem (Cem'e)
-- **45 kök/anahtar onarımı** (40 anahtar yanlış + 5 iki cevaplı): resmî kaynaktan elle onarım → `arac/onarim-hatti.js uygula` (fark denetimi) →
-  `teslim`. Kök/anahtar değişeceği için model alanları silinir, soru **yeniden hakeme kadar elle rette kalır**.
-  **Yeniden hakem bedeli (tahmin, emsal 0,1 USD/soru — GVK 22/4 planı):** 45 × 0,1 ≈ **4,5 USD**. **Onay bekliyor; bulut sırasına KONMADI.**
-- **78 açıklama onarımı:** anahtar/kök değişmez → model alanları korunur, yeniden hakem gerekmez, bedel 0; onarılınca bir sonraki yayında düzelir.
-- Onarım taslakları bu commit'te YOK (sonraki adım).
+_İlk yazım (tarama commit'i 72762ea7): 45 kök onarımı + 78 açıklama onarımı, hakem bedeli 45 × 0,1 ≈ 4,5 USD. Onarımda sayılar değişti — aşağıda._
+
+### Onarım sonucu (10.10.2026 akşam, sinav kolu onarım oturumu)
+Yöntem: her soru için resmî kaynak (`veri/mevzuat/*.json`; 5510 m.41 ayrıca mevzuat.gov.tr PDF) okundu, beyanlı taslak yazıldı
+(`_yerel-veri-kasasi/onarim/kanun-1010-sgs` · `kanun-1010-smmm`, 11 konu grubu, betikler `taslak-G*.js`), hesaplar node ile doğrulandı,
+`node arac/onarim-hatti.js uygula` (red 0) → `teslim`. Taslakların her biri teslimden önce toplu denetimden geçti: `karar()` · KAPI-EK · kalite kapısı önce/sonra.
+
+| | SGS | Yeterlilik | Toplam |
+|---|---|---|---|
+| Teslim edilen (ambara yazıldı) | 39 | 83 | **122** |
+| ↳ yalnız açıklama katmanı (model alanları korundu, yayında kalır) | 23 | 20 | 43 |
+| ↳ kök/şık/anahtar değişti → **yeniden hakeme kadar yayın dışı** | 16 | 63 | **79** |
+| ↳ bunlardan anahtar harfi değişen | 2 | 10 | 12 |
+| Ambar geri okuma | 39/39 | 83/83 | 122/122 |
+| Elle ret listesi | 46 → 51 | 165 → 190 | |
+| Onarılamadı | 0 | 1 | 1 |
+
+- **79 = 44 + 35:** taramanın 45 kök kaydından 44'ü (1'i yalnız teori ikiziydi, aşağıda) + kuyrukta "açıklama eski" sayılan 35 soru; bu 35'te eski tutar/kural **kökün ya da şıkkın içindeydi** (ör. "2026 … ikinci dilim 330.000",
+  şıkta "bir milyon ₺", "%1 nispi aidat %50 indirimli" iki cevap riski, m.262/c'de kökte tercih yok → iki cevap). Kök değişince kural gereği yeniden hakem.
+- **Onarılamadı (1):** `smmm-gm2-1-fmuh-kolay/kp-01` — kuyruktaki "ikizde doğrudan gider haddi 11.000" bu soruda yok (yerel + ambar okundu, ikiz alanı yok);
+  ifade `smmm-gm5-18-fmuh-zor/kp-05` ikizindeydi, orada 2026 haddi 12.000 ile onarıldı.
+- **Elle retten çıkarılan (1):** `smmm-gm2-1-fmuh-cokzor/kp-01` — "anahtar yanlış" teori ikizindeydi (ana anahtar C doğru); ikiz onarıldı, kök değişmedi,
+  yeniden hakem gerekmez. `onarim-hatti` bu kaydı "başka sebeple listede" diye bıraktı, elle çıkarıldı.
+- **Kuyruk notundan sapan, resmî metne göre düzeltilen öneriler:** `smmm-olc2-a-vergi/kp-01` ve `smmm-olc2-b-vergi/kp-66` (kuyruğun önerdiği yeni cevaplar
+  GVK m.21/2 üçüncü dilim testini atlıyordu) · `sgs-p-borclar-cokzor-r1-b2/kp-03` (E "sapma yok" yerine Kurum oranı %39 kurgusu) · `sgs-p-borclar-cokzor-r2/kp-04`,
+  `sgs-t1-issgk-cokzor/kp-07` (GSS primi bilgisi olmadan %45/%39 iki cevaplı → köke eklendi).
+- **Bitiş ölçümü — KAPI-EK banka (10.10, onarımdan sonra, 14.489 soru):** onarılan 123 kayıtta **bulgu 0** (yalnız EK24–EK43 değil, tüm EK kuralları).
+  Bankada kalan EK24–43 işaretleri yalnız yukarıda yanlış alarm diye okunan 3 soru (EK37 d3-vergi · EK38 a6-fmuh · EK32 olc2-b/kp-01).
+- **Kapı düzeltmesi EK33:** gerçek 2026 tutarı "46.000" içindeki "6.000" alarm veriyordu (onarımda yakalandı) → tutar grubuna `(?<![\d.])`;
+  öz-sınava "46.000 meşru" vakası → **120/120 YEŞİL**; koşul kaldırılınca 119/120 KIRMIZI; genel mutasyon 3/3 KIRMIZI.
+- **Kalite kapısı:** 122 taslakta yeni KAPI- satırı 0; yeni NOT- satırı 2 (`smmm-gm3-2-fmuh-kolay/kp-01` NOT-ADIM ADIM-YOK — "= %33,33" biçimini sonuç
+  saymıyor; NOT durdurmaz). Onarılan sorularda önceden var olan AS2/BOS/TR/YY/ADIM-KAYMA notlarının çoğu kalktı (soru başı sayım ajan raporlarında).
+- **Bilerek bırakılan / ölçülmeyen:** TTK m.4/2'nin 2026 tutarı resmî kaynakta okunamadı → hiçbir soru bu rakama dayanmıyor; r6/kp-20 ve r7/kp-01'de
+  kanun metnindeki 1.000.000 "varsayılmıştır" biçiminde · `smmm-w14-6-yvergi-zor/kp-02` kökü %2,5'i yılsız "uygulanacak oran" diye veriyor (verilenler
+  "varsayım" diye düzeltildi, kök değiştirilmedi) · `sgs-t2-fmuh-cokzor/kp-62` kökteki gelir vergisi tutarı (3.500) soruda verilen veri, gerçek bordroyla
+  tutmuyor · 5510 m.81 2026 işveren kısa vade oranı okunamadı → `smmm-w11-2-fmuh-zor/kp-06` oranları "varsayılmıştır".
+
+### Yeniden hakem — Cem onayı bekliyor, bulut sırasına KONMADI
+Planlar: `veri/sinav/plan-sgs-k1010-onarim-hakem.json` (16 soru) · `veri/sinav/plan-smmm-k1010-onarim-hakem.json` (63 soru).
+Bedel tahmini (emsal 0,1 USD/soru, GVK 22/4 planı — **ölçülmedi**): 79 × 0,1 ≈ **7,9 USD**. Yeniden hakemden geçen soru hakem2 tarihi ≥ 10-01 olduğu için
+YENİ sayılır ve yayına girmek için açıklama hakemi TEMIZ ister (CLAUDE.md SINAV kural 3) → plan bütçesine en kötü durum payı ≈ 79 × 0,04 ≈ 3,2 USD.
+**Önerilen bütçe ≈ 11 USD.** Hakem EVET verince: `node arac/onarim-hatti.js hakem <iki plan>` listeden çıkarır.
 
 ## Ölçülmeyenler (toplu)
 - Bağlamdan ayıklanıp tam okunmayan 661 aday (VUK kıst 159, enflasyon düzeltmesi 364, komisyon 102; GVK kâr payı stopajı 15, m.22/4 yeniden okuma 20;

@@ -273,7 +273,7 @@
     {
       "kod": "EK33",
       "ad": "2026 binek otomobil aylık kira sınırı eski tutar (GV GT 332: 46.000)",
-      "desen": "2026.{0,150}(ayl[ıi]k kira (bedeli )?s[ıi]n[ıi]r|kira (bedeli )?(tavan|s[ıi]n[ıi]r)).{0,40}(6\\.000|8\\.000|17\\.000|26\\.000|37\\.000)",
+      "desen": "2026.{0,150}(ayl[ıi]k kira (bedeli )?s[ıi]n[ıi]r|kira (bedeli )?(tavan|s[ıi]n[ıi]r)).{0,40}(?<![\\d.])(6\\.000|8\\.000|17\\.000|26\\.000|37\\.000)",
       "haric": "varsay|kabul edil",
       "dayanak": "GV GT 332 m.3/2-ğ (GVK m.68/5: 46.000 TL) — veri/mevzuat/gvkgt332.json okundu 10.10.2026",
       "bulan": "sinav kolu 10.10.2026 kanun değişikliği taraması 2021–2026 (veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md)",

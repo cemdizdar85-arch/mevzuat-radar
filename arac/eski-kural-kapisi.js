@@ -155,6 +155,8 @@ function sinav() {
     ['EK32 meşru: 2025 yılı tutarı', T({ aciklama: { A: '2025 yılı mesken kira istisnası 47.000 TL idi.' } }), 0],
     ['EK33 "2026 aylık kira sınırı 26.000" → alarm', T({ soru: '2026 yılı için binek otomobil aylık kira sınırı 26.000 TL\'dir.' }), 1],
     ['EK33 meşru: varsayım', T({ soru: '2026 yılı için aylık kira sınırının 26.000 TL olduğu varsayılmıştır.' }), 0],
+    // 10.10 (onarım oturumu ölçtü): gerçek 2026 tutarı 46.000 içindeki "6.000" alarm veriyordu (smmm-4k-a-yvergi-zor-r5/kp-16 onarımı)
+    ['EK33 meşru: gerçek 2026 tutarı 46.000 (içinde 6.000 geçer)', T({ soru: '2026 yılı için binek otomobil aylık kira bedeli sınırı 46.000 TL\'dir.' }), 0],
     ['EK34 "basit usul kazancı beyan edilir" → alarm', T({ aciklama: { A: 'Basit usulde kazanç ticari kazanç olarak beyan edilir.' } }), 1],
     ['EK34 meşru: mük. 20/A istisna', T({ aciklama: { A: 'Basit usul kazancı mük. m.20/A gereği istisnadır, beyanname verilmez.' } }), 0],
     ['EK35 "2026 … teşvik belgeli … inşaat KDV iadesi" → alarm', T({ soru: 'İşletme 2026 yılında teşvik belgeli büyük yatırımının inşaat işleri KDV\'sini izleyen yıl iade alır.' }), 1],
