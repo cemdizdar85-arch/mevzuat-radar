@@ -203,7 +203,8 @@
     <!-- 10.10 (Cem "sözleşme basınca sözleşme görünmüyor ... panelde açık dursun"): katlanır kutu yerine hep açık bölüm;
          Hesabım'daki "Sözleşmem" bağlantısı buraya (#sozlesme) iner. Metin yalnız bağlı elçiye çizilir (panelCiz). -->
     <div class="ep-kutu" id="sozlesme">
-      <h2>Elçi sözleşmen <span class="ep-kucuk" style="font-weight:400">(onayladığın sürüm: <span id="epOnaySurum">—</span>)</span></h2>
+      <h2>Elçi sözleşmen <span class="ep-kucuk" style="font-weight:400">(onayladığın sürüm: <span id="epOnaySurum">—</span><span id="epOnayTarih"></span>)</span></h2>
+      <p class="ep-kucuk" id="epOnayOncesi" hidden></p>
       <div class="ep-sz" id="epKosulListe2"></div>
       <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a></p>
     </div>
@@ -412,6 +413,13 @@
       ? od.map(function(o){ return '<tr><td>' + tarih(o.odeme_tarihi) + '</td><td>' + o.donem + '</td><td class="sag">' + tl(o.tutar_tl) + '</td></tr>'; }).join('')
       : '<tr><td colspan="3" style="color:var(--muted)">Henüz ödeme yok.</td></tr>';
     $('epOnaySurum').textContent = d.sozlesme_surum || '—';
+    /* 10.10 (Cem "onaydan sonra başlayacak diyoruz ya"): sözleşme ilk onayla kurulur (Madde 4.2); komisyon o andan sonraki satışlardan (SQL 2026-10-10-elci-onay-baslangic) */
+    var zt = function(t){ try { return new Date(t).toLocaleString('tr-TR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }); } catch (e) { return ''; } };
+    $('epOnayTarih').textContent = d.sozlesme_onay ? ' · ' + zt(d.sozlesme_onay) : '';
+    var oo = $('epOnayOncesi');
+    oo.innerHTML = (d.ilk_onay ? 'Sözleşmen <b>' + zt(d.ilk_onay) + '</b> tarihinde kuruldu; komisyon bu andan sonraki satışlardan hesaplanır.' : '') +
+      (d.onay_oncesi_satis > 0 ? ' Bu dönemde onaydan önceki <b>' + d.onay_oncesi_satis + '</b> satış komisyona girmez.' : '');
+    oo.hidden = !oo.innerHTML;
     kosulCiz('epKosulListe2', ind);
     goster('epPanel');
     if (location.hash === '#sozlesme') { try { $('sozlesme').scrollIntoView(); } catch (e) {} }
