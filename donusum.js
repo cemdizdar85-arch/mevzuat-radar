@@ -176,17 +176,29 @@ function bantGoster(){
   var d = document.createElement('div');
   d.id = 'ttReklamBant';
   d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Reklam ölçümü izni');
+  /* 11.10 Cem ("1 yap"): telefonda bant ilk ekranın alt üçte birini (≈200 px) kaplıyor, ana sayfadaki günün sorusunun şıkları
+     arkasında kalıyordu. Dar ekranda (≤600 px) ince şerit: aynı üç bilgi (Meta çerezi · yurt dışı aktarım · ret = site aynen çalışır)
+     kısa cümleyle, Ayrıntı bağlantısı yerinde, Reddet/Kabul et yine EŞİT ağırlıkta, tek satırda. Renkler değişmedi. */
+  var dar = false; try { dar = window.matchMedia('(max-width:600px)').matches; } catch(e) {}
   /* perdenin (z-index 99999) üstünde: perde açıkken de karar verilebilsin */
-  d.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:100000;max-width:640px;margin:0 auto;'
-    + 'background:#12151c;color:#e8eaed;border:1px solid #2c323d;border-radius:12px;padding:14px 16px;'
-    + 'font:13.5px/1.55 -apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.45)';
-  d.innerHTML = '<p style="margin:0 0 10px">Instagram/Facebook reklamlarımızın işe yarayıp yaramadığını ölçmek için '
-    + '<b>Meta pikselini</b> kullanmak istiyoruz. Kabul edersen bu tarayıcıya Meta çerezi konur ve ziyaretin '
-    + 'yurt dışındaki Meta sunucularına aktarılır. Reddedersen site aynen çalışır. '
+  d.style.cssText = (dar ? 'position:fixed;left:8px;right:8px;bottom:8px;' : 'position:fixed;left:12px;right:12px;bottom:12px;')
+    + 'z-index:100000;max-width:640px;margin:0 auto;'
+    + 'background:#12151c;color:#e8eaed;border:1px solid #2c323d;border-radius:12px;'
+    + (dar ? 'padding:9px 10px;font:12.5px/1.4 ' : 'padding:14px 16px;font:13.5px/1.55 ')
+    + '-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.45)';
+  var dugme = function(k, ad){
+    return '<button type="button" data-k="' + k + '" style="flex:1;min-width:' + (dar ? '0' : '120px') + ';min-height:' + (dar ? '36px' : '44px')
+      + ';background:#1b2029;color:#e8eaed;border:1px solid #3a414e;border-radius:10px;font:inherit;font-weight:700;cursor:pointer">' + ad + '</button>';
+  };
+  d.innerHTML = (dar
+      ? '<p style="margin:0 0 7px">Reklam ölçümü için <b>Meta çerezi</b> kullanalım mı? Kabul edersen ziyaretin yurt dışındaki '
+        + 'Meta sunucularına aktarılır; reddedersen site aynen çalışır. '
+      : '<p style="margin:0 0 10px">Instagram/Facebook reklamlarımızın işe yarayıp yaramadığını ölçmek için '
+        + '<b>Meta pikselini</b> kullanmak istiyoruz. Kabul edersen bu tarayıcıya Meta çerezi konur ve ziyaretin '
+        + 'yurt dışındaki Meta sunucularına aktarılır. Reddedersen site aynen çalışır. ')
     + '<a href="/gizlilik-politikasi.html#cerez" style="color:#ffc24b">Ayrıntı</a></p>'
-    + '<div style="display:flex;gap:8px;flex-wrap:wrap">'
-    + '<button type="button" data-k="0" style="flex:1;min-width:120px;min-height:44px;background:#1b2029;color:#e8eaed;border:1px solid #3a414e;border-radius:10px;font:inherit;font-weight:700;cursor:pointer">Reddet</button>'
-    + '<button type="button" data-k="1" style="flex:1;min-width:120px;min-height:44px;background:#1b2029;color:#e8eaed;border:1px solid #3a414e;border-radius:10px;font:inherit;font-weight:700;cursor:pointer">Kabul et</button>'
+    + '<div style="display:flex;gap:8px;flex-wrap:' + (dar ? 'nowrap' : 'wrap') + '">'
+    + dugme('0', 'Reddet') + dugme('1', 'Kabul et')
     + '</div>';
   d.addEventListener('click', function(e){
     var b = e.target.closest && e.target.closest('button[data-k]');

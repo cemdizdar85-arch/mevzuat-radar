@@ -101,6 +101,21 @@ html body .kah-alt .btn{white-space:normal;max-width:100%}
 .kah{padding:56px 0 64px}
 .kah > .ic{display:grid;grid-template-columns:1fr 470px;gap:56px;align-items:start}
 @media(max-width:980px){ .kah > .ic{grid-template-columns:1fr;gap:36px} .kah{padding:32px 0 48px} }
+/* 11.10 Cem ("1 yap"): telefonda ilk ekranda soru yoktu - Instagram'dan gelen 1.116 ziyaretin 22'si teste başladı (%2), Google 140'ta 48
+   (%34). Ölçüm (375x812): kart 994. pikselde, "30 soruda seviyeni ölç" 733'te çerez bandının altında. Dar ekranda sol sütun açılır
+   (display:contents) ve sıra değişir: başlık → günün sorusu → düğmeler → sınav seçimi → açıklama paragrafı. Bilgisayar görünümü aynı. */
+@media(max-width:980px){
+  .kah > .ic{gap:0} .kah{padding-top:20px}
+  .kah > .ic > div:first-child{display:contents}
+  .kah h1{order:1;margin-bottom:14px}
+  .kah .ekran{order:2;margin-bottom:18px}
+  .kah .kah-alt{order:3;margin-top:0}
+  .kah .durum{order:4}
+  .kah .secim-bas{order:5;margin-top:26px}
+  .kah .secim{order:6}
+  .kah .alt{order:7;margin:24px 0 0}
+  .kah .uyg-indir{order:8}
+}
 h1{font-size:clamp(36px,5.2vw,58px);line-height:1.06;letter-spacing:-1.6px;margin:0 0 18px;font-weight:800}
 h1 em{font-style:normal;color:var(--amber)}
 .alt{font-size:clamp(17px,1.6vw,20px);color:var(--muted);margin:0 0 30px;max-width:30em}
