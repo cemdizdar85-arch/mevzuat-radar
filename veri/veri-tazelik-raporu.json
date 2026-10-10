@@ -1,122 +1,150 @@
 {
-  "tarih": "10.10.2026 06:32",
+  "tarih": "10.10.2026 19:06",
   "olcu": "son git commit zamani",
-  "taze": 42,
-  "bayat": 13,
+  "taze": 38,
+  "bayat": 17,
   "bilincli_elle": 4,
   "tanimsiz": 0,
   "dosya_yok": 1,
   "bilincli_elleler": [
     {
       "dosya": "veri/hatirlatici-sablonlar.json",
-      "yas_gun": 88.7,
+      "yas_gun": 89.2,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: urun metni, veri degil - otomatiklesmesi ANLAMSIZ"
     },
     {
       "dosya": "veri/risk-merkezi.json",
-      "yas_gun": 52.0,
+      "yas_gun": 52.5,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: BILINCLI ELLE - hasatci mail atiyor, dosyaya basmiyor"
     },
     {
       "dosya": "veri/canli-deneme.json",
-      "yas_gun": 3.4,
+      "yas_gun": 3.9,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: sinav gunune bagli, elle tetiklenmesi BILINCLI"
     },
     {
       "dosya": "veri/alacak-ilan.json",
-      "yas_gun": 89.0,
+      "yas_gun": 89.5,
       "dayanak": "veri/otomasyon-borcu.json - Deftere gore: VKN'li TOHUM dosya; canli besleme alacak-arsiv.json'da"
     }
   ],
   "bayatlar": [
     {
+      "dosya": "veri/yerel-ayna-raporu.json",
+      "yas_saat": 39.6,
+      "yas_gun": 1.6,
+      "azami_saat": 30.0,
+      "not": "25.09: yerel ayna (TR-IP, 06:30) her kosuda yazar ve commit'ler. 25.09'da push sessizce dusmustu; rapor ana tele ulasmazsa burada BAYAT olur."
+    },
+    {
       "dosya": "veri/yerel-indirici-nabiz.json",
-      "yas_saat": 47.8,
-      "yas_gun": 2.0,
+      "yas_saat": 60.3,
+      "yas_gun": 2.5,
       "azami_saat": 30.0,
       "not": "25.09: yerel indirici (TR-IP, 09:30) nabzi - mevzuat-hazir'in tek besleyicisi. Gelmezse bulut aynasi taze metin alamaz."
     },
     {
+      "dosya": "veri/gorev-nabzi.json",
+      "yas_saat": 39.4,
+      "yas_gun": 1.6,
+      "azami_saat": 30.0,
+      "not": "25.09: dizustu gorev nabzi (motor/gorev-kur.ps1 -yayinla, 06:45). Gelmezse yerel robotlarin durumu KOR."
+    },
+    {
       "dosya": "veri/alacak-besleme-damga.json",
-      "yas_saat": 370.6,
-      "yas_gun": 15.4,
+      "yas_saat": 383.2,
+      "yas_gun": 16.0,
       "azami_saat": 30.0,
       "not": "24.09: Alacak Radari canli beslemesinin gozu. Canli veri git DISINDA (gizli kasa, 19.08) oldugundan veri/alacak-arsiv.json girdisi CI'da hep 'yok' sayiliyordu - 24.09 ilan.gov.tr 403'u sessiz gecti. Damga yalniz basarili hasatta yazilir (motor/alacak-ilan-hasat.ps1); gunde 2 kosu -> 30 saat = en az 2 kosu ust uste dusmus."
     },
     {
       "dosya": "veri/gtip-vergi.json",
-      "yas_saat": 976.9,
-      "yas_gun": 40.7,
+      "yas_saat": 989.4,
+      "yas_gun": 41.2,
       "azami_saat": 720.0,
       "not": "GTIP tarife kalbi. Tarife listesi ANI dusmez; tavan dar. Olculen: 14.303 / 482 KB."
     },
     {
       "dosya": "veri/gtip-durum.json",
-      "yas_saat": 1222.8,
-      "yas_gun": 50.9,
+      "yas_saat": 1235.4,
+      "yas_gun": 51.5,
       "azami_saat": 720.0,
       "not": "Gozetim teblig durumu - GTIP aracinin dayanagi. Olculen: 756 / 281 KB."
     },
     {
       "dosya": "veri/fuar-destek.json",
-      "yas_saat": 1224.4,
-      "yas_gun": 51.0,
+      "yas_saat": 1237.0,
+      "yas_gun": 51.5,
       "azami_saat": 720.0,
       "not": "Destekler sayfasi fuar listesi. Olculen: 1186 / 505 KB."
     },
     {
       "dosya": "veri/ihale-yurtici.json",
-      "yas_saat": 393.1,
-      "yas_gun": 16.4,
+      "yas_saat": 405.7,
+      "yas_gun": 16.9,
       "azami_saat": 48.0,
       "not": "Gunluk ihale ilanlari - gunluk dalgalanma yuksek. Olculen: 250 / 331 KB."
     },
     {
+      "dosya": "veri/yanveri-damga.json",
+      "yas_saat": 55.6,
+      "yas_gun": 2.3,
+      "azami_saat": 48.0,
+      "not": "Faz 2 - olculen: 10 kayit / 1,4 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 24,0 sa (15 kosu)."
+    },
+    {
       "dosya": "veri/siklik-kunyesi.json",
-      "yas_saat": 503.4,
-      "yas_gun": 21.0,
+      "yas_saat": 516.0,
+      "yas_gun": 21.5,
       "azami_saat": 168.0,
       "not": "Faz 2 - olculen: 3248 kayit / 428,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 20,7 sa ama ortalama 71,8 sa - obek obek yazilir; pay genis."
     },
     {
       "dosya": "veri/sgs-analiz.json",
-      "yas_saat": 642.0,
-      "yas_gun": 26.8,
+      "yas_saat": 654.6,
+      "yas_gun": 27.3,
       "azami_saat": 168.0,
       "not": "Faz 2 - olculen: 35 kayit / 411 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 4,7 sa / ortalama 83,1 sa - sinav analizi obek halinde."
     },
     {
       "dosya": "veri/radar-kiymet.json",
-      "yas_saat": 1233.8,
-      "yas_gun": 51.4,
+      "yas_saat": 1246.3,
+      "yas_gun": 51.9,
       "azami_saat": 168.0,
       "not": "Faz 2 - olculen: 136 kayit / 12,9 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 1,4 sa / ortalama 78,9 sa. Su an 32,5 gun yasli - ilk kosuda KIRMIZI yanmasi BEKLENIR."
     },
     {
       "dosya": "veri/konu-eslesme.json",
-      "yas_saat": 503.4,
-      "yas_gun": 21.0,
+      "yas_saat": 516.0,
+      "yas_gun": 21.5,
       "azami_saat": 168.0,
       "not": "Faz 2 - olculen: 1423 kayit / 393,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 29,9 sa / ortalama 81,4 sa - ic esleme sozlugu."
     },
     {
       "dosya": "veri/smmm-analiz.json",
-      "yas_saat": 568.9,
-      "yas_gun": 23.7,
+      "yas_saat": 581.5,
+      "yas_gun": 24.2,
       "azami_saat": 168.0,
       "not": "Faz 2 - olculen: 144 kayit / 230,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 4,7 sa / ortalama 94,1 sa - sinav analizi obek halinde."
     },
     {
       "dosya": "veri/vitrin-sayilar.json",
-      "yas_saat": 240.6,
-      "yas_gun": 10.0,
+      "yas_saat": 253.1,
+      "yas_gun": 10.5,
       "azami_saat": 48.0,
       "not": "Faz 2 - olculen: 6 kayit / 0,2 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Olculen medyan 23,5 sa (15 kosu) - vitrin kanit sayilari."
     },
     {
+      "dosya": "veri/gtip-ulke-gruplari.json",
+      "yas_saat": 2171.1,
+      "yas_gun": 90.5,
+      "azami_saat": 2160.0,
+      "not": "Faz 2 - olculen: 7 kayit / 0,6 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): Tek commit gecmisi; ulke gruplari nadiren degisir. 90 gun tavan."
+    },
+    {
       "dosya": "veri/rg-gun-durum.json",
-      "yas_saat": 1283.7,
-      "yas_gun": 53.5,
+      "yas_saat": 1296.3,
+      "yas_gun": 54.0,
       "azami_saat": 48.0,
       "not": "Faz 2 - olculen: 8 kayit / 0,8 KB (25.08.2026). Yas ritmi BELIRLENMEDI. | TAZELIK (21.09.2026 olcum): kartlar.html okuyor; gunluk RG durumu olmasi beklenir. Gecmiste tek commit var - ilk kosuda KIRMIZI yanmasi BEKLENIR, arastirilacak."
     }
