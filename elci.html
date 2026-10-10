@@ -110,7 +110,7 @@
   <section id="epKosul" class="ep-gizli">
     <h1>Elçi Programı Koşulları</h1>
     <p class="ep-alt">Paneli açmadan önce program koşullarını oku ve onayla. Koşullar bütün elçiler için aynıdır.</p>
-    <p class="ep-kucuk" id="epDegisen"><b>11 Ekim 2026 sürümünde değişenler (Madde 13):</b> Madde 2'ye <b>Hizmet</b> ve <b>Sınav dersi</b> tanımları eklendi. Madde 4.2, 5, 6.1, 6.6-d ve 6.8'deki "ders paketi / ders başına" ifadeleri "sınav dersi soru bankası / sınav dersi başına" oldu. <b>Tutarlar, oranlar ve diğer koşullar değişmedi.</b></p>
+    <p class="ep-kucuk" id="epDegisen"><b>Bu sürümde değişenler (Madde 13):</b> Madde 2'ye <b>Hizmet</b> ve <b>Sınav dersi</b> tanımları eklendi. Madde 4.2, 5, 6.1, 6.6-d ve 6.8'deki "ders paketi / ders başına" ifadeleri "sınav dersi soru bankası / sınav dersi başına" oldu. Madde 12.1: sözleşme artık <b>belirsiz sürelidir</b> (6 aylık süre ve yenileme onayı kalktı); fesih hakları aynıdır. <b>Tutarlar, oranlar ve diğer koşullar değişmedi.</b></p>
     <div class="ep-kutu">
       <div class="ep-sz" id="epKosulListe" tabindex="0" aria-label="Elçi Programı Katılım Sözleşmesi"></div>
       <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a> (sürüm <span id="epKosulSurum"></span>)</p>
@@ -300,7 +300,7 @@
 <p><b>11.2.</b> Tetikte, Elçinin adı soyadı, e-posta adresi, sosyal medya hesabı, IBAN ve vergi bilgileri ile koduna bağlı satış adet ve tutarlarını bu sözleşmenin kurulması ve ifası ile yasal yükümlülüklerini yerine getirmek amacıyla işler. Ayrıntılar tetikte.com/elci-aydinlatma.html adresindeki Elçi Aydınlatma Metnindedir.</p>
 
 <h2>MADDE 12 — SÜRE VE FESİH</h2>
-<p><b>12.1.</b> Sözleşme 6 ay sürelidir. Süre sonunda ancak Elçinin Panelden açık onayıyla 6 ay daha yenilenir; onay verilmezse kendiliğinden sona erer.</p>
+<p><b>12.1.</b> Sözleşme belirsiz sürelidir; taraflardan biri Madde 12.2 ya da 12.3'e göre feshedene kadar devam eder.</p>
 <p><b>12.2.</b> İki taraf da 15 gün önceden e-postayla bildirerek, gerekçe göstermeden sözleşmeyi feshedebilir.</p>
 <p><b>12.3.</b> Tetikte şu ağır aykırılıklarda sözleşmeyi derhal feshedebilir: kendi koduyla ya da düzenlenmiş/sahte satış; etiketsiz reklam ya da yanıltıcı ifadenin Madde 8.2 bildirimine rağmen 24 saat içinde düzeltilmemesi; hukuka aykırı içerik; izinsiz çekiliş; onaysız toplu ileti gönderimi. Diğer aykırılıklarda Tetikte önce 7 gün süreli yazılı uyarı yapar.</p>
 <p><b>12.4.</b> Sözleşme sona erdiğinde kod kapanır; sona erme tarihine kadar yapılmış satışların kesinleşen komisyonları ödenir.</p>
@@ -326,7 +326,8 @@
   var SITE   = 'https://tetikte.com/';
   /* Sözleşme metni değişirse sürüm değişir → bütün elçiler yeniden onaylar (elci_sozlesme_onayla yalnız YYYY-AA-GG kabul eder).
      2026-09-29 (11 madde) → 2026-09-30 (19 madde) → 2026-10-01: TAM SÖZLEŞME v2 (Cem 01.10 onay) → 2026-10-02: Madde 5 + 6.8 tek ders komisyonu ders başı 150 TL (Cem 01.10 akşam) → 2026-10-03: tek derste alıcıya ders başı 50 TL indirim (Cem 01.10 '50 olsun'; 02.10 sürümünü kimse onaylamamıştı) → 2026-10-04: 6.1 tek dersi açıkça kademe dışı bırakır (Madde 5 tablosuna atıf TBK m.23 belirsizliği doğuruyordu) + 6.8 aleyhe onay kutusuna → 2026-10-05 (Cem "hepsini yap"): 6.6 tutarlar BRÜT + %15 kesinti/20B, 6.4 kendi adına hesap, 6.9 itiraz, 3.5 masraf, 9.4 yeniden açma, 4.2 imzasız + onay kopyası e-postaya, 11.2 aydınlatma adresi → 2026-10-06 (Cem "ayrıntılı yazalım, okuyan anlasın"): 6.6 a–g, brüt/net örnek tablosu, bildirim yoksa ödeme yok, yanlış bildirim rücu → 2026-10-07 (Cem "evet ekle"): 9.1 paylaşım = bağlantının e-postayla bildirimi ya da koda bağlı satış; 9.2 buna bağlandı. → 2026-10-08 (Cem 01.10 "evet sözleşmeyi de güncelle"): Madde 5 örnek sütunu 01.10 fiyatlarıyla (SGS 2.490 + KDV, Yeterlilik merdiveni + KDV); indirim tutarları DEĞİŞMEDİ. */
-  var KOSUL_SURUM = '2026-10-11'; /* 2026-10-11 (Cem 10.10 '1 yap'): 5580 m.3 dil riski - 'ders paketi/ders başına' -> 'sınav dersi soru bankası/sınav dersi başına', Madde 2'ye Hizmet + Sınav dersi tanımı; TUTAR/ORAN DEĞİŞMEDİ. Madde 13 gereği onay ekranında değişenler gösterilir (epDegisen). Elçiler yeniden onaylar; PDF bu sürümden üretildi. */
+  var KOSUL_SURUM = '2026-10-12'; /* 2026-10-12 (Cem 10.10 'süre olmasın, sürekli'): Madde 12.1 6 ay + onaylı yenileme -> belirsiz süreli (fesih 12.2/12.3); sistemde süre kodu yoktu, yalnız metin. 10-11 sürümü birkaç dakika yayında kaldı, onaylayan olduysa yeniden onaylar. */
+  /* önceki: */ /* 2026-10-11 (Cem 10.10 '1 yap'): 5580 m.3 dil riski - 'ders paketi/ders başına' -> 'sınav dersi soru bankası/sınav dersi başına', Madde 2'ye Hizmet + Sınav dersi tanımı; TUTAR/ORAN DEĞİŞMEDİ. Madde 13 gereği onay ekranında değişenler gösterilir (epDegisen). Elçiler yeniden onaylar; PDF bu sürümden üretildi. */
   /* önceki: */ var _ESKI_SURUM_1010 = '2026-10-10'; /* 2026-10-10 (Cem 08.10 "sözleşmeyi orda onaylasın, onu yap"): 4.1 hesap bağlama - Tetikte bildirilen e-postayla açılmış hesabı teyit edip bağlar, bağlama kodu yedek; elçiler yeni sürümü panelde yeniden onaylar. PDF bu sürümden üretildi. */
   /* önceki: */ /* 2026-10-09 (Cem 02.10 "düzelt"): SGS ürün adı Madde 5 ve 6.1'de "Staja Giriş (SGS)" (sitenin tamamıyla aynı); PDF bu sürümden yeniden üretildi (10-08 PDF'i hiç üretilmemişti, indirilen PDF 10-07 idi) */
   var KADEME = [ ['1 – 9. satış', 750, 1], ['10 – 49. satış', 1000, 2], ['50 – 99. satış', 1250, 3], ['100. satıştan sonra', null, 4] ];
