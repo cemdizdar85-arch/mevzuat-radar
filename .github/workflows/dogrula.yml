@@ -655,6 +655,12 @@ jobs:
               kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav" }
           - { ad: "Eski kural kapisi MUTASYON",
               kabuk: bash, komut: "node arac/eski-kural-kapisi.js --sinav --mutasyon" }
+          # 10.10: kanun degisikligi nobetcisi (mevzuat.yml'de --tara + --kati). 22 vaka; 8 mutasyon (bosluk, dipnot, madde anahtari,
+          #   sayi artisi, AYM/Danistay karari, dipnot metin kimligi, eski yil esigi, bekleyeni sessiz kapatma).
+          - { ad: "Kanun degisikligi nobetcisi OZ-SINAVI",
+              kabuk: bash, komut: "node arac/degisiklik-nobetcisi.js --sinav" }
+          - { ad: "Kanun degisikligi nobetcisi MUTASYON",
+              kabuk: bash, komut: "node arac/degisiklik-nobetcisi.js --sinav --mutasyon" }
           # 30.09: KAPI-HK hesap kodu (THP'de olmayan kod / kodun yaninda yanlis ad). 17 vaka; 6 mutasyon (ad uyumu, HK-YOK,
           # alt kume, yon kelimesi, standart atfi, 8/9 haric) her birinde KIRMIZI (30.09 elle olculdu). THP listesi depoda, ag yok.
           - { ad: "Hesap kodu kapisi OZ-SINAVI (KAPI-HK)",

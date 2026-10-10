@@ -198,6 +198,13 @@ jobs:
         continue-on-error: true
         shell: pwsh
         run: ./motor/teblig-damgasi.ps1
+      # 10.10.2026 KANUN DEGISIKLIGI NOBETI (Cem "1 yap"): resmi metindeki "(Degisik/Ek/Mulga: tarih-sayi)",
+      # dipnot ("... tarihli ve N sayili Kanun/CBK ... degistirilmistir") ve AYM/Danistay karar notlarini
+      # kutukle kiyaslar; YENI not veri/sinav/DEGISIKLIK-NOBETI.md'de "bekleyen" olur. Burada kirmizi vermez
+      # (once commit); kirmizi en sondaki KAPI adiminda. Bedel 0. Banka atfi runner'da KOR (veri/fabrika yok).
+      - name: Kanun degisikligi nobeti (yeni degisiklik notu var mi)
+        continue-on-error: true
+        run: node arac/degisiklik-nobetcisi.js --tara
       # ZINCIRIN SON HALKASI (29.07). Madde damgasi degisen maddeye dayanan
       # SORULARI yayindan cekiyor - ama SAYFALAR icin oyle bir bag yoktu.
       # Bedeli goruldu: KVKK sayfasi 11.07'de sablondan yazildi, kanun ambara
@@ -229,6 +236,7 @@ jobs:
           if [ -f veri/teblig-damga.json ]; then git add veri/teblig-damga.json || true; fi
           if [ -f veri/teblig-damga-log.txt ]; then git add veri/teblig-damga-log.txt || true; fi
           git add veri/yeniden-dogrula.json 2>/dev/null || true
+          git add veri/sinav/degisiklik-kutugu.json veri/sinav/DEGISIKLIK-NOBETI.md 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Degisiklik yok - commit yok."
           else
@@ -365,6 +373,12 @@ jobs:
       # yandiginda log'da beklemesin — Cem'e ANINDA e-posta dussun. Gozetim
       # revalorizasyonu (RG 11.07, yururluk 10.08) kapiyi 10.08'de kirmizi
       # yakti, insan 13.08'de bakti; 3 gun eski esik gosterildi. Bir daha olmaz.
+      # 10.10.2026: okunmamis kanun degisikligi notu varsa KIRMIZI. GOZETIM ONARICI'nin (PARALI, if: failure())
+      # ARKASINDA durur ki bu kapi o adimi tetiklemesin; always() = onceki kapi dustuyse de olcer.
+      # Kapatmak: notu oku -> etkilenen soru/sayfa -> node arac/degisiklik-nobetcisi.js --onayla <kimlik> --not "..."
+      - name: KAPI — okunmamis kanun degisikligi notu var mi
+        if: always()
+        run: node arac/degisiklik-nobetcisi.js --kati
       - name: KIRMIZI NOBETCI — kapi dustuyse Cem'e mail
         if: failure()
         shell: pwsh
@@ -372,5 +386,5 @@ jobs:
           RESEND_KEY: ${{ secrets.RESEND_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
-          $govde = "mevzuat.yml KIRMIZI bitti. Koku buyuk ihtimalle bir KAPI (gozetim tebligi degisti / dayanak degisti / altin test dustu). Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} — ayrintiya bak, veri ESKIMIS olabilir."
+          $govde = "mevzuat.yml KIRMIZI bitti. Koku buyuk ihtimalle bir KAPI (gozetim tebligi degisti / dayanak degisti / altin test dustu / okunmamis kanun degisikligi notu: veri/sinav/DEGISIKLIK-NOBETI.md). Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} — ayrintiya bak, veri ESKIMIS olabilir."
           ./arac/alarm-maili.ps1 -Konu 'TETIKTE ROBOT KIRMIZI - mevzuat aynasi kapisi dustu' -Mesaj $govde

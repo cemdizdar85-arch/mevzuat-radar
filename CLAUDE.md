@@ -415,6 +415,17 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   (KAPI-MM ayrı) · `arac/sgs-650-bas.ps1` ve `motor/vitrin-soru-sec.ps1` bu kapıyı çağırmıyor (30.09: SGS oturumu bu seçim
   yollarını bildirdi). **Bitirme 30.09'dan beri bağlı:** `arac/smmm-yayin-sarti.ps1` `SmmmKaliteNeden` (aynı YENİ soru tanımı;
   kasa yayını + kalip-kosucu + kaydir-coz bu şartı çağırır), öz-sınav `arac/smmm-kalite-bag-sinavi.ps1`.
+- ⛔⭐ **KANUN DEĞİŞİKLİĞİ NÖBETİ — YENİ NOT OKUNMADAN KAPANMAZ** (10.10.2026, Cem "1 yap"). **Olay (ölçüldü 10.10):** banka 2021–2026
+  değişikliklerine karşı tarandı, 123 soru eskimiş kuralla yazılmıştı (`veri/sinav/KANUN-DEGISIKLIGI-TARAMA-20261010.md`); eski-kurallar
+  listesi yalnız bilineni görüyordu. `arac/degisiklik-nobetcisi.js` ambardaki resmî metinden satır içi "(Değişik/Ek/Mülga: tarih-sayı)",
+  dipnot ("… tarihli ve N sayılı Kanun/CBK … değiştirilmiştir") ve AYM/Danıştay karar notlarını çıkarır, `veri/sinav/degisiklik-kutugu.json`
+  ile kıyaslar; `mevzuat.yml` her yutmada `--tara` (yeni not → `veri/sinav/DEGISIKLIK-NOBETI.md` bekleyen) ve en sonda `--kati` (bekleyen
+  varsa KIRMIZI + mail) koşar. **Bekleyen not:** madde okunur → eski/yeni kural → bankada etkilenen soru (tarama yöntemi) → gerekiyorsa
+  `arac/eski-kurallar.json` + onarım kuyruğu → `node arac/degisiklik-nobetcisi.js --onayla <kimlik> --not "<ne yapıldı>"`. "Hepsini onayla"
+  okumadan YAPILMAZ. **Ölçüldü (10.10, gerçek git sürümleri):** 2 gerçek güncellemenin 2'sini yakaladı (KDVK m.36 AYM iptali 10.09 aynası,
+  5510 7594 dipnotu 19.08) · tüm ambarın yeniden yutulmasında (dipnot süzgeci 71afa9a1, 891 dosya) yanlış alarm 0 (4 eski tarihli not
+  otomatik, 901 not "metinden kayboldu" diye sayıldı). Öz-sınav 22/22 · mutasyon 8/8 (`dogrula.yml`). 🚫 GÖRMEZ: ambara yutulmamış metin ·
+  metne not düşmeyen değişiklik (yıllık tutar tebliği, dipnotu kesik CBK oranı) · notun soruyu etkileyip etkilemediği · üç biçim dışı yazım.
 - ⛔⭐ **HER SINAVDA KALİTE TARAMASI — BASIMDAN ÖNCE VE YAYINDAN ÖNCE** (30.09.2026, Cem: *"bu kural olsun her sınavda bu kontrolleri
   yapsın"*). SGS, yeterlilik ve KGK'nın **üçünde de** aynı kapılar koşar; bir sınavda koşmuyorsa o sınavın raporuna **"ölçülmedi"** yazılır.
   1. **Otomatik (0 USD, yeni soru):** `arac/soru-kalite-kapisi.js` = KAPI-AS2 + KAPI-EK + **KAPI-HK** (`arac/hesap-kodu-kapisi.js`,
