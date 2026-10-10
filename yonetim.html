@@ -187,10 +187,11 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   }
   /* 04.10 Cem'in ekranı: inceleme@ ve kurucu hesabı "Ücretli" görünüyordu - paketleri SQL'le elle verilmişti.
      Ücretli = bu e-postayla ÖDENMİŞ sipariş var. Paket var ama ödenmiş sipariş ve hediye kaydı yoksa "Elle verilmiş". */
-  var ODENEN={};
+  var ODENEN={}, SIP_ELCI={};
   function kaynakBul(u){
     var aktif=u.paket&&(!u.bitis||u.bitis>=bugun);
-    var elci=u.siparis_elci||u.kayit_elci||'';
+    /* 10.10 (Cem "iki tablo aynı veriyi neden vermiyor"): sipariş kodu iptal edilmemiş siparişten okunur (SQL siparis_elci iptali de sayıyordu) */
+    var elci=SIP_ELCI[String(u.eposta||'').toLowerCase()]||u.kayit_elci||'';
     var od=ODENEN[String(u.eposta||'').toLowerCase()];
     if(u.hediye&&aktif) return { ad:'Hediye', sinif:'e-hediye', elci:elci };
     if(aktif&&od&&od.elci) return { ad:'Elçi ile ücretli', sinif:'e-elci', elci:od.elci };
@@ -202,6 +203,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   var VERI=null;
   function ciz(){
     ODENEN={}; VERI.siparisler.forEach(function(s){ if(s.durum==='odendi'){ var k=String(s.eposta||'').toLowerCase(); ODENEN[k]=ODENEN[k]||{}; if(s.elci) ODENEN[k].elci=s.elci; } });
+    SIP_ELCI={}; VERI.siparisler.forEach(function(s){ var k=String(s.eposta||'').toLowerCase(); if(s.elci&&s.durum!=='iptal'&&!SIP_ELCI[k]) SIP_ELCI[k]=s.elci; });  /* liste yeniden eskiye: ilk = en yeni */
     var uyeler=VERI.uyeler.map(function(u){ var k=kaynakBul(u); return Object.assign({},u,{ sinav:sinavBul(u), kaynak:k.ad, sinif:k.sinif, elci:k.elci }); });
     var yedi=Date.now()-7*86400000;
     $('sToplam').textContent=uyeler.length;
@@ -221,13 +223,13 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('tCapraz').innerHTML=h;
 
     /* elçiler */
-    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Linkle üye olan</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th><th>Paylaşım linki</th><th>Hesap</th><th></th></tr>';
+    var eh='<tr><th>Kod</th><th>Ad</th><th>Durum</th><th>Bağlantıyla üye olan</th><th>Kodla sipariş veren</th><th>Ödenen sipariş</th><th>Bekleyen sipariş</th><th>Ödenen tutar</th><th>Paylaşım linki</th><th>Hesap</th><th></th></tr>';
     VERI.elciler.forEach(function(e){
       var od=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odendi'; });
       var bk=VERI.siparisler.filter(function(s){ return s.elci===e.kod&&s.durum==='odeme_bekliyor'; });
-      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td><td>tetikte.com/satin-al.html?e='+esc(e.kod)+'</td><td class="eh-hesap" data-kod="'+esc(e.kod)+'"><span class="not">…</span></td><td><button class="btn" data-elci="'+esc(e.kod)+'" data-aktif="'+(e.aktif?0:1)+'">'+(e.aktif?'Kapat':'Aç')+'</button></td></tr>';
+      eh+='<tr><td><b>'+esc(e.kod)+'</b></td><td>'+esc(e.ad)+'</td><td>'+(e.aktif?'aktif':'kapalı')+'</td><td class="s">'+uyeler.filter(function(u){ return u.kayit_elci===e.kod; }).length+'</td><td class="s">'+Object.keys(SIP_ELCI).filter(function(k){ return SIP_ELCI[k]===e.kod; }).length+'</td><td class="s">'+od.length+'</td><td class="s">'+bk.length+'</td><td class="s">'+tl(od.reduce(function(a,s){ return a+(s.tutar||0); },0))+'</td><td>tetikte.com/satin-al.html?e='+esc(e.kod)+'</td><td class="eh-hesap" data-kod="'+esc(e.kod)+'"><span class="not">…</span></td><td><button class="btn" data-elci="'+esc(e.kod)+'" data-aktif="'+(e.aktif?0:1)+'">'+(e.aktif?'Kapat':'Aç')+'</button></td></tr>';
     });
-    if(!VERI.elciler.length) eh+='<tr><td colspan="10" class="not">Henüz elçi yok.</td></tr>';
+    if(!VERI.elciler.length) eh+='<tr><td colspan="11" class="not">Henüz elçi yok.</td></tr>';
     $('tElci').innerHTML=eh;
     elciHesapCiz();
 
