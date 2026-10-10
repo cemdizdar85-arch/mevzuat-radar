@@ -169,3 +169,19 @@ Arkadaşını etiketle, aynı denemede yarışın.
 Karakter yapay zekâ ile üretilmiştir. Canlı deneme Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #smmmyeterlilik #bitirmesinavi #smmm #denemesinavi #muhasebe
+
+## 13 · Bitirme Tuzağı #1: Nakliye Tuzağı (Reels, 10.10 sonrası; SMMM Yeterlilik)
+
+SMMM Yeterlilik sınavı · Finansal Muhasebe
+
+Makine 780.000, nakliye ve montaj 45.000. Amortisman oranı %20, %70'i üretime yüklenecek. 730 hesabına kaç yazarsın? Cevabını yorumlara yaz, sonra videoyu izle.
+
+109.200 dediysen tuzağa düştün: nakliye ve montajı unuttun. Nakliye ve montaj maliyet bedeline girer (VUK m.262). 825.000 × %20 = 165.000, bunun %70'i 115.500.
+
+Amortisman, okuduğumuz 31 Yeterlilik sınavının 31'inde soruldu.
+
+Bu tuzağa sınavda düşmemek için tetikte.com'da soru çöz: Yeterlilik seviye testinde sınavı geçme ihtimalini ücretsiz ölç. Bağlantı profilde.
+
+Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#smmmyeterlilik #bitirmesinavi #smmm #finansalmuhasebe #amortisman #tuzaksozlugu
