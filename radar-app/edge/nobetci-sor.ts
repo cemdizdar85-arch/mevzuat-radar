@@ -17,7 +17,7 @@
 // ============================================================================
 import Anthropic from "npm:@anthropic-ai/sdk";
 
-const KOD_IMZA = "617ae8a8f0782b98";
+const KOD_IMZA = "05fceead10f4e81d";
 const GUNLUK = 10, AYLIK_USD = 100, MODEL = "claude-opus-5-5";
 const FIYAT: Record<string, [number, number]> = {           // USD / milyon token (girdi, çıktı) - 2026-09-25 tablosu
   "claude-opus-5-5": [4, 20], "claude-opus-5": [5, 25], "claude-opus-4-8": [5, 25], "claude-sonnet-5-5": [2, 10], "claude-fable-5-1": [10, 50],
@@ -116,8 +116,15 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     const y = await fetch(`${SB_URL}/rest/v1/rpc/yonetici_mi`, { method: "POST", headers: { apikey: SB_ANON, Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" }, body: "{}" });
     if (!y.ok || (await y.json()) !== true) return cevap(403, { hata: "yetki yok" });
     const id = Number(g.id); if (!Number.isFinite(id)) return cevap(400, { hata: "gecersiz istek" });
-    const r = await svc(`ekibe_soru?select=id,eposta,soru_kisa,mesaj,cevap,durum,cevap_mail&id=eq.${id}&limit=1`);
+    const r = await svc(`ekibe_soru?select=id,user_id,eposta,soru_kisa,mesaj,cevap,durum,cevap_mail&id=eq.${id}&limit=1`);
     const e = r.ok ? (await r.json())[0] : null;
+    // 10.10 (ilk "Ekibe sor" #1): eposta yalnız ekip_haber'de yazılıyordu; o istek gitmeyince cevap 409 ile sessizce kalıyordu
+    //   → eposta boşsa üyenin hesabından okunur ve kayda yazılır.
+    if (e && !e.eposta && e.user_id) {
+      const a = await fetch(`${SB_URL}/auth/v1/admin/users/${e.user_id}`, { headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` } });
+      const em = a.ok ? String((await a.json()).email || "") : "";
+      if (em) { e.eposta = em; await svc(`ekibe_soru?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ eposta: em }) }); }
+    }
     if (!e || e.durum !== "cevaplandi" || !e.eposta) return cevap(409, { hata: "uygun degil" });
     if (e.cevap_mail) return cevap(200, { success: true, zaten: true });
     const metin = `Merhaba,\n\n"Ekibe sor" ile ilettiğin sorunun cevabı:\n\n${e.cevap}\n\n— Senin sorun: ${e.mesaj}\n\nTetikte ekibi · Yanlışını, sebebiyle birlikte öğren.`;

@@ -412,7 +412,9 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
         +(x.nobetci_cevap?'<details style="margin:0 0 6px"><summary class="not">Nöbetçi\'nin verdiği cevap</summary><p style="white-space:pre-wrap;font-size:13.5px">'+esc(x.nobetci_cevap)+'</p></details>':'')
         +(x.durum==='bekliyor'
           ? '<textarea data-ekip="'+x.id+'" rows="4" style="width:100%;box-sizing:border-box;font:inherit;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line2);background:var(--kagit);color:var(--ink)" placeholder="Cevabın (öğrenciye e-postayla gider, Tetikte ekibi imzasıyla)"></textarea><div style="margin-top:6px"><button class="btn ana" data-ekipgonder="'+x.id+'">Cevabı gönder</button></div>'
-          : '<p style="margin:0;white-space:pre-wrap"><b>Cevap:</b> '+esc(x.cevap||'')+'</p>')
+          : '<p style="margin:0;white-space:pre-wrap"><b>Cevap:</b> '+esc(x.cevap||'')+'</p>'
+            /* 10.10: cevap kaydedilip mail gitmediyse yeniden gönderme (cevap_mail boş; alan gelmiyorsa düğme çıkmaz) */
+            +(('cevap_mail' in x) && !x.cevap_mail ? '<p class="not" style="margin:6px 0 0">⚠ Bu cevap öğrenciye e-postayla GİTMEDİ. <button class="btn ana" data-ekipmail="'+x.id+'">E-postayı gönder</button></p>' : ''))
         +'</div>';
     }).join('');
   }
@@ -432,6 +434,20 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       return '<tr><td>'+tarih(x.gun+'T12:00:00')+'</td><td>'+esc(x.etiket)+'</td><td>'+x.ziyaret+'</td><td>'+x.test+'</td><td>'+x.uye+'</td></tr>'; }).join('');
   }
   kaynakYukle().catch(function(){});
+  async function ekipMail(id){
+    var o=(await sb.auth.getSession()).data.session;
+    return fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/nobetci-sor',{ method:'POST', headers:{'Content-Type':'application/json',apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg',Authorization:'Bearer '+(o&&o.access_token)}, body:JSON.stringify({islem:'ekip_cevap',id:id}) }).then(function(x){return x.ok;},function(){return false;});
+  }
+  document.addEventListener('click', async function(ev){
+    var bm=ev.target.closest&&ev.target.closest('button[data-ekipmail]'); if(!bm) return;
+    var id=Number(bm.dataset.ekipmail);
+    if(!confirm('#'+id+' cevabı öğrenciye e-postayla gönderilsin mi?')) return;
+    bm.disabled=true;
+    var ok=await ekipMail(id);
+    mesaj(ok?'✓ Cevap öğrenciye e-postayla gitti.':'E-posta yine gönderilemedi; öğrenciye elle haber ver.', ok);
+    if(!ok) bm.disabled=false;
+    nobetciYukle().catch(function(){});
+  });
   document.addEventListener('click', async function(ev){
     var b=ev.target.closest&&ev.target.closest('button[data-ekipgonder]'); if(!b) return;
     var id=Number(b.dataset.ekipgonder), ta=document.querySelector('textarea[data-ekip="'+id+'"]'), metin=(ta&&ta.value||'').trim();
@@ -440,8 +456,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     b.disabled=true;
     var r=await sb.rpc('yonetim_ekip_cevapla', { p_id:id, p_cevap:metin });
     if(r.error){ mesaj(hataYazi(r.error), false); b.disabled=false; return; }
-    var o=(await sb.auth.getSession()).data.session;
-    var m=await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/nobetci-sor',{ method:'POST', headers:{'Content-Type':'application/json',apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg',Authorization:'Bearer '+(o&&o.access_token)}, body:JSON.stringify({islem:'ekip_cevap',id:id}) }).then(function(x){return x.ok;},function(){return false;});
+    var m=await ekipMail(id);
     mesaj(m?'✓ Cevap kaydedildi ve öğrenciye e-postayla gitti.':'Cevap kaydedildi ama e-posta gönderilemedi; öğrenciye elle haber ver.', m);
     nobetciYukle().catch(function(){});
   });
