@@ -239,7 +239,7 @@
         <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
         <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">İstersen başka bir konu seç</a></div>
         <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
-        <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
+        <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><p class="og-gizli" id="ogSeri" style="margin:0 0 6px;font-size:14px;font-weight:800;color:var(--amber)"></p><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
       </div>
     </div>
     <!-- 07.10 Nöbetçi planı madde 2: sık çıkıp hiç dokunulmamış konular (Yeterlilik) / dersler (SGS) - calisma-ozet.js dokunulmamis() -->
@@ -353,7 +353,7 @@
 <script src="uye-durumu.js?v=20261007b"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
-<script src="calisma-ozet.js?v=20261007d"></script>
+<script src="calisma-ozet.js?v=20261011"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -445,6 +445,9 @@
         if(!g||g.gun!==gun||(g.evre||'')!==ek){ g={ gun:gun, evre:ek, tekrar:Math.min(ev?ev.tekrarTavan:20,o.vadeli||0), yeni:ev?(ev.yeni||ev.sik||0):10, sik:!!(ev&&ev.sik) }; localStorage.setItem('tt_gorev',JSON.stringify(g)); }
         var hedef=Math.max(1,g.tekrar+g.yeni), yapilan=Math.min(hedef,o.bugunCozulen||0);
         $('ogGorevYazi').textContent= yapilan>=hedef ? '✓ Bugünün işi tamam. Serini korudun.' : 'Bugünün işi: '+(g.tekrar?g.tekrar+' tekrar'+(g.yeni?' + ':''):'')+(g.yeni?g.yeni+(g.sik?' soru sık çıkan konulardan':' yeni soru'):'');
+        /* 11.10 günlük seri (calisma-ozet.js gunSerisi): kartta "Serini korudun" yazıyordu ama seri hiç gösterilmiyordu */
+        var gs=o.gunSeri||{gun:0}, sy=$('ogSeri');
+        if(gs.gun>0){ sy.textContent='🔥 '+gs.gun+' gün üst üste'+(gs.bugunVar?'':' · bugün bir soru çöz, seri sürsün'); sy.classList.remove('og-gizli'); } else sy.classList.add('og-gizli');
         $('ogGorevSay').textContent=yapilan+' / '+hedef;
         $('ogGorevCubuk').style.width=Math.round(100*yapilan/hedef)+'%';
         $('ogGorev').classList.remove('og-gizli');

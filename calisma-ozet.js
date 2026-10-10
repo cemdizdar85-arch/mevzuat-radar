@@ -53,6 +53,20 @@
     return ilk;
   }
 
+  /* 11.10 GÜNLÜK SERİ (Cem "1.2.3" madde 2): en az bir soru çözülen ardışık yerel günler. Bugün henüz çözülmediyse dünden geriye
+     sayılır (seri bugün bitene kadar yaşar, bugunVar=false → "bugün çöz, seri sürsün"). Kaynak kc_kayit (kutu-esitle.js hesaba
+     taşıyor; yeni cihaza her sorunun SON cevabı iner).
+     🚫 GÖRMEZ: son 500 cevaptan eskisi (kc_kayit tavanı) · yeni cihazda aynı soruyu sonradan yeniden çözmüşse eski günü (hesapta
+     soru başına son cevap durur) · kc_kayit'e yazmayan sayfalar (seviye testi, sınav gibi). */
+  function gunSerisi(kayit, an){
+    var gunler = {};
+    kayit.forEach(function(x){ if(x && x.t) gunler[new Date(x.t).toDateString()] = 1; });
+    var d = new Date(an), bugunVar = !!gunler[d.toDateString()], n = 0;
+    if(!bugunVar) d.setDate(d.getDate() - 1);
+    while(gunler[d.toDateString()] && n < 400){ n++; d.setDate(d.getDate() - 1); }
+    return { gun: n, bugunVar: bugunVar };
+  }
+
   function ozet(){
     var kayit = oku('kc_kayit', []), kutu = oku('kc_kutu', []), ileri = parseInt(localStorage.getItem('kc_ileri') || '0') || 0;
     if(!Array.isArray(kayit)) kayit = []; if(!Array.isArray(kutu)) kutu = [];
@@ -99,6 +113,7 @@
       sonSeviyeYet: svYet.length ? svYet[svYet.length - 1] : null,
       /* 04.10 günlük görev (Cem "beş maddeyi yapalım", rakip BPP): bugün (yerel gün) çözülen cevap sayısı */
       bugunCozulen: kayit.filter(function(x){ return x && x.t && new Date(x.t).toDateString() === new Date(an).toDateString(); }).length,
+      gunSeri: gunSerisi(kayit, an),
       an: an
     };
   }
