@@ -165,6 +165,23 @@ if (-not $servisAnahtari) {
   }
 }
 
+# 11.10 (Cem "askiya almadan once dogru olcuyor muyuz emin olmamiz lazim"): kasa satirinda uye basina ACTI / COZDU.
+#   radar-app/sql/2026-10-11-kasa-set-cevap.sql kasa_uye_olcum(). Kimlik yalniz ilk 8 hane (e-posta YOK); kim oldugu yonetimden bakilir.
+#   Fonksiyon yoksa (goc basilmamis) satir "olculmedi" yazar, alarm seviyesi DEGISMEZ.
+$kasaSatirlari = 'olculmedi'
+if ($servisAnahtari -and $sayim) {
+  try {
+    $ham = Invoke-RestMethod -Uri "$SUPABASE_ADRES/rest/v1/rpc/kasa_uye_olcum" -Method Post `
+      -Headers @{ apikey = $servisAnahtari; Authorization = "Bearer $servisAnahtari"; 'Content-Type' = 'application/json' } `
+      -Body '{"p_saat":24}' -UserAgent 'tetikte-uye-alarmi/1.0' -TimeoutSec 40
+    $kasaUyeler = foreach ($x in $ham) { if ([int64]$x.acti -ge 300) { $x } }
+    $kasaSatirlari = if ($kasaUyeler) {
+      (($kasaUyeler | Select-Object -First 5) | ForEach-Object {
+        '  {0} · acti {1} · cozdu {2} · {3} ders · tavan {4}' -f "$($_.user_id)".Substring(0, 8), $_.acti, $_.cozdu, $_.sayfa_sayisi, $_.tavan }) -join "`n"
+    } else { '  300+ soru acan uye yok' }
+  } catch { $kasaSatirlari = "olculmedi ($("$($_.Exception.Message)".Split([char]10)[0]))" }
+}
+
 $karar = Get-UyeSeviyesi -SayimGirdisi $sayim
 $simdi = [datetime]::UtcNow
 $oncekiRapor = $null
@@ -181,7 +198,7 @@ $yeniAlarm = $oncekiAlarm
 if ($mailGerek) {
   $konu = switch ($karar.seviye) {
     'KIRMIZI' { 'TETIKTE - UYE ALARMI KIRMIZI: sahte hesap dalgasi olabilir' }
-    'SARI'    { 'TETIKTE - Uye alarmi SARI: beklenmedik kayit artisi' }
+    'SARI'    { if ($karar.gerekce -match 'soru') { 'TETIKTE - Uye alarmi SARI: asiri soru cekimi' } else { 'TETIKTE - Uye alarmi SARI: beklenmedik kayit artisi' } }
     default   { 'TETIKTE - Uye alarmi KOR: yeni uye sayisi okunamiyor' }
   }
   $mesaj = if ($sayim) {
@@ -195,6 +212,10 @@ Toplam uye: $($sayim.toplam)
 Hesap paylasimi belirtisi (24 sa, ekran 8+ kez el degistirdi): $([int]$sayim.paylasim_supheli) uye
 4. cihazla girmeye calisan (24 sa): $([int]$sayim.cihaz_siniri_24s) uye
 Soru cekme tavanina takilan (24 sa): $([int]$sayim.kasa_tavan_24s) uye · 2.500+ farkli soru ceken: $([int]$sayim.kasa_asiri_24s) uye · farkli soru: $([int]$sayim.kasa_tekil_24s) · ham satir (sayfa yuklemesi): $([int]$sayim.kasa_cekim_24s)
+En cok soru acan uyeler (24 sa; ACTI = sunucudan inen farkli soru, COZDU = cevaplanan farkli soru):
+$kasaSatirlari
+  Not: ACTI yuksek + COZDU dusuk = cevaplamadan cok soru acmis. Tek basina "calma" kaniti DEGIL; eski (11.10 oncesi)
+  sayfa ya da uygulama dersin tamamini indirir, ACTI'yi sisirir. Karar yonetimden hesaba bakilarak verilir.
 
 Ne yapmali:
 - Bir dakikada 30'dan fazla kayit insan hizi degildir; bot olabilir.
