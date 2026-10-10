@@ -144,6 +144,8 @@ Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arası
 
 Katılım ücretsiz. Yerini ayırmak için 16 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
 
+Denemeyi beklemeden bugün başla: 30 soruda sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
+
 Arkadaşını etiketle, aynı denemede yarışın.
 
 Karakter yapay zekâ ile üretilmiştir. Canlı deneme Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
@@ -159,6 +161,8 @@ SMMM Yeterlilik sınavı · Ücretsiz canlı deneme
 Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arasında) ve her yanlışının nedenini, dayanağıyla görürsün.
 
 Katılım ücretsiz. Yerini ayırmak için 23 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
+
+Denemeyi beklemeden bugün başla: Yeterlilik seviye testinde sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
 Arkadaşını etiketle, aynı denemede yarışın.
 
