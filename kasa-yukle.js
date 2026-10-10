@@ -72,6 +72,14 @@
       .then(function (r) { if (r.error) throw r.error; return r.data || []; });
   }
   function tavanMi(e) { return /KASA_TAVAN/.test(String((e && (e.message || e.details || e.hint)) || e)); }
+  /* 10.10: tavan hatası sunucuda kendi kütük satırını geri alıyordu (kütükte TAVAN 0) -> ayrı çağrıyla kalıcı yazılır
+     (radar-app/sql/2026-10-10-kasa-tavan-gevset.sql). Bildirim düşerse sayfa yine çalışır. */
+  function tavanBildir(sb, e) {
+    try {
+      var p = (String(e && e.message || '').match(/KASA_TAVAN:(\w+)/) || [])[1] || '10dk';
+      if (sb) sb.rpc('kasa_tavan_bildir', { p_sayfa: sayfa, p_pencere: p }).then(function () {}, function () {});
+    } catch (x) {}
+  }
   function tavanMesaji(e) {
     var p = (String(e && e.message || '').match(/KASA_TAVAN:(\w+)/) || [])[1];
     var ne = p === '10dk' ? 'son 10 dakikada' : p === 'gun' ? 'bugün' : p === 'hafta' ? 'bu hafta' : 'kısa sürede';
@@ -145,10 +153,10 @@
         if (!devam) return;
         var kalan = [];
         try { kalan = await kalaniCek(k.sb, toplam); }
-        catch (e) { uyar(tavanMi(e) ? 'Soru sınırına ulaştın: kalan sorular bugün getirilmedi.' : 'Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.'); }
+        catch (e) { if (tavanMi(e)) tavanBildir(k.sb, e); uyar(tavanMi(e) ? 'Soru sınırına ulaştın: kalan sorular bugün getirilmedi.' : 'Soruların bir kısmı getirilemedi. Bağlantını kontrol edip sayfayı yenile.'); }
         if (typeof window.__kasaEkle === 'function') window.__kasaEkle(kalan); else window.__KASA_DEVAM = false;
       } catch (e) {
-        if (tavanMi(e)) return tavanMesaji(e);
+        if (tavanMi(e)) { tavanBildir(k.sb, e); return tavanMesaji(e); }
         mesaj('Sorular getirilemedi', 'Bağlantını kontrol edip sayfayı yenile. Sorun sürerse bize yaz.',
           dugme(location.href, 'Yeniden dene'));
       }
@@ -164,7 +172,7 @@
       document.getElementById('akis').innerHTML = '';
       calistir(sorular);
     } catch (e) {
-      if (tavanMi(e)) return tavanMesaji(e);
+      if (tavanMi(e)) { tavanBildir(k.sb, e); return tavanMesaji(e); }
       mesaj('Sorular getirilemedi', 'Bağlantını kontrol edip sayfayı yenile. Sorun sürerse bize yaz.',
         dugme(location.href, 'Yeniden dene'));
     }

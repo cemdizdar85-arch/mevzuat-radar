@@ -213,7 +213,9 @@
       return Promise.all(parca.map(function(p){
         return k.sb.rpc('kasa_soru_idler',{p_ids:p}).then(function(r){ if(r.error) throw r.error; return r.data||[]; });
       })).catch(function(e){
-        if(/KASA_TAVAN/.test(String(e&&e.message||e))){ alert('Soru sınırına ulaştın: hesabın kısa sürede olağan çalışmanın çok üstünde soru çekti. Bir süre sonra yeniden dene.'); return null; }
+        if(/KASA_TAVAN/.test(String(e&&e.message||e))){ /* 10.10: tavan kütüğe kalıcı yazılır (kasa-tavan-gevset.sql) */
+          try{ k.sb.rpc('kasa_tavan_bildir',{p_sayfa:'idler',p_pencere:(String(e&&e.message||'').match(/KASA_TAVAN:(\w+)/)||[])[1]||'10dk'}).then(function(){},function(){}); }catch(x){}
+          alert('Soru sınırına ulaştın: hesabın kısa sürede olağan çalışmanın çok üstünde soru çekti. Bir süre sonra yeniden dene.'); return null; }
         throw e;
       }).then(function(gelen){
         if(!gelen) return null;
