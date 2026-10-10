@@ -131,6 +131,8 @@ function sinav() {
     ['EK23 "istisna … yalnız tam mükellef kurumlara" → alarm', T({ sade: { dogru: 'Kâr payı istisnası yalnız tam mükellef kurumlardan alınanlar için geçerlidir.' } }), 1],
     ['EK23 meşru: m.22/4 şartı anılıyor (%50 sermaye)', T({ aciklama: { A: 'Yurt dışı A.Ş.\'deki payı %5 olduğundan GVK m.22/4\'ün %50 sermaye şartı sağlanmaz; yabancı kurum kâr payı tam tutarıyla matraha girer.' } }), 0],
     ['EK23 meşru: m.22/3 tek başına ("yalnız" yok)', T({ aciklama: { A: 'GVK m.22/3\'e göre tam mükellef kurumdan elde edilen kâr payının yarısı istisnadır.' } }), 0],
+    ['EK23 meşru: KVK bağlamı (gm5-16-yvergi-zor/kp-03, kurum ortak; m.5/1-a ve %10)', T({ teshis: { B: { gercek: 'KVK m.5/1-a yalnız tam mükellef kurumlardan alınan kâr paylarını kapsar, KVK m.5/1-b en az %10 pay ister.' } } }), 0],
+    ['EK23 meşru: 640 muhasebe tuzağı (gm5-30-fmuh-zor/kp-02)', T({ aciklama: { A: 'Vergi İstisnası Tuzağı: Yalnız tam mükellef kurumdan gelen kâr payını 640\'a yazdın.' } }), 0],
     ['EK23 meşru: YANLIŞ şıkkın kendi metni (sikHaric)', T({ siklar: { A: '20.000', B: 'Yabancı kurumdan alınan kâr payına istisna uygulanmaz' } }), 0],
     ['EK14 meşru: "düzeltme yapılmaz"', T({ aciklama: { A: 'Faydalı ömrünü tamamlayıp zayi olan ATİK\'in alımda indirilen KDV\'si için düzeltme yapılmaz.' } }), 0],
     ['EK14 meşru: yanlış şıkta "Mükerrer İndirim Tuzağı"', T({ aciklama: { B: 'Mükerrer İndirim Tuzağı: faydalı ömrünü tamamlayıp zayi olan forkliftin KDV\'sini bu dönem yeniden indirdin.' } }), 0],
