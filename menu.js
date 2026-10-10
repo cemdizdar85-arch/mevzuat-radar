@@ -810,7 +810,7 @@ function ttSorguHakki(anahtar){
         });
         if (document.getElementById('ttEkipBildirim')) return;
         var d = document.createElement('div'); d.id = 'ttEkipBildirim'; d.setAttribute('role', 'status');
-        d.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:calc(' + (document.body.classList.contains('tt-alt-menu') && window.matchMedia('(max-width:759px)').matches ? 78 : 20) + 'px + env(safe-area-inset-bottom));z-index:70;'
+        d.style.cssText = 'position:fixed;left:0;right:0;margin:0 auto;width:max-content;bottom:calc(' + (document.body.classList.contains('tt-alt-menu') && window.matchMedia('(max-width:759px)').matches ? 78 : 20) + 'px + env(safe-area-inset-bottom));z-index:70;'
           + 'max-width:min(460px,calc(100vw - 32px));box-sizing:border-box;display:flex;gap:10px;align-items:center;padding:10px 12px 10px 14px;'
           + 'background:var(--kagit,var(--panel));color:var(--ink);border:1px solid var(--amber-dolgu);border-radius:12px;'
           + 'box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 18%,transparent);font-size:14px;line-height:1.4';
