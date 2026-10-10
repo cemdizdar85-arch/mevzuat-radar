@@ -417,6 +417,13 @@ jobs:
               kabuk: bash, komut: "node arac/fiyat-urun-kapisi.js --sinav" }
           - { ad: "KAPI-FU fiyat-urun GERCEK DEPO (satistaki her paketin karsiligi var)",
               kabuk: bash, komut: "node arac/fiyat-urun-kapisi.js" }
+          # 10.10.2026 - KAPI-DA ders adi (arac/ders-adi-kapisi.js): fiyat-motoru.js / edge magaza-dogrula / karne-gonder Yeterlilik
+          # ders adlari = veri/soru-dizini.json ders adlari. Olay: "Temel Hukuk" satildi, sitede "Hukuk" -> ders kilitli kaldi.
+          # 9 vaka; mutasyonla olculdu: yok 2/9, eksik 4/9, kor 2/9 KIRMIZI. Duzeltme oncesi depoda 2 bulgu verdi.
+          - { ad: "KAPI-DA ders adi OZ-SINAVI (satilan ders adi sitede birebir var mi)",
+              kabuk: bash, komut: "node arac/ders-adi-kapisi.js --sinav" }
+          - { ad: "KAPI-DA ders adi GERCEK DEPO",
+              kabuk: bash, komut: "node arac/ders-adi-kapisi.js" }
           # 10.10.2026 - KAPI-ET elci tutarlari (arac/elci-tutar-kapisi.js): sozlesme (elci.html template Madde 5/6.1/6.8) ile
           # onay maili (edge elci-sozlesme.ts PAKET_OZET), panel (DERS_KOMISYON, KADEME) ve fiyat-motoru.js ELCI.indirim ayni mi.
           # 12 vaka (7 fark, 2 kor, 2 yanlis alarm); mutasyonla olculdu: indirim / komisyon / kademe kiyasi kapatilinca 9/12 · 10/12 · 10/12 KIRMIZI.
@@ -721,6 +728,12 @@ jobs:
               kabuk: pwsh, komut: "./arac/aciklama-hakemi-uretim-sinavi.ps1 -Mutasyon" }
           - { ad: "Aciklama hakemi karar yazimi OZ-SINAVI (diziler/BOM korunur, baska alan degismez)",
               kabuk: bash, komut: "node arac/aciklama-hakem-yaz.js --sinav" }
+          # 10.10 soru verisine model adi girmez (motor/model-kod.ps1): ad -> notr kod, parti-senkron -Yukle agi, ureticide ham ad tarama.
+          # GORMEZ: iki uretici disindaki yazicilar (agi yakalar) · alan adinda model (simulasyon_sonnet) · duz metin ici ad.
+          - { ad: "Model izi kapisi OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/model-izi-sinavi.ps1" }
+          - { ad: "Model izi kapisi MUTASYON (4 kosul bozulunca sinav duser mi)",
+              kabuk: pwsh, komut: "./arac/model-izi-sinavi.ps1 -Mutasyon" }
           # 26.09 kisa sinav / en cok cikanlar (mobil/uygulama/uygulama-karma.js): soru secimi dengeli mi,
           # tekrar yok mu, cevap sorunun gercek dersine mi yaziliyor, 1000+ satir sayfalaniyor mu. GORMEZ: RLS/ag.
           - { ad: "Mobil kisa sinav secimi OZ-SINAVI",
