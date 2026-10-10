@@ -1,0 +1,49 @@
+# .github/workflows/edge-gunluk.yml — UÇ FONKSİYON GÜNLÜĞÜ (10.10.2026, Cem "1.2.3 üçünü de yap")
+#
+# NEDEN: ilk "Ekibe sor" sorusunda (#1, 09.10 19:53 UTC) destek@ haberi gitmedi; fonksiyon günlüğü buradan okunamadığı için
+# isteğin hiç gelmediği mi, düştüğü mü bilinemedi. Bu iş Supabase yönetim API'sinden (SUPABASE_ACCESS_TOKEN) bir fonksiyonun
+# son N saatteki çağrılarını okur ve YALNIZ saat · yöntem · durum kodu · süre basar (gövde, adres, kişi verisi YOK).
+# Elle tetiklenir: gh workflow run edge-gunluk.yml -f fonksiyon=nobetci-sor -f saat=24
+# 🚫 GÖRMEZ: Supabase günlük saklama süresinin dışını · isteğin gövdesini (bilerek) · tarayıcıdan hiç çıkmamış isteği
+#    (o durumda satır YOKTUR — "satır yok" = istek fonksiyona ulaşmadı).
+name: Edge Gunluk
+
+on:
+  workflow_dispatch:
+    inputs:
+      fonksiyon:
+        description: "fonksiyon adı (radar-app/edge/YAYIN.json 'ad')"
+        default: "nobetci-sor"
+      saat:
+        description: "geriye kaç saat (en çok 24; API aralığı)"
+        default: "24"
+
+permissions:
+  contents: read
+
+jobs:
+  oku:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Günlüğü oku (yalnız saat · yöntem · durum)
+        env:
+          TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          FN: ${{ inputs.fonksiyon }}
+          SAAT: ${{ inputs.saat }}
+        run: |
+          set -euo pipefail
+          [[ "$FN" =~ ^[a-z0-9-]{2,60}$ ]] || { echo "::error::geçersiz fonksiyon adı"; exit 1; }
+          [[ "$SAAT" =~ ^[0-9]{1,2}$ ]] && [ "$SAAT" -ge 1 ] && [ "$SAAT" -le 24 ] || { echo "::error::saat 1-24"; exit 1; }
+          bas=$(date -u -d "-$SAAT hours" +%Y-%m-%dT%H:%M:%SZ); son=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          sql="select timestamp, request.method as yontem, response.status_code as durum, m.execution_time_ms as ms from function_edge_logs cross join unnest(metadata) as m cross join unnest(m.response) as response cross join unnest(m.request) as request where request.url like '%/functions/v1/$FN%' order by timestamp asc limit 1000"
+          cevap=$(curl -sS -m 60 -G "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/analytics/endpoints/logs.all" \
+            -H "Authorization: Bearer $TOKEN" --data-urlencode "sql=$sql" \
+            --data-urlencode "iso_timestamp_start=$bas" --data-urlencode "iso_timestamp_end=$son")
+          echo "$cevap" | jq -e '.result' >/dev/null || { echo "::error::API cevabı okunamadı"; echo "$cevap" | jq -r '.error // .message // "?"' | head -c 400; exit 1; }
+          echo "aralık: $bas → $son · fonksiyon: $FN"
+          echo "toplam çağrı: $(echo "$cevap" | jq '.result | length')"
+          echo "--- durum kodu dağılımı"
+          echo "$cevap" | jq -r '.result | group_by(.yontem + " " + (.durum|tostring)) | .[] | "\(.[0].yontem) \(.[0].durum): \(length)"'
+          echo "--- çağrılar (UTC)"
+          echo "$cevap" | jq -r '.result[] | "\((.timestamp/1000000)|todate) \(.yontem) \(.durum) \(.ms)ms"'
