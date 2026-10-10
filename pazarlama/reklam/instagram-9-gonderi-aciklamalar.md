@@ -62,7 +62,7 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 Staja Giriş sınavı · Finansal Muhasebe (TMS 38)
 
-1 Eylül'de alınan yazılım, 5 yıl ömür. Bu yılın itfa payı 48.000 değil 16.000: TMS 38'e göre itfa, varlık kullanıma hazır olduğunda başlar; Eylül'den Aralık'a dört ay. Vergide (VUK m.320) kural tam yıl; soru hangi kurala göre soruyor, ona bak.
+1 Eylül'de alınan yazılım, 5 yıl ömür. Bu yılın itfa payı 48.000 değil 16.000: TMS 38'e göre itfa, varlık kullanıma hazır olduğunda başlar; Eylül'den Aralık'a dört ay. Vergide (VUK m.320) varsayılan tam yıl (48.000); dileyen mükellef gün esasına göre ayırabilir. Soru hangi kurala göre soruyor, ona bak.
 
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
