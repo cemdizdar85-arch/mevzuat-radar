@@ -256,9 +256,12 @@ var ODEME_BANKA = {
    birebir okundu (Fuat Hoca YTR 2026/3 · Suat Hoca Yeterlilik 2026-3).
    KGK dört modülü kendi vitrinimizde ilan ettiğimiz temel alan kapsamıdır.
 --------------------------------------------------------------------------- */
+/* 10.10: 'Temel Hukuk' → 'Hukuk'. Bu adlar siparişten paket_uyeler.dersler'e AYNEN geçer; sorular.html ve kasa RLS
+   sitedeki ders adıyla (veri/soru-dizini.json) BİREBİR eşler. "Temel Hukuk" alan ilk müşteride Hukuk kilitli kaldı.
+   Ad değişirse: node arac/ders-adi-kapisi.js (dogrula.yml'de koşar). */
 var DERSLER = {
   yeterlilik: ['Finansal Muhasebe','Maliyet Muhasebesi','Finansal Tablolar ve Analizi',
-               'Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Temel Hukuk',
+               'Muhasebe Denetimi','Vergi Mevzuatı ve Uygulaması','Hukuk',
                'Sermaye Piyasası Mevzuatı','Meslek Hukuku'],
   /* ⚠️ 29.08 DÜZELTMESİ — KGK konuları KGK'nın kendi sayfasından okundu
      (kgk.gov.tr/DynamicContentDetail/6617 ve /6618, 29.08.2026):

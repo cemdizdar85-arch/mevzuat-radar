@@ -1,0 +1,58 @@
+{
+ "olcum": "2026-10-10T19:19:20.676Z",
+ "klasor": "veri/fabrika",
+ "dosya_toplam": 2526,
+ "dosya_okunamayan": 0,
+ "sistem_dosyasi_atlanan": 1,
+ "onbellek_en_eski": "2026-09-17T17:33:48.882Z",
+ "onbellek_en_yeni": "2026-10-10T19:15:28.509Z",
+ "kayit_toplam": 15381,
+ "kayit_izli": 12912,
+ "sinav": {
+  "devir": {
+   "kayit": 9,
+   "izli": 1
+  },
+  "kgk": {
+   "kayit": 762,
+   "izli": 375
+  },
+  "pilot": {
+   "kayit": 6,
+   "izli": 6
+  },
+  "sgs": {
+   "kayit": 7662,
+   "izli": 6691
+  },
+  "smmm": {
+   "kayit": 6829,
+   "izli": 5839
+  },
+  "spl": {
+   "kayit": 113,
+   "izli": 0
+  }
+ },
+ "model_alani": {
+  "hakem2.model = claude-sonnet-5": 12690,
+  "kor_cozum.model = claude-opus-5": 11901,
+  "konu_giris.model = claude-sonnet-5": 11016,
+  "simulasyon_sonnet.model = claude-sonnet-5": 10883,
+  "sade.model = claude-haiku-4-5": 10369,
+  "teori_ikiz.model = claude-sonnet-5": 5405,
+  "kor_cozum.model = claude-sonnet-5": 852,
+  "aciklama_hakem.model = claude-opus-5-5": 444,
+  "kor_cozum_kaynakli.model = claude-opus-5": 365,
+  "hakem.ikinci_bakis.model = claude-sonnet-5": 125,
+  "konu_giris.model = claude-haiku-4-5": 33,
+  "simulasyon.model = claude-haiku-4-5-20251001": 2,
+  "uyarlama.model = claude-sonnet-5": 2,
+  "simulasyon.model = claude-haiku-4-5": 2
+ },
+ "baska_anahtarda_tam_id": {},
+ "anahtar_adinda_model": {
+  "simulasyon_sonnet": 10883
+ },
+ "model_alani_toplam": 64089
+}
