@@ -96,9 +96,17 @@ Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî
 
 Staja Giriş ve Yeterlilik için soru çözme sitesi açıldı. Yanlış yaptığın her soruda nedenini ve dayanağını görürsün. 30 soruluk seviye testi ücretsiz, kart istenmez.
 
-17 Ekim Cumartesi 10:00: 130 soruluk ücretsiz canlı deneme, gerçek süre, yüzdelik sıralama. Kayıt 16 Ekim 23:59'a kadar: tetikte.com/canli-deneme.html?k=ig
+Ücretsiz canlı deneme, gerçek sınav süresiyle:
+Staja Giriş: 17 Ekim Cumartesi 10:00 · 130 soru · 165 dakika. Kayıt 16 Ekim 23:59'a kadar.
+Yeterlilik: 24 Ekim Cumartesi 09:00 · 80 soru · 180 dakika. Kayıt 23 Ekim 23:59'a kadar.
 
-Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arasında) ve her yanlışının nedenini görürsün. Yerini ayırmak için ücretsiz üye ol: tetikte.com/canli-deneme.html — bağlantı profilde.
+
+Arkadaşını etiketle, aynı denemede yarışın.
+
+Karakter yapay zekâ ile üretilmiştir. Canlı denemeler Tetikte'nin kendi denemeleridir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#stajagiris #smmmyeterlilik #denemesinavi #smmm #sgs #muhasebe
 
 ## AB · Tuzak #6 hızlı kesim (gün 6, Reels; 08 ile kıyas)
 
