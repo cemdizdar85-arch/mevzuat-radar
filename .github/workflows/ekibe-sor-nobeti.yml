@@ -1,0 +1,38 @@
+# .github/workflows/ekibe-sor-nobeti.yml — "EKİBE SOR" NÖBETİ (10.10.2026, Cem "1.2.3 üçünü de yap")
+#
+# NEDEN: ilk "Ekibe sor" sorusunda (#1, 09.10) destek@ haberi de, öğrenciye cevap maili de GİTMEDİ. İkisi de tarayıcının
+# isteğine bağlıydı (öğrencinin ateşle-unut ekip_haber isteği · yöneticinin panelden ekip_cevap isteği). Bu nöbet
+# tarayıcıdan bağımsız: nobetci-sor fonksiyonunun 'ekip_nobet' işlemi (yalnız servis anahtarı) haberi gitmemiş
+# bekleyen sorulara destek@ haberini, cevaplanıp maili gitmemiş sorulara üye mailini gönderir.
+# Günlüğe yalnız SAYI basılır (kişi verisi, soru metni yok). Ücretli model çağrısı YOK (yalnız Resend maili).
+# 🚫 GÖRMEZ: GitHub cron'u gecikebilir/atlanabilir (01.10 ölçümü: 29 saatte 6 koşu) — panel düğmesi ve tarayıcı yolu
+#    duruyor, nöbet yalnız yedek · Resend "kabul etti" ≠ öğrencinin kutusuna düştü.
+name: Ekibe Sor Nobeti
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ekibe-sor-nobeti
+  cancel-in-progress: false
+
+jobs:
+  nobet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Bekleyen haber ve cevapları gönder
+        env:
+          SK: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set -euo pipefail
+          sonuc=$(curl -sS -m 60 -X POST "https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/nobetci-sor" \
+            -H "Content-Type: application/json" -H "x-servis: $SK" -d '{"islem":"ekip_nobet"}')
+          echo "sonuc: $sonuc"
+          echo "$sonuc" | grep -q '"success":true' || { echo "::error::nöbet cevabı başarısız"; exit 1; }
+          if echo "$sonuc" | grep -Eq '"(haber_hata|cevap_hata|adres_yok)":[1-9]'; then echo "::error::gönderilemeyen var"; exit 1; fi

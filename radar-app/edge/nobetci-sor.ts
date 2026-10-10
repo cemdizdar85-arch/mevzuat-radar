@@ -17,7 +17,7 @@
 // ============================================================================
 import Anthropic from "npm:@anthropic-ai/sdk";
 
-const KOD_IMZA = "05fceead10f4e81d";
+const KOD_IMZA = "3f55d8168239b6d1";
 const GUNLUK = 10, AYLIK_USD = 100, MODEL = "claude-opus-5-5";
 const FIYAT: Record<string, [number, number]> = {           // USD / milyon token (girdi, çıktı) - 2026-09-25 tablosu
   "claude-opus-5-5": [4, 20], "claude-opus-5": [5, 25], "claude-opus-4-8": [5, 25], "claude-sonnet-5-5": [2, 10], "claude-fable-5-1": [10, 50],
@@ -86,28 +86,71 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
   if (req.method !== "POST") return cevap(405, { hata: "yalniz POST" });
   if (!SB_SERVICE || !AK) return cevap(503, { hata: "kurulum eksik" });
 
-  const jwt = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
-  if (!jwt || jwt.startsWith("sb_")) return cevap(401, { hata: "giris gerekli" });
-  const u = await fetch(`${SB_URL}/auth/v1/user`, { headers: { apikey: SB_ANON, Authorization: `Bearer ${jwt}` } });
-  if (!u.ok) return cevap(401, { hata: "giris gerekli" });
-  const kisi = await u.json();
   const svc = (yol: string, sec?: RequestInit) => fetch(`${SB_URL}/rest/v1/${yol}`, Object.assign({
     headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" } }, sec || {}));
   const mail = (to: string, konu: string, metin: string, html: string) => !RESEND_KEY ? Promise.resolve(false) :
     fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${RESEND_KEY}`, "content-type": "application/json" },
       body: JSON.stringify({ from: RESEND_FROM, to: [to], subject: konu, text: metin, html, reply_to: EKIP }) }).then(r => r.ok, () => false);
+  const EKIP_ALAN = "id,user_id,eposta,soru_id,soru_kisa,mesaj,cevap,durum,haber_mail,cevap_mail";
+
+  // ekibe gelen yeni soru → destek@ haberi. haber_mail ÖNCE yazılır (çift haber yok); mail düşerse geri alınır, nöbet yeniden dener.
+  async function haberGonder(e: Record<string, any>): Promise<boolean> {
+    const p = await svc(`ekibe_soru?id=eq.${e.id}&haber_mail=is.null`, { method: "PATCH", headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json", Prefer: "return=representation" }, body: JSON.stringify({ haber_mail: new Date().toISOString() }) });
+    if (!p.ok || !(await p.json()).length) return true;   // başka çağrı aldı
+    const metin = `Yeni "Ekibe sor" sorusu (#${e.id}).\n\nSoru: ${e.soru_id}\n${e.soru_kisa || ""}\n\nÖğrencinin mesajı:\n${e.mesaj}\n\nCevaplamak için: https://tetikte.com/yonetim.html (Ekibe gelen sorular)`;
+    const ok = await mail(EKIP, `Ekibe sor #${e.id}: yeni soru`, metin, `<pre style="font-family:inherit;white-space:pre-wrap">${kacis(metin)}</pre>`);
+    if (!ok) await svc(`ekibe_soru?id=eq.${e.id}`, { method: "PATCH", body: JSON.stringify({ haber_mail: null }) });
+    return ok;
+  }
+  // cevaplanan soru → üyeye mail. 10.10 (ilk "Ekibe sor" #1): eposta yalnız ekip_haber'de yazılıyordu; o istek gitmeyince cevap
+  //   409 ile sessizce kalıyordu → eposta boşsa üyenin hesabından okunur ve kayda yazılır.
+  async function cevapGonder(e: Record<string, any>): Promise<number> {
+    if (e && !e.eposta && e.user_id) {
+      const a = await fetch(`${SB_URL}/auth/v1/admin/users/${e.user_id}`, { headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` } });
+      const em = a.ok ? String((await a.json()).email || "") : "";
+      if (em) { e.eposta = em; await svc(`ekibe_soru?id=eq.${e.id}`, { method: "PATCH", body: JSON.stringify({ eposta: em }) }); }
+    }
+    if (!e || e.durum !== "cevaplandi" || !e.eposta) return 409;
+    if (e.cevap_mail) return 200;
+    const metin = `Merhaba,\n\n"Ekibe sor" ile ilettiğin sorunun cevabı:\n\n${e.cevap}\n\n— Senin sorun: ${e.mesaj}\n\nTetikte ekibi · Yanlışını, sebebiyle birlikte öğren.`;
+    const ok = await mail(e.eposta, "Sorunun cevabı geldi · Tetikte ekibi", metin,
+      kurumsalMail(`<p>Merhaba,</p><p>"Ekibe sor" ile ilettiğin sorunun cevabı:</p><div style="border-left:3px solid #f3a52a;padding:6px 12px;white-space:pre-wrap">${kacis(e.cevap)}</div><p style="color:#3d4b63">Senin sorun: ${kacis(e.mesaj)}</p>`, "Bu e-posta, Ekibe sor ile ilettiğin soru üzerine gönderilmiştir."));
+    if (ok) await svc(`ekibe_soru?id=eq.${e.id}`, { method: "PATCH", body: JSON.stringify({ cevap_mail: new Date().toISOString() }) });
+    return ok ? 200 : 502;
+  }
+
+  // ---------------------------------------------------------------- EKİBE SOR NÖBETİ (10.10, Cem "1.2.3"): yalnız servis anahtarı
+  //   (robot ekibe-sor-nobeti.yml). Tarayıcının ateşle-unut isteğine bağlı kalmadan: haberi gitmemiş her soruya destek@ haberi,
+  //   cevaplanıp maili gitmemiş her soruya üye maili. Üyeye/tarayıcıya açık değil: x-servis başlığındaki anahtar Supabase yönetici
+  //   ucunda (auth admin) DOĞRULANIR — Actions'taki sb_secret_ ile fonksiyonun SUPABASE_SERVICE_ROLE_KEY'i farklı biçimde olabilir.
+  const xs = (req.headers.get("x-servis") ?? "").trim();
+  if (xs && (xs === SB_SERVICE || (await fetch(`${SB_URL}/auth/v1/admin/users?per_page=1`, { headers: { apikey: xs, Authorization: `Bearer ${xs}` } }).then(r => r.ok, () => false)))) {
+    let g0: Record<string, unknown> = {};
+    try { g0 = await req.json(); } catch { /* boş gövde */ }
+    if (g0.islem !== "ekip_nobet") return cevap(400, { hata: "gecersiz istek" });
+    const s = { haber: 0, haber_hata: 0, cevap: 0, cevap_hata: 0, adres_yok: 0 };
+    const h = await svc(`ekibe_soru?select=${EKIP_ALAN}&haber_mail=is.null&durum=eq.bekliyor&order=tarih.asc&limit=20`);
+    for (const e of (h.ok ? await h.json() : [])) (await haberGonder(e)) ? s.haber++ : s.haber_hata++;
+    const c = await svc(`ekibe_soru?select=${EKIP_ALAN}&durum=eq.cevaplandi&cevap_mail=is.null&order=tarih.asc&limit=20`);
+    for (const e of (c.ok ? await c.json() : [])) { const k = await cevapGonder(e); k === 200 ? s.cevap++ : k === 409 ? s.adres_yok++ : s.cevap_hata++; }
+    return cevap(200, { success: true, ...s });   // yalnız sayı (günlüğe kişi verisi basılmaz)
+  }
+
+  const jwt = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
+  if (!jwt || jwt.startsWith("sb_")) return cevap(401, { hata: "giris gerekli" });
+  const u = await fetch(`${SB_URL}/auth/v1/user`, { headers: { apikey: SB_ANON, Authorization: `Bearer ${jwt}` } });
+  if (!u.ok) return cevap(401, { hata: "giris gerekli" });
+  const kisi = await u.json();
 
   let g: Record<string, unknown> = {};
   try { g = await req.json(); } catch { return cevap(400, { hata: "gecersiz istek" }); }
 
   // ---------------------------------------------------------------- EKİBE SOR: haber
   if (g.islem === "ekip_haber") {
-    const r = await svc(`ekibe_soru?select=id,soru_id,soru_kisa,mesaj,nobetci_cevap&user_id=eq.${kisi.id}&haber_mail=is.null&order=tarih.desc&limit=1`);
+    const r = await svc(`ekibe_soru?select=${EKIP_ALAN}&user_id=eq.${kisi.id}&haber_mail=is.null&order=tarih.desc&limit=1`);
     const e = r.ok ? (await r.json())[0] : null;
     if (!e) return cevap(200, { success: true, zaten: true });
-    await svc(`ekibe_soru?id=eq.${e.id}`, { method: "PATCH", body: JSON.stringify({ haber_mail: new Date().toISOString(), eposta: kisi.email }) });
-    const metin = `Yeni "Ekibe sor" sorusu (#${e.id}).\n\nSoru: ${e.soru_id}\n${e.soru_kisa || ""}\n\nÖğrencinin mesajı:\n${e.mesaj}\n\nCevaplamak için: https://tetikte.com/yonetim.html (Ekibe gelen sorular)`;
-    await mail(EKIP, `Ekibe sor #${e.id}: yeni soru`, metin, `<pre style="font-family:inherit;white-space:pre-wrap">${kacis(metin)}</pre>`);
+    await haberGonder(e);
     return cevap(200, { success: true });
   }
 
@@ -116,22 +159,10 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     const y = await fetch(`${SB_URL}/rest/v1/rpc/yonetici_mi`, { method: "POST", headers: { apikey: SB_ANON, Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" }, body: "{}" });
     if (!y.ok || (await y.json()) !== true) return cevap(403, { hata: "yetki yok" });
     const id = Number(g.id); if (!Number.isFinite(id)) return cevap(400, { hata: "gecersiz istek" });
-    const r = await svc(`ekibe_soru?select=id,user_id,eposta,soru_kisa,mesaj,cevap,durum,cevap_mail&id=eq.${id}&limit=1`);
+    const r = await svc(`ekibe_soru?select=${EKIP_ALAN}&id=eq.${id}&limit=1`);
     const e = r.ok ? (await r.json())[0] : null;
-    // 10.10 (ilk "Ekibe sor" #1): eposta yalnız ekip_haber'de yazılıyordu; o istek gitmeyince cevap 409 ile sessizce kalıyordu
-    //   → eposta boşsa üyenin hesabından okunur ve kayda yazılır.
-    if (e && !e.eposta && e.user_id) {
-      const a = await fetch(`${SB_URL}/auth/v1/admin/users/${e.user_id}`, { headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` } });
-      const em = a.ok ? String((await a.json()).email || "") : "";
-      if (em) { e.eposta = em; await svc(`ekibe_soru?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ eposta: em }) }); }
-    }
-    if (!e || e.durum !== "cevaplandi" || !e.eposta) return cevap(409, { hata: "uygun degil" });
-    if (e.cevap_mail) return cevap(200, { success: true, zaten: true });
-    const metin = `Merhaba,\n\n"Ekibe sor" ile ilettiğin sorunun cevabı:\n\n${e.cevap}\n\n— Senin sorun: ${e.mesaj}\n\nTetikte ekibi · Yanlışını, sebebiyle birlikte öğren.`;
-    const ok = await mail(e.eposta, "Sorunun cevabı geldi · Tetikte ekibi", metin,
-      kurumsalMail(`<p>Merhaba,</p><p>"Ekibe sor" ile ilettiğin sorunun cevabı:</p><div style="border-left:3px solid #f3a52a;padding:6px 12px;white-space:pre-wrap">${kacis(e.cevap)}</div><p style="color:#3d4b63">Senin sorun: ${kacis(e.mesaj)}</p>`, "Bu e-posta, Ekibe sor ile ilettiğin soru üzerine gönderilmiştir."));
-    if (ok) await svc(`ekibe_soru?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ cevap_mail: new Date().toISOString() }) });
-    return cevap(ok ? 200 : 502, { success: ok });
+    const k = await cevapGonder(e);
+    return k === 409 ? cevap(409, { hata: "uygun degil" }) : cevap(k, { success: k === 200 });
   }
 
   // ---------------------------------------------------------------- NÖBETÇİYE SOR
