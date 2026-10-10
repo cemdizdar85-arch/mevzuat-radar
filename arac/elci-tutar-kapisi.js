@@ -110,6 +110,20 @@ function kiyasla(kaynaklar) {
   return { bulgu, kor };
 }
 
+// 10.10: yonetim.html + ogrenci.html "güncel sözleşme sürümü" sabiti elci.html KOSUL_SURUM ile aynı olmalı
+// (ayrışırsa yönetim "onaylı" der, Hesabım "onayla" uyarısını göstermez ya da hep gösterir).
+function surumKiyasla(elciHtml, sayfalar) {
+  const bulgu = [], kor = [];
+  const esas = /var KOSUL_SURUM = '(\d{4}-\d{2}-\d{2})'/.exec(elciHtml);
+  if (!esas) { kor.push('elci.html KOSUL_SURUM okunamadı'); return { bulgu, kor }; }
+  for (const [ad, metin] of Object.entries(sayfalar)) {
+    const m = /var ELCI_SURUM\s*=\s*'(\d{4}-\d{2}-\d{2})'/.exec(metin);
+    if (!m) kor.push(ad + ' ELCI_SURUM okunamadı');
+    else if (m[1] !== esas[1] && MUT !== 'surum-kor') bulgu.push(`${ad}: ELCI_SURUM ${m[1]}, elci.html KOSUL_SURUM ${esas[1]}`);
+  }
+  return { bulgu, kor };
+}
+
 function depodan(kok) {
   const oku = f => { try { return fs.readFileSync(path.join(kok, f), 'utf8'); } catch (e) { return ''; } };
   const elci = oku('elci.html');
@@ -146,6 +160,19 @@ function sinav() {
     ['yanlış alarm: Madde 5 fiyat sütunu değişti (indirim aynı)', elci.replace('2.988 → 2.588 TL', '2.990 → 2.590 TL'), ts, fm, 'temiz'],
   ];
   let kirmizi = 0;
+  const yon = fs.readFileSync(path.join(kok, 'yonetim.html'), 'utf8'), ogr = fs.readFileSync(path.join(kok, 'ogrenci.html'), 'utf8');
+  const surumVaka = [
+    ['sürüm: gerçek depo aynı', elci, yon, ogr, 'temiz'],
+    ['sürüm: elci.html yükseldi, yonetim eski', elci.replace(/var KOSUL_SURUM = '\d{4}-\d{2}-\d{2}'/, "var KOSUL_SURUM = '2099-01-01'"), yon, ogr.replace(/var ELCI_SURUM='\d{4}-\d{2}-\d{2}'/, "var ELCI_SURUM='2099-01-01'"), 'bulgu'],
+    ['sürüm: ogrenci sabiti silindi → KÖR', elci, yon, ogr.replace('var ELCI_SURUM=', 'var BASKA='), 'kor'],
+  ];
+  for (const [ad, e, y, o, bek] of surumVaka) {
+    const s = surumKiyasla(e, { 'yonetim.html': y, 'ogrenci.html': o });
+    const olan = s.kor.length ? 'kor' : s.bulgu.length ? 'bulgu' : 'temiz';
+    if (olan !== bek) kirmizi++;
+    console.log(`${olan === bek ? 'YEŞİL ' : 'KIRMIZI'}  ${ad}  (beklenen ${bek}, olan ${olan}${s.bulgu.length ? ': ' + s.bulgu[0] : ''})`);
+  }
+  vakalar.total = vakalar.length + surumVaka.length;
   for (const [ad, e, t, f, bek] of vakalar) {
     const s = kiyasla(kur(e, t, f));
     const olan = s.kor.length ? 'kor' : s.bulgu.length ? 'bulgu' : 'temiz';
@@ -153,13 +180,17 @@ function sinav() {
     if (!ok) kirmizi++;
     console.log(`${ok ? 'YEŞİL ' : 'KIRMIZI'}  ${ad}  (beklenen ${bek}, olan ${olan}${s.bulgu.length ? ': ' + s.bulgu[0] : ''})`);
   }
-  console.log(`KAPI-ET öz-sınav: ${vakalar.length - kirmizi}/${vakalar.length}${MUT ? ' · mutasyon ' + MUT : ''}`);
+  console.log(`KAPI-ET öz-sınav: ${vakalar.total - kirmizi}/${vakalar.total}${MUT ? ' · mutasyon ' + MUT : ''}`);
   process.exit(kirmizi ? 1 : 0);
 }
 
 if (process.argv.includes('--sinav')) sinav();
 else {
-  const s = kiyasla(depodan(path.join(__dirname, '..')));
+  const kok = path.join(__dirname, '..');
+  const s = kiyasla(depodan(kok));
+  const okuK = f => { try { return fs.readFileSync(path.join(kok, f), 'utf8'); } catch (e) { return ''; } };
+  const sv = surumKiyasla(okuK('elci.html'), { 'yonetim.html': okuK('yonetim.html'), 'ogrenci.html': okuK('ogrenci.html') });
+  s.bulgu.push(...sv.bulgu); s.kor.push(...sv.kor);
   for (const b of s.bulgu) console.log('FARK  ' + b);
   for (const k of s.kor) console.log('KÖR   ' + k);
   console.log(`KAPI-ET: ${s.bulgu.length} fark · ${s.kor.length} kör · kıyaslanan: sözleşme ↔ onay maili, panel, fiyat-motoru (6 paket indirim, 4 ders komisyonu, 3 kademe)`);

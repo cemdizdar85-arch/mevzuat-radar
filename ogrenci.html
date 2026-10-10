@@ -219,8 +219,8 @@
     <!-- 01.10 Cem: elçi hesabına "Elçi Panelim" düğmesi. Yalnız elci_panelim() dolu dönerse (hesap bağlama koduyla
          elçi kaydına bağlıysa) görünür; elçi olmayan hiç görmez. Panel: elci.html. -->
     <div id="ogElci" class="og-uyari og-gizli" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-      <span>Elçi hesabın: <b id="ogElciKod"></b> · kodun, satışların ve komisyonun panelinde.</span>
-      <a class="og-btn ana" href="elci.html">Elçi Panelim →</a>
+      <span id="ogElciYazi">Elçi hesabın: <b id="ogElciKod"></b> · kodun, satışların ve komisyonun panelinde.</span>
+      <a class="og-btn ana" href="elci.html" id="ogElciBtn">Elçi Panelim →</a>
     </div>
     <div id="ogKasaUyari" class="og-uyari og-gizli"></div>
     <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())
@@ -600,9 +600,17 @@
     /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
     /* 08.10: Google ile girdiyse ve e-postası bir elçi kaydında yazılıysa önce kendiliğinden bağlanır (elci_google_bagla;
        SQL yoksa ya da elçi değilse sessiz), sonra panel düğmesi bakılır */
+    var ELCI_SURUM='2026-10-13';   /* = elci.html KOSUL_SURUM; KAPI-ET (arac/elci-tutar-kapisi.js) ayrışırsa KIRMIZI */
     var elciBak=function(){ return sb.rpc('elci_panelim'); };
     sb.rpc('elci_google_bagla').then(elciBak, elciBak).then(function(r){
-      if(r && !r.error && r.data && r.data.kod){ $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli'); }
+      if(r && !r.error && r.data && r.data.kod){
+        $('ogElciKod').textContent=r.data.kod; $('ogElci').classList.remove('og-gizli');
+        /* 10.10 (Cem "elçiler siteye girdiklerinde sözleşmeyi onaylamalısın desin"): onaylanmamış ya da eski sürüm onaylı */
+        if(r.data.sozlesme_surum!==ELCI_SURUM || !r.data.sozlesme_onay){
+          $('ogElciYazi').innerHTML='<b>Elçi sözleşmen onayını bekliyor.</b> '+(r.data.sozlesme_surum?'Sözleşme güncellendi; ':'')+'okuyup onaylamadan elçi panelin açılmaz. Kodun ('+r.data.kod.replace(/[^A-Z0-9]/g,'')+') bu sırada çalışmaya devam eder.';
+          $('ogElciBtn').textContent='Sözleşmeyi oku ve onayla →';
+        }
+      }
     }, function(){});
     try{ simdiCiz(); }catch(e){}
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });

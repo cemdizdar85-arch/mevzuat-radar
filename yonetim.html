@@ -149,6 +149,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function tarih(t){ if(!t) return '—'; try{ return new Date(t).toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}); }catch(e){ return String(t).slice(0,10); } }
   function tl(n){ return Number(n||0).toLocaleString('tr-TR')+' TL'; }
+  var ELCI_SURUM = '2026-10-13';   /* = elci.html KOSUL_SURUM; KAPI-ET (arac/elci-tutar-kapisi.js) ayrışırsa KIRMIZI */
   /* 05.10 iyzico 5 TL kart denemesi (radar-app/edge/iyzico-odeme.ts ?islem=deneme; sunucu yöneticiyi ayrıca doğrular) */
   (function(){
     var k=new URLSearchParams(location.search).get('kart'), ks=$('kartSonuc');
@@ -283,8 +284,11 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       var ust = (x&&x.instagram?'<span class="not">IG: '+esc(x.instagram)+'</span><br>':'')
         + (x&&x.kayitli_eposta?'<span class="not">Kayıtlı: '+esc(x.kayitli_eposta)+'</span> ':'<span class="not">E-posta yok</span> ')
         + '<button class="btn" data-elciep="'+esc(td.dataset.kod)+'" data-ep="'+esc(x&&x.kayitli_eposta||'')+'">'+(x&&x.kayitli_eposta?'Düzelt':'E-posta yaz')+'</button><br>';
+      /* 10.10 (Cem "1 yap 2 yap"): onaylanan sürüm güncel mi + Madde 10 ücretsiz erişim bitişi (SQL 2026-10-10-elci-erisim-otomatik) */
+      var sz = !x||!x.sozlesme ? 'sözleşme onayı bekliyor' : x.sozlesme_surum===ELCI_SURUM ? 'sözleşme onaylı ('+esc(ELCI_SURUM)+')' : 'eski sürüm onaylı ('+esc(x.sozlesme_surum||'?')+'), yeni sürüm onayı bekliyor';
+      var er = x&&x.erisim_bitis ? (x.erisim_bitis>=bugun ? 'Erişim: '+esc(x.erisim_paket||'')+' · '+tarih(x.erisim_bitis)+'\'e kadar' : 'Erişim BİTTİ ('+tarih(x.erisim_bitis)+')') : 'Erişim YOK';
       td.innerHTML = ust + (x&&x.bagli
-        ? '✓ Hesap bağlı: '+esc(x.eposta||'—')+'<br><span class="not">'+(x.sozlesme?'sözleşme onaylı':'sözleşme onayı bekliyor')+'</span> <button class="btn" data-elcicoz="'+esc(td.dataset.kod)+'">Bağı çöz</button>'
+        ? '✓ Hesap bağlı: '+esc(x.eposta||'—')+'<br><span class="not">'+sz+'</span><br><span class="not">'+er+'</span> <button class="btn" data-elcicoz="'+esc(td.dataset.kod)+'">Bağı çöz</button>'
         : '<span class="not">Hesap bağlı değil'+(x&&x.kayitli_eposta?' · Google ile girince kendiliğinden bağlanır':'')+'</span> <button class="btn" data-elcibag="'+esc(td.dataset.kod)+'" data-ep="'+esc(x&&x.kayitli_eposta||'')+'">Hesaba bağla</button>');
     });
   }
