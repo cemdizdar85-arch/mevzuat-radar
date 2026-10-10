@@ -37,6 +37,7 @@ $ErrorActionPreference='Stop'
 $here=Split-Path -Parent $MyInvocation.MyCommand.Path
 $depoKok=Split-Path -Parent $here
 . (Join-Path $here 'olcum-kapilari.ps1')
+. (Join-Path $depoKok 'motor\model-kod.ps1')   # 10.10: ambara giden soru verisinde "model": "claude-…" -> nötr kod (yeni yazıcı ModelKod'u unutursa ağ)
 $ok=Test-OlcumKapilari -Sessiz
 if((Dizi $ok).Count){ foreach($h in (Dizi $ok)){ Write-Host "  - $h" -ForegroundColor Red }; throw 'olcum kapilari dustu' }
 
@@ -97,7 +98,7 @@ if($Yukle){
   $g=Dizi $gonder
   Write-Host ("GONDERILECEK: {0:N0} parti" -f $g.Count) -ForegroundColor Green
   if(-not $Yaz){ Write-Host "`nKURU KOSU - ambara yazilmadi. Yazmak icin: -Yaz" -ForegroundColor Yellow; return }
-  $n=0; $hata=0
+  $n=0; $hata=0; $mzAlan=0; $mzParti=0
   foreach($x in $g){
     $icerik=$null
     # ⚠ Kosan tur ayni dosyayi yaziyor olabilir - okuma YARISI. 3 kez dene.
@@ -105,6 +106,8 @@ if($Yukle){
     if(-not $icerik){ Write-Host ("  ! okunamadi: {0}" -f $x.etiket) -ForegroundColor Yellow; $hata++; continue }
     # Bozuk JSON gonderilmez
     try{ [void]($icerik|ConvertFrom-Json) }catch{ Write-Host ("  ! bozuk JSON, ATLANDI: {0}" -f $x.etiket) -ForegroundColor Red; $hata++; continue }
+    # 10.10 (CLAUDE.md "veriye model adı girmez"): yalnız "model":"claude-…" değeri çevrilir, başka bayt değişmez; '__' sistem kaydı çevrilmez.
+    if(-not (ModelIziSistemPartisi $x.etiket)){ $mn=ModelIziNotrMetin $icerik; if($mn.sayi -gt 0){ $icerik=$mn.metin; $mzAlan+=$mn.sayi; $mzParti++ } }
     # 13.09 OLCULDU: ambardaki 975 partinin 15'i yanlis etiketliydi (smmm-* 6 + kgk-* 9 -> sinav=SGS), cunku -Yukle HER partiye
     # -Sinav'i (varsayilan SGS) basiyordu. Etiket oneki sinavi kesin soyluyorsa o kazanir; digerleri (sgs-, pilot6-, devir-, spl-) eskisi gibi.
     $sinavBu = if("$($x.etiket)" -match '^smmm-'){ 'SMMM' } elseif("$($x.etiket)" -match '^kgk-'){ 'KGK' } else { $Sinav }
@@ -118,6 +121,7 @@ if($Yukle){
     }catch{ Write-Host ("  ! yazilamadi {0}: {1}" -f $x.etiket,$_.Exception.Message) -ForegroundColor Red; $hata++ }
   }
   Write-Host ("`nYUKLENDI: {0:N0} parti · hata {1}" -f $n,$hata) -ForegroundColor Green
+  Write-Host ("MODEL-IZI: {0:N0} alan nötr koda çevrildi ({1:N0} parti) — 0 değilse bir yazıcı ModelKod kullanmıyor ya da eski veri" -f $mzAlan,$mzParti) -ForegroundColor $(if($mzAlan){'Yellow'}else{'DarkGray'})
   return
 }
 

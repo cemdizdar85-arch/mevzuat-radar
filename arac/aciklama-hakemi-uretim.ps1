@@ -25,6 +25,7 @@ function AciklamaHakemUretim([string]$Kok, $satirlar, [double]$planHarcanan = 0,
   $rapor = [ordered]@{ aday = 0; gonderilen = 0; temiz = 0; kusurlu = 0; olculemedi = 0; butce_yok = 0; usd = 0 }
   . (Join-Path $Kok 'motor\api-hedef.ps1')
   . (Join-Path $Kok 'arac\aciklama-hakemi-cekirdek.ps1')
+  . (Join-Path $Kok 'motor\model-kod.ps1')   # 10.10: karara model adı değil nötr kod yazılır
   # 01.10 ÖLÇÜLDÜ (B dalgası, 250 yayındaki soru): maxTok 1.600'de 16 cevap kesildi ve 3.200 ile yeniden koşulunca 15'i KUSURLU çıktı
   #   (hakem kusurlu soruda uzun düşünüyor) → 3.200. Kesilen cevap = karar yok = soru seçilmez ama bedel ödenmiş olur.
   $model = 'claude-opus-5-5'; $maxTok = 3200
@@ -52,7 +53,7 @@ function AciklamaHakemUretim([string]$Kok, $satirlar, [double]$planHarcanan = 0,
     if ($kr.karar -eq 'OLCULEMEDI') { $rapor.olculemedi++; continue }
     if ($kr.karar -eq 'TEMIZ') { $rapor.temiz++ } else { $rapor.kusurlu++ }
     $et = $harita[$id][0]; $kp = $harita[$id][1]; if (-not $kararlar.ContainsKey($et)) { $kararlar[$et] = @{} }
-    $kararlar[$et][$kp] = [ordered]@{ karar = $kr.karar; kusurlar = @($kr.kusurlar); model = $model; tarih = (Get-Date -Format 'yyyy-MM-dd') }
+    $kararlar[$et][$kp] = [ordered]@{ karar = $kr.karar; kusurlar = @($kr.kusurlar); model = (ModelKod $model); tarih = (Get-Date -Format 'yyyy-MM-dd') }
   }
   if ($kararlar.Count) {
     $tmp = [IO.Path]::GetTempFileName()
