@@ -623,6 +623,13 @@
       if(!r || r.error) return;
       var a=document.createElement('a'); a.href='yonetim.html'; a.className='og-btn og-kucuk'; a.textContent='Yönetim';
       a.style.marginRight='6px'; $('ogCikisUst').parentNode.insertBefore(a, $('ogCikisUst'));
+      /* 10.10 Cem ("yanlış sorular siteye gelsin"): ekibe gelen bekleyen soru sayısı düğmede; 24 saati geçen varsa kırmızı. Mail beklemeden görülür. */
+      sb.rpc('yonetim_nobetci_ozet').then(function(o){
+        var d=o&&!o.error&&o.data; if(!d||!d.ekip_bekleyen) return;
+        a.href='yonetim.html#ekipListe'; a.textContent='Yönetim · '+d.ekip_bekleyen+' soru bekliyor';
+        if(d.ekip_gec){ a.style.borderColor='var(--red)'; a.style.color='var(--red)'; a.title=d.ekip_gec+' soru 24 saati geçti'; }
+        else { a.classList.add('ana'); }
+      }, function(){});
     }, function(){});
     /* 01.10 elçi düğmesi: SQL yoksa ya da elçi değilse sessizce gizli kalır (supabase-js tembel: .then şart) */
     /* 08.10: Google ile girdiyse ve e-postası bir elçi kaydında yazılıysa önce kendiliğinden bağlanır (elci_google_bagla;
