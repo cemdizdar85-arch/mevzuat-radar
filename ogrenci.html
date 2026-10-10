@@ -223,6 +223,12 @@
       <a class="og-btn ana" href="elci.html" id="ogElciBtn">Elçi Panelim →</a>
     </div>
     <div id="ogKasaUyari" class="og-uyari og-gizli"></div>
+    <!-- 10.10 Cem ("sitede cevabımızı görsün"): "Ekibe sor" ile sorduğu sorular ve ekibin cevabı. Hiç sorusu yoksa gizli.
+         Yeni cevap (cevap_goruldu boş) "Yeni" etiketiyle görünür; sayfa açılınca görüldü damgası vurulur (menu.js bildirimi kapanır). -->
+    <div class="og-bolum og-gizli" id="ekipCevaplar" style="margin-top:8px">
+      <h2>Ekibe sorduğun sorular</h2>
+      <div id="ekipListe"></div>
+    </div>
     <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())
          + son durum sayıları + Yanlışlarım bağlantısı. Kaynak bu tarayıcıdaki son 500 cevap ve yanlış kutusu. -->
     <div class="og-bolum og-gizli" id="ogSimdi" style="margin-top:8px">
@@ -581,6 +587,27 @@
       };
     });
   }
+  /* 10.10 "Ekibe sor" cevapları (radar-app/sql/2026-10-10-ekibe-soru-goruldu.sql). Üye yalnız kendi satırlarını okur (RLS). */
+  async function ekipCiz(){
+    var r=await sb.from('ekibe_soru').select('id,tarih,soru_kisa,mesaj,durum,cevap,cevap_tarih,cevap_goruldu').order('tarih',{ascending:false}).limit(20);
+    if(!r || r.error || !r.data || !r.data.length) return;
+    var es=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+    var gun=function(t){ try{ return new Date(t).toLocaleDateString('tr-TR',{day:'numeric',month:'long'}); }catch(e){ return ''; } };
+    var yeni=0;
+    $('ekipListe').innerHTML=r.data.map(function(x){
+      var y=x.durum==='cevaplandi' && !x.cevap_goruldu; if(y) yeni++;
+      return '<div class="og-kutu" style="margin:0 0 10px'+(y?';border-color:var(--amber-dolgu)':'')+'">'
+        +'<p class="og-alt" style="margin:0 0 6px;font-size:13px">'+gun(x.tarih)+(y?' · <span class="og-paket-et">Yeni cevap</span>':'')+'</p>'
+        +(x.soru_kisa?'<p class="og-alt" style="margin:0 0 6px;font-size:13.5px"><b>Soru:</b> '+es(x.soru_kisa.length>220?x.soru_kisa.slice(0,220)+'…':x.soru_kisa)+'</p>':'')
+        +'<p style="margin:0 0 8px;font-size:14px"><b>Senin sorun:</b> '+es(x.mesaj)+'</p>'
+        +(x.durum==='cevaplandi'
+          ? '<div style="border-left:3px solid var(--amber-dolgu);padding:6px 12px;white-space:pre-wrap;font-size:14.5px"><b>Tetikte ekibinin cevabı'+(x.cevap_tarih?' ('+gun(x.cevap_tarih)+')':'')+':</b>\n'+es(x.cevap)+'</div>'
+          : '<p class="og-alt" style="margin:0;font-size:13.5px">Ekibimiz inceliyor; cevap 24 saat içinde burada ve e-postanda olacak.</p>')
+        +'</div>';
+    }).join('');
+    $('ekipCevaplar').classList.remove('og-gizli');
+    if(yeni){ sb.rpc('ekibe_cevap_goruldu').then(function(){ try{ sessionStorage.removeItem('tt_ekip_bildirim'); }catch(e){} }, function(){}); }
+  }
   async function panel(user){
     if(sonraGit()) return;
     window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} }; window.ttSay('hesap/panel','Hesabım açıldı');
@@ -613,6 +640,7 @@
       }
     }, function(){});
     try{ simdiCiz(); }catch(e){}
+    ekipCiz().catch(function(){});
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     cihazlarimCiz().catch(function(){ $('ogCihazlar').innerHTML='<p class="og-alt" style="margin:0">Cihaz bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     var cihaz=cihazSonuclari(), kasa=[], kasaVar=true;

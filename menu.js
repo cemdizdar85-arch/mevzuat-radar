@@ -1,4 +1,4 @@
-/* Tetikte — ortak araç menüsü.
+﻿/* Tetikte — ortak araç menüsü.
    Her sayfaya <script src="menu.js" defer></script> ile eklenir:
    sağ altta "☰ Araçlar" düğmesi + tam ekran aranabilir katalog paneli. */
 (function(){
@@ -783,3 +783,55 @@ function ttSorguHakki(anahtar){
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', suz); else suz();
 })();
+
+/* ==== EKIBE-SOR-BILDIRIM (10.10.2026, Cem "sitede cevabımızı görsün, bildirim gitsin") ====
+   Giriş yapmış üyenin "Ekibe sor" sorusu cevaplandıysa ve cevabı henüz Hesabım'da görmediyse (cevap_goruldu boş) her sayfada
+   küçük bildirim + Hesabım bağlantılarında nokta. Kütüphane yüklenmez: cihazdaki oturum jetonuyla tek REST isteği (RLS: yalnız
+   kendi satırları). Egress için sonuç oturum içinde 10 dk saklanır; ✕ ile bu oturumda kapanır. Hesabım sayfası damgayı vurur.
+   GÖRMEZ: süresi dolmuş jetonla istek atılmaz (sonraki sayfada supabase-js tazeler) · uygulama (mobil) bu dosyayı yüklemez. */
+(function () {
+  try {
+    var yol = (location.pathname.split('/').pop() || '').toLowerCase();
+    if (yol === 'ogrenci.html' || yol === 'yonetim.html') return;
+    var a = Object.keys(localStorage).filter(function (x) { return /^sb-.+-auth-token$/.test(x); })[0]; if (!a) return;
+    var o = JSON.parse(localStorage.getItem(a) || 'null');
+    if (!o || !o.access_token || (o.expires_at && o.expires_at * 1000 < Date.now())) return;
+    var AD = 'tt_ekip_bildirim', bel = null;
+    try { bel = JSON.parse(sessionStorage.getItem(AD) || 'null'); } catch (e) {}
+    if (bel && bel.kapali) return;
+    var goster = function (n) {
+      if (!n) return;
+      var ciz = function () {
+        [].forEach.call(document.querySelectorAll('a[href$="ogrenci.html"]'), function (l) {
+          if (l.querySelector('.ttEkipNokta')) return;
+          var s = document.createElement('span'); s.className = 'ttEkipNokta'; s.setAttribute('aria-label', 'yeni cevap');
+          s.style.cssText = 'display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--amber-dolgu);margin-left:5px;vertical-align:middle';
+          l.appendChild(s);
+        });
+        if (document.getElementById('ttEkipBildirim')) return;
+        var d = document.createElement('div'); d.id = 'ttEkipBildirim'; d.setAttribute('role', 'status');
+        d.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:calc(78px + env(safe-area-inset-bottom));z-index:70;'
+          + 'max-width:min(460px,calc(100vw - 32px));box-sizing:border-box;display:flex;gap:10px;align-items:center;padding:10px 12px 10px 14px;'
+          + 'background:var(--kagit,var(--panel));color:var(--ink);border:1px solid var(--amber-dolgu);border-radius:12px;'
+          + 'box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 18%,transparent);font-size:14px;line-height:1.4';
+        d.innerHTML = '<span style="flex:1"><b>Ekibe sorduğun sorunun cevabı geldi.</b></span>'
+          + '<a href="/ogrenci.html#ekipCevaplar" style="font-weight:700;white-space:nowrap;color:var(--ink)">Cevabı gör →</a>'
+          + '<button type="button" aria-label="Kapat" style="border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0 2px">✕</button>';
+        d.querySelector('button').addEventListener('click', function () {
+          d.remove(); try { sessionStorage.setItem(AD, JSON.stringify({ kapali: true })); } catch (e) {}
+        });
+        document.body.appendChild(d);
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ciz); else ciz();
+    };
+    if (bel && typeof bel.n === 'number' && Date.now() - bel.t < 600000) { goster(bel.n); return; }
+    fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/ekibe_soru?select=id&durum=eq.cevaplandi&cevap_goruldu=is.null&limit=5', {
+      headers: { apikey: 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization: 'Bearer ' + o.access_token }
+    }).then(function (r) { return r.ok ? r.json() : null; }).then(function (l) {
+      if (!Array.isArray(l)) return;
+      try { sessionStorage.setItem(AD, JSON.stringify({ n: l.length, t: Date.now() })); } catch (e) {}
+      goster(l.length);
+    }, function () {});
+  } catch (e) {}
+})();
+/* ==== EKIBE-SOR-BILDIRIM-SONU ==== */
