@@ -133,11 +133,112 @@
     u.textContent = metin; document.body.appendChild(u); setTimeout(function () { u.remove(); }, 9000);
   }
 
+  /* 11.10 SET + ARKA PLAN CEVAP KAYDI (Cem "askıya almadan önce doğru ölçüyor muyuz emin olmamız lazım" → "set + arka plan
+     kaydı bunu yapalım"; SQL radar-app/sql/2026-10-11-kasa-set-cevap.sql). 10.10 ölçümü: bir hesap 3.567 farklı soru "çekti",
+     o gün 7 çözdü — sayfa dersin TAMAMINI indiriyordu, sayaç inen soruyu sayıyordu.
+     Şablon destekliyorsa (__KASA_FIHRIST, motor/kaydir-coz.ps1 11.10+): önce dersin İÇERİKSİZ fihristi (kimlik, sıra, zorluk,
+     konu, dönem; sayılmaz) → seviye sırası burada kurulur → ilk 40 soru → öğrenci son 10 karta yaklaşınca sıradaki 20
+     (__kasaSonraki). Her cevap ARKA PLANDA kasa_cevap_yaz'a gider (öğrenci beklemez; doğru/yanlış sunucuda hesaplanır).
+     Derin bağlantı (#s=N) ve tek kart (?tek=1) eski yoldan (hepsi). */
+  var setli = ana.textContent.indexOf('__KASA_FIHRIST') > -1 && !/#s=\d+/.test(location.hash) && !/[?&]tek=1/.test(location.search);
+  var SET_ILK = 40, SET_ADET = 20;
+  function fihristCek(sb) {
+    return sb.rpc('kasa_ders_fihrist', { p_sayfa: sayfa })
+      .then(function (r) { if (r.error) throw r.error; return r.data || []; });
+  }
+  function parcaCek(sb, ids) {
+    return sb.rpc('kasa_soru_parca', { p_sayfa: sayfa, p_ids: ids })
+      .then(function (r) {
+        if (r.error) throw r.error;
+        var m = {}; (r.data || []).forEach(function (x) { m[x.id] = x.veri; });
+        return ids.map(function (id) { return m[id]; }).filter(Boolean);   /* fihrist sırası korunur */
+      });
+  }
+  /* SEVİYE SIRASI — şablondaki SIRA_NOTU (motor/kaydir-coz.ps1, "05.10 SEVİYEYE GÖRE SIRA") ile AYNI kural; biri değişirse
+     öteki de değişir. Şablon __KASA_SIRALI görünce kendi sıralamasını yapmaz (çifte sıralama yok). */
+  function seviyeSirala(fih) {
+    try {
+      if (/[?&]vitrin=1/.test(location.search) || !fih.length) return fih;
+      var yet = /\/smmm\//.test(location.pathname), ders = String(fih[0].ders || '');
+      var g = []; try { g = JSON.parse(localStorage.getItem(yet ? 'sv_sonuclar_yet' : 'sv_sonuclar') || '[]'); } catch (e) {}
+      var son = Array.isArray(g) && g.length ? g[g.length - 1] : null;
+      if (!son) return fih;
+      var d = (son.dersler && son.dersler[ders]) || null, x;
+      if (!d) { x = (son.gruplar || []).find(function (y) { return y.ad === ders; }); if (x) d = { dogru: x.dogru, soru: x.soru }; }
+      if (d && d.soru < 3 && d.grup) { x = (son.gruplar || []).find(function (y) { return y.ad === d.grup; }); if (x && x.soru >= 3) d = { dogru: x.dogru, soru: x.soru }; }
+      if (!d || !d.soru) return fih;
+      var oran = d.dogru / d.soru;
+      var SIRA = oran < 0.5 ? { kolay: 0, orta: 1, zor: 2, cokzor: 3 } : (oran >= 0.75 ? { cokzor: 0, zor: 1, orta: 2, kolay: 3 } : null);
+      if (!SIRA) return fih;
+      var zr = function (f) { var m = String(f.id || '').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/); return f.zorluk || (m && m[1]) || 'orta'; };
+      return fih.map(function (f, i) { return { f: f, i: i }; })
+        .sort(function (a, b) { return (SIRA[zr(a.f)] - SIRA[zr(b.f)]) || (a.i - b.i); })
+        .map(function (o) { return o.f; });
+    } catch (e) { return fih; }
+  }
+  async function setliAc(k) {
+    var fih = await fihristCek(k.sb);
+    if (!fih.length) {
+      return mesaj('Bu ders paketinde yok',
+        'Hesabındaki paket bu dersi kapsamıyor. Ders eklemek için paketini güncelleyebilirsin.',
+        dugme('../../satin-al.html', 'Paketi güncelle'));
+    }
+    var sira = seviyeSirala(fih), yuklu = {}, imlec = 0, bekliyor = null, durdu = false;
+    function siradakiIdler(adet) {
+      var ids = [];
+      while (imlec < sira.length && ids.length < adet) { var id = sira[imlec++].id; if (!yuklu[id]) ids.push(id); }
+      return ids;
+    }
+    function isle(sorular) { sorular.forEach(function (s) { yuklu[s.id] = 1; }); return sorular; }
+    function hata(e) {
+      if (tavanMi(e)) { tavanBildir(k.sb, e); durdu = true; uyar('Soru sınırına ulaştın: kalan sorular şimdilik getirilmedi.'); }
+      else uyar('Sorular getirilemedi. Bağlantını kontrol edip sayfayı yenile.');
+    }
+    var ilk = isle(await parcaCek(k.sb, siradakiIdler(SET_ILK)));
+    window.__KASA_FIHRIST = fih;
+    window.__KASA_TOPLAM = fih.length;
+    window.__KASA_SIRALI = true;
+    window.__KASA_DEVAM = imlec < sira.length;
+    window.__kasaSonraki = function () {
+      if (bekliyor || durdu || imlec >= sira.length) return bekliyor || Promise.resolve();
+      var ids = siradakiIdler(SET_ADET);
+      bekliyor = parcaCek(k.sb, ids).then(function (gelen) {
+        bekliyor = null;
+        if (typeof window.__kasaEkle === 'function') window.__kasaEkle(isle(gelen), imlec < sira.length);
+      }, function (e) { bekliyor = null; imlec -= ids.length; hata(e); });
+      return bekliyor;
+    };
+    /* yanlış kutusundan "Şimdi çöz": henüz inmemiş soruyu tek başına getirir, akışın sonuna ekler; dönüş: kart sırası (-1 = yok) */
+    window.__kasaIdGetir = function (id) {
+      if (yuklu[id]) return Promise.resolve(-1);
+      return parcaCek(k.sb, [id]).then(function (g) {
+        if (!g.length || typeof window.__kasaEkle !== 'function') return -1;
+        window.__kasaEkle(isle(g), imlec < sira.length);
+        return (window.__KASA_SORULAR || []).length - 1;
+      }, function (e) { hata(e); return -1; });
+    };
+    /* arka plan cevap kaydı: beklenmez, hata sessiz (ölçüm eksik sayar, fazla saymaz) */
+    window.__kasaCevap = function (id, secim) {
+      try { k.sb.rpc('kasa_cevap_yaz', { p_sayfa: sayfa, p_id: id, p_secim: secim || '?' }).then(function () {}, function () {}); } catch (e) {}
+    };
+    document.getElementById('akis').innerHTML = '';
+    calistir(ilk);
+  }
+
   var bekle = window.__pkKapi || Promise.resolve({ acik: false, tur: 'hata' });
   bekle.then(async function (k) {
     if (!k || !k.acik) return;             /* perde zaten çizildi */
     koruma();
     mesaj('Sorular yükleniyor…', 'Soru bankası güvenli kasadan getiriliyor.');
+    if (setli) {
+      try { await setliAc(k); }
+      catch (e) {
+        if (tavanMi(e)) { tavanBildir(k.sb, e); return tavanMesaji(e); }
+        mesaj('Sorular getirilemedi', 'Bağlantını kontrol edip sayfayı yenile. Sorun sürerse bize yaz.',
+          dugme(location.href, 'Yeniden dene'));
+      }
+      return;
+    }
     if (parcali) {
       try {
         var ilk = await parca(k.sb, 0, ILK);
