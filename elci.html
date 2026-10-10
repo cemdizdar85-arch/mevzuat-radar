@@ -200,11 +200,13 @@
       </table>
     </div>
 
-    <details class="ep-kutu">
-      <summary>Program koşulları (onayladığın sürüm: <span id="epOnaySurum">—</span>)</summary>
-      <div class="ep-sz" id="epKosulListe2" style="margin-top:12px"></div>
+    <!-- 10.10 (Cem "sözleşme basınca sözleşme görünmüyor ... panelde açık dursun"): katlanır kutu yerine hep açık bölüm;
+         Hesabım'daki "Sözleşmem" bağlantısı buraya (#sozlesme) iner. Metin yalnız bağlı elçiye çizilir (panelCiz). -->
+    <div class="ep-kutu" id="sozlesme">
+      <h2>Elçi sözleşmen <span class="ep-kucuk" style="font-weight:400">(onayladığın sürüm: <span id="epOnaySurum">—</span>)</span></h2>
+      <div class="ep-sz" id="epKosulListe2"></div>
       <p class="ep-kucuk"><a class="ep-a" href="elci-sozlesmesi.pdf" target="_blank" rel="noopener">Sözleşmeyi PDF olarak indir</a></p>
-    </details>
+    </div>
 
     <p class="ep-kucuk">Alıcıların adı, e-postası ve telefonu bu panelde gösterilmez; yalnız adet ve tutar görünür (KVKK).</p>
     <div style="margin-top:18px"><button class="ep-btn" id="epCikis" type="button">Çıkış yap</button></div>
@@ -412,6 +414,7 @@
     $('epOnaySurum').textContent = d.sozlesme_surum || '—';
     kosulCiz('epKosulListe2', ind);
     goster('epPanel');
+    if (location.hash === '#sozlesme') { try { $('sozlesme').scrollIntoView(); } catch (e) {} }
   }
 
   $('epKopyala').addEventListener('click', function(){
