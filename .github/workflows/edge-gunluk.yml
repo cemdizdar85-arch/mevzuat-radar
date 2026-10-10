@@ -40,7 +40,7 @@ jobs:
           cevap=$(curl -sS -m 60 -G "https://api.supabase.com/v1/projects/bjrleanjpyujtajmazxn/analytics/endpoints/logs.all" \
             -H "Authorization: Bearer $TOKEN" --data-urlencode "sql=$sql" \
             --data-urlencode "iso_timestamp_start=$bas" --data-urlencode "iso_timestamp_end=$son")
-          echo "$cevap" | jq -e '.result' >/dev/null || { echo "::error::API cevabı okunamadı"; echo "$cevap" | jq -r '.error // .message // "?"' | head -c 400; exit 1; }
+          echo "$cevap" | jq -e '.result' >/dev/null || { echo "::error::API cevabı okunamadı"; echo "$cevap" | jq -c '.error // .message // .' 2>/dev/null | head -c 600 || echo "$cevap" | head -c 600; exit 1; }
           echo "aralık: $bas → $son · fonksiyon: $FN"
           echo "toplam çağrı: $(echo "$cevap" | jq '.result | length')"
           echo "--- durum kodu dağılımı"
