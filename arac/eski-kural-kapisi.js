@@ -125,6 +125,13 @@ function sinav() {
     ['EK20 meşru: bankalar yatırım kuruluşu olarak sayılır', T({ aciklama: { A: 'Bankalar yatırım kuruluşu olarak sermaye piyasası kurumudur (m.3/1-v, m.35/1-a).' } }), 0],
     ['EK22 "m.35 listesinde kitle fonlama platformları" → alarm (07.10, 14 soru)', T({ aciklama: { A: 'Kanunun 35. maddesinde sayılan kurumlar arasında kitle fonlama platformları da vardır.' } }), 1],
     ['EK22 meşru: m.35/A başlığı', T({ aciklama: { A: 'Kitle fonlama platformları m.35/A başlığı altında ayrıca düzenlenir.' } }), 0],
+    // 10.10 EK23 (GVK m.22/4, 7491 s.K.): yurt dışı A.Ş./Ltd. kâr payında yarı istisna %50 sermaye + transfer şartıyla VAR
+    ['EK23 "yalnız tam mükellef kurumdan … yabancı tam tutarıyla" → alarm (4k-a-yvergi-zor-r8/kp-01 hap 10.10)', T({ hap: 'GVK m.22\'deki kâr payı istisnası yalnız tam mükellef kurumdan gelen kâr payının yarısına uygulanır; yabancı kurumdan gelen kâr payı tam tutarıyla matraha girer.' }), 1],
+    ['EK23 "yabancı kurum kâr payına istisna uygulanmaz" → alarm', T({ aciklama: { A: 'Yabancı şirketten elde edilen kâr payına istisna uygulanmaz, tamamı beyan edilir.' } }), 1],
+    ['EK23 "istisna … yalnız tam mükellef kurumlara" → alarm', T({ sade: { dogru: 'Kâr payı istisnası yalnız tam mükellef kurumlardan alınanlar için geçerlidir.' } }), 1],
+    ['EK23 meşru: m.22/4 şartı anılıyor (%50 sermaye)', T({ aciklama: { A: 'Yurt dışı A.Ş.\'deki payı %5 olduğundan GVK m.22/4\'ün %50 sermaye şartı sağlanmaz; yabancı kurum kâr payı tam tutarıyla matraha girer.' } }), 0],
+    ['EK23 meşru: m.22/3 tek başına ("yalnız" yok)', T({ aciklama: { A: 'GVK m.22/3\'e göre tam mükellef kurumdan elde edilen kâr payının yarısı istisnadır.' } }), 0],
+    ['EK23 meşru: YANLIŞ şıkkın kendi metni (sikHaric)', T({ siklar: { A: '20.000', B: 'Yabancı kurumdan alınan kâr payına istisna uygulanmaz' } }), 0],
     ['EK14 meşru: "düzeltme yapılmaz"', T({ aciklama: { A: 'Faydalı ömrünü tamamlayıp zayi olan ATİK\'in alımda indirilen KDV\'si için düzeltme yapılmaz.' } }), 0],
     ['EK14 meşru: yanlış şıkta "Mükerrer İndirim Tuzağı"', T({ aciklama: { B: 'Mükerrer İndirim Tuzağı: faydalı ömrünü tamamlayıp zayi olan forkliftin KDV\'sini bu dönem yeniden indirdin.' } }), 0],
     ['atif_genisletme iz kaydı taranmaz (öğrenci görmez)', T({ atif_genisletme: ['TMS 1 p.82 - Kâr veya zarar'] }), 0],
