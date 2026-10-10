@@ -1,11 +1,11 @@
 {
-  "tarih": "10.10.2026 10:06",
+  "tarih": "10.10.2026 10:15",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
   "sayfa": 76,
   "atifli_iddia": 298,
-  "dayanaksiz_iddia": 370,
+  "dayanaksiz_iddia": 371,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -57,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "299",
+      "kanun": "302",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -1857,43 +1857,49 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 311,
+      "satir": 317,
       "iddia": "En az 8",
       "metin": "En az 8 karakter."
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 336,
+      "satir": 342,
       "iddia": "%20",
       "metin": "window.__ttKurtarmaHata = /(?:^#|&)error_code=otp_expired/.test(h) || (/(?:^#|&)error=/.test(h) && /email\\+?link|email%20link/i.test(h));"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 431,
+      "satir": 437,
       "iddia": "10 GÜN",
       "metin": "/* 04.10 GÜNLÜK GÖREV (Cem \"beş maddeyi yapalım\", rakip BPP): yeni bir sistem değil, bu kartın içinde. Hedef = günün ilk"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 433,
+      "satir": 439,
       "iddia": "15 gün",
       "metin": "07.10 Nöbetçi planı: tavan ve yeni soru evreye göre (yay 20+10 · pekiştir 30+20 · son 15 gün 40+30 · son 3 gün tüm tekrar +"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 496,
+      "satir": 502,
       "iddia": "en az 8",
       "metin": "if(/weak_password/i.test(k)||/at least \\d/i.test(m)) return 'Şifre çok kısa ya da zayıf: en az 8 karakter, tahmin edilmesi zor bir şifre seç.';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 571,
+      "satir": 577,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 670,
+      "satir": 605,
+      "iddia": "24 saat",
+      "metin": ": ' Ekibimiz inceliyor; cevap 24 saat içinde burada ve e-postanda olacak. ')"
+    },
+    {
+      "sayfa": "ogrenci.html",
+      "satir": 698,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
