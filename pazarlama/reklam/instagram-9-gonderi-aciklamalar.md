@@ -142,7 +142,7 @@ Staja Giriş sınavı · Ücretsiz Sınav Provası
 
 Biter bitmez puanını ve yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel. Prova kapanınca yüzdelik sıralaman açıklanır.
 
-Katılım ücretsiz. Yerini ayırmak için 16 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
+Katılım ücretsiz. Yerini ayırmak için 16 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol; Google hesabınla saniyeler içinde olur. Son günü bekleme. Bağlantı profilde.
 
 Provayı beklemeden bugün başla: 30 soruda sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
@@ -160,7 +160,7 @@ SMMM Yeterlilik sınavı · Ücretsiz Sınav Provası
 
 Biter bitmez puanını ve yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel. Prova kapanınca yüzdelik sıralaman açıklanır.
 
-Katılım ücretsiz. Yerini ayırmak için 23 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
+Katılım ücretsiz. Yerini ayırmak için 23 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol; Google hesabınla saniyeler içinde olur. Son günü bekleme. Bağlantı profilde.
 
 Provayı beklemeden bugün başla: Yeterlilik seviye testinde sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
