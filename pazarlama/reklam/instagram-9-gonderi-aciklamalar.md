@@ -134,39 +134,39 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #smmm #smmmyeterlilik #bitirmesinavi #finansalmuhasebe #amortisman #muhasebe
 
-## 11 · Canlı deneme: Staja Giriş · 17 Ekim (10.10'dan itibaren; PROFİLDE SABİTLE)
+## 11 · Sınav Provası: Staja Giriş · 17 Ekim (11.10'dan itibaren; PROFİLDE SABİTLE; 11.10 Cem: "canlı deneme değil prova")
 
-Staja Giriş sınavı · Ücretsiz canlı deneme
+Staja Giriş sınavı · Ücretsiz Sınav Provası
 
-17 Ekim Cumartesi, saat 10:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 130 soru, 165 dakika.
+17 Ekim Cumartesi, saat 10:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 130 soru, 165 dakika. Sitede çözülür, telefondan da.
 
-Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arasında) ve her yanlışının nedenini, dayanağıyla görürsün.
+Biter bitmez puanını ve yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel. Prova kapanınca yüzdelik sıralaman açıklanır.
 
 Katılım ücretsiz. Yerini ayırmak için 16 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
 
-Denemeyi beklemeden bugün başla: 30 soruda sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
+Provayı beklemeden bugün başla: 30 soruda sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
-Arkadaşını etiketle, aynı denemede yarışın.
+Arkadaşını etiketle, aynı provada yarışın.
 
-Karakter yapay zekâ ile üretilmiştir. Canlı deneme Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur. Yüzdelik sıralama, katılan Tetikte üyeleri arasında hesaplanır.
 
 #stajagiris #sgs #smmmstaj #denemesinavi #muhasebe #smmm
 
-## 12 · Canlı deneme: SMMM Yeterlilik · 24 Ekim (17 Ekim denemesinden sonra)
+## 12 · Sınav Provası: SMMM Yeterlilik · 24 Ekim (17 Ekim provasından sonra)
 
-SMMM Yeterlilik sınavı · Ücretsiz canlı deneme
+SMMM Yeterlilik sınavı · Ücretsiz Sınav Provası
 
-24 Ekim Cumartesi, saat 09:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 80 soru, 180 dakika. Finansal Muhasebe, Maliyet Muhasebesi, Hukuk ve Sermaye Piyasası Mevzuatı.
+24 Ekim Cumartesi, saat 09:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 80 soru, 180 dakika. Finansal Muhasebe, Maliyet Muhasebesi, Hukuk ve Sermaye Piyasası Mevzuatı. Sitede çözülür, telefondan da.
 
-Sınav bitince yüzdelik sıralamanı (denemeye katılan Tetikte üyeleri arasında) ve her yanlışının nedenini, dayanağıyla görürsün.
+Biter bitmez puanını ve yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel. Prova kapanınca yüzdelik sıralaman açıklanır.
 
 Katılım ücretsiz. Yerini ayırmak için 23 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol. Bağlantı profilde.
 
-Denemeyi beklemeden bugün başla: Yeterlilik seviye testinde sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
+Provayı beklemeden bugün başla: Yeterlilik seviye testinde sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
-Arkadaşını etiketle, aynı denemede yarışın.
+Arkadaşını etiketle, aynı provada yarışın.
 
-Karakter yapay zekâ ile üretilmiştir. Canlı deneme Tetikte'nin kendi denemesidir; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur. Yüzdelik sıralama, katılan Tetikte üyeleri arasında hesaplanır.
 
 #smmmyeterlilik #bitirmesinavi #smmm #denemesinavi #muhasebe
 
