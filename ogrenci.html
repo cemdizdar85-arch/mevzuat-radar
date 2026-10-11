@@ -509,6 +509,9 @@
     if(/email_not_confirmed/i.test(k)) return 'E-postanı doğrulaman gerekiyor: gelen kutunu kontrol et.';
     /* 23.09: proje geneli e-posta tavanı (Auth → Rate Limits, 23.09'da saatte 30
        ölçüldü) aşılınca "bir dakika bekle" demek yanlıştı — tavan SAATLİK. */
+    /* 11.10 (ölçüldü: son 2 saatte 4 onay maili, tavan 200/sa): aynı adrese kısa aralıkla ikinci istek de
+       over_email_send_rate_limit döner ("only request this after N seconds") — mail ilk tıklamada gitmiştir. */
+    if(/after \d+ second/i.test(m)) return 'Doğrulama bağlantısını bu adrese az önce gönderdik. Gelen kutunu ve Spam/Gereksiz klasörünü kontrol et; bağlantıya tıklayınca hesabın açılır.';
     if(/over_email_send_rate_limit/i.test(k)||/email rate limit/i.test(m)) return 'Şu an kayıt yoğunluğu var, doğrulama e-postası gönderilemedi. Birkaç dakika sonra tekrar dene.';
     if(/rate limit/i.test(k+m)) return 'Çok sık denendi. Bir dakika bekleyip tekrar dene.';
     /* 03.10 V2 madde 52: tanınmayan hatada Supabase'in ham İngilizce mesajı basılıyordu; ayrıntı yalnız konsola */
@@ -878,6 +881,8 @@
           $('ogEposta').value=ep; $('ogSifre').value=''; ekranAc('giris');
           hataYaz('ogHata','Bu e-postayla zaten bir hesabın var. Şifrenle giriş yap ya da "Şifremi unuttum"a bas.'); return;
         }
+        /* 11.10: ikinci tıklama (mail az önce gitti) hata değil, bilgi olarak gösterilir */
+        if(/after \d+ second/i.test(r.error.message||'')){ var hb=$('ogKHata'); hb.className='og-bilgi'; hb.textContent='Neredeyse bitti: '+ep+' adresine doğrulama bağlantısını az önce gönderdik. Gelen kutunu ve Spam/Gereksiz klasörünü kontrol et; bağlantıya tıklayınca hesabın açılır.'; return; }
         hataYaz('ogKHata',trHata(r.error)); denemeYolu($('ogKHata'),r.error); return;
       }
       try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:'hesap/kayit',title:'Üye oldu',event:true}); }catch(x){}
