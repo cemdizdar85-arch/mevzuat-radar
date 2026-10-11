@@ -39,6 +39,10 @@
   .sg-set .sg-durum.bitti{color:var(--green)}
   .sg-set .sg-durum.kilit{color:var(--muted)}
   .sg-set.kilitli{opacity:.6}
+  .sg-yenilendi{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--amber);
+    background:color-mix(in srgb,var(--amber) 8%,var(--panel));border-radius:12px;padding:12px 14px;margin:0 0 16px;font-size:14px;line-height:1.55;color:var(--ink)}
+  .sg-yenilendi[hidden]{display:none}
+  .sg-yenilendi p{margin:0;max-width:52em}
   .sg-set.sg-ozel{border-color:var(--amber);background:color-mix(in srgb,var(--amber) 8%,var(--panel))}
   .sg-ilerleme{grid-column:1/-1;margin:-2px 0 2px;font-size:13.5px;color:var(--muted)}
   .sg-ilerleme b{color:var(--ink)}
@@ -127,6 +131,7 @@
     <h1 id="sgGirisBaslik">Staja Giriş · sınav gibi çöz</h1>
     <p class="sg-alt" id="sgGirisAlt">Gerçek sınavın ders dağılımıyla 130 soru. Çözerken cevap ve açıklama görünmez; bitirince ders ders karne gelir, her yanlışın yanında Nöbetçi'nin adım adım anlatımı olur.</p>
     <div class="sg-kural" id="sgKural"><span>130 soru</span><span>165 dakika</span><span>5 seçenek</span><span>Yanlış doğruyu götürmez</span></div>
+    <div class="sg-yenilendi" id="sgYenilendi" hidden></div>
     <div class="sg-setler" id="sgSetler"><p class="sg-alt">Setler yükleniyor…</p></div>
     <p class="sg-not" id="sgNot"></p>
   </section>
@@ -205,6 +210,25 @@
       L.push({no:'es-'+m[1]+'-'+m[2], set:+m[1], d:d, t:Date.parse(d.basla||'')||0}); } }catch(e){}
     return L.sort(function(a,b){ return b.t-a.t; });
   }
+  /* 11.10 (GM 2) "SETLER YENİLENDİ" NOTU: öğrenci bu sınavın setlerini daha önce kullandıysa ve setler o günden beri yeniden
+     kurulduysa listenin üstünde bir kez söylenir (yarım deneme saklı, sonuçlar Hesabım'da) → "kayboldu" sanıp baştan
+     başlamasın. "Anladım" ya da bir set açınca o sürüm görülmüş sayılır (sgy_surum_<onek>, yalnız bu cihaz). */
+  var SURUM_ANAH='sgy_surum_'+ONEK;
+  function surumGoruldu(){ try{ if(DIZIN&&DIZIN.surum) localStorage.setItem(SURUM_ANAH, DIZIN.surum); }catch(e){} var e=$('sgYenilendi'); if(e) e.hidden=true; }
+  function yenilendiNotu(yarimN){
+    var el=$('sgYenilendi'); if(!el||!DIZIN||!DIZIN.surum) return;
+    var gor=null; try{ gor=localStorage.getItem(SURUM_ANAH); }catch(e){}
+    var eskiKayit=false; try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(!k||k.indexOf(KAYIT_ON)!==0) continue;
+      var m=/^(\d+)_([0-9a-f]{10})$/.exec(k.slice(KAYIT_ON.length)); if(m&&m[2]!==DIZIN.surum){ eskiKayit=true; break; } } }catch(e){}
+    var goster=gor?gor!==DIZIN.surum:eskiKayit;
+    if(!goster){ if(!gor) surumGoruldu(); el.hidden=true; return; }
+    var gun=DIZIN.uretim?String(DIZIN.uretim).slice(0,10).split('-'):null, AY=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+    el.innerHTML='<p><b>Setler '+(gun?(+gun[2])+' '+AY[+gun[1]-1]+'\'de ':'')+'yenilendi:</b> sorular güncellendi, yeni setler aşağıda. '
+      +(yarimN?'Yarım kalan '+yarimN+' denemen saklı; «Kaldığın yerden devam» bölümünden aynı sorudan sürdürebilirsin. ':'')
+      +'Bitirdiğin denemelerin sonuçları <a href="ogrenci.html">Hesabım</a>\'da duruyor.</p><button type="button" class="sg-btn" id="sgYenilendiTamam">Anladım</button>';
+    el.hidden=false;
+    $('sgYenilendiTamam').addEventListener('click', surumGoruldu);
+  }
   function anahtar(no){ if(/^oz-/.test(String(no))) return 'sg_'+SINAV+'_'+no;   /* özel set dizin sürümüne bağlı değil */
     var es=/^es-(\d+)-([0-9a-f]{10})$/.exec(String(no)); if(es) return KAYIT_ON+es[1]+'_'+es[2];
     return 'sg_'+SINAV+(TUR?'_'+TUR:'')+'_'+no+(DIZIN&&DIZIN.surum?'_'+DIZIN.surum:''); }
@@ -253,6 +277,7 @@
       var no='oz-'+Date.now().toString(36), adet=liste.length;
       var set={ no:no, baslik:sec.baslik, sure_dk:Math.max(5,Math.round(adet*45/20)), toplam:adet, ders:hd.ad, ozel:{yeni:yeni, tekrar:!!sec.ids},
         sorular:liste.map(function(q,i){ return {n:i+1, id:q.id, bolum:hd.ad, ders:hd.ad, konu:q.konu, sayfa:h.sayfa, sira:q.sira}; }) };
+      set.t=Date.now(); hesabaKuyruk('sg_ozel_set_'+no, set);   /* 11.10: başka cihazda da açılsın */
       try{ localStorage.setItem('sg_ozel_set_'+no, JSON.stringify(set));
         var l=ozelListe().filter(function(x){ try{ return !!localStorage.getItem('sg_ozel_set_'+x.no); }catch(e){ return false; } });
         l.push({no:no, ders:hd.ad, baslik:sec.baslik, t:Date.now()}); localStorage.setItem('sg_ozel_liste', JSON.stringify(l.slice(-30))); }catch(e){}
@@ -260,7 +285,52 @@
     });
   }
   function oku(no){ try{ return JSON.parse(localStorage.getItem(anahtar(no))||'null'); }catch(e){ return null; } }
-  function yaz(){ try{ localStorage.setItem(anahtar(SET.no), JSON.stringify(DURUM)); }catch(e){} }
+  function yaz(){ DURUM.t=Date.now(); try{ localStorage.setItem(anahtar(SET.no), JSON.stringify(DURUM)); }catch(e){} hesabaKuyruk(anahtar(SET.no), DURUM); }
+
+  /* ---------- 11.10 YARIM DENEME HESAPTA (GM 1: telefonda başlayan bilgisayarda devam etsin) ----------
+     Tarayıcıdaki sg_* kaydı aynı anahtarla public.deneme_ilerleme'ye yazılır (radar-app/sql/2026-10-11-yarim-deneme-hesap.sql;
+     RLS: yalnız kendi satırı). Açılışta hesaptakiyle birleşir: kayıttaki t (ms) büyük olan kazanır. Yazım en çok 15 sn'de bir
+     (sayaç 5 sn'de bir yazıyor), sayfa gizlenince / deneme bitince hemen. Sana özel setin tanımı 'sg_ozel_set_<no>' ile.
+     Tablo yoksa / girişsizse / ağ yoksa sessiz: tarayıcıdaki kayıt eskisi gibi çalışır (fail-open).
+     🚫 GÖRMEZ: iki cihazda AYNI ANDA aynı deneme (son yazan kazanır) · sayfa kapanırken uçuşta kalan son 15 sn. */
+  var ESIT={bekleyen:{}, zaman:null};
+  function esitSb(){ var sb=window.__pkSb; return sb&&sb.auth&&sb.from?sb:null; }
+  function hesabaKuyruk(anah, veri){ if(!esitSb()||!/^sg_[a-z0-9_-]{1,80}$/.test(anah)) return; ESIT.bekleyen[anah]=veri;
+    if(!ESIT.zaman) ESIT.zaman=setTimeout(hesabaGonder, 15000); }
+  function hesabaGonder(){
+    clearTimeout(ESIT.zaman); ESIT.zaman=null;
+    var sb=esitSb(), L=Object.keys(ESIT.bekleyen); if(!sb||!L.length) return;
+    var b=ESIT.bekleyen; ESIT.bekleyen={};
+    sb.auth.getSession().then(function(s){ var ss=s&&s.data&&s.data.session; if(!ss) return;
+      var rows=L.map(function(k){ return {user_id:ss.user.id, anahtar:k, veri:b[k], guncelleme:new Date().toISOString()}; })
+        .filter(function(r){ try{ return JSON.stringify(r.veri).length<23000; }catch(e){ return false; } });
+      if(rows.length) sb.from('deneme_ilerleme').upsert(rows,{onConflict:'user_id,anahtar'}).then(function(){},function(){});
+    },function(){});
+  }
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) hesabaGonder(); });
+  /* açılış: hesaptaki kayıtları bu tarayıcıya al (yeni olan kazanır); bu tarayıcıda olup hesapta olmayanı/eskiyi hesaba yaz */
+  function hesaptanAl(){
+    var sb=esitSb(); if(!sb) return Promise.resolve(false);
+    return sb.auth.getSession().then(function(s){ if(!s||!s.data||!s.data.session) return false;
+      return sb.from('deneme_ilerleme').select('anahtar,veri').limit(200).then(function(r){
+        if(!r||r.error||!Array.isArray(r.data)) return false;
+        var uzak={}, degisti=false; r.data.forEach(function(x){ uzak[x.anahtar]=x.veri; });
+        Object.keys(uzak).forEach(function(k){ var v=uzak[k]; if(!v||typeof v!=='object') return; var yerel=null;
+          try{ yerel=JSON.parse(localStorage.getItem(k)||'null'); }catch(e){}
+          if(!yerel||(+v.t||0)>(+yerel.t||0)){ try{ localStorage.setItem(k, JSON.stringify(v)); degisti=true; }catch(e){} }
+          var oz=/^sg_ozel_set_(oz-[a-z0-9]+)$/.exec(k);
+          if(oz){ var l=ozelListe(); if(!l.some(function(x){ return x.no===oz[1]; })){ l.push({no:oz[1], ders:v.ders, baslik:v.baslik, t:+v.t||Date.now()});
+            try{ localStorage.setItem('sg_ozel_liste', JSON.stringify(l.slice(-30))); }catch(e){} degisti=true; } } });
+        /* bu tarayıcıdaki yarım (ya da son 14 günde biten) kayıtlar hesapta yoksa / eskiyse hesaba */
+        try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(!/^sg_(sgs|smmm|kgk|ozel_set)_/.test(k||'')) continue;
+          var d=JSON.parse(localStorage.getItem(k)||'null'); if(!d||typeof d!=='object') continue;
+          if(d.bitti&&!(Date.now()-(Date.parse(d.bitis||'')||0)<14*864e5)) continue;
+          if(!d.t){ d.t=Date.parse(d.bitis||d.basla||'')||1; }
+          var u=uzak[k]; if(!u||(+u.t||0)<(+d.t||0)) hesabaKuyruk(k, d); } }catch(e){}
+        return degisti;
+      });
+    },function(){ return false; });
+  }
   function sure(sn){ sn=Math.max(0,Math.round(sn)); var s=Math.floor(sn/3600), d=Math.floor(sn%3600/60), x=sn%60; return (s?s+':':'')+(s&&d<10?'0':'')+d+':'+(x<10?'0':'')+x; }
   function goster(id){ ['sgGiris','sgSinav','sgSonuc'].forEach(function(k){ $(k).classList.toggle('sg-gizli', k!==id); }); window.scrollTo(0,0); }
 
@@ -275,6 +345,7 @@
         +(x.d.basla?'Başladığın gün '+new Date(x.d.basla).toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+' · ':'')+'setler o günden beri yenilendi, seninki saklı</small>'
         +'<span class="sg-durum">Devam et · '+n+(top?'/'+top:'')+' cevaplı · '+sure(x.d.kalanSn)+' kaldı</span></button>'; }).join('');
     if(yarim) yarim='<h3 class="sg-set-ders">Kaldığın yerden devam</h3>'+yarim;
+    yenilendiNotu(yarimEskiler().length);
     $('sgSetler').innerHTML=yarim+liste.map(function(s){
       var top=s.toplam||DIZIN.toplam_soru, d=oku(s.no), durum='', alt=top+' soru · '+(s.sure_dk||DIZIN.sure_dk)+' dk', kilit=!dersVar(s.ders);
       if(kilit){ durum='<span class="sg-durum kilit">🔒 Bu ders paketinde yok</span>'; }
@@ -333,7 +404,7 @@
       :fetch(dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); })
         .then(function(d){ if(es){ d.no=no; d.baslik=(d.baslik?d.baslik+' · ':'Set '+es[1]+' · ')+'yarım kalan'; } return d; })).then(kasaDoldur).then(function(d){
       if(!d) return;
-      SET=d; DURUM=oku(no);
+      SET=d; DURUM=oku(no); if(!ozel&&!es) surumGoruldu();   /* yeni setten birini açtıysa "yenilendi" notu yeter */
       if(DURUM&&DURUM.bitti){ sonucCiz(); return; }
       window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} };
       /* 11.10: ids = açılan setin kimlikleri (cevaplanmasa da "gördü" sayılır → sana özel deneme onu sona atar) */
@@ -426,6 +497,7 @@
     if(zk) DURUM.ozet.zayif=zk;
     yaz();
     hesabaYaz();
+    hesabaGonder();   /* 11.10: bitmiş deneme başka cihazda da "Bitti" görünsün */
     kutuyaYaz();
     sonucCiz();
   }
@@ -533,7 +605,7 @@
     try{ localStorage.removeItem(anahtar(SET.no)); }catch(e){}
     setAc(SET.no);
   });
-  window.addEventListener('beforeunload',function(){ if(DURUM&&!DURUM.bitti) yaz(); });
+  window.addEventListener('beforeunload',function(){ if(DURUM&&!DURUM.bitti) yaz(); hesabaGonder(); });
 
   if(TUR){
     var yAd=SINAV==='smmm'?'Yeterlilik':'Staja Giriş', tAd=TUR==='ders'?'Ders denemesi':'En çok sorulan konular denemesi';
@@ -544,6 +616,8 @@
   /* 11.10: kapı alınan dersleri bildirince setler yeniden çizilir (kilitli dersler) */
   (window.__pkKapi||Promise.resolve(null)).then(function(k){
     PAKET_DERS=(k&&k.acik)?(k.dersler||null):undefined;
+    /* 11.10: hesaptaki yarım denemeler bu tarayıcıya; değiştiyse liste yeniden çizilir */
+    if(k&&k.acik) hesaptanAl().then(function(d){ if(d&&DIZIN&&!$('sgGiris').classList.contains('sg-gizli')) setleriCiz(); });
     if(DIZIN&&!$('sgGiris').classList.contains('sg-gizli')) setleriCiz();
     /* 11.10 GM3: hesaptaki sınırsız cevap kaydı gelince "gördüğün / bekleyen" yeniden sayılır */
     if(k&&k.acik&&TUR==='ders'&&DI&&DI.hesapAl) DI.hesapAl().then(function(h){ if(h&&DIZIN&&!$('sgGiris').classList.contains('sg-gizli')) setleriCiz(); });

@@ -14,6 +14,16 @@ $PSDefaultParameterValues['Invoke-WebRequest:UserAgent'] = 'mevzuat-radar-robot/
 $SB  = 'https://bjrleanjpyujtajmazxn.supabase.co'
 $KEY = if ($env:SB_PUBLISHABLE) { $env:SB_PUBLISHABLE } else { 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' }  # public anon key
 
+# DENEME FONKSIYONU (11.10.2026): siralama degisikligi canli madde_ara'ya
+# yazilmadan once ayri RPC'de olculur. Bos = canli madde_ara (robot boyle kosar).
+#   MADDE_ARA_RPC=madde_ara_deneme         -> varsayilan ayarli deneme
+#   MADDE_ARA_RPC=madde_ara_deneme_puan + MADDE_ARA_AYAR='{"adw":0}' -> ayar taramasi
+# Taban kapisi her RPC icin AYNIDIR; rapor hangi RPC'nin olculdugunu basar.
+$RPC = if ($env:MADDE_ARA_RPC) { $env:MADDE_ARA_RPC } else { 'madde_ara' }
+if ($RPC -notmatch '^[a-z_]+$') { throw "MADDE_ARA_RPC gecersiz: $RPC" }
+$AYAR = $null
+if ($env:MADDE_ARA_AYAR) { $AYAR = $env:MADDE_ARA_AYAR | ConvertFrom-Json }
+
 $kok = Split-Path -Parent $PSScriptRoot
 $setYol = Join-Path $kok 'veri/ambar-altin-test.json'
 $set = Get-Content -Raw -Encoding UTF8 $setYol | ConvertFrom-Json
@@ -75,14 +85,16 @@ function Sorgula([string]$soru) {
   if (-not $tokler) { return @() }
   # CESITLILIK TAVANI icin genis havuz iste (30), elemeden sonra ilk 6 kullanilir.
   # edge/net-cevap.ts de zaten adet=30 cekip ayni elemeyi yapiyor - SENKRON.
-  $govde = @{ sorgu = ($tokler -join ' '); adet = 30 } | ConvertTo-Json -Compress
+  $g = @{ sorgu = ($tokler -join ' '); adet = 30 }
+  if ($AYAR) { $g.ayar = $AYAR }
+  $govde = $g | ConvertTo-Json -Compress -Depth 5
   # 25.08 — TEKRAR DENEME. madde_ara ARALIKLI 500 donuyor (olculdu: bir pencerede
   # 3 sorgu 500, sonraki pencerede ayni sorgu 12/12 basarili, ~300 ms). Tek atisla
   # sorulunca bu kapi kendi olcumunu kirletiyordu: bir kosuda 8 "dusen"in 5'i
   # aslinda RPC hatasiydi. Sunucu hatasi bir CEVAP DEGILDIR.
   $havuz = $null
   foreach ($d in 1..4) {
-    try { $havuz = @(Invoke-RestMethod -Method Post -Uri "$SB/rest/v1/rpc/madde_ara" -Headers @{ apikey = $KEY; Authorization = "Bearer $KEY" } -ContentType 'application/json' -Body $govde); break }
+    try { $havuz = @(Invoke-RestMethod -Method Post -Uri "$SB/rest/v1/rpc/$RPC" -Headers @{ apikey = $KEY; Authorization = "Bearer $KEY" } -ContentType 'application/json' -Body $govde); break }
     catch { if ($d -eq 4) { throw }; Start-Sleep -Milliseconds (700 * $d) }
   }
   # --- CESITLILIK TAVANI (25.08, olculdu: 44 -> 45/48) ---
@@ -187,6 +199,7 @@ try {
 } catch { $kabulDusen += "cikmis% sizinti sinavi OLCULEMEDI (RPC)" }
 
 Write-Host "----------------------------------------------"
+Write-Host ("RPC: {0}{1}" -f $RPC, $(if ($env:MADDE_ARA_AYAR) { "  ayar=$($env:MADDE_ARA_AYAR)" } else { '' }))
 Write-Host "ALTIN TEST: $gecen gecti, $dusen dustu, $olculemeyen OLCULEMEDI / $($set.vakalar.Count) vaka"
 if ($mAdet -gt 0) {
   Write-Host "MADDE DUZEYI: $mGecen/$mAdet  (yalniz metni okunup teyit edilmis vakalar)"
