@@ -399,9 +399,28 @@
     /* 11.10: Hesabım "Deneme karnem" bu özeti hesaba aktarır (ogrenci.html cihazSonuclari) */
     DURUM.ozet={tur:SET.ozel?'ozel':(TUR||'set'), ders:SET.ders||(SET.sorular[0]&&SET.sorular[0].ders)||'', baslik:SET.baslik||('Set '+SET.no),
       toplam:SET.toplam, tekrar:!!(SET.ozel&&SET.ozel.tekrar), puanli:DIZIN.puan==='yeterlilik'};
+    /* 11.10 (GM 1.2.3): en çok kaçırılan konu (eşitlikte setteki ilk geçiş) → Hesabım + haftalık karne maili */
+    var kc={}, ks=[]; SET.sorular.forEach(function(q){ if(!q.konu) return; if(kc[q.konu]==null){ kc[q.konu]=0; ks.push(q.konu); } if(DURUM.cevap[q.id]!==q.dogru) kc[q.konu]++; });
+    var zk=ks.filter(function(k){ return kc[k]>0; }).sort(function(a,b){ return (kc[b]-kc[a])||(ks.indexOf(a)-ks.indexOf(b)); })[0];
+    if(zk) DURUM.ozet.zayif=zk;
     yaz();
+    hesabaYaz();
     kutuyaYaz();
     sonucCiz();
+  }
+  /* 11.10: Yeterlilik 20 soruluk puanlı deneme bitince sonuç HEMEN hesaba (ogrenci_sonuc) — Hesabım açılmasa da haftalık
+     karne maili görür. Anahtar ve biçim ogrenci.html cihazSonuclari ile AYNI (tekil anahtar; Hesabım aynısını yeniden
+     yazmaya kalkarsa ignoreDuplicates). Girişsiz/ağ hatası: sessiz; Hesabım açılınca aktarılır. */
+  function hesabaYaz(){
+    try{
+      var oz=DURUM&&DURUM.ozet, sb=window.__pkSb; if(SINAV!=='smmm'||!oz||!oz.ders||!oz.puanli||oz.toplam!==20||oz.tekrar||!sb||!sb.auth) return;
+      var anah=anahtar(SET.no), r=DURUM.sonuc, pn=Math.max(0,(r.dogru-r.yanlis/4)*100/oz.toplam);
+      var satir={tur:'deneme', sinav:'smmm', anahtar:('sgy-'+anah.replace(/^sg_smmm_/,'')+'-'+DURUM.bitis).slice(0,80),
+        veri:{ders:oz.ders, baslik:String(oz.baslik||'').slice(0,120), tur:oz.tur, dogru:r.dogru, yanlis:r.yanlis, bos:r.bos, toplam:oz.toplam,
+          puan:Math.round(pn*100)/100, tarih:DURUM.bitis, zayif:oz.zayif||null}};
+      sb.auth.getSession().then(function(s){ if(!s||!s.data||!s.data.session) return;
+        sb.from('ogrenci_sonuc').upsert([satir],{onConflict:'user_id,tur,anahtar',ignoreDuplicates:true}).then(function(){},function(){}); },function(){});
+    }catch(e){}
   }
   /* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */
   function kutuyaYaz(){

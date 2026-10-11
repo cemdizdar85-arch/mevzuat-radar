@@ -1,0 +1,32 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/haftalik-karne.yml
+# NEDEN VAR (11.10.2026, Cem "1.2.3 ucunu de yap", GM2): Yeterlilik paketli uyeye haftalik deneme karnesi maili
+# (son 7 gunde ders denemesi cozen; ders ders puan gidisati + zayif konu). Her Pazartesi 10:30 TR.
+# Gonderim arac/hatirlatma-ayar.json haftalik_acik + haftalik_onayli_imza ile ACILIR (Cem metin onayi); kapaliyken yalniz SAYI
+# (gidecek kisi varsa Cem'e sayi maili). Gunluk PUBLIC: betik e-posta/puan basmaz. Oz-sinav once kosar; duserse gonderim yok.
+name: Haftalik deneme karnesi (Yeterlilik)
+on:
+  schedule:
+    - cron: "30 7 * * 1"      # Pazartesi 10:30 TR
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: haftalik-karne
+  cancel-in-progress: false
+jobs:
+  karne:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Oz-sinav
+        run: node motor/haftalik-karne-mail.mjs --sinav
+      - name: Say ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/haftalik-karne-mail.mjs

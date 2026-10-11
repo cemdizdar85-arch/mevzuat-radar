@@ -555,7 +555,7 @@
       var oz=dy.ozet; if(!(oz.puanli&&oz.toplam===20&&!oz.tekrar)) continue;
       var pn=Math.max(0,(dy.sonuc.dogru-dy.sonuc.yanlis/4)*100/oz.toplam);
       liste.push({tur:'deneme',sinav:'smmm',anahtar:('sgy-'+y.replace(/^sg_smmm_/,'')+'-'+dy.bitis).slice(0,80),
-        veri:{ders:oz.ders,baslik:String(oz.baslik||'').slice(0,120),tur:oz.tur,dogru:dy.sonuc.dogru,yanlis:dy.sonuc.yanlis,bos:dy.sonuc.bos,toplam:oz.toplam,puan:Math.round(pn*100)/100,tarih:dy.bitis}});
+        veri:{ders:oz.ders,baslik:String(oz.baslik||'').slice(0,120),tur:oz.tur,dogru:dy.sonuc.dogru,yanlis:dy.sonuc.yanlis,bos:dy.sonuc.bos,toplam:oz.toplam,puan:Math.round(pn*100)/100,tarih:dy.bitis,zayif:oz.zayif||null}});
     } }catch(e){}
     return liste;
   }
@@ -737,7 +737,15 @@
         return '<div class="og-satir"><div><b>'+esc(k)+'</b><br><span>'+l.length+' deneme · '+p.slice(-5).map(yaz).join(' → ')
           +(fark!==null?' <span style="color:var('+(fark>=0?'--green':'--red')+')">('+(fark>=0?'+':'')+yaz(fark)+')</span>':'')+'</span></div>'
           +'<span style="font-weight:700;color:var('+(son>=50?'--green':'--red')+')">'+yaz(son)+' puan · baraj 50 '+(son>=50?'✓':'✗')+'</span></div>';
-      }).join('')+'<p class="og-alt" style="margin:8px 0 0;font-size:13px">Puan: (doğru − yanlış ÷ 4) × 5. Gerçek sınavda her ders ≥ 50 ve ortalama ≥ 60.</p>'
+      }).join('')
+        /* 11.10 (GM 1.2.3 madde 1): gerçek kural her ders ≥ 50 VE ortalama ≥ 60 → çözülen derslerin SON puan ortalaması.
+           Tezkiye notu ve denemesi olmayan dersler bilinmediği için "çözdüğün dersler" diye açıkça yazılır. */
+        +(function(){ var son=ds.map(function(k){ var l=dg[k]; return +l[l.length-1].veri.puan||0; }), ort=son.reduce(function(a,b){ return a+b; },0)/son.length,
+            alti=son.filter(function(p){ return p<50; }).length, yaz=function(n){ return (Math.round(n*10)/10).toLocaleString('tr-TR'); };
+          return '<div class="og-satir" style="border-top:1px solid var(--line);margin-top:4px"><div><b>'+(ds.length>1?ds.length+' dersin ortalaması':'Ortalama')+'</b><br><span>'
+            +(ds.length>1?'çözdüğün derslerin son puanlarından':'tek ders: ortalama bu dersin puanı')+(alti?' · '+alti+' ders barajın altında':'')+'</span></div>'
+            +'<span style="font-weight:700;color:var('+(ort>=60&&!alti?'--green':'--red')+')">'+yaz(ort)+' / 60 '+(ort>=60&&!alti?'✓':'✗')+'</span></div>'; })()
+        +'<p class="og-alt" style="margin:8px 0 0;font-size:13px">Puan: (doğru − yanlış ÷ 4) × 5. Gerçek sınavda her ders ≥ 50 ve ortalama ≥ 60 (tezkiye notu da ortalamaya girer).</p>'
         :'<p class="og-alt" style="margin:0">Henüz bitirilmiş ders denemesi yok.</p>';
     } else
     $('ogDenemeler').innerHTML=deneme.length?deneme.sort(function(a,b){ return (a.veri.set-b.veri.set)||String(a.veri.tarih||'').localeCompare(String(b.veri.tarih||'')); }).map(function(x){
