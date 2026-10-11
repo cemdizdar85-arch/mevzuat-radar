@@ -1,5 +1,5 @@
 {
-  "tarih": "11.10.2026 08:31",
+  "tarih": "11.10.2026 09:01",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -1905,31 +1905,31 @@
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 580,
+      "satir": 589,
       "iddia": "30 gün",
       "metin": "h+=' '+liste.length+' / '+(v.sinir||3)+' cihaz kayıtlı · bu ay '+v.cikarma_hakki+' çıkarma hakkın kaldı (30 günde en fazla 2). ';"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 608,
+      "satir": 617,
       "iddia": "24 saat",
       "metin": ": ' Ekibimiz inceliyor; cevap 24 saat içinde burada ve e-postanda olacak. ')"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 629,
+      "satir": 638,
       "iddia": "24 saat",
       "metin": "/* 10.10 Cem (\"yanlış sorular siteye gelsin\"): ekibe gelen bekleyen soru sayısı düğmede; 24 saati geçen varsa kırmızı. Mail beklemeden görülür. */"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 633,
+      "satir": 642,
       "iddia": "24 saat",
       "metin": "if(d.ekip_gec){ a.style.borderColor='var(--red)'; a.style.color='var(--red)'; a.title=d.ekip_gec+' soru 24 saati geçti'; }"
     },
     {
       "sayfa": "ogrenci.html",
-      "satir": 708,
+      "satir": 717,
       "iddia": "7 gün",
       "metin": "$('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';"
     },
@@ -2283,7 +2283,7 @@
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 402,
+      "satir": 406,
       "iddia": "2 gün",
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
@@ -2319,7 +2319,7 @@
     },
     {
       "sayfa": "sorular.html",
-      "satir": 324,
+      "satir": 327,
       "iddia": "2 gün",
       "metin": "?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'"
     },
