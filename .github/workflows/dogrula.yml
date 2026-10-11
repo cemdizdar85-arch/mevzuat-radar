@@ -391,6 +391,10 @@ jobs:
           # 13 vaka (gercek Parcala); KOB_MUTASYON=geri (@() kaldirilir, iki yer) -> KIRMIZI 5/13.
           - { ad: "KGK yutucu on bolum OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/kgk-on-bolum-sinavi.ps1" }
+          # 11.10.2026 - Teblig damgasi sayfa sonu (\f) gurultusu: 44987 03.10'dan beri 21203<->21204 bayt gidip geliyordu.
+          # 9 vaka (cevrimdisi); TD_MUTASYON=normalyok -> 7/9 KIRMIZI, gecisyok -> 8/9 KIRMIZI.
+          - { ad: "Teblig damgasi sayfa sonu OZ-SINAVI",
+              kabuk: pwsh, komut: "./motor/teblig-damgasi.ps1 -Sinav" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.

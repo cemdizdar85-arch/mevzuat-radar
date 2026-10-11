@@ -54,13 +54,14 @@
 param(
   # Yalnız deneme için: ilk N tebliği ölç (172 isteklik yağmuru başlatmadan
   # kapının çalıştığını görmek için). 0 = hepsi.
-  [int]$Sinir = 0
+  [int]$Sinir = 0,
+  [switch]$Sinav   # 11.10: cevrimdisi oz-sinav (\f normalizasyonu + gecis); ag yok, dosya yazmaz
 )
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
-try { Start-Transcript -Path (Join-Path $kok 'veri/teblig-damga-log.txt') -Force | Out-Null } catch {}
+if(-not $Sinav){ try { Start-Transcript -Path (Join-Path $kok 'veri/teblig-damga-log.txt') -Force | Out-Null } catch {} }
 
 $UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
 $durumYol = Join-Path $kok 'veri/gtip-durum.json'
@@ -145,6 +146,59 @@ function MetniCikar([byte[]]$b){
   finally { foreach($f in @($ge,$pdf,$txt)){ if(Test-Path $f){ Remove-Item $f -Force -ErrorAction SilentlyContinue } } }
 }
 
+# ---------------------------------------------------------------------------
+# 11.10.2026 — SAYFA SONU (\f) GÜRÜLTÜSÜ. mevzuat.yml 03.10'dan beri bu kapıda
+# dönüşümlü kırmızı bitti: mevzuatNo 44987 her koşuda "21203 -> 21204 bayt"
+# ya da tersi. Ölçüldü (11.10, aynı URL 6 çekim, TR IP): metin 3 kez 21.791,
+# 3 kez 21.792 bayt; TEK fark metnin sonundaki fazladan 0x0C (pdftotext sayfa
+# sonu) — GeneratePdf bazen sona boş bir sayfa daha ekliyor. İçerik aynı.
+# Damga artık sayfa sonları ATILMIŞ metinden alınır (olcum='metin-ff').
+# Geçiş: eski 'metin' kaydı ham metinle, ham+\f ile ve sondaki tek \f atılmış
+# hâliyle kıyaslanır; üçünden biri tutarsa "aynı" (yeniden temellenir).
+# GÖRMEZ: \f dışı düzen gürültüsü (satır kırılımı, boşluk) — ölçülmedi;
+# sayfa sonunun yerinin değişmesi artık "değişti" SAYILMAZ (metin aynıysa doğru).
+# ---------------------------------------------------------------------------
+function MetinNormal([byte[]]$t){
+  if($env:TD_MUTASYON -eq 'normalyok'){ return ,$t }
+  return ,([byte[]]@($t | Where-Object { $_ -ne 0x0C }))
+}
+# Döner: 'degisti' | 'ayni' | 'yeni-temel' (eski kayıt yok ya da başka yöntem)
+function DamgaKarar($eskiKayit, [byte[]]$metin){
+  if($null -eq $eskiKayit){ return 'yeni-temel' }
+  $olc = "$($eskiKayit.olcum)"; $ed = "$($eskiKayit.damga)"
+  if($olc -eq 'metin-ff'){ if($ed -eq (Damga (MetinNormal $metin))){ return 'ayni' } else { return 'degisti' } }
+  if($olc -eq 'metin'){
+    $adaylar = @((Damga $metin), (Damga ([byte[]]($metin + [byte]0x0C))))
+    if($env:TD_MUTASYON -ne 'gecisyok' -and $metin.Length -gt 0 -and $metin[$metin.Length-1] -eq 0x0C){ $adaylar += (Damga ([byte[]]$metin[0..($metin.Length-2)])) }
+    if($adaylar -contains $ed){ return 'ayni' } else { return 'degisti' }
+  }
+  return 'yeni-temel'
+}
+
+if($Sinav){
+  # Çevrimdışı öz-sınav (dogrula.yml). Gerçek 44987 sonu: '...Approval\r\n\r\n\f' / '...\f\f'.
+  $enc = New-Object Text.UTF8Encoding($false)
+  $k = $enc.GetBytes("Turkish Consulate Approval`r`n`r`n`f"); $u = $enc.GetBytes("Turkish Consulate Approval`r`n`r`n`f`f")
+  $v = $enc.GetBytes("Turkish Consulate Approvel`r`n`r`n`f")   # gerçek 1 harf değişimi
+  $yeni = { param($b) [pscustomobject]@{ olcum='metin-ff'; damga=(Damga (MetinNormal $b)) } }
+  $eski = { param($b) [pscustomobject]@{ olcum='metin';    damga=(Damga $b) } }
+  $vakalar = @(
+    @('yeni yontem: fazladan \f',          (& $yeni $k), $u, 'ayni'),
+    @('yeni yontem: eksik \f',             (& $yeni $u), $k, 'ayni'),
+    @('yeni yontem: ayni metin',           (& $yeni $k), $k, 'ayni'),
+    @('yeni yontem: 1 harf degisti',       (& $yeni $k), $v, 'degisti'),
+    @('gecis: eski kisa, yeni uzun',       (& $eski $k), $u, 'ayni'),
+    @('gecis: eski uzun, yeni kisa',       (& $eski $u), $k, 'ayni'),
+    @('gecis: 1 harf degisti',             (& $eski $k), $v, 'degisti'),
+    @('eski kayit yok',                    $null,        $k, 'yeni-temel'),
+    @('bayt-hash donemi kaydi',            ([pscustomobject]@{ olcum=''; damga='x' }), $k, 'yeni-temel')
+  )
+  $gec = 0
+  foreach($c in $vakalar){ $s = DamgaKarar $c[1] $c[2]; $ok = ($s -eq $c[3]); if($ok){ $gec++ }; Write-Host ("{0} {1}: {2} (beklenen {3})" -f $(if($ok){'GECTI'}else{'DUSTU'}), $c[0], $s, $c[3]) }
+  Write-Host ("TEBLIG DAMGA OZ-SINAVI: {0}/{1}" -f $gec, $vakalar.Count)
+  if($gec -ne $vakalar.Count){ exit 1 } else { exit 0 }
+}
+
 $yeniTablo = [ordered]@{}
 $degisen = New-Object System.Collections.Generic.List[object]
 $inemeyen = New-Object System.Collections.Generic.List[string]
@@ -186,9 +240,10 @@ foreach($no in $nolar){
     }
     # DAMGA METİNDEN alınır (bayttan DEĞİL) - GeneratePdf her çekilişte farklı
     # bayt üretiyor, metin ise sabit. Boyut da metin boyutudur.
-    $d = Damga $metin
-    $yeniTablo[$no] = [ordered]@{ damga=$d; boyut=$metin.Length; pdf_boyut=$bayt.Length
-                                  kontrol=(Get-Date -Format 'dd.MM.yyyy HH:mm'); olcum='metin' }
+    $normal = MetinNormal $metin
+    $d = Damga $normal
+    $yeniTablo[$no] = [ordered]@{ damga=$d; boyut=$normal.Length; pdf_boyut=$bayt.Length
+                                  kontrol=(Get-Date -Format 'dd.MM.yyyy HH:mm'); olcum='metin-ff' }
     # GEÇİŞ TUZAĞI KAPATILDI (25.08): karşılaştırma yalnız eski kayıt da AYNI
     # YÖNTEMLE (metin damgası) alınmışsa yapılır. Depodaki eski damgalar iki
     # ayrı gürültü kuşağından geliyor: (a) 18.07-25.08 arası HTML ana sayfanın
@@ -196,13 +251,14 @@ foreach($no in $nolar){
     # 172 kaydın hepsini "değişti" diye yakardı. Yöntem bayrağı taşımayan
     # kayıt SESSİZCE yeniden temellenir; karşılaştırma ikinci koşudan başlar.
     # Bir gün geç, ama yalan değil.
-    $eskiGercek = ($eski.ContainsKey($no) -and "$($eski[$no].olcum)" -eq 'metin')
-    if(-not $ilkKurulum -and $eskiGercek -and "$($eski[$no].damga)" -ne $d){
+    # 11.10: kıyas DamgaKarar'da (metin-ff + 'metin' geçişi, \f gürültüsü ayıklanır).
+    $karar = DamgaKarar $(if($eski.ContainsKey($no)){ $eski[$no] }else{ $null }) $metin
+    if(-not $ilkKurulum -and $karar -eq 'degisti'){
       # 01.09: yeni_boyut PDF bayti yaziyordu, eski_boyut ise METIN boyutu -
       # 44987'de 1 karakterlik metin farki "21203 -> 97401" diye dev degisim
       # gibi raporlandi. Kiyas neyin uzerindeyse (metin) boyut da onun olmali.
       $degisen.Add([ordered]@{ mevzuatNo=$no; eski="$($eski[$no].damga)"; yeni=$d
-                               eski_boyut=[int]"$($eski[$no].boyut)"; yeni_boyut=$metin.Length; url=$url })
+                               eski_boyut=[int]"$($eski[$no].boyut)"; yeni_boyut=$normal.Length; url=$url })
     }
   } catch {
     $inemeyen.Add("$no ($($_.Exception.Message))")
