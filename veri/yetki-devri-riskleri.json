@@ -1,11 +1,11 @@
 {
-  "tarih": "11.10.2026 08:08",
+  "tarih": "11.10.2026 08:31",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
   "sayfa": 76,
   "atifli_iddia": 300,
-  "dayanaksiz_iddia": 379,
+  "dayanaksiz_iddia": 380,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 249,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     }
   ],
@@ -190,7 +190,7 @@
       "sayfa": "elci.html",
       "satir": 249,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2265,19 +2265,25 @@
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 164,
+      "satir": 173,
       "iddia": "2 gün",
       "metin": "Yanlışların yanlış kutuna düştü: 2 gün sonra ders sayfasında yeniden karşına çıkar."
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 268,
+      "satir": 202,
+      "iddia": "10 yıl",
+      "metin": "HAVUZ: veri/deneme/smmm-ders-havuz.json (dersin sitedeki TÜM soruları, yalnız kimlik, son 10 yılda sık sorulan konu"
+    },
+    {
+      "sayfa": "sinav-gibi.html",
+      "satir": 334,
       "iddia": "%5",
       "metin": "if(Math.floor(DURUM.kalanSn)%5===0) yaz();"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 336,
+      "satir": 402,
       "iddia": "2 gün",
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
@@ -2313,7 +2319,7 @@
     },
     {
       "sayfa": "sorular.html",
-      "satir": 291,
+      "satir": 324,
       "iddia": "2 gün",
       "metin": "?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'"
     },
