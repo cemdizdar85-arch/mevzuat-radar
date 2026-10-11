@@ -317,8 +317,9 @@ const SIRA_NOTU=(function(){ try{
   if(!d||!d.soru) return {tur:'davet',yet};
   const oran=d.dogru/d.soru; const zr=s=>{ const m=String(s.id||'').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/); return (s.zorluk||(m&&m[1])||'orta'); };
   const SIRA=oran<0.5?{kolay:0,orta:1,zor:2,cokzor:3}:(oran>=0.75?{cokzor:0,zor:1,orta:2,kolay:3}:null);
-  window.__siraSira=SIRA?(s=>SIRA[zr(s)]):null;   /* 07.10 parça yükleme (__kasaEkle) aynı ölçütle sıralar */
-  if(SIRA){ const s2=SORULAR.map((s,i)=>({s,i})).sort((a,b)=>(SIRA[zr(a.s)]-SIRA[zr(b.s)])||(a.i-b.i)).map(x=>x.s); SORULAR.splice(0,SORULAR.length,...s2); }
+  /* 11.10: __KASA_SIRALI = kasa-yukle.js fihristi AYNI kuralla zaten sıraladı (setli yükleme) → burada yeniden sıralanmaz. */
+  window.__siraSira=(SIRA&&!window.__KASA_SIRALI)?(s=>SIRA[zr(s)]):null;   /* 07.10 parça yükleme (__kasaEkle) aynı ölçütle sıralar */
+  if(SIRA&&!window.__KASA_SIRALI){ const s2=SORULAR.map((s,i)=>({s,i})).sort((a,b)=>(SIRA[zr(a.s)]-SIRA[zr(b.s)])||(a.i-b.i)).map(x=>x.s); SORULAR.splice(0,SORULAR.length,...s2); }
   return {tur:oran<0.5?'kolay':(oran>=0.75?'zor':'karma'),dogru:d.dogru,soru:d.soru,ad,yet};
 }catch(e){ return null; } })();
 /* 07.10 PARÇA PARÇA YÜKLEME (Cem "1 yap": Finansal Muhasebe 1.100 soru × ~14 KB tek seferde iniyordu). kasa-yukle.js ilk parçayla
@@ -376,7 +377,8 @@ function cevapKaydet(s,dogruMu){
 }
 function skorHesapla(){
   // konu ustaligi: kutuda -> 0,3 (tur2: 0,6); son cevap dogru ve kutuda degil -> 1; hic cozulmemis -> 0. Agirlik = konunun cikmis donem sayisi (sinav DNA'si).
-  const konular={}; SORULAR.forEach(s=>{ konular[s.id]={ders:s.ders,w:Math.max(1,s.donem||1),u:0,cozuldu:false}; });
+  // 11.10: setli yüklemede henüz inmemiş sorular da sayılsın diye dersin içeriksiz fihristi (window.__KASA_FIHRIST) esas alınır.
+  const konular={}; (window.__KASA_FIHRIST||SORULAR).forEach(s=>{ konular[s.id]={ders:s.ders,w:Math.max(1,parseInt(s.donem,10)||1),u:0,cozuldu:false}; });
   KUTU.kayit.forEach(r=>{ const k=konular[r.id]; if(k){ k.cozuldu=true; k.u=r.dogru?1:0; } });
   KUTU.kutu.forEach(x=>{ const k=konular[x.id]; if(k){ k.u=x.tur>=2?0.6:0.3; } });
   const sonOyun={}; KUTU.oyun.forEach(o=>{ sonOyun[o.id]=o.sonuc; }); let oyTam=0,oyIp=0;
@@ -397,23 +399,27 @@ function kutuEkraniAc(){
     return d===1?'yarın':(d+' gün sonra'); };
   /* 07.10 (Cem "1 yap"): kutu bütün dersleri listeliyordu, "Şimdi çöz" yalnız bu sayfadaki soruda çıkıyordu. Artık bu dersin
      satırları + öteki dersler tek satır özet (Yanlışlarım'a bağlantı). Başlıktaki sayı bu dersinki. */
-  const buDers=[], diger={}; KUTU.kutu.forEach(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); if(i>=0) buDers.push({x,i}); else { const d=x.ders||'Diğer'; diger[d]=(diger[d]||0)+1; } });
+  // 11.10 setli yükleme: bu dersin henüz inmemiş sorusu da "bu ders" sayılır (fihristte var); "Şimdi çöz" onu tek başına getirir (i=-1).
+  const fihSet=new Set((window.__KASA_FIHRIST||[]).map(f=>f.id));
+  const buDers=[], diger={}; KUTU.kutu.forEach(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); if(i>=0) buDers.push({x,i}); else if(fihSet.has(x.id)) buDers.push({x,i:-1}); else { const d=x.ders||'Diğer'; diger[d]=(diger[d]||0)+1; } });
   const digerAd=Object.keys(diger).sort((a,b)=>diger[b]-diger[a]);
   e.innerHTML='<div class="kutuIc"><div class="basl"><span>🎯 Hazırlık skoru ve yanlış kutusu</span><button class="btn" id="kutuKapat" style="padding:5px 10px">✕</button></div>'
    +'<div class="skorBuyuk">%'+sk.toplam+'</div><div class="ipnot">Sınav DNA’sı ağırlıklı: çok çıkan konudaki yanlış daha çok düşürür. Çözülen '+sk.cozulen+' / '+sk.n+' konu · Sen çöz: '+sk.oyunTam+' ipuçsuz (tam puan) · '+sk.oyunIpuclu+' ipuçlu (yarım puan).</div>'
    +sk.ders.map(d=>'<div class="dersSat"><span>'+esc(d.ad)+'</span><div class="bar"><i style="width:'+d.yuzde+'%"></i></div><b>%'+d.yuzde+'</b></div>').join('')
    +'<div class="et" style="margin-top:14px">📥 Bu dersin yanlış kutusu ('+buDers.length+')</div>'
-   +(buDers.length?buDers.map(({x,i})=>'<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>').join(''):'<p class="ipnot">'+(KUTU.kutu.length?'Bu derste kutuda soru yok.':'Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.')+'</p>')
+   +(buDers.length?buDers.map(({x,i})=>'<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t?'<button class="btn mavi kutuCoz" data-i="'+i+'" data-id="'+esc(x.id)+'">Şimdi çöz</button>':'')+'</div>').join(''):'<p class="ipnot">'+(KUTU.kutu.length?'Bu derste kutuda soru yok.':'Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.')+'</p>')
    +(digerAd.length?'<p class="ipnot" style="margin-top:8px">Diğer dersler: '+digerAd.map(d=>esc(d)+' '+diger[d]).join(', ')+' · <a href="../../yanlislarim.html">Yanlışlarım →</a></p>':'')
    +'<p class="ipnot">Nasıl çalışır: yanlış → kutuya girer, 2 gün sonra geri gelir; o gün doğru bilirsen 7 gün sonra bir kez daha gelir; onu da bilirsen kutudan çıkar ve ustalık tam sayılır.</p></div>';
   e.classList.add('acik');
   e.querySelector('#kutuKapat').addEventListener('click',()=>e.classList.remove('acik'));
   if(e.querySelector('#kutuIleri')) e.querySelector('#kutuIleri').addEventListener('click',()=>{ KUTU.ileri+=2*GUN; kutuKaydet(); kutuEkraniAc(); skorCiz(); });
   if(e.querySelector('#kutuSifirla')) e.querySelector('#kutuSifirla').addEventListener('click',()=>{ if(confirm('Skor, kutu ve seri sıfırlansın mı?')){ KUTU.kayit=[]; KUTU.kutu=[]; KUTU.ileri=0; kutuKaydet(); location.reload(); } });
-  e.querySelectorAll('.kutuCoz').forEach(b=>b.addEventListener('click',()=>{ e.classList.remove('acik'); kartSifirla(parseInt(b.dataset.i)); }));
+  e.querySelectorAll('.kutuCoz').forEach(b=>b.addEventListener('click',()=>{ e.classList.remove('acik'); const ix=parseInt(b.dataset.i);
+    if(ix>=0) return kartSifirla(ix);
+    if(window.__kasaIdGetir) window.__kasaIdGetir(b.dataset.id).then(n=>{ if(n>=0) kartSifirla(n); }); }));
 }
 // 03.10 (Cem, V2 madde 11): sayfa acilinca bu derste vadesi gelen kutu sorusu varsa tek satir uyari; tiklayinca kutu acilir
-setTimeout(()=>{ try{ if(VITRIN) return; const ids=new Set(SORULAR.map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
+setTimeout(()=>{ try{ if(VITRIN) return; const ids=new Set((window.__KASA_FIHRIST||SORULAR).map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
   const u=document.createElement('div'); u.className='tekrarUyari'; u.innerHTML='<span class="tuMetin">🔁 <b>Bugün tekrar zamanı:</b> bu derste '+v+' soru</span><button type="button" class="tuAc">Şimdi çöz</button><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
   document.body.appendChild(u); u.querySelector('.tuAc').addEventListener('click',()=>{ u.remove(); kutuEkraniAc(); }); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },1200);
 const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -425,7 +431,8 @@ const fmt=n=>n.toLocaleString('tr-TR');
    bankanın toplamı çözme ekranında görünmez (önce ilk 40 kart "x / 40" yazıp 41. kartta "41 / 1.100"e sıçrıyordu). Son setin boyu
    ancak bütün sorular gelince (__KASA_DEVAM false) bilinir; o ana dek 20 yazar, __kasaEkle sayaçları tazeler. Set bitince ara özet. */
 const SET=20;
-function setBilgi(i){ const N=SORULAR.length, a=Math.floor(i/SET)*SET, son=!window.__KASA_DEVAM&&a+SET>=N, b=son?N:a+SET; return {no:a/SET+1,a:a,b:b,j:i-a+1,boy:b-a,son:son,cok:N>SET||!!window.__KASA_DEVAM}; }
+/* 11.10: setli yüklemede dersin toplamı fihristten bilinir (window.__KASA_TOPLAM) → son setin boyu baştan doğru; ekranda yazılmaz. */
+function setBilgi(i){ const T=window.__KASA_TOPLAM||0, N=T||SORULAR.length, a=Math.floor(i/SET)*SET, son=T?a+SET>=T:(!window.__KASA_DEVAM&&a+SET>=N), b=son?N:a+SET; return {no:a/SET+1,a:a,b:b,j:i-a+1,boy:b-a,son:son,cok:N>SET||!!window.__KASA_DEVAM}; }
 function sayacYazi(i){ const t=setBilgi(i); return (t.cok?'Set '+t.no+' · ':'')+t.j+'/'+t.boy; }
 function noktalar(i){ if(i<0) return '<div class="noktalar"></div>'; const t=setBilgi(i); let h=''; for(let j=t.a;j<t.b;j++){ const c=[j===i?'simdi':'',durum.ok[j]===undefined?'':(durum.ok[j]?'ok':'yan')].filter(Boolean).join(' '); h+='<i data-j="'+j+'" class="'+c+'"></i>'; } return '<div class="noktalar'+(t.boy>12?' cok':'')+'">'+h+(t.son?'<i data-j="son"></i>':'')+'</div>'; }
 function sayacTazele(){ akis.querySelectorAll(':scope > .kart').forEach(k=>{ const i=parseInt(k.dataset.i,10); if(!(i>=0)) return; const t=setBilgi(i), s=k.querySelector('.setSay'), il=k.querySelector('.ilerleme'), n=k.querySelector('.noktalar');
@@ -633,6 +640,8 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
   // 06.09 R1 (Cem "1 yap"): CEVAP KAYDI + AKRAN YÜZDESİ — her cevap cevap_kayit'e (anon insert), sonra sik_yuzdesi ile
   // "bu şıkkı seçenlerin %N'i" (UWorld). SQL: radar-app/sql/2026-09-06-cevap-kayit.sql; basılmadan 404 sessiz, yüzde çıkmaz.
   function cevapKasayaYaz(secH,dogruMu,sn,elenen){ if(VITRIN) return;
+    // 11.10: paketli sayfada üye adına arka plan cevap kaydı (kasa-yukle.js __kasaCevap → kasa_cevap_yaz; beklenmez). "Bilmiyorum" = '?'.
+    try{ if(window.__kasaCevap) window.__kasaCevap(s.id, secH||'?'); }catch(e){}
     // 08.10: 5 örnek soru sayfası (kaydir/vitrin/ornek-*.html) kendi kaynak adıyla yazar - örnek sorunun dönüşümü ayrı ölçülsün
     try{ const govde={ soru_id:s.id, ders:s.ders, konu:s.konu, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, sn:(sn===undefined?null:sn), elenen:elenen||[], tahmin_dogru:0, tahmin_n:0, oturum:oturumDamga, kaynak:(/\/vitrin\/ornek-/.test(location.pathname)?'ornek-soru':'kaydir-coz') };
       fetch(KAG_SB_URL+'/rest/v1/cevap_kayit',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY, Prefer:'return=minimal' }, body:JSON.stringify(govde) }).catch(()=>{}); }catch(e){}
@@ -1148,12 +1157,12 @@ SORULAR.forEach((s,i)=>kartKur(s,i));
 const son=document.createElement('section'); son.className='kart son';
 son.innerHTML='<div class="ust"><span>Nöbet bitti</span>'+noktalar(-1)+'<span>&nbsp;</span></div><div class="govde son" style="display:flex;flex-direction:column;justify-content:center"><div id="sonSkor"></div></div>';
 akis.appendChild(son);
-window.__kasaEkle=function(yeni){ try{
+window.__kasaEkle=function(yeni,devam){ try{
   const hepsi=KASA_BEKLEYEN.splice(0).concat(yeni||[]), R=window.__siraSira, bas=SORULAR.length;
   const sirali=R?hepsi.map((s,i)=>({s,i})).sort((a,b)=>(R(a.s)-R(b.s))||(a.i-b.i)).map(x=>x.s):hepsi;
   sirali.forEach(s=>{ SORULAR.push(s); kartKur(s,SORULAR.length-1); });
   akis.querySelectorAll(':scope > .kart').forEach(k=>{ if(+k.dataset.i>=bas) k.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); });
-  window.__KASA_DEVAM=false; skorCiz(); sayacTazele();
+  window.__KASA_DEVAM=!!devam; skorCiz(); sayacTazele();   /* 11.10: setli yüklemede __kasaEkle(yeni, devam) — kalan varsa akış açık kalır */
   try{ document.dispatchEvent(new CustomEvent('tetikte-kasa-ekle',{detail:{bas:bas,adet:sirali.length}})); }catch(e){}
 }catch(e){ window.__KASA_DEVAM=false; try{ sayacTazele(); }catch(x){} } };
 document.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); skorCiz();
@@ -1161,6 +1170,7 @@ if(!durum.t0) durum.t0={}; durum.t0[0]=Date.now();   // ilk kart: süre sayfa a�
 akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i.simdi').forEach(n=>n.classList.remove('simdi')); document.querySelectorAll(i>=SORULAR.length?'.noktalar i[data-j="son"]':'.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add('simdi'));
   if(i<SORULAR.length&&durum.cevap[i]===undefined&&!durum.t0[i]) durum.t0[i]=Date.now();   // 06.09: karta gelince süre başlar
   if(i>0&&i%SET===0&&i<SORULAR.length) setOzet(i/SET-1);   /* 10.10: yeni setin ilk kartına gelince biten setin özeti */
+  if(window.__KASA_DEVAM&&window.__kasaSonraki&&i>=SORULAR.length-10) window.__kasaSonraki();   /* 11.10: son 10 karta gelince sıradaki 20 arkadan iner */
   if(i>=SORULAR.length&&window.__KASA_DEVAM){ document.getElementById('sonSkor').innerHTML='<p style="color:var(--dim)">Kalan sorular geliyor…</p>'; return; }   /* 07.10 parça yükleme */
   /* 10.10: son kart da bankanın toplamını yazmaz; çözdüğü soru üzerinden (durum.ok) sayar. */
   if(i>=SORULAR.length){ const okL=Object.values(durum.ok), c=okL.length, dg=okL.filter(Boolean).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+dg+' / '+c+'</div><div style="color:var(--dim);font-size:.85em">çözdüğün sorularda doğru</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(c-dg)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+dg+'/'+c+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
