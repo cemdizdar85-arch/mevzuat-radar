@@ -92,7 +92,7 @@
   var SB_URL = 'https://bjrleanjpyujtajmazxn.supabase.co';
   var SB_KEY = 'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var kok = document.documentElement;
-  var bitti = false;
+  var bitti = false, dersler = null;
   /* 16.09 ADIM 2: kasa modundaki sayfa (kasa-yukle.js) soruları kapı AÇILINCA çeker.
      Sonuç: {acik:true, sb:<istemci>} ya da {acik:false}. Perde çıkarsa kasaya hiç istek gitmez. */
   var kapiCoz;
@@ -119,7 +119,7 @@
   function ac() {
     if (bitti) return; bitti = true;
     kok.classList.remove('pk-bekle');
-    kapiCoz({ acik: true, sb: window.__pkSb });
+    kapiCoz({ acik: true, sb: window.__pkSb, dersler: dersler });
   }
   function perde(tur) {
     if (bitti) return; bitti = true;
@@ -222,7 +222,7 @@
       var oturum = (await sb.auth.getSession()).data.session;
       if (!oturum) { clearTimeout(zaman); return perde('giris'); }
       /* supabase-js sorgusu tembeldir: await edilmeden GİTMEZ (19.08 dersi). */
-      var r = await sb.from('paket_uyeler').select('paket,bitis').eq('user_id', oturum.user.id);
+      var r = await sb.from('paket_uyeler').select('paket,bitis,dersler').eq('user_id', oturum.user.id);
       clearTimeout(zaman);
       if (r.error) return perde('hata');
       var bugun = new Date().toISOString().slice(0, 10);
@@ -244,7 +244,12 @@
         if (sinavi === 'yeterlilik') return p === 'yeterlilik' || p.indexOf('yeterlilik-') === 0 || p === 'smmm' || p === 'yeterlilik-kgk';
         return false;
       };
-      if ((r.data || []).some(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); })) {
+      var gecerli = (r.data || []).filter(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); });
+      if (gecerli.length) {
+        /* 11.10 Ders Denemesi: kapı alınan dersleri de bildirir (null = tüm dersler). Yalnız GÖRÜNÜM içindir
+           (kilitli set işareti); asıl kilit kasada (paket_erisim_var, dersler sütunu). */
+        dersler = gecerli.some(function (x) { return !x.dersler || !x.dersler.length; }) ? null
+          : [].concat.apply([], gecerli.map(function (x) { return x.dersler; }));
         ac();                               // ÖNCE sayfa açılır ...
         kutuyuAc();                         // 07.10: "Tekrar et" bağlantısı (#kutu) yanlış kutusunu açık getirir
         cihazKorumasi(sb, oturum.user);     // ... SONRA paylaşım koruması (arızada üye içeride kalır)

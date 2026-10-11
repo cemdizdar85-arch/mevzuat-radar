@@ -19,6 +19,7 @@
 //    paketli üyeye RLS'li kasadan gelir). Kaynak KASA (paket_soru), servis anahtarı ister.
 //  🚫 GÖRMEZ: SGS'de konu ifadesi kökte geçmeyen ama konuyu ölçen soru (havuz alt sınırdır) · ifade geçip konuyu ölçmeyen
 //    soru (%5 civarı, 40'lık okumada) · Yeterlilik eşlemesinin tek okuyucu hatası.
+//  11.10: 'smmm' ayrıca YETERLİLİK DERS DENEMESİ basar (smmm-ders-*.json, ayrıntı smmmDers() başında).
 //  Kullanım: node motor/sik-konu-deneme-bas.js [sgs|smmm|hepsi] [--kuru]
 // ============================================================================
 'use strict';
@@ -62,7 +63,7 @@ function yazDegisirse(dosya, nesne, zamanAlani) {
   } catch (e) {}
   fs.writeFileSync(dosya, JSON.stringify(nesne, null, 1) + '\n', 'utf8'); return true;
 }
-function yaz(sinav, dizin, setler) {
+function yaz(sinav, dizin, setler, tur = 'sik') {
   const cikis = path.join(KOK, 'veri', 'deneme'); fs.mkdirSync(cikis, { recursive: true });
   const sizan = setler.flat().filter(q => q.soru || q.siklar || q.dogru).length;
   if (sizan) { console.log('KIRMIZI - ' + sizan + ' soruda metin/cevap alanı var; yazılmadı.'); process.exit(1); }
@@ -70,15 +71,15 @@ function yaz(sinav, dizin, setler) {
   let yazilan = 0;
   // eski fazla set dosyaları (set sayısı düştüyse) silinir
   for (const f of fs.readdirSync(cikis)) {
-    const m = f.match(new RegExp(`^${sinav}-sik-set-(\\d+)\\.json$`));
+    const m = f.match(new RegExp(`^${sinav}-${tur}-set-(\\d+)\\.json$`));
     if (m && +m[1] > setler.length) { fs.unlinkSync(path.join(cikis, f)); yazilan++; }
   }
   setler.forEach((st, i) => {
     const no = String(i + 1).padStart(2, '0'), b = dizin.setler[i];
-    if (yazDegisirse(path.join(cikis, `${sinav}-sik-set-${no}.json`), { sinav, tur: 'sik', no: i + 1, baslik: b.baslik, sure_dk: b.sure_dk, toplam: st.length, sorular: st.map((q, n) => ({ n: n + 1, ...q })) })) yazilan++;
+    if (yazDegisirse(path.join(cikis, `${sinav}-${tur}-set-${no}.json`), { sinav, tur, no: i + 1, baslik: b.baslik, sure_dk: b.sure_dk, toplam: st.length, sorular: st.map((q, n) => ({ n: n + 1, ...q })) })) yazilan++;
   });
   dizin.surum = crypto.createHash('sha1').update(setler.map(st => st.map(q => q.id).join(',')).join('|')).digest('hex').slice(0, 10);
-  if (yazDegisirse(path.join(cikis, `${sinav}-sik-dizin.json`), dizin, 'uretim')) yazilan++;
+  if (yazDegisirse(path.join(cikis, `${sinav}-${tur}-dizin.json`), dizin, 'uretim')) yazilan++;
   console.log(`  yazılan/değişen dosya: ${yazilan}`);
 }
 
@@ -220,9 +221,81 @@ async function smmm() {
     karne: 'konu', puan: 'yeterlilik', liste_sayfa: 'en-cok-cikan-konular-yeterlilik.html',
     konular: konuListe, setler: dizinSet
   }, tumSet);
+  return { kullanilan: gor, kasa, es, D, dersSira, pencere: ok.pencere };
+}
+
+// ---------------------------------------------------------------- YETERLİLİK DERS DENEMESİ
+//  11.10.2026 (Cem: "tek ders aldı nasıl sınayacağız tek dersi alan kişiyi" → GM önerisi 1 "ders denemesi" → "1 yapalım").
+//  Gerçek 2026 düzeninde her ders AYRI sınav (TÜRMOB YK 14.01.2026: ders başına 20 soru / 45 dk, yanlış 0,25 götürür,
+//  baraj 50) → tek ders alan kendi dersinin sınavını, tüm dersleri alan sekizini ayrı ayrı çözer.
+//  HAVUZ: dersin sitedeki sorularının TAMAMI (smmm-banka-esleme.json, kasada olan, elle ret dışı) EKSİ "en çok sorulan konular"
+//    setlerindeki sorular (iki denemeyi çözen aynı soruyu görmesin).
+//  AĞIRLIK: sorunun konusu okunmuş çıkmış sorularda (smmm-konu-okuma.json, son 10 yıl penceresi) kaç dönemde soruldu.
+//    Konular yumuşak ağırlıklı sırayla (smooth weighted round-robin) dizilir: sık konu daha çok, ama her set dersin geniş
+//    bir kesitini alır. Son 10 yılda hiç sorulmamış konunun sorusu yalnız ağırlıklı havuz 20'ye yetmezse girer.
+//  SETLER: ilk (set × 20) soru kart dağıtır gibi bölünür → setler arası AYNI SORU YOK. Ders başına en çok DERS_TAVAN set.
+//  🚫 GÖRMEZ: sorunun zorluğu (dağılım dengelenmez) · eşlemenin tek okuyucu hatası · gerçek kitapçık konu sırası (ölçülmedi).
+const DERS_TAVAN = 10;
+function smmmDers(sik) {
+  console.log('DERS DENEMESİ · Yeterlilik');
+  const { kullanilan, kasa, es, D, dersSira, pencere } = sik;
+  const tumSet = [], dizinSet = [], dersOzet = [], hata = [];
+  for (const ders of dersSira) {
+    const agirlik = {};
+    Object.values(D[ders] || {}).forEach(r => { agirlik[r.konu] = new Set(r.kanit.map(z => z.donem)).size; });
+    const kuyruk = {}, sifir = [];
+    Object.keys(es).filter(id => es[id].ders === ders && kasa[id] && !kullanilan.has(id))
+      .sort((a, b) => karma(a) - karma(b))
+      .forEach(id => {
+        // sorunun konusu: eşlemedeki konulardan en sık sorulanı (karne o konuyu sayar)
+        const kn = (es[id].konular || []).slice().sort((p, q) => (agirlik[q] || 0) - (agirlik[p] || 0))[0] || '';
+        const x = kasa[id], q = { id, bolum: ders, ders, konu: kn, sayfa: x.sayfa, sira: x.sira };
+        if (kn && agirlik[kn] > 0) (kuyruk[kn] = kuyruk[kn] || []).push(q); else sifir.push(q);
+      });
+    // yumuşak ağırlıklı sıra: her adımda her konunun sayacı ağırlığı kadar artar, en yüksek sayaçlı konu verir
+    const dizi = [], sayac = {};
+    let acik = Object.keys(kuyruk);
+    acik.forEach(k => { sayac[k] = 0; });
+    while (acik.length) {
+      const top = acik.reduce((t, k) => t + agirlik[k], 0);
+      acik.forEach(k => { sayac[k] += agirlik[k]; });
+      const sec = acik.reduce((m, k) => (sayac[k] > sayac[m] || (sayac[k] === sayac[m] && agirlik[k] > agirlik[m])) ? k : m);
+      sayac[sec] -= top; dizi.push(kuyruk[sec].shift());
+      if (!kuyruk[sec].length) acik = acik.filter(k => k !== sec);
+    }
+    const agirlikli = dizi.length;
+    if (dizi.length < SM_SORU) dizi.push(...sifir);
+    const S = Math.min(DERS_TAVAN, Math.floor(dizi.length / SM_SORU));
+    if (!S) { hata.push(`${ders}: 20'lik set kurulamıyor (havuz ${dizi.length})`); continue; }
+    const setler = Array.from({ length: S }, () => []);
+    dizi.slice(0, S * SM_SORU).forEach((q, j) => setler[j % S].push(q));
+    const konuSay = new Set(setler.flat().map(q => q.konu)).size;
+    console.log(`  ${ders}: ${S} set · havuz ${agirlikli} ağırlıklı + ${sifir.length} son 10 yılda sorulmamış konu · setlerde ${konuSay} konu`);
+    dersOzet.push({ ders, set: S, konu: konuSay });
+    setler.forEach((st, i) => {
+      if (st.length !== SM_SORU) hata.push(`${ders} set ${i + 1}: ${st.length} soru`);
+      tumSet.push(st); dizinSet.push({ no: tumSet.length, ders, baslik: `${ders} · Deneme ${i + 1}`, sure_dk: SM_SURE, toplam: st.length, dosya: `veri/deneme/smmm-ders-set-${String(tumSet.length).padStart(2, '0')}.json` });
+    });
+  }
+  const gor = new Set();
+  tumSet.flat().forEach(q => { if (gor.has(q.id)) hata.push('tekrar: ' + q.id); if (kullanilan.has(q.id)) hata.push('sık konu setinde de var: ' + q.id); gor.add(q.id); });
+  if (hata.length) { console.log('KIRMIZI - yazılmadı:'); hata.forEach(h => console.log('  · ' + h)); process.exit(1); }
+  console.log(`  ${tumSet.length} set (${dersOzet.length} ders) × ${SM_SORU} soru · setler arası tekrar 0 · sık konu setleriyle ortak 0`);
+  yaz('smmm', {
+    uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
+    sinav: 'smmm', tur: 'ders', ad: 'Yeterlilik', baslik: 'Yeterlilik · Ders Denemesi',
+    deneme_ad: 'Ders Denemesi',
+    alt: `Gerçek sınavda her ders ayrı bir sınav. Burada da öyle: dersini seç, ${SM_SORU} soru, ${SM_SURE} dakika, yanlış doğrunun 0,25'ini götürür. Sorular dersin bütün konularından; son 10 yılda sık sorulan konu daha çok gelir. Bitince puanın ve konu konu karnen.`,
+    kural: [`Ders başına ${SM_SORU} soru`, `${SM_SURE} dakika`, 'Yanlış 0,25 götürür', 'Baraj 50', 'Setler arası tekrar yok'],
+    not: `Sınav düzeni TÜRMOB Yönetim Kurulu kararından (14.01.2026). Konu ağırlığı okunarak sayılmış çıkmış sorulardan (${pencere}). "En çok sorulan konular" denemesindeki sorular burada yeniden gelmez.`,
+    sonuc_alt: 'Puan: (doğru − yanlış ÷ 4) × 5. Geçme barajı 50; gerçek sınavda her ders ≥ 50 ve ortalama ≥ 60.',
+    karne: 'konu', puan: 'yeterlilik', liste_sayfa: 'en-cok-cikan-konular-yeterlilik.html',
+    dersler: dersOzet, setler: dizinSet
+  }, tumSet, 'ders');
 }
 
 (async () => {
   if (HEDEF === 'sgs' || HEDEF === 'hepsi') await sgs();
-  if (HEDEF === 'smmm' || HEDEF === 'hepsi') await smmm();
+  // 11.10: 'smmm' iki türü birlikte basar (ders denemesi, sık konu setlerinde kullanılan soruyu dışlar → aynı koşuda)
+  if (HEDEF === 'smmm' || HEDEF === 'hepsi') smmmDers(await smmm());
 })().catch(e => { console.log('KIRMIZI - ' + e.message); process.exit(1); });
