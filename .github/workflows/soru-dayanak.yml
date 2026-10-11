@@ -51,5 +51,16 @@ jobs:
           fi
           ISARET=$(grep -o '"isaretlenenSoru":[[:space:]]*[0-9]*' veri/soru-dayanak-raporu.json | grep -o '[0-9]*$' || echo "?")
           git commit -m "Soru-dayanak nobeti: $ISARET soru mevzuat-degisti notuyla cekildi [veri-operasyonu]"
-          git pull --rebase --autostash || true
-          git push
+          # 11.10: 09.10 ve 10.10 kosulari nobeti TAMAM bitirdi ama push reddedildi (fetch first).
+          # Eski 'git pull' butun dallari ~33 sn cekiyordu, o pencerede baska robot main'e itti,
+          # tekrar yoktu. Artik yalniz main cekilir + 5 deneme (artifact-nobeti.yml duzeni).
+          for i in 1 2 3 4 5; do
+            if cikti=$(git pull --rebase --autostash origin main 2>&1) && cikti2=$(git push origin HEAD:main 2>&1); then
+              echo "Rapor itildi (deneme $i)."
+              exit 0
+            fi
+            echo "::warning title=soru-dayanak push $i::${cikti:0:300} ${cikti2:0:200}"
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 7))
+          done
+          echo "!! PUSH TUTMADI (5 deneme)"; exit 1
