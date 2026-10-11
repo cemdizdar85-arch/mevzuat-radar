@@ -239,30 +239,42 @@ const DERS_TAVAN = 10;
 function smmmDers(sik) {
   console.log('DERS DENEMESİ · Yeterlilik');
   const { kullanilan, kasa, es, D, dersSira, pencere } = sik;
-  const tumSet = [], dizinSet = [], dersOzet = [], hata = [];
+  const tumSet = [], dizinSet = [], dersOzet = [], hata = [], havuzDosya = {};
   for (const ders of dersSira) {
     const agirlik = {};
     Object.values(D[ders] || {}).forEach(r => { agirlik[r.konu] = new Set(r.kanit.map(z => z.donem)).size; });
-    const kuyruk = {}, sifir = [];
-    Object.keys(es).filter(id => es[id].ders === ders && kasa[id] && !kullanilan.has(id))
-      .sort((a, b) => karma(a) - karma(b))
-      .forEach(id => {
+    // sırala: verilen kimlikleri yumuşak ağırlıklı sıraya dizer → {dizi (son 10 yılda sorulmuş konular), sifir (sorulmamış)}
+    const sirala = idler => {
+      const kuyruk = {}, sifir = [];
+      idler.slice().sort((a, b) => karma(a) - karma(b)).forEach(id => {
         // sorunun konusu: eşlemedeki konulardan en sık sorulanı (karne o konuyu sayar)
-        const kn = (es[id].konular || []).slice().sort((p, q) => (agirlik[q] || 0) - (agirlik[p] || 0))[0] || '';
+        const kn = ((es[id] && es[id].konular) || []).slice().sort((p, q) => (agirlik[q] || 0) - (agirlik[p] || 0))[0] || '';
         const x = kasa[id], q = { id, bolum: ders, ders, konu: kn, sayfa: x.sayfa, sira: x.sira };
         if (kn && agirlik[kn] > 0) (kuyruk[kn] = kuyruk[kn] || []).push(q); else sifir.push(q);
       });
-    // yumuşak ağırlıklı sıra: her adımda her konunun sayacı ağırlığı kadar artar, en yüksek sayaçlı konu verir
-    const dizi = [], sayac = {};
-    let acik = Object.keys(kuyruk);
-    acik.forEach(k => { sayac[k] = 0; });
-    while (acik.length) {
-      const top = acik.reduce((t, k) => t + agirlik[k], 0);
-      acik.forEach(k => { sayac[k] += agirlik[k]; });
-      const sec = acik.reduce((m, k) => (sayac[k] > sayac[m] || (sayac[k] === sayac[m] && agirlik[k] > agirlik[m])) ? k : m);
-      sayac[sec] -= top; dizi.push(kuyruk[sec].shift());
-      if (!kuyruk[sec].length) acik = acik.filter(k => k !== sec);
-    }
+      // her adımda her konunun sayacı ağırlığı kadar artar, en yüksek sayaçlı konu verir
+      const dizi = [], sayac = {};
+      let acik = Object.keys(kuyruk);
+      acik.forEach(k => { sayac[k] = 0; });
+      while (acik.length) {
+        const top = acik.reduce((t, k) => t + agirlik[k], 0);
+        acik.forEach(k => { sayac[k] += agirlik[k]; });
+        const sec = acik.reduce((m, k) => (sayac[k] > sayac[m] || (sayac[k] === sayac[m] && agirlik[k] > agirlik[m])) ? k : m);
+        sayac[sec] -= top; dizi.push(kuyruk[sec].shift());
+        if (!kuyruk[sec].length) acik = acik.filter(k => k !== sec);
+      }
+      return { dizi, sifir };
+    };
+    const tum = Object.keys(es).filter(id => es[id].ders === ders && kasa[id]);
+    // 11.10 SANA ÖZEL DENEME havuzu: dersin TÜM sitedeki soruları aynı ağırlıklı sırayla (sinav-gibi.html öğrencinin
+    // görmediklerini bu sırayla seçer). YALNIZ KİMLİK + konu sırası + sayfa sırası.
+    // Kaynak eşleme değil KASA: eşlemede olmayan sitedeki soru da havuza girer (konusuz → sona; 11.10 Vergi 402'nin 48'i).
+    const h = sirala(Object.keys(kasa).filter(id => String(kasa[id].ders || '').split('|')[0].trim() === ders)),
+      hs = h.dizi.concat(h.sifir), sayfa = hs.length ? hs[0].sayfa : '';
+    if (hs.some(q => q.sayfa !== sayfa)) hata.push(`${ders}: havuzda birden çok sayfa`);
+    const konuAd = [...new Set(hs.map(q => q.konu))];
+    havuzDosya[ders] = { sayfa, soru: hs.length, konular: konuAd, sorular: hs.map(q => [q.id, konuAd.indexOf(q.konu), q.sira]) };
+    const { dizi, sifir } = sirala(tum.filter(id => !kullanilan.has(id)));
     const agirlikli = dizi.length;
     if (dizi.length < SM_SORU) dizi.push(...sifir);
     const S = Math.min(DERS_TAVAN, Math.floor(dizi.length / SM_SORU));
@@ -292,6 +304,17 @@ function smmmDers(sik) {
     karne: 'konu', puan: 'yeterlilik', liste_sayfa: 'en-cok-cikan-konular-yeterlilik.html',
     dersler: dersOzet, setler: dizinSet
   }, tumSet, 'ders');
+  if (!KURU) {
+    const hv = { uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
+      not: 'Sana özel deneme havuzu: ders → sorular [kimlik, konular[] sırası, sayfa sırası], ağırlıklı sırada. Metin/cevap YOK.',
+      dersler: havuzDosya };
+    hv.surum = crypto.createHash('sha1').update(JSON.stringify(havuzDosya)).digest('hex').slice(0, 10);
+    // sıkı JSON (girintisiz): sayfa bu dosyayı özel deneme açılınca indirir
+    const hd = path.join(KOK, 'veri', 'deneme', 'smmm-ders-havuz.json');
+    let eski = null; try { eski = jsonOku(hd); } catch (e) {}
+    if (!eski || eski.surum !== hv.surum) { fs.writeFileSync(hd, JSON.stringify(hv) + '\n', 'utf8'); console.log('  smmm-ders-havuz.json yazıldı'); }
+  }
+  console.log('  özel deneme havuzu: ' + Object.keys(havuzDosya).map(d => d + ' ' + havuzDosya[d].soru).join(' · '));
 }
 
 (async () => {

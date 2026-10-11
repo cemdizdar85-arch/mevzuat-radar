@@ -112,6 +112,15 @@
   .sc-deneme-alt{font-size:14px;color:var(--muted);line-height:1.5}
   .sc-deneme-git{font-size:15px;font-weight:750;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));
     border-radius:10px;padding:11px 20px;white-space:nowrap}
+  .sc-karsila{margin:0 0 22px;padding:20px 22px;border-radius:14px;border:1px solid var(--bz-bronz);
+    background:linear-gradient(135deg,color-mix(in srgb,var(--bz-bronz) 16%,transparent),color-mix(in srgb,var(--bz-bronz) 4%,transparent));display:flex;flex-direction:column;gap:8px}
+  .sc-karsila>b{font-size:20px;color:var(--ink)}
+  .sc-karsila ul{margin:0;padding-left:18px;font-size:14.5px;line-height:1.6;color:var(--muted)}
+  .sc-karsila ul b{color:var(--ink)}
+  .sc-karsila p{margin:2px 0 4px;font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .sc-karsila-dug{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .sc-karsila-dug a{text-decoration:none}
+  .sc-karsila-ikinci{font-size:15px;font-weight:750;color:var(--bz-bronz-acik);padding:11px 4px}
   .sc-alanlar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
   .sc-alanlar a{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;
                 color:var(--bz-ak);text-decoration:none;font-weight:700;font-size:14px;background:var(--bz-gece2)}
@@ -166,6 +175,7 @@
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
 <script src="uye-durumu.js?v=20261007b"></script>
+<script src="ders-ilerleme.js?v=20261011"></script>
 <script>
 (function(){
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
@@ -234,6 +244,28 @@
       +'<b>'+esc(hedef.ad)+'</b><span class="sc-deneme-alt">'+(sonD?'En son bu dersi çözüyordun. Başka ders için aşağıdan seç.':(hedef.sinav_soru?'Sınavda en çok soru gelen ders. ':'')+'Başka ders için aşağıdan seç.')+'</span></span>'
       +'<span class="sc-deneme-git">Soru çöz →</span></a>';
   }
+  /* 11.10 KARŞILAMA (Cem "tek ders alan öğrencinin yanında olalım, yönlendirelim"): ders seçimli Yeterlilik paketinde
+     (tek ya da birkaç ders) en üstte: aldığı dersler · sınava kalan gün · sitedeki soru · gördüğü / bekleyen (ders-ilerleme.js,
+     deneme sayfasıyla aynı sayım) · ilk adım. Tüm dersleri alanda çizilmez (orada devamKart kalır). */
+  function karsilamaKart(s, acik){
+    var p=PAKET[s.kod]; if(!acik||s.kod!=='smmm'||!p||!p.dersler||!p.dersler.length) return '';
+    var DI=window.ttDersIlerleme, g=DI?DI.gorulen():{}, ss=sonrakiSinav(s.kod), ilk=p.dersler[0];
+    if(DI&&!DI.ders(ilk)) DI.havuzAl().then(function(){ if(DI.ders(ilk)&&SECILI===s.kod) dersleriCiz(); });
+    var bul=function(ad){ return s.dersler.filter(function(x){ return trk(x.ad)===trk(ad); })[0]; };
+    var satir=p.dersler.map(function(ad){ var d=bul(ad), il=DI&&DI.ilerleme(ad,g);
+      return '<li><b>'+esc(d?d.ad:ad)+'</b> · sitede '+(il?il.toplam:(d&&d.soru)||0)+' soru'
+        +(il?' · gördüğün '+il.gor+' · seni bekleyen <b>'+il.yeni+'</b>':'')+'</li>'; }).join('');
+    var denemeVar=false; try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i);
+      if(/^sg_smmm_(ders_|oz-)/.test(k)&&/"bitti":true/.test(localStorage.getItem(k)||'')){ denemeVar=true; break; } } }catch(e){}
+    var son=null; try{ son=localStorage.getItem('sc_son_ders_'+s.kod); }catch(e){}
+    var cal=p.dersler.map(bul).filter(function(d){ return d&&d.sayfa; }), calH=(cal.filter(function(d){ return d.sayfa===son; })[0]||cal[0]);
+    return '<div class="sc-karsila"><span class="sc-deneme-et">Hoş geldin'+(ss?' · sınava '+ss.gun+' gün':'')+'</span>'
+      +'<b>Aldığın ders'+(p.dersler.length>1?'ler':'')+'</b><ul>'+satir+'</ul>'
+      +'<p>'+(denemeVar?'Sıradaki adım: <b>sana özel deneme</b>. Hiç görmediğin sorular gelir; bitince Nöbetçi seni zayıf konuna götürür.'
+        :'İlk iş: <b>20 soruluk ders denemesi</b> (45 dakika, gerçek sınav düzeni). Nerede olduğunu görürsün; bitince Nöbetçi seni zayıf konuna götürür.')+'</p>'
+      +'<div class="sc-karsila-dug"><a class="sc-deneme-git" href="sinav-gibi.html?tur=ders&amp;sinav=smmm&amp;ders='+encodeURIComponent(ilk)+'">'+(denemeVar?'Sana özel denemeye git →':'Ders denemesine başla →')+'</a>'
+      +(calH?'<a class="sc-devam sc-karsila-ikinci" href="'+esc(calH.sayfa)+'" data-ders="'+esc(calH.sayfa)+'">'+(calH.sayfa===son?'Kaldığın yerden soru çöz':'Soru çöz: '+esc(calH.ad))+' →</a>':'')+'</div></div>';
+  }
   /* üyede başlık ve sınav kartları: tek paketliyse kartlar gizlenir (sınavı zaten belli), iki paketliyse kalır */
   function uyeBasCiz(){
     if(!DIZIN) return;
@@ -286,7 +318,8 @@
     /* 03.10 (Cem, V2 madde 13): sınav seçilince ilgili alanlar tek satırda - Dersler · Deneme · Yanlışlarım · Son durum · Hesabım */
     var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'
       +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
-    var h=devamKart(s, acik)+alanlar+seviyeKart+denemeKart+'<div class="sc-gbas" id="sc-dersler"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
+    var kars=karsilamaKart(s, acik);   /* ders seçimli pakette karşılama devam + deneme kartının yerine geçer */
+    var h=(kars||devamKart(s, acik))+alanlar+seviyeKart+(kars?'':denemeKart)+'<div class="sc-gbas" id="sc-dersler"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
         ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'
         :'Bu sınavın soruları hakem ve çözüm kapılarından geçiyor. Açıldığında dersler burada, Staja Giriş\'teki gibi ders ders görünecek.')+'</p>';
