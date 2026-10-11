@@ -111,7 +111,7 @@
   }
 </style>
 <script src="paket-kapisi.js?v=20261011"></script>
-<script src="ders-ilerleme.js?v=20261011"></script>
+<script src="ders-ilerleme.js?v=20261011b"></script>
 <script src="icerik-koruma.js"></script><!-- 09.10 kopya/yazdırma kilidi + telif şeridi (paketli içerik) -->
 <!-- 07.10: yanlış kutusu hesaba (üye girişliyse; paket-kapisi.js'in istemcisini kullanır) -->
 <script src="kutu-esitle.js"></script>
@@ -229,7 +229,7 @@
   function ozelListe(){ try{ return JSON.parse(localStorage.getItem('sg_ozel_liste')||'[]')||[]; }catch(e){ return []; } }
   /* sec: {ders, adet, konu?, ids?, baslik} → set kurulur, cihaza (yalnız kimlik) yazılır, açılır */
   function ozelBaslat(sec){
-    havuzAl().then(function(){
+    Promise.all([havuzAl(), DI&&DI.hesapAl?DI.hesapAl():null]).then(function(){
       var hd=havuzDers(sec.ders); if(!hd){ alert('Sana özel deneme şu an kurulamadı. Sayfayı yenileyip yeniden dene.'); return; }
       var h=hd.h, g=gorulen(), liste=h.sorular.map(function(r){ return {id:r[0], konu:h.konular[r[1]]||'', sira:r[2]}; }), yeni;
       if(sec.ids){ var sira={}; sec.ids.forEach(function(id,i){ sira[String(id)]=i; });
@@ -395,7 +395,11 @@
     var dogru=0, yanlis=0, bos=0;
     SET.sorular.forEach(function(q){ var c=DURUM.cevap[q.id]; if(!c) bos++; else if(c===q.dogru) dogru++; else yanlis++; });
     DURUM.bitti=true; DURUM.sureDoldu=!!sureDoldu; DURUM.bitis=new Date().toISOString();
-    DURUM.sonuc={dogru:dogru,yanlis:yanlis,bos:bos}; yaz();
+    DURUM.sonuc={dogru:dogru,yanlis:yanlis,bos:bos};
+    /* 11.10: Hesabım "Deneme karnem" bu özeti hesaba aktarır (ogrenci.html cihazSonuclari) */
+    DURUM.ozet={tur:SET.ozel?'ozel':(TUR||'set'), ders:SET.ders||(SET.sorular[0]&&SET.sorular[0].ders)||'', baslik:SET.baslik||('Set '+SET.no),
+      toplam:SET.toplam, tekrar:!!(SET.ozel&&SET.ozel.tekrar), puanli:DIZIN.puan==='yeterlilik'};
+    yaz();
     kutuyaYaz();
     sonucCiz();
   }
@@ -501,6 +505,8 @@
   (window.__pkKapi||Promise.resolve(null)).then(function(k){
     PAKET_DERS=(k&&k.acik)?(k.dersler||null):undefined;
     if(DIZIN&&!$('sgGiris').classList.contains('sg-gizli')) setleriCiz();
+    /* 11.10 GM3: hesaptaki sınırsız cevap kaydı gelince "gördüğün / bekleyen" yeniden sayılır */
+    if(k&&k.acik&&TUR==='ders'&&DI&&DI.hesapAl) DI.hesapAl().then(function(h){ if(h&&DIZIN&&!$('sgGiris').classList.contains('sg-gizli')) setleriCiz(); });
   });
   fetch('veri/deneme/'+SINAV+(TUR?'-'+TUR:'')+'-dizin.json',{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
     DIZIN=d;

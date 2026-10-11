@@ -4,10 +4,12 @@
  *
  * HAVUZ   : veri/deneme/smmm-ders-havuz.json (motor/sik-konu-deneme-bas.js) — dersin sitedeki TÜM soruları, yalnız kimlik,
  *           son 10 yılda sık sorulan konu önde ağırlıklı sıra.
- * GÖRÜLEN : ders sayfalarının son 500 cevabı (kc_kayit, hesaba eşitlenir) + yanlış kutusu (kc_kutu) + deneme sayfasındaki
- *           bütün denemeler (sg_smmm_*: cevaplar + açılan setin kimlikleri). Değer = son görülme zamanı (ms).
- * 🚫 GÖRMEZ: son 500'den eski ders sayfası cevabı · başka cihazda çözülüp bu cihazda ders sayfası hiç açılmamış soru ·
- *           11.10 öncesi açılmış deneme setlerinde cevaplanmamış soru (kimlik listesi o günden beri yazılır).
+ * GÖRÜLEN : ders sayfalarının son 500 cevabı (kc_kayit) + yanlış kutusu (kc_kutu) + deneme sayfasındaki bütün denemeler
+ *           (sg_smmm_*: cevaplar + açılan setin kimlikleri) + 11.10 (GM3): HESAPTAKİ kayıt (ogrenci_ilerleme.veri.kayit — soru başına
+ *           son cevap, SINIRSIZ; ders sayfaları ve uygulama ilerleme-web.js / ilerleme.js ile yazar) — hesapAl() ile, girişliyse.
+ *           Değer = son görülme zamanı (ms).
+ * 🚫 GÖRMEZ: girişsizken başka cihazdaki cevap · denemelerin cevabı başka cihazda (deneme cevapları hesaba yalnız Hesabım'da
+ *           özet olarak gider, soru kimliği gitmez) · 11.10 öncesi açılmış deneme setlerinde cevaplanmamış soru.
  */
 (function () {
   if (window.ttDersIlerleme) return;
@@ -24,12 +26,32 @@
       .catch(function () { bekleyen = null; return null; });
     return bekleyen;
   }
+  /* hesaptaki ilerleme (girişliyse): paket-kapisi.js / uye-durumu.js'in istemcisi (window.__pkSb). Bir kez okunur. */
+  var HESAP = null, hesapBek = null;
+  function hesapAl() {
+    if (HESAP) return Promise.resolve(HESAP);
+    if (hesapBek) return hesapBek;
+    var sb = window.__pkSb; if (!sb || !sb.auth) return Promise.resolve(null);
+    hesapBek = sb.auth.getSession().then(function (r) {
+      var s = r && r.data && r.data.session; if (!s) return null;
+      /* supabase-js sorgusu tembeldir: then edilmeden GİTMEZ */
+      return sb.from('ogrenci_ilerleme').select('veri').eq('user_id', s.user.id).maybeSingle().then(function (x) {
+        if (!x || x.error || !x.data || !x.data.veri) return null;
+        HESAP = { kayit: x.data.veri.kayit || {}, kutu: x.data.veri.kutu || {} }; return HESAP;
+      });
+    }).catch(function () { return null; }).then(function (h) { hesapBek = null; return h; });
+    return hesapBek;
+  }
   function oku(k, v) { try { var x = JSON.parse(localStorage.getItem(k) || 'null'); return x == null ? v : x; } catch (e) { return v; } }
   function gorulen() {
     var g = {};
     function ek(id, t) { id = String(id); t = +t || 1; if (!g[id] || g[id] < t) g[id] = t; }
     (oku('kc_kayit', []) || []).forEach(function (x) { if (x && x.id != null) ek(x.id, x.t); });
     (oku('kc_kutu', []) || []).forEach(function (x) { if (x && x.id != null) ek(x.id, 1); });
+    if (HESAP) {
+      Object.keys(HESAP.kayit).forEach(function (id) { var v = HESAP.kayit[id]; ek(id, v && v.t); });
+      Object.keys(HESAP.kutu).forEach(function (id) { ek(id, 1); });
+    }
     try {
       for (var i = 0; i < localStorage.length; i++) {
         var k = localStorage.key(i); if (!/^sg_smmm_/.test(k)) continue;
@@ -52,5 +74,5 @@
     hd.h.sorular.forEach(function (r) { if (g[String(r[0])]) gor++; });
     return { ad: hd.ad, toplam: hd.h.soru, gor: gor, yeni: hd.h.soru - gor, sayfa: hd.h.sayfa };
   }
-  window.ttDersIlerleme = { havuzAl: havuzAl, gorulen: gorulen, ders: ders, ilerleme: ilerleme, trk: trk };
+  window.ttDersIlerleme = { havuzAl: havuzAl, hesapAl: hesapAl, gorulen: gorulen, ders: ders, ilerleme: ilerleme, trk: trk };
 })();

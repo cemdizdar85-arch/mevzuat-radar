@@ -175,7 +175,7 @@
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
 <script src="uye-durumu.js?v=20261007b"></script>
-<script src="ders-ilerleme.js?v=20261011"></script>
+<script src="ders-ilerleme.js?v=20261011b"></script>
 <script>
 (function(){
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
@@ -247,10 +247,13 @@
   /* 11.10 KARŞILAMA (Cem "tek ders alan öğrencinin yanında olalım, yönlendirelim"): ders seçimli Yeterlilik paketinde
      (tek ya da birkaç ders) en üstte: aldığı dersler · sınava kalan gün · sitedeki soru · gördüğü / bekleyen (ders-ilerleme.js,
      deneme sayfasıyla aynı sayım) · ilk adım. Tüm dersleri alanda çizilmez (orada devamKart kalır). */
+  var KARS_HESAP=false;
   function karsilamaKart(s, acik){
     var p=PAKET[s.kod]; if(!acik||s.kod!=='smmm'||!p||!p.dersler||!p.dersler.length) return '';
     var DI=window.ttDersIlerleme, g=DI?DI.gorulen():{}, ss=sonrakiSinav(s.kod), ilk=p.dersler[0];
     if(DI&&!DI.ders(ilk)) DI.havuzAl().then(function(){ if(DI.ders(ilk)&&SECILI===s.kod) dersleriCiz(); });
+    /* 11.10 GM3: hesaptaki sınırsız cevap kaydı (bir kez okunur) gelince sayılar yeniden çizilir */
+    if(DI&&DI.hesapAl&&!KARS_HESAP&&window.__pkSb){ KARS_HESAP=true;   /* önbellekle ilk çizimde istemci henüz yoksa sonraki çizimde */ DI.hesapAl().then(function(h){ if(h&&SECILI===s.kod) dersleriCiz(); }); }
     var bul=function(ad){ return s.dersler.filter(function(x){ return trk(x.ad)===trk(ad); })[0]; };
     var satir=p.dersler.map(function(ad){ var d=bul(ad), il=DI&&DI.ilerleme(ad,g);
       return '<li><b>'+esc(d?d.ad:ad)+'</b> · sitede '+(il?il.toplam:(d&&d.soru)||0)+' soru'

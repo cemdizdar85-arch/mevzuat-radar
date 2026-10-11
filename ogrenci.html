@@ -284,9 +284,9 @@
         <div class="og-grafik" id="ogGrafik"></div>
         <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
         <div class="og-bolum og-gizli" id="ogDenemeBolum">
-          <h2 style="font-size:17px">Sınav gibi denemeler</h2>
+          <h2 style="font-size:17px" id="ogDenemeBaslik">Sınav gibi denemeler</h2>
           <div class="og-kutu" id="ogDenemeler"></div>
-          <div class="og-btnler"><a class="og-btn" href="sinav-gibi.html">Sınav gibi çöz (130 soru)</a><a class="og-btn" href="sorular.html#sgs">Ders ders çalış</a></div>
+          <div class="og-btnler"><a class="og-btn" href="sinav-gibi.html" id="ogDenemeBtn">Sınav gibi çöz (130 soru)</a><a class="og-btn" href="sorular.html#sgs" id="ogDenemeCalis">Ders ders çalış</a></div>
         </div>
       </div>
     </div>
@@ -548,6 +548,15 @@
       var m=/^sg_sgs_(\d+)(?:_([0-9a-z]+))?$/i.exec(a), no=+m[1], d=yerel(a,null);
       if(d&&d.bitti&&d.sonuc&&d.bitis) liste.push({tur:'deneme',sinav:'sgs',anahtar:'sg-'+no+'-'+d.bitis,veri:{set:no,dogru:d.sonuc.dogru,yanlis:d.sonuc.yanlis,bos:d.sonuc.bos,tarih:d.bitis,surum:m[2]||null}});
     });
+    /* 11.10 DENEME KARNEM (Yeterlilik): sinav-gibi.html ders / sık konu / sana özel denemeleri (sg_smmm_*; bitince 'ozet' yazar).
+       Puan yalnız 20 soruluk puanlı denemede: (doğru − yanlış/4) × 100 / soru. Konu ve yanlış tekrarı karneye girmez (sınav değil). */
+    try{ for(var j=0;j<localStorage.length;j++){ var y=localStorage.key(j); if(!/^sg_smmm_/.test(y||'')) continue;
+      var dy=yerel(y,null); if(!dy||!dy.bitti||!dy.sonuc||!dy.bitis||!dy.ozet||!dy.ozet.ders) continue;
+      var oz=dy.ozet; if(!(oz.puanli&&oz.toplam===20&&!oz.tekrar)) continue;
+      var pn=Math.max(0,(dy.sonuc.dogru-dy.sonuc.yanlis/4)*100/oz.toplam);
+      liste.push({tur:'deneme',sinav:'smmm',anahtar:('sgy-'+y.replace(/^sg_smmm_/,'')+'-'+dy.bitis).slice(0,80),
+        veri:{ders:oz.ders,baslik:String(oz.baslik||'').slice(0,120),tur:oz.tur,dogru:dy.sonuc.dogru,yanlis:dy.sonuc.yanlis,bos:dy.sonuc.bos,toplam:oz.toplam,puan:Math.round(pn*100)/100,tarih:dy.bitis}});
+    } }catch(e){}
     return liste;
   }
 
@@ -696,8 +705,8 @@
     var olc=S.olc||(yet?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), devam=S.devam||(yet?'sorular.html#smmm':'sorular.html#sgs');
     $('ogBosTest').href=olc; $('ogTestBtn').href=olc; $('ogBosCalis').href=devam;
     var seviye=kayit.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
-    /* sinav-gibi.html yalnız SGS'dir: Yeterlilik'te deneme bölümü yok */
-    var deneme=yet?[]:kayit.filter(function(x){return x.tur==='deneme';});
+    /* 11.10: Yeterlilik'te de deneme var (ders denemesi, sinav-gibi.html?tur=ders) → "Deneme karnem" ders ders */
+    var deneme=kayit.filter(function(x){return x.tur==='deneme'&&(!yet||(x.veri&&x.veri.ders));});
     grafikCiz(seviye);
     var son=seviye[seviye.length-1];
     if(son){
@@ -714,6 +723,23 @@
         return '<div class="og-satir"><b>'+esc(g.ad)+'</b><span>'+(DURUM_AD[g.durum]?esc(DURUM_AD[g.durum])+' · ':'')+esc(g.dogru)+' / '+esc(g.soru)+' doğru</span></div>'; }).join('');
       yd.classList.remove('og-gizli');
     } else { yd.innerHTML=''; yd.classList.add('og-gizli'); }
+    /* 11.10 DENEME KARNEM (Yeterlilik): ders ders puan gidişatı (son 5) + baraj; başlık ve düğmeler sınava göre */
+    $('ogDenemeBaslik').textContent=yet?'Deneme karnem':'Sınav gibi denemeler';
+    $('ogDenemeBtn').href=yet?'sinav-gibi.html?tur=ders&sinav=smmm':'sinav-gibi.html'; $('ogDenemeBtn').textContent=yet?'Ders denemesi çöz (20 soru)':'Sınav gibi çöz (130 soru)';
+    $('ogDenemeCalis').href=devam;
+    if(yet){
+      var dg={}, ds=[];
+      deneme.slice().sort(function(a,b){ return String(a.veri.tarih||'').localeCompare(String(b.veri.tarih||'')); }).forEach(function(x){
+        var k=x.veri.ders; if(!dg[k]){ dg[k]=[]; ds.push(k); } dg[k].push(x); });
+      $('ogDenemeler').innerHTML=ds.length?ds.map(function(k){
+        var l=dg[k], p=l.map(function(x){ return +x.veri.puan||0; }), son=p[p.length-1], fark=p.length>1?son-p[p.length-2]:null;
+        var yaz=function(n){ return (Math.round(n*10)/10).toLocaleString('tr-TR'); };
+        return '<div class="og-satir"><div><b>'+esc(k)+'</b><br><span>'+l.length+' deneme · '+p.slice(-5).map(yaz).join(' → ')
+          +(fark!==null?' <span style="color:var('+(fark>=0?'--green':'--red')+')">('+(fark>=0?'+':'')+yaz(fark)+')</span>':'')+'</span></div>'
+          +'<span style="font-weight:700;color:var('+(son>=50?'--green':'--red')+')">'+yaz(son)+' puan · baraj 50 '+(son>=50?'✓':'✗')+'</span></div>';
+      }).join('')+'<p class="og-alt" style="margin:8px 0 0;font-size:13px">Puan: (doğru − yanlış ÷ 4) × 5. Gerçek sınavda her ders ≥ 50 ve ortalama ≥ 60.</p>'
+        :'<p class="og-alt" style="margin:0">Henüz bitirilmiş ders denemesi yok.</p>';
+    } else
     $('ogDenemeler').innerHTML=deneme.length?deneme.sort(function(a,b){ return (a.veri.set-b.veri.set)||String(a.veri.tarih||'').localeCompare(String(b.veri.tarih||'')); }).map(function(x){
         var t=x.veri.tarih?new Date(x.veri.tarih).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}):'';
         return '<div class="og-satir"><b>Set '+esc(x.veri.set)+(t?' <span style="font-weight:400;color:var(--muted)">· '+esc(t)+'</span>':'')+'</b><span>'+esc(x.veri.dogru)+' doğru · '+esc(x.veri.yanlis)+' yanlış · '+esc(x.veri.bos)+' boş</span></div>'; }).join('')
