@@ -158,7 +158,7 @@
     }
     /* 09.10 1.8.1 canlı deneme (sitedeki canli-deneme.html): ücretsiz, herkes aynı anda; sayfa sıradaki denemeyi kendisi okur */
     if (s !== 'kgk' && sayfaVar('canli-deneme.html')) {
-      h += '<a class="ilerKart" href="canli-deneme.html"><span class="iUst"><span class="iAd">Canlı deneme<small>' +
+      h += '<a class="ilerKart" href="canli-deneme.html"><span class="iUst"><span class="iAd">Sınav provası<small>' +
         'Herkesle aynı anda, sınav saatinde · ücretsiz</small></span><span class="iDugme">Aç' + ik('ok') + '</span></span></a>';
     }
     if (yu) { $('sinavUst').innerHTML = h; return; }

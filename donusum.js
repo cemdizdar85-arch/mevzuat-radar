@@ -141,7 +141,7 @@ function eslestir(url, yontem, govde){
     if (/^(ACILIS PERDESI|Açılış perdesi)/i.test(k)) return ['Lead', { content_name: 'perde' }, eposta];
     if (/^(ON KAYIT|Ön kayıt)/i.test(k))       return ['Lead', { content_name: 'on-kayit' }, eposta];
     if (/^(SEVIYE TESTI|Seviye testi)/i.test(k))   return ['Lead', { content_name: 'seviye-testi' }, eposta];
-    if (/^(CANLI DENEME kayit|Canlı deneme kaydı)/i.test(k)) return ['Lead', { content_name: 'canli-deneme' }, eposta];
+    if (/^(CANLI DENEME kayit|Canlı deneme kaydı|Sınav provası kaydı)/i.test(k)) return ['Lead', { content_name: 'canli-deneme' }, eposta];
     if (/^YENİ (SİPARİŞ|ABONELİK)/.test(k)) {
       var v = tutarOku(k);
       return ['InitiateCheckout', v !== undefined ? { content_name: /ABONELİK/.test(k) ? 'radar-abonelik' : 'soru-bankasi', value: v, currency: 'TRY' }
