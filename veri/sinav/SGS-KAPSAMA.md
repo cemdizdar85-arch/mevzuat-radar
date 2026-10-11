@@ -3,24 +3,24 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.939** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **4.935** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 483 | 897 | 28,0 | 1101 | 295 | 30 | 3 | 155 | 25 |
+| Finansal Muhasebe | 483 | 897 | 28,0 | 1100 | 295 | 30 | 3 | 155 | 25 |
 | Denetim | 284 | 495 | 15,5 | 717 | 213 | 3 | 0 | 68 | 0 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 63 | 1 | 0 | 21 | 1 |
 | Maliyet Muhasebesi | 139 | 266 | 8,3 | 387 | 110 | 2 | 1 | 26 | 0 |
 | Matematik | 115 | 254 | 7,9 | 474 | 61 | 3 | 1 | 50 | 3 |
 | Türkçe | 127 | 225 | 7,0 | 168 | 42 | 4 | 1 | 80 | 4 |
-| Vergi Hukuku | 162 | 206 | 6,4 | 172 | 56 | 5 | 1 | 100 | 3 |
+| Vergi Hukuku | 162 | 206 | 6,4 | 171 | 55 | 5 | 1 | 101 | 3 |
 | Ticaret Hukuku | 120 | 205 | 6,4 | 228 | 64 | 4 | 0 | 52 | 3 |
 | Mali Tablolar Analizi | 94 | 192 | 6,0 | 209 | 61 | 8 | 3 | 22 | 2 |
 | Ekonomi | 137 | 190 | 5,9 | 166 | 57 | 3 | 1 | 76 | 1 |
-| İş ve Sosyal Güvenlik Hukuku | 97 | 187 | 5,8 | 199 | 57 | 2 | 0 | 38 | 0 |
+| İş ve Sosyal Güvenlik Hukuku | 97 | 187 | 5,8 | 198 | 56 | 3 | 0 | 38 | 1 |
 | Meslek Hukuku | 91 | 187 | 5,8 | 188 | 48 | 3 | 0 | 40 | 17 |
 | Borçlar Hukuku | 92 | 178 | 5,6 | 238 | 64 | 2 | 0 | 26 | 1 |
-| Maliye | 120 | 172 | 5,4 | 138 | 39 | 5 | 4 | 72 | 3 |
+| Maliye | 120 | 172 | 5,4 | 137 | 38 | 5 | 4 | 73 | 3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | 114 | 159 | 5,0 | 176 | 36 | 1 | 0 | 77 | 2 |
 | Muhasebe (ders ayrılmadı) | 2 | 3 | 0,1 | 2 | 0 | 1 | 0 | 1 | 0 |
 | Genel Kultur-Genel Yetenek (ders ayrılmadı) | 0 | 0 | 0,0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -28,9 +28,9 @@ Sitede sayfadan okunan soru: **4.939** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **34 konu / 65 soru**
+- 3+ dönem çıkmış: **35 konu / 66 soru**
 - 2 dönem çıkmış: 57 konu / 72 soru
-- 1 dönem çıkmış: 905 konu / 907 soru
+- 1 dönem çıkmış: 907 konu / 909 soru
 
 ## Birden çok dönem çıkmış, sitede hiç sorusu olmayan
 
@@ -73,6 +73,7 @@ Sitede sayfadan okunan soru: **4.939** (kasa modundaki sayfa seçim dosyasından
 | Finansal Muhasebe | kapsamli gelir | 4 / 4 | 3 | 1 |
 | Finansal Muhasebe | alacak senetleri | 3 / 3 | 2 | 1 |
 | Finansal Muhasebe | donem kari hesaplama | 3 / 3 | 2 | 1 |
+| İş ve Sosyal Güvenlik Hukuku | hizmet borclanmasi | 3 / 3 | 2 | 1 |
 | Mali Tablolar Analizi | cari oran analizi | 6 / 6 | 5 | 1 |
 | Mali Tablolar Analizi | bilanco kaldirac orani | 5 / 5 | 4 | 1 |
 | Maliye | vergi yansimasi | 6 / 5 | 5 | 1 |
@@ -85,4 +86,3 @@ Sitede sayfadan okunan soru: **4.939** (kasa modundaki sayfa seçim dosyasından
 | Ticaret Hukuku | limited sirket sermayesi | 3 / 3 | 2 | 1 |
 | Türkçe | yazim kurallari | 15 / 14 | 14 | 1 |
 | Türkçe | noktalama isaretleri | 14 / 14 | 13 | 1 |
-| Türkçe | ses olaylari | 8 / 8 | 7 | 1 |
