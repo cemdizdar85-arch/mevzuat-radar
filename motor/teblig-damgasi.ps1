@@ -160,7 +160,7 @@ function MetniCikar([byte[]]$b){
 # ---------------------------------------------------------------------------
 function MetinNormal([byte[]]$t){
   if($env:TD_MUTASYON -eq 'normalyok'){ return ,$t }
-  return ,([byte[]]@($t | Where-Object { $_ -ne 0x0C }))
+  return ,([byte[]]@($t -ne 0x0C))   # dizi filtresi (Where-Object 172 x ~100 KB yavas)
 }
 # Döner: 'degisti' | 'ayni' | 'yeni-temel' (eski kayıt yok ya da başka yöntem)
 function DamgaKarar($eskiKayit, [byte[]]$metin){
