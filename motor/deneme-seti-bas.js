@@ -158,6 +158,10 @@ function yazDegisirse(dosya, nesne, zamanAlani) {
   fs.writeFileSync(dosya, yeni, 'utf8'); return true;
 }
 let yazilan = 0;
+// 11.10: sürüm değişecekse eski setler ÖNCE arşive (yarım deneme "Devam et"i kaybolmasın; motor/deneme-arsiv.js)
+const yeniSurum = require('crypto').createHash('sha1').update(setler.map(st => st.map(q => q.id).join(',')).join('|')).digest('hex').slice(0, 10);
+const arsivN = require('./deneme-arsiv.js').arsivle(cikis, 'sgs', yeniSurum, KURU);
+if (arsivN) console.log(`  eski SGS setleri arşive: ${arsivN} set`);
 setler.forEach((st, i) => {
   const no = String(i + 1).padStart(2, '0');
   if (yazDegisirse(path.join(cikis, `sgs-set-${no}.json`), { sinav: 'sgs', no: i + 1, sure_dk: SURE_DK, toplam: st.length, sorular: st.map((q, n) => ({ n: n + 1, ...q })) })) yazilan++;
@@ -169,7 +173,7 @@ if (yazDegisirse(path.join(cikis, 'sgs-dizin.json'), {
   degerlendirme: DEGERLENDIRME,
   sira_notu: 'Sorular yönerge tablosundaki bölüm ve ders sırasıyla gelir; gerçek kitapçık sırası ölçülmedi.',
   // surum: setlerin kimlik imzası - değişince sinav-gibi.html eski cihaz kaydını (yarım set) yeni setle karıştırmaz
-  surum: require('crypto').createHash('sha1').update(setler.map(st => st.map(q => q.id).join(',')).join('|')).digest('hex').slice(0, 10),
+  surum: yeniSurum,
   setler: setler.map((st, i) => ({ no: i + 1, dosya: `veri/deneme/sgs-set-${String(i + 1).padStart(2, '0')}.json` }))
 }, 'uretim')) yazilan++;
 console.log(`  yazılan/değişen dosya: ${yazilan}`);

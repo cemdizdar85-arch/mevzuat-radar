@@ -69,6 +69,10 @@ function yaz(sinav, dizin, setler, tur = 'sik') {
   if (sizan) { console.log('KIRMIZI - ' + sizan + ' soruda metin/cevap alanı var; yazılmadı.'); process.exit(1); }
   if (KURU) { console.log('  kuru koşu - yazılmadı'); return; }
   let yazilan = 0;
+  // 11.10: sürüm değişecekse eski setler ÖNCE arşive (yarım deneme "Devam et"i kaybolmasın; motor/deneme-arsiv.js)
+  const yeniSurum = crypto.createHash('sha1').update(setler.map(st => st.map(q => q.id).join(',')).join('|')).digest('hex').slice(0, 10);
+  const arsivN = require('./deneme-arsiv.js').arsivle(cikis, `${sinav}-${tur}`, yeniSurum, KURU);
+  if (arsivN) console.log(`  eski ${sinav}-${tur} setleri arşive: ${arsivN} set`);
   // eski fazla set dosyaları (set sayısı düştüyse) silinir
   for (const f of fs.readdirSync(cikis)) {
     const m = f.match(new RegExp(`^${sinav}-${tur}-set-(\\d+)\\.json$`));
@@ -78,7 +82,7 @@ function yaz(sinav, dizin, setler, tur = 'sik') {
     const no = String(i + 1).padStart(2, '0'), b = dizin.setler[i];
     if (yazDegisirse(path.join(cikis, `${sinav}-${tur}-set-${no}.json`), { sinav, tur, no: i + 1, baslik: b.baslik, sure_dk: b.sure_dk, toplam: st.length, sorular: st.map((q, n) => ({ n: n + 1, ...q })) })) yazilan++;
   });
-  dizin.surum = crypto.createHash('sha1').update(setler.map(st => st.map(q => q.id).join(',')).join('|')).digest('hex').slice(0, 10);
+  dizin.surum = yeniSurum;
   if (yazDegisirse(path.join(cikis, `${sinav}-${tur}-dizin.json`), dizin, 'uretim')) yazilan++;
   console.log(`  yazılan/değişen dosya: ${yazilan}`);
 }

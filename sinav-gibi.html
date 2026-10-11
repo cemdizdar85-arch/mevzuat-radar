@@ -194,7 +194,19 @@
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var GUN=86400000;
   /* 04.10: set kimlik imzası (DIZIN.surum) anahtara girer - setler yeniden kurulunca eski yarım kayıt yeni setle karışmaz */
+  /* 11.10 YARIM DENEME KAYBOLMASIN (Cem "çözdüğü yerde kalıyordu, tekrar ordan başlıyordu"): set yeniden kurulunca sürüm
+     değişir; eski sürümde yarım kalan deneme 'es-<no>-<sürüm>' ile, arşivdeki setle (veri/deneme/arsiv/<onek>-<sürüm>/,
+     motor/deneme-arsiv.js) ve AYNI tarayıcı kaydıyla açılır → kaldığı soru, cevapları, kalan süre aynen. */
+  var ONEK=SINAV+(TUR?'-'+TUR:''), KAYIT_ON='sg_'+SINAV+(TUR?'_'+TUR:'')+'_';
+  function yarimEskiler(){
+    var L=[]; try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(!k||k.indexOf(KAYIT_ON)!==0) continue;
+      var m=/^(\d+)_([0-9a-f]{10})$/.exec(k.slice(KAYIT_ON.length)); if(!m||!DIZIN||m[2]===DIZIN.surum) continue;
+      var d=oku('es-'+m[1]+'-'+m[2]); if(!d||d.bitti||!d.cevap) continue;
+      L.push({no:'es-'+m[1]+'-'+m[2], set:+m[1], d:d, t:Date.parse(d.basla||'')||0}); } }catch(e){}
+    return L.sort(function(a,b){ return b.t-a.t; });
+  }
   function anahtar(no){ if(/^oz-/.test(String(no))) return 'sg_'+SINAV+'_'+no;   /* özel set dizin sürümüne bağlı değil */
+    var es=/^es-(\d+)-([0-9a-f]{10})$/.exec(String(no)); if(es) return KAYIT_ON+es[1]+'_'+es[2];
     return 'sg_'+SINAV+(TUR?'_'+TUR:'')+'_'+no+(DIZIN&&DIZIN.surum?'_'+DIZIN.surum:''); }
 
   /* ---------- 11.10 SANA ÖZEL DENEME + YÖNLENDİRME + DERS İLERLEMESİ (Cem "öğrencinin yanında olalım, yönlendirelim" +
@@ -257,7 +269,13 @@
     var oncekiDers='';
     /* 11.10: paketindeki derslerin setleri önce, kilitliler sonra (sıra derste korunur) */
     var liste=DIZIN.setler.slice().sort(function(a,b){ return (dersVar(a.ders)?0:1)-(dersVar(b.ders)?0:1); });
-    $('sgSetler').innerHTML=liste.map(function(s){
+    /* 11.10: eski sürümde yarım kalan denemeler en üstte */
+    var yarim=yarimEskiler().map(function(x){ var n=Object.keys(x.d.cevap||{}).length, top=(x.d.ids&&x.d.ids.length)||'';
+      return '<button type="button" class="sg-set sg-ozel" data-no="'+esc(x.no)+'"><b>Yarım kalan denemen · Set '+x.set+'</b><small>'
+        +(x.d.basla?'Başladığın gün '+new Date(x.d.basla).toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+' · ':'')+'setler o günden beri yenilendi, seninki saklı</small>'
+        +'<span class="sg-durum">Devam et · '+n+(top?'/'+top:'')+' cevaplı · '+sure(x.d.kalanSn)+' kaldı</span></button>'; }).join('');
+    if(yarim) yarim='<h3 class="sg-set-ders">Kaldığın yerden devam</h3>'+yarim;
+    $('sgSetler').innerHTML=yarim+liste.map(function(s){
       var top=s.toplam||DIZIN.toplam_soru, d=oku(s.no), durum='', alt=top+' soru · '+(s.sure_dk||DIZIN.sure_dk)+' dk', kilit=!dersVar(s.ders);
       if(kilit){ durum='<span class="sg-durum kilit">🔒 Bu ders paketinde yok</span>'; }
       else if(d&&d.bitti){ durum='<span class="sg-durum bitti">Bitti · '+d.sonuc.dogru+' doğru</span>'; }
@@ -271,7 +289,7 @@
     $('sgSetler').querySelectorAll('.sg-set').forEach(function(b){ b.addEventListener('click',function(){
       if(b.getAttribute('data-kilit')){ location.href='satin-al.html?paket=yeterlilik-1'; return; }
       if(b.getAttribute('data-ozel')){ ozelBaslat({ders:b.getAttribute('data-ozel'), adet:20, baslik:b.getAttribute('data-ozel')+' · Sana özel deneme'}); return; }
-      var no=b.getAttribute('data-no'); setAc(/^oz-/.test(no)?no:+no); }); });
+      var no=b.getAttribute('data-no'); setAc(/^(oz|es)-/.test(no)?no:+no); }); });
     if(DIZIN.not){ $('sgNot').innerHTML=esc(DIZIN.not)+(DIZIN.liste_sayfa?' <a href="'+esc(DIZIN.liste_sayfa)+'">Konu listesi ve kanıtı →</a>':''); return; }
     $('sgNot').textContent='Sorular, sitedeki onaylı soru havuzundan resmî ders dağılımıyla ('+DIZIN.dagilim_ad+') seçildi; setler arasında aynı soru yok. '
       +DIZIN.sira_notu+' Süre: '+DIZIN.sure_kaynak+'. '+DIZIN.degerlendirme+' Bu yüzden burada puan değil doğru sayısı gösterilir.';
@@ -308,9 +326,12 @@
   }
 
   function setAc(no){
-    var ozel=/^oz-/.test(String(no)), bilgi=ozel?null:DIZIN.setler.filter(function(s){return s.no===no;})[0]; if(!ozel&&!bilgi) return;
+    var ozel=/^oz-/.test(String(no)), es=/^es-(\d+)-([0-9a-f]{10})$/.exec(String(no));
+    var bilgi=(ozel||es)?null:DIZIN.setler.filter(function(s){return s.no===no;})[0]; if(!ozel&&!es&&!bilgi) return;
+    var dosya=es?'veri/deneme/arsiv/'+ONEK+'-'+es[2]+'/set-'+(es[1].length<2?'0':'')+es[1]+'.json':(bilgi&&bilgi.dosya);
     (ozel?new Promise(function(tamam,red){ var s=null; try{ s=JSON.parse(localStorage.getItem('sg_ozel_set_'+no)||'null'); }catch(e){} if(s) tamam(s); else red(new Error('yok')); })
-      :fetch(bilgi.dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); })).then(kasaDoldur).then(function(d){
+      :fetch(dosya,{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); })
+        .then(function(d){ if(es){ d.no=no; d.baslik=(d.baslik?d.baslik+' · ':'Set '+es[1]+' · ')+'yarım kalan'; } return d; })).then(kasaDoldur).then(function(d){
       if(!d) return;
       SET=d; DURUM=oku(no);
       if(DURUM&&DURUM.bitti){ sonucCiz(); return; }
@@ -318,7 +339,7 @@
       /* 11.10: ids = açılan setin kimlikleri (cevaplanmasa da "gördü" sayılır → sana özel deneme onu sona atar) */
       if(!DURUM){ window.ttSay('deneme/basla/'+(ozel?'ozel':no),'Sınav gibi: set '+(ozel?'özel':no)+' başladı'); DURUM={ cevap:{}, bayrak:{}, kalanSn:d.sure_dk*60, aktif:0, basla:new Date().toISOString(), ids:d.sorular.map(function(q){return q.id;}) }; yaz(); }
       AKTIF=DURUM.aktif||0; sinaviBaslat();
-    }).catch(function(){ alert('Set yüklenemedi. Sayfayı yenileyip yeniden dene.'); });
+    }).catch(function(){ alert(es?'Bu yarım denemenin seti artık arşivde yok; yeni bir set seçebilirsin.':'Set yüklenemedi. Sayfayı yenileyip yeniden dene.'); });
   }
 
   /* ---------- 2) SINAV ---------- */

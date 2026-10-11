@@ -30,6 +30,7 @@ arsiv/degisim/*.html
 # --- veri/: YALNIZ sayfaların çektiği dosyalar (08.10 ölçümü: kod içi tırnaklı yol + tarayıcı taraması) ---
 # dizgeyle kurulan yollar (kalıpla):
 veri/deneme/*.json        # sinav-gibi.html: veri/deneme/<sinav>[-sik]-dizin.json -> dizindeki "dosya" (set-NN)
+veri/deneme/arsiv/*/*.json  # 11.10 sinav-gibi.html: eski sürümde yarım kalan deneme -> arsiv/<onek>-<sürüm>/set-NN.json (motor/deneme-arsiv.js)
 veri/seviye/*.json        # seviye-testi.html / ucretsiz-dene: havuz + set + konu adı
 veri/canli/*.enc.json     # canli-deneme.html: şifreli paket (veri/canli/<kod>.enc.json)
 veri/canli/anahtar-*.json # canli-deneme.html: sınav anında robotun açtığı anahtar
