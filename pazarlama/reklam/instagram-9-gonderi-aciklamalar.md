@@ -185,3 +185,19 @@ Bu tuzağa sınavda düşmemek için tetikte.com'da soru çöz: Yeterlilik seviy
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #smmmyeterlilik #bitirmesinavi #smmm #finansalmuhasebe #amortisman #tuzaksozlugu
+
+## 14 · Tuzak #5: On Gün Tuzağı (Reels, 11.10; Staja Giriş)
+
+Staja Giriş sınavı · Ticaret Hukuku
+
+İzmir'de yazılmış bir çek, ödeme yeri İstanbul. Kaç gün içinde bankaya ibraz edilmeli: 10 gün mü, 1 ay mı? Cevabını yorumlara yaz, sonra videoyu izle.
+
+10 gün diyorsan tuzağa düştün. Çek düzenlendiği yerde ödenecekse 10 gün, başka bir yerde ödenecekse 1 ay içinde ibraz edilir. Süre, çekteki düzenleme tarihinin ertesi günü başlar (TTK m.796).
+
+Kıymetli evrak (çek, bono, poliçe) son 32 Staja Giriş sınavının 32'sinde soruldu (2016–2026).
+
+Bu tuzağa sınavda düşmemek için tetikte.com'da soru çöz: Staja Giriş seviye testinde sınavı geçme ihtimalini ücretsiz ölç. Bağlantı profilde.
+
+Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#stajagiris #smmmstaj #smmm #ticarethukuku #cek #tuzaksozlugu
