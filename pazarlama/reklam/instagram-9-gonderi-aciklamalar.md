@@ -138,7 +138,7 @@ Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 Staja Giriş sınavı · Ücretsiz Sınav Provası
 
-17 Ekim Cumartesi, saat 10:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 130 soru, 165 dakika. Sitede çözülür, telefondan da.
+17 Ekim Cumartesi, saat 10:00. Sınava 5 hafta kala prova: sınavdaki gibi 130 soru, 165 dakika. Sitede çözülür, telefondan da.
 
 Biter bitmez puanını ve soru soru yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel.
 
@@ -156,7 +156,7 @@ Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi denem
 
 SMMM Yeterlilik sınavı · Ücretsiz Sınav Provası
 
-24 Ekim Cumartesi, saat 09:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 80 soru, 180 dakika. Finansal Muhasebe, Maliyet Muhasebesi, Hukuk ve Sermaye Piyasası Mevzuatı. Sitede çözülür, telefondan da.
+24 Ekim Cumartesi, saat 09:00. Sınava 5 hafta kala prova: sınavdaki gibi 80 soru, 180 dakika. Finansal Muhasebe, Maliyet Muhasebesi, Hukuk ve Sermaye Piyasası Mevzuatı. Sitede çözülür, telefondan da.
 
 Biter bitmez puanını ve soru soru yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel.
 
