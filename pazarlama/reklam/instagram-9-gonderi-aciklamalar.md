@@ -140,15 +140,15 @@ Staja Giriş sınavı · Ücretsiz Sınav Provası
 
 17 Ekim Cumartesi, saat 10:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 130 soru, 165 dakika. Sitede çözülür, telefondan da.
 
-Biter bitmez puanını ve yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel. Prova kapanınca yüzdelik sıralaman açıklanır.
+Biter bitmez puanını ve soru soru yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel.
 
 Katılım ücretsiz. Yerini ayırmak için 16 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol; Google hesabınla saniyeler içinde olur. Son günü bekleme. Bağlantı profilde.
 
 Provayı beklemeden bugün başla: 30 soruda sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
-Arkadaşını etiketle, aynı provada yarışın.
+Arkadaşını etiketle, aynı saatte birlikte çözün.
 
-Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur. Yüzdelik sıralama, katılan Tetikte üyeleri arasında hesaplanır.
+Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #stajagiris #sgs #smmmstaj #denemesinavi #muhasebe #smmm
 
@@ -158,15 +158,15 @@ SMMM Yeterlilik sınavı · Ücretsiz Sınav Provası
 
 24 Ekim Cumartesi, saat 09:00. Gerçek sınavdan 5 hafta önce, gerçek sınav gibi: 80 soru, 180 dakika. Finansal Muhasebe, Maliyet Muhasebesi, Hukuk ve Sermaye Piyasası Mevzuatı. Sitede çözülür, telefondan da.
 
-Biter bitmez puanını ve yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel. Prova kapanınca yüzdelik sıralaman açıklanır.
+Biter bitmez puanını ve soru soru yanlışlarını görürsün; her yanlışının nedeni ve dayanağı üyeye özel.
 
 Katılım ücretsiz. Yerini ayırmak için 23 Ekim 23:59'a kadar tetikte.com'a ücretsiz üye ol; Google hesabınla saniyeler içinde olur. Son günü bekleme. Bağlantı profilde.
 
 Provayı beklemeden bugün başla: Yeterlilik seviye testinde sınavı geçme ihtimalini ve en zayıf dersini ücretsiz ölç.
 
-Arkadaşını etiketle, aynı provada yarışın.
+Arkadaşını etiketle, aynı saatte birlikte çözün.
 
-Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur. Yüzdelik sıralama, katılan Tetikte üyeleri arasında hesaplanır.
+Karakter yapay zekâ ile üretilmiştir. Sınav Provası Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #smmmyeterlilik #bitirmesinavi #smmm #denemesinavi #muhasebe
 
