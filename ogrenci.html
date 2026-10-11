@@ -171,6 +171,18 @@
           </div>
           <button class="og-btn ana" id="ogKayit" type="submit">Hesabımı oluştur</button>
           <div class="og-hata" id="ogKHata" role="alert"></div>
+          <!-- 11.10: kayıt sonrası doğrulama kutusu (şifre sıfırlama kutusunun eşi) -->
+          <div class="og-gonderildi og-gizli" id="ogKTamam" role="status">
+            <b>Neredeyse bitti: e-postanı kontrol et.</b> <span id="ogKAdres"></span> adresine doğrulama bağlantısını gönderdik. Bağlantıya tıklayınca hesabın açılır.
+            <ul>
+              <li>E-posta <b>hesap@tetikte.com</b> adresinden gelir; genelde 1 dakika içinde ulaşır.</li>
+              <li>Gelen kutunda yoksa <b>Gereksiz / Spam</b> (Gmail'de "Promosyonlar") klasörüne bak.</li>
+              <li>Bu adresle daha önce üye olduysan <a class="og-link" href="#giris" data-git="giris">Giriş yap</a>'ı kullan.</li>
+            </ul>
+            <p style="margin:8px 0 0"><button class="og-goster" type="button" id="ogKTekrar" disabled>Maili tekrar gönder</button> <span id="ogKSayac" class="og-ipucu"></span></p>
+            <div class="og-bilgi" id="ogKTekrarDurum" role="status"></div>
+            <p class="og-ipucu" style="margin-top:8px">Hâlâ gelmedi mi? <a class="og-link" href="mailto:destek@tetikte.com?subject=%C3%9Cyelik%20do%C4%9Frulama%20maili">destek@tetikte.com</a> adresine yaz.</p>
+          </div>
           <p class="og-alt-link">Zaten hesabın var mı? <a class="og-link" href="#giris" data-git="giris">Giriş yap</a></p>
         </form>
 
@@ -882,15 +894,37 @@
           hataYaz('ogHata','Bu e-postayla zaten bir hesabın var. Şifrenle giriş yap ya da "Şifremi unuttum"a bas.'); return;
         }
         /* 11.10: ikinci tıklama (mail az önce gitti) hata değil, bilgi olarak gösterilir */
-        if(/after \d+ second/i.test(r.error.message||'')){ var hb=$('ogKHata'); hb.className='og-bilgi'; hb.textContent='Neredeyse bitti: '+ep+' adresine doğrulama bağlantısını az önce gönderdik. Gelen kutunu ve Spam/Gereksiz klasörünü kontrol et; bağlantıya tıklayınca hesabın açılır.'; return; }
+        if(/after \d+ second/i.test(r.error.message||'')){ dogrulamaKutusu(ep); return; }
         hataYaz('ogKHata',trHata(r.error)); denemeYolu($('ogKHata'),r.error); return;
       }
       try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:'hesap/kayit',title:'Üye oldu',event:true}); }catch(x){}
       if(r.data.session){ panel(r.data.user); return; }
-      /* e-posta doğrulaması açıksa (bugün kapalı) ya da adres zaten kayıtlıysa Supabase oturumsuz döner */
-      var h=$('ogKHata'); h.className='og-bilgi';
-      h.textContent='Neredeyse bitti: '+ep+' adresine bir doğrulama bağlantısı gönderdik. Bağlantıya tıklayınca hesabın açılır. Bu adresle daha önce üye olduysan "Giriş yap"ı kullan.';
+      /* e-posta doğrulaması açık (08.10'dan beri) ya da adres zaten kayıtlıysa Supabase oturumsuz döner */
+      dogrulamaKutusu(ep);
     } finally { mesgul(b,false,'Hesabımı oluştur'); }
+  });
+
+  /* 11.10 KAYIT SONRASI DOĞRULAMA KUTUSU + "Maili tekrar gönder".
+     Sayaç 30 sn: Supabase aralığı 5 sn (panel 11.10) ama her yeniden gönderim yeni bağlantı üretir,
+     öncekini geçersiz kılar — kişi ilk mail gelmeden ikinciyi istemesin. */
+  var kSayac=null, kAdres='';
+  function kTekrarSayaci(sn){
+    var b=$('ogKTekrar'), y=$('ogKSayac'); b.disabled=true; clearInterval(kSayac);
+    var kalan=sn; y.textContent='('+kalan+' sn sonra)';
+    kSayac=setInterval(function(){ kalan--; if(kalan<=0){ clearInterval(kSayac); y.textContent=''; b.disabled=false; } else y.textContent='('+kalan+' sn sonra)'; },1000);
+  }
+  function dogrulamaKutusu(ep){
+    kAdres=ep; hataYaz('ogKHata',''); $('ogKTekrarDurum').textContent='';
+    $('ogKAdres').textContent=ep; $('ogKTamam').classList.remove('og-gizli');
+    kTekrarSayaci(30);
+  }
+  $('ogKTekrar').addEventListener('click',async function(){
+    if(!kAdres) return;
+    var d=$('ogKTekrarDurum'); d.className='og-bilgi'; d.textContent='Gönderiliyor…';
+    var r=await sb.auth.resend({ type:'signup', email:kAdres, options:{ emailRedirectTo: location.origin+'/ogrenci.html', captchaToken:await captchaJeton() } });
+    if(r.error && !/after \d+ second/i.test(r.error.message||'')){ d.className='og-hata'; d.textContent=trHata(r.error); kTekrarSayaci(30); return; }
+    d.className='og-bilgi'; d.textContent='Yeni bağlantıyı gönderdik. Yalnız EN SON gelen maildeki bağlantı çalışır.';
+    kTekrarSayaci(30);
   });
 
   /* ŞİFREMİ UNUTTUM — Supabase güvenlik gereği "böyle bir hesap yok" demez; mesaj da öyle kurulur. */
@@ -909,7 +943,7 @@
       var r=await sb.auth.resetPasswordForEmail(ep,{redirectTo:location.origin+'/ogrenci.html',captchaToken:await captchaJeton()});
       if(r.error){ hataYaz('ogSHata',trHata(r.error)); return; }
       $('ogSAdres').textContent=ep; $('ogSTamam').classList.remove('og-gizli');
-      b.classList.add('og-gizli'); tekrarSayaci(60);   /* 60 sn = Supabase "kullanıcı başına en kısa aralık" ayarı */
+      b.classList.add('og-gizli'); tekrarSayaci(30);   /* Supabase kişi başı aralık 11.10'da 60→5 sn; 30 sn = ilk mail gelmeden yenisi istenmesin (yeni bağlantı öncekini geçersiz kılar) */
     } finally { mesgul(b,false,'Sıfırlama bağlantısı gönder'); }
   }
   $('ogFormSifremi').addEventListener('submit',function(ev){ ev.preventDefault(); sifirlamaGonder(); });
