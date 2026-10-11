@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-10-10T00:41:40.526Z",
-  "gun": "2026-10-10",
+  "olcum": "2026-10-11T00:11:28.894Z",
+  "gun": "2026-10-11",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 2,
+      "sira": 3,
       "toplam": 10,
-      "id": "sgs-a6e-yabancidil-p1b/kp-01",
-      "ders": "Yabancı Dil",
-      "konu": "cümle tamamlama",
-      "donem": 18,
-      "teori": true,
-      "rakamSik": false,
-      "soru": "Although the audit team had full access to all the accounting records, ----.",
+      "id": "sgs-t1-maliyet-cokzor/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "ortak maliyet dağıtımı",
+      "donem": 13,
+      "teori": false,
+      "rakamSik": true,
+      "soru": "Bir tekstil işletmesinde A ve B ana ürünleri ile Z yan ürünü aynı ortak üretim sürecinden elde edilmektedir. Ayrılma noktasından sonra A ürününe 100.000 TL, B ürününe 30.000 TL ek işleme maliyeti yüklenmekte; A ürününün nihai satış değeri 300.000 TL, B ürününün nihai satış değeri 150.000 TL'dir. Z yan ürününün satış geliri 20.000 TL olup yan ürüne ortak maliyetten pay verilmemekte, bu tutar ortak maliyetten düşülmektedir. Net gerçekleşebilir değer yöntemine göre yapılan dağıtım sonucunda B ürününe isabet eden ortak maliyet payı 96.000 TL olarak hesaplanmıştır. Buna göre işletmenin toplam birleşik (ortak) üretim maliyeti kaç TL'dir?",
       "siklar": {
-        "A": "they were able to complete the whole review well ahead of schedule",
-        "B": "the management refused to sign the letter of representation",
-        "C": "they still could not verify the origin of several large payments",
-        "D": "the financial statements had been prepared in line with the standards",
-        "E": "an independent expert was appointed by the board of directors"
+        "A": "236.000",
+        "B": "256.000",
+        "C": "276.000",
+        "D": "288.000",
+        "E": "308.000"
       },
       "dogru": "C",
       "tuzak": {
         "D": {
-          "ad": "Yön Tuzağı",
-          "metin": "Tabloların standartlara uygun hazırlanmış olması erişimle aynı yönde olumlu bir yargıdır. Doğrusu: zıtlık için olumsuz bir sonuç gerekir."
+          "ad": "Ölçüt Karışıklığı Tuzağı",
+          "metin": "NGD hesaplarken ek işleme maliyetlerini düşmeden doğrudan nihai satış değerlerini oranladın, ayrıca yan ürün gelirini eklemedin. Doğrusu: dağıtım anahtarı ek işleme maliyeti düşülmüş NGD'dir, nihai satış değeri değildir."
         },
         "E": {
-          "ad": "Bağlantı Tuzağı",
-          "metin": "Bağımsız uzman atanması ayrı bir olaydır, yan cümleyle zıtlık ilişkisi kurmaz. Doğrusu: ana cümle yan cümlenin beklentisini bozmalıdır."
+          "ad": "Bileşik Hata Tuzağı",
+          "metin": "hem yanlış oranla (ek işleme maliyetini düşmeden) net tutarı buldun hem de sonuna Z'yi ekleyerek iki hatayı birleştirdin. Doğrusu: doğru oran NGD'den, doğru toplam ise Z'nin doğru orana dayalı net tutara eklenmesinden g…"
         },
         "A": {
-          "ad": "Zıtlık Tuzağı",
-          "metin": "'Although' iki yargı arasında zıtlık kurar; erişim kolaylığı ile işin erken bitmesi aynı yönde olduğu için zıtlık doğmaz. Doğrusu: yan cümleyle ters düşen bir sonuç gerekir."
+          "ad": "Ters İşaret Tuzağı",
+          "metin": "Yan ürün satış gelirinin ortak maliyetten düşüldüğünü gördüğün için toplam ortak maliyeti bulurken bu tutarı dağıtılacak net tutardan bir kez daha çıkardın. Doğrusu: Z'nin satış geliri, net dağıtılacak tutara geri EKLEN…"
         },
         "B": {
-          "ad": "İlgi Tuzağı",
-          "metin": "Yönetimin beyan mektubunu imzalamaması, kayıtlara erişimle mantıksal olarak bağlanmaz. Doğrusu: sonuç, erişim olgusuyla çelişmelidir."
+          "ad": "Atlanan Katman Tuzağı",
+          "metin": "96.000 TL'yi 0,375 orana bölerek bulduğun 256.000'i doğrudan toplam ortak maliyet sandın, yan ürünün düşülmüş olan payını geri eklemeyi unuttun. Doğrusu: 256.000, Z düşüldükten SONRAKİ net dağıtılabilir tutardır, toplam…"
         }
       },
-      "hap": "Although gördüğünde ana cümlede beklenenin TERSİNİ ara; iki olumlu yargı yan yana gelmez.",
+      "hap": "Net gerçekleşebilir değer yönteminde dağıtım anahtarı, nihai satış değerinden ek işleme maliyetinin düşülmesiyle bulunan NGD'dir; yan ürünün ortak maliyetten düşülen satış geliri, toplam birleşik maliyete geri eklenerek bulunur.",
       "satirlar": [
         [
-          "Ne soruluyor",
-          "'Although' ile başlayan yan cümleyi anlamca tamamlayan ana cümle isteniyor."
+          "B ürünü net gerçekleşebilir değeri (150.000-30.000)",
+          "120.000"
         ],
         [
-          "Kural",
-          "'Although' zıtlık bağlacıdır; yan cümlede beklenen sonucun tersi ana cümlede yer alır. Burada yan cümle 'tüm kayıtlara tam erişim vardı' diyor; beklenen sonuç 'her şey doğrulandı' olurdu."
+          "Toplam net gerçekleşebilir değer",
+          "320.000"
         ],
         [
-          "Doğru şık",
-          "C) they still could not verify the origin of several large payments"
+          "B ürünü dağıtım oranı (120.000/320.000)",
+          "%37,5"
+        ],
+        [
+          "Dağıtılacak net ortak maliyet (96.000/0,375)",
+          "256.000"
+        ],
+        [
+          "Toplam birleşik (ortak) üretim maliyeti (256.000+20.000)",
+          "276.000"
         ]
       ],
-      "dayanak": "Yabancı Dil dilbilgisi kuralı - Zıtlık bağlaçları (although / though / even though): yan cümlede belirtilen durumun doğal sonucu ana cümlede GERÇEKLEŞMEZ. Cümle tamamlamada ilk adım bağlacın kurduğu anlam ilişkisini (zı…",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=2",
+      "dayanak": "Ortak maliyet dağıtımı - net gerçekleşebilir değer yöntemi ve yan ürün maliyetlendirmesi (maliyet muhasebesi teorisi, mevzuat maddesi yok)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=3",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 4,
+        "kalan_gun": 3,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,71 +81,79 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 2,
-      "toplam": 10,
-      "id": "smmm-4k-a-maliyet-cokzor-r9/kp-01",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "satışların maliyeti tablosu",
-      "donem": 12,
-      "teori": false,
-      "rakamSik": true,
-      "soru": "İşletme, dönem içinde 685.000 ₺ brüt satış gerçekleştirmiştir; satıştan iadeler 12.500 ₺, satış iskontoları 8.700 ₺'dir. Ticari mal dönem başı stoku 47.350 ₺, dönem sonu stoku 39.900 ₺'dir. Ayrıca dönem içinde 65.200 ₺ pazarlama ve genel yönetim gideri, 21.400 ₺ finansman gideri gerçekleşmiştir. Brüt satış kârı 210.150 ₺ olarak hesaplanmıştır. Bu bilgilere göre dönem içi net alışlar tutarı kaç ₺'dir?",
+      "sira": 4,
+      "toplam": 9,
+      "id": "smmm-4k-a-ymeslek-kolay-r4/kp-02",
+      "ders": "Meslek Hukuku",
+      "konu": "meslekten çıkarma cezası",
+      "donem": 6,
+      "teori": true,
+      "rakamSik": false,
+      "soru": "Serbest muhasebeci mali müşavir Ahmet, mükellefiyle birlikte kasten vergi ziyaına sebebiyet vermiş ve bu husus mahkeme kararı ile kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre Ahmet hakkında hangi disiplin cezası uygulanır?",
       "siklar": {
-        "A": "202.700",
-        "B": "446.200",
-        "C": "454.900",
-        "D": "461.100",
-        "E": "467.400"
+        "A": "Uyarma",
+        "B": "Kınama",
+        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
+        "D": "Yeminli sıfatını kaldırma",
+        "E": "Meslekten çıkarma"
       },
-      "dogru": "B",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "İskonto Atlama Tuzağı",
-          "metin": "Satış iskontosunu net satışlar hesaplamasına dahil etmeyi unuttun. Doğrusu: Net satışlar, brüt satışlardan hem iadeler hem iskontolar düşülerek bulunur."
-        },
-        "E": {
-          "ad": "Net Satış Atlama Tuzağı",
-          "metin": "Satış indirimlerini hiç düşmeyip brüt satışları net satış olarak kullandın. Doğrusu: Net satışlar brüt satışlardan satıştan iadeler ve iskontolar düşülerek hesaplanır."
-        },
-        "D": {
-          "ad": "Stok Karıştırma Tuzağı",
-          "metin": "Dönem başı ve dönem sonu ticari mal stoklarını birbirinin yerine kullandın. Doğrusu: Dönem sonu stok maliyetten çıkarılır, dönem başı stok maliyete eklenir."
+          "ad": "Geçici Alıkoyma Tuzağı",
+          "metin": "Öğrenci bunu, tasdik yetkisinin gerçeğe aykırı kullanıldığının Maliye Bakanlığınca ilk tespiti hâlindeki cezayla karıştırıyor; o kural yalnız yeminli mali müşavirlere ve farklı bir fiile ilişkindir. Doğrusu: kasten verg…"
         },
         "A": {
-          "ad": "Brüt Kârı Maliyet Sanma Tuzağı",
-          "metin": "Brüt satış kârını doğrudan satılan ticari malların maliyeti gibi kullanıp alışları buldun. Doğrusu: Önce net satışlardan brüt kâr çıkarılarak satılan maliyet bulunmalıdır."
+          "ad": "Uyarma Tuzağı",
+          "metin": "Öğrenci bu cezayı 'mesleğin vakar ve onuruna aykırı ilk fiil' kuralıyla karıştırıyor. Doğrusu: mükellefle birlikte kasten vergi ziyaına sebebiyet verilip mahkeme kararı kesinleşmesi hali doğrudan meslekten çıkarmayı ger…"
+        },
+        "D": {
+          "ad": "Yeminli Sıfatını Kaldırma Tuzağı",
+          "metin": "Öğrenci bunu, tasdik yetkisinin gerçeğe aykırı kullanılmasının tekerrür edip mahkeme kararıyla kesinleşmesi hâlindeki cezayla karıştırıyor; bu ceza yalnız yeminli mali müşavire ve tasdik fiiline özgüdür. Doğrusu: burada…"
+        },
+        "B": {
+          "ad": "Kınama Tuzağı",
+          "metin": "Öğrenci 'ilk defasında uyarma, tekrarında kınama' kuralını bu olaya uyguluyor; oysa bu kural vakar ve onura aykırı genel davranışlar içindir. Doğrusu: kasten vergi ziyaı fiilinde tekerrür şartı aranmaz, doğrudan meslekt…"
         }
       },
-      "hap": "Brüt satış kârı net satışlardan hesaplanır; satılan malın maliyeti formülü ters çözülerek alış tutarına ulaşılabilir.",
+      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararı ile kesinleşen meslek mensubuna, tekerrür şartı olmaksızın doğrudan meslekten çıkarma cezası verilir.",
       "satirlar": [
         [
-          "Net Satışlar (685.000-12.500-8.700)",
-          "663.800"
+          "A) Uyarma",
+          "p.48/2"
         ],
         [
-          "Satılan Ticari Malların Maliyeti (663.800-210.150)",
-          "453.650"
+          "B) Kınama",
+          "p.48/2"
         ],
         [
-          "Dönem İçi Net Alışlar (453.650-47.350+39.900)",
-          "446.200"
+          "C) Geçici olarak mesleki faaliyetten alıkoyma",
+          "p.48/3-4"
+        ],
+        [
+          "D) Yeminli sıfatını kaldırma",
+          "p.48/4"
+        ],
+        [
+          "E) Meslekten çıkarma",
+          "p.48/5"
         ]
       ],
-      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Gelir Tablosu Düzeni (600-623 hesap grupları)",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=2",
+      "dayanak": "3568 sayılı SMMM ve YMM Kanunu m.48, fıkra 5",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=4",
       "havuz": {
-        "adet": 10,
-        "ilk_gun": "2026-10-04",
-        "bitis": "2026-10-14",
-        "kalan_gun": 4,
+        "adet": 9,
+        "ilk_gun": "2026-10-11",
+        "bitis": "2026-10-20",
+        "kalan_gun": 9,
         "durum": "DONGU",
         "mail_gunu": false
       },
       "basim": {
         "durum": "YESIL",
         "eksik": 0,
-        "secim": 10,
-        "sayfa": 10
+        "secim": 9,
+        "sayfa": 9
       }
     }
   }
