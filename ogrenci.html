@@ -163,7 +163,7 @@
         <!-- ÜYE OL: new-password = tarayıcı kayıtlı şifreyi buraya DOLDURMAZ, yeni şifre önerir -->
         <form class="og-form og-gizli" id="ogFormKayit" role="tabpanel" aria-labelledby="sekKayit" novalidate>
           <label class="og-et" for="ogKEposta">E-posta</label>
-          <input id="ogKEposta" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Paketi aldığın / alacağın e-posta" required>
+          <input id="ogKEposta" name="email" type="email" autocomplete="email" inputmode="email" placeholder="E-posta adresin" required>
           <label class="og-et" for="ogKSifre">Şifre belirle</label>
           <input id="ogKSifre" name="new-password" type="password" autocomplete="new-password" minlength="8" required>
           <p class="og-ipucu">En az 8 karakter.</p>
@@ -862,7 +862,7 @@
 
   /* 02.10 KURUMSAL GİRİŞ — dört ekran. Adres: #uye-ol / #sifremi-unuttum doğrudan açar (başka sayfalar bağlayabilir). */
   var EKRAN={ giris:{form:'ogFormGiris',baslik:'Giriş yap',sekme:true},
-              kayit:{form:'ogFormKayit',baslik:'Üye ol',sekme:true,aciklama:'Paketi aldığın (ya da alacağın) e-postayla hesabını aç. Çözdüğün testler, deneme sonuçların ve yanlış yaptığın sorular hesabına kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin.'},
+              kayit:{form:'ogFormKayit',baslik:'Üye ol',sekme:true,aciklama:'Ücretsiz hesap aç: yanlış yaptığın sorular, test ve deneme sonuçların kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin. Paket aldıysan aynı e-postayı yaz.'},   /* 13.10: eski metin "Paketi aldığın (ya da alacağın) e-postayla" ücretsiz deneyene "bu sayfa ödeyenler için" diyordu */
               sifremi:{form:'ogFormSifremi',baslik:'Şifreni sıfırla',sekme:false,aciklama:'Hesabının e-posta adresine bir bağlantı göndeririz; bağlantıdan yeni şifreni belirlersin. Sonuçların ve paketin olduğu gibi kalır.'},
               yeni:{form:'ogFormYeni',baslik:'Yeni şifre belirle',sekme:false,aciklama:'Yeni şifreni iki kez yaz ve kaydet. Kaydettikten sonra doğrudan hesabına geçersin.'} };
   var EPOSTA_DESEN=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, SIFRE_EN_AZ=8;
