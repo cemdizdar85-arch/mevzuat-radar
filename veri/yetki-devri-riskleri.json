@@ -1,11 +1,11 @@
 {
-  "tarih": "12.10.2026 10:44",
+  "tarih": "12.10.2026 12:15",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 887,
   "riskli_madde": 1315,
   "sayfa": 76,
   "atifli_iddia": 300,
-  "dayanaksiz_iddia": 383,
+  "dayanaksiz_iddia": 384,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -579,25 +579,31 @@
     },
     {
       "sayfa": "canli-deneme.html",
-      "satir": 234,
+      "satir": 239,
       "iddia": "30 gün",
       "metin": "/* 11.10 bitmiş prova (son 30 gün): sorular + cevap anahtarı + açıklamalar yeniden açılır; mail bağlantısı #incele en yenisini açar */"
     },
     {
       "sayfa": "canli-deneme.html",
-      "satir": 387,
+      "satir": 392,
       "iddia": "000 kişi",
       "metin": "(2) yoklama aralığı 8-15 sn -> 10-25 sn (ortalama 17,5). 5.000 kişide"
     },
     {
       "sayfa": "canli-deneme.html",
-      "satir": 591,
+      "satir": 576,
+      "iddia": "en az 50",
+      "metin": "yanlış 0,25 götürür (4 yanlış 1 doğruyu); ders puanı = net / soru × 100; başarı: her ders en az 50, ortalama en az 60"
+    },
+    {
+      "sayfa": "canli-deneme.html",
+      "satir": 631,
       "iddia": "000 kişi",
       "metin": "sınav bitiminde 5.000 kişi aynı anda bakarsa sunucuya tek istek düşmez."
     },
     {
       "sayfa": "canli-deneme.html",
-      "satir": 660,
+      "satir": 700,
       "iddia": "000 kişi",
       "metin": "pencere 5.000 kişide ≈333 istek/sn tepe demekti. 150 sn'de ≈33 istek/sn."
     },
@@ -2097,7 +2103,7 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 654,
+      "satir": 731,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
@@ -2241,37 +2247,37 @@
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 345,
+      "satir": 346,
       "iddia": "7 gün",
       "metin": "/* 06.10 (Cem \"1.2.3\" GM2): sınava 7 gün kala (Cem: 2 değil 1 hafta) bir ücretsiz hak daha - son testi o pencereden ÖNCE çözmüş kişi yeniden"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 350,
+      "satir": 351,
       "iddia": "7 gün",
       "metin": "/* 07.10 ÜYE HAFTALIK HAK: paket sahibi (TetikteUye durum 'aktif') sınırsız; ücretsiz üye son sonucundan 7 gün sonra."
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 408,
+      "satir": 409,
       "iddia": "10 yıl",
       "metin": "/* 06.10 (Cem \"en çok çıkan konudan yapalım\"): kutu konu sıklığıyla kurulu (motor/seviye-havuz-bas.js, w = konunun son 10 yılda"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 625,
+      "satir": 626,
       "iddia": "%70",
       "metin": "toplamı -> rozet bu testteki orandan (%70+ güçlü, %40+ sınırda), cümle \"sınavda bu gruptan kaç soru var, bu oranla kaçını kaçırırsın\". */"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 979,
+      "satir": 994,
       "iddia": "10 yıl",
       "metin": "$('svGiris').querySelector('.sv-alt').textContent='SMMM Yeterlilik için. Sekiz dersten 30 soru, son 10 yılda en çok sorulan konulardan; sorular bilerek sınavdan zor seçildi. Yaklaş"
     },
     {
       "sayfa": "seviye-testi.html",
-      "satir": 1040,
+      "satir": 1055,
       "iddia": "7 gün",
       "metin": "/* 07.10 Cem \"30 soru çözmüştüm, bana 'sorular hazırlanıyor' değil '7 gün sonra dene ya da üye ol' desin\": hak/hafta kutusu"
     },
