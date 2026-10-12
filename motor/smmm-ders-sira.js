@@ -18,8 +18,8 @@
 //       sayılarıyla orantılı yumuşak ağırlıklı sırayla serpiştirilir. Zorluk kimlikten okunur (-kolay|-orta|-zor|-cokzor,
 //       kasa-yukle.js ile aynı ifade); etiketsiz soru "bilinmiyor" kovasıdır.
 //  KÜME DEĞİŞMEZ: yalnız sıra değişir. Çıktı girdiyle aynı sayıda ve aynı kimliklerden oluşmazsa ÇIKIŞ 2 (dosya yazılmaz).
-//  🚫 GÖRMEZ: sorunun gerçek zorluğu (etiket üretim isteğidir, öğrenci verisi değil) · "orta" etiketi bankada yok (12.10) ·
-//    etiketsiz 181 sorunun zorluğu · eşlemenin tek okuyucu hatası · sayfanın seviye testine göre yeniden sıralaması
+//  🚫 GÖRMEZ: sorunun gerçek zorluğu (etiket/plan üretim isteğidir, öğrenci verisi değil) · "orta" etiketi bankada yok (12.10) ·
+//    planı olmayan elle yazılmış 15 sorunun zorluğu (gm-p1/gm-p2/denetim-30) · eşlemenin tek okuyucu hatası · sayfanın seviye testine göre yeniden sıralaması
 //    (kasa-yukle.js seviyeSirala; zayıf öğrencide kolay önce, güçlüde zor önce — bu sıra ONUN girdisidir).
 //
 //  KULLANIM:
@@ -71,9 +71,28 @@ function agirlikliDiz(idler, konuBul, agirlik) {
 // sorunun konusu: eşlemedeki konulardan en sık sorulanı (deneme karnesi de o konuyu sayar)
 const konuBulucu = (es, agirlik) => id => ((es[id] && es[id].konular) || []).slice().sort((p, q) => (agirlik[q] || 0) - (agirlik[p] || 0))[0] || '';
 
+// 12.10 (GM2): kimlikte zorluk yoksa partinin PLAN dosyasındaki zorluk (veri/sinav/plan-smmm-*.json "etiket" → "zorluk";
+//   üretim isteği, bedel 0). Etiket birden çok zorlukla planlandıysa ya da planı yoksa (elle yazılmış GM partileri) "?".
+//   12.10 ölçümü: etiketsiz 181 sorunun 166'sı plandan çözüldü (ab-hukuk kolay; ab2-maliyet, dog1-vergi, olc2-vergi zor).
+let PLAN_Z = null;
+function planZorluk() {
+  if (PLAN_Z) return PLAN_Z;
+  PLAN_Z = {};
+  if (MUT === 'plan-yok') return PLAN_Z;
+  const d = path.join(KOK, 'veri', 'sinav'), m = {};
+  try {
+    for (const f of fs.readdirSync(d).filter(x => /^plan-smmm-.*\.json$/.test(x))) {
+      let p; try { p = jsonOku(path.join(d, f)); } catch (e) { continue; }
+      (Array.isArray(p) ? p : [p]).forEach(r => { if (r && r.etiket && /^(kolay|orta|zor|cokzor)$/.test(r.zorluk)) (m[r.etiket] = m[r.etiket] || new Set()).add(r.zorluk); });
+    }
+  } catch (e) {}
+  for (const e in m) if (m[e].size === 1) PLAN_Z[e] = [...m[e]][0];
+  return PLAN_Z;
+}
 function zorluk(id) {
   const m = String(id || '').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/);
-  return m ? m[1] : '?';
+  if (m) return m[1];
+  return planZorluk()[String(id || '').split('/')[0]] || '?';
 }
 
 // ilk 10: en sık konulardan, her biri farklı konu, orta/zor (yoksa kolay, en son etiketsiz); çok zor hiç
@@ -197,7 +216,8 @@ function sinav() {
   const y2 = dersSirala(Object.keys(es2), 'E', es2, { E: { p: 5, q: 1 } });
   t('orta/zor yoksa konu ikinci turda kolayla gelir, çok zor ilk 10a girmez', y2[0] === 'smmm-a-zor-r1/kp-01' && y2[1] === 'smmm-a-kolay-r1/kp-01' && y2[2] === 'smmm-a-cokzor-r1/kp-01');
   t('küme kapısı: eksik/tekrar yakalanır', !ayniKume(['a', 'b'], ['a', 'a']) && !ayniKume(['a', 'b'], ['a']));
-  t('zorluk kimlikten (kasa-yukle.js ifadesi)', zorluk('smmm-4k-a-yvergi-cokzor-r5/kp-01') === 'cokzor' && zorluk('smmm-4k-d1-yvergi-kolay-r1/kp-01') === 'kolay' && zorluk('smmm-ab-a-hukuk/kp-02') === '?');
+  t('etiketsiz kimlikte zorluk plandan (dog1-vergi zor, ab-a-hukuk kolay), planı yoksa ?', zorluk('smmm-dog1-vergi/kp-01') === 'zor' && zorluk('smmm-ab-a-hukuk/kp-01') === 'kolay' && zorluk('smmm-gm-p1-yvergi/kp-01') === '?');
+  t('zorluk kimlikten (kasa-yukle.js ifadesi)', zorluk('smmm-4k-a-yvergi-cokzor-r5/kp-01') === 'cokzor' && zorluk('smmm-4k-d1-yvergi-kolay-r1/kp-01') === 'kolay' && zorluk('smmm-yok-hic/kp-02') === '?');
   // EŞDEĞERLİK ÇAPASI (gerçek veri): ortak agirlikliDiz, havuzun kurulduğu eski iç sirala() ile 8 dersin TAMAMINDA aynı dizi
   try {
     const v = veriYukle(); const ders = {};
@@ -218,7 +238,7 @@ if (require.main === module) {
   try {
     if (a.includes('--mutasyon')) {
       // kural 8: her bozmada öz-sınav KIRMIZI düşmeli
-      const { spawnSync } = require('child_process'); let tutan = 0; const M = ['ilk-sik-yok', 'serpistirme-yok', 'konu-yok'];
+      const { spawnSync } = require('child_process'); let tutan = 0; const M = ['ilk-sik-yok', 'serpistirme-yok', 'konu-yok', 'plan-yok'];
       for (const m of M) {
         const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { SIRA_MUTASYON: m }), encoding: 'utf8' });
         const k = r.status !== 0; if (k) tutan++; console.log(`  mutasyon ${m.padEnd(16)} ${k ? 'KIRMIZI (doğru)' : 'YEŞİL — SINAV KÖR'}`);
