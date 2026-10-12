@@ -1,17 +1,17 @@
 {
-  "olcum": "11.10.2026 08:11",
+  "olcum": "12.10.2026 10:55",
   "aciklama": "Ozel adi kayip yuklenici kayitlari. Olcut: firma adi JENERIK bir sirket ekiyle BASLIYOR (Ticaret/Sanayi/Limited...). Kisalik tek basina kusur DEGILDIR - sahis firmalari ('Mehmet ...') normaldir. Onarim: her kaydin IKN'lerinin sonuc ilani yeniden okunmali.",
   "kaynak": "veri/ihale-firma-ozet.json",
-  "taranan": 62360,
+  "taranan": 62416,
   "kusurlu": 543,
   "sinif_coklu_yuklenici": 34,
   "sinif_is_ortakligi": 0,
   "sinif_sahis_eki": 10,
   "sinif_SADE_KESIK": 499,
-  "sade_kesik_ihale": 12559.0,
-  "sade_kesik_bedel": 64377840357.109985,
-  "etkilenen_ihale": 12798.0,
-  "etkilenen_bedel": 150762038877.01996,
+  "sade_kesik_ihale": 12567.0,
+  "sade_kesik_bedel": 64390720245.109985,
+  "etkilenen_ihale": 12806.0,
+  "etkilenen_bedel": 150774918765.01996,
   "kayitlar": [
     {
       "ad": "Yapı Merkezi İnşaat ve Sanayi Anonim Şirketi, YSE Yapı Sanayi ve Ticaret Anonim Şirketi İş Ortaklığı",
@@ -21,19 +21,19 @@
     },
     {
       "ad": "Ticaret Limited Şirketi",
-      "ihaleSayisi": 3651,
-      "toplamBedel": 21542471276.76,
+      "ihaleSayisi": 3653,
+      "toplamBedel": 21542691086.76,
       "ikn": [
-        "2025/2450387",
-        "2025/2459752",
-        "2025/1669301",
         "2025/1741901",
-        "2025/2460556",
+        "2025/1669301",
+        "2025/2450387",
         "2025/2461732",
+        "2025/2459752",
+        "2025/2460556",
+        "2024/1774093",
         "2024/1773584",
-        "2024/1920595",
-        "2024/1920748",
-        "2024/1920964"
+        "2024/1745430",
+        "2024/1899596"
       ]
     },
     {
@@ -217,8 +217,8 @@
     },
     {
       "ad": "Sanayi Limited Şirketi",
-      "ihaleSayisi": 132,
-      "toplamBedel": 515658289.33,
+      "ihaleSayisi": 133,
+      "toplamBedel": 516786414.33,
       "ikn": [
         "2025/2465142",
         "2024/1899589",
@@ -228,8 +228,8 @@
         "2023/1256976",
         "2026/1507881",
         "2026/939553",
-        "2026/533173",
-        "2026/23877"
+        "2026/23877",
+        "2026/533173"
       ]
     },
     {
@@ -252,8 +252,8 @@
     },
     {
       "ad": "Sanayi Anonim Şirketi",
-      "ihaleSayisi": 434,
-      "toplamBedel": 408960520.3,
+      "ihaleSayisi": 436,
+      "toplamBedel": 410201020.3,
       "ikn": [
         "2024/1215341",
         "2024/1387324",
@@ -924,8 +924,8 @@
     },
     {
       "ad": "İhracat Sanayi Ticaret Limited Şirketi",
-      "ihaleSayisi": 18,
-      "toplamBedel": 54103584.93,
+      "ihaleSayisi": 19,
+      "toplamBedel": 54538584.93,
       "ikn": []
     },
     {
@@ -1154,6 +1154,12 @@
       "ikn": []
     },
     {
+      "ad": "Gıda Teknoloji Tarım İnşaat Ambalaj Danışmanlık Zırai İlaçlar Ticaret ve Sanayi Limited Şirketi",
+      "ihaleSayisi": 5,
+      "toplamBedel": 35077000.0,
+      "ikn": []
+    },
+    {
       "ad": "Teknoloji Geliştirme Grubu İnş.San.ve Tic.A.Ş.",
       "ihaleSayisi": 1,
       "toplamBedel": 34800895.0,
@@ -1264,12 +1270,6 @@
       "ad": "Enerji Madeni Yağlar Üretim ve Pazarlama Anonim Şirketi",
       "ihaleSayisi": 2,
       "toplamBedel": 25812500.0,
-      "ikn": []
-    },
-    {
-      "ad": "Gıda Teknoloji Tarım İnşaat Ambalaj Danışmanlık Zırai İlaçlar Ticaret ve Sanayi Limited Şirketi",
-      "ihaleSayisi": 4,
-      "toplamBedel": 25749000.0,
       "ikn": []
     },
     {
@@ -2890,14 +2890,14 @@
       "ikn": []
     },
     {
-      "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 1,
+      "ad": "İnşaat İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 3,
       "toplamBedel": 1000000.0,
       "ikn": []
     },
     {
-      "ad": "İnşaat İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 3,
+      "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 1,
       "toplamBedel": 1000000.0,
       "ikn": []
     },
@@ -3055,6 +3055,12 @@
       "ad": "İnşaat Turizm Üretim Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 630000.0,
+      "ikn": []
+    },
+    {
+      "ad": "Otomotiv Gıda Tarım Çırçır Hayvancılık İnşaat ve İthalat İhracat Sanayi Ticaret Limited Şirketi",
+      "ihaleSayisi": 2,
+      "toplamBedel": 619528.0,
       "ikn": []
     },
     {
@@ -3400,12 +3406,6 @@
       "ikn": []
     },
     {
-      "ad": "Otomotiv Gıda Tarım Çırçır Hayvancılık İnşaat ve İthalat İhracat Sanayi Ticaret Limited Şirketi",
-      "ihaleSayisi": 1,
-      "toplamBedel": 91075.0,
-      "ikn": []
-    },
-    {
       "ad": "Otomotiv Petrol Canlı Hayvan Medikal Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 89928.0,
@@ -3430,13 +3430,13 @@
       "ikn": []
     },
     {
-      "ad": "Hizmetleri İnşaat Turizm Nakliye Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Tekstil Turizm Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 84000.0,
       "ikn": []
     },
     {
-      "ad": "Tekstil Turizm Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Hizmetleri İnşaat Turizm Nakliye Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 84000.0,
       "ikn": []
