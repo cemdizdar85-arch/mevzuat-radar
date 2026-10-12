@@ -201,3 +201,19 @@ Bu tuzağa sınavda düşmemek için tetikte.com'da soru çöz: Staja Giriş sev
 Karakter yapay zekâ ile üretilmiştir. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 #stajagiris #smmmstaj #smmm #ticarethukuku #cek #tuzaksozlugu
+
+## 15 · Karusel: Konuyu izleme, soruda öğren (12.10; Staja Giriş · Ticaret Hukuku)
+
+Staja Giriş sınavı · Ticaret Hukuku
+
+İzmir'de düzenlenen bir çekin ödeme yeri İstanbul. Kaç gün içinde bankaya ibraz edilmeli? Cevabını yorumlara yaz, sonra kaydır.
+
+Tetikte'de soruyu çözerken yanlış yaparsan ne sandığını, konunun özetini ve kanun maddesini o an görürsün. Bu soruda: aynı yerde ödenecek çek 10 gün, başka yerde ödenecek çek 1 ay; süre düzenleme tarihinin ertesi günü başlar (TTK m.796).
+
+Kıymetli evrak, son 32 Staja Giriş sınavının 32'sinde soruldu (2016–2026).
+
+Dersini kimden alırsan al, soruyu Tetikte'de çöz. 30 soruda geçme ihtimalini ücretsiz ölç: tetikte.com. Bağlantı profilde.
+
+Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+#stajagiris #smmmstaj #smmm #ticarethukuku #kiymetlievrak #tetikte
