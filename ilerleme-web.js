@@ -60,7 +60,7 @@
     if (kuruldu || !YOL || !akis() || /\/kaydir\/vitrin\//.test(location.pathname)) return;
     kuruldu = true;
     try {
-      if (!window.TTIlerleme) await yukle(KOK + 'mobil/uygulama/ilerleme.js?v=20261012');
+      if (!window.TTIlerleme) await yukle(KOK + 'mobil/uygulama/ilerleme.js?v=20261012b');
     } catch (e) { return; }
     var IL = window.TTIlerleme; if (!IL) return;
     IL_ = IL;
@@ -164,7 +164,7 @@
     var konumZam = null;
     a.addEventListener('scroll', function () {
       clearTimeout(konumZam);
-      konumZam = setTimeout(function () { var i = simdiki(); if (i >= 0) { IL.konumYaz(YOL, i, ks[i] ? sidK(ks[i]) : ''); sonraEsitle(); } }, 500);
+      konumZam = setTimeout(function () { var i = simdiki(); if (i >= 0) { var q = (typeof SORULAR !== 'undefined' && SORULAR[i]) ? SORULAR[i].id : ''; IL.konumYaz(YOL, i, ks[i] ? sidK(ks[i]) : '', q); sonraEsitle(); } }, 500);
     }, { passive: true });
     if (derin) return;
     yereGit();
@@ -181,7 +181,10 @@
     var a = akis(), ks = kartlar(), kk = IL_.konumKaydi ? IL_.konumKaydi(YOL) : null, h = -1, j;
     if (!a || !kk || !ks.length) return;
     var sid = function (k) { if (!k.__ttsid) { var q = k.querySelector('.soru'); k.__ttsid = IL_.sid(q ? q.textContent : ''); } return k.__ttsid; };
+    var S_ = (typeof SORULAR !== 'undefined' && SORULAR) || [];
     if (kk.s) { for (j = 0; j < ks.length; j++) if (sid(ks[j]) === kk.s) { h = j; break; } }
+    /* q = soru kimliği (sunucu göçü arac/smmm-konum-gocu.js yazar; kart sırası SORULAR sırasıdır) */
+    else if (kk.q) { for (j = 0; j < ks.length && j < S_.length; j++) if (String(S_[j].id) === String(kk.q)) { h = j; break; } }
     else if (SIRA_DEGISEN.test(YOL)) { var cv = IL_.veri().cevap || {}; for (j = 0; j < ks.length; j++) if (!cv[sid(ks[j])]) { h = j; break; } }
     else h = kk.i || 0;
     if (h < 0 || (h > 0 && !ks[h])) return;   /* hedef henüz inmedi: sonraki parçada yeniden bakılır */

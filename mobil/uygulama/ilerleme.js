@@ -110,7 +110,8 @@
     },
     /* 12.10: s = kaldığın kartın sid'i (isteğe bağlı). Sayfanın soru sırası değişince (bitirme 12.10 yeniden sıralandı)
        i başka soruyu gösterir; s ile kart kimlikten bulunur (ilerleme-web.js). s'siz çağrı (uygulama) eskisi gibi çalışır. */
-    konumYaz: function (yol, i, s) { var t = Date.now(), k = { i: i, t: t }; if (s) k.s = s; veri.konum[yol] = k; veri.son = { yol: yol, i: i, t: t }; if (s) veri.son.s = s; yaz(); },
+    /* q = soru kimliği (SORULAR[i].id); sunucu göçü (arac/smmm-konum-gocu.js) de q yazar */
+    konumYaz: function (yol, i, s, q) { var t = Date.now(), k = { i: i, t: t }; if (s) k.s = s; if (q != null && q !== '') k.q = q; veri.konum[yol] = k; veri.son = { yol: yol, i: i, t: t }; if (s) veri.son.s = s; if (k.q != null) veri.son.q = k.q; yaz(); },
     konumu: function (yol) { var k = veri.konum[yol]; return k ? k.i || 0 : 0; },
     konumKaydi: function (yol) { return veri.konum[yol] || null; },
     /* genel harita yazımı (site yanlış kutusu): alan = kutu|kayit|oyun; tek diske yazım için toplu */

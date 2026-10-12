@@ -47,6 +47,18 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: ./arac/had-tutar-tarama.ps1 -YalnizHad
 
+      # 12.10.2026 KALDIGIN YER GOCU (Cem "yoksa kesin olsun"): uygulama (Play 1.8.1) ve eski site kaydi kaldigin yeri SIRA
+      #   NUMARASIYLA tutar; sira degisince (yeni soru sirasi ya da araya giren yeni soru) baska soruya doner. Yayindan ONCE eski
+      #   sira (yalniz kimlik) yedeklenir; yedek alinamazsa yayin YAPILMAZ (is kirmizi). Gunluge yalniz sayi basilir.
+      - name: Eski siralari yedekle (kaldigin yer gocu icin)
+        id: siraYedek
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node arac/smmm-konum-gocu.js --yedekle "$env:RUNNER_TEMP\eski-sira.json"
+          if($LASTEXITCODE){ "::error::eski sira yedeklenemedi - yayin yapilmiyor (kaldigin yer bozulmasin)"; exit 1 }
+
       - name: Bitirme sorularini kilitli kasaya yaz
         shell: powershell
         env:
@@ -62,6 +74,18 @@ jobs:
           $kod = $LASTEXITCODE
           "kasa yayini cikis kodu: $kod"
           if($kod){ "::error::bitirme kasa yayini dustu ($kod) - sorular ambarda duruyor; yeniden: gh workflow run smmm-kasa-yayin.yml"; exit $kod }
+
+      # 12.10: kasa yeni siraya yazildiktan HEMEN sonra her hesabin bitirme konumu cevrilir (eski i -> kimlik -> yeni i, kimlik q
+      #   kayda yazilir). Yayin adimi kirmizi bitse de (onay kapisi gibi kasa YAZILIP sonra cikis 1) calisir. Kosullu yazim:
+      #   arada cihaz esitlediyse satir atlanir. GORMEZ: cihazda seviye sirasiyla gorulen dizilim, hic esitlenmemis cihaz kaydi.
+      - name: Kaldigin yeri yeni siraya cevir
+        if: always() && steps.siraYedek.outcome == 'success'
+        shell: powershell
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node arac/smmm-konum-gocu.js --goc "$env:RUNNER_TEMP\eski-sira.json" --yaz
+          if($LASTEXITCODE){ "::error::kaldigin yer cevrilemedi - uygulama kullanicisi yanlis soruya donebilir"; exit 1 }
 
       # 07.10.2026: Sik Cikan Konular Denemesi Yeterlilik setleri (veri/deneme/smmm-sik-*.json) kasa yayinindan SONRA kurulur.
       #   Yalniz kimlik yazar (metin/cevap yok). Duserse yayin durmaz, eski setler kalir.
