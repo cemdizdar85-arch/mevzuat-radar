@@ -23,15 +23,21 @@ param(
   [switch]$Damgadan,
   [switch]$Uygula,
   [switch]$Bekleyenler,  # yururlugu gelmis BEKLEMEDE kayitlari basar (gunluk kosu)
-  [string]$RgTarihi      # PDF'te RG tarihi yoksa elle: "11.07.2026"
+  [string]$RgTarihi,     # PDF'te RG tarihi yoksa elle: "11.07.2026"
+  [switch]$KuruKosu,     # 12.10: indir + Okuyucu A + yururluk; Okuyucu B (PARALI) / mail / yazim YOK
+  [string]$PdfKaynak     # 12.10 oz-sinav: indirmek yerine bu yerel dosyayi kopyala
 )
 $ErrorActionPreference = 'Stop'
+# 12.10: 03.10-11.10 her tetiklemede "Cannot bind argument to parameter 'Path' because it is null"
+# yazip bitti; satir bilinmiyordu (catch yalniz mesaj basiyordu). Artik hatanin satiri basilir.
+trap { Write-Host ("onarici HATA satir {0}: {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message); break }
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $kok  = Split-Path -Parent $here
 $UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0'
 
 function Mail([string]$konu,[string]$govde){
+  if($KuruKosu){ Write-Host "KURU: mail atlandi ($konu)"; return }
   # 04.09: web3forms cikti -> tek posta kapisi arac/alarm-maili.ps1 (Resend, env RESEND_KEY)
   try { & (Join-Path $kok 'arac/alarm-maili.ps1') -Konu $konu -Mesaj $govde } catch { Write-Host "mail gitmedi: $($_.Exception.Message)" }
 }
@@ -39,7 +45,12 @@ function Mail([string]$konu,[string]$govde){
 # ---------- OKUYUCU A: deterministik parser ---------------------------------
 function OkuyucuA([string]$pdfYol){
   $txt = [IO.Path]::ChangeExtension($pdfYol, '.layout.txt')
-  & pdftotext -layout -enc UTF-8 $pdfYol $txt 2>$null
+  # 12.10: onceki kosudan kalan .layout.txt, pdftotext dusunce okunmasin (oz-sinavda olculdu)
+  if(Test-Path -LiteralPath $txt){ Remove-Item -LiteralPath $txt -Force }
+  # 12.10: PS 5.1'de EAP=Stop altinda yerel aracin stderr uyarisi ('Syntax Warning') 2>$null ile bile
+  # firlatiyordu (K6 deseni); uyari okuma hatasi degil, sonucu Test-Path olcer.
+  $eapEski = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+  try { & pdftotext -layout -enc UTF-8 $pdfYol $txt 2>$null } finally { $ErrorActionPreference = $eapEski }
   if(-not (Test-Path $txt)){ throw "pdftotext uretmedi: $pdfYol" }
   $satirlar = Get-Content $txt -Encoding UTF8
   # tablo bolgesi: 'Birim Gumruk Kiymeti' basligindan '*Kg:'/'*Ton:' dipnotuna
@@ -76,11 +87,12 @@ function OkuyucuA([string]$pdfYol){
     if($degerler.Count -eq 1){ $sonuc[$b.kod] = $degerler[0] }
     else { $belirsiz += $b.kod }
   }
-  return @{ kesin=($belirsiz.Count -eq 0 -and $sonuc.Count -gt 0); birim=$birim; satirlar=$sonuc; belirsiz=$belirsiz }
+  return @{ kesin=($belirsiz.Count -eq 0 -and $sonuc.PSBase.Count -gt 0); birim=$birim; satirlar=$sonuc; belirsiz=$belirsiz }
 }
 
 # ---------- OKUYUCU B: Claude (cift hat) ------------------------------------
 function OkuyucuB([string]$pdfYol){
+  if($KuruKosu){ throw 'KURU KOSU: OkuyucuB cagrilmamaliydi (ikinci fren)' }
   . (Join-Path $here 'api-hedef.ps1')
   $hedef = Get-ApiHedef   # anahtar yoksa firlatir -> cagiran yakalar
   $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($pdfYol))
@@ -141,7 +153,7 @@ function YururlukCoz([string]$pdfYol){
 function Normalle([string]$v){ ($v -replace '\s','') }
 
 function YamaUygula([string]$tno,[hashtable]$final,[string]$birim,[string]$kaynak){
-  $yol = Join-Path $kok 'veri\gtip-durum.json'
+  $yol = Join-Path $kok 'veri/gtip-durum.json'
   $d = Get-Content $yol -Raw -Encoding UTF8 | ConvertFrom-Json
   $sonucMap=[ordered]@{}
   foreach($p in $d.PSObject.Properties){ $kalan=@(@($p.Value)|Where-Object{$_.teblig -ne $tno}); if($kalan.Count){ $sonucMap[$p.Name]=$kalan } }
@@ -154,10 +166,19 @@ function YamaUygula([string]$tno,[hashtable]$final,[string]$birim,[string]$kayna
 
 function TebligOnar([string]$tno,[int]$mno){
   Write-Host "=== $tno (mevzuatNo $mno) ==="
-  $pdf = Join-Path $env:TEMP ("onarici-" + ($tno -replace '/','-') + ".pdf")
-  Invoke-WebRequest -Uri "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.$mno.pdf" -OutFile $pdf -UserAgent $UA -Headers @{Referer='https://www.mevzuat.gov.tr/'} -TimeoutSec 90 -UseBasicParsing
+  # 12.10 KOK: mevzuat.yml ubuntu'da kosar, orada $env:TEMP YOK -> Join-Path -Path $null.
+  # GetTempPath her platformda dolu (Linux: TMPDIR ya da /tmp; Windows: TMP/TEMP).
+  $pdf = Join-Path ([IO.Path]::GetTempPath()) ("onarici-" + ($tno -replace '/','-') + ".pdf")
+  Write-Host "PDF yolu: $pdf"
+  if($PdfKaynak){ Copy-Item -LiteralPath $PdfKaynak -Destination $pdf -Force }
+  else { Invoke-WebRequest -Uri "https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/9.5.$mno.pdf" -OutFile $pdf -UserAgent $UA -Headers @{Referer='https://www.mevzuat.gov.tr/'} -TimeoutSec 90 -UseBasicParsing }
   $A = OkuyucuA $pdf
   Write-Host ("A: kesin={0} satir={1} belirsiz={2} birim={3}" -f $A.kesin, $A.satirlar.Count, ($A.belirsiz -join ','), $A.birim)
+  if($KuruKosu){
+    $y = YururlukCoz $pdf
+    Write-Host ("KURU: B atlandi (model cagrisi yok), mail yok, yazim yok. Yururluk: {0}" -f $(if($y){ "$($y.tarih.ToString('dd.MM.yyyy')) (RG $($y.rg))" } else { 'COZULEMEDI' }))
+    return $true
+  }
   $B = $null
   try { $B = OkuyucuB $pdf; Write-Host ("B: satir={0} birim={1}" -f (@($B.satirlar.PSObject.Properties).Count), $B.birim) }
   catch { Write-Host ("B kosamadi (anahtar/hat): {0}" -f $_.Exception.Message) }
@@ -179,7 +200,7 @@ function TebligOnar([string]$tno,[int]$mno){
   # birlesik kume: A'nin kesinleri + B'nin (A'da belirsiz kalan) tamamlamalari
   $final=@{}; foreach($k in $bs.Keys){ $final[$k]=$bs[$k] }
   $birim = if($A.birim){ $A.birim } else { $B.birim }
-  Write-Host ("MUTABAKAT: {0} satir, birim {1}" -f $final.Count, $birim)
+  Write-Host ("MUTABAKAT: {0} satir, birim {1}" -f $final.PSBase.Count, $birim)
   if(-not $Uygula){ Write-Host "(-Uygula verilmedi: rapor modu)"; Mail "GOZETIM ONARICI MUTABAKAT ($tno) - rapor modu" (($final.GetEnumerator()|ForEach-Object{"$($_.Key) = $($_.Value) $birim"}) -join "`n"); return $true }
 
   $kaynak = "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=$mno&MevzuatTur=9&MevzuatTertip=5"
@@ -192,7 +213,7 @@ function TebligOnar([string]$tno,[int]$mno){
   Write-Host ("Yururluk: {0} (RG {1}; '{2}')" -f $y.tarih.ToString('dd.MM.yyyy'), $y.rg, $y.cumle)
   if((Get-Date).Date -lt $y.tarih.Date){
     # BEKLEMEDE kasasina yaz - yururluk gunu gunluk kosu (-Bekleyenler) basar
-    $bYol = Join-Path $kok 'veri\gozetim-bekleyen.json'
+    $bYol = Join-Path $kok 'veri/gozetim-bekleyen.json'
     $bek = if(Test-Path $bYol){ Get-Content $bYol -Raw -Encoding UTF8 | ConvertFrom-Json } else { @() }
     $bek = @($bek | Where-Object { $_.teblig -ne $tno })
     $bek += [pscustomobject]@{ teblig=$tno; yururluk=$y.tarih.ToString('yyyy-MM-dd'); birim=$birim; kaynak=$kaynak; satirlar=[pscustomobject]$final; kayitTarihi=(Get-Date).ToString('yyyy-MM-dd') }
@@ -207,9 +228,9 @@ function TebligOnar([string]$tno,[int]$mno){
 
 # ---------- BEKLEYENLERI BAS (gunluk, anahtarsiz) ------------------------------
 function BekleyenleriBas(){
-  $bYol = Join-Path $kok 'veri\gozetim-bekleyen.json'
+  $bYol = Join-Path $kok 'veri/gozetim-bekleyen.json'
   if(-not (Test-Path $bYol)){ Write-Host "bekleyen yok."; return $true }
-  $bek = @(Get-Content $bYol -Raw -Encoding UTF8 | ConvertFrom-Json)
+  $bek = @((Get-Content $bYol -Raw -Encoding UTF8 | ConvertFrom-Json))
   $kalan=@(); $basilan=0
   foreach($b in $bek){
     if((Get-Date).Date -lt ([datetime]$b.yururluk).Date){ $kalan += $b; continue }
@@ -227,10 +248,10 @@ function BekleyenleriBas(){
 if($Bekleyenler){ if(BekleyenleriBas){ exit 0 } else { exit 1 } }
 $isler=@()
 if($Damgadan){
-  $t = Get-Content (Join-Path $kok 'veri\teblig-damga.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+  $t = Get-Content (Join-Path $kok 'veri/teblig-damga.json') -Raw -Encoding UTF8 | ConvertFrom-Json
   foreach($x in @($t.degisen)){
     # mevzuatNo -> teblig no eslemesi gtip-durum'daki kayitlardan bulunur
-    $d = Get-Content (Join-Path $kok 'veri\gtip-durum.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $d = Get-Content (Join-Path $kok 'veri/gtip-durum.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $tn=$null
     foreach($p in $d.PSObject.Properties){ foreach($e in @($p.Value)){ if($e.kaynak -match "MevzuatNo=$($x.mevzuatNo)&"){ $tn=$e.teblig; break } } ; if($tn){break} }
     if($tn){ $isler += @{ tno=$tn; mno=$x.mevzuatNo } } else { Write-Host "eslesmedi: mevzuatNo $($x.mevzuatNo)" }

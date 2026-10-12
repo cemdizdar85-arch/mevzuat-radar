@@ -272,6 +272,14 @@ jobs:
           - { ad: "Kisaltma acimi MUTASYON (8 bozma, her biri KIRMIZI)",
               kabuk: pwsh, komut: "./arac/kisaltma-acim-sinavi.ps1 -Mutasyon" }
 
+          # 12.10.2026 - Gozetim onarici (mevzuat.yml, if: failure()) 03.10-11.10 her tetiklemede "Path null" ile bitiyordu:
+          # ubuntu'da $env:TEMP yok. Sinav gercek betigi TEMP/TMP/anahtarsiz -KuruKosu ile kosar (model cagrisi YOK).
+          # mevzuat.gov.tr inmezse V3/V4/V6 KOR yazar. Mutasyon 6/6 KIRMIZI (Windows PS 5.1, 12.10); pwsh 7'de M5 KOR.
+          - { ad: "Gozetim onarici OZ-SINAVI (ubuntu TEMP yolu + kuru kosu frenleri)",
+              kabuk: pwsh, komut: "sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq poppler-utils > /dev/null; ./arac/gozetim-onarici-sinavi.ps1" }
+          - { ad: "Gozetim onarici MUTASYON (her bozma kendi vakasindan KIRMIZI)",
+              kabuk: pwsh, komut: "sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq poppler-utils > /dev/null; ./arac/gozetim-onarici-sinavi.ps1 -Mutasyon" }
+
           # 29.09.2026 - Bulut soru basim sirasi (bulut-sira.yml cron). Yerel sira betikleri oturuma bagliydi; 27.09'da
           # sessizce oldu, bulut 2 gun bos kaldi. Sinav: pay (toplam + sinav basi, halka tek plan), cift acma (kosan/
           # kuyruktaki/gecmiste acilmis plan), bozuk butce/yol/paralel satirini atlama, KOR gecmis, acil fren, tr-TR

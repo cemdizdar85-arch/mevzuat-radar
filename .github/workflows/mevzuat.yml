@@ -328,7 +328,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           ANTHROPIC_AWS_WORKSPACE_ID: ${{ secrets.ANTHROPIC_AWS_WORKSPACE_ID }}
         run: |
-          try { ./motor/gozetim-onarici.ps1 -Damgadan -Uygula } catch { Write-Host "onarici: $($_.Exception.Message)" }
+          try { ./motor/gozetim-onarici.ps1 -Damgadan -Uygula } catch { Write-Host ("onarici: satir {0}: {1}" -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message) }
           git config user.name "mevzuat-radar-bot"; git config user.email "bot@users.noreply.github.com"
           git add veri/gtip-durum.json
           if(git status --porcelain veri/gtip-durum.json){
