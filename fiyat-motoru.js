@@ -468,10 +468,9 @@ function kurucuSatir(sinavAnahtar, kalanlar){
      ilk satış düşene kadar sayaç YAZILMAZ; sonra "Açılış fiyatıyla kalan yer: N". */
   var kota = (typeof KOTA !== 'undefined' && KOTA[sinavAnahtar]) || 0;
   if(kota && k >= kota) return '';
-  /* 12.10 Cem ("site şu an kaç üye var görünmesin"): "kalan yer: 997" satış sayısını ele veriyordu ve
-     "kimse almıyor" diye okunuyordu -> sayı yalnız son 100 yerde yazılır (gerçek kıtlık); kontenjan dolunca söylenir. */
-  if(k > 100) return '';
-  return k > 0 ? 'Açılış fiyatıyla son ' + tl(k) + ' yer' : 'Açılış fiyatı kontenjanı doldu';
+  /* 12.10 Cem ("site şu an kaç üye var görünmesin" + "yazmasın"): kalan/satılan SAYISI sayfada HİÇ yazılmaz;
+     yalnız kontenjan dolunca söylenir (liste fiyatına geçişin gerekçesi). */
+  return k > 0 ? '' : 'Açılış fiyatı kontenjanı doldu';
 }
 
 /* ---------------------------------------------------------------------------
