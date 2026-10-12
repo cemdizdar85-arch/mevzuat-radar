@@ -108,9 +108,16 @@ html body .kah-alt .btn{white-space:normal;max-width:100%}
   .kah > .ic{gap:0} .kah{padding-top:20px}
   .kah > .ic > div:first-child{display:contents}
   .kah h1{order:1;margin-bottom:14px}
-  .kah .ekran{order:2;margin-bottom:18px}
-  .kah .kah-alt{order:3;margin-top:0}
-  .kah .durum{order:4}
+  /* 13.10 (Cem "telefonda iyi değiliz"; ig 11–13.10: 5.841 ziyaret → 41 kişi 5 soruyu açtı, %0,7): ölçüm 375x812 - kart
+     348–770. pikselde ekranın ortasını kaplıyor, içi kaydırılabilir + overscroll:contain olduğu için kartın üstünde kaydıran
+     parmak SAYFAYI kaydıramıyordu; "5 soru çöz" 863. pikselde, ekran dışında. Düğmeler karttan önce gelir, kart parmağı tutmaz. */
+  .kah .kah-alt{order:2;margin:0 0 10px}
+  .kah .durum{order:3;margin:0 0 16px}
+  .kah .ekran{order:4;margin-bottom:18px}
+  #ekOynatici .no-sahne{overscroll-behavior:auto}
+}
+@media(max-width:980px) and (pointer:coarse){
+  #ekOynatici .no-sahne:not(.secimde):not(.duz){overflow-y:hidden}   /* dokunmatikte kaydırma sayfaya gider; oynatıcı scrollTop ile kendisi ilerler (nobetci-oynatici.js kaydir) */
   .kah .secim-bas{order:5;margin-top:26px}
   .kah .secim{order:6}
   .kah .alt{order:7;margin:24px 0 0}

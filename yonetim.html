@@ -483,13 +483,14 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     var r=await sb.rpc('yonetim_kaynak', { p_gun:60 }), T=$('tKaynak');
     if(r.error){ T.innerHTML=''; $('kNot').textContent=/PGRST202|Could not find/i.test(r.error.message||'')?'Etiket sayacı henüz kurulmamış (göç bekliyor).':/YETKI_YOK|42501/i.test((r.error.message||'')+(r.error.code||''))?'':'Etiket verisi okunamadı.'; return; }
     var liste=r.data||[], top={};
-    liste.forEach(function(x){ var t=top[x.etiket]||(top[x.etiket]={ziyaret:0,test:0,uye:0}); t.ziyaret+=x.ziyaret; t.test+=x.test; t.uye+=x.uye; });
-    var bas='<tr><th>Gün</th><th>Etiket</th><th>Ziyaret</th><th>Test başladı</th><th>Üye oldu</th></tr>';
-    if(!liste.length){ T.innerHTML=bas+'<tr><td colspan="5">Henüz etiketli ziyaret yok.</td></tr>'; return; }
+    /* 13.10: '5 soruyu açtı' sütunu (ornek, 11.10'dan beri sayılıyordu ama görünmüyordu) + '(tüm yeni hesaplar)' satırı (2026-10-13-kaynak-uye-hesap.sql) */
+    liste.forEach(function(x){ var t=top[x.etiket]||(top[x.etiket]={ziyaret:0,ornek:0,test:0,uye:0}); t.ziyaret+=x.ziyaret; t.ornek+=(x.ornek||0); t.test+=x.test; t.uye+=x.uye; });
+    var bas='<tr><th>Gün</th><th>Etiket</th><th>Ziyaret</th><th>5 soruyu açtı</th><th>Test başladı</th><th>Üye oldu</th></tr>';
+    if(!liste.length){ T.innerHTML=bas+'<tr><td colspan="6">Henüz etiketli ziyaret yok.</td></tr>'; return; }
     var toplam=Object.keys(top).sort(function(a,b){ return top[b].ziyaret-top[a].ziyaret||a.localeCompare(b); }).map(function(k){
-      return '<tr><td><b>Toplam</b></td><td><b>'+esc(k)+'</b></td><td><b>'+top[k].ziyaret+'</b></td><td><b>'+top[k].test+'</b></td><td><b>'+top[k].uye+'</b></td></tr>'; }).join('');
+      return '<tr><td><b>Toplam</b></td><td><b>'+esc(k)+'</b></td><td><b>'+top[k].ziyaret+'</b></td><td><b>'+top[k].ornek+'</b></td><td><b>'+top[k].test+'</b></td><td><b>'+top[k].uye+'</b></td></tr>'; }).join('');
     T.innerHTML=bas+toplam+liste.map(function(x){
-      return '<tr><td>'+tarih(x.gun+'T12:00:00')+'</td><td>'+esc(x.etiket)+'</td><td>'+x.ziyaret+'</td><td>'+x.test+'</td><td>'+x.uye+'</td></tr>'; }).join('');
+      return '<tr><td>'+tarih(x.gun+'T12:00:00')+'</td><td>'+esc(x.etiket)+'</td><td>'+x.ziyaret+'</td><td>'+(x.ornek||0)+'</td><td>'+x.test+'</td><td>'+x.uye+'</td></tr>'; }).join('');
   }
   kaynakYukle().catch(function(){});
   async function ekipMail(id){

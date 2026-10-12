@@ -357,7 +357,7 @@
 })();
 </script>
 <!-- 27.09: supabase istemcisinden ÖNCE - Google dönüşünde ?sonra= geri konur -->
-<script src="google-giris.js"></script>
+<script src="google-giris.js?v=20261013"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <!-- 23.09 bot korumasi HAZIR ama KAPALI (captcha.js ACIK:false) - acma sirasi dosyanin basinda -->
 <script src="captcha.js"></script>
@@ -929,7 +929,7 @@
     try{
       var an=new Date().toISOString(), riza=$('ogRiza').checked;
       var r=await sb.auth.signUp({ email:ep, password:s1,
-        options:{ captchaToken:await captchaJeton(), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null, elci_kodu:(function(){ try{ return localStorage.getItem('tt_elci')||null; }catch(e){ return null; } })() } } });   /* 04.10: elçi izi (yonetim.html) */
+        options:{ captchaToken:await captchaJeton(), emailRedirectTo: location.origin+'/ogrenci.html', data:{ hesap_turu:'ogrenci', kosul_kabul:an, pazarlama_rizasi:riza, riza_tarihi:riza?an:null, elci_kodu:(function(){ try{ return localStorage.getItem('tt_elci')||null; }catch(e){ return null; } })(), kaynak_etiket:(function(){ try{ return (window.ttKaynak&&window.ttKaynak.etiket())||null; }catch(e){ return null; } })() } } });   /* 04.10: elçi izi (yonetim.html) · 13.10: ?k= etiketi hesaba (onay maili başka tarayıcıda açılsa da sayılır; 2026-10-13-kaynak-uye-hesap.sql) */
       if(r.error){
         /* kayıtlı adres: kişiyi girişe al, e-postayı taşı */
         if(/user_already_exists/i.test(r.error.code||'')||/already registered/i.test(r.error.message||'')){
