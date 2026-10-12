@@ -114,8 +114,10 @@
   <!-- 05.10 iyzico kart ödemesi dönüşü (?odeme=ok|kontrol&no=...) -->
   <div id="odemeSonuc" hidden style="margin:0 0 14px;padding:12px 14px;border-radius:12px;border:1px solid var(--line2);background:var(--kagit);font-size:14.5px"></div>
   <script>(function(){ try{ var q=new URLSearchParams(location.search), o=q.get('odeme'), e=document.getElementById('odemeSonuc'); if(!o||!e) return;
-    var no=String(q.get('no')||'').replace(/[^A-Z0-9-]/g,'');
-    e.innerHTML = o==='ok' ? '<b style="color:var(--green)">✓ Ödemen alındı.</b> Sipariş no <b>'+no+'</b>. Bu e-postayla hesabın varsa paketin açıldı; yoksa aynı e-postayla üye olduğun anda kendiliğinden açılır. Onay e-postan yolda.'
+    var no=String(q.get('no')||'').replace(/[^A-Z0-9-]/g,''); window.__ttOdemeNo=no;
+    /* 12.10: alıcı ödeme sonrası Google ile BAŞKA adresten girdi, paketi göremedi → hangi e-postayla gireceği açıkça yazılır */
+    e.innerHTML = o==='ok' ? '<b style="color:var(--green)">✓ Ödemen alındı.</b> Sipariş no <b>'+no+'</b>. Onay e-postan yolda.'
+                           + '<br><b>Önemli:</b> paketin, <b>siparişte yazdığın e-postaya</b> tanımlandı. Siteye o e-postayla gir (Google ile gireceksen aynı adresli Google hesabını seç). Başka bir adresle girdiysen Hesabım\'da <b>"Ödedim ama paketim görünmüyor"</b>a bas; sipariş numaran orada hazır olacak.'
                            : '<b style="color:var(--amber)">Ödemen alındı, paketin açılışı kontrol ediliyor.</b> Sipariş no <b>'+no+'</b>. Birkaç dakika içinde açılmazsa <a href="iletisim.html">bize yaz</a>.';
     e.hidden=false; }catch(x){} })();</script>
 
@@ -376,6 +378,45 @@
   var sb=window.__pkSb;
   if(window.ttGoogle) window.ttGoogle.kur({ sb:sb, kap:$('ogGoogle'), ayrac:true });
 
+  /* 12.10 (Cem "1.2.3"; olay: kartla X@hotmail ile ödeyen alıcı siteye Google ile Y@gmail'den girdi, paket görünmedi):
+     "Ödedim, paketim görünmüyor" — sipariş no + siparişte yazılan e-postayla paket BU hesaba bağlanır.
+     Sunucu: paketimi_bagla (2026-10-12-siparis-hesap-bagla.sql) — ret kodu {hata} döner, 10 dk'da 5 deneme. */
+  var PB_HTML='<div class="og-pb"><button type="button" class="og-link" id="ogPbAc" style="background:none;border:0;padding:0;margin-top:10px;cursor:pointer;font:inherit">Ödedim ama paketim görünmüyor →</button>'
+    +'<form id="ogPbForm" class="og-gizli" style="margin-top:10px" novalidate>'
+    +'<p class="og-alt" style="margin:0 0 8px">Siparişi başka bir e-postayla verdiysen (ör. siteye Google ile giriyorsun ama siparişe başka adres yazdın) paketi bu hesaba bağlayalım. Sipariş numarası, sipariş mailinde ve ödeme ekranında yazar (TT-…).</p>'
+    +'<label class="og-et" for="ogPbNo">Sipariş numarası</label><input id="ogPbNo" class="og-girdi" autocomplete="off" placeholder="TT-20261012-ABCD" style="text-transform:uppercase">'
+    +'<label class="og-et" for="ogPbEp">Siparişte yazdığın e-posta</label><input id="ogPbEp" class="og-girdi" type="email" autocomplete="email">'
+    +'<div class="og-btnler"><button type="submit" class="og-btn ana" id="ogPbGonder">Paketimi bu hesaba bağla</button></div>'
+    +'<p id="ogPbSonuc" class="og-alt" style="margin:8px 0 0" role="status" aria-live="polite"></p></form></div>';
+  var PB_HATA={ COK_DENEME:'Çok sayıda deneme oldu. 10 dakika sonra tekrar dene ya da destek@tetikte.com\'a yaz.',
+    ESLESMEDI:'Bu sipariş numarası ve e-posta birlikte bulunamadı. İkisini sipariş mailindeki gibi yaz.',
+    ODEME_BEKLIYOR:'Bu siparişin ödemesi henüz onaylanmadı. Havaleyi gördüğümüz gün paket açılır.',
+    ZATEN_ACIK:'Bu sipariş zaten bu hesapta açık. Sayfayı yenile.',
+    BASKA_HESAPTA:'Bu sipariş başka bir hesapta açılmış. destek@tetikte.com\'a sipariş numaranla yaz, birlikte bakalım.',
+    EPOSTA_HESABI_VAR:'Siparişteki e-postayla açılmış bir hesabın var: paketin orada. Çıkış yapıp o e-postayla giriş yap. Bu hesapta kalmak istiyorsan destek@tetikte.com\'a yaz.',
+    PAKET_VAR:'Bu hesapta zaten başka bir paket açık. destek@tetikte.com\'a yaz.',
+    SURESI_GECMIS:'Bu siparişin paket süresi dolmuş.' };
+  function pbKur(user){
+    var ac=$('ogPbAc'), f=$('ogPbForm'); if(!ac||!f) return;
+    if(window.__ttOdemeNo){ $('ogPbNo').value=window.__ttOdemeNo; f.classList.remove('og-gizli'); ac.classList.add('og-gizli'); }   /* kart dönüşü: no hazır, form açık */
+    ac.addEventListener('click',function(){ f.classList.remove('og-gizli'); ac.classList.add('og-gizli'); $('ogPbNo').focus(); });
+    f.addEventListener('submit',async function(ev){
+      ev.preventDefault();
+      var no=$('ogPbNo').value.trim().toUpperCase(), ep=$('ogPbEp').value.trim(), s=$('ogPbSonuc'), b=$('ogPbGonder');
+      s.style.color='';
+      if(!/^TT-\d{8}-[A-Z0-9]{4}$/.test(no)){ s.textContent='Sipariş numarasını TT-20261012-ABCD biçiminde yaz.'; $('ogPbNo').focus(); return; }
+      if(!EPOSTA_DESEN.test(ep)){ s.textContent='Siparişte yazdığın e-postayı yaz.'; $('ogPbEp').focus(); return; }
+      mesgul(b,true,'Bakılıyor…');
+      try{
+        var r=await sb.rpc('paketimi_bagla',{p_no:no,p_eposta:ep}), d=r.data||{};
+        if(r.error){ s.style.color='var(--red)'; s.textContent=/PGRST202|Could not find/i.test(r.error.message||'')?'Bu özellik birkaç dakika içinde açılacak. Şimdilik destek@tetikte.com\'a yaz.':'Şu an bakılamadı. Biraz sonra tekrar dene ya da destek@tetikte.com\'a yaz.'; return; }
+        if(d.hata){ s.style.color='var(--red)'; s.textContent=PB_HATA[d.hata]||('Bağlanamadı ('+d.hata+'). destek@tetikte.com\'a yaz.'); return; }
+        s.style.color='var(--green)'; s.textContent='✓ Paketin bu hesaba bağlandı.';
+        paketlerCiz(user).catch(function(){});
+      } finally { mesgul(b,false,'Paketimi bu hesaba bağla'); }
+    });
+  }
+
   /* 15.09 PAKETLERİM: sınav başına kart. Sınav adları/sayfaları uye-durumu.js SINAVLAR'dan (tek kaynak). */
   async function paketlerCiz(user){
     var kap=$('ogPaketler'), U=window.TetikteUye;
@@ -394,7 +435,9 @@
     }
     if(!sinavlar.length){
       kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
-        +'<div class="og-btnler"><a class="og-btn ana" href="fiyat.html">Paketleri gör</a><a class="og-btn" href="seviye-testi.html">30 soruda seviyeni ölç</a></div></div>';
+        +'<div class="og-btnler"><a class="og-btn ana" href="fiyat.html">Paketleri gör</a><a class="og-btn" href="seviye-testi.html">30 soruda seviyeni ölç</a></div>'
+        +PB_HTML+'</div>';
+      pbKur(user);
       return;
     }
     kap.innerHTML=sinavlar.map(function(k){
