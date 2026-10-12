@@ -216,6 +216,10 @@
 <div class="duzen" id="duzen">
 <div class="sol">
 
+<!-- 12.10 ANLIK TEKLİF: seviye testi / Sınav Provası sonucundaki "dersini aç" düğmesiyle gelen (anlik-teklif.js, bu sekmede
+     sessionStorage tt_anlik_teklif). Belirteç hesaba bağlı, sunucuda doğrulanır (anlik_teklif_kontrol / siparis_teklif_damga). -->
+<div class="kutu" id="teklifKutu" hidden style="border-color:var(--amber)"></div>
+
 <section class="akd acik" id="akd1" data-adim="1">
   <button type="button" class="akd-bas" aria-expanded="true" aria-controls="akd1g">
     <span class="akd-no">1</span>
@@ -312,6 +316,7 @@
     <tr id="ozKdvSatir" style="display:none"><td class="kucuk" colspan="2" id="ozKdv"></td></tr>
     <tr><td class="kucuk" id="ozEr" colspan="2">—</td></tr>
     <tr id="ozIndSatir" style="display:none"><td>Elçi kodu indirimi</td><td class="sag" id="ozInd">—</td></tr>
+    <tr id="ozTeklifSatir" style="display:none"><td>Anlık teklif (sana özel)</td><td class="sag" id="ozTeklif">—</td></tr>
     <tr><td>Ödenecek tutar (KDV dahil)</td><td class="sag" id="ozTop">—</td></tr>
     <tr id="ozFatSatir" style="display:none"><td class="kucuk" colspan="2" id="ozFat"></td></tr>
   </table>
@@ -408,7 +413,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261012b"></script>
+<script src="fiyat-motoru.js?v=20261012c"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -524,7 +529,7 @@ function dersCiz(){
      Ad eşleşmezse (yazım farkı) o ders atlanır, öğrenci kendisi seçer; paket tavanını aşmaz. */
   try{
     var on = (new URLSearchParams(location.search).get('dersler') || '').split('|')
-      .map(function(x){ x = x.trim().toLocaleLowerCase('tr-TR'); return x === 'hukuk' ? 'temel hukuk' : x; })   /* seviye seti (veri/seviye/smmm-set.json) "Hukuk" der */
+      .map(function(x){ x = x.trim().toLocaleLowerCase('tr-TR'); return x === 'temel hukuk' ? 'hukuk' : x; })   /* 12.10: 10.10'dan beri ders adı "Hukuk" (DERSLER); eski bağlantıdaki "Temel Hukuk" de eşleşsin. Önceki eşleme ters kalmıştı: ?dersler=Hukuk hiç işaretlenmiyordu */
       .filter(Boolean), isaret = 0;
     Array.prototype.forEach.call(document.querySelectorAll('#dersListe input'), function(i){
       if(isaret < n && on.indexOf(i.value.toLocaleLowerCase('tr-TR')) > -1){ i.checked = true; isaret++; }
@@ -555,19 +560,24 @@ function ozetCiz(){
   document.getElementById('ozFy').textContent  = secili ? tl(secili.fiyat) + ' TL' : '—';
   document.getElementById('ozEr').textContent  = secili ? secili.erisim : 'Bir paket seç.';
   document.getElementById('ozPkSatir').style.display = secili ? '' : 'none';   /* 03.10: boş durumda "— —" satırı yok */
-  var ind = secili ? elciIndirim : 0;
+  /* 12.10: anlık teklif geçerliyse elçi indirimi uygulanmaz (üst üste binmez; sunucu da zorlar) */
+  var tk = secili ? teklifIndirim() : 0;
+  var ind = (secili && !tk) ? elciIndirim : 0;
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
+  document.getElementById('ozTeklifSatir').style.display = tk > 0 ? '' : 'none';
+  document.getElementById('ozTeklif').textContent = tk > 0 ? '− ' + tl(tk) + ' TL' : '—';
   document.getElementById('ozTop').textContent = secili ? tl(odenecekTutar()) + ' TL' : '—';
   /* 08.10: KDV dökümü (oran fiyat-motoru.js KDV_ORAN) - liste fiyatı '+ KDV' gösterilen paketlerde; faturada kalem = ödenen tutarın matrahı */
   var oran = (typeof KDV_ORAN === 'number') ? KDV_ORAN : 0.2, iki = function(n){ return Number(n).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2}); };
   var kdvGoster = !!(secili && typeof KDV_HARIC_GOSTER !== 'undefined' && KDV_HARIC_GOSTER[secili.id]);
   document.getElementById('ozKdvSatir').style.display = kdvGoster ? '' : 'none';
   if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran)); document.getElementById('ozKdv').textContent = '= ' + tl(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + tl(secili.fiyat - net) + ' TL) · fiyat sayfasındaki tutar'; }
-  document.getElementById('ozFatSatir').style.display = (secili && ind > 0) ? '' : 'none';
-  if(secili && ind > 0){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
-    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; elçi koduyla ' + tl(ind) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
+  document.getElementById('ozFatSatir').style.display = (secili && (ind > 0 || tk > 0)) ? '' : 'none';
+  if(secili && (ind > 0 || tk > 0)){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
+    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; elçi koduyla ' + tl(ind)) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
   dersCiz();
+  if(typeof teklifCiz === 'function') teklifCiz();
   if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
 }
 
@@ -582,7 +592,74 @@ function elciTemizle(s){
   s = (s || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,12);
   return (elciAcik() && ELCI.bicim.test(s)) ? s : '';
 }
-function odenecekTutar(){ return secili ? Math.max(0, secili.fiyat - elciIndirim) : 0; }
+function odenecekTutar(){ var tk = teklifIndirim(); return secili ? Math.max(0, secili.fiyat - (tk > 0 ? tk : elciIndirim)) : 0; }
+
+/* ---- ANLIK TEKLİF (12.10, Cem "tek ders için 200 TL") ----
+   Sonuç ekranındaki düğme (anlik-teklif.js) bu sekmeye tt_anlik_teklif yazar ve ?t= ile gelir. ?t= olmadan ya da başka
+   sekmede/tarayıcıda (paylaşılan bağlantı) bekleyen teklif yoktur → hiçbir şey çizilmez. Geçerliliğe SUNUCU karar verir:
+   girişli hesap için anlik_teklif_kontrol (belirteç varsa) ya da anlik_teklif_al (girişsiz gösterildiyse, girişten sonra).
+   Sipariş yazılırken siparis_teklif_damga belirteci yeniden sınar, kullanıldı işaretler; tutmazsa TEKLIF_GECERSIZ.
+   İndirim yalnız teklifin paketinde VE teklifin dersi seçiliyken uygulanır. */
+var TEKLIF = null, TEKLIF_ANAH = 'tt_anlik_teklif';
+var TEKLIF_BEK = (function(){
+  try{
+    if(!new URLSearchParams(location.search).get('t')) return null;
+    var b = JSON.parse(sessionStorage.getItem(TEKLIF_ANAH) || 'null');
+    return (b && b.sonuc && b.ders && b.paket && b.kaynak) ? b : null;
+  }catch(e){ return null; }
+})();
+function teklifIndirim(){
+  return (TEKLIF && secili && secili.id === TEKLIF.paket && secilenDersler().indexOf(TEKLIF.ders) > -1) ? (TEKLIF.indirim_tl || 0) : 0;
+}
+function teklifEsc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+function teklifBitir(m){
+  TEKLIF = null; TEKLIF_BEK = null;
+  try{ sessionStorage.removeItem(TEKLIF_ANAH); }catch(e){}
+  var k = document.getElementById('teklifKutu');
+  if(m){ k.innerHTML = '<p class="kucuk" style="margin:0;color:var(--amber)">' + teklifEsc(m) + '</p>'; k.hidden = false; } else { k.hidden = true; }
+  var a = document.getElementById('kodAc'); if(a) a.hidden = false;
+  ozetCiz();
+}
+function teklifCiz(){
+  var k = document.getElementById('teklifKutu'); if(!k || !TEKLIF) return;
+  var tk = teklifIndirim(), f = (typeof anlikTeklifFiyat === 'function') ? anlikTeklifFiyat('yeterlilik') : null;
+  var ders = '<b>' + teklifEsc(TEKLIF.ders) + '</b>';
+  k.innerHTML = '<p style="margin:0;font-weight:800">Sana özel anlık teklif: ' + ders + ' dersi'
+    + (f ? ' ' + tl(f.once) + ' TL yerine <span style="color:var(--amber)">' + tl(f.once - TEKLIF.indirim_tl) + ' TL</span> (KDV dahil)' : '') + '.</p>'
+    + '<p class="kucuk" style="margin:4px 0 0">' + (tk > 0 ? '✓ Teklif özete işlendi. Elçi/indirim kodu bu teklifle birlikte kullanılmaz.'
+       : 'Teklif yalnız “' + teklifEsc((paketBul(TEKLIF.paket) || {}).ad || TEKLIF.paket) + '” paketinde ve ' + ders + ' dersi seçiliyken geçerli.') + '</p>';
+  k.hidden = false;
+  /* üst üste binmesin: kod kutusu teklif varken kapalı */
+  var a = document.getElementById('kodAc'), kk = document.getElementById('kodKutu');
+  if(a) a.hidden = true; if(kk) kk.hidden = true;
+}
+/* sayfa sonundaki supabase istemcisi oturumu okuyunca çağırır (u: girişli kullanıcı ya da null) */
+function teklifYukle(u){
+  if(!TEKLIF_BEK) return;
+  var k = document.getElementById('teklifKutu'), f = (typeof anlikTeklifFiyat === 'function') ? anlikTeklifFiyat('yeterlilik') : null;
+  if(!u || !window.sb){
+    var geri = (location.pathname.split('/').pop() || 'satin-al.html') + location.search;
+    k.innerHTML = '<p style="margin:0;font-weight:800">Sana özel teklif: ' + teklifEsc(TEKLIF_BEK.ders) + ' dersi'
+      + (f ? ' ' + tl(f.once) + ' TL yerine ' + tl(f.simdi) + ' TL (KDV dahil)' : '') + '.</p>'
+      + '<p class="kucuk" style="margin:4px 0 10px">İndirim hesabına tanımlanır. Ücretsiz hesap aç ya da giriş yap; bu sekmede buraya geri dönersin.</p>'
+      + '<a class="btn" style="text-decoration:none;margin:0" href="ogrenci.html?sonra=' + encodeURIComponent(geri) + '">Giriş yap ya da hesap aç →</a>';
+    k.hidden = false; return;
+  }
+  k.innerHTML = '<p class="kucuk" style="margin:0">Sana özel teklif kontrol ediliyor…</p>'; k.hidden = false;
+  var b = TEKLIF_BEK;
+  var istek = b.belirtec ? window.sb.rpc('anlik_teklif_kontrol', { p_belirtec:b.belirtec })
+                         : window.sb.rpc('anlik_teklif_al', { p_sonuc:b.sonuc, p_kaynak:b.kaynak, p_ders:b.ders });
+  istek.then(function(r){
+    var d = r && !r.error ? r.data : null;
+    if(d && d.belirtec && d.paket === b.paket){
+      TEKLIF = d; b.belirtec = d.belirtec;
+      try{ sessionStorage.setItem(TEKLIF_ANAH, JSON.stringify(b)); }catch(e){}
+      ozetCiz();
+    } else {
+      teklifBitir('Bu teklif bu hesapta geçerli değil (kullanılmış, başka hesaba ait ya da bu dersi kapsayan paketin var). Fiyat normal fiyattır.');
+    }
+  }, function(){ teklifBitir('Teklif şu an doğrulanamadı; fiyat normal fiyattır. Sayfayı yenileyip yeniden deneyebilirsin.'); });
+}
 function elciDurumYaz(m, renk){ var d = document.getElementById('elciDurum'); d.textContent = m; d.style.color = renk || 'var(--dim)'; }
 function elciDenetle(){
   if(!elciAcik()) return;
@@ -929,7 +1006,8 @@ btn.addEventListener('click', function(){
 
   var no = siparisNo();
   var tutar = odenecekTutar();
-  var elciKod = elciIndirim > 0 ? elciTemizle(deger('elci')) : '';
+  var tkInd = teklifIndirim();   /* 12.10 anlık teklif: varsa elçi kodu gönderilmez (üst üste binmez) */
+  var elciKod = (elciIndirim > 0 && !tkInd) ? elciTemizle(deger('elci')) : '';
   var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar,
                 liste_fiyat:secili.liste, dersler:(secili.ders || secili.modul || null),
                 secilen_dersler:(secilenD.length ? secilenD : null),
@@ -938,7 +1016,9 @@ btn.addEventListener('click', function(){
                 odeme:'havale', durum:'odeme_bekliyor' };
   /* Elçi kolonları yalnız ELCI.acik iken gönderilir: SQL basılmadan bu anahtarlar
      gitseydi tablo bilinmeyen kolonu reddeder, sipariş yalnız e-postaya düşerdi. */
-  if(elciAcik()){ kayit.elci_kodu = elciKod || null; kayit.indirim_tl = elciIndirim; }
+  if(elciAcik()){ kayit.elci_kodu = elciKod || null; kayit.indirim_tl = elciKod ? elciIndirim : 0; }
+  /* 12.10: belirteç yalnız teklif geçerliyken gider; indirimi SUNUCU damgalar (anlik_teklif_tl), hesaba bağlılığı orada sınanır */
+  if(tkInd > 0){ kayit.teklif_belirtec = TEKLIF.belirtec; }
 
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
 
@@ -977,6 +1057,7 @@ btn.addEventListener('click', function(){
       body: JSON.stringify({ subject:'YENİ SİPARİŞ ' + no + ' — ' + tl(tutar) + ' TL',
         from_name:'Tetikte Sipariş', email:mail, 'Sipariş no':no, 'Paket':secili.ad, 'Tutar':tl(tutar)+' TL',
         'Elçi kodu':(elciKod ? elciKod + ' (−' + tl(elciIndirim) + ' TL)' : '—'),
+        'Anlık teklif':(tkInd ? '−' + tl(tkInd) + ' TL (' + TEKLIF.ders + ')' : '—'),
         'Ad Soyad':ad, 'Telefon':tel, 'Fatura':JSON.stringify(fatura), 'Adres':adres,
         'Seçilen dersler':(secilenD.length ? secilenD.join(' · ') : '—'),
         'Davet kodu':(davet || '—'), 'Ödeme':'Havale/EFT',
@@ -984,11 +1065,20 @@ btn.addEventListener('click', function(){
   }
   function yedekYol(){ postala().then(function(x){ if(x.ok) bitir(); else basarisiz(); }, basarisiz); }
   function kendiKodu(err){ return !!err && /ELCI_KENDI_KODU/.test(String(err.message || '') + ' ' + String(err.details || '')); }
+  function teklifHatasi(err){ return !!err && /TEKLIF_GECERSIZ/.test(String(err.message || '') + ' ' + String(err.details || '')); }
 
   if(!window.sb){ yedekYol(); return; }
   window.sb.from('siparisler').insert(kayit)
     .then(function(r){
       if(r && r.error){
+        /* 12.10: teklif sunucuda tutmadı (kullanılmış / başka hesap / süresi geçmiş) → indirimsiz e-posta yedeğine DÜŞMEZ;
+           teklif kalkar, normal tutar gösterilir, alıcı isterse yeniden gönderir */
+        if(teklifHatasi(r.error)){
+          btn.disabled = false;
+          teklifBitir('Anlık teklif bu siparişe uygulanamadı: bu hesapta geçerli değil ya da daha önce kullanıldı. Tutar normal fiyata döndü.');
+          goster('Sipariş verilmedi: teklif geçerli değil. Özetteki tutarı kontrol edip yeniden gönderebilirsin.', false);
+          return;
+        }
         if(kendiKodu(r.error)){
           btn.disabled = false;
           elciDurumYaz('Kendi elçi kodunla alım yapamazsın. Kodu sil, sipariş kodsuz fiyattan verilir.', 'var(--red)');
@@ -1001,6 +1091,7 @@ btn.addEventListener('click', function(){
         /* 01.10 (madde 3): sipariş kaydı oluştu - yalnız paket kimliği (ödeme değil; ödeme sayısı paket_secim_sayac'ta) */
         try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/siparis/' + secili.id, title:'Sipariş verildi · ' + secili.ad, event:true }); }catch(err){}
         postala().then(function(){}, function(){}); bitir();
+        if(tkInd){ try{ sessionStorage.removeItem(TEKLIF_ANAH); }catch(err){} }   /* 12.10: teklif kullanıldı */
         /* 04.10 (Cem "Amazon/Trendyol gibi otomatik"): müşteriye "siparişin alındı" maili - no + tutar + IBAN.
            Yalnız sipariş no gider; alıcı adresi ve içerik sunucuda siparişten okunur (radar-app/edge/siparis-bildirim.ts). */
         try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
@@ -1019,11 +1110,12 @@ if(!KURULUM_TAMAM){
 <script>
 (function(){
   var c = (window.supabase||{}).createClient;
-  if(!c){ return; }   /* kutuphane inmezse siparis e-posta yoluyla yine alinir */
+  if(!c){ teklifYukle(null); return; }   /* kutuphane inmezse siparis e-posta yoluyla yine alinir (teklif hesapsız uygulanmaz) */
   window.sb = c(SB_URL, SB_ANON);
   /* 05.10 Cem ("kolay üyelik ve ödeme"): giriş yapmış kişi ad/e-postayı yeniden yazmasın; paket bu hesaba açılır */
   try{ window.sb.auth.getSession().then(function(r){
     var u = r && r.data && r.data.session && r.data.session.user; window.ttOturumEposta = (u && u.email) || '';
+    try{ teklifYukle(u || null); }catch(e){}   /* 12.10 anlık teklif: hesaba bağlı belirteç */
     if(!u || !u.email) return;
     var m = document.getElementById('mail'); if(m && !m.value.trim()) m.value = u.email;
     var md = u.user_metadata || {}, ad = md.full_name || md.name || ''; var a = document.getElementById('ad'); if(a && !a.value.trim() && ad) a.value = ad;

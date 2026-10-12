@@ -14,7 +14,7 @@
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit (kapalı, enabledInstallments [1]) · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "132855a9f5fca4b1";
+const KOD_IMZA = "6f128e94347d4935";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
     const g = await req.json().catch(() => ({})) as { siparis_no?: string };
     const no = String(g.siparis_no ?? "");
     if (!/^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(no)) return cevap(400, { hata: "siparis no gecersiz" });
-    const s = (await (await sb(`siparisler?select=siparis_no,paket,paket_ad,tutar,indirim_tl,durum,ad_soyad,email,adres,fatura&siparis_no=eq.${encodeURIComponent(no)}&limit=1`)).json().catch(() => []))[0];
+    const s = (await (await sb(`siparisler?select=*&siparis_no=eq.${encodeURIComponent(no)}&limit=1`)).json().catch(() => []))[0];
     if (!s) return cevap(404, { hata: "siparis yok" });
     if (s.durum !== "odeme_bekliyor") return cevap(409, { hata: "siparis odeme beklemiyor", durum: s.durum });
     let F; try { F = await fiyatlar(); } catch { return cevap(503, { hata: "fiyat okunamadi" }); }
@@ -175,7 +175,8 @@ Deno.serve(async (req) => {
     // deno-lint-ignore no-explicit-any
     const satilan = (Array.isArray(say) ? say : []).find((x: any) => x.sinav === pf.sinav)?.satilan ?? 0;
     const taban = satilan >= (F.KOTA[pf.sinav] ?? 0) ? pf.f.liste : pf.f.kurulus;
-    const beklenen = taban - (Number(s.indirim_tl) || 0);
+    // 12.10 anlık teklif: indirimi ayrı kolonda (siparisler.anlik_teklif_tl, sunucu damgası; elçi indirimiyle üst üste binmez)
+    const beklenen = taban - (Number(s.indirim_tl) || 0) - (Number(s.anlik_teklif_tl) || 0);
     if (Number(s.tutar) !== beklenen) return cevap(409, { hata: "tutar guncel fiyatla uyusmuyor", siparis: s.tutar, guncel: beklenen });
     const r = await odemeBaslat(beklenen, no, s.paket_ad || s.paket, alici(s.ad_soyad, s.email, s.adres, String(s.fatura?.tckn ?? ""), ip, no));
     if (r.status !== "success" || !r.token) return cevap(502, { hata: "iyzico baslatmadi", errorCode: r.errorCode ?? null, errorMessage: r.errorMessage ?? null });

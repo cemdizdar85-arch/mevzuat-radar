@@ -320,7 +320,8 @@
 
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js"></script>
-<script src="fiyat-motoru.js?v=20261012b"></script>
+<script src="fiyat-motoru.js?v=20261012c"></script>
+<script src="anlik-teklif.js?v=20261012a"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="uye-durumu.js?v=20261007b"></script>
@@ -773,6 +774,20 @@
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+'<div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
     $('nasil').hidden=true; $('nasilYet').hidden=false; try{ nobetciCiz(); }catch(e){}
     goster('svSonuc');
+    anlikTeklifYet(liste);
+  }
+  /* 12.10 Cem ("tek ders için 200 TL", "süre olmasın, anlık gibi olsun"): sonucun hemen altında EN ZAYIF derse tek ders teklifi
+     (anlik-teklif.js). En zayıf = 50'yi geçme olasılığı (p50) en düşük ders; eşitse doğru oranı düşük olan. Bu sonuç için bir kez:
+     ?rapor=1 aynı sonucu yeniden çizer, işaret (sonuç tarihi) aynı olduğu için teklif çıkmaz. Paketi açık olana gösterilmez.
+     Staja Giriş sonucunda (sonucCiz) teklif YOK - Cem bu turda yalnız Yeterlilik'e karar verdi. */
+  function anlikTeklifYet(liste){
+    try{
+      var eski=$('anlikTeklif'); if(eski) eski.parentNode.removeChild(eski);
+      if(PAKETLI||!window.AnlikTeklif||!SONUC||!SONUC.tarih) return;
+      var z=(liste||[]).filter(function(x){ return x&&x.soru>0; }).sort(function(a,b){ return (a.p50-b.p50)||(a.dogru/a.soru-b.dogru/b.soru); })[0];
+      if(!z) return;
+      AnlikTeklif.goster({ kap:$('svSonuc'), once:$('svKilit'), kaynak:'seviye', sinav:'yeterlilik', sonuc:'svy-'+SONUC.tarih, ders:z.ad });
+    }catch(e){}
   }
   /* 21.09: ön kapıda alınan bilgiyle karne + sonuç gönderimi. İki gönderi:
      (1) karne-gonder -> karne adayın e-postasına + form_kayit'a düşer,

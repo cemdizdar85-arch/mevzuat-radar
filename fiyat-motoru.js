@@ -104,6 +104,25 @@ var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':
              bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ---------------------------------------------------------------------------
+   ANLIK TEKLİF — 12.10.2026 CEM KARARI ("tek ders için 200 TL" · "süre olmasın, anlık gibi olsun").
+   Yeterlilik seviye testi / Sınav Provası sonucunda EN ZAYIF derse tek ders teklifi (anlik-teklif.js çizer).
+   Teklif o sonuç için BİR KEZ gösterilir; sayaç, süre, kıtlık ifadesi YAZILMAZ (Ticari Reklam Yön. m.13-14, Ek-A).
+   İndirimin geçerliliğine SUNUCU karar verir: belirteç hesaba bağlı, tek kullanımlık
+   (radar-app/sql/2026-10-12-anlik-teklif.sql · anlik_teklif_ayar + siparis_teklif_damga). Buradaki rakam
+   yalnız EKRAN gösterimidir ve sunucudaki anlik_teklif_ayar ile AYNI olmalı. KDV dahil.
+   sinav → paket: bu turda yalnız Yeterlilik (Cem SGS'ye karar vermedi); açmak için satır + SQL satırı.
+   Elçi indirimiyle üst üste binmez (sunucu da zorlar).
+--------------------------------------------------------------------------- */
+var ANLIK_TEKLIF = { acik:true, paket:{ yeterlilik:'yeterlilik-1' }, indirim:{ 'yeterlilik-1':200 } };
+/* Teklif rakamları: { paket, once: kuruluş fiyatı, simdi: indirimli } KDV dahil · teklif yoksa null */
+function anlikTeklifFiyat(sinavAnahtar){
+  if(typeof ANLIK_TEKLIF === 'undefined' || ANLIK_TEKLIF.acik !== true) return null;
+  var pid = ANLIK_TEKLIF.paket[sinavAnahtar], ind = pid && ANLIK_TEKLIF.indirim[pid], p = pid && paketBul(pid);
+  if(!p || !p.acik || !(ind > 0) || !(p.fiyat > ind)) return null;
+  return { paket:pid, once:p.fiyat, simdi:p.fiyat - ind, indirim:ind };
+}
+
+/* ---------------------------------------------------------------------------
    İÇERİK HAZIR MI — 15.09.2026 CEM KARARI ("1.2.3 yap"): soru sayfası yayında
    olmayan sınavın paketi SATILMAZ, ÖN KAYIT alınır. Ölçüm 15.09: sitede soru
    bankası, ücretsiz deneme ve seviye testi yalnız Staja Başlama için var;

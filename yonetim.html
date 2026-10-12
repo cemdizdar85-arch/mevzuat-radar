@@ -245,9 +245,9 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('uSay').textContent=liste.length+' / '+uyeler.length+' üye gösteriliyor.';
 
     /* siparişler */
-    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi</th><th>Durum</th><th></th></tr>';
+    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
     VERI.siparisler.forEach(function(s){
-      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':'')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
+      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
     });
     if(!VERI.siparisler.length) sh+='<tr><td colspan="9" class="not">Henüz sipariş yok.</td></tr>';
     $('tSiparis').innerHTML=sh;

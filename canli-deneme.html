@@ -117,10 +117,12 @@
     <div class="kart">
       <h2>Sonucun</h2>
       <div id="soOzet" style="font-size:16px;font-weight:700;margin:6px 0"></div>
+      <!-- 12.10: Yeterlilik provasında ders ders net ve puan (yanlış 0,25 götürür; ders barajı 50, ortalama 60) -->
+      <div id="soDersler" hidden></div>
       <p id="soGonderim" class="kucuk"></p>
       <p class="kucuk">Yüzdelik sıralama (bu denemeye katılan Tetikte üyeleri arasında), oturum kapandıktan sonra bu sayfada açıklanır; sonucun bu cihazda saklı, geri gel ve karşılaştır. Üyeysen sonucun yüzdeliğinle birlikte e-postana da gönderilir.</p>
     </div>
-    <div class="kart">
+    <div class="kart" id="soAnahtarKart">
       <h2>Cevap anahtarı ve açıklamalar</h2>
       <div id="soListe"></div>
     </div>
@@ -200,6 +202,9 @@
     <p class="kucuk">Katılım ücretsizdir. Prova oturumuna kayıtlı üyeler girer; kayıt her oturumdan önceki gün 23:59'da kapanır. Sınava gireceğin cihazdan kaydolursan sınav sabahı ayrıca giriş yapman gerekmez.</p>
   </div>
 </div>
+<!-- 12.10 anlık teklif: ana betikten ÖNCE yüklenir (teslim() şifre çözümünden hemen sonra çağırabilir) -->
+<script src="fiyat-motoru.js?v=20261012c"></script>
+<script src="anlik-teklif.js?v=20261012a"></script>
 <script>
 fetch('veri/canli-deneme.json?'+Date.now()).then(function(r){return r.json();}).then(function(d){
   if(!d || !d.oturumlar) return;
@@ -567,6 +572,40 @@ function soruGoster(){
 document.getElementById('seIleri').onclick = function(){ if(CANLI.idx < CANLI.sorular.length-1){ CANLI.idx++; soruGoster(); window.scrollTo(0,0); } };
 document.getElementById('seGeri').onclick = function(){ if(CANLI.idx > 0){ CANLI.idx--; soruGoster(); window.scrollTo(0,0); } };
 document.getElementById('seBitir').onclick = function(){ if(confirm('Sınavı bitirmek istediğine emin misin?')){ teslim(false); } };
+/* 12.10 (Cem anlık teklif kararıyla birlikte): YETERLİLİK provası sonucu ders ders. 2026'dan beri her ders 20 soruluk test,
+   yanlış 0,25 götürür (4 yanlış 1 doğruyu); ders puanı = net / soru × 100; başarı: her ders en az 50, ortalama en az 60
+   (TESMER 2026 Uygulama Yönergesi s.47 ix, s.44 — parent oturumun okuduğu kaynak; seviye-testi.html nasilYet de 50/60 der).
+   Ortalamaya staj tezkiye notu da ayrı ders gibi girer; provada tezkiye yok → burada yalnız provadaki derslerin ortalaması.
+   Staja Giriş provasında çizilmez (SGS puanı bağıl, net hesabı yok). Sonra EN ZAYIF derse anlık teklif (anlik-teklif.js);
+   inceleme görünümünde ve cevabı olmayan cihazda teklif yok. */
+function yetDersCiz(dg, yn){
+  var kap = document.getElementById('soDersler'); kap.hidden = true; kap.innerHTML = '';
+  if(String(CANLI.kod).indexOf('YET-') !== 0 || !Object.keys(CANLI.cevap).length) return;
+  var dz = {}, sira = [];
+  CANLI.sorular.forEach(function(s){
+    var a = String(s.ders || 'Diğer'), c = CANLI.cevap[s.id];
+    if(!dz[a]){ dz[a] = { ad:a, soru:0, d:0, y:0, b:0 }; sira.push(a); }
+    dz[a].soru++; if(!c){ dz[a].b++; } else if(c === s.dogru){ dz[a].d++; } else { dz[a].y++; }
+  });
+  var L = sira.map(function(a){ var x = dz[a]; x.net = x.d - x.y / 4; x.puan = Math.max(0, x.net) / x.soru * 100; return x; });
+  var sayi = function(n){ return (Math.round(n * 100) / 100).toLocaleString('tr-TR', { maximumFractionDigits:2 }); };
+  var ort = L.reduce(function(t, x){ return t + x.puan; }, 0) / L.length, baraj = L.filter(function(x){ return x.puan < 50; });
+  var h = '<p style="font-size:15px;margin:4px 0 10px"><b>Net: ' + sayi(dg - yn / 4) + '</b> <span class="kucuk">(doğru − yanlış ÷ 4; 4 yanlış 1 doğruyu götürür)</span></p>'
+    + '<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;font-size:13.5px;min-width:300px">'
+    + '<tr style="text-align:left;color:var(--muted)"><th style="padding:5px 6px">Ders</th><th style="padding:5px 6px">D / Y / B</th><th style="padding:5px 6px">Net</th><th style="padding:5px 6px">Puan</th></tr>';
+  L.forEach(function(x){
+    h += '<tr style="border-top:1px solid var(--line2)"><td style="padding:6px">' + esc(x.ad) + '</td><td style="padding:6px;white-space:nowrap">' + x.d + ' / ' + x.y + ' / ' + x.b + '</td>'
+      + '<td style="padding:6px">' + sayi(x.net) + '</td><td style="padding:6px;white-space:nowrap;font-weight:700;color:' + (x.puan >= 50 ? 'var(--green)' : 'var(--red)') + '">' + sayi(x.puan) + (x.puan >= 50 ? ' ✓' : ' ✗') + '</td></tr>';
+  });
+  h += '</table></div><p class="kucuk" style="margin:8px 0 0">Ders ortalaman <b>' + sayi(ort) + '</b>. Başarı için her dersten en az <b>50</b>, ortalama en az <b>60</b> gerekir'
+    + (baraj.length ? '; bu provada <b>' + baraj.length + ' ders</b> 50\'nin altında.' : '; bu provada her ders 50\'nin üstünde.')
+    + ' Ortalamaya staj tezkiye notun da ayrı bir ders gibi girer (burada yok).</p>';
+  kap.innerHTML = h; kap.hidden = false;
+  if(CANLI.inceleme || !window.AnlikTeklif) return;
+  var z = L.slice().sort(function(a, b){ return (a.puan - b.puan) || ((b.y + b.b) - (a.y + a.b)); })[0];
+  if(z) AnlikTeklif.goster({ kap:document.getElementById('sonucEkran'), once:document.getElementById('soAnahtarKart'),
+    kaynak:'prova', sinav:'yeterlilik', sonuc:'prova-' + CANLI.kod, ders:z.ad });
+}
 function teslim(otomatik){
   if(CANLI.bitti){ return; }
   CANLI.bitti = true;
@@ -583,6 +622,7 @@ function teslim(otomatik){
     ? CANLI.oturumAd + ' provası: bu cihazda cevabın yok; cevap anahtarı ve açıklamalar aşağıda.'
     : dg + ' doğru · ' + yn + ' yanlış · ' + bs + ' boş  (%' + Math.round(100*dg/CANLI.sorular.length) + ')';
   if(!CANLI.inceleme){ try { localStorage.setItem('canliSonuc-' + CANLI.kod, JSON.stringify({ dogru:dg, yanlis:yn, bos:bs, t:Date.now() })); } catch(e){} }
+  try { yetDersCiz(dg, yn); } catch(e){}
   var lst = document.getElementById('soListe'); lst.innerHTML='';
   /* 23.09 ÜYELİK KAPISI (Cem: "2 yap") — sayfa "açıklamaların tamamı için üyelik
      gerekir" diyordu ama 93 açıklamayı herkese gösteriyordu. Artık: cevap anahtarı
