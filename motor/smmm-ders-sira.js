@@ -11,9 +11,12 @@
 //       agirlikliDiz'i kullanır, kopya yok): konu ağırlığı = okunmuş çıkmış sorularda (smmm-konu-okuma.json) kaç dönemde
 //       soruldu; konular yumuşak ağırlıklı sırayla dizilir (sık konu daha çok ve önde, ama her kesit karışık). Son 10 yılda
 //       sorulmamış ya da eşlemesiz konunun sorusu sona.
-//    2) ZORLUK: konu sırası zorluk kovalarına bölünür (kova içinde konu sırası korunur). İlk ILK_KOLAY (10) soru KOLAY
-//       kovadan; sonra kovalar kalan sayılarıyla orantılı yumuşak ağırlıklı sırayla serpiştirilir. Zorluk kimlikten okunur
-//       (-kolay|-orta|-zor|-cokzor, kasa-yukle.js ile aynı ifade); etiketsiz soru "bilinmiyor" kovasıdır, ilk 10'a girmez.
+//    2) İLK 10 (Cem 12.10 düzeltmesi: "çok kolay olursa o zaman sıkılır, en çok çıkan konular olabilir"): en sık sorulan
+//       konulardan, HER BİRİ FARKLI KONU, ağırlık sırasıyla; zorluk orta/zor. Konunun orta/zor sorusu yoksa o konu atlanır;
+//       10 dolmazsa ikinci turda kolay, en son etiketsiz soru alınır. ÇOK ZOR ilk 10'a HİÇ girmez.
+//    3) SONRASI: kalan sorular konu sırasıyla zorluk kovalarına bölünür (kova içinde konu sırası korunur), kovalar kalan
+//       sayılarıyla orantılı yumuşak ağırlıklı sırayla serpiştirilir. Zorluk kimlikten okunur (-kolay|-orta|-zor|-cokzor,
+//       kasa-yukle.js ile aynı ifade); etiketsiz soru "bilinmiyor" kovasıdır.
 //  KÜME DEĞİŞMEZ: yalnız sıra değişir. Çıktı girdiyle aynı sayıda ve aynı kimliklerden oluşmazsa ÇIKIŞ 2 (dosya yazılmaz).
 //  🚫 GÖRMEZ: sorunun gerçek zorluğu (etiket üretim isteğidir, öğrenci verisi değil) · "orta" etiketi bankada yok (12.10) ·
 //    etiketsiz 181 sorunun zorluğu · eşlemenin tek okuyucu hatası · sayfanın seviye testine göre yeniden sıralaması
@@ -26,7 +29,8 @@
 'use strict';
 const fs = require('fs'), path = require('path');
 const KOK = path.join(__dirname, '..');
-const ILK_KOLAY = 10;
+const ILK = 10;
+const ILK_ZORLUK = [['orta', 'zor'], ['kolay'], ['?']];   // ilk 10 için turlar: önce orta/zor, yetmezse kolay, en son etiketsiz
 const KOVA = ['kolay', 'orta', '?', 'zor', 'cokzor'];   // eşitlikte önce gelen kova kazanır
 const jsonOku = y => JSON.parse(fs.readFileSync(y, 'utf8').replace(/^﻿/, ''));
 const karma = id => [...String(id)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 1000003, 7);
@@ -72,13 +76,27 @@ function zorluk(id) {
   return m ? m[1] : '?';
 }
 
-// konu sırasındaki kimlikleri zorluğa göre serpiştirir; ilk ILK_KOLAY kolay kovadan
+// ilk 10: en sık konulardan, her biri farklı konu, orta/zor (yoksa kolay, en son etiketsiz); çok zor hiç
+function ilkOn(taban, konuBul, agirlik) {
+  const ilkKonum = {}; taban.forEach((id, i) => { const k = konuBul(id); if (k && agirlik[k] > 0 && !(k in ilkKonum)) ilkKonum[k] = i; });
+  const konular = Object.keys(ilkKonum).sort((p, q) => (agirlik[q] - agirlik[p]) || (ilkKonum[p] - ilkKonum[q]));
+  const secilen = [], kullanilan = new Set(), alinan = new Set();
+  for (const tur of ILK_ZORLUK) {
+    for (const k of konular) {
+      if (secilen.length >= ILK) break;
+      if (kullanilan.has(k)) continue;
+      const id = taban.find(x => !alinan.has(x) && konuBul(x) === k && tur.includes(zorluk(x)));
+      if (id) { secilen.push(id); kullanilan.add(k); alinan.add(id); }
+    }
+  }
+  return secilen;
+}
+
+// konu sırasındaki kimlikleri zorluğa göre serpiştirir
 function zorlukSerpistir(sirali) {
   const kova = {}; KOVA.forEach(k => { kova[k] = []; });
   sirali.forEach(id => kova[zorluk(id)].push(id));
   const out = [];
-  const ilk = MUT === 'ilk-kolay-yok' ? 0 : ILK_KOLAY;
-  while (out.length < ilk && kova.kolay.length) out.push(kova.kolay.shift());
   if (MUT === 'serpistirme-yok') { KOVA.forEach(k => out.push(...kova[k])); return out; }
   const agirlik = {}; KOVA.forEach(k => { agirlik[k] = kova[k].length; });
   const sayac = {}; KOVA.forEach(k => { sayac[k] = 0; });
@@ -98,7 +116,8 @@ function dersSirala(idler, ders, es, A) {
   const agirlik = (A && A[ders]) || {};
   const { dizi, sifir } = agirlikliDiz(idler, konuBulucu(es, agirlik), agirlik);
   const konuSirasi = MUT === 'konu-yok' ? idler.slice().sort() : dizi.concat(sifir);
-  return zorlukSerpistir(konuSirasi);
+  const ilk = MUT === 'ilk-sik-yok' ? [] : ilkOn(konuSirasi, konuBulucu(es, agirlik), agirlik), ilkS = new Set(ilk);
+  return ilk.concat(zorlukSerpistir(konuSirasi.filter(id => !ilkS.has(id))));
 }
 
 function ayniKume(a, b) {
@@ -128,7 +147,7 @@ function secimSirala(dosya) {
   fs.writeFileSync(dosya, JSON.stringify(yeni.map(k => harita.get(k)), null, 1), 'utf8');
   const z = {}; yeni.slice(0, 40).forEach(k => { const t = zorluk(k); z[t] = (z[t] || 0) + 1; });
   const esli = yeni.filter(k => es[k]).length;
-  console.log(`  SIRA ${ders}: ${yeni.length} soru · eşlemeli ${esli} · ilk 10 kolay ${yeni.slice(0, 10).filter(k => zorluk(k) === 'kolay').length}/10 · ilk 40 ${KOVA.filter(k => z[k]).map(k => k + ' ' + z[k]).join(' ')}`);
+  console.log(`  SIRA ${ders}: ${yeni.length} soru · eşlemeli ${esli} · ilk 10 farklı konu ${new Set(yeni.slice(0, 10).map(konuBulucu(es, A[ders] || {}))).size}/10 · ilk 10 çok zor ${yeni.slice(0, 10).filter(k => zorluk(k) === 'cokzor').length} · ilk 40 ${KOVA.filter(k => z[k]).map(k => k + ' ' + z[k]).join(' ')}`);
 }
 
 // ---------------------------------------------------------------- ÖZ-SINAV
@@ -154,27 +173,29 @@ function eskiSirala(idler, es, agirlik) {
 
 function sinav() {
   let hata = 0; const t = (ad, k) => { console.log((k ? '  geçti: ' : '  DÜŞTÜ: ') + ad); if (!k) hata++; };
-  // yapay ders: 3 konu (ağırlık 6/3/1), zorluk etiketleri alfabetik sırada "cokzor" önde
-  const es = {}, A = { D: { a: 6, b: 3, c: 1 } }, idler = [];
-  const zr = ['cokzor', 'kolay', 'zor', 'zor'];
-  // konu kimlik sırasının TERSİNE dağıtılır (alfabede önce seyrek c gelir): sık konu öne ancak konu sırası çalışırsa çıkar
-  for (let i = 0; i < 80; i++) { const id = `smmm-x-${zr[i % 4]}-r${String(i).padStart(2, '0')}/kp-01`; idler.push(id); es[id] = { ders: 'D', konular: [i < 27 ? 'c' : i < 54 ? 'b' : 'a'] }; }
+  // yapay ders: 12 konu k01..k12, ağırlık 12..1. Konu kimlik sırasının TERSİNE dağıtılır (alfabede önce seyrek konu gelir):
+  // sık konu öne ancak konu sırası çalışırsa çıkar. Zorluk etiketleri alfabede "cokzor" önde (12.10 gerçek vakası).
+  const es = {}, A = { D: {} }, idler = [], KN = Array.from({ length: 12 }, (_, i) => 'k' + String(i + 1).padStart(2, '0'));
+  KN.forEach((k, i) => { A.D[k] = 12 - i; });
+  const zr = ['cokzor', 'kolay', 'zor', 'zor', 'kolay', 'cokzor'];
+  for (let i = 0; i < 144; i++) { const id = `smmm-x-${zr[i % 6]}-r${String(i).padStart(3, '0')}/kp-01`; idler.push(id); es[id] = { ders: 'D', konular: [KN[11 - Math.floor(i / 12)]] }; }
   idler.push('smmm-z-etiketsiz/kp-01', 'smmm-z-etiketsiz/kp-02');
-  const alfabe = idler.slice().sort();
-  const y = dersSirala(alfabe, 'D', es, A);
+  const alfabe = idler.slice().sort(), kn = id => (es[id] || { konular: ['?'] }).konular[0];
+  const y = dersSirala(alfabe, 'D', es, A), on = y.slice(0, 10);
   t('küme ve sayı aynı', ayniKume(alfabe, y));
-  t('ilk 10 soru kolay', y.slice(0, 10).every(k => zorluk(k) === 'kolay'));
   t('alfabetik sıra: ilk soru çok zor (vaka gerçek)', zorluk(alfabe[0]) === 'cokzor');
-  let ardisik = 0, enCok = 0; y.forEach(k => { ardisik = zorluk(k) === 'cokzor' ? ardisik + 1 : 0; enCok = Math.max(enCok, ardisik); });
-  t('çok zor serpiştirilmiş (art arda en çok 1)', enCok <= 1);
-  const cz40 = y.slice(0, 40).filter(k => zorluk(k) === 'cokzor').length;
-  t('ilk 40ta çok zor payı tüm payı aşmaz (20/82 → ≤10)', cz40 <= 10 && cz40 >= 5);
-  t('etiketsiz soru ilk 10a girmez', y.slice(0, 10).every(k => zorluk(k) !== '?'));
-  const ilk20a = y.slice(0, 20).filter(k => es[k] && es[k].konular[0] === 'a').length, ilk20c = y.slice(0, 20).filter(k => es[k] && es[k].konular[0] === 'c').length;
-  t('sık konu önde (ilk 20de a > c)', ilk20a > ilk20c);
-  t('ilk 10da en az 2 konu (karışık)', new Set(y.slice(0, 10).map(k => (es[k] || { konular: ['?'] }).konular[0])).size >= 2);
-  t('sıra kararlı (aynı girdi aynı çıktı, girdi sırası etkisiz)', JSON.stringify(dersSirala(alfabe.slice().reverse(), 'D', es, A)) === JSON.stringify(y));
-  t('kolay yetmezse eldeki kadar (2 kolay)', (() => { const l = ['smmm-k-kolay-r1/kp-01', 'smmm-k-kolay-r2/kp-01', 'smmm-k-zor-r1/kp-01', 'smmm-k-cokzor-r1/kp-01']; const o = zorlukSerpistir(l); return ayniKume(l, o) && zorluk(o[0]) === 'kolay' && zorluk(o[1]) === 'kolay'; })());
+  t('ilk 10da çok zor yok', on.every(k => zorluk(k) !== 'cokzor'));
+  t('ilk 10da kolay yok (orta/zor varken)', on.every(k => zorluk(k) === 'zor' || zorluk(k) === 'orta'));
+  t('ilk 10 her biri farklı konu', new Set(on.map(kn)).size === 10);
+  t('ilk 10 en sık 10 konu, ağırlık sırasıyla', on.map(kn).join(',') === KN.slice(0, 10).join(','));
+  let ardisik = 0, enCok = 0; y.slice(10).forEach(k => { ardisik = zorluk(k) === 'cokzor' ? ardisik + 1 : 0; enCok = Math.max(enCok, ardisik); });
+  t('sonrası: çok zor serpiştirilmiş (art arda en çok 1)', enCok <= 1);
+  const s20 = y.slice(10, 40); t('sonrası: 11–40 arasında sık konu (k01–k03) seyrekten (k10–k12) çok', s20.filter(k => ['k01', 'k02', 'k03'].includes(kn(k))).length > s20.filter(k => ['k10', 'k11', 'k12'].includes(kn(k))).length);
+  t('sıra kararlı (girdi sırası etkisiz)', JSON.stringify(dersSirala(alfabe.slice().reverse(), 'D', es, A)) === JSON.stringify(y));
+  // orta/zor yetmezse: konu yalnız kolay sorulu → ikinci turda kolay; çok zor yine girmez
+  const es2 = { 'smmm-a-cokzor-r1/kp-01': { konular: ['p'] }, 'smmm-a-kolay-r1/kp-01': { konular: ['p'] }, 'smmm-a-zor-r1/kp-01': { konular: ['q'] } };
+  const y2 = dersSirala(Object.keys(es2), 'E', es2, { E: { p: 5, q: 1 } });
+  t('orta/zor yoksa konu ikinci turda kolayla gelir, çok zor ilk 10a girmez', y2[0] === 'smmm-a-zor-r1/kp-01' && y2[1] === 'smmm-a-kolay-r1/kp-01' && y2[2] === 'smmm-a-cokzor-r1/kp-01');
   t('küme kapısı: eksik/tekrar yakalanır', !ayniKume(['a', 'b'], ['a', 'a']) && !ayniKume(['a', 'b'], ['a']));
   t('zorluk kimlikten (kasa-yukle.js ifadesi)', zorluk('smmm-4k-a-yvergi-cokzor-r5/kp-01') === 'cokzor' && zorluk('smmm-4k-d1-yvergi-kolay-r1/kp-01') === 'kolay' && zorluk('smmm-ab-a-hukuk/kp-02') === '?');
   // EŞDEĞERLİK ÇAPASI (gerçek veri): ortak agirlikliDiz, havuzun kurulduğu eski iç sirala() ile 8 dersin TAMAMINDA aynı dizi
@@ -197,7 +218,7 @@ if (require.main === module) {
   try {
     if (a.includes('--mutasyon')) {
       // kural 8: her bozmada öz-sınav KIRMIZI düşmeli
-      const { spawnSync } = require('child_process'); let tutan = 0; const M = ['ilk-kolay-yok', 'serpistirme-yok', 'konu-yok'];
+      const { spawnSync } = require('child_process'); let tutan = 0; const M = ['ilk-sik-yok', 'serpistirme-yok', 'konu-yok'];
       for (const m of M) {
         const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { SIRA_MUTASYON: m }), encoding: 'utf8' });
         const k = r.status !== 0; if (k) tutan++; console.log(`  mutasyon ${m.padEnd(16)} ${k ? 'KIRMIZI (doğru)' : 'YEŞİL — SINAV KÖR'}`);
@@ -209,4 +230,4 @@ if (require.main === module) {
     else { console.log('kullanım: --secim <dosya> | --sinav'); process.exitCode = 1; }
   } catch (e) { console.log('SIRA DÜŞTÜ: ' + e.message); process.exitCode = e.kod || 1; }
 }
-module.exports = { agirlikHaritasi, agirlikliDiz, konuBulucu, zorluk, zorlukSerpistir, dersSirala, ayniKume };
+module.exports = { agirlikHaritasi, agirlikliDiz, konuBulucu, zorluk, zorlukSerpistir, ilkOn, dersSirala, ayniKume };

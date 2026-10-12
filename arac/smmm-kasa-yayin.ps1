@@ -156,6 +156,9 @@ $nodeArg = New-Object System.Collections.Generic.List[string]
 $yazilanDosya = New-Object System.Collections.Generic.List[string]
 $siteSayfa = New-Object System.Collections.Generic.List[object]   # 18.09 -SiteKabuk: depodaki kaydir/smmm sayfaları (kabuğa çevrilecek)
 $script:siraKirmizi = New-Object System.Collections.Generic.List[string]   # 12.10 soru sırası kurulamayan dersler
+$script:yeniSira = $false
+try { $script:yeniSira = ((Get-Content (Join-Path $depoKok 'arac\smmm-soru-sirasi.json') -Raw -Encoding UTF8 | ConvertFrom-Json).yeni_sira -eq $true) } catch { $script:yeniSira = $false }
+"SORU SIRASI: " + $(if ($script:yeniSira) { 'YENİ (motor/smmm-ders-sira.js)' } else { 'ESKİ (etiket, id) — anahtar arac/smmm-soru-sirasi.json kapalı' })
 try {
   foreach ($g in @($secim | Group-Object ders | Sort-Object Name)) {
     $slug = SmmmDersSlug $g.Name
@@ -166,9 +169,13 @@ try {
     #   motor/smmm-ders-sira.js dosyayı yerinde dizer: konu sırası smmm-ders-havuz.json ile aynı (sık konu önde, karışık),
     #   zorluk serpiştirilmiş, ilk 10 kolay. Küme değişirse yazmaz (çıkış 2). Düşerse sayfa alfabetik sırayla YİNE basılır
     #   (öteki iş durmasın) ama betik SONDA çıkış 1 verir → iş kırmızı biter. Öz-sınav: node motor/smmm-ders-sira.js --sinav
-    $eapSira = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
-    try { & node (Join-Path $depoKok 'motor\smmm-ders-sira.js') --secim $secYol; $kodS = $LASTEXITCODE }
-    finally { $ErrorActionPreference = $eapSira }
+    #   ANAHTAR arac/smmm-soru-sirasi.json "yeni_sira" (Cem kararı; false = eski sıra, kırmızı değil). Okunamazsa eski sıra.
+    $kodS = 0
+    if ($script:yeniSira) {
+      $eapSira = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+      try { & node (Join-Path $depoKok 'motor\smmm-ders-sira.js') --secim $secYol; $kodS = $LASTEXITCODE }
+      finally { $ErrorActionPreference = $eapSira }
+    }
     if ($kodS) { $script:siraKirmizi.Add("$($g.Name) (çıkış $kodS)"); Write-Host "⛔ SIRA KURULAMADI: $($g.Name) — alfabetik sırayla basılıyor" -ForegroundColor Red }
     $cikti = "smmm-kasa\sayfa-$slug.html"
     # 27.09 K6: EAP=Stop + alt powershell stderr + 2>&1 betiği öldürür (ölçüldü); kgk-kasa-yayin.ps1 ile aynı sarmalayıcı.
