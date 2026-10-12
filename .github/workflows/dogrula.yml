@@ -668,6 +668,12 @@ jobs:
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --sinav" }
           - { ad: "Kaldigin yer gocu MUTASYON (kimlik yolu kapatilinca sinav duser mi)",
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --mutasyon" }
+          # 12.10 Nobetci notu (nobetci-notu.js): her 10 cevapta kart, 20'de davet, zayif konu, KANITLI RAKAM = okunmus
+          # kaynaktan dogrudan sayim (271 konu). GORMEZ: kartin cizimi, uygulamadaki bag.
+          - { ad: "Nobetci notu OZ-SINAVI (10'da bir, kanitli donem sayisi, zayif konu)",
+              kabuk: bash, komut: "node arac/nobetci-notu-sinavi.js" }
+          - { ad: "Nobetci notu MUTASYON (3 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node arac/nobetci-notu-sinavi.js --mutasyon" }
           # 07.10 (Cem "yanlis kutusu da hesaba bagla" + "1.2.3"): site yanlis kutusu + cozulen kaydi hesap esitlemesi
           # (kutu-esitle.js: uc yonlu kutu, soru basina son cevap). GORMEZ: tablo/RLS/ag, sayfalarin yeniden cizmesi.
           - { ad: "Site kutu/kayit esitleme OZ-SINAVI (cihazlar arasi kutu ve cozulen kaydi)",

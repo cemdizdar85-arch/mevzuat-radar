@@ -226,7 +226,7 @@ async function smmm() {
     karne: 'konu', puan: 'yeterlilik', liste_sayfa: 'en-cok-cikan-konular-yeterlilik.html',
     konular: konuListe, setler: dizinSet
   }, tumSet);
-  return { kullanilan: gor, kasa, es, D, dersSira, pencere: ok.pencere };
+  return { kullanilan: gor, kasa, es, D, dersSira, pencere: ok.pencere, donemSay: ok.donem };
 }
 
 // ---------------------------------------------------------------- YETERLİLİK DERS DENEMESİ
@@ -304,6 +304,20 @@ function smmmDers(sik) {
     const hd = path.join(KOK, 'veri', 'deneme', 'smmm-ders-havuz.json');
     let eski = null; try { eski = jsonOku(hd); } catch (e) {}
     if (!eski || eski.surum !== hv.surum) { fs.writeFileSync(hd, JSON.stringify(hv) + '\n', 'utf8'); console.log('  smmm-ders-havuz.json yazıldı'); }
+    // 12.10 NÖBETÇİ NOTU KANITI (nobetci-notu.js, Cem "1.2.3"; SINAV RAKAMI KANITLI kuralı): havuzdaki her konunun okunmuş
+    //   çıkmış sorulardaki kanıtı — [dönem, soru no], yeniden eskiye. Rakam öğrenciye bu listeden sayılarak gider; listesi
+    //   olmayan konuda rakam yazılmaz. Kaynak smmm-konu-okuma.json (soru metni okunarak sayılmış), pencere aynen yazılır.
+    const kanit = {};
+    for (const d of Object.keys(havuzDosya)) {
+      kanit[d] = {};
+      havuzDosya[d].konular.forEach(k => {
+        const r = k && D[d] && D[d][k]; if (!r || !r.kanit.length) return;
+        kanit[d][k] = r.kanit.slice().sort((p, q) => srt(q.donem) - srt(p.donem) || (+p.soru) - (+q.soru)).map(z => [z.donem, String(z.soru)]);
+      });
+    }
+    if (yazDegisirse(path.join(KOK, 'veri', 'deneme', 'smmm-konu-kanit.json'), { uretim: new Date().toISOString().slice(0, 16).replace('T', ' '),
+      uretici: 'motor/sik-konu-deneme-bas.js', not: 'Nöbetçi notu kanıtı: ders → konu → [dönem, soru no] (okunmuş çıkmış sorular). Metin YOK.',
+      pencere, donem: sik.donemSay, dersler: kanit }, 'uretim')) console.log('  smmm-konu-kanit.json yazıldı');
   }
   console.log('  özel deneme havuzu: ' + Object.keys(havuzDosya).map(d => d + ' ' + havuzDosya[d].soru).join(' · '));
 }

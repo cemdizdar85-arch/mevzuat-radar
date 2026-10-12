@@ -66,7 +66,8 @@ const SITE_SAYFALARI = [
   { yol: 'sinav-gibi.html', sok: ['sayac', 'menu', 'komutcss', 'komut'], paket: true }
 ];
 const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js',
-  'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js'];
+  'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js',
+  'nobetci-notu.js'];   /* 12.10 Nöbetçi notu: ders sayfası (uygulama-kaydir.js) her 10 cevapta */
 const SAYFA_SOK = {   // ad → desen
   canonical: /<link rel="canonical"[^>]*>\n?/,
   sayac: /<script data-goatcounter=[^>]*><\/script>\n?/,

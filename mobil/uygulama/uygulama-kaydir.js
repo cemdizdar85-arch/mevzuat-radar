@@ -219,6 +219,24 @@
     l.querySelector('.tekrar').hidden = !yanlisVar;
   }
 
+  /* 12.10 NÖBETÇİ NOTU (../../nobetci-notu.js — sitedekiyle AYNI dosya, hazirla.js SITE_EK ile pakete girer): bitirme ders
+     sayfasında her 10 cevapta bir kart; "Yanlışlarımı yeniden çöz" bu dosyadaki tekrarBaslat. Vitrin ve tek kartta yok.
+     iPhone (TT.yalnizUcretsiz): deneme bağlantıları kartta gösterilmez. Dosya inmezse sessiz. */
+  var nnYuk = null;
+  function nobetciNotu(k, dogru) {
+    if (VITRIN || kok.hasAttribute('data-tek') || !/^kaydir\/smmm\//.test(YOL)) return;
+    var i = kartlar().indexOf(k), q = (typeof SORULAR !== 'undefined' && SORULAR[i]) || null;
+    if (!q || q.id == null) return;
+    if (!nnYuk) nnYuk = new Promise(function (tamam) {
+      if (window.ttNobetciNotu) return tamam();
+      var sc = document.createElement('script'); sc.src = '../../nobetci-notu.js'; sc.onload = tamam; sc.onerror = tamam; document.head.appendChild(sc);
+    }).then(function () {
+      if (window.ttNobetciNotu) window.ttNobetciNotu.kur({ yol: YOL, kok: '../../', ders: String(q.ders || ''), tekrar: tekrarBaslat,
+        ios: !!(window.TT && window.TT.yalnizUcretsiz && window.TT.yalnizUcretsiz()) });
+    });
+    nnYuk.then(function () { if (window.ttNobetciNotu) window.ttNobetciNotu.cevap(q.id, dogru); });
+  }
+
   /* yanlışları tekrar çöz: sayfa cevapları bellekte tuttuğu için yeniden yüklenir, yalnız yanlış kartlar görünür */
   var TEKRAR = 'tt_tekrar';
   function tekrarBaslat() {
@@ -324,6 +342,7 @@
           if (!k.querySelector('.sik.dogru')) return;
           k.__cevaplandi = 1;
           IL.cevapla(sidK(k), s.classList.contains('dogru'), kartYol(k), kartBilgi(k, s));
+          nobetciNotu(k, s.classList.contains('dogru'));
           if (window.TTHis) { if (s.classList.contains('dogru')) window.TTHis.dogru(); else window.TTHis.yanlis(); }
           cevapSonrasi();
           var g = IL.veri().gun[IL.bugun()] || 0, h = IL.veri().ayar.hedef || 10;

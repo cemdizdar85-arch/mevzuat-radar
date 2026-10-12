@@ -634,7 +634,14 @@
     setleriCiz();
     /* 11.10: ders denemesinde havuz gelince ilerleme satırları + özel deneme kartları dolar */
     if(TUR==='ders') havuzAl().then(function(){ if(!$('sgGiris').classList.contains('sg-gizli')) setleriCiz(); });
-    var m=location.hash.match(/set=(\d+)/); if(m) setAc(+m[1]);
+    /* 12.10 Nöbetçi notu "Bu konudan 10 soru" (nobetci-notu.js): ?tur=ders&sinav=smmm&ders=<ad>&konu=<konu>&adet=10 →
+       o konudan sana özel deneme hemen kurulur (önce hiç görmediklerin). Soru içeriği yine kasadan, ders kuralı sunucuda. */
+    var qKonu=TUR==='ders'?Q.get('konu'):'';
+    if(qKonu&&Q.get('ders')){ var qDers=Q.get('ders'), qAdet=Math.max(1,Math.min(20,+Q.get('adet')||10));
+      /* yenilemede aynı set ikinci kez kurulmasın: konu parametresi adresten düşer (ders kalır) */
+      try{ history.replaceState(null,'',location.pathname+'?tur=ders&sinav=smmm&ders='+encodeURIComponent(qDers)); }catch(e){}
+      havuzAl().then(function(){ ozelBaslat({ders:qDers, konu:qKonu, adet:qAdet, baslik:qDers+' · '+qKonu}); }); }
+    var m=location.hash.match(/set=(\d+)/); if(qKonu&&Q.get('ders')){} else if(m) setAc(+m[1]);
     /* ilk ders zaten en üstte (paketindeki ders öne alınır) → yalnız aşağıdaki bir derse kaydırılır, giriş metni gizlenmesin */
     else if(Q.get('ders')){ var h=$('sgSetler').querySelector('.sg-set-ders[data-ders="'+trk(Q.get('ders')).replace(/"/g,'')+'"]');
       if(h&&h!==$('sgSetler').querySelector('.sg-set-ders')) h.scrollIntoView({block:'start'}); }

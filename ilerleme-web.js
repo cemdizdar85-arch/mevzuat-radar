@@ -75,6 +75,11 @@
     if (!hazir) return;
 
     var ks = kartlar(), a = akis();
+    /* 12.10 NÖBETÇİ NOTU (nobetci-notu.js): bitirme ders sayfasında her 10 cevapta bir kart. Tek kartta yok. İnmezse sayfa aynen. */
+    if (/^kaydir\/smmm\//.test(YOL) && !tek) yukle(KOK + 'nobetci-notu.js?v=20261012').then(function () {
+      var s0 = (typeof SORULAR !== 'undefined' && SORULAR[0]) || {};
+      if (window.ttNobetciNotu) window.ttNobetciNotu.kur({ yol: YOL, kok: KOK, ders: String(s0.ders || ''), tekrar: typeof kutuEkraniAc === 'function' ? kutuEkraniAc : null });
+    }).catch(function () {});
     function sidK(k) { if (!k.__ttsid) { var q = k.querySelector('.soru'); k.__ttsid = IL.sid(q ? q.textContent : ''); } return k.__ttsid; }
     function simdiki() { if (!a.clientHeight) return -1; var i = Math.round(a.scrollTop / a.clientHeight); return i < ks.length ? i : ks.length - 1; }
 
@@ -101,6 +106,7 @@
             var q = (typeof SORULAR !== 'undefined' && SORULAR[i]) || {};
             IL.cevapla(sidK(k), s.classList.contains('dogru'), YOL,
               { d: String(q.ders || '').slice(0, 80), k: String(q.konu || '').slice(0, 80), i: i });
+            if (window.ttNobetciNotu && q.id != null) window.ttNobetciNotu.cevap(q.id, s.classList.contains('dogru'));
             sonraEsitle();
           }, 0);
         });
