@@ -93,24 +93,20 @@
     var sb = o && o.sb, kap = o && o.kap;
     if (!sb || !kap || !sb.auth || !sb.auth.signInWithOAuth) return;
     stilKoy();
-    /* 13.10 (Cem "5.841 kişiden bu kadar üye normal değil"): Google, uygulama içi tarayıcıda (Instagram, Facebook,
-       Messenger, TikTok, LinkedIn) girişi "403 disallowed_useragent" ile reddeder - düğmeye basan hata sayfasında kalır.
-       Orada düğme yerine yol gösterilir: Android'de Chrome'da açma bağlantısı, iPhone'da menüden "Tarayıcıda aç". */
-    var ua = navigator.userAgent || '';
-    if (/Instagram|FBAN|FBAV|FB_IAB|Messenger|musical_ly|BytedanceWebview|LinkedInApp/i.test(ua)) {
-      var android = /Android/i.test(ua);
-      var krom = 'intent://' + location.host + location.pathname + location.search + '#Intent;scheme=https;package=com.android.chrome;end';
-      kap.innerHTML = '<p class="tt-google-not"><b>Google ile giriş bu uygulamanın içinde açılmıyor.</b> ' +
-        (android ? '<a href="' + krom + '">Chrome\'da aç</a> ya da aşağıdan e-postayla hesap aç.'
-                 : 'Sağ üstteki ••• menüsünden <b>"Tarayıcıda aç"</b> de ya da aşağıdan e-postayla hesap aç.') + '</p>' +
-        (o.ayrac ? '<div class="tt-google-ayrac">e-postayla</div>' : '');
-      return;
-    }
+    /* 13.10 (Cem "5.841 kişiden bu kadar üye normal değil"): uygulama içi tarayıcıda (Instagram, Facebook, Messenger,
+       TikTok, LinkedIn) Google girişinin takılabildiği biliniyor. ÖLÇÜLDÜ (13.10, curl + Instagram Android/iPhone kimliği):
+       Google İLK adımda engellemiyor, giriş formu açılıyor; şifre adımı ÖLÇÜLMEDİ. Bu yüzden düğme KALIR, altına
+       "açılmazsa" yolu eklenir (Android: Chrome'da aç bağlantısı, iPhone: ••• → Tarayıcıda aç). */
+    var ua = navigator.userAgent || '', uygIci = /Instagram|FBAN|FBAV|FB_IAB|Messenger|musical_ly|BytedanceWebview|LinkedInApp/i.test(ua);
+    var krom = 'intent://' + location.host + location.pathname + location.search + '#Intent;scheme=https;package=com.android.chrome;end';
+    var uygNot = !uygIci ? '' : '<p class="tt-google-not" style="margin:8px 0 0">Google açılmazsa: ' +
+      (/Android/i.test(ua) ? '<a href="' + krom + '">Chrome\'da aç</a>' : 'sağ üstteki ••• menüsünden <b>"Tarayıcıda aç"</b>') +
+      ' ya da aşağıdan e-postayla hesap aç.</p>';
     kap.innerHTML =
       '<p class="tt-google-not">Devam ederek <a href="uyelik-sozlesmesi.html" target="_blank" rel="noopener">üyelik sözleşmesini</a> ve ' +
       '<a href="kvkk.html" target="_blank" rel="noopener">aydınlatma metnini</a> kabul etmiş olursun.</p>' +
       '<button type="button" class="tt-google">' + G_SVG + '<span>Google ile devam et</span></button>' +
-      '<p class="tt-google-hata" role="alert"></p>' +
+      '<p class="tt-google-hata" role="alert"></p>' + uygNot +
       (o.ayrac ? '<div class="tt-google-ayrac">ya da e-postayla</div>' : '');
     var b = kap.querySelector('.tt-google'), h = kap.querySelector('.tt-google-hata');
     h.textContent = donusHatasi;
