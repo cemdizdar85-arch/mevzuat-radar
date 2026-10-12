@@ -120,6 +120,8 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     </div>
 
     <h2>Siparişler</h2>
+    <!-- 12.10 (Cem "elçi harici nasıl satış yapacağımızı takip edeceğiz"): satış ayrımı - indirim kaynağı (sunucu yazar) + kaynak etiketi (?k=) -->
+    <div class="kaydir"><table id="tSatisAyrim"></table></div>
     <div class="kaydir"><table id="tSiparis"></table></div>
 
     <h2>Nöbetçi (yapay zekâ) kullanımı</h2>
@@ -245,12 +247,21 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('uSay').textContent=liste.length+' / '+uyeler.length+' üye gösteriliyor.';
 
     /* siparişler */
-    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
+    var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Kaynak</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
     VERI.siparisler.forEach(function(s){
-      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
+      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
     });
-    if(!VERI.siparisler.length) sh+='<tr><td colspan="9" class="not">Henüz sipariş yok.</td></tr>';
+    if(!VERI.siparisler.length) sh+='<tr><td colspan="10" class="not">Henüz sipariş yok.</td></tr>';
     $('tSiparis').innerHTML=sh;
+    /* 12.10 satış ayrımı: elçili · anlık teklif · doğrudan (indirimsiz) - iptal hariç; ödenen ayrıca. Eski kayıtta indirim_kaynak yoksa elçi/teklif alanından çıkarılır. */
+    var tur=function(s){ var k=s.indirim_kaynak||''; if(k==='anlik-teklif'||s.anlik_teklif) return 'Anlık teklif'; if(k.indexOf('elci:')===0||s.elci) return 'Elçili'; return 'Doğrudan (indirimsiz)'; };
+    var ay={}, ke={}; VERI.siparisler.forEach(function(s){ if(s.durum==='iptal') return; var t=tur(s), e=s.kaynak_etiket||'(etiketsiz)';
+      [[ay,t],[ke,e]].forEach(function(x){ var o=x[0][x[1]]||(x[0][x[1]]={n:0,od:0,tl:0}); o.n++; if(s.durum==='odendi'){ o.od++; o.tl+=(s.tutar||0); } }); });
+    var ah='<tr><th>Satış türü</th><th>Sipariş</th><th>Ödenen</th><th>Ödenen tutar</th></tr>';
+    ['Elçili','Anlık teklif','Doğrudan (indirimsiz)'].forEach(function(t){ var o=ay[t]||{n:0,od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
+    ah+='<tr><th>Kaynak etiketi (?k=)</th><th>Sipariş</th><th>Ödenen</th><th>Ödenen tutar</th></tr>';
+    Object.keys(ke).sort().forEach(function(e){ var o=ke[e]; ah+='<tr><td>'+esc(e)+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
+    $('tSatisAyrim').innerHTML=ah;
   }
   ['fSinav','fKaynak','fAra'].forEach(function(i){ $(i).addEventListener('input',function(){ if(VERI) ciz(); }); });
 

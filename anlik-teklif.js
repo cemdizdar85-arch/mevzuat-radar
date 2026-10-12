@@ -55,27 +55,44 @@
       + '.at-btn{display:block;text-align:center;background:var(--amber-dolgu);color:var(--amber-uzeri);font-weight:800;font-size:15.5px;padding:13px 18px;border-radius:11px;text-decoration:none}'
       + '.at-btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}'
       + '@media(min-width:560px){.at-btn{display:inline-block}}'
-      + '.at-not{font-size:12.5px;color:var(--muted);margin:10px 0 0}';
+      + '.at-not{font-size:12.5px;color:var(--muted);margin:10px 0 0}'
+      + '.at-ikili{display:grid;gap:12px}@media(min-width:700px){.at-ikili{grid-template-columns:1fr 1fr}}'
+      + '.at-sec{position:relative;border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column}'
+      + '.at-sec .at-btn{margin-top:auto;display:block}.at-sec.at-oner{border:2px solid var(--amber)}'
+      + '.at-sb{font-size:16px;margin:0 0 4px;color:var(--ink)}'
+      + '.at-rozet{position:absolute;top:-11px;right:12px;background:var(--amber-dolgu);color:var(--amber-uzeri);font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:999px;letter-spacing:.2px}'
+      + '.at-fiyat s{text-decoration-thickness:1px}';
     document.head.appendChild(st);
   }
-  function satinAlAdres(o, t){
-    return 'satin-al.html?paket=' + encodeURIComponent(o.paket) + '&dersler=' + encodeURIComponent(o.ders) + '&t=' + encodeURIComponent(t && t.belirtec ? t.belirtec : 'giris');
+  function satinAlAdres(o, pid, t){
+    return 'satin-al.html?paket=' + encodeURIComponent(pid) + (pid === o.paket ? '&dersler=' + encodeURIComponent(o.ders) : '')
+      + '&t=' + encodeURIComponent(t && t.belirtec ? t.belirtec : 'giris');
   }
+  /* 12.10 (Cem "evet bunları yapalım"): iki seçenek - en zayıf ders (−200) ve tüm 8 ders (−600, önerilen). Çizili rakam yalnız
+     sitedeki GÜNCEL kuruluş fiyatı (o fiyattan satış yapılıyor; m.14/3'teki sahte eski fiyat değil). */
   function ciz(kap, o, f, t){
     stilKur();
+    var tum = (typeof anlikTeklifTum === 'function') ? anlikTeklifTum(o.sinav) : null;
     var d = document.createElement('div');
-    d.className = 'at-kutu'; d.id = 'anlikTeklif'; d.setAttribute('role', 'region'); d.setAttribute('aria-label', 'Sana özel teklif');
-    d.innerHTML = '<p class="at-bas">Eksiğini sınavdan önce kapat.</p>'
-      + '<p class="at-metin"><b>' + esc(o.ders) + '</b> dersi: tüm sorular, her yanlışın nedeni ve kanun maddesi, ders denemeleri (20 soru, 45 dk, yanlış 0,25 götürür).</p>'
-      + '<p class="at-fiyat"><span class="at-once">' + tl(f.once) + ' TL</span> → <b>Şimdi ' + tl(f.simdi) + ' TL</b> <small>KDV dahil</small></p>'
-      + '<a class="at-btn" href="' + esc(satinAlAdres(o, t)) + '">' + esc(o.ders) + ' dersini aç</a>'
-      + '<p class="at-not">Bu teklif yalnız bu ekranda geçerli; sayfadan çıkınca kalkar.</p>';
-    d.querySelector('.at-btn').addEventListener('click', function(){
+    d.className = 'at-kutu'; d.id = 'anlikTeklif'; d.setAttribute('data-sonuc', o.sonuc); d.setAttribute('role', 'region'); d.setAttribute('aria-label', 'Sana özel teklif');
+    var secenek = function(pid, baslik, metin, x, dugme, onerilen){
+      return '<div class="at-sec' + (onerilen ? ' at-oner' : '') + '">'
+        + (onerilen ? '<span class="at-rozet">Önerilen</span>' : '')
+        + '<p class="at-sb">' + baslik + '</p><p class="at-metin">' + metin + '</p>'
+        + '<p class="at-fiyat"><s class="at-once">' + tl(x.once) + ' TL</s> → <b>Şimdi ' + tl(x.simdi) + ' TL</b> <small>KDV dahil</small></p>'
+        + '<a class="at-btn" data-pk="' + esc(pid) + '" href="' + esc(satinAlAdres(o, pid, t)) + '">' + dugme + '</a></div>';
+    };
+    d.innerHTML = '<p class="at-bas">Eksiğini sınavdan önce kapat.</p><div class="at-ikili">'
+      + secenek(f.paket, '<b>' + esc(o.ders) + '</b> dersi', 'Tüm sorular, her yanlışın nedeni ve kanun maddesi, ders denemeleri (20 soru, 45 dk, yanlış 0,25 götürür).', f, esc(o.ders) + ' dersini aç', false)
+      + (tum ? secenek(tum.paket, '<b>Tüm 8 ders</b>', 'Sınavdaki sekiz dersin hepsinde aynı içerik: tüm sorular, yanlışın nedeni ve kanun maddesi, ders denemeleri.', tum, 'Tüm dersleri aç', true) : '')
+      + '</div><p class="at-not">Bu teklif yalnız bu ekranda geçerli; sayfadan çıkınca kalkar.</p>';
+    Array.prototype.forEach.call(d.querySelectorAll('.at-btn'), function(btn){ btn.addEventListener('click', function(){
       /* teklif yalnız bu sekmeye taşınır; satin-al.html okur. Belirteç yoksa (girişsiz) girişten sonra alınır. */
-      try{ sessionStorage.setItem(BEKLEYEN, JSON.stringify({ sonuc:o.sonuc, kaynak:o.kaynak, paket:o.paket, ders:o.ders,
-        belirtec:(t && t.belirtec) || '', indirim:f.indirim, t:Date.now() })); }catch(e){}
-      try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'anlik-teklif/' + o.kaynak + '/tik', title:'Anlık teklif: düğme', event:true }); }catch(e){}
-    });
+      var pk = btn.getAttribute('data-pk');
+      try{ sessionStorage.setItem(BEKLEYEN, JSON.stringify({ sonuc:o.sonuc, kaynak:o.kaynak, paket:o.paket, secilen:pk, ders:o.ders,
+        belirtec:(t && t.belirtec) || '', t:Date.now() })); }catch(e){}
+      try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'anlik-teklif/' + o.kaynak + '/tik/' + pk, title:'Anlık teklif: düğme', event:true }); }catch(e){}
+    }); });
     if(o.once && o.once.parentNode === kap) kap.insertBefore(d, o.once); else kap.appendChild(d);
     try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'anlik-teklif/' + o.kaynak + '/goster', title:'Anlık teklif: gösterildi', event:true }); }catch(e){}
   }

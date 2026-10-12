@@ -9,7 +9,10 @@
    GERÇEK KURAL (3568 Sınav Yönetmeliği m.16/b, veri/mevzuat-hazir/smmm-sinav-yon.txt satır 128-130):
      her konudan 100 üzerinden en az 50 VE tüm konuların aritmetik ortalaması en az 60; staj tezkiye notu
      ayrı bir ders gibi ortalamaya girer (sınava kabul için tezkiye >= 80, m.9). 2026 test biçiminde her ders
-     20 soru (veri/smmm-analiz.json 2026/1 ve 2026/2 ölçümü) -> ders puanı = doğru × 5.
+     20 soru (veri/smmm-analiz.json 2026/1 ve 2026/2 ölçümü).
+   12.10.2026 YANLIŞ CEZASI (Cem: "4 yanlış 1 düşelim yeterlilikte"): TÜRMOB 14.01.2026 E.233 eki madde vii (100 puan
+     soruların sayısına eşit dağıtılır) ve viii ("her yanlış cevabın 0,25 doğruyu götürecektir"; metin 12.10'da ismmmo.org.tr
+     PDF'inden okundu) -> ders puanı = max(0, doğru − yanlış/4) × 5. Önceki model cezayı saymıyordu (iyimserdi).
 
    MODEL
    1) Genel yetenek θg: Rasch (1PL), P(doğru) = 1/(1+e^-(θ-b)); b etiketten: kolay -1 · zor 0 · çok zor +1.
@@ -18,7 +21,8 @@
       3-5 soruyla ham yüzde yanıltır (3/3 ≠ 100 puan); az soruda tahmin genel seviyeye doğru çekilir.
       Zorluk düzeltmesi Rasch'ın kendisidir: çok zor soruyu bilmek θ'yı kolay sorudan fazla yükseltir.
    3) Gerçek sınav: her ders 20 soru; zorluk karışımı GERCEK_KARISIM. Monte Carlo (N_MC, tohumlu RNG ->
-      aynı cevaplar aynı sonucu verir): θd sonsaldan çekilir, 20 soru oynatılır, puan = doğru × 5;
+      aynı cevaplar aynı sonucu verir): θd sonsaldan çekilir, 20 soru oynatılır. Bilinmeyen soru BOŞ_EĞİLİM olasılıkla
+      boş, kalanı yanlış; puan = max(0, doğru − yanlış × CEZA) × 100/20;
       geçti = her ders >= 50 ve ortalama(8 ders + tezkiye) >= 60.
    4) Ders durumu: P(ders puanı >= 50) >= 0,80 Güçlü · >= 0,50 Sınırda · altı Riskli.
    5) Geçme ihtimali ekranda %5-%95 arasında (30 soruyla "kesin" denmez).
@@ -26,6 +30,10 @@
    VARSAYIMLAR (ÖLÇÜLMEDİ - sayfada "Nasıl hesaplandı?" altında yazılı):
    · b değerleri (etiketler gerçek adaylarla ölçülmedi) · TAU · GERCEK_KARISIM (Cem 21.09 "banka sınavdan zor
      olacak" -> gerçek sınav bankadan kolay kabul edildi) · tezkiye verilmezse 80 (en düşük kabul notu).
+   · BOŞ_EĞİLİM (12.10): adayın bilemediği soruyu sınavda boş bırakma olasılığı = bu testteki (boş + 1) / (boş + yanlış + 2)
+     (Laplace düzeltmesi: hiç boşu yoksa ~sıfıra yakın, hepsi boşsa ~bire yakın; 30 soruda kaba). Sınavda bildiği sorunun
+     doğru, bilmediğinin yanlış/boş olduğu kabul edilir; şans eseri doğru (1/5) AYRICA sayılmaz - Rasch olasılığı zaten
+     tahmin şansını içerir. ÖLÇÜLMEDİ: gerçek adayın sınavda testtekinden farklı boş bırakması.
    KALİBRASYON (açık iş): 28.11.2026 sınavından sonra sonucunu paylaşanlarla b, TAU ve karışım yeniden kestirilir.
 ============================================================================ */
 (function(kok){
@@ -33,6 +41,7 @@
   var ZORLUK_B = { kolay:-1, zor:0, cokzor:1 };
   var GERCEK_KARISIM = { kolay:0.35, zor:0.45, cokzor:0.20 };   // VARSAYIM
   var TAU = 1.0, DERS_SORU = 20, N_MC = 3000, TEZKIYE_VARSAYILAN = 80;
+  var CEZA = 0.25;   // TÜRMOB 14.01.2026 E.233 eki viii: her yanlış 0,25 doğruyu götürür
   var TABAN = 5, TAVAN = 95, GUCLU = 0.80, SINIRDA = 0.50;
 
   function lojistik(x){ return 1/(1+Math.exp(-x)); }
@@ -55,23 +64,28 @@
   /* θ'da gerçek sınavdaki bir sorunun doğru olasılığı (zorluk karışımı ortalaması) */
   function pGercek(t){ var p=0; for(var z in GERCEK_KARISIM) p+=GERCEK_KARISIM[z]*lojistik(t-ZORLUK_B[z]); return p; }
 
-  /* cevaplar: [{ders, zorluk:'kolay'|'zor'|'cokzor', dogru:bool}] · secenek: {tezkiye:80..100, dersler:[ad sırası]} */
+  /* cevaplar: [{ders, zorluk:'kolay'|'zor'|'cokzor', dogru:bool, bos:bool}] · secenek: {tezkiye:80..100, dersler:[ad sırası],
+     ceza:false -> 12.10 öncesi model (kıyas için)} */
   function tahmin(cevaplar, secenek){
     secenek = secenek || {};
     var tez = Number(secenek.tezkiye); if(!(tez>=80 && tez<=100)) tez = TEZKIYE_VARSAYILAN;
+    var ceza = secenek.ceza === false ? 0 : CEZA;
+    var nBos = cevaplar.filter(function(c){ return !c.dogru && c.bos; }).length, nYan = cevaplar.filter(function(c){ return !c.dogru && !c.bos; }).length;
+    var bosEgilim = (nBos + 1) / (nBos + nYan + 2);
     var genel = ortVar(sonsal(cevaplar, 0, 1));
     var adlar = secenek.dersler || []; cevaplar.forEach(function(c){ if(adlar.indexOf(c.ders)<0) adlar.push(c.ders); });
     var dersW = adlar.map(function(ad){
       return sonsal(cevaplar.filter(function(c){ return c.ders===ad; }), genel.ort, Math.sqrt(TAU*TAU + genel.vr));
     });
-    var tohum = 2166136261; cevaplar.forEach(function(c){ tohum = Math.imul(tohum ^ (c.dogru?1:0) ^ (ZORLUK_B[c.zorluk]+2)*7 ^ c.ders.length*131, 16777619); });
-    var r = rng(tohum), gecti = 0, ellI = adlar.map(function(){ return 0; }), puanTop = adlar.map(function(){ return 0; });
+    var tohum = 2166136261; cevaplar.forEach(function(c){ tohum = Math.imul(tohum ^ (c.dogru?1:0) ^ (c.bos?2:0) ^ (ZORLUK_B[c.zorluk]+2)*7 ^ c.ders.length*131, 16777619); });
+    var r = rng(tohum), gecti = 0, ellI = adlar.map(function(){ return 0; }), puanTop = adlar.map(function(){ return 0; }), cezaTop = adlar.map(function(){ return 0; });
     for(var n=0;n<N_MC;n++){
       var hepsi50 = true, top = tez;
       for(var d=0; d<adlar.length; d++){
-        var p = pGercek(cek(dersW[d], r)), dog = 0;
-        for(var q=0;q<DERS_SORU;q++) if(r()<p) dog++;
-        var puan = dog*100/DERS_SORU; puanTop[d]+=puan; top+=puan;
+        var p = pGercek(cek(dersW[d], r)), dog = 0, yan = 0;
+        for(var q=0;q<DERS_SORU;q++){ if(r()<p) dog++; else if(r()>=bosEgilim) yan++; }
+        var puan = Math.max(0, dog - yan*ceza)*100/DERS_SORU; puanTop[d]+=puan; top+=puan;
+        cezaTop[d] += (dog - Math.max(0, dog - yan*ceza))*100/DERS_SORU;
         if(puan>=50) ellI[d]++; else hepsi50=false;
       }
       if(hepsi50 && top/(adlar.length+1) >= 60) gecti++;
@@ -79,13 +93,17 @@
     var dersler = adlar.map(function(ad,d){
       var c = cevaplar.filter(function(x){ return x.ders===ad; }), p50 = ellI[d]/N_MC;
       return { ad:ad, soru:c.length, dogru:c.filter(function(x){ return x.dogru; }).length,
-               puan:Math.round(puanTop[d]/N_MC), p50:Math.round(p50*100), durum: p50>=GUCLU?'guclu':p50>=SINIRDA?'sinirda':'riskli' };
+               yanlis:c.filter(function(x){ return !x.dogru && !x.bos; }).length, bos:c.filter(function(x){ return !x.dogru && x.bos; }).length,
+               puan:Math.round(puanTop[d]/N_MC), cezaKaybi:Math.round(cezaTop[d]/N_MC*10)/10,
+               p50:Math.round(p50*100), durum: p50>=GUCLU?'guclu':p50>=SINIRDA?'sinirda':'riskli' };
     });
     var g = Math.round(100*gecti/N_MC);
-    return { gecme: Math.min(TAVAN, Math.max(TABAN, g)), ham: g, tezkiye: tez, dersler: dersler };
+    var ort = (dersler.reduce(function(a,x){ return a+x.puan; },0) + tez) / (dersler.length + 1);
+    return { gecme: Math.min(TAVAN, Math.max(TABAN, g)), ham: g, tezkiye: tez, dersler: dersler,
+             ortalama: Math.round(ort*10)/10, bosEgilim: Math.round(bosEgilim*100)/100, ceza: ceza };
   }
 
-  var dis = { tahmin:tahmin, VARSAYIM:{ ZORLUK_B:ZORLUK_B, GERCEK_KARISIM:GERCEK_KARISIM, TAU:TAU, DERS_SORU:DERS_SORU, TEZKIYE:TEZKIYE_VARSAYILAN } };
+  var dis = { tahmin:tahmin, VARSAYIM:{ ZORLUK_B:ZORLUK_B, GERCEK_KARISIM:GERCEK_KARISIM, TAU:TAU, DERS_SORU:DERS_SORU, TEZKIYE:TEZKIYE_VARSAYILAN, CEZA:CEZA } };
   if(typeof module!=='undefined' && module.exports) module.exports = dis; else kok.SeviyeModelYet = dis;
 
   /* ÖZ-SINAV: node seviye-model-yet.js --sinav */
@@ -117,6 +135,15 @@
     // tekdüzelik: bir yanlışı doğruya çevirmek ihtimali düşürmemeli (±2 MC gürültüsü)
     var bozuk = 0; for(var j=0;j<30;j+=3){ var a=tahmin(kur(function(d,i,k){ return k%2===0 && k!==j; })).ham, b=tahmin(kur(function(d,i,k){ return k%2===0 || k===j; })).ham; if(b < a-2) bozuk++; }
     t('tekdüzelik: fazladan doğru ihtimali düşürmez', bozuk===0, bozuk+' ihlal');
+    // 12.10 YANLIŞ CEZASI (E.233 eki viii): aynı doğrular, bilemediklerini BOŞ bırakan > hepsini YANLIŞ işaretleyen
+    var orta = function(bosMu){ return kur(function(d,i,k){ return k%5<3; }).map(function(c){ if(!c.dogru) c.bos = bosMu; return c; }); };
+    var isaretleyen = tahmin(orta(false)), bosBirakan = tahmin(orta(true));
+    t('ceza: boş bırakan > yanlış işaretleyen (ihtimal)', bosBirakan.ham >= isaretleyen.ham + 3, '%'+bosBirakan.ham+' vs %'+isaretleyen.ham);
+    var ortPuan = function(x){ return x.dersler.reduce(function(a,y){ return a+y.puan; },0)/x.dersler.length; };
+    t('ceza: yanlış işaretleyenin ders puanı cezasız modelden düşük', ortPuan(isaretleyen) < ortPuan(tahmin(orta(false),{ceza:false})) - 2,
+      ortPuan(isaretleyen).toFixed(1)+' vs cezasız '+ortPuan(tahmin(orta(false),{ceza:false})).toFixed(1));
+    t('ceza: kaybı raporlanır', isaretleyen.dersler.every(function(x){ return x.cezaKaybi > 0; }) && bosBirakan.dersler[0].cezaKaybi < isaretleyen.dersler[0].cezaKaybi,
+      'FM kayıp '+isaretleyen.dersler[0].cezaKaybi+' vs boş bırakan '+bosBirakan.dersler[0].cezaKaybi);
     console.log(hata ? 'SEVİYE MODELİ (YETERLİLİK) ÖZ-SINAVI DÜŞTÜ: '+hata : 'SEVİYE MODELİ (YETERLİLİK) ÖZ-SINAVI GEÇTİ');
     if(hata) process.exit(1);
   }

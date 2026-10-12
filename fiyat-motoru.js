@@ -113,13 +113,26 @@ var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':
    sinav → paket: bu turda yalnız Yeterlilik (Cem SGS'ye karar vermedi); açmak için satır + SQL satırı.
    Elçi indirimiyle üst üste binmez (sunucu da zorlar).
 --------------------------------------------------------------------------- */
-var ANLIK_TEKLIF = { acik:true, paket:{ yeterlilik:'yeterlilik-1' }, indirim:{ 'yeterlilik-1':200 } };
-/* Teklif rakamları: { paket, once: kuruluş fiyatı, simdi: indirimli } KDV dahil · teklif yoksa null */
-function anlikTeklifFiyat(sinavAnahtar){
-  if(typeof ANLIK_TEKLIF === 'undefined' || ANLIK_TEKLIF.acik !== true) return null;
-  var pid = ANLIK_TEKLIF.paket[sinavAnahtar], ind = pid && ANLIK_TEKLIF.indirim[pid], p = pid && paketBul(pid);
+/* 12.10 (Cem "evet bunları yapalım"): İKİ seçenek - en zayıf ders tek ders −200 · tüm 8 ders −600 ("önerilen").
+   Ara paketler (2/3/4 ders) teklife girmez. Elçi koduyla müşteri lehine TEK indirim (sunucu karar verir). */
+var ANLIK_TEKLIF = { acik:true, paket:{ yeterlilik:'yeterlilik-1' }, tum:{ yeterlilik:'yeterlilik-tum' },
+                     indirim:{ 'yeterlilik-1':200, 'yeterlilik-tum':600 } };
+function anlikTeklifPaket(pid){
+  var ind = ANLIK_TEKLIF.indirim[pid], p = paketBul(pid);
   if(!p || !p.acik || !(ind > 0) || !(p.fiyat > ind)) return null;
   return { paket:pid, once:p.fiyat, simdi:p.fiyat - ind, indirim:ind };
+}
+/* Tek ders seçeneği: { paket, once: kuruluş fiyatı, simdi: indirimli, indirim } KDV dahil · teklif yoksa null */
+function anlikTeklifFiyat(sinavAnahtar){
+  if(typeof ANLIK_TEKLIF === 'undefined' || ANLIK_TEKLIF.acik !== true) return null;
+  var pid = ANLIK_TEKLIF.paket[sinavAnahtar];
+  return pid ? anlikTeklifPaket(pid) : null;
+}
+/* Tüm dersler seçeneği (önerilen) · yoksa null */
+function anlikTeklifTum(sinavAnahtar){
+  if(typeof ANLIK_TEKLIF === 'undefined' || ANLIK_TEKLIF.acik !== true || !ANLIK_TEKLIF.tum) return null;
+  var pid = ANLIK_TEKLIF.tum[sinavAnahtar];
+  return pid ? anlikTeklifPaket(pid) : null;
 }
 
 /* ---------------------------------------------------------------------------
