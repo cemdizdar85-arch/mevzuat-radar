@@ -94,10 +94,12 @@
       try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'anlik-teklif/' + o.kaynak + '/tik/' + pk, title:'Anlık teklif: düğme', event:true }); }catch(e){}
     }); });
     if(o.once && o.once.parentNode === kap) kap.insertBefore(d, o.once); else kap.appendChild(d);
+    /* 12.10: ekranda TEK fiyat kalsın - sayfanın kendi fiyat kutusu (ör. seviye testinde "Riskli derslerini Nöbetçi'yle kapat") gizlenir */
+    if(o.gizle) try{ o.gizle.hidden = true; }catch(e){}
     try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'anlik-teklif/' + o.kaynak + '/goster', title:'Anlık teklif: gösterildi', event:true }); }catch(e){}
   }
 
-  /* o = { kap: kapsayıcı öğe, once: (isteğe bağlı) önüne konacak öğe, kaynak:'seviye'|'prova', sonuc:'<tekil sonuç kimliği>',
+  /* o = { kap: kapsayıcı öğe, once: (isteğe bağlı) önüne konacak öğe, gizle: (isteğe bağlı) teklif çizilince gizlenecek fiyat kutusu, kaynak:'seviye'|'prova', sonuc:'<tekil sonuç kimliği>',
          sinav:'yeterlilik', ders:'<en zayıf ders>' } */
   function goster(o){
     try{

@@ -327,7 +327,7 @@
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js?v=20261012a"></script>
 <script src="fiyat-motoru.js?v=20261012d"></script>
-<script src="anlik-teklif.js?v=20261012b"></script>
+<script src="anlik-teklif.js?v=20261012c"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="uye-durumu.js?v=20261007b"></script>
@@ -584,8 +584,8 @@
     /* 04.10 site turu: üyesiz ikinci test zaten svHakBitti duvarına düşüyor -> düğme bunu baştan söylesin */
     $('svYeniden').textContent=uye?(haftaKalan()?'Yeniden ölçüm '+haftaKalan()+' gün sonra açılır':(YET?'Testi yeniden çöz':'Testi yeniden çöz (farklı sorular)')):'Yeniden çözmek için ücretsiz hesap aç';
     if(uye) return;
-    var y=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi; }).length;
-    $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(y?' ve bilemediğin <b>'+y+' sorunun</b> doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, karnen e-postana gelsin, sonraki testte gelişimini gör.';
+    var yY=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi&&c.secim; }).length, yB=CEVAPLAR.filter(function(c){ return !c.dogru&&!c.denetlenemedi&&!c.secim; }).length;
+    $('svKilitMetin').innerHTML='Ders ders güçlü ve zayıf yanların, sana özel <b>"bugün şunu yap"</b> planın'+(yY||yB?' ve <b>'+ybSoz(yY,yB)+'</b> sorunun doğru cevabı':'')+' hazır. Ücretsiz hesap aç; raporun kaydedilsin, karnen e-postana gelsin, sonraki testte gelişimini gör.';
     say('kilit-gordu');
   }
   try{ $('svKilitAc').addEventListener('click',function(){ say('kilit-hesap-ac'); }); $('svKilitGiris').addEventListener('click',function(){ say('kilit-giris'); }); }catch(e){}
@@ -715,18 +715,21 @@
       /* 06.10 OYNATICI (Cem: "video kaydı gibi anlatsın"): kartlar alt alta değil, nobetci-oynatici.js ile sahne sahne oynar.
          Oynatıcı yüklenmediyse eski düz kart görünümü (aşağıda) çizilir. Başlık 25 yanlışla moral bozmasın: "3'ünü birlikte çözelim". */
       var al=($('svTeklifAna')||{}).getAttribute?$('svTeklifAna').getAttribute('href'):'fiyat.html', kalan=tum-l.length;
+      /* 12.10: kalan yanlış ve boş ayrı sayılır ("kalan 7 yanlışın" 5 yanlış + 2 boşu birleştiriyordu) */
+      var tumY=CEVAPLAR.filter(function(c){ return !c.dogru && !c.denetlenemedi && c.secim; }).length, tumB=tum-tumY;
+      var lY=l.filter(function(x){ return x.secim; }).length, kalanSoz=ybSoz(Math.max(0,tumY-lY), Math.max(0,tumB-(l.length-lY)));
       if(window.NobetciOynatici){
         kap.hidden=false;
         window.NobetciOynatici.kur(kap, l.map(function(x,i){ var s=soruMetni[x.id]||{}; return { ust:String(s.ders||'').split('|')[0]+' · '+(x.secim?'yanlışın':'boş geçtiğin soru'), soru:s.soru, secim:x.secim, secim_metin:x.secim_metin, tuzak_ad:x.tuzak_ad, tuzak_metin:x.tuzak_metin, dogru:x.dogru, dogru_metin:x.dogru_metin, aciklama:x.aciklama, kural:x.kural, dayanak:x.dayanak }; }), {
           baslik:'Nöbetçi yanlışlarını anlatıyor',
-          alt:(l.length===1?'Bir yanlışını':'Yanlışlarından '+l.length+' tanesini')+' birlikte çözelim. Nöbetçi neden yanıldığını ve doğrusunu adım adım anlatıyor; ücretsiz.',
-          son:{ metin: kalan>0 ? 'Kalan <b>'+kalan+'</b> yanlışını da Nöbetçi böyle anlatır. Bankadaki her soru böyle anlatılır.' : 'Bankadaki her soru böyle anlatılır.', dugme:'Tam bankayı aç →', href:al },
+          alt:(l.length===1?'Bilemediğin bir soruyu':'Bilemediğin sorulardan '+l.length+' tanesini')+' birlikte çözelim. Nöbetçi neden yanıldığını ve doğrusunu adım adım anlatıyor; ücretsiz.',
+          son:{ metin: kalan>0 ? 'Kalan <b>'+kalanSoz+'</b> sorunu da Nöbetçi böyle anlatır. Bankadaki her soru böyle anlatılır.' : 'Bankadaki her soru böyle anlatılır.', dugme:'Tam bankayı aç →', href:al },
           olay:function(ad){ say('nobetci/'+ad); }
         });
         say('nobetci-anlatti'); return;
       }
       var h='<h2 style="margin:0 0 6px">Nöbetçi yanlışlarını anlatıyor</h2>'
-        +'<p class="sv-alt" style="margin:0 0 14px">Testte '+tum+' yanlış ya da boş cevabın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
+        +'<p class="sv-alt" style="margin:0 0 14px">Testte '+ybSoz(tumY,tumB)+' cevabın var. '+(l.length===1?'Birinin':'İlk '+l.length+' tanesinin')+' anlatımı burada, ücretsiz. Bankadaki her soru böyle anlatılır.</p>';
       l.forEach(function(x,i){ var s=soruMetni[x.id]||{};
         h+='<div class="sv-nb-kart"><p class="sv-nb-ust">'+esc(String(s.ders||'').split('|')[0])+' · '+(x.secim?'Yanlış':'Boş')+' '+(i+1)+' / '+tum+'</p>'
           +(s.soru?'<p class="sv-nb-soru">'+esc(s.soru)+'</p>':'')
@@ -735,7 +738,7 @@
           +(x.kural?'<p style="margin:0 0 6px;font-size:14px"><b>Kural:</b> '+esc(x.kural)+'</p>':'')
           +(x.dayanak?'<p style="margin:0;font-size:13px;color:var(--muted)">📜 Dayanak: '+esc(x.dayanak)+'</p>':'')+'</div>'; });
       if(tum>l.length){ var al=($('svTeklifAna')||{}).getAttribute?$('svTeklifAna').getAttribute('href'):'fiyat.html';
-        h+='<div class="sv-nb-kilit">🔒 Kalan '+(tum-l.length)+' yanlışının anlatımı ve bankanın tamamı pakette.<div style="margin-top:10px"><a class="sv-btn ana" style="text-decoration:none;display:inline-block" href="'+esc(al)+'">Tam bankayı aç →</a></div></div>'; }
+        h+='<div class="sv-nb-kilit">🔒 Kalan '+kalanSoz+' sorunun anlatımı ve bankanın tamamı pakette.<div style="margin-top:10px"><a class="sv-btn ana" style="text-decoration:none;display:inline-block" href="'+esc(al)+'">Tam bankayı aç →</a></div></div>'; }
       kap.innerHTML=h; kap.hidden=false; say('nobetci-anlatti');
     }).catch(function(){ kap.hidden=true; });
   }
@@ -747,14 +750,17 @@
     $('svSeviye').className='sv-seviye '+sinif;
     var risk=liste.filter(function(x){return x.durum==='riskli';}).sort(function(a,b){ return a.p50-b.p50; });
     var ad=function(x){ return x.ad; };
+    /* 12.10 sadeleştirme: riskli ders bu tek cümlede söylenir (aşağıdaki teklif ve "Neden geçemeyebilirsin?" tekrar etmez) */
     $('svMesaj').textContent = risk.length
-      ? 'Yeterlilik\'te güçlü derslerin seni kurtarmaz; tek bir dersin 50\'nin altında kalırsa sınavı kaybedersin. '
-        +(risk.length>3 ? risk.length+' dersin riskli; en zayıf üçü: '+risk.slice(0,3).map(ad).join(', ')+'. Önce oradan başla.'
-                        : 'Riskli '+(risk.length===1?'dersin':'derslerin')+': '+risk.map(ad).join(', ')+'. Önce orası.')
+      ? (risk.length>3 ? risk.length+' dersin riskli; en zayıf üçü: '+risk.slice(0,3).map(ad).join(', ')+'.'
+                       : 'Riskli '+(risk.length===1?'dersin':'derslerin')+': '+risk.map(ad).join(', ')+'.')
+        +' Yeterlilik\'te tek bir ders 50\'nin altında kalırsa güçlü derslerin seni kurtarmaz; önce orası.'
       : g>=70 ? 'Sekiz dersin hiçbiri riskli görünmüyor. Sınırdaki derslerini sağlamlaştır; sınavda tek bir ders 50\'nin altında kalırsa ortalama kurtarmaz.'
       : 'Hiçbir dersin riskli değil ama çoğu sınırda: ortalamayı 60\'ın üstüne çıkaracak birkaç doğru eksik.';
-    var tY=CEVAPLAR.filter(function(c){ return !c.denetlenemedi&&!c.dogru&&c.secim; }).length;
-    $('svDetay').textContent='Bu testte '+SONUC.dogru+' / '+SONUC.soru+' doğru · '+tY+' yanlış · net '+sayiTr(SONUC.dogru-tY/4)+' (her yanlış 0,25 doğruyu götürür)'+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · tezkiye notu '+SONUC.tezkiye+' alındı · hesabın dayanağı aşağıda "Nasıl hesaplandı?" bölümünde.';
+    var tY=CEVAPLAR.filter(function(c){ return !c.denetlenemedi&&!c.dogru&&c.secim; }).length, tB=CEVAPLAR.filter(function(c){ return !c.denetlenemedi&&!c.dogru&&!c.secim; }).length;
+    /* 12.10 sadeleştirme: yanlış ve boş ayrı; "tezkiye notu 80 alındı" yerine sade dil; ceza ve dayanak "Neden geçemeyebilirsin?" kutusunda */
+    var tezGirildi=!!(($('svTezNot')||{}).value)||SONUC.tezkiye!==80;
+    $('svDetay').textContent=SONUC.dogru+' / '+SONUC.soru+' doğru · '+tY+' yanlış'+(tB?' · '+tB+' boş':'')+' · net '+sayiTr(SONUC.dogru-tY/4)+(SONUC.denetlenemedi?' ('+SONUC.denetlenemedi+' soru sunucuya ulaşılamadığı için hesaba girmedi)':'')+' · staj notun '+SONUC.tezkiye+(tezGirildi?' alındı':' varsayıldı');
     $('svGruplar').innerHTML=liste.map(function(x){ var s=dersSay(x.ad); return '<div class="sv-grup'+(x.durum==='riskli'?' zayif':'')+'" data-konu-ad="'+esc(x.ad)+'" data-konu-alan="ders"><b>'+esc(x.ad)+'<em class="'+x.durum+'">'+DURUM_AD[x.durum]+'</em></b><span>'+x.dogru+' / '+x.soru+' doğru'+(s.yanlis?' · '+s.yanlis+' yanlış':'')+(s.bos?' · '+s.bos+' boş':'')+'</span><span class="sv-yorum">'+dersYorum(x)+'</span></div>'; }).join('');
     try{ ayrintiCiz(liste); }catch(e){}
     $('svTez').hidden=false;
@@ -765,7 +771,7 @@
        üyeliğe gönderiyordu. Teklif artık riskli ders sayısına göre: 1-4 riskli ders → o kadar derslik paket, yoksa tüm dersler.
        Rakam YALNIZ fiyat-motoru.js'ten; okunamazsa fiyatsız cümle + tüm dersler bağlantısı. */
     var rN=risk.length, tek=(rN>=1&&rN<=4), pid=tek?'yeterlilik-'+rN:'yeterlilik-tum';
-    $('svTeklifMetin').innerHTML='Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır'+(y.length?'; bu testteki <b>'+y.length+' yanlışının</b> anlatımı da orada.':'.')
+    $('svTeklifMetin').innerHTML='Yeterlilik soru bankasında her şıkkın neden doğru ya da yanlış olduğunu Nöbetçi maddesiyle anlatır'+(y.length?'; bu testteki <b>'+ybSoz(tY,tB)+'</b> sorunun anlatımı da orada.':'.')
       +(tek?' Riskli '+(rN===1?'dersin':rN+' dersin')+' için yalnız '+(rN===1?'o dersi':'o dersleri')+' alabilirsin.':' Sekiz dersin tamamı tek pakette.');
     $('svTeklifFiyat').hidden=true;
     try{
@@ -786,12 +792,15 @@
     anlikTeklifYet(liste);
   }
   function sayiTr(n){ return (Math.round(n*100)/100).toLocaleString('tr-TR',{maximumFractionDigits:2}); }
+  /* 12.10: yanlış ve boş HİÇ birleştirilmez ("10 yanlışın" değil "8 yanlış ve 2 boş") */
+  function ybSoz(y,b){ return [y?y+' yanlış':'', b?b+' boş':''].filter(Boolean).join(' ve '); }
   /* 12.10 Cem ("o 30 soru çok önemli, orda sınavda neden geçemeyeceğini çok güzel profesyonel anlatmak lazım"):
      sonucun hemen altında "Neden geçemeyebilirsin?" - herkese açık (kilit yok). Ders ders model tahmini (puan, 50'yi geçme
      olasılığı), ortalama 60 kuralı, yanlış cezasının bu testteki bedeli, altın kural, kaynak. Kesin dil YOK: hep "tahmini". */
   function nedenCiz(liste){
     var kap=$('svNeden');
-    if(!kap){ kap=document.createElement('div'); kap.id='svNeden'; kap.className='sv-kutu sv-neden'; $('svSonuc').insertBefore(kap,$('svKilit')); }
+    /* 12.10 sadeleştirme: telefonda sıra sonuç (riskli ders) → tek teklif → ücretsiz hesap → bu ayrıntı. Kutu hesap kartının ALTINA girer. */
+    if(!kap){ kap=document.createElement('div'); kap.id='svNeden'; kap.className='sv-kutu sv-neden'; $('svSonuc').insertBefore(kap,$('svKilit').nextSibling); }
     var L=(liste||[]).filter(function(x){ return x&&x.soru>0; });
     var zayif=L.filter(function(x){ return x.durum!=='guclu'; }).sort(function(a,b){ return a.p50-b.p50; });
     var c=CEVAPLAR.filter(function(x){ return !x.denetlenemedi; }), n=c.length||1;
@@ -799,7 +808,7 @@
     var net=Math.max(0,D-Y/4), p=net/n*100, pBos=D/n*100, kayip=pBos-p;
     var ort=typeof SONUC.ortalama==='number'?SONUC.ortalama:null;
     var h='<h2>Neden geçemeyebilirsin?</h2>'
-      +'<p class="sv-alt" style="margin:0 0 10px">Yeterlilik\'te başarılı sayılmak için <b>her dersten en az 50</b> ve <b>ortalamada en az 60</b> gerekir; güçlü bir ders zayıf olanı kurtarmaz. Aşağıdakiler bu testteki '+n+' cevabından yapılmış <b>tahmindir</b>.</p><ul class="sv-neden-l">';
+      +'<p class="sv-alt" style="margin:0 0 10px">Baraj <b>her dersten en az 50</b>, <b>ortalamada en az 60</b>. Aşağıdakiler bu testteki '+n+' cevabından yapılmış <b>tahmindir</b>.</p><ul class="sv-neden-l">';
     /* riskli derslerin hepsi + sınırdakilerin en zayıf ikisi; kalan sınırdakiler tek satırda */
     var risk=zayif.filter(function(x){ return x.durum==='riskli'; }), sin=zayif.filter(function(x){ return x.durum!=='riskli'; });
     var kalan=sin.slice(2); zayif=risk.concat(sin.slice(0,2));
@@ -812,7 +821,7 @@
       h+='<li>Hiçbir dersin riskli görünmüyor; yine de her dersin tahmini 50\'nin üstünde kalmalı, sınavda tek ders yeter.</li>';
     }
     if(kalan.length) h+='<li>Sınırda '+kalan.length+' ders daha: '+kalan.map(function(x){ return esc(x.ad)+' ('+x.puan+')'; }).join(', ')+'.</li>';
-    if(ort!==null) h+='<li><b>Ortalama</b>: tahmini ders ortalaman (tezkiye notu dahil) <b>'+sayiTr(ort)+'</b>'+(ort<60?' - 60\'ın altında; barajları geçsen bile ortalama yetmeyebilir.':' - 60\'ın üstünde; asıl risk tek tek ders barajları.')+'</li>';
+    if(ort!==null) h+='<li><b>Ortalama</b>: tahmini ders ortalaman (staj notu dahil) <b>'+sayiTr(ort)+'</b>'+(ort<60?' - 60\'ın altında; barajları geçsen bile ortalama yetmeyebilir.':' - 60\'ın üstünde; asıl risk tek tek ders barajları.')+'</li>';
     if(Y) h+='<li><b>Yanlışların '+sayiTr(kayip)+' puan götürdü.</b> '+Y+' yanlışın '+sayiTr(Y/4)+' doğruyu sildi: bu testte puanın 100 üzerinden '+sayiTr(p)
       +'. Yanlış işaretlediklerini boş bıraksaydın <b>'+sayiTr(pBos)+'</b> alırdın.</li>';
     else h+='<li>Bu testte hiç yanlış işaretlemedin; yanlış cezası puanını düşürmedi.</li>';
@@ -827,11 +836,11 @@
   function anlikTeklifYet(liste){
     try{
       /* aynı sonuç yeniden çizildiyse (tezkiye notu değişti) mevcut teklif yerinde kalır; başka sonuçtan kalan kaldırılır */
-      var eski=$('anlikTeklif'); if(eski){ if(eski.getAttribute('data-sonuc')==='svy-'+(SONUC&&SONUC.tarih)) return; eski.parentNode.removeChild(eski); }
+      var eski=$('anlikTeklif'); if(eski){ if(eski.getAttribute('data-sonuc')==='svy-'+(SONUC&&SONUC.tarih)) return; eski.parentNode.removeChild(eski); $('svTeklif').hidden=false; }
       if(PAKETLI||!window.AnlikTeklif||!SONUC||!SONUC.tarih) return;
       var z=(liste||[]).filter(function(x){ return x&&x.soru>0; }).sort(function(a,b){ return (a.p50-b.p50)||(a.dogru/a.soru-b.dogru/b.soru); })[0];
       if(!z) return;
-      AnlikTeklif.goster({ kap:$('svSonuc'), once:$('svKilit'), kaynak:'seviye', sinav:'yeterlilik', sonuc:'svy-'+SONUC.tarih, ders:z.ad });
+      AnlikTeklif.goster({ kap:$('svSonuc'), once:$('svKilit'), gizle:$('svTeklif'), kaynak:'seviye', sinav:'yeterlilik', sonuc:'svy-'+SONUC.tarih, ders:z.ad });
     }catch(e){}
   }
   /* 21.09: ön kapıda alınan bilgiyle karne + sonuç gönderimi. İki gönderi:
