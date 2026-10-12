@@ -111,12 +111,15 @@ export function acildiMail(s: { siparis_no: string; ad_soyad: string; paket_ad: 
   const giris = hesapVar
     ? "tetikte.com'a bu e-postayla giriş yap; Hesabım'da paketin görünür, soru çözmeye hemen başlayabilirsin."
     : "Bu e-postayla tetikte.com'da ücretsiz hesap aç (Hesabım → Üye ol ya da Google ile); paketin hesabına kendiliğinden bağlanır.";
+  // 12.10: alıcı Google ile BAŞKA adresten girdi, paketi göremedi → kendi başına çözebileceği yol mailde yazar
+  const baska = `Siteye başka bir e-postayla (ör. Google hesabınla) girdiysen paket orada görünmez: Hesabım → "Ödedim ama paketim görünmüyor"a bas, sipariş numarasını (${s.siparis_no}) ve bu e-postayı yaz; paket o hesaba bağlanır.`;
   const satirlar = [`Merhaba ${ad},`, "", `${s.siparis_no} numaralı siparişinin ödemesi hesabımıza geçti.`,
-    `Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`, "", giris, "", "https://tetikte.com/ogrenci.html", "",
+    `Paket: ${s.paket_ad || s.paket}${bitis ? " · " + bitis + " tarihine kadar" : ""}`, "", giris, "", baska, "", "https://tetikte.com/ogrenci.html", "",
     "Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.", "", "Sınava tetikte gir."];
   const html = kurumsalMail(`<p>Merhaba ${kacis(ad)},</p><p><b>${kacis(s.siparis_no)}</b> numaralı siparişinin ödemesi hesabımıza geçti.</p>
 <p>Paket: <b>${kacis(s.paket_ad || s.paket)}</b>${bitis ? " · " + kacis(bitis) + " tarihine kadar" : ""}</p>
 <p>${kacis(giris)}</p>
+<p style="color:#3d4b63">${kacis(baska)}</p>
 <p><a href="https://tetikte.com/ogrenci.html" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">${hesapVar ? "Hesabıma git" : "Ücretsiz hesap aç"}</a></p>
 <p style="color:#3d4b63">Sorun olursa bu e-postayı yanıtla ya da destek@tetikte.com'a yaz.</p>`, "Bu e-posta, tetikte.com'da verdiğin sipariş üzerine gönderilmiştir.");
   return { konu, metin: satirlar.join("\n"), html };

@@ -258,7 +258,9 @@
   <div class="akd-govde" id="akd2g"><div class="akd-ic">
   <div class="satir">
     <div class="alan"><label class="et" for="ad">Ad Soyad *</label><input type="text" id="ad" autocomplete="name"></div>
-    <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"><div class="kucuk" id="oturumNot" hidden style="margin-top:4px;color:var(--green)"></div></div>
+    <div class="alan"><label class="et" for="mail">E-posta * <span style="color:var(--dim)">— hesabın bu adrese tanımlanır</span></label><input type="email" id="mail" autocomplete="email"><div class="kucuk" id="oturumNot" hidden style="margin-top:4px;color:var(--green)"></div>
+      <!-- 12.10 (Cem "1.2.3"; olay: X@hotmail ile ödeyen alıcı siteye Google ile Y@gmail'den girdi, paket görünmedi) -->
+      <div class="kucuk" id="mailUyari" style="margin-top:4px">Paketin <b>yalnız bu e-postayla</b> girilen hesapta görünür. Siteye Google ile giriyorsan buraya <b>Google (Gmail) adresini</b> yaz.</div></div>
   </div>
   <div class="satir">
     <div class="alan"><label class="et" for="tel">Telefon *</label><input type="tel" id="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
@@ -384,7 +386,7 @@
     <!-- 05.10 Cem ("kolay üyelik ve ödeme"): hesabı olmayan alıcı aynı ekranda hesabını açsın; e-posta ogrenci.html'e localStorage ile gider -->
     <div id="hesapKutu" hidden style="margin:0 0 14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);border-radius:12px">
       <b>Son adım: hesabını aç, paketin oraya açılsın.</b>
-      <p class="kucuk" style="margin:6px 0 10px">Siparişteki e-postayla (<b id="hesapEp"></b>) ücretsiz hesap aç; ödemen onaylanınca paket kendiliğinden bu hesaba bağlanır. Google ile açacaksan aynı e-postalı Google hesabını seç.</p>
+      <p class="kucuk" style="margin:6px 0 10px">Siparişteki e-postayla (<b id="hesapEp"></b>) ücretsiz hesap aç; ödemen onaylanınca paket kendiliğinden bu hesaba bağlanır. Google ile açacaksan <b>aynı e-postalı</b> Google hesabını seç. Başka adresle girersen paket görünmez; o zaman Hesabım → "Ödedim ama paketim görünmüyor" (sipariş no + bu e-posta).</p>
       <a class="btn" href="ogrenci.html#uye-ol" id="hesapAc" style="text-decoration:none">Hesabımı aç (1 dakika) →</a>
     </div>
     <p style="margin:0 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
@@ -1138,6 +1140,15 @@ if(!KURULUM_TAMAM){
     var m = document.getElementById('mail'); if(m && !m.value.trim()) m.value = u.email;
     var md = u.user_metadata || {}, ad = md.full_name || md.name || ''; var a = document.getElementById('ad'); if(a && !a.value.trim() && ad) a.value = ad;
     var n = document.getElementById('oturumNot'); if(n){ n.textContent = '✓ Giriş yaptın: paketin ' + u.email + ' hesabına açılır.'; n.hidden = false; }
+    /* 12.10: girişli alıcı e-postayı başka adrese çevirirse paket o adrese gider, bu hesapta görünmez → açık uyarı */
+    var mu = document.getElementById('mailUyari');
+    function mailKarsilastir(){
+      var farkli = m && m.value.trim() && m.value.trim().toLowerCase() !== String(u.email).toLowerCase();
+      if(n) n.hidden = !!farkli;
+      if(mu){ mu.hidden = !farkli; mu.style.color = farkli ? 'var(--red)' : ''; if(farkli) mu.innerHTML = '⚠ Giriş yaptığın hesap <b>' + String(u.email).replace(/[<>&"]/g,'') + '</b>. Buraya başka adres yazarsan paket <b>o adrese</b> tanımlanır, bu hesapta görünmez.'; }
+    }
+    if(mu) mu.hidden = true;
+    if(m){ m.addEventListener('input', mailKarsilastir); mailKarsilastir(); }
     if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
   }).catch(function(){}); }catch(e){}
 })();

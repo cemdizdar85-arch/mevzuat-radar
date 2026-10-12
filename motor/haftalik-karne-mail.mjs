@@ -80,14 +80,85 @@ export function mailKur(o, e) {
 `, NEDEN);
   return { konu, metin, html };
 }
+
+/* 12.10 (Cem "1 ekle 2 yap"): üyeler deneme bitirmiyor, ders sayfasında birkaç soru çözüp bırakıyor → deneme karnesi
+   kimseye gitmiyordu (12.10 sayım: gidecek 0). İki durum daha: A) bu hafta ders sayfasında soru çözmüş, deneme yok ·
+   B) bu hafta hiç çözmemiş. Kaynak ogrenci_ilerleme.veri.cevap (ilerleme-web.js: d=ders, k=konu, s=ok|yan, gun, yol). */
+const SAYFA = { 'Finansal Muhasebe': 'finansal-muhasebe', 'Finansal Tablolar ve Analizi': 'finansal-tablolar', 'Maliyet Muhasebesi': 'maliyet-muhasebesi',
+  'Muhasebe Denetimi': 'muhasebe-denetimi', 'Vergi Mevzuatı ve Uygulaması': 'vergi', 'Hukuk': 'hukuk', 'Meslek Hukuku': 'meslek-hukuku',
+  'Sermaye Piyasası Mevzuatı': 'sermaye-piyasasi' };
+const KISA = { 'Vergi Mevzuatı ve Uygulaması': 'Vergi', 'Finansal Tablolar ve Analizi': 'Finansal Tablolar', 'Sermaye Piyasası Mevzuatı': 'Sermaye Piyasası' };
+const kisaAd = d => KISA[d] || d;
+
+/* cevaplar: veri.cevap değerleri · dersler: paketin dersleri (null = tümü) → { tur:'soru'|'bos', ders, n, ok, zayif } */
+export function soruOzet(cevaplar, dersler, bugun) {
+  const smmm = (cevaplar || []).filter(x => x && /^kaydir\/smmm\//.test(String(x.yol || '')) && x.d);
+  const hafta = smmm.filter(x => (x.t ? bugun - x.t : bugun - new Date(x.gun + 'T12:00:00+03:00')) <= 7 * GUN);
+  const enCok = L => { const c = {}; L.forEach(x => { c[x.d] = (c[x.d] || 0) + 1; }); return Object.keys(c).sort((a, b) => c[b] - c[a] || a.localeCompare(b, 'tr'))[0] || null; };
+  if (hafta.length) {
+    const ders = enCok(hafta), L = hafta.filter(x => x.d === ders), yan = {};
+    L.forEach(x => { if (x.s !== 'ok' && x.k) yan[x.k] = (yan[x.k] || 0) + 1; });
+    const zayif = Object.keys(yan).sort((a, b) => yan[b] - yan[a] || a.localeCompare(b, 'tr'))[0] || null;
+    return { tur: 'soru', ders, n: L.length, ok: L.filter(x => x.s === 'ok').length, toplam: hafta.length, zayif };
+  }
+  const ders = (Array.isArray(dersler) && dersler.length === 1 && dersler[0]) || enCok(smmm) || (Array.isArray(dersler) && dersler[0]) || null;
+  return { tur: 'bos', ders };
+}
+
+export function soruMailKur(o, e) {
+  const t = new Date(Date.now() + 3 * 36e5), bugunTR = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()) - 3 * 36e5;
+  const kalan = Math.max(0, Math.round((new Date(SINAV_TARIH + 'T00:00:00+03:00') - bugunTR) / GUN));
+  const ret = `${SITE}/hatirlatma-ret.html?t=${jeton(e || '')}`;
+  let konu, satir, dugme, href;
+  if (o.tur === 'soru') {
+    const d = kisaAd(o.ders);
+    href = `${SITE}/sinav-gibi.html?tur=ders&sinav=smmm&ders=${encodeURIComponent(o.ders)}`;
+    konu = `Bu hafta ${d}: ${o.n} soru, ${o.ok} doğru`;
+    satir = [`Bu hafta ${d} dersinde ${o.n} soru çözdün, ${o.ok} tanesi doğru.` + (o.zayif ? ` En çok zorlandığın konu: ${o.zayif.charAt(0).toLocaleUpperCase('tr') + o.zayif.slice(1)}.` : ''),
+      `Kendini sınamaya hazırsan dersinin 20 soruluk denemesi seni bekliyor; bitince Nöbetçi seni zayıf konuna götürür.`,
+      `Sınava ${kalan} gün kaldı.`];
+    dugme = 'Ders denememi çöz';
+  } else {
+    const d = o.ders ? kisaAd(o.ders) : null;
+    href = o.ders && SAYFA[o.ders] ? `${SITE}/kaydir/smmm/${SAYFA[o.ders]}.html#s=0` : `${SITE}/sorular.html`;
+    konu = `Sınava ${kalan} gün: 15 dakikalık 10 soru`;
+    satir = [`Bu hafta seni göremedik. Sınava ${kalan} gün kaldı.`,
+      d ? `${d} sayfasının ilk 10 sorusu sınavda en sık sorulan konulardan; 15 dakika yeter.`
+        : `Her ders sayfasının ilk 10 sorusu sınavda en sık sorulan konulardan; 15 dakika yeter.`];
+    dugme = '10 soruyu çöz';
+  }
+  const metin = ['Merhaba,', '', ...satir.flatMap(s => [s, '']), `${dugme}: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
+  const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · SMMM YETERLİLİK</p>
+<h1 style="font-size:24px;margin:0 0 10px">${o.tur === 'soru' ? 'Bu haftaki çalışman' : 'Kısa bir set seni bekliyor'}</h1>
+${satir.map(s => `<p style="margin:0 0 12px">${kac(s)}</p>`).join('\n')}
+<p style="margin:4px 0 18px"><a href="${href}" style="${DUGME}">${kac(dugme)} →</a></p>
+<p style="margin:0;font-size:12px;color:#6b7280"><a href="${ret}" style="color:#6b7280">Bu e-postaları bir daha gönderme</a></p>
+`, NEDEN);
+  return { konu, metin, html };
+}
+const ORNEK_A = [
+  { d: 'Vergi Mevzuatı ve Uygulaması', k: 'ücret ve kira geliri beyani', s: 'yan', t: Date.parse('2026-10-10T07:00:00Z'), yol: 'kaydir/smmm/vergi.html' },
+  { d: 'Vergi Mevzuatı ve Uygulaması', k: 'ücret ve kira geliri beyani', s: 'yan', t: Date.parse('2026-10-10T07:02:00Z'), yol: 'kaydir/smmm/vergi.html' },
+  { d: 'Vergi Mevzuatı ve Uygulaması', k: 'ötv ihracat istisnası', s: 'ok', t: Date.parse('2026-10-10T07:03:00Z'), yol: 'kaydir/smmm/vergi.html' },
+  { d: 'Vergi Mevzuatı ve Uygulaması', k: 'binek otomobil gideri kkeg', s: 'yan', t: Date.parse('2026-10-10T07:05:00Z'), yol: 'kaydir/smmm/vergi.html' },
+  { d: 'Vergi Mevzuatı ve Uygulaması', k: 'ithalatta kdv hesabı', s: 'yan', t: Date.parse('2026-10-10T07:06:00Z'), yol: 'kaydir/smmm/vergi.html' }];
 const ORNEK = [
   { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 8, yanlis: 8, toplam: 20, tarih: '2026-10-05T10:00:00Z' },
   { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 11, yanlis: 6, toplam: 20, tarih: '2026-10-08T10:00:00Z', zayif: 'GVK › Menkul sermaye iradı' },
   { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 13, yanlis: 4, toplam: 20, tarih: '2026-10-10T10:00:00Z', zayif: 'GVK › Menkul sermaye iradı' },
   { ders: 'Muhasebe Denetimi', dogru: 9, yanlis: 8, toplam: 20, tarih: '2026-10-09T10:00:00Z', zayif: 'Denetim riski' }];
+const ORNEK_B = 'Vergi Mevzuatı ve Uygulaması';
+/* üç mailin örneği (deneme · A soru · B boş); imza üçünü birden kapsar → herhangi biri değişirse gönderim durur */
+export function ornekler() {
+  const B = new Date('2026-10-11T09:00:00Z');
+  return { deneme: mailKur(ozetKur(ORNEK, B), 'ornek@ornek.com'),
+    soru: soruMailKur(soruOzet(ORNEK_A, [ORNEK_B], +B), 'ornek@ornek.com'),
+    bos: soruMailKur(soruOzet([], [ORNEK_B], +B), 'ornek@ornek.com') };
+}
 export function imza() {
-  const m = mailKur(ozetKur(ORNEK, new Date('2026-10-11T09:00:00Z')), 'ornek@ornek.com');
-  return crypto.createHash('sha256').update((m.konu + m.metin).replace(/\d+ gün/g, 'N gün').replace(/t=[0-9a-f]{64}/g, 't=X')).digest('hex').slice(0, 16);
+  const o = ornekler();
+  return crypto.createHash('sha256').update(['deneme', 'soru', 'bos'].map(k => o[k].konu + o[k].metin).join('\n#\n')
+    .replace(/\d+ gün/g, 'N gün').replace(/t=[0-9a-f]{64}/g, 't=X')).digest('hex').slice(0, 16);
 }
 
 async function sb(yol, sec = {}) {
@@ -100,43 +171,50 @@ async function kullanicilar() { const o = []; for (let p = 1; p < 200; p++) { co
 async function ana() {
   if (process.argv.includes('--imza')) { console.log(imza()); return; }
   const ornek = arg('--ornek');
-  if (ornek) { fs.mkdirSync(ornek, { recursive: true }); const m = mailKur(ozetKur(ORNEK, new Date('2026-10-11T09:00:00Z')), 'ornek@ornek.com');
-    fs.writeFileSync(path.join(ornek, 'haftalik-karne.html'), `<!-- Konu: ${m.konu} -->\n` + m.html); fs.writeFileSync(path.join(ornek, 'haftalik-karne.txt'), m.konu + '\n\n' + m.metin);
-    console.log('konu: ' + m.konu + '\nimza: ' + imza()); return; }
+  if (ornek) { fs.mkdirSync(ornek, { recursive: true }); const O = ornekler();
+    for (const [k, m] of Object.entries(O)) { const ad = k === 'deneme' ? 'haftalik-karne' : 'haftalik-karne-' + k;
+      fs.writeFileSync(path.join(ornek, ad + '.html'), `<!-- Konu: ${m.konu} -->\n` + m.html); fs.writeFileSync(path.join(ornek, ad + '.txt'), m.konu + '\n\n' + m.metin);
+      console.log(k + ' konu: ' + m.konu); }
+    console.log('imza: ' + imza()); return; }
   if (!SK) throw new Error('SUPABASE_SERVICE_KEY yok');
   const ayar = JSON.parse(fs.readFileSync(path.join(KOK, 'arac', 'hatirlatma-ayar.json'), 'utf8'));
   const im = imza(), acik = !process.argv.includes('--kuru') && ayar.haftalik_acik === true && ayar.haftalik_onayli_imza === im;
   const bugun = new Date();
   if (bugun >= new Date(SINAV_TARIH + 'T00:00:00+03:00')) { console.log('HAFTALIK KARNE: sınav geçti, gönderim yok'); return; }
   const kayit = await hepsi(`/rest/v1/ogrenci_sonuc?select=user_id,veri&tur=eq.deneme&sinav=eq.smmm&order=olusturma.asc`);
-  const paket = await hepsi(`/rest/v1/paket_uyeler?select=user_id,paket,bitis`);
-  const aktif = new Set(paket.filter(p => /^yeterlilik/.test(String(p.paket)) && (!p.bitis || new Date(p.bitis) >= bugun)).map(p => p.user_id));
+  const paket = await hepsi(`/rest/v1/paket_uyeler?select=user_id,paket,bitis,dersler`);
+  const aktifL = paket.filter(p => /^yeterlilik/.test(String(p.paket)) && (!p.bitis || new Date(p.bitis) >= bugun));
+  const aktif = new Set(aktifL.map(p => p.user_id)), paketDers = new Map(aktifL.map(p => [p.user_id, p.dersler]));
+  const cevap = new Map((await hepsi(`/rest/v1/ogrenci_ilerleme?select=user_id,cevap:veri->cevap&order=user_id.asc`)).map(r => [r.user_id, Object.values(r.cevap || {})]));
   const gonderim = await hepsi(`/rest/v1/form_kayit?select=eposta,olusturma&konu=eq.${encodeURIComponent('Haftalık karne gönderildi')}`);
   const elleRet = new Set((await hepsi(`/rest/v1/form_kayit?select=eposta&konu=eq.${encodeURIComponent('Hatırlatma reddi')}`)).map(x => String(x.eposta || '').toLowerCase()));
   const retJeton = new Set((await hepsi('/rest/v1/hatirlatma_ret?select=jeton')).map(x => x.jeton));
   const eposta = new Map(); (await kullanicilar()).forEach(u => eposta.set(u.id, String(u.email || '').toLowerCase()));
   const kisi = new Map(); kayit.forEach(k => { const v = k.veri || {}; if (!v.ders || !v.tarih) return; (kisi.get(k.user_id) || kisi.set(k.user_id, []).get(k.user_id)).push(v); });
-  const say = { kisi: kisi.size, paketsiz: 0, haftaYok: 0, cikti: 0, yakin: 0, gidecek: 0, gitti: 0, dustu: 0 }, liste = [];
-  for (const [uid, L] of kisi) {
+  /* 12.10: evren = AKTİF Yeterlilik paketlisi (eskiden yalnız denemesi olan). Sıra: deneme karnesi → A (soru) → B (boş). */
+  const say = { kisi: kisi.size, uye: aktif.size, paketsiz: 0, haftaYok: 0, cikti: 0, yakin: 0, gidecek: 0, deneme: 0, soru: 0, bos: 0, gitti: 0, dustu: 0 }, liste = [];
+  for (const uid of kisi.keys()) if (!aktif.has(uid)) say.paketsiz++;
+  for (const uid of aktif) {
     const e = eposta.get(uid); if (!e) continue;
-    if (!aktif.has(uid)) { say.paketsiz++; continue; }
-    const o = ozetKur(L, bugun); if (!o) { say.haftaYok++; continue; }
+    const L = kisi.get(uid) || [];
+    let o = L.length ? ozetKur(L, bugun) : null, tur = 'deneme';
+    if (!o) { if (L.length) say.haftaYok++; o = soruOzet(cevap.get(uid), paketDers.get(uid), +bugun); tur = o.tur; }
     if (elleRet.has(e) || retJeton.has(jeton(e))) { say.cikti++; continue; }
     if (gonderim.some(g => String(g.eposta || '').toLowerCase() === e && (bugun - new Date(g.olusturma)) / GUN < 6)) { say.yakin++; continue; }
-    say.gidecek++; liste.push([e, o]);
+    say.gidecek++; say[tur]++; liste.push([e, o, tur]);
   }
   if (acik) {
     if (!RESEND_KEY) throw new Error('RESEND_KEY yok');
-    for (const [e, o] of liste) {
-      const m = mailKur(o, e);
+    for (const [e, o, tur] of liste) {
+      const m = tur === 'deneme' ? mailKur(o, e) : soruMailKur(o, e);
       const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
         body: JSON.stringify({ from: RESEND_FROM, to: [e], subject: m.konu, text: m.metin, html: m.html, headers: { 'List-Unsubscribe': `<${SITE}/hatirlatma-ret.html?t=${jeton(e)}>` } }) });
-      if (r.ok) { say.gitti++; await sb('/rest/v1/form_kayit', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ konu: 'Haftalık karne gönderildi', gonderen: 'motor/haftalik-karne-mail.mjs', eposta: e, alanlar: { deneme: o.toplam } }) }); }
+      if (r.ok) { say.gitti++; await sb('/rest/v1/form_kayit', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ konu: 'Haftalık karne gönderildi', gonderen: 'motor/haftalik-karne-mail.mjs', eposta: e, alanlar: { tur, deneme: tur === 'deneme' ? o.toplam : 0, soru: tur === 'soru' ? o.n : 0 } }) }); }
       else say.dustu++;
       await new Promise(r => setTimeout(r, 600));
     }
   }
-  const ozet = `HAFTALIK KARNE ${acik ? 'GÖNDERİM' : 'SAYIM (gönderim kapalı)'}: denemesi olan ${say.kisi} · paketsiz ${say.paketsiz} · bu hafta denemesiz ${say.haftaYok} · çıkmış ${say.cikti} · son 6 günde gitti ${say.yakin} · gidecek ${say.gidecek}` + (acik ? ` · gitti ${say.gitti} · düştü ${say.dustu}` : '') + ` · metin imzası ${im}${ayar.haftalik_onayli_imza === im ? ' (onaylı)' : ' (ONAYSIZ)'}`;
+  const ozet = `HAFTALIK KARNE ${acik ? 'GÖNDERİM' : 'SAYIM (gönderim kapalı)'}: aktif Yeterlilik üyesi ${say.uye} · denemesi olan ${say.kisi} · paketsiz ${say.paketsiz} · bu hafta denemesiz ${say.haftaYok} · çıkmış ${say.cikti} · son 6 günde gitti ${say.yakin} · gidecek ${say.gidecek} (deneme ${say.deneme} · soru ${say.soru} · boş ${say.bos})` + (acik ? ` · gitti ${say.gitti} · düştü ${say.dustu}` : '') + ` · metin imzası ${im}${ayar.haftalik_onayli_imza === im ? ' (onaylı)' : ' (ONAYSIZ)'}`;
   console.log(ozet);
   if (!acik && liste.length && RESEND_KEY && !process.argv.includes('--kuru')) {
     await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
@@ -157,6 +235,18 @@ function sinav() {
   const m = mailKur(o, 'a@b.com');
   b('çıkış bağlantısı var ve GÖRÜNÜR yazılı, e-posta adreste yok', /hatirlatma-ret\.html\?t=[0-9a-f]{64}"[^>]*>[^<]*bir daha gönderme<\/a>/i.test(m.html) && m.html.includes(jeton('a@b.com')) && !m.html.includes('a@b.com') && m.metin.includes('Bir daha gönderme:'));
   b('imza metinle değişir', (() => { const i1 = imza(); ORNEK[0].ders = 'X'; const i2 = imza(); ORNEK[0].ders = 'Vergi Mevzuatı ve Uygulaması'; return i1 !== i2; })());
+  /* 12.10 A/B */
+  const a = soruOzet(ORNEK_A, ['Vergi Mevzuatı ve Uygulaması'], +B);
+  b('A: bu hafta 5 Vergi sorusu, 1 doğru, zayıf = en çok yanlış konu', a.tur === 'soru' && a.n === 5 && a.ok === 1 && a.zayif === 'ücret ve kira geliri beyani');
+  b('A: zayıf konu yalnız YANLIŞLARDAN (çok doğru çözülen konu zayıf sayılmaz)', soruOzet([1, 2, 3].map(i => ({ d: 'Hukuk', k: 'iyi', s: 'ok', t: +B - i, yol: 'kaydir/smmm/hukuk.html' })).concat([{ d: 'Hukuk', k: 'kötü', s: 'yan', t: +B, yol: 'kaydir/smmm/hukuk.html' }]), null, +B).zayif === 'kötü');
+  b('A: 7 günden eski cevap haftaya girmez → B', soruOzet(ORNEK_A, null, +B + 9 * GUN).tur === 'bos');
+  b('A: sgs/vitrin sayfası cevabı sayılmaz', soruOzet([{ d: 'Hukuk', s: 'ok', t: +B, yol: 'kaydir/sgs/turkce.html' }, { d: 'Hukuk', s: 'ok', t: +B, yol: 'kaydir/vitrin/ornek-smmm.html' }], null, +B).tur === 'bos');
+  b('A: t yoksa gun alanından tarih', soruOzet([{ d: 'Hukuk', k: 'x', s: 'yan', gun: '2026-10-10', yol: 'kaydir/smmm/hukuk.html' }], null, +B).tur === 'soru');
+  b('B: tek dersli paket → o dersin sayfası #s=0 (kaldığın yer atlanır)', (() => { const m = soruMailKur(soruOzet([], ['Hukuk'], +B), 'a@b.com'); return m.metin.includes('/kaydir/smmm/hukuk.html#s=0'); })());
+  b('B: tüm dersli, hiç cevabı yok → sorular.html', soruMailKur(soruOzet([], null, +B), 'a@b.com').metin.includes('/sorular.html'));
+  b('B: tüm dersli, geçmişte en çok çözdüğü ders', soruOzet([{ d: 'Hukuk', s: 'ok', t: +B - 30 * GUN, yol: 'kaydir/smmm/hukuk.html' }], null, +B).ders === 'Hukuk');
+  b('A/B maillerinde çıkış bağlantısı var, e-posta adreste yok', ['soru', 'bos'].every(k => { const m = ornekler()[k]; return m.html.includes('hatirlatma-ret.html?t=') && !m.html.includes('ornek@ornek.com') && m.metin.includes('Bir daha gönderme:'); }));
+  b('imza A metniyle değişir', (() => { const i1 = imza(); ORNEK_A[0].k = 'X'; ORNEK_A[1].k = 'X'; const i2 = imza(); ORNEK_A[0].k = ORNEK_A[1].k = 'ücret ve kira geliri beyani'; return i1 !== i2; })());
   console.log(`HAFTALIK KARNE öz-sınav: ${n - h}/${n}`); process.exitCode = h ? 1 : 0;
 }
 if (process.argv[1] && process.argv[1].endsWith('haftalik-karne-mail.mjs')) {

@@ -120,6 +120,13 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     </div>
 
     <h2>Siparişler</h2>
+    <!-- 12.10 (Cem "1.2.3"): ödendi ama hiçbir hesapta açılmadı - alıcı siteye başka e-postayla (çoğu Google) girdiyse
+         paket görünmez. "Hesaba bağla" → hesap gösterilir → onayla. SQL: 2026-10-12-siparis-hesap-bagla.sql -->
+    <div class="kutu" id="bagsizKutu" style="margin-bottom:10px">
+      <b>Ödendi ama hiçbir hesapta açılmadı</b> <span class="not" id="bagsizSay"></span>
+      <div class="kaydir" style="margin-top:8px"><table id="tBagsiz"></table></div>
+      <p class="not">Alıcı siteye siparişteki e-postadan başka bir adresle (çoğu zaman Google ile) girdiyse paket görünmez. Alıcıya hangi e-postayla girdiğini sor, "Hesaba bağla"ya o adresi yaz. Alıcı bunu kendisi de yapabilir: Hesabım → "Ödedim, paketim görünmüyor" (sipariş no + siparişteki e-posta).</p>
+    </div>
     <!-- 12.10 (Cem "elçi harici nasıl satış yapacağımızı takip edeceğiz"): satış ayrımı - indirim kaynağı (sunucu yazar) + kaynak etiketi (?k=) -->
     <div class="kaydir"><table id="tSatisAyrim"></table></div>
     <div class="kaydir"><table id="tSiparis"></table></div>
@@ -276,7 +283,8 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   var HATA={ YETKI_YOK:'Yetkin yok.', EPOSTA_GECERSIZ:'E-posta biçimi geçersiz.', EPOSTA_BASKA_KODDA:'Bu e-posta başka bir elçi kodunda yazılı.', HESAP_BASKA_KODDA:'Bu hesap başka bir elçi koduna bağlı; önce oradan bağı çöz.', KOD_YOK:'Elçi kodu bulunamadı.', SIPARIS_YOK:'Sipariş bulunamadı.', HESAP_YOK:'Bu e-postayla açılmış hesap yok; kişi önce sitede üye olmalı.',
     AKTIF_PAKET_VAR:'Bu kişinin zaten aktif (muhtemelen parayla alınmış) paketi var.', HEDIYE_DEGIL:'Bu paket hediye kaydında yok; parayla alınmış olabilir.',
     PAKET_YOK:'Bu kişide paket yok.', KOD_VAR:'Bu kod zaten var; başka kod üret.', KOD_GECERSIZ:'Kod 6-12 harf/rakam olmalı.', NEDEN_GEREKLI:'Neden yaz.',
-    BITIS_GECERSIZ:'Bitiş bugünden sonra olmalı.', PAKET_GECERSIZ:'Paket seç.' };
+    BITIS_GECERSIZ:'Bitiş bugünden sonra olmalı.', PAKET_GECERSIZ:'Paket seç.',
+    BASKA_HESAPTA:'Bu sipariş zaten başka bir hesapta açık. Önce o hesabın sahibiyle konuş.', SURESI_GECMIS:'Bu siparişin paket süresi geçmiş.' };
   function hataYazi(e){ var m=String(e&&e.message||e||''); for(var k in HATA){ if(m.indexOf(k)>-1) return HATA[k]; }
     if(/DURUM_/.test(m)) return 'Bu sipariş artık ödeme beklemiyor ('+m.replace(/.*DURUM_/,'').toLowerCase()+').';
     if(/PGRST202|Could not find the function/i.test(m)) return 'İşlem henüz kurulmamış (veritabanı göçü bekliyor).';
@@ -334,6 +342,18 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       var zorla=b.dataset.hediye!=='1';
       if(!confirm(b.dataset.kapat+' kişisinin paketi kapatılsın mı?'+(zorla?'\n(Bu paket hediye kaydında yok, elle verilmiş.)':''))) return;
       await islem('yonetim_paket_kapat', { p_eposta:b.dataset.kapat, p_neden:'yonetim ekranından', p_zorla:zorla }, function(d){ return '✓ '+d.eposta+': paket kapatıldı.'; });
+    } else if(b.dataset.sipbag){
+      /* 12.10: ödenmiş siparişi alıcının girdiği hesaba bağla - önce hesap gösterilir */
+      var sn=b.dataset.sipbag, sad=b.dataset.ad||'', sep=(prompt(sn+' · '+sad+'\nSipariş e-postası: '+b.dataset.ep+'\n\nAlıcı siteye HANGİ e-postayla giriyor? (Google ile giriyorsa Gmail adresi)', '')||'').trim();
+      if(!sep) return;
+      var hs=await sb.rpc('yonetim_hesap_bul', { p_eposta:sep });
+      if(hs.error){ mesaj(hataYazi(hs.error), false); return; }
+      var hx=hs.data||{};
+      if(!hx.var){ mesaj(sep+' ile açılmış hesap yok. Alıcı önce bu adresle siteye girmeli (Google ile giriyorsa bir kez "Google ile devam et"), sonra yeniden dene.', false); return; }
+      var hsag=(hx.saglayici||[]).map(function(s){ return s==='google'?'Google':(s==='apple'?'Apple':(s==='email'?'e-posta + şifre':s)); }).join(', ');
+      var hpak=hx.paket&&hx.bitis>=bugun ? '\nDİKKAT: bu hesapta zaten açık paket var ('+hx.paket+' · '+tarih(hx.bitis)+').' : '';
+      if(!confirm(sn+' ('+sad+') → '+hx.eposta+'\n\nHesaptaki ad: '+(hx.ad||'—')+'\nGiriş türü: '+hsag+(hx.onayli?'':' (e-posta ONAYSIZ)')+'\nKayıt: '+tarih(hx.kayit)+' · Son giriş: '+tarih(hx.son_giris)+hpak+'\n\nAd siparişteki adla uyuşuyor mu? Uyuşuyorsa bağla. Paket bu hesapta açılır; sipariş başka hesaba ikinci kez açılamaz.')) return;
+      await islem('yonetim_siparis_hesaba_bagla', { p_no:sn, p_eposta:sep }, function(d){ return '✓ '+d.no+' → '+d.eposta+': '+d.paket+' paketi '+tarih(d.bitis)+' tarihine kadar açık. Alıcıya "sayfayı yenile ya da çıkıp aynı yolla yeniden gir" de.'; });
     } else if(b.dataset.elcibag){
       var bk=b.dataset.elcibag, ep=(prompt(bk+' kodunu hangi hesaba bağlayalım?\nElçinin tetikte.com\'da üye olduğu e-posta:', b.dataset.ep||'')||'').trim();
       if(!ep) return;
@@ -401,6 +421,17 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     VERI=Object.assign({uyeler:[],siparisler:[],elciler:[]}, r.data||{});
     $('yOlcum').textContent='Son okuma: '+new Date(VERI.olcum||Date.now()).toLocaleString('tr-TR')+' · sayfayı yenileyince tazelenir.';
     $('yIcerik').hidden=false; ciz();
+    bagsizCiz();
+  }
+  /* 12.10: ödendi ama hiçbir hesapta açılmamış siparişler (2026-10-12-siparis-hesap-bagla.sql) */
+  async function bagsizCiz(){
+    var r=await sb.rpc('yonetim_bagsiz_siparisler'), t=$('tBagsiz'), say=$('bagsizSay');
+    if(r.error){ t.innerHTML=''; say.textContent=/PGRST202|Could not find/i.test(r.error.message||'')?'(kurulum bekliyor: veritabanı göçü)':'(okunamadı)'; return; }
+    var L=r.data||[];
+    say.textContent=L.length?'— '+L.length+' sipariş':'— yok';
+    if(!L.length){ t.innerHTML='<tr><td class="not">Ödenmiş her sipariş bir hesapta açık.</td></tr>'; return; }
+    t.innerHTML='<tr><th>Sipariş no</th><th>Ödendi</th><th>Ad</th><th>Sipariş e-postası</th><th>Paket</th><th>Tutar</th><th>Bu e-postayla hesap</th><th></th></tr>'
+      +L.map(function(s){ return '<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.odendi)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket_ad||s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.hesap_var?'var (paket açılmamış)':'<b style="color:var(--red)">yok</b>')+'</td><td><button class="btn ana" data-sipbag="'+esc(s.no)+'" data-ep="'+esc(s.eposta)+'" data-ad="'+esc(s.ad)+'">Hesaba bağla</button></td></tr>'; }).join('');
   }
   YUKLE=yukle;
   yukle().catch(function(e){ durum('Veri okunamadı: '+esc(e&&e.message)); });
