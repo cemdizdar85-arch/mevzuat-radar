@@ -678,8 +678,21 @@
     $('ekipCevaplar').classList.remove('og-gizli');
     if(yeni){ sb.rpc('ekibe_cevap_goruldu').then(function(){ try{ sessionStorage.removeItem('tt_ekip_bildirim'); }catch(e){} }, function(){}); }
   }
+  /* 13.10 Cem "1.2.3" (ölçüm: 08–13.10 açılan 39 hesabın 28'inde hiç çözüm izi yok): yeni hesap (≤ 30 dk) ?sonra= olmadan
+     panele düşerse bir kez doğrudan seviye testine gider; sınav seçimi ana sayfadaki gibi (uye-durum.js). Paketli/eski hesap etkilenmez. */
+  function yeniUyeyiTesteGotur(user){
+    try{
+      if(new URLSearchParams(location.search).get('sonra')) return false;
+      if(!user||!user.created_at||Date.now()-Date.parse(user.created_at)>30*60000) return false;
+      if(localStorage.getItem('tt_ilk_test_'+user.id)==='1') return false;
+      localStorage.setItem('tt_ilk_test_'+user.id,'1');
+      var yet=false; try{ yet=localStorage.getItem('tt_sinav')==='yeterlilik'; }catch(e){}   /* uye-durumu.js sinavSec anahtarı */
+      location.replace('seviye-testi.html'+(yet?'?sinav=yeterlilik':'')); return true;
+    }catch(e){ return false; }
+  }
   async function panel(user){
     if(sonraGit()) return;
+    if(yeniUyeyiTesteGotur(user)) return;
     window.ttSay=window.ttSay||function(p,t){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:p,title:t||p,event:true}); }catch(e){} }; window.ttSay('hesap/panel','Hesabım açıldı');
     try{ if(window.ttKaynak) window.ttKaynak.uye(); }catch(e){}   /* 08.10 kaynak etiketi (menu.js): ?k= ile gelip yeni hesap açtıysa 'uye' sayacı; sunucu hesap başına 1 */
     $('ogYuk').classList.add('og-gizli'); $('ogGiris').classList.add('og-gizli'); $('ogPanel').classList.remove('og-gizli');

@@ -79,7 +79,7 @@ html body .btn-vurgu{background:var(--amber-dolgu);color:var(--amber-uzeri)!impo
 html body .btn-ikinci{background:transparent;color:var(--ink)!important;border-color:var(--line2)}
 html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 09.10 uygulama bağlantısı (uygulama-indir.js): iPhone'da [data-uygulama] gizli; şerit yalnız Android telefonda */
-[data-uygulama][hidden],#uygSerit[hidden]{display:none!important}
+[data-uygulama][hidden],#uygSerit[hidden],#provaSerit[hidden]{display:none!important}
 .uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
 html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
 .uyg-serit{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink)}
@@ -308,6 +308,8 @@ footer p{margin:0 0 8px}
 
 <main id="icerik">
 <!-- 09.10 Cem ("yeni sürümü siteye koy, herkes görsün"): Android telefondan gelene uygulama şeridi; kapatılabilir (uygulama-indir.js) -->
+<!-- 13.10 Instagram/Facebook'tan gelene Sınav Provası şeridi (index.html provaSerit); 17.10 geçince metin canli-deneme.html'deki sonraki oturuma göre elle güncellenir -->
+<div class="uyg-serit" id="provaSerit" hidden><span><b>17 Ekim Cumartesi 10:00 · Ücretsiz Sınav Provası.</b> <a href="canli-deneme.html?k=prova-serit">Yerini ayır →</a></span><button type="button" data-kapat aria-label="Şeridi kapat">×</button></div>
 <div class="uyg-serit" id="uygSerit" hidden><span>Tetikte artık Android'de. <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play'den indir →</a></span><button type="button" data-kapat aria-label="Şeridi kapat">×</button></div>
 <section class="kah">
   <div class="ic">
@@ -469,7 +471,23 @@ footer p{margin:0 0 8px}
       if(!d||!d.alt){ ac(); return; } SIK_ALT[k]=d; if((secili==='yeterlilik')===yet) yaz(d);
     }).catch(ac);
   }
+  /* 13.10: Instagram/Facebook'tan gelen mi? menu.js'in kaynak etiketi (?k=, 30 gün cihazda) ya da yönlendiren adres. */
+  function sosyalGelen(){
+    try{ var k=(window.ttKaynak&&window.ttKaynak.etiket())||''; if(/^(ig|ig\d*|ig-dm|meta|instagram|fb|facebook)$/.test(k)) return true; }catch(e){}
+    try{ return /instagram\.com|facebook\.com|l\.instagram|lm\.facebook/.test(document.referrer||''); }catch(e){ return false; }
+  }
+  /* 13.10 Cem "1.2.3": 11.10 Prova gönderisi 8.559 erişimden 1.082 tık aldı ("yerini ayırmak için üye ol"); gelen ana sayfada
+     Prova'dan tek kelime görmedi. Sosyalden gelene en üst şerit Prova; Android uygulama şeridi o ziyaretçide gösterilmez. */
+  function provaSerit(){
+    if(!sosyalGelen()) return;
+    var s=document.getElementById('provaSerit'), u=document.getElementById('uygSerit'); if(!s) return;
+    try{ if(localStorage.getItem('tt_prova_serit')==='1') return; }catch(e){}
+    if(u) u.hidden=true; s.hidden=false;
+    window.addEventListener('load',function(){ if(u&&!s.hidden) u.hidden=true; });   /* uygulama-indir.js (defer) Android şeridini sonradan açabilir */
+    var k=s.querySelector('[data-kapat]'); if(k) k.onclick=function(){ s.hidden=true; try{ localStorage.setItem('tt_prova_serit','1'); }catch(e){} };
+  }
   function dugmeCiz(){
+    provaSerit();
     var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
@@ -487,8 +505,11 @@ footer p{margin:0 0 8px}
       /* 11.10 Cem ("30 soruluk denemeyi ölçmeden 5 soruyu çözdürsek ... soru çözen bizim taktiği görmüyor, Nöbetçi anlatsın" → "1.2.3"):
          üye olmayanın İLK kapısı 5 soru (her cevaptan hemen sonra anlatım; seviye testinde anlatım ancak 30 sorunun sonunda, ilk 3 yanlışta).
          30 soruluk ölçüm ikinci düğme. Ölçüm: kaynak sayacı 'ornek' adımı (2026-10-11-kaynak-ornek.sql). */
-      c1.textContent='5 soru çöz, Nöbetçi anlatsın'; c1.href=ornek;
-      c3.textContent='30 soruda seviyeni ölç'; c3.href=S.olc;
+      /* 13.10 Cem "1.2.3" (Instagram okuması): reklamlı 4 gönderinin 4'ü "30 soruda seviyeni ücretsiz ölç" diyor; site 11.10'dan beri
+         ilk düğmede 5 soru gösteriyordu → reklamdan gelen aradığını bulamadı (ig 5.841 ziyaret → 41 örnek). Sosyal etiketle (?k=ig,
+         ig2, meta, instagram, fb…) gelene ilk düğme 30 soru, ikinci 5 soru; öteki gelenlerde sıra 11.10'daki gibi. */
+      if(sosyalGelen()){ c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc; c3.textContent='5 soru çöz, Nöbetçi anlatsın'; c3.href=ornek; }
+      else { c1.textContent='5 soru çöz, Nöbetçi anlatsın'; c1.href=ornek; c3.textContent='30 soruda seviyeni ölç'; c3.href=S.olc; }
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
       c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
