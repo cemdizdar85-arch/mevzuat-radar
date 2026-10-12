@@ -7,7 +7,7 @@
  *   cevap = { sid: { s: "ok"|"yan", t: ms, gun, yol } }       son sonuç
  *   bayrak= { sid: { yol, i, t } | { yok: 1, t } }             yok = kaldırıldı (diğer cihaza da taşınsın)
  *   not   = { sid: { m: metin, yol, i, t } | { yok: 1, t } }
- *   konum = { yol: { i, t } }   son = { yol, i, t }   gun = { "YYYY-AA-GG": sayı }
+ *   konum = { yol: { i, t, s? } }   son = { yol, i, t, s? }   gun = { "YYYY-AA-GG": sayı }   (s = kartın sid'i, 12.10 site)
  *   ayar  = { sinav, hedef, yazi, kurulum, t }
  *
  * HESABA EŞİTLEME (B kümesi): esitle(sb, userId) sunucudaki public.ogrenci_ilerleme satırıyla BİRLEŞTİRİR
@@ -108,8 +108,11 @@
       veri.not[s] = metin ? { m: metin.slice(0, 2000), yol: yol, i: i, t: Date.now() } : { yok: 1, t: Date.now() };
       yaz();
     },
-    konumYaz: function (yol, i) { var t = Date.now(); veri.konum[yol] = { i: i, t: t }; veri.son = { yol: yol, i: i, t: t }; yaz(); },
+    /* 12.10: s = kaldığın kartın sid'i (isteğe bağlı). Sayfanın soru sırası değişince (bitirme 12.10 yeniden sıralandı)
+       i başka soruyu gösterir; s ile kart kimlikten bulunur (ilerleme-web.js). s'siz çağrı (uygulama) eskisi gibi çalışır. */
+    konumYaz: function (yol, i, s) { var t = Date.now(), k = { i: i, t: t }; if (s) k.s = s; veri.konum[yol] = k; veri.son = { yol: yol, i: i, t: t }; if (s) veri.son.s = s; yaz(); },
     konumu: function (yol) { var k = veri.konum[yol]; return k ? k.i || 0 : 0; },
+    konumKaydi: function (yol) { return veri.konum[yol] || null; },
     /* genel harita yazımı (site yanlış kutusu): alan = kutu|kayit|oyun; tek diske yazım için toplu */
     haritaYaz: function (alan, degisim) { if (!veri[alan]) veri[alan] = {}; for (var k in degisim) veri[alan][k] = degisim[k]; yaz(); },
     ayarYaz: function (a) { for (var k in a) veri.ayar[k] = a[k]; veri.ayar.t = Date.now(); yaz(); },

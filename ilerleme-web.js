@@ -60,12 +60,13 @@
     if (kuruldu || !YOL || !akis() || /\/kaydir\/vitrin\//.test(location.pathname)) return;
     kuruldu = true;
     try {
-      if (!window.TTIlerleme) await yukle(KOK + 'mobil/uygulama/ilerleme.js');
+      if (!window.TTIlerleme) await yukle(KOK + 'mobil/uygulama/ilerleme.js?v=20261012');
     } catch (e) { return; }
     var IL = window.TTIlerleme; if (!IL) return;
+    IL_ = IL;
     var uid = kullanici && kullanici.id;
     var tek = document.documentElement.hasAttribute('data-tek');
-    var derin = /#s=\d+/.test(location.hash);
+    var derin = /#s=\d+|[#&]q=/.test(location.hash);   /* 12.10 #q=<kimlik>: kasa-yukle.js kimliği sıraya çevirir */
 
     /* 1) önce hesapla eşitle (başka cihazdaki kaldığın yer buraya gelsin), sonra kartları bekle */
     var esitleme = IL.esitle(sb, uid).catch(function () { return 'yerel'; });
@@ -88,7 +89,7 @@
     document.addEventListener('tetikte-kasa-ekle', function () {
       var eski = ks.length; ks = kartlar();
       for (var j = eski; j < ks.length; j++) cevapBagla(ks[j], j);
-      if (!tek && !derin) { var h = IL.konumu(YOL); if (h >= eski && ks[h] && simdiki() < 1) a.scrollTo({ top: ks[h].offsetTop, behavior: 'instant' }); }
+      if (!tek && !derin) yereGit();
     });
     function cevapBagla(k, i) {
       [].forEach.call(k.querySelectorAll('.sik'), function (s) {
@@ -163,15 +164,35 @@
     var konumZam = null;
     a.addEventListener('scroll', function () {
       clearTimeout(konumZam);
-      konumZam = setTimeout(function () { var i = simdiki(); if (i >= 0) { IL.konumYaz(YOL, i); sonraEsitle(); } }, 500);
+      konumZam = setTimeout(function () { var i = simdiki(); if (i >= 0) { IL.konumYaz(YOL, i, ks[i] ? sidK(ks[i]) : ''); sonraEsitle(); } }, 500);
     }, { passive: true });
     if (derin) return;
-    var hedef = IL.konumu(YOL);
-    if (hedef > 0 && ks[hedef] && simdiki() < 1) {
-      a.scrollTo({ top: ks[hedef].offsetTop, behavior: 'instant' });
-      serit('Kaldığın yerden: ' + (hedef + 1) + '. soru', 'Baştan', function () { a.scrollTo({ top: 0, behavior: 'smooth' }); });
+    yereGit();
+  }
+
+  /* 12.10 KALDIĞIN YER KİMLİKLE (Cem kuralı "kaldığın yerden devam kaybolmaz"): bitirme ders sayfalarının soru sırası 12.10'da
+     yeniden kuruldu (motor/smmm-ders-sira.js) → eski kayıttaki "i. soru" artık başka soruyu gösterir. Kayıt kartın sid'ini de
+     taşır (s); kart sid'den bulunur. s'siz kayıt: SIRASI DEĞİŞEN sayfada (bitirme) ilk cevaplanmamış karta gidilir, ötekilerde i.
+     Hedef kart henüz inmediyse (parça yükleme) yeni kartlar gelince yeniden bakılır; şerit bir kez çıkar.
+     🚫 GÖRMEZ: inmemiş parçadaki hedef (setli yüklemede öğrenci oraya kaydırmadan inmez — 12.10 öncesi de böyleydi). */
+  var gidildi = false;
+  function yereGit() {
+    if (gidildi || typeof IL_ === 'undefined') return;
+    var a = akis(), ks = kartlar(), kk = IL_.konumKaydi ? IL_.konumKaydi(YOL) : null, h = -1, j;
+    if (!a || !kk || !ks.length) return;
+    var sid = function (k) { if (!k.__ttsid) { var q = k.querySelector('.soru'); k.__ttsid = IL_.sid(q ? q.textContent : ''); } return k.__ttsid; };
+    if (kk.s) { for (j = 0; j < ks.length; j++) if (sid(ks[j]) === kk.s) { h = j; break; } }
+    else if (SIRA_DEGISEN.test(YOL)) { var cv = IL_.veri().cevap || {}; for (j = 0; j < ks.length; j++) if (!cv[sid(ks[j])]) { h = j; break; } }
+    else h = kk.i || 0;
+    if (h < 0 || (h > 0 && !ks[h])) return;   /* hedef henüz inmedi: sonraki parçada yeniden bakılır */
+    gidildi = true;
+    var simd = a.clientHeight ? Math.round(a.scrollTop / a.clientHeight) : 0;
+    if (h > 0 && ks[h] && simd < 1) {
+      a.scrollTo({ top: ks[h].offsetTop, behavior: 'instant' });
+      serit('Kaldığın yerden: ' + (h + 1) + '. soru', 'Baştan', function () { a.scrollTo({ top: 0, behavior: 'smooth' }); });
     }
   }
+  var SIRA_DEGISEN = /^kaydir\/smmm\//, IL_;
 
   window.ttIlerlemeWeb = { kur: kur };
 })();

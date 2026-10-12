@@ -557,7 +557,8 @@
       return '<div class="sg-yanlis"><div class="sg-y-ust"><span>Soru '+q.n+' · '+esc(q.ders)+'</span></div>'
         +'<p>'+esc(q.soru.length>220?q.soru.slice(0,217)+'…':q.soru)+'</p>'
         +'<div class="sg-y-alt"><span>'+(c?'Senin cevabın <span class="yan">'+c+'</span> · ':'Boş bıraktın · ')+'doğrusu <span class="dog">'+q.dogru+'</span></span>'
-        +'<a href="'+esc(q.sayfa)+'#s='+q.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın →</a></div></div>';
+        /* 12.10: kimlik de gider (#q=) - kasa-yukle.js soruyu kimlikten bulur; saklı setteki sıra (sira) bitirmede 12.10'da değişti */
+        +'<a href="'+esc(q.sayfa)+'#s='+q.sira+'&q='+encodeURIComponent(q.id)+'" target="_blank" rel="noopener">Nöbetçi anlatsın →</a></div></div>';
     }).join(''):'<p class="sg-alt">Hepsi doğru. Bu seti tam çözdün.</p>';
     goster('sgSonuc');
   }

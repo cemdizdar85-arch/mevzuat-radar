@@ -95,6 +95,11 @@ t('17 kutudan çıkış damgası (yok) daha yeniyse öbür cihazın eski kutusun
 t('18 yalnız bir cihazdaki kutu kaydı korunur', wb.kutu.c && wb.kutu.c.tur === 1);
 t('19 son cevap ve oyun sonucu en yeni kazanır', wb.kayit.a.d === 1 && wb.oyun.c.s === 'tam');
 t('20 kutu alanı olmayan eski kayıt (uygulama) bozulmaz', J(birlestir({ surum: 1 }, web).kutu) === J(web.kutu));
+/* 12.10 kaldığın yer kimlikle (ilerleme-web.js): konumun sid'i (s) birleşmede kaybolmaz; s'siz daha yeni kayıt s'liyi ezer */
+const ks1 = birlestir({ surum: 1, konum: { x: { i: 3, t: 100, s: 'abcd1234' } } }, { surum: 1, konum: { x: { i: 9, t: 50 } } });
+t('21 kaldığın kartın sid\'i en yeni kayıtla birlikte taşınır', ks1.konum.x.s === 'abcd1234' && ks1.konum.x.i === 3);
+const ks2 = birlestir({ surum: 1, konum: { x: { i: 3, t: 100, s: 'abcd1234' } } }, { surum: 1, konum: { x: { i: 9, t: 200 } } });
+t('22 daha yeni s\'siz kayıt (uygulama) kazanır, eski sid ona yapışmaz', ks2.konum.x.i === 9 && ks2.konum.x.s === undefined);
 
 console.log('ILERLEME-SINAVI: ' + (gecen === toplam ? 'YESIL' : 'KIRMIZI') + ' — ' + gecen + '/' + toplam + (mut ? ' · IL_MUTASYON=' + mut : ''));
 process.exit(gecen === toplam ? 0 : 1);

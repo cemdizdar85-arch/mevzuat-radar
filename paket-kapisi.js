@@ -183,7 +183,7 @@
       var calistir = function () { if (window.ttIlerlemeWeb) window.ttIlerlemeWeb.kur(sb, kullanici); };
       if (window.ttIlerlemeWeb) return calistir();
       var s = document.createElement('script');
-      s.src = KOK + 'ilerleme-web.js';
+      s.src = KOK + 'ilerleme-web.js?v=20261012';   /* 12.10: kaldığın yer kimlikle */
       s.onload = calistir;
       (document.head || kok).appendChild(s);
     } catch (e) {}

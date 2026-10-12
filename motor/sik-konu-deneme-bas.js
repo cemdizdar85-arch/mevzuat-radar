@@ -25,6 +25,7 @@
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const KOK = path.join(__dirname, '..');
+const { agirlikliDiz, konuBulucu } = require('./smmm-ders-sira.js');
 const KURU = process.argv.includes('--kuru');
 const HEDEF = (process.argv.slice(2).find(a => !a.startsWith('--')) || 'hepsi').toLowerCase();
 const jsonOku = y => JSON.parse(fs.readFileSync(y, 'utf8').replace(/^﻿/, ''));
@@ -248,26 +249,12 @@ function smmmDers(sik) {
     const agirlik = {};
     Object.values(D[ders] || {}).forEach(r => { agirlik[r.konu] = new Set(r.kanit.map(z => z.donem)).size; });
     // sırala: verilen kimlikleri yumuşak ağırlıklı sıraya dizer → {dizi (son 10 yılda sorulmuş konular), sifir (sorulmamış)}
+    // 12.10: sıra işlevi motor/smmm-ders-sira.js'te TEK yerde — bitirme ders sayfası (paket_soru.sira) aynı konu sırasından
+    //   kurulur. Öz-sınavı 8 dersin tamamında 11.10 iç işleviyle aynı diziyi verdiğini ölçer (node motor/smmm-ders-sira.js --sinav).
     const sirala = idler => {
-      const kuyruk = {}, sifir = [];
-      idler.slice().sort((a, b) => karma(a) - karma(b)).forEach(id => {
-        // sorunun konusu: eşlemedeki konulardan en sık sorulanı (karne o konuyu sayar)
-        const kn = ((es[id] && es[id].konular) || []).slice().sort((p, q) => (agirlik[q] || 0) - (agirlik[p] || 0))[0] || '';
-        const x = kasa[id], q = { id, bolum: ders, ders, konu: kn, sayfa: x.sayfa, sira: x.sira };
-        if (kn && agirlik[kn] > 0) (kuyruk[kn] = kuyruk[kn] || []).push(q); else sifir.push(q);
-      });
-      // her adımda her konunun sayacı ağırlığı kadar artar, en yüksek sayaçlı konu verir
-      const dizi = [], sayac = {};
-      let acik = Object.keys(kuyruk);
-      acik.forEach(k => { sayac[k] = 0; });
-      while (acik.length) {
-        const top = acik.reduce((t, k) => t + agirlik[k], 0);
-        acik.forEach(k => { sayac[k] += agirlik[k]; });
-        const sec = acik.reduce((m, k) => (sayac[k] > sayac[m] || (sayac[k] === sayac[m] && agirlik[k] > agirlik[m])) ? k : m);
-        sayac[sec] -= top; dizi.push(kuyruk[sec].shift());
-        if (!kuyruk[sec].length) acik = acik.filter(k => k !== sec);
-      }
-      return { dizi, sifir };
+      const konu = konuBulucu(es, agirlik), { dizi, sifir } = agirlikliDiz(idler, konu, agirlik);
+      const q = id => { const x = kasa[id]; return { id, bolum: ders, ders, konu: konu(id), sayfa: x.sayfa, sira: x.sira }; };
+      return { dizi: dizi.map(q), sifir: sifir.map(q) };
     };
     const tum = Object.keys(es).filter(id => es[id].ders === ders && kasa[id]);
     // 11.10 SANA ÖZEL DENEME havuzu: dersin TÜM sitedeki soruları aynı ağırlıklı sırayla (sinav-gibi.html öğrencinin

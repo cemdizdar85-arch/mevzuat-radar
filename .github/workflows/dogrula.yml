@@ -657,6 +657,12 @@ jobs:
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js" }
           - { ad: "Mobil ilerleme birlestirme MUTASYON (4 kural bozulunca sinav duser mi)",
               kabuk: bash, komut: "node mobil/ilerleme-sinavi.js --mutasyon" }
+          # 12.10 bitirme ders sayfasi soru sirasi (paket_soru.sira): ilk 10 kolay, zorluk serpistirilmis, konu sirasi
+          # havuzla ayni (gercek eslemede 8 ders esdegerlik capasi). GORMEZ: sorunun gercek zorlugu, etiketsiz soru.
+          - { ad: "Bitirme soru sirasi OZ-SINAVI (ilk 10 kolay, kume ayni, havuz sirasi)",
+              kabuk: bash, komut: "node motor/smmm-ders-sira.js --sinav" }
+          - { ad: "Bitirme soru sirasi MUTASYON (3 kural bozulunca sinav duser mi)",
+              kabuk: bash, komut: "node motor/smmm-ders-sira.js --mutasyon" }
           # 07.10 (Cem "yanlis kutusu da hesaba bagla" + "1.2.3"): site yanlis kutusu + cozulen kaydi hesap esitlemesi
           # (kutu-esitle.js: uc yonlu kutu, soru basina son cevap). GORMEZ: tablo/RLS/ag, sayfalarin yeniden cizmesi.
           - { ad: "Site kutu/kayit esitleme OZ-SINAVI (cihazlar arasi kutu ve cozulen kaydi)",

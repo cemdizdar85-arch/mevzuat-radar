@@ -113,7 +113,15 @@
      tek seferde eklenir (seviye sırası şablonda korunur). Derin bağlantı (#s=N) ve tek kart (?tek=1) eski yoldan (hepsi) - sıra
      numarası tam listeye göre. Kalan getirilemezse ilk parçanın bekleyenleri yine eklenir, uyarı çıkar. */
   var ILK = 40;
-  var parcali = ana.textContent.indexOf('__kasaEkle') > -1 && !/#s=\d+/.test(location.hash) && !/[?&]tek=1/.test(location.search);
+  /* 12.10 KİMLİKLE DERİN BAĞLANTI: #q=<soru kimliği> (sinav-gibi.html "Nöbetçi anlatsın"). Bitirme sayfalarının sırası 12.10'da
+     yeniden kuruldu (motor/smmm-ders-sira.js); deneme setlerinde ya da tarayıcıda saklı "#s=<sıra>" başka soruyu açardı.
+     Eski yol (hepsi) iner, kimliğin konumu bulunur, adres #s=<konum> olur → şablonun kaydırması o karta gider. Kimlik kasada
+     yoksa #s= aynen kalır (bağlantı ikisini birlikte taşır). Derin bağlantıda şablon seviye sırasını UYGULAMAZ (__KASA_SIRALI):
+     yoksa konum, seviye testli öğrencide başka karta düşüyordu (12.10 öncesi #s= için de geçerliydi). */
+  var qHedef = (location.hash.match(/[#&]q=([^&]+)/) || [])[1] || '';
+  try { qHedef = decodeURIComponent(qHedef); } catch (e) {}
+  var derinMi = /#s=\d+/.test(location.hash) || !!qHedef;
+  var parcali = ana.textContent.indexOf('__kasaEkle') > -1 && !derinMi && !/[?&]tek=1/.test(location.search);
   async function kalaniCek(sb, toplam) {
     var satir = [], bas = ILK, TOPLU = 4;
     while (bas < toplam) {
@@ -140,7 +148,7 @@
      konu, dönem; sayılmaz) → seviye sırası burada kurulur → ilk 40 soru → öğrenci son 10 karta yaklaşınca sıradaki 20
      (__kasaSonraki). Her cevap ARKA PLANDA kasa_cevap_yaz'a gider (öğrenci beklemez; doğru/yanlış sunucuda hesaplanır).
      Derin bağlantı (#s=N) ve tek kart (?tek=1) eski yoldan (hepsi). */
-  var setli = ana.textContent.indexOf('__KASA_FIHRIST') > -1 && !/#s=\d+/.test(location.hash) && !/[?&]tek=1/.test(location.search);
+  var setli = ana.textContent.indexOf('__KASA_FIHRIST') > -1 && !derinMi && !/[?&]tek=1/.test(location.search);
   var SET_ILK = 40, SET_ADET = 20;
   function fihristCek(sb) {
     return sb.rpc('kasa_ders_fihrist', { p_sayfa: sayfa })
@@ -269,6 +277,12 @@
         return mesaj('Bu ders paketinde yok',
           'Hesabındaki paket bu dersi kapsamıyor. Ders eklemek için paketini güncelleyebilirsin.',
           dugme('../../satin-al.html', 'Paketi güncelle'));
+      }
+      if (derinMi) {
+        window.__KASA_SIRALI = true;
+        var qi = -1;
+        if (qHedef) for (var n = 0; n < sorular.length; n++) if (String(sorular[n].id) === qHedef) { qi = n; break; }
+        if (qi > -1) try { history.replaceState(null, '', location.pathname + location.search + '#s=' + qi); } catch (e) {}
       }
       document.getElementById('akis').innerHTML = '';
       calistir(sorular);

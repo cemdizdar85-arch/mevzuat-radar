@@ -155,11 +155,21 @@ New-Item -ItemType Directory -Force $calisma | Out-Null
 $nodeArg = New-Object System.Collections.Generic.List[string]
 $yazilanDosya = New-Object System.Collections.Generic.List[string]
 $siteSayfa = New-Object System.Collections.Generic.List[object]   # 18.09 -SiteKabuk: depodaki kaydir/smmm sayfaları (kabuğa çevrilecek)
+$script:siraKirmizi = New-Object System.Collections.Generic.List[string]   # 12.10 soru sırası kurulamayan dersler
 try {
   foreach ($g in @($secim | Group-Object ders | Sort-Object Name)) {
     $slug = SmmmDersSlug $g.Name
     $secYol = Join-Path $calisma "secim-$slug.json"
     [IO.File]::WriteAllText($secYol, (ConvertTo-Json -InputObject @($g.Group | Sort-Object etiket, id | ForEach-Object { [ordered]@{ etiket = $_.etiket; id = $_.id; ders = $_.ders; konu = $_.konu; donem = $_.donem } }) -Depth 3), [Text.UTF8Encoding]::new($false))
+    # ⭐ 12.10.2026 SORU SIRASI: paket_soru.sira = sayfadaki dizin = bu dosyanın sırası. "etiket, id" sırası her sayfayı
+    #   "-cokzor-" etiketli sorularla açıyordu (12.10 ölçüldü: ilk 7–18 soru çok zor; 3 paketli üyenin 3'ü orada bıraktı).
+    #   motor/smmm-ders-sira.js dosyayı yerinde dizer: konu sırası smmm-ders-havuz.json ile aynı (sık konu önde, karışık),
+    #   zorluk serpiştirilmiş, ilk 10 kolay. Küme değişirse yazmaz (çıkış 2). Düşerse sayfa alfabetik sırayla YİNE basılır
+    #   (öteki iş durmasın) ama betik SONDA çıkış 1 verir → iş kırmızı biter. Öz-sınav: node motor/smmm-ders-sira.js --sinav
+    $eapSira = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
+    try { & node (Join-Path $depoKok 'motor\smmm-ders-sira.js') --secim $secYol; $kodS = $LASTEXITCODE }
+    finally { $ErrorActionPreference = $eapSira }
+    if ($kodS) { $script:siraKirmizi.Add("$($g.Name) (çıkış $kodS)"); Write-Host "⛔ SIRA KURULAMADI: $($g.Name) — alfabetik sırayla basılıyor" -ForegroundColor Red }
     $cikti = "smmm-kasa\sayfa-$slug.html"
     # 27.09 K6: EAP=Stop + alt powershell stderr + 2>&1 betiği öldürür (ölçüldü); kgk-kasa-yayin.ps1 ile aynı sarmalayıcı.
     $eapK6Coz = $ErrorActionPreference; $ErrorActionPreference = 'Continue'
@@ -209,4 +219,5 @@ try {
   foreach ($d in $yazilanDosya) { if (Test-Path $d) { Remove-Item -LiteralPath $d -Force } }
   'çalışma dosyaları silindi (soru içeriği diskte bırakılmadı)'
 }
+if ($script:siraKirmizi.Count) { Write-Host ("⛔ SORU SIRASI KIRMIZI: {0}" -f ($script:siraKirmizi -join ', ')) -ForegroundColor Red; exit 1 }   # 12.10: yayın yazıldı ama alfabetik sırayla
 if ($script:onayKirmizi -and $script:onayKirmizi.Count) { exit 1 }   # 24.09 ONAY YAYIN KAPISI: yayın yazıldı ama onaylı soru beklenmedik biçimde dışarıda
