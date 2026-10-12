@@ -3,7 +3,7 @@
   "sinav": "smmm",
   "adet": 30,
   "zorluk_yuzde": "20/50/30",
-  "kural": "ders payı FM5 Maliyet5 FTA4 Vergi4 diğer 3 (Cem 23.09) · ders içinde konu son10 büyükten küçüğe, son10=0 yok · konu başı 1 soru · hakem EVET + sim doğru · arac/vitrin-haric.json",
+  "kural": "ders payı FM5 Maliyet5 FTA4 Vergi4 diğer 3 (Cem 23.09) · 12.10: konu OKUNMUŞ sıklıktan (veri/sinav/smmm-konu-okuma.json, 31 dönem 2016/1-2026/2; soru-konu bağı veri/sinav/smmm-banka-esleme.json ilk konu), ders içinde okunmuş ilk 7 konu dışında soru yok, konu başı 1 soru · hakem EVET + sim doğru · arac/vitrin-haric.json, elle ret, kanun kuyruğu (KUYRUK-1010) dışı · 30 soru elle okundu (12.10)",
   "kapsama_tarih": "2026-09-23T08:38:10.172Z",
   "onay": null,
   "sorular": [
@@ -14,7 +14,10 @@
       "zorluk": "kolay",
       "son10": 31,
       "cikmis": 43,
-      "son_soruldu": "2025/3"
+      "son_soruldu": "2025/3",
+      "okunan_konu": "Amortisman",
+      "okunan_donem": 31,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-fmuh-zor-r5/kp-03",
@@ -23,7 +26,10 @@
       "zorluk": "zor",
       "son10": 21,
       "cikmis": 14,
-      "son_soruldu": "2026/1"
+      "son_soruldu": "2026/1",
+      "okunan_konu": "Gelecek dönemlere ait gelir-giderler ve tahakkuklar",
+      "okunan_donem": 28,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-fmuh-zor-r9/kp-02",
@@ -32,25 +38,34 @@
       "zorluk": "zor",
       "son10": 22,
       "cikmis": 14,
-      "son_soruldu": "2025/2"
+      "son_soruldu": "2025/2",
+      "okunan_konu": "KDV kayıtları ve mahsubu",
+      "okunan_donem": 30,
+      "okunan_son": "2026/1"
     },
     {
-      "id": "smmm-w1-fmuh-cokzor/kp-04",
+      "id": "smmm-w3-fmuh-cokzor/kp-04",
       "ders": "Finansal Muhasebe",
       "konu": "satış ve maliyet kaydı",
       "zorluk": "cokzor",
-      "son10": 11,
+      "son10": 14,
       "cikmis": 9,
-      "son_soruldu": "2024/3"
+      "son_soruldu": "2024/3",
+      "okunan_konu": "Ticari mal alış ve satış kayıtları",
+      "okunan_donem": 30,
+      "okunan_son": "2026/1"
     },
     {
-      "id": "smmm-4k-a-fmuh-cokzor-r4/kp-01",
+      "id": "smmm-4k-a-fmuh-cokzor-r7/kp-02",
       "ders": "Finansal Muhasebe",
-      "konu": "kredi faiz tahakkuku",
+      "konu": "gelir tablosu düzenleme",
       "zorluk": "cokzor",
-      "son10": 10,
-      "cikmis": 12,
-      "son_soruldu": "2026/2"
+      "son10": 0,
+      "cikmis": 0,
+      "son_soruldu": "",
+      "okunan_konu": "Bilanço ve gelir tablosu düzenleme",
+      "okunan_donem": 27,
+      "okunan_son": "2025/3"
     },
     {
       "id": "smmm-w8-3-maliyet-kolay/kp-01",
@@ -59,25 +74,34 @@
       "zorluk": "kolay",
       "son10": 8,
       "cikmis": 6,
-      "son_soruldu": "2026/1"
+      "son_soruldu": "2026/1",
+      "okunan_konu": "Genel üretim giderlerinin mamullere yüklenmesi",
+      "okunan_donem": 15,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-gm4-12-maliyet-cokzor/kp-01",
+      "id": "smmm-4k-a-maliyet-zor-r6/kp-08",
       "ders": "Maliyet Muhasebesi",
-      "konu": "yan ürün maliyeti",
-      "zorluk": "cokzor",
-      "son10": 5,
-      "cikmis": 3,
-      "son_soruldu": "2026/1"
-    },
-    {
-      "id": "smmm-4k-a-maliyet-zor-r3/kp-01",
-      "ders": "Maliyet Muhasebesi",
-      "konu": "satışların maliyeti tablosu",
+      "konu": "sipariş maliyeti sistemi",
       "zorluk": "zor",
-      "son10": 3,
-      "cikmis": 12,
-      "son_soruldu": "2026/2"
+      "son10": 2,
+      "cikmis": 1,
+      "son_soruldu": "2026/2",
+      "okunan_konu": "Sipariş (parti) maliyet sistemi",
+      "okunan_donem": 10,
+      "okunan_son": "2026/2"
+    },
+    {
+      "id": "smmm-4k-a-maliyet-cokzor-r3/kp-02",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "satılan mamul maliyeti tablosu",
+      "zorluk": "cokzor",
+      "son10": 0,
+      "cikmis": 2,
+      "son_soruldu": "",
+      "okunan_konu": "Üretilen ve satılan mamul maliyeti (satışların maliyeti tablosu)",
+      "okunan_donem": 13,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-maliyet-zor-r5/kp-03",
@@ -86,16 +110,22 @@
       "zorluk": "zor",
       "son10": 3,
       "cikmis": 4,
-      "son_soruldu": "2024/1"
+      "son_soruldu": "2024/1",
+      "okunan_konu": "Ortak (birleşik) mamul maliyeti",
+      "okunan_donem": 13,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-4k-a-maliyet-cokzor-r5/kp-01",
+      "id": "smmm-4k-a-maliyet-cokzor-r1/kp-01",
       "ders": "Maliyet Muhasebesi",
-      "konu": "gug yükleme oranı",
+      "konu": "eşdeğer birim maliyeti",
       "zorluk": "cokzor",
       "son10": 3,
-      "cikmis": 2,
-      "son_soruldu": "2026/1"
+      "cikmis": 3,
+      "son_soruldu": "2024/2",
+      "okunan_konu": "Safha (evre) maliyet sistemi",
+      "okunan_donem": 21,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-ydenetim-kolay-r1/kp-02",
@@ -104,34 +134,46 @@
       "zorluk": "kolay",
       "son10": 4,
       "cikmis": 4,
-      "son_soruldu": "2026/2"
+      "son_soruldu": "2026/2",
+      "okunan_konu": "Denetim riski",
+      "okunan_donem": 7,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-4k-a-ydenetim-zor-r10/kp-01",
+      "id": "smmm-gm5-9-ydenetim-zor/kp-01",
       "ders": "Muhasebe Denetimi",
-      "konu": "denetim kistasi",
+      "konu": "denetimin on şartları",
       "zorluk": "zor",
-      "son10": 4,
-      "cikmis": 3,
-      "son_soruldu": "2026/2"
+      "son10": 1,
+      "cikmis": 1,
+      "son_soruldu": "2019/3",
+      "okunan_konu": "Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları",
+      "okunan_donem": 9,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-4k-a-ydenetim-zor-r6/kp-04",
+      "id": "smmm-w6-ydenetim-zor/kp-01",
       "ders": "Muhasebe Denetimi",
-      "konu": "mesleki muhakeme",
+      "konu": "ic kontrol amaclari",
       "zorluk": "zor",
-      "son10": 3,
-      "cikmis": 3,
-      "son_soruldu": "2026/1"
+      "son10": 1,
+      "cikmis": 2,
+      "son_soruldu": "2016/3",
+      "okunan_konu": "İç kontrol sistemi",
+      "okunan_donem": 7,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-4k-a-yfta-kolay-r1/kp-02",
+      "id": "smmm-4k-a-yfta-kolay-r2/kp-12",
       "ders": "Finansal Tablolar ve Analizi",
-      "konu": "dikey yüzde analizi",
+      "konu": "satışların kârlilik oranı",
       "zorluk": "kolay",
-      "son10": 14,
-      "cikmis": 15,
-      "son_soruldu": "2026/2"
+      "son10": 0,
+      "cikmis": 2,
+      "son_soruldu": "",
+      "okunan_konu": "Kârlılık oranları",
+      "okunan_donem": 19,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-yfta-zor-r5/kp-02",
@@ -140,16 +182,22 @@
       "zorluk": "zor",
       "son10": 15,
       "cikmis": 7,
-      "son_soruldu": "2026/2"
+      "son_soruldu": "2026/2",
+      "okunan_konu": "Mali yapı oranları",
+      "okunan_donem": 19,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-4k-a-yfta-zor-r3/kp-04",
+      "id": "smmm-4k-a-yfta-zor-r1/kp-06",
       "ders": "Finansal Tablolar ve Analizi",
-      "konu": "trend analizi",
+      "konu": "aktif devir hızı",
       "zorluk": "zor",
-      "son10": 15,
-      "cikmis": 6,
-      "son_soruldu": "2026/2"
+      "son10": 2,
+      "cikmis": 3,
+      "son_soruldu": "2022/1",
+      "okunan_konu": "Faaliyet (devir hızı) oranları",
+      "okunan_donem": 26,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-yfta-cokzor-r5/kp-01",
@@ -158,7 +206,10 @@
       "zorluk": "cokzor",
       "son10": 12,
       "cikmis": 11,
-      "son_soruldu": "2025/3"
+      "son_soruldu": "2025/3",
+      "okunan_konu": "Likidite oranları",
+      "okunan_donem": 20,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-w2-yhukuk-zor/kp-01",
@@ -167,43 +218,58 @@
       "zorluk": "zor",
       "son10": 7,
       "cikmis": 4,
-      "son_soruldu": "2021/3"
+      "son_soruldu": "2021/3",
+      "okunan_konu": "TTK › Ticari işletme",
+      "okunan_donem": 6,
+      "okunan_son": "2025/2"
     },
     {
-      "id": "smmm-4k-a-yhukuk-kolay-r5/kp-01",
+      "id": "smmm-4k-a-yhukuk-kolay-r8/kp-12",
       "ders": "Hukuk",
-      "konu": "is sözleşmesi tanımı ve unsurlari",
+      "konu": "tbk zamanaşımı süreleri",
       "zorluk": "kolay",
-      "son10": 6,
-      "cikmis": 2,
-      "son_soruldu": "2019/3"
+      "son10": 1,
+      "cikmis": 1,
+      "son_soruldu": "2026/2",
+      "okunan_konu": "Borçlar › Zamanaşımı",
+      "okunan_donem": 7,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-w1-yhukuk-zor/kp-06",
+      "id": "smmm-gm3-2-yhukuk-zor/kp-01",
       "ders": "Hukuk",
-      "konu": "yazılı is sözleşmeleri",
+      "konu": "is sözleşmesi feshi",
       "zorluk": "zor",
       "son10": 3,
       "cikmis": 2,
-      "son_soruldu": "2020/2"
+      "son_soruldu": "2025/3",
+      "okunan_konu": "İş Hukuku › İş sözleşmesinin feshi",
+      "okunan_donem": 6,
+      "okunan_son": "2026/1"
     },
     {
-      "id": "smmm-4k-a-ymeslek-kolay-r10/kp-07",
+      "id": "smmm-4k-a-ymeslek-kolay-r1/kp-22",
       "ders": "Meslek Hukuku",
-      "konu": "etik ilkelere tehditler",
+      "konu": "sözleşme asgari unsurlar",
       "zorluk": "kolay",
-      "son10": 17,
-      "cikmis": 3,
-      "son_soruldu": "2026/2"
+      "son10": 0,
+      "cikmis": 1,
+      "son_soruldu": "",
+      "okunan_konu": "Mesleki sözleşme (zorunluluk, asgari içerik, fesih)",
+      "okunan_donem": 12,
+      "okunan_son": "2026/1"
     },
     {
-      "id": "smmm-w7-2-ymeslek-zor/kp-01",
+      "id": "smmm-w7-1-ymeslek-zor/kp-01",
       "ders": "Meslek Hukuku",
-      "konu": "müşterek müteselsil sorumluluk",
+      "konu": "disiplin cezaları",
       "zorluk": "zor",
-      "son10": 6,
-      "cikmis": 6,
-      "son_soruldu": "2018/3"
+      "son10": 0,
+      "cikmis": 5,
+      "son_soruldu": "",
+      "okunan_konu": "Disiplin cezaları ve gerektiren haller",
+      "okunan_donem": 15,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-4k-a-ymeslek-cokzor-r9/kp-01",
@@ -212,34 +278,46 @@
       "zorluk": "cokzor",
       "son10": 5,
       "cikmis": 5,
-      "son_soruldu": "2023/3"
+      "son_soruldu": "2023/3",
+      "okunan_konu": "Yasak işler ve meslekle bağdaşan/bağdaşmayan haller",
+      "okunan_donem": 11,
+      "okunan_son": "2026/1"
     },
     {
-      "id": "smmm-gm1-1-yspk-zor/kp-01",
+      "id": "smmm-gm15-1-yspk-cokzor/kp-06",
       "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "sermaye piyasası kurumları",
-      "zorluk": "zor",
-      "son10": 4,
-      "cikmis": 6,
-      "son_soruldu": "2021/1"
-    },
-    {
-      "id": "smmm-w2-yspk-cokzor/kp-01",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "bağımsız denetim sorumluluğu",
+      "konu": "yatırım kuruluşları ve yatırım hizmetleri",
       "zorluk": "cokzor",
-      "son10": 3,
-      "cikmis": 3,
-      "son_soruldu": "2019/1"
+      "son10": 0,
+      "cikmis": 0,
+      "son_soruldu": "",
+      "okunan_konu": "Yatırım kuruluşları ve yatırım hizmetleri",
+      "okunan_donem": 9,
+      "okunan_son": "2026/2"
     },
     {
-      "id": "smmm-w3-yspk-zor/kp-03",
+      "id": "smmm-gm15-1-yspk-cokzor/kp-02",
       "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "ürün ihtisas borsasi",
+      "konu": "yatırım ortaklıkları",
+      "zorluk": "cokzor",
+      "son10": 4,
+      "cikmis": 1,
+      "son_soruldu": "2019/3",
+      "okunan_konu": "Yatırım ortaklıkları",
+      "okunan_donem": 12,
+      "okunan_son": "2026/2"
+    },
+    {
+      "id": "smmm-gm4-6-yspk-zor/kp-02",
+      "ders": "Sermaye Piyasası Mevzuatı",
+      "konu": "finansal tablo/muhasebe usulsüzlüğü suçu",
       "zorluk": "zor",
       "son10": 3,
-      "cikmis": 2,
-      "son_soruldu": "2019/3"
+      "cikmis": 1,
+      "son_soruldu": "2024/3",
+      "okunan_konu": "Sermaye piyasası suçları (genel) ve yargılama usulü",
+      "okunan_donem": 11,
+      "okunan_son": "2026/2"
     },
     {
       "id": "smmm-w5-yvergi-zor/kp-01",
@@ -248,34 +326,46 @@
       "zorluk": "zor",
       "son10": 6,
       "cikmis": 5,
-      "son_soruldu": "2026/1"
+      "son_soruldu": "2026/1",
+      "okunan_konu": "KVK › Kurumlar vergisi matrahı (KKEG, istisnalar)",
+      "okunan_donem": 10,
+      "okunan_son": "2026/1"
     },
     {
-      "id": "smmm-gm2-1-yvergi-zor/kp-01",
+      "id": "smmm-gm12-1-yvergi-zor/kp-01",
       "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "beyanname cesitleri",
+      "konu": "gvk › yıllık beyan ve gelir vergisi hesabı",
+      "zorluk": "zor",
+      "son10": 0,
+      "cikmis": 0,
+      "son_soruldu": "",
+      "okunan_konu": "GVK › Yıllık beyan ve gelir vergisi hesabı",
+      "okunan_donem": 25,
+      "okunan_son": "2026/2"
+    },
+    {
+      "id": "smmm-gm12-1-yvergi-cokzor/kp-02",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "gvk › gayrimenkul sermaye iradı",
+      "zorluk": "cokzor",
+      "son10": 0,
+      "cikmis": 0,
+      "son_soruldu": "",
+      "okunan_konu": "GVK › Gayrimenkul sermaye iradı",
+      "okunan_donem": 18,
+      "okunan_son": "2026/2"
+    },
+    {
+      "id": "smmm-4k-a-yvergi-zor-r7/kp-02",
+      "ders": "Vergi Mevzuatı ve Uygulaması",
+      "konu": "vergi sorumlusu",
       "zorluk": "zor",
       "son10": 5,
-      "cikmis": 5,
-      "son_soruldu": "2022/1"
-    },
-    {
-      "id": "smmm-4k-a-yvergi-cokzor-r8/kp-01",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "emsal bedeli",
-      "zorluk": "cokzor",
-      "son10": 4,
-      "cikmis": 2,
-      "son_soruldu": "2026/2"
-    },
-    {
-      "id": "smmm-w14-6-yvergi-cokzor/kp-02",
-      "ders": "Vergi Mevzuatı ve Uygulaması",
-      "konu": "serbest meslek kazancı beyani",
-      "zorluk": "cokzor",
-      "son10": 6,
-      "cikmis": 2,
-      "son_soruldu": "2024/2"
+      "cikmis": 3,
+      "son_soruldu": "2019/1",
+      "okunan_konu": "GVK › Menkul sermaye iradı",
+      "okunan_donem": 14,
+      "okunan_son": "2026/2"
     }
   ],
   "onarim": [
@@ -315,6 +405,32 @@
       "degisen": [
         "Finansal Muhasebe: smmm-4k-a-fmuh-zor-r3/kp-03 [kdv mahsup kaydı/zor] -> smmm-4k-a-fmuh-zor-r9/kp-02 [kdv mahsup kaydı/zor]"
       ]
+    },
+    {
+      "tarih": "2026-10-12T17:07:31.915Z",
+      "neden": "12.10 yenileme: konu seçimi etiket sayımından okunmuş sıklığa (smmm-konu-okuma.json) geçti; 30 soru elle okundu, dayanak ambardan; zorluk 6/15/9 korundu",
+      "degisen": [
+        "#4 Finansal Muhasebe: smmm-w1-fmuh-cokzor/kp-04 [Alış ve satış iadeleri, iskontoları/cokzor] -> smmm-w3-fmuh-cokzor/kp-04 [Ticari mal alış ve satış kayıtları · 30/31 dönem · son 2026/1/cokzor]",
+        "#5 Finansal Muhasebe: smmm-4k-a-fmuh-cokzor-r4/kp-01 [Banka kredileri ve faiz tahakkuku/cokzor] -> smmm-4k-a-fmuh-cokzor-r7/kp-02 [Bilanço ve gelir tablosu düzenleme · 27/31 dönem · son 2025/3/cokzor]",
+        "#7 Maliyet Muhasebesi: smmm-gm4-12-maliyet-cokzor/kp-01 [Yan ürün maliyeti/cokzor] -> smmm-4k-a-maliyet-zor-r6/kp-08 [Sipariş (parti) maliyet sistemi · 10/31 dönem · son 2026/2/zor]",
+        "#8 Maliyet Muhasebesi: smmm-4k-a-maliyet-zor-r3/kp-01 [Satılan ticari mal maliyeti ve brüt satış kârı/zor] -> smmm-4k-a-maliyet-cokzor-r3/kp-02 [Üretilen ve satılan mamul maliyeti (satışların maliyeti tablosu) · 13/31 dönem · son 2026/2/cokzor]",
+        "#10 Maliyet Muhasebesi: smmm-4k-a-maliyet-cokzor-r5/kp-01 [Standart maliyet ve sapmalar/cokzor] -> smmm-4k-a-maliyet-cokzor-r1/kp-01 [Safha (evre) maliyet sistemi · 21/31 dönem · son 2026/2/cokzor]",
+        "#12 Muhasebe Denetimi: smmm-4k-a-ydenetim-zor-r10/kp-01 [Denetim kıstası/zor] -> smmm-gm5-9-ydenetim-zor/kp-01 [Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları · 9/31 dönem · son 2026/2/zor]",
+        "#13 Muhasebe Denetimi: smmm-4k-a-ydenetim-zor-r6/kp-04 [Kalite yönetimi ve kalite kontrol/zor] -> smmm-w6-ydenetim-zor/kp-01 [İç kontrol sistemi · 7/31 dönem · son 2026/2/zor]",
+        "#14 Finansal Tablolar ve Analizi: smmm-4k-a-yfta-kolay-r1/kp-02 [Dikey analiz/kolay] -> smmm-4k-a-yfta-kolay-r2/kp-12 [Kârlılık oranları · 19/31 dönem · son 2026/2/kolay]",
+        "#16 Finansal Tablolar ve Analizi: smmm-4k-a-yfta-zor-r3/kp-04 [Trend analizi/zor] -> smmm-4k-a-yfta-zor-r1/kp-06 [Faaliyet (devir hızı) oranları · 26/31 dönem · son 2026/2/zor]",
+        "#19 Hukuk: smmm-4k-a-yhukuk-kolay-r5/kp-01 [İş Hukuku › İş sözleşmesi türleri/kolay] -> smmm-4k-a-yhukuk-kolay-r8/kp-12 [Borçlar › Zamanaşımı · 7/31 dönem · son 2026/2/kolay]",
+        "#20 Hukuk: smmm-w1-yhukuk-zor/kp-06 [İş Hukuku › İş sözleşmesi türleri/zor] -> smmm-gm3-2-yhukuk-zor/kp-01 [İş Hukuku › İş sözleşmesinin feshi · 6/31 dönem · son 2026/1/zor]",
+        "#21 Meslek Hukuku: smmm-4k-a-ymeslek-kolay-r10/kp-07 [Etik ilkelere yönelik tehditler/kolay] -> smmm-4k-a-ymeslek-kolay-r1/kp-22 [Mesleki sözleşme (zorunluluk, asgari içerik, fesih) · 12/31 dönem · son 2026/1/kolay]",
+        "#22 Meslek Hukuku: smmm-w7-2-ymeslek-zor/kp-01 [Meslek mensubunun vergi ve ceza hukuku sorumluluğu/zor] -> smmm-w7-1-ymeslek-zor/kp-01 [Disiplin cezaları ve gerektiren haller · 15/31 dönem · son 2026/2/zor]",
+        "#24 Sermaye Piyasası Mevzuatı: smmm-gm1-1-yspk-zor/kp-01 [Sermaye piyasası kurumları (genel)/zor] -> smmm-gm15-1-yspk-cokzor/kp-06 [Yatırım kuruluşları ve yatırım hizmetleri · 9/31 dönem · son 2026/2/cokzor]",
+        "#25 Sermaye Piyasası Mevzuatı: smmm-w2-yspk-cokzor/kp-01 [Finansal raporlama ve bağımsız denetim/cokzor] -> smmm-gm15-1-yspk-cokzor/kp-02 [Yatırım ortaklıkları · 12/31 dönem · son 2026/2/cokzor]",
+        "#26 Sermaye Piyasası Mevzuatı: smmm-w3-yspk-zor/kp-03 [Borsalar ve piyasa işleticileri/zor] -> smmm-gm4-6-yspk-zor/kp-02 [Sermaye piyasası suçları (genel) ve yargılama usulü · 11/31 dönem · son 2026/2/zor]",
+        "#28 Vergi Mevzuatı ve Uygulaması: smmm-gm2-1-yvergi-zor/kp-01 [GVK › Beyanname çeşitleri ve beyan zamanı/zor] -> smmm-gm12-1-yvergi-zor/kp-01 [GVK › Yıllık beyan ve gelir vergisi hesabı · 25/31 dönem · son 2026/2/zor]",
+        "#29 Vergi Mevzuatı ve Uygulaması: smmm-4k-a-yvergi-cokzor-r8/kp-01 [VUK › Değerleme/cokzor] -> smmm-gm12-1-yvergi-cokzor/kp-02 [GVK › Gayrimenkul sermaye iradı · 18/31 dönem · son 2026/2/cokzor]",
+        "#30 Vergi Mevzuatı ve Uygulaması: smmm-w14-6-yvergi-cokzor/kp-02 [GVK › Serbest meslek kazancı/cokzor] -> smmm-4k-a-yvergi-zor-r7/kp-02 [GVK › Menkul sermaye iradı · 14/31 dönem · son 2026/2/zor]"
+      ]
     }
-  ]
+  ],
+  "okuma_tarih": "2026-10-12"
 }
