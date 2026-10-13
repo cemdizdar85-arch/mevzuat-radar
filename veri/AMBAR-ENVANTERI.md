@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **12.10.2026 17:44** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **13.10.2026 15:52** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50133 parça · 2778 tekil kaynak | Bütünlük ölçülen: 2778 (delikli: 404; son ölçüm: 12.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 12.10.2026 17:42)
+**ÖZET:** 50133 parça · 2778 tekil kaynak | Bütünlük ölçülen: 2778 (delikli: 404; son ölçüm: 13.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 13.10.2026 15:50)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
