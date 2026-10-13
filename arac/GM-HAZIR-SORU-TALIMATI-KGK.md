@@ -108,7 +108,10 @@
   değer düşüklüğü kanıtı · temettünün ödenme zamanı (son ödenen / gelecek yıl) · TMS 7 sürümü (2026 sorusunda TFRS 18 ile değişik metin → kök
   "TFRS 18 ile değişik TMS 7'ye göre" der; eski TMS 7 ile aynı cevap çıkmıyorsa) · BOBİ hasılat iade tahmini · borç/özkaynak "pasif yalnız …" ·
   TFRS 2 planın özkaynağa mı nakde mi dayalı olduğu. Değer düşüklüğü sorusunda kanıt olgusu (TMS 36 göstergesi / BOBİ 9.34) kökte ZORUNLU.
-  Kök verisi kendi içinde tutarlı olur (t3 fy-g4: kredili alış > stoktan çıkan net alış idi). Yuvarlama "iki basamağa yuvarlanacaktır" diye yazılır
+  Kök verisi kendi içinde tutarlı olur (t3 fy-g4: kredili alış > stoktan çıkan net alış idi).
+  **Kök düzeltilince eski ifade her alanda aranır** (13.10, tms-g1 TFRS 15: kökten "sabit bedelli" çıkarıldı, açıklama katmanında 6 yerde
+  "sabit bedel" kaldı → son okumada kusur, soru dalgadan çıktı). Kökte değişen her kelime/sayı soru, aciklama, teshis, adimlar, verilenler,
+  cozum_tablo, celdirici_yol, sade, hap, sinav_taktigi alanlarında taranır; kalıntı 0 olmadan yeni okuyucuya gönderilmez. Yuvarlama "iki basamağa yuvarlanacaktır" diye yazılır
   ("alınacaktır" kesme okunur, 13.10'da 17 kökte düzeltildi).
 - **K13 — Dalga = tek modül, ≤25 USD, önce ölç.** Yayına giren soru başına bedel + yayın oranı Cem'e gitmeden sonraki dalga açılmaz
   (CLAUDE.md para kuralı 1'in KGK uygulaması).
