@@ -94,6 +94,22 @@
   YENİ bir okuyucuya gider; ikisi de TEMİZ demeden dosya yüklenmez. Neden: KGK'da bugüne dek tek okuyucu koştu; bitirmede tek okuyucunun TEMİZ
   dediği 10 sorunun 6'sı ikinci okuyucuda kusurlu çıktı (30.09). İki okuyucunun ANAHTAR uyuşmazlığı → üçüncü okuyucu (hakem), çoğunluk değil
   kaynak cümlesi karar verir.
+  **Durma kuralı (13.10, t3 ölçümü):** düzeltilen soru yeni okuyucuya gider; **üçüncü düzeltme turundan sonra hâlâ KUSUR çıkan soru dalgadan
+  çıkar** (kopyası saklanır, sonraki dalgada sıfırdan yazılır). Neden: t3'te kusurlar tur tur başka alanda çıktı (fy-g1 etkin piyasa 4 tur,
+  tms-g3 16 düzeltilen sorunun 13'ü 3. turda yine kusurlu) — sonsuz onarım yerine yeniden yazım.
+- **K14 — KISA ALANDA ŞART DÜŞMEZ** (13.10 t3: DUZELT'lerin en sık sınıfı, ~70 soruda). `hap`, `sinav_taktigi`, `sade` ve yanlış-yol adımında
+  "yalnız / her zaman / hep / yoktur / … içindir / … değildir / kesinlikle" geçiyorsa dayandığı paragrafın ŞARTI ya da İSTİSNASI aynı cümlede yazılır.
+  Kaynaktaki kip korunur: "genellikle", "-ebilir", "gösterebilir", "mümkündür" kesinleştirilmez. Tanımın bentleri (TMS 32 p.11 (c)(ii), TMS 24 p.9/p.11,
+  TFRS 15 p.82 üç şartı, TFRS 16 p.27/p.32, TFRS 3 p.23/p.32/p.58) sayılıyorsa hepsi sayılır ya da "örneğin" denir — kapalı liste kurulmaz.
+  Konuya özgü tekrarlar: **TMS 40 p.53** anılınca "ilk defa edinildiğinde" şartı yazılır (p.55: önceden gerçeğe uygun değerle ölçülen o yöntemde kalır);
+  **TMS 33 bedelsiz pay** "dağıtım tarihinden tartılmaz, ilgili grubun ağırlığını alır" diye anlatılır, "ay ağırlığı yok" denmez.
+- **K15 — KÖK, HÜKMÜN UYGULANMA ŞARTINI AÇIK VERİR** (13.10 t3: 9 ÇIKAR'ın 7'si). Doğru cevap bir şarta bağlıysa o şart kökte olgu olarak
+  yazılır; okuyucu "şart yoksa hangi şık?" diye sorar. t3 vakaları: TFRS 3 p.23 "geçmiş olaylardan kaynaklanan mevcut yükümlülük" (×2) · BOBİ FRS 9.33
+  değer düşüklüğü kanıtı · temettünün ödenme zamanı (son ödenen / gelecek yıl) · TMS 7 sürümü (2026 sorusunda TFRS 18 ile değişik metin → kök
+  "TFRS 18 ile değişik TMS 7'ye göre" der; eski TMS 7 ile aynı cevap çıkmıyorsa) · BOBİ hasılat iade tahmini · borç/özkaynak "pasif yalnız …" ·
+  TFRS 2 planın özkaynağa mı nakde mi dayalı olduğu. Değer düşüklüğü sorusunda kanıt olgusu (TMS 36 göstergesi / BOBİ 9.34) kökte ZORUNLU.
+  Kök verisi kendi içinde tutarlı olur (t3 fy-g4: kredili alış > stoktan çıkan net alış idi). Yuvarlama "iki basamağa yuvarlanacaktır" diye yazılır
+  ("alınacaktır" kesme okunur, 13.10'da 17 kökte düzeltildi).
 - **K13 — Dalga = tek modül, ≤25 USD, önce ölç.** Yayına giren soru başına bedel + yayın oranı Cem'e gitmeden sonraki dalga açılmaz
   (CLAUDE.md para kuralı 1'in KGK uygulaması).
 - **Standartlarda da sızma var** (07.10 altyapı ölçümü: 4.240 paragrafta 610 başlık kuyruğu adayı, örneklem 39/40 gerçek; Etik 317, TFRS 124,
