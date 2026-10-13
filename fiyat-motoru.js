@@ -158,7 +158,11 @@ var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
        için paket_uyeler.dersler'e yazar → kgk-1 alan kişiye KGK'nın tamamı açılırdı (tek konu parasına dört konu);
    (2) DERSLER.kgk modül adları sitedeki ders adlarıyla (veri/soru-dizini.json kgk: "Türkiye Muhasebe Standartları", "Kurumsal Yönetim",
        "Finansal Yönetim", "Türkiye Denetim Standartları"…) birebir değil → yazılsaydı da ders kilitli kalırdı (10.10 "Temel Hukuk" olayı).
-   true yapmadan önce: SQL göçü (kgk-[1-3] → dersler) + modül→ders eşlemesi + arac/ders-adi-kapisi.js KGK kolu. */
+   true yapmadan önce: SQL göçü (kgk-[1-3] → dersler) + modül→ders eşlemesi + arac/ders-adi-kapisi.js KGK kolu.
+   13.10 akşam (site kolu): ÜÇÜ DE KURULDU — radar-app/sql/2026-10-13-kgk-modul-paket.sql (_siparis_isle kgk-[1-3] →
+   dersler; seçim boşsa açmaz; kurucu_sayac kgk satırı) · KGK_MODUL_DERS + kgkModulDersleri (aşağıda; satin-al.html
+   siparişe sitedeki ders adlarını yazar) · ders-adi-kapisi.js KGK kolu (dogrula.yml). Anahtarı çevirmek Cem kararı
+   (fiyat/paket). true olunca kgk-1/2/3 + Yeterlilik+KGK satışa, fiyat.html YMM/tek konu satırı + muafiyet tablosu açılır. */
 var KGK_PAKET_MERDIVENI = false;
 
 /* ---------------------------------------------------------------------------
@@ -323,6 +327,30 @@ var DERSLER = {
                'Denetim (TDS · etik · bağımsızlık · iç kontrol)',
                'Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı']
 };
+
+/* 13.10.2026 KGK MODÜL → SİTEDEKİ DERS ADLARI (site kolu). KGK'nın dört modülü KGK'nın kendi konu başlıklarıdır;
+   sitede ve kasada ise ders adları KGK'nın alt başlıklarıyla ayrı (veri/soru-dizini.json kgk · paket_soru.ders, 13.10 kasadan
+   okundu: "Türkiye Muhasebe Standartları", "Türkiye Denetim Standartları", "Kurumsal Yönetim", "Finansal Yönetim",
+   "Sermaye Piyasası Mevzuatı", "Bankacılık Mevzuatı", "Sigortacılık ve Özel Emeklilik Mevzuatı"). Kasa RLS
+   (paket_erisim_var) ders adını paket_uyeler.dersler ile BİREBİR eşler (10.10 "Temel Hukuk" olayı) → siparişe modül adı
+   değil, bu eşlemeyle açılmış SİTE ders adları yazılır (satin-al.html kgkModulDersleri). Anahtarlar DERSLER.kgk ile
+   aynı; her değer soru-dizini.json kgk ders adlarında var — arac/ders-adi-kapisi.js KGK kolu bunu dogrula.yml'de ölçer.
+   Sürdürülebilirlik (ek alan e/f/g) dört temel modülün hiçbirinde değildir; yalnız kgk-tum (dersler boş = hepsi) açar. */
+var KGK_MODUL_DERS = {
+  'Muhasebe Standartları (TMS)':                                           ['Türkiye Muhasebe Standartları'],
+  'Kurumsal Yönetim İlkeleri ve Finansal Yönetim':                         ['Kurumsal Yönetim', 'Finansal Yönetim'],
+  'Denetim (TDS · etik · bağımsızlık · iç kontrol)':                       ['Türkiye Denetim Standartları'],
+  'Sermaye Piyasası, Bankacılık, Sigortacılık ve Özel Emeklilik Mevzuatı': ['Sermaye Piyasası Mevzuatı', 'Bankacılık Mevzuatı', 'Sigortacılık ve Özel Emeklilik Mevzuatı']
+};
+/* Seçilen modül adlarını sitedeki ders adlarına açar (tekil, sıra korunur). Eşlemesi olmayan modül adı ATLANIR —
+   bilinmeyen adı siparişe yazmak ders kilitlemekten (10.10) kötüdür; kapı o adı zaten depoda yakalar. */
+function kgkModulDersleri(moduller){
+  var out = [];
+  (moduller || []).forEach(function(m){
+    (KGK_MODUL_DERS[m] || []).forEach(function(d){ if(out.indexOf(d) < 0) out.push(d); });
+  });
+  return out;
+}
 
 /* Kime hangi konular düşüyor — satın alma ekranı bunu kendisi söylesin ki
    adam "ben kaç konu alacağım" diye aramasın. Kaynak: kgk.gov.tr (yukarıda). */

@@ -432,6 +432,9 @@ jobs:
           # 10.10.2026 - KAPI-DA ders adi (arac/ders-adi-kapisi.js): fiyat-motoru.js / edge magaza-dogrula / karne-gonder Yeterlilik
           # ders adlari = veri/soru-dizini.json ders adlari. Olay: "Temel Hukuk" satildi, sitede "Hukuk" -> ders kilitli kaldi.
           # 9 vaka; mutasyonla olculdu: yok 2/9, eksik 4/9, kor 2/9 KIRMIZI. Duzeltme oncesi depoda 2 bulgu verdi.
+          # 13.10.2026 - KGK kolu: fiyat-motoru.js KGK_MODUL_DERS (modul -> sitedeki ders adlari) = soru-dizini.json kgk ders adlari;
+          # modul eslemesiz / olu anahtar / temel alan dersi hic modulde yok / ayni ders iki modulde. +12 vaka (21); mutasyonla olculdu:
+          # kgkmodul 3/21, kgkyok 2/21, kgkeksik 3/21, kgkcift 3/21, kor 4/21 KIRMIZI.
           - { ad: "KAPI-DA ders adi OZ-SINAVI (satilan ders adi sitede birebir var mi)",
               kabuk: bash, komut: "node arac/ders-adi-kapisi.js --sinav" }
           - { ad: "KAPI-DA ders adi GERCEK DEPO",

@@ -415,7 +415,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261013a"></script>
+<script src="fiyat-motoru.js?v=20261013b"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -524,8 +524,11 @@ function dersCiz(){
   document.getElementById('dersNot').innerHTML =
     '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
     + (kgk ? 'modüllere' : 'derslere') + ' açılır. <span id="dersSayac"></span>';
+  /* 13.10: KGK modülü sitede birden çok ders sayfasına karşılık gelir (fiyat-motoru.js KGK_MODUL_DERS); alıcı hangi
+     sayfaların açılacağını modülün altında görür. Değer (value) yine modül adıdır; siparişe giden ders adları gönderimde açılır. */
   document.getElementById('dersListe').innerHTML = havuz.map(function(d){
-    return '<label><input type="checkbox" value="' + d + '"><span>' + d + '</span></label>';
+    var alt = (kgk && typeof KGK_MODUL_DERS !== 'undefined' && KGK_MODUL_DERS[d]) ? '<small style="display:block;color:var(--muted);font-weight:400">' + KGK_MODUL_DERS[d].join(' · ') + '</small>' : '';
+    return '<label><input type="checkbox" value="' + d + '"><span>' + d + alt + '</span></label>';
   }).join('');
   /* 05.10 Cem: seviye testinden "Riskli derslerini aç" ile gelen (?dersler=Ad|Ad) dersler hazır işaretli gelir.
      Ad eşleşmezse (yazım farkı) o ders atlanır, öğrenci kendisi seçer; paket tavanını aşmaz. */
@@ -1025,9 +1028,17 @@ btn.addEventListener('click', function(){
   var tutar = odenecekTutar();
   var tkInd = teklifIndirim();   /* 12.10 anlık teklif: varsa elçi kodu gönderilmez (üst üste binmez) */
   var elciKod = (elciIndirim > 0 && !tkInd) ? elciTemizle(deger('elci')) : '';
+  /* 13.10: KGK modül paketinde siparişe MODÜL adı değil, modülün sitedeki DERS adları yazılır (fiyat-motoru.js
+     KGK_MODUL_DERS → kgkModulDersleri). secilen_dersler → paket_uyeler.dersler → kasa RLS birebir ad eşler; modül adı
+     yazılsaydı dört ders de kilitli kalırdı (10.10 "Temel Hukuk" olayı). Eşlemesi olmayan modül boş döner → sipariş alınmaz. */
+  var siparisDers = secilenD;
+  if(secili.id.indexOf('kgk-') === 0 && secilenD.length){
+    siparisDers = (typeof kgkModulDersleri === 'function') ? kgkModulDersleri(secilenD) : [];
+    if(!siparisDers.length || siparisDers.length > 8){ hata('Seçilen modüllerin ders karşılığı bulunamadı. Sayfayı yenileyip yeniden dene; sürerse destek@tetikte.com\'a yaz.', 1); return; }
+  }
   var kayit = { siparis_no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar,
                 liste_fiyat:secili.liste, dersler:(secili.ders || secili.modul || null),
-                secilen_dersler:(secilenD.length ? secilenD : null),
+                secilen_dersler:(siparisDers.length ? siparisDers : null),
                 ad_soyad:ad, email:mail, telefon:tel, adres:adres, fatura:fatura,
                 davet_kodu:(davet || null),
                 odeme:'havale', durum:'odeme_bekliyor' };
