@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-10-12T00:26:13.775Z",
-  "gun": "2026-10-12",
+  "olcum": "2026-10-13T02:31:28.381Z",
+  "gun": "2026-10-13",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 4,
+      "sira": 5,
       "toplam": 10,
-      "id": "sgs-t1-mta-cokzor/kp-01",
-      "ders": "Mali Tablolar Analizi",
-      "konu": "dikey yüzde analizi",
-      "donem": 11,
-      "teori": false,
+      "id": "sgs-t1-genel-mat-cokzor/kp-01",
+      "ders": "Matematik",
+      "konu": "denklem cozme",
+      "donem": 7,
+      "teori": true,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı gelir tablosu dikey yüzde analizinde satılan malın maliyeti net satışların %65'i, faaliyet giderleri toplamı ise net satışların %20'sidir. Aynı döneme ait satılan malın maliyeti 520.000 TL, finansman gideri ise 30.000 TL olarak gerçekleşmiştir. Bu verilere göre işletmenin faaliyet karı kaç TL'dir?",
+      "soru": "x² − (2k + 2)x + (k² + k − 2) = 0 denkleminin iki farklı reel kökü x₁, x₂'dir. Köklerin çarpımı, köklerin toplamından 8 fazladır. Buna göre k kaçtır?",
       "siklar": {
-        "A": "50.700",
-        "B": "90.000",
-        "C": "120.000",
-        "D": "176.000",
-        "E": "640.000"
+        "A": "-3",
+        "B": "-2",
+        "C": "3",
+        "D": "4",
+        "E": "6"
       },
-      "dogru": "C",
+      "dogru": "D",
       "tuzak": {
-        "D": {
-          "ad": "Taban Karıştırma Tuzağı",
-          "metin": "Faaliyet giderleri yüzdesini net satış yerine SMM tutarı üzerinden uygularsın (520.000x0,20=104.000), böylece faaliyet karını olduğundan yüksek (176.000) bulursun. Doğrusu: Yüzdeler her zaman net satışlar tabanına uygul…"
+        "C": {
+          "ad": "İşaret Karıştırma Tuzağı",
+          "metin": "(k−4)(k+3) çarpanlarının işaretini karıştırıp (k−3)(k+4) yazarsın; bu k²+k−12 verir, orta terim uymaz, k=3 yanlış çıkar. Doğrusu: orta terim −k olduğundan çarpanlar (k−4) ve (k+3)'tür."
         },
         "E": {
-          "ad": "SMM'yi Dışlama Tuzağı",
-          "metin": "Faaliyet karını hesaplarken brüt satış karı adımını atlayıp doğrudan net satıştan yalnız faaliyet giderini düşersin, SMM'yi unutursun. Doğrusu: Faaliyet karına ulaşmadan önce SMM mutlaka net satıştan düşülüp brüt satış …"
+          "ad": "Yanlış Çarpanlama Tuzağı",
+          "metin": "aynı hatalı (k−6)(k+2)=0 çarpanlamasından bu kez öteki kökü, k=6'yı seçersin; bu çarpanlama zaten orijinal k²−k−12'yi vermez. Doğrusu: gerçek çarpanlar (k−4)(k+3)'tür, k=4 doğru köktür."
         },
         "A": {
-          "ad": "Ters Oran Tuzağı",
-          "metin": "Net satışı bulmak için SMM tutarını yüzdesine bölmen gerekirken yüzdesiyle çarparsın, böylece net satışı olduğundan küçük (338.000) hesaplarsın. Doğrusu: Net satış 520.000/0,65=800.000'dir, faaliyet karı da buradan 120.…"
+          "ad": "Çakışık Kök Tuzağı",
+          "metin": "k²−k−12=0 denklemini çözüp k=−3'ü de kabul edersin, ama bu k için Δx=0 olur; kökler çakışıktır, 'iki farklı reel kök' şartını sağlamaz. Doğrusu: Δx>0 kontrolü yapılmadan k=−3 elenmelidir."
         },
         "B": {
-          "ad": "Finansman Giderini Faaliyet Karına Dahil Etme Tuzağı",
-          "metin": "Finansman giderinin faaliyet karından sonra düşüldüğünü unutup 120.000'den 30.000'i çıkarırsın. Doğrusu: Finansman gideri faaliyet karı hesabına hiç girmez, olağan kâra geçişte düşülür."
+          "ad": "Yanlış Çarpanlama Tuzağı",
+          "metin": "k²−k−12=0 ifadesini orta terimi denetlemeden (k−6)(k+2) diye çarpanlarına ayırıp k=−2 bulursun; bu çarpım açıldığında k²−4k−12 verir, aslındaki denklemi karşılamaz. Doğrusu: doğru çarpanlama (k−4)(k+3)=0'dır."
         }
       },
-      "hap": "Dikey yüzde ve bir kalemin tutarı biliniyorsa net satış = tutar / (yüzde/100) ile bulunur, diğer tüm kalemler bu tabandan kendi yüzdeleriyle türetilir.",
+      "hap": "İkinci derece denklemde parametre bulunurken çıkan her kök için, sorunun istediği 'farklı reel kök' şartını Δ üzerinden mutlaka tekrar sına.",
       "satirlar": [
         [
-          "Net Satışlar (520.000 / 0,65)",
-          "800.000"
+          "Kurulan denklem (çarpım = toplam + 8)",
+          "K² + k − 2 = 2k + 10"
         ],
         [
-          "Satılan Malın Maliyeti",
-          "520.000"
+          "Sadeleştirilmiş k denklemi",
+          "K² − k − 12 = 0"
         ],
         [
-          "Brüt Satış Karı (800.000 - 520.000)",
-          "280.000"
+          "Çarpanlara ayırma",
+          "(k − 4)(k + 3) = 0 → k = 4 veya k = −3"
         ],
         [
-          "Faaliyet Giderleri (800.000 x 0,20)",
-          "160.000"
+          "Δx = 4k + 12 kontrolü (k=4)",
+          "Δx = 28 > 0 → GEÇERLİ"
         ],
         [
-          "Faaliyet Karı (280.000 - 160.000)",
-          "120.000"
+          "Δx = 4k + 12 kontrolü (k=−3)",
+          "Δx = 0 → GEÇERSİZ (çakışık kök)"
         ]
       ],
-      "dayanak": "TEORİ - Dikey yüzdelerden net satış ve gelir tablosu hesapları (net satış = kalem tutarı / (kalem yüzdesi / 100); faaliyet kârı = brüt satış kârı − faaliyet giderleri; finansman gideri faaliyet kârından sonra düşülür, f…",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=4",
+      "dayanak": "TESMER SGS Matematik-İstatistik Ders Notu - İkinci Derece Denklemler: Vieta bağıntıları (x1+x2=−b/a, x1·x2=c/a) ve diskriminant kuralı (Δ=b²−4ac; Δ>0 iki farklı gerçel kök)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=5",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": 2,
+        "kalan_gun": 1,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +81,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 5,
+      "sira": 6,
       "toplam": 9,
-      "id": "smmm-4k-a-yspk-zor-r8/kp-01",
-      "ders": "Sermaye Piyasası Mevzuatı",
-      "konu": "sermaye piyasası kurumları",
-      "donem": 6,
+      "id": "smmm-w7-1-yhukuk-zor/kp-01",
+      "ders": "Hukuk",
+      "konu": "borcu sona erdiren sebepler",
+      "donem": 4,
       "teori": true,
       "rakamSik": false,
-      "soru": "6362 sayılı Sermaye Piyasası Kanunu'nun 35. maddesinde, bu Kanuna göre faaliyette bulunabilecek sermaye piyasası kurumları tek tek sayılmıştır. Buna göre, aşağıdakilerden hangisi 6362 sayılı Kanun'un 35. maddesinde sayılan sermaye piyasası kurumlarından biri değildir?",
+      "soru": "Mobilya üreticisi İşletme'nin, tedarikçisi Kişi'den 2019 yılında verdiği ödünç paraya ilişkin 60.000 ₺ alacağı vardır. Kişi'nin de İşletme'den 2023 yılında teslim ettiği malzeme bedeline ilişkin 60.000 ₺ alacağı bulunmaktadır. İşletme'nin alacağı, iki borcun birlikte var olduğu 2023 yılında zamanaşımına uğramamışken, 2026 yılında zamanaşımına uğramış ve İşletme takas beyanını bu tarihte yapmıştır. Buna göre, aşağıdakilerden hangisi doğrudur?",
       "siklar": {
-        "A": "Merkezî takas kuruluşları",
-        "B": "Konut finansmanı ve varlık finansmanı fonları",
-        "C": "Veri depolama kuruluşları",
-        "D": "Varlık kiralama şirketleri",
-        "E": "Faktoring şirketleri"
+        "A": "Takas beyanının zamanaşımı süresi dolduktan sonra yapılmış olması, İşletme'nin takas hakkını ortadan kaldırır.",
+        "B": "İşletme'nin alacağı, iki borcun birlikte var olduğu anda zamanaşımına uğramamış olduğundan, takas beyanı geçerli olarak ileri sürülebilir.",
+        "C": "Alacaklardan birinin ödünç bedeline, diğerinin malzeme bedeline dayanması, edimlerin özdeş sayılmasını engellediğinden takas mümkün değildir.",
+        "D": "Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uyarınca hiçbir koşulda takasa konu edilemeyeceğinden İşletme'nin beyanı sonuçsuzdur.",
+        "E": "Taraflar arasında alacaklı ve borçlu sıfatları aynı kişide birleştiğinden borç zaten sona ermiş olup takas beyanına gerek kalmamıştır."
       },
-      "dogru": "E",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Yeni Kurum Yabancılaşması Tuzağı",
-          "metin": "Öğrenci veri depolama kuruluşlarını teknik-idari bir birim sanıp Kanun kapsamı dışında görür. Doğrusu: Veri depolama kuruluşları madde 35/1-h bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kapsam Tuzağı",
+          "metin": "Alacakların farklı hukuki kaynaklardan (ödünç, malzeme bedeli) doğmasının edim özdeşliğini bozduğunu düşünürsün. Doğrusu: TBK m.139/1 aynı cins ve nitelikte edimi esas alır, her iki alacak da para borcu olduğundan özdeş…"
         },
-        "A": {
-          "ad": "Kapsam Daraltma Tuzağı",
-          "metin": "Öğrenci takas kuruluşlarını borsa bünyesinde bir birim sanıp ayrı bir kurum türü olarak Kanun'da sayılmadığını düşünür. Doğrusu: Merkezî takas kuruluşları madde 35/1-g bendinde sermaye piyasası kurumu olarak açıkça sayı…"
+        "E": {
+          "ad": "Kurum Karıştırma Tuzağı",
+          "metin": "Alacaklı-borçlu sıfatlarının birleşmesini (m.135) takas ile aynı olaya uygularsın. Doğrusu: Birleşme, alacaklı ve borçlunun aynı kişide toplanmasını gerektirir; olayda İşletme ve Kişi ayrı kişiler olduğundan birleşme sö…"
         },
         "D": {
-          "ad": "Sukuk Aracı Karıştırma Tuzağı",
-          "metin": "Öğrenci varlık kiralama şirketlerini yalnız kira sertifikası çıkaran bir araç sanıp ayrı kurum sayılmadığını düşünür. Doğrusu: Varlık kiralama şirketleri madde 35/1-f bendinde sermaye piyasası kurumu olarak sayılmıştır."
+          "ad": "Kural Genelleme Tuzağı",
+          "metin": "Zamanaşımına uğramış her alacağın takasa konu olamayacağını genel kural sayarsın. Doğrusu: TBK m.139/3 bu genel kurala açık bir istisna getirir; takas edilebilir anda zamanaşımı dolmamışsa takas ileri sürülebilir."
         },
-        "B": {
-          "ad": "Fon-Kurum Karıştırma Tuzağı",
-          "metin": "Öğrenci tüzel kişiliği bulunmayan fonların kurum sayılmayacağını düşünür. Doğrusu: Konut finansmanı ve varlık finansmanı fonları madde 35/1-e bendinde sermaye piyasası kurumu olarak sayılmıştır."
+        "A": {
+          "ad": "Zamanlama Tuzağı",
+          "metin": "Beyanın hangi tarihte yapıldığını belirleyici sanırsın. Doğrusu: TBK m.139/3'e göre önemli olan iki borcun birlikte var olduğu andaki durumdur, beyanın sonradan yapılması hakkı ortadan kaldırmaz."
         }
       },
-      "hap": "6362 sayılı Kanun m.35/1'de sayılan sermaye piyasası kurumları arasında faktoring şirketleri yoktur; bunlar 6361 sayılı Kanun'a tabidir. Bankalar ise m.3/1-v gereği yatırım kuruluşu olarak m.35/1-a kapsamındadır.",
+      "hap": "Zamanaşımına uğramış alacağın takası, borçların birlikte var olduğu (takas edilebilir hale geldiği) anda zamanaşımı henüz dolmamışsa geçerlidir.",
       "satirlar": [
         [
-          "A) Merkezî takas kuruluşları",
-          "m.35/1-g"
+          "A) Takas beyanının zamanaşımı süresi dolduktan sonra yapılm…",
+          "TBK m.139/3"
         ],
         [
-          "B) Konut finansmanı ve varlık finansmanı fonları",
-          "m.35/1-e"
+          "B) İşletme'nin alacağı, iki borcun birlikte var olduğu anda…",
+          "TBK m.139/3"
         ],
         [
-          "C) Veri depolama kuruluşları",
-          "m.35/1-h"
+          "C) Alacaklardan birinin ödünç bedeline, diğerinin malzeme b…",
+          "TBK m.139/1"
         ],
         [
-          "D) Varlık kiralama şirketleri",
-          "m.35/1-f"
+          "D) Zamanaşımına uğramış bir alacak, Türk Borçlar Kanunu uya…",
+          "TBK m.139/3"
         ],
         [
-          "E) Faktoring şirketleri",
-          "m.35/1"
+          "E) Taraflar arasında alacaklı ve borçlu sıfatları aynı kişi…",
+          "TBK m.135"
         ]
       ],
-      "dayanak": "6362 sayılı Sermaye Piyasası Kanunu m.35/1 (a–ı bentleri), m.3/1-v (yatırım kuruluşu bankaları kapsar); 6361 sayılı Kanun m.1 (faktoring şirketleri)",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=5",
+      "dayanak": "TBK m.139/3",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=6",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": 8,
+        "kalan_gun": 7,
         "durum": "DONGU",
         "mail_gunu": false
       },
