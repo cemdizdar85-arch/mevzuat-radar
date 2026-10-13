@@ -27,8 +27,9 @@
     return __dizin;
   }
   /* ders adı -> {ad, sayfa, sinav}. Birebir ad, olmazsa içerme. Bulunamazsa null (sayfa sınav listesine düşer). */
-  /* 07.10: sinav ('sgs'|'smmm') verilirse yalnız o sınavda arar — Finansal Muhasebe / Maliyet / Meslek Hukuku iki sınavda da var,
-     verilmezse eski davranış (ilk açık sınav). */
+  /* 07.10: sinav ('sgs'|'smmm'|'kgk') verilirse yalnız o sınavda arar — Finansal Muhasebe / Maliyet / Meslek Hukuku iki sınavda da var,
+     verilmezse eski davranış (ilk açık sınav). 13.10: KGK dizin anahtarı 'kgk'; "Sermaye Piyasası Mevzuatı" Yeterlilik'te de var,
+     sınavsız aramada ilk açık sınav (Yeterlilik) kazanır — KGK üyesi için çağıran 'kgk' vermeli. */
   function dersBul(d, ad, sinav){
     if(!d || !d.sinavlar || !ad) return null;
     var a = kucuk(ad), ilk = null;
@@ -158,6 +159,23 @@
   function dokunulmamis(sinav, cb){
     var kayit = oku('kc_kayit', []); if(!Array.isArray(kayit)) kayit = [];
     var bitir = function(x){ try{ cb(x); }catch(e){} };
+    /* 13.10 KGK (site kolu, KGK açılış hazırlığı): KGK'da seviye testi, deneme seti ve okunmuş konu bağı YOK → DERS düzeyi.
+       Ders = kasadaki 'ders' alanı (paket_soru.ders; 13.10 ölçüldü: 7 sayfada 7 ad, dizindeki adlarla birebir). Sıra: dizindeki
+       modül sırası (sınav ilanı). 🚫 GÖRMEZ: dizinde 'acik' olmayan KGK (anahtar kapalıyken null döner) · sayfasız modül
+       (Sigortacılık, Kurumsal Sürdürülebilirlik Raporlaması: soru yok, listeye girmez) · son 500 cevaptan eskisi. */
+    if(sinav === 'kgk'){
+      dizin().then(function(d){
+        var kgk = d && d.sinavlar ? d.sinavlar.filter(function(s){ return s.kod === 'kgk'; })[0] : null;
+        if(!kgk || kgk.durum !== 'acik') return bitir(null);
+        var dersler = (kgk.dersler || []).filter(function(x){ return x.sayfa; }), adlar = {};
+        dersler.forEach(function(x){ adlar[kucuk(x.ad)] = 1; });
+        var say = {}, cozulen = 0;
+        kayit.forEach(function(x){ if(!x) return; var k = kucuk(x.ders); if(!adlar[k]) return; cozulen++; say[k] = (say[k] || 0) + 1; });
+        var liste = dersler.filter(function(x){ return !say[kucuk(x.ad)]; }).map(function(x){ return { ders:x.ad, sayfa:x.sayfa }; });
+        bitir({ sinav:'kgk', tur:'ders', cozulen:cozulen, liste:liste, toplamSik:dersler.length, dokunulanSik:dersler.length - liste.length });
+      }, function(){ bitir(null); });
+      return;
+    }
     if(sinav === 'yeterlilik'){
       Promise.all([yetVeri(), dizin()]).then(function(r){
         var ok = r[0][0], es = r[0][1] && r[0][1].sorular, d = r[1];
@@ -216,15 +234,34 @@
 
   /* "Şimdi bunu yap" — tek öneri. Sıra: vadesi gelen tekrar > en zor konu > (son 15 gün: haftalık deneme) >
      (son 3 gün: sık çıkan konudan kısa set) > seviye testindeki en zayıf ders > seviye testi.
-     bag (isteğe bağlı) = { sinav:'sgs'|'yeterlilik', gun:<sınava kalan gün>, sonDeneme:<ms|null> }
+     bag (isteğe bağlı) = { sinav:'sgs'|'yeterlilik'|'kgk', gun:<sınava kalan gün>, sonDeneme:<ms|null> }
+     13.10 KGK: seviye testi ve deneme seti olmadığı için son basamak DERS BAZLI — hiç dokunulmamış modül varsa dizin sırasıyla
+       ilki, hepsine dokunulduysa doğruluğu en düşük KGK dersi (en az 3 cevap), o da yoksa soru bankası. Evre (gun) KGK'da yok:
+       takvimde KGK günü ilan edilmemiş → deneme/son gün basamakları çalışmaz. 🚫 GÖRMEZ: KGK dizini 'acik' değilse ders önerisi
+       kurulamaz → soru bankasına yönlendirir · kc_kayit sınav taşımaz, "Sermaye Piyasası Mevzuatı" Yeterlilik cevabı KGK'ya da sayılır.
      cb({baslik, metin, dugme, adres}, ozet, evre|null) */
   function oneri(cb, bag){
     var o = ozet();
     bag = bag || {};
-    var ev = evre(bag.gun), yet = bag.sinav === 'yeterlilik', kod = bag.sinav ? (yet ? 'smmm' : 'sgs') : null;
+    var ev = evre(bag.gun), yet = bag.sinav === 'yeterlilik', kgk = bag.sinav === 'kgk', kod = bag.sinav ? (yet ? 'smmm' : kgk ? 'kgk' : 'sgs') : null;
     var sikSayfa = yet ? 'en-cok-cikan-konular-yeterlilik.html' : 'en-cok-cikan-konular-sgs.html';
     dizin().then(function(d){
       var sonuc;
+      var kgkDers = function(){
+        var s = d && d.sinavlar ? d.sinavlar.filter(function(x){ return x.kod === 'kgk'; })[0] : null;
+        if(!s || s.durum !== 'acik') return null;
+        var dersler = (s.dersler || []).filter(function(x){ return x.sayfa; }), say = {}, dog = {}, ky = oku('kc_kayit', []);
+        if(!Array.isArray(ky)) ky = [];
+        ky.forEach(function(x){ if(!x) return; var k = kucuk(x.ders); say[k] = (say[k] || 0) + 1; if(x.dogru) dog[k] = (dog[k] || 0) + 1; });
+        var yeni = dersler.filter(function(x){ return !say[kucuk(x.ad)]; })[0];
+        if(yeni) return { baslik:'Şimdi bunu yap', metin:yeni.ad + ' modülünden henüz soru çözmedin. Bugün oradan 10 soru çöz, yaklaşık 15 dakika; sonra yanlışların kutuna düşer.',
+                          dugme:'Başla', adres:yeni.sayfa };
+        var zayif = dersler.filter(function(x){ return (say[kucuk(x.ad)] || 0) >= 3; })
+          .sort(function(a, b){ var ka = kucuk(a.ad), kb = kucuk(b.ad); return (dog[ka] || 0) / say[ka] - (dog[kb] || 0) / say[kb]; })[0];
+        if(zayif){ var k = kucuk(zayif.ad); return { baslik:'Şimdi bunu yap', metin:'Son cevaplarında en düşük doğruluk ' + zayif.ad + ' modülünde (' + (dog[k] || 0) + '/' + say[k] + '). Bugün oradan 10 soru çöz, yaklaşık 15 dakika.',
+                          dugme:'Başla', adres:zayif.sayfa }; }
+        return null;
+      };
       if(o.vadeli > 0){
         var ilk = o.kutuDers.filter(function(x){ return x.bugun > 0; })[0];
         var b = ilk ? dersBul(d, ilk.ders, kod) : null;
@@ -241,6 +278,9 @@
       } else if(ev && ev.kod === 'songun'){
         sonuc = { baslik:'Son günler', metin:'Yanlış kutunda bugün sırası gelen soru yok. Yeni konu açma: en sık çıkan konular listesinden ilk konulara göz at, her birinden birkaç soru çöz (toplam ' + ev.sik + ' soru).',
                   dugme:'Sık çıkan konular', adres:sikSayfa };
+      } else if(kgk){
+        sonuc = kgkDers() || { baslik:'Şimdi bunu yap', metin:'Bağımsız Denetçilik soru bankasını modül modül çöz; yanlışların kutuna düşer, 2 gün sonra yeniden karşına çıkar.',
+                               dugme:'Soru bankasına git', adres:'sorular.html#kgk' };
       } else {
         var sv = o.sonSeviye || o.sonSeviyeYet;
         var gr = sv && Array.isArray(sv.gruplar) ? sv.gruplar.filter(function(g){ return g && g.soru; }) : [];

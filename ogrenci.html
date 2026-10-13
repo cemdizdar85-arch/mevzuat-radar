@@ -276,15 +276,19 @@
     <!-- İLERLEME: veri (seviye testi / deneme) yoksa üç "–" kartı, boş grafik ve boş deneme kutusu YERİNE tek kart -->
     <div class="og-bolum" id="ogIlerlemeBolum">
       <div class="og-bolum-ust"><h2 id="ogIlerleme">Staja Giriş ilerlemen</h2><span class="og-ipucu" id="ogGeriSayim"></span></div>
-      <!-- 07.10: iki sınavda da sonuç varsa sekme (SGS / Yeterlilik); tek sınavda gizli -->
+      <!-- 07.10: iki sınavda da sonuç varsa sekme (SGS / Yeterlilik); tek sınavda gizli.
+           13.10: KGK düğmesi yalnız KGK içeriği açıkken (uye-durumu.js SINAVLAR.kgk.icerik) ve KGK verisi/paketi varken görünür -->
       <div class="og-btnler og-gizli" id="ogSinavSec" role="group" aria-label="Sınav seç" style="margin:0 0 12px">
         <button class="og-btn og-kucuk" type="button" data-sinav="sgs" aria-pressed="false">Staja Giriş</button>
         <button class="og-btn og-kucuk" type="button" data-sinav="yeterlilik" aria-pressed="false">Yeterlilik</button>
+        <button class="og-btn og-kucuk og-gizli" type="button" data-sinav="kgk" aria-pressed="false">Bağımsız Denetçilik</button>
       </div>
       <div class="og-kutu og-gizli" id="ogBos">
-        <b style="font-size:17px">Henüz bir ölçümün yok</b>
-        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px">30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.</p>
+        <b style="font-size:17px" id="ogBosBas">Henüz bir ölçümün yok</b>
+        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px" id="ogBosMetin">30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.</p>
         <p class="og-alt og-gizli" id="ogBosKutu" style="margin:8px 0 0;font-size:14px"></p>
+        <!-- 13.10 KGK: seviye testi/deneme yok -> ilerleme modül modül (bu cihazdaki son 500 cevap + hesaptan inen kayıt) -->
+        <div class="og-gizli" id="ogKgkDersler" style="margin-top:10px"></div>
         <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogBosTest">Seviye testini çöz →</a><a class="og-btn" href="sorular.html#sgs" id="ogBosCalis">Ders ders çalış</a></div>
       </div>
       <div id="ogDolu" class="og-gizli">
@@ -367,7 +371,7 @@
 <script src="uye-durumu.js?v=20261013a"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
-<script src="calisma-ozet.js?v=20261011"></script>
+<script src="calisma-ozet.js?v=20261013a"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -432,6 +436,13 @@
     /* 07.10: yalnız Yeterlilik paketi varsa ilerleme Yeterlilik'le açılır (kişi sekmeye kendisi basmadıysa) */
     if(aktifler.length && aktifler.indexOf('sgs')<0 && aktifler.indexOf('yeterlilik')>-1){
       ILR.paketYet=true; if(ILR.kasa&&!ILR.elle&&(sinavKayit('yeterlilik').length||!sinavKayit('sgs').length)) ilerlemeCiz('yeterlilik');
+    }
+    /* 13.10 KGK (ölçüldü: KGK paketi alan üye İlerlemem'de SGS görüyordu): aktif KGK paketi + içerik açıksa KGK sekmesi görünür;
+       yalnız KGK paketi varsa (SGS/Yeterlilik yok) ilerleme KGK'yla açılır. 'tam'/'kurucu' üçünü de kapsar -> sekme çıkar, açılış SGS kalır. */
+    if(aktifler.indexOf('kgk')>-1 && kgkAcik()){
+      ILR.paketKgk=true;
+      if(aktifler.indexOf('sgs')<0 && aktifler.indexOf('yeterlilik')<0){ ILR.yalnizKgk=true; if(ILR.kasa&&!ILR.elle) ilerlemeCiz('kgk'); }
+      else if(ILR.secili) ilerlemeCiz(ILR.secili);   /* sekme şeridi yeniden çizilsin */
     }
     if(!sinavlar.length){
       kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
@@ -528,12 +539,16 @@
       if(ILR.secili!==s) return;
       var kap=$('ogDokunma');
       if(!r){ kap.classList.add('og-gizli'); return; }
-      var yet=r.tur==='konu', ys=r.sinav==='yeterlilik';
+      var yet=r.tur==='konu', ys=r.sinav==='yeterlilik', kg=r.sinav==='kgk';   /* 13.10 KGK: ders (modül) düzeyi, rakamsız */
       var kapsam=ys?'Her dersin en sık çıkan 5 konusu, toplam '+r.toplamSik+' konu':'Staja Giriş\'te en sık çıkan '+r.toplamSik+' konu (Matematik hariç)';
-      $('ogDokunmaBas').textContent=yet?'Sık çıkıp hiç dokunmadığın konular':'Hiç soru çözmediğin dersler';
+      $('ogDokunmaBas').textContent=yet?'Sık çıkıp hiç dokunmadığın konular':kg?'Hiç soru çözmediğin modüller':'Hiç soru çözmediğin dersler';
       if(!r.liste.length){
-        $('ogDokunmaUst').textContent=yet?kapsam+': hepsinden en az bir soru çözdün. Şimdi zayıf olduklarına dön.':'Staja Giriş\'in bütün derslerinden soru çözdün.';
+        $('ogDokunmaUst').textContent=yet?kapsam+': hepsinden en az bir soru çözdün. Şimdi zayıf olduklarına dön.':kg?'Bağımsız Denetçilik\'in bütün modüllerinden soru çözdün. Şimdi doğruluğu düşük olanlara dön.':'Staja Giriş\'in bütün derslerinden soru çözdün.';
         $('ogDokunmaListe').innerHTML='';
+      } else if(kg){
+        $('ogDokunmaUst').textContent='Bağımsız Denetçilik\'in '+r.toplamSik+' modülünden '+r.dokunulanSik+' tanesinde soru çözdün. Hiç başlamadıkların (sınav ilanı sırasıyla):';
+        $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
+          return '<div class="og-satir"><b>'+esc(x.ders)+'</b><a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
       } else if(yet){
         $('ogDokunmaUst').textContent=kapsam+'. Sen bunların '+r.dokunulanSik+' tanesinden soru çözdün. Sıradakiler:';
         $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
@@ -547,6 +562,7 @@
       }
       $('ogDokunmaAlt').innerHTML=yet
         ?'Sayım, çıkmış soruların metni tek tek okunarak yapıldı. Liste bu cihazdaki son 500 cevabına göre. <a class="og-link" href="'+(ys?'en-cok-cikan-konular-yeterlilik.html">Ders ders en sık çıkan konular →':'en-cok-cikan-konular-sgs.html">En sık çıkan konular →')+'</a>'
+        :kg?'Liste bu cihazdaki son 500 cevabına göre. Modül listesi KGK Bağımsız Denetçilik sınav ilanından; sınav günü KGK ilanıyla duyurulur.'
         :'Liste bu cihazdaki son 500 cevabına göre. Hangi konuların sık çıktığını görmek için: <a class="og-link" href="en-cok-cikan-konular-sgs.html">En sık çıkan konular →</a>';
       kap.classList.remove('og-gizli');
     });
@@ -593,7 +609,9 @@
      07.10 (ölçüldü): Yeterlilik seviye sonucu 'sv_sonuclar_yet'te duruyordu, hiç aktarılmıyordu; sinav-gibi.html 04.10'dan beri
      anahtara set sürümünü ekliyor ('sg_sgs_<no>_<surum>'), burası eksiz 'sg_sgs_<no>' okuyordu -> deneme aktarımı durmuştu.
      Kasada sinav kodu: SGS 'sgs', Yeterlilik 'smmm' (tablo kısıtı sgs|smmm|kgk; yonetim.html 'smmm'i Yeterlilik okur). */
-  var KASA_KOD={ sgs:'sgs', yeterlilik:'smmm' };
+  var KASA_KOD={ sgs:'sgs', yeterlilik:'smmm', kgk:'kgk' };   /* 13.10: kgk eklendi (kasada henüz KGK seviye/deneme kaydı üretilmiyor; ilerleme ders düzeyinde) */
+  /* 13.10: KGK içeriği açık mı (uye-durumu.js SINAVLAR.kgk.icerik — fiyat-motoru.js ICERIK_HAZIR.kgk ile aynı anahtar) */
+  function kgkAcik(){ try{ return !!(window.TetikteUye&&TetikteUye.SINAVLAR&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icerik); }catch(e){ return false; } }
   function cihazSonuclari(){
     var liste=[];
     [['sv_sonuclar','sv-','sgs'],['sv_sonuclar_yet','svy-','smmm']].forEach(function(k){
@@ -686,8 +704,10 @@
       if(!user||!user.created_at||Date.now()-Date.parse(user.created_at)>30*60000) return false;
       if(localStorage.getItem('tt_ilk_test_'+user.id)==='1') return false;
       localStorage.setItem('tt_ilk_test_'+user.id,'1');
-      var yet=false; try{ yet=localStorage.getItem('tt_sinav')==='yeterlilik'; }catch(e){}   /* uye-durumu.js sinavSec anahtarı */
-      location.replace('seviye-testi.html'+(yet?'?sinav=yeterlilik':'')); return true;
+      var sec=''; try{ sec=localStorage.getItem('tt_sinav')||''; }catch(e){}   /* uye-durumu.js sinavSec anahtarı */
+      /* 13.10 KGK: seviye testi yok -> KGK seçmiş yeni üye soru bankasına (sorular.html#kgk); içerik kapalıysa SGS testi */
+      if(sec==='kgk' && kgkAcik()){ location.replace('sorular.html#kgk'); return true; }
+      location.replace('seviye-testi.html'+(sec==='yeterlilik'?'?sinav=yeterlilik':'')); return true;
     }catch(e){ return false; }
   }
   async function panel(user){
@@ -740,7 +760,7 @@
       if(r.error){ kasaVar=false; }
     }
     /* 2) hesaptakini oku - iki sınav birden; gösterim seçili sınava göre (ilerlemeCiz) */
-    var o=await sb.from('ogrenci_sonuc').select('tur,sinav,anahtar,veri,olusturma').in('sinav',['sgs','smmm']).order('olusturma',{ascending:true}).limit(500);
+    var o=await sb.from('ogrenci_sonuc').select('tur,sinav,anahtar,veri,olusturma').in('sinav',['sgs','smmm','kgk']).order('olusturma',{ascending:true}).limit(500);
     if(o.error){ kasaVar=false; } else { kasa=o.data||[]; }
     if(!kasaVar){
       $('ogKasaUyari').classList.remove('og-gizli');
@@ -748,17 +768,27 @@
       kasa=cihaz.map(function(x){ return {tur:x.tur,sinav:x.sinav,anahtar:x.anahtar,veri:x.veri,olusturma:x.veri.tarih}; });
     }
     ILR.kasa=kasa;
-    var U=window.TetikteUye, ilk=ILR.paketYet?'yeterlilik':(U&&U.seciliSinav?U.seciliSinav():'sgs');
-    if(ilk!=='yeterlilik') ilk='sgs';
-    /* seçili sınavda hiç sonuç yok, ötekinde var -> ötekiyle aç */
-    var digeri=ilk==='sgs'?'yeterlilik':'sgs';
-    if(!sinavKayit(ilk).length && sinavKayit(digeri).length) ilk=digeri;
+    /* 13.10: KGK modül adları (kgkKayitVar için) seçimden önce insin; dizin okunamazsa KGK verisi "yok" sayılır */
+    try{ if(window.ttCalisma && kgkAcik()) await ttCalisma.dizin().then(function(d){ var s=d&&d.sinavlar?d.sinavlar.filter(function(x){ return x.kod==='kgk'; })[0]:null;
+      if(s&&s.durum==='acik'){ KGK_DERS={}; (s.dersler||[]).forEach(function(x){ if(x.sayfa) KGK_DERS[x.ad.toLocaleLowerCase('tr-TR').trim()]={ad:x.ad,sayfa:x.sayfa}; }); } }); }catch(e){}
+    var U=window.TetikteUye, ilk=ILR.yalnizKgk?'kgk':ILR.paketYet?'yeterlilik':(U&&U.seciliSinav?U.seciliSinav():'sgs');
+    if(ilk==='kgk' && !kgkAcik()) ilk='sgs';   /* 13.10: cihaz KGK seçili kalmış olsa da içerik kapalıyken SGS */
+    if(ilk!=='yeterlilik' && ilk!=='kgk') ilk='sgs';
+    /* seçili sınavda hiç sonuç yok, ötekinde var -> ötekiyle aç (KGK'da kasa sonucu yok; yalnız KGK paketi yukarıda seçildi) */
+    if(ilk!=='kgk'){ var digeri=ilk==='sgs'?'yeterlilik':'sgs';
+      if(!sinavKayit(ilk).length && sinavKayit(digeri).length) ilk=digeri;
+      /* 13.10: 'tam'/'kurucu' gibi üçlü pakette SGS ve Yeterlilik sonucu yok ama KGK modülünden cevap varsa KGK ile aç */
+      else if(!sinavKayit(ilk).length && !sinavKayit(digeri).length && ILR.paketKgk && kgkKayitVar()) ilk='kgk'; }
     ilerlemeCiz(ilk);
   }
 
-  /* 07.10: kasadaki kayıtlar sınav sınav (sinav alanı olmayan eski kayıt = sgs) */
-  var ILR={ kasa:null, secili:null, elle:false, paketYet:false, takvim:null, gun:null }; window.ILR_HAZIR=true;
+  /* 07.10: kasadaki kayıtlar sınav sınav (sinav alanı olmayan eski kayıt = sgs). 13.10: paketKgk/yalnizKgk (paketlerCiz) */
+  var ILR={ kasa:null, secili:null, elle:false, paketYet:false, paketKgk:false, yalnizKgk:false, takvim:null, gun:null }; window.ILR_HAZIR=true;
   function sinavKayit(s){ var kod=KASA_KOD[s]; return (ILR.kasa||[]).filter(function(x){ return (x.sinav||'sgs')===kod; }); }
+  /* 13.10 KGK verisi: bu cihazdaki cevaplarda (kc_kayit) dizindeki KGK ders adından biri var mı (kasada KGK sonuç kaydı yok) */
+  var KGK_DERS=null;   /* dizin inince: {küçük ad: {ad, sayfa}} */
+  function kgkKayitVar(){ if(!KGK_DERS) return false; var k=yerel('kc_kayit',[]); if(!Array.isArray(k)) return false;
+    return k.some(function(x){ return x && KGK_DERS[String(x.ders||'').toLocaleLowerCase('tr-TR').trim()]; }); }
   document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){
     b.addEventListener('click',function(){ ILR.elle=true; var s=b.getAttribute('data-sinav'); try{ window.TetikteUye&&TetikteUye.sinavSec(s); }catch(e){} ilerlemeCiz(s); });
   });
@@ -767,14 +797,25 @@
   var DURUM_AD={ guclu:'Güçlü', sinirda:'Sınırda', riskli:'Riskli' };
   function ilerlemeCiz(s){
     ILR.secili=s;
-    var yet=s==='yeterlilik', S=(window.TetikteUye&&TetikteUye.SINAVLAR&&TetikteUye.SINAVLAR[s])||{};
+    var yet=s==='yeterlilik', kgk=s==='kgk', S=(window.TetikteUye&&TetikteUye.SINAVLAR&&TetikteUye.SINAVLAR[s])||{};
     var kayit=sinavKayit(s);
-    var iki=sinavKayit('sgs').length>0 && sinavKayit('yeterlilik').length>0;
-    $('ogSinavSec').classList.toggle('og-gizli',!iki);
-    document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){ var a=b.getAttribute('data-sinav')===s; b.classList.toggle('ana',a); b.setAttribute('aria-pressed',String(a)); });
-    $('ogIlerleme').textContent=yet?'Yeterlilik ilerlemen':'Staja Giriş ilerlemen';
-    var olc=S.olc||(yet?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), devam=S.devam||(yet?'sorular.html#smmm':'sorular.html#sgs');
+    /* 13.10: sekme şeridi, verisi/paketi olan sınav sayısı 2+ ise (eski kural: SGS ve Yeterlilik'in ikisinde de sonuç).
+       KGK "veri" = aktif KGK paketi ya da bu cihazda KGK modülünden cevap; yalnız içerik açıkken. */
+    var kgkVar=kgkAcik()&&(kgk||ILR.paketKgk||kgkKayitVar());
+    var sayi=(sinavKayit('sgs').length?1:0)+(sinavKayit('yeterlilik').length?1:0)+(kgkVar?1:0);
+    $('ogSinavSec').classList.toggle('og-gizli',sayi<2);
+    document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){ var k=b.getAttribute('data-sinav'), a=k===s; b.classList.toggle('ana',a); b.setAttribute('aria-pressed',String(a)); if(k==='kgk') b.classList.toggle('og-gizli',!kgkVar); });
+    $('ogIlerleme').textContent=kgk?'Bağımsız Denetçilik ilerlemen':yet?'Yeterlilik ilerlemen':'Staja Giriş ilerlemen';
+    var olc=S.olc||(yet?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), devam=S.devam||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
     $('ogBosTest').href=olc; $('ogTestBtn').href=olc; $('ogBosCalis').href=devam;
+    /* 13.10 KGK: seviye testi ve deneme seti yok (13.10 ölçüldü: veri/seviye, veri/deneme, kaydir/vitrin'de kgk yok) ->
+       test düğmesi gizli, boş kart "modül modül ilerleme" kartına dönüşür (kgkDersCiz) */
+    $('ogBosTest').classList.toggle('og-gizli',kgk);
+    $('ogBosBas').textContent=kgk?'Modül modül ilerlemen':'Henüz bir ölçümün yok';
+    $('ogBosMetin').textContent=kgk?'Bağımsız Denetçilik\'te seviye testi ve deneme seti yok; ilerlemen çözdüğün sorulardan ölçülür. Her modülden soru çöz, yanlışların kutuna düşsün.'
+      :'30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.';
+    $('ogBosCalis').textContent=kgk?'Soru bankası →':'Ders ders çalış';
+    if(kgk) kgkDersCiz(); else $('ogKgkDersler').classList.add('og-gizli');
     var seviye=kayit.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
     /* 11.10: Yeterlilik'te de deneme var (ders denemesi, sinav-gibi.html?tur=ders) → "Deneme karnem" ders ders */
     var deneme=kayit.filter(function(x){return x.tur==='deneme'&&(!yet||(x.veri&&x.veri.ders));});
@@ -833,7 +874,8 @@
     $('ogDenemeBolum').classList.toggle('og-gizli',!deneme.length);
     $('ogBosKutu').classList.add('og-gizli');
     if(!ilerlemeVar && kutu.length){ $('ogBosKutu').classList.remove('og-gizli'); $('ogBosKutu').textContent='Yanlış kutunda '+kutu.length+' soru var'+(vadeli?'; bugün '+vadeli+' tanesini tekrar etme sırası.':'.'); }
-    /* geri sayım: takvimde SGS 'SGS', Yeterlilik 'SMMM' (veri/sinav-takvimi.json) */
+    /* geri sayım: takvimde SGS 'SGS', Yeterlilik 'SMMM' (veri/sinav-takvimi.json). 13.10 KGK: anahtar 'KGK' — takvimde yoksa
+       (13.10 ölçüldü: 2026 ikinci dönem günü KGK'da ilan edilmemiş) "Sınav günü KGK ilanıyla"; gün yok -> evre yok. */
     $('ogGeriSayim').textContent='';
     /* 07.10 Nöbetçi planı: kalan gün bulununca öneri + görev o sınava göre yeniden çizilir; dokunulmamış konular seçili sınava göre */
     ILR.gun=null;
@@ -841,14 +883,42 @@
     var gunKoy=function(gun){ ILR.gun=gun; try{ simdiCiz(); }catch(e){} };
     var gunYaz=function(d){
       if(ILR.secili!==s) return;
-      var bugun=new Date(new Date().toDateString()), k=yet?'SMMM':'SGS', don=d&&d.sinavlar&&d.sinavlar[k]&&d.sinavlar[k].donemler||[];
+      var bugun=new Date(new Date().toDateString()), k=kgk?'KGK':yet?'SMMM':'SGS', don=d&&d.sinavlar&&d.sinavlar[k]&&d.sinavlar[k].donemler||[];
       for(var i=0;i<don.length;i++){ var t=new Date(don[i].tarih+'T00:00:00'); if(t>=bugun){ var gun=Math.round((t-bugun)/86400000); $('ogGun').textContent=gun; $('ogTarih').textContent=don[i].tarihYazi;
         $('ogGeriSayim').textContent='Sınava '+gun+' gün · '+don[i].tarihYazi; gunKoy(gun); return; } }
+      if(kgk) $('ogGeriSayim').textContent='Sınav günü KGK ilanıyla';
       gunKoy(null);
     };
     if(ILR.takvim) return gunYaz(ILR.takvim);
     fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).then(function(d){ ILR.takvim=d; gunYaz(d); })
-      .catch(function(){ if(ILR.secili!==s) return; var t=new Date((yet?SINAV_TARIHI_YET:SINAV_TARIHI)+'T00:00:00'), gun=Math.round((t-new Date(new Date().toDateString()))/86400000); $('ogGun').textContent=Math.max(0,gun); $('ogTarih').textContent=t.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}); gunKoy(gun>=0?gun:null); });
+      .catch(function(){ if(ILR.secili!==s) return; if(kgk){ $('ogGeriSayim').textContent='Sınav günü KGK ilanıyla'; gunKoy(null); return; }
+        var t=new Date((yet?SINAV_TARIHI_YET:SINAV_TARIHI)+'T00:00:00'), gun=Math.round((t-new Date(new Date().toDateString()))/86400000); $('ogGun').textContent=Math.max(0,gun); $('ogTarih').textContent=t.toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}); gunKoy(gun>=0?gun:null); });
+  }
+
+  /* 13.10 KGK MODÜL KARTI: seviye testi/deneme olmadığı için ilerleme = bu cihazdaki son 500 cevap (kc_kayit; üyeyse
+     kutu-esitle.js hesaptan indirir) + yanlış kutusu, dizindeki KGK modüllerine (veri/soru-dizini.json, ders adı = kasa 'ders'
+     alanı, 13.10 ölçüldü birebir) bölünmüş. Yalnız dokunulan modüller; hiç dokunulmayanlar "Hiç soru çözmediğin modüller" kartında.
+     🚫 GÖRMEZ: dizin 'acik' değilse (anahtar kapalı) modül yok → tek cümle · "Sermaye Piyasası Mevzuatı" Yeterlilik cevabı KGK'ya sayılır. */
+  function kgkDersCiz(){
+    var kap=$('ogKgkDersler'); kap.classList.remove('og-gizli'); kap.innerHTML='';
+    if(!window.ttCalisma) return;
+    ttCalisma.dizin().then(function(d){
+      if(ILR.secili!=='kgk') return;
+      var s=d&&d.sinavlar?d.sinavlar.filter(function(x){ return x.kod==='kgk'; })[0]:null;
+      var dersler=s&&s.durum==='acik'?(s.dersler||[]).filter(function(x){ return x.sayfa; }):[];
+      KGK_DERS={}; dersler.forEach(function(x){ KGK_DERS[x.ad.toLocaleLowerCase('tr-TR').trim()]={ad:x.ad,sayfa:x.sayfa}; });
+      if(!dersler.length){ kap.innerHTML='<p class="og-alt" style="margin:0;font-size:13.5px">Modül listesi şu an okunamadı.</p>'; return; }
+      var kayit=yerel('kc_kayit',[]), kutu=yerel('kc_kutu',[]); if(!Array.isArray(kayit)) kayit=[]; if(!Array.isArray(kutu)) kutu=[];
+      var ad=function(x){ return String(x&&x.ders||'').toLocaleLowerCase('tr-TR').trim(); }, M={};
+      kayit.forEach(function(x){ var k=ad(x); if(!KGK_DERS[k]) return; var m=M[k]||(M[k]={soru:0,dogru:0,kutu:0}); m.soru++; if(x.dogru) m.dogru++; });
+      kutu.forEach(function(x){ var k=ad(x); if(!KGK_DERS[k]) return; var m=M[k]||(M[k]={soru:0,dogru:0,kutu:0}); m.kutu++; });
+      var dok=dersler.filter(function(x){ return M[x.ad.toLocaleLowerCase('tr-TR').trim()]; });
+      var top=dok.reduce(function(t,x){ var m=M[x.ad.toLocaleLowerCase('tr-TR').trim()]; return {soru:t.soru+m.soru,dogru:t.dogru+m.dogru}; },{soru:0,dogru:0});
+      if(!dok.length){ kap.innerHTML='<p class="og-alt" style="margin:0;font-size:13.5px">'+dersler.length+' modül var; henüz hiçbirinden soru çözmedin. Aşağıda modüller sınav ilanı sırasıyla.</p>'; return; }
+      kap.innerHTML='<p class="og-alt" style="margin:0 0 6px;font-size:13.5px">'+dersler.length+' modülün '+dok.length+' tanesine dokundun · son '+top.soru+' cevabının '+top.dogru+' tanesi doğru:</p>'
+        +dok.map(function(x){ var m=M[x.ad.toLocaleLowerCase('tr-TR').trim()];
+          return '<div class="og-satir"><div><b>'+esc(x.ad)+'</b><br><span style="font-size:13px;color:var(--muted)">'+(m.soru?m.soru+' cevap · %'+Math.round(100*m.dogru/m.soru)+' doğru':'cevap yok')+(m.kutu?' · kutuda '+m.kutu:'')+'</span></div><a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
+    }).catch(function(){});
   }
 
   function grafikCiz(seviye){
