@@ -199,7 +199,8 @@
         <select id="svSinav" required>
           <option value="sgs">SMMM Staja Giriş (SGS)</option>
           <option value="yeterlilik">SMMM Yeterlilik</option>
-          <!-- 30.09: KGK seçeneği kalktı (site yalnız SMMM başlama + bitirme) -->
+          <!-- 30.09: KGK seçeneği kalktı (site yalnız SMMM başlama + bitirme) · 13.10: uye-durumu.js SINAVLAR.kgk.icerik açılınca betik gösterir -->
+          <option value="kgk" id="svSinavKgk" hidden disabled>KGK Bağımsız Denetçilik</option>
         </select>
         <!-- Dönem seçenekleri elle yazıldı: sinav_donemleri tablosu (2026-09-15-elci-programi.sql) HENÜZ BASILMADI.
              O göç basılınca bu liste oradan okunmalı. 2026/3 tarihi (21.11.2026) sayfanın kendi hesabında da kullanılıyor. -->
@@ -326,11 +327,13 @@
 
 <script src="seviye-model.js"></script>
 <script src="seviye-model-yet.js?v=20261012a"></script>
-<script src="fiyat-motoru.js?v=20261012d"></script>
+<script src="fiyat-motoru.js?v=20261013a"></script>
 <script src="anlik-teklif.js?v=20261012c"></script>
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="uye-durumu.js?v=20261007b"></script>
+<script src="uye-durumu.js?v=20261013a"></script>
+<script>/* 13.10 KGK açılış hazırlığı: sonuç formundaki sınav seçeneği içerik açılınca görünür (uye-durumu.js SINAVLAR.kgk.icerik) */
+try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icerik){ var o=document.getElementById('svSinavKgk'); if(o){ o.hidden=false; o.disabled=false; } } }catch(e){}</script>
 <script src="kutu-esitle.js"></script>
 <script>
 (function(){

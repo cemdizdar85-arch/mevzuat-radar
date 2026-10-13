@@ -230,20 +230,23 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
   <!-- KGK: Kasim 2026 BD sinavinin kesin gunu heniz ILAN EDILMEDI
        (teyitsiz tarih yazilmaz); ilan cikinca SINAVLAR dizisine eklenir. -->
   <!-- 30.09 Cem "site sadece SMMM başlama + bitirme": KGK kartı ve iki KGK tablosu gizli (betikler kimliklerini arıyor, silinmedi). -->
-  <div class="p" data-sinav="kgk" hidden style="display:none">
+  <!-- 13.10 KGK açılış hazırlığı (site kolu): kart fiyat-motoru.js ICERIK_HAZIR.kgk açılınca betikle görünür; modül merdiveni
+       (YMM/tek konu satırı, muafiyet tablosu) yalnız KGK_PAKET_MERDIVENI açıkken (bkz. fiyat-motoru.js gerekçesi). -->
+  <div class="p" data-sinav="kgk" id="kartKgk" hidden style="display:none">
     <span class="rozet" id="rzKgk">ÖN KAYIT</span>
     <h3>Bağımsız Denetçi (KGK)</h3>
-    <div class="kim">Sınavına kadar · en az 3 ay</div>
+    <div class="kim" id="erKgk">Sınavına kadar · en az 3 ay</div>
     <div class="gunluk" id="fyKgk">— <small>TL</small></div>
+    <div class="kdv" id="khKgk"></div>
+    <div class="kdv"><span id="kgkKapsam">SMMM paketi · 3 konu</span> · <span id="ktKgk"></span></div>
     <div class="liste" id="lsKgk"></div>
-    <div class="kdv">SMMM paketi · 3 konu · KDV dahil · <span id="ktKgk"></span></div>
-<div class="kdv" id="khKgk"></div>
     <ul>
       <li><b>SMMM'ysen üç konudan sorumlusun</b> — sektör mevzuatı muaf</li>
-      <li>Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim</li>
-      <li><b>YMM paketi (2 konu) <span id="fyKgk2">—</span> TL</b> · tek konu <span id="fyKgk1">—</span> TL</li>
-      <li>İnteraktif KGK soru bankası</li>
-      <li>Her soruda standart/madde kaynağı</li>
+      <li id="kgkModulLi">Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim</li>
+      <li id="kgkMerdivenLi"><b>YMM paketi (2 konu) <span id="fyKgk2">—</span> TL</b> · tek konu <span id="fyKgk1">—</span> TL</li>
+      <li>Sınırsız soru: bankadaki bütün KGK modülleri</li>
+      <li>Her sorunun <b>dayandığı standart ya da madde</b> altında yazar</li>
+      <li>Dört parçalı açıklama, tuzak anlatımı</li>
     </ul>
     <p class="kucuk" id="onKgk" style="margin:0 0 8px">Soru bankası yayına hazırlanıyor · şimdilik ön kayıt</p>
     <a class="btn ikincil" id="alKgk" href="ucretsiz-dene.html?sinav=kgk#onkayit">Ön kayıt ol — açılınca ilk sen öğren</a>
@@ -304,14 +307,14 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
      4x950 = 3.800 TL; bizim tum moduller 3.990 TL, yani harctan UCUZ DEGIL.
      Yeterlilik'te "her basamak harctan ucuz" diyoruz cunku oyle; burada
      ayni cumleyi kurmak yalan olurdu. KGK'nin capasi KURS fiyatidir. -->
-<div class="kutu vurgu" hidden style="display:none">
+<div class="kutu vurgu" id="kgkKursKutu" data-sinav="kgk" hidden style="display:none">
   <h2>KGK: bir modülün kursu 5.250 TL</h2>
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table>
     <tr><th>KGK hazırlığının piyasa fiyatı</th><th class="sag">Tutar</th></tr>
     <tr><td>Tek modül kursu (Standartlar / Denetim / KY-FY)</td><td class="sag">5.250 TL</td></tr>
     <tr><td>Ek alan modülü kursu (SPK / Bankacılık / Sigortacılık)</td><td class="sag">2.500 TL</td></tr>
     <tr><td><b>Tam paket kursu</b></td><td class="sag"><b>13.500 – 15.120 TL</b></td></tr>
-    <tr><td><b>Tetikte — SMMM paketi (3 konu)</b></td><td class="sag"><b class="a" id="harcKgkBiz">—</b></td></tr>
+    <tr><td><b id="harcKgkBizAd">Tetikte — SMMM paketi (3 konu)</b></td><td class="sag"><b class="a" id="harcKgkBiz">—</b></td></tr>
   </table></div>
   <p class="kucuk" style="margin-top:10px">Kurs fiyatları 29.08.2026'da iki kurumun kendi sitesinden okundu.
   <b>Resmî sınav ücreti ayrıca ödenir:</b> konu başına 565 TL, e-sınavda 950 TL.
@@ -323,7 +326,7 @@ TÜRMOB takvimi güncelleyebilir; başvurudan önce <a href="https://www.tesmer.
 <!-- MUAFIYET TABLOSU: KGK alicisinin ilk sorusu "ben kac konudan sorumluyum".
      Rakiplerin hicbiri fiyat sayfasinda bunu soylemiyor; biz soyleyip
      dogrudan dogru paketi gosteriyoruz. Kaynak KGK'nin kendi sayfasi. -->
-<div class="kutu vurgu" hidden style="display:none">
+<div class="kutu vurgu" id="kgkMuafiyetKutu" data-sinav="kgk" hidden style="display:none">
   <h2>Sen kaç konudan sorumlusun?</h2>
   <div class="tabsar" tabindex="0" role="region" aria-label="Tablo, yana kaydırılabilir"><table id="kgkMuafiyet">
     <tr><th>Durumun</th><th class="sag">Konu</th><th class="sag">Sana uygun paket</th></tr>
@@ -434,7 +437,7 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
 <!-- GERCEK TAKVIM — uydurma geri sayim yok. Takvim ve fiyat verisi 21.08'de
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
-<script src="fiyat-motoru.js?v=20261012d"></script>
+<script src="fiyat-motoru.js?v=20261013a"></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';
 SINAVLAR.forEach(function(s){
@@ -473,13 +476,16 @@ function kart(id, p){
    KGK'da alicinin buyuk cogunlugu SMMM ve KGK'nin kendi sayfasina gore SMMM
    sektor mevzuatindan MUAF. Vitrinde ona lazim olmayan paketi one koymak,
    fiyati oldugundan pahali gosterirdi. */
-var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul('kgk-3');
+/* 13.10: modül merdiveni kapalıyken (fiyat-motoru.js KGK_PAKET_MERDIVENI) kart "dört konunun tamamı"nı gösterir. */
+var KGK_KART_ID = (typeof KGK_PAKET_MERDIVENI !== 'undefined' && KGK_PAKET_MERDIVENI) ? 'kgk-3' : 'kgk-tum';
+var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul(KGK_KART_ID);
 kart('Sgs', pSgs); kart('Yet', pYet); kart('Kgk', pKgk);
 
 // Erisim yazisi: "en yakin sinavi kapsamiyorsa ucretsiz uzatilir" kurali
 // motorda; sayfa onu yazar, ayri hesap yapmaz.
 document.getElementById('erSgs').textContent = pSgs.erisim;
 document.getElementById('erYet').textContent = pYet.erisim;
+document.getElementById('erKgk').textContent = pKgk.erisim;
 
 // "Tek ders/modul X TL'den baslar" — merdivenin ilk basamagi.
 if (!kartAcik()) {   /* 07.10: sayfa kartlı metinle gelir; kart kapalıysa havale metnine döner */
@@ -493,7 +499,7 @@ document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
 document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
 
 // 15.09: icerigi yayinda olan sinavda dugme "Satin al"a doner (tek anahtar fiyat-motoru.js ICERIK_HAZIR).
-[['Yet','yeterlilik','yeterlilik-tum'],['Kgk','kgk','kgk-3']].forEach(function(x){
+[['Yet','yeterlilik','yeterlilik-tum'],['Kgk','kgk',KGK_KART_ID]].forEach(function(x){
   if(!ICERIK_HAZIR[x[1]]) return;
   var a = document.getElementById('al' + x[0]), on = document.getElementById('on' + x[0]);
   a.textContent = 'Satın al — açılış fiyatıyla'; a.href = 'satin-al.html?paket=' + x[2];
@@ -501,6 +507,20 @@ document.getElementById('fyKgk2').textContent = tl(paketBul('kgk-2').fiyat);
   if(on) on.remove();
   if(x[1] === 'kgk'){ document.getElementById('rzKgk').textContent = 'YENİ'; }
 });
+/* 13.10 KGK açılış hazırlığı: ICERIK_HAZIR.kgk açılınca KGK kartı + kurs kıyas kutusu görünür (30.09 "hidden" kaldırılmaz, betik açar).
+   Modül merdiveni kapalıyken YMM/tek konu satırı ve muafiyet tablosu gizli kalır; kapsam yazısı "dört konunun tamamı". */
+(function(){
+  var ac = function(id){ var e = document.getElementById(id); if(e){ e.hidden = false; e.style.display = ''; } };
+  var merdiven = (typeof KGK_PAKET_MERDIVENI !== 'undefined' && KGK_PAKET_MERDIVENI);
+  if(!merdiven){
+    document.getElementById('kgkMerdivenLi').hidden = true;
+    document.getElementById('kgkKapsam').textContent = 'dört konunun tamamı';
+    document.getElementById('kgkModulLi').textContent = 'Muhasebe Standartları · Kurumsal Yönetim ve Finansal Yönetim · Denetim · Sermaye Piyasası, Bankacılık ve Sigortacılık Mevzuatı';
+    document.getElementById('harcKgkBizAd').textContent = 'Tetikte — dört konunun tamamı';
+  }
+  if(!ICERIK_HAZIR.kgk) return;
+  ac('kartKgk'); ac('kgkKursKutu'); if(merdiven) ac('kgkMuafiyetKutu');
+})();
 
 /* 04.10 Cem (+KDV dili): ana rakam '+ KDV', KDV dahil yanında - kurs fiyatı KDV dahil yazılı olduğu için kıyas temeli (KDV dahil) GÖRÜNÜR kalır (01.10) */
 /* 05.10 Cem ('1 ve 2 yap'): kıyas kutusunda bizim rakam da KDV DAHİL - kurs/video aralıkları KDV dahil karşılıkla yazılı, kıyas eşit temelde (karşılaştırmalı reklam). Sayfanın geri kalanı '+ KDV' ana rakamla. */
@@ -544,9 +564,9 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 // KOTA TABLOSU: kurucu fiyati / liste fiyati / kota (+ sunucudan gelirse kalan yer).
 (function(){
   var t = document.getElementById('kotaTablo');
-  ['sgs','yeterlilik-tum'].forEach(function(id){   /* 30.09: KGK satırları kalktı */
+  ['sgs','yeterlilik-tum'].concat(ICERIK_HAZIR.kgk ? [KGK_KART_ID] : []).forEach(function(id){   /* 30.09: KGK satırları kalktı · 13.10: içerik açılınca geri */
     var p = paketBul(id);
-    var tr = document.createElement('tr'); tr.setAttribute('data-sinav', id === 'sgs' ? 'sgs' : 'yeterlilik');   /* 07.10: sınav süzgeci */
+    var tr = document.createElement('tr'); tr.setAttribute('data-sinav', id === 'sgs' ? 'sgs' : (id.indexOf('kgk') === 0 ? 'kgk' : 'yeterlilik'));   /* 07.10: sınav süzgeci */
     /* 02.10: tablo KDV dahil basıyordu, sayfa notu "KDV hariç gösterilir" diyor → motorun yardımcısıyla (01.10 kararı) */
     var dahil = function(n){ var d = fiyatDahilNot(id, n); return d ? '<br><span class="kucuk">' + d + '</span>' : ''; };
     tr.innerHTML = '<td>' + p.ad + '</td>'
@@ -565,7 +585,8 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 /* 24.09 Cem "staja başlamanın içine girdiğimde sadece staja başlama kalsın": seçili sınavın süzgeci.
    Kaynak sırası: ?sinav= (sgs|yeterlilik|kgk|hepsi) > ana sayfadaki sekme (localStorage tt_sinav). Seçim yoksa hepsi. */
 (function(){
-  var ADLAR={ sgs:'Staja Giriş', yeterlilik:'SMMM Yeterlilik' };   /* 30.09: KGK gizli */
+  var ADLAR={ sgs:'Staja Giriş', yeterlilik:'SMMM Yeterlilik' };   /* 30.09: KGK gizli · 13.10: ICERIK_HAZIR.kgk açılınca süzgeçte */
+  if(typeof ICERIK_HAZIR!=='undefined'&&ICERIK_HAZIR.kgk) ADLAR.kgk='KGK Bağımsız Denetçilik';
   var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1];
   var sn=q; if(!sn){ try{ sn=localStorage.getItem('tt_sinav'); }catch(e){} }
   if(!sn||sn==='hepsi'||!ADLAR[sn]) return;

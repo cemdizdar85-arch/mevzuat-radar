@@ -150,6 +150,17 @@ function anlikTeklifTum(sinavAnahtar){
    yayında (18.09), paket-kapisi.js yeterlilik paketine açıyor, paket_soru kasası basılı (16.09). uye-durumu.js ile AYNI commit. */
 var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };
 
+/* 13.10.2026 KGK AÇILIŞ HAZIRLIĞI (site kolu): KGK'nın açılış anahtarı yukarıdaki kgk:true + uye-durumu.js SINAVLAR.kgk.icerik
+   (aynı commit). Açılınca ana sayfa sekmesi, fiyat kartı, satın alma, sorular.html dizini (motor/soru-dizini.js bu satırı okur),
+   ucretsiz-dene sekmesi ve robots.txt (arac/robots-yaz.ps1 bu satırı okur, -Yaz ile yeniden yazılır) kendiliğinden açılır.
+   KGK MODÜL MERDİVENİ (kgk-1/2/3 + Yeterlilik+KGK) AÇILIŞTA SATILMAZ, yalnız "dört konunun tamamı" (kgk-tum). Ölçüldü 13.10:
+   (1) radar-app/sql/2026-10-05-otomatik-paket.sql ve 2026-10-05-yonetim-islemleri.sql seçilen dersleri yalnız yeterlilik-[1-4]
+       için paket_uyeler.dersler'e yazar → kgk-1 alan kişiye KGK'nın tamamı açılırdı (tek konu parasına dört konu);
+   (2) DERSLER.kgk modül adları sitedeki ders adlarıyla (veri/soru-dizini.json kgk: "Türkiye Muhasebe Standartları", "Kurumsal Yönetim",
+       "Finansal Yönetim", "Türkiye Denetim Standartları"…) birebir değil → yazılsaydı da ders kilitli kalırdı (10.10 "Temel Hukuk" olayı).
+   true yapmadan önce: SQL göçü (kgk-[1-3] → dersler) + modül→ders eşlemesi + arac/ders-adi-kapisi.js KGK kolu. */
+var KGK_PAKET_MERDIVENI = false;
+
 /* ---------------------------------------------------------------------------
    KDV HARİÇ GÖSTERİM — 25.09.2026 CEM KARARI ("sitede artı KDV olarak yazalım, KDV'siz fiyatı görelim").
    Risk Cem'e iki kez yazıldı: 6502 m.54 + Fiyat Etiketi Yönetmeliği tüketiciye tüm vergiler dahil tutar
@@ -429,25 +440,25 @@ function paketler(){
     L.push({ id:'kgk-' + m, grup:'Bağımsız Denetçilik (KGK)',
              ad:KGK_ADLAR[m], kim:KGK_KIM[m], modul:m,
              fiyat:FIYAT.kgk[m].kurulus, liste:FIYAT.kgk[m].liste,
-             kota:KOTA.kgk, erisim:'Sınavına kadar · en az 3 ay', sinav:null,
+             kota:KOTA.kgk, erisim:erisimYazi('kgk'), sinav:'kgk',   /* 13.10: sinav anahtarı (kurucu sayacı KGK satırı dönmez -> satır boş kalır) */
              /* 15.09.2026 ölçümü (kurumların kendi siteleri): modül başına kurs
                 5.250 (Suat Hoca) · 7.250+KDV (Fuat Hoca, kayıttan) · 10.800 (Piyasa Okulu)
                 · 12.600+KDV (Deha) · 13.500 (Uğurlu). Eski "2.500 – 5.250" ek alan
                 modüllerini de sayıyordu, temel alan konusu için yanıltıcıydı. */
-             harcYazi:'Piyasada konu başına kurs 5.250 TL\'den başlıyor', acik:ICERIK_HAZIR.kgk });
+             harcYazi:'Piyasada konu başına kurs 5.250 TL\'den başlıyor', acik:(ICERIK_HAZIR.kgk && KGK_PAKET_MERDIVENI) });
   }
   L.push({ id:'kgk-tum', grup:'Bağımsız Denetçilik (KGK)',
            ad:'KGK — dört konunun tamamı', modul:HARC.kgk.temelAlanKonu,
-           kim:'Sektör mevzuatından da sorumluysan',
+           kim:KGK_PAKET_MERDIVENI ? 'Sektör mevzuatından da sorumluysan' : 'Bankadaki bütün KGK modülleri',
            fiyat:FIYAT.kgkTum.kurulus, liste:FIYAT.kgkTum.liste,
-           kota:KOTA.kgk, erisim:'Sınavına kadar · en az 3 ay', sinav:null,
+           kota:KOTA.kgk, erisim:erisimYazi('kgk'), sinav:'kgk',
            harcYazi:'Piyasada tam paket kursu 13.500 – 15.120 TL', acik:ICERIK_HAZIR.kgk });
 
   L.push({ id:'yeterlilik-kgk', grup:'Bağımsız Denetçilik (KGK)',
            ad:'Yeterlilik + KGK', fiyat:FIYAT.yeterlilikKgk.kurulus, liste:FIYAT.yeterlilikKgk.liste,
            kota:KOTA.kgk, erisim:'İki sınava da kadar · en az 3 ay', sinav:null,
            harcYazi:'Ayrı ayrı ' + tl(FIYAT.yeterlilikTum.kurulus + FIYAT.kgkTum.kurulus) + ' TL',
-           acik:(ICERIK_HAZIR.yeterlilik && ICERIK_HAZIR.kgk) });
+           acik:(ICERIK_HAZIR.yeterlilik && ICERIK_HAZIR.kgk && KGK_PAKET_MERDIVENI) });
 
   /* Ortak alanlar */
   L.forEach(function(p){

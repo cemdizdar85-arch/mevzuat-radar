@@ -322,7 +322,11 @@ footer p{margin:0 0 8px}
       <div class="secim" role="group" aria-labelledby="secimBas">
         <button class="sinav" type="button" data-sinav="sgs" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
         <button class="sinav" type="button" data-sinav="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
-        <span class="sinav kapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
+             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
+             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
+        <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
       </div>
       <div class="kah-alt">
         <a class="btn btn-vurgu" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 soru çöz, Nöbetçi anlatsın</a>
@@ -359,7 +363,7 @@ footer p{margin:0 0 8px}
 <!-- 07.10 Cem ("sınava yaklaşmadan en çok çıkan konulardan sınav" → "ücretli olsun, üye çekelim" → "site üst tarafında görsünler"):
      ilk ekranın hemen altında. Konu listesi ücretsiz (en-cok-cikan sayfası, kanıtlı); deneme paketli (sinav-gibi.html?tur=sik,
      paket-kapisi.js). Metin set dizininden (veri/deneme/*-sik-dizin.json "alt") okunur: soru/süre sayısı tek kaynak. -->
-<section class="sik-serit" aria-labelledby="sikBas">
+<section class="sik-serit" id="sikSerit" aria-labelledby="sikBas">
   <div class="ic">
     <div class="sik-kart sik-bekle" id="sikKart">
       <div>
@@ -386,7 +390,7 @@ footer p{margin:0 0 8px}
          ÇIKAN: "madde değişince soru çekilir" - SMMM 109/109 kasadan çekilmiş, SGS 37'nin 18'i içerik aynıyken yayında (07.10 ölçüldü). -->
     <h2 id="nasilBas">Tetikte nasıl çalışır?</h2>
     <div class="ozellikler">
-      <div class="ozellik"><h3>Seviyene göre soru</h3><p>Önce 30 soruyla seviyeni ölçeriz. Ders sayfalarında sorular buna göre dizilir: zayıf olduğun derste kolaydan, güçlü olduğun derste zordan başlarsın.</p><a href="seviye-testi.html" id="ozOlc">Seviyeni ölç, ücretsiz →</a></div>
+      <div class="ozellik" id="ozSeviye"><h3>Seviyene göre soru</h3><p>Önce 30 soruyla seviyeni ölçeriz. Ders sayfalarında sorular buna göre dizilir: zayıf olduğun derste kolaydan, güçlü olduğun derste zordan başlarsın.</p><a href="seviye-testi.html" id="ozOlc">Seviyeni ölç, ücretsiz →</a></div>
       <div class="ozellik"><h3>Nöbetçi çözer, adım adım anlatır</h3><p>Yalnız doğru cevabı söylemez: yanlış şıkkın seni neden çektiğini, hesabı adım adım, yevmiye kaydını ve dayandığı maddeyi anlatır.</p><a href="#ekran">Günün sorusunda izle →</a></div>
       <div class="ozellik"><h3>Nöbetçi'ye sor</h3><p>Takıldığın soruda kendi sorunu yaz, Nöbetçi o soru üzerinden cevaplasın. Yapay zekâ olduğunu açıkça söyler; yetmezse ekibimize sorarsın.</p><a href="sorular.html">Her soruda, pakette →</a></div>
       <div class="ozellik"><h3>Unuttuğun yeri hatırlatır</h3><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer; 2 gün sonra yeniden karşına çıkar, bilirsen 7 gün sonra son tur.</p><a href="yanlislarim.html">Yanlışlarım →</a></div>
@@ -397,7 +401,7 @@ footer p{margin:0 0 8px}
   </div>
 </section>
 
-<section class="bolum">
+<section class="bolum" id="dene30">
   <div class="ic dene">
     <div>
       <h2>30 soruda seviyeni ölç</h2>
@@ -442,8 +446,8 @@ footer p{margin:0 0 8px}
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261012d"></script>
-<script src="uye-durumu.js?v=20261007b"></script>
+<script src="fiyat-motoru.js?v=20261013a"></script>
+<script src="uye-durumu.js?v=20261013a"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script>
 (function(){
@@ -452,9 +456,13 @@ footer p{margin:0 0 8px}
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   function say(yol,baslik){ try{ if(window.goatcounter&&typeof window.goatcounter.count==='function') window.goatcounter.count({path:yol,title:baslik||yol,event:true}); }catch(e){} }
   var U=window.TetikteUye, UYE=(U&&U.onbellek)||{oturum:false,sinavlar:{}};   /* 07.10: üye ilk anda ziyaretçi düğmesi görmesin (uye-durumu.js önbelleği) */
+  /* 13.10 KGK açılış hazırlığı: tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk (+ uye-durumu.js SINAVLAR.kgk.icerik aynı commit).
+     Kapalıyken "Hazırlanıyor" çipi (03.10 Cem), açıkken sekme düğmesi. uye-durumu.js seciliSinav kapalıyken KGK döndürmez. */
+  var KGK_ACIK=!!(typeof ICERIK_HAZIR!=='undefined'&&ICERIK_HAZIR.kgk&&U&&U.SINAVLAR.kgk&&U.SINAVLAR.kgk.icerik);
+  if(KGK_ACIK){ $('kgkKapali').hidden=true; $('kgkAcik').hidden=false; }
   var secili=(U&&U.seciliSinav)?U.seciliSinav():'sgs';
   var OZET=null, acik=false, TARANAN=0;
-  var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik'};
+  var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm',kgk:'kgk'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik',kgk:'KGK Bağımsız Denetçilik'};
 
   /* ---- 1) DÜĞMELER: sınav × üye durumu (15.09 karar tablosu, sade hâli). Rakam YALNIZ fiyat-motoru.js'ten. ---- */
   /* 07.10 Sık Çıkan Konular Denemesi şeridi: seçili sınava göre adres + set dizinindeki tanım cümlesi */
@@ -495,6 +503,19 @@ footer p{margin:0 0 8px}
     c2.hidden=false;
     var ornek='kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html';
     c3.href=ornek; c3.textContent='5 örnek soru çöz'; c3.hidden=(d.durum==='aktif');   /* 08.10: 5 örnek soru, ders sayfası şablonu (Cem: "soru paketi gibi") */
+    /* 13.10 KGK: ücretsiz katman (30 soruluk ölçüm, 5 örnek soru, sık konu denemesi, deneme seti) KGK'da YOK (13.10 ölçüldü) ->
+       o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
+    var kgkSec=(secili==='kgk');
+    ['sikSerit','ozSeviye','ozDeneme','dene30'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
+    if(kgkSec){
+      c3.hidden=true;
+      if(d.durum==='aktif'){ c1.textContent='Sınava gir'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); }
+      else if(d.durum==='bitmis'){ c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Dersleri gör →'; c2.href=S.gir; du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.'; }
+      else { c1.textContent='Dersleri gör'; c1.href=S.gir||'sorular.html#kgk'; c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html?sinav=kgk';
+        du.innerHTML='Modül modül soru bankası · her sorunun dayandığı standart ya da madde yanında, yanlış şıkkın tuzağı Nöbetçi anlatımıyla.'; }
+      [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-sinav')===secili?'true':'false'); });
+      return;
+    }
     if(d.durum==='aktif'){
       c1.textContent='Sınava gir'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam;
       du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':'');
@@ -539,7 +560,7 @@ footer p{margin:0 0 8px}
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
-    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Ücretsiz başla'; c.href=ok?'sorular.html':'kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html'; } });   /* 11.10: ziyaretçinin kapısı 5 soru */
+    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Ücretsiz başla'; c.href=ok?'sorular.html':(secili==='kgk'?'sorular.html#kgk':'kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html'); } });   /* 11.10: ziyaretçinin kapısı 5 soru · 13.10 KGK: ders listesi */
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
   function ozetim(){ return OZET&&OZET.sinavlar&&OZET.sinavlar[OZET_ANAHTAR[secili]]; }
@@ -578,6 +599,7 @@ footer p{margin:0 0 8px}
     if(!o||!o.siklar||!window.NobetciOynatici){
       $('ekDers').textContent='Günün sorusu'; kap.innerHTML='<p class="soru" style="padding:18px;margin:0">Bu sınavın günün sorusu hazırlanıyor.</p>';
       $('bzIleri').disabled=true; $('bzIleri').textContent='Hazırlanıyor';
+      if(secili==='kgk') $('bzIleri').hidden=true;   /* 13.10: KGK vitrin havuzu yok (kaydir/vitrin/kgk.html basılmadı) -> ölü düğme çizilmez */
       return;
     }
     var tz=o.tuzak||{}, sen=Object.keys(tz).filter(function(h){return h!==o.dogru&&o.siklar[h]!=null;})[0]||'', t=tz[sen]||{};

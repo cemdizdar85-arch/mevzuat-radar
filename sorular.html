@@ -174,7 +174,7 @@
 </main>
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
-<script src="uye-durumu.js?v=20261007b"></script>
+<script src="uye-durumu.js?v=20261013a"></script>
 <script src="ders-ilerleme.js?v=20261011b"></script>
 <script>
 (function(){
@@ -333,7 +333,10 @@
       h+='<section class="sc-bolum">'+(sira.length>1&&baslik?'<h3>'+esc(baslik)+(toplam?'<s>· sınavda '+toplam+' soru</s>':'')+'</h3>':'')
         +'<div class="sc-dersler">'+liste.map(function(d){return dersKart(d,sinavToplam,acik);}).join('')+'</div></section>';
     });
-    h+='<p class="sc-not">Sınavdaki soru sayıları TESMER yönergesindeki ders dağılımından; sınav tarihi TÜRMOB 2026 resmî takviminden.</p>';
+    /* 13.10 KGK: ders satırlarında TESMER payı yok (sinav_soru 0), modül listesi KGK sınav ilanından (veri/kgk-sinav-yapisi.json) */
+    h+='<p class="sc-not">'+(s.kod==='kgk'
+      ?'Modüller KGK Bağımsız Denetçilik sınav ilanındaki konu listesinden; sınav günü KGK ilanıyla duyurulur.'
+      :'Sınavdaki soru sayıları TESMER yönergesindeki ders dağılımından; sınav tarihi TÜRMOB 2026 resmî takviminden.')+'</p>';
     derslerEl.innerHTML=h;
   }
 

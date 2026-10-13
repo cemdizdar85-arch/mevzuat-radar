@@ -48,9 +48,13 @@
       fiyat: 'fiyat.html'
     },
     kgk: {
+      /* 13.10 KGK açılış hazırlığı (site kolu): icerik fiyat-motoru.js ICERIK_HAZIR.kgk ile AYNI commit'te true yapılır.
+         KGK'da seviye testi, örnek 5 soru ve deneme seti YOK (13.10 ölçüldü: veri/seviye, kaydir/vitrin, veri/deneme'de kgk yok)
+         -> olc yok; ücretsiz yol ve "gir" ders listesi (sorular.html#kgk). Satış yalnız kgk-tum (fiyat-motoru.js KGK_PAKET_MERDIVENI). */
       kod: 'kgk', ad: 'KGK', uzun: 'Bağımsız Denetçilik (KGK)', icerik: false,
       dene: 'ucretsiz-dene.html?sinav=kgk', onkayit: 'ucretsiz-dene.html?sinav=kgk#onkayit',
-      fiyat: 'fiyat.html'
+      gir: 'sorular.html#kgk', devam: 'sorular.html#kgk',
+      al: 'satin-al.html?paket=kgk-tum', fiyat: 'fiyat.html?sinav=kgk'
     }
   };
   var SIRA = ['sgs', 'yeterlilik', 'kgk'];
@@ -163,10 +167,11 @@
     durumHesapla: satirlardan,
     /* seçili sınav cihazda hatırlanır; adres #sinav=kgk ile de gelinebilir */
     seciliSinav: function () {
-      /* 30.09 Cem "site sadece SMMM başlama + bitirme": KGK sekmesi gizli; eskiden KGK seçmiş cihaz SGS'ye döner. */
-      var m = /(?:^|[#&?])sinav=(sgs|yeterlilik)\b/.exec(location.hash + '&' + location.search);
-      if (m) return m[1];
-      try { var v = localStorage.getItem('tt_sinav'); if (SINAVLAR[v] && v !== 'kgk') return v; } catch (e) {}
+      /* 30.09 Cem "site sadece SMMM başlama + bitirme": KGK sekmesi gizli; eskiden KGK seçmiş cihaz SGS'ye döner.
+         13.10: KGK yalnız içeriği açıkken (SINAVLAR.kgk.icerik) seçilebilir; kapalıyken adres/cihaz KGK dese de SGS. */
+      var m = /(?:^|[#&?])sinav=(sgs|yeterlilik|kgk)\b/.exec(location.hash + '&' + location.search);
+      if (m && (m[1] !== 'kgk' || SINAVLAR.kgk.icerik)) return m[1];
+      try { var v = localStorage.getItem('tt_sinav'); if (SINAVLAR[v] && (v !== 'kgk' || SINAVLAR.kgk.icerik)) return v; } catch (e) {}
       return 'sgs';
     },
     sinavSec: function (k) { try { if (SINAVLAR[k]) localStorage.setItem('tt_sinav', k); } catch (e) {} }

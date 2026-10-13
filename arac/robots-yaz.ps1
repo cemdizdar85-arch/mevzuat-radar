@@ -17,8 +17,22 @@ param([switch]$Yaz, [switch]$Sinav)
 
 # Herkese açık sayfaların KULLANMADIĞI klasörler (08.10 ölçüldü: index/fiyat/satin-al/ogrenci/seviye/sorular/deneme/
 # kaydir/vitrin… src/href/fetch içinde 0 eşleşme). veri/ ve kutuphane/ BİLEREK yok: sayfalar oradan okuyor.
-$script:ROBOTS_KAPALI_KLASOR = @('motor', 'arac', 'radar-app', 'sql', 'sql-yerel', 'arsiv', 'sayfalar', 'kaydir/kgk',
+$script:ROBOTS_KAPALI_KLASOR = @('motor', 'arac', 'radar-app', 'sql', 'sql-yerel', 'arsiv', 'sayfalar',
   'bulten', 'kaynak-ozetleri', 'kaynak-pdf', 'video', 'pazarlama', 'tasarim', 'mobil', 'gelen', 'evrak-app', 'rag-motor', 'kapsam')
+# 13.10.2026 (site kolu, KGK açılış hazırlığı): kaydir/kgk/ yalnız KGK içeriği kapalıyken (fiyat-motoru.js ICERIK_HAZIR.kgk:false)
+# kapalı listededir; tek anahtar orada. kgk:true olunca -Yaz ile robots.txt yeniden yazılır (kaydir/sgs ve kaydir/smmm gibi açık kalır).
+# Anahtar okunamazsa KAPALI sayılır (yanlış yönde açmaktansa kapalı kalsın).
+function KgkIcerikAcik([string]$kok) {
+  try {
+    $m = [regex]::Match([IO.File]::ReadAllText((Join-Path $kok 'fiyat-motoru.js'), [Text.Encoding]::UTF8), 'var ICERIK_HAZIR\s*=\s*\{[^}]*\bkgk\s*:\s*(true|false)')
+    return ($m.Success -and $m.Groups[1].Value -eq 'true')
+  } catch { return $false }
+}
+function KapaliKlasorler([string]$kok) {
+  $k = @($script:ROBOTS_KAPALI_KLASOR)
+  if (-not (KgkIcerikAcik $kok)) { $k += 'kaydir/kgk' }
+  return $k
+}
 # menu.js yüklemeyen, GIZLI listesinde olmayan sahipsiz sayfalar (08.10: fark.html ölçülmemiş iddia taşıyor)
 $script:ROBOTS_KAPALI_SAYFA = @('fark.html')
 
@@ -34,7 +48,7 @@ function RobotsMetni([string]$kok) {
   $s.Add('# tetikte.com - arac/robots-yaz.ps1 uretir (gong.ps1 / acilis-seo.ps1 -Ac). Elle duzenleme; menu.js GIZLI degisince -Yaz.')
   $s.Add('User-agent: *')
   $s.Add('Allow: /')
-  foreach ($k in $script:ROBOTS_KAPALI_KLASOR) { $s.Add("Disallow: /$k/") }
+  foreach ($k in (KapaliKlasorler $kok)) { $s.Add("Disallow: /$k/") }
   $s.Add('Disallow: /*.md$')
   foreach ($p in ($script:ROBOTS_KAPALI_SAYFA + (GizliSayfalar $kok))) { $s.Add("Disallow: /$p") }
   $s.Add('')
@@ -57,8 +71,24 @@ if ($MyInvocation.InvocationName -ne '.') {
     foreach ($m in [regex]::Matches($harita, '<loc>https://tetikte\.com/([^<]+)</loc>')) {
       $a = $m.Groups[1].Value
       if ($t.Contains("Disallow: /$a`n")) { $hata += "haritadaki sayfa kapali: $a" }
-      foreach ($k in $script:ROBOTS_KAPALI_KLASOR) { if ($a.StartsWith("$k/")) { $hata += "haritadaki sayfa kapali klasorde: $a" } }
+      foreach ($k in (KapaliKlasorler $kok)) { if ($a.StartsWith("$k/")) { $hata += "haritadaki sayfa kapali klasorde: $a" } }
     }
+    # 13.10 KGK anahtarı: kgk:false iken kaydir/kgk kapalı, kgk:true iken açık; anahtar okunamazsa kapalı (iki yön de ölçülür)
+    $kgkAcik = KgkIcerikAcik $kok
+    if ($kgkAcik -and $t.Contains("Disallow: /kaydir/kgk/`n")) { $hata += 'ICERIK_HAZIR.kgk:true ama kaydir/kgk kapali' }
+    if (-not $kgkAcik -and -not $t.Contains("Disallow: /kaydir/kgk/`n")) { $hata += 'ICERIK_HAZIR.kgk:false ama kaydir/kgk acik' }
+    $gecici = Join-Path $env:TEMP ('robots-sinav-' + [guid]::NewGuid().ToString('N'))
+    New-Item -ItemType Directory -Path $gecici | Out-Null
+    try {
+      Copy-Item (Join-Path $kok 'menu.js') $gecici
+      Copy-Item (Join-Path $kok 'sitemap.xml') $gecici
+      [IO.File]::WriteAllText((Join-Path $gecici 'fiyat-motoru.js'), 'var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:true };', (New-Object Text.UTF8Encoding($false)))
+      if ((RobotsMetni $gecici).Contains('Disallow: /kaydir/kgk/')) { $hata += 'mutasyon kgk:true -> kaydir/kgk hala kapali' }
+      [IO.File]::WriteAllText((Join-Path $gecici 'fiyat-motoru.js'), 'var ICERIK_HAZIR = { sgs:true, yeterlilik:true, kgk:false };', (New-Object Text.UTF8Encoding($false)))
+      if (-not (RobotsMetni $gecici).Contains('Disallow: /kaydir/kgk/')) { $hata += 'mutasyon kgk:false -> kaydir/kgk acik' }
+      Remove-Item (Join-Path $gecici 'fiyat-motoru.js')
+      if (-not (RobotsMetni $gecici).Contains('Disallow: /kaydir/kgk/')) { $hata += 'mutasyon anahtar yok -> kaydir/kgk acik (kapali olmali)' }
+    } finally { Remove-Item -Recurse -Force $gecici -ErrorAction SilentlyContinue }
     if ($hata.Count) { Write-Host "ROBOTS-YAZ SINAV: KIRMIZI - $($hata -join ' · ')"; exit 1 }
     Write-Host "ROBOTS-YAZ SINAV: YESIL ($(([regex]::Matches($t, 'Disallow')).Count) Disallow satiri, harita sayfalari acik)"
     exit 0

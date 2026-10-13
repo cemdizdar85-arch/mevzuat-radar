@@ -89,7 +89,7 @@
     <nav class="uc-sekme" aria-label="Sınav seç">
       <a href="ucretsiz-dene.html?sinav=sgs" data-sinav="sgs" aria-current="page">SMMM Staja Giriş</a>
       <a href="ucretsiz-dene.html?sinav=yeterlilik" data-sinav="yeterlilik">Yeterlilik</a>
-      <a href="ucretsiz-dene.html?sinav=kgk" data-sinav="kgk" hidden style="display:none">KGK</a><!-- 30.09: KGK gizli (site yalnız SMMM başlama + bitirme) -->
+      <a href="ucretsiz-dene.html?sinav=kgk" data-sinav="kgk" id="ucSekmeKgk" hidden style="display:none">KGK</a><!-- 30.09: KGK gizli (site yalnız SMMM başlama + bitirme) · 13.10: uye-durumu.js SINAVLAR.kgk.icerik açılınca betik gösterir -->
     </nav>
     <div class="uc-bas" id="ucBas">
       <p class="uc-goz">Ücretsiz dene · üyelik gerekmez</p>
@@ -135,15 +135,17 @@
   }).catch(function(){});
 })();
 </script>
-<script src="uye-durumu.js?v=20261007b"></script>
+<script src="uye-durumu.js?v=20261013a"></script>
 <script>
 /* 15.09 ÜÇ SINAV: seçili sınava göre sayfa. Ön kayıt formu sitenin tek form kapısına gider
    (radar-app/edge/form-al.ts, canlı adı quick-task): Frankfurt kasası + bize mail; köken listesi, bal küpü, hız sınırı sunucuda. */
 (function(){
   if(!window.TetikteUye) return;
   var U=window.TetikteUye, S=U.SINAVLAR, $=function(id){return document.getElementById(id);};
-  var m=/[?&]sinav=(sgs|yeterlilik)\b/.exec(location.search);   /* 30.09: kgk gizli -> SGS */
-  var k=m?m[1]:U.seciliSinav(), s=S[k];
+  /* 13.10 KGK açılış hazırlığı: içerik açıkken (SINAVLAR.kgk.icerik) sekme görünür ve ?sinav=kgk tanınır; kapalıyken SGS (30.09). */
+  if(S.kgk&&S.kgk.icerik){ var sk=$('ucSekmeKgk'); if(sk){ sk.hidden=false; sk.style.display=''; } }
+  var m=/[?&]sinav=(sgs|yeterlilik|kgk)\b/.exec(location.search);
+  var k=(m&&(m[1]!=='kgk'||(S.kgk&&S.kgk.icerik)))?m[1]:U.seciliSinav(), s=S[k];
   U.sinavSec(k);
   [].forEach.call(document.querySelectorAll('.uc-sekme a'),function(a){
     if(a.getAttribute('data-sinav')===k) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
@@ -151,7 +153,8 @@
   /* Staja Giriş: sayfa olduğu gibi. 24.09: bu sayfanın kartları SGS'nindir; içeriği açılan başka sınav
      (Yeterlilik) kendi açık vitrinine gider - "Yeterlilik giriyorum Staja Giriş çıkıyor" (23.09) tekrarlanmasın. */
   /* 07.10 Cem ("ücretsiz soru çöz yine 10 soru çıkıyor"): içeriği açık başka sınav kendi 30 soruluk seviye testine gider (10 soruluk vitrine değil) */
-  if(s.icerik){ if(k!=='sgs'&&s.olc) location.replace(s.olc); return; }
+  /* 13.10 KGK: seviye testi yok -> ders listesi (SINAVLAR.kgk.gir) */
+  if(s.icerik){ if(k!=='sgs'&&(s.olc||s.gir)) location.replace(s.olc||s.gir); return; }
   document.title='Ön kayıt · '+s.uzun+' | Tetikte';
   $('ucBas').querySelector('.uc-goz').textContent='Ön kayıt · '+s.uzun;
   $('ucBas').querySelector('h1').textContent=s.ad+' soru bankası hazırlanıyor.';

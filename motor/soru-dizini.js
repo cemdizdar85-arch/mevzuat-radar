@@ -106,6 +106,16 @@ function dersEsle(sayfalar, dersAd) {
   const aday = Object.keys(sayfalar).filter(k => (yalin + ' ').startsWith(k + ' ') || (' ' + yalin).endsWith(' ' + k));
   return aday.length === 1 ? sayfalar[aday[0]] : null;
 }
+// 13.10.2026 (site kolu, KGK açılış hazırlığı): bir sınav konusu birden çok sayfaya basılmış olabilir. Ölçüldü: KGK
+// "c) Kurumsal Yönetim İlkeleri ve Finansal Yönetim" tek konu, kasa onu kaydir/kgk/kurumsal-yonetim.html + finansal-yonetim.html
+// diye iki sayfaya basıyor (arac/kgk-ders-adi.ps1). dersEsle iki adayı görünce null döndürüyor, iki sayfa da dizinden düşüyordu
+// (10.10 dizininde FY sayfası yoktu, KY tek adaydı). Önek/sonek adayları birden çoksa HEPSİ döner; satır sayfa başına çoğalır.
+function dersEsleHepsi(sayfalar, dersAd) {
+  const tek = dersEsle(sayfalar, dersAd); if (tek) return [tek];
+  const yalin = katla(adAyir(dersAd).ad);
+  const aday = Object.keys(sayfalar).filter(k => (yalin + ' ').startsWith(k + ' ') || (' ' + yalin).endsWith(' ' + k));
+  return aday.length > 1 ? aday.map(k => sayfalar[k]) : [];
+}
 
 const tek = jsonOku(path.join(KOK, 'veri', 'sinav-tek-sayfa.json'));
 const cikti = { uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/soru-dizini.js', sinavlar: [] };
@@ -137,8 +147,15 @@ for (const S of SINAVLAR) {
       sayfalar[katla(dersAdi)] = { dosya: `kaydir/${S.kod}/${f}`, ad: dersAdi, sorular };
     }
   }
-  const dersler = satirlar.map(d => {
-    const sayfa = dersEsle(sayfalar, d.ders);
+  // 13.10: çok sayfalı konu (KGK c) satır başına bir sayfa; sınavdaki soru payı yalnız ilk satıra yazılır (toplam şişmesin).
+  const satirSayfa = [];
+  for (const d of satirlar) {
+    const eslesen = dersEsleHepsi(sayfalar, d.ders);
+    if (eslesen.length <= 1) { satirSayfa.push({ d, sayfa: eslesen[0] || null }); continue; }
+    rapor.push(`  ${S.tek}: "${d.ders}" ${eslesen.length} sayfaya bölünmüş -> ${eslesen.map(s => s.dosya).join(', ')}`);
+    eslesen.forEach((sayfa, i) => satirSayfa.push({ d: i ? Object.assign({}, d, { sinav_soru: 0 }) : d, sayfa }));
+  }
+  const dersler = satirSayfa.map(({ d, sayfa }) => {
     const { ad, alt } = adAyir(sayfa ? sayfa.ad : d.ders);
     let konular = [], ara = '';
     if (sayfa) {
@@ -174,7 +191,7 @@ for (const S of SINAVLAR) {
     ders_sayisi: dersler.length, acik_ders: acikDers, soru, dersler
   });
   rapor.push(`${S.ad} (${S.tek}): ${dersler.length} ders · sayfası olan ${acikDers} · çözülebilir soru ${soru}`);
-  const eslesmeyen = Object.keys(sayfalar).filter(k => !satirlar.some(d => dersEsle(sayfalar, d.ders) === sayfalar[k]));
+  const eslesmeyen = Object.keys(sayfalar).filter(k => !satirlar.some(d => dersEsleHepsi(sayfalar, d.ders).includes(sayfalar[k])));
   for (const k of eslesmeyen) rapor.push(`  ⚠ ders listesinde karşılığı yok: ${sayfalar[k].dosya}`);
 }
 

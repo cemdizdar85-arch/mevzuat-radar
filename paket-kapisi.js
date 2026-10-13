@@ -234,14 +234,19 @@
          paketSinavlari ile AYNI: yeterlilik | yeterlilik-* | smmm | yeterlilik-kgk | tam | kurucu. */
       /* 07.10 Sık Çıkan Konular Denemesi: sinav-gibi.html?sinav=smmm Yeterlilik setidir → Yeterlilik paketi aranır */
       var sgYet = /sinav-gibi\.html$/.test(location.pathname) && /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search);
+      /* 13.10 KGK açılış hazırlığı: kaydir/kgk/ yolu tanınmıyordu -> sinavi=null -> kapsar() her aktif pakete "true" diyordu
+         (SGS paketi KGK sayfasının perdesini açardı; içerik kasada RLS ile yine kilitliydi). Eşleme uye-durumu.js paketSinavlari
+         ve radar-app/sql/2026-10-09-kasa-olcer.sql paket_erisim_var ile AYNI: kgk | kgk-* | yeterlilik-kgk | tam | kurucu. */
       var sinavi = sgYet ? 'yeterlilik'
         : (/\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs'
-        : (/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik' : null));
+        : (/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik'
+        : (/\/kaydir\/kgk\//.test(location.pathname) ? 'kgk' : null)));
       var kapsar = function (paket) {
         var p = String(paket == null ? '' : paket).trim().toLowerCase();
         if (!sinavi || !p || p === 'tam' || p === 'kurucu') return true;
         if (sinavi === 'sgs') return p === 'sgs' || p.indexOf('sgs-') === 0 || p === 'sinav-249';
         if (sinavi === 'yeterlilik') return p === 'yeterlilik' || p.indexOf('yeterlilik-') === 0 || p === 'smmm' || p === 'yeterlilik-kgk';
+        if (sinavi === 'kgk') return p === 'kgk' || p.indexOf('kgk-') === 0 || p === 'yeterlilik-kgk';
         return false;
       };
       var gecerli = (r.data || []).filter(function (x) { return (!x.bitis || x.bitis >= bugun) && kapsar(x.paket); });
