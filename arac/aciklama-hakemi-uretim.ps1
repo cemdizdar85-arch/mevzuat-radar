@@ -20,6 +20,19 @@ function AhAday($v) {
 # koşucu ve havuz-kur için: YENİ soru açıklama hakeminden TEMIZ almadıysa seçilmez
 function AhSecilemez($v) { return [bool]((AhYeniMi $v) -and -not ($v.PSObject.Properties['aciklama_hakem'] -and "$($v.aciklama_hakem.karar)" -eq 'TEMIZ')) }
 
+# 13.10.2026 KURAL (KGK oturumu, Cem "1.2.3"): AÇIKLAMA HAKEMİ BÜTÇESİZ KALDIYSA PLAN "TAMAMLANDI" SAYILMAZ.
+#   Ölçüldü 13.10: KGK t1/t2 (8 plan, 326 soru, ≈14,7 USD) bütçesi yazım + dört hakemi karşıladı, AH'ye kalmadı
+#   ("aday 31 · gönderilen 0 · bütçe yetmedi 31"); bulut işi "plan tamamlandı - yeniden tetikleme yok" dedi, yayın şartı 0 soru seçti.
+#   Çözüm: butce_yok > 0 ise koşucu günlüğüne 'butce-doldu.log' YARIM izi düşülür → bulut-uretim.yml mevcut "PLAN BUTCESI DOLDU" yolundan
+#   KIRMIZI biter, zincir durur, Cem bütçeyi artırıp aynı planı sıraya koyar (-Yeniden). Dönüş: iz yazıldıysa $true.
+#   🚫 GÖRMEZ: AH'nin zaman aşımıyla kararsız kalması (butce_yok 0; sonraki halka bedava hasat eder) · log klasörü yoksa yazamaz ($false).
+function AhButceYarimIzi([string]$logDir, $rapor, [string]$plan) {
+  if (-not $rapor -or [int]$rapor.butce_yok -le 0) { return $false }
+  if (-not $logDir -or -not (Test-Path $logDir)) { return $false }
+  [IO.File]::AppendAllText((Join-Path $logDir 'butce-doldu.log'), ("YARIM (açıklama hakemi bütçesiz: $([int]$rapor.butce_yok) soru) · $plan`r`n"), [Text.UTF8Encoding]::new($false))
+  return $true
+}
+
 function AciklamaHakemUretim([string]$Kok, $satirlar, [double]$planHarcanan = 0, [string]$Fabrika = '') {
   if (-not $Fabrika) { $Fabrika = Join-Path $Kok 'veri\fabrika' }
   $rapor = [ordered]@{ aday = 0; gonderilen = 0; temiz = 0; kusurlu = 0; olculemedi = 0; butce_yok = 0; usd = 0 }

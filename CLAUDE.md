@@ -252,6 +252,13 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      sayısı tavanlanır; ilgi hakeminden geçmemiş konu basılmaz.
   6. **Yarım iş önce biter:** kredi/bütçe yüzünden yarım kalan plan yeniden basılmaz; aynı plan aynı etiketle devam ettirilir (ödenmiş
      toplu sonuçlar bedava hasat edilir).
+  7. ⭐ **BÜTÇE AÇIKLAMA HAKEMİNİ KAPSAR; AH koşmadan plan "tamamlandı" sayılmaz** (13.10.2026, Cem "1.2.3", KGK oturumu). **Ölçüldü:** KGK
+     t1/t2'nin 8 planı (326 soru, ≈14,7 USD) yazım + dört hakemi ödedi, açıklama hakemine bütçe kalmadı ("aday 31 · gönderilen 0 · bütçe yetmedi
+     31"); bulut "plan tamamlandı - yeniden tetikleme yok" dedi, yayın şartı 0 soru seçti, sorular 4 gün kararsız bekledi. Kural: plan tavanı =
+     yazım+hakem + **AH payı ≈0,03 USD/soru**. Mekanik: `arac/aciklama-hakemi-uretim.ps1` `AhButceYarimIzi` → `butce-doldu.log` YARIM izi →
+     `bulut-uretim.yml` KIRMIZI + zincir durur (öz-sınav + mutasyon `iz-yok`). Devam: bütçe artır + `motor/bulut-sira.ps1 -Ekle … -Yeniden`.
+     Aynı gün: **KGK kasa yayını bulut bitişinde otomatik** (`bulut-uretim.yml` KGK adımı; d1b'nin 154 sorusu 6 gün ambarda beklemişti) ve
+     **KGK'da iki bağımsız okuyucu** (`arac/GM-HAZIR-SORU-TALIMATI-KGK.md` K12). 🚫 GÖRMEZ: AH zaman aşımı (butce_yok 0; sonraki halka hasat eder).
   Mekanik parçalar: `motor/kalip-kosucu.ps1` (bütçe kapısı, bakiye/hata izi, kapı sayımı toplamı) · `motor/kalip-parti-uret.ps1`
   (bedel defteri 75/çöküşte de yazılır, `KAPI SAYIM`) · `.github/workflows/bulut-uretim.yml` (bütçe + ölçüm kapısı, zincir kırmızı durur).
 

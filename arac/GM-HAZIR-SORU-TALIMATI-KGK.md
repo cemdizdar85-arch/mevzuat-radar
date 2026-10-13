@@ -78,8 +78,24 @@
 ## Modül sırası ve önkoşul (07.10)
 - Denetim Standartları → Muhasebe Standartları → Finansal Yönetim → Kurumsal Yönetim → Sürdürülebilirlik.
 - **Başlık sızması (madde sonuna sonraki başlık):** yutucu düzeltildi (122d1279). 07.10 altyapı: Bankacılık (255 kayıt) + Sigortacılık
-  (106) TAZELENDİ (928af587) → yazılabilir. **SPK (6362) henüz tazelenmedi** (m.35'e 35/A başlığı sızmıştı → iki doğru şık); bulut boşalınca
-  yazılacak — o zamana dek SPK'ya yazım YOK.
+  (106) TAZELENDİ (928af587), SPK 6362 da 07.10 3. turda TAZELENDİ (00a6dca3) → yazılabilir. ⚠ SPK'da t2 yazarlarının bulduğu 6 ambar
+  kusuru (6362 m.13/84/106/107 bozuk metin, II-26.1 m.8'e m.9 karışmış, Borsalar Yön. m.5 ESKİ metin) `veri/AMBAR-YUTMA-IS-EMRI-20260930.md`'de
+  AÇIK (13.10) — bu maddelere dayanan soru yazılmaz, ambar düzelene dek SPK'ya yeni dalga açılmaz (Cem 13.10 GM3).
+
+## ⭐ 13.10 KURALLARI (Cem "1.2.3 üçünü de yap")
+- **K10 — Plan bütçesi AÇIKLAMA HAKEMİNİ kapsar.** Ölçüldü 13.10: t1/t2'nin 8 planı (326 soru, ≈14,7 USD) yazım + dört hakemi ödedi, açıklama
+  hakemine bütçe kalmadı → bulut "plan tamamlandı" dedi, yayın şartı 0 soru seçti. Plan tavanı = yazım+hakem bedeli + **AH payı ≈0,03 USD/soru**.
+  Mekanik: `arac/aciklama-hakemi-uretim.ps1` `AhButceYarimIzi` — AH bütçesiz kalırsa `butce-doldu.log` YARIM izi, bulut işi KIRMIZI, zincir durur
+  (öz-sınav + mutasyon `iz-yok`, dogrula.yml). Devam: bütçeyi artır, aynı planı `bulut-sira -Yeniden` ile sıraya koy (önceki işler bedava hasat).
+- **K11 — KGK kasa yayını bulut bitişinde otomatik** (`bulut-uretim.yml` KGK adımı: `kgk-kasa-yayin.yml yaz+site_kabuk`). 13.10'a dek yalnız
+  elle tetikleniyordu; d1b'nin 154 sorusu 6 gün ambarda bekledi.
+- **K12 — İKİ BAĞIMSIZ OKUYUCU.** Her hazır dosya, yazarından bağımsız İKİ okuyucu tarafından ayrı ayrı okunur (`ig/BRIF.md` düzeni: bağımsız
+  çözüm → kaynak uyumu → A/S listesi → karar). İkisinden biri CIKAR dediyse soru dosyadan çıkar; DUZELT varsa düzeltme uygulanır ve düzeltilen soru
+  YENİ bir okuyucuya gider; ikisi de TEMİZ demeden dosya yüklenmez. Neden: KGK'da bugüne dek tek okuyucu koştu; bitirmede tek okuyucunun TEMİZ
+  dediği 10 sorunun 6'sı ikinci okuyucuda kusurlu çıktı (30.09). İki okuyucunun ANAHTAR uyuşmazlığı → üçüncü okuyucu (hakem), çoğunluk değil
+  kaynak cümlesi karar verir.
+- **K13 — Dalga = tek modül, ≤25 USD, önce ölç.** Yayına giren soru başına bedel + yayın oranı Cem'e gitmeden sonraki dalga açılmaz
+  (CLAUDE.md para kuralı 1'in KGK uygulaması).
 - **Standartlarda da sızma var** (07.10 altyapı ölçümü: 4.240 paragrafta 610 başlık kuyruğu adayı, örneklem 39/40 gerçek; Etik 317, TFRS 124,
   TMS 94, BDS 29). 122d1279 standart yutucusunu KAPSAMIYOR. Yazarken: paragraf metninin sonundaki noktalamasız başlık parçası hükmün parçası
   DEĞİLDİR — ona dayanan şık/açıklama yazılmaz (ör. BDS 701 p.13 sonu "…Denetçi Raporunda Bildirilmediği").

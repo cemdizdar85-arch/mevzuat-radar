@@ -366,6 +366,19 @@ jobs:
           gh workflow run smmm-kasa-yayin.yml --ref main
           if($LASTEXITCODE){ "::warning::kasa yayini tetiklenemedi - sabah 07:20 TR kendiliginden kosar ya da elle: gh workflow run smmm-kasa-yayin.yml" } else { "kasa yayini tetiklendi (smmm-kasa-yayin.yml)" }
 
+      # 13.10.2026 KGK (Cem "1.2.3", KGK oturumu): bitirmenin esi. OLCULDU 13.10: d1b (154) + t2-ky (20) yayin sartini geciyordu ama
+      # kgk-kasa-yayin.yml 06.10'dan beri kosmamisti - KGK icin otomatik tetik YOKTU (yalniz ekibe-sor elle-ret yolunda). Sitede 179 kaldi.
+      # yaz=true: kilitli kasaya yazar (Cem 13.10 "yaz"); site_kabuk=true: kaydir/kgk kabuk sayfalari depoya (sorusuz, esdegerlik kapili).
+      # SGS/SMMM plani bu adima girmez (davranislari ayni). Yayin isi tek sirali (concurrency), ust uste tetik kuyruga girer.
+      - name: KGK kasa yayinini tetikle (ayri is, tek sira; yalniz KGK plani)
+        if: always() && !cancelled() && env.PLAN_SINAVI == 'KGK'
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run kgk-kasa-yayin.yml --ref main -f yaz=true -f site_kabuk=true
+          if($LASTEXITCODE){ "::warning::KGK kasa yayini tetiklenemedi - elle: gh workflow run kgk-kasa-yayin.yml -f yaz=true -f site_kabuk=true" } else { "KGK kasa yayini tetiklendi (kgk-kasa-yayin.yml, yaz+kabuk)" }
+
       - name: Toplu kuyruk bitmediyse ayni plani yeniden tetikle
         if: always() && !cancelled()
         shell: powershell
@@ -385,6 +398,8 @@ jobs:
           $hatali = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'hata-cikan.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
           $butce = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'butce-doldu.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
           if($butce.Count){
+            # 13.10: ayni iz ACIKLAMA HAKEMI butcesiz kaldiginda da duser (kosucu AhButceYarimIzi) - sorular yazilmis ama kararsiz, yayin sarti secmez.
+            if(@($butce | Where-Object { "$_" -match 'hakemi b' }).Count){ "::error::ACIKLAMA HAKEMI BUTCESIZ KALDI - yazilan sorular kararsiz, yayin sartini GECEMEZ. Butce = yazim + AH payi (~0,03 USD/soru). Butceyi artirip ayni plani -Yeniden siraya koy (onceki isler bedava hasat)." }
             "::error::PLAN BUTCESI DOLDU (${{ inputs.butce_usd }} USD) - plan YARIM kaldi. Zincir durdu. Devam icin sonucu olc, Cem onayiyla butceyi artirip ayni plani elle baslat."
             exit 1
           }

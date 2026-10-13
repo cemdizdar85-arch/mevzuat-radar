@@ -563,7 +563,10 @@ try{
 . (Join-Path $Kok 'arac\aciklama-hakemi-uretim.ps1'); $ahDus=0
 if(-not $SadeceSecim){
   try{ $ahR=AciklamaHakemUretim $Kok $tekilSatirlar $(if("$env:MEVZUAT_BUTCE_USD" -match '^\d'){ PlanHarcama } else { 0 })
-    "AÇIKLAMA HAKEMİ: aday $($ahR.aday) · gönderilen $($ahR.gonderilen) · TEMIZ $($ahR.temiz) · KUSURLU $($ahR.kusurlu) · ölçülemedi $($ahR.olculemedi) · bütçe yetmedi $($ahR.butce_yok) · ≈$($ahR.usd) USD" }
+    "AÇIKLAMA HAKEMİ: aday $($ahR.aday) · gönderilen $($ahR.gonderilen) · TEMIZ $($ahR.temiz) · KUSURLU $($ahR.kusurlu) · ölçülemedi $($ahR.olculemedi) · bütçe yetmedi $($ahR.butce_yok) · ≈$($ahR.usd) USD"
+    # 13.10 KURAL (Cem "1.2.3", KGK t1/t2 ölçümü: 326 soru AH'siz kaldı, "tamamlandı" dendi): AH bütçesiz kaldıysa plan YARIM — butce-doldu.log izi,
+    # bulut-uretim.yml bunu KIRMIZI bitirir, zincir durur; devam = bütçe artır + aynı planı -Yeniden sıraya koy (AH öncesi işler bedava hasat).
+    if(AhButceYarimIzi $logDir $ahR $Plan){ "⛔ AÇIKLAMA HAKEMİ BÜTÇESİZ KALDI: $($ahR.butce_yok) soru kararsız → plan YARIM (butce-doldu.log). Bütçe = yazım + AH payı (≈0,03 USD/soru); bütçeyi artırıp aynı planı -Yeniden sıraya koy." } }
   catch{ "AÇIKLAMA HAKEMİ KÖR: $($_.Exception.Message) (kararı olmayan yeni soru seçilmez)" }
 }
 $secim=@()
