@@ -1,8 +1,18 @@
 {
     "aciklama":  "Kanun madde-belgesi ambarinin BIRINCIL kaynak manifesti. Gunluk robot her kanunun mevzuat.gov.tr KONSOLIDE (yasayan/guncel) PDF\u0027ini ceker, pdftotext ile metne dokup madde madde parcalar. hash degisirse (= kanun guncellendi/madde iptal oldu) O KANUNU yeniden yutar. Boylece EZBER degil, guncel kaynagin gunluk AYNASI. pdfId deseni: 1.\u003ctertip\u003e.\u003cno\u003e (eski kanun tertip 3-4, yeni 5).",
     "kanunlar":  [
-                     {"ad":"SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390)","pdfId":"G7:9611","slug":"smmm-ucret-yon","not":"27.09 SGS kapsama olcumu: Meslek Hukuku ucret yonetmeligi 2015-2026 arasi 24 donemde soruldu (cikmis metinle dogrulandi: 22 soru ifadesi Ucret Yonetmeligine gore), ama metin ambarda YOKTU (kaynak_ad ilike cretlerinin = 0; 3568 K. var). mevzuat.gov.tr MevzuatNo 9611 Tur 7. Hazir metin veri/mevzuat-hazir/smmm-ucret-yon.txt (GeneratePdf + pdftotext -enc UTF-8; -enc olmadan s/g/I harfleri duser). m.22 Danistay karariyla iptal."},
-                     {"ad":"SMK Uygulama Yönetmeliği (RG 24.04.2017/30047)","pdfId":"G7:23528","slug":"smk-yonetmelik","not":"08.09.2026 Cem: marka maillerinde gun verebilmek icin (tescil ucreti suresi, yayim usulu, itiraz usulu) SMK 6769 m.22/4 ve m.18 uygulama hukumleri. Ambarda YOKTU (olculdu: 3 ad kalibi + RG 30047 fts = 0). Hazir metin veri/mevzuat-hazir/smk-yonetmelik.txt (TR IP, mevzuat.gov.tr GeneratePdf 23528, 29 sayfa). Listenin basina konuldu: sira gelmeme dersi (bd-yonetmelik 02.08)."},
+                     {
+                         "ad":  "SM, SMMM ve YMM Ücretlerinin Esasları Hakkında Yönetmelik (RG 02.01.1990/20390)",
+                         "pdfId":  "G7:9611",
+                         "slug":  "smmm-ucret-yon",
+                         "not":  "27.09 SGS kapsama olcumu: Meslek Hukuku ucret yonetmeligi 2015-2026 arasi 24 donemde soruldu (cikmis metinle dogrulandi: 22 soru ifadesi Ucret Yonetmeligine gore), ama metin ambarda YOKTU (kaynak_ad ilike cretlerinin = 0; 3568 K. var). mevzuat.gov.tr MevzuatNo 9611 Tur 7. Hazir metin veri/mevzuat-hazir/smmm-ucret-yon.txt (GeneratePdf + pdftotext -enc UTF-8; -enc olmadan s/g/I harfleri duser). m.22 Danistay karariyla iptal."
+                     },
+                     {
+                         "ad":  "SMK Uygulama Yönetmeliği (RG 24.04.2017/30047)",
+                         "pdfId":  "G7:23528",
+                         "slug":  "smk-yonetmelik",
+                         "not":  "08.09.2026 Cem: marka maillerinde gun verebilmek icin (tescil ucreti suresi, yayim usulu, itiraz usulu) SMK 6769 m.22/4 ve m.18 uygulama hukumleri. Ambarda YOKTU (olculdu: 3 ad kalibi + RG 30047 fts = 0). Hazir metin veri/mevzuat-hazir/smk-yonetmelik.txt (TR IP, mevzuat.gov.tr GeneratePdf 23528, 29 sayfa). Listenin basina konuldu: sira gelmeme dersi (bd-yonetmelik 02.08)."
+                     },
                      {
                          "ad":  "Yerli Mali Tebligi (SGM-2024/10)",
                          "pdfId":  "9.5.42656",
@@ -231,7 +241,7 @@
                          "slug":  "malbildirimi",
                          "ad":  "Mal Bildirimi K. (3628 s.K.)",
                          "pdfId":  "1.5.3628",
-                         "not":  "27.09.2026 Cem onayi (0 USD): SMMM Meslek Hukuku 'mal bildirimi zorunlulugu/yukumlulugu' konulari bu kanun ambarda olmadigi icin soru yazilamiyordu (olculdu: dokumanlar kaynak_ad like *3628* = 0). Resmi kaynak mevzuat.gov.tr MevzuatMetin/1.5.3628.pdf (9 sayfa, %PDF imzali, TR IP)."
+                         "not":  "27.09.2026 Cem onayi (0 USD): SMMM Meslek Hukuku \u0027mal bildirimi zorunlulugu/yukumlulugu\u0027 konulari bu kanun ambarda olmadigi icin soru yazilamiyordu (olculdu: dokumanlar kaynak_ad like *3628* = 0). Resmi kaynak mevzuat.gov.tr MevzuatMetin/1.5.3628.pdf (9 sayfa, %PDF imzali, TR IP)."
                      },
                      {
                          "slug":  "kabahat",
@@ -4339,7 +4349,14 @@
                          "ad":  "Sigortacilik ve Ozel Emeklilik Sektorlerinde Ic Sistemlere Dair Yonetmelik",
                          "pdfId":  "G7:39063",
                          "slug":  "seddk-ic-sistemler-yon",
-                         "not":  "15.09.2026 KGK olcumu: sigorta/emeklilik ic sistemler 10 soru (2022+ 8), ambarda yoktu. RG 25.11.2021-31670, degisiklik RG 14.02.2025-32813. Resmi adda 'Dair'. Onceki 2008 yonetmeligi MULGA. MevzuatNo 39063.",
+                         "not":  "15.09.2026 KGK olcumu: sigorta/emeklilik ic sistemler 10 soru (2022+ 8), ambarda yoktu. RG 25.11.2021-31670, degisiklik RG 14.02.2025-32813. Resmi adda \u0027Dair\u0027. Onceki 2008 yonetmeligi MULGA. MevzuatNo 39063.",
+                         "seyrek":  true
+                     },
+                     {
+                         "slug":  "vukgt596",
+                         "ad":  "VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 596)",
+                         "pdfId":  "G9:46331",
+                         "not":  "teblig-hasat robotu ekledi 13.10.2026 (RG 11.10.2026); fihrist nobetcisi kesfi",
                          "seyrek":  true
                      }
                  ]
