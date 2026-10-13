@@ -24,6 +24,8 @@
 --    ölçer; kasa adı ayrıca değişirse ders kilitli kalır) · magaza (mobil) yolu (magaza-dogrula.ts KGK ürünü tanımıyor) ·
 --    yeterlilik-[1-4] boş seçim · yonetim_* yolu (yonetici_mi taklit edilemiyor, öz-sınavda sınanmaz).
 -- Uygulanma: sql-uygula.yml (push ile otomatik). Bu dosya değiştirilmez; düzeltme yeni dosyayla.
+-- 13.10 ilk koşu (38432413171) öz-sınavda düştü: sahte sipariş tutarı 1 TL siparisler_tutar_check'e takıldı; tek işlem geri alındı,
+-- kütüğe yazılmadı (veritabanında değişiklik yok) → tutar 2988 (10-12 öz-sınavındaki değer) yapıldı, aynı dosya yeniden koşar.
 -- ============================================================================
 
 -- 1) tek iç yol: KGK modül paketi de seçilen dersleri yazar
@@ -111,11 +113,11 @@ begin
            (d, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'olcu-kgk-d@tetikte.invalid', now(), now()),
            (e, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'olcu-kgk-e@tetikte.invalid', now(), now());
     insert into public.siparisler (siparis_no, paket, tutar, ad_soyad, email, odeme, durum, paket_bitis, secilen_dersler)
-    values ('TT-20261013-KG01', 'kgk-3',          1, 'Olcu Kgk A', 'olcu-kgk-a@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, k3),
-           ('TT-20261013-KG02', 'kgk-tum',        1, 'Olcu Kgk B', 'olcu-kgk-b@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, null),
-           ('TT-20261013-KG03', 'kgk-2',          1, 'Olcu Kgk C', 'olcu-kgk-c@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, null),
-           ('TT-20261013-KG04', 'yeterlilik-2',   1, 'Olcu Kgk D', 'olcu-kgk-d@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, y2),
-           ('TT-20261013-KG05', 'yeterlilik-kgk', 1, 'Olcu Kgk E', 'olcu-kgk-e@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, null);
+    values ('TT-20261013-KG01', 'kgk-3',          2988, 'Olcu Kgk A', 'olcu-kgk-a@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, k3),
+           ('TT-20261013-KG02', 'kgk-tum',        2988, 'Olcu Kgk B', 'olcu-kgk-b@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, null),
+           ('TT-20261013-KG03', 'kgk-2',          2988, 'Olcu Kgk C', 'olcu-kgk-c@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, null),
+           ('TT-20261013-KG04', 'yeterlilik-2',   2988, 'Olcu Kgk D', 'olcu-kgk-d@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, y2),
+           ('TT-20261013-KG05', 'yeterlilik-kgk', 2988, 'Olcu Kgk E', 'olcu-kgk-e@tetikte.invalid', 'havale', 'odeme_bekliyor', current_date + 90, null);
     update public.siparisler set durum = 'odendi' where siparis_no like 'TT-20261013-KG%';
 
     -- kgk-3: seçilen 4 ders aynen (sıra dahil)
