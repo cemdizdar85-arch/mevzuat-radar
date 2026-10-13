@@ -33,39 +33,6 @@
                      "not":  "14.10 Cem \u0027evet\u0027 t4 tavan 30 USD icinden"
                  },
                  {
-                     "plan":  "veri/sinav/plan-kgk-t4-bs.json",
-                     "butce_usd":  "3.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:04:48Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  "14.10 Cem \u0027evet\u0027 t4 tavan 30 USD icinden"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-tds-b.json",
-                     "butce_usd":  "3.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:17:56Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-tds-c.json",
-                     "butce_usd":  "1.9",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:18:13Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
                      "plan":  "veri/sinav/plan-kgk-t4-fy-a.json",
                      "butce_usd":  "1.6",
                      "paralel":  5,
@@ -77,15 +44,48 @@
                      "not":  ""
                  },
                  {
-                     "plan":  "veri/sinav/plan-kgk-t4-banka-b.json",
-                     "butce_usd":  "1.9",
+                     "plan":  "veri/sinav/plan-kgk-t4-bs.json",
+                     "butce_usd":  "4.6",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:36:33Z",
+                     "eklenme":  "2026-10-13T22:42:08Z",
                      "ekleyen":  "fable-kgk",
                      "yeniden":  false,
-                     "not":  ""
+                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t4-tds-b.json",
+                     "butce_usd":  "5",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-13T22:42:26Z",
+                     "ekleyen":  "fable-kgk",
+                     "yeniden":  false,
+                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t4-tds-c.json",
+                     "butce_usd":  "2.5",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-13T22:42:46Z",
+                     "ekleyen":  "fable-kgk",
+                     "yeniden":  false,
+                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t4-banka-b.json",
+                     "butce_usd":  "2.5",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-13T22:43:05Z",
+                     "ekleyen":  "fable-kgk",
+                     "yeniden":  false,
+                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
                  }
              ]
 }
