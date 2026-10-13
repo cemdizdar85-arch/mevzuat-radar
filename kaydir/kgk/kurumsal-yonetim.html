@@ -1,10 +1,10 @@
-<!doctype html><html data-kasa-sayfa="kaydir/kgk/kurumsal-yonetim.html" lang="tr"><head><meta charset="utf-8">
-<meta name="robots" content="noindex,nofollow"><!-- 08.10 acilis: gizli sayfa, arama motoruna girmez --><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#ffffff"><meta name="color-scheme" content="light dark"><title>Tetikte · Kaydır-Çöz</title>
+<!doctype html><html data-kasa-sayfa="kaydir/kgk/kurumsal-yonetim.html" lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#ffffff"><meta name="color-scheme" content="light dark"><title>Tetikte · Kaydır-Çöz</title>
 <style>
 /* 09.09 AÇIK TEMA — Cem 30.08 "site rengini beyaz yaptık, burası siyah kalmış", 09.09 "bas: açık tema".
    Varsayılan = sitenin açık paleti (stil-acik.css değerleri; stil.css BAĞLANMAZ: .kart/.sik/.btn/.kutu seçicileri çakışır).
    Zemin SAF BEYAZ (Cem 09.09 "soru kısımlarını beyaz yapacaktık"; UWorld/Becker ölçümü beyaz), kart/panel beyaz + çizgi, ikincil yüzey --bg2 kâğıt tonu. 24.09 Cem: VARSAYILAN KOYU ("sitenin rengi bu olsun"); beyaz yalnız düğmeyle (kc_tema=light) ya da ?tema=acik ile; işletim sistemi izlenmez, site de izlemiyor. */
-:root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#16191d;--metin:#16191d;--dim:#4b5563;--mavi:#1d4ed8;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#a04a08;--ustYazi:#ffffff}
+/* 04.10 (Cem: kart ekranı da sitenin görsel dilinde): yazı lacivert (eski #16191d), ikincil lacivert-gri (eski #4b5563), vurgu laciverte çekildi (eski parlak mavi #1d4ed8), altın = site amberi (eski #a04a08). Zemin SAF BEYAZ kalır (09.09 Cem). */
+:root{--bg:#ffffff;--bg2:#f4f2ee;--kart:#ffffff;--cizgi:#e6e2da;--yazi:#0f1b2d;--metin:#0f1b2d;--dim:#3d4b63;--mavi:#1f3b73;--yesil:#146f35;--kirmizi:#b91c1c;--altin:#8a6224;--ustYazi:#ffffff}
 :root[data-theme="dark"]{--bg:#141518;--bg2:#0f1013;--kart:#1e2026;--cizgi:#2e3138;--yazi:#e9e9ec;--metin:#e9e9ec;--dim:#9aa1ad;--mavi:#78b4ff;--yesil:#8fc98f;--kirmizi:#e07b7b;--altin:#e0a458;--ustYazi:#0f1013}
 .temaB{position:fixed;left:10px;bottom:10px;z-index:45;width:34px;height:34px;border-radius:999px;border:1px solid var(--cizgi);background:var(--kart);color:var(--yazi);font:inherit;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 :root[data-vitrin] .temaB{display:none}
@@ -35,7 +35,10 @@
 /* Özgüllük: ürünün ".cipler.acikEk .cip2.ek{display:inline-block}" kuralı (0,4,0) "Daha fazla"
    açılınca ":root[data-tek] .cHata"yı (0,3,0) eziyordu - ölçüldü. Seçici (0,5,0)'a çıkarıldı, !important yok. */
 :root[data-tek] .cipler .cip2.cHata{display:none}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:Segoe UI,system-ui,Arial,sans-serif;overflow:hidden}
+/* 03.10 (Cem "Nöbetçi kartına sen bak"): tek kartta Kâğıt düğmesi alttan sağ üste - telefonda çerçeve kısa, soru/şık metninin
+   üstüne biniyordu (canlı 390 px ölçüldü); üst köşe tek kipte boş (sayaç ve çipler gizli). Düğme kalır (13.09 Cem seçimi). */
+:root[data-tek] .kagitAc{bottom:auto;top:8px;right:8px;padding:5px 10px;font-size:.78em}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
 .ust{display:flex;justify-content:space-between;align-items:center;font-size:.78em;color:var(--dim);margin-bottom:8px}
@@ -47,6 +50,26 @@
 .govde{flex:1;overflow-y:auto;padding-bottom:90px}
 .rozet{display:inline-block;font-size:.72em;color:var(--altin);border:1px solid color-mix(in srgb,var(--altin) 50%,transparent);border-radius:20px;padding:2px 9px;margin-bottom:8px}
 .soru{font-weight:600;font-size:1.02em;line-height:1.45;margin:0 0 12px}
+/* 04.10 🖍 İşaretle + 📝 Notum (Cem "beş maddeyi yapalım"; rakip UWorld / Becker) */
+.soruArac{display:flex;gap:6px;justify-content:flex-end;margin:-2px 0 4px}
+.soruArac .arac{all:unset;box-sizing:border-box;cursor:pointer;font-size:.76em;font-weight:700;color:var(--dim);border:1px solid var(--cizgi);border-radius:999px;padding:4px 10px;min-height:28px;display:inline-flex;align-items:center}
+.soruArac .arac.acik{color:var(--yazi);border-color:var(--altin)}
+.vurguKip .soru{cursor:text;outline:1px dashed var(--altin);outline-offset:4px;border-radius:4px}
+.soru mark{background:color-mix(in srgb,var(--altin) 35%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.notumKutu[hidden]{display:none}.notumKutu{margin:0 0 12px}
+.notumAlan{width:100%;box-sizing:border-box;font:inherit;font-size:.9em;border:1px solid var(--cizgi);border-radius:10px;padding:8px 10px;background:var(--kart);color:var(--yazi);resize:vertical}
+.notumDurum{font-size:.74em;color:var(--dim);margin-top:2px;min-height:1em}
+.bilmiyorum{display:block;margin:10px 0 0;background:none;border:1px dashed var(--cizgi);color:var(--dim);border-radius:12px;padding:10px 13px;width:100%;font:inherit;font-size:.9em;cursor:pointer}
+.kutuNot{margin-top:6px;font-size:.88em;color:var(--dim)}
+.tekrarUyari{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:60;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:10px 12px;font-size:.92em;display:flex;align-items:center;gap:8px;max-width:calc(100% - 24px);box-shadow:0 8px 24px color-mix(in srgb,var(--yazi) 18%,transparent)}
+.tekrarUyari .tuMetin{flex:1 1 auto;min-width:0;line-height:1.45}
+.tekrarUyari{width:min(560px,calc(100% - 24px));box-sizing:border-box}
+.setSay{white-space:nowrap}
+.setOzet{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:color-mix(in srgb,var(--yazi) 45%,transparent)}
+.setKutu{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:16px;padding:22px 18px;width:min(420px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
+.setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}
+.tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
+.tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
 .sik{display:block;width:100%;text-align:left;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:12px 13px;margin:7px 0;font-size:.95em;cursor:pointer;transition:transform .08s}.sik:active{transform:scale(.985)}
 .sik b{color:var(--dim);margin-right:6px}.sik.dogru{border-color:var(--yesil);background:color-mix(in srgb,var(--yesil) 12%,transparent)}.sik.yanlis{border-color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 12%,transparent)}.sik:disabled{cursor:default}
 .ipucu{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:var(--dim);font-size:.8em;pointer-events:none;animation:zipla 1.6s ease-in-out infinite}
@@ -275,6 +298,44 @@ const TEK=/[?&]tek=1/.test(location.search);
     ikon(); b.addEventListener('click',()=>{ const y=d.getAttribute('data-theme')==='dark'?'light':'dark'; if(y==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme'); try{ localStorage.setItem('kc_tema',y); }catch(e){} ikon(); }); });
 })();
 const SORULAR=window.__KASA_SORULAR||[];
+/* 05.10 SEVİYEYE GÖRE SIRA (Cem: "bu derste iyi değilsen kolaydan başlıyoruz; siteyi böyle kuralım").
+   Seviye testinin son sonucu (cihazda: SGS sv_sonuclar, Yeterlilik sv_sonuclar_yet) bu dersin oranını verir:
+   <%50 → kolay → zor → çok zor · ≥%75 → çok zor → zor → kolay · arası → sıra değişmez. Zorluk sorunun kimliğinden
+   (-kolay- / -zor- / -cokzor-), bilinmeyen 'orta'. Kararlı sıralama (aynı zorlukta yayın sırası korunur).
+   SGS'de testte bir dersten 1-2 soru düşer → dersin soru sayısı 3'ten azsa dersin GRUBUNUN oranı kullanılır.
+   Vitrin (?vitrin=1) ve test hiç çözülmemişse sıra değişmez; test yoksa davet satırı çıkar.
+   GÖRMEZ: başka cihazda çözülmüş test (cihazda saklanıyor) · konu bazında seviye. */
+const SIRA_NOTU=(function(){ try{
+  if(/[?&]vitrin=1/.test(location.search)||!SORULAR.length) return null;
+  const yet=/\/smmm\//.test(location.pathname); const ders=String(SORULAR[0].ders||'');
+  let g=[]; try{ g=JSON.parse(localStorage.getItem(yet?'sv_sonuclar_yet':'sv_sonuclar')||'[]'); }catch(e){}
+  const son=Array.isArray(g)&&g.length?g[g.length-1]:null;
+  if(!son) return {tur:'davet',yet};
+  let d=(son.dersler&&son.dersler[ders])||null, ad=ders;
+  if(!d){ const x=(son.gruplar||[]).find(x=>x.ad===ders); if(x) d={dogru:x.dogru,soru:x.soru}; }
+  if(d&&d.soru<3&&d.grup){ const x=(son.gruplar||[]).find(y=>y.ad===d.grup); if(x&&x.soru>=3){ d={dogru:x.dogru,soru:x.soru}; ad=d.grup||x.ad; } }
+  if(!d||!d.soru) return {tur:'davet',yet};
+  const oran=d.dogru/d.soru; const zr=s=>{ const m=String(s.id||'').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/); return (s.zorluk||(m&&m[1])||'orta'); };
+  const SIRA=oran<0.5?{kolay:0,orta:1,zor:2,cokzor:3}:(oran>=0.75?{cokzor:0,zor:1,orta:2,kolay:3}:null);
+  /* 11.10: __KASA_SIRALI = kasa-yukle.js fihristi AYNI kuralla zaten sıraladı (setli yükleme) → burada yeniden sıralanmaz. */
+  window.__siraSira=(SIRA&&!window.__KASA_SIRALI)?(s=>SIRA[zr(s)]):null;   /* 07.10 parça yükleme (__kasaEkle) aynı ölçütle sıralar */
+  if(SIRA&&!window.__KASA_SIRALI){ const s2=SORULAR.map((s,i)=>({s,i})).sort((a,b)=>(SIRA[zr(a.s)]-SIRA[zr(b.s)])||(a.i-b.i)).map(x=>x.s); SORULAR.splice(0,SORULAR.length,...s2); }
+  return {tur:oran<0.5?'kolay':(oran>=0.75?'zor':'karma'),dogru:d.dogru,soru:d.soru,ad,yet};
+}catch(e){ return null; } })();
+/* 07.10 PARÇA PARÇA YÜKLEME (Cem "1 yap": Finansal Muhasebe 1.100 soru × ~14 KB tek seferde iniyordu). kasa-yukle.js ilk parçayla
+   açar (window.__KASA_DEVAM), kalanı tek seferde __kasaEkle'ye verir. Seviye sırası varsa ilk parçadan yalnız en öncelikli zorluk
+   gösterilir; kalanı (KASA_BEKLEYEN) gelenlerle birlikte aynı ölçütle sıralanıp sona eklenir → tam yüklemedeki sıranın aynısı. */
+const KASA_BEKLEYEN=[];
+if(window.__KASA_DEVAM&&window.__siraSira){ const R=window.__siraSira, ilk=SORULAR.filter(s=>R(s)===0), geri=SORULAR.filter(s=>R(s)!==0);
+  if(geri.length){ KASA_BEKLEYEN.push(...geri); SORULAR.splice(0,SORULAR.length,...ilk); } }
+setTimeout(()=>{ try{ if(!SIRA_NOTU||/\/vitrin\/ornek-/.test(location.pathname)) return; /* 08.10: 5 örnek soruda "dersi sıralayalım" daveti ilk sorunun üstüne biniyordu, anlamsız */ const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
+  const t=SIRA_NOTU.tur==='davet' ? '🎯 <b>Bu dersi sana göre sıralayalım:</b> 30 soruda seviyeni ölç, zayıfsan kolaydan başlatalım. <a href="../../seviye-testi.html'+(SIRA_NOTU.yet?'?sinav=yeterlilik':'')+'">Seviyeni ölç →</a>'
+        : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
+        : SIRA_NOTU.tur==='zor' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>zor sorulardan başlıyoruz</b>.'
+        : '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: kolay ve zor sorular karışık geliyor.';
+  /* 08.10 Cem ("telefonda güzel görünmüyor"): metin tek parçada - flex kutuda her metin/kalın/bağlantı ayrı sütun olup kelime kelime kırılıyordu */
+  u.innerHTML='<span class="tuMetin">'+t+'</span><button type="button" class="tuKapat" aria-label="Kapat">✕</button>'; document.body.appendChild(u);
+  u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); setTimeout(()=>{ try{ u.remove(); }catch(e){} },12000); }catch(e){} },700);
 // 06.09 seviye: ölçümden türer (bkz. kart kurulumu). k = sınıf anahtarı, ad = ekran adı (Nöbet dili: Isınma / Nöbet / Alarm), neden = ipucu.
 function seviyeHesapla(s){
   const o=s.olcum||{}; const tip=s.tip||'teori'; const ders=String(s.ders||'');
@@ -284,12 +345,25 @@ function seviyeHesapla(s){
   return {k:'nobet',ad:'🟡 Nöbet',neden:(tip==='kayit'?'Kayıt sorusu: hesap ve taraf seçimi':'Hesap sorusu: verilenleri sırayla işle')};
 }
 const akis=document.getElementById('akis');
-const durum={cevap:{},dogru:0,seri:0};
+const durum={cevap:{},dogru:0,seri:0,ok:{}};   /* ok[i]: true/false — set noktaları + set özeti (10.10) */
 try{ durum.seri=parseInt(localStorage.getItem('kc_seri')||'0')||0; }catch(e){}
 // ===== YANLIS KUTUSU + HAZIRLIK SKORU (Cem 04.09 "1 yap goreyim") — Surgent ReadySCORE + Duolingo Mistakes Hub =====
 const GUN=86400000; const KUTU={ kayit:[], kutu:[], oyun:[], ileri:0 };   // ileri: demo icin "zaman ileri sarma" (ms)
 try{ KUTU.kayit=JSON.parse(localStorage.getItem('kc_kayit')||'[]'); KUTU.kutu=JSON.parse(localStorage.getItem('kc_kutu')||'[]'); KUTU.oyun=JSON.parse(localStorage.getItem('kc_oyun')||'[]'); KUTU.ileri=parseInt(localStorage.getItem('kc_ileri')||'0')||0; }catch(e){}
 const simdi=()=>Date.now()+KUTU.ileri;
+/* 04.10 📝 NOTUM: cihazda (kc_not) + giriş yapmışsa hesapta (soru_not; her üye yalnız kendi notunu görür - RLS) */
+function notKaydet(id,metin,durumEl,dugme){ metin=String(metin||'').slice(0,1000); let o={}; try{ o=JSON.parse(localStorage.getItem('kc_not')||'{}'); }catch(e){}
+  if(metin.trim()) o[id]=metin; else delete o[id]; try{ localStorage.setItem('kc_not',JSON.stringify(o)); }catch(e){}
+  if(dugme) dugme.textContent=metin.trim()?'📝 Notum ✓':'📝 Notum';
+  const sb=window.__pkSb; if(!sb||!sb.auth){ if(durumEl) durumEl.textContent='Bu cihazda saklandı.'; return; }
+  sb.auth.getSession().then(r=>{ const ss=r&&r.data&&r.data.session; if(!ss){ if(durumEl) durumEl.textContent='Bu cihazda saklandı. Giriş yaparsan hesabına da kaydedilir.'; return; }
+    const q=metin.trim() ? sb.from('soru_not').upsert({ user_id:ss.user.id, soru_id:id, metin:metin, guncel:new Date().toISOString() }) : sb.from('soru_not').delete().eq('soru_id',id);
+    q.then(x=>{ if(durumEl) durumEl.textContent=(x&&x.error)?'Bu cihazda saklandı (hesaba yazılamadı).':'Hesabına kaydedildi.'; }, ()=>{ if(durumEl) durumEl.textContent='Bu cihazda saklandı.'; }); }); }
+function notlariCek(){ const sb=window.__pkSb; if(!sb||!sb.auth) return; sb.auth.getSession().then(r=>{ const ss=r&&r.data&&r.data.session; if(!ss) return;
+  sb.from('soru_not').select('soru_id,metin').limit(5000).then(x=>{ if(!x||x.error||!Array.isArray(x.data)) return; let o={}; try{ o=JSON.parse(localStorage.getItem('kc_not')||'{}'); }catch(e){}
+    x.data.forEach(n=>{ o[n.soru_id]=n.metin; }); try{ localStorage.setItem('kc_not',JSON.stringify(o)); }catch(e){}
+    document.querySelectorAll('.notumAlan').forEach(t=>{ const v=o[t.dataset.id]; if(v&&!t.value){ t.value=v; const g=t.closest('.govde'), b=g&&g.querySelector('.bNotum'); if(b) b.textContent='📝 Notum ✓'; } }); }, ()=>{}); }); }
+setTimeout(notlariCek,2500);   /* paket-kapisi.js oturumu kurduktan sonra hesaptaki notlar bu cihaza iner */
 function kutuKaydet(){ try{ localStorage.setItem('kc_kayit',JSON.stringify(KUTU.kayit.slice(-500))); localStorage.setItem('kc_kutu',JSON.stringify(KUTU.kutu)); localStorage.setItem('kc_oyun',JSON.stringify(KUTU.oyun.slice(-500))); localStorage.setItem('kc_ileri',String(KUTU.ileri)); }catch(e){} }
 // 05.09 Cem "ipucu sayısını Hazırlık Skoru'na yansıt": Sen çöz sonucu kaydedilir — tam (ipuçsuz) = +0,25 ustalık,
 // ipuçlu = +0,12, doğruları göster = 0. Yanlış Kutusu'na girmez; yalnız skora işler.
@@ -303,7 +377,8 @@ function cevapKaydet(s,dogruMu){
 }
 function skorHesapla(){
   // konu ustaligi: kutuda -> 0,3 (tur2: 0,6); son cevap dogru ve kutuda degil -> 1; hic cozulmemis -> 0. Agirlik = konunun cikmis donem sayisi (sinav DNA'si).
-  const konular={}; SORULAR.forEach(s=>{ konular[s.id]={ders:s.ders,w:Math.max(1,s.donem||1),u:0,cozuldu:false}; });
+  // 11.10: setli yüklemede henüz inmemiş sorular da sayılsın diye dersin içeriksiz fihristi (window.__KASA_FIHRIST) esas alınır.
+  const konular={}; (window.__KASA_FIHRIST||SORULAR).forEach(s=>{ konular[s.id]={ders:s.ders,w:Math.max(1,parseInt(s.donem,10)||1),u:0,cozuldu:false}; });
   KUTU.kayit.forEach(r=>{ const k=konular[r.id]; if(k){ k.cozuldu=true; k.u=r.dogru?1:0; } });
   KUTU.kutu.forEach(x=>{ const k=konular[x.id]; if(k){ k.u=x.tur>=2?0.6:0.3; } });
   const sonOyun={}; KUTU.oyun.forEach(o=>{ sonOyun[o.id]=o.sonuc; }); let oyTam=0,oyIp=0;
@@ -312,37 +387,78 @@ function skorHesapla(){
   return { toplam: tw?Math.round(tu/tw*100):0, cozulen:cz, n:SORULAR.length, oyunTam:oyTam, oyunIpuclu:oyIp, ders:Object.entries(ders).map(([ad,d])=>({ad,yuzde:d.w?Math.round(d.u/d.w*100):0,cozulen:d.c,n:d.n})) };
 }
 function skorCiz(){ const sk=skorHesapla(); const vade=KUTU.kutu.filter(x=>x.due<=simdi()).length; const azVeri=KUTU.kayit.length<5; document.querySelectorAll('.skorCip').forEach(el=>{ el.textContent=azVeri?'🎯 —':('🎯 %'+sk.toplam); el.title=azVeri?'Hazırlık skoru 5 sorudan sonra görünür':'Hazırlık skoru'; }); /* 05.09: ilk yanlıştan sonra "%4" görmek caydırıcı; 5 cevaptan önce yüzde yok */ document.querySelectorAll('.kutuCip').forEach(el=>{ el.textContent='📥 '+KUTU.kutu.length+(vade?' ·'+vade+' hazır':''); el.classList.toggle('hazir',vade>0); }); }
-function kartSifirla(i){ const k=akis.children[i]; if(!k) return; delete durum.cevap[i]; k.querySelectorAll('.sik').forEach(x=>{ x.disabled=false; x.classList.remove('dogru','yanlis'); }); const p=k.querySelector('.panel'); p.classList.remove('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); k.querySelector('.ipucu').style.display=''; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>{ n.classList.remove('ok','yan'); }); k.scrollIntoView({behavior:'smooth'}); }
+function kartSifirla(i){ const k=akis.children[i]; if(!k) return; delete durum.cevap[i]; delete durum.ok[i];k.querySelectorAll('.sik').forEach(x=>{ x.disabled=false; x.classList.remove('dogru','yanlis'); }); const p=k.querySelector('.panel'); p.classList.remove('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); k.querySelector('.ipucu').style.display=''; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>{ n.classList.remove('ok','yan'); }); k.scrollIntoView({behavior:'smooth'}); }
 function kutuEkraniAc(){
   let e=document.getElementById('kutuEkran'); if(!e){ e=document.createElement('div'); e.id='kutuEkran'; e.className='kutuEkran'; document.body.appendChild(e); }
   const sk=skorHesapla(); const t=simdi();
-  const gunStr=ms=>{ const d=Math.ceil((ms-t)/GUN); return d<=0?'<b style="color:var(--yesil)">şimdi hazır</b>':(d+' gün sonra'); };
+  /* 07.10 (Cem "1 yap"): gün farkı saatten ceil ile hesaplanıyordu -> aynı gün akşam vadesi gelen soru "1 gün sonra" yazıyordu.
+     Artık TAKVİM günü (simdi() = kc_ileri dahil), calisma-ozet.js tarihYazi ile aynı hesap: bugün HH:MM sonrası / yarın / N gün sonra. */
+  const gunStr=ms=>{ if(ms<=t) return '<b style="color:var(--yesil)">şimdi hazır</b>';
+    const g0=new Date(t); g0.setHours(0,0,0,0); const g1=new Date(ms); g1.setHours(0,0,0,0); const d=Math.round((g1-g0)/GUN);
+    if(d<=0){ const s=new Date(ms-KUTU.ileri); return 'bugün, saat '+('0'+s.getHours()).slice(-2)+':'+('0'+s.getMinutes()).slice(-2)+' sonrası'; }
+    return d===1?'yarın':(d+' gün sonra'); };
+  /* 07.10 (Cem "1 yap"): kutu bütün dersleri listeliyordu, "Şimdi çöz" yalnız bu sayfadaki soruda çıkıyordu. Artık bu dersin
+     satırları + öteki dersler tek satır özet (Yanlışlarım'a bağlantı). Başlıktaki sayı bu dersinki. */
+  // 11.10 setli yükleme: bu dersin henüz inmemiş sorusu da "bu ders" sayılır (fihristte var); "Şimdi çöz" onu tek başına getirir (i=-1).
+  const fihSet=new Set((window.__KASA_FIHRIST||[]).map(f=>f.id));
+  const buDers=[], diger={}; KUTU.kutu.forEach(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); if(i>=0) buDers.push({x,i}); else if(fihSet.has(x.id)) buDers.push({x,i:-1}); else { const d=x.ders||'Diğer'; diger[d]=(diger[d]||0)+1; } });
+  const digerAd=Object.keys(diger).sort((a,b)=>diger[b]-diger[a]);
   e.innerHTML='<div class="kutuIc"><div class="basl"><span>🎯 Hazırlık skoru ve yanlış kutusu</span><button class="btn" id="kutuKapat" style="padding:5px 10px">✕</button></div>'
    +'<div class="skorBuyuk">%'+sk.toplam+'</div><div class="ipnot">Sınav DNA’sı ağırlıklı: çok çıkan konudaki yanlış daha çok düşürür. Çözülen '+sk.cozulen+' / '+sk.n+' konu · Sen çöz: '+sk.oyunTam+' ipuçsuz (tam puan) · '+sk.oyunIpuclu+' ipuçlu (yarım puan).</div>'
    +sk.ders.map(d=>'<div class="dersSat"><span>'+esc(d.ad)+'</span><div class="bar"><i style="width:'+d.yuzde+'%"></i></div><b>%'+d.yuzde+'</b></div>').join('')
-   +'<div class="et" style="margin-top:14px">📥 Yanlış kutusu ('+KUTU.kutu.length+')</div>'
-   +(KUTU.kutu.length?KUTU.kutu.map(x=>{ const i=SORULAR.findIndex(s=>s.id===x.id); return '<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t&&i>=0?'<button class="btn mavi kutuCoz" data-i="'+i+'">Şimdi çöz</button>':'')+'</div>'; }).join(''):'<p class="ipnot">Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.</p>')
+   +'<div class="et" style="margin-top:14px">📥 Bu dersin yanlış kutusu ('+buDers.length+')</div>'
+   +(buDers.length?buDers.map(({x,i})=>'<div class="kutuSat"><div><b>'+esc(x.konu)+'</b> <span class="ipnot" style="display:inline">· '+(x.tur>=2?'2. tur (7 gün)':'1. tur (2 gün)')+' · '+gunStr(x.due)+'</span></div>'+(x.due<=t?'<button class="btn mavi kutuCoz" data-i="'+i+'" data-id="'+esc(x.id)+'">Şimdi çöz</button>':'')+'</div>').join(''):'<p class="ipnot">'+(KUTU.kutu.length?'Bu derste kutuda soru yok.':'Kutu boş. Yanlış yaptığın her soru buraya düşer ve 2 gün sonra geri gelir.')+'</p>')
+   +(digerAd.length?'<p class="ipnot" style="margin-top:8px">Diğer dersler: '+digerAd.map(d=>esc(d)+' '+diger[d]).join(', ')+' · <a href="../../yanlislarim.html">Yanlışlarım →</a></p>':'')
    +'<p class="ipnot">Nasıl çalışır: yanlış → kutuya girer, 2 gün sonra geri gelir; o gün doğru bilirsen 7 gün sonra bir kez daha gelir; onu da bilirsen kutudan çıkar ve ustalık tam sayılır.</p></div>';
   e.classList.add('acik');
   e.querySelector('#kutuKapat').addEventListener('click',()=>e.classList.remove('acik'));
   if(e.querySelector('#kutuIleri')) e.querySelector('#kutuIleri').addEventListener('click',()=>{ KUTU.ileri+=2*GUN; kutuKaydet(); kutuEkraniAc(); skorCiz(); });
   if(e.querySelector('#kutuSifirla')) e.querySelector('#kutuSifirla').addEventListener('click',()=>{ if(confirm('Skor, kutu ve seri sıfırlansın mı?')){ KUTU.kayit=[]; KUTU.kutu=[]; KUTU.ileri=0; kutuKaydet(); location.reload(); } });
-  e.querySelectorAll('.kutuCoz').forEach(b=>b.addEventListener('click',()=>{ e.classList.remove('acik'); kartSifirla(parseInt(b.dataset.i)); }));
+  e.querySelectorAll('.kutuCoz').forEach(b=>b.addEventListener('click',()=>{ e.classList.remove('acik'); const ix=parseInt(b.dataset.i);
+    if(ix>=0) return kartSifirla(ix);
+    if(window.__kasaIdGetir) window.__kasaIdGetir(b.dataset.id).then(n=>{ if(n>=0) kartSifirla(n); }); }));
 }
+// 03.10 (Cem, V2 madde 11): sayfa acilinca bu derste vadesi gelen kutu sorusu varsa tek satir uyari; tiklayinca kutu acilir
+setTimeout(()=>{ try{ if(VITRIN) return; const ids=new Set((window.__KASA_FIHRIST||SORULAR).map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
+  const u=document.createElement('div'); u.className='tekrarUyari'; u.innerHTML='<span class="tuMetin">🔁 <b>Bugün tekrar zamanı:</b> bu derste '+v+' soru</span><button type="button" class="tuAc">Şimdi çöz</button><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
+  document.body.appendChild(u); u.querySelector('.tuAc').addEventListener('click',()=>{ u.remove(); kutuEkraniAc(); }); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },1200);
 const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const nrm=t=>String(t||'').toLowerCase().replace(/tl/g,'').replace(/[.\s]/g,'').replace(',','.').trim();
 const say=t=>{const n=parseFloat(nrm(t));return isNaN(n)?0:n;};
 const fmt=n=>n.toLocaleString('tr-TR');
 // 13.09 (Cem "3 yap"): 991 soruluk sayfada her kart 992 nokta çiziyordu -> 983 bin öğe, ilk tepki 5,5 sn. 12 soruya kadar çıktı AYNI; üstünde kart yalnız kendi çevresindeki 15 noktayı çizer.
-function noktalar(i){ const N=SORULAR.length; let a=0,b=N; if(N>12){ a=Math.max(0,Math.min(i-7,N-15)); b=Math.min(N,a+15); } let h=''; for(let j=a;j<b;j++){ h+='<i data-j="'+j+'" class="'+(j===i?'simdi':'')+'"></i>'; } return '<div class="noktalar'+(N>12?' cok':'')+'">'+h+(b===N?'<i data-j="son"></i>':'')+'</div>'; }
-SORULAR.forEach((s,i)=>{
+/* 10.10 SET (Cem "1. yap · sorular gizlensin, biz sürekli soru basacağız"): ders 20'lik setlere bölünür; sayaç "Set 3 · 12/20" yazar,
+   bankanın toplamı çözme ekranında görünmez (önce ilk 40 kart "x / 40" yazıp 41. kartta "41 / 1.100"e sıçrıyordu). Son setin boyu
+   ancak bütün sorular gelince (__KASA_DEVAM false) bilinir; o ana dek 20 yazar, __kasaEkle sayaçları tazeler. Set bitince ara özet. */
+const SET=20;
+/* 11.10: setli yüklemede dersin toplamı fihristten bilinir (window.__KASA_TOPLAM) → son setin boyu baştan doğru; ekranda yazılmaz. */
+function setBilgi(i){ const T=window.__KASA_TOPLAM||0, N=T||SORULAR.length, a=Math.floor(i/SET)*SET, son=T?a+SET>=T:(!window.__KASA_DEVAM&&a+SET>=N), b=son?N:a+SET; return {no:a/SET+1,a:a,b:b,j:i-a+1,boy:b-a,son:son,cok:N>SET||!!window.__KASA_DEVAM}; }
+function sayacYazi(i){ const t=setBilgi(i); return (t.cok?'Set '+t.no+' · ':'')+t.j+'/'+t.boy; }
+function noktalar(i){ if(i<0) return '<div class="noktalar"></div>'; const t=setBilgi(i); let h=''; for(let j=t.a;j<t.b;j++){ const c=[j===i?'simdi':'',durum.ok[j]===undefined?'':(durum.ok[j]?'ok':'yan')].filter(Boolean).join(' '); h+='<i data-j="'+j+'" class="'+c+'"></i>'; } return '<div class="noktalar'+(t.boy>12?' cok':'')+'">'+h+(t.son?'<i data-j="son"></i>':'')+'</div>'; }
+function sayacTazele(){ akis.querySelectorAll(':scope > .kart').forEach(k=>{ const i=parseInt(k.dataset.i,10); if(!(i>=0)) return; const t=setBilgi(i), s=k.querySelector('.setSay'), il=k.querySelector('.ilerleme'), n=k.querySelector('.noktalar');
+  if(s) s.textContent=sayacYazi(i); if(il){ il.title='Set ilerlemesi: '+t.j+' / '+t.boy; if(il.firstElementChild) il.firstElementChild.style.width=Math.round(t.j/t.boy*100)+'%'; } if(n) n.outerHTML=noktalar(i); }); }
+const SET_GORULEN={};
+function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bir kez gösterildiyse açılmaz */
+  if(SET_GORULEN[no]||TEK) return; const a=no*SET, b=Math.min(a+SET,SORULAR.length); let c=0,ok=0;
+  for(let j=a;j<b;j++){ if(durum.ok[j]!==undefined){ c++; if(durum.ok[j]) ok++; } }
+  if(!c) return; SET_GORULEN[no]=1;
+  const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' özeti');
+  d.innerHTML='<div class="setKutu"><div class="setEtk">Set '+(no+1)+' bitti</div><div class="setSkor">'+ok+'<small> / '+c+' doğru</small></div>'
+    +(c<b-a?'<p>'+(b-a-c)+' soruyu boş geçtin.</p>':'')
+    +(c-ok?'<p>'+(c-ok)+' yanlışın kutuya girdi; 2 gün sonra yeniden karşına çıkar.</p>':'<p>Bu sette hiç yanlışın yok.</p>')
+    +'<button type="button" class="btn ana setDevam">Sonraki sete geç ▶</button>'+(c-ok?'<button type="button" class="btn mavi setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div>';
+  const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape') kapat(); };
+  d.addEventListener('click',e=>{ if(e.target===d) kapat(); }); d.querySelector('.setDevam').addEventListener('click',kapat);
+  const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ kapat(); kutuEkraniAc(); });
+  document.addEventListener('keydown',esc_); document.body.appendChild(d); d.querySelector('.setDevam').focus(); }
+function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemede sonradan gelen kartlar da aynı kurulumla */
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
   // 06.09 (Cem "bu beşi geç" #4): SEVİYE etiketi ölçümden türer, elle yazılmaz — teori 🟢 Isınma · kayıt/hesap 🟡 Nöbet · Maliyet-MTA hesabı ya da
   // öğrenci simülasyonunun çözemediği soru 🔴 Alarm (sınav anatomisi 02.09: zorluk derse göre, Maliyet en zor). Akran yüzdesi 5+ cevapta gelince o kazanır.
   const sv=seviyeHesapla(s);
-  k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button>'+(i+1)+' / '+SORULAR.length+'</span></div><div class="ilerleme" title="İlerleme: '+(i+1)+' / '+SORULAR.length+'"><i style="width:'+Math.round(((i+1)/SORULAR.length)*100)+'%"></i></div>'
-   +'<div class="govde"><span class="rozet">📌 Bu konudan '+Math.max(s.donem||0,(s.cikmis&&s.cikmis.donemler)?s.cikmis.donemler.length:0)+' dönemde soru geldi</span><p class="soru">'+esc(s.soru)+'</p><div class="siklar">'
-   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div></div>'
+  k.innerHTML='<div class="ust"><span>'+esc(s.konu)+'</span><span class="seviye sv-'+sv.k+'" title="'+esc(sv.neden)+'">'+sv.ad+'</span>'+noktalar(i)+'<span class="ustSag"><button class="ustCip skorCip" title="Hazırlık skoru">🎯</button><button class="ustCip kutuCip" title="Yanlış kutusu">📥</button><span class="setSay">'+sayacYazi(i)+'</span></span></div><div class="ilerleme" title="Set ilerlemesi: '+setBilgi(i).j+' / '+setBilgi(i).boy+'"><i style="width:'+Math.round(setBilgi(i).j/setBilgi(i).boy*100)+'%"></i></div>'
+   +'<div class="govde"><div class="soruArac"><button class="arac bVurgu" type="button" title="Kelimeye dokun ya da metni seç; sarıya boyanır, yeniden dokununca silinir">🖍 İşaretle</button><button class="arac bNotum" type="button">📝 Notum</button></div><p class="soru">'+esc(s.soru)+'</p><div class="notumKutu" hidden><textarea class="notumAlan" data-id="'+esc(s.id)+'" maxlength="1000" rows="3" placeholder="Bu soruya notun: yalnız sen görürsün"></textarea><div class="notumDurum"></div></div><div class="siklar">'
+   +Object.keys(s.siklar).sort().map(h=>'<button class="sik" data-h="'+h+'"><b>'+h+')</b><span class="sikMetin">'+esc(s.siklar[h])+'</span><span class="sikCiz" title="Bu şıkkı ele (çiz)">✕</span></button>').join('')+'</div><button class="bilmiyorum" type="button">Bilmiyorum</button></div>'
    +'<div class="ipucu">▲ cevapla, sonra yukarı kaydır</div>'
    +'<div class="kagit" data-sek="yaz"><div class="kagitUst"><b>✏️ Hesap kâğıdı</b><span>sınavda hesap makinesi yok; kâğıda yazar gibi</span><div class="kagitSek"><button class="kagitSekYaz acik">Yaz</button><button class="kagitSekCiz">Çiz</button><button class="kagitTemizle" title="Bu sayfayı temizle">Temizle</button><button class="kagitKapat" title="Kapat">✕</button></div></div><div class="kagitTus"><button data-t="+">+</button><button data-t="−">−</button><button data-t="×">×</button><button data-t="/">/</button><button data-t="=">=</button><button data-t="%">%</button><button data-t="(">(</button><button data-t=")">)</button><button data-t=".">.</button><button data-t=",">,</button><button data-t="&#10;" class="kagitSatirTus">↵ satır</button></div><div class="kagitGovde"><textarea class="kagitYaz" spellcheck="false" inputmode="decimal" placeholder="Ara sonuçlarını satır satır yaz; tabloyla eşleşenler cevaptan sonra işaretlenir.&#10;Hesabı sen yaparsın, kâğıt yapmaz."></textarea><canvas class="kagitCiz"></canvas></div><div class="kagitNot"></div></div>'
    +'<button class="kagitAc" title="Hesap kâğıdı">✏️ Kâğıt</button>'
@@ -356,7 +472,7 @@ SORULAR.forEach((s,i)=>{
    +'<div class="sek cikmis"><div class="et">📈 Bu konu sınavda nasıl çıktı</div><div class="cikmisIc"></div></div></div>'
    +'<div class="ders"><div class="basl"><span>🎬 Nöbetçi anlatıyor · '+esc(s.konu)+'</span><button class="btn bDersKapat" style="padding:5px 10px">✕</button></div><div class="tabloSar"></div><div class="serit"></div><div class="altc"><button class="btn bOnce">◀ Geri</button><div class="adimBar"></div><button class="btn bSonra">İleri ▶</button></div></div>'
    +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle; fazladan tutar var, hepsini kullanma. Bitince <b>Kontrol et</b>.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
-  akis.appendChild(k);
+  akis.insertBefore(k, akis.querySelector(':scope > .kart.son'));   /* son kart varsa ondan önce (parça yükleme) */
   const panel=k.querySelector('.panel'); const geri=k.querySelector('.geri');
   // 06.09 Cem: "649 yarım görünüyor, geriye dönemiyorum" — scrollIntoView bütün kartı (#akis) kaydırıyordu, cevap ekran dışına çıkıyordu.
   // Kaydırma yalnız PANELİN içinde yapılır; kart yerinden oynamaz. Sticky "cevaba dön" düğmesi panel 160px kayınca görünür.
@@ -368,8 +484,11 @@ SORULAR.forEach((s,i)=>{
   k.querySelectorAll('.sikCiz').forEach(x=>x.addEventListener('click',e=>{ e.stopPropagation(); if(durum.cevap[i]!==undefined) return; x.closest('.sik').classList.toggle('cizili'); }));
   // 06.09 rakip dersi: soru süresi — kart görünür olunca başlar, cevapta durur; cevap satırında gösterilir, kasaya gider
   if(!durum.t0) durum.t0={}; if(!durum.sn) durum.sn={};
-  k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>{
-    if(durum.cevap[i]!==undefined) return; const h=b.dataset.h; durum.cevap[i]=h;
+  // 03.10 (Cem, V2 madde 8): cevap isleyicisi tek fonksiyon - sik tiklamasi cevapla(b,harf), "Bilmiyorum" cevapla(null,'').
+  // Bos dize = bos birakildi: yanlis sayilir, kutuya duser, dogrusu ve aciklama gosterilir.
+  const cevapla=(b,h)=>{
+    if(durum.cevap[i]!==undefined) return; durum.cevap[i]=h;
+    { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.style.display='none'; }
     if(durum.t0[i]){ durum.sn[i]=Math.round((Date.now()-durum.t0[i])/1000); }
     const elenen=[...k.querySelectorAll('.sik.cizili')].map(x=>x.dataset.h);
     k.querySelectorAll('.sik').forEach(x=>{ x.disabled=true; if(x.dataset.h===s.dogru) x.classList.add('dogru'); });
@@ -386,7 +505,8 @@ SORULAR.forEach((s,i)=>{
     const thAll=s.teshis||null; const thS=thAll?thAll[h]:null; const thD=thAll?thAll[s.dogru]:null;
     const kk=k.querySelector('.konuK'); if(kk&&s.konuGiris&&s.konuGiris.panel_ornek){ kk.innerHTML='<b>📌 Konu:</b> '+esc(s.konuGiris.nedir||'')+' <span class="ornekK">'+esc(s.konuGiris.panel_ornek)+'</span>'; kk.style.display='block'; }
     if(dogruMu){ durum.dogru++; geri.className='geri ok'; geri.innerHTML='✅ <b>Doğru.</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:ilkCumle(s.kural)))+sureH; }
-    else { b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML=(thS&&thS.yanilgi)?('❌ <b>Senin seçimin '+h+'.</b> Ne sanıyorsun: '+esc(thS.yanilgi)+sureH):('❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH); }
+    else if(!h){ geri.className='geri'; geri.innerHTML='🤷 <b>Bilmiyorum dedin.</b> Tahmin etmekten iyidir; doğrusu ve nedeni aşağıda.'+sureH; }
+    else { if(b) b.classList.add('yanlis'); geri.className='geri'; geri.innerHTML=(thS&&thS.yanilgi)?('❌ <b>Senin seçimin '+h+'.</b> Ne sanıyorsun: '+esc(thS.yanilgi)+sureH):('❌ <b>'+esc(t.ad||'Tuzak')+':</b> '+esc(sdSik?sdSik:ilkCumle(t.metin))+sureH); }
     // dogruda tekrar satiri yok (sik zaten yesil); yanlista tek satir "Dogrusu"
     const nedenKisa=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; const oz=k.querySelector('.ozet'); if(dogruMu){ oz.style.display='none'; }
     else if(thS&&thS.gercek){ oz.innerHTML='<b>Aslında:</b> '+esc(thS.gercek)+(thS.paragraf?' <i>('+esc(thS.paragraf)+')</i>':'')+(thS.ayirt?'<br><b>Nereden anlarsın:</b> '+esc(thS.ayirt):'')+'<br>✅ <b>Doğrusu '+s.dogru+':</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():String(s.siklar[s.dogru])))); }
@@ -411,8 +531,15 @@ SORULAR.forEach((s,i)=>{
     let sikH=''; if(thAll){ const eleme=/yanlıştır|yanlış olan|değildir|söylenemez|olamaz|uygun değildir/i.test(String(s.soru||'')); sikH='<div class="et">📋 Beş şık, beş cümle</div>'+['A','B','C','D','E'].filter(x=>s.siklar[x]).map(x=>{ const tt=thAll[x]||{}; const st=(s.adimlar||[]).find(a=>a.sik===x); const kr=st?String(st.karar||''):(eleme?(x===s.dogru?'yanlış':'doğru'):(x===s.dogru?'doğru':'yanlış')); const dogruIf=!/^y/i.test(kr); const teoriSoru=!!(s.teori||st); const etD=teoriSoru?'doğru ifade ✓':'doğru cevap ✓', etY=teoriSoru?'yanlış ifade ✗':'yanlış cevap ✗'; const yol=(!dogruIf&&s.celdiriciYol&&s.celdiriciYol[x])?s.celdiriciYol[x]:''; return '<div class="hesapK '+(dogruIf?'dog':'yan')+'"><b>'+x+') '+(dogruIf?etD:etY)+'</b>'+(tt.paragraf?' <span class="rol">'+esc(tt.paragraf)+'</span>':'')+(yol?'<div class="yanlisYol">← '+esc(yol)+'</div>':'')+'<div>'+esc(tt.gercek||'')+'</div></div>'; }).join(''); }
     if(og||kvH||sikH){ const nedenT=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; k.querySelector('.ogret').innerHTML=sikH+kvH+(og?'<div class="et">📘 Hesapları tanı</div>'+og+(nedenT&&!dogruMu?'<p class="neden"><b>Neden bu hesap?</b> '+esc(sdSik?sdSik:nedenT.trim().replace(/THP'de özel olarak /,''))+'</p>':''):''); const cO=k.querySelector('.cOgret'); if(cO&&!og){ cO.textContent=sikH?'📋 Şıklar':'📘 Kavramlar'; } }
     else { const cO=k.querySelector('.cOgret'); if(cO) cO.style.display='none'; }
-    document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
+    durum.ok[i]=dogruMu; document.querySelectorAll('.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add(dogruMu?'ok':'yan'));
+    const kutudaydi=KUTU.kutu.some(x=>x.id===s.id);
     cevapKaydet(s,dogruMu);   // yanlis kutusu + hazirlik skoru
+    // 03.10 (Cem, V2 madde 11): tekrar sistemi gorunur - cevaptan hemen sonra kutunun ne yaptigi tek satirla yazar
+    if(!VITRIN){ const kk=KUTU.kutu.find(x=>x.id===s.id); let kn='';
+      if(!dogruMu) kn='📥 Bu soru yanlış kutuna düştü; <b>2 gün sonra</b> yeniden karşına çıkacak.';
+      else if(kutudaydi&&kk&&kk.tur>=2) kn='🔁 Tekrarı bildin; <b>7 gün sonra</b> bir kez daha gelecek.';
+      else if(kutudaydi&&!kk) kn='🎓 İki tekrarı da bildin; soru kutudan çıktı.';
+      if(kn){ const d=document.createElement('div'); d.className='kutuNot'; d.innerHTML=kn; geri.appendChild(d); } }
     // 13.09 Cem "1.2.3 yap": ana sayfa cercevesi cevabi duysun (yanlista "kutuna dustu" kancasi). Yalniz vitrin + ayni koken.
     if(VITRIN&&window.parent!==window){ try{ window.parent.postMessage({tetikte:'vitrin-cevap',id:s.id,dogru:!!dogruMu},location.origin); }catch(e){} }
     // TEK ANA DUGME (Cem 03.09 "gencleri sikar mi?"): yanlista Nobetci, dogruda Sen yap birincil; gerisi "Daha fazla"da
@@ -424,16 +551,48 @@ SORULAR.forEach((s,i)=>{
     // maliyet TEKNİĞİNİN kaynağı değil, güven zedeler. MSUGT Sıra No 2 deseni bağlanana dek Maliyet'te ve metin yoksa gizli.
     // 07.09 K6: Maliyet'te kaynak listesi MSUGT Sıra No 2 taşıyorsa "Kaynağı göster" AÇIK (teknik kaynağı bağlandı); yalnız VUK/teori notu ise eskisi gibi gizli
     const msugtVar=!!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.some(x=>/UYGULAMA GENEL TEBL|MSUGT/i.test(String((x&&x.ad)||x))));
-    if((/maliyet/i.test(String(s.ders||''))&&!msugtVar)||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)){ const el=k.querySelector('.cKaynak'); if(el) el.style.display='none'; }
+    /* 04.10 (V2 madde 20 + 63 "mevzuat dayanağı görülebiliyor mu"): resmî metin alıntısı yoksa (SGS 0/4.947) düğme gizlenmez,
+       sorunun dayanağını (s.dayanak, SGS 4.945/4.947 dolu) gösterir. İkisi de yoksa gizlenir. */
+    { const el=k.querySelector('.cKaynak'); const listeVar=!((/maliyet/i.test(String(s.ders||''))&&!msugtVar)||!(s.kaynak&&s.kaynak.liste&&s.kaynak.liste.length)); k.dataset.kaynakListe=listeVar?'1':'';
+      if(el){ if(!listeVar&&!String(s.dayanak||'').trim()) el.style.display='none'; else if(!listeVar) el.textContent='📜 Dayanak'; } }
     if((!dogruMu||!oyunVar)&&bDersC){ bDersC.classList.add('birincil'); } else if(bOyunC){ bOyunC.classList.add('birincil'); if(bDersC) bDersC.classList.add('ek'); }
     k.querySelector('.ipucu').style.display='none'; panel.classList.add('acik');
     k.classList.add('cevaplandi'); const kg=k.querySelector('.kagit'); if(kg) kg.classList.remove('acik');   // 06.09: kâğıt kapanır, cevap paneli yerini alır; "✏️ Kâğıdım" ile geri açılır
     // 06.09: kâğıt eşlemesi cevaptan hemen sonra kâğıdın altına + kasaya kayıt (Cem "1 ve 3 yap")
     try{ cevapKasayaYaz(h,dogruMu,durum.sn[i],elenen); akranYuzdesi(); }catch(e){}   // 06.09 R1: cevap kaydı + akran yüzdesi
     try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
-  }));
+  };
+  k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>cevapla(b,b.dataset.h)));
+  { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
   // cipler: tek seferde tek bolum acik (akordeon); panel ancak dokununca uzar
   const sekAc=(sinif,cipEl)=>{ const hedef=k.querySelector('.sek.'+sinif); const acikti=hedef.classList.contains('acik'); k.querySelectorAll('.sek').forEach(x=>x.classList.remove('acik')); k.querySelectorAll('.cip2').forEach(x=>x.classList.remove('acik')); if(!acikti){ hedef.classList.add('acik'); cipEl.classList.add('acik'); setTimeout(()=>panelKaydir(hedef),30); } };
+  // ===== 🖍 İŞARETLE + 📝 NOTUM (04.10 Cem "beş maddeyi yapalım"; rakip UWorld / Becker) - işaret cihazda (kc_vurgu),
+  // not cihazda (kc_not) + giriş yapmışsa hesapta (soru_not, radar-app/sql/2026-10-05-soru-not.sql)
+  { const p=k.querySelector('.soru'), bV=k.querySelector('.bVurgu'), bN=k.querySelector('.bNotum'), nK=k.querySelector('.notumKutu'), nA=k.querySelector('.notumAlan'), nD=k.querySelector('.notumDurum');
+    if(p&&bV){
+      const ham=String(s.soru||''), VK='kc_vurgu';
+      const oku=()=>{ try{ return JSON.parse(localStorage.getItem(VK)||'{}'); }catch(e){ return {}; } };
+      const yaz=o=>{ try{ const ks=Object.keys(o); if(ks.length>1500) delete o[ks[0]]; localStorage.setItem(VK,JSON.stringify(o)); }catch(e){} };
+      const birles=a=>{ a.sort((x,y)=>x[0]-y[0]); const r=[]; a.forEach(x=>{ const l=r[r.length-1]; if(l&&x[0]<=l[1]) l[1]=Math.max(l[1],x[1]); else r.push([x[0],x[1]]); }); return r; };
+      const ciz=()=>{ const a=(oku()[s.id]||[]).filter(x=>x[0]>=0&&x[1]<=ham.length&&x[0]<x[1]); let h='',i=0; a.forEach(x=>{ h+=esc(ham.slice(i,x[0]))+'<mark>'+esc(ham.slice(x[0],x[1]))+'</mark>'; i=x[1]; }); p.innerHTML=h+esc(ham.slice(i)); };
+      const ofset=(dugum,o)=>{ let t=0; const w=document.createTreeWalker(p,NodeFilter.SHOW_TEXT); let n; while((n=w.nextNode())){ if(n===dugum) return t+o; t+=n.textContent.length; } return dugum===p?(o>0?ham.length:0):-1; };
+      const ekle=(a,b)=>{ if(a<0||b<=a) return; const o=oku(), l=o[s.id]||[]; const ic=l.findIndex(x=>x[0]<=a&&x[1]>=b); if(ic>-1) l.splice(ic,1); else l.push([a,b]); o[s.id]=birles(l); if(!o[s.id].length) delete o[s.id]; yaz(o); ciz(); };
+      ciz();
+      let secimAni=0; const kel=/[\p{L}\p{N}%'’-]/u; const genislet=(a,b)=>{ while(a>0&&kel.test(ham[a-1])) a--; while(b<ham.length&&kel.test(ham[b])) b++; return [a,b]; };
+      bV.addEventListener('click',()=>{ const ac=k.classList.toggle('vurguKip'); bV.classList.toggle('acik',ac); bV.textContent=ac?'🖍 İşaretleme açık':'🖍 İşaretle'; });
+      p.addEventListener('mouseup',()=>{ if(!k.classList.contains('vurguKip')) return; const sel=getSelection(); if(!sel||sel.isCollapsed||!p.contains(sel.anchorNode)||!p.contains(sel.focusNode)) return; const r=sel.getRangeAt(0); let a=ofset(r.startContainer,r.startOffset), b=ofset(r.endContainer,r.endOffset); if(a>b){ const t=a; a=b; b=t; } sel.removeAllRanges(); secimAni=Date.now(); const g=genislet(a,b); ekle(g[0],g[1]); });
+      p.addEventListener('click',e=>{ if(!k.classList.contains('vurguKip')||Date.now()-secimAni<400) return; const sel=getSelection(); if(sel&&!sel.isCollapsed) return; let dn=null, of=0;
+        if(document.caretRangeFromPoint){ const r=document.caretRangeFromPoint(e.clientX,e.clientY); if(r){ dn=r.startContainer; of=r.startOffset; } }
+        else if(document.caretPositionFromPoint){ const c=document.caretPositionFromPoint(e.clientX,e.clientY); if(c){ dn=c.offsetNode; of=c.offset; } }
+        if(!dn) return; const o=ofset(dn,of); if(o<0) return; const g=genislet(o,o); ekle(g[0],g[1]); });
+    }
+    if(bN&&nK&&nA){
+      let v=null; try{ v=JSON.parse(localStorage.getItem('kc_not')||'{}')[s.id]; }catch(e){}
+      if(v){ nA.value=v; bN.textContent='📝 Notum ✓'; }
+      bN.addEventListener('click',()=>{ nK.hidden=!nK.hidden; bN.classList.toggle('acik',!nK.hidden); if(!nK.hidden) nA.focus(); });
+      let zam=null; nA.addEventListener('input',()=>{ clearTimeout(zam); nD.textContent='…'; zam=setTimeout(()=>notKaydet(s.id,nA.value,nD,bN),700); });
+    }
+  }
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
   // ===== ✏️ HESAP KÂĞIDI (06.09 Cem "1.2.3 yap, telefona uysun") — hesaplamaz (TESMER: hesap makinesi yasak), yazı + parmak çizimi, soru başına saklanır
   const kagit=k.querySelector('.kagit'), kYaz=kagit.querySelector('.kagitYaz'), kCiz=kagit.querySelector('.kagitCiz'), kNot=kagit.querySelector('.kagitNot'), kAc=k.querySelector('.kagitAc');
@@ -481,7 +640,10 @@ SORULAR.forEach((s,i)=>{
   // 06.09 R1 (Cem "1 yap"): CEVAP KAYDI + AKRAN YÜZDESİ — her cevap cevap_kayit'e (anon insert), sonra sik_yuzdesi ile
   // "bu şıkkı seçenlerin %N'i" (UWorld). SQL: radar-app/sql/2026-09-06-cevap-kayit.sql; basılmadan 404 sessiz, yüzde çıkmaz.
   function cevapKasayaYaz(secH,dogruMu,sn,elenen){ if(VITRIN) return;
-    try{ const govde={ soru_id:s.id, ders:s.ders, konu:s.konu, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, sn:(sn===undefined?null:sn), elenen:elenen||[], tahmin_dogru:0, tahmin_n:0, oturum:oturumDamga, kaynak:'kaydir-coz' };
+    // 11.10: paketli sayfada üye adına arka plan cevap kaydı (kasa-yukle.js __kasaCevap → kasa_cevap_yaz; beklenmez). "Bilmiyorum" = '?'.
+    try{ if(window.__kasaCevap) window.__kasaCevap(s.id, secH||'?'); }catch(e){}
+    // 08.10: 5 örnek soru sayfası (kaydir/vitrin/ornek-*.html) kendi kaynak adıyla yazar - örnek sorunun dönüşümü ayrı ölçülsün
+    try{ const govde={ soru_id:s.id, ders:s.ders, konu:s.konu, secim:secH, dogru:s.dogru, dogru_mu:!!dogruMu, sn:(sn===undefined?null:sn), elenen:elenen||[], tahmin_dogru:0, tahmin_n:0, oturum:oturumDamga, kaynak:(/\/vitrin\/ornek-/.test(location.pathname)?'ornek-soru':'kaydir-coz') };
       fetch(KAG_SB_URL+'/rest/v1/cevap_kayit',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY, Prefer:'return=minimal' }, body:JSON.stringify(govde) }).catch(()=>{}); }catch(e){}
   }
   function akranYuzdesi(){
@@ -489,7 +651,7 @@ SORULAR.forEach((s,i)=>{
       .then(r=>r.ok?r.json():null).then(rows=>{ if(!rows||!rows.length) return; const top=rows.reduce((a,r)=>a+Number(r.n||0),0); if(top<5) return;   // 5 cevaptan az: yüzde yanıltır, gösterme
         const say={}; rows.forEach(r=>{ say[String(r.secim)]=Number(r.n||0); });
         k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
-        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
+        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')&&durum.cevap[i]){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
       .catch(()=>{}); }catch(e){}
   }
   function kagitKasayaYaz(secH,dogruMu){ if(VITRIN) return;
@@ -501,7 +663,7 @@ SORULAR.forEach((s,i)=>{
   window.addEventListener('resize',()=>{ if(kagit.dataset.sek==='ciz'&&(kagit.classList.contains('acik')||(matchMedia('(min-width:900px)').matches&&!k.classList.contains('cevaplandi')))) kanvasBoyut(); });
   k.querySelector('.cOgret').addEventListener('click',e=>sekAc('ogret',e.currentTarget));
   // 📜 KAYNAGI GOSTER: ambardaki gercek metin, hakemin dogruladigi cumle sari
-  k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length){ ic.innerHTML='<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>panelKaydir(mk,true),250); });
+  k.querySelector('.cKaynak').addEventListener('click',e=>{ const ic=k.querySelector('.kaynakIc'); if(!ic.innerHTML){ const ky=s.kaynak||{liste:[]}; if(!ky.liste.length||!k.dataset.kaynakListe){ const dy=String(s.dayanak||'').trim(); ic.innerHTML=dy?'<div class="kaynakAd">Dayanak</div><div class="kaynakMetin">'+esc(dy)+'</div><p class="ipnot">Sorunun dayanağı. Resmî metinden alıntı bu soruya henüz eklenmedi.</p>':'<p class="ipnot">Bu soru için ambardan metin çekilemedi.</p>'; } else { ic.innerHTML=ky.liste.map(x=>{ let m=esc(x.metin); if(ky.alinti){ const a=esc(ky.alinti); const i=m.toLowerCase().indexOf(a.toLowerCase()); if(i>=0) m=m.slice(0,i)+'<mark>'+m.slice(i,i+a.length)+'</mark>'+m.slice(i+a.length); } return '<div class="kaynakAd">'+esc(String(x.ad).replace(/^THP\s+/,'Tekdüzen Hesap Planı ').replace(/^VUK \(213 s\.K\.\)/,'Vergi Usul Kanunu').replace(/^TTK \(6102 s\.K\.\)/,'Türk Ticaret Kanunu').replace(/^TBK \(6098 s\.K\.\)/,'Türk Borçlar Kanunu'))+'</div><div class="kaynakMetin">'+m+'</div>'; }).join('')+(ky.alinti?'<p class="ipnot">Sarı işaretli cümle, bağımsız hakemin doğru şık için kaynaktan doğruladığı hükümdür.</p>':'<p class="ipnot">Hakem notu: '+esc(ky.hakem||'')+'</p>'); } } sekAc('kaynakS',e.currentTarget); const mk=k.querySelector('.kaynakIc mark'); if(mk&&k.querySelector('.sek.kaynakS').classList.contains('acik')) setTimeout(()=>panelKaydir(mk,true),250); });
   // 🚩 HATA BILDIR — 13.09.2026 (Cem "1.2.3 yap"): bildirim eskiden YALNIZ tarayıcıda kalıyordu, bize ulaşmıyordu.
   // Artık sitenin form kapısına gider (radar-app/edge/form-al.ts, canlı adı quick-task): Frankfurt kasasına yazılır + Cem'e mail.
   // Kapının kendi korumaları: köken listesi, bal küpü, IP başına 10 dk'da 10 gönderi, alan boy tavanı. Yerel kopya da tutulur.
@@ -556,7 +718,13 @@ SORULAR.forEach((s,i)=>{
     h+='</tbody></table></div><div class="btnrow"><button class="btn mavi bKontrol">✔ Kontrol et</button><button class="btn bGoster">Doğruları göster</button><button class="btn bKagitAcO" title="Hesap kâğıdını bu ekranın üstüne aç">✏️ Kâğıdı aç</button></div>';
     satirlar.innerHTML=h;
     const bKgO=satirlar.querySelector('.bKagitAcO'); if(bKgO){ bKgO.addEventListener('click',()=>{ const kg=k.querySelector('.kagit'); if(kg){ kg.classList.add('ustte','acik'); if(kg.dataset.sek==='ciz'){ requestAnimationFrame(()=>{ try{ kanvasBoyut(); }catch(e){} }); } } }); }
-    const normS=t=>String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
+    // 30.09 (Cem "1.2.3"): eski hâl bütün noktaları siliyordu → öğrencinin yazdığı "0.5" 5 okunuyor, doğru cevap yanlış sayılıyordu.
+    // Kural: virgül varsa Türkçe biçim (1.250,5); "96.000" gibi 1-3 hane + üçlü gruplar binliktir; kalan tek nokta ONDALIKtır ("0.5", "2.4").
+    const normS=t=>{ const s=String(t||'').replace(/\s*(TL|₺|kg|adet|%)\s*$/i,'').replace(/[^\d.,\-]/g,'');   // önce harf/boşluk atılır ("en az 50.000.000 TL")
+      if(s.indexOf(',')>=0) return s.replace(/\./g,'').replace(',','.').replace(/[^\d.\-]/g,'');
+      if(/^-?[1-9]\d{0,2}(\.\d{3})+$/.test(s)) return s.replace(/\./g,'').replace(/[^\d\-]/g,'');
+      if(/^-?\d*\.\d+$/.test(s)) return s;                     // tek nokta = ondalık ("0.5", "2.4")
+      return s.replace(/\./g,'').replace(/[^\d\-]/g,''); };    // tarih "15.03.2023" gibi çok noktalı: eski davranış (noktalar atılır)
     // Cem 04.09 "tekrar tekrar kontrol edince seri yükseliyor": tablo tamamlanınca kilitlenir, seri BİR kez artar;
     // "Doğruları göster"den sonra tamamlansa da seri artmaz (kendi çözmedi). ↺ Tekrar yeni bir deneme açar.
     let bitti=false, gosterildi=false, ipucuAcildi=false;
@@ -898,7 +1066,7 @@ SORULAR.forEach((s,i)=>{
         // uydurma "somut örnek" artık gösterilmez (Cem 07.09); kavram yoksa bölüm boş kalır, üretici FAZ S ile doldurur
         const kvH=kv.length?'<div class="et">Anahtar kavramlar</div><ul class="kavramL">'+kv.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+(x.kaynak?' <i>('+esc(x.kaynak)+')</i>':'')+'</li>').join('')+'</ul>':'';
         // 07.09 Ö54(b): 0. adım = DERS (harita · dört terim · sınav deseni); panel zaten "nedir + örnek"i verdi, burada tekrar yok
-        if(s.konuGiris.harita){ const tl=(s.konuGiris.terimler||[]).filter(x=>x&&x.ad); fH='<div class="girisK"><div class="et">Harita</div><p>'+esc(s.konuGiris.harita)+'</p>'+kunye+(tl.length?'<div class="et">Dört terim</div><ul class="kavramL">'+tl.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+((x.kim||x.kaynak)?' <span class="terimKim">· '+[x.kim,x.kaynak].filter(Boolean).map(esc).join(' · ')+'</span>':'')+'</li>').join('')+'</ul>':kvH)+(s.konuGiris.desen?'<div class="et">Sınav bunu nasıl sorar</div><p>'+esc(s.konuGiris.desen)+'</p>':'')+'</div>'; anlatimH=''; }
+        if(s.konuGiris.harita){ const tl=(s.konuGiris.terimler||[]).filter(x=>x&&x.ad); fH='<div class="girisK"><div class="et">Harita</div><p>'+esc(s.konuGiris.harita)+'</p>'+kunye+(tl.length?'<div class="et">Dört terim</div><ul class="kavramL">'+tl.map(x=>{ /* 06.10 (SGS oturumu bildirdi): "kim" etiketi ("kanun sabitler", "Tekdüzen hesap planı…") üretim isteminden muhasebe/hukuk dışı derslere de sızmış (SGS 8.153 terim: Türkçe, Matematik, İnkılap, Ekonomi, Maliye, YD). Yalnız muhasebe/denetim/hukuk/vergi derslerinde gösterilir; kaynak her derste kalır. Kök: kalip-parti-uret.ps1 istemi (sınav oturumunda). */ const xk=/muhasebe|denetim|hukuk|vergi|maliyet|mali tablo|finansal|meslek|sermaye|ticaret|borçlar|sosyal güvenlik|standart/i.test(String(s.ders||''))?x.kim:''; return '<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+((xk||x.kaynak)?' <span class="terimKim">· '+[xk,x.kaynak].filter(Boolean).map(esc).join(' · ')+'</span>':'')+'</li>'; }).join('')+'</ul>':kvH)+(s.konuGiris.desen?'<div class="et">Sınav bunu nasıl sorar</div><p>'+esc(s.konuGiris.desen)+'</p>':'')+'</div>'; anlatimH=''; }
         else { fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+kunye+kvH+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; } }
       if(verilenAdimMi&&!a.giris){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
@@ -983,16 +1151,29 @@ SORULAR.forEach((s,i)=>{
     bDers.addEventListener('click',()=>{ dersKur(); ders.classList.add('acik'); });
     ders.querySelector('.bDersKapat').addEventListener('click',()=>ders.classList.remove('acik'));
   }
-});
+}
+SORULAR.forEach((s,i)=>kartKur(s,i));
 // --- son kart
 const son=document.createElement('section'); son.className='kart son';
 son.innerHTML='<div class="ust"><span>Nöbet bitti</span>'+noktalar(-1)+'<span>&nbsp;</span></div><div class="govde son" style="display:flex;flex-direction:column;justify-content:center"><div id="sonSkor"></div></div>';
 akis.appendChild(son);
+window.__kasaEkle=function(yeni,devam){ try{
+  const hepsi=KASA_BEKLEYEN.splice(0).concat(yeni||[]), R=window.__siraSira, bas=SORULAR.length;
+  const sirali=R?hepsi.map((s,i)=>({s,i})).sort((a,b)=>(R(a.s)-R(b.s))||(a.i-b.i)).map(x=>x.s):hepsi;
+  sirali.forEach(s=>{ SORULAR.push(s); kartKur(s,SORULAR.length-1); });
+  akis.querySelectorAll(':scope > .kart').forEach(k=>{ if(+k.dataset.i>=bas) k.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); });
+  window.__KASA_DEVAM=!!devam; skorCiz(); sayacTazele();   /* 11.10: setli yüklemede __kasaEkle(yeni, devam) — kalan varsa akış açık kalır */
+  try{ document.dispatchEvent(new CustomEvent('tetikte-kasa-ekle',{detail:{bas:bas,adet:sirali.length}})); }catch(e){}
+}catch(e){ window.__KASA_DEVAM=false; try{ sayacTazele(); }catch(x){} } };
 document.querySelectorAll('.skorCip,.kutuCip').forEach(b=>b.addEventListener('click',kutuEkraniAc)); skorCiz();
 if(!durum.t0) durum.t0={}; durum.t0[0]=Date.now();   // ilk kart: süre sayfa açılınca başlar
 akis.addEventListener('scroll',()=>{ const i=Math.round(akis.scrollTop/akis.clientHeight); document.querySelectorAll('.noktalar i.simdi').forEach(n=>n.classList.remove('simdi')); document.querySelectorAll(i>=SORULAR.length?'.noktalar i[data-j="son"]':'.noktalar i[data-j="'+i+'"]').forEach(n=>n.classList.add('simdi'));
   if(i<SORULAR.length&&durum.cevap[i]===undefined&&!durum.t0[i]) durum.t0[i]=Date.now();   // 06.09: karta gelince süre başlar
-  if(i>=SORULAR.length){ const c=Object.keys(durum.cevap).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+durum.dogru+' / '+SORULAR.length+'</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(SORULAR.length-durum.dogru)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+durum.dogru+'/'+SORULAR.length+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
+  if(i>0&&i%SET===0&&i<SORULAR.length) setOzet(i/SET-1);   /* 10.10: yeni setin ilk kartına gelince biten setin özeti */
+  if(window.__KASA_DEVAM&&window.__kasaSonraki&&i>=SORULAR.length-10) window.__kasaSonraki();   /* 11.10: son 10 karta gelince sıradaki 20 arkadan iner */
+  if(i>=SORULAR.length&&window.__KASA_DEVAM){ document.getElementById('sonSkor').innerHTML='<p style="color:var(--dim)">Kalan sorular geliyor…</p>'; return; }   /* 07.10 parça yükleme */
+  /* 10.10: son kart da bankanın toplamını yazmaz; çözdüğü soru üzerinden (durum.ok) sayar. */
+  if(i>=SORULAR.length){ const okL=Object.values(durum.ok), c=okL.length, dg=okL.filter(Boolean).length; document.getElementById('sonSkor').innerHTML='<div class="buyuk">'+dg+' / '+c+'</div><div style="color:var(--dim);font-size:.85em">çözdüğün sorularda doğru</div><div class="seri">🔥 Denk serisi: '+durum.seri+'</div><p style="color:var(--dim);font-size:.9em">'+(c-dg)+' yanlış kutuya girdi, 2 gün sonra yeniden gelir.</p><div class="skorBuyuk" style="font-size:2.2em">🎯 Hazırlık %'+skorHesapla().toplam+'</div><button class="btn mavi" onclick="kutuEkraniAc()">📥 Yanlış kutusu ('+KUTU.kutu.length+')</button><div class="paylas">Tetikte · Kaydır-Çöz<br><b>'+dg+'/'+c+' doğru · seri '+durum.seri+'</b><br><span style="color:var(--dim)">Yanlışını böyle öğrenirsin.</span></div><button class="btn ana" onclick="akis.scrollTo({top:0,behavior:\'smooth\'})">Baştan ▲</button>'; } });
 document.addEventListener('keydown',e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ akis.scrollBy({top:akis.clientHeight,behavior:'smooth'}); } if(e.key==='ArrowUp'||e.key==='PageUp'){ akis.scrollBy({top:-akis.clientHeight,behavior:'smooth'}); } });
 /* 09.09 derin bağlantı (ana sayfa kartı → günün sorusu): #s=<sıra> kartını açar; yoksa baştan. */
 window.addEventListener('load',function(){ try{ var m=location.hash.match(/#s=(\d+)/); var a=document.getElementById('akis'); if(!a) return;

@@ -6,9 +6,9 @@
   "koyu_gecis": 77,
   "koyu_bekleyen": [],
   "temiz_sayfa": 117,
-  "denetlenen_metin": 18516,
+  "denetlenen_metin": 18508,
   "toplam_kirik": 150,
-  "denetlenen_sinir": 5925,
+  "denetlenen_sinir": 5924,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 1,
   "esik": {
@@ -1222,6 +1222,21 @@
       ]
     },
     {
+      "sayfa": "durum.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "a",
+          "yazi": "Ayrıntı",
+          "oran": 3.35,
+          "esik": 4.5,
+          "renk": "rgb(138, 98, 36)",
+          "zemin": "rgb(18,21,28)",
+          "iz": "<a href=\"/gizlilik-politikasi.html#cerez\" style=\"color:#ffc24b\">Ayrıntı</a>"
+        }
+      ]
+    },
+    {
       "sayfa": "elci-aydinlatma.html [koyu]",
       "adet": 1,
       "ornekler": [
@@ -1893,21 +1908,6 @@
           "renk": "rgb(138, 98, 36)",
           "zemin": "rgb(18,21,28)",
           "iz": "<a href=\"/gizlilik-politikasi.html#cerez\" style=\"color:#ffc24b\">Ayrıntı</a>"
-        }
-      ]
-    },
-    {
-      "sayfa": "sorular.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "b.marka-ad",
-          "yazi": "tetkte",
-          "oran": 1.12,
-          "esik": 3,
-          "renk": "rgb(22, 25, 29)",
-          "zemin": "rgb(10,11,14)",
-          "iz": "<b class=\"marka-ad\">tet<span class=\"i\">ı</span>kte</b>"
         }
       ]
     },
