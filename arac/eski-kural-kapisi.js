@@ -121,6 +121,9 @@ function sinav() {
     ['EK21 meşru: YANLIŞ şıkkın kendi metni (sikHaric; fmuh-kolay-r2-2/kp-25 E)', T({ siklar: { A: '20.000', B: '18.000', E: 'Kayıt yapılmaz; KDV\'nin tamamı 291 hesabında bekletilir' } }), 0],
     ['EK21 doğru şıkta aynı yanılgı → alarm (sikHaric yalnız yanlış şık)', T({ dogru: 'E', siklar: { A: '20.000', B: '18.000', E: 'Kayıt yapılmaz; KDV\'nin tamamı 291 hesabında bekletilir' } }), 1],
     ['EK21 meşru: alım ayında indirilir', T({ aciklama: { A: 'Makinenin KDV\'si alım ayında indirilir; 291\'de bekletilmez sanılır yanılgısı Tuzağı.' } }), 0],
+    // 13.10 (KGK t3 tms-g4, BOBİ FRS 16 devlet teşviki): "teşvik … ertelen" deseni muhasebedeki doğru "ertelenmiş gelir"i KDV ertelemesi sandı → haric
+    ['EK21 meşru: BOBİ şartlı teşvik ertelenmiş gelir (13.10 tms-g4 teshis.B yanlış alarmı)', T({ teshis: { B: { gercek: 'Şartlı teşvik özkaynak değil, şart karşılanana kadar ertelenmiş gelirdir.' } } }), 0],
+    ['EK21 teşvikli ithalde KDV 192\'de ertelenir → hâlâ alarm (haric daraltması gerçek kuralı kör etmez)', T({ aciklama: { A: 'Teşvik belgeli ithalatta KDV ertelenir ve 192 hesabında izlenir.' } }), 1],
     ['EK20 "bankalar m.35 listesinde yer almaz" → alarm (07.10, 11 soru)', T({ aciklama: { A: 'Bankalar sermaye piyasası kurumları arasında yer almaz.' } }), 1],
     ['EK20 meşru: bankalar yatırım kuruluşu olarak sayılır', T({ aciklama: { A: 'Bankalar yatırım kuruluşu olarak sermaye piyasası kurumudur (m.3/1-v, m.35/1-a).' } }), 0],
     ['EK22 "m.35 listesinde kitle fonlama platformları" → alarm (07.10, 14 soru)', T({ aciklama: { A: 'Kanunun 35. maddesinde sayılan kurumlar arasında kitle fonlama platformları da vardır.' } }), 1],
