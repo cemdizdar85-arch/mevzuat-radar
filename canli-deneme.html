@@ -606,6 +606,44 @@ function yetDersCiz(dg, yn){
   if(z) AnlikTeklif.goster({ kap:document.getElementById('sonucEkran'), once:document.getElementById('soAnahtarKart'),
     kaynak:'prova', sinav:'yeterlilik', sonuc:'prova-' + CANLI.kod, ders:z.ad });
 }
+/* 15.10 ÇİZEREK ÇÖZ (Cem "1.2.3"; kapsam: YET-2410): prova sonucunda yanlış/boş sorularda "✍️ Nöbetçi çizerek çözsün".
+   YALNIZ CZ_PROVA_OTURUM'daki oturumda çalışır: SGS-1710'da hiçbir istek atılmaz, sayfaya hiçbir şey eklenmez, betik
+   (cizerek-coz.js) bile yüklenmez. Çizim verisi rpc/prova_cizim'den; sunucu saatiyle oturum KAPANMADAN boş döner
+   (radar-app/sql/2026-10-15-prova-cizim.sql) → o zaman yalnız "kapanınca açılır" notu. Açıklamalar gibi üyeye açık. */
+var CZ_PROVA_OTURUM = { 'YET-2410': '12:30' };
+function cizimProva(liste, uye){
+  if(!CZ_PROVA_OTURUM[CANLI.kod] || !uye) return;   /* üye olmayana üstteki davet kartı yeter (açıklamalarla aynı kapı) */
+  var lst = document.getElementById('soListe'), dl = lst.querySelectorAll(':scope > details');
+  var yukle = function(){ return window.CizerekCoz ? Promise.resolve(window.CizerekCoz) : new Promise(function(ok, no){
+    var s = document.createElement('script'); s.src = 'cizerek-coz.js?v=3'; s.onload = function(){ window.CizerekCoz ? ok(window.CizerekCoz) : no(); }; s.onerror = no; document.head.appendChild(s); }); };
+  yukle().then(function(CZ){
+    var izin = (CZ.PROVA && CZ.PROVA[CANLI.kod]) || [];
+    var hedef = []; liste.forEach(function(o, i){ if(o.c !== o.s.dogru && izin.indexOf(o.s.id) > -1 && dl[i]) hedef.push({ o:o, d:dl[i] }); });
+    if(!hedef.length) return;
+    var not = document.createElement('div'); not.className = 'czProvaNot';
+    not.style.cssText = 'border:1px solid var(--amber);border-radius:10px;padding:12px 14px;margin:4px 0 12px;font-size:13.5px;line-height:1.5';
+    return fetch('https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/rpc/prova_cizim', { method:'POST',
+      headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
+      body: JSON.stringify({ p_oturum: CANLI.kod, p_idler: hedef.map(function(h){ return h.o.s.id; }) }) })
+    .then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+      if(!j) return;
+      if(!j.acik){
+        not.innerHTML = '✍️ <b>Yanlış ya da boş ' + hedef.length + ' sorunu Nöbetçi kalemle çizerek çözecek.</b> Çizimler prova kapanınca (saat ' + CZ_PROVA_OTURUM[CANLI.kod] + ') açılır; o saatten sonra bu sayfadaki “Soruları ve açıklamaları aç” ile dön.';
+        lst.insertBefore(not, lst.firstChild); return;
+      }
+      var acilan = 0;
+      hedef.forEach(function(h){
+        var s = j.sorular && j.sorular[h.o.s.id]; if(!s) return;
+        var kp = CZ.cizerekKapi(s); if(!kp.gecer) return;
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = '✍️ Nöbetçi çizerek çözsün';
+        b.style.cssText = 'margin-top:10px;font:inherit;font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:9px;border:1px solid var(--amber);background:var(--yuzey);color:var(--ink);cursor:pointer';
+        b.onclick = function(ev){ ev.preventDefault(); CZ.ac(s, kp.senaryo); };
+        h.d.appendChild(b); acilan++;
+      });
+      if(acilan){ not.innerHTML = '✍️ <b>' + acilan + ' yanlış/boş sorunda Nöbetçi kalemle çiziyor:</b> sorunun satırını aç, “Nöbetçi çizerek çözsün”e bas.'; lst.insertBefore(not, lst.firstChild); }
+    });
+  }).catch(function(){});
+}
 function teslim(otomatik){
   if(CANLI.bitti){ return; }
   CANLI.bitti = true;
@@ -654,6 +692,7 @@ function teslim(otomatik){
       '<div style="font-size:13px;color:var(--muted);margin-top:8px;white-space:pre-wrap">' + govdeAc + '</div>';
     lst.appendChild(d);
   });
+  try { cizimProva(liste, uye); } catch(e){}
   // sonucu gonder: 0-15 sn rastgele gecikme + 1 tekrar (5k kisi ayni anda vurmasin)
   var g = document.getElementById('soGonderim');
   if(CANLI.inceleme){ g.textContent = 'Bitmiş provanın inceleme görünümü; sonuç yeniden gönderilmez.'; return; }

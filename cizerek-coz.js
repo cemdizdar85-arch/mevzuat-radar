@@ -48,6 +48,21 @@
     'sgs-d2-fmuh-kolay-r2/kp-04', 'sgs-c2-fmuh-zor-r3/kp-02', 'sgs-c2-denetim-kolay-r2/kp-05', 'sgs-c2-mta-kolay-r1/kp-01',
     'sgs-k5-fmuh-zor/kp-17', 'sgs-p-ekonomi-kolay-r1-a/kp-04', 'sgs-t1-mta-zor/kp-01', 'sgs-t1-maliyet-kolay/kp-07'
   ];
+  /* PROVA SONUCU (15.10.2026): oturum -> kimlikler. YET-2410 paketinin 80 sorusundan KAPI-CZ'yi geçen 43'ün gözle kontrolde kalan
+     39'u. Çizim verisi rpc/prova_cizim'den yalnız oturum kapandıktan sonra gelir (radar-app/sql/2026-10-15-prova-cizim.sql, aynı liste).
+     SGS-1710 bilerek YOK. */
+  var PROVA = { 'YET-2410': [
+    'smmm-w9-1-fmuh-cokzor/kp-08', 'smmm-gm3-3-fmuh-zor/kp-02', 'smmm-4k-a-fmuh-cokzor-r2/kp-01', 'smmm-4k-a-fmuh-kolay-r2-2/kp-01',
+    'smmm-4k-a-fmuh-zor-r4/kp-12', 'smmm-w6-fmuh-zor/kp-34', 'smmm-w1-fmuh-zor/kp-05', 'smmm-w4-fmuh-cokzor/kp-10',
+    'smmm-w5-fmuh-kolay/kp-16', 'smmm-w11-1-fmuh-cokzor/kp-02', 'smmm-w4-fmuh-cokzor/kp-09', 'smmm-4k-a-fmuh-zor-r3-2/kp-02',
+    'smmm-gm5-28-fmuh-zor/kp-04', 'smmm-w10-4-fmuh-kolay/kp-01', 'smmm-gm5-10-fmuh-zor/kp-07', 'smmm-w5-fmuh-kolay/kp-15',
+    'smmm-4k-a-maliyet-zor-r3/kp-20', 'smmm-4k-a-maliyet-kolay-r3/kp-02', 'smmm-gm4-5-maliyet-kolay/kp-02', 'smmm-w9-2-maliyet-kolay/kp-01',
+    'smmm-4k-a-maliyet-kolay-r4-2/kp-03', 'smmm-4k-a-maliyet-zor-r3/kp-04', 'smmm-4k-a-maliyet-zor-r9/kp-03', 'smmm-4k-a-maliyet-kolay-r3/kp-20',
+    'smmm-w7-2-maliyet-kolay/kp-01', 'smmm-gm5-2-maliyet-zor/kp-01', 'smmm-4k-a-maliyet-zor-r1/kp-23', 'smmm-w1-maliyet-zor/kp-14',
+    'smmm-4k-a-maliyet-zor-r9/kp-02', 'smmm-gm-p2-maliyet/kp-03', 'smmm-gm5-1-maliyet-zor/kp-02', 'smmm-gm-p2-maliyet/kp-01',
+    'smmm-4k-a-maliyet-zor-r7/kp-17', 'smmm-4k-a-maliyet-zor-r2/kp-01', 'smmm-w6-yhukuk-kolay/kp-01', 'smmm-4k-a-yhukuk-zor-r7/kp-05',
+    'smmm-gm4-6-yspk-zor/kp-01', 'smmm-w14-11-yspk-cokzor/kp-01', 'smmm-w14-13-yspk-cokzor/kp-01'
+  ] };
 
   // ---------------- saf işlevler (node'da sınanır) ----------------
   var SAYI = /%?\d+(?:[.,]\d+)*%?/g;
@@ -116,7 +131,7 @@
     if (fark > 0) neden += ')'.repeat(fark); else if (fark < 0 && /\)$/.test(neden)) neden = neden.replace(/\)+$/, function (z) { return z.slice(0, Math.max(0, z.length + fark)); });
     return { not: not, neden: ilkCumle(neden, 150) };
   }
-  var ATLA = /^\s*(Verilen|Soruda ne var|Soru bize|Yanlış yol|Ters durum|Senin seçimin|Takıldığın yer|Konu:)/i;
+  var ATLA = /^\s*(Verilen|Soruda ne var|Soru bize|Yanlış yol|Ters durum|Senin seçimin|Takıldığın yer|Konu:|En sık hata)/i;   /* hata yolu karalamaya "çözüm" diye yazılmaz */
   function sayiDeger(t) {   // Türkçe yazım: nokta binlik, virgül ondalık; %30 -> 0,30
     var yuz = /%/.test(t); t = t.replace(/%/g, '');
     var v = /^\d{1,3}(\.\d{3})+(,\d+)?$/.test(t) ? t.replace(/\./g, '').replace(',', '.') : t.replace(',', '.');
@@ -232,7 +247,7 @@
     return { gecer: neden.length === 0, neden: neden, senaryo: sen };
   }
 
-  var api = { PILOT: PILOT, senaryo: senaryo, cizerekKapi: cizerekKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
+  var api = { PILOT: PILOT, PROVA: PROVA, senaryo: senaryo, cizerekKapi: cizerekKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
   if (typeof document === 'undefined') return api;
 
   // ---------------- tarayıcı ----------------

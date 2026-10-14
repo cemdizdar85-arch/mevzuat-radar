@@ -75,7 +75,16 @@ function sinav() {
   { const s = soru(); s.adimlar.splice(1, 0, { formul: '180 Gelecek Aylara Ait Giderler nedir?', anlatim: '' }); const r = C.cizerekKapi(s); v.push('tanım adımı yazılmaz'); if (!r.gecer || r.senaryo.sahne.some(x => x.satirlar && x.satirlar.some(y => /nedir/.test(y)))) hata.push('tanım adımı karalamaya yazıldı'); }
   // 15) çeldirici: not + neden ayrımı
   { const b = C.celdiriciBol('(280.000 + 20.000) x %20 = 60.000 (sigortayı maliyete kattın)'); v.push('çeldirici not/neden ayrımı'); if (b.not !== '(280.000 + 20.000) x %20 = 60.000' || b.neden !== 'sigortayı maliyete kattın') hata.push('çeldirici ayrımı: ' + JSON.stringify(b)); }
-  const mut = process.env.CIZ_MUTASYON ? ' (MUTASYON: ' + process.env.CIZ_MUTASYON + ')' : '';
+  // 16) prova listesi: cizerek-coz.js PROVA = radar-app/sql/2026-10-15-prova-cizim.sql izin listesi (biri değişip öteki kalırsa
+  //     sitede düğme çıkar ama sunucu boş döner, ya da tersi)
+  {
+    const fs = require('fs'); const sql = fs.readFileSync(path.join(__dirname, '..', 'radar-app', 'sql', '2026-10-15-prova-cizim.sql'), 'utf8');
+    const s = new Set((sql.match(/'smmm-[^']+'|'sgs-[^']+'/g) || []).map(x => x.slice(1, -1)));
+    let j = (C.PROVA && C.PROVA['YET-2410']) || []; if (process.env.CIZ_MUTASYON === 'provaliste') j = j.concat(['sgs-uydurma/kp-01']);
+    v.push('prova listesi JS = SQL'); if (!j.length || j.length !== s.size || !j.every(x => s.has(x))) hata.push('prova listesi JS (' + j.length + ') ile SQL (' + s.size + ') farklı');
+    if (C.PROVA && C.PROVA['SGS-1710']) hata.push('SGS-1710 prova listesinde: 17.10 akışına dokunulmaz');
+  }
+  const mut = process.env.CIZ_MUTASYON ?' (MUTASYON: ' + process.env.CIZ_MUTASYON + ')' : '';
   if (hata.length) { console.log('KAPI-CZ ÖZ-SINAV DÜŞTÜ' + mut + ': ' + hata.length + '/' + v.length); hata.forEach(h => console.log('  - ' + h)); return 1; }
   console.log('KAPI-CZ ÖZ-SINAV TEMİZ' + mut + ': ' + v.length + ' vaka'); return 0;
 }
@@ -83,7 +92,7 @@ function sinav() {
 if (a.includes('--sinav')) {
   let kod = sinav();
   if (kod === 0 && a.includes('--mutasyon') && !process.env.CIZ_MUTASYON) {
-    const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi'];
+    const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste'];
     let kac = 0;
     for (const m of M) {
       const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { CIZ_MUTASYON: m }), encoding: 'utf8' });
