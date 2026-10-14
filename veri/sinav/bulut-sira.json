@@ -5,98 +5,76 @@
                 "toplam":  6,
                 "smmm":  3,
                 "sgs":  3,
-                "kgk":  2
+                "kgk":  4
             },
     "varsayilan_paralel":  5,
     "geriye_bakis_gun":  30,
     "sira":  [
                  {
-                     "plan":  "veri/sinav/plan-kgk-t4-fy-a.json",
-                     "butce_usd":  "1.6",
+                     "plan":  "veri/sinav/plan-kgk-t3-tms-a.json",
+                     "butce_usd":  "4.4",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:32:02Z",
+                     "eklenme":  "2026-10-14T18:43:43Z",
                      "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  ""
+                     "yeniden":  true,
+                     "not":  "Cem 14.10 1.2.3: AH payli"
                  },
                  {
-                     "plan":  "veri/sinav/plan-kgk-t4-bs.json",
+                     "plan":  "veri/sinav/plan-kgk-t3-tms-b.json",
+                     "butce_usd":  "4.5",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-14T18:44:08Z",
+                     "ekleyen":  "fable-kgk",
+                     "yeniden":  true,
+                     "not":  "Cem 14.10 1.2.3: AH payli"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t4-tds-a.json",
                      "butce_usd":  "4.6",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:42:08Z",
+                     "eklenme":  "2026-10-14T18:44:27Z",
                      "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
+                     "yeniden":  true,
+                     "not":  "Cem 14.10 1.2.3: AH payli"
                  },
                  {
-                     "plan":  "veri/sinav/plan-kgk-t4-tds-b.json",
-                     "butce_usd":  "5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:42:26Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-tds-c.json",
-                     "butce_usd":  "2.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:42:46Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-banka-b.json",
-                     "butce_usd":  "2.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:43:05Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  "AH payi: TMS t3 olcumu yazim+hakem 0,07 USD/soru + AH en kotu 0,04"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-fy-b.json",
-                     "butce_usd":  "1.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:52:11Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-tms-a.json",
-                     "butce_usd":  "2.6",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T22:55:45Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  ""
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-surd-a.json",
+                     "plan":  "veri/sinav/plan-kgk-t4-tms-b.json",
                      "butce_usd":  "2.3",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-13T23:31:21Z",
+                     "eklenme":  "2026-10-14T18:44:47Z",
                      "ekleyen":  "fable-kgk",
                      "yeniden":  false,
-                     "not":  ""
+                     "not":  "Cem 14.10 1.2.3: AH payli"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t4-tms-c.json",
+                     "butce_usd":  "2.4",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-14T18:45:08Z",
+                     "ekleyen":  "fable-kgk",
+                     "yeniden":  false,
+                     "not":  "Cem 14.10 1.2.3: AH payli"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t4-sigorta-b.json",
+                     "butce_usd":  "2",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-14T18:45:30Z",
+                     "ekleyen":  "fable-kgk",
+                     "yeniden":  false,
+                     "not":  "Cem 14.10 1.2.3: AH payli"
                  }
              ]
 }
