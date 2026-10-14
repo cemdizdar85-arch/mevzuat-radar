@@ -188,6 +188,16 @@ function HapEksik($q){
   if(($ortak/$hk.Count) -ge 0.6){ $o+="HAP TEKRAR: hap'ın kelimelerinin %$([math]::Round(100*$ortak/$hk.Count)) doğru şık açıklamasıyla aynı → sayfa hap'ı gizler; kavram ayrımını yeni cümleyle yaz" }
   return $o
 }
+# 14.10.2026 KGK EK KAPI (KGK oturumu, Cem "1.2.3"): arac/kgk-ek-kapi.js — KGK-DC "Doğru cevap" kayması ve KGK-MK eski sigorta makamı
+#   DURDURUR, NOT-KGK-KA kısa alanda şart düşmesi yalnız not. Yalnız kgk- etiketinde. Mutasyon: $env:DENETLE_KGK_MUTASYON=ek → boş döner.
+function KgkEkKapi($q){
+  if("$env:DENETLE_KGK_MUTASYON" -eq 'ek'){ return @() }
+  $js=Join-Path $depoKokD 'arac\kgk-ek-kapi.js'; if(-not (Test-Path $js) -or -not (Get-Command node -ErrorAction SilentlyContinue)){ return @('NOT-KGK-EK KÖR: node ya da arac/kgk-ek-kapi.js yok') }
+  $tmp=[IO.Path]::Combine([IO.Path]::GetTempPath(),"kgk-ek-$([guid]::NewGuid().ToString('N')).json")
+  [IO.File]::WriteAllText($tmp,(ConvertTo-Json -InputObject $q -Depth 12),(New-Object Text.UTF8Encoding($false)))
+  try{ $o=@(& node $js --tek $tmp 2>&1 | ForEach-Object { "$_".Trim() } | Where-Object { $_ }) } finally { Remove-Item $tmp -ErrorAction SilentlyContinue }
+  return $o
+}
 function KaliteTek($q){
   $js=Join-Path $depoKokD 'arac\soru-kalite-kapisi.js'; if(-not (Test-Path $js) -or -not (Get-Command node -ErrorAction SilentlyContinue)){ return @('NOT-KALITE KÖR: node ya da arac/soru-kalite-kapisi.js yok') }
   $tmp=[IO.Path]::Combine([IO.Path]::GetTempPath(),"hazir-kalite-$([guid]::NewGuid().ToString('N')).json")
@@ -401,7 +411,9 @@ if($KgkKapiSinavi){
     @('bağ: smmm -IkizEtiket açık',[int](Kgk3Acik (Kgk3Etiket 'smmm-gm5-1-fmuh-zor' 'x.json')),1),
     @('bağ: kgk dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-kgk-gm-tms-r1.json')),1),
     @('bağ: sgs dosyası kapalı',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-denetim-zor-1.json')),0),
-    @('bağ: sgs -IkizEtiket kapalı (dosya adı gm olsa da)',[int](Kgk3Acik (Kgk3Etiket 'sgs-k10-yd-kolay' 'hazir-gm9-1-yvergi-zor.json')),0))
+    @('bağ: sgs -IkizEtiket kapalı (dosya adı gm olsa da)',[int](Kgk3Acik (Kgk3Etiket 'sgs-k10-yd-kolay' 'hazir-gm9-1-yvergi-zor.json')),0),
+    @('ek: KGK-DC bağlı (Doğru cevap kayması)',@(KgkEkKapi ([pscustomobject]@{ konu='x'; soru='Kök'; dogru='B'; siklar=[pscustomobject]@{ A='1.000 TL'; B='3.767.000 TL'; C='5.000 TL'; D='6.000 TL'; E='7.000 TL' }; aciklama=[pscustomobject]@{ A='Doğru cevap: 3.740.000 TL.' } }) | Where-Object { $_ -like 'KGK-DC*' }).Count,1),
+    @('ek: KGK-MK bağlı (sigortada Müsteşarlık)',@(KgkEkKapi ([pscustomobject]@{ konu='x'; soru='Sigorta kooperatifi kuruluşu'; dogru='A'; siklar=[pscustomobject]@{ A='a'; B='b'; C='c'; D='d'; E='e' }; aciklama=[pscustomobject]@{ A='Müsteşarlık izni gerekir.' } }) | Where-Object { $_ -like 'KGK-MK*' }).Count,1))
   $h=0; foreach($x in $v){ if($x[1] -ne $x[2]){ $h++; "  DUSTU: $($x[0]) -> $($x[1]) (beklenen $($x[2]))" } }
   if($h){ "KGK KAPI SINAVI KIRMIZI: $h/$($v.Count)"; exit 1 } else { "KGK KAPI SINAVI YESIL: $($v.Count)/$($v.Count)"; exit 0 }
 }
@@ -660,6 +672,7 @@ foreach($q in $liste){
     foreach($x in @(SorudaVerilenKusur $q)){ if($KGK_ET){ $k.Add("KGK $x") } else { $k.Add("SMMM $x") } }
     if($kaynakOlcu){ $kmF=@{}; foreach($ad in @($q.kaynak_adlar)){ if($kaynakMetin.ContainsKey("$ad")){ $kmF["$ad"]=$kaynakMetin["$ad"] } }; foreach($x in @(FikraAtifKusur $q $kmF)){ if($KGK_ET){ $k.Add("KGK $x") } else { $not.Add("SMMM $x") } } }
     else { $not.Add("$(if($KGK_ET){ 'KGK' } else { 'SMMM' }) FIKRA ATFI: ÖLÇÜLMEDİ (kaynak metni okunmadı)") }
+    if($KGK_ET){ foreach($x in @(KgkEkKapi $q)){ if("$x" -like 'NOT-*'){ $not.Add("$x") } else { $k.Add("$x") } } }   # 14.10 KGK EK KAPI (DC/MK durdurur)
   }
   # 05.10.2026 KAPI-KALITE yerelde: bulut FAZ GM'in SoruKaliteKapisi'si (arac/soru-kalite-kapisi.js --tek; KAPI-AS2/EK/HK/BP/BOS/TR/YY/ADIM).
   #   gm7'de 5 soru bununla düştü, ön denetim görmüyordu. Hazır soru tarihsiz = YENİ2 → NOT- dışındaki her satır durdurur.

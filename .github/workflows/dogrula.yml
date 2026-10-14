@@ -405,6 +405,11 @@ jobs:
               kabuk: pwsh, komut: "./motor/teblig-damgasi.ps1 -Sinav" }
           - { ad: "Hazir soru KGK kapilari (harf/soruda verilen/fikra) OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/hazir-soru-denetle.ps1 -KgkKapiSinavi" }
+          # 14.10.2026 - KGK EK KAPI (KGK oturumu, Cem "1.2.3"): "Dogru cevap" kaymasi (DC) + sigortada eski makam (MK) DURDURUR,
+          # kisa alanda sart dusmesi (KA) NOT. 16 vaka; ic mutasyon dc/mk/ka/sigorta 4/4 KIRMIZI. Bag vakasi -KgkKapiSinavi'de
+          # (DENETLE_KGK_MUTASYON=ek -> 2/33 KIRMIZI). Olcum: t4 ilk halleri DC 5/5, MK 4/4; guncel 1.606 soruda DC/MK 0, KA 2 yanlis alarm.
+          - { ad: "KGK ek kapi (Dogru cevap kaymasi / eski sigorta makami / kisa alan sarti) OZ-SINAVI",
+              kabuk: bash, komut: "node arac/kgk-ek-kapi.js --sinav" }
           # 06.10.2026 - Tuzak adi ayirici (kaydir-coz yukler): "Ne soruluyor" kalintisi ad olmasin; mesru adlar degismez.
           # TUZAK_AYIR_MUTASYON=kapali -> KIRMIZI (5/11).
           - { ad: "Tuzak adi ayirici OZ-SINAVI",

@@ -113,6 +113,31 @@
   "sabit bedel" kaldı → son okumada kusur, soru dalgadan çıktı). Kökte değişen her kelime/sayı soru, aciklama, teshis, adimlar, verilenler,
   cozum_tablo, celdirici_yol, sade, hap, sinav_taktigi alanlarında taranır; kalıntı 0 olmadan yeni okuyucuya gönderilmez. Yuvarlama "iki basamağa yuvarlanacaktır" diye yazılır
   ("alınacaktır" kesme okunur, 13.10'da 17 kökte düzeltildi).
+- **K16 — t4 DERSLERİ (14.10, Cem "1.2.3"; 336 yazılan → 309 ambarda, 27 çıktı — okuyucu bulgularının sınıfları)**
+  - **Şart açıklamada var, kısa alanda yok** (son turlardaki kusurların çoğu): şart/istisna `aciklama`/`teshis`'te yazıldıktan sonra
+    `hap`, `sinav_taktigi`, `sade.*`, yanlış-yol adımı, `notlandirici`, `verilenler` alanlarında AYNI şart aranır. Konuya özgü tekrarlar:
+    TFRS 15 p.56 "önemli bir iptal olmayacağı kuvvetle muhtemel değilse" ("iptal riski yüksek" DEĞİL) · p.60–62 "önemli", 62(a) "bedel devirden
+    önce ödenmiş", p.63 "düzeltme zorunluluğunu kaldırır" · p.B19(a) yalnız fiyata yansıtılmamış beklenmedik fire · TFRS 3 p.B55(a) yalnız iş
+    ilişkisi bitince **kendiliğinden** kesilen ödeme · TFRS 5 p.8 bentlerin hepsi (ortak onayı olasılığı, p.9 istisnası), p.11 "ihtimali yüksek" ·
+    TFRS 9 p.5.4.1 kredi-değer düşüklüğü istisnası, p.5.4.3 iki oran istisnası · TMS 12 p.23 sonraki değişiklik kâr/zarara, p.58 işletme birleşmesi
+    bendi · TMS 29 p.27 "fiyat düzeyine bağlı olmadığı oranda" · TMS 32 p.22A, p.16A–16D · BOBİ 13.19 "gerçeğe uygun değerle ölçülüyorsa",
+    artış/azalış · TTK m.1444/2 üç "derhâl" hâli ve "bilgisi dışında", m.1445/6 "riziko gerçekleşmeden", m.1429/1 kastın sahibi · 5684 m.3/1
+    "doğrudan bağlantılı işler", m.3/3 yalnız üyeleri dışındakilerle sözleşme yapmayan kooperatif, m.17/4 yalnız hayat dışı · Kredi Yön. m.8/5
+    bütün kolları · TSRS 1 p.C2 "atıfta bulunabilir" + "standardın amacına yardımcı olduğu ölçüde", p.84 iki nitelik, E6(b) yalnız E5 kullanıldıysa.
+    **Gerekli koşul daraltılırsa KUSUR; yeterli koşul eksik yazılırsa NOT** (okuyucu ayrımı).
+  - **Niteleyici düşmez:** "önemli", "tamamen", "büyük ölçüde", "kuvvetle muhtemel", "ihtimali yüksek" kısa alanda da aynen yazılır.
+  - **Kavram tanımı (`sade.kavramlar[].tanim`) tek bende indirgenmez** (TFRS 9 Ek A, TMS 2 p.6, TMS 32 p.11, TFRS 5 p.6–7, TSRS 1 p.21).
+  - **Mutlak olumsuz hüküm yasak:** "Kanunda yoktur / geçmez / öngörmez" yazılmaz; yargı ilgili maddeyle sınırlanır ("m.3/3 bu sayıyı öngörmez").
+  - **Yetkili makam güncel adla:** ambardaki 5684 metni "Müsteşarlık/Bakan" der; bugün **SEDDK Kurum/Kurul** (`SEDDK Teskilat ve Gorevleri Hakkinda
+    CBK (47 s.) m.19` — m.19/1). Kökte/şıkta eski makam = soru yeniden yazılır; açıklamada makam anılmadan edilgen yazılabilir. Mekanik: KGK-MK.
+  - **"Doğru cevap: <tutar>" satırı doğru şıkla aynı** (tms-g1: 5 soruda tutar değişmiş, satır eski kalmıştı). Tutar değişince her alanda aranır. Mekanik: KGK-DC.
+  - **Kök olgusu (K15 eki):** zamanı/önemliliği cevabı belirleyen şart kökte açık yazılır — TFRS 5 p.B1(c)(i) "ilk yıl içinde tedbir aldı" ·
+    TFRS 15 finansman "fark önemlidir" · TFRS 9 yapılandırma "kredi-değer düşüklüklü alınmamıştır; korunma muhasebesi yoktur" · TSRS kapsam
+    sorusunda önceki yılın eşik durumu · TFRS 5 p.12'de yayım tarihi ≠ onay tarihi · AOSM "piyasa değeri ağırlıklarıyla" · TMS 29'da endeksli kalem
+    ancak p.28 netleştirmesi soruluyorsa (yoksa iki şık savunulur — t4 çıktı).
+  - **Çeldirici tek hata (G2/H3):** yanılgının adı tek başına uygulanınca şıkkın sayısını vermeli (fy-g2: iki hatalı yol tek yanılgı diye anlatılmıştı → çıktı).
+  - Mekanik kapı: `arac/kgk-ek-kapi.js` (ön denetimde kgk- etiketinde kendiliğinden): KGK-DC ve KGK-MK DURDURUR; NOT-KGK-KA kısa alanda istisna
+    sözlüğündeki atfın şartı yoksa NOT yazar (madde listesinde yanlış alarm verir, okuyucu karar verir).
 - **K13 — Dalga = tek modül, ≤25 USD, önce ölç.** Yayına giren soru başına bedel + yayın oranı Cem'e gitmeden sonraki dalga açılmaz
   (CLAUDE.md para kuralı 1'in KGK uygulaması).
 - **Standartlarda da sızma var** (07.10 altyapı ölçümü: 4.240 paragrafta 610 başlık kuyruğu adayı, örneklem 39/40 gerçek; Etik 317, TFRS 124,
@@ -124,6 +149,6 @@
 powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya veri/fabrika/hazir-kgk-<…>.json
 ```
 Dosya adı `hazir-kgk-…` ise (ya da `-IkizEtiket kgk-…`) KGK sıkı modu kendiliğinden açılır: ADIM YOK / SADE YOK / SIM KUSUR · KGK HARF ANMA ·
-KGK SORUDA VERİLEN · KGK FIKRA ATFI · KGK uzunluk tavanı (Denetim 784, Muhasebe Standartları 661 — etikette tms/tfrs yoksa `-Tavan 661`;
+KGK SORUDA VERİLEN · KGK FIKRA ATFI · KGK-DC "Doğru cevap" kayması · KGK-MK eski sigorta makamı (14.10) · KGK uzunluk tavanı (Denetim 784, Muhasebe Standartları 661 — etikette tms/tfrs yoksa `-Tavan 661`;
 KGK'da `-Ders` VERME, SGS sözlüğü kurulur) · KGK KAPI-K. Çıktıda KUSUR kalmaz. Sonra İKİNCİ GÖZ (yeterlilik talimatı) → yükle → plan → bulut sırası.
 Onarım: `node arac/onarim-hatti.js teslim <klasör>` kgk- etiketini artık `veri/sinav/kgk-elle-ret.json`'a yazar (07.10, K8).
