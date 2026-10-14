@@ -11,70 +11,26 @@
     "geriye_bakis_gun":  30,
     "sira":  [
                  {
-                     "plan":  "veri/sinav/plan-kgk-t3-tms-a.json",
-                     "butce_usd":  "4.4",
+                     "plan":  "veri/sinav/plan-kgk-t5-fy-a.json",
+                     "butce_usd":  "1.9",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-14T18:43:43Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  true,
-                     "not":  "Cem 14.10 1.2.3: AH payli"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t3-tms-b.json",
-                     "butce_usd":  "4.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-14T18:44:08Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  true,
-                     "not":  "Cem 14.10 1.2.3: AH payli"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-tds-a.json",
-                     "butce_usd":  "4.6",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-14T18:44:27Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  true,
-                     "not":  "Cem 14.10 1.2.3: AH payli"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-tms-b.json",
-                     "butce_usd":  "2.3",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-14T18:44:47Z",
-                     "ekleyen":  "fable-kgk",
+                     "eklenme":  "2026-10-14T21:01:47Z",
+                     "ekleyen":  "kgk-t5-sira",
                      "yeniden":  false,
-                     "not":  "Cem 14.10 1.2.3: AH payli"
+                     "not":  "t5 fy-a 21 soru; Cem 15.10 onayi 3,7 USD (fy-a+fy-b)"
                  },
                  {
-                     "plan":  "veri/sinav/plan-kgk-t4-tms-c.json",
-                     "butce_usd":  "2.4",
+                     "plan":  "veri/sinav/plan-kgk-t5-fy-b.json",
+                     "butce_usd":  "1.8",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "kgk",
-                     "eklenme":  "2026-10-14T18:45:08Z",
-                     "ekleyen":  "fable-kgk",
+                     "eklenme":  "2026-10-14T21:02:10Z",
+                     "ekleyen":  "kgk-t5-sira",
                      "yeniden":  false,
-                     "not":  "Cem 14.10 1.2.3: AH payli"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t4-sigorta-b.json",
-                     "butce_usd":  "2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-14T18:45:30Z",
-                     "ekleyen":  "fable-kgk",
-                     "yeniden":  false,
-                     "not":  "Cem 14.10 1.2.3: AH payli"
+                     "not":  "t5 fy-b 20 soru; Cem 15.10 onayi 3,7 USD (fy-a+fy-b)"
                  }
              ]
 }
