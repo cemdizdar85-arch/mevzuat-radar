@@ -1,5 +1,5 @@
 {
- "uretim": "2026-10-13 23:58",
+ "uretim": "2026-10-14 00:28",
  "uretici": "motor/soru-dizini.js",
  "sinavlar": [
   {
@@ -559,8 +559,8 @@
    "uzun": "KGK Bağımsız Denetçilik Sınavı",
    "durum": "hazirlaniyor",
    "ders_sayisi": 9,
-   "acik_ders": 7,
-   "soru": 648,
+   "acik_ders": 8,
+   "soru": 675,
    "dersler": [
     {
      "ad": "Türkiye Muhasebe Standartları",
@@ -682,33 +682,46 @@
      "alt": "",
      "bolum": "ek alan — bankacılık",
      "sinav_soru": 0,
-     "soru": 6,
+     "soru": 20,
      "sayfa": "kaydir/kgk/bankacilik.html",
      "konular": [
       {
-       "ad": "sorunlu alacak yönetimi",
-       "donem": 2
+       "ad": "sermaye yeterliliği",
+       "donem": 4
       },
       {
-       "ad": "varlık yönetim şirketleri yönetmeliği",
-       "donem": 2
+       "ad": "banka bağımsız denetimi",
+       "donem": 3
       },
       {
-       "ad": "kredi işlemleri yönetmeliği kredi açma yetkisi",
-       "donem": 2
+       "ad": "banka denetim komitesi",
+       "donem": 3
       }
      ],
-     "ara": "sorunlu alacak yonetimi varlik yonetim sirketleri yonetmeligi kredi islemleri yonetmeligi kredi acma yetkisi bankacilik duzeltici onlemler genel karsilik tfrs 9 kredi islemleri yonetmeligi kredi komitesi"
+     "ara": "sorunlu alacak yonetimi varlik yonetim sirketleri yonetmeligi kredi islemleri yonetmeligi kredi acma yetkisi bankacilik duzeltici onlemler genel karsilik tfrs 9 kredi islemleri yonetmeligi kredi komitesi banka bagimsiz denetimi kredi siniflandirmasi sermaye yeterliligi banka denetim komitesi kredi sinirlari faaliyet izni kaldirilmasi mevduat katilim fonu kabulu"
     },
     {
      "ad": "Sigortacılık ve Özel Emeklilik Mevzuatı",
      "alt": "",
      "bolum": "ek alan — sigortacılık ve özel emeklilik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": [],
-     "ara": ""
+     "soru": 13,
+     "sayfa": "kaydir/kgk/sigortacilik.html",
+     "konular": [
+      {
+       "ad": "devam eden riskler karşılığı",
+       "donem": 6
+      },
+      {
+       "ad": "teknik karşılıklar",
+       "donem": 5
+      },
+      {
+       "ad": "sigorta şirketi kuruluşu",
+       "donem": 4
+      }
+     ],
+     "ara": "sigorta sirketi kurulusu guvence hesabi sigorta sozlesmesi hukumleri devam eden riskler karsiligi teknik karsiliklar broker tanimi sigorta eksperi"
     },
     {
      "ad": "Kurumsal Sürdürülebilirlik Raporlaması",
