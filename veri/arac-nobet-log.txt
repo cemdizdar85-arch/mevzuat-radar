@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261013191359
+Start time: 20261014011625
 Username: runnervmmprz5\runner
 RunAs User: runnervmmprz5\runner
 Configuration Name: 
 Machine: runnervmmprz5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/6834ea5b-d327-4056-9691-13b4a3300363.ps1'
-Process ID: 2695
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/050442a8-d8cd-4a50-b32a-ce14e604c94a.ps1'
+Process ID: 2814
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,12 +17,24 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 13-10-2026
+RG gunu      : 14-10-2026
 Kart sayisi  : 4
 Izlenen dosya: 12
 
-TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
+======================================================================
+  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
+======================================================================
+  veri/gtip-damping.json   (arac: gtip.html)
+      dayanak: Ticaret Bakanligi - Yururlukteki damping/subvansiyon onlemleri
+      hasat  : motor/damping-hasat.ps1 (yerel damping.xlsx)
+      <- Sodyum glukonata karşı kesin dampinge karşı önlem kararı yürürlüğe giriyor
+
+  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
+  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
+  -> veri/arac-uyari.json
+
+  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
 **********************
 PowerShell transcript end
-End time: 20261013191359
+End time: 20261014011625
 **********************
