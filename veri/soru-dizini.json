@@ -1,5 +1,5 @@
 {
- "uretim": "2026-10-14 02:17",
+ "uretim": "2026-10-14 02:31",
  "uretici": "motor/soru-dizini.js",
  "sinavlar": [
   {
@@ -559,8 +559,8 @@
    "uzun": "KGK Bağımsız Denetçilik Sınavı",
    "durum": "hazirlaniyor",
    "ders_sayisi": 9,
-   "acik_ders": 8,
-   "soru": 777,
+   "acik_ders": 9,
+   "soru": 793,
    "dersler": [
     {
      "ad": "Türkiye Muhasebe Standartları",
@@ -728,10 +728,23 @@
      "alt": "",
      "bolum": "ek alan — sürdürülebilirlik",
      "sinav_soru": 0,
-     "soru": 0,
-     "sayfa": null,
-     "konular": [],
-     "ara": ""
+     "soru": 16,
+     "sayfa": "kaydir/kgk/surdurulebilirlik-raporlamasi.html",
+     "konular": [
+      {
+       "ad": "tsrs 1 geçmiş dönem hatası",
+       "donem": 1
+      },
+      {
+       "ad": "tsrs 1 rehberlik kaynakları",
+       "donem": 1
+      },
+      {
+       "ad": "tsrs 1 geçiş hükümleri",
+       "donem": 1
+      }
+     ],
+     "ara": "tsrs 1 gecmis donem hatasi tsrs 1 rehberlik kaynaklari tsrs 1 gecis hukumleri sera gazi protokolu ozkaynak yaklasimi tsrs 1 baglantili bilgi tsrs 1 deger zincirinin belirlenmesi"
     },
     {
      "ad": "Sürdürülebilirlik Denetimi",
