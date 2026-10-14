@@ -248,30 +248,30 @@
     st.textContent =
       "@font-face{font-family:'TetikteKalem';font-style:normal;font-weight:600;font-display:swap;src:url('" + KOK + "kutuphane/caveat-600-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}" +
       "@font-face{font-family:'TetikteKalem';font-style:normal;font-weight:600;font-display:swap;src:url('" + KOK + "kutuphane/caveat-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}" +
-      ".czKat{position:fixed;inset:0;z-index:60;background:var(--bg);color:var(--yazi);display:flex;flex-direction:column}" +
-      ".czUst{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--cizgi);font-size:.86em;color:var(--dim);max-width:640px;width:100%;margin:0 auto;box-sizing:border-box}" +
-      ".czUst b{color:var(--yazi)}.czKapat{font:inherit;background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:9px;padding:5px 11px;cursor:pointer}" +
+      ".czKat{--cz-bg:var(--bg);--cz-yazi:var(--yazi,var(--ink));--cz-dim:var(--dim,var(--muted));--cz-cizgi:var(--cizgi,var(--line));--cz-kart:var(--kart,var(--yuzey));--cz-mavi:var(--mavi,var(--link));--cz-yesil:var(--yesil,var(--green));--cz-kirmizi:var(--kirmizi,var(--red));--cz-altin:var(--altin,var(--amber));--cz-ustYazi:var(--ustYazi,var(--taban));position:fixed;inset:0;z-index:60;background:var(--cz-bg);color:var(--cz-yazi);display:flex;flex-direction:column}" +
+      ".czUst{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--cz-cizgi);font-size:.86em;color:var(--cz-dim);max-width:640px;width:100%;margin:0 auto;box-sizing:border-box}" +
+      ".czUst b{color:var(--cz-yazi)}.czKapat{font:inherit;background:var(--cz-bg);color:var(--cz-yazi);border:1px solid var(--cz-cizgi);border-radius:9px;padding:5px 11px;cursor:pointer}" +
       ".czGovde{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch}" +
       ".czSahne{position:relative;max-width:640px;margin:0 auto;padding:12px 14px 18px;box-sizing:border-box}" +
       ".czSoru{font-size:.98em;line-height:1.6;margin:0 0 12px}" +
-      ".czSik{display:block;border:1px solid var(--cizgi);border-radius:10px;padding:7px 12px;margin:0 0 7px;background:var(--kart);font-size:.95em;line-height:1.45}" +
-      ".czSik b{display:inline-block;width:1.6em;color:var(--dim)}" +
-      ".czNot{display:block;min-height:1.5em;font-family:'TetikteKalem',cursive;font-weight:600;font-size:1.22em;line-height:1.25;color:var(--kirmizi);margin:2px 0 0 1.6em}" +
-      ".czKar{position:relative;border:1.5px dashed var(--cizgi);border-radius:12px;padding:20px 12px 10px;margin:16px 0 0;min-height:120px;" +
-        "background:repeating-linear-gradient(transparent 0 33px,color-mix(in srgb,var(--cizgi) 70%,transparent) 33px 34px);background-origin:content-box}" +
-      ".czKar .czEt{position:absolute;left:12px;top:-10px;background:var(--bg);padding:0 8px;font-size:.72em;font-weight:800;letter-spacing:.1em;color:var(--dim)}" +
-      ".czSat{text-align:left;font-family:'TetikteKalem',cursive;font-weight:600;font-size:1.42em;line-height:34px;color:var(--yazi);margin:0;word-break:break-word}" +
-      ".czSat.czYesil{color:var(--yesil)}@media(max-width:480px){.czSat{font-size:1.24em;line-height:30px}.czKar{background:repeating-linear-gradient(transparent 0 29px,color-mix(in srgb,var(--cizgi) 70%,transparent) 29px 30px);background-origin:content-box}}.czSat span{visibility:hidden}.czSat span.g{visibility:visible}" +
+      ".czSik{display:block;border:1px solid var(--cz-cizgi);border-radius:10px;padding:7px 12px;margin:0 0 7px;background:var(--cz-kart);font-size:.95em;line-height:1.45}" +
+      ".czSik b{display:inline-block;width:1.6em;color:var(--cz-dim)}" +
+      ".czNot{display:block;min-height:1.5em;font-family:'TetikteKalem',cursive;font-weight:600;font-size:1.22em;line-height:1.25;color:var(--cz-kirmizi);margin:2px 0 0 1.6em}" +
+      ".czKar{position:relative;border:1.5px dashed var(--cz-cizgi);border-radius:12px;padding:20px 12px 10px;margin:16px 0 0;min-height:120px;" +
+        "background:repeating-linear-gradient(transparent 0 33px,color-mix(in srgb,var(--cz-cizgi) 70%,transparent) 33px 34px);background-origin:content-box}" +
+      ".czKar .czEt{position:absolute;left:12px;top:-10px;background:var(--cz-bg);padding:0 8px;font-size:.72em;font-weight:800;letter-spacing:.1em;color:var(--cz-dim)}" +
+      ".czSat{text-align:left;font-family:'TetikteKalem',cursive;font-weight:600;font-size:1.42em;line-height:34px;color:var(--cz-yazi);margin:0;word-break:break-word}" +
+      ".czSat.czYesil{color:var(--cz-yesil)}@media(max-width:480px){.czSat{font-size:1.24em;line-height:30px}.czKar{background:repeating-linear-gradient(transparent 0 29px,color-mix(in srgb,var(--cz-cizgi) 70%,transparent) 29px 30px);background-origin:content-box}}.czSat span{visibility:hidden}.czSat span.g{visibility:visible}" +
       ".czNot span{visibility:hidden}.czNot span.g{visibility:visible}" +
       ".czSvg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}" +
       ".czKalem{position:absolute;width:34px;height:34px;margin:-31px 0 0 -3px;pointer-events:none;display:none}" +
-      ".czAlt{max-width:640px;width:100%;margin:0 auto;box-sizing:border-box;padding:10px 14px 4px;min-height:3.6em;font-size:.92em;line-height:1.45;font-weight:600;text-align:center;border-top:1px solid var(--cizgi)}" +
-      ".czAlt small{display:block;font-weight:500;color:var(--dim);font-size:.82em;margin-bottom:2px}" +
+      ".czAlt{max-width:640px;width:100%;margin:0 auto;box-sizing:border-box;padding:10px 14px 4px;min-height:3.6em;font-size:.92em;line-height:1.45;font-weight:600;text-align:center;border-top:1px solid var(--cz-cizgi)}" +
+      ".czAlt small{display:block;font-weight:500;color:var(--cz-dim);font-size:.82em;margin-bottom:2px}" +
       ".czAlc{flex:0 0 auto;max-width:640px;width:100%;margin:0 auto;box-sizing:border-box;display:flex;gap:8px;align-items:center;padding:6px 14px 14px}.czAlt{flex:0 0 auto}.czAlc button{white-space:nowrap}" +
-      ".czAlc button{font:inherit;font-size:.9em;border-radius:10px;padding:10px 12px;cursor:pointer;border:1px solid var(--cizgi);background:var(--bg);color:var(--yazi)}" +
-      ".czAlc .czIleri{flex:1;background:var(--mavi);color:var(--ustYazi);border:0;font-weight:800}" +
+      ".czAlc button{font:inherit;font-size:.9em;border-radius:10px;padding:10px 12px;cursor:pointer;border:1px solid var(--cz-cizgi);background:var(--cz-bg);color:var(--cz-yazi)}" +
+      ".czAlc .czIleri{flex:1;background:var(--cz-mavi);color:var(--cz-ustYazi);border:0;font-weight:800}" +
       ".czAlc .czOyna{font-weight:700}.czAlc button:disabled{opacity:.45;cursor:default}" +
-      ".czSay{font-size:.78em;color:var(--dim);min-width:3.6em;text-align:center}" +
+      ".czSay{font-size:.78em;color:var(--cz-dim);min-width:3.6em;text-align:center}" +
       ".cip2.bCiz{border-color:var(--altin);color:var(--yazi);font-weight:700}";
     document.head.appendChild(st);
   }
@@ -288,13 +288,13 @@
       + '<div class="czGovde"><div class="czSahne"><p class="czSoru">' + esc(s.soru) + '</p>'
       + Object.keys(s.siklar).sort().map(function (h) { return '<div class="czSik" data-h="' + h + '"><b>' + h + ')</b><span class="czSm">' + esc(s.siklar[h]) + '</span>' + (notH[h] ? '<span class="czNot">' + harfle(notH[h]) + '</span>' : '') + '</div>'; }).join('')
       + '<div class="czKar"><span class="czEt">KARALAMA</span>' + satirlar.map(function (a) { return a.satirlar.map(function (x) { return '<p class="czSat' + (a.son ? ' czYesil' : '') + '">' + harfle(x) + '</p>'; }).join(''); }).join('') + '</div>'
-      + '<svg class="czSvg" aria-hidden="true"></svg><svg class="czKalem" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(35 32 32)"><rect x="26" y="2" width="12" height="44" rx="3" fill="currentColor"/><rect x="26" y="8" width="12" height="5" style="fill:var(--altin)"/><polygon points="26,46 38,46 32,60" style="fill:color-mix(in srgb,var(--altin) 45%,var(--bg))"/><polygon points="30,55 34,55 32,60" fill="currentColor"/></g></svg>'
+      + '<svg class="czSvg" aria-hidden="true"></svg><svg class="czKalem" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(35 32 32)"><rect x="26" y="2" width="12" height="44" rx="3" fill="currentColor"/><rect x="26" y="8" width="12" height="5" style="fill:var(--cz-altin)"/><polygon points="26,46 38,46 32,60" style="fill:color-mix(in srgb,var(--cz-altin) 45%,var(--cz-bg))"/><polygon points="30,55 34,55 32,60" fill="currentColor"/></g></svg>'
       + '</div></div>'
       + '<div class="czAlt" aria-live="polite"></div>'
       + '<div class="czAlc"><button type="button" class="czGeri" aria-label="Önceki adım">◀</button><span class="czSay"></span><button type="button" class="czIleri">Sonraki adım ▶</button><button type="button" class="czOyna">▶ Tümünü oynat</button></div>';
     document.body.appendChild(kat);
     var sahneEl = kat.querySelector('.czSahne'), svg = kat.querySelector('.czSvg'), kalem = kat.querySelector('.czKalem'), altEl = kat.querySelector('.czAlt');
-    kalem.style.color = 'var(--yazi)';
+    kalem.style.color = 'var(--cz-yazi)';
     var N = sen.sahne.length, adim = -1, q = 1, oynat = false, raf = 0, bekle = 0, P = [];
     var tohum = 7; function r() { tohum = (tohum * 16807) % 2147483647; return tohum / 2147483647; } function j(a) { return (r() - 0.5) * a; }
     function kutu(el) { var b = el.getBoundingClientRect(), k = sahneEl.getBoundingClientRect(); return { x: b.left - k.left, y: b.top - k.top, w: b.width, h: b.height }; }
@@ -319,10 +319,10 @@
       svg.setAttribute('width', sahneEl.scrollWidth); svg.setAttribute('height', sahneEl.scrollHeight);
       var satirEl = kat.querySelectorAll('.czSat'), si = 0;
       sen.sahne.forEach(function (a, ad) {
-        if (a.tur === 'alti') { var v = kat.querySelectorAll('.czV'), n = v.length || 1; Array.prototype.forEach.call(v, function (el, k) { Array.prototype.forEach.call(el.getClientRects(), function (rc) { var kk = sahneEl.getBoundingClientRect(); altCiz({ x: rc.left - kk.left, y: rc.top - kk.top, w: rc.width, h: rc.height }, 'var(--mavi)', ad, k / n, (k + 1) / n); }); }); }
+        if (a.tur === 'alti') { var v = kat.querySelectorAll('.czV'), n = v.length || 1; Array.prototype.forEach.call(v, function (el, k) { Array.prototype.forEach.call(el.getClientRects(), function (rc) { var kk = sahneEl.getBoundingClientRect(); altCiz({ x: rc.left - kk.left, y: rc.top - kk.top, w: rc.width, h: rc.height }, 'var(--cz-mavi)', ad, k / n, (k + 1) / n); }); }); }
         else if (a.tur === 'yaz') { var nS = a.satirlar.length; a.satirlar.forEach(function (x, u) { var el = satirEl[si++]; if (el) harfler(el, ad, u / nS, (u + 1) / nS); }); }
-        else if (a.tur === 'daire') { var sk = kat.querySelector('.czSik[data-h="' + a.harf + '"]'); if (sk) { var b = kutu(sk), bm0 = kutu(sk.querySelector('.czSm')); var bd = { x: b.x, y: b.y, w: Math.min(b.w, bm0.x + bm0.w - b.x + 56), h: b.h }; daire(bd, 'var(--yesil)', ad, 0, 0.75); tik(bd, 'var(--yesil)', ad, 0.75, 1); }   /* yuvarlak şık metnini sarar, sahneden taşmaz */ }
-        else if (a.tur === 'karala') { var sk2 = kat.querySelector('.czSik[data-h="' + a.harf + '"]'); if (sk2) { var sm = sk2.querySelector('.czSm'), b2 = kutu(sk2), bm = kutu(sm); karala({ x: b2.x, y: b2.y, w: Math.max(bm.x + bm.w - b2.x + 16, 120), h: bm.y + bm.h - b2.y + 6 }, 'var(--kirmizi)', ad, 0, a.not ? 0.4 : 1); var ne = sk2.querySelector('.czNot'); if (ne) harfler(ne, ad, 0.4, 1); } }
+        else if (a.tur === 'daire') { var sk = kat.querySelector('.czSik[data-h="' + a.harf + '"]'); if (sk) { var b = kutu(sk), bm0 = kutu(sk.querySelector('.czSm')); var bd = { x: b.x, y: b.y, w: Math.min(b.w, bm0.x + bm0.w - b.x + 56), h: b.h }; daire(bd, 'var(--cz-yesil)', ad, 0, 0.75); tik(bd, 'var(--cz-yesil)', ad, 0.75, 1); }   /* yuvarlak şık metnini sarar, sahneden taşmaz */ }
+        else if (a.tur === 'karala') { var sk2 = kat.querySelector('.czSik[data-h="' + a.harf + '"]'); if (sk2) { var sm = sk2.querySelector('.czSm'), b2 = kutu(sk2), bm = kutu(sm); karala({ x: b2.x, y: b2.y, w: Math.max(bm.x + bm.w - b2.x + 16, 120), h: bm.y + bm.h - b2.y + 6 }, 'var(--cz-kirmizi)', ad, 0, a.not ? 0.4 : 1); var ne = sk2.querySelector('.czNot'); if (ne) harfler(ne, ad, 0.4, 1); } }
       });
     }
     function ciz() {

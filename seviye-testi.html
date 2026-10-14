@@ -270,6 +270,8 @@
     <!-- 05.10 Cem ("30 soruyu çözen bizim anlatımımızı görmeyecek, en iyi olduğumuz yer"): ilk 3 yanlışın Nöbetçi anlatımı, ücretsiz.
          Veri rpc/seviye_aciklama (yalnız ücretsiz soru, kalite dışlananlar hariç; radar-app/sql/2026-10-05-seviye-aciklama.sql). -->
     <div id="svNobetci" hidden></div>
+    <!-- 14.10 Cem ("1.2.3", ücretsiz tadım): testteki EN ÇOK 1 soruda "Nöbetçi çizerek çözsün" (cizerek-coz.js + rpc/seviye_cizim) -->
+    <div class="sv-kutu" id="svCizim" hidden></div>
     <div class="sv-kutu" id="svTeklif">
       <h2 id="svTeklifBaslik">Tam bankayı aç</h2>
       <p class="sv-alt" id="svTeklifMetin" style="margin:0 0 12px"></p>
@@ -335,6 +337,7 @@
 <script>/* 13.10 KGK açılış hazırlığı: sonuç formundaki sınav seçeneği içerik açılınca görünür (uye-durumu.js SINAVLAR.kgk.icerik) */
 try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icerik){ var o=document.getElementById('svSinavKgk'); if(o){ o.hidden=false; o.disabled=false; } } }catch(e){}</script>
 <script src="kutu-esitle.js"></script>
+<script src="cizerek-coz.js?v=2"></script>
 <script>
 (function(){
   'use strict';
@@ -745,6 +748,25 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
       kap.innerHTML=h; kap.hidden=false; say('nobetci-anlatti');
     }).catch(function(){ kap.hidden=true; });
   }
+  /* 14.10 ÇİZEREK ÇÖZ TADIMI (Cem "1.2.3"): testteki soru kimlikleri gider, sunucu izin listesindeki İLK sorunun çizim verisini
+     verir (en çok 1). Kapı (rakam/aritmetik, cizerek-coz.js) tarayıcıda yeniden koşar; geçmezse ya da veri gelmezse kart gizli
+     kalır (sessiz). Yeterlilik: smmm-4k-a-fmuh-zor-r5/kp-03 (set sabit). SGS: testi her adayda farklı → testteki ilk pilot sorusu. */
+  function cizimTadim(){
+    var kap=$('svCizim'); if(!kap||!window.CizerekCoz||!CEVAPLAR.length) return;
+    fetch(SB+'/rest/v1/rpc/seviye_cizim',{ method:'POST', headers:{'Content-Type':'application/json',apikey:KEY,Authorization:'Bearer '+KEY},
+      body:JSON.stringify({ p_idler:CEVAPLAR.map(function(c){ return c.id; }).slice(0,40) }) }).then(function(r){ return r.ok?r.json():null; }).then(function(j){
+      var s=j&&j.soru; if(!s||!s.id) return;
+      var kp=window.CizerekCoz.cizerekKapi(s); if(!kp.gecer) return;
+      var c=CEVAPLAR.filter(function(x){ return x.id===s.id; })[0]||{};
+      var durum=c.dogru?'doğru yaptığın':(c.secim?'yanlış yaptığın':'boş geçtiğin');
+      kap.innerHTML='<h2 style="margin:0 0 6px">✍️ Nöbetçi bu soruyu kalemle çözsün</h2>'
+        +'<p class="sv-alt" style="margin:0 0 12px">Testte '+durum+' '+esc(String(c.ders||'').split('|')[0])+' sorusunu Nöbetçi adım adım çizerek çözüyor: verilenlerin altını çizer, hesabı karalamaya yazar, doğru şıkkı yuvarlar, yanlış şıkları nedeniyle eler. Ücretsiz tadım: bu testte yalnız bu soruda açık.</p>'
+        +'<button type="button" class="sv-btn ana" id="svCizimAc">✍️ Nöbetçi çizerek çözsün</button>';
+      kap.hidden=false;
+      $('svCizimAc').addEventListener('click',function(){ window.CizerekCoz.ac(s,kp.senaryo); say('cizim/ac'); });
+      say('cizim/gor');
+    }).catch(function(){});
+  }
   function sonucCizYet(){
     var g=SONUC.gecme, sinif=g>=70?'yuksek':g>=40?'orta':'dusuk', liste=SONUC.gruplar;
     $('svKunyeSonuc').textContent='Yeterlilik · geçme ihtimalin';
@@ -789,7 +811,7 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
     $('svTeklifIkinci').textContent='Günün sorusunu çöz'; $('svTeklifIkinci').setAttribute('href','index.html?sinav=yeterlilik#ekran');   /* 07.10: 10 soruluk vitrin yerine günün sorusu */
     $('svYollar').innerHTML='<a class="sv-btn" href="ogrenci.html" style="text-decoration:none">Sonucunu kaydet, gelişimini gör →</a>';
     $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'boş')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+'<div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>';
-    $('nasil').hidden=true; $('nasilYet').hidden=false; try{ nobetciCiz(); }catch(e){}
+    $('nasil').hidden=true; $('nasilYet').hidden=false; try{ nobetciCiz(); }catch(e){} try{ cizimTadim(); }catch(e){}
     goster('svSonuc');
     try{ nedenCiz(liste); }catch(e){}
     anlikTeklifYet(liste);
@@ -987,7 +1009,7 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
       +'<a class="sv-btn" href="sinav-gibi.html" style="text-decoration:none">Paketin varsa: sınav gibi çöz (130 soru)</a>';
     /* 13.09 öğrenci kapısı: üye olmayanın sonucu yalnız bu cihazda - hesap açınca ogrenci.html kendisi aktarır */
     $('svYollar').innerHTML=yollar;
-    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>'; try{ nobetciCiz(); }catch(e){}
+    $('svYanlislar').innerHTML=y.length?y.map(function(c){ return '<div class="sv-yanlis">'+esc(c.ders)+' · '+(c.secim?'yanlış':'bilmiyorum')+' · doğrusu '+esc(c.dogruHarf)+(c.dogruMetin?') '+esc(c.dogruMetin.length>90?c.dogruMetin.slice(0,87)+'…':c.dogruMetin):'')+' &nbsp; <a href="'+esc(c.sayfa)+'#s='+c.sira+'" target="_blank" rel="noopener">Nöbetçi anlatsın (pakette) →</a><div class="sv-not" style="margin:4px 0 0">'+esc(c.soru.length>160?c.soru.slice(0,157)+'…':c.soru)+'</div></div>'; }).join(''):'<p class="sv-alt">Hepsini bildin.</p>'; try{ nobetciCiz(); }catch(e){} try{ cizimTadim(); }catch(e){}
     goster('svSonuc');
   }
 
