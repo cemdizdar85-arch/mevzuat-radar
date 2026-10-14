@@ -452,6 +452,12 @@ jobs:
               kabuk: bash, komut: "node arac/elci-tutar-kapisi.js --sinav" }
           - { ad: "KAPI-ET elci tutarlari GERCEK DEPO",
               kabuk: bash, komut: "node arac/elci-tutar-kapisi.js" }
+          # 14.10.2026 - KAPI-CZ "Nobetci cizerek cozsun" (cizerek-coz.js cizerekKapi): cizimde yazilan sayi sorunun kendi
+          # alanlarinda yoksa / "a op b = c" tutmuyorsa / dogru sikka varmiyorsa / sozelse dugme CIKMAZ. 16 vaka (uydurma soru);
+          # mutasyonla olculdu: rakam / aritmetik / dogru / sozel / hesapkodu / altyazi kapatilinca 6/6 KIRMIZI.
+          # GORMEZ: sozel kusur, adim sirasi, birimli ifade ("5 kilogram x 18 TL/kilogram"), kelimeli islem ("3 Mart + 10 gun").
+          - { ad: "KAPI-CZ cizerek cozum rakam kapisi OZ-SINAVI (mutasyonlu)",
+              kabuk: bash, komut: "node arac/cizerek-coz-kapisi.js --sinav --mutasyon" }
 
           # 27.09.2026 - Yayin bekcisi karar mantigi (arac/yayin-bekcisi.js): basimdan sonra basarili yayin yoksa KIRMIZI.
           # 7 vaka (26.09 gecesinin iptal/atlandi/dusen deseni dahil). Mutasyonla olculdu: 'success' sarti gevsetilince 1/7,
