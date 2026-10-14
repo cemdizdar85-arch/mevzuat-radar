@@ -1,6 +1,6 @@
 # TOPLU KUYRUK HIZI — gönderildiği saate göre bekleme
 
-> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-14 12:14 · son 7 gün · biten parti 1584 · bedel 0
+> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-14 17:28 · son 7 gün · biten parti 1375 · bedel 0
 > Kaynak: Anthropic toplu parti kaydı (created_at → ended_at). Saat = partinin gönderildiği **TR** saati.
 > 🚫 Parti büyüklüğünü ayırmaz; yalnız bizim hesabımızın partilerine bakar.
 
@@ -21,18 +21,18 @@
 | 12:00 | 11 | 220 | 2 | 9 | 9 |
 | 13:00 | 31 | 495 | 2 | 5 | 9 |
 | 14:00 | 14 | 284 | 2 | 6 | 9 |
-| 15:00 | 85 | 294 | 2 | 3 | 9 |
-| 16:00 | 83 | 257 | 2 | 5 | 118 |
-| 17:00 | 62 | 375 | 2 | 3 | 78 |
-| 18:00 | 12 | 240 | 2 | 8 | 9 |
-| 19:00 | 17 | 274 | 2 | 6 | 9 |
-| 20:00 | 77 | 540 | 2 | 15 | 209 |
+| 15:00 | 12 | 240 | 2 | 7 | 9 |
+| 16:00 | 8 | 160 | 2 | 7 | 9 |
+| 17:00 | 6 | 120 | 2 | 3 | 14 |
+| 18:00 | 10 | 200 | 2 | 9 | 9 |
+| 19:00 | 15 | 234 | 2 | 3 | 9 |
+| 20:00 | 76 | 520 | 2 | 15 | 209 |
 | 21:00 | 31 | 304 | 2 | 4 | 9 |
 | 22:00 | 43 | 407 | 2 | 6 | 81 |
 | 23:00 | 128 | 906 | 3 | 10 | 308 |
 
-**Son 24 saat:** biten parti 607 · medyan 2 dk · %90 3 dk · **şu an bekleyen 0 parti, en eskisi 0 dk** (liste sınırı: son 60 sayfa)
+**Son 24 saat:** biten parti 570 · medyan 2 dk · %90 3 dk · **şu an bekleyen 0 parti, en eskisi 0 dk** (liste sınırı: son 60 sayfa)
 **Kuyruk durumu: NORMAL**
-**Genel:** medyan 2 dk · %90 4 dk · parti 1584
+**Genel:** medyan 2 dk · %90 4 dk · parti 1375
 
 Kural koymak için: bir saat diliminin medyanı ötekilerden **belirgin ve birkaç gün üst üste** düşükse o saat "tercih" olur. Tek gecelik veri kural değildir.
