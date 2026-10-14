@@ -107,7 +107,8 @@ html body .kah-alt .btn{white-space:normal;max-width:100%}
 @media(max-width:980px){
   .kah > .ic{gap:0} .kah{padding-top:20px}
   .kah > .ic > div:first-child{display:contents}
-  .kah h1{order:1;margin-bottom:14px}
+  .kah .kah-ust,.kah h1{order:1}
+  .kah h1{margin-bottom:14px}
   /* 13.10 (Cem "telefonda iyi değiliz"; ig 11–13.10: 5.841 ziyaret → 41 kişi 5 soruyu açtı, %0,7): ölçüm 375x812 - kart
      348–770. pikselde ekranın ortasını kaplıyor, içi kaydırılabilir + overscroll:contain olduğu için kartın üstünde kaydıran
      parmak SAYFAYI kaydıramıyordu; "5 soru çöz" 863. pikselde, ekran dışında. Düğmeler karttan önce gelir, kart parmağı tutmaz. */
@@ -136,6 +137,14 @@ h1 em{font-style:normal;color:var(--amber)}
 /* 08.10 Cem ("telefonda güzel görünmüyor"): 390 px'te ad ile tarih yan yana sığmıyor, ikisi de iki satıra kırılıyordu -> alt alta */
 @media(max-width:560px){ .sinav{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:12px 18px;font-size:18px} .sinav small{text-align:left;font-size:13.5px} }
 .kah-alt{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+/* 14.10: üst satır (seçili sınav · gün · kalan gün) ve tek düğmenin yanındaki iki yazı bağlantısı */
+.kah-ust{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 12px;font-size:15.5px;font-weight:750;color:var(--ink)}
+.kah-ust b{color:var(--amber)}
+.kah-ust b:empty{display:none}
+html body .kah-ust a{font-size:14px;font-weight:600;color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px}
+html body .kah-alt .kah-link{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;font-weight:700;font-size:15.5px;color:var(--ink)!important;text-decoration:underline;text-underline-offset:4px}
+.kah-alt .kah-link[hidden]{display:none!important}
+@media(min-width:981px){ #kahUstDegis{display:none} }   /* bilgisayarda sınav seçimi zaten aynı sütunda, hemen altta */
 .durum{font-size:14.5px;color:var(--dim);margin-top:12px;max-width:460px}
 .durum b{color:var(--ink)}
 .durum a{color:var(--amber);font-weight:700;text-decoration:none}
@@ -314,14 +323,17 @@ footer p{margin:0 0 8px}
 <section class="kah">
   <div class="ic">
     <div>
-      <h1>Yanlışını, sebebiyle birlikte öğren<em>.</em></h1>
-      <!-- 05.10 Cem "A yapalım": alt satır başlığı tekrar ediyordu → yöntemin bilimsel dayanağı. İddia YÖNTEM için
-           (test etkisi; kaynaklar aşağıda #bizBas), ürün başarısı için değil; "en iyi / kanıtlanmış" denmez. -->
-      <p class="alt">Konuyu okuyarak değil, soru çözerek öğren. Araştırmalar bunun daha kalıcı olduğunu gösteriyor; bilimde adı <a href="#bizBas" style="color:inherit"><i>test etkisi</i></a>. Her yanlışında nedeni ve dayandığı madde yanında.</p>
+      <!-- 14.10 Cem ("kendimizi yanlış anlatıyoruz", "1 yap"): telefonda ilk ekranda "SMMM" kelimesi de sınav tarihi de yoktu;
+           Instagram'dan gelen 2 saniyede neyin sitesinde olduğunu anlamıyordu (ig 11-13.10: 5.841 ziyaret → 41 örnek, Google %34 teste).
+           Üst satır seçili sınavı + günü + kalan günü söyler (dugmeCiz kahUstCiz); başlık kimin için olduğunu söyler.
+           Test etkisi paragrafı aşağıda "Neden soruyla başlıyoruz?" bölümünde aynen duruyor. -->
+      <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
+      <h1>SMMM sınavına soru çözerek hazırlan<em>.</em></h1>
+      <p class="alt">Her yanlışında neden yanlış olduğunu ve dayandığı maddeyi hemen görürsün. Çıkmış sınavlarda en sık sorulan konulardan.</p>
       <p class="secim-bas" id="secimBas">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas">
-        <button class="sinav" type="button" data-sinav="sgs" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
-        <button class="sinav" type="button" data-sinav="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
         <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
              (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
              edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
@@ -329,13 +341,14 @@ footer p{margin:0 0 8px}
         <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
       </div>
       <div class="kah-alt">
-        <a class="btn btn-vurgu" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 soru çöz, Nöbetçi anlatsın</a>
-        <a class="btn btn-ikinci" id="cta2" href="fiyat.html">Paketleri gör</a>
+        <a class="btn btn-vurgu" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
         <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
-             11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu düğme 30 soruluk ölçüm (dugmeCiz) -->
-        <a class="btn btn-ikinci" id="cta3" href="seviye-testi.html">30 soruda seviyeni ölç</a>
+             11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu düğme 30 soruluk ölçüm (dugmeCiz)
+             14.10: tek büyük düğme; öteki iki yol yazı bağlantısı (ilk ekranda 5 çağrı vardı: şerit, menü düğmesi, üç büyük düğme) -->
+        <a class="kah-link" id="cta3" href="seviye-testi.html">30 soruda seviyeni ölç</a>
+        <a class="kah-link" id="cta2" href="fiyat.html">Paketleri gör</a>
       </div>
-      <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevabından hemen sonra Nöbetçi tuzağı ve doğrusunu anlatır.</p>
+      <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
       <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
     </div>
 
@@ -494,8 +507,18 @@ footer p{margin:0 0 8px}
     window.addEventListener('load',function(){ if(u&&!s.hidden) u.hidden=true; });   /* uygulama-indir.js (defer) Android şeridini sonradan açabilir */
     var k=s.querySelector('[data-kapat]'); if(k) k.onclick=function(){ s.hidden=true; try{ localStorage.setItem('tt_prova_serit','1'); }catch(e){} };
   }
+  /* 14.10: kahraman üst satırı seçili sınavın adını, gününü (sınav düğmesinin data-tarih'i) ve Türkiye gününe göre kalan günü yazar. */
+  function kahUstCiz(){
+    var b=document.querySelector('.sinav[data-sinav="'+secili+'"]'), ad=$('kahUstAd'), gun=$('kahUstGun'); if(!b||!ad||!gun) return;
+    var t=b.getAttribute('data-tarih')||'', isim=(b.firstChild&&b.firstChild.nodeValue||'').trim();
+    gun.textContent='';
+    if(!t){ ad.textContent=isim; return; }
+    var p=t.split('-'); ad.textContent=isim+' · '+(+p[2])+' '+['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'][p[1]-1]+' '+p[0];
+    try{ var bg=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}), k=Math.round((Date.parse(t+'T00:00:00Z')-Date.parse(bg+'T00:00:00Z'))/864e5);
+      if(k>0) gun.textContent=k+' gün kaldı'; else if(k===0) gun.textContent='Sınav bugün'; }catch(e){}
+  }
   function dugmeCiz(){
-    provaSerit();
+    provaSerit(); kahUstCiz();
     var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
@@ -529,14 +552,15 @@ footer p{margin:0 0 8px}
       /* 13.10 Cem "1.2.3" (Instagram okuması): reklamlı 4 gönderinin 4'ü "30 soruda seviyeni ücretsiz ölç" diyor; site 11.10'dan beri
          ilk düğmede 5 soru gösteriyordu → reklamdan gelen aradığını bulamadı (ig 5.841 ziyaret → 41 örnek). Sosyal etiketle (?k=ig,
          ig2, meta, instagram, fb…) gelene ilk düğme 30 soru, ikinci 5 soru; öteki gelenlerde sıra 11.10'daki gibi. */
-      if(sosyalGelen()){ c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc; c3.textContent='5 soru çöz, Nöbetçi anlatsın'; c3.href=ornek; }
-      else { c1.textContent='5 soru çöz, Nöbetçi anlatsın'; c1.href=ornek; c3.textContent='30 soruda seviyeni ölç'; c3.href=S.olc; }
+      /* 14.10 Cem ("kendimizi yanlış anlatıyoruz"): ilk ekranda "Nöbetçi" adı yok - yeni gelen için anlamsız; adı kartta ve içeride. */
+      if(sosyalGelen()){ c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc; c3.textContent='ya da 5 örnek soru çöz'; c3.href=ornek; }
+      else { c1.textContent='5 örnek soru çöz'; c1.href=ornek; c3.textContent='30 soruda seviyeni ölç'; c3.href=S.olc; }
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
       c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
       /* 05.10 Cem ('30 soru çöz altında sınavdaki seviyeni gör desem'): alt satır testin SONUCUNU söyler (ekranda gerçekten çıkan iki şey).
          Süre seviye-testi.html'de yazar; ana sayfada süre işi zahmetli gösteriyordu. */
-      du.innerHTML='Ücretsiz, üye olmadan · Her cevabından hemen sonra Nöbetçi tuzağı ve doğrusunu anlatır.';
+      du.innerHTML='Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.';
     }
     try{ if(FIYAT.sgs) $('abonelikMetin').textContent='Sınavına kadar bütün soru bankası, Nöbetçi ve deneme setleri. Staja Giriş '+fiyatAna('sgs',FIYAT.sgs.kurulus)+'.'; }catch(e){}
     /* 07.10 Cem ("1 yap"): "neler var" kartları seçili sınava göre - Yeterlilik'te deneme = deneme.html Birebir Prova (gerçek 2026 düzeni),
