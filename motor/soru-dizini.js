@@ -98,6 +98,13 @@ function icerikHazir() {
   } catch (e) { return null; }
 }
 const HAZIR_ANAHTAR = { sgs: 'sgs', smmm: 'yeterlilik', kgk: 'kgk' };
+// 14.10.2026 (site kolu; Cem 13.10 "HERŞEY TAMAM": 30 sorunun altındaki modül kilitli, kasa dolunca açılır; KGK kolu 14.10 aynı öneri).
+// Eşiğin altındaki dersin sayfası dizine YAZILMAZ (sayfa:null, esik_alti:<yol>) -> sorular.html "Hazırlanıyor", arama (komut.js),
+// "Şimdi bunu yap" (calisma-ozet.js), Hesabım modül kartı (ogrenci.html) onu görmez. Sayfa diskte ve kasada durur; paketli üye
+// adresle açarsa paket-kapisi.js açar (içerik gerçek, yalnız az). Yalnız KGK: SGS/Yeterlilik derslerinin en küçüğü 13.10'da 137.
+// Kasa yayını soru-dizini.js'i koştuğu için (kgk-kasa-yayin.yml, 97b7ee17) modül eşiği geçince kendiliğinden açılır.
+// 🚫 GÖRMEZ: modülün soru SAYISI dışında kalitesini/konu kapsamını; sinav_soru payı olan dersi de aynı ölçüyle kilitler.
+const ASGARI_DERS_SORU = { kgk: process.env.SD_MUTASYON === 'esik' ? 0 : 30 };
 // Sınav tablosundaki uzun ad ("Hukuk (Ticaret H., …)", "a) Türkiye …", "Muhasebecilik ve Mali Müşavirlik Meslek Hukuku")
 // ile sayfadaki kısa ders adı: önce birebir, sonra parantezsiz ad, sonra KELİME SINIRINDA önek/sonek.
 function dersEsle(sayfalar, dersAd) {
@@ -171,15 +178,21 @@ for (const S of SINAVLAR) {
       /* 04.10: site araması (komut.js) ders sayfasını konu adıyla bulsun -> katlanmış konu adları, ders başına en çok 120 */
       ara = [...enCok.keys()].slice(0, 120).join(' ');
     }
-    return {
+    const soruSay = sayfa ? sayfa.sorular.length : 0;
+    const esik = ASGARI_DERS_SORU[S.kod] || 0;
+    const altinda = !!(sayfa && soruSay < esik);
+    if (altinda) rapor.push(`  ${S.tek}: "${ad}" ${soruSay} soru < ${esik} -> Hazırlanıyor (sayfa dizine yazılmadı: ${sayfa.dosya})`);
+    const satir = {
       ad, alt,
       bolum: BOLUM_AD[katla(d.bolum)] || d.bolum || '',
       sinav_soru: +d.sinav_soru || 0,
-      soru: sayfa ? sayfa.sorular.length : 0,
-      sayfa: sayfa ? sayfa.dosya : null,
-      konular,
-      ara
+      soru: soruSay,
+      sayfa: sayfa && !altinda ? sayfa.dosya : null,
+      konular: altinda ? [] : konular,
+      ara: altinda ? '' : ara
     };
+    if (altinda) satir.esik_alti = sayfa.dosya;
+    return satir;
   });
   const soru = dersler.reduce((t, d) => t + d.soru, 0);
   const acikDers = dersler.filter(d => d.sayfa).length;
@@ -205,6 +218,8 @@ if (!sgs || sgs.durum !== 'acik') hatalar.push('SGS açık değil - kaydir/sgs o
 for (const s of cikti.sinavlar) for (const d of s.dersler) {
   if (d.sayfa && !fs.existsSync(path.join(KOK, d.sayfa))) hatalar.push(`sayfa yok: ${d.sayfa}`);
   if (d.sayfa && d.soru === 0) hatalar.push(`sayfası var ama soru 0: ${d.ad}`);
+  // 14.10 eşik kapısı (sabit 30, ASGARI_DERS_SORU'dan BAĞIMSIZ: eşik sıfırlanırsa/bozulursa dizin yazılmaz; mutasyon SD_MUTASYON=esik)
+  if (s.kod === 'kgk' && d.sayfa && d.soru < 30) hatalar.push(`KGK modülü 30 sorunun altında ama açık: ${d.ad} (${d.soru})`);
 }
 if (hatalar.length) { console.log('  KIRMIZI - dizin YAZILMADI:'); hatalar.forEach(h => console.log('   · ' + h)); process.exit(1); }
 if (KURU) { console.log('  kuru koşu - dosyaya YAZILMADI.'); process.exit(0); }
