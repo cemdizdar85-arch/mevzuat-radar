@@ -68,6 +68,7 @@ function etiketler(liste) {
 function onde() {   // uygulama önde mi (geri tuşu ya da dış bağlantı uygulamadan çıkarmış olabilir)
   try { return /mCurrentFocus=.*com\.tetikte\.app/.test(adb(['shell', 'dumpsys', 'window'])); } catch (e) { return false; }
 }
+function surec() { try { return adb(['shell', 'pidof', PAKET]).trim() || 'yok'; } catch (e) { return 'yok'; } }
 function oneGetir() { if (!onde()) { adb(['shell', 'monkey', '-p', PAKET, '-c', 'android.intent.category.LAUNCHER', '1']); bekle(4000); } }
 function imza(liste) { return liste.map((d) => ad(d) + '@' + d.x + ',' + d.y).join(';'); }
 function bul(liste, desen) { return liste.find((d) => desen.test(ad(d)) && d.w > 0 && d.h > 0); }
@@ -93,12 +94,13 @@ adb(['shell', 'monkey', '-p', PAKET, '-c', 'android.intent.category.LAUNCHER', '
      gizli ana sayfayı veriyor → tanıtım ekran görüntüsüyle ve konumla geçilir: Başla (alt orta) → SGS kartı (üstten %37)
      → sonraki sayfalarda alttaki ana düğme. Her dokunuştan sonra ekran değişmeli; değişmiyorsa uygulama tepki vermiyor. */
   const [W, H] = adb(['shell', 'wm', 'size']).match(/(\d+)x(\d+)/).slice(1).map(Number);
-  const adimlar = [['Başla', 0.5, 0.925], ['SGS kartı', 0.5, 0.372], ['ileri 2', 0.5, 0.925], ['ileri 3', 0.5, 0.925], ['ileri 4', 0.5, 0.925]];
+  /* 02/03 "Günlük temponu seç": kart seçilir (20 soru, sağ üst). 03/03 ölçülmedi: önce üst kart, sonra alt düğme denenir. */
+  const adimlar = [['Başla', 0.5, 0.925], ['SGS kartı', 0.5, 0.372], ['tempo 20', 0.75, 0.35], ['3 ust kart', 0.5, 0.372], ['3 alt dugme', 0.5, 0.925], ['3 alt dugme 2', 0.5, 0.90]];
   for (const [ad_, x, y] of adimlar) {
     const once = ekranImza();
     adb(['shell', 'input', 'tap', String(Math.round(W * x)), String(Math.round(H * y))]); bekle(3000);
     const sonra = ekranImza(); goruntu('tanitim-' + ad_.replace(/\W+/g, ''));
-    console.log('BILGI tanıtım ' + ad_ + ': ekran ' + (sonra !== once ? 'değişti' : 'AYNI'));
+    console.log('BILGI tanıtım ' + ad_ + ': ekran ' + (sonra !== once ? 'değişti' : 'AYNI') + ' · önde ' + onde() + ' · süreç ' + surec());
   }
   const g2 = dokum();
   sonuc('tanıtımdan sonra alt menü (Sınavlar + Karnem) görünür', !!(bul(g2, /^Sınavlar$/) && bul(g2, /^Karnem$/)), etiketler(g2));
@@ -110,6 +112,7 @@ for (const sekme of ['Bugün', 'Sınavlar', 'Karnem', 'Hesap']) {
   if (!d) { sonuc('sekme ' + sekme, false, 'bulunamadı'); continue; }
   const once = ekranImza(); dokun(d); bekle(2500);
   const l2 = dokum(); goruntu('sekme-' + sekme.toLowerCase().replace('ü', 'u').replace('ı', 'i'));
+  console.log('BILGI sekme ' + sekme + ' dokunuş ' + d.x + ',' + d.y + ' · önde ' + onde() + ' · süreç ' + surec());
   // ilk sekme (Bugün) zaten açık olabilir; ötekilerde EKRAN (döküm değil) değişmeli
   sonuc('sekme ' + sekme + ' açıldı', sekme === 'Bugün' || ekranImza() !== once, l2.length + ' düğüm · ' + etiketler(l2));
 }
