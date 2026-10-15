@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261014195057
-Username: runnervm8k3b6\runner
-RunAs User: runnervm8k3b6\runner
+Start time: 20261015043955
+Username: runnervmmprz5\runner
+RunAs User: runnervmmprz5\runner
 Configuration Name: 
-Machine: runnervm8k3b6 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5e6aff75-3203-4e75-8f5b-ee660af23561.ps1'
-Process ID: 11398
+Machine: runnervmmprz5 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/cfe5d6ea-eb2f-45e2-b71f-ebd951b42acd.ps1'
+Process ID: 11460
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -19,6 +19,11 @@ WSManStackVersion: 3.0
 **********************
 Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...10/172
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
   ...20/172
   ...30/172
   ...40/172
@@ -35,14 +40,19 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 172
+  gercekten olculen (PDF geldi) : 167
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 0
+  inemeyen (istek dustu)        : 5
+     11001 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     11002 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     11147 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     11183 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     11184 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 167 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20261014202413
+End time: 20261015052348
 **********************
