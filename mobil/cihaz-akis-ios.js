@@ -161,7 +161,7 @@ async function kartDugmesi(desen, dugme) {
   const s = await wd('POST', '', { capabilities: { alwaysMatch: {
     platformName: 'iOS', 'appium:automationName': 'XCUITest', 'appium:udid': process.env.UDID, 'appium:bundleId': PAKET,
     'appium:noReset': true, 'appium:showSafariConsoleLog': true, 'appium:webviewConnectTimeout': 30000,
-    'appium:wdaLaunchTimeout': 600000, 'appium:newCommandTimeout': 600, 'appium:includeSafariInWebviews': false } } });
+    'appium:wdaLaunchTimeout': 600000, 'appium:simulatorStartupTimeout': 600000, 'appium:newCommandTimeout': 600, 'appium:includeSafariInWebviews': false } } });
   OTURUM = s.sessionId;
   await bekle(6000);
   if (!(await webBul())) { console.log('WEBVIEW BAGLAMI YOK (prova derlemesinde ios.webContentsDebuggingEnabled acik mi?)'); process.exit(2); }
