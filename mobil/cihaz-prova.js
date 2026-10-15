@@ -28,6 +28,10 @@ function adb(args, opt) { return execFileSync('adb', args, Object.assign({ encod
 function bekle(ms) { Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms); }
 function sonuc(ad, tamam, not) { sonuclar.push({ ad, tamam }); console.log((tamam ? 'GECTI ' : 'DUSTU ') + ad + (not ? '  — ' + not : '')); }
 
+function ekranImza() {   // dökümden bağımsız: ekranın kendisi değişti mi (saat çubuğu hariç alt %94)
+  const png = execFileSync('adb', ['exec-out', 'screencap'], { maxBuffer: 64 << 20 });   // ham RGBA, başlık 16 bayt
+  return require('crypto').createHash('sha1').update(png.subarray(Math.floor(png.length * 0.06))).digest('hex');
+}
 function goruntu(ad) {
   const dosya = path.join(KANIT, String(++sira).padStart(2, '0') + '-' + ad + '.png');
   fs.writeFileSync(dosya, execFileSync('adb', ['exec-out', 'screencap', '-p'], { maxBuffer: 64 << 20 }));
@@ -85,13 +89,16 @@ adb(['shell', 'monkey', '-p', PAKET, '-c', 'android.intent.category.LAUNCHER', '
   const { d, l } = bekleBul(/^(Sınavlar|Bugün|Giriş yap|Hesap aç|Devam|Başla)$/, 60);
   goruntu('acilis');
   sonuc('açılış ekranı 60 sn içinde geldi', !!d, 'etiketler: ' + etiketler(l));
-  // ilk açılış tanıtımı (01/03 …): Başla → SGS seç → Devam/Atla; alt menü (Sınavlar) görünene kadar en çok 6 adım
-  for (let i = 0; i < 6; i++) {
-    const g = dokum();
-    if (bul(g, /^Sınavlar$/) && bul(g, /^Karnem$/)) break;
-    const ileri = bul(g, /^SGS · Staja Giriş$/) || bul(g, /^(Devam|Devam et|Atla|Geç|Başla)$/);
-    if (!ileri) break;
-    dokun(ileri); bekle(3000); goruntu('tanitim-' + (i + 1));
+  /* ilk açılış tanıtımı (15.10 ikinci koşu ölçümü): tanıtım katmanının kartları uiautomator dökümünde YOK, döküm arkadaki
+     gizli ana sayfayı veriyor → tanıtım ekran görüntüsüyle ve konumla geçilir: Başla (alt orta) → SGS kartı (üstten %37)
+     → sonraki sayfalarda alttaki ana düğme. Her dokunuştan sonra ekran değişmeli; değişmiyorsa uygulama tepki vermiyor. */
+  const [W, H] = adb(['shell', 'wm', 'size']).match(/(\d+)x(\d+)/).slice(1).map(Number);
+  const adimlar = [['Başla', 0.5, 0.925], ['SGS kartı', 0.5, 0.372], ['ileri 2', 0.5, 0.925], ['ileri 3', 0.5, 0.925], ['ileri 4', 0.5, 0.925]];
+  for (const [ad_, x, y] of adimlar) {
+    const once = ekranImza();
+    adb(['shell', 'input', 'tap', String(Math.round(W * x)), String(Math.round(H * y))]); bekle(3000);
+    const sonra = ekranImza(); goruntu('tanitim-' + ad_.replace(/\W+/g, ''));
+    console.log('BILGI tanıtım ' + ad_ + ': ekran ' + (sonra !== once ? 'değişti' : 'AYNI'));
   }
   const g2 = dokum();
   sonuc('tanıtımdan sonra alt menü (Sınavlar + Karnem) görünür', !!(bul(g2, /^Sınavlar$/) && bul(g2, /^Karnem$/)), etiketler(g2));
@@ -101,10 +108,10 @@ adb(['shell', 'monkey', '-p', PAKET, '-c', 'android.intent.category.LAUNCHER', '
 for (const sekme of ['Bugün', 'Sınavlar', 'Karnem', 'Hesap']) {
   const l = dokum(); const d = bul(l, new RegExp('^' + sekme + '$'));
   if (!d) { sonuc('sekme ' + sekme, false, 'bulunamadı'); continue; }
-  const once = imza(l); dokun(d); bekle(2500);
+  const once = ekranImza(); dokun(d); bekle(2500);
   const l2 = dokum(); goruntu('sekme-' + sekme.toLowerCase().replace('ü', 'u').replace('ı', 'i'));
-  // ilk sekme (Bugün) zaten açık olabilir; ötekilerde ekran değişmeli
-  sonuc('sekme ' + sekme + ' açıldı', sekme === 'Bugün' || imza(l2) !== once, l2.length + ' düğüm · ' + etiketler(l2));
+  // ilk sekme (Bugün) zaten açık olabilir; ötekilerde EKRAN (döküm değil) değişmeli
+  sonuc('sekme ' + sekme + ' açıldı', sekme === 'Bugün' || ekranImza() !== once, l2.length + ' düğüm · ' + etiketler(l2));
 }
 
 // 3) ücretsiz örnek soru: Sınavlar → Örnek sorular (Devam et / Başla) → şıkka dokun → ekran değişti mi
@@ -123,10 +130,10 @@ for (const sekme of ['Bugün', 'Sınavlar', 'Karnem', 'Hesap']) {
     goruntu('ornek-soru');
     sonuc('örnek soru 45 sn içinde yüklendi (şık harfi görünür)', !!sik, etiketler(l2).slice(0, 300));
     if (sik) {
-      const once = imza(l2);
+      const once = ekranImza();
       const t0 = Date.now(); dokun(sik); bekle(2500);
       const l3 = dokum(); goruntu('sik-dokunuldu');
-      sonuc('şıkka dokununca ekran değişti (sayfa donmuyor)', imza(l3) !== once, (Date.now() - t0) + ' ms · ' + l3.length + ' düğüm');
+      sonuc('şıkka dokununca ekran değişti (sayfa donmuyor)', ekranImza() !== once, (Date.now() - t0) + ' ms · ' + l3.length + ' düğüm');
       // açık bildirim/pencere varsa ✕ ile kapanmalı
       const x = bul(l3, /^(✕|Kapat|×)$/);
       if (x) {
