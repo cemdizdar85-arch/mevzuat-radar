@@ -184,6 +184,22 @@
         .map(function (o) { return o.f; });
     } catch (e) { return fih; }
   }
+  /* 15.10 KONU ÇALIŞMASI (Cem "1.2.3" madde 2): set kutusundaki "Bu konuyu çalış" → aynı sayfa ?konu=<ad>. Sıra yalnız o konunun
+     soruları: önce bu cihazda hiç cevaplanmamışlar (kc_kayit), sonra cevaplananlar; ikisinde de seviye sırası korunur.
+     Konu fihristte yoksa (ad tutmadı) bütün ders açılır, __KASA_KONU yazılmaz → şablon "konu çalışması" şeridini göstermez.
+     Ad karşılaştırması şablondaki konuNrm ile AYNI (küçük harf tr, boşluk tek). 🚫 GÖRMEZ: başka cihazda çözülüp bu cihaza
+     inmemiş cevap (o soru "çözülmemiş" sayılır, öne gelir). */
+  function konuNrm(t) { return String(t || '').toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ').trim(); }
+  function konuSuz(sira) {
+    var m = location.search.match(/[?&]konu=([^&#]*)/), q = '';
+    try { q = m ? konuNrm(decodeURIComponent(m[1].replace(/\+/g, ' '))) : ''; } catch (e) { q = ''; }
+    if (!q) return sira;
+    var kf = sira.filter(function (f) { return konuNrm(f.konu) === q; });
+    if (!kf.length) return sira;
+    var coz = {}; try { (JSON.parse(localStorage.getItem('kc_kayit') || '[]') || []).forEach(function (x) { if (x && x.id) coz[x.id] = 1; }); } catch (e) {}
+    window.__KASA_KONU = kf[0].konu;
+    return kf.filter(function (f) { return !coz[f.id]; }).concat(kf.filter(function (f) { return coz[f.id]; }));
+  }
   async function setliAc(k) {
     var fih = await fihristCek(k.sb);
     if (!fih.length) {
@@ -191,7 +207,7 @@
         'Hesabındaki paket bu dersi kapsamıyor. Ders eklemek için paketini güncelleyebilirsin.',
         dugme('../../satin-al.html', 'Paketi güncelle'));
     }
-    var sira = seviyeSirala(fih), yuklu = {}, imlec = 0, bekliyor = null, durdu = false;
+    var sira = konuSuz(seviyeSirala(fih)), yuklu = {}, imlec = 0, bekliyor = null, durdu = false;
     function siradakiIdler(adet) {
       var ids = [];
       while (imlec < sira.length && ids.length < adet) { var id = sira[imlec++].id; if (!yuklu[id]) ids.push(id); }
@@ -204,7 +220,7 @@
     }
     var ilk = isle(await parcaCek(k.sb, siradakiIdler(SET_ILK)));
     window.__KASA_FIHRIST = fih;
-    window.__KASA_TOPLAM = fih.length;
+    window.__KASA_TOPLAM = sira.length;   /* 15.10: konu çalışmasında o konunun soru sayısı (fihrist bütün ders kalır: kutu için) */
     window.__KASA_SIRALI = true;
     window.__KASA_DEVAM = imlec < sira.length;
     window.__kasaSonraki = function () {
