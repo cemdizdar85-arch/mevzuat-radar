@@ -85,8 +85,11 @@ async function donma(ad) {   // olay döngüsü gecikmesi + o belgedeki en uzun 
 async function bul(secici, metin) {
   return js(`(()=>{const re=${metin ? metin.toString() : 'null'};
     const l=[...document.querySelectorAll(${JSON.stringify(secici)})].filter(e=>{const r=e.getBoundingClientRect();
-      return r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&getComputedStyle(e).visibility!=='hidden'&&(!re||re.test((e.innerText||e.getAttribute('aria-label')||'').trim()));});
-    if(!l.length) return null; const e=l[0]; const r=e.getBoundingClientRect(); const x=r.left+r.width/2, y=r.top+r.height/2;
+      return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden'&&(!re||re.test((e.innerText||e.getAttribute('aria-label')||'').trim()));});
+    if(!l.length) return null; const e=l[0]; let r=e.getBoundingClientRect();
+    /* ekran dışındaysa önce görünür alana kaydır (kullanıcı da kaydırır); 15.10: "Cevapla" alt kenarın altındaydı */
+    if(r.bottom>innerHeight||r.top<0){ e.scrollIntoView({block:'center'}); r=e.getBoundingClientRect(); }
+    const x=r.left+r.width/2, y=r.top+r.height/2;
     const u=document.elementFromPoint(x,y); const k=u&&(u===e||e.contains(u));
     return {x,y,ustte:k,ortu:k?'':(u?(u.id?'#'+u.id:'')+(u.className&&typeof u.className==='string'?'.'+u.className.split(' ')[0]:'')+'<'+u.tagName+'>':'yok'),adet:l.length};})()`);
 }
