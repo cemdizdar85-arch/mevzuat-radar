@@ -1,0 +1,143 @@
+# ============================================================================
+#  MOBIL - iOS CIHAZ PROVASI (iPhone simulatoru)  (16.10.2026, Cem "hepsini deneyelim, Play Store gibi")
+#
+#  Ne yapar: mobil-ios.yml ile AYNI icerik (hazirla.js) + ayni Info.plist ayarlariyla iOS uygulamasini
+#  simulator icin derler (Release, imzasiz), iPhone simulatorune kurar, Appium XCUITest ile
+#  mobil/cihaz-akis-ios.js'i kosar: tanitim, 4 sekme, ornek soru (sikka dokun), seviye testi 3 soru,
+#  her ekranda ✕ ortulme + kapanma, donma, iPhone'da satis dugmesi yok, cokme yok.
+#
+#  Bedel: 0 TL (depo public, macOS dakikasi ucretsiz). App Store'a YUKLEMEZ.
+#  Kanit: ekran goruntuleri SIFRELI artifact (mobil-cihaz-prova.yml ile ayni RSA anahtari).
+#  GORMEZ: girisli uye akisi, gercek telefon, iPad, App Store imzali derleme (cihaz-akis-ios.js basi).
+# ============================================================================
+name: Mobil - iOS cihaz provasi (simulator)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobil-ios-prova
+  cancel-in-progress: true
+
+jobs:
+  prova:
+    runs-on: macos-15
+    timeout-minutes: 75
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Icerik kapisi oz-sinavi + icerik derleme
+        working-directory: mobil
+        env:
+          TT_DERLEME: ${{ github.run_number }}
+        run: |
+          node hazirla-sinavi.js
+          node hazirla.js
+
+      - name: Paketler
+        working-directory: mobil
+        run: npm ci --no-audit --no-fund
+
+      - name: iOS projesi (mobil-ios.yml ile ayni)
+        working-directory: mobil
+        run: |
+          # YALNIZ PROVA: WKWebView denetlenebilir (Appium WEBVIEW baglami). mobil-ios.yml'de YOK -> App Store derlemesi kapali.
+          node -e "const f='capacitor.config.json';const fs=require('fs');const c=JSON.parse(fs.readFileSync(f,'utf8'));c.ios=Object.assign({},c.ios,{webContentsDebuggingEnabled:true});fs.writeFileSync(f,JSON.stringify(c,null,2));"
+          npx cap add ios --packagemanager SPM
+          node ikon-uret.js
+          npx capacitor-assets generate --ios --assetPath kaynak/uretilen
+          npx cap sync ios
+          /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes array" ios/App/App/Info.plist || true
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes array" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string com.googleusercontent.apps.472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes:1 string com.tetikte.app" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :GIDClientID string 472072608563-3m6597u5ib74119tpe7cmmfr77dq80ft.apps.googleusercontent.com" ios/App/App/Info.plist
+
+      - name: Simulator icin derle (Release, imzasiz)
+        working-directory: mobil/ios/App
+        run: |
+          SURUM=$(node -p "require('../../package.json').version")
+          if [ -d App.xcworkspace ]; then PROJE="-workspace App.xcworkspace"; else PROJE="-project App.xcodeproj"; fi
+          xcodebuild $PROJE -scheme App -configuration Release -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' -derivedDataPath "$RUNNER_TEMP/dd" \
+            PRODUCT_BUNDLE_IDENTIFIER=com.tetikte.app CODE_SIGNING_ALLOWED=NO \
+            MARKETING_VERSION="$SURUM" CURRENT_PROJECT_VERSION=${{ github.run_number }} build > "$RUNNER_TEMP/derle.log" 2>&1 \
+            || { tail -60 "$RUNNER_TEMP/derle.log"; echo "::error title=derleme::simulator derlemesi dustu"; exit 1; }
+          ls "$RUNNER_TEMP/dd/Build/Products/Release-iphonesimulator/"
+          test -d "$RUNNER_TEMP/dd/Build/Products/Release-iphonesimulator/App.app"
+
+      - name: iPhone simulatorunu ac + kur
+        run: |
+          UDID=$(xcrun simctl list devices available -j | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')).devices;
+            const l=Object.entries(d).filter(([k])=>/iOS/.test(k)).sort(([a],[b])=>b.localeCompare(a,undefined,{numeric:true})).flatMap(([k,v])=>v.map(x=>({...x,os:k})));
+            const s=l.find(x=>/^iPhone 16$/.test(x.name))||l.find(x=>/^iPhone \d+$/.test(x.name))||l.find(x=>/^iPhone/.test(x.name));
+            console.error('simulator: '+s.name+' · '+s.os.split('.').pop()); console.log(s.udid);")
+          echo "UDID=$UDID" >> $GITHUB_ENV
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$RUNNER_TEMP/dd/Build/Products/Release-iphonesimulator/App.app"
+          xcrun simctl listapps "$UDID" | grep -A3 "com.tetikte.app" | head -4
+
+      - name: Appium (XCUITest)
+        run: |
+          npm i -g appium@2 --no-audit --no-fund
+          appium driver install xcuitest
+          appium --version; appium driver list --installed 2>&1 | tail -3
+          nohup appium --log "$RUNNER_TEMP/appium.log" --log-level warn > /dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4723/status > /dev/null && break; sleep 2; done
+          curl -sf http://127.0.0.1:4723/status > /dev/null || { echo "::error title=appium::sunucu acilmadi"; exit 1; }
+
+      - name: Simulatorde prova
+        run: |
+          node mobil/cihaz-akis-ios.js kanit || echo "PROVA_KIRMIZI=1" >> $GITHUB_ENV
+          # cokme raporu (varsa) - yalniz adlari
+          ls ~/Library/Logs/DiagnosticReports 2>/dev/null | grep -i "^App" || echo "cokme raporu yok"
+
+      - name: Appium gunlugu (hata satirlari)
+        if: always()
+        run: grep -iE "error|fail" "$RUNNER_TEMP/appium.log" | grep -viE "password|token" | tail -25 || true
+
+      - name: Kaniti sifrele (RSA + AES)
+        if: always()
+        run: |
+          mkdir -p cikti
+          if [ -d kanit ]; then
+            tar czf kanit.tgz kanit
+            openssl rand -hex 32 > anahtar.txt
+            openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in kanit.tgz -out cikti/kanit.tgz.enc -pass file:anahtar.txt
+            openssl pkeyutl -encrypt -pubin -inkey mobil/prova-acik.pem -pkeyopt rsa_padding_mode:oaep -in anahtar.txt -out cikti/anahtar.bin.enc
+            rm -f anahtar.txt kanit.tgz
+            ls -la cikti
+          fi
+
+      - name: Sifreli kanit (3 gun)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-prova-${{ github.run_number }}
+          path: cikti/*.enc
+          retention-days: 3
+          if-no-files-found: warn
+
+      - name: Prova kirmiziysa isi KIRMIZI bitir
+        if: ${{ env.PROVA_KIRMIZI == '1' }}
+        run: |
+          echo "::error title=ios provasi::En az bir adim dustu - gunlukte DUSTU satirlarina bak"
+          exit 1
