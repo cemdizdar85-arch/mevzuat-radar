@@ -37,12 +37,22 @@ function sonuc(ad, tamam, not) { sonuclar.push({ ad, tamam }); console.log((tama
 
 /* ---------- WebDriver (Appium) ---------- */
 let OTURUM = '', WEB = '', olcek = 1;
-async function wd(yontem, yol, govde) {
-  const r = await fetch(APPIUM + '/session' + (OTURUM ? '/' + OTURUM : '') + yol, {
-    method: yontem, headers: { 'Content-Type': 'application/json' }, body: govde ? JSON.stringify(govde) : undefined });
-  const j = await r.json();
-  if (!r.ok || (j.value && j.value.error)) throw new Error('WD ' + yol + ': ' + String((j.value && (j.value.message || j.value.error)) || r.status).split('\n')[0].slice(0, 200));
-  return j.value;
+/* node:http — fetch (undici) 300 sn'de keser; ilk oturumda WebDriverAgent derlemesi daha uzun sürüyor (16.10 koşu 38822058245) */
+const http = require('http');
+function wd(yontem, yol, govde) {
+  const veri = govde ? JSON.stringify(govde) : '';
+  return new Promise((res, rej) => {
+    const q = http.request(APPIUM + '/session' + (OTURUM ? '/' + OTURUM : '') + yol, {
+      method: yontem, headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(veri) } }, (r) => {
+      let t = ''; r.setEncoding('utf8'); r.on('data', (c) => { t += c; });
+      r.on('end', () => {
+        let j; try { j = JSON.parse(t); } catch (e) { return rej(new Error('WD ' + yol + ': yanıt JSON değil (' + r.statusCode + ')')); }
+        if (r.statusCode >= 300 || (j.value && j.value.error)) return rej(new Error('WD ' + yol + ': ' + String((j.value && (j.value.message || j.value.error)) || r.statusCode).split('\n')[0].slice(0, 200)));
+        res(j.value);
+      });
+    });
+    q.on('error', rej); q.setTimeout(0); q.end(veri);
+  });
 }
 async function baglam(ad) { await wd('POST', '/context', { name: ad }); }
 async function webBul() {
