@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-10-14T23:51:43.821Z",
-  "gun": "2026-10-15",
+  "olcum": "2026-10-15T23:39:16.116Z",
+  "gun": "2026-10-16",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 7,
+      "sira": 8,
       "toplam": 10,
-      "id": "sgs-t1-meslek-kolay/kp-01",
-      "ders": "Meslek Hukuku",
-      "konu": "disiplin cezalari",
-      "donem": 11,
+      "id": "sgs-t1-ticaret-kolay/kp-01",
+      "ders": "Ticaret Hukuku",
+      "konu": "genel işlem koşulları",
+      "donem": 9,
       "teori": true,
       "rakamSik": false,
-      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
+      "soru": "6098 sayılı Türk Borçlar Kanunu'na göre genel işlem koşulları hakkında aşağıdakilerden hangisi yanlıştır?",
       "siklar": {
-        "A": "Uyarma",
-        "B": "Kınama",
-        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
-        "D": "Yeminli sıfatını kaldırma",
-        "E": "Meslekten çıkarma"
+        "A": "Genel işlem koşulları, düzenleyenin ileride çok sayıda benzer sözleşmede kullanmak amacıyla önceden tek başına hazırlayıp karşı tarafa sunduğu sözleşme hükümleridir.",
+        "B": "Bu koşulların sözleşme metninde veya ekinde yer alması, kapsamı, yazı türü ve şekli, nitelendirmede önem taşımaz.",
+        "C": "Aynı amaçla düzenlenen sözleşmelerin metinlerinin özdeş olmaması, bu sözleşmelerin içerdiği hükümlerin genel işlem koşulu sayılmasını engellemez.",
+        "D": "Genel işlem koşulları içeren sözleşmeye konulan bu koşulların her birinin tartışılarak kabul edildiğine ilişkin kayıtlar, kural olarak onları genel işlem koşulu olmaktan çıkarır.",
+        "E": "Genel işlem koşullarıyla ilgili hükümler, sundukları hizmetleri kanun veya yetkili makamlar tarafından verilen izinle yürütmekte olan kişi ve kuruluşların hazırladıkları sözleşmelere de niteliklerine bakılmaksızın uygulanır."
       },
-      "dogru": "E",
+      "dogru": "D",
       "tuzak": {
         "C": {
-          "ad": "Bağımsızlık İhlali Tuzağı",
-          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
+          "ad": "Metin Özdeşliği Tuzağı",
+          "metin": "Öğrenci, sözleşme metinlerinin birebir aynı olması gerektiğini, aksi hâlde genel işlem koşulu sayılmayacağını sanır. Doğrusu: Metinlerin özdeş olmaması bu nitelendirmeyi engellemez, ifade doğrudur."
+        },
+        "E": {
+          "ad": "Kapsam Daraltma Tuzağı",
+          "metin": "Öğrenci, izinle faaliyet gösteren kuruluşların sözleşmelerinin niteliğine göre bu hükümlerden muaf tutulabileceğini sanır. Doğrusu: Kanun bu sözleşmelere niteliklerine bakılmaksızın uygulanacağını söyler, ifade doğrudur."
         },
         "A": {
-          "ad": "İlk Aşama Tuzağı",
-          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
-        },
-        "D": {
-          "ad": "Yeminli Sıfatı Tuzağı",
-          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
+          "ad": "Tanım Eksikliği Tuzağı",
+          "metin": "öğrenci genel işlem koşulu tanımında ayrıca yazılı şekil gibi bir şart arandığını sanıp bu ifadeyi yanlış sayar; oysa Türk Borçlar Kanunu m.20 genel işlem koşulunu, düzenleyenin ileride çok sayıda benzer sözleşmede kull…"
         },
         "B": {
-          "ad": "Tekerrür Tuzağı",
-          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
+          "ad": "Şekil Şartı Tuzağı",
+          "metin": "Öğrenci, koşulun sözleşme metninde mi ekinde mi yer aldığının ya da yazı türünün nitelendirmeyi etkileyeceğini sanır. Doğrusu: Kanun bu unsurların nitelendirmede önem taşımadığını açıkça belirtir, ifade doğrudur."
         }
       },
-      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
+      "hap": "Genel işlem koşullarında tartışılarak kabul edildiğine ilişkin kayıt, TEK BAŞINA o hükmü genel işlem koşulu olmaktan çıkarmaz.",
       "satirlar": [
         [
-          "A) Uyarma",
-          "p.48/1"
+          "A) Genel işlem koşulları, düzenleyenin ileride çok sayıda b…",
+          "m.20/1"
         ],
         [
-          "B) Kınama",
-          "p.48/1"
+          "B) Bu koşulların sözleşme metninde veya ekinde yer alması, …",
+          "m.20/2"
         ],
         [
-          "C) Geçici olarak mesleki faaliyetten alıkoyma",
-          "p.48/2"
+          "C) Aynı amaçla düzenlenen sözleşmelerin metinlerinin özdeş …",
+          "m.20/3"
         ],
         [
-          "D) Yeminli sıfatını kaldırma",
-          "p.48/1"
+          "D) Genel işlem koşulları içeren sözleşmeye konulan bu koşul…",
+          "m.20/3"
         ],
         [
-          "E) Meslekten çıkarma",
-          "p.48/2"
+          "E) Genel işlem koşullarıyla ilgili hükümler, sundukları hiz…",
+          "m.20/4"
         ]
       ],
-      "dayanak": "3568 sayılı SMMM K. m.48",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=7",
+      "dayanak": "Türk Borçlar Kanunu (6098 s.K.) m.20",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=8",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -1,
+        "kalan_gun": -2,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +81,67 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 8,
+      "sira": 0,
       "toplam": 9,
-      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "stok devir hızı",
-      "donem": 13,
+      "id": "smmm-w3-fmuh-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "konu": "amortisman ayırma",
+      "donem": 42,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır?",
+      "soru": "İşletme, üretimde kullanmak üzere bir makine satın almıştır. Makinenin fatura bedeli 780.000 ₺, nakliye ve montaj gideri 45.000 ₺'dir. Maliyet bedeli üzerinden %20 normal amortisman uygulanmakta, ayrılan amortismanın %70'i 730 Genel Üretim Giderleri'ne, %30'u 770 Genel Yönetim Giderleri'ne yüklenmektedir. Buna göre, 730 hesabına borç kaydedilecek amortisman tutarı kaç ₺'dir?",
       "siklar": {
-        "A": "4,5",
-        "B": "6,75",
-        "C": "9",
-        "D": "11",
-        "E": "13,5"
+        "A": "46.800",
+        "B": "49.500",
+        "C": "109.200",
+        "D": "115.500",
+        "E": "165.000"
       },
-      "dogru": "C",
+      "dogru": "D",
       "tuzak": {
-        "D": {
-          "ad": "Pay Karıştırma Tuzağı",
-          "metin": "pay (bölünen) olarak satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjı içerdiğinden kullanılmaz; payda ortalama s…"
+        "C": {
+          "ad": "Maliyete Ekleme Atlama Tuzağı",
+          "metin": "Nakliye ve montaj gideri (45.000) maliyete eklenmeden sadece fatura bedeli (780.000) üzerinden hesaplama yapılırsa bu sonuca ulaşılır. Doğrusu: Varlığı kullanıma hazır hale getirme giderleri maliyet bedeline dahildir, t…"
         },
         "E": {
-          "ad": "Dönem Başı Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
+          "ad": "Dağıtımsız Yükleme Tuzağı",
+          "metin": "Amortismanın tamamının üretime ait olduğu düşünülüp dağıtım hiç yapılmazsa toplam tutar (165.000) 730 hesabına yazılır. Doğrusu: Amortismanın sadece %70'i üretime aittir, tutar 115.500'dür."
         },
         "A": {
-          "ad": "Toplam Stok Tuzağı",
-          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
+          "ad": "Dağıtım Oranı Ters Kullanma Tuzağı",
+          "metin": "Maliyete nakliye-montaj gideri eklenmeden (780.000) ve dağıtım oranları ters uygulanarak (%30) hesaplama yapıldığında bu tutara ulaşılır. Doğrusu: Maliyet 825.000 üzerinden %20 amortisman ayrılıp %70'i üretime yüklenir,…"
         },
         "B": {
-          "ad": "Dönem Sonu Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: payda ortalama stok olmalıdır, dönem sonu tek bir andaki değerdir."
+          "ad": "Pay Karıştırma Tuzağı",
+          "metin": "Doğru maliyet (825.000) üzerinden hesaplanan amortismanın üretim yerine yönetim payı (%30) alınırsa bu tutar çıkar. Doğrusu: 730 hesabına yüklenecek pay üretim oranına (%70) göre 115.500'dür."
         }
       },
-      "hap": "Stok devir hızının paydası her zaman ORTALAMA stoktur, payı ise satılan malın maliyetidir; satış hasılatı ya da tek bir dönem ucundaki stok kullanılmaz.",
+      "hap": "Amortismana esas maliyet bedeli, varlığı kullanıma hazır hale getirmek için yapılan tüm giderleri kapsar ve ayrılan amortisman kullanım alanına göre ilgili gider hesaplarına dağıtılarak 257 hesaba alacak kaydedilir.",
       "satirlar": [
         [
-          "Dönem Başı Stok",
-          "30.000"
+          "Maliyet bedeli (780.000+45.000)",
+          "825.000"
         ],
         [
-          "Dönem Sonu Stok",
-          "60.000"
+          "Yıllık amortisman tutarı (825.000x%20)",
+          "165.000"
         ],
         [
-          "Ortalama Stok",
-          "45.000"
+          "770 Genel Yönetim Giderleri payı (165.000x%30)",
+          "49.500"
         ],
         [
-          "Satılan Malın Maliyeti",
-          "405.000"
-        ],
-        [
-          "Stok Devir Hızı",
-          "9"
+          "730 Genel Üretim Giderleri hesabına borç kaydedilecek tutar (165.000x%70)",
+          "115.500"
         ]
       ],
-      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=8",
+      "dayanak": "VUK m.315",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": 5,
+        "kalan_gun": 4,
         "durum": "DONGU",
         "mail_gunu": false
       },
