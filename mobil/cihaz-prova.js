@@ -55,9 +55,16 @@ function dokum() {
   return [];
 }
 const ad = (d) => d.metin || d.aciklama;
-function etiketler(liste) {   // günlüğe yalnız kısa etiketler (soru metni sızmasın)
-  const s = new Set(); for (const d of liste) { const t = ad(d); if (t && t.length <= 24) s.add(t); } return [...s].slice(0, 40).join(' | ');
+/* günlüğe YALNIZ arayüz sözlüğündeki etiketler (15.10 ilk koşu: "≤24 karakter" süzgeci ücretsiz vitrin sorusunun şıklarını
+   günlüğe yazdı — depo public; artık izin listesi) */
+const ARAYUZ = /^(Bugün|Sınavlar|Karnem|Hesap|Başla|Devam|Devam et|Atla|Geç|Aç|Kapat|✕|×|Örnek sorular|Ders ders çöz|Kısa sınav|Sınavı değiştir|Giriş yap|Hesap aç|SGS · Staja Giriş|SMMM Yeterlilik \(Bitirme\)|Denetim|Türkçe|Paketler|Bilmiyorum|[A-E])$/;
+function etiketler(liste) {
+  const s = new Set(); for (const d of liste) { const t = ad(d); if (t && ARAYUZ.test(t)) s.add(t); } return [...s].join(' | ');
 }
+function onde() {   // uygulama önde mi (geri tuşu ya da dış bağlantı uygulamadan çıkarmış olabilir)
+  try { return /mCurrentFocus=.*com\.tetikte\.app/.test(adb(['shell', 'dumpsys', 'window'])); } catch (e) { return false; }
+}
+function oneGetir() { if (!onde()) { adb(['shell', 'monkey', '-p', PAKET, '-c', 'android.intent.category.LAUNCHER', '1']); bekle(4000); } }
 function imza(liste) { return liste.map((d) => ad(d) + '@' + d.x + ',' + d.y).join(';'); }
 function bul(liste, desen) { return liste.find((d) => desen.test(ad(d)) && d.w > 0 && d.h > 0); }
 function dokun(d) { adb(['shell', 'input', 'tap', String(d.x), String(d.y)]); }
@@ -66,7 +73,7 @@ function bekleBul(desen, sn) {
   while (Date.now() < son) { l = dokum(); const d = bul(l, desen); if (d) return { d, l }; bekle(1500); }
   return { d: null, l };
 }
-function geri() { adb(['shell', 'input', 'keyevent', '4']); bekle(2000); }
+function geri() { adb(['shell', 'input', 'keyevent', '4']); bekle(2000); oneGetir(); }
 
 /* ---------------------------------------------------------------- */
 try { adb(['get-state']); } catch (e) { console.log('CIHAZ YOK'); process.exit(2); }
@@ -75,18 +82,29 @@ adb(['shell', 'monkey', '-p', PAKET, '-c', 'android.intent.category.LAUNCHER', '
 
 // 1) açılış: alt menü görünmeli (Bugün / Sınavlar / Karnem / Hesap) ya da giriş ekranı
 {
-  const { d, l } = bekleBul(/^(Sınavlar|Bugün|Giriş yap|Hesap aç|Devam)$/, 60);
+  const { d, l } = bekleBul(/^(Sınavlar|Bugün|Giriş yap|Hesap aç|Devam|Başla)$/, 60);
   goruntu('acilis');
   sonuc('açılış ekranı 60 sn içinde geldi', !!d, 'etiketler: ' + etiketler(l));
+  // ilk açılış tanıtımı (01/03 …): Başla → SGS seç → Devam/Atla; alt menü (Sınavlar) görünene kadar en çok 6 adım
+  for (let i = 0; i < 6; i++) {
+    const g = dokum();
+    if (bul(g, /^Sınavlar$/) && bul(g, /^Karnem$/)) break;
+    const ileri = bul(g, /^SGS · Staja Giriş$/) || bul(g, /^(Devam|Devam et|Atla|Geç|Başla)$/);
+    if (!ileri) break;
+    dokun(ileri); bekle(3000); goruntu('tanitim-' + (i + 1));
+  }
+  const g2 = dokum();
+  sonuc('tanıtımdan sonra alt menü (Sınavlar + Karnem) görünür', !!(bul(g2, /^Sınavlar$/) && bul(g2, /^Karnem$/)), etiketler(g2));
 }
 
 // 2) alt menü sekmeleri tek tek
 for (const sekme of ['Bugün', 'Sınavlar', 'Karnem', 'Hesap']) {
   const l = dokum(); const d = bul(l, new RegExp('^' + sekme + '$'));
   if (!d) { sonuc('sekme ' + sekme, false, 'bulunamadı'); continue; }
-  dokun(d); bekle(2500);
+  const once = imza(l); dokun(d); bekle(2500);
   const l2 = dokum(); goruntu('sekme-' + sekme.toLowerCase().replace('ü', 'u').replace('ı', 'i'));
-  sonuc('sekme ' + sekme + ' açıldı', l2.length > 5, l2.length + ' düğüm · ' + etiketler(l2).slice(0, 300));
+  // ilk sekme (Bugün) zaten açık olabilir; ötekilerde ekran değişmeli
+  sonuc('sekme ' + sekme + ' açıldı', sekme === 'Bugün' || imza(l2) !== once, l2.length + ' düğüm · ' + etiketler(l2));
 }
 
 // 3) ücretsiz örnek soru: Sınavlar → Örnek sorular (Devam et / Başla) → şıkka dokun → ekran değişti mi
@@ -150,12 +168,16 @@ for (const sekme of ['Bugün', 'Sınavlar', 'Karnem', 'Hesap']) {
   const log = adb(['logcat', '-d', '-b', 'crash,main,system']);
   const cokme = (log.match(/FATAL EXCEPTION|AndroidRuntime: Process: com\.tetikte/g) || []).length;
   const anr = (log.match(/ANR in com\.tetikte/g) || []).length;
-  const r8 = (log.match(/ClassNotFoundException|NoSuchMethodException|NoClassDefFoundError/g) || []).length;
+  // R8 izi yalnız UYGULAMANIN sürecinde sayılır (15.10 ilk koşu: 12 iz vardı, kaynağı belirsizdi → satırlar da yazılır)
+  let pidOnce = 'yok'; try { pidOnce = adb(['shell', 'pidof', PAKET]).trim() || 'yok'; } catch (e) { /* pidof süreç yoksa 1 döner */ }
+  const r8Satir = log.split('\n').filter((s) => /ClassNotFoundException|NoSuchMethodException|NoClassDefFoundError/.test(s));
+  const r8Bizim = r8Satir.filter((s) => s.indexOf(' ' + pidOnce + ' ') >= 0 || /tetikte|getcapacitor|capgo|capawesome/i.test(s));
+  for (const s of r8Satir.slice(0, 15)) console.log('IZ ' + (r8Bizim.indexOf(s) >= 0 ? '[UYGULAMA] ' : '[sistem]   ') + s.replace(/^.*?: /, '').slice(0, 200));
+  const r8 = r8Bizim.length;
   sonuc('çökme yok (FATAL EXCEPTION)', cokme === 0, String(cokme));
   sonuc('donma yok (ANR)', anr === 0, String(anr));
   sonuc('R8 sınıf kaybı izi yok (ClassNotFound/NoSuchMethod/NoClassDef)', r8 === 0, String(r8));
-  const pid = adb(['shell', 'pidof', PAKET]).trim();
-  sonuc('uygulama süreci hâlâ canlı', !!pid, pid || 'yok');
+  sonuc('uygulama süreci hâlâ canlı', pidOnce !== 'yok', pidOnce);
 }
 
 const dus = sonuclar.filter((s) => !s.tamam).length;
