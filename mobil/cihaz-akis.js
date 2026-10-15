@@ -199,16 +199,22 @@ async function sekme(ad) {
     // seviye sayfasında başlat düğmesi olabilir
     const bas1 = await bekleBul('button', /^(Başla|Teste başla|Hadi başla|Başlat)/, 8); if (bas1 && bas1.ustte) { await dokun(bas1); await bekle(3000); }
     goruntu('seviye-acildi');
-    let cevap = 0;
+    /* 15.10 dördüncü koşu: eski döngü aynı soruya 3 kez dokunup "3/3" diyordu (görüntüde Soru 1/30 kaldı) → artık
+       şık + "Cevapla" ve sayaç (#svNo) GERÇEKTEN ilerlemeli. */
+    const no = async () => +(await js('(document.getElementById("svNo")||{}).textContent||0'));
+    const ilk = await no(); let son = ilk;
     for (let i = 0; i < 3; i++) {
-      const s = await bekleBul('button.sik,.sik,[data-h="A"],.svSik', null, 30);
-      if (!s) break;
-      if (!s.ustte) { sonuc('seviye şıkkı dokunulabilir', false, 'üstünde ' + s.ortu); break; }
-      await dokun(s); await bekle(2000); cevap++;
-      const ileri = await bekleBul('button', /^(Sonraki|İleri|Devam)/, 4); if (ileri && ileri.ustte) { await dokun(ileri); await bekle(2000); }
+      const once = await no();
+      if (!(await bas('seviye şık A (soru ' + once + ')', '.sv-sik[data-h="A"]', null, 30))) break;
+      if (!(await bas('seviye Cevapla', '#svCevapla', null, 5))) break;
+      for (let j = 0; j < 10 && (await no()) === once; j++) {   // geri bildirim + "Sonraki" olabilir
+        const ileri = await bul('button', /^(Sonraki|Devam|İleri)/); if (ileri && ileri.ustte) await dokun(ileri);
+        await bekle(1000);
+      }
+      son = await no(); if (son === once) break;
     }
     goruntu('seviye-3-soru');
-    sonuc('seviye testinde 3 soru cevaplandı', cevap === 3, cevap + '/3 · adres ' + (await adres()));
+    sonuc('seviye testinde sayaç 3 soru ilerledi', son - ilk === 3, ilk + ' → ' + son + ' · adres ' + (await adres()));
     await donma('seviye testi');
     await xler('seviye testi');
   }
@@ -217,7 +223,7 @@ async function sekme(ad) {
   await anaSayfa(); await sekme('Sınavlar');
   if (await bas('Ders ders çöz', 'button,a', /Ders ders çöz/, 10)) {
     goruntu('ders-listesi');
-    if (await bas('ders Denetim', 'button,a', /^Denetim$/, 15)) {
+    if (await bas('ders Denetim', 'button,a,li', /^Denetim\b/, 15)) {
       await bekle(8000); goruntu('denetim');
       console.log('BILGI denetim adres ' + (await adres()) + ' · şık ' + (await js('document.querySelectorAll(".sik").length')) +
         ' · perde ' + (await js('!!document.querySelector(".pk-perde,.ttPerde,[class*=perde]")')));

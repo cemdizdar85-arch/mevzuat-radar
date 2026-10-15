@@ -84,6 +84,11 @@
           kimlik = window.turnstile.render(kap, {
             sitekey: AYAR.SITE_ANAHTARI,
             appearance: 'interaction-only',          // yalnız etkileşim gerekirse görünür
+            /* 15.10 (uygulama cihaz provası): hata gelince kapat() kutuyu kaldırıyor; Turnstile'ın KENDİ otomatik tekrarı
+               sonra olmayan kutuyu sıfırlamaya çalışıp yakalanmamış "Nothing to reset found" atıyordu (uygulamada her
+               açılışta). Tekrarı burada yapan bizim kodumuz (bekleyeniAl/onAl) → kütüphanenin tekrarı kapalı. */
+            retry: 'never',
+            'refresh-expired': 'never',
             callback: function(token){ kapat(token); },
             'error-callback': function(){ kapat(undefined); },
             'expired-callback': function(){ kapat(undefined); }
