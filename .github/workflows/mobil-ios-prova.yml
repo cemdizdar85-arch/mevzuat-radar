@@ -97,7 +97,7 @@ jobs:
 
       - name: Appium (XCUITest)
         run: |
-          npm i -g appium@2 --no-audit --no-fund
+          npm i -g appium@3--no-audit --no-fund
           appium driver install xcuitest
           appium --version; appium driver list --installed 2>&1 | tail -3
           nohup appium --log "$RUNNER_TEMP/appium.log" --log-level warn > /dev/null 2>&1 &
