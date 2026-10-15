@@ -828,6 +828,21 @@ jobs:
           # fixed, bos sus, yatay kayma) her birinde KIRMIZI (01.10 yerelde olculdu).
           - { ad: "Mobil tasma kapisi OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/mobil-tasma-kapisi.js --sinav --mutasyon" }
+          # 15.10 (Cem "telefonda bildirim geliyor, x bastirmiyor; x isareti olmayan ya da x'e basinca
+          # kapanmayan bir sey istemiyorum"): her kok sayfa telefon 390 + bilgisayar 1366 acilir, iki ders
+          # sayfasinda kasa taklidiyle 22 soru cevaplanir. Ekrandaki her sabit katman: A) x yok B) x ekran
+          # disi C) x'in ustunde baska oge D) x'e GERCEK fare olayiyla dokununca kapanmadi -> KIRMIZI.
+          # Gercek vakayla olculdu: 682fa755^ surumu KIRMIZI (135 kusur: Meta bandi 118, telif seridi 12,
+          # set kutusu 4, odeme perdesi 2), 682fa755 sonrasi YESIL (156 olcum, 130 katman, 0 kusur, ~4,5 dk).
+          # MUAF (bildirim degil): #ttAltMenu, #mbar, #mrxFab, nav/header. GORMEZ: tiklayinca acilan pencere,
+          # oturumlu uyeye ozel (cihaz kapisi, Nobetci notu, ekip cevabi), gercek iPhone/Android dokunusu.
+          - { ad: "X kapisi (her bildirim/pencere x ile kapaniyor mu)",
+              kabuk: bash, komut: "node arac/x-kapisi.js",
+              rapor: "veri/x-kapisi-raporu.json" }
+          # 10 vaka (2'si yanlis alarm vakasi: alt menu, kucuk tema dugmesi); 6 mutasyon (x tanimi, ortme,
+          # dokunma, ekran disi, dokunulamaz serit, muaf) her birinde KIRMIZI (15.10 yerelde olculdu).
+          - { ad: "X kapisi OZ-SINAVI + MUTASYON",
+              kabuk: bash, komut: "node arac/x-kapisi.js --sinav --mutasyon" }
           # 03.10 (Cem "1.2.3"): canli tarama robotunun (canli-tarama.yml) oz-sinavi - 10 vaka (temiz, tasma,
           # alt menu ORTME = 03.10 ana sayfa vakasi, eksik oge, JS hatasi, menu yeri, eski/yeni kalip,
           # Nobetci akisi saglam/kancasiz); 7 mutasyonun 7'si KIRMIZI (03.10 yerelde olculdu). data: sayfalar, ag gerekmez.
