@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **14.10.2026 13:34** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **15.10.2026 13:20** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50133 parça · 2778 tekil kaynak | Bütünlük ölçülen: 2778 (delikli: 404; son ölçüm: 14.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 14.10.2026 13:33)
+**ÖZET:** 50156 parça · 2779 tekil kaynak | Bütünlük ölçülen: 2779 (delikli: 404; son ölçüm: 15.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 15.10.2026 13:18)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2772,6 +2772,7 @@
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 591) | kanun-madde | 31 | DELİK-İNCELE(par:0/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 592) | kanun-madde | 9 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 593) | kanun-madde | 13 | DELİK-İNCELE(par:0/kesik:3/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO: 596) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:420) | kanun-madde | 7 | DELİK-İNCELE(par:0/kesik:4/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:429) | kanun-madde | 5 | DELİK-İNCELE(par:0/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | VERGİ USUL KANUNU GENEL TEBLİĞİ (SIRA NO:545) | kanun-madde | 17 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
