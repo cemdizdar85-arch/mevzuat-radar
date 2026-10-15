@@ -1,0 +1,60 @@
+# ============================================================================
+#  MOBIL - PLAY TERFI  (15.10.2026, Cem "sen gonder: uretim incelemesine yolla; yonetilen yayinlama acik,
+#  Yayinla'ya ben basarim")
+#
+#  Play'e ZATEN yuklenmis derlemeyi (versionCode) hedef kanala koyar; yeniden DERLEMEZ (sinanan derleme
+#  aynen gider). Ayrinti + GORMEZ listesi: mobil/play-terfi.js basi.
+#  yaz=false -> yalniz Google'a dogrulatir (kuru kosu). yaz=true -> commit = incelemeye gonderim.
+#  Bedel: 0 TL.
+# ============================================================================
+name: Mobil - Play terfi (uretim)
+
+on:
+  workflow_dispatch:
+    inputs:
+      surum_kodu:
+        description: "Terfi edilecek derleme (versionCode), orn. 44"
+        required: true
+      surum_adi:
+        description: "Surum adi (orn. 1.8.5)"
+        required: false
+        default: ""
+      kanal:
+        description: "Hedef kanal"
+        default: production
+        type: choice
+        options: [production, beta, alpha]
+      surum_notu:
+        description: "Magazada gorunen 'Yenilikler' (tr-TR); bos = not yok"
+        required: false
+        default: ""
+      yaz:
+        description: "true = gercekten gonder (commit) · false = kuru kosu"
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobil-play-terfi
+  cancel-in-progress: false
+
+jobs:
+  terfi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Terfi
+        env:
+          SERVIS_JSON: ${{ secrets.MOBIL_PLAY_SERVIS_JSON }}
+          SURUM_KODU: ${{ inputs.surum_kodu }}
+          SURUM_ADI: ${{ inputs.surum_adi }}
+          KANAL: ${{ inputs.kanal }}
+          SURUM_NOTU: ${{ inputs.surum_notu }}
+          YAZ: ${{ inputs.yaz && '1' || '0' }}
+        run: node mobil/play-terfi.js
