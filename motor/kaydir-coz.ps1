@@ -641,7 +641,7 @@ $html=@'
 .setSay{white-space:nowrap}
 .setOzet{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:color-mix(in srgb,var(--yazi) 45%,transparent)}
 .setKutu{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:16px;padding:22px 18px;width:min(420px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
-.setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}
+.setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}.setKutu p.setKonu{color:var(--yazi)}.konuSerit a.tuAc{text-decoration:none;border-radius:8px;border:1px solid var(--mavi);padding:5px 10px;white-space:nowrap}
 .tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
 .tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
 .sik{display:block;width:100%;text-align:left;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:12px 13px;margin:7px 0;font-size:.95em;cursor:pointer;transition:transform .08s}.sik:active{transform:scale(.985)}
@@ -862,6 +862,19 @@ $html=@'
 // (düğme gizli, kasaya cevap/kâğıt YAZMAZ ki "en çok yanıltan soru" ölçümü vitrin tıklamasıyla kirlenmesin).
 const VITRIN=/[?&]vitrin=1/.test(location.search);
 const TEK=/[?&]tek=1/.test(location.search);
+/* 15.10 KONU ÇALIŞMASI (Cem "1.2.3" madde 2): ?konu=<ad> → kasa-yukle.js sırayı o konuya indirir ve window.__KASA_KONU yazar.
+   Yazmadıysa (ad tutmadı, eski önbellek, kasa dışı sayfa) bütün ders açılır ve şerit çıkmaz. Ad karşılaştırması kasa-yukle.js konuNrm ile AYNI. */
+const KONU_AKTIF=String(window.__KASA_KONU||'');
+const konuNrm=t=>String(t||'').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim();
+/* 15.10 GOATCOUNTER OLAYI (Cem "1.2.3" madde 3): ders sayfasında sayaç yoktu. Betik ilk olayda ve sayfa açılışını SAYMADAN (no_onload)
+   yüklenir → ziyaretçi hunisi değişmez, yalnız set-kutusu/… ve konu-calis/… olayları düşer. Yol: <olay>/<sınav>/<ders sayfası>/<eylem>.
+   🚫 GÖRMEZ: reklam/izleyici engelleyicisi olan tarayıcı · uygulama içi (localhost) açılış — GoatCounter yerel adresi saymaz. */
+const GC_YOL=(/\/smmm\//.test(location.pathname)?'yeterlilik':/\/sgs\//.test(location.pathname)?'sgs':/\/kgk\//.test(location.pathname)?'kgk':'diger')+'/'+String(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+const GC_KUYRUK=[]; let gcYukleniyor=false;
+function gcOlay(yol,baslik){ try{ const gc=window.goatcounter; if(gc&&typeof gc.count==='function'){ gc.count({path:yol,title:baslik,event:true}); return; }
+  GC_KUYRUK.push([yol,baslik]); if(gcYukleniyor) return; gcYukleniyor=true;
+  const s=document.createElement('script'); s.async=true; s.src='//gc.zgo.at/count.js'; s.setAttribute('data-goatcounter','https://mevzuatradar.goatcounter.com/count'); s.setAttribute('data-goatcounter-settings','{"no_onload":true}');
+  s.onload=()=>{ try{ GC_KUYRUK.splice(0).forEach(o=>window.goatcounter.count({path:o[0],title:o[1],event:true})); }catch(e){} }; document.head.appendChild(s); }catch(e){} }
 (function(){ const d=document.documentElement; const q=(location.search.match(/[?&]tema=(koyu|acik)/)||[])[1]; let t=null; try{ t=localStorage.getItem('kc_tema'); }catch(e){}
   if(q==='koyu') t='dark'; else if(q==='acik') t='light';
   if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 04.10 Cem (V2 madde 21): varsayılan AÇIK, site ile aynı (tema-bas.js); 24.09 'koyu' kararının yerine */
@@ -902,7 +915,7 @@ const SIRA_NOTU=(function(){ try{
 const KASA_BEKLEYEN=[];
 if(window.__KASA_DEVAM&&window.__siraSira){ const R=window.__siraSira, ilk=SORULAR.filter(s=>R(s)===0), geri=SORULAR.filter(s=>R(s)!==0);
   if(geri.length){ KASA_BEKLEYEN.push(...geri); SORULAR.splice(0,SORULAR.length,...ilk); } }
-setTimeout(()=>{ try{ if(!SIRA_NOTU||/\/vitrin\/ornek-/.test(location.pathname)) return; /* 08.10: 5 örnek soruda "dersi sıralayalım" daveti ilk sorunun üstüne biniyordu, anlamsız */ const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
+setTimeout(()=>{ try{ if(!SIRA_NOTU||KONU_AKTIF||/\/vitrin\/ornek-/.test(location.pathname)) return; /* 08.10: 5 örnek soruda "dersi sıralayalım" daveti ilk sorunun üstüne biniyordu, anlamsız */ const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
   const t=SIRA_NOTU.tur==='davet' ? '🎯 <b>Bu dersi sana göre sıralayalım:</b> 30 soruda seviyeni ölç, zayıfsan kolaydan başlatalım. <a href="../../seviye-testi.html'+(SIRA_NOTU.yet?'?sinav=yeterlilik':'')+'">Seviyeni ölç →</a>'
         : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
         : SIRA_NOTU.tur==='zor' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>zor sorulardan başlıyoruz</b>.'
@@ -993,7 +1006,11 @@ function kutuEkraniAc(){
     if(window.__kasaIdGetir) window.__kasaIdGetir(b.dataset.id).then(n=>{ if(n>=0) kartSifirla(n); }); }));
 }
 // 03.10 (Cem, V2 madde 11): sayfa acilinca bu derste vadesi gelen kutu sorusu varsa tek satir uyari; tiklayinca kutu acilir
-setTimeout(()=>{ try{ if(VITRIN) return; const ids=new Set((window.__KASA_FIHRIST||SORULAR).map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
+/* 15.10 konu çalışması şeridi: hangi konuda olduğunu ve bütün derse dönüşü söyler; bankanın/konunun soru sayısı yazılmaz (10.10 gizlilik). */
+if(KONU_AKTIF&&!TEK) setTimeout(()=>{ try{ gcOlay('konu-calis/'+GC_YOL+'/ac','Konu çalışması açıldı'); const u=document.createElement('div'); u.className='tekrarUyari konuSerit'; u.style.bottom='auto'; u.style.top='64px';
+  u.innerHTML='<span class="tuMetin">🎯 <b>Konu çalışması:</b> '+esc(KONU_AKTIF)+' · önce çözmediklerin geliyor</span><a class="tuAc" href="'+esc(location.pathname)+'">Tüm ders</a><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
+  document.body.appendChild(u); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },300);
+setTimeout(()=>{ try{ if(VITRIN||KONU_AKTIF) return; const ids=new Set((window.__KASA_FIHRIST||SORULAR).map(s=>s.id)); const v=KUTU.kutu.filter(x=>x.due<=simdi()&&ids.has(x.id)).length; if(!v) return;
   const u=document.createElement('div'); u.className='tekrarUyari'; u.innerHTML='<span class="tuMetin">🔁 <b>Bugün tekrar zamanı:</b> bu derste '+v+' soru</span><button type="button" class="tuAc">Şimdi çöz</button><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
   document.body.appendChild(u); u.querySelector('.tuAc').addEventListener('click',()=>{ u.remove(); kutuEkraniAc(); }); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); }catch(e){} },1200);
 const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
@@ -1016,14 +1033,22 @@ function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bi
   if(SET_GORULEN[no]||TEK) return; const a=no*SET, b=Math.min(a+SET,SORULAR.length); let c=0,ok=0;
   for(let j=a;j<b;j++){ if(durum.ok[j]!==undefined){ c++; if(durum.ok[j]) ok++; } }
   if(!c) return; SET_GORULEN[no]=1;
+  /* 15.10 (Cem "1.2.3" madde 1-2): bu setteki yanlışların en çok düştüğü konu (eşitlikte setteki ilk). Düğme yalnız setli kasa sayfasında
+     (konu çalışması orada çalışır), konu dersin fihristinde en az 3 soruysa ve zaten konu çalışmasında değilken. */
+  const kz={}, kSira=[]; for(let j=a;j<b;j++){ if(durum.ok[j]===false){ const kn=String((SORULAR[j]||{}).konu||'').trim(); if(kn){ if(!kz[kn]) kSira.push(kn); kz[kn]=(kz[kn]||0)+1; } } }
+  const zayif=KONU_AKTIF?'':(kSira.slice().sort((x,y)=>kz[y]-kz[x])[0]||'');
+  const konuB=!!(zayif&&!VITRIN&&window.__KASA_FIHRIST&&window.__KASA_FIHRIST.filter(s=>konuNrm(s.konu)===konuNrm(zayif)).length>=3);
+  gcOlay('set-kutusu/'+GC_YOL+'/goster','Set kutusu gösterildi');
   const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' özeti');
   d.innerHTML='<div class="setKutu"><div class="setEtk">Set '+(no+1)+' bitti</div><div class="setSkor">'+ok+'<small> / '+c+' doğru</small></div>'
     +(c<b-a?'<p>'+(b-a-c)+' soruyu boş geçtin.</p>':'')
     +(c-ok?'<p>'+(c-ok)+' yanlışın kutuya girdi; 2 gün sonra yeniden karşına çıkar.</p>':'<p>Bu sette hiç yanlışın yok.</p>')
-    +'<button type="button" class="btn ana setDevam">Sonraki sete geç ▶</button>'+(c-ok?'<button type="button" class="btn mavi setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div>';
-  const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape') kapat(); };
-  d.addEventListener('click',e=>{ if(e.target===d) kapat(); }); d.querySelector('.setDevam').addEventListener('click',kapat);
-  const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ kapat(); kutuEkraniAc(); });
+    +(zayif?'<p class="setKonu">En çok zorlandığın konu: <b>'+esc(zayif)+'</b>'+(kz[zayif]>1?' ('+kz[zayif]+' yanlış)':'')+'</p>':'')
+    +'<button type="button" class="btn ana setDevam">Sonraki sete geç ▶</button>'+(konuB?'<button type="button" class="btn mavi setKonuB">🎯 Bu konuyu çalış</button>':'')+(c-ok?'<button type="button" class="btn'+(konuB?'':' mavi')+' setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div>';
+  const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape'){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } };
+  d.addEventListener('click',e=>{ if(e.target===d){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } }); d.querySelector('.setDevam').addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/devam','Set kutusu: sonraki set'); kapat(); });
+  const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/yanlislarim','Set kutusu: yanlışlarım'); kapat(); kutuEkraniAc(); });
+  const kk=d.querySelector('.setKonuB'); if(kk) kk.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/konu','Set kutusu: bu konuyu çalış'); kk.disabled=true; setTimeout(()=>{ location.href=location.pathname+'?konu='+encodeURIComponent(zayif); },200); });
   document.addEventListener('keydown',esc_); document.body.appendChild(d); d.querySelector('.setDevam').focus(); }
 function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemede sonradan gelen kartlar da aynı kurulumla */
   const k=document.createElement('section'); k.className='kart'; k.dataset.i=i;
