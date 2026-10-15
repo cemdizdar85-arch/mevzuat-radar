@@ -640,7 +640,7 @@ $html=@'
 .tekrarUyari{width:min(560px,calc(100% - 24px));box-sizing:border-box}
 .setSay{white-space:nowrap}
 .setOzet{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:color-mix(in srgb,var(--yazi) 45%,transparent)}
-.setKutu{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:16px;padding:22px 18px;width:min(420px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
+.setX{position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:none;color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}.setKutu{position:relative;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:16px;padding:22px 18px;width:min(420px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
 .setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}.setKutu p.setKonu{color:var(--yazi)}.konuSerit a.tuAc{text-decoration:none;border-radius:8px;border:1px solid var(--mavi);padding:5px 10px;white-space:nowrap}
 .tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
 .tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
@@ -676,7 +676,7 @@ $html=@'
 .seviye{font-size:.72em;border:1px solid var(--cizgi);border-radius:12px;padding:1px 8px;margin-left:6px;white-space:nowrap;color:var(--yazi);background:var(--kart)}
 .seviye.sv-alarm{border-color:var(--kirmizi)}.seviye.sv-nobet{border-color:var(--altin)}.seviye.sv-isinma{border-color:var(--yesil)}
 .ilerleme{height:3px;background:color-mix(in srgb,var(--cizgi) 60%,transparent);margin:0 0 6px}.ilerleme i{display:block;height:100%;background:var(--mavi);transition:width .3s}.ustCip{background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:14px;padding:2px 8px;font-size:.85em;cursor:pointer}.ustCip.hazir{border-color:var(--yesil);color:var(--yesil)}
-.kutuEkran{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:40;align-items:flex-end;justify-content:center}.kutuEkran.acik{display:flex}
+.kutuEkran{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:2147480500;align-items:flex-end;justify-content:center}.kutuEkran.acik{display:flex}
 .kutuIc{background:var(--kart);width:min(100%,640px);max-height:88vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:14px 18px 22px;border:1px solid var(--cizgi)}
 @media(min-width:900px){.kutuEkran{align-items:center}.kutuIc{border-radius:18px}}
 .kutuIc .basl{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:6px}
@@ -705,8 +705,8 @@ $html=@'
 .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}.btn{background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:10px;padding:9px 12px;font-size:.9em;cursor:pointer}.btn.ana{background:var(--yesil);color:var(--ustYazi);font-weight:800;border:0}.btn.mavi{border-color:var(--mavi);color:var(--mavi)}
 /* surukleme oyunu */
 /* Cem 03.09: "ekranlar tam sigmiyor" - tam ekran katmanlar karta degil PENCEREYE sabitlenir (fixed) */
-.oyun{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);background:var(--bg);display:none;flex-direction:column;padding:14px;z-index:20;overflow-y:auto}.oyun.acik{display:flex}
-.oyun{right:auto}
+.oyun{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);background:var(--bg);display:none;flex-direction:column;padding:14px;z-index:65;overflow-y:auto}.oyun.acik{display:flex}
+.oyun{right:auto}.oyunX{position:sticky;top:0;align-self:flex-end;flex:0 0 auto;width:44px;height:44px;margin:-8px -6px -36px 0;z-index:2;border:0;border-radius:50%;background:var(--bg);color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}
 #akis,.govde,.tabloSar,.serit,.panel,.oyun{scrollbar-width:none}#akis::-webkit-scrollbar,.govde::-webkit-scrollbar,.tabloSar::-webkit-scrollbar,.serit::-webkit-scrollbar,.panel::-webkit-scrollbar,.oyun::-webkit-scrollbar{display:none}
 .oyun h3{margin:4px 0 2px;font-size:1em}.oyun .alt{color:var(--dim);font-size:.82em;margin-bottom:10px}
 .satir{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:8px 0;position:relative}
@@ -722,7 +722,7 @@ $html=@'
 .satir .neden{grid-column:1/3;font-size:.86em;color:var(--yazi);border-left:4px solid var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 8%,transparent);padding:6px 10px;border-radius:0 8px 8px 0;margin-top:2px;line-height:1.45}.satir .neden b{color:var(--kirmizi)}
 .ok{color:var(--yesil)}.hata{color:var(--kirmizi)}
 /* ogretmen: adim adim yatay kaydirici */
-.ders{position:fixed;top:0;bottom:0;left:50%;right:auto;transform:translateX(-50%);width:min(100%,560px);background:var(--bg);display:none;flex-direction:column;padding:12px 0 0;z-index:21}.ders.acik{display:flex}
+.ders{position:fixed;top:0;bottom:0;left:50%;right:auto;transform:translateX(-50%);width:min(100%,560px);background:var(--bg);display:none;flex-direction:column;padding:12px 0 0;z-index:66}.ders.acik{display:flex}
 .ders .basl{display:flex;justify-content:space-between;align-items:center;padding:0 14px 6px;font-size:.85em;color:var(--dim)}
 .ders .tabloSar{padding:0 14px;overflow:auto;max-height:44%;flex:0 0 auto}
 /* Cem 03.09: "521 kaplama tam kapanmiyor" - hucre hucre outline yerine SATIR cercevesi (ic golge; tablo
@@ -855,7 +855,7 @@ $html=@'
 .kagitOzet{font-size:.8em;color:var(--dim);margin:6px 2px 0;line-height:1.5}.kagitOzet b{color:var(--yazi)}.kagitYanlis{color:var(--kirmizi);font-weight:700}
 .son{justify-content:center;text-align:center}.son .buyuk{font-size:2.6em;font-weight:900;margin:8px 0}.son .seri{font-size:1.1em;color:var(--altin);font-weight:800}
 .paylas{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:14px;margin:14px auto;max-width:320px;text-align:left;font-size:.9em}
-</style><script src="../../paket-kapisi.js"></script><script src="../../cizerek-coz.js?v=3" defer></script></head><body>
+</style><script src="../../paket-kapisi.js"></script><script src="../../cizerek-coz.js?v=4" defer></script></head><body>
 <div id="akis"></div><button id="temaB" class="temaB" type="button" aria-label="Koyu temaya geç">☾</button>
 <script>
 // 09.09 tema + vitrin: varsayılan açık (site), koyu yalnız düğmeyle; ?tema=koyu|acik zorlar; ?vitrin=1 = ana sayfa vitrini
@@ -1040,13 +1040,13 @@ function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bi
   const konuB=!!(zayif&&!VITRIN&&window.__KASA_FIHRIST&&window.__KASA_FIHRIST.filter(s=>konuNrm(s.konu)===konuNrm(zayif)).length>=3);
   gcOlay('set-kutusu/'+GC_YOL+'/goster','Set kutusu gösterildi');
   const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' özeti');
-  d.innerHTML='<div class="setKutu"><div class="setEtk">Set '+(no+1)+' bitti</div><div class="setSkor">'+ok+'<small> / '+c+' doğru</small></div>'
+  d.innerHTML='<div class="setKutu"><button type="button" class="setX" aria-label="Kapat">✕</button><div class="setEtk">Set '+(no+1)+' bitti</div><div class="setSkor">'+ok+'<small> / '+c+' doğru</small></div>'
     +(c<b-a?'<p>'+(b-a-c)+' soruyu boş geçtin.</p>':'')
     +(c-ok?'<p>'+(c-ok)+' yanlışın kutuya girdi; 2 gün sonra yeniden karşına çıkar.</p>':'<p>Bu sette hiç yanlışın yok.</p>')
     +(zayif?'<p class="setKonu">En çok zorlandığın konu: <b>'+esc(zayif)+'</b>'+(kz[zayif]>1?' ('+kz[zayif]+' yanlış)':'')+'</p>':'')
     +'<button type="button" class="btn ana setDevam">Sonraki sete geç ▶</button>'+(konuB?'<button type="button" class="btn mavi setKonuB">🎯 Bu konuyu çalış</button>':'')+(c-ok?'<button type="button" class="btn'+(konuB?'':' mavi')+' setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div>';
   const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape'){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } };
-  d.addEventListener('click',e=>{ if(e.target===d){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } }); d.querySelector('.setDevam').addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/devam','Set kutusu: sonraki set'); kapat(); });
+  d.addEventListener('click',e=>{ if(e.target===d||(e.target.closest&&e.target.closest('.setX'))){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } }); d.querySelector('.setDevam').addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/devam','Set kutusu: sonraki set'); kapat(); });
   const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/yanlislarim','Set kutusu: yanlışlarım'); kapat(); kutuEkraniAc(); });
   const kk=d.querySelector('.setKonuB'); if(kk) kk.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/konu','Set kutusu: bu konuyu çalış'); kk.disabled=true; setTimeout(()=>{ location.href=location.pathname+'?konu='+encodeURIComponent(zayif); },200); });
   document.addEventListener('keydown',esc_); document.body.appendChild(d); d.querySelector('.setDevam').focus(); }
@@ -1070,7 +1070,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
    +'<div class="sek thesap"><div class="et">📒 T-hesabı canlansın</div><p class="ipnot">Kayıt defterde böyle görünür: sol taraf borç, sağ taraf alacak.</p><div class="tKutular"></div><div class="btnrow"><button class="btn bThesapOynat">↺ Tekrar oynat</button></div></div>'
    +'<div class="sek cikmis"><div class="et">📈 Bu konu sınavda nasıl çıktı</div><div class="cikmisIc"></div></div></div>'
    +'<div class="ders"><div class="basl"><span>🎬 Nöbetçi anlatıyor · '+esc(s.konu)+'</span><button class="btn bDersKapat" style="padding:5px 10px">✕</button></div><div class="tabloSar"></div><div class="serit"></div><div class="altc"><button class="btn bOnce">◀ Geri</button><div class="adimBar"></div><button class="btn bSonra">İleri ▶</button></div></div>'
-   +'<div class="oyun"><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle; fazladan tutar var, hepsini kullanma. Bitince <b>Kontrol et</b>.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
+   +'<div class="oyun"><button type="button" class="oyunX" aria-label="Kapat">✕</button><div class="soruMini"><b>'+(s.oyun&&(s.oyun.tur==='ikiz'||s.oyun.tur==='tablo')?'İkiz soru':'Yeni tutarlarla')+':</b> '+esc(s.oyun?s.oyun.soru:s.soru)+'<div class="ipnot" style="margin:6px 0 0">'+esc(s.oyun?s.oyun.not:'')+'</div></div><h3>⚖️ '+esc(s.kayitBaslik||'Kaydı sen yap')+'</h3><div class="alt">Havuzdaki tutarları hesapların <b>BORÇ</b> ya da <b>ALACAK</b> kutusuna sürükle; fazladan tutar var, hepsini kullanma. Bitince <b>Kontrol et</b>.</div><div class="satirlar"></div><div class="toplam"><div>Borç <span class="tb">—</span></div><div>Alacak <span class="ta">—</span></div></div><div class="msj"></div><div class="btnrow"><button class="btn bOyunKapat">← Karta dön</button><button class="btn bTekrar">↺ Tekrar</button></div></div>';
   akis.insertBefore(k, akis.querySelector(':scope > .kart.son'));   /* son kart varsa ondan önce (parça yükleme) */
   const panel=k.querySelector('.panel'); const geri=k.querySelector('.geri');
   // 06.09 Cem: "649 yarım görünüyor, geriye dönemiyorum" — scrollIntoView bütün kartı (#akis) kaydırıyordu, cevap ekran dışına çıkıyordu.
@@ -1395,7 +1395,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
   }
   function olc(){ /* 06.09: kayıt oyunu artık Kontrol et ile ölçülür (bKontrolK) */ }
   k.querySelector('.bOyun').addEventListener('click',()=>{ oyunKur(); oyun.classList.add('acik'); });
-  oyun.querySelector('.bOyunKapat').addEventListener('click',()=>oyun.classList.remove('acik'));
+  oyun.querySelector('.bOyunKapat').addEventListener('click',()=>oyun.classList.remove('acik')); oyun.querySelector('.oyunX').addEventListener('click',()=>oyun.classList.remove('acik'));
   oyun.querySelector('.bTekrar').addEventListener('click',oyunKur);
   // --- OGRETMEN: adim adim yatay kaydirici (Cem 03.09: "ogretmen seklinde kaydirici da iyiydi, onu yapalim")
   const ders=k.querySelector('.ders'); const bDers=k.querySelector('.bDers');

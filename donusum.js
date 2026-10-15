@@ -173,6 +173,9 @@ if (asilFetch) {
 /* ---- onay bandı (yalnız PIKSEL_ID doluyken ve karar yokken) ---- */
 function bantGoster(){
   if (!PIKSEL_ID || document.getElementById('ttReklamBant')) return;
+  /* 15.10 Cem ("x işareti olmayan ya da x'e basınca kapanmayan bir şey istemiyorum"): bant ✕ ile kapanır. ✕ karar SAYILMAZ
+     (piksel yüklenmez, onay yazılmaz); bu sekmede bir daha çıkmaz, sonraki ziyarette yeniden sorulur. */
+  try { if (sessionStorage.getItem('ttReklamBantKapali') === '1') return; } catch(e) {}
   var d = document.createElement('div');
   d.id = 'ttReklamBant';
   d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Reklam ölçümü izni');
@@ -182,7 +185,7 @@ function bantGoster(){
   var dar = false; try { dar = window.matchMedia('(max-width:600px)').matches; } catch(e) {}
   /* perdenin (z-index 99999) üstünde: perde açıkken de karar verilebilsin */
   d.style.cssText = (dar ? 'position:fixed;left:8px;right:8px;bottom:8px;' : 'position:fixed;left:12px;right:12px;bottom:12px;')
-    + 'z-index:100000;max-width:640px;margin:0 auto;'
+    + 'z-index:2147483100;max-width:640px;margin:0 auto;box-sizing:border-box;padding-right:' + (dar ? '40px' : '46px') + '!important;'
     + 'background:#12151c;color:#e8eaed;border:1px solid #2c323d;border-radius:12px;'
     + (dar ? 'padding:9px 10px;font:12.5px/1.4 ' : 'padding:14px 16px;font:13.5px/1.55 ')
     + '-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.45)';
@@ -199,8 +202,15 @@ function bantGoster(){
     + '<a href="/gizlilik-politikasi.html#cerez" style="color:#ffc24b">Ayrıntı</a></p>'
     + '<div style="display:flex;gap:8px;flex-wrap:' + (dar ? 'nowrap' : 'wrap') + '">'
     + dugme('0', 'Reddet') + dugme('1', 'Kabul et')
-    + '</div>';
+    + '</div>'
+    + '<button type="button" data-x="1" aria-label="Kapat" style="position:absolute;top:2px;right:2px;width:40px;height:40px;'
+    + 'display:flex;align-items:center;justify-content:center;background:none;border:0;color:#e8eaed;font:18px/1 system-ui,sans-serif;cursor:pointer">✕</button>';
   d.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('button[data-x]')) {
+      try { sessionStorage.setItem('ttReklamBantKapali', '1'); } catch(x) {}
+      if (d.parentNode) d.parentNode.removeChild(d);
+      return;
+    }
     var b = e.target.closest && e.target.closest('button[data-k]');
     if (!b) return;
     ls(ONAY_ANAHTAR, b.getAttribute('data-k'));
@@ -208,6 +218,19 @@ function bantGoster(){
     if (b.getAttribute('data-k') === '1') pikselYukle();
   });
   document.body.appendChild(d);
+  /* 15.10 tarama: telefonda bant alttaki sabit çubukların (alt menü #ttAltMenu, satın almada ödeme çubuğu #mbar "Devam")
+     üstüne biniyordu → bant onların üstünde durur. Çubuklar sonradan çizilebildiği için kısa süre yeniden bakılır. */
+  var yerles = function(){
+    if (!d.parentNode) return;
+    var en = 0;
+    ['ttAltMenu', 'mbar'].forEach(function(id){
+      var e = document.getElementById(id); if (!e) return;
+      var r = e.getBoundingClientRect(); if (r.height && r.top < innerHeight && getComputedStyle(e).position === 'fixed') en = Math.max(en, innerHeight - r.top);
+    });
+    d.style.bottom = (en ? Math.round(en) + 8 : (dar ? 8 : 12)) + 'px';
+  };
+  yerles(); [300, 1200, 3000].forEach(function(t){ setTimeout(yerles, t); });
+  window.addEventListener('resize', yerles);
 }
 /* Gizlilik sayfasındaki "tercihimi değiştir" bağlantısı için */
 window.ttReklamOnayDegistir = function(){

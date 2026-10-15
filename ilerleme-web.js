@@ -52,6 +52,12 @@
       b.style.cssText = 'font:inherit;font-weight:700;border:0;border-radius:999px;padding:6px 12px;background:var(--mavi);color:var(--ustYazi);cursor:pointer';
       b.onclick = function () { s.remove(); fn(); }; s.appendChild(b);
     }
+    /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): şerit kendiliğinden kaybolmayı beklemeden ✕ ile kapanır; ders sayfasının
+       alttaki "Bugün tekrar zamanı" şeridiyle (bottom:18px) üst üste binip onun ✕'ini örtmesin diye onun üstünde durur. */
+    s.style.bottom = '84px';
+    var x = document.createElement('button'); x.type = 'button'; x.textContent = '✕'; x.setAttribute('aria-label', 'Kapat');
+    x.style.cssText = 'font:16px/1 system-ui,sans-serif;border:0;background:none;color:var(--yazi);width:36px;height:36px;flex:0 0 36px;cursor:pointer';
+    x.onclick = function () { s.remove(); }; s.appendChild(x);
     document.body.appendChild(s);
     setTimeout(function () { if (s.parentNode) s.remove(); }, 7000);
   }
@@ -76,7 +82,7 @@
 
     var ks = kartlar(), a = akis();
     /* 12.10 NÖBETÇİ NOTU (nobetci-notu.js): bitirme ders sayfasında her 10 cevapta bir kart. Tek kartta yok. İnmezse sayfa aynen. */
-    if (/^kaydir\/smmm\//.test(YOL) && !tek) yukle(KOK + 'nobetci-notu.js?v=20261012').then(function () {
+    if (/^kaydir\/smmm\//.test(YOL) && !tek) yukle(KOK + 'nobetci-notu.js?v=20261015x').then(function () {
       var s0 = (typeof SORULAR !== 'undefined' && SORULAR[0]) || {};
       if (window.ttNobetciNotu) window.ttNobetciNotu.kur({ yol: YOL, kok: KOK, ders: String(s0.ders || ''), tekrar: typeof kutuEkraniAc === 'function' ? kutuEkraniAc : null });
     }).catch(function () {});

@@ -119,7 +119,7 @@ try {
 try {
   /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
   if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261011b'; dn.async = true;
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261015x'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
@@ -720,7 +720,10 @@ function ttSorguKapisi(anahtar){
     var d = document.createElement('div');
     d.id = 'ttDuvar';
     d.style.cssText = 'position:fixed;inset:0;background:rgba(3,6,10,.82);z-index:9999;display:grid;place-items:center;padding:20px';
-    d.innerHTML = '<div style="max-width:430px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
+    /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): sağ üstte ✕ + boşluğa dokununca kapanır */
+    d.addEventListener('click', function (e) { if (e.target === d) d.remove(); });
+    d.innerHTML = '<div style="position:relative;max-width:430px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
+      '<button type="button" aria-label="Kapat" onclick="document.getElementById(\'ttDuvar\').remove()" style="position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:none;color:var(--ink);font:20px/1 system-ui,sans-serif;cursor:pointer">✕</button>' +
       '<div style="font-size:19px;font-weight:800;color:var(--ink);margin-bottom:8px">Bu ayın 5 bedava sorgusunu kullandın</div>' +
       '<div style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:16px">Ücretsiz üyelikte tüm araçlar sınırsız — üstelik panelde firmanı tanıt, robot seni ilgilendiren değişiklikte haber versin.</div>' +
       '<a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none">Ücretsiz üye ol →</a>' +
