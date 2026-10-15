@@ -9,10 +9,12 @@ if(window.MRMenu) return;
    Gruplara/Instagram'a atılan link ?k=grup-whatsapp gibi bir etiket taşır (yoksa ?utm_source=). Etiket biçim
    süzgecinden geçer (küçük harf; a-z 0-9 _ -; en çok 32), cihazda 30 gün saklanır (son gelen link kazanır) ve
    oturumda etiket başına BİR ziyaret sayılır. Seviye testi başlayınca ttKaynak.olay('test'), hesap açılınca
-   ttKaynak.uye() (sunucu ayrıca bakar: hesap <= 2 gün, hesap başına 1). Etiketsiz gelende HİÇBİR istek gitmez.
+   ttKaynak.uye() (sunucu ayrıca bakar: hesap <= 2 gün, hesap başına 1). Etiketsiz gelende (16.10'dan beri: ne ?k=
+   ne tıklama kimliği ne tanınan yönlendiren site varsa) HİÇBİR istek gitmez.
    Sunucu: radar-app/sql/2026-10-08-kaynak-sayac.sql - yalnız gün + etiket + olay + adet; IP/e-posta yok.
    🚫 GÖRMEZ: linki etiketsiz paylaşan · depolaması kapalı tarayıcıda sonraki sayfadaki test/üyelik (ziyaret yine
-   sayılır) · linki bir cihazda açıp başka cihazda üye olan. */
+   sayılır) · linki bir cihazda açıp başka cihazda üye olan · yönlendireni gizleyen tarayıcı/uygulama (doğrudan
+   gelen gibi görünür) · ücretli ile ücretsiz Instagram'ı ayırmak (?k=ig yoksa ikisi de ref-instagram). */
 (function(){
   var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var DESEN=/^[a-z0-9][a-z0-9_-]{0,31}$/, OMUR=30*86400000, AD='tt_kaynak', OT='tt_kaynak_say', HESAP_GUN=2;
@@ -36,6 +38,26 @@ if(window.MRMenu) return;
   }
   var q=null; try{ q=new URLSearchParams(location.search); }catch(e){}
   var gelen=q?(suz(q.get('k'))||suz(q.get('utm_source'))):null;
+  /* 16.10 (Cem "üye çekemiyoruz"; ölçüldü: 13–16.10 açılan 23 hesabın 7'si etiketsiz bağlantıdan, ör. Instagram profil
+     linki): ?k= yoksa reklam tıklama kimliği ya da yönlendiren site OTOMATİK etiket olur. Yalnız etiket adı gider
+     (adres/kimlik değeri gitmez). Otomatik etiket cihazdaki geçerli bir etiketi EZMEZ; açık ?k= her zaman kazanır. */
+  var oto=null;
+  if(!gelen){
+    if(q&&(q.get('gclid')||q.get('gbraid')||q.get('wbraid'))) oto='gads';
+    else{
+      var rh=''; try{ rh=new URL(document.referrer).hostname.toLowerCase(); }catch(e){}
+      var ua=''; try{ ua=navigator.userAgent||''; }catch(e){}
+      if(/(^|\.)instagram\.com$/.test(rh)||/Instagram/.test(ua)) oto='ref-instagram';
+      else if(/(^|\.)facebook\.com$/.test(rh)||/FBAN|FBAV|FB_IAB/.test(ua)||(q&&q.get('fbclid'))) oto='ref-facebook';
+      else if(/(^|\.)google\.[a-z.]+$/.test(rh)) oto='ref-google';
+      else if(/(^|\.)(t\.me|telegram\.org)$/.test(rh)||/Telegram/.test(ua)) oto='ref-telegram';
+      else if(/(^|\.)(whatsapp\.com|wa\.me)$/.test(rh)||/WhatsApp/.test(ua)) oto='ref-whatsapp';
+      else if(/(^|\.)(tiktok\.com)$/.test(rh)||/musical_ly|BytedanceWebview/.test(ua)) oto='ref-tiktok';
+      else if(/(^|\.)(bing\.com|yandex\.[a-z.]+|duckduckgo\.com)$/.test(rh)) oto='ref-arama';
+    }
+    if(oto&&oku()) oto=null;   /* cihazda geçerli etiket var: o kalır, otomatik etiket sayılmaz */
+    gelen=oto;
+  }
   if(gelen){
     try{ localStorage.setItem(AD,JSON.stringify({k:gelen,t:Date.now()})); }catch(e){}
     try{ sessionStorage.setItem(AD,gelen); }catch(e){}
