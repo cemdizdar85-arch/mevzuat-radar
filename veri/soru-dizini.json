@@ -1,5 +1,5 @@
 {
- "uretim": "2026-10-15 11:29",
+ "uretim": "2026-10-15 11:56",
  "uretici": "motor/soru-dizini.js",
  "sinavlar": [
   {
@@ -559,8 +559,8 @@
    "uzun": "KGK Bağımsız Denetçilik Sınavı",
    "durum": "hazirlaniyor",
    "ders_sayisi": 9,
-   "acik_ders": 8,
-   "soru": 1102,
+   "acik_ders": 9,
+   "soru": 1134,
    "dersler": [
     {
      "ad": "Türkiye Muhasebe Standartları",
@@ -751,11 +751,23 @@
      "alt": "",
      "bolum": "ek alan — sürdürülebilirlik",
      "sinav_soru": 0,
-     "soru": 4,
-     "sayfa": null,
-     "konular": [],
-     "ara": "",
-     "esik_alti": "kaydir/kgk/surdurulebilirlik-denetimi.html"
+     "soru": 36,
+     "sayfa": "kaydir/kgk/surdurulebilirlik-denetimi.html",
+     "konular": [
+      {
+       "ad": "gds 3000 tarihi finansal bilgi dışındaki güvence denetimleri çerçeve",
+       "donem": 1
+      },
+      {
+       "ad": "gds 3000 güvence denetiminde kanıt ve önemlilik",
+       "donem": 1
+      },
+      {
+       "ad": "gds 3402 hizmet kuruluşundaki kontrollere ilişkin güvence raporları",
+       "donem": 1
+      }
+     ],
+     "ara": "gds 3000 tarihi finansal bilgi disindaki guvence denetimleri cerceve gds 3000 guvence denetiminde kanit ve onemlilik gds 3402 hizmet kurulusundaki kontrollere iliskin guvence raporlari gds 3400 ileriye yonelik finansal bilgilerin incelenmesi gds 3000 onemlilik duzeyi gds 3402 raporlari gds 3000 mesleki suphecilik gds 3000 dogrulama hizmetleri gds 3000 makul ve sinirli guvence gds 3410 belirsizlikler gds 3000 denetim on sartlari gds 3410 ornekleme etik kurallar kisim 4b bagimsizlik gds 3000 analitik prosedurler gds 3000 dayanak denetim konusu uygunlugu gds 3000 dikkat cekilen hususlar paragrafi gds 3000 denetim planlamasi"
     }
    ]
   }
