@@ -119,7 +119,7 @@
     d.id = 'ckPerde';
     d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
     /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): sağ üstte ✕ → Soru Çöz sayfasına döner (paket içeriği yine açılmaz) */
-    d.innerHTML = '<a class="ck-x" href="' + kokAdres() + 'sorular.html" aria-label="Kapat">✕</a><div class="ck-kutu">' + html + '</div>';
+    d.innerHTML = '<a class="ck-x" href="' + kokAdres() + 'sorular.html' + (/\/kaydir\/smmm\//.test(location.pathname) ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs') + '" aria-label="Kapat">✕</a><div class="ck-kutu">' + html + '</div>';
     document.body.appendChild(d);
     document.body.style.overflow = 'hidden';
     return d;

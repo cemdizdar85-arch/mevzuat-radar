@@ -27,7 +27,7 @@
     '#ttTelif{position:fixed;left:0;right:0;bottom:0;z-index:30;box-sizing:border-box;font:12px/1.4 -apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;' +
     'text-align:center;padding:4px 44px calc(4px + env(safe-area-inset-bottom,0px)) 10px;pointer-events:none;' +
     'color:var(--dim,var(--ink));background:color-mix(in srgb,var(--kart,var(--panel)) 85%,transparent);opacity:.85}' +
-    '#ttTelif .ttTelifX{pointer-events:auto;position:absolute;top:50%;right:2px;transform:translateY(-50%);width:40px;height:40px;border:0;background:none;color:inherit;font:16px/1 system-ui,sans-serif;cursor:pointer}' +
+    '#ttTelif .ttTelifX{pointer-events:auto;position:absolute;top:50%;right:0;transform:translateY(-50%);width:44px;height:44px;border:0;background:none;color:inherit;font:16px/1 system-ui,sans-serif;cursor:pointer}' +
     '@media print{html.tt-koruma body>*{display:none!important}html.tt-koruma body:before{content:"Bu içerik telif hakkıyla korunur; yazdırılamaz. © Tetikte";display:block;padding:40px;font:16px sans-serif}}';
   (document.head || document.documentElement).appendChild(st);
   document.documentElement.classList.add('tt-koruma');

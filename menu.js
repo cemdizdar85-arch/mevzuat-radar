@@ -119,7 +119,7 @@ try {
 try {
   /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
   if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261015x'; dn.async = true;
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261015y'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
@@ -819,7 +819,7 @@ function ttSorguHakki(anahtar){
           + 'box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 18%,transparent);font-size:14px;line-height:1.4';
         d.innerHTML = '<span style="flex:1"><b>Ekibe sorduğun sorunun cevabı geldi.</b></span>'
           + '<a href="/ogrenci.html#ekipCevaplar" style="font-weight:700;white-space:nowrap;color:var(--ink)">Cevabı gör →</a>'
-          + '<button type="button" aria-label="Kapat" style="border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0 2px">✕</button>';
+          + '<button type="button" aria-label="Kapat" style="border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0;width:44px;height:44px;margin:-10px -8px -10px 0;flex:0 0 44px">✕</button>';
         d.querySelector('button').addEventListener('click', function () {
           d.remove(); try { sessionStorage.setItem(AD, JSON.stringify({ kapali: true })); } catch (e) {}
         });

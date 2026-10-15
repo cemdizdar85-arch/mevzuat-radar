@@ -156,7 +156,7 @@
       var d = document.createElement('div');
       d.id = 'pkPerde';
       d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
-      d.innerHTML = '<a class="pk-x" href="' + KOK + 'sorular.html" aria-label="Kapat">✕</a><div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
+      d.innerHTML = '<a class="pk-x" href="' + KOK + 'sorular.html' + (yetSayfa ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs') + '" aria-label="Kapat">✕</a><div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
       document.body.appendChild(d);
       document.body.style.overflow = 'hidden';
     };
@@ -185,7 +185,7 @@
       var calistir = function () { if (window.ttIlerlemeWeb) window.ttIlerlemeWeb.kur(sb, kullanici); };
       if (window.ttIlerlemeWeb) return calistir();
       var s = document.createElement('script');
-      s.src = KOK + 'ilerleme-web.js?v=20261015x';   /* 12.10: kaldığın yer kimlikle */
+      s.src = KOK + 'ilerleme-web.js?v=20261015y';   /* 12.10: kaldığın yer kimlikle */
       s.onload = calistir;
       (document.head || kok).appendChild(s);
     } catch (e) {}

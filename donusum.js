@@ -203,7 +203,7 @@ function bantGoster(){
     + '<div style="display:flex;gap:8px;flex-wrap:' + (dar ? 'nowrap' : 'wrap') + '">'
     + dugme('0', 'Reddet') + dugme('1', 'Kabul et')
     + '</div>'
-    + '<button type="button" data-x="1" aria-label="Kapat" style="position:absolute;top:2px;right:2px;width:40px;height:40px;'
+    + '<button type="button" data-x="1" aria-label="Kapat" style="position:absolute;top:0;right:0;width:44px;height:44px;'
     + 'display:flex;align-items:center;justify-content:center;background:none;border:0;color:#e8eaed;font:18px/1 system-ui,sans-serif;cursor:pointer">✕</button>';
   d.addEventListener('click', function(e){
     if (e.target.closest && e.target.closest('button[data-x]')) {
@@ -223,7 +223,9 @@ function bantGoster(){
   var yerles = function(){
     if (!d.parentNode) return;
     var en = 0;
-    ['ttAltMenu', 'mbar'].forEach(function(id){
+    /* 15.10 üye denemesi: "Ekibe sorduğun sorunun cevabı geldi" bildirimi (menu.js, alttan 20/78 px) bandın altında kalıyor,
+       bant onun ✕'ini örtüyordu (telefon + bilgisayar) → o da sayılır. Bildirim ağ cevabından sonra geldiği için gövde izlenir. */
+    ['ttAltMenu', 'mbar', 'ttEkipBildirim'].forEach(function(id){
       var e = document.getElementById(id); if (!e) return;
       var r = e.getBoundingClientRect(); if (r.height && r.top < innerHeight && getComputedStyle(e).position === 'fixed') en = Math.max(en, innerHeight - r.top);
     });
@@ -231,6 +233,8 @@ function bantGoster(){
   };
   yerles(); [300, 1200, 3000].forEach(function(t){ setTimeout(yerles, t); });
   window.addEventListener('resize', yerles);
+  try { var gozcu = new MutationObserver(function(){ if (!d.parentNode) return gozcu.disconnect(); yerles(); });
+        gozcu.observe(document.body, { childList: true }); setTimeout(function(){ gozcu.disconnect(); }, 20000); } catch(e) {}
 }
 /* Gizlilik sayfasındaki "tercihimi değiştir" bağlantısı için */
 window.ttReklamOnayDegistir = function(){

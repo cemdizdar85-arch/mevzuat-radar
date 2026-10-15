@@ -829,18 +829,23 @@ jobs:
           - { ad: "Mobil tasma kapisi OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/mobil-tasma-kapisi.js --sinav --mutasyon" }
           # 15.10 (Cem "telefonda bildirim geliyor, x bastirmiyor; x isareti olmayan ya da x'e basinca
-          # kapanmayan bir sey istemiyorum"): her kok sayfa telefon 390 + bilgisayar 1366 acilir, iki ders
-          # sayfasinda kasa taklidiyle 22 soru cevaplanir. Ekrandaki her sabit katman: A) x yok B) x ekran
-          # disi C) x'in ustunde baska oge D) x'e GERCEK fare olayiyla dokununca kapanmadi -> KIRMIZI.
-          # Gercek vakayla olculdu: 682fa755^ surumu KIRMIZI (135 kusur: Meta bandi 118, telif seridi 12,
-          # set kutusu 4, odeme perdesi 2), 682fa755 sonrasi YESIL (156 olcum, 130 katman, 0 kusur, ~4,5 dk).
-          # MUAF (bildirim degil): #ttAltMenu, #mbar, #mrxFab, nav/header. GORMEZ: tiklayinca acilan pencere,
-          # oturumlu uyeye ozel (cihaz kapisi, Nobetci notu, ekip cevabi), gercek iPhone/Android dokunusu.
+          # kapanmayan bir sey istemiyorum"): her kok sayfa telefon 390 + bilgisayar 1366 acilir. Ekrandaki
+          # her sabit katman (en ustteki once): A) x yok B) x ekran disi C) x'in ustunde baska oge D) x'e
+          # GERCEK fare olayiyla dokununca kapanmadi E) x 40 px'ten kucuk -> KIRMIZI.
+          # UYE SENARYOLARI (Cem "sen dene bul"): Supabase kutuphanesi sahte istemciyle degisir, sitenin
+          # gercek kodu kosar: 2 ders sayfasi 22 cevap (set kutusu, Nobetci notu), "baska cihazda acildi"
+          # perdesi, cihaz siniri perdesi, ekip cevabi bildirimi, 5 bedava sorgu duvari. Beklenen pencere
+          # cikmazsa K (kapi kor) — sessiz gecmez.
+          # Gercek vakayla olculdu: 682fa755^ KIRMIZI (135 kusur: Meta bandi, telif seridi, set kutusu, perde);
+          # ilk uye denemesi KIRMIZI (ekip bildirimi x 19x25 px + Meta bandi altinda; tekrar seridi x 34x32;
+          # set kutusu + Nobetci notu ayni anda); duzeltme sonrasi YESIL (164 olcum, 148 katman, 0 kusur, ~6 dk).
+          # MUAF (bildirim degil): #ttAltMenu, #mbar, #mrxFab, #ckFiligran, nav/header. GORMEZ: tiklayinca
+          # acilan pencere, "kaldigin yerden" seridi, gercek sunucu cevap bicimi, gercek iPhone/Android dokunusu.
           - { ad: "X kapisi (her bildirim/pencere x ile kapaniyor mu)",
               kabuk: bash, komut: "node arac/x-kapisi.js",
               rapor: "veri/x-kapisi-raporu.json" }
-          # 10 vaka (2'si yanlis alarm vakasi: alt menu, kucuk tema dugmesi); 6 mutasyon (x tanimi, ortme,
-          # dokunma, ekran disi, dokunulamaz serit, muaf) her birinde KIRMIZI (15.10 yerelde olculdu).
+          # 12 vaka (2'si yanlis alarm vakasi: alt menu, kucuk tema dugmesi); 8 mutasyon (x tanimi, ortme,
+          # dokunma, ekran disi, dokunulamaz serit, muaf, x boyutu, katman sirasi) her birinde KIRMIZI (15.10 yerelde).
           - { ad: "X kapisi OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/x-kapisi.js --sinav --mutasyon" }
           # 03.10 (Cem "1.2.3"): canli tarama robotunun (canli-tarama.yml) oz-sinavi - 10 vaka (temiz, tasma,

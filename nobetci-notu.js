@@ -112,6 +112,15 @@
   function kapat() { var e = document.getElementById('ttNn'); if (e) e.classList.remove('acik'); }
   if (typeof document !== 'undefined') document.addEventListener('keydown', function (x) { if (x.key === 'Escape') kapat(); });
   function goster(d, davet) {
+    /* 15.10 üye denemesi: 20., 40. … cevapta set kutusu (.setOzet) ile bu not AYNI ANDA açılıyor, set kutusu notun ✕'ini örtüyordu
+       (kullanıcı üst üste iki pencere görüyordu) → set kutusu açıkken not bekler, kutu kapanınca gelir (en çok 10 dk). */
+    var bekleyen = 0;
+    (function sira() {
+      if (document.querySelector('.setOzet') && ++bekleyen < 1200) return setTimeout(sira, 500);
+      goster_(d, davet);
+    })();
+  }
+  function goster_(d, davet) {
     veriAl().then(function (v) {
       var o = ozet(d.son, v.idKonu, v.kanit), z = o.zayif, h = '';
       var deneme = A.kok + 'sinav-gibi.html?tur=ders&sinav=smmm&ders=' + encodeURIComponent(v.ders);
