@@ -1,7 +1,7 @@
 {
     "oturum":  "YET-2410",
     "sinav":  "SMMM",
-    "uretim":  "07.10.2026 00:41",
+    "uretim":  "15.10.2026 11:39",
     "sure_dk":  180,
     "hedef_soru":  80,
     "paket_soru":  80,
@@ -29,5 +29,44 @@
                 ],
     "eksikler":  [
 
-                 ]
+                 ],
+    "secim_yontemi":  "siklik agirlikli (son 10 yil, konu basina 1; arac/prova-konu-agirlik.js)",
+    "siklik":  [
+                   {
+                       "ders":  "Finansal Muhasebe",
+                       "soru":  20,
+                       "konu":  20,
+                       "sik":  19,
+                       "orta":  1,
+                       "az":  0,
+                       "eslesmeyen":  0
+                   },
+                   {
+                       "ders":  "Maliyet Muhasebesi",
+                       "soru":  20,
+                       "konu":  15,
+                       "sik":  17,
+                       "orta":  3,
+                       "az":  0,
+                       "eslesmeyen":  0
+                   },
+                   {
+                       "ders":  "Hukuk",
+                       "soru":  20,
+                       "konu":  20,
+                       "sik":  6,
+                       "orta":  14,
+                       "az":  0,
+                       "eslesmeyen":  0
+                   },
+                   {
+                       "ders":  "Sermaye Piyasası Mevzuatı",
+                       "soru":  20,
+                       "konu":  20,
+                       "sik":  15,
+                       "orta":  5,
+                       "az":  0,
+                       "eslesmeyen":  0
+                   }
+               ]
 }

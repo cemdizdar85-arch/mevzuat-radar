@@ -27,7 +27,7 @@
 #   Sermaye Piyasası Mevzuatı; 2. oturum 14.00-17.00 Finansal Tablolar ve Analizi · Muhasebe Denetimi · Vergi ·
 #   Meslek Hukuku; her ders 20 soru, 45 dk. -YetOturum 1 (varsayılan) | 2 | tam (8 ders, 360 dk). Eski düzen: -YetOturum eski (8x10, 120 dk).
 #   SGS süresi 150 -> 165 dk (SGS 2025/1 Uygulama Kılavuzu: "Sınav Süresi: 165 Dakika").
-param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla, [ValidateSet('1','2','tam','eski')][string]$YetOturum = '1')
+param([Parameter(Mandatory=$true)][string]$oturum, [switch]$zorla, [ValidateSet('1','2','tam','eski')][string]$YetOturum = '1', [switch]$Rastgele, [switch]$Kuru)
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $PSDefaultParameterValues['Invoke-RestMethod:UserAgent'] = 'mevzuat-radar-robot/1.0'
@@ -112,6 +112,15 @@ while($true){
   $bas += 1000
 }
 Write-Host ("temiz havuz: {0} soru" -f $havuz.Count)
+# 15.10 YAYIN DISI KAPISI: kasadaki her soru sitede degil. Olculdu 15.10: sik konu secimi SGS'de "mevzuat degisti" listesindeki
+#   bir soruyu (GVK m.103, sitede yayinda degil) pakete aldi. Bu listelerde adi gecen soru pakete GIRMEZ.
+#   🚫 GORMEZ: listeye yazilmamis yayin disi soru (ornek: yayin secim dosyasindan baska nedenle dusmus).
+$disiMetin = @('veri\sinav\mevzuat-degisti-yeni-hat.json','veri\sinav\sgs-elle-ret.json','veri\sinav\smmm-elle-ret.json','veri\sinav\kgk-elle-ret.json') |
+  ForEach-Object { $y = Join-Path $kok $_; if(Test-Path $y){ [IO.File]::ReadAllText($y) } }
+$disiMetin = $disiMetin -join "`n"
+$once = $havuz.Count
+$havuz = New-Object System.Collections.Generic.List[object] (,[object[]]@($havuz | Where-Object { -not $disiMetin.Contains('"' + "$($_.id)" + '"') }))
+Write-Host ("yayin disi listelerde gecen, atlandi: {0} · kalan havuz: {1}" -f ($once - $havuz.Count), $havuz.Count)
 
 # --- secim
 $rnd = New-Object System.Random
@@ -125,10 +134,54 @@ $plan = if($sinav -eq 'SGS'){ $SGS_BILESIM }
         elseif($YetOturum -eq '1'){ @($YET_OTURUM1 | ForEach-Object { @{ders=$_; n=20} }) }
         elseif($YetOturum -eq '2'){ @($YET_OTURUM2 | ForEach-Object { @{ders=$_; n=20} }) }
         else { @(($YET_OTURUM1 + $YET_OTURUM2) | ForEach-Object { @{ders=$_; n=20} }) }
+# 15.10.2026 SIKLIK AGIRLIKLI SECIM (Cem: "en cok cikan sinav konularindan bir hazirlik yapalim, ders ders tutsun,
+#   gercek sinavla yaparsan sevinirim"). OLCULDU 15.10: rastgele secimle SGS-1710'un 130 sorusunun 63'u son 10 yilda en
+#   cok 1 donemde cikmis konudan geliyordu. Artik ders sayilari AYNI (resmi bilesim), ders ICINDE konu secimi gercek sinavin
+#   konu dagilimini taklit eder: once son 10 yilda >= 3 donemde cikmis konular, konu basina 1 soru, cikma sayisiyla orantili
+#   agirlikli kura (Efraimidis: anahtar = rastgele^(1/agirlik)); yetmezse 2. tur (konu basina 2), sonra 1-2 donemlik konular,
+#   en son eslesmeyenler. Agirlik: arac/prova-konu-agirlik.js (SGS kumeleme + SMMM okunmus tablo, bedel 0).
+#   -Rastgele = eski davranis (konu tavani 2, sira rastgele).
+#   🚫 GORMEZ: agirlik tablolari bayatsa son donemi · ayni konunun farkli kumeye dusmus yazimini (kumeleme orneklemle olculdu).
+$AGIRLIK = @{}
+if(-not $Rastgele){
+  $gecici = Join-Path $env:TEMP ("prova-aday-" + $oturum + ".json"); $gCikti = $gecici -replace '\.json$','-agirlik.json'
+  $adayJson = ConvertTo-Json -Compress -Depth 3 -InputObject @($havuz | ForEach-Object { [ordered]@{ id="$($_.id)"; ders="$($_.ders)"; konu="$($_.konu)" } })
+  [IO.File]::WriteAllText($gecici, $adayJson, (New-Object Text.UTF8Encoding($false)))
+  & node (Join-Path $kok 'arac\prova-konu-agirlik.js') $KASA_SINAV $gecici $gCikti
+  if($LASTEXITCODE -ne 0 -or -not (Test-Path $gCikti)){ throw 'konu agirligi hesaplanamadi - paket uretilmedi (-Rastgele ile eski secim)' }
+  $aj = Get-Content $gCikti -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach($pr in $aj.PSObject.Properties){ $AGIRLIK[$pr.Name] = $pr.Value }
+  Remove-Item $gecici, $gCikti -ErrorAction SilentlyContinue
+}
+function AgirlikliSec($adaylar, [int]$n){
+  # konu kumesi -> sorular; her kume icin anahtar = u^(1/son10); kume sirasi anahtara gore, kume ici soru sirasi rastgele
+  $kume = @{}
+  foreach($s in $adaylar){ $a = $AGIRLIK["$($s.id)"]; $k = if($a){ "$($a.kume)" } else { "YOK|$($s.id)" }
+    if(-not $kume.ContainsKey($k)){ $kume[$k] = [pscustomobject]@{ k=$k; son=$(if($a){ [double]$a.son } else { 0 }); don=$(if($a){ [int]$a.don } else { 0 }); sorular=(New-Object System.Collections.Generic.List[object]) } }
+    $kume[$k].sorular.Add($s) }
+  $liste = @($kume.Values | ForEach-Object { $_ | Add-Member -NotePropertyName sira -NotePropertyValue @($_.sorular.ToArray() | Sort-Object { $rnd.Next() }); $u = [Math]::Max($rnd.NextDouble(), 1e-12)
+    $anah = if($_.son -gt 0){ [Math]::Pow($u, 1.0 / $_.son) } else { -1 + $u }
+    $_ | Add-Member -NotePropertyName anahtar -NotePropertyValue $anah -PassThru })
+  $al = New-Object System.Collections.Generic.List[object]
+  foreach($asama in @(@{min=3;tur=1},@{min=3;tur=2},@{min=1;tur=1},@{min=1;tur=2},@{min=0;tur=1},@{min=0;tur=99})){
+    $uygun = @($liste | Where-Object { $_.don -ge $asama.min } | Sort-Object anahtar -Descending)
+    foreach($K in $uygun){
+      if($al.Count -ge $n){ break }
+      $alinmis = @($K.sira | Where-Object { $al.Contains($_) }).Count
+      if($alinmis -ge $asama.tur){ continue }
+      $siradaki = $K.sira | Where-Object { -not $al.Contains($_) } | Select-Object -First 1
+      if($siradaki){ $al.Add($siradaki) }
+    }
+    if($al.Count -ge $n){ break }
+  }
+  return $al.ToArray()
+}
 foreach($p in $plan){
   $aday = Karistir ($havuz | Where-Object { DersEslesirMi $_.ders $p.ders })
   $al=@(); $konuSayac=@{}
+  if(-not $Rastgele){ $al = @(AgirlikliSec $aday $p.n) }
   foreach($s in $aday){
+    if(-not $Rastgele){ break }
     if($al.Count -ge $p.n){ break }
     $kn = Dnorm "$($s.konu)"
     if($konuSayac.ContainsKey($kn) -and $konuSayac[$kn] -ge 2){ continue }   # ayni konudan en fazla 2
@@ -143,6 +196,19 @@ foreach($p in $plan){
 }
 $hedef = ($plan | ForEach-Object { $_.n } | Measure-Object -Sum).Sum
 Write-Host ("secim: {0} / hedef {1}" -f $secim.Count, $hedef)
+# 15.10: secimin konu sikligi ozeti (son 10 yil, kac donemde cikti): SIK >= 5 · ORTA 2-4 · AZ 0-1 · eslesmeyen. Yalniz sayi basilir.
+$SIKLIK_OZET = @()
+if($AGIRLIK.PSBase.Count){
+  foreach($p in $plan){
+    $ds = @($secim | Where-Object { DersEslesirMi $_.ders $p.ders })
+    $b = @{ sik=0; orta=0; az=0; yok=0 }
+    foreach($s in $ds){ $a = $AGIRLIK["$($s.id)"]; if(-not $a -or "$($a.kume)" -like 'YOK|*'){ $b.yok++ } elseif([int]$a.don -ge 5){ $b.sik++ } elseif([int]$a.don -ge 2){ $b.orta++ } else { $b.az++ } }
+    $konuSay = @($ds | ForEach-Object { $a = $AGIRLIK["$($_.id)"]; if($a){ "$($a.kume)" } else { "$($_.id)" } } | Select-Object -Unique).Count
+    $SIKLIK_OZET += [pscustomobject][ordered]@{ ders=$p.ders; soru=$ds.Count; konu=$konuSay; sik=$b.sik; orta=$b.orta; az=$b.az; eslesmeyen=$b.yok }
+  }
+  $SIKLIK_OZET | Format-Table -AutoSize | Out-String | Write-Host
+}
+if($Kuru){ Write-Host 'KURU KOSU: paket/anahtar YAZILMADI.'; exit 0 }
 if($eksikler.Count){
   Write-Host ''
   Write-Host '!! BILESIM EKSIK - resmi dagilim tutmuyor:'
@@ -207,6 +273,8 @@ $karne = [ordered]@{
       $pd=$_.ders
       [ordered]@{ ders=$pd; hedef=$_.n; gelen=@($paketSoru | Where-Object { DersEslesirMi $_.ders $pd }).Count } })
   eksikler = @($eksikler)
+  secim_yontemi = $(if($Rastgele){ 'rastgele (konu tavani 2)' } else { 'siklik agirlikli (son 10 yil, konu basina 1; arac/prova-konu-agirlik.js)' })
+  siklik = @($SIKLIK_OZET)
 }
 [IO.File]::WriteAllText((Join-Path $paketDir "$oturum-karne.json"), (ConvertTo-Json -InputObject $karne -Depth 5), (New-Object Text.UTF8Encoding($false)))
 Write-Host ("karne: veri/canli/{0}-karne.json ({1}/{2} soru)" -f $oturum, $paketSoru.Count, $hedef)
