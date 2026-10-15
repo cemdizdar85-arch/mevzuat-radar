@@ -72,7 +72,7 @@ const SINAV_GIBI = (ek, kapisiz) => SEVIYE(ek).replace('<link rel="stylesheet" h
   .replace('<a href="ogrenci.html', '<a href="sorular.html#sgs">Soru çöz</a><a href="ogrenci.html');
 const SITE_EK_SAHTE = {};
 ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js', 'sinav-sonucu.js',
-  'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
+  'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js', 'nobetci-notu.js'].forEach((a) => { SITE_EK_SAHTE[a] = '/* ' + a + ' */'; });
 
 function kur(degisiklik) {
   const k = fs.mkdtempSync(path.join(os.tmpdir(), 'hz-sinav-'));
@@ -192,10 +192,15 @@ for (const v of VAKALAR) {
     const yollar = ['/kaydir/sgs/turkce.html', '/kaydir/smmm/vergi.html', '/kaydir/vitrin/sgs.html', '/sinav-gibi.html'];
     const siteSinav = (y) => /\/kaydir\/sgs\//.test(y) || /sinav-gibi\.html$/.test(y) ? 'sgs' : (/\/kaydir\/smmm\//.test(y) ? 'yeterlilik' : null);
     for (const y of yollar) if (siteSinav(y) !== kutu.window.TT.sinaviBul(y)) { fark++; not += ' [yol ' + y + ']'; }
-    /* Yol→sınav eşlemesi paket-kapisi.js'te satır içinde; biçimi değişirse yukarıdaki siteSinav kopyası bayatlar. */
+    /* Yol→sınav eşlemesi paket-kapisi.js'te satır içinde; biçimi değişirse yukarıdaki siteSinav kopyası bayatlar.
+       15.10: sitede iki dal daha var — sinav-gibi ?sinav=smmm (uygulamada uygulama-kapisi.js sayfaSinavi() karşılar)
+       ve kaydir/kgk/ (hazirla.js KGK sayfalarını uygulamaya almaz). Yeni bir dal eklenirse bu liste kırmızı verir. */
     const SITE_YOL = [
-      String.raw`/\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs'`,
-      String.raw`(/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik' : null)`
+      String.raw`var sgYet = /sinav-gibi\.html$/.test(location.pathname) && /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search);`,
+      String.raw`var sinavi = sgYet ? 'yeterlilik'`,
+      String.raw`(/\/kaydir\/sgs\//.test(location.pathname) || /sinav-gibi\.html$/.test(location.pathname) ? 'sgs'`,
+      String.raw`(/\/kaydir\/smmm\//.test(location.pathname) ? 'yeterlilik'`,
+      String.raw`(/\/kaydir\/kgk\//.test(location.pathname) ? 'kgk' : null)));`
     ];
     for (const s of SITE_YOL) if (pk.indexOf(s) < 0) { fark++; not += ' [paket-kapisi sınav yolu biçimi değişmiş: ' + s.slice(0, 40) + ']'; }
     tamam = fark === 0; not = fark + ' fark' + not;

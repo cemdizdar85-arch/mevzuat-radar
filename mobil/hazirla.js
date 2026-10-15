@@ -78,7 +78,7 @@ const SAYFA_SOK = {   // ad → desen
   uye: /<script src="uye-durumu\.js[^"]*"><\/script>\n?/
 };
 const SAYFA_KANCA = '<link rel="stylesheet" href="stil.css">';   // uygulama betikleri bunun hemen ardına girer (tam 1 kez)
-const KOK_KAPI = '<script src="paket-kapisi.js"></script>';      // kökteki paket sayfasının kapı etiketi (sinav-gibi.html)
+const KOK_KAPI = /<script src="paket-kapisi\.js(\?v=[^"]*)?"><\/script>/g;   // kökteki paket sayfasının kapı etiketi (sinav-gibi.html); 15.10 site ?v= sürüm eki koydu
 const UCRETSIZ_SORU = 30;   // Cem 25.09: sınav başına 30 ücretsiz soru
 
 /* Sayfadaki `const SORULAR=[...]` dizisinin başını/sonunu dize kaçışlarına dikkat ederek bulur. */
@@ -199,9 +199,9 @@ for (const sy of SITE_SAYFALARI) {
     html = html.replace(new RegExp(desen.source, 'g'), '');
   }
   if (sy.paket) {
-    const n = kac(html, KOK_KAPI);
+    const n = say(html, KOK_KAPI);
     kapi('KAPI-SAYFA', n === 1, yol + ': paket-kapisi.js etiketi tam 1 kez olmalı (bulunan ' + n + ')');
-    html = html.split(KOK_KAPI).join(KOK_KAPI_YENI);
+    html = html.replace(KOK_KAPI, () => KOK_KAPI_YENI);
   } else {
     const n = kac(html, SAYFA_KANCA);
     kapi('KAPI-SAYFA', n === 1, yol + ': stil.css bağı tam 1 kez olmalı (bulunan ' + n + ')');
