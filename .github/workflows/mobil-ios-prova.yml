@@ -101,7 +101,8 @@ jobs:
           appium driver install xcuitest
           appium --version; appium driver list --installed 2>&1 | tail -3
           # WebDriverAgent'i oturumdan ONCE derle (16.10: oturum icinde derleme + acilis denetimi ust uste binip dustu)
-          appium driver run xcuitest build-wda --sdk=$(xcrun --sdk iphonesimulator --show-sdk-version) 2>&1 | tail -5 || echo "build-wda calismadi; oturum kendisi derler"
+          appium driver run xcuitest build-wda --sdk=$(xcrun --sdk iphonesimulator --show-sdk-version) > "$RUNNER_TEMP/wda.log" 2>&1 ||
+            { grep -E "error:|\*\* BUILD|requires|not installed|Unable" "$RUNNER_TEMP/wda.log" | head -30; tail -15 "$RUNNER_TEMP/wda.log"; } || echo "build-wda calismadi; oturum kendisi derler"
           nohup appium --log "$RUNNER_TEMP/appium.log" --log-level info > /dev/null 2>&1 &
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:4723/status > /dev/null && break; sleep 2; done
           curl -sf http://127.0.0.1:4723/status > /dev/null || { echo "::error title=appium::sunucu acilmadi"; exit 1; }
