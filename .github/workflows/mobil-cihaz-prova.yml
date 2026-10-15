@@ -57,6 +57,8 @@ jobs:
       - name: Android projesi (mobil-android.yml ile ayni)
         working-directory: mobil
         run: |
+          # YALNIZ PROVA: WebView hata ayiklama soketi acilir (cihaz-akis.js icinden surer). mobil-android.yml'de YOK -> Play derlemesi kapali.
+          node -e "const f='capacitor.config.json';const fs=require('fs');const c=JSON.parse(fs.readFileSync(f,'utf8'));c.android=Object.assign({},c.android,{webContentsDebuggingEnabled:true});fs.writeFileSync(f,JSON.stringify(c,null,2));"
           npx cap add android
           node ikon-uret.js
           npx capacitor-assets generate --android --assetPath kaynak/uretilen
@@ -122,7 +124,8 @@ jobs:
             adb install -r mobil/android/app/build/outputs/apk/release/app-release.apk
             adb shell dumpsys package com.tetikte.app | grep -E "versionName|versionCode" | head -2
             adb shell dumpsys package com.google.android.webview | grep versionName | head -1
-            node mobil/cihaz-prova.js kanit || echo "PROVA_KIRMIZI=1" >> $GITHUB_ENV
+            sleep 20; adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS
+            node mobil/cihaz-akis.js kanit || echo "PROVA_KIRMIZI=1" >> $GITHUB_ENV
 
       - name: Kaniti sifrele (RSA + AES)
         if: always()
