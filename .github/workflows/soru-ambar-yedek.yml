@@ -85,7 +85,7 @@ jobs:
           echo "sifreli dosya: $(ls -1 *.enc | wc -l)"
 
       - name: Artifact olarak sakla (90 gun, sifreli)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: soru-ambar-yedek-${{ github.run_number }}
           path: _yedek/*.enc
