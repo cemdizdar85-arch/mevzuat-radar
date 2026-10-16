@@ -198,8 +198,11 @@ async function altDugmeler(ad) {
   /* kullanıcı gibi: düğmeyi taşıyan her kaydırılabilir ata SONUNA kadar kaydırılır (scrollIntoView 'end' kabın
      padding-bottom'unu atlayıp düğmeyi ekranın dibine yapıştırıyordu → 16.10 ilk ölçüm yanlış DÜŞTÜ verdi) */
   const kaydir = (desen) => js(`(function(){var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
-    if(!b) return null; var kap=[]; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){e.scrollTop=e.scrollHeight;kap.push((e.id?'#'+e.id:'')+(typeof e.className==='string'&&e.className?'.'+e.className.split(' ')[0]:'')+' pb='+getComputedStyle(e).paddingBottom);}}
-    window.scrollTo(0,document.scrollingElement.scrollHeight); return kap.join(' | ')||'kaydırılabilir ata yok';})()`);
+    if(!b) return null; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){e.scrollTop=e.scrollHeight;
+      return (e.id?'#'+e.id:'')+(typeof e.className==='string'&&e.className?'.'+e.className.split(' ')[0]:'')+' pb='+getComputedStyle(e).paddingBottom;}}
+    return 'kaydırılabilir ata yok';})()`);
+  /* 16.10 ikinci ölçüm: TÜM atalar kaydırılınca soru akışı (#akis) da sonuna gitti → düğme ekrandan çıktı (alt -3506). Artık
+     yalnız EN YAKIN kaydırılabilir kap (cevap paneli) — kullanıcının parmağıyla kaydırdığı yer. */
   for (const [etiket, desen] of [['Sonraki', '/^Sonraki/'], ['Daha fazla', '/Daha fazla/']]) {
     const ilk = await olc(desen);
     if (!ilk) { console.log('BILGI ' + ad + ': "' + etiket + '" düğmesi yok'); continue; }
@@ -299,6 +302,14 @@ async function kartDugmesi(desen, dugme) {
       await satisYok('örnek soru');
       await altDugmeler('örnek soru cevap sonrası');
       await xler('örnek soru');
+      /* 16.10: soru akışı sonuna kaydırılınca açık bir ✕ çıktı ve dokununca kapanmadı (iOS 18 + 26, 1 → 1). Kullanıcı da
+         akışı sonuna kaydırabilir → ayrı adım: hangi ✕ (seçici) + kapanıyor mu. */
+      const sonKart = await js(`(function(){var a=document.getElementById('akis');if(!a)return null;a.style.scrollBehavior='auto';a.scrollTop=a.scrollHeight;
+        var x=[].slice.call(document.querySelectorAll(${JSON.stringify(X)})).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0;})
+        .map(function(e){var k=e.closest('[class]');return (e.id?'#'+e.id:'')+'.'+(e.className||'').toString().split(' ').join('.')+' in '+(e.parentElement&&e.parentElement.className||'');});return x.join(' | ')||'yok';})()`);
+      await bekle(1200); await goruntu('akis-sonu');
+      console.log('BILGI örnek soru akış sonu: görünür ✕ ' + sonKart);
+      await xler('örnek soru akış sonu');
     }
   }
 
