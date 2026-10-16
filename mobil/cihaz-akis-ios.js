@@ -17,7 +17,8 @@
  * Günlüğe soru metni BASILMAZ (depo public): yalnız adım adı, sayı, seçici.
  *
  * GÖRMEZ: girişli üye akışı (giriş otomasyona verilmez) · 12 sn seviye bildirimi (yalnız girişli üyede) · gerçek
- *         telefon başarımı (simülatör, Mac işlemcisi) · iPad düzeni · Apple'ın imzalı App Store derlemesi (bu Debug
+ *         telefon başarımı (simülatör, Mac işlemcisi) · iPad düzeni · iOS 26 WebKit'i (prova iOS 18
+ *         simülatöründe; GitHub'ın Xcode 26 simülatör platformunda WebDriverAgent derlenemiyor, 16.10) · Apple'ın imzalı App Store derlemesi (bu Debug
  *         değil Release yapılandırmalı ama imzasız simülatör derlemesi; içerik mobil-ios.yml ile AYNI hazirla.js).
  * Çıkış: 0 = hepsi geçti · 1 = en az bir adım düştü · 2 = WebView bağlamı yok.
  * Kullanım: node cihaz-akis-ios.js <kanitKlasoru>   (ortam: APPIUM=http://127.0.0.1:4723, UDID=<simülatör>)

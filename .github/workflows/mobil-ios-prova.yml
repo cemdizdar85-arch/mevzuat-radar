@@ -33,11 +33,10 @@ jobs:
       - name: Depoyu al
         uses: actions/checkout@v4
 
-      # 16.10: Xcode 26.3'un simulator platformunda lib_TestingInterop.dylib YOK -> WebDriverAgent derlenemiyor (kod 65).
-      # Simulator calisma ortami iOS 26.2 -> onunla eslesen Xcode 26.2. (Magaza derlemesi mobil-ios.yml latest-stable kalir.)
+      # Uygulama magaza derlemesiyle (mobil-ios.yml) AYNI Xcode ile derlenir. Prova kismi asagida Xcode 16.4'e gecer.
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '26.2'
+          xcode-version: latest-stable
 
       - uses: actions/setup-node@v4
         with:
@@ -87,8 +86,14 @@ jobs:
 
       - name: iPhone simulatorunu ac + kur
         run: |
+          # 16.10 (5. ve 6. kosu): Xcode 26.3 VE 26.2'nin simulator platformunda lib_TestingInterop.dylib YOK ->
+          # WebDriverAgent derlenemiyor (xcodebuild 65). Prova (WDA + simulator) Xcode 16.4 + iOS 18 ile kosar;
+          # uygulama ikilisi yukarida latest-stable ile derlendi (magaza derlemesiyle ayni).
+          ls -d /Applications/Xcode*.app
+          sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
+          xcodebuild -version | head -1
           UDID=$(xcrun simctl list devices available -j | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')).devices;
-            const l=Object.entries(d).filter(([k])=>/iOS/.test(k)).sort(([a],[b])=>b.localeCompare(a,undefined,{numeric:true})).flatMap(([k,v])=>v.map(x=>({...x,os:k})));
+            const l=Object.entries(d).filter(([k])=>/iOS-18/.test(k)).sort(([a],[b])=>b.localeCompare(a,undefined,{numeric:true})).flatMap(([k,v])=>v.map(x=>({...x,os:k})));
             const s=l.find(x=>/^iPhone 16$/.test(x.name))||l.find(x=>/^iPhone \d+$/.test(x.name))||l.find(x=>/^iPhone/.test(x.name));
             console.error('simulator: '+s.name+' · '+s.os.split('.').pop()); console.log(s.udid);")
           echo "UDID=$UDID" >> $GITHUB_ENV
