@@ -1,7 +1,178 @@
 {
-  "durum": "KOR",
-  "sebep": "devtools-portu-acilmadi",
+  "durum": "KIRMIZI",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "chrome_stderr": "[2105:2133:1016/010409.272890:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
+  "sayfa": 236,
+  "koyu_gecis": 77,
+  "koyu_bekleyen": [],
+  "temiz_sayfa": 231,
+  "denetlenen_metin": 18767,
+  "toplam_kirik": 14,
+  "denetlenen_sinir": 5801,
+  "toplam_gorunmez_sinir": 0,
+  "olculemeyen": 1,
+  "esik": {
+    "normal": 4.5,
+    "buyuk": 3,
+    "sinir": 1.12
+  },
+  "gorunmez_sinir_sayfalar": [],
+  "olculemeyenler": [
+    {
+      "sayfa": "google87733a2d2d0cc2ab.html",
+      "sebep": "bilinmiyor"
+    }
+  ],
+  "kirik_sayfalar": [
+    {
+      "sayfa": "sorular.html [koyu]",
+      "adet": 6,
+      "ornekler": [
+        {
+          "oge": "b.marka-ad",
+          "yazi": "tetkte",
+          "oran": 1.12,
+          "esik": 3,
+          "renk": "rgb(22, 25, 29)",
+          "zemin": "rgb(10,11,14)",
+          "iz": "<b class=\"marka-ad\">tet<span class=\"i\">ı</span>kte</b>"
+        },
+        {
+          "oge": "p",
+          "yazi": "Instagram/Facebook reklamlarımızı ölçmek",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<p style=\"margin:0;flex:1;min-width:0\">Instagram/Facebook reklamlarımızı ölçmek için <b>Meta çerezi</b> kullan"
+        },
+        {
+          "oge": "b",
+          "yazi": "Meta çerezi",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<b>Meta çerezi</b>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Ayrıntı",
+          "oran": 1.84,
+          "esik": 4.5,
+          "renk": "rgb(227, 184, 119)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<a href=\"/gizlilik-politikasi.html#cerez\" style=\"color:var(--amber);font-weight:700\">Ayrıntı</a>"
+        },
+        {
+          "oge": "button",
+          "yazi": "Reddet",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
+        },
+        {
+          "oge": "button",
+          "yazi": "Kabul et",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<button type=\"button\" data-k=\"1\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
+        }
+      ]
+    },
+    {
+      "sayfa": "ucretsiz-dene.html [koyu]",
+      "adet": 6,
+      "ornekler": [
+        {
+          "oge": "b.marka-ad",
+          "yazi": "tetkte",
+          "oran": 1.12,
+          "esik": 3,
+          "renk": "rgb(22, 25, 29)",
+          "zemin": "rgb(10,11,14)",
+          "iz": "<b class=\"marka-ad\">tet<span class=\"i\">ı</span>kte</b>"
+        },
+        {
+          "oge": "p",
+          "yazi": "Instagram/Facebook reklamlarımızı ölçmek",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<p style=\"margin:0;flex:1;min-width:0\">Instagram/Facebook reklamlarımızı ölçmek için <b>Meta çerezi</b> kullan"
+        },
+        {
+          "oge": "b",
+          "yazi": "Meta çerezi",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<b>Meta çerezi</b>"
+        },
+        {
+          "oge": "a",
+          "yazi": "Ayrıntı",
+          "oran": 1.84,
+          "esik": 4.5,
+          "renk": "rgb(227, 184, 119)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<a href=\"/gizlilik-politikasi.html#cerez\" style=\"color:var(--amber);font-weight:700\">Ayrıntı</a>"
+        },
+        {
+          "oge": "button",
+          "yazi": "Reddet",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
+        },
+        {
+          "oge": "button",
+          "yazi": "Kabul et",
+          "oran": 1.1,
+          "esik": 4.5,
+          "renk": "rgb(242, 244, 248)",
+          "zemin": "rgb(255,255,255)",
+          "iz": "<button type=\"button\" data-k=\"1\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
+        }
+      ]
+    },
+    {
+      "sayfa": "kaydir/vitrin/sgs.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "a",
+          "yazi": "Seviyeni ölç →",
+          "oran": 1.73,
+          "esik": 4.5,
+          "renk": "rgb(0, 0, 238)",
+          "zemin": "rgb(30,32,38)",
+          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
+        }
+      ]
+    },
+    {
+      "sayfa": "kaydir/vitrin/smmm.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "a",
+          "yazi": "Seviyeni ölç →",
+          "oran": 1.73,
+          "esik": 4.5,
+          "renk": "rgb(0, 0, 238)",
+          "zemin": "rgb(30,32,38)",
+          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
+        }
+      ]
+    }
+  ]
 }
