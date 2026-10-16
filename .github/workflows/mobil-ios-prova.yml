@@ -33,9 +33,11 @@ jobs:
       - name: Depoyu al
         uses: actions/checkout@v4
 
+      # 16.10: Xcode 26.3'un simulator platformunda lib_TestingInterop.dylib YOK -> WebDriverAgent derlenemiyor (kod 65).
+      # Simulator calisma ortami iOS 26.2 -> onunla eslesen Xcode 26.2. (Magaza derlemesi mobil-ios.yml latest-stable kalir.)
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: '26.2'
 
       - uses: actions/setup-node@v4
         with:
