@@ -173,49 +173,52 @@ if (asilFetch) {
 /* ---- onay bandı (yalnız PIKSEL_ID doluyken ve karar yokken) ---- */
 function bantGoster(){
   if (!PIKSEL_ID || document.getElementById('ttReklamBant')) return;
-  /* 15.10 Cem ("x işareti olmayan ya da x'e basınca kapanmayan bir şey istemiyorum"): bant ✕ ile kapanır. ✕ karar SAYILMAZ
-     (piksel yüklenmez, onay yazılmaz); bu sekmede bir daha çıkmaz, sonraki ziyarette yeniden sorulur. */
-  try { if (sessionStorage.getItem('ttReklamBantKapali') === '1') return; } catch(e) {}
   var d = document.createElement('div');
   d.id = 'ttReklamBant';
   d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Reklam ölçümü izni');
-  /* 11.10 Cem ("1 yap"): telefonda bant ilk ekranın alt üçte birini (≈200 px) kaplıyor, ana sayfadaki günün sorusunun şıkları
-     arkasında kalıyordu. Dar ekranda (≤600 px) ince şerit: aynı üç bilgi (Meta çerezi · yurt dışı aktarım · ret = site aynen çalışır)
-     kısa cümleyle, Ayrıntı bağlantısı yerinde, Reddet/Kabul et yine EŞİT ağırlıkta, tek satırda. Renkler değişmedi. */
+  /* 16.10 Cem ("linkedin instagram güzel görünmüyor" → "renklere uydur, telefonda tek satır, ✕ reddetmiş sayılsın"):
+     koyu siyah kutu açık temalı sitede yabancı duruyordu, telefonda ilk ekranın ≈%14'ünü kaplıyordu (375x812 ölçüm).
+     - Renk: site jetonları (--kagit/--ink/--line2/--amber; koyu temada stil.css aynı adları tanımlar). 146 sayfa (arşiv kartları vb.)
+       stil.css yüklemiyor → aşağıdaki R: --kagit yoksa dört rengin dördü de açık temanın değeri.
+     - Düzen: tek sıra = metin · Reddet · Kabul et · ✕. Reddet/Kabul et AYNI biçim (eşit ağırlık, KVKK çerez rehberi çizgisi).
+     - Metin: dar ekranda üç bilgi kısa (Meta reklam çerezi · yurt dışı aktarım · Ayrıntı), tam açıklama gizlilik sayfasında.
+     - ✕ = Reddet: ret kaydedilir (ttReklamOnay '0'), piksel yüklenmez, bir daha sorulmaz. Eski 15.10 kuralı ("✕ karar sayılmaz,
+       sonraki ziyarette yeniden sorulur") Cem kararıyla kalktı. Tercih gizlilik sayfasındaki ttReklamOnayDegistir ile değişir. */
   var dar = false; try { dar = window.matchMedia('(max-width:600px)').matches; } catch(e) {}
+  /* Jetonlar ÇİFT olarak alınır: arşiv kartları kendi --ink'ini (açık renk) tanımlıyor ama --kagit tanımlamıyor → tek tek yedekle
+     beyaz zemine beyaz yazı düşüyordu (16.10 yerel ölçüm, arsiv/kartlar-01-05-2026.html). --kagit yoksa hepsi açık tema yedeği. */
+  var jt = '';
+  try { jt = getComputedStyle(document.documentElement).getPropertyValue('--kagit').trim(); } catch(e) {}
+  var R = jt ? { z: 'var(--kagit)', m: 'var(--ink)', c: 'var(--line2)', a: 'var(--amber)' }
+             : { z: '#ffffff', m: '#0f1b2d', c: '#d5d0c6', a: '#8a6224' };
   /* perdenin (z-index 99999) üstünde: perde açıkken de karar verilebilsin */
-  d.style.cssText = (dar ? 'position:fixed;left:8px;right:8px;bottom:8px;' : 'position:fixed;left:12px;right:12px;bottom:12px;')
-    + 'z-index:2147483100;max-width:640px;margin:0 auto;box-sizing:border-box;padding-right:' + (dar ? '40px' : '46px') + '!important;'
-    + 'background:#12151c;color:#e8eaed;border:1px solid #2c323d;border-radius:12px;'
-    + (dar ? 'padding:9px 10px;font:12.5px/1.4 ' : 'padding:14px 16px;font:13.5px/1.55 ')
-    + '-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.45)';
+  d.style.cssText = (dar ? 'position:fixed;left:8px;right:8px;bottom:8px;gap:6px;padding:6px 0 6px 10px;font:12px/1.35 '
+                         : 'position:fixed;left:12px;right:12px;bottom:12px;gap:10px;padding:10px 6px 10px 16px;font:13.5px/1.5 ')
+    + '-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;'
+    + 'z-index:2147483100;max-width:' + (dar ? '640px' : '760px') + ';margin:0 auto;box-sizing:border-box;'
+    + 'display:flex;align-items:center;background:' + R.z + ';color:' + R.m + ';'
+    + 'border:1px solid ' + R.c + ';border-radius:12px;box-shadow:0 6px 24px color-mix(in srgb,' + R.m + ' 16%,transparent)';
   var dugme = function(k, ad){
-    return '<button type="button" data-k="' + k + '" style="flex:1;min-width:' + (dar ? '0' : '120px') + ';min-height:' + (dar ? '36px' : '44px')
-      + ';background:#1b2029;color:#e8eaed;border:1px solid #3a414e;border-radius:10px;font:inherit;font-weight:700;cursor:pointer">' + ad + '</button>';
+    return '<button type="button" data-k="' + k + '" style="flex:none;min-width:' + (dar ? '58px' : '96px') + ';min-height:' + (dar ? '36px' : '40px')
+      + ';padding:0 ' + (dar ? '8px' : '14px') + ';background:transparent;color:inherit;border:1px solid ' + R.c + ';'
+      + 'border-radius:9px;font:inherit;font-weight:700;cursor:pointer">' + ad + '</button>';
   };
-  d.innerHTML = (dar
-      ? '<p style="margin:0 0 7px">Reklam ölçümü için <b>Meta çerezi</b> kullanalım mı? Kabul edersen ziyaretin yurt dışındaki '
-        + 'Meta sunucularına aktarılır; reddedersen site aynen çalışır. '
-      : '<p style="margin:0 0 10px">Instagram/Facebook reklamlarımızın işe yarayıp yaramadığını ölçmek için '
-        + '<b>Meta pikselini</b> kullanmak istiyoruz. Kabul edersen bu tarayıcıya Meta çerezi konur ve ziyaretin '
-        + 'yurt dışındaki Meta sunucularına aktarılır. Reddedersen site aynen çalışır. ')
-    + '<a href="/gizlilik-politikasi.html#cerez" style="color:#ffc24b">Ayrıntı</a></p>'
-    + '<div style="display:flex;gap:8px;flex-wrap:' + (dar ? 'nowrap' : 'wrap') + '">'
-    + dugme('0', 'Reddet') + dugme('1', 'Kabul et')
-    + '</div>'
-    + '<button type="button" data-x="1" aria-label="Kapat" style="position:absolute;top:0;right:0;width:44px;height:44px;'
-    + 'display:flex;align-items:center;justify-content:center;background:none;border:0;color:#e8eaed;font:18px/1 system-ui,sans-serif;cursor:pointer">✕</button>';
+  d.innerHTML = '<p style="margin:0;flex:1;min-width:0">'
+    + (dar
+      ? '<b>Meta reklam çerezi</b> · ziyaret yurt dışına aktarılır · '
+      : 'Instagram/Facebook reklamlarımızı ölçmek için <b>Meta çerezi</b> kullanalım mı? Kabul edersen ziyaretin '
+        + 'yurt dışındaki Meta sunucularına aktarılır; reddedersen site aynen çalışır. ')
+    + '<a href="/gizlilik-politikasi.html#cerez" style="color:' + R.a + ';font-weight:700">Ayrıntı</a></p>'
+    + dugme('0', 'Reddet') + dugme('1', dar ? 'Kabul' : 'Kabul et')
+    + '<button type="button" data-x="1" aria-label="Kapat (reddet)" style="flex:none;width:40px;height:40px;'
+    + 'display:flex;align-items:center;justify-content:center;background:none;border:0;color:inherit;font:17px/1 system-ui,sans-serif;cursor:pointer">✕</button>';
   d.addEventListener('click', function(e){
-    if (e.target.closest && e.target.closest('button[data-x]')) {
-      try { sessionStorage.setItem('ttReklamBantKapali', '1'); } catch(x) {}
-      if (d.parentNode) d.parentNode.removeChild(d);
-      return;
-    }
-    var b = e.target.closest && e.target.closest('button[data-k]');
+    var b = e.target.closest && e.target.closest('button[data-k],button[data-x]');
     if (!b) return;
-    ls(ONAY_ANAHTAR, b.getAttribute('data-k'));
-    d.parentNode.removeChild(d);
-    if (b.getAttribute('data-k') === '1') pikselYukle();
+    var k = b.hasAttribute('data-x') ? '0' : b.getAttribute('data-k');
+    ls(ONAY_ANAHTAR, k);
+    if (d.parentNode) d.parentNode.removeChild(d);
+    if (k === '1') pikselYukle();
   });
   document.body.appendChild(d);
   /* 15.10 tarama: telefonda bant alttaki sabit çubukların (alt menü #ttAltMenu, satın almada ödeme çubuğu #mbar "Devam")
