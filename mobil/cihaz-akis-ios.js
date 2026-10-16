@@ -18,8 +18,8 @@
  * Günlüğe soru metni BASILMAZ (depo public): yalnız adım adı, sayı, seçici.
  *
  * GÖRMEZ: girişli üye akışı (giriş otomasyona verilmez) · 12 sn seviye bildirimi (yalnız girişli üyede) · gerçek
- *         telefon başarımı (simülatör, Mac işlemcisi) · iPad düzeni · iOS 26 WebKit'i (prova iOS 18
- *         simülatöründe; GitHub'ın Xcode 26 simülatör platformunda WebDriverAgent derlenemiyor, 16.10) · Apple'ın imzalı App Store derlemesi (bu Debug
+ *         telefon başarımı (simülatör, Mac işlemcisi) · iPad düzeni · (iOS 18 + iOS 26 simülatöründe
+ *         koşar; mobil-ios-prova.yml matrisi) · Apple'ın imzalı App Store derlemesi (bu Debug
  *         değil Release yapılandırmalı ama imzasız simülatör derlemesi; içerik mobil-ios.yml ile AYNI hazirla.js).
  * Çıkış: 0 = hepsi geçti · 1 = en az bir adım düştü · 2 = sayfa köprüsü bağlanmadı.
  * Kullanım: node cihaz-akis-ios.js <kanitKlasoru>   (ortam: APPIUM=http://127.0.0.1:4723, UDID=<simülatör>)
@@ -172,6 +172,38 @@ async function sekme(ad) {
   const secili = await js(`[].slice.call(document.querySelectorAll('#sekmeCubugu button')).some(function(b){return b.innerText.trim()===${JSON.stringify(ad)}&&b.getAttribute('aria-selected')==='true';})`);
   sonuc('sekme ' + ad + ' seçildi', !!secili); return true;
 }
+/* 16.10 (Cem "ölç"): örnek soruda cevaptan sonra "Sonraki" / "Daha fazla" ekranın alt kenarında, ana ekran çizgisi
+   hizasında görünüyordu (koşu 38838202866 görüntü 10). Ölçülen: ilk görünümde güvenli alana (home indicator) taşıyor mu,
+   kaydırınca tamamı güvenli alanın üstüne geliyor ve en üstteki öğe kendisi mi, "Sonraki"ye gerçek dokunuş soruyu ilerletiyor mu. */
+async function altDugmeler(ad) {
+  const olc = (desen) => js(`(function(){var pr=document.createElement('div');pr.style.cssText='position:fixed;bottom:0;height:env(safe-area-inset-bottom);width:1px;pointer-events:none';
+    document.body.appendChild(pr);var g=pr.offsetHeight;pr.remove();var sinir=innerHeight-g;
+    var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
+    if(!b) return null; var r=b.getBoundingClientRect(); var x=r.left+r.width/2,y=Math.min(r.top+r.height/2,innerHeight-1);var u=document.elementFromPoint(x,y);
+    return {alt:Math.round(r.bottom),ust:Math.round(r.top),sinir:Math.round(sinir),guvenli:g,ic:innerHeight,tasma:Math.max(0,Math.round(r.bottom-sinir)),x:x,y:r.top+r.height/2,ustte:!!u&&(u===b||b.contains(u))};})()`);
+  const kaydir = (desen) => js(`(function(){var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
+    if(b) b.scrollIntoView({block:'end'}); window.scrollTo(0,document.scrollingElement.scrollHeight); return !!b;})()`);
+  for (const [etiket, desen] of [['Sonraki', '/^Sonraki/'], ['Daha fazla', '/Daha fazla/']]) {
+    const ilk = await olc(desen);
+    if (!ilk) { console.log('BILGI ' + ad + ': "' + etiket + '" düğmesi yok'); continue; }
+    console.log('BILGI ' + ad + ' "' + etiket + '" ilk görünüm: alt ' + ilk.alt + ' · güvenli sınır ' + ilk.sinir + ' (alt boşluk ' + ilk.guvenli + ', ekran ' + ilk.ic + ') · taşma ' + ilk.tasma + ' px');
+    await kaydir(desen); await bekle(800);
+    const son = await olc(desen);
+    await goruntu('alt-' + etiket.replace(/\s/g, ''));
+    sonuc(ad + ': "' + etiket + '" kaydırınca tamamı ana ekran çizgisinin üstünde', son && son.tasma === 0 && son.ust >= 0, son ? 'alt ' + son.alt + ' / sınır ' + son.sinir + ' · taşma ' + son.tasma + ' px' : 'kayboldu');
+    sonuc(ad + ': "' + etiket + '" dokunulabilir (örtülü değil)', !!(son && son.ustte));
+  }
+  /* "Sonraki" gerçekten ilerletiyor mu (üstteki "1/5" sayacı) */
+  const sayac = () => js(`(function(){var e=[].slice.call(document.querySelectorAll('body *')).filter(function(e){return e.children.length===0&&/^\\d+\\/\\d+$/.test((e.textContent||'').trim())&&e.getBoundingClientRect().height>0;})[0];return e?e.textContent.trim():null;})()`);
+  const once = await sayac();
+  const s = await olc('/^Sonraki/');
+  if (s && s.ustte && s.tasma === 0) {
+    await dokun(s); await bekle(2000);
+    const sonra = await sayac();
+    await goruntu('sonraki-dokunuldu');
+    sonuc(ad + ': "Sonraki"ye dokununca sonraki soruya geçti', !!once && !!sonra && once !== sonra, once + ' → ' + sonra);
+  }
+}
 /* kartın içindeki Başla/Devam düğmesi (yoksa kartın kendisi) */
 async function kartDugmesi(desen, dugme) {
   return js(`(function(){var k=[].slice.call(document.querySelectorAll('button,a')).find(function(e){return ${desen}.test(e.innerText)&&e.getBoundingClientRect().height>0;}); if(!k) return null;
@@ -185,7 +217,9 @@ async function kartDugmesi(desen, dugme) {
   OTURUM = '';
   const s = await wd('POST', '', { capabilities: { alwaysMatch: {
     platformName: 'iOS', 'appium:automationName': 'XCUITest', 'appium:udid': process.env.UDID, 'appium:bundleId': PAKET,
-    'appium:noReset': true, 'appium:wdaLaunchTimeout': 600000, 'appium:simulatorStartupTimeout': 600000, 'appium:newCommandTimeout': 600 } } });
+    'appium:noReset': true, 'appium:wdaLaunchTimeout': 600000,
+    /* WDA Xcode 16.4 ile önceden derlenip simülatöre kuruldu (Xcode 26 simülatör platformunda derlenemiyor, 16.10) */
+    ...(process.env.WDA_APP ? { 'appium:usePreinstalledWDA': true, 'appium:prebuiltWDAPath': process.env.WDA_APP } : {}), 'appium:simulatorStartupTimeout': 600000, 'appium:newCommandTimeout': 600 } } });
   OTURUM = s.sessionId;
   await bekle(4000);
   try { console.log('BILGI uygulama durumu ' + (await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] }))); } catch (e) { }
@@ -246,6 +280,7 @@ async function kartDugmesi(desen, dugme) {
       sonuc('şıkka dokununca cevap işlendi (ekran değişti)', ok && sonra !== once, once + ' → ' + sonra);
       await donma('örnek soru cevap sonrası');
       await satisYok('örnek soru');
+      await altDugmeler('örnek soru cevap sonrası');
       await xler('örnek soru');
     }
   }
