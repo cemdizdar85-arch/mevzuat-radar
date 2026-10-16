@@ -66,14 +66,29 @@ async function webBul() {
   return false;
 }
 /* JS ifadesi (Promise olabilir) → değer. Sayfa değişince bağlam düşerse bir kez yeniden bağlanır. */
+/* 16.10 koşu 38830789692: XCUITest WEBVIEW'de execute/async "not implemented" → eşzamanlı çalıştır, Promise sonucunu
+   sayfada (window.__ttR) bırak, eşzamanlı yokla. */
+let jsNo = 0;
+async function jsCalistir(ifade) {
+  const k = 'r' + (++jsNo);
+  await wd('POST', '/execute/sync', { script: 'window.__ttR=window.__ttR||{};var k=' + JSON.stringify(k) + ';' +
+    'Promise.resolve().then(function(){return (' + ifade + ');}).then(function(v){window.__ttR[k]={v:v};},function(e){window.__ttR[k]={h:String(e&&e.message||e)};});return 1;', args: [] });
+  const son = Date.now() + 30000;
+  while (Date.now() < son) {
+    const r = await wd('POST', '/execute/sync', { script: 'var r=window.__ttR&&window.__ttR[' + JSON.stringify(k) + '];if(r)delete window.__ttR[' + JSON.stringify(k) + '];return r||null;', args: [] });
+    if (r) { if (r.h) throw new Error('JS: ' + r.h.slice(0, 200)); return r.v === undefined ? null : r.v; }
+    await bekle(150);
+  }
+  throw new Error('JS zaman aşımı');
+}
 async function js(ifade) {
-  const govde = { script: 'var cb=arguments[arguments.length-1];Promise.resolve().then(function(){return (' + ifade + ');})' +
-    '.then(function(v){cb({v:v});},function(e){cb({h:String(e&&e.message||e)});});', args: [] };
-  let r;
-  try { r = await wd('POST', '/execute/async', govde); }
-  catch (e) { await webBul(); r = await wd('POST', '/execute/async', govde); }
-  if (r && r.h) throw new Error('JS: ' + r.h.slice(0, 200));
-  return r ? r.v : null;
+  try { return await jsCalistir(ifade); }
+  catch (e) {
+    if (/^JS: /.test(e.message)) throw e;
+    let bag = '?'; try { bag = await wd('GET', '/context'); } catch (x) { }
+    console.log('BILGI js yeniden bağlanıyor (bağlam ' + bag + '): ' + e.message.slice(0, 120));
+    await webBul(); return jsCalistir(ifade);
+  }
 }
 const hataToplayici = 'window.__ttH||(window.__ttH=[],window.addEventListener("error",function(e){window.__ttH.push(String(e.message||e).slice(0,160));}),' +
   'window.addEventListener("unhandledrejection",function(e){window.__ttH.push(String(e.reason&&e.reason.message||e.reason).slice(0,160));}),true)';
