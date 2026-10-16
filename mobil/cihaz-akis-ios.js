@@ -142,6 +142,24 @@ async function dokun(o) {   // gerçek iOS dokunuşu (oturum hep NATIVE_APP bağ
   let sonra = null; try { sonra = await jsBir('window.__ttDok||0', 5); } catch (e) { }
   if (once !== null && sonra !== null && sonra === once) {
     dokunusKayip++; yedekSay++;
+    /* teşhis: o noktada hangi YEREL iOS görünümleri var (WebView'in üstünde görünmez bir katman mı, araç mı) */
+    try {
+      const xml = await wd('GET', '/source');
+      const ust = [];
+      for (const m of xml.matchAll(/<(XCUIElementType\w+)([^>]*)>/g)) {
+        const a = (k) => { const v = m[2].match(new RegExp(' ' + k + '="([^"]*)"')); return v ? v[1] : ''; };
+        const x = +a('x'), y = +a('y'), w = +a('width'), h = +a('height');
+        if (w > 0 && h > 0 && o.x >= x && o.x <= x + w && o.y >= y && o.y <= y + h) ust.push(m[1].replace('XCUIElementType', '') + (a('name') ? '(' + a('name').slice(0, 24) + ')' : '') + (a('visible') === 'false' ? '[gizli]' : ''));
+      }
+      console.log('BILGI teşhis: noktadaki yerel görünümler (dıştan içe): ' + ust.slice(-8).join(' > '));
+    } catch (e) { console.log('BILGI teşhis alınamadı: ' + e.message.slice(0, 100)); }
+    /* kullanıcı ikinci kez dokunur: 1,5 sn sonra gerçek dokunuş bir kez daha — ulaşırsa yedeğe gerek yok */
+    await bekle(1500);
+    const o2 = await jsBir('window.__ttDok||0', 5).catch(() => null);
+    await wd('POST', '/execute/sync', { script: 'mobile: tap', args: [{ x: Math.round(o.x * olcek), y: Math.round(o.y * olcek) }] });
+    await bekle(400);
+    const s2 = await jsBir('window.__ttDok||0', 5).catch(() => null);
+    if (o2 !== null && s2 !== null && s2 !== o2) { yedekSay--; console.log('BILGI ikinci gerçek dokunuş ULAŞTI (ilk dokunuş kayboldu)'); return; }
     const t = await js(`(function(){var e=document.elementFromPoint(${o.x},${o.y});if(!e)return 'öğe yok';e.click();return (e.id?'#'+e.id:'')+'<'+e.tagName+'>';})()`).catch((e) => 'hata ' + e.message);
     console.log('BILGI YEDEK dokunuş: gerçek dokunuş sayfaya ulaşmadı @' + Math.round(o.x) + ',' + Math.round(o.y) + ' → sayfa içi tıklama ' + t);
   }
@@ -160,7 +178,10 @@ async function bas(ad, secici, metin, sn) {
 async function adres() { return js('location.pathname.replace(/^.*\\/(www\\/)?/,"/")+location.search'); }
 
 const X = '.tuKapat,[aria-label="Kapat"],.ttSeritX,.pk-x,#kutuKapat,.oyunX,.kagitKapat';
-const gorunurX = `[].slice.call(document.querySelectorAll(${JSON.stringify(X)})).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0;}).length`;
+/* 16.10: kapalı "Kâğıdım" paneli visibility:hidden — içindeki ✕ boyutlu ama GÖRÜNMEZ; eski sayım onu "açık ✕" sayıp
+   "1 → 1 kapanmadı" yanlış alarmı verdi (koşu 38858109381, görüntüde ✕ yok). Görünürlük + opaklık da denetlenir. */
+const gorunurX = `[].slice.call(document.querySelectorAll(${JSON.stringify(X)})).filter(function(e){var r=e.getBoundingClientRect();var s=getComputedStyle(e);
+  return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&s.visibility!=='hidden'&&+s.opacity>0.05;}).length`;
 /* bütün görünür ✕'ler: örtülü mü, gerçek dokunuşla kapanıyor mu */
 async function xler(ad) {
   const say = await js(gorunurX);
@@ -214,7 +235,8 @@ async function altDugmeler(ad) {
     sonuc(ad + ': "' + etiket + '" dokunulabilir (örtülü değil)', !!(son && son.ustte));
   }
   /* "Sonraki" gerçekten ilerletiyor mu (üstteki "1/5" sayacı) */
-  const sayac = () => js(`(function(){var e=[].slice.call(document.querySelectorAll('body *')).filter(function(e){return e.children.length===0&&/^\\d+\\/\\d+$/.test((e.textContent||'').trim())&&e.getBoundingClientRect().height>0;})[0];return e?e.textContent.trim():null;})()`);
+  /* ekrandaki kartın sayacı (16.10: ekran dışındaki önceki kartın "1/5"i okunuyordu; görüntüde 2/5'e geçmişti) */
+  const sayac = () => js(`(function(){var e=[].slice.call(document.querySelectorAll('body *')).filter(function(e){var r=e.getBoundingClientRect();return e.children.length===0&&/^\\d+\\/\\d+$/.test((e.textContent||'').trim())&&r.height>0&&r.top>=0&&r.bottom<=innerHeight;})[0];return e?e.textContent.trim():null;})()`);
   const once = await sayac();
   const s = await olc('/^Sonraki/');
   if (s && s.ustte && s.tasma === 0) {
