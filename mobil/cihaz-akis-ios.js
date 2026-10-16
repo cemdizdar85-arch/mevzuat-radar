@@ -5,12 +5,13 @@
  *
  * cihaz-akis.js'in (Android, CDP) iOS ikizi. iOS'ta CDP yok → Appium XCUITest sürücüsüne düz HTTP (WebDriver) ile
  * bağlanır, ek npm paketi gerekmez:
- *   - sayfa okuma / ölçüm = WEBVIEW bağlamında JS (yalnız prova derlemesinde ios.webContentsDebuggingEnabled açık);
+ *   - sayfa okuma / ölçüm = prova-kumanda.js köprüsü (yalnız prova derlemesine prova-kumanda-kur.js ekler; Appium'un
+ *     WEBVIEW bağlamı iOS 18.6 simülatöründe görünmedi, 16.10);
  *   - dokunuş GERÇEK iOS dokunuşudur (NATIVE_APP bağlamında "mobile: tap"; WebView tam ekran, contentInset never →
  *     CSS pikseli = ekran noktası, açılışta ölçülür). Önce o noktada en üstte hangi öğe var bakılır (elementFromPoint)
  *     → "✕ / bildirim tıklanmıyor" türü örtülme yakalanır;
  *   - donma: olay döngüsü gecikmesi + 2 sn boyunca 50 ms'lik saatin en uzun kayması (WebKit'te longtask yok);
- *   - JS hatası: Safari konsol günlüğü (showSafariConsoleLog) + sayfaya kurulan onerror toplayıcı;
+ *   - JS hatası: kumanda her sayfanın başında error/unhandledrejection dinler, köprüye bildirir;
  *   - iPhone kuralı (Apple 3.1.1 / 2.1): görünür düğme/bağlantılarda satış çağrısı OLMAMALI.
  * Akış: tanıtım → 4 sekme → Örnek sorular (şık seç, ✕'ler) → Seviye testi (3 soru) → (varsa) Ders ders çöz →
  *       her ekranda ✕ örtülme + kapanma → uygulama hâlâ ön planda mı (çökme yok).
@@ -20,7 +21,7 @@
  *         telefon başarımı (simülatör, Mac işlemcisi) · iPad düzeni · iOS 26 WebKit'i (prova iOS 18
  *         simülatöründe; GitHub'ın Xcode 26 simülatör platformunda WebDriverAgent derlenemiyor, 16.10) · Apple'ın imzalı App Store derlemesi (bu Debug
  *         değil Release yapılandırmalı ama imzasız simülatör derlemesi; içerik mobil-ios.yml ile AYNI hazirla.js).
- * Çıkış: 0 = hepsi geçti · 1 = en az bir adım düştü · 2 = WebView bağlamı yok.
+ * Çıkış: 0 = hepsi geçti · 1 = en az bir adım düştü · 2 = sayfa köprüsü bağlanmadı.
  * Kullanım: node cihaz-akis-ios.js <kanitKlasoru>   (ortam: APPIUM=http://127.0.0.1:4723, UDID=<simülatör>)
  * ========================================================================== */
 'use strict';
@@ -56,46 +57,55 @@ function wd(yontem, yol, govde) {
   });
 }
 async function baglam(ad) { await wd('POST', '/context', { name: ad }); }
-async function webBul() {
-  for (let i = 0; i < 45; i++) {
-    const l = await wd('GET', '/contexts');
-    const w = l.filter((c) => /^WEBVIEW/.test(typeof c === 'string' ? c : c.id)).map((c) => (typeof c === 'string' ? c : c.id));
-    if (w.length) { WEB = w[w.length - 1]; await baglam(WEB); return true; }
-    await bekle(2000);
+
+/* ---------- sayfa köprüsü (prova-kumanda.js) ----------
+ * 16.10 koşu 38835785529: Appium WEBVIEW bağlamını iOS 18.6 simülatöründe GÖRMEDİ (yalnız NATIVE_APP; uygulama ön
+ * planda, ayar açık). Sayfayı okumak için prova derlemesine eklenen kumanda bu sunucuya uzun yoklama yapar:
+ * GET /al → sıradaki JS ifadesi · POST /ver → sonuç · POST /hata → sayfa açıldığı andan itibaren JS hataları.
+ * Dokunuş + ekran görüntüsü Appium'da (NATIVE_APP) kalır. */
+const KOPRU_PORT = 8777;
+const sira2 = []; const bekleyenJs = new Map(); let alici = null; let sonYoklama = 0; let jsNo = 0;
+const sayfaHatalari = [];
+function teslim() {
+  if (alici && sira2.length) { const a = alici; alici = null; clearTimeout(a.z); a.res.end(JSON.stringify(sira2.shift())); }
+}
+const kopru = http.createServer((q, r) => {
+  r.setHeader('Access-Control-Allow-Origin', '*'); r.setHeader('Access-Control-Allow-Headers', '*');
+  if (q.method === 'OPTIONS') return r.end();
+  sonYoklama = Date.now();
+  if (q.url.startsWith('/al')) {
+    if (alici) { clearTimeout(alici.z); alici.res.end('{}'); }   // eski sayfanın yoklaması boşa döner
+    alici = { res: r, z: setTimeout(() => { if (alici && alici.res === r) { alici = null; r.end('{}'); } }, 20000) };
+    return teslim();
   }
+  let t = ''; q.setEncoding('utf8'); q.on('data', (c) => { t += c; });
+  q.on('end', () => {
+    r.end('1');
+    let v; try { v = JSON.parse(t); } catch (e) { return; }
+    if (q.url.startsWith('/ver')) { const b = bekleyenJs.get(v.id); if (b) { bekleyenJs.delete(v.id); b(v); } }
+    else if (q.url.startsWith('/hata')) sayfaHatalari.push(v.h + ' @' + v.s);
+  });
+});
+function jsBir(ifade, sn) {
+  return new Promise((res, rej) => {
+    const id = ++jsNo;
+    const z = setTimeout(() => { bekleyenJs.delete(id); const i = sira2.findIndex((k) => k.id === id); if (i >= 0) sira2.splice(i, 1); rej(new Error('köprü zaman aşımı')); }, (sn || 30) * 1000);
+    bekleyenJs.set(id, (v) => { clearTimeout(z); v.h ? rej(new Error('JS: ' + v.h.slice(0, 200))) : res(v.v); });
+    sira2.push({ id, ifade }); teslim();
+  });
+}
+/* JS ifadesi (Promise olabilir) → değer. Sayfa geçişinde komut eski sayfada kalırsa bir kez yeniden dener. */
+async function js(ifade) {
+  try { return await jsBir(ifade, 15); }
+  catch (e) { if (/^JS: /.test(e.message)) throw e; await bekle(1500); return jsBir(ifade, 30); }
+}
+async function webBul() {   // köprü bağlı mı (sayfa yoklama yapıyor mu)
+  const son = Date.now() + 90000;
+  while (Date.now() < son) { try { await jsBir('1', 5); return true; } catch (e) { await bekle(1000); } }
   return false;
 }
-/* JS ifadesi (Promise olabilir) → değer. Sayfa değişince bağlam düşerse bir kez yeniden bağlanır. */
-/* 16.10 koşu 38830789692: XCUITest WEBVIEW'de execute/async "not implemented" → eşzamanlı çalıştır, Promise sonucunu
-   sayfada (window.__ttR) bırak, eşzamanlı yokla. */
-let jsNo = 0;
-async function jsCalistir(ifade) {
-  const k = 'r' + (++jsNo);
-  await wd('POST', '/execute/sync', { script: 'window.__ttR=window.__ttR||{};var k=' + JSON.stringify(k) + ';' +
-    'Promise.resolve().then(function(){return (' + ifade + ');}).then(function(v){window.__ttR[k]={v:v};},function(e){window.__ttR[k]={h:String(e&&e.message||e)};});return 1;', args: [] });
-  const son = Date.now() + 30000;
-  while (Date.now() < son) {
-    const r = await wd('POST', '/execute/sync', { script: 'var r=window.__ttR&&window.__ttR[' + JSON.stringify(k) + '];if(r)delete window.__ttR[' + JSON.stringify(k) + '];return r||null;', args: [] });
-    if (r) { if (r.h) throw new Error('JS: ' + r.h.slice(0, 200)); return r.v === undefined ? null : r.v; }
-    await bekle(150);
-  }
-  throw new Error('JS zaman aşımı');
-}
-async function js(ifade) {
-  try { return await jsCalistir(ifade); }
-  catch (e) {
-    if (/^JS: /.test(e.message)) throw e;
-    let bag = '?'; try { bag = await wd('GET', '/context'); } catch (x) { }
-    console.log('BILGI js yeniden bağlanıyor (bağlam ' + bag + '): ' + e.message.slice(0, 120));
-    await webBul(); return jsCalistir(ifade);
-  }
-}
-const hataToplayici = 'window.__ttH||(window.__ttH=[],window.addEventListener("error",function(e){window.__ttH.push(String(e.message||e).slice(0,160));}),' +
-  'window.addEventListener("unhandledrejection",function(e){window.__ttH.push(String(e.reason&&e.reason.message||e.reason).slice(0,160));}),true)';
-const sayfaHatalari = [];
-async function sayfaHatalariniAl() {
-  try { const l = await js('(window.__ttH||[]).splice(0)'); if (l) sayfaHatalari.push(...l); } catch (e) { }
-}
+const hataToplayici = '1';   // hata toplama kumandada (sayfa başında kurulur)
+async function sayfaHatalariniAl() { }
 async function goruntu(ad) {
   try { fs.writeFileSync(path.join(KANIT, String(++sira).padStart(2, '0') + '-' + ad + '.png'), Buffer.from(await wd('GET', '/screenshot'), 'base64')); } catch (e) { }
 }
@@ -119,10 +129,8 @@ async function bul(secici, metin) {
     var u=document.elementFromPoint(x,y); var k=u&&(u===e||e.contains(u));
     return {x:x,y:y,ustte:k,ortu:k?'':(u?(u.id?'#'+u.id:'')+(u.className&&typeof u.className==='string'?'.'+u.className.split(' ')[0]:'')+'<'+u.tagName+'>':'yok'),adet:l.length};})()`);
 }
-async function dokun(o) {   // gerçek iOS dokunuşu
-  await baglam('NATIVE_APP');
-  try { await wd('POST', '/execute/sync', { script: 'mobile: tap', args: [{ x: Math.round(o.x * olcek), y: Math.round(o.y * olcek) }] }); }
-  finally { await webBul(); }
+async function dokun(o) {   // gerçek iOS dokunuşu (oturum hep NATIVE_APP bağlamında)
+  await wd('POST', '/execute/sync', { script: 'mobile: tap', args: [{ x: Math.round(o.x * olcek), y: Math.round(o.y * olcek) }] });
 }
 async function bekleBul(secici, metin, sn) {
   const son = Date.now() + sn * 1000;
@@ -173,26 +181,25 @@ async function kartDugmesi(desen, dugme) {
 
 /* ================================================================ */
 (async () => {
+  await new Promise((r) => kopru.listen(KOPRU_PORT, '127.0.0.1', r));
   OTURUM = '';
   const s = await wd('POST', '', { capabilities: { alwaysMatch: {
     platformName: 'iOS', 'appium:automationName': 'XCUITest', 'appium:udid': process.env.UDID, 'appium:bundleId': PAKET,
-    'appium:noReset': true, 'appium:showSafariConsoleLog': true, 'appium:webviewConnectTimeout': 30000,
-    'appium:wdaLaunchTimeout': 600000, 'appium:simulatorStartupTimeout': 600000, 'appium:newCommandTimeout': 600, 'appium:includeSafariInWebviews': false } } });
+    'appium:noReset': true, 'appium:wdaLaunchTimeout': 600000, 'appium:simulatorStartupTimeout': 600000, 'appium:newCommandTimeout': 600 } } });
   OTURUM = s.sessionId;
-  await bekle(6000);
+  await bekle(4000);
   try { console.log('BILGI uygulama durumu ' + (await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] }))); } catch (e) { }
   if (!(await webBul())) {
-    let l = '?'; try { l = JSON.stringify(await wd('GET', '/contexts')); } catch (e) { }
-    try { l += ' · tam liste ' + JSON.stringify(await wd('POST', '/execute/sync', { script: 'mobile: getContexts', args: [{ waitForWebviewMs: 20000 }] })).slice(0, 600); } catch (e) { l += ' · getContexts: ' + e.message.slice(0, 120); }
-    try { console.log('BILGI uygulama durumu ' + (await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] }))); } catch (e) { }
-    await goruntu('webview-yok');
-    console.log('WEBVIEW BAGLAMI YOK · bağlamlar ' + l); process.exit(2);
+    await goruntu('kopru-yok');
+    console.log('SAYFA KOPRUSU YOK · son yoklama ' + (sonYoklama ? Math.round((Date.now() - sonYoklama) / 1000) + ' sn önce' : 'hiç') +
+      ' · sayfa hataları ' + JSON.stringify(sayfaHatalari.slice(0, 3)));
+    process.exit(2);
   }
   /* CSS pikseli ↔ ekran noktası: WebView tam ekran olmalı */
-  await baglam('NATIVE_APP'); const pen = await wd('GET', '/window/rect'); await webBul();
+  const pen = await wd('GET', '/window/rect');
   const ic = await js('({w:innerWidth,h:innerHeight})');
   olcek = pen.width / ic.w;
-  console.log('BILGI bağlandı · ' + WEB + ' · ekran ' + pen.width + 'x' + pen.height + ' · sayfa ' + ic.w + 'x' + ic.h + ' · adres ' + (await adres()));
+  console.log('BILGI bağlandı (sayfa köprüsü) · ekran ' + pen.width + 'x' + pen.height + ' · sayfa ' + ic.w + 'x' + ic.h + ' · adres ' + (await adres()));
   sonuc('WebView tam ekran (dokunuş koordinatı doğru)', Math.abs(olcek - 1) < 0.02 && Math.abs(pen.height - ic.h * olcek) < 2, 'ölçek ' + olcek.toFixed(3));
   await js(hataToplayici);
   sonuc('uygulama iOS kipinde (yalnız ücretsiz)', !!(await js('!!(window.TT&&TT.yalnizUcretsiz&&TT.yalnizUcretsiz())')));
@@ -284,17 +291,11 @@ async function kartDugmesi(desen, dugme) {
   } else console.log('BILGI iPhone\'da "Ders ders çöz" görünmüyor (yalnız ücretsiz kip)');
 
   // 6) çökme / JS hataları
-  await baglam('NATIVE_APP');
   const st = await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] });
   sonuc('uygulama hâlâ ön planda (çökme yok)', st === 4, 'durum ' + st);
-  await webBul(); await sayfaHatalariniAl();
-  let konsol = [];
-  try { konsol = (await wd('POST', '/se/log', { type: 'safariConsole' })) || []; } catch (e) { console.log('BILGI safari konsolu okunamadı: ' + e.message); }
-  const konsolHata = konsol.map((k) => { try { const m = JSON.parse(k.message); return m.level === 'error' ? String(m.text || '') : ''; } catch (e) { return /error/i.test(k.level || '') ? String(k.message) : ''; } })
-    .filter(Boolean).map((t) => t.split('\n')[0].slice(0, 160));
-  const tekil = [...new Set([...sayfaHatalari, ...konsolHata])];
+  const tekil = [...new Set(sayfaHatalari)];
   for (const h of tekil.slice(0, 12)) console.log('JSHATA ' + h);
-  sonuc('yakalanmamış JS hatası yok', sayfaHatalari.length === 0, tekil.length + ' farklı hata (konsol hataları bilgi)');
+  sonuc('yakalanmamış JS hatası yok', tekil.length === 0, tekil.length + ' farklı hata');
 
   const dus = sonuclar.filter((x) => !x.tamam).length;
   console.log('CIHAZ-AKIS-IOS: ' + (dus ? 'KIRMIZI' : 'YESIL') + ' — ' + (sonuclar.length - dus) + '/' + sonuclar.length);

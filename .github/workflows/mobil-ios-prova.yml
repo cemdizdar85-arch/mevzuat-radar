@@ -49,6 +49,8 @@ jobs:
         run: |
           node hazirla-sinavi.js
           node hazirla.js
+          # YALNIZ PROVA: sayfa kumandasi (cihaz-akis-ios.js kopru sunucusuna baglanir). mobil-ios.yml CAGIRMAZ.
+          node prova-kumanda-kur.js
 
       - name: Paketler
         working-directory: mobil
@@ -65,6 +67,10 @@ jobs:
           npx cap sync ios
           grep -o '"webContentsDebuggingEnabled": *true' ios/App/App/capacitor.config.json || { echo "::error title=prova::WebView hata ayiklama ayari uygulamaya girmedi"; exit 1; }
           /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
+          # YALNIZ PROVA: sayfa kumandasi Mac'teki 127.0.0.1:8777'ye http ile baglanir (ATS izni)
+          /usr/libexec/PlistBuddy -c "Add :NSAppTransportSecurity dict" ios/App/App/Info.plist || true
+          /usr/libexec/PlistBuddy -c "Add :NSAppTransportSecurity:NSAllowsLocalNetworking bool true" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :NSAppTransportSecurity:NSAllowsArbitraryLoadsInWebContent bool true" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes array" ios/App/App/Info.plist || true
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0:CFBundleURLSchemes array" ios/App/App/Info.plist
