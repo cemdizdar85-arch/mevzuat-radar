@@ -57,7 +57,7 @@ function wd(yontem, yol, govde) {
 }
 async function baglam(ad) { await wd('POST', '/context', { name: ad }); }
 async function webBul() {
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 45; i++) {
     const l = await wd('GET', '/contexts');
     const w = l.filter((c) => /^WEBVIEW/.test(typeof c === 'string' ? c : c.id)).map((c) => (typeof c === 'string' ? c : c.id));
     if (w.length) { WEB = w[w.length - 1]; await baglam(WEB); return true; }
@@ -180,7 +180,14 @@ async function kartDugmesi(desen, dugme) {
     'appium:wdaLaunchTimeout': 600000, 'appium:simulatorStartupTimeout': 600000, 'appium:newCommandTimeout': 600, 'appium:includeSafariInWebviews': false } } });
   OTURUM = s.sessionId;
   await bekle(6000);
-  if (!(await webBul())) { console.log('WEBVIEW BAGLAMI YOK (prova derlemesinde ios.webContentsDebuggingEnabled acik mi?)'); process.exit(2); }
+  try { console.log('BILGI uygulama durumu ' + (await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] }))); } catch (e) { }
+  if (!(await webBul())) {
+    let l = '?'; try { l = JSON.stringify(await wd('GET', '/contexts')); } catch (e) { }
+    try { l += ' · tam liste ' + JSON.stringify(await wd('POST', '/execute/sync', { script: 'mobile: getContexts', args: [{ waitForWebviewMs: 20000 }] })).slice(0, 600); } catch (e) { l += ' · getContexts: ' + e.message.slice(0, 120); }
+    try { console.log('BILGI uygulama durumu ' + (await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] }))); } catch (e) { }
+    await goruntu('webview-yok');
+    console.log('WEBVIEW BAGLAMI YOK · bağlamlar ' + l); process.exit(2);
+  }
   /* CSS pikseli ↔ ekran noktası: WebView tam ekran olmalı */
   await baglam('NATIVE_APP'); const pen = await wd('GET', '/window/rect'); await webBul();
   const ic = await js('({w:innerWidth,h:innerHeight})');

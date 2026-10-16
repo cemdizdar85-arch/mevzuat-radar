@@ -63,6 +63,7 @@ jobs:
           node ikon-uret.js
           npx capacitor-assets generate --ios --assetPath kaynak/uretilen
           npx cap sync ios
+          grep -o '"webContentsDebuggingEnabled": *true' ios/App/App/capacitor.config.json || { echo "::error title=prova::WebView hata ayiklama ayari uygulamaya girmedi"; exit 1; }
           /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes array" ios/App/App/Info.plist || true
           /usr/libexec/PlistBuddy -c "Add :CFBundleURLTypes:0 dict" ios/App/App/Info.plist
