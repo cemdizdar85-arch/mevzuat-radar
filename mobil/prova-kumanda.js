@@ -10,6 +10,9 @@
   }
   window.addEventListener('error', function (e) { yolla('/hata', { h: String(e.message || e).slice(0, 160), s: location.pathname }); });
   window.addEventListener('unhandledrejection', function (e) { yolla('/hata', { h: String(e.reason && e.reason.message || e.reason).slice(0, 160), s: location.pathname }); });
+  /* dokunuş sayacı: prova her gerçek dokunuştan sonra bakar → dokunuş sayfaya ULAŞTI mı (araç mı uygulama mı ayrımı) */
+  window.__ttDok = 0;
+  ['touchstart', 'pointerdown', 'click'].forEach(function (t) { window.addEventListener(t, function () { window.__ttDok++; }, true); });
   var sayfa = Math.random().toString(36).slice(2);
   function dongu() {
     fetch(U + '/al?s=' + sayfa, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (k) {

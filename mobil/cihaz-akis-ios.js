@@ -129,8 +129,22 @@ async function bul(secici, metin) {
     var u=document.elementFromPoint(x,y); var k=u&&(u===e||e.contains(u));
     return {x:x,y:y,ustte:k,ortu:k?'':(u?(u.id?'#'+u.id:'')+(u.className&&typeof u.className==='string'?'.'+u.className.split(' ')[0]:'')+'<'+u.tagName+'>':'yok'),adet:l.length};})()`);
 }
+/* 16.10 iOS 26 koşusu: "Başla"ya dokunuldu, ekran değişmedi. Uygulama mı dokunuşa cevap vermiyor, yoksa iOS 18 SDK'lı
+   WebDriverAgent'ın dokunuşu iOS 26'da sayfaya hiç ulaşmıyor mu? Kumanda sayfadaki dokunuş olaylarını sayar (__ttDok). */
+let dokunusSay = 0, dokunusKayip = 0, yedekSay = 0;
+/* Yedek: gerçek dokunuş sayfaya HİÇ ulaşmadıysa (WebKit tek bir touchstart/pointerdown görmediyse) aynı noktadaki EN ÜSTTEKİ
+   öğeye sayfa içinden tıklanır — örtülme yine sınanır (örtülüyse örten öğe tıklanır, kullanıcıdaki gibi). Günlükte YEDEK yazar. */
 async function dokun(o) {   // gerçek iOS dokunuşu (oturum hep NATIVE_APP bağlamında)
+  let once = null; try { once = await jsBir('window.__ttDok||0', 5); } catch (e) { }
   await wd('POST', '/execute/sync', { script: 'mobile: tap', args: [{ x: Math.round(o.x * olcek), y: Math.round(o.y * olcek) }] });
+  dokunusSay++;
+  await bekle(400);
+  let sonra = null; try { sonra = await jsBir('window.__ttDok||0', 5); } catch (e) { }
+  if (once !== null && sonra !== null && sonra === once) {
+    dokunusKayip++; yedekSay++;
+    const t = await js(`(function(){var e=document.elementFromPoint(${o.x},${o.y});if(!e)return 'öğe yok';e.click();return (e.id?'#'+e.id:'')+'<'+e.tagName+'>';})()`).catch((e) => 'hata ' + e.message);
+    console.log('BILGI YEDEK dokunuş: gerçek dokunuş sayfaya ulaşmadı @' + Math.round(o.x) + ',' + Math.round(o.y) + ' → sayfa içi tıklama ' + t);
+  }
 }
 async function bekleBul(secici, metin, sn) {
   const son = Date.now() + sn * 1000;
@@ -181,13 +195,16 @@ async function altDugmeler(ad) {
     var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
     if(!b) return null; var r=b.getBoundingClientRect(); var x=r.left+r.width/2,y=Math.min(r.top+r.height/2,innerHeight-1);var u=document.elementFromPoint(x,y);
     return {alt:Math.round(r.bottom),ust:Math.round(r.top),sinir:Math.round(sinir),guvenli:g,ic:innerHeight,tasma:Math.max(0,Math.round(r.bottom-sinir)),x:x,y:r.top+r.height/2,ustte:!!u&&(u===b||b.contains(u))};})()`);
+  /* kullanıcı gibi: düğmeyi taşıyan her kaydırılabilir ata SONUNA kadar kaydırılır (scrollIntoView 'end' kabın
+     padding-bottom'unu atlayıp düğmeyi ekranın dibine yapıştırıyordu → 16.10 ilk ölçüm yanlış DÜŞTÜ verdi) */
   const kaydir = (desen) => js(`(function(){var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
-    if(b) b.scrollIntoView({block:'end'}); window.scrollTo(0,document.scrollingElement.scrollHeight); return !!b;})()`);
+    if(!b) return null; var kap=[]; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){e.scrollTop=e.scrollHeight;kap.push((e.id?'#'+e.id:'')+(typeof e.className==='string'&&e.className?'.'+e.className.split(' ')[0]:'')+' pb='+getComputedStyle(e).paddingBottom);}}
+    window.scrollTo(0,document.scrollingElement.scrollHeight); return kap.join(' | ')||'kaydırılabilir ata yok';})()`);
   for (const [etiket, desen] of [['Sonraki', '/^Sonraki/'], ['Daha fazla', '/Daha fazla/']]) {
     const ilk = await olc(desen);
     if (!ilk) { console.log('BILGI ' + ad + ': "' + etiket + '" düğmesi yok'); continue; }
     console.log('BILGI ' + ad + ' "' + etiket + '" ilk görünüm: alt ' + ilk.alt + ' · güvenli sınır ' + ilk.sinir + ' (alt boşluk ' + ilk.guvenli + ', ekran ' + ilk.ic + ') · taşma ' + ilk.tasma + ' px');
-    await kaydir(desen); await bekle(800);
+    console.log('BILGI ' + ad + ' "' + etiket + '" kaydırılan: ' + (await kaydir(desen))); await bekle(800);
     const son = await olc(desen);
     await goruntu('alt-' + etiket.replace(/\s/g, ''));
     sonuc(ad + ': "' + etiket + '" kaydırınca tamamı ana ekran çizgisinin üstünde', son && son.tasma === 0 && son.ust >= 0, son ? 'alt ' + son.alt + ' / sınır ' + son.sinir + ' · taşma ' + son.tasma + ' px' : 'kayboldu');
@@ -328,6 +345,8 @@ async function kartDugmesi(desen, dugme) {
   // 6) çökme / JS hataları
   const st = await wd('POST', '/execute/sync', { script: 'mobile: queryAppState', args: [{ bundleId: PAKET }] });
   sonuc('uygulama hâlâ ön planda (çökme yok)', st === 4, 'durum ' + st);
+  console.log('BILGI dokunuş: ' + dokunusSay + ' gerçek · ' + dokunusKayip + ' sayfaya ulaşmadı (yedek sayfa içi tıklama ' + yedekSay + ')');
+  if (yedekSay) console.log('UYARI bu koşuda ' + yedekSay + ' dokunuş YEDEK yoldan gitti: akış sınandı ama o adımlarda gerçek parmak dokunuşu ÖLÇÜLMEDİ');
   const tekil = [...new Set(sayfaHatalari)];
   for (const h of tekil.slice(0, 12)) console.log('JSHATA ' + h);
   sonuc('yakalanmamış JS hatası yok', tekil.length === 0, tekil.length + ' farklı hata');
