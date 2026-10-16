@@ -30,7 +30,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # 16.10 Cem: "her iOS derlemesinden once bu prova kosulsun". iPhone simulatorunde iOS 18 + iOS 26 akis provasi
+  # (mobil-ios-prova.yml); biri kirmiziysa asagidaki derle isi HIC baslamaz -> App Store'a yukleme olmaz.
+  prova:
+    uses: ./.github/workflows/mobil-ios-prova.yml
+
   derle:
+    needs: prova
     runs-on: macos-15
     timeout-minutes: 60
     # 25.09 DERSI: shell belirtilmeyince GitHub 'bash -e' kosar, PIPEFAIL YOK; 'xcodebuild ... | tail'
