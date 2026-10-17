@@ -97,55 +97,85 @@ html body .kah-alt .btn{white-space:normal;max-width:100%}
 @media(max-width:420px){ #nav .ic{gap:10px} .logo{font-size:24px} html body #nav .navlinks a.btn-ana{padding:0 12px} }
 
 
-/* kahraman */
-.kah{padding:56px 0 64px}
-.kah > .ic{display:grid;grid-template-columns:1fr 470px;gap:56px;align-items:start}
-@media(max-width:980px){ .kah > .ic{grid-template-columns:1fr;gap:36px} .kah{padding:32px 0 48px} }
-/* 11.10 Cem ("1 yap"): telefonda ilk ekranda soru yoktu - Instagram'dan gelen 1.116 ziyaretin 22'si teste başladı (%2), Google 140'ta 48
-   (%34). Ölçüm (375x812): kart 994. pikselde, "30 soruda seviyeni ölç" 733'te çerez bandının altında. Dar ekranda sol sütun açılır
-   (display:contents) ve sıra değişir: başlık → günün sorusu → düğmeler → sınav seçimi → açıklama paragrafı. Bilgisayar görünümü aynı. */
-@media(max-width:980px){
-  .kah > .ic{gap:0} .kah{padding-top:20px}
-  .kah > .ic > div:first-child{display:contents}
-  .kah .kah-ust,.kah h1{order:1}
-  .kah h1{margin-bottom:14px}
-  /* 13.10 (Cem "telefonda iyi değiliz"; ig 11–13.10: 5.841 ziyaret → 41 kişi 5 soruyu açtı, %0,7): ölçüm 375x812 - kart
-     348–770. pikselde ekranın ortasını kaplıyor, içi kaydırılabilir + overscroll:contain olduğu için kartın üstünde kaydıran
-     parmak SAYFAYI kaydıramıyordu; "5 soru çöz" 863. pikselde, ekran dışında. Düğmeler karttan önce gelir, kart parmağı tutmaz. */
-  .kah .kah-alt{order:2;margin:0 0 10px}
-  .kah .durum{order:3;margin:0 0 16px}
-  .kah .ekran{order:4;margin-bottom:18px}
-  #ekOynatici .no-sahne{overscroll-behavior:auto}
-}
-@media(max-width:980px) and (pointer:coarse){
-  #ekOynatici .no-sahne:not(.secimde):not(.duz){overflow-y:hidden}   /* dokunmatikte kaydırma sayfaya gider; oynatıcı scrollTop ile kendisi ilerler (nobetci-oynatici.js kaydir) */
-  .kah .secim-bas{order:5;margin-top:26px}
-  .kah .secim{order:6}
-  .kah .alt{order:7;margin:24px 0 0}
-  .kah .uyg-indir{order:8}
-}
-h1{font-size:clamp(36px,5.2vw,58px);line-height:1.06;letter-spacing:-1.6px;margin:0 0 18px;font-weight:800}
+/* kahraman - 17.10 Cem ("yurt dışındaki büyük sitenin girişine benzer yapalım" → Duolingo ekranı "kendi maskotumuzu koysak" →
+   Becker ekranı "aşağıda sınavları koysak" → taslak-giris.html "taslak güzel, ana sayfaya geçir; günün sorusu ve öteki bölümler
+   altta kalsın"): solda maskot, sağda tek cümle + iki büyük düğme; altında sınav hapları; altında kısayollar; günün sorusu ayrı bölüm.
+   Önceki kahraman (başlık + sınav seçimi + günün sorusu kartı yan yana): git show 795e34c0:index.html */
+.kah{padding:40px 0 36px}
+.kah > .ic{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.maskot{justify-self:center;width:100%;max-width:min(360px,calc((100vh - 400px)*2/3));min-width:240px;aspect-ratio:2/3;margin:0;border-radius:28px;overflow:hidden;background:var(--bg2);box-shadow:var(--shadow)}
+.maskot img{display:block;width:100%;height:100%;object-fit:cover}
+.kah-yazi{max-width:520px;min-width:0}
+h1{font-size:clamp(32px,4.2vw,50px);line-height:1.08;letter-spacing:-1.2px;margin:0 0 14px;font-weight:800}
 h1 em{font-style:normal;color:var(--amber)}
-.alt{font-size:clamp(17px,1.6vw,20px);color:var(--muted);margin:0 0 30px;max-width:30em}
-.secim-bas{font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 12px}   /* 05.10 Cem: secim alani daha buyuk, hemen gorulsun */
-.secim{display:grid;gap:12px;max-width:540px}
-.sinav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:70px;padding:0 22px;background:var(--kagit);border:1.5px solid var(--line2);border-radius:12px;text-decoration:none;font-weight:800;font-size:19.5px;color:var(--ink);font-family:inherit;cursor:pointer;text-align:left;width:100%}
-.sinav:hover{border-color:var(--ink)}
-.sinav small{font-weight:650;color:var(--muted);font-size:14.5px;text-align:right}
-.sinav[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--amber-dolgu)}
-.sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
-/* 08.10 Cem ("telefonda güzel görünmüyor"): 390 px'te ad ile tarih yan yana sığmıyor, ikisi de iki satıra kırılıyordu -> alt alta */
-@media(max-width:560px){ .sinav{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:12px 18px;font-size:18px} .sinav small{text-align:left;font-size:13.5px} }
-.kah-alt{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
-/* 14.10: üst satır (seçili sınav · gün · kalan gün) ve tek düğmenin yanındaki iki yazı bağlantısı */
+.alt{font-size:18px;color:var(--muted);margin:0 0 26px;max-width:30em}
+.kah-alt{display:grid;gap:12px;max-width:400px}
+html body .kah-alt .dg{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 22px;border-radius:14px;font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:2px solid transparent;text-align:center;line-height:1.25}
+html body .kah-alt .dg-ana{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
+html body .kah-alt .dg-ana:hover{filter:brightness(1.04)}
+html body .kah-alt .dg-iki{background:var(--kagit);color:var(--ink)!important;border-color:var(--line2)}
+html body .kah-alt .dg-iki:hover{border-color:var(--ink)}
+.kah-alt .dg[hidden]{display:none!important}
+/* 14.10: üst satır (seçili sınav · gün · kalan gün); 17.10: iki yazı bağlantısı büyük düğmelerin altında */
 .kah-ust{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 12px;font-size:15.5px;font-weight:750;color:var(--ink)}
 .kah-ust b{color:var(--amber)}
 .kah-ust b:empty{display:none}
 html body .kah-ust a{font-size:14px;font-weight:600;color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px}
-html body .kah-alt .kah-link{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;font-weight:700;font-size:15.5px;color:var(--ink)!important;text-decoration:underline;text-underline-offset:4px}
-.kah-alt .kah-link[hidden]{display:none!important}
-@media(min-width:981px){ #kahUstDegis{display:none} }   /* bilgisayarda sınav seçimi zaten aynı sütunda, hemen altta */
-.durum{font-size:14.5px;color:var(--dim);margin-top:12px;max-width:460px}
+.kah-linkler{display:flex;flex-wrap:wrap;gap:0 16px;margin:8px 0 0;max-width:400px}
+html body .kah-linkler .kah-link{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;font-weight:700;font-size:15px;color:var(--ink)!important;text-decoration:underline;text-underline-offset:4px}
+.kah-linkler .kah-link[hidden]{display:none!important}
+.durum{font-size:14.5px;color:var(--dim);margin-top:8px;max-width:460px}
+@media(max-width:900px){
+  .kah{padding:20px 0 28px}
+  .kah > .ic{grid-template-columns:1fr;gap:18px;justify-items:center;text-align:center}
+  /* telefonda düğme ilk ekranda kalsın (14.10 ölçüm hedefi): maskot yüzü, 128 px kare; açıklamanın ikinci cümlesi gizli */
+  .maskot{max-width:128px;min-width:0;aspect-ratio:1/1;border-radius:24px}
+  .maskot img{object-position:50% 22%}
+  .alt .alt-ek{display:none}
+  .kah-ust{justify-content:center}
+  .kah-yazi{margin:0 auto}
+  .kah-alt,.kah-linkler{margin-left:auto;margin-right:auto}
+  .kah-linkler{justify-content:center}
+  .durum{margin-left:auto;margin-right:auto}
+  .alt{margin:0 auto 20px;font-size:16.5px}
+}
+
+/* sınav hapları (Becker): seçilen sınav dolu lacivert; seçim üstteki satırı, düğmeyi, kısayolları ve günün sorusunu değiştirir */
+.secim-bolum{padding:4px 0 36px}
+.secim-bas{font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 14px}
+.secim{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+html body .sinav{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:96px;padding:12px 22px;background:var(--kagit);border:2px solid var(--line2);border-radius:999px;text-decoration:none;font-weight:800;font-size:20px;line-height:1.2;color:var(--ink);font-family:inherit;cursor:pointer;text-align:center;width:100%}
+html body .sinav:hover{border-color:var(--ink)}
+.sinav small{display:block;font-weight:650;color:var(--muted);font-size:14px}
+html body .sinav[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.sinav[aria-pressed="true"] small{color:color-mix(in srgb,var(--bg) 82%,transparent)}
+html body .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
+@media(max-width:900px){
+  .secim{grid-template-columns:1fr;gap:10px}
+  html body .sinav{min-height:68px;border-radius:20px;align-items:flex-start;text-align:left;font-size:18px;padding:10px 22px}
+  .sinav small{font-size:13.5px}
+}
+
+/* kısayollar: fiyat · ders · konu · deneme · seviye · duyuru (Cem: "fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım") */
+.kisayol{padding:36px 0;border-top:1px solid var(--line)}
+.kisa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+html body .ks{display:flex;gap:14px;align-items:center;padding:16px 18px;background:var(--kagit);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink)}
+html body .ks:hover{border-color:var(--ink)}
+.ks[hidden]{display:none!important}
+.ks i{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-style:normal;font-size:22px;background:var(--bg2)}
+.ks b{display:block;font-size:16.5px;color:var(--ink)}
+.ks span span{display:block;font-size:14px;color:var(--muted);line-height:1.4}
+@media(max-width:900px){ .kisa{grid-template-columns:1fr 1fr;gap:10px} .kisayol{padding:28px 0} }
+@media(max-width:520px){ .kisa{grid-template-columns:1fr} }
+
+/* günün sorusu: kendi bölümü (17.10'a dek kahramanın sağ sütunuydu) */
+.gunun > .ic{display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:48px;align-items:start}
+.gunun h2{margin:0 0 12px}
+.gunun-yazi p{margin:0 0 12px;color:var(--muted);max-width:32em}
+#ekran{scroll-margin-top:80px}
+@media(max-width:980px){ .gunun > .ic{grid-template-columns:1fr;gap:20px} #ekOynatici .no-sahne{overscroll-behavior:auto} }
+/* 13.10: dokunmatikte kartın üstünde kaydıran parmak sayfayı kaydırabilsin; oynatıcı scrollTop ile kendisi ilerler (nobetci-oynatici.js kaydir) */
+@media(max-width:980px) and (pointer:coarse){ #ekOynatici .no-sahne:not(.secimde):not(.duz){overflow-y:hidden} }
 .durum b{color:var(--ink)}
 .durum a{color:var(--amber);font-weight:700;text-decoration:none}
 
@@ -248,19 +278,9 @@ footer p{margin:0 0 8px}
    Masaüstünde kahraman sıkılaşır; kısa ekranda (yükseklik < 820 px) bir basamak daha. Telefon düzeni değişmez.
    Menü şeritte olduğu için masaüstünde "Araçlar" yüzen düğmesi gizli (alt sayfalarla aynı). */
 @media(min-width:761px){ #mrxFab{display:none!important} }
+html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html body: stil-acik.css h1 boyutunu eziyordu */
 @media(min-width:981px){
-  .kah{padding:36px 0 44px}
-  /* 07.10 Cem (ekran görüntüsü: "sayfaya tam oturmuyor, alttaki şey yukarıda görünüyor"): Sık Çıkan Konular şeridinin üst
-     kenarı ilk ekranın dibine sarkıyordu. Kahraman ekran yüksekliğini (şerit 64 px hariç) doldurur, içerik dikeyde ortalanır;
-     şerit kaydırınca gelir. İçerik ekrandan uzunsa kendi boyuyla uzar. */
-  .kah{min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);box-sizing:border-box;display:flex;align-items:center}
-  .kah > .ic{width:100%;box-sizing:border-box}
-  .kah > .ic{grid-template-columns:1fr 450px;gap:48px}
-  html body .kah h1{font-size:clamp(36px,3.9vw,52px);margin-bottom:14px}   /* html body: stil-acik.css h1 boyutunu eziyordu */
-  .alt{margin-bottom:22px;font-size:18px}
-  .sinav{min-height:60px;font-size:18px}
-  .secim{gap:10px}
-  .kah-alt{margin-top:18px}
+  /* 17.10: kahraman artık maskot + düğmeler; günün sorusu kartı kendi bölümünde, aşağıdaki sıkılaştırma yalnız kart için */
   .ekran-bas{padding:10px 16px}
   .ekran-govde{padding:14px 16px}
   .soru{font-size:16px;margin-bottom:10px}
@@ -273,10 +293,11 @@ footer p{margin:0 0 8px}
   #ekNeden{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 }
 @media(min-width:981px) and (max-height:820px){
-  .kah{padding:24px 0 36px}
-  html body .kah h1{font-size:clamp(34px,3.2vw,44px)}
+  .kah{padding:24px 0 28px}
+  html body .kah h1{font-size:clamp(30px,3.2vw,42px)}
   .alt{font-size:17px;margin-bottom:18px}
-  .sinav{min-height:46px}
+  html body .sinav{min-height:76px}
+  html body .kah-alt .dg{min-height:50px}
   .btn{min-height:44px}
   .hukum p{font-size:14px}
   /* kısa ekranda kart da sığsın: şıklar ve hüküm sıkı, "Neden" 2 satır (tamamı Nöbetçi kartında) */
@@ -322,7 +343,9 @@ footer p{margin:0 0 8px}
 <div class="uyg-serit" id="uygSerit" hidden><span>Tetikte artık Android'de. <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play'den indir →</a></span><button type="button" data-kapat aria-label="Şeridi kapat">×</button></div>
 <section class="kah">
   <div class="ic">
-    <div>
+    <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
+    <figure class="maskot"><img src="gorsel/maskot-giris.jpg" width="560" height="840" alt="Tetikte'nin maskotu: üstünde cevap şıkları olan kâğıttan bir baykuş" fetchpriority="high" decoding="async"></figure>
+    <div class="kah-yazi">
       <!-- 14.10 Cem ("kendimizi yanlış anlatıyoruz", "1 yap"): telefonda ilk ekranda "SMMM" kelimesi de sınav tarihi de yoktu;
            Instagram'dan gelen 2 saniyede neyin sitesinde olduğunu anlamıyordu (ig 11-13.10: 5.841 ziyaret → 41 örnek, Google %34 teste).
            Üst satır seçili sınavı + günü + kalan günü söyler (dugmeCiz kahUstCiz); başlık kimin için olduğunu söyler.
@@ -332,7 +355,25 @@ footer p{margin:0 0 8px}
            gerçeğe uygun: önce soru, sonra konu. "Ders / konu anlatımı" yazılmaz (5580). -->
       <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
       <h1>SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
-      <p class="alt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır. Çıkmış sınavlarda en sık sorulan konulardan.</p>
+      <p class="alt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.<span class="alt-ek"> Çıkmış sınavlarda en sık sorulan konulardan.</span></p>
+      <div class="kah-alt">
+        <a class="dg dg-ana" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
+        <!-- 17.10 Duolingo "Zaten hesabım var": oturumu açık olana gizli (dugmeCiz) -->
+        <a class="dg dg-iki" id="kahGiris" href="ogrenci.html">Zaten hesabım var</a>
+      </div>
+      <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
+           11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu bağlantı 30 soruluk ölçüm (dugmeCiz)
+           14.10: tek büyük düğme; öteki iki yol yazı bağlantısı -->
+      <p class="kah-linkler"><a class="kah-link" id="cta3" href="seviye-testi.html">30 soruda seviyeni ölç</a><a class="kah-link" id="cta2" href="fiyat.html">Paketleri gör</a></p>
+      <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
+      <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 17.10 Cem (Becker ekranı: "aşağıda sınavları koysak"): sınav hapları. Seçim düğmesidir (kahUstCiz ilk metin düğümünü + data-tarih'i okur). -->
+<section class="secim-bolum" aria-labelledby="secimBas">
+  <div class="ic">
       <p class="secim-bas" id="secimBas">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas">
         <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
@@ -343,21 +384,37 @@ footer p{margin:0 0 8px}
         <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
         <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
       </div>
-      <div class="kah-alt">
-        <a class="btn btn-vurgu" id="cta1" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
-        <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
-             11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu düğme 30 soruluk ölçüm (dugmeCiz)
-             14.10: tek büyük düğme; öteki iki yol yazı bağlantısı (ilk ekranda 5 çağrı vardı: şerit, menü düğmesi, üç büyük düğme) -->
-        <a class="kah-link" id="cta3" href="seviye-testi.html">30 soruda seviyeni ölç</a>
-        <a class="kah-link" id="cta2" href="fiyat.html">Paketleri gör</a>
-      </div>
-      <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
+  </div>
+</section>
+
+<!-- 17.10 Cem ("insanlar fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım"): kısayollar. Adresler seçili sınava göre
+     (dugmeCiz ksCiz); KGK'da ücretsiz katman yok (13.10 ölçüldü) -> konu / seviye / deneme kısayolu KGK seçiliyken gizli. -->
+<section class="kisayol" aria-labelledby="araBas">
+  <div class="ic">
+    <p class="secim-bas" id="araBas">Ne arıyorsun?</p>
+    <div class="kisa">
+      <a class="ks" id="ksFiyat" href="fiyat.html"><i aria-hidden="true">💳</i><span><b>Fiyatlar</b><span>Paketler ve ne içerdikleri</span></span></a>
+      <a class="ks" id="ksDers" href="sorular.html#sgs"><i aria-hidden="true">📚</i><span><b>Dersler ve sorular</b><span>Ders ders soru çöz</span></span></a>
+      <a class="ks" id="ksKonu" href="en-cok-cikan-konular-sgs.html"><i aria-hidden="true">🎯</i><span><b>En çok çıkan konular</b><span>Son 10 yılın sınavlarından, ücretsiz</span></span></a>
+      <a class="ks" id="ksDeneme" href="sinav-gibi.html"><i aria-hidden="true">⏱️</i><span><b>Sınav gibi deneme</b><span>Süreli, bitince ders ders karne</span></span></a>
+      <a class="ks" id="ksOlc" href="seviye-testi.html"><i aria-hidden="true">📏</i><span><b>Seviyeni ölç</b><span>30 soru, ücretsiz</span></span></a>
+      <a class="ks" href="sinav-nobeti.html"><i aria-hidden="true">📰</i><span><b>Sınav duyuruları</b><span>TESMER ve TÜRMOB tek listede</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 17.10: günün sorusu kahramanın sağ sütunundan kendi bölümüne indi (Cem "günün sorusu ve öteki bölümler altta kalsın").
+     #ekran kimliği korunur: öteki sayfalar index.html?sinav=..#ekran ile buraya bağlanıyor. -->
+<section class="bolum gunun" aria-labelledby="gununBas">
+  <div class="ic">
+    <div class="gunun-yazi">
+      <h2 id="gununBas">Günün sorusu</h2>
+      <p>Her gün çıkmış sınavlarda sık sorulan konulardan bir soru. Nöbetçi en sık yapılan yanlışı, tuzağını, doğrusunu ve dayandığı maddeyi adım adım anlatır.</p>
       <!-- 16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor, bizi almıyorlar"): konu içeriği her soruda var ama ilk ekranda
            söylenmiyordu. Ölçüm 16.10 (paket_soru, veri.konuGiris.nedir dolu): SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134;
            vitrin 5 örnek sorunun 5'inde. Panel cevaptan sonra açılır ("📌 Konu", "🎬 Nöbetçi anlatsın"). "Her soruda" denmez (SGS %97).
            "Konu anlatımı / ders" yazılmaz (5580 kırmızı çizgisi). id yok: dugmeCiz #durum'u yeniden yazar, bunu yazmaz. -->
       <p class="durum konu-satir"><b>Konuyu bilmiyorsan da başla.</b> Soruyu cevaplayınca o konunun özeti açılır, Nöbetçi adım adım anlatır.</p>
-      <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
     </div>
 
     <!-- V2 madde 4 "gerçek soru ekranı" + 04.10 Cem kararı: ETKİLEŞİMLİ. Ziyaretçi şıkkı seçer, hüküm paneli açılır.
@@ -580,7 +637,14 @@ footer p{margin:0 0 8px}
     /* 13.10 KGK: ücretsiz katman (30 soruluk ölçüm, 5 örnek soru, sık konu denemesi, deneme seti) KGK'da YOK (13.10 ölçüldü) ->
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
-    ['sikSerit','ozSeviye','ozDeneme','dene30'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
+    ['sikSerit','ozSeviye','ozDeneme','dene30','ksKonu','ksOlc','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
+    /* 17.10 kısayollar seçili sınavın sayfalarına; "Zaten hesabım var" oturumu açık olana gösterilmez */
+    try{ var yetK=(secili==='yeterlilik');
+      $('ksFiyat').href=S.fiyat||'fiyat.html'; $('ksDers').href='sorular.html#'+OZET_ANAHTAR[secili];
+      $('ksKonu').href=yetK?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html';
+      $('ksOlc').href=yetK?'seviye-testi.html?sinav=yeterlilik':(S.olc||'seviye-testi.html');
+      $('ksDeneme').href=yetK?'deneme.html?sinav=SMMM':'sinav-gibi.html';
+      $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
     if(kgkSec){
       c3.hidden=true;
       if(d.durum==='aktif'){ c1.textContent='Sınava gir'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); }
@@ -632,6 +696,8 @@ footer p{margin:0 0 8px}
       secili=b.getAttribute('data-sinav'); if(U&&U.sinavSec) U.sinavSec(secili);
       say('anasayfa/sinav/'+secili,'Ana sayfa: sınav seçti');
       dugmeCiz(); ekranCiz();
+      /* 17.10: haplar kahramanın altında - telefonda değişen düğme ekran dışındaysa kahramana kaydır */
+      try{ var r=$('cta1').getBoundingClientRect(); if(r.top<64||r.bottom>window.innerHeight) document.querySelector('.kah').scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
