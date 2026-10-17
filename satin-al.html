@@ -520,6 +520,10 @@ function secilenDersler(){
 function dersCiz(){
   var kutu = document.getElementById('dersKutu'), n = dersSayisi(secili);
   if(!n){ kutu.style.display = 'none'; document.getElementById('dersListe').innerHTML = ''; document.getElementById('dersListe').removeAttribute('data-pk'); return; }
+  /* 17.10 Cem (ekran görüntüsü: listeden "2 ders" seçince ders sorusu bütün paketlerin EN ALTINDA açılıyordu, "insanlar üye olmak
+     çok zor bu durumda"): kutu seçilen paket satırının HEMEN altına taşınır (aynı düğüm; dinleyiciler ve seçilen dersler korunur). */
+  var secSatir = document.querySelector('#paketler .pk.sec');
+  if(secSatir && secSatir.nextElementSibling !== kutu) secSatir.insertAdjacentElement('afterend', kutu);
   /* 03.10: ozetCiz her elçi kodu denetiminde de çağrılır; aynı paket için listeyi yeniden çizmek
      alıcının seçtiği dersleri siliyordu. Paket değişmediyse yalnız sayaç güncellenir. */
   if(document.getElementById('dersListe').getAttribute('data-pk') === secili.id){ dersSayacGuncelle(); return; }
