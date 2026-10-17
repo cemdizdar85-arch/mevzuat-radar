@@ -393,7 +393,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <a class="nl" href="sorular.html">Sınavlar</a>
       <a class="nl" href="fiyat.html">Fiyatlar</a>
       <a class="nl" id="navOgrenci" href="ogrenci.html">Giriş yap</a>
-      <a class="btn btn-ana" id="navCta" href="kaydir/vitrin/ornek-sgs.html">Ücretsiz başla</a>
+      <!-- 17.10 Cem ("ücretsiz başla kısmına üye ol desek, oraya basınca soru geçiyor"): ziyaretçinin menü düğmesi üyeliğe gider; 5 örnek soru kahramandaki turuncu düğmede -->
+      <a class="btn btn-ana" id="navCta" href="ogrenci.html#uye-ol">Üye ol</a>
     </div>
   </div>
   <script>/* 04.10 Cem: girişliyken şerit bir an "Giriş yap · Ücretsiz başla" gösteriyordu (Supabase yüklenene dek) -> oturum anahtarı cihazdaysa hemen çevir (menu.js ile aynı ölçüt) */
@@ -803,7 +804,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
-    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Ücretsiz başla'; c.href=ok?'sorular.html':(secili==='kgk'?'sorular.html#kgk':'kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html'); } });   /* 11.10: ziyaretçinin kapısı 5 soru · 13.10 KGK: ders listesi */
+    if(g) g.textContent=ok?'Hesabım':'Giriş yap'; if(c){ c.textContent=ok?'Soru çöz':'Üye ol'; c.href=ok?'sorular.html':'ogrenci.html#uye-ol'; } });   /* 17.10 Cem: ziyaretçiye "Üye ol" (5 soru kahramanda) */
 
   /* ---- 2) GERÇEK SORU EKRANI: robotun günün sorusu (motor/vitrin-kart.js) ---- */
   function ozetim(){ return OZET&&OZET.sinavlar&&OZET.sinavlar[OZET_ANAHTAR[secili]]; }

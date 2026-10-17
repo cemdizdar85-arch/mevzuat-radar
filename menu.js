@@ -511,7 +511,8 @@ function ustSeritKur(){
     bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
     /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ziyaretçinin "Ücretsiz başla"sı 5 örnek soruya */
-    (uye ? '<a class="ust-cta" href="'+KOK+'sorular.html">Soru çöz</a>' : '<a class="ust-cta" href="'+KOK+'kaydir/vitrin/ornek-'+((function(){ try{ return localStorage.getItem('tt_sinav'); }catch(e){ return ''; } })()==='yeterlilik'?'smmm':'sgs')+'.html">Ücretsiz başla</a>')+'</div></div>';
+    /* 17.10 Cem ("ücretsiz başla kısmına üye ol desek, oraya basınca soru geçiyor"): ziyaretçinin düğmesi "Üye ol" → üyelik formu */
+    (uye ? '<a class="ust-cta" href="'+KOK+'sorular.html">Soru çöz</a>' : '<a class="ust-cta" href="'+KOK+'ogrenci.html#uye-ol">Üye ol</a>')+'</div></div>';
   top.parentNode.removeChild(top);
   document.body.insertBefore(n,document.body.firstChild);
   var u=document.createElement('div'); u.id='ttUlas';
