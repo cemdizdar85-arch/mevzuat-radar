@@ -1167,7 +1167,14 @@
       var renk={ g:'var(--green)', o:'var(--amber-dolgu)', z:'var(--red)', b:'var(--dim)' };
       var bar=function(d,du){ var o=d&&+d.cevap?opYuzde(d.dogru,d.cevap):null;
         return o===null?'<span class="og-alt" style="font-size:13px">henüz yok</span>':'<div class="op-bar"><i><s style="width:'+o+'%;background:'+renk[du[0]]+'"></s></i>%'+o+'</div>'; };
-      var sinavYazi=function(r){ return r.ss?'Sınavda '+r.ss+' soru'+(ssTop?' · %'+Math.round(100*r.ss/ssTop):''):yet?'Sınavda ayrı oturum':''; };
+      /* 18.10 (Cem "1.2.3" madde 3): ders satırında bitirilen set sayısı + son set oranı (set raporları: hesap OP_SET, yoksa cihaz
+         kc_set_rapor). Bankanın büyüklüğü / toplam set sayısı YAZILMAZ (10.10 kararı: soru sayısı gizli). */
+      var SETK={}; try{ (Array.isArray(window.OP_SET)&&window.OP_SET.length?window.OP_SET:(function(){ var l=yerel('kc_set_rapor',[]); return Array.isArray(l)?l:[]; })())
+        .forEach(function(x){ if(!x||(x.sinav&&x.sinav!==kod)) return; var k=ad(x.ders), t=+x.t||Date.parse(x.tarih)||0, c=(+x.dogru||0)+(+x.yanlis||0); if(!c) return;
+          var g=SETK[k]||(SETK[k]={n:0,t:0,o:0}); g.n++; if(t>=g.t){ g.t=t; g.o=Math.round(100*(+x.dogru||0)/c); } }); }catch(e){}
+      var sinavYazi=function(r){ var g=SETK[ad(r.ad)];
+        return (r.ss?'Sınavda '+r.ss+' soru'+(ssTop?' · %'+Math.round(100*r.ss/ssTop):''):yet?'Sınavda ayrı oturum':'')
+          +(g?(r.ss||yet?' · ':'')+g.n+' set bitirdin, son set %'+g.o:''); };
       var detay=function(r){
         var KK=K.filter(function(x){ return ad(x.ders)===ad(r.ad); }).map(function(x){ return { konu:x.konu, d:x, du:durum(x,5) }; });
         var sira={ z:0, o:1, g:3, b:2 };

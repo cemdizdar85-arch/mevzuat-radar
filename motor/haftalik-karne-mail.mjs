@@ -56,6 +56,20 @@ export function ozetKur(denemeler, bugun) {
   return { toplam: hafta.length, satir, zayif };
 }
 
+/* 18.10 (Cem "1.2.3" madde 1): SET GELİŞİMİ - ders sayfasındaki 20 soruluk set raporları (ogrenci_sonuc tur=set, kaydir-coz şablonu
+   setOzet yazar). setler: [{ders, dogru, yanlis, tarih}] → bu haftaki (son 7 gün) setler ders ders: "Vergi: 3 set · %61 → %79".
+   Oran = doğru ÷ (doğru + yanlış) (rapordaki halka ile aynı; boş sayılmaz). En çok setli 3 ders. */
+export function setSatir(setler, bugun) {
+  const h = (setler || []).filter(s => s && s.ders && s.tarih && bugun - new Date(s.tarih) <= 7 * GUN);
+  const orn = s => { const c = (+s.dogru || 0) + (+s.yanlis || 0); return c ? Math.round(100 * (+s.dogru || 0) / c) : 0; };
+  return [...new Set(h.map(s => s.ders))].map(ders => { const L = h.filter(s => s.ders === ders).sort((a, b) => String(a.tarih).localeCompare(String(b.tarih)));
+    return { ders, n: L.length, ilk: orn(L[0]), son: orn(L[L.length - 1]) }; }).sort((a, b) => b.n - a.n || a.ders.localeCompare(b.ders, 'tr')).slice(0, 3);
+}
+const setYazi = s => `${kisaAd(s.ders)}: ${s.n} set · ` + (s.n > 1 ? `%${s.ilk} → %${s.son}` : `%${s.son}`);
+const SET_BAS = 'Ders sayfalarındaki 20 soruluk setlerde gidişatın:';
+const setMetin = L => L && L.length ? [SET_BAS, ...L.map(setYazi), ''] : [];
+const setHtml = L => L && L.length ? `<p style="margin:0 0 6px;font-weight:700">${kac(SET_BAS)}</p><ul style="margin:0 0 14px;padding-left:18px">${L.map(s => `<li>${kac(setYazi(s))}</li>`).join('')}</ul>` : '';
+
 export function mailKur(o, e) {
   /* gün sayısı TR takvim gününe göre (sorular.html sonrakiSinav ile aynı; saat yuvarlaması 47/48 farkı veriyordu) */
   const t = new Date(Date.now() + 3 * 36e5), bugunTR = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate()) - 3 * 36e5;
@@ -68,12 +82,12 @@ export function mailKur(o, e) {
   const sonra = o.zayif ? `Bu hafta en çok zorlandığın konu: ${o.zayif}. Sana özel denemede bitince Nöbetçi seni bu konuya götürür; önce hiç görmediğin sorular gelir.`
     : 'Sana özel denemede önce hiç görmediğin sorular gelir; bitince Nöbetçi seni zayıf konuna götürür.';
   const kural = 'Gerçek sınavda her ders 50 ve ortalama 60 gerekir.';
-  const metin = ['Merhaba,', '', govde[0], '', ...liste, '', sonra, '', kural, '', `Sana özel denemeye git: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
+  const metin = ['Merhaba,', '', govde[0], '', ...liste, '', ...setMetin(o.setler), sonra, '', kural, '', `Sana özel denemeye git: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
   const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · SMMM YETERLİLİK</p>
 <h1 style="font-size:24px;margin:0 0 10px">Haftalık deneme karnen</h1>
 <p style="margin:0 0 12px">${kac(govde[0])}</p>
 <table role="presentation" style="border-collapse:collapse;width:100%;margin:0 0 14px;font-size:14px">${o.satir.map(s => `<tr><td style="padding:8px 0;border-bottom:1px solid #e5e7eb"><b>${kac(s.ders)}</b><br><span style="color:#6b7280">${s.hafta} deneme · ${kac(s.gidis.map(sayi).join(' → '))}</span></td><td style="padding:8px 0;border-bottom:1px solid #e5e7eb;text-align:right;white-space:nowrap;font-weight:700;color:${s.son >= 50 ? '#15803d' : '#b91c1c'}">${kac(sayi(s.son))} puan</td></tr>`).join('')}</table>
-<p style="margin:0 0 12px">${kac(sonra)}</p>
+${setHtml(o.setler)}<p style="margin:0 0 12px">${kac(sonra)}</p>
 <p style="margin:0 0 12px;font-size:13px;color:#6b7280">${kac(kural)}</p>
 <p style="margin:4px 0 18px"><a href="${href}" style="${DUGME}">Sana özel denemeye git →</a></p>
 <p style="margin:0;font-size:12px;color:#6b7280"><a href="${ret}" style="color:#6b7280">Bu e-postaları bir daha gönderme</a></p>
@@ -127,10 +141,11 @@ export function soruMailKur(o, e) {
         : `Her ders sayfasının ilk 10 sorusu sınavda en sık sorulan konulardan; 15 dakika yeter.`];
     dugme = '10 soruyu çöz';
   }
-  const metin = ['Merhaba,', '', ...satir.flatMap(s => [s, '']), `${dugme}: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
+  const setL = o.tur === 'soru' ? o.setler : null;
+  const metin = ['Merhaba,', '', ...satir.flatMap(s => [s, '']), ...setMetin(setL), `${dugme}: ${href}`, '', 'Sınava tetikte gir.', '', NEDEN, `Bir daha gönderme: ${ret}`].join('\n');
   const html = kurumsalMail(`<p style="font-size:12px;letter-spacing:.12em;color:#8d6c38;font-weight:700;margin:0 0 6px">TETİKTE · SMMM YETERLİLİK</p>
 <h1 style="font-size:24px;margin:0 0 10px">${o.tur === 'soru' ? 'Bu haftaki çalışman' : 'Kısa bir set seni bekliyor'}</h1>
-${satir.map(s => `<p style="margin:0 0 12px">${kac(s)}</p>`).join('\n')}
+${satir.map(s => `<p style="margin:0 0 12px">${kac(s)}</p>`).join('\n')}${setHtml(setL)}
 <p style="margin:4px 0 18px"><a href="${href}" style="${DUGME}">${kac(dugme)} →</a></p>
 <p style="margin:0;font-size:12px;color:#6b7280"><a href="${ret}" style="color:#6b7280">Bu e-postaları bir daha gönderme</a></p>
 `, NEDEN);
@@ -148,11 +163,17 @@ const ORNEK = [
   { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 13, yanlis: 4, toplam: 20, tarih: '2026-10-10T10:00:00Z', zayif: 'GVK › Menkul sermaye iradı' },
   { ders: 'Muhasebe Denetimi', dogru: 9, yanlis: 8, toplam: 20, tarih: '2026-10-09T10:00:00Z', zayif: 'Denetim riski' }];
 const ORNEK_B = 'Vergi Mevzuatı ve Uygulaması';
+/* 18.10: set gelişimi örneği (imzaya girer → set satırı metni değişirse gönderim durur) */
+const ORNEK_SET = [
+  { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 11, yanlis: 7, tarih: '2026-10-08T10:00:00Z' },
+  { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 13, yanlis: 6, tarih: '2026-10-09T10:00:00Z' },
+  { ders: 'Vergi Mevzuatı ve Uygulaması', dogru: 15, yanlis: 4, tarih: '2026-10-10T10:00:00Z' }];
 /* üç mailin örneği (deneme · A soru · B boş); imza üçünü birden kapsar → herhangi biri değişirse gönderim durur */
 export function ornekler() {
   const B = new Date('2026-10-11T09:00:00Z');
-  return { deneme: mailKur(ozetKur(ORNEK, B), 'ornek@ornek.com'),
-    soru: soruMailKur(soruOzet(ORNEK_A, [ORNEK_B], +B), 'ornek@ornek.com'),
+  const ss = setSatir(ORNEK_SET, +B), dn = ozetKur(ORNEK, B), sa = soruOzet(ORNEK_A, [ORNEK_B], +B); dn.setler = ss; sa.setler = ss;
+  return { deneme: mailKur(dn, 'ornek@ornek.com'),
+    soru: soruMailKur(sa, 'ornek@ornek.com'),
     bos: soruMailKur(soruOzet([], [ORNEK_B], +B), 'ornek@ornek.com') };
 }
 export function imza() {
@@ -190,6 +211,9 @@ async function ana() {
   const elleRet = new Set((await hepsi(`/rest/v1/form_kayit?select=eposta&konu=eq.${encodeURIComponent('Hatırlatma reddi')}`)).map(x => String(x.eposta || '').toLowerCase()));
   const retJeton = new Set((await hepsi('/rest/v1/hatirlatma_ret?select=jeton')).map(x => x.jeton));
   const eposta = new Map(); (await kullanicilar()).forEach(u => eposta.set(u.id, String(u.email || '').toLowerCase()));
+  /* 18.10: set raporları (tablo/tür yoksa boş - mail eskisi gibi) */
+  let setK = []; try { setK = await hepsi(`/rest/v1/ogrenci_sonuc?select=user_id,veri&tur=eq.set&sinav=eq.smmm&order=olusturma.asc`); } catch (e) { setK = []; }
+  const setKisi = new Map(); setK.forEach(k => { const v = k.veri || {}; if (!v.ders || !v.tarih) return; (setKisi.get(k.user_id) || setKisi.set(k.user_id, []).get(k.user_id)).push(v); });
   const kisi = new Map(); kayit.forEach(k => { const v = k.veri || {}; if (!v.ders || !v.tarih) return; (kisi.get(k.user_id) || kisi.set(k.user_id, []).get(k.user_id)).push(v); });
   /* 12.10: evren = AKTİF Yeterlilik paketlisi (eskiden yalnız denemesi olan). Sıra: deneme karnesi → A (soru) → B (boş). */
   const say = { kisi: kisi.size, uye: aktif.size, paketsiz: 0, haftaYok: 0, cikti: 0, yakin: 0, gidecek: 0, deneme: 0, soru: 0, bos: 0, gitti: 0, dustu: 0 }, liste = [];
@@ -201,6 +225,7 @@ async function ana() {
     if (!o) { if (L.length) say.haftaYok++; o = soruOzet(cevap.get(uid), paketDers.get(uid), +bugun); tur = o.tur; }
     if (elleRet.has(e) || retJeton.has(jeton(e))) { say.cikti++; continue; }
     if (gonderim.some(g => String(g.eposta || '').toLowerCase() === e && (bugun - new Date(g.olusturma)) / GUN < 6)) { say.yakin++; continue; }
+    if (o && tur !== 'bos') o.setler = setSatir(setKisi.get(uid), +bugun);
     say.gidecek++; say[tur]++; liste.push([e, o, tur]);
   }
   if (acik) {
@@ -247,6 +272,11 @@ function sinav() {
   b('B: tüm dersli, geçmişte en çok çözdüğü ders', soruOzet([{ d: 'Hukuk', s: 'ok', t: +B - 30 * GUN, yol: 'kaydir/smmm/hukuk.html' }], null, +B).ders === 'Hukuk');
   b('A/B maillerinde çıkış bağlantısı var, e-posta adreste yok', ['soru', 'bos'].every(k => { const m = ornekler()[k]; return m.html.includes('hatirlatma-ret.html?t=') && !m.html.includes('ornek@ornek.com') && m.metin.includes('Bir daha gönderme:'); }));
   b('imza A metniyle değişir', (() => { const i1 = imza(); ORNEK_A[0].k = 'X'; ORNEK_A[1].k = 'X'; const i2 = imza(); ORNEK_A[0].k = ORNEK_A[1].k = 'ücret ve kira geliri beyani'; return i1 !== i2; })());
+  /* 18.10 set gelişimi */
+  const st = setSatir(ORNEK_SET.concat([{ ders: 'Hukuk', dogru: 5, yanlis: 5, tarih: '2026-09-01T00:00:00Z' }]), +B);
+  b('SET: haftalık 3 Vergi seti %61 → %79; 7 günden eski set girmez', st.length === 1 && st[0].n === 3 && st[0].ilk === 61 && st[0].son === 79);
+  b('SET: deneme ve soru mailinde set satırı var, boş mailde yok', (() => { const O = ornekler(); return O.deneme.metin.includes('Vergi: 3 set · %61 → %79') && O.soru.metin.includes('Vergi: 3 set · %61 → %79') && !O.bos.metin.includes(' set · '); })());
+  b('SET: seti olmayan üyede satır yok (eski metin aynen)', !mailKur(ozetKur(ORNEK, B), 'a@b.com').metin.includes('setlerde gidişatın'));
   console.log(`HAFTALIK KARNE öz-sınav: ${n - h}/${n}`); process.exitCode = h ? 1 : 0;
 }
 if (process.argv[1] && process.argv[1].endsWith('haftalik-karne-mail.mjs')) {
