@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261017064904
+Start time: 20261017125946
 Username: runnervm8k3b6\runner
 RunAs User: runnervm8k3b6\runner
 Configuration Name: 
 Machine: runnervm8k3b6 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c3e2663c-57da-4335-b159-557e4497ee14.ps1'
-Process ID: 11412
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/2ad50f1e-dd76-40be-871b-99340cd54fe5.ps1'
+Process ID: 11377
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -25,8 +25,6 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...50/172
   ...60/172
   ...70/172
-PS>TerminatingError(Invoke-WebRequest): "Name or service not known"
-PS>TerminatingError(Invoke-WebRequest): "Name or service not known"
   ...80/172
   ...90/172
   ...100/172
@@ -36,23 +34,15 @@ PS>TerminatingError(Invoke-WebRequest): "Name or service not known"
   ...140/172
   ...150/172
   ...160/172
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
-PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
-PS>TerminatingError(Invoke-WebRequest): "Name or service not known"
   ...170/172
-  gercekten olculen (PDF geldi) : 167
+  gercekten olculen (PDF geldi) : 172
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 5
-     24675 (Name or service not known (www.mevzuat.gov.tr:443))
-     24685 (Name or service not known (www.mevzuat.gov.tr:443))
-     44985 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     44986 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
-     44987 (Name or service not known (www.mevzuat.gov.tr:443))
+  inemeyen (istek dustu)        : 0
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 167 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20261017074801
+End time: 20261017134403
 **********************
