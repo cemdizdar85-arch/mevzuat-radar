@@ -158,7 +158,12 @@
   }
   function dokunulmamis(sinav, cb){
     var kayit = oku('kc_kayit', []); if(!Array.isArray(kayit)) kayit = [];
-    var bitir = function(x){ try{ cb(x); }catch(e){} };
+    /* 18.10 (Cem "1.2.3" madde 1): üyenin sunucudaki BÜTÜN cevapları (uye_cozdugum_sorular → window.TT_HESAP_COZ, ogrenci.html
+       koyar) bu cihazın kc_kayit'ine eklenir; telefonda çözülen konu bilgisayarda da "dokundun" sayılır. Kimlik biçimi aynı.
+       hesap=true sonuçta: liste hesaptaki cevaplara göre. 🚫 GÖRMEZ: ücretsiz örnek cevapları (sunucuya yazılmıyor; yalnız kc_kayit). */
+    var hesapEk = Array.isArray(window.TT_HESAP_COZ) ? window.TT_HESAP_COZ : null;
+    if(hesapEk) kayit = kayit.concat(hesapEk.map(function(x){ return { id:x.i, ders:x.d }; }));
+    var bitir = function(x){ try{ if(x) x.hesap = !!hesapEk; cb(x); }catch(e){} };
     /* 13.10 KGK (site kolu, KGK açılış hazırlığı): KGK'da seviye testi, deneme seti ve okunmuş konu bağı YOK → DERS düzeyi.
        Ders = kasadaki 'ders' alanı (paket_soru.ders; 13.10 ölçüldü: 7 sayfada 7 ad, dizindeki adlarla birebir). Sıra: dizindeki
        modül sırası (sınav ilanı). 🚫 GÖRMEZ: dizinde 'acik' olmayan KGK (anahtar kapalıyken null döner) · sayfasız modül
@@ -201,7 +206,8 @@
         var dersSay = {}, sik = hepsi.filter(function(z){ dersSay[z.ders] = (dersSay[z.ders] || 0) + 1; return dersSay[z.ders] <= 5; });
         bitir({ sinav:'yeterlilik', tur:'konu', cozulen:cozulen, pencere:ok.pencere, donem:ok.donem,
           toplamSik:sik.length, dokunulanSik:sik.filter(function(z){ return z.dokundu; }).length,
-          liste:sik.filter(function(z){ return !z.dokundu; }).sort(function(a, b){ return b.donSay - a.donSay || srt(b.son) - srt(a.son); }).slice(0, 6) });
+          liste:sik.filter(function(z){ return !z.dokundu; }).sort(function(a, b){ return b.donSay - a.donSay || srt(b.son) - srt(a.son); }).slice(0, 6),
+          tumu:sik });   /* 18.10: Hesabım ders detayı o dersin dokunulmamışlarını buradan süzer */
       }, function(){ bitir(null); });
       return;
     }
@@ -220,7 +226,7 @@
         var kl = sk.konular.map(function(k, i){ var b = dersBul(d, k.ders, 'sgs');
           return { ders:k.ders, konu:k.konu, donSay:k.donem, son:k.son, kanit:k.kanit || [], dokundu:!!dok[i], sayfa:b ? b.sayfa : 'sorular.html#sgs' }; });
         return bitir({ sinav:'sgs', tur:'konu', cozulen:coz, pencere:sk.pencere, donem:sk.donem, toplamSik:kl.length,
-          dokunulanSik:kl.filter(function(z){ return z.dokundu; }).length, liste:kl.filter(function(z){ return !z.dokundu; }).slice(0, 6) });
+          dokunulanSik:kl.filter(function(z){ return z.dokundu; }).length, liste:kl.filter(function(z){ return !z.dokundu; }).slice(0, 6), tumu:kl });
       }
       var say = {}, cozulen = 0;
       kayit.forEach(function(x){ if(!x || yetMi(x, es)) return; cozulen++; var k = kucuk(x.ders); say[k] = (say[k] || 0) + 1; });

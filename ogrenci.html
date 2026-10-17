@@ -9,6 +9,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<!-- 18.10 Cem "Apple'da çözenleri de halletsin": iPhone'da Safari → Paylaş → Ana Ekrana Ekle ile simge + tam ekran (App Store uygulaması yok) -->
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tetikte">
 <title>Hesabım · Tetikte</title>
 <meta name="description" content="Staja Giriş hazırlığın tek yerde: seviye testi geçmişin, geçme ihtimali grafiğin, deneme sonuçların ve yanlış kutun.">
 <link rel="stylesheet" href="stil.css">
@@ -165,11 +170,16 @@
 .op-dk>summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid var(--dim);border-bottom:2px solid var(--dim);transform:rotate(45deg);transition:transform .15s}
 .op-dk[open]>summary::after{transform:rotate(-135deg)}
 .op-dk>.og-satir{margin:0 14px;padding:12px 0;border-top:1px solid var(--line)}
+.op-dk-ad{display:flex;flex-direction:column;min-width:0}.op-dk-ad small{font-size:12.5px;color:var(--muted);font-weight:500}
+.op-dt-dk{margin-top:12px;background:var(--panel);border-radius:10px;padding:12px 12px 4px;border-left:4px solid var(--red)}
+.op-dt-dk>b{display:block;font-size:14px;margin:0 0 4px}
+.op-dt-dks{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
 .op-k-ik{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--amber-dolgu) 14%,transparent);color:var(--amber)}
 .op-k-ik svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .op-k-yazi{display:flex;flex-direction:column;min-width:0}.op-k-yazi b{font-size:15.5px}.op-k-yazi small{font-size:13px;color:var(--muted);font-weight:500;margin-top:1px}
 .op-app{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px 12px 18px;margin:18px 0}
-.op-app .op-coz{margin-left:auto;white-space:nowrap}
+.op-app .op-coz{margin-left:auto;white-space:nowrap}.op-app .op-coz+.op-coz{margin-left:0}
+.op-app{flex-wrap:wrap}.op-app-adim{flex-basis:100%;margin:4px 0 4px 54px;padding-left:18px;font-size:14px;color:var(--muted);line-height:1.6}
 .op-x{flex:none;width:36px;height:36px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:16px;cursor:pointer}.op-x:hover{background:var(--bg2);color:var(--ink)}
 .op-konubos{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
 .op-konubos h3{margin:0 0 4px}.op-konubos p{margin:0;font-size:14.5px;color:var(--muted)}
@@ -179,7 +189,7 @@
 .op-cipler{display:flex;gap:8px;flex-wrap:wrap}.op-cipler span{font-size:13px;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--bg2);color:var(--ink)}
 @media(max-width:860px){ .op-konubos,.op-den-bos{grid-template-columns:1fr} .op-konubos .og-btn,.op-den-bos .og-btn{width:100%;box-sizing:border-box;text-align:center;justify-content:center}
   .op-app{display:grid;grid-template-columns:40px 1fr 36px;align-items:start;gap:4px 12px;padding:12px}
-  .op-app .op-k-ik{grid-row:1/3} .op-app .op-x{grid-column:3;grid-row:1} .op-app .op-coz{grid-column:2/4;grid-row:2;margin:6px 0 0;justify-self:start} }
+  .op-app .op-k-ik{grid-row:1/3} .op-app .op-x{grid-column:3;grid-row:1} .op-app .op-coz{grid-column:2/4;grid-row:2;margin:6px 0 0;justify-self:start} .op-app .op-app-adim{grid-column:1/4;grid-row:3;margin:8px 0 0} }
   @media(max-width:860px){ .op-karne{grid-template-columns:1fr 1fr} .op-iki{grid-template-columns:1fr} .op-gizle-m{display:none} html body .op-bugun #ogSimdiBtn{width:100%;text-align:center} }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
@@ -435,11 +445,20 @@
 
     <!-- 09.10 Cem ("yeni sürümü siteye koy, herkes görsün"): üyeye mağaza uygulaması. iPhone'da gizli (App Store onayı yok; uygulama-indir.js) -->
     <!-- 18.10 Cem "profesyonel": başlıklı büyük kutu yerine ✕ ile kapanan ince şerit (kural: her bildirim ✕ ile kapanır; tercih bu cihazda op_app_kapat) -->
-    <div class="op-app" id="opApp" data-uygulama>
+    <!-- 18.10 Cem "Apple'da çözenleri de halletsin": data-uygulama YOK (o işaret iPhone'da gizliyordu); cihaz ayrımı aşağıdaki betikte:
+         Android → Google Play · iPhone/iPad → Safari'de "Ana Ekrana Ekle" adımları · bilgisayar → ikisi birden. App Store bağlantısı yok (yayında değil). -->
+    <div class="op-app" id="opApp">
       <span class="op-k-ik"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg></span>
-      <span class="op-k-yazi"><b>Uygulamada da çalış</b><small>Android uygulamasında bu hesapla gir; paketin orada da açık.</small></span>
-      <a class="og-btn op-coz" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play →</a>
+      <span class="op-k-yazi"><b id="opAppBas">Telefonda da çalış</b><small id="opAppMetin">Android uygulamasında bu hesapla gir; paketin orada da açık.</small></span>
+      <a class="og-btn op-coz" id="opAppPlay" href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play →</a>
+      <button type="button" class="og-btn op-coz og-gizli" id="opAppIos" aria-expanded="false">Nasıl eklenir?</button>
       <button type="button" class="op-x" id="opAppX" aria-label="Kapat">✕</button>
+      <ol class="op-app-adim og-gizli" id="opAppAdim">
+        <li>Bu sayfayı <b>Safari</b>'de aç (Chrome'da da olur: sağ üstteki paylaş simgesi).</li>
+        <li>Alttaki <b>Paylaş</b> düğmesine dokun (kare ve yukarı ok).</li>
+        <li>Listeyi kaydır, <b>Ana Ekrana Ekle</b> → <b>Ekle</b>.</li>
+        <li>Ana ekrandaki <b>Tetikte</b> simgesinden aç; ilk açılışta bir kez giriş yap.</li>
+      </ol>
     </div>
 
     <!-- HESAP AYARLARI -->
@@ -492,7 +511,7 @@
 <script src="uye-durumu.js?v=20261013a"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
-<script src="calisma-ozet.js?v=20261013a"></script>
+<script src="calisma-ozet.js?v=20261018a"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -665,6 +684,9 @@
       if(!r){ kap.classList.add('og-gizli'); try{ kap.closest('details').classList.add('og-gizli'); }catch(e){} return; }
       try{ kap.closest('details').classList.remove('og-gizli'); }catch(e){}
       var yet=r.tur==='konu', ys=r.sinav==='yeterlilik', kg=r.sinav==='kgk';   /* 13.10 KGK: ders (modül) düzeyi, rakamsız */
+      /* 18.10 (Cem "1.2.3"): ders ders gruplu görünümde 6 ile kesilmez - sık konuların dokunulmamışlarının TAMAMI (r.tumu). OP_DOK: Derslerim detayı okur. */
+      if(yet&&Array.isArray(r.tumu)) r.liste=r.tumu.filter(function(z){ return !z.dokundu; }).sort(function(a,b){ return (b.donSay||0)-(a.donSay||0); });
+      window.OP_DOK=r; try{ if(Object.keys(window.OP_ACIK||{}).some(function(k){ return OP_ACIK[k]; })) panoCiz(); }catch(e){}
       var kapsam=ys?'Her dersin en sık çıkan 5 konusu, toplam '+r.toplamSik+' konu':'Staja Giriş\'te en sık çıkan '+r.toplamSik+' konu (Matematik hariç)';
       $('ogDokunmaBas').textContent=yet?'Sık çıkıp hiç dokunmadığın konular':kg?'Hiç soru çözmediğin modüller':'Hiç soru çözmediğin dersler';
       try{ $('opDokunmaOzet').textContent=$('ogDokunmaBas').textContent;
@@ -683,7 +705,8 @@
         var grup=[], gi={};
         r.liste.forEach(function(x){ if(!(x.ders in gi)){ gi[x.ders]=grup.length; grup.push({ ders:x.ders, sayfa:x.sayfa, k:[] }); } grup[gi[x.ders]].k.push(x); });
         $('ogDokunmaListe').innerHTML=grup.map(function(g,j){
-          return '<details class="op-dk"'+(j?'':' open')+'><summary><b>'+esc(g.ders)+'</b><span class="op-et z">'+g.k.length+' konu</span></summary>'
+          var enCok=g.k.reduce(function(m,x){ return Math.max(m,+x.donSay||0); },0);
+          return '<details class="op-dk"'+(j?'':' open')+'><summary><span class="op-dk-ad"><b>'+esc(g.ders)+'</b><small>'+g.k.length+' sık konuya hiç dokunmadın · en sık olanı '+r.donem+' dönemin '+enCok+' tanesinde soruldu</small></span><span class="op-et z">'+g.k.length+' konu</span></summary>'
             +g.k.map(function(x){
               return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(r.pencere.replace('-','–'))+' arasındaki '+r.donem+' dönemin '+x.donSay+' tanesinde soruldu, en son '+esc(x.son)+'</span>'
                 +'<details style="font-size:12.5px;color:var(--muted);margin-top:2px"><summary style="cursor:pointer;color:var(--link)">Kanıt: hangi sınav, kaçıncı soru</summary>'+esc(x.kanit.map(function(z){ return z.donem+' s.'+z.soru; }).join(' · '))+'</details></div>'
@@ -694,7 +717,7 @@
           return '<div class="og-satir"><b>'+esc(x.ders)+'</b><a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
       }
       $('ogDokunmaAlt').innerHTML=yet
-        ?'Sayım, çıkmış soruların metni tek tek okunarak yapıldı. Liste bu cihazdaki son 500 cevabına göre. <a class="og-link" href="'+(ys?'en-cok-cikan-konular-yeterlilik.html">Ders ders en sık çıkan konular →':'en-cok-cikan-konular-sgs.html">En sık çıkan konular →')+'</a>'
+        ?'Sayım, çıkmış soruların metni tek tek okunarak yapıldı. '+(r.hesap?'Liste hesabındaki bütün cevaplarına göre (telefon ve bilgisayar birlikte). ':'Liste bu cihazdaki son 500 cevabına göre. ')+'<a class="og-link" href="'+(ys?'en-cok-cikan-konular-yeterlilik.html">Ders ders en sık çıkan konular →':'en-cok-cikan-konular-sgs.html">En sık çıkan konular →')+'</a>'
         :kg?'Liste bu cihazdaki son 500 cevabına göre. Modül listesi KGK Bağımsız Denetçilik sınav ilanından; sınav günü KGK ilanıyla duyurulur.'
         :'Liste bu cihazdaki son 500 cevabına göre. Hangi konuların sık çıktığını görmek için: <a class="og-link" href="en-cok-cikan-konular-sgs.html">En sık çıkan konular →</a>';
       kap.classList.remove('og-gizli');
@@ -887,6 +910,9 @@
     /* 18.10 pano: sunucudaki cevap özeti (2026-10-18-uye-calisma-ozet.sql). Hata/eksik fonksiyon -> pano "okunamadı" der, sayfa durmaz. */
     sb.rpc('uye_calisma_ozetim').then(function(r){ OZET=(r&&!r.error&&r.data)?r.data:{hata:1,dersler:[],konular:[]}; try{ panoCiz(); }catch(e){} },
       function(){ OZET={hata:1,dersler:[],konular:[]}; try{ panoCiz(); }catch(e){} });
+    /* 18.10 (Cem "1.2.3" madde 1): dokunulmamış konular hesaptaki BÜTÜN cevaplara baksın (2026-10-18-uye-cozdugum-sorular.sql).
+       Gelmezse liste eskisi gibi bu cihazın kc_kayit'iyle kalır. */
+    sb.rpc('uye_cozdugum_sorular').then(function(r){ if(r&&!r.error&&Array.isArray(r.data)){ window.TT_HESAP_COZ=r.data; try{ if(ILR.secili) dokunmaCiz(ILR.secili); }catch(e){} } }, function(){});
     ekipCiz().catch(function(){});
     paketlerCiz(user).catch(function(){ $('ogPaketler').innerHTML='<p class="og-alt" style="margin:0">Paket bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
     cihazlarimCiz().catch(function(){ $('ogCihazlar').innerHTML='<p class="og-alt" style="margin:0">Cihaz bilgin şu an okunamadı. Sayfayı yenile.</p>'; });
@@ -1041,8 +1067,19 @@
      Durum eşikleri (en az 20 cevapta): Güçlü ≥ %70 · Orta %55–69 · Zayıf < %55 - taslakla aynı, Cem onaylı (18.10). */
   var OZET=null;
   /* 18.10 uygulama şeridi ✕: bu cihazda bir daha gösterilmez (tercih yalnız bu cihazda; okunamazsa şerit görünür kalır) */
-  try{ var opApp=document.getElementById('opApp'); if(opApp){ if(localStorage.getItem('op_app_kapat')) opApp.remove();
-    else document.getElementById('opAppX').onclick=function(){ try{ localStorage.setItem('op_app_kapat','1'); }catch(e){} opApp.remove(); }; } }catch(e){}
+  try{ var opApp=document.getElementById('opApp'); if(opApp){
+    var ua=navigator.userAgent||'', ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&(navigator.maxTouchPoints||0)>1), andr=/Android/i.test(ua);
+    var tamEkran=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+    var kapali=false; try{ kapali=!!localStorage.getItem('op_app_kapat'); }catch(e){}
+    if(kapali||tamEkran) opApp.remove();   /* ana ekrandan açılmışsa zaten "uygulama" - şerit gereksiz */
+    else {
+      if(ios){ $('opAppBas').textContent='iPhone\'da uygulama gibi aç'; $('opAppMetin').textContent='Ana ekranına Tetikte simgesi ekle; tek dokunuşla tam ekran açılır.';
+        $('opAppPlay').classList.add('og-gizli'); $('opAppIos').classList.remove('og-gizli'); }
+      else if(!andr){ $('opAppMetin').innerHTML='Android: Google Play uygulaması · iPhone: Safari\'de Paylaş → <b>Ana Ekrana Ekle</b>.';
+        $('opAppIos').textContent='iPhone adımları'; $('opAppIos').classList.remove('og-gizli'); }
+      $('opAppIos').onclick=function(){ var a=$('opAppAdim'), ac=a.classList.toggle('og-gizli'); this.setAttribute('aria-expanded',!ac); };
+      $('opAppX').onclick=function(){ try{ localStorage.setItem('op_app_kapat','1'); }catch(e){} opApp.remove(); };
+    } } }catch(e){}
   function opYuzde(d,c){ return c?Math.round(100*d/c):null; }
   function opTarih(t){ try{ return new Date(t).toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit'}); }catch(e){ return ''; } }
   function opSayi(n){ return Number(n||0).toLocaleString('tr-TR'); }
@@ -1126,13 +1163,19 @@
               :yet?'<b>Bu ders sınavda ayrı oturumda</b> sınanır; geçmek için 50 puan gerekir. ':'')
             +(KK.length?'Çözdüğün <b>'+KK.length+' konu</b>: <span class="op-et z">'+say.z+' zayıf</span> <span class="op-et o">'+say.o+' orta</span> <span class="op-et g">'+say.g+' güçlü</span>'+(say.b?' <span class="op-et b">'+say.b+' az veri</span>':''):'')+'</div>'
             +(r.sayfa?'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Bu dersten çöz →</a>':'')+'</div>';
-        if(OZET===null) return ust+'<p class="og-alt" style="margin:0">Konular okunuyor…</p>';
-        if(!KK.length) return ust+'<p class="og-alt" style="margin:0">Bu dersten henüz soru çözmedin. Çözmeye başlayınca konu konu doğru oranın burada görünür.</p>';
+        /* 18.10 (Cem "1.2.3" madde 2): bu dersin sık çıkıp hiç dokunulmamış konuları da burada (calisma-ozet.js dokunulmamis → OP_DOK;
+           dönem sayısı çıkmış soru metni okunarak, kanıtı "Sık çıkıp…" bölümünde). */
+        var DK=(window.OP_DOK&&OP_DOK.tur==='konu'&&OP_DOK.sinav===s?OP_DOK.liste||[]:[]).filter(function(x){ return ad(x.ders)===ad(r.ad); });
+        var dkHtml=!DK.length?'':'<div class="op-dt-dk"><b>Sık çıkıp hiç dokunmadığın konular · '+DK.length+'</b>'
+          +DK.map(function(x){ return '<div class="op-dt-dks"><span>'+esc(x.konu)+'<small class="op-dt-alt">'+OP_DOK.donem+' dönemin '+x.donSay+' tanesinde soruldu · en son '+esc(x.son)+'</small></span>'
+            +'<a class="og-btn op-coz" href="'+esc(x.sayfa||r.sayfa||'#')+'">Çöz</a></div>'; }).join('')+'</div>';
+        if(OZET===null) return ust+'<p class="og-alt" style="margin:0">Konular okunuyor…</p>'+dkHtml;
+        if(!KK.length) return ust+'<p class="og-alt" style="margin:0">Bu dersten henüz soru çözmedin. Çözmeye başlayınca konu konu doğru oranın burada görünür.</p>'+dkHtml;
         return ust+'<table class="op-tablo op-dt"><tr><th>Konu</th><th class="s op-gizle-m">Çözülen</th><th>Doğru</th><th class="op-gizle-m">Durum</th></tr>'
           +KK.map(function(x){ return '<tr><td>'+esc(opBuyuk(x.konu))+'<small class="op-dt-alt">'+opSayi(x.d.cevap)+' cevap'+(x.d.son?' · son '+esc(opTarih(x.d.son)):'')+'</small></td>'
             +'<td class="s op-gizle-m">'+opSayi(x.d.cozulen||x.d.cevap)+'</td><td>'+bar(x.d,x.du)+'</td>'
             +'<td class="op-gizle-m"><span class="op-et '+x.du[0]+'">'+x.du[1]+'</span></td></tr>'; }).join('')+'</table>'
-          +'<p class="og-alt op-not">Konu durumu en az 5 cevapta hesaplanır; altı "az veri". Zayıflar en üstte.</p>';
+          +'<p class="og-alt op-not">Konu durumu en az 5 cevapta hesaplanır; altı "az veri". Zayıflar en üstte.</p>'+dkHtml;
       };
       window.OP_ACIK=window.OP_ACIK||{};
       $('opDersler').innerHTML=!liste.length&&!D.length?'<p class="og-alt" style="margin:0">Ders listesi şu an okunamadı.</p>'
