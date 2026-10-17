@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<script src="tema-bas.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow">
+<title>Tetikte — yeni giriş taslağı</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="stil.css">
+<!-- 17.10.2026 Cem ("yurt dışındaki büyük sitenin girişine benzer yapalım" → Duolingo ekranı "bu evet mantıklı, kendi maskotumuzu
+     koysak" → Becker ekranı "aşağıda sınavları koysak"; "fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım").
+     TASLAK: ana sayfaya bağlı değil, noindex. Onaylanırsa index.html kahramanına taşınır (canlı tarama kimlikleri korunarak).
+     Düzen: üstte maskot + tek cümle + iki düğme (Duolingo) · altında sınav hapları (Becker) · altında "ne arıyorsun" kısayolları. -->
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;font-size:17px;line-height:1.55}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--link);outline-offset:3px;border-radius:8px}
+.ic{max-width:1120px;margin:0 auto;padding:0 20px}
+html body h1,html body h2,html body h3{font-family:inherit}
+
+#nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+#nav .ic{display:flex;align-items:center;gap:22px;height:64px}
+.navlinks{margin-left:auto;display:flex;align-items:center;gap:22px}
+html body #nav .navlinks a{text-decoration:none;font-weight:650;font-size:15.5px;color:var(--muted)!important}
+html body #nav .navlinks a:hover{color:var(--ink)!important}
+@media(max-width:760px){ .navlinks a.nl{display:none} }
+
+/* üst: Duolingo düzeni */
+.giris{padding:40px 0 36px}
+.giris > .ic{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.maskot{justify-self:center;width:100%;max-width:min(360px,calc((100vh - 400px)*2/3));min-width:240px;aspect-ratio:2/3;border-radius:28px;overflow:hidden;background:var(--bg2);box-shadow:var(--shadow)}
+.maskot img{display:block;width:100%;height:100%;object-fit:cover}
+.yazi{max-width:520px}
+.ust{display:flex;flex-wrap:wrap;gap:4px 10px;margin:0 0 14px;font-size:15.5px;font-weight:750;color:var(--ink)}
+.ust b{color:var(--amber)}
+.ust b:empty{display:none}
+html body .giris h1{font-size:clamp(32px,4.2vw,50px);line-height:1.08;letter-spacing:-1.2px;margin:0 0 14px;font-weight:800;color:var(--ink)}
+h1 em{font-style:normal;color:var(--amber)}
+.alt{margin:0 0 28px;font-size:18px;color:var(--muted)}
+.dugmeler{display:grid;gap:12px;max-width:400px}
+.dg{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 22px;border-radius:14px;font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:2px solid transparent}
+html body .dg-ana{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
+html body .dg-ana:hover{filter:brightness(1.04)}
+html body .dg-iki{background:var(--kagit);color:var(--ink)!important;border-color:var(--line2)}
+html body .dg-iki:hover{border-color:var(--ink)}
+.not{margin:12px 0 0;font-size:14.5px;color:var(--dim)}
+
+/* sınav hapları: Becker düzeni */
+.bolum{padding:40px 0;border-top:1px solid var(--line)}
+.bolum h2{margin:0 0 18px;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.haplar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.hap{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:104px;padding:14px 20px;border-radius:999px;text-decoration:none;border:2px solid transparent;transition:transform .12s}
+a.hap:hover{transform:translateY(-2px)}
+.hap b{font-size:22px;line-height:1.15;font-weight:800}
+.hap span{font-size:14.5px;font-weight:650;margin-top:4px;opacity:.9}
+html body .hap-sgs{background:var(--ink);color:var(--bg)!important}
+html body .hap-yet{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
+html body .hap-kgk{background:transparent;color:var(--dim)!important;border:2px dashed var(--line2)}
+
+/* kısayollar: fiyat · ders · konu · deneme · seviye · haber */
+.kisa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ks{display:flex;gap:14px;align-items:center;padding:16px 18px;background:var(--kagit);border:1px solid var(--line);border-radius:16px;text-decoration:none}
+.ks:hover{border-color:var(--ink)}
+.ks i{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-style:normal;font-size:22px;background:var(--bg2)}
+.ks b{display:block;font-size:16.5px;color:var(--ink)}
+.ks span{display:block;font-size:14px;color:var(--muted);line-height:1.4}
+
+@media(max-width:900px){
+  .giris{padding:20px 0 28px}
+  .giris > .ic{grid-template-columns:1fr;gap:18px;justify-items:center;text-align:center}
+  .maskot{max-width:190px;min-width:0;aspect-ratio:4/5;border-radius:24px}
+  .ust{justify-content:center}
+  .yazi{margin:0 auto}
+  .dugmeler{margin:0 auto}
+  .alt{margin-bottom:20px;font-size:16.5px}
+  .haplar{grid-template-columns:1fr;gap:10px}
+  .hap{min-height:72px;border-radius:20px;flex-direction:row;justify-content:space-between;text-align:left;padding:12px 22px}
+  .hap b{font-size:19px}
+  .hap span{margin:0 0 0 12px;text-align:right;font-size:13.5px}
+  .kisa{grid-template-columns:1fr 1fr;gap:10px}
+  .bolum{padding:28px 0}
+}
+@media(max-width:520px){
+  .kisa{grid-template-columns:1fr}
+}
+footer{border-top:1px solid var(--line);padding:24px 0;font-size:13.5px;color:var(--dim)}
+</style>
+<link rel="stylesheet" href="stil-acik.css">
+</head>
+<body>
+<nav id="nav" aria-label="Ana menü">
+  <div class="ic">
+    <a class="marka logo" href="index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px;text-decoration:none"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a>
+    <div class="navlinks">
+      <a class="nl" href="sorular.html">Sınavlar</a>
+      <a class="nl" href="fiyat.html">Fiyatlar</a>
+      <a href="ogrenci.html">Giriş yap</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="giris">
+  <div class="ic">
+    <div class="maskot"><img src="gorsel/maskot-giris.jpg" width="560" height="840" alt="Tetikte'nin maskotu: üstünde cevap şıkları olan kâğıttan bir baykuş" fetchpriority="high"></div>
+    <div class="yazi">
+      <p class="ust"><span>SMMM Staja Giriş · 21 Kasım 2026</span><b id="kalan"></b></p>
+      <h1>SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
+      <p class="alt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.</p>
+      <div class="dugmeler">
+        <a class="dg dg-ana" href="kaydir/vitrin/ornek-sgs.html">Ücretsiz başla</a>
+        <a class="dg dg-iki" href="ogrenci.html">Zaten hesabım var</a>
+      </div>
+      <p class="not">Üye olmadan 5 örnek soru · kart bilgisi istemez</p>
+    </div>
+  </div>
+</section>
+
+<section class="bolum" aria-labelledby="sinavBas">
+  <div class="ic">
+    <h2 id="sinavBas">Sınavını seç</h2>
+    <div class="haplar">
+      <a class="hap hap-sgs" href="sorular.html#sgs"><b>Staja Giriş</b><span>SGS · 21 Kasım 2026</span></a>
+      <a class="hap hap-yet" href="sorular.html#smmm"><b>Yeterlilik</b><span>Staj bitirme · 28 Kasım 2026</span></a>
+      <span class="hap hap-kgk" aria-disabled="true"><b>KGK Bağımsız Denetçilik</b><span>Hazırlanıyor</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="bolum" aria-labelledby="araBas">
+  <div class="ic">
+    <h2 id="araBas">Ne arıyorsun?</h2>
+    <div class="kisa">
+      <a class="ks" href="fiyat.html"><i aria-hidden="true">💳</i><span><b>Fiyatlar</b><span>Paketler ve ne içerdikleri</span></span></a>
+      <a class="ks" href="sorular.html"><i aria-hidden="true">📚</i><span><b>Dersler ve sorular</b><span>Ders ders soru çöz</span></span></a>
+      <a class="ks" href="en-cok-cikan-konular-sgs.html"><i aria-hidden="true">🎯</i><span><b>En çok çıkan konular</b><span>Son 10 yılın sınavlarından, ücretsiz</span></span></a>
+      <a class="ks" href="sinav-gibi.html"><i aria-hidden="true">⏱️</i><span><b>Sınav gibi deneme</b><span>Süreli, bitince ders ders karne</span></span></a>
+      <a class="ks" href="seviye-testi.html"><i aria-hidden="true">📏</i><span><b>Seviyeni ölç</b><span>30 soru, ücretsiz</span></span></a>
+      <a class="ks" href="sinav-nobeti.html"><i aria-hidden="true">📰</i><span><b>Sınav duyuruları</b><span>TESMER ve TÜRMOB tek listede</span></span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="ic">TASLAK · yalnız önizleme için · ana sayfaya bağlı değil</div></footer>
+
+<script>
+/* kalan gün: Türkiye günü ile (index.html kahUstCiz ile aynı ölçüt) */
+(function(){
+  try{
+    var bugun=new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Istanbul'}));
+    bugun.setHours(0,0,0,0);
+    var gun=Math.round((new Date(2026,10,21)-bugun)/864e5);
+    if(gun>0) document.getElementById('kalan').textContent='· '+gun+' gün kaldı';
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
