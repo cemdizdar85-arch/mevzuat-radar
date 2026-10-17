@@ -495,7 +495,15 @@ function ustSeritKur(){
     '@media(max-width:420px){html body #ttUst a.ust-logo{font-size:19px}html body #ttUst .navlinks a.ust-cta{padding:0 12px}}'+
     /* 04.10 mobil taşma kapısı: 320 px'te yasal sayfalarda şerit 335 px oldu (logo + Ara + tema + düğme) -> en darda sıkılaşır */
     '@media(max-width:360px){#ttUst .ic{padding:0 10px;gap:6px}#ttUst .navlinks{gap:5px}html body #ttUst a.ust-logo{font-size:17px;gap:6px}html body #ttUst .navlinks a.ust-cta{padding:0 9px;font-size:13.5px;min-height:40px}#ttUst .kp-dugme kbd{display:none}}'+
-    '@media(min-width:761px){#mrxFab{display:none!important}}';
+    '@media(min-width:761px){#mrxFab{display:none!important}}'+
+    /* 17.10 Cem ("yukarıya WhatsApp hattı, telefon numaramız ... hızlı bir şekilde bize ulaşsınlar"): ana sayfadaki üst bandın aynısı */
+    '#ttUlas{background:var(--ink);color:var(--bg);font:14px/1.3 -apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif}'+
+    '#ttUlas .ic{max-width:1120px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:flex-end;gap:6px 18px;min-height:36px;flex-wrap:wrap}'+
+    '#ttUlas .ulas-not{margin-right:auto;opacity:.85}'+
+    'html body #ttUlas a{color:var(--bg)!important;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:6px;min-height:36px}'+
+    'html body #ttUlas a:hover{text-decoration:underline}html body #ttUlas a.ulas-wp{color:var(--amber-dolgu)!important}'+
+    '#ttUlas .ulas-wp::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber-dolgu)}'+
+    '@media(max-width:620px){#ttUlas .ulas-not,#ttUlas .ulas-ep{display:none}#ttUlas .ic{justify-content:center}}';
   document.head.appendChild(st);
   var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
   function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
@@ -506,6 +514,9 @@ function ustSeritKur(){
     (uye ? '<a class="ust-cta" href="'+KOK+'sorular.html">Soru çöz</a>' : '<a class="ust-cta" href="'+KOK+'kaydir/vitrin/ornek-'+((function(){ try{ return localStorage.getItem('tt_sinav'); }catch(e){ return ''; } })()==='yeterlilik'?'smmm':'sgs')+'.html">Ücretsiz başla</a>')+'</div></div>';
   top.parentNode.removeChild(top);
   document.body.insertBefore(n,document.body.firstChild);
+  var u=document.createElement('div'); u.id='ttUlas';
+  u.innerHTML='<div class="ic"><span class="ulas-not">Bize hemen ulaş:</span><a class="ulas-wp" href="https://wa.me/905323448058?text=Merhaba%2C%20Tetikte%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp</a><a href="tel:+905323448058">0532 344 80 58</a><a class="ulas-ep" href="mailto:destek@tetikte.com">destek@tetikte.com</a></div>';
+  document.body.insertBefore(u,n);
   return true;
 }
 
