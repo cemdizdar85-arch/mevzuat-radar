@@ -135,6 +135,29 @@
   .sc-yuk{color:var(--dim);font-size:14px;padding:30px 0}
   .sc-yuk-yer{height:189px}
   #scDersler > .sc-yuk:only-child:empty{min-height:100vh}   /* 07.10: dersler gelene dek alt bilgi ekranda belirip itilmesin */
+  /* 18.10 deneme paneli: solda dersler, sağda sabit panel (telefonda panel üstte - DOM sırası aside önce) */
+  .sc-iki{display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"sol sag";gap:28px;align-items:start}
+  .sc-sol{grid-area:sol;min-width:0}.sc-sag{grid-area:sag;position:sticky;top:84px}
+  .sc-iki .sc-dersler{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .sc-panel{border:1px solid var(--bz-bronz);border-radius:16px;padding:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--bz-bronz) 14%,transparent),color-mix(in srgb,var(--bz-bronz) 3%,transparent))}
+  .sc-panel h2{margin:4px 0 10px;font-size:22px;color:var(--ink);letter-spacing:-.02em}
+  .sc-cipler{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}.sc-cipler span{font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);color:var(--ink)}
+  .sc-setler{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0 0 14px}
+  .sc-set{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:54px;border-radius:10px;border:1px solid var(--line);background:var(--panel);text-decoration:none;color:var(--ink);text-align:center}
+  .sc-set b{font-size:13px}.sc-set small{font-size:11px;color:var(--muted);font-weight:600}
+  a.sc-set:hover{border-color:var(--amber)}
+  .sc-set.devam{border-color:var(--amber-dolgu);background:color-mix(in srgb,var(--amber-dolgu) 14%,var(--panel))}.sc-set.devam small{color:var(--amber)}
+  .sc-set.bitti{border-color:color-mix(in srgb,var(--green) 45%,transparent)}.sc-set.bitti small{color:var(--green)}
+  .sc-set.kilit{opacity:.6}
+  .sc-pbtn{display:flex;justify-content:center;align-items:center;min-height:48px;border-radius:12px;font-weight:800;font-size:15.5px;text-decoration:none;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz))}
+  .sc-palt{font-size:13px;color:var(--muted);line-height:1.5;margin:10px 0 6px}
+  .sc-plink{display:inline-block;font-size:13.5px;font-weight:750;color:var(--amber);text-decoration:none;margin-top:4px}
+  .sc-pdersler{display:flex;flex-direction:column;gap:6px;margin:6px 0 10px}
+  .sc-pders{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+  .sc-pders>span{display:flex;flex-direction:column;min-width:0}.sc-pders b{font-size:13.5px;color:var(--ink);line-height:1.3}.sc-pders small{font-size:11.5px;color:var(--muted)}
+  .sc-pkucuk{flex:none;font-size:13px;font-weight:800;text-decoration:none;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:8px;padding:7px 12px}
+  .sc-pkilit{flex:none;opacity:.6}
+  @media(max-width:980px){ .sc-iki{grid-template-columns:1fr;grid-template-areas:"sag" "sol";gap:22px} .sc-sag{position:static} }
 
   @media(max-width:900px){
     .sc-sinavlar{grid-template-columns:1fr;gap:10px}
@@ -174,7 +197,7 @@
 </main>
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
-<script src="uye-durumu.js?v=20261013a"></script>
+<script src="uye-durumu.js?v=20261018a"></script>
 <script src="ders-ilerleme.js?v=20261011b"></script>
 <script>
 (function(){
@@ -275,7 +298,7 @@
     var paketli=DIZIN.sinavlar.filter(function(s){ return PAKET[s.kod]; });
     var b=document.getElementById('scBaslik'), a=document.getElementById('scAlt');
     if(paketli.length){
-      b.textContent='Çalışmaya devam'; a.textContent=paketli.length>1?'Sınavını seç; dersin hemen açılır.':'';
+      b.textContent='Soru çöz'; a.textContent=paketli.length>1?'Sınavını seç; dersin hemen açılır.':'';
       /* .sc-sinavlar display:grid [hidden]'ı eziyordu (telefonda ölçüldü) -> stil ile */
       a.style.display=paketli.length===1?'none':''; sinavlarEl.style.display=paketli.length===1?'none':'';
     } else {
@@ -323,7 +346,13 @@
     var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'
       +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
     var kars=karsilamaKart(s, acik);   /* ders seçimli pakette karşılama devam + deneme kartının yerine geçer */
-    var h=(kars||devamKart(s, acik))+alanlar+seviyeKart+(kars?'':denemeKart)+'<div class="sc-gbas" id="sc-dersler"><h2>'+esc(s.ad)+' · dersler</h2><span>'+esc(s.uzun)+'</span></div>'
+    /* 18.10 Cem ("sınava gir değil soru çöz diyelim, içinde sınav olsun; ders ders ve toplu sınavı aynı yerde görsün"):
+       rakip kalıbı (konu konu çalış + tam deneme yan yana): solda dersler, sağda sabit DENEME PANELİ (setler tek bakışta).
+       Panel varsa eski tek deneme kartı çizilmez. Telefonda panel derslerin üstünde. */
+    var panel=denemePanel(s, acik);
+    var h=(kars||devamKart(s, acik))+alanlar+seviyeKart+(panel?'':(kars?'':denemeKart))
+      +(panel?'<div class="sc-iki"><aside class="sc-sag">'+panel+'</aside><div class="sc-sol">':'')
+      +'<div class="sc-gbas" id="sc-dersler"><h2>'+(panel?'Ders ders çalış':esc(s.ad)+' · dersler')+'</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
         ?'Dersi seç, sorular sınavdaki gibi gelsin. Yanlış yaparsan Nöbetçi adım adım anlatır; yanlışın kutuna düşer, 2 gün sonra karşına yeniden çıkar.'
         :'Bu sınavın soruları hakem ve çözüm kapılarından geçiyor. Açıldığında dersler burada, Staja Giriş\'teki gibi ders ders görünecek.')+'</p>';
@@ -338,7 +367,53 @@
     h+='<p class="sc-not">'+(s.kod==='kgk'
       ?'Modüller KGK Bağımsız Denetçilik sınav ilanındaki konu listesinden; sınav günü KGK ilanıyla duyurulur.'
       :'Sınavdaki soru sayıları TESMER yönergesindeki ders dağılımından; sınav tarihi TÜRMOB 2026 resmî takviminden.')+'</p>';
+    if(panel) h+='</div></div>';
     derslerEl.innerHTML=h;
+  }
+
+  /* 18.10 DENEME PANELİ. Durum bu cihazdaki kayıttan (sinav-gibi.html ile AYNI anahtar: sg_<sınav>[_ders]_<no>_<dizin sürümü>;
+     bitmiş deneme hesaptan da iner - sinav-gibi hesabaGonder). Set bağlantısı sinav-gibi.html#set=N (doğrudan o set açılır).
+     🚫 GÖRMEZ: başka cihazda yarım kalıp bu cihaza inmemiş deneme ("Yeni" görünür; set açılınca sinav-gibi hesaptan alır). */
+  function sgOku(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+  function denemePanel(s, acik){
+    if(!acik) return '';
+    var pk=!!PAKET[s.kod], kilitA='<a class="sc-pbtn" href="fiyat.html">🔒 Pakete dahil · paketleri gör →</a>';
+    if(s.kod==='sgs'&&DENEME.sgs){
+      var dn=DENEME.sgs, sira=null, devam=null, bitti=0;
+      var cip=dn.setler.map(function(x){
+        var d=sgOku('sg_sgs_'+x.no+(dn.surum?'_'+dn.surum:'')), cls='', alt='Yeni';
+        if(d&&d.bitti){ cls=' bitti'; alt=(d.sonuc&&d.sonuc.dogru!=null?d.sonuc.dogru+' doğru':'Bitti'); bitti++; }
+        else if(d){ cls=' devam'; alt=Object.keys(d.cevap||{}).length+'/'+dn.toplam_soru; if(!devam) devam=x.no; }
+        else if(!sira) sira=x.no;
+        return pk?'<a class="sc-set'+cls+'" href="sinav-gibi.html#set='+x.no+'"><b>Set '+x.no+'</b><small>'+alt+'</small></a>'
+                 :'<span class="sc-set kilit"><b>Set '+x.no+'</b><small>🔒</small></span>';
+      }).join('');
+      var hedef=devam||sira||1;
+      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Toplu sınav</h2>'
+        +'<div class="sc-cipler"><span>'+dn.toplam_soru+' soru</span><span>'+dn.sure_dk+' dakika</span><span>gerçek ders dağılımı</span></div>'
+        +'<div class="sc-setler">'+cip+'</div>'
+        +(pk?'<a class="sc-pbtn" href="sinav-gibi.html#set='+hedef+'">'+(devam?'Devam et · Set '+devam+' →':'Başlat · Set '+hedef+' →')+'</a>'
+            +'<p class="sc-palt">'+(bitti?bitti+' / '+dn.set_sayisi+' set bitti. ':'')+'Çözerken cevap görünmez; bitince ders ders karne ve her yanlışın anlatımı. Setler arasında aynı soru yok.</p>'
+            +'<a class="sc-plink" href="sinav-gibi.html?tur=sik">En sık çıkan konular denemesi →</a>'
+          :kilitA+'<p class="sc-palt">Çözerken cevap görünmez; bitince ders ders karne. '+dn.set_sayisi+' set, setler arasında aynı soru yok.</p>')
+        +'</div>';
+    }
+    if(s.kod==='smmm'&&DENEME.smmmDers){
+      var dd=DENEME.smmmDers, p=PAKET.smmm, paketD=p&&p.dersler&&p.dersler.length?p.dersler.map(trk):null, grup={}, sirala=[];
+      dd.setler.forEach(function(x){ if(!grup[x.ders]){ grup[x.ders]=[]; sirala.push(x.ders); } grup[x.ders].push(x); });
+      if(paketD) sirala.sort(function(a,b){ return (paketD.indexOf(trk(a))<0)-(paketD.indexOf(trk(b))<0); });
+      var satir=sirala.map(function(ders){
+        var L=grup[ders], ac=pk&&(!paketD||paketD.indexOf(trk(ders))>-1), bt=0, dv=null;
+        L.forEach(function(x){ var d=sgOku('sg_smmm_ders_'+x.no+(dd.surum?'_'+dd.surum:'')); if(d&&d.bitti) bt++; else if(d&&!dv) dv=x.no; });
+        return '<div class="sc-pders"><span><b>'+esc(ders)+'</b><small>'+L.length+' deneme'+(bt?' · '+bt+' bitti':'')+(dv?' · yarım var':'')+'</small></span>'
+          +(ac?'<a class="sc-pkucuk" href="sinav-gibi.html?tur=ders&amp;sinav=smmm&amp;ders='+encodeURIComponent(ders)+'">'+(dv?'Devam':bt?'Sıradaki':'Başla')+'</a>':'<span class="sc-pkilit">🔒</span>')+'</div>';
+      }).join('');
+      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Ders denemeleri</h2>'
+        +'<div class="sc-cipler"><span>20 soru</span><span>45 dakika</span><span>baraj 50</span></div>'
+        +'<p class="sc-palt" style="margin-top:0">Gerçek sınavda her ders ayrı bir oturum; burada da öyle. Yanlış doğrunun 0,25\'ini götürür.</p>'
+        +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" href="sinav-gibi.html?tur=sik&amp;sinav=smmm">En sık çıkan konular denemesi →</a>':kilitA)+'</div>';
+    }
+    return '';
   }
 
   function sec(kod, kullanici){
@@ -369,9 +444,11 @@
   Promise.all([
     fetch('veri/soru-dizini.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
     fetch('veri/sinav-takvimi.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
-    fetch('veri/deneme/sgs-dizin.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
+    fetch('veri/deneme/sgs-dizin.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;}),
+    fetch('veri/deneme/smmm-ders-dizin.json',{cache:'no-store'}).then(function(y){return y.ok?y.json():null;}).catch(function(){return null;})
   ]).then(function(r){
     DIZIN=r[0]; TAKVIM=r[1]; if(r[2]&&r[2].setler&&r[2].setler.length) DENEME[r[2].sinav]=r[2];
+    if(r[3]&&r[3].setler&&r[3].setler.length) DENEME.smmmDers=r[3];   /* 18.10 deneme paneli: Yeterlilik ders denemeleri */
     /* 02.10 Cem (açılış: site = SGS + Yeterlilik): yalnız açık sınav çizilir -> KGK ("hazirlaniyor") görünmez.
        Görünür ad tek: "Staj Bitirme" -> "Yeterlilik". AÇILIŞ SONRASI KGK'yı geri almak için bu iki satırı kaldır. */
     if(DIZIN&&DIZIN.sinavlar){ DIZIN.sinavlar=DIZIN.sinavlar.filter(function(s){return s.durum==='acik';});

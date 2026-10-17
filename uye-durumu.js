@@ -31,7 +31,7 @@
     sgs: {
       kod: 'sgs', ad: 'Staja Giriş', uzun: 'SMMM Staja Giriş (SGS)', icerik: true,
       dene: 'ucretsiz-dene.html?sinav=sgs', olc: 'seviye-testi.html',
-      gir: 'sinav-gibi.html', devam: 'sorular.html#sgs',   /* 04.10 site turu: kaydir/sgs/index.html taslak dizin (adet + ASCII konu) -> resmî ders listesi */
+      gir: 'sorular.html#sgs', devam: 'sorular.html#sgs',   /* 18.10 Cem: "Sınava gir" yerine "Soru çöz" merkezi (dersler + deneme paneli tek sayfada) */   /* 04.10 site turu: kaydir/sgs/index.html taslak dizin (adet + ASCII konu) -> resmî ders listesi */
       al: 'satin-al.html?paket=sgs', fiyat: 'fiyat.html'
     },
     yeterlilik: {
