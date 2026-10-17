@@ -22,7 +22,7 @@
 //  YAYIN: .github/workflows/edge-yukle.yml OTOMATİK (YAYIN.json). Secrets: RESEND_KEY, RESEND_FROM (ortak).
 // ============================================================================
 
-const KOD_IMZA = "08945d606ccbeaec";
+const KOD_IMZA = "f53af7306a432900";
 const SITE = "https://tetikte.com";
 const kacis = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -59,9 +59,8 @@ export function davetMetni(s: Oturum | null, simdikiSinav = ""): string {
   if (!s) return "";
   const d = new Date(tarihMs(s) + 3 * 36e5);
   const ne = `${d.getUTCDate()} ${AYLAR[d.getUTCMonth()]} ${GUNLER[d.getUTCDay()]} ${s.saat || "10:00"} · ${s.sinav} ${s.ad}`;
-  return s.sinav === simdikiSinav
-    ? `Sıradaki prova: ${ne}. Üye olduğun için yerin hazır; o gün tetikte.com'a gir.`
-    : `${s.sinav} sınavına da hazırlanıyorsan sıradaki prova: ${ne}. Üye olduğun için yerin hazır.`;
+  // 17.10 Cem: "SGS giren niye bitirme girsin, olmaz öyle" → başka sınavın provasına davet YOK; yalnız aynı sınav
+  return s.sinav === simdikiSinav ? `Sıradaki prova: ${ne}. Üye olduğun için yerin hazır; o gün tetikte.com'a gir.` : "";
 }
 
 const RESMI_DEGIL = "Sınav Provası, Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in yaptığı resmî sınavlarla bağlantısı yoktur. Yüzdelik sıralama, bu provaya katılan Tetikte üyeleri arasında hesaplanır.";
@@ -160,7 +159,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
   try {
     const t = await (await fetch(`${SITE}/veri/canli-deneme.json?t=${Date.now()}`)).json();
     o = (t.oturumlar || []).find((x: Oturum) => oturumKodu(x) === kod) || null;
-    if (o) sonraki = (t.oturumlar || []).filter((x: Oturum) => !x.gizli && tarihMs(x) > tarihMs(o!)).sort((a: Oturum, b: Oturum) => tarihMs(a) - tarihMs(b))[0] || null;
+    if (o) sonraki = (t.oturumlar || []).filter((x: Oturum) => !x.gizli && x.sinav === o!.sinav && tarihMs(x) > tarihMs(o!)).sort((a: Oturum, b: Oturum) => tarihMs(a) - tarihMs(b))[0] || null;
   } catch { /* aşağıda */ }
   if (!o) return cevap(404, { hata: "oturum takvimde yok" });
   let son: Sonuc | null = null;
