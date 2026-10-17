@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261016163431
+Start time: 20261017003313
 Username: runnervm8k3b6\runner
 RunAs User: runnervm8k3b6\runner
 Configuration Name: 
 Machine: runnervm8k3b6 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8eb0b388-ab20-42d6-8a05-ed3d51cc4754.ps1'
-Process ID: 2489
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/65ed2c9c-092d-4a56-b3fa-5052aea6ba6e.ps1'
+Process ID: 2497
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -17,24 +17,12 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-RG gunu      : 16-10-2026
-Kart sayisi  : 6
+RG gunu      : 17-10-2026
+Kart sayisi  : 11
 Izlenen dosya: 12
 
-======================================================================
-  RG'DE ILGILI YAYIN VAR - 1 ARAC VERISI ESKIMIS OLABILIR
-======================================================================
-  veri/gtip-durum.json   (arac: gtip.html)
-      dayanak: Gozetim / korunma / kayda bagli ithalat tebligleri
-      hasat  : motor/tablo-hasat.ps1
-      <- Makine emniyeti yönetmeliği (AB 2023/1230) yürürlüğe girdi
-
-  YAPILACAK: ilgili kaynagin GUNCEL halini indirip hasat betigini
-  yeniden kosmak. Bu dosyalar otomatik beslenmiyor - elle tazelenir.
-  -> veri/arac-uyari.json
-
-  KOSU BILEREK KIRMIZI: sessiz rapor okunmaz.
+TEMIZ: bugunku RG kartlarinda hicbir arac verisini ilgilendiren anahtar gecmiyor.
 **********************
 PowerShell transcript end
-End time: 20261016163431
+End time: 20261017003313
 **********************
