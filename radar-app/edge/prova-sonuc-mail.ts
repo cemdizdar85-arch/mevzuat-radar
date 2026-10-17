@@ -22,7 +22,7 @@
 //  YAYIN: .github/workflows/edge-yukle.yml OTOMATİK (YAYIN.json). Secrets: RESEND_KEY, RESEND_FROM (ortak).
 // ============================================================================
 
-const KOD_IMZA = "24e94f81d01f47e0";
+const KOD_IMZA = "1616ca8341c98ada";
 const SITE = "https://tetikte.com";
 const kacis = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -79,7 +79,8 @@ export function sonucMail(r: Satir, o: Oturum, son: Sonuc | null, prova: boolean
   const sira = y !== null
     ? `Bu provaya katılan ${son!.katilim} Tetikte üyesi içinde senden düşük puan alanların oranı: %${y}.`
     : son && son.tur === "seviye"
-      ? `Katılım yüzdelik açıklamak için düşük kaldı (${son.katilim} kişi); katılanların ortalaması ${String(son.ortalama).replace(".", ",")} doğru, medyanı ${son.medyan} doğru.`
+      // 17.10 Cem ("çok az kişi girdiyse saçma olabilir"): az katılımda kişi sayısı ve ortalama YAZILMAZ — küçük grubun ortalaması yanıltır
+      ? "Bu provada katılım, güvenilir bir yüzdelik sıralama hesaplamaya yetmedi; bu yüzden sıralama vermiyoruz. Puanın ve ders ders sonucun aşağıda."
       : "Yüzdelik sıralama henüz açıklanmadı.";
   const zayif = zd ? `En çok puan kaybettiğin ders: ${zd.d} (${zd.k}/${zd.s} doğru).` : "";
   const metin = [
