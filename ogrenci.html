@@ -158,6 +158,13 @@
 .op-katli>summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--dim);border-bottom:2px solid var(--dim);transform:rotate(45deg);transition:transform .15s;flex:none}
 .op-katli[open]>summary::after{content:"";transform:rotate(-135deg)}
 .op-katli>summary:hover{border-color:var(--line2)}
+#ogDokunmaBas{display:none}
+.op-dk{border:1px solid var(--line);border-radius:12px;margin:0 0 8px;background:var(--panel)}
+.op-dk>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:15px}
+.op-dk>summary::-webkit-details-marker{display:none}
+.op-dk>summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid var(--dim);border-bottom:2px solid var(--dim);transform:rotate(45deg);transition:transform .15s}
+.op-dk[open]>summary::after{transform:rotate(-135deg)}
+.op-dk>.og-satir{margin:0 14px;padding:12px 0;border-top:1px solid var(--line)}
 .op-k-ik{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--amber-dolgu) 14%,transparent);color:var(--amber)}
 .op-k-ik svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .op-k-yazi{display:flex;flex-direction:column;min-width:0}.op-k-yazi b{font-size:15.5px}.op-k-yazi small{font-size:13px;color:var(--muted);font-weight:500;margin-top:1px}
@@ -671,10 +678,16 @@
           return '<div class="og-satir"><b>'+esc(x.ders)+'</b><a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
       } else if(yet){
         $('ogDokunmaUst').textContent=kapsam+'. Sen bunların '+r.dokunulanSik+' tanesinden soru çözdün. Sıradakiler:';
-        $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
-          return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(x.ders)+' · '+esc(r.pencere.replace('-','–'))+' arasındaki '+r.donem+' dönemin '+x.donSay+' tanesinde soruldu, en son '+esc(x.son)+'</span>'
-            +'<details style="font-size:12.5px;color:var(--muted);margin-top:2px"><summary style="cursor:pointer;color:var(--link)">Kanıt: hangi sınav, kaçıncı soru</summary>'+esc(x.kanit.map(function(z){ return z.donem+' s.'+z.soru; }).join(' · '))+'</details></div>'
-            +'<a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('');
+        /* 18.10 Cem "ders ders ve altında ayrıntı": konular derse göre toplanır; ders satırı açılınca konular ve kanıt.
+           Sıra: en sık çıkan konusu olan ders önce (liste zaten sıklık sırasında geliyor). İlk ders açık gelir. */
+        var grup=[], gi={};
+        r.liste.forEach(function(x){ if(!(x.ders in gi)){ gi[x.ders]=grup.length; grup.push({ ders:x.ders, sayfa:x.sayfa, k:[] }); } grup[gi[x.ders]].k.push(x); });
+        $('ogDokunmaListe').innerHTML=grup.map(function(g,j){
+          return '<details class="op-dk"'+(j?'':' open')+'><summary><b>'+esc(g.ders)+'</b><span class="op-et z">'+g.k.length+' konu</span></summary>'
+            +g.k.map(function(x){
+              return '<div class="og-satir" style="align-items:flex-start"><div><b>'+esc(x.konu)+'</b><br><span style="font-size:13px;color:var(--muted)">'+esc(r.pencere.replace('-','–'))+' arasındaki '+r.donem+' dönemin '+x.donSay+' tanesinde soruldu, en son '+esc(x.son)+'</span>'
+                +'<details style="font-size:12.5px;color:var(--muted);margin-top:2px"><summary style="cursor:pointer;color:var(--link)">Kanıt: hangi sınav, kaçıncı soru</summary>'+esc(x.kanit.map(function(z){ return z.donem+' s.'+z.soru; }).join(' · '))+'</details></div>'
+                +'<a class="og-btn og-kucuk" href="'+esc(x.sayfa)+'">Çöz →</a></div>'; }).join('')+'</details>'; }).join('');
       } else {
         $('ogDokunmaUst').textContent='Staja Giriş\'in '+r.toplamSik+' dersinden '+r.dokunulanSik+' tanesinde soru çözdün. Hiç başlamadıkların (sınavda payı büyük olan önce):';
         $('ogDokunmaListe').innerHTML=r.liste.map(function(x){
