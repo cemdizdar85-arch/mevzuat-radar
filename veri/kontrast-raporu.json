@@ -5,10 +5,10 @@
   "sayfa": 236,
   "koyu_gecis": 77,
   "koyu_bekleyen": [],
-  "temiz_sayfa": 229,
-  "denetlenen_metin": 23626,
-  "toplam_kirik": 18,
-  "denetlenen_sinir": 6959,
+  "temiz_sayfa": 230,
+  "denetlenen_metin": 23663,
+  "toplam_kirik": 17,
+  "denetlenen_sinir": 6979,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 1,
   "esik": {
@@ -25,7 +25,22 @@
   ],
   "kirik_sayfalar": [
     {
-      "sayfa": "elci-programi.html [koyu]",
+      "sayfa": "sorular.html",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "span.sc-deneme-et",
+          "yazi": "Sınav gibi deneme",
+          "oran": 4.21,
+          "esik": 4.5,
+          "renk": "rgb(138, 98, 36)",
+          "zemin": "rgb(231,225,217)",
+          "iz": "<span class=\"sc-deneme-et\">Sınav gibi deneme</span>"
+        }
+      ]
+    },
+    {
+      "sayfa": "elci-aydinlatma.html [koyu]",
       "adet": 1,
       "ornekler": [
         {
@@ -40,7 +55,7 @@
       ]
     },
     {
-      "sayfa": "genc.html [koyu]",
+      "sayfa": "elci-programi.html [koyu]",
       "adet": 1,
       "ornekler": [
         {
@@ -171,36 +186,6 @@
           "renk": "rgb(242, 244, 248)",
           "zemin": "rgb(255,255,255)",
           "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
-        }
-      ]
-    },
-    {
-      "sayfa": "kaydir/vitrin/sgs.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Seviyeni ölç →",
-          "oran": 1.73,
-          "esik": 4.5,
-          "renk": "rgb(0, 0, 238)",
-          "zemin": "rgb(30,32,38)",
-          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
-        }
-      ]
-    },
-    {
-      "sayfa": "kaydir/vitrin/smmm.html [koyu]",
-      "adet": 1,
-      "ornekler": [
-        {
-          "oge": "a",
-          "yazi": "Seviyeni ölç →",
-          "oran": 1.73,
-          "esik": 4.5,
-          "renk": "rgb(0, 0, 238)",
-          "zemin": "rgb(30,32,38)",
-          "iz": "<a href=\"../../seviye-testi.html\">Seviyeni ölç →</a>"
         }
       ]
     }
