@@ -510,13 +510,41 @@ footer p{margin:0 0 8px}
   }
   /* 13.10 Cem "1.2.3": 11.10 Prova gönderisi 8.559 erişimden 1.082 tık aldı ("yerini ayırmak için üye ol"); gelen ana sayfada
      Prova'dan tek kelime görmedi. Sosyalden gelene en üst şerit Prova; Android uygulama şeridi o ziyaretçide gösterilmez. */
+  /* 17.10 Cem "sınav ana ekrana alsak canlı sınava nasıl girecek insanlar": şerit yalnız sosyalden gelene ve sabit "17 Ekim ·
+     Yerini ayır" metniyle çıkıyordu; ana sayfaya doğrudan gelen üye sınav günü sınavın yerini hiç görmüyordu. Artık metin
+     veri/canli-deneme.json'daki SIRADAKİ oturumdan yazılır; SINAV GÜNÜ (00:00 → başlangıç + 30 dk geç giriş) şerit HERKESE
+     çıkar, saate göre konuşur ve daha önce kapatılmış olsa da o gün yeniden görünür (kapatma o güne ayrı tutulur). */
+  var PROVA_DURUM=null;
   function provaSerit(){
-    if(!sosyalGelen()) return;
     var s=document.getElementById('provaSerit'), u=document.getElementById('uygSerit'); if(!s) return;
-    try{ if(localStorage.getItem('tt_prova_serit')==='1') return; }catch(e){}
-    if(u) u.hidden=true; s.hidden=false;
-    window.addEventListener('load',function(){ if(u&&!s.hidden) u.hidden=true; });   /* uygulama-indir.js (defer) Android şeridini sonradan açabilir */
-    var k=s.querySelector('[data-kapat]'); if(k) k.onclick=function(){ s.hidden=true; try{ localStorage.setItem('tt_prova_serit','1'); }catch(e){} };
+    var goster=function(gun){
+      try{ if(localStorage.getItem('tt_prova_serit')===(gun||'1')) return; }catch(e){}
+      if(u) u.hidden=true; s.hidden=false;
+      window.addEventListener('load',function(){ if(u&&!s.hidden) u.hidden=true; });   /* uygulama-indir.js (defer) Android şeridini sonradan açabilir */
+      var k=s.querySelector('[data-kapat]'); if(k) k.onclick=function(){ s.hidden=true; try{ localStorage.setItem('tt_prova_serit',gun||'1'); }catch(e){} };
+    };
+    if(PROVA_DURUM){ return; }
+    PROVA_DURUM='bekle';
+    fetch('veri/canli-deneme.json?t='+Math.floor(Date.now()/60000)).then(function(r){ return r.ok?r.json():null; }).then(function(d){
+      var simdi=Date.now(), GIRIS=30*60000;
+      var bas=function(o){ return Date.parse(o.tarih.split('.').reverse().join('-')+'T'+(o.saat||'10:00')+':00+03:00'); };
+      var o=((d&&d.oturumlar)||[]).filter(function(x){ return !x.gizli && bas(x)+GIRIS>simdi; }).sort(function(a,b){ return bas(a)-bas(b); })[0];
+      var m=s.querySelector('span'); if(!o||!m){ PROVA_DURUM='yok'; return; }
+      var b=bas(o), ad=(o.sinav==='SGS'?'Staja Giriş (SGS)':o.sinav)+' Sınav Provası', bag='canli-deneme.html?k=ana-serit';
+      var gunAd=['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'][new Date(b+3*36e5).getUTCDay()];
+      var tarihYazi=(+o.tarih.split('.')[0])+' '+['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'][+o.tarih.split('.')[1]-1];
+      var bugun=new Date(simdi+3*36e5).toISOString().slice(0,10)===o.tarih.split('.').reverse().join('-');
+      if(bugun){
+        if(simdi<b-GIRIS) m.innerHTML='<b>Bugün '+o.saat+' · '+ad+'.</b> Salon '+new Date(b-GIRIS+3*36e5).toISOString().slice(11,16)+'\'da açılır. <a href="'+bag+'">Salona git →</a>';
+        else if(simdi<b) m.innerHTML='<b>'+ad+' salonu açık.</b> Sorular '+o.saat+'\'da salonda açılır. <a href="'+bag+'">Salona gir →</a>';
+        else m.innerHTML='<b>'+ad+' şu an sürüyor.</b> Giriş '+new Date(b+GIRIS+3*36e5).toISOString().slice(11,16)+'\'a kadar açık. <a href="'+bag+'">Hemen gir →</a>';
+        PROVA_DURUM='gun'; goster(o.tarih);
+      } else {
+        if(!sosyalGelen()){ PROVA_DURUM='yok'; return; }
+        m.innerHTML='<b>'+tarihYazi+' '+gunAd+' '+o.saat+' · Ücretsiz '+ad+'.</b> <a href="canli-deneme.html?k=prova-serit">Yerini ayır →</a>';
+        PROVA_DURUM='sosyal'; goster('1');
+      }
+    }).catch(function(){ PROVA_DURUM='yok'; });
   }
   /* 14.10: kahraman üst satırı seçili sınavın adını, gününü (sınav düğmesinin data-tarih'i) ve Türkiye gününe göre kalan günü yazar. */
   function kahUstCiz(){
