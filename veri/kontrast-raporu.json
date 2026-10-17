@@ -5,10 +5,10 @@
   "sayfa": 236,
   "koyu_gecis": 77,
   "koyu_bekleyen": [],
-  "temiz_sayfa": 231,
-  "denetlenen_metin": 20118,
-  "toplam_kirik": 14,
-  "denetlenen_sinir": 6415,
+  "temiz_sayfa": 230,
+  "denetlenen_metin": 23158,
+  "toplam_kirik": 17,
+  "denetlenen_sinir": 6619,
   "toplam_gorunmez_sinir": 0,
   "olculemeyen": 1,
   "esik": {
@@ -25,9 +25,33 @@
   ],
   "kirik_sayfalar": [
     {
-      "sayfa": "sorular.html [koyu]",
-      "adet": 6,
+      "sayfa": "elci-programi.html [koyu]",
+      "adet": 1,
       "ornekler": [
+        {
+          "oge": "a.ulas-wp",
+          "yazi": "WhatsApp",
+          "oran": 1.43,
+          "esik": 4.5,
+          "renk": "rgb(255, 194, 75)",
+          "zemin": "rgb(238,242,247)",
+          "iz": "<a class=\"ulas-wp\" href=\"https://wa.me/905323448058?text=Merhaba%2C%20Tetikte%20hakk%C4%B1nda%20bilgi%20almak%"
+        }
+      ]
+    },
+    {
+      "sayfa": "sorular.html [koyu]",
+      "adet": 7,
+      "ornekler": [
+        {
+          "oge": "a.ulas-wp",
+          "yazi": "WhatsApp",
+          "oran": 1.85,
+          "esik": 4.5,
+          "renk": "rgb(245, 165, 36)",
+          "zemin": "rgb(242,244,248)",
+          "iz": "<a class=\"ulas-wp\" href=\"https://wa.me/905323448058?text=Merhaba%2C%20Tetikte%20hakk%C4%B1nda%20bilgi%20almak%"
+        },
         {
           "oge": "b.marka-ad",
           "yazi": "tetkte",
@@ -72,22 +96,22 @@
           "renk": "rgb(242, 244, 248)",
           "zemin": "rgb(255,255,255)",
           "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
-        },
-        {
-          "oge": "button",
-          "yazi": "Kabul et",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<button type=\"button\" data-k=\"1\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
         }
       ]
     },
     {
       "sayfa": "ucretsiz-dene.html [koyu]",
-      "adet": 6,
+      "adet": 7,
       "ornekler": [
+        {
+          "oge": "a.ulas-wp",
+          "yazi": "WhatsApp",
+          "oran": 1.85,
+          "esik": 4.5,
+          "renk": "rgb(245, 165, 36)",
+          "zemin": "rgb(242,244,248)",
+          "iz": "<a class=\"ulas-wp\" href=\"https://wa.me/905323448058?text=Merhaba%2C%20Tetikte%20hakk%C4%B1nda%20bilgi%20almak%"
+        },
         {
           "oge": "b.marka-ad",
           "yazi": "tetkte",
@@ -132,15 +156,6 @@
           "renk": "rgb(242, 244, 248)",
           "zemin": "rgb(255,255,255)",
           "iz": "<button type=\"button\" data-k=\"0\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
-        },
-        {
-          "oge": "button",
-          "yazi": "Kabul et",
-          "oran": 1.1,
-          "esik": 4.5,
-          "renk": "rgb(242, 244, 248)",
-          "zemin": "rgb(255,255,255)",
-          "iz": "<button type=\"button\" data-k=\"1\" style=\"flex:none;min-width:96px;min-height:40px;padding:0 14px;background:tra"
         }
       ]
     },
