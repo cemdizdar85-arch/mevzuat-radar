@@ -74,6 +74,11 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   .kaynakNot a{ color:var(--link); }
 
   .kartlar{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin:8px 0 30px; }
+  /* 18.10 Yeterlilik ders sayısı seçici (index.html .pk-ders ile aynı görünüş) */
+  .ders-sec{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:0 0 12px; }
+  .ders-sec button{ min-height:40px; padding:0 4px; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-size:14px; font-weight:750; cursor:pointer; }
+  .ders-sec button:hover{ border-color:var(--ink); }
+  .ders-sec button[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
   /* 17.10 telefon özeti */
   .fozet{ display:none; }
   @media(max-width:760px){
@@ -169,7 +174,7 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
      Telefona özel üç satırlık özet: paket · fiyat · Al. Rakam fiyat-motoru.js'ten (aşağıdaki betik), ayrıntı kartlarda. -->
 <div class="fozet" id="fozet">
   <a class="fz" data-sinav="sgs" data-paket="sgs" href="satin-al.html?paket=sgs"><span><b>Staja Giriş</b> tüm paket</span><strong data-f>—</strong><i>Al</i></a>
-  <a class="fz" data-sinav="yeterlilik" data-paket="yeterlilik-1" href="satin-al.html?paket=yeterlilik-1"><span><b>Yeterlilik</b> tek ders</span><strong data-f>—</strong><i>Al</i></a>
+  <a class="fz" data-sinav="yeterlilik" data-paket="yeterlilik-1" href="satin-al.html?paket=yeterlilik-1"><span><b>Yeterlilik</b> 1–4 ders<small style="display:block;color:var(--muted);font-size:12px">fiyat 1 ders için · ödemede ders sayısını seçersin</small></span><strong data-f>—</strong><i>Al</i></a>
   <a class="fz" data-sinav="yeterlilik" data-paket="yeterlilik-tum" href="satin-al.html?paket=yeterlilik-tum"><span><b>Yeterlilik</b> tüm dersler</span><strong data-f>—</strong><i>Al</i></a>
   <p>Fiyatlara KDV eklenir; KDV dahil toplam ve içerik aşağıdaki kartlarda.</p>
 </div>
@@ -203,30 +208,23 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   <!-- 29.08: DERS BAZLI SATIS acildi. Yeterlilik'te ders ders kaliniyor;
        kaldigi 2 dersi olan adaya 8 derslik paket satmak onu disarida
        birakiyordu. Merdivenin her basamagi RESMI HARCTAN ucuz. -->
-  <!-- 17.10: tek ders kendi kartında (ana sayfa paket kartlarıyla aynı üçlü); 2-3 ders basamakları aynı kartta -->
+  <!-- 18.10 Cem ("bir kalemde 4 ders var, iki fiyat ekranı var, sitede 3 fiyat gösteriyor; bir yeri düzeltiyorsak her yeri düzelt"):
+       kart ana sayfa paket kartıyla AYNI - "Kaldığın dersler" + 1-4 ders seçici; seçim fiyatı, KDV dahil, sonraki fiyatı ve Satın al'ı
+       değiştirir (kart('Tek', paketBul('yeterlilik-N'))). Eski 1-2-3 kutucukları (fyYet1-3) kalktı. Kural: feedback-fiyat-her-yerde-ayni. -->
   <div class="p" data-sinav="yeterlilik">
-    <h3>SMMM Yeterlilik — tek ders</h3>
+    <h3>SMMM Yeterlilik — kaldığın dersler</h3>
     <div class="kim" id="erTek">Sınavına kadar</div>
+    <div class="ders-sec" id="dsTek" role="group" aria-label="Kaç dersten kaldın?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>
     <div class="gunluk" id="fyTek">— <small>TL</small></div>
     <div class="kdv" id="khTek"></div>
-    <div class="kdv">1 sınav dersi · <span id="ktTek"></span></div>
+    <div class="kdv"><span id="dnTek">1 sınav dersi</span> · <span id="ktTek"></span></div>
     <div class="liste" id="lsTek"></div>
-    <!-- 04.10 Cem "bitirme tek ders alamıyor sanki" · 07.10 "tek ders ve 2, 3 fiyatlarını görse": her kutu ders seçimli ödemeye gider; fiyatlar fiyat-motoru.js'den -->
-    <div class="dersMerdiven">
-      <b>Birden çok dersten kaldıysan:</b>
-      <div class="dm">
-        <a href="satin-al.html?paket=yeterlilik-1"><span>1 sınav dersi</span><strong id="fyYet1">—</strong></a>
-        <a href="satin-al.html?paket=yeterlilik-2"><span>2 sınav dersi</span><strong id="fyYet2">—</strong></a>
-        <a href="satin-al.html?paket=yeterlilik-3"><span>3 sınav dersi</span><strong id="fyYet3">—</strong></a>
-      </div>
-      <p>Sınav dersini ödeme adımında seçersin.</p>
-    </div>
     <ul>
-      <li>Kaldığın dersin bütün soruları</li>
+      <li>Yalnız kaldığın sınav dersleri</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
-      <li>Her sorunun <b>dayandığı madde</b> altında yazar</li>
+      <li>Dersleri ödeme adımında seçersin</li>
     </ul>
-    <a class="btn" href="satin-al.html?paket=yeterlilik-1">Satın al — açılış fiyatıyla</a>
+    <a class="btn" id="alTek" href="satin-al.html?paket=yeterlilik-1">Satın al — açılış fiyatıyla</a>
   </div>
 
   <div class="p" data-sinav="yeterlilik">
@@ -504,6 +502,14 @@ var KGK_KART_ID = (typeof KGK_PAKET_MERDIVENI !== 'undefined' && KGK_PAKET_MERDI
 var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul(KGK_KART_ID);
 kart('Sgs', pSgs); kart('Yet', pYet); kart('Kgk', pKgk);
 var pTek = paketBul('yeterlilik-1'); kart('Tek', pTek); document.getElementById('erTek').textContent = pTek.erisim;   /* 17.10: tek ders kartı */
+/* 18.10: 1-4 ders seçici (ana sayfa kartıyla aynı) */
+[].forEach.call(document.querySelectorAll('#dsTek button'), function(b){ b.addEventListener('click', function(){
+  var n = b.getAttribute('data-n'), p = paketBul('yeterlilik-' + n); if(!p) return;
+  [].forEach.call(document.querySelectorAll('#dsTek button'), function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+  kart('Tek', p);
+  document.getElementById('dnTek').textContent = n + ' sınav dersi';
+  document.getElementById('alTek').setAttribute('href', 'satin-al.html?paket=' + p.id);
+}); });
 [].forEach.call(document.querySelectorAll('#fozet [data-paket]'), function(a){ var p = paketBul(a.getAttribute('data-paket')); if(!p){ a.hidden = true; return; }
   a.querySelector('[data-f]').innerHTML = fiyatAnaHtml(p.id, p.fiyat); });   /* 17.10 telefon özeti: rakam motordan */
 
@@ -518,7 +524,7 @@ if (!kartAcik()) {   /* 07.10: sayfa kartlı metinle gelir; kart kapalıysa hava
   document.getElementById('nasilOde').innerHTML = 'Paketi seç, bilgilerini gir, <b class="a">banka havalesi / EFT</b> ile öde. Sipariş sonunda hesap bilgisi ve sipariş numaran ekrana gelir; ödemeni gördüğümüz gün erişimin açılır ve <b>e-arşiv faturan</b> e-posta adresine gönderilir.';
   document.getElementById('nasilOdeKart').textContent = 'Bu adımda kart bilgisi istemiyoruz.';
 }
-[1, 2, 3].forEach(function (n) { var p = paketBul('yeterlilik-' + n); if (p) document.getElementById('fyYet' + n).innerHTML = fiyatAnaHtml(p.id, p.fiyat); });   /* 01.10: '+ KDV' · 07.10: 1-2-3 ders */
+/* 18.10: 1-2-3 ders kutucukları (fyYet1-3) kalktı; ders sayısı kartın 1-4 seçicisinde (#dsTek) */
 (function(){ var k = yeterlilikAyriEnAz('kurulus'), e = document.getElementById('ayYet');
   if(k && e) e.innerHTML = 'Aynı ' + DERSLER.yeterlilik.length + ' dersi ayrı paketlerle (' + k.parca.join(' + ') + ' ders) alsan en az ' + fiyatAnaHtml('yeterlilik-tum', k.tutar); })();
 document.getElementById('fyKgk1').textContent = tl(paketBul('kgk-1').fiyat);
