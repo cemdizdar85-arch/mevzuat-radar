@@ -641,7 +641,7 @@ $html=@'
 .setSay{white-space:nowrap}
 .setOzet{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:color-mix(in srgb,var(--yazi) 45%,transparent)}
 .setX{position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:none;color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}.setKutu{position:relative;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:16px;padding:22px 18px;width:min(420px,100%);box-sizing:border-box;text-align:center;display:flex;flex-direction:column;gap:10px}
-.setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}.setKutu p.setKonu{color:var(--yazi)}.konuSerit a.tuAc{text-decoration:none;border-radius:8px;border:1px solid var(--mavi);padding:5px 10px;white-space:nowrap}
+.setEtk{font-size:.85em;font-weight:800;color:var(--dim)}.setSkor{font-size:2.4em;font-weight:900;color:var(--mavi);line-height:1.1}.setSkor small{font-size:.4em;color:var(--dim);font-weight:600}.setKutu p{margin:0;color:var(--dim);font-size:.92em}.setKutu p.setKonu{color:var(--yazi)}.setRapor{width:min(560px,100%);text-align:left;max-height:calc(100vh - 32px);overflow:auto}.setRapor .setEtk{letter-spacing:.08em}.srUst{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.srHalka{flex:none;width:104px;height:104px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(closest-side,var(--kart) 78%,transparent 79% 100%),conic-gradient(var(--r) calc(var(--o)*1%),var(--cizgi) 0)}.srHalka b{font-size:1.7em;line-height:1}.srHalka small{font-size:.75em;color:var(--dim)}.srSay{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-width:200px}.srSay>div{border:1px solid var(--cizgi);border-radius:10px;padding:8px;text-align:center}.srSay b{display:block;font-size:1.35em}.srSay span{font-size:.78em;color:var(--dim)}.srSay .srPuan{grid-column:1/-1;display:flex;align-items:baseline;justify-content:center;gap:8px}.srSay .srPuan b{display:inline;color:var(--mavi)}.srFark{grid-column:1/-1;font-size:.85em;font-weight:800;color:var(--dim);text-align:center}.srFark.art{color:var(--yesil)}.srFark.eks{color:var(--kirmizi)}.srYorum{border-left:4px solid var(--mavi);background:color-mix(in srgb,var(--mavi) 8%,transparent);border-radius:0 10px 10px 0;padding:10px 12px}.srYorum span{font-size:.8em;font-weight:800;color:var(--mavi)}.srYorum p{margin:4px 0 0!important;color:var(--yazi)!important;font-size:.95em!important;line-height:1.5}.srTablo{width:100%;border-collapse:collapse;font-size:.9em}.srTablo th{text-align:left;font-size:.75em;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;padding:4px 6px;border-bottom:1px solid var(--cizgi)}.srTablo td{padding:7px 6px;border-bottom:1px solid var(--cizgi)}.srS{text-align:right;white-space:nowrap}.srEt{font-size:.8em;font-weight:800;padding:2px 8px;border-radius:99px}.srEt.iyi{color:var(--yesil);background:color-mix(in srgb,var(--yesil) 12%,transparent)}.srEt.orta{color:var(--altin);background:color-mix(in srgb,var(--altin) 15%,transparent)}.srEt.kotu{color:var(--kirmizi);background:color-mix(in srgb,var(--kirmizi) 12%,transparent)}.srNot{font-size:.85em!important}.srDug{display:flex;flex-direction:column;gap:8px}.konuSerit a.tuAc{text-decoration:none;border-radius:8px;border:1px solid var(--mavi);padding:5px 10px;white-space:nowrap}
 .tekrarUyari button{font:inherit;border-radius:8px;border:1px solid var(--cizgi);background:var(--bg2);color:var(--yazi);padding:5px 10px;cursor:pointer}
 .tekrarUyari .tuAc{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}
 .sik{display:block;width:100%;text-align:left;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:12px;padding:12px 13px;margin:7px 0;font-size:.95em;cursor:pointer;transition:transform .08s}.sik:active{transform:scale(.985)}
@@ -897,17 +897,22 @@ const SIRA_NOTU=(function(){ try{
   const yet=/\/smmm\//.test(location.pathname); const ders=String(SORULAR[0].ders||'');
   let g=[]; try{ g=JSON.parse(localStorage.getItem(yet?'sv_sonuclar_yet':'sv_sonuclar')||'[]'); }catch(e){}
   const son=Array.isArray(g)&&g.length?g[g.length-1]:null;
-  if(!son) return {tur:'davet',yet};
-  let d=(son.dersler&&son.dersler[ders])||null, ad=ders;
-  if(!d){ const x=(son.gruplar||[]).find(x=>x.ad===ders); if(x) d={dogru:x.dogru,soru:x.soru}; }
-  if(d&&d.soru<3&&d.grup){ const x=(son.gruplar||[]).find(y=>y.ad===d.grup); if(x&&x.soru>=3){ d={dogru:x.dogru,soru:x.soru}; ad=d.grup||x.ad; } }
-  if(!d||!d.soru) return {tur:'davet',yet};
+  /* 18.10 Cem ("30 soruyu kaldırdık; ölçüm onların aldığı puan üzerinden olsun"): ÖNCE bu dersteki kendi son 30 cevabı (kc_kayit;
+     üyede hesaptan da iner). En az 10 cevap varsa oran oradan; yoksa eski seviye testi; o da yoksa sıra değişmez ve DAVET ÇIKMAZ.
+     kasa-yukle.js seviyeSirala AYNI kural. */
+  let kd=[]; try{ kd=(JSON.parse(localStorage.getItem('kc_kayit')||'[]')||[]).filter(x=>x&&String(x.ders||'')===ders).slice(-30); }catch(e){}
+  const kendi=kd.length>=10;
+  if(!son&&!kendi) return null;
+  let d=kendi?{dogru:kd.filter(x=>!!x.dogru).length,soru:kd.length}:((son.dersler&&son.dersler[ders])||null), ad=ders;
+  if(!d&&son){ const x=(son.gruplar||[]).find(x=>x.ad===ders); if(x) d={dogru:x.dogru,soru:x.soru}; }
+  if(d&&d.soru<3&&d.grup&&son){ const x=(son.gruplar||[]).find(y=>y.ad===d.grup); if(x&&x.soru>=3){ d={dogru:x.dogru,soru:x.soru}; ad=d.grup||x.ad; } }
+  if(!d||!d.soru) return null;
   const oran=d.dogru/d.soru; const zr=s=>{ const m=String(s.id||'').match(/-(kolay|orta|zor|cokzor)(?=[-\/]|$)/); return (s.zorluk||(m&&m[1])||'orta'); };
   const SIRA=oran<0.5?{kolay:0,orta:1,zor:2,cokzor:3}:(oran>=0.75?{cokzor:0,zor:1,orta:2,kolay:3}:null);
   /* 11.10: __KASA_SIRALI = kasa-yukle.js fihristi AYNI kuralla zaten sıraladı (setli yükleme) → burada yeniden sıralanmaz. */
   window.__siraSira=(SIRA&&!window.__KASA_SIRALI)?(s=>SIRA[zr(s)]):null;   /* 07.10 parça yükleme (__kasaEkle) aynı ölçütle sıralar */
   if(SIRA&&!window.__KASA_SIRALI){ const s2=SORULAR.map((s,i)=>({s,i})).sort((a,b)=>(SIRA[zr(a.s)]-SIRA[zr(b.s)])||(a.i-b.i)).map(x=>x.s); SORULAR.splice(0,SORULAR.length,...s2); }
-  return {tur:oran<0.5?'kolay':(oran>=0.75?'zor':'karma'),dogru:d.dogru,soru:d.soru,ad,yet};
+  return {tur:oran<0.5?'kolay':(oran>=0.75?'zor':'karma'),dogru:d.dogru,soru:d.soru,ad,yet,kendi};
 }catch(e){ return null; } })();
 /* 07.10 PARÇA PARÇA YÜKLEME (Cem "1 yap": Finansal Muhasebe 1.100 soru × ~14 KB tek seferde iniyordu). kasa-yukle.js ilk parçayla
    açar (window.__KASA_DEVAM), kalanı tek seferde __kasaEkle'ye verir. Seviye sırası varsa ilk parçadan yalnız en öncelikli zorluk
@@ -917,9 +922,9 @@ if(window.__KASA_DEVAM&&window.__siraSira){ const R=window.__siraSira, ilk=SORUL
   if(geri.length){ KASA_BEKLEYEN.push(...geri); SORULAR.splice(0,SORULAR.length,...ilk); } }
 setTimeout(()=>{ try{ if(!SIRA_NOTU||KONU_AKTIF||/\/vitrin\/ornek-/.test(location.pathname)) return; /* 08.10: 5 örnek soruda "dersi sıralayalım" daveti ilk sorunun üstüne biniyordu, anlamsız */ const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px';
   const t=SIRA_NOTU.tur==='davet' ? '🎯 <b>Bu dersi sana göre sıralayalım:</b> 30 soruda seviyeni ölç, zayıfsan kolaydan başlatalım. <a href="../../seviye-testi.html'+(SIRA_NOTU.yet?'?sinav=yeterlilik':'')+'">Seviyeni ölç →</a>'
-        : SIRA_NOTU.tur==='kolay' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
-        : SIRA_NOTU.tur==='zor' ? '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: <b>zor sorulardan başlıyoruz</b>.'
-        : '🎯 Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru: kolay ve zor sorular karışık geliyor.';
+        : SIRA_NOTU.tur==='kolay' ? '🎯 '+(SIRA_NOTU.kendi?'Bu dersteki son '+SIRA_NOTU.soru+' cevabında '+SIRA_NOTU.dogru+' doğru':'Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru')+': <b>kolay sorulardan başlıyoruz</b>, sonra zorlaşıyor.'
+        : SIRA_NOTU.tur==='zor' ? '🎯 '+(SIRA_NOTU.kendi?'Bu dersteki son '+SIRA_NOTU.soru+' cevabında '+SIRA_NOTU.dogru+' doğru':'Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru')+': <b>zor sorulardan başlıyoruz</b>.'
+        : '🎯 '+(SIRA_NOTU.kendi?'Bu dersteki son '+SIRA_NOTU.soru+' cevabında '+SIRA_NOTU.dogru+' doğru':'Seviye testinde bu dersten '+SIRA_NOTU.dogru+'/'+SIRA_NOTU.soru+' doğru')+': kolay ve zor sorular karışık geliyor.';
   /* 08.10 Cem ("telefonda güzel görünmüyor"): metin tek parçada - flex kutuda her metin/kalın/bağlantı ayrı sütun olup kelime kelime kırılıyordu */
   u.innerHTML='<span class="tuMetin">'+t+'</span><button type="button" class="tuKapat" aria-label="Kapat">✕</button>'; document.body.appendChild(u);
   u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); setTimeout(()=>{ try{ u.remove(); }catch(e){} },12000); }catch(e){} },700);
@@ -1029,22 +1034,52 @@ function noktalar(i){ if(i<0) return '<div class="noktalar"></div>'; const t=set
 function sayacTazele(){ akis.querySelectorAll(':scope > .kart').forEach(k=>{ const i=parseInt(k.dataset.i,10); if(!(i>=0)) return; const t=setBilgi(i), s=k.querySelector('.setSay'), il=k.querySelector('.ilerleme'), n=k.querySelector('.noktalar');
   if(s) s.textContent=sayacYazi(i); if(il){ il.title='Set ilerlemesi: '+t.j+' / '+t.boy; if(il.firstElementChild) il.firstElementChild.style.width=Math.round(t.j/t.boy*100)+'%'; } if(n) n.outerHTML=noktalar(i); }); }
 const SET_GORULEN={};
+/* 18.10 SET RAPORU (Cem: "ilk 20 soru gelsin, orada kaç puan aldı, neleri eksik göstersin, canlı bir hoca gibi ama rapor
+   profesyonel olsun, sonra 2. sete geçsin"). 15.10 set kutusunun yerine: skor halkası · doğru/yanlış/boş · Yeterlilik'te sınav puanı
+   karşılığı ((D − Y÷4) × 100 ÷ set boyu, baraj 50; SGS'de bağıl puan olduğu için puan YAZILMAZ) · önceki sete göre değişim ·
+   konu konu tablo (eksik önce) · kurallı Nöbetçi yorumu (model yok, metin sabit kurallardan) · Sonraki set / Bu konuyu çalış /
+   Yanlışlarım. Rapor bu cihazda kc_set_rapor'a yazılır (son 60; Hesabım ileride okur). Set geçişinde bir kez açılır (✕ ile kapanır).
+   🚫 GÖRMEZ: "Bilmiyorum" ayrı sayılmaz (yanlış) · puan karşılığı yaklaşık (gerçek sınav 20 soru, set boyu farklıysa oranlanır). */
+const SET_SONUC={};
 function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bir kez gösterildiyse açılmaz */
-  if(SET_GORULEN[no]||TEK) return; const a=no*SET, b=Math.min(a+SET,SORULAR.length); let c=0,ok=0;
+  if(SET_GORULEN[no]||TEK) return; const a=no*SET, b=Math.min(a+SET,SORULAR.length), boy=b-a; let c=0,ok=0;
   for(let j=a;j<b;j++){ if(durum.ok[j]!==undefined){ c++; if(durum.ok[j]) ok++; } }
   if(!c) return; SET_GORULEN[no]=1;
-  /* 15.10 (Cem "1.2.3" madde 1-2): bu setteki yanlışların en çok düştüğü konu (eşitlikte setteki ilk). Düğme yalnız setli kasa sayfasında
-     (konu çalışması orada çalışır), konu dersin fihristinde en az 3 soruysa ve zaten konu çalışmasında değilken. */
-  const kz={}, kSira=[]; for(let j=a;j<b;j++){ if(durum.ok[j]===false){ const kn=String((SORULAR[j]||{}).konu||'').trim(); if(kn){ if(!kz[kn]) kSira.push(kn); kz[kn]=(kz[kn]||0)+1; } } }
-  const zayif=KONU_AKTIF?'':(kSira.slice().sort((x,y)=>kz[y]-kz[x])[0]||'');
+  const yan=c-ok, bos=boy-c, oran=Math.round(100*ok/c), yet=/\/smmm\//.test(location.pathname);
+  SET_SONUC[no]={ok:ok,c:c,oran:oran};
+  const onc=no>0&&SET_SONUC[no-1]?SET_SONUC[no-1]:null, fark=onc?oran-onc.oran:null;
+  /* konu konu: setteki her konunun doğru/toplamı; eksik (yanlışı olan) önce, sonra çok sorulu */
+  const K={}, ks=[]; for(let j=a;j<b;j++){ if(durum.ok[j]===undefined) continue; const kn=String((SORULAR[j]||{}).konu||'').trim()||'Diğer'; if(!K[kn]){ K[kn]={t:0,d:0}; ks.push(kn); } K[kn].t++; if(durum.ok[j]) K[kn].d++; }
+  ks.sort((x,y)=>((K[y].t-K[y].d)-(K[x].t-K[x].d))||(K[y].t-K[x].t));
+  const eksik=ks.filter(k=>K[k].d<K[k].t), guclu=ks.filter(k=>K[k].d===K[k].t&&K[k].t>=2);
+  const zayif=KONU_AKTIF?'':(eksik[0]&&eksik[0]!=='Diğer'?eksik[0]:'');
   const konuB=!!(zayif&&!VITRIN&&window.__KASA_FIHRIST&&window.__KASA_FIHRIST.filter(s=>konuNrm(s.konu)===konuNrm(zayif)).length>=3);
+  const puan=yet?Math.max(0,Math.round((ok-yan/4)*100/boy*10)/10):null;
+  /* Nöbetçi yorumu: sabit kurallar */
+  let yorum=oran>=80?'Çok iyi bir set. Bu düzeyi korursan bu dersten sınavda rahat edersin.'
+    :oran>=60?'İyi gidiyorsun; birkaç konuyu toparlarsan güçlü bölgeye geçersin.'
+    :oran>=40?'Temel var ama eksikler sonucu aşağı çekiyor. Önce aşağıdaki konuları kapatalım.'
+    :'Bu derste temeli birlikte kuralım; acele etme, her yanlışın anlatımını aç.';
+  if(zayif) yorum+=' En çok '+(K[zayif].t-K[zayif].d>1?(K[zayif].t-K[zayif].d)+' soruyu ':'')+'<b>'+esc(zayif)+'</b> konusunda kaçırdın; '+(konuB?'o konudan kısa bir çalışma yapıp sonra sıradaki sete geçmeni öneririm.':'sıradaki sette bu konuya dikkat et.');
+  if(fark!==null&&fark>=10) yorum+=' Bir önceki sete göre belirgin ilerleme var.';
+  if(fark!==null&&fark<=-10) yorum+=' Bir önceki sete göre düşüş var; yorulduysan kısa bir ara iyi gelir.';
+  if(yet&&puan!==null) yorum+=puan>=50?' Bu performans barajın (50) üstünde.':' Baraj 50; aradaki farkı yanlış sayını azaltarak kapatırsın, çünkü her 4 yanlış 1 doğruyu götürür.';
+  try{ const L=JSON.parse(localStorage.getItem('kc_set_rapor')||'[]')||[]; L.push({ders:String((SORULAR[a]||{}).ders||''),set:no+1,dogru:ok,yanlis:yan,bos:bos,boy:boy,puan:puan,eksik:eksik.slice(0,5),t:Date.now()}); localStorage.setItem('kc_set_rapor',JSON.stringify(L.slice(-60))); }catch(e){}
   gcOlay('set-kutusu/'+GC_YOL+'/goster','Set kutusu gösterildi');
-  const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' özeti');
-  d.innerHTML='<div class="setKutu"><button type="button" class="setX" aria-label="Kapat">✕</button><div class="setEtk">Set '+(no+1)+' bitti</div><div class="setSkor">'+ok+'<small> / '+c+' doğru</small></div>'
-    +(c<b-a?'<p>'+(b-a-c)+' soruyu boş geçtin.</p>':'')
-    +(c-ok?'<p>'+(c-ok)+' yanlışın kutuya girdi; 2 gün sonra yeniden karşına çıkar.</p>':'<p>Bu sette hiç yanlışın yok.</p>')
-    +(zayif?'<p class="setKonu">En çok zorlandığın konu: <b>'+esc(zayif)+'</b>'+(kz[zayif]>1?' ('+kz[zayif]+' yanlış)':'')+'</p>':'')
-    +'<button type="button" class="btn ana setDevam">Sonraki sete geç ▶</button>'+(konuB?'<button type="button" class="btn mavi setKonuB">🎯 Bu konuyu çalış</button>':'')+(c-ok?'<button type="button" class="btn'+(konuB?'':' mavi')+' setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div>';
+  const renk=oran>=70?'var(--yesil)':oran>=50?'var(--altin)':'var(--kirmizi)';
+  const satir=ks.slice(0,6).map(k=>{ const r=K[k], tam=r.d===r.t; return '<tr><td>'+esc(k)+'</td><td class="srS">'+r.d+' / '+r.t+'</td><td class="srS"><span class="srEt '+(tam?'iyi':r.d?'orta':'kotu')+'">'+(tam?'Tamam':r.d?'Eksik var':'Eksik')+'</span></td></tr>'; }).join('');
+  const d=document.createElement('div'); d.className='setOzet'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Set '+(no+1)+' raporu');
+  d.innerHTML='<div class="setKutu setRapor"><button type="button" class="setX" aria-label="Kapat">✕</button>'
+    +'<div class="setEtk">SET '+(no+1)+' RAPORU · '+esc(String((SORULAR[a]||{}).ders||''))+'</div>'
+    +'<div class="srUst"><div class="srHalka" style="--o:'+oran+';--r:'+renk+'"><b>%'+oran+'</b><small>doğru</small></div>'
+    +'<div class="srSay"><div><b>'+ok+'</b><span>doğru</span></div><div><b>'+yan+'</b><span>yanlış</span></div><div><b>'+bos+'</b><span>boş</span></div>'
+    +(puan!==null?'<div class="srPuan"><b>'+String(puan).replace('.',',')+'</b><span>puan karşılığı · baraj 50</span></div>':'')
+    +(fark!==null?'<div class="srFark '+(fark>0?'art':fark<0?'eks':'')+'">'+(fark>0?'+':fark<0?'−':'±')+Math.abs(fark)+' puan önceki sete göre</div>':'')+'</div></div>'
+    +'<div class="srYorum"><span>🧑‍🏫 Nöbetçi</span><p>'+yorum+'</p></div>'
+    +(satir?'<table class="srTablo"><tr><th>Konu</th><th class="srS">Doğru</th><th class="srS">Durum</th></tr>'+satir+'</table>':'')
+    +(guclu.length&&!eksik.length?'':(guclu.length?'<p class="srNot">Tam yaptığın: '+guclu.slice(0,3).map(esc).join(', ')+'</p>':''))
+    +(yan?'<p class="srNot">'+yan+' yanlışın kutuna girdi; 2 gün sonra yeniden karşına çıkar.</p>':'')
+    +'<div class="srDug"><button type="button" class="btn ana setDevam">Sonraki sete geç · Set '+(no+2)+' ▶</button>'+(konuB?'<button type="button" class="btn mavi setKonuB">🎯 Önce bu konuyu çalış</button>':'')+(yan?'<button type="button" class="btn setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div></div>';
   const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape'){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } };
   d.addEventListener('click',e=>{ if(e.target===d||(e.target.closest&&e.target.closest('.setX'))){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } }); d.querySelector('.setDevam').addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/devam','Set kutusu: sonraki set'); kapat(); });
   const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/yanlislarim','Set kutusu: yanlışlarım'); kapat(); kutuEkraniAc(); });

@@ -168,12 +168,19 @@
     try {
       if (/[?&]vitrin=1/.test(location.search) || !fih.length) return fih;
       var yet = /\/smmm\//.test(location.pathname), ders = String(fih[0].ders || '');
-      var g = []; try { g = JSON.parse(localStorage.getItem(yet ? 'sv_sonuclar_yet' : 'sv_sonuclar') || '[]'); } catch (e) {}
-      var son = Array.isArray(g) && g.length ? g[g.length - 1] : null;
-      if (!son) return fih;
-      var d = (son.dersler && son.dersler[ders]) || null, x;
-      if (!d) { x = (son.gruplar || []).find(function (y) { return y.ad === ders; }); if (x) d = { dogru: x.dogru, soru: x.soru }; }
-      if (d && d.soru < 3 && d.grup) { x = (son.gruplar || []).find(function (y) { return y.ad === d.grup; }); if (x && x.soru >= 3) d = { dogru: x.dogru, soru: x.soru }; }
+      /* 18.10 Cem ("30 soruyu kaldırdık; ölçüm onların aldığı puan üzerinden olsun"): ÖNCE öğrencinin bu dersteki kendi son 30
+         cevabı (kc_kayit; üyede hesaptan da iner). En az 10 cevap varsa oran oradan; yoksa (eski) seviye testi; o da yoksa sıra değişmez. */
+      var d = null, x, kd = [];
+      try { kd = (JSON.parse(localStorage.getItem('kc_kayit') || '[]') || []).filter(function (y) { return y && String(y.ders || '') === ders; }).slice(-30); } catch (e) {}
+      if (kd.length >= 10) d = { dogru: kd.filter(function (y) { return !!y.dogru; }).length, soru: kd.length };
+      else {
+        var g = []; try { g = JSON.parse(localStorage.getItem(yet ? 'sv_sonuclar_yet' : 'sv_sonuclar') || '[]'); } catch (e) {}
+        var son = Array.isArray(g) && g.length ? g[g.length - 1] : null;
+        if (!son) return fih;
+        d = (son.dersler && son.dersler[ders]) || null;
+        if (!d) { x = (son.gruplar || []).find(function (y) { return y.ad === ders; }); if (x) d = { dogru: x.dogru, soru: x.soru }; }
+        if (d && d.soru < 3 && d.grup) { x = (son.gruplar || []).find(function (y) { return y.ad === d.grup; }); if (x && x.soru >= 3) d = { dogru: x.dogru, soru: x.soru }; }
+      }
       if (!d || !d.soru) return fih;
       var oran = d.dogru / d.soru;
       var SIRA = oran < 0.5 ? { kolay: 0, orta: 1, zor: 2, cokzor: 3 } : (oran >= 0.75 ? { cokzor: 0, zor: 1, orta: 2, kolay: 3 } : null);

@@ -547,7 +547,7 @@ function dersCiz(){
     var yer = document.getElementById('dersSayi');
     if(aile.length < 2){ yer.innerHTML = ''; yer.hidden = true; return; }
     yer.hidden = false;
-    yer.innerHTML = '<span>Kaç ' + (kgk ? 'modül' : 'dersten kaldın') + '?</span>' + aile.map(function(p){
+    yer.innerHTML = '<span>Kaç ' + (kgk ? 'modül' : 'ders çalışacaksın') + '?</span>' + aile.map(function(p){
       var m = +p.id.replace(on, '');
       return '<button type="button" data-pk="' + p.id + '" aria-pressed="' + (p.id === secili.id) + '">' + m + ' ' + (kgk ? 'modül' : 'ders') + '<small>' + fiyatAna(p.id, p.fiyat) + '</small></button>';
     }).join('');

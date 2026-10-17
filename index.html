@@ -483,8 +483,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            düğme data-paket'i yeterlilik-N yapar, kart yeniden çizilir (fiyat motoru paketBul) -->
       <article class="pk-kart" data-paket="yeterlilik-1">
         <p class="pk-sinav">SMMM Yeterlilik</p>
-        <h3>Kaldığın dersler</h3>
-        <div class="pk-ders" role="group" aria-label="Kaç dersten kaldın?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>
+        <h3>Seçtiğin dersler</h3>
+        <div class="pk-ders" role="group" aria-label="Kaç ders seçiyorsun?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>
         <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
         <ul><li>Yalnız kaldığın sınav dersleri</li><li>Ders bazlı prova: 100 üzerinden, baraj 50</li><li>Dersleri ödeme adımında seçersin</li></ul>
         <a class="pk-al" href="satin-al.html?paket=yeterlilik-1">Satın al</a>
@@ -646,7 +646,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
 <script src="fiyat-motoru.js?v=20261013b"></script>
-<script src="uye-durumu.js?v=20261018a"></script>
+<script src="uye-durumu.js?v=20261018b"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script>
 (function(){
@@ -763,7 +763,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       $('ksDeneme').href=yetK?'deneme.html?sinav=SMMM':'sinav-gibi.html';
       $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
     if(kgkSec){
-      if(d.durum==='aktif'){ c1.textContent='Soru çöz'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); }
+      if(d.durum==='aktif'){ c1.textContent='Soru çöz'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=(window.TetikteUye&&TetikteUye.devamAdres)?TetikteUye.devamAdres(secili):S.devam; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); }
       else if(d.durum==='bitmis'){ c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Dersleri gör →'; c2.href=S.gir; du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.'; }
       else { c1.textContent='Dersleri gör'; c1.href=S.gir||'sorular.html#kgk'; c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html?sinav=kgk';
         du.innerHTML='Modül modül soru bankası · her sorunun dayandığı standart ya da madde yanında, yanlış şıkkın tuzağı Nöbetçi anlatımıyla.'; }
@@ -771,7 +771,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       return;
     }
     if(d.durum==='aktif'){
-      c1.textContent='Soru çöz'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam;
+      c1.textContent='Soru çöz'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=(window.TetikteUye&&TetikteUye.devamAdres)?TetikteUye.devamAdres(secili):S.devam;
       du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':'');
     } else if(d.durum==='bitmis'){
       c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Ücretsiz sorular →'; c2.href=S.dene;

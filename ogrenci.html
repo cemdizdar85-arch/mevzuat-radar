@@ -115,6 +115,8 @@
   html body .op-sinavlar .og-btn{border-radius:999px;padding:8px 16px}
   html body .op-sinavlar .og-btn.ana{background:var(--ink);border-color:var(--ink);color:var(--bg)!important}
   .op-bas{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+  .op-bas-sag{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.op-iki-dug{display:flex;gap:8px;flex-wrap:wrap}
+  @media(max-width:860px){ .op-bas-sag{align-items:stretch;width:100%} .op-iki-dug>a{flex:1;text-align:center;justify-content:center} }
   html body .op-bas h2{margin:0;font-size:24px;letter-spacing:-.4px}
   .op-bas p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
   .op-bas b{font-size:15px;color:var(--amber)}
@@ -342,7 +344,9 @@
       </div>
       <div class="op-bas">
         <div><h2 id="opSinavAd">Hesabım</h2><p id="opPaket"></p></div>
-        <b id="opGun"></b>
+        <div class="op-bas-sag"><b id="opGun"></b>
+          <!-- 18.10 GM3: her yerde aynı iki düğme (ana sayfa paketli üye ile aynı hedefler; panoCiz sınava göre tazeler) -->
+          <div class="op-iki-dug"><a class="og-btn" id="opDevamBtn" href="sorular.html">Kaldığın yerden devam</a><a class="og-btn ana" id="opCozBtn" href="sorular.html">Soru çöz</a></div></div>
       </div>
     <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())
          + son durum sayıları + Yanlışlarım bağlantısı. Kaynak bu tarayıcıdaki son 500 cevap ve yanlış kutusu.
@@ -353,7 +357,7 @@
         <p class="og-alt og-gizli" id="ogEvre" style="margin:0 0 8px;font-size:13.5px"></p>
         <span class="og-paket-et" id="ogSimdiBas">Şimdi bunu yap</span>
         <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
-        <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">İstersen başka bir konu seç</a></div>
+        <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">Başka ders ya da deneme seç</a></div>
         <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
         <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><p class="og-gizli" id="ogSeri" style="margin:0 0 6px;font-size:14px;font-weight:800;color:var(--amber)"></p><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
       </div>
@@ -508,7 +512,7 @@
 <script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
-<script src="uye-durumu.js?v=20261018a"></script>
+<script src="uye-durumu.js?v=20261018b"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261018a"></script>
@@ -1096,6 +1100,8 @@
     $('opPaket').textContent=!P?'':po&&po.durum==='aktif'?('Paketin açık'+(po.bitis&&U?' · '+U.tarihYazi(po.bitis)+' tarihine kadar':'')+(po.dersler&&po.dersler.length?' · '+po.dersler.join(', '):''))
       :po&&po.durum==='bitmis'?'Bu sınavdaki paketinin süresi bitti':'Bu sınavda paketin yok · ücretsiz sorular açık';
     $('opGun').textContent=typeof ILR.gun==='number'?'Sınava '+ILR.gun+' gün':'';
+    try{ var hub=(U&&U.SINAVLAR&&U.SINAVLAR[s]&&U.SINAVLAR[s].gir)||('sorular.html#'+kod); $('opCozBtn').href=hub;
+      $('opDevamBtn').href=(U&&U.devamAdres)?U.devamAdres(s):hub; }catch(e){}
     /* sekme: verisi YA DA paketi olan sınavlar (ilerlemeCiz yalnız veriye bakıyordu; paketli ama henüz testi olmayan sınav görünmüyordu) */
     try{ var var_={}; ['sgs','yeterlilik','kgk'].forEach(function(k){ var pk=P&&P.sinavlar&&P.sinavlar[k];
         if(k==='kgk'&&!kgkAcik()) return;

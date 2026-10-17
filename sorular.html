@@ -157,6 +157,9 @@
   .sc-pders>span{display:flex;flex-direction:column;min-width:0}.sc-pders b{font-size:13.5px;color:var(--ink);line-height:1.3}.sc-pders small{font-size:11.5px;color:var(--muted)}
   .sc-pkucuk{flex:none;font-size:13px;font-weight:800;text-decoration:none;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:8px;padding:7px 12px}
   .sc-pkilit{flex:none;opacity:.6}
+  .sc-son{display:flex;flex-direction:column;gap:1px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}
+  .sc-son span{font-size:11.5px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}.sc-son b{font-size:16px;color:var(--ink)}.sc-son small{font-size:12.5px;color:var(--muted)}
+  .sc-art{color:var(--green);font-weight:800}.sc-eks{color:var(--red);font-weight:800}
   @media(max-width:980px){ .sc-iki{grid-template-columns:1fr;grid-template-areas:"sag" "sol";gap:22px} .sc-sag{position:static} }
 
   @media(max-width:900px){
@@ -197,7 +200,7 @@
 </main>
 
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
-<script src="uye-durumu.js?v=20261018a"></script>
+<script src="uye-durumu.js?v=20261018b"></script>
 <script src="ders-ilerleme.js?v=20261011b"></script>
 <script>
 (function(){
@@ -375,6 +378,29 @@
      bitmiş deneme hesaptan da iner - sinav-gibi hesabaGonder). Set bağlantısı sinav-gibi.html#set=N (doğrudan o set açılır).
      🚫 GÖRMEZ: başka cihazda yarım kalıp bu cihaza inmemiş deneme ("Yeni" görünür; set açılınca sinav-gibi hesaptan alır). */
   function sgOku(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+  /* 18.10 GM1 (Cem "hepsini yap"): set durumu HESAPTAN da - sinav-gibi.html'in yazdığı public.deneme_ilerleme (RLS: yalnız kendi
+     satırı) bu tarayıcıya alınır; kayıttaki t büyük olan kazanır (sinav-gibi hesaptanAl ile aynı kural). Bir kez, girişliyse.
+     Girişsiz / tablo yok / ağ yok -> sessiz, cihazdaki kayıt kalır. */
+  var HESAP_DENEME=false;
+  function hesapDenemeAl(){
+    var sb=window.__pkSb; if(HESAP_DENEME||!sb||!sb.auth||!sb.from) return; HESAP_DENEME=true;
+    sb.auth.getSession().then(function(s){ if(!s||!s.data||!s.data.session) return;
+      sb.from('deneme_ilerleme').select('anahtar,veri').limit(200).then(function(r){
+        if(!r||r.error||!Array.isArray(r.data)) return; var degisti=false;
+        r.data.forEach(function(x){ var k=x.anahtar, v=x.veri; if(!/^sg_(sgs|smmm)_/.test(k||'')||!v||typeof v!=='object') return;
+          var y=sgOku(k); if(!y||(+v.t||0)>(+y.t||0)){ try{ localStorage.setItem(k, JSON.stringify(v)); degisti=true; }catch(e){} } });
+        if(degisti&&DIZIN&&SECILI) dersleriCiz();
+      },function(){});
+    },function(){});
+  }
+  /* 18.10 GM2: panelde son deneme satırı. Son biten (bitis en yeni) + aynı türdeki bir önceki bitenle fark. */
+  function sonDenemeSatir(liste){
+    var b=liste.filter(function(x){ return x.d&&x.d.bitti&&x.d.sonuc; }).sort(function(a,c){ return String(a.d.bitis||'').localeCompare(String(c.d.bitis||'')); });
+    if(!b.length) return ''; var s=b[b.length-1], o=b.length>1?b[b.length-2]:null, v=s.deger(s.d), f=o?v-o.deger(o.d):null;
+    var fk=f===null?'':(Math.round(f*10)/10===0?' · değişim yok':' · <span class="'+(f>0?'sc-art':'sc-eks')+'">'+(f>0?'+':'−')+String(Math.abs(Math.round(f*10)/10)).replace('.',',')+'</span> öncekine göre');
+    var tarih=''; try{ tarih=new Date(s.d.bitis).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}); }catch(e){}
+    return '<div class="sc-son"><span>Son deneme'+(tarih?' · '+tarih:'')+'</span><b>'+esc(s.ad)+' · '+s.yazi(s.d)+'</b>'+(fk?'<small>'+fk.replace(/^ · /,'')+'</small>':'')+'</div>';
+  }
   function denemePanel(s, acik){
     if(!acik) return '';
     var pk=!!PAKET[s.kod], kilitA='<a class="sc-pbtn" href="fiyat.html">🔒 Pakete dahil · paketleri gör →</a>';
@@ -389,7 +415,9 @@
                  :'<span class="sc-set kilit"><b>Set '+x.no+'</b><small>🔒</small></span>';
       }).join('');
       var hedef=devam||sira||1;
-      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Toplu sınav</h2>'
+      var son=pk?sonDenemeSatir(dn.setler.map(function(x){ return { ad:'Set '+x.no, d:sgOku('sg_sgs_'+x.no+(dn.surum?'_'+dn.surum:'')),
+        deger:function(d){ return +d.sonuc.dogru||0; }, yazi:function(d){ return (+d.sonuc.dogru||0)+' doğru'; } }; })):'';
+      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Toplu sınav</h2>'+son
         +'<div class="sc-cipler"><span>'+dn.toplam_soru+' soru</span><span>'+dn.sure_dk+' dakika</span><span>gerçek ders dağılımı</span></div>'
         +'<div class="sc-setler">'+cip+'</div>'
         +(pk?'<a class="sc-pbtn" href="sinav-gibi.html#set='+hedef+'">'+(devam?'Devam et · Set '+devam+' →':'Başlat · Set '+hedef+' →')+'</a>'
@@ -408,7 +436,11 @@
         return '<div class="sc-pders"><span><b>'+esc(ders)+'</b><small>'+L.length+' deneme'+(bt?' · '+bt+' bitti':'')+(dv?' · yarım var':'')+'</small></span>'
           +(ac?'<a class="sc-pkucuk" href="sinav-gibi.html?tur=ders&amp;sinav=smmm&amp;ders='+encodeURIComponent(ders)+'">'+(dv?'Devam':bt?'Sıradaki':'Başla')+'</a>':'<span class="sc-pkilit">🔒</span>')+'</div>';
       }).join('');
-      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Ders denemeleri</h2>'
+      /* Yeterlilik puanı: (D − Y÷4) × 100 ÷ soru (sinav-gibi ile aynı formül; baraj 50) */
+      var puanH=function(d){ var t=(+d.sonuc.dogru||0)+(+d.sonuc.yanlis||0)+(+d.sonuc.bos||0)||20; return Math.max(0,Math.round(((+d.sonuc.dogru||0)-(+d.sonuc.yanlis||0)/4)*1000/t)/10); };
+      var son2=pk?sonDenemeSatir(dd.setler.map(function(x){ return { ad:x.ders, d:sgOku('sg_smmm_ders_'+x.no+(dd.surum?'_'+dd.surum:'')),
+        deger:puanH, yazi:function(d){ return String(puanH(d)).replace('.',',')+' puan'; } }; })):'';
+      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Ders denemeleri</h2>'+son2
         +'<div class="sc-cipler"><span>20 soru</span><span>45 dakika</span><span>baraj 50</span></div>'
         +'<p class="sc-palt" style="margin-top:0">Gerçek sınavda her ders ayrı bir oturum; burada da öyle. Yanlış doğrunun 0,25\'ini götürür.</p>'
         +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" href="sinav-gibi.html?tur=sik&amp;sinav=smmm">En sık çıkan konular denemesi →</a>':kilitA)+'</div>';
@@ -430,7 +462,7 @@
   /* 07.10: önce son bilinen durum (uye-durumu.js önbelleği) - paketli üye ilk çizimde kilit etiketi görmesin */
   try{ var ob=window.TetikteUye&&TetikteUye.onbellek; if(ob) Object.keys(UYE_KOD).forEach(function(kod){ var o=ob.sinavlar&&ob.sinavlar[UYE_KOD[kod]]; if(o&&o.durum==='aktif') PAKET[kod]={dersler:o.dersler||null}; }); }catch(e){}
   try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){
-    var degisti=false;
+    var degisti=false; try{ hesapDenemeAl(); }catch(e){}
     Object.keys(UYE_KOD).forEach(function(kod){ var o=d&&d.sinavlar&&d.sinavlar[UYE_KOD[kod]];
       if(o&&o.durum==='aktif'){ PAKET[kod]={dersler:o.dersler||null}; degisti=true; }
       else if(PAKET[kod]&&d&&!d.hata){ delete PAKET[kod]; degisti=true; } });   /* önbellek "açık" dedi, sunucu demiyor -> geri al */

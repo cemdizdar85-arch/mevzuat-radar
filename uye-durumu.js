@@ -163,6 +163,14 @@
     /* 07.10: son bilinen durum (yoksa null) - ilk çizim bununla, sonra hazir ile doğrulanır */
     onbellek: ONBELLEK,
     paketSinavlari: paketSinavlari, tarihYazi: tarihYazi,
+    /* 18.10 Cem (GM3 "her yerde aynı iki düğme: Soru çöz · Kaldığın yerden devam"): "Kaldığın yerden devam" = bu cihazda o sınavda
+       en son açılan ders sayfası (sorular.html'in yazdığı sc_son_ders_<kod>, kök göreli). Yoksa sınavın devam adresi. Adres kökten
+       (alt klasördeki sayfa kendi önekini ekler). 🚫 GÖRMEZ: başka cihazda açılan ders. */
+    devamAdres: function (s) {
+      var kod = { sgs: 'sgs', yeterlilik: 'smmm', kgk: 'kgk' }[s] || s, x = null;
+      try { x = localStorage.getItem('sc_son_ders_' + kod); } catch (e) {}
+      return (x && /^[a-z0-9\/._-]+\.html$/i.test(x)) ? x : ((SINAVLAR[s] && SINAVLAR[s].devam) || 'sorular.html');
+    },
     /* paket_uyeler satırları -> sınav başına durum (ogrenci.html girişten hemen sonra kendi okuduğu satırla çağırır) */
     durumHesapla: satirlardan,
     /* seçili sınav cihazda hatırlanır; adres #sinav=kgk ile de gelinebilir */
