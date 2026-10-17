@@ -1,66 +1,74 @@
 {
-  "olcum": "2026-10-16T23:27:18.555Z",
-  "gun": "2026-10-17",
+  "olcum": "2026-10-17T23:00:30.526Z",
+  "gun": "2026-10-18",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 9,
+      "sira": 0,
       "toplam": 10,
-      "id": "sgs-t2-fmuh-zor/kp-01",
+      "id": "sgs-t2-fmuh-cokzor/kp-01",
       "ders": "Finansal Muhasebe",
-      "konu": "tms 40 yatırım amaçlı gayrimenkul",
-      "donem": 8,
-      "teori": false,
+      "konu": "muhasebe bilgi sistemi",
+      "donem": 10,
+      "teori": true,
       "rakamSik": false,
-      "soru": "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026'da tamamlamıştır. İnşaat sürecinde arsa bedeli 850.000 TL, inşaat harcamaları 620.000 TL olup 258 Yapılmakta Olan Yatırımlar hesabındadır. Tamamlanma tarihindeki gerçeğe uygun değeri 1.610.000 TL'dir. Buna göre yapılacak kayıt aşağıdakilerden hangisidir?",
+      "soru": "İşletmenin muhasebe departmanı 2026 yılı Aralık ayında şu işlemleri gerçekleştirmiştir: Yevmiyede 153 Ticari Mallar hesabına kaydedilmesi gereken 18.000 TL'lik mal alışı sehven 255 Demirbaşlar hesabına borç kaydedilmiş, karşılığında 100 Kasa hesabı doğru tutarla alacaklandırılmıştır; ayrıca dönem sonu envanter ve değerleme işlemleri tamamlanmıştır. Bu bilgilere göre aşağıdakilerden hangisi her zaman doğrudur?",
       "siklar": {
-        "A": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 140.000 TL alacak kaydedilir.",
-        "B": "659 DİĞER OLAĞAN GİDER VE ZARARLAR hesabı 140.000 TL borç kaydedilir.",
-        "C": "258 YAPILMAKTA OLAN YATIRIMLAR hesabı 140.000 TL borç kaydedilir.",
-        "D": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 990.000 TL alacak kaydedilir.",
-        "E": "Fark gerçekleşmemiş kâr sayıldığından hiçbir hesaba kaydedilmez, yalnız dipnotlarda açıklanır."
+        "A": "Genel geçici mizan, hatalı kayda rağmen borç ve alacak toplamları eşit çıkacağı için bu hata söz konusu mizanda tespit edilemez.",
+        "B": "Kesin mizan, envanter işlemlerinden önce düzenlenen mizandır ve mali tablolar doğrudan bu mizandan çıkarılır.",
+        "C": "Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını eşitsiz hale getireceğinden ilk düzenlenecek mizanda ortaya çıkar.",
+        "D": "Mali tablolar genel geçici mizandan düzenlenir, çünkü bu mizan dönem sonu envanter işlemlerini de kapsar.",
+        "E": "Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizanda hesap kalanları sıfırlanmış olarak görünür."
       },
       "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Hesap Seçimi Tuzağı",
-          "metin": "farkın, gayrimenkulün transfer edildiği 258 hesabına yazılacağını sanırsın. Doğrusu: 258 hesap yalnız defter değeriyle kapatılır, fark ayrı olarak gelir hesabına kaydedilir."
+          "ad": "Mizan Sınırı Tuzağı",
+          "metin": "öğrenci mizanı bir hata denetim aracı sanır, her yanlış kaydın mizanda görüneceğini düşünür. Doğrusu: mizan yalnız iki tarafın toplam eşitliğini gösterir; doğru tutarla ama yanlış hesaba yapılan kayıt eşitliği bozmadığı…"
         },
         "E": {
-          "ad": "Kapsam Tuzağı",
-          "metin": "ihtiyatlılık düşüncesiyle gerçekleşmemiş kârın hiç kaydedilmeyeceğini sanırsın. Doğrusu: TMS 40 p.65 farkın muhasebeleştirilmemesine değil, doğrudan kâr/zarara yansıtılmasına hükmeder."
+          "ad": "Mizan Türü Karıştırma Tuzağı",
+          "metin": "öğrenci kesin mizan ile kapanış mizanını aynı aşama sanır, kalanların ne zaman sıfırlandığını yanlış yerleştirir. Doğrusu: kesin mizanda hesap kalanları hâlâ vardır, kalanların sıfırlanması ancak hesaplar kapatıldıktan …"
         },
         "D": {
-          "ad": "Tutar Tuzağı",
-          "metin": "arsa bedelini defter değerine katmayı unutup 1.610.000-620.000=990.000 hesaplarsın. Doğrusu: defter değeri arsa ve inşaat harcamalarının toplamıdır, 850.000+620.000=1.470.000 alınmalıdır."
+          "ad": "Kapsam-Sıra Karışımı Tuzağı",
+          "metin": "öğrenci genel geçici mizanın da envanter kayıtlarını içerdiğini sanarak iki farklı kuralı (mizan türü sırası ve mali tablo kaynağı) birlikte yanlış kurar. Doğrusu: genel geçici mizan envanterden önceki durumu gösterir, …"
         },
         "B": {
-          "ad": "Taraf Tuzağı",
-          "metin": "farkın kâr olduğunu göremeyip zarar sanarak gider hesabına borç yazarsın. Doğrusu: gerçeğe uygun değer defter değerinden büyük olduğundan fark kârdır, gelir hesabına alacak kaydedilir."
+          "ad": "Sıra Tuzağı",
+          "metin": "öğrenci genel geçici mizan ile kesin mizanın zamanlamasını karıştırır, envanterden önce/sonra ayrımını ters kurar. Doğrusu: kesin mizan envanter ve dönem sonu kayıtlarından SONRA düzenlenir, genel geçici mizan ise envan…"
         }
       },
-      "hap": "Kendi inşa edilen ve gerçeğe uygun değerle izlenen yatırım amaçlı gayrimenkul tamamlandığında, tamamlanma tarihindeki gerçeğe uygun değer ile önceki defter değeri arasındaki fark kâr veya zarar olarak finansal tablolara yansıtılır.",
+      "hap": "Mizan yalnız borç toplamı = alacak toplamı eşitliğini denetler; yanlış hesaba doğru tutarla yapılan kayıt bu eşitliği bozmadığı için hiçbir mizan türünde görünmez.",
       "satirlar": [
         [
-          "Toplam defter değeri (arsa + inşaat harcamaları)",
-          "1.470.000"
+          "A) Genel geçici mizan, hatalı kayda rağmen borç ve alacak t…",
+          "p.mizan sınırı"
         ],
         [
-          "Değerleme farkı (1.610.000 - 1.470.000)",
-          "140.000"
+          "B) Kesin mizan, envanter işlemlerinden önce düzenlenen miza…",
+          "p.mizan türleri"
         ],
         [
-          "649 Diğer Olağan Gelir ve Karlar hesabına alacak kaydedilecek tutar",
-          "140.000"
+          "C) Yanlış hesaba yapılan kayıt, borç ve alacak toplamlarını…",
+          "p.mizan sınırı"
+        ],
+        [
+          "D) Mali tablolar genel geçici mizandan düzenlenir, çünkü bu…",
+          "p.mizan türleri"
+        ],
+        [
+          "E) Kapanış mizanı düzenlenmeden önce hazırlanan kesin mizan…",
+          "p.mizan türleri"
         ]
       ],
-      "dayanak": "TMS 40 p.65",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=9",
+      "dayanak": "Muhasebe süreci ve mizan türleri - ders kitabı bilgisi (mizan sınırı ve genel geçici/kesin mizan ayrımı)",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -3,
+        "kalan_gun": -4,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -73,71 +81,63 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 1,
+      "sira": 2,
       "toplam": 9,
-      "id": "smmm-4k-a-yfta-zor-r6/kp-01",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "dikey yüzde analizi",
-      "donem": 14,
+      "id": "smmm-4k-a-maliyet-cokzor-r9/kp-01",
+      "ders": "Maliyet Muhasebesi",
+      "konu": "satışların maliyeti tablosu",
+      "donem": 12,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletme, gelir tablosunun dikey yüzde analizinde net satışları taban almaktadır. Satılan malın maliyeti 720.000 ₺ ve net satışların %60'ı, brüt satış kârı net satışların %40'ı, faaliyet giderleri net satışların %25'idir. Faaliyet kârı kaç ₺'dir?",
+      "soru": "İşletme, dönem içinde 685.000 ₺ brüt satış gerçekleştirmiştir; satıştan iadeler 12.500 ₺, satış iskontoları 8.700 ₺'dir. Ticari mal dönem başı stoku 47.350 ₺, dönem sonu stoku 39.900 ₺'dir. Ayrıca dönem içinde 65.200 ₺ pazarlama ve genel yönetim gideri, 21.400 ₺ finansman gideri gerçekleşmiştir. Brüt satış kârı 210.150 ₺ olarak hesaplanmıştır. Bu bilgilere göre dönem içi net alışlar tutarı kaç ₺'dir?",
       "siklar": {
-        "A": "180.000",
-        "B": "270.000",
-        "C": "288.000",
-        "D": "300.000",
-        "E": "480.000"
+        "A": "202.700",
+        "B": "446.200",
+        "C": "454.900",
+        "D": "461.100",
+        "E": "467.400"
       },
-      "dogru": "A",
+      "dogru": "B",
       "tuzak": {
         "C": {
-          "ad": "Kademe Atlama Tuzağı",
-          "metin": "SMM tutarını net satış sanıp doğrudan brüt kâr yüzdesiyle çarptın (720.000x0,40). Doğrusu: önce net satış 1.200.000 bulunur, faaliyet kârı bu tutarın %15'idir, yani 180.000 ₺'dir."
+          "ad": "İskonto Atlama Tuzağı",
+          "metin": "Satış iskontosunu net satışlar hesaplamasına dahil etmeyi unuttun. Doğrusu: Net satışlar, brüt satışlardan hem iadeler hem iskontolar düşülerek bulunur."
         },
         "E": {
-          "ad": "Katman Eksik Tuzağı",
-          "metin": "brüt satış kârını faaliyet giderlerini hiç düşmeden faaliyet kârı sandın (1.200.000x0,40). Doğrusu: faaliyet giderleri brüt kârdan düşülmeden faaliyet kârına ulaşılmaz; sonuç 180.000 ₺'dir."
+          "ad": "Net Satış Atlama Tuzağı",
+          "metin": "Satış indirimlerini hiç düşmeyip brüt satışları net satış olarak kullandın. Doğrusu: Net satışlar brüt satışlardan satıştan iadeler ve iskontolar düşülerek hesaplanır."
         },
         "D": {
-          "ad": "Yön Karıştırma Tuzağı",
-          "metin": "faaliyet giderleri tutarını brüt kârdan düşmeyi atlayıp onu tek başına faaliyet kârı sandın (1.200.000x0,25). Doğrusu: faaliyet kârı, brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek (%15) hesaplanan tutardır, 180…"
+          "ad": "Stok Karıştırma Tuzağı",
+          "metin": "Dönem başı ve dönem sonu ticari mal stoklarını birbirinin yerine kullandın. Doğrusu: Dönem sonu stok maliyetten çıkarılır, dönem başı stok maliyete eklenir."
         },
-        "B": {
-          "ad": "Taban Karıştırma Tuzağı",
-          "metin": "SMM tutarını net satış yerine (1-SMM yüzdesi) ile bölerek net satışı 1.800.000 buldun, halbuki doğru işlem tutarın kendi yüzdesine bölünmesidir. Doğrusu: net satış 720.000/0,60=1.200.000 olup faaliyet kârı 180.000 ₺'dir."
+        "A": {
+          "ad": "Brüt Kârı Maliyet Sanma Tuzağı",
+          "metin": "Brüt satış kârını doğrudan satılan ticari malların maliyeti gibi kullanıp alışları buldun. Doğrusu: Önce net satışlardan brüt kâr çıkarılarak satılan maliyet bulunmalıdır."
         }
       },
-      "hap": "Gelir tablosu dikey yüzdelerinde taban net satışlardır; bilinen bir kalemin tutarı kendi yüzdesine bölünerek net satış, faaliyet kârı yüzdesi ise brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek bulunur.",
+      "hap": "Brüt satış kârı net satışlardan hesaplanır; satılan malın maliyeti formülü ters çözülerek alış tutarına ulaşılabilir.",
       "satirlar": [
         [
-          "Net Satışlar",
-          "720.000/0,60"
+          "Net Satışlar (685.000-12.500-8.700)",
+          "663.800"
         ],
         [
-          "Brüt Satış Kârı",
-          "1.200.000x0,40"
+          "Satılan Ticari Malların Maliyeti (663.800-210.150)",
+          "453.650"
         ],
         [
-          "Faaliyet Giderleri",
-          "1.200.000x0,25"
-        ],
-        [
-          "Faaliyet Kârı Yüzdesi",
-          "%40-%25"
-        ],
-        [
-          "Faaliyet Kârı",
-          "1.200.000x0,15"
+          "Dönem İçi Net Alışlar (453.650-47.350+39.900)",
+          "446.200"
         ]
       ],
-      "dayanak": "Mali Tablolar Analizi - Dikey yüzde analizi: gelir tablosunda net satışlar taban (%100) alınır; faaliyet kârı = brüt satış kârı - faaliyet giderleri",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=1",
+      "dayanak": "MSUGT Sıra No:1 Tekdüzen Hesap Planı - Gelir Tablosu Düzeni (600-623 hesap grupları)",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=2",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": 3,
+        "kalan_gun": 2,
         "durum": "DONGU",
         "mail_gunu": false
       },
