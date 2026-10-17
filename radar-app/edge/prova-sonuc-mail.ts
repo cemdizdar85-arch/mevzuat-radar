@@ -22,7 +22,7 @@
 //  YAYIN: .github/workflows/edge-yukle.yml OTOMATİK (YAYIN.json). Secrets: RESEND_KEY, RESEND_FROM (ortak).
 // ============================================================================
 
-const KOD_IMZA = "1616ca8341c98ada";
+const KOD_IMZA = "08945d606ccbeaec";
 const SITE = "https://tetikte.com";
 const kacis = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -49,7 +49,20 @@ export function kurumsalMail(ic: string, neden: string): string {
 type DersSatir = { d: string; s: number; k: number };           // ders adı · soru sayısı · doğru
 type Satir = { id: number; uye_id: string; dogru: number; yanlis: number; bos: number; ders: DersSatir[] | null };
 type Sonuc = { tur?: string; katilim?: number; ortalama?: number; medyan?: number; esikler?: { dogru: number; yuzde: number }[] };
-type Oturum = { ad: string; sinav: string; tarih: string };
+type Oturum = { ad: string; sinav: string; tarih: string; saat?: string; gizli?: boolean };
+const AYLAR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+const GUNLER = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+const tarihMs = (o: Oturum) => Date.parse(o.tarih.split(".").reverse().join("-") + "T" + (o.saat || "10:00") + ":00+03:00");
+// 17.10 Cem ("sonuç maili yerine 24.10 provasına davet daha iyi olur · sonuç hala atacağız tabiki de"): mailin sonunda SIRADAKİ prova daveti
+//   SGS'ye giren çoğunlukla Yeterlilik adayı değil → sıradaki prova başka sınavınsa "… de hazırlanıyorsan" diye açılır.
+export function davetMetni(s: Oturum | null, simdikiSinav = ""): string {
+  if (!s) return "";
+  const d = new Date(tarihMs(s) + 3 * 36e5);
+  const ne = `${d.getUTCDate()} ${AYLAR[d.getUTCMonth()]} ${GUNLER[d.getUTCDay()]} ${s.saat || "10:00"} · ${s.sinav} ${s.ad}`;
+  return s.sinav === simdikiSinav
+    ? `Sıradaki prova: ${ne}. Üye olduğun için yerin hazır; o gün tetikte.com'a gir.`
+    : `${s.sinav} sınavına da hazırlanıyorsan sıradaki prova: ${ne}. Üye olduğun için yerin hazır.`;
+}
 
 const RESMI_DEGIL = "Sınav Provası, Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in yaptığı resmî sınavlarla bağlantısı yoktur. Yüzdelik sıralama, bu provaya katılan Tetikte üyeleri arasında hesaplanır.";
 const NEDEN = "Bu e-posta, tetikte.com'da üye olarak katıldığın Sınav Provası'nın sonucu için bir kez gönderilmiştir.";
@@ -69,7 +82,8 @@ export function yuzdeBul(son: Sonuc | null, dogru: number): number | null {
   return y;
 }
 
-export function sonucMail(r: Satir, o: Oturum, son: Sonuc | null, prova: boolean) {
+export function sonucMail(r: Satir, o: Oturum, son: Sonuc | null, prova: boolean, sonraki: Oturum | null = null) {
+  const davet = davetMetni(sonraki, o.sinav);
   const soru = r.dogru + r.yanlis + r.bos;
   const ad = `${o.sinav} Sınav Provası`;
   const y = yuzdeBul(son, r.dogru);
@@ -89,6 +103,7 @@ export function sonucMail(r: Satir, o: Oturum, son: Sonuc | null, prova: boolean
     `${r.dogru} doğru · ${r.yanlis} yanlış · ${r.bos} boş (${soru} soru)`, "",
     sira, zayif, "",
     "Her sorunun cevap anahtarı ve kaynak maddesiyle açıklaması sitede:", BAG, "",
+    davet, "",
     RESMI_DEGIL, "", "Sınava tetikte gir.",
   ].filter((x, i, a) => !(x === "" && a[i - 1] === "")).join("\n");
   const tablo = sirali.length ? `<table style="border-collapse:collapse;margin:8px 0 14px;font-size:13.5px;width:100%">
@@ -102,6 +117,7 @@ ${sirali.map((x) => `<tr><td style="padding:5px 8px;border-bottom:1px solid #f0f
 ${zd ? `<p>En çok puan kaybettiğin ders: <b>${kacis(zd.d)}</b> (${zd.k}/${zd.s} doğru).</p>` : ""}
 ${tablo}
 <p><a href="${BAG}" style="display:inline-block;background:#f3a52a;color:#0f1b2d;font-weight:700;padding:10px 18px;border-radius:9px;text-decoration:none">Açıklamaları sitede gör</a></p>
+${davet ? `<p style="border-top:1px solid #f0f1f3;padding-top:12px">${kacis(davet)}</p>` : ""}
 <p style="font-size:12.5px;color:#6b7280">${kacis(RESMI_DEGIL)}</p>`, NEDEN);
   return { konu, metin, html };
 }
@@ -140,10 +156,11 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     headers: { apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}`, "Content-Type": "application/json" } }, sec || {}));
 
   // oturum adı/tarihi takvimden; yüzdelik yayınlanmış sonuç dosyasından (sayfanın okuduğu dosyanın aynısı)
-  let o: Oturum | null = null;
+  let o: Oturum | null = null; let sonraki: Oturum | null = null;
   try {
     const t = await (await fetch(`${SITE}/veri/canli-deneme.json?t=${Date.now()}`)).json();
     o = (t.oturumlar || []).find((x: Oturum) => oturumKodu(x) === kod) || null;
+    if (o) sonraki = (t.oturumlar || []).filter((x: Oturum) => !x.gizli && tarihMs(x) > tarihMs(o!)).sort((a: Oturum, b: Oturum) => tarihMs(a) - tarihMs(b))[0] || null;
   } catch { /* aşağıda */ }
   if (!o) return cevap(404, { hata: "oturum takvimde yok" });
   let son: Sonuc | null = null;
@@ -168,7 +185,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     const ornek = !r || !son;
     const satir: Satir = r || { id: 0, uye_id: "", dogru: 28, yanlis: 17, bos: 9, ders: ornekDers };
     const sonuc: Sonuc = son || { tur: "yuzdelik", katilim: 120, esikler: [{ dogru: 0, yuzde: 0 }, { dogru: 20, yuzde: 40 }, { dogru: 28, yuzde: 63 }] };
-    const m = sonucMail(satir, o, sonuc, ornek);
+    const m = sonucMail(satir, o, sonuc, ornek, sonraki);
     const s = await resend([{ from: RESEND_FROM, to: [alici], subject: m.konu, text: m.metin, html: m.html, reply_to: "destek@tetikte.com" }]);
     console.log(`prova-sonuc-mail ${kod} prova ornek=${ornek} RESEND ${s.status}`);
     return s.ok ? cevap(200, { success: true, prova: true, ornek, gercek_satir: !!r, yuzdelik_yayinda: !!son }) : cevap(502, { hata: "mail gonderilemedi", durum: s.status });
@@ -192,7 +209,7 @@ if (typeof Deno !== "undefined" && Deno.serve) Deno.serve(async (req: Request) =
     const adresler = await Promise.all(parca.map((s) => posta(s.uye_id)));
     parca.forEach((s, j) => {
       if (!adresler[j]) { adressiz++; return; }
-      const m = sonucMail(s, o!, son, false);
+      const m = sonucMail(s, o!, son, false, sonraki);
       mailler.push({ from: RESEND_FROM, to: [adresler[j]], subject: m.konu, text: m.metin, html: m.html, reply_to: "destek@tetikte.com" });
       gidenId.push(s.id);
     });
