@@ -72,8 +72,8 @@
             : 'Ücretsiz üye ol; çözdüğün sorular ve yanlışların hesabında dursun, telefonda da bilgisayarda da.') + '</p>' +
           '<a class="btn ana" target="_top" href="/ogrenci.html?sonra=yanlislarim.html#uye-ol" style="text-decoration:none;text-align:center">' +
             (kutuN ? 'Ücretsiz üye ol, yanlışlarımı kaydet →' : 'Ücretsiz üye ol →') + '</a>';
+      /* 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): son ekrandan 30 soruluk ölçüm kalktı */
       d.innerHTML = uyelik +
-        '<a class="btn mavi" target="_top" href="/seviye-testi.html' + (yet ? '?sinav=yeterlilik' : '') + '" style="text-decoration:none;text-align:center">30 soruda seviyeni ölç →</a>' +
         '<a class="btn" target="_top" href="/fiyat.html?sinav=' + (yet ? 'yeterlilik' : 'sgs') + '" style="text-decoration:none;text-align:center">Paketleri gör →</a>';
       d.addEventListener('click', function (e) {
         var a = e.target && e.target.closest && e.target.closest('a[href*="ogrenci.html"]'); if (!a) return;
@@ -128,7 +128,10 @@
     /* 07.10 Cem ("pakete dahil dediğimde ücretsiz soru çöz yine 10 soru çıkıyor"): ücretsiz deneme o sınavın 30 soruluk seviye
        testine gider (10 soruluk sabit örnek sayfası değil). Sınav sayfa yolundan: kaydir/smmm = Yeterlilik, öteki SGS. */
     var yetSayfa = /\/kaydir\/smmm\//.test(location.pathname) || /[?&]sinav=(smmm|yeterlilik)\b/i.test(location.search);
-    var ucretsiz = KOK + (yetSayfa ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
+    /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ücretsiz yol = o sınavın 5 örnek sorusu. KGK'da örnek
+       sayfası yok (13.10 ölçüldü) -> KGK perdesinde ücretsiz satırı çizilmez. */
+    var kgkSayfa = /\/kaydir\/kgk\//.test(location.pathname);
+    var ucretsizA = kgkSayfa ? '' : '<a href="' + KOK + 'kaydir/vitrin/ornek-' + (yetSayfa ? 'smmm' : 'sgs') + '.html">Önce ücretsiz 5 örnek soru çöz</a>';
     /* 08.10 Cem ("Staja Giriş sayfasındaysam bitirme fiyatları gelmesin"): satın alma ve fiyat bulunulan sınava odaklı
        (satin-al ?paket= o sınavın grubunu açar; fiyat ?sinav= tek sınavı gösterir). */
     var satinAl = KOK + 'satin-al.html?paket=' + (yetSayfa ? 'yeterlilik-1' : 'sgs');
@@ -139,18 +142,15 @@
       baslik = 'Bu bölüm pakete dahil';
       metin = 'Soru bankasının tamamı, deneme setleri ve "sınav gibi" modu paket sahiplerine açık. Paketin varsa giriş yap.';
       dugmeler = '<a class="pk-ana" href="' + KOK + 'ogrenci.html?sonra=' + sonraAdresi() + '">Giriş yap</a>' +
-        '<a href="' + fiyatAdr + '">Paketleri gör</a>' +
-        '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
+        '<a href="' + fiyatAdr + '">Paketleri gör</a>' + ucretsizA;
     } else if (tur === 'paket') {
       baslik = 'Hesabında aktif paket yok';
       metin = 'Bu sayfa pakete dahil. Paketi aldığında hesabına tanımlanır ve buradan devam edersin.';
-      dugmeler = '<a class="pk-ana" href="' + satinAl + '">Paketi al</a>' +
-        '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
+      dugmeler = '<a class="pk-ana" href="' + satinAl + '">Paketi al</a>' + ucretsizA;
     } else {
       baslik = 'Bağlantı kurulamadı';
       metin = 'Paket bilgin kontrol edilemedi. İnternet bağlantını kontrol edip yeniden dene.';
-      dugmeler = '<a class="pk-ana" href="' + location.href.replace(/"/g, '%22') + '">Yeniden dene</a>' +
-        '<a href="' + ucretsiz + '">Önce ücretsiz 30 soru çöz</a>';
+      dugmeler = '<a class="pk-ana" href="' + location.href.replace(/"/g, '%22') + '">Yeniden dene</a>' + ucretsizA;
     }
     var cizim = function () {
       var d = document.createElement('div');

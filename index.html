@@ -171,6 +171,10 @@ html body .ks:hover{border-color:var(--ink)}
 /* günün sorusu: kendi bölümü (17.10'a dek kahramanın sağ sütunuydu) */
 .gunun > .ic{display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:48px;align-items:start}
 .gunun h2{margin:0 0 12px}
+.nobetci-kim{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.nobetci-kim img{flex:none;width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 24%;background:var(--bg2);border:2px solid var(--amber-dolgu)}
+.nobetci-kim b{display:block;font-size:17px;color:var(--ink);line-height:1.2}
+.nobetci-kim span{font-size:14px;color:var(--muted);line-height:1.35}
 .gunun-yazi p{margin:0 0 12px;color:var(--muted);max-width:32em}
 #ekran{scroll-margin-top:80px}
 @media(max-width:980px){ .gunun > .ic{grid-template-columns:1fr;gap:20px} #ekOynatici .no-sahne{overscroll-behavior:auto} }
@@ -292,8 +296,22 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   .ekran-not{display:none}
   #ekNeden{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 }
+/* 17.10 Cem (ekran görüntüsü ~1280x675: "siteye tam sığmıyor" - sınav hapları ilk ekranın dibinde kesikti): bilgisayarda Android
+   satırı kahramanda yok (altbilgide var); kısa ekranda iki düğme yan yana, boşluklar sıkı. Hedef: haplar ilk ekranda tam. */
+@media(min-width:901px){ .kah .uyg-indir{display:none} }
+@media(min-width:901px) and (max-height:820px){
+  .kah-alt{grid-template-columns:1fr 1fr;max-width:520px}
+  html body .kah-alt .dg{min-height:50px;font-size:15px;letter-spacing:.04em}
+  .kah-ust{margin-bottom:8px}
+  .alt{margin-bottom:16px}
+  .durum{margin-top:2px}
+  .kah-linkler{margin-top:4px}
+  .secim-bolum{padding-bottom:28px}
+  .secim-bas{margin-bottom:10px}
+  .maskot{max-width:min(320px,calc((100vh - 300px)*2/3))}
+}
 @media(min-width:981px) and (max-height:820px){
-  .kah{padding:24px 0 28px}
+  .kah{padding:20px 0 20px}
   html body .kah h1{font-size:clamp(30px,3.2vw,42px)}
   .alt{font-size:17px;margin-bottom:18px}
   html body .sinav{min-height:76px}
@@ -344,7 +362,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <section class="kah">
   <div class="ic">
     <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
-    <figure class="maskot"><img src="gorsel/maskot-giris.jpg" width="560" height="840" alt="Tetikte'nin maskotu: üstünde cevap şıkları olan kâğıttan bir baykuş" fetchpriority="high" decoding="async"></figure>
+    <figure class="maskot"><img src="gorsel/maskot-giris.jpg" width="560" height="840" alt="Nöbetçi, Tetikte'nin maskotu: üstünde cevap şıkları olan kâğıttan bir baykuş" fetchpriority="high" decoding="async"></figure>
     <div class="kah-yazi">
       <!-- 14.10 Cem ("kendimizi yanlış anlatıyoruz", "1 yap"): telefonda ilk ekranda "SMMM" kelimesi de sınav tarihi de yoktu;
            Instagram'dan gelen 2 saniyede neyin sitesinde olduğunu anlamıyordu (ig 11-13.10: 5.841 ziyaret → 41 örnek, Google %34 teste).
@@ -364,7 +382,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <!-- 08.10 Cem ("paketleri gör yanına 5 örnek soru ... en çok çıkan konulardan, zor ... iki sınavda da"): seçili sınavın 5 örnek sorusu; paketi açık üyede gizli.
            11.10: üye olmayanda 5 soru birinci düğmeye geçti, bu bağlantı 30 soruluk ölçüm (dugmeCiz)
            14.10: tek büyük düğme; öteki iki yol yazı bağlantısı -->
-      <p class="kah-linkler"><a class="kah-link" id="cta3" href="seviye-testi.html">30 soruda seviyeni ölç</a><a class="kah-link" id="cta2" href="fiyat.html">Paketleri gör</a></p>
+      <!-- 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): 30 soruluk ölçüm bağlantısı kalktı -->
+      <p class="kah-linkler"><a class="kah-link" id="cta2" href="fiyat.html">Paketleri gör</a></p>
       <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
       <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
     </div>
@@ -397,7 +416,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       <a class="ks" id="ksDers" href="sorular.html#sgs"><i aria-hidden="true">📚</i><span><b>Dersler ve sorular</b><span>Ders ders soru çöz</span></span></a>
       <a class="ks" id="ksKonu" href="en-cok-cikan-konular-sgs.html"><i aria-hidden="true">🎯</i><span><b>En çok çıkan konular</b><span>Son 10 yılın sınavlarından, ücretsiz</span></span></a>
       <a class="ks" id="ksDeneme" href="sinav-gibi.html"><i aria-hidden="true">⏱️</i><span><b>Sınav gibi deneme</b><span>Süreli, bitince ders ders karne</span></span></a>
-      <a class="ks" id="ksOlc" href="seviye-testi.html"><i aria-hidden="true">📏</i><span><b>Seviyeni ölç</b><span>30 soru, ücretsiz</span></span></a>
+      <a class="ks" href="yanlislarim.html"><i aria-hidden="true">🔁</i><span><b>Yanlışlarım</b><span>Yanlış yaptığın sorular yeniden karşına gelir</span></span></a>
       <a class="ks" href="sinav-nobeti.html"><i aria-hidden="true">📰</i><span><b>Sınav duyuruları</b><span>TESMER ve TÜRMOB tek listede</span></span></a>
     </div>
   </div>
@@ -408,6 +427,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <section class="bolum gunun" aria-labelledby="gununBas">
   <div class="ic">
     <div class="gunun-yazi">
+      <!-- 17.10 Cem ("1.2.3", madde 3): maskot = Nöbetçi'nin yüzü. İlk ekranda ad yok (14.10 kararı); ad ve yüz burada, anlatımın yanında. -->
+      <p class="nobetci-kim"><img src="gorsel/maskot-giris.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"><span><b>Nöbetçi</b>Tetikte'nin soru yardımcısı</span></p>
       <h2 id="gununBas">Günün sorusu</h2>
       <p>Her gün çıkmış sınavlarda sık sorulan konulardan bir soru. Nöbetçi en sık yapılan yanlışı, tuzağını, doğrusunu ve dayandığı maddeyi adım adım anlatır.</p>
       <!-- 16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor, bizi almıyorlar"): konu içeriği her soruda var ama ilk ekranda
@@ -468,7 +489,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
          ÇIKAN: "madde değişince soru çekilir" - SMMM 109/109 kasadan çekilmiş, SGS 37'nin 18'i içerik aynıyken yayında (07.10 ölçüldü). -->
     <h2 id="nasilBas">Tetikte nasıl çalışır?</h2>
     <div class="ozellikler">
-      <div class="ozellik" id="ozSeviye"><h3>Seviyene göre soru</h3><p>Önce 30 soruyla seviyeni ölçeriz. Ders sayfalarında sorular buna göre dizilir: zayıf olduğun derste kolaydan, güçlü olduğun derste zordan başlarsın.</p><a href="seviye-testi.html" id="ozOlc">Seviyeni ölç, ücretsiz →</a></div>
       <div class="ozellik"><h3>Nöbetçi çözer, adım adım anlatır</h3><p>Yalnız doğru cevabı söylemez: yanlış şıkkın seni neden çektiğini, hesabı adım adım, yevmiye kaydını ve dayandığı maddeyi anlatır.</p><a href="#ekran">Günün sorusunda izle →</a></div>
       <div class="ozellik"><h3>Nöbetçi'ye sor</h3><p>Takıldığın soruda kendi sorunu yaz, Nöbetçi o soru üzerinden cevaplasın. Yapay zekâ olduğunu açıkça söyler; yetmezse ekibimize sorarsın.</p><a href="sorular.html">Her soruda, pakette →</a></div>
       <div class="ozellik"><h3>Unuttuğun yeri hatırlatır</h3><p>Yanlış yaptığın soru kendiliğinden yanlış kutuna düşer; 2 gün sonra yeniden karşına çıkar, bilirsen 7 gün sonra son tur.</p><a href="yanlislarim.html">Yanlışlarım →</a></div>
@@ -479,13 +499,15 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   </div>
 </section>
 
+<!-- 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor"): "30 soruda seviyeni ölç" bölümü ve "Seviyene göre soru" kartı kalktı;
+     seviye-testi.html yerinde (ders sırası onunla kurulur), yalnız ana sayfa oraya çağırmıyor. -->
 <section class="bolum" id="dene30">
   <div class="ic dene">
     <div>
-      <h2>30 soruda seviyeni ölç</h2>
-      <p>Ücretsiz. Bitirince geçme ihtimalini ve seviyeni hemen görürsün; ders ders raporun ve çalışma planın ücretsiz hesabınla açılır.</p>
+      <h2>5 örnek soruyla başla</h2>
+      <p>Ücretsiz, üye olmadan. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</p>
     </div>
-    <a class="btn btn-ana" href="seviye-testi.html">Ücretsiz başla</a>
+    <a class="btn btn-ana" id="dene5" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
   </div>
 </section>
 
@@ -630,23 +652,21 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
-    var c1=$('cta1'), c2=$('cta2'), du=$('durum'), c3=$('cta3');
+    var c1=$('cta1'), c2=$('cta2'), du=$('durum');
     c2.hidden=false;
     var ornek='kaydir/vitrin/ornek-'+(secili==='yeterlilik'?'smmm':'sgs')+'.html';
-    c3.href=ornek; c3.textContent='5 örnek soru çöz'; c3.hidden=(d.durum==='aktif');   /* 08.10: 5 örnek soru, ders sayfası şablonu (Cem: "soru paketi gibi") */
     /* 13.10 KGK: ücretsiz katman (30 soruluk ölçüm, 5 örnek soru, sık konu denemesi, deneme seti) KGK'da YOK (13.10 ölçüldü) ->
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
-    ['sikSerit','ozSeviye','ozDeneme','dene30','ksKonu','ksOlc','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
+    ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
+    try{ $('dene30').hidden=kgkSec||d.durum==='aktif'; $('dene5').href=ornek; }catch(e){}
     /* 17.10 kısayollar seçili sınavın sayfalarına; "Zaten hesabım var" oturumu açık olana gösterilmez */
     try{ var yetK=(secili==='yeterlilik');
       $('ksFiyat').href=S.fiyat||'fiyat.html'; $('ksDers').href='sorular.html#'+OZET_ANAHTAR[secili];
       $('ksKonu').href=yetK?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html';
-      $('ksOlc').href=yetK?'seviye-testi.html?sinav=yeterlilik':(S.olc||'seviye-testi.html');
       $('ksDeneme').href=yetK?'deneme.html?sinav=SMMM':'sinav-gibi.html';
       $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
     if(kgkSec){
-      c3.hidden=true;
       if(d.durum==='aktif'){ c1.textContent='Sınava gir'; c1.href=S.gir; c2.textContent='Kaldığın yerden devam →'; c2.href=S.devam; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); }
       else if(d.durum==='bitmis'){ c1.textContent='Paketini yenile'; c1.href=S.al; c2.textContent='Dersleri gör →'; c2.href=S.gir; du.innerHTML='Paketinin süresi '+(bit?'<b>'+esc(bit)+'</b> tarihinde ':'')+'bitti.'; }
       else { c1.textContent='Dersleri gör'; c1.href=S.gir||'sorular.html#kgk'; c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html?sinav=kgk';
@@ -668,8 +688,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
          ilk düğmede 5 soru gösteriyordu → reklamdan gelen aradığını bulamadı (ig 5.841 ziyaret → 41 örnek). Sosyal etiketle (?k=ig,
          ig2, meta, instagram, fb…) gelene ilk düğme 30 soru, ikinci 5 soru; öteki gelenlerde sıra 11.10'daki gibi. */
       /* 14.10 Cem ("kendimizi yanlış anlatıyoruz"): ilk ekranda "Nöbetçi" adı yok - yeni gelen için anlamsız; adı kartta ve içeride. */
-      if(sosyalGelen()){ c1.textContent='30 soruda seviyeni ölç'; c1.href=S.olc; c3.textContent='ya da 5 örnek soru çöz'; c3.href=ornek; }
-      else { c1.textContent='5 örnek soru çöz'; c1.href=ornek; c3.textContent='30 soruda seviyeni ölç'; c3.href=S.olc; }
+      /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): sosyalden gelen de dahil herkesin tek kapısı 5 soru */
+      c1.textContent='5 örnek soru çöz'; c1.href=ornek;
       /* 05.10 Cem ("üstümde baskı var gibi"): ilk ekran yalnız ücretsiz testi ister. Fiyat düğmede ve kurucu satırında
          YAZILMAZ; "Paketleri gör" fiyat sayfasına gider. Teklif seviye testinin sonuç ekranında (seviye-testi.html teklifCiz). */
       c2.textContent='Paketleri gör'; c2.href=S.fiyat||'fiyat.html';
@@ -686,7 +706,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
                                           : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.';
       $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
       $('ozDeneme').classList.remove('oz-bekle');   /* 07.10: seçili sınavın metni yazıldı */
-      $('ozOlc').setAttribute('href', yetSec ? 'seviye-testi.html?sinav=yeterlilik' : 'seviye-testi.html');
       sikCiz(yetSec);
     }catch(e){}
     [].forEach.call(document.querySelectorAll('.sinav[data-sinav]'),function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-sinav')===secili?'true':'false'); });

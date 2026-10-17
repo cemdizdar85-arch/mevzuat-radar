@@ -131,7 +131,7 @@
              şeritte "Log in" ayrı, satın alma ayrı; giriş sayfası üyelik satmaz. -->
         <h1 id="ogBaslik">Giriş yap</h1>
         <p class="og-alt og-ilk">E-postanla ya da Google hesabınla giriş yap. Çözdüğün testler, deneme sonuçların ve yanlış yaptığın sorular hesabına kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin.</p>
-        <p class="og-alt" style="margin-top:10px;font-size:14px">Henüz paketin yok mu? <a class="og-link" href="seviye-testi.html">30 soruda geçme ihtimalini ücretsiz ölç →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
+        <p class="og-alt" style="margin-top:10px;font-size:14px">Henüz paketin yok mu? <a class="og-link" href="kaydir/vitrin/ornek-sgs.html">5 örnek soruyu ücretsiz çöz →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
         <ul class="og-maddeler">
           <li><b>Geçme ihtimalin nasıl değişiyor?</b>Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör.</li>
           <li><b>Deneme sonuçların</b>"Sınav gibi çöz" setlerinde kaç doğru yaptığın set set durur.</li>
@@ -445,8 +445,8 @@
       else if(ILR.secili) ilerlemeCiz(ILR.secili);   /* sekme şeridi yeniden çizilsin */
     }
     if(!sinavlar.length){
-      kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla seviye testi ve örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
-        +'<div class="og-btnler"><a class="og-btn ana" href="fiyat.html">Paketleri gör</a><a class="og-btn" href="seviye-testi.html">30 soruda seviyeni ölç</a></div>'
+      kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
+        +'<div class="og-btnler"><a class="og-btn ana" href="fiyat.html">Paketleri gör</a><a class="og-btn" href="kaydir/vitrin/ornek-'+((function(){ try{ return localStorage.getItem('tt_sinav'); }catch(e){ return ''; } })()==='yeterlilik'?'smmm':'sgs')+'.html">5 örnek soru çöz</a></div>'   /* 17.10 Cem: 30 soru yerine 5 örnek soru */
         +PB_HTML+'</div>';
       pbKur(user);
       return;
@@ -707,7 +707,8 @@
       var sec=''; try{ sec=localStorage.getItem('tt_sinav')||''; }catch(e){}   /* uye-durumu.js sinavSec anahtarı */
       /* 13.10 KGK: seviye testi yok -> KGK seçmiş yeni üye soru bankasına (sorular.html#kgk); içerik kapalıysa SGS testi */
       if(sec==='kgk' && kgkAcik()){ location.replace('sorular.html#kgk'); return true; }
-      location.replace('seviye-testi.html'+(sec==='yeterlilik'?'?sinav=yeterlilik':'')); return true;
+      /* 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): yeni üye 30 soruluk test yerine 5 örnek soruya */
+      location.replace('kaydir/vitrin/ornek-'+(sec==='yeterlilik'?'smmm':'sgs')+'.html'); return true;
     }catch(e){ return false; }
   }
   async function panel(user){

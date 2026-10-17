@@ -311,12 +311,13 @@
     /* 14.09 Cem "deneme amaçlı sadece kendin dene": üyeliksiz ücretsiz katman en üstte.
        23.09 Cem "1.2.3 yap": "Ücretsiz dene" ve "30 soruda ölç" iki kart aynı teste çıkıyordu -> TEK kart;
        örnek sorular kartın altında küçük bağlantı (ucretsiz-dene.html'deki düzenin aynısı). Yalnız SGS için hazır. */
-    var seviyeKart=PAKET[s.kod]?'':(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="seviye-testi.html"><span><b>Ücretsiz: 30 soruda geçme ihtimalini ölç</b>'
-      +'<span class="sc-deneme-alt">Form yok, kart yok. Uyarlamalı test: bildikçe zorlaşır. Bitince geçme ihtimalin ve zayıf alanın; ayrıntılı rapor ücretsiz hesabınla.</span></span><span class="sc-seviye-git">Ölç →</span></a>'
+    /* 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ücretsiz kart 5 örnek soruya gider */
+    var seviyeKart=PAKET[s.kod]?'':(acik&&s.kod==='sgs')?'<a class="sc-seviye" href="kaydir/vitrin/ornek-sgs.html"><span><b>Ücretsiz: 5 örnek soru çöz</b>'
+      +'<span class="sc-deneme-alt">Üye olmadan, kart yok. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</span></span><span class="sc-seviye-git">Çöz →</span></a>'
       +'<p class="sc-aciklama" style="margin:-4px 0 14px">Önce ürünü görmek istersen: <a href="index.html?sinav=sgs#ekran">günün sorusunu Nöbetçi ile çöz →</a> · <a href="en-cok-cikan-konular-sgs.html">Son 10 yılda en sık sorulan 20 konu (kanıtlı) →</a> · <a href="sinav-nobeti.html">Sınav Nöbeti: TESMER duyuruları →</a></p>'
       /* 04.10 telefon turu: Yeterlilik sekmesinde ücretsiz giriş hiç yoktu (test ve vitrin hazır) -> aynı kart, Yeterlilik bağlarıyla */
-      :(acik&&s.kod==='smmm')?'<a class="sc-seviye" href="seviye-testi.html?sinav=yeterlilik"><span><b>Ücretsiz: 30 soruda geçme ihtimalini ölç</b>'
-      +'<span class="sc-deneme-alt">Form yok, kart yok. Sekiz dersten 30 soru; bitince geçme ihtimalin ve ders ders durumun; ayrıntılı rapor ücretsiz hesabınla.</span></span><span class="sc-seviye-git">Ölç →</span></a>'
+      :(acik&&s.kod==='smmm')?'<a class="sc-seviye" href="kaydir/vitrin/ornek-smmm.html"><span><b>Ücretsiz: 5 örnek soru çöz</b>'
+      +'<span class="sc-deneme-alt">Üye olmadan, kart yok. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</span></span><span class="sc-seviye-git">Çöz →</span></a>'
       +'<p class="sc-aciklama" style="margin:-4px 0 14px">Önce ürünü görmek istersen: <a href="index.html?sinav=yeterlilik#ekran">günün sorusunu Nöbetçi ile çöz →</a> · <a href="en-cok-cikan-konular-yeterlilik.html">Ders ders en sık sorulan konular (kanıtlı) →</a> · <a href="sinav-nobeti.html">Sınav Nöbeti: TESMER ve TÜRMOB duyuruları →</a></p>':'';
     /* 03.10 (Cem, V2 madde 13): sınav seçilince ilgili alanlar tek satırda - Dersler · Deneme · Yanlışlarım · Son durum · Hesabım */
     var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'

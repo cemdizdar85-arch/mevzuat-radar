@@ -502,7 +502,8 @@ function ustSeritKur(){
   n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+'index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
     bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
-    (uye ? '<a class="ust-cta" href="'+KOK+'sorular.html">Soru çöz</a>' : '<a class="ust-cta" href="'+KOK+'seviye-testi.html">Ücretsiz başla</a>')+'</div></div>';
+    /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ziyaretçinin "Ücretsiz başla"sı 5 örnek soruya */
+    (uye ? '<a class="ust-cta" href="'+KOK+'sorular.html">Soru çöz</a>' : '<a class="ust-cta" href="'+KOK+'kaydir/vitrin/ornek-'+((function(){ try{ return localStorage.getItem('tt_sinav'); }catch(e){ return ''; } })()==='yeterlilik'?'smmm':'sgs')+'.html">Ücretsiz başla</a>')+'</div></div>';
   top.parentNode.removeChild(top);
   document.body.insertBefore(n,document.body.firstChild);
   return true;
