@@ -107,6 +107,15 @@
   /* 17.10: ?paket= ile seçilerek gelinince yalnız o paket (öteki paketler "Başka paket seç" ile) */
   #paketler.odak .pk:not(.sec), #paketler.odak .grup, #paketler.odak > p{ display:none; }
   #paketler.odak .pk.sec{ margin-top:14px; }
+  /* 18.10: ders sayısı seçicisi (ders kutusunun başında) */
+  .ders-sayi{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0 0 14px; }
+  .ders-sayi[hidden]{ display:none; }
+  .ders-sayi > span{ grid-column:1 / -1; font-weight:800; font-size:15px; }
+  @media (max-width:560px){ .ders-sayi{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  .ders-sayi button{ min-height:52px; padding:6px 6px; border:1.5px solid var(--line2); border-radius:10px; background:var(--kart); color:var(--ink); font:inherit; font-weight:800; font-size:14.5px; cursor:pointer; line-height:1.2; }
+  .ders-sayi button small{ display:block; font-weight:600; font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .ders-sayi button:hover{ border-color:var(--ink); }
+  .ders-sayi button[aria-pressed="true"]{ border-color:var(--amber-dolgu); box-shadow:inset 0 0 0 1px var(--amber-dolgu); background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--kart)); }
   .pk-tumu{ display:inline-flex; align-items:center; min-height:40px; margin:2px 0 6px; padding:0; background:none; border:0; font:inherit; font-size:14px; font-weight:700; color:var(--link); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
   .pk{ display:flex; align-items:flex-start; gap:12px; background:var(--kart); border:1px solid var(--line);
        border-radius:12px; padding:14px 16px; margin-bottom:9px; cursor:pointer; }
@@ -234,6 +243,7 @@
     <div id="paketler"></div>
     <!-- 17.10: ders seçimi paketin HEMEN altında (eskiden iki açıklama paragrafının altındaydı) -->
     <div class="kutu ic" id="dersKutu" style="display:none">
+      <div class="ders-sayi" id="dersSayi" role="group" aria-label="Ders sayısı" hidden></div>
       <h2 id="dersBaslik">Hangi sınav dersleri?</h2>
       <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
       <div id="dersListe" class="dersListe"></div>
@@ -527,8 +537,21 @@ function dersCiz(){
   /* 03.10: ozetCiz her elçi kodu denetiminde de çağrılır; aynı paket için listeyi yeniden çizmek
      alıcının seçtiği dersleri siliyordu. Paket değişmediyse yalnız sayaç güncellenir. */
   if(document.getElementById('dersListe').getAttribute('data-pk') === secili.id){ dersSayacGuncelle(); return; }
+  var onceki = secilenDersler();   /* 18.10: ders sayısı değişince önceden işaretlenen dersler korunur (yeni tavana kadar) */
   document.getElementById('dersListe').setAttribute('data-pk', secili.id);
   var havuz = dersHavuzu(secili), kgk = secili.id.indexOf('kgk-') === 0;
+  /* 18.10 Cem ("tek ders diye giriyoruz, iki ders üç ders diye almam lazım, niye alamıyorum"): aynı ailenin ders/modül sayısı
+     seçicisi (yeterlilik-1..4 · kgk-1..3). Düğme ilgili paket düğmesini işaretler; fiyat ve özet olağan değişim olayıyla güncellenir. */
+  (function(){
+    var on = kgk ? 'kgk-' : 'yeterlilik-', aile = PAKETLER.filter(function(p){ return p.id.indexOf(on) === 0 && /\d$/.test(p.id); });
+    var yer = document.getElementById('dersSayi');
+    if(aile.length < 2){ yer.innerHTML = ''; yer.hidden = true; return; }
+    yer.hidden = false;
+    yer.innerHTML = '<span>Kaç ' + (kgk ? 'modül' : 'dersten kaldın') + '?</span>' + aile.map(function(p){
+      var m = +p.id.replace(on, '');
+      return '<button type="button" data-pk="' + p.id + '" aria-pressed="' + (p.id === secili.id) + '">' + m + ' ' + (kgk ? 'modül' : 'ders') + '<small>' + fiyatAna(p.id, p.fiyat) + '</small></button>';
+    }).join('');
+  })();
   document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : (n === 1 ? 'Hangi dersi açalım?' : 'Hangi sınav dersleri?');   /* 17.10: tek derste soru tekil */
   document.getElementById('dersNot').innerHTML =
     '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
@@ -548,6 +571,9 @@ function dersCiz(){
     Array.prototype.forEach.call(document.querySelectorAll('#dersListe input'), function(i){
       if(isaret < n && on.indexOf(i.value.toLocaleLowerCase('tr-TR')) > -1){ i.checked = true; isaret++; }
     });
+    if(!isaret && onceki.length){ Array.prototype.forEach.call(document.querySelectorAll('#dersListe input'), function(i){
+      if(isaret < n && onceki.indexOf(i.value) > -1){ i.checked = true; isaret++; }
+    }); }
   }catch(e){}
   kutu.style.display = 'block';
   dersSayacGuncelle();
@@ -568,6 +594,12 @@ function dersSayacGuncelle(){
   }
 }
 document.getElementById('dersListe').addEventListener('change', dersSayacGuncelle);
+/* 18.10: ders sayısı seçicisi → ilgili paket düğmesi (olağan change olayı: özet, elçi denetimi, ölçüm aynı yoldan) */
+document.getElementById('dersSayi').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-pk]'); if(!b || b.getAttribute('aria-pressed') === 'true') return;
+  var r = document.querySelector('input[name=paket][value="' + b.getAttribute('data-pk') + '"]'); if(!r) return;
+  r.checked = true; r.dispatchEvent(new Event('change', { bubbles:true }));
+});
 /* 12.10: anlık teklif tek derste dersin seçili olmasına bağlı → ders değişince tutar yeniden hesaplanır */
 document.getElementById('dersListe').addEventListener('change', function(){ if(TEKLIF) ozetCiz(); });
 

@@ -192,6 +192,10 @@ html body .paket-bas a{font-size:14.5px;font-weight:700;color:var(--ink)!importa
 .pk-kart.pk-one{border-top:4px solid var(--amber-dolgu);padding-top:17px}
 .pk-sinav{margin:0;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 html body .pk-kart h3{margin:2px 0 10px;font-size:21px;font-weight:800;color:var(--ink)}
+.pk-ders{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 12px}
+html body .pk-ders button{min-height:40px;padding:0 4px;border:1.5px solid var(--line2);border-radius:10px;background:var(--kagit);color:var(--ink);font:inherit;font-size:14px;font-weight:750;cursor:pointer}
+html body .pk-ders button:hover{border-color:var(--ink)}
+html body .pk-ders button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .pk-fiyat{margin:0;font-size:28px;font-weight:800;letter-spacing:-.5px;color:var(--ink);line-height:1.1}
 .pk-fiyat small{font-size:15px;font-weight:700;color:var(--muted)}
 .pk-alt{margin:4px 0 0;min-height:20px;font-size:13px;color:var(--muted)}
@@ -475,11 +479,14 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         <a class="pk-al" href="satin-al.html?paket=sgs">Satın al</a>
         <p class="pk-sonra" data-sonra></p>
       </article>
+      <!-- 18.10 Cem ("buraya tek ders diye giriyoruz, iki ders üç ders diye almam lazım, niye alamıyorum"): kart ders sayısı seçicili;
+           düğme data-paket'i yeterlilik-N yapar, kart yeniden çizilir (fiyat motoru paketBul) -->
       <article class="pk-kart" data-paket="yeterlilik-1">
         <p class="pk-sinav">SMMM Yeterlilik</p>
-        <h3>Tek ders</h3>
+        <h3>Kaldığın dersler</h3>
+        <div class="pk-ders" role="group" aria-label="Kaç dersten kaldın?"><button type="button" data-n="1" aria-pressed="true">1 ders</button><button type="button" data-n="2" aria-pressed="false">2 ders</button><button type="button" data-n="3" aria-pressed="false">3 ders</button><button type="button" data-n="4" aria-pressed="false">4 ders</button></div>
         <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
-        <ul><li>Kaldığın tek sınav dersi için</li><li>Ders bazlı prova: 100 üzerinden, baraj 50</li><li>Sınav dersini ödeme adımında seçersin</li></ul>
+        <ul><li>Yalnız kaldığın sınav dersleri</li><li>Ders bazlı prova: 100 üzerinden, baraj 50</li><li>Dersleri ödeme adımında seçersin</li></ul>
         <a class="pk-al" href="satin-al.html?paket=yeterlilik-1">Satın al</a>
         <p class="pk-sonra" data-sonra></p>
       </article>
@@ -889,14 +896,23 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   });
 
   /* ---- 2b) PAKET KARTLARI (17.10): rakam fiyat-motoru.js'ten, biçim fiyat.html kart() ile aynı ---- */
-  try{ [].forEach.call(document.querySelectorAll('.pk-kart[data-paket]'),function(k){
+  function pkKartCiz(k){
     var p=paketBul(k.getAttribute('data-paket')); if(!p){ k.hidden=true; return; }
-    var hr=KDV_HARIC_GOSTER[p.id];
+    var hr=KDV_HARIC_GOSTER[p.id], a=k.querySelector('.pk-al');
     k.querySelector('[data-fiyat]').innerHTML=hr?tl(Math.round(p.fiyat/(1+KDV_ORAN)))+' <small>TL + KDV</small>':tl(p.fiyat)+' <small>TL</small>';
     k.querySelector('[data-dahil]').textContent=(hr?fiyatDahilNot(p.id,p.fiyat):'')+(p.kota&&p.liste>p.fiyat?(hr?' · ':'')+'açılış fiyatı · ilk '+tl(p.kota)+' üye':'');
-    if(p.liste>p.fiyat) k.querySelector('[data-sonra]').innerHTML=(p.kota?'İlk '+tl(p.kota)+' üyeden sonra ':'Sonra ')+fiyatAnaHtml(p.id,p.liste)+fiyatDahilHtml(p.id,p.liste);
-    if(!p.acik){ var a=k.querySelector('.pk-al'); a.textContent='Yakında'; a.removeAttribute('href'); a.setAttribute('aria-disabled','true'); }
-  }); }catch(e){}
+    k.querySelector('[data-sonra]').innerHTML=p.liste>p.fiyat?(p.kota?'İlk '+tl(p.kota)+' üyeden sonra ':'Sonra ')+fiyatAnaHtml(p.id,p.liste)+fiyatDahilHtml(p.id,p.liste):'';
+    if(!p.acik){ a.textContent='Yakında'; a.removeAttribute('href'); a.setAttribute('aria-disabled','true'); }
+    else { a.textContent='Satın al'; a.setAttribute('href','satin-al.html?paket='+p.id); a.removeAttribute('aria-disabled'); }
+  }
+  try{ [].forEach.call(document.querySelectorAll('.pk-kart[data-paket]'),pkKartCiz);
+    /* 18.10: ders sayısı seçici (1-4 ders) */
+    [].forEach.call(document.querySelectorAll('.pk-ders button'),function(b){ b.addEventListener('click',function(){
+      var k=b.closest('.pk-kart'); k.setAttribute('data-paket','yeterlilik-'+b.getAttribute('data-n'));
+      [].forEach.call(k.querySelectorAll('.pk-ders button'),function(x){ x.setAttribute('aria-pressed',x===b?'true':'false'); });
+      pkKartCiz(k);
+    }); });
+  }catch(e){}
 
   /* ---- 3) YANLIŞ KUTUSU: vadesi gelen soru varsa söyle (kc_kutu, bu tarayıcı) ---- */
   try{
