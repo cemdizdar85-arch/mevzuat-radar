@@ -20,9 +20,11 @@ durum: taslak
 Reklam
 SMMM Yeterlilik 28 Kasım'da. Gerçek sınavda her ders ayrı bir sınav: 20 soru, 45 dakika, her yanlış bir doğrunun 0,25'ini götürür, baraj 50.
 
+Son 10 yılın çıkmış soruları tek tek okundu; sorular en sık sorulan konulara göre yazıldı.
+
 Tetikte Ders Denemesi aynı düzende. Dersini seç, süren başlasın. Bitince puanın ve konu konu karnen çıkar; yanlış yaptığın her sorunun yanında "Nöbetçi anlatsın" düğmesi var: neden yanlış yaptığını ve çözümü adım adım gösterir.
 
-8 ders, 78 deneme. Konu ağırlığı 2016–2026 çıkmış soruları okunarak sayıldı; sık çıkan konu daha çok gelir.
+8 ders, 78 deneme; sık çıkan konu daha çok gelir.
 
 1 ders 990 TL + KDV · 4 ders 2.490 TL + KDV · tüm dersler 2.890 TL + KDV (açılış fiyatı, ilk 1.000 üye).
 
