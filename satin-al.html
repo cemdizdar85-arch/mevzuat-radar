@@ -104,6 +104,10 @@
 
   /* --- paket secimi --- */
   .grup{ font-size:12.5px; color:var(--muted); margin:16px 0 6px; font-weight:700; letter-spacing:.3px; }
+  /* 17.10: ?paket= ile seçilerek gelinince yalnız o paket (öteki paketler "Başka paket seç" ile) */
+  #paketler.odak .pk:not(.sec), #paketler.odak .grup, #paketler.odak > p{ display:none; }
+  #paketler.odak .pk.sec{ margin-top:14px; }
+  .pk-tumu{ display:inline-flex; align-items:center; min-height:40px; margin:2px 0 6px; padding:0; background:none; border:0; font:inherit; font-size:14px; font-weight:700; color:var(--link); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
   .pk{ display:flex; align-items:flex-start; gap:12px; background:var(--kart); border:1px solid var(--line);
        border-radius:12px; padding:14px 16px; margin-bottom:9px; cursor:pointer; }
   .pk:hover{ border-color:var(--line2); }
@@ -228,6 +232,14 @@
   </button>
   <div class="akd-govde" id="akd1g"><div class="akd-ic">
     <div id="paketler"></div>
+    <!-- 17.10: ders seçimi paketin HEMEN altında (eskiden iki açıklama paragrafının altındaydı) -->
+    <div class="kutu ic" id="dersKutu" style="display:none">
+      <h2 id="dersBaslik">Hangi sınav dersleri?</h2>
+      <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
+      <div id="dersListe" class="dersListe"></div>
+      <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
+      erişim süren içinde bir kez ücretsiz değiştiririz.</p>
+    </div>
     <p class="kucuk" style="margin-top:2px">Erişim <b>sınav gününe kadar</b> sürer ve hiçbir zaman 3 aydan kısa olmaz;
     sınav ertelenirse süren yine uzar. Paketin altındaki harç satırı, aynı kapsam için
     <b>devlete ödeyeceğin resmî harcı</b> gösterir. Ayrıntılı karşılaştırma: <a href="fiyat.html">fiyat sayfası</a>.</p>
@@ -236,14 +248,7 @@
     çalışırsın; cihazlarını <a href="ogrenci.html#cihazlarim">Hesabım → Cihazlarım</a>'dan yönetirsin.</p>
 
     <!-- Ders bazli paket secilince HANGI dersler oldugu sorulur. Sormazsak
-         erisimi neye acacagimizi bilemeyiz; "2 ders aldim" tek basina yetmez. -->
-    <div class="kutu ic" id="dersKutu" style="display:none">
-      <h2 id="dersBaslik">Hangi sınav dersleri?</h2>
-      <p class="kucuk" style="margin:0 0 10px" id="dersNot">—</p>
-      <div id="dersListe" class="dersListe"></div>
-      <p class="kucuk" style="margin:10px 0 0">Sınav sonrası ders değiştirmek istersen bize yaz;
-      erişim süren içinde bir kez ücretsiz değiştiririz.</p>
-    </div>
+         erisimi neye acacagimizi bilemeyiz; "2 ders aldim" tek basina yetmez. (17.10: kutu paketin hemen altına taşındı) -->
     <p class="akd-hata" id="akd1h" role="alert"></p>
     <button type="button" class="btn akd-devam" data-devam="1">Devam</button>
   </div></div>
@@ -520,10 +525,10 @@ function dersCiz(){
   if(document.getElementById('dersListe').getAttribute('data-pk') === secili.id){ dersSayacGuncelle(); return; }
   document.getElementById('dersListe').setAttribute('data-pk', secili.id);
   var havuz = dersHavuzu(secili), kgk = secili.id.indexOf('kgk-') === 0;
-  document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : 'Hangi sınav dersleri?';
+  document.getElementById('dersBaslik').textContent = kgk ? 'Hangi modüller?' : (n === 1 ? 'Hangi dersi açalım?' : 'Hangi sınav dersleri?');   /* 17.10: tek derste soru tekil */
   document.getElementById('dersNot').innerHTML =
     '<b>' + n + ' ' + (kgk ? 'modül' : 'ders') + '</b> seç — erişimin yalnız bu '
-    + (kgk ? 'modüllere' : 'derslere') + ' açılır. <span id="dersSayac"></span>';
+    + (kgk ? (n === 1 ? 'modüle' : 'modüllere') : (n === 1 ? 'derse' : 'derslere')) + ' açılır. <span id="dersSayac"></span>';
   /* 13.10: KGK modülü sitede birden çok ders sayfasına karşılık gelir (fiyat-motoru.js KGK_MODUL_DERS); alıcı hangi
      sayfaların açılacağını modülün altında görür. Değer (value) yine modül adıdır; siparişe giden ders adları gönderimde açılır. */
   document.getElementById('dersListe').innerHTML = havuz.map(function(d){
@@ -731,6 +736,16 @@ ozetCiz();
   if(!q) return;
   var r = document.querySelector('input[name=paket][value="' + q.replace(/"/g,'') + '"]');
   if(r){ r.checked = true; r.dispatchEvent(new Event('change',{bubbles:true})); }
+  /* 17.10 Cem (ekran görüntüsü: fiyat sayfasında "1 ders" seçince burada 1-2-3-4 ders + tüm dersler alt alta, altında ders listesi;
+     "sınavı seçtim, içeri girip alımı yapsak olmuyor mu ... en kolay nasıl insanlar anlar ve alır öyle yapalım"): seçilerek gelinen
+     paket TEK başına görünür; öteki paketler "Başka paket seç" ile açılır. Ders seçimi (ders bazlı pakette zorunlu) hemen altında. */
+  if(r){
+    var kap = document.getElementById('paketler'); kap.classList.add('odak');
+    var b = document.createElement('button'); b.type = 'button'; b.id = 'pkTumu'; b.className = 'pk-tumu';
+    b.textContent = 'Başka paket seç';
+    b.addEventListener('click', function(){ kap.classList.remove('odak'); b.remove(); });
+    kap.parentNode.insertBefore(b, kap.nextSibling);
+  }
 })();
 
 /* ---- CALISMA ARKADASIM: davet kodu ----
