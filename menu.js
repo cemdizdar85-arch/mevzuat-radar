@@ -1,4 +1,4 @@
-﻿/* Tetikte — ortak araç menüsü.
+/* Tetikte — ortak araç menüsü.
    Her sayfaya <script src="menu.js" defer></script> ile eklenir:
    sağ altta "☰ Araçlar" düğmesi + tam ekran aranabilir katalog paneli. */
 (function(){
@@ -141,7 +141,7 @@ try {
 try {
   /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
   if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261016a'; dn.async = true;
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261018a'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
@@ -508,7 +508,7 @@ function ustSeritKur(){
   var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
   function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
   /* 17.10 Cem: logo üyede Hesabım'a (ana sayfa da üyeyi oraya yönlendirir; burada ara yükleme olmasın) */
-  n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+(uye?'ogrenci.html':'index.html')+'" aria-label="'+(uye?'Hesabım':'Tetikte ana sayfa')+'" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
+  n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+(uye?'index.html?ana=1':'index.html')+'" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
     bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
     /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ziyaretçinin "Ücretsiz başla"sı 5 örnek soruya */
@@ -564,7 +564,7 @@ function kur(){
        telefonda menü bütün ekranı kaplayıp ana sayfayı örttü. Öğe <div role=navigation>; sayfa nav kuralları uygulanmaz. */
     var nav=document.createElement('div'); nav.id='ttAltMenu'; nav.setAttribute('role','navigation'); nav.setAttribute('aria-label','Alt menü');
     nav.innerHTML=OGELER.map(function(o){
-      return '<a href="'+o[0]+'"'+(o[0]===aktif?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+o[2]+'"/></svg>'+o[1]+'</a>';
+      return '<a href="'+(o[0]==='index.html'?'index.html?ana=1':o[0])+'"'+(o[0]===aktif?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+o[2]+'"/></svg>'+o[1]+'</a>';
     }).join('');
     document.body.appendChild(nav); document.body.classList.add('tt-alt-menu');
     /* 03.10 canlı tarama: koyu zeminli sayfada (sorular.html, body.bz-koyu) jetonlar açık temadan geliyordu -> beyaz şerit üstünde

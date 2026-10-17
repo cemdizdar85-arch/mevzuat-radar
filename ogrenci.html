@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
@@ -139,6 +139,11 @@
   .op-et.o{background:color-mix(in srgb,var(--amber-dolgu) 18%,transparent);color:var(--amber)}
   .op-et.z{background:color-mix(in srgb,var(--red) 10%,transparent);color:var(--red)}
   .op-et.b{background:var(--line);color:var(--muted)}
+.op-ac{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}.op-ac:focus-visible{outline:2px solid var(--amber-dolgu);outline-offset:3px;border-radius:4px}
+.op-ok{display:inline-block;width:14px;font-size:20px;line-height:1;color:var(--amber);transition:transform .15s}.op-ders.acik .op-ok{transform:rotate(90deg)}.op-ders.acik td{border-bottom-color:transparent}
+.op-dt-alt{display:block;font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px}.op-ss{padding-left:20px}
+.op-detay>td{background:var(--bg2);padding:14px 14px 12px;border-radius:0 0 12px 12px}.op-dt-ust{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px;font-size:14px;color:var(--muted)}.op-dt-ust .op-et{margin:2px 2px 0 0}
+.op-dt{background:var(--panel);border-radius:10px}.op-dt td,.op-dt th{padding-left:10px;padding-right:10px}.op-dt th{padding-top:10px}
   html body .op-coz{font-size:13.5px;padding:6px 12px}
   .op-iki{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .op-liste{list-style:none;margin:0;padding:0;display:grid;gap:9px}
@@ -1055,25 +1060,57 @@
       liste.forEach(function(x){ M[ad(x.ad)]=x; });
       D.forEach(function(x){ SAY[ad(x.ders)]=x; });
       var paketD=(po&&po.dersler||[]).map(ad);
-      var satir=liste.map(function(x,i){ return { ad:x.ad, sayfa:x.sayfa, d:SAY[ad(x.ad)]||null, i:i, pk:paketD.indexOf(ad(x.ad))>-1 }; });
-      D.forEach(function(x){ if(!M[ad(x.ders)]) satir.push({ ad:x.ders, sayfa:null, d:x, i:999, pk:false }); });
-      satir.sort(function(a,b){ return (b.pk-a.pk)||((b.d?+b.d.cevap:0)-(a.d?+a.d.cevap:0))||(a.i-b.i); });
-      var gos=satir.slice(0,8), kalan=satir.length-gos.length;
-      var durum=function(d){ if(!d||!+d.cevap) return ['b','Başlamadın']; if(+d.cevap<20) return ['b','Az veri']; var o=d.dogru/d.cevap; return o>=0.7?['g','Güçlü']:o>=0.55?['o','Orta']:['z','Zayıf']; };
+      /* 18.10 Cem "her derse yap": BÜTÜN dersler, sınav kitapçığındaki sırayla (dizin sırası). Ders adına dokununca o dersin
+         konu konu başarısı açılır. "Sınavda N soru" yalnız resmî dağılımdan: dizin sinav_soru = veri/ders-profili.json soru_sayisi
+         (SGS: TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2, Cem onayı 01.09; SGS 2022/3 kitapçığı okunarak ders
+         blokları 18.10'da birebir doğrulandı). Yeterlilik/KGK'da ders başı sayı resmî tabloda yok -> rakam yazılmaz. */
+      var satir=liste.map(function(x,i){ return { ad:x.ad, sayfa:x.sayfa, ss:+x.sinav_soru||0, d:SAY[ad(x.ad)]||null, i:i, pk:paketD.indexOf(ad(x.ad))>-1 }; });
+      D.forEach(function(x){ if(!M[ad(x.ders)]) satir.push({ ad:x.ders, sayfa:null, ss:0, d:x, i:999, pk:false }); });
+      satir.sort(function(a,b){ return a.i-b.i; });
+      var ssTop=satir.reduce(function(t,r){ return t+r.ss; },0);
+      var durum=function(d,esik){ if(!d||!+d.cevap) return ['b','Başlamadın']; if(+d.cevap<(esik||20)) return ['b','Az veri']; var o=d.dogru/d.cevap; return o>=0.7?['g','Güçlü']:o>=0.55?['o','Orta']:['z','Zayıf']; };
       var renk={ g:'var(--green)', o:'var(--amber-dolgu)', z:'var(--red)', b:'var(--dim)' };
+      var bar=function(d,du){ var o=d&&+d.cevap?opYuzde(d.dogru,d.cevap):null;
+        return o===null?'<span class="og-alt" style="font-size:13px">henüz yok</span>':'<div class="op-bar"><i><s style="width:'+o+'%;background:'+renk[du[0]]+'"></s></i>%'+o+'</div>'; };
+      var sinavYazi=function(r){ return r.ss?'Sınavda '+r.ss+' soru'+(ssTop?' · %'+Math.round(100*r.ss/ssTop):''):yet?'Sınavda ayrı oturum':''; };
+      var detay=function(r){
+        var KK=K.filter(function(x){ return ad(x.ders)===ad(r.ad); }).map(function(x){ return { konu:x.konu, d:x, du:durum(x,5) }; });
+        var sira={ z:0, o:1, g:3, b:2 };
+        KK.sort(function(a,b){ return (sira[a.du[0]]-sira[b.du[0]])||((a.d.dogru/a.d.cevap)-(b.d.dogru/b.d.cevap))||(b.d.cevap-a.d.cevap); });
+        var say={ z:0, o:0, g:0, b:0 }; KK.forEach(function(x){ say[x.du[0]]++; });
+        var ust='<div class="op-dt-ust"><div>'+(r.ss?'<b>Sınavda '+r.ss+' soru</b> çıkıyor'+(ssTop?' · '+ssTop+' soruluk sınavda payı %'+Math.round(100*r.ss/ssTop):'')+'. '
+              :yet?'<b>Bu ders sınavda ayrı oturumda</b> sınanır; geçmek için 50 puan gerekir. ':'')
+            +(KK.length?'Çözdüğün <b>'+KK.length+' konu</b>: <span class="op-et z">'+say.z+' zayıf</span> <span class="op-et o">'+say.o+' orta</span> <span class="op-et g">'+say.g+' güçlü</span>'+(say.b?' <span class="op-et b">'+say.b+' az veri</span>':''):'')+'</div>'
+            +(r.sayfa?'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Bu dersten çöz →</a>':'')+'</div>';
+        if(OZET===null) return ust+'<p class="og-alt" style="margin:0">Konular okunuyor…</p>';
+        if(!KK.length) return ust+'<p class="og-alt" style="margin:0">Bu dersten henüz soru çözmedin. Çözmeye başlayınca konu konu doğru oranın burada görünür.</p>';
+        return ust+'<table class="op-tablo op-dt"><tr><th>Konu</th><th class="s op-gizle-m">Çözülen</th><th>Doğru</th><th class="op-gizle-m">Durum</th></tr>'
+          +KK.map(function(x){ return '<tr><td>'+esc(opBuyuk(x.konu))+'<small class="op-dt-alt">'+opSayi(x.d.cevap)+' cevap'+(x.d.son?' · son '+esc(opTarih(x.d.son)):'')+'</small></td>'
+            +'<td class="s op-gizle-m">'+opSayi(x.d.cozulen||x.d.cevap)+'</td><td>'+bar(x.d,x.du)+'</td>'
+            +'<td class="op-gizle-m"><span class="op-et '+x.du[0]+'">'+x.du[1]+'</span></td></tr>'; }).join('')+'</table>'
+          +'<p class="og-alt op-not">Konu durumu en az 5 cevapta hesaplanır; altı "az veri". Zayıflar en üstte.</p>';
+      };
+      window.OP_ACIK=window.OP_ACIK||{};
       $('opDersler').innerHTML=!liste.length&&!D.length?'<p class="og-alt" style="margin:0">Ders listesi şu an okunamadı.</p>'
         :'<table class="op-tablo"><tr><th>Ders</th><th class="s op-gizle-m">Çözülen</th><th>Doğru</th><th class="op-gizle-m">Durum</th><th></th></tr>'
-        +gos.map(function(r){ var du=durum(r.d), o=r.d&&+r.d.cevap?opYuzde(r.d.dogru,r.d.cevap):null;
-          return '<tr><td><b>'+esc(r.ad)+'</b>'+(r.pk?' <span class="op-et o">paketinde</span>':'')+'</td>'
+        +satir.map(function(r,j){ var du=durum(r.d), ac=!!OP_ACIK[s+'|'+ad(r.ad)], sy=sinavYazi(r);
+          return '<tr class="op-ders'+(ac?' acik':'')+'"><td><button type="button" class="op-ac" data-ders="'+esc(r.ad)+'" aria-expanded="'+ac+'"><span class="op-ok" aria-hidden="true">›</span><b>'+esc(r.ad)+'</b></button>'
+              +(r.pk&&!yet?'':r.pk?' <span class="op-et o">paketinde</span>':'')+(sy?'<small class="op-dt-alt op-ss">'+sy+'</small>':'')+'</td>'
             +'<td class="s op-gizle-m">'+opSayi(r.d?r.d.cozulen:0)+'</td>'
-            +'<td>'+(o===null?'<span class="og-alt" style="font-size:13px">henüz yok</span>':'<div class="op-bar"><i><s style="width:'+o+'%;background:'+renk[du[0]]+'"></s></i>%'+o+'</div>')+'</td>'
+            +'<td>'+bar(r.d,du)+'</td>'
             +'<td class="op-gizle-m"><span class="op-et '+du[0]+'">'+du[1]+'</span></td>'
-            +'<td class="s">'+(r.sayfa?'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Çöz</a>':'')+'</td></tr>'; }).join('')
-        +'</table>'+(kalan>0?'<p class="og-alt" style="margin:8px 0 0;font-size:13px">'+kalan+' ders daha · <a class="og-link" href="'+devam+'">tüm dersler →</a></p>':'');
+            +'<td class="s">'+(r.sayfa?'<a class="og-btn op-coz" href="'+esc(r.sayfa)+'">Çöz</a>':'')+'</td></tr>'
+            +'<tr class="op-detay'+(ac?'':' og-gizli')+'"><td colspan="5">'+(ac?detay(r):'')+'</td></tr>'; }).join('')
+        +'</table>';
+      $('opDersler').onclick=function(e){ var b=e.target.closest&&e.target.closest('.op-ac'); if(!b) return;
+        var a=b.getAttribute('data-ders'), key=s+'|'+ad(a), tr=b.closest('tr'), dt=tr.nextElementSibling, r=satir.filter(function(x){ return x.ad===a; })[0];
+        OP_ACIK[key]=!OP_ACIK[key]; tr.classList.toggle('acik',OP_ACIK[key]); b.setAttribute('aria-expanded',OP_ACIK[key]);
+        if(OP_ACIK[key]&&r){ dt.firstChild.innerHTML=detay(r); } dt.classList.toggle('og-gizli',!OP_ACIK[key]); };
       $('opDersNot').textContent=OZET&&OZET.hata?'Hesap özeti şu an okunamadı; sayılar yenileyince gelir.'
-        :'Güçlü: doğru ≥ %70 · Orta: %55–69 · Zayıf: %55 altı (en az 20 cevapta). Sayılar hesabındaki cevaplardan, telefon ve bilgisayar birlikte.';
-      /* artılar / eksiler: en az 5 cevaplı konular */
-      var kon=K.map(function(x){ return { konu:x.konu, ders:x.ders, cv:+x.cevap, o:x.dogru/x.cevap, sayfa:(M[ad(x.ders)]||{}).sayfa }; });
+        :'Ders adına dokun: o dersin konu konu başarısı açılır. Güçlü: doğru ≥ %70 · Orta: %55–69 · Zayıf: %55 altı (derste en az 20, konuda en az 5 cevapta). Sayılar hesabındaki cevaplardan, telefon ve bilgisayar birlikte.'
+          +(ssTop?' "Sınavda N soru": TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi ders dağılımı.':'');
+      /* artılar / eksiler: en az 5 cevaplı konular (18.10: sunucu artık 1 cevaplı konuyu da döndürüyor; eşik burada) */
+      var kon=K.filter(function(x){ return +x.cevap>=5&&x.konu!=='Konusu işaretlenmemiş'; }).map(function(x){ return { konu:x.konu, ders:x.ders, cv:+x.cevap, o:x.dogru/x.cevap, sayfa:(M[ad(x.ders)]||{}).sayfa }; });
       var li=function(x,coz){ return '<li><span>'+esc(opBuyuk(x.konu))+'</span><small>%'+Math.round(100*x.o)+' · '+x.cv+' soru'+(coz&&x.sayfa?' · <a class="og-link" href="'+esc(x.sayfa)+'">çöz →</a>':'')+'</small></li>'; };
       var arti=kon.filter(function(x){ return x.o>=0.7; }).sort(function(a,b){ return (b.o-a.o)||(b.cv-a.cv); }).slice(0,3);
       var eksi=kon.filter(function(x){ return x.o<0.6; }).sort(function(a,b){ return (a.o-b.o)||(b.cv-a.cv); }).slice(0,3);
