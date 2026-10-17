@@ -5,6 +5,11 @@
 <!-- 08.10.2026 Meta isletme portfoyu (Dizdar Denetim Danismanlik ve Yazilim A.S.) alan adi dogrulamasi: Brand safety > Domains > tetikte.com. Silme: dogrulama duser. -->
 <meta name="facebook-domain-verification" content="m7ajjxzuc0u03adtbjbq0iu9ibocj6" />
 <script src="tema-bas.js"></script>
+<!-- 17.10 Cem ("bir ekranı üye olan ayrı olmayan ayrı görse, nasıl yapıyor profesyoneller" → "giriş yapmış üye ana sayfaya gelince doğrudan
+     Hesabım paneline gitsin; logo da üyede Hesabım'a götürsün"): Duolingo/UWorld düzeni - vitrin yalnız ziyaretçiye. Ölçüt menu.js ile aynı
+     (cihazda Supabase oturum anahtarı). İSTİSNA: günün sorusuna gelen (#ekran), sınav seçerek gelen (?sinav=), ana sayfayı isteyen (?ana=1).
+     Bayat anahtarda Hesabım giriş formunu gösterir (ogrenci.html ana sayfaya geri atmaz - döngü yok, 17.10 okundu). -->
+<script>try{ if(!/[?&](ana|sinav)=/.test(location.search) && !/^#ekran/.test(location.hash) && Object.keys(localStorage).some(function(k){ return k.indexOf('-auth-token')>-1; })) location.replace('ogrenci.html'); }catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Tetikte — SMMM Staja Giriş ve Yeterlilik sınavı: yanlışını sebebiyle birlikte öğren</title>

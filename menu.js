@@ -507,7 +507,8 @@ function ustSeritKur(){
   document.head.appendChild(st);
   var n=document.createElement('nav'); n.id='ttUst'; n.setAttribute('aria-label','Ana menü');
   function bag(h,y){ return '<a class="nl" href="'+KOK+h+'"'+(ad===h?' aria-current="page"':'')+'>'+y+'</a>'; }
-  n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+'index.html" aria-label="Tetikte ana sayfa" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
+  /* 17.10 Cem: logo üyede Hesabım'a (ana sayfa da üyeyi oraya yönlendirir; burada ara yükleme olmasın) */
+  n.innerHTML='<div class="ic"><a class="marka ust-logo" href="'+KOK+(uye?'ogrenci.html':'index.html')+'" aria-label="'+(uye?'Hesabım':'Tetikte ana sayfa')+'" style="--marka-olcu:28px"><span class="marka-lamba" aria-hidden="true"></span><b class="marka-ad">tet<span class="i">ı</span>kte</b></a><div class="navlinks">'+
     bag('sorular.html','Sınavlar')+bag('fiyat.html','Fiyatlar')+bag('ogrenci.html',uye?'Hesabım':'Giriş yap')+
     /* 04.10 Cem'in ekranı: giriş yapmış üyeye "Ücretsiz başla" çıkıyordu -> üyeye "Soru çöz" (sınav seçimi) */
     /* 17.10 Cem ("kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ziyaretçinin "Ücretsiz başla"sı 5 örnek soruya */
