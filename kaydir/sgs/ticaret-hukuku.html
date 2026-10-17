@@ -490,7 +490,14 @@ function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bi
   if(fark!==null&&fark>=10) yorum+=' Bir önceki sete göre belirgin ilerleme var.';
   if(fark!==null&&fark<=-10) yorum+=' Bir önceki sete göre düşüş var; yorulduysan kısa bir ara iyi gelir.';
   if(yet&&puan!==null) yorum+=puan>=50?' Bu performans barajın (50) üstünde.':' Baraj 50; aradaki farkı yanlış sayını azaltarak kapatırsın, çünkü her 4 yanlış 1 doğruyu götürür.';
-  try{ const L=JSON.parse(localStorage.getItem('kc_set_rapor')||'[]')||[]; L.push({ders:String((SORULAR[a]||{}).ders||''),set:no+1,dogru:ok,yanlis:yan,bos:bos,boy:boy,puan:puan,eksik:eksik.slice(0,5),t:Date.now()}); localStorage.setItem('kc_set_rapor',JSON.stringify(L.slice(-60))); }catch(e){}
+  try{ const L=JSON.parse(localStorage.getItem('kc_set_rapor')||'[]')||[]; L.push({sinav:(/\/smmm\//.test(location.pathname)?'smmm':/\/kgk\//.test(location.pathname)?'kgk':'sgs'),ders:String((SORULAR[a]||{}).ders||''),set:no+1,dogru:ok,yanlis:yan,bos:bos,boy:boy,puan:puan,eksik:eksik.slice(0,5),t:Date.now()}); localStorage.setItem('kc_set_rapor',JSON.stringify(L.slice(-60))); }catch(e){}
+  /* 18.10 madde 2: rapor HESABA da (ogrenci_sonuc tur='set', 2026-10-18-ogrenci-sonuc-set.sql; RLS yalnız kendi satırı, user_id
+     varsayılan auth.uid()). Girişsiz / vitrin / ağ yok -> sessiz, cihazdaki kayıt kalır. Okuyan: Hesabım ders detayı "set gelişimi". */
+  try{ const sb=window.__pkSb; if(sb&&sb.auth&&sb.from&&!VITRIN) sb.auth.getSession().then(s=>{ if(!(s&&s.data&&s.data.session)) return;
+    const sn=/\/smmm\//.test(location.pathname)?'smmm':/\/kgk\//.test(location.pathname)?'kgk':'sgs', sy=(location.pathname.split('/').pop()||'').replace(/\.html$/,'');
+    sb.from('ogrenci_sonuc').upsert([{tur:'set',sinav:sn,anahtar:('set-'+sy).slice(0,50)+'-'+(no+1)+'-'+Date.now().toString(36),
+      veri:{ders:String((SORULAR[a]||{}).ders||''),set:no+1,dogru:ok,yanlis:yan,bos:bos,boy:boy,puan:puan,eksik:eksik.slice(0,5).map(k=>String(k).slice(0,80)),tarih:new Date().toISOString()}}],
+      {onConflict:'user_id,tur,anahtar',ignoreDuplicates:true}).then(()=>{},()=>{}); },()=>{}); }catch(e){}
   gcOlay('set-kutusu/'+GC_YOL+'/goster','Set kutusu gösterildi');
   const renk=oran>=70?'var(--yesil)':oran>=50?'var(--altin)':'var(--kirmizi)';
   const satir=ks.slice(0,6).map(k=>{ const r=K[k], tam=r.d===r.t; return '<tr><td>'+esc(k)+'</td><td class="srS">'+r.d+' / '+r.t+'</td><td class="srS"><span class="srEt '+(tam?'iyi':r.d?'orta':'kotu')+'">'+(tam?'Tamam':r.d?'Eksik var':'Eksik')+'</span></td></tr>'; }).join('');
@@ -505,10 +512,16 @@ function setOzet(no){   /* no: biten set (0 tabanlı); hiç cevap yoksa ya da bi
     +(satir?'<table class="srTablo"><tr><th>Konu</th><th class="srS">Doğru</th><th class="srS">Durum</th></tr>'+satir+'</table>':'')
     +(guclu.length&&!eksik.length?'':(guclu.length?'<p class="srNot">Tam yaptığın: '+guclu.slice(0,3).map(esc).join(', ')+'</p>':''))
     +(yan?'<p class="srNot">'+yan+' yanlışın kutuna girdi; 2 gün sonra yeniden karşına çıkar.</p>':'')
-    +'<div class="srDug"><button type="button" class="btn ana setDevam">Sonraki sete geç · Set '+(no+2)+' ▶</button>'+(konuB?'<button type="button" class="btn mavi setKonuB">🎯 Önce bu konuyu çalış</button>':'')+(yan?'<button type="button" class="btn setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div></div>';
+    +'<div class="srDug"><button type="button" class="btn ana setDevam">Sonraki sete geç · Set '+(no+2)+' ▶</button>'+(konuB?'<button type="button" class="btn mavi setKonuB">🎯 Önce bu konuyu çalış</button>':'')+(yan?'<button type="button" class="btn mavi setTekrarB">🔁 Bu setin '+yan+' yanlışını yeniden çöz</button><button type="button" class="btn setKutuB">📥 Yanlışlarıma bak</button>':'')+'</div></div>';
   const kapat=()=>{ d.remove(); document.removeEventListener('keydown',esc_); }, esc_=e=>{ if(e.key==='Escape'){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } };
   d.addEventListener('click',e=>{ if(e.target===d||(e.target.closest&&e.target.closest('.setX'))){ gcOlay('set-kutusu/'+GC_YOL+'/kapat','Set kutusu: kapat'); kapat(); } }); d.querySelector('.setDevam').addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/devam','Set kutusu: sonraki set'); kapat(); });
   const kb=d.querySelector('.setKutuB'); if(kb) kb.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/yanlislarim','Set kutusu: yanlışlarım'); kapat(); kutuEkraniAc(); });
+  /* 18.10 madde 3 "Bu setin yanlışlarını yeniden çöz": kartSifirla ile yanlış kartlar yeniden cevaplanabilir olur (yanlış kutusu
+     kaydı silinmez; doğru yaparsan kutu kendi kuralıyla ilerler). window.__TK = sıra; "Sonraki" bu sırada ilerler, bitince Set n+2. */
+  const tb=d.querySelector('.setTekrarB'); if(tb) tb.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/tekrar','Set kutusu: yanlışları yeniden çöz'); kapat();
+    const L=[]; for(let j=a;j<b;j++){ if(durum.ok[j]===false) L.push(j); } if(!L.length) return;
+    window.__TK={liste:L,son:b}; L.slice().reverse().forEach(j=>kartSifirla(j));
+    try{ const u=document.createElement('div'); u.className='tekrarUyari'; u.style.bottom='auto'; u.style.top='64px'; u.innerHTML='<span class="tuMetin">🔁 <b>'+L.length+' yanlışını yeniden çözüyorsun.</b> "Sonraki" seni bir sonraki yanlışa götürür; bitince Set '+(no+2)+' başlar.</span><button type="button" class="tuKapat" aria-label="Kapat">✕</button>'; document.body.appendChild(u); u.querySelector('.tuKapat').addEventListener('click',()=>u.remove()); setTimeout(()=>{ try{ u.remove(); }catch(e){} },9000); }catch(e){} });
   const kk=d.querySelector('.setKonuB'); if(kk) kk.addEventListener('click',()=>{ gcOlay('set-kutusu/'+GC_YOL+'/konu','Set kutusu: bu konuyu çalış'); kk.disabled=true; setTimeout(()=>{ location.href=location.pathname+'?konu='+encodeURIComponent(zayif); },200); });
   document.addEventListener('keydown',esc_); document.body.appendChild(d); d.querySelector('.setDevam').focus(); }
 function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemede sonradan gelen kartlar da aynı kurulumla */
@@ -748,7 +761,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
   k.querySelector('.cCikmis').addEventListener('click',e=>{ const ic=k.querySelector('.cikmisIc'); if(!ic.innerHTML){ const c=s.cikmis||{yillar:[],ornekler:[]}; ic.innerHTML='<p>Bu konu çıkmış sınavlarda <b>'+((c.donemler&&c.donemler.length)||s.donem)+' dönemde</b> soruldu'+(c.donemler&&c.donemler.length?': <b>'+esc(c.donemler.join(', '))+'</b>.':'.')+'</p>'+(c.ornekler||[]).map(o=>'<div class="cikmisK"><span class="yil">'+esc(o.yil)+'</span> …'+esc(o.alinti)+'…</div>').join('')+((c.ornekler&&c.ornekler.length)?'<p class="ipnot">Alıntılar gerçek kitapçık metninden, kısaltılmış. Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>':'<p class="ipnot">Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>'); } sekAc('cikmis',e.currentTarget); });
   k.querySelector('.cKural').addEventListener('click',e=>sekAc('kuralK',e.currentTarget));
   k.querySelector('.bDiger').addEventListener('click',e=>{ const d=k.querySelector('.diger'); if(!d.innerHTML){ d.innerHTML=Object.keys(s.tuzak).sort().map(h=>'<div><b>'+h+')</b> <b style="color:var(--kirmizi)">'+esc(s.tuzak[h].ad)+':</b> '+esc(s.tuzak[h].metin)+'</div>').join(''); } sekAc('diger',e.currentTarget); });
-  k.querySelector('.bSonraki').addEventListener('click',()=>{ const n=akis.children[i+1]; if(n) n.scrollIntoView({behavior:'smooth'}); });
+  k.querySelector('.bSonraki').addEventListener('click',()=>{ const tk=window.__TK; if(tk&&tk.liste.indexOf(i)>-1){ const nx=tk.liste.find(x=>x>i&&durum.ok[x]===undefined); if(nx===undefined) window.__TK=null; const h=akis.children[nx!==undefined?nx:tk.son]; if(h){ h.scrollIntoView({behavior:'smooth'}); return; } } const n=akis.children[i+1]; if(n) n.scrollIntoView({behavior:'smooth'}); });   /* 18.10: yeniden çözmede sıradaki yanlışa */
   // --- surukleme oyunu
   const oyun=k.querySelector('.oyun'); const satirlar=oyun.querySelector('.satirlar');
   // 05.09 Cem "1.2 yap": kalem adındaki FORMÜL ipucu ("(100.000×0,80)") hem Nöbetçi tablosundan hem oyundan kalkar;

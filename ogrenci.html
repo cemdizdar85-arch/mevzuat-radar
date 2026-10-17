@@ -173,6 +173,11 @@
 .op-dk[open]>summary::after{transform:rotate(-135deg)}
 .op-dk>.og-satir{margin:0 14px;padding:12px 0;border-top:1px solid var(--line)}
 .op-dk-ad{display:flex;flex-direction:column;min-width:0}.op-dk-ad small{font-size:12.5px;color:var(--muted);font-weight:500}
+.op-dt-set{margin-top:12px;background:var(--panel);border-radius:10px;padding:12px}
+.op-dt-set-ust{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px}.op-dt-set-ust span{color:var(--muted);font-size:13px}
+.op-sutunlar{display:flex;align-items:flex-end;gap:8px;height:110px;margin-top:10px}
+.op-sutun{flex:1;max-width:56px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:2px}
+.op-sb{flex:1;width:100%;display:flex;align-items:flex-end}.op-sutun i{display:block;width:100%;border-radius:6px 6px 2px 2px}.op-sutun small{font-size:11.5px;font-weight:800;color:var(--ink)}.op-sutun em{font-style:normal;font-size:11px;color:var(--muted)}
 .op-dt-dk{margin-top:12px;background:var(--panel);border-radius:10px;padding:12px 12px 4px;border-left:4px solid var(--red)}
 .op-dt-dk>b{display:block;font-size:14px;margin:0 0 4px}
 .op-dt-dks{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
@@ -927,8 +932,11 @@
       if(r.error){ kasaVar=false; }
     }
     /* 2) hesaptakini oku - iki sınav birden; gösterim seçili sınava göre (ilerlemeCiz) */
-    var o=await sb.from('ogrenci_sonuc').select('tur,sinav,anahtar,veri,olusturma').in('sinav',['sgs','smmm','kgk']).order('olusturma',{ascending:true}).limit(500);
+    /* 18.10: tur='set' (ders sayfası set raporu) satırları ayrı okunur - 500 tavanına seviye/deneme kaydını itmesin */
+    var o=await sb.from('ogrenci_sonuc').select('tur,sinav,anahtar,veri,olusturma').in('sinav',['sgs','smmm','kgk']).in('tur',['seviye','deneme']).order('olusturma',{ascending:true}).limit(500);
     if(o.error){ kasaVar=false; } else { kasa=o.data||[]; }
+    try{ sb.from('ogrenci_sonuc').select('sinav,veri,olusturma').eq('tur','set').order('olusturma',{ascending:false}).limit(300).then(function(r){
+      if(r&&!r.error&&Array.isArray(r.data)){ window.OP_SET=r.data.map(function(x){ var v=x.veri||{}; v.sinav=x.sinav; v.t=v.t||Date.parse(x.olusturma)||0; return v; }); try{ panoCiz(); }catch(e){} } },function(){}); }catch(e){}
     if(!kasaVar){
       $('ogKasaUyari').classList.remove('og-gizli');
       $('ogKasaUyari').textContent='Sonuç kasası hazırlanıyor: şu an yalnız bu cihazdaki sonuçların görünüyor. Hazır olunca buradaki sonuçların hesabına kendiliğinden aktarılacak.';
@@ -1175,6 +1183,17 @@
         var dkHtml=!DK.length?'':'<div class="op-dt-dk"><b>Sık çıkıp hiç dokunmadığın konular · '+DK.length+'</b>'
           +DK.map(function(x){ return '<div class="op-dt-dks"><span>'+esc(x.konu)+'<small class="op-dt-alt">'+OP_DOK.donem+' dönemin '+x.donSay+' tanesinde soruldu · en son '+esc(x.son)+'</small></span>'
             +'<a class="og-btn op-coz" href="'+esc(x.sayfa||r.sayfa||'#')+'">Çöz</a></div>'; }).join('')+'</div>';
+        /* 18.10 (Cem "1.2.3" madde 1): SET GELİŞİMİ - ders sayfasındaki 20 soruluk set raporları (hesap: OP_SET, ogrenci_sonuc tur='set';
+           hesap boşsa bu cihazdaki kc_set_rapor). Son 8 set sütun grafiği + ilk sete göre değişim. 🚫 GÖRMEZ: 18.10 öncesi setler (kayıt yoktu). */
+        var SR=(Array.isArray(window.OP_SET)&&window.OP_SET.length?window.OP_SET:(function(){ var l=yerel('kc_set_rapor',[]); return Array.isArray(l)?l:[]; })())
+          .filter(function(x){ return x&&ad(x.ders)===ad(r.ad)&&(!x.sinav||x.sinav===kod)&&(+x.boy||0)>0; })
+          .sort(function(x,y){ return (+x.t||Date.parse(x.tarih)||0)-(+y.t||Date.parse(y.tarih)||0); }).slice(-8);
+        var setHtml='';
+        if(SR.length){ var orn=function(x){ var c=(+x.dogru||0)+(+x.yanlis||0); return c?Math.round(100*(+x.dogru||0)/c):0; }, ilk=orn(SR[0]), sonO=orn(SR[SR.length-1]);
+          setHtml='<div class="op-dt-set"><div class="op-dt-set-ust"><b>Set gelişimi</b><span>'+SR.length+' set · son set %'+sonO+(SR.length>1?' · ilk sete göre '+(sonO-ilk>=0?'+':'−')+Math.abs(sonO-ilk)+' puan':'')+'</span></div>'
+            +'<div class="op-sutunlar">'+SR.map(function(x){ var o=orn(x), rk=o>=70?'var(--green)':o>=55?'var(--amber-dolgu)':'var(--red)';
+              return '<div class="op-sutun" title="Set '+(+x.set||'')+' · '+(+x.dogru||0)+' doğru / '+(+x.yanlis||0)+' yanlış'+(x.puan!=null?' · '+x.puan+' puan':'')+'"><span class="op-sb"><i style="height:'+Math.max(4,o)+'%;background:'+rk+'"></i></span><small>%'+o+'</small><em>S'+(+x.set||'')+'</em></div>'; }).join('')+'</div></div>'; }
+        dkHtml=setHtml+dkHtml;
         if(OZET===null) return ust+'<p class="og-alt" style="margin:0">Konular okunuyor…</p>'+dkHtml;
         if(!KK.length) return ust+'<p class="og-alt" style="margin:0">Bu dersten henüz soru çözmedin. Çözmeye başlayınca konu konu doğru oranın burada görünür.</p>'+dkHtml;
         return ust+'<table class="op-tablo op-dt"><tr><th>Konu</th><th class="s op-gizle-m">Çözülen</th><th>Doğru</th><th class="op-gizle-m">Durum</th></tr>'
