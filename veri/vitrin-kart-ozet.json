@@ -1,74 +1,66 @@
 {
-  "olcum": "2026-10-14T23:51:43.821Z",
-  "gun": "2026-10-15",
+  "olcum": "2026-10-16T23:27:18.555Z",
+  "gun": "2026-10-17",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 7,
+      "sira": 9,
       "toplam": 10,
-      "id": "sgs-t1-meslek-kolay/kp-01",
-      "ders": "Meslek Hukuku",
-      "konu": "disiplin cezalari",
-      "donem": 11,
-      "teori": true,
+      "id": "sgs-t2-fmuh-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "konu": "tms 40 yatırım amaçlı gayrimenkul",
+      "donem": 8,
+      "teori": false,
       "rakamSik": false,
-      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
+      "soru": "İşletme, kira geliri elde etmek amacıyla kendi imkanlarıyla inşa ettirdiği ve gerçeğe uygun değer yöntemiyle izlenen yatırım amaçlı gayrimenkulünü 2026'da tamamlamıştır. İnşaat sürecinde arsa bedeli 850.000 TL, inşaat harcamaları 620.000 TL olup 258 Yapılmakta Olan Yatırımlar hesabındadır. Tamamlanma tarihindeki gerçeğe uygun değeri 1.610.000 TL'dir. Buna göre yapılacak kayıt aşağıdakilerden hangisidir?",
       "siklar": {
-        "A": "Uyarma",
-        "B": "Kınama",
-        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
-        "D": "Yeminli sıfatını kaldırma",
-        "E": "Meslekten çıkarma"
+        "A": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 140.000 TL alacak kaydedilir.",
+        "B": "659 DİĞER OLAĞAN GİDER VE ZARARLAR hesabı 140.000 TL borç kaydedilir.",
+        "C": "258 YAPILMAKTA OLAN YATIRIMLAR hesabı 140.000 TL borç kaydedilir.",
+        "D": "649 DİĞER OLAĞAN GELİR VE KARLAR hesabı 990.000 TL alacak kaydedilir.",
+        "E": "Fark gerçekleşmemiş kâr sayıldığından hiçbir hesaba kaydedilmez, yalnız dipnotlarda açıklanır."
       },
-      "dogru": "E",
+      "dogru": "A",
       "tuzak": {
         "C": {
-          "ad": "Bağımsızlık İhlali Tuzağı",
-          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
+          "ad": "Hesap Seçimi Tuzağı",
+          "metin": "farkın, gayrimenkulün transfer edildiği 258 hesabına yazılacağını sanırsın. Doğrusu: 258 hesap yalnız defter değeriyle kapatılır, fark ayrı olarak gelir hesabına kaydedilir."
         },
-        "A": {
-          "ad": "İlk Aşama Tuzağı",
-          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
+        "E": {
+          "ad": "Kapsam Tuzağı",
+          "metin": "ihtiyatlılık düşüncesiyle gerçekleşmemiş kârın hiç kaydedilmeyeceğini sanırsın. Doğrusu: TMS 40 p.65 farkın muhasebeleştirilmemesine değil, doğrudan kâr/zarara yansıtılmasına hükmeder."
         },
         "D": {
-          "ad": "Yeminli Sıfatı Tuzağı",
-          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
+          "ad": "Tutar Tuzağı",
+          "metin": "arsa bedelini defter değerine katmayı unutup 1.610.000-620.000=990.000 hesaplarsın. Doğrusu: defter değeri arsa ve inşaat harcamalarının toplamıdır, 850.000+620.000=1.470.000 alınmalıdır."
         },
         "B": {
-          "ad": "Tekerrür Tuzağı",
-          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
+          "ad": "Taraf Tuzağı",
+          "metin": "farkın kâr olduğunu göremeyip zarar sanarak gider hesabına borç yazarsın. Doğrusu: gerçeğe uygun değer defter değerinden büyük olduğundan fark kârdır, gelir hesabına alacak kaydedilir."
         }
       },
-      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
+      "hap": "Kendi inşa edilen ve gerçeğe uygun değerle izlenen yatırım amaçlı gayrimenkul tamamlandığında, tamamlanma tarihindeki gerçeğe uygun değer ile önceki defter değeri arasındaki fark kâr veya zarar olarak finansal tablolara yansıtılır.",
       "satirlar": [
         [
-          "A) Uyarma",
-          "p.48/1"
+          "Toplam defter değeri (arsa + inşaat harcamaları)",
+          "1.470.000"
         ],
         [
-          "B) Kınama",
-          "p.48/1"
+          "Değerleme farkı (1.610.000 - 1.470.000)",
+          "140.000"
         ],
         [
-          "C) Geçici olarak mesleki faaliyetten alıkoyma",
-          "p.48/2"
-        ],
-        [
-          "D) Yeminli sıfatını kaldırma",
-          "p.48/1"
-        ],
-        [
-          "E) Meslekten çıkarma",
-          "p.48/2"
+          "649 Diğer Olağan Gelir ve Karlar hesabına alacak kaydedilecek tutar",
+          "140.000"
         ]
       ],
-      "dayanak": "3568 sayılı SMMM K. m.48",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=7",
+      "dayanak": "TMS 40 p.65",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=9",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -1,
+        "kalan_gun": -3,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +73,71 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 8,
+      "sira": 1,
       "toplam": 9,
-      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
+      "id": "smmm-4k-a-yfta-zor-r6/kp-01",
       "ders": "Finansal Tablolar ve Analizi",
-      "konu": "stok devir hızı",
-      "donem": 13,
+      "konu": "dikey yüzde analizi",
+      "donem": 14,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır?",
+      "soru": "İşletme, gelir tablosunun dikey yüzde analizinde net satışları taban almaktadır. Satılan malın maliyeti 720.000 ₺ ve net satışların %60'ı, brüt satış kârı net satışların %40'ı, faaliyet giderleri net satışların %25'idir. Faaliyet kârı kaç ₺'dir?",
       "siklar": {
-        "A": "4,5",
-        "B": "6,75",
-        "C": "9",
-        "D": "11",
-        "E": "13,5"
+        "A": "180.000",
+        "B": "270.000",
+        "C": "288.000",
+        "D": "300.000",
+        "E": "480.000"
       },
-      "dogru": "C",
+      "dogru": "A",
       "tuzak": {
-        "D": {
-          "ad": "Pay Karıştırma Tuzağı",
-          "metin": "pay (bölünen) olarak satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjı içerdiğinden kullanılmaz; payda ortalama s…"
+        "C": {
+          "ad": "Kademe Atlama Tuzağı",
+          "metin": "SMM tutarını net satış sanıp doğrudan brüt kâr yüzdesiyle çarptın (720.000x0,40). Doğrusu: önce net satış 1.200.000 bulunur, faaliyet kârı bu tutarın %15'idir, yani 180.000 ₺'dir."
         },
         "E": {
-          "ad": "Dönem Başı Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
+          "ad": "Katman Eksik Tuzağı",
+          "metin": "brüt satış kârını faaliyet giderlerini hiç düşmeden faaliyet kârı sandın (1.200.000x0,40). Doğrusu: faaliyet giderleri brüt kârdan düşülmeden faaliyet kârına ulaşılmaz; sonuç 180.000 ₺'dir."
         },
-        "A": {
-          "ad": "Toplam Stok Tuzağı",
-          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
+        "D": {
+          "ad": "Yön Karıştırma Tuzağı",
+          "metin": "faaliyet giderleri tutarını brüt kârdan düşmeyi atlayıp onu tek başına faaliyet kârı sandın (1.200.000x0,25). Doğrusu: faaliyet kârı, brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek (%15) hesaplanan tutardır, 180…"
         },
         "B": {
-          "ad": "Dönem Sonu Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: payda ortalama stok olmalıdır, dönem sonu tek bir andaki değerdir."
+          "ad": "Taban Karıştırma Tuzağı",
+          "metin": "SMM tutarını net satış yerine (1-SMM yüzdesi) ile bölerek net satışı 1.800.000 buldun, halbuki doğru işlem tutarın kendi yüzdesine bölünmesidir. Doğrusu: net satış 720.000/0,60=1.200.000 olup faaliyet kârı 180.000 ₺'dir."
         }
       },
-      "hap": "Stok devir hızının paydası her zaman ORTALAMA stoktur, payı ise satılan malın maliyetidir; satış hasılatı ya da tek bir dönem ucundaki stok kullanılmaz.",
+      "hap": "Gelir tablosu dikey yüzdelerinde taban net satışlardır; bilinen bir kalemin tutarı kendi yüzdesine bölünerek net satış, faaliyet kârı yüzdesi ise brüt kâr yüzdesinden faaliyet gideri yüzdesi düşülerek bulunur.",
       "satirlar": [
         [
-          "Dönem Başı Stok",
-          "30.000"
+          "Net Satışlar",
+          "720.000/0,60"
         ],
         [
-          "Dönem Sonu Stok",
-          "60.000"
+          "Brüt Satış Kârı",
+          "1.200.000x0,40"
         ],
         [
-          "Ortalama Stok",
-          "45.000"
+          "Faaliyet Giderleri",
+          "1.200.000x0,25"
         ],
         [
-          "Satılan Malın Maliyeti",
-          "405.000"
+          "Faaliyet Kârı Yüzdesi",
+          "%40-%25"
         ],
         [
-          "Stok Devir Hızı",
-          "9"
+          "Faaliyet Kârı",
+          "1.200.000x0,15"
         ]
       ],
-      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=8",
+      "dayanak": "Mali Tablolar Analizi - Dikey yüzde analizi: gelir tablosunda net satışlar taban (%100) alınır; faaliyet kârı = brüt satış kârı - faaliyet giderleri",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=1",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": 5,
+        "kalan_gun": 3,
         "durum": "DONGU",
         "mail_gunu": false
       },

@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261015074806
-Username: runnervmmprz5\runner
-RunAs User: runnervmmprz5\runner
+Start time: 20261016172851
+Username: runnervm8k3b6\runner
+RunAs User: runnervm8k3b6\runner
 Configuration Name: 
-Machine: runnervmmprz5 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/3b648e7b-4442-4b92-9025-e8acd49326bc.ps1'
-Process ID: 11402
+Machine: runnervm8k3b6 (Unix 6.17.0.1022)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/aa8e2ed1-f41f-4fee-aadd-0c8f2f079f62.ps1'
+Process ID: 11440
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -26,6 +26,8 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...60/172
   ...70/172
   ...80/172
+PS>TerminatingError(Invoke-WebRequest): "Name or service not known"
+PS>TerminatingError(Invoke-WebRequest): "Resource temporarily unavailable"
   ...90/172
   ...100/172
   ...110/172
@@ -35,14 +37,16 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 172
+  gercekten olculen (PDF geldi) : 170
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 0
+  inemeyen (istek dustu)        : 2
+     34284 (Name or service not known (www.mevzuat.gov.tr:443))
+     34304 (Resource temporarily unavailable (www.mevzuat.gov.tr:443))
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 170 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20261015082453
+End time: 20261016182036
 **********************

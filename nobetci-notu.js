@@ -103,12 +103,24 @@
       '#ttNn .dav{border:1px solid var(--cizgi);border-radius:12px;padding:10px 12px;margin:0 0 12px}',
       '#ttNn .d{display:grid;gap:8px;margin-top:6px}',
       '#ttNn .d a,#ttNn .d button{display:block;width:100%;box-sizing:border-box;text-align:center;font:inherit;font-weight:700;font-size:15px;padding:12px 14px;border-radius:12px;border:1px solid var(--cizgi);background:transparent;color:var(--yazi);text-decoration:none;cursor:pointer}',
-      '#ttNn .d .ana{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}'
+      '#ttNn .d .ana{background:var(--mavi);color:var(--ustYazi);border-color:var(--mavi)}',
+      /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): sağ üstte ✕, 44 px dokunma alanı */
+      '#ttNn .k{position:relative}#ttNn .nnX{position:absolute;top:6px;right:6px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:none;color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}#ttNn .etk{padding-right:44px}'
     ].join('\n');
     document.head.appendChild(s);
   }
   function kapat() { var e = document.getElementById('ttNn'); if (e) e.classList.remove('acik'); }
+  if (typeof document !== 'undefined') document.addEventListener('keydown', function (x) { if (x.key === 'Escape') kapat(); });
   function goster(d, davet) {
+    /* 15.10 üye denemesi: 20., 40. … cevapta set kutusu (.setOzet) ile bu not AYNI ANDA açılıyor, set kutusu notun ✕'ini örtüyordu
+       (kullanıcı üst üste iki pencere görüyordu) → set kutusu açıkken not bekler, kutu kapanınca gelir (en çok 10 dk). */
+    var bekleyen = 0;
+    (function sira() {
+      if (document.querySelector('.setOzet') && ++bekleyen < 1200) return setTimeout(sira, 500);
+      goster_(d, davet);
+    })();
+  }
+  function goster_(d, davet) {
     veriAl().then(function (v) {
       var o = ozet(d.son, v.idKonu, v.kanit), z = o.zayif, h = '';
       var deneme = A.kok + 'sinav-gibi.html?tur=ders&sinav=smmm&ders=' + encodeURIComponent(v.ders);
@@ -133,8 +145,9 @@
       var e = document.getElementById('ttNn');
       if (!e) { e = document.createElement('div'); e.id = 'ttNn'; e.setAttribute('role', 'dialog'); e.setAttribute('aria-modal', 'true'); e.setAttribute('aria-label', 'Nöbetçi notu'); document.body.appendChild(e);
         e.addEventListener('click', function (x) { if (x.target === e) kapat(); }); }
-      e.innerHTML = '<div class="k">' + h + '</div>';
+      e.innerHTML = '<div class="k"><button type="button" class="nnX" aria-label="Kapat">✕</button>' + h + '</div>';
       e.classList.add('acik');
+      e.querySelector('.nnX').onclick = kapat;
       var t = e.querySelector('[data-nn="tekrar"]'); if (t) t.onclick = function () { kapat(); try { A.tekrar(); } catch (x) {} };
       e.querySelector('[data-nn="devam"]').onclick = kapat;
       var ilk = e.querySelector('.d a, .d button'); if (ilk) try { ilk.focus({ preventScroll: true }); } catch (x) {}

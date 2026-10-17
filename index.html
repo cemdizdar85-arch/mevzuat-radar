@@ -326,10 +326,13 @@ footer p{margin:0 0 8px}
       <!-- 14.10 Cem ("kendimizi yanlış anlatıyoruz", "1 yap"): telefonda ilk ekranda "SMMM" kelimesi de sınav tarihi de yoktu;
            Instagram'dan gelen 2 saniyede neyin sitesinde olduğunu anlamıyordu (ig 11-13.10: 5.841 ziyaret → 41 örnek, Google %34 teste).
            Üst satır seçili sınavı + günü + kalan günü söyler (dugmeCiz kahUstCiz); başlık kimin için olduğunu söyler.
-           Test etkisi paragrafı aşağıda "Neden soruyla başlıyoruz?" bölümünde aynen duruyor. -->
+           Test etkisi paragrafı aşağıda "Konu ve soru neden bir arada?" bölümünde aynen duruyor.
+           16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor" → "önerini yapalım"): başlık "soru çözerek hazırlan" konuyu yok sayıyordu.
+           Konu özeti cevaptan sonra açılır (ölçüm 16.10: SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134) -> sıra
+           gerçeğe uygun: önce soru, sonra konu. "Ders / konu anlatımı" yazılmaz (5580). -->
       <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
-      <h1>SMMM sınavına soru çözerek hazırlan<em>.</em></h1>
-      <p class="alt">Her yanlışında neden yanlış olduğunu ve dayandığı maddeyi hemen görürsün. Çıkmış sınavlarda en sık sorulan konulardan.</p>
+      <h1>SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
+      <p class="alt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır. Çıkmış sınavlarda en sık sorulan konulardan.</p>
       <p class="secim-bas" id="secimBas">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas">
         <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
@@ -349,6 +352,11 @@ footer p{margin:0 0 8px}
         <a class="kah-link" id="cta2" href="fiyat.html">Paketleri gör</a>
       </div>
       <p class="durum" id="durum">Ücretsiz, üye olmadan · Her cevaptan sonra doğrusunu ve dayandığı maddeyi görürsün.</p>
+      <!-- 16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor, bizi almıyorlar"): konu içeriği her soruda var ama ilk ekranda
+           söylenmiyordu. Ölçüm 16.10 (paket_soru, veri.konuGiris.nedir dolu): SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134;
+           vitrin 5 örnek sorunun 5'inde. Panel cevaptan sonra açılır ("📌 Konu", "🎬 Nöbetçi anlatsın"). "Her soruda" denmez (SGS %97).
+           "Konu anlatımı / ders" yazılmaz (5580 kırmızı çizgisi). id yok: dugmeCiz #durum'u yeniden yazar, bunu yazmaz. -->
+      <p class="durum konu-satir"><b>Konuyu bilmiyorsan da başla.</b> Soruyu cevaplayınca o konunun özeti açılır, Nöbetçi adım adım anlatır.</p>
       <p class="uyg-indir" data-uygulama>Telefonda da çalış: <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Android uygulamasını Google Play'den indir →</a></p>
     </div>
 
@@ -429,11 +437,14 @@ footer p{margin:0 0 8px}
   <div class="ic biz">
     <img src="kurucu.jpg" width="480" height="600" loading="lazy" decoding="async" alt="Cem Dizdar, Tetikte'nin kurucusu">
     <div>
-      <h2 id="bizBas">Neden soruyla başlıyoruz?</h2>
+      <h2 id="bizBas">Konu ve soru neden bir arada?</h2>
       <!-- 05.10 Cem: "bilimsel olarak desteklenen sistemi ayağınıza getiriyoruz" çerçevesi. İddia YÖNTEM için (test etkisi);
            ürünün başarısı için "kanıtlandı" DENMEZ (Ticari Reklam Yön. m.9 ispat yükü). Yüzde/rakam makale okunmadan yazılmaz. -->
       <p>Araştırmalar uzun süredir aynı şeyi gösteriyor: bir konuyu tekrar tekrar okumak yerine kendini sınayarak hatırlamaya çalışan, öğrendiğini daha kalıcı tutuyor. Bilimde adı <b>test etkisi</b> (Roediger ve Karpicke, 2006; Dunlosky ve ark., 2013).</p>
-      <p>Tetikte bu yöntemi senin sınavına getiriyor: konuyu önce okutmuyor, <b>soruyla başlatıyor</b>. Yanlış yaptığında hangi tuzağa düştüğünü ve sorunun dayandığı maddeyi hemen gösteriyor. Binlerce soruyu bu düzende yazdık; her biri yayına çıkmadan önce birden fazla denetimden geçiyor.</p>
+      <!-- 16.10 Cem: "konuyu önce okutmuyor" cümlesi "konu yok" diye okunuyordu. Harita / terimler / sınav nasıl sorar =
+           "🎬 Nöbetçi anlatsın" 0. adımının bölümleri (kaydir şablonu, konuGiris.harita varsa). Ölçüm 16.10 harita+desen:
+           SGS 4.793 · Yeterlilik 3.874 · KGK 1.118/1.131; terim sayısı soruya göre değişir -> "dört" yazılmaz. "Her soruda" denmez. -->
+      <p>Tetikte bu yöntemi senin sınavına getiriyor. Sayfalarca okuyup sonra soruya geçmiyorsun: <b>soruyla başlıyorsun, cevabını verdiğin anda o konunun özeti açılıyor.</b> Konunun haritasını, temel terimlerini ve sınavın onu nasıl sorduğunu orada görürsün; istersen Nöbetçi konuyu adım adım anlatır. Yanlış yaptıysan hangi tuzağa düştüğünü ve sorunun dayandığı maddeyi de gösterir. Konuyu bilmeden başlayan da bu düzende ilerler. Binlerce soruyu bu düzende yazdık; her biri yayına çıkmadan önce birden fazla denetimden geçiyor.</p>
       <!-- 05.10 Cem: seviyeye göre sıra (motor/kaydir-coz.ps1 SIRA_NOTU) canlıya geçince yazıldı -->
       <p><b>Önce seviyeni ölçüyoruz.</b> Bir derste zayıfsan o derste kolay sorulardan başlıyorsun, adım adım zor ve çok zor sorulara çıkıyorsun. Güçlüysen doğrudan zor sorulardan başlıyoruz.</p>
       <!-- 05.10 Cem: "ekip var" (Dizdar Denetim'de soruları okuyan / Ekibe sor'a cevap veren kişiler) → "ekip" yazılır.

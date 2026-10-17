@@ -3,21 +3,21 @@
 > Türetilmiştir (`arac/kgk-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (24 sınav). Eski genel muhasebe konuları hedef dışı. Genel Hukuk (2022'den beri sınavda yok) sayılmaz.
 > Eşleme sözlüğü: `veri/sinav/kgk-konu-es.json`. Tam liste: `veri/fabrika/kgk-konu-kapsama.csv`.
 
-Sitede (paket_soru, sinav=kgk): **793** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
+Sitede (paket_soru, sinav=kgk): **1.134** soru · konu kümesi: 2.440 · sözlükte olmayan arşiv etiketi: **0**
 
-**TOPLAM: hedef 4.229 · sitede 793 · EKSİK 3.464** (1.893 konu)
+**TOPLAM: hedef 4.229 · sitede 1.134 · EKSİK 3.164** (1.893 konu)
 
 | Modül | Hedefli konu | Son 10 yılda çıkan | Hedef | Sitede | EKSİK | VAR | AZ | Hiç yok (2+ sınav) | Hiç yok (1 sınav) | Eski muhasebe konusu |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| a) Türkiye Muhasebe Standartları | 359 | 852 | 852 | 102 | **750** | 4 | 41 | 127 | 187 | 311 |
-| b) Türkiye Denetim Standartları | 355 | 830 | 830 | 352 | **478** | 26 | 59 | 81 | 189 | 0 |
-| c) Finansal Yönetim | 260 | 636 | 636 | 141 | **498** | 6 | 60 | 54 | 140 | 0 |
+| a) Türkiye Muhasebe Standartları | 359 | 852 | 852 | 262 | **601** | 31 | 88 | 53 | 187 | 311 |
+| b) Türkiye Denetim Standartları | 355 | 830 | 830 | 388 | **447** | 37 | 62 | 67 | 189 | 0 |
+| c) Finansal Yönetim | 260 | 636 | 636 | 186 | **462** | 22 | 64 | 34 | 140 | 0 |
 | ç) Sermaye Piyasası Mevzuatı | 200 | 484 | 484 | 50 | **434** | 1 | 23 | 71 | 105 | 0 |
 | d) Bankacılık Mevzuatı | 198 | 465 | 465 | 33 | **432** | 0 | 20 | 72 | 106 | 0 |
-| e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 13 | **408** | 0 | 7 | 79 | 145 | 0 |
-| c) Kurumsal Yönetim | 104 | 254 | 254 | 61 | **193** | 5 | 23 | 20 | 56 | 0 |
-| f) Sürdürülebilirlik Raporlaması | 139 | 226 | 226 | 16 | **210** | 1 | 5 | 37 | 96 | 0 |
-| g) Sürdürülebilirlik Denetimi | 47 | 61 | 61 | 0 | **61** | 0 | 0 | 13 | 34 | 0 |
+| e) Sigortacılık ve Özel Emeklilik | 231 | 421 | 421 | 42 | **379** | 3 | 18 | 65 | 145 | 0 |
+| c) Kurumsal Yönetim | 104 | 254 | 254 | 85 | **171** | 14 | 26 | 10 | 54 | 0 |
+| f) Sürdürülebilirlik Raporlaması | 139 | 226 | 226 | 31 | **198** | 7 | 5 | 31 | 96 | 0 |
+| g) Sürdürülebilirlik Denetimi | 47 | 61 | 61 | 32 | **40** | 13 | 0 | 5 | 29 | 0 |
 | Kurumsal Yönetim | 0 | 0 | 0 | 10 | **0** | 0 | 0 | 0 | 0 | 0 |
 | Sermaye Piyasası Mevzuatı | 0 | 0 | 0 | 1 | **0** | 0 | 0 | 0 | 0 | 0 |
 | Sürdürülebilirlik Denetimi | 0 | 0 | 0 | 4 | **0** | 0 | 0 | 0 | 0 | 0 |
@@ -25,9 +25,9 @@ Sitede (paket_soru, sinav=kgk): **793** soru · konu kümesi: 2.440 · sözlükt
 
 ## Eksik — sıklık katmanı (plan bu sırayla kurulur)
 
-- Hedefi 5+ soru olan konular: **193 konu / 990 soru**
-- Hedefi 2–4 soru: 607 konu / 1424 soru
-- Hedefi 1 soru: 1050 konu / 1050 soru
+- Hedefi 5+ soru olan konular: **193 konu / 986 soru**
+- Hedefi 2–4 soru: 527 konu / 1133 soru
+- Hedefi 1 soru: 1045 konu / 1045 soru
 
 ## En büyük 40 eksik
 

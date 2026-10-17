@@ -1,0 +1,156 @@
+# ============================================================================
+#  MOBIL - CIHAZ PROVASI (Android emulator)  (15.10.2026, Cem "bunu deneyebilirsin")
+#
+#  Ne yapar: mobil-android.yml ile AYNI icerik + AYNI imza + AYNI R8 ayariyla APK derler
+#  (Play'e gonderilen AAB ile ayni kod; yalniz paket bicimi farkli), Android 14 emulatorune
+#  kurar, mobil/cihaz-prova.js ile gezer: acilis, alt menu, ucretsiz ornek soru (sikka dokun),
+#  Ders ders coz -> Denetim (girissiz perde), cokme/ANR/R8 sinif kaybi.
+#
+#  Bedel: 0 TL (depo public). Play'e YUKLEMEZ.
+#  Kanit: ekran goruntuleri SIFRELI artifact (RSA acik anahtar mobil/prova-acik.pem; ozel anahtar
+#  yalniz Cem'in makinesinde C:\TETIKTE-YEDEK\mobil\prova-anahtar). Gunluge yalniz etiket + sayi.
+#  GORMEZ: girisli uye akisi, paketli ders sayfasi, gercek telefon basarimi, iOS (cihaz-prova.js basi).
+# ============================================================================
+name: Mobil - Cihaz provasi (emulator)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobil-cihaz-prova
+  cancel-in-progress: true
+
+jobs:
+  prova:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ANAHTAR_SIFRE: ${{ secrets.MOBIL_ANDROID_ANAHTAR_SIFRE }}
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Icerik kapisi oz-sinavi + icerik derleme
+        working-directory: mobil
+        env:
+          TT_DERLEME: ${{ github.run_number }}
+        run: |
+          node hazirla-sinavi.js
+          node hazirla.js
+
+      - name: Paketler
+        working-directory: mobil
+        run: npm ci --no-audit --no-fund
+
+      - name: Android projesi (mobil-android.yml ile ayni)
+        working-directory: mobil
+        run: |
+          # YALNIZ PROVA: WebView hata ayiklama soketi acilir (cihaz-akis.js icinden surer). mobil-android.yml'de YOK -> Play derlemesi kapali.
+          node -e "const f='capacitor.config.json';const fs=require('fs');const c=JSON.parse(fs.readFileSync(f,'utf8'));c.android=Object.assign({},c.android,{webContentsDebuggingEnabled:true});fs.writeFileSync(f,JSON.stringify(c,null,2));"
+          npx cap add android
+          node ikon-uret.js
+          npx capacitor-assets generate --android --assetPath kaynak/uretilen
+          npx cap sync android
+          node -e "const f='android/app/src/main/AndroidManifest.xml';const fs=require('fs');let t=fs.readFileSync(f,'utf8');if(!/xmlns:tools=/.test(t))t=t.replace('<manifest ','<manifest xmlns:tools=\"http://schemas.android.com/tools\" ');t=t.replace('</manifest>','    <uses-permission android:name=\"android.permission.SCHEDULE_EXACT_ALARM\" tools:node=\"remove\"/>\n    <uses-permission android:name=\"android.permission.USE_EXACT_ALARM\" tools:node=\"remove\"/>\n</manifest>');fs.writeFileSync(f,t);"
+          cp android-ek/MainActivity.java android/app/src/main/java/com/tetikte/app/MainActivity.java
+          node -e "const f='android/app/src/main/AndroidManifest.xml';const fs=require('fs');let t=fs.readFileSync(f,'utf8');const i=t.indexOf('</activity>');if(i<0)throw 'activity yok';t=t.slice(0,i)+'    <intent-filter android:autoVerify=\"false\">\n                <action android:name=\"android.intent.action.VIEW\"/>\n                <category android:name=\"android.intent.category.DEFAULT\"/>\n                <category android:name=\"android.intent.category.BROWSABLE\"/>\n                <data android:scheme=\"com.tetikte.app\" android:host=\"giris\"/>\n            </intent-filter>\n        '+t.slice(i);fs.writeFileSync(f,t);"
+
+      - name: Surum + imza + R8 (mobil-android.yml ile ayni)
+        working-directory: mobil/android
+        env:
+          ANAHTAR_B64: ${{ secrets.MOBIL_ANDROID_ANAHTAR_B64 }}
+        run: |
+          SURUM=$(node -p "require('../package.json').version")
+          sed -i -E "s/versionName \"[^\"]*\"/versionName \"$SURUM\"/" app/build.gradle
+          echo "$ANAHTAR_B64" | base64 -d > app/yukleme.jks
+          cp ../android-ek/tetikte-proguard.pro app/tetikte-proguard.pro
+          cat >> app/build.gradle <<'EOF'
+
+          android {
+              signingConfigs {
+                  yukleme {
+                      storeFile file('yukleme.jks')
+                      storePassword System.getenv('ANAHTAR_SIFRE')
+                      keyAlias 'tetikte'
+                      keyPassword System.getenv('ANAHTAR_SIFRE')
+                  }
+              }
+              buildTypes {
+                  release {
+                      signingConfig signingConfigs.yukleme
+                      minifyEnabled true
+                      shrinkResources true
+                      setProguardFiles([getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'tetikte-proguard.pro'])
+                  }
+              }
+          }
+          EOF
+
+      - name: APK derle (release, R8)
+        working-directory: mobil/android
+        run: |
+          ./gradlew --no-daemon assembleRelease
+          rm -f app/yukleme.jks
+          ls -la app/build/outputs/apk/release/
+
+      - name: KVM ac (emulator hizlandirma)
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Emulatorde prova
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
+          script: |
+            adb install -r mobil/android/app/build/outputs/apk/release/app-release.apk
+            adb shell dumpsys package com.tetikte.app | grep -E "versionName|versionCode" | head -2
+            adb shell dumpsys package com.google.android.webview | grep versionName | head -1
+            sleep 20; adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS
+            node mobil/cihaz-akis.js kanit || echo "PROVA_KIRMIZI=1" >> $GITHUB_ENV
+
+      - name: Kaniti sifrele (RSA + AES)
+        if: always()
+        run: |
+          mkdir -p cikti
+          if [ -d kanit ]; then
+            tar czf kanit.tgz kanit
+            openssl rand -hex 32 > anahtar.txt
+            openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in kanit.tgz -out cikti/kanit.tgz.enc -pass file:anahtar.txt
+            openssl pkeyutl -encrypt -pubin -inkey mobil/prova-acik.pem -pkeyopt rsa_padding_mode:oaep -in anahtar.txt -out cikti/anahtar.bin.enc
+            rm -f anahtar.txt kanit.tgz
+            ls -la cikti
+          fi
+
+      - name: Sifreli kanit (3 gun)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cihaz-prova-${{ github.run_number }}
+          path: cikti/*.enc
+          retention-days: 3
+          if-no-files-found: warn
+
+      - name: Prova kirmiziysa isi KIRMIZI bitir
+        if: ${{ env.PROVA_KIRMIZI == '1' }}
+        run: |
+          echo "::error title=cihaz provasi::En az bir adim dustu - gunlukte DUSTU satirlarina bak"
+          exit 1

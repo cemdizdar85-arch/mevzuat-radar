@@ -11,39 +11,6 @@
     "geriye_bakis_gun":  30,
     "sira":  [
                  {
-                     "plan":  "veri/sinav/plan-kgk-t5-tms-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-15T08:18:42Z",
-                     "ekleyen":  "kgk-t5-sira",
-                     "yeniden":  false,
-                     "not":  "t5 tms-a 39 soru; Cem t5 tavani 33 USD"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t5-tms-b.json",
-                     "butce_usd":  "2.3",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-15T08:19:06Z",
-                     "ekleyen":  "kgk-t5-sira",
-                     "yeniden":  false,
-                     "not":  "t5 tms-b 19 soru; Cem t5 tavani 33 USD"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t5-tms-c.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-15T08:37:27Z",
-                     "ekleyen":  "kgk-t5-sira",
-                     "yeniden":  false,
-                     "not":  "t5 tms-c; Cem t5 tavani 33 USD"
-                 },
-                 {
                      "plan":  "veri/sinav/plan-kgk-t5-ky-a.json",
                      "butce_usd":  "2.6",
                      "paralel":  5,
@@ -64,6 +31,50 @@
                      "ekleyen":  "kgk-t5-sira",
                      "yeniden":  false,
                      "not":  "t5 fy-c; Cem t5 tavani 33 USD"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t5-ky-b.json",
+                     "butce_usd":  "2",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-15T09:00:05Z",
+                     "ekleyen":  "kgk-t5-sira",
+                     "yeniden":  false,
+                     "not":  "t5 ky-b; Cem t5 tavani 33 USD"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t5-sigorta-a.json",
+                     "butce_usd":  "2.3",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-15T09:50:30Z",
+                     "ekleyen":  "kgk-t5-sira",
+                     "yeniden":  false,
+                     "not":  "t5 sigorta-a; Cem t5 tavani 33 USD"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t5-tsrs-a.json",
+                     "butce_usd":  "2.2",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-15T09:50:52Z",
+                     "ekleyen":  "kgk-t5-sira",
+                     "yeniden":  false,
+                     "not":  "t5 tsrs-a; Cem t5 tavani 33 USD"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t5-gds-a.json",
+                     "butce_usd":  "4.7",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-15T10:15:21Z",
+                     "ekleyen":  "kgk-t5-sira",
+                     "yeniden":  false,
+                     "not":  "t5 gds-a; Cem t5 tavani 33 USD"
                  }
              ]
 }

@@ -109,7 +109,9 @@
     '#pkPerde a{display:block;margin:8px 0 0;padding:12px 14px;border-radius:11px;font-weight:750;font-size:15px;text-decoration:none;' +
     'border:1px solid var(--cizgi,var(--line2));color:var(--yazi,var(--ink))}' +
     '#pkPerde a.pk-ana{background:var(--mavi,var(--accent2));border-color:transparent;color:var(--ustYazi,var(--taban))}' +
-    '#pkPerde .pk-kilit{font-size:26px;margin-bottom:6px}';
+    '#pkPerde .pk-kilit{font-size:26px;margin-bottom:6px}' +
+    /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): perdede sağ üstte ✕ → Soru Çöz sayfasına döner (içerik yine açılmaz) */
+    '#pkPerde a.pk-x{position:absolute;top:10px;right:10px;width:44px;height:44px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;border:0;font:22px/1 system-ui,sans-serif}';
   (document.head || kok).appendChild(st);
   kok.classList.add('pk-bekle');
 
@@ -154,7 +156,7 @@
       var d = document.createElement('div');
       d.id = 'pkPerde';
       d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
-      d.innerHTML = '<div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
+      d.innerHTML = '<a class="pk-x" href="' + KOK + 'sorular.html' + (yetSayfa ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs') + '" aria-label="Kapat">✕</a><div class="pk-kutu"><div class="pk-kilit" aria-hidden="true">🔒</div><h2>' + baslik + '</h2><p>' + metin + '</p>' + dugmeler + '</div>';
       document.body.appendChild(d);
       document.body.style.overflow = 'hidden';
     };
@@ -183,7 +185,7 @@
       var calistir = function () { if (window.ttIlerlemeWeb) window.ttIlerlemeWeb.kur(sb, kullanici); };
       if (window.ttIlerlemeWeb) return calistir();
       var s = document.createElement('script');
-      s.src = KOK + 'ilerleme-web.js?v=20261012c';   /* 12.10: kaldığın yer kimlikle */
+      s.src = KOK + 'ilerleme-web.js?v=20261015y';   /* 12.10: kaldığın yer kimlikle */
       s.onload = calistir;
       (document.head || kok).appendChild(s);
     } catch (e) {}

@@ -99,6 +99,7 @@
       '#ckPerde button,#ckPerde a{display:block;width:100%;box-sizing:border-box;margin:8px 0 0;padding:12px 14px;border-radius:11px;font:inherit;font-weight:750;font-size:15px;' +
       'cursor:pointer;text-decoration:none;text-align:center;border:1px solid var(--cizgi,var(--line2));background:transparent;color:var(--yazi,var(--ink))}' +
       '#ckPerde .ck-ana{background:var(--mavi,var(--accent2));border-color:transparent;color:var(--ustYazi,var(--taban))}' +
+      '#ckPerde a.ck-x{position:absolute;top:10px;right:10px;width:44px;height:44px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;border:0;font:22px/1 system-ui,sans-serif}' +
       '#ckFiligran{position:fixed;inset:0;z-index:2147482000;pointer-events:none;overflow:hidden;user-select:none;-webkit-user-select:none}' +
       '#ckFiligran .ck-ic{position:absolute;left:-50%;top:-50%;width:200%;height:200%;transform:rotate(-24deg);' +
       'display:flex;flex-wrap:wrap;align-content:flex-start;gap:70px 90px;padding:40px;opacity:.07;color:var(--yazi,var(--ink));font:600 13px/1 system-ui,sans-serif}';
@@ -117,7 +118,8 @@
     var d = document.createElement('div');
     d.id = 'ckPerde';
     d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
-    d.innerHTML = '<div class="ck-kutu">' + html + '</div>';
+    /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): sağ üstte ✕ → Soru Çöz sayfasına döner (paket içeriği yine açılmaz) */
+    d.innerHTML = '<a class="ck-x" href="' + kokAdres() + 'sorular.html' + (/\/kaydir\/smmm\//.test(location.pathname) ? '#smmm' : /\/kaydir\/kgk\//.test(location.pathname) ? '#kgk' : '#sgs') + '" aria-label="Kapat">✕</a><div class="ck-kutu">' + html + '</div>';
     document.body.appendChild(d);
     document.body.style.overflow = 'hidden';
     return d;

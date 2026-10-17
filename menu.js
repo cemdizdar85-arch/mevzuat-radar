@@ -9,10 +9,12 @@ if(window.MRMenu) return;
    Gruplara/Instagram'a atılan link ?k=grup-whatsapp gibi bir etiket taşır (yoksa ?utm_source=). Etiket biçim
    süzgecinden geçer (küçük harf; a-z 0-9 _ -; en çok 32), cihazda 30 gün saklanır (son gelen link kazanır) ve
    oturumda etiket başına BİR ziyaret sayılır. Seviye testi başlayınca ttKaynak.olay('test'), hesap açılınca
-   ttKaynak.uye() (sunucu ayrıca bakar: hesap <= 2 gün, hesap başına 1). Etiketsiz gelende HİÇBİR istek gitmez.
+   ttKaynak.uye() (sunucu ayrıca bakar: hesap <= 2 gün, hesap başına 1). Etiketsiz gelende (16.10'dan beri: ne ?k=
+   ne tıklama kimliği ne tanınan yönlendiren site varsa) HİÇBİR istek gitmez.
    Sunucu: radar-app/sql/2026-10-08-kaynak-sayac.sql - yalnız gün + etiket + olay + adet; IP/e-posta yok.
    🚫 GÖRMEZ: linki etiketsiz paylaşan · depolaması kapalı tarayıcıda sonraki sayfadaki test/üyelik (ziyaret yine
-   sayılır) · linki bir cihazda açıp başka cihazda üye olan. */
+   sayılır) · linki bir cihazda açıp başka cihazda üye olan · yönlendireni gizleyen tarayıcı/uygulama (doğrudan
+   gelen gibi görünür) · ücretli ile ücretsiz Instagram'ı ayırmak (?k=ig yoksa ikisi de ref-instagram). */
 (function(){
   var SB='https://bjrleanjpyujtajmazxn.supabase.co', KEY='sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg';
   var DESEN=/^[a-z0-9][a-z0-9_-]{0,31}$/, OMUR=30*86400000, AD='tt_kaynak', OT='tt_kaynak_say', HESAP_GUN=2;
@@ -36,6 +38,26 @@ if(window.MRMenu) return;
   }
   var q=null; try{ q=new URLSearchParams(location.search); }catch(e){}
   var gelen=q?(suz(q.get('k'))||suz(q.get('utm_source'))):null;
+  /* 16.10 (Cem "üye çekemiyoruz"; ölçüldü: 13–16.10 açılan 23 hesabın 7'si etiketsiz bağlantıdan, ör. Instagram profil
+     linki): ?k= yoksa reklam tıklama kimliği ya da yönlendiren site OTOMATİK etiket olur. Yalnız etiket adı gider
+     (adres/kimlik değeri gitmez). Otomatik etiket cihazdaki geçerli bir etiketi EZMEZ; açık ?k= her zaman kazanır. */
+  var oto=null;
+  if(!gelen){
+    if(q&&(q.get('gclid')||q.get('gbraid')||q.get('wbraid'))) oto='gads';
+    else{
+      var rh=''; try{ rh=new URL(document.referrer).hostname.toLowerCase(); }catch(e){}
+      var ua=''; try{ ua=navigator.userAgent||''; }catch(e){}
+      if(/(^|\.)instagram\.com$/.test(rh)||/Instagram/.test(ua)) oto='ref-instagram';
+      else if(/(^|\.)facebook\.com$/.test(rh)||/FBAN|FBAV|FB_IAB/.test(ua)||(q&&q.get('fbclid'))) oto='ref-facebook';
+      else if(/(^|\.)google\.[a-z.]+$/.test(rh)) oto='ref-google';
+      else if(/(^|\.)(t\.me|telegram\.org)$/.test(rh)||/Telegram/.test(ua)) oto='ref-telegram';
+      else if(/(^|\.)(whatsapp\.com|wa\.me)$/.test(rh)||/WhatsApp/.test(ua)) oto='ref-whatsapp';
+      else if(/(^|\.)(tiktok\.com)$/.test(rh)||/musical_ly|BytedanceWebview/.test(ua)) oto='ref-tiktok';
+      else if(/(^|\.)(bing\.com|yandex\.[a-z.]+|duckduckgo\.com)$/.test(rh)) oto='ref-arama';
+    }
+    if(oto&&oku()) oto=null;   /* cihazda geçerli etiket var: o kalır, otomatik etiket sayılmaz */
+    gelen=oto;
+  }
   if(gelen){
     try{ localStorage.setItem(AD,JSON.stringify({k:gelen,t:Date.now()})); }catch(e){}
     try{ sessionStorage.setItem(AD,gelen); }catch(e){}
@@ -119,7 +141,7 @@ try {
 try {
   /* 09.10.2026: Pixel numarası girdi → ?v= ile eski (boş numaralı) kopya önbellekten gelmesin */
   if (!window.ttDonusum && !document.querySelector('script[src*="donusum.js"]')) {
-    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261011b'; dn.async = true;
+    var dn = document.createElement('script'); dn.src = '/donusum.js?v=20261016a'; dn.async = true;
     (document.head||document.documentElement).appendChild(dn);
   }
 } catch (e) {}
@@ -720,7 +742,10 @@ function ttSorguKapisi(anahtar){
     var d = document.createElement('div');
     d.id = 'ttDuvar';
     d.style.cssText = 'position:fixed;inset:0;background:rgba(3,6,10,.82);z-index:9999;display:grid;place-items:center;padding:20px';
-    d.innerHTML = '<div style="max-width:430px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
+    /* 15.10 Cem ("x işareti olmayan bir şey istemiyorum"): sağ üstte ✕ + boşluğa dokununca kapanır */
+    d.addEventListener('click', function (e) { if (e.target === d) d.remove(); });
+    d.innerHTML = '<div style="position:relative;max-width:430px;background:var(--kagit);border:1px solid rgba(255,194,75,.4);border-radius:16px;padding:26px;text-align:center;font-family:inherit">' +
+      '<button type="button" aria-label="Kapat" onclick="document.getElementById(\'ttDuvar\').remove()" style="position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:none;color:var(--ink);font:20px/1 system-ui,sans-serif;cursor:pointer">✕</button>' +
       '<div style="font-size:19px;font-weight:800;color:var(--ink);margin-bottom:8px">Bu ayın 5 bedava sorgusunu kullandın</div>' +
       '<div style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:16px">Ücretsiz üyelikte tüm araçlar sınırsız — üstelik panelde firmanı tanıt, robot seni ilgilendiren değişiklikte haber versin.</div>' +
       '<a href="radar-app.html" style="display:inline-block;background:linear-gradient(135deg,var(--marka-lamba-1),var(--marka-lamba-2));color:#0f1115;font-weight:800;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none">Ücretsiz üye ol →</a>' +
@@ -816,7 +841,7 @@ function ttSorguHakki(anahtar){
           + 'box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 18%,transparent);font-size:14px;line-height:1.4';
         d.innerHTML = '<span style="flex:1"><b>Ekibe sorduğun sorunun cevabı geldi.</b></span>'
           + '<a href="/ogrenci.html#ekipCevaplar" style="font-weight:700;white-space:nowrap;color:var(--ink)">Cevabı gör →</a>'
-          + '<button type="button" aria-label="Kapat" style="border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0 2px">✕</button>';
+          + '<button type="button" aria-label="Kapat" style="border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:0;width:44px;height:44px;margin:-10px -8px -10px 0;flex:0 0 44px">✕</button>';
         d.querySelector('button').addEventListener('click', function () {
           d.remove(); try { sessionStorage.setItem(AD, JSON.stringify({ kapali: true })); } catch (e) {}
         });

@@ -115,8 +115,13 @@
     '#ttListe .yazi{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:.9em;color:var(--dim)}',
     '#ttListe .yazi button{font:inherit;font-weight:800;min-width:44px;padding:6px 10px;border-radius:10px;border:1px solid var(--cizgi);background:transparent;color:var(--yazi);cursor:pointer}',
     '#ttListe .bos{grid-column:1/-1;color:var(--dim);font-size:.9em;padding:8px 0}',
-    '#ttSerit{position:fixed;left:50%;transform:translateX(-50%);top:calc(58px + ' + UST + ');z-index:2147480000;max-width:92%;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:999px;padding:8px 8px 8px 14px;display:flex;align-items:center;gap:10px;font-size:.85em;box-shadow:0 6px 20px rgba(0,0,0,.3)}',
+    /* 15.10 (Cem, tablet fotoğrafı "bildirim gelince bildirim tıklanmıyor"): şerit üstteydi (58px) ve sayfanın üstteki seviye
+       bildiriminin (tekrarUyari top:64px) ortasına biniyordu — "Seviyeni ölç →" bağlantısı şeridin altında kalıyordu, şeridin ✕'i
+       yoktu. Sitedeki şeritle (ilerleme-web.js, 682fa755) AYNI düzen: altta, "Bugün tekrar zamanı" şeridinin (bottom:18px)
+       üstünde, ✕ ile kapanır. */
+    '#ttSerit{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + ' + ALT + ');z-index:2147480000;max-width:92%;background:var(--kart);color:var(--yazi);border:1px solid var(--cizgi);border-radius:999px;padding:8px 8px 8px 14px;display:flex;align-items:center;gap:10px;font-size:.85em;box-shadow:0 6px 20px rgba(0,0,0,.3)}',
     '#ttSerit button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:6px 12px;background:var(--mavi);color:var(--ustYazi,#fff);cursor:pointer}',
+    '#ttSerit button.ttSeritX{font:16px/1 system-ui,sans-serif;font-weight:400;background:none;color:var(--yazi);width:44px;height:44px;flex:0 0 44px;padding:0;margin:-6px -4px -6px 0}',
     '#akis>.kart.ttDisarda,#akis>.ttDisarda{display:none!important}',
     /* yazı boyutu: soru + şıklar + açıklama birlikte büyür */
     '#akis .govde,#akis .panel{zoom:var(--ttYazi,1)}'
@@ -150,6 +155,8 @@
     s = document.createElement('div'); s.id = 'ttSerit'; s.innerHTML = '<span></span>';
     s.firstChild.textContent = metin;
     if (dugme) { var b = document.createElement('button'); b.type = 'button'; b.textContent = dugme; b.onclick = function () { s.remove(); fn(); }; s.appendChild(b); }
+    var x = document.createElement('button'); x.type = 'button'; x.className = 'ttSeritX'; x.textContent = '✕'; x.setAttribute('aria-label', 'Kapat');
+    x.onclick = function () { s.remove(); }; s.appendChild(x);
     document.body.appendChild(s);
     if (sure) setTimeout(function () { if (s.parentNode) s.remove(); }, sure);
     return s;

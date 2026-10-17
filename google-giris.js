@@ -78,15 +78,27 @@
     var googleMu = (user.app_metadata && (user.app_metadata.provider === 'google' ||
       (user.app_metadata.providers || []).indexOf('google') > -1)) ||
       (user.identities || []).some(function(i){ return i && i.provider === 'google'; });
-    var onay = ss.al(ONAY);
-    if (!googleMu || !onay) return;
+    if (!googleMu) return;
     var meta = user.user_metadata || {};
+    var etiket = (function(){ try { return (window.ttKaynak && window.ttKaynak.etiket()) || null; } catch (e) { return null; } })();
+    /* 16.10: sessionStorage Google dönüşünde yeni sekmede boş kalabiliyor (ölçüldü: 13–14.10 dört Google hesabında
+       kosul_kabul YOK) → tıklama anı localStorage'a da yazılır, 30 dk geçerli. */
+    var onay = ss.al(ONAY);
+    if (!onay) { try { var lo = JSON.parse(localStorage.getItem(ONAY) || 'null');
+      if (lo && lo.t && Date.now() - Date.parse(lo.t) < 30 * 60000) onay = lo.t; } catch (e) {} }
+    try { localStorage.removeItem(ONAY); } catch (e) {}
+    if (!onay) {
+      /* tıklama anı bilinmiyor: onay alanlarına DOKUNULMAZ; yalnız yeni hesabın kaynak etiketi yazılır */
+      if (etiket && !meta.kaynak_etiket && Date.now() - Date.parse(user.created_at || '') < 2 * 86400000)
+        await sb.auth.updateUser({ data: { kaynak_etiket: etiket } });
+      return;
+    }
     ss.sil(ONAY);
     if (meta.kosul_kabul) return;
     await sb.auth.updateUser({ data: { hesap_turu: meta.hesap_turu || 'ogrenci', kaynak: meta.kaynak || 'site-google',
       kosul_kabul: onay, pazarlama_rizasi: false, riza_tarihi: null,
       elci_kodu: (function(){ try { return localStorage.getItem('tt_elci') || null; } catch (e) { return null; } })(),   /* 04.10: elçi izi */
-      kaynak_etiket: (function(){ try { return (window.ttKaynak && window.ttKaynak.etiket()) || null; } catch (e) { return null; } })() } });   /* 13.10: ?k= etiketi hesaba */
+      kaynak_etiket: etiket } });   /* 13.10: ?k= etiketi hesaba */
   }
 
   function kur(o){
@@ -113,13 +125,14 @@
     b.addEventListener('click', async function(){
       h.textContent = ''; b.disabled = true;
       ss.koy(ONAY, new Date().toISOString());
+      try { localStorage.setItem(ONAY, JSON.stringify({ t: new Date().toISOString() })); } catch (e) {}
       ss.koy(ARAMA, location.search || '');
       try {
         var r = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
         if (r && r.error) throw r.error;
         /* başarılıysa sayfa Google'a gider; buraya dönülmez */
       } catch(e) {
-        ss.sil(ONAY); ss.sil(ARAMA);
+        ss.sil(ONAY); ss.sil(ARAMA); try { localStorage.removeItem(ONAY); } catch (e2) {}
         h.textContent = 'Google girişi açılamadı. Tekrar dene ya da e-postayla devam et.';
         b.disabled = false;
       }

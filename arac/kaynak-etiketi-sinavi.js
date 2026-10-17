@@ -23,6 +23,10 @@ const MUTASYONLAR = {
   tur:       ["tur!=='test'||", ""],
   uyetek:    ["if(localStorage.getItem(AD+'_uye')===id) return;", ""],
   jeton:     ["if(jeton) h.Authorization='Bearer '+jeton;", ""],
+  otoezer:   ["if(oto&&oku()) oto=null;", ""],
+  gclid:     ["q.get('gclid')||q.get('gbraid')||q.get('wbraid')", "false"],
+  refig:     ["/(^|\\.)instagram\\.com$/.test(rh)||", ""],
+  refgoogle: ["/(^|\\.)google\\.[a-z.]+$/.test(rh)", "/./.test(rh)"],
 };
 
 function blokOku() {
@@ -58,6 +62,7 @@ function kos(blok, o) {
   const pencere = {};
   const ortam = {
     window: pencere, location: { search: o.search || '' },
+    document: { referrer: o.referrer || '' }, navigator: { userAgent: o.ua || 'Mozilla/5.0 (Windows NT 10.0) Chrome/130' }, URL,
     localStorage: o.ls, sessionStorage: o.ss, URLSearchParams, JSON, Date: o.Date || Date, Object, String, Promise,
     fetch: (url, ayar) => { istekler.push({ url, ayar, govde: JSON.parse(ayar.body) });
       return o.fetchHata ? Promise.reject(new Error('ag')) : Promise.resolve({ ok: true, json: () => Promise.resolve(true) }); },
@@ -112,6 +117,33 @@ async function sinav() {
     const giden = r.istekler.length ? r.istekler[0].govde.p_etiket : null;
     vaka('süzgeç ' + s + ' → ' + bek, giden === bek && r.istekler.length === (bek ? 1 : 0));
   }
+
+  // 4b) 16.10 otomatik etiket: tıklama kimliği / yönlendiren site; açık ?k= kazanır, cihazdaki etiketi ezmez
+  { const oto = [
+      [{ search: '?gclid=ABC123' }, 'gads'], [{ search: '?gbraid=x' }, 'gads'],
+      [{ referrer: 'https://l.instagram.com/?u=https%3A%2F%2Ftetikte.com' }, 'ref-instagram'],
+      [{ referrer: 'https://www.instagram.com/' }, 'ref-instagram'],
+      [{ ua: 'Mozilla/5.0 (iPhone) Instagram 300.0' }, 'ref-instagram'],
+      [{ referrer: 'https://lm.facebook.com/' }, 'ref-facebook'], [{ search: '?fbclid=IwAR0' }, 'ref-facebook'],
+      [{ referrer: 'https://www.google.com.tr/' }, 'ref-google'], [{ referrer: 'https://www.google.com/' }, 'ref-google'],
+      [{ referrer: 'https://t.me/tetiktecom' }, 'ref-telegram'], [{ referrer: 'https://www.bing.com/' }, 'ref-arama'],
+      [{ referrer: 'https://tetikte.com/fiyat.html' }, null], [{ referrer: 'https://googleevil.com/' }, null],
+      [{ referrer: 'https://notinstagram.com.evil.net/' }, null], [{ referrer: 'bozuk adres' }, null], [{}, null],
+      [{ search: '?k=ig&gclid=X', referrer: 'https://www.google.com/' }, 'ig'],
+      [{ search: '?k=ig', ua: 'Instagram 300' }, 'ig'] ];
+    for (const [o, bek] of oto) {
+      const r = kos(blok, { ls: depo(), ss: depo(), search: o.search || '', referrer: o.referrer, ua: o.ua });
+      const giden = r.istekler.length ? r.istekler[0].govde.p_etiket : null;
+      vaka('otomatik ' + JSON.stringify(o) + ' → ' + bek, giden === bek && r.istekler.length === (bek ? 1 : 0));
+    }
+    const l = depo(); kos(blok, { ls: l, ss: depo(), search: '?k=ig' });
+    const r = kos(blok, { ls: l, ss: depo(), search: '', referrer: 'https://www.google.com/' });
+    vaka('cihazda ig varken Google yönlendirmesi etiketi ezmez, ziyaret saymaz', r.istekler.length === 0 && (etiketDegeri(l) || {}).k === 'ig');
+    const r2 = kos(blok, { ls: l, ss: depo(), search: '?k=gads' });
+    vaka('açık ?k= cihazdaki etiketi ezer', r2.istekler.length === 1 && (etiketDegeri(l) || {}).k === 'gads');
+    const l2 = depo(); kos(blok, { ls: l2, ss: depo(), search: '', referrer: 'https://www.instagram.com/' });
+    const r3 = kos(blok, { ls: l2, ss: depo(), search: '' }); r3.ke.olay('test');
+    vaka('otomatik etiket sonraki sayfada test olayını taşır', r3.istekler.length === 1 && r3.istekler[0].govde.p_etiket === 'ref-instagram'); }
 
   // 5) üyelik
   const simdi = Date.now();
