@@ -540,6 +540,10 @@ function sinavAc(anahtarB64){
     if(es && es.bitti){ teslim(false); return; }
     document.getElementById('sinavEkran').style.display = 'block';
     document.body.classList.add('sinavda');   /* 17.10: sınav boyunca çerez bandı + alt menü gizli (gezinmeyi örtmesin) */
+    /* 17.10 Cem ("soru çözerken başka bir yere basınca tekrar giremiyorum"): sınav sürerken sayfadan çıkış tarayıcı onayı ister.
+       Çıkılsa bile cevaplar cihazda; sayfaya dönünce kaldığı sorudan devam eder (ana sayfada "Kaldığın yerden devam et" şeridi). */
+    if(!window.__cikisUyari){ window.__cikisUyari = true;
+      window.addEventListener('beforeunload', function(e){ if(document.body.classList.contains('sinavda') && !CANLI.bitti){ e.preventDefault(); e.returnValue = ''; return ''; } }); }
     durumYaz();
     sayacIsle(); soruGoster();
   }).catch(function(){ document.getElementById('salonDurum').textContent = 'Anahtar çözülemedi, sayfayı yenileyip tekrar dene.'; });

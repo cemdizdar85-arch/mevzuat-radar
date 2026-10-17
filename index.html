@@ -524,6 +524,18 @@ footer p{margin:0 0 8px}
       var k=s.querySelector('[data-kapat]'); if(k) k.onclick=function(){ s.hidden=true; try{ localStorage.setItem('tt_prova_serit',gun||'1'); }catch(e){} };
     };
     if(PROVA_DURUM){ return; }
+    /* 17.10 Cem ("soru çözerken başka bir yere basınca tekrar giremiyorum"): bu cihazda süresi bitmemiş yarım prova varsa
+       saatten bağımsız, kapatılmış olsa da "kaldığın yerden devam" şeridi (şerit 10:30'da kalkıyordu, dönüş yolu kayboluyordu). */
+    try{
+      for(var i=0;i<localStorage.length;i++){
+        var an=localStorage.key(i); if(!/^canliDurum-(SGS|YET)-\d{4}$/.test(an)) continue;
+        var y=JSON.parse(localStorage.getItem(an)||'null');
+        if(y&&y.bitisMs&&!y.bitti&&y.bitisMs>Date.now()){
+          var m0=s.querySelector('span'); m0.innerHTML='<b>Yarım kalan Sınav Provan var.</b> Cevapların bu cihazda duruyor. <a href="canli-deneme.html?k=devam">Kaldığın yerden devam et →</a>';
+          if(u) u.hidden=true; s.hidden=false; PROVA_DURUM='devam'; return;
+        }
+      }
+    }catch(e){}
     PROVA_DURUM='bekle';
     fetch('veri/canli-deneme.json?t='+Math.floor(Date.now()/60000)).then(function(r){ return r.ok?r.json():null; }).then(function(d){
       var simdi=Date.now(), GIRIS=30*60000;
