@@ -6,8 +6,8 @@ yz: hayir
      Instagram hikâye (3 kare) + gönderi açıklaması + Telegram/WhatsApp metni. Her gönderi Cem onayıyla.
      Dayanak (ölçüldü 17.10 07:50): tetikte.com ana sayfa şeridi saate göre "Salona git/gir"; sınav sayfası salonu 09:30'da açar,
      sorular 10:00'da anahtarla gelir, giriş 10:30'a kadar, süre 165 dk. Play'deki sürüm 1.8.5 (15.10): Sınav sekmesi → "Sınav provası"
-     kartı. iPhone uygulaması App Store incelemesinde → iPhone'dan site. Kayıt kesimi 16.10 23:59. Sonuç maili Cem onayı beklediği için
-     metinde YOK. -->
+     kartı. iPhone uygulaması App Store incelemesinde → iPhone'dan site. Kayıt kesimi 16.10 23:59. Sonuç maili: Cem 17.10 "toplu gönder" →
+     metne eklendi; gönderim sgs-1710-yuzdelik-sonuc-maili görevi (13:40). -->
 
 ## Hikâye — kare 1
 
@@ -54,6 +54,6 @@ iPhone kullanıyorsan tetikte.com'dan gir.
 • Yalnız 16 Ekim 23:59'dan önce üye olanlar girebilir.
 • Sayfa yenilenirse aynı cihazda kaldığın yerden devam edersin.
 • "Sınavı bitir" dediğin anda sonucun ve cevap anahtarı açılır; her sorunun dayanaklı açıklaması üyelere açık.
-• Yüzdelik sıralaman (bu provaya katılan Tetikte üyeleri arasında) prova kapanınca aynı sayfada açıklanır.
+• Yüzdelik sıralaman (bu provaya katılan Tetikte üyeleri arasında) prova kapanınca aynı sayfada açıklanır; üyelere puanın, yüzdeliğin ve zayıf kaldığın dersle birlikte e-postayla da gönderilir.
 
 Tetikte'nin kendi deneme sınavıdır; TÜRMOB ve TESMER'in yaptığı resmî sınavlarla bağlantısı yoktur.
