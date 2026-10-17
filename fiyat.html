@@ -6,15 +6,18 @@
 <!-- 07.10 (Cem "baştan aşağı incele, görünüp kaybolan istemiyorum"): sınav süzgeci sayfa sonunda çalışıyordu; tarayıcı önce bütün
      sınavların kartlarını çizip sonra gizliyordu (canlı ölçüm: masaüstü yerleşim kayması 0,17-0,31, iyi sınır 0,1). Seçim burada,
      ilk çizimden önce okunur; aynı kural CSS ile uygulanır. Sondaki süzgeç aynen kalır (satırlar, toplam, takvim). -->
-<script>try{ var fsQ=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1], fsS=fsQ; if(!fsS){ try{ fsS=localStorage.getItem('tt_sinav'); }catch(e){} }
+<!-- 17.10 Cem (ekran görüntüsü: menüden "Fiyatlar" tek bir SGS kartı açıyordu; "SGS tüm paket ve yanında tek paket ... kurumsal
+     görünsün, aşağıya kayan şekilde olmasın"): süzgeç YALNIZ adreste açık ?sinav= varsa çalışır; cihazda kayıtlı sınav (tt_sinav) süzmez. -->
+<script>try{ var fsQ=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1], fsS=fsQ;
   if(fsS==='sgs'||fsS==='yeterlilik') document.documentElement.classList.add('fs-'+fsS);
   /* fiyatlar fiyat-motoru.js gelince dolar: o ana dek kartlar ve takvim görünmez (yer ayrılı) - "— TL" görünmesin */
   document.documentElement.classList.add('fy-bekle'); setTimeout(function(){ document.documentElement.classList.remove('fy-bekle'); },3000); }catch(e){}</script>
 <style>
 html.fs-sgs [data-sinav]:not([data-sinav="sgs"]),html.fs-yeterlilik [data-sinav]:not([data-sinav="yeterlilik"]){display:none}
-html.fs-sgs .kartlar,html.fs-yeterlilik .kartlar{grid-template-columns:minmax(0,460px);justify-content:center}
+html.fs-sgs .kartlar{grid-template-columns:minmax(0,460px);justify-content:center}
+html.fs-yeterlilik .kartlar{grid-template-columns:repeat(auto-fit,minmax(260px,420px));justify-content:center}   /* 17.10: Yeterlilik'te iki kart (ders ders · tüm dersler) */
 html.fs-yeterlilik .vurus,html.fs-yeterlilik #tesmerToplam{display:none}
-html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
+html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hidden}
 #tesmerToplam .t-sgs,html.fs-sgs #tesmerToplam .t-hepsi{display:none}
 @media(max-width:560px){#kotaTablo th:nth-child(4),#kotaTablo td:nth-child(4){display:none}}   /* 08.10: telefonda Kota sütunu harf harf kırılıyordu; bilgi kartta var */html.fs-sgs #tesmerToplam .t-sgs{display:inline}
 </style>
@@ -71,6 +74,17 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
   .kaynakNot a{ color:var(--link); }
 
   .kartlar{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin:8px 0 30px; }
+  /* 17.10 telefon özeti */
+  .fozet{ display:none; }
+  @media(max-width:760px){
+    .fozet{ display:grid; gap:8px; margin:14px 0 22px; }
+    .fozet .fz{ display:flex; align-items:center; gap:10px; padding:12px 12px 12px 14px; background:var(--kart); border:1px solid var(--line2); border-radius:12px; text-decoration:none; color:var(--ink); }
+    .fozet .fz span{ flex:1; min-width:0; font-size:14.5px; line-height:1.3; }
+    .fozet .fz strong{ font-size:15.5px; white-space:nowrap; }
+    .fozet .fz strong small{ font-size:11px; font-weight:600; color:var(--muted); }
+    .fozet .fz i{ font-style:normal; font-weight:800; font-size:14px; padding:8px 14px; border-radius:9px; background:var(--amber-dolgu); color:var(--amber-uzeri); }
+    .fozet p{ margin:2px 0 0; font-size:12.5px; color:var(--muted); text-align:center; }
+  }
   .kartlar.tek{ grid-template-columns:minmax(0,460px); justify-content:center; }
   .p{ background:var(--kart); border:1px solid var(--line); border-radius:14px;
       padding:22px 20px; display:flex; flex-direction:column; position:relative; }
@@ -151,30 +165,22 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
      UWorld CPA sayfası yalnız CPA planlarını gösterir. Ücretsiz kart SGS kartının altına tek satır olarak iner. -->
 <p class="kucuk" id="secSatir" hidden style="margin:0 0 22px;text-align:center"></p><!-- 08.10: 10px'te "SINAVI EN YAKIN" rozeti (top:-11px) bu satıra yapışıyordu -->
 
+<!-- 17.10 Cem ("aşağıya kayan şekilde olmasın"): telefonda kartlar alt alta uzuyor (ölçüm 360x740: ilk ekranda yalnız SGS kartı).
+     Telefona özel üç satırlık özet: paket · fiyat · Al. Rakam fiyat-motoru.js'ten (aşağıdaki betik), ayrıntı kartlarda. -->
+<div class="fozet" id="fozet">
+  <a class="fz" data-sinav="sgs" data-paket="sgs" href="satin-al.html?paket=sgs"><span><b>Staja Giriş</b> tüm paket</span><strong data-f>—</strong><i>Al</i></a>
+  <a class="fz" data-sinav="yeterlilik" data-paket="yeterlilik-1" href="satin-al.html?paket=yeterlilik-1"><span><b>Yeterlilik</b> tek ders</span><strong data-f>—</strong><i>Al</i></a>
+  <a class="fz" data-sinav="yeterlilik" data-paket="yeterlilik-tum" href="satin-al.html?paket=yeterlilik-tum"><span><b>Yeterlilik</b> tüm dersler</span><strong data-f>—</strong><i>Al</i></a>
+  <p>Fiyatlara KDV eklenir; KDV dahil toplam ve içerik aşağıdaki kartlarda.</p>
+</div>
+
 <div class="kartlar">
 
-  <div class="p" data-sinav="ucretsiz">
-    <h3>Ücretsiz</h3>
-    <div class="kim">Önce gör, sonra karar ver</div>
-    <div class="gunluk">0 <small>TL</small></div>
-    <div class="tutar">Süresiz</div>
-    <div class="kdv">Kart bilgisi istemiyoruz</div>
-    <ul>
-      <!-- 02.10 Cem: ücretsiz yol = 30 soruluk seviye testi. AÇILIŞ SONRASI günlük ücretsiz katman açılırsa geri al: "Günde 15 soru" + href deneme.html -->
-      <!-- 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): ücretsiz yol = 5 örnek soru -->
-      <li>5 örnek soru, üye olmadan</li>
-      <li>Her cevaptan sonra doğrusu, nedeni ve dayandığı madde</li>
-      <li>Form yok, kart bilgisi yok</li>
-      <li class="yok">Sınırsız soru</li>
-      <li class="yok">Birebir prova</li>
-      <li class="yok">En Çok Sorulan 20 Konu Denemesi</li>
-    </ul>
-    <a class="btn ikincil" href="kaydir/vitrin/ornek-sgs.html">5 örnek soru çöz</a>
-  </div>
-
+  <!-- 17.10 Cem ("SGS tüm paket ve yanında hemen tek paket ... kurumsal"): "Ücretsiz" kartı kalktı (ücretsiz yol kartların hemen
+       altındaki "Önce dene" kutusunda, 5 örnek soru); sıra: SGS tüm paket · Yeterlilik ders ders · Yeterlilik tüm dersler. -->
   <div class="p one" data-sinav="sgs">
     <span class="rozet">SINAVI EN YAKIN</span><!-- 07.10: "EN ÇOK SEÇİLEN" ölçülmemiş iddiaydı (henüz satış yok) -> doğru bilgi -->
-    <h3>Staja Giriş</h3>
+    <h3>Staja Giriş — tüm paket</h3>
     <div class="kim" id="erSgs">Sınavına kadar</div>
     <div class="gunluk" id="fySgs">— <small>TL</small></div>
     <!-- 08.10 Cem ("telefonda güzel görünmüyor"): ödenecek KDV dahil tutar ana fiyatın hemen altında; sonraki (liste) fiyat en sonda -->
@@ -197,17 +203,17 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
   <!-- 29.08: DERS BAZLI SATIS acildi. Yeterlilik'te ders ders kaliniyor;
        kaldigi 2 dersi olan adaya 8 derslik paket satmak onu disarida
        birakiyordu. Merdivenin her basamagi RESMI HARCTAN ucuz. -->
+  <!-- 17.10: tek ders kendi kartında (ana sayfa paket kartlarıyla aynı üçlü); 2-3 ders basamakları aynı kartta -->
   <div class="p" data-sinav="yeterlilik">
-    <h3>SMMM Yeterlilik</h3>
-    <div class="kim" id="erYet">Sınavına kadar</div>
-    <div class="gunluk" id="fyYet">— <small>TL</small></div>
-    <div class="kdv" id="khYet"></div>
-    <div class="kdv">tüm dersler · <span id="ktYet"></span></div>
-    <div class="liste" id="lsYet"></div>
-    <div class="kdv" id="ayYet" style="color:var(--ink);font-weight:700"></div><!-- 01.10: aynı dersleri ayrı paketlerle almanın en ucuz yolu (fiyat-motoru.js yeterlilikAyriEnAz) -->
+    <h3>SMMM Yeterlilik — tek ders</h3>
+    <div class="kim" id="erTek">Sınavına kadar</div>
+    <div class="gunluk" id="fyTek">— <small>TL</small></div>
+    <div class="kdv" id="khTek"></div>
+    <div class="kdv">1 sınav dersi · <span id="ktTek"></span></div>
+    <div class="liste" id="lsTek"></div>
     <!-- 04.10 Cem "bitirme tek ders alamıyor sanki" · 07.10 "tek ders ve 2, 3 fiyatlarını görse": her kutu ders seçimli ödemeye gider; fiyatlar fiyat-motoru.js'den -->
     <div class="dersMerdiven">
-      <b>Kaldığın sınav dersleri için soru bankası:</b>
+      <b>Birden çok dersten kaldıysan:</b>
       <div class="dm">
         <a href="satin-al.html?paket=yeterlilik-1"><span>1 sınav dersi</span><strong id="fyYet1">—</strong></a>
         <a href="satin-al.html?paket=yeterlilik-2"><span>2 sınav dersi</span><strong id="fyYet2">—</strong></a>
@@ -215,6 +221,22 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim{visibility:hidden}
       </div>
       <p>Sınav dersini ödeme adımında seçersin.</p>
     </div>
+    <ul>
+      <li>Kaldığın dersin bütün soruları</li>
+      <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
+      <li>Her sorunun <b>dayandığı madde</b> altında yazar</li>
+    </ul>
+    <a class="btn" href="satin-al.html?paket=yeterlilik-1">Satın al — açılış fiyatıyla</a>
+  </div>
+
+  <div class="p" data-sinav="yeterlilik">
+    <h3>SMMM Yeterlilik — tüm dersler</h3>
+    <div class="kim" id="erYet">Sınavına kadar</div>
+    <div class="gunluk" id="fyYet">— <small>TL</small></div>
+    <div class="kdv" id="khYet"></div>
+    <div class="kdv">8 ders · <span id="ktYet"></span></div>
+    <div class="liste" id="lsYet"></div>
+    <div class="kdv" id="ayYet" style="color:var(--ink);font-weight:700"></div><!-- 01.10: aynı dersleri ayrı paketlerle almanın en ucuz yolu (fiyat-motoru.js yeterlilikAyriEnAz) -->
     <ul>
       <li>Sınırsız soru: sekiz dersin tamamı</li>
       <li><b>Ders bazlı prova</b>: 100 üzerinden, baraj 50</li>
@@ -481,6 +503,9 @@ function kart(id, p){
 var KGK_KART_ID = (typeof KGK_PAKET_MERDIVENI !== 'undefined' && KGK_PAKET_MERDIVENI) ? 'kgk-3' : 'kgk-tum';
 var pSgs = paketBul('sgs'), pYet = paketBul('yeterlilik-tum'), pKgk = paketBul(KGK_KART_ID);
 kart('Sgs', pSgs); kart('Yet', pYet); kart('Kgk', pKgk);
+var pTek = paketBul('yeterlilik-1'); kart('Tek', pTek); document.getElementById('erTek').textContent = pTek.erisim;   /* 17.10: tek ders kartı */
+[].forEach.call(document.querySelectorAll('#fozet [data-paket]'), function(a){ var p = paketBul(a.getAttribute('data-paket')); if(!p){ a.hidden = true; return; }
+  a.querySelector('[data-f]').innerHTML = fiyatAnaHtml(p.id, p.fiyat); });   /* 17.10 telefon özeti: rakam motordan */
 
 // Erisim yazisi: "en yakin sinavi kapsamiyorsa ucretsiz uzatilir" kurali
 // motorda; sayfa onu yazar, ayri hesap yapmaz.
@@ -589,7 +614,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
   var ADLAR={ sgs:'Staja Giriş', yeterlilik:'SMMM Yeterlilik' };   /* 30.09: KGK gizli · 13.10: ICERIK_HAZIR.kgk açılınca süzgeçte */
   if(typeof ICERIK_HAZIR!=='undefined'&&ICERIK_HAZIR.kgk) ADLAR.kgk='KGK Bağımsız Denetçilik';
   var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1];
-  var sn=q; if(!sn){ try{ sn=localStorage.getItem('tt_sinav'); }catch(e){} }
+  var sn=q;   /* 17.10: cihazdaki tt_sinav artık süzmez (menüden gelen bütün paketleri görür) */
   if(!sn||sn==='hepsi'||!ADLAR[sn]) return;
   function gz(el,v){ if(el) el.style.display=v?'none':''; }
   var kutu=document.querySelector('.kartlar'); if(!kutu) return;
