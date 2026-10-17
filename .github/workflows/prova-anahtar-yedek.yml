@@ -1,0 +1,61 @@
+# .github/workflows/prova-anahtar-yedek.yml — SINAV PROVASI ANAHTARI BULUT YEDEĞİ (17.10.2026)
+#
+# Cem 17.10: "saat 10 sınav kesinlikle açılsın, ne gerekiyorsa yapalım". Anahtarı yayınlayan zamanlanmış görev ve yerel bekçi
+# AYNI bilgisayarda koşuyor (16.10 akşamı bilgisayar kapalıyken iki görev koşmadı). Bu iş o bilgisayardan bağımsız yedektir:
+# sınav saatinden sonra kovada anahtar yoksa, paketin anahtarla açıldığını sınar ve anahtarı Supabase kovasına yükler.
+# KAPILAR: (1) Türkiye saatiyle oturum tarihinin oturum saatinden ÖNCE asla yüklemez (workflow_dispatch dahil);
+#          (2) kovada anahtar zaten varsa dokunmaz; (3) depodaki paket anahtarla açılmazsa yüklemez, KIRMIZI biter.
+# Anahtar GitHub Secret'ta (CANLI_ANAHTAR_SGS_1710); günlüğe yazılmaz (::add-mask::). Depoya commit atmaz (kova birincil kanal).
+# 🚫 GÖRMEZ: GitHub cron gecikmesi (dakikalarca gecikebilir; bu yüzden birincil kanal değil, yedek) · YET-2410 (ayrı secret gerekir).
+name: Prova anahtari bulut yedegi
+
+on:
+  schedule:
+    - cron: '1,3,6,10,15,25 7 17 10 *'   # 17.10 10:01–10:25 TR (UTC+3)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prova-anahtar-yedek
+  cancel-in-progress: false
+
+jobs:
+  yedek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      OTURUM: SGS-1710
+      BAS_TR: '2026-10-17T10:00:00+03:00'
+      ANAHTAR: ${{ secrets.CANLI_ANAHTAR_SGS_1710 }}
+      SB_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Saat, kova ve paket kapisi + yukleme
+        run: |
+          set -euo pipefail
+          echo "::add-mask::$ANAHTAR"
+          simdi=$(date -u +%s); bas=$(date -d "$BAS_TR" +%s)
+          if [ "$simdi" -lt "$bas" ]; then echo "Oturum saatinden once - yuklenmez."; exit 0; fi
+          if [ "$simdi" -gt $((bas + 4*3600)) ]; then echo "Oturum penceresi gecti - is yok."; exit 0; fi
+          KOVA="https://bjrleanjpyujtajmazxn.supabase.co/storage/v1/object/public/canli/anahtar-$OTURUM.json"
+          kod=$(curl -s -o /dev/null -w '%{http_code}' "$KOVA?t=$(date +%s)")
+          if [ "$kod" = "200" ]; then echo "Kovada anahtar ZATEN VAR - dokunulmadi."; exit 0; fi
+          echo "Kovada anahtar yok (HTTP $kod) - yedek devreye giriyor."
+          node -e '
+            const fs=require("fs"),c=require("crypto");
+            const p=JSON.parse(fs.readFileSync("veri/canli/"+process.env.OTURUM+".enc.json","utf8").replace(/^﻿/,""));
+            const d=c.createDecipheriv("aes-256-cbc",Buffer.from(process.env.ANAHTAR,"base64"),Buffer.from(p.iv,"base64"));
+            const j=JSON.parse(Buffer.concat([d.update(Buffer.from(p.veri,"base64")),d.final()]).toString("utf8"));
+            if(!j.sorular||j.sorular.length<50) throw new Error("paket eksik");
+            console.log("paket anahtarla acildi: "+j.sorular.length+" soru");'
+          yayin=$(TZ=Europe/Istanbul date +'%d.%m.%Y %H:%M:%S')
+          govde=$(node -e 'console.log(JSON.stringify({oturum:process.env.OTURUM,anahtar:process.env.ANAHTAR,yayin:process.argv[1]}))' "$yayin")
+          kod=$(curl -s -o /dev/null -w '%{http_code}' -X POST "https://bjrleanjpyujtajmazxn.supabase.co/storage/v1/object/canli/anahtar-$OTURUM.json" \
+            -H "apikey: $SB_KEY" -H "Authorization: Bearer $SB_KEY" -H 'Content-Type: application/json' -H 'x-upsert: true' --data "$govde")
+          echo "kova yukleme HTTP $kod"
+          sleep 3
+          son=$(curl -s -o /dev/null -w '%{http_code}' "$KOVA?t=$(date +%s)")
+          echo "kova okuma HTTP $son"
+          [ "$son" = "200" ] || { echo "KIRMIZI: anahtar kovada gorunmuyor"; exit 1; }
