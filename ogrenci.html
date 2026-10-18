@@ -42,7 +42,14 @@
   #ogGiris .og-iki{grid-template-columns:minmax(0,1fr) 420px;gap:0;align-items:stretch;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--panel);box-shadow:0 18px 50px color-mix(in srgb,var(--ink) 8%,transparent)}
   #ogGiris .og-marka{position:relative;padding:40px 40px 32px;background:linear-gradient(160deg,color-mix(in srgb,var(--amber-dolgu) 16%,var(--panel)),color-mix(in srgb,var(--amber-dolgu) 4%,var(--panel)));display:flex;flex-direction:column}
   .og-marka-et{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--amber)}
-  .og-marka-maskot{position:absolute;right:28px;top:24px;width:104px;height:104px;border-radius:50%;object-fit:cover;border:4px solid var(--panel);box-shadow:0 10px 30px color-mix(in srgb,var(--ink) 12%,transparent)}
+  /* 18.10 (Cem "1.2.3" madde 3): maskot fotoğrafının beyaz zemini çerçevesiz, "multiply" karışımla panel rengine erir (bedelsiz;
+     yeni görsel üretilmedi, maskotun görünüşü değişmedi). Koyu temada karışım kapalı (beyaz zemin koyuda kararmasın diye çerçeve geri gelir). */
+  .og-marka-maskot{position:absolute;right:24px;top:18px;width:118px;height:118px;object-fit:contain;mix-blend-mode:multiply}
+  :root[data-theme="dark"] .og-marka-maskot{mix-blend-mode:normal;border-radius:50%;border:4px solid var(--panel)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .og-marka-maskot{mix-blend-mode:normal;border-radius:50%;border:4px solid var(--panel)} }
+  .og-oturum-not{margin:10px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45;text-align:center}
+  .op-hos{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--panel));border:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent);border-radius:14px;padding:12px 16px;margin:0 0 14px;font-size:15px}
+  .op-hos.og-gizli{display:none}
   #ogGiris .og-marka h1{margin:22px 0 8px;font-size:38px;letter-spacing:-.8px;max-width:calc(100% - 124px)}
   #ogGiris .og-marka .og-ilk{max-width:min(30em,calc(100% - 120px));font-size:16px;margin:0 0 22px}
   .og-tikler{list-style:none;margin:0 0 auto;padding:0;display:grid;gap:14px}
@@ -280,6 +287,8 @@
           <div class="og-et-satir"><label class="og-et" for="ogSifre">Şifre</label><a class="og-link" href="#sifremi-unuttum" id="ogSifremi">Şifremi unuttum</a></div>
           <input id="ogSifre" name="password" type="password" autocomplete="current-password" required>
           <button class="og-btn ana" id="ogGirisBtn" type="submit">Giriş yap</button>
+          <!-- 18.10 (Cem "1.2.3" madde 1): oturum bu cihazda kalır (supabase-js varsayılanı: oturum tarayıcıda saklanır) -->
+          <p class="og-oturum-not">🔒 Bu cihazda oturumun açık kalır. Ortak bir bilgisayardaysan işin bitince Hesabım'dan <b>Çıkış yap</b>.</p>
           <div class="og-hata" id="ogHata" role="alert"></div>
           <p class="og-alt-link">Hesabın yok mu? <a class="og-link" href="#uye-ol" data-git="kayit">Üye ol</a></p>
         </form>
@@ -369,6 +378,8 @@
          3-4 öğe; gerisi katlı. Veri: uye_calisma_ozetim() (2026-10-18 SQL, sunucudaki kasa_cevap) + ogrenci_sonuc (seviye/deneme).
          Betik: panoCiz(). Eski bölümler aşağıda <details> içinde, kimlikleri aynen. -->
     <div id="ogPano" class="op-pano">
+      <!-- 18.10 (Cem "1.2.3" madde 2): giriş sonrası tek karşılama satırı - bu cihazda bu sınavda en son açılan ders (sc_son_ders_<kod>) -->
+      <div class="op-hos og-gizli" id="opHos"><span id="opHosMetin"></span><a class="og-btn ana og-kucuk" id="opHosBtn" href="#">Devam et →</a></div>
       <!-- 07.10: iki sınavda da sonuç varsa sekme (SGS / Yeterlilik); tek sınavda gizli.
            13.10: KGK düğmesi yalnız KGK içeriği açıkken (uye-durumu.js SINAVLAR.kgk.icerik) ve KGK verisi/paketi varken görünür.
            18.10: panonun en üstünde; 18.10 ayrıca paketli sınav da sekme sayısına girer (panoSekme) -->
@@ -1140,6 +1151,14 @@
     $('opGun').textContent=typeof ILR.gun==='number'?'Sınava '+ILR.gun+' gün':'';
     try{ var hub=(U&&U.SINAVLAR&&U.SINAVLAR[s]&&U.SINAVLAR[s].gir)||('sorular.html#'+kod); $('opCozBtn').href=hub;
       $('opDevamBtn').href=(U&&U.devamAdres)?U.devamAdres(s):hub; }catch(e){}
+    /* 18.10 karşılama: son açılan ders varsa adıyla (dizinden sayfa → ad); yoksa satır gizli */
+    try{ var sonD=null; try{ sonD=localStorage.getItem('sc_son_ders_'+kod); }catch(e){}
+      if(!sonD||!/^[a-z0-9\/._-]+\.html$/i.test(sonD)) $('opHos').classList.add('og-gizli');
+      else if(window.ttCalisma&&ttCalisma.dizin) ttCalisma.dizin().then(function(dz){ if(ILR.secili!==s) return;
+        var sn=dz&&dz.sinavlar?dz.sinavlar.filter(function(x){ return x.kod===kod; })[0]:null, d=sn?(sn.dersler||[]).filter(function(x){ return x.sayfa===sonD; })[0]:null;
+        if(!d){ $('opHos').classList.add('og-gizli'); return; }
+        $('opHosMetin').innerHTML='👋 <b>Hoş geldin.</b> En son <b>'+esc(d.ad)+'</b> çalışıyordun; kaldığın sorudan devam edebilirsin.';
+        $('opHosBtn').href=sonD; $('opHos').classList.remove('og-gizli'); },function(){}); }catch(e){}
     /* sekme: verisi YA DA paketi olan sınavlar (ilerlemeCiz yalnız veriye bakıyordu; paketli ama henüz testi olmayan sınav görünmüyordu) */
     try{ var var_={}; ['sgs','yeterlilik','kgk'].forEach(function(k){ var pk=P&&P.sinavlar&&P.sinavlar[k];
         if(k==='kgk'&&!kgkAcik()) return;
