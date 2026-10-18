@@ -15,6 +15,9 @@
 //    20 soru, 45 dk, yanlış 0,25 götürür (2026 düzeni; deneme.html Birebir Prova ile aynı).
 //  SETLER: konu havuzu kart dağıtır gibi bölünür → setler arası AYNI SORU YOK. Bir soru birden çok konuya uyuyorsa yalnız
 //    en sık konuya sayılır.
+//  18.10 Yeterlilik (Cem "en çok puan verilen konuları önceliğe çıkaralım"): havuzun tamamı (floor(havuz/20) set), konu
+//    sırası + set içi payı PUAN ağırlığıyla (puanSetKur; ağırlık arac/smmm-konu-puan.js → veri/sinav/smmm-konu-puan.json).
+//    Ders denemesi sık konu setlerindeki soruyu dışladığı için onun set sayısı da buna göre düşer (FTA, Maliyet, SPK).
 //  ÇIKTI: veri/deneme/<sgs|smmm>-sik-dizin.json + <sinav>-sik-set-NN.json — YALNIZ KİMLİK (metin/cevap sinav-gibi.html'de
 //    paketli üyeye RLS'li kasadan gelir). Kaynak KASA (paket_soru), servis anahtarı ister.
 //  🚫 GÖRMEZ: SGS'de konu ifadesi kökte geçmeyen ama konuyu ölçen soru (havuz alt sınırdır) · ifade geçip konuyu ölçmeyen
@@ -53,6 +56,33 @@ function setKur(konular, havuz, pay, tavan) {
   for (const k of konular) n = Math.min(n, Math.floor(havuz[k].length / pay[k]));
   const setler = Array.from({ length: Math.max(0, n) }, () => []);
   for (const k of konular) havuz[k].slice(0, n * pay[k]).forEach((q, j) => setler[j % n].push(q));
+  return setler;
+}
+
+// 18.10 PUAN ÖNCELİKLİ SET KURUCU (Yeterlilik sık konu): havuzun tamamı kullanılır → S = floor(havuz / 20) set.
+//   Artan (< 20) soru EN HAFİF konunun sonundan bırakılır. Her set 20 soruyu, stoğu kalan konular arasında puan ağırlığıyla
+//   orantılı alır (en büyük kalan yöntemi; stoğu yetmeyen konunun payı öteki konulara taşar). Dar ama ağır konu ilk
+//   setlerde tükenir → ilk setler en ağır konularla başlar, sonraki setler kalan konulardan dolar. Setler arası tekrar 0.
+function puanSetKur(konular, havuz, w) {
+  const stok = {}; konular.forEach(k => { stok[k] = havuz[k].slice(); });
+  const toplam = konular.reduce((a, k) => a + stok[k].length, 0), S = Math.floor(toplam / SM_SORU);
+  let fazla = toplam - S * SM_SORU;
+  for (let i = konular.length - 1; i >= 0 && fazla > 0; i--) { const d = Math.min(fazla, stok[konular[i]].length); stok[konular[i]].splice(stok[konular[i]].length - d, d); fazla -= d; }
+  const setler = [];
+  for (let s = 0; s < S; s++) {
+    const pay = {}; konular.forEach(k => { pay[k] = 0; });
+    for (let kalan = SM_SORU; kalan > 0;) {
+      const ak = konular.filter(k => stok[k].length > pay[k]); if (!ak.length) break;
+      const tw = ak.reduce((a, k) => a + w[k], 0), ham = ak.map(k => ({ k, x: kalan * w[k] / tw }));
+      let dag = 0;
+      ham.forEach(h => { const n = Math.min(Math.floor(h.x), stok[h.k].length - pay[h.k]); pay[h.k] += n; dag += n; h.r = h.x - Math.floor(h.x); });
+      if (dag === 0) {   // tam kısım dağıtmadıysa en büyük kalana birer birer
+        for (const h of ham.sort((p, q) => q.r - p.r || w[q.k] - w[p.k])) { if (dag >= kalan) break; if (stok[h.k].length > pay[h.k]) { pay[h.k]++; dag++; } }
+      }
+      kalan -= dag;
+    }
+    setler.push(konular.flatMap(k => stok[k].splice(0, pay[k])));
+  }
   return setler;
 }
 
@@ -159,13 +189,16 @@ async function sgs() {
 }
 
 // ---------------------------------------------------------------- YETERLİLİK
-const SM_KONU = 5, SM_SORU = 20, SM_SURE = 45, SM_TAVAN = 5;
+const SM_KONU = 5, SM_SORU = 20, SM_SURE = 45;
 async function smmm() {
   console.log('SIK ÇIKAN KONULAR DENEMESİ · Yeterlilik');
   const ok = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-konu-okuma.json'));
   const es = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-banka-esleme.json')).sorular;
   const dizinS = jsonOku(path.join(KOK, 'veri', 'soru-dizini.json')).sinavlar.find(x => x.kod === 'smmm');
   const dersSira = dizinS.dersler.map(d => d.ad);
+  const puanJ = jsonOku(path.join(KOK, 'veri', 'sinav', 'smmm-konu-puan.json'));
+  if (puanJ.pencere !== ok.pencere) { console.log(`KIRMIZI - smmm-konu-puan.json penceresi (${puanJ.pencere}) okumayla (${ok.pencere}) aynı değil - node arac/smmm-konu-puan.js; yazılmadı.`); process.exit(1); }
+  const puanAgirlik = {}; for (const d of Object.keys(puanJ.dersler)) { puanAgirlik[d] = {}; puanJ.dersler[d].konular.forEach(k => { puanAgirlik[d][k.konu] = k.agirlik; }); }
   const D = {};
   for (const x of ok.kararlar) {
     const r = ((D[x.ders] = D[x.ders] || {})[x.konu] = D[x.ders][x.konu] || { konu: x.konu, kanit: [] });
@@ -181,32 +214,24 @@ async function smmm() {
       return { konu: r.konu, don: don.length, soru: r.kanit.length, son: don[don.length - 1] };
     }).sort((p, q) => q.don - p.don || q.soru - p.soru || srt(q.son) - srt(p.son)).slice(0, SM_KONU);
     if (top.length < SM_KONU) { hata.push(`${ders}: ${top.length} konu`); continue; }
+    // 18.10 PUAN ÖNCELİĞİ: aynı 5 konu (en sık sorulan, "en sık sorulan konular" sayfasıyla aynı liste), ama sıra ve pay
+    //   konunun son 10 yılda DÖNEM BAŞINA getirdiği puana göre (veri/sinav/smmm-konu-puan.json, arac/smmm-konu-puan.js).
+    const pw = puanAgirlik[ders] || {};
+    if (top.some(t => !(pw[t.konu] > 0))) { hata.push(`${ders}: puan ağırlığı yok (${top.filter(t => !(pw[t.konu] > 0)).map(t => t.konu).join(', ')}) - node arac/smmm-konu-puan.js`); continue; }
+    top.sort((p, q) => pw[q.konu] - pw[p.konu] || q.don - p.don);
     const konular = top.map(t => t.konu), alindi = new Set(), havuz = {};
-    for (const t of top) {
+    for (const t of top) {   // birden çok konuya uyan soru yalnız en ağır konuya
       havuz[t.konu] = Object.keys(es).filter(id => es[id].ders === ders && (es[id].konular || []).includes(t.konu) && kasa[id] && !alindi.has(id))
         .sort((a, b) => karma(a) - karma(b))
         .map(id => { alindi.add(id); const x = kasa[id]; return { id, bolum: ders, ders, konu: t.konu, sayfa: x.sayfa, sira: x.sira }; });
-      konuListe.push({ ders, konu: t.konu, donem: t.don });
+      konuListe.push({ ders, konu: t.konu, donem: t.don, oncelik: konular.indexOf(t.konu) + 1 });
     }
-    // pay: set sayısını en yükseğe çıkaran bölüşüm. S set için konu tavanı = min(6, havuz/S); her konu en az 1 soru;
-    // tavanlar 20'yi karşılayan en büyük S seçilir, sonra 20 soru sıklık sırasıyla tur tur dağıtılır (sık konu önce artar).
-    const pay = {}; let S = 0, tavan = {};
-    for (let s = SM_TAVAN; s >= 1; s--) {
-      const t = {}; konular.forEach(k => { t[k] = Math.min(6, Math.floor(havuz[k].length / s)); });
-      if (konular.every(k => t[k] >= 1) && konular.reduce((a, k) => a + t[k], 0) >= SM_SORU) { S = s; tavan = t; break; }
-    }
-    if (!S) { hata.push(`${ders}: 5 konunun her birinden en az 1 soruyla 20'lik set kurulamıyor (havuz ${konular.map(k => havuz[k].length).join('/')})`); continue; }
-    konular.forEach(k => { pay[k] = 1; });
-    for (let kalan = SM_SORU - konular.length; kalan > 0;) {
-      let ekledi = false;
-      for (const k of konular) { if (kalan > 0 && pay[k] < tavan[k]) { pay[k]++; kalan--; ekledi = true; } }
-      if (!ekledi) break;
-    }
-    const aktif = konular;
-    const setler = setKur(aktif, havuz, pay, SM_TAVAN);
+    const setler = puanSetKur(konular, havuz, pw);
     setler.forEach(st => st.sort((a, b) => konular.indexOf(a.konu) - konular.indexOf(b.konu)));
-    console.log(`  ${ders}: ${setler.length} set · pay ${konular.map(k => pay[k] + '/' + havuz[k].length).join(' ')}`);
-    if (!setler.length) { hata.push(`${ders}: set kurulamadı`); continue; }
+    const say = st => konular.map(k => st.filter(q => q.konu === k).length).join('/');
+    console.log(`  ${ders}: ${setler.length} set · havuz ${konular.map(k => havuz[k].length).join('/')} · ağırlık ${konular.map(k => pw[k]).join('/')}`);
+    console.log(`    set 1: ${say(setler[0] || [])} · set ${setler.length}: ${say(setler[setler.length - 1] || [])} (konu sırası ağırdan hafife)`);
+    if (!setler.length) { hata.push(`${ders}: set kurulamadı (havuz ${konular.map(k => havuz[k].length).join('/')})`); continue; }
     setler.forEach((st, i) => {
       if (st.length !== SM_SORU) hata.push(`${ders} set ${i + 1}: ${st.length} soru`);
       tumSet.push(st); dizinSet.push({ no: tumSet.length, ders, baslik: `${ders} · Set ${i + 1}`, sure_dk: SM_SURE, toplam: st.length, dosya: `veri/deneme/smmm-sik-set-${String(tumSet.length).padStart(2, '0')}.json` });
@@ -219,9 +244,9 @@ async function smmm() {
     uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
     sinav: 'smmm', tur: 'sik', ad: 'Yeterlilik', baslik: `Yeterlilik · Her Dersin En Çok Sorulan ${SM_KONU} Konusu`,
     deneme_ad: `Her Dersin En Çok Sorulan ${SM_KONU} Konusu Denemesi`,
-    alt: `Her dersin son 10 yılın sınavlarında en sık sorulan ${SM_KONU} konusu tek denemede. Ders başına ${SM_SORU} soru, ${SM_SURE} dakika, gerçek 2026 düzeninde. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.`,
+    alt: `Her dersin son 10 yılın sınavlarında en sık sorulan ${SM_KONU} konusu. Sınavda daha çok puan getiren konu önde: ilk testlerde ve her testte o konudan daha çok soru. Ders başına ${SM_SORU} soru, ${SM_SURE} dakika, gerçek 2026 düzeninde. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.`,
     kural: [`Ders başına ${SM_SORU} soru`, `${SM_SURE} dakika`, 'Yanlış 0,25 götürür', 'Baraj 50', 'Setler arası tekrar yok'],
-    not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}), "En sık sorulan konular" sayfasıyla aynı. Konu payı bankadaki soru sayısına göre ayarlanır. Bu konular sınavda kesin çıkar demek değildir.`,
+    not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}), "En sık sorulan konular" sayfasıyla aynı. Konu sırası ve payı, konunun bu sınavlarda dönem başına getirdiği puana göre (2026 testlerinde soru başı 5 puan; klasik dönemde komisyon cevabındaki puan, yazılı değilse sorular eşit sayıldı). Bu konular sınavda kesin çıkar demek değildir.`,
     sonuc_alt: 'Puan: (doğru − yanlış ÷ 4) × 5. Geçme barajı 50.',
     karne: 'konu', puan: 'yeterlilik', liste_sayfa: 'en-cok-cikan-konular-yeterlilik.html',
     konular: konuListe, setler: dizinSet

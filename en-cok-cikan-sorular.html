@@ -14,7 +14,7 @@
   EN ÇOK ÇIKAN KONULARDAN SORULAR (18.10.2026, Cem: "sınavda en çok çıkan konulardan sorular diye kilitli bir şey yapalım, ders ders
   olsun, buna ayrı yerden girsinler, aynısını SGS'de yapalım; yarın reklam buradan çıkacağız").
   Ayrı giriş sayfası (reklam bağlantısı: en-cok-cikan-sorular.html?sinav=yeterlilik|sgs&k=<kaynak>). Ders kartları:
-    · Yeterlilik → veri/deneme/smmm-sik-dizin.json (ders başına en sık 5 konu, 4 hazır set) → sinav-gibi.html?tur=sik&sinav=smmm&ders=
+    · Yeterlilik → veri/deneme/smmm-sik-dizin.json (ders başına en sık 5 konu, set sayısı havuza göre, konu sırası puan önceliği) → sinav-gibi.html?tur=sik&sinav=smmm&ders=
     · Staja Giriş → veri/deneme/sgs-sik-dizin.json (en sık 20 konu, derslere bölünür) → sinav-gibi.html?tur=sik&ders= (ders seti
       tarayıcıda kurulur, sinav-gibi.html "Ders ders" bloğu).
   Kilit: paketsiz ziyaretçi kartı görür, düğme "Pakete dahil" → fiyat. Asıl kilit kasada (paket kapısı). Konu adı + dönem sayısı
@@ -37,6 +37,7 @@
   .ec-ders h2{margin:0;font-size:18px;color:var(--ink)}
   .ec-ders ol{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px;color:var(--ink)}
   .ec-ders ol small{color:var(--muted);font-size:12.5px}
+  .ec-set{margin:-4px 0 0;font-size:12.5px;font-weight:700;color:var(--amber)}
   .ec-dug{margin-top:auto;display:flex;justify-content:center;align-items:center;min-height:46px;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none;background:var(--amber-dolgu);color:var(--ink)}
   .ec-dug.kilit{background:var(--panel);border:1.5px solid var(--line2);color:var(--ink)}
   .ec-bilgi{font-size:12.5px;color:var(--muted);margin:0}
@@ -104,9 +105,12 @@
     /* Yeterlilik: yalnız hazır seti olan dersler · Staja Giriş: en sık konusu en çok dönem çıkan ders önce */
     if(s==='yeterlilik'){ var setD={}; (v.setler||[]).forEach(function(x){ if(x.ders) setD[x.ders]=(setD[x.ders]||0)+1; }); S=S.filter(function(d){ return setD[d]; }); }
     S.sort(function(a,b){ var ma=Math.max.apply(null,G[a].map(function(k){ return +k.donem||0; })), mb=Math.max.apply(null,G[b].map(function(k){ return +k.donem||0; })); return mb-ma; });
+    /* 18.10 Yeterlilik: konular PUAN önceliğiyle (k.oncelik: sınavda dönem başına getirdiği puan, motor/sik-konu-deneme-bas.js) */
+    var setSay={}; (v.setler||[]).forEach(function(x){ if(x.ders) setSay[x.ders]=(setSay[x.ders]||0)+1; });
     $('ecDersler').innerHTML=S.map(function(d){
-      var L=G[d].slice().sort(function(a,b){ return (+b.donem||0)-(+a.donem||0); }), ac=dersAcik(s,d);
-      return '<section class="ec-ders"><h2>'+esc(d)+'</h2><ol>'+L.map(function(k){ return '<li>'+esc(k.konu)+' <small>· son 10 yılda '+(+k.donem||0)+' sınavda soruldu</small></li>'; }).join('')+'</ol>'
+      var L=G[d].slice().sort(function(a,b){ return (a.oncelik&&b.oncelik)?a.oncelik-b.oncelik:(+b.donem||0)-(+a.donem||0); }), ac=dersAcik(s,d);
+      var ns=s==='yeterlilik'?setSay[d]||0:0;
+      return '<section class="ec-ders"><h2>'+esc(d)+'</h2>'+(ns?'<p class="ec-set">'+ns+' test · '+(ns*20)+' soru · sınavda daha çok puan getiren konu önde</p>':'')+'<ol>'+L.map(function(k){ return '<li>'+esc(k.konu)+' <small>· son 10 yılda '+(+k.donem||0)+' sınavda soruldu</small></li>'; }).join('')+'</ol>'
         +(ac?'<a class="ec-dug" href="'+esc(A.git(d))+'">Bu dersten sık konu sorularını çöz →</a>'
             :'<a class="ec-dug kilit" href="'+esc(A.fiyat+K)+'">🔒 Pakete dahil'+(pk?' · bu ders paketinde yok':'')+'</a>')+'</section>';
     }).join('');

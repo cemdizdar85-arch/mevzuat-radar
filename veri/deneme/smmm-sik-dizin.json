@@ -1,12 +1,12 @@
 {
- "uretim": "2026-10-11 09:11",
+ "uretim": "2026-10-18 15:10",
  "uretici": "motor/sik-konu-deneme-bas.js",
  "sinav": "smmm",
  "tur": "sik",
  "ad": "Yeterlilik",
  "baslik": "Yeterlilik · Her Dersin En Çok Sorulan 5 Konusu",
  "deneme_ad": "Her Dersin En Çok Sorulan 5 Konusu Denemesi",
- "alt": "Her dersin son 10 yılın sınavlarında en sık sorulan 5 konusu tek denemede. Ders başına 20 soru, 45 dakika, gerçek 2026 düzeninde. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.",
+ "alt": "Her dersin son 10 yılın sınavlarında en sık sorulan 5 konusu. Sınavda daha çok puan getiren konu önde: ilk testlerde ve her testte o konudan daha çok soru. Ders başına 20 soru, 45 dakika, gerçek 2026 düzeninde. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.",
  "kural": [
   "Ders başına 20 soru",
   "45 dakika",
@@ -14,7 +14,7 @@
   "Baraj 50",
   "Setler arası tekrar yok"
  ],
- "not": "Konu listesi okunarak sayılmış çıkmış sorulardan (2016/1-2026/2), \"En sık sorulan konular\" sayfasıyla aynı. Konu payı bankadaki soru sayısına göre ayarlanır. Bu konular sınavda kesin çıkar demek değildir.",
+ "not": "Konu listesi okunarak sayılmış çıkmış sorulardan (2016/1-2026/2), \"En sık sorulan konular\" sayfasıyla aynı. Konu sırası ve payı, konunun bu sınavlarda dönem başına getirdiği puana göre (2026 testlerinde soru başı 5 puan; klasik dönemde komisyon cevabındaki puan, yazılı değilse sorular eşit sayıldı). Bu konular sınavda kesin çıkar demek değildir.",
  "sonuc_alt": "Puan: (doğru − yanlış ÷ 4) × 5. Geçme barajı 50.",
  "karne": "konu",
  "puan": "yeterlilik",
@@ -22,203 +22,243 @@
  "konular": [
   {
    "ders": "Finansal Muhasebe",
-   "konu": "Amortisman",
-   "donem": 31
-  },
-  {
-   "ders": "Finansal Muhasebe",
-   "konu": "KDV kayıtları ve mahsubu",
-   "donem": 30
-  },
-  {
-   "ders": "Finansal Muhasebe",
-   "konu": "Ticari mal alış ve satış kayıtları",
-   "donem": 30
+   "konu": "Bilanço ve gelir tablosu düzenleme",
+   "donem": 27,
+   "oncelik": 1
   },
   {
    "ders": "Finansal Muhasebe",
    "konu": "Gelecek dönemlere ait gelir-giderler ve tahakkuklar",
-   "donem": 28
+   "donem": 28,
+   "oncelik": 2
   },
   {
    "ders": "Finansal Muhasebe",
-   "konu": "Bilanço ve gelir tablosu düzenleme",
-   "donem": 27
+   "konu": "KDV kayıtları ve mahsubu",
+   "donem": 30,
+   "oncelik": 3
+  },
+  {
+   "ders": "Finansal Muhasebe",
+   "konu": "Amortisman",
+   "donem": 31,
+   "oncelik": 4
+  },
+  {
+   "ders": "Finansal Muhasebe",
+   "konu": "Ticari mal alış ve satış kayıtları",
+   "donem": 30,
+   "oncelik": 5
   },
   {
    "ders": "Finansal Tablolar ve Analizi",
    "konu": "Faaliyet (devir hızı) oranları",
-   "donem": 26
-  },
-  {
-   "ders": "Finansal Tablolar ve Analizi",
-   "konu": "Likidite oranları",
-   "donem": 20
-  },
-  {
-   "ders": "Finansal Tablolar ve Analizi",
-   "konu": "Kârlılık oranları",
-   "donem": 19
-  },
-  {
-   "ders": "Finansal Tablolar ve Analizi",
-   "konu": "Mali yapı oranları",
-   "donem": 19
+   "donem": 26,
+   "oncelik": 1
   },
   {
    "ders": "Finansal Tablolar ve Analizi",
    "konu": "Dikey analiz",
-   "donem": 11
+   "donem": 11,
+   "oncelik": 2
+  },
+  {
+   "ders": "Finansal Tablolar ve Analizi",
+   "konu": "Kârlılık oranları",
+   "donem": 19,
+   "oncelik": 3
+  },
+  {
+   "ders": "Finansal Tablolar ve Analizi",
+   "konu": "Likidite oranları",
+   "donem": 20,
+   "oncelik": 4
+  },
+  {
+   "ders": "Finansal Tablolar ve Analizi",
+   "konu": "Mali yapı oranları",
+   "donem": 19,
+   "oncelik": 5
   },
   {
    "ders": "Maliyet Muhasebesi",
    "konu": "Safha (evre) maliyet sistemi",
-   "donem": 21
-  },
-  {
-   "ders": "Maliyet Muhasebesi",
-   "konu": "Genel üretim giderlerinin mamullere yüklenmesi",
-   "donem": 15
-  },
-  {
-   "ders": "Maliyet Muhasebesi",
-   "konu": "Üretilen ve satılan mamul maliyeti (satışların maliyeti tablosu)",
-   "donem": 13
+   "donem": 21,
+   "oncelik": 1
   },
   {
    "ders": "Maliyet Muhasebesi",
    "konu": "Ortak (birleşik) mamul maliyeti",
-   "donem": 13
+   "donem": 13,
+   "oncelik": 2
+  },
+  {
+   "ders": "Maliyet Muhasebesi",
+   "konu": "Üretilen ve satılan mamul maliyeti (satışların maliyeti tablosu)",
+   "donem": 13,
+   "oncelik": 3
+  },
+  {
+   "ders": "Maliyet Muhasebesi",
+   "konu": "Genel üretim giderlerinin mamullere yüklenmesi",
+   "donem": 15,
+   "oncelik": 4
   },
   {
    "ders": "Maliyet Muhasebesi",
    "konu": "Sipariş (parti) maliyet sistemi",
-   "donem": 10
+   "donem": 10,
+   "oncelik": 5
   },
   {
    "ders": "Muhasebe Denetimi",
    "konu": "Denetçi seçimi, denetim sözleşmesi ve denetimin ön şartları",
-   "donem": 9
-  },
-  {
-   "ders": "Muhasebe Denetimi",
-   "konu": "Denetim riski",
-   "donem": 7
+   "donem": 9,
+   "oncelik": 1
   },
   {
    "ders": "Muhasebe Denetimi",
    "konu": "Bağımsız denetçi, sorumlu denetçi ve denetim ekibi",
-   "donem": 7
-  },
-  {
-   "ders": "Muhasebe Denetimi",
-   "konu": "İç kontrol sistemi",
-   "donem": 7
+   "donem": 7,
+   "oncelik": 2
   },
   {
    "ders": "Muhasebe Denetimi",
    "konu": "Denetimin tanımı, amacı, unsurları ve güvence düzeyi",
-   "donem": 6
+   "donem": 6,
+   "oncelik": 3
+  },
+  {
+   "ders": "Muhasebe Denetimi",
+   "konu": "İç kontrol sistemi",
+   "donem": 7,
+   "oncelik": 4
+  },
+  {
+   "ders": "Muhasebe Denetimi",
+   "konu": "Denetim riski",
+   "donem": 7,
+   "oncelik": 5
   },
   {
    "ders": "Vergi Mevzuatı ve Uygulaması",
    "konu": "GVK › Yıllık beyan ve gelir vergisi hesabı",
-   "donem": 25
-  },
-  {
-   "ders": "Vergi Mevzuatı ve Uygulaması",
-   "konu": "GVK › Gayrimenkul sermaye iradı",
-   "donem": 18
-  },
-  {
-   "ders": "Vergi Mevzuatı ve Uygulaması",
-   "konu": "GVK › Menkul sermaye iradı",
-   "donem": 14
-  },
-  {
-   "ders": "Vergi Mevzuatı ve Uygulaması",
-   "konu": "GVK › Ücret gelirleri",
-   "donem": 13
+   "donem": 25,
+   "oncelik": 1
   },
   {
    "ders": "Vergi Mevzuatı ve Uygulaması",
    "konu": "VUK › Defter ve belge düzeni",
-   "donem": 11
+   "donem": 11,
+   "oncelik": 2
   },
   {
-   "ders": "Hukuk",
-   "konu": "Borçlar › Zamanaşımı",
-   "donem": 7
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "konu": "GVK › Gayrimenkul sermaye iradı",
+   "donem": 18,
+   "oncelik": 3
   },
   {
-   "ders": "Hukuk",
-   "konu": "Borçlar › Borç ilişkisi: unsurlar, kaynaklar ve borç türleri",
-   "donem": 6
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "konu": "GVK › Menkul sermaye iradı",
+   "donem": 14,
+   "oncelik": 4
   },
   {
-   "ders": "Hukuk",
-   "konu": "İş Hukuku › İş sözleşmesinin feshi",
-   "donem": 6
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "konu": "GVK › Ücret gelirleri",
+   "donem": 13,
+   "oncelik": 5
   },
   {
    "ders": "Hukuk",
    "konu": "TTK › Ticari işletme",
-   "donem": 6
+   "donem": 6,
+   "oncelik": 1
+  },
+  {
+   "ders": "Hukuk",
+   "konu": "İş Hukuku › İş sözleşmesinin feshi",
+   "donem": 6,
+   "oncelik": 2
+  },
+  {
+   "ders": "Hukuk",
+   "konu": "Borçlar › Zamanaşımı",
+   "donem": 7,
+   "oncelik": 3
+  },
+  {
+   "ders": "Hukuk",
+   "konu": "Borçlar › Borç ilişkisi: unsurlar, kaynaklar ve borç türleri",
+   "donem": 6,
+   "oncelik": 4
   },
   {
    "ders": "Hukuk",
    "konu": "İdari Yargı › Dava açma süreleri ve idareye başvuru",
-   "donem": 5
+   "donem": 5,
+   "oncelik": 5
   },
   {
    "ders": "Meslek Hukuku",
    "konu": "Disiplin cezaları ve gerektiren haller",
-   "donem": 15
+   "donem": 15,
+   "oncelik": 1
   },
   {
    "ders": "Meslek Hukuku",
    "konu": "Mesleki sözleşme (zorunluluk, asgari içerik, fesih)",
-   "donem": 12
+   "donem": 12,
+   "oncelik": 2
   },
   {
    "ders": "Meslek Hukuku",
    "konu": "Yasak işler ve meslekle bağdaşan/bağdaşmayan haller",
-   "donem": 11
+   "donem": 11,
+   "oncelik": 3
   },
   {
    "ders": "Meslek Hukuku",
    "konu": "Temel etik ilkeler",
-   "donem": 9
+   "donem": 9,
+   "oncelik": 4
   },
   {
    "ders": "Meslek Hukuku",
    "konu": "Reklam yasağı ve reklam yoluyla haksız rekabet",
-   "donem": 9
-  },
-  {
-   "ders": "Sermaye Piyasası Mevzuatı",
-   "konu": "Yatırım ortaklıkları",
-   "donem": 12
-  },
-  {
-   "ders": "Sermaye Piyasası Mevzuatı",
-   "konu": "Sermaye piyasası suçları (genel) ve yargılama usulü",
-   "donem": 11
-  },
-  {
-   "ders": "Sermaye Piyasası Mevzuatı",
-   "konu": "Yatırım kuruluşları ve yatırım hizmetleri",
-   "donem": 9
+   "donem": 9,
+   "oncelik": 5
   },
   {
    "ders": "Sermaye Piyasası Mevzuatı",
    "konu": "SPK denetimi ve idari tedbirler",
-   "donem": 9
+   "donem": 9,
+   "oncelik": 1
+  },
+  {
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "konu": "Sermaye piyasası suçları (genel) ve yargılama usulü",
+   "donem": 11,
+   "oncelik": 2
+  },
+  {
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "konu": "Yatırım ortaklıkları",
+   "donem": 12,
+   "oncelik": 3
+  },
+  {
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "konu": "Yatırım kuruluşları ve yatırım hizmetleri",
+   "donem": 9,
+   "oncelik": 4
   },
   {
    "ders": "Sermaye Piyasası Mevzuatı",
    "konu": "Sermaye piyasasının temel kavramları ve unsurları",
-   "donem": 9
+   "donem": 9,
+   "oncelik": 5
   }
  ],
  "setler": [
@@ -264,220 +304,500 @@
   },
   {
    "no": 6,
-   "ders": "Finansal Tablolar ve Analizi",
-   "baslik": "Finansal Tablolar ve Analizi · Set 1",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 6",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-06.json"
   },
   {
    "no": 7,
-   "ders": "Finansal Tablolar ve Analizi",
-   "baslik": "Finansal Tablolar ve Analizi · Set 2",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 7",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-07.json"
   },
   {
    "no": 8,
-   "ders": "Finansal Tablolar ve Analizi",
-   "baslik": "Finansal Tablolar ve Analizi · Set 3",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 8",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-08.json"
   },
   {
    "no": 9,
-   "ders": "Finansal Tablolar ve Analizi",
-   "baslik": "Finansal Tablolar ve Analizi · Set 4",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 9",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-09.json"
   },
   {
    "no": 10,
-   "ders": "Finansal Tablolar ve Analizi",
-   "baslik": "Finansal Tablolar ve Analizi · Set 5",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 10",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-10.json"
   },
   {
    "no": 11,
-   "ders": "Maliyet Muhasebesi",
-   "baslik": "Maliyet Muhasebesi · Set 1",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 11",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-11.json"
   },
   {
    "no": 12,
-   "ders": "Maliyet Muhasebesi",
-   "baslik": "Maliyet Muhasebesi · Set 2",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 12",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-12.json"
   },
   {
    "no": 13,
-   "ders": "Maliyet Muhasebesi",
-   "baslik": "Maliyet Muhasebesi · Set 3",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 13",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-13.json"
   },
   {
    "no": 14,
-   "ders": "Maliyet Muhasebesi",
-   "baslik": "Maliyet Muhasebesi · Set 4",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 14",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-14.json"
   },
   {
    "no": 15,
-   "ders": "Maliyet Muhasebesi",
-   "baslik": "Maliyet Muhasebesi · Set 5",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 15",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-15.json"
   },
   {
    "no": 16,
-   "ders": "Muhasebe Denetimi",
-   "baslik": "Muhasebe Denetimi · Set 1",
+   "ders": "Finansal Muhasebe",
+   "baslik": "Finansal Muhasebe · Set 16",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-16.json"
   },
   {
    "no": 17,
-   "ders": "Muhasebe Denetimi",
-   "baslik": "Muhasebe Denetimi · Set 2",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 1",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-17.json"
   },
   {
    "no": 18,
-   "ders": "Muhasebe Denetimi",
-   "baslik": "Muhasebe Denetimi · Set 3",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 2",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-18.json"
   },
   {
    "no": 19,
-   "ders": "Muhasebe Denetimi",
-   "baslik": "Muhasebe Denetimi · Set 4",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 3",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-19.json"
   },
   {
    "no": 20,
-   "ders": "Vergi Mevzuatı ve Uygulaması",
-   "baslik": "Vergi Mevzuatı ve Uygulaması · Set 1",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 4",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-20.json"
   },
   {
    "no": 21,
-   "ders": "Vergi Mevzuatı ve Uygulaması",
-   "baslik": "Vergi Mevzuatı ve Uygulaması · Set 2",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 5",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-21.json"
   },
   {
    "no": 22,
-   "ders": "Vergi Mevzuatı ve Uygulaması",
-   "baslik": "Vergi Mevzuatı ve Uygulaması · Set 3",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 6",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-22.json"
   },
   {
    "no": 23,
-   "ders": "Hukuk",
-   "baslik": "Hukuk · Set 1",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 7",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-23.json"
   },
   {
    "no": 24,
-   "ders": "Hukuk",
-   "baslik": "Hukuk · Set 2",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 8",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-24.json"
   },
   {
    "no": 25,
-   "ders": "Meslek Hukuku",
-   "baslik": "Meslek Hukuku · Set 1",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 9",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-25.json"
   },
   {
    "no": 26,
-   "ders": "Meslek Hukuku",
-   "baslik": "Meslek Hukuku · Set 2",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 10",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-26.json"
   },
   {
    "no": 27,
-   "ders": "Meslek Hukuku",
-   "baslik": "Meslek Hukuku · Set 3",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 11",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-27.json"
   },
   {
    "no": 28,
-   "ders": "Meslek Hukuku",
-   "baslik": "Meslek Hukuku · Set 4",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 12",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-28.json"
   },
   {
    "no": 29,
-   "ders": "Sermaye Piyasası Mevzuatı",
-   "baslik": "Sermaye Piyasası Mevzuatı · Set 1",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 13",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-29.json"
   },
   {
    "no": 30,
-   "ders": "Sermaye Piyasası Mevzuatı",
-   "baslik": "Sermaye Piyasası Mevzuatı · Set 2",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 14",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-30.json"
   },
   {
    "no": 31,
-   "ders": "Sermaye Piyasası Mevzuatı",
-   "baslik": "Sermaye Piyasası Mevzuatı · Set 3",
+   "ders": "Finansal Tablolar ve Analizi",
+   "baslik": "Finansal Tablolar ve Analizi · Set 15",
    "sure_dk": 45,
    "toplam": 20,
    "dosya": "veri/deneme/smmm-sik-set-31.json"
   },
   {
    "no": 32,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 1",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-32.json"
+  },
+  {
+   "no": 33,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 2",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-33.json"
+  },
+  {
+   "no": 34,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 3",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-34.json"
+  },
+  {
+   "no": 35,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 4",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-35.json"
+  },
+  {
+   "no": 36,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 5",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-36.json"
+  },
+  {
+   "no": 37,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 6",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-37.json"
+  },
+  {
+   "no": 38,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 7",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-38.json"
+  },
+  {
+   "no": 39,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 8",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-39.json"
+  },
+  {
+   "no": 40,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 9",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-40.json"
+  },
+  {
+   "no": 41,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 10",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-41.json"
+  },
+  {
+   "no": 42,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 11",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-42.json"
+  },
+  {
+   "no": 43,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 12",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-43.json"
+  },
+  {
+   "no": 44,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 13",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-44.json"
+  },
+  {
+   "no": 45,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 14",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-45.json"
+  },
+  {
+   "no": 46,
+   "ders": "Maliyet Muhasebesi",
+   "baslik": "Maliyet Muhasebesi · Set 15",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-46.json"
+  },
+  {
+   "no": 47,
+   "ders": "Muhasebe Denetimi",
+   "baslik": "Muhasebe Denetimi · Set 1",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-47.json"
+  },
+  {
+   "no": 48,
+   "ders": "Muhasebe Denetimi",
+   "baslik": "Muhasebe Denetimi · Set 2",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-48.json"
+  },
+  {
+   "no": 49,
+   "ders": "Muhasebe Denetimi",
+   "baslik": "Muhasebe Denetimi · Set 3",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-49.json"
+  },
+  {
+   "no": 50,
+   "ders": "Muhasebe Denetimi",
+   "baslik": "Muhasebe Denetimi · Set 4",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-50.json"
+  },
+  {
+   "no": 51,
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "baslik": "Vergi Mevzuatı ve Uygulaması · Set 1",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-51.json"
+  },
+  {
+   "no": 52,
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "baslik": "Vergi Mevzuatı ve Uygulaması · Set 2",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-52.json"
+  },
+  {
+   "no": 53,
+   "ders": "Vergi Mevzuatı ve Uygulaması",
+   "baslik": "Vergi Mevzuatı ve Uygulaması · Set 3",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-53.json"
+  },
+  {
+   "no": 54,
+   "ders": "Hukuk",
+   "baslik": "Hukuk · Set 1",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-54.json"
+  },
+  {
+   "no": 55,
+   "ders": "Hukuk",
+   "baslik": "Hukuk · Set 2",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-55.json"
+  },
+  {
+   "no": 56,
+   "ders": "Hukuk",
+   "baslik": "Hukuk · Set 3",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-56.json"
+  },
+  {
+   "no": 57,
+   "ders": "Meslek Hukuku",
+   "baslik": "Meslek Hukuku · Set 1",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-57.json"
+  },
+  {
+   "no": 58,
+   "ders": "Meslek Hukuku",
+   "baslik": "Meslek Hukuku · Set 2",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-58.json"
+  },
+  {
+   "no": 59,
+   "ders": "Meslek Hukuku",
+   "baslik": "Meslek Hukuku · Set 3",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-59.json"
+  },
+  {
+   "no": 60,
+   "ders": "Meslek Hukuku",
+   "baslik": "Meslek Hukuku · Set 4",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-60.json"
+  },
+  {
+   "no": 61,
+   "ders": "Meslek Hukuku",
+   "baslik": "Meslek Hukuku · Set 5",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-61.json"
+  },
+  {
+   "no": 62,
+   "ders": "Meslek Hukuku",
+   "baslik": "Meslek Hukuku · Set 6",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-62.json"
+  },
+  {
+   "no": 63,
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "baslik": "Sermaye Piyasası Mevzuatı · Set 1",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-63.json"
+  },
+  {
+   "no": 64,
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "baslik": "Sermaye Piyasası Mevzuatı · Set 2",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-64.json"
+  },
+  {
+   "no": 65,
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "baslik": "Sermaye Piyasası Mevzuatı · Set 3",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-65.json"
+  },
+  {
+   "no": 66,
    "ders": "Sermaye Piyasası Mevzuatı",
    "baslik": "Sermaye Piyasası Mevzuatı · Set 4",
    "sure_dk": 45,
    "toplam": 20,
-   "dosya": "veri/deneme/smmm-sik-set-32.json"
+   "dosya": "veri/deneme/smmm-sik-set-66.json"
+  },
+  {
+   "no": 67,
+   "ders": "Sermaye Piyasası Mevzuatı",
+   "baslik": "Sermaye Piyasası Mevzuatı · Set 5",
+   "sure_dk": 45,
+   "toplam": 20,
+   "dosya": "veri/deneme/smmm-sik-set-67.json"
   }
  ],
- "surum": "e16605ddae"
+ "surum": "dcf006b925"
 }
