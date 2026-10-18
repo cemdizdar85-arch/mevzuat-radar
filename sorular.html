@@ -157,6 +157,12 @@
   .sc-pders>span{display:flex;flex-direction:column;min-width:0}.sc-pders b{font-size:13.5px;color:var(--ink);line-height:1.3}.sc-pders small{font-size:11.5px;color:var(--muted)}
   .sc-pkucuk{flex:none;font-size:13px;font-weight:800;text-decoration:none;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:8px;padding:7px 12px}
   .sc-pkilit{flex:none;opacity:.6}
+  .sc-sik{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;margin:0 0 22px;padding:18px 20px;border-radius:16px;border:1px solid color-mix(in srgb,var(--amber-dolgu) 50%,transparent);background:color-mix(in srgb,var(--amber-dolgu) 13%,var(--panel));transition:transform .15s,border-color .15s}
+  .sc-sik:hover{transform:translateY(-1px);border-color:var(--amber-dolgu)}
+  .sc-sik>span:nth-child(2){display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}.sc-sik b{font-size:19px;color:var(--ink)}
+  .sc-sik-ik{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--panel)}
+  .sc-sik-git{flex:none;font-size:15px;font-weight:800;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:10px;padding:11px 18px;white-space:nowrap}
+  @media(max-width:700px){ .sc-sik{flex-wrap:wrap} .sc-sik-ik{display:none} .sc-sik-git{flex-basis:100%;box-sizing:border-box;text-align:center} }
   .sc-son{display:flex;flex-direction:column;gap:1px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}
   .sc-son span{font-size:11.5px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}.sc-son b{font-size:16px;color:var(--ink)}.sc-son small{font-size:12.5px;color:var(--muted)}
   .sc-art{color:var(--green);font-weight:800}.sc-eks{color:var(--red);font-weight:800}
@@ -346,14 +352,20 @@
       +'<span class="sc-deneme-alt">Üye olmadan, kart yok. Her cevabından hemen sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</span></span><span class="sc-seviye-git">Çöz →</span></a>'
       +'<p class="sc-aciklama" style="margin:-4px 0 14px">Önce ürünü görmek istersen: <a href="index.html?sinav=yeterlilik#ekran">günün sorusunu Nöbetçi ile çöz →</a> · <a href="en-cok-cikan-konular-yeterlilik.html">Ders ders en sık sorulan konular (kanıtlı) →</a> · <a href="sinav-nobeti.html">Sınav Nöbeti: TESMER ve TÜRMOB duyuruları →</a></p>':'';
     /* 03.10 (Cem, V2 madde 13): sınav seçilince ilgili alanlar tek satırda - Dersler · Deneme · Yanlışlarım · Son durum · Hesabım */
-    var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'
+    /* 18.10 Cem ("bu sınavların içinde görsek bunları"): sınav seçilince derslerin üstünde "en çok çıkan konulardan sorular" kartı
+       (ayrı giriş sayfası en-cok-cikan-sorular.html, ders ders; paketsize orada kilit) + alanlar satırında kısayol. KGK'da yok. */
+    var sikSinav=s.kod==='smmm'?'yeterlilik':s.kod==='sgs'?'sgs':'';
+    var sikKart=(acik&&sikSinav)?'<a class="sc-sik" href="en-cok-cikan-sorular.html?sinav='+sikSinav+'"><span class="sc-sik-ik" aria-hidden="true">🎯</span><span><span class="sc-deneme-et">'+(PAKET[s.kod]?'Pakete dahil':'🔒 Pakete dahil')+' · ders ders</span>'
+      +'<b>Sınavda en çok çıkan konulardan sorular</b><span class="sc-deneme-alt">Son 10 yılın çıkmış sorularını tek tek okuduk; '+(sikSinav==='sgs'?'en sık 20 konudan':'her dersin en sık 5 konusundan')+' ders ders 20 soru. Bitince konu konu karnen.</span></span>'
+      +'<span class="sc-sik-git">Ders ders gör →</span></a>':'';
+    var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'+(sikSinav?'<a href="en-cok-cikan-sorular.html?sinav='+sikSinav+'">🎯 En çok çıkanlar</a>':'')
       +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
     var kars=karsilamaKart(s, acik);   /* ders seçimli pakette karşılama devam + deneme kartının yerine geçer */
     /* 18.10 Cem ("sınava gir değil soru çöz diyelim, içinde sınav olsun; ders ders ve toplu sınavı aynı yerde görsün"):
        rakip kalıbı (konu konu çalış + tam deneme yan yana): solda dersler, sağda sabit DENEME PANELİ (setler tek bakışta).
        Panel varsa eski tek deneme kartı çizilmez. Telefonda panel derslerin üstünde. */
     var panel=denemePanel(s, acik);
-    var h=(kars||devamKart(s, acik))+alanlar+seviyeKart+(panel?'':(kars?'':denemeKart))
+    var h=(kars||devamKart(s, acik))+alanlar+seviyeKart+sikKart+(panel?'':(kars?'':denemeKart))
       +(panel?'<div class="sc-iki"><aside class="sc-sag">'+panel+'</aside><div class="sc-sol">':'')
       +'<div class="sc-gbas" id="sc-dersler"><h2>'+(panel?'Ders ders çalış':esc(s.ad)+' · dersler')+'</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik

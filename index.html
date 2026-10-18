@@ -125,6 +125,16 @@ html[data-theme="dark"] .maskot{-webkit-mask-image:none;mask-image:none;border-r
 /* üst bant: WhatsApp · telefon · e-posta */
 .ulas{background:var(--ink);color:var(--bg);font-size:14px;line-height:1.3}
 /* 18.10 üye karşılama şeridi */
+/* 18.10 kayan duyuru şeridi */
+.kayan{position:relative;display:flex;align-items:center;background:var(--amber-dolgu);color:var(--ink);overflow:hidden;height:40px}
+.kayan[hidden]{display:none}
+.kayan-a{flex:1;min-width:0;overflow:hidden;text-decoration:none!important;color:var(--ink)!important;height:100%;display:flex;align-items:center}
+.kayan-iz{display:inline-flex;white-space:nowrap;animation:kayanAk 32s linear infinite;font-size:14.5px;font-weight:600}
+.kayan-iz>span{padding-right:60px}.kayan-iz b{font-weight:900;letter-spacing:.06em}.kayan-iz u{font-weight:800}
+.kayan:hover .kayan-iz,.kayan-a:focus .kayan-iz{animation-play-state:paused}
+.kayan-x{flex:none;width:40px;height:40px;border:0;border-radius:0;background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink);font-size:16px;cursor:pointer}
+@keyframes kayanAk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){ .kayan{height:auto;min-height:40px} .kayan-iz{animation:none;white-space:normal;padding:8px 12px} .kayan-iz>span+span{display:none} }
 .uye-hos{background:color-mix(in srgb,var(--amber-dolgu) 14%,var(--bg));border-bottom:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent)}
 .uye-hos .ic{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px;font-size:15px;color:var(--ink)}
 .uye-hos #uyeHosMetin{flex:1;min-width:0}.uye-hos .btn{white-space:nowrap;min-height:40px;padding:8px 16px}
@@ -423,6 +433,11 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 <div class="uyg-serit" id="uygSerit" hidden><span>Tetikte artık Android'de. <a href="https://play.google.com/store/apps/details?id=com.tetikte.app" target="_blank" rel="noopener">Google Play'den indir →</a></span><button type="button" data-kapat aria-label="Şeridi kapat">×</button></div>
 <!-- 18.10 (Cem "1.2.3" madde 2): giriş yapmış ve paketi açık üyeye ana sayfada tek satır - son çalıştığı ders + son set
      (Hesabım'ın cihaza yazdığı sc_son_ozet_<kod>). ✕ ile bu oturumda kapanır (kural: her bildirim ✕ ile kapanır). -->
+<!-- 18.10 Cem ("sitede üst tarafta ilk sayfada alt yazı geçsin, tıkladıklarında girsinler"): kayan duyuru şeridi → en-cok-cikan-sorular.html.
+     Tamamı tek bağlantı; ✕ ile bu oturumda kapanır (kural: her bildirim ✕ ile kapanır); hareket azaltma tercihinde kaymaz, sabit durur. -->
+<div class="kayan" id="kayanSerit"><a class="kayan-a" id="kayanA" href="en-cok-cikan-sorular.html?sinav=sgs" aria-label="Yeni: Sınavda en çok çıkan konulardan sorular, ders ders. Aç.">
+  <span class="kayan-iz" aria-hidden="true"><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span></span></a>
+  <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
 <section class="kah">
   <div class="ic">
@@ -772,6 +787,10 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       $('ksKonu').href=yetK?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html';
       $('ksDeneme').href=yetK?'deneme.html?sinav=SMMM':'sinav-gibi.html';
       $('kahGiris').hidden=!!UYE.oturum; }catch(e){}
+    /* 18.10 kayan duyuru: seçili sınavın sekmesine götürür; ✕ bu oturumda kapatır */
+    try{ var ks=$('kayanSerit'), kk=false; try{ kk=sessionStorage.getItem('kayan_kapat')==='1'; }catch(e){}
+      if(ks){ if(kk||kgkSec) ks.hidden=true; else { ks.hidden=false; $('kayanA').href='en-cok-cikan-sorular.html?sinav='+(secili==='yeterlilik'?'yeterlilik':'sgs');
+        $('kayanX').onclick=function(){ ks.hidden=true; try{ sessionStorage.setItem('kayan_kapat','1'); }catch(e){} }; } } }catch(e){}
     /* 18.10 üye karşılama şeridi */
     try{ var hz=$('uyeHos'), oz=null, kapali=false; try{ oz=JSON.parse(localStorage.getItem('sc_son_ozet_'+OZET_ANAHTAR[secili])||'null'); kapali=sessionStorage.getItem('uye_hos_kapat')==='1'; }catch(e){}
       if(hz&&d.durum==='aktif'&&oz&&oz.ad&&/^[a-z0-9\/._-]+\.html$/i.test(oz.sayfa||'')&&!kapali){
