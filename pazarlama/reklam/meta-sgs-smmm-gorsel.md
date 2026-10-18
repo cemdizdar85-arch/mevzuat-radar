@@ -2,8 +2,11 @@
 tur: reklam
 yz: evet
 kanal: meta-reklam-yoneticisi
-durum: yayin-oncesi
+durum: iptal
 ---
+
+<!-- İPTAL 18.10.2026 Cem: "sitede artık 30 soru vermiyoruz, yalnız 5 soru". Görselin üstünde "ilk 30 soru ücretsiz!"
+     yazıyor → bu görselle reklam VERİLMEZ; Meta taslağı silindi. Aynı görselin Instagram Öne Çıkar reklamı da aynı vaadi taşıyor. -->
 
 <!-- 18.10.2026 Cem ("öne çıkardıklarımızdan iyi olanları senin yaptığın gibi geri alalım" → "evet").
      Kreatif: Instagram gönderisi 18436343197178004 (17.10, maskot + telefon görseli; "Mevcut gönderiyi kullan").
