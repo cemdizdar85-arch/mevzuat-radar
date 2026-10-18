@@ -222,7 +222,9 @@
     var coz = {}; (hesapIds || []).forEach(function (id) { coz[id] = 1; });
     try { (JSON.parse(localStorage.getItem('kc_kayit') || '[]') || []).forEach(function (x) { if (x && x.id) coz[x.id] = 1; }); } catch (e) {}
     var yeni = sira.filter(function (f) { return !coz[f.id]; });
-    if (!yeni.length && sira.length) window.__KASA_HEPSI = true;   /* 18.10 madde 2: hepsini gördü → hepsiGordu() yönlendirir */
+    /* 18.10 madde 2: hepsini gördü → hepsiGordu() yönlendirir. Cem "az soru varsa patlamayalım": dersin sitede 500'den az sorusu varsa
+       mesaj YOK (banka küçüklüğü belli olmasın); sıra yine çalışır, görülen sorular sessizce yeniden gelir. Eşik ogrenci.html işaretiyle aynı. */
+    if (!yeni.length && sira.length >= 500) window.__KASA_HEPSI = true;
     if (!yeni.length || yeni.length === sira.length) return sira;
     window.__KASA_COZULEN = sira.length - yeni.length;
     return yeni.concat(sira.filter(function (f) { return coz[f.id]; }));

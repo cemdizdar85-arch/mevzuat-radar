@@ -1238,7 +1238,7 @@
         return (r.ss?'Sınavda '+r.ss+' soru'+(ssTop?' · %'+Math.round(100*r.ss/ssTop):''):yet?'Sınavda ayrı oturum':'')
           +(g?(r.ss||yet?' · ':'')+g.n+' set bitirdin, son set %'+g.o:'')
           /* 18.10 (Cem "1.2.3" madde 1): sitedeki bütün soruları gördüyse işaret (tekil çözülen ≥ dizindeki soru). Kalan sayı YAZILMAZ (10.10). */
-          +(r.banka&&r.d&&(+r.d.cozulen||0)>=r.banka?' · ✓ bütün soruları gördün':''); };
+          +(r.banka>=500&&r.d&&(+r.d.cozulen||0)>=r.banka?' · ✓ bütün soruları gördün':''); };   /* 18.10 Cem "az soru varsa patlamayalım": sitede 500'den az sorusu olan derste işaret YOK (banka küçüklüğü belli olmasın) */
       var detay=function(r){
         var KK=K.filter(function(x){ return ad(x.ders)===ad(r.ad); }).map(function(x){ return { konu:x.konu, d:x, du:durum(x,5) }; });
         var sira={ z:0, o:1, g:3, b:2 };
