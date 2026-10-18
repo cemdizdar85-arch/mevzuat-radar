@@ -6,17 +6,52 @@
   "koyu_gecis": 77,
   "koyu_bekleyen": [],
   "temiz_sayfa": 231,
-  "denetlenen_metin": 23663,
+  "denetlenen_metin": 23687,
   "toplam_kirik": 16,
-  "denetlenen_sinir": 6979,
-  "toplam_gorunmez_sinir": 0,
+  "denetlenen_sinir": 6973,
+  "toplam_gorunmez_sinir": 2,
   "olculemeyen": 1,
   "esik": {
     "normal": 4.5,
     "buyuk": 3,
     "sinir": 1.12
   },
-  "gorunmez_sinir_sayfalar": [],
+  "gorunmez_sinir_sayfalar": [
+    {
+      "sayfa": "elci.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "img.og-marka-maskot",
+          "kimlik": " < .og-sol",
+          "iz": "<img class=\"og-marka-maskot\" src=\"gorsel/maskot-giris.jpg\" alt=\"\" width=\"160\" height=\"160\" loading=\"lazy\">",
+          "yan": "ust",
+          "oran": 1.119,
+          "esik": 1.12,
+          "cerceve": "rgba(255,255,255,1)",
+          "gorunen": "rgb(255,255,255)",
+          "zemin": "rgb(253,241,220)"
+        }
+      ]
+    },
+    {
+      "sayfa": "ogrenci.html [koyu]",
+      "adet": 1,
+      "ornekler": [
+        {
+          "oge": "img.og-marka-maskot",
+          "kimlik": " < .og-sol",
+          "iz": "<img class=\"og-marka-maskot\" src=\"gorsel/maskot-giris.jpg\" alt=\"\" width=\"160\" height=\"160\" loading=\"lazy\">",
+          "yan": "ust",
+          "oran": 1.119,
+          "esik": 1.12,
+          "cerceve": "rgba(255,255,255,1)",
+          "gorunen": "rgb(255,255,255)",
+          "zemin": "rgb(253,241,220)"
+        }
+      ]
+    }
+  ],
   "olculemeyenler": [
     {
       "sayfa": "google87733a2d2d0cc2ab.html",
