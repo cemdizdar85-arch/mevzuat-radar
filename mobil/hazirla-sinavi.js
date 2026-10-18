@@ -78,7 +78,9 @@ function kur(degisiklik) {
   const k = fs.mkdtempSync(path.join(os.tmpdir(), 'hz-sinav-'));
   const d = Object.assign({
     'seviye-testi.html': SEVIYE(),
-    'sinav-gibi.html': SINAV_GIBI()
+    'sinav-gibi.html': SINAV_GIBI(),
+    /* 18.10: en çok çıkan konulardan sorular sayfası (iPhone'da gizlenen satış kartı #ecSatis) */
+    'en-cok-cikan-sorular.html': SEVIYE().replace('id="svTeklif"', 'id="ecSatis"')
   }, SITE_EK_SAHTE, Object.fromEntries(SITE_DIGER.map((y) => [y, SEVIYE()])), {
     'arac/kasa-modu.json': JSON.stringify({ sayfalar: ['kaydir/sgs/turkce.html'] }),
     'paket-kapisi.js': "s.src = KOK + 'kutuphane/supabase-9.9.9.js';",

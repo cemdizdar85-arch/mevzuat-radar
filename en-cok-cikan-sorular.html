@@ -68,7 +68,7 @@
   <div class="ec-cipler" id="ecCipler"></div>
   <div class="ec-satis" id="ecSatis" hidden>
     <div><b>Bu bölüm pakete dahil</b><p id="ecSatisP">Paketin varsa giriş yap; yoksa paketini seç, bu sorular hemen açılır.</p></div>
-    <a class="ec-dug" id="ecSatisA" href="fiyat.html">Paketleri gör →</a>
+    <a class="ec-dug" id="ecSatisA" href="fiyat.html">Paketler →</a>
   </div>
   <div class="ec-dersler" id="ecDersler"><p class="ec-bilgi">Dersler yükleniyor…</p></div>
   <p class="ec-not" id="ecNot"></p>
@@ -108,7 +108,7 @@
       var L=G[d].slice().sort(function(a,b){ return (+b.donem||0)-(+a.donem||0); }), ac=dersAcik(s,d);
       return '<section class="ec-ders"><h2>'+esc(d)+'</h2><ol>'+L.map(function(k){ return '<li>'+esc(k.konu)+' <small>· son 10 yılda '+(+k.donem||0)+' sınavda soruldu</small></li>'; }).join('')+'</ol>'
         +(ac?'<a class="ec-dug" href="'+esc(A.git(d))+'">Bu dersten sık konu sorularını çöz →</a>'
-            :'<a class="ec-dug kilit" href="'+esc(A.fiyat+K)+'">🔒 Pakete dahil · '+(pk?'bu ders paketinde yok':'paketleri gör')+'</a>')+'</section>';
+            :'<a class="ec-dug kilit" href="'+esc(A.fiyat+K)+'">🔒 Pakete dahil'+(pk?' · bu ders paketinde yok':'')+'</a>')+'</section>';
     }).join('');
     $('ecNot').innerHTML=esc(v.not||'')+' <a href="'+A.kanit+'">Konu listesi ve kanıtı: hangi sınav, kaçıncı soru →</a>';
   }

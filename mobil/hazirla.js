@@ -63,7 +63,9 @@ const SITE_SAYFALARI = [
   { yol: 'canli-deneme.html', sok: ['menu', 'komutcss', 'komut'] },
   { yol: 'en-cok-cikan-konular-sgs.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut'] },
   { yol: 'en-cok-cikan-konular-yeterlilik.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut'] },
-  { yol: 'sinav-gibi.html', sok: ['sayac', 'menu', 'komutcss', 'komut'], paket: true }
+  { yol: 'sinav-gibi.html', sok: ['sayac', 'menu', 'komutcss', 'komut'], paket: true },
+  /* 18.10 Cem ("Play Store aynen bunun gibi"): en çok çıkan konulardan sorular - ders ders giriş (sinav-gibi.html'deki kart buraya bağlar). Paket bilgisi uygulama-sayfa.js TetikteUye'den; satış kartı iPhone'da gizli. */
+  { yol: 'en-cok-cikan-sorular.html', sok: ['canonical', 'sayac', 'menu', 'komutcss', 'komut', 'uye'], iosGizle: ['ecSatis'] }
 ];
 const SITE_EK = ['stil.css', 'stil-acik.css', 'tema-bas.js', 'seviye-model.js', 'seviye-model-yet.js', 'nobetci-oynatici.js', 'kutu-esitle.js',
   'sinav-sonucu.js', 'calisma-ozet.js', 'ayrinti.js', 'tema.js', 'nobetci-sor.js',
