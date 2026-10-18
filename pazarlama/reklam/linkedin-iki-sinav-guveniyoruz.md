@@ -2,7 +2,7 @@
 tur: organik
 yz: hayir
 kanal: linkedin
-durum: taslak
+durum: paylasiliyor
 ---
 
 <!-- 18.10.2026 Cem: "bugün yaptığımız arkasındayız dediğimiz paylaşım SGS için de yapsak, bitirme var zaten, ikisini birleştirsen
@@ -14,7 +14,7 @@ durum: taslak
      20 soru · 45 dk · yanlış 0,25 · baraj 50) + smmm-konu-okuma.json. Tarihler 21.11 / 28.11. "31"/"32" paydası yazılmadı (Cem 18.10).
      Görsel: Masaüstü/mevzuat işi/reklam-linkedin-iki-sinav/ → Tetikte-Staja-Giris-ve-Yeterlilik.pdf (6 kart, belge/kaydırmalı) ya da
      .mp4 (21 sn sessiz). Maskot ve fiyat YOK (maskot yapay zekâ → ibare gerekir; fiyat bağlantıda). Bağlantı ?k=linkedin.      18.10 v2 (Cem "ekle"): kısa sürüm (rakamlar kartlarda) + 7 sayfa, 1. sayfa kurucu kapağı (kurucu-masa.jpg, sitedeki fotoğraf).
-     "Yıllar sonra … baktım" cümlesi GM önerisi; Cem kendi deneyimiyle doğrulayacak. -->
+     "Yıllar sonra … baktım" cümlesi GM önerisiydi; Cem 18.10 "cümle doğru, böyle kalsın" diye doğruladı ve paylaşıyor. -->
 
 ## Paylaşım metni (LinkedIn)
 
