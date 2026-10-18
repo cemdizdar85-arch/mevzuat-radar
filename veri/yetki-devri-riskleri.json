@@ -1,11 +1,11 @@
 {
-  "tarih": "18.10.2026 00:42",
+  "tarih": "18.10.2026 00:50",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 888,
   "riskli_madde": 1315,
-  "sayfa": 76,
+  "sayfa": 77,
   "atifli_iddia": 299,
-  "dayanaksiz_iddia": 395,
+  "dayanaksiz_iddia": 396,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 249,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     }
   ],
@@ -92,14 +92,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "5746",
+      "kanun": "4691",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -190,7 +190,7 @@
       "sayfa": "elci.html",
       "satir": 249,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -984,6 +984,12 @@
       "satir": 273,
       "iddia": "1.250 TL",
       "metin": "1.250 TL 187,50 TL 1.062,50 TL"
+    },
+    {
+      "sayfa": "en-cok-cikan-sorular.html",
+      "satir": 61,
+      "iddia": "10 yıl",
+      "metin": "Son 10 yılın çıkmış sorularını tek tek okuduk; her dersin en çok sorulan konularını bulduk. Sorular ders ders, o konulardan."
     },
     {
       "sayfa": "fark.html",
@@ -2361,19 +2367,19 @@
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 324,
+      "satir": 366,
       "iddia": "14 gün",
       "metin": "/* bu tarayıcıdaki yarım (ya da son 14 günde biten) kayıtlar hesapta yoksa / eskiyse hesaba */"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 426,
+      "satir": 469,
       "iddia": "%5",
       "metin": "if(Math.floor(DURUM.kalanSn)%5===0) yaz();"
     },
     {
       "sayfa": "sinav-gibi.html",
-      "satir": 518,
+      "satir": 561,
       "iddia": "2 gün",
       "metin": "/* Yanlışlar Kaydır-Çöz'ün yanlış kutusuna (kc_kutu) - aynı biçim: 2 gün sonra ders sayfasında geri gelir */"
     },
