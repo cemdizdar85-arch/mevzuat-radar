@@ -207,7 +207,27 @@
     window.__KASA_KONU = kf[0].konu;
     return kf.filter(function (f) { return !coz[f.id]; }).concat(kf.filter(function (f) { return coz[f.id]; }));
   }
+  /* 18.10 (Cem "1.2.3" madde 1 "kaldığın yerden devam her cihazda"): ders sayfası soru KONUMU saklamıyordu, her açılışta baştan
+     başlıyordu. Rakip kalıbı ("unused questions first"): ÇÖZMEDİĞİN SORULAR ÖNCE - hesaptaki bütün cevaplar
+     (uye_cozdugum_sorular, 2026-10-18 SQL; en çok 1,5 sn beklenir) + bu cihazdaki kc_kayit. Çözülenler sona, iki grupta da seviye
+     sırası korunur. Konu çalışmasında konuSuz zaten aynı işi yapar. Hesap okunamazsa yalnız cihaz kaydıyla (fail-open).
+     🚫 GÖRMEZ: ücretsiz örnek cevapları (sunucuya yazılmıyor) · 1,5 sn'de dönmeyen hesap okuması (o açılışta yalnız cihaz). */
+  function hesapCozulen(sb) {
+    if (!sb || !sb.rpc) return Promise.resolve([]);
+    var zaman = new Promise(function (r) { setTimeout(function () { r([]); }, 1500); });
+    var istek = sb.rpc('uye_cozdugum_sorular').then(function (r) { return (r && !r.error && Array.isArray(r.data)) ? r.data.map(function (x) { return x.i; }) : []; }, function () { return []; });
+    return Promise.race([istek, zaman]);
+  }
+  function cozulmemisOnce(sira, hesapIds) {
+    var coz = {}; (hesapIds || []).forEach(function (id) { coz[id] = 1; });
+    try { (JSON.parse(localStorage.getItem('kc_kayit') || '[]') || []).forEach(function (x) { if (x && x.id) coz[x.id] = 1; }); } catch (e) {}
+    var yeni = sira.filter(function (f) { return !coz[f.id]; });
+    if (!yeni.length || yeni.length === sira.length) return sira;
+    window.__KASA_COZULEN = sira.length - yeni.length;
+    return yeni.concat(sira.filter(function (f) { return coz[f.id]; }));
+  }
   async function setliAc(k) {
+    var hesapP = hesapCozulen(k.sb);
     var fih = await fihristCek(k.sb);
     if (!fih.length) {
       return mesaj('Bu ders paketinde yok',
@@ -215,6 +235,7 @@
         dugme('../../satin-al.html', 'Paketi güncelle'));
     }
     var sira = konuSuz(seviyeSirala(fih)), yuklu = {}, imlec = 0, bekliyor = null, durdu = false;
+    if (!window.__KASA_KONU) sira = cozulmemisOnce(sira, await hesapP);
     function siradakiIdler(adet) {
       var ids = [];
       while (imlec < sira.length && ids.length < adet) { var id = sira[imlec++].id; if (!yuklu[id]) ids.push(id); }

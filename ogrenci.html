@@ -1169,7 +1169,8 @@
           .filter(function(x){ return x&&kc(x.ders)===kc(d.ad)&&(!x.sinav||x.sinav===kod)&&((+x.dogru||0)+(+x.yanlis||0))>0; })
           .sort(function(a,b){ return (+b.t||Date.parse(b.tarih)||0)-(+a.t||Date.parse(a.tarih)||0); })[0];
         var setY=SRL?' · son setin <b>Set '+(+SRL.set||'')+' %'+Math.round(100*(+SRL.dogru||0)/((+SRL.dogru||0)+(+SRL.yanlis||0)))+'</b>':'';
-        $('opHosMetin').innerHTML='👋 <b>Hoş geldin.</b> En son <b>'+esc(d.ad)+'</b> çalışıyordun'+setY+'. Kaldığın sorudan devam edebilirsin.';
+        $('opHosMetin').innerHTML='👋 <b>Hoş geldin.</b> En son <b>'+esc(d.ad)+'</b> çalışıyordun'+setY+'. Devam edince önce henüz çözmediğin sorular gelir.';
+        try{ localStorage.setItem('sc_son_ozet_'+kod, JSON.stringify({ad:d.ad,sayfa:d.sayfa,set:SRL?(+SRL.set||null):null,oran:SRL?Math.round(100*(+SRL.dogru||0)/((+SRL.dogru||0)+(+SRL.yanlis||0))):null,t:Date.now()})); }catch(e){}   /* 18.10: ana sayfa üye şeridi okur */
         $('opHosBtn').href=d.sayfa; $('opHos').classList.remove('og-gizli'); },function(){}); }catch(e){}
     /* sekme: verisi YA DA paketi olan sınavlar (ilerlemeCiz yalnız veriye bakıyordu; paketli ama henüz testi olmayan sınav görünmüyordu) */
     try{ var var_={}; ['sgs','yeterlilik','kgk'].forEach(function(k){ var pk=P&&P.sinavlar&&P.sinavlar[k];
