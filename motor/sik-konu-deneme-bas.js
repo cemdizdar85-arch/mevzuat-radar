@@ -17,7 +17,7 @@
 //    en sık konuya sayılır.
 //  18.10 Yeterlilik (Cem "en çok puan verilen konuları önceliğe çıkaralım"): havuzun tamamı (floor(havuz/20) set), konu
 //    sırası + set içi payı PUAN ağırlığıyla (puanSetKur; ağırlık arac/smmm-konu-puan.js → veri/sinav/smmm-konu-puan.json).
-//    Ders denemesi sık konu setlerindeki soruyu dışladığı için onun set sayısı da buna göre düşer (FTA, Maliyet, SPK).
+//    Ders denemesi sık konu sorusunu artık dışlamaz (18.10 Cem: 78 deneme kalsın).
 //  ÇIKTI: veri/deneme/<sgs|smmm>-sik-dizin.json + <sinav>-sik-set-NN.json — YALNIZ KİMLİK (metin/cevap sinav-gibi.html'de
 //    paketli üyeye RLS'li kasadan gelir). Kaynak KASA (paket_soru), servis anahtarı ister.
 //  🚫 GÖRMEZ: SGS'de konu ifadesi kökte geçmeyen ama konuyu ölçen soru (havuz alt sınırdır) · ifade geçip konuyu ölçmeyen
@@ -258,8 +258,8 @@ async function smmm() {
 //  11.10.2026 (Cem: "tek ders aldı nasıl sınayacağız tek dersi alan kişiyi" → GM önerisi 1 "ders denemesi" → "1 yapalım").
 //  Gerçek 2026 düzeninde her ders AYRI sınav (TÜRMOB YK 14.01.2026: ders başına 20 soru / 45 dk, yanlış 0,25 götürür,
 //  baraj 50) → tek ders alan kendi dersinin sınavını, tüm dersleri alan sekizini ayrı ayrı çözer.
-//  HAVUZ: dersin sitedeki sorularının TAMAMI (smmm-banka-esleme.json, kasada olan, elle ret dışı) EKSİ "en çok sorulan konular"
-//    setlerindeki sorular (iki denemeyi çözen aynı soruyu görmesin).
+//  HAVUZ: dersin sitedeki sorularının TAMAMI (smmm-banka-esleme.json, kasada olan, elle ret dışı). 18.10 Cem: sık konu
+//    testleriyle ortak soru SERBEST (eskiden dışlanıyordu; reklam "8 ders · 78 deneme" bu set sayısına bağlı).
 //  AĞIRLIK: sorunun konusu okunmuş çıkmış sorularda (smmm-konu-okuma.json, son 10 yıl penceresi) kaç dönemde soruldu.
 //    Konular yumuşak ağırlıklı sırayla (smooth weighted round-robin) dizilir: sık konu daha çok, ama her set dersin geniş
 //    bir kesitini alır. Son 10 yılda hiç sorulmamış konunun sorusu yalnız ağırlıklı havuz 20'ye yetmezse girer.
@@ -270,6 +270,11 @@ function smmmDers(sik) {
   console.log('DERS DENEMESİ · Yeterlilik');
   const { kullanilan, kasa, es, D, dersSira, pencere } = sik;
   const tumSet = [], dizinSet = [], dersOzet = [], hata = [], havuzDosya = {};
+  let eskiDersSet = [];   // yayındaki ders denemesi setleri: [{ders, sorular}]
+  try {
+    eskiDersSet = jsonOku(path.join(KOK, 'veri', 'deneme', 'smmm-ders-dizin.json')).setler
+      .map(s => ({ ders: s.ders, sorular: jsonOku(path.join(KOK, s.dosya)).sorular || [] }));
+  } catch (e) { eskiDersSet = []; }
   for (const ders of dersSira) {
     const agirlik = {};
     Object.values(D[ders] || {}).forEach(r => { agirlik[r.konu] = new Set(r.kanit.map(z => z.donem)).size; });
@@ -290,7 +295,19 @@ function smmmDers(sik) {
     if (hs.some(q => q.sayfa !== sayfa)) hata.push(`${ders}: havuzda birden çok sayfa`);
     const konuAd = [...new Set(hs.map(q => q.konu))];
     havuzDosya[ders] = { sayfa, soru: hs.length, konular: konuAd, sorular: hs.map(q => [q.id, konuAd.indexOf(q.konu), q.sira]) };
-    const { dizi, sifir } = sirala(tum.filter(id => !kullanilan.has(id)));
+    // 18.10 Cem: sık konu dışlaması KALKTI (bir soru hem ders denemesinde hem sık konu testinde olabilir; reklam "78 deneme").
+    //   KARARLILIK: dersin yayındaki setleri (eski dizin) bankada aynen duruyorsa (her kimlik kasada, bu derste) DOKUNULMAZ —
+    //   yarım denemeler ve set numaraları yerinde kalır. Bir soru düşünce ders baştan, dışlamasız kurulur.
+    const eskiSet = eskiDersSet.filter(s => s.ders === ders);
+    const tumK = new Set(tum);
+    if (eskiSet.length && eskiSet.every(s => s.sorular.length === SM_SORU && s.sorular.every(q => tumK.has(q.id)))) {
+      const setlerE = eskiSet.map(s => s.sorular.map(q => { const x = kasa[q.id]; return { id: q.id, bolum: ders, ders, konu: q.konu, sayfa: x.sayfa, sira: x.sira }; }));
+      console.log(`  ${ders}: ${setlerE.length} set · yayındaki setler bankada duruyor, AYNEN korundu`);
+      dersOzet.push({ ders, set: setlerE.length, konu: new Set(setlerE.flat().map(q => q.konu)).size });
+      setlerE.forEach((st, i) => { tumSet.push(st); dizinSet.push({ no: tumSet.length, ders, baslik: `${ders} · Deneme ${i + 1}`, sure_dk: SM_SURE, toplam: st.length, dosya: `veri/deneme/smmm-ders-set-${String(tumSet.length).padStart(2, '0')}.json` }); });
+      continue;
+    }
+    const { dizi, sifir } = sirala(tum);
     const agirlikli = dizi.length;
     if (dizi.length < SM_SORU) dizi.push(...sifir);
     const S = Math.min(DERS_TAVAN, Math.floor(dizi.length / SM_SORU));
@@ -306,16 +323,16 @@ function smmmDers(sik) {
     });
   }
   const gor = new Set();
-  tumSet.flat().forEach(q => { if (gor.has(q.id)) hata.push('tekrar: ' + q.id); if (kullanilan.has(q.id)) hata.push('sık konu setinde de var: ' + q.id); gor.add(q.id); });
+  tumSet.flat().forEach(q => { if (gor.has(q.id)) hata.push('tekrar: ' + q.id); gor.add(q.id); });
   if (hata.length) { console.log('KIRMIZI - yazılmadı:'); hata.forEach(h => console.log('  · ' + h)); process.exit(1); }
-  console.log(`  ${tumSet.length} set (${dersOzet.length} ders) × ${SM_SORU} soru · setler arası tekrar 0 · sık konu setleriyle ortak 0`);
+  console.log(`  ${tumSet.length} set (${dersOzet.length} ders) × ${SM_SORU} soru · setler arası tekrar 0 · sık konu testleriyle ortak ${[...gor].filter(id => kullanilan.has(id)).length} (18.10 dışlama kalktı)`);
   yaz('smmm', {
     uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
     sinav: 'smmm', tur: 'ders', ad: 'Yeterlilik', baslik: 'Yeterlilik · Ders Denemesi',
     deneme_ad: 'Ders Denemesi',
     alt: `Gerçek sınavda her ders ayrı bir sınav. Burada da öyle: dersini seç, ${SM_SORU} soru, ${SM_SURE} dakika, yanlış doğrunun 0,25'ini götürür. Sorular dersin bütün konularından; son 10 yılda sık sorulan konu daha çok gelir. Bitince puanın ve konu konu karnen.`,
     kural: [`Ders başına ${SM_SORU} soru`, `${SM_SURE} dakika`, 'Yanlış 0,25 götürür', 'Baraj 50', 'Setler arası tekrar yok'],
-    not: `Sınav düzeni TÜRMOB Yönetim Kurulu kararından (14.01.2026). Konu ağırlığı okunarak sayılmış çıkmış sorulardan (${pencere}). "En çok sorulan konular" denemesindeki sorular burada yeniden gelmez.`,
+    not: `Sınav düzeni TÜRMOB Yönetim Kurulu kararından (14.01.2026). Konu ağırlığı okunarak sayılmış çıkmış sorulardan (${pencere}).`,
     sonuc_alt: 'Puan: (doğru − yanlış ÷ 4) × 5. Geçme barajı 50; gerçek sınavda her ders ≥ 50 ve ortalama ≥ 60.',
     karne: 'konu', puan: 'yeterlilik', liste_sayfa: 'en-cok-cikan-konular-yeterlilik.html',
     dersler: dersOzet, setler: dizinSet
