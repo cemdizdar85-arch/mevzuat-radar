@@ -1152,13 +1152,25 @@
     try{ var hub=(U&&U.SINAVLAR&&U.SINAVLAR[s]&&U.SINAVLAR[s].gir)||('sorular.html#'+kod); $('opCozBtn').href=hub;
       $('opDevamBtn').href=(U&&U.devamAdres)?U.devamAdres(s):hub; }catch(e){}
     /* 18.10 karşılama: son açılan ders varsa adıyla (dizinden sayfa → ad); yoksa satır gizli */
+    /* 18.10 (Cem "1.2.3" madde 1): son ders ÖNCE HESAPTAN - uye_calisma_ozetim() ders satırlarındaki son cevap zamanı (kasa_cevap; her
+       cihaz). Hesap yoksa bu cihazdaki sc_son_ders_<kod>. Hesaptan bulunan ders bu cihaza da yazılır → ana sayfa "Kaldığın yerden devam"
+       (uye-durumu.js devamAdres) yeni telefonda da doğru derse gider. Madde 2: o dersin son set raporu (OP_SET / kc_set_rapor) satıra eklenir.
+       🚫 GÖRMEZ: ücretsiz örnek sayfadaki cevap (sunucuya yazılmıyor). */
     try{ var sonD=null; try{ sonD=localStorage.getItem('sc_son_ders_'+kod); }catch(e){}
-      if(!sonD||!/^[a-z0-9\/._-]+\.html$/i.test(sonD)) $('opHos').classList.add('og-gizli');
+      var hD=((OZET&&OZET.dersler)||[]).filter(function(x){ return x.sinav===kod&&x.son; }).sort(function(a,b){ return String(b.son).localeCompare(String(a.son)); })[0];
+      if(!hD&&(!sonD||!/^[a-z0-9\/._-]+\.html$/i.test(sonD))) $('opHos').classList.add('og-gizli');
       else if(window.ttCalisma&&ttCalisma.dizin) ttCalisma.dizin().then(function(dz){ if(ILR.secili!==s) return;
-        var sn=dz&&dz.sinavlar?dz.sinavlar.filter(function(x){ return x.kod===kod; })[0]:null, d=sn?(sn.dersler||[]).filter(function(x){ return x.sayfa===sonD; })[0]:null;
+        var sn=dz&&dz.sinavlar?dz.sinavlar.filter(function(x){ return x.kod===kod; })[0]:null, L=sn?(sn.dersler||[]):[];
+        var kc=function(t){ return String(t||'').toLocaleLowerCase('tr-TR').trim(); };
+        var d=(hD&&L.filter(function(x){ return kc(x.ad)===kc(hD.ders)&&x.sayfa; })[0])||L.filter(function(x){ return x.sayfa===sonD; })[0];
         if(!d){ $('opHos').classList.add('og-gizli'); return; }
-        $('opHosMetin').innerHTML='👋 <b>Hoş geldin.</b> En son <b>'+esc(d.ad)+'</b> çalışıyordun; kaldığın sorudan devam edebilirsin.';
-        $('opHosBtn').href=sonD; $('opHos').classList.remove('og-gizli'); },function(){}); }catch(e){}
+        if(hD&&d.sayfa!==sonD){ try{ localStorage.setItem('sc_son_ders_'+kod, d.sayfa); }catch(e){} try{ $('opDevamBtn').href=d.sayfa; }catch(e){} }
+        var SRL=(Array.isArray(window.OP_SET)&&window.OP_SET.length?window.OP_SET:(function(){ var l=yerel('kc_set_rapor',[]); return Array.isArray(l)?l:[]; })())
+          .filter(function(x){ return x&&kc(x.ders)===kc(d.ad)&&(!x.sinav||x.sinav===kod)&&((+x.dogru||0)+(+x.yanlis||0))>0; })
+          .sort(function(a,b){ return (+b.t||Date.parse(b.tarih)||0)-(+a.t||Date.parse(a.tarih)||0); })[0];
+        var setY=SRL?' · son setin <b>Set '+(+SRL.set||'')+' %'+Math.round(100*(+SRL.dogru||0)/((+SRL.dogru||0)+(+SRL.yanlis||0)))+'</b>':'';
+        $('opHosMetin').innerHTML='👋 <b>Hoş geldin.</b> En son <b>'+esc(d.ad)+'</b> çalışıyordun'+setY+'. Kaldığın sorudan devam edebilirsin.';
+        $('opHosBtn').href=d.sayfa; $('opHos').classList.remove('og-gizli'); },function(){}); }catch(e){}
     /* sekme: verisi YA DA paketi olan sınavlar (ilerlemeCiz yalnız veriye bakıyordu; paketli ama henüz testi olmayan sınav görünmüyordu) */
     try{ var var_={}; ['sgs','yeterlilik','kgk'].forEach(function(k){ var pk=P&&P.sinavlar&&P.sinavlar[k];
         if(k==='kgk'&&!kgkAcik()) return;
