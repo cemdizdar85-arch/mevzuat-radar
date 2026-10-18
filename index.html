@@ -85,6 +85,8 @@ html body .btn-ikinci{background:transparent;color:var(--ink)!important;border-c
 html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 09.10 uygulama bağlantısı (uygulama-indir.js): iPhone'da [data-uygulama] gizli; şerit yalnız Android telefonda */
 [data-uygulama][hidden],#uygSerit[hidden],#provaSerit[hidden]{display:none!important}
+/* 18.10 Cem ("telefonda çarpıya basamadığı yer olmasın"): şerit ✕'i 30x28 ölçüldü -> en az 44x44 dokunma alanı */
+.uyg-serit [data-kapat]{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
 html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
 .uyg-serit{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink)}
@@ -138,7 +140,7 @@ html[data-theme="dark"] .maskot{-webkit-mask-image:none;mask-image:none;border-r
 .uye-hos{background:color-mix(in srgb,var(--amber-dolgu) 14%,var(--bg));border-bottom:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent)}
 .uye-hos .ic{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px;font-size:15px;color:var(--ink)}
 .uye-hos #uyeHosMetin{flex:1;min-width:0}.uye-hos .btn{white-space:nowrap;min-height:40px;padding:8px 16px}
-.uye-hos-x{flex:none;width:36px;height:36px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:16px;cursor:pointer}
+.uye-hos-x{flex:none;width:44px;height:44px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:16px;cursor:pointer}
 @media(max-width:640px){ .uye-hos .ic{flex-wrap:wrap;font-size:14px} .uye-hos #uyeHosMetin{flex-basis:calc(100% - 48px)} .uye-hos .btn{order:3;flex:1;justify-content:center} }
 .ulas .ic{display:flex;align-items:center;justify-content:flex-end;gap:6px 18px;min-height:36px;flex-wrap:wrap}
 .ulas-not{margin-right:auto;opacity:.85}

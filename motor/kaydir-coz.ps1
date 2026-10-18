@@ -706,7 +706,7 @@ $html=@'
 /* surukleme oyunu */
 /* Cem 03.09: "ekranlar tam sigmiyor" - tam ekran katmanlar karta degil PENCEREYE sabitlenir (fixed) */
 .oyun{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);background:var(--bg);display:none;flex-direction:column;padding:14px;z-index:65;overflow-y:auto}.oyun.acik{display:flex}
-.oyun{right:auto}#kutuKapat,.bDersKapat,.tekrarUyari .tuKapat{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}.oyunX{position:sticky;top:0;align-self:flex-end;flex:0 0 auto;width:44px;height:44px;margin:-8px -6px -36px 0;z-index:2;border:0;border-radius:50%;background:var(--bg);color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}
+.oyun{right:auto}#kutuKapat,.bDersKapat,.tekrarUyari .tuKapat,.kagitKapat{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}.oyunX{position:sticky;top:0;align-self:flex-end;flex:0 0 auto;width:44px;height:44px;margin:-8px -6px -36px 0;z-index:2;border:0;border-radius:50%;background:var(--bg);color:var(--yazi);font:20px/1 system-ui,sans-serif;cursor:pointer}
 #akis,.govde,.tabloSar,.serit,.panel,.oyun{scrollbar-width:none}#akis::-webkit-scrollbar,.govde::-webkit-scrollbar,.tabloSar::-webkit-scrollbar,.serit::-webkit-scrollbar,.panel::-webkit-scrollbar,.oyun::-webkit-scrollbar{display:none}
 .oyun h3{margin:4px 0 2px;font-size:1em}.oyun .alt{color:var(--dim);font-size:.82em;margin-bottom:10px}
 .satir{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:8px 0;position:relative}
