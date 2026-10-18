@@ -572,8 +572,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     <div class="sik-kart sik-bekle" id="sikKart">
       <div>
         <span class="sik-etiket">🔒 Pakete dahil · yeni</span>
-        <h2 id="sikBas">En Çok Sorulan 20 Konu Denemesi</h2>
-        <p id="sikMetin">Son 10 yılın sınavlarında en sık sorulan konular tek denemede. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.</p>
+        <h2 id="sikBas">Sınavda en çok çıkan konulardan sorular</h2>
+        <p id="sikMetin">Son 10 yılın çıkmış sorularını tek tek okuduk; her dersin en çok sorulan konularından ders ders sorular. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.</p>
       </div>
       <div class="sik-dugme">
         <a class="btn btn-vurgu" id="sikA" href="en-cok-cikan-sorular.html?sinav=sgs">Ders ders gör →</a>
@@ -680,7 +680,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     $('sikA').setAttribute('href', yet?'en-cok-cikan-sorular.html?sinav=yeterlilik':'en-cok-cikan-sorular.html?sinav=sgs');   /* 18.10: ayrı giriş sayfası (ders ders) */
     $('sikListe').setAttribute('href', yet?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html');
     var ac=function(){ $('sikKart').classList.remove('sik-bekle'); };
-    var yaz=function(d){ $('sikMetin').textContent=d.alt; if(d.deneme_ad) $('sikBas').textContent=d.deneme_ad; ac(); };
+    /* 18.10: kart artık ayrı giriş sayfasına (ders ders) gidiyor; dizinin 'tek deneme / 40 soru' metni yazılmaz, sınava göre sabit metin */
+    var yaz=function(){ $('sikBas').textContent='Sınavda en çok çıkan konulardan sorular'; $('sikMetin').textContent=yet?'Son 10 yılın çıkmış sorularını tek tek okuduk; Yeterlilik'+String.fromCharCode(39)+'in her dersinin en sık 5 konusundan ders ders 20 soruluk setler. Bitince konu konu karnen çıkar.':'Son 10 yılın çıkmış sorularını tek tek okuduk; Staja Giriş'+String.fromCharCode(39)+'in en sık 20 konusundan ders ders 20 soru. Bitince konu konu karnen çıkar.'; ac(); };
     if(SIK_ALT[k]){ yaz(SIK_ALT[k]); return; }
     setTimeout(ac,3000);   /* dizin gelmezse sabit metin görünür */
     fetch('veri/deneme/'+k+'-sik-dizin.json').then(function(y){ return y.ok?y.json():null; }).then(function(d){
