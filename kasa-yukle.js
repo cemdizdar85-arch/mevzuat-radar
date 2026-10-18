@@ -222,9 +222,25 @@
     var coz = {}; (hesapIds || []).forEach(function (id) { coz[id] = 1; });
     try { (JSON.parse(localStorage.getItem('kc_kayit') || '[]') || []).forEach(function (x) { if (x && x.id) coz[x.id] = 1; }); } catch (e) {}
     var yeni = sira.filter(function (f) { return !coz[f.id]; });
+    if (!yeni.length && sira.length) window.__KASA_HEPSI = true;   /* 18.10 madde 2: hepsini gördü → hepsiGordu() yönlendirir */
     if (!yeni.length || yeni.length === sira.length) return sira;
     window.__KASA_COZULEN = sira.length - yeni.length;
     return yeni.concat(sira.filter(function (f) { return coz[f.id]; }));
+  }
+  /* 18.10 (Cem "1.2.3" madde 2): dersin sitedeki BÜTÜN sorularını görmüş öğrenciye tek şerit: yanlış kutusu + deneme.
+     Yeterlilik: dersin 20 soruluk denemesi ("sana özel deneme" orada) · Staja Giriş: sınav gibi deneme · KGK: yalnız yanlışlar.
+     ✕ ile kapanır (kural); bu ders için bu oturumda bir kez. Banka büyüklüğü yazılmaz. */
+  function hepsiGordu(ders) {
+    try {
+      var an = 'kasa_hepsi_' + location.pathname; if (sessionStorage.getItem(an)) return; sessionStorage.setItem(an, '1');
+      var yol = location.pathname, yet = /\/smmm\//.test(yol), sgs = /\/sgs\//.test(yol);
+      var den = yet ? '../../sinav-gibi.html?tur=ders&sinav=smmm&ders=' + encodeURIComponent(ders || '') : sgs ? '../../sinav-gibi.html' : '';
+      var u = document.createElement('div'); u.className = 'tekrarUyari'; u.style.bottom = 'auto'; u.style.top = '64px';
+      u.innerHTML = '<span class="tuMetin">🏁 <b>Bu dersin bütün sorularını gördün.</b> Şimdi yanlışlarını kapat' + (den ? ' ya da kendini denemeyle sına' : '') + ': '
+        + '<a href="../../yanlislarim.html">Yanlışlarım →</a>' + (den ? ' · <a href="' + den + '">' + (yet ? 'Ders denemesi →' : 'Sınav gibi deneme →') + '</a>' : '')
+        + ' <small>(sorular yine burada, baştan çözebilirsin)</small></span><button type="button" class="tuKapat" aria-label="Kapat">✕</button>';
+      document.body.appendChild(u); u.querySelector('.tuKapat').addEventListener('click', function () { u.remove(); });
+    } catch (e) {}
   }
   async function setliAc(k) {
     var hesapP = hesapCozulen(k.sb);
@@ -236,6 +252,7 @@
     }
     var sira = konuSuz(seviyeSirala(fih)), yuklu = {}, imlec = 0, bekliyor = null, durdu = false;
     if (!window.__KASA_KONU) sira = cozulmemisOnce(sira, await hesapP);
+    if (window.__KASA_HEPSI) setTimeout(function () { hepsiGordu(fih[0] && fih[0].ders); }, 1200);
     function siradakiIdler(adet) {
       var ids = [];
       while (imlec < sira.length && ids.length < adet) { var id = sira[imlec++].id; if (!yuklu[id]) ids.push(id); }

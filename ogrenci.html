@@ -1221,7 +1221,7 @@
          konu konu başarısı açılır. "Sınavda N soru" yalnız resmî dağılımdan: dizin sinav_soru = veri/ders-profili.json soru_sayisi
          (SGS: TESMER Staj ve Sınavlara İlişkin Uygulama Yönergesi m.6.2, Cem onayı 01.09; SGS 2022/3 kitapçığı okunarak ders
          blokları 18.10'da birebir doğrulandı). Yeterlilik/KGK'da ders başı sayı resmî tabloda yok -> rakam yazılmaz. */
-      var satir=liste.map(function(x,i){ return { ad:x.ad, sayfa:x.sayfa, ss:+x.sinav_soru||0, d:SAY[ad(x.ad)]||null, i:i, pk:paketD.indexOf(ad(x.ad))>-1 }; });
+      var satir=liste.map(function(x,i){ return { ad:x.ad, sayfa:x.sayfa, ss:+x.sinav_soru||0, banka:+x.soru||0, d:SAY[ad(x.ad)]||null, i:i, pk:paketD.indexOf(ad(x.ad))>-1 }; });
       D.forEach(function(x){ if(!M[ad(x.ders)]) satir.push({ ad:x.ders, sayfa:null, ss:0, d:x, i:999, pk:false }); });
       satir.sort(function(a,b){ return a.i-b.i; });
       var ssTop=satir.reduce(function(t,r){ return t+r.ss; },0);
@@ -1236,7 +1236,9 @@
           var g=SETK[k]||(SETK[k]={n:0,t:0,o:0}); g.n++; if(t>=g.t){ g.t=t; g.o=Math.round(100*(+x.dogru||0)/c); } }); }catch(e){}
       var sinavYazi=function(r){ var g=SETK[ad(r.ad)];
         return (r.ss?'Sınavda '+r.ss+' soru'+(ssTop?' · %'+Math.round(100*r.ss/ssTop):''):yet?'Sınavda ayrı oturum':'')
-          +(g?(r.ss||yet?' · ':'')+g.n+' set bitirdin, son set %'+g.o:''); };
+          +(g?(r.ss||yet?' · ':'')+g.n+' set bitirdin, son set %'+g.o:'')
+          /* 18.10 (Cem "1.2.3" madde 1): sitedeki bütün soruları gördüyse işaret (tekil çözülen ≥ dizindeki soru). Kalan sayı YAZILMAZ (10.10). */
+          +(r.banka&&r.d&&(+r.d.cozulen||0)>=r.banka?' · ✓ bütün soruları gördün':''); };
       var detay=function(r){
         var KK=K.filter(function(x){ return ad(x.ders)===ad(r.ad); }).map(function(x){ return { konu:x.konu, d:x, du:durum(x,5) }; });
         var sira={ z:0, o:1, g:3, b:2 };
