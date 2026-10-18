@@ -179,8 +179,12 @@
       el.className = 'urun'; el.setAttribute('data-sinav', u.sinav);
       el.innerHTML = '<span class="ad">' + esc(u.ad) + '<span class="etiket">' +
         (fiyat ? esc(fiyat) : 'Fiyat mağazadan okunamadı') + ' · sınava kadar erişim</span></span>' +
-        '<button type="button" class="al"' + (fiyat ? '' : ' disabled') + '>Satın al</button>';
-      el.querySelector('.al').addEventListener('click', function () { satinAl(u, el.querySelector('.al')); });
+        '<button type="button" class="al"' + (fiyat || !kullanici ? '' : ' disabled') + '>' + (kullanici ? 'Satın al' : 'Giriş yap ve al') + '</button>';
+      /* 18.10 (Cem "üye olmadan fiyatları göremiyoruz şikayeti"): girişsizde fiyat görünür, düğme giriş formuna götürür
+         (satın alma hesaba bağlanmak zorunda: appAccountToken = kullanıcı kimliği). */
+      el.querySelector('.al').addEventListener('click', function () {
+        if (!kullanici) { olay('satin_al_giris'); var g = $('giris'); if (g) { g.hidden = false; g.scrollIntoView({ block: 'start' }); var ep = g.querySelector('input[type=email]'); if (ep) setTimeout(function () { try { ep.focus(); } catch (x) {} }, 300); } return; }
+        satinAl(u, el.querySelector('.al')); });
       l.appendChild(el);
     });
     if (!Object.keys(magazaFiyat).length) $('paketNot').textContent = 'Paketler şu an mağazadan yüklenemedi. İnternet bağlantını kontrol et.';
@@ -190,12 +194,15 @@
     goster: function (istemci, k, yenile) {
       /* Kilitli sınav perdesi (uygulama-kapisi.js) "Paket seç" düğmesini bu bilgiyle gösterir. */
       try { localStorage.setItem('tt_uyg_satis_acik', yerelMi() && satisAcik() ? '1' : '0'); } catch (e) {}
-      if (!yerelMi() || !satisAcik() || !URUNLER.length || k.cevrimdisi) { $('paketler').hidden = true; return; }
-      sb = istemci; kullanici = k; yenileFn = yenile;
+      /* 18.10: k = null → girişsiz: fiyatlar görünür, "Giriş yap ve al" (satın alma ve bekleyen işleme yalnız girişte) */
+      if (!yerelMi() || !satisAcik() || !URUNLER.length || (k && k.cevrimdisi)) { $('paketler').hidden = true; return; }
+      sb = istemci; kullanici = k || null; yenileFn = yenile;
       $('paketler').hidden = false;
-      $('paketNot').textContent = 'Ödeme ' + (ios() ? 'App Store' : 'Google Play') + ' üzerinden yapılır; paket hesabına hemen tanımlanır.';
+      $('paketNot').textContent = kullanici
+        ? 'Ödeme ' + (ios() ? 'App Store' : 'Google Play') + ' üzerinden yapılır; paket hesabına hemen tanımlanır.'
+        : 'Fiyatlar ' + (ios() ? 'App Store' : 'Google Play') + '\'dan. Satın almak için önce ücretsiz üye ol ya da giriş yap; paket hesabına tanımlanır.';
       urunleriCiz().then(function () { if (location.hash === '#paketler') $('paketler').scrollIntoView({ block: 'start' }); });
-      bekleyenleriIsle();
+      if (kullanici) bekleyenleriIsle();
     },
     gizle: function () { var p = $('paketler'); if (p) p.hidden = true; }
   };

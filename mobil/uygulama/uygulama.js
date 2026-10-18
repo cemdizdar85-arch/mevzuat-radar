@@ -153,7 +153,8 @@
 
   function girisCiz() {
     goster('ana', false); goster('hesap', false); goster('hesapDugmeler', false); goster('giris', true); rozet('');
-    if (window.TTMagaza) window.TTMagaza.gizle();
+    /* 18.10 (Cem "üye olmadan fiyatları göremiyoruz"): girişsizde de paketler + fiyat (satın alma girişe yönlendirir) */
+    if (window.TTMagaza) window.TTMagaza.goster(sb, null, yenile);
     durumBildir(false, []);
   }
   /* Hesap: profil kartı (baş harf, e-posta, paket durumu) — bandın kenarına biner */
