@@ -86,6 +86,8 @@ html body .btn-ikinci:hover{border-color:var(--ink)}
 /* 09.10 uygulama bağlantısı (uygulama-indir.js): iPhone'da [data-uygulama] gizli; şerit yalnız Android telefonda */
 [data-uygulama][hidden],#uygSerit[hidden],#provaSerit[hidden]{display:none!important}
 /* 18.10 Cem ("telefonda çarpıya basamadığı yer olmasın"): şerit ✕'i 30x28 ölçüldü -> en az 44x44 dokunma alanı */
+/* 18.10 Cem ("üst şeritleri sadeleştir"): telefonda tek şerit - kayan duyuru görünürken Android indirme ve prova şeritleri çıkmaz (✕ ile duyuru kapanınca geri gelir) */
+body:has(#kayanSerit:not([hidden])) #uygSerit,body:has(#kayanSerit:not([hidden])) #provaSerit{display:none!important}
 .uyg-serit [data-kapat]{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .uyg-indir{margin:10px 0 0;font-size:14.5px;color:var(--muted)}
 html body .uyg-indir a{color:var(--ink)!important;font-weight:650}
