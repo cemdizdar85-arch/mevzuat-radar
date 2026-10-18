@@ -13,7 +13,8 @@ durum: taslak
      SGS çıkmış okuma veri/sinav/sgs-konu-okuma.json (2016/1–2026/2); Yeterlilik veri/deneme/smmm-ders-dizin.json (8 ders, 78 set,
      20 soru · 45 dk · yanlış 0,25 · baraj 50) + smmm-konu-okuma.json. Tarihler 21.11 / 28.11. "31"/"32" paydası yazılmadı (Cem 18.10).
      Görsel: Masaüstü/mevzuat işi/reklam-linkedin-iki-sinav/ → Tetikte-Staja-Giris-ve-Yeterlilik.pdf (6 kart, belge/kaydırmalı) ya da
-     .mp4 (21 sn sessiz). Maskot ve fiyat YOK (maskot yapay zekâ → ibare gerekir; fiyat bağlantıda). Bağlantı ?k=linkedin. -->
+     .mp4 (21 sn sessiz). Maskot ve fiyat YOK (maskot yapay zekâ → ibare gerekir; fiyat bağlantıda). Bağlantı ?k=linkedin.      18.10 v2 (Cem "ekle"): kısa sürüm (rakamlar kartlarda) + 7 sayfa, 1. sayfa kurucu kapağı (kurucu-masa.jpg, sitedeki fotoğraf).
+     "Yıllar sonra … baktım" cümlesi GM önerisi; Cem kendi deneyimiyle doğrulayacak. -->
 
 ## Paylaşım metni (LinkedIn)
 
@@ -21,17 +22,15 @@ Okuduğunu unutursun. Yanıldığın soruyu unutmazsın.
 
 SMMM sınavlarına ben böyle hazırlandım: soru çözdüm, yanıldım, nedenini buldum, bir daha yanılmadım.
 
-Bu yöntemi herkesin kullanabileceği hâle getirdik: Tetikte.
+Yıllar sonra aynı sınavlara hazırlananlara baktım: saatlerce video, yüzlerce sayfa. Ama yanlış yaptıkları soruda "neden?" diye soracak kimse yok.
 
-Staja Giriş ve Yeterlilik'in son 10 yılda çıkmış sorularını tek tek okuduk. Sorularımızı sınavda en sık sorulan konulara göre hazırladık.
+Bu yüzden Tetikte'yi kurduk.
 
-Staja Giriş 21 Kasım'da: 10 deneme, her biri 130 soru ve 165 dakika, gerçek sınavın düzeninde.
-Yeterlilik 28 Kasım'da: her ders ayrı sınav; 20 soru, 45 dakika, her yanlış bir doğrunun 0,25'ini götürür, baraj 50. 8 ders, 78 deneme.
+Staja Giriş ve Yeterlilik'in son 10 yılda çıkmış sorularını tek tek okuduk. Sorularımızı sınavda en sık sorulan konulara göre hazırladık. Yanlış yaptığın an, neden yanıldığını ve dayandığı maddeyi aynı ekranda görürsün.
 
-Yanlış yaptığın soruda neden yanıldığını, doğru kuralı ve dayandığı maddeyi aynı ekranda görürsün.
+Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da.
 
 Bu sorulara güveniyoruz. Çöz, farkı gör.
-
 tetikte.com/?k=linkedin
 
 Bu yıl sınava girecek birini tanıyorsan, ona gönder.
