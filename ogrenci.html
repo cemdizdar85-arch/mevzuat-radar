@@ -38,6 +38,24 @@
   .og h1{font-size:32px;line-height:1.15;margin:8px 0 8px;letter-spacing:-.02em}
   .og-alt{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 18px;max-width:44em}
   .og-iki{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+  /* 18.10 giriş: marka paneli + öne çıkan form kartı (yalnız #ogGiris) */
+  #ogGiris .og-iki{grid-template-columns:minmax(0,1fr) 420px;gap:0;align-items:stretch;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--panel);box-shadow:0 18px 50px color-mix(in srgb,var(--ink) 8%,transparent)}
+  #ogGiris .og-marka{position:relative;padding:40px 40px 32px;background:linear-gradient(160deg,color-mix(in srgb,var(--amber-dolgu) 16%,var(--panel)),color-mix(in srgb,var(--amber-dolgu) 4%,var(--panel)));display:flex;flex-direction:column}
+  .og-marka-et{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--amber)}
+  .og-marka-maskot{position:absolute;right:28px;top:24px;width:104px;height:104px;border-radius:50%;object-fit:cover;border:4px solid var(--panel);box-shadow:0 10px 30px color-mix(in srgb,var(--ink) 12%,transparent)}
+  #ogGiris .og-marka h1{margin:22px 0 8px;font-size:38px;letter-spacing:-.8px;max-width:calc(100% - 124px)}
+  #ogGiris .og-marka .og-ilk{max-width:min(30em,calc(100% - 120px));font-size:16px;margin:0 0 22px}
+  .og-tikler{list-style:none;margin:0 0 auto;padding:0;display:grid;gap:14px}
+  .og-tikler li{position:relative;padding-left:38px;font-size:14.5px;color:var(--muted);line-height:1.45}
+  .og-tikler li b{display:block;color:var(--ink);font-size:15.5px}
+  .og-tikler li::before{content:"✓";position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:14px;color:var(--panel);background:var(--green)}
+  .og-marka-alt{margin:26px 0 10px;font-size:14px;color:var(--muted)}
+  .og-guven{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;padding-top:14px;border-top:1px solid color-mix(in srgb,var(--ink) 10%,transparent);font-size:12.5px;color:var(--muted)}
+  .og-guven a{color:var(--muted)}
+  #ogGiris .og-iki>.og-kutu{border:0;border-radius:0;box-shadow:none;padding:36px 34px;align-self:center;background:var(--panel)}
+  #ogGiris .og-form input{min-height:50px;border-radius:12px;font-size:16px}
+  #ogGiris .og-form input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber-dolgu) 25%,transparent)}
+  #ogGiris .og-form .og-btn.ana{min-height:52px;border-radius:12px;font-size:16.5px}
   .og-maddeler{list-style:none;padding:0;margin:0;display:grid;gap:10px}
   .og-maddeler li{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14.5px;color:var(--ink);line-height:1.5}
   .og-maddeler li b{display:block;margin-bottom:2px}
@@ -108,7 +126,13 @@
   #ogSifreForm .og-btn.ana{width:auto;margin-top:0}
   @media(max-width:860px){ .og-iki{grid-template-columns:1fr} .og-kartlar{grid-template-columns:1fr 1fr} .og h1{font-size:26px}
     /* 01.10: telefonda form üç bilgi kartının ARKASINDA kalıyordu (375px ölçüldü) -> başlık + tek cümle, sonra form */
-    .og-iki{gap:0} .og-sol{display:contents} .og-sol>*{order:2} .og-sol>h1,.og-sol>.og-ilk{order:0} .og-iki>.og-kutu{order:1;margin:0 0 22px} }
+    .og-iki{gap:0} .og-sol{display:contents} .og-sol>*{order:2} .og-sol>h1,.og-sol>.og-ilk{order:0} .og-iki>.og-kutu{order:1;margin:0 0 22px}
+    /* 18.10 giriş telefonda: tek sütun, başlık → form kartı → faydalar → güven; maskot gizli */
+    #ogGiris .og-iki{grid-template-columns:1fr;border:0;border-radius:0;box-shadow:none;background:none;overflow:visible}
+    #ogGiris .og-marka{display:contents} #ogGiris .og-marka-maskot{display:none} #ogGiris .og-marka-et{order:0;margin-bottom:6px}
+    #ogGiris .og-marka h1{margin:0 0 6px;font-size:28px;max-width:none} #ogGiris .og-marka .og-ilk{margin:0 0 16px;font-size:15px;max-width:none}
+    #ogGiris .og-iki>.og-kutu{border:1px solid var(--line);border-radius:18px;padding:22px 18px;box-shadow:0 10px 30px color-mix(in srgb,var(--ink) 7%,transparent)}
+    #ogGiris .og-tikler{margin:0 0 4px} #ogGiris .og-marka-alt{margin:18px 0 10px} }
   /* 18.10 PANO (taslak-hesabim.html onayı) */
   .op-pano{margin-top:10px}
   .op-sinavlar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
@@ -218,19 +242,25 @@
   <!-- ÜYE DEĞİLSE -->
   <section id="ogGiris" class="og-gizli">
     <div class="og-iki">
-      <div class="og-sol">
+      <div class="og-sol og-marka">
+        <!-- 18.10 Cem ("giriş daha profesyonel olabilir, rakipler nasıl yapıyor"): rakip kalıbı (Duolingo/Coursera/Becker) - solda marka
+             paneli (maskot + tek cümle + 3 tikli fayda + güven satırı), sağda öne çıkan tek form kartı. Eski "seviye testi grafiği"
+             maddesi kalktı (17.10'da 30 soruluk test çağrıları kaldırıldı). Telefonda form önce, panel altta, maskot gizli. -->
+        <span class="og-marka-et">TETİKTE · SMMM SINAVLARINA HAZIRLIK</span>
+        <img class="og-marka-maskot" src="gorsel/maskot-giris.jpg" alt="" width="160" height="160" loading="lazy">
         <!-- 25.09 Cem: "biz ücretsizi kapattık, sadece ücretsiz 30 deneme soruyu çözüyor; burayı ne yapalım" -> sayfa ÜCRETSİZ
              ÜYELİK vaat etmez. Ana iş paket sahibinin girişi; hesap açma kalır (satın alma hesabı e-postaya bağlar, şifreyi
              alıcı burada koyar). Paketi olmayana iki yol: ücretsiz 30 soruluk ölçüm + paketler. Rakip: UWorld/Becker üst
              şeritte "Log in" ayrı, satın alma ayrı; giriş sayfası üyelik satmaz. -->
-        <h1 id="ogBaslik">Giriş yap</h1>
-        <p class="og-alt og-ilk">E-postanla ya da Google hesabınla giriş yap. Çözdüğün testler, deneme sonuçların ve yanlış yaptığın sorular hesabına kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin.</p>
-        <p class="og-alt" style="margin-top:10px;font-size:14px">Henüz paketin yok mu? <a class="og-link" href="kaydir/vitrin/ornek-sgs.html">5 örnek soruyu ücretsiz çöz →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
-        <ul class="og-maddeler">
-          <li><b>Geçme ihtimalin nasıl değişiyor?</b>Her seviye testinden sonra grafik güncellenir; 7 günde bir yeniden çöz, ilerlemeni gör.</li>
-          <li><b>Deneme sonuçların</b>"Sınav gibi çöz" setlerinde kaç doğru yaptığın set set durur.</li>
-          <li><b>Yanlışların</b>Yanlış yaptığın her soru 2 gün sonra yeniden karşına çıkar; bugün tekrar etmen gerekenleri burada görürsün.</li><!-- 07.10 Cem "yanlış kutun hesabında durur anlamadım": sade dil -->
+        <h1 id="ogBaslik">Tekrar hoş geldin</h1>
+        <p class="og-alt og-ilk">Kaldığın yerden devam et: set raporların, yanlışların ve deneme sonuçların hesabında seni bekliyor.</p>
+        <ul class="og-tikler">
+          <li><b>Ders ders gelişimin</b>Her 20 soruluk setin raporu ve konu konu eksiklerin.</li>
+          <li><b>Yanlışların unutulmaz</b>Yanlış yaptığın soru 2 gün sonra yeniden karşına çıkar.</li><!-- 07.10 Cem "yanlış kutun hesabında durur anlamadım": sade dil -->
+          <li><b>Her cihazda aynı hesap</b>Telefonda başladığını bilgisayarda bitirirsin.</li>
         </ul>
+        <p class="og-marka-alt">Henüz paketin yok mu? <a class="og-link" href="kaydir/vitrin/ornek-sgs.html">5 örnek soruyu ücretsiz çöz →</a> · <a class="og-link" href="fiyat.html">Paketler</a></p>
+        <p class="og-guven"><span>🔒 Bağlantın şifreli (SSL)</span><a href="kvkk.html">KVKK aydınlatma metni</a><a href="iletisim.html">Yardım: destek@tetikte.com</a></p>
         <!-- 02.10: radar paneli gizli (açılış = yalnız sınav); menu.js bağı süzüyor ama cümle kalıyordu. Açılış sonrası hidden'ı kaldır. -->
         <p class="og-alt" hidden style="margin-top:16px;font-size:13.5px">İşletme hesabı mı arıyorsun? <a class="og-link" href="radar-app.html">Radar paneline git</a>.</p>
       </div>
@@ -1324,8 +1354,8 @@
   }
 
   /* 02.10 KURUMSAL GİRİŞ — dört ekran. Adres: #uye-ol / #sifremi-unuttum doğrudan açar (başka sayfalar bağlayabilir). */
-  var EKRAN={ giris:{form:'ogFormGiris',baslik:'Giriş yap',sekme:true},
-              kayit:{form:'ogFormKayit',baslik:'Üye ol',sekme:true,aciklama:'Ücretsiz hesap aç: yanlış yaptığın sorular, test ve deneme sonuçların kaydedilir; telefondan da bilgisayardan da kaldığın yerden devam edersin. Paket aldıysan aynı e-postayı yaz.'},   /* 13.10: eski metin "Paketi aldığın (ya da alacağın) e-postayla" ücretsiz deneyene "bu sayfa ödeyenler için" diyordu */
+  var EKRAN={ giris:{form:'ogFormGiris',baslik:'Tekrar hoş geldin',sekme:true},   /* 18.10 rakip kalıbı: "Giriş yap" sekmede/düğmede, başlık karşılama */
+              kayit:{form:'ogFormKayit',baslik:'Hesabını oluştur',sekme:true,aciklama:'Ücretsiz hesap aç; çözdüklerin, yanlışların ve deneme sonuçların hesabına kaydedilsin. Paket aldıysan aynı e-postayı yaz.'},   /* 13.10: eski metin "Paketi aldığın (ya da alacağın) e-postayla" ücretsiz deneyene "bu sayfa ödeyenler için" diyordu */
               sifremi:{form:'ogFormSifremi',baslik:'Şifreni sıfırla',sekme:false,aciklama:'Hesabının e-posta adresine bir bağlantı göndeririz; bağlantıdan yeni şifreni belirlersin. Sonuçların ve paketin olduğu gibi kalır.'},
               yeni:{form:'ogFormYeni',baslik:'Yeni şifre belirle',sekme:false,aciklama:'Yeni şifreni iki kez yaz ve kaydet. Kaydettikten sonra doğrudan hesabına geçersin.'} };
   var EPOSTA_DESEN=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, SIFRE_EN_AZ=8;
