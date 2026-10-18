@@ -576,7 +576,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         <p id="sikMetin">Son 10 yılın sınavlarında en sık sorulan konular tek denemede. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.</p>
       </div>
       <div class="sik-dugme">
-        <a class="btn btn-vurgu" id="sikA" href="sinav-gibi.html?tur=sik">Denemeyi aç →</a>
+        <a class="btn btn-vurgu" id="sikA" href="en-cok-cikan-sorular.html?sinav=sgs">Ders ders gör →</a>
         <a class="sik-liste" id="sikListe" href="en-cok-cikan-konular-sgs.html">Konu listesi ücretsiz →</a>
       </div>
     </div>
@@ -677,7 +677,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   var SIK_ALT={};
   function sikCiz(yet){
     var k=yet?'smmm':'sgs';
-    $('sikA').setAttribute('href', yet?'sinav-gibi.html?tur=sik&sinav=smmm':'sinav-gibi.html?tur=sik');
+    $('sikA').setAttribute('href', yet?'en-cok-cikan-sorular.html?sinav=yeterlilik':'en-cok-cikan-sorular.html?sinav=sgs');   /* 18.10: ayrı giriş sayfası (ders ders) */
     $('sikListe').setAttribute('href', yet?'en-cok-cikan-konular-yeterlilik.html':'en-cok-cikan-konular-sgs.html');
     var ac=function(){ $('sikKart').classList.remove('sik-bekle'); };
     var yaz=function(d){ $('sikMetin').textContent=d.alt; if(d.deneme_ad) $('sikBas').textContent=d.deneme_ad; ac(); };

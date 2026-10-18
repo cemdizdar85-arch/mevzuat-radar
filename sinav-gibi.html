@@ -284,6 +284,48 @@
       setAc(no);
     });
   }
+  /* 18.10 Cem ("sınavda en çok çıkan konulardan sorular, ders ders, kilitli; aynısını SGS'de yapalım; yarın reklam buradan"):
+     STAJA GİRİŞ DERS DERS SIK KONU SETİ. Kaynak veri/deneme/sgs-sik-kimlik.json (sik-konu-deneme-bas.js'in kurduğu AYNI bağ:
+     okunmuş en sık 20 konu → sitedeki soru kimlikleri). Ders seçilince o dersin sık konularından 20 soru tarayıcıda kurulur:
+     önce hiç görmediğin (ders sayfası cevapları kc_kayit + bu sayfanın denemeleri), sonra en eski gördüğün. Süre gerçek sınav
+     soru başı (165/130 dk) → 20 soru 25 dk. Set yalnız kimlik; içerik kasadan (paket kapısı) - "sana özel deneme" ile aynı yol.
+     🚫 GÖRMEZ: konunun okuma ifadesi kökte geçmeyen ama konuyu ölçen soru (havuz alt sınır, sik-konu-deneme-bas.js notu). */
+  var SGS_SIK=null, SGS_SAYFA={};
+  function sikDersler(){
+    if(!SGS_SIK||!SGS_SIK.konular||!SGS_SIK.kimlik) return [];
+    var G={}, S=[];
+    SGS_SIK.konular.forEach(function(k,i){ if(!G[k.ders]){ G[k.ders]={ders:k.ders, konular:[], ids:[], enCok:0}; S.push(k.ders); } G[k.ders].konular.push(k); G[k.ders].enCok=Math.max(G[k.ders].enCok,+k.donem||0); });
+    Object.keys(SGS_SIK.kimlik).forEach(function(id){ var k=SGS_SIK.konular[SGS_SIK.kimlik[id]]; if(k&&G[k.ders]) G[k.ders].ids.push({id:id, konu:k.konu}); });
+    return S.map(function(d){ return G[d]; }).filter(function(g){ return g.ids.length>=5; }).sort(function(a,b){ return b.enCok-a.enCok||b.konular.length-a.konular.length; });
+  }
+  function sikDersBlok(){
+    var L=sikDersler(); if(!L.length) return '';
+    var h='<h3 class="sg-set-ders">Ders ders: en çok sorulan konulardan 20 soru</h3>';
+    L.forEach(function(g){
+      var gecmis=ozelListe().filter(function(x){ return x.sik&&trk(x.ders)===trk(g.ders); }).slice(-2);
+      h+='<button type="button" class="sg-set sg-ozel" data-sikders="'+esc(g.ders)+'" data-ders="'+esc(trk(g.ders))+'"><b>'+esc(g.ders)+'</b><small>'
+        +esc(g.konular.map(function(k){ return k.konu; }).join(' · '))+'</small><span class="sg-durum">20 soru · 25 dk · önce görmediklerin</span></button>';
+      gecmis.forEach(function(x){ var d=oku(x.no), s=null; try{ s=JSON.parse(localStorage.getItem('sg_ozel_set_'+x.no)||'null'); }catch(e){} if(!s) return;
+        h+='<button type="button" class="sg-set" data-no="'+esc(x.no)+'"><b>'+esc(g.ders)+' · '+new Date(x.t).toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+'</b><small>'+s.toplam+' soru · '+s.sure_dk+' dk</small>'
+          +(d&&d.bitti?'<span class="sg-durum bitti">Bitti · '+d.sonuc.dogru+' doğru</span>':d?'<span class="sg-durum">Devam et · '+Object.keys(d.cevap||{}).length+'/'+s.toplam+'</span>':'')+'</button>'; });
+    });
+    return h+'<h3 class="sg-set-ders">Karışık setler: 20 konudan 40 soru</h3>';
+  }
+  function sikDersBaslat(ders){
+    var g=sikDersler().filter(function(x){ return trk(x.ders)===trk(ders); })[0]; if(!g){ alert('Bu ders için set kurulamadı. Sayfayı yenileyip yeniden dene.'); return; }
+    var gor={}; try{ (JSON.parse(localStorage.getItem('kc_kayit')||'[]')||[]).forEach(function(x,i){ if(x&&x.id) gor[x.id]=(+x.t||i+1); }); }catch(e){}
+    try{ var gg=gorulen()||{}; Object.keys(gg).forEach(function(id){ if(!gor[id]) gor[id]=gg[id]; }); }catch(e){}
+    var y=g.ids.filter(function(q){ return !gor[q.id]; }), e=g.ids.filter(function(q){ return gor[q.id]; }).sort(function(a,b){ return gor[a.id]-gor[b.id]; });
+    for(var i=y.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=y[i]; y[i]=y[j]; y[j]=t; }   /* görülmemişler karışık sırada */
+    var liste=y.concat(e).slice(0,20), no='oz-'+Date.now().toString(36), sayfa=SGS_SAYFA[trk(g.ders)]||'';
+    var set={ no:no, baslik:g.ders+' · En çok sorulan konular', sure_dk:Math.max(5,Math.round(liste.length*165/130)), toplam:liste.length, ders:g.ders, ozel:{yeni:Math.min(y.length,liste.length), tekrar:false, sik:true},
+      sorular:liste.map(function(q,i){ return {n:i+1, id:q.id, bolum:g.ders, ders:g.ders, konu:q.konu, sayfa:sayfa, sira:i}; }) };
+    set.t=Date.now(); hesabaKuyruk('sg_ozel_set_'+no, set);
+    try{ localStorage.setItem('sg_ozel_set_'+no, JSON.stringify(set));
+      var l=ozelListe().filter(function(x){ try{ return !!localStorage.getItem('sg_ozel_set_'+x.no); }catch(e){ return false; } });
+      l.push({no:no, ders:g.ders, baslik:set.baslik, t:Date.now(), sik:true}); localStorage.setItem('sg_ozel_liste', JSON.stringify(l.slice(-30))); }catch(e){}
+    setAc(no);
+  }
   function oku(no){ try{ return JSON.parse(localStorage.getItem(anahtar(no))||'null'); }catch(e){ return null; } }
   function yaz(){ DURUM.t=Date.now(); try{ localStorage.setItem(anahtar(SET.no), JSON.stringify(DURUM)); }catch(e){} hesabaKuyruk(anahtar(SET.no), DURUM); }
 
@@ -346,7 +388,7 @@
         +'<span class="sg-durum">Devam et · '+n+(top?'/'+top:'')+' cevaplı · '+sure(x.d.kalanSn)+' kaldı</span></button>'; }).join('');
     if(yarim) yarim='<h3 class="sg-set-ders">Kaldığın yerden devam</h3>'+yarim;
     yenilendiNotu(yarimEskiler().length);
-    $('sgSetler').innerHTML=yarim+liste.map(function(s){
+    $('sgSetler').innerHTML=yarim+(TUR==='sik'&&SINAV==='sgs'?sikDersBlok():'')+liste.map(function(s){
       var top=s.toplam||DIZIN.toplam_soru, d=oku(s.no), durum='', alt=top+' soru · '+(s.sure_dk||DIZIN.sure_dk)+' dk', kilit=!dersVar(s.ders);
       if(kilit){ durum='<span class="sg-durum kilit">🔒 Bu ders paketinde yok</span>'; }
       else if(d&&d.bitti){ durum='<span class="sg-durum bitti">Bitti · '+d.sonuc.dogru+' doğru</span>'; }
@@ -359,6 +401,7 @@
     }).join('');
     $('sgSetler').querySelectorAll('.sg-set').forEach(function(b){ b.addEventListener('click',function(){
       if(b.getAttribute('data-kilit')){ location.href='satin-al.html?paket=yeterlilik-1'; return; }
+      if(b.getAttribute('data-sikders')){ sikDersBaslat(b.getAttribute('data-sikders')); return; }
       if(b.getAttribute('data-ozel')){ ozelBaslat({ders:b.getAttribute('data-ozel'), adet:20, baslik:b.getAttribute('data-ozel')+' · Sana özel deneme'}); return; }
       var no=b.getAttribute('data-no'); setAc(/^(oz|es)-/.test(no)?no:+no); }); });
     if(DIZIN.not){ $('sgNot').innerHTML=esc(DIZIN.not)+(DIZIN.liste_sayfa?' <a href="'+esc(DIZIN.liste_sayfa)+'">Konu listesi ve kanıtı →</a>':''); return; }
@@ -623,7 +666,12 @@
     /* 11.10 GM3: hesaptaki sınırsız cevap kaydı gelince "gördüğün / bekleyen" yeniden sayılır */
     if(k&&k.acik&&TUR==='ders'&&DI&&DI.hesapAl) DI.hesapAl().then(function(h){ if(h&&DIZIN&&!$('sgGiris').classList.contains('sg-gizli')) setleriCiz(); });
   });
-  fetch('veri/deneme/'+SINAV+(TUR?'-'+TUR:'')+'-dizin.json',{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }).then(function(d){
+  /* 18.10: Staja Giriş sık konu sayfasında ders ders set verisi (kimlik eşlemesi + ders sayfaları) */
+  var sikHazir=(TUR==='sik'&&SINAV==='sgs')?Promise.all([
+    fetch('veri/deneme/sgs-sik-kimlik.json',{cache:'no-cache'}).then(function(y){ return y.ok?y.json():null; }).catch(function(){ return null; }),
+    fetch('veri/soru-dizini.json',{cache:'no-cache'}).then(function(y){ return y.ok?y.json():null; }).catch(function(){ return null; })
+  ]).then(function(r){ SGS_SIK=r[0]; try{ var s=r[1].sinavlar.filter(function(x){ return x.kod==='sgs'; })[0]; (s.dersler||[]).forEach(function(d){ if(d.sayfa) SGS_SAYFA[trk(d.ad)]=d.sayfa; }); }catch(e){} }):Promise.resolve();
+  Promise.all([fetch('veri/deneme/'+SINAV+(TUR?'-'+TUR:'')+'-dizin.json',{cache:'no-store'}).then(function(y){ if(!y.ok) throw new Error(y.status); return y.json(); }), sikHazir]).then(function(rr){ var d=rr[0];
     DIZIN=d;
     if(d.karne==='konu') $('sgKarneBaslik').textContent='Konu konu';
     if(d.baslik) $('sgGirisBaslik').textContent=d.baslik;
@@ -643,7 +691,7 @@
       havuzAl().then(function(){ ozelBaslat({ders:qDers, konu:qKonu, adet:qAdet, baslik:qDers+' · '+qKonu}); }); }
     var m=location.hash.match(/set=(\d+)/); if(qKonu&&Q.get('ders')){} else if(m) setAc(+m[1]);
     /* ilk ders zaten en üstte (paketindeki ders öne alınır) → yalnız aşağıdaki bir derse kaydırılır, giriş metni gizlenmesin */
-    else if(Q.get('ders')){ var h=$('sgSetler').querySelector('.sg-set-ders[data-ders="'+trk(Q.get('ders')).replace(/"/g,'')+'"]');
+    else if(Q.get('ders')){ var h=$('sgSetler').querySelector('.sg-set-ders[data-ders="'+trk(Q.get('ders')).replace(/"/g,'')+'"]')||$('sgSetler').querySelector('.sg-set[data-sikders][data-ders="'+trk(Q.get('ders')).replace(/"/g,'')+'"]');   /* 18.10 SGS sık konu ders düğmesi */
       if(h&&h!==$('sgSetler').querySelector('.sg-set-ders')) h.scrollIntoView({block:'start'}); }
   }).catch(function(){ $('sgSetler').innerHTML='<p class="sg-alt">Setler şu an yüklenemedi. Sayfayı yenilemeyi dene.</p>'; });
 })();

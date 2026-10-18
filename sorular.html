@@ -422,7 +422,7 @@
         +'<div class="sc-setler">'+cip+'</div>'
         +(pk?'<a class="sc-pbtn" href="sinav-gibi.html#set='+hedef+'">'+(devam?'Devam et · Set '+devam+' →':'Başlat · Set '+hedef+' →')+'</a>'
             +'<p class="sc-palt">'+(bitti?bitti+' / '+dn.set_sayisi+' set bitti. ':'')+'Çözerken cevap görünmez; bitince ders ders karne ve her yanlışın anlatımı. Setler arasında aynı soru yok.</p>'
-            +'<a class="sc-plink" href="sinav-gibi.html?tur=sik">En sık çıkan konular denemesi →</a>'
+            +'<a class="sc-plink" href="en-cok-cikan-sorular.html?sinav=sgs">En çok çıkan konulardan sorular · ders ders →</a>'
           :kilitA+'<p class="sc-palt">Çözerken cevap görünmez; bitince ders ders karne. '+dn.set_sayisi+' set, setler arasında aynı soru yok.</p>')
         +'</div>';
     }
@@ -443,7 +443,7 @@
       return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Ders denemeleri</h2>'+son2
         +'<div class="sc-cipler"><span>20 soru</span><span>45 dakika</span><span>baraj 50</span></div>'
         +'<p class="sc-palt" style="margin-top:0">Gerçek sınavda her ders ayrı bir oturum; burada da öyle. Yanlış doğrunun 0,25\'ini götürür.</p>'
-        +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" href="sinav-gibi.html?tur=sik&amp;sinav=smmm">En sık çıkan konular denemesi →</a>':kilitA)+'</div>';
+        +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" href="en-cok-cikan-sorular.html?sinav=yeterlilik">En çok çıkan konulardan sorular · ders ders →</a>':kilitA)+'</div>';
     }
     return '';
   }
