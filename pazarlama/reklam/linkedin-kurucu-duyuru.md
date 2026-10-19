@@ -32,7 +32,7 @@ Tetikte'de soru ve konu bir arada; konuyu bilmiyorsan da başlarsın:
 • Dayandığı resmî metin açılır, ilgili cümle işaretlenir.
 • Seviyeni ölçünce soruların sırası sana göre kurulur.
 • Yanıldığın soru iki gün sonra yeniden karşına çıkar.
-Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan.
+Sorular bize ait; son 10 yılın çıkmış sınavlarında en sık sorulan konulara göre yazıldı.
 
 Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da. Sınava girecek bir stajyeriniz varsa ona iletin. Üye olmadan 5 örnek soru: tetikte.com/?k=linkedin
 
@@ -64,7 +64,9 @@ hatırladı." · tetikte.com · "Üye olmadan 5 örnek soru" · Staja Giriş 21 
 Cem: yarın genişliyor → "her soruda" DENMEZ) · YANLIŞIN NEDENİ (teşhisli sorularda "Ne sanıyorsun/Aslında"; rakip ölçümü 11.10) ·
 KAYNAĞI GÖSTER (resmî metin + doğrulanmış cümle sarı) · SANA GÖRE SIRA (seviye ölçümünden sonra ders sırası; uyarlamalı test yalnız
 SGS — "kolaydan zora / zor-kolay soru gelir" genel sözü YANLIŞ, 11.10) · TEKRAR. "Başkasında yok" yazılmaz (karşılaştırma + giriş
-arkası ölçülmedi). Özet: "Konuyu bilmiyorsan da başlarsın. Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan."
+arkası ölçülmedi). Özet: "Konuyu bilmiyorsan da başlarsın. Sorular bize ait; son 10 yılın çıkmış sınavlarında en sık sorulan konulara
+göre yazıldı." (Cem 19.10: "aynı soru yok, 10 yılın sorularını yapıştırdık sanmasınlar".) Logo: depodaki logo-acik.svg işareti
+(lamba + noktasız "ı"nın sarı noktası), satır içi SVG, renk temaya göre.
 
 ### Eski kart (kullanılmıyor)
 
