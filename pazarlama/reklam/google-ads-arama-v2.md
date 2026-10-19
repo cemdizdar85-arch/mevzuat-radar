@@ -109,6 +109,13 @@ Yeterlilik: Yeterlilik Sınavına Hazırlan · SMMM Bitirme Sınavı Soruları �
 | Yeterlilik Sık Konular | Ders ders sık sorulan konular | 8 ders, ders denemeleri | https://tetikte.com/en-cok-cikan-sorular.html?sinav=yeterlilik&k=gads |
 | Paketler ve Fiyatlar | Staja Giriş ve Yeterlilik | Ders ders ya da tüm dersler | https://tetikte.com/fiyat.html?k=gads |
 | Ücretsiz Üye Ol | Yanlışların hesabında kalır | Kart istenmez | https://tetikte.com/ogrenci.html?k=gads |
+| Sınav Nöbeti Duyuruları | Sınav duyuruları tek yerde | Gün içinde güncellenir | https://tetikte.com/sinav-nobeti.html?k=gads |
+| 5 Örnek Soru Çöz | Üye olmadan, ücretsiz | Her cevaptan sonra açıklama | https://tetikte.com/?k=gads-ornek |
+
+<!-- 19.10: kampanyaya bağlı eski iki site bağlantısı ("Ücretsiz Seviye Testi" 30 soru · "17 Ekim Sınav Provası") DURAKLATILDI. -->
+<!-- ?k=gads-ornek ayrı etiket: site bağlantısının ana sayfa URL'si nihai URL'den farklı olmalı; sayaçta ayrı satır olarak görünür. -->
+
+
 
 ## Ek açıklamalar (≤ 25)
 
