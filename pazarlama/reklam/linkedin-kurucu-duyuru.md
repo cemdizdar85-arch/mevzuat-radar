@@ -21,7 +21,7 @@ durum: onay-bekliyor
 
 ## Paylaşım metni (LinkedIn)
 
-Tetikte'yi 10 gün önce açtık. Burada ilk kez duyuruyorum.
+SMMM Staja Giriş ve Yeterlilik (bitirme) sınavlarına hazırlık platformumuz Tetikte 10 gün önce yayına girdi. Burada ilk kez duyuruyorum.
 
 SMMM sınavlarına video izlemeden, soru çözerek hazırlandım. Sonra araştırmada karşılığını gördüm: bir metni dört kez okuyanlar bir hafta sonra %40'ını, bir kez okuyup üç kez kendini sınayanlar %61'ini hatırladı (Roediger ve Karpicke, 2006).
 
@@ -31,6 +31,8 @@ Tetikte bu yüzden soruyla başlar:
 • Yanıldığın soru iki gün sonra yeniden karşına çıkar.
 
 Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da. Sınava girecek bir stajyeriniz varsa ona iletin. Üye olmadan 5 örnek soru: tetikte.com/?k=linkedin
+
+Bağımsız denetçilik sınavı modülümüz de hazırlanıyor.
 
 Tetikte'nin kendi hazırlık sorularıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
@@ -44,6 +46,6 @@ Kaynaklar. Aynı sonucu 2013'te Dunlosky ve ekibi de buldu: on çalışma yönte
 ## Görsel (tek kart, 1080×1350)
 
 Dosya: Masaüstü/mevzuat işi/reklam-linkedin-duyuru/Tetikte-Kurucu-Duyuru.png (kaynak duyuru-kart.html)
-Kartta yazan: "YENİ BİR İŞ" · "Tetikte'yi kurduk." · "Bir hafta sonra ne kadar hatırladılar?" · "Metni 4 kez okuyanlar %40" ·
+Kartta yazan: "SMMM STAJA GİRİŞ · YETERLİLİK (BİTİRME)" · "Kanıta dayalı sınav hazırlığı." · "Tetikte · iki sınava soru çözerek hazırlık platformu" · "Bir hafta sonra ne kadar hatırladılar?" · "Metni 4 kez okuyanlar %40" ·
 "1 kez okuyup 3 kez kendini sınayanlar %61" · "Roediger & Karpicke, Psychological Science, 2006" · Cem Dizdar · Tetikte'nin kurucusu ·
 "Söz değil, kaynak: her açıklamada dayandığı madde ya da kaynak." · tetikte.com · kurum uyarısı.
