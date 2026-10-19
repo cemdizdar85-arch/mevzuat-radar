@@ -1048,6 +1048,24 @@ function kartHazirla(no){
 }
 /* iyzico'dan başarısız dönüş: ?odeme=hata&no=... */
 (function(){ try{ var q = new URLSearchParams(location.search); if(q.get('odeme') === 'hata'){ var d = document.createElement('div'); d.className = 'kutu'; d.style.borderColor = 'var(--red)'; d.innerHTML = '<b style="color:var(--red)">Kart ödemesi tamamlanmadı.</b> Kartından para çekilmediyse siparişin ödeme bekliyor durumunda; havale ile ödeyebilir ya da yeniden deneyebilirsin. Sipariş no: <b>' + String(q.get('no') || '—').replace(/[^A-Z0-9-]/g, '') + '</b>'; document.addEventListener('DOMContentLoaded', function(){ var m = document.querySelector('main') || document.body; m.insertBefore(d, m.firstChild); }); } }catch(e){} })();
+/* 19.10 havale hatırlatması (motor/havale-hatirlatma.mjs): maildeki "Kartla öde" → ?kartla=<sipariş no>. Kartla ödeme kutusundaki
+   akışın aynısı: yalnız sipariş no gider, tutarı iyzico-odeme ?islem=baslat SUNUCUDA hesaplar (ödenmiş/iptal siparişte başlamaz). */
+(function(){ try{ var q = new URLSearchParams(location.search), no = String(q.get('kartla') || '');
+  if(!/^TT-[0-9]{8}-[ACDEFHJKLMNPRTUVXYZ2345679]{4}$/.test(no)) return;
+  var d = document.createElement('div'); d.className = 'kutu';
+  d.innerHTML = '<b>' + no + '</b> numaralı siparişin için iyzico güvenli ödeme sayfası açılıyor…';
+  document.addEventListener('DOMContentLoaded', async function(){
+    var h1 = document.querySelector('h1');   /* sayfada <main> yok: kutu başlığın altına */
+    if(h1) h1.parentNode.insertBefore(d, h1.nextSibling); else document.body.insertBefore(d, document.body.firstChild);
+    try{ adimSay('kart-mail'); }catch(e){}
+    var j = {};
+    try{ var r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=baslat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ siparis_no:no }) });
+      j = await r.json().catch(function(){ return {}; }); }catch(e){}
+    if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
+    d.style.borderColor = 'var(--red)';
+    d.innerHTML = '<b style="color:var(--red)">Kart ödemesi başlatılamadı.</b> Sipariş ödenmiş ya da güncel değil olabilir. Bize WhatsApp\'tan (0532 344 80 58) ya da destek@tetikte.com\'a sipariş numaranla yaz: <b>' + no + '</b>. İstersen aşağıdan yeniden sipariş verebilirsin.';
+  });
+}catch(e){} })();
 
 function siparisNo(){
   var d = new Date(), p = function(n){ return (n<10?'0':'') + n; };

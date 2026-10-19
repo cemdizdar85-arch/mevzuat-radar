@@ -13,5 +13,8 @@
  "uye_acik": true,
  "uye_onayli_imza": "1159f7e63653e0d2",
  "uye_onaylayan": "Cem Dizdar (sohbette \"Mail metinlerini onaylıyorum, üye dizisini aç.\")",
- "uye_onay_tarihi": "2026-10-16"
+ "uye_onay_tarihi": "2026-10-16",
+ "_havale_not": "19.10: motor/havale-hatirlatma.mjs (ödeme bekleyen havale siparişine 3 saat sonra bir kez) AYRI anahtar: havale_acik=true VE havale_onayli_imza = node motor/havale-hatirlatma.mjs --imza. Yalnız Cem metni onaylayınca yazılır.",
+ "havale_acik": false,
+ "havale_onayli_imza": ""
 }

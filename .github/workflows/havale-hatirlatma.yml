@@ -1,0 +1,33 @@
+# Bu dosyanin GitHub'daki yolu: .github/workflows/havale-hatirlatma.yml
+# NEDEN VAR (19.10.2026, Cem: "hatirlatmayi kur, eski bekleyen siparislere de bir kez gonder"): havaleyle acilan
+# 10 siparisin 2'si odendi, kartla acilan 10'un 10'u. Odeme bekleyen havale siparisine 3 saat sonra BIR KEZ
+# "kartla ode / havale bilgisi" maili (motor/havale-hatirlatma.mjs). Saat basi kosar.
+# Gonderim arac/hatirlatma-ayar.json havale_acik + havale_onayli_imza ile ACILIR; kapaliyken yalniz SAYI.
+# Gunluk PUBLIC: betik e-posta/ad/siparis no basmaz. Oz-sinav once kosar; duserse gonderim yapilmaz.
+name: Havale hatirlatmasi
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: havale-hatirlatma
+  cancel-in-progress: false
+jobs:
+  hatirlat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Oz-sinav
+        run: node motor/havale-hatirlatma.mjs --sinav
+      - name: Say ya da gonder
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: node motor/havale-hatirlatma.mjs
