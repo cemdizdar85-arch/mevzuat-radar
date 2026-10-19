@@ -73,7 +73,11 @@
           '<a class="btn ana" target="_top" href="/ogrenci.html?sonra=yanlislarim.html#uye-ol" style="text-decoration:none;text-align:center">' +
             (kutuN ? 'Ücretsiz üye ol, yanlışlarımı kaydet →' : 'Ücretsiz üye ol →') + '</a>';
       /* 17.10 Cem ("30 soru çözdürmeyelim, kimse 30 soru çözmüyor, 5 örnek soru çözsünler"): son ekrandan 30 soruluk ölçüm kalktı */
-      d.innerHTML = uyelik +
+      /* 19.10 (Cem: "Google'dan gelenin satın alma oranını artıralım"): 5 soruyu bitiren son ekranda fiyatı hiç görmüyordu; satın alma
+         yalnız "Paketleri gör" ile iki sayfa ötedeydi. En üste fiyat + doğrudan satın al (fiyatYaz, rakam fiyat-motoru.js'ten);
+         üyelik ikinci sıraya indi. Motor yüklenemezse fiyat kutusu boş kalır, gerisi eskisi gibi. */
+      uyelik = uyelik.replace('class="btn ana"', 'class="btn"');
+      d.innerHTML = '<div class="ornekFiyat"></div>' + uyelik +
         '<a class="btn" target="_top" href="/fiyat.html?sinav=' + (yet ? 'yeterlilik' : 'sgs') + '" style="text-decoration:none;text-align:center">Paketleri gör →</a>';
       d.addEventListener('click', function (e) {
         var a = e.target && e.target.closest && e.target.closest('a[href*="ogrenci.html"]'); if (!a) return;
@@ -81,7 +85,23 @@
       });
       s.insertBefore(d, s.firstChild);
       var h = s.querySelector('.skorBuyuk'); if (h) h.style.display = 'none';
+      fiyatYaz();
     };
+    var fiyatYaz = function () {
+      var k = document.querySelector('#sonSkor .ornekFiyat');
+      if (!k || k.childNodes.length || typeof paketBul !== 'function' || typeof fiyatAna !== 'function') return;
+      var yet = ornekS === 'smmm', id = yet ? 'yeterlilik-1' : 'sgs', p = paketBul(id); if (!p || !p.acik) return;
+      var dahil = function (i, n) { var x = fiyatDahilNot(i, n); return x ? ' <span style="font-size:13px;opacity:.75">(' + x + ')</span>' : ''; };
+      var satir = yet
+        ? 'Bu sorular ve daha fazlası, seçtiğin derste sınavına kadar:<br><b style="font-size:20px">1 ders ' + fiyatAna(id, p.fiyat) + '</b>' + dahil(id, p.fiyat) +
+          '<br><span style="font-size:13px;opacity:.75">Bir dersin sınav ücreti ' + tl(HARC.yeterlilik.ders) + ' TL</span>'
+        : 'Bu sorular ve daha fazlası, Staja Giriş sınavına kadar:<br><b style="font-size:20px">' + fiyatAna(id, p.fiyat) + '</b>' + dahil(id, p.fiyat);
+      k.innerHTML = '<p style="margin:0 0 8px;font-size:15px;line-height:1.5;text-align:center">' + satir + '</p>' +
+        '<a class="btn ana" target="_top" href="/satin-al.html?paket=' + id + '" style="display:block;text-decoration:none;text-align:center">' +
+        (yet ? 'Dersini seç, satın al →' : 'Satın al →') + '</a>' +
+        '<p style="margin:6px 0 0;font-size:12.5px;opacity:.75;text-align:center">Kartla ödersen paketin hemen açılır.</p>';
+    };
+    if (ornekS) try { var fm = document.createElement('script'); fm.src = '/fiyat-motoru.js?v=20261019b'; fm.onload = fiyatYaz; document.head.appendChild(fm); } catch (e) {}
     var nbBasla = function () { nbYaz(); sonYaz(); try { new MutationObserver(function () { nbYaz(); sonYaz(); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {} };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', nbBasla); else nbBasla();
     return;

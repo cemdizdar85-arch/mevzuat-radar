@@ -47,6 +47,9 @@
   .ec-satis b{display:block;font-size:17px;color:var(--ink)}.ec-satis p{margin:2px 0 0;font-size:14px;color:var(--muted)}
   .ec-satis .ec-dug{min-width:200px;padding:0 18px}
   .ec-satis-dug{display:flex;flex-direction:column;gap:8px}
+  .ec-dug.al{background:var(--ink);color:var(--bg)}
+  .ec-fiyat{margin:10px 0 0;font-size:14px;color:var(--ink);line-height:1.55}
+  .ec-fiyat .ana{font-size:20px;font-weight:900}.ec-fiyat small{color:var(--muted);font-size:12.5px}
   .ec-not{margin:22px 0 0;font-size:13px;color:var(--muted);line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
   .ec-not a,.ec-bilgi a{color:var(--amber)}
   @media(max-width:760px){ .ec h1{font-size:28px} .ec-bas,.ec-satis{grid-template-columns:1fr} .ec-satis .ec-dug{min-width:0} .ec-dersler{grid-template-columns:1fr} }
@@ -66,9 +69,11 @@
     </div>
   </div>
   <div class="ec-satis" id="ecSatis" hidden>
-    <div><b>Bu bölüm pakete dahil</b><p id="ecSatisP">Önce 5 örnek soruyu üye olmadan ücretsiz çöz; beğenirsen paketini seç, bu sorular hemen açılır.</p></div>
+    <div><b>Bu bölüm pakete dahil</b><p id="ecSatisP">Önce 5 örnek soruyu üye olmadan ücretsiz çöz; beğenirsen paketini seç, bu sorular hemen açılır.</p>
+      <div class="ec-fiyat" id="ecFiyat" hidden></div></div>
     <div class="ec-satis-dug">
       <a class="ec-dug" id="ecOrnekA" href="kaydir/vitrin/ornek-smmm.html">5 örnek soruyu ücretsiz çöz →</a>
+      <a class="ec-dug al" id="ecAlA" href="satin-al.html" hidden>Satın al →</a>
       <a class="ec-dug kilit" id="ecSatisA" href="fiyat.html">Paketler</a>
     </div>
   </div>
@@ -82,6 +87,7 @@
 </main>
 
 <script src="uye-durumu.js?v=20261018b"></script>
+<script src="fiyat-motoru.js?v=20261019b"></script>
 <script>
 (function(){
   var $=function(i){ return document.getElementById(i); };
@@ -97,6 +103,26 @@
     sgs:{ dizin:'veri/deneme/sgs-sik-dizin.json', kanit:'en-cok-cikan-konular-sgs.html', fiyat:'fiyat.html?sinav=sgs', ornek:'kaydir/vitrin/ornek-sgs.html',
       git:function(d){ return 'sinav-gibi.html?tur=sik&ders='+encodeURIComponent(d); },
       cip:['En sık 20 konu, ders ders','20 soru · 25 dakika','önce görmediğin sorular','bitince konu konu karne'] } };
+  /* 19.10 (Cem: "Google'dan gelenin satın alma oranını artıralım"): Google arama ziyaretçisi buraya iner, aramış ve almaya
+     yakın; kutuda fiyat yoktu, yalnız "Paketler" vardı. Fiyat satırı + doğrudan satın al. Rakamlar YALNIZ fiyat-motoru.js'ten
+     (paketBul + fiyatAna/fiyatDahilNot + HARC; feedback "fiyat her yerde aynı"). Motor yüklenmezse satır ve düğme hiç çizilmez. */
+  function fiyatCiz(s){
+    var f=$('ecFiyat'), a=$('ecAlA');
+    if(typeof paketBul!=='function'||typeof fiyatAna!=='function'){ f.hidden=true; a.hidden=true; return; }
+    var id=s==='sgs'?'sgs':'yeterlilik-1', p=paketBul(id); if(!p||!p.acik){ f.hidden=true; a.hidden=true; return; }
+    var dahil=function(i,n){ var d=fiyatDahilNot(i,n); return d?' <small>('+esc(d)+')</small>':''; };
+    var h;
+    if(s==='sgs'){
+      h='<span class="ana">'+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>'+esc(p.erisim||'Sınavına kadar')+' · sınırsız soru';
+    } else {
+      var t=paketBul('yeterlilik-tum');
+      h='<span class="ana">1 ders '+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>Bir dersin sınav ücreti '+tl(HARC.yeterlilik.ders)+' TL'
+        +(t&&t.acik?' · tüm dersler '+esc(fiyatAna('yeterlilik-tum',t.fiyat))+dahil('yeterlilik-tum',t.fiyat):'');
+    }
+    h+='<br><small>Açılış fiyatı ilk '+tl(p.kota)+' ödeyene; sonra '+esc(fiyatAna(id,p.liste))+'. Kartla ödersen paketin hemen açılır.</small>';
+    f.innerHTML=h; f.hidden=false;
+    a.href='satin-al.html?paket='+id+K; a.textContent=s==='sgs'?'Satın al →':'Dersini seç, satın al →'; a.hidden=false;
+  }
   function dersAcik(s,d){ var p=PAKET[s]; if(!p) return false; if(!p.dersler||!p.dersler.length) return true; return p.dersler.some(function(x){ return trk(x)===trk(d); }); }
   function ciz(){
     var s=SECILI, A=AYAR[s], v=VERI[s];
@@ -105,6 +131,7 @@
     $('ecCipler').innerHTML=A.cip.map(function(c){ return '<span>'+esc(c)+'</span>'; }).join('');
     var pk=!!PAKET[s];
     $('ecSatis').hidden=pk; $('ecSatisA').href=A.fiyat+K; $('ecOrnekA').href=A.ornek;
+    fiyatCiz(s);
     if(!v){ $('ecDersler').innerHTML='<p class="ec-bilgi">Dersler şu an okunamadı. Sayfayı yenilemeyi dene.</p>'; return; }
     var G={}, S=[];
     (v.konular||[]).forEach(function(k){ if(!G[k.ders]){ G[k.ders]=[]; S.push(k.ders); } G[k.ders].push(k); });
