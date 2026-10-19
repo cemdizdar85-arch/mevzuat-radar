@@ -1,11 +1,11 @@
 {
-  "tarih": "19.10.2026 12:13",
+  "tarih": "19.10.2026 13:36",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 888,
   "riskli_madde": 1315,
   "sayfa": 77,
   "atifli_iddia": 300,
-  "dayanaksiz_iddia": 401,
+  "dayanaksiz_iddia": 402,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -57,7 +57,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -2163,13 +2163,13 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 828,
+      "satir": 827,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1131,
+      "satir": 1130,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
@@ -2583,49 +2583,55 @@
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 303,
+      "satir": 312,
       "iddia": "90 gün",
-      "metin": "KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim 1-1.000 TL olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.'"
+      "metin": "KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üret"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 399,
+      "satir": 409,
       "iddia": "90 gün",
-      "metin": "/* 19.10 özel indirim kodu: kod, tutar sınırı (1-1.000) ve süre (1-90 gün) sunucuda sınanır */"
+      "metin": "tutar tavanı (5.000) ve süre (1-90 gün) sunucuda da sınanır */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 402,
-      "iddia": "1.000 TL",
-      "metin": "if(!(ot>=1&&ot<=1000)){ mesaj('İndirim 1 ile 1.000 TL arasında olmalı.', false); return; }"
-    },
-    {
-      "sayfa": "yonetim.html",
-      "satir": 403,
+      "satir": 412,
       "iddia": "90 gün",
       "metin": "if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 493,
+      "satir": 473,
+      "iddia": "%99",
+      "metin": "else if(tur==='oran' && deger>99) hata='Oran en çok %99 olabilir (ücretsiz vermek için \"Ücretsiz paket ver\" kutusunu kullan).';"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 478,
+      "iddia": "5.000 TL",
+      "metin": "if(!hata && !(ind>=1 && ind<p.fiyat && ind<=5000)) hata=p.ad+': indirim ('+tl(ind)+') fiyattan ('+tl(p.fiyat)+') küçük ve en çok 5.000 TL olmalı.';"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 537,
       "iddia": "24 saat",
       "metin": "/* 10.10 (Cem \"1.2.3\"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 494,
+      "satir": 538,
       "iddia": "30 gün",
       "metin": "$('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 495,
+      "satir": 539,
       "iddia": "24 saat",
       "metin": "+(d.ekip_gec?' · 24 saati geçen: '+d.ekip_gec+' ':'')"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 511,
+      "satir": 555,
       "iddia": "24 saat",
       "metin": "+(gec?' · ⏰ '+saat+' saattir bekliyor (söz: 24 saat) ':'')"
     }
