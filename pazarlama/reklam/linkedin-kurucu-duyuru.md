@@ -40,6 +40,8 @@ Bağımsız denetçilik sınavı modülümüz de geliyor.
 
 Tetikte'nin kendi hazırlık sorularıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
+#SMMM #StajaGiriş #Yeterlilik
+
 ## İlk yorum
 
 Kaynaklar. Aynı sonucu 2013'te Dunlosky ve ekibi de buldu: on çalışma yöntemi içinde yüksek yarar notunu yalnız kendini soruyla sınamak ve tekrarı zamana yaymak aldı; yeniden okumak ve altını çizmek düşük not aldı.
@@ -47,7 +49,7 @@ Kaynaklar. Aynı sonucu 2013'te Dunlosky ve ekibi de buldu: on çalışma yönte
 2) Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J. & Willingham, D. T. (2013). Improving Students' Learning With Effective Learning Techniques. Psychological Science in the Public Interest, 14(1), 4–58.
 5 örnek soru, üye olmadan: tetikte.com/?k=linkedin
 
-## Görsel (tek kart, 1080×1350) — 19.10 son hâl: KURUMSAL kart
+## Görsel (tek kart, 1080×1350) — 19.10 son hâl: KURUMSAL kart, BEYAZ, dikey 4:5 (GM önerisi; paylaşım Salı 09:00)
 
 <!-- Cem: "kurumsal firma izlenimi" + "konu anlattığımızdan bahsedelim; 'sadece soru çözüyorsun' deyip almıyorlar". Konu özeti ölçümü
      16.10 (konu-algisi-1610): SGS 4.795/4.937 · Yeterlilik 3.874/3.878 → "her soruda" DENMEZ. "Konu anlatımı/ders" 5580 riski →
