@@ -21,33 +21,22 @@ durum: onay-bekliyor
 
 ## Paylaşım metni (LinkedIn)
 
-Uzun süredir üzerinde çalıştığım bir işi bugün ilk kez burada anlatıyorum: Tetikte.
+Tetikte'yi 10 gün önce açtık. Burada ilk kez duyuruyorum.
 
-SMMM sınavlarına hazırlanırken video izleme imkânım yoktu. Soru çözdüm, yanıldım, nedenini buldum. O gün bunun bilimsel bir karşılığı olduğunu bilmiyordum.
+SMMM sınavlarına video izlemeden, soru çözerek hazırlandım. Sonra araştırmada karşılığını gördüm: bir metni dört kez okuyanlar bir hafta sonra %40'ını, bir kez okuyup üç kez kendini sınayanlar %61'ini hatırladı (Roediger ve Karpicke, 2006).
 
-Sonra araştırmaları okudum.
+Tetikte bu yüzden soruyla başlar:
+• Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan.
+• Yanlış yaptığın an nedenini ve dayandığı maddeyi ya da kaynağı görürsün.
+• Yanıldığın soru iki gün sonra yeniden karşına çıkar.
 
-2006'da Washington Üniversitesi'nde Roediger ve Karpicke öğrencilere aynı metni çalıştırdı. Bir grup metni dört kez okudu; öbür grup bir kez okuyup üç kez kendini sınadı. Bir hafta sonra okuyanlar metnin %40'ını, kendini sınayanlar %61'ini hatırladı. Üstelik dört kez okuyanlar, hatırlayacaklarından daha emindi.
-
-2013'te Dunlosky ve ekibi on çalışma yöntemini karşılaştırdı. Yüksek yarar notunu yalnız ikisi aldı: kendini soruyla sınamak ve tekrarı zamana yaymak. Yeniden okumak ve altını çizmek düşük not aldı.
-
-Tetikte'yi bu iki bulguyu örnek alarak kurduk:
-
-• Konu anlatımıyla değil, soruyla başlıyorsun. Son 10 yılın çıkmış sorularını tek tek okuduk; sorularımızı en sık sorulan konulara göre hazırladık.
-• Yanlış yaptığın an, neden yanıldığını, doğru kuralı ve dayandığı maddeyi aynı ekranda görüyorsun.
-• Yanıldığın soru iki gün sonra yeniden karşına çıkıyor.
-
-Bize güvenmen için söz vermiyoruz, kanıt gösteriyoruz: açıklamalarımız dayandığı kanun maddesini ya da kaynağı yanında gösterir, doğruluğunu kendin kontrol edebilirsin. Kanun değiştiğinde de eski kuralla yazılmış soruyu yayına almıyoruz.
-
-Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da. Bu yıl sınava girecek bir stajyeriniz ya da yakınınız varsa bu yazıyı ona iletirseniz çok sevinirim. Üye olmadan 5 örnek soru çözebilir: tetikte.com/?k=linkedin
-
-Yolun başındayız. Her yorumu, her eleştiriyi kendim okuyorum. Kaynaklar ilk yorumda.
+Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da. Sınava girecek bir stajyeriniz varsa ona iletin. Üye olmadan 5 örnek soru: tetikte.com/?k=linkedin
 
 Tetikte'nin kendi hazırlık sorularıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
 ## İlk yorum
 
-Kaynaklar:
+Kaynaklar. Aynı sonucu 2013'te Dunlosky ve ekibi de buldu: on çalışma yöntemi içinde yüksek yarar notunu yalnız kendini soruyla sınamak ve tekrarı zamana yaymak aldı; yeniden okumak ve altını çizmek düşük not aldı.
 1) Roediger, H. L. & Karpicke, J. D. (2006). Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention. Psychological Science, 17(3), 249–255.
 2) Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J. & Willingham, D. T. (2013). Improving Students' Learning With Effective Learning Techniques. Psychological Science in the Public Interest, 14(1), 4–58.
 5 örnek soru, üye olmadan: tetikte.com/?k=linkedin
