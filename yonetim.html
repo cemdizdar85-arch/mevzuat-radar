@@ -98,6 +98,22 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       <p class="not">Kod 6 karakter; adın baş harfleri + karışmayan karakterler. Tüm sınav paketinde 400 TL, tek derste ders başı 50 TL indirim verir.</p>
     </div>
 
+    <!-- 19.10 (Cem "birisine 600 TL indirim" → "hem yeterlilik hem SGS için bir kod"): kişiye özel, tek kullanımlık kod.
+         SQL: radar-app/sql/2026-10-19-ozel-indirim-kodu.sql (üretim/geçerlilik sunucuda; burada yalnız düğme). -->
+    <h2>Özel indirim kodu</h2>
+    <div class="kutu">
+      <b>Kişiye kod üret</b>
+      <div class="form" style="margin-top:8px">
+        <label>Kime (ad ya da not)<input id="oKime" autocomplete="off" maxlength="120"></label>
+        <label>İndirim (TL, KDV dahil)<input id="oTutar" type="number" min="1" max="1000" step="1" value="600"></label>
+        <label>Geçerlilik (gün)<input id="oGun" type="number" min="1" max="90" step="1" value="7"></label>
+        <span><button class="btn ana" id="oUret" type="button">Kodu üret</button></span>
+      </div>
+      <p class="not">Staja Giriş ve Yeterlilik tüm dersler paketinde geçer; tek kullanımlıktır. Sipariş iptal edilirse kod yeniden kullanılabilir. Elçi kodu ya da anlık teklifle üst üste binmez, alıcı lehine olan tek indirim uygulanır.</p>
+      <p id="oSonuc" class="not" hidden></p>
+    </div>
+    <div class="kaydir" style="margin-top:10px"><table id="tOzel"></table></div>
+
     <h2>Üyeler</h2>
     <div class="suzgec">
       <select id="fSinav" aria-label="Sınava göre süz"><option value="">Tüm sınavlar</option><option>Staja Giriş</option><option>Yeterlilik</option><option>Tümü (tam paket)</option><option>Belirsiz</option></select>
@@ -256,16 +272,16 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     /* siparişler */
     var sh='<tr><th>Sipariş no</th><th>Tarih</th><th>Ad</th><th>E-posta</th><th>Paket</th><th>Tutar</th><th>Elçi / indirim</th><th>Kaynak</th><th>Durum</th><th></th></tr>';   /* 12.10: anlık teklif indirimi ayrı alan (siparisler.anlik_teklif_tl) */
     VERI.siparisler.forEach(function(s){
-      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
+      sh+='<tr><td>'+esc(s.no)+'</td><td>'+tarih(s.tarih)+'</td><td>'+esc(s.ad)+'</td><td>'+esc(s.eposta)+'</td><td>'+esc(s.paket)+'</td><td class="s">'+tl(s.tutar)+'</td><td>'+(s.ozel_kod_tl?'<b>Özel kod</b> '+esc(s.ozel_kod||'')+' (−'+tl(s.ozel_kod_tl)+')':s.anlik_teklif?'<b>Anlık teklif</b> (−'+tl(s.anlik_teklif)+')':esc(s.elci||'—')+(s.indirim?' (−'+tl(s.indirim)+')':''))+'</td><td>'+esc(s.kaynak_etiket||'—')+'</td><td>'+({odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'}[s.durum]||esc(s.durum))+'</td><td>'+(s.durum==='odeme_bekliyor'?'<button class="btn ana" data-onay="'+esc(s.no)+'" data-paket="'+esc(s.paket)+'" data-tutar="'+(s.tutar||0)+'" data-eposta="'+esc(s.eposta)+'">Ödendi, paketi aç</button> <button class="btn" data-iptal="'+esc(s.no)+'">İptal</button>':(s.durum==='odendi'?'<button class="btn" data-iade="'+esc(s.no)+'">İade edildi</button>':''))+'</td></tr>';
     });
     if(!VERI.siparisler.length) sh+='<tr><td colspan="10" class="not">Henüz sipariş yok.</td></tr>';
     $('tSiparis').innerHTML=sh;
     /* 12.10 satış ayrımı: elçili · anlık teklif · doğrudan (indirimsiz) - iptal hariç; ödenen ayrıca. Eski kayıtta indirim_kaynak yoksa elçi/teklif alanından çıkarılır. */
-    var tur=function(s){ var k=s.indirim_kaynak||''; if(k==='anlik-teklif'||s.anlik_teklif) return 'Anlık teklif'; if(k.indexOf('elci:')===0||s.elci) return 'Elçili'; return 'Doğrudan (indirimsiz)'; };
+    var tur=function(s){ var k=s.indirim_kaynak||''; if(k.indexOf('ozel:')===0||s.ozel_kod_tl) return 'Özel kod'; if(k==='anlik-teklif'||s.anlik_teklif) return 'Anlık teklif'; if(k.indexOf('elci:')===0||s.elci) return 'Elçili'; return 'Doğrudan (indirimsiz)'; };
     var ay={}, ke={}; VERI.siparisler.forEach(function(s){ if(s.durum==='iptal') return; var t=tur(s), e=s.kaynak_etiket||'(etiketsiz)';
       [[ay,t],[ke,e]].forEach(function(x){ var o=x[0][x[1]]||(x[0][x[1]]={n:0,od:0,tl:0}); o.n++; if(s.durum==='odendi'){ o.od++; o.tl+=(s.tutar||0); } }); });
     var ah='<tr><th>Satış türü</th><th>Sipariş</th><th>Ödenen</th><th>Ödenen tutar</th></tr>';
-    ['Elçili','Anlık teklif','Doğrudan (indirimsiz)'].forEach(function(t){ var o=ay[t]||{n:0,od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
+    ['Elçili','Anlık teklif','Özel kod','Doğrudan (indirimsiz)'].forEach(function(t){ var o=ay[t]||{n:0,od:0,tl:0}; ah+='<tr><td>'+t+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
     ah+='<tr><th>Kaynak etiketi (?k=)</th><th>Sipariş</th><th>Ödenen</th><th>Ödenen tutar</th></tr>';
     Object.keys(ke).sort().forEach(function(e){ var o=ke[e]; ah+='<tr><td>'+esc(e)+'</td><td class="s">'+o.n+'</td><td class="s">'+o.od+'</td><td class="s">'+tl(o.tl)+'</td></tr>'; });
     $('tSatisAyrim').innerHTML=ah;
@@ -284,6 +300,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     AKTIF_PAKET_VAR:'Bu kişinin zaten aktif (muhtemelen parayla alınmış) paketi var.', HEDIYE_DEGIL:'Bu paket hediye kaydında yok; parayla alınmış olabilir.',
     PAKET_YOK:'Bu kişide paket yok.', KOD_VAR:'Bu kod zaten var; başka kod üret.', KOD_GECERSIZ:'Kod 6-12 harf/rakam olmalı.', NEDEN_GEREKLI:'Neden yaz.',
     BITIS_GECERSIZ:'Bitiş bugünden sonra olmalı.', PAKET_GECERSIZ:'Paket seç.',
+    KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim 1-1.000 TL olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.',
     BASKA_HESAPTA:'Bu sipariş zaten başka bir hesapta açık. Önce o hesabın sahibiyle konuş.', SURESI_GECMIS:'Bu siparişin paket süresi geçmiş.' };
   function hataYazi(e){ var m=String(e&&e.message||e||''); for(var k in HATA){ if(m.indexOf(k)>-1) return HATA[k]; }
     if(/DURUM_/.test(m)) return 'Bu sipariş artık ödeme beklemiyor ('+m.replace(/.*DURUM_/,'').toLowerCase()+').';
@@ -378,6 +395,20 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       var ac=b.dataset.aktif==='1';
       if(!confirm(b.dataset.elci+' kodu '+(ac?'açılsın':'kapatılsın')+' mı?')) return;
       await islem('yonetim_elci_durum', { p_kod:b.dataset.elci, p_aktif:ac }, function(d){ return '✓ '+d.kod+' '+(d.aktif?'açıldı':'kapatıldı')+'.'; });
+    } else if(b.id==='oUret'){
+      /* 19.10 özel indirim kodu: kod, tutar sınırı (1-1.000) ve süre (1-90 gün) sunucuda sınanır */
+      var ok=$('oKime').value.trim(), ot=parseInt($('oTutar').value,10), og=parseInt($('oGun').value,10);
+      if(ok.length<2){ mesaj('Kodu kime verdiğini yaz (ad ya da kısa not).', false); return; }
+      if(!(ot>=1&&ot<=1000)){ mesaj('İndirim 1 ile 1.000 TL arasında olmalı.', false); return; }
+      if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }
+      if(!confirm(ok+' için '+tl(ot)+' indirim kodu üretilsin mi?\n\nStaja Giriş ve Yeterlilik tüm dersler paketinde, '+og+' gün geçerli, tek kullanımlık.')) return;
+      b.disabled=true;
+      var od=await islem('yonetim_ozel_kod_uret', { p_kime:ok, p_gun:og, p_indirim:ot }, function(d){ return '✓ '+d.kod+' üretildi ('+d.kime+', '+tl(d.indirim_tl)+', son gün '+tarih(d.son)+').'; });
+      b.disabled=false;
+      if(od){ var os=$('oSonuc'); os.hidden=false; os.innerHTML='Kod: <b style="font-size:1.2em;letter-spacing:.06em">'+esc(od.kod)+'</b> · Gönderilecek link: <b>tetikte.com/satin-al.html?e='+esc(od.kod)+'</b> (kişi satın alma sayfasında "Elçi ya da indirim kodun var mı?" kutusuna da yazabilir).'; $('oKime').value=''; }
+    } else if(b.dataset.ozeliptal){
+      if(!confirm(b.dataset.ozeliptal+' kodu iptal edilsin mi? Bir daha kullanılamaz.')) return;
+      await islem('yonetim_ozel_kod_iptal', { p_kod:b.dataset.ozeliptal }, function(d){ return '✓ '+d.kod+' iptal edildi.'; });
     } else if(b.id==='eUret'){
       $('eKod').value=kodUret($('eAd').value);
     } else if(b.id==='eEkle'){
@@ -422,6 +453,23 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     $('yOlcum').textContent='Son okuma: '+new Date(VERI.olcum||Date.now()).toLocaleString('tr-TR')+' · sayfayı yenileyince tazelenir.';
     $('yIcerik').hidden=false; ciz();
     bagsizCiz();
+    ozelCiz();
+  }
+  /* 19.10 özel indirim kodları (2026-10-19-ozel-indirim-kodu.sql) */
+  async function ozelCiz(){
+    var r=await sb.rpc('yonetim_ozel_kodlar'), t=$('tOzel');
+    if(r.error){ t.innerHTML='<tr><td class="not">'+(/PGRST202|Could not find/i.test(r.error.message||'')?'Kurulum bekliyor (veritabanı göçü).':'Okunamadı.')+'</td></tr>'; return; }
+    var L=r.data||[];
+    if(!L.length){ t.innerHTML='<tr><td class="not">Henüz özel kod yok.</td></tr>'; return; }
+    var sd={odeme_bekliyor:'ödeme bekliyor',odendi:'ödendi',iptal:'iptal',iade:'iade'};
+    t.innerHTML='<tr><th>Kod</th><th>Kime</th><th>İndirim</th><th>Son gün</th><th>Durum</th><th>Paylaşım linki</th><th></th></tr>'
+      +L.map(function(o){
+        var d = o.iptal ? 'iptal edildi'
+          : (o.siparis_no && o.siparis_durum && o.siparis_durum!=='iptal') ? 'kullanıldı: '+esc(o.siparis_no)+' ('+(sd[o.siparis_durum]||esc(o.siparis_durum))+')'
+          : (new Date(o.son).getTime()<Date.now()) ? 'süresi doldu'
+          : o.gecerli ? '<b style="color:var(--green)">geçerli</b>' : 'geçersiz';
+        return '<tr><td><b>'+esc(o.kod)+'</b></td><td>'+esc(o.kime)+'</td><td class="s">'+tl(o.indirim_tl)+'</td><td>'+tarih(o.son)+'</td><td>'+d+'</td><td>tetikte.com/satin-al.html?e='+esc(o.kod)+'</td><td>'+(o.gecerli&&!o.iptal?'<button class="btn" data-ozeliptal="'+esc(o.kod)+'">İptal et</button>':'')+'</td></tr>';
+      }).join('');
   }
   /* 12.10: ödendi ama hiçbir hesapta açılmamış siparişler (2026-10-12-siparis-hesap-bagla.sql) */
   async function bagsizCiz(){
