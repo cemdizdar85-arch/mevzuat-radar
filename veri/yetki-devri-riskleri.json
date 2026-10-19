@@ -1,11 +1,11 @@
 {
-  "tarih": "18.10.2026 15:15",
+  "tarih": "19.10.2026 10:06",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 888,
   "riskli_madde": 1315,
   "sayfa": 77,
-  "atifli_iddia": 299,
-  "dayanaksiz_iddia": 399,
+  "atifli_iddia": 300,
+  "dayanaksiz_iddia": 401,
   "kirmizi_aday": 29,
   "yeni_aday": 1,
   "yeni": [
@@ -1473,45 +1473,33 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 78,
-      "iddia": "2024 yıl",
-      "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, 2024 yılında yayımlanan Demiryolu İşletmeciliği Yetkilendirme Yönetmeliği'nde değişikliğe gitti. Kanun atıfları genişletildi ve ceza tutarl"
+      "satir": 57,
+      "iddia": "60 gün",
+      "metin": "Ne yapmalısın: Bağlantı anlaşması revizyon talebi 60 gün içinde dağıtım şirketine gönderilmeli. Acil durum talimatlarına uyum prosedürleri, faturalandırma yöntemleri ve dengeleme p"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 96,
+      "satir": 150,
       "iddia": "2015 yıl",
       "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, 2015 yılından beri yürürlükte olan Demiryolu Araçları Tescil ve Sicil Yönetmeliği'nde teknik düzeltmeler yaptı. Yönetmeliğin 2. maddesindek"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 104,
+      "satir": 158,
       "iddia": "451.127 TL",
       "metin": "Ne yapmalısın: Mevcut demiryolu araçlarının tescili veya sicil güncelleme işlemlerinde Ulaştırma Hizmetleri Düzenleme Genel Müdürlüğü'ne başvuruyorsanız, yeni harç tutarlarını (451"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 112,
+      "satir": 166,
       "iddia": "2023 yıl",
       "metin": "Ne oldu: Ulaştırma Bakanlığı, 2023 yılında yayımlanan Demiryolu Altyapı Erişim ve Kapasite Tahsis Yönetmeliği'nde değişikliğe gitti. Yönetmeliğin hukuki dayanağına ilişkin atıflar "
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 162,
-      "iddia": "5.000 TL",
-      "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, Tren Makinisti Yönetmeliği'ndeki atıf madde numaralarını ve idari para cezası tutarlarını değiştirdi. Ceza tutarları 5.000 TL'den 85.437 TL"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 194,
-      "iddia": "5.000 TL",
-      "metin": "Kamu İhale Genel Tebliği'nde eşik tutarlar 5.000 TL'den 50.000 TL'ye yükseltildi"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 195,
-      "iddia": "5.000 TL",
-      "metin": "Ne oldu: Kamu İhale Kurumu, ihale usullerinin uygulanma şartlarını belirleyen eşik tutarları revize etti. İki maddede yer alan 5.000 TL'lik sınır 50.000 TL'ye çıkarılırken, halihaz"
+      "satir": 237,
+      "iddia": "2024 yıl",
+      "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, 2024 yılında yayımlanan Demiryolu İşletmeciliği Yetkilendirme Yönetmeliği'nde değişikliğe gitti. Kanun atıfları genişletildi ve ceza tutarl"
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -2175,13 +2163,13 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 802,
+      "satir": 828,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1101,
+      "satir": 1131,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
@@ -2595,25 +2583,49 @@
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 445,
+      "satir": 303,
+      "iddia": "90 gün",
+      "metin": "KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim 1-1.000 TL olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.'"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 399,
+      "iddia": "90 gün",
+      "metin": "/* 19.10 özel indirim kodu: kod, tutar sınırı (1-1.000) ve süre (1-90 gün) sunucuda sınanır */"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 402,
+      "iddia": "1.000 TL",
+      "metin": "if(!(ot>=1&&ot<=1000)){ mesaj('İndirim 1 ile 1.000 TL arasında olmalı.', false); return; }"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 403,
+      "iddia": "90 gün",
+      "metin": "if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }"
+    },
+    {
+      "sayfa": "yonetim.html",
+      "satir": 493,
       "iddia": "24 saat",
       "metin": "/* 10.10 (Cem \"1.2.3\"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 446,
+      "satir": 494,
       "iddia": "30 gün",
       "metin": "$('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 447,
+      "satir": 495,
       "iddia": "24 saat",
       "metin": "+(d.ekip_gec?' · 24 saati geçen: '+d.ekip_gec+' ':'')"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 463,
+      "satir": 511,
       "iddia": "24 saat",
       "metin": "+(gec?' · ⏰ '+saat+' saattir bekliyor (söz: 24 saat) ':'')"
     }
