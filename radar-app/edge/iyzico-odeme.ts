@@ -176,7 +176,8 @@ Deno.serve(async (req) => {
     const satilan = (Array.isArray(say) ? say : []).find((x: any) => x.sinav === pf.sinav)?.satilan ?? 0;
     const taban = satilan >= (F.KOTA[pf.sinav] ?? 0) ? pf.f.liste : pf.f.kurulus;
     // 12.10 anlık teklif: indirimi ayrı kolonda (siparisler.anlik_teklif_tl, sunucu damgası; elçi indirimiyle üst üste binmez)
-    const beklenen = taban - (Number(s.indirim_tl) || 0) - (Number(s.anlik_teklif_tl) || 0);
+    // 19.10 özel indirim kodu: siparisler.ozel_kod_tl (sunucu damgası; üç indirimden yalnız biri dolu olur)
+    const beklenen = taban - (Number(s.indirim_tl) || 0) - (Number(s.anlik_teklif_tl) || 0) - (Number(s.ozel_kod_tl) || 0);
     if (Number(s.tutar) !== beklenen) return cevap(409, { hata: "tutar guncel fiyatla uyusmuyor", siparis: s.tutar, guncel: beklenen });
     const r = await odemeBaslat(beklenen, no, s.paket_ad || s.paket, alici(s.ad_soyad, s.email, s.adres, String(s.fatura?.tckn ?? ""), ip, no));
     if (r.status !== "success" || !r.token) return cevap(502, { hata: "iyzico baslatmadi", errorCode: r.errorCode ?? null, errorMessage: r.errorMessage ?? null });
