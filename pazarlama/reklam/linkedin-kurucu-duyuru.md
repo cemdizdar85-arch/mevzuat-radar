@@ -55,7 +55,8 @@ Kartta yazan: tetikte · "DUYURU · EKİM 2026" · "SMMM STAJA GİRİŞ · YETER
 KONU ÖZETİ "Soruyu cevaplayınca o konunun özeti, kuralı ve dayandığı madde ya da kaynak açılır." · ADIM ADIM "Takıldığın soruda Nöbetçi
 çözümü adım adım anlatır." · TEKRAR "Yanlış yaptığın soru, iki gün sonra yeniden karşına çıkar." · "Yöntemin dayanağı: Roediger ve
 Karpicke (2006), Psychological Science. Bir hafta sonra, metni dört kez okuyanlar %40, bir kez okuyup üç kez kendini sınayanlar %61
-hatırladı." · Cem Dizdar · Kurucu, Tetikte · tetikte.com · Staja Giriş 21 Kasım · Yeterlilik 28 Kasım · kurum uyarısı.
+hatırladı." · tetikte.com · "Üye olmadan 5 örnek soru" · Staja Giriş 21 Kasım · Yeterlilik 28 Kasım · kurum uyarısı.
+(Cem 19.10: kartta kurucu adı/fotoğrafı YOK — gönderi zaten kendi hesabından.)
 
 ### Eski kart (kullanılmıyor)
 
