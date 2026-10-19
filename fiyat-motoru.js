@@ -104,10 +104,10 @@ var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':
              bicim:/^[A-Z0-9]{3,12}$/ };
 
 /* ÖZEL İNDİRİM KODU — 19.10.2026 Cem ("birisine 600 TL indirim" → "hem yeterlilik hem SGS için bir kod").
-   Yönetim panelinden kişiye üretilir, tek kullanımlık; tutar ve süre kodun kendisinde (sunucu: ozel_kod tablosu,
-   radar-app/sql/2026-10-19-ozel-indirim-kodu.sql). Buradaki paket listesi yalnız EKRAN yazısıdır ve sunucudaki
-   yonetim_ozel_kod_uret paket listesiyle AYNI olmalı. Elçi kodu / anlık teklifle üst üste binmez (sunucu zorlar). */
-var OZEL_KOD = { bicim:/^OZ[ACDEFHJKLMNPRTUVXYZ2345679]{6}$/, paketler:['sgs', 'yeterlilik-tum'] };
+   Yönetim panelinden kişiye üretilir, tek kullanımlık; paketler, paket başına tutar ve süre kodun kendisinde (sunucu:
+   ozel_kod tablosu, radar-app/sql/2026-10-19-ozel-indirim-kodu.sql + -ozel-kod-paket-tutar.sql). Burada yalnız kod
+   BİÇİMİ var (satın almada elçi kodundan ayırmak için). Elçi kodu / anlık teklifle üst üste binmez (sunucu zorlar). */
+var OZEL_KOD = { bicim:/^OZ[ACDEFHJKLMNPRTUVXYZ2345679]{6}$/ };
 
 /* ---------------------------------------------------------------------------
    ANLIK TEKLİF — 12.10.2026 CEM KARARI ("tek ders için 200 TL" · "süre olmasın, anlık gibi olsun").

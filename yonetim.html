@@ -105,11 +105,19 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       <b>Kişiye kod üret</b>
       <div class="form" style="margin-top:8px">
         <label>Kime (ad ya da not)<input id="oKime" autocomplete="off" maxlength="120"></label>
-        <label>İndirim (TL, KDV dahil)<input id="oTutar" type="number" min="1" max="1000" step="1" value="600"></label>
+        <!-- 19.10 Cem ("istediğim kadar, oranı ben belirleyeyim, tek ders de tam alım da"): TL ya da %; paket kutuları.
+             Oran o günün fiyatından (fiyat-motoru.js paketBul) TL'ye çevrilir, sunucuya paket başına TL gider
+             (2026-10-19-ozel-kod-paket-tutar.sql). -->
+        <label>İndirim türü<select id="oTur"><option value="tl">Tutar (TL, KDV dahil)</option><option value="oran">Oran (%)</option></select></label>
+        <label><span id="oDegerAd">Tutar (TL)</span><input id="oDeger" type="number" min="1" step="1" value="600"></label>
         <label>Geçerlilik (gün)<input id="oGun" type="number" min="1" max="90" step="1" value="7"></label>
-        <span><button class="btn ana" id="oUret" type="button">Kodu üret</button></span>
       </div>
-      <p class="not">Staja Giriş ve Yeterlilik tüm dersler paketinde geçer; tek kullanımlıktır. Sipariş iptal edilirse kod yeniden kullanılabilir. Elçi kodu ya da anlık teklifle üst üste binmez, alıcı lehine olan tek indirim uygulanır.</p>
+      <div style="margin-top:10px"><b class="not">Hangi paketlerde geçsin?</b>
+        <div id="oPaketler" style="display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:6px"></div>
+      </div>
+      <div class="kaydir" style="margin-top:8px"><table id="oOnizle"></table></div>
+      <p style="margin-top:8px"><button class="btn ana" id="oUret" type="button">Kodu üret</button></p>
+      <p class="not">Tek kullanımlıktır: seçilen paketlerden birinde bir kez kullanılır. Sipariş iptal edilirse kod yeniden kullanılabilir. Elçi kodu ya da anlık teklifle üst üste binmez, alıcı lehine olan tek indirim uygulanır. Oranlı kodda tutar bugünkü fiyattan hesaplanıp koda yazılır.</p>
       <p id="oSonuc" class="not" hidden></p>
     </div>
     <div class="kaydir" style="margin-top:10px"><table id="tOzel"></table></div>
@@ -166,6 +174,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
   </div>
 </div>
 
+<script src="fiyat-motoru.js?v=20261019b"></script>
 <script src="kutuphane/supabase-2.112.3.js"></script>
 <script>
 (function(){
@@ -300,7 +309,7 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     AKTIF_PAKET_VAR:'Bu kişinin zaten aktif (muhtemelen parayla alınmış) paketi var.', HEDIYE_DEGIL:'Bu paket hediye kaydında yok; parayla alınmış olabilir.',
     PAKET_YOK:'Bu kişide paket yok.', KOD_VAR:'Bu kod zaten var; başka kod üret.', KOD_GECERSIZ:'Kod 6-12 harf/rakam olmalı.', NEDEN_GEREKLI:'Neden yaz.',
     BITIS_GECERSIZ:'Bitiş bugünden sonra olmalı.', PAKET_GECERSIZ:'Paket seç.',
-    KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim 1-1.000 TL olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.',
+    KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.',
     BASKA_HESAPTA:'Bu sipariş zaten başka bir hesapta açık. Önce o hesabın sahibiyle konuş.', SURESI_GECMIS:'Bu siparişin paket süresi geçmiş.' };
   function hataYazi(e){ var m=String(e&&e.message||e||''); for(var k in HATA){ if(m.indexOf(k)>-1) return HATA[k]; }
     if(/DURUM_/.test(m)) return 'Bu sipariş artık ödeme beklemiyor ('+m.replace(/.*DURUM_/,'').toLowerCase()+').';
@@ -396,14 +405,15 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       if(!confirm(b.dataset.elci+' kodu '+(ac?'açılsın':'kapatılsın')+' mı?')) return;
       await islem('yonetim_elci_durum', { p_kod:b.dataset.elci, p_aktif:ac }, function(d){ return '✓ '+d.kod+' '+(d.aktif?'açıldı':'kapatıldı')+'.'; });
     } else if(b.id==='oUret'){
-      /* 19.10 özel indirim kodu: kod, tutar sınırı (1-1.000) ve süre (1-90 gün) sunucuda sınanır */
-      var ok=$('oKime').value.trim(), ot=parseInt($('oTutar').value,10), og=parseInt($('oGun').value,10);
+      /* 19.10 özel indirim kodu 2: paket başına TL (oran burada bugünkü fiyattan çevrilir); kod, paket listesi,
+         tutar tavanı (5.000) ve süre (1-90 gün) sunucuda da sınanır */
+      var ok=$('oKime').value.trim(), og=parseInt($('oGun').value,10), oh=ozelHesap();
       if(ok.length<2){ mesaj('Kodu kime verdiğini yaz (ad ya da kısa not).', false); return; }
-      if(!(ot>=1&&ot<=1000)){ mesaj('İndirim 1 ile 1.000 TL arasında olmalı.', false); return; }
       if(!(og>=1&&og<=90)){ mesaj('Geçerlilik 1 ile 90 gün arasında olmalı.', false); return; }
-      if(!confirm(ok+' için '+tl(ot)+' indirim kodu üretilsin mi?\n\nStaja Giriş ve Yeterlilik tüm dersler paketinde, '+og+' gün geçerli, tek kullanımlık.')) return;
+      if(oh.hata){ mesaj(oh.hata, false); return; }
+      if(!confirm(ok+' için '+oh.aciklama+' indirim kodu üretilsin mi?\n\n'+oh.satirlar.map(function(s){ return s.ad+': '+tl(s.fiyat)+' → '+tl(s.fiyat-s.ind)+' (−'+tl(s.ind)+')'; }).join('\n')+'\n\n'+og+' gün geçerli, tek kullanımlık.')) return;
       b.disabled=true;
-      var od=await islem('yonetim_ozel_kod_uret', { p_kime:ok, p_gun:og, p_indirim:ot }, function(d){ return '✓ '+d.kod+' üretildi ('+d.kime+', '+tl(d.indirim_tl)+', son gün '+tarih(d.son)+').'; });
+      var od=await islem('yonetim_ozel_kod_uret2', { p_kime:ok, p_gun:og, p_indirim:oh.harita, p_aciklama:oh.aciklama }, function(d){ return '✓ '+d.kod+' üretildi ('+d.kime+', '+(d.aciklama||'')+', son gün '+tarih(d.son)+').'; });
       b.disabled=false;
       if(od){ var os=$('oSonuc'); os.hidden=false; os.innerHTML='Kod: <b style="font-size:1.2em;letter-spacing:.06em">'+esc(od.kod)+'</b> · Gönderilecek link: <b>tetikte.com/satin-al.html?e='+esc(od.kod)+'</b> (kişi satın alma sayfasında "Elçi ya da indirim kodun var mı?" kutusuna da yazabilir).'; $('oKime').value=''; }
     } else if(b.dataset.ozeliptal){
@@ -455,7 +465,40 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     bagsizCiz();
     ozelCiz();
   }
-  /* 19.10 özel indirim kodları (2026-10-19-ozel-indirim-kodu.sql) */
+  /* 19.10 özel kod 2: paket kutuları + önizleme. Fiyat fiyat-motoru.js paketBul (satın alma sayfasıyla aynı rakam). */
+  var OZEL_PAKET=['sgs','yeterlilik-tum','yeterlilik-1','yeterlilik-2','yeterlilik-3','yeterlilik-4'];   /* = SQL yonetim_ozel_kod_uret2 izinli */
+  function ozelHesap(){
+    var tur=$('oTur').value, deger=Number($('oDeger').value), satirlar=[], harita={}, hata='';
+    if(!(deger>0) || Math.round(deger)!==deger) hata = tur==='oran' ? 'Oran 1 ile 99 arasında tam sayı olmalı.' : 'Tutar tam TL olmalı.';
+    else if(tur==='oran' && deger>99) hata='Oran en çok %99 olabilir (ücretsiz vermek için "Ücretsiz paket ver" kutusunu kullan).';
+    document.querySelectorAll('#oPaketler input:checked').forEach(function(c){
+      var p=(typeof paketBul==='function')?paketBul(c.value):null; if(!p) return;
+      var ind = tur==='oran' ? Math.round(p.fiyat*deger/100) : deger;
+      satirlar.push({ id:p.id, ad:p.ad, fiyat:p.fiyat, ind:ind });
+      if(!hata && !(ind>=1 && ind<p.fiyat && ind<=5000)) hata=p.ad+': indirim ('+tl(ind)+') fiyattan ('+tl(p.fiyat)+') küçük ve en çok 5.000 TL olmalı.';
+      harita[p.id]=ind;
+    });
+    if(!hata && !satirlar.length) hata='En az bir paket seç.';
+    return { hata:hata, satirlar:satirlar, harita:harita, aciklama: tur==='oran' ? '%'+deger : tl(deger) };
+  }
+  function ozelOnizle(){
+    $('oDegerAd').textContent = $('oTur').value==='oran' ? 'Oran (%)' : 'Tutar (TL)';
+    var h=ozelHesap(), t=$('oOnizle');
+    t.innerHTML = h.satirlar.length ? '<tr><th>Paket</th><th>Fiyat</th><th>İndirim</th><th>Ödeyeceği</th></tr>'
+      + h.satirlar.map(function(s){ var iyi=s.ind>=1&&s.ind<s.fiyat; return '<tr><td>'+esc(s.ad)+'</td><td class="s">'+tl(s.fiyat)+'</td><td class="s">−'+tl(s.ind)+'</td><td class="s">'+(iyi?tl(s.fiyat-s.ind):'<b style="color:var(--red)">geçersiz</b>')+'</td></tr>'; }).join('') : '';
+  }
+  (function(){
+    var k=$('oPaketler'); if(!k) return;
+    if(typeof paketBul!=='function'){ k.innerHTML='<span class="not" style="color:var(--red)">Fiyat dosyası yüklenemedi; sayfayı yenile.</span>'; return; }
+    k.innerHTML=OZEL_PAKET.map(function(id){ var p=paketBul(id); if(!p) return '';
+      return '<label style="display:flex;gap:6px;align-items:center;font-weight:400"><input type="checkbox" value="'+esc(id)+'"'+((id==='sgs'||id==='yeterlilik-tum')?' checked':'')+'> '+esc(p.ad)+' <span class="not">('+tl(p.fiyat)+')</span></label>'; }).join('');
+    ['oTur','oDeger'].forEach(function(i){ $(i).addEventListener('input', ozelOnizle); });
+    $('oTur').addEventListener('change', function(){ $('oDeger').value = $('oTur').value==='oran' ? 20 : 600; ozelOnizle(); });
+    k.addEventListener('change', ozelOnizle);
+    ozelOnizle();
+  })();
+  /* 19.10 özel indirim kodları (2026-10-19-ozel-indirim-kodu.sql + -ozel-kod-paket-tutar.sql) */
+  var PAKET_KISA={ sgs:'SGS', 'yeterlilik-tum':'Yet. tüm', 'yeterlilik-1':'Yet. 1 ders', 'yeterlilik-2':'Yet. 2 ders', 'yeterlilik-3':'Yet. 3 ders', 'yeterlilik-4':'Yet. 4 ders' };
   async function ozelCiz(){
     var r=await sb.rpc('yonetim_ozel_kodlar'), t=$('tOzel');
     if(r.error){ t.innerHTML='<tr><td class="not">'+(/PGRST202|Could not find/i.test(r.error.message||'')?'Kurulum bekliyor (veritabanı göçü).':'Okunamadı.')+'</td></tr>'; return; }
@@ -468,7 +511,8 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
           : (o.siparis_no && o.siparis_durum && o.siparis_durum!=='iptal') ? 'kullanıldı: '+esc(o.siparis_no)+' ('+(sd[o.siparis_durum]||esc(o.siparis_durum))+')'
           : (new Date(o.son).getTime()<Date.now()) ? 'süresi doldu'
           : o.gecerli ? '<b style="color:var(--green)">geçerli</b>' : 'geçersiz';
-        return '<tr><td><b>'+esc(o.kod)+'</b></td><td>'+esc(o.kime)+'</td><td class="s">'+tl(o.indirim_tl)+'</td><td>'+tarih(o.son)+'</td><td>'+d+'</td><td>tetikte.com/satin-al.html?e='+esc(o.kod)+'</td><td>'+(o.gecerli&&!o.iptal?'<button class="btn" data-ozeliptal="'+esc(o.kod)+'">İptal et</button>':'')+'</td></tr>';
+        var ip=o.indirim_paket||{}, ipy=Object.keys(ip).map(function(k){ return esc(PAKET_KISA[k]||k)+' −'+tl(ip[k]); }).join('<br>');
+        return '<tr><td><b>'+esc(o.kod)+'</b></td><td>'+esc(o.kime)+'</td><td>'+(o.aciklama?'<b>'+esc(o.aciklama)+'</b><br>':'')+'<span class="not">'+(ipy||tl(o.indirim_tl))+'</span></td><td>'+tarih(o.son)+'</td><td>'+d+'</td><td>tetikte.com/satin-al.html?e='+esc(o.kod)+'</td><td>'+(o.gecerli&&!o.iptal?'<button class="btn" data-ozeliptal="'+esc(o.kod)+'">İptal et</button>':'')+'</td></tr>';
       }).join('');
   }
   /* 12.10: ödendi ama hiçbir hesapta açılmamış siparişler (2026-10-12-siparis-hesap-bagla.sql) */

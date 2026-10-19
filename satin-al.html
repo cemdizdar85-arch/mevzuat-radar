@@ -430,7 +430,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261019a"></script>
+<script src="fiyat-motoru.js?v=20261019b"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -762,9 +762,8 @@ function elciDenetle(){
 }
 /* 19.10 özel indirim kodu: cihaza yazılmaz (tek kullanımlık; kullanıldıktan sonra her ziyarette "geçersiz" yazmasın) */
 function ozelKodDenetle(kod, sira){
-  var paketAd = function(){ return OZEL_KOD.paketler.map(function(id){ var p = paketBul(id); return p ? p.ad : ''; }).filter(Boolean).join(' · '); };
+  /* 19.10 (özel kod 2): hangi pakette kaç TL geçtiği KODUN kendisinde (sunucu) — burada paket listesi yok */
   if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
-  if(OZEL_KOD.paketler.indexOf(secili.id) < 0){ elciDurumYaz('Bu indirim kodu yalnız şu paketlerde geçerli: ' + paketAd() + '.', 'var(--amber)'); ozetCiz(); return; }
   if(!window.sb){ elciDurumYaz('Kod şu an doğrulanamadı; sayfayı yenileyip yeniden dene.', 'var(--amber)'); ozetCiz(); return; }
   elciDurumYaz('Kod kontrol ediliyor…');
   window.sb.rpc('ozel_kod_kontrol', { p_kod:kod, p_paket:secili.id }).then(function(r){
@@ -773,7 +772,7 @@ function ozelKodDenetle(kod, sira){
     if(v > 0){ elciIndirim = v; kodTur = 'ozel'; elciDurumYaz('✓ Özel indirim kodu geçerli: ' + tl(v) + ' TL indirim uygulandı.', 'var(--green)'); }
     else {
       document.getElementById('elci').value = '';
-      elciDurumYaz('“' + kod + '” geçerli bir kod değil, süresi dolmuş ya da daha önce kullanılmış.', 'var(--red)');
+      elciDurumYaz('“' + kod + '” bu pakette geçerli değil, süresi dolmuş ya da daha önce kullanılmış. Kod başka bir paket için verildiyse o paketi seçip yeniden yaz.', 'var(--red)');
       if(typeof window.kodRozetCiz === 'function') window.kodRozetCiz();
     }
     ozetCiz();
