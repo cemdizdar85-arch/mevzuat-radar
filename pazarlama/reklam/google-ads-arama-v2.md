@@ -21,7 +21,7 @@ Karakter sınırı: başlık ≤ 30, açıklama ≤ 90 — node ile sayıldı. -
 |---|---|
 | Kampanya | Tetikte · Arama · 1 ay (09.10–09.11), id 24341996089 |
 | Teklif | Tıklamaları en üst düzeye çıkar, TBM tavanı YOK (19.10 panelde kapalı ölçüldü; ort. TBM 8,45 TL) · bütçe 840 TL/gün |
-| Nihai URL | `https://tetikte.com/?k=gads` (Cem 10.10: reklam ana sayfaya gider) |
+| Nihai URL | Staja Giriş → `https://tetikte.com/en-cok-cikan-sorular.html?sinav=sgs&k=gads` · Yeterlilik → `…?sinav=yeterlilik&k=gads` · marka → `https://tetikte.com/?k=gads` (Cem 19.10; 10.10'daki "hepsi ana sayfa" kararının yerine) |
 | Canlı deneme grubu | DURAKLATILDI (17 Ekim geçti) |
 
 ## Grup "Staja Giriş" · görünen yol tetikte.com/staja-giris/sorular
