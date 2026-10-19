@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261018132910
+Start time: 20261019060350
 Username: runnervm8k3b6\runner
 RunAs User: runnervm8k3b6\runner
 Configuration Name: 
 Machine: runnervm8k3b6 (Unix 6.17.0.1022)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/067faa43-f2d6-4569-a64d-ea2e7d985094.ps1'
-Process ID: 11244
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5d5a1ac0-ed65-40a9-8713-a7c547b7be84.ps1'
+Process ID: 11159
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -18,6 +18,10 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
+PS>TerminatingError(Invoke-WebRequest): "The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing."
+PS>TerminatingError(Invoke-WebRequest): "No route to host"
+PS>TerminatingError(Invoke-WebRequest): "No route to host"
+PS>TerminatingError(Invoke-WebRequest): "No route to host"
   ...10/172
   ...20/172
   ...30/172
@@ -35,14 +39,18 @@ Izlenecek teblig: 172 mevzuatNo  (175 teblig no)
   ...150/172
   ...160/172
   ...170/172
-  gercekten olculen (PDF geldi) : 172
+  gercekten olculen (PDF geldi) : 168
   OLCULEMEDI (PDF gelmedi)      : 0
-  inemeyen (istek dustu)        : 0
+  inemeyen (istek dustu)        : 4
+     8824 (The request was canceled due to the configured HttpClient.Timeout of 60 seconds elapsing.)
+     8826 (No route to host (www.mevzuat.gov.tr:443))
+     8942 (No route to host (www.mevzuat.gov.tr:443))
+     8950 (No route to host (www.mevzuat.gov.tr:443))
   yazildi: teblig-damga.json
 -> veri/teblig-damga.json
 
-TEMIZ: olculen 172 tebligin hicbiri degismemis - gtip-durum.json guncel.
+TEMIZ: olculen 168 tebligin hicbiri degismemis - gtip-durum.json guncel.
 **********************
 PowerShell transcript end
-End time: 20261018140349
+End time: 20261019063743
 **********************
