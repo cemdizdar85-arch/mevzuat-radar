@@ -20,7 +20,7 @@ Karakter sınırı: başlık ≤ 30, açıklama ≤ 90 — node ile sayıldı. -
 | Alan | Değer |
 |---|---|
 | Kampanya | Tetikte · Arama · 1 ay (09.10–09.11), id 24341996089 |
-| Teklif | Tıklamaları en üst düzeye çıkar, TBM tavanı 10 → **15 TL** (bütçe aynı: 840 TL/gün) |
+| Teklif | Tıklamaları en üst düzeye çıkar, TBM tavanı YOK (19.10 panelde kapalı ölçüldü; ort. TBM 8,45 TL) · bütçe 840 TL/gün |
 | Nihai URL | `https://tetikte.com/?k=gads` (Cem 10.10: reklam ana sayfaya gider) |
 | Canlı deneme grubu | DURAKLATILDI (17 Ekim geçti) |
 
@@ -70,10 +70,49 @@ Anahtar kelimeler: yeterlilik sınavı soruları (geniş) · smmm yeterlilik (ge
 3. 5 örnek soruyu üye olmadan ücretsiz çöz, kart istenmez. Sınav 28 Kasım'da.
 4. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
-## Grup "Reklam grubu 1" (marka) · [tetikte]
+## Grup "Reklam grubu 1" (marka) · [tetikte] · görünen yol tetikte.com/smmm/sorular
 
-Başlıklar: 1 · 4 · 5 · 6 · 7 · 8 · 10 (Staja Giriş listesinden) + "SMMM Yeterlilik Soruları"
-Açıklamalar: Staja Giriş 1 · 2 + Yeterlilik 2 · 4
+<!-- 19.10 panelde yayına giren hâl: eski reklam (seviye-testi, 30 soru, 17 Ekim) DURAKLATILDI; grubun marka dışı 45 kelimesi
+duraklatıldı, 35'i Staja Giriş / Yeterlilik gruplarına taşındı, 4 bilgi araması bırakıldı (smmm sınavı · smmm sınavı soruları ·
+smmm yeterlilik sonuçları · smmm yeterlilik sınavı başvuru). Reklam gücü için iki gruba 5'er anahtar kelimeli başlık daha eklendi. -->
+
+### Başlıklar
+1. SMMM Staja Giriş Soruları
+2. SMMM Yeterlilik Soruları
+3. 5 Örnek Soru, Üye Olmadan
+4. Ücretsiz Başla, Kart İstenmez
+5. Yanlışının Nedenini Gör
+6. Her Yanlışta Dayanak Madde
+7. Nöbetçi Adım Adım Anlatır
+8. Tetikte: Soru Çöz, Öğren
+9. Staja Giriş Sınavı 21 Kasım
+10. Yeterlilik Sınavı 28 Kasım
+11. Tetikte SMMM Soru Bankası
+
+### Açıklamalar
+1. Staja Giriş için soru çöz; her yanlışta nedeni ve dayanak madde yanında.
+2. 5 örnek soruyu üye olmadan ücretsiz çöz, kart istenmez. Sınav 21 Kasım'da.
+3. Ders denemeleri sınav gibi: 20 soru, 45 dakika, yanlış doğrunun 0,25'ini götürür.
+4. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
+## Ek başlıklar (reklam gücü için panelde eklendi)
+
+Staja Giriş: Staja Başlama Sınavı Soruları · SMMM Staj Sınavı Soruları · Staja Giriş Deneme Sınavı · Staja Giriş Sınavına Hazırlan · SGS Sorularını Ücretsiz Dene
+Yeterlilik: Yeterlilik Sınavına Hazırlan · SMMM Bitirme Sınavı Soruları · Yeterlilik Deneme Sınavı · Yeterlilik Sorularını Dene · Yeterlilik Çıkmış Konular
+İşletme adı: Tetikte
+
+## Site bağlantıları (kampanya düzeyi; metin ≤ 25, açıklama ≤ 35)
+
+| Metin | Açıklama 1 | Açıklama 2 | URL |
+|---|---|---|---|
+| Staja Giriş Sık Konular | Ders ders sık sorulan konular | Konuya göre hazırlanmış sorular | https://tetikte.com/en-cok-cikan-sorular.html?sinav=sgs&k=gads |
+| Yeterlilik Sık Konular | Ders ders sık sorulan konular | 8 ders, ders denemeleri | https://tetikte.com/en-cok-cikan-sorular.html?sinav=yeterlilik&k=gads |
+| Paketler ve Fiyatlar | Staja Giriş ve Yeterlilik | Ders ders ya da tüm dersler | https://tetikte.com/fiyat.html?k=gads |
+| Ücretsiz Üye Ol | Yanlışların hesabında kalır | Kart istenmez | https://tetikte.com/ogrenci.html?k=gads |
+
+## Ek açıklamalar (≤ 25)
+
+Kart İstenmez · Üye Olmadan 5 Soru · Yanlışın Nedeni Yanında · Dayanak Madde Gösterilir · Adım Adım Çözüm
 
 ## Ölçüm
 
