@@ -36,7 +36,7 @@ Sorular bize ait; son 10 yılın çıkmış sınavlarında en sık sorulan konul
 
 Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da. Sınava girecek bir stajyeriniz varsa ona iletin. Üye olmadan 5 örnek soru: tetikte.com/?k=linkedin
 
-Bağımsız denetçilik sınavı modülümüz de hazırlanıyor.
+Bağımsız denetçilik sınavı modülümüz de geliyor.
 
 Tetikte'nin kendi hazırlık sorularıdır; TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
@@ -58,7 +58,7 @@ Kartta yazan: tetikte · "DUYURU · EKİM 2026" · "SMMM STAJA GİRİŞ · YETER
 KONU ÖZETİ "Soruyu cevaplayınca o konunun özeti, kuralı ve dayandığı madde ya da kaynak açılır." · ADIM ADIM "Takıldığın soruda Nöbetçi
 çözümü adım adım anlatır." · TEKRAR "Yanlış yaptığın soru, iki gün sonra yeniden karşına çıkar." · "Yöntemin dayanağı: Roediger ve
 Karpicke (2006), Psychological Science. Bir hafta sonra, metni dört kez okuyanlar %40, bir kez okuyup üç kez kendini sınayanlar %61
-hatırladı." · tetikte.com · "Üye olmadan 5 örnek soru" · Staja Giriş 21 Kasım · Yeterlilik 28 Kasım · kurum uyarısı.
+hatırladı." · "GELİYOR · Bağımsız Denetçilik Sınavı modülü" (tarih yok, Cem 19.10) · tetikte.com · "Üye olmadan 5 örnek soru" · Staja Giriş 21 Kasım · Yeterlilik 28 Kasım · kurum uyarısı.
 (Cem 19.10: kartta kurucu adı/fotoğrafı YOK — gönderi zaten kendi hesabından.)
 19.10 son: 3 sütun yerine 6'lı ızgara — KONU ÖZETİ · NÖBETÇİ ANLATIR ("seçili sorularda çizerek": cizerek-coz pilot 40 soru canlı,
 Cem: yarın genişliyor → "her soruda" DENMEZ) · YANLIŞIN NEDENİ (teşhisli sorularda "Ne sanıyorsun/Aslında"; rakip ölçümü 11.10) ·
