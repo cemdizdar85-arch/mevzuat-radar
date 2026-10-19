@@ -26,8 +26,11 @@ SMMM Staja Giriş ve Yeterlilik (bitirme) sınavlarına hazırlık platformumuz 
 SMMM sınavlarına video izlemeden, soru çözerek hazırlandım. Sonra araştırmada karşılığını gördüm: bir metni dört kez okuyanlar bir hafta sonra %40'ını, bir kez okuyup üç kez kendini sınayanlar %61'ini hatırladı (Roediger ve Karpicke, 2006).
 
 Tetikte'de soru ve konu bir arada; konuyu bilmiyorsan da başlarsın:
-• Soruyu cevaplayınca o konunun özeti, kuralı ve dayandığı madde ya da kaynak açılır.
-• Takıldığın soruda Nöbetçi çözümü adım adım anlatır.
+• Soruyu cevaplayınca konunun özeti ve kuralı açılır.
+• Takıldığın soruda Nöbetçi çözümü adım adım anlatır; seçili sorularda çizerek.
+• Seçtiğin şıkkın neden yanlış olduğunu görürsün.
+• Dayandığı resmî metin açılır, ilgili cümle işaretlenir.
+• Seviyeni ölçünce soruların sırası sana göre kurulur.
 • Yanıldığın soru iki gün sonra yeniden karşına çıkar.
 Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan.
 
@@ -57,6 +60,11 @@ KONU ÖZETİ "Soruyu cevaplayınca o konunun özeti, kuralı ve dayandığı mad
 Karpicke (2006), Psychological Science. Bir hafta sonra, metni dört kez okuyanlar %40, bir kez okuyup üç kez kendini sınayanlar %61
 hatırladı." · tetikte.com · "Üye olmadan 5 örnek soru" · Staja Giriş 21 Kasım · Yeterlilik 28 Kasım · kurum uyarısı.
 (Cem 19.10: kartta kurucu adı/fotoğrafı YOK — gönderi zaten kendi hesabından.)
+19.10 son: 3 sütun yerine 6'lı ızgara — KONU ÖZETİ · NÖBETÇİ ANLATIR ("seçili sorularda çizerek": cizerek-coz pilot 40 soru canlı,
+Cem: yarın genişliyor → "her soruda" DENMEZ) · YANLIŞIN NEDENİ (teşhisli sorularda "Ne sanıyorsun/Aslında"; rakip ölçümü 11.10) ·
+KAYNAĞI GÖSTER (resmî metin + doğrulanmış cümle sarı) · SANA GÖRE SIRA (seviye ölçümünden sonra ders sırası; uyarlamalı test yalnız
+SGS — "kolaydan zora / zor-kolay soru gelir" genel sözü YANLIŞ, 11.10) · TEKRAR. "Başkasında yok" yazılmaz (karşılaştırma + giriş
+arkası ölçülmedi). Özet: "Konuyu bilmiyorsan da başlarsın. Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan."
 
 ### Eski kart (kullanılmıyor)
 
