@@ -25,10 +25,11 @@ SMMM Staja Giriş ve Yeterlilik (bitirme) sınavlarına hazırlık platformumuz 
 
 SMMM sınavlarına video izlemeden, soru çözerek hazırlandım. Sonra araştırmada karşılığını gördüm: bir metni dört kez okuyanlar bir hafta sonra %40'ını, bir kez okuyup üç kez kendini sınayanlar %61'ini hatırladı (Roediger ve Karpicke, 2006).
 
-Tetikte bu yüzden soruyla başlar:
-• Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan.
-• Yanlış yaptığın an nedenini ve dayandığı maddeyi ya da kaynağı görürsün.
+Tetikte'de soru ve konu bir arada; konuyu bilmiyorsan da başlarsın:
+• Soruyu cevaplayınca o konunun özeti, kuralı ve dayandığı madde ya da kaynak açılır.
+• Takıldığın soruda Nöbetçi çözümü adım adım anlatır.
 • Yanıldığın soru iki gün sonra yeniden karşına çıkar.
+Sorular, son 10 yılın çıkmış sınavlarında en sık sorulan konulardan.
 
 Staja Giriş 21 Kasım'da, Yeterlilik 28 Kasım'da. Sınava girecek bir stajyeriniz varsa ona iletin. Üye olmadan 5 örnek soru: tetikte.com/?k=linkedin
 
@@ -43,7 +44,20 @@ Kaynaklar. Aynı sonucu 2013'te Dunlosky ve ekibi de buldu: on çalışma yönte
 2) Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J. & Willingham, D. T. (2013). Improving Students' Learning With Effective Learning Techniques. Psychological Science in the Public Interest, 14(1), 4–58.
 5 örnek soru, üye olmadan: tetikte.com/?k=linkedin
 
-## Görsel (tek kart, 1080×1350)
+## Görsel (tek kart, 1080×1350) — 19.10 son hâl: KURUMSAL kart
+
+<!-- Cem: "kurumsal firma izlenimi" + "konu anlattığımızdan bahsedelim; 'sadece soru çözüyorsun' deyip almıyorlar". Konu özeti ölçümü
+     16.10 (konu-algisi-1610): SGS 4.795/4.937 · Yeterlilik 3.874/3.878 → "her soruda" DENMEZ. "Konu anlatımı/ders" 5580 riski →
+     sitenin onaylı cümlesi: "Soruyu cevaplayınca o konunun özeti açılır, Nöbetçi adım adım anlatır." -->
+Dosya: Masaüstü/mevzuat işi/reklam-linkedin-duyuru/Tetikte-Duyuru-Kurumsal-Beyaz.png (+ -Lacivert.png; kaynak kurumsal-kart.html)
+Kartta yazan: tetikte · "DUYURU · EKİM 2026" · "SMMM STAJA GİRİŞ · YETERLİLİK (BİTİRME)" · "Soruyu çöz, konuyu öğren." ·
+"Konuyu bilmiyorsan da başlarsın. Tetikte'de soru ve konu bir arada; sorular son 10 yılın çıkmış sınavlarında en sık sorulan konulardan." ·
+KONU ÖZETİ "Soruyu cevaplayınca o konunun özeti, kuralı ve dayandığı madde ya da kaynak açılır." · ADIM ADIM "Takıldığın soruda Nöbetçi
+çözümü adım adım anlatır." · TEKRAR "Yanlış yaptığın soru, iki gün sonra yeniden karşına çıkar." · "Yöntemin dayanağı: Roediger ve
+Karpicke (2006), Psychological Science. Bir hafta sonra, metni dört kez okuyanlar %40, bir kez okuyup üç kez kendini sınayanlar %61
+hatırladı." · Cem Dizdar · Kurucu, Tetikte · tetikte.com · Staja Giriş 21 Kasım · Yeterlilik 28 Kasım · kurum uyarısı.
+
+### Eski kart (kullanılmıyor)
 
 Dosya: Masaüstü/mevzuat işi/reklam-linkedin-duyuru/Tetikte-Kurucu-Duyuru.png (kaynak duyuru-kart.html)
 Kartta yazan: "SMMM STAJA GİRİŞ · YETERLİLİK (BİTİRME)" · "Kanıta dayalı sınav hazırlığı." · "Tetikte · iki sınava soru çözerek hazırlık platformu" · "Bir hafta sonra ne kadar hatırladılar?" · "Metni 4 kez okuyanlar %40" ·
