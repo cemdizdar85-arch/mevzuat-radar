@@ -21,7 +21,7 @@ durum: onay-bekliyor
 
 ## Paylaşım metni (LinkedIn)
 
-SMMM Staja Giriş ve Yeterlilik (bitirme) sınavlarına hazırlık platformumuz Tetikte 10 gün önce yayına girdi. Burada ilk kez duyuruyorum.
+SMMM Staja Giriş ve Yeterlilik (bitirme) sınavlarına hazırlık platformumuz Tetikte 9 Ekim'de yayına girdi. Burada ilk kez duyuruyorum.
 
 SMMM sınavlarına video izlemeden, soru çözerek hazırlandım. Sonra araştırmada karşılığını gördüm: bir metni dört kez okuyanlar bir hafta sonra %40'ını, bir kez okuyup üç kez kendini sınayanlar %61'ini hatırladı (Roediger ve Karpicke, 2006).
 
