@@ -1,5 +1,5 @@
 {
-    "aciklama":  "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
+    "aciklama":  "Madde/not metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1, arac/teori-notu-duzelt-*.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
     "maddeler":  {
                      "ad|TEORI - Kollektif sirkette kar dagitimi":  {
                                                                         "tarih":  "2026-09-24 02:29",
@@ -73704,6 +73704,73 @@
 
                                                      ],
                                      "yeniden_bolme":  true
-                                 }
+                                 },
+                     "ad|Teori Notu - ortalama tahsilat ve odeme suresi formulleri":  {
+                                                                                          "tarih":  "2026-10-20 22:55",
+                                                                                          "kaynak":  "teori-notu-duzelt-20261021.ps1",
+                                                                                          "belirsiz":  false,
+                                                                                          "belirtecler":  [
+                                                                                                              "temel",
+                                                                                                              "uzeri",
+                                                                                                              "dusul",
+                                                                                                              "bunda",
+                                                                                                              "donus",
+                                                                                                              "surel"
+                                                                                                          ]
+                                                                                      },
+                     "ad|TEORI - Alacak senedi iskontosu: senet iskonto ettirme kaydı (121 Alacak Senetleri, 102 Bankalar, 780 Finansman Giderleri) ve iskonto tutarı hesabı":  {
+                                                                                                                                                                                    "tarih":  "2026-10-20 22:55",
+                                                                                                                                                                                    "kaynak":  "teori-notu-duzelt-20261021.ps1",
+                                                                                                                                                                                    "belirsiz":  false,
+                                                                                                                                                                                    "belirtecler":  [
+                                                                                                                                                                                                        "uzeri",
+                                                                                                                                                                                                        "vade",
+                                                                                                                                                                                                        "esitt",
+                                                                                                                                                                                                        "faizl",
+                                                                                                                                                                                                        "faizs",
+                                                                                                                                                                                                        "isley"
+                                                                                                                                                                                                    ]
+                                                                                                                                                                                },
+                     "ad|TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü":  {
+                                                                                                                                                                                         "tarih":  "2026-10-20 22:56",
+                                                                                                                                                                                         "kaynak":  "teori-notu-duzelt-20261021.ps1",
+                                                                                                                                                                                         "belirsiz":  false,
+                                                                                                                                                                                         "belirtecler":  [
+                                                                                                                                                                                                             "yonte",
+                                                                                                                                                                                                             "yaygi",
+                                                                                                                                                                                                             "yalni",
+                                                                                                                                                                                                             "soru",
+                                                                                                                                                                                                             "belir",
+                                                                                                                                                                                                             "ister",
+                                                                                                                                                                                                             "!belir",
+                                                                                                                                                                                                             "istiy"
+                                                                                                                                                                                                         ]
+                                                                                                                                                                                     },
+                     "ad|TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı":  {
+                                                                                                                                                                                                       "tarih":  "2026-10-20 22:56",
+                                                                                                                                                                                                       "kaynak":  "teori-notu-duzelt-20261021.ps1",
+                                                                                                                                                                                                       "belirsiz":  false,
+                                                                                                                                                                                                       "belirtecler":  [
+                                                                                                                                                                                                                           "kesri",
+                                                                                                                                                                                                                           "demek",
+                                                                                                                                                                                                                           "kismi",
+                                                                                                                                                                                                                           "burad"
+                                                                                                                                                                                                                       ]
+                                                                                                                                                                                                   },
+                     "ad|TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu":  {
+                                                                                                                                                                                "tarih":  "2026-10-20 22:56",
+                                                                                                                                                                                "kaynak":  "teori-notu-duzelt-20261021.ps1",
+                                                                                                                                                                                "belirsiz":  false,
+                                                                                                                                                                                "belirtecler":  [
+                                                                                                                                                                                                    "!donus",
+                                                                                                                                                                                                    "onlar",
+                                                                                                                                                                                                    "olani",
+                                                                                                                                                                                                    "testt",
+                                                                                                                                                                                                    "donus",
+                                                                                                                                                                                                    "yuzde",
+                                                                                                                                                                                                    "kapsa",
+                                                                                                                                                                                                    "nakde"
+                                                                                                                                                                                                ]
+                                                                                                                                                                            }
                  }
 }
