@@ -258,7 +258,10 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      yazım+hakem + **AH payı ≈0,03 USD/soru**. Mekanik: `arac/aciklama-hakemi-uretim.ps1` `AhButceYarimIzi` → `butce-doldu.log` YARIM izi →
      `bulut-uretim.yml` KIRMIZI + zincir durur (öz-sınav + mutasyon `iz-yok`). Devam: bütçe artır + `motor/bulut-sira.ps1 -Ekle … -Yeniden`.
      Aynı gün: **KGK kasa yayını bulut bitişinde otomatik** (`bulut-uretim.yml` KGK adımı; d1b'nin 154 sorusu 6 gün ambarda beklemişti) ve
-     **KGK'da iki bağımsız okuyucu** (`arac/GM-HAZIR-SORU-TALIMATI-KGK.md` K12). 🚫 GÖRMEZ: AH zaman aşımı (butce_yok 0; sonraki halka hasat eder).
+     **KGK'da iki bağımsız okuyucu** (`arac/GM-HAZIR-SORU-TALIMATI-KGK.md` K12). **AH zaman aşımı (21.10, Cem "2 yap"):** 20.10'da KGK t6'nın 4 planı AH fazında toplu beklemeye takıldı, iz yalnız ekrana
+     düştü, zincir "plan tamamlandı" dedi. Artık `arac/bulut-zincir-karar.ps1` (öz-sınav + mutasyon 13/13 `dogrula.yml`) zaman aşımı izini
+     (`toplu-anliksiz.log`) ya da "Üret düştü + bu koşunun hasat edilmemiş toplu partisi"ni YARIM sayar, aynı planı aynı bütçe zinciriyle
+     sonraki halkada açar (tavan 10). 🚫 GÖRMEZ: bütçe sınırdaysa AH'nin en-kötü-durum hesabı hasat edilecek partiyi de sayar → KIRMIZI durur.
   Mekanik parçalar: `motor/kalip-kosucu.ps1` (bütçe kapısı, bakiye/hata izi, kapı sayımı toplamı) · `motor/kalip-parti-uret.ps1`
   (bedel defteri 75/çöküşte de yazılır, `KAPI SAYIM`) · `.github/workflows/bulut-uretim.yml` (bütçe + ölçüm kapısı, zincir kırmızı durur).
 

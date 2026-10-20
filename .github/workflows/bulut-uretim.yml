@@ -237,6 +237,8 @@ jobs:
           # Isin baslangici: toplu bekleme bu andan 290 dk sonra kesilir. 17.09 OLCULDU (35119974812): 320/335 butcesinde yukleme adimina 8 dk kaldi,
           # 152 partinin 36'si yazilabildi, bekleyen kaydi hic yazilmadi. Butce: SON_AN 290 · Uret 305 · yukleme ~40 dk.
           "MEVZUAT_TOPLU_SON_AN=$((Get-Date).ToUniversalTime().AddMinutes(290).ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
+          # 21.10: zincir karari "bu kosuda gonderilmis" toplu partiyi bu andan sayar (bekleyen kaydiyla AYNI saat/bicim: runner yerel, api-hedef Add-BekleyenParti)
+          "ZINCIR_KOSU_BASI=$((Get-Date).ToString('yyyy-MM-dd HH:mm'))" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding ascii
           # Defter: harcama kaydi tek yerden gorulsun
           ./arac/bedel-senkron.ps1 -Indir -Yaz
           if ("${{ inputs.indir_parti }}" -eq "true") {
@@ -256,6 +258,7 @@ jobs:
           "parti parmak izi alindi: $($iz.Count) dosya"
 
       - name: Uret
+        id: uret
         shell: powershell
         # 16.09 OLCULDU (35083827921): adim is tavanina (350) takilinca is IPTAL sayildi, zincir adimi (!cancelled) atlandi.
         # Adimin kendi tavani 335 dk: asilirsa adim BASARISIZ olur (iptal degil) -> yukleme ve zincir adimlari yine kosar.
@@ -384,41 +387,29 @@ jobs:
         shell: powershell
         env:
           GH_TOKEN: ${{ github.token }}
+          URET_SONUC: ${{ steps.uret.outcome }}
         run: |
           # Uretici bekleme dolunca "TOPLU ANLIKSIZ" yazip 75 ile cikar. Boyle bir satir varsa is bitmemistir.
           # 17.09 OLCULDU: kredi bitince partiler KAPI-BAKIYE ile dustu, bu adim yalniz 'TOPLU ANLIKSIZ' aradigi icin "plan tamamlandi"
           # dedi ve is YESIL bitti (~1.800 soru yarim). Kosucu artik bakiye-bitti.log / hata-cikan.log yazar; ikisi de YARIM sayilir.
           # 19.09 YALNIZ HASAT turu: ucretli cagri kapali oldugu icin partilerin HATAYLA bitmesi BEKLENEN sonuctur
           # (hasat edilecek cevap bitince durur). Zincir yeniden tetiklenmez, is de bu yuzden kirmiziya boyanmaz.
-          if("${{ inputs.yalniz_hasat }}" -eq "1"){
-            "YALNIZ HASAT turu - zincir yok. Hasat edilen cevaplar bir onceki adimda ambara yazildi."
-            exit 0
-          }
-          $bakiye = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'bakiye-bitti.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
-          $hatali = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'hata-cikan.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
-          $butce = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -Filter 'butce-doldu.log' -ErrorAction SilentlyContinue | Select-String -Pattern 'YARIM')
-          if($butce.Count){
-            # 13.10: ayni iz ACIKLAMA HAKEMI butcesiz kaldiginda da duser (kosucu AhButceYarimIzi) - sorular yazilmis ama kararsiz, yayin sarti secmez.
-            if(@($butce | Where-Object { "$_" -match 'hakemi b' }).Count){ "::error::ACIKLAMA HAKEMI BUTCESIZ KALDI - yazilan sorular kararsiz, yayin sartini GECEMEZ. Butce = yazim + AH payi (~0,03 USD/soru). Butceyi artirip ayni plani -Yeniden siraya koy (onceki isler bedava hasat)." }
-            "::error::PLAN BUTCESI DOLDU (${{ inputs.butce_usd }} USD) - plan YARIM kaldi. Zincir durdu. Devam icin sonucu olc, Cem onayiyla butceyi artirip ayni plani elle baslat."
-            exit 1
-          }
-          if($bakiye.Count){
-            "::error::ANTHROPIC BAKIYESI BITTI - plan YARIM kaldi ($($bakiye.Count) parti). Zincir yeniden tetiklenmedi (kredisiz halka bos doner). Kredi yuklenince ayni plani elle baslat: gh workflow run bulut-uretim.yml -f plan=${{ inputs.plan }} -f paralel=${{ inputs.paralel }} -f butce_usd=<planin TOPLAM butcesi, onceki halkalar dahil> -f olcum_kosusu=<run id>"
-            exit 1
-          }
-          $yarim = @(Get-ChildItem veri/fabrika/kosucu-log -Recurse -File -ErrorAction SilentlyContinue | Select-String -Pattern 'TOPLU ANLIKSIZ' -List)
-          "yarim kalan parti gunlugu: $($yarim.Count) · hatayla biten parti: $($hatali.Count)"
-          if(-not $yarim.Count){
-            if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - plan TAMAMLANMADI, elle bakilmali (yeniden tetiklenmedi)"; exit 1 }
-            "plan tamamlandi - yeniden tetikleme yok"; exit 0
-          }
+          # 21.10 (Cem "2 yap", KGK t6: 4 plan AH fazinda zaman asimina dustu, iz dosyaya yazilmadigi icin "plan tamamlandi" dendi):
+          #   karar arac/bulut-zincir-karar.ps1'de (oz-sinav + mutasyon dogrula.yml'de). Yeni iki sinyal: api-hedef zaman asimi izi
+          #   (toplu-anliksiz.log) + Uret dustuyse bu kosunun hasat edilmemis toplu partisi. Eski karar sirasi ve cikis kodlari aynen.
+          . ./arac/bulut-zincir-karar.ps1
           $halka = 0; [void][int]::TryParse("${{ inputs.zincir }}", [ref]$halka)
-          if($halka -ge 10){ "ZINCIR TAVANI (10) - yeniden tetiklenmedi. Elle bakilmali."; exit 1 }
-          $sonraki = $halka + 1
-          gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f butce_usd="${{ inputs.butce_usd }}" -f butce_baslangic="$env:MEVZUAT_BUTCE_BASLANGIC" -f paket_ilgi="${{ inputs.paket_ilgi }}" -f sayi_sira="${{ inputs.sayi_sira }}" -f olcum_kosusu="${{ inputs.olcum_kosusu }}" -f zincir="$sonraki"
-          "yeniden tetiklendi: halka $sonraki (ayni plan; concurrency grubu bu is bitince baslatir)"
-          if($hatali.Count){ "::error::$($hatali.Count) parti hata koduyla bitti - zincir surdu ama bu halka KIRMIZI"; exit 1 }
+          $planEt = @(ZincirPlanEtiketleri "${{ inputs.plan }}")
+          $k = BulutZincirKarar -LogKok 'veri/fabrika/kosucu-log' -BekleyenYol 'veri/bekleyen-partiler.json' -PlanEtiketleri $planEt -KosuBasi "$env:ZINCIR_KOSU_BASI" -UretSonuc "$env:URET_SONUC" -Halka $halka -YalnizHasat "${{ inputs.yalniz_hasat }}" -ButceUsd "${{ inputs.butce_usd }}" -Tavan 10
+          foreach($sat in $k.satirlar){ $sat }
+          if($k.karar -eq 'yeniden'){
+            $sonraki = $halka + 1
+            gh workflow run bulut-uretim.yml --ref main -f plan="${{ inputs.plan }}" -f paralel="${{ inputs.paralel }}" -f indir_parti=true -f toplu_parca="${{ inputs.toplu_parca }}" -f butce_usd="${{ inputs.butce_usd }}" -f butce_baslangic="$env:MEVZUAT_BUTCE_BASLANGIC" -f paket_ilgi="${{ inputs.paket_ilgi }}" -f sayi_sira="${{ inputs.sayi_sira }}" -f olcum_kosusu="${{ inputs.olcum_kosusu }}" -f zincir="$sonraki"
+            if($LASTEXITCODE){ "::error::yeniden tetikleme DUSTU (gh kodu $LASTEXITCODE) - odenmis partiler bekleyen kaydinda; plani -Yeniden siraya koy"; exit 1 }
+            "yeniden tetiklendi: halka $sonraki (ayni plan; concurrency grubu bu is bitince baslatir)"
+          }
+          if($k.kirmizi){ exit 1 }
+          exit 0
 
       # 01.10.2026 - BITIS TETIGI. Bulut sirasi robotu (bulut-sira.yml) cron'la 15 dk'da bir yazilmisti; olculdu 29.09 23:39 ->
       # 01.10 00:12 UTC arasi 29 saatte yalniz 6 kez kostu (GitHub schedule gecikmesi). Bu is biterken robotu cagirir; robot
