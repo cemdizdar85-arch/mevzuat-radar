@@ -2,10 +2,11 @@
 tur: reklam
 yz: hayir
 kanal: meta-instagram + google-arama
-durum: onay-bekliyor
+durum: reddedildi
 ---
 
-<!-- 20.10.2026 Cem: "sonuca az kaldı, sınav tarihine az kaldı, satış yapmam lazım; korkutarak müşteri çekecek reklam".
+<!-- 20.10.2026 REDDEDİLDİ (Cem: 'çok saçma, paketleri alacakları reklam olmalı') → yerine meta-kalmanin-bedeli.md.
+     20.10.2026 Cem: "sonuca az kaldı, sınav tarihine az kaldı, satış yapmam lazım; korkutarak müşteri çekecek reklam".
      SINIR (resmî metin okundu, resmigazete.gov.tr 10.01.2015 Ticari Reklam ve Haksız Ticari Uygulamalar Yön.): m.5/1-g
      "Tüketicilerin korkularını ve batıl inançlarını istismar edemez." · Ek A-7 gerçeğe aykırı "çok kısıtlı süre" ile ani karar
      ettirme aldatıcıdır. → Uydurma korku ("kalacaksın", "herkes kalıyor", yanlış oranı) YOK; GERÇEK sınav kuralı + GERÇEK tarih VAR.
