@@ -2,7 +2,7 @@
 tur: reklam
 yz: hayir
 kanal: meta-instagram + google-arama
-durum: onay-bekliyor
+durum: yayinda
 ---
 
 <!-- 20.10.2026 Cem: "hesap makinesi saçma; dikkat çekici, bizdeki paketleri alacakları bir reklam olmalı" (önceki istek: "korkutarak
@@ -20,6 +20,12 @@ durum: onay-bekliyor
        · Gün sayısı 20.10'a göre (32 / 39). ⚠ Ertesi gün yayınlanacaksa kart yeniden basılır.
      ⚠ Fiyat değişirse bu dosya + kartlar aynı commit'te (FİYAT HER YERDE AYNI).
      Görseller: Masaüstü/mevzuat işi/reklam-kalmanin-bedeli/kalmanin-bedeli-yet.png · -sgs.png (1080×1350), kaynak HTML aynı klasörde. -->
+
+<!-- 20.10.2026 YAYINDA (Cem: 'Google iki gruba ekle, bütçe aynı; Meta 3 gün × 300 TL, ?k= ile'):
+     Google: Staja Giriş (201705283136) ve Yeterlilik (200933638723) gruplarına İKİNCİ duyarlı reklam (eskisi duruyor), nihai URL fiyat.html?sinav=…&k=gads-bedel, yol …/paket.
+     Meta: AYRI kampanya 120257411016170211 (mevcut 500 TL/gün kampanyasının bütçesini paylaşmasın diye), set 120257411017180211 300 TL/gün,
+     20.10 20:48 – 23.10 20:48, COMPLETE_REGISTRATION, kitle mevcut setle aynı; reklamlar 120257411020640211 (Yeterlilik) · 120257411021030211 (SGS).
+     Görseller gorsel/reklam/kalmanin-bedeli-*.png (b51362c8). Ölçüm görevi meta-bedel-1gun-olcum 21.10 21:30. -->
 
 ## Meta · Yeterlilik (görsel: kalmanin-bedeli-yet.png)
 
