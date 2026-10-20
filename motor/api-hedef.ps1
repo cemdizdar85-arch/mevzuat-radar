@@ -741,6 +741,8 @@ function Invoke-ClaudeToplu {
       #   Parti kuyrukta işlenmeye devam eder; aynı plan yeniden koşunca bitmişse bedava hasat edilir, bitmemişse ona bağlanılır.
       if("$env:MEVZUAT_TOPLU_ANLIKSIZ" -eq '1'){
         Write-Host "  TOPLU ANLIKSIZ: $Etiket için bekleme doldu, anlık yola DÜŞÜLMEDİ; süreç 75 ile bitiyor (yeniden koşuda kaldığı yerden)." -ForegroundColor Yellow
+        # 21.10 (KGK t6: AH fazında bu satır yalnız ekrana düştü, zincir "plan tamamlandı" dedi): koşucu iz dosyası verdiyse oraya da yaz.
+        if("$env:MEVZUAT_ANLIKSIZ_IZ"){ try{ [IO.File]::AppendAllText("$env:MEVZUAT_ANLIKSIZ_IZ",("TOPLU ANLIKSIZ (zaman asimi) · $Etiket · $($kalan -join ',')`r`n"),[Text.UTF8Encoding]::new($false)) }catch{ Write-Host "  TOPLU ANLIKSIZ izi yazılamadı: $($_.Exception.Message)" -ForegroundColor Red } }
         # 17.09 ÖLÇÜLDÜ: bu çıkış çağıranın bedel defteri adımını atlıyordu → bu koşuda hasat edilip ödenen istekler deftere hiç yazılmadı
         #   (8 ders halka 1: defter 102 USD, gerçek ≈400+ USD). Çağıran betik defter yazıcısı tanımladıysa önce o çalışır.
         if(Get-Command BedelDefterYaz -ErrorAction SilentlyContinue){ try{ BedelDefterYaz }catch{} }

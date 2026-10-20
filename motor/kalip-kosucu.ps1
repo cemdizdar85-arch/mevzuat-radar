@@ -237,6 +237,9 @@ foreach($satirGunluk in @($satirCozum.gunluk)){ $satirGunluk }
 $satirlar=@($satirCozum.satirlar)
 $tekilSatirlar=@(KosucuTekilEtiket $satirlar)   # seçim · açıklama hakemi · karne etiket başına BİR kez (yoksa aynı parti iki kez sayılır/ödenir)
 $logDir=Join-Path $Kok "veri\fabrika\kosucu-log\$planAd"; New-Item -ItemType Directory -Force $logDir | Out-Null
+# 21.10 (KGK t6 ölçümü, arac/bulut-zincir-karar.ps1): açıklama hakemi bu süreçte koşar; toplu zaman aşımı izi yalnız ekrana düşüyor,
+#   zincir adımı görmüyordu. api-hedef zaman aşımında bu dosyaya "TOPLU ANLIKSIZ (zaman aşımı)" yazar (alt süreçler de devralır).
+$env:MEVZUAT_ANLIKSIZ_IZ=Join-Path $logDir 'toplu-anliksiz.log'
 $t0=Get-Date; $ozetTum=@()
 # --- DİNAMİK UZUNLUK TAVANI (10.09.2026) -------------------------------------
 # Eskiden varsayılan SABİT 350'ydi. Ölçüldü: gerçek sınavda ders başına p90

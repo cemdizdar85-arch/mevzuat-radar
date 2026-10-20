@@ -287,6 +287,13 @@ jobs:
           - { ad: "Bulut soru sirasi OZ-SINAVI (pay + cift acma + bozuk satir)",
               kabuk: pwsh, komut: "./arac/bulut-sira-sinavi.ps1" }
 
+          # 21.10.2026 (Cem "2 yap") - Bulut zincir karari. 20.10'da 4 KGK t6 plani aciklama hakemi fazinda toplu zaman
+          # asimina dustu; iz yalniz ekrana yazildigi icin zincir "plan tamamlandi" dedi, odenmis parti hasatsiz kaldi.
+          # Sinav: eski karar sirasi (hasat/butce/bakiye/hata/tavan) + AH izi + Uret dustu & hasat edilmemis parti +
+          # yanlis alarm (eski kayit, baska plan, g1/g10 onek, hasat edilmis). Mutasyon 13/13 + bozulmamis kontrol.
+          - { ad: "Bulut zincir karari OZ-SINAVI + MUTASYON (zaman asiminda yeniden halka)",
+              kabuk: pwsh, komut: "./arac/bulut-zincir-karar-sinavi.ps1" }
+
           # 08.10.2026 - Acilis robots.txt metni (gong.ps1 + acilis-seo.ps1 ortak): Allow + ic klasorler + menu.js GIZLI
           # sayfalari Disallow; haritadaki acik sayfa kapanmamali. Mutasyon 5/5 KIRMIZI (klasor/gizli/md/allow/harita).
           - { ad: "Acilis robots.txt OZ-SINAVI (gizli sayfa + ic klasor kapali, harita acik)",
