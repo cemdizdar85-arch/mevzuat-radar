@@ -33,8 +33,11 @@ $hedefler = @(
   # ---- 02.08 EKSIK SAYIMI (Cem: "basla hepsini yut") --------------------------
   # BOBI FRS: TFRS uygulamayan, denetime tabi sirketlerin TAMAMI bunu kullanir -
   # Turkiye uygulamasinin belkemigi ve ambarda hic yoktu.
-  @{ slug='bobi-frs'; ad='BOBI FRS (Buyuk ve Orta Boy Isletmeler Icin FRS, 2021 surumu)'; kisa='BOBI FRS';
-     url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BOB%C4%B0_FRS/EK%202.pdf' },
+  # 21.10 KILITLENDI: ambardaki BOBI FRS 01.09'dan beri standart-yut.ps1'den gelir (561 p.-adli kayit, KGK/SGS
+  # sorulari bu adlara bagli). Bu yutucunun urettigi 350 m.-adli bobi-frs.json ambara basilirsa 259 bagli ad kopar.
+  # BOBI onarimi standart-yut + kaynak-bolunme-etki yolundan yapilir (olcum: AMBAR-ONARIM-OLCUM 21.10).
+  # @{ slug='bobi-frs'; ad='BOBI FRS (Buyuk ve Orta Boy Isletmeler Icin FRS, 2021 surumu)'; kisa='BOBI FRS';
+  #    url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/BOB%C4%B0_FRS/EK%202.pdf' },
   @{ slug='kumi-frs'; ad='KUMI FRS (Kucuk ve Mikro Isletmeler Icin FRS) - Kurum duyuru metni'; kisa='KUMI FRS';
      url='https://www.kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/KUMI/KUMI_FRS_Kurum_Sitesi_Duyuru_Metni.pdf' },
   # TSRS: KGK sinavinin (f) Kurumsal Surdurulebilirlik Raporlamasi modulunun
