@@ -1,14 +1,14 @@
 {
-  "olcum_tarihi": "2026-10-18T08:58:53.2805373+00:00",
+  "olcum_tarihi": "2026-10-20T09:34:44.3120922+00:00",
   "esik_ust_uste": 2,
   "esik_oran": "3/10",
   "hatirlatma_gun": 7,
-  "workflow_toplam": 197,
-  "workflow_alinan": 197,
-  "aktif_workflow": 197,
-  "bakilan": 195,
+  "workflow_toplam": 198,
+  "workflow_alinan": 198,
+  "aktif_workflow": 198,
+  "bakilan": 196,
   "olculemeyen": 0,
-  "kalici_kirmizi": 22,
+  "kalici_kirmizi": 20,
   "gun_pencere": 14,
   "uyuyan_kirmizi": 6,
   "uyuyanlar": [
@@ -55,47 +55,37 @@
       "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/37104293730"
     }
   ],
-  "yeni_bildirim": 9,
+  "yeni_bildirim": 7,
   "seriler": [
-    {
-      "ad": "Canli Tarama",
-      "dosya": "canli-tarama.yml",
-      "tur": "oran",
-      "ust_uste": 0,
-      "oran": "7/10",
-      "son_sha": "4b9eb60f",
-      "son_ne": "Canli Tarama",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39068220594"
-    },
     {
       "ad": "CI Kirmizi Nobetcisi",
       "dosya": "ci-kirmizi-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 53,
+      "ust_uste": 55,
       "oran": "10/10",
-      "son_sha": "f7026df1",
+      "son_sha": "2327ca4b",
       "son_ne": "CI Kirmizi Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39018059373"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39234136870"
     },
     {
       "ad": "Damping Kiyas Nobeti",
       "dosya": "damping-kiyas.yml",
       "tur": "ust_uste",
-      "ust_uste": 4,
-      "oran": "8/10",
-      "son_sha": "ba1d0683",
+      "ust_uste": 6,
+      "oran": "9/10",
+      "son_sha": "1cc15520",
       "son_ne": "Damping Kiyas Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39021372389"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39241284423"
     },
     {
       "ad": "Dogrulama Kapisi",
       "dosya": "dogrula.yml",
       "tur": "ust_uste",
-      "ust_uste": 81,
+      "ust_uste": 75,
       "oran": "10/10",
-      "son_sha": "5dc69a32",
-      "son_ne": "pazarlama: SGS/SMMM gorsel reklami iptal (gorselde 30 soru vaadi)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39108032108"
+      "son_sha": "48c8ac04",
+      "son_ne": "LinkedIn duyuru: '9 Ekim'de yayina girdi' (gun sayisi yarin bozulmasin)",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39296464387"
     },
     {
       "ad": "Edge Gunluk",
@@ -110,42 +100,42 @@
     {
       "ad": "Edge Nobetcisi",
       "dosya": "edge-nobeti.yml",
-      "tur": "ust_uste",
-      "ust_uste": 12,
-      "oran": "10/10",
-      "son_sha": "e2f6502f",
+      "tur": "oran",
+      "ust_uste": 0,
+      "oran": "8/10",
+      "son_sha": "687d9cf8",
       "son_ne": "Edge Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39025395247"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39256464335"
     },
     {
       "ad": "Icerik Nobetcisi",
       "dosya": "icerik-nobeti.yml",
       "tur": "ust_uste",
-      "ust_uste": 44,
+      "ust_uste": 48,
       "oran": "10/10",
-      "son_sha": "2f6558bb",
-      "son_ne": "site: telefonda X dokunma alani en az 44x44 - Android seridi (30x28 o…",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39086541761"
+      "son_sha": "6a236af3",
+      "son_ne": "Icerik Nobetcisi",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39243626619"
     },
     {
       "ad": "Ihale bulten tamligi (gunluk)",
       "dosya": "ihale-gunluk-tamlik.yml",
       "tur": "ust_uste",
-      "ust_uste": 20,
+      "ust_uste": 22,
       "oran": "9/9",
-      "son_sha": "6d6e4d6d",
+      "son_sha": "e24a6a94",
       "son_ne": "Ihale bulten tamligi (gunluk)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39112622108"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39399659726"
     },
     {
       "ad": "Kaynak Nobetcisi",
       "dosya": "kaynak.yml",
       "tur": "ust_uste",
-      "ust_uste": 84,
+      "ust_uste": 90,
       "oran": "10/10",
-      "son_sha": "0c6fe57b",
+      "son_sha": "db412e2f",
       "son_ne": "Kaynak Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39096964885"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39370992806"
     },
     {
       "ad": "Günlük Kanun Aynası",
@@ -153,9 +143,9 @@
       "tur": "ust_uste",
       "ust_uste": 99,
       "oran": "10/10",
-      "son_sha": "afc76efa",
-      "son_ne": "Yerel indirici: 1 kaynak guncellendi [veri-operasyonu]",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39106995162"
+      "son_sha": "600fad87",
+      "son_ne": "Günlük Kanun Aynası",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39377257199"
     },
     {
       "ad": "Mobil - Cihaz provasi (emulator)",
@@ -181,61 +171,51 @@
       "ad": "Nabiz Nobetcisi",
       "dosya": "nabiz.yml",
       "tur": "ust_uste",
-      "ust_uste": 71,
+      "ust_uste": 79,
       "oran": "10/10",
-      "son_sha": "a03f6b8b",
+      "son_sha": "eda7134a",
       "son_ne": "Nabiz Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39107539563"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39389625686"
     },
     {
       "ad": "Ithalat Rejimi Nobeti",
       "dosya": "rejim.yml",
       "tur": "ust_uste",
-      "ust_uste": 24,
+      "ust_uste": 26,
       "oran": "10/10",
-      "son_sha": "2c07d93d",
+      "son_sha": "0744f0ac",
       "son_ne": "Ithalat Rejimi Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39018577716"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39235857251"
     },
     {
       "ad": "SMMM Kapsama Tablosu (0 USD)",
       "dosya": "smmm-kapsama.yml",
       "tur": "ust_uste",
-      "ust_uste": 25,
+      "ust_uste": 27,
       "oran": "10/10",
-      "son_sha": "9cbde2ce",
+      "son_sha": "fce9010f",
       "son_ne": "SMMM Kapsama Tablosu (0 USD)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39021879650"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39242870943"
     },
     {
       "ad": "Smoke Nobetcisi",
       "dosya": "smoke.yml",
       "tur": "ust_uste",
-      "ust_uste": 68,
+      "ust_uste": 74,
       "oran": "10/10",
-      "son_sha": "bc0b1001",
+      "son_sha": "600fad87",
       "son_ne": "Smoke Nobetcisi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39101492884"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39377265744"
     },
     {
       "ad": "Soru Ambari Yedegi (bulut, sifreli)",
       "dosya": "soru-ambar-yedek.yml",
-      "tur": "oran",
-      "ust_uste": 0,
-      "oran": "4/10",
-      "son_sha": "f9b820c7",
-      "son_ne": "Soru Ambari Yedegi (bulut, sifreli)",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39102683994"
-    },
-    {
-      "ad": "Standart Damgasi",
-      "dosya": "standart-damga.yml",
       "tur": "ust_uste",
-      "ust_uste": 9,
-      "oran": "2/2",
-      "son_sha": "db7181b5",
-      "son_ne": "Standart Damgasi",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/38255427936"
+      "ust_uste": 2,
+      "oran": "5/10",
+      "son_sha": "63de6c73",
+      "son_ne": "Soru Ambari Yedegi (bulut, sifreli)",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39378616379"
     },
     {
       "ad": "Veri Ezici Taramasi",
@@ -250,22 +230,22 @@
     {
       "ad": "Veri Kapisi",
       "dosya": "veri-kapisi.yml",
-      "tur": "oran",
-      "ust_uste": 1,
-      "oran": "3/10",
-      "son_sha": "6e34c25e",
-      "son_ne": "Merge remote-tracking branch 'origin/main'",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39107950495"
+      "tur": "ust_uste",
+      "ust_uste": 2,
+      "oran": "7/10",
+      "son_sha": "da65c24c",
+      "son_ne": "Veri Kapisi",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39375416792"
     },
     {
       "ad": "Yan Veri Nobeti",
       "dosya": "yanveri.yml",
-      "tur": "oran",
-      "ust_uste": 1,
+      "tur": "ust_uste",
+      "ust_uste": 3,
       "oran": "3/10",
-      "son_sha": "6d6e4d6d",
+      "son_sha": "e24a6a94",
       "son_ne": "Yan Veri Nobeti",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39113320193"
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39401138112"
     },
     {
       "ad": "yetki-devri-denetcisi",
@@ -273,143 +253,131 @@
       "tur": "ust_uste",
       "ust_uste": 100,
       "oran": "10/10",
-      "son_sha": "967bb85b",
-      "son_ne": "site: telefonda tek ust serit - kayan duyuru gorunurken Android indir…",
-      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39089353402"
+      "son_sha": "92bb0219",
+      "son_ne": "Merge remote-tracking branch 'origin/main'",
+      "url": "https://github.com/cemdizdar85-arch/mevzuat-radar/actions/runs/39267677877"
     }
   ],
   "bildirilen": {
     "yetki-devri.yml": {
-      "seri_kok": 37918926977,
-      "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 100,
-      "sebep": "yeni seri"
+      "seri_kok": 38035921391,
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 100
     },
     "mevzuat.yml": {
-      "seri_kok": 36326738819,
-      "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 99,
-      "sebep": "yeni seri"
+      "seri_kok": 36532863093,
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 99
     },
     "kaynak.yml": {
       "seri_kok": 35956766016,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-17T08:42:38.5690453+00:00",
-      "seri": 84,
-      "sebep": "bildirildi"
-    },
-    "dogrula.yml": {
-      "seri_kok": 38780506822,
-      "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 81,
-      "sebep": "yeni seri"
+      "seri": 90
     },
     "nabiz.yml": {
       "seri_kok": 36771865676,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-16T09:10:16.1067594+00:00",
-      "seri": 71,
-      "sebep": "bildirildi"
+      "seri": 79
+    },
+    "dogrula.yml": {
+      "seri_kok": 39014962313,
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 75
     },
     "smoke.yml": {
       "seri_kok": 36098539979,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 68,
-      "sebep": "8 gundur suruyor"
+      "seri": 74
     },
     "ci-kirmizi-nobeti.yml": {
       "seri_kok": 32932235354,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-16T09:10:16.1067594+00:00",
-      "seri": 53,
-      "sebep": "bildirildi"
+      "seri": 55
     },
     "icerik-nobeti.yml": {
       "seri_kok": 37540825214,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-15T09:17:54.1654186+00:00",
-      "seri": 44,
-      "sebep": "bildirildi"
+      "seri": 48
     },
     "smmm-kapsama.yml": {
       "seri_kok": 35847720212,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-17T08:42:38.5690453+00:00",
-      "seri": 25,
-      "sebep": "bildirildi"
+      "seri": 27
     },
     "rejim.yml": {
       "seri_kok": 35981421468,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 24,
-      "sebep": "8 gundur suruyor"
+      "seri": 26
     },
     "ihale-gunluk-tamlik.yml": {
       "seri_kok": 34829480091,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-16T09:10:16.1067594+00:00",
-      "seri": 20,
-      "sebep": "bildirildi"
-    },
-    "edge-nobeti.yml": {
-      "seri_kok": 38263981501,
-      "son_bildirim": "2026-10-14T09:40:10.1615687+00:00",
-      "seri": 12,
-      "sebep": "bildirildi"
-    },
-    "standart-damga.yml": {
-      "seri_kok": 33388383750,
-      "son_bildirim": "2026-10-14T09:40:10.1615687+00:00",
-      "seri": 9,
-      "sebep": "bildirildi"
-    },
-    "veri-ezici-taramasi.yml": {
-      "seri_kok": 35840395950,
-      "son_bildirim": "2026-10-15T09:17:54.1654186+00:00",
-      "seri": 5,
-      "sebep": "bildirildi"
+      "seri": 22
     },
     "damping-kiyas.yml": {
       "seri_kok": 38549004277,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-16T09:10:16.1067594+00:00",
-      "seri": 4,
-      "sebep": "bildirildi"
+      "seri": 6
+    },
+    "veri-ezici-taramasi.yml": {
+      "seri_kok": 35840395950,
+      "sebep": "bildirildi",
+      "son_bildirim": "2026-10-15T09:17:54.1654186+00:00",
+      "seri": 5
+    },
+    "yanveri.yml": {
+      "seri_kok": 39113320193,
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 3
     },
     "edge-gunluk.yml": {
       "seri_kok": 38044373634,
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 2,
-      "sebep": "8 gundur suruyor"
+      "seri": 2
     },
-    "yanveri.yml": {
-      "seri_kok": "oran-335801797",
-      "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 1,
-      "sebep": "yeni seri"
+    "soru-ambar-yedek.yml": {
+      "seri_kok": 39209187993,
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 2
     },
     "veri-kapisi.yml": {
-      "seri_kok": "oran-342169858",
-      "son_bildirim": "2026-10-17T08:42:38.5690453+00:00",
-      "seri": 1,
-      "sebep": "bildirildi"
+      "seri_kok": 39318365261,
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 2
     },
-    "mobil-cihaz-prova.yml": {
-      "seri_kok": "oran-385805209",
-      "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 0,
-      "sebep": "yeni seri"
+    "edge-nobeti.yml": {
+      "seri_kok": "oran-358711269",
+      "sebep": "yeni seri",
+      "son_bildirim": "2026-10-20T09:34:44.3120922+00:00",
+      "seri": 0
     },
     "mobil-ios-prova.yml": {
       "seri_kok": "oran-386080932",
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-16T09:10:16.1067594+00:00",
-      "seri": 0,
-      "sebep": "bildirildi"
+      "seri": 0
     },
-    "soru-ambar-yedek.yml": {
-      "seri_kok": "oran-356300065",
-      "son_bildirim": "2026-10-14T09:40:10.1615687+00:00",
-      "seri": 0,
-      "sebep": "bildirildi"
-    },
-    "canli-tarama.yml": {
-      "seri_kok": "oran-373835371",
+    "mobil-cihaz-prova.yml": {
+      "seri_kok": "oran-385805209",
+      "sebep": "bildirildi",
       "son_bildirim": "2026-10-18T08:58:53.2805373+00:00",
-      "seri": 0,
-      "sebep": "yeni seri"
+      "seri": 0
     }
   }
 }
