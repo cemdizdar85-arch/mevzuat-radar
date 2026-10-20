@@ -83,6 +83,9 @@ const EK = [
   ['Örnek: Paketleri gör',      /^ornek\/(sgs|yeterlilik)\/paket$/],
   ['Örnek: Seviyeni ölç',       /^ornek\/(sgs|yeterlilik)\/olc$/],
   ['Örnek: ara sorular',        /^ornek\/(sgs|yeterlilik)\/kart-[234]$/],
+  // 20.10 Cem "1.2.3" GM3: "Nöbetçi çizerek çözsün" (cizerek-coz.js olay(): ciz/<sgs|yeterlilik|kgk>/<ac|son>)
+  ['Çizim: açtı',               /^ciz\/(sgs|yeterlilik|kgk)\/ac$/],
+  ['Çizim: sonuna kadar izledi', /^ciz\/(sgs|yeterlilik|kgk)\/son$/],
 ];
 
 function topla(hits) {
@@ -164,6 +167,8 @@ function sinav() {
   vakalar.push(['örnek: kart-5 ve ara kartlar ayrı adım', o.say['Örnek: 5. soruyu geçti'] === 9 && o.say['Örnek: ara sorular'] === 12]);
   vakalar.push(['örnek: ana sayfa Nöbetçi kartı örnek adımına KARIŞMAZ', o.say['Örnek: 1. soruyu geçti'] === undefined && o.say['Nöbetçi: 1. kartı bitirdi'] === 7]);
   vakalar.push(['örnek: paket düğmesi ve sayfa açılışı sayılır, olay eşleşmeyen yok', o.say['Örnek: Paketleri gör'] === 4 && o.say['Örnek: sayfa açıldı'] === 50 && o.eslesmeyen.length === 0]);
+  const cz = topla([{ yol: 'ciz/sgs/ac', adet: 6, olay: true }, { yol: 'ciz/yeterlilik/ac', adet: 4, olay: true }, { yol: 'ciz/sgs/son', adet: 3, olay: true }]);
+  vakalar.push(['çizim: iki sınavın açılışı toplanır, son ayrı adım, eşleşmeyen yok', cz.say['Çizim: açtı'] === 10 && cz.say['Çizim: sonuna kadar izledi'] === 3 && cz.eslesmeyen.length === 0]);
   let k = 0; for (const [ad, ok] of vakalar) { if (!ok) { k++; console.log('  YANLIS: ' + ad); } }
   console.log('HUNI RAPORU OZ-SINAVI: ' + (vakalar.length - k) + '/' + vakalar.length);
   process.exit(k ? 1 : 0);

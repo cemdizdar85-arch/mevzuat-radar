@@ -84,6 +84,48 @@ function sinav() {
     v.push('prova listesi JS = SQL'); if (!j.length || j.length !== s.size || !j.every(x => s.has(x))) hata.push('prova listesi JS (' + j.length + ') ile SQL (' + s.size + ') farklı');
     if (C.PROVA && C.PROVA['SGS-1710']) hata.push('SGS-1710 prova listesinde: 17.10 akışına dokunulmaz');
   }
+  // ---- SÖZEL ŞABLON (20.10.2026) — uydurma sorular, bankada yok ----
+  const oncul = (d) => Object.assign({
+    id: 'sgs-uydurma/kp-02', soru: 'Bir sözleşmeyle ilgili aşağıdaki durumlar veriliyor:\nI. Taraflardan biri ehliyetsizdir.\nII. Sözleşme yazılı yapılmıştır.\nIII. Konusu imkânsızdır.\nBu durumlardan hangilerinde sözleşme geçersizdir?',
+    siklar: { A: 'Yalnız I', B: 'Yalnız III', C: 'I ve II', D: 'I ve III', E: 'II ve III' }, dogru: 'D',
+    adimlar: [{ formul: 'I: ehliyetsiz taraf → kurulamaz', anlatim: 'Ehliyet yoksa sözleşme geçersizdir.' }, { formul: 'II: yazılı şekil → şart yerine gelmiş', anlatim: 'Şekil tamam; sözleşme ayakta.' },
+      { formul: 'III: imkânsız konu → batıl', anlatim: 'Konu imkânsızsa geçersizdir.' }, { formul: 'Sonuç = I ve III', anlatim: 'Geçersizlik yalnız I ve III.' }],
+    taktik: 'Her öncülde kuruluş şartını sor.', hap: 'Ehliyetsizlik ve imkânsız konu sözleşmeyi geçersiz kılar.',
+    tuzak: { A: { ad: 'Eksik Tuzak', metin: 'Yalnız ehliyeti gördün.' }, B: { ad: 'Konu Tuzağı', metin: 'Yalnız konuyu gördün.' }, C: { ad: 'Şekil Tuzağı', metin: 'Yazılı şekli geçersizlik sandın.' }, E: { ad: 'Ters Tuzak', metin: 'Ehliyeti atladın.' } }
+  }, d || {});
+  const duz = (d) => Object.assign({
+    id: 'smmm-uydurma/kp-03', soru: 'Bir şirketin yöneticilerine karşı açılacak ceza davasında 6362 sayılı Kanun uyarınca görevli mahkeme hangisidir?',
+    siklar: { A: 'İdare mahkemeleri', B: 'Ticaret mahkemeleri', C: 'Ağır ceza mahkemeleri', D: 'Asliye ceza mahkemeleri', E: 'Sulh hukuk mahkemeleri' }, dogru: 'D',
+    adimlar: [{ formul: 'Ne yapacağız: kuralı bul', anlatim: '' }], taktik: 'Görev kuralını ara.',
+    hap: '6362 sayılı Kanun uyarınca ceza davasında görevli mahkeme asliye ceza mahkemeleridir.',
+    tuzak: { A: { ad: 'İdari Yol Tuzağı', metin: 'İdari yolu ceza yargılaması sandın.' }, B: { ad: 'Ticaret Tuzağı', metin: 'Ticari uyuşmazlıkla karıştırdın.' }, C: { ad: 'Ağırlık Tuzağı', metin: 'Suçun ağırlığına baktın.' }, E: { ad: 'Hukuk Tuzağı', metin: 'Hukuk davası sandın.' } }
+  }, d || {});
+  const sz = (ad, s, bekle, kod) => { const r = C.cizimKapi(s); const ok = bekle ? r.gecer : (!r.gecer && r.neden.some(n => n.indexOf(kod) === 0)); v.push(ad); if (!ok) hata.push(ad + ' -> ' + (r.gecer ? 'GEÇTİ' : r.neden.join(' | '))); return r; };
+  // 17) öncüllü sözel soru geçer, ✓ kümesi doğru
+  { const r = sz('sözel öncüllü geçer', oncul(), true); if (r.gecer && r.senaryo.bicim !== 'ONCUL') hata.push('öncüllü soru ONCUL biçimine girmedi'); }
+  // 18) sonuç satırı doğru şıkla tutmuyor -> SZ-SONUC
+  { const s = oncul(); s.adimlar[3].formul = 'Sonuç = I ve II'; sz('sonuç satırı ≠ doğru şık', s, false, 'SZ-SONUC'); }
+  // 19) öncül anlatımı ✓ kümesini bozuyor -> SZ-ONCUL
+  { const s = oncul(); s.adimlar[1].anlatim = 'Şekil tamam ama yine de geçersiz sayılır.'; sz('✓ kümesi ≠ doğru şık', s, false, 'SZ-ONCUL'); }
+  // 20) kökteki bir öncülün satırı yok -> SZ-ONCUL
+  { const s = oncul(); s.adimlar.splice(1, 1); sz('öncül satırı eksik', s, false, 'SZ-ONCUL'); }
+  // 21) düz sözel soru geçer
+  { const r = sz('sözel düz (hap) geçer', duz(), true); if (r.gecer && r.senaryo.bicim !== 'DUZ') hata.push('düz soru DUZ biçimine girmedi'); }
+  // 22) hap doğru şıkkı anmıyor -> SZ-DOGRU
+  { const s = duz(); s.hap = '6362 sayılı Kanun uyarınca ceza davasına özel görevli mahkeme bakar.'; sz('hap doğru şıkkı anmıyor', s, false, 'SZ-DOGRU'); }
+  // 23) hap iki şıkkı birden anıyor -> SZ-CIFT
+  { const s = duz(); s.hap = '6362 sayılı Kanun uyarınca ceza davasına ağır ceza mahkemeleri değil asliye ceza mahkemeleri bakar.'; sz('hap iki şıkkı anıyor', s, false, 'SZ-CIFT'); }
+  // 24) hapta soruda olmayan sayı -> SZ-RAKAM
+  { const s = duz(); s.hap = '6362 sayılı Kanunun 116. maddesi uyarınca görevli mahkeme asliye ceza mahkemeleridir.'; sz('hapta kaynakta olmayan sayı', s, false, 'SZ-RAKAM'); }
+  // 25) yanlış şıkkın nedeni yok -> SZ-NEDEN
+  { const s = duz(); delete s.tuzak.B; sz('yanlış şıkta neden yok', s, false, 'SZ-NEDEN'); }
+  // 26) sayısal kapıdan RAKAM ile dönen soru sözel şablonla KURTARILMAZ
+  { /* sözel şablonun TÜM şartlarını sağlayan ama sayısal kapıdan RAKAM+SOZEL ile dönen soru: kurtarma kapalıysa düşer (mutasyon szkurtar) */
+    const s = soru({ tuzak: { B: { ad: 'x', metin: 'Çeyrek sandın.' }, C: { ad: 'x', metin: 'Cari payı fark sandın.' }, D: { ad: 'x', metin: 'Hiç bölmedin.' }, E: { ad: 'x', metin: 'Ay eksik.' } } });
+    s.adimlar[1].formul = 'Aylık pay = 48.000 / 12 = 4.100'; s.adimlar = s.adimlar.slice(0, 2); s.siklar.A = 'Fazla gider'; s.hap = 'Fazla gider olur; tamamını gider yazmıştır.';
+    const r = C.cizimKapi(s); v.push('sayılı soru sözelle kurtarılmaz'); if (r.gecer) hata.push('RAKAM ile dönen soru sözel şablonla GEÇTİ'); }
+  // 27) sayısal soru sayısal kalır (sözel şablona düşmez)
+  { const r = C.cizimKapi(soru()); v.push('sayısal soru sayısal şablonda'); if (!r.gecer || r.senaryo.bicim) hata.push('temiz sayısal soru sözel şablona düştü'); }
   const mut = process.env.CIZ_MUTASYON ?' (MUTASYON: ' + process.env.CIZ_MUTASYON + ')' : '';
   if (hata.length) { console.log('KAPI-CZ ÖZ-SINAV DÜŞTÜ' + mut + ': ' + hata.length + '/' + v.length); hata.forEach(h => console.log('  - ' + h)); return 1; }
   console.log('KAPI-CZ ÖZ-SINAV TEMİZ' + mut + ': ' + v.length + ' vaka'); return 0;
@@ -92,7 +134,7 @@ function sinav() {
 if (a.includes('--sinav')) {
   let kod = sinav();
   if (kod === 0 && a.includes('--mutasyon') && !process.env.CIZ_MUTASYON) {
-    const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste'];
+    const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste', 'szsonuc', 'szoncul', 'szdogru', 'szcift', 'szrakam', 'szneden', 'szkurtar'];
     let kac = 0;
     for (const m of M) {
       const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { CIZ_MUTASYON: m }), encoding: 'utf8' });
