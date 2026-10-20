@@ -185,6 +185,95 @@ function SY_Bol([string]$metin, [string]$std){
       }
     }
   }
+  # ⭐ 21.10.2026 BOBI FRS ONARIMI (KGK oturumu; olcum scratchpad AMBAR-ONARIM-OLCUM 20.10 + BOBI-KURU-PROVA 21.10) — YALNIZ KILAVUZ KIPI.
+  #   Ambardaki 561 BOBI kaydinin 64'u sonraki paragraflari yutmus, ≈219 paragrafin kendi kaydi yok. Iki kok:
+  #   (1) 01.09 cikarimi Git'in xpdf 4.06'siyla yapildi (bugunku kod + xpdf metni ambari 561/561 ad+metin BIREBIR uretiyor, 21.10 olculdu):
+  #       xpdf numarayi satir ICINE gomuyor ("… sınıflandırır. Kâr veya Zarar Tablosu 1.46 Kâr …"). SY_PdfAraci 14.09'dan beri poppler'i
+  #       one aliyor; ayrica asagida SY_KilavuzSatirIci kapisi bu duzendeki metni yazmadan durdurur.
+  #   (2) Poppler metninde bile kilavuz kipinin dort kusuru (bugunku kodla 738 parca, olculdu):
+  #     (a) HARFLI NUMARA: "1.25A", "8.1A", "27.4A" … desen [A-Z] soneki almiyordu; 35 harfli paragrafin 35'i oncekine yapisiyordu.
+  #     (b) MULGA "(-)": govdesi "(-)" olan paragraf (8.4, 8.11) 20 kr altinda kaldigi icin oncekine ekleniyor, ADI KALKIYORDU.
+  #     (c) BASLIK: poppler bent metnini ("b)" + "Esas olarak ticari amaçla elde tutulması,") ve iki yana yaslanmis satirin tek
+  #         kelimelerini ("Hatanın", "Yapılan") ayri satira koyar; 45 kr esigi bunlari baslik sanip GOVDEDEN ATIYOR (icerik kaybi) ve
+  #         sonraki paragrafin adina yaziyordu. Kural: kilavuz kipinde baslik = ardindaki ilk dolu satiri (bos + sayfa no atlanarak)
+  #         paragraf numarasi ya da "EK N –" olan satir; "BÖLÜM N" / TAMAMI BUYUK bolum adi zincirle (en cok 3) baglanir.
+  #         Virgulle ya da "ve/veya/ile/ya da" ile biten satir baslik olamaz. 50+ kr bitisik satirlar (saran baslik: "Finansal
+  #         Tabloların … Cinsinden" + "Sunulması") TEK baslik olur — eskiden ilk yarisi onceki paragrafin govdesine dusuyordu.
+  #     (d) EK: "EK 1 – MÜNFERİT FİNANSAL DURUM TABLOSU" … "EK 9 - TANIMLAR" ayri ek blogu (Ek A gibi ~1800 kr dilim, ad
+  #         "<STD> Ek N - <BASLIK> [k/n]"); eskiden 9 ekin tamami son paragrafa (27.15, 39.665 kr) yapisiyor, tablo satirlari dusuyordu.
+  #     (e) ALT ALTA IKI NUMARA (1.3/1.4, 6.2/6.3) ve (f) SATIRA DUSEN ATIF (9.53, 17.2): ayrinti asagida, numara dalinda.
+  #   Oteki kipler (TMS/TFRS, BDS/GDS satir basi, TSRS sutun) bu bloktan ETKILENMEZ: hepsi $kilavuzKip ile kapili.
+  #   Mutasyon: $env:SY_KILAVUZ_MUTASYON = harf | mulga | baslik | ek | yigin | atif | eski (eski = altisi birden kapali, 21.10 oncesi davranis)
+  #             + (c)'nin alt kurallari tek tek: baglac | saran | zincir | uzun · xpdf kapisi: satirici.
+  #   GORMEZ: sayfa sinirinda bolunen baslik (ust yarisi onceki sayfada) · baslik ile numara arasinda govde satiri olan duzen ·
+  #   iki karisik-harfli baslik ust uste (ilki zincire girmez, onceki paragrafin govdesine gider; icerik kaybolmaz).
+  $kMut = "$env:SY_KILAVUZ_MUTASYON"
+  $kHarf   = $kilavuzKip -and ($kMut -notin @('harf','eski'))
+  $kMulga  = $kilavuzKip -and ($kMut -notin @('mulga','eski'))
+  $kBaslik = $kilavuzKip -and ($kMut -notin @('baslik','eski'))
+  $kEk     = $kilavuzKip -and ($kMut -notin @('ek','eski'))
+  $kYigin  = $kilavuzKip -and ($kMut -notin @('yigin','eski'))   # (e) alt alta iki numara — asagida
+  $kAtif   = $kilavuzKip -and ($kMut -notin @('atif','eski'))    # (f) satira dusen atif — asagida
+  $kYiginSonraki = $null; $kOncekiDolu = ''; $kBosGordu = $false
+  $kNo = if($kHarf){ '\d{1,2}(?:\.\d{1,2}){1,3}[A-Z]?' } else { '\d{1,2}(?:\.\d{1,2}){1,3}' }
+  $kEkRx = '^EK\s+(\d{1,2})\s*[-–]\s*(\S.*)$'
+  $kilBaslikMetin = @{}
+  $kilAtla = New-Object System.Collections.Generic.HashSet[int]
+  $kilEkModu = $false
+  if($kBaslik){
+    $kParRx = "^$kNo(?:\s+[^a-zçğıöşü\s].{3,})?$"
+    $kBicim = {   # baslik bicimi (son-satir kurallari HARIC)
+      param([string]$x)
+      if($x.Length -lt 2 -or $x -match '\.{5,}' -or $x -match '[.:;]$' -or $x -match '[.!?][0-9]{1,3}$'){ return $false }
+      if($x -cnotmatch '^[A-ZÇĞİÖŞÜ]' -or $x -cmatch $kParRx -or $x -match '^\d{1,3}$'){ return $false }
+      return $true
+    }
+    $kSonUygun = {   # birimin SON satiri: virgul / baglac ile bitmez
+      param([string]$x)
+      if($kMut -eq 'baglac'){ return $true }   # mutasyon: son-satir kurali kapali
+      if($x -match ',$'){ return $false }
+      $sonKelime = ([regex]::Match($x, '\p{L}+(?=\P{L}*$)')).Value.ToLowerInvariant()
+      return ($sonKelime -notin @('ve','veya','ile','ya','da','de','ise','ki','yahut'))
+    }
+    $kDoluSonraki = { param([int]$k) $m = $k + 1; while($m -lt $satirlar.Count -and ($satirlar[$m].Trim().Length -eq 0 -or $sayfaSatiri.Contains($m) -or $satirlar[$m].Trim() -match '^\d{1,3}$')){ $m++ }; return $m }
+    $kBolumMu = { param([string]$x) ($x -cmatch '^BÖLÜM\s+\d{1,2}$') -or ($x -cnotmatch '\p{Ll}' -and $x -cmatch '\p{Lu}{3}') }
+    # birimler: bitisik (arada bos satir yok) baslik bicimli satirlar; onceki satir >= 50 kr ise sarma sayilir ve birlesir
+    $birimBas = @{}; $birimSon = @{}; $birimMetin = @{}
+    $bi = 0
+    while($bi -lt $satirlar.Count){
+      $t = $satirlar[$bi].Trim()
+      if($sayfaSatiri.Contains($bi) -or -not (& $kBicim $t)){ $bi++; continue }
+      $son = $bi; $metin = $t
+      while($kMut -ne 'saran' -and ($son + 1) -lt $satirlar.Count -and $satirlar[$son].Trim().Length -ge 50 -and $satirlar[$son].Trim() -cnotmatch '^BÖLÜM\s+\d' -and (& $kBicim $satirlar[$son+1].Trim()) -and ($metin.Length + 1 + $satirlar[$son+1].Trim().Length) -le 250){
+        $son++; $metin = "$metin $($satirlar[$son].Trim())"
+      }
+      $birimBas[$bi] = $son; $birimMetin[$bi] = $metin; $birimSon[$son] = $bi
+      $bi = $son + 1
+    }
+    $kNitelik = $null
+    $kNitelik = {
+      param([int]$b, [int]$derinlik)
+      $son = $birimBas[$b]; $metin = $birimMetin[$b]
+      if(-not (& $kSonUygun $satirlar[$son].Trim())){ return $false }
+      if($metin.Length -gt 45){
+        # uzun baslik: onceki dolu satir cumleyle/numarayla/sayfa no ile bitmeli ya da baslik olmali (govde ortasi degil)
+        $o = $b - 1; while($o -ge 0 -and $satirlar[$o].Trim().Length -eq 0){ $o-- }
+        if($o -ge 0){ $ot = $satirlar[$o].Trim(); if(-not ($ot -match '[.:;!?)”"]$' -or $ot -match '^\d{1,3}$' -or $ot -cmatch $kParRx -or $birimSon.ContainsKey($o))){ return $false } }
+      }
+      $n = & $kDoluSonraki $son
+      if($n -ge $satirlar.Count){ return $false }
+      $nt = $satirlar[$n].Trim()
+      if($nt -cmatch $kParRx -or ($nt -cmatch $kEkRx -and $nt -notmatch '\.{5,}')){ return $true }
+      if($kMut -ne 'zincir' -and $derinlik -lt 3 -and (& $kBolumMu $metin) -and $birimBas.ContainsKey($n)){ return (& $kNitelik $n ($derinlik + 1)) }
+      return $false
+    }
+    foreach($b in @($birimBas.Keys)){
+      if(& $kNitelik $b 0){
+        $kilBaslikMetin[$b] = $birimMetin[$b]
+        for($a = $b + 1; $a -le $birimBas[$b]; $a++){ [void]$kilAtla.Add($a) }
+      }
+    }
+  }
   $satirSirasi = -1
   # ⚠ 15.09.2026 DERSI — BDS/GDS RAKAMLI EKLERI ANA METNIN NUMARALARIYLA CAKISIYORDU.
   # BDS'lerde ekler "Ek 1", "Ek 2" (GDS 3000'de yalniz "Ek") basligiyla TEK SATIRDA durur ve
@@ -199,6 +288,17 @@ function SY_Bol([string]$metin, [string]$std){
     $s = $ham.Trim()
     if($suAn -and -not $suAn.Contains('ek')){ $suAn['ek'] = $ekEtiketi }   # parca, acildigi andaki eke aittir
     if($sayfaSatiri.Contains($satirSirasi)){ continue }
+    # 21.10 (d) kilavuz kipi eki: "EK 1 – MÜNFERİT FİNANSAL DURUM TABLOSU" (icindekiler satiri dolgulu oldugu icin acmaz)
+    if($kEk -and $s -cmatch $kEkRx -and $s -notmatch '\.{5,}'){
+      $kEkNo = $Matches[1]; $kEkAd = $Matches[2].Trim()
+      if($kYiginSonraki){ if($suAn){ $parcalar.Add($suAn) }; $suAn = $kYiginSonraki; $kYiginSonraki = $null }
+      if($suAn){ $parcalar.Add($suAn) }
+      $ekEtiketi = "Ek $kEkNo"; $kilEkModu = $true; $baslik = ''
+      $suAn = [ordered]@{ onek=''; no=0; sonek=''; ekBlok=$true; ekAd="Ek $kEkNo - $kEkAd"; ek=$ekEtiketi; govde=New-Object System.Collections.Generic.List[string] }
+      continue
+    }
+    if($kilEkModu){ if($s.Length -gt 0 -and $s -notmatch '^\d{1,3}$'){ $suAn.govde.Add($s) }; continue }   # ek tablosu: her satir govde, sayfa no haric
+    if($kilAtla.Contains($satirSirasi)){ continue }   # 21.10 (c) saran basligin devam satiri (basliga birlesti)
 
     if($s -cmatch '^Ek(?:\s*[-–]?\s*(\d{1,2}))?$'){   # -cmatch: GDS 3410'da satir sonuna dusen kucuk harfli "ek" sozcugu eki aciyordu
       if($suAn){ $parcalar.Add($suAn); $suAn=$null }
@@ -257,19 +357,41 @@ function SY_Bol([string]$metin, [string]$std){
     if($sutunKip -and $s -match '^\d{1,3}$'){ continue }
 
     # --- KILAVUZ KIPI (01.09): ondalikli noktasiz numara ("10.5 Metin ...") --
-    if($kilavuzKip -and $s -match '^(\d{1,2}(?:\.\d{1,2}){1,3})\s+(\S.{3,})$' -and -not ($Matches[2] -cmatch '^[a-zçğıöşü]') -and $s -notmatch '\.{5,}'){
+    # 21.10 (a): $kNo harfli soneki de alir ("1.25A Metin"); -cmatch: sonek yalniz BUYUK harf
+    if($kilavuzKip -and $s -cmatch "^($kNo)\s+(\S.{3,})$" -and -not ($Matches[2] -cmatch '^[a-zçğıöşü]') -and $s -notmatch '\.{5,}'){
       $gNoStr=$Matches[1]; $gGovde=$Matches[2]
+      if($kYiginSonraki){ if($suAn){ $parcalar.Add($suAn) }; $suAn = $kYiginSonraki; $kYiginSonraki = $null }
       if($suAn){ $parcalar.Add($suAn) }
       $sozlukModu=$false
-      $suAn = [ordered]@{ onek=''; no=$gNoStr; sonek=''; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $suAn = [ordered]@{ onek=''; no=$gNoStr; sonek=''; baslik=$baslik; kil=$true; govde=New-Object System.Collections.Generic.List[string] }
       $suAn.govde.Add($gGovde)
       continue
     }
-    # kilavuz kipi, ondalikli numara KENDI SATIRINDA ("1.3" tek) - BOBI duzeni
-    if($kilavuzKip -and $s -match '^(\d{1,2}(?:\.\d{1,2}){1,3})$'){
+    # kilavuz kipi, ondalikli numara KENDI SATIRINDA ("1.3" tek, "1.25A" tek) - BOBI duzeni
+    if($kilavuzKip -and $s -cmatch "^($kNo)$"){
+      $kTekNo = $Matches[1]
+      # 21.10 (f) SATIRA DUSEN ATIF: iki yana yaslanmis satirda "bölümünün" / "9.53" / "paragrafının (a) …" — numara paragraf degil,
+      #   cumlenin parcasidir (BOBI 9.53 ve 17.2 ikinci kez paragraf aciyordu: sahte cift + gercek paragrafin ortadan bolunmesi).
+      #   Kural: onceki dolu satir cumle noktalamasiyla bitmiyor VE sonraki dolu satir kucuk harfli bir SOZCUKLE basliyorsa govdedir.
+      if($kAtif -and $suAn){
+        $kOn = $satirSirasi - 1; while($kOn -ge 0 -and $satirlar[$kOn].Trim().Length -eq 0){ $kOn-- }
+        $kArd = $satirSirasi + 1; while($kArd -lt $satirlar.Count -and $satirlar[$kArd].Trim().Length -eq 0){ $kArd++ }
+        if($kOn -ge 0 -and $kArd -lt $satirlar.Count -and $satirlar[$kOn].Trim() -notmatch '[.:;!?)]$' -and $satirlar[$kArd].Trim() -cmatch '^[a-zçğıöşü]{3,}'){
+          $suAn.govde.Add($s); $kOncekiDolu = $s; $kBosGordu = $false; continue
+        }
+      }
+      # 21.10 (e) ALT ALTA IKI NUMARA: poppler duz cikarimi "1.3" / "1.4" / <1.3 metni> / <1.4 metni> basiyor (BOBI 1.3-1.4, 6.2-6.3;
+      #   -layout ve xpdf ikisini de dogru yerde gosteriyor). Eskiden 1.3 bos kalip ADI KALKIYOR, metni 1.4'e gidiyordu. Kural: govdesiz
+      #   numaranin ardindan ikinci numara gelirse ikincisi BEKLER; ilk metin, "." ile biten satirdan ve bos satirdan sonra buyuk harfle
+      #   baslayan ilk satirda (bent isareti degil) biter, ikinci numara orada acilir.
+      if($kYigin -and $suAn -and $suAn.Contains('kil') -and $suAn.govde.Count -eq 0 -and -not $kYiginSonraki){
+        $kYiginSonraki = [ordered]@{ onek=''; no=$kTekNo; sonek=''; baslik=$baslik; kil=$true; govde=New-Object System.Collections.Generic.List[string] }
+        continue
+      }
+      if($kYiginSonraki){ if($suAn){ $parcalar.Add($suAn) }; $suAn = $kYiginSonraki; $kYiginSonraki = $null }
       if($suAn){ $parcalar.Add($suAn) }
       $sozlukModu=$false
-      $suAn = [ordered]@{ onek=''; no=$Matches[1]; sonek=''; baslik=$baslik; govde=New-Object System.Collections.Generic.List[string] }
+      $suAn = [ordered]@{ onek=''; no=$kTekNo; sonek=''; baslik=$baslik; kil=$true; govde=New-Object System.Collections.Generic.List[string] }
       continue
     }
     # kilavuz kipinde tek basina duran sayi = SAYFA numarasi
@@ -339,7 +461,7 @@ function SY_Bol([string]$metin, [string]$std){
       $suAn.govde.Add($Matches[4])
       continue
     }
-    if($s.Length -eq 0){ continue }
+    if($s.Length -eq 0){ $kBosGordu = $true; continue }   # 21.10 (e): bos satir izi yalniz kilavuz yiginda okunur
 
     # --- SOZLUK KIPI (Ek A) ---------------------------------------------
     # ⚠ 25.08 DERSI: once terim-tanim ESLESTIRMEYE calistim, YANLISTI.
@@ -362,6 +484,11 @@ function SY_Bol([string]$metin, [string]$std){
     # sonu noktasiz + buyuk harfle baslayinca baslik saniliyor ve govdeden
     # dusuyordu (60 sondadan 3 kayip). Kilavuz kipinde gercek bolum basliklari
     # kisadir - esik 70 -> 45.
+    # 21.10 (c): kilavuz kipinde baslik YALNIZ onceden secilen satirlardir (ardindan numara gelen); geri kalan her satir govdedir
+    if($kBaslik -and $kilBaslikMetin.ContainsKey($satirSirasi)){
+      if($null -eq $suAn -or $suAn.govde.Count -gt 0){ $baslik = $kilBaslikMetin[$satirSirasi]; continue }
+      $suAn.govde.Add($kilBaslikMetin[$satirSirasi]); continue   # numara satirindan hemen sonra gelen baslik bicimli satir govdedir (eski kosul aynen)
+    }
     $baslikEsik = if($kilavuzKip){ 45 } else { 70 }
     # 27.09 (BDS 300 p.A24 "İlk Denetimlerde Dikkate Alınacak İlâve Hususlar (Bkz.: 12 nci paragraf)" 73 kr): BDS kipinde "(Bkz.: …)" ile
     #   biten satir bolum basligidir; 70 kr esigi bu baslik ailesine 180 kr olarak uygulanir (yalniz satir basi kipi, oteki kipler aynen).
@@ -370,7 +497,7 @@ function SY_Bol([string]$metin, [string]$std){
     #   Tirnakla baslayan Bkz basligi da basliktir (BDS 200 "“Önemli Yanlışlık” Riski (Bkz.: 13(h) paragrafı)" govdeye dusuyor, A16 bir onceki basligi aliyordu).
     $tirnakBkz = $bkzBaslik -and $s.Length -gt 1 -and ($s[0] -eq [char]0x201C -or $s[0] -eq [char]0x22) -and ("$($s[1])" -cmatch '[A-ZÇĞİÖŞÜ]')
     $zorlu = $zorBaslik.Contains($satirSirasi)   # 07.10 saran uzun baslik (yukarida)
-    if(($s.Length -le $baslikEsik -or $bkzBaslik -or $zorlu) -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and ($s -cmatch '^[A-ZÇĞİÖŞÜ]' -or $tirnakBkz) -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
+    if((-not $kBaslik) -and ($s.Length -le $baslikEsik -or $bkzBaslik -or $zorlu) -and $s -notmatch '[.:;]$' -and $s -notmatch '[.!?][0-9]{1,3}$' -and ($s -cmatch '^[A-ZÇĞİÖŞÜ]' -or $tirnakBkz) -and ($null -eq $suAn -or $suAn.govde.Count -gt 0)){
       if($noktaliKip -and $bekleyenBaslik -and $suAn){ $suAn.govde.Add($bekleyenBaslik) }
       # 27.09: yeni kuralla (70 kr ustu / tirnakli Bkz) taninan baslik HIC KULLANILMADAN yerine baska baslik gelirse eskisi gibi govdeye
       #   yazilir (ICERIK ATILMAZ; ust-alt iki baslik art arda: BDS 315 "İşletme ve Çevresi, … (Bkz.: A48-A49)" + "İşletme ve Çevresi ile … (Bkz.: A50-A55)").
@@ -398,11 +525,18 @@ function SY_Bol([string]$metin, [string]$std){
         $suAn = [ordered]@{ onek=''; no=0; sonek=''; kunye=$true; baslik='Künye ve yürürlük'; govde=New-Object System.Collections.Generic.List[string] }
       }
     }
+    # 21.10 (e): bekleyen ikinci numara, ilk numaranin metni bitince (". " + bos satir + buyuk harf, bent isareti degil) acilir
+    if($kYiginSonraki -and $suAn.govde.Count -gt 0 -and $kBosGordu -and $kOncekiDolu -match '\.$' -and $s -cmatch '^[A-ZÇĞİÖŞÜ“"]'){
+      $parcalar.Add($suAn); $suAn = $kYiginSonraki; $kYiginSonraki = $null
+    }
     $suAn.govde.Add($s)
+    $kOncekiDolu = $s; $kBosGordu = $false
   }
+  if($kYiginSonraki){ if($suAn){ $parcalar.Add($suAn) }; $suAn = $kYiginSonraki; $kYiginSonraki = $null }   # 21.10 (e) metin sonunda bekleyen
   if($suAn){ if(-not $suAn.Contains('ek')){ $suAn['ek'] = $ekEtiketi }; $parcalar.Add($suAn) }
   # kayda cevir
   $kayitlar = New-Object System.Collections.Generic.List[object]
+  $kUzunBaslik = New-Object System.Collections.Generic.HashSet[string]   # 21.10 (c) 160 kr'yi asan kilavuz basligi bir kez govdeye
   foreach($p in $parcalar){
     $govde = (@($p.govde) -join ' ').Trim()
     # ⚠ ICERIK ATILMAZ (25.08 dersi). Ilk surum govdesi 20 karakterden kisa
@@ -411,7 +545,9 @@ function SY_Bol([string]$metin, [string]$std){
     # 210 parca / 105.905 krk, 128 parca / 106.600 krk'den AZDI - parca
     # kazanirken metin kaybediyorduk. Cozum: kisa parcayi ATMA, BIR ONCEKINE EKLE.
     # Butun mesele "yarim kalmasin" idi; kirpip parca sayisi buyutmek onu bozar.
-    if($govde.Length -lt 20){
+    # 21.10 (b): kilavuz kipinde "(-)" govdeli mulga paragraf KENDI ADIYLA kalir (BOBI 8.4/8.11; once oncekine eklenip adi kalkiyordu)
+    $kilMulgaMi = $kMulga -and $p.Contains('kil') -and $govde -match '^\(\s*[-–]\s*\)$'
+    if($govde.Length -lt 20 -and -not $kilMulgaMi){
       $ekMetin = (($(if($p.Contains('terim')){ "$($p.terim) " } else { '' }) + $govde)).Trim()
       if($ekMetin.Length -gt 0 -and $kayitlar.Count -gt 0){
         $kayitlar[$kayitlar.Count-1].metin = ($kayitlar[$kayitlar.Count-1].metin + ' ' + $ekMetin).Trim()
@@ -435,7 +571,8 @@ function SY_Bol([string]$metin, [string]$std){
         $dilim = $kalan.Substring(0,$al).Trim()
         $kalan = $kalan.Substring($al).Trim()
         if($dilim.Length -eq 0){ break }
-        $kayitlar.Add([pscustomobject]@{ kaynak_ad="$std Ek A - Tanımlanan terimler [$sira/$toplamDilim]"; metin=$dilim })
+        $ekBlokAdi = if($p.Contains('ekAd')){ (($p.ekAd -replace '\s+',' ').Trim()) } else { 'Ek A - Tanımlanan terimler' }   # 21.10 (d) kilavuz eki
+        $kayitlar.Add([pscustomobject]@{ kaynak_ad="$std $ekBlokAdi [$sira/$toplamDilim]"; metin=$dilim })
       }
       continue
     }
@@ -449,13 +586,31 @@ function SY_Bol([string]$metin, [string]$std){
       # olculdu: ambarda 13 boyle ad, bagli soru 0 -> tek bosluga indirmek hicbir bagi koparmaz
       $ad = ($ad -replace '\s+',' ').Trim()
     }
-    if($ad.Length -gt 160){ $ad = $ad.Substring(0,160) }
+    if($ad.Length -gt 160){
+      # 21.10 (c): kilavuz kipinde baslik govdeden cikar; ad 160 kr'de kesilince basligin kuyrugu HICBIR YERDE kalmiyordu
+      #   (BOBI 20.24 "… Müşterek Girişimlerin Finansal Tablolarının Çevrimi" → "… Müşterek Gir"). Tam baslik, onu tasiyan ILK parcanin govdesine yazilir.
+      if($kBaslik -and $kMut -ne 'uzun' -and $p.Contains('kil') -and $p.baslik -and $kUzunBaslik.Add("$($p.baslik)")){ $govde = ("$($p.baslik) $govde").Trim() }
+      $ad = $ad.Substring(0,160)
+    }
     $kayitlar.Add([pscustomobject]@{ kaynak_ad=$ad; metin=$govde })
   }
   # ⚠ "return ,$kayitlar" YAZMA. Virgul listeyi SARMALAR ve cagirandaki @()
   # onu ACMAZ -> tek elemanli dizi doner. Bu tuzak 25.08'de UC KEZ vurdu
   # (kart-kontrol · kesik-metin-nobeti · burada). ToArray() net cozum.
   return $kayitlar.ToArray()
+}
+
+function SY_KilavuzSatirIci([string]$metin){
+  # ⭐ 21.10.2026 — XPDF DUZENI KAPISI (BOBI FRS koku 1). 01.09'da BOBI, Git'in xpdf 4.06'siyla cikarildi; xpdf ondalikli paragraf
+  #   numarasini satirin ICINE gomer ("… uzun vadeli olarak sınıflandırır. Kâr veya Zarar Tablosu 1.46 Kâr veya Zarar Tablosu, …").
+  #   Kilavuz kipi yalniz satir BASINDAKI numarayi gorur → 64 kayit sonraki 1-19 paragrafi yuttu, ≈219 paragraf ad almadi.
+  #   Olcu: satir ICINDE (onunde dolu karakter) "N.N[A]" + bosluk + Buyuk harf ↔ satir basinda duran numara. Bozuk: ic >= 20 ve ic >= bas/5.
+  #   21.10 olculdu (BOBI EK 2.pdf): xpdf satir ici 186 / satir basi 623 → BOZUK · poppler 2 ("1 $ = 2.50 TL; …") / 835 → saglam.
+  #   GORMEZ: satir ici numaradan sonra kucuk harf/tirnakla baslayan paragraf · tamsayi numarali (BDS "12.") duzen · TMS/TFRS noktali numara (kapi orada uygulanmaz).
+  $ic = [regex]::Matches($metin, '(?<=\S)[ \t]+\d{1,2}\.\d{1,2}[A-Z]?[ \t]+(?=[A-ZÇĞİÖŞÜ“])').Count   # [ \t]: satir sonunu ASMAZ (\s asar, poppler'da sahte 467 saydi)
+  $bas = @(($metin -split "`r?`n") | Where-Object { $_.Trim() -cmatch '^\d{1,2}\.\d{1,2}[A-Z]?(\s|$)' }).Count
+  $bozuk = ($ic -ge 20 -and ($ic * 5) -ge $bas) -and ("$env:SY_KILAVUZ_MUTASYON" -ne 'satirici')   # mutasyon: kapi kapali
+  return [pscustomobject]@{ satirIci=$ic; satirBasi=$bas; bozuk=$bozuk }
 }
 
 function SY_EkBasligiMi([string]$satir){
@@ -868,6 +1023,201 @@ Isletme siniflari her yil Kurum tarafindan ilan edilen olcutlere gore belirlenir
   if(@($kv2 | Where-Object { $_.kaynak_ad -match 'p\.2\.1\b' }).Count -ne 1){ $dusen += "KILAVUZ-TEK p.2.1 bulunamadi: $((@($kv2|ForEach-Object kaynak_ad)) -join ' | ')" }
   if(@($kv2 | Where-Object { $_.kaynak_ad -match 'p\.2\.2\b' }).Count -ne 1){ $dusen += 'KILAVUZ-TEK p.2.2 bulunamadi' }
   if((($kv2 | ForEach-Object metin) -join ' ') -match '(^| )47( |$)'){ $dusen += 'KILAVUZ-TEK: sayfa numarasi metne sizdi' }
+  # --- 21.10 BOBI FRS ONARIMI: gercek BOBI satirlari (KGK EK 2.pdf, poppler 25.07 duz cikarim; bos satir/sayfa no duzeni aynen) ---
+  #   Tek kurgu: "Özkaynak Değişim Tablosu ve" satiri gercekte "d)"den once durur; burada baglac kuralini sinamak icin numaradan hemen once kondu
+  #   (BOBI'de numaradan hemen once virgul/baglacla biten satir 0 — 21.10 olculdu; kural savunma amacli).
+  $bobi = @'
+BÖLÜM 1
+KAVRAMSAL ÇERÇEVE VE FİNANSAL TABLOLAR
+1.1
+
+Bu bölümde, işletmelerin finansal tablolarının, gerçeğe uygun sunumunu sağlamak
+amacıyla finansal tabloların hazırlanmasına ve sunulmasına ilişkin esaslar
+düzenlenmektedir.
+
+1.3
+
+1.4
+
+Finansal tablolar asgari olarak aşağıdakilerden oluşur:
+a)
+
+Finansal Durum Tablosu,
+
+d)
+
+Önemli muhasebe politikalarını ve diğer açıklayıcı bilgileri içeren dipnotlar.
+
+Finansal tablolar bu Standart hükümlerine uygun olarak, açık ve anlaşılır bir şekilde
+sunulur.
+
+1.25
+
+Cari raporlama dönemine ait tutarların önceki raporlama dönemine ait tutarlarla
+karşılaştırılabilir olmaması durumunda, bu husus gerekçeleriyle birlikte dipnotlarda
+açıklanır.
+
+5
+
+1.25A
+
+“Konsolide Finansal Tablolar” bölümü uyarınca tam konsolidasyon yöntemine göre
+konsolide edilmesi gereken bağlı ortaklığı bulunmasına rağmen bu Standart zorunlu
+kılmadığı için konsolide finansal tablolar sunmayan bir işletme olabilir.
+
+1.41
+
+Taşıyan varlıklar dönen varlık olarak sınıflandırılır:
+a)
+
+İşletmenin normal faaliyet döngüsü içinde paraya çevrilmesinin, satılmasının
+veya tüketilmesinin beklenmesi,
+
+b)
+
+Esas olarak ticari amaçla elde tutulması,
+
+c)
+
+Raporlama döneminden sonraki on iki ay içinde paraya çevrilmesinin
+beklenmesi veya
+Özkaynak Değişim Tablosu ve
+1.42
+
+1.41 paragrafındaki özellikleri taşımayan diğer tüm varlıklar duran varlık olarak sınıflandırılır.
+
+3.18
+
+Hatanın düzeltilmesi geriye dönük düzeltme yoluyla yapılır ve aşağıdaki şekilde gerçekleştirilir:
+a)
+
+Hatanın
+
+yapıldığı döneme veya dönemlere ait finansal tablolardaki
+
+karşılaştırmalı tutarlar düzeltilir veya
+
+8.3
+
+Arama ve değerlendirme varlıkları ilk kayıtta maliyet bedeli üzerinden ölçülür.
+
+8.4
+
+(-)
+
+8.5
+
+Maden kaynaklarının geliştirilmesiyle ilgili harcamalar arama ve değerlendirme
+varlıkları olarak muhasebeleştirilemez.
+
+50
+
+BÖLÜM 8
+MADEN KAYNAKLARININ ARANMASI VE DEĞERLENDİRİLMESİ
+8.6
+
+Bu bölümde, maden, petrol, doğal gaz ve benzeri yenilenemeyen kaynaklar gibi
+maden kaynaklarının aranması ve değerlendirilmesine ilişkin esaslar düzenlenmektedir.
+
+10.20
+
+Özkaynaklar”
+
+bölümünün
+
+9.53
+
+paragrafının (a), (b) ve (c) bentleri uyarınca özkaynaklarında kaydettiği
+kazanç ve kayıplardan işletmeye düşen birikimli tutarlar kâr veya zarara aktarılır.
+
+cinsinden olan bir kredi ödemesine ilişkin borcun değerlemesinde ise satış kurunun
+kullanılması gerekir.
+
+Finansal Tabloların Ağırlıkla Kullanılan Para Birimi Dışındaki Para Birimi Cinsinden
+Sunulması
+20.19
+
+Ağırlıkla kullanılan para birimi, yüksek enflasyonlu bir ekonominin para birimi
+olmayan bir işletmenin finansal tablolarını farklı bir para biriminde sunabilir.
+
+çevrilir.
+
+Ağırlıkla Kullanılan Para Birimi, Finansal Tabloların Sunulduğu Para Biriminden Farklı
+Olan Bağlı Ortaklıkların, İştiraklerin ve Müşterek Girişimlerin Finansal Tablolarının
+Çevrimi
+20.24
+
+20.3 ve 20.4 paragraflarında belirtilen faktörlerin yanı sıra, yatırım yapan bir
+işletmenin bağlı ortaklığının ağırlıkla kullanılan para birimi belirlenir.
+
+27.15
+
+Önceki finansal raporlama çerçevesi uygulanırken yapılmış olan hataların farkına
+varıldığı durumda bu hatalar dipnotlarda açıklanır.
+
+MÜNFERİT FİNANSAL TABLOLAR
+
+226
+
+EK 1 – MÜNFERİT FİNANSAL DURUM TABLOSU
+
+… ŞİRKETİ … TARİHLİ BAĞIMSIZ DENETİMDEN GEÇMİŞ MÜNFERİT FİNANSAL DURUM TABLOSU
+VARLIKLAR
+Dönen Varlıklar
+Nakit ve Nakit Benzerleri
+Finansal Yatırımlar
+227
+EK 9 - TANIMLAR
+Ağırlıkla Kullanılan
+Para Birimi
+İşletmenin faaliyetlerini sürdürdüğü temel ekonomik çevrenin para birimidir.
+'@
+  $bk = @(SY_Bol $bobi 'BOBI FRS')
+  $bkAd = @($bk | ForEach-Object { $_.kaynak_ad })
+  $bkBul = { param($rx) @($bk | Where-Object { $_.kaynak_ad -match $rx }) }
+  $bkOz = ($bkAd -join ' | ')
+  # (a) harfli numara
+  $h25a = @(& $bkBul ' p\.1\.25A( |$)'); $h25 = @(& $bkBul ' p\.1\.25( |$)')
+  if($h25a.Count -ne 1 -or $h25a[0].metin -notmatch '^“Konsolide Finansal Tablolar”'){ $dusen += "BOBI HARFLI NUMARA: p.1.25A ayrilmadi ($bkOz)" }
+  if($h25.Count -eq 1 -and $h25[0].metin -match 'Konsolide Finansal Tablolar'){ $dusen += 'BOBI HARFLI NUMARA: 1.25A metni 1.25 icinde (yutma)' }
+  # (b) mulga "(-)"
+  $h84 = @(& $bkBul ' p\.8\.4( |$)')
+  if($h84.Count -ne 1 -or $h84[0].metin -ne '(-)'){ $dusen += "BOBI MULGA: p.8.4 '(-)' kendi adiyla kalmadi ($bkOz)" }
+  if(@(& $bkBul ' p\.8\.3( |$)' | Where-Object { $_.metin -match '\(-\)' }).Count){ $dusen += 'BOBI MULGA: "(-)" onceki paragrafa (8.3) eklendi' }
+  # (c) bent metni / tek kelime / baglacla biten satir baslik DEGIL, govdede kalir; saran baslik ve BOLUM zinciri tek baslik
+  $h41 = @(& $bkBul ' p\.1\.41( |$)'); $h42 = @(& $bkBul ' p\.1\.42( |$)'); $h318 = @(& $bkBul ' p\.3\.18( |$)')
+  if($h41.Count -ne 1 -or $h41[0].metin -notmatch 'Esas olarak ticari amaçla elde tutulması,'){ $dusen += "BOBI BENT BASLIK SANILDI: '(b) Esas olarak ticari amaçla elde tutulması,' 1.41 govdesinde yok ($bkOz)" }
+  if(@($bkAd | Where-Object { $_ -match ' - (Esas olarak|Hatanın|Özkaynak Değişim Tablosu ve)' }).Count){ $dusen += "BOBI BENT/KELIME ADA GIRDI: $bkOz" }
+  if($h41.Count -eq 1 -and $h41[0].metin -notmatch 'Özkaynak Değişim Tablosu ve$'){ $dusen += 'BOBI BAGLAC: "… ve" ile biten satir numaradan once baslik sanildi (govdeden dustu)' }
+  if($h318.Count -ne 1 -or $h318[0].metin -notmatch 'a\) Hatanın yapıldığı döneme'){ $dusen += 'BOBI TEK KELIME SATIR ("Hatanın") govdeden dustu' }
+  if($h42.Count -ne 1){ $dusen += "BOBI p.1.42 yok ($bkOz)" }
+  $h1919 = @(& $bkBul ' p\.20\.19 - Finansal Tabloların Ağırlıkla Kullanılan Para Birimi Dışındaki Para Birimi Cinsinden Sunulması$')
+  if($h1919.Count -ne 1){ $dusen += "BOBI SARAN BASLIK: p.20.19 adi iki satirin birlesimi degil ($bkOz)" }
+  if(@($bk | Where-Object { $_.metin -match 'Para Birimi Cinsinden$' -or $_.metin -match 'Cinsinden Sunulması' }).Count){ $dusen += 'BOBI SARAN BASLIK: ilk yarisi onceki paragrafin govdesine dustu' }
+  $h86 = @(& $bkBul ' p\.8\.6 - MADEN KAYNAKLARININ ARANMASI VE DEĞERLENDİRİLMESİ$')
+  if($h86.Count -ne 1 -or @($bk | Where-Object { $_.metin -cmatch 'MADEN KAYNAKLARININ|BÖLÜM 8' }).Count){ $dusen += "BOBI BOLUM ZINCIRI: 'BÖLÜM 8' + bolum adi p.8.6 basligi olmadi ($bkOz)" }
+  $h2024 = @(& $bkBul ' p\.20\.24 - ')
+  if($h2024.Count -ne 1 -or $h2024[0].metin -notmatch 'Finansal Tablolarının Çevrimi'){ $dusen += 'BOBI UZUN BASLIK: 160 kr ustu basligin kuyrugu hicbir yerde yok' }
+  # (d) ek: ayri blok, tablo satirlari dusmez, onceki paragrafa yapismaz
+  $e1 = @(& $bkBul '^BOBI FRS Ek 1 - MÜNFERİT FİNANSAL DURUM TABLOSU \[1/1\]$'); $e9 = @(& $bkBul '^BOBI FRS Ek 9 - TANIMLAR \[1/1\]$')
+  if($e1.Count -ne 1 -or $e1[0].metin -notmatch 'Nakit ve Nakit Benzerleri' -or $e1[0].metin -notmatch 'Dönen Varlıklar'){ $dusen += "BOBI EK: Ek 1 ayri blok degil ya da tablo satiri dustu ($bkOz)" }
+  if($e9.Count -ne 1 -or $e9[0].metin -notmatch '^Ağırlıkla Kullanılan Para Birimi'){ $dusen += "BOBI EK: Ek 9 tanim terimi dustu ($bkOz)" }
+  if(@(& $bkBul ' p\.27\.15( |$)' | Where-Object { $_.metin -match 'VARLIKLAR|Nakit ve Nakit' }).Count){ $dusen += 'BOBI EK: ek tablosu son paragrafa (27.15) yapisti' }
+  # (e) alt alta iki numara
+  $h13 = @(& $bkBul ' p\.1\.3( |$)'); $h14 = @(& $bkBul ' p\.1\.4( |$)')
+  if($h13.Count -ne 1 -or $h13[0].metin -notmatch '^Finansal tablolar asgari' -or $h13[0].metin -match 'bu Standart hükümlerine'){ $dusen += "BOBI ALT ALTA NUMARA: p.1.3 metni yanlis ($bkOz)" }
+  if($h14.Count -ne 1 -or $h14[0].metin -notmatch '^Finansal tablolar bu Standart'){ $dusen += 'BOBI ALT ALTA NUMARA: p.1.4 kendi metniyle baslamiyor' }
+  # (f) satira dusen atif
+  if(@(& $bkBul ' p\.9\.53( |$)').Count){ $dusen += "BOBI ATIF: 'bölümünün / 9.53 / paragrafının' sahte paragraf acti ($bkOz)" }
+  if(@(& $bkBul ' p\.10\.20( |$)' | Where-Object { $_.metin -match 'bölümünün 9\.53 paragrafının' }).Count -ne 1){ $dusen += 'BOBI ATIF: 9.53 atfi 10.20 govdesinde degil' }
+  # sayfa no metne girmez · numara sayisi
+  if((($bk | ForEach-Object { $_.metin }) -join ' ') -match '(^| )(5|50|226|227)( |$)'){ $dusen += 'BOBI: sayfa numarasi metne sizdi' }
+  # xpdf duzeni kapisi (satir ici numara) — 20 gercek BOBI xpdf kalibi satiri · yanlis alarm: poppler satiri "1 $ = 2.50 TL"
+  $xpSatir = 1..24 | ForEach-Object { "1.$($_) İşletme, diğer bütün yükümlülüklerini uzun vadeli olarak sınıflandırır. Kâr veya Zarar Tablosu 1.$($_ + 30) Kâr veya Zarar Tablosu, işletmenin finansal performansı" }
+  $xo = SY_KilavuzSatirIci ($xpSatir -join "`n")
+  if(-not $xo.bozuk){ $dusen += "XPDF KAPISI: satir ici numarali metin yakalanmadi (ic $($xo.satirIci) / bas $($xo.satirBasi))" }
+  $po = SY_KilavuzSatirIci ($bobi + "`nAna ortaklık 10.000 `$ borç vermiştir. İşlem tarihinde 1 `$ = 2.50 TL; dönem sonunda ise 1 `$ = 2.60 TL’dir.")
+  if($po.bozuk){ $dusen += "XPDF KAPISI YANLIS ALARM: poppler metni bozuk sayildi (ic $($po.satirIci) / bas $($po.satirBasi))" }
   # --- BDS/GDS DUZENI (25.08 provasinda bulundu: numara SATIR BASINDA) ---
   # Bu dal sinanmadan BDS toplu kosulursa 30 standart birden coplenir:
   # TMS kipi BDS metninde yalniz SAYFA NUMARALARINI gorur.
@@ -1118,7 +1468,7 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09])'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09] · BOBI harfli no/mulga/bent-baslik/saran/bolum zinciri/uzun baslik/ek/alt alta numara/atif/xpdf kapisi 23 [21.10])'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
 if($YalnizSinav){ exit 0 }
 Write-Host ''
@@ -1229,6 +1579,16 @@ if((-not $duzen) -and ($standart -match '^(BDS|GDS|SBDS|SGDS|İHS)\s')){
   Write-Host ("  dipnot   : {0} blok paragraf sonuna tasindi · {1} govde isareti silindi · {2} isaret bulunamadi" -f $dipnotSonuc.dipnot,$dipnotSonuc.isaret,$dipnotSonuc.cozulemeyen)
 }
 
+# 21.10: xpdf duzeni (paragraf numarasi satir icinde) kilavuz kipini yutmaya goturur (BOBI 01.09: 64 yutan kayit). TMS/TFRS'de uygulanmaz.
+if($standart -notmatch '^(TMS|TFRS)\s'){
+  $kilOlcu = SY_KilavuzSatirIci $tamMetin
+  if($kilOlcu.bozuk){
+    Write-Host ("!! CIKARIM SATIR ICI NUMARA: {0} ondalikli paragraf numarasi satirin ICINDE (satir basinda {1}) - xpdf duzeni. Arac: {2}" -f $kilOlcu.satirIci,$kilOlcu.satirBasi,$arac) -ForegroundColor Red
+    Write-Host '   Kilavuz kipi bu metni yutarak boler (BOBI 01.09). poppler pdftotext ile yeniden dene. Ambara dokunulmadi.'
+    exit 1
+  }
+}
+
 # --- 2) BOL
 $yeni = @(SY_Bol $tamMetin $standart)
 # 15.09: TMS/TFRS icin layout adayi. YALNIZ resmi metnin paragraf numaralarindan SAPMA (eksik+fazla+cift)
@@ -1290,7 +1650,7 @@ Write-Host ("AMBARDAKI HALI : {0} parca · {1:N0} karakter" -f $eski.Count,$eski
 Write-Host ("YENI HALI      : {0} parca · {1:N0} karakter" -f $yeni.Count,$yeniKarakter)
 Write-Host ("KAZANC         : +{0} parca · +{1:N0} karakter ({2:N1} kat)" -f ($yeni.Count-$eski.Count),($yeniKarakter-$eskiKarakter),$(if($eskiKarakter){$yeniKarakter/$eskiKarakter}else{0}))
 if($PlanYaz){
-  $planNesnesi = [ordered]@{ standart=$standart; url=$url; eski_adlar=@($eski | ForEach-Object { "$($_.kaynak_ad)" }); yeni_adlar=@($yeni | ForEach-Object { "$($_.kaynak_ad)" }); eski_karakter=$eskiKarakter; yeni_karakter=$yeniKarakter; yeni_ozet=@($yeni | ForEach-Object { $md5=[Security.Cryptography.MD5]::Create(); "$($_.kaynak_ad)|$($_.metin.Length)|" + [BitConverter]::ToString($md5.ComputeHash([Text.Encoding]::UTF8.GetBytes($_.metin))) }) }   # 16.09: yeni_ozet = ad|uzunluk|md5 (eşdeğerlik provası için; yalnız -PlanYaz)
+  $planNesnesi = [ordered]@{ standart=$standart; url=$url; eski_adlar=@($eski | ForEach-Object { "$($_.kaynak_ad)" }); yeni_adlar=@($yeni | ForEach-Object { "$($_.kaynak_ad)" }); eski_karakter=$eskiKarakter; yeni_karakter=$yeniKarakter; yeni_ozet=@($yeni | ForEach-Object { $md5=[Security.Cryptography.MD5]::Create(); "$($_.kaynak_ad)|$($_.metin.Length)|" + [BitConverter]::ToString($md5.ComputeHash([Text.Encoding]::UTF8.GetBytes($_.metin))) }); eski_ozet=@($eski | ForEach-Object { $md5=[Security.Cryptography.MD5]::Create(); "$($_.kaynak_ad)|$("$($_.metin)".Length)|" + [BitConverter]::ToString($md5.ComputeHash([Text.Encoding]::UTF8.GetBytes("$($_.metin)"))) }) }   # 16.09: yeni_ozet = ad|uzunluk|md5 (eşdeğerlik provası için; yalnız -PlanYaz) · 21.10: eski_ozet aynı biçimde ambar tarafı (ambarla birebir mi sorusu metin düzeyinde)
   [IO.File]::WriteAllText($PlanYaz,(ConvertTo-Json -InputObject $planNesnesi -Depth 4),(New-Object Text.UTF8Encoding($false)))
 }
 
