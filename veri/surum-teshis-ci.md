@@ -3,9 +3,9 @@
 > TFRS 16 kuru kosusu. Soru: betik hic mi calismiyor, yoksa ambardan 0 kayit mi okuyor?
 
 ## kosu kimligi
-- zaman: 2026-10-20 13:31:40 UTC
-- commit: d60806c10d8f88fe44623de06a4acbafed9790b0
-- kosu no: 84
+- zaman: 2026-10-20 20:51:16 UTC
+- commit: 367a719b352a3a79befedf92909a300a7ad45110
+- kosu no: 85
 
 ## ortam
 - pdftotext: /usr/bin/pdftotext
@@ -15,7 +15,7 @@
 ## standart-yut.ps1 -standart 'TFRS 16' ciktisi
 
 ```
-Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09])
+Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09] · BOBI harfli no/mulga/bent-baslik/saran/bolum zinciri/uzun baslik/ek/alt alta numara/atif/xpdf kapisi 23 [21.10])
   SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma
 
 PDF: https://kgk.gov.tr/Portalv2Uploads/files/Duyurular/v2/TMS_TFRS_Setleri/2026/Kirmizi_Kitap/TFRS/TFRS 16.pdf
