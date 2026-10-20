@@ -2,7 +2,7 @@
 tur: organik
 yz: hayir
 kanal: instagram-karusel
-durum: onay-bekliyor
+durum: yayinda
 ---
 
 <!-- 20.10.2026 Cem: "akşama paylaşım hazırla; burada takipçi kazanmak önemli, ileride onlardan dönüş olacak".
@@ -15,6 +15,8 @@ durum: onay-bekliyor
      aktarım zayıflar). ⚠ Sitedeki aynı sorunun konuGiris.yontemler metni "doğru cevap I, II ve III" diyor — YANLIŞ, kullanılmadı
      (site onarımı ayrı iş). Sayı yalnız takvim: Staja Giriş 21.11.2026 − 20.10.2026 = 32 gün.
      Görseller: Masaüstü/mevzuat işi/reklam-aksam-nobeti-1/aksam-nobeti-1-kart-1..5.png (1080×1350), kaynak HTML aynı klasörde. -->
+
+<!-- 20.10.2026 akşam PAYLAŞILDI (Cem 'birtanesi paylaşalım'): https://www.instagram.com/p/DeunVDTDT4y/ · 5 kart, 4:5, öne çıkarma YOK. -->
 
 ## Kartlar
 
