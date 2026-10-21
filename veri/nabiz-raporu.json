@@ -1,21 +1,24 @@
 {
-  "tarih": "21.10.2026 08:54",
+  "tarih": "21.10.2026 10:58",
   "durum": "ALARM",
-  "kirmizi": 5,
-  "kurtarma": 1,
+  "kirmizi": 2,
+  "kurtarma": 4,
   "izlenen_robot": 20,
   "izlenen_veri": 5,
   "maddeler": [
-    "ESKALASYON: Kaynak Nobetcisi (ihale+kaynaklar) -> kurtarma ise yaramadi (son basarili kosu 658.6 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Gunluk Kanun Aynasi -> kurtarma ise yaramadi (son basarili kosu 1,247.4 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Smoke Nobetcisi -> kurtarma ise yaramadi (son basarili kosu 648.4 saat once (esik 30s)). Actions loguna bak.",
-    "ESKALASYON: Kaynak Nobetcisi -> kurtarma ise yaramadi (Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (662 saat eski; esik 36s)). Actions loguna bak.",
-    "KURTARILAMADI: Yanveri Onarici -> Damping listesi kontrolu damgasi 17.10.2026 08:39 (96 saat eski; esik 96s) -> DISPATCH-HATA: Response status code does not indicate success: 404 (Not Found)."
+    "ESKALASYON: Kasa Sayimi -> kurtarma ise yaramadi (Vitrin kanit sayilari damgasi 30.09.2026 (515 saat eski; esik 48s)). Actions loguna bak.",
+    "KURTARILAMADI: Yanveri Onarici -> Damping listesi kontrolu damgasi 17.10.2026 08:39 (98 saat eski; esik 96s) -> DISPATCH-HATA: Response status code does not indicate success: 404 (Not Found)."
   ],
   "kurtarilan": [
-    "Kasa Sayimi -> Vitrin kanit sayilari damgasi 30.09.2026 (513 saat eski; esik 48s) -> kurtarma: tetiklendi"
+    "Kaynak Nobetcisi (ihale+kaynaklar) -> son basarili kosu 660.7 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Gunluk Kanun Aynasi -> son basarili kosu 1,249.5 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Smoke Nobetcisi -> son basarili kosu 650.5 saat once (esik 30s) -> kurtarma: tetiklendi",
+    "Kaynak Nobetcisi -> Yurt ici ihale beslemesi damgasi 23.09.2026 19:17 (664 saat eski; esik 36s) -> kurtarma: zaten-kosuyor"
   ],
   "kurtarilan_anahtar": [
-    "VERI:vitrin-sayilar.json"
+    "KOSU:kaynak.yml",
+    "KOSU:mevzuat.yml",
+    "KOSU:smoke.yml",
+    "VERI:ihale-yurtici.json"
   ]
 }
