@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20261020194457
-Username: runnervmgb3l5\runner
-RunAs User: runnervmgb3l5\runner
+Start time: 20261021044810
+Username: runnervmdkmh8\runner
+RunAs User: runnervmdkmh8\runner
 Configuration Name: 
-Machine: runnervmgb3l5 (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/42f0eea3-3fe3-45cb-82bb-42c4f0d10dd1.ps1'
-Process ID: 11049
-PSVersion: 7.6.7
+Machine: runnervmdkmh8 (Unix 7.0.0.1017)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/1ed08a92-4195-4d8c-b19d-3761d5d30f9d.ps1'
+Process ID: 11278
+PSVersion: 7.6.6
 PSEdition: Core
-GitCommitId: 7.6.7
+GitCommitId: 7.6.6
 OS: Ubuntu 26.04.1 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -17,11 +17,18 @@ PSRemotingProtocolVersion: 2.4
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
-Degisen madde : 0
+Degisen madde : 5
 Haritadaki sayfa: 27
+  ayristirilan cift: 0
+  AYRISTIRILAMAYAN 4 kayit (gozden kacmasin diye yaziliyor):
+     TEORI - Alacak senedi iskontosu: senet iskonto ettirme kaydı (121 Alacak Senetleri, 102 Bankalar, 780 Finansman Giderleri) ve iskonto tutarı hesabı
+     TEORI - Borç senedi reeskontu ve iskontosu: 322 Borç Senetleri Reeskontu, 647 Reeskont Faiz Gelirleri, izleyen dönemde 657 ile iptal; iç iskonto formülü
+     TEORI - Faaliyet (devir hızı) oranları: aktif devir hızı, stok devir hızı ve stokta kalma süresi, alacak devir hızı ve tahsil süresi, net çalışma sermayesi devir hızı
+     TEORI - Likidite oranları: cari oran, asit-test (likidite) oranı, nakit oranı, net çalışma sermayesi; hesaplanışı, standart değerleri ve yorumu
 
-TEMIZ: degisen madde yok, etkilenen sayfa yok.
+Degisen madde var ama HICBIR SAYFA onlara yaslanmiyor - sayfa tarafi temiz.
+(Sorular ayri korunuyor: madde damgasi -uygula ile onlari yayindan cekiyor.)
 **********************
 PowerShell transcript end
-End time: 20261020194457
+End time: 20261021044810
 **********************
