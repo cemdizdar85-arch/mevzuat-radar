@@ -560,6 +560,12 @@ jobs:
           # beslenen dosya eklenmesini engellemek.
           - { ad: "Otomasyon denetimi (yeni veri elle beslenmesin)",
               kabuk: pwsh, komut: "./arac/otomasyon-denetimi.ps1" }
+          # 21.10.2026 - kapiya Node motoru (writeFileSync j1/j2/j3), `node X.js`
+          # cagrisi ve tek satirda `= switch` coklu hedef detektorleri eklendi.
+          # Detektor eklemek kapiyi gevsetebilir: oz-sinav sentetik depoda
+          # yakalamali + yakalamamali vakalari ve 7 mutasyonu kosar.
+          - { ad: "Otomasyon denetimi OZ-SINAVI (Node/switch uretici + mutasyon)",
+              kabuk: pwsh, komut: "./arac/otomasyon-denetimi-sinavi.ps1" }
 
           # 01.09 - Cem: "SQL kapisini kur."
           # O gun depoya CALISTIRILAMAZ bir SQL girdi: "$" yerine tek "$"

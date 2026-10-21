@@ -25,8 +25,12 @@
 #  beslenen dosya eklenmesini engellemek; mevcut borcu her gun bagirip
 #  alarm korlugu yaratmak degil. Borc kapandikca listeden silinir.
 # ============================================================================
+# -DepoKok: yalniz oz-sinav icin (arac/otomasyon-denetimi-sinavi.ps1 sentetik
+# bir depo kurup kapiyi ona kosturur). Bos ise kapinin kendi deposu.
+# (Ad "Kok" DEGIL: PS harf ayirmaz, -Kok asagidaki $kok'u ezerdi.)
+param([string]$DepoKok)
 $ErrorActionPreference = 'Stop'
-$kok = Split-Path -Parent $PSScriptRoot
+$kok = if($DepoKok){ $DepoKok } else { Split-Path -Parent $PSScriptRoot }
 
 # --- 1) sitenin okudugu veri dosyalari
 $siteDosyalari = New-Object 'System.Collections.Generic.HashSet[string]'
@@ -95,12 +99,24 @@ foreach($p in ($ureticiKlasorleri | ForEach-Object { Get-ChildItem (Join-Path $k
     }
   }
 
+  # (a2) 21.10 KOR NOKTA: TEK SATIRDA birden cok hedef secen `switch` atamasi.
+  #   $cikti = switch($Sinav){ 'SMMM' { ...veri/siklik-kunyesi-smmm.json } 'KGK' { ...-kgk.json } default { ... } }
+  # (a)'nin aç gözlü deseni satirdaki SON adi baglar; ilk ikisi "yazani yok"
+  # gorunuyordu (motor/siklik-kunyesi.ps1, konu-eslesme.yml uc dalı da kosuyor).
+  # Yalniz `= switch` satirlari: degisken o dallardan BIRINE baglanir, hepsi yazilir.
+  $coklu = New-Object 'System.Collections.Generic.Dictionary[string,string[]]'
+  foreach($m in [regex]::Matches($icerik, '\$([A-Za-z_][A-Za-z0-9_]*)\s*=\s*switch\b([^\r\n]*)')){
+    $adlar = @([regex]::Matches($m.Groups[2].Value, 'veri[/\\]([A-Za-z0-9._-]+\.json)') | ForEach-Object { $_.Groups[1].Value })
+    if($adlar.Count -gt 1){ $coklu[$m.Groups[1].Value] = $adlar }
+  }
+
   $yazilan = New-Object 'System.Collections.Generic.HashSet[string]'
   # (b) degisken uzerinden yazma
   foreach($kv in $degisken.GetEnumerator()){
     $v = [regex]::Escape($kv.Key)
     if($icerik -match ("(?:$YAZMA)[^\r\n]*\`$$v\b") -or $icerik -match ("\`$$v\b[^\r\n]*\|\s*(?:$YAZMA)")){
       [void]$yazilan.Add($kv.Value)
+      if($coklu.ContainsKey($kv.Key)){ foreach($ad in $coklu[$kv.Key]){ [void]$yazilan.Add($ad) } }
     }
   }
   # (c) dosya adi dogrudan yazma cagrisinin icinde
@@ -119,6 +135,34 @@ foreach($p in ($ureticiKlasorleri | ForEach-Object { Get-ChildItem (Join-Path $k
   if($icerik -match '(?i)AppData\\Local\\Temp|scratchpad'){
     if(-not $oluKaynak.ContainsKey($p.Name)){ $oluKaynak[$p.Name] = 'gecici klasor yolu' }
   }
+}
+
+# --- 2b) NODE motorlari (21.10 KOR NOKTA)
+# Kapi ureticileri yalniz *.ps1'de ariyordu. Ekim'de vitrin/gunun-sorusu/soru
+# dizini hatti Node'a yazildi (motor/vitrin-hesap.js, vitrin-kart.js,
+# gunun-sorusu-gorsel.js, soru-dizini.js); workflow'lar `node motor/X.js` ile
+# her gun kosturup dosyayi commit'liyor, ama kapi bunlari "ureten betik YOK"
+# diye KIRMIZI veriyordu. Ayni katilik korunur - yazma KANITI aranir:
+#   (j1) fs.writeFileSync(...) cagrisinin ICINDE dosya adi
+#   (j2) const/let/var V = ...dosya adi...  +  writeFileSync(V
+#   (j3) for (const [h, ...] of [[V, ...  +  writeFileSync(h      (vitrin-hesap.js)
+# Dosya adi iki yazimla tanir: 'veri/X.json' ya da path.join(.., 'veri', 'X.json').
+# Yalniz OKUYAN Node betigi uretici SAYILMAZ (sadeceOkur'a duser).
+$JSAD = '(?:veri/|[''"`]veri[''"`]\s*,\s*[''"`])([A-Za-z0-9._-]+\.json)'
+foreach($p in ($ureticiKlasorleri | ForEach-Object { Get-ChildItem (Join-Path $kok $_) -Filter *.js -ErrorAction SilentlyContinue })){
+  $icerik = [IO.File]::ReadAllText($p.FullName)
+  if($icerik -notmatch 'writeFileSync'){ continue }
+  $yazilan = New-Object 'System.Collections.Generic.HashSet[string]'
+  foreach($m in [regex]::Matches($icerik, "writeFileSync\([^\r\n]*?$JSAD")){ [void]$yazilan.Add($m.Groups[1].Value) }
+  foreach($m in [regex]::Matches($icerik, "(?:const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=[^\r\n;]*?$JSAD")){
+    $v = [regex]::Escape($m.Groups[1].Value)
+    if($icerik -cmatch "writeFileSync\(\s*$v\b"){ [void]$yazilan.Add($m.Groups[2].Value); continue }
+    foreach($d in [regex]::Matches($icerik, "for\s*\(\s*const\s*\[\s*([A-Za-z_$][A-Za-z0-9_$]*)[^\r\n]*?\[\[\s*$v\b")){
+      $h = [regex]::Escape($d.Groups[1].Value)
+      if($icerik -cmatch "writeFileSync\(\s*$h\b"){ [void]$yazilan.Add($m.Groups[2].Value) }
+    }
+  }
+  foreach($ad in $yazilan){ if(-not $uretici.ContainsKey($ad)){ $uretici[$ad] = $p.Name } }
 }
 # workflow'un KENDI yazdigi dosyalar (kabuk yonlendirmesi)
 $ymlUretici = New-Object 'System.Collections.Generic.Dictionary[string,string]'
@@ -149,6 +193,9 @@ $cagrilan = New-Object 'System.Collections.Generic.HashSet[string]'
 foreach($w in (Get-ChildItem (Join-Path $kok '.github/workflows') -Filter *.yml)){
   $icerik = YorumsuzMetin ([IO.File]::ReadAllText($w.FullName))
   foreach($m in [regex]::Matches($icerik, '([A-Za-z0-9._-]+\.ps1)')){ [void]$cagrilan.Add($m.Groups[1].Value) }
+  # 21.10: Node motoru yalniz GERCEK `node ... X.js` cagrisiyla sayilir
+  # (paths: tetik listesindeki ad cagri DEGILDIR).
+  foreach($m in [regex]::Matches($icerik, '\bnode\s+(?:\./)?(?:[A-Za-z0-9._-]+/)*([A-Za-z0-9._-]+\.js)\b')){ [void]$cagrilan.Add($m.Groups[1].Value) }
 }
 # BIR KADEME DOLAYLILIK: workflow'un cagirdigi betik BASKA bir betigi
 # cagiriyorsa o da otomatiktir. Ornek: yanveri.yml -> yanveri-onarici.ps1 ->

@@ -101,6 +101,16 @@
       "dosya": "nice-siniflar.json",
       "hasatci": "YOK - bilincli",
       "sebep": "Guncel teblig TURKPATENT 2024/2 (RG 20.12.2024/32758) ama o metnin PDF'i makine-okunur DEGIL (font haritasi yok), otomatik cikarilamiyor. Sinif basliklari 2016/2 teblig ekinden birebir alindi; dosyanin kendi \"serh\" alani bunu yaziyor. Nice siniflandirmasi yilda bir degisir ve baslik metinleri neredeyse hic degismez - elle besleme burada dogru karar. 2024/2 metni makine-okunur yayimlanirsa hasatci yazilir."
+    },
+    {
+      "dosya": "kurulus-maliyet.json",
+      "hasatci": "YOK - bilincli (21.10 eklendi; kapi 08.09'dan beri KIRMIZI)",
+      "sebep": "Tarife DEGERLERI insan okumasiyla yazilir, makine yalniz NOBET tutar - karar motor/kurulus-maliyet-nobeti.ps1 basliginda (08.09.2026, b9535d0b) yazili: 'KIRMIZI (deger veya PDF degisti -> Cem'e mail, veri/kurulus-maliyet.json elle guncellenir)'. Kaynaklar ITO/TURMOB PDF tarifesi + TTSG ilan + harc tablosu; nobetci (.github/workflows/kurulus-maliyet-nobeti.yml) PDF hash'ini ve sayfadaki beklenen rakamlari kollar. Otomatik okuyucu yazilirsa satir silinir."
+    },
+    {
+      "dosya": "oda-tarifeleri.json",
+      "hasatci": "YOK - bilincli (21.10 eklendi; kapi 08.09'dan beri KIRMIZI)",
+      "sebep": "805409d3 (08.09.2026, Cem 'kuracagin ili sorup oradaki fiyata bakmak lazim'): 6 odanin tarifesi elle okundu, her odada kaynak URL + okuma tarihi; IZTO sayfasi makineden TLS ile acilmiyor, tarayicidan okundu. Ayni commit: 'Nobetci: 4 oda sayfasi da kollanir' - motor/kurulus-maliyet-nobeti.ps1 bu dosyadaki rakamlarin oda sayfasinda hala durdugunu kollar; deger degisirse elle guncellenir."
     }
   ],
   "sira": "1) RG'den Ithalat Rejimi eki indiricisi yazilir - BIR INDIRICI 7 DOSYAYI BIRDEN ACAR (gtip-vergi, -ulke, -tarim, askiya, balik, emy-tarim, nihai). 2) Ayni indirici IGV ve TGTC eklerine genisletilir (+2 dosya). 3) Elle yazilanlar icin yillik tazeleme nobeti + mail."
