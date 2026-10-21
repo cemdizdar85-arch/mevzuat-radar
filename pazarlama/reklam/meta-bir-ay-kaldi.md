@@ -13,7 +13,11 @@ durum: taslak
      "Beş hafta" = 22.10→28.11 37 gün. 26.10'dan sonra yayınlanacaksa süre cümlesi yeniden yazılır.
      Kapanış cümlesi Cem'in 05.10 sözü ("Okumak unutturur, soru çözmek öğretir.").
      Açılış sayfası mesajla aynı: en-cok-cikan-sorular.html (ders ders sık konular + 5 örnek soru).
-     Video: arac/video/bir-ay/ (kare kare HTML, YZ yok, ses ffmpeg saat tıkı → bedel 0). -->
+     Video: arac/video/bir-ay/ (kare kare HTML, YZ yok, ses ffmpeg saat tıkı → bedel 0).
+     21.10 akşam Cem "1000 müşteri lazım, ne gerekiyorsa": uydurma "yüzlerce aday" yerine GERÇEK sayı. Supabase cevap_kayit
+     olusturma >= 2026-10-09 → 19.250 kayıt (21.10 ölçüm; kaynak deneme/test 0). Kendi denetim çözümlerimiz de içinde olabilir →
+     "aday çözdü" denmedi, "çözüldü" dendi, 19.000'e aşağı yuvarlandı. Yeniden yayında sayı tazelenir. -->
+
 
 ## Ekrandaki yazı · Staja Giriş (kare kare)
 
@@ -24,8 +28,9 @@ Reklam
 3. Kitabı bitiremezsin.
 4. Bitirmen de gerekmiyor.
 5. Son 10 yılda sık sorulan konuları çöz.
-6. Yanlış şıkta neden yanlış düşündüğünü gör.
-7. Sorunun dayandığı maddeyi oku.
+6. Yanlış şıkkın nedenini ve dayandığı maddeyi gör.
+<!-- reklam-kapi:gec 19.000 sitede çözülen cevap sayısı (cevap_kayit, 21.10 ölçüm 19.250), soru bankası büyüklüğü iddiası değil -->
+7. 9 Ekim'den bu yana sitede 19.000'den fazla soru çözüldü.
 8. Okumak unutturur, soru çözmek öğretir.
 9. tetikte.com
 
@@ -38,8 +43,9 @@ Reklam
 3. Kitapları bitiremezsin.
 4. Bitirmen de gerekmiyor.
 5. Son 10 yılda sık sorulan konuları çöz.
-6. Yanlış şıkta neden yanlış düşündüğünü gör.
-7. Sorunun dayandığı maddeyi oku.
+6. Yanlış şıkkın nedenini ve dayandığı maddeyi gör.
+<!-- reklam-kapi:gec 19.000 sitede çözülen cevap sayısı (cevap_kayit, 21.10 ölçüm 19.250), soru bankası büyüklüğü iddiası değil -->
+7. 9 Ekim'den bu yana sitede 19.000'den fazla soru çözüldü.
 8. Okumak unutturur, soru çözmek öğretir.
 9. tetikte.com
 

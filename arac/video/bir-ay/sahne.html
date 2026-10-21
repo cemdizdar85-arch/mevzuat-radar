@@ -40,6 +40,10 @@
   #madde{ position:absolute; left:0; top:44px; width:316px; display:flex; flex-direction:column; gap:6px; }
   .m{ height:8px; border-radius:3px; background:color-mix(in srgb,var(--soluk) 35%,transparent); }
   .m.vurgu{ background:var(--amber); }
+  /* 6'da şıkların altında madde satırları; 7'de çözülen soru sayacı (21.10: 7. satır sosyal kanıt oldu) */
+  #madde{ top:100px; }
+  .b6 p{ margin-top:auto; margin-bottom:40px; }   /* madde satırlarının altında kalsın */
+  #sayac{ position:absolute; left:0; top:44px; width:316px; font-size:62px; font-weight:800; letter-spacing:-2px; color:var(--amber2); }
   /* 8: kapanış */
   #kapanis{ position:absolute; left:0; top:44px; width:316px; height:282px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; }
   #kapanis .adres{ font-size:22px; font-weight:800; color:var(--amber2); }
@@ -53,6 +57,7 @@
   <div id="yigin"></div>
   <div id="siklar"><div class="s">A</div><div class="s" data-y="1">B</div><div class="s">C</div><div class="s">D</div></div>
   <div id="madde"><div class="m"></div><div class="m" style="width:86%"></div><div class="m vurgu"></div><div class="m vurgu" style="width:70%"></div><div class="m" style="width:92%"></div></div>
+  <div id="sayac"></div>
   <div class="satir b1"><p></p></div>
   <div class="satir b2"><p></p></div>
   <div class="satir b3"><p></p></div>
@@ -67,7 +72,7 @@
 /* Zaman çizelgesi (sn): her satır [başla, bitir]. Tıklar 0–8,6 sn (süre daralıyor), 6,6 sn'de çözülme sesi. */
 var Z = { b1:[0,2.2], b2:[2.2,4.4], b3:[4.4,6.6], b4:[6.6,8.6], b5:[8.6,11.2], b6:[11.2,13.6], b7:[13.6,15.8], kapanis:15.8, son:19.0, cubukSon:8.6 };
 var $ = function(id){ return document.getElementById(id); };
-var V = null, SAYFA = 16, SIK = [3, 7, 12];
+var V = null, SAYFA = 16, SIK = [3, 7, 12], SAYI = 0;
 
 function kur(v){
   V = v;
@@ -75,6 +80,7 @@ function kur(v){
   /* "21 Kasım" satır sonunda bölünmesin */
   for (var i = 1; i <= 8; i++) document.querySelector('.b' + i + ' p').textContent = v.satirlar[i - 1].replace(/(\d+) (Kasım)/, '$1 $2');
   document.querySelector('#kapanis .adres').textContent = v.satirlar[8];
+  var m = /(\d{1,3}(?:\.\d{3})+)/.exec(v.satirlar[6]); SAYI = m ? parseInt(m[1].replace(/\./g, ''), 10) : 0;
   var y = $('yigin'); y.innerHTML = '';
   for (var k = 0; k < SAYFA; k++){ var d = document.createElement('div'); d.className = 'sayfa' + (SIK.indexOf(k) > -1 ? ' sik' : ''); y.appendChild(d); }
   return true;
@@ -113,10 +119,15 @@ function kare(t){
   yEl.classList.toggle('yanlis', t >= ya);
   var tit = t >= ya && t < ya + 0.35 ? Math.abs(Math.sin((t - ya) * 60)) * 4 * (1 - (t - ya) / 0.35) : 0;
   yEl.style.transform = 'translateX(' + tit.toFixed(2) + 'px)';
-  /* madde satırları: 7'de vurgu yanar */
-  var mG = gor(t, Z.b7[0], Z.b7[1]);
+  /* madde satırları: 6'da şıktan sonra gelir, vurgu yanar */
+  var mG = gor(t, Z.b6[0] + 1.0, Z.b6[1]);
   $('madde').style.display = mG > 0 ? 'flex' : 'none'; $('madde').style.opacity = mG;
-  var vz = yum(arada(t, Z.b7[0] + 0.5, Z.b7[0] + 0.9));
+  var vz = yum(arada(t, Z.b6[0] + 1.3, Z.b6[0] + 1.7));
+  /* 7: sayaç 0 → satırdaki sayı (1,2 sn), sonra "+" */
+  var sG = gor(t, Z.b7[0], Z.b7[1]), hedef = SAYI;
+  $('sayac').style.display = (sG > 0 && hedef) ? 'block' : 'none'; $('sayac').style.opacity = sG;
+  var sy = Math.round(hedef * yum(arada(t, Z.b7[0] + 0.1, Z.b7[0] + 1.3)) / 10) * 10;
+  $('sayac').textContent = sy.toLocaleString('tr-TR') + (sy >= hedef ? '+' : '');
   Array.prototype.forEach.call(document.querySelectorAll('.m.vurgu'), function(m){ m.style.opacity = (0.3 + 0.7 * vz).toFixed(3); });
   /* kapanış */
   var kp = yum(arada(t, Z.kapanis, Z.kapanis + 0.35));
@@ -126,7 +137,7 @@ function kare(t){
 /* Güvenli alan: görünür her öğe x 22–338, y 90–416 içinde mi; satır kutusu taşıyor mu */
 function alanDisi(){
   var hata = [];
-  var secici = '#etiket,#ust,.satir p,#yigin,#siklar,#madde,#kapanis .adres,#logo';
+  var secici = '#etiket,#ust,.satir p,#yigin,#siklar,#madde,#sayac,#kapanis .adres,#logo';
   Array.prototype.forEach.call(document.querySelectorAll(secici), function(el){
     var kap = el.closest('.satir,#yigin,#siklar,#madde,#kapanis');
     if (kap && (kap.style.display === 'none' || parseFloat(kap.style.opacity) === 0)) return;
