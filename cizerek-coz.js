@@ -65,6 +65,23 @@
     'smmm-4k-a-maliyet-zor-r7/kp-17', 'smmm-4k-a-maliyet-zor-r2/kp-01', 'smmm-w6-yhukuk-kolay/kp-01', 'smmm-4k-a-yhukuk-zor-r7/kp-05',
     'smmm-gm4-6-yspk-zor/kp-01', 'smmm-w14-11-yspk-cokzor/kp-01', 'smmm-w14-13-yspk-cokzor/kp-01'
   ] };
+  /* SESLİ ÇİZİM (22.10.2026, Cem "uygun ses"): ücretsiz 10 örnek soru, maskot sesi (Instagram çizim videolarındaki kilitli ses).
+     d = ses/cizim/<d>/r<n>.mp3 · b[i] = i. cümle çalarken çizilen SON sahne sırası (cümle i, önceki cümlenin bitişinden b[i]'ye kadar)
+     · s[i] = cümle süresi (sn). Metin: kasa instagram-seviye/metin-site-ornek10.json (sorunun kendi çözüm adımlarından; sıklık rakamı yok).
+     Senaryo değişirse (kapı/şablon) b[] kayabilir -> arac/cizerek-coz-kapisi.js --sinav "SES" vakası sahne sayısını tabloyla kıyaslar. */
+  var SES = {
+    'sgs-k11-ticaret-zor/kp-01':        { d: 'sgs-k11-ticaret-zor-kp-01',        n: 9,  b: [1, 2, 4, 8],       s: [10.84, 6.33, 7.3, 4.61] },
+    'sgs-k5-ekonomi-zor/kp-01':         { d: 'sgs-k5-ekonomi-zor-kp-01',         n: 10, b: [0, 1, 2, 3, 9],    s: [4.31, 6.53, 8.51, 7.72, 3.42] },
+    'sgs-d3-mta-cokzor-r3/kp-01':       { d: 'sgs-d3-mta-cokzor-r3-kp-01',       n: 11, b: [0, 2, 3, 6, 10],   s: [3.97, 7.66, 6.04, 4.29, 4.13] },
+    'sgs-d3-maliyet-cokzor-r1/kp-02':   { d: 'sgs-d3-maliyet-cokzor-r1-kp-02',   n: 13, b: [0, 1, 2, 4, 12],   s: [3.58, 10.29, 4.2, 7.38, 6.91] },
+    'sgs-d5-vergi-cokzor-r2/kp-02':     { d: 'sgs-d5-vergi-cokzor-r2-kp-02',     n: 11, b: [0, 1, 3, 6, 10],   s: [5.09, 5.97, 5.77, 4.43, 4.13] },
+    'smmm-4k-a-fmuh-zor-r3/kp-02':      { d: 'smmm-4k-a-fmuh-zor-r3-kp-02',      n: 11, b: [0, 2, 4, 6, 10],   s: [3.95, 8.72, 8.47, 8.68, 3.76] },
+    'smmm-4k-a-yfta-zor-r1/kp-01':      { d: 'smmm-4k-a-yfta-zor-r1-kp-01',      n: 12, b: [0, 1, 3, 4, 11],   s: [4.88, 6.69, 6.01, 6.31, 9.11] },
+    'smmm-4k-a-yvergi-cokzor-r2/kp-02': { d: 'smmm-4k-a-yvergi-cokzor-r2-kp-02', n: 11, b: [0, 2, 3, 6, 10],   s: [4.1, 8.01, 4.64, 5.63, 4.96] },
+    'smmm-w3-maliyet-cokzor/kp-10':     { d: 'smmm-w3-maliyet-cokzor-kp-10',     n: 10, b: [0, 1, 2, 5, 9],    s: [4.1, 6.33, 6.75, 7.17, 5.21] },
+    'smmm-w3-yspk-cokzor/kp-18':        { d: 'smmm-w3-yspk-cokzor-kp-18',        n: 7,  b: [0, 1, 3, 6],       s: [4.66, 7.8, 6.87, 4.8] }
+  };
+  if (MUT === 'sestablo') SES['sgs-k5-ekonomi-zor/kp-01'].n = 11;   /* öz-sınav bozması: tablo senaryodan kaydı */
 
   // ---------------- saf işlevler (node'da sınanır) ----------------
   var SAYI = /%?\d+(?:[.,]\d+)*%?/g;
@@ -527,7 +544,7 @@
   function dugmeAday(id, pset) { id = String(id || ''); if ((pset || PSET)[id]) return true; return MUT !== 'kgkonek' && /^kgk-/.test(id) && KGK_DIS.indexOf(id) < 0; }
   var PSET = {}; PILOT.forEach(function (x) { PSET[x] = 1; });
 
-  var api = { PILOT: PILOT, PROVA: PROVA, KGK_DIS: KGK_DIS, dugmeAday: dugmeAday, senaryo: senaryo, cizerekKapi: cizerekKapi, sozelSenaryo: sozelSenaryo, sozelKapi: sozelKapi, cizimKapi: cizimKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
+  var api = { PILOT: PILOT, PROVA: PROVA, SES: SES, KGK_DIS: KGK_DIS, dugmeAday: dugmeAday, senaryo: senaryo, cizerekKapi: cizerekKapi, sozelSenaryo: sozelSenaryo, sozelKapi: sozelKapi, cizimKapi: cizimKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
   if (typeof document === 'undefined') return api;
 
   // ---------------- tarayıcı ----------------
@@ -597,6 +614,9 @@
     var sahneEl = kat.querySelector('.czSahne'), svg = kat.querySelector('.czSvg'), kalem = kat.querySelector('.czKalem'), altEl = kat.querySelector('.czAlt');
     kalem.style.color = 'var(--cz-yazi)';
     var N = sen.sahne.length, adim = -1, q = 1, oynat = false, raf = 0, bekle = 0, P = [], sonOlay = 0;
+    /* sesli: tablodaki sahne sayısı bu senaryoyla aynıysa (şablon değişip kaydıysa ses KAPANIR, çizim sessiz kalır) */
+    var SK = SES[s.id] && SES[s.id].n === N && SES[s.id].b[SES[s.id].b.length - 1] === N - 1 ? SES[s.id] : null, sesEl = null;
+    function sesDur() { if (sesEl) { sesEl.onended = sesEl.onerror = null; try { sesEl.pause(); } catch (e) { } } }
     var tohum = 7; function r() { tohum = (tohum * 16807) % 2147483647; return tohum / 2147483647; } function j(a) { return (r() - 0.5) * a; }
     function kutu(el) { var b = el.getBoundingClientRect(), k = sahneEl.getBoundingClientRect(); return { x: b.left - k.left, y: b.top - k.top, w: b.width, h: b.height }; }
     function yol(d, renk, kal, ad, t0, t1) { var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('fill', 'none'); p.style.stroke = renk; p.setAttribute('stroke-width', kal); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round'); p.setAttribute('opacity', '.9'); svg.appendChild(p); var L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; P.push({ tur: 'yol', p: p, L: L, ad: ad, t0: t0, t1: t1 }); }
@@ -637,12 +657,12 @@
       var a = sen.sahne[adim];
       if (adim >= N - 1 && q >= 1 && !sonOlay) { sonOlay = 1; olay(s, 'son'); }
       var ust = adim < 0 ? '' : a.etiket ? a.etiket : (a.tur === 'alti' ? 'Soruda verilenler' : a.tur === 'yaz' ? ('Çözüm adımı ' + (sen.sahne.slice(0, adim + 1).filter(function (x) { return x.tur === 'yaz'; }).length) + ' / ' + sen.cozumSay) : a.tur === 'daire' ? ('Doğru cevap: ' + a.harf) : ('Yanlış şık ' + a.harf));
-      altEl.innerHTML = adim < 0 ? '<small>Hazır</small>Kalem soruyu adım adım çözecek. <b>Sonraki adım</b> ya da <b>Tümünü oynat</b>.' : '<small>' + esc(ust) + '</small>' + esc(a.alt || '');
+      altEl.innerHTML = adim < 0 ? '<small>Hazır</small>Kalem soruyu adım adım çözecek. <b>Sonraki adım</b> ya da ' + (SK ? '<b>🔊 Sesli oynat</b> (sesi aç)' : '<b>Tümünü oynat</b>') + '.' : '<small>' + esc(ust) + '</small>' + esc(a.alt || '');
       kat.querySelector('.czSay').textContent = (adim + 1) + ' / ' + N;
       kat.querySelector('.czGeri').disabled = adim < 0;
       var dar = window.innerWidth < 480;   /* telefonda düğme yazısı tek satır kalsın, alt yazının üstüne binmesin */
       var ileri = kat.querySelector('.czIleri'); ileri.disabled = adim >= N - 1 && q >= 1; ileri.textContent = adim >= N - 1 && q >= 1 ? 'Bitti ✓' : (dar ? 'Sonraki ▶' : 'Sonraki adım ▶');
-      kat.querySelector('.czOyna').textContent = oynat ? (dar ? '⏸ Dur' : '⏸ Durdur') : (adim >= N - 1 && q >= 1 ? '↺ Baştan' : (dar ? '▶ Oynat' : '▶ Tümünü oynat'));
+      kat.querySelector('.czOyna').textContent = oynat ? (dar ? '⏸ Dur' : '⏸ Durdur') : (adim >= N - 1 && q >= 1 ? '↺ Baştan' : SK ? (dar ? '🔊 Dinle' : '🔊 Sesli oynat') : (dar ? '▶ Oynat' : '▶ Tümünü oynat'));
       if (uc && a && a.tur !== 'alti') gorunurYap(uc);
     }
     function gorunurYap(uc) { var g = kat.querySelector('.czGovde'), gb = g.getBoundingClientRect(), kb = sahneEl.getBoundingClientRect(); var y = kb.top + uc.y - gb.top; if (y > g.clientHeight - 40 || y < 30) g.scrollTop += y - g.clientHeight * 0.55; }
@@ -654,14 +674,38 @@
       (function adimla(t) { q = Math.min(1, (t - t0) / T); ciz(); if (q < 1) raf = requestAnimationFrame(adimla); else if (oynat) { if (adim < N - 1) bekle = setTimeout(function () { oyna(adim + 1); }, 900); else { oynat = false; ciz(); } } })(t0);
     }
     function bitir() { cancelAnimationFrame(raf); clearTimeout(bekle); q = 1; ciz(); }
-    kat.querySelector('.czIleri').addEventListener('click', function () { oynat = false; if (q < 1) { bitir(); return; } if (adim < N - 1) oyna(adim + 1); });
-    kat.querySelector('.czGeri').addEventListener('click', function () { oynat = false; cancelAnimationFrame(raf); clearTimeout(bekle); adim = Math.max(-1, adim - (q < 1 ? 0 : 1)); if (adim >= 0) { q = 1; } ciz(); if (adim < 0) kat.querySelector('.czGovde').scrollTop = 0; });
+    /* SESLİ OYNATMA: cümle g çalarken önceki cümlenin bitişinden b[g]'ye kadar sahneler, cümle süresine bölünerek çizilir;
+       ses ve çizim ikisi de bitince sonraki cümle. Tek <audio> öğesi (iOS: ilk çalış dokunuşla, sonra aynı öğe kaynak değiştirir). */
+    function zincir(k, son, T, bitti) {
+      cancelAnimationFrame(raf); adim = k; q = 0; var t0 = performance.now();
+      if (sen.sahne[k].tur !== 'alti' && sen.sahne[k].tur !== 'yaz') { var sk = kat.querySelector('.czSik[data-h="' + sen.sahne[k].harf + '"]'); if (sk) sk.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+      else if (sen.sahne[k].tur === 'alti') kat.querySelector('.czGovde').scrollTop = 0;
+      (function adimla(t) { if (!oynat) return; q = Math.min(1, (t - t0) / T); ciz(); if (q < 1) raf = requestAnimationFrame(adimla); else if (k < son) bekle = setTimeout(function () { zincir(k + 1, son, T, bitti); }, 120); else bitti(); })(t0);
+    }
+    function sesliGrup(g) {
+      if (!oynat) return;
+      if (g >= SK.b.length || adim >= N - 1) { oynat = false; sesDur(); ciz(); return; }
+      var ilk = adim + 1, son = Math.max(ilk, SK.b[g]), sesB = false, cizB = false;
+      var devam = function () { if (sesB && cizB && oynat) bekle = setTimeout(function () { sesliGrup(g + 1); }, 300); };
+      sesDur(); sesEl.src = KOK + 'ses/cizim/' + SK.d + '/r' + (g + 1) + '.mp3';
+      sesEl.onended = sesEl.onerror = function () { sesB = true; devam(); };
+      var p = sesEl.play(); if (p && p.catch) p.catch(function () { sesB = true; devam(); });   /* ses çalmazsa çizim sessiz sürer */
+      var T = Math.max(600, Math.min(5200, (SK.s[g] * 1000 - 300) / (son - ilk + 1)));
+      zincir(ilk, son, T, function () { cizB = true; devam(); });
+    }
+    kat.querySelector('.czIleri').addEventListener('click', function () { oynat = false; sesDur(); if (q < 1) { bitir(); return; } if (adim < N - 1) oyna(adim + 1); });
+    kat.querySelector('.czGeri').addEventListener('click', function () { oynat = false; sesDur(); cancelAnimationFrame(raf); clearTimeout(bekle); adim = Math.max(-1, adim - (q < 1 ? 0 : 1)); if (adim >= 0) { q = 1; } ciz(); if (adim < 0) kat.querySelector('.czGovde').scrollTop = 0; });
     kat.querySelector('.czOyna').addEventListener('click', function () {
-      if (oynat) { oynat = false; bitir(); return; }
+      if (oynat) { oynat = false; sesDur(); bitir(); return; }
+      if (SK) {   /* sesli: her zaman baştan (cümle ile sahne eşleşmesi baştan sayılır) */
+        oynat = true; cancelAnimationFrame(raf); clearTimeout(bekle); adim = -1; q = 1; ciz(); kat.querySelector('.czGovde').scrollTop = 0;
+        if (!sesEl) { sesEl = new Audio(); sesEl.preload = 'auto'; }
+        olay(s, 'ses'); sesliGrup(0); return;
+      }
       oynat = true; if (adim >= N - 1 && q >= 1) { adim = -1; ciz(); kat.querySelector('.czGovde').scrollTop = 0; }
       if (q < 1) { q = 1; } oyna(adim + 1);
     });
-    function kapat() { cancelAnimationFrame(raf); clearTimeout(bekle); window.removeEventListener('resize', yenile); document.removeEventListener('keydown', tus); kat.remove(); }
+    function kapat() { oynat = false; sesDur(); cancelAnimationFrame(raf); clearTimeout(bekle); window.removeEventListener('resize', yenile); document.removeEventListener('keydown', tus); kat.remove(); }
     function tus(e) { if (e.key === 'Escape') kapat(); else if (e.key === 'ArrowRight') kat.querySelector('.czIleri').click(); else if (e.key === 'ArrowLeft') kat.querySelector('.czGeri').click(); }
     var ry = 0; function yenile() { clearTimeout(ry); ry = setTimeout(function () { kur(); ciz(); }, 120); }
     kat.querySelector('.czKapat').addEventListener('click', kapat);
@@ -689,8 +733,9 @@
     if (!kp.gecer) { if (window.console) console.info('[cizerek-coz] kapı döndü', id, kp.neden); return; }
     /* 20.10 (Cem "1.2.3" GM2): cevaptan ÖNCE de görünsün ama cevabı ele vermesin -> düğme değil, kökün altında tek satır haber */
     var ps = k.querySelector('.govde .soru');
-    if (ps && !k.querySelector('.czIpucu')) { var ip = document.createElement('p'); ip.className = 'czIpucu'; ip.textContent = '✍️ Cevaplayınca Nöbetçi bu soruyu kalemle adım adım çözer.'; ps.parentNode.insertBefore(ip, ps.nextSibling); }
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'cip2 bCiz'; b.textContent = '✍️ Nöbetçi çizerek çözsün';
+    var sesli = !!(SES[id] && kp.senaryo && SES[id].n === kp.senaryo.sahne.length);   /* 22.10 Cem "1 yap": sesli soruda ibare */
+    if (ps && !k.querySelector('.czIpucu')) { var ip = document.createElement('p'); ip.className = 'czIpucu'; ip.textContent = sesli ? '✍️🔊 Cevaplayınca Nöbetçi bu soruyu kalemle çizip sesli anlatarak çözer.' : '✍️ Cevaplayınca Nöbetçi bu soruyu kalemle adım adım çözer.'; ps.parentNode.insertBefore(ip, ps.nextSibling); }
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'cip2 bCiz'; b.textContent = sesli ? '✍️🔊 Nöbetçi sesli çözsün' : '✍️ Nöbetçi çizerek çözsün';
     b.addEventListener('click', function (e) { e.stopPropagation(); olay(s, 'ac'); ac(s, kp.senaryo); });
     var once = cip.querySelector('.bDaha') || cip.querySelector('.bSonraki'); cip.insertBefore(b, once || null);
     stilEkle();
