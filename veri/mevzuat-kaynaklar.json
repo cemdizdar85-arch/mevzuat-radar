@@ -4223,14 +4223,48 @@
                          "ad":  "TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk)",
                          "pdfId":  "HAZIR",
                          "slug":  "kgk-tsrs-kapsam",
-                         "not":  "24.08.2026: KGK kurul karari, mevzuat.gov.tr fihristinde YOK (KurulKarari tur adi HTTP 600 veriyor, bos tur da reddediliyor) - kaynak kgk.gov.tr Kurul Kararlari PDF\u0027i, HAZIR yolu. DIKKAT: m.3/1\u0027deki esik degerler (500 Milyon/1 Milyar/250 kisi) 13/01/2026 tarihli Kurul Karariyla DEGISTI; guncel esikler kgk-tsrs-esik-2026 belgesindedir.",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2023/12/20231229M1-10.pdf",
+                         "not":  "24.08.2026: KGK kurul karari, mevzuat.gov.tr fihristinde YOK (KurulKarari tur adi HTTP 600 veriyor, bos tur da reddediliyor) - kaynak kgk.gov.tr Kurul Kararlari PDF\u0027i, HAZIR yolu. DIKKAT: m.3/1\u0027deki esik degerler (500 Milyon/1 Milyar/250 kisi) 13/01/2026 tarihli Kurul Karariyla DEGISTI; guncel esikler kgk-tsrs-esik-2026 belgesindedir. 22.10.2026: KONSOLIDE - RG 20231229M1-10.pdf (taranmis; tesseract tur + sayfa goruntusu) ile satir satir karsilastirildi; m.2 ve m.3/1 giris paragrafindaki sira bozuklugu duzeltildi; 16/12/2024 [01/28294] degisikligi (m.3/1 a(8), a(9), b) serhlerle islendi, esik serhi eklendi. Degisiklik ayri kayit: kgk-tsrs-kapsam-degisiklik-2024.",
                          "seyrek":  true
                      },
                      {
                          "ad":  "TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139)",
                          "pdfId":  "HAZIR",
                          "slug":  "kgk-tsrs-esik-2026",
-                         "not":  "24.08.2026: RG\u0027de yalniz TARANMIS PDF olarak var (20260116-3.pdf, metin katmani yok; pdftotext 128 bayt, tesseract kurulu degil) - metin RG sayfasindan BIRINCI ELDEN okunup yazildi. Guncel esikler: aktif toplami 1 Milyar TL, yillik net satis hasilati 2 Milyar TL, calisan sayisi 500 kisi; 1/1/2025 ve sonrasi hesap donemleri.",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2026/01/20260116-3.pdf",
+                         "not":  "24.08.2026: RG\u0027de yalniz TARANMIS PDF olarak var (20260116-3.pdf, metin katmani yok; pdftotext 128 bayt, tesseract kurulu degil) - metin RG sayfasindan BIRINCI ELDEN okunup yazildi. Guncel esikler: aktif toplami 1 Milyar TL, yillik net satis hasilati 2 Milyar TL, calisan sayisi 500 kisi; 1/1/2025 ve sonrasi hesap donemleri. 22.10.2026: resmi metinle yeniden karsilastirildi (tesseract tur + sayfa goruntusu): rakamlar/tarih/karar no AYNI; karar madde numarasi tasimadigi halde metne yazilmis MADDE 1 / MADDE 2 etiketleri kaldirildi, uyari AMBAR NOTU olarak ayrildi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Uygulama Kapsamina Iliskin Kurul Kararinda Degisiklik (RG 18.12.2024-32756)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-kapsam-degisiklik-2024",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2024/12/20241218-6.pdf",
+                         "not":  "22.10.2026: KGK Kurul Karari 16/12/2024 [01/28294], RG 18.12.2024/32756 (taranmis PDF; tesseract tur + sayfa goruntusuyle okundu). TSRS kapsam karari m.3/1 a(8) degisti (Borsa pazarlarinda islem goren ortakliklar; Yakin Izleme Pazari ve nitelikli yatirimciya GSP haric), a(9) zorunlu kapsamdan cikti, b) bendinde BIST disi + sube sayisi 1 veya calisan 250 kisiyi asmayanlara Kapsam 3 muafiyet donemlerinde ihtiyari raporlama. 01/01/2024 ve sonrasi hesap donemleri. Ad ^TSRS: KAPI-AILE izin listesi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Uygulama Kapsamina Iliskin Usul ve Esaslar (RG 16.07.2025-32957)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-kapsam-usul-esas-2025",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2025/07/20250716-3.pdf",
+                         "not":  "22.10.2026: KGK Kurul Karari 25/06/2025 [01/33130] ile yayimlanan Usul ve Esaslar, RG 16.07.2025/32957 (taranmis PDF, 13 sayfa; tesseract tur + her sayfa goruntusuyle okundu; 4 tablo satir satir metne yazildi). m.1-16 + gec. m.1. Ornek tablolardaki esikler ESKI (500 Milyon/1 Milyar/250) - metin sonunda AMBAR NOTU. Ad ^TSRS: KAPI-AILE izin listesi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Gecis Muafiyetlerinin Uzatilmasi Kurul Karari (RG 30.12.2025-33123)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-muafiyet-uzatma-2025",
+                         "kaynakUrl":  "https://www.resmigazete.gov.tr/eskiler/2025/12/20251230-19.pdf",
+                         "not":  "22.10.2026: KGK Kurul Karari 25/12/2025 [01/38488], RG 30.12.2025/33123 (taranmis PDF; tesseract tur + sayfa goruntusuyle okundu). TSRS 1 E4, E5, E6(b) ilk yillik raporlama donemi gecis muafiyetleri, 2024 yilinda ilk kez TSRS uygulayanlar icin 2025 faaliyet donemine bir yil uzatildi. Ad ^TSRS: KAPI-AILE izin listesi.",
+                         "seyrek":  true
+                     },
+                     {
+                         "ad":  "TSRS Kapsam Degisikligi - Portfoy Yonetim Sirketleri (KGK Karari 14.08.2025-34844, Duyuru 2025-53)",
+                         "pdfId":  "HAZIR",
+                         "slug":  "kgk-tsrs-pys-kapsam-2025",
+                         "kaynakUrl":  "https://kgk.gov.tr//Portalv2Uploads/files/Duyurular/v2/Surdurulebilirlik/Duyuru/Duyuru%20-%2053.pdf",
+                         "not":  "22.10.2026: KGK 14.08.2025 tarihli 34844 sayili Kurul Karari - portfoy yonetim sirketleri (kapsam karari m.3/1 a(3)) TSRS zorunlu uygulama kapsamindan cikarildi. Karar RG de YOK (fihrist 14.08-14.11.2025 tarandi), ayri karar metni KGK sitesinde bulunamadi; kaynak KGK Duyurusu 2025-53 (26/08/2025, metin katmanli PDF, sayfa goruntusuyle dogrulandi). Duyuru yururluk donemi belirtmez. Ad ^TSRS: KAPI-AILE izin listesi.",
                          "seyrek":  true
                      },
                      {

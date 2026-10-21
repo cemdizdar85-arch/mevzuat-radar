@@ -664,7 +664,10 @@ foreach($law in $manifest.kanunlar){
     }
   }
 
-  $url = if("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
+  # 22.10.2026: HAZIR (elle hazirlanan RG metni) kaynaklarda url "mevzuatmetin/HAZIR.pdf" gibi anlamsiz cikiyordu;
+  # manifestte 'kaynakUrl' varsa (resmi RG/KGK adresi) o yazilir. Hash'e girmez -> kaynagi "degisti" saydirmaz.
+  $url = if($law.PSObject.Properties['kaynakUrl'] -and "$($law.kaynakUrl)".Trim()){ "$($law.kaynakUrl)".Trim() }
+         elseif("$($law.pdfId)" -like 'G7:*'){ "https://www.mevzuat.gov.tr/File/GeneratePdf?mevzuatNo=$("$($law.pdfId)".Substring(3))&mevzuatTur=KurumVeKurulusYonetmeligi&mevzuatTertip=5" }
          else { "https://www.mevzuat.gov.tr/mevzuatmetin/$($law.pdfId).pdf" }
   # 01.09: kilavuz-bolum yapili kaynak (manifest isareti) ozel parcalayiciyla bolunur
   $docs = if($law.PSObject.Properties['parcalayici'] -and "$($law.parcalayici)" -eq 'kilavuz-bolum'){ ParcalaKilavuz $flat "$($law.ad)" $url } else { Parcala $flat "$($law.ad)" $url (BaslikSatirlari $raw) }

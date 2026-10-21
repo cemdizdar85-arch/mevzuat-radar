@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **22.10.2026 00:42** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **22.10.2026 02:25** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50524 parça · 2790 tekil kaynak | Bütünlük ölçülen: 2788 (delikli: 409; son ölçüm: 21.10.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
+**ÖZET:** 50555 parça · 2794 tekil kaynak | Bütünlük ölçülen: 2788 (delikli: 409; son ölçüm: 22.10.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2577,8 +2577,12 @@
 | TSRS 1 | standart-madde | 195 | DELİK-İNCELE(par:8/kesik:0/oksuz:2) | ISTISNA-KAPSAM-DISI |
 | TSRS 2 | standart-madde | 124 | DELİK-İNCELE(par:5/kesik:0/oksuz:3) | ISTISNA-KAPSAM-DISI |
 | TSRS 2 Degisiklikleri - Sera Gazi Emisyonlarinin Aciklanmasi (RG 28.07.2026-33323) | kanun-madde | 9 | TAM | ISTISNA-KAPSAM-DISI |
+| TSRS Gecis Muafiyetlerinin Uzatilmasi Kurul Karari (RG 30.12.2025-33123) | kanun-madde | 1 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSRS Kapsam Degisikligi - Portfoy Yonetim Sirketleri (KGK Karari 14.08.2025-34844, Duyuru 2025-53) | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 11 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSRS Uygulama Kapsamina Iliskin Kurul Kararinda Degisiklik (RG 18.12.2024-32756) | kanun-madde | 2 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSRS Uygulama Kapsamina Iliskin Usul ve Esaslar (RG 16.07.2025-32957) | kanun-madde | 25 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TTK (6102 s.K.) | kanun-madde | 1596 | DELİK-İNCELE(par:20/kesik:2/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Payı K. (7183 s.K.) | kanun-madde | 23 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Turizm Teşvik K. (2634 s.K.) | kanun-madde | 90 | DELİK-İNCELE(par:5/kesik:1/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
