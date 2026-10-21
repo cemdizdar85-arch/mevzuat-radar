@@ -27,8 +27,11 @@ $script:HAD_HARITA = $null
 # Node yoksa kapı AÇIK kalır ama her soruda uyarı basar (fail-open, soru-kalite-kapisi.ps1 ile aynı karar).
 . (Join-Path $PSScriptRoot 'soru-kalite-kapisi.ps1')
 $script:SMMM_KALITE_BASLANGIC = $(if ($env:KALITE_BASLANGIC) { $env:KALITE_BASLANGIC } else { '2026-10-01' })   # ortam değişkeni yalnız prova içindir
+# 21.10 pwsh 7 ConvertFrom-Json ISO tarihi ("2026-10-01T08:00:00Z") [datetime]'a çevirir; "$t" o zaman "10/01/2026 08:00:00" olur
+# ve metin karşılaştırması yeni soruyu ESKİ sayar (kapı atlanır). PS 5.1'de metin kalır; iki kabukta da aynı ISO metne indirilir.
+function SmmmTarihMetni($x) { if ($x -is [datetime]) { return $x.ToString("yyyy-MM-dd'T'HH:mm:ss", [Globalization.CultureInfo]::InvariantCulture) }; return "$x" }
 function SmmmYeniSoruMu($soruNesne) {
-  $t = @("$(if ($soruNesne.kor_cozum) { $soruNesne.kor_cozum.tarih })", "$(if ($soruNesne.hakem2) { $soruNesne.hakem2.tarih })") | Where-Object { $_ } | Sort-Object -Descending | Select-Object -First 1
+  $t = @((SmmmTarihMetni $(if ($soruNesne.kor_cozum) { $soruNesne.kor_cozum.tarih })), (SmmmTarihMetni $(if ($soruNesne.hakem2) { $soruNesne.hakem2.tarih }))) | Where-Object { $_ } | Sort-Object -Descending | Select-Object -First 1
   return [bool]($t -and "$t" -ge $script:SMMM_KALITE_BASLANGIC)
 }
 # 30.09 AÇIKLAMA HAKEMİ (Cem "b yap"; SGS oturumu bağladı: koşucu 8.1 + havuz-kur): YENİ soru aciklama_hakem.karar = TEMIZ değilse yayına girmez.

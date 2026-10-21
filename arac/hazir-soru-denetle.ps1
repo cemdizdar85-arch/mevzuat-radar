@@ -44,7 +44,11 @@ function DersTavaniOlc([string]$dersRx,[string]$kokYol){
 function SmmmTavaniOlc([string]$smmmDers,[string]$kokYol){
   $tabloS=@{}; $anYS=Join-Path $kokYol 'veri\sinav-anatomisi-smmm.json'
   if(Test-Path $anYS){ try{ $anS=ConvertFrom-Json -InputObject (Get-Content $anYS -Raw -Encoding UTF8); foreach($p in $anS.C_ders_kalibi.PSObject.Properties){ $tabloS[$p.Name]=[int]$p.Value.uzunluk.p90 } }catch{ } }
-  foreach($k in $tabloS.Keys){ if($smmmDers -match [regex]::Escape($k) -or $k -match [regex]::Escape($smmmDers)){ return $tabloS[$k] } }
+  # 21.10: 'Hukuk' iki anahtara uyar ("Hukuk (Ticaret H., …)" 308 / "…Meslek Hukuku" 461). .NET Core (pwsh 7, dogrula.yml) dize
+  #   özetini her süreçte rastgeleler → Hashtable sırası koşudan koşuya değişiyor, CI 308/461 arasında gidip geliyordu (20.10 kırmızı,
+  #   kodda değişiklik yokken). Önce TAM ad ya da parantez öncesi ad eşitliği; yoksa eski alt-dize eşleşmesi SIRALI anahtarla (deterministik).
+  foreach($k in @($tabloS.Keys)){ if($k -eq $smmmDers -or ($k -replace '\s*\(.*$','') -eq $smmmDers){ return $tabloS[$k] } }
+  foreach($k in @($tabloS.Keys | Sort-Object)){ if($smmmDers -match [regex]::Escape($k) -or $k -match [regex]::Escape($smmmDers)){ return $tabloS[$k] } }
   return 350
 }
 # Tavan seçimi (öncelik): -Tavan > SMMM etiketi (koşucu SMMM dalı) > -Ders (SGS anatomisi) > 746. Mutasyon: $env:DENETLE_TAVAN_MUTASYON='smmm-kapali'.
@@ -406,11 +410,11 @@ if($KgkKapiSinavi){
     @('harf: adım şablon alanı sik=A ölçülmez',(@(HarfAnmaKusur ([pscustomobject]@{ soru='Hangisi?'; adimlar=@([pscustomobject]@{ sik='A'; anlatim='Doğru cevap: görüş vermekten kaçınma.' }) })).Count),0),
     @('fıkra: numarasız madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='Bankacılık K. m.24/2 gereği komite kurulur.' } }) $mt).Count),0),
     @('fıkra: kaynak_adlar''da olmayan madde ölçülmez',(@(FikraAtifKusur ([pscustomobject]@{ aciklama=[pscustomobject]@{ A='TTK m.397/4 gereği denetçi seçilir.' } }) $mt).Count),0),
-    @('bağ: smmm hazir-gm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-gm9-1-yvergi-zor.json')),1),
-    @('bağ: smmm hazir-smmm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-smmm-gm-p1-yfta.json')),1),
+    @('bağ: smmm hazir-gm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-gm9-1-yvergi-zor.json')),1),
+    @('bağ: smmm hazir-smmm dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-smmm-gm-p1-yfta.json')),1),
     @('bağ: smmm -IkizEtiket açık',[int](Kgk3Acik (Kgk3Etiket 'smmm-gm5-1-fmuh-zor' 'x.json')),1),
-    @('bağ: kgk dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-kgk-gm-tms-r1.json')),1),
-    @('bağ: sgs dosyası kapalı',[int](Kgk3Acik (Kgk3Etiket '' 'veri\fabrika\hazir-denetim-zor-1.json')),0),
+    @('bağ: kgk dosyası açık',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-kgk-gm-tms-r1.json')),1),
+    @('bağ: sgs dosyası kapalı',[int](Kgk3Acik (Kgk3Etiket '' 'veri/fabrika/hazir-denetim-zor-1.json')),0),
     @('bağ: sgs -IkizEtiket kapalı (dosya adı gm olsa da)',[int](Kgk3Acik (Kgk3Etiket 'sgs-k10-yd-kolay' 'hazir-gm9-1-yvergi-zor.json')),0),
     @('ek: KGK-DC bağlı (Doğru cevap kayması)',@(KgkEkKapi ([pscustomobject]@{ konu='x'; soru='Kök'; dogru='B'; siklar=[pscustomobject]@{ A='1.000 TL'; B='3.767.000 TL'; C='5.000 TL'; D='6.000 TL'; E='7.000 TL' }; aciklama=[pscustomobject]@{ A='Doğru cevap: 3.740.000 TL.' } }) | Where-Object { $_ -like 'KGK-DC*' }).Count,1),
     @('ek: KGK-MK bağlı (sigortada Müsteşarlık)',@(KgkEkKapi ([pscustomobject]@{ konu='x'; soru='Sigorta kooperatifi kuruluşu'; dogru='A'; siklar=[pscustomobject]@{ A='a'; B='b'; C='c'; D='d'; E='e' }; aciklama=[pscustomobject]@{ A='Müsteşarlık izni gerekir.' } }) | Where-Object { $_ -like 'KGK-MK*' }).Count,1))
@@ -477,7 +481,7 @@ if($KokDeneSinavi){
   $script:KAPIK_KURUCU=@{ sgs={ param($dR,$pN) $sahteS }; smmm={ param($dR) $sahteM }; smmmOnb={ param($dR,$tz) $sahteM }; kgk={ $sahteG } }
   $metinler=@('dördüncü bir ekiple denetim','dördüncü denetim raporu','bağımsız denetim bulgusu raporu','ekiple seçememiştir')
   $durumlar=@(@('-Ders + smmm etiketi','Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('smmm etiketi','','smmm-gm13-1-ydenetim-zor',''),
-              @('hazır dosya adı','','','veri\fabrika\hazir-gm13-1-ydenetim-zor.json'),@('-Ders, etiketsiz','Muhasebe Denetimi','',''),@('kgk etiketi','','kgk-t1-tms-g5-kolay',''),@('Yabancı Dil','Yabanci Dil','sgs-k10-yd-kolay',''))
+              @('hazır dosya adı','','','veri/fabrika/hazir-gm13-1-ydenetim-zor.json'),@('-Ders, etiketsiz','Muhasebe Denetimi','',''),@('kgk etiketi','','kgk-t1-tms-g5-kolay',''),@('Yabancı Dil','Yabanci Dil','sgs-k10-yd-kolay',''))
   $nB=0; foreach($du in $durumlar){
     $tam=KapiKSozlukSec $du[1] 7 $du[2] $du[3]; $kd=KokDeneSozluk $du[1] 7 $du[2] $(if($du[3]){ $du[3] } else { 'metin' }) $false
     foreach($t in $metinler){ $nB++; $kT=$(if($tam.sozluk){ KapiKKarar $t $tam.sozluk } else { "yok:$($tam.yol)" }); $kK=$(if($kd.sozluk){ KapiKKarar $t $kd.sozluk } else { "yok:$($kd.yol)" })
@@ -485,7 +489,7 @@ if($KokDeneSinavi){
   # mutlak çapalar (yalnız eşitlik ölçülseydi iki yol birlikte bozulabilirdi): etiketsiz -Ders → SGS penceresi → DUSER;
   #   smmm etiketi + -Ders → SMMM sözlüğü → ok (gm14). Mutasyon $env:DENETLE_KAPIK_MUTASYON='ders-once' → ikinci çapa KIRMIZI.
   $nB++; $ca=KokDeneSozluk 'Muhasebe Denetimi' 7 '' 'metin' $false; if(-not $ca.sozluk -or (KapiKKarar 'dördüncü bir ekiple denetim' $ca.sozluk) -ne 'DUSER'){ $h++; "  DUSTU: çapa: etiketsiz -Ders'li kök denemesi SGS penceresiyle DUSER demeli" }
-  foreach($cs in @(@('Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('Vergi Mevzuatı ve Uygulaması','','veri\fabrika\hazir-gm12-1-yvergi-zor.json'))){ $nB++; $cb=KapiKSozlukSec $cs[0] 7 $cs[1] $cs[2]
+  foreach($cs in @(@('Muhasebe Denetimi','smmm-gm13-1-ydenetim-zor',''),@('Vergi Mevzuatı ve Uygulaması','','veri/fabrika/hazir-gm12-1-yvergi-zor.json'))){ $nB++; $cb=KapiKSozlukSec $cs[0] 7 $cs[1] $cs[2]
     if($cb.yol -ne 'smmm' -or -not $cb.sozluk -or (KapiKKarar 'dördüncü bir ekiple denetim' $cb.sozluk) -ne 'ok'){ $h++; "  DUSTU: çapa: SMMM etiketi + -Ders '$($cs[0])' SMMM sözlüğü seçmeli (seçilen $($cb.yol))" } }
   $nT=$v.Count+$nB
   if($h){ "KOK DENEME SINAVI KIRMIZI: $h/$nT"; exit 1 } else { "KOK DENEME SINAVI YESIL: $nT/$nT"; exit 0 }
