@@ -126,6 +126,88 @@ function sinav() {
     const r = C.cizimKapi(s); v.push('sayılı soru sözelle kurtarılmaz'); if (r.gecer) hata.push('RAKAM ile dönen soru sözel şablonla GEÇTİ'); }
   // 27) sayısal soru sayısal kalır (sözel şablona düşmez)
   { const r = C.cizimKapi(soru()); v.push('sayısal soru sayısal şablonda'); if (!r.gecer || r.senaryo.bicim) hata.push('temiz sayısal soru sözel şablona düştü'); }
+
+  // ---- KGK EKİ (22.10.2026) — uydurma KGK biçimli sorular, bankada yok ----
+  // öncül hükmü "I:" satırında değil: "Bu olayda: …" + tuzak metni; kök öncüllerin ÜSTÜNDE
+  const kgkO = (d) => Object.assign({
+    id: 'kgk-uydurma/kp-01',
+    soru: '(K) A.Ş. genel kurul toplantısı yapmaktadır; gündemde özellik arz eden bir konu yoktur. Uydurma Tebliğe göre aşağıdaki ifadelerden hangileri doğrudur?\nI. Toplantı tutanağı imzalanır.\nII. Pay sahipleri soru sorabilir.\nIII. Hazır bulunanlar listesi düzenlenir.\nIV. Toplantı gizli yapılır ve sonuç açıklanmaz.',
+    siklar: { A: 'I ve II', B: 'I ve III', C: 'I, II ve III', D: 'II ve III', E: 'I, II, III ve IV' }, dogru: 'C',
+    dayanak: 'İlke 7.7.1: Toplantı tutanağı imzalanır ve hazır bulunanlar listesi düzenlenir.',
+    adimlar: [{ verilenAdim: true, formul: 'Soruda ne var: dört öncül · istenen: doğru olanlar', anlatim: 'Her öncülü ayrı sına.' },
+      { formul: 'Kural: tutanak imzalanır, liste düzenlenir, soru sorulabilir; toplantı açıktır', anlatim: 'Gizlilik kuralı yoktur.' },
+      { formul: 'Bu olayda: I doğru · II doğru · III doğru · IV yanlış', anlatim: 'Doğru küme I, II ve III.' },
+      { formul: 'Doğru şık: I, II ve III', anlatim: 'Doğru cevap: I, II ve III.' }],
+    hap: 'Genel kurul açık yapılır; tutanak ve liste şarttır.', taktik: 'Gizlilik diyen öncülü önce sına.',
+    tuzak: { A: { ad: 'Eksik Öncül Tuzağı', metin: 'III de doğrudur; İlke 7.7.1 gereği hazır bulunanlar listesi düzenlenir. Doğrusu: I, II ve III.' },
+      B: { ad: 'Soru Hakkı Tuzağı', metin: 'II de doğrudur. Pay sahibi toplantıda soru sorabilir.' },
+      D: { ad: 'Tutanak Tuzağı', metin: 'I de doğrudur; tutanak imzalanır.' },
+      E: { ad: 'Gizlilik Tuzağı', metin: 'IV yanlıştır; toplantı açıktır ve sonuç duyurulur.' } },
+    teshis: { C: { gercek: 'I, II ve III doğru; IV yanlış.', yanilgi: 'IV doğru sanılır.' } }
+  }, d || {});
+  // 28) KGK öncüllü soru HUKUM biçiminde geçer; ✓ kümesi öncül kararlarından; altı çizilen kökteki soru öbeği (öncül satırı değil)
+  { const r = sz('KGK öncüllü (HUKUM) geçer', kgkO(), true);
+    if (r.gecer) {
+      if (r.senaryo.bicim !== 'HUKUM') hata.push('KGK öncüllü soru HUKUM biçimine girmedi: ' + r.senaryo.bicim);
+      const al = r.senaryo.sahne[0].hedef.join('|'); if (al !== 'hangileri doğrudur') hata.push('HUKUM altı çizilen öbek: "' + al + '" (beklenen "hangileri doğrudur")');
+      const iv = r.senaryo.sahne.find(x => x.oncul === 'IV'); if (!iv || !/IV → yanlış ✗/.test(iv.satirlar[0])) hata.push('IV satırı yanlış ✗ değil');
+      const iii = r.senaryo.sahne.find(x => x.oncul === 'III'); if (!iii || !/7\.7\.1/.test(iii.alt)) hata.push('III gerekçesi dayanaktaki ilke numarasıyla gelmedi: ' + (iii && iii.alt));
+      const ii = r.senaryo.sahne.find(x => x.oncul === 'II'); if (!ii || !/soru sorabilir/.test(ii.alt)) hata.push('"II de doğrudur." çıplak hükmüne nedeni taşıyan sonraki cümle eklenmedi: ' + (ii && ii.alt));
+      if (r.senaryo.sahne.some(x => x.oncul && /Bu olayda/.test(x.alt))) hata.push('"Bu olayda: I doğru · II doğru…" satırı öncül gerekçesi olarak tekrarlandı');
+    } }
+  // 29) aynı öncüle hem doğru hem yanlış -> SZ-HUKUM
+  { const s = kgkO(); s.adimlar[2].formul = 'Bu olayda: I doğru · II doğru · III doğru · IV doğru'; sz('öncüle çelişkili hüküm', s, false, 'SZ-HUKUM'); }
+  // 30) kökteki öncülün hükmü hiçbir alanda yok -> SZ-HUKUM
+  { const s = kgkO(); s.adimlar[2].formul = 'Bu olayda: I doğru · III doğru · IV yanlış'; s.tuzak.B.metin = 'Pay sahibi toplantıda soru sorabilir.'; s.teshis.C.gercek = 'Küme üç öncüllüdür.'; sz('öncül hükmü yok', s, false, 'SZ-HUKUM'); }
+  // 31) öncül kararları tutarlı ama doğru şık başka küme -> SZ-SONUC (32: aynı soruda SZ-ONCUL)
+  { const s = kgkO({ dogru: 'B' }); sz('kurulan küme ≠ doğru şık (SONUC)', s, false, 'SZ-SONUC'); sz('kurulan küme ≠ doğru şık (ONCUL)', kgkO({ dogru: 'B' }), false, 'SZ-ONCUL'); }
+  // 33) olumsuz kök: ✓ = yanlış öncüller
+  { const s = kgkO({ soru: kgkO().soru.replace('hangileri doğrudur?', 'hangileri yanlıştır?'), siklar: { A: 'Yalnız IV', B: 'I ve IV', C: 'II ve IV', D: 'III ve IV', E: 'I, II ve III' }, dogru: 'A' });
+    s.tuzak = { B: { ad: 'x', metin: 'I doğrudur; tutanak imzalanır ve saklanır.' }, C: { ad: 'x', metin: 'II doğrudur; pay sahibi soru sorabilir.' }, D: { ad: 'x', metin: 'III doğrudur; liste düzenlenir.' }, E: { ad: 'x', metin: 'IV yanlıştır; toplantı açıktır ve sonuç duyurulur.' } };
+    const r = sz('olumsuz kökte ✓ = yanlış öncül', s, true); if (r.gecer && !/Yalnız IV/.test(r.senaryo.sahne.find(x => x.etiket === 'Sonuç').satirlar[0])) hata.push('olumsuz kök sonucu Yalnız IV değil'); }
+  // 34) "doğru değildir" = yanlış
+  { const s = kgkO(); s.adimlar[2].formul = 'Bu olayda: I doğru · II doğru · III doğru · IV doğru değildir'; sz('"doğru değildir" yanlış sayılır', s, true); }
+  // 35) "yanlış sanılır" / "yanlış saydın" hüküm değildir (yanlış alarm yok)
+  { const s = kgkO(); s.tuzak.B.metin = 'II yanlış sanılır; oysa II de doğrudur ve pay sahibi soru sorabilir.'; sz('"yanlış sanılır" hüküm sayılmaz', s, true); }
+  // 36) "Yanlış yol: … IV de doğru sayılır (HATALI)" hüküm değildir
+  { const s = kgkO(); s.adimlar.splice(3, 0, { formul: 'Yanlış yol: gizliliği kural sanmak → IV de doğru → I, II, III ve IV (HATALI)', anlatim: '' }); sz('"Yanlış yol" satırı hüküm sayılmaz', s, true); }
+  // 37) KGK öncülsüz ifade sorusu SIK biçiminde geçer; altı çizilen öbek SORU cümlesinden (senaryodaki "değildir" değil)
+  const kgkS = (d) => Object.assign({
+    id: 'kgk-uydurma/kp-02',
+    soru: 'Uydurma Ltd. halka açık değildir ve denetçisi ilk kez atanmıştır. Uydurma Standarda göre aşağıdakilerden hangisi doğrudur?',
+    siklar: { A: 'Denetçi önceki yılın tablolarını hiç incelemeden görüş verebilir.', B: 'Denetçi açılış bakiyeleri için yeterli ve uygun kanıt elde eder.', C: 'Açılış bakiyeleri denetimin konusu dışında kalır.', D: 'Önceki denetçiyle iletişim kurmak yasaktır.', E: 'İlk denetimde önemlilik belirlenmez.' }, dogru: 'B',
+    hap: 'İlk denetimde açılış bakiyeleri için yeterli ve uygun kanıt aranır.', taktik: 'İlk denetimde açılış bakiyesini ara.',
+    adimlar: [{ verilenAdim: true, formul: 'Soruda ne var: ilk denetim', anlatim: '' }, { formul: 'Kural: açılış bakiyeleri için kanıt elde edilir', anlatim: '' }],
+    tuzak: { A: { ad: 'İnceleme Tuzağı', metin: 'Önceki dönem tabloları okunur.' }, C: { ad: 'Kapsam Tuzağı', metin: 'Açılış bakiyeleri kapsamdadır.' }, D: { ad: 'İletişim Tuzağı', metin: 'Önceki denetçinin çalışma kâğıtları okunabilir.' }, E: { ad: 'Önemlilik Tuzağı', metin: 'Önemlilik her denetimde belirlenir.' } },
+    teshis: { B: { gercek: 'Açılış bakiyeleri için yeterli ve uygun denetim kanıtı elde edilir.' } }
+  }, d || {});
+  { const r = sz('KGK öncülsüz ifade sorusu (SIK) geçer', kgkS(), true);
+    if (r.gecer) { if (r.senaryo.bicim !== 'SIK') hata.push('ifade sorusu SIK biçimine girmedi: ' + r.senaryo.bicim);
+      const al = r.senaryo.sahne[0].hedef.join('|'); if (al !== 'hangisi doğrudur') hata.push('SIK altı çizilen öbek: "' + al + '" (beklenen "hangisi doğrudur")'); } }
+  // 38) şıkkın açıklaması s.dogru ile çelişiyor -> SZ-CELISKI
+  { const s = kgkS(); s.tuzak.A.ad = 'Doğru ifade'; sz('tuzak adı "Doğru ifade" ama şık yanlış', s, false, 'SZ-CELISKI'); }
+  { const s = kgkS({ soru: kgkS().soru.replace('hangisi doğrudur?', 'hangisi yanlıştır?'), dogru: 'C' }); s.tuzak = { A: { ad: 'x', metin: 'Bu ifade yanlıştır; inceleme şarttır.' }, B: { ad: 'Doğru ifade', metin: 'Kanıt aranır.' }, D: { ad: 'x', metin: 'İletişim serbesttir.' }, E: { ad: 'x', metin: 'Önemlilik belirlenir.' } }; s.teshis = { C: { gercek: 'Açılış bakiyeleri denetim kapsamındadır.' } };
+    sz('olumsuz kökte "bu ifade yanlıştır" diyen yanlış şık', s, false, 'SZ-CELISKI'); }
+  // 38b) "yanlışlık / aykırılık" kökü olumsuz yapmaz: olumlu kökte "Yanlış ifade" adlı yanlış şık çelişki DEĞİL
+  { const s = kgkS({ soru: 'Uydurma Standarda göre yanlışlık riskiyle ilgili aşağıdakilerden hangisi doğrudur?' }); s.tuzak.A.ad = 'Yanlış ifade'; sz('"yanlışlık" kökü olumsuz yapmaz', s, true); }
+  // 39) DUZ: hap doğru şıkkı anmıyorsa doğru şıkkı AYNEN anan cümle (teshis[doğru].gercek) kural olur
+  { const s = duz(); s.hap = '6362 sayılı Kanun ceza davasına özel bir görev kuralı koyar.'; s.teshis = { D: { gercek: 'Görevli mahkeme asliye ceza mahkemeleridir.' } };
+    const r = sz('DUZ: kural cümlesi teşhisten', s, true); if (r.gecer && !/asliye ceza/.test(r.senaryo.sahne.find(x => x.tur === 'yaz').satirlar[0])) hata.push('DUZ kural cümlesi teşhisten gelmedi'); }
+  // 40) "Doğru cevap: X" kural sayılmaz -> SZ-DOGRU
+  { const s = duz(); s.hap = '6362 sayılı Kanun ceza davasına özel bir görev kuralı koyar.'; s.adimlar.push({ formul: 'Doğru cevap: Asliye ceza mahkemeleri', anlatim: '' }); sz('"Doğru cevap:" satırı kural sayılmaz', s, false, 'SZ-DOGRU'); }
+  // 41) sayı şıkkı: kural "%20"yi de anıyorsa iki şık birden -> SZ-CIFT; "%200" "%20" sayılmaz
+  const yuz = (hap) => ({ id: 'kgk-uydurma/kp-03', soru: 'Uydurma Tebliğe göre, toplam %200 kaldıraç sınırından ayrı olarak, tek ihraççı sınırı yüzde kaçtır?', siklar: { A: '%5', B: '%10', C: '%20', D: '%25', E: '%35' }, dogru: 'B', hap: hap, adimlar: [],
+    tuzak: { A: { ad: 'x', metin: 'Başka bendin oranı.' }, C: { ad: 'x', metin: 'Grup sınırı.' }, D: { ad: 'x', metin: 'İstisna oranı.' }, E: { ad: 'x', metin: 'Kamu istisnası.' } } });
+  sz('sayı şıkkı: kural iki oranı anıyor', yuz('Tek ihraççı sınırı %10, grup sınırı %20 olarak uygulanır.'), false, 'SZ-CIFT');
+  sz('sayı şıkkı: %200 ≠ %20 (yanlış alarm yok)', yuz('Tek ihraççı sınırı %10 olup toplam %200 kaldıraç ayrı hesaplanır.'), true);
+  // 42) SZ-ALT: altı çizilecek ifade kökte yoksa
+  { const s = kgkS(); const sen = C.sozelSenaryo(s, 'SIK'); sen.sahne[0].hedef = ['kökte olmayan öbek']; const r = C.sozelKapi(s, sen); v.push('altı çizilen öbek kökte yok'); if (r.gecer || !r.neden.some(n => /^SZ-ALT/.test(n))) hata.push('kökte olmayan öbek -> ' + (r.gecer ? 'GEÇTİ' : r.neden.join(' | '))); }
+  // 43) düğme adayı: PILOT kimliği ya da kgk- öneki (KGK_DIS hariç); öteki sınavlarda liste dışı soru düğme almaz
+  { v.push('düğme adayı kuralı'); const p = {}; p['sgs-pilot/kp-01'] = 1;
+    if (!C.dugmeAday('kgk-uydurma/kp-01', p)) hata.push('kgk- önekli soru düğme adayı değil');
+    if (C.dugmeAday('sgs-uydurma/kp-09', p) || C.dugmeAday('smmm-uydurma/kp-09', p)) hata.push('PILOT dışı SGS/Yeterlilik sorusu düğme adayı oldu');
+    if (!C.dugmeAday('sgs-pilot/kp-01', p)) hata.push('PILOT kimliği düğme adayı değil');
+    C.KGK_DIS.push('kgk-dislanan/kp-01'); if (C.dugmeAday('kgk-dislanan/kp-01', p)) hata.push('KGK_DIS kimliği düğme adayı oldu'); C.KGK_DIS.pop(); }
   const mut = process.env.CIZ_MUTASYON ?' (MUTASYON: ' + process.env.CIZ_MUTASYON + ')' : '';
   if (hata.length) { console.log('KAPI-CZ ÖZ-SINAV DÜŞTÜ' + mut + ': ' + hata.length + '/' + v.length); hata.forEach(h => console.log('  - ' + h)); return 1; }
   console.log('KAPI-CZ ÖZ-SINAV TEMİZ' + mut + ': ' + v.length + ' vaka'); return 0;
@@ -134,7 +216,8 @@ function sinav() {
 if (a.includes('--sinav')) {
   let kod = sinav();
   if (kod === 0 && a.includes('--mutasyon') && !process.env.CIZ_MUTASYON) {
-    const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste', 'szsonuc', 'szoncul', 'szdogru', 'szcift', 'szrakam', 'szneden', 'szkurtar'];
+    const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste', 'szsonuc', 'szoncul', 'szdogru', 'szcift', 'szrakam', 'szneden', 'szkurtar',
+      'szhukum', 'szdegil', 'szsan', 'szyol', 'szkok', 'szceliski', 'szkural', 'szalt', 'kgkonek'];   // 22.10 KGK eki
     let kac = 0;
     for (const m of M) {
       const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { CIZ_MUTASYON: m }), encoding: 'utf8' });
@@ -160,4 +243,23 @@ if (a.includes('--liste')) {
   console.log('PILOT ' + C.PILOT.length + ' · geçer ' + g + ' · döndü ' + d + ' · KÖR ' + yok);
   process.exit(d || yok ? 1 : 0);
 }
-console.log('kullanım: --sinav [--mutasyon] | --liste <paket.json>');
+/* --kgk <kgk-paket.json>: yayındaki KGK sorularında sitedeki düğme kuralı (dugmeAday + cizimKapi). Dosya = [{id, sayfa, veri}]
+   (paket_soru?sinav=eq.kgk, servis anahtarıyla yerelde çekilir; DEPOYA KONMAZ). Çıktıda soru metni yok: sayfa sayıları + neden kodları. */
+if (a.includes('--kgk')) {
+  const dosya = a[a.indexOf('--kgk') + 1];
+  if (!dosya) { console.error('kullanım: --kgk <kgk-paket.json>'); process.exit(2); }
+  const P = require(path.resolve(dosya)); const sf = {}, kod = {}, bic = {}; let say = 0, sayili = 0, sozel = 0;
+  for (const x of P) {
+    const s = Object.assign({ id: x.id }, x.veri || {}); if (!C.dugmeAday(s.id)) continue; say++;
+    const ad = String(x.sayfa || '?').replace(/^.*\//, '').replace(/\.html$/, ''); const t = sf[ad] = sf[ad] || { toplam: 0, sayili: 0, sozel: 0 }; t.toplam++;
+    let r; try { r = C.cizimKapi(s); } catch (e) { r = { gecer: false, neden: ['HATA ' + e.message] }; }
+    if (r.gecer) { const b = r.senaryo.bicim || 'SAYI'; bic[b] = (bic[b] || 0) + 1; if (r.senaryo.bicim) { sozel++; t.sozel++; } else { sayili++; t.sayili++; } }
+    else { const k = [...new Set(r.neden.map(n => n.split(':')[0]))].join('+'); kod[k] = (kod[k] || 0) + 1; }
+  }
+  console.log('KGK ' + say + ' soru · düğme: sayılı ' + sayili + ' · sözel ' + sozel + ' · toplam ' + (sayili + sozel) + ' · dönen ' + (say - sayili - sozel));
+  console.log('biçim: ' + JSON.stringify(bic));
+  Object.keys(sf).sort().forEach(k => console.log('  ' + k.padEnd(32) + ' ' + String(sf[k].toplam).padStart(4) + ' soru · sayılı ' + sf[k].sayili + ' · sözel ' + sf[k].sozel));
+  console.log('dönme nedenleri (ilk 12):'); Object.entries(kod).sort((x, y) => y[1] - x[1]).slice(0, 12).forEach(([k, n]) => console.log('  ' + String(n).padStart(4) + '  ' + k));
+  process.exit(0);
+}
+console.log('kullanım: --sinav [--mutasyon] | --liste <paket.json> | --kgk <kgk-paket.json>');

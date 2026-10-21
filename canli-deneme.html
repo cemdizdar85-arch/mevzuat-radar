@@ -651,7 +651,7 @@ function cizimProva(liste, uye){
   if(!CZ_PROVA_OTURUM[CANLI.kod] || !uye) return;   /* üye olmayana üstteki davet kartı yeter (açıklamalarla aynı kapı) */
   var lst = document.getElementById('soListe'), dl = lst.querySelectorAll(':scope > details');
   var yukle = function(){ return window.CizerekCoz ? Promise.resolve(window.CizerekCoz) : new Promise(function(ok, no){
-    var s = document.createElement('script'); s.src = 'cizerek-coz.js?v=5'; s.onload = function(){ window.CizerekCoz ? ok(window.CizerekCoz) : no(); }; s.onerror = no; document.head.appendChild(s); }); };
+    var s = document.createElement('script'); s.src = 'cizerek-coz.js?v=6'; s.onload = function(){ window.CizerekCoz ? ok(window.CizerekCoz) : no(); }; s.onerror = no; document.head.appendChild(s); }); };
   yukle().then(function(CZ){
     var izin = (CZ.PROVA && CZ.PROVA[CANLI.kod]) || [];
     var hedef = []; liste.forEach(function(o, i){ if(o.c !== o.s.dogru && izin.indexOf(o.s.id) > -1 && dl[i]) hedef.push({ o:o, d:dl[i] }); });
