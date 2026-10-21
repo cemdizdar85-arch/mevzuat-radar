@@ -14,7 +14,7 @@
 //   "IYZWSv2 " + base64("apiKey:<api>&randomKey:<rnd>&signature:<imza>"), x-iyzi-rnd başlığı.
 // 🚫 GÖRMEZ: iade (iyzico panelinden) · taksit (kapalı, enabledInstallments [1]) · KGK paketleri (satışta değil → reddedilir).
 
-const KOD_IMZA = "da7ee2c67c00a5a7";
+const KOD_IMZA = "4242fc0817510e0b";
 const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
 const SB_SERVICE = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 const SB_ANON = "sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg";
@@ -169,6 +169,10 @@ Deno.serve(async (req) => {
     const s = (await (await sb(`siparisler?select=*&siparis_no=eq.${encodeURIComponent(no)}&limit=1`)).json().catch(() => []))[0];
     if (!s) return cevap(404, { hata: "siparis yok" });
     if (s.durum !== "odeme_bekliyor") return cevap(409, { hata: "siparis odeme beklemiyor", durum: s.durum });
+    // 21.10 çift ödeme kapısı (radar-app/sql/2026-10-21-cift-odeme-kapisi.sql): bekleyen eski sipariş, paket bu arada
+    // başka yoldan (Play / başka sipariş) açıldıysa ikinci kez ödenmez. Fonksiyon yoksa (göç basılmadan) satış durmaz.
+    const ck = await fetch(`${SB_URL}/rest/v1/rpc/siparis_odeme_kontrol`, { method: "POST", headers: sbH, body: JSON.stringify({ p_no: no }) });
+    if (ck.ok && (await ck.json().catch(() => "")) === "PAKET_ZATEN_ACIK") return cevap(409, { hata: "paket zaten acik" });
     let F; try { F = await fiyatlar(); } catch { return cevap(503, { hata: "fiyat okunamadi" }); }
     const pf = paketFiyat(F.FIYAT, s.paket); if (!pf) return cevap(400, { hata: "bu paket kartla satilmiyor" });
     const say = await (await fetch(`${SB_URL}/rest/v1/rpc/kurucu_sayac`, { method: "POST", headers: { apikey: SB_ANON, "Content-Type": "application/json" }, body: "{}" })).json().catch(() => []);

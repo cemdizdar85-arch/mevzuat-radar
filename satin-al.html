@@ -1041,7 +1041,8 @@ function kartHazirla(no){
       var r = await fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/iyzico-odeme?islem=baslat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ siparis_no:no }) });
       var j = await r.json().catch(function(){ return {}; });
       if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
-      h.textContent = j.hata === 'tutar guncel fiyatla uyusmuyor' ? 'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
+      h.textContent = j.hata === 'paket zaten acik' ? 'Bu paket hesabında zaten açık; ikinci kez ödeme almıyoruz. Hesabım sayfasından devam et.'
+        : j.hata === 'tutar guncel fiyatla uyusmuyor' ?'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
     }catch(e){ h.textContent = 'Bağlantı hatası. Havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
     b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın';
   };
@@ -1063,6 +1064,7 @@ function kartHazirla(no){
       j = await r.json().catch(function(){ return {}; }); }catch(e){}
     if(j.odemeSayfasi){ location.href = j.odemeSayfasi; return; }
     d.style.borderColor = 'var(--red)';
+    if(j.hata === 'paket zaten acik'){ d.innerHTML = '<b>Bu paket hesabında zaten açık.</b> İkinci kez ödeme almıyoruz; <a href="ogrenci.html">Hesabım</a> sayfasından devam et. Paketini göremiyorsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com (sipariş no: <b>' + no + '</b>).'; return; }
     d.innerHTML = '<b style="color:var(--red)">Kart ödemesi başlatılamadı.</b> Sipariş ödenmiş ya da güncel değil olabilir. Bize WhatsApp\'tan (0532 344 80 58) ya da destek@tetikte.com\'a sipariş numaranla yaz: <b>' + no + '</b>. İstersen aşağıdan yeniden sipariş verebilirsin.';
   });
 }catch(e){} })();
@@ -1150,8 +1152,10 @@ btn.addEventListener('click', function(){
 
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
 
-  function bitir(){
+  function bitir(eskiSiparis){
     kartHazirla(no);
+    /* 21.10 çift ödeme kapısı: aynı paketin bekleyen siparişi yeniden gösterilir (yeni kayıt, yeni mail yok) */
+    if(eskiSiparis){ var h2 = document.querySelector('#tamam h2'); if(h2) h2.textContent = 'Bu paket için siparişin zaten var — aynı siparişi öde'; }
     adimSay('siparis-bitti');
     try{ document.getElementById('hesapAc').onclick = function(){ adimSay('hesap-ac'); }; }catch(e){}
     /* 05.10: giriş yapmamış alıcıya aynı ekranda hesap açtır (paket aynı e-postaya bağlanır) */
@@ -1164,7 +1168,7 @@ btn.addEventListener('click', function(){
     document.getElementById('tmIban').textContent  = BANKA.iban;
     /* 03.10 V2 madde 18: Hesabım bu cihazda "Ödemen kontrol ediliyor" göstersin (paket açılınca kendiliğinden silinir).
        Yalnız sipariş no + paket + tutar + tarih; ad, adres, telefon cihaza yazılmaz. */
-    try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) ts = [];
+    if(!eskiSiparis) try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) ts = [];
       ts.push({ no:no, paket:secili.id, paket_ad:secili.ad, tutar:tutar, tarih:new Date().toISOString() });
       localStorage.setItem('tt_siparisler', JSON.stringify(ts.slice(-5))); }catch(e){}
     document.getElementById('tamam').style.display = 'block';
@@ -1197,6 +1201,17 @@ btn.addEventListener('click', function(){
   function kendiKodu(err){ return !!err && /ELCI_KENDI_KODU/.test(String(err.message || '') + ' ' + String(err.details || '')); }
   function teklifHatasi(err){ return !!err && /TEKLIF_GECERSIZ/.test(String(err.message || '') + ' ' + String(err.details || '')); }
   function ozelKodHatasi(err){ return !!err && /OZEL_KOD_GECERSIZ/.test(String(err.message || '') + ' ' + String(err.details || '')); }
+  /* 21.10 çift ödeme kapısı (radar-app/sql/2026-10-21-cift-odeme-kapisi.sql): sunucu siparişi YAZMAZ → e-posta yedeğine DÜŞMEZ */
+  function kapiHatasi(err, kod){ return !!err && String(err.message || '').indexOf(kod) >= 0; }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+  /* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */
+  function bekleyenBul(){
+    try{ var ts = JSON.parse(localStorage.getItem('tt_siparisler') || '[]'); if(!Array.isArray(ts)) return null;
+      for(var i = ts.length - 1; i >= 0; i--){ var x = ts[i];
+        if(x && x.paket === secili.id && Number(x.tutar) === Number(tutar) && Date.now() - new Date(x.tarih).getTime() < 864e5) return x; }
+    }catch(e){}
+    return null;
+  }
 
   if(!window.sb){ yedekYol(); return; }
   window.sb.from('siparisler').insert(kayit)
@@ -1217,6 +1232,21 @@ btn.addEventListener('click', function(){
           if(typeof window.kodRozetCiz === 'function') window.kodRozetCiz();
           elciDurumYaz('İndirim kodu bu siparişe uygulanamadı: süresi dolmuş ya da daha önce kullanılmış. Tutar normal fiyata döndü.', 'var(--red)');
           goster('Sipariş verilmedi: indirim kodu geçerli değil. Özetteki tutarı kontrol edip yeniden gönderebilirsin.', false);
+          return;
+        }
+        if(kapiHatasi(r.error, 'PAKET_ZATEN_ACIK')){
+          btn.disabled = false; adimSay('cift-acik');
+          goster('Sipariş verilmedi: <b>bu paket hesabında zaten açık</b>, ikinci kez ödeme almıyoruz. <a href="ogrenci.html">Hesabıma git</a> ' +
+            '(siparişte yazdığın <b>' + esc(mail) + '</b> adresiyle giriş yap). Paketini göremiyorsan WhatsApp 0532 344 80 58 ya da destek@tetikte.com.', false);
+          return;
+        }
+        if(kapiHatasi(r.error, 'BEKLEYEN_SIPARIS')){
+          adimSay('cift-bekleyen');
+          var eski = bekleyenBul();
+          if(eski){ no = eski.no; bitir(true); return; }
+          btn.disabled = false;
+          goster('Sipariş verilmedi: bu e-postayla son 24 saatte <b>aynı paket için ödeme bekleyen bir siparişin var</b>; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +
+            '"Siparişin alındı" e-postandaki bilgilerle ödeyebilir ya da WhatsApp 0532 344 80 58 / destek@tetikte.com\'a yazabilirsin.', false);
           return;
         }
         if(kendiKodu(r.error)){
