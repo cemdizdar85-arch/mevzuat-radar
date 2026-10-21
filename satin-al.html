@@ -404,11 +404,15 @@
       <p class="kucuk" style="margin:6px 0 10px">Siparişteki e-postayla (<b id="hesapEp"></b>) ücretsiz hesap aç; ödemen onaylanınca paket kendiliğinden bu hesaba bağlanır. Google ile açacaksan <b>aynı e-postalı</b> Google hesabını seç. Başka adresle girersen paket görünmez; o zaman Hesabım → "Ödedim ama paketim görünmüyor" (sipariş no + bu e-posta).</p>
       <a class="btn" href="ogrenci.html#uye-ol" id="hesapAc" style="text-decoration:none">Hesabımı aç (1 dakika) →</a>
     </div>
-    <p style="margin:0 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
-    hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
     <div class="kv"><b>Sipariş no</b><span id="tmNo" style="font-weight:800;color:var(--amber)"></span></div>
     <div class="kv"><b>Paket</b><span id="tmPaket"></span></div>
     <div class="kv"><b>Tutar</b><span id="tmTutar" style="font-weight:800"></span></div>
+    <!-- 21.10 (Cem "iki kere mail gitmesin"): kartla ödeyene tek mail (ödeme onayı). Havale bilgisi + IBAN maili yalnız
+         "Havale/EFT ile ödeyeceğim" seçilince; kart kapalıysa (kartAcik false) baştan açık ve mail hemen gider. -->
+    <button type="button" id="havaleSec" class="btn" hidden style="width:100%;margin:14px 0 0;background:transparent;color:var(--ink);border:1px solid var(--line2);font-weight:700">🏦 Havale/EFT ile ödeyeceğim</button>
+    <div id="havaleBlok">
+    <p style="margin:14px 0 12px;font-size:14px" id="havaleBaslik">Ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün
+    hesabın açılır ve e-arşiv faturan e-posta adresine gelir.</p>
     <div class="kv"><b>Alıcı unvan</b><span id="tmUnvan"></span></div>
     <div class="kv"><b>Banka</b><span id="tmBanka"></span></div>
     <div class="kv" style="border:none;display:block"><b style="display:block;margin-bottom:4px">IBAN</b>
@@ -417,7 +421,9 @@
     Eşleştirmeyi bununla yapıyoruz; yazmazsan hesabının açılması gecikir.</p>
     <p style="margin:10px 0 0;font-size:14px"><b>Durum: ödemen kontrol ediliyor.</b> Siparişini bu cihazda
     <a href="ogrenci.html">Hesabım</a> sayfasında görürsün; paketin açılınca orada "Açık" yazar.</p>
-    <p class="kucuk" style="margin:10px 0 0">Sipariş özeti e-posta adresine de gönderildi.
+    <p class="kucuk" style="margin:10px 0 0">Ödeme bilgileri ve sözleşme kopyan e-posta adresine gönderildi.</p>
+    </div>
+    <p class="kucuk" id="mailNot" style="margin:10px 0 0">Kartla ödersen sipariş onayın, sözleşme kopyanla birlikte ödemeden hemen sonra tek e-postayla gelir.
     Bir sorun olursa <a href="iletisim.html">iletişim</a> sayfasından bize yaz.</p>
   </div>
 </div>
@@ -1032,7 +1038,6 @@ Array.prototype.forEach.call(document.querySelectorAll('input[name=ftip]'), func
 function kartHazirla(no){
   var k = document.getElementById('kartKutu'); if(!k || !kartAcik()) return;
   k.hidden = false;
-  var hb = document.getElementById('havaleBaslik'); if(hb) hb.textContent = 'Ya da havale/EFT ile öde: ödemeyi aşağıdaki hesaba yaptığında, havaleyi gördüğümüz gün hesabın açılır ve e-arşiv faturan e-posta adresine gelir.';
   var b = document.getElementById('kartOde'), h = document.getElementById('kartHata');
   b.onclick = async function(){
     adimSay('kart');
@@ -1045,6 +1050,29 @@ function kartHazirla(no){
         : j.hata === 'tutar guncel fiyatla uyusmuyor' ?'Fiyat güncellenmiş görünüyor; sayfayı yenileyip yeniden sipariş ver ya da havale ile öde.' : 'Kart ödemesi başlatılamadı. Havale ile ödeyebilir ya da biraz sonra yeniden deneyebilirsin.';
     }catch(e){ h.textContent = 'Bağlantı hatası. Havale ile ödeyebilir ya da yeniden deneyebilirsin.'; }
     b.disabled = false; b.textContent = '💳 Kartla öde — paketin hemen açılsın';
+  };
+}
+/* 21.10 (Cem "iki kere mail gitmesin; günde binlerce sipariş alanlar ne yapıyorsa"): ödeme yolu seçilmeden mail gitmez.
+   Kart → tek mail (ödeme onayı + sözleşme ekleri, sunucuda). Havale → "Havale/EFT ile ödeyeceğim" basılınca IBAN + ödeme
+   bilgisi maili ('alindi'; yalnız sipariş no gider, içerik sunucuda okunur - radar-app/edge/siparis-bildirim.ts), para gelince
+   "paketin açıldı". Kart kapalıysa (kartAcik false) tek yol havale: bilgi açık, mail hemen. */
+function alindiGonder(no){
+  try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
+    headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
+    body: JSON.stringify({ tur:'alindi', no:no }), keepalive:true }).catch(function(){}); }catch(e){}
+}
+function havaleKur(no){
+  var blok = document.getElementById('havaleBlok'), sec = document.getElementById('havaleSec'), nt = document.getElementById('mailNot');
+  if(!blok || !sec) return;
+  /* .btn display verdiği için yalnız hidden yetmez */
+  var gor = function(el, acik){ if(el){ el.hidden = !acik; el.style.display = acik ? '' : 'none'; } };
+  if(!kartAcik()){ gor(blok, true); gor(sec, false); gor(nt, false); alindiGonder(no); return; }
+  gor(blok, false); gor(sec, true); gor(nt, true);
+  sec.onclick = function(){
+    adimSay('havale-sec');
+    gor(blok, true); gor(sec, false); gor(nt, false);
+    alindiGonder(no);
+    try{ blok.scrollIntoView({ behavior:'smooth', block:'start' }); }catch(e){}
   };
 }
 /* iyzico'dan başarısız dönüş: ?odeme=hata&no=... */
@@ -1154,6 +1182,7 @@ btn.addEventListener('click', function(){
 
   function bitir(eskiSiparis){
     kartHazirla(no);
+    havaleKur(no);
     /* 21.10 çift ödeme kapısı: aynı paketin bekleyen siparişi yeniden gösterilir (yeni kayıt, yeni mail yok) */
     if(eskiSiparis){ var h2 = document.querySelector('#tamam h2'); if(h2) h2.textContent = 'Bu paket için siparişin zaten var — aynı siparişi öde'; }
     adimSay('siparis-bitti');
@@ -1262,11 +1291,8 @@ btn.addEventListener('click', function(){
         try{ if(window.goatcounter && typeof window.goatcounter.count === 'function') window.goatcounter.count({ path:'satin-al/siparis/' + secili.id, title:'Sipariş verildi · ' + secili.ad, event:true }); }catch(err){}
         postala().then(function(){}, function(){}); bitir();
         if(tkInd){ try{ sessionStorage.removeItem(TEKLIF_ANAH); }catch(err){} }   /* 12.10: teklif kullanıldı */
-        /* 04.10 (Cem "Amazon/Trendyol gibi otomatik"): müşteriye "siparişin alındı" maili - no + tutar + IBAN.
-           Yalnız sipariş no gider; alıcı adresi ve içerik sunucuda siparişten okunur (radar-app/edge/siparis-bildirim.ts). */
-        try{ fetch('https://bjrleanjpyujtajmazxn.supabase.co/functions/v1/siparis-bildirim', { method:'POST',
-          headers:{ 'Content-Type':'application/json', apikey:'sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg', Authorization:'Bearer sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg' },
-          body: JSON.stringify({ tur:'alindi', no:no }), keepalive:true }).catch(function(){}); }catch(err){}
+        /* 21.10: "siparişin alındı + IBAN" maili artık burada GİTMEZ - yalnız havale seçilince (havaleKur). Kartla ödeyene
+           tek mail: ödeme onayı (iyzico-odeme → siparis-bildirim 'acildi', sözleşme ekleriyle). */
       }
     }, yedekYol);
 });
