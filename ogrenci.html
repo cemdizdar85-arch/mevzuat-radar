@@ -6,6 +6,7 @@
      veriyi bu listede olmayan bir adrese gönderemez, yabancı betik yüklenemez. Yeni dış kaynak eklenirse buraya da yazılır. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at https://challenges.cloudflare.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: mevzuatradar.goatcounter.com https://www.facebook.com; connect-src 'self' https://bjrleanjpyujtajmazxn.supabase.co mevzuatradar.goatcounter.com https://www.facebook.com https://connect.facebook.net; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; object-src 'none'">
 <script src="tema-bas.js"></script>
+<script src="tazelik.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -45,8 +46,9 @@
   /* 18.10 (Cem "1.2.3" madde 3): maskot fotoğrafının beyaz zemini çerçevesiz, "multiply" karışımla panel rengine erir (bedelsiz;
      yeni görsel üretilmedi, maskotun görünüşü değişmedi). Koyu temada karışım kapalı (beyaz zemin koyuda kararmasın diye çerçeve geri gelir). */
   .og-marka-maskot{position:absolute;right:24px;top:18px;width:118px;height:118px;object-fit:contain;mix-blend-mode:multiply}
-  :root[data-theme="dark"] .og-marka-maskot{mix-blend-mode:normal;border-radius:50%;border:4px solid var(--panel)}
-  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .og-marka-maskot{mix-blend-mode:normal;border-radius:50%;border:4px solid var(--panel)} }
+  :root[data-theme="dark"] .og-marka-maskot{mix-blend-mode:normal;border-radius:50%;border:2px solid var(--line2)}
+  /* 21.10: isletim sistemi koyu temasi kurali kalkti - tema-bas.js OS temasini izlemez, acik temada data-theme yazmaz; telefonu koyu modda olan
+     ama sitede acik temada kalan kullanicida carpim kapaniyor, maskotun beyaz kutusu krem panelde gorunuyordu. Cerceve --panel ustunde --panel idi (gorunmez, 1.12). */
   .og-oturum-not{margin:10px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45;text-align:center}
   .op-hos{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--panel));border:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent);border-radius:14px;padding:12px 16px;margin:0 0 14px;font-size:15px}
   .op-hos.og-gizli{display:none}
@@ -712,7 +714,7 @@
         $('ogGorev').classList.remove('og-gizli');
       }catch(e){}
       /* 04.10 Cem ("1.2.3"): seviye testinde kilitli kalan rapor bu cihazdaysa ve henüz açılmadıysa "Şimdi bunu yap" o olur.
-         E-postayla kayıt olup onay bağlantısıyla buraya düşen kişi de raporuna tek tıkla ulaşır (?sonra= o yolda kaybolabiliyor). */
+         E-postayla kayıt olup onay bağlantısıyla buraya düşen kişi de raporuna doğrudan ulaşır (?sonra= o yolda kaybolabiliyor). */
       try{
         var sr=JSON.parse(localStorage.getItem('sv_son_rapor')||'null');
         if(sr&&sr.sonuc&&sr.tarih&&localStorage.getItem('sv_rapor_goruldu')!==sr.tarih){
@@ -983,7 +985,7 @@
       $('ogKasaUyari').textContent='Sonuç kasası hazırlanıyor: şu an yalnız bu cihazdaki sonuçların görünüyor. Hazır olunca buradaki sonuçların hesabına kendiliğinden aktarılacak.';
       kasa=cihaz.map(function(x){ return {tur:x.tur,sinav:x.sinav,anahtar:x.anahtar,veri:x.veri,olusturma:x.veri.tarih}; });
     }
-    ILR.kasa=kasa;
+    ILR.kasa=kasa; ILR.user=user; ILR.kasaHesap=kasaVar; ILR.yuklendi=Date.now();
     /* 13.10: KGK modül adları (kgkKayitVar için) seçimden önce insin; dizin okunamazsa KGK verisi "yok" sayılır */
     try{ if(window.ttCalisma && kgkAcik()) await ttCalisma.dizin().then(function(d){ var s=d&&d.sinavlar?d.sinavlar.filter(function(x){ return x.kod==='kgk'; })[0]:null;
       if(s&&s.durum==='acik'){ KGK_DERS={}; (s.dersler||[]).forEach(function(x){ if(x.sayfa) KGK_DERS[x.ad.toLocaleLowerCase('tr-TR').trim()]={ad:x.ad,sayfa:x.sayfa}; }); } }); }catch(e){}
@@ -996,6 +998,18 @@
       /* 13.10: 'tam'/'kurucu' gibi üçlü pakette SGS ve Yeterlilik sonucu yok ama KGK modülünden cevap varsa KGK ile aç */
       else if(!sinavKayit(ilk).length && !sinavKayit(digeri).length && ILR.paketKgk && kgkKayitVar()) ilk='kgk'; }
     ilerlemeCiz(ilk);
+    /* 21.10 tazelik kapısı: 'Son test N gün önce' / 'Siparişin N gün önce' sekmeye dönüşte ve 10 dk'da bir tazelenir (tazelik.js).
+       panel() yeniden çağrılmaz (Yönetim bağı ve sayaç ikilenir); yalnız iddiayı kuran kasa + sipariş kartı yeniden çekilir. */
+    if(window.Tazelik && !ILR.taze) ILR.taze=Tazelik.kur({ ad:'hesap paneli', cek:ogTazele });
+  }
+  async function ogTazele(){
+    var u=ILR.user; if(!u || (Date.now()-(ILR.yuklendi||0))<30000) return;   /* panel yeni kuruldu: ikinci çekim yok */
+    try{ var U=window.TetikteUye, r=await sb.from('paket_uyeler').select('paket,bitis,dersler').eq('user_id',u.id);
+      if(U && !r.error){ var d=U.durumHesapla(r.data,u.email); siparisCiz(d); window.OP_PKT=d; } }catch(e){}
+    if(ILR.kasaHesap){ try{ var o=await sb.from('ogrenci_sonuc').select('tur,sinav,anahtar,veri,olusturma').in('sinav',['sgs','smmm','kgk']).in('tur',['seviye','deneme']).order('olusturma',{ascending:true}).limit(500);
+      if(!o.error) ILR.kasa=o.data||[]; }catch(e){} }
+    try{ if(ILR.secili) ilerlemeCiz(ILR.secili); }catch(e){}
+    try{ panoCiz(); }catch(e){}
   }
 
   /* 07.10: kasadaki kayıtlar sınav sınav (sinav alanı olmayan eski kayıt = sgs). 13.10: paketKgk/yalnizKgk (paketlerCiz) */
@@ -1306,7 +1320,7 @@
         kb.innerHTML=aday
           ?'<div><h3>Konu analizine '+gerek+' soru kaldı</h3><p>En çok çözdüğün konu <b>'+esc(opBuyuk(aday.konu))+'</b> ('+esc(aday.ders)+'): '+aday.cevap+' / 5 soru. 5\'e ulaşınca güçlü ve zayıf konuların burada sıralanır.</p><div class="op-ilk"><s style="width:'+Math.round(100*Math.min(5,aday.cevap)/5)+'%"></s></div></div>'
             +'<a class="og-btn ana" href="'+esc(sy||devam)+'">'+gerek+' soru daha çöz →</a>'
-          :'<div><h3>Konu analizin henüz yok</h3><p>Bir konuda 5 soru çözünce en güçlü ve en zayıf konuların burada sıralanır; zayıf olanın yanında tek tıkla çözme düğmesi çıkar.</p></div>'
+          :'<div><h3>Konu analizin henüz yok</h3><p>Bir konuda 5 soru çözünce en güçlü ve en zayıf konuların burada sıralanır; zayıf olanın yanında doğrudan çözme düğmesi çıkar.</p></div>'
             +'<a class="og-btn ana" href="'+esc(devam)+'">Soru çözmeye başla →</a>';
         kb.classList.remove('og-gizli'); ikiK.classList.add('og-gizli');
       } else { kb.classList.add('og-gizli'); ikiK.classList.remove('og-gizli'); }

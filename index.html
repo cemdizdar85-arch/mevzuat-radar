@@ -130,13 +130,13 @@ html[data-theme="dark"] .maskot{-webkit-mask-image:none;mask-image:none;border-r
 .ulas{background:var(--ink);color:var(--bg);font-size:14px;line-height:1.3}
 /* 18.10 üye karşılama şeridi */
 /* 18.10 kayan duyuru şeridi */
-.kayan{position:relative;display:flex;align-items:center;background:var(--amber-dolgu);color:var(--ink);overflow:hidden;height:40px}
+.kayan{position:relative;display:flex;align-items:center;background:var(--amber-dolgu);color:var(--amber-uzeri);overflow:hidden;height:40px}   /* 21.10 kontrast: amber dolgu ustu yazi jetonu (koyu temada --ink acik renkti, 1.43) */
 .kayan[hidden]{display:none}
-.kayan-a{flex:1;min-width:0;overflow:hidden;text-decoration:none!important;color:var(--ink)!important;height:100%;display:flex;align-items:center}
+.kayan-a{flex:1;min-width:0;overflow:hidden;text-decoration:none!important;color:var(--amber-uzeri)!important;height:100%;display:flex;align-items:center}
 .kayan-iz{display:inline-flex;white-space:nowrap;animation:kayanAk 32s linear infinite;font-size:14.5px;font-weight:600}
 .kayan-iz>span{padding-right:60px}.kayan-iz b{font-weight:900;letter-spacing:.06em}.kayan-iz u{font-weight:800}
 .kayan:hover .kayan-iz,.kayan-a:focus .kayan-iz{animation-play-state:paused}
-.kayan-x{flex:none;width:40px;height:40px;border:0;border-radius:0;background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink);font-size:16px;cursor:pointer}
+.kayan-x{flex:none;width:40px;height:40px;border:0;border-radius:0;background:color-mix(in srgb,var(--amber-uzeri) 10%,transparent);color:var(--amber-uzeri);font-size:16px;cursor:pointer}
 @keyframes kayanAk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){ .kayan{height:auto;min-height:40px} .kayan-iz{animation:none;white-space:normal;padding:8px 12px} .kayan-iz>span+span{display:none} }
 .uye-hos{background:color-mix(in srgb,var(--amber-dolgu) 14%,var(--bg));border-bottom:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent)}
@@ -149,6 +149,7 @@ html[data-theme="dark"] .maskot{-webkit-mask-image:none;mask-image:none;border-r
 html body .ulas a{color:var(--bg)!important;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:6px;min-height:36px}
 html body .ulas a:hover{text-decoration:underline}
 html body .ulas a.ulas-wp{color:var(--amber-dolgu)!important}
+html[data-theme="dark"] body .ulas a.ulas-wp{color:var(--bg)!important}   /* 21.10 kontrast: koyuda bant zemini acik (--ink), amber yazi 1.43 okunmuyordu; amber nokta kalir */
 .ulas-wp::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber-dolgu)}
 @media(max-width:620px){ html body .ulas .ulas-not,html body .ulas a.ulas-ep{display:none} .ulas .ic{justify-content:center} }
 .kah-yazi{max-width:520px;min-width:0}

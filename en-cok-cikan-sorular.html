@@ -40,7 +40,7 @@
   .ec-ders ol{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px;color:var(--ink)}
   .ec-ders ol small{color:var(--muted);font-size:12.5px}
   .ec-set{margin:-4px 0 0;font-size:12.5px;font-weight:700;color:var(--amber)}
-  .ec-dug{margin-top:auto;display:flex;justify-content:center;align-items:center;min-height:46px;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none;background:var(--amber-dolgu);color:var(--ink)}
+  .ec-dug{margin-top:auto;display:flex;justify-content:center;align-items:center;min-height:46px;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none;background:var(--amber-dolgu);color:var(--amber-uzeri)}   /* 21.10 kontrast: koyu temada --ink acik renk, amber ustunde 1.43 */
   .ec-dug.kilit{background:var(--panel);border:1.5px solid var(--line2);color:var(--ink)}
   .ec-bilgi{font-size:12.5px;color:var(--muted);margin:0}
   .ec-satis{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;margin:0 0 20px;padding:18px 20px;border-radius:16px;border:1px solid color-mix(in srgb,var(--amber-dolgu) 45%,transparent);background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--panel))}
@@ -105,7 +105,7 @@
       cip:['En sık 20 konu, ders ders','20 soru · 25 dakika','önce görmediğin sorular','bitince konu konu karne'] } };
   /* 19.10 (Cem: "Google'dan gelenin satın alma oranını artıralım"): Google arama ziyaretçisi buraya iner, aramış ve almaya
      yakın; kutuda fiyat yoktu, yalnız "Paketler" vardı. Fiyat satırı + doğrudan satın al. Rakamlar YALNIZ fiyat-motoru.js'ten
-     (paketBul + fiyatAna/fiyatDahilNot + HARC; feedback "fiyat her yerde aynı"). Motor yüklenmezse satır ve düğme hiç çizilmez. */
+     (paketBul + fiyatAna/fiyatDahilNot + HARC; Cem kuralı "fiyat her yerde aynı"). Motor yüklenmezse satır ve düğme hiç çizilmez. */
   function fiyatCiz(s){
     var f=$('ecFiyat'), a=$('ecAlA');
     if(typeof paketBul!=='function'||typeof fiyatAna!=='function'){ f.hidden=true; a.hidden=true; return; }

@@ -502,6 +502,8 @@ function ustSeritKur(){
     '#ttUlas .ulas-not{margin-right:auto;opacity:.85}'+
     'html body #ttUlas a{color:var(--bg)!important;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:6px;min-height:36px}'+
     'html body #ttUlas a:hover{text-decoration:underline}html body #ttUlas a.ulas-wp{color:var(--amber-dolgu)!important}'+
+    /* 21.10 kontrast kapisi: koyu temada bant zemini var(--ink) = acik renk; amber yazi 1.43-1.85 kaliyordu. Koyuda yazi bant yazisi rengi, amber nokta kalir. */
+    'html[data-theme="dark"] body #ttUlas a.ulas-wp{color:var(--bg)!important}'+
     '#ttUlas .ulas-wp::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--amber-dolgu)}'+
     '@media(max-width:620px){#ttUlas .ulas-not,#ttUlas .ulas-ep{display:none}#ttUlas .ic{justify-content:center}}';
   document.head.appendChild(st);
@@ -603,7 +605,7 @@ function kur(){
     var T=window.TetikteTema||{
       oku:function(){ try{ var t=localStorage.getItem('kc_tema'); if(t==='dark'||t==='light') return t; return localStorage.getItem('tt_tema')==='koyu'?'dark':'light'; }catch(e){ return 'light'; } },   /* 04.10: varsayılan açık (tema-bas.js ile aynı) */
       yaz:function(t){ try{ localStorage.setItem('kc_tema',t); localStorage.removeItem('tt_tema'); }catch(e){} this.uygula(t); try{ document.dispatchEvent(new CustomEvent('tt-tema',{detail:t})); }catch(e){} },
-      uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); }); if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
+      uygula:function(t){ baglar.forEach(function(l){ l.disabled=(t==='dark'); if(t==='dark') l.setAttribute('media','not all'); else l.removeAttribute('media'); });   /* 21.10: media da (tema-bas.js kapat() ile ayni yaris) */ if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); }
     };
     var dugme=document.createElement('button');
     dugme.id='mrxTema'; dugme.type='button';
