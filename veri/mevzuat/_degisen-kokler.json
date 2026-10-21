@@ -1,5 +1,5 @@
 {
-    "aciklama":  "Madde/not metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1, arac/teori-notu-duzelt-*.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
+    "aciklama":  "Madde metni değişince eski/yeni ayırt edici belirteçler (motor/mevzuat-yut.ps1). Nöbetçi, soru bu belirteçlerden hiçbirine değmiyorsa çekmez; belirsiz=true ise hepsini çeker.",
     "maddeler":  {
                      "ad|TEORI - Kollektif sirkette kar dagitimi":  {
                                                                         "tarih":  "2026-09-24 02:29",
@@ -8911,13 +8911,13 @@
                                       "yeniden_bolme":  true
                                   },
                      "2016|15":  {
-                                     "tarih":  "2026-10-06 22:41",
+                                     "tarih":  "2026-10-22 00:38",
                                      "kaynak":  "bddk-karsilik-yon",
                                      "belirsiz":  false,
                                      "belirtecler":  [
 
                                                      ],
-                                     "yeniden_bolme":  true
+                                     "yeniden_bolme":  false
                                  },
                      "5237|78":  {
                                      "tarih":  "2026-10-06 22:41",

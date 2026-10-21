@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **21.10.2026 19:19** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **22.10.2026 00:42** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50437 parça · 2788 tekil kaynak | Bütünlük ölçülen: 2788 (delikli: 409; son ölçüm: 21.10.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
+**ÖZET:** 50524 parça · 2790 tekil kaynak | Bütünlük ölçülen: 2788 (delikli: 409; son ölçüm: 21.10.2026) | Sürüm ölçülen: 41 (sorunlu: 0; son ölçüm: 30.08.2026 06:47)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -78,7 +78,9 @@
 | BD Tabi Sirketler Kararinda Degisiklik (CB Karari 11066, RG 17.03.2026/33199) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Bankalarin Kredi Yonetimine Iliskin Rehber par.151-153 (kredi turevleri ve artik riskler) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Bankalarin Ozkaynaklari Yonetmeligi (2013) | kanun-madde | 41 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BDDK Kredilerin Siniflandirilmasi ve Karsiliklar Yonetmeligi (2016) | kanun-madde | 42 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDDK Derecelendirme Kuruluslarinin Yetkilendirilmesi ve Faaliyetleri Yonetmeligi (2012) | kanun-madde | 74 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDDK Kredilerin Siniflandirilmasi ve Karsiliklar Yonetmeligi (2016) | kanun-madde | 43 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BDDK Sermaye Koruma ve Dongusel Sermaye Tamponlari Yonetmeligi (2013) | kanun-madde | 12 | ÖLÇÜLMEDİ | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK Sorunlu Alacak Cozumleme Rehberi | kanun-madde | 102 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK THP (Bankalar) giris ve dayanak | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | BDDK THP grup 0 - DÖNEN DEĞERLER | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |

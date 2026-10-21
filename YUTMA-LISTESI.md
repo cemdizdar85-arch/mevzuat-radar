@@ -120,6 +120,17 @@ Yayılım ölçüldü (706 `_txt`): U+2012 76 kez/4 dosya · U+2212 8 kez. Sın�
 **Türev envanteri (Cem: "biz bunları okuduk, başka yerde kalmış olabilir mi?"):** eski sürümle üretilmiş kasa sorusu sayımı (kanun_no='STD' + madde_no): TMS 1 **292** · TMS 37 **117** · TMS 8 **96** · TMS 27 **47** · TFRS 8 **22** = **574 soru** → damga-uyuşmazlığıyla yeniden-doğrulama kuyruğunda, cila partisinde öncelikli. 90'lık provadaki TMS 37 + TMS 1 soruları taze kaynakla yeniden üretildi. Net Cevap canlı ambardan okur (otomatik güncel); yerel yutma yedekleri repoya girmiyor (kontrol edildi).
 **Kapı öz-sınav dersleri (koda işlendi):** Write-Host `*>&1` ile yakalanır · sayı ayırıcıya `\D` · `%2520` çift kodlama standart listesinden TMS 27'yi düşürüyordu · KGK dosya adları kalıptan sapar (özel-yol tablosu) · elle-zengin kaynaklara istisna etiketi.
 
+## ✅ 22.10.2026 — KGK BANKACILIK: 2 BDDK YÖNETMELİĞİ + KARŞILIKLAR m.15 TABLOSU
+*Sebep: KGK banka-g2 yazarı ölçtü — iki yönetmelik ambarda yoktu; Karşılıklar Yön. m.15/1-a teminat dikkate alınma oranları tablosu kayıtta "Krediler Ek" diye geçiyordu (tablo RG'de de mevzuat.gov.tr'de de RESİM; PDF'e yalnız alt metni düşüyor).*
+
+| Kaynak | Yapılan | Sonuç |
+|---|---|---|
+| **Derecelendirme Kuruluşlarının Yetkilendirilmesine ve Faaliyetlerine İlişkin Esaslar Hakkında Yönetmelik** (RG 17.04.2012/28267) | mevzuat.gov.tr konsolide (mevzuatNo=16071, son değişiklik RG 01.09.2023/32296), manifest `bddk-derecelendirme-yon` (seyrek), poppler pdftotext, `mevzuat-yut.ps1 SADECE=` | **74 parça** (m.1–36 + geç. m.1), kapsama %99,8; `BDDK Derecelendirme Kuruluslarinin Yetkilendirilmesi ve Faaliyetleri Yonetmeligi (2012) m.N` |
+| **Sermaye Koruma ve Döngüsel Sermaye Tamponlarına İlişkin Yönetmelik** (RG 05.11.2013/28812, yürürlük 01.01.2014) | mevzuat.gov.tr konsolide (mevzuatNo=18991, değişiklik şerhi yok), manifest `bddk-sermaye-tampon-yon` (seyrek) | **12 parça** (m.1–10 + geç. m.1 SKT geçiş tablosu), kapsama %98,3; `BDDK Sermaye Koruma ve Dongusel Sermaye Tamponlari Yonetmeligi (2013) m.N` |
+| Karşılıklar Yön. (2016) m.15/1-a tablosu | `mevzuat-yut.ps1`'e manifest alanı `gorselTablolar` (isaret → metin) eklendi; tablo RG 20160622-3 image002.gif ve mevzuat.gov.tr 7.5.22599 image001.png'den okundu (ikisi aynı): Birinci %100 · İkinci %80 · Üçüncü %60 · Dördüncü %40 · Beşinci %20 | m.15 → `m.15 [1/2]` + `m.15 [2/2]` (42 → 43 parça); kaynak hash'i değişmedi (yeniden bölme, etki zinciri yok) |
+
+**Geri okuma:** üç kaynakta ambar = yerel JSON, kayıt kayıt metin+başlık birebir (74/74 · 12/12 · 43/43). **Ders:** Git Bash'teki `pdftotext` xpdf 4.06'dır, poppler değil — kelime bitiştiriyor ("tarafındanihraç") ve hash'i bozuyor; yutma PowerShell'deki poppler 25.07 ile yapılır.
+
 ## ✅ 27.08.2026 — BDDK KARŞILIKLAR YÖNETMELİĞİ (2016) YUTULDU ('yakın izleme' boşluğu)
 *Sebep: KGK bankacılık çıkmış sorusu "yakın izleme" sınıflandırmasına dayanıyor; ölçüm: ifade ambarda mevzuat metni olarak HİÇ yoktu (yalnız Sorunlu Alacak Rehberi bölüm 83 + çıkmış sınav kâğıtları).*
 

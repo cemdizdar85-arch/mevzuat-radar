@@ -21,15 +21,15 @@
     },
     {
       "ders_desen": "Bankac[ıi]l[ıi]k",
-      "izinli": ["^Bankac[ıi]l[ıi]k K\\. \\(5411", "^Bankalar[ıi]n ", "^BDDK ", "Varl[ıi]k Y[oö]netim [SŞ]irketlerinin", "6361 s\\.K\\.", "^TFRS 9\\b"]
+      "izinli": ["^Bankac[ıi]l[ıi]k K\\. \\(5411", "^Bankalar[ıi]n ", "^BDDK ", "Varl[ıi]k Y[oö]netim [SŞ]irketlerinin", "6361 s\\.K\\.", "^TFRS 9\\b", "^Banka ve Kredi Kartlar[ıi] K\\. \\(5464"]
     },
     {
       "ders_desen": "Sigortac[ıi]l[ıi]k",
-      "izinli": ["^Sigortac[ıi]l[ıi]k K\\. \\(5684", "^BES K\\. \\(4632", "^Sigorta", "Emeklilik", "^TTK \\(6102 s\\.K\\.\\) m\\.1(4\\d\\d|5[0-2]\\d)\\b", "^TFRS 17\\b", "^Guvence Hesab", "^Afet Sigortalar", "Katilim Esaslari Cercevesinde Sigortacilik", "Bireysel Emeklilik"]
+      "izinli": ["^Sigortac[ıi]l[ıi]k K\\. \\(5684", "^BES K\\. \\(4632", "^Sigorta", "Emeklilik", "^TTK \\(6102 s\\.K\\.\\) m\\.1(4\\d\\d|5[0-2]\\d)\\b", "^TFRS 17\\b", "^Guvence Hesab", "^Afet Sigortalar", "Katilim Esaslari Cercevesinde Sigortacilik", "Bireysel Emeklilik", "^SEDDK Teskilat"]
     },
     {
       "ders_desen": "S[uü]rd[uü]r[uü]lebilirlik Raporlama",
-      "izinli": ["^TSRS", "^SPK Surdurulebilirlik", "^SPK Rehber - (S[uü]rd[uü]r[uü]lebilir|Ye[sş]il|Sorumlu)", "^SPK Yesil"]
+      "izinli": ["^TSRS", "^SPK Surdurulebilirlik", "^SPK Rehber - (S[uü]rd[uü]r[uü]lebilir|Ye[sş]il|Sorumlu)", "^SPK Yesil", "Kurumsal Y[oö]netim Tebli[gğ]i \\(II-17\\.1\\)"]
     },
     {
       "ders_desen": "S[uü]rd[uü]r[uü]lebilirlik Denetim",
