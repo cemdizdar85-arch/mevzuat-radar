@@ -23,6 +23,20 @@ Nöbetçi çizerek çözüyor
 Soruyu çöz, konuyu öğren.
 tetikte.com
 
+## Alt yazılar
+
+<!-- 22.10 v3 (Cem "iyi değil ama sen bak"): kamera kalemin çalıştığı yere yaklaşır, site pencere başlığı/✕ gizlenir, alt şeritte büyük
+     Nöbetçi + iri alt yazı (seslendirmenin rakamlı yazımı). Araç arac/video/cizerek/kare3.js. -->
+a0: Bu soruyu sitede 100'den fazla kişi çözdü. Her 5 kişiden 4'ü yanlış yaptı.
+a1: Önce sorudaki verilerin altı çiziliyor.
+a2: 180.000'in aylık payı 10.000 ₺. 2026'da yalnız 4 ay geçmiş.
+a3: Şirket 180.000'in tamamını gider yazmış; gerçek pay 40.000.
+a4: 60.000'in aylık payı da 10.000 ₺. Burada yalnız 2 ay geçmiş.
+a5: Tamamı gelir yazılmış; gerçek pay 20.000.
+a6: Gider fazlası kârı azaltır, gelir fazlası artırır: 140.000 − 40.000
+a7: Doğru cevap E: kâr 100.000 ₺ düşük gösterilmiş.
+a8: A diyenler gider tarafını atlayıp yalnız gelire baktı.
+
 ## Seslendirme
 
 s0: Bu soruyu sitede yüzden fazla kişi çözdü. Her beş kişiden dördü yanlış yaptı.
