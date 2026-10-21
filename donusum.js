@@ -30,7 +30,11 @@ if (window.ttDonusum) return;
 /* 18.10.2026 Cem ("bu hesapta yeni veri seti aç, Pixel kimliğini sitede değiştir"): reklamlar Instagram "Öne Çıkar"dan veriliyordu (hedefte
    "üye ol" yok); Reklam Yöneticisi'ne geçiş için reklam hesabı 2326875821470709 (Dizdar Denetim) altında yeni veri seti "Tetikte Site" açıldı.
    Eski kimlik 1369179971705020 Cem'in bugünkü Meta girişinde GÖRÜNMÜYORDU (Olay Yöneticisi boş) → yenisi. KVKK/onay bandı mantığı AYNEN. */
-var PIKSEL_ID = '1129074386641518';   /* önceki: 09.10.2026 Cem "kur o zaman" (B, KVKK m.9 riski Cem'de) — 1369179971705020 */
+/* 21.10.2026 Cem "1.2.3 üçünü de yap": piksel + onay bandı KALDIRILDI. Ölçüldü: bant telefonda ilk ekranda "ziyaret yurt dışına
+   aktarılır" diyordu (güven kaybı); onay oranı ≈ %9 (itsrumly reklamı: 73 ziyaret sayaçta, Meta'da 6 açılış görüntüleme) → Meta
+   zaten neredeyse kördü. Reklam ölçümü ?k= kaynak sayacıyla. Aynı commit'te gizlilik-politikasi.html §3 + kvkk.html geri yazıldı.
+   Önceki kimlikler: 1129074386641518 (18.10) · 1369179971705020 (09.10). Yeniden açmak = kimliği yaz + iki sayfa AYNI commit'te. */
+var PIKSEL_ID = '';
 /* 09.10.2026: edge 'meta-olay' CANLIDA YOK (?tani=1 → NOT_FOUND) ve META_CAPI_TOKEN üretilmedi → sunucu yolu KAPALI.
    Açmak: edge yayınla + secret'lar (META_PIXEL_ID, META_CAPI_TOKEN) + ?tani=1 ile ölç, sonra true. */
 var CAPI_ACIK = false;
