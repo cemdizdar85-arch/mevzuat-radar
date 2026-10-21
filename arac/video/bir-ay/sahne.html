@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Bir ay kaldı sahnesi</title>
+<!-- 21.10.2026 Cem "sınava az kaldı reklamı, hem video hem yazı". Kare kare çizilir: bas.js her kare için kare(t) çağırır.
+     Yazılar kur(veri) ile gelir; bas.js onları pazarlama/reklam/meta-bir-ay-kaldi.md'den okur (kapıdan geçen metin = filmdeki metin).
+     GÜVENLİ ALAN (Meta Reels 9:16): üst %14, alt %35, yanlar %6 yazısız → 360×640'ta x 22–338, y 90–416. -->
+<style>
+  :root{ --zemin:#0f1b2d; --zemin2:#16263e; --ink:#fbfaf8; --soluk:#b7c2d3; --cizgi:#2a3b57;
+         --amber:#f5a524; --amber2:#ffc24b; --kirmizi:#f87171; --yesil:#4ade80; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ width:360px; height:640px; overflow:hidden; color:var(--ink);
+    background:radial-gradient(circle at 85% 12%,color-mix(in srgb,var(--amber) 14%,transparent),transparent 45%),var(--zemin);
+    font-family:"Segoe UI",-apple-system,system-ui,Roboto,Arial,sans-serif; }
+  #alan{ position:absolute; left:22px; top:90px; width:316px; height:326px; }
+  #etiket{ position:absolute; left:0; top:0; font-size:10px; font-weight:600; color:color-mix(in srgb,var(--ink) 70%,transparent); }
+  #ust{ position:absolute; left:0; top:16px; width:316px; display:flex; align-items:center; gap:8px; }
+  #tarih{ font-size:11px; font-weight:800; letter-spacing:1.2px; color:var(--soluk); text-transform:uppercase; white-space:nowrap; }
+  #cubuk{ flex:1; height:5px; border-radius:3px; background:var(--cizgi); overflow:hidden; }
+  #cubukDolu{ height:100%; width:100%; background:var(--amber); transform-origin:left; }
+  .satir{ position:absolute; left:0; top:44px; width:316px; height:282px; display:flex; flex-direction:column; justify-content:center; }
+  .satir p{ font-weight:800; letter-spacing:-.6px; line-height:1.12; }
+  .b1 p{ font-size:36px; }
+  .b2 p{ font-size:46px; color:var(--amber2); letter-spacing:-1.2px; }
+  .b3 p{ font-size:34px; } .b3 p, .b4 p{ margin-top:auto; margin-bottom:16px; }  /* giriş kayması 14 px: alt kenarda pay */
+  .b4 p{ font-size:34px; color:var(--amber2); }
+  .b5 p,.b6 p,.b7 p{ font-size:27px; }
+  .b8 p{ font-size:26px; text-align:center; }
+  /* 3–4: sayfa yığını */
+  #yigin{ position:absolute; left:0; top:44px; width:316px; height:150px; display:flex; flex-direction:column-reverse; gap:3px; }
+  .sayfa{ height:7px; border-radius:2px; background:color-mix(in srgb,var(--soluk) 45%,transparent); }
+  .sayfa.sik{ background:var(--amber); }
+  /* 6: şıklar */
+  #siklar{ position:absolute; left:0; top:44px; width:316px; display:flex; gap:8px; }
+  .s{ flex:1; height:40px; border-radius:10px; border:2px solid var(--cizgi); background:var(--zemin2); display:flex; align-items:center;
+      justify-content:center; font-size:18px; font-weight:800; }
+  .s.yanlis{ border-color:var(--kirmizi); background:color-mix(in srgb,var(--kirmizi) 22%,transparent); color:var(--kirmizi); }
+  /* 7: madde */
+  #madde{ position:absolute; left:0; top:44px; width:316px; display:flex; flex-direction:column; gap:6px; }
+  .m{ height:8px; border-radius:3px; background:color-mix(in srgb,var(--soluk) 35%,transparent); }
+  .m.vurgu{ background:var(--amber); }
+  /* 8: kapanış */
+  #kapanis{ position:absolute; left:0; top:44px; width:316px; height:282px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; }
+  #kapanis .adres{ font-size:22px; font-weight:800; color:var(--amber2); }
+  #logo{ width:170px; height:auto; }
+</style>
+</head>
+<body>
+<div id="alan">
+  <div id="etiket"></div>
+  <div id="ust"><div id="tarih"></div><div id="cubuk"><div id="cubukDolu"></div></div></div>
+  <div id="yigin"></div>
+  <div id="siklar"><div class="s">A</div><div class="s" data-y="1">B</div><div class="s">C</div><div class="s">D</div></div>
+  <div id="madde"><div class="m"></div><div class="m" style="width:86%"></div><div class="m vurgu"></div><div class="m vurgu" style="width:70%"></div><div class="m" style="width:92%"></div></div>
+  <div class="satir b1"><p></p></div>
+  <div class="satir b2"><p></p></div>
+  <div class="satir b3"><p></p></div>
+  <div class="satir b4"><p></p></div>
+  <div class="satir b5"><p></p></div>
+  <div class="satir b6"><p></p></div>
+  <div class="satir b7"><p></p></div>
+  <div id="kapanis"><svg id="logo" viewBox="30 0 290 110" aria-label="Tetikte"><defs><linearGradient id="aA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5a524"/><stop offset="1" stop-color="#ffc24b"/></linearGradient><radialGradient id="hA" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#f5a524" stop-opacity=".26"/><stop offset="100%" stop-color="#f5a524" stop-opacity="0"/></radialGradient></defs><circle cx="62" cy="60" r="34" fill="url(#hA)"/><circle cx="62" cy="60" r="19" fill="url(#aA)"/><text x="112" y="78" font-family="Segoe UI,Arial,sans-serif" font-size="58" font-weight="800" letter-spacing="-1.4" textLength="181" lengthAdjust="spacingAndGlyphs" fill="#fbfaf8">tetıkte</text><circle cx="197" cy="30" r="7" fill="url(#aA)"/></svg>
+    <div class="satir b8" style="position:static;height:auto"><p></p></div><p class="adres"></p></div>
+</div>
+<script>
+/* Zaman çizelgesi (sn): her satır [başla, bitir]. Tıklar 0–8,6 sn (süre daralıyor), 6,6 sn'de çözülme sesi. */
+var Z = { b1:[0,2.2], b2:[2.2,4.4], b3:[4.4,6.6], b4:[6.6,8.6], b5:[8.6,11.2], b6:[11.2,13.6], b7:[13.6,15.8], kapanis:15.8, son:19.0, cubukSon:8.6 };
+var $ = function(id){ return document.getElementById(id); };
+var V = null, SAYFA = 16, SIK = [3, 7, 12];
+
+function kur(v){
+  V = v;
+  $('etiket').textContent = v.etiket; $('tarih').textContent = v.tarih;
+  /* "21 Kasım" satır sonunda bölünmesin */
+  for (var i = 1; i <= 8; i++) document.querySelector('.b' + i + ' p').textContent = v.satirlar[i - 1].replace(/(\d+) (Kasım)/, '$1 $2');
+  document.querySelector('#kapanis .adres').textContent = v.satirlar[8];
+  var y = $('yigin'); y.innerHTML = '';
+  for (var k = 0; k < SAYFA; k++){ var d = document.createElement('div'); d.className = 'sayfa' + (SIK.indexOf(k) > -1 ? ' sik' : ''); y.appendChild(d); }
+  return true;
+}
+function arada(t, a, b){ return Math.max(0, Math.min(1, (t - a) / (b - a))); }
+function yum(x){ return x * x * (3 - 2 * x); }
+/* giriş 0,25 sn yukarı kayarak, çıkış 0,2 sn sönerek */
+function gor(t, a, b){ return yum(arada(t, a, a + 0.25)) * (1 - yum(arada(t, b - 0.2, b))); }
+
+function kare(t){
+  ['b1','b2','b3','b4','b5','b6','b7'].forEach(function(k){
+    var el = document.querySelector('.' + k), g = gor(t, Z[k][0], Z[k][1]);
+    el.style.opacity = g; el.style.display = g > 0 ? 'flex' : 'none';
+    el.style.transform = 'translateY(' + ((1 - yum(arada(t, Z[k][0], Z[k][0] + 0.25))) * 14).toFixed(1) + 'px)';
+  });
+  /* üst çubuk: 0–8,6 sn boşalır (süre daralıyor), sonra durur */
+  var kalan = 1 - arada(t, 0, Z.cubukSon) * 0.92;
+  $('cubukDolu').style.transform = 'scaleX(' + kalan.toFixed(3) + ')';
+  $('cubukDolu').style.background = t < Z.cubukSon ? (kalan < 0.35 ? 'var(--kirmizi)' : 'var(--amber)') : 'var(--yesil)';
+  var ustG = 1 - yum(arada(t, Z.kapanis - 0.2, Z.kapanis));
+  $('ust').style.opacity = ustG;
+
+  /* yığın: 3'te sayfalar birikir, 4'te sık sorulanlar dışındakiler söner */
+  var yG = (t >= Z.b3[0] && t < Z.b4[1]) ? yum(arada(t, Z.b3[0], Z.b3[0] + 0.2)) * (1 - yum(arada(t, Z.b4[1] - 0.2, Z.b4[1]))) : 0;
+  $('yigin').style.display = yG > 0 ? 'flex' : 'none'; $('yigin').style.opacity = yG;
+  Array.prototype.forEach.call(document.querySelectorAll('.sayfa'), function(s, i){
+    var gel = yum(arada(t, Z.b3[0] + i * 0.1, Z.b3[0] + i * 0.1 + 0.15));
+    var son = s.classList.contains('sik') ? 1 : 1 - 0.85 * yum(arada(t, Z.b4[0] + 0.2, Z.b4[0] + 0.7));
+    s.style.opacity = (gel * son).toFixed(3);
+    s.style.transform = s.classList.contains('sik') && t >= Z.b4[0] ? 'scaleX(' + (1 + 0.0 * t) + ')' : 'none';
+  });
+  /* şıklar: 6'da B kızarır, sağa titrer */
+  var sG = gor(t, Z.b6[0], Z.b6[1]);
+  $('siklar').style.display = sG > 0 ? 'flex' : 'none'; $('siklar').style.opacity = sG;
+  var yEl = document.querySelector('.s[data-y]'), ya = Z.b6[0] + 0.6;
+  yEl.classList.toggle('yanlis', t >= ya);
+  var tit = t >= ya && t < ya + 0.35 ? Math.abs(Math.sin((t - ya) * 60)) * 4 * (1 - (t - ya) / 0.35) : 0;
+  yEl.style.transform = 'translateX(' + tit.toFixed(2) + 'px)';
+  /* madde satırları: 7'de vurgu yanar */
+  var mG = gor(t, Z.b7[0], Z.b7[1]);
+  $('madde').style.display = mG > 0 ? 'flex' : 'none'; $('madde').style.opacity = mG;
+  var vz = yum(arada(t, Z.b7[0] + 0.5, Z.b7[0] + 0.9));
+  Array.prototype.forEach.call(document.querySelectorAll('.m.vurgu'), function(m){ m.style.opacity = (0.3 + 0.7 * vz).toFixed(3); });
+  /* kapanış */
+  var kp = yum(arada(t, Z.kapanis, Z.kapanis + 0.35));
+  $('kapanis').style.opacity = kp; $('kapanis').style.display = kp > 0 ? 'flex' : 'none';
+}
+
+/* Güvenli alan: görünür her öğe x 22–338, y 90–416 içinde mi; satır kutusu taşıyor mu */
+function alanDisi(){
+  var hata = [];
+  var secici = '#etiket,#ust,.satir p,#yigin,#siklar,#madde,#kapanis .adres,#logo';
+  Array.prototype.forEach.call(document.querySelectorAll(secici), function(el){
+    var kap = el.closest('.satir,#yigin,#siklar,#madde,#kapanis');
+    if (kap && (kap.style.display === 'none' || parseFloat(kap.style.opacity) === 0)) return;
+    if (el.closest('#kapanis') && $('kapanis').style.display === 'none') return;
+    if (parseFloat(getComputedStyle(el).opacity) === 0 || el.offsetHeight < 1) return;
+    var r = el.getBoundingClientRect();
+    if (r.left < 21.5 || r.right > 338.5 || r.top < 89.5 || r.bottom > 416.5) hata.push((el.id || el.className || el.tagName) + ' ' + [r.left, r.top, r.right, r.bottom].map(function(x){ return x.toFixed(0); }).join(','));
+    if (el.scrollWidth > el.clientWidth + 1) hata.push((el.id || el.tagName) + ' yatay taşma');
+  });
+  return hata;
+}
+window.kur = kur; window.kare = kare; window.alanDisi = alanDisi; window.Z = Z;
+</script>
+</body>
+</html>
