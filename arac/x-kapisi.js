@@ -205,7 +205,9 @@ const SENARYOLAR = [
   { ad: 'cihaz-sinir', yol: '_uye/kaydir/smmm/finansal-muhasebe.html?xkcihaz=sinir', akis: async (t, s, e) => {
       const var_ = await goruldu(t, s, '#ckPerde');
       return var_ ? await denetle(t, s, e) : [kor(e, 'div#ckPerde', '"Cihaz sınırına ulaştın" perdesi')]; } },
-  { ad: 'ekip', yol: '_uye/index.html', hazirla: async (t, s) => {
+  // 21.10: ?ana=1 - 96665e24 (18.10) oturumlu uyeyi index.html'den ogrenci.html'e yonlendiriyor (menu.js orada bildirimi bilerek
+  //   gostermez); senaryo yonlendirmeye takilip 'bildirim cikmadi, olculemedi' diyordu. Uye ana sayfayi ?ana=1 ile (logo bagi) gorur.
+  { ad: 'ekip', yol: '_uye/index.html?ana=1', hazirla: async (t, s) => {
       /* menu.js: yerel depodaki oturum jetonuyla ekibe_soru REST isteği; istek taklit edilir (ağ yok) */
       await t.cdp.cagir('Page.addScriptToEvaluateOnNewDocument', { source: '(function(){ try{ localStorage.setItem(' + JSON.stringify(JETON_ANAHTAR) + ', JSON.stringify({access_token:"sahte",user:{id:"00000000-0000-0000-0000-0000000000e1"}})); }catch(e){}' +
         ' var f=window.fetch; window.fetch=function(u,o){ if(/\\/rest\\/v1\\/ekibe_soru/.test(String(u))) return Promise.resolve(new Response("[{\\"id\\":1}]",{status:200,headers:{"Content-Type":"application/json"}})); return f.apply(this,arguments); }; })();' }, s.oturum); },
