@@ -24,7 +24,7 @@ const Z = { acilisSon: 2.0, sayacBas: 2.0, sayacSon: 9.0, yanlis: 9.0, dogru: 10
 const FF = (() => { const p = 'C:/Users/cemdi/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-9.0-full_build/bin/ffmpeg.exe'; return fs.existsSync(p) ? p : 'ffmpeg'; })();
 const md = fs.readFileSync(path.join(KOK, 'pazarlama', 'reklam', 'meta-meydan-okuma-sayac.md'), 'utf8').replace(/<!--[\s\S]*?-->\r?\n?/g, '');
 const BOLUM = { sgs: 'Staja Giriş', yet: 'Yeterlilik' };
-const YANLIS = { sgs: 'D', yet: 'D' };
+const YANLIS = { sgs: 'D', yet: 'A' };   /* yet: sitede en çok seçilen yanlış şık A (21.10 ölçüm: 27/86) */
 
 function veriKur(sinav) {
   const m = new RegExp(`## ${BOLUM[sinav]}\\r?\\n([\\s\\S]*?)(?=\\r?\\n## )`).exec(md);

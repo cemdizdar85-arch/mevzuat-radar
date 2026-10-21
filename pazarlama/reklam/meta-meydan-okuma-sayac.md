@@ -33,18 +33,24 @@ tetikte.com
 
 ## Yeterlilik
 
+<!-- 21.10 akşam Cem: "müşteri istiyorsak vereceğiz" → uydurma "%82" YERİNE ölçülmüş oran (Cem kendi "sitedeki yanlış oranı metne
+     girmez" kuralını bu video için kaldırdı). Supabase cevap_kayit, soru_id smmm-4k-a-fmuh-zor-r3/kp-02, olusturma >= 2026-10-09
+     (21.10 ölçüm): 102 kayıt, 16'sı boş seçim → cevaplayan 86, doğru (E) 22, yanlış 64 (%74). Şık dağılımı A 27 · B 12 · C 16 · D 9 · E 22.
+     Yanlış şık olarak en çok seçilen A gösterilir. Dayanak ambardaki VUK metninden (veri/mevzuat/vuk.json, mevzuat.gov.tr 1.4.213,
+     belge tarihi 08.10.2026): m.283 gelecek döneme ait peşin ödenen gider aktifleştirilir; m.287 gelecek döneme ait peşin tahsil
+     olunan hasılat pasifleştirilir. Yeniden yayında oran tazelenir. -->
 Reklam
-Bu soruda 4 tuzak var. Sen hangisine düşerdin?
+Bu soruyu sitede cevaplayan 86 kişiden 64'ü yanlış yaptı.
 İşletme, 1.09.2026 tarihinde depo için 18 aylık 180.000 ₺ kirayı peşin ödemiş ve tamamını Genel Yönetim Giderleri hesabına gider yazmıştır. Aynı işletme 1.11.2026 tarihinde boş bir depo alanını 6 ay süreyle kiraya vermiş, tahsil ettiği 60.000 ₺'nin tamamını gelir hesabına kaydetmiştir. Dönemsellik kavramına göre 2026 yılı kârı bu işlemler nedeniyle kaç ₺ yüksek ya da düşük gösterilmiştir?
 A) 40.000 ₺ yüksek gösterilmiştir
 B) 140.000 ₺ yüksek gösterilmiştir
 C) 100.000 ₺ yüksek gösterilmiştir
 D) 140.000 ₺ düşük gösterilmiştir
 E) 100.000 ₺ düşük gösterilmiştir
-Gider Tarafı Tuzağı
-Yalnız kira giderindeki 140.000 farka baktın, gelirdeki 40.000 farkı unuttun.
+Gelir Tarafı Tuzağı
+Yalnız kira gelirindeki 40.000 farka baktın, giderdeki 140.000 farkı unuttun.
 Doğrusu E) 100.000 ₺ düşük gösterilmiştir
-Gider 140.000 fazla, gelir 40.000 fazla yazıldı; net etki kâr 100.000 düşük.
+Gider 140.000 fazla, gelir 40.000 fazla yazıldı: kâr 100.000 düşük. Dayanak: VUK m.283 ve m.287.
 Yeterlilik'e 37 gün. Her yanlış şıkkın bir nedeni var.
 tetikte.com
 
