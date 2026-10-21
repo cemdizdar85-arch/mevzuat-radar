@@ -203,7 +203,7 @@ function SY_Bol([string]$metin, [string]$std){
   #         "<STD> Ek N - <BASLIK> [k/n]"); eskiden 9 ekin tamami son paragrafa (27.15, 39.665 kr) yapisiyor, tablo satirlari dusuyordu.
   #     (e) ALT ALTA IKI NUMARA (1.3/1.4, 6.2/6.3) ve (f) SATIRA DUSEN ATIF (9.53, 17.2): ayrinti asagida, numara dalinda.
   #   Oteki kipler (TMS/TFRS, BDS/GDS satir basi, TSRS sutun) bu bloktan ETKILENMEZ: hepsi $kilavuzKip ile kapili.
-  #   Mutasyon: $env:SY_KILAVUZ_MUTASYON = harf | mulga | baslik | ek | yigin | atif | eski (eski = altisi birden kapali, 21.10 oncesi davranis)
+  #   Mutasyon: $env:SY_KILAVUZ_MUTASYON = harf | mulga | baslik | ek | yigin | atif | bent | bentrakam | ustbaslik | sayfasaran | eski (eski = hepsi birden kapali, 21.10 oncesi davranis)
   #             + (c)'nin alt kurallari tek tek: baglac | saran | zincir | uzun · xpdf kapisi: satirici.
   #   GORMEZ: sayfa sinirinda bolunen baslik (ust yarisi onceki sayfada) · baslik ile numara arasinda govde satiri olan duzen ·
   #   iki karisik-harfli baslik ust uste (ilki zincire girmez, onceki paragrafin govdesine gider; icerik kaybolmaz).
@@ -214,6 +214,23 @@ function SY_Bol([string]$metin, [string]$std){
   $kEk     = $kilavuzKip -and ($kMut -notin @('ek','eski'))
   $kYigin  = $kilavuzKip -and ($kMut -notin @('yigin','eski'))   # (e) alt alta iki numara — asagida
   $kAtif   = $kilavuzKip -and ($kMut -notin @('atif','eski'))    # (f) satira dusen atif — asagida
+  # ⭐ 21.10.2026 (ikinci tur, BOBI ambar yazimindan SONRA bulundu — bag kapisi "dayanak hicbir kayitta yok" dedi):
+  #   (g) BENT + NUMARA: poppler son bendin isaretini ("c)", "(ii)") yazar, ALTINA sonraki paragrafin numarasini ("19.6"), sonra bendin
+  #       metnini basar. Bent metni sonraki paragrafin BASINA gidiyordu (BOBI 10 paragraf: 1.33 5.27 9.51 11.11 13.3B 14.8 18.17 19.5
+  #       19.18 23.33; ör. 19.5 "… ve c)" ile bitiyor, "Yükümlülük tutarının güvenilir … olması." 19.6'da). xpdf ve -layout ikisi de dogru.
+  #       Kural: govdenin son dolu satiri YALNIZ bent isaretiyse gelen numara BEKLER (yigin (e) mekanizmasi); bent metni "." + bos satir +
+  #       buyuk harfli satirda biter, numara orada acilir.
+  #   (h) UST BASLIK: iki seviye baslik ust uste ("Genel Finansal Raporlama İlkeleri" / "İşletmenin Sürekliliği" / "1.14"). Ust satir
+  #       zincire girmiyor, ONCEKI paragrafin govdesine yapisiyordu (BOBI 1.13, 10.6, 23.11). Kural: bos satirdan sonra (onceki dolu satir
+  #       cumleyle ya da sayfa no ile biter) gelen ≤60 kr baslik bicimli satir, HEMEN altindaki (bos satirsiz) baslik numaraya
+  #       baglaniyorsa o da basliktir; ad alt basligi alir (BÖLÜM zinciri gibi), ust baslik govdeye girmez.
+  #   (i) SAYFA SINIRINDA SARAN BASLIK: 50+ kr baslik satirlarinin arasina sayfa no girerse ("… İlişkin Kur" / "69" / "Riskine veya …
+  #       Karşı" / "Korunma" / "9.53") ilk yarisi onceki paragrafin govdesine dusuyordu (BOBI 9.52). Kural: saran birlesme bos satir +
+  #       sayfa no'yu atlar (yalniz arada sayfa no varsa).
+  #   Mutasyon: bent | bentrakam (rakamla baslayan paragraf, 18.18) | ustbaslik | sayfasaran (eski = hepsi kapali).
+  $kBent   = $kilavuzKip -and ($kMut -notin @('bent','eski'))
+  $kUst    = $kilavuzKip -and ($kMut -notin @('ustbaslik','eski'))
+  $kSayfaSaran = $kilavuzKip -and ($kMut -notin @('sayfasaran','eski'))
   $kYiginSonraki = $null; $kOncekiDolu = ''; $kBosGordu = $false
   $kNo = if($kHarf){ '\d{1,2}(?:\.\d{1,2}){1,3}[A-Z]?' } else { '\d{1,2}(?:\.\d{1,2}){1,3}' }
   $kEkRx = '^EK\s+(\d{1,2})\s*[-–]\s*(\S.*)$'
@@ -244,8 +261,15 @@ function SY_Bol([string]$metin, [string]$std){
       $t = $satirlar[$bi].Trim()
       if($sayfaSatiri.Contains($bi) -or -not (& $kBicim $t)){ $bi++; continue }
       $son = $bi; $metin = $t
-      while($kMut -ne 'saran' -and ($son + 1) -lt $satirlar.Count -and $satirlar[$son].Trim().Length -ge 50 -and $satirlar[$son].Trim() -cnotmatch '^BÖLÜM\s+\d' -and (& $kBicim $satirlar[$son+1].Trim()) -and ($metin.Length + 1 + $satirlar[$son+1].Trim().Length) -le 250){
-        $son++; $metin = "$metin $($satirlar[$son].Trim())"
+      while($kMut -ne 'saran'){
+        $nx = $son + 1
+        if($kSayfaSaran -and $satirlar[$son].Trim().Length -ge 50){   # (i) arada bos satir + sayfa no varsa atla
+          $m = $son + 1; $sayfaGecti = $false
+          while($m -lt $satirlar.Count -and ($satirlar[$m].Trim().Length -eq 0 -or $satirlar[$m].Trim() -match '^\d{1,3}$')){ if($satirlar[$m].Trim() -match '^\d{1,3}$'){ $sayfaGecti = $true }; $m++ }
+          if($sayfaGecti -and $m -lt $satirlar.Count){ $nx = $m }
+        }
+        if(-not ($nx -lt $satirlar.Count -and $satirlar[$son].Trim().Length -ge 50 -and $satirlar[$son].Trim() -cnotmatch '^BÖLÜM\s+\d' -and (& $kBicim $satirlar[$nx].Trim()) -and ($metin.Length + 1 + $satirlar[$nx].Trim().Length) -le 250)){ break }
+        $son = $nx; $metin = "$metin $($satirlar[$son].Trim())"
       }
       $birimBas[$bi] = $son; $birimMetin[$bi] = $metin; $birimSon[$son] = $bi
       $bi = $son + 1
@@ -265,6 +289,11 @@ function SY_Bol([string]$metin, [string]$std){
       $nt = $satirlar[$n].Trim()
       if($nt -cmatch $kParRx -or ($nt -cmatch $kEkRx -and $nt -notmatch '\.{5,}')){ return $true }
       if($kMut -ne 'zincir' -and $derinlik -lt 3 -and (& $kBolumMu $metin) -and $birimBas.ContainsKey($n)){ return (& $kNitelik $n ($derinlik + 1)) }
+      # (h) ust baslik: bos satirdan sonra gelen kisa baslik, BOS SATIRSIZ altindaki baslik numaraya baglaniyorsa
+      if($kUst -and $derinlik -eq 0 -and $n -eq ($son + 1) -and $birimBas.ContainsKey($n) -and $metin.Length -le 60 -and -not (& $kBolumMu $metin) -and $b -ge 1 -and $satirlar[$b-1].Trim().Length -eq 0){
+        $o = $b - 1; while($o -ge 0 -and ($satirlar[$o].Trim().Length -eq 0 -or $satirlar[$o].Trim() -match '^\d{1,3}$')){ $o-- }
+        if($o -ge 0 -and $satirlar[$o].Trim() -match '[.:;!?)”"]$'){ return (& $kNitelik $n 1) }
+      }
       return $false
     }
     foreach($b in @($birimBas.Keys)){
@@ -384,6 +413,11 @@ function SY_Bol([string]$metin, [string]$std){
       #   -layout ve xpdf ikisini de dogru yerde gosteriyor). Eskiden 1.3 bos kalip ADI KALKIYOR, metni 1.4'e gidiyordu. Kural: govdesiz
       #   numaranin ardindan ikinci numara gelirse ikincisi BEKLER; ilk metin, "." ile biten satirdan ve bos satirdan sonra buyuk harfle
       #   baslayan ilk satirda (bent isareti degil) biter, ikinci numara orada acilir.
+      # 21.10 (g) BENT + NUMARA: govdenin son dolu satiri yalniz bent isareti ("c)", "(ii)") ise numara bekler, bent metni bu paragrafta kalir
+      if($kBent -and $suAn -and $suAn.Contains('kil') -and $suAn.govde.Count -gt 0 -and -not $kYiginSonraki -and $kOncekiDolu -cmatch '^\(?(?:[a-zçğıöşü]{1,2}|[ivx]{1,5})\)$'){
+        $kYiginSonraki = [ordered]@{ onek=''; no=$kTekNo; sonek=''; baslik=$baslik; kil=$true; bentBekler=$true; govde=New-Object System.Collections.Generic.List[string] }
+        continue
+      }
       if($kYigin -and $suAn -and $suAn.Contains('kil') -and $suAn.govde.Count -eq 0 -and -not $kYiginSonraki){
         $kYiginSonraki = [ordered]@{ onek=''; no=$kTekNo; sonek=''; baslik=$baslik; kil=$true; govde=New-Object System.Collections.Generic.List[string] }
         continue
@@ -526,7 +560,8 @@ function SY_Bol([string]$metin, [string]$std){
       }
     }
     # 21.10 (e): bekleyen ikinci numara, ilk numaranin metni bitince (". " + bos satir + buyuk harf, bent isareti degil) acilir
-    if($kYiginSonraki -and $suAn.govde.Count -gt 0 -and $kBosGordu -and $kOncekiDolu -match '\.$' -and $s -cmatch '^[A-ZÇĞİÖŞÜ“"]'){
+    #   (g) bent bekleyisinde paragraf rakamla da baslayabilir ("18.16 paragrafının (b) …" — BOBI 18.18; yalniz buyuk harf kosulu 18.18'i 18.17'ye yapistirdi)
+    if($kYiginSonraki -and $suAn.govde.Count -gt 0 -and $kBosGordu -and $kOncekiDolu -match '\.$' -and ($s -cmatch '^[A-ZÇĞİÖŞÜ“"]' -or ($kMut -ne 'bentrakam' -and $kYiginSonraki.Contains('bentBekler') -and $s -match '^\d'))){
       $parcalar.Add($suAn); $suAn = $kYiginSonraki; $kYiginSonraki = $null
     }
     $suAn.govde.Add($s)
@@ -1218,6 +1253,196 @@ Para Birimi
   if(-not $xo.bozuk){ $dusen += "XPDF KAPISI: satir ici numarali metin yakalanmadi (ic $($xo.satirIci) / bas $($xo.satirBasi))" }
   $po = SY_KilavuzSatirIci ($bobi + "`nAna ortaklık 10.000 `$ borç vermiştir. İşlem tarihinde 1 `$ = 2.50 TL; dönem sonunda ise 1 `$ = 2.60 TL’dir.")
   if($po.bozuk){ $dusen += "XPDF KAPISI YANLIS ALARM: poppler metni bozuk sayildi (ic $($po.satirIci) / bas $($po.satirBasi))" }
+  # --- 21.10 (ikinci tur) BENT + NUMARA (g) · UST BASLIK (h) · SAYFA SINIRINDA SARAN BASLIK (i): gercek BOBI satirlari, kurgu YOK ---
+  #   (poppler 25.07 duz cikarim, KGK EK 2.pdf satir 336-356 · 3928-3962 · 7424-7452 · 7626-7652 · 7124-7141 · 9422-9448; bos satir + sayfa no aynen)
+  $bobi2 = @'
+1.13
+
+Zamanında sunum; finansal bilginin, finansal tablo kullanıcılarının kararlarını
+etkileyebileceği zamanda mevcut olmasıdır.
+
+Genel Finansal Raporlama İlkeleri
+İşletmenin Sürekliliği
+1.14
+
+İşletme yönetimi finansal tabloları hazırlarken işletmenin faaliyetlerini devam
+ettirebilme gücünü değerlendirir. Yönetimin, işletmeyi tasfiye etme veya ticari
+faaliyetlerine son verme niyetinin ya da zorunluluğunun bulunmadığı durumlarda
+finansal tablolar işletmenin sürekliliği varsayımına dayanılarak hazırlanır. Yönetim
+işletmenin sürekliliği varsayımının geçerli olup olmadığını değerlendirirken
+raporlama dönemi sonundan itibaren en az on iki aylık dönemi kapsayacak şekilde
+gelecek hakkında elde edilebilen bütün bilgileri dikkate alır. Yönetim bu
+değerlendirmeyi yaparken işletmenin faaliyetlerini devam ettirebilmesini ciddi şekilde
+3
+
+şüpheli hale getirebilecek şartlarla ilgili önemli belirsizlikleri tespit ederse bu
+belirsizlikleri dipnotlarda açıklar.
+
+9.51
+
+9.49 paragrafında belirtilen korunma muhasebesine aşağıdaki durumlarda son verilir:
+a)
+
+Korunma aracının süresinin dolması, satılması veya feshedilmesi,
+
+b)
+
+Korunma işleminin 9.46 paragrafındaki korunma muhasebesi şartlarını artık
+karşılamaması veya
+
+c)
+9.52
+
+İşletmenin korunma muhasebesinden vazgeçmesi.
+
+Korunma muhasebesine son verilmişse ve korunan kalem, itfa edilmiş değeri
+üzerinden ölçülen finansal tablo dışı bırakılmamış bir varlık veya yükümlülükse,
+korunan kalemin defter değerinde düzeltme olarak kayda alınmış kazanç veya
+kayıplar, korunma aracının kalan ömrü boyunca etkin faiz yöntemi kullanılarak kâr
+veya zararda itfa edilir.
+Kayda Alınmış Finansal Araca İlişkin Değişken Faiz Oranı Riskine, Bir Kesin
+Taahhüde veya Gerçekleşme İhtimali Yüksek Tahmini Bir İşleme İlişkin Kur
+
+69
+
+Riskine veya Emtia Fiyatı Riskine ya da Yurtdışındaki Net Yatırıma Karşı
+Korunma
+9.53
+
+Korunulan riskin aşağıdakilerden biri olması durumunda, korunma aracının gerçeğe
+uygun değerindeki değişimin, korunan kalemin gerçeğe uygun değerindeki veya
+beklenen nakit akışlarındaki değişimleri etkin olarak karşılayan kısmı, özkaynaklarda
+“Korunma Yedeği” kaleminde muhasebeleştirilir.
+
+19.5
+
+Karşılık, yalnızca aşağıdaki durumların varlığı halinde kayda alınır:
+a)
+
+İşletmenin raporlama dönemi sonunda geçmiş bir olaydan kaynaklanan mevcut
+bir yükümlülüğünün bulunması,
+
+b)
+
+Yükümlülüğün yerine getirilmesi için işletmeden ekonomik fayda çıkışının
+muhtemel olması (diğer bir ifadeyle gerçekleşme olasılığının, gerçekleşmeme
+olasılığından daha yüksek olması) ve
+
+c)
+19.6
+
+Yükümlülük tutarının güvenilir bir biçimde tahmin edilebilir olması.
+
+Karşılık tutarı, Finansal Durum Tablosuna yükümlülük olarak yansıtılır ve diğer
+bölümlere göre bir varlığın maliyetine dâhil edilmediği sürece karşılık tutarı kadar
+gider kayda alınır.
+
+19.7
+
+19.5 paragrafının (a) bendinde yer alan, raporlama dönemi sonunda geçmiş bir olaydan
+kaynaklanan bir yükümlülüğün bulunması şartı, işletmenin yükümlülüğünü yerine
+getirmek dışında herhangi bir gerçekçi alternatifinin bulunmadığı anlamına
+gelmektedir. Böyle bir durum aşağıdaki şartlardan birinin varlığı halinde ortaya çıkar:
+
+19.18
+
+Şarta bağlı yükümlülük aşağıdakilerden herhangi biridir;
+a)
+
+Geçmiş olaylardan kaynaklanan muhtemel bir yükümlülük olup söz konusu
+yükümlülüğün mevcudiyeti tam olarak işletmenin kontrolünde bulunmayan,
+gelecekteki belirsiz bir veya daha fazla olayın meydana gelip gelmemesine
+bağlıdır.
+
+b)
+
+Geçmiş olaylardan kaynaklanan; fakat aşağıda yer alan nedenlerle kayda
+alınamayan mevcut bir yükümlülüktür:
+(i)
+
+Yükümlülüğün yerine getirilmesi için işletmeden ekonomik fayda
+çıkışının muhtemel olmaması veya
+
+(ii)
+19.19
+
+Yükümlülük tutarının güvenilir bir biçimde ölçülememesi.
+
+Bir yükümlülük için müteselsilen sorumlu olunması durumunda, söz konusu
+yükümlülüğün diğer taraflarca karşılanacağı tahmin edilen kısmı, şarta bağlı
+yükümlülük olarak değerlendirilir.
+
+18.17
+
+Kullanım değerinin hesaplanması aşağıdaki adımlardan oluşur:
+a)
+
+Varlığın kullanımı süresince ve nihai olarak elden çıkarılmasından elde edilmesi
+beklenen nakit giriş ve çıkışlarının tahmini ve
+
+b)
+18.18
+
+Söz konusu nakit akışlarına uygun iskonto oranının uygulanması.
+
+18.16 paragrafının (b), (ç) ve (d) bentlerinde belirtilen unsurlar, gelecekteki nakit
+akışlarına ilişkin bir düzeltme ya da iskonto oranına ilişkin bir düzeltme olarak
+yansıtılabilir. Ayrıca iskonto oranının, genel enflasyonla ilgili fiyat artışlarının etkisini
+içermesi durumunda gelecekteki nakit akışları da nominal değerleriyle tahmin edilir.
+
+
+23.11
+
+a)
+
+Mahsup edilebilmesine ilişkin yasal bir hakkın bulunması ve
+
+b)
+
+Mahsup edilmiş tutar üzerinden ödeme yapılmasının amaçlanması.
+
+Dönem vergisi Kâr veya Zarar Tablosunda “Vergi Gideri” kaleminde gösterilir.
+Ancak dönem vergisinin, aynı veya farklı bir dönemde kâr veya zarara yansıtılmayan
+(diğer bir ifadeyle özkaynaklarda kayda alınan) işlem veya olayların sonucu olarak
+ortaya çıkması durumunda, bunlara ilişkin dönem vergisi tutarı, söz konusu işlem ve
+olayların etkilerinin yansıtıldığı özkaynak kaleminde (“Yeniden Değerleme Yedeği”,
+“Yabancı Para Çevrim Farkları” ve “Korunma Yedeği” kalemlerinde) gösterilir.
+
+179
+
+Ertelenmiş Vergi
+Kayda Alma
+23.12
+
+Ertelenmiş vergi; varlıkların ve yükümlülüklerin defter değerleri üzerinden geri
+kazanılması veya ödenmesi ve indirilecek geçmiş yıl zararları ile vergi indirimlerinin
+ileriye taşınması sonucunda gelecek dönemlerde ödenecek veya geri kazanılacak
+vergilerdir.
+'@
+  $b2 = @(SY_Bol $bobi2 'BOBI FRS')
+  $b2Oz = (($b2 | ForEach-Object { $_.kaynak_ad }) -join ' | ')
+  $b2Bul = { param($no) @($b2 | Where-Object { $_.kaynak_ad -match (' p\.' + [regex]::Escape($no) + '( |$)') }) }
+  # (g) bent metni kendi paragrafinda (19.5 c · 19.18 (ii) · 9.51 c), sonraki paragraf kendi metniyle baslar
+  $g195 = @(& $b2Bul '19.5'); $g196 = @(& $b2Bul '19.6')
+  if($g195.Count -ne 1 -or $g195[0].metin -notmatch 'c\) Yükümlülük tutarının güvenilir bir biçimde tahmin edilebilir olması\.$'){ $dusen += "BOBI BENT+NUMARA: 19.5 son bendi (c) kendi paragrafinda degil ($b2Oz)" }
+  if($g196.Count -ne 1 -or $g196[0].metin -notmatch '^Karşılık tutarı, Finansal Durum Tablosuna'){ $dusen += 'BOBI BENT+NUMARA: 19.6 bent metniyle basliyor' }
+  $g1918 = @(& $b2Bul '19.18'); $g1919 = @(& $b2Bul '19.19')
+  if($g1918.Count -ne 1 -or $g1918[0].metin -notmatch '\(ii\) Yükümlülük tutarının güvenilir bir biçimde ölçülememesi\.$' -or $g1919.Count -ne 1 -or $g1919[0].metin -notmatch '^Bir yükümlülük için'){ $dusen += 'BOBI BENT+NUMARA: 19.18 (ii) bendi 19.19 basina kaydi' }
+  $g951 = @(& $b2Bul '9.51'); $g952 = @(& $b2Bul '9.52')
+  if($g951.Count -ne 1 -or $g951[0].metin -notmatch 'c\) İşletmenin korunma muhasebesinden vazgeçmesi\.$' -or $g952.Count -ne 1 -or $g952[0].metin -notmatch '^Korunma muhasebesine son verilmişse'){ $dusen += 'BOBI BENT+NUMARA: 9.51 (c) bendi 9.52 basina kaydi' }
+  $g1817 = @(& $b2Bul '18.17'); $g1818 = @(& $b2Bul '18.18')
+  if($g1817.Count -ne 1 -or $g1817[0].metin -notmatch 'b\) Söz konusu nakit akışlarına uygun iskonto oranının uygulanması\.$' -or $g1818.Count -ne 1 -or $g1818[0].metin -notmatch '^18\.16 paragrafının'){ $dusen += "BOBI BENT+NUMARA: 18.18 (rakamla baslayan paragraf) 18.17'ye yapisti ya da (b) bendi kaydi ($b2Oz)" }
+  # (i) sayfa sinirinda saran baslik: 9.52 govdesi "itfa edilir." ile biter, baslik 9.53'un adinda
+  if($g952.Count -eq 1 -and $g952[0].metin -notmatch 'itfa edilir\.$'){ $dusen += 'BOBI SAYFA SARAN BASLIK: 9.53 basliginin ilk yarisi 9.52 govdesine dustu' }
+  $g953 = @(& $b2Bul '9.53')
+  if($g953.Count -ne 1 -or $g953[0].kaynak_ad -notmatch ' p\.9\.53 - Kayda Alınmış Finansal Araca İlişkin Değişken Faiz Oranı Riskine'){ $dusen += "BOBI SAYFA SARAN BASLIK: 9.53 adi tam basligin basi degil ($b2Oz)" }
+  if(@($b2 | Where-Object { $_.metin -match '(^| )69( |$)' }).Count){ $dusen += 'BOBI SAYFA SARAN BASLIK: sayfa no (69) metne sizdi' }
+  # (h) ust baslik: onceki paragrafin govdesine yapismaz, ad alt basligi alir
+  $g113 = @(& $b2Bul '1.13'); $g114 = @(& $b2Bul '1.14'); $g2311 = @(& $b2Bul '23.11'); $g2312 = @(& $b2Bul '23.12')
+  if($g113.Count -ne 1 -or $g113[0].metin -notmatch 'mevcut olmasıdır\.$'){ $dusen += 'BOBI UST BASLIK: "Genel Finansal Raporlama İlkeleri" 1.13 govdesine yapisti' }
+  if($g114.Count -ne 1 -or $g114[0].kaynak_ad -notmatch ' - İşletmenin Sürekliliği$'){ $dusen += "BOBI UST BASLIK: 1.14 adi alt baslik degil ($b2Oz)" }
+  if($g2311.Count -ne 1 -or $g2311[0].metin -notmatch 'kalemlerinde\) gösterilir\.$'){ $dusen += 'BOBI UST BASLIK: "Ertelenmiş Vergi" 23.11 govdesine yapisti (sayfa no arada)' }
+  if($g2312.Count -ne 1 -or $g2312[0].kaynak_ad -notmatch ' - Kayda Alma$'){ $dusen += "BOBI UST BASLIK: 23.12 adi 'Kayda Alma' degil ($b2Oz)" }
   # --- BDS/GDS DUZENI (25.08 provasinda bulundu: numara SATIR BASINDA) ---
   # Bu dal sinanmadan BDS toplu kosulursa 30 standart birden coplenir:
   # TMS kipi BDS metninde yalniz SAYFA NUMARALARINI gorur.
@@ -1468,7 +1693,7 @@ if($sinav.Count){
   foreach($d in $sinav){ Write-Host "   $d" }
   exit 1
 }
-Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09] · BOBI harfli no/mulga/bent-baslik/saran/bolum zinciri/uzun baslik/ek/alt alta numara/atif/xpdf kapisi 23 [21.10])'
+Write-Host 'Oz-sinav gecti (TMS kipi 11 · BDS kipi 5 · KILAVUZ kipi 4 [01.09 BOBI/KUMI duzeni] · kip secimi 2 · layout karari 3 · uzun baslik/sahte atif 2 · sarkan atif/dipnot 3 · sayfa no + kosu basligi 3 [14.09] · ek atif/numarali Ek A/iki harfli numara 3 · noktali numara/BDS T soneki 2 [16.09] · BDS dipnot/saran baslik/tirnakli/art arda/ezilen baslik/ekte yeniden numara/ardisik dipnot/yanlis alarm 20 [27.09] · BOBI harfli no/mulga/bent-baslik/saran/bolum zinciri/uzun baslik/ek/alt alta numara/atif/xpdf kapisi 23 [21.10] · BOBI bent+numara/ust baslik/sayfa sinirinda saran baslik 12 [21.10 ikinci tur])'
 Write-Host '  SINANMAYAN DALLAR: PDF indirme · pdftotext · ambar yazimi · geri okuma'
 if($YalnizSinav){ exit 0 }
 Write-Host ''

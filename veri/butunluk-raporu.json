@@ -1,13 +1,13 @@
 {
-  "tarih": "20.10.2026 20:52",
+  "tarih": "21.10.2026 16:07",
   "kapsam": "hepsi",
   "durum": "KIRMIZI",
-  "belge": 50156,
-  "kaynak_temiz": 2352,
-  "kaynak_sorunlu": 427,
+  "belge": 50437,
+  "kaynak_temiz": 2359,
+  "kaynak_sorunlu": 429,
   "kesik_belge": 739,
-  "oksuz_belge": 284,
-  "olculen_kaynak_sayisi": 2779,
+  "oksuz_belge": 292,
+  "olculen_kaynak_sayisi": 2788,
   "olculen_kaynaklar": [
     "[ARŞİV] ÇIKMIŞ SINAV (cikmis-komisyon-cevabi)",
     "[ARŞİV] ÇIKMIŞ SINAV (cikmis-soru)",
@@ -398,6 +398,15 @@
     "Bireysel Emeklilik Sisteminde Devlet Katkisi Hakkinda Yonetmelik",
     "Birlesme ve Bolunme Tebligi (II-23.2)",
     "BOBI FRS",
+    "BOBI FRS Ek 1 - MÜNFERİT FİNANSAL DURUM TABLOSU",
+    "BOBI FRS Ek 2 - MÜNFERİT KÂR VEYA ZARAR TABLOSU",
+    "BOBI FRS Ek 3 - MÜNFERİT ÖZKAYNAK DEĞİŞİM TABLOSU",
+    "BOBI FRS Ek 4 - MÜNFERİT NAKİT AKIŞ TABLOSU",
+    "BOBI FRS Ek 5 - KONSOLİDE FİNANSAL DURUM TABLOSU",
+    "BOBI FRS Ek 6 - KONSOLİDE KÂR VEYA ZARAR TABLOSU",
+    "BOBI FRS Ek 7 - KONSOLİDE ÖZKAYNAK DEĞİŞİM TABLOSU",
+    "BOBI FRS Ek 8 - KONSOLİDE NAKİT AKIŞ TABLOSU",
+    "BOBI FRS Ek 9 - TANIMLAR",
     "Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1)",
     "Borclanma Araclari Tebligi (VII-128.8)",
     "CB Kararı 7887 - AŞ/Ltd asgari sermaye artırımı (RG 25.11.2023)",
@@ -7508,20 +7517,27 @@
     },
     {
       "kaynak": "BOBI FRS",
-      "parca": 561,
-      "eksik_paragraf": 1,
+      "parca": 805,
+      "eksik_paragraf": 0,
+      "kesik_belge": 0,
+      "oksuz_belge": 7,
+      "delikler": []
+    },
+    {
+      "kaynak": "BOBI FRS Ek 2 - MÜNFERİT KÂR VEYA ZARAR TABLOSU",
+      "parca": 2,
+      "eksik_paragraf": 0,
       "kesik_belge": 0,
       "oksuz_belge": 1,
-      "delikler": [
-        {
-          "tip": "par",
-          "enKucuk": 1.0,
-          "enBuyuk": 27.0,
-          "eksik": [
-            26.0
-          ]
-        }
-      ]
+      "delikler": []
+    },
+    {
+      "kaynak": "BOBI FRS Ek 7 - KONSOLİDE ÖZKAYNAK DEĞİŞİM TABLOSU",
+      "parca": 3,
+      "eksik_paragraf": 0,
+      "kesik_belge": 0,
+      "oksuz_belge": 1,
+      "delikler": []
     },
     {
       "kaynak": "Çevre K. (2872 s.K.)",
