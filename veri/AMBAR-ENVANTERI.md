@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **20.10.2026 20:52** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **21.10.2026 13:42** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50156 parça · 2779 tekil kaynak | Bütünlük ölçülen: 2779 (delikli: 404; son ölçüm: 20.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 20.10.2026 20:51)
+**ÖZET:** 50437 parça · 2788 tekil kaynak | Bütünlük ölçülen: 2788 (delikli: 406; son ölçüm: 21.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 21.10.2026 13:40)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -408,7 +408,16 @@
 | BİM-İdare-Vergi Mahk. K. (2576 s.K.) | kanun-madde | 51 | DELİK-İNCELE(par:3/kesik:2/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Bireysel Emeklilik Sisteminde Devlet Katkisi Hakkinda Yonetmelik | kanun-madde | 40 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Birlesme ve Bolunme Tebligi (II-23.2) | kanun-madde | 39 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| BOBI FRS | standart-madde | 561 | DELİK-İNCELE(par:1/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS | standart-madde | 805 | DELİK-İNCELE(par:0/kesik:0/oksuz:7) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 1 - MÜNFERİT FİNANSAL DURUM TABLOSU | standart-madde | 3 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 2 - MÜNFERİT KÂR VEYA ZARAR TABLOSU | standart-madde | 2 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 3 - MÜNFERİT ÖZKAYNAK DEĞİŞİM TABLOSU | standart-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 4 - MÜNFERİT NAKİT AKIŞ TABLOSU | standart-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 5 - KONSOLİDE FİNANSAL DURUM TABLOSU | standart-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 6 - KONSOLİDE KÂR VEYA ZARAR TABLOSU | standart-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 7 - KONSOLİDE ÖZKAYNAK DEĞİŞİM TABLOSU | standart-madde | 3 | DELİK-İNCELE(par:0/kesik:0/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 8 - KONSOLİDE NAKİT AKIŞ TABLOSU | standart-madde | 4 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| BOBI FRS Ek 9 - TANIMLAR | standart-madde | 16 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Borclanma Araci Sahipleri Kurulu Tebligi (II-31/A.1) | kanun-madde | 15 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Borclanma Araclari Tebligi (VII-128.8) | kanun-madde | 49 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | CB Kararı 7887 - AŞ/Ltd asgari sermaye artırımı (RG 25.11.2023) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
