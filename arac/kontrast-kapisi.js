@@ -432,6 +432,10 @@ function koyuListe(sayfalar, secili, acikBagli, bekleyen){
   const aday=sayfalar.filter(acikBagli).concat(secili.length ? KOYU_VITRIN.filter(v=>secili.includes(v)) : KOYU_VITRIN);
   return aday.filter((s,i)=>aday.indexOf(s)===i && !bekleyen.includes(s) && (!secili.length || secili.includes(s)));
 }
+/* 21.10 (dogrula kirmizilari, Cem '3 yap'): arama motoru DOGRULAMA DOSYASI sayfa degildir (tek satir metin; 09.10 Search Console,
+   4dc65b2f 'SILME'). Kapi onu acamayip OLCULEMEDI/KOR sayiyordu. Ad degil ICERIK eslesir: dosyanin TAMAMI tek dogrulama satiri
+   olmali - icinde baska tek karakter olan sayfa olculmeye devam eder. Atlananlar raporda sayiyla yazilir (kural 4). */
+function dogrulamaDosyasi(metin){ return /^\s*google-site-verification: google[0-9a-f]+\.html\s*$/.test(String(metin)); }
 if(process.argv.includes('--sinav')){
   let h=0; const t=(ad,k)=>{ console.log((k?'  geçti: ':'  DÜŞTÜ: ')+ad); if(!k) h++; };
   const bagli=s=>s!=='koyu-tasarim.html';
@@ -443,7 +447,10 @@ if(process.argv.includes('--sinav')){
   const s=koyuListe(['index.html','pano.html'],['index.html'],()=>true);
   t('seçili çalıştırmada yalnız seçilenler', s.length===1 && s[0]==='index.html');
   t('liste tekrarsız', koyuListe(['kaydir/vitrin/sgs.html'],[],()=>true).length===2);
-  console.log(h?'KONTRAST KOYU LİSTE ÖZ-SINAVI DÜŞTÜ':'KONTRAST KOYU LİSTE ÖZ-SINAVI: 6/6 GEÇTİ'); process.exit(h?1:0);
+  t('arama motoru doğrulama dosyası atlanır', dogrulamaDosyasi('google-site-verification: google87733a2d2d0cc2ab.html\n'));
+  t('doğrulama satırı taşıyan GERÇEK sayfa atlanmaz', !dogrulamaDosyasi('<html><body>google-site-verification: google87733a2d2d0cc2ab.html<p>x</p></body></html>'));
+  t('boş/sıradan sayfa atlanmaz', !dogrulamaDosyasi('') && !dogrulamaDosyasi('<!doctype html><title>t</title>'));
+  console.log(h?'KONTRAST KOYU LİSTE ÖZ-SINAVI DÜŞTÜ':'KONTRAST KOYU LİSTE ÖZ-SINAVI: 9/9 GEÇTİ'); process.exit(h?1:0);
 }
 
 /* --- ana akis ----------------------------------------------------------- */
@@ -459,6 +466,8 @@ if(process.argv.includes('--sinav')){
         .concat(...EK_KLASORLER.filter(k=>fs.existsSync(path.join(KOK,k)))
           .map(k=>fs.readdirSync(path.join(KOK,k)).filter(f=>f.endsWith('.html')).sort().map(f=>k+'/'+f)));
 
+  const dogrulamaAtlanan = secili.length ? [] : sayfalar.filter(f=>{ try{ return dogrulamaDosyasi(fs.readFileSync(path.join(KOK,f),'utf8')); }catch(e){ return false; } });
+  if(dogrulamaAtlanan.length){ for(const f of dogrulamaAtlanan) sayfalar.splice(sayfalar.indexOf(f),1); console.log('  atlandi (arama motoru dogrulama dosyasi, sayfa degil): '+dogrulamaAtlanan.join(', ')); }
   if(!sayfalar.length){ console.log('KONTRAST KAPISI: kokte .html yok, atlandi.'); process.exit(0); }
 
   const ci = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
