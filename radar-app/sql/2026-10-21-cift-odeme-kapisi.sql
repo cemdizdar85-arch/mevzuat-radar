@@ -212,25 +212,25 @@ begin
 
     -- M1 tetikleyici boş
     begin
-      execute $m$create or replace function public.siparis_cift_kapi() returns trigger language plpgsql as $b$ begin return new; end $b$$m$;
+      execute $m$create or replace function public.siparis_cift_kapi() returns trigger language plpgsql as $b$ begin return new; end $b$ $m$;
       if pg_temp.cift_vakalar() = 'TAMAM' then raise exception 'OLCU: M1 yakalanmadi'; end if;
       m := m + 1; raise exception 'MUT_GERI';
     exception when others then if sqlerrm <> 'MUT_GERI' then raise; end if; end;
     -- M2 kapsama hep false
     begin
-      execute $m$create or replace function public._paket_kapsar(p_var text, p_var_ders text[], p_yeni text, p_yeni_ders text[]) returns boolean language plpgsql immutable as $b$ begin return false; end $b$$m$;
+      execute $m$create or replace function public._paket_kapsar(p_var text, p_var_ders text[], p_yeni text, p_yeni_ders text[]) returns boolean language plpgsql immutable as $b$ begin return false; end $b$ $m$;
       if pg_temp.cift_vakalar() = 'TAMAM' then raise exception 'OLCU: M2 yakalanmadi'; end if;
       m := m + 1; raise exception 'MUT_GERI';
     exception when others then if sqlerrm <> 'MUT_GERI' then raise; end if; end;
     -- M3 kapsama hep true
     begin
-      execute $m$create or replace function public._paket_kapsar(p_var text, p_var_ders text[], p_yeni text, p_yeni_ders text[]) returns boolean language plpgsql immutable as $b$ begin return true; end $b$$m$;
+      execute $m$create or replace function public._paket_kapsar(p_var text, p_var_ders text[], p_yeni text, p_yeni_ders text[]) returns boolean language plpgsql immutable as $b$ begin return true; end $b$ $m$;
       if pg_temp.cift_vakalar() = 'TAMAM' then raise exception 'OLCU: M3 yakalanmadi'; end if;
       m := m + 1; raise exception 'MUT_GERI';
     exception when others then if sqlerrm <> 'MUT_GERI' then raise; end if; end;
     -- M4 sebep hep null
     begin
-      execute $m$create or replace function public.siparis_cift_sebep(p_eposta text, p_uid uuid, p_paket text, p_dersler text[], p_haric_no text) returns text language plpgsql stable as $b$ begin return null; end $b$$m$;
+      execute $m$create or replace function public.siparis_cift_sebep(p_eposta text, p_uid uuid, p_paket text, p_dersler text[], p_haric_no text) returns text language plpgsql stable as $b$ begin return null; end $b$ $m$;
       if pg_temp.cift_vakalar() = 'TAMAM' then raise exception 'OLCU: M4 yakalanmadi'; end if;
       m := m + 1; raise exception 'MUT_GERI';
     exception when others then if sqlerrm <> 'MUT_GERI' then raise; end if; end;
@@ -238,7 +238,7 @@ begin
     begin
       execute $m$create or replace function public.siparis_cift_kapi() returns trigger language plpgsql security definer set search_path = public, auth as $b$
         declare v text; begin v := public.siparis_cift_sebep(new.email, auth.uid(), new.paket, new.secilen_dersler, null);
-        if v is not null then raise exception '%', v; end if; return new; end $b$$m$;
+        if v is not null then raise exception '%', v; end if; return new; end $b$ $m$;
       if pg_temp.cift_vakalar() = 'TAMAM' then raise exception 'OLCU: M5 yakalanmadi'; end if;
       m := m + 1; raise exception 'MUT_GERI';
     exception when others then if sqlerrm <> 'MUT_GERI' then raise; end if; end;
