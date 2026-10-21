@@ -1,6 +1,6 @@
 ---
 tur: reklam
-yz: hayir
+yz: evet
 kanal: instagram-reels + meta (9:16)
 durum: yayin-oncesi
 ---
@@ -70,8 +70,30 @@ Tetikte'de her yanlış şıkkın neden yanlış olduğunu ve sorunun dayandığ
 Reklam
 SMMM Yeterlilik · Finansal Muhasebe
 
-7 saniyen var. Bu soruda 4 tuzak var; sen hangisine düşerdin? Cevabını yorumlara yaz, sonra videonun sonunu izle.
+Bu soruyu sitede cevaplayan 86 kişiden 64'ü yanlış yaptı. 7 saniyen var; sen hangisine düşerdin? Cevabını yorumlara yaz, sonra videonun sonunu izle.
 
 Tetikte'de her yanlış şıkkın neden yanlış olduğunu ve sorunun dayandığı maddeyi görürsün. 5 örnek soru ücretsiz, üye olmadan: tetikte.com (bağlantı profilde)
 
+Ses yapay zekâ ile üretilmiştir.
+
 #reklam #smmmyeterlilik #smmm #muhasebe #finansalmuhasebe 
+
+## Arayüz yazıları · Yeterlilik
+
+<!-- 21.10 Cem'in getirdiği revizyon talimatı: "test ekranı gibi, yazılım hissi ver; gerçek arayüz, tarama efekti, hata tespit uyarısı,
+     otoriter ses". Alınan: uygulama penceresi çerçevesi, tarama çizgisi, uyarı rozeti, seslendirme, keskin yazı tipi (Inter).
+     Alınmayan: "antrasit gri" (marka rengi lacivert + kehribar) · "Sistem VUK 283'e göre hatanı yakaladı" (abartı; dayanak söylenir)
+     · "86 aday" (kendi denetim çözümlerimiz de olabilir → "kişi"). Video üstüne "yapay zekâ" yazılmaz (Instagram etiketi + açıklama). -->
+tetikte
+Yeterlilik · Finansal Muhasebe
+Hata tespit edildi
+Doğru cevap
+
+## Seslendirme · Yeterlilik
+
+<!-- Ses kimliği KİLİTLİ (ses-kimligi-secimi): anlatıcı = Nöbetçi "06 Mert Aksoy – ciddi" z2ObNnp0E5ZGeTlSXkX0, marka = "01 Ahmet" ZsYcqahfiS2dy4J6XYC5
+     yalnız "Tetikte." (21.10 alış 1: tek kelime "Detekite" duyuldu → marka sesi KULLANILMADI, kapanışta logo). Bedel: ElevenLabs aboneliği (ek para yok). Araç arac/video/meydan/ses.js; her klip klip-denetim.js'ten geçer.
+     Sayılar yazıyla (TTS rakam okuma kayması olmasın). Zaman: v1 0,2 sn · v2 9,1 sn · v3 11,4 sn · marka 16,6 sn. -->
+v1: Bu soruyu sitede cevaplayan seksen altı kişiden altmış dördü tuzağa düştü. Sen çözebilir misin?
+v2: A şıkkını seçtiysen kira gelirine baktın, giderdeki farkı unuttun.
+v3: Doğru cevap E. Dayanağı Vergi Usul Kanunu'nun iki yüz seksen üçüncü ve iki yüz seksen yedinci maddeleri.
