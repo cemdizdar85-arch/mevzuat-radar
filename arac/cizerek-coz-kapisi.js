@@ -208,6 +208,17 @@ function sinav() {
     if (C.dugmeAday('sgs-uydurma/kp-09', p) || C.dugmeAday('smmm-uydurma/kp-09', p)) hata.push('PILOT dışı SGS/Yeterlilik sorusu düğme adayı oldu');
     if (!C.dugmeAday('sgs-pilot/kp-01', p)) hata.push('PILOT kimliği düğme adayı değil');
     C.KGK_DIS.push('kgk-dislanan/kp-01'); if (C.dugmeAday('kgk-dislanan/kp-01', p)) hata.push('KGK_DIS kimliği düğme adayı oldu'); C.KGK_DIS.pop(); }
+  // 44) SESLİ ÇİZİM tablosu (22.10): yapı + herkese açık örnek sayfalardaki (kaydir/vitrin/ornek-*.html, depoda zaten açık) gerçek
+  //     senaryoyla sahne sayısı. Tablo kayarsa sitede ses KAPANIR (çizim sessiz) — bu vaka kaymayı yayından önce yakalar.
+  { v.push('ses tablosu = örnek sayfa senaryosu'); const fs = require('fs'); const S = C.SES || {}; const kim = Object.keys(S);
+    if (kim.length < 10) hata.push('ses tablosunda ' + kim.length + ' soru (10 beklenir)');
+    const bul = {}; for (const f of ['ornek-sgs', 'ornek-smmm']) { const t = (fs.readFileSync(path.join(__dirname, '..', 'kaydir', 'vitrin', f + '.html'), 'utf8').split('\n').find(x => x.includes('const SORULAR=')) || ''); const i0 = t.indexOf('['); if (i0 < 0) continue; let d = 0, i = i0; for (; i < t.length; i++) { if (t[i] === '[') d++; else if (t[i] === ']') { d--; if (!d) break; } } JSON.parse(t.slice(i0, i + 1)).forEach(q => { bul[q.id] = q; }); }
+    for (const id of kim) { const e = S[id];
+      if (e.d !== id.replace(/[^a-z0-9]+/gi, '-').replace(/-+$/, '')) hata.push('ses klasör adı kimlikten türemiyor: ' + id);
+      if (e.b.length !== e.s.length || e.b.some((x, i) => i && x <= e.b[i - 1]) || e.b[e.b.length - 1] !== e.n - 1) hata.push('ses eşlemesi bozuk: ' + id);
+      if (!fs.existsSync(path.join(__dirname, '..', 'ses', 'cizim', e.d, 'r' + e.b.length + '.mp3'))) hata.push('ses dosyası yok: ' + e.d);
+      const q = bul[id]; if (!q) { hata.push('ses tablosundaki soru örnek sayfada yok: ' + id); continue; }
+      const r = C.cizimKapi(q); if (!r.gecer || r.senaryo.sahne.length !== e.n) hata.push('ses tablosu senaryodan kaydı: ' + id + ' (tablo ' + e.n + ', senaryo ' + (r.senaryo ? r.senaryo.sahne.length : 'yok') + ')'); } }
   const mut = process.env.CIZ_MUTASYON ?' (MUTASYON: ' + process.env.CIZ_MUTASYON + ')' : '';
   if (hata.length) { console.log('KAPI-CZ ÖZ-SINAV DÜŞTÜ' + mut + ': ' + hata.length + '/' + v.length); hata.forEach(h => console.log('  - ' + h)); return 1; }
   console.log('KAPI-CZ ÖZ-SINAV TEMİZ' + mut + ': ' + v.length + ' vaka'); return 0;
@@ -217,7 +228,7 @@ if (a.includes('--sinav')) {
   let kod = sinav();
   if (kod === 0 && a.includes('--mutasyon') && !process.env.CIZ_MUTASYON) {
     const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste', 'szsonuc', 'szoncul', 'szdogru', 'szcift', 'szrakam', 'szneden', 'szkurtar',
-      'szhukum', 'szdegil', 'szsan', 'szyol', 'szkok', 'szceliski', 'szkural', 'szalt', 'kgkonek'];   // 22.10 KGK eki
+      'szhukum', 'szdegil', 'szsan', 'szyol', 'szkok', 'szceliski', 'szkural', 'szalt', 'kgkonek', 'sestablo'];   // 22.10 KGK eki + ses tablosu
     let kac = 0;
     for (const m of M) {
       const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { CIZ_MUTASYON: m }), encoding: 'utf8' });
