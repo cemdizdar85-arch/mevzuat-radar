@@ -1,15 +1,15 @@
 **********************
 PowerShell transcript start
-Start time: 20261021051627
-Username: runnervmgb3l5\runner
-RunAs User: runnervmgb3l5\runner
+Start time: 20261021055433
+Username: runnervmdkmh8\runner
+RunAs User: runnervmdkmh8\runner
 Configuration Name: 
-Machine: runnervmgb3l5 (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/8f363aec-6e18-4bdd-aacc-9a65562a5615.ps1'
-Process ID: 2371
-PSVersion: 7.6.7
+Machine: runnervmdkmh8 (Unix 7.0.0.1017)
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/667f2f17-dec0-4456-b784-bf3901efa0d4.ps1'
+Process ID: 2636
+PSVersion: 7.6.6
 PSEdition: Core
-GitCommitId: 7.6.7
+GitCommitId: 7.6.6
 OS: Ubuntu 26.04.1 LTS
 Platform: Unix
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
@@ -108,8 +108,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        71x  Turkce|cumle ogeleri
        63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
-       62x  Finansal Tablolar ve Analizi|asit-test oranı
        62x  Maliyet Muhasebesi|satilan mamul maliyeti
+       62x  Finansal Tablolar ve Analizi|asit-test oranı
        60x  Finansal Muhasebe|supheli alacak karsiligi
        59x  Maliyet Muhasebesi|birim maliyet hesabi
 
@@ -180,5 +180,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20261021051731
+End time: 20261021055600
 **********************
