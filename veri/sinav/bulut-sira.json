@@ -22,17 +22,6 @@
                      "not":  "t8 spk-a; Cem t8 tavani 89 USD"
                  },
                  {
-                     "plan":  "veri/sinav/plan-kgk-t8-banka-a.json",
-                     "butce_usd":  "1.6",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-21T22:09:18Z",
-                     "ekleyen":  "kgk-t8",
-                     "yeniden":  false,
-                     "not":  "t8 banka-a; Cem t8 tavani 89 USD"
-                 },
-                 {
                      "plan":  "veri/sinav/plan-kgk-t8-sigorta-a.json",
                      "butce_usd":  "1.6",
                      "paralel":  5,
@@ -42,17 +31,6 @@
                      "ekleyen":  "kgk-t8",
                      "yeniden":  false,
                      "not":  "t8 sigorta-a; Cem t8 tavani 89 USD"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-kgk-t8-tsrs-a.json",
-                     "butce_usd":  "2.2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "kgk",
-                     "eklenme":  "2026-10-21T22:09:59Z",
-                     "ekleyen":  "kgk-t8",
-                     "yeniden":  false,
-                     "not":  "t8 tsrs-a; Cem t8 tavani 89 USD"
                  },
                  {
                      "plan":  "veri/sinav/plan-kgk-t8-spk-b.json",
@@ -108,6 +86,17 @@
                      "ekleyen":  "kgk-t8",
                      "yeniden":  false,
                      "not":  "t8 tsrs-c; Cem t8 tavani 89 USD"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-kgk-t8-spk-c.json",
+                     "butce_usd":  "2.3",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "kgk",
+                     "eklenme":  "2026-10-21T23:29:39Z",
+                     "ekleyen":  "kgk-t8",
+                     "yeniden":  false,
+                     "not":  "t8 spk-c; Cem t8 tavani 89 USD"
                  }
              ]
 }
