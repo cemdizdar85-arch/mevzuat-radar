@@ -88,6 +88,13 @@ tetikte
 Yeterlilik · Finansal Muhasebe
 Hata tespit edildi
 Doğru cevap
+<!-- 21.10 v3 (Cem "video yanlış, bakmadın mı"): ses "Vergi Usul Kanunu 283/287" derken kanunun kendi cümlesi ekrana gelir
+     (sitedeki "Kaynağı göster" gibi sarı vurgu). Metin ambardan aynen: veri/mevzuat/vuk.json (mevzuat.gov.tr 1.4.213, belge 08.10.2026);
+     "…" ile kısaltıldı, vurgulanan kısım [ ] içinde. -->
+VUK m.283
+Gelecek bir hesap dönemine ait olarak [peşin ödenen giderler] … mukayyet değerleri üzerinden [aktifleştirilmek] suretiyle değerlenir.
+VUK m.287
+Gelecek hesap dönemlerine ait olarak [peşin tahsil olunan hasılat] … mukayyet değerleri üzerinden [pasifleştirilmek] suretiyle değerlenir.
 
 ## Seslendirme · Yeterlilik
 
@@ -96,4 +103,4 @@ Doğru cevap
      Sayılar yazıyla (TTS rakam okuma kayması olmasın). Zaman: v1 0,2 sn · v2 9,1 sn · v3 11,4 sn · marka 16,6 sn. -->
 v1: Bu soruyu sitede cevaplayan seksen altı kişiden altmış dördü tuzağa düştü. Sen çözebilir misin?
 v2: A şıkkını seçtiysen kira gelirine baktın, giderdeki farkı unuttun.
-v3: Doğru cevap E. Dayanağı Vergi Usul Kanunu'nun iki yüz seksen üçüncü ve iki yüz seksen yedinci maddeleri.
+v3: Doğru cevap E. Dayanağı Vergi Usul Kanunu'nun iki yüz seksen üçüncü ve iki yüz seksen yedinci maddeleri.

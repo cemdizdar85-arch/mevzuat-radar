@@ -25,7 +25,8 @@ const SES_ALIS = arg('--ses-alis') || '2';
 const SES_ANI = { v1: 0.2, v2: 9.1, v3: 13.9 };
 const FPS = 25, SURE = V2 ? 23 : 19;
 /* açılış cümlesi okunsun diye 2 sn (sayaç reklamında 1 sn); tüm çizelge 1 sn kayar */
-const Z = { acilisSon: 2.0, sayacBas: 2.0, sayacSon: 9.0, yanlis: 9.0, dogru: 10.0, kutuBas: 10.0, kapanisBas: V2 ? 21.2 : 16.0, son: SURE };
+const Z = V2 ? { acilisSon: 2.0, sayacBas: 2.0, sayacSon: 9.0, yanlis: 9.0, dogru: 10.0, kutuBas: 10.0, dogruKutu: 13.9, kaynak1: 15.7, kaynak2: 18.2, kapanisBas: 21.2, son: SURE }
+            : { acilisSon: 2.0, sayacBas: 2.0, sayacSon: 9.0, yanlis: 9.0, dogru: 10.0, kutuBas: 10.0, kapanisBas: 16.0, son: SURE };
 const FF = (() => { const p = 'C:/Users/cemdi/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-9.0-full_build/bin/ffmpeg.exe'; return fs.existsSync(p) ? p : 'ffmpeg'; })();
 const md = fs.readFileSync(path.join(KOK, 'pazarlama', 'reklam', 'meta-meydan-okuma-sayac.md'), 'utf8').replace(/<!--[\s\S]*?-->\r?\n?/g, '');
 const BOLUM = { sgs: 'Staja Giriş', yet: 'Yeterlilik' };
@@ -35,7 +36,7 @@ function veriKur(sinav) {
   const m = new RegExp(`## ${BOLUM[sinav]}\\r?\\n([\\s\\S]*?)(?=\\r?\\n## )`).exec(md);
   if (!m) { console.error(`METİN KAPISI: "${BOLUM[sinav]}" bölümü yok`); process.exit(3); }
   const S = m[1].split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-  if (S.length !== 14 || S[0] !== 'Reklam') { console.error(`METİN KAPISI: ${BOLUM[sinav]} 14 satır olmalı (${S.length})`); process.exit(3); }
+  if (S.length !== 14 || S[0] !== 'Reklam') { console.error(`METİN KAPISI: ${BOLUM[sinav]} 18 satır olmalı (${S.length})`); process.exit(3); }
   const siklar = S.slice(3, 8).map(x => { const k = /^([A-E])\) (.+)$/.exec(x); if (!k) { console.error('şık biçimi: ' + x); process.exit(3); } return { h: k[1], m: k[2] }; });
   const dogruHarf = (/^Doğrusu ([A-E])\)/.exec(S[10]) || [])[1];
   const yanlis = (arg('--yanlis') || YANLIS[sinav]).toUpperCase();
@@ -47,7 +48,7 @@ function arayuzKur(sinav) {
   if (!V2) return null;
   const m = new RegExp(`## Arayüz yazıları · ${BOLUM[sinav]}\\r?\\n([\\s\\S]*?)(?=\\r?\\n## )`).exec(md);
   const A = m ? m[1].split(/\r?\n/).map(s => s.trim()).filter(Boolean) : [];
-  if (A.length !== 4) { console.error(`METİN KAPISI: Arayüz yazıları · ${BOLUM[sinav]} 4 satır olmalı (${A.length})`); process.exit(3); }
+  if (A.length !== 8) { console.error(`METİN KAPISI: Arayüz yazıları · ${BOLUM[sinav]} 8 satır olmalı (${A.length})`); process.exit(3); }
   return A;
 }
 function ff(argv) { execFileSync(FF, ['-nostdin', '-y', '-v', 'error', ...argv], { stdio: 'inherit' }); }
@@ -61,7 +62,7 @@ async function bas(sinav, tarayici) {
   await sayfa.evaluate(v => window.kur(v), veri);
   const kareDiz = path.join(CIKTI, `kareler-${sinav}`);
   fs.rmSync(kareDiz, { recursive: true, force: true }); fs.mkdirSync(kareDiz, { recursive: true });
-  const anlar = ONIZLEME ? [1.0, 3.0, 8.5, 9.3, 11.0, 13.5, 17.5] : Array.from({ length: FPS * SURE }, (_, i) => i / FPS);
+  const anlar = ONIZLEME ? (V2 ? [1.0, 3.0, 8.5, 9.3, 11.0, 14.5, 16.5, 19.0, 21.0, 22.0] : [1.0, 3.0, 8.5, 9.3, 11.0, 13.5, 17.5]) : Array.from({ length: FPS * SURE }, (_, i) => i / FPS);
   const tasmalar = [];
   for (let i = 0; i < anlar.length; i++) {
     const tasma = await sayfa.evaluate(t => { window.kare(t); return window.alanDisi(); }, anlar[i]);
