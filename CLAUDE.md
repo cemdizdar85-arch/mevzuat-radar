@@ -498,6 +498,26 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   16→28, "sebepsiz zenginleşme" 10→25, "disiplin" 12→32, "Lozan" 8→21 dönem çıktı (aynı konu birden çok etikete bölünmüş),
   kaynak satırı 5 dönemi yanlışlıkla TESMER'e yazıyordu. Sayfa açılıştan önce çekildi (noindex + yönlendirme).
   Kaynak satırı kitapçığın gerçek kaynağını yazar (TESMER resmî / ikincil yayım ayrı). "Garanti", "kesin çıkar" yazılmaz.
+- ⛔⭐ **SORU YILI = SINAVIN SORDUĞU YIL; YILLIK TUTAR KÜTÜKTEN** (22.10.2026, Cem: *"sınavda 2025 çıkıyorsa 2026 sınavında 2025
+  olsun, zaten benim dememe gerek yok"* + *"zamanı geldiğinde hemen değiştirecek sistem kuralım"*). **Olay (ölçüldü):** bir üye
+  "2026 tarifesi yok, sınavda 2025 çıkıyor" diye üyeliği iptal etti. Çıkmış vergi soruları: 2025 sınavları 2024'ü, 2026/1-2 2025'i
+  soruyor (beyannamesi kapanmış son yıl). Banka: bitirme Vergi 402 sorunun 275'i 2026 yılı; 3 kıdem sorusu "2026 tavanı" diye
+  46.000/43.700/41.830 yazıyordu (resmî 64.948,77/73.729,87; 41.830 = 2024/II tavanı). Muhasebe dersleri cari yılı da kullanıyor
+  (2026/2'de 2026 ×6) → kural **gelir/kurumlar vergisi beyanı** sorularına özgü. Kurallar:
+  1. Vergi beyanı sorusu **Y−1** yılında ve o yılın tutarıyla yazılır (2026 sınavı → 2025). Cem'e sorulmaz, uygulanır.
+  2. Yıllık tutar (GVK tarife/had, mesken, binek, engellilik, damga azami, kıdem tavanı, asgari ücret…) **hafızadan değil**
+     `veri/sinav/yillik-tutarlar.json`'dan alınır; kütük resmî metinden üretilir: `node arac/yillik-tutar-kutugu.js --yaz`
+     (kaynak + alıntı her değerin yanında; okunamayan kalem `olculmedi` listesinde). Tutar mümkünse **soru kökünde verilir**
+     (çıkmış sınav dili: "… olduğu varsayılmıştır").
+  3. **KAPI-YT** (`arac/yillik-tutar-kapisi.js`, `soru-kalite-kapisi` üzerinden basım + yayın): YENİ soruda (tarih ≥ 2026-10-23)
+     DURDURUR: YT-KAYNAKSIZ (resmî olmayan tutar gerçekmiş gibi) · vergi kanunu dilinde YT-YIL (yıl > Y−1). Yalnız NOT: YT-YANLIS-YIL
+     (isabet ≈%45, 22.10 elle okuma: 25'in ~11'i) · YT-ESKI-YIL ("zamanı geldi", yeni yıla taşı) · YT-EZBER (tutar kökte verilmiyor).
+     Eşdeğerlik 22.10: önbellekteki 15.786 kayıtta bugün duran 0. Öz-sınav 18 vaka + 13 mutasyon (`dogrula.yml`).
+  4. **Yıl dönümü:** Kanun Aynası (`mevzuat.yml`) her yutmada kütüğü tazeler + `--nobet` ile "sınav yılının tutarı kütükte yok"
+     uyarısı basar. 1 Ocak'ta sınav yılı kendiliğinden ilerler; eski yıl soruları `--banka` taramasında YT-ESKI-YIL olarak listelenir
+     ve **resmî kaynakla elle onarılır** (otomatik soru değişikliği YOK — yanlış soru basma kuralı).
+  🚫 GÖRMEZ: kütükte olmayan yıl/kalem (2025 asgari ücret, VUK m.370 haddinin yılı, SGK tavanı, MTV, harç) · sayının kelime
+  yakınında (±100) geçmediği yazım · tutarın yazıyla ya da farklı biçimle yazılması.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
 - Kaynak okunmadan soru yazılmaz. Madde/hesap kodu **ambardan** alınır, hafızadan değil.
 - Yaz → geri oku → karşılaştır.

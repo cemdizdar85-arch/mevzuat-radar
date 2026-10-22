@@ -1,0 +1,592 @@
+{
+ "aciklama": "Yıl yıl değişen tutarlar; ÜRETİCİ arac/yillik-tutar-kutugu.js (elle düzenlenmez). Kapı: arac/yillik-tutar-kapisi.js.",
+ "sinav_yili_kurali": "Y yılında yapılan sınav Y-1 yılının gelir/tutarlarını sorar (ölçüm 22.10.2026: 2025 sınavlarında vergi soruları 2024, 2026/1-2026/2'de 2025 yılını kullanıyor). Soru yılı = sınavın sorduğu yıl (Cem 22.10.2026).",
+ "kalemler": {
+  "gvk_eticaret_hasilat": {
+   "ad": "GVK 9/10 internet satış hasılatı haddi",
+   "kelime": [
+    [
+     "internet",
+     "elektronik"
+    ],
+    [
+     "hasılat"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "1.580.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": ", internet ve benzeri elektronik ortamlar üzerinden yapılan satış hasılatı 1.580.000 TL"
+    },
+    "2026": {
+     "deger": "1.900.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": ", internet ve benzeri elektronik ortamlar üzerinden yapılan satış hasılatı 1.900.000 TL"
+    }
+   }
+  },
+  "gvk_mesken_istisna": {
+   "ad": "GVK 21 mesken kira istisnası",
+   "kelime": [
+    [
+     "mesken",
+     "konut"
+    ],
+    [
+     "istisna"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "47.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "0.000 TL, b) 21 inci maddesinin birinci fıkrasında yer alan mesken kira gelirleri için uygulanan istisna tutarı 47.000 TL"
+    },
+    "2026": {
+     "deger": "58.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "0.000 TL, b) 21 inci maddesinin birinci fıkrasında yer alan mesken kira gelirleri için uygulanan istisna tutarı 58.000 TL"
+    }
+   }
+  },
+  "gvk_yemek_istisna": {
+   "ad": "GVK 23/8 günlük yemek istisnası",
+   "kelime": [
+    [
+     "yemek"
+    ],
+    [
+     "istisna"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "240",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "milatında yemek verilmeyen durumlarda çalışılan günlere ait bir günlük yemek bedeline ilişkin istisna tutarı 240 TL"
+    },
+    "2026": {
+     "deger": "300",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "milatında yemek verilmeyen durumlarda çalışılan günlere ait bir günlük yemek bedeline ilişkin istisna tutarı 300 TL"
+    }
+   }
+  },
+  "gvk_ulasim_istisna": {
+   "ad": "GVK 23/10 günlük ulaşım istisnası",
+   "kelime": [
+    [
+     "ulaşım",
+     "gidip gel",
+     "yol"
+    ],
+    [
+     "istisna"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "126",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "ı bendinde yer alan, işverenlerce hizmet erbabının işyerine gidip gelmesi için sağlanan menfaatlere ilişkin istisna tutarı 126 TL"
+    },
+    "2026": {
+     "deger": "158",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "ı bendinde yer alan, işverenlerce hizmet erbabının işyerine gidip gelmesi için sağlanan menfaatlere ilişkin istisna tutarı 158 TL"
+    }
+   }
+  },
+  "gvk_engelli_1": {
+   "ad": "GVK 31 engellilik indirimi 1. derece",
+   "kelime": [
+    [
+     "engell"
+    ],
+    [
+     "indirim"
+    ],
+    [
+     "derece"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "9.900",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "ikinci fıkrasında yer alan engellilik indirimi tutarları; - Birinci derece engelliler için 9.900 TL"
+    },
+    "2026": {
+     "deger": "12.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "ikinci fıkrasında yer alan engellilik indirimi tutarları; - Birinci derece engelliler için 12.000 TL"
+    }
+   }
+  },
+  "gvk_engelli_2": {
+   "ad": "GVK 31 engellilik indirimi 2. derece",
+   "kelime": [
+    [
+     "engell"
+    ],
+    [
+     "indirim"
+    ],
+    [
+     "derece"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "5.700",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "imi tutarları; - Birinci derece engelliler için 9.900 TL, - İkinci derece engelliler için 5.700 TL"
+    },
+    "2026": {
+     "deger": "7.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "mi tutarları; - Birinci derece engelliler için 12.000 TL, - İkinci derece engelliler için 7.000 TL"
+    }
+   }
+  },
+  "gvk_engelli_3": {
+   "ad": "GVK 31 engellilik indirimi 3. derece",
+   "kelime": [
+    [
+     "engell"
+    ],
+    [
+     "indirim"
+    ],
+    [
+     "derece"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "2.400",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": " için 9.900 TL, - İkinci derece engelliler için 5.700 TL, - Üçüncü derece engelliler için 2.400 TL"
+    },
+    "2026": {
+     "deger": "3.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "için 12.000 TL, - İkinci derece engelliler için 7.000 TL, - Üçüncü derece engelliler için 3.000 TL"
+    }
+   }
+  },
+  "gvk_binek_kira": {
+   "ad": "GVK 40/1-KVK binek aylık kira gider sınırı",
+   "kelime": [
+    [
+     "binek"
+    ],
+    [
+     "kira"
+    ],
+    [
+     "sınır",
+     "had",
+     "kabul",
+     "azami",
+     "üst"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "37.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": " - (1) numaralı bendinde yer alan kiralama yoluyla edinilen binek otomobillerinin her birine ilişkin aylık kira bedeli 37.000 TL"
+    },
+    "2026": {
+     "deger": "46.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": " - (1) numaralı bendinde yer alan kiralama yoluyla edinilen binek otomobillerinin her birine ilişkin aylık kira bedeli 46.000 TL"
+    }
+   }
+  },
+  "gvk_binek_otv_kdv": {
+   "ad": "GVK 40/1 binek ÖTV+KDV gider sınırı",
+   "kelime": [
+    [
+     "binek"
+    ],
+    [
+     "ötv",
+     "özel tüketim"
+    ],
+    [
+     "sınır",
+     "had",
+     "kabul",
+     "azami",
+     "üst"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "990.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "olarak indirim konusu yapılabilecek özel tüketim vergisi ve katma değer vergisinin toplam tutarı 990.000 TL"
+    },
+    "2026": {
+     "deger": "1.200.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "olarak indirim konusu yapılabilecek özel tüketim vergisi ve katma değer vergisinin toplam tutarı 1.200.000 TL"
+    }
+   }
+  },
+  "gvk_binek_amortisman": {
+   "ad": "GVK 40/7 binek amortisman sınırı",
+   "kelime": [
+    [
+     "binek"
+    ],
+    [
+     "amortisman"
+    ],
+    [
+     "sınır",
+     "had",
+     "kabul",
+     "azami",
+     "üst"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "1.100.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "indirim konusu yapılabilecek tutar; özel tüketim vergisi ve katma değer vergisi hariç 1.100.000 TL"
+    },
+    "2026": {
+     "deger": "1.380.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "indirim konusu yapılabilecek tutar; özel tüketim vergisi ve katma değer vergisi hariç 1.380.000 TL"
+    }
+   }
+  },
+  "gvk_binek_amortisman_ikinci_el": {
+   "ad": "GVK 40/7 binek amortisman sınırı (vergiler maliyette / ikinci el)",
+   "kelime": [
+    [
+     "binek"
+    ],
+    [
+     "amortisman"
+    ],
+    [
+     "sınır",
+     "had",
+     "kabul",
+     "azami",
+     "üst"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "2.100.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "vergilerin maliyet bedeline eklendiği veya binek otomobilin ikinci el olarak iktisap edildiği hallerde 2.100.000 TL"
+    },
+    "2026": {
+     "deger": "2.600.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "vergilerin maliyet bedeline eklendiği veya binek otomobilin ikinci el olarak iktisap edildiği hallerde 2.600.000 TL"
+    }
+   }
+  },
+  "gvk_deger_artisi_istisna": {
+   "ad": "GVK mük.80 değer artışı istisnası",
+   "kelime": [
+    [
+     "değer artışı"
+    ],
+    [
+     "istisna"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "120.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": ", h) Mükerrer 80 inci maddesinin üçüncü fıkrasında yer alan değer artışı kazançlarına ilişkin istisna tutarı 120.000 TL"
+    },
+    "2026": {
+     "deger": "150.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": ", h) Mükerrer 80 inci maddesinin üçüncü fıkrasında yer alan değer artışı kazançlarına ilişkin istisna tutarı 150.000 TL"
+    }
+   }
+  },
+  "gvk_arizi_istisna": {
+   "ad": "GVK 82 arızi kazanç istisnası",
+   "kelime": [
+    [
+     "arızi"
+    ],
+    [
+     "istisna"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "280.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "120.000 TL, ı) 82 nci maddesinin ikinci fıkrasında yer alan arızi kazançlara ilişkin istisna tutarı 280.000 TL"
+    },
+    "2026": {
+     "deger": "350.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "150.000 TL, ı) 82 nci maddesinin ikinci fıkrasında yer alan arızi kazançlara ilişkin istisna tutarı 350.000 TL"
+    }
+   }
+  },
+  "gvk_86_beyan_siniri": {
+   "ad": "GVK 86/1-d menkul+gayrimenkul sermaye iradı beyan sınırı",
+   "kelime": [
+    [
+     "beyan"
+    ],
+    [
+     "sınır",
+     "had"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "18.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "nu olmayan menkul ve gayrimenkul sermaye iratlarına ilişkin beyanname verme sınırı 18.000 TL"
+    },
+    "2026": {
+     "deger": "22.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "nu olmayan menkul ve gayrimenkul sermaye iratlarına ilişkin beyanname verme sınırı 22.000 TL"
+    }
+   }
+  },
+  "gvk_tarife_dilim1": {
+   "ad": "GVK 103 tarife 1. dilim üst sınırı",
+   "kelime": [
+    [
+     "dilim",
+     "tl'si için",
+     "tl’si için",
+     "gelir vergisi tarife"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "158.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": " uygulanmak üzere aşağıdaki şekilde yeniden belirlenmiştir. 158.000 TL’ye kadar % 15"
+    },
+    "2026": {
+     "deger": "190.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": " uygulanmak üzere aşağıdaki şekilde yeniden belirlenmiştir. 190.000 TL'ye kadar % 15"
+    }
+   }
+  },
+  "gvk_tarife_dilim2": {
+   "ad": "GVK 103 tarife 2. dilim üst sınırı",
+   "kelime": [
+    [
+     "dilim",
+     "tl'si için",
+     "tl’si için",
+     "gelir vergisi tarife"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "330.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "ere aşağıdaki şekilde yeniden belirlenmiştir. 158.000 TL’ye kadar % 15 330.000 TL’nin"
+    },
+    "2026": {
+     "deger": "400.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "ere aşağıdaki şekilde yeniden belirlenmiştir. 190.000 TL'ye kadar % 15 400.000 TL'nin"
+    }
+   }
+  },
+  "gvk_tarife_dilim3": {
+   "ad": "GVK 103 tarife 3. dilim üst sınırı (ücret dışı)",
+   "kelime": [
+    [
+     "dilim",
+     "tl'si için",
+     "tl’si için",
+     "gelir vergisi tarife"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "800.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "’ye kadar % 15 330.000 TL’nin 158.000 TL’si için 23.700 TL, fazlası % 20 800.000 TL’nin"
+    },
+    "2026": {
+     "deger": "1.000.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "'ye kadar % 15 400.000 TL'nin 190.000 TL'si için 28.500 TL, fazlası % 20 1.000.000 TL'nin"
+    }
+   }
+  },
+  "gvk_tarife_dilim3_ucret": {
+   "ad": "GVK 103 tarife 3. dilim üst sınırı (ücret)",
+   "kelime": [
+    [
+     "dilim",
+     "tl'si için",
+     "tl’si için",
+     "gelir vergisi tarife"
+    ],
+    [
+     "ücret"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "1.200.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "L, fazlası % 20 800.000 TL’nin 330.000 TL’si için 58.100 TL (ücret gelirlerinde 1.200.000 TL’nin 330.000 TL’si için 58.100 TL), fazlası % 27"
+    },
+    "2026": {
+     "deger": "1.500.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "fazlası % 20 1.000.000 TL'nin 400.000 TL'si için 70.500 TL, (ücret gelirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27"
+    }
+   }
+  },
+  "gvk_tarife_dilim4": {
+   "ad": "GVK 103 tarife 4. dilim üst sınırı",
+   "kelime": [
+    [
+     "dilim",
+     "tl'si için",
+     "tl’si için",
+     "gelir vergisi tarife"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "4.300.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "elirlerinde 1.200.000 TL’nin 330.000 TL’si için 58.100 TL), fazlası % 27 4.300.000 TL’nin"
+    },
+    "2026": {
+     "deger": "5.300.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "elirlerinde 1.500.000 TL'nin 400.000 TL'si için 70.500 TL), fazlası % 27 5.300.000 TL'nin"
+    }
+   }
+  },
+  "gvk_mukerrer121": {
+   "ad": "GVK mük.121 vergi indirimi tutar sınırı",
+   "kelime": [
+    [
+     "121",
+     "vergi indirimi"
+    ],
+    [
+     "sınır",
+     "tutar",
+     "had"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "9.900.000",
+     "kaynak": "ambar:gvkgt329",
+     "alinti": "itibaren verilmesi gereken yıllık gelir ve kurumlar vergisi beyannamelerinde uygulanmak üzere 9.900.000 TL olarak tespit"
+    },
+    "2026": {
+     "deger": "12.000.000",
+     "kaynak": "ambar:gvkgt332",
+     "alinti": "itibaren verilmesi gereken yıllık gelir ve kurumlar vergisi beyannamelerinde uygulanmak üzere 12.000.000 TL olarak tespit"
+    }
+   }
+  },
+  "damga_azami": {
+   "ad": "DVK 14 bir kağıt için azami damga vergisi",
+   "kelime": [
+    [
+     "damga"
+    ],
+    [
+     "azami",
+     "üst sınır"
+    ]
+   ],
+   "degerler": {
+    "2025": {
+     "deger": "24.477.478,90",
+     "kaynak": "ambar:damgagt70",
+     "alinti": "acak damga vergisine ilişkin üst sınır yeniden değerleme oranında artırılmış ve 1/1/2025 tarihinden itibaren 24.477.478,90 Türk Lirası"
+    },
+    "2026": {
+     "deger": "29.115.961,10",
+     "kaynak": "ambar:damgagt71",
+     "alinti": "niden değerleme oranı %18,95 (on sekiz virgül doksan beş) olarak belirlenmiş ve 1/1/2026 tarihinden itibaren üst sınır 29.115.961,10 Türk Lirası"
+    }
+   }
+  },
+  "kidem_tavani": {
+   "ad": "İş K. 1475 m.14 kıdem tazminatı yıllık tavanı",
+   "kelime": [
+    [
+     "kıdem"
+    ],
+    [
+     "tavan"
+    ]
+   ],
+   "degerler": {
+    "2025-1": {
+     "deger": "46.655,43",
+     "kaynak": "hazir:kidemtavani",
+     "alinti": "1/1/2025 tarihinden itibaren işçilere ödenecek kıdem tazminatının yıllık tavan tutarı 46.655,43 TL"
+    },
+    "2025-2": {
+     "deger": "53.919,68",
+     "kaynak": "hazir:kidemtavani",
+     "alinti": "1/7/2025 tarihinden itibaren işçilere ödenecek kıdem tazminatının yıllık tavan tutarı 53.919,68 TL"
+    },
+    "2026-1": {
+     "deger": "64.948,77",
+     "kaynak": "hazir:kidemtavani",
+     "alinti": "1/1/2026 tarihinden itibaren işçilere ödenecek kıdem tazminatının yıllık tavan tutarı 64.948,77 TL"
+    },
+    "2026-2": {
+     "deger": "73.729,87",
+     "kaynak": "hazir:kidemtavani",
+     "alinti": "1/7/2026 tarihinden itibaren işçilere ödenecek kıdem tazminatının yıllık tavan tutarı 73.729,87 TL"
+    }
+   }
+  },
+  "asgari_ucret_brut_aylik": {
+   "ad": "Asgari ücret aylık brüt",
+   "kelime": [
+    [
+     "asgari ücret"
+    ]
+   ],
+   "degerler": {
+    "2026": {
+     "deger": "33.030",
+     "kaynak": "ambar:asgariucret2026",
+     "alinti": "aylık brüt asgari ücret 1.101 x 30 = 33.030 TL"
+    }
+   }
+  }
+ },
+ "olculmedi": [
+  "asgari_ucret 2025: Asgari Ücret Tespit Komisyonu 2025 kararı ambarda yok",
+  "VUK m.370 izaha davet haddi: ambardaki VUK metni yalnız güncel tutarı (870.000) taşıyor, YILI ve 2025 değeri ölçülmedi",
+  "SGK prim tavanı/tabanı, MTV, harç, veraset istisnaları: kütüğe henüz alınmadı"
+ ]
+}
