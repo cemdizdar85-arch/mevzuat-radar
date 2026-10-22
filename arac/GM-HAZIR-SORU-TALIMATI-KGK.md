@@ -144,11 +144,45 @@
   TMS 94, BDS 29). 122d1279 standart yutucusunu KAPSAMIYOR. Yazarken: paragraf metninin sonundaki noktalamasız başlık parçası hükmün parçası
   DEĞİLDİR — ona dayanan şık/açıklama yazılmaz (ör. BDS 701 p.13 sonu "…Denetçi Raporunda Bildirilmediği").
 
+## ⭐ K17 — ÇİZİM KAPISI: her yeni soru "✍️ Nöbetçi çizerek çözsün"den GEÇER (22.10.2026)
+> Cem 22.10: *"KGK eksiklerini tamamla ama Nöbetçi çizsin ve çizimle anlatsın; 'var zaten' deme."* KGK'da düğme listeyle değil kuralla açılır
+> (`kgk-` öneki + `cizerek-coz.js` cizimKapi). Kapıdan dönen soru sitede düğmesiz çıkar → **hedefe sayılmaz**. Mekanik: ön denetimde
+> **KGK-CZ (DURDURUR)** — `arac/kgk-ek-kapi.js` hazır soruyu sitedeki biçime çevirir (`motor/kaydir-coz.ps1` ile aynı alanlar) ve sitenin
+> kapısından geçirir; kusur satırı ihlal edilen CZ kuralını söyler.
+> **Ölçüldü (22.10, kasa):** t7 75/88 (%85,2) · t8 100/127 (%78,7) geçiyordu. Dönüşlerin sınıfı: öncüllü soruda hüküm okunamadı (en çok),
+> sözel açıklamada dayanakta olmayan sayı, doğru şık kural cümlesinde aynen yok. Aşağıdaki kurallar kasadaki 215 t7/t8 sorusuna **mekanik
+> benzetimle** uygulanınca 210/215 (%97,7) — yeni yazımda ÖLÇÜLMEDİ (ilk ölçüm: tek modül koşusu).
+- **CZ1 — Öncüllü soru: "Bu olayda" satırı.** Öncüller kökte satır başında `I. … II. …` (soru cümlesinin altında); şıklar yalnız Romen kümesi
+  (`Yalnız I` · `I ve III` · `I, II ve III`). Adımlarda TEK satır: `Bu olayda: I doğru · II yanlış · III doğru · IV yanlış` — kökteki **her**
+  öncül bir kez, hüküm sözcüğü `doğru` / `yanlış` (kök "hangileri yanlıştır" diye sorsa da öncülün kendisi doğru mu yanlış mı o yazılır; kapı
+  olumsuz kökte ✓'yi kendisi çevirir). Ölçüldü: `I: … → DOĞRU (m.4/1)` satırını kapı OKUMAZ (t7/t8'de öncüllü dönüşlerin çoğu) — yazılabilir
+  ama "Bu olayda" satırının yerini tutmaz. Yanlış şık açıklaması öncül hükmü anıyorsa aynı hükmü verir (`III de doğrudur; …` · `II yanlıştır; …`);
+  bir öncüle bir yerde doğru, başka yerde yanlış denmez (SZ-HUKUM). `doğru sandın` / `yanlış sanılır` serbesttir (hüküm sayılmaz). Son adım K4
+  gereği `Doğru şık: I ve III`.
+- **CZ2 — Öncülsüz sözel soru: doğru şık AYNEN.** `hap`'ın ilk cümlesi ya da `teshis.<doğru>.gercek` doğru şıkkın metnini harfiyen içerir
+  (büyük/küçük harf dışında) ve başka hiçbir şıkkın metnini içermez. Kısa şıkta (kurum adı, süre, oran) en güvenlisi `teshis.<doğru>.gercek`
+  = şık metnini aynen taşıyan tek cümle ("Denetçiyi Kurul yetkilendirir."). "Doğru cevap: …" / "Doğru şık: …" satırı kural sayılmaz.
+- **CZ3 — Sayı disiplini (sözel alanlar).** `sinav_taktigi`'nde **rakam yok**. `hap` ve `teshis.*.gercek/yanilgi`'nin ilk cümlesinde, yanlış şık
+  açıklamasının (tuzak metninin) ilk cümlesinde ve adım `anlatim`'ının ilk cümlesinde geçen her sayı soruda, şıklarda ya da `dayanak`'ta AYNI
+  biçimde geçer. Kapı `m.54`, `p.4.29`, `İlke 1.3.8` gibi **nokta bitişik numarayı bulamaz** → bu alanların ilk cümlesinde madde/paragraf numarası
+  yazılmaz; atıf `dayanak` + `kaynak_adlar` + `teshis.paragraf` alanında, gerekirse açıklamanın İKİNCİ cümlesinde kalır (K20 ve "Kaynak" bölümü
+  değişmez). Kanun numarası ("5684 sayılı") ilk cümlede ancak soruda ya da dayanakta da varsa.
+- **CZ4 — Hesap adımı.** Karalamaya giren her satır `Ad = a op b = c` tutar (±%0,5); adım adı rakam taşımaz (`D1`, `P0`, `2. yıl` yerine
+  "Bir yıl sonraki temettü") — kapı addaki rakamı işlemin parçası sayar. Doğru şıkkın sayısı son hesap satırının sonucunda aynen yazılır
+  (şık `4.000 TL` ise satır `… = 4.000`). Karalamadaki her sayı soruda, şıklarda ya da adım formüllerinde geçer; `Sağlama` satırı sonuç sayılmaz.
+- **CZ5 — Her yanlış şıkta neden.** Yanlış şık açıklaması `<Ad> Tuzağı: <neden>` biçiminde ve ilk cümlesi CZ3'e uyar; ya da `teshis.<şık>.yanilgi`
+  dolu. Nedeni boş şık karalanamaz (SZ-NEDEN).
+- **CZ6 — Kök/şık biçimi.** Kökün soru cümlesi `?` ile biter ve "hangisi / hangileri …" kalıbını taşır (kapı altını bu öbekten çizer). Yanlış
+  şıkkın tuzak adı "Doğru ifade" / "Yanlış ifade" olmaz (SZ-CELISKI).
+- Ön denetim KGK-CZ verirse soru **yeniden yazılır** (çizimsiz yayın yok). Okuyucu (K12) çizim kapısını ayrıca okumaz; kapı mekaniktir.
+- 🚫 Kapının GÖRMEDİĞİ (cizerek-coz.js): çizimin anlamca doğruluğu, hap/tuzak metninin hukuken doğruluğu, şartlı hüküm cümlesinin hangi öncüle
+  ait olduğu — bunlar hakem + okuyucu işidir.
+
 ## Teslimden önce (zorunlu)
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File arac/hazir-soru-denetle.ps1 -Dosya veri/fabrika/hazir-kgk-<…>.json
 ```
 Dosya adı `hazir-kgk-…` ise (ya da `-IkizEtiket kgk-…`) KGK sıkı modu kendiliğinden açılır: ADIM YOK / SADE YOK / SIM KUSUR · KGK HARF ANMA ·
-KGK SORUDA VERİLEN · KGK FIKRA ATFI · KGK-DC "Doğru cevap" kayması · KGK-MK eski sigorta makamı (14.10) · KGK uzunluk tavanı (Denetim 784, Muhasebe Standartları 661 — etikette tms/tfrs yoksa `-Tavan 661`;
+KGK SORUDA VERİLEN · KGK FIKRA ATFI · KGK-DC "Doğru cevap" kayması · KGK-MK eski sigorta makamı (14.10) · **KGK-CZ çizim kapısı (22.10, K17)** · KGK uzunluk tavanı (Denetim 784, Muhasebe Standartları 661 — etikette tms/tfrs yoksa `-Tavan 661`;
 KGK'da `-Ders` VERME, SGS sözlüğü kurulur) · KGK KAPI-K. Çıktıda KUSUR kalmaz. Sonra İKİNCİ GÖZ (yeterlilik talimatı) → yükle → plan → bulut sırası.
 Onarım: `node arac/onarim-hatti.js teslim <klasör>` kgk- etiketini artık `veri/sinav/kgk-elle-ret.json`'a yazar (07.10, K8).
