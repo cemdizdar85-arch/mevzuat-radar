@@ -225,6 +225,10 @@ jobs:
           # 6 vaka (3 dusur / 3 gecir: yayindaki eski soru, tarihsiz, yeni temiz) + bag + 4 mutasyon (30.09 olculdu). Node ister.
           - { ad: "KAPI-KALITE bitirme yayin sarti bagi OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/smmm-kalite-bag-sinavi.ps1" }
+          # 22.10.2026 - ONAY YAYIN KAPISI siniflamasi: yayin sartindan dusen onayli soru, eski ret kutugu kaydi yuzunden
+          # "onaya ragmen ret" sayilmaz (21-22.10 bitirme kasa yayini 2 gun KIRMIZI: fmuh-zor-r7/kp-03). 7 vaka + 3 mutasyon.
+          - { ad: "ONAY YAYIN KAPISI siniflama OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/onay-yayin-durumu-sinavi.ps1" }
           # 08.10.2026 - bitirme onay listesi siniflamasi: kor X + kaynakli ikinci cozum dogru soru anlatim fazlari yokken de
           # Cem onay listesine duser (kilit: uretici anlatimi onaydan sonraya birakiyordu, liste "simulasyon yok" diye atiyordu). 17 vaka + 7 mutasyon.
           # 08.10 (kor-tavan): kor HICBIRI + kaynakli dogru -> BEKLEYEN, KK tek basina yayin acmaz, bayat KK gecmez. 22 vaka + 9 mutasyon.
