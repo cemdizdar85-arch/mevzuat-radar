@@ -29,6 +29,7 @@ as $fn$
   );
 $fn$;
 revoke all on function public.cizim_ses_erisim(text) from public;
+revoke all on function public.cizim_ses_erisim(text) from anon;   -- Supabase varsayılan izni anon'a da verir; "from public" onu KALDIRMAZ (22.10 ilk koşu bu öz-sınavla düştü)
 grant execute on function public.cizim_ses_erisim(text) to authenticated;
 
 -- 3) OKUMA POLİTİKASI (yalnız authenticated; anon için politika YOK) ------------------------------------
