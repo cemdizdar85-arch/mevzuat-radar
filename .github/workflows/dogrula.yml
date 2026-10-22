@@ -229,6 +229,10 @@ jobs:
           # "onaya ragmen ret" sayilmaz (21-22.10 bitirme kasa yayini 2 gun KIRMIZI: fmuh-zor-r7/kp-03). 7 vaka + 3 mutasyon.
           - { ad: "ONAY YAYIN KAPISI siniflama OZ-SINAVI",
               kabuk: pwsh, komut: "./arac/onay-yayin-durumu-sinavi.ps1" }
+          # 22.10.2026 - KAPI-YT yillik tutar / yil kurali (Y sinavi Y-1 yilini sorar). 18 vaka (banka olcumundeki yanlis alarmlar
+          # dahil: Yemekhane 300, 800.000 kar payi, iki yilli kok, tarihsiz eski kayit) + 13 mutasyon. Kutuk resmi metinden uretilir.
+          - { ad: "KAPI-YT yillik tutar OZ-SINAVI",
+              kabuk: bash, komut: "node arac/yillik-tutar-kapisi.js --sinav --mutasyon" }
           # 08.10.2026 - bitirme onay listesi siniflamasi: kor X + kaynakli ikinci cozum dogru soru anlatim fazlari yokken de
           # Cem onay listesine duser (kilit: uretici anlatimi onaydan sonraya birakiyordu, liste "simulasyon yok" diye atiyordu). 17 vaka + 7 mutasyon.
           # 08.10 (kor-tavan): kor HICBIRI + kaynakli dogru -> BEKLEYEN, KK tek basina yayin acmaz, bayat KK gecmez. 22 vaka + 9 mutasyon.
