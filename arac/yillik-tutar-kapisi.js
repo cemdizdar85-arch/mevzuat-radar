@@ -82,6 +82,43 @@ const OLGU = {
   gvk_mesken_istisna: /mesken[^.]{0,60}istisna[^.]{0,40}?(\d{1,3}(?:\.\d{3})+)\s*(?:₺|TL)/i,
   asgari_ucret_brut_aylik: /asgari ücret(?:in)? aylık brüt(?: tutarı)?[^.]{0,20}?(\d{1,3}(?:\.\d{3})+(?:,\d{2})?)\s*(?:₺|TL)/i,
 };
+// 22.10 YT-VARSAYIM (Bitirme sınavı eksiklikleri oturumu buldu): "2026 yılı için X olduğu varsayılmıştır / kabul edilmiştir /
+//   bilinmektedir" YT-KAYNAKSIZ'ı susturuyordu (4 vaka: telif haddi 1.100.000, 2. dilim 230.000, mesken 61.000 + 3. dilim ücret 1.900.000).
+//   Kural: aynı cümlede YIL + varsayım fiili + kütük kalemi + sayı; o yılın resmî tutarı cümledeki sayılardan hiçbiri değilse bulgu.
+//   Yıl adı olmayan varsayım ("tavanının 18.000 TL olduğu varsayılmıştır", çıkmış KGK 2023 dili) ve kütükte olmayan oran (%20 tevkifat) GEÇER.
+//   Tarife dilimleri sıra sözcüğüyle ayrılır (yoksa "ikinci dilim" cümlesi öteki dilimlerle de kıyaslanıp yanlış alarm verir).
+const VARSAYIM_FIIL = /varsay|kabul edil|bilinmektedir/i;
+const DILIM_SIRA = {
+  gvk_tarife_dilim1: /birinci (?:gelir )?dilim|ilk (?:gelir )?dilim/i, gvk_tarife_dilim2: /ikinci (?:gelir )?dilim/i,
+  gvk_tarife_dilim3: /üçüncü (?:gelir )?dilim(?![^.]{0,30}ücret)/i, gvk_tarife_dilim3_ucret: /üçüncü[^.]{0,30}dilim[^.]{0,40}ücret|ücret[^.]{0,40}üçüncü (?:gelir )?dilim/i,
+  gvk_tarife_dilim4: /dördüncü (?:gelir )?dilim|telif[^.]{0,200}istisna had/i,
+  // banka ölçümü 22.10: ["beyan"]+["sınır","had"] grubu telif/mesken cümlelerini de yakalıyordu
+  gvk_86_beyan_siniri: /beyan(?:name verme)? (?:sınırı|haddi)/i,
+};
+function varsayimKusurlari(kok, K) {
+  const out = [];
+  for (const cumle of kok.split(/(?<=[.?!])\s+/)) {
+    if (!VARSAYIM_FIIL.test(cumle)) continue;
+    const yillar = (cumle.match(/\b20\d\d\b/g) || []).map(Number); if (!yillar.length) continue;
+    const Y = String(Math.max(...yillar)), dusuk = cumle.toLocaleLowerCase('tr');
+    const sayilar = cumle.match(/\d{1,3}(?:\.\d{3})+(?:,\d{2})?/g) || []; if (!sayilar.length) continue;
+    const eslesen = [];
+    for (const [id, kal] of Object.entries(K.kalemler)) {
+      const resmi = Object.entries(kal.degerler).filter(([ky]) => String(ky).slice(0, 4) === Y).map(([, d]) => d.deger);
+      if (!resmi.length) continue;   // o yılın tutarı kütükte yok → hüküm verilmez (ölçülmedi)
+      const sira = DILIM_SIRA[id];
+      const uyar = sira && MUT !== 'sira-yok' ? sira.test(cumle) : (Array.isArray(kal.kelime[0]) ? kal.kelime : [kal.kelime]).every(g => g.some(w => dusuk.includes(w.toLocaleLowerCase('tr'))));
+      if (uyar) eslesen.push({ kal, resmi });
+    }
+    // banka ölçümü 22.10: cümlede eşleşen kalemlerden BİRİNİN resmî tutarı geçiyorsa (ör. ikinci el binek 2.600.000 cümlesinde
+    //   "binek amortisman" kalemi de eşleşir) o cümle doğru tutarı yazmıştır → hiçbir bulgu verilmez.
+    const tumResmi = eslesen.flatMap(e => e.resmi);
+    if (MUT !== 'cumle-tek' && sayilar.some(s => tumResmi.includes(s))) continue;
+    for (const { kal, resmi } of eslesen)
+      if (!sayilar.some(s => resmi.includes(s))) out.push({ tur: 'YT-VARSAYIM', dur: true, not: `${kal.ad}: ${Y} için ${sayilar.join('/')} varsayılmış; resmî ${resmi.join(' / ')}` });
+  }
+  return out;
+}
 
 function kusurlar(k, sec = {}) {
   const K = kutuk(), H = sec.hedefYil || hedefYil();
@@ -109,6 +146,7 @@ function kusurlar(k, sec = {}) {
     if (resmi && m[1] !== resmi.deger && !herhangi && !(varsay && MUT !== 'varsay-yok'))
       out.push({ tur: 'YT-KAYNAKSIZ', dur: true, not: `${kal.ad} "${m[1]}" yazıyor; ${bek} resmî tutarı ${resmi.deger} (${resmi.kaynak})` });
   }
+  if (MUT !== 'varsayim-kapali') out.push(...varsayimKusurlari(kok, K));
   if (MUT !== 'yil-kapali' && yil && yil > H && (tutarKullanir || VERGI_BAGLAMI.test(kok)))
     out.push({ tur: 'YT-YIL', dur: MUT === 'kanun-kapsam' || VERGI_KANUN.test(kok), not: `soru yılı ${yil} > sınavın sorduğu yıl ${H} (Y sınavı Y-1 yılını sorar)` });
   if (MUT !== 'eski-kapali' && yil && yil < H && tutarKullanir) out.push({ tur: 'YT-ESKI-YIL', dur: false, not: `soru yılı ${yil} < sınav yılı ${H}: yıllık tutar ${H} değerine taşınmalı` });
@@ -151,6 +189,15 @@ function sinav() {
     ['2025 mesken 47.000 (kökte) → temiz', () => !dur(yeni('Kira dışında geliri olmayan (S), 2025 yılında konutunu kiraya vermiştir. Mesken istisnası 47.000 TL\'dir. Gelir vergisi beyanı?'))],
     ['2026 gelir vergisi sorusu (yeni, kanun dili) → YT-YIL durur', () => dur(yeni('Tüccar Bay (A)\'nın 2026 yılı ticari kazancı 746.400 ₺\'dir. 193 sayılı Gelir Vergisi Kanunu\'na göre gelir vergisi?'))],
     ['muhasebe: "2026 … kurumlar vergisi karşılığı" (kanun atfı yok) → YT-YIL yalnız NOT', () => { const k = yeni('İşletme 2026 hesap dönemi sonunda kurumlar vergisi karşılığı ayırmıştır. Yevmiye kaydı?'); return tur(k).includes('YT-YIL') && !dur(k); }],
+    // 22.10 YT-VARSAYIM - 4 gerçek vaka (Bitirme sınavı eksiklikleri oturumu) + 3 yanlış alarm vakası
+    ['VARSAYIM: telif istisna haddi "(2026 yılı için) 1.100.000 … bilinmektedir" → durur', () => { const k = yeni('(A) 2026 yılında telif kazancı elde etmiştir. Telif kazançlarına ilişkin istisna haddinin (2026 yılı için) 1.100.000 ₺ olduğu bilinmektedir. Beyan?'); return tur(k).includes('YT-VARSAYIM') && dur(k); }],
+    ['VARSAYIM: "ikinci gelir diliminde yer alan tutarın 2026 yılı için 230.000 varsayılmıştır" → durur', () => tur(yeni('103. maddedeki tarifenin ikinci gelir diliminde yer alan tutarın 2026 yılı için 230.000 ₺ olduğu varsayılmıştır.')).includes('YT-VARSAYIM')],
+    ['VARSAYIM: mesken 61.000 + 3. dilim ücret 1.900.000 (2026) → iki bulgu', () => kusurlar(yeni('Mesken kira istisnası haddinin 2026 yılı için 61.000 ₺, istisnadan faydalanma sınırı olan üçüncü dilim ücret tutarının 1.900.000 ₺ olduğu varsayılmıştır.')).filter(b => b.tur === 'YT-VARSAYIM').length === 2],
+    ['VARSAYIM: "2025 tarifenin ikinci dilim tutarı 330.000 kabul edilmiştir" (resmî) → temiz, öteki dilimlerle kıyaslanmaz', () => !tur(yeni('Tarifenin ikinci gelir diliminde yer alan tutar 2025 yılı için 330.000 ₺ olarak kabul edilmiştir.')).includes('YT-VARSAYIM')],
+    ['VARSAYIM yanlış alarm yok: "%20 tevkifat yapıldığı varsayılmıştır" (kütükte olmayan oran)', () => !tur(yeni('Ödemeler üzerinden 2025 yılında %20 oranında 150.000 ₺ tevkifat yapıldığı varsayılmıştır.')).includes('YT-VARSAYIM')],
+    ['VARSAYIM yanlış alarm yok: yıl adı geçmeyen "tavanının 18.000 TL olduğu varsayılmıştır"', () => !tur(yeni('İşçi 15.03.2017\'de başlamış. Kıdem tazminatı tavanının 18.000 TL olduğu varsayılmıştır.')).includes('YT-VARSAYIM')],
+    ['VARSAYIM banka: ikinci el binek amortisman sınırı 2.600.000 (2026, resmî) → binek amortisman kalemi de eşleşse temiz', () => !tur(yeni('İkinci el binek otomobil için amortismana tabi tutar sınırının 2026 yılı için 2.600.000 ₺ olduğu varsayılmıştır.')).includes('YT-VARSAYIM')],
+    ['VARSAYIM ESKİ soruda yalnız NOT', () => { const k = eski('Mesken kira istisnası haddinin 2026 yılı için 61.000 ₺ olduğu varsayılmıştır.'); return !dur(k) && satirlar(k).some(s => /^NOT-YT: YT-VARSAYIM/.test(s)); }],
     ['eşdeğerlik: tarihsiz eski kayıt (2.530 vaka) → durmaz', () => !dur({ soru: 'Tüccar Bay (A)\'nın 2026 yılı ticari kazancı 746.400 ₺\'dir. 193 sayılı Gelir Vergisi Kanunu\'na göre gelir vergisi?' })],
     ['YANLIŞ YIL tutarı yeni soruda yalnız NOT (isabet ~%45, 22.10)', () => { const k = ad(yeni('(S) Hanım 2025 yılında dairesini konut olarak kiraya vermiştir.'), 'mesken istisnası 58.000'); return tur(k).includes('YT-YANLIS-YIL') && !dur(k); }],
     ['2025 soru 2026 mesken tutarı 58.000 → YT-YANLIS-YIL', () => tur(ad(yeni('(S) Hanım 2025 yılında dairesini konut olarak kiraya vermiştir. Gelir vergisi?'), 'Vergiye tabi = 196.000 - mesken istisnası 58.000 = 138.000')).includes('YT-YANLIS-YIL')],
@@ -179,7 +226,7 @@ if (require.main === module) {
   if (a[0] === '--sinav') {
     const g = sinav();
     if (a.includes('--mutasyon')) {
-      const { spawnSync } = require('child_process'); const ler = ['yil-kapali', 'tutar-kapali', 'kaynaksiz-kapali', 'donem-kapali', 'varsay-yok', 'yeni-bagsiz', 'eski-kapali', 'ezber-kapali', 'grup-tek', 'yil-max', 'kanun-kapsam', 'yanlis-dur', 'tarihsiz-yeni']; let y = 0;
+      const { spawnSync } = require('child_process'); const ler = ['yil-kapali', 'tutar-kapali', 'kaynaksiz-kapali', 'donem-kapali', 'varsay-yok', 'yeni-bagsiz', 'eski-kapali', 'ezber-kapali', 'grup-tek', 'yil-max', 'kanun-kapsam', 'yanlis-dur', 'tarihsiz-yeni', 'varsayim-kapali', 'sira-yok', 'cumle-tek']; let y = 0;
       for (const m of ler) { const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: { ...process.env, YT_MUTASYON: m, YT_SESSIZ: '1' }, encoding: 'utf8' }); const kr = r.status !== 0; if (kr) y++; console.log(`  mutasyon ${m}: ${kr ? 'KIRMIZI (beklenen)' : 'YEŞİL - sınav kör!'}`); }
       console.log(`MUTASYON ${y}/${ler.length}`); process.exit(g && y === ler.length ? 0 : 1);
     }

@@ -510,7 +510,9 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
      (kaynak + alıntı her değerin yanında; okunamayan kalem `olculmedi` listesinde). Tutar mümkünse **soru kökünde verilir**
      (çıkmış sınav dili: "… olduğu varsayılmıştır").
   3. **KAPI-YT** (`arac/yillik-tutar-kapisi.js`, `soru-kalite-kapisi` üzerinden basım + yayın): YENİ soruda (tarih ≥ 2026-10-23)
-     DURDURUR: YT-KAYNAKSIZ (resmî olmayan tutar gerçekmiş gibi) · vergi kanunu dilinde YT-YIL (yıl > Y−1). Yalnız NOT: YT-YANLIS-YIL
+     DURDURUR: YT-KAYNAKSIZ (resmî olmayan tutar gerçekmiş gibi) · YT-VARSAYIM (aynı cümlede yıl + "varsayılmıştır / kabul
+     edilmiştir / bilinmektedir" + kütük kalemi + o yılın resmî tutarı olmayan sayı; banka 22.10: 12 bulgunun 12'si gerçek - "2026 4. dilim
+     4.300.000", "2026 mesken 33.000", "beyan haddi 230.000"; yıl adı olmayan varsayım ve kütükte olmayan oran geçer) · vergi kanunu dilinde YT-YIL (yıl > Y−1). Yalnız NOT: YT-YANLIS-YIL
      (isabet ≈%45, 22.10 elle okuma: 25'in ~11'i) · YT-ESKI-YIL ("zamanı geldi", yeni yıla taşı) · YT-EZBER (tutar kökte verilmiyor).
      Eşdeğerlik 22.10: önbellekteki 15.786 kayıtta bugün duran 0. Öz-sınav 18 vaka + 13 mutasyon (`dogrula.yml`).
   4. **Yıl dönümü:** Kanun Aynası (`mevzuat.yml`) her yutmada kütüğü tazeler + `--nobet` ile "sınav yılının tutarı kütükte yok"
