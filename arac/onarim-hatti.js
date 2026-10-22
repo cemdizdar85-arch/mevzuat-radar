@@ -132,6 +132,24 @@ function retCikabilir(gerekce, klasor) {
   const g = String(gerekce || '');
   return adlar.some(a => g.includes('risk taramasi grup ' + a + ':'));
 }
+// 22.10 (Cem "1.2.3", kıdem onarımı ölçtü): parti-senkron yüklerken "model":"claude-…" değerini nötr koda çevirir (veriye model adı
+//   girmez kuralı). Geri okuma bunu UYUŞMAZ sayıyor, rehakem kaydı elle rete EKLENMİYORDU → 3 kök değişmiş sorunun 2'si hakemsiz
+//   yayında kalacaktı. Kural: fark YALNIZ "...model" yollarında ve yerel değer "claude…" ise geri okuma tutmuş sayılır; başka her fark UYUŞMAZ.
+const yolDeger = (o, y) => y.split(/[.[\]]/).filter(Boolean).reduce((a, k) => (a == null ? a : a[k]), o);
+function yalnizModelIzi(ambar, yerel) {
+  if (MUT === 'model-izi-yok') return false;
+  const f = fark(ambar, yerel);
+  return f.length > 0 && f.every(y => /(^|\.)model$/.test(y) && /^claude/i.test(String(yolDeger(yerel, y))));
+}
+// 22.10: kökü/anahtarı değişen (rehakem) soru geri okuma ne derse desin elle rete girer (güvenli yön: ambara yarım yazılmış
+//   ya da uyuşmayan kayıt da hakemsiz yayına çıkmaz). Açıklama onarımında listeden ÇIKARMAK ise yalnız doğrulanmış geri okumayla.
+function retGuncelle(kay, ornek, aciklama, rehakem, dog, klasor, baskaSebep) {
+  let c = 0, ek = 0;
+  for (const k of aciklama) if (dog.has(k) && kay[k]) { if (retCikabilir(kay[k].gerekce, klasor)) { delete kay[k]; c++; } else baskaSebep.push(k); }
+  for (const k of rehakem) if ((MUT === 'rehakem-geriokuma' ? dog.has(k) : true) && !kay[k]) {
+    kay[k] = retKayit(ornek, `onarim ${klasor}: anahtar/kok degisti, yeniden hakeme kadar yayin disi${dog.has(k) ? '' : ' (ambar geri okumasi UYUSMAZ - elle bak)'}`); ek++; }
+  return { cikan: c, eklenen: ek };
+}
 const retKayit = (ornek, gerekce) => { const r = { gerekce }; if ('tarih' in ornek) r.tarih = new Date().toISOString().slice(0, 10); if ('kaynak' in ornek) r.kaynak = 'onarim-rehakem'; return r; };
 
 async function teslim(K) {
@@ -148,13 +166,10 @@ async function teslim(K) {
   for (const ad of [...u.aciklama, ...u.rehakem]) {
     const [e, kp] = ad.split('/'); if (!onb[e]) onb[e] = await ambarParti(e, Kk);
     const yerel = okuJ(path.join(KOK, 'veri', 'fabrika', 'kalip-parti-' + e + '.json')).j[kp];
-    if (esit(onb[e][kp], yerel)) dog.add(ad); else uys.push(ad);
+    if (esit(onb[e][kp], yerel) || yalnizModelIzi(onb[e][kp], yerel)) dog.add(ad); else uys.push(ad);
   }
   const baskaSebep = [];
-  const rr = retYaz((kay, ornek) => { let c = 0, ek = 0;
-    for (const k of u.aciklama) if (dog.has(k) && kay[k]) { if (retCikabilir(kay[k].gerekce, path.basename(K))) { delete kay[k]; c++; } else baskaSebep.push(k); }
-    for (const k of u.rehakem) if (dog.has(k) && !kay[k]) { kay[k] = retKayit(ornek, `onarim ${path.basename(K)}: anahtar/kok degisti, yeniden hakeme kadar yayin disi`); ek++; }
-    return { cikan: c, eklenen: ek }; });
+  const rr = retYaz((kay, ornek) => retGuncelle(kay, ornek, u.aciklama, u.rehakem, dog, path.basename(K), baskaSebep));
   if (baskaSebep.length) console.log(`  LİSTEDE BAŞKA SEBEPLE, ÇIKARILMADI (${baskaSebep.length}): ${baskaSebep.join(', ')}`);
   console.log(`${path.basename(K)}: aciklama ${u.aciklama.length} · rehakem ${u.rehakem.length} · red ${u.red.length} · atlanan ${u.atlanan.length} · parti ${u.etiketler.length} (yükleme hatası ${yuk.filter(x => x.cikis).length})`);
   console.log(`  ambar geri okuma ${dog.size}/${u.aciklama.length + u.rehakem.length}${uys.length ? ' · UYUŞMAZ ' + uys.join(',') : ''} · elle ret ${rr.once}→${rr.sonra} (çıkan ${rr.cikan}, eklenen ${rr.eklenen})`);
@@ -194,6 +209,13 @@ function sinav() {
     ['şık değişti → yeniden hakem', karar(e, { ...e, siklar: { A: '3', B: '2' } }, { degisen_alanlar: ['siklar.A'] }), r => r.durum === 'rehakem'],
     ['beyansız fark → red', karar(e, { ...e, aciklama: { A: 'a', B: 'b2' } }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /izinsiz/.test(r.neden)],
     ['fark yok → red', karar(e, { ...e }, { degisen_alanlar: ['aciklama.A'] }), r => r.durum === 'red' && /fark yok/.test(r.neden)],
+    // 22.10 geri okuma: yükleme "claude-…" model izini nötr koda çevirir (kıdem onarımı, 2/3 kayıt)
+    ['geri okuma: yalnız model izi (claude→nötr) → tuttu', { durum: yalnizModelIzi({ soru: 'K', sade: { model: 'model-a', t: 'x' } }, { soru: 'K', sade: { model: 'claude-haiku-4-5', t: 'x' } }) ? 'ok' : 'x' }, r => r.durum === 'ok'],
+    ['geri okuma: model izi + içerik farkı → UYUŞMAZ', { durum: yalnizModelIzi({ soru: 'K2', sade: { model: 'model-a' } }, { soru: 'K', sade: { model: 'claude-haiku-4-5' } }) ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    ['geri okuma: nötr→nötr model farkı (claude değil) → UYUŞMAZ', { durum: yalnizModelIzi({ sade: { model: 'model-a' } }, { sade: { model: 'model-b' } }) ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    ['geri okuma: "model" ile biten ama model olmayan alan → UYUŞMAZ', { durum: yalnizModelIzi({ islem_model: 'a' }, { islem_model: 'claude-x' }) ? 'x' : 'ok' }, r => r.durum === 'ok'],
+    ['rehakem: geri okuma UYUŞMAZ olsa da elle rete girer', (() => { const kay = {}; const r = retGuncelle(kay, { tarih: 'x' }, [], ['e/kp-1'], new Set(), 'k', []); return { durum: kay['e/kp-1'] && /UYUSMAZ/.test(kay['e/kp-1'].gerekce) && r.eklenen === 1 ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
+    ['açıklama: geri okuma UYUŞMAZsa listeden ÇIKMAZ', (() => { const kay = { 'e/kp-2': { gerekce: 'risk taramasi grup k: x' } }; retGuncelle(kay, {}, ['e/kp-2'], [], new Set(), 'k', []); return { durum: kay['e/kp-2'] ? 'ok' : 'x' }; })(), r => r.durum === 'ok'],
     ['alan sırası farkı → eşit', { durum: esit({ a: 1, b: { c: 2, d: 3 } }, { b: { d: 3, c: 2 }, a: 1 }) ? 'ok' : 'x' }, r => r.durum === 'ok'],
     ['onarılamadı işareti', karar(e, e, { onarilamadi: 'kapı yanlış alarm' }), r => r.durum === 'onarilamadi'],
     ['aynı parçanın kusuru → listeden çıkabilir', { durum: retCikabilir('29.09 risk taramasi grup r4-07: AÇIKLAMA KUSURLU (KESİN) - …', 'r4-07') ? 'ok' : 'x' }, r => r.durum === 'ok'],
@@ -211,7 +233,7 @@ function sinav() {
   console.log(`ONARIM HATTI ÖZ-SINAVI ${ok === V.length ? 'YEŞİL' : 'KIRMIZI'} (${ok}/${V.length})`); process.exit(ok === V.length ? 0 : 1);
 }
 
-module.exports = { karar, fark, esit, retCikabilir, retSecim };
+module.exports = { karar, fark, esit, retCikabilir, retSecim, yalnizModelIzi, retGuncelle };
 if (require.main === module) {
   const [kmt, arg, yaz] = process.argv.slice(2);
   if (kmt === '--sinav') sinav();
