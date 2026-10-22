@@ -70,6 +70,9 @@ m.262 · VUK'ta "yıl 360 gün" yok · kâr payı stopajı %15 · eski GV diliml
    Kısaltılmaz; iki toplam aynı soruda geçiyorsa karışır.
 4. **Varsayım yerine kaynak:** ambarda olan parametre (2026 asgari ücret: ASGARİ ÜCRET TESPİT KOMİSYONU KARARI, RG 26.12.2025/33119) kökte
    "kabul edilecektir" diye uydurulmaz. Kaynakta yoksa senaryo o parametreye çarpmaz (B11).
+   **(22.10, sözleşme B27)** Yıl adıyla verilen yıllık tutar ("2025 yılı için … olduğu varsayılmıştır") `veri/sinav/yillik-tutarlar.json`'daki
+   o yılın resmî tutarıdır; "varsayılmıştır" uydurma rakamı meşrulaştırmaz. Resmî tutar senaryoyu bozuyorsa senaryo değişir (22.10'da 4
+   soru: telif haddi 1.100.000, genç girişimci 230.000, mesken sınırı 1.900.000 uydurmaydı).
 5. **Yürürlük:** "Bu madde hükümleri … tarihine kadar uygulanır" diyen geçici maddeye (ör. GVK geç. m.67 → 31.12.2025) uzatması ambarda
    yoksa dayanılmaz.
 6. **Kural cümlesi kanun alıntısı gibi yazılmaz** ("GVK m.86/1-c: …" önekiyle kanunda olmayan cümle yok); uygulama yolu "m.X gereği …" diye
