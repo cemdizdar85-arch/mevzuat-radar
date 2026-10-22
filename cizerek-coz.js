@@ -82,6 +82,34 @@
     'smmm-w3-yspk-cokzor/kp-18':        { d: 'smmm-w3-yspk-cokzor-kp-18',        n: 7,  b: [0, 1, 3, 6],       s: [4.66, 7.8, 6.87, 4.8] }
   };
   if (MUT === 'sestablo') SES['sgs-k5-ekonomi-zor/kp-01'].n = 11;   /* öz-sınav bozması: tablo senaryodan kaydı */
+  /* KGK SESLİ ÇİZİM (22.10.2026, Cem "çizime bağla, ses paket kapısı arkasında kalsın"): ses SİTEDE DEĞİL, kapalı depolama
+     kovası 'cizim-ses-paket'te (radar-app/sql/2026-10-22-cizim-ses-paket-kasasi.sql: yalnız paketi olan üye okur, kural
+     kasa_soru_getir ile aynı). d = kova klasörü (<id, / yerine __>), dosya d/r<n>.mp3. Her sahne bir cümle (b = 0..n-1).
+     Ses reçetesi örnek sorularla AYNI (maskot Mustafa Silici, text-to-dialogue, stability 0,3, atempo 1,14). Tarayıcı pencere
+     açılınca üyenin oturumuyla (window.__pkSb) 30 dk'lık imzalı adres ister; alamazsa (paket yok / oturum yok) çizim sessiz sürer.
+     Senaryo kayarsa ses kapanır (aynı n kuralı); kasa verisi depoda olmadığı için kıyas: cizerek-coz-kapisi.js --kgk <paket.json>. */
+  var KOVA = 'cizim-ses-paket';
+  var SES_KASA = {
+    'kgk-t2-ky-g4-cokzor/kp-03':    { d: 'kgk-t2-ky-g4-cokzor__kp-03', n: 11, b: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], s: [3.29, 5.25, 9.15, 6.2, 6.9, 3.9, 7.34, 6.81, 7.02, 7.12, 8.31] },
+    'kgk-t4-tds-g2-cokzor/kp-04':   { d: 'kgk-t4-tds-g2-cokzor__kp-04', n: 11, b: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], s: [3, 1.65, 14.54, 14.87, 10.21, 4, 9.22, 13.37, 17.57, 3.41, 13.95] },
+    'kgk-d1b-tds-zor-2/kp-23':      { d: 'kgk-d1b-tds-zor-2__kp-23', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [4.18, 6.27, 4.92, 12.25, 9.53, 9.3, 9.63] },
+    'kgk-t2-spk-g3-cokzor/kp-06':   { d: 'kgk-t2-spk-g3-cokzor__kp-06', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [3.18, 9.44, 1.18, 5.02, 4.71, 4.05, 5.03] },
+    'kgk-t5-tsrs-g1-kolay/kp-01':   { d: 'kgk-t5-tsrs-g1-kolay__kp-01', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [3.44, 8.8, 5.97, 5.92, 16.47, 2.91, 10.92] },
+    'kgk-d1b-tds-kolay-2/kp-07':    { d: 'kgk-d1b-tds-kolay-2__kp-07', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [4.11, 8.29, 1.26, 3.91, 3.57, 3.25, 4.31] },
+    'kgk-t7-tms-g2-kolay/kp-04':    { d: 'kgk-t7-tms-g2-kolay__kp-04', n: 7, b: [0, 1, 2, 3, 4, 5, 6], s: [4.27, 8.5, 1.3, 13.76, 15.49, 11.85, 12.74] },
+    'kgk-t4-tms-g2-kolay/kp-03':    { d: 'kgk-t4-tms-g2-kolay__kp-03', n: 9, b: [0, 1, 2, 3, 4, 5, 6, 7, 8], s: [2, 7.3, 9.03, 3.64, 1.22, 2.96, 3.41, 2.83, 3.6] },
+    'kgk-t5-fy-g3-kolay/kp-04':     { d: 'kgk-t5-fy-g3-kolay__kp-04', n: 9, b: [0, 1, 2, 3, 4, 5, 6, 7, 8], s: [2.14, 4.08, 3.72, 6.51, 1.11, 3.58, 2.64, 2.25, 2.81] },
+    'kgk-t4-banka-g1-kolay/kp-01':  { d: 'kgk-t4-banka-g1-kolay__kp-01', n: 8, b: [0, 1, 2, 3, 4, 5, 6, 7], s: [2.29, 6.91, 9.28, 1.32, 3.78, 3.44, 3.89, 3.61] }
+  };
+  Object.keys(SES_KASA).forEach(function (id) { SES_KASA[id].kasa = MUT !== 'seskasaacik'; });
+  function sesKaydi(id) { return SES[id] || SES_KASA[id] || null; }
+  /* g. cümlenin (0'dan) ses adresi. Kasa kaydı: YALNIZ imzalı adres (u[g]); yoksa null = sessiz. Herkese açık yola ASLA düşmez. */
+  function sesKaynak(e, g, kok) {
+    if (!e) return null;
+    if (e.kasa) return (e.u && e.u[g]) || null;
+    return (kok || '') + 'ses/cizim/' + e.d + '/r' + (g + 1) + '.mp3';
+  }
+  function kasaYollari(e) { return e.b.map(function (x, i) { return e.d + '/r' + (i + 1) + '.mp3'; }); }
 
   // ---------------- saf işlevler (node'da sınanır) ----------------
   var SAYI = /%?\d+(?:[.,]\d+)*%?/g;
@@ -544,7 +572,7 @@
   function dugmeAday(id, pset) { id = String(id || ''); if ((pset || PSET)[id]) return true; return MUT !== 'kgkonek' && /^kgk-/.test(id) && KGK_DIS.indexOf(id) < 0; }
   var PSET = {}; PILOT.forEach(function (x) { PSET[x] = 1; });
 
-  var api = { PILOT: PILOT, PROVA: PROVA, SES: SES, KGK_DIS: KGK_DIS, dugmeAday: dugmeAday, senaryo: senaryo, cizerekKapi: cizerekKapi, sozelSenaryo: sozelSenaryo, sozelKapi: sozelKapi, cizimKapi: cizimKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
+  var api = { PILOT: PILOT, PROVA: PROVA, SES: SES, SES_KASA: SES_KASA, KOVA: KOVA, sesKaydi: sesKaydi, sesKaynak: sesKaynak, kasaYollari: kasaYollari, KGK_DIS: KGK_DIS, dugmeAday: dugmeAday, senaryo: senaryo, cizerekKapi: cizerekKapi, sozelSenaryo: sozelSenaryo, sozelKapi: sozelKapi, cizimKapi: cizimKapi, sayilar: sayilar, kaynaktaVar: kaynaktaVar, aritmetikHatasi: aritmetikHatasi, sadele: sadele, celdiriciBol: celdiriciBol, cozumAdimi: cozumAdimi, hesapla: hesapla };
   if (typeof document === 'undefined') return api;
 
   // ---------------- tarayıcı ----------------
@@ -615,7 +643,17 @@
     kalem.style.color = 'var(--cz-yazi)';
     var N = sen.sahne.length, adim = -1, q = 1, oynat = false, raf = 0, bekle = 0, P = [], sonOlay = 0;
     /* sesli: tablodaki sahne sayısı bu senaryoyla aynıysa (şablon değişip kaydıysa ses KAPANIR, çizim sessiz kalır) */
-    var SK = SES[s.id] && SES[s.id].n === N && SES[s.id].b[SES[s.id].b.length - 1] === N - 1 ? SES[s.id] : null, sesEl = null;
+    var SE = sesKaydi(s.id), SK = SE && SE.n === N && SE.b[SE.b.length - 1] === N - 1 ? SE : null, sesEl = null, imzaS = null;
+    /* KGK: pencere açılır açılmaz imzalı adresler istenir (iOS'ta ilk "Sesli oynat" dokunuşu beklemeden çalabilsin) */
+    function imzaAl() {
+      if (!SK || !SK.kasa) return Promise.resolve();
+      if (SK.u && SK.uZaman && Date.now() - SK.uZaman < 25 * 60 * 1000) return Promise.resolve();
+      var sb = window.__pkSb; if (!sb || !sb.storage) return Promise.resolve();
+      return imzaS || (imzaS = sb.storage.from(KOVA).createSignedUrls(kasaYollari(SK), 1800).then(function (r) {
+        var d = (r && !r.error && r.data) || []; SK.u = SK.b.map(function (x, i) { return d[i] && d[i].signedUrl ? d[i].signedUrl : null; }); SK.uZaman = Date.now();
+      }, function () { }).then(function () { imzaS = null; }));
+    }
+    imzaAl();
     function sesDur() { if (sesEl) { sesEl.onended = sesEl.onerror = null; try { sesEl.pause(); } catch (e) { } } }
     var tohum = 7; function r() { tohum = (tohum * 16807) % 2147483647; return tohum / 2147483647; } function j(a) { return (r() - 0.5) * a; }
     function kutu(el) { var b = el.getBoundingClientRect(), k = sahneEl.getBoundingClientRect(); return { x: b.left - k.left, y: b.top - k.top, w: b.width, h: b.height }; }
@@ -687,9 +725,13 @@
       if (g >= SK.b.length || adim >= N - 1) { oynat = false; sesDur(); ciz(); return; }
       var ilk = adim + 1, son = Math.max(ilk, SK.b[g]), sesB = false, cizB = false;
       var devam = function () { if (sesB && cizB && oynat) bekle = setTimeout(function () { sesliGrup(g + 1); }, 300); };
-      sesDur(); sesEl.src = KOK + 'ses/cizim/' + SK.d + '/r' + (g + 1) + '.mp3';
-      sesEl.onended = sesEl.onerror = function () { sesB = true; devam(); };
-      var p = sesEl.play(); if (p && p.catch) p.catch(function () { sesB = true; devam(); });   /* ses çalmazsa çizim sessiz sürer */
+      sesDur(); var kaynak = sesKaynak(SK, g, KOK);
+      if (!kaynak) sesB = true;   /* KGK: imzalı adres yok (paket/oturum yok) -> bu cümle sessiz, çizim sürer */
+      else {
+        sesEl.src = kaynak;
+        sesEl.onended = sesEl.onerror = function () { sesB = true; devam(); };
+        var p = sesEl.play(); if (p && p.catch) p.catch(function () { sesB = true; devam(); });   /* ses çalmazsa çizim sessiz sürer */
+      }
       var T = Math.max(600, Math.min(5200, (SK.s[g] * 1000 - 300) / (son - ilk + 1)));
       zincir(ilk, son, T, function () { cizB = true; devam(); });
     }
@@ -700,7 +742,9 @@
       if (SK) {   /* sesli: her zaman baştan (cümle ile sahne eşleşmesi baştan sayılır) */
         oynat = true; cancelAnimationFrame(raf); clearTimeout(bekle); adim = -1; q = 1; ciz(); kat.querySelector('.czGovde').scrollTop = 0;
         if (!sesEl) { sesEl = new Audio(); sesEl.preload = 'auto'; }
-        olay(s, 'ses'); sesliGrup(0); return;
+        olay(s, 'ses');
+        if (SK.kasa && !SK.u) { imzaAl().then(function () { sesliGrup(0); }); return; }   /* imza henüz gelmediyse bekle (gelmezse sessiz) */
+        sesliGrup(0); return;
       }
       oynat = true; if (adim >= N - 1 && q >= 1) { adim = -1; ciz(); kat.querySelector('.czGovde').scrollTop = 0; }
       if (q < 1) { q = 1; } oyna(adim + 1);
@@ -733,7 +777,8 @@
     if (!kp.gecer) { if (window.console) console.info('[cizerek-coz] kapı döndü', id, kp.neden); return; }
     /* 20.10 (Cem "1.2.3" GM2): cevaptan ÖNCE de görünsün ama cevabı ele vermesin -> düğme değil, kökün altında tek satır haber */
     var ps = k.querySelector('.govde .soru');
-    var sesli = !!(SES[id] && kp.senaryo && SES[id].n === kp.senaryo.sahne.length);   /* 22.10 Cem "1 yap": sesli soruda ibare */
+    var sk0 = sesKaydi(id);   /* KGK kasa sesi yalnız oturum istemcisi olan (paketli) sayfada "sesli" sayılır */
+    var sesli = !!(sk0 && kp.senaryo && sk0.n === kp.senaryo.sahne.length && (!sk0.kasa || window.__pkSb));   /* 22.10 Cem "1 yap": sesli soruda ibare */
     if (ps && !k.querySelector('.czIpucu')) { var ip = document.createElement('p'); ip.className = 'czIpucu'; ip.textContent = sesli ? '✍️🔊 Cevaplayınca Nöbetçi bu soruyu kalemle çizip sesli anlatarak çözer.' : '✍️ Cevaplayınca Nöbetçi bu soruyu kalemle adım adım çözer.'; ps.parentNode.insertBefore(ip, ps.nextSibling); }
     var b = document.createElement('button'); b.type = 'button'; b.className = 'cip2 bCiz'; b.textContent = sesli ? '✍️🔊 Nöbetçi sesli çözsün' : '✍️ Nöbetçi çizerek çözsün';
     b.addEventListener('click', function (e) { e.stopPropagation(); olay(s, 'ac'); ac(s, kp.senaryo); });

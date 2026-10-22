@@ -219,6 +219,30 @@ function sinav() {
       if (!fs.existsSync(path.join(__dirname, '..', 'ses', 'cizim', e.d, 'r' + e.b.length + '.mp3'))) hata.push('ses dosyası yok: ' + e.d);
       const q = bul[id]; if (!q) { hata.push('ses tablosundaki soru örnek sayfada yok: ' + id); continue; }
       const r = C.cizimKapi(q); if (!r.gecer || r.senaryo.sahne.length !== e.n) hata.push('ses tablosu senaryodan kaydı: ' + id + ' (tablo ' + e.n + ', senaryo ' + (r.senaryo ? r.senaryo.sahne.length : 'yok') + ')'); } }
+  // 45) KGK SES KASASI (22.10): KGK sesi paketli — sitede DOSYASI OLMAZ, adres yalnız imzalı (sesKaynak kasa kaydında herkese açık
+  //     yola asla düşmez), tablo yapısı tutarlı, kesik cümle yok (≥0,9 sn; 22.10'da "Doğru cevap D" 0,67 sn'de kesik çıktı),
+  //     göç kovayı KAPALI kurar ve politikayı paket kuralına bağlar. Senaryo kıyası kasa verisiyle: --kgk <paket.json>.
+  { v.push('KGK ses kasası'); const fs = require('fs'); const K = C.SES_KASA || {}, kim = Object.keys(K);
+    if (kim.length < 10) hata.push('ses kasası tablosunda ' + kim.length + ' soru (10 beklenir)');
+    for (const id of kim) {
+      const e = K[id];
+      if (!/^kgk-/.test(id)) hata.push('ses kasasında KGK dışı soru: ' + id);
+      if (C.SES && C.SES[id]) hata.push('soru hem açık hem kasa ses tablosunda: ' + id);
+      if (e.d !== id.replace('/', '__') || /[~\s]/.test(e.d)) hata.push('kasa klasör adı kimlikten türemiyor: ' + id);
+      if (e.b.length !== e.n || e.b.some((x, i) => x !== i) || e.s.length !== e.n) hata.push('kasa ses eşlemesi bozuk (her sahne bir cümle): ' + id);
+      if (e.s.some(x => !(x >= 0.9))) hata.push('kesik cümle (<0,9 sn): ' + id + ' r' + (e.s.findIndex(x => !(x >= 0.9)) + 1));
+      if (fs.existsSync(path.join(__dirname, '..', 'ses', 'cizim', id.replace(/[^a-z0-9]+/gi, '-').replace(/-+$/, '')))) hata.push('PAKETLİ SES SİTEDE AÇIK: ses/cizim/… ' + id);
+      if (C.sesKaynak(e, 0, '../../') !== null) hata.push('imzasız kasa kaydı ses adresi verdi: ' + id);
+      if (C.sesKaynak(Object.assign({}, e, { u: ['https://imzali/x'] }), 0, '../../') !== 'https://imzali/x') hata.push('imzalı adres kullanılmıyor: ' + id);
+      if (C.kasaYollari(e).length !== e.n || C.kasaYollari(e)[0] !== e.d + '/r1.mp3') hata.push('kasa yolu biçimi bozuk: ' + id);
+    }
+    const sql = path.join(__dirname, '..', 'radar-app', 'sql', '2026-10-22-cizim-ses-paket-kasasi.sql');
+    if (!fs.existsSync(sql)) hata.push('ses kasası göçü yok');
+    else { const t = fs.readFileSync(sql, 'utf8'), kod = t.replace(/--.*$/gm, '');
+      if (!/values \('cizim-ses-paket', 'cizim-ses-paket', false/.test(kod) || !/set public = false/.test(kod)) hata.push('göç kovayı kapalı kurmuyor');
+      if (!/for select to authenticated/.test(kod) || /\bto (anon|public)\b/.test(kod)) hata.push('göç politikası anon/public okutuyor ya da authenticated değil');
+      if (!/paket_erisim_var\(s\.sinav, s\.ders\)/.test(kod) || kod.indexOf("replace((storage.foldername(name))[1], '__', '/')") < 0) hata.push('göç politikası paket kuralına / klasör biçimine bağlı değil');
+      if (C.KOVA !== 'cizim-ses-paket') hata.push('JS kova adı göçle aynı değil'); } }
   const mut = process.env.CIZ_MUTASYON ?' (MUTASYON: ' + process.env.CIZ_MUTASYON + ')' : '';
   if (hata.length) { console.log('KAPI-CZ ÖZ-SINAV DÜŞTÜ' + mut + ': ' + hata.length + '/' + v.length); hata.forEach(h => console.log('  - ' + h)); return 1; }
   console.log('KAPI-CZ ÖZ-SINAV TEMİZ' + mut + ': ' + v.length + ' vaka'); return 0;
@@ -228,7 +252,7 @@ if (a.includes('--sinav')) {
   let kod = sinav();
   if (kod === 0 && a.includes('--mutasyon') && !process.env.CIZ_MUTASYON) {
     const M = ['rakam', 'aritmetik', 'dogru', 'sozel', 'hesapkodu', 'altyazi', 'provaliste', 'szsonuc', 'szoncul', 'szdogru', 'szcift', 'szrakam', 'szneden', 'szkurtar',
-      'szhukum', 'szdegil', 'szsan', 'szyol', 'szkok', 'szceliski', 'szkural', 'szalt', 'kgkonek', 'sestablo'];   // 22.10 KGK eki + ses tablosu
+      'szhukum', 'szdegil', 'szsan', 'szyol', 'szkok', 'szceliski', 'szkural', 'szalt', 'kgkonek', 'sestablo', 'seskasaacik'];   // 22.10 KGK eki + ses tablosu
     let kac = 0;
     for (const m of M) {
       const r = spawnSync(process.execPath, [__filename, '--sinav'], { env: Object.assign({}, process.env, { CIZ_MUTASYON: m }), encoding: 'utf8' });
@@ -269,6 +293,10 @@ if (a.includes('--kgk')) {
   }
   console.log('KGK ' + say + ' soru · düğme: sayılı ' + sayili + ' · sözel ' + sozel + ' · toplam ' + (sayili + sozel) + ' · dönen ' + (say - sayili - sozel));
   console.log('biçim: ' + JSON.stringify(bic));
+  { const K = C.SES_KASA || {}; let tut = 0, yok = 0; const kay = [];   // ses kasası tablosu bu kasa verisindeki senaryoyla tutuyor mu
+    for (const id of Object.keys(K)) { const x = P.find(z => z.id === id); if (!x) { yok++; continue; }
+      const r = C.cizimKapi(Object.assign({ id }, x.veri || {})); if (r.gecer && r.senaryo.sahne.length === K[id].n) tut++; else kay.push(id + ' (tablo ' + K[id].n + ', senaryo ' + (r.senaryo ? r.senaryo.sahne.length : 'yok') + ')'); }
+    console.log('ses kasası: ' + Object.keys(K).length + ' soru · senaryoyla tutan ' + tut + ' · kayan ' + kay.length + ' · dosyada yok ' + yok + (kay.length ? ' → ' + kay.join(', ') : '')); }
   Object.keys(sf).sort().forEach(k => console.log('  ' + k.padEnd(32) + ' ' + String(sf[k].toplam).padStart(4) + ' soru · sayılı ' + sf[k].sayili + ' · sözel ' + sf[k].sozel));
   console.log('dönme nedenleri (ilk 12):'); Object.entries(kod).sort((x, y) => y[1] - x[1]).slice(0, 12).forEach(([k, n]) => console.log('  ' + String(n).padStart(4) + '  ' + k));
   process.exit(0);
