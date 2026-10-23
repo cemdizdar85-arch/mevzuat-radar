@@ -177,6 +177,7 @@ if($script:PARMAK_TUZU){ Write-Host "  ONARIM TURU: parmak izi tuzu '$script:PAR
 . (Join-Path $kok 'arac\smmm-ders-adi.ps1')      # 22.09: etiket → ders (yayıncıyla aynı harita); ikiz karşılaştırması ders içinde yapılır
 . (Join-Path $kok 'arac\ozel-maliyet-kapisi.ps1') # 27.09: KAPI-OM özel maliyette eski "kira 5 yıldan uzunsa 5 yılda" kuralı (VUK m.327: kira süresine göre)
 . (Join-Path $here 'model-kod.ps1')              # 10.10: soru verisine model adı girmez — iz alanları ModelKod ile nötr kod (model-a/b/c)
+. (Join-Path $kok 'arac\yil-tebligi-eki.ps1')     # 23.10: hakem paketine sorunun yılının resmî tutar düzenlemesi (YilTebligiEki; kütük veri/sinav/yillik-tutarlar.json)
 . (Join-Path $kok 'arac\soru-kalite-kapisi.ps1')  # 30.09: KAPI-AS (şık açıklaması başka şıkkın sayısını sonuç diye anlatıyor) + KAPI-EK (arac/eski-kurallar.json)
 # 08.09 19:55 Cem "bir yerden sen bas, bir yerden başka gönder; ikisi de koşsun": anlık hatlar planın başından, toplu hatlar sonundan gelir;
 # aynı etiketi iki hat basmasın → ETİKET SAHİPLİĞİ. Üretici başlarken claim-<etiket>.json yazar; canlı başka pid sahipse ya da etiket
@@ -583,12 +584,19 @@ function AtifDesen([string]$dayanak){
   foreach($m in [regex]::Matches($t,'THP\s*(\d{3})')){ $d.Add("THP $($m.Groups[1].Value)%") }
   # "GVK m.6 - ...; m.3 - ...; m.2" : kanun adi bir kez gecer, sonraki m.'ler ayni kanuna aittir
   $son=''
-  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|EMLAK|MTVK|TMKK|OTVK|KMYK|SIGK|GIDERV|VIVK|HARC|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z0-9]))?')){
+  # ⭐ 23.10.2026 (Cem "ikisini de yap"): iki desen kusuru hakeme "kaynakta yok" dedirtiyordu. ÖLÇÜLDÜ (önbellek 15.905 soru):
+  #   (1) "m.86/1-c", "m.21/2" → eski desen rakamı ek sanıp "m.86/1" arıyordu; ambarda m.N/<rakam> adlı belge YOK (veri/mevzuat taraması 0) →
+  #       atıf hiç eşleşmiyor. Fıkralı atıf 2.365 soruda, 115'inde o madde pakete hiç girmemiş (21'i hakem HAYIR). Artık ek yalnız HARF (m.153/A).
+  #   (2) "mükerrer m.20", "mük.20/D" → ambar adı "GVK (193 s.K.) muk. m.20" ama desen "m.20" üretiyor ya da hiç üretmiyordu: 118 sorunun 4'ünde
+  #       madde pakette yok, 4'ü de HAYIR (bitirme 22.10 rehakemi: 4k-a-yvergi-zor-r2/kp-16 "mük.20 fıkra 3 kaynakta yok").
+  $t=[regex]::Replace($t,'(?i)m[üu]kerrer\s*(?:m(?:adde)?\.?\s*)?(\d+)|m[üu]k\.\s*(?:m\.\s*)?(\d+)',{ param($x) 'muk. m.' + $(if($x.Groups[1].Success){ $x.Groups[1].Value } else { $x.Groups[2].Value }) })
+  foreach($m in [regex]::Matches($t,'(?:\b(VUK|TTK|TBK|GVK|KVKK|KVK|SPK|SGK|SMMM|ISK|SENK|IYUK|AATU|KDVK|DAMGA|ISGK|IIK|ISSIZ|BANK|EMLAK|MTVK|TMKK|OTVK|KMYK|SIGK|GIDERV|VIVK|HARC|KYT|PAYT|FONT|DISY|HRRY|ETIKY|STAJY)\b[^m;]*)?(?:\b(muk)\.\s*)?\bm(?:adde)?\.?\s*(\d+)(?:/([A-Z])(?![a-zçğıöşü]))?')){
     if($m.Groups[1].Success){ $son=$m.Groups[1].Value }
     if(-not $son -or -not $KANUN2.ContainsKey($son) -or $KANUN2[$son] -match '%$'){ continue }
-    $ek=if($m.Groups[3].Success){ "/$($m.Groups[3].Value)" } else { '' }
+    $ek=if($m.Groups[4].Success){ "/$($m.Groups[4].Value)" } else { '' }
+    $mk=if($m.Groups[2].Success){ 'muk. ' } else { '' }
     # 'm.6%' m.61/m.62'yi de yakalar; ad ya tam 'm.6' ya 'm.6 ' ile devam eder -> iki desen
-    $d.Add("$($KANUN2[$son]) m.$($m.Groups[2].Value)$ek"); $d.Add("$($KANUN2[$son]) m.$($m.Groups[2].Value)$ek %")
+    $d.Add("$($KANUN2[$son]) $($mk)m.$($m.Groups[3].Value)$ek"); $d.Add("$($KANUN2[$son]) $($mk)m.$($m.Groups[3].Value)$ek %")
     if($d.Count -ge 10){ break }
   }
   return @($d | Select-Object -Unique)
@@ -4788,6 +4796,16 @@ foreach($id in @($don.Keys)){
         Write-Host "  ATIF AMBARDA YOK: $id | $($cvp.dayanak)" -ForegroundColor DarkYellow; $rapor.Add("ATIF AMBARDA YOK: $id | $($cvp.dayanak)")
       }
     }
+  }
+  # 23.10 YIL TEBLİĞİ EKİ (Cem "ikisini de yap"): soru kökü bir yıl anıyorsa (CLAUDE.md "soru yılı = sınavın sorduğu yıl": 2026 sınavı → 2025)
+  # o yılın resmî tutarı + dayandığı tebliğ/genelge maddesi paketin BAŞINA. Ölçüldü: 22.10 rehakeminde w4-yvergi-zor/kp-06 HAYIR — paketteki
+  # GVK m.86/1-d "(22.000 TL)" 2026 tutarı, soru 2025'in 18.000'i (GVGT 329). Ambar çağrısı yok (depodaki veri/mevzuat/*.json); kütükte yoksa paket değişmez.
+  $yte = YilTebligiEki "$($cvp.soru)" $kok
+  if ($yte.metin) {
+    $kMetin = $yte.metin + "`n---`n" + $kMetin
+    if ($yte.adlar.Count) { $cvp | Add-Member -NotePropertyName kaynak_adlar -NotePropertyValue @(@($yte.adlar) + @(@($cvp.kaynak_adlar) | Where-Object { $yte.adlar -notcontains $_ })) -Force }
+    $cvp | Add-Member -NotePropertyName yil_tebligi_eki -NotePropertyValue @($yte.yil) -Force
+    Write-Host ("  YIL TEBLIGI EKI: {0} <- {1} ({2} belge)" -f $id, ($yte.yil -join ','), $yte.adlar.Count) -ForegroundColor DarkCyan
   }
   # --- KAPI-HG · HESAP GRUBU GENISLETME (11.09.2026) --------------------------
   # DOGUSU: Cem muhur ornegi #4'te (sgs-t1-fmuh-kolay/kp-80) gercek hata buldu.

@@ -233,6 +233,10 @@ jobs:
           # dahil: Yemekhane 300, 800.000 kar payi, iki yilli kok, tarihsiz eski kayit) + 13 mutasyon. Kutuk resmi metinden uretilir.
           - { ad: "KAPI-YT yillik tutar OZ-SINAVI",
               kabuk: bash, komut: "node arac/yillik-tutar-kapisi.js --sinav --mutasyon" }
+          # 23.10.2026 - YIL TEBLIGI EKI: hakem paketine sorunun yilinin resmi tutar duzenlemesi (kalip-parti-uret.ps1). 6 vaka (yil yok,
+          # kutukte olmayan yil, kelime yok yanlis alarmi dahil) + 4 mutasyon (yil algisi, kelime gruplari, belge, yil suzgeci).
+          - { ad: "YIL TEBLIGI EKI OZ-SINAVI",
+              kabuk: pwsh, komut: "./arac/yil-tebligi-eki.ps1 -Sinav" }
           # 08.10.2026 - bitirme onay listesi siniflamasi: kor X + kaynakli ikinci cozum dogru soru anlatim fazlari yokken de
           # Cem onay listesine duser (kilit: uretici anlatimi onaydan sonraya birakiyordu, liste "simulasyon yok" diye atiyordu). 17 vaka + 7 mutasyon.
           # 08.10 (kor-tavan): kor HICBIRI + kaynakli dogru -> BEKLEYEN, KK tek basina yayin acmaz, bayat KK gecmez. 22 vaka + 9 mutasyon.
