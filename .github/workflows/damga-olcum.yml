@@ -40,7 +40,7 @@ jobs:
       # commit edilmez: icinde ilan_no listesi var, kasa disina cikmasin.
       - name: Damga yedegini artefakt olarak sakla
         if: always() && inputs.yaz
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: alacak-damga-yedek
           path: veri/alacak-damga-yedek.json
