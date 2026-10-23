@@ -22,7 +22,10 @@
             powershell -NoProfile -File arac/yil-tebligi-eki.ps1 -Sinav [-Mutasyon]
 ================================================================================
 #>
-param([switch]$Sinav, [switch]$Mutasyon)
+# ⛔ 24.10: parametre ADLARI üreticideki değişkenlerle ÇAKIŞMAZ. Bu dosya motor/kalip-parti-uret.ps1'e dot-source ediliyor; eski
+#   [switch]$Sinav üreticinin $Sinav='SGS' parametresini ezdi → 23.10 13:10'dan beri her bulut partisi satır 1541'de
+#   ($Sinav.ToLowerInvariant) 0 USD'de düştü (sgs-s20-fmuh-a/b 6/6). Komut satırı aynı kalsın diye eski adlar Alias.
+param([Alias('Sinav')][switch]$YteSinav, [Alias('Mutasyon')][switch]$YteMutasyon)
 
 $script:YTE_KUTUK = $null
 $script:YTE_BELGE = @{}
@@ -89,7 +92,7 @@ function YilTebligiEki([string]$metin, [string]$kok) {
   return @{ metin = $m; adlar = @($adlar); yil = @($bulunanYil) }
 }
 
-if ($Sinav) {
+if ($YteSinav) {
   $kok = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
   $vakalar = @(
     @{ ad = 'beyan siniri 2025 (w4/kp-06 deseni)'; metin = '(A) Bey 2025 yılında mevduat faizi ve kira geliri elde etmiştir. GVK m.86/1-d beyan sınırı dikkate alınarak beyan edilecek tutar nedir?'; ister = '18.000'; belge = 'SERİ NO: 329'; istemez = '22.000' }
@@ -112,9 +115,9 @@ if ($Sinav) {
       if ($v.belge -and -not (@($r.adlar) -join '|').Contains($v.belge)) { $ok = $false }
     }
     if (-not $ok) { $hata++ }
-    if (-not $Mutasyon) { Write-Host ("  {0} {1}" -f $(if ($ok) { 'GECTI' } else { 'DUSTU' }), $v.ad) }
+    if (-not $YteMutasyon) { Write-Host ("  {0} {1}" -f $(if ($ok) { 'GECTI' } else { 'DUSTU' }), $v.ad) }
   }
-  if ($Mutasyon) { return $hata }
+  if ($YteMutasyon) { return $hata }
   if ($hata) { Write-Host "YIL TEBLIGI EKI SINAVI: $hata/$($vakalar.Count) DUSTU" -ForegroundColor Red; exit 1 }
   Write-Host "YIL TEBLIGI EKI SINAVI: $($vakalar.Count)/$($vakalar.Count) GECTI"
   # Mutasyon: her kilit kosul bozulunca sinav KIRMIZI olmali
