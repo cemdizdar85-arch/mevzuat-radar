@@ -10,6 +10,49 @@
     "varsayilan_paralel":  5,
     "geriye_bakis_gun":  30,
     "sira":  [
-
+                 {
+                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-a.json",
+                     "butce_usd":  "3.6",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-10-23T22:44:21Z",
+                     "ekleyen":  "mevzuat-i-i-9f",
+                     "yeniden":  true,
+                     "not":  "SGS Son 20 Gun dalga1 (Cem 15 USD: FM 7.6 + Vergi 7.4); ilk FM kosusu 0 USD dustu (b0e9621c onarimi)"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-b.json",
+                     "butce_usd":  "4",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-10-23T22:44:38Z",
+                     "ekleyen":  "mevzuat-i-i-9f",
+                     "yeniden":  true,
+                     "not":  "SGS Son 20 Gun dalga1 (Cem 15 USD: FM 7.6 + Vergi 7.4); ilk FM kosusu 0 USD dustu (b0e9621c onarimi)"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-sgs-s20-vergi-a.json",
+                     "butce_usd":  "4.1",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-10-23T22:44:56Z",
+                     "ekleyen":  "mevzuat-i-i-9f",
+                     "yeniden":  false,
+                     "not":  "SGS Son 20 Gun dalga1 (Cem 15 USD: FM 7.6 + Vergi 7.4); ilk FM kosusu 0 USD dustu (b0e9621c onarimi)"
+                 },
+                 {
+                     "plan":  "veri/sinav/plan-sgs-s20-vergi-b.json",
+                     "butce_usd":  "3.3",
+                     "paralel":  5,
+                     "olcum_kosusu":  "",
+                     "sinav":  "sgs",
+                     "eklenme":  "2026-10-23T22:45:13Z",
+                     "ekleyen":  "mevzuat-i-i-9f",
+                     "yeniden":  false,
+                     "not":  "SGS Son 20 Gun dalga1 (Cem 15 USD: FM 7.6 + Vergi 7.4); ilk FM kosusu 0 USD dustu (b0e9621c onarimi)"
+                 }
              ]
 }
