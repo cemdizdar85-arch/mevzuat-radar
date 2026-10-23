@@ -134,11 +134,16 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
       <b>Ücretsiz paket ver</b> <span class="not">(kişi önce sitede üye olmuş olmalı)</span>
       <div class="form" style="margin-top:8px">
         <label>E-posta<input id="pEposta" type="email" autocomplete="off"></label>
-        <label>Paket<select id="pPaket"><option value="tam">Tam paket (tüm sınavlar)</option><option value="sgs">Staja Giriş</option><option value="yeterlilik-tum">Yeterlilik (tüm dersler)</option></select></label>
+        <label>Paket<select id="pPaket"><option value="tam">Tam paket (tüm sınavlar)</option><option value="sgs">Staja Giriş</option><option value="yeterlilik-tum">Yeterlilik (tüm dersler)</option><option value="yeterlilik-ders">Yeterlilik — ders seç</option></select></label>
         <label>Bitiş<input id="pBitis" type="date"></label>
         <label>Neden<input id="pNeden" placeholder="ör. elçi ücretsiz erişim" autocomplete="off"></label>
         <label>Elçi kodu (varsa)<input id="pElci" autocomplete="off" style="text-transform:uppercase"></label>
         <span><button class="btn ana" id="pVer" type="button">Paketi ver</button></span>
+      </div>
+      <!-- 23.10 (Cem "tek tek hediye ... yeterlilikte"): ders ders hediye. SQL radar-app/sql/2026-10-23-ders-hediye.sql -->
+      <div id="pDersKutu" hidden style="margin-top:8px">
+        <div id="pDersler" style="display:flex;flex-wrap:wrap;gap:6px 16px"></div>
+        <p class="not">Kişinin açık ders hediyesi varsa seçtiklerin üstüne eklenir, eskiler kalır. Toplam 5 ders ve üstü olursa tüm dersler açılır.</p>
       </div>
       <p class="not">Elçiye sözleşme Madde 10 gereği en fazla 3 ay. "Elçi kodu" alanını doldurunca bitiş kendiliğinden 3 ay sonrasına ayarlanır.</p>
     </div>
@@ -309,6 +314,8 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     AKTIF_PAKET_VAR:'Bu kişinin zaten aktif (muhtemelen parayla alınmış) paketi var.', HEDIYE_DEGIL:'Bu paket hediye kaydında yok; parayla alınmış olabilir.',
     PAKET_YOK:'Bu kişide paket yok.', KOD_VAR:'Bu kod zaten var; başka kod üret.', KOD_GECERSIZ:'Kod 6-12 harf/rakam olmalı.', NEDEN_GEREKLI:'Neden yaz.',
     BITIS_GECERSIZ:'Bitiş bugünden sonra olmalı.', PAKET_GECERSIZ:'Paket seç.',
+    DERS_SEC:'En az bir ders seç.', DERS_GECERSIZ:'Ders adı tanınmadı.', ZATEN_ACIK:'Bu kişide Yeterlilik tüm dersler (ya da tam paket) zaten açık.',
+    BASKA_SINAV:'Bu kişide başka sınavın paketi açık (Staja Giriş ya da KGK). Bir üyede tek paket durur; ikisi birden gerekiyorsa "Tam paket" ver.', UCRETLI_DERS_VAR:'Bu kişinin parayla aldığı ders paketi var.',
     KIME_GEREKLI:'Kodu kime verdiğini yaz.', GUN_GECERSIZ:'Geçerlilik 1-90 gün olmalı.', INDIRIM_GECERSIZ:'İndirim paket başına 1-5.000 TL, tam sayı olmalı.', KOD_URETILEMEDI:'Kod üretilemedi; yeniden dene.',
     BASKA_HESAPTA:'Bu sipariş zaten başka bir hesapta açık. Önce o hesabın sahibiyle konuş.', SURESI_GECMIS:'Bu siparişin paket süresi geçmiş.' };
   function hataYazi(e){ var m=String(e&&e.message||e||''); for(var k in HATA){ if(m.indexOf(k)>-1) return HATA[k]; }
@@ -432,6 +439,23 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     } else if(b.id==='pVer'){
       var ep=$('pEposta').value.trim(), bitis=$('pBitis').value, neden=$('pNeden').value.trim(), elci=$('pElci').value.trim().toUpperCase();
       if(!ep||!bitis||!neden){ mesaj('E-posta, bitiş ve neden gerekli.', false); return; }
+      if($('pPaket').value==='yeterlilik-ders'){
+        var secDers=[].map.call(document.querySelectorAll('#pDersler input:checked'), function(c){ return c.value; });
+        if(!secDers.length){ mesaj('En az bir ders seç.', false); return; }
+        if(!confirm(ep+' kişisine Yeterlilik\'te şu dersler '+bitis+' tarihine kadar hediye edilsin mi?\n\n'+secDers.join('\n'))) return;
+        var dArg={ p_eposta:ep, p_dersler:secDers, p_bitis:bitis, p_neden:neden, p_elci:elci||null, p_zorla:false };
+        var dBasari=function(d){ return '✓ '+d.eposta+': '+(d.paket==='yeterlilik-tum'?'Yeterlilik tüm dersler':'Yeterlilik — '+(d.acik_dersler||[]).join(', '))+' · '+d.bitis+' tarihine kadar açık.'; };
+        var dr=await sb.rpc('yonetim_ders_hediye', dArg);
+        if(dr.error && /UCRETLI_DERS_VAR/.test(dr.error.message||'')){
+          if(!confirm('Bu kişinin PARAYLA aldığı ders paketi var. Hediye dersler onun üstüne eklenir, aldığı dersler kalır.\n\nDİKKAT: sonradan bu satırdaki "Kapat" düğmesi parayla aldığı dersi de kapatır.\n\nYine de eklensin mi?')) return;
+          dArg.p_zorla=true; dr=await sb.rpc('yonetim_ders_hediye', dArg);
+        }
+        if(dr.error){ mesaj(hataYazi(dr.error), false); return; }
+        mesaj(dBasari(dr.data||{}), true); if(YUKLE) await YUKLE();
+        ['pEposta','pNeden','pElci'].forEach(function(i){ $(i).value=''; });
+        document.querySelectorAll('#pDersler input').forEach(function(c){ c.checked=false; });
+        return;
+      }
       if(!confirm(ep+' kişisine '+$('pPaket').value+' paketi '+bitis+' tarihine kadar verilsin mi?')) return;
       var v=await islem('yonetim_paket_ver', { p_eposta:ep, p_paket:$('pPaket').value, p_bitis:bitis, p_neden:neden, p_elci:elci||null, p_zorla:false },
         function(d){ return '✓ '+d.eposta+': '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'; });
@@ -449,6 +473,10 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     return k;
   }
   $('pBitis').value=gunEkle(90);
+  /* 23.10 ders ders hediye: ders adları fiyat-motoru.js DERSLER.yeterlilik (satın almayla aynı ad, sunucu da bu listeyi sınar) */
+  $('pDersler').innerHTML=(typeof DERSLER!=='undefined'&&DERSLER.yeterlilik||[]).map(function(d){
+    return '<label style="display:flex;gap:6px;align-items:center;font-weight:400"><input type="checkbox" value="'+esc(d)+'"> '+esc(d)+'</label>'; }).join('');
+  $('pPaket').addEventListener('change', function(){ $('pDersKutu').hidden=this.value!=='yeterlilik-ders'; });
 
   async function yukle(){
     var o=(await sb.auth.getSession()).data.session;

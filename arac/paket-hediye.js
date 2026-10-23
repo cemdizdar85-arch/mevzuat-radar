@@ -17,6 +17,8 @@
  *
  *  ⛔ Kişi verisi: e-posta yalnız kasadaki (Supabase, RLS açık, politika yok) paket_hediye tablosunda durur. Bu araç
  *     YEREL koşar; Actions'a/depoya kişi verisi yazmaz. Servis anahtarı ortam değişkeninden (SUPABASE_SERVICE_KEY).
+ *  Ders ders hediye (23.10): bu araç VERMEZ; yonetim.html "Yeterlilik — ders seç" (sunucu yonetim_ders_hediye,
+ *  radar-app/sql/2026-10-23-ders-hediye.sql). `liste` hediye edilen dersleri de gösterir.
  *  🚫 GÖRMEZ: kişi hediyeyi aldıktan sonra kendi parasıyla paket alırsa sipariş onayı bu satırı ezer (tek satır/üye).
  * ==========================================================================*/
 'use strict';
@@ -54,12 +56,12 @@ const dun = () => new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 (async () => {
   if (!K) return;
   if (komut === 'liste') {
-    const h = await istek('/rest/v1/paket_hediye?select=eposta,paket,bitis,neden,elci_kodu,tarih,iptal&order=tarih.desc');
+    const h = await istek('/rest/v1/paket_hediye?select=eposta,paket,dersler,bitis,neden,elci_kodu,tarih,iptal&order=tarih.desc');
     if (!h.length) { console.log('Hediye kütüğü boş.'); return; }
     console.log('Durum    Bitiş       Paket            E-posta                          Neden');
     for (const x of h) {
       const d = x.iptal ? 'İPTAL  ' : (x.bitis < bugun() ? 'BİTTİ  ' : 'AKTİF  ');
-      console.log(`${d}  ${x.bitis}  ${x.paket.padEnd(15)}  ${x.eposta.padEnd(32)} ${x.neden || ''}${x.elci_kodu ? ' · elçi ' + x.elci_kodu : ''}`);
+      console.log(`${d}  ${x.bitis}  ${x.paket.padEnd(15)}  ${x.eposta.padEnd(32)} ${x.neden || ''}${x.elci_kodu ? ' · elçi ' + x.elci_kodu : ''}${x.dersler ? ' · dersler: ' + x.dersler.join(', ') : ''}`);
     }
     console.log(`\nToplam ${h.length} · aktif ${h.filter(x => !x.iptal && x.bitis >= bugun()).length}`);
     return;
