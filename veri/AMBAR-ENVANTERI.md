@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **22.10.2026 13:43** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **23.10.2026 13:21** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50555 parça · 2794 tekil kaynak | Bütünlük ölçülen: 2794 (delikli: 406; son ölçüm: 22.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 22.10.2026 13:42)
+**ÖZET:** 50557 parça · 2795 tekil kaynak | Bütünlük ölçülen: 2795 (delikli: 406; son ölçüm: 23.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 23.10.2026 13:19)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -781,6 +781,7 @@
 | KDVK — Sorumluluk ve tevkifat (m.9) | kanun | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KDVK (3065 s.K.) | kanun-madde | 170 | DELİK-İNCELE(par:1/kesik:4/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KGK Kurulus KHK (660 s.) | kanun-madde | 50 | DELİK-İNCELE(par:11/kesik:0/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| KIDEM TAZMİNATI TAVANI - HMB MALİ VE SOSYAL HAKLAR GENELGELERİ (2025/1, 2025/5, 2026/1, 2026/5) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | KİK (4734 s.K.) | kanun-madde | 180 | DELİK-İNCELE(par:0/kesik:1/oksuz:1) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kitle Fonlamasi Tebligi (III-35/A.2) | kanun-madde | 72 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | Kooperatifler K. (1163 s.K.) | kanun-madde | 131 | DELİK-İNCELE(par:2/kesik:37/oksuz:0) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
