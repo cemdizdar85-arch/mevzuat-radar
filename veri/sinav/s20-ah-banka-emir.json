@@ -1,0 +1,13 @@
+{
+  "aciklama": "SGS Son 20 Gün AÇIKLAMA HAKEMİ — BANKA ADAYLARI emir kapısı (arac/s20-ah-banka.ps1 + .github/workflows/s20-ah-banka.yml). onay:true + uygulandi boş olan emir PARALI koşar (toplu, önceliğe göre, tavan_usd'de durur), bitince damgalanır. Cem onayı: tavan 8 USD.",
+  "emirler": [
+    {
+      "no": 1,
+      "onay": false,
+      "tavan_usd": 8,
+      "girdi": "veri/sinav/s20-ah-banka-aday-1.json",
+      "aciklama": "banka adayları dalga 1 — girdi dosyasını Cem koyacak",
+      "uygulandi": null
+    }
+  ]
+}
