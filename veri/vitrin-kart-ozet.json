@@ -1,74 +1,74 @@
 {
-  "olcum": "2026-10-23T23:49:39.218Z",
-  "gun": "2026-10-24",
+  "olcum": "2026-10-24T23:05:02.729Z",
+  "gun": "2026-10-25",
   "sinavlar": {
     "sgs": {
       "ad": "SMMM Staja Giriş (SGS)",
-      "sira": 6,
+      "sira": 7,
       "toplam": 10,
-      "id": "sgs-t3-turkce-zor/kp-01",
-      "ders": "Türkçe",
-      "konu": "yazım kuralları",
-      "donem": 16,
+      "id": "sgs-t1-meslek-kolay/kp-01",
+      "ders": "Meslek Hukuku",
+      "konu": "disiplin cezalari",
+      "donem": 11,
       "teori": true,
       "rakamSik": false,
-      "soru": "Aşağıdaki cümlelerin hangisinde yazım kuralına aykırı bir kullanım vardır?",
+      "soru": "Bir serbest muhasebeci mali müşavirin, mükellefiyle birlikte kasten vergi ziyaına sebebiyet verdiği mahkeme kararıyla kesinleşmiştir. 3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu'na göre bu meslek mensubuna hangi disiplin cezası verilir?",
       "siklar": {
-        "A": "Öğretmen de bizim gibi çok üzüldü.",
-        "B": "Sabahki toplantıya herkes geldi.",
-        "C": "Bu çanta senin mi, benim mi?",
-        "D": "Yarın Mehmet te bizimle aynı saatte buluşacak.",
-        "E": "Kardeşim, sınavda çok heyecanlandığını söyledi."
+        "A": "Uyarma",
+        "B": "Kınama",
+        "C": "Geçici olarak mesleki faaliyetten alıkoyma",
+        "D": "Yeminli sıfatını kaldırma",
+        "E": "Meslekten çıkarma"
       },
-      "dogru": "D",
+      "dogru": "E",
       "tuzak": {
         "C": {
-          "ad": "Ek Kaynaşması Tuzağı",
-          "metin": "soru eki 'mi'nin kendisinden önceki sözcükle bitişmesi gerektiğini düşünürsün. Doğrusu: 'mi' daima ayrı yazılır, yalnız kendisinden SONRA gelen ekler bitişir; cümle kuralına uygundur."
-        },
-        "E": {
-          "ad": "Ayırma Yanılgısı Tuzağı",
-          "metin": "'sınavda' sözcüğünü bağlaç 'da' ile karıştırıp 'sınav da' biçiminde ayrı yazılması gerektiğini düşünürsün. Doğrusu: burada 'sınav' sözcüğüne bulunma hâli eki '-da' eklenmiştir, bu ek bitişik yazılır; cümle kuralına uygu…"
+          "ad": "Bağımsızlık İhlali Tuzağı",
+          "metin": "Görevi bağımsızlık, tarafsızlık ve dürüstlükle yapmama halinin cezasıyla bu özel fiili karıştırıyorsun. Doğrusu: Geçici alıkoyma cezası bağımsızlık/tarafsızlık ihlali ile tasdik yetkisinin gerçeğe aykırı ilk kullanımına…"
         },
         "A": {
-          "ad": "Bitişik Yazım Tuzağı",
-          "metin": "'de' bağlacını bulunma hâli ekiyle karıştırıp bitişik yazılması gerektiğini düşünürsün. Doğrusu: bağlaç olan 'de' cümleden çıkarılabilir, bu yüzden her zaman ayrı yazılır; cümle kuralına uygundur."
+          "ad": "İlk Aşama Tuzağı",
+          "metin": "Her disiplin ihlalinin ilk defasında uyarma cezası ile başladığını sanıyorsun. Doğrusu: Kanun, mükellefle birlikte kasten vergi ziyaına sebebiyet verilip bu husus mahkeme kararıyla kesinleştiğinde ilk aşama uygulamadan …"
+        },
+        "D": {
+          "ad": "Yeminli Sıfatı Tuzağı",
+          "metin": "Bu cezanın her ağır fiilde uygulanan genel bir yaptırım olduğunu sanıyorsun. Doğrusu: Yeminli sıfatının kaldırılması yalnız yeminli mali müşavirlerin tasdik yetkisini gerçeğe aykırı kullanmasının tekerrürüne özgü özel b…"
         },
         "B": {
-          "ad": "Ayrı Yazım Tuzağı",
-          "metin": "'-ki' ekini bağlaç 'ki' ile karıştırıp ayrı yazılması gerektiğini düşünürsün. Doğrusu: burada 'sabah' sözcüğüne sıfat yapan '-ki' eklenmiştir, bu ek bitişik yazılır; cümle kuralına uygundur."
+          "ad": "Tekerrür Tuzağı",
+          "metin": "Kınama cezasının basit kusurlu davranışın tekrarında uygulandığını, olayı da böyle bir tekrar sanıyorsun. Doğrusu: Buradaki fiil mükellefle birlikte kasten vergi ziyaına sebep olmaktır, bu fiile kanun doğrudan en ağır c…"
         }
       },
-      "hap": "Bağlaç olan 'de/da' cümleden çıkarılabilir, her zaman ayrı yazılır ve asla sertleşmez; hâl eki '-de/-da' ise bitişik yazılır ve sertleşebilir.",
+      "hap": "Mükellefle birlikte kasten vergi ziyaına sebebiyet verip bu husus mahkeme kararıyla kesinleşen meslek mensubuna kademesiz doğrudan meslekten çıkarma cezası verilir.",
       "satirlar": [
         [
-          "A) Öğretmen de bizim gibi çok üzüldü.",
-          "TDK Yazım Kuralları - 'de' bağlacı"
+          "A) Uyarma",
+          "p.48/1"
         ],
         [
-          "B) Sabahki toplantıya herkes geldi.",
-          "TDK Yazım Kuralları - '-ki' eki"
+          "B) Kınama",
+          "p.48/1"
         ],
         [
-          "C) Bu çanta senin mi, benim mi?",
-          "TDK Yazım Kuralları - 'mi' soru eki"
+          "C) Geçici olarak mesleki faaliyetten alıkoyma",
+          "p.48/2"
         ],
         [
-          "D) Yarın Mehmet te bizimle aynı saatte buluşacak.",
-          "TDK Yazım Kuralları - 'de/da' bağlacının sertleşmezliği"
+          "D) Yeminli sıfatını kaldırma",
+          "p.48/1"
         ],
         [
-          "E) Kardeşim, sınavda çok heyecanlandığını söyledi.",
-          "TDK Yazım Kuralları - bulunma hâli eki"
+          "E) Meslekten çıkarma",
+          "p.48/2"
         ]
       ],
-      "dayanak": "TDK Yazım Kuralları - 'de/da' bağlacı ve bulunma hâli eki ayrımı",
-      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=6",
+      "dayanak": "3568 sayılı SMMM K. m.48",
+      "baglanti": "kaydir/vitrin/sgs.html?vitrin=1&tema=acik#s=7",
       "havuz": {
         "adet": 10,
         "ilk_gun": "2026-10-04",
         "bitis": "2026-10-14",
-        "kalan_gun": -10,
+        "kalan_gun": -11,
         "durum": "DONGU",
         "mail_gunu": false
       },
@@ -81,71 +81,67 @@
     },
     "smmm": {
       "ad": "SMMM Yeterlilik",
-      "sira": 8,
+      "sira": 0,
       "toplam": 9,
-      "id": "smmm-4k-a-yfta-kolay-r6/kp-01",
-      "ders": "Finansal Tablolar ve Analizi",
-      "konu": "stok devir hızı",
-      "donem": 13,
+      "id": "smmm-w3-fmuh-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "konu": "amortisman ayırma",
+      "donem": 42,
       "teori": false,
       "rakamSik": true,
-      "soru": "İşletmenin 2026 yılı satılan malın maliyeti 405.000 ₺, net satışları 495.000 ₺'dir. Dönem başı stok tutarı 30.000 ₺, dönem sonu stok tutarı 60.000 ₺'dir. Buna göre stok devir hızı kaçtır?",
+      "soru": "İşletme, üretimde kullanmak üzere bir makine satın almıştır. Makinenin fatura bedeli 780.000 ₺, nakliye ve montaj gideri 45.000 ₺'dir. Maliyet bedeli üzerinden %20 normal amortisman uygulanmakta, ayrılan amortismanın %70'i 730 Genel Üretim Giderleri'ne, %30'u 770 Genel Yönetim Giderleri'ne yüklenmektedir. Buna göre, 730 hesabına borç kaydedilecek amortisman tutarı kaç ₺'dir?",
       "siklar": {
-        "A": "4,5",
-        "B": "6,75",
-        "C": "9",
-        "D": "11",
-        "E": "13,5"
+        "A": "46.800",
+        "B": "49.500",
+        "C": "109.200",
+        "D": "115.500",
+        "E": "165.000"
       },
-      "dogru": "C",
+      "dogru": "D",
       "tuzak": {
-        "D": {
-          "ad": "Pay Karıştırma Tuzağı",
-          "metin": "pay (bölünen) olarak satılan malın maliyeti yerine net satışlar kullanılırsa 495.000/45.000=11 çıkar. Doğrusu: pay her zaman satılan malın maliyetidir, satış hasılatı kâr marjı içerdiğinden kullanılmaz; payda ortalama s…"
+        "C": {
+          "ad": "Maliyete Ekleme Atlama Tuzağı",
+          "metin": "Nakliye ve montaj gideri (45.000) maliyete eklenmeden sadece fatura bedeli (780.000) üzerinden hesaplama yapılırsa bu sonuca ulaşılır. Doğrusu: Varlığı kullanıma hazır hale getirme giderleri maliyet bedeline dahildir, t…"
         },
         "E": {
-          "ad": "Dönem Başı Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem başı stok kullanılırsa 405.000/30.000=13,5 çıkar. Doğrusu: tek bir dönem ucundaki değer değil, ortalama stok esas alınmalıdır."
+          "ad": "Dağıtımsız Yükleme Tuzağı",
+          "metin": "Amortismanın tamamının üretime ait olduğu düşünülüp dağıtım hiç yapılmazsa toplam tutar (165.000) 730 hesabına yazılır. Doğrusu: Amortismanın sadece %70'i üretime aittir, tutar 115.500'dür."
         },
         "A": {
-          "ad": "Toplam Stok Tuzağı",
-          "metin": "Dönem başı ve dönem sonu stok toplanıp doğrudan paydaya yazılırsa 405.000/90.000=4,5 çıkar. Doğrusu: payda iki değerin toplamı değil ortalamasıdır."
+          "ad": "Dağıtım Oranı Ters Kullanma Tuzağı",
+          "metin": "Maliyete nakliye-montaj gideri eklenmeden (780.000) ve dağıtım oranları ters uygulanarak (%30) hesaplama yapıldığında bu tutara ulaşılır. Doğrusu: Maliyet 825.000 üzerinden %20 amortisman ayrılıp %70'i üretime yüklenir,…"
         },
         "B": {
-          "ad": "Dönem Sonu Stok Tuzağı",
-          "metin": "Payda olarak yalnız dönem sonu stok kullanılırsa 405.000/60.000=6,75 çıkar. Doğrusu: payda ortalama stok olmalıdır, dönem sonu tek bir andaki değerdir."
+          "ad": "Pay Karıştırma Tuzağı",
+          "metin": "Doğru maliyet (825.000) üzerinden hesaplanan amortismanın üretim yerine yönetim payı (%30) alınırsa bu tutar çıkar. Doğrusu: 730 hesabına yüklenecek pay üretim oranına (%70) göre 115.500'dür."
         }
       },
-      "hap": "Stok devir hızının paydası her zaman ORTALAMA stoktur, payı ise satılan malın maliyetidir; satış hasılatı ya da tek bir dönem ucundaki stok kullanılmaz.",
+      "hap": "Amortismana esas maliyet bedeli, varlığı kullanıma hazır hale getirmek için yapılan tüm giderleri kapsar ve ayrılan amortisman kullanım alanına göre ilgili gider hesaplarına dağıtılarak 257 hesaba alacak kaydedilir.",
       "satirlar": [
         [
-          "Dönem Başı Stok",
-          "30.000"
+          "Maliyet bedeli (780.000+45.000)",
+          "825.000"
         ],
         [
-          "Dönem Sonu Stok",
-          "60.000"
+          "Yıllık amortisman tutarı (825.000x%20)",
+          "165.000"
         ],
         [
-          "Ortalama Stok",
-          "45.000"
+          "770 Genel Yönetim Giderleri payı (165.000x%30)",
+          "49.500"
         ],
         [
-          "Satılan Malın Maliyeti",
-          "405.000"
-        ],
-        [
-          "Stok Devir Hızı",
-          "9"
+          "730 Genel Üretim Giderleri hesabına borç kaydedilecek tutar (165.000x%70)",
+          "115.500"
         ]
       ],
-      "dayanak": "Mali Analiz Teorisi - Stok Devir Hızı formülü (SMM/Ortalama Stok), mevzuat maddesi yok",
-      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=8",
+      "dayanak": "VUK m.315",
+      "baglanti": "kaydir/vitrin/smmm.html?vitrin=1&tema=acik#s=0",
       "havuz": {
         "adet": 9,
         "ilk_gun": "2026-10-11",
         "bitis": "2026-10-20",
-        "kalan_gun": -4,
+        "kalan_gun": -5,
         "durum": "DONGU",
         "mail_gunu": false
       },
