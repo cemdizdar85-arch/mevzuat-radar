@@ -49,6 +49,17 @@ jobs:
         shell: pwsh
         run: ./arac/s20-kor-kalibrasyon.ps1
 
+      - name: KURU - istem esdegerligi sinavi (0 USD, istek GONDERILMEZ)
+        if: steps.kapi.outputs.parali != 'evet'
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # yalniz hedef basligi kurulur; istem dokumu
+        run: |
+          $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          foreach($x in @($e.emirler | Where-Object { -not $_.uygulandi -and (Test-Path "$($_.girdi)") })){
+            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz A -KorGirdi "$($x.girdi)"
+            if($LASTEXITCODE -ne 0){ throw "emir #$($x.no): istem esdegerligi DUSTU - bu emir onaylansa da PARALI adim kosmaz" }
+          }
       - name: Bekleyen toplu partiler ambardan (bedava hasat icin)
         if: steps.kapi.outputs.parali == 'evet'
         shell: pwsh

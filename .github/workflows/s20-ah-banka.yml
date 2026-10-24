@@ -16,9 +16,15 @@ on:
         required: false
         default: "0"
         type: string
+      sinama_idler:
+        description: "KURU esdegerlik sinavi icin ornek soru kimlikleri (virgullu, or. sgs-k4-turkce-kolay/kp-01); 0 USD"
+        required: false
+        default: ""
+        type: string
   push:
     paths:
       - 'veri/sinav/s20-ah-banka-emir.json'
+      - 'veri/sinav/s20-ah-banka-aday-*.json'
 
 permissions:
   contents: write
@@ -50,6 +56,28 @@ jobs:
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}   # kayitlar yalniz okunur (tahmin icin istem boyu)
         run: ./arac/s20-ah-banka.ps1
+
+      - name: KURU - istem esdegerligi sinavi (0 USD, istek GONDERILMEZ; uretim isleviyle kiyas)
+        if: steps.kapi.outputs.parali != 'evet'
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # yalniz hedef basligi kurulur; istem dokumu
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}   # adaylarin kayitlari (yalniz istenenler) okunur
+          SINAMA_IDLER: ${{ inputs.sinama_idler }}
+        run: |
+          $girdiler = @()
+          if("$env:SINAMA_IDLER".Trim()){
+            $y = Join-Path $env:RUNNER_TEMP 'sinama-aday.json'
+            $liste = @("$env:SINAMA_IDLER" -split '[,\s]+' | Where-Object { $_ } | ForEach-Object { [ordered]@{ soru_id = $_; oncelik = 1 } })
+            [IO.File]::WriteAllText($y, (ConvertTo-Json -InputObject $liste -Depth 3), [Text.UTF8Encoding]::new($false)); $girdiler += $y
+          }
+          $e = Get-Content veri/sinav/s20-ah-banka-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          foreach($x in @($e.emirler | Where-Object { -not $_.uygulandi -and (Test-Path "$($_.girdi)") })){ $girdiler += "$($x.girdi)" }
+          if(-not $girdiler.Count){ "esdegerlik: sinanacak aday dosyasi yok (emir girdisi henuz konmadi)"; exit 0 }
+          foreach($g in $girdiler){
+            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz B -AhGirdi $g
+            if($LASTEXITCODE -ne 0){ throw "$g : istem esdegerligi DUSTU - bu emir onaylansa da PARALI adim kosmaz" }
+          }
 
       - name: Bekleyen toplu partiler ambardan (bedava hasat icin)
         if: steps.kapi.outputs.parali == 'evet'
