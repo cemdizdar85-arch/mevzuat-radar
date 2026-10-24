@@ -54,6 +54,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # yalniz hedef basligi kurulur; istem dokumu
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}   # girdi_kimlik: soru metni ambardan okunur (yalniz okuma)
         run: |
           $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
           foreach($x in @($e.emirler | Where-Object { -not $_.uygulandi -and ((Test-Path "$($_.girdi)") -or ("$($_.girdi_kimlik)" -and (Test-Path "$($_.girdi_kimlik)"))) })){
@@ -72,6 +73,7 @@ jobs:
         shell: pwsh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # yalniz hedef basligi kurulur; istek GONDERILMEZ (istem dokumu)
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}   # girdi_kimlik: soru metni ambardan okunur (yalniz okuma)
         run: |
           $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
           foreach($x in @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })){
