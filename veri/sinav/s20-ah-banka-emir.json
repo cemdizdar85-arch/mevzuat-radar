@@ -3,11 +3,12 @@
   "emirler": [
     {
       "no": 1,
-      "onay": false,
+      "onay": true,
       "tavan_usd": 8,
       "girdi": "veri/sinav/s20-ah-banka-aday-1.json",
-      "aciklama": "banka adayları dalga 1 — girdi dosyasını Cem koyacak",
-      "uygulandi": null
+      "aciklama": "banka adayları dalga 1 — 1.323 aday, öncelik sırasıyla, 8 USD tavanda durur",
+      "uygulandi": null,
+      "onay_notu": "Cem 24.10: AH tavan 8 USD ONAYLI"
     }
   ]
 }
