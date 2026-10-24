@@ -172,3 +172,39 @@ function S20AmbarKayit([string[]]$soruIdler) {
 }
 function S20AhId([string]$soruId) { return ($soruId -replace '/', '__') }
 
+# ===== AMBAR SİSTEM SATIRI (hazir-senkron deseni) — depoya girmeyecek ayrıntı (kusur gerekçeleri) buraya =====
+# kalip_parti satırı: etiket '__s20/<ad>', sinav 'SISTEM' (soru sayımları sinav=SGS/SMMM/KGK süzer, bu satır girmez). Yazılır, GERİ OKUNUR,
+#   kanonik (anahtar sıralı) metinleri kıyaslanır; tutmazsa throw (çağıran depoya yazmaz, emir damgalanmaz).
+function S20Kanonik($v) {
+  if ($null -eq $v) { return 'null' }
+  if ($v -is [datetime]) { return (ConvertTo-Json -InputObject $v.ToString('yyyy-MM-dd HH:mm') -Compress) }
+  if ($v -is [string]) { return (ConvertTo-Json -InputObject $v -Compress) }
+  if ($v -is [bool]) { return $(if ($v) { 'true' } else { 'false' }) }
+  if ($v -is [ValueType]) { return ([double]$v).ToString('R', [Globalization.CultureInfo]::InvariantCulture) }
+  if ($v -is [System.Collections.IDictionary]) { return '{' + ((@($v.Keys | ForEach-Object { "$_" }) | Sort-Object -CaseSensitive | ForEach-Object { (ConvertTo-Json -InputObject $_ -Compress) + ':' + (S20Kanonik $v[$_]) }) -join ',') + '}' }
+  if ($v -is [System.Collections.IEnumerable]) { return '[' + ((@($v | ForEach-Object { S20Kanonik $_ })) -join ',') + ']' }
+  $h = [ordered]@{}; foreach ($p in $v.PSObject.Properties) { $h[$p.Name] = $p.Value }; return (S20Kanonik $h)
+}
+function S20AmbarBaslik { $a = Get-SbAnahtar; if (-not $a) { throw 'SUPABASE_SERVICE_KEY yok' }; return @{ apikey = $a; Authorization = "Bearer $a"; Accept = 'application/json'; 'User-Agent' = 'mevzuat-radar-robot/1.0' } }
+function S20AmbarSistemOku([string]$etiket) {
+  $u = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?select=etiket,sinav,icerik&etiket=eq.' + [uri]::EscapeDataString($etiket)
+  $w = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers (S20AmbarBaslik) -TimeoutSec 120
+  $sat = @(ConvertFrom-Json -InputObject ([Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray())) | ForEach-Object { $_ } | Where-Object { $_ })
+  if (-not $sat.Count) { return $null }; $ic = $sat[0].icerik; if ($ic -is [string]) { $ic = ConvertFrom-Json -InputObject $ic }
+  return [pscustomobject]@{ etiket = $sat[0].etiket; sinav = $sat[0].sinav; icerik = $ic }
+}
+function S20AmbarSistemYaz([string]$etiket, [string]$yazan, $icerik) {
+  if ($etiket -notmatch '^__s20/[a-z0-9][a-z0-9-]{1,80}$') { throw "S20 ambar etiketi '__s20/<ad>' olmalı: '$etiket'" }
+  $govde = [ordered]@{ etiket = $etiket; sinav = 'SISTEM'; yazan = $yazan; icerik = $icerik }
+  $bayt = [Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject $govde -Depth 12 -Compress))
+  $bas = (S20AmbarBaslik) + @{ Prefer = 'resolution=merge-duplicates,return=minimal' }
+  [void](Invoke-RestMethod -Method Post -Uri 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti?on_conflict=etiket' -Headers $bas -ContentType 'application/json; charset=utf-8' -Body $bayt -TimeoutSec 120)
+  $geri = S20AmbarSistemOku $etiket
+  if (-not $geri) { throw "AMBAR GERİ OKUMA: '$etiket' satırı yok" }
+  if ("$($geri.sinav)" -ne 'SISTEM') { throw "AMBAR GERİ OKUMA: '$etiket' sinav '$($geri.sinav)' (SISTEM bekleniyordu)" }
+  $k1 = S20Kanonik (ConvertFrom-Json -InputObject (ConvertTo-Json -InputObject $icerik -Depth 12 -Compress)); $k2 = S20Kanonik $geri.icerik
+  if ($k1 -cne $k2) { throw "AMBAR GERİ OKUMA TUTMADI: '$etiket' (yazılan $($k1.Length) kr, okunan $($k2.Length) kr)" }
+  Write-Host ("  AMBAR: '{0}' yazıldı + geri okundu, kanonik metin birebir ({1} kr, sha {2})" -f $etiket, $k1.Length, (S20Sha256 $k1).Substring(0, 12)) -ForegroundColor Cyan
+  return $true
+}
+function S20Sha256([string]$m) { $s = [Security.Cryptography.SHA256]::Create(); try { return (($s.ComputeHash([Text.Encoding]::UTF8.GetBytes($m)) | ForEach-Object { $_.ToString('x2') }) -join '') } finally { $s.Dispose() } }

@@ -2,7 +2,7 @@
 # ============================================================================
 #  SGS SON 20 GÜN — AÇIKLAMA HAKEMİ, BANKA ADAYLARI (24.10.2026, Cem onayı: tavan 8 USD; ≈0,017 USD/soru ölçülmüş)   PARALI, hep TOPLU
 #
-#  NE: bankadaki (yayındaki) aday soruların çözüm anlatımını ÜRETİMDEKİ açıklama hakemine okutur; karar yalnız SONUÇ dosyasına yazılır
+#  NE: bankadaki (yayındaki) aday soruların çözüm anlatımını ÜRETİMDEKİ açıklama hakemine okutur; karar SONUÇ dosyasına (yalnız harf) + ambara (gerekçeli) yazılır
 #  (kalip-parti kayıtlarına / ambara YAZILMAZ).
 #  HAKEM: arac/aciklama-hakemi-cekirdek.ps1 AciklamaHakemIs (istem) + AciklamaHakemKarar (ayrıştırıcı) AYNEN çağrılır. Model, effort,
 #    jeton tavanı ve önbelleksiz toplu bayrağı arac/aciklama-hakemi-uretim.ps1 AciklamaHakemUretim gövdesinden AST ile okunur (kopya yok).
@@ -15,7 +15,9 @@
 #  BEDEL: tahmin = girdi karakter/1,6 + çıktı 900 jeton (ölçüldü 02.10 B dalgası: 292 çağrı, maxTok 3.200 → çıktı 875/çağrı). Önceliğe göre
 #    gönderilir; tahmini bedel tavana erişince DURULUR, kalanlar "bütçe yetmedi". Kayıtta zaten aciklama_hakem kararı varsa yeniden
 #    gönderilmez (karar 'onceki' olarak taşınır, 0 USD). Bedel bedel_kaydi'na etiket "sgs-s20-ah-banka/<no>".
-#  ÇIKTI: veri/sinav/s20-ah-banka-karar-<no>.json → {sayim:{…}, kararlar:{soru_id:{karar, kusurlar?}}, olculemedi:[], butce_yetmedi:[], bulunamadi:[]}
+#  ÇIKTI: depo veri/sinav/s20-ah-banka-karar-<no>.json → {sayim:{…}, kararlar:{soru_id: "TEMIZ"|"KUSURLU"|"KARARSIZ"}} — GEREKÇE YOK (depo public).
+#         ambar kalip_parti '__s20/ah-banka-karar-<no>' (sinav SISTEM) → kararlar + kusurlar + ölçülemedi/bütçe yetmedi/bulunamadı listeleri;
+#         yazılır, GERİ OKUNUP doğrulanır (S20AmbarSistemYaz). KARARSIZ = ölçülemedi · bütçe yetmedi · ambarda bulunamadı (sayımda ayrı).
 #  Kullanım:
 #    powershell -NoProfile -File arac/s20-ah-banka.ps1                          (emir dosyası, KURU)
 #    powershell -NoProfile -File arac/s20-ah-banka.ps1 -Calistir                (yalnız onaylı emir PARALI — bulut iş akışı)
@@ -77,12 +79,23 @@ $kosAh = {
   }
   foreach ($sid in $onceki.Keys) { $o = $onceki[$sid]; $kararlar[$sid] = $(if ("$($o.karar)" -eq 'KUSURLU') { [ordered]@{ karar = 'KUSURLU'; kusurlar = @($o.kusurlar); onceki = $true } } else { [ordered]@{ karar = 'TEMIZ'; onceki = $true } }) }
   $say.usd = S20BedelYaz $etiketA 'aciklama-hakemi' 's20-ah-banka'
+  # 24.10 GİZLİLİK (Cem/koordinatör): kusur gerekçeleri soru içeriğine değinebilir, depo PUBLIC → gerekçeler YALNIZ AMBARA
+  #   (kalip_parti satırı '__s20/ah-banka-karar-<no>', sinav SISTEM, sayımlara girmez; geri okunup doğrulanır). Depoya yalnız
+  #   {soru_id: TEMIZ|KUSURLU|KARARSIZ} + sayım. Ambara yazım tutmazsa depoya da yazılmaz, emir damgalanmaz (yeniden koşu bedava hasat eder).
+  $tarihA = (Get-Date -Format 'yyyy-MM-dd HH:mm'); $hakemA = [ordered]@{ model = (ModelKod $AH.model); effort = $AH.effort; maxTok = $AH.maxTok }
+  $butceSid = @($r.butce_yok | ForEach-Object { $harita[$_] })
+  $ambarEt = "__s20/ah-banka-karar-$no"
+  [void](S20AmbarSistemYaz $ambarEt 's20-ah-banka' ([ordered]@{
+        aciklama = 'S20 açıklama hakemi banka kararları + kusur gerekçeleri (arac/s20-ah-banka.ps1). Depodaki karar dosyasında gerekçe YOKTUR.'
+        no = $no; tarih = $tarihA; girdi = "$($em.girdi)"; hakem = $hakemA; sayim = $say; olculen_oran = $r.oran
+        kararlar = $kararlar; olculemedi = $olcul.ToArray(); butce_yetmedi = $butceSid; bulunamadi = @($bulunamadi) }))
+  $kisa = [ordered]@{}
+  foreach ($sid in $sira) { $kisa[$sid] = $(if ($kararlar.Contains($sid)) { "$($kararlar[$sid].karar)" } else { 'KARARSIZ' }) }
   $cikti = "veri/sinav/s20-ah-banka-karar-$no.json"
   S20JsonYaz $cikti ([ordered]@{
-      no = $no; tarih = (Get-Date -Format 'yyyy-MM-dd HH:mm'); girdi = "$($em.girdi)"; hakem = [ordered]@{ model = (ModelKod $AH.model); effort = $AH.effort; maxTok = $AH.maxTok }
-      sayim = $say; olculen_oran = $r.oran; kararlar = $kararlar
-      olculemedi = $olcul.ToArray(); butce_yetmedi = @($r.butce_yok | ForEach-Object { $harita[$_] }); bulunamadi = @($bulunamadi)
-    }) 8
+      no = $no; tarih = $tarihA; girdi = "$($em.girdi)"; hakem = $hakemA; sayim = $say; olculen_oran = $r.oran
+      gerekce = "ambarda: kalip_parti etiket '$ambarEt' (depoya girmez)"; kararlar = $kisa
+    }) 6
   Write-Host ("SONUÇ: temiz {0} · kusurlu {1} · ölçülemedi {2} · önceki {3} · bütçe yetmedi {4} · bulunamadı {5} · {6} USD" -f $say.temiz, $say.kusurlu, $say.olculemedi, $say.onceki, $say.butce_yetmedi, $say.bulunamadi, $say.usd)
   return @{ durum = 'tamam'; usd = $say.usd; cikti = $cikti }
 }
