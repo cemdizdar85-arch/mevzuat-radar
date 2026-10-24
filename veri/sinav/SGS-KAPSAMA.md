@@ -3,17 +3,17 @@
 > Türetilmiştir (`arac/sgs-konu-kapsama.js`), **elle düzenlenmez**. Hedef: sitede **1 kat** (son 10 yılda çıkan soru sayısı kadar × 1). Pencere: 2016+ (32 dönem).
 > Eşleme sözlüğü: `veri/sinav/sgs-konu-es.json` (aynı konunun farklı arşiv adları tek kümede). Tam liste: `veri/fabrika/sgs-konu-kapsama.csv`.
 
-Sitede sayfadan okunan soru: **4.935** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
+Sitede sayfadan okunan soru: **5.009** (kasa modundaki sayfa seçim dosyasından) · konu kümesi: 2.450 · sözlükte olmayan arşiv etiketi: **0**
 
 | Ders | Çıkmış konu | Son 10 yılda çıkan soru | Sınav başı | Sitede | VAR | AZ | Hiç yok (2+ dönem) | Hiç yok (1 dönem) | 3+ dönem konularda hedefe eksik |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Finansal Muhasebe | 483 | 897 | 28,0 | 1100 | 295 | 30 | 3 | 155 | 25 |
+| Finansal Muhasebe | 483 | 897 | 28,0 | 1138 | 297 | 28 | 3 | 155 | 20 |
 | Denetim | 284 | 495 | 15,5 | 717 | 213 | 3 | 0 | 68 | 0 |
 | Yabancı Dil | 85 | 321 | 10,0 | 376 | 63 | 1 | 0 | 21 | 1 |
 | Maliyet Muhasebesi | 139 | 266 | 8,3 | 387 | 110 | 2 | 1 | 26 | 0 |
 | Matematik | 115 | 254 | 7,9 | 474 | 61 | 3 | 1 | 50 | 3 |
 | Türkçe | 127 | 225 | 7,0 | 168 | 42 | 4 | 1 | 80 | 4 |
-| Vergi Hukuku | 162 | 206 | 6,4 | 171 | 55 | 5 | 1 | 101 | 3 |
+| Vergi Hukuku | 162 | 206 | 6,4 | 207 | 59 | 4 | 1 | 98 | 3 |
 | Ticaret Hukuku | 120 | 205 | 6,4 | 228 | 64 | 4 | 0 | 52 | 3 |
 | Mali Tablolar Analizi | 94 | 192 | 6,0 | 209 | 61 | 8 | 3 | 22 | 2 |
 | Ekonomi | 137 | 190 | 5,9 | 166 | 57 | 3 | 1 | 76 | 1 |
@@ -28,9 +28,9 @@ Sitede sayfadan okunan soru: **4.935** (kasa modundaki sayfa seçim dosyasından
 
 ## Hedefe eksik
 
-- 3+ dönem çıkmış: **35 konu / 66 soru**
-- 2 dönem çıkmış: 57 konu / 72 soru
-- 1 dönem çıkmış: 907 konu / 909 soru
+- 3+ dönem çıkmış: **33 konu / 61 soru**
+- 2 dönem çıkmış: 56 konu / 71 soru
+- 1 dönem çıkmış: 904 konu / 906 soru
 
 ## Birden çok dönem çıkmış, sitede hiç sorusu olmayan
 
@@ -57,18 +57,16 @@ Sitede sayfadan okunan soru: **4.935** (kasa modundaki sayfa seçim dosyasından
 | Ders | Konu | Çıkan / dönem | Sitede | Eksik |
 |---|---|---:|---:|---:|
 | Meslek Hukuku | ucret yonetmeligi | 27 / 26 | 14 | 13 |
-| Finansal Muhasebe | uluslararasi muhasebe kuruluslari | 12 / 12 | 2 | 10 |
-| Finansal Muhasebe | nakit akis tablosu | 13 / 12 | 10 | 3 |
+| Finansal Muhasebe | uluslararasi muhasebe kuruluslari | 12 / 12 | 3 | 9 |
 | Meslek Hukuku | haksiz rekabet reklam yasagi | 8 / 8 | 5 | 3 |
 | Atatürk İlkeleri ve İnkılap Tarihi | lozan konferansi | 9 / 8 | 7 | 2 |
 | Matematik | yas problemi | 4 / 4 | 2 | 2 |
 | Vergi Hukuku | menkul sermaye iradi sayilmayanlar | 3 / 3 | 1 | 2 |
 | Borçlar Hukuku | genel islem kosullari | 9 / 9 | 8 | 1 |
 | Ekonomi | rasyonel beklentiler hipotezi | 3 / 3 | 2 | 1 |
-| Finansal Muhasebe | hisse senedi satisi | 11 / 10 | 10 | 1 |
+| Finansal Muhasebe | nakit akis tablosu | 13 / 12 | 12 | 1 |
 | Finansal Muhasebe | kar dagitimi kaydi | 6 / 6 | 5 | 1 |
 | Finansal Muhasebe | ozkaynak degisimi | 4 / 4 | 3 | 1 |
-| Finansal Muhasebe | tms 8 muhasebe politikasi degisikligi | 4 / 4 | 3 | 1 |
 | Finansal Muhasebe | gelir-gider hesaplari isleyisi | 4 / 4 | 3 | 1 |
 | Finansal Muhasebe | kapsamli gelir | 4 / 4 | 3 | 1 |
 | Finansal Muhasebe | alacak senetleri | 3 / 3 | 2 | 1 |
@@ -86,3 +84,5 @@ Sitede sayfadan okunan soru: **4.935** (kasa modundaki sayfa seçim dosyasından
 | Ticaret Hukuku | limited sirket sermayesi | 3 / 3 | 2 | 1 |
 | Türkçe | yazim kurallari | 15 / 14 | 14 | 1 |
 | Türkçe | noktalama isaretleri | 14 / 14 | 13 | 1 |
+| Türkçe | ses olaylari | 8 / 8 | 7 | 1 |
+| Türkçe | sozcukte anlam | 7 / 7 | 6 | 1 |
