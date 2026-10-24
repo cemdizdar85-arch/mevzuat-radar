@@ -1,0 +1,13 @@
+{
+  "aciklama": "SGS Son 20 Gün KÖR KALİBRASYON emir kapısı (arac/s20-kor-kalibrasyon.ps1 + .github/workflows/s20-kalibrasyon.yml). onay:true + uygulandi boş olan emir PARALI koşar (toplu, tavan_usd emir başına), bitince damgalanır. Cem onayı: toplam tavan 13 USD.",
+  "emirler": [
+    {
+      "no": 1,
+      "onay": false,
+      "tavan_usd": 13,
+      "girdi": "veri/sinav/s20-kalibrasyon-cikmis3.json",
+      "aciklama": "SGS çıkmış 3 dönem (2025/3, 2026/1, 2026/2; A kitapçığı, TESMER anahtarı) kullanılabilir 348 soru — kaynaksız, açıklamasız kör çözüm, bulut kör kapısının aynı çözücüsü",
+      "uygulandi": null
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+# .github/workflows/s20-kalibrasyon.yml — SGS SON 20 GÜN KÖR KALİBRASYON (24.10.2026, Cem onayı: toplam tavan 13 USD)
+#
+# PARA HARCAR, ama YALNIZ emir kapısından: veri/sinav/s20-kalibrasyon-emir.json içinde onay:true + uygulandi boş emir varsa.
+# Öyle emir yoksa KURU koşar (soru sayısı + tahmini USD; API'ye gidilmez, 0 USD). Betik değişince KOŞMAZ.
+# Sıra (paralı): bekleyen toplu partiler ambardan → İSTEM EŞDEĞERLİĞİ SINAVI (0 USD; düşerse para harcanmaz) → kör çözüm (toplu,
+#   önce 30 soruluk ölçüm dalgası, sonra ölçülen oranla tavana kadar) → bedel bedel_kaydi'na → sonuç + damga depoya.
+# Toplu kuyruk 290 dk'da bitmezse (çıkış 75): partiler ambara yazılır, iş kendini yeniden tetikler (en çok 5 halka); sonraki halka
+#   kuyruktaki partiye BAĞLANIR ya da bitmişse BEDAVA hasat eder — aynı istek ikinci kez ödenmez.
+name: S20 Kor Kalibrasyon (emir kapili, varsayilan KURU)
+
+on:
+  workflow_dispatch:
+    inputs:
+      zincir:
+        description: "Otomatik yeniden tetikleme sayaci (elle 0 birak). 5'e varinca durur."
+        required: false
+        default: "0"
+        type: string
+  push:
+    paths:
+      - 'veri/sinav/s20-kalibrasyon-emir.json'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: s20-kalibrasyon
+  cancel-in-progress: false
+
+jobs:
+  kalibrasyon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Emir kapisi
+        id: kapi
+        shell: pwsh
+        run: |
+          $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          $acik = @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })
+          "parali=$(if($acik.Count){'evet'}else{'hayir'})" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding ascii
+          "onayli + damgasiz emir: $($acik.Count) $(if($acik.Count){ '(' + (($acik | ForEach-Object { "#$($_.no) tavan $($_.tavan_usd) USD" }) -join ', ') + ')' })"
+
+      - name: KURU (0 USD - soru sayisi + tahmini bedel)
+        if: steps.kapi.outputs.parali != 'evet'
+        shell: pwsh
+        run: ./arac/s20-kor-kalibrasyon.ps1
+
+      - name: Bekleyen toplu partiler ambardan (bedava hasat icin)
+        if: steps.kapi.outputs.parali == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/bekleyen-senkron.ps1 -Indir
+
+      - name: Istem esdegerligi sinavi (0 USD) - duserse PARALI adim kosmaz
+        if: steps.kapi.outputs.parali == 'evet'
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # yalniz hedef basligi kurulur; istek GONDERILMEZ (istem dokumu)
+        run: |
+          $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          foreach($x in @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })){
+            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz A -KorGirdi "$($x.girdi)"
+            if($LASTEXITCODE -ne 0){ throw "emir #$($x.no): istem esdegerligi DUSTU - para harcanmadi" }
+          }
+
+      - name: KOR KALIBRASYON - PARALI (toplu)
+        id: kos
+        if: steps.kapi.outputs.parali == 'evet'
+        shell: pwsh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          ./arac/s20-kor-kalibrasyon.ps1 -Calistir -BeklemeDk 290
+          $kod = $LASTEXITCODE
+          "kod=$kod" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding ascii
+          "cikis kodu: $kod (0 = bitti · 75 = toplu kuyruk bitmedi, yeniden tetiklenecek · 1 = dustu)"
+          if($kod -eq 75){ exit 0 }
+          exit $kod
+
+      - name: Bekleyen partiler ambara (KOSU DUSSE BILE)
+        if: always() && steps.kapi.outputs.parali == 'evet'
+        shell: pwsh
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: ./arac/bekleyen-senkron.ps1 -Yukle
+
+      - name: Sonuc + damga depoya
+        if: always() && steps.kapi.outputs.parali == 'evet'
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git checkout -- veri/bekleyen-partiler.json 2>/dev/null || true
+          for f in veri/sinav/s20-kalibrasyon-emir.json veri/sinav/s20-kalibrasyon-sonuc-*.json; do
+            if [ -f "$f" ]; then git add "$f" || true; fi
+          done
+          git diff --cached --quiet && { echo "degisen yok"; exit 0; }
+          git commit -m "S20 kor kalibrasyon kosusu [veri-operasyonu]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
+            echo "push denemesi $i tutmadi"; sleep 7
+          done
+          echo "!! PUSH TUTMADI"; exit 1
+
+      - name: Toplu kuyruk bitmediyse yeniden tetikle (en cok 5 halka)
+        if: steps.kos.outputs.kod == '75'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          z="${{ inputs.zincir }}"; z="${z:-0}"
+          if [ "$z" -ge 5 ]; then echo "::error::5 halkada toplu kuyruk bitmedi - elle bak (emir damgasiz, partiler ambarda)"; exit 1; fi
+          gh workflow run s20-kalibrasyon.yml --ref main -f zincir="$((z+1))"
+          echo "yeniden tetiklendi: halka $((z+1))"
