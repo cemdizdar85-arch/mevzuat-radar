@@ -1,14 +1,14 @@
 # TOPLU KUYRUK HIZI — gönderildiği saate göre bekleme
 
-> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-24 21:04 · son 7 gün · biten parti 2017 · bedel 0
+> Türetilmiştir (`arac/toplu-kuyruk-hizi.ps1`), elle düzenlenmez. Ölçüm: 2026-10-24 23:32 · son 7 gün · biten parti 2073 · bedel 0
 > Kaynak: Anthropic toplu parti kaydı (created_at → ended_at). Saat = partinin gönderildiği **TR** saati.
 > 🚫 Parti büyüklüğünü ayırmaz; yalnız bizim hesabımızın partilerine bakar.
 
 | TR saat | parti | istek | medyan dk | %90 dk | en uzun dk |
 |---:|---:|---:|---:|---:|---:|
-| 00:00 | 252 | 1194 | 2 | 3 | 15 |
+| 00:00 | 253 | 1214 | 2 | 3 | 15 |
 | 01:00 | 125 | 610 | 2 | 2 | 20 |
-| 02:00 | 400 | 1588 | 2 | 2 | 98 |
+| 02:00 | 449 | 2013 | 2 | 2 | 98 |
 | 03:00 | 98 | 509 | 2 | 4 | 74 |
 | 04:00 | 67 | 297 | 2 | 3 | 248 |
 | 05:00 | 6 | 120 | 2 | 3 | 8 |
@@ -17,22 +17,22 @@
 | 08:00 | 4 | 80 | 2 | 4 | 9 |
 | 09:00 | 2 | 40 | 2 | 2 | 7 |
 | 10:00 | 39 | 315 | 2 | 3 | 9 |
-| 11:00 | 103 | 638 | 2 | 6 | 10 |
+| 11:00 | 106 | 707 | 2 | 7 | 880 |
 | 12:00 | 12 | 240 | 2 | 3 | 9 |
 | 13:00 | 14 | 280 | 2 | 3 | 3 |
 | 14:00 | 11 | 220 | 2 | 4 | 9 |
-| 15:00 | 12 | 221 | 2 | 4 | 33 |
+| 15:00 | 13 | 229 | 3 | 9 | 619 |
 | 16:00 | 8 | 160 | 2 | 3 | 8 |
-| 17:00 | 111 | 1207 | 2 | 3 | 5 |
+| 17:00 | 112 | 1237 | 2 | 3 | 511 |
 | 18:00 | 56 | 796 | 2 | 4 | 326 |
 | 19:00 | 54 | 414 | 2 | 6 | 365 |
-| 20:00 | 13 | 260 | 2 | 2 | 2 |
+| 20:00 | 14 | 261 | 2 | 2 | 315 |
 | 21:00 | 105 | 642 | 2 | 3 | 124 |
 | 22:00 | 149 | 602 | 2 | 3 | 40 |
 | 23:00 | 356 | 1634 | 2 | 3 | 132 |
 
-**Son 24 saat:** biten parti 447 · medyan 2 dk · %90 6 dk · **şu an bekleyen 7 parti, en eskisi 758 dk** (liste sınırı: son 60 sayfa)
-**Kuyruk durumu: YAVAŞ — en eski bekleyen 2 saati geçti; yeni dalga kuyruğu uzatır, süre belirsiz**
-**Genel:** medyan 2 dk · %90 3 dk · parti 2017
+**Son 24 saat:** biten parti 359 · medyan 2 dk · %90 7 dk · **şu an bekleyen 13 parti, en eskisi 2 dk** (liste sınırı: son 60 sayfa)
+**Kuyruk durumu: NORMAL**
+**Genel:** medyan 2 dk · %90 3 dk · parti 2073
 
 Kural koymak için: bir saat diliminin medyanı ötekilerden **belirgin ve birkaç gün üst üste** düşükse o saat "tercih" olur. Tek gecelik veri kural değildir.
