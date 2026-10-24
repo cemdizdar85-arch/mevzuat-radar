@@ -11,6 +11,15 @@
       "uygulandi": "24.10.2026 14:28",
       "gercek_usd": 1.95,
       "sonuc": "veri/sinav/s20-kalibrasyon-sonuc-1.json"
+    },
+    {
+      "no": 2,
+      "onay": false,
+      "tavan_usd": 1,
+      "girdi": "veri/sinav/s20-kalibrasyon-cikmis3.json",
+      "cozucu_model": "claude-haiku-4-5",
+      "aciklama": "aynı 348 çıkmış soru, AYNI kör istem + ayrıştırıcı, daha zayıf çözücü (emir #1'de üretim kör modeli 337/348 = tavan etkisi; ders zorluğunu ayırt etmek için)",
+      "uygulandi": null
     }
   ]
 }

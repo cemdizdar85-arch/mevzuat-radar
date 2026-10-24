@@ -57,7 +57,7 @@ jobs:
         run: |
           $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
           foreach($x in @($e.emirler | Where-Object { -not $_.uygulandi -and (Test-Path "$($_.girdi)") })){
-            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz A -KorGirdi "$($x.girdi)"
+            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz A -KorGirdi "$($x.girdi)" -KorModel "$($x.cozucu_model)"
             if($LASTEXITCODE -ne 0){ throw "emir #$($x.no): istem esdegerligi DUSTU - bu emir onaylansa da PARALI adim kosmaz" }
           }
       - name: Bekleyen toplu partiler ambardan (bedava hasat icin)
@@ -75,7 +75,7 @@ jobs:
         run: |
           $e = Get-Content veri/sinav/s20-kalibrasyon-emir.json -Raw -Encoding UTF8 | ConvertFrom-Json
           foreach($x in @($e.emirler | Where-Object { $_.onay -eq $true -and -not $_.uygulandi })){
-            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz A -KorGirdi "$($x.girdi)"
+            ./arac/s20-esdegerlik-sinavi.ps1 -Yalniz A -KorGirdi "$($x.girdi)" -KorModel "$($x.cozucu_model)"
             if($LASTEXITCODE -ne 0){ throw "emir #$($x.no): istem esdegerligi DUSTU - para harcanmadi" }
           }
 

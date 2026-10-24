@@ -21,7 +21,7 @@
 #  🚫 GÖRMEZ: modelin aynı istemde aynı cevabı vermesi (olasılıksal; sınav yalnız giden isteği kıyaslar) · üretimde plan satırının
 #    korModel/korKaynak vermesi (s20 planlarında yok) · B'de üretim anındaki yerel dosya ile ambar kopyasının anahtar SIRASI farkı.
 # ============================================================================
-param([string]$KorGirdi = 'veri/sinav/s20-kalibrasyon-cikmis3.json', [string]$AhGirdi = '', [ValidateSet('', 'A', 'B')][string]$Yalniz = '')
+param([string]$KorGirdi = 'veri/sinav/s20-kalibrasyon-cikmis3.json', [string]$KorModel = '', [string]$AhGirdi = '', [ValidateSet('', 'A', 'B')][string]$Yalniz = '')
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 Set-Location $depoKok
@@ -31,13 +31,15 @@ $gecici = Join-Path $(if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [IO.Path
 New-Item -ItemType Directory -Force $gecici | Out-Null
 $fark = 0
 function DokOku([string]$y) { if (-not (Test-Path $y)) { return @() }; return @([IO.File]::ReadAllLines($y, [Text.Encoding]::UTF8) | Where-Object { $_.Trim() } | ForEach-Object { ConvertFrom-Json -InputObject $_ }) }
-function DokKiyas($d1, $d2, [string]$ad) {
+$script:BEKLENEN_FARK = @{}
+function DokKiyas($d1, $d2, [string]$ad, [string[]]$beklenen = @()) {
   $f = 0
   if ($d1.Count -ne $d2.Count) { Write-Host "  !! $ad : döküm satır sayısı farklı ($($d1.Count) / $($d2.Count))" -ForegroundColor Red; return 1 }
   for ($i = 0; $i -lt $d1.Count; $i++) {
     $a = $d1[$i]; $b = $d2[$i]
     $blA = (@($a.bloklar | ForEach-Object { "$($_.boy):$($_.sha):$($_.onbellek)" }) -join '|'); $blB = (@($b.bloklar | ForEach-Object { "$($_.boy):$($_.sha):$($_.onbellek)" }) -join '|')
     foreach ($alan in @(@('tumSha', $a.tumSha, $b.tumSha), @('model', $a.model, $b.model), @('maxTok', $a.maxTok, $b.maxTok), @('effort', $a.effort, $b.effort), @('parmak', $a.parmak, $b.parmak), @('bloklar', $blA, $blB))) {
+      if ("$($alan[1])" -cne "$($alan[2])" -and $beklenen -contains $alan[0]) { $script:BEKLENEN_FARK[$alan[0]] = 1 + [int]$script:BEKLENEN_FARK[$alan[0]]; continue }
       if ("$($alan[1])" -cne "$($alan[2])") { $f++; if ($f -le 5) { Write-Host ("  !! {0} satır {1} ({2} / {3}): {4} farklı" -f $ad, $i, $a.id, $b.id, $alan[0]) -ForegroundColor Red } }
     }
   }
@@ -49,7 +51,8 @@ if ($Yalniz -ne 'B') {
   . (Join-Path $PSScriptRoot 's20-kor-cekirdek.ps1')
   $sorular = @((S20Json $KorGirdi) | ForEach-Object { $_ })
   # yol 1: çekirdek + gerçek gönderim yolu (S20DalgaKos → Invoke-ClaudeToplu), döküme
-  $isler1 = @(foreach ($q in $sorular) { S20KorIs "$($q.id)" $q })
+  # -KorModel (emir cozucu_model): yol 1 o modelle kurulur; MODEL alanı farkı BEKLENEN fark sayılır, istem farkı yine 0 olmalı
+  $isler1 = @(foreach ($q in $sorular) { S20KorIs "$($q.id)" $q $KorModel })
   $tt = S20Tahmin $isler1 500
   $env:MEVZUAT_ISTEM_DOK = Join-Path $gecici 'kor-yol1.jsonl'
   [void](S20DalgaKos -Isler $isler1 -Tahmin $tt.tahmin -EnKotu $tt.enKotu -Tavan 1e9 -Etiket 'sgs-s20-kalibrasyon/sinama' -IlkDalga 30 -Onbelleksiz $false -BeklemeDk 1)
@@ -72,9 +75,16 @@ if ($Yalniz -ne 'B') {
   Remove-Item Env:\MEVZUAT_ISTEM_DOK
   $d1 = DokOku (Join-Path $gecici 'kor-yol1.jsonl'); $d2 = DokOku (Join-Path $gecici 'kor-yol2.jsonl')
   $esit = 0; for ($i = 0; $i -lt [math]::Min($isler1.Count, $isler2.Count); $i++) { if ([string]$isler1[$i].icerik -ceq [string]$isler2[$i].icerik) { $esit++ } }
-  $fA = DokKiyas $d1 $d2 'A'
+  $bekA = @(); if ($KorModel -and $KorModel -ne $model2) { $bekA = @('model') }
+  $fA = DokKiyas $d1 $d2 'A' $bekA
+  # effort kapısı: api-hedef toplu yolu effort'u yalnız şu kalıba uyan modele koyar (döküm effort'u kalıba bakmadan yazar → ayrıca denetlenir)
+  $apiHam = [IO.File]::ReadAllText((Join-Path $depoKok 'motor/api-hedef.ps1'), [Text.Encoding]::UTF8)
+  $mE = [regex]::Match($apiHam, 'if\("\$\(\$i\.model\)" -match ''([^'']+)''\)\{ \$g\.output_config')
+  if (-not $mE.Success) { $fA++; Write-Host '  !! A: api-hedef toplu effort kapısı bulunamadı' -ForegroundColor Red }
+  $efM = $(if ($KorModel) { $KorModel } else { $model2 }); $efGider = ($mE.Success -and $efM -match $mE.Groups[1].Value)
   if ($esit -ne $sorular.Count) { $fA++ }
-  Write-Host ("  A: {0} soru · istem dizesi birebir eşit {1}/{0} · döküm satırı {2}/{3} · istek alanı farkı {4} · model {5} · maxTok {6} · effort {7}" -f $sorular.Count, $esit, $d1.Count, $d2.Count, $fA, $model2, $maxTok2, $(if ($d1.Count) { $d1[0].effort } else { '?' }))
+  Write-Host ("  A: {0} soru · istem dizesi birebir eşit {1}/{0} · döküm satırı {2}/{3} · istek alanı farkı {4} · üretim modeli {5} · çözücü modeli {6} · maxTok {7} · effort {8}" -f $sorular.Count, $esit, $d1.Count, $d2.Count, $fA, $model2, $efM, $maxTok2, $(if ($efGider) { "gönderilir ($($d1[0].effort))" } else { "GÖNDERİLMEZ (api-hedef kalıbı '$($mE.Groups[1].Value)')" }))
+  if ($script:BEKLENEN_FARK.Count) { Write-Host ("  A: BEKLENEN fark (emir cozucu_model): " + (($script:BEKLENEN_FARK.GetEnumerator() | ForEach-Object { "$($_.Key) $($_.Value) satır" }) -join ', ') + " — istem/blok/parmak/maxTok farkı 0 olmalı") -ForegroundColor Yellow }
   # ayrıştırıcı: yüklenen metin üreticide AYNEN var mı + davranış
   foreach ($fn in 'Coz', 'KorCoz') { $t = (Get-Variable -Scope Script -Name "S20_FN_$fn").Value; if (-not $ham.Contains($t)) { $fA++; Write-Host "  !! A: $fn metni üreticide aynen YOK" -ForegroundColor Red } }
   $q0 = [pscustomobject]@{ dogru = 'C' }

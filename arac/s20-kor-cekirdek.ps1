@@ -61,7 +61,8 @@ function S20KorKarar(`$cvp, [string]`$metin){
   return [pscustomobject]@{ cevap=`$cev; dogru_mu=`$dm; sonuc="`$(`$aK.sonuc)"; hesap="`$(`$aK.hesap)"; guven="`$(`$aK.guven)"; kusur="`$(`$aK.kusur)" }
 }
 "@))
-function S20KorIs([string]$id, $cvp) { return @{ id = $id; model = $script:S20_KOR_MODEL; icerik = (S20KorIstem $cvp); maxTok = $script:S20_KOR_MAXTOK; effort = ''; faz = 'K' } }
+# 24.10: $model verilirse AYNI istem + ayrıştırıcı o modelle (kalibrasyon emri cozucu_model); verilmezse üretimin KorModel'i
+function S20KorIs([string]$id, $cvp, [string]$model = '') { return @{ id = $id; model = $(if ($model) { $model } else { $script:S20_KOR_MODEL }); icerik = (S20KorIstem $cvp); maxTok = $script:S20_KOR_MAXTOK; effort = ''; faz = 'K' } }
 function S20Sha([string]$m) { $s = [Security.Cryptography.SHA256]::Create(); try { return (($s.ComputeHash([Text.Encoding]::UTF8.GetBytes($m)) | ForEach-Object { $_.ToString('x2') }) -join '') } finally { $s.Dispose() } }
 $script:S20_KOR_IZ = S20Sha (@($script:S20_KOR_ISTEM_SABLON, $script:S20_FN_Coz, $script:S20_FN_KorCoz) + @($script:S20_KOR_DEYIM.Values) -join "`n#`n")
 Remove-Variable s20Tok, s20Hata, s20Ast, s20Istem, s20IstK, s20Blok, s20F, s20Fn -ErrorAction SilentlyContinue

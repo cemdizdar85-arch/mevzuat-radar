@@ -7,6 +7,7 @@
 #  ÇÖZÜCÜ: arac/s20-kor-cekirdek.ps1 — istem, model, jeton tavanı, ayrıştırıcı motor/kalip-parti-uret.ps1'den AST ile alınır (kopya yok).
 #  KAPI: veri/sinav/s20-kalibrasyon-emir.json → {emirler:[{no, onay, tavan_usd, girdi, aciklama, uygulandi}]}
 #        onay:true + damgasız + -Calistir → PARALI; diğer her durum KURU (soru sayısı + tahmini USD, API'ye gidilmez, 0 USD).
+#        isteğe bağlı cozucu_model (24.10): AYNI istem + ayrıştırıcı o modelle; yoksa üretimin KorModel'i. Sonuçta cozucu.model (nötr kod).
 #  GİRDİ: [{id, ders, soru, siklar:{A..E}, dogru}]   (id = Anthropic custom_id kuralına uyar: [A-Za-z0-9_-], en çok 64)
 #  BEDEL: tahmin = girdi karakter/1,6 jeton + çıktı 500 jeton (ölçüldü 24.10: SGS kör, Opus 5 toplu, 09–24.10 bedel_kaydi
 #         196 çağrı → çağrı başı girdi 777 · çıktı 340 jeton; 500 temkinli) · en kötü durum = çıktı KOR_MAXTOK.
@@ -51,7 +52,14 @@ $kosKor = {
   param($em, [bool]$odeme)
   $no = [int]$em.no; $tavanD = [double]$em.tavan_usd; $etiketK = "sgs-s20-kalibrasyon/$no"
   $sorular = @(KalGirdiOku "$($em.girdi)")
-  $isler = @(foreach ($q in $sorular) { S20KorIs "$($q.id)" $q })
+  # 24.10 cozucu_model (isteğe bağlı): AYNI istem + ayrıştırıcı başka modelle; yoksa üretimin KorModel'i (davranış değişmez).
+  #   Effort yalnız sonnet-5|opus-5'e konur (api-hedef Invoke-ClaudeToplu) — haiku'ya gitmez. Fiyat api-hedef Get-BedelFiyat'tan.
+  $cozM = $(if ($em.PSObject.Properties['cozucu_model'] -and "$($em.cozucu_model)".Trim()) { "$($em.cozucu_model)".Trim() } else { $script:S20_KOR_MODEL })
+  if ($cozM -notmatch '^claude-[a-z0-9-]+$') { throw "cozucu_model geçersiz: '$cozM'" }
+  [void](S20Fiyat $cozM)   # fiyatı bilinmeyen model gönderilmez
+  $uretimMi = ($cozM -eq $script:S20_KOR_MODEL)
+  Write-Host ("ÇÖZÜCÜ MODEL: {0}{1} · effort {2}" -f $cozM, $(if ($uretimMi) { ' (üretimin kör modeli)' } else { ' (emirden; üretim modeli ' + $script:S20_KOR_MODEL + ')' }), $(if ($cozM -match 'sonnet-5|opus-5') { Get-EffortDegeri '' } else { 'GÖNDERİLMEZ (model desteklemiyor)' }))
+  $isler = @(foreach ($q in $sorular) { S20KorIs "$($q.id)" $q $cozM })
   $tt = S20Tahmin $isler $CiktiTahminJ
   $tTop = S20Topla $tt.tahmin @($isler | ForEach-Object { $_.id }); $kTop = S20Topla $tt.enKotu @($isler | ForEach-Object { $_.id })
   $dersSay = @{}; foreach ($q in $sorular) { $dersSay["$($q.ders)"] = 1 + [int]$dersSay["$($q.ders)"] }
@@ -94,7 +102,7 @@ $kosKor = {
   $dT = 0; $cT = 0; foreach ($v in $ozD.Values) { $dT += $v.dogru; $cT += ($v.toplam - $v.cevapsiz) }
   $cikti = "veri/sinav/s20-kalibrasyon-sonuc-$no.json"
   S20JsonYaz $cikti ([ordered]@{
-      no = $no; tarih = (Get-Date -Format 'yyyy-MM-dd HH:mm'); girdi = "$($em.girdi)"; cozucu = [ordered]@{ model = (ModelKod $script:S20_KOR_MODEL); maxTok = $script:S20_KOR_MAXTOK; kaynak = 'yok (kör)'; iz = $script:S20_KOR_IZ.Substring(0, 16) }
+      no = $no; tarih = (Get-Date -Format 'yyyy-MM-dd HH:mm'); girdi = "$($em.girdi)"; cozucu = [ordered]@{ model = (ModelKod $cozM); uretim_cozucusu = $uretimMi; maxTok = $script:S20_KOR_MAXTOK; kaynak = 'yok (kör)'; iz = $script:S20_KOR_IZ.Substring(0, 16) }
       ozet = [ordered]@{ toplam = $sorular.Count; cevaplanan = $cT; dogru = $dT; bozuk = ($sorular.Count - $cT - $butceYok.Count); butce_yetmedi = $butceYok.Count; olculen_oran = $r1.oran; usd = $usd; ders = $ozD }
       sorular = $liste.ToArray()
     }) 8
