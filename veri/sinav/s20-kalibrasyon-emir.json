@@ -14,12 +14,13 @@
     },
     {
       "no": 2,
-      "onay": false,
+      "onay": true,
       "tavan_usd": 1,
       "girdi": "veri/sinav/s20-kalibrasyon-cikmis3.json",
       "cozucu_model": "claude-haiku-4-5",
       "aciklama": "aynı 348 çıkmış soru, AYNI kör istem + ayrıştırıcı, daha zayıf çözücü (emir #1'de üretim kör modeli 337/348 = tavan etkisi; ders zorluğunu ayırt etmek için)",
-      "uygulandi": null
+      "uygulandi": null,
+      "onay_notu": "Cem 24.10 kalibrasyon onayı (toplam 13 USD) içinde; #1 tavan etkisi (%96,8) → daha zayıf ikinci çözücü"
     }
   ]
 }
