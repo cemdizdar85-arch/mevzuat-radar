@@ -208,3 +208,52 @@ function S20AmbarSistemYaz([string]$etiket, [string]$yazan, $icerik) {
   return $true
 }
 function S20Sha256([string]$m) { $s = [Security.Cryptography.SHA256]::Create(); try { return (($s.ComputeHash([Text.Encoding]::UTF8.GetBytes($m)) | ForEach-Object { $_.ToString('x2') }) -join '') } finally { $s.Dispose() } }
+
+# ===== KİMLİKLE SORU (ücretli içerik: metin depoya GİRMEZ, ambardan çekilir) — s20-kor-kalibrasyon girdi_kimlik yolu + eşdeğerlik sınavı =====
+# Kimlik dosyası: [{id, ders, zorluk?, deneme?}]. İki kaynak, YALNIZ istenenler (çıkış ücretli):
+#   · sgs-s20-<grup>-<zorluk>/<sıra>  → kalip_parti '__hazir/sgs-s20-<grup>-<zorluk>' icerik.sorular[sıra] (0'dan; hazir-senkron'un yüklediği)
+#        select=q<i>s:icerik->sorular-><sıra>->soru, …->siklar, …->dogru  (satırın tamamı inmez)
+#   · öteki kimlikler (sgs-…/kp-NN)   → paket_soru veri->soru/siklar/dogru, id=in.(…) 40'lık parçalarla
+# Dönüş: @{ sorular = [{id = custom_id ('/'→'__'), kimlik, ders, zorluk, deneme, soru, siklar, dogru}]; bulunamadi = [kimlik…]; bayt }
+# Soru metni yalnız bellekte durur; ekrana yalnız SAYI basılır (Actions günlüğü public olabilir).
+function S20KimlikSorular([string]$yol) {
+  if (-not (Test-Path $yol)) { throw "kimlik dosyası yok: $yol" }
+  $ham = @((S20Json $yol) | ForEach-Object { $_ } | Where-Object { $_ -and "$($_.id)".Trim() })
+  $bas = S20AmbarBaslik; $taban = 'https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/'
+  $metin = @{}; $bayt = 0; $gor = @{}; $sira = New-Object System.Collections.Generic.List[object]
+  $hazir = [ordered]@{}; $paket = New-Object System.Collections.Generic.List[string]
+  foreach ($k in $ham) {
+    $kid = "$($k.id)".Trim(); if ($gor.ContainsKey($kid)) { throw "yinelenen kimlik: $kid" }; $gor[$kid] = 1; $sira.Add($k)
+    if ($kid -match '^(sgs-s20-[a-z0-9-]+)/(\d+)$') { $et = "__hazir/$($Matches[1])"; if (-not $hazir.Contains($et)) { $hazir[$et] = New-Object System.Collections.Generic.List[object] }; $hazir[$et].Add(@($kid, [int]$Matches[2])) }
+    elseif ($kid -match '^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$') { $paket.Add($kid) }
+    else { throw "kimlik biçimi tanınmadı: '$kid'" }
+  }
+  function _Getir([string]$u) { $w = Invoke-WebRequest -UseBasicParsing -Uri $u -Headers $bas -TimeoutSec 120; $s = [Text.Encoding]::UTF8.GetString($w.RawContentStream.ToArray()); $script:_s20Bayt += $s.Length; return @(ConvertFrom-Json -InputObject $s | ForEach-Object { $_ } | Where-Object { $_ }) }
+  $script:_s20Bayt = 0
+  foreach ($et in $hazir.Keys) {
+    $l = $hazir[$et]
+    for ($i = 0; $i -lt $l.Count; $i += 12) {
+      $pr = New-Object System.Collections.Generic.List[object]; for ($q = $i; $q -lt [math]::Min($i + 12, $l.Count); $q++) { $pr.Add($l[$q]) }   # @() iç dizileri açardı ([kimlik, sıra] çifti dağılırdı)
+      $sec = (@(for ($j = 0; $j -lt $pr.Count; $j++) { $n = $pr[$j][1]; "q${j}s:icerik->sorular->$n->soru,q${j}k:icerik->sorular->$n->siklar,q${j}d:icerik->sorular->$n->dogru" }) -join ',')
+      $sat = @(_Getir ($taban + 'kalip_parti?select=' + [uri]::EscapeDataString($sec) + '&etiket=eq.' + [uri]::EscapeDataString($et)))
+      if (-not $sat.Count) { continue }
+      for ($j = 0; $j -lt $pr.Count; $j++) { $s0 = $sat[0]."q${j}s"; if ($s0) { $metin[$pr[$j][0]] = @{ soru = $s0; siklar = $sat[0]."q${j}k"; dogru = $sat[0]."q${j}d" } } }
+    }
+  }
+  for ($i = 0; $i -lt $paket.Count; $i += 40) {
+    $pr = @($paket[$i..([math]::Min($i + 40, $paket.Count) - 1)])
+    $inL = (@($pr | ForEach-Object { '"' + $_ + '"' }) -join ',')
+    $sat = @(_Getir ($taban + 'paket_soru?select=' + [uri]::EscapeDataString('id,s:veri->soru,k:veri->siklar,d:veri->dogru') + '&id=in.' + [uri]::EscapeDataString("($inL)")))
+    foreach ($r in $sat) { if ($r.s) { $metin["$($r.id)"] = @{ soru = $r.s; siklar = $r.k; dogru = $r.d } } }
+  }
+  $out = New-Object System.Collections.Generic.List[object]; $yok = New-Object System.Collections.Generic.List[string]
+  foreach ($k in $sira) {
+    $kid = "$($k.id)".Trim(); $m = $metin[$kid]
+    $tam = ($m -and "$($m.soru)".Trim() -and "$($m.dogru)" -match '^[A-E]$' -and $m.siklar -and -not @('A', 'B', 'C', 'D', 'E' | Where-Object { -not "$($m.siklar.$_)".Trim() }).Count)
+    if (-not $tam) { $yok.Add($kid); continue }
+    $cid = ($kid -replace '/', '__'); if ($cid -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "custom_id kuralına uymayan kimlik: $kid" }
+    $out.Add([pscustomobject]@{ id = $cid; kimlik = $kid; ders = "$($k.ders)"; zorluk = "$($k.zorluk)"; deneme = "$($k.deneme)"; soru = "$($m.soru)"; siklar = $m.siklar; dogru = "$($m.dogru)" })
+  }
+  Write-Host ("KİMLİK: {0} istendi · hazır (s20) {1} · paket_soru {2} · bulundu {3} · bulunamadı/eksik {4} · ≈{5} KB indi (yalnız soru/şık/anahtar)" -f $sira.Count, (@($hazir.Values | ForEach-Object { $_.Count }) | Measure-Object -Sum).Sum, $paket.Count, $out.Count, $yok.Count, [math]::Round($script:_s20Bayt / 1024))
+  return @{ sorular = $out.ToArray(); bulunamadi = $yok.ToArray(); sira = @($sira | ForEach-Object { $_ }) }
+}

@@ -21,7 +21,7 @@
 #  🚫 GÖRMEZ: modelin aynı istemde aynı cevabı vermesi (olasılıksal; sınav yalnız giden isteği kıyaslar) · üretimde plan satırının
 #    korModel/korKaynak vermesi (s20 planlarında yok) · B'de üretim anındaki yerel dosya ile ambar kopyasının anahtar SIRASI farkı.
 # ============================================================================
-param([string]$KorGirdi = 'veri/sinav/s20-kalibrasyon-cikmis3.json', [string]$KorModel = '', [string]$AhGirdi = '', [ValidateSet('', 'A', 'B')][string]$Yalniz = '')
+param([string]$KorGirdi = 'veri/sinav/s20-kalibrasyon-cikmis3.json', [string]$KorModel = '', [string]$KorKimlik = '', [string]$AhGirdi = '', [ValidateSet('', 'A', 'B')][string]$Yalniz = '')
 $ErrorActionPreference = 'Stop'
 $depoKok = Split-Path -Parent $PSScriptRoot
 Set-Location $depoKok
@@ -49,7 +49,9 @@ function DokKiyas($d1, $d2, [string]$ad, [string[]]$beklenen = @()) {
 if ($Yalniz -ne 'B') {
   Write-Host "=== A · KÖR KALİBRASYON İSTEMİ ===" -ForegroundColor Cyan
   . (Join-Path $PSScriptRoot 's20-kor-cekirdek.ps1')
-  $sorular = @((S20Json $KorGirdi) | ForEach-Object { $_ })
+  # -KorKimlik: kimlik dosyası (ücretli içerik) → metin ambardan, kalibrasyonla AYNI işlev (S20KimlikSorular)
+  $sorular = @(if ($KorKimlik) { (S20KimlikSorular $KorKimlik).sorular } else { (S20Json $KorGirdi) | ForEach-Object { $_ } })   # @() dışta: tek soru PS 5.1'de skaler olur, .Count boş döner
+  if (-not $sorular.Count) { throw 'A: sınanacak soru yok' }
   # yol 1: çekirdek + gerçek gönderim yolu (S20DalgaKos → Invoke-ClaudeToplu), döküme
   # -KorModel (emir cozucu_model): yol 1 o modelle kurulur; MODEL alanı farkı BEKLENEN fark sayılır, istem farkı yine 0 olmalı
   $isler1 = @(foreach ($q in $sorular) { S20KorIs "$($q.id)" $q $KorModel })
