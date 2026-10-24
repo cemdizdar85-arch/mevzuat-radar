@@ -1,0 +1,3527 @@
+{
+  "no": 3,
+  "tarih": "2026-10-24 15:30",
+  "girdi_kimlik": "veri/sinav/s20-kalibrasyon-kimlik-3.json",
+  "cozucu": {
+    "model": "model-a",
+    "uretim_cozucusu": false,
+    "maxTok": 8000,
+    "kaynak": "yok (kör)",
+    "iz": "8be09451bf964879"
+  },
+  "ozet": {
+    "toplam": 420,
+    "cevaplanan": 420,
+    "dogru": 321,
+    "bulunamadi": 0,
+    "butce_yetmedi": 0,
+    "olculen_oran": 1.212,
+    "usd": 0.85,
+    "ders": {
+      "Finansal Muhasebe": {
+        "dogru": 27,
+        "toplam": 38,
+        "cevapsiz": 0
+      },
+      "Vergi Hukuku": {
+        "dogru": 18,
+        "toplam": 36,
+        "cevapsiz": 0
+      },
+      "Denetim": {
+        "dogru": 65,
+        "toplam": 75,
+        "cevapsiz": 0
+      },
+      "Maliyet Muhasebesi": {
+        "dogru": 54,
+        "toplam": 70,
+        "cevapsiz": 0
+      },
+      "Meslek Hukuku": {
+        "dogru": 44,
+        "toplam": 57,
+        "cevapsiz": 0
+      },
+      "Mali Tablolar Analizi": {
+        "dogru": 62,
+        "toplam": 72,
+        "cevapsiz": 0
+      },
+      "Ticaret Hukuku": {
+        "dogru": 51,
+        "toplam": 72,
+        "cevapsiz": 0
+      }
+    },
+    "ders_zorluk": {
+      "Finansal Muhasebe|zor": {
+        "dogru": 12,
+        "toplam": 16,
+        "cevapsiz": 0
+      },
+      "Finansal Muhasebe|kolay": {
+        "dogru": 14,
+        "toplam": 17,
+        "cevapsiz": 0
+      },
+      "Finansal Muhasebe|cokzor": {
+        "dogru": 1,
+        "toplam": 5,
+        "cevapsiz": 0
+      },
+      "Vergi Hukuku|kolay": {
+        "dogru": 8,
+        "toplam": 13,
+        "cevapsiz": 0
+      },
+      "Vergi Hukuku|zor": {
+        "dogru": 4,
+        "toplam": 11,
+        "cevapsiz": 0
+      },
+      "Vergi Hukuku|cokzor": {
+        "dogru": 6,
+        "toplam": 12,
+        "cevapsiz": 0
+      },
+      "Denetim|cokzor": {
+        "dogru": 19,
+        "toplam": 25,
+        "cevapsiz": 0
+      },
+      "Denetim|kolay": {
+        "dogru": 24,
+        "toplam": 27,
+        "cevapsiz": 0
+      },
+      "Denetim|zor": {
+        "dogru": 22,
+        "toplam": 23,
+        "cevapsiz": 0
+      },
+      "Maliyet Muhasebesi|cokzor": {
+        "dogru": 13,
+        "toplam": 21,
+        "cevapsiz": 0
+      },
+      "Maliyet Muhasebesi|kolay": {
+        "dogru": 21,
+        "toplam": 23,
+        "cevapsiz": 0
+      },
+      "Maliyet Muhasebesi|zor": {
+        "dogru": 20,
+        "toplam": 26,
+        "cevapsiz": 0
+      },
+      "Meslek Hukuku|cokzor": {
+        "dogru": 13,
+        "toplam": 19,
+        "cevapsiz": 0
+      },
+      "Meslek Hukuku|kolay": {
+        "dogru": 7,
+        "toplam": 12,
+        "cevapsiz": 0
+      },
+      "Meslek Hukuku|zor": {
+        "dogru": 24,
+        "toplam": 26,
+        "cevapsiz": 0
+      },
+      "Mali Tablolar Analizi|cokzor": {
+        "dogru": 20,
+        "toplam": 23,
+        "cevapsiz": 0
+      },
+      "Mali Tablolar Analizi|kolay": {
+        "dogru": 21,
+        "toplam": 24,
+        "cevapsiz": 0
+      },
+      "Mali Tablolar Analizi|zor": {
+        "dogru": 21,
+        "toplam": 25,
+        "cevapsiz": 0
+      },
+      "Ticaret Hukuku|cokzor": {
+        "dogru": 12,
+        "toplam": 21,
+        "cevapsiz": 0
+      },
+      "Ticaret Hukuku|kolay": {
+        "dogru": 17,
+        "toplam": 24,
+        "cevapsiz": 0
+      },
+      "Ticaret Hukuku|zor": {
+        "dogru": 22,
+        "toplam": 27,
+        "cevapsiz": 0
+      }
+    }
+  },
+  "sorular": [
+    {
+      "id": "sgs-s20-fmuh-g1-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-zor/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-kolay/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-kolay/kp-01",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-cokzor/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-kolay/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-zor/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-kolay/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-zor/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-kolay/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-kolay/kp-04",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-zor/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-zor/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-cokzor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-kolay/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-zor/kp-04",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-zor/kp-01",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-zor/kp-05",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-kolay/kp-05",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-kolay/kp-05",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-zor/kp-04",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-zor/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-kolay/kp-06",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-kolay/kp-06",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-cokzor/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-zor/kp-06",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g3-kolay/kp-07",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-zor/kp-06",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-kolay/kp-06",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-kolay/kp-05",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-zor/kp-05",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-cokzor/kp-02",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-kolay/kp-07",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g4-kolay/kp-04",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g1-kolay/kp-07",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g2-kolay/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-fmuh-g2-cokzor/kp-03",
+      "ders": "Finansal Muhasebe",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-zor/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-zor/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-kolay/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-cokzor/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-zor/kp-06",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-cokzor/kp-03",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-kolay/kp-05",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-zor/kp-05",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-kolay/kp-03",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g1-cokzor/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g1-zor/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g3-kolay/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g3-cokzor/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g3-zor/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g3-cokzor/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g2-kolay/kp-05",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g2-kolay/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g2-zor/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g4-cokzor/kp-01",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g3-zor/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g3-kolay/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g4-cokzor/kp-05",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g3-cokzor/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g3-zor/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g2-zor/kp-06",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g2-kolay/kp-06",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g4-kolay/kp-03",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g4-cokzor/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g2-cokzor/kp-05",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g4-kolay/kp-04",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-vergi-g4-zor/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g4-cokzor/kp-03",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g4-kolay/kp-02",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g3-cokzor/kp-03",
+      "ders": "Vergi Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-vergi-g3-kolay/kp-03",
+      "ders": "Vergi Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/0",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/1",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/2",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/3",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/4",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/5",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g1-cokzor/6",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/0",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/1",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/2",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/3",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/4",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/5",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-kolay/6",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-zor/0",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g1-zor/1",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-zor/2",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-zor/3",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-zor/4",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g1-zor/5",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-cokzor/0",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-cokzor/1",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-cokzor/2",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-cokzor/3",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-cokzor/4",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-cokzor/5",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/0",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/1",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/2",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/3",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/4",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/5",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-kolay/6",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-zor/0",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-zor/1",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-zor/2",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-zor/3",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-zor/4",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g2-zor/5",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-cokzor/0",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-cokzor/1",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g3-cokzor/2",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-cokzor/3",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-cokzor/4",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-cokzor/5",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/0",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/1",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/2",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/3",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/4",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/5",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-kolay/6",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-zor/0",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-zor/1",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-zor/2",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-zor/3",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-zor/4",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g3-zor/5",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-cokzor/0",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g4-cokzor/1",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-cokzor/2",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-cokzor/3",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-cokzor/4",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-cokzor/5",
+      "ders": "Denetim",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g4-kolay/0",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g4-kolay/1",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-kolay/2",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-kolay/3",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-kolay/4",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-kolay/5",
+      "ders": "Denetim",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-denetim-g4-zor/0",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-zor/1",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-zor/2",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-zor/3",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-denetim-g4-zor/4",
+      "ders": "Denetim",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-cokzor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-cokzor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-cokzor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-cokzor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-cokzor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-cokzor/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-kolay/6",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g1-zor/6",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-cokzor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-cokzor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-cokzor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-cokzor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-cokzor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-cokzor/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-kolay/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-kolay/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-kolay/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-kolay/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-kolay/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-kolay/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g2-zor/6",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-cokzor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-cokzor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-cokzor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-cokzor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-cokzor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-kolay/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-kolay/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-kolay/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-kolay/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-kolay/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-kolay/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-zor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-zor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-zor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-zor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-zor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g3-zor/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-cokzor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-cokzor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-cokzor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-cokzor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-kolay/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-kolay/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-kolay/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-kolay/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-zor/0",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-zor/1",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-zor/2",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-zor/3",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-zor/4",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-maliyet-g4-zor/5",
+      "ders": "Maliyet Muhasebesi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-cokzor/6",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g1-kolay/6",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-zor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-zor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-zor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-zor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-zor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g1-zor/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-cokzor/6",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-kolay/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g2-kolay/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g2-kolay/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-kolay/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g2-kolay/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g2-zor/6",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-cokzor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g3-cokzor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g3-cokzor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-cokzor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-cokzor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g3-zor/6",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-meslek-g4-zor/0",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g4-zor/1",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g4-zor/2",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g4-zor/3",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g4-zor/4",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-meslek-g4-zor/5",
+      "ders": "Meslek Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-cokzor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-cokzor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-cokzor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-cokzor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g1-cokzor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-kolay/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-kolay/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-kolay/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-kolay/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g1-zor/6",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-cokzor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-cokzor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-cokzor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-cokzor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-cokzor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-cokzor/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-kolay/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-kolay/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-kolay/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-kolay/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-kolay/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-kolay/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-zor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-zor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-zor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-zor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g2-zor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-cokzor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-cokzor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-cokzor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-cokzor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-cokzor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g3-kolay/6",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g3-zor/6",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-cokzor/6",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-kolay/6",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-zor/0",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-zor/1",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-zor/2",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-zor/3",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-zor/4",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-mta-g4-zor/5",
+      "ders": "Mali Tablolar Analizi",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-cokzor/6",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-kolay/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-kolay/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-kolay/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-kolay/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-kolay/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g1-zor/6",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-cokzor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-cokzor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-cokzor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-cokzor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-cokzor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-kolay/6",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g2-zor/6",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-cokzor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-cokzor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-cokzor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-cokzor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-kolay/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-kolay/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-kolay/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-kolay/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-kolay/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-kolay/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g3-zor/6",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-cokzor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-cokzor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-cokzor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-cokzor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-cokzor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "cokzor",
+      "deneme": "",
+      "cevap": "HİÇBİRİ",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-kolay/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-kolay/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-kolay/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": false
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-kolay/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-kolay/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-kolay/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "kolay",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-zor/0",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-zor/1",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "B",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-zor/2",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "C",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-zor/3",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "D",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-zor/4",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "E",
+      "dogru_mu": true
+    },
+    {
+      "id": "sgs-s20-ticaret-g4-zor/5",
+      "ders": "Ticaret Hukuku",
+      "zorluk": "zor",
+      "deneme": "",
+      "cevap": "A",
+      "dogru_mu": true
+    }
+  ]
+}
