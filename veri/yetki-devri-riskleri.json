@@ -1,5 +1,5 @@
 {
-  "tarih": "23.10.2026 14:09",
+  "tarih": "24.10.2026 07:26",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
@@ -2601,37 +2601,37 @@
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 501,
+      "satir": 523,
       "iddia": "%99",
       "metin": "else if(tur==='oran' && deger>99) hata='Oran en çok %99 olabilir (ücretsiz vermek için \"Ücretsiz paket ver\" kutusunu kullan).';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 506,
+      "satir": 528,
       "iddia": "5.000 TL",
       "metin": "if(!hata && !(ind>=1 && ind<p.fiyat && ind<=5000)) hata=p.ad+': indirim ('+tl(ind)+') fiyattan ('+tl(p.fiyat)+') küçük ve en çok 5.000 TL olmalı.';"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 565,
+      "satir": 587,
       "iddia": "24 saat",
       "metin": "/* 10.10 (Cem \"1.2.3\"): 24 saati geçen bekleyen kırmızı + haklı itiraz sayacı (2026-10-10-ekibe-soru-hakli.sql) */"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 566,
+      "satir": 588,
       "iddia": "30 gün",
       "metin": "$('nNot').innerHTML='Son 30 günde kullanan kişi: '+(d.kisi||0)+' · Ekipte cevap bekleyen: '+(d.ekip_bekleyen||0)"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 567,
+      "satir": 589,
       "iddia": "24 saat",
       "metin": "+(d.ekip_gec?' · 24 saati geçen: '+d.ekip_gec+' ':'')"
     },
     {
       "sayfa": "yonetim.html",
-      "satir": 583,
+      "satir": 605,
       "iddia": "24 saat",
       "metin": "+(gec?' · ⏰ '+saat+' saattir bekliyor (söz: 24 saat) ':'')"
     }
