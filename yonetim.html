@@ -439,10 +439,11 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
     } else if(b.id==='pVer'){
       var ep=$('pEposta').value.trim(), bitis=$('pBitis').value, neden=$('pNeden').value.trim(), elci=$('pElci').value.trim().toUpperCase();
       if(!ep||!bitis||!neden){ mesaj('E-posta, bitiş ve neden gerekli.', false); return; }
+      if($('pPaket').value==='yeterlilik-ders' && !document.querySelector('#pDersler input:checked')){ mesaj('En az bir ders seç.', false); return; }
+      var hk=await hesapKontrol(ep); if(!hk) return;
       if($('pPaket').value==='yeterlilik-ders'){
         var secDers=[].map.call(document.querySelectorAll('#pDersler input:checked'), function(c){ return c.value; });
-        if(!secDers.length){ mesaj('En az bir ders seç.', false); return; }
-        if(!confirm(ep+' kişisine Yeterlilik\'te şu dersler '+bitis+' tarihine kadar hediye edilsin mi?\n\n'+secDers.join('\n'))) return;
+        if(!confirm(ep+' kişisine Yeterlilik\'te şu dersler '+bitis+' tarihine kadar hediye edilsin mi?\n\n'+secDers.join('\n')+hk.not)) return;
         var dArg={ p_eposta:ep, p_dersler:secDers, p_bitis:bitis, p_neden:neden, p_elci:elci||null, p_zorla:false };
         var dBasari=function(d){ return '✓ '+d.eposta+': '+(d.paket==='yeterlilik-tum'?'Yeterlilik tüm dersler':'Yeterlilik — '+(d.acik_dersler||[]).join(', '))+' · '+d.bitis+' tarihine kadar açık.'; };
         var dr=await sb.rpc('yonetim_ders_hediye', dArg);
@@ -451,17 +452,38 @@ td.s{text-align:right;font-variant-numeric:tabular-nums}
           dArg.p_zorla=true; dr=await sb.rpc('yonetim_ders_hediye', dArg);
         }
         if(dr.error){ mesaj(hataYazi(dr.error), false); return; }
-        mesaj(dBasari(dr.data||{}), true); if(YUKLE) await YUKLE();
+        mesaj(dBasari(dr.data||{})+hk.son, true); if(YUKLE) await YUKLE();
         ['pEposta','pNeden','pElci'].forEach(function(i){ $(i).value=''; });
         document.querySelectorAll('#pDersler input').forEach(function(c){ c.checked=false; });
         return;
       }
-      if(!confirm(ep+' kişisine '+$('pPaket').value+' paketi '+bitis+' tarihine kadar verilsin mi?')) return;
+      if(!confirm(ep+' kişisine '+$('pPaket').value+' paketi '+bitis+' tarihine kadar verilsin mi?'+hk.not)) return;
       var v=await islem('yonetim_paket_ver', { p_eposta:ep, p_paket:$('pPaket').value, p_bitis:bitis, p_neden:neden, p_elci:elci||null, p_zorla:false },
-        function(d){ return '✓ '+d.eposta+': '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'; });
+        function(d){ return '✓ '+d.eposta+': '+d.paket+' paketi '+d.bitis+' tarihine kadar açık.'+hk.son; });
       if(v){ ['pEposta','pNeden','pElci'].forEach(function(i){ $(i).value=''; }); }
     }
   });
+  /* 24.10 (Cem "e-postasını onayla, girebilsin. Panele de uyarı ekle"): hediye verilen hesap onay mailine tıklamamışsa kişi
+     giremiyor, hediyeyi göremiyordu (24.10 olayı). Vermeden önce hesap gösterilir; onaysızsa onaylama önerilir.
+     SQL: 2026-10-24-yonetim-eposta-onayla.sql. Dönüş null = dur. */
+  async function hesapKontrol(ep){
+    var hs=await sb.rpc('yonetim_hesap_bul', { p_eposta:ep });
+    if(hs.error){ mesaj(hataYazi(hs.error), false); return null; }
+    var h=hs.data||{};
+    if(!h.var){ mesaj(HATA.HESAP_YOK, false); return null; }
+    var sag=(h.saglayici||[]).map(function(s){ return s==='google'?'Google':(s==='apple'?'Apple':(s==='email'?'e-posta + şifre':s)); }).join(', ');
+    var not='\n\nHesap: '+sag+' · kayıt '+tarih(h.kayit)+' · son giriş: '+(h.son_giris?tarih(h.son_giris):'HİÇ GİRMEMİŞ');
+    if(!h.onayli){
+      if(confirm(ep+' e-postasını ONAYLAMAMIŞ: onay mailindeki bağlantıya tıklamadıkça siteye GİREMEZ, hediyeyi göremez.\n\nKişiyi tanıyorsan şimdi onaylayayım mı?\n\nTamam = onayla · İptal = onaylamadan devam')){
+        var o=await sb.rpc('yonetim_eposta_onayla', { p_eposta:ep });
+        if(o.error){ mesaj(hataYazi(o.error), false); return null; }
+        h.onayli=true; not+='\n✓ E-posta şimdi onaylandı, kişi şifresiyle girebilir.';
+      } else not+='\n⚠ E-posta ONAYSIZ: kişi onay mailine tıklamadan giremez.';
+    }
+    var son=!h.onayli ? ' ⚠ Hesap e-postasını onaylamamış: kişi onay mailine tıklamadan giremez.'
+      : (!h.son_giris ? ' Bu hesapla hiç giriş yapılmamış: kişiye "tetikte.com\'a bu e-posta ve şifrenle gir" de.' : '');
+    return { not:not, son:son };
+  }
   $('pElci').addEventListener('input', function(){ if(this.value.trim()) $('pBitis').value=gunEkle(90); });
   /* 6 karakterlik kod: en çok 2 baş harf + karışmayan havuz (arac/elci.ps1 KodOner ile aynı kural); TT ile başlamaz */
   function kodUret(ad){
