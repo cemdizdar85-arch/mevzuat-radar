@@ -1,190 +1,190 @@
 {
-    "aciklama":  "Bulut soru basim sirasi (29.09.2026). Elle DUZENLENMEZ: motor/bulut-sira.ps1 -Ekle / -Cikar / -Temizle yazar, sonra commit+push. Robot .github/workflows/bulut-sira.yml 15 dk\u0027da bir paya gore acar. Acildi mi = GitHub kosu gecmisi (dosyaya isaret yazilmaz). Acil fren: durdur=true.",
-    "durdur":  false,
-    "pay":  {
-                "toplam":  6,
-                "smmm":  3,
-                "sgs":  3,
-                "kgk":  4
-            },
-    "varsayilan_paralel":  5,
-    "geriye_bakis_gun":  30,
-    "sira":  [
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-c.json",
-                     "butce_usd":  "1.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T07:41:01Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS s20 dalga1 FM plan disi 12 cok zor (Cem 24.10: 15 USD onayi icinde; harcanan 6.47)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-denetim-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T07:43:29Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Denetim (Cem 24.10 onayi: 9.1 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-denetim-b.json",
-                     "butce_usd":  "4.4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T07:43:49Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Denetim (Cem 24.10 onayi: 9.1 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-vergi-yt.json",
-                     "butce_usd":  "1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T08:03:33Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS s20 dalga1 vergi YIL onarimi 8 soru (Cem 24.10: 15 USD onayi icinde; pilotId+hazirYenileId)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-maliyet-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T09:02:53Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Maliyet (Cem 24.10 onayi: 8.5 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-maliyet-b.json",
-                     "butce_usd":  "3.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T09:03:14Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Maliyet (Cem 24.10 onayi: 8.5 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-ticaret-a.json",
-                     "butce_usd":  "4.6",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T10:13:47Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Ticaret (Cem 24.10 onayi: 8.7 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-ticaret-b.json",
-                     "butce_usd":  "4.1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T10:14:07Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Ticaret (Cem 24.10 onayi: 8.7 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-mta-a.json",
-                     "butce_usd":  "4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T14:08:00Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u00278.7 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-mta-b.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T14:08:25Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u00278.7 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-d.json",
-                     "butce_usd":  "3.4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:24:44Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-e.json",
-                     "butce_usd":  "2.3",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:25:05Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-meslek-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:25:24Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-meslek-b.json",
-                     "butce_usd":  "2.2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:25:44Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-isgk-a.json",
-                     "butce_usd":  "4.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:26:03Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-isgk-b.json",
-                     "butce_usd":  "2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:26:24Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 }
-             ]
+  "aciklama": "Bulut soru basim sirasi (29.09.2026). Elle DUZENLENMEZ: motor/bulut-sira.ps1 -Ekle / -Cikar / -Temizle yazar, sonra commit+push. Robot .github/workflows/bulut-sira.yml 15 dk'da bir paya gore acar. Acildi mi = GitHub kosu gecmisi (dosyaya isaret yazilmaz). Acil fren: durdur=true.",
+  "durdur": false,
+  "pay": {
+    "toplam": 6,
+    "smmm": 3,
+    "sgs": 3,
+    "kgk": 4
+  },
+  "varsayilan_paralel": 5,
+  "geriye_bakis_gun": 30,
+  "sira": [
+    {
+      "plan": "veri/sinav/plan-sgs-s20-fmuh-c.json",
+      "butce_usd": "1.5",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T07:41:01Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS s20 dalga1 FM plan disi 12 cok zor (Cem 24.10: 15 USD onayi icinde; harcanan 6.47)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-denetim-a.json",
+      "butce_usd": "4.7",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T07:43:29Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS Son 20 Gun dalga 2 Denetim (Cem 24.10 onayi: 9.1 USD)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-denetim-b.json",
+      "butce_usd": "4.4",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T07:43:49Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS Son 20 Gun dalga 2 Denetim (Cem 24.10 onayi: 9.1 USD)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-vergi-yt.json",
+      "butce_usd": "1",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T08:03:33Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS s20 dalga1 vergi YIL onarimi 8 soru (Cem 24.10: 15 USD onayi icinde; pilotId+hazirYenileId)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-fmuh-d.json",
+      "butce_usd": "3.4",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T15:24:44Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '19.40 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-fmuh-e.json",
+      "butce_usd": "2.3",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T15:25:05Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '19.40 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-maliyet-a.json",
+      "butce_usd": "4.7",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T09:02:53Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS Son 20 Gun dalga 2 Maliyet (Cem 24.10 onayi: 8.5 USD)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-maliyet-b.json",
+      "butce_usd": "3.8",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T09:03:14Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS Son 20 Gun dalga 2 Maliyet (Cem 24.10 onayi: 8.5 USD)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-ticaret-a.json",
+      "butce_usd": "4.6",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T10:13:47Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS Son 20 Gun dalga 2 Ticaret (Cem 24.10 onayi: 8.7 USD)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-ticaret-b.json",
+      "butce_usd": "4.1",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T10:14:07Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "SGS Son 20 Gun dalga 2 Ticaret (Cem 24.10 onayi: 8.7 USD)"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-mta-a.json",
+      "butce_usd": "4",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T14:08:00Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '8.7 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-mta-b.json",
+      "butce_usd": "4.7",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T14:08:25Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '8.7 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-meslek-a.json",
+      "butce_usd": "4.7",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T15:25:24Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '19.40 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-meslek-b.json",
+      "butce_usd": "2.2",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T15:25:44Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '19.40 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-isgk-a.json",
+      "butce_usd": "4.8",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T15:26:03Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '19.40 onaylıyorum'"
+    },
+    {
+      "plan": "veri/sinav/plan-sgs-s20-isgk-b.json",
+      "butce_usd": "2",
+      "paralel": 5,
+      "olcum_kosusu": "",
+      "sinav": "sgs",
+      "eklenme": "2026-10-24T15:26:24Z",
+      "ekleyen": "mevzuat-i-i-9f",
+      "yeniden": false,
+      "not": "Cem 24.10 '19.40 onaylıyorum'"
+    }
+  ]
 }
