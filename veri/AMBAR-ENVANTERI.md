@@ -1,9 +1,9 @@
 # AMBAR ENVANTERİ — TEK DOĞRU SAYFA
 
-> Üretim: **24.10.2026 12:37** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
+> Üretim: **25.10.2026 13:09** (makine; elle düzenlenmez — motor/ambar-envanteri.ps1, günlük görevle tazelenir)
 > **KURAL:** "Eksik var mı?" sorusunun cevabı YALNIZ bu sayfadan verilir. "Var" üç sorudur: VAR MI (canlı sayım) · TAM MI (bütünlük kapısı) · GÜNCEL Mİ (sürüm kapısı). ÖLÇÜLMEDİ hücresi "yok" sayılmaz — dürüstçe ölçülmemiştir.
 
-**ÖZET:** 50557 parça · 2795 tekil kaynak | Bütünlük ölçülen: 2795 (delikli: 406; son ölçüm: 24.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 24.10.2026 12:35)
+**ÖZET:** 50556 parça · 2795 tekil kaynak | Bütünlük ölçülen: 2795 (delikli: 406; son ölçüm: 25.10.2026) | Sürüm ölçülen: 44 (sorunlu: 1; son ölçüm: 25.10.2026 13:08)
 
 ## ÇIKMIŞ SINAV ARŞİVİ DÖKÜMÜ (üç sınav kuralı)
 
@@ -2581,7 +2581,7 @@
 | TSRS Gecis Muafiyetlerinin Uzatilmasi Kurul Karari (RG 30.12.2025-33123) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Kapsam Degisikligi - Portfoy Yonetim Sirketleri (KGK Karari 14.08.2025-34844, Duyuru 2025-53) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Uygulama Kapsami Esik Degerleri Kurul Karari (RG 16.01.2026-33139) | kanun-madde | 1 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
-| TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 11 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
+| TSRS Uygulama Kapsamina Iliskin Kurul Karari (RG 29.12.2023-32414 1.Muk) | kanun-madde | 10 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Uygulama Kapsamina Iliskin Kurul Kararinda Degisiklik (RG 18.12.2024-32756) | kanun-madde | 2 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TSRS Uygulama Kapsamina Iliskin Usul ve Esaslar (RG 16.07.2025-32957) | kanun-madde | 25 | TAM | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
 | TTK (6102 s.K.) | kanun-madde | 1596 | DELİK-İNCELE(par:20/kesik:2/oksuz:2) | KAPSAM-DIŞI(kanun/tebliğ: günlük ayna+damga kollar) |
