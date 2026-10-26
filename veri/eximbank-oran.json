@@ -1,31 +1,17 @@
 {
-  "guncelleme": "Kaynak: Turk Eximbank faiz ve kar payi oranlari (bankanin kendi veri ucundan robotla). Son cekim: 26.10.2026 04:46.",
+  "guncelleme": "Kaynak: Turk Eximbank faiz ve kar payi oranlari (bankanin kendi veri ucundan robotla). Son cekim: 26.10.2026 16:11.",
   "kaynakSayfa": "https://www.eximbank.gov.tr/tr/faiz-ve-kar-payi-oranlari",
   "not": "Oranlar Eximbank yayinidir ve degisebilir; kullandirim kosullari, limit ve teminat icin bankayla gorusulur. SOFR/EURIBOR/TLREF tabanli ifadeler kaynaktaki bicimiyle tasinir.",
   "oranlar": [
     {
-      "program": "Sevk Öncesi İhracat Kredisi",
-      "doviz": "TRY",
-      "vade": "120 GÜN 1 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
-      "program": "Murabaha (Kar Beyanı ile Satım) Finansmanı",
-      "doviz": "TRY",
-      "vade": "120 GÜN 1 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
-      "program": "Eser (İstisna) Finansmanı",
-      "doviz": "TRY",
-      "vade": "120 GÜN 1 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
       "program": "İhracata Hazırlık Kredisi",
+      "doviz": "TRY",
+      "vade": "120 GÜN 1 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
+      "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "TRY",
       "vade": "120 GÜN 1 TAKSİT",
       "kobi": "38",
@@ -39,23 +25,16 @@
       "kobiDisi": "38"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "TRY",
-      "vade": "180 GÜN 1 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
-      "program": "Sevk Öncesi İhracat Kredisi",
-      "doviz": "TRY",
-      "vade": "180 GÜN 1 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
       "program": "Eser (İstisna) Finansmanı",
       "doviz": "TRY",
-      "vade": "180 GÜN 1 TAKSİT",
+      "vade": "120 GÜN 1 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
+      "program": "Murabaha (Kar Beyanı ile Satım) Finansmanı",
+      "doviz": "TRY",
+      "vade": "120 GÜN 1 TAKSİT",
       "kobi": "38",
       "kobiDisi": "38"
     },
@@ -67,6 +46,13 @@
       "kobiDisi": "38"
     },
     {
+      "program": "İhracata Hazırlık Kredisi",
+      "doviz": "TRY",
+      "vade": "180 GÜN 1 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
       "program": "Murabaha (Kar Beyanı ile Satım) Finansmanı",
       "doviz": "TRY",
       "vade": "180 GÜN 1 TAKSİT",
@@ -81,14 +67,28 @@
       "kobiDisi": "38"
     },
     {
-      "program": "Faizsiz Finansal Kiralama Finansmanı",
+      "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "TRY",
+      "vade": "180 GÜN 1 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
+      "program": "Eser (İstisna) Finansmanı",
+      "doviz": "TRY",
+      "vade": "180 GÜN 1 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
+      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
       "doviz": "TRY",
       "vade": "3 YIL 12 TAKSİT",
       "kobi": "34",
       "kobiDisi": "34"
     },
     {
-      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
+      "program": "Faizsiz Finansal Kiralama Finansmanı",
       "doviz": "TRY",
       "vade": "3 YIL 12 TAKSİT",
       "kobi": "34",
@@ -109,34 +109,6 @@
       "kobiDisi": "34"
     },
     {
-      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
-      "doviz": "TRY",
-      "vade": "360 GÜN 4 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "TRY",
-      "vade": "360 GÜN 4 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
-      "program": "İsticrar Finansmanı",
-      "doviz": "TRY",
-      "vade": "360 GÜN 4 TAKSİT",
-      "kobi": "38",
-      "kobiDisi": "38"
-    },
-    {
-      "program": "E-İhracat Destek Kredisi Programı",
-      "doviz": "TRY",
-      "vade": "360 GÜN 4 TAKSİT",
-      "kobi": "34",
-      "kobiDisi": "34"
-    },
-    {
       "program": "Eser (İstisna) Finansmanı",
       "doviz": "TRY",
       "vade": "360 GÜN 4 TAKSİT",
@@ -151,7 +123,21 @@
       "kobiDisi": "38"
     },
     {
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "doviz": "TRY",
+      "vade": "360 GÜN 4 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
       "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "TRY",
+      "vade": "360 GÜN 4 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "TRY",
       "vade": "360 GÜN 4 TAKSİT",
       "kobi": "38",
@@ -165,28 +151,21 @@
       "kobiDisi": "38"
     },
     {
-      "program": "İsticrar Finansmanı",
+      "program": "E-İhracat Destek Kredisi Programı",
       "doviz": "TRY",
-      "vade": "540 GÜN 6 TAKSİT",
-      "kobi": "36",
-      "kobiDisi": "36"
+      "vade": "360 GÜN 4 TAKSİT",
+      "kobi": "34",
+      "kobiDisi": "34"
     },
     {
-      "program": "Eser (İstisna) Finansmanı",
+      "program": "İsticrar Finansmanı",
       "doviz": "TRY",
-      "vade": "540 GÜN 6 TAKSİT",
-      "kobi": "36",
-      "kobiDisi": "36"
+      "vade": "360 GÜN 4 TAKSİT",
+      "kobi": "38",
+      "kobiDisi": "38"
     },
     {
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
-      "doviz": "TRY",
-      "vade": "540 GÜN 6 TAKSİT",
-      "kobi": "36",
-      "kobiDisi": "36"
-    },
-    {
-      "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "TRY",
       "vade": "540 GÜN 6 TAKSİT",
       "kobi": "36",
@@ -200,7 +179,7 @@
       "kobiDisi": "36"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
+      "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "TRY",
       "vade": "540 GÜN 6 TAKSİT",
       "kobi": "36",
@@ -209,19 +188,26 @@
     {
       "program": "Eser (İstisna) Finansmanı",
       "doviz": "TRY",
-      "vade": "720 GÜN 8 TAKSİT",
+      "vade": "540 GÜN 6 TAKSİT",
       "kobi": "36",
       "kobiDisi": "36"
     },
     {
-      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "TRY",
-      "vade": "720 GÜN 8 TAKSİT",
+      "vade": "540 GÜN 6 TAKSİT",
       "kobi": "36",
       "kobiDisi": "36"
     },
     {
-      "program": "Sevk Öncesi İhracat Kredisi",
+      "program": "İsticrar Finansmanı",
+      "doviz": "TRY",
+      "vade": "540 GÜN 6 TAKSİT",
+      "kobi": "36",
+      "kobiDisi": "36"
+    },
+    {
+      "program": "Murabaha (Kar Beyanı ile Satım) Finansmanı",
       "doviz": "TRY",
       "vade": "720 GÜN 8 TAKSİT",
       "kobi": "36",
@@ -229,13 +215,6 @@
     },
     {
       "program": "İhracata Hazırlık Kredisi",
-      "doviz": "TRY",
-      "vade": "720 GÜN 8 TAKSİT",
-      "kobi": "36",
-      "kobiDisi": "36"
-    },
-    {
-      "program": "İsticrar Finansmanı",
       "doviz": "TRY",
       "vade": "720 GÜN 8 TAKSİT",
       "kobi": "36",
@@ -249,11 +228,39 @@
       "kobiDisi": "36"
     },
     {
-      "program": "Murabaha (Kar Beyanı ile Satım) Finansmanı",
+      "program": "İsticrar Finansmanı",
       "doviz": "TRY",
       "vade": "720 GÜN 8 TAKSİT",
       "kobi": "36",
       "kobiDisi": "36"
+    },
+    {
+      "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "TRY",
+      "vade": "720 GÜN 8 TAKSİT",
+      "kobi": "36",
+      "kobiDisi": "36"
+    },
+    {
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "doviz": "TRY",
+      "vade": "720 GÜN 8 TAKSİT",
+      "kobi": "36",
+      "kobiDisi": "36"
+    },
+    {
+      "program": "Eser (İstisna) Finansmanı",
+      "doviz": "TRY",
+      "vade": "720 GÜN 8 TAKSİT",
+      "kobi": "36",
+      "kobiDisi": "36"
+    },
+    {
+      "program": "Faizsiz Finansal Kiralama Finansmanı",
+      "doviz": "USD",
+      "vade": "1 YIL GERİ ÖDEMESİZ 3 YIL",
+      "kobi": "9,15",
+      "kobiDisi": "9,90"
     },
     {
       "program": "Finansal Kiralama İşlemlerine Yönelik Kredi Programı",
@@ -263,13 +270,6 @@
       "kobiDisi": "SOFR 6 AY + 5,25"
     },
     {
-      "program": "Faizsiz Finansal Kiralama Finansmanı",
-      "doviz": "USD",
-      "vade": "1 YIL GERİ ÖDEMESİZ 3 YIL",
-      "kobi": "9,25",
-      "kobiDisi": "10"
-    },
-    {
       "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
       "doviz": "USD",
       "vade": "1 YIL GERİ ÖDEMESİZ 3 YIL",
@@ -291,20 +291,6 @@
       "kobiDisi": "SOFR 6 AY + 5,75"
     },
     {
-      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
-      "doviz": "USD",
-      "vade": "120 GÜN 1 TAKSİT",
-      "kobi": "8,20",
-      "kobiDisi": "8,70"
-    },
-    {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "USD",
-      "vade": "120 GÜN 1 TAKSİT",
-      "kobi": "SOFR 6 AY + 4",
-      "kobiDisi": "SOFR 6 AY + 4,50"
-    },
-    {
       "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "USD",
       "vade": "120 GÜN 1 TAKSİT",
@@ -314,6 +300,20 @@
     {
       "program": "İhracata Hazırlık Kredisi",
       "doviz": "USD",
+      "vade": "120 GÜN 1 TAKSİT",
+      "kobi": "SOFR 6 AY + 4",
+      "kobiDisi": "SOFR 6 AY + 4,50"
+    },
+    {
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "doviz": "USD",
+      "vade": "120 GÜN 1 TAKSİT",
+      "kobi": "8,20",
+      "kobiDisi": "8,70"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
+      "doviz": "USD",
       "vade": "180 GÜN 1 TAKSİT",
       "kobi": "SOFR 6 AY + 4",
       "kobiDisi": "SOFR 6 AY + 4,50"
@@ -331,13 +331,6 @@
       "vade": "180 GÜN 1 TAKSİT",
       "kobi": "8,20",
       "kobiDisi": "8,70"
-    },
-    {
-      "program": "AIIB Yeşil Alt Yapı Destek Kredisi",
-      "doviz": "USD",
-      "vade": "2 YIL GERİ ÖDEMESİZ 9 YIL",
-      "kobi": "SOFR 6 AY + 3,83",
-      "kobiDisi": "SOFR 6 AY + 3,83"
     },
     {
       "program": "İhracata Yönelik Yatırım Kredisi",
@@ -345,6 +338,13 @@
       "vade": "2 YIL GERİ ÖDEMESİZ 9 YIL",
       "kobi": "SOFR 6 AY + 5",
       "kobiDisi": "SOFR 6 AY + 5,75"
+    },
+    {
+      "program": "AIIB Yeşil Alt Yapı Destek Kredisi",
+      "doviz": "USD",
+      "vade": "2 YIL GERİ ÖDEMESİZ 9 YIL",
+      "kobi": "SOFR 6 AY + 3,83",
+      "kobiDisi": "SOFR 6 AY + 3,83"
     },
     {
       "program": "IBRD Yeşil İhracat Destek Kredisi",
@@ -361,14 +361,14 @@
       "kobiDisi": "SOFR 6 AY + 3,83"
     },
     {
-      "program": "Sevk Öncesi İhracat Kredisi",
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "USD",
       "vade": "360 GÜN 1 TAKSİT - F",
       "kobi": "SOFR 6 AY + 4,25",
       "kobiDisi": "SOFR 6 AY + 4,75"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
+      "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "USD",
       "vade": "360 GÜN 1 TAKSİT - F",
       "kobi": "SOFR 6 AY + 4,25",
@@ -378,15 +378,8 @@
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "USD",
       "vade": "360 GÜN 1 TAKSİT - F",
-      "kobi": "8,90",
-      "kobiDisi": "9,40"
-    },
-    {
-      "program": "Sevk Öncesi İhracat Kredisi",
-      "doviz": "USD",
-      "vade": "360 GÜN 2 TAKSİT",
-      "kobi": "SOFR 6 AY + 4",
-      "kobiDisi": "SOFR 6 AY + 4,50"
+      "kobi": "8,80",
+      "kobiDisi": "9,30"
     },
     {
       "program": "İhracata Hazırlık Kredisi",
@@ -396,11 +389,18 @@
       "kobiDisi": "SOFR 6 AY + 4,50"
     },
     {
+      "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "USD",
+      "vade": "360 GÜN 2 TAKSİT",
+      "kobi": "SOFR 6 AY + 4",
+      "kobiDisi": "SOFR 6 AY + 4,50"
+    },
+    {
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "USD",
       "vade": "360 GÜN 2 TAKSİT",
-      "kobi": "8,60",
-      "kobiDisi": "9,10"
+      "kobi": "8,50",
+      "kobiDisi": "9"
     },
     {
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
@@ -424,14 +424,14 @@
       "kobiDisi": "SOFR 6 AY + 4,75"
     },
     {
-      "program": "Sevk Öncesi İhracat Kredisi",
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "USD",
       "vade": "540 GÜN 3 TAKSİT",
       "kobi": "SOFR 6 AY + 4,25",
       "kobiDisi": "SOFR 6 AY + 4,75"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
+      "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "USD",
       "vade": "540 GÜN 3 TAKSİT",
       "kobi": "SOFR 6 AY + 4,25",
@@ -441,8 +441,8 @@
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "USD",
       "vade": "540 GÜN 3 TAKSİT",
-      "kobi": "8,90",
-      "kobiDisi": "9,40"
+      "kobi": "8,80",
+      "kobiDisi": "9,30"
     },
     {
       "program": "Finansal Kiralama İşlemlerine Yönelik Kredi Programı",
@@ -452,14 +452,14 @@
       "kobiDisi": "SOFR 6 AY + 5"
     },
     {
-      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
+      "program": "İhracata Yönelik Yatırım Kredisi",
       "doviz": "USD",
       "vade": "6 AYDA BIR ÖDEMELI 4 YIL",
       "kobi": "SOFR 6 AY + 4,50",
       "kobiDisi": "SOFR 6 AY + 5,25"
     },
     {
-      "program": "İhracata Yönelik Yatırım Kredisi",
+      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
       "doviz": "USD",
       "vade": "6 AYDA BIR ÖDEMELI 4 YIL",
       "kobi": "SOFR 6 AY + 4,50",
@@ -469,8 +469,8 @@
       "program": "Faizsiz Finansal Kiralama Finansmanı",
       "doviz": "USD",
       "vade": "6 AYDA BİR ÖDEMELİ 3 YIL",
-      "kobi": "8,95",
-      "kobiDisi": "9,70"
+      "kobi": "8,85",
+      "kobiDisi": "9,60"
     },
     {
       "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
@@ -494,20 +494,6 @@
       "kobiDisi": "SOFR 6 AY + 5,50"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "USD",
-      "vade": "720 GÜN 3 TAKSİT",
-      "kobi": "SOFR 6 AY + 4,50",
-      "kobiDisi": "SOFR 6 AY + 5"
-    },
-    {
-      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
-      "doviz": "USD",
-      "vade": "720 GÜN 3 TAKSİT",
-      "kobi": "9,20",
-      "kobiDisi": "9,70"
-    },
-    {
       "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "USD",
       "vade": "720 GÜN 3 TAKSİT",
@@ -515,18 +501,18 @@
       "kobiDisi": "SOFR 6 AY + 5"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "USD",
-      "vade": "720 GÜN 4 TAKSİT",
-      "kobi": "SOFR 6 AY + 4,25",
-      "kobiDisi": "SOFR 6 AY + 4,75"
-    },
-    {
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "USD",
-      "vade": "720 GÜN 4 TAKSİT",
-      "kobi": "8,90",
-      "kobiDisi": "9,40"
+      "vade": "720 GÜN 3 TAKSİT",
+      "kobi": "9,10",
+      "kobiDisi": "9,60"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
+      "doviz": "USD",
+      "vade": "720 GÜN 3 TAKSİT",
+      "kobi": "SOFR 6 AY + 4,50",
+      "kobiDisi": "SOFR 6 AY + 5"
     },
     {
       "program": "Faizsiz Finansal Kiralama Finansmanı",
@@ -541,13 +527,27 @@
       "vade": "720 GÜN 4 TAKSİT",
       "kobi": "SOFR 6 AY + 4,25",
       "kobiDisi": "SOFR 6 AY + 4,75"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
+      "doviz": "USD",
+      "vade": "720 GÜN 4 TAKSİT",
+      "kobi": "SOFR 6 AY + 4,25",
+      "kobiDisi": "SOFR 6 AY + 4,75"
+    },
+    {
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "doviz": "USD",
+      "vade": "720 GÜN 4 TAKSİT",
+      "kobi": "8,90",
+      "kobiDisi": "9,40"
     },
     {
       "program": "Faizsiz Finansal Kiralama Finansmanı",
       "doviz": "EUR",
       "vade": "1 YIL GERİ ÖDEMESİZ 3 YIL",
-      "kobi": "8,05",
-      "kobiDisi": "8,70"
+      "kobi": "8,15",
+      "kobiDisi": "8,80"
     },
     {
       "program": "Finansal Kiralama İşlemlerine Yönelik Kredi Programı",
@@ -564,13 +564,6 @@
       "kobiDisi": "EURIBOR 6 AY + 5,25"
     },
     {
-      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
-      "doviz": "EUR",
-      "vade": "1 YIL GERİ ÖDEMESİZ 5 YIL",
-      "kobi": "EURIBOR 6 AY + 5",
-      "kobiDisi": "EURIBOR 6 AY + 5,75"
-    },
-    {
       "program": "İhracata Yönelik Yatırım Kredisi",
       "doviz": "EUR",
       "vade": "1 YIL GERİ ÖDEMESİZ 5 YIL",
@@ -578,18 +571,18 @@
       "kobiDisi": "EURIBOR 6 AY + 5,75"
     },
     {
+      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
+      "doviz": "EUR",
+      "vade": "1 YIL GERİ ÖDEMESİZ 5 YIL",
+      "kobi": "EURIBOR 6 AY + 5",
+      "kobiDisi": "EURIBOR 6 AY + 5,75"
+    },
+    {
       "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "120 GÜN 1 TAKSİT",
       "kobi": "EURIBOR 6 AY + 4",
       "kobiDisi": "EURIBOR 6 AY + 4,50"
-    },
-    {
-      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
-      "doviz": "EUR",
-      "vade": "120 GÜN 1 TAKSİT",
-      "kobi": "6,90",
-      "kobiDisi": "7,40"
     },
     {
       "program": "Sevk Öncesi İhracat Kredisi",
@@ -599,7 +592,14 @@
       "kobiDisi": "EURIBOR 6 AY + 4,50"
     },
     {
-      "program": "Sevk Öncesi İhracat Kredisi",
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "doviz": "EUR",
+      "vade": "120 GÜN 1 TAKSİT",
+      "kobi": "7",
+      "kobiDisi": "7,50"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "180 GÜN 1 TAKSİT",
       "kobi": "EURIBOR 6 AY + 4",
@@ -609,11 +609,11 @@
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "EUR",
       "vade": "180 GÜN 1 TAKSİT",
-      "kobi": "6,90",
-      "kobiDisi": "7,40"
+      "kobi": "7",
+      "kobiDisi": "7,50"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
+      "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "EUR",
       "vade": "180 GÜN 1 TAKSİT",
       "kobi": "EURIBOR 6 AY + 4",
@@ -655,13 +655,6 @@
       "kobiDisi": "EURIBOR 6 AY + 3,50"
     },
     {
-      "program": "Sevk Öncesi İhracat Kredisi",
-      "doviz": "EUR",
-      "vade": "360 GÜN 1 TAKSİT - F",
-      "kobi": "EURIBOR 6 AY + 4,25",
-      "kobiDisi": "EURIBOR 6 AY + 4,75"
-    },
-    {
       "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "360 GÜN 1 TAKSİT - F",
@@ -672,15 +665,15 @@
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "EUR",
       "vade": "360 GÜN 1 TAKSİT - F",
-      "kobi": "7,60",
-      "kobiDisi": "8,10"
+      "kobi": "7,70",
+      "kobiDisi": "8,20"
     },
     {
       "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "EUR",
-      "vade": "360 GÜN 2 TAKSİT",
-      "kobi": "EURIBOR 6 AY + 4",
-      "kobiDisi": "EURIBOR 6 AY + 4,50"
+      "vade": "360 GÜN 1 TAKSİT - F",
+      "kobi": "EURIBOR 6 AY + 4,25",
+      "kobiDisi": "EURIBOR 6 AY + 4,75"
     },
     {
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
@@ -690,6 +683,13 @@
       "kobiDisi": "7,80"
     },
     {
+      "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "EUR",
+      "vade": "360 GÜN 2 TAKSİT",
+      "kobi": "EURIBOR 6 AY + 4",
+      "kobiDisi": "EURIBOR 6 AY + 4,50"
+    },
+    {
       "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "360 GÜN 2 TAKSİT",
@@ -698,6 +698,13 @@
     },
     {
       "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "EUR",
+      "vade": "540 GÜN 2 TAKSİT",
+      "kobi": "EURIBOR 6 AY + 4,25",
+      "kobiDisi": "EURIBOR 6 AY + 4,75"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "540 GÜN 2 TAKSİT",
       "kobi": "EURIBOR 6 AY + 4,25",
@@ -711,28 +718,21 @@
       "kobiDisi": "8,20"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "EUR",
-      "vade": "540 GÜN 2 TAKSİT",
-      "kobi": "EURIBOR 6 AY + 4,25",
-      "kobiDisi": "EURIBOR 6 AY + 4,75"
-    },
-    {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "EUR",
-      "vade": "540 GÜN 3 TAKSİT",
-      "kobi": "EURIBOR 6 AY + 4,25",
-      "kobiDisi": "EURIBOR 6 AY + 4,75"
-    },
-    {
       "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "EUR",
       "vade": "540 GÜN 3 TAKSİT",
-      "kobi": "7,60",
-      "kobiDisi": "8,10"
+      "kobi": "7,70",
+      "kobiDisi": "8,20"
     },
     {
       "program": "Sevk Öncesi İhracat Kredisi",
+      "doviz": "EUR",
+      "vade": "540 GÜN 3 TAKSİT",
+      "kobi": "EURIBOR 6 AY + 4,25",
+      "kobiDisi": "EURIBOR 6 AY + 4,75"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "540 GÜN 3 TAKSİT",
       "kobi": "EURIBOR 6 AY + 4,25",
@@ -760,13 +760,6 @@
       "kobiDisi": "EURIBOR 6 AY + 5,25"
     },
     {
-      "program": "Faizsiz Finansal Kiralama Finansmanı",
-      "doviz": "EUR",
-      "vade": "6 AYDA BİR ÖDEMELİ 3 YIL",
-      "kobi": "7,75",
-      "kobiDisi": "8,50"
-    },
-    {
       "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
       "doviz": "EUR",
       "vade": "6 AYDA BİR ÖDEMELİ 3 YIL",
@@ -774,14 +767,21 @@
       "kobiDisi": "EURIBOR 6 AY + 5"
     },
     {
-      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
+      "program": "Faizsiz Finansal Kiralama Finansmanı",
+      "doviz": "EUR",
+      "vade": "6 AYDA BİR ÖDEMELİ 3 YIL",
+      "kobi": "7,75",
+      "kobiDisi": "8,50"
+    },
+    {
+      "program": "İhracata Yönelik Yatırım Kredisi",
       "doviz": "EUR",
       "vade": "6 AYDA BİR ÖDEMELİ 5 YIL",
       "kobi": "EURIBOR 6 AY + 4,75",
       "kobiDisi": "EURIBOR 6 AY + 5,50"
     },
     {
-      "program": "İhracata Yönelik Yatırım Kredisi",
+      "program": "İhracata Yönelik İşletme Sermayesi Kredisi",
       "doviz": "EUR",
       "vade": "6 AYDA BİR ÖDEMELİ 5 YIL",
       "kobi": "EURIBOR 6 AY + 4,75",
@@ -795,6 +795,20 @@
       "kobiDisi": "EURIBOR 6 AY + 5,75"
     },
     {
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "doviz": "EUR",
+      "vade": "720 GÜN 3 TAKSİT",
+      "kobi": "8",
+      "kobiDisi": "8,50"
+    },
+    {
+      "program": "İhracata Hazırlık Kredisi",
+      "doviz": "EUR",
+      "vade": "720 GÜN 3 TAKSİT",
+      "kobi": "EURIBOR 6 AY + 4,50",
+      "kobiDisi": "EURIBOR 6 AY + 5"
+    },
+    {
       "program": "Sevk Öncesi İhracat Kredisi",
       "doviz": "EUR",
       "vade": "720 GÜN 3 TAKSİT",
@@ -802,18 +816,11 @@
       "kobiDisi": "EURIBOR 6 AY + 5"
     },
     {
-      "program": "İhracata Hazırlık Kredisi",
-      "doviz": "EUR",
-      "vade": "720 GÜN 3 TAKSİT",
-      "kobi": "EURIBOR 6 AY + 4,50",
-      "kobiDisi": "EURIBOR 6 AY + 5"
-    },
-    {
-      "program": "İhracata Hazırlık Kredisi",
+      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
       "doviz": "EUR",
       "vade": "720 GÜN 4 TAKSİT",
-      "kobi": "EURIBOR 6 AY + 4,25",
-      "kobiDisi": "EURIBOR 6 AY + 4,75"
+      "kobi": "7,70",
+      "kobiDisi": "8,20"
     },
     {
       "program": "Faizsiz Finansal Kiralama Finansmanı",
@@ -823,11 +830,11 @@
       "kobiDisi": "8,20"
     },
     {
-      "program": "Faizsiz Sevk Öncesi İhracatın Finansmanı",
+      "program": "İhracata Hazırlık Kredisi",
       "doviz": "EUR",
       "vade": "720 GÜN 4 TAKSİT",
-      "kobi": "7,70",
-      "kobiDisi": "8,20"
+      "kobi": "EURIBOR 6 AY + 4,25",
+      "kobiDisi": "EURIBOR 6 AY + 4,75"
     },
     {
       "program": "Sevk Öncesi İhracat Kredisi",
