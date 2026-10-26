@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261025050341
+Start time: 20261026050718
 Username: runnervmr9t6g\runner
 RunAs User: runnervmr9t6g\runner
 Configuration Name: 
 Machine: runnervmr9t6g (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/24df6639-d25f-4d27-a559-e6bc9c4c56b6.ps1'
-Process ID: 2305
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/c849f004-8254-49a0-a2f7-34ce0d0e82fc.ps1'
+Process ID: 2124
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -33,6 +33,9 @@ Parti listesi cekiliyor (GET /v1/messages/batches)...
 TOPLAM 1000 parti bulundu.
 
 KIMLIK                         DURUM           BITEN     HATA OLUSTURULDU
+msgbatch_01Xxoija5D2GPx9z35ihGsgw ended               1        0 10/26/2026 04:39:55
+msgbatch_01PB7VzcsCk3vsG3tXMZYDLx ended               1        0 10/26/2026 01:05:57
+msgbatch_011zMj2p1mSzYhjG4yohFuQR ended               1        0 10/25/2026 23:31:01
 msgbatch_01LTY7pcsBBGKZPK9CiEVndq ended               1        0 10/25/2026 04:35:03
 msgbatch_01KYkx41b9o62Pc4G5hBqT3w ended              13        0 10/25/2026 04:26:40
 msgbatch_01D7BKG3MoWwQPQdQ3VnpDkW ended               3        0 10/25/2026 04:24:22
@@ -1030,13 +1033,10 @@ msgbatch_01BvwfEKJYsp3xfzybRAkzPw ended              20        0 10/24/2026 06:0
 msgbatch_01D2EjBqLNLANLfAC8aJwqqL ended              17        0 10/24/2026 05:32:17
 msgbatch_01X6VRmPn88o8NssJnbyZ5i8 ended              20        0 10/24/2026 05:02:16
 msgbatch_01VMmwttvzNZVzvNm8g914Dy ended               7        0 10/24/2026 04:54:59
-msgbatch_01Jk6PoqMy3TDmGDFArLrNqq ended              20        0 10/24/2026 04:32:17
-msgbatch_01XpG323NGih8FoJX62GX9B8 ended               1        0 10/24/2026 04:30:52
-msgbatch_01R7Yt1JXmd4TgNFhiFrvEkH ended              20        0 10/24/2026 04:02:17
 
 -> veri/parti-listesi.json (1000 kayit)
 HASADA HAZIR (ended + basarili>0): 1000 parti,  sonuc
 **********************
 PowerShell transcript end
-End time: 20261025050345
+End time: 20261026050723
 **********************
