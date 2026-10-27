@@ -772,6 +772,15 @@ jobs:
           # girdisinde DURDURUR; eski soruda NOT). 14 vaka; 7 mutasyon (hep eski, hep yeni, tarihsiz eski, dort bag tek tek) KIRMIZI. Ag yok.
           - { ad: "Soru kalite kapisi YENI2 bag OZ-SINAVI + MUTASYON",
               kabuk: bash, komut: "node arac/soru-kalite-kapisi.js --sinav --mutasyon" }
+          # 27.10: KAPI-KARNE sik karnesi (adim sik+karar) tek yesil ya da tek kirmizi = anahtar mi; harf cift / A-E disi.
+          # soru-kalite-kapisi.js uzerinden YENI2'de DURDURUR, eskide NOT (bag vakasi orada, 19 vaka / 9 mutasyon). 18 vaka
+          # (8 yanlis alarm + 10 yakalama); 7 mutasyon (esik x2, cift, harf, anahtar, olumsuz kok, olumlu kok) KIRMIZI (27.10). Ag yok.
+          - { ad: "Karne-anahtar kapisi OZ-SINAVI + MUTASYON (KAPI-KARNE)",
+              kabuk: bash, komut: "node arac/karne-kapisi.js --sinav --mutasyon" }
+          # 27.10: sik-kaydir.ps1 harf takasi korumasi (17.09 kosusu 17 sorunun adimini eski harfte birakmisti): harf anan desen
+          # harf duyarsiz, sik alanli adimli soru kaydirilmaz, takas karneyi bozarsa yazilmaz. 7 vaka; 3 mutasyon KIRMIZI. Ag yok.
+          - { ad: "Sik kaydirma korumasi OZ-SINAVI + MUTASYON",
+              kabuk: pwsh, komut: "./arac/sik-kaydir.ps1 -Sinav -Mutasyon" }
           # 30.09: KAPI-ADIM adim atfi kaymasi ("X (N. adimda bulduk)" X'in sonuc oldugu adimi gostermiyor) + mekanik onarim. 7 vaka;
           # 4 mutasyon KIRMIZI (30.09 olculdu). Ag yok.
           - { ad: "Adim atfi kapisi OZ-SINAVI (KAPI-ADIM)",

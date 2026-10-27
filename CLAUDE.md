@@ -482,6 +482,7 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   | S6 yanlış madde/fıkra (İş K. m.8/4, 3568 m.45, 5510 m.28/3, "55 gün 5018'de" → Anayasa m.161) | elle | **YOK** | → açıklama hakemi + ≥150 elle okuma |
   | S7 uydurma bilgi / hesaplanana "(soruda verilen)" | elle; mekanik onarım 54 soru (98 etiket) | **YOK** | → açıklama hakemi + elle okuma |
   | S8 kök muğlaklığı (tartışmalı dil bilgisi, eksik çerçeve) | elle 7 soru | **YOK** | → hakem2 + elle okuma |
+  | S9 şık karnesi anahtarla çelişik (beşi "doğru", çoklu yeşil, işaret başka şıkta, kapanışa/öncüle harf) — 27.10 | kasa 155 → elle okundu, 9 çekildi, 146 onarıldı → 0 | KAPI-KARNE (`arac/karne-kapisi.js`) + istem KURAL2710 + `sik-kaydir.ps1` koruması | adım metninin doğruluğu; kapanış ✓/✗ metni; sik alanı boş "Şık A:" serbest metin |
   **Eşdeğerlik (03.10, ambar 15.054 soru):** bugünkü tarihle tarihli soruda karar değişen 0; SGS 4.947 / bitirme 3.820 / KGK 108 yayın kümesinde
   değişen 0. Başlangıç 10-01'e çekilince yeni üretimin SGS 14/140, SMMM 38/176'sı döner (çoğu ADIM-KAYMA). Öz-sınav + mutasyon `dogrula.yml`'de
   (KAPI-TR 16/16 · 9/9, BOS 24/24 · 9/9, YENİ2 bağı 14/14 · 7/7, KAPI-YY 17/17 · 12/12). **Yanlış alarm ölçüldü:** KAPI-YY ilk kasa

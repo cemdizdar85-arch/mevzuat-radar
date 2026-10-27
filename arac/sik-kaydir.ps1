@@ -19,8 +19,53 @@
 #  Kullanım: powershell -NoProfile -File arac/sik-kaydir.ps1 [-Yaz]      (bekletme listesindeki SGS dersleri)
 #  BEDEL 0.
 # ============================================================================
-param([switch]$Yaz,[switch]$Prova)   # -Prova: takas yerel önbellekte bellekte denenir, ambara YAZILMAZ
+#  ⭐ 27.10 DÜZELTME (Cem "öncüllerin şık harfine yazılmasını / kapanışa harf verilmesini kökten düzelt"). ÖLÇÜLDÜ 24.10: bu aracın
+#   17.09 koşusunda kaydırılan soruların 17'sinde (Yabancı Dil + Finansal) doğru şıkkın ADIM anlatımı eski harfte kaldı → şık karnesi
+#   yanlış şıkkı yeşil, doğru şıkkı kırmızı gösterdi (arac/karne-kapisi.js başlığı). Kök: HARF_ANAN_DESEN büyük/küçük harfe DUYARLIYDI;
+#   adım formülleri "Şık A: …" (büyük Ş) diye başladığı için "harf anmıyor" sayıldı; adım.sik alanına hiç bakılmıyordu.
+#   Şimdi: (1) desen harf duyarsız · (2) `sik` alanı dolu adımı olan soru KAYDIRILMAZ (adımlar taşınmıyor; taşımak isteyen
+#   motor/kalip-parti-uret.ps1 SikTasi 3. seviyesini kullanır) · (3) yazmadan önce bellekte karne tutarlılığı (tek yeşil ya da tek
+#   kırmızı = anahtar) önceki hâlle karşılaştırılır; tutarlı karne tutarsızlaşırsa parti YAZILMAZ.
+#   Öz-sınav: -Sinav (ağ yok; SIKKAYDIR_MUTASYON=duyarli|adim-yok|karne-yok her biri KIRMIZI düşmeli) — dogrula.yml.
+#   🚫 GÖRMEZ: anlatımda harfsiz ama şıkka bağlı cümle ("ilk seçenek", "son şık") · iç denetim alanları (hakem, kor metni) eski harfte kalır (bilinen, sik_kaydirma notunda).
+param([switch]$Yaz,[switch]$Prova,[switch]$Sinav,[switch]$Mutasyon)   # -Prova: takas yerel önbellekte bellekte denenir, ambara YAZILMAZ
 $ErrorActionPreference='Stop'
+$SIKKAYDIR_MUT="$env:SIKKAYDIR_MUTASYON"
+$HARF_ANAN_DESEN=$(if($SIKKAYDIR_MUT -eq 'duyarli'){ '(?<![A-Za-zÇĞİÖŞÜçğıöşü])[A-E]\s*(şıkk|şık\b|seçene|\))|(şıkk?ı?|seçenek)\s*[A-E]\b|cevap\s*[A-E]\b' } else { '(?i)(?<![A-Za-zÇĞİÖŞÜçğıöşü])[A-E]\s*(şıkk|şık\b|seçene|\))|(şıkk?ı?|seçenek)\s*[A-E]\b|cevap\s*[A-E]\b' })
+function AdimSikli($v){ if($SIKKAYDIR_MUT -eq 'adim-yok'){ return $false }; foreach($a in @($v.adimlar)){ if($a -and $a.PSObject.Properties['sik'] -and "$($a.sik)".Trim()){ return $true } }; return $false }
+# Karne tutarlı mı (arac/karne-kapisi.js ile aynı kural; ≥4 şık adımı yoksa ölçülmez = $null)
+function KarneTutarli($v){
+  if($SIKKAYDIR_MUT -eq 'karne-yok'){ return $null }
+  $sa=@(@($v.adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)".Trim() }); if($sa.Count -lt 4){ return $null }
+  $yes=@($sa | Where-Object { "$($_.karar)" -notmatch '^(?i)y' } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() } | Select-Object -Unique)
+  $kir=@($sa | Where-Object { "$($_.karar)" -match '^(?i)y' } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() } | Select-Object -Unique)
+  $an="$($v.dogru)".Trim().ToUpperInvariant()
+  return (($yes.Count -eq 1 -and $yes[0] -eq $an -and $kir -notcontains $an) -or ($kir.Count -eq 1 -and $kir[0] -eq $an -and $yes -notcontains $an))
+}
+if($Sinav -and $Mutasyon){
+  # Önce bozulmamış öz-sınav, sonra her mutasyon AYRI süreçte; hepsi KIRMIZI düşmeli. Kabuk: CI'da pwsh, yerelde powershell (aynı ikili).
+  $KABUK=(Get-Process -Id $PID).Path
+  & $KABUK -NoProfile -File $PSCommandPath -Sinav; if($LASTEXITCODE -ne 0){ Write-Host 'MUTASYON koşulmadı: bozulmamış öz-sınav zaten KIRMIZI'; exit 1 }
+  $tutan=0; $ler=@('duyarli','adim-yok','karne-yok')
+  foreach($m in $ler){ $env:SIKKAYDIR_MUTASYON=$m; & $KABUK -NoProfile -File $PSCommandPath -Sinav *> $null; $kr=($LASTEXITCODE -ne 0); if($kr){ $tutan++ }; Write-Host ("  mutasyon {0} {1}" -f $m,$(if($kr){'KIRMIZI (doğru)'}else{'YEŞİL (SINAV KÖR!)'})) }
+  $env:SIKKAYDIR_MUTASYON=''
+  Write-Host "MUTASYON: $tutan/$($ler.Count) mutasyon KIRMIZI"; if($tutan -ne $ler.Count){ exit 1 }; exit 0
+}
+if($Sinav){
+  function SA($h,$k,$f){ [pscustomobject]@{ sik=$h; karar=$k; formul=$f; anlatim='.' } }
+  $V=@(
+    @('adim formulu "Şık A:" (büyük Ş) harf anan sayilir', { [regex]::IsMatch('Şık A: müdür ne diyor?',$HARF_ANAN_DESEN) }, $true),
+    @('"C şıkkı" (küçük) harf anan sayilir', { [regex]::IsMatch('bu yüzden C şıkkı doğrudur',$HARF_ANAN_DESEN) }, $true),
+    @('harfsiz metin (yanlis alarm yok)', { [regex]::IsMatch('Alacaklının yerleşim yerinde ifa edilir. Bu dönem kârı artırır.',$HARF_ANAN_DESEN) }, $false),
+    @('sik alanli adim -> kaydirilmaz', { AdimSikli ([pscustomobject]@{ adimlar=@((SA 'A' 'doğru' 'x')) }) }, $true),
+    @('sik alansiz adim -> engel yok', { AdimSikli ([pscustomobject]@{ adimlar=@([pscustomobject]@{ formul='Verilen: 100'; anlatim='.' }) }) }, $false),
+    @('karne: tek yesil = anahtar -> tutarli', { KarneTutarli ([pscustomobject]@{ dogru='B'; adimlar=@((SA 'A' 'yanlış' 'x'),(SA 'B' 'doğru' 'x'),(SA 'C' 'yanlış' 'x'),(SA 'D' 'yanlış' 'x'),(SA 'E' 'yanlış' 'x')) }) }, $true),
+    @('karne: takas sonrasi tek yesil eski harfte -> tutarsiz', { KarneTutarli ([pscustomobject]@{ dogru='E'; adimlar=@((SA 'A' 'yanlış' 'x'),(SA 'B' 'doğru' 'x'),(SA 'C' 'yanlış' 'x'),(SA 'D' 'yanlış' 'x'),(SA 'E' 'yanlış' 'x')) }) }, $false)
+  )
+  $ok=0; foreach($t in $V){ $g=& $t[1]; $tut=($g -eq $t[2]); if($tut){ $ok++ }; Write-Host ("  {0} {1}" -f $(if($tut){'✓'}else{'✗'}),$t[0]) }
+  Write-Host ("SIK-KAYDIR ÖZ-SINAVI {0} ({1}/{2}){3}" -f $(if($ok -eq $V.Count){'YEŞİL'}else{'KIRMIZI'}),$ok,$V.Count,$(if($SIKKAYDIR_MUT){" · SIKKAYDIR_MUTASYON=$SIKKAYDIR_MUT"}else{''}))
+  if($ok -ne $V.Count){ exit 1 }; exit 0
+}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $DEPO_KOK=Split-Path -Parent $PSScriptRoot
 $SERVIS_ANAHTARI="$env:SUPABASE_SERVICE_KEY"; if(-not $SERVIS_ANAHTARI){ $SERVIS_ANAHTARI="$([Environment]::GetEnvironmentVariable('SUPABASE_SERVICE_KEY','User'))" }
@@ -29,7 +74,6 @@ $TABLO_UCU='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/kalip_parti'
 $ISTEK_BASLIK=@{ apikey=$SERVIS_ANAHTARI; Authorization="Bearer $SERVIS_ANAHTARI"; Accept='application/json'; 'User-Agent'='mevzuat-radar-robot/1.0' }
 $HARF_LISTESI=@('A','B','C','D','E')
 $DERS_ETIKET=@{ 'Finansal Muhasebe'=@{ sayfa='finansal-muhasebe'; desen='(^|-)(fmuh|finansalmuhasebe)(-|$)' }; 'Maliyet Muhasebesi'=@{ sayfa='maliyet-muhasebesi'; desen='(^|-)maliyet(-|$)' }; 'Yabancı Dil'=@{ sayfa='yabanci-dil'; desen='(^|-)(yd|yabancidil)(-|$)' } }
-$HARF_ANAN_DESEN='(?<![A-Za-zÇĞİÖŞÜçğıöşü])[A-E]\s*(şıkk|şık\b|seçene|\))|(şıkk?ı?|seçenek)\s*[A-E]\b|cevap\s*[A-E]\b'
 $YEDEK_DIZIN='C:\TETIKTE-YEDEK\sik-kaydir'; New-Item -ItemType Directory -Force $YEDEK_DIZIN | Out-Null
 
 # 17.09 ÖLÇÜLDÜ (ilk -Yaz, sgs-c2-fmuh-zor-r3 kp-07): siklar {"A".."E","F":null} idi; F yüzünden nesne harf-anahtarlı sayılmadı,
@@ -89,7 +133,7 @@ foreach($DERS_ADI in @($BEKLETME.dersler)){
       # İç denetim alanları (hakem, hakem2, kor_cozum metni, simulasyon, capa_*, kaynak_*) eski harfi anabilir; sik_kaydirma kaydında yazılır.
       $OGRENCI_ALANLARI=@('soru','adimlar','hap','sade','sinav_taktigi','notlandirici','konu_giris','cozum_tablo','sema','verilenler','verilen','ikiz','ikiz_sema','ikiz_soru','aciklama','teshis','celdirici_yol')
       $TUM_METIN=(@($OGRENCI_ALANLARI | Where-Object { $v.PSObject.Properties[$_] -and $null -ne $v.$_ } | ForEach-Object { $j=($v.$_ | ConvertTo-Json -Depth 10 -Compress); if($j){ [regex]::Unescape($j) } }) -join ' ')
-      $HARF_ANIYOR=[regex]::IsMatch($TUM_METIN,$HARF_ANAN_DESEN)
+      $HARF_ANIYOR=[regex]::IsMatch($TUM_METIN,$HARF_ANAN_DESEN) -or (AdimSikli $v)   # 27.10: sik alanlı adım taşınmaz → soru kaydırılmaz
       $ADAYLAR+=[pscustomobject]@{ ders="$DERS_ADI"; etiket=$ETIKET; kp=$p.Name; eski="$($v.dogru)"; kaydirilir=(-not $SIRALI -and -not $HARF_ANIYOR) }
     }
   }
@@ -117,12 +161,14 @@ foreach($GRUP in ($PLAN | Group-Object etiket)){
   foreach($d in $GRUP.Group){
     $s=$IC.($d.kp); if(-not $s -or "$($s.dogru)" -ne $d.eski){ Write-Host "  atlandı (ambarda harf değişmiş): $($GRUP.Name) $($d.kp)" -ForegroundColor Yellow; continue }
     $BEKLENEN[$d.kp]=@{ dogruMetin="$($s.siklar.($d.eski))"; kume=((@($HARF_LISTESI|%{ "$($s.siklar.$_)" })|Sort-Object) -join '|'); yeni=$d.yeni }
+    $KARNE_ONCE=KarneTutarli $s   # 27.10: tutarlı karne takastan sonra da tutarlı kalmalı
     foreach($alan in @($s.PSObject.Properties)){ if(HarfAnahtarliMi $alan.Value){ Takas $alan.Value $d.eski $d.yeni } }
     if($s.PSObject.Properties['sade'] -and $s.sade -is [pscustomobject]){ foreach($alan in @($s.sade.PSObject.Properties)){ if(HarfAnahtarliMi $alan.Value){ Takas $alan.Value $d.eski $d.yeni } } }
     $s.dogru=$d.yeni
     # YAZMADAN ÖNCE bellekte doğrula: yeni harfteki şık = eski doğru metin, beş şık kümesi aynı. Tutmazsa bütün parti YAZILMAZ.
     $bellekKume=((@($HARF_LISTESI|%{ "$($s.siklar.$_)" })|Sort-Object) -join '|')
     if("$($s.siklar.($d.yeni))" -ne $BEKLENEN[$d.kp].dogruMetin -or $bellekKume -ne $BEKLENEN[$d.kp].kume){ throw "BELLEK DOĞRULAMASI DÜŞTÜ (yazılmadı): $($GRUP.Name) $($d.kp)" }
+    if($KARNE_ONCE -eq $true -and (KarneTutarli $s) -ne $true){ throw "KARNE DOĞRULAMASI DÜŞTÜ (yazılmadı): $($GRUP.Name) $($d.kp) — takas şık karnesini anahtarla çelişik bıraktı" }
     if($s.kor_cozum){ foreach($k in 'cevap','dogru'){ if($s.kor_cozum.PSObject.Properties[$k] -and "$($s.kor_cozum.$k)" -match '^[A-E]$'){ $s.kor_cozum.$k=(HarfCevir "$($s.kor_cozum.$k)" $d.eski $d.yeni) } } }
     $s | Add-Member -NotePropertyName sik_kaydirma -NotePropertyValue ([pscustomobject]@{ eski=$d.eski; yeni=$d.yeni; tarih=(Get-Date -Format 'yyyy-MM-dd HH:mm'); neden='cevap dagilimi dengesi (Cem 17.09)'; not="Ic denetim metinleri (hakem, hakem2, kor_cozum aciklamasi, simulasyon, capa) ESKI harf duzenine goredir: $($d.eski) -> $($d.yeni) takaslandi." }) -Force
   }

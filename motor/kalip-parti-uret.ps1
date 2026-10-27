@@ -1936,6 +1936,34 @@ if($script:KURAL0310){
   if(-not $adimIstem.Contains('Cevap YALNIZ JSON: {"verilen"')){ throw 'KURAL0310: adım isteminde "Cevap YALNIZ JSON" çapası yok (son10-uret.ps1 değişmiş) — kural eklenemedi' }
   $adimIstem=$adimIstem.Replace('Cevap YALNIZ JSON: {"verilen"',$KURAL0310_ADIM+'Cevap YALNIZ JSON: {"verilen"')
 }
+# ⭐ 27.10.2026 KARNE KURALI (Cem: "karne-anahtar tutarlılık kapısını kur … öncüllerin şık harfine yazılmasını / kapanışa harf verilmesini
+#   kökten düzelt"). ÖLÇÜLDÜ 24–27.10: yayındaki kasada şık karnesi anahtarla çelişen 155 soru (elle okundu: 9 çekildi, 146 onarıldı).
+#   İstem kökü: şık adımının kararı "İFADENİN kendisi doğru mu" diye tanımlıydı → "hangisinde X" sorusunda beş kanun cümlesinin beşi
+#   "doğru" (24.10 aday bildirimi, KDV m.10/g); Roma rakamlı öncül için yer yoktu → öncüller A–E harfine yazıldı; kapanış adımına harf
+#   verildi → karnede çift satır. Yeni tanım: karar = kökün bu şık için sorduğu yargının cevabı → olumlu kökte tek "doğru", olumsuz kökte
+#   tek "yanlış", o şık anahtar. Mekanik karşılığı arac/karne-kapisi.js (KAPI-KARNE, YENİ2'de durdurur) + aşağıdaki YAPI KAPISI eki.
+#   ⛔ İSTEM BAYTI KORUMASI: KURAL0310 ile aynı düzen — yalnız saat ≥ 2026-10-28 00:00 VE bu etiketin bekleyen-partiler kaydında
+#   2026-10-28'den önce gönderilmiş parti YOKSA. Kapalıyken istem ve YAPI KAPISI dünküyle aynıdır. Elle: MEVZUAT_KURAL_2710=1 / =0.
+#   🚫 GÖRMEZ: kökün olumlu/olumsuz yönünü model okur, kapı okumaz (kapı yöne bakmadan "tek yeşil ya da tek kırmızı = anahtar" der) ·
+#   olay adımının köke uyumu · son10-uret.ps1 kendi başına koşarsa (yeni10-fmuh) bu ek UYGULANMAZ (o yol hesap dersi, karnesiz).
+$KURAL2710_BAS='2026-10-28'
+$script:KURAL2710=$false
+if("$env:MEVZUAT_KURAL_2710" -eq '1'){ $script:KURAL2710=$true }
+elseif("$env:MEVZUAT_KURAL_2710" -ne '0' -and (Get-Date -Format 'yyyy-MM-dd HH:mm') -ge "$KURAL2710_BAS 00:00"){
+  $script:KURAL2710=$true
+  foreach($kuralBekleyen in @(Get-BekleyenPartiler)){ if("$($kuralBekleyen.etiket)" -like "$Etiket/*" -and "$($kuralBekleyen.zaman)" -lt $KURAL2710_BAS){ $script:KURAL2710=$false; break } }
+}
+"KARNE KURALI 27.10 (şık adımı kararı + öncül + kapanış): $(if($script:KURAL2710){ 'AÇIK' } else { 'KAPALI (istem eski hâliyle bayt bayt aynı — 10-28 öncesi ya da bu etiketin eski partisi var)' })"
+$KURAL2710_KARAR='"karar":"doğru" ya da "yanlış" — KARNE KURALI: karar, formuldeki karar sorusunun cevabıdır; formul KÖKÜN bu şık için sorduğu yargıyı sınar (kök "hangisinde X" diyorsa "Bu şıkta X mi?", "hangisi doğrudur/yanlıştır" diyorsa "Bu ifade doğru mu?"). ZORUNLU sonuç: olumlu kökte YALNIZ doğru şık "doğru", öteki dördü "yanlış"; olumsuz kökte ("yanlıştır", "değildir", "söylenemez") YALNIZ doğru şık "yanlış", öteki dördü "doğru". Şık kanunda geçen doğru bir cümle olsa da kökün aradığı şey değilse karar "yanlış"tır. Her harf A–E TAM BİR KEZ kullanılır,'
+$KURAL2710_ONCUL=' ROMA RAKAMLI ÖNCÜLLÜ SORU (I, II, III… ve şıklar "I ve II" gibi): öncüller formulü "Öncül I: …" olan, "sik" ve "karar" alanı OLMAYAN ayrı adımlarda tek tek sınanır (bu adımlar "Ne yapacağız" ile Şık A arasına girer; toplam adım 8''i geçebilir); ardından A–E şık adımları "Şık C (I ve II): doğru öncüllerin tamamı bu mu?" biçiminde kurulur. Öncülü ASLA A–E harfiyle etiketleme. Kapanış adımında "sik" ve "karar" alanı YOKTUR; kapanış satırı karnenin aynısıdır.'
+if($script:KURAL2710){
+  $eskiKarar='"karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu),'
+  if(-not $adimIstem.Contains($eskiKarar)){ throw 'KURAL2710: adım isteminde (son10 kural j) karar tanımı çapası yok — kural eklenemedi' }
+  $adimIstem=$adimIstem.Replace($eskiKarar,$KURAL2710_KARAR)
+  $eskiKapanis='ADIM 8 formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" —'
+  if(-not $adimIstem.Contains($eskiKapanis)){ throw 'KURAL2710: adım isteminde (son10 kural j) kapanış çapası yok — kural eklenemedi' }
+  $adimIstem=$adimIstem.Replace($eskiKapanis,'ADIM 8 formul "Kapanış: A ✗ B ✓ C ✗ D ✗ E ✗" (karne ile aynı; sik ve karar alanı yok).'+$KURAL2710_ONCUL+' ADIM 8 anlatımı —')
+}
 Invoke-Expression ([regex]::Match($son10,'(?s)function TabloHtml.*?\n\}\r?\n').Value)
 Invoke-Expression ([regex]::Match($son10,'(?s)function SemaHtml.*?\n\}\r?\n(?=\r?\n)').Value)
 
@@ -5380,6 +5408,29 @@ Cevap YALNIZ JSON: {"adimlar":[{"formul":"...","anlatim":"...","sik":"A","karar"
 === TEŞHİS (her şık: ne sanıyorsun / aslında / nereden anlarsın) === {TESHIS}
 === KAYNAK METİNLERİ (ambardan) === {KAYNAK}
 '@
+# 27.10 KARNE KURALI (yukarıdaki KURAL2710 notu): teori isteminde aynı tanım. Kapalıyken istem bayt bayt aynı.
+if($script:KURAL2710){
+  $eskiKararT='"karar":"doğru" ya da "yanlış" (İFADENİN kendisi doğru mu, yanlış mı),'
+  $eskiKapanisT='8. formul "Kapanış: A ✓ B ✓ C ✓ D ✗ E ✓" (gerçek dağılıma göre) —'
+  if(-not $adimIstemTeori.Contains($eskiKararT) -or -not $adimIstemTeori.Contains($eskiKapanisT)){ throw 'KURAL2710: teori adım isteminde karar/kapanış çapası yok — kural eklenemedi' }
+  $adimIstemTeori=$adimIstemTeori.Replace($eskiKararT,$KURAL2710_KARAR).Replace($eskiKapanisT,'8. formul "Kapanış: A ✗ B ✓ C ✗ D ✗ E ✗" (karne ile aynı; sik ve karar alanı yok).'+$KURAL2710_ONCUL+' 8. adımın anlatımı —')
+}
+# 27.10 YAPI KAPISI eki (yalnız KURAL2710 açıkken; kapalıyken eski partinin hasat edilen cevabı yeni kapıya takılıp YENİDEN ÖDENMESİN):
+#   şık adımı ≥4 olan her soruda (teori ya da değil) harf tekrarı, A–E dışı harf, karne tutarlılığı (tek yeşil ya da tek kırmızı = anahtar).
+#   Kural arac/karne-kapisi.js ile AYNI; orada öz-sınav + mutasyon var, burada yalnız tur tekrarı için not üretilir.
+function KarneYapiKusur($adimlar,[string]$anahtar){
+  $sa=@(@($adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)".Trim() })
+  if($sa.Count -lt 4){ return @() }
+  $k=@(); $say=@{}; foreach($a in $sa){ $h="$($a.sik)".Trim().ToUpperInvariant(); $say[$h]=1+$(if($say.ContainsKey($h)){ $say[$h] } else { 0 }) }
+  $cift=[object[]]@($say.Keys | Where-Object { $say[$_] -gt 1 }); if($cift.Length){ $k+="$($cift -join ',') harfi birden çok adımda (kapanışa ya da öncüle harf verilmiş)" }
+  $disi=[object[]]@($say.Keys | Where-Object { $_ -notmatch '^[A-E]$' }); if($disi.Length){ $k+="A–E dışı sik: $($disi -join ',') (öncül şık harfiyle yazılmış)" }
+  $yes=@($sa | Where-Object { "$($_.karar)" -notmatch '^(?i)y' } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() } | Select-Object -Unique)
+  $kir=@($sa | Where-Object { "$($_.karar)" -match '^(?i)y' } | ForEach-Object { "$($_.sik)".Trim().ToUpperInvariant() } | Select-Object -Unique)
+  $an="$anahtar".Trim().ToUpperInvariant()
+  $tutarli=(($yes.Count -eq 1 -and $yes[0] -eq $an -and $kir -notcontains $an) -or ($kir.Count -eq 1 -and $kir[0] -eq $an -and $yes -notcontains $an))
+  if(-not $tutarli){ $k+="karne anahtarla çelişiyor (doğru şık $an; 'doğru' kararlı: $(($yes|Sort-Object) -join '') ; 'yanlış' kararlı: $(($kir|Sort-Object) -join '')) — olumlu kökte YALNIZ $an 'doğru', olumsuz kökte YALNIZ $an 'yanlış' olmalı" }
+  return $k
+}
 foreach($gecisB in @(1,2,3)){ if($gecisB -ne 3 -and -not $Toplu){ continue }; $script:ON_GECIS=($gecisB -eq 1); $script:DALGA2_TOPLA=($gecisB -eq 2 -and -not $IkinciDalgaKapat)   # 15.09: 1=topla, 2=toplu cevapla + kalanı İKİNCİ DALGAYA topla, 3=ikinci dalga cevabı (son çare anlık)
 :soruB foreach($id in @($don.Keys)){
   if($SadeceHtml -or ($SadeceAdim -and $script:FAZ_ADI -ne 'B')){ break }   # yalniz cizim / yalniz adim: diger model fazlari atlanir
@@ -5430,6 +5481,7 @@ foreach($gecisB in @(1,2,3)){ if($gecisB -ne 3 -and -not $Toplu){ continue }; $s
       $kararsiz=@(@($a2.adimlar) | Where-Object { $_ -and $_.PSObject.Properties['sik'] -and "$($_.sik)" -and ("$($_.karar)" -notmatch '^(?i)(doğru|dogru|yanlış|yanlis)$') }).Count; if($kararsiz){ $yapiK+="$kararsiz şık adımında karar alanı doğru/yanlış değil" }
       $tanimli=@(@($a2.adimlar) | Where-Object { $_ -and "$($_.formul)" -match '(?i)\bnedir\b' }).Count; if($tanimli){ $yapiK+="$tanimli tanım adımı var (yasak)" }
       if(-not (@($a2.adimlar) | Where-Object { $_ -and "$($_.formul)" -match '^\s*Olay\s*:' })){ $yapiK+='1. adım "Olay:" değil' } }
+    if($script:KURAL2710){ $yapiK+=@(KarneYapiKusur $a2.adimlar "$($cvp.dogru)") }   # 27.10 KARNE KURALI (teori ve hesap dersi)
     # 07.09 Cem (FIFO ekranı "neyle çarpıyor anlaşılmıyor") — TEK İŞLEM KAPISI: sayılı parçada parantez dışı ≥2 "+" VE terimlerde ×// varsa
     # (karışık formül: çarpımların toplamı) adım bölünmeli. Yalın toplam (a + b + c) serbest.
     $cokK=@(); if(-not $teoriDers){ foreach($ad in @($a2.adimlar)){ $f="$($ad.formul)"; if($f -match '^\s*(Verilen|Soruda ne var|Yanlış yol|Sağlama|Sonuç|Ters durum|Dahil değil)'){ continue }
@@ -5452,7 +5504,7 @@ foreach($gecisB in @(1,2,3)){ if($gecisB -ne 3 -and -not $Toplu){ continue }; $s
     if(-not $cokOk){ $notlar+="TEK İŞLEM KURALI (m): $($cokK -join '; '). Her çarpım terimi KENDİ adımı olsun (adı + nedeni + '= sonuç'), sonra ayrı bir toplama adımı tablo hücresini doldursun; tamamlanmayan oranı '(1 − %100 = %0)' biçiminde yaz" }
     if($trA.Count){ $notlar+="TÜRKÇE HARF: şu kelimeler Türkçe harfsiz yazılmış: $($trA -join ', '). Adım anlatımı, formül adları ve verilenlerde ş, ç, ğ, ı, ö, ü, İ tam yazılır (yıllık, değil, yanlış, hesabı, işletme)" }
     if(-not $aritOk){ $notlar+="şu formül satırları ARİTMETİK olarak tutmuyor (sol taraf hesaplanınca sağdaki sonuç çıkmıyor): $($aritK -join '; '). Her formülde sol tarafı gerçekten hesapla, sonucu ona göre yaz; ara sonuç ile tablo hücresi aynı olsun" }
-    if(-not $yapiOk){ $notlar+="YAPI: $($yapiK -join '; '). Tam 8 adım: Olay · Ne yapacağız · Şık A · Şık B · Şık C · Şık D · Şık E (her birinde sik/karar/paragraf alanları) · Kapanış; tanım adımı yazma" }
+    if(-not $yapiOk){ $notlar+="YAPI: $($yapiK -join '; '). Tam 8 adım: Olay · Ne yapacağız · Şık A · Şık B · Şık C · Şık D · Şık E (her birinde sik/karar/paragraf alanları) · Kapanış; tanım adımı yazma$(if($script:KURAL2710){ ' (Roma rakamlı soruda öncül adımları sik/karar alanı OLMADAN Ne yapacağız ile Şık A arasına girer; kapanışta sik/karar alanı yok)' })" }
     Write-Host "  ADIM KAPI ($id, tur $turA): $(if(-not $dilOk){"dil($uzunAd/$dolgu) "})$(if(-not $aritOk){"aritmetik($($aritK.Count)) "})$(if(-not $yapiOk){"yapı($($yapiK.Count))"}) -> tekrar" -ForegroundColor Yellow
     $ist2+="`n`nKAPI DÜŞTÜ: $($notlar -join ' · '). Yalnız JSON."
   }
