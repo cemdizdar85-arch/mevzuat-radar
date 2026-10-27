@@ -8,11 +8,19 @@
       "girdi": "veri/sinav/s20-ah-banka-aday-1.json",
       "aciklama": "banka adayları dalga 1 — 1.323 aday, öncelik sırasıyla, 8 USD tavanda durur",
       "onay_notu": "Cem 24.10: AH tavan 8 USD ONAYLI",
-      "harcanan_usd": 0.0,
+      "harcanan_usd": 0,
       "durum": "toplu kuyruk bitmedi (24.10.2026 19:25) — aynı emir yeniden koşunca kuyruktaki partiye bağlanır/bedava hasat eder",
       "uygulandi": "24.10.2026 23:10",
       "gercek_usd": 6.38,
       "sonuc": "veri/sinav/s20-ah-banka-karar-1.json"
+    },
+    {
+      "no": 2,
+      "onay": true,
+      "tavan_usd": 12,
+      "girdi": "veri/sinav/s20-ah-banka-aday-2.json",
+      "aciklama": "banka adayları dalga 2 — emir 1'de bakılmamış 960 aday (deneme yerleri öncelik sırasıyla), 12 USD tavanda durur",
+      "onay_notu": "Cem 27.10: AH ikinci tur tavan 12 USD ONAYLI"
     }
   ]
 }
