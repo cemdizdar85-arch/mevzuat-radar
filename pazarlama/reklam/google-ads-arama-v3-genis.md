@@ -152,7 +152,9 @@ biter; söz için 7 deneme 21.11'den önce bitmeli, geç gelen sözü yetiştire
 | 22.11 – 28.11 | 7 | **500 TL** | 3.500 TL | otomatik kural "Tetikte 22.11 butce 500" (bir kez, 22.11 00:00) |
 | **Toplam üst sınır** | 33 | | **≈36.500 TL** | Google bazı günler günlüğün 2 katına kadar harcar; ay toplamı günlük × gün sayısını geçmez |
 
-21.11 23:00: otomatik kural "Tetikte 21.11 Staja Giris durdur" (reklam grubu, bir kez). 28.11: kampanya bitiş tarihi.
+21.11 23:00: otomatik kural "Tetikte 21.11 Staja Giris durdur" (reklam grubu, bir kez) + "Tetikte 21.11 marka soz reklami
+durdur" (marka grubundaki söz reklamı; söz 21.11'de biter, marka grubu açık kalır). 28.11: kampanya bitiş tarihi.
+Dört kural 27.10 gece Otomatik Kurallar sayfasından okundu.
 Kural sonuçları cemdizdar85@hotmail.com'a ("yalnız değişiklik/hata varsa").
 
 **Durdurma kuralı:** son 7 günde reklam harcaması ÷ `gads` etiketli ödenen sipariş > **3.000 TL** olursa bütçe bir önceki
