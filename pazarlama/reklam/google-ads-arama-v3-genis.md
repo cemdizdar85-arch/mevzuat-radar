@@ -66,6 +66,58 @@ Yalnız Yeterlilik: Yeterlilik Çıkmış Soru Çözümü
 <!-- Rakip adı, kıyas ("daha iyi", "yerine") ve "kurs/hoca/eğitim" YOK. v2'deki 4 açıklama ve 10+5 başlık aynen kalır;
 Google karışımdan seçer. Açıklama 4 (TÜRMOB/TESMER bağlantısı yoktur) her grupta kalır. -->
 
+## Panelde kurulan hâl (27.10, Cem onayı "uygula")
+
+<!-- v2 reklamlarında başlık sınırı (15) dolu → her gruba AYRI ikinci duyarlı arama reklamı. Kelimeler eklendi; rakip adı
+negatifte yok (13 negatif okundu: ales · "başvuru ücreti" · eleman · iş ilanı · kariyer · kpss · maaş · "pdf indir" ·
+"sonuç açıklandı mı" · "tetikte anlamı" · "tetikte ne demek" · "tetikte olmak" · yds — maaş/iş ilanı/kpss/ales zaten vardı). -->
+
+### Staja Giriş · reklam 2 "Geçene Kadar Tetikte" · nihai URL `https://tetikte.com/kampanya-son-20-gun.html?k=gads` · yol staja-giris/soz
+
+<!-- Cem 27.10: "geçemezsen geçene kadar bizden gibi kelimeleri ekle". Söz YALNIZ Staja Giriş (kampanya sayfası 27.10 okundu:
+7 deneme, en az 5'inde 60+, kalınan denemeden sonra çalışma görevleri, 21 Kasım'dan önce, ilk çözüm sayılır). Şart cümlesi söz
+başlığıyla AYRI düşmesin diye açıklama 1 → konum 1, açıklama 2 → konum 2 SABİTLENİR. Fiyat/indirim YOK (sayfa 400, karar 600 —
+site oturumu hizalayınca). Yeterlilik ölçütü kararsız → Yeterlilik reklamında söz YOK. -->
+
+Başlıklar:
+1. Geçemezsen Geçene Kadar Bizden
+2. Geçene Kadar Tetikte
+3. SMMM Staja Giriş Soruları
+4. Staja Giriş Sınavı 21 Kasım
+5. Son 20 Gün: 7 Deneme
+6. Ders Videosunun Yanına Soru
+7. Hangi Kaynak Olursa Olsun
+8. Konuyu Soru Çözerek Pekiştir
+9. SGS Çıkmış Soru Çözümü
+10. Ders Ders Sık Çıkan Konular
+11. Yanlışının Nedenini Gör
+12. 5 Örnek Soru, Üye Olmadan
+
+Açıklamalar (ikisi de sabit):
+1. 7 denemenin en az 5'inde 60 al; sınavda kalırsan üyeliğin geçene kadar ücretsiz uzar.
+2. Şartlar: denemeleri 21 Kasım'dan önce bitir, çalışma görevlerini tamamla. Ayrıntı sitede.
+
+### Yeterlilik · reklam 2 · nihai URL `https://tetikte.com/en-cok-cikan-sorular.html?sinav=yeterlilik&k=gads` · yol yeterlilik/sorular
+
+Başlıklar:
+1. SMMM Yeterlilik Soruları
+2. Yeterlilik Sınavı 28 Kasım
+3. Ders Videosunun Yanına Soru
+4. Hangi Kaynak Olursa Olsun
+5. Konuyu Soru Çözerek Pekiştir
+6. Ders Ders Sık Çıkan Konular
+7. Yeterlilik Çıkmış Soru Çözümü
+8. Yeterlilik Ders Denemeleri
+9. 5 Örnek Soru, Üye Olmadan
+10. Yanlışının Nedenini Gör
+11. Her Yanlışta Dayanak Madde
+
+Açıklamalar:
+1. Hangi kaynaktan çalışırsan çalış, konuyu soru çözerek pekiştir. 5 örnek soru ücretsiz.
+2. Ders videosu konuyu anlatır; Tetikte'de soruyu çöz, yanlışının nedenini ve maddesini gör.
+3. Yeterlilik'in 8 dersi için soru çöz; her yanlışta nedeni ve dayanak madde yanında.
+4. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
+
 ## Günlük bütçe planı
 
 | Dönem | Gün | Günlük | Dönem toplamı | Neden |
