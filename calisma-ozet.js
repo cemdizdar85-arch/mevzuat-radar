@@ -296,8 +296,9 @@
           sonuc = { baslik:'Şimdi bunu yap', metin:'Son seviye testinde en zayıf alanın ' + g.ad + ' (' + g.dogru + '/' + g.soru + '). Bugün oradan 10 soru çöz, yaklaşık 15 dakika.',
                     dugme:'Başla', adres: gb ? gb.sayfa : 'sorular.html' };
         } else {
-          sonuc = { baslik:'Şimdi bunu yap', metin:'30 soruluk seviye testini çöz; hangi derste ne kadar hazır olduğunu gör, sonra sana nereden başlayacağını söyleyelim.',
-                    dugme:'Seviye testine başla', adres:'seviye-testi.html' };
+          /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
+          sonuc = { baslik:'Şimdi bunu yap', metin:'5 örnek soruyla başla: her cevabından sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.',
+                    dugme:'5 örnek soru çöz', adres:'kaydir/vitrin/ornek-' + (yet ? 'smmm' : 'sgs') + '.html' };
         }
       }
       try{ cb(sonuc, o, ev); }catch(e){}

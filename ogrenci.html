@@ -473,11 +473,11 @@
       <!-- 18.10: sınav sekmesi (#ogSinavSec) panonun en üstüne taşındı -->
       <div class="og-kutu og-gizli" id="ogBos">
         <b style="font-size:17px" id="ogBosBas">Henüz bir ölçümün yok</b>
-        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px" id="ogBosMetin">30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.</p>
+        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px" id="ogBosMetin">5 örnek soruyla başla; her cevabından sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</p>
         <p class="og-alt og-gizli" id="ogBosKutu" style="margin:8px 0 0;font-size:14px"></p>
         <!-- 13.10 KGK: seviye testi/deneme yok -> ilerleme modül modül (bu cihazdaki son 500 cevap + hesaptan inen kayıt) -->
         <div class="og-gizli" id="ogKgkDersler" style="margin-top:10px"></div>
-        <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogBosTest">Seviye testini çöz →</a><a class="og-btn" href="sorular.html#sgs" id="ogBosCalis">Ders ders çalış</a></div>
+        <div class="og-btnler"><a class="og-btn ana" href="kaydir/vitrin/ornek-sgs.html" id="ogBosTest">5 örnek soru çöz →</a><a class="og-btn" href="sorular.html#sgs" id="ogBosCalis">Ders ders çalış</a></div>
       </div>
       <div id="ogDolu" class="og-gizli">
         <div class="og-kartlar">
@@ -488,7 +488,7 @@
         <!-- 07.10 Yeterlilik: son testte ders ders durum (seviye-model-yet.js: Güçlü / Sınırda / Riskli; her dersin barajı ayrı) -->
         <div class="og-kutu og-gizli" id="ogYetDersler" style="margin-top:12px"></div>
         <div class="og-grafik" id="ogGrafik"></div>
-        <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
+        <div class="og-btnler"><a class="og-btn ana" href="sorular.html#sgs" id="ogTestBtn">Soru çözmeye devam et →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
         <div class="og-bolum og-gizli" id="ogDenemeBolum">
           <h2 style="font-size:17px" id="ogDenemeBaslik">Sınav gibi denemeler</h2>
           <div class="og-kutu" id="ogDenemeler"></div>
@@ -566,10 +566,10 @@
 <script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
-<script src="uye-durumu.js?v=20261018b"></script>
+<script src="uye-durumu.js?v=20261027c30"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
-<script src="calisma-ozet.js?v=20261018a"></script>
+<script src="calisma-ozet.js?v=20261027c30"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -1072,14 +1072,15 @@
     $('ogSinavSec').classList.toggle('og-gizli',sayi<2);
     document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){ var k=b.getAttribute('data-sinav'), a=k===s; b.classList.toggle('ana',a); b.setAttribute('aria-pressed',String(a)); if(k==='kgk') b.classList.toggle('og-gizli',!kgkVar); });
     $('ogIlerleme').textContent=kgk?'Bağımsız Denetçilik ilerlemen':yet?'Yeterlilik ilerlemen':'Staja Giriş ilerlemen';
-    var olc=S.olc||(yet?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), devam=S.devam||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
-    $('ogBosTest').href=olc; $('ogTestBtn').href=olc; $('ogBosCalis').href=devam;
+    /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir"): ölçüm düğmeleri 5 örnek soruya; ölçümü olanın düğmesi soru çözmeye */
+    var olc=S.olc||(yet?'kaydir/vitrin/ornek-smmm.html':'kaydir/vitrin/ornek-sgs.html'), devam=S.devam||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
+    $('ogBosTest').href=olc; $('ogTestBtn').href=devam; $('ogBosCalis').href=devam;
     /* 13.10 KGK: seviye testi ve deneme seti yok (13.10 ölçüldü: veri/seviye, veri/deneme, kaydir/vitrin'de kgk yok) ->
        test düğmesi gizli, boş kart "modül modül ilerleme" kartına dönüşür (kgkDersCiz) */
     $('ogBosTest').classList.toggle('og-gizli',kgk);
     $('ogBosBas').textContent=kgk?'Modül modül ilerlemen':'Henüz bir ölçümün yok';
     $('ogBosMetin').textContent=kgk?'Bağımsız Denetçilik\'te seviye testi ve deneme seti yok; ilerlemen çözdüğün sorulardan ölçülür. Her modülden soru çöz, yanlışların kutuna düşsün.'
-      :'30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.';
+      :'5 örnek soruyla başla; her cevabından sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.';
     $('ogBosCalis').textContent=kgk?'Soru bankası →':'Ders ders çalış';
     if(kgk) kgkDersCiz(); else $('ogKgkDersler').classList.add('og-gizli');
     var seviye=kayit.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
@@ -1092,8 +1093,8 @@
       var once=seviye.length>1?seviye[seviye.length-2].veri.gecme:null;
       $('ogSonGecmeAlt').textContent='son geçme ihtimalin'+(once!==null?' ('+(son.veri.gecme-once>=0?'+':'')+(son.veri.gecme-once)+' puan)':'');
       var gecen=Math.floor((Date.now()-new Date(son.veri.tarih||son.olusturma))/86400000);
-      $('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';
-    } else { $('ogSonGecme').textContent='–'; $('ogSonGecmeAlt').textContent='son geçme ihtimalin'; $('ogTestNot').textContent='Henüz seviye testi yok. 30 soruda ilk ölçümünü al.'; }
+      $('ogTestNot').textContent= 'Son ölçümün '+gecen+' gün önce.';
+    } else { $('ogSonGecme').textContent='–'; $('ogSonGecmeAlt').textContent='son geçme ihtimalin'; $('ogTestNot').textContent=''; }
     /* Yeterlilik: her ders ayrı sınav, barajı ayrı -> tek yüzde yetmez; son testin ders durumları (seviye-model-yet.js alanları aynen) */
     var yd=$('ogYetDersler'), gr=yet&&son&&Array.isArray(son.veri.gruplar)?son.veri.gruplar.filter(function(g){ return g&&g.ad; }):[];
     if(gr.length){
@@ -1275,7 +1276,7 @@
     try{ $('opPaketOzet').textContent=!P?'Paket bilgin okunuyor…':$('opPaket').textContent||'Paket bilgisi';
       $('opIlerlemeAlt').textContent=kgk?'Bağımsız Denetçilik\'te seviye testi yok; ilerleme modül modül'
         :sv?'Son ölçüm: geçme ihtimali %'+sv.veri.gecme+' · '+opTarih(sv.veri.tarih||sv.olusturma)+(seviye.length>1?' · '+seviye.length+' ölçüm':'')
-        :'Henüz ölçüm yok · 30 soruluk seviye testiyle başla'; }catch(e){}
+        :'Henüz ölçüm yok · 5 örnek soruyla başla'; }catch(e){}
     /* ---- derslerim + artılar/eksiler (dizin gerekir: ders sırası, sayfa bağlantısı) ---- */
     var devam=(U&&U.SINAVLAR&&U.SINAVLAR[s]&&U.SINAVLAR[s].devam)||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
     $('opTumDersler').href=devam;
