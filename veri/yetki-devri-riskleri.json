@@ -1,20 +1,27 @@
 {
-  "tarih": "26.10.2026 11:24",
+  "tarih": "27.10.2026 09:26",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
-  "sayfa": 77,
-  "atifli_iddia": 300,
-  "dayanaksiz_iddia": 402,
-  "kirmizi_aday": 29,
-  "yeni_aday": 1,
+  "sayfa": 78,
+  "atifli_iddia": 302,
+  "dayanaksiz_iddia": 414,
+  "kirmizi_aday": 30,
+  "yeni_aday": 2,
   "yeni": [
     {
       "sayfa": "elci.html",
       "satir": 249,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 28,
+      "iddia": "20 Gün",
+      "kanun": "400",
+      "metin": "<!-- 27.10.2026 Cem: \"Son 20 Gün\" kampanyası (7 deneme · devam sözü · erken kayıt 400 TL · bitirme bonusu %50)."
     }
   ],
   "kirmizi": [
@@ -57,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -190,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 249,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -199,6 +206,13 @@
       "iddia": "%15",
       "kanun": "476",
       "metin": "else if(g==='reklam'){ stopaj=\"%15\"; sRate=15; sMetin=\"İnternet reklam hizmeti, 476 sayılı CK ile özel %15 stopaj. Uygulamada ÇVÖA'dan bağımsız kesiliyor (tartışmalı; YMM'ne danış)"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 28,
+      "iddia": "20 Gün",
+      "kanun": "400",
+      "metin": "<!-- 27.10.2026 Cem: \"Son 20 Gün\" kampanyası (7 deneme · devam sözü · erken kayıt 400 TL · bitirme bonusu %50)."
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -1430,6 +1444,72 @@
       "metin": "if(!m.dogru) kanca('Bu yanlışın kutuna düştü.','2 gün sonra bu soru yeniden karşına çıkar. O gün bilirsen 7 gün sonra son bir kez gelir; onu da bilirsen kutundan çıkar.','Kutun bu "
     },
     {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 7,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün Kampanya Koşulları | Tetikte"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 50,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün — Kampanya Koşulları"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 53,
+      "iddia": "en az 5",
+      "metin": "Kısaca: 7 denemenin en az 5'inde 60 ve üstü al, çalışma görevlerini tamamla. Buna rağmen staja giriş sınavında kalırsan, sınavı geçene kadar üyeliğin ücretsiz uzar."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 54,
+      "iddia": "2026 saat",
+      "metin": "Erken kayıt: 1 Kasım 2026 saat 23:59'a kadar SGS paketinde 400 TL indirim."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 57,
+      "iddia": "20 Gün",
+      "metin": "1. Son 20 Gün nedir?"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 70,
+      "iddia": "20 Gün",
+      "metin": "Son 20 Gün'ün 7 denemesinin hepsini bitirmiş olmak;"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 71,
+      "iddia": "en az 5",
+      "metin": "7 denemenin en az 5'inde 60 ve üstü puan almış olmak (en fazla 2 denemede 60'ın altında kalma hakkı vardır);"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 82,
+      "iddia": "2026 saat",
+      "metin": "Süre: 27 Ekim 2026 – 1 Kasım 2026 saat 23:59 (Türkiye saati). Süre bitince kodlar kendiliğinden geçersiz olur."
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 85,
+      "iddia": "20 Gün",
+      "metin": "Bir siparişte tek indirim uygulanır; indirimler birleştirilmez. Erken kayıtla üye olan, üyeliği hemen başlar ve bütün sisteme hemen erişir; Son 20 Gün denemeleri 1 Kasım 2026'da he"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 88,
+      "iddia": "%50",
+      "metin": "4. Bitirme bonusu: bizimle geçene %50"
+    },
+    {
+      "sayfa": "kampanya-son-20-gun.html",
+      "satir": 89,
+      "iddia": "20 Gün",
+      "metin": "21 Kasım 2026 Staja Giriş Sınavı'nı, sınav döneminde Tetikte üyesiyken ve o dönemin Son 20 Gün denemelerini bitirmiş olarak geçen üyeye, staj sonunda girdiği Yeterlilik (bitirme) s"
+    },
+    {
       "sayfa": "karne.html",
       "satir": 44,
       "iddia": "% 100",
@@ -1473,21 +1553,21 @@
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 43,
+      "satir": 75,
+      "iddia": "30 gün",
+      "metin": "Ne yapmalısın: Konut turizm kiralama izniniz varsa belge dosyanızdaki evrakları kontrol edin; Bakanlıktan eksiklik bildirimi almanız halinde 30 gün içinde tamamlayın."
+    },
+    {
+      "sayfa": "kartlar.html",
+      "satir": 138,
       "iddia": "14 katı",
       "metin": "Ne oldu: Ödül yönetmeliğinin 9. maddesinde değişiklik yapılmıştır. Türk Silahlı Kuvvetleri için inovasyon yapan ve patent alan personele, onaylayan makama göre kıdemli albay aylığı"
     },
     {
       "sayfa": "kartlar.html",
-      "satir": 110,
+      "satir": 213,
       "iddia": "60 gün",
       "metin": "Ne yapmalısın: Bağlantı anlaşması revizyon talebi 60 gün içinde dağıtım şirketine gönderilmeli. Acil durum talimatlarına uyum prosedürleri, faturalandırma yöntemleri ve dengeleme p"
-    },
-    {
-      "sayfa": "kartlar.html",
-      "satir": 255,
-      "iddia": "5.000 TL",
-      "metin": "Ne oldu: Ulaştırma ve Altyapı Bakanlığı, Tren Makinisti Yönetmeliği'ndeki atıf madde numaralarını ve idari para cezası tutarlarını değiştirdi. Ceza tutarları 5.000 TL'den 85.437 TL"
     },
     {
       "sayfa": "kontrol-listesi.html",
@@ -2151,25 +2231,31 @@
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 833,
+      "satir": 349,
+      "iddia": "20 Gün",
+      "metin": "<!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar"
+    },
+    {
+      "sayfa": "satin-al.html",
+      "satir": 837,
       "iddia": "1 ay",
       "metin": "/* 04.10 Cem \"+1 ay sözünü kaldır\": davet (+1 ay) programı hazır değil - davet_uygula hiçbir yerden çağrılmıyor."
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1178,
+      "satir": 1182,
       "iddia": "30 gün",
       "metin": "/* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1236,
+      "satir": 1240,
       "iddia": "24 saat",
       "metin": "/* aynı paket için bu cihazda son 24 saatte verilmiş sipariş (bitir() kaydeder); varsa YENİ sipariş yerine o ödenir */"
     },
     {
       "sayfa": "satin-al.html",
-      "satir": 1277,
+      "satir": 1281,
       "iddia": "24 saat",
       "metin": "goster('Sipariş verilmedi: bu e-postayla son 24 saatte aynı paket için ödeme bekleyen bir siparişin var ; iki kez ödeme alınmasın diye yeni sipariş açmadık. ' +"
     },
