@@ -16,6 +16,22 @@
 2. `STANDART-CEVAP-KALIBI.md` — açıklama kalıbı kilitli (doğru şık: "Ne soruluyor: … Kural: … Bu olayda/Hesap: … Doğrusu: …").
 3. Biçim örneği (yalnız BİÇİM): yayında olan bir partinin `kalip-parti-smmm-*.json` kaydı — `adimlar`, `verilen`, `sade` alanlarının yapısı.
 
+## ⛔⭐ SINAV PROFİLİ HEDEFTİR, TAVAN DEĞİL (27.10.2026, Cem: "sorular sınava benzemiyor … elli kere konuştuk")
+**Ölçüldü (27.10, aynı kurallarla, gerçek = `veri/sinav-anatomisi-sgs.json` son 12 SGS kitapçığı):** konu doğruydu (s20 sorularının %74'ü ≥3
+dönem çıkmış konudan) ama BİÇİM yanlıştı — kök medyanı Vergi 329↔146, Borçlar 462↔164, İş-SGK 367↔147, Denetim 265↔168 · "hangisi
+yanlıştır/değildir" kökü Meslek %5↔45, Borçlar 12↔42, Denetim 3↔41, Vergi 3↔33 · FM'de kayıt sorusu %2↔40 (hesap 66↔29) · kökte
+madde/paragraf atfı Ticaret 99↔43, Denetim 78↔39, FM 40↔9. Sitedeki banka aynı yönde ama daha yakın. Kök nedenler: aşağıdaki "olumlu kök
+tercih" alışkanlığı · uzunluk TAVANI (p90) verilip hedef verilmemesi · K15 şartının köke hikâye olarak yığılması · FM'de vakanın öne çıkması.
+**Kural (bütün sınavlar; SMMM/KGK için kendi anatomi dosyası):**
+1. Yazarın brifine dersin gerçek profili **HEDEF** olarak verilir: kök medyanı, şık medyanı, olumsuz kök %, öncüllü %, tip dağılımı
+   (kayıt/hesap/teori), kökte madde atfı %. Uzunluk tavanı ayrıca durur ama hedef değildir.
+2. **"Olumlu kök tercih edilir" kuralı kalktı:** olumsuz kök oranı dersin gerçek oranına yakın tutulur (dalga planında sayıyla).
+3. Kökte madde/paragraf numarası yazılmaz (gerçek sınav durumu sorar); kanun adı gerçek orandaysa olur. Numara dayanak + açıklamada kalır.
+4. K15 şartı köke kısa yan cümleyle girer; hikâye kurulmaz.
+5. Ölçüm: `C:\TETIKTE-CALISMA\sgs-s20-arac\profil-kapi.js <hazir.json> --ders <ders> [--hedef olumsuz|kayit]` (soru başı PROFIL-UZUN /
+   PROFIL-ATIF / PROFIL-SIK + dosya özeti) · bütün havuz: `sinav-benzerlik.js` (+`--banka`). Deneme/test kurulurken her ders testi profili
+   gerçekle yan yana raporlanır. 🚫 GÖRMEZ: anlam benzerliği, dilin doğallığı. "Benziyor" demeden önce ölçülür.
+
 ## Kaynak — hafızadan rakam YAZILMAZ
 Rakam, oran, had yalnız AMBARDAN (`dokumanlar.kaynak_ad`). Kullanılan her kaydın adı `kaynak_adlar`'a birebir yazılır (ön denetim ambarda arar).
 Yıla bağlı had: kanun kaydındaki parantezli tutar yılını SÖYLEMEZ → tutarı o yılın genel tebliğinden al (ör. GVK 2026 tarifesi ve hadleri GVGT `SERİ NO:332` — ambarda adı BOŞLUKSUZ; 2025 için `SERİ NO: 329`). Ambar araması geniş desenle yapılır (`%NO:332%`) — 05.10'da boşluklu arama "yok" dedi, kayıt vardı.
