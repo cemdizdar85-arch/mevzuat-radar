@@ -680,6 +680,9 @@ $html=@'
 .hap{border-left:4px solid var(--altin);background:color-mix(in srgb,var(--altin) 8%,transparent);padding:8px 11px;border-radius:0 10px 10px 0;font-weight:600;font-size:.93em;margin:8px 0}
 /* tek ekran paneli: uc satir + cipler; bolumler dokununca */
 .ozet{font-size:.93em;margin:0 0 8px;line-height:1.45}.ozet b{color:var(--yesil)}
+.ayrB{display:none}:root[data-sade] .panel>.ayrB{display:block;order:2;margin:2px 0 8px;font:inherit;font-size:.9em;font-weight:700;color:var(--mavi);background:none;border:1px solid var(--cizgi);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
+@media(max-width:899px){:root[data-sade] .panel.kisa .ayrK,:root[data-sade] .panel.kisa .kutuNot,:root[data-sade] .panel.kisa .akranNot,:root[data-sade] .panel.kisa .sinavDil,:root[data-sade] .panel.kisa .sinavDilM,:root[data-sade] .panel.kisa>.konuK,:root[data-sade] .panel.kisa>.hap{display:none!important}}
+@media(min-width:900px){:root[data-sade] .panel>.ayrB{display:none}}
 .dogruSik{color:var(--yesil)}.secimNot{font-size:.88em;color:var(--dim);margin-top:3px}:root[data-sade] .ozet{line-height:1.55}:root[data-sade] .ozet b{color:var(--yazi)}:root[data-sade] .ozet br+b,:root[data-sade] .ozet>b:first-child{display:inline-block;margin-top:6px}
 .cipler{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
 .cip2{background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:20px;padding:7px 12px;font-size:.84em;cursor:pointer}.cip2.acik{border-color:var(--mavi);color:var(--mavi)}.cip2.ana{background:var(--yesil);color:var(--ustYazi);font-weight:800;border:0;margin-left:auto}
@@ -1199,11 +1202,22 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
         +(h?'<div class="secimNot">Senin seçimin: '+h+') '+esc(sikM(h))+'</div>':'');
       let oh=dogruGer?'<b>Neden '+s.dogru+'?</b> '+esc(dogruGer):'';
       const yanM=thS&&thS.yanilgi?esc(thS.yanilgi)+(thS.gercek?' <b>Oysa</b> '+esc(kucukBas(thS.gercek)):''):(h?esc(sdSik?sdSik:ilkCumle(t.metin)):'');
-      if(h&&yanM) oh+=(oh?'<br>':'')+'<b>'+h+' neden yanlış?</b> '+yanM;
-      if(thS&&thS.ayirt) oh+=(oh?'<br>':'')+'💡 <b>Bir dahakine:</b> '+esc(thS.ayirt);
+      if(h&&yanM) oh+='<span class="ayrK">'+(oh?'<br>':'')+'<b>'+h+' neden yanlış?</b> '+yanM+'</span>';
+      if(thS&&thS.ayirt) oh+='<span class="ayrK">'+(oh?'<br>':'')+'💡 <b>Bir dahakine:</b> '+esc(thS.ayirt)+'</span>';
       oz.innerHTML=oh||('✅ <b>Doğrusu '+s.dogru+'.</b>'); oz.style.display='';
     }
     if(sd&&sd.sinav){ const sdEl=dogruMu?geri:oz; sdEl.innerHTML+=' <button class="sinavDil">sınav dili</button><div class="sinavDilM" hidden>📝 '+esc(sd.sinav)+'</div>'; sdEl.querySelector('.sinavDil').addEventListener('click',e=>{ const m=sdEl.querySelector('.sinavDilM'); m.hidden=!m.hidden; e.target.textContent=m.hidden?'sınav dili':'gizle'; }); }
+    // 27.10 KISA AÇIKLAMA (Cem "karşıdaki kişi yorulmasın" + "160 kelimeyi göremeyecek deme"): telefonda sade kipte ilk görünen
+    //   hüküm + "Neden C?" + Sonraki; "B neden yanlış", ipucu, konu özeti, kutu notu, akran yüzdesi, sınav dili SİLİNMEZ,
+    //   "Ayrıntılı açıklama ▾" ile aynı yerde açılır. Bir kez açan kişide tercih kalır (kc_aciklama). Bilgisayarda (≥900px) hep açık.
+    if(document.documentElement.hasAttribute('data-sade')&&!panel.querySelector('.ayrB')){
+      const kisaMi=()=>{ try{ return localStorage.getItem('kc_aciklama')!=='acik'; }catch(e){ return true; } };
+      const ab=document.createElement('button'); ab.type='button'; ab.className='ayrB';
+      const ciz=()=>{ const kisa=kisaMi(); panel.classList.toggle('kisa',kisa); ab.textContent=kisa?'Ayrıntılı açıklama ▾':'Kısa göster ▴'; ab.setAttribute('aria-expanded',String(!kisa)); };
+      ab.addEventListener('click',()=>{ const ac=kisaMi(); try{ localStorage.setItem('kc_aciklama',ac?'acik':'kisa'); }catch(e){}
+        document.querySelectorAll('.panel .ayrB').forEach(x=>x.dispatchEvent(new Event('ciz'))); try{ gcOlay('aciklama/'+(ac?'ac':'kapat'),'Ayrıntılı açıklama '+(ac?'açıldı':'kapandı')); }catch(e){} });
+      ab.addEventListener('ciz',ciz); oz.after(ab); ciz();
+    }
     // Cem 04.09 "akılda kalsın gerekli mi?": hap, kural/dogrusu ile AYNI seyi soyluyorsa gizlenir (uc kez ayni cumle olmasin);
     // yalniz kisa ve farkli bir ezber cumlesiyse kalir. Kalip kilidinde istem "12 kelimelik ezber cumlesi" yazacak.
     const kel=t=>new Set(kat(t).match(/[a-zçğıöşü]{5,}/g)||[]); const hapK=kel(s.hap); const refK=kel(String(s.kural)+' '+String(oz.innerText||'')+' '+String(geri.innerText||''));
