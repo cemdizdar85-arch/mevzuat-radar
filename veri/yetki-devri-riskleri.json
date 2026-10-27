@@ -1,11 +1,11 @@
 {
-  "tarih": "27.10.2026 23:16",
+  "tarih": "27.10.2026 23:22",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
-  "atifli_iddia": 304,
-  "dayanaksiz_iddia": 451,
+  "atifli_iddia": 306,
+  "dayanaksiz_iddia": 453,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -64,7 +64,7 @@
       "sayfa": "alacak-radari.html",
       "satir": 418,
       "iddia": "7 gün",
-      "kanun": "302",
+      "kanun": "299",
       "metin": "return {not:'Konkordato süreci, alacak kaydı süresi ilan türüne göre değişir (m.288 itiraz 7 gün / m.299 kayıt 15 gün), ilan metnini oku.', hap:'Alacaklı olarak oyunu kullan (m.302"
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "588",
+      "kanun": "400",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -1537,13 +1537,13 @@
       "sayfa": "kampanya-son-20-gun.html",
       "satir": 95,
       "iddia": "en az 5",
-      "metin": "Şart: 7 deneme · en az 5'inde 60 · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil"
+      "metin": "Şart: 7 deneme · en az 5'inde %60 doğru · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
       "satir": 105,
       "iddia": "En az 5",
-      "metin": "7 denemeyi bitir En az 5'inde 60 ve üstü al (ilk çözüm sayılır), kaldığın denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce."
+      "metin": "7 denemeyi bitir En az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), kaldığın denemeden sonra gelen çalışma görevlerini tamamla. Hepsi 21 Kasım'dan önce."
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
@@ -1603,7 +1603,7 @@
       "sayfa": "kampanya-son-20-gun.html",
       "satir": 140,
       "iddia": "en az 5",
-      "metin": "7 denemenin en az 5'inde 60 ve üstü puan almış olmak (en fazla 2 denemede 60'ın altında kalma hakkı vardır);"
+      "metin": "7 denemenin en az 5'inde %60 ve üstü doğru oranına ulaşmış olmak (en fazla 2 denemede %60'ın altında kalma hakkı vardır);"
     },
     {
       "sayfa": "kampanya-son-20-gun.html",
@@ -2681,9 +2681,21 @@
     },
     {
       "sayfa": "son-20-gun.html",
+      "satir": 19,
+      "iddia": "%60",
+      "metin": "Deneme doğru oranı (Cem 28.10: ad 'doğru oranı', söz ölçütü ham %60) = denemenin bütün ders testleri bitince toplam doğru / toplam soru × 100 (Cem 24.10). Söz: 7 deneme bitir + en "
+    },
+    {
+      "sayfa": "son-20-gun.html",
       "satir": 91,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün · 7 deneme"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 97,
+      "iddia": "%60",
+      "metin": "0/5 %60 ve üstü"
     },
     {
       "sayfa": "son-20-gun.html",
