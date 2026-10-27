@@ -106,6 +106,7 @@
 .hap{border-left:4px solid var(--altin);background:color-mix(in srgb,var(--altin) 8%,transparent);padding:8px 11px;border-radius:0 10px 10px 0;font-weight:600;font-size:.93em;margin:8px 0}
 /* tek ekran paneli: uc satir + cipler; bolumler dokununca */
 .ozet{font-size:.93em;margin:0 0 8px;line-height:1.45}.ozet b{color:var(--yesil)}
+.dogruSik{color:var(--yesil)}.secimNot{font-size:.88em;color:var(--dim);margin-top:3px}:root[data-sade] .ozet{line-height:1.55}:root[data-sade] .ozet b{color:var(--yazi)}:root[data-sade] .ozet br+b,:root[data-sade] .ozet>b:first-child{display:inline-block;margin-top:6px}
 .cipler{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
 .cip2{background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:20px;padding:7px 12px;font-size:.84em;cursor:pointer}.cip2.acik{border-color:var(--mavi);color:var(--mavi)}.cip2.ana{background:var(--yesil);color:var(--ustYazi);font-weight:800;border:0;margin-left:auto}
 .cip2.birincil{background:var(--mavi);color:var(--ustYazi);font-weight:800;border:0;padding:9px 14px;font-size:.9em}
@@ -216,7 +217,7 @@
 .adimK.sonAdim{border-color:var(--yesil)}
 .adimBar{display:flex;gap:4px;padding:0 14px 6px}.adimBar i{flex:1;height:5px;border-radius:3px;background:var(--cizgi);display:block;cursor:pointer}.adimBar i.gecti{background:color-mix(in srgb,var(--altin) 55%,transparent)}.adimBar i.simdi{background:var(--altin)}
 .ders .altc{display:flex;justify-content:space-between;align-items:center;padding:8px 14px 14px;font-size:.82em;color:var(--dim);gap:10px}
-@media(max-width:760px){:root:not([data-vitrin]) .ders .altc{padding-left:54px}}   /* 04.10 telefon turu: sol alttaki tema düğmesi "◀ Geri"nin üstüne biniyordu */
+@media(max-width:760px){:root:not([data-vitrin]) .ders .altc{padding-left:54px}:root[data-sade] .panel>.cipler{padding-left:40px}}   /* 27.10: sade panelde "Nöbetçi anlatsın" da tema düğmesinin altında kalıyordu */   /* 04.10 telefon turu: sol alttaki tema düğmesi "◀ Geri"nin üstüne biniyordu */
 .ders .altc .btn{min-width:64px}.ders .altc .btn:disabled{opacity:.3}
 .tt td.gizliH{color:transparent;position:relative}.tt td.gizliH::after{content:'?';color:var(--dim);position:absolute;left:0;right:0;text-align:right;padding-right:9px;font-weight:700}
 .tt td.acildi{animation:yan .5s ease}@keyframes yan{from{background:color-mix(in srgb,var(--altin) 50%,transparent)}to{background:transparent}}
@@ -612,6 +613,22 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
     const nedenKisa=(t.metin||'').split(/Doğrusu:|Dogrusu:/)[1]; const oz=k.querySelector('.ozet'); if(dogruMu){ oz.style.display='none'; }
     else if(thS&&thS.gercek){ oz.innerHTML='<b>Aslında:</b> '+esc(thS.gercek)+(thS.paragraf?' <i>('+esc(thS.paragraf)+')</i>':'')+(thS.ayirt?'<br><b>Nereden anlarsın:</b> '+esc(thS.ayirt):'')+'<br>✅ <b>Doğrusu '+s.dogru+':</b> '+esc(thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():String(s.siklar[s.dogru])))); }
     else { oz.innerHTML='✅ <b>Doğrusu '+s.dogru+':</b> '+esc(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():(dogruAd?dogruAd:String(s.siklar[s.dogru])))); }
+    // 27.10 SADE CEVAP SIRASI (Cem "yurt dışı incele, cevaplar karışık mı"): UWorld/Khan/Duolingo kalıbı = önce hüküm + doğru cevap,
+    //   sonra doğrunun gerekçesi, sonra seçtiğin şık neden yanlış, en sonda kısa ipucu. Eski sıra "Ne sanıyorsun → Aslında → Nereden
+    //   anlarsın → Doğrusu" doğru cevabı 4. bloğa itiyordu; telefonda açılan bölme şıkları da örttüğü için hangi şıkkın doğru olduğu
+    //   görünmüyordu → hüküm satırı şık metnini de yazar. "(Teori-Formül)" gibi iç etiketler sadede yok. Ayrıntılı görünüm eski düzende.
+    if(document.documentElement.hasAttribute('data-sade')&&!dogruMu){
+      const sikM=x=>{ const m=String(s.siklar[x]||'').replace(/\s+/g,' ').trim(); return m.length>90?m.slice(0,88)+'…':m; };
+      const kucukBas=m=>/^[A-ZÇĞİÖŞÜ][a-zçğıöşü]/.test(m)?m.charAt(0).toLocaleLowerCase('tr')+m.slice(1):m;   // "Oysa Dönem" → "Oysa dönem"; "TMS"/"VUK" kısaltmalarına dokunmaz
+      const dogruGer=thD&&thD.gercek?thD.gercek:(sd&&sd.dogru?sd.dogru:(nedenKisa?nedenKisa.trim():''));
+      geri.innerHTML=(h?'❌ <b>Yanlış.</b> ':'🤷 <b>Bilmiyorum dedin.</b> ')+'Doğru cevap <b class="dogruSik">'+s.dogru+') '+esc(sikM(s.dogru))+'</b>'+sureH
+        +(h?'<div class="secimNot">Senin seçimin: '+h+') '+esc(sikM(h))+'</div>':'');
+      let oh=dogruGer?'<b>Neden '+s.dogru+'?</b> '+esc(dogruGer):'';
+      const yanM=thS&&thS.yanilgi?esc(thS.yanilgi)+(thS.gercek?' <b>Oysa</b> '+esc(kucukBas(thS.gercek)):''):(h?esc(sdSik?sdSik:ilkCumle(t.metin)):'');
+      if(h&&yanM) oh+=(oh?'<br>':'')+'<b>'+h+' neden yanlış?</b> '+yanM;
+      if(thS&&thS.ayirt) oh+=(oh?'<br>':'')+'💡 <b>Bir dahakine:</b> '+esc(thS.ayirt);
+      oz.innerHTML=oh||('✅ <b>Doğrusu '+s.dogru+'.</b>'); oz.style.display='';
+    }
     if(sd&&sd.sinav){ const sdEl=dogruMu?geri:oz; sdEl.innerHTML+=' <button class="sinavDil">sınav dili</button><div class="sinavDilM" hidden>📝 '+esc(sd.sinav)+'</div>'; sdEl.querySelector('.sinavDil').addEventListener('click',e=>{ const m=sdEl.querySelector('.sinavDilM'); m.hidden=!m.hidden; e.target.textContent=m.hidden?'sınav dili':'gizle'; }); }
     // Cem 04.09 "akılda kalsın gerekli mi?": hap, kural/dogrusu ile AYNI seyi soyluyorsa gizlenir (uc kez ayni cumle olmasin);
     // yalniz kisa ve farkli bir ezber cumlesiyse kalir. Kalip kilidinde istem "12 kelimelik ezber cumlesi" yazacak.
@@ -768,7 +785,8 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       .then(r=>r.ok?r.json():null).then(rows=>{ if(!rows||!rows.length) return; const top=rows.reduce((a,r)=>a+Number(r.n||0),0); if(top<5) return;   // 5 cevaptan az: yüzde yanıltır, gösterme
         const say={}; rows.forEach(r=>{ say[String(r.secim)]=Number(r.n||0); });
         k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
-        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')&&durum.cevap[i]){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; n.textContent='👥 '+top+' adayın %'+Math.round(100*(say[secH]||0)/top)+'\'i senin gibi '+secH+' dedi; %'+Math.round(100*(say[s.dogru]||0)/top)+'\'i doğruyu buldu.'; g.appendChild(n); } })
+        const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')&&durum.cevap[i]){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; const yuzdeEk=y=>{ y=Math.round(y); if(y===100) return '%100\'ü'; if(y===0) return '%0\'ı'; const b=y%10, o=Math.floor(y/10); const ek=b?['','i','si','ü','ü','i','sı','si','i','u'][b]:['','u','si','u','ı','si','ı','i','i','ı'][o]; return '%'+y+'\''+ek; };   // 27.10: "%12'i" → "%12'si" (on iki-si)
+          n.textContent='👥 '+top+' adayın '+yuzdeEk(100*(say[secH]||0)/top)+' senin gibi '+secH+' dedi; '+yuzdeEk(100*(say[s.dogru]||0)/top)+' doğruyu buldu.'; g.appendChild(n); } })
       .catch(()=>{}); }catch(e){}
   }
   function kagitKasayaYaz(secH,dogruMu){ if(VITRIN) return;

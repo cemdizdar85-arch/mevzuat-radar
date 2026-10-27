@@ -301,6 +301,16 @@ kopyala('icerik-koruma.js');   /* 09.10 kopya/yazdırma kilidi + telif şeridi; 
 /* bot koruması (Turnstile): sitedekiyle AYNI dosya ve aynı anahtar — sitede açılınca uygulamada da açık olur (26.09) */
 kopyala('captcha.js');
 kopyala(kutuphane);
+/* 27.10 (Cem "önerilerini yap"): Nöbetçi çizerek/sesli çözsün uygulamada da. Ders ve örnek sayfaları ../../cizerek-coz.js ister;
+   kopyalanmayınca betik 404 olur, düğme hiç çıkmazdı. Kalem yazısı + herkese açık sesler (ses/cizim, ~2,7 MB) pakete girer.
+   Kasa sesleri (KGK, imzalı adres) uygulamada yok: KGK uygulamaya alınmıyor (yukarıda 27.09 notu). */
+kopyala('cizerek-coz.js');
+for (const f of ['caveat-600-latin.woff2', 'caveat-600-latin-ext.woff2']) kopyala('kutuphane/' + f);
+let sesSay = 0;
+if (var_('ses/cizim')) for (const d of fs.readdirSync(path.join(KOK, 'ses', 'cizim'))) {
+  for (const f of fs.readdirSync(path.join(KOK, 'ses', 'cizim', d))) { if (/\.mp3$/.test(f)) { kopyala(path.join('ses', 'cizim', d, f)); sesSay++; } }
+}
+kapi('KAPI-CIZIM', sesSay > 0, 'ses/cizim altında mp3 yok — sesli çizim uygulamada sessiz kalır');
 for (const ad of fs.readdirSync(path.join(MOBIL, 'uygulama'))) kopyala(path.join('mobil', 'uygulama', ad), ad);
 
 const paket = JSON.parse(fs.readFileSync(path.join(MOBIL, 'package.json'), 'utf8'));
