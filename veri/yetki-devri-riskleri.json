@@ -1,11 +1,11 @@
 {
-  "tarih": "27.10.2026 23:22",
+  "tarih": "27.10.2026 23:37",
   "aciklama": "Yetki-devri denetimi: KIRMIZI = sayisal iddia, yetki-devri kalibi tasiyan bir kanuna atifla ayni baglamda. Her aday ELLE okunur - kapi karar vermez. Iki yasanmis vaka bu siniftandi: 5746 esik 50->15 (2016/9093), 5510 tavan 7,5->9 kat (7566).",
   "ambar_dosya": 895,
   "riskli_madde": 1315,
   "sayfa": 81,
   "atifli_iddia": 306,
-  "dayanaksiz_iddia": 453,
+  "dayanaksiz_iddia": 456,
   "kirmizi_aday": 30,
   "yeni_aday": 2,
   "yeni": [
@@ -13,7 +13,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -99,14 +99,14 @@
       "sayfa": "arge-kapi-hesabi.html",
       "satir": 300,
       "iddia": "40 katı",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "+'· Ücret teşviklerinde brüt asgari ücretin 40 katı/ay sınırı uygulandı (5746 m.3/2, 4691 geç. m.2). '"
     },
     {
       "sayfa": "bilgi.html",
       "satir": 281,
       "iddia": "%99,4",
-      "kanun": "4691",
+      "kanun": "5746",
       "metin": "Kaynak: 5746 s. Ar-Ge Kanunu m.2-4 + 4691 s. Teknokent Kanunu geç. m.2, güncel konsolide metinler 13.08.2026'da ambara birebir yutuldu (kapsama %99,4 / %99,6), kart bu metinlerden "
     },
     {
@@ -197,7 +197,7 @@
       "sayfa": "elci.html",
       "satir": 253,
       "iddia": "2.588 TL",
-      "kanun": "400",
+      "kanun": "588",
       "metin": "Staja Giriş (SGS) 400 TL 2.988 → 2.588 TL"
     },
     {
@@ -2687,21 +2687,39 @@
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 91,
+      "satir": 103,
       "iddia": "20 Gün",
       "metin": "Son 20 Gün · 7 deneme"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 97,
+      "satir": 109,
       "iddia": "%60",
       "metin": "0/5 %60 ve üstü"
     },
     {
       "sayfa": "son-20-gun.html",
-      "satir": 196,
+      "satir": 175,
+      "iddia": "%60",
+      "metin": "/* 28.10 çalışma görevleri: %60 altı denemeden sonra kurulur (sunucu); açık görev varken çözülmemiş test başlatılmaz */"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 180,
+      "iddia": "%60",
+      "metin": "gk.innerHTML=' Çalışma görevlerin Deneme '+gAcik[0].deneme+' sonunda doğru oranın %60\\'ın altında kaldı. Her konuda 4 yeni soru gelir; 3\\'ünü doğru yapınca konu tamamlanır. Görevle"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 233,
       "iddia": "%5",
       "metin": "if(say%5===0) sakla(); if(T.kalan<=0){ clearInterval(saat); bitir(true); } },1000); $('tSayac').textContent=sureYaz(T.kalan); }"
+    },
+    {
+      "sayfa": "son-20-gun.html",
+      "satir": 273,
+      "iddia": "%60",
+      "metin": "+(r.gorev>0? ' Bu denemede %60\\'ın altında kaldın; '+r.gorev+' konuluk çalışma görevin hazır. Görevler bitince sonraki denemeye başlayabilirsin.' : '');"
     },
     {
       "sayfa": "songun.html",
