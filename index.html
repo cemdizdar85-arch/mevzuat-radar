@@ -228,6 +228,32 @@ html body .pk-al:hover{opacity:.92}
 html body .pk-one .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
 .pk-sonra{margin:8px 0 0;min-height:18px;font-size:12.5px;color:var(--dim);text-align:center}
 @media(max-width:900px){ .pk-kartlar{grid-template-columns:1fr;gap:12px} .paketler{padding-bottom:28px} }
+/* 28.10 Cem: ilk ekran = "Hangi sınava hazırlanıyorsun?" + üç sınav kartı. Eski kahraman + sınav hapları gizli (dugmeCiz'in
+   seçim mantığı o öğelerle yaşıyor; görünmeden çalışır). */
+.kah,.secim-bolum{display:none!important}
+.s3{padding:34px 0 30px}
+html body .s3-h{margin:0 0 8px;font-size:clamp(28px,6.4vw,44px);font-weight:900;letter-spacing:-.8px;line-height:1.08;color:var(--ink)}
+.s3-alt{margin:0 0 22px;font-size:17px;line-height:1.5;color:var(--muted);max-width:720px}
+.s3-kartlar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.s3-k{display:flex;flex-direction:column;background:var(--kagit);border:2px solid var(--line2);border-radius:18px;padding:20px 20px 18px}
+.s3-k[data-s3="sgs"]{border-color:var(--amber-dolgu)}
+.s3-k p{margin:0}
+html body .s3-ad{font-size:22px;font-weight:850;line-height:1.2;color:var(--ink)}
+.s3-ad small{font-size:15px;font-weight:650;color:var(--muted)}
+.s3-gun{margin-top:6px!important;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:15.5px;font-weight:650;color:var(--ink)}
+.s3-gun b{color:var(--amber);font-weight:800}
+.s3-gun b:empty{display:none}
+.s3-teklif{margin:16px 0 18px;padding:14px 14px 12px;border-radius:12px;background:color-mix(in srgb,var(--amber-dolgu) 12%,transparent);display:grid;gap:6px;flex:1;align-content:start;font-size:15px;line-height:1.45;color:var(--ink)}
+.s3-et{font-size:13px!important;font-weight:850;letter-spacing:.5px;text-transform:uppercase;color:var(--ink)}
+.s3-kapali .s3-teklif{background:color-mix(in srgb,var(--line2) 45%,transparent)}
+.s3-gri{color:var(--muted)!important}
+.s3-durum{margin:-6px 0 12px!important;font-size:14.5px;color:var(--green)}
+html body .s3-dg{display:block;text-align:center;padding:14px 16px;border-radius:12px;background:var(--amber-dolgu);color:#111a2e!important;font-weight:850;font-size:17px;text-decoration:none!important}
+.s3-dg:hover{filter:brightness(.96)}
+.s3-kapali{border-style:dashed}
+.s3-dip{margin:16px 0 0;font-size:14px;color:var(--muted)}
+.s3-dip a{color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){ .s3{padding:20px 0 22px} .s3-kartlar{grid-template-columns:1fr;gap:12px} .s3-alt{font-size:15.5px;margin-bottom:16px} .s3-teklif{margin:12px 0 14px} }
 
 /* kısayollar: fiyat · ders · konu · deneme · seviye · duyuru (Cem: "fiyat, sınav, ders, konu ne varsa çok kolay bulması lazım") */
 .kisayol{padding:36px 0;border-top:1px solid var(--line)}
@@ -445,49 +471,51 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <span class="kayan-iz" aria-hidden="true"><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span></span></a>
   <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
-<!-- 27.10 Cem: GEÇENE KADAR TETİKTE (ürün "Son 20 Gün"). Elçi kartlarıyla birebir dil (gkt.css); rakamlar gkt.js ← fiyat-motoru.js.
-     Telefonda ilk ekranda başlık + düğme. Söz şartları ve iki paketin farkı kampanya-son-20-gun.html'de. 22 Kasım'da gkt.js gizler. -->
-<section class="gkt" id="gkt" data-gkt-bolum aria-labelledby="gktBas">
-  <div class="gkt-serit">Geçene Kadar Tetikte · <span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
-  <div class="gkt-ic">
-    <div>
-      <!-- 28.10: tek ilk ekran olduğu için kahramanın üst satırı burada da (kalan günü dugmeCiz yazar; sınav seçimi aşağıda) -->
-      <p class="kah-ust"><span>SMMM Staja Giriş · 21 Kasım 2026</span><b id="gktGun"></b><a href="#secimBas">Sınavı değiştir</a></p>
-      <h2 class="gkt-h" id="gktBas">Sınavda kalırsan, geçene kadar <span class="gkt-kutu">TETİKTE</span></h2>
-      <p class="gkt-alt">Denemelerimizde barajı geç, gerçek sınavda kalırsan <b>üyeliğin geçene kadar ücretsiz.</b></p>
-      <a class="gkt-dg" href="#gktPaket">Şimdi başla, sorular hazır</a>
-      <p class="gkt-not"><span data-gkt-erken><span class="gkt-ind">1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</span> · </span><a href="kampanya-son-20-gun.html">Şartlar ve koşullar</a></p>
-    </div>
-    <div class="gkt-karne" aria-label="Örnek deneme karnesi">
-      <img class="gkt-maskot" src="gorsel/maskot-giris.jpg" width="76" height="76" alt="Nöbetçi" loading="lazy" decoding="async">
-      <p class="gkt-karne-bas"><span>Son 20 Gün · Deneme karnesi</span><span>1 Kasım'da açılıyor</span></p>
-      <div class="gkt-d"><div><small>D1</small><b>64</b></div><div><small>D2</small><b>61</b></div><div class="k"><small>D3</small><b>55</b></div><div><small>D4</small><b>68</b></div><div><small>D5</small><b>63</b></div><div><small>D6</small><b>70</b></div><div class="b"><small>D7</small><b>…</b></div></div>
-      <div class="gkt-cubuk"><i></i></div>
-      <div class="gkt-karne-alt"><span>5 deneme 60+ · görevler ✓</span><span class="gkt-soz">SÖZ AKTİF ✓</span></div>
-      <p class="gkt-ornek">Örnek gösterimdir.</p>
-      <p class="gkt-sart">Şart: 7 deneme · en az 5'inde 60 · görevler tamam</p>
-    </div>
-  </div>
-  <div class="gkt-paket" id="gktPaket">
-    <h2 class="gkt-h">İki paket, tek söz: <span class="gkt-kutu">TETİKTE</span></h2>
-    <div class="gkt-kartlar">
-      <article class="gkt-k">
-        <div class="gkt-k-ust"><h3>Sadece 7 Deneme</h3><p class="gkt-fy"><b data-gkt="yedi">999 TL</b><small data-gkt="yedi-haric">832,50 TL + KDV</small></p></div>
-        <p class="gkt-icerik">7 deneme + konu görevleri</p>
-        <p class="gkt-yesil">✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar</p>
-        <a class="gkt-al" href="satin-al.html?paket=son20-sgs">7 Deneme'yi al</a>
+<!-- 28.10 Cem ("kullanım çok kötü, anlamak zor, çok kolay anlaşılır olsun" + "diğer büyük rakipleri incele" → "üç sınav kartı"):
+     Becker / UWorld / Fuat Hoca / Suat Hoca / SMMM Online ana sayfası önce SINAVI seçtirir; kampanya o sınavın kartında tek satır,
+     ayrıntısı sınavın kendi sayfasında. İlk ekran = tek soru + üç kart. Kartta: sınav günü, kalan gün (TR günü), o sınavın güncel
+     teklifi, tek düğme sınav sayfasına (paketi açık üyede "Soru çöz"). Rakamlar fiyat-motoru.js'ten (gkt.js + s3Ciz); yazılı rakam
+     yalnız betik yüklenmezse görünen yedektir. Eski kahraman + sınav hapları gizli (dugmeCiz'in seçim mantığı onlarla yaşıyor). -->
+<section class="s3" aria-labelledby="s3Bas">
+  <div class="ic">
+    <h1 class="s3-h" id="s3Bas">Hangi sınava hazırlanıyorsun?</h1>
+    <p class="s3-alt">Soruyu çöz, konuyu öğren: cevabından hemen sonra konunun özeti, yanlışının nedeni ve dayandığı madde açılır.</p>
+    <div class="s3-kartlar">
+      <article class="s3-k" data-s3="sgs" data-tarih="2026-11-21">
+        <p class="s3-ad">SMMM Staja Giriş</p>
+        <p class="s3-gun">21 Kasım 2026<b data-s3-kalan></b></p>
+        <div class="s3-teklif">
+          <p class="s3-et">Son 20 Gün · 7 deneme</p>
+          <p data-gkt-erken><b>1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</b></p>
+          <p>Tam Paket <b data-gkt="tam">2.388 TL</b></p>
+          <p>Sadece 7 Deneme <b data-gkt="yedi">999 TL</b></p>
+        </div>
+        <p class="s3-durum" data-s3-durum hidden></p>
+        <a class="s3-dg" data-s3-dg href="smmm-staja-giris-sorulari.html">Staja Giriş'e hazırlan →</a>
       </article>
-      <article class="gkt-k tam">
-        <span class="gkt-rozet" data-gkt-erken>1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</span>
-        <div class="gkt-k-ust"><h3>Tam Paket</h3><p class="gkt-fy"><b data-gkt="tam">2.388 TL</b><small data-gkt-erken><span data-gkt="liste">2.988 TL</span> yerine</small><small data-gkt="tam-haric">1.990 TL + KDV</small></p></div>
-        <p class="gkt-icerik">7 deneme + görevler + sitedeki bütün SGS soruları</p>
-        <p class="gkt-yesil">✓ Kalırsan bütün üyeliğin geçene kadar ücretsiz</p>
-        <p class="gkt-sari">★ Bizimle geçersen bitirme (Yeterlilik) paketinde %50 indirim</p>
-        <a class="gkt-al" href="satin-al.html?paket=sgs">Tam Paketi al</a>
+      <article class="s3-k" data-s3="yeterlilik" data-tarih="2026-11-28">
+        <p class="s3-ad">SMMM Yeterlilik <small>(bitirme)</small></p>
+        <p class="s3-gun">28 Kasım 2026<b data-s3-kalan></b></p>
+        <div class="s3-teklif">
+          <p class="s3-et">Son 20 Gün · 8 Kasım'da başlıyor</p>
+          <p>Ders ders al: 1 ders <b data-s3-fiyat="yeterlilik-1">—</b></p>
+          <p>Tüm dersler <b data-s3-fiyat="yeterlilik-tum">—</b></p>
+        </div>
+        <p class="s3-durum" data-s3-durum hidden></p>
+        <a class="s3-dg" data-s3-dg href="smmm-yeterlilik-sorulari.html">Yeterlilik'e hazırlan →</a>
+      </article>
+      <article class="s3-k s3-kapali" data-s3="kgk">
+        <p class="s3-ad">KGK Bağımsız Denetçilik</p>
+        <p class="s3-gun">Sınav günü KGK ilanıyla</p>
+        <div class="s3-teklif">
+          <p class="s3-et s3-gri">Hazırlanıyor</p>
+          <p>Modül modül soru bankası; her sorunun dayandığı standart yanında.</p>
+        </div>
+        <p class="s3-durum" data-s3-durum hidden></p>
+        <a class="s3-dg" data-s3-dg href="sorular.html#kgk" hidden>KGK'ya hazırlan →</a>
       </article>
     </div>
-    <span class="gkt-iki-soz">Söz ikisinde de var.</span>
-    <p class="gkt-dip">Şart: 7 deneme · en az 5'inde 60 · görevler tamam · 21 Kasım'dan önce<br>Fiyatlar KDV dahil · <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
+    <p class="s3-dip">Fiyatlar KDV dahil · <a href="fiyat.html">Bütün paketler</a> · <a href="kampanya-son-20-gun.html">Son 20 Gün koşulları</a> · <a class="s3-giris" id="s3Giris" href="ogrenci.html">Zaten hesabım var · Giriş yap</a></p>
   </div>
 </section>
 <section class="kah">
@@ -555,7 +583,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         <ul><li>Sınırsız soru: bankanın tamamı</li><li>Son 20 Gün: 7 deneme + konu görevleri</li><li>Her sorunun dayandığı madde altında yazar</li></ul>
         <a class="pk-al" href="satin-al.html?paket=sgs">Satın al</a>
         <p class="pk-sonra" data-sonra></p>
-        <p class="pk-sonra"><a href="#gktPaket">Yalnız denemeler: Sadece 7 Deneme <span data-gkt="yedi">999 TL</span> →</a></p>
+        <p class="pk-sonra"><a href="satin-al.html?paket=son20-sgs">Yalnız denemeler: Sadece 7 Deneme <span data-gkt="yedi">999 TL</span> →</a></p>
       </article>
       <!-- 18.10 Cem ("buraya tek ders diye giriyoruz, iki ders üç ders diye almam lazım, niye alamıyorum"): kart ders sayısı seçicili;
            düğme data-paket'i yeterlilik-N yapar, kart yeniden çizilir (fiyat motoru paketBul) -->
@@ -823,6 +851,26 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     try{ var bg=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}), k=Math.round((Date.parse(t+'T00:00:00Z')-Date.parse(bg+'T00:00:00Z'))/864e5);
       if(k>0) gun.textContent=k+' gün kaldı'; else if(k===0) gun.textContent='Sınav bugün'; }catch(e){}
   }
+  /* 28.10 üç sınav kartı (ilk ekran): kalan gün (Türkiye günü, kahUstCiz ile aynı hesap), Yeterlilik fiyatı paketBul'dan
+     (KDV dahil, kart dipnotu "Fiyatlar KDV dahil"), paketi açık üyede düğme "Soru çöz" + bitiş tarihi. KGK kartı KGK_ACIK ile açılır.
+     Karta basınca seçim saklanır: geri dönende sayfanın geri kalanı (günün sorusu, kısayollar) o sınava göre çizilir. */
+  function s3Ciz(){
+    var bg=''; try{ bg=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}); }catch(e){}
+    [].forEach.call(document.querySelectorAll('.s3-k[data-s3]'),function(k){
+      var s=k.getAttribute('data-s3'), t=k.getAttribute('data-tarih'), kal=k.querySelector('[data-s3-kalan]');
+      if(kal){ kal.textContent=''; if(t&&bg){ var g=Math.round((Date.parse(t+'T00:00:00Z')-Date.parse(bg+'T00:00:00Z'))/864e5); kal.textContent=g>0?g+' gün kaldı':(g===0?'Sınav bugün':''); } }
+      [].forEach.call(k.querySelectorAll('[data-s3-fiyat]'),function(f){ try{ var p=paketBul(f.getAttribute('data-s3-fiyat')); if(p) f.textContent=tl(p.fiyat)+' TL'; }catch(e){} });
+      var dg=k.querySelector('[data-s3-dg]'), du=k.querySelector('[data-s3-durum]');
+      if(s==='kgk'){ k.classList.toggle('s3-kapali',!KGK_ACIK); dg.hidden=!KGK_ACIK; }
+      var d=(UYE.sinavlar&&UYE.sinavlar[s])||{}, S=U&&U.SINAVLAR[s];
+      if(d.durum==='aktif'&&S&&S.gir){
+        var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
+        dg.textContent='Soru çöz →'; dg.href=S.gir; du.innerHTML='Paketin açık'+(bit?' · <b>'+esc(bit)+'</b> tarihine kadar':''); du.hidden=false;
+      } else du.hidden=true;
+      dg.onclick=function(){ try{ if(U&&U.sinavSec) U.sinavSec(s); say('anasayfa/s3/'+s,'Ana sayfa: sınav kartı'); }catch(e){} };
+    });
+    try{ $('s3Giris').hidden=!!UYE.oturum; }catch(e){}
+  }
   function dugmeCiz(){
     provaSerit(); kahUstCiz();
     var S=U?U.SINAVLAR[secili]:{olc:'kaydir/vitrin/ornek-sgs.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
@@ -834,13 +882,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     /* 13.10 KGK: ücretsiz katman (30 soruluk ölçüm, 5 örnek soru, sık konu denemesi, deneme seti) KGK'da YOK (13.10 ölçüldü) ->
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
-    /* 28.10 Cem ("ekran alt alta böyle görünüyor normal mi"): Geçene Kadar Tetikte bölümü kahramanın ÜSTÜNE eklenmişti → iki ilk
-       ekran (iki başlık, iki maskot) alt alta; Yeterlilik seçili ziyaretçi (Google satışının çoğu) tepede SGS kampanyası görüyordu.
-       Artık tek ilk ekran: SGS seçili + SGS paketi açık değil + sınav günü geçmemiş → kampanya bölümü (iki paket kartıyla) ilk ekran,
-       kahraman ve üçlü paket kartları gizli (SGS Tam Paket iki kez görünmesin). Öteki her durumda kahraman + paketler, kampanya gizli. */
-    var gktGoster=(secili==='sgs'&&d.durum!=='aktif'&&Date.now()<Date.UTC(2026,10,21,21,0,0));
-    try{ $('gkt').style.display=gktGoster?'':'none'; document.querySelector('.kah').style.display=gktGoster?'none':''; $('paketler').style.display=gktGoster?'none':'';
-      $('gktGun').textContent=$('kahUstGun').textContent; }catch(e){}
+    s3Ciz();
     ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
     try{ $('dene30').hidden=kgkSec||d.durum==='aktif'; $('dene5').href=ornek; }catch(e){}
     /* 17.10 kısayollar seçili sınavın sayfalarına; "Zaten hesabım var" oturumu açık olana gösterilmez */
@@ -910,8 +952,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       say('anasayfa/sinav/'+secili,'Ana sayfa: sınav seçti');
       dugmeCiz(); ekranCiz();
       /* 17.10: haplar kahramanın altında - telefonda değişen düğme ekran dışındaysa kahramana kaydır */
-      /* 28.10: SGS'de ilk ekran kampanya bölümü (kahraman gizli) → görünen ilk ekrana kaydır */
-      try{ var ilk=($('gkt').style.display==='none')?document.querySelector('.kah'):$('gkt'), r=ilk.getBoundingClientRect(); if(r.top<0||r.top>window.innerHeight/2) ilk.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+      try{ var r=$('cta1').getBoundingClientRect(); if(r.top<64||r.bottom>window.innerHeight) document.querySelector('.kah').scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
