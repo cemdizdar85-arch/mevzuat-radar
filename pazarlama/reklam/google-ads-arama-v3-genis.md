@@ -118,16 +118,42 @@ Açıklamalar:
 3. Yeterlilik'in 8 dersi için soru çöz; her yanlışta nedeni ve dayanak madde yanında.
 4. Tetikte'nin TÜRMOB ve TESMER'in resmî sınavlarıyla bağlantısı yoktur.
 
+### Marka grubu ("Reklam grubu 1", [tetikte] vb.) · reklam 2 "Geçene Kadar Tetikte" · nihai URL `https://tetikte.com/kampanya-son-20-gun.html?k=gads` · yol smmm/soz
+
+<!-- Cem 27.10: "bizi arayanlar bu yeni kampanyayı bulsunlar". Marka grubu iki sınavı birlikte taşır → söz açıklamasında
+"Staja Giriş:" öneki ŞART (Yeterlilik'te söz yok). Açıklama 1 → konum 1, açıklama 2 → konum 2 SABİT. -->
+
+Başlıklar:
+1. Geçemezsen Geçene Kadar Bizden
+2. Geçene Kadar Tetikte
+3. Staja Giriş İçin Devam Sözü
+4. Tetikte SMMM Soru Bankası
+5. Son 20 Gün: 7 Deneme
+6. SMMM Staja Giriş Soruları
+7. SMMM Yeterlilik Soruları
+8. Staja Giriş Sınavı 21 Kasım
+9. Yanlışının Nedenini Gör
+10. 5 Örnek Soru, Üye Olmadan
+
+Açıklamalar (ikisi de sabit):
+1. Staja Giriş: 7 denemenin en az 5'inde 60 al; kalırsan üyeliğin geçene kadar ücretsiz.
+2. Şartlar: denemeleri 21 Kasım'dan önce bitir, çalışma görevlerini tamamla. Ayrıntı sitede.
+
 ## Günlük bütçe planı
 
-| Dönem | Gün | Günlük | Dönem toplamı | Neden |
-|---|---|---|---|---|
-| 27.10 – 10.11 | 15 | 1.000 TL | 15.000 TL | 19.10'da gösterimin %34'ü bütçe bittiği için kaçtı (840 TL/gün iken) |
-| 11.11 – 21.11 | 11 | 1.400 TL | 15.400 TL | iki sınavın son 10 günü, arama en yoğun |
-| 22.11 – 28.11 | 7 | 700 TL | 4.900 TL | Staja Giriş bitti, yalnız Yeterlilik grubu açık |
-| **Toplam üst sınır** | 33 | | **35.300 TL** | Google günlük bütçeyi bazı günler 2 katına kadar aşabilir; ay toplamı günlük × gün sayısını geçmez |
+<!-- 27.10 gece Cem: "yarın reklam çıkacağız, yarından 10 Kasım'a kadar önemli" → para başa yığıldı (erken kayıt 1 Kasım
+biter; söz için 7 deneme 21.11'den önce bitmeli, geç gelen sözü yetiştiremez). Eski kademe 1.000/1.400/700 = 35.300 TL. -->
 
-21.11 gece: "Staja Giriş" grubu duraklatılır. 28.11 gece: kampanya biter.
+| Dönem | Gün | Günlük | Dönem toplamı | Nasıl |
+|---|---|---|---|---|
+| 27.10 | 1 | 1.000 TL | 1.000 TL | elle (27.10) |
+| 28.10 – 10.11 | 14 | **1.500 TL** | 21.000 TL | elle, 27.10 gece kaydedildi |
+| 11.11 – 21.11 | 11 | **1.000 TL** | 11.000 TL | otomatik kural "Tetikte 11.11 butce 1000" (bir kez, 11.11 00:00) |
+| 22.11 – 28.11 | 7 | **500 TL** | 3.500 TL | otomatik kural "Tetikte 22.11 butce 500" (bir kez, 22.11 00:00) |
+| **Toplam üst sınır** | 33 | | **≈36.500 TL** | Google bazı günler günlüğün 2 katına kadar harcar; ay toplamı günlük × gün sayısını geçmez |
+
+21.11 23:00: otomatik kural "Tetikte 21.11 Staja Giris durdur" (reklam grubu, bir kez). 28.11: kampanya bitiş tarihi.
+Kural sonuçları cemdizdar85@hotmail.com'a ("yalnız değişiklik/hata varsa").
 
 **Durdurma kuralı:** son 7 günde reklam harcaması ÷ `gads` etiketli ödenen sipariş > **3.000 TL** olursa bütçe bir önceki
 kademeye iner; iki hafta üst üste aşarsa 500 TL/güne çekilir. Ölçüm her sabah `tetikte-google-ads-sabah-raporu` görevinden.
