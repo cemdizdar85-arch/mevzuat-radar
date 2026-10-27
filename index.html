@@ -409,7 +409,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
-<link rel="stylesheet" href="gkt.css?v=1">
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -445,49 +444,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <span class="kayan-iz" aria-hidden="true"><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span></span></a>
   <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
-<!-- 27.10 Cem: GEÇENE KADAR TETİKTE (ürün "Son 20 Gün"). Elçi kartlarıyla birebir dil (gkt.css); rakamlar gkt.js ← fiyat-motoru.js.
-     Telefonda ilk ekranda başlık + düğme. Söz şartları ve iki paketin farkı kampanya-son-20-gun.html'de. 22 Kasım'da gkt.js gizler. -->
-<section class="gkt" id="gkt" data-gkt-bolum aria-labelledby="gktBas">
-  <div class="gkt-serit">Geçene Kadar Tetikte · <span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
-  <div class="gkt-ic">
-    <div>
-      <h2 class="gkt-h" id="gktBas">Sınavda kalırsan, geçene kadar <span class="gkt-kutu">TETİKTE</span></h2>
-      <p class="gkt-alt">Denemelerimizde barajı geç, gerçek sınavda kalırsan <b>üyeliğin geçene kadar ücretsiz.</b></p>
-      <a class="gkt-dg" href="#gktPaket">Şimdi başla, sorular hazır</a>
-      <p class="gkt-not"><span data-gkt-erken><span class="gkt-ind">1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</span> · </span><a href="kampanya-son-20-gun.html">Şartlar ve koşullar</a></p>
-    </div>
-    <div class="gkt-karne" aria-label="Örnek deneme karnesi">
-      <img class="gkt-maskot" src="gorsel/maskot-giris.jpg" width="76" height="76" alt="Nöbetçi" loading="lazy" decoding="async">
-      <p class="gkt-karne-bas"><span>Son 20 Gün · Deneme karnesi</span><span>1 Kasım'da açılıyor</span></p>
-      <div class="gkt-d"><div><small>D1</small><b>64</b></div><div><small>D2</small><b>61</b></div><div class="k"><small>D3</small><b>55</b></div><div><small>D4</small><b>68</b></div><div><small>D5</small><b>63</b></div><div><small>D6</small><b>70</b></div><div class="b"><small>D7</small><b>…</b></div></div>
-      <div class="gkt-cubuk"><i></i></div>
-      <div class="gkt-karne-alt"><span>5 deneme 60+ · görevler ✓</span><span class="gkt-soz">SÖZ AKTİF ✓</span></div>
-      <p class="gkt-ornek">Örnek gösterimdir.</p>
-      <p class="gkt-sart">Şart: 7 deneme · en az 5'inde 60 · görevler tamam</p>
-    </div>
-  </div>
-  <div class="gkt-paket" id="gktPaket">
-    <h2 class="gkt-h">İki paket, tek söz: <span class="gkt-kutu">TETİKTE</span></h2>
-    <div class="gkt-kartlar">
-      <article class="gkt-k">
-        <div class="gkt-k-ust"><h3>Sadece 7 Deneme</h3><p class="gkt-fy"><b data-gkt="yedi">999 TL</b><small data-gkt="yedi-haric">832,50 TL + KDV</small></p></div>
-        <p class="gkt-icerik">7 deneme + konu görevleri</p>
-        <p class="gkt-yesil">✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar</p>
-        <a class="gkt-al" href="satin-al.html?paket=son20-sgs">7 Deneme'yi al</a>
-      </article>
-      <article class="gkt-k tam">
-        <span class="gkt-rozet" data-gkt-erken>1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</span>
-        <div class="gkt-k-ust"><h3>Tam Paket</h3><p class="gkt-fy"><b data-gkt="tam">2.388 TL</b><small data-gkt-erken><span data-gkt="liste">2.988 TL</span> yerine</small><small data-gkt="tam-haric">1.990 TL + KDV</small></p></div>
-        <p class="gkt-icerik">7 deneme + görevler + sitedeki bütün SGS soruları</p>
-        <p class="gkt-yesil">✓ Kalırsan bütün üyeliğin geçene kadar ücretsiz</p>
-        <p class="gkt-sari">★ Bizimle geçersen bitirme (Yeterlilik) paketinde %50 indirim</p>
-        <a class="gkt-al" href="satin-al.html?paket=sgs">Tam Paketi al</a>
-      </article>
-    </div>
-    <span class="gkt-iki-soz">Söz ikisinde de var.</span>
-    <p class="gkt-dip">Şart: 7 deneme · en az 5'inde 60 · görevler tamam · 21 Kasım'dan önce<br>Fiyatlar KDV dahil · <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
-  </div>
-</section>
 <section class="kah">
   <div class="ic">
     <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
@@ -546,14 +502,11 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     <div class="pk-kartlar">
       <article class="pk-kart" data-paket="sgs">
         <p class="pk-sinav">SMMM Staja Giriş</p>
-        <h3>Tam Paket</h3>
+        <h3>Tüm paket</h3>
         <p class="pk-fiyat" data-fiyat>—</p><p class="pk-alt" data-dahil></p>
-        <!-- 27.10 Geçene Kadar Tetikte: erken kayıt satırı (gkt.js rakamı yazar, 1 Kasım 23:59'da kalkar) -->
-        <p class="pk-alt" data-gkt-erken style="color:var(--ink);font-weight:800">1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirimle <span data-gkt="tam">2.388 TL</span></p>
-        <ul><li>Sınırsız soru: bankanın tamamı</li><li>Son 20 Gün: 7 deneme + konu görevleri</li><li>Her sorunun dayandığı madde altında yazar</li></ul>
+        <ul><li>Sınırsız soru: bankanın tamamı</li><li>Birebir Prova: 130 soru, resmî ders dağılımı</li><li>Her sorunun dayandığı madde altında yazar</li></ul>
         <a class="pk-al" href="satin-al.html?paket=sgs">Satın al</a>
         <p class="pk-sonra" data-sonra></p>
-        <p class="pk-sonra"><a href="#gktPaket">Yalnız denemeler: Sadece 7 Deneme <span data-gkt="yedi">999 TL</span> →</a></p>
       </article>
       <!-- 18.10 Cem ("buraya tek ders diye giriyoruz, iki ders üç ders diye almam lazım, niye alamıyorum"): kart ders sayısı seçicili;
            düğme data-paket'i yeterlilik-N yapar, kart yeniden çizilir (fiyat motoru paketBul) -->
@@ -721,9 +674,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 
 <!-- 07.10: sürüm numarası tarayıcı önbelleğini kırar (Cem eski oynatıcıyı görüyordu, max-age 600). nobetci-oynatici.js her değiştiğinde ?v= artırılır. -->
 <script src="nobetci-oynatici.js?v=20261007k"></script>
-<script src="fiyat-motoru.js?v=20261027a"></script>
-<script src="gkt.js?v=1"></script>
-<script src="uye-durumu.js?v=20261027c30"></script>
+<script src="fiyat-motoru.js?v=20261013b"></script>
+<script src="uye-durumu.js?v=20261018b"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script>
 (function(){
@@ -823,7 +775,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   }
   function dugmeCiz(){
     provaSerit(); kahUstCiz();
-    var S=U?U.SINAVLAR[secili]:{olc:'kaydir/vitrin/ornek-sgs.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
+    var S=U?U.SINAVLAR[secili]:{olc:'seviye-testi.html',al:'satin-al.html?paket=sgs',fiyat:'fiyat.html'};
     var d=(UYE.sinavlar&&UYE.sinavlar[secili])||{durum:UYE.oturum?'uye':'ziyaretci'};
     var bit=(U&&d.bitis)?U.tarihYazi(d.bitis):'';
     var c1=$('cta1'), c2=$('cta2'), du=$('durum');

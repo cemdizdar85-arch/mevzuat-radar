@@ -867,7 +867,9 @@ $html=@'
 .sik{position:relative;padding-right:40px}.sikCiz{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:.85em;padding:4px 6px;border-radius:8px;opacity:.55}.sik:hover .sikCiz{opacity:1}.sik.cizili{opacity:.45}.sik.cizili .sikMetin{text-decoration:line-through}.sik.cizili .sikCiz{color:var(--kirmizi);opacity:1}
 .sureCip{font-size:.8em;color:var(--dim);margin-left:8px}
 /* 06.09 R1 akran yüzdesi: şıkkın sağ altında küçük yüzde; yanlış şıkta %40+ ise "çoğunluk tuzağı" vurgusu */
-.sikYuzde{position:absolute;right:34px;bottom:4px;font-size:.72em;color:var(--dim)}.sik.akranCok .sikYuzde{color:var(--kirmizi);font-weight:700}.sik.dogru .sikYuzde{color:var(--yesil)}
+.sikYuzde{position:absolute;right:34px;top:50%;transform:translateY(-50%);font-size:.72em;color:var(--dim)}
+/* 27.10 (Cem): uzun şıkta "%60" yazının üstüne biniyordu → yüzde gelen şıkta metne sağdan yer açılır, yüzde dikeyde ortalanır */
+.sik.yuzdeli{padding-right:78px}:root[data-sade] .sik.yuzdeli{padding-right:58px}:root[data-sade] .sikYuzde{right:12px}.sik.akranCok .sikYuzde{color:var(--kirmizi);font-weight:700}.sik.dogru .sikYuzde{color:var(--yesil)}
 .akranNot{font-size:.84em;color:var(--dim);margin-top:6px}
 /* 06.09 VERİLENLER → HESAP → SONUÇ blokları */
 .tt tr.blok th{text-align:left;font-size:.72em;letter-spacing:.08em;color:var(--dim);background:var(--bg);padding:7px 8px;cursor:pointer;user-select:none}.tt tr.blok .blokSay{color:var(--altin)}.tt tr.blok .blokAcKapa{float:right;color:var(--mavi)}
@@ -1372,7 +1374,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
     try{ fetch(KAG_SB_URL+'/rest/v1/rpc/sik_yuzdesi',{ method:'POST', headers:{ 'Content-Type':'application/json', apikey:KAG_SB_KEY, Authorization:'Bearer '+KAG_SB_KEY }, body:JSON.stringify({ p_soru_id:s.id }) })
       .then(r=>r.ok?r.json():null).then(rows=>{ if(!rows||!rows.length) return; const top=rows.reduce((a,r)=>a+Number(r.n||0),0); if(top<5) return;   // 5 cevaptan az: yüzde yanıltır, gösterme
         const say={}; rows.forEach(r=>{ say[String(r.secim)]=Number(r.n||0); });
-        k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
+        k.querySelectorAll('.sik').forEach(b=>{ const h=b.dataset.h; const y=Math.round(100*(say[h]||0)/top); let c=b.querySelector('.sikYuzde'); if(!c){ c=document.createElement('span'); c.className='sikYuzde'; b.appendChild(c); b.classList.add('yuzdeli'); } c.textContent='%'+y; c.title=(say[h]||0)+' / '+top+' aday bu şıkkı seçti'; b.classList.toggle('akranCok',y>=40&&h!==s.dogru); });
         const g=k.querySelector('.geri'); if(g&&!g.querySelector('.akranNot')&&durum.cevap[i]){ const secH=durum.cevap[i]; const n=document.createElement('div'); n.className='akranNot'; const yuzdeEk=y=>{ y=Math.round(y); if(y===100) return '%100\'ü'; if(y===0) return '%0\'ı'; const b=y%10, o=Math.floor(y/10); const ek=b?['','i','si','ü','ü','i','sı','si','i','u'][b]:['','u','si','u','ı','si','ı','i','i','ı'][o]; return '%'+y+'\''+ek; };   // 27.10: "%12'i" → "%12'si" (on iki-si)
           n.textContent='👥 '+top+' adayın '+yuzdeEk(100*(say[secH]||0)/top)+' senin gibi '+secH+' dedi; '+yuzdeEk(100*(say[s.dogru]||0)/top)+' doğruyu buldu.'; g.appendChild(n); } })
       .catch(()=>{}); }catch(e){}

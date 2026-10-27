@@ -348,7 +348,7 @@
   <div class="alan" style="margin:12px 0 14px">
     <!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar
          elçi altyapısında, süre bitince .github/workflows/erken-kayit-kapat.yml kapatır. Koşullar: kampanya-son-20-gun.html -->
-    <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Geçene Kadar Tetikte erken kayıt:</b> 1 Kasım 23:59'a kadar SGS Tam Pakette <b>600 TL indirim</b> (2.988 TL yerine 2.388 TL) — kod: <b>ERKEN600</b>. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. Kod "Sadece 7 Deneme" paketine işlemez. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
+    <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Son 20 Gün erken kayıt:</b> 1 Kasım 23:59'a kadar SGS paketinde <b>400 TL indirim</b> — kod: <b>ERKEN400</b>. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
     <script>(function(){ try { if (Date.now() < Date.UTC(2026,10,1,20,59,59)) document.getElementById('erkenKayit').hidden = false; } catch(e){} })();</script>
     <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
     <div id="kodKutu" hidden>
@@ -440,7 +440,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261027a"></script>
+<script src="fiyat-motoru.js?v=20261019b"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -793,10 +793,6 @@ function ozelKodDenetle(kod, sira){
   document.getElementById('elciSatir').style.display = '';
   var q = elciTemizle(new URLSearchParams(location.search).get('e'));
   if(!q){ try{ q = elciTemizle(localStorage.getItem('tt_elci')); }catch(e){} }
-  /* 27.10 Geçene Kadar Tetikte: kodsuz gelen SGS alıcısına erken kayıt kodu hazır gelir. Adresteki ya da bu cihazda
-     saklı elçi kodu VARSA ona dokunulmaz (elçinin satışı elçide kalır; elçi kodu da 600 verir). */
-  if(!q && typeof erkenKayitAcik === 'function' && erkenKayitAcik()
-     && new URLSearchParams(location.search).get('paket') === 'sgs'){ q = ERKEN_KAYIT.kod; }
   if(q){ document.getElementById('elci').value = q; }
   var t = null;
   document.getElementById('elci').addEventListener('input', function(){ clearTimeout(t); t = setTimeout(elciDenetle, 450); });
