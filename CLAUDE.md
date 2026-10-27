@@ -519,6 +519,17 @@ Cem yanlış bir şey isterse "böyle olmaz" derim; ısrar ederse kararına uyar
   4. **Yıl dönümü:** Kanun Aynası (`mevzuat.yml`) her yutmada kütüğü tazeler + `--nobet` ile "sınav yılının tutarı kütükte yok"
      uyarısı basar. 1 Ocak'ta sınav yılı kendiliğinden ilerler; eski yıl soruları `--banka` taramasında YT-ESKI-YIL olarak listelenir
      ve **resmî kaynakla elle onarılır** (otomatik soru değişikliği YOK — yanlış soru basma kuralı).
+  5. ⭐ **YENİ HÜKÜM, İLK UYGULAMA YILI KAPANINCA SORULUR** (28.10.2026, Cem "karar ver, eski sorulardan bak" + "kurala yaz").
+     **Ölçüldü (bitirme Vergi, 2019–2026 çıkmış metinleri + `veri/smmm-analiz.json`):** yıllık beyanı 2021'den beri 18 sınavın 17'si
+     Y−1 yılıyla soruyor (2021/2 karışık: 2019+2020). Yurt içi asgari kurumlar vergisi (7524, 08.2024, 2025 dönemi) 2025'in üç sınavında
+     YOK, ilk kez 2026/2'de "2025 hesap dönemi" diye. Mük. m.20/D (7582, 21.05.2026) 2026/2'de YOK. Tek istisna 2020/2 (26.09.2020):
+     dijital hizmet vergisi "Mart 2020" dönemiyle - o sınav yıllık beyanı da cari yılla (2020) sormuştu, düzen 2021'den beri tekrarlanmadı.
+     Kurallar: (a) Y yılında yürürlüğe giren hüküm Y sınavında sorulmaz; ilk kez Y+1 sınavlarında, Y yılıyla sorulur. (b) Bu sorular
+     **1 Ocak Y+1'den sonra basılır** (önce basılırsa KAPI-YT YT-YIL yeni soruyu durdurur, hakem parası boşa gider; 2027/1 eski yıllara
+     göre Mart–Nisan, ocak basımı yetişir). (c) Bekleyen hükümler `veri/sinav/yeni-hukum-takvimi.json`'da (elle tutulur: hüküm,
+     yürürlük, ilk sorulabileceği sınav, ambar durumu); 1 Ocak'ta takvimdeki "basim_baslar" yılı gelen kayıtlar basım planına girer.
+     (d) Aylık vergi (KDV, ÖTV, dijital hizmet) **son kapanmış dönemle** yazılır (2026/1: "Aralık 2025"); tutar içermeyen usul
+     sorusunda olay tarihi cari yıl olabilir (2026/1: "2026 yılının Ocak ayında vefat").
   🚫 GÖRMEZ: kütükte olmayan yıl/kalem (2025 asgari ücret, VUK m.370 haddinin yılı, SGK tavanı, MTV, harç) · sayının kelime
   yakınında (±100) geçmediği yazım · tutarın yazıyla ya da farklı biçimle yazılması.
 - "Sınav" = **her zaman üçü**: SGS + yeterlilik + KGK. Üçünü kapsamayan ölçümle iddia kurulmaz.
