@@ -63,6 +63,34 @@ html[data-theme="dark"] .gkt{border-radius:18px;margin:10px}
 .gkt-iki-soz{display:block;background:var(--gk-ink);color:var(--gk-tur);text-align:center;font-weight:900;font-size:clamp(19px,5vw,24px);border-radius:16px;padding:14px;margin:16px 0 8px}
 .gkt-dip{font-size:13px;color:var(--gk-dim);text-align:center;margin:0}
 .gkt-dip a{color:var(--gk-ink);font-weight:700}
+/* 28.10 Cem ("görüntü çok kötü", kampanya sayfası ekran görüntüsü): kartlar afiş gibiydi — 46 px başlık, 7 Deneme kartının
+   ortasında boşluk (eşit boy + düğme dipte), fiyat sağda dağınık, renkli kutular, siyah "Söz ikisinde de var" bandı. Sade fiyat
+   kartı: ad → fiyat (sola) → düğme → düz madde listesi; renk yalnız rozette ve Tam Paket düğmesinde. Aynı sınıfları kullanan
+   fiyat.html, smmm-staja-giris-sorulari.html, kampanya-son-20-gun.html birlikte düzelir (işaretleme değişmedi). */
+.gkt-paket{max-width:960px}
+.gkt-paket .gkt-h{font-size:clamp(25px,5vw,34px);letter-spacing:-.6px;line-height:1.15;margin:4px 0 8px}
+.gkt-paket .gkt-alt{font-size:16.5px;max-width:none;margin:0 0 18px}
+.gkt-kartlar{gap:16px}
+.gkt-k{border-radius:16px;padding:20px;gap:0}
+.gkt-k.tam{border:2px solid var(--gk-ink);box-shadow:0 6px 20px rgba(17,26,46,.08)}
+.gkt-k{position:relative}
+.gkt-rozet{position:absolute;top:-13px;left:18px;font-size:12.5px;padding:4px 11px;margin:0}
+.gkt-kartlar{padding-top:8px}
+.gkt-k-ust{order:1;display:block}
+.gkt-k h3{font-size:20px;font-weight:850;margin:0 0 6px}
+.gkt-fy{text-align:left;white-space:normal;margin:0}
+.gkt-fy b{font-size:clamp(30px,7vw,36px);letter-spacing:-.8px;margin:0 0 4px}
+.gkt-fy small{display:inline;font-size:13px;margin:0}
+.gkt-fy small+small::before{content:" · "}
+.gkt-al{order:2;margin:16px 0 14px;font-size:16px;padding:12px 14px;border-radius:12px}
+.gkt-k.tam .gkt-al{box-shadow:none}
+.gkt-icerik{order:3;font-size:15px;font-weight:700;color:var(--gk-ink);margin:0 0 4px}
+.gkt-yesil,.gkt-sari{order:4;background:none;border:0;border-top:1px solid var(--gk-cizgi);border-radius:0;padding:9px 0 0;margin:9px 0 0;
+  font-size:14.5px;font-weight:650;color:var(--gk-ink)}
+.gkt-sari{order:5}
+.gkt-iki-soz{background:none;color:var(--gk-ink);font-size:16px;font-weight:800;border-radius:0;padding:0;margin:18px 0 4px}
+.gkt-gelecek{max-width:960px;margin:18px auto 0;padding:14px 16px;border:1px dashed var(--gk-cizgi);border-radius:14px;font-size:15px;color:var(--gk-soluk);text-align:center}
+.gkt-gelecek b{color:var(--gk-ink)}
 [data-gkt-erken][hidden]{display:none!important}
 /* 27.10: kampanya bloğu görünürken ana sayfadaki eski kayan şerit (en-cok-cikan-sorular) gizli; üst üste iki turuncu şerit
    elçi kaydında kalabalık görünüyordu. 22 Kasım'da gkt.js bloğu gizleyince şerit kendiliğinden geri gelir. */
