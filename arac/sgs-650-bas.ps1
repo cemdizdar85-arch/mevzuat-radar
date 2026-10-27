@@ -216,6 +216,10 @@ foreach($r in $hep){
   if($gorulen.ContainsKey($anahtarSoru)){ continue }   # ayni soru iki secim dosyasindaysa bir kez
   $gorulen[$anahtarSoru]=$true
   if($elleRet.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-ELLE elle ret)"); continue }
+  # 27.10.2026 Cem (Son 20 Gun): sgs-s20-* sorulari YALNIZ Son 20 Gun denemelerine ayrildi; normal ders sayfalarina, ucretsiz orneklere
+  # ve vitrine GIRMEZ (olculdu 27.10: 523 s20 sorusu ders sayfalarindaydi, 101'i ucretsiz -> denemeler 1 Kasim'dan once aciga cikiyordu).
+  # Sorular ambarda (kalip_parti) durur; denemeler kendi sayfasindan okur. GORMEZ: s20 sorusunun baska etiketle yeniden basilmasi.
+  if("$($r.etiket)" -like 'sgs-s20-*'){ $dusen.Add("$anahtarSoru (KAPI-S20 Son 20 Gun denemesine ayrildi)"); continue }
   if($ikizDisi.ContainsKey($anahtarSoru)){ $dusen.Add("$anahtarSoru (KAPI-IK ikiz)"); continue }
   $sebep = DusmeSebebi $r.etiket $r.id
   if(-not $sebep -and $script:RET.ContainsKey($anahtarSoru)){ $sebep = "ret kutugu: $($script:RET[$anahtarSoru])" }

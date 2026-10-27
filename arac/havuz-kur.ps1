@@ -147,6 +147,15 @@ foreach($x in @(Get-ChildItem (Join-Path $depoKok 'veri\fabrika') -Filter 'kalip
     $disSinav['pilot']=1+[int]$disSinav['pilot']
     continue
   }
+  # ⛔ SON 20 GÜN PARTİSİ HAVUZA GİRMEZ (27.10.2026, Cem). sgs-s20-* soruları YALNIZ "Son 20 Gün" denemelerine ayrıldı; havuz
+  #   ders sayfalarını, sık konu setlerini, deneme setlerini ve vitrini beslediği için burada kesilir (sgs-650-bas.ps1'de ikinci kapı
+  #   KAPI-S20). Ölçüldü 27.10: paket_soru'da 523 s20 sorusu ders sayfalarındaydı (101'i ücretsiz), veri/deneme'de 39 set dosyasında
+  #   s20 kimliği vardı → denemeler 1 Kasım'dan önce açığa çıkıyordu. Denemeler soruları ambardan (kalip_parti) okur.
+  #   🚫 GÖRMEZ: s20 sorusunun başka etiketle yeniden basılması.
+  if($et -like 'sgs-s20-*'){
+    $disSinav['s20']=1+[int]$disSinav['s20']
+    continue
+  }
   $ders=DersBul $et
   $c=$null
   foreach($d in 1..3){ try{ $c=Get-Content $x.FullName -Raw -Encoding UTF8|ConvertFrom-Json; break }catch{ Start-Sleep -Milliseconds 400 } }

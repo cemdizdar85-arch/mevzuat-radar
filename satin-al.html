@@ -346,6 +346,10 @@
        kod altında rozet olarak durur, kutu ikinci kod için boşalır. ?d= / ?e= ve tt_davet / tt_elci yine doldurur.
        Gönderilen değerler eski gizli alanlardan okunur (#davet, #elci) — sipariş/sunucu tarafı değişmedi. -->
   <div class="alan" style="margin:12px 0 14px">
+    <!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar
+         elçi altyapısında, süre bitince .github/workflows/erken-kayit-kapat.yml kapatır. Koşullar: kampanya-son-20-gun.html -->
+    <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Son 20 Gün erken kayıt:</b> 1 Kasım 23:59'a kadar SGS paketinde <b>400 TL indirim</b> — kod: <b>ERKEN400</b>. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
+    <script>(function(){ try { if (Date.now() < Date.UTC(2026,10,1,20,59,59)) document.getElementById('erkenKayit').hidden = false; } catch(e){} })();</script>
     <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
     <div id="kodKutu" hidden>
       <label class="et" for="kod">Elçi / indirim kodu</label>
