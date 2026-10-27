@@ -68,9 +68,15 @@
     return { gun: n, bugunVar: bugunVar };
   }
 
-  function ozet(){
+  /* 28.10 (Cem "bak ilgilen", girişli hesapta görüldü): Hesabım Yeterlilik seçiliyken kart "Çözülen 18 · tekrar bekleyen 146" diyordu,
+     sayıların 15'i/104'ü SGS'dendi; aynı ekranda "0 çözülen" ve "Paketin hazır, ilk sorunla başla" ile çelişiyordu. sinav verilirse
+     ('sgs'|'yeterlilik'|'kgk') cevap ve kutu soru kimliğinin önekiyle (sgs-/smmm-/kgk-) o sınava indirilir. Seri hep TÜM sınavlardan
+     (hangi sınava çalışılsa çalışılmış gün). sinav verilmezse eskisi gibi hepsi (yanlislarim.html). */
+  function ozet(sinav){
     var kayit = oku('kc_kayit', []), kutu = oku('kc_kutu', []), ileri = parseInt(localStorage.getItem('kc_ileri') || '0') || 0;
     if(!Array.isArray(kayit)) kayit = []; if(!Array.isArray(kutu)) kutu = [];
+    var tumKayit = kayit, onek = sinav === 'yeterlilik' ? 'smmm-' : sinav === 'kgk' ? 'kgk-' : sinav === 'sgs' ? 'sgs-' : null;
+    if(onek){ var bu = function(x){ return x && String(x.id || '').indexOf(onek) === 0; }; kayit = kayit.filter(bu); kutu = kutu.filter(bu); }
     var an = Date.now() + ileri;
     var dogru = kayit.filter(function(x){ return x && x.dogru; }).length;
     var vadeli = kutu.filter(function(x){ return x && x.due <= an; });
@@ -114,7 +120,7 @@
       sonSeviyeYet: svYet.length ? svYet[svYet.length - 1] : null,
       /* 04.10 günlük görev (Cem "beş maddeyi yapalım", rakip BPP): bugün (yerel gün) çözülen cevap sayısı */
       bugunCozulen: kayit.filter(function(x){ return x && x.t && new Date(x.t).toDateString() === new Date(an).toDateString(); }).length,
-      gunSeri: gunSerisi(kayit, an),
+      gunSeri: gunSerisi(tumKayit, an),
       an: an
     };
   }
@@ -247,8 +253,8 @@
        kurulamaz → soru bankasına yönlendirir · kc_kayit sınav taşımaz, "Sermaye Piyasası Mevzuatı" Yeterlilik cevabı KGK'ya da sayılır.
      cb({baslik, metin, dugme, adres}, ozet, evre|null) */
   function oneri(cb, bag){
-    var o = ozet();
     bag = bag || {};
+    var o = ozet(bag.sinav);
     var ev = evre(bag.gun), yet = bag.sinav === 'yeterlilik', kgk = bag.sinav === 'kgk', kod = bag.sinav ? (yet ? 'smmm' : kgk ? 'kgk' : 'sgs') : null;
     var sikSayfa = yet ? 'en-cok-cikan-konular-yeterlilik.html' : 'en-cok-cikan-konular-sgs.html';
     dizin().then(function(d){
