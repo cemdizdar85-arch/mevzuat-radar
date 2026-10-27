@@ -1,17 +1,17 @@
 {
-  "olcum": "24.10.2026 17:13",
+  "olcum": "27.10.2026 08:35",
   "aciklama": "Ozel adi kayip yuklenici kayitlari. Olcut: firma adi JENERIK bir sirket ekiyle BASLIYOR (Ticaret/Sanayi/Limited...). Kisalik tek basina kusur DEGILDIR - sahis firmalari ('Mehmet ...') normaldir. Onarim: her kaydin IKN'lerinin sonuc ilani yeniden okunmali.",
   "kaynak": "veri/ihale-firma-ozet.json",
-  "taranan": 62835,
-  "kusurlu": 545,
+  "taranan": 62933,
+  "kusurlu": 546,
   "sinif_coklu_yuklenici": 34,
   "sinif_is_ortakligi": 0,
   "sinif_sahis_eki": 10,
-  "sinif_SADE_KESIK": 501,
-  "sade_kesik_ihale": 12965.0,
-  "sade_kesik_bedel": 65433655115.17997,
-  "etkilenen_ihale": 13210.0,
-  "etkilenen_bedel": 151819214952.08994,
+  "sinif_SADE_KESIK": 502,
+  "sade_kesik_ihale": 13115.0,
+  "sade_kesik_bedel": 65581864425.09997,
+  "etkilenen_ihale": 13361.0,
+  "etkilenen_bedel": 151967621399.50995,
   "kayitlar": [
     {
       "ad": "Yapı Merkezi İnşaat ve Sanayi Anonim Şirketi, YSE Yapı Sanayi ve Ticaret Anonim Şirketi İş Ortaklığı",
@@ -21,36 +21,36 @@
     },
     {
       "ad": "Ticaret Limited Şirketi",
-      "ihaleSayisi": 3744,
-      "toplamBedel": 21635118733.47,
+      "ihaleSayisi": 3814,
+      "toplamBedel": 21709695253.97,
       "ikn": [
         "2025/2459752",
-        "2025/2450387",
         "2025/2460556",
         "2025/2461732",
+        "2025/2450387",
         "2025/1669301",
         "2025/1741901",
-        "2024/1342895",
-        "2024/1446161",
+        "2024/1920748",
+        "2024/1920595",
         "2024/1914234",
-        "2024/1920595"
+        "2024/1899596"
       ]
     },
     {
       "ad": "Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 1212,
-      "toplamBedel": 10716641110.07,
+      "ihaleSayisi": 1216,
+      "toplamBedel": 10736908682.85,
       "ikn": [
         "2025/2443434",
         "2025/1466819",
-        "2025/53398",
-        "2024/1899622",
-        "2024/1899614",
-        "2024/1899598",
-        "2024/1821541",
+        "2024/1773584",
+        "2024/1657662",
+        "2024/1740484",
+        "2024/1820891",
+        "2024/1821334",
         "2024/1821454",
-        "2024/1821612",
-        "2024/1820891"
+        "2024/1821541",
+        "2024/1821612"
       ]
     },
     {
@@ -61,25 +61,25 @@
     },
     {
       "ad": "Sanayi Ticaret Limited Şirketi",
-      "ihaleSayisi": 464,
-      "toplamBedel": 4042322458.08,
+      "ihaleSayisi": 475,
+      "toplamBedel": 4054612413.07,
       "ikn": [
         "2025/2402267",
         "2024/1215341",
+        "2026/1251902",
         "2026/1251901",
-        "2026/1251776",
         "2026/1251773",
         "2026/1251787",
-        "2026/1251902",
-        "2026/469301",
+        "2026/1251776",
+        "2026/468518",
         "2026/469298",
         "2026/468562"
       ]
     },
     {
       "ad": "Ticaret Anonim Şirketi",
-      "ihaleSayisi": 655,
-      "toplamBedel": 2529818036.93,
+      "ihaleSayisi": 660,
+      "toplamBedel": 2535504962.67,
       "ikn": [
         "2026/230799",
         "2025/2502935",
@@ -88,21 +88,15 @@
         "2023/1219883",
         "2023/1073377",
         "2023/836545",
-        "2024/744435",
         "2024/746067",
-        "2026/468547"
+        "2024/744435",
+        "2026/468535"
       ]
     },
     {
-      "ad": "Mühendislik Mimarlık Müşavirlik Turizm Eğitim Gıda Hayvancılık Madencilik Tarım Otomotiv Ulaşım Peyzaj Temizlik Teknik Hizmetler Petrol Akaryakıt Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 38,
-      "toplamBedel": 1777084974.35,
-      "ikn": []
-    },
-    {
       "ad": "Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 670,
-      "toplamBedel": 1765061523.63,
+      "ihaleSayisi": 707,
+      "toplamBedel": 1779516365.54,
       "ikn": [
         "2025/1858262",
         "2026/1469027",
@@ -112,9 +106,15 @@
         "2024/740134",
         "2025/1320608",
         "2024/1664269",
-        "2026/449298",
-        "2026/449136"
+        "2026/449136",
+        "2026/449298"
       ]
+    },
+    {
+      "ad": "Mühendislik Mimarlık Müşavirlik Turizm Eğitim Gıda Hayvancılık Madencilik Tarım Otomotiv Ulaşım Peyzaj Temizlik Teknik Hizmetler Petrol Akaryakıt Sanayi ve Ticaret Anonim Şirketi",
+      "ihaleSayisi": 38,
+      "toplamBedel": 1777084974.35,
+      "ikn": []
     },
     {
       "ad": "Yapı Merkezi İnşaat ve Sanayi Anonim Şirketi",
@@ -570,6 +570,12 @@
       "ikn": []
     },
     {
+      "ad": "Taahhüt Otomotiv Nakliye Oto Kiralama Tıbbi Malzeme Petrol Ürünleri Madencilik Temizlik Güvenlik İşgücü Temini Gıda Tarım Hayvancılık İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 35,
+      "toplamBedel": 130337082.55,
+      "ikn": []
+    },
+    {
       "ad": "Otomotiv Ticaret Limited Şirketi",
       "ihaleSayisi": 7,
       "toplamBedel": 127502714.09,
@@ -577,26 +583,20 @@
     },
     {
       "ad": "İthalat İhracat Sanayi Ticaret Limited Şirketi",
-      "ihaleSayisi": 131,
-      "toplamBedel": 125616299.6,
+      "ihaleSayisi": 132,
+      "toplamBedel": 125636299.6,
       "ikn": [
         "2025/2065875",
         "2023/872106",
-        "2024/979151",
         "2024/909534",
+        "2024/979151",
         "2023/728645",
-        "2024/775856",
         "2024/718542",
+        "2024/775856",
         "2026/1672455",
         "2025/438364",
         "2025/2127233"
       ]
-    },
-    {
-      "ad": "Taahhüt Otomotiv Nakliye Oto Kiralama Tıbbi Malzeme Petrol Ürünleri Madencilik Temizlik Güvenlik İşgücü Temini Gıda Tarım Hayvancılık İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 34,
-      "toplamBedel": 123639482.55,
-      "ikn": []
     },
     {
       "ad": "Taahhüt Otomotiv Petrol Nakliye Madencilik Temizlik Sanayi ve Ticaret Limited Şirketi",
@@ -806,8 +806,8 @@
     },
     {
       "ad": "Danışmanlık Hizmetleri Ticaret ve Sanayi İthalat ve İhracat Limited Şirketi",
-      "ihaleSayisi": 412,
-      "toplamBedel": 72135763.27,
+      "ihaleSayisi": 418,
+      "toplamBedel": 72237094.27,
       "ikn": [
         "2026/1251772",
         "2026/1251893",
@@ -958,6 +958,23 @@
       "ikn": []
     },
     {
+      "ad": "Medikal-İş Hastahane Labaratuvar Cihaz ve Aletleri İthalat Taahhüt Mümessillik Ticaret Limited Şirketi",
+      "ihaleSayisi": 157,
+      "toplamBedel": 53007826.89,
+      "ikn": [
+        "2026/747818",
+        "2026/1151496",
+        "2025/316140",
+        "2026/427533",
+        "2025/631990",
+        "2025/1016909",
+        "2026/565567",
+        "2026/311283",
+        "2026/1081137",
+        "2026/509691"
+      ]
+    },
+    {
       "ad": "Gıda ve İhtiyaç Maddeleri Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 16,
       "toplamBedel": 52891672.55,
@@ -968,23 +985,6 @@
       "ihaleSayisi": 1,
       "toplamBedel": 52835000.0,
       "ikn": []
-    },
-    {
-      "ad": "Medikal-İş Hastahane Labaratuvar Cihaz ve Aletleri İthalat Taahhüt Mümessillik Ticaret Limited Şirketi",
-      "ihaleSayisi": 156,
-      "toplamBedel": 52810689.39,
-      "ikn": [
-        "2026/747818",
-        "2026/1151496",
-        "2025/316140",
-        "2026/427533",
-        "2025/631990",
-        "2025/1016909",
-        "2026/565567",
-        "2026/311283",
-        "2026/509691",
-        "2026/1081137"
-      ]
     },
     {
       "ad": "Taahhüt Ticaret ve Sanayi Anonim Şirketi",
@@ -1113,14 +1113,14 @@
     },
     {
       "ad": "İhracat Ticaret Limited Şirketi",
-      "ihaleSayisi": 13,
-      "toplamBedel": 38982239.0,
+      "ihaleSayisi": 14,
+      "toplamBedel": 39033530.0,
       "ikn": []
     },
     {
       "ad": "Turizm İnşaat Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 8,
-      "toplamBedel": 37929365.82,
+      "ihaleSayisi": 9,
+      "toplamBedel": 38137855.82,
       "ikn": []
     },
     {
@@ -1285,6 +1285,12 @@
       "ikn": []
     },
     {
+      "ad": "Temizlik Otomasyon Bilgisayar Petrol ve Petrol Ürünleri Otomotiv İş Makinaları Yedek Parça Bakım Onarım Oto Gaz Dönüşüm Sistemleri Reklam Taşımacılık Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 8,
+      "toplamBedel": 25555300.0,
+      "ikn": []
+    },
+    {
       "ad": "Danışmanlık Pazarlama Dış Ticaret Limited Şirketi",
       "ihaleSayisi": 2,
       "toplamBedel": 25549000.0,
@@ -1306,12 +1312,6 @@
       "ad": "Enerji ve Sanayi Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 23600000.0,
-      "ikn": []
-    },
-    {
-      "ad": "Temizlik Otomasyon Bilgisayar Petrol ve Petrol Ürünleri Otomotiv İş Makinaları Yedek Parça Bakım Onarım Oto Gaz Dönüşüm Sistemleri Reklam Taşımacılık Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 7,
-      "toplamBedel": 23427300.0,
       "ikn": []
     },
     {
@@ -1495,6 +1495,12 @@
       "ikn": []
     },
     {
+      "ad": "İthalat İhracat Ticaret Limited Şirketi",
+      "ihaleSayisi": 11,
+      "toplamBedel": 16717458.0,
+      "ikn": []
+    },
+    {
       "ad": "İnşaat Mühendisi-Ensar Osman Doğan, Ormanlar İnşaat Peyzaj Nakliye Temizlik Otomotiv İthalat İhracat Pazarlama Sanayi ve Ticaret Limited Şirketi İş Ortaklığı",
       "ihaleSayisi": 1,
       "toplamBedel": 15792463.6,
@@ -1593,12 +1599,6 @@
       "ad": "Hizmetleri Temizlik Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 13392000.0,
-      "ikn": []
-    },
-    {
-      "ad": "İthalat İhracat Ticaret Limited Şirketi",
-      "ihaleSayisi": 10,
-      "toplamBedel": 13224298.0,
       "ikn": []
     },
     {
@@ -1828,6 +1828,12 @@
       "ikn": []
     },
     {
+      "ad": "Sanayi ve Dış Ticaret Anonim Şirketi",
+      "ihaleSayisi": 36,
+      "toplamBedel": 8155188.92,
+      "ikn": []
+    },
+    {
       "ad": "Otomotiv Ticaret A.Ş.",
       "ihaleSayisi": 1,
       "toplamBedel": 8049252.33,
@@ -1843,12 +1849,6 @@
       "ad": "Gıda İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 6,
       "toplamBedel": 7908004.5,
-      "ikn": []
-    },
-    {
-      "ad": "Sanayi ve Dış Ticaret Anonim Şirketi",
-      "ihaleSayisi": 35,
-      "toplamBedel": 7905864.92,
       "ikn": []
     },
     {
@@ -1927,6 +1927,12 @@
       "ad": "İnşaat Sanayi İç ve Dış Ticaret Limited Şirketi",
       "ihaleSayisi": 2,
       "toplamBedel": 7068110.1,
+      "ikn": []
+    },
+    {
+      "ad": "Otomotiv Pazarlama ve Ticaret Sanayi İhracat İthalat Limited Şirketi",
+      "ihaleSayisi": 52,
+      "toplamBedel": 7017648.1,
       "ikn": []
     },
     {
@@ -2050,12 +2056,6 @@
       "ikn": []
     },
     {
-      "ad": "Otomotiv Pazarlama ve Ticaret Sanayi İhracat İthalat Limited Şirketi",
-      "ihaleSayisi": 50,
-      "toplamBedel": 5232508.1,
-      "ikn": []
-    },
-    {
       "ad": "Metal-Kim Metalurji ve Kimya Tarım San.Tic.Ltd.Şti.",
       "ihaleSayisi": 1,
       "toplamBedel": 5225000.0,
@@ -2092,21 +2092,27 @@
       "ikn": []
     },
     {
+      "ad": "İthalat Sanayi ve Ticaret Anonim Şirketi",
+      "ihaleSayisi": 14,
+      "toplamBedel": 4887171.0,
+      "ikn": []
+    },
+    {
       "ad": "Temizlik Hizmetleri Proje Danışmanlığı Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 4850000.0,
       "ikn": []
     },
     {
-      "ad": "İthalat Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 13,
-      "toplamBedel": 4835571.0,
-      "ikn": []
-    },
-    {
       "ad": "Medikal 2000 Tıbbi Cihazlar ve İleri Teknoloji Sanayi ve Ticaret Anonim Şirketi",
       "ihaleSayisi": 7,
       "toplamBedel": 4807540.0,
+      "ikn": []
+    },
+    {
+      "ad": "Turizm İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 10,
+      "toplamBedel": 4786656.0,
       "ikn": []
     },
     {
@@ -2263,6 +2269,12 @@
       "ad": "Nakliyat İnşaat Turizm Tarım Orman Ürünleri Zirai Alet ve Mahsulleri Gıda Maddeleri Yem Sanayi Dayanıklı Tüketim Malları Müşavirlik Tekstil Eğitim Ticaret ve Sanayi Limited Şirketi",
       "ihaleSayisi": 3,
       "toplamBedel": 3546250.0,
+      "ikn": []
+    },
+    {
+      "ad": "Enerji Elektrik İthalat İhracat Pazarlama Taahhüt Petrol Ürünleri İnşaat İnşaat Malzemeleri Mekanik Tesisat Doğalgaz Isıtma Soğutma Otomotiv Servis Gıda Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 1,
+      "toplamBedel": 3355550.0,
       "ikn": []
     },
     {
@@ -2566,12 +2578,6 @@
       "ikn": []
     },
     {
-      "ad": "Turizm İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 5,
-      "toplamBedel": 2006748.0,
-      "ikn": []
-    },
-    {
       "ad": "Nakliyat Hazır Yemek Tekstil Turizm İthalat İhracat Taahhüt Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 2000000.0,
@@ -2752,14 +2758,14 @@
       "ikn": []
     },
     {
-      "ad": "İhracat İthalat Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 3,
+      "ad": "Tekstil İnşaat Ambalaj Medikal Ürünler Sanayi ve Ticaret Anonim Şirketi",
+      "ihaleSayisi": 1,
       "toplamBedel": 1410000.0,
       "ikn": []
     },
     {
-      "ad": "Tekstil İnşaat Ambalaj Medikal Ürünler Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 1,
+      "ad": "İhracat İthalat Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 3,
       "toplamBedel": 1410000.0,
       "ikn": []
     },
@@ -2896,12 +2902,6 @@
       "ikn": []
     },
     {
-      "ad": "Gıda Taşımacılık İnşaat Sanayi Ticaret Limited Şirketi",
-      "ihaleSayisi": 1,
-      "toplamBedel": 1000000.0,
-      "ikn": []
-    },
-    {
       "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 1000000.0,
@@ -2910,6 +2910,12 @@
     {
       "ad": "İnşaat İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 3,
+      "toplamBedel": 1000000.0,
+      "ikn": []
+    },
+    {
+      "ad": "Gıda Taşımacılık İnşaat Sanayi Ticaret Limited Şirketi",
+      "ihaleSayisi": 1,
       "toplamBedel": 1000000.0,
       "ikn": []
     },
@@ -3400,15 +3406,15 @@
       "ikn": []
     },
     {
-      "ad": "Ticaret Pazarlama Sanayi Limited Şirketi",
-      "ihaleSayisi": 5,
-      "toplamBedel": 106990.0,
+      "ad": "Tekstil San.ve Tic. Limited Şirketi",
+      "ihaleSayisi": 6,
+      "toplamBedel": 108570.0,
       "ikn": []
     },
     {
-      "ad": "Tekstil San.ve Tic. Limited Şirketi",
+      "ad": "Ticaret Pazarlama Sanayi Limited Şirketi",
       "ihaleSayisi": 5,
-      "toplamBedel": 96470.0,
+      "toplamBedel": 106990.0,
       "ikn": []
     },
     {
@@ -3442,13 +3448,13 @@
       "ikn": []
     },
     {
-      "ad": "Hizmetleri İnşaat Turizm Nakliye Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Tekstil Turizm Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 84000.0,
       "ikn": []
     },
     {
-      "ad": "Tekstil Turizm Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Hizmetleri İnşaat Turizm Nakliye Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 84000.0,
       "ikn": []
