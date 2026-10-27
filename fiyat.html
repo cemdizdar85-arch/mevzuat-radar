@@ -498,8 +498,19 @@ tk.innerHTML = h;
 
 // Fiyatlar fiyat-motoru.js'ten okunur; sayfada elle yazili rakam YOKTUR.
 // 29.08: gunluk maliyet ve taksit satirlari kaldirildi (ucuz marka refleksi).
+/* 28.10 Cem ("burada 2388 yazıyor başka yerde farklı fiyatlar"): erken kayıt süresince SGS Tam Paketin TEK büyük rakamı
+   2.388 TL (KDV dahil; satın almada kodsuz uygulanan indirimle aynı). "İlk 1.000 üyeden sonra" satırı bu sürede yazılmaz;
+   1 Kasım 23:59'dan sonra eski gösterim kendiliğinden döner. Ödenen tutar satin-al'da (sunucu doğrular). */
+function erkenSgs(p){ return (p && p.id === 'sgs' && typeof erkenKayitAcik === 'function' && erkenKayitAcik()) ? p.fiyat - ERKEN_KAYIT.indirim : 0; }
 function kart(id, p){
-  var pid = p.id, hr = KDV_HARIC_GOSTER[pid];
+  var pid = p.id, hr = KDV_HARIC_GOSTER[pid], ek = erkenSgs(p);
+  if(ek){
+    document.getElementById('fy' + id).innerHTML = tl(ek) + ' <small>TL</small>';
+    document.getElementById('ls' + id).innerHTML = '';
+    var khE = document.getElementById('kh' + id); if(khE) khE.innerHTML = '<span class="kdv-dahil" style="font-size:13px">KDV dahil · ' + tl(p.fiyat) + ' TL yerine · ' + kdvHaric(ek) + ' TL + KDV</span>';
+    var ktE = document.getElementById('kt' + id); if(ktE && ktE.parentNode) ktE.parentNode.textContent = 'erken kayıt · 1 Kasım 23:59\'a kadar';
+    return;
+  }
   document.getElementById('fy' + id).innerHTML = hr ? tl(Math.round(p.fiyat / (1 + KDV_ORAN))) + ' <small>TL + KDV</small>' : tl(p.fiyat) + ' <small>TL</small>';
   var ls = document.getElementById('ls' + id);
   if(p.liste > p.fiyat){
@@ -538,7 +549,7 @@ var pTek = paketBul('yeterlilik-1'); kart('Tek', pTek); document.getElementById(
   document.getElementById('alTek').setAttribute('href', 'satin-al.html?paket=' + p.id);
 }); });
 [].forEach.call(document.querySelectorAll('#fozet [data-paket]'), function(a){ var p = paketBul(a.getAttribute('data-paket')); if(!p){ a.hidden = true; return; }
-  a.querySelector('[data-f]').innerHTML = fiyatAnaHtml(p.id, p.fiyat); });   /* 17.10 telefon özeti: rakam motordan */
+  a.querySelector('[data-f]').innerHTML = erkenSgs(p) ? tl(erkenSgs(p)) + ' TL' : fiyatAnaHtml(p.id, p.fiyat); });   /* 17.10 telefon özeti: rakam motordan · 28.10 erken kayıt */
 
 // Erisim yazisi: "en yakin sinavi kapsamiyorsa ucretsiz uzatilir" kurali
 // motorda; sayfa onu yazar, ayri hesap yapmaz.
@@ -629,7 +640,7 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
     /* 02.10: tablo KDV dahil basıyordu, sayfa notu "KDV hariç gösterilir" diyor → motorun yardımcısıyla (01.10 kararı) */
     var dahil = function(n){ var d = fiyatDahilNot(id, n); return d ? '<br><span class="kucuk">' + d + '</span>' : ''; };
     tr.innerHTML = '<td>' + p.ad + '</td>'
-      + '<td class="sag simdi">' + fiyatAnaHtml(id, p.fiyat) + dahil(p.fiyat) + '</td>'
+      + '<td class="sag simdi">' + (erkenSgs(p) ? tl(erkenSgs(p)) + ' TL<br><span class="kucuk">erken kayıt, 1 Kasım 23:59\'a kadar · sonra ' + fiyatAnaHtml(id, p.fiyat) + '</span>' : fiyatAnaHtml(id, p.fiyat) + dahil(p.fiyat)) + '</td>'
       + '<td class="sag">' + fiyatAnaHtml(id, p.liste) + dahil(p.liste) + '</td>'
       + '<td>' + (p.kota ? 'ilk ' + tl(p.kota) + ' üye' : '—') + '<br><span class="kucuk kurucuKalan"></span></td>';
     t.appendChild(tr);
