@@ -48,7 +48,10 @@
     'sgs-d2-fmuh-kolay-r2/kp-04', 'sgs-c2-fmuh-zor-r3/kp-02', 'sgs-c2-denetim-kolay-r2/kp-05', 'sgs-c2-mta-kolay-r1/kp-01',
     'sgs-k5-fmuh-zor/kp-17', 'sgs-p-ekonomi-kolay-r1-a/kp-04', 'sgs-t1-mta-zor/kp-01', 'sgs-t1-maliyet-kolay/kp-07',
     // 20.10.2026 (Cem "1.2.3"): ücretsiz 5+5 örnek sorunun iki sözel sorusu — SÖZEL şablon (aşağıda sozelSenaryo)
-    'sgs-k5-ekonomi-zor/kp-01', 'smmm-w3-yspk-cokzor/kp-18'
+    'sgs-k5-ekonomi-zor/kp-01', 'smmm-w3-yspk-cokzor/kp-18',
+    // 27.10.2026: örnek setin yeni ilk soruları (arac/ornek5-liste.json 27.10). sgs-k10 sözel şablonla geçer; son adımı 27.10'da
+    // onarıldı (önce "Çıktı = bilanço, gelir tablosu" B şıkkını taşımıyordu → SZ-DOGRU).
+    'smmm-4k-a-yfta-kolay-r6/kp-01', 'sgs-k10-fmuh-kolay/kp-04'
   ];
   /* PROVA SONUCU (15.10.2026): oturum -> kimlikler. YET-2410 paketinin 80 sorusundan KAPI-CZ'yi geçen 43'ün gözle kontrolde kalan
      39'u. Çizim verisi rpc/prova_cizim'den yalnız oturum kapandıktan sonra gelir (radar-app/sql/2026-10-15-prova-cizim.sql, aynı liste).
@@ -73,13 +76,16 @@
     'sgs-k11-ticaret-zor/kp-01':        { d: 'sgs-k11-ticaret-zor-kp-01',        n: 9,  b: [1, 2, 4, 8],       s: [10.84, 6.33, 7.3, 4.61] },
     'sgs-k5-ekonomi-zor/kp-01':         { d: 'sgs-k5-ekonomi-zor-kp-01',         n: 10, b: [0, 1, 2, 3, 9],    s: [4.31, 6.53, 8.51, 7.72, 3.42] },
     'sgs-d3-mta-cokzor-r3/kp-01':       { d: 'sgs-d3-mta-cokzor-r3-kp-01',       n: 11, b: [0, 2, 3, 6, 10],   s: [3.97, 7.66, 6.04, 4.29, 4.13] },
-    'sgs-d3-maliyet-cokzor-r1/kp-02':   { d: 'sgs-d3-maliyet-cokzor-r1-kp-02',   n: 13, b: [0, 1, 2, 4, 12],   s: [3.58, 10.29, 4.2, 7.38, 6.91] },
     'sgs-d5-vergi-cokzor-r2/kp-02':     { d: 'sgs-d5-vergi-cokzor-r2-kp-02',     n: 11, b: [0, 1, 3, 6, 10],   s: [5.09, 5.97, 5.77, 4.43, 4.13] },
     'smmm-4k-a-fmuh-zor-r3/kp-02':      { d: 'smmm-4k-a-fmuh-zor-r3-kp-02',      n: 11, b: [0, 2, 4, 6, 10],   s: [3.95, 8.72, 8.47, 8.68, 3.76] },
-    'smmm-4k-a-yfta-zor-r1/kp-01':      { d: 'smmm-4k-a-yfta-zor-r1-kp-01',      n: 12, b: [0, 1, 3, 4, 11],   s: [4.88, 6.69, 6.01, 6.31, 9.11] },
+    /* 27.10: sgs-d3-maliyet-cokzor-r1/kp-02 ve smmm-4k-a-yfta-zor-r1/kp-01 örnek setten çıktı (arac/ornek5-liste.json; ilk soru kısa/kolay) -
+       satırları kaldırıldı, ses dosyaları ses/cizim/ altında duruyor (yeniden girerse satır geri yazılır). */
     'smmm-4k-a-yvergi-cokzor-r2/kp-02': { d: 'smmm-4k-a-yvergi-cokzor-r2-kp-02', n: 11, b: [0, 2, 3, 6, 10],   s: [4.1, 8.01, 4.64, 5.63, 4.96] },
     'smmm-w3-maliyet-cokzor/kp-10':     { d: 'smmm-w3-maliyet-cokzor-kp-10',     n: 10, b: [0, 1, 2, 5, 9],    s: [4.1, 6.33, 6.75, 7.17, 5.21] },
-    'smmm-w3-yspk-cokzor/kp-18':        { d: 'smmm-w3-yspk-cokzor-kp-18',        n: 7,  b: [0, 1, 3, 6],       s: [4.66, 7.8, 6.87, 4.8] }
+    'smmm-w3-yspk-cokzor/kp-18':        { d: 'smmm-w3-yspk-cokzor-kp-18',        n: 7,  b: [0, 1, 3, 6],       s: [4.66, 7.8, 6.87, 4.8] },
+    // 27.10.2026: aynı reçete (Mustafa Silici, eleven_v3, stability 0,3, atempo 1,14, 64k mono); r4 ham sesin sonuna kadar kesildi
+    'smmm-4k-a-yfta-kolay-r6/kp-01':    { d: 'smmm-4k-a-yfta-kolay-r6-kp-01',    n: 9,  b: [0, 1, 4, 8],       s: [4.1, 4.65, 3.8, 7.2] },
+    'sgs-k10-fmuh-kolay/kp-04':         { d: 'sgs-k10-fmuh-kolay-kp-04',         n: 7,  b: [0, 1, 2, 6],       s: [7.4, 7.73, 4.92, 6.09] }
   };
   if (MUT === 'sestablo') SES['sgs-k5-ekonomi-zor/kp-01'].n = 11;   /* öz-sınav bozması: tablo senaryodan kaydı */
   /* KGK SESLİ ÇİZİM (22.10.2026, Cem "çizime bağla, ses paket kapısı arkasında kalsın"): ses SİTEDE DEĞİL, kapalı depolama
