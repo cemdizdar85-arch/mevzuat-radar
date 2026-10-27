@@ -28,7 +28,7 @@
   var KONULAR = [
     ['SMMM sınavları', [
       ['Soru çöz', 'sorular.html', 'soru coz banka sgs staja giris yeterlilik bitirme ders'],
-      ['Geçme ihtimalini ölç', 'seviye-testi.html', 'seviye test olcum puan ucretsiz'],
+      ['5 örnek soru çöz', 'kaydir/vitrin/ornek-sgs.html', 'ornek soru ucretsiz seviye test olcum'],   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
       ['Deneme sınavı', 'deneme.html', 'deneme soru test cozum ogrenci stajyer sinav'],
       /* 08.10 Cem "canlı deneme kaldır": arama satırı çıktı (sayfa GİZLİ) */
       /* 02.10 gizli: ['Günün tuzağı', 'tuzak.html', 'tuzak gunun sorusu'], */

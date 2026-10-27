@@ -218,7 +218,7 @@ var GRUPLAR_GIZLI=[
 var GRUPLAR=[
  {ad:"🎓 SMMM sınavları", araclar:[
   ["sorular.html","📚","Soru Çöz","Staja Giriş ve Yeterlilik — sınavını seç, ders ders çöz"],
-  ["seviye-testi.html","📏","Geçme İhtimalini Ölç","30 soru, yaklaşık 30 dakika, ücretsiz"],
+  ["kaydir/vitrin/ornek-sgs.html","🎯","5 Örnek Soru","Ücretsiz, üye olmadan; her cevabın nedeni açılır"],   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
   ["deneme.html","📝","Deneme Sınavı","Her şıkkın gerekçesi + kaynak kuralı"],
   /* 08.10 Cem "canlı deneme kaldır": canli-deneme satırı çıktı (sayfa GİZLİ, GIZLI regex aynen) */
   /* 02.10 gizli (sayfa boş). Geri almak: bu satırı aç + GIZLI regex + komut.js + sitemap: ["tuzak.html","🎯","Günün Tuzağı","Her gün bir soru — cevabı ve kanun maddesi açık"], */

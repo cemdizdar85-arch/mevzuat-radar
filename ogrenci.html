@@ -78,6 +78,10 @@
   .og-btn:hover{border-color:var(--amber)}
   .og-btn.ana{background:var(--amber);border-color:var(--amber);color:var(--bg)}
   .og-btnler{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+  .og-hedef{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:13.5px;color:var(--ink2,inherit)}
+  .og-hedef-sec{display:flex;gap:6px}
+  .og-hedef-sec button{font:inherit;font-weight:700;min-width:44px;min-height:36px;border-radius:99px;border:1px solid var(--line);background:transparent;color:inherit;cursor:pointer}
+  .og-hedef-sec button.secili{background:var(--amber-dolgu);border-color:var(--amber-dolgu);color:#1a1a1a}
   .og-hata{font-size:14px;color:var(--red);min-height:1.4em;margin-top:10px}
   .og-bilgi{font-size:14px;color:var(--green);min-height:1.4em;margin-top:10px}
   .og-ust{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -407,7 +411,9 @@
         <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
         <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">Başka ders ya da deneme seç</a></div>
         <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
-        <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><p class="og-gizli" id="ogSeri" style="margin:0 0 6px;font-size:14px;font-weight:800;color:var(--amber)"></p><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
+        <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><p class="og-gizli" id="ogSeri" style="margin:0 0 6px;font-size:14px;font-weight:800;color:var(--amber)"></p><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div>
+          <!-- 27.10 (Cem "önerilerini yap"): uygulamadaki "Günlük temponu seç" sitede de. Aynı hesap kaydı (ogrenci_ilerleme.ayar.hedef) -->
+          <div id="ogHedef" class="og-hedef"><span id="ogHedefYazi">Günde kaç soru?</span><span class="og-hedef-sec"><button type="button" data-h="10">10</button><button type="button" data-h="20">20</button><button type="button" data-h="30">30</button><button type="button" data-h="50">50</button></span></div></div>
       </div>
     </div>
       <!-- karne: 4 gösterge (artı/eksi: geçen haftaya ya da önceki ölçüme göre) -->
@@ -467,11 +473,11 @@
       <!-- 18.10: sınav sekmesi (#ogSinavSec) panonun en üstüne taşındı -->
       <div class="og-kutu og-gizli" id="ogBos">
         <b style="font-size:17px" id="ogBosBas">Henüz bir ölçümün yok</b>
-        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px" id="ogBosMetin">30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.</p>
+        <p class="og-alt" style="margin:4px 0 0;font-size:14.5px" id="ogBosMetin">5 örnek soruyla başla; her cevabından sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.</p>
         <p class="og-alt og-gizli" id="ogBosKutu" style="margin:8px 0 0;font-size:14px"></p>
         <!-- 13.10 KGK: seviye testi/deneme yok -> ilerleme modül modül (bu cihazdaki son 500 cevap + hesaptan inen kayıt) -->
         <div class="og-gizli" id="ogKgkDersler" style="margin-top:10px"></div>
-        <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogBosTest">Seviye testini çöz →</a><a class="og-btn" href="sorular.html#sgs" id="ogBosCalis">Ders ders çalış</a></div>
+        <div class="og-btnler"><a class="og-btn ana" href="kaydir/vitrin/ornek-sgs.html" id="ogBosTest">5 örnek soru çöz →</a><a class="og-btn" href="sorular.html#sgs" id="ogBosCalis">Ders ders çalış</a></div>
       </div>
       <div id="ogDolu" class="og-gizli">
         <div class="og-kartlar">
@@ -482,7 +488,7 @@
         <!-- 07.10 Yeterlilik: son testte ders ders durum (seviye-model-yet.js: Güçlü / Sınırda / Riskli; her dersin barajı ayrı) -->
         <div class="og-kutu og-gizli" id="ogYetDersler" style="margin-top:12px"></div>
         <div class="og-grafik" id="ogGrafik"></div>
-        <div class="og-btnler"><a class="og-btn ana" href="seviye-testi.html" id="ogTestBtn">Seviye testini çöz →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
+        <div class="og-btnler"><a class="og-btn ana" href="sorular.html#sgs" id="ogTestBtn">Soru çözmeye devam et →</a><span id="ogTestNot" style="font-size:13.5px;color:var(--muted)"></span></div>
         <div class="og-bolum og-gizli" id="ogDenemeBolum">
           <h2 style="font-size:17px" id="ogDenemeBaslik">Sınav gibi denemeler</h2>
           <div class="og-kutu" id="ogDenemeler"></div>
@@ -560,10 +566,10 @@
 <script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
-<script src="uye-durumu.js?v=20261018b"></script>
+<script src="uye-durumu.js?v=20261027c30"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
-<script src="calisma-ozet.js?v=20261018a"></script>
+<script src="calisma-ozet.js?v=20261027c30"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -685,8 +691,32 @@
     var t=0; ((window.ILR_HAZIR&&ILR.kasa)||[]).forEach(function(x){ if(x&&x.tur==='deneme'&&(x.sinav||'sgs')==='sgs'){ var a=new Date(x.veri&&x.veri.tarih||x.olusturma).getTime(); if(a>t) t=a; } });
     return t||null;
   }
+  /* 27.10 GÜNLÜK HEDEF (uygulamadaki tempo seçimi, aynı kayıt): TTIlerleme (mobil/uygulama/ilerleme.js) yüklenip hesapla eşitlenince
+     uygulamada seçilen hedef burada, burada seçilen uygulamada görünür. ayar.t>0 = kişi bilerek seçti (uygulamada da aynı ölçüt). */
+  function hedefOku(){
+    try{ var a=window.TTIlerleme&&TTIlerleme.veri().ayar; if(a&&a.t>0&&[10,20,30,50].indexOf(+a.hedef)>=0) return { hedef:+a.hedef, secildi:true }; }catch(e){}
+    return { hedef:0, secildi:false };
+  }
+  function hedefCiz(hs){
+    var y=$('ogHedefYazi'); if(!y) return;
+    y.textContent=hs.secildi?'Günlük hedefin':'Günde kaç soru çözeceksin?';
+    [].forEach.call(document.querySelectorAll('#ogHedef button'),function(b){ b.classList.toggle('secili',+b.getAttribute('data-h')===hs.hedef); });
+  }
+  function hedefKur(){
+    if(window.__ogHedefKuruldu) return; window.__ogHedefKuruldu=true;
+    [].forEach.call(document.querySelectorAll('#ogHedef button'),function(b){ b.addEventListener('click',function(){
+      if(!window.TTIlerleme) return; var h=+b.getAttribute('data-h');
+      TTIlerleme.ayarYaz({ hedef:h }); try{ simdiCiz(); }catch(e){}
+      try{ if(window.ttSay) ttSay('hesabim/hedef-'+h,'Hesabım: günlük hedef '+h); }catch(e){}
+      if(ILR.user) TTIlerleme.esitle(sb,ILR.user.id).catch(function(){});
+    }); });
+    var s=document.createElement('script'); s.src='mobil/uygulama/ilerleme.js?v=20261012b';
+    s.onload=function(){ if(ILR.user) TTIlerleme.esitle(sb,ILR.user.id).then(function(){ try{ simdiCiz(); }catch(e){} },function(){}); else { try{ simdiCiz(); }catch(e){} } };
+    document.head.appendChild(s);
+  }
   function simdiCiz(){
     if(!window.ttCalisma) return;
+    hedefKur();
     var I=window.ILR_HAZIR?ILR:{}, bag={ sinav:I.secili||null, gun:(typeof I.gun==='number'?I.gun:null), sonDeneme:sonDenemeAn() };
     window.ttCalisma.oneri(function(s,o,ev){
       $('ogSimdiBas').textContent=s.baslik; $('ogSimdiMetin').textContent=s.metin; $('ogSimdiBtn').textContent=s.dugme+' →'; $('ogSimdiBtn').href=s.adres;
@@ -703,7 +733,13 @@
       if(ev){ evr.textContent='Sınava '+bag.gun+' gün · '+ev.ad+': '+ev.metin; evr.classList.remove('og-gizli'); } else { evr.classList.add('og-gizli'); }
       try{
         var gun=new Date(o.an).toDateString(), g=JSON.parse(localStorage.getItem('tt_gorev')||'null'), ek=ev?ev.kod:'';
-        if(!g||g.gun!==gun||(g.evre||'')!==ek){ g={ gun:gun, evre:ek, tekrar:Math.min(ev?ev.tekrarTavan:20,o.vadeli||0), yeni:ev?(ev.yeni||ev.sik||0):10, sik:!!(ev&&ev.sik) }; localStorage.setItem('tt_gorev',JSON.stringify(g)); }
+        /* 27.10 KİŞİNİN HEDEFİ: seçtiyse günün işi o kadar soru (önce vadesi gelen tekrar, kalanı yeni); seçmediyse evre planı aynen */
+        var hs=hedefOku(), hk=hs.secildi?hs.hedef:0;
+        if(!g||g.gun!==gun||(g.evre||'')!==ek||(g.h||0)!==hk){
+          if(hk){ var tk=Math.min(hk,o.vadeli||0); g={ gun:gun, evre:ek, tekrar:tk, yeni:hk-tk, sik:!!(ev&&ev.sik), h:hk }; }
+          else g={ gun:gun, evre:ek, tekrar:Math.min(ev?ev.tekrarTavan:20,o.vadeli||0), yeni:ev?(ev.yeni||ev.sik||0):10, sik:!!(ev&&ev.sik), h:0 };
+          localStorage.setItem('tt_gorev',JSON.stringify(g)); }
+        hedefCiz(hs);
         var hedef=Math.max(1,g.tekrar+g.yeni), yapilan=Math.min(hedef,o.bugunCozulen||0);
         $('ogGorevYazi').textContent= yapilan>=hedef ? '✓ Bugünün işi tamam. Serini korudun.' : 'Bugünün işi: '+(g.tekrar?g.tekrar+' tekrar'+(g.yeni?' + ':''):'')+(g.yeni?g.yeni+(g.sik?' soru sık çıkan konulardan':' yeni soru'):'');
         /* 11.10 günlük seri (calisma-ozet.js gunSerisi): kartta "Serini korudun" yazıyordu ama seri hiç gösterilmiyordu */
@@ -1036,14 +1072,15 @@
     $('ogSinavSec').classList.toggle('og-gizli',sayi<2);
     document.querySelectorAll('#ogSinavSec [data-sinav]').forEach(function(b){ var k=b.getAttribute('data-sinav'), a=k===s; b.classList.toggle('ana',a); b.setAttribute('aria-pressed',String(a)); if(k==='kgk') b.classList.toggle('og-gizli',!kgkVar); });
     $('ogIlerleme').textContent=kgk?'Bağımsız Denetçilik ilerlemen':yet?'Yeterlilik ilerlemen':'Staja Giriş ilerlemen';
-    var olc=S.olc||(yet?'seviye-testi.html?sinav=yeterlilik':'seviye-testi.html'), devam=S.devam||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
-    $('ogBosTest').href=olc; $('ogTestBtn').href=olc; $('ogBosCalis').href=devam;
+    /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir"): ölçüm düğmeleri 5 örnek soruya; ölçümü olanın düğmesi soru çözmeye */
+    var olc=S.olc||(yet?'kaydir/vitrin/ornek-smmm.html':'kaydir/vitrin/ornek-sgs.html'), devam=S.devam||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
+    $('ogBosTest').href=olc; $('ogTestBtn').href=devam; $('ogBosCalis').href=devam;
     /* 13.10 KGK: seviye testi ve deneme seti yok (13.10 ölçüldü: veri/seviye, veri/deneme, kaydir/vitrin'de kgk yok) ->
        test düğmesi gizli, boş kart "modül modül ilerleme" kartına dönüşür (kgkDersCiz) */
     $('ogBosTest').classList.toggle('og-gizli',kgk);
     $('ogBosBas').textContent=kgk?'Modül modül ilerlemen':'Henüz bir ölçümün yok';
     $('ogBosMetin').textContent=kgk?'Bağımsız Denetçilik\'te seviye testi ve deneme seti yok; ilerlemen çözdüğün sorulardan ölçülür. Her modülden soru çöz, yanlışların kutuna düşsün.'
-      :'30 soruluk seviye testini çöz; geçme ihtimalin, zayıf konuların ve ilerleme grafiğin burada görünsün.';
+      :'5 örnek soruyla başla; her cevabından sonra doğrusu, yanlışının nedeni ve dayandığı madde açılır.';
     $('ogBosCalis').textContent=kgk?'Soru bankası →':'Ders ders çalış';
     if(kgk) kgkDersCiz(); else $('ogKgkDersler').classList.add('og-gizli');
     var seviye=kayit.filter(function(x){return x.tur==='seviye';}).sort(function(a,b){ return String(a.veri.tarih||a.olusturma).localeCompare(String(b.veri.tarih||b.olusturma)); });
@@ -1056,8 +1093,8 @@
       var once=seviye.length>1?seviye[seviye.length-2].veri.gecme:null;
       $('ogSonGecmeAlt').textContent='son geçme ihtimalin'+(once!==null?' ('+(son.veri.gecme-once>=0?'+':'')+(son.veri.gecme-once)+' puan)':'');
       var gecen=Math.floor((Date.now()-new Date(son.veri.tarih||son.olusturma))/86400000);
-      $('ogTestNot').textContent= gecen>=7 ? 'Son testinden '+gecen+' gün geçti; yeniden çözme zamanı.' : 'Son test '+gecen+' gün önce. 7 günde bir çözersen ilerlemen daha net görünür.';
-    } else { $('ogSonGecme').textContent='–'; $('ogSonGecmeAlt').textContent='son geçme ihtimalin'; $('ogTestNot').textContent='Henüz seviye testi yok. 30 soruda ilk ölçümünü al.'; }
+      $('ogTestNot').textContent= 'Son ölçümün '+gecen+' gün önce.';
+    } else { $('ogSonGecme').textContent='–'; $('ogSonGecmeAlt').textContent='son geçme ihtimalin'; $('ogTestNot').textContent=''; }
     /* Yeterlilik: her ders ayrı sınav, barajı ayrı -> tek yüzde yetmez; son testin ders durumları (seviye-model-yet.js alanları aynen) */
     var yd=$('ogYetDersler'), gr=yet&&son&&Array.isArray(son.veri.gruplar)?son.veri.gruplar.filter(function(g){ return g&&g.ad; }):[];
     if(gr.length){
@@ -1239,7 +1276,7 @@
     try{ $('opPaketOzet').textContent=!P?'Paket bilgin okunuyor…':$('opPaket').textContent||'Paket bilgisi';
       $('opIlerlemeAlt').textContent=kgk?'Bağımsız Denetçilik\'te seviye testi yok; ilerleme modül modül'
         :sv?'Son ölçüm: geçme ihtimali %'+sv.veri.gecme+' · '+opTarih(sv.veri.tarih||sv.olusturma)+(seviye.length>1?' · '+seviye.length+' ölçüm':'')
-        :'Henüz ölçüm yok · 30 soruluk seviye testiyle başla'; }catch(e){}
+        :'Henüz ölçüm yok · 5 örnek soruyla başla'; }catch(e){}
     /* ---- derslerim + artılar/eksiler (dizin gerekir: ders sırası, sayfa bağlantısı) ---- */
     var devam=(U&&U.SINAVLAR&&U.SINAVLAR[s]&&U.SINAVLAR[s].devam)||(kgk?'sorular.html#kgk':yet?'sorular.html#smmm':'sorular.html#sgs');
     $('opTumDersler').href=devam;

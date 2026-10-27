@@ -61,6 +61,13 @@ function denetle(g) {
   for (const p of g.paketler || []) {
     if (p.acik !== true) continue;
     const s = MUT === 'karsiliksiz' ? ['x'] : g.paketSinavlari(p.id);
+    /* 27.10 ÖN SATIŞ (son20-sgs "Sadece 7 Deneme"): içeriği açılış gününde açılan paket, o güne kadar karşılıksız sayılmaz.
+       Açılış günü geldiyse ve paket hâlâ hiçbir şey açmıyorsa KIRMIZI (FU-ONSATIS): "1 Kasım'da açılır" sözü tutulmadı. */
+    if ((!s || !s.length) && p.acilis) {
+      if ((g.bugun || new Date()) < new Date(p.acilis + 'T00:00:00+03:00')) continue;
+      B.push({ kural: 'FU-ONSATIS', yer: 'fiyat-motoru.js', not: `"${p.id}" açılış günü (${p.acilis}) geldi, paket hâlâ hiçbir şey açmıyor` });
+      continue;
+    }
     if (!s || !s.length) B.push({ kural: 'FU-KARSILIKSIZ', yer: 'fiyat-motoru.js', not: `satışta "${p.id}" (${p.ad || ''}) hiçbir sınavı açmıyor` });
   }
   for (const d of g.dosyalar) {
@@ -110,6 +117,8 @@ function ozSinav() {
     ['V7 dinamik bağlantı alarm vermez', { paketler: temelP, paketSinavlari: ps, dosyalar: [{ ad: 'f.html', metin: "a.href = 'satin-al.html?paket=' + x[2];" }] }, 0, null],
     ['V8 var olan pakete bağlantı alarm vermez', { paketler: temelP, paketSinavlari: ps, dosyalar: [{ ad: 'f.html', metin: '<a href="satin-al.html?paket=sgs">' }] }, 0, null],
     ['V9 motor okunamazsa KÖR = KIRMIZI', { paketler: null, paketSinavlari: ps, dosyalar: [] }, 1, 'FU-KOR'],
+    ['V11 ön satış: açılış gününden önce karşılıksız sayılmaz', { paketler: temelP.concat([{ id: 'onsatis-x', acik: true, acilis: '2026-11-01' }]), paketSinavlari: ps, dosyalar: [], bugun: new Date('2026-10-31T23:00:00+03:00') }, 0, null],
+    ['V12 ön satış: açılış günü geldi, hâlâ bir şey açmıyor = KIRMIZI', { paketler: temelP.concat([{ id: 'onsatis-x', acik: true, acilis: '2026-11-01' }]), paketSinavlari: ps, dosyalar: [], bugun: new Date('2026-11-01T00:00:01+03:00') }, 1, 'FU-ONSATIS'],
   ];
   let kir = 0;
   for (const [ad, girdi, bekSay, bekKural] of V) {

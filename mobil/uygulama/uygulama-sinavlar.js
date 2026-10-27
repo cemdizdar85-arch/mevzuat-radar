@@ -152,7 +152,8 @@
     } else h += '<div class="kart bosDurum">Bu sınav için ücretsiz soru henüz yok.</div>';
     /* 09.10 (Cem "1.8 seviyesini koy · siteye aynıları olsun"): sitedeki 30 soruluk seviye testi uygulamada — seviye-testi.html
        derlemede gömülür (hazirla.js 2b, köprü uygulama-sayfa.js). Ücretsiz içerik: kilitsiz, iPhone'da da görünür. */
-    if (s !== 'kgk' && sayfaVar('seviye-testi.html')) {
+    /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir"): 30 soru kartı kalktı; ücretsiz yol yukarıdaki "Örnek sorular" kartı */
+    if (false && s !== 'kgk' && sayfaVar('seviye-testi.html')) {
       h += '<a class="ilerKart" href="seviye-testi.html' + (s === 'yeterlilik' ? '?sinav=yeterlilik' : '') + '"><span class="iUst"><span class="iAd">30 soruda seviyeni ölç<small>' +
         'Geçme ihtimalin ve ders ders karnen · 20 dakika</small></span><span class="iDugme">Başla' + ik('ok') + '</span></span></a>';
     }
