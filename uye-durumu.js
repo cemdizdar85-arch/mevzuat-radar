@@ -80,6 +80,9 @@
     var bugun = new Date().toISOString().slice(0, 10);
     (satirlar || []).forEach(function (r) {
       var aktif = !r.bitis || r.bitis >= bugun;
+      /* 28.10 Cem ("7 deneme ön sipariş verecekler"): son20-sgs hiçbir sınavın bankasını açmaz (paketSinavlari []) → Hesabım
+         "Aktif paketin yok" diyordu. Ayrı işaret: görünüm içindir, denemelerin kilidi sunucuda (s20_erisim). */
+      if (String(r.paket || '').trim().toLowerCase() === 'son20-sgs') d.son20 = { durum: aktif ? 'aktif' : 'bitmis', bitis: r.bitis || null };
       paketSinavlari(r.paket).forEach(function (k) {
         var o = d.sinavlar[k];
         if (o.durum === 'aktif' && (!aktif || !o.bitis || (r.bitis && o.bitis >= r.bitis))) return;  /* aktif olan kalır; ikisi aktifse geç biten */

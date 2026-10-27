@@ -566,7 +566,7 @@
 <script src="cihaz-kapisi.js"></script>
 <!-- 15.09: tek istemci - uye-durumu.js window.__pkSb'yi hazır bulursa yenisini kurmaz -->
 <script>window.__pkSb=window.supabase.createClient('https://bjrleanjpyujtajmazxn.supabase.co','sb_publishable_kTZpYwrL7skw8Ryj5Vs8_Q_-5_Fhkcg');</script>
-<script src="uye-durumu.js?v=20261027c30"></script>
+<script src="uye-durumu.js?v=20261028s20"></script>
 <script src="uygulama-indir.js?v=20261009a"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261028a"></script>
@@ -644,6 +644,17 @@
       ILR.paketKgk=true;
       if(aktifler.indexOf('sgs')<0 && aktifler.indexOf('yeterlilik')<0){ ILR.yalnizKgk=true; if(ILR.kasa&&!ILR.elle) ilerlemeCiz('kgk'); }
       else if(ILR.secili) ilerlemeCiz(ILR.secili);   /* sekme şeridi yeniden çizilsin */
+    }
+    /* 28.10 Cem ("7 deneme ön sipariş verecekler"): Sadece 7 Deneme alana "Aktif paketin yok" denmez; denemeler son-20-gun.html'de */
+    if(!sinavlar.length && d.son20 && d.son20.durum==='aktif'){
+      var s20bas=Date.now()>=Date.parse('2026-11-01T00:00:00+03:00');
+      kap.innerHTML='<div class="og-paket"><span class="og-paket-et">Staja Giriş · Son 20 Gün</span><b>Sadece 7 Deneme</b>'
+        +'<span class="og-paket-alt">'+(s20bas?'Denemelerin Son 20 Gün sayfasında. Her deneme ders ders testlerden oluşur; puanın ve açıklamalar test bitince açılır.':'Ön siparişin alındı. Denemelerin 1 Kasım 2026\'da açılır.')
+        +(d.son20.bitis?' Erişim '+esc(U.tarihYazi(d.son20.bitis))+' tarihine kadar.':'')+'</span>'
+        +'<div class="og-btnler"><a class="og-btn ana" href="son-20-gun.html">Son 20 Gün sayfası</a><a class="og-btn" href="iletisim.html">Tam Pakete geç (999 TL düşülür)</a></div>'
+        +PB_HTML+'</div>';
+      pbKur(user);
+      return;
     }
     if(!sinavlar.length){
       kap.innerHTML='<div class="og-paket"><b>Aktif paketin yok</b><span class="og-paket-alt">Ücretsiz hesabınla örnek sorular açık. Soru bankasının tamamı, deneme setleri ve sınav gibi mod pakette.</span>'
