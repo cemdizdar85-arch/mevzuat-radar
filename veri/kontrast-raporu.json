@@ -1,22 +1,7 @@
 {
-  "durum": "YESIL",
+  "durum": "KOR",
+  "sebep": "devtools-portu-acilmadi",
   "ci": true,
   "chrome": "/usr/bin/google-chrome",
-  "sayfa": 239,
-  "koyu_gecis": 79,
-  "koyu_bekleyen": [],
-  "temiz_sayfa": 239,
-  "denetlenen_metin": 23743,
-  "toplam_kirik": 0,
-  "denetlenen_sinir": 6555,
-  "toplam_gorunmez_sinir": 0,
-  "olculemeyen": 0,
-  "esik": {
-    "normal": 4.5,
-    "buyuk": 3,
-    "sinir": 1.12
-  },
-  "gorunmez_sinir_sayfalar": [],
-  "olculemeyenler": [],
-  "kirik_sayfalar": []
+  "chrome_stderr": "[2330:2358:1027/145901.194401:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2330:2358:1027/145904.774348:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2330:2358:1027/145904.774376:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2330:2358:1027/145905.441845:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[2330:2358:1027/145906.559501:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")"
 }
