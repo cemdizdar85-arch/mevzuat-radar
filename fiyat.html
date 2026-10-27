@@ -140,7 +140,6 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
   a{ color:var(--link); }
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
-<link rel="stylesheet" href="gkt.css?v=1">
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -173,31 +172,6 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
 
 <!-- 17.10 Cem ("aşağıya kayan şekilde olmasın"): telefonda kartlar alt alta uzuyor (ölçüm 360x740: ilk ekranda yalnız SGS kartı).
      Telefona özel üç satırlık özet: paket · fiyat · Al. Rakam fiyat-motoru.js'ten (aşağıdaki betik), ayrıntı kartlarda. -->
-<!-- 27.10 Cem: GEÇENE KADAR TETİKTE iki paket (index.html ve kampanya-son-20-gun.html ile aynı kartlar; rakam gkt.js ← fiyat-motoru.js) -->
-<section class="gkt" data-sinav="sgs" data-gkt-bolum style="border-radius:20px;margin:0 0 22px;overflow:hidden" aria-labelledby="gktBas">
-  <div class="gkt-serit">Geçene Kadar Tetikte · <span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
-  <div class="gkt-paket" style="padding-top:14px">
-    <h2 class="gkt-h" id="gktBas">İki paket, tek söz: <span class="gkt-kutu">TETİKTE</span></h2>
-    <div class="gkt-kartlar">
-      <article class="gkt-k">
-        <div class="gkt-k-ust"><h3>Sadece 7 Deneme</h3><p class="gkt-fy"><b data-gkt="yedi">999 TL</b><small data-gkt="yedi-haric">832,50 TL + KDV</small></p></div>
-        <p class="gkt-icerik">7 deneme + konu görevleri</p>
-        <p class="gkt-yesil">✓ Kalırsan sonraki dönemin Son 20 Gün paketi ücretsiz, geçene kadar</p>
-        <a class="gkt-al" href="satin-al.html?paket=son20-sgs">7 Deneme'yi al</a>
-      </article>
-      <article class="gkt-k tam">
-        <span class="gkt-rozet" data-gkt-erken>1 Kasım'a kadar <span data-gkt="indirim">600 TL</span> indirim</span>
-        <div class="gkt-k-ust"><h3>Tam Paket</h3><p class="gkt-fy"><b data-gkt="tam">2.388 TL</b><small data-gkt-erken><span data-gkt="liste">2.988 TL</span> yerine</small><small data-gkt="tam-haric">1.990 TL + KDV</small></p></div>
-        <p class="gkt-icerik">7 deneme + görevler + sitedeki bütün SGS soruları</p>
-        <p class="gkt-yesil">✓ Kalırsan bütün üyeliğin geçene kadar ücretsiz</p>
-        <p class="gkt-sari">★ Bizimle geçersen bitirme (Yeterlilik) paketinde %50 indirim</p>
-        <a class="gkt-al" href="satin-al.html?paket=sgs">Tam Paketi al</a>
-      </article>
-    </div>
-    <span class="gkt-iki-soz">Söz ikisinde de var.</span>
-    <p class="gkt-dip">Şart: 7 deneme · en az 5'inde 60 · görevler tamam · 21 Kasım'dan önce · Fiyatlar KDV dahil · <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
-  </div>
-</section>
 <div class="fozet" id="fozet">
   <a class="fz" data-sinav="sgs" data-paket="sgs" href="satin-al.html?paket=sgs"><span><b>Staja Giriş</b> tüm paket</span><strong data-f>—</strong><i>Al</i></a>
   <a class="fz" data-sinav="yeterlilik" data-paket="yeterlilik-1" href="satin-al.html?paket=yeterlilik-1"><span><b>Yeterlilik</b> 1–4 ders<small style="display:block;color:var(--muted);font-size:12px">fiyat 1 ders için · ödemede ders sayısını seçersin</small></span><strong data-f>—</strong><i>Al</i></a>
@@ -484,8 +458,7 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
 <!-- GERCEK TAKVIM — uydurma geri sayim yok. Takvim ve fiyat verisi 21.08'de
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
-<script src="fiyat-motoru.js?v=20261027a"></script>
-<script src="gkt.js?v=1" defer></script>
+<script src="fiyat-motoru.js?v=20261013b"></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';
 SINAVLAR.forEach(function(s){
