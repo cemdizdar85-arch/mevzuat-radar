@@ -95,11 +95,11 @@ function kacis(s: string): string {
 }
 
 async function hizAsti(ip: string): Promise<boolean> {
-  if (!ip || ip === "anon" || !SB_ANON) return false;
+  if (!ip || ip === "anon" || !SB_SERVICE) return false;   // 28.10: sayaç SERVİS anahtarıyla çağrılır (rate_limit_check anon/üyeye KAPALI: biri başkasının IP sayacını doldurup formunu kilitleyemesin).
   try {
     const r = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, {
       method: "POST",
-      headers: { "content-type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
+      headers: { "content-type": "application/json", apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` },
       body: JSON.stringify({ p_ip: ip, p_limit: HIZ_LIMIT, p_pencere_sn: HIZ_PENCERE_SN }),
     });
     if (!r.ok) return false;                 // fail-open: sayaç ölürse formu öldürme
@@ -143,11 +143,15 @@ async function mailGonder(konu: string, satirlar: [string, string][], yanitAdres
 }
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "a39c97838e83b12d";
+const KOD_IMZA = "5634041b45c32c92";
 
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin");
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
+  if (new URL(req.url).searchParams.get("tani") === "hiz") {   // 28.10 sayaç ölçümü (ücretsiz)
+    const rs = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, { method: "POST", headers: { "content-type": "application/json", apikey: SB_SERVICE, Authorization: `Bearer ${SB_SERVICE}` }, body: JSON.stringify({ p_ip: "tani:" + crypto.randomUUID(), p_limit: 1000, p_pencere_sn: 60 }) }).catch(() => null);
+    return ((o: unknown) => new Response(JSON.stringify(o), { status: 200, headers: cors(origin) }))({ hiz: rs ? rs.status : 0 });
+  }
   // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
   if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
 

@@ -69,14 +69,16 @@ function skorla(tok: string[], hay: string): number {
 // Postgres MERKEZİ sayaç (rate_limit_check RPC) — tüm edge isolate'leri aynı
 // sayacı görür (in-memory'nin isolate-dağılımı zaafı yok). IP başına 60 sn'de 12.
 // Fail-open: RPC hata verirse engellemez (kullanıcıyı mağdur etmez).
+// 28.10: sayaç SERVİS anahtarıyla çağrılır (rate_limit_check anon/üyeye KAPALI: biri başkasının IP sayacını doldurup formunu kilitleyemesin).
+const SB_SERVIS = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
 async function rlAsti(ip: string): Promise<boolean> {
   // 03.10 V2 madde 28: ÜCRETLİ uç - arızada KAPALI. IP okunamazsa ya da sayaç cevap vermezse istek geçmez
   // (eskiden geçiyordu: sayaç bozulunca sınırsız ücretli çağrı). Bedeli: sayaç arızasında bu uç da durur.
-  if (!ip || ip === "anon") return true;
+  if (!ip || ip === "anon" || !SB_SERVIS) return true;
   try {
     const r = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, {
       method: "POST",
-      headers: { "content-type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
+      headers: { "content-type": "application/json", apikey: SB_SERVIS, Authorization: `Bearer ${SB_SERVIS}` },
       body: JSON.stringify({ p_ip: ip, p_limit: 12, p_pencere_sn: 60 }),
     });
     if (!r.ok) return true;
@@ -186,10 +188,14 @@ function kisiselGizle(metin) {
 // GIZLE-BITIR
 
 // Kod imzası: arac/edge-imza.js --yaz yazar, ELLE DEĞİŞTİRME. ?surum=1 bunu döndürür; motor/edge-nobetcisi.js canlıyla depoyu bununla kıyaslar.
-const KOD_IMZA = "a80d670972927e54";
+const KOD_IMZA = "f38363d648d5f8b1";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  if (new URL(req.url).searchParams.get("tani") === "hiz") {   // 28.10 sayaç ölçümü (ücretsiz)
+    const rs = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, { method: "POST", headers: { "content-type": "application/json", apikey: SB_SERVIS, Authorization: `Bearer ${SB_SERVIS}` }, body: JSON.stringify({ p_ip: "tani:" + crypto.randomUUID(), p_limit: 1000, p_pencere_sn: 60 }) }).catch(() => null);
+    return ((o: unknown) => new Response(JSON.stringify(o), { status: 200, headers: CORS }))({ hiz: rs ? rs.status : 0 });
+  }
   // 15.09 SÜRÜM UCU: kimlik/köken/hız sınırından ÖNCE; ücretli çağrı yapmaz, veri döndürmez.
   if (new URL(req.url).searchParams.get("surum") === "1") return new Response(JSON.stringify({ surum: KOD_IMZA }), { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "*" } });
 

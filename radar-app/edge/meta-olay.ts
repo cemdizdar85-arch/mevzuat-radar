@@ -77,6 +77,7 @@ export function metaGovde(o: Olay, ip: string, ua: string, testKodu: string) {
 if (typeof Deno !== "undefined" && Deno.serve) {
   const SB_URL = (Deno.env.get("SUPABASE_URL") ?? "https://bjrleanjpyujtajmazxn.supabase.co").replace(/\/$/, "");
   const SB_ANON = (Deno.env.get("SUPABASE_ANON_KEY") ?? "").trim();
+  const SB_SERVIS = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();   // 28.10: sayaç SERVİS anahtarıyla çağrılır (rate_limit_check anon/üyeye KAPALI: biri başkasının IP sayacını doldurup formunu kilitleyemesin).
   const PIKSEL = (Deno.env.get("META_PIXEL_ID") ?? "").trim();
   const TOKEN = (Deno.env.get("META_CAPI_TOKEN") ?? "").trim();
   const TEST = (Deno.env.get("META_TEST_KODU") ?? "").trim();
@@ -89,10 +90,10 @@ if (typeof Deno !== "undefined" && Deno.serve) {
   const cevap = (d: number, g: unknown, o: string | null) => new Response(JSON.stringify(g), { status: d, headers: cors(o) });
 
   const hizAsti = async (ip: string): Promise<boolean> => {
-    if (!ip || ip === "anon" || !SB_ANON) return false;
+    if (!ip || ip === "anon" || !SB_SERVIS) return false;
     try {
       const r = await fetch(`${SB_URL}/rest/v1/rpc/rate_limit_check`, { method: "POST",
-        headers: { "content-type": "application/json", apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
+        headers: { "content-type": "application/json", apikey: SB_SERVIS, Authorization: `Bearer ${SB_SERVIS}` },
         // 'meta:' öneki ŞART: rate_log IP başına tek sayaç; öneksiz olsaydı sayfa görüntülemeleri
         // form-al/karne-gonder'in 5'lik sınırını tüketir, ziyaretçi e-posta bırakamazdı.
         body: JSON.stringify({ p_ip: "meta:" + ip, p_limit: 60, p_pencere_sn: 600 }) });
