@@ -34,4 +34,7 @@
   .ec-soz b{display:block;font-size:20px;line-height:1.25;color:var(--ink);letter-spacing:-.3px}
   .ec-soz p{margin:6px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
   .ec-soz a{color:var(--amber);font-weight:700}
+  /* 28.10 iki paket kartı (gkt.css; ana sayfadaki #gktPaket ile aynı) sayfa kabının içinde */
+  .ec-gkt{margin:0 0 18px;border-radius:16px;overflow:hidden}
+  .ec-gkt .gkt-paket{padding:14px 16px 22px}
   @media(max-width:760px){ .ec h1{font-size:28px} .ec-bas,.ec-satis{grid-template-columns:1fr} .ec-soz b{font-size:18px} .ec-satis .ec-dug{min-width:0} .ec-dersler{grid-template-columns:1fr} }
