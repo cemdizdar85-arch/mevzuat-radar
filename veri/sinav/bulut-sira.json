@@ -11,246 +11,48 @@
     "geriye_bakis_gun":  30,
     "sira":  [
                  {
-                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-c.json",
-                     "butce_usd":  "1.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T07:41:01Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS s20 dalga1 FM plan disi 12 cok zor (Cem 24.10: 15 USD onayi icinde; harcanan 6.47)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-denetim-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T07:43:29Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Denetim (Cem 24.10 onayi: 9.1 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-denetim-b.json",
+                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-f.json",
                      "butce_usd":  "4.4",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T07:43:49Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
+                     "eklenme":  "2026-10-27T08:59:30Z",
+                     "ekleyen":  "Sınav hazırlık soruları [5a9b44]",
                      "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Denetim (Cem 24.10 onayi: 9.1 USD)"
+                     "not":  ""
                  },
                  {
-                     "plan":  "veri/sinav/plan-sgs-s20-vergi-yt.json",
-                     "butce_usd":  "1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T08:03:33Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS s20 dalga1 vergi YIL onarimi 8 soru (Cem 24.10: 15 USD onayi icinde; pilotId+hazirYenileId)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-d.json",
-                     "butce_usd":  "3.4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:24:44Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-e.json",
-                     "butce_usd":  "2.3",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:25:05Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-maliyet-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T09:02:53Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Maliyet (Cem 24.10 onayi: 8.5 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-maliyet-b.json",
-                     "butce_usd":  "3.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T09:03:14Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Maliyet (Cem 24.10 onayi: 8.5 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-ticaret-a.json",
-                     "butce_usd":  "4.6",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T10:13:47Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Ticaret (Cem 24.10 onayi: 8.7 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-ticaret-b.json",
-                     "butce_usd":  "4.1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T10:14:07Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "SGS Son 20 Gun dalga 2 Ticaret (Cem 24.10 onayi: 8.7 USD)"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-mta-a.json",
-                     "butce_usd":  "4",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T14:08:00Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u00278.7 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-mta-b.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T14:08:25Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u00278.7 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-meslek-a.json",
-                     "butce_usd":  "4.7",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:25:24Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-meslek-b.json",
-                     "butce_usd":  "2.2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:25:44Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-isgk-a.json",
-                     "butce_usd":  "4.8",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:26:03Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-isgk-b.json",
-                     "butce_usd":  "2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T15:26:24Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u002719.40 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-borclar-a.json",
-                     "butce_usd":  "4.1",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T17:40:52Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u00276.2 onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-borclar-b.json",
+                     "plan":  "veri/sinav/plan-sgs-s20-fmuh-g.json",
                      "butce_usd":  "2.1",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T17:41:11Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
+                     "eklenme":  "2026-10-27T08:59:54Z",
+                     "ekleyen":  "Sınav hazırlık soruları [5a9b44]",
                      "yeniden":  false,
-                     "not":  "Cem 24.10 \u00276.2 onaylıyorum\u0027"
+                     "not":  ""
                  },
                  {
-                     "plan":  "veri/sinav/plan-sgs-s20-ekonomi-a.json",
-                     "butce_usd":  "5",
+                     "plan":  "veri/sinav/plan-sgs-s20-denetim-c.json",
+                     "butce_usd":  "2.1",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T17:58:34Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
+                     "eklenme":  "2026-10-27T09:00:17Z",
+                     "ekleyen":  "Sınav hazırlık soruları [5a9b44]",
                      "yeniden":  false,
-                     "not":  "Cem 24.10 \u0027ekonomi maliye 14 usd onaylıyorum\u0027"
+                     "not":  ""
                  },
                  {
-                     "plan":  "veri/sinav/plan-sgs-s20-ekonomi-b.json",
-                     "butce_usd":  "2.2",
+                     "plan":  "veri/sinav/plan-sgs-s20-denetim-d.json",
+                     "butce_usd":  "3.3",
                      "paralel":  5,
                      "olcum_kosusu":  "",
                      "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T17:58:53Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
+                     "eklenme":  "2026-10-27T09:00:40Z",
+                     "ekleyen":  "Sınav hazırlık soruları [5a9b44]",
                      "yeniden":  false,
-                     "not":  "Cem 24.10 \u0027ekonomi maliye 14 usd onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-maliye-a.json",
-                     "butce_usd":  "4.5",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T18:13:01Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u0027ekonomi maliye 14 usd onaylıyorum\u0027"
-                 },
-                 {
-                     "plan":  "veri/sinav/plan-sgs-s20-maliye-b.json",
-                     "butce_usd":  "2.2",
-                     "paralel":  5,
-                     "olcum_kosusu":  "",
-                     "sinav":  "sgs",
-                     "eklenme":  "2026-10-24T18:13:22Z",
-                     "ekleyen":  "mevzuat-i-i-9f",
-                     "yeniden":  false,
-                     "not":  "Cem 24.10 \u0027ekonomi maliye 14 usd onaylıyorum\u0027"
+                     "not":  ""
                  }
              ]
 }
