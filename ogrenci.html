@@ -1154,6 +1154,15 @@
   function opBuyuk(s){ s=String(s||''); return s.charAt(0).toLocaleUpperCase('tr-TR')+s.slice(1); }
   function opFark(n, birim){ if(n===null||n===undefined||isNaN(n)) return ''; var r=Math.round(n*10)/10; if(!r) return '<em>değişim yok</em>';
     return '<em class="'+(r>0?'art':'eks')+'">'+(r>0?'+':'−')+opOnd(Math.abs(r))+(birim||'')+'</em>'; }
+  /* 27.10 ilk ders seçimi (panoCiz "Paketin hazır" satırı): dizin {sinavlar:[{kod,dersler:[{ad,sayfa}]}]} + paket {dersler:[ad]} → {ad,sayfa}|null */
+  function ilkDersSec(dz,kod,po){
+    var sn=dz&&dz.sinavlar?dz.sinavlar.filter(function(x){ return x.kod===kod; })[0]:null, L=(sn&&sn.dersler||[]).filter(function(x){ return x&&x.sayfa; });
+    if(!L.length) return null;
+    var kc=function(t){ return String(t||'').toLocaleLowerCase('tr-TR').trim(); }, pd=(po&&po.dersler||[]).map(kc);
+    /* tam pakette sınavda EN ÇOK soru gelen ders (sinav_soru; SGS'de dizin Türkçe ile başlıyor, ağırlık Finansal Muhasebe'de); alan yoksa dizin sırası */
+    var agir=L.slice().sort(function(a,b){ return (+b.sinav_soru||0)-(+a.sinav_soru||0); })[0];
+    return (pd.length&&L.filter(function(x){ return pd.indexOf(kc(x.ad))>-1; })[0])||((+agir.sinav_soru||0)>0?agir:L[0]);
+  }
   function panoCiz(){
     var s=ILR.secili; if(!s||!$('ogPano')) return;
     var kod=KASA_KOD[s], yet=s==='yeterlilik', kgk=s==='kgk', U=window.TetikteUye;
@@ -1172,7 +1181,17 @@
        🚫 GÖRMEZ: ücretsiz örnek sayfadaki cevap (sunucuya yazılmıyor). */
     try{ var sonD=null; try{ sonD=localStorage.getItem('sc_son_ders_'+kod); }catch(e){}
       var hD=((OZET&&OZET.dersler)||[]).filter(function(x){ return x.sinav===kod&&x.son; }).sort(function(a,b){ return String(b.son).localeCompare(String(a.son)); })[0];
-      if(!hD&&(!sonD||!/^[a-z0-9\/._-]+\.html$/i.test(sonD))) $('opHos').classList.add('og-gizli');
+      $('opHosBtn').textContent='Devam et →';
+      /* 27.10 (Cem "1.2.3.4 yap", madde 1): ÖLÇÜLDÜ 27.10 - ödeyen 38 üyenin 10'u paketli soru sayfasını HİÇ açmadı; "Soru çöz" ders seçme
+         sayfasına (15 ders) gidiyordu. Hiç çözmemiş PAKETLİ üyeye aynı satır "Paketin hazır" olur ve düğme doğrudan paketindeki ilk derse
+         gider (tek ders paketinde o ders; tam pakette dizindeki ilk ders - dizin sınav ağırlığıyla sıralı). Geçmişi olan üyede davranış aynı.
+         🚫 GÖRMEZ: girişli gerçek hesapta gözle görülmedi (giriş yapılamadı) - ilkDersSec öz-sınavı + canlı sayfada yerleşim denemesi yapıldı. */
+      if(!hD&&(!sonD||!/^[a-z0-9\/._-]+\.html$/i.test(sonD))){ $('opHos').classList.add('og-gizli');
+        if(po&&po.durum==='aktif'&&window.ttCalisma&&ttCalisma.dizin) ttCalisma.dizin().then(function(dz){ if(ILR.secili!==s) return;
+          var d=ilkDersSec(dz,kod,po); if(!d) return;
+          $('opHosMetin').innerHTML='🎉 <b>Paketin hazır.</b> İlk sorunla başla: <b>'+esc(d.ad)+'</b>. Cevapladığın anda doğrusu ve nedeni açılır; istediğin an başka derse geçebilirsin.';
+          $('opHosBtn').textContent='İlk soruna başla →'; $('opHosBtn').href=d.sayfa; $('opCozBtn').href=d.sayfa; $('opHos').classList.remove('og-gizli');
+          try{ if(typeof gcOlay==='function') gcOlay('hesabim/ilk-soru-karti','Hesabım: ilk soru kartı'); }catch(e){} },function(){}); }
       else if(window.ttCalisma&&ttCalisma.dizin) ttCalisma.dizin().then(function(dz){ if(ILR.secili!==s) return;
         var sn=dz&&dz.sinavlar?dz.sinavlar.filter(function(x){ return x.kod===kod; })[0]:null, L=sn?(sn.dersler||[]):[];
         var kc=function(t){ return String(t||'').toLocaleLowerCase('tr-TR').trim(); };
