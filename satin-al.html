@@ -348,7 +348,7 @@
   <div class="alan" style="margin:12px 0 14px">
     <!-- 27.10.2026 Cem: Son 20 Gün erken kayıt (SGS 400 TL, 1 Kasım 23:59 TR). Satır yalnız kampanya süresince görünür; kodlar
          elçi altyapısında, süre bitince .github/workflows/erken-kayit-kapat.yml kapatır. Koşullar: kampanya-son-20-gun.html -->
-    <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Geçene Kadar Tetikte erken kayıt:</b> 1 Kasım 23:59'a kadar SGS Tam Pakette <b>600 TL indirim</b> (2.988 TL yerine 2.388 TL) — kod: <b>ERKEN600</b>. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. Kod "Sadece 7 Deneme" paketine işlemez. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
+    <p class="kucuk" id="erkenKayit" hidden style="margin:0 0 8px">🎯 <b>Geçene Kadar Tetikte erken kayıt:</b> 1 Kasım 23:59'a kadar SGS Tam Pakette <b>600 TL indirim</b> (2.988 TL yerine 2.388 TL). <b>Kod gerekmez</b>, indirim kendiliğinden uygulanır. Üye olunca erişimin hemen başlar; Son 20 Gün'ün 7 denemesi 1 Kasım'da hesabında açılır. İndirim "Sadece 7 Deneme" paketine uygulanmaz. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
     <script>(function(){ try { if (Date.now() < Date.UTC(2026,10,1,20,59,59)) document.getElementById('erkenKayit').hidden = false; } catch(e){} })();</script>
     <a href="#" id="kodAc" class="kucuk" style="font-weight:700">Elçi ya da indirim kodun var mı?</a>
     <div id="kodKutu" hidden>
@@ -622,7 +622,7 @@ function ozetCiz(){
   var tk = secili ? teklifIndirim() : 0;
   var ind = (secili && !tk) ? elciIndirim : 0;
   document.getElementById('ozIndSatir').style.display = ind > 0 ? '' : 'none';
-  document.getElementById('ozIndAd').textContent = kodTur === 'ozel' ? 'Özel indirim kodu' : 'Elçi kodu indirimi';   /* 19.10 */
+  document.getElementById('ozIndAd').textContent = kodTur === 'ozel' ? 'Özel indirim kodu' : otoKod ? 'Erken kayıt indirimi' : 'Elçi kodu indirimi';   /* 19.10 · 28.10 */
   document.getElementById('ozInd').textContent = ind > 0 ? '− ' + tl(ind) + ' TL' : '—';
   document.getElementById('ozTeklifSatir').style.display = tk > 0 ? '' : 'none';
   document.getElementById('ozTeklif').textContent = tk > 0 ? '− ' + tl(tk) + ' TL' : '—';
@@ -634,7 +634,7 @@ function ozetCiz(){
   if(kdvGoster){ var net = Math.round(secili.fiyat / (1 + oran)); document.getElementById('ozKdv').textContent = '= ' + tl(net) + ' TL + %' + Math.round(oran * 100) + ' KDV (' + tl(secili.fiyat - net) + ' TL) · fiyat sayfasındaki tutar'; }
   document.getElementById('ozFatSatir').style.display = (secili && (ind > 0 || tk > 0)) ? '' : 'none';
   if(secili && (ind > 0 || tk > 0)){ var top = odenecekTutar(), mt = Math.round(top / (1 + oran) * 100) / 100;
-    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind)) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
+    document.getElementById('ozFat').innerHTML = '<b style="color:var(--green)">' + (tk > 0 ? 'Teklifsiz ' + tl(secili.fiyat) + ' TL ödeyecektin; anlık teklifle ' + tl(tk) : (otoKod ? 'Normalde ' + tl(secili.fiyat) + ' TL; erken kayıtla ' + tl(ind) : 'Kodsuz ' + tl(secili.fiyat) + ' TL ödeyecektin; ' + (kodTur === 'ozel' ? 'özel indirim koduyla ' : 'elçi koduyla ') + tl(ind))) + ' TL daha az ödüyorsun.</b> Faturada ' + iki(mt) + ' TL + ' + iki(Math.round((top - mt) * 100) / 100) + ' TL KDV.'; }
   dersCiz();
   if(typeof teklifCiz === 'function') teklifCiz();
   if(typeof window.akdOzetCiz === 'function') window.akdOzetCiz();
@@ -650,6 +650,10 @@ var elciIndirim = 0, elciSira = 0;   /* 01.10: tek ders paketlerinde de ders ba�
    aynı #elci alanı; kodTur 'ozel' iken indirim elciIndirim'de durur (tek indirim kuralı aynı), siparişe ozel_kod olarak gider.
    Sorulan tek şey ozel_kod_kontrol; asıl damga sunucuda (siparis_teklif_damga), tutmazsa OZEL_KOD_GECERSIZ. */
 var kodTur = '';
+/* 28.10 Cem ("kod gerek yok, direkt girsin ve o fiyatı alsın"): erken kayıt döneminde SGS Tam Paket seçilip kod kutusu boşsa
+   indirim KENDİLİĞİNDEN uygulanır; ekranda kod adı görünmez, siparişe sunucunun doğrulayacağı ERKEN_KAYIT.kod gider (otoKod).
+   Eskiden kod yalnız ?paket=sgs adresiyle gelene yazılıyordu: paketi sayfada kendisi seçen 2.988 ödüyordu. */
+var otoKod = '';
 function ozelKodMu(s){ return typeof OZEL_KOD !== 'undefined' && OZEL_KOD.bicim.test(s); }
 function elciAcik(){ return typeof ELCI !== 'undefined' && ELCI.acik === true; }
 function elciTemizle(s){
@@ -741,11 +745,14 @@ function elciDurumYaz(m, renk){ var d = document.getElementById('elciDurum'); d.
 function elciDenetle(){
   if(!elciAcik()) return;
   var ham = document.getElementById('elci').value, kod = elciTemizle(ham), sira = ++elciSira;
-  elciIndirim = 0; kodTur = '';
-  if(!ham.trim()){ elciDurumYaz(''); ozetCiz(); return; }
+  elciIndirim = 0; kodTur = ''; otoKod = '';
+  if(!ham.trim()){
+    if(secili && secili.id === 'sgs' && typeof erkenKayitAcik === 'function' && erkenKayitAcik()){ kod = otoKod = ERKEN_KAYIT.kod; }
+    else { elciDurumYaz(''); ozetCiz(); return; }
+  }
   if(!kod){ elciDurumYaz('Kod biçimi geçersiz (3–12 harf/rakam).', 'var(--red)'); ozetCiz(); return; }
   if(ozelKodMu(kod)){ ozelKodDenetle(kod, sira); return; }
-  try{ localStorage.setItem('tt_elci', kod); }catch(e){}
+  if(!otoKod){ try{ localStorage.setItem('tt_elci', kod); }catch(e){} }
   if(!secili){ elciDurumYaz('Paket seçince kodun geçerliliği görünecek.'); ozetCiz(); return; }
   if(!(ELCI.indirim[secili.id] > 0)){
     var gecerli = Object.keys(ELCI.indirim).filter(function(id){ return ELCI.indirim[id] > 0 && paketBul(id); })
@@ -759,7 +766,8 @@ function elciDenetle(){
     if(sira !== elciSira) return;
     var v = (r && !r.error && typeof r.data === 'number') ? r.data : 0;
     elciIndirim = v > 0 ? v : 0;
-    if(elciIndirim > 0){ elciDurumYaz('✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
+    if(elciIndirim > 0){ elciDurumYaz(otoKod ? '✓ Erken kayıt indirimi uygulandı: ' + tl(elciIndirim) + ' TL. Kod gerekmez.' : '✓ Kod geçerli: ' + tl(elciIndirim) + ' TL indirim uygulandı.', 'var(--green)'); }
+    else if(otoKod){ otoKod = ''; elciDurumYaz(''); }
     else {
       /* 03.10 (Cem "2 yap"): geçersiz kod formda durmaz — alan ve tt_elci boşalır, yalnız uyarı kalır */
       document.getElementById('elci').value = '';
@@ -793,15 +801,13 @@ function ozelKodDenetle(kod, sira){
   document.getElementById('elciSatir').style.display = '';
   var q = elciTemizle(new URLSearchParams(location.search).get('e'));
   if(!q){ try{ q = elciTemizle(localStorage.getItem('tt_elci')); }catch(e){} }
-  /* 27.10 Geçene Kadar Tetikte: kodsuz gelen SGS alıcısına erken kayıt kodu hazır gelir. Adresteki ya da bu cihazda
-     saklı elçi kodu VARSA ona dokunulmaz (elçinin satışı elçide kalır; elçi kodu da 600 verir). */
-  if(!q && typeof erkenKayitAcik === 'function' && erkenKayitAcik()
-     && new URLSearchParams(location.search).get('paket') === 'sgs'){ q = ERKEN_KAYIT.kod; }
+  /* 28.10: erken kayıt kodu artık alana YAZILMAZ — elciDenetle boş alanda SGS için kendiliğinden uygular (otoKod).
+     Adresteki ya da bu cihazda saklı elçi kodu varsa o kullanılır (elçinin satışı elçide kalır; elçi kodu da 600 verir). */
   if(q){ document.getElementById('elci').value = q; }
   var t = null;
   document.getElementById('elci').addEventListener('input', function(){ clearTimeout(t); t = setTimeout(elciDenetle, 450); });
-  /* supabase kütüphanesi sayfanın sonunda yüklenir; ilk denetim onu bekler */
-  window.addEventListener('load', function(){ if(q) elciDenetle(); });
+  /* supabase kütüphanesi sayfanın sonunda yüklenir; ilk denetim onu bekler (boş alanda da: erken kayıt kendiliğinden) */
+  window.addEventListener('load', function(){ elciDenetle(); });
 })();
 ozetCiz();
 
@@ -1159,7 +1165,7 @@ btn.addEventListener('click', function(){
   var no = siparisNo();
   var tutar = odenecekTutar();
   var tkInd = teklifIndirim();   /* 12.10 anlık teklif: varsa elçi kodu gönderilmez (üst üste binmez) */
-  var elciKod = (elciIndirim > 0 && !tkInd) ? elciTemizle(deger('elci')) : '';
+  var elciKod = (elciIndirim > 0 && !tkInd) ? (elciTemizle(deger('elci')) || otoKod) : '';   /* 28.10: boş alanda erken kayıt kendiliğinden */
   /* 19.10: özel indirim kodu elçi kodu olarak GİTMEZ (ayrı kolon ozel_kod; tutarı sunucu damgalar) */
   var ozelKod = (elciKod && kodTur === 'ozel' && ozelKodMu(elciKod)) ? elciKod : '';
   if(ozelKod){ elciKod = ''; }
