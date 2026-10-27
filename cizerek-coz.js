@@ -362,6 +362,7 @@
   }
   function kokOnculleri(soru) { return (String(soru || '').match(/(^|\n)\s*(IV|V|I{1,3})\.\s/g) || []).map(function (x) { return x.replace(/[\s.\n]/g, ''); }); }
   /* kelime sonu şartı: "yanlışlık riski", "aykırılık göstergesi", "doğrulama prosedürü" kutup/ifade sözcüğü DEĞİL */
+  /* 27.10: JS /i büyük İ'yi i saymaz → "DEĞİLDİR" (gerçek kitapçık biçimi) olumlu okunuyordu; çağıranlar İ→i yapar */
   var OLUMSUZ = /(yanlış(tır)?|yanlış olan|değildir|söylenemez|olamaz|aykırıdır|uygun değildir)(?![a-zçğıöşü])/i, IFADE = /(doğru(dur)?|yanlış(tır)?|söylenebilir|söylenemez|ifade[a-zçğıöşü]*)(?![a-zçğıöşü])/i;
   var HARF = 'A-Za-zÇĞİÖŞÜçğıöşü\'’', ROM = '(?:IV|V|I{1,3})';
   /* "I, II ve III doğru" · "IV yanlış" · "III de doğrudur" · "II. öncül yanlıştır" · "IV. ifade yanlıştır" · "I doğru değildir" (= yanlış).
@@ -431,8 +432,8 @@
     var oncul = oncullerSik(dn), kok = kokCumle(s.soru);
     if (oncul && adim.filter(function (a) { return /^\s*[IVX]+\s*:/.test(a.formul); }).length >= 2 && adim.some(function (a) { return /^\s*Sonuç\s*=/.test(a.formul); })) B.push('ONCUL');
     if (oncul && kokOnculleri(s.soru).length >= 2) B.push('HUKUM');
-    if (!oncul && !OLUMSUZ.test(soruCumlesi(kok))) B.push('DUZ');   /* olumsuz kökte doğru şık YANLIŞ bir ifade: onu "kural" diye yazmak ters olur */
-    if (!oncul && (IFADE.test(soruCumlesi(kok)) || dn.length >= 40)) B.push('SIK');   /* uzun cümle şık hiçbir kural cümlesinde AYNEN geçemez */
+    if (!oncul && !OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i'))) B.push('DUZ');   /* olumsuz kökte doğru şık YANLIŞ bir ifade: onu "kural" diye yazmak ters olur */
+    if (!oncul && (IFADE.test(soruCumlesi(kok)) || OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i')) || dn.length >= 40)) B.push('SIK');   /* uzun cümle şık hiçbir kural cümlesinde AYNEN geçemez · olumsuz kısa şıklı kök ("… hangisi … DEĞİLDİR?") DUZ alamaz, SIK ile çizilir (27.10) */
     return B;
   }
   function sozelSenaryo(s, bicim) {
@@ -450,7 +451,7 @@
       });
     };
     if (bicim === 'HUKUM') {
-      var neg = OLUMSUZ.test(soruCumlesi(kok)), hb = hukumTopla(s), ko = kokOnculleri(soru), sec = [], eksik = [];
+      var neg = OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i')), hb = hukumTopla(s), ko = kokOnculleri(soru), sec = [], eksik = [];
       var sor = sorulanIfade(kok);
       sahne.push({ tur: 'alti', hedef: sor && soru.indexOf(sor) >= 0 ? [sor] : [], alt: kalip, etiket: 'Soruda sorulan' });
       ko.forEach(function (o) {
@@ -473,7 +474,7 @@
       sahne.push({ tur: 'yaz', satirlar: [kural], alt: '', son: true, etiket: 'Kural' });
       sahne.push({ tur: 'daire', harf: s.dogru, alt: ilkGuvenli([th[s.dogru] && th[s.dogru].gercek || ''], kay, 170) });
       yanlislar();
-      return { sahne: sahne, cozumSay: 1, bicim: bicim, olumsuz: OLUMSUZ.test(soruCumlesi(kok)) };
+      return { sahne: sahne, cozumSay: 1, bicim: bicim, olumsuz: OLUMSUZ.test(soruCumlesi(kok).replace(/İ/g, 'i')) };
     }
     if (bicim === 'ONCUL') {
       var sor = (kok.match(SORULAN) || [])[0] || '';
