@@ -103,6 +103,14 @@ var ELCI = { acik:true, indirim:{ sgs:400, 'yeterlilik-tum':400, 'yeterlilik-1':
              dersKomisyon:{ 'yeterlilik-1':150, 'yeterlilik-2':300, 'yeterlilik-3':450, 'yeterlilik-4':600 },
              bicim:/^[A-Z0-9]{3,12}$/ };
 
+/* 27.10.2026 GEÇENE KADAR TETİKTE (Cem: "ful paket 600 tl indirim"): 1 Kasım 2026 23:59 TR'ye kadar SGS'de elçi ve kanal
+   kodları 600 TL indirir (ERKEN600 · INSTA600 · GOOGLE600 · TELEGRAM600; eski ...400 kodları da 600). Sunucu: elci_indirim
+   sgs = 600 (radar-app/sql/2026-10-27-gecene-kadar-tetikte.sql); süre bitince erken-kayit-kapat.yml kodları kapatır, sgs
+   satırını 400'e (elçi sözleşmesi Madde 5) geri yazar. Yukarıdaki ELCI.indirim sözleşme tutarıdır, değişmedi. */
+var ERKEN_KAYIT = { bitis:Date.UTC(2026, 10, 1, 20, 59, 59), indirim:600, kod:'ERKEN600' };
+function erkenKayitAcik(){ return Date.now() < ERKEN_KAYIT.bitis; }
+if(erkenKayitAcik()){ ELCI.indirim.sgs = ERKEN_KAYIT.indirim; }
+
 /* ÖZEL İNDİRİM KODU — 19.10.2026 Cem ("birisine 600 TL indirim" → "hem yeterlilik hem SGS için bir kod").
    Yönetim panelinden kişiye üretilir, tek kullanımlık; paketler, paket başına tutar ve süre kodun kendisinde (sunucu:
    ozel_kod tablosu, radar-app/sql/2026-10-19-ozel-indirim-kodu.sql + -ozel-kod-paket-tutar.sql). Burada yalnız kod
@@ -186,13 +194,15 @@ var KGK_PAKET_MERDIVENI = false;
    yazılmışken bizimkini hariç yazmak farklı temelde kıyas olurdu (karşılaştırmalı reklam).
 --------------------------------------------------------------------------- */
 /* 01.10 (aynı gece) Cem "bitirme artı kdv olarak göster": Yeterlilik paketleri de '+ KDV' (anahtar paket kimliğiyle). */
-var KDV_HARIC_GOSTER = { sgs:true, 'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
-function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL + KDV' : tl(n) + ' TL'; }
+var KDV_HARIC_GOSTER = { sgs:true, 'son20-sgs':true, 'yeterlilik-1':true, 'yeterlilik-2':true, 'yeterlilik-3':true, 'yeterlilik-4':true, 'yeterlilik-tum':true };
+/* 27.10: 999 TL'nin KDV hariç tutarı 832,50 (yuvarlanırsa 833 + KDV = 999,60 olurdu); kuruşlu tutar iki haneyle yazılır. */
+function kdvHaric(n){ var h = Math.round(n / (1 + KDV_ORAN) * 100) / 100; return h % 1 ? h.toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 }) : tl(h); }
+function fiyatAna(id, n){ return KDV_HARIC_GOSTER[id] ? kdvHaric(n) + ' TL + KDV' : tl(n) + ' TL'; }
 function fiyatDahilNot(id, n){ return KDV_HARIC_GOSTER[id] ? 'KDV dahil ' + tl(n) + ' TL' : ''; }
 /* 05.10 Cem ("KDV'yi küçük göster, bas bas KDV gösteriyorsun"): HTML basan yerler için aynı metin, KDV ekleri küçük ve
    soluk (stil.css .kdv-ek / .kdv-dahil). Metin ve rakam yukarıdakilerle AYNI; yalnız görünüş. KDV dahil toplam okunur
    boyda kalır (en az 12px) - Fiyat Etiketi Yön. tüketiciye toplamın görünmesini ister. */
-function fiyatAnaHtml(id, n){ return KDV_HARIC_GOSTER[id] ? tl(Math.round(n / (1 + KDV_ORAN))) + ' TL<small class="kdv-ek"> + KDV</small>' : tl(n) + ' TL'; }
+function fiyatAnaHtml(id, n){ return KDV_HARIC_GOSTER[id] ? kdvHaric(n) + ' TL<small class="kdv-ek"> + KDV</small>' : tl(n) + ' TL'; }
 function fiyatDahilHtml(id, n){ var d = fiyatDahilNot(id, n); return d ? ' <small class="kdv-dahil">(' + d + ')</small>' : ''; }
 
 /* ---------------------------------------------------------------------------
@@ -224,6 +234,9 @@ var FIYAT = {
      DEĞİŞMEDİ → takipçi 2.588 öder (Cem'in elçilere ilk paylaşımı "2.590, 400 TL indirim"; söz tutulur).
      Kalan (tahmin, 750 komisyon, %25 KV): elçili havale ~1.055 / kart ~900. Fiyat düştü → m.14 sahte indirim riski yok. */
   sgs:            { kurulus:2988, liste:5988 },
+  /* 27.10.2026 CEM KARARI ("sadece soru alana 999 tl"): Son 20 Gün "Sadece 7 Deneme" — 7 deneme + konu görevleri,
+     sitedeki diğer SGS soruları YOK. KDV dahil 999 (832,50 + KDV). Kotasız; elçi/erken kayıt kodu işlemez. */
+  son20Sgs:       { kurulus:999, liste:999 },
   /* Yeterlilik ders merdiveni — her basamak RESMÎ HARÇTAN UCUZ:
      1 ders 1.188 < 1.260 · 2 ders 1.908 < 2.520 · 3 ders 2.508 < 3.780
      4 ders 2.988 < 5.040 · tüm dersler 3.468 < 10.080 (01.10 fiyatları, KDV dahil)
@@ -441,6 +454,13 @@ function paketler(){
            fiyat:FIYAT.sgs.kurulus, liste:FIYAT.sgs.liste, kota:KOTA.sgs,
            erisim:erisimYazi('sgs'), sinav:'sgs',
            harcYazi:'Sınav başvuru bedeli ' + tl(HARC.sgs.basvuru) + ' TL', acik:true });
+
+  /* 27.10 Geçene Kadar Tetikte. Kimlik 'sgs' ile BAŞLAMAZ (sgs-öneki her yerde bütün SGS bankasını açar).
+     acilis: denemeler bu gün açılır; o güne kadar ön satış (arac/fiyat-urun-kapisi.js FU-ONSATIS). */
+  L.push({ id:'son20-sgs', grup:'Staja Giriş (SGS)', ad:'Son 20 Gün — Sadece 7 Deneme',
+           fiyat:FIYAT.son20Sgs.kurulus, liste:FIYAT.son20Sgs.liste, kota:null,
+           erisim:'21 Kasım 2026 sınavına kadar · denemeler 1 Kasım\'da açılır', sinav:'sgs', acilis:'2026-11-01',
+           harcYazi:'7 deneme + konu görevleri · sitedeki diğer SGS soruları yok', acik:true });
 
   for(var n = 1; n <= 4; n++){
     L.push({ id:'yeterlilik-' + n, grup:'SMMM Yeterlilik',

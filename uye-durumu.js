@@ -30,7 +30,7 @@
   var SINAVLAR = {
     sgs: {
       kod: 'sgs', ad: 'Staja Giriş', uzun: 'SMMM Staja Giriş (SGS)', icerik: true,
-      dene: 'ucretsiz-dene.html?sinav=sgs', olc: 'seviye-testi.html',
+      dene: 'ucretsiz-dene.html?sinav=sgs', olc: 'kaydir/vitrin/ornek-sgs.html',   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir"); seviye-testi.html yerinde, çağrılmıyor */
       gir: 'sorular.html#sgs', devam: 'sorular.html#sgs',   /* 18.10 Cem: "Sınava gir" yerine "Soru çöz" merkezi (dersler + deneme paneli tek sayfada) */   /* 04.10 site turu: kaydir/sgs/index.html taslak dizin (adet + ASCII konu) -> resmî ders listesi */
       al: 'satin-al.html?paket=sgs', fiyat: 'fiyat.html'
     },
@@ -38,7 +38,7 @@
       kod: 'yeterlilik', ad: 'Yeterlilik', uzun: 'SMMM Yeterlilik (staj bitirme)', icerik: true,   /* 24.09 Cem: satışta (fiyat-motoru.js ICERIK_HAZIR ile aynı) */
       dene: 'ucretsiz-dene.html?sinav=yeterlilik', onkayit: 'ucretsiz-dene.html?sinav=yeterlilik#onkayit',
       /* 23.09 Cem: her sınavın sabit 30 soruluk seviye testi -> içerik hazırlanırken de "ölç" düğmesi var */
-      olc: 'seviye-testi.html?sinav=yeterlilik', olcDk: 40,
+      olc: 'kaydir/vitrin/ornek-smmm.html',   /* 27.10 Cem ("bütün 30 soru bağlantılarını 5 örnek soruya çevir") */
       /* 24.09 satışa açılınca gereken alanlar. sinav-gibi.html yalnız SGS'dir -> Yeterlilik'te giriş = kendi soru bankası.
          Satın alma ders seçimli -> fiyat sayfasına (Yeterlilik kartı). Ücretsiz deneme = 70 soruluk açık vitrin. */
       gir: 'sorular.html#smmm', devam: 'sorular.html#smmm',
