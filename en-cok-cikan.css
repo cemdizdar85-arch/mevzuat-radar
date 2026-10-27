@@ -29,4 +29,9 @@
   .ec-fiyat .ana{font-size:20px;font-weight:900}.ec-fiyat small{color:var(--muted);font-size:12.5px}
   .ec-not{margin:22px 0 0;font-size:13px;color:var(--muted);line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
   .ec-not a,.ec-bilgi a,.ec-alt a{color:var(--amber)}
-  @media(max-width:760px){ .ec h1{font-size:28px} .ec-bas,.ec-satis{grid-template-columns:1fr} .ec-satis .ec-dug{min-width:0} .ec-dersler{grid-template-columns:1fr} }
+  /* 28.10 Geçene Kadar Tetikte söz şeridi (yalnız Staja Giriş; en-cok-cikan.js ecSoz) */
+  .ec-soz{margin:0 0 14px;padding:16px 20px;border-radius:16px;border:1.5px solid var(--ink);background:var(--panel)}
+  .ec-soz b{display:block;font-size:20px;line-height:1.25;color:var(--ink);letter-spacing:-.3px}
+  .ec-soz p{margin:6px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
+  .ec-soz a{color:var(--amber);font-weight:700}
+  @media(max-width:760px){ .ec h1{font-size:28px} .ec-bas,.ec-satis{grid-template-columns:1fr} .ec-soz b{font-size:18px} .ec-satis .ec-dug{min-width:0} .ec-dersler{grid-template-columns:1fr} }

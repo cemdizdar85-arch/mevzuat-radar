@@ -27,7 +27,20 @@
     var dahil=function(i,n){ var d=fiyatDahilNot(i,n); return d?' <small>('+esc(d)+')</small>':''; };
     var h;
     if(s==='sgs'){
-      h='<span class="ana">'+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>'+esc(p.erisim||'Sınavına kadar')+' · sınırsız soru';
+      /* 28.10 (Cem "hemen başla"): Geçene Kadar Tetikte erken kayıt fiyatı burada da (satın al ?paket=sgs ERKEN kodu kendisi
+         uygular; bu sayfa 2.988 gösterirken satın alma 2.388 diyordu). Tutar + bitiş YALNIZ fiyat-motoru.js ERKEN_KAYIT'tan;
+         süre dolunca erkenKayitAcik() false → eski satır kendiliğinden döner. Sadece 7 Deneme: paket son20-sgs açıksa. */
+      var erken=typeof erkenKayitAcik==='function'&&erkenKayitAcik()&&typeof ERKEN_KAYIT==='object';
+      if(erken){
+        var net=p.fiyat-ERKEN_KAYIT.indirim, bit=new Date(ERKEN_KAYIT.bitis);
+        var bitY=bit.toLocaleDateString('tr-TR',{day:'numeric',month:'long',timeZone:'Europe/Istanbul'})+' '+bit.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Istanbul'});
+        h='<span class="ana">Tam Paket '+esc(fiyatAna(id,net))+'</span> <small>(KDV dahil '+tl(net)+' TL · '+tl(p.fiyat)+' TL yerine, '+esc(bitY)+'\'a kadar)</small>'
+          +'<br>'+esc(p.erisim||'Sınavına kadar')+' · sınırsız soru';
+      } else {
+        h='<span class="ana">'+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>'+esc(p.erisim||'Sınavına kadar')+' · sınırsız soru';
+      }
+      var s7=paketBul('son20-sgs');
+      if(s7&&s7.acik) h+='<br><a href="satin-al.html?paket=son20-sgs'+K+'">Sadece 7 Deneme '+esc(fiyatAna('son20-sgs',s7.fiyat))+'</a>'+dahil('son20-sgs',s7.fiyat);
     } else {
       var t=paketBul('yeterlilik-tum');
       h='<span class="ana">1 ders '+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>Bir dersin sınav ücreti '+tl(HARC.yeterlilik.ders)+' TL'
@@ -45,6 +58,9 @@
     $('ecCipler').innerHTML=A.cip.map(function(c){ return '<span>'+esc(c)+'</span>'; }).join('');
     var pk=!!PAKET[s];
     $('ecSatis').hidden=pk; $('ecSatisA').href=A.fiyat+K; $('ecOrnekA').href=A.ornek;
+    /* 28.10 söz şeridi (Geçene Kadar Tetikte): yalnız Staja Giriş, paketsize, 21 Kasım 2026 sınavı başlayana kadar
+       (söz o dönem içindir; koşullar kampanya-son-20-gun.html). Yeterlilik'te söz YOK (ölçüt Cem kararında). */
+    var sz=$('ecSoz'); if(sz) sz.hidden=!(s==='sgs'&&!pk&&Date.now()<Date.UTC(2026,10,20,21,0,0));
     fiyatCiz(s);
     if(!v){ $('ecDersler').innerHTML='<p class="ec-bilgi">Dersler şu an okunamadı. Sayfayı yenilemeyi dene.</p>'; return; }
     var G={}, S=[];
