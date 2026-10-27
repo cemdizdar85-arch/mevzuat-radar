@@ -78,6 +78,8 @@ function paketFiyat(F: any, paket: string) {
   if (paket === "sgs") return { f: F.sgs, sinav: "sgs" };
   const m = paket.match(/^yeterlilik-([1-4])$/); if (m) return { f: F.yeterlilik[+m[1]], sinav: "yeterlilik" };
   if (paket === "yeterlilik-tum") return { f: F.yeterlilikTum, sinav: "yeterlilik" };
+  // 27.10 Geçene Kadar Tetikte: "Sadece 7 Deneme" (KOTA'da satırı yok → taban liste = kuruluş = 999)
+  if (paket === "son20-sgs") return { f: F.son20Sgs, sinav: "son20" };
   return null;
 }
 
