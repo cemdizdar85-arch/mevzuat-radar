@@ -114,7 +114,7 @@ async function ambardan() {
   }
   if (a.includes('--sinav')) process.exit(sinav() ? 1 : 0);
   const i = a.indexOf('--cikti');
-  const hedef = i >= 0 ? path.resolve(a[i + 1] || '') : path.join(kasaYolu(), 'gads', 'gads-cevrimdisi-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '.csv');
+  const hedef = i >= 0 ? path.resolve(a[i + 1] || '') : path.join(kasaYolu(), 'gads', 'gads-cevrimdisi-' + new Date(Date.now() + TZ_DAKIKA * 60000).toISOString().slice(0, 10).replace(/-/g, '') + '.csv');
   if (icinde(KOK, hedef)) throw new Error('çıktı depo içine yazılmaz (depo public): ' + hedef);
   const v = await ambardan();
   const r = csvUret(v, Date.now());
