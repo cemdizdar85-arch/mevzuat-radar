@@ -16,7 +16,7 @@
      ikinci dalga."
      Veri YALNIZ RPC'den (2026-10-28-s20-deneme.sql): s20_liste · s20_test_getir (soru doğrusuz gelir) · s20_test_bitir (puanı sunucu
      hesaplar, İLK çözüm sayılır, açıklama ancak bitince gelir). Soru listesi depoya/siteye YAZILMAZ (site deponun tamamını yayınlıyor).
-     Deneme puanı = denemenin bütün ders testleri bitince toplam doğru / toplam soru × 100 (Cem 24.10). Söz: 7 deneme bitir + en az
+     Deneme doğru oranı (Cem 28.10: ad 'doğru oranı', söz ölçütü ham %60) = denemenin bütün ders testleri bitince toplam doğru / toplam soru × 100 (Cem 24.10). Söz: 7 deneme bitir + en az
      5'inde 60 (ilk çözüm) + çalışma görevleri (ikinci dalga; kampanya-son-20-gun.html §2).
      Süre bilgi amaçlıdır: ders testi süresi = soru × 165 dk / 130; bitince test kendiliğinden teslim edilir, puanı etkilemez.
      ✕ kuralı: sayfada katman/bildirim yok (onay penceresi tarayıcının kendi confirm'i). -->
@@ -94,10 +94,10 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
       <h2>Söz sayacın</h2>
       <div class="soz-s">
         <div><b id="sozBiten">0/7</b><span>biten deneme</span></div>
-        <div><b id="soz60">0/5</b><span>60 ve üstü</span></div>
+        <div><b id="soz60">0/5</b><span>%60 ve üstü</span></div>
         <div><b id="sozGorev">—</b><span>çalışma görevleri</span></div>
       </div>
-      <p id="sozNot">Şart: 7 denemeyi bitir, en az 5'inde 60 al (ilk çözüm sayılır), çalışma görevlerini tamamla. Görevler denemelerden sonra açılır. <a href="kampanya-son-20-gun.html">Koşullar</a></p>
+      <p id="sozNot">Şart: 7 denemeyi bitir, en az 5'inde %60 ve üstü doğru yap (ilk çözüm sayılır), çalışma görevlerini tamamla. Görevler denemelerden sonra açılır. <a href="kampanya-son-20-gun.html">Koşullar</a></p>
     </div>
     <div class="kart kapi" id="kapi" hidden></div>
     <div id="denemeler"><p class="alt">Denemeler yükleniyor…</p></div>
@@ -157,10 +157,10 @@ h1{font-size:clamp(26px,6vw,36px);letter-spacing:-.6px;line-height:1.1;margin:6p
       h+='<article class="kart dn" id="d'+no+'"><h2>Deneme '+no;
       if(!d){ h+='</h2><p class="not">Hazırlanıyor. Kalite kontrolünden geçince burada açılır.</p></article>'; continue; }
       var p=puan(d);
-      if(p.bitti) h+=' <span class="puan '+(p.puan>=60?'ok':'no')+'">'+p.puan.toLocaleString('tr-TR')+' puan'+(p.puan>=60?' ✓':'')+'</span>';
+      if(p.bitti) h+=' <span class="puan '+(p.puan>=60?'ok':'no')+'">'+'%'+p.puan.toLocaleString('tr-TR')+' doğru'+(p.puan>=60?' ✓':'')+'</span>';
       h+=' <small>'+d.toplam+' soru</small></h2>';
       if(!d.acik){ h+='<p class="not">'+(d.acilis&&new Date(d.acilis)>new Date()? esc(tarih(d.acilis))+' itibarıyla açılır.' : 'Kalite kontrolünden geçince açılır.')+'</p></article>'; continue; }
-      if(!p.bitti) h+='<p class="not">Puan, bütün ders testleri bitince çıkar: toplam doğru / '+d.toplam+'.</p>';
+      if(!p.bitti) h+='<p class="not">Doğru oranı, bütün ders testleri bitince çıkar: toplam doğru / '+d.toplam+'.</p>';
       h+='<ul class="dersler">'+d.dersler.map(function(x){
         var s=x.sonuc, sag=s? '<span class="sonuc-rozet">'+s.dogru+'/'+s.toplam+' doğru</span><button type="button" class="dg iki" data-no="'+no+'" data-ders="'+esc(x.ders)+'">Yeniden çöz</button>'
                             : '<button type="button" class="dg" data-no="'+no+'" data-ders="'+esc(x.ders)+'"'+(L.erisim?'':' disabled')+'>'+(kayit(no,x.ders)?'Devam et':'Başla')+'</button>';
