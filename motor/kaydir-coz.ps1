@@ -683,6 +683,10 @@ $html=@'
 .ayrB{display:none}:root[data-sade] .panel>.ayrB{display:block;order:2;margin:2px 0 8px;font:inherit;font-size:.9em;font-weight:700;color:var(--mavi);background:none;border:1px solid var(--cizgi);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
 @media(max-width:899px){:root[data-sade] .panel.kisa .ayrK,:root[data-sade] .panel.kisa .kutuNot,:root[data-sade] .panel.kisa .akranNot,:root[data-sade] .panel.kisa .sinavDil,:root[data-sade] .panel.kisa .sinavDilM,:root[data-sade] .panel.kisa>.konuK,:root[data-sade] .panel.kisa>.hap{display:none!important}}
 @media(min-width:900px){:root[data-sade] .panel>.ayrB{display:none}}
+:root[data-sade] .panel>.hesapOzet{order:2}.hesapOzet{margin:4px 0 10px}.hesapOzet .et{margin:6px 0 4px}
+.hesapT{width:100%;border-collapse:collapse;font-size:.92em}.hesapT td{padding:6px 8px;border-bottom:1px solid var(--cizgi);vertical-align:top}.hesapT td.hDeger{text-align:right;white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
+.hesapT .hFormul{font-size:.82em;color:var(--dim);margin-top:2px}.hesapT tr.hSonuc td{border-bottom:0;background:color-mix(in srgb,var(--yesil) 12%,transparent);color:var(--yesil);font-weight:800}.hesapT tr.hSonuc .hFormul{color:var(--yesil);opacity:.85}
+.akildaTut{margin-top:10px;border-left:4px solid var(--altin);background:color-mix(in srgb,var(--altin) 10%,transparent);padding:8px 11px;border-radius:0 10px 10px 0;line-height:1.5;font-size:.95em}
 .dogruSik{color:var(--yesil)}.secimNot{font-size:.88em;color:var(--dim);margin-top:3px}:root[data-sade] .ozet{line-height:1.55}:root[data-sade] .ozet b{color:var(--yazi)}:root[data-sade] .ozet br+b,:root[data-sade] .ozet>b:first-child{display:inline-block;margin-top:6px}
 .cipler{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
 .cip2{background:var(--bg);color:var(--yazi);border:1px solid var(--cizgi);border-radius:20px;padding:7px 12px;font-size:.84em;cursor:pointer}.cip2.acik{border-color:var(--mavi);color:var(--mavi)}.cip2.ana{background:var(--yesil);color:var(--ustYazi);font-weight:800;border:0;margin-left:auto}
@@ -1211,6 +1215,24 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       oz.innerHTML=oh||('✅ <b>Doğrusu '+s.dogru+'.</b>'); oz.style.display='';
     }
     if(sd&&sd.sinav){ const sdEl=dogruMu?geri:oz; sdEl.innerHTML+=' <button class="sinavDil">sınav dili</button><div class="sinavDilM" hidden>📝 '+esc(sd.sinav)+'</div>'; sdEl.querySelector('.sinavDil').addEventListener('click',e=>{ const m=sdEl.querySelector('.sinavDilM'); m.hidden=!m.hidden; e.target.textContent=m.hidden?'sınav dili':'gizle'; }); }
+    // 28.10 HESAP TABLOSU + AKILDA TUT (Cem "yapalım görelim"; UWorld ürün içi ölçüm 28.10: açıklama = şema/kural → bu sorunun hesap
+    //   tablosu → "Things to remember" özeti). Bizde hesabı görmek için Nöbetçi'nin 6 kartını geçmek gerekiyordu. Veri zaten var: s.tablo
+    //   "HESAP" bölümü (değerler) + adımların doldur→formul eşlemesi (satırın nasıl bulunduğu). Yeni üretim yok. Kuram/kayıt sorusunda
+    //   tablo yok, yalnız "Akılda tut" (s.hap). Sade kipte eski "💡 Akılda kalsın" (.hap) yerine bu çıkar; ayrıntılı görünüm eski düzende.
+    if(document.documentElement.hasAttribute('data-sade')&&!panel.querySelector('.hesapOzet')){
+      const hz=document.createElement('div'); hz.className='hesapOzet'; let hh='';
+      const tb=s.tablo, teoriTb=!!(s.teori||s.tip==='teori'||(tb&&tb.basliklar&&tb.basliklar[0]==='Adım'));
+      if(tb&&tb.satirlar&&tb.satirlar.length&&!teoriTb&&s.tip!=='kayit'){
+        const hi=tb.satirlar.findIndex(r=>/^HESAP$/i.test(String(r[0]||'').trim())); const bas=hi>=0?hi+1:0;
+        const vSec=new Set((s.verilen||[]).map(p=>p[0]+','+p[1]));
+        const formulOf=r=>{ const a=(s.adimlar||[]).find(x=>(x.doldur||[]).some(p=>p[0]===r)); if(!a) return ''; let f=String(a.formul||'').split(/;/)[0].replace(/\s*\((soruda verilen[^)]*|\d+\.\s*adımda bulduk|bizim bildiğimiz kural|bizim bilgimiz)\)/gi,'').replace(/\s{2,}/g,' ').trim();
+          const p=f.split(/\s=\s/); f=p.length>=3?p.slice(1,-1).join(' = '):(p.length===2&&/\d/.test(p[0])?p[0]:''); return f.length>90?'':f; };
+        const satirlar=tb.satirlar.slice(bas).map((r,k)=>({r:bas+k,ad:String(r[0]||'').trim(),deger:String(r[r.length-1]||'').trim()})).filter(x=>x.ad&&x.deger&&x.deger!=='-'&&!/^VERİLENLER$/i.test(x.ad));
+        if(satirlar.length>=2&&satirlar.length<=14){ const son=satirlar[satirlar.length-1];
+          hh+='<div class="et">🧮 Hesap</div><table class="hesapT"><tbody>'+satirlar.map(x=>{ const f=vSec.has(x.r+',1')?'':formulOf(x.r); return '<tr'+(x===son?' class="hSonuc"':'')+'><td>'+esc(x.ad)+(f?'<div class="hFormul">'+esc(f)+'</div>':'')+'</td><td class="hDeger">'+esc(x.deger)+'</td></tr>'; }).join('')+'</tbody></table>'; } }
+      const hapT=String(s.hap||'').trim(); if(hapT) hh+='<div class="akildaTut">📌 <b>Akılda tut:</b> '+esc(hapT)+'</div>';
+      if(hh){ hz.innerHTML=hh; oz.after(hz); const eskiHap=k.querySelector('.hap'); if(eskiHap) eskiHap.style.display='none'; }
+    }
     // 27.10 KISA AÇIKLAMA (Cem "karşıdaki kişi yorulmasın" + "160 kelimeyi göremeyecek deme"): telefonda sade kipte ilk görünen
     //   hüküm + "Neden C?" + Sonraki; "B neden yanlış", ipucu, konu özeti, kutu notu, akran yüzdesi, sınav dili SİLİNMEZ,
     //   "Ayrıntılı açıklama ▾" ile aynı yerde açılır. Bir kez açan kişide tercih kalır (kc_aciklama). Bilgisayarda (≥900px) hep açık.
@@ -1220,7 +1242,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       const ciz=()=>{ const kisa=kisaMi(); panel.classList.toggle('kisa',kisa); ab.textContent=kisa?'Ayrıntılı açıklama ▾':'Kısa göster ▴'; ab.setAttribute('aria-expanded',String(!kisa)); };
       ab.addEventListener('click',()=>{ const ac=kisaMi(); try{ localStorage.setItem('kc_aciklama',ac?'acik':'kisa'); }catch(e){}
         document.querySelectorAll('.panel .ayrB').forEach(x=>x.dispatchEvent(new Event('ciz'))); try{ gcOlay('aciklama/'+(ac?'ac':'kapat'),'Ayrıntılı açıklama '+(ac?'açıldı':'kapandı')); }catch(e){} });
-      ab.addEventListener('ciz',ciz); oz.after(ab); ciz();
+      ab.addEventListener('ciz',ciz); (panel.querySelector('.hesapOzet')||oz).after(ab); ciz();
     }
     // Cem 04.09 "akılda kalsın gerekli mi?": hap, kural/dogrusu ile AYNI seyi soyluyorsa gizlenir (uc kez ayni cumle olmasin);
     // yalniz kisa ve farkli bir ezber cumlesiyse kalir. Kalip kilidinde istem "12 kelimelik ezber cumlesi" yazacak.
