@@ -269,6 +269,8 @@
 /* 06.09 tahmin kapısı + konu girişi */
 .tahminSor{background:var(--kart);border:1px dashed var(--altin);border-radius:12px;padding:14px 16px;margin:10px 0}.tahminSor p{margin:6px 0 10px;line-height:1.5}.tahminGir{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tahminI{font:inherit;font-size:1.1em;padding:9px 12px;border:1px solid var(--cizgi);border-radius:10px;background:var(--bg);color:var(--yazi);width:160px}.tahminNot{font-size:.78em;color:var(--dim);margin-top:8px}
 .tahminSonuc{border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:.95em}.tahminSonuc.ok{background:color-mix(in srgb,var(--yesil) 14%,transparent);color:var(--yesil)}.tahminSonuc.hata{background:color-mix(in srgb,var(--kirmizi) 14%,transparent);color:var(--kirmizi)}.tahminSonuc b{color:var(--yazi)}
+.pufK{padding:4px 0}.pufK .et{margin-top:8px}.pufK p{margin:4px 0 0;line-height:1.55;font-size:1.05em}.pufCevap b{color:var(--yesil)}
+details.konuTani,details.soruGoster{margin:12px 0 0;border:1px solid var(--cizgi);border-radius:10px;padding:0 12px}details.konuTani>summary,details.soruGoster>summary{cursor:pointer;font-weight:700;color:var(--mavi);padding:10px 0;min-height:24px;list-style-position:inside}details.konuTani[open],details.soruGoster[open]{padding-bottom:10px}
 .girisK{padding:4px 0}.girisK .et{margin-top:10px}.girisK p{margin:4px 0 0;line-height:1.55;font-size:1.02em}.girisK .girisOrnek{border-left:3px solid var(--altin);padding-left:10px;color:var(--yazi)}
 .kuralKart{background:var(--kart);border:1px solid var(--cizgi);border-left:4px solid var(--altin);border-radius:12px;padding:12px 16px;margin:6px 0 10px}.kuralKart p{margin:4px 0 0;font-size:1.12em;line-height:1.55;font-weight:600}
 .tahminT{width:100%;font:inherit;font-size:1em;padding:9px 12px;border:1px solid var(--cizgi);border-radius:10px;background:var(--bg);color:var(--yazi);resize:vertical}
@@ -1219,10 +1221,19 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
         const kvH=kv.length?'<div class="et">Anahtar kavramlar</div><ul class="kavramL">'+kv.map(x=>'<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+(x.kaynak?' <i>('+esc(x.kaynak)+')</i>':'')+'</li>').join('')+'</ul>':'';
         // 07.09 Ö54(b): 0. adım = DERS (harita · dört terim · sınav deseni); panel zaten "nedir + örnek"i verdi, burada tekrar yok
         if(s.konuGiris.harita){ const tl=(s.konuGiris.terimler||[]).filter(x=>x&&x.ad); fH='<div class="girisK"><div class="et">Harita</div><p>'+esc(s.konuGiris.harita)+'</p>'+kunye+(tl.length?'<div class="et">Dört terim</div><ul class="kavramL">'+tl.map(x=>{ /* 06.10 (SGS oturumu bildirdi): "kim" etiketi ("kanun sabitler", "Tekdüzen hesap planı…") üretim isteminden muhasebe/hukuk dışı derslere de sızmış (SGS 8.153 terim: Türkçe, Matematik, İnkılap, Ekonomi, Maliye, YD). Yalnız muhasebe/denetim/hukuk/vergi derslerinde gösterilir; kaynak her derste kalır. Kök: kalip-parti-uret.ps1 istemi (sınav oturumunda). */ const xk=/muhasebe|denetim|hukuk|vergi|maliyet|mali tablo|finansal|meslek|sermaye|ticaret|borçlar|sosyal güvenlik|standart/i.test(String(s.ders||''))?x.kim:''; return '<li><b>'+esc(x.ad)+'</b>: '+esc(x.tanim||'')+((xk||x.kaynak)?' <span class="terimKim">· '+[xk,x.kaynak].filter(Boolean).map(esc).join(' · ')+'</span>':'')+'</li>'; }).join('')+'</ul>':kvH)+(s.konuGiris.desen?'<div class="et">Sınav bunu nasıl sorar</div><p>'+esc(s.konuGiris.desen)+'</p>':'')+'</div>'; anlatimH=''; }
-        else { fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+kunye+kvH+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; } }
+        else { fH='<div class="girisK"><div class="et">Bu konu nedir?</div><p>'+esc(s.konuGiris.nedir)+'</p>'+kunye+kvH+'<div class="et">Sınavda nasıl sorulur?</div><p>'+esc(s.konuGiris.sinavda)+'</p></div>'; anlatimH=''; }
+        // 28.10 NÖBETÇİ KISA (Cem "önce püf noktası + cevap, ilk kart ~60 kelime, harita/künye/terimler 'Konuyu tanı' altına" + "gizle, isteyen açsın"):
+        //   ÖLÇÜLDÜ 28.10 telefonda örnek soru: ilk kart 238 kelime, 6 adım ≈690 kelime, 7 kartın 6'sı içte kaydırma. Rakip kalıbı (UWorld/Khan/Photomath):
+        //   önce sonuç + tek cümle, ayrıntı istenince. Sade kipte ilk kart = Cevap + Püf noktası; eski giriş (harita · künye · terimler · desen)
+        //   SİLİNMEDİ, "📌 Konuyu tanı" ile aynı kartta açılır. Ayrıntılı görünüm eski düzende.
+        if(document.documentElement.hasAttribute('data-sade')){ const dS=s.dogru; const sm=String((s.siklar&&s.siklar[dS])||'').replace(/\s+/g,' ').trim(); const thD2=(s.teshis||{})[dS]; const hap=String(s.hap||'').trim();
+          const puf=(hap&&hap.length<=220?hap:'')||(thD2&&thD2.gercek)||(s.sade&&s.sade.dogru)||'';
+          fH='<div class="pufK"><div class="et">🎯 Cevap</div><p class="pufCevap"><b>'+esc(dS)+') '+esc(sm.length>90?sm.slice(0,88)+'…':sm)+'</b></p>'+(puf?'<div class="et">💡 Püf noktası</div><p>'+esc(puf)+'</p>':'')+'</div><details class="konuTani"><summary>📌 Konuyu tanı</summary>'+fH+'</details>'; } }
       if(verilenAdimMi&&!a.giris){
         const soruH=esc(s.soru).replace(/(?<![\d.,])\d{1,3}(?:\.\d{3})*(?:,\d+)?(?:\s*(?:TL|₺|kg|adet|saat|gün|yıl|%))?(?![\d.,])/g,m=>'<span class="kSayi">'+m+'</span>');
         fH='<div class="soruIsaret"><div class="et">Soru, verilenler işaretli</div>'+soruH+'</div>';
+        // 28.10 NÖBETÇİ KISA: soruyu az önce okudu → sade kipte soru metni "📝 Soruyu göster" ile açılır; verilenler listesi görünür kalır
+        if(document.documentElement.hasAttribute('data-sade')) fH='<details class="soruGoster"><summary>📝 Soruyu göster (verilenler işaretli)</summary>'+fH+'</details>';
         // 06.09: VERİLENLERİ TANI — her verilen ad · değer · tek cümle anlam (hiç bilmeyene ders burada başlar)
         if(s.verilenler&&s.verilenler.length){ fH+='<ul class="verilenListe">'+s.verilenler.map(v=>'<li><b>'+esc(v.deger)+'</b> · '+esc(v.ad)+(v.anlam?'<i> — '+esc(v.anlam)+'</i>':'')+'</li>').join('')+'</ul>'; }
         const dk=String(a.anlatim||'').match(/((?:Dikkat|Not|Önemli)[^.!?]*[.!?])/i)||String(a.anlatim||'').match(/([^.!?]*(?:anahtar|belirleyici|yöntem)[^.!?]*[.!?])/i);
@@ -1237,7 +1248,8 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       // Cem 04.09 "yol haritası ekranı kaplıyor": tek satır — numaralı noktalar (geçilen yeşil, buradasın kalın, hedef altın bayrak),
       // yalnız bulunduğun adımın adı yazılı; başlıklar üstüne gelince görünür. Kartın altına yaslanır.
       const yolH='<div class="yol"><div class="yolCip">'+s.adimlar.map((x,q)=>'<span class="yc '+(q<j?'gecti':(q===j?'simdi':(q===hedefIdx?'hedef':'')))+'" title="'+esc(adimBaslik(x))+'">'+(q===hedefIdx&&q!==j?'🏁':(q+1))+'</span>').join('<span class="ycb"></span>')+'<span class="yolAd">'+esc(adimBaslik(a))+'</span></div>'
-        +(a.giris?('<div class="neden">'+(((s.teori||(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım')))
+        +(a.giris&&document.documentElement.hasAttribute('data-sade')?'<div class="neden">Önce cevap ve püf noktası. Sonraki adımlar bu cevaba nasıl varıldığını gösterir; hedef <b>'+esc(sonBas)+'</b>.</div>'
+          :a.giris?('<div class="neden">'+(((s.teori||(s.tablo&&s.tablo.basliklar&&s.tablo.basliklar[0]==='Adım')))
             ?'Önce konunun haritası: nedir, sınav nasıl sorar. Sonra kural, sonra şıklar kuralla tek tek sınanır; en sonda senin seçimin.'   // 07.09 Ö55(2): teori cümlesi (hesap kalıbı "verilenler, hesap, ters durum" teori soruda anlamsızdı)
             :'Önce konunun haritası: nedir, sınav ne sorar, hangi yöntem ne zaman. Sonra sorunun verilenleri, sonra hesap; hedef <b>'+esc(sonBas)+'</b>.')+'</div>')
           :(verilenAdimMi&&s.verilenler&&s.verilenler.length)?'<div class="neden">Önce elimizdekileri tanıyoruz: <b>'+s.verilenler.length+' verilen</b>. Hesap bloğundaki her satır bunlardan kurulacak; hedef <b>'+esc(sonBas)+'</b>.</div>'
@@ -1248,6 +1260,9 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       serit.innerHTML='<div class="adimK'+(son?' sonAdim':'')+(yon<0?' geri':'')+'"><div class="say"><span>ADIM '+(j+1)+' / '+s.adimlar.length+'</span><span class="baslik">'+esc(adimBaslik(a))+'</span></div><code class="mat0">'+fH+'</code><p>'+anlatimH+'</p>'+yolH+sonBtn+'</div>';
       // Cem 04.09 "numaralara basarak sayfa değiştirsek": yol haritası yuvarlakları tıklanınca o adıma gider
       serit.querySelectorAll('.yc').forEach((el,q)=>el.addEventListener('click',()=>adimGit(q-adimNo)));
+      // 28.10 NÖBETÇİ SAYACI (Cem "sayaç ekle"): açılış (bDers) · sona ulaşma · saklı bölüm açma — kısaltma işe yaradı mı ~10.11 ölçülecek
+      if(son&&!ders.__sonSay){ ders.__sonSay=1; try{ gcOlay('nobetci/son','Nöbetçi anlatımı sona ulaştı ('+s.adimlar.length+' adım)'); }catch(e){} }
+      serit.querySelectorAll('details.konuTani,details.soruGoster').forEach(dt=>dt.addEventListener('toggle',()=>{ if(dt.open){ try{ gcOlay('nobetci/'+(dt.classList.contains('konuTani')?'konu-tani':'soru-goster'),'Nöbetçi: '+(dt.classList.contains('konuTani')?'Konuyu tanı':'Soruyu göster')+' açıldı'); }catch(e){} } }));
       const bo=serit.querySelector('.bDersOyun'); if(bo){ bo.addEventListener('click',()=>{ ders.classList.remove('acik'); oyunKur(); oyun.classList.add('acik'); }); }
       const bb=serit.querySelector('.bDersBitti'); if(bb){ bb.addEventListener('click',()=>{ ders.classList.remove('acik'); const cA=k.querySelector('.cAnlat'); if(cA){ if(cA.offsetParent===null){ const bd=k.querySelector('.bDaha'); if(bd) bd.click(); } cA.click(); const ta=k.querySelector('.anlatK'); if(ta) setTimeout(()=>ta.focus(),200); } }); }
       // tablo: bu adimin hucreleri acilir ve yanar; onceki adimlarda acilanlar acik kalir
@@ -1300,7 +1315,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
     let tekerKilit=0; serit.addEventListener('wheel',e=>{ e.preventDefault(); const t=Date.now(); if(t-tekerKilit<350) return; tekerKilit=t; adimGit((e.deltaY||e.deltaX)>0?1:-1); },{passive:false});
     let sx=null; serit.addEventListener('pointerdown',e=>{ sx=e.clientX; }); serit.addEventListener('pointerup',e=>{ if(sx===null) return; const dx=e.clientX-sx; sx=null; if(Math.abs(dx)>50) adimGit(dx<0?1:-1); });
     document.addEventListener('keydown',e=>{ if(!ders.classList.contains('acik')) return; if(e.key==='ArrowRight'||e.key===' '){ e.preventDefault(); adimGit(1); } if(e.key==='ArrowLeft'){ e.preventDefault(); adimGit(-1); } if(e.key==='Escape'){ ders.classList.remove('acik'); } });
-    bDers.addEventListener('click',()=>{ dersKur(); ders.classList.add('acik'); });
+    bDers.addEventListener('click',()=>{ dersKur(); ders.classList.add('acik'); try{ gcOlay('nobetci/ac','Nöbetçi anlatsın açıldı'); }catch(e){} });
     ders.querySelector('.bDersKapat').addEventListener('click',()=>ders.classList.remove('acik'));
   }
 }
