@@ -28,6 +28,8 @@ Karakter sınırı: başlık ≤ 30, açıklama ≤ 90 — node ile sayıldı. -
 | AI Max | Kapalı kalır (kelimesiz eşleme denetlenemez) |
 | Negatif kelime | Mevcut 13 kalır. **Rakip adları (üstteki not) negatife EKLENMEZ.** Eklenecek yalnız: maaş · iş ilanı · ilan · kpss · ales |
 | Ağ | Yalnız Arama Ağı (Görüntülü Ağ ve arama ortakları kapalı) |
+| **Dönüşüm (28.10)** | Yeni işlem **"Tetikte Satis (cevrimdisi)"** — Satın alma, birincil, çevrimdışı yükleme (veri kaynağı "sonra bağla"), değer işlem başına TRY, sayım "Hepsini"; potansiyel müşteri gelişmiş dönüşümleri KAPALI (e-posta gitmez). Cem 28.10 Google "müşteri verileri" şartını kabul etti. Kampanya hedefi "Yol tarifi alma" → **"Satın alma işlemleri"**; teklif hâlâ "en çok tıklama" (dönüşüm verisi gelince ayrıca karar). CSV: `node arac/gads-cevrimdisi-donusum.js` → `_yerel-veri-kasasi/gads/` (d0d185b2). 🔴 Google ile standart sözleşme imzası + Kurum bildirimi yapılmadan CSV YÜKLENMEZ. |
+| **Nihai URL (28.10)** | Yeterlilik reklam 1 + 2 → `https://tetikte.com/smmm-yeterlilik-sorulari.html?k=gads` · Staja Giriş genel + söz reklamı → `https://tetikte.com/smmm-staja-giris-sorulari.html?k=gads` (sayfada söz şeridi + koşul bağlantısı, a60bb8a5) · marka grubu söz reklamı `kampanya-son-20-gun.html?k=gads`'de KALDI. Panelden okundu. |
 
 ## Grup "Staja Giriş" — eklenecek geniş kelimeler
 
