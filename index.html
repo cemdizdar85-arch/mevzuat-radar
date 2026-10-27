@@ -451,6 +451,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <div class="gkt-serit">Geçene Kadar Tetikte · <span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
   <div class="gkt-ic">
     <div>
+      <!-- 28.10: tek ilk ekran olduğu için kahramanın üst satırı burada da (kalan günü dugmeCiz yazar; sınav seçimi aşağıda) -->
+      <p class="kah-ust"><span>SMMM Staja Giriş · 21 Kasım 2026</span><b id="gktGun"></b><a href="#secimBas">Sınavı değiştir</a></p>
       <h2 class="gkt-h" id="gktBas">Sınavda kalırsan, geçene kadar <span class="gkt-kutu">TETİKTE</span></h2>
       <p class="gkt-alt">Denemelerimizde barajı geç, gerçek sınavda kalırsan <b>üyeliğin geçene kadar ücretsiz.</b></p>
       <a class="gkt-dg" href="#gktPaket">Şimdi başla, sorular hazır</a>
@@ -832,6 +834,13 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     /* 13.10 KGK: ücretsiz katman (30 soruluk ölçüm, 5 örnek soru, sık konu denemesi, deneme seti) KGK'da YOK (13.10 ölçüldü) ->
        o bölümler KGK sekmesinde gizlenir; ziyaretçinin kapısı ders listesi (sorular.html#kgk) + fiyat. Ölçülmemiş özellik vaat edilmez. */
     var kgkSec=(secili==='kgk');
+    /* 28.10 Cem ("ekran alt alta böyle görünüyor normal mi"): Geçene Kadar Tetikte bölümü kahramanın ÜSTÜNE eklenmişti → iki ilk
+       ekran (iki başlık, iki maskot) alt alta; Yeterlilik seçili ziyaretçi (Google satışının çoğu) tepede SGS kampanyası görüyordu.
+       Artık tek ilk ekran: SGS seçili + SGS paketi açık değil + sınav günü geçmemiş → kampanya bölümü (iki paket kartıyla) ilk ekran,
+       kahraman ve üçlü paket kartları gizli (SGS Tam Paket iki kez görünmesin). Öteki her durumda kahraman + paketler, kampanya gizli. */
+    var gktGoster=(secili==='sgs'&&d.durum!=='aktif'&&Date.now()<Date.UTC(2026,10,21,21,0,0));
+    try{ $('gkt').style.display=gktGoster?'':'none'; document.querySelector('.kah').style.display=gktGoster?'none':''; $('paketler').style.display=gktGoster?'none':'';
+      $('gktGun').textContent=$('kahUstGun').textContent; }catch(e){}
     ['sikSerit','ozDeneme','ksKonu','ksDeneme'].forEach(function(id){ var e=$(id); if(e) e.hidden=kgkSec; });
     try{ $('dene30').hidden=kgkSec||d.durum==='aktif'; $('dene5').href=ornek; }catch(e){}
     /* 17.10 kısayollar seçili sınavın sayfalarına; "Zaten hesabım var" oturumu açık olana gösterilmez */
@@ -901,7 +910,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       say('anasayfa/sinav/'+secili,'Ana sayfa: sınav seçti');
       dugmeCiz(); ekranCiz();
       /* 17.10: haplar kahramanın altında - telefonda değişen düğme ekran dışındaysa kahramana kaydır */
-      try{ var r=$('cta1').getBoundingClientRect(); if(r.top<64||r.bottom>window.innerHeight) document.querySelector('.kah').scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+      /* 28.10: SGS'de ilk ekran kampanya bölümü (kahraman gizli) → görünen ilk ekrana kaydır */
+      try{ var ilk=($('gkt').style.display==='none')?document.querySelector('.kah'):$('gkt'), r=ilk.getBoundingClientRect(); if(r.top<0||r.top>window.innerHeight/2) ilk.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
