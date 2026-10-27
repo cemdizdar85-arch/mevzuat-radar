@@ -126,8 +126,13 @@
     });
   };
 
-  /* Sayfa açılınca ilk token'ı arka planda hazırla. */
-  if (AYAR.ACIK && AYAR.SITE_ANAHTARI){
+  /* Sayfa açılınca ilk token'ı arka planda hazırla.
+     28.10 (Cem'in girişli hesabında Hesabım'da görüldü): oturumu AÇIK kişide de ön-alım yapılıyordu; Cloudflare etkileşim isteyince
+     sağ altta 20 sn "Gerçek kişi olduğunuzu doğrulayın" kutusu çıkıyordu - girişli kişinin token'a ihtiyacı yok (giriş/üyelik/şifre
+     yenileme formları için). Oturum anahtarı (sb-…-auth-token) varsa ön-alım yapılmaz; form gönderilirse ttCaptchaToken yine alır. */
+  var oturumVar = false;
+  try { for (var i = 0; i < localStorage.length; i++) { if (/^sb-.*-auth-token$/.test(localStorage.key(i) || '')) { oturumVar = true; break; } } } catch(e){}
+  if (AYAR.ACIK && AYAR.SITE_ANAHTARI && !oturumVar){
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ onAl(); });
     else onAl();
   }
