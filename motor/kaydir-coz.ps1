@@ -612,6 +612,24 @@ $html=@'
 /* 03.10 (Cem "Nöbetçi kartına sen bak"): tek kartta Kâğıt düğmesi alttan sağ üste - telefonda çerçeve kısa, soru/şık metninin
    üstüne biniyordu (canlı 390 px ölçüldü); üst köşe tek kipte boş (sayaç ve çipler gizli). Düğme kalır (13.09 Cem seçimi). */
 :root[data-tek] .kagitAc{bottom:auto;top:8px;right:8px;padding:5px 10px;font-size:.78em}
+/* 27.10 SADE KİP (Cem: "kullanım zor mu … büyük rakipler gibi yapalım"). ÖLÇÜLDÜ 27.10: ödeyen 38 üyenin 20'si toplam <20 soru çözdü,
+   17'si tek gün girdi, 10'u paketli sayfayı hiç açmadı; telefonda soru ekranında cevaptan önce 13, sonra 8 düğme + 141 kelimelik
+   açıklama vardı. Rakip deseni: tek ekranda tek iş + altta tek büyük "devam" (Duolingo), soru + şık şık açıklama (UWorld).
+   Varsayılan SADE (data-sade); "⋯ Daha fazla → Ayrıntılı görünüm" bugünkü ekrana döner (kc_gorunum). HİÇBİR özellik silinmedi:
+   gizlenenler araç satırı (İşaretle/Notum/Nöbetçi'ye sor), şık eleme ✕, ilerleme noktaları, 🎯/📥 çipleri, seviye rozeti, kaydırma
+   ipucu; "Sen çöz" ve "Kâğıdım" "Daha fazla"ya indi. Cevap paneli sırası: sonuç → aslında/doğrusu → düğmeler → konu özeti → bölümler.
+   🚫 GÖRMEZ (ölçülmedi): üyenin sade kipte daha çok soru çözüp çözmediği — gcOlay "gorunum/…" + 27.10 tabanı (yukarıdaki üç sayı) ile ölçülecek. */
+:root[data-sade] .noktalar,:root[data-sade] .ustCip,:root[data-sade] .seviye,:root[data-sade] .soruArac,:root[data-sade] .sikCiz,:root[data-sade] .ipucu,:root[data-sade] .cipler .bSonraki{display:none}
+:root[data-sade] .sik{padding-right:14px}
+:root[data-sade] .kart.cevaplandi .kagitAc{display:none}
+:root[data-sade] .cipler .bOyun,:root[data-sade] .cipler .cKagit{display:none}
+:root[data-sade] .cipler.acikEk .bOyun,:root[data-sade] .cipler.acikEk .cKagit{display:inline-block}
+:root[data-sade] .panel.acik{display:flex;flex-direction:column}
+:root[data-sade] .panel>.tutamac{order:0}:root[data-sade] .panel>.geri{order:1}:root[data-sade] .panel>.ozet{order:2}:root[data-sade] .panel>.cipler{order:3}:root[data-sade] .panel>.konuK{order:4}:root[data-sade] .panel>.hap{order:5}:root[data-sade] .panel>.sek{order:6}:root[data-sade] .panel>.panelBas{order:7}:root[data-sade] .panel>.sadeSonraki{order:9}
+.sadeSonraki{display:none}
+:root[data-sade] .panel.acik>.sadeSonraki{display:block;position:sticky;bottom:0;margin:12px -2px 0;width:calc(100% + 4px);min-height:52px;border:0;border-radius:14px;background:var(--mavi);color:var(--ustYazi);font:inherit;font-size:1.05em;font-weight:800;cursor:pointer}
+:root[data-sade][data-tek] .panel.acik>.sadeSonraki{display:none}
+:root[data-sade] .temaB{bottom:76px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
@@ -880,6 +898,7 @@ function gcOlay(yol,baslik){ try{ const gc=window.goatcounter; if(gc&&typeof gc.
   if(t==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme');   /* 04.10 Cem (V2 madde 21): varsayılan AÇIK, site ile aynı (tema-bas.js); 24.09 'koyu' kararının yerine */
   if(VITRIN) d.setAttribute('data-vitrin','1');
   if(TEK) d.setAttribute('data-tek','1');
+  { let g=null; try{ g=localStorage.getItem('kc_gorunum'); }catch(e){} if(g!=='ayrintili') d.setAttribute('data-sade','1'); }   /* 27.10 SADE KİP varsayılan (CSS notu) */
   document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('temaB'); if(!b) return;
     const ikon=()=>{ const koyu=d.getAttribute('data-theme')==='dark'; b.textContent=koyu?'☀':'☾'; b.setAttribute('aria-label',koyu?'Açık temaya geç':'Koyu temaya geç'); };
     ikon(); b.addEventListener('click',()=>{ const y=d.getAttribute('data-theme')==='dark'?'light':'dark'; if(y==='dark') d.setAttribute('data-theme','dark'); else d.removeAttribute('data-theme'); try{ localStorage.setItem('kc_tema',y); }catch(e){} ikon(); }); });
@@ -1115,7 +1134,7 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
    +'<button class="kagitAc" title="Hesap kâğıdı">✏️ Kâğıt</button>'
    +'<div class="panel"><div class="tutamac"></div><div class="konuK"></div><div class="geri"></div><div class="ozet"></div><div class="hap">💡 '+esc(s.hap)+'</div>'
    +'<div class="cipler"><button class="cip2 bDers">🎬 Nöbetçi anlatsın</button><button class="cip2 bOyun">'+(s.oyun&&s.oyun.tur==='tablo'?'⚖️ Sen çöz':'⚖️ Sen yap')+'</button><button class="cip2 cKagit" title="Hesap kâğıdın">✏️ Kâğıdım</button><button class="cip2 bDaha" title="Daha fazla">⋯ Daha fazla</button><button class="cip2 ana bSonraki">Sonraki ▲</button>'
-   +'<button class="cip2 ek cKaynak">📜 Kaynağı göster</button><button class="cip2 ek cOgret">📘 Hesaplar</button><button class="cip2 ek cKural">Kural</button><button class="cip2 ek cAnlat">🧠 Sen anlat</button><button class="cip2 ek cThesap">📒 T-hesabı</button><button class="cip2 ek cCikmis">📈 Sınavda</button><button class="cip2 ek bDiger">Diğer şıklar</button><button class="cip2 ek cHata">🚩 Hata bildir</button></div>'
+   +'<button class="cip2 ek cKaynak">📜 Kaynağı göster</button><button class="cip2 ek cOgret">📘 Hesaplar</button><button class="cip2 ek cKural">Kural</button><button class="cip2 ek cAnlat">🧠 Sen anlat</button><button class="cip2 ek cThesap">📒 T-hesabı</button><button class="cip2 ek cCikmis">📈 Sınavda</button><button class="cip2 ek bDiger">Diğer şıklar</button><button class="cip2 ek cHata">🚩 Hata bildir</button><button class="cip2 ek cGorunum">'+(document.documentElement.hasAttribute('data-sade')?'🔧 Ayrıntılı görünüm':'✨ Sade görünüm')+'</button></div>'
    +'<div class="sek kaynakS"><div class="et">📜 Kaynak metni</div><div class="kaynakIc"></div></div>'
    +'<div class="sek ogret"></div><div class="sek kuralK"><div class="et">Kural</div><p>'+esc(s.kural)+'</p>'+(s.olay?'<div class="et">Bu olayda</div><p>'+esc(s.olay)+'</p>':'')+((s.konuGiris&&s.konuGiris.yontemler)?'<div class="et">Yöntemler, hangisi ne zaman?</div><p>'+esc(s.konuGiris.yontemler)+'</p>':'')+'</div><div class="sek diger"></div>'
    +'<div class="sek anlat"><div class="et">🧠 Sen anlat</div><p class="ipnot">Kendi kelimelerinle tek cümle: doğru kayıt neden böyle? Nöbetçi anahtar kavramlara bakar.</p><textarea class="anlatK" rows="3" placeholder="Örnek: gider bu döneme ait, faturası gelmediği için…"></textarea><div class="btnrow"><button class="btn mavi bAnlatGoster">Nöbetçi’ye göster</button></div><div class="anlatSonuc"></div></div>'
@@ -1130,6 +1149,9 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
   const panelKaydir=(el,orta)=>{ if(!el) return; const pr=panel.getBoundingClientRect(); const er=el.getBoundingClientRect(); let hedefTop=panel.scrollTop+(er.top-pr.top)-10; if(orta) hedefTop-= (pr.height-er.height)/2; panel.scrollTo({top:Math.max(0,hedefTop),behavior:'smooth'}); };
   const panelBas=document.createElement('button'); panelBas.type='button'; panelBas.className='panelBas'; panelBas.textContent='▲ Cevaba dön'; panel.appendChild(panelBas);
   panelBas.addEventListener('click',()=>panel.scrollTo({top:0,behavior:'smooth'}));
+  // 27.10 SADE KİP: panelin altında sabit, tam genişlik "Sonraki soru" (yalnız sade kipte görünür; işi mevcut .bSonraki yapar)
+  { const sS=document.createElement('button'); sS.type='button'; sS.className='sadeSonraki'; sS.textContent='Sonraki soru →'; panel.appendChild(sS);
+    sS.addEventListener('click',()=>{ const b=k.querySelector('.bSonraki'); if(b) b.click(); }); }
   panel.addEventListener('scroll',()=>panelBas.classList.toggle('gor',panel.scrollTop>160),{passive:true});
   // 06.09 rakip dersi: şık eleme (✕) — seçmeden çizer; sınavda kâğıtta yapılan eleme burada da yapılır, cevap anında kayda geçer
   k.querySelectorAll('.sikCiz').forEach(x=>x.addEventListener('click',e=>{ e.stopPropagation(); if(durum.cevap[i]!==undefined) return; x.closest('.sik').classList.toggle('cizili'); }));
@@ -1244,6 +1266,9 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
       let zam=null; nA.addEventListener('input',()=>{ clearTimeout(zam); nD.textContent='…'; zam=setTimeout(()=>notKaydet(s.id,nA.value,nD,bN),700); });
     }
   }
+  { const cG=k.querySelector('.cGorunum'); if(cG) cG.addEventListener('click',()=>{ const d=document.documentElement; const sade=!d.hasAttribute('data-sade');
+      if(sade) d.setAttribute('data-sade','1'); else d.removeAttribute('data-sade'); try{ localStorage.setItem('kc_gorunum',sade?'sade':'ayrintili'); }catch(e){}
+      document.querySelectorAll('.cGorunum').forEach(x=>{ x.textContent=sade?'🔧 Ayrıntılı görünüm':'✨ Sade görünüm'; }); gcOlay('gorunum/'+(sade?'sade':'ayrintili'),'Görünüm: '+(sade?'sade':'ayrıntılı')); }); }   /* 27.10 SADE KİP anahtarı; sayfa yenilenmez, cevaplar yerinde kalır */
   k.querySelector('.bDaha').addEventListener('click',e=>{ const c=k.querySelector('.cipler'); c.classList.toggle('acikEk'); e.currentTarget.textContent=c.classList.contains('acikEk')?'⋯ Daha az':'⋯ Daha fazla'; });
   // ===== ✏️ HESAP KÂĞIDI (06.09 Cem "1.2.3 yap, telefona uysun") — hesaplamaz (TESMER: hesap makinesi yasak), yazı + parmak çizimi, soru başına saklanır
   const kagit=k.querySelector('.kagit'), kYaz=kagit.querySelector('.kagitYaz'), kCiz=kagit.querySelector('.kagitCiz'), kNot=kagit.querySelector('.kagitNot'), kAc=k.querySelector('.kagitAc');
