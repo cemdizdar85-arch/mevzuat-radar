@@ -629,6 +629,7 @@ $html=@'
 .sadeSonraki{display:none}
 :root[data-sade] .panel.acik>.sadeSonraki{display:block;position:sticky;bottom:0;margin:12px -2px 0 40px;width:calc(100% - 38px);min-height:52px;border:0;border-radius:14px;background:var(--mavi);color:var(--ustYazi);font:inherit;font-size:1.05em;font-weight:800;cursor:pointer}
 :root[data-sade][data-tek] .panel.acik>.sadeSonraki{display:none}
+.moralNot{margin-top:8px}.moralB{font:inherit;font-weight:700;color:var(--yesil);background:color-mix(in srgb,var(--yesil) 10%,transparent);border:1px solid color-mix(in srgb,var(--yesil) 40%,transparent);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
 /* 27.10 canlı ölçüm (375 px): tema düğmesi bottom:76px'e alınınca açıklama metninin üstüne bindi; düğme sol altta kalır,
    "Sonraki soru" soldan 40px boşluk bırakır (tema düğmesi 10+34 px). */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
@@ -1235,6 +1236,19 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
     // 06.09: kâğıt eşlemesi cevaptan hemen sonra kâğıdın altına + kasaya kayıt (Cem "1 ve 3 yap")
     try{ cevapKasayaYaz(h,dogruMu,durum.sn[i],elenen); akranYuzdesi(); }catch(e){}   // 06.09 R1: cevap kaydı + akran yüzdesi
     try{ const es=kagitEsle(); if(es){ const kn=k.querySelector('.kagitNot'); kn.innerHTML='Tablodan '+es.tabloda.length+'/'+es.tabloN+' değeri bulmuşsun'+(es.eksikTablo.length?'; eksik: <b>'+esc(es.eksikTablo.join(', '))+'</b>':'')+(es.tabloDisi.length?'; tabloda olmayan: <span class="kagitYanlis">'+esc(es.tabloDisi.join(', '))+'</span>':'')+'. Nöbetçi anlatımında ✏️ işaretli hücreler senin bulduklarındır.'; } kagitKasayaYaz(h,dogruMu); }catch(e){}
+    // 27.10 KOLAY BENZER SORU (Cem "yanlıştan sonra 'kolay benzer soru' adımını kur"). ÖLÇÜLDÜ 27.10 (kasa_cevap 1.934 cevap): bir cevaptan
+    //   sonra 30 dk içinde yeni cevap gelmeme oranı YANLIŞTAN sonra telefonda %14 / bilgisayarda %13 / ikisinde %8, DOĞRUDAN sonra %5 / %7 / %4.
+    //   Yanlışta aynı konudan (yoksa aynı dersten) henüz çözülmemiş KOLAY soru varsa tek düğme; o soru çözülünce "Sonraki" kaldığı yere döner.
+    //   Örnek/vitrin setinde ve tek kartta yok (havuz yok). Teklif ve tıklama gcOlay ile sayılır. 🚫 GÖRMEZ: henüz yüklenmemiş parçadaki sorular.
+    try{ if(!dogruMu&&!TEK&&!VITRIN&&!/\/vitrin\//.test(location.pathname)){
+      const kn_=t=>kat(String(t||'')).trim(), kolayMi=x=>/-kolay(-|\/|$)/.test(String(x&&x.id||''));
+      const aday=(ayni)=>{ for(let j=i+1;j<SORULAR.length&&j<i+400;j++){ const q=SORULAR[j]; if(!q||durum.cevap[j]!==undefined||!akis.children[j]||!kolayMi(q)) continue; if(ayni(q)) return j; } return -1; };
+      let j=aday(q=>kn_(q.konu)&&kn_(q.konu)===kn_(s.konu)), tur='konu'; if(j<0){ j=aday(q=>String(q.ders||'')===String(s.ders||'')); tur='ders'; }
+      if(j>=0){ const d=document.createElement('div'); d.className='moralNot';
+        d.innerHTML='🌱 <button type="button" class="moralB">'+(tur==='konu'?'Aynı konudan kolay bir soru dene':'Bu dersten kolay bir soruyla devam et')+' →</button>';
+        geri.appendChild(d); gcOlay('moral/teklif/'+GC_YOL,'Kolay benzer soru: teklif');
+        d.querySelector('.moralB').addEventListener('click',()=>{ window.__DONUS={j:j,geri:i+1}; gcOlay('moral/tikla/'+GC_YOL,'Kolay benzer soru: tıklandı');
+          const hk=akis.children[j]; if(hk){ hk.scrollIntoView({behavior:'smooth'}); const sb=hk.querySelector('.sadeSonraki'); if(sb) sb.textContent='Kaldığın yere dön →'; } }); } } }catch(e){}
   };
   k.querySelectorAll('.sik').forEach(b=>b.addEventListener('click',()=>cevapla(b,b.dataset.h)));
   { const bm=k.querySelector('.bilmiyorum'); if(bm) bm.addEventListener('click',()=>cevapla(null,'')); }
@@ -1365,7 +1379,8 @@ function kartKur(s,i){   /* 07.10: döngü gövdesi fonksiyon - parça yüklemed
   k.querySelector('.cCikmis').addEventListener('click',e=>{ const ic=k.querySelector('.cikmisIc'); if(!ic.innerHTML){ const c=s.cikmis||{yillar:[],ornekler:[]}; ic.innerHTML='<p>Bu konu çıkmış sınavlarda <b>'+((c.donemler&&c.donemler.length)||s.donem)+' dönemde</b> soruldu'+(c.donemler&&c.donemler.length?': <b>'+esc(c.donemler.join(', '))+'</b>.':'.')+'</p>'+(c.ornekler||[]).map(o=>'<div class="cikmisK"><span class="yil">'+esc(o.yil)+'</span> …'+esc(o.alinti)+'…</div>').join('')+((c.ornekler&&c.ornekler.length)?'<p class="ipnot">Alıntılar gerçek kitapçık metninden, kısaltılmış. Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>':'<p class="ipnot">Bizim soru aynı konuyu bugünün mevzuatıyla soruyor.</p>'); } sekAc('cikmis',e.currentTarget); });
   k.querySelector('.cKural').addEventListener('click',e=>sekAc('kuralK',e.currentTarget));
   k.querySelector('.bDiger').addEventListener('click',e=>{ const d=k.querySelector('.diger'); if(!d.innerHTML){ d.innerHTML=Object.keys(s.tuzak).sort().map(h=>'<div><b>'+h+')</b> <b style="color:var(--kirmizi)">'+esc(s.tuzak[h].ad)+':</b> '+esc(s.tuzak[h].metin)+'</div>').join(''); } sekAc('diger',e.currentTarget); });
-  k.querySelector('.bSonraki').addEventListener('click',()=>{ const tk=window.__TK; if(tk&&tk.liste.indexOf(i)>-1){ const nx=tk.liste.find(x=>x>i&&durum.ok[x]===undefined); if(nx===undefined) window.__TK=null; const h=akis.children[nx!==undefined?nx:tk.son]; if(h){ h.scrollIntoView({behavior:'smooth'}); return; } } const n=akis.children[i+1]; if(n) n.scrollIntoView({behavior:'smooth'}); });   /* 18.10: yeniden çözmede sıradaki yanlışa */
+  k.querySelector('.bSonraki').addEventListener('click',()=>{ const dn=window.__DONUS; if(dn&&dn.j===i){ window.__DONUS=null; const sb=k.querySelector('.sadeSonraki'); if(sb) sb.textContent='Sonraki soru →'; const h=akis.children[dn.geri]; if(h){ h.scrollIntoView({behavior:'smooth'}); return; } }   /* 27.10 kolay benzer sorudan kaldığı yere dönüş */
+    const tk=window.__TK; if(tk&&tk.liste.indexOf(i)>-1){ const nx=tk.liste.find(x=>x>i&&durum.ok[x]===undefined); if(nx===undefined) window.__TK=null; const h=akis.children[nx!==undefined?nx:tk.son]; if(h){ h.scrollIntoView({behavior:'smooth'}); return; } } const n=akis.children[i+1]; if(n) n.scrollIntoView({behavior:'smooth'}); });   /* 18.10: yeniden çözmede sıradaki yanlışa */
   // --- surukleme oyunu
   const oyun=k.querySelector('.oyun'); const satirlar=oyun.querySelector('.satirlar');
   // 05.09 Cem "1.2 yap": kalem adındaki FORMÜL ipucu ("(100.000×0,80)") hem Nöbetçi tablosundan hem oyundan kalkar;

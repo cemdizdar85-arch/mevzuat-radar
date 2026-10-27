@@ -1,17 +1,17 @@
 {
- "_not": "08.10.2026 Cem ('1 yap'): '5 örnek soru' (ornek-sorular.html, ana sayfada 'Paketleri gör' yanında). Seçim: zaten ÜCRETSİZ olan sorulardan (SGS seviye havuzu + vitrin; Yeterlilik smmm-ucretsiz.json, sabit set HARİÇ), son 10 yılda en sık çıkan konuların okunmuş bağıyla (veri/deneme/sgs-sik-kimlik.json, veri/deneme/smmm-sik-dizin.json + smmm-banka-esleme.json), her biri ayrı dersten; sıra kolaydan zora: 2 zor + 3 çok zor (zorluk kimlik etiketinden). 10 sorunun 10'u 08.10'da ELLE OKUNDU: cevap, hesap ve dayanak doğru; TTK m.796/3 + m.810, KDV GUT 8.9 (KDVK 11/1-c), GVK m.74 son fıkra, SPKn m.116/1 ambardaki resmî metinle karşılaştırıldı. Yeni kimlik eklenirken aynı okuma yapılır. Robot: motor/vitrin-hesap.js -> veri/ornek-soru.json (ücretsizden çıkan / dışlanan / elle reddedilen soru kendiliğinden düşer).",
+ "_not": "08.10.2026 Cem ('1 yap'): '5 örnek soru' (ornek-sorular.html, ana sayfada 'Paketleri gör' yanında). Seçim: zaten ÜCRETSİZ olan sorulardan (SGS seviye havuzu + vitrin; Yeterlilik smmm-ucretsiz.json, sabit set HARİÇ), son 10 yılda en sık çıkan konuların okunmuş bağıyla (veri/deneme/sgs-sik-kimlik.json, veri/deneme/smmm-sik-dizin.json + smmm-banka-esleme.json), her biri ayrı dersten; sıra kolaydan zora: 2 zor + 3 çok zor (zorluk kimlik etiketinden). 10 sorunun 10'u 08.10'da ELLE OKUNDU: cevap, hesap ve dayanak doğru; TTK m.796/3 + m.810, KDV GUT 8.9 (KDVK 11/1-c), GVK m.74 son fıkra, SPKn m.116/1 ambardaki resmî metinle karşılaştırıldı. Yeni kimlik eklenirken aynı okuma yapılır. Robot: motor/vitrin-hesap.js -> veri/ornek-soru.json (ücretsizden çıkan / dışlanan / elle reddedilen soru kendiliğinden düşer). · 27.10 (Cem \"ilk üçüyle başla\"): ÖLÇÜLDÜ cevap_kayit kaynak=ornek-soru - ilk soru SGS çek (626 oturum: %47 yalnız onu çözüp gitti, %11 doğru) · Yeterlilik FMuh zor (105 oturum: %52 gitti, %10 doğru). İlk soru KISA ve ziyaretçinin yarıdan çoğunun bildiği sorudan: SGS sgs-k10-fmuh-kolay/kp-04 (198 kr, 36 cevapta %64 doğru, muhasebe bilgi sistemi) · Yeterlilik smmm-4k-a-yfta-kolay-r6/kp-01 (187 kr, stok devir hızı; yfta-zor-r5 seviye testinin sabit setinde olduğu için DÜŞTÜ, yfta-zor-r1 kasada yok). İkisi 27.10 ELLE OKUNDU (tek doğru şık, hesap ve açıklama tutarlı; dayanak teori notu, resmî madde yok). Her ders bir kez: SGS'den maliyet-cokzor (790 kr, en uzun), Yeterlilik'te yfta-zor-r1 kasada olmadığı için zaten düşüyordu. SIRA ölçülen doğru oranına göre kolaydan zora (cevap_kayit 27.10: Yet yspk %35 · yvergi %26 · fmuh %17 · maliyet %13; SGS mta ilk-soru %37 doğru). Sesli çizim: yeni iki soruda HENÜZ YOK (PILOT + ses ayrı iş, ~1.000 kredi tahmini).",
  "sgs": [
+  "sgs-k10-fmuh-kolay/kp-04",
+  "sgs-d3-mta-cokzor-r3/kp-01",
   "sgs-k11-ticaret-zor/kp-01",
   "sgs-k5-ekonomi-zor/kp-01",
-  "sgs-d3-mta-cokzor-r3/kp-01",
-  "sgs-d3-maliyet-cokzor-r1/kp-02",
   "sgs-d5-vergi-cokzor-r2/kp-02"
  ],
  "yeterlilik": [
-  "smmm-4k-a-fmuh-zor-r3/kp-02",
-  "smmm-4k-a-yfta-zor-r1/kp-01",
+  "smmm-4k-a-yfta-kolay-r6/kp-01",
+  "smmm-w3-yspk-cokzor/kp-18",
   "smmm-4k-a-yvergi-cokzor-r2/kp-02",
-  "smmm-w3-maliyet-cokzor/kp-10",
-  "smmm-w3-yspk-cokzor/kp-18"
+  "smmm-4k-a-fmuh-zor-r3/kp-02",
+  "smmm-w3-maliyet-cokzor/kp-10"
  ]
 }
