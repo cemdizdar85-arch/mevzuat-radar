@@ -365,7 +365,7 @@ begin
     n := n + 4;
     -- deneme 20: %100 → görev yok
     j := public.s20_test_bitir(20, 'Olcu Ders', '{"olcu-e/1":"B"}'::jsonb, 10);
-    if (j->>'gorev')::int <> 0 or exists (select 1 from public.s20_gorev where user_id = a and deneme = 20) then raise exception 'OLCU: %60 ustunde gorev kuruldu'; end if;
+    if (j->>'gorev')::int <> 0 or exists (select 1 from public.s20_gorev where user_id = a and deneme = 20) then raise exception 'OLCU: yuzde 60 ustunde gorev kuruldu'; end if;
     n := n + 1;
     raise exception 'OLCU_TAMAM %', n;
   exception when others then
