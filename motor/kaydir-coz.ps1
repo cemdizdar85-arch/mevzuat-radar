@@ -627,9 +627,10 @@ $html=@'
 :root[data-sade] .panel.acik{display:flex;flex-direction:column}
 :root[data-sade] .panel>.tutamac{order:0}:root[data-sade] .panel>.geri{order:1}:root[data-sade] .panel>.ozet{order:2}:root[data-sade] .panel>.cipler{order:3}:root[data-sade] .panel>.konuK{order:4}:root[data-sade] .panel>.hap{order:5}:root[data-sade] .panel>.sek{order:6}:root[data-sade] .panel>.panelBas{order:7}:root[data-sade] .panel>.sadeSonraki{order:9}
 .sadeSonraki{display:none}
-:root[data-sade] .panel.acik>.sadeSonraki{display:block;position:sticky;bottom:0;margin:12px -2px 0;width:calc(100% + 4px);min-height:52px;border:0;border-radius:14px;background:var(--mavi);color:var(--ustYazi);font:inherit;font-size:1.05em;font-weight:800;cursor:pointer}
+:root[data-sade] .panel.acik>.sadeSonraki{display:block;position:sticky;bottom:0;margin:12px -2px 0 40px;width:calc(100% - 38px);min-height:52px;border:0;border-radius:14px;background:var(--mavi);color:var(--ustYazi);font:inherit;font-size:1.05em;font-weight:800;cursor:pointer}
 :root[data-sade][data-tek] .panel.acik>.sadeSonraki{display:none}
-:root[data-sade] .temaB{bottom:76px}
+/* 27.10 canlı ölçüm (375 px): tema düğmesi bottom:76px'e alınınca açıklama metninin üstüne bindi; düğme sol altta kalır,
+   "Sonraki soru" soldan 40px boşluk bırakır (tema düğmesi 10+34 px). */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;background:var(--bg);color:var(--yazi);font-family:-apple-system,"Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
 #akis{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
 .kart{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;padding:14px 14px 0;max-width:560px;margin:0 auto}
