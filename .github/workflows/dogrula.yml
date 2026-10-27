@@ -935,6 +935,11 @@ jobs:
               kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js" }
           - { ad: "Kaynak etiketi istemci MUTASYON (her bozma kirmizi)",
               kabuk: bash, komut: "node arac/kaynak-etiketi-sinavi.js --mutasyon" }
+          #  28.10 Google Ads cevrimdisi donusum CSV'si (gclid -> odenen siparis): bicim, +03 saat, 90 gun, odenmemis/bozuk eleme
+          - { ad: "Google Ads cevrimdisi donusum CSV OZ-SINAVI",
+              kabuk: bash, komut: "node arac/gads-cevrimdisi-donusum.js --sinav" }
+          - { ad: "Google Ads cevrimdisi donusum CSV MUTASYON (her bozma kirmizi)",
+              kabuk: bash, komut: "node arac/gads-cevrimdisi-donusum.js --mutasyon" }
           - { ad: "Kaynak sayaci sunucu OZ-SINAVI + MUTASYON (Postgres)",
               kabuk: bash, komut: "bash arac/kaynak-sayac-sinavi.sh" }
 

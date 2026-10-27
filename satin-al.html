@@ -1181,6 +1181,9 @@ btn.addEventListener('click', function(){
   if(ozelKod){ kayit.ozel_kod = ozelKod; }
   /* 12.10 sipariş kaynak etiketi (?k=, menu.js ttKaynak; bu cihazda 30 gün) - indirim kaynağını SUNUCU yazar (indirim_kaynak) */
   try{ var ke = window.ttKaynak && window.ttKaynak.etiket(); if(ke) kayit.kaynak_etiket = ke; }catch(e){}
+  /* 28.10 Google Ads tıklama kimliği (menu.js tt_gclid, bu cihazda 90 gün) - ödenirse arac/gads-cevrimdisi-donusum.js
+     Google'a bildirir; ad/e-posta/telefon GİTMEZ. Biçimi sunucu da süzer (radar-app/sql/2026-10-28-gads-tiklama.sql) */
+  try{ var gt = window.ttKaynak && window.ttKaynak.tiklama && window.ttKaynak.tiklama(); if(gt){ kayit.gads_tiklama = gt.deger; kayit.gads_tiklama_zaman = gt.zaman; } }catch(e){}
 
   btn.disabled = true; goster('Siparişin kaydediliyor…', true);
 
@@ -1247,7 +1250,17 @@ btn.addEventListener('click', function(){
   }
 
   if(!window.sb){ yedekYol(); return; }
-  window.sb.from('siparisler').insert(kayit)
+  /* 28.10: göç basılmadan sayfa yayına çıkarsa "sütun yok" (PGRST204) hatası siparişi e-posta yedeğine düşürmesin:
+     tıklama kimliği alanları atılıp bir kez yeniden yazılır */
+  function ekle(){
+    return window.sb.from('siparisler').insert(kayit).then(function(r){
+      if(r && r.error && 'gads_tiklama' in kayit && /gads_tiklama/.test(String(r.error.message || ''))){
+        delete kayit.gads_tiklama; delete kayit.gads_tiklama_zaman; return window.sb.from('siparisler').insert(kayit);
+      }
+      return r;
+    });
+  }
+  ekle()
     .then(function(r){
       if(r && r.error){
         /* 12.10: teklif sunucuda tutmadı (kullanılmış / başka hesap / süresi geçmiş) → indirimsiz e-posta yedeğine DÜŞMEZ;
@@ -1334,7 +1347,7 @@ if(!KURULUM_TAMAM){
 })();
 </script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script src="menu.js" defer></script>
+<script src="menu.js?v=20261028" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <script src="ayrinti.js" defer></script>

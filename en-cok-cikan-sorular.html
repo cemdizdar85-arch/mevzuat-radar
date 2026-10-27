@@ -23,37 +23,7 @@
   diyor): paketsize satış kutusunda önce 5 örnek soru (kaydir/vitrin/ornek-*), sonra Paketler. Örnek sayfası ?k= okumaz; etiketi bu
   sayfadaki menu.js cihaza yazar, örnek sayfası oradan sayar. 🚫 GÖRMEZ: paketin ders listesi önbellekte yoksa ilk çizimde kilitli görünür, sunucu yanıtıyla düzelir.
 -->
-<style>
-  .ec{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
-  .ec-bas{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;margin:0 0 18px}
-  .ec-et{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--amber)}
-  .ec h1{margin:6px 0 8px;font-size:38px;letter-spacing:-.8px;line-height:1.1;color:var(--ink)}
-  .ec-alt{margin:0;color:var(--muted);font-size:16px;max-width:42em;line-height:1.55}
-  .ec-sekme{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
-  .ec-sekme button{font:inherit;font-weight:800;font-size:15px;padding:10px 18px;border-radius:999px;border:1.5px solid var(--line2);background:var(--panel);color:var(--ink);cursor:pointer}
-  .ec-sekme button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-  .ec-cipler{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
-  .ec-cipler span{font-size:13px;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--panel);border:1px solid var(--line);color:var(--ink)}
-  .ec-dersler{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-  .ec-ders{display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
-  .ec-ders h2{margin:0;font-size:18px;color:var(--ink)}
-  .ec-ders ol{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px;color:var(--ink)}
-  .ec-ders ol small{color:var(--muted);font-size:12.5px}
-  .ec-set{margin:-4px 0 0;font-size:12.5px;font-weight:700;color:var(--amber)}
-  .ec-dug{margin-top:auto;display:flex;justify-content:center;align-items:center;min-height:46px;border-radius:12px;font-weight:800;font-size:15px;text-decoration:none;background:var(--amber-dolgu);color:var(--amber-uzeri)}   /* 21.10 kontrast: koyu temada --ink acik renk, amber ustunde 1.43 */
-  .ec-dug.kilit{background:var(--panel);border:1.5px solid var(--line2);color:var(--ink)}
-  .ec-bilgi{font-size:12.5px;color:var(--muted);margin:0}
-  .ec-satis{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;margin:0 0 20px;padding:18px 20px;border-radius:16px;border:1px solid color-mix(in srgb,var(--amber-dolgu) 45%,transparent);background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--panel))}
-  .ec-satis b{display:block;font-size:17px;color:var(--ink)}.ec-satis p{margin:2px 0 0;font-size:14px;color:var(--muted)}
-  .ec-satis .ec-dug{min-width:200px;padding:0 18px}
-  .ec-satis-dug{display:flex;flex-direction:column;gap:8px}
-  .ec-dug.al{background:var(--ink);color:var(--bg)}
-  .ec-fiyat{margin:10px 0 0;font-size:14px;color:var(--ink);line-height:1.55}
-  .ec-fiyat .ana{font-size:20px;font-weight:900}.ec-fiyat small{color:var(--muted);font-size:12.5px}
-  .ec-not{margin:22px 0 0;font-size:13px;color:var(--muted);line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
-  .ec-not a,.ec-bilgi a{color:var(--amber)}
-  @media(max-width:760px){ .ec h1{font-size:28px} .ec-bas,.ec-satis{grid-template-columns:1fr} .ec-satis .ec-dug{min-width:0} .ec-dersler{grid-template-columns:1fr} }
-</style>
+<link rel="stylesheet" href="en-cok-cikan.css?v=20261028">
 <link rel="stylesheet" href="stil-acik.css">
 </head>
 <body>
@@ -88,78 +58,9 @@
 
 <script src="uye-durumu.js?v=20261027c30"></script>
 <script src="fiyat-motoru.js?v=20261019b"></script>
-<script>
-(function(){
-  var $=function(i){ return document.getElementById(i); };
-  var esc=function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
-  var trk=function(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim(); };
-  var Q=new URLSearchParams(location.search), SECILI=/^(sgs|staja)/i.test(Q.get('sinav')||'')?'sgs':'yeterlilik';
-  var K=Q.get('k')?('&k='+encodeURIComponent(Q.get('k'))):'';   /* reklam kaynağı fiyat bağlantısına taşınır */
-  var VERI={}, PAKET={};   /* PAKET[s] = null (yok) | {dersler:null|[...]} */
-  var AYAR={
-    yeterlilik:{ dizin:'veri/deneme/smmm-sik-dizin.json', kanit:'en-cok-cikan-konular-yeterlilik.html', fiyat:'fiyat.html?sinav=yeterlilik', ornek:'kaydir/vitrin/ornek-smmm.html',
-      git:function(d){ return 'sinav-gibi.html?tur=sik&sinav=smmm&ders='+encodeURIComponent(d); },
-      cip:['Ders başına en sık 5 konu','20 soru · 45 dakika','gerçek 2026 düzeni','bitince konu konu karne'] },
-    sgs:{ dizin:'veri/deneme/sgs-sik-dizin.json', kanit:'en-cok-cikan-konular-sgs.html', fiyat:'fiyat.html?sinav=sgs', ornek:'kaydir/vitrin/ornek-sgs.html',
-      git:function(d){ return 'sinav-gibi.html?tur=sik&ders='+encodeURIComponent(d); },
-      cip:['En sık 20 konu, ders ders','20 soru · 25 dakika','önce görmediğin sorular','bitince konu konu karne'] } };
-  /* 19.10 (Cem: "Google'dan gelenin satın alma oranını artıralım"): Google arama ziyaretçisi buraya iner, aramış ve almaya
-     yakın; kutuda fiyat yoktu, yalnız "Paketler" vardı. Fiyat satırı + doğrudan satın al. Rakamlar YALNIZ fiyat-motoru.js'ten
-     (paketBul + fiyatAna/fiyatDahilNot + HARC; Cem kuralı "fiyat her yerde aynı"). Motor yüklenmezse satır ve düğme hiç çizilmez. */
-  function fiyatCiz(s){
-    var f=$('ecFiyat'), a=$('ecAlA');
-    if(typeof paketBul!=='function'||typeof fiyatAna!=='function'){ f.hidden=true; a.hidden=true; return; }
-    var id=s==='sgs'?'sgs':'yeterlilik-1', p=paketBul(id); if(!p||!p.acik){ f.hidden=true; a.hidden=true; return; }
-    var dahil=function(i,n){ var d=fiyatDahilNot(i,n); return d?' <small>('+esc(d)+')</small>':''; };
-    var h;
-    if(s==='sgs'){
-      h='<span class="ana">'+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>'+esc(p.erisim||'Sınavına kadar')+' · sınırsız soru';
-    } else {
-      var t=paketBul('yeterlilik-tum');
-      h='<span class="ana">1 ders '+esc(fiyatAna(id,p.fiyat))+'</span>'+dahil(id,p.fiyat)+'<br>Bir dersin sınav ücreti '+tl(HARC.yeterlilik.ders)+' TL'
-        +(t&&t.acik?' · tüm dersler '+esc(fiyatAna('yeterlilik-tum',t.fiyat))+dahil('yeterlilik-tum',t.fiyat):'');
-    }
-    h+='<br><small>Açılış fiyatı ilk '+tl(p.kota)+' ödeyene; sonra '+esc(fiyatAna(id,p.liste))+'. Kartla ödersen paketin hemen açılır.</small>';
-    f.innerHTML=h; f.hidden=false;
-    a.href='satin-al.html?paket='+id+K; a.textContent=s==='sgs'?'Satın al →':'Dersini seç, satın al →'; a.hidden=false;
-  }
-  function dersAcik(s,d){ var p=PAKET[s]; if(!p) return false; if(!p.dersler||!p.dersler.length) return true; return p.dersler.some(function(x){ return trk(x)===trk(d); }); }
-  function ciz(){
-    var s=SECILI, A=AYAR[s], v=VERI[s];
-    document.querySelectorAll('.ec-sekme button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-s')===s)); });
-    $('ecEt').textContent=(s==='sgs'?'SMMM STAJA GİRİŞ':'SMMM YETERLİLİK')+' · SINAVDA EN ÇOK ÇIKAN KONULAR';
-    $('ecCipler').innerHTML=A.cip.map(function(c){ return '<span>'+esc(c)+'</span>'; }).join('');
-    var pk=!!PAKET[s];
-    $('ecSatis').hidden=pk; $('ecSatisA').href=A.fiyat+K; $('ecOrnekA').href=A.ornek;
-    fiyatCiz(s);
-    if(!v){ $('ecDersler').innerHTML='<p class="ec-bilgi">Dersler şu an okunamadı. Sayfayı yenilemeyi dene.</p>'; return; }
-    var G={}, S=[];
-    (v.konular||[]).forEach(function(k){ if(!G[k.ders]){ G[k.ders]=[]; S.push(k.ders); } G[k.ders].push(k); });
-    /* Yeterlilik: yalnız hazır seti olan dersler · Staja Giriş: en sık konusu en çok dönem çıkan ders önce */
-    if(s==='yeterlilik'){ var setD={}; (v.setler||[]).forEach(function(x){ if(x.ders) setD[x.ders]=(setD[x.ders]||0)+1; }); S=S.filter(function(d){ return setD[d]; }); }
-    S.sort(function(a,b){ var ma=Math.max.apply(null,G[a].map(function(k){ return +k.donem||0; })), mb=Math.max.apply(null,G[b].map(function(k){ return +k.donem||0; })); return mb-ma; });
-    /* 18.10 Yeterlilik: konular PUAN önceliğiyle (k.oncelik: sınavda dönem başına getirdiği puan, motor/sik-konu-deneme-bas.js) */
-    var setSay={}; (v.setler||[]).forEach(function(x){ if(x.ders) setSay[x.ders]=(setSay[x.ders]||0)+1; });
-    $('ecDersler').innerHTML=S.map(function(d){
-      var L=G[d].slice().sort(function(a,b){ return (a.oncelik&&b.oncelik)?a.oncelik-b.oncelik:(+b.donem||0)-(+a.donem||0); }), ac=dersAcik(s,d);
-      var ns=s==='yeterlilik'?setSay[d]||0:0;
-      return '<section class="ec-ders"><h2>'+esc(d)+'</h2>'+(ns?'<p class="ec-set">'+ns+' test · '+(ns*20)+' soru · sınavda daha çok puan getiren konu önde</p>':'')+'<ol>'+L.map(function(k){ return '<li>'+esc(k.konu)+' <small>· son 10 yılda '+(+k.donem||0)+' sınavda soruldu</small></li>'; }).join('')+'</ol>'
-        +(ac?'<a class="ec-dug" href="'+esc(A.git(d))+'">Bu dersten sık konu sorularını çöz →</a>'
-            :'<a class="ec-dug kilit" href="'+esc(A.fiyat+K)+'">🔒 Pakete dahil'+(pk?' · bu ders paketinde yok':'')+'</a>')+'</section>';
-    }).join('');
-    $('ecNot').innerHTML=esc(v.not||'')+' <a href="'+A.kanit+'">Konu listesi ve kanıtı: hangi sınav, kaçıncı soru →</a>';
-  }
-  document.querySelectorAll('.ec-sekme button').forEach(function(b){ b.addEventListener('click',function(){ SECILI=b.getAttribute('data-s'); try{ history.replaceState(null,'',location.pathname+'?sinav='+SECILI+K); }catch(e){} ciz(); }); });
-  /* paket: önce önbellek (ilk çizim kilitsiz görünsün), sonra sunucu */
-  function paketAl(d){ ['sgs','yeterlilik'].forEach(function(s){ var o=d&&d.sinavlar&&d.sinavlar[s]; PAKET[s]=(o&&o.durum==='aktif')?{dersler:o.dersler||null}:null; }); }
-  try{ if(window.TetikteUye&&TetikteUye.onbellek) paketAl(TetikteUye.onbellek); }catch(e){}
-  try{ if(window.TetikteUye&&TetikteUye.hazir) TetikteUye.hazir.then(function(d){ if(d&&!d.hata){ paketAl(d); ciz(); } }); }catch(e){}
-  Promise.all(['yeterlilik','sgs'].map(function(s){ return fetch(AYAR[s].dizin,{cache:'no-cache'}).then(function(y){ return y.ok?y.json():null; }).catch(function(){ return null; }).then(function(j){ VERI[s]=j; }); }))
-    .then(ciz);
-})();
-</script>
+<script src="en-cok-cikan.js?v=20261028"></script>
 <script data-goatcounter="https://mevzuatradar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script src="menu.js" defer></script>
+<script src="menu.js?v=20261028" defer></script>
 <link rel="stylesheet" href="komut.css">
 <script src="komut.js" defer></script>
 <link rel="stylesheet" href="stil-acik.css">

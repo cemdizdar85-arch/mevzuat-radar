@@ -37,6 +37,23 @@ if(window.MRMenu) return;
     }catch(e){ return Promise.resolve(null); }
   }
   var q=null; try{ q=new URLSearchParams(location.search); }catch(e){}
+  /* 28.10 GOOGLE ADS ÇEVRİMDIŞI DÖNÜŞÜM (Cem 27.10 "satışı Google'a bildirelim"): reklam tıklama kimliği bu CİHAZDA
+     saklanır (tt_gclid = {tur, deger, t}, 90 gün, yeni tıklama eskiyi ezer); satin-al.html siparişe ttKaynak.tiklama()
+     ile yazar, arac/gads-cevrimdisi-donusum.js ödenen siparişten Google'a yüklenecek CSV'yi üretir. Değer kaynak_say'a
+     GİTMEZ (orada yalnız 'gads' etiketi). Biçim süzgeci SQL ile aynı (radar-app/sql/2026-10-28-gads-tiklama.sql).
+     🚫 GÖRMEZ: tıklayıp başka cihazdan alan · depolaması kapalı tarayıcı · gbraid/wbraid saklanır ama siparişe gitmez
+     (ilk sürüm yalnız gclid; iOS uygulama-içi tıklamalar CSV'ye girmez). */
+  var TK='tt_gclid', TK_OMUR=90*86400000, TK_DESEN=/^[A-Za-z0-9_-]{10,200}$/;
+  if(q) ['gclid','gbraid','wbraid'].some(function(tur){
+    var d=q.get(tur); if(!d||!TK_DESEN.test(d)) return false;
+    try{ localStorage.setItem(TK,JSON.stringify({tur:tur,deger:d,t:Date.now()})); }catch(e){}
+    return true;
+  });
+  function tiklama(){
+    try{ var x=JSON.parse(localStorage.getItem(TK)||'null');
+      if(x&&x.tur==='gclid'&&TK_DESEN.test(x.deger)&&x.t<=Date.now()&&Date.now()-x.t<TK_OMUR) return {deger:x.deger,zaman:new Date(x.t).toISOString()}; }catch(e){}
+    return null;
+  }
   var gelen=q?(suz(q.get('k'))||suz(q.get('utm_source'))):null;
   /* 16.10 (Cem "üye çekemiyoruz"; ölçüldü: 13–16.10 açılan 23 hesabın 7'si etiketsiz bağlantıdan, ör. Instagram profil
      linki): ?k= yoksa reklam tıklama kimliği ya da yönlendiren site OTOMATİK etiket olur. Yalnız etiket adı gider
@@ -70,6 +87,7 @@ if(window.MRMenu) return;
   var uyeYolda=false;
   window.ttKaynak={
     etiket:oku,
+    tiklama:tiklama,
     olay:function(tur){ var k=oku(); if(!k||tur!=='test'||sayildi(tur+':'+k)) return; gonder('kaynak_say',{p_etiket:k,p_olay:tur}); },
     uye:function(){
       var k=oku(); if(!k||uyeYolda) return;

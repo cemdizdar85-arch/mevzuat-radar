@@ -27,6 +27,12 @@ const MUTASYONLAR = {
   gclid:     ["q.get('gclid')||q.get('gbraid')||q.get('wbraid')", "false"],
   refig:     ["/(^|\\.)instagram\\.com$/.test(rh)||", ""],
   refgoogle: ["/(^|\\.)google\\.[a-z.]+$/.test(rh)", "/./.test(rh)"],
+  /* 28.10 tıklama kimliği saklama (tt_gclid) */
+  tkdesen:   ["TK_DESEN=/^[A-Za-z0-9_-]{10,200}$/", "TK_DESEN=/^[\\s\\S]+$/"],
+  tkomur:    ["Date.now()-x.t<TK_OMUR", "true"],
+  tktur:     ["x.tur==='gclid'&&", ""],
+  tkyaz:     ["try{ localStorage.setItem(TK,JSON.stringify({tur:tur,deger:d,t:Date.now()})); }catch(e){}", ""],
+  tkgelecek: ["x.t<=Date.now()&&", ""],
 };
 
 function blokOku() {
@@ -144,6 +150,41 @@ async function sinav() {
     const l2 = depo(); kos(blok, { ls: l2, ss: depo(), search: '', referrer: 'https://www.instagram.com/' });
     const r3 = kos(blok, { ls: l2, ss: depo(), search: '' }); r3.ke.olay('test');
     vaka('otomatik etiket sonraki sayfada test olayını taşır', r3.istekler.length === 1 && r3.istekler[0].govde.p_etiket === 'ref-instagram'); }
+
+  // 4c) 28.10 Google Ads tıklama kimliği: cihazda 90 gün, yeni tıklama ezer, değer kaynak_say'a gitmez, yalnız gclid siparişe
+  { const G = 'Cj0KCQjw' + 'a'.repeat(40), G2 = 'EAIaIQob' + 'b'.repeat(40);
+    const tk = (l) => { try { return JSON.parse(l.getItem('tt_gclid') || 'null'); } catch (e) { return null; } };
+    const l = depo(); const r = kos(blok, { ls: l, ss: depo(), search: '?gclid=' + G });
+    const x = tk(l) || {};
+    vaka('gclid cihaza yazıldı {tur, deger, t}', x.tur === 'gclid' && x.deger === G && typeof x.t === 'number');
+    vaka('gclid değeri kaynak_say isteğine girmez', r.istekler.length === 1 && r.istekler[0].govde.p_etiket === 'gads'
+      && JSON.stringify(r.istekler.map(i => i.govde)).indexOf(G) < 0);
+    const t = r.ke.tiklama();
+    vaka('tiklama() gclid + ISO zaman döner', !!t && t.deger === G && !isNaN(Date.parse(t.zaman)));
+    const r2 = kos(blok, { ls: l, ss: depo(), search: '' });
+    vaka('linksiz sonraki sayfa: tiklama() hâlâ döner', (r2.ke.tiklama() || {}).deger === G);
+    kos(blok, { ls: l, ss: depo(), search: '?gclid=' + G2 });
+    vaka('yeni tıklama eskisini ezer', (tk(l) || {}).deger === G2);
+    kos(blok, { ls: l, ss: depo(), search: '?k=ig' });
+    vaka('?k= ile gelmek tıklama kimliğini silmez', (tk(l) || {}).deger === G2);
+    const l2 = depo(); kos(blok, { ls: l2, ss: depo(), search: '?k=ig&gclid=' + G });
+    vaka('?k= + gclid: etiket ig, kimlik yine saklanır', (etiketDegeri(l2) || {}).k === 'ig' && (tk(l2) || {}).deger === G);
+    for (const [s, ad] of [['?gclid=kisa', 'kısa'], ['?gclid=%3Cscript%3E' + 'a'.repeat(20), 'HTML'], ['?gclid=' + 'a'.repeat(201), '201 karakter'], ['?gclid=', 'boş']]) {
+      const lb = depo(); const rb = kos(blok, { ls: lb, ss: depo(), search: s });
+      vaka('bozuk gclid (' + ad + ') saklanmaz', tk(lb) === null && rb.ke.tiklama() === null);
+    }
+    const lg = depo(); const rg = kos(blok, { ls: lg, ss: depo(), search: '?gbraid=' + G });
+    vaka('gbraid saklanır ama siparişe gitmez (ilk sürüm)', (tk(lg) || {}).tur === 'gbraid' && rg.ke.tiklama() === null);
+    const lo = depo(); lo.setItem('tt_gclid', JSON.stringify({ tur: 'gclid', deger: G, t: Date.now() - 91 * 86400000 }));
+    vaka('91 günlük tıklama: kullanılmaz', kos(blok, { ls: lo, ss: depo(), search: '' }).ke.tiklama() === null);
+    lo.setItem('tt_gclid', JSON.stringify({ tur: 'gclid', deger: G, t: Date.now() - 89 * 86400000 }));
+    vaka('89 günlük tıklama: kullanılır', (kos(blok, { ls: lo, ss: depo(), search: '' }).ke.tiklama() || {}).deger === G);
+    lo.setItem('tt_gclid', JSON.stringify({ tur: 'gclid', deger: G, t: Date.now() + 86400000 }));
+    vaka('gelecek tarihli tıklama: kullanılmaz', kos(blok, { ls: lo, ss: depo(), search: '' }).ke.tiklama() === null);
+    lo.setItem('tt_gclid', JSON.stringify({ tur: 'gclid', deger: '<b>' + 'a'.repeat(20), t: Date.now() }));
+    vaka('cihazdaki bozuk kimlik kullanılmaz', kos(blok, { ls: lo, ss: depo(), search: '' }).ke.tiklama() === null);
+    let hata = null; try { const rk = kos(blok, { ls: depo(true), ss: depo(true), search: '?gclid=' + G }); if (rk.ke.tiklama() !== null) hata = 'deger'; } catch (e) { hata = e; }
+    vaka('depolama kapalı: gclid ile çökmez, tiklama() null', !hata); }
 
   // 5) üyelik
   const simdi = Date.now();
