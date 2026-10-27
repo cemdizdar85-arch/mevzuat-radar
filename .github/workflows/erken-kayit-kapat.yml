@@ -1,23 +1,15 @@
-# .github/workflows/erken-kayit-kapat.yml — SGS "GEÇENE KADAR TETİKTE" ERKEN KAYIT KODLARINI KAPATIR (27.10.2026; Cem önce
-# 400 TL, aynı akşam "ful paket 600 tl indirim"; 1 Kasım 23:59'a kadar)
+# .github/workflows/erken-kayit-kapat.yml — SGS "SON 20 GÜN" ERKEN KAYIT KODLARINI KAPATIR (27.10.2026, Cem: 400 TL, 1 Kasım 23:59'a kadar)
 #
 # Kodlar elçi altyapısında açıldı (elciler tablosu, Tetikte'nin kendi kanal kodları, komisyon ödenmez):
-#   ERKEN400 · INSTA400 · GOOGLE400 · TELEGRAM400 · ERKEN600 · INSTA600 · GOOGLE600 · TELEGRAM600
-# İndirim paket başına (elci_indirim): kampanyada sgs = 600 (radar-app/sql/2026-10-27-gecene-kadar-tetikte.sql), bu yüzden
-# elçilerin kendi kodları da 600 verir. Bu iş 1 Kasım 2026 23:59 TR'de (20:59 UTC):
-#   1) sekiz kanal kodunu aktif=false yapar,
-#   2) elci_indirim sgs satırını 400'e (elçi sözleşmesi Madde 5 tutarı) geri yazar,
-#   3) ikisini de geri okur; aktif kod kalırsa ya da sgs indirimi 400 değilse KIRMIZI biter.
+#   ERKEN400 · INSTA400 · GOOGLE400 · TELEGRAM400
+# Bu iş 1 Kasım 2026 23:59 TR'de (20:59 UTC) dördünü aktif=false yapar ve geri okur; geri okumada aktif kalan varsa KIRMIZI biter.
 # Neden zamanlanmış iş: indirim süresi kampanya koşullarında yazılı (Ticari Reklam Yön. m.14/1 başlangıç-bitiş); elle kapatmayı
-# unutmak süresi geçmiş indirimi açık bırakır. GitHub zamanlanmış işleri gecikebildiği için iki yedek koşu daha var (iş
-# tekrar koşunca aynı sonucu verir). Yıl kapısı: 2026 dışındaki 1 Kasım'larda hiçbir şey yapmaz.
+# unutmak süresi geçmiş indirimi açık bırakır. Yıl kapısı: 2026 dışındaki 1 Kasım'larda hiçbir şey yapmaz.
 # Elle erken çalıştırma (workflow_dispatch) da aynı işi yapar.
 name: Erken Kayit Kodlarini Kapat (1 Kasim 2026 23:59 TR)
 on:
   schedule:
     - cron: '59 20 1 11 *'
-    - cron: '20 21 1 11 *'
-    - cron: '0 22 1 11 *'
   workflow_dispatch:
 permissions:
   contents: read
@@ -26,22 +18,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Kodlari kapat, sgs indirimini 400'e indir, geri oku
+      - name: Kodlari kapat ve geri oku
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           set -euo pipefail
           if [ "$(date -u +%Y)" != "2026" ] && [ "${{ github.event_name }}" = "schedule" ]; then echo "2026 degil - atlandi"; exit 0; fi
-          R='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1'
-          H=(-H "apikey: $SUPABASE_SERVICE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_KEY")
-          F='kod=in.(ERKEN400,INSTA400,GOOGLE400,TELEGRAM400,ERKEN600,INSTA600,GOOGLE600,TELEGRAM600)'
-          curl -sS --fail -X PATCH "$R/elciler?$F" "${H[@]}" \
-            -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{"aktif": false}'
-          curl -sS --fail -X PATCH "$R/elci_indirim?paket=eq.sgs" "${H[@]}" \
-            -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{"indirim_tl": 400}'
-          acik=$(curl -sS --fail "$R/elciler?$F&aktif=eq.true&select=kod" "${H[@]}")
-          ind=$(curl -sS --fail "$R/elci_indirim?paket=eq.sgs&select=indirim_tl" "${H[@]}")
-          echo "geri okuma (aktif kalan kod): $acik · sgs indirimi: $ind"
+          B='https://bjrleanjpyujtajmazxn.supabase.co/rest/v1/elciler'
+          F='kod=in.(ERKEN400,INSTA400,GOOGLE400,TELEGRAM400)'
+          curl -sS --fail -X PATCH "$B?$F" \
+            -H "apikey: $SUPABASE_SERVICE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+            -H "Content-Type: application/json" -H "Prefer: return=minimal" \
+            -d '{"aktif": false}'
+          acik=$(curl -sS --fail "$B?$F&aktif=eq.true&select=kod" \
+            -H "apikey: $SUPABASE_SERVICE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_KEY")
+          echo "geri okuma (aktif kalan): $acik"
           if [ "$acik" != "[]" ]; then echo "AKTIF KOD KALDI - KIRMIZI"; exit 1; fi
-          if [ "$ind" != '[{"indirim_tl":400}]' ]; then echo "SGS INDIRIMI 400 DEGIL - KIRMIZI"; exit 1; fi
-          echo "8 erken kayit kodu kapatildi, sgs elci indirimi 400"
+          echo "4 erken kayit kodu kapatildi"
