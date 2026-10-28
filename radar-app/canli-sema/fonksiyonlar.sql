@@ -2511,17 +2511,36 @@ CREATE OR REPLACE FUNCTION public.marka_talep_ac(p_unvan text, p_email text DEFA
  SECURITY DEFINER
  SET search_path TO 'public'
 AS $function$
-declare v_jeton text; v_gunluk int;
+declare v_jeton text; v_gunluk int; v_ip text;
 begin
   if p_unvan is null or length(btrim(p_unvan)) < 3 or length(p_unvan) > 160 then
     raise exception 'Unvan 3-160 karakter olmali'; end if;
+  v_ip := nullif(btrim(split_part(coalesce(current_setting('request.headers', true)::json->>'x-forwarded-for', ''), ',', 1)), '');
+  if v_ip is not null and (select count(*) from public.marka_talep
+                            where ip = v_ip and created_at > now() - interval '1 day') >= 20 then
+    raise exception 'Bugunluk sorgu hakkin doldu (gunde 20). Yarin tekrar dene.'; end if;
   select count(*) into v_gunluk from public.marka_talep where created_at > now() - interval '1 day';
   if v_gunluk > 3000 then raise exception 'Gunluk sorgu tavani doldu, yarin tekrar dene'; end if;
+  update public.marka_talep set ip = null where ip is not null and created_at < now() - interval '7 days';
   v_jeton := replace(gen_random_uuid()::text,'-','') || replace(gen_random_uuid()::text,'-','');
-  insert into public.marka_talep(jeton, unvan, email, user_id, kaynak)
+  insert into public.marka_talep(jeton, unvan, email, user_id, kaynak, ip)
   values (v_jeton, btrim(p_unvan), nullif(btrim(coalesce(p_email,'')),''), auth.uid(),
-          left(nullif(btrim(coalesce(p_kaynak,'')),''),40));
+          left(nullif(btrim(coalesce(p_kaynak,'')),''),40), v_ip);
   return v_jeton;
+end; $function$
+;
+
+-- marka_talep_ip_temizle()
+CREATE OR REPLACE FUNCTION public.marka_talep_ip_temizle()
+ RETURNS integer
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public'
+AS $function$
+declare n int;
+begin
+  update public.marka_talep set ip = null where ip is not null and created_at < now() - interval '7 days';
+  get diagnostics n = row_count; return n;
 end; $function$
 ;
 

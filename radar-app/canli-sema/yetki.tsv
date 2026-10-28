@@ -87,6 +87,7 @@ marka_takip_kapat	p_jeton text	SD	t	t	boolean	depoda
 marka_takip_onayla	p_onay text	SD	t	t	jsonb	depoda
 marka_takip_sayac		SD	t	t	record	depoda
 marka_talep_ac	p_unvan text, p_email text, p_kaynak text	SD	t	t	text	depoda
+marka_talep_ip_temizle		SD	f	f	integer	depoda
 marka_talep_sonuc	p_jeton text	SD	t	t	jsonb	depoda
 mukellef_pano	p_token uuid	SD	f	f	json	depoda
 nobetci_durum	p_uid uuid	SD	f	f	jsonb	depoda
