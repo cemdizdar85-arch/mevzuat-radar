@@ -130,6 +130,11 @@
          indirim verir, komisyon aynı (Madde 6.8: fiyattan bağımsız). 1 Kasım 23:59'da kendiliğinden 400'e döner (erken-kayit-kapat.yml). -->
     <p class="ep-alt" id="epKampanya" style="border:1.5px solid #f5a524;border-radius:10px;padding:8px 12px;color:var(--ink)">🎯 <b>Geçene Kadar Tetikte:</b> 1 Kasım 23:59'a kadar kodunla SGS Tam Paket alan kişiye <b>600 TL</b> indirim (2.988 → 2.388 TL). Fazladan 200 TL'yi Tetikte karşılar; komisyonun değişmez. "Sadece 7 Deneme" (999 TL) paketine kod işlemez. <a href="kampanya-son-20-gun.html">Kampanya koşulları</a></p>
     <script>(function(){ try { if (Date.now() >= Date.UTC(2026,10,1,20,59,59)) document.getElementById('epKampanya').hidden = true; } catch(e){} })();</script>
+    <!-- 28.10 son kontrol: Yeterlilik erken kaydı panelde hiç yazmıyordu (site her yerde 2.868 TL gösterirken elçi 3.068 sanıyordu). Sözleşme Madde 5
+         tablosu DEĞİŞMEDİ. Erken kayıtta elci_indirim yeterlilik-tum 600 + ders ders 120/240/360/480 (2026-10-28-yet-erken-kayit.sql, -yet-erken-ders.sql)
+         → kodla ve kodsuz alıcı aynı tutarı öder. 7 Kasım 23:59'da kendiliğinden kalkar (erken-kayit-yet-kapat.yml). -->
+    <p class="ep-alt" id="epKampanyaYet" style="border:1.5px solid var(--amber-dolgu);border-radius:10px;padding:8px 12px;color:var(--ink)">🎯 <b>Yeterlilik erken kayıt:</b> 7 Kasım 23:59'a kadar herkese tüm dersler <b>2.868 TL</b> (3.468 yerine), ders ders paketlerde ders başına 120 TL indirim. Bu sürede kodla ve kodsuz alan aynı fiyatı öder. <a href="kampanya-son-20-gun.html#yeterlilik">Kampanya koşulları</a></p>
+    <script>(function(){ try { if (Date.now() >= Date.UTC(2026,10,7,20,59,59)) document.getElementById('epKampanyaYet').hidden = true; } catch(e){} })();</script>
     <p class="ep-alt" id="epPasif" style="color:var(--red)" hidden>Elçi kodun şu an <b>kapalı</b>: yeni siparişlerde indirim uygulanmaz. Bilgi için bize yaz.</p>
 
     <div class="ep-kutu">

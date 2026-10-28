@@ -610,10 +610,12 @@ function yeterlilikAyriEnAz(alan){
     en[d] = Infinity; yol[d] = null;
     for(var k = 1; k <= 4 && k <= d; k++){
       var f = FIYAT.yeterlilik[k] && FIYAT.yeterlilik[k][alan];
+      /* 28.10 son kontrol: erken kayıtta ders paketleri de indirimli satılıyor (ERKEN_YET.ders); kıyas eski 4.980 TL + KDV'yi yazıyordu */
+      if(f && alan === 'kurulus') f -= erkenYetInd('yeterlilik-' + k);
       if(f && en[d - k] + f < en[d]){ en[d] = en[d - k] + f; yol[d] = yol[d - k].concat([k]); }
     }
   }
-  var tum = FIYAT.yeterlilikTum[alan];
+  var tum = FIYAT.yeterlilikTum[alan] - (alan === 'kurulus' ? erkenYetInd('yeterlilik-tum') : 0);
   if(!N || !isFinite(en[N]) || en[N] <= tum) return null;
   return { tutar:en[N], parca:yol[N].sort(function(a, b){ return b - a; }) };
 }
