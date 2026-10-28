@@ -172,6 +172,7 @@ Küçülme her zaman kayıp değildir: akış tazelenmesi (eski duyuru düşer),
 | Robot betiği | `motor/` | 330 betik var; 172'si Actions'tan çağrılıyor |
 | Zamanlanmış iş | `.github/workflows/` | 128 akış, 20'si cron'lu |
 | SQL göçü | `radar-app/sql/` + **`UYGULANDI.md`'ye satır** | "Hangi SQL basılı?" sorusunun TEK cevabı |
+| Yeni `security definer` fonksiyon | göçte `revoke execute … from public, anon, authenticated` + gereken role `grant`; sayfa çağırıyorsa **`radar-app/acik-rpc.txt`'e satır** (A = anon, U = yalnız üye) | Supabase yeni fonksiyona anon+üye yetkisi verir, "from public" kapatmaz (28.10: s20_deneme_yukle, kasa_cekim_izin2). Listede olmayan açık fonksiyon göç sonrası **KIRMIZI + mail** (`arac/rpc-yetki-kapisi.js`). Canlı tanımlar: `radar-app/canli-sema/` (robot) |
 | Ham kaynak (PDF) | `_kaynak/` | Git'e **girmez** |
 
 **Yeni bir araç eklerken beş yere birden konur:** `index.html` · `menu.js` ·
