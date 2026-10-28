@@ -51,8 +51,20 @@
   /* 21.10: isletim sistemi koyu temasi kurali kalkti - tema-bas.js OS temasini izlemez, acik temada data-theme yazmaz; telefonu koyu modda olan
      ama sitede acik temada kalan kullanicida carpim kapaniyor, maskotun beyaz kutusu krem panelde gorunuyordu. Cerceve --panel ustunde --panel idi (gorunmez, 1.12). */
   .og-oturum-not{margin:10px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45;text-align:center}
-  .op-hos{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:color-mix(in srgb,var(--amber-dolgu) 12%,var(--panel));border:1px solid color-mix(in srgb,var(--amber-dolgu) 35%,transparent);border-radius:14px;padding:12px 16px;margin:0 0 14px;font-size:15px}
+  /* 28.10 sade üst: karşılama artık "Bugün" kartında ince satır; Son 20 Gün satırı kartın başında; plan katı */
+  .op-hos{margin:12px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
   .op-hos.og-gizli{display:none}
+  .op-hos b{color:var(--ink)}
+  .op-tek{align-items:center}
+  .op-baska{font-size:14px;font-weight:700}
+  .op-s20{margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid var(--line)}
+  .op-s20.og-gizli{display:none}
+  .op-s20 b{display:block;font-size:17px;color:var(--ink);margin:4px 0 2px}
+  .op-s20 p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .op-s20 .og-btnler{margin-top:10px}
+  .op-plan{margin:12px 0 0;border-top:1px solid var(--line);padding-top:10px}
+  .op-plan summary{cursor:pointer;font-size:13.5px;font-weight:700;color:var(--muted);min-height:32px;display:flex;align-items:center}
+  .op-plan .og-hedef{margin-top:8px}
   #ogGiris .og-marka h1{margin:22px 0 8px;font-size:38px;letter-spacing:-.8px;max-width:calc(100% - 124px)}
   #ogGiris .og-marka .og-ilk{max-width:min(30em,calc(100% - 120px));font-size:16px;margin:0 0 22px}
   .og-tikler{list-style:none;margin:0 0 auto;padding:0;display:grid;gap:14px}
@@ -395,9 +407,12 @@
          Becker/Khan, 18.10 araştırması): üstte sınav + kalan gün, TEK büyük eylem, ders ders ilerleme, zayıf alan, ilk ekranda
          3-4 öğe; gerisi katlı. Veri: uye_calisma_ozetim() (2026-10-18 SQL, sunucudaki kasa_cevap) + ogrenci_sonuc (seviye/deneme).
          Betik: panoCiz(). Eski bölümler aşağıda <details> içinde, kimlikleri aynen. -->
+    <!-- 28.10 SADE ÜST (Cem: "Hesabım çok karışık", ekran görüntüsü): aynı "çalışmaya git" eylemi 3 blokta 5 düğmeydi (Devam et · Kaldığın
+         yerden devam · Soru çöz · Tekrar et · Başka ders seç), "Sınava N gün" iki yerdeydi. Şimdi: sekme → başlık (kalan gün TEK yer) →
+         TEK "Bugün" kartı, TEK büyük düğme. Karşılama satırı (opHos) kartın içinde ince satır; başlıktaki iki düğme gizli (betik href'i
+         yazmaya devam eder, ana sayfa aynı hedefleri kullanır); evre + günlük tempo "Planım" katında. Son 20 Gün döneminde kartın başında
+         Son 20 Gün satırı (son20-kart.js) ve açıkken ana düğme o olur. Kimlikler aynen. -->
     <div id="ogPano" class="op-pano">
-      <!-- 18.10 (Cem "1.2.3" madde 2): giriş sonrası tek karşılama satırı - bu cihazda bu sınavda en son açılan ders (sc_son_ders_<kod>) -->
-      <div class="op-hos og-gizli" id="opHos"><span id="opHosMetin"></span><a class="og-btn ana og-kucuk" id="opHosBtn" href="#">Devam et →</a></div>
       <!-- 07.10: iki sınavda da sonuç varsa sekme (SGS / Yeterlilik); tek sınavda gizli.
            13.10: KGK düğmesi yalnız KGK içeriği açıkken (uye-durumu.js SINAVLAR.kgk.icerik) ve KGK verisi/paketi varken görünür.
            18.10: panonun en üstünde; 18.10 ayrıca paketli sınav da sekme sayısına girer (panoSekme) -->
@@ -410,22 +425,29 @@
         <div><h2 id="opSinavAd">Hesabım</h2><p id="opPaket"></p></div>
         <div class="op-bas-sag"><b id="opGun"></b>
           <!-- 18.10 GM3: her yerde aynı iki düğme (ana sayfa paketli üye ile aynı hedefler; panoCiz sınava göre tazeler) -->
-          <div class="op-iki-dug"><a class="og-btn" id="opDevamBtn" href="sorular.html">Kaldığın yerden devam</a><a class="og-btn ana" id="opCozBtn" href="sorular.html">Soru çöz</a></div></div>
+          <div class="op-iki-dug og-gizli"><a class="og-btn" id="opDevamBtn" href="sorular.html">Kaldığın yerden devam</a><a class="og-btn ana" id="opCozBtn" href="sorular.html">Soru çöz</a></div></div>
       </div>
     <!-- 03.10 (Cem, V2 madde 6-7): girişten sonra ilk görünen "şimdi ne yapmalıyım" - tek öneri (calisma-ozet.js oneri())
          + son durum sayıları + Yanlışlarım bağlantısı. Kaynak bu tarayıcıdaki son 500 cevap ve yanlış kutusu.
          18.10: kart yeni panonun (#ogPano) içine taşındı - betik (simdiCiz) aynen. -->
     <div class="og-bolum og-gizli op-bugun" id="ogSimdi">
       <div class="og-kutu">
-        <!-- 07.10 Nöbetçi planı: sınava kalan güne göre evre (calisma-ozet.js evre()) -->
-        <p class="og-alt og-gizli" id="ogEvre" style="margin:0 0 8px;font-size:13.5px"></p>
+        <!-- 28.10 Son 20 Gün satırı (son20-kart.js; s20Ciz) -->
+        <div class="op-s20 og-gizli" id="opS20"></div>
         <span class="og-paket-et" id="ogSimdiBas">Şimdi bunu yap</span>
         <p id="ogSimdiMetin" style="margin:6px 0 0;font-size:15px"></p>
-        <div class="og-btnler"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-btn" href="sorular.html">Başka ders ya da deneme seç</a></div>
-        <p class="og-alt" id="ogSonDurum" style="margin:10px 0 0;font-size:13.5px"></p>
-        <div id="ogGorev" class="og-gizli" style="margin:12px 0 0"><p class="og-gizli" id="ogSeri" style="margin:0 0 6px;font-size:14px;font-weight:800;color:var(--amber)"></p><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700"><span id="ogGorevYazi"></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div>
+        <div class="og-btnler op-tek"><a class="og-btn ana" id="ogSimdiBtn" href="#">Başla</a><a class="og-link op-baska" href="sorular.html">Başka ders ya da deneme seç</a></div>
+        <!-- 18.10 karşılama satırı (son açılan ders / "Paketin hazır"); 28.10'dan beri ayrı bant değil, kartın içinde ince satır -->
+        <p class="op-hos og-gizli" id="opHos"><span id="opHosMetin"></span> <a class="og-link" id="opHosBtn" href="#">Devam et →</a></p>
+        <div id="ogGorev" class="og-gizli" style="margin:14px 0 0"><div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:700;flex-wrap:wrap"><span><span class="og-gizli" id="ogSeri" style="color:var(--amber);font-weight:800;margin-right:8px"></span><span id="ogGorevYazi"></span></span><span id="ogGorevSay"></span></div><div style="height:8px;border-radius:99px;background:var(--line);margin-top:6px;overflow:hidden"><div id="ogGorevCubuk" style="height:100%;width:0;background:var(--amber-dolgu);border-radius:99px"></div></div></div>
+        <p class="og-alt" id="ogSonDurum" style="margin:12px 0 0;font-size:13.5px"></p>
+        <details class="op-plan">
+          <summary>Planım · günlük hedef</summary>
+          <!-- 07.10 Nöbetçi planı: sınava kalan güne göre evre (calisma-ozet.js evre()); 28.10: kalan gün başlıkta, burada yalnız evre -->
+          <p class="og-alt og-gizli" id="ogEvre" style="margin:8px 0 0;font-size:13.5px"></p>
           <!-- 27.10 (Cem "önerilerini yap"): uygulamadaki "Günlük temponu seç" sitede de. Aynı hesap kaydı (ogrenci_ilerleme.ayar.hedef) -->
-          <div id="ogHedef" class="og-hedef"><span id="ogHedefYazi">Günde kaç soru?</span><span class="og-hedef-sec"><button type="button" data-h="10">10</button><button type="button" data-h="20">20</button><button type="button" data-h="30">30</button><button type="button" data-h="50">50</button></span></div></div>
+          <div id="ogHedef" class="og-hedef"><span id="ogHedefYazi">Günde kaç soru?</span><span class="og-hedef-sec"><button type="button" data-h="10">10</button><button type="button" data-h="20">20</button><button type="button" data-h="30">30</button><button type="button" data-h="50">50</button></span></div>
+        </details>
       </div>
     </div>
       <!-- karne: 4 gösterge (artı/eksi: geçen haftaya ya da önceki ölçüme göre) -->
@@ -590,6 +612,7 @@
 <script src="uygulama-indir.js?v=20261028m"></script>
 <script src="sifre-goster.js"></script>
 <script src="calisma-ozet.js?v=20261028b"></script>
+<script src="son20-kart.js?v=20261028a"></script>
 <!-- 07.10: yanlış kutusu hesaba bağlı (ücretsiz üye dahil); değişince 'tetikte-kutu' olayıyla kartlar yeniden çizilir -->
 <script src="kutu-esitle.js"></script>
 <script>
@@ -761,7 +784,7 @@
     window.ttCalisma.oneri(function(s,o,ev){
       $('ogSimdiBas').textContent=s.baslik; $('ogSimdiMetin').textContent=s.metin; $('ogSimdiBtn').textContent=s.dugme+' →'; $('ogSimdiBtn').href=s.adres;
       var p=[];
-      if(o.cozulen) p.push('Çözülen '+o.cozulen+' · doğru %'+o.dogruYuzde+' · yanlış '+o.yanlis);
+      if(o.cozulen) p.push('Çözülen '+o.cozulen+' · doğru %'+o.dogruYuzde);   /* 28.10 sade: "yanlış N" çözülen + oran ile zaten belli */
       p.push('tekrar bekleyen '+o.kutuToplam);
       $('ogSonDurum').innerHTML=esc(p.join(' · '))+' · <a class="og-link" href="yanlislarim.html">Yanlışlarım →</a>';
       $('ogSimdi').classList.remove('og-gizli');
@@ -770,7 +793,7 @@
          07.10 Nöbetçi planı: tavan ve yeni soru evreye göre (yay 20+10 · pekiştir 30+20 · son 15 gün 40+30 · son 3 gün tüm tekrar +
          sık çıkan konudan 15). Evre gün içinde değişirse (sınav sekmesi) görev yeniden kurulur. */
       var evr=$('ogEvre');
-      if(ev){ evr.textContent='Sınava '+bag.gun+' gün · '+ev.ad+': '+ev.metin; evr.classList.remove('og-gizli'); } else { evr.classList.add('og-gizli'); }
+      if(ev){ evr.textContent=ev.ad+': '+ev.metin;   /* 28.10: "Sınava N gün" yalnız başlıkta (opGun) */ evr.classList.remove('og-gizli'); } else { evr.classList.add('og-gizli'); }
       try{
         var gun=new Date(o.an).toDateString(), g=JSON.parse(localStorage.getItem('tt_gorev')||'null'), ek=ev?ev.kod:'';
         /* 27.10 KİŞİNİN HEDEFİ: seçtiyse günün işi o kadar soru (önce vadesi gelen tekrar, kalanı yeni); seçmediyse evre planı aynen */
@@ -1271,8 +1294,29 @@
     var agir=L.slice().sort(function(a,b){ return (+b.sinav_soru||0)-(+a.sinav_soru||0); })[0];
     return (pd.length&&L.filter(function(x){ return pd.indexOf(kc(x.ad))>-1; })[0])||((+agir.sinav_soru||0)>0?agir:L[0]);
   }
+  /* 28.10 SON 20 GÜN SATIRI (Cem "Hesabım'da da aynı Son 20 Gün satırı olsun; tek ana eylem"): seçili sınav SGS ise s20_liste
+     erişimi (Tam Paket dahil), Yeterlilik ise paket ya da son20-yet. Denemeler açıkken kartın ana düğmesi Son 20 Gün olur, öneri
+     düğmesi ikincil; açılıştan önce yalnız bilgi satırı. Veri son20-kart.js. 🚫 GÖRMEZ: Yeterlilik'te deneme ilerlemesi (sunucuda yok). */
+  var S20_SON=null;
+  function s20Uygula(k){
+    var el=$('opS20'), btn=$('ogSimdiBtn'); if(!el) return;
+    if(!k){ el.classList.add('og-gizli'); el.innerHTML=''; if(btn) btn.classList.add('ana'); return; }
+    el.innerHTML='<span class="og-paket-et">'+esc(k.baslik)+'</span><b>'+esc(k.metin)+'</b><p>'+esc(k.kural)+'</p>'
+      +'<div class="og-btnler"><a class="og-btn'+(k.acik?' ana':'')+'" href="'+esc(k.adres)+'">'+esc(k.dugme)+'</a></div>';
+    el.classList.remove('og-gizli');
+    if(btn) btn.classList.toggle('ana',!k.acik);   /* tek büyük düğme: denemeler açıkken Son 20 Gün */
+  }
+  function s20Ciz(s){
+    if(!window.ttSon20) return;
+    var tur=s==='sgs'?'sgs':s==='yeterlilik'?'yet':null; if(!tur){ s20Uygula(null); return; }
+    var P=window.OP_PKT, po=P&&P.sinavlar&&P.sinavlar[s], ob=window.TetikteUye&&TetikteUye.onbellek;
+    var uygun=tur==='yet'?((po&&po.durum==='aktif')||!!(ob&&ob.son20&&ob.son20.durum==='aktif'&&ob.son20.tur==='yet')):true;
+    var an=s+'|'+uygun; S20_SON=an;
+    ttSon20.durum(tur,uygun).then(function(k){ if(S20_SON===an&&ILR.secili===s) s20Uygula(k); },function(){});
+  }
   function panoCiz(){
     var s=ILR.secili; if(!s||!$('ogPano')) return;
+    try{ s20Ciz(s); }catch(e){}
     var kod=KASA_KOD[s], yet=s==='yeterlilik', kgk=s==='kgk', U=window.TetikteUye;
     var AD={ sgs:'SMMM Staja Giriş', yeterlilik:'SMMM Yeterlilik', kgk:'Bağımsız Denetçilik (KGK)' };
     $('opSinavAd').textContent=AD[s]||'Hesabım';

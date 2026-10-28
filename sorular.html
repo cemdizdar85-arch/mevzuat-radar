@@ -165,6 +165,16 @@
   .sc-sik-ik{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--panel)}
   .sc-sik-git{flex:none;font-size:15px;font-weight:800;color:var(--bz-cta-yazi);background:linear-gradient(180deg,var(--bz-bronz-acik),var(--bz-bronz));border-radius:10px;padding:11px 18px;white-space:nowrap}
   @media(max-width:700px){ .sc-sik{flex-wrap:wrap} .sc-sik-ik{display:none} .sc-sik-git{flex-basis:100%;box-sizing:border-box;text-align:center} }
+  /* 28.10 Son 20 Gün dönemi: büyük kart tek (Son 20 Gün); devam ve sık konu ince satır */
+  .sc-ince{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px;padding:12px 16px;border-radius:12px;border:1px solid var(--line2);background:var(--panel);text-decoration:none;color:var(--ink);font-size:14.5px}
+  .sc-ince:hover{border-color:var(--amber-dolgu)}
+  .sc-ince b{font-weight:750}
+  .sc-ince-git{flex:none;font-weight:800;color:var(--amber);white-space:nowrap}
+  .sc-s20{margin-bottom:12px}
+  .sc-s20-panel{margin-bottom:14px}
+  .sc-s20-panel .sc-setler{grid-template-columns:repeat(4,1fr)}   /* "Deneme 7" beşli ızgarada iki satıra kırılıyordu */
+  .sc-sag:has(.sc-s20-panel){position:static}   /* iki panel ekrandan uzun; yapışkan kalırsa alt panelin dibi görünmez */
+  .sc-s20-not{margin:0 0 10px;font-size:13px;font-weight:700;color:var(--amber)}
   .sc-son{display:flex;flex-direction:column;gap:1px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 12px}
   .sc-son span{font-size:11.5px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}.sc-son b{font-size:16px;color:var(--ink)}.sc-son small{font-size:12.5px;color:var(--muted)}
   .sc-art{color:var(--green);font-weight:800}.sc-eks{color:var(--red);font-weight:800}
@@ -210,6 +220,7 @@
 <!-- 07.10 Cem "açık diyoruz ama burası kapalı": paketli üyede kilit etiketi yerine "Çöz" (uye-durumu.js; girişsizde istek gitmez) -->
 <script src="uye-durumu.js?v=20261028z"></script>
 <script src="ders-ilerleme.js?v=20261011b"></script>
+<script src="son20-kart.js?v=20261028a"></script>
 <script>
 (function(){
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
@@ -225,11 +236,41 @@
   function son20Yalniz(){ return !!SON20 && !Object.keys(PAKET).length; }
   function son20Ciz(){
     var yet=SON20.tur==='yet', acilT=Date.parse(yet?'2026-11-08T00:00:00+03:00':'2026-11-01T00:00:00+03:00'), once=Date.now()<acilT;
+    var k=S20D[yet?'yet':'sgs'];   /* 28.10: ilerleme son20-kart.js'ten (SGS'de sunucu); gelmeden önce eski metin */
     derslerEl.innerHTML='<a class="sc-deneme" href="'+(yet?'son-20-gun.html?sinav=yeterlilik':'son-20-gun.html')+'"><span><span class="sc-deneme-et">'+(yet?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün</span>'
-      +'<b>'+(yet?'Sadece Denemeler':'Sadece 7 Deneme')+'</b>'
-      +'<span class="sc-deneme-alt">'+(once?'Ön siparişin alındı. Denemelerin '+(yet?'8':'1')+' Kasım 2026\'da açılır; o gün buradan başlarsın.':'Denemelerin açık. Her deneme ders ders testlerden oluşur; puanın ve açıklamalar test bitince açılır.')+'</span></span>'
-      +'<span class="sc-deneme-git">'+(yet?'Hesabıma git →':'Son 20 Gün sayfam →')+'</span></a>'
+      +'<b>'+(k?esc(k.metin):(yet?'Sadece Denemeler':'Sadece 7 Deneme'))+'</b>'
+      +'<span class="sc-deneme-alt">'+(k?esc(k.kural):once?'Ön siparişin alındı. Denemelerin '+(yet?'8':'1')+' Kasım 2026\'da açılır; o gün buradan başlarsın.':'Denemelerin açık. Her deneme ders ders testlerden oluşur; puanın ve açıklamalar test bitince açılır.')+'</span></span>'
+      +'<span class="sc-deneme-git">'+(k?esc(k.dugme):(yet?'Hesabıma git →':'Son 20 Gün sayfam →'))+'</span></a>'
       +'<p class="sc-aciklama">Bütün soru bankası için <a href="iletisim.html">Tam Pakete geç</a>; ödediğin 999 TL düşülür.</p>';
+  }
+  /* 28.10 Cem ("Soru çöz sayfası sadeleşsin, Son 20 Gün kartı eklensin"): 1–21 Kasım SGS paketi olan HERKES (Tam Paket dahil), 8–28 Kasım
+     Yeterlilik paketi olan herkes en üstte Son 20 Gün kartını görür; açılıştan önce "açılıyor" der. Veri son20-kart.js (s20_liste).
+     Denemeler açıkken "Kaldığın yerden devam" ve "en çok çıkanlar" büyük kart olmaktan çıkar, ince satıra iner (tek ana eylem);
+     açılıştan önce tersi: Son 20 Gün ince bilgi satırı, günlük çalışma büyük kart (Hesabım'la aynı kural). */
+  var S20D={}, S20_ISTEK={};
+  function s20Tur(kod){ return kod==='sgs'?'sgs':kod==='smmm'?'yet':null; }
+  function s20Iste(kod){
+    var t=s20Tur(kod); if(!t||!window.ttSon20) return;
+    var uygun=t==='yet'?(!!PAKET.smmm||(!!SON20&&SON20.tur==='yet')):true, an=t+(uygun?1:0);
+    if(S20_ISTEK[an]) return; S20_ISTEK[an]=1;
+    ttSon20.durum(t, uygun).then(function(k){ S20D[t]=k; if(k&&DIZIN&&SECILI) dersleriCiz(); },function(){});
+  }
+  function s20Kart(s){
+    var k=S20D[s20Tur(s.kod)]; if(!k) return '';
+    /* açılıştan önce bilgi satırı (ana eylem günlük çalışma kalır); açılınca büyük kart ve ana eylem */
+    if(!k.acik) return '<a class="sc-ince sc-s20" href="'+esc(k.adres)+'"><span>📅 <b>Son 20 Gün</b> · '+esc(k.metin)+'</span><span class="sc-ince-git">'+esc(k.dugme)+'</span></a>';
+    return '<a class="sc-deneme sc-s20" href="'+esc(k.adres)+'"><span><span class="sc-deneme-et">'+(k.tur==='yet'?'SMMM Yeterlilik':'SMMM Staja Giriş')+' · Son 20 Gün</span>'
+      +'<b>'+esc(k.metin)+'</b><span class="sc-deneme-alt">'+esc(k.kural)+'</span></span><span class="sc-deneme-git">'+esc(k.dugme)+'</span></a>';
+  }
+  /* Deneme bölümünün başı: Son 20 Gün'ün 7 denemesi (SGS'de durumlu çip; Yeterlilik'te tek bağlantı) */
+  function s20Panel(s){
+    var k=S20D[s20Tur(s.kod)]; if(!k) return '';
+    var cip=(k.liste||[]).map(function(x){ var cls=x.durum==='bitti'?' bitti':x.durum==='yarim'?' devam':x.durum==='kapali'?' kilit':'';
+      var alt=x.durum==='bitti'?'%'+String(x.puan).replace('.',','):x.durum==='yarim'?'Yarım':x.durum==='kapali'?(k.once?k.tur==='yet'?'8 Kasım':'1 Kasım':'Yakında'):'Yeni';
+      return '<a class="sc-set'+cls+'" href="son-20-gun.html#d'+x.no+'"><b>Deneme '+x.no+'</b><small>'+alt+'</small></a>'; }).join('');
+    return '<div class="sc-panel sc-s20-panel" id="sc-deneme"><span class="sc-deneme-et">Son 20 Gün · söze sayılır</span><h2>'+(k.tur==='yet'?'Yeterlilik denemeleri':'7 deneme')+'</h2>'
+      +(cip?'<div class="sc-setler">'+cip+'</div>':'<p class="sc-palt" style="margin-top:0">'+esc(k.metin)+'</p>')
+      +'<a class="sc-plink" href="'+esc(k.adres)+'">Son 20 Gün sayfası · karne ve görevler →</a></div>';   /* büyük düğme üstteki kartta; burada tekrar etmez */
   }
   function trk(s){ return String(s||'').toLocaleLowerCase('tr-TR').replace(/\s+/g,' ').trim(); }   /* 07.10: /s+/ (s harfini siliyordu) -> /\s+/ boşluk */
   function dersAcik(kod, ad){ var p=PAKET[kod]; if(!p) return false; if(!p.dersler||!p.dersler.length) return true;
@@ -280,13 +321,15 @@
   /* 07.10 Cem ("ben üyeysem hemen tıkladığımda sorular gelmeli, böyle yormadan"): paketli üyede en üstte TEK düğme.
      Hedef: bu cihazda bu sınavda en son açılan ders (sc_son_ders_<kod>, ders kartına tıklayınca yazılır); yoksa
      sınavda en çok soru gelen açık ders. Ziyaretçide çizilmez. */
-  function devamKart(s, acik){
+  function devamKart(s, acik, ince){
     if(!acik||!PAKET[s.kod]) return '';
     var son=null; try{ son=localStorage.getItem('sc_son_ders_'+s.kod); }catch(e){}
     var aday=s.dersler.filter(function(d){ return d.sayfa&&dersAcik(s.kod,d.ad); });
     var sonD=aday.filter(function(d){ return d.sayfa===son; })[0];
     var hedef=sonD||aday.slice().sort(function(x,y){ return (y.sinav_soru||0)-(x.sinav_soru||0); })[0];
     if(!hedef) return '';
+    /* 28.10: Son 20 Gün kartı varken ikinci büyük turuncu kart olmaz; aynı hedef ince satır */
+    if(ince) return '<a class="sc-ince sc-devam" href="'+esc(hedef.sayfa)+'" data-ders="'+esc(hedef.sayfa)+'"><span>'+(sonD?'Kaldığın yerden devam':'Soru çöz')+' · <b>'+esc(hedef.ad)+'</b></span><span class="sc-ince-git">Soru çöz →</span></a>';
     return '<a class="sc-deneme sc-devam" href="'+esc(hedef.sayfa)+'" data-ders="'+esc(hedef.sayfa)+'"><span><span class="sc-deneme-et">'+(sonD?'Kaldığın yerden devam':'Hemen başla')+'</span>'
       +'<b>'+esc(hedef.ad)+'</b><span class="sc-deneme-alt">'+(sonD?'En son bu dersi çözüyordun. Başka ders için aşağıdan seç.':(hedef.sinav_soru?'Sınavda en çok soru gelen ders. ':'')+'Başka ders için aşağıdan seç.')+'</span></span>'
       +'<span class="sc-deneme-git">Soru çöz →</span></a>';
@@ -337,8 +380,10 @@
   });
 
   function dersleriCiz(){
+    try{ s20Iste(son20Yalniz()?(SON20.tur==='yet'?'smmm':'sgs'):SECILI); }catch(e){}
     if(son20Yalniz()){ son20Ciz(); return; }
     var s=DIZIN.sinavlar.filter(function(x){return x.kod===SECILI;})[0]; if(!s) return;
+    var s20=s.durum==='acik'?s20Kart(s):'', s20Ana=!!(s20&&S20D[s20Tur(s.kod)].acik);
     var acik=s.durum==='acik';
     var sinavToplam=s.dersler.reduce(function(t,d){return t+(+d.sinav_soru||0);},0);
     var gruplar={}, sira=[];
@@ -375,14 +420,18 @@
     var sikKart=(acik&&sikSinav)?'<a class="sc-sik" href="en-cok-cikan-sorular.html?sinav='+sikSinav+'"><span class="sc-sik-ik" aria-hidden="true">🎯</span><span><span class="sc-deneme-et">'+(PAKET[s.kod]?'Pakete dahil':'🔒 Pakete dahil')+' · ders ders</span>'
       +'<b>Sınavda en çok çıkan konulardan sorular</b><span class="sc-deneme-alt">Son 10 yılın çıkmış sorularını tek tek okuduk; '+(sikSinav==='sgs'?'en sık 20 konudan':'her dersin en sık 5 konusundan')+' ders ders 20 soru. Bitince konu konu karnen.</span></span>'
       +'<span class="sc-sik-git">Ders ders gör →</span></a>':'';
+    /* 28.10 (Cem: "üstte birbirine benzeyen iki turuncu kart, hangisi önemli anlaşılmıyor"): paketli üyede bu bant ince satır, büyük
+       kart yalnız devam (ya da Son 20 Gün) olur. Ziyaretçide büyük kalır (paketin içini gösteren kanca). */
+    if((s20Ana||PAKET[s.kod])&&sikKart) sikKart='<a class="sc-ince" href="en-cok-cikan-sorular.html?sinav='+sikSinav+'"><span>🎯 <b>Sınavda en çok çıkan konulardan sorular</b> · ders ders</span><span class="sc-ince-git">Gör →</span></a>';
     var alanlar=acik?'<nav class="sc-alanlar" aria-label="'+esc(s.ad)+' alanları"><a href="#sc-dersler">Dersler</a>'+(sikSinav?'<a href="en-cok-cikan-sorular.html?sinav='+sikSinav+'">🎯 En çok çıkanlar</a>':'')
       +(dn?'<a href="sinav-gibi.html">Deneme</a>':s.kod==='smmm'?'<a href="sinav-gibi.html?tur=ders&amp;sinav=smmm">Deneme</a>':'')+'<a href="yanlislarim.html">Yanlışlarım</a><a href="yanlislarim.html#durum">Son durum</a><a href="ogrenci.html">Hesabım</a></nav>':'';
     var kars=karsilamaKart(s, acik);   /* ders seçimli pakette karşılama devam + deneme kartının yerine geçer */
     /* 18.10 Cem ("sınava gir değil soru çöz diyelim, içinde sınav olsun; ders ders ve toplu sınavı aynı yerde görsün"):
        rakip kalıbı (konu konu çalış + tam deneme yan yana): solda dersler, sağda sabit DENEME PANELİ (setler tek bakışta).
        Panel varsa eski tek deneme kartı çizilmez. Telefonda panel derslerin üstünde. */
-    var panel=denemePanel(s, acik);
-    var h=(kars||devamKart(s, acik))+alanlar+seviyeKart+sikKart+(panel?'':(kars?'':denemeKart))
+    var panel=(acik?s20Panel(s):'')+denemePanel(s, acik);
+    if(s20) alanlar=alanlar.replace(/<a href="sinav-gibi\.html[^"]*">Deneme<\/a>/,'<a href="#sc-deneme">Deneme</a>');   /* Deneme = bu sayfadaki bölüm; başında Son 20 Gün */
+    var h=(s20Ana?s20+(kars||devamKart(s, acik, true)):(kars||devamKart(s, acik))+s20)+alanlar+seviyeKart+sikKart+(panel?'':(kars?'':denemeKart))
       +(panel?'<div class="sc-iki"><aside class="sc-sag">'+panel+'</aside><div class="sc-sol">':'')
       +'<div class="sc-gbas" id="sc-dersler"><h2>'+(panel?'Ders ders çalış':esc(s.ad)+' · dersler')+'</h2><span>'+esc(s.uzun)+'</span></div>'
       +'<p class="sc-aciklama">'+(acik
@@ -446,7 +495,8 @@
       var hedef=devam||sira||1;
       var son=pk?sonDenemeSatir(dn.setler.map(function(x){ return { ad:'Set '+x.no, d:sgOku('sg_sgs_'+x.no+(dn.surum?'_'+dn.surum:'')),
         deger:function(d){ return +d.sonuc.dogru||0; }, yazi:function(d){ return (+d.sonuc.dogru||0)+' doğru'; } }; })):'';
-      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Toplu sınav</h2>'+son
+      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Toplu sınav</h2>'
+        +(S20D.sgs?'<p class="sc-s20-not">Alıştırma denemesi, Son 20 Gün sözüne sayılmaz.</p>':'')+son
         +'<div class="sc-cipler"><span>'+dn.toplam_soru+' soru</span><span>'+dn.sure_dk+' dakika</span><span>gerçek ders dağılımı</span></div>'
         +'<div class="sc-setler">'+cip+'</div>'
         +(pk?'<a class="sc-pbtn" href="sinav-gibi.html#set='+hedef+'">'+(devam?'Devam et · Set '+devam+' →':'Başlat · Set '+hedef+' →')+'</a>'
@@ -469,7 +519,8 @@
       var puanH=function(d){ var t=(+d.sonuc.dogru||0)+(+d.sonuc.yanlis||0)+(+d.sonuc.bos||0)||20; return Math.max(0,Math.round(((+d.sonuc.dogru||0)-(+d.sonuc.yanlis||0)/4)*1000/t)/10); };
       var son2=pk?sonDenemeSatir(dd.setler.map(function(x){ return { ad:x.ders, d:sgOku('sg_smmm_ders_'+x.no+(dd.surum?'_'+dd.surum:'')),
         deger:puanH, yazi:function(d){ return String(puanH(d)).replace('.',',')+' puan'; } }; })):'';
-      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Ders denemeleri</h2>'+son2
+      return '<div class="sc-panel"><span class="sc-deneme-et">Sınav gibi deneme</span><h2>Ders denemeleri</h2>'
+        +(S20D.yet?'<p class="sc-s20-not">Alıştırma denemesi, Son 20 Gün sözüne sayılmaz.</p>':'')+son2
         +'<div class="sc-cipler"><span>20 soru</span><span>45 dakika</span><span>baraj 50</span></div>'
         +'<p class="sc-palt" style="margin-top:0">Gerçek sınavda her ders ayrı bir oturum; burada da öyle. Yanlış doğrunun 0,25\'ini götürür.</p>'
         +'<div class="sc-pdersler">'+satir+'</div>'+(pk?'<a class="sc-plink" href="en-cok-cikan-sorular.html?sinav=yeterlilik">En çok çıkan konulardan sorular · ders ders →</a>':kilitA)+'</div>';
