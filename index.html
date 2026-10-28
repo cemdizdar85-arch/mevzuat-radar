@@ -200,12 +200,12 @@ html body .sinav:hover{border-color:var(--ink)}
 html body .sinav[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .sinav[aria-pressed="true"] small{color:color-mix(in srgb,var(--bg) 82%,transparent)}
 html body .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
-/* 28.10 Cem ("sınavını seç üste gelsin"): seçim kahramanın üstünde → masaüstünde daha alçak haplar, telefonda TEK SATIR üç
-   düğme (alt alta üç büyük düğme başlığı ekran dışına itiyordu); tarih telefonda kahramanın üst satırında yazdığı için gizli. */
-.secim-bolum{padding:26px 0 0}
+/* 28.10 Cem ("sınavını seç üste gelsin" → "aşağıya koy, basınca fiyatları göremiyorum"): seçim paketlerin hemen üstünde;
+   masaüstünde alçak haplar, telefonda TEK SATIR üç düğme (tarih kahramanın üst satırında yazar). */
+.secim-bolum{padding:8px 0 22px;scroll-margin-top:72px}
 html body .sinav{min-height:76px;font-size:19px}
 @media(max-width:900px){
-  .secim-bolum{padding:14px 0 0}
+  .secim-bolum{padding:6px 0 16px}
   .secim-bas{font-size:12.5px;margin:0 0 8px}
   .secim{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
   html body .sinav{min-height:52px;border-radius:14px;align-items:center;text-align:center;font-size:13.5px;padding:7px 6px;line-height:1.2}
@@ -392,7 +392,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   .alt{margin-bottom:16px}
   .durum{margin-top:2px}
   .kah-linkler{margin-top:4px}
-  .secim-bolum{padding-bottom:0}
+  .secim-bolum{padding-bottom:20px}
   .secim-bas{margin-bottom:10px}
   .maskot{max-width:min(340px,calc((100vh - 280px)*688/930))}
 }
@@ -458,22 +458,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <span class="kayan-iz" aria-hidden="true"><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span><span>🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · SMMM Yeterlilik ve Staja Giriş · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u></span></span></a>
   <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
-<!-- 28.10 Cem ("sınavını seç üste gelsin"): seçim kahramanın üstünde; kahraman seçili sınava göre çizilir. -->
-<!-- 17.10 Cem (Becker ekranı: "aşağıda sınavları koysak"): sınav hapları. Seçim düğmesidir (kahUstCiz ilk metin düğümünü + data-tarih'i okur). -->
-<section class="secim-bolum" aria-labelledby="secimBas">
-  <div class="ic">
-      <p class="secim-bas" id="secimBas">Sınavını seç</p>
-      <div class="secim" role="group" aria-labelledby="secimBas">
-        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
-        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
-        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
-             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
-             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
-        <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
-        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
-      </div>
-  </div>
-</section>
 <section class="kah">
   <div class="ic">
     <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
@@ -514,6 +498,23 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   </div>
 </section>
 
+
+<!-- 28.10 Cem ("bunu aşağıya koy, buna basıyorum fiyatları göremiyorum"): seçim paketlerin hemen üstünde; basınca seçim satırı ekranın üstüne kayar, o sınavın paketleri altında görünür. -->
+<!-- 17.10 Cem (Becker ekranı: "aşağıda sınavları koysak"): sınav hapları. Seçim düğmesidir (kahUstCiz ilk metin düğümünü + data-tarih'i okur). -->
+<section class="secim-bolum" aria-labelledby="secimBas">
+  <div class="ic">
+      <p class="secim-bas" id="secimBas">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas">
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
+             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
+             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
+        <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+      </div>
+  </div>
+</section>
 
 <!-- 17.10 Cem ("paketleri gör büyük olsun ve SGS tüm paket ve yanında hemen tek paket ... kurumsal görünsün, aşağıya kayan şekilde
      olmasın"): üç paket kartı yan yana, sınav haplarının hemen altında. Rakam YALNIZ fiyat-motoru.js'ten (paketBul), biçim fiyat.html
@@ -923,8 +924,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       secili=b.getAttribute('data-sinav'); if(U&&U.sinavSec) U.sinavSec(secili);
       say('anasayfa/sinav/'+secili,'Ana sayfa: sınav seçti');
       dugmeCiz(); ekranCiz();
-      /* 17.10: haplar kahramanın altında - telefonda değişen düğme ekran dışındaysa kahramana kaydır */
-      try{ var r=$('cta1').getBoundingClientRect(); if(r.top<64||r.bottom>window.innerHeight) document.querySelector('.kah').scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+      /* 28.10 Cem ("buna basıyorum fiyatları göremiyorum"): seçim paketlerin üstünde → basınca seçim satırı ekranın üstüne gelir,
+         seçili sınavın paket kartları hemen altında görünür (17.10'daki gibi kahramana kaydırmak fiyatları ekran dışında bırakıyordu). */
+      try{ var sb2=document.querySelector('.secim-bolum'), r=sb2.getBoundingClientRect(); if(r.top<56||r.top>window.innerHeight*0.25) sb2.scrollIntoView({block:'start'}); }catch(e){}   /* smooth: kartlar süzülünce sayfa boyu değişip kayma kesiliyordu (ölçüldü) */
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
