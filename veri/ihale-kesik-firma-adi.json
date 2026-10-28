@@ -1,17 +1,17 @@
 {
-  "olcum": "27.10.2026 21:12",
+  "olcum": "28.10.2026 08:05",
   "aciklama": "Ozel adi kayip yuklenici kayitlari. Olcut: firma adi JENERIK bir sirket ekiyle BASLIYOR (Ticaret/Sanayi/Limited...). Kisalik tek basina kusur DEGILDIR - sahis firmalari ('Mehmet ...') normaldir. Onarim: her kaydin IKN'lerinin sonuc ilani yeniden okunmali.",
   "kaynak": "veri/ihale-firma-ozet.json",
-  "taranan": 62933,
+  "taranan": 62964,
   "kusurlu": 546,
   "sinif_coklu_yuklenici": 34,
   "sinif_is_ortakligi": 0,
   "sinif_sahis_eki": 10,
   "sinif_SADE_KESIK": 502,
-  "sade_kesik_ihale": 13115.0,
-  "sade_kesik_bedel": 65581864425.09997,
-  "etkilenen_ihale": 13361.0,
-  "etkilenen_bedel": 151967621399.50992,
+  "sade_kesik_ihale": 13152.0,
+  "sade_kesik_bedel": 65753285368.55997,
+  "etkilenen_ihale": 13398.0,
+  "etkilenen_bedel": 152139042342.9699,
   "kayitlar": [
     {
       "ad": "Yapı Merkezi İnşaat ve Sanayi Anonim Şirketi, YSE Yapı Sanayi ve Ticaret Anonim Şirketi İş Ortaklığı",
@@ -21,19 +21,19 @@
     },
     {
       "ad": "Ticaret Limited Şirketi",
-      "ihaleSayisi": 3814,
-      "toplamBedel": 21709695253.97,
+      "ihaleSayisi": 3828,
+      "toplamBedel": 21715550885.22,
       "ikn": [
+        "2025/2450387",
         "2025/2459752",
         "2025/2460556",
         "2025/2461732",
-        "2025/2450387",
         "2025/1669301",
         "2025/1741901",
-        "2024/1920748",
-        "2024/1920595",
-        "2024/1914234",
-        "2024/1899596"
+        "2024/1920971",
+        "2024/1745430",
+        "2024/1342895",
+        "2024/1773584"
       ]
     },
     {
@@ -61,19 +61,19 @@
     },
     {
       "ad": "Sanayi Ticaret Limited Şirketi",
-      "ihaleSayisi": 475,
-      "toplamBedel": 4054612413.07,
+      "ihaleSayisi": 476,
+      "toplamBedel": 4054646675.47,
       "ikn": [
         "2025/2402267",
         "2024/1215341",
+        "2026/1251776",
         "2026/1251902",
         "2026/1251901",
-        "2026/1251773",
         "2026/1251787",
-        "2026/1251776",
-        "2026/468518",
+        "2026/1251773",
         "2026/469298",
-        "2026/468562"
+        "2026/468562",
+        "2026/468518"
       ]
     },
     {
@@ -95,8 +95,8 @@
     },
     {
       "ad": "Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 707,
-      "toplamBedel": 1779516365.54,
+      "ihaleSayisi": 711,
+      "toplamBedel": 1780340659.15,
       "ikn": [
         "2025/1858262",
         "2026/1469027",
@@ -106,8 +106,8 @@
         "2024/740134",
         "2025/1320608",
         "2024/1664269",
-        "2026/449136",
-        "2026/449298"
+        "2026/449298",
+        "2026/449136"
       ]
     },
     {
@@ -136,11 +136,11 @@
     },
     {
       "ad": "Pazarlama Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 94,
-      "toplamBedel": 1031618654.25,
+      "ihaleSayisi": 95,
+      "toplamBedel": 1031869564.25,
       "ikn": [
-        "2025/1924282",
         "2025/1918324",
+        "2025/1924282",
         "2024/1215341",
         "2024/979155",
         "2023/1056619",
@@ -233,21 +233,9 @@
       ]
     },
     {
-      "ad": "Yapı-San İnşaat Hafriyat Kum Çakıl Madencilik Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 5,
-      "toplamBedel": 496538000.0,
-      "ikn": []
-    },
-    {
-      "ad": "Mühendislik Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 21,
-      "toplamBedel": 477848145.0,
-      "ikn": []
-    },
-    {
       "ad": "İthalat İhracat Limited Şirketi",
-      "ihaleSayisi": 556,
-      "toplamBedel": 476539017.64,
+      "ihaleSayisi": 564,
+      "toplamBedel": 497528144.84,
       "ikn": [
         "2024/1215341",
         "2023/687371",
@@ -260,6 +248,18 @@
         "2026/1009308",
         "2026/1009307"
       ]
+    },
+    {
+      "ad": "Yapı-San İnşaat Hafriyat Kum Çakıl Madencilik Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 5,
+      "toplamBedel": 496538000.0,
+      "ikn": []
+    },
+    {
+      "ad": "Mühendislik Sanayi ve Ticaret Anonim Şirketi",
+      "ihaleSayisi": 21,
+      "toplamBedel": 477848145.0,
+      "ikn": []
     },
     {
       "ad": "Mühendislik Taşımacılık Sanayi ve Ticaret Limited Şirketi",
@@ -412,6 +412,12 @@
       "ad": "Hizmetleri Otomotiv Ticaret ve Sanayi Limited Şirketi",
       "ihaleSayisi": 5,
       "toplamBedel": 218695000.0,
+      "ikn": []
+    },
+    {
+      "ad": "Turizm Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 21,
+      "toplamBedel": 217482074.02,
       "ikn": []
     },
     {
@@ -605,6 +611,23 @@
       "ikn": []
     },
     {
+      "ad": "Hizmetleri Enerji Sanayi ve Ticaret Anonim Şirketi",
+      "ihaleSayisi": 174,
+      "toplamBedel": 121399168.52,
+      "ikn": [
+        "2026/771686",
+        "2026/771536",
+        "2026/771533",
+        "2026/771529",
+        "2026/771526",
+        "2026/771524",
+        "2026/771517",
+        "2026/771511",
+        "2026/771509",
+        "2026/771507"
+      ]
+    },
+    {
       "ad": "Yapı-San İnşaat Plastik Cam Makina Elektrik Elektronik Orman Ürünleri Tekstil Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 3,
       "toplamBedel": 120644735.0,
@@ -621,23 +644,6 @@
       "ihaleSayisi": 3,
       "toplamBedel": 117368850.0,
       "ikn": []
-    },
-    {
-      "ad": "Hizmetleri Enerji Sanayi ve Ticaret Anonim Şirketi",
-      "ihaleSayisi": 167,
-      "toplamBedel": 116116949.52,
-      "ikn": [
-        "2026/771686",
-        "2026/771536",
-        "2026/771533",
-        "2026/771529",
-        "2026/771526",
-        "2026/771524",
-        "2026/771517",
-        "2026/771514",
-        "2026/771511",
-        "2026/771509"
-      ]
     },
     {
       "ad": "Yapı Grup Restorasyon İnşaat Limited Şirketi",
@@ -735,8 +741,8 @@
     },
     {
       "ad": "Gıda Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 75,
-      "toplamBedel": 80907362.03,
+      "ihaleSayisi": 76,
+      "toplamBedel": 81091862.03,
       "ikn": [
         "2025/2477140",
         "2025/2477173",
@@ -754,12 +760,6 @@
       "ad": "İhracat İthalat Anonim Şirketi",
       "ihaleSayisi": 6,
       "toplamBedel": 80598087.19,
-      "ikn": []
-    },
-    {
-      "ad": "Turizm Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 20,
-      "toplamBedel": 79482074.02,
       "ikn": []
     },
     {
@@ -2902,8 +2902,8 @@
       "ikn": []
     },
     {
-      "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 1,
+      "ad": "İnşaat İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 3,
       "toplamBedel": 1000000.0,
       "ikn": []
     },
@@ -2914,8 +2914,8 @@
       "ikn": []
     },
     {
-      "ad": "İnşaat İthalat İhracat Sanayi ve Ticaret Limited Şirketi",
-      "ihaleSayisi": 3,
+      "ad": "Tekstil Turizm Pazarlama Sanayi ve Ticaret Limited Şirketi",
+      "ihaleSayisi": 1,
       "toplamBedel": 1000000.0,
       "ikn": []
     },
@@ -3448,13 +3448,13 @@
       "ikn": []
     },
     {
-      "ad": "Tekstil Turizm Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Hizmetleri İnşaat Turizm Nakliye Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 84000.0,
       "ikn": []
     },
     {
-      "ad": "Hizmetleri İnşaat Turizm Nakliye Sanayi ve Ticaret Limited Şirketi",
+      "ad": "Tekstil Turizm Sanayi ve Ticaret Limited Şirketi",
       "ihaleSayisi": 1,
       "toplamBedel": 84000.0,
       "ikn": []
