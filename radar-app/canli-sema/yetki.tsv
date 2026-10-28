@@ -53,13 +53,13 @@ istek_getir	p_token uuid	SD	f	f	json	depoda
 kalip_parti_damga		inv	t	t	trigger	DEPODA-YOK
 kart_siparis_odendi	p_no text, p_payment_id text	SD	f	f	jsonb	depoda
 kasa_cekim_izin2	p_sayfa text, p_bas integer, p_adet integer, p_ids text[]	SD	f	f	text	depoda
-kasa_cevap_yaz	p_sayfa text, p_id text, p_secim text	SD	t	t	void	depoda
-kasa_ders_fihrist	p_sayfa text	SD	t	t	record	depoda
+kasa_cevap_yaz	p_sayfa text, p_id text, p_secim text	SD	f	t	void	depoda
+kasa_ders_fihrist	p_sayfa text	SD	f	t	record	depoda
 kasa_dizin	p_sinav text	SD	t	t	record	depoda
-kasa_soru_getir	p_sayfa text, p_bas integer, p_adet integer	SD	t	t	record	depoda
-kasa_soru_idler	p_ids text[]	SD	t	t	record	depoda
-kasa_soru_parca	p_sayfa text, p_ids text[]	SD	t	t	record	depoda
-kasa_tavan_bildir	p_sayfa text, p_pencere text	SD	t	t	void	depoda
+kasa_soru_getir	p_sayfa text, p_bas integer, p_adet integer	SD	f	t	record	depoda
+kasa_soru_idler	p_ids text[]	SD	f	t	record	depoda
+kasa_soru_parca	p_sayfa text, p_ids text[]	SD	f	t	record	depoda
+kasa_tavan_bildir	p_sayfa text, p_pencere text	SD	f	t	void	depoda
 kasa_uye_olcum	p_saat integer	SD	f	f	record	depoda
 kaynak_say	p_etiket text, p_olay text	SD	t	t	boolean	depoda
 kaynak_uye	p_etiket text	SD	f	t	boolean	depoda
