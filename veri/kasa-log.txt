@@ -1,12 +1,12 @@
 **********************
 PowerShell transcript start
-Start time: 20261027201602
+Start time: 20261028061538
 Username: runnervmr9t6g\runner
 RunAs User: runnervmr9t6g\runner
 Configuration Name: 
 Machine: runnervmr9t6g (Unix 7.0.0.1017)
-Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/5f8448a4-31f4-4d45-910d-7c421d7c78f5.ps1'
-Process ID: 2386
+Host Application: /opt/microsoft/powershell/7/pwsh.dll -command . '/home/runner/work/_temp/b0b0356f-625c-4cbe-8c04-379acf04e36a.ps1'
+Process ID: 2398
 PSVersion: 7.6.6
 PSEdition: Core
 GitCommitId: 7.6.6
@@ -108,8 +108,8 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
        73x  Finansal Tablolar ve Analizi|dikey yuzde analizi
        71x  Turkce|cumle ogeleri
        63x  Hukuk|belirli süreli iş sözleşmesinin belirsiz süreli hale dönüşümü
-       62x  Maliyet Muhasebesi|satilan mamul maliyeti
        62x  Finansal Tablolar ve Analizi|asit-test oranı
+       62x  Maliyet Muhasebesi|satilan mamul maliyeti
        60x  Finansal Muhasebe|supheli alacak karsiligi
        59x  Maliyet Muhasebesi|birim maliyet hesabi
 
@@ -170,7 +170,7 @@ KASA SAYIMI basliyor... (kuyruk yenileme)
      hesap plani (THP) : 1143
      toplam            : 4309
      standart+THP orani: %56.6
-  SITEDE (paket_soru): 10410 · KGK 1708 · SGS 4928 · SMMM 3774
+  SITEDE (paket_soru): 10495 · KGK 1708 · SGS 4928 · SMMM 3859
 
 -> veri/kasa-sayim.json
 -> arac sayimi: 0 kart tarandi, 0 calisan arac
@@ -180,5 +180,5 @@ PS>$global:?
 True
 **********************
 PowerShell transcript end
-End time: 20261027201729
+End time: 20261028061717
 **********************
