@@ -166,6 +166,18 @@ html body .kah-alt .dg-iki:hover{border-color:var(--ink)}
 /* 14.10: üst satır (seçili sınav · gün · kalan gün); 17.10: iki yazı bağlantısı büyük düğmelerin altında */
 .kah-ust{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 12px;font-size:15.5px;font-weight:750;color:var(--ink)}
 .kah-ust b{color:var(--amber)}
+/* 28.10 Cem ("ilk sayfada göreyim bari dersleri"): sınav sekmeleri açılış ekranının içinde, üst satırın üstünde — küçük haplar,
+   tarih üst satırda yazdığı için sekmede gizli; "Sınavı değiştir" bağlantısı gereksiz. */
+.kah-secim{margin:0 0 14px}
+.kah-secim-bas{margin:0 0 6px;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+html body .kah-secim .secim{display:flex;flex-wrap:wrap;gap:8px}
+html body .kah-secim .sinav{display:inline-flex;flex-direction:row;width:auto;min-height:0;padding:7px 12px;font-size:14px;white-space:nowrap;border-radius:999px;border-width:2px;line-height:1.2;text-align:center}
+html body .kah-secim .sinav small{display:none}
+html body .kah-secim .sinav.kapali small{display:inline;font-weight:600;margin-left:4px;font-size:inherit}
+html body .kah-secim .sinav.kapali small::before{content:"· "}
+html body .kah-secim .sinav[hidden]{display:none}
+#kahUstDegis{display:none}
+@media(max-width:900px){ html body .kah-secim .secim{justify-content:center;gap:6px} html body .kah-secim .sinav{padding:7px 11px;font-size:13.5px} .kah-secim-bas{text-align:center} }
 .kah-soz{margin:-4px 0 18px;font-size:15px;font-weight:650;color:var(--ink)}
 .kah-kutu{background:#111a2e;color:#f5a524;padding:0 .18em;border-radius:.16em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 html body .kah-soz a{font-size:14px;font-weight:600;color:var(--muted)!important;text-decoration:underline;text-underline-offset:3px;margin-left:4px}
@@ -470,6 +482,19 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor" → "önerini yapalım"): başlık "soru çözerek hazırlan" konuyu yok sayıyordu.
            Konu özeti cevaptan sonra açılır (ölçüm 16.10: SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134) -> sıra
            gerçeğe uygun: önce soru, sonra konu. "Ders / konu anlatımı" yazılmaz (5580). -->
+      <!-- 28.10 Cem ("patron ilk sayfada göreyim bari dersleri"): sınav seçimi açılış ekranının İÇİNDE (üstteyken fiyatlar ekran dışında,
+           alttayken sınavlar ilk ekranda görünmüyordu). Basınca sayfa kaymaz; başlık, söz ve fiyat satırı aynı ekranda değişir. -->
+      <div class="kah-secim"><p class="kah-secim-bas" id="secimBas">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas">
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
+             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
+             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
+        <span class="sinav kapali" id="kgkKapali" aria-disabled="true" title="KGK Bağımsız Denetçilik · hazırlanıyor">KGK <small>hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+      </div>
+      </div>
       <p class="kah-ust"><span id="kahUstAd">SMMM Staja Giriş · 21 Kasım 2026</span><b id="kahUstGun"></b><a href="#secimBas" id="kahUstDegis">Sınavı değiştir</a></p>
       <h1 id="kahBas">SMMM sınavına hazırlan: soruyu çöz, konuyu öğren<em>.</em></h1>
       <p class="alt" id="kahAlt">Cevabını verdiğin anda konunun özeti, yanlışının nedeni ve dayandığı madde açılır.<span class="alt-ek"> Çıkmış sınavlarda en sık sorulan konulardan.</span></p>
@@ -499,22 +524,6 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 </section>
 
 
-<!-- 28.10 Cem ("bunu aşağıya koy, buna basıyorum fiyatları göremiyorum"): seçim paketlerin hemen üstünde; basınca seçim satırı ekranın üstüne kayar, o sınavın paketleri altında görünür. -->
-<!-- 17.10 Cem (Becker ekranı: "aşağıda sınavları koysak"): sınav hapları. Seçim düğmesidir (kahUstCiz ilk metin düğümünü + data-tarih'i okur). -->
-<section class="secim-bolum" aria-labelledby="secimBas">
-  <div class="ic">
-      <p class="secim-bas" id="secimBas">Sınavını seç</p>
-      <div class="secim" role="group" aria-labelledby="secimBas">
-        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
-        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
-        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
-             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
-             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
-        <span class="sinav kapali" id="kgkKapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
-        <button class="sinav" type="button" id="kgkAcik" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
-      </div>
-  </div>
-</section>
 
 <!-- 17.10 Cem ("paketleri gör büyük olsun ve SGS tüm paket ve yanında hemen tek paket ... kurumsal görünsün, aşağıya kayan şekilde
      olmasın"): üç paket kartı yan yana, sınav haplarının hemen altında. Rakam YALNIZ fiyat-motoru.js'ten (paketBul), biçim fiyat.html
@@ -924,9 +933,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
       secili=b.getAttribute('data-sinav'); if(U&&U.sinavSec) U.sinavSec(secili);
       say('anasayfa/sinav/'+secili,'Ana sayfa: sınav seçti');
       dugmeCiz(); ekranCiz();
-      /* 28.10 Cem ("buna basıyorum fiyatları göremiyorum"): seçim paketlerin üstünde → basınca seçim satırı ekranın üstüne gelir,
-         seçili sınavın paket kartları hemen altında görünür (17.10'daki gibi kahramana kaydırmak fiyatları ekran dışında bırakıyordu). */
-      try{ var sb2=document.querySelector('.secim-bolum'), r=sb2.getBoundingClientRect(); if(r.top<56||r.top>window.innerHeight*0.25) sb2.scrollIntoView({block:'start'}); }catch(e){}   /* smooth: kartlar süzülünce sayfa boyu değişip kayma kesiliyordu (ölçüldü) */
+      /* 28.10 Cem ("ilk sayfada göreyim bari dersleri"): sekmeler açılış ekranının içinde → kaydırma YOK; başlık, söz ve fiyat
+         aynı ekranda değişir. */
     });
   });
   if(U&&U.hazir) U.hazir.then(function(d){ UYE=d||UYE; dugmeCiz(); var g=$('navOgrenci'), c=$('navCta'), ok=!!(d&&d.oturum);  /* anahtar bayatsa (oturum düşmüş) erken çeviri geri alınır */
