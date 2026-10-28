@@ -40,7 +40,7 @@ const MUTASYON = process.env.HZ_MUTASYON || '';
 
 /* 09.10 (Cem "siteye aynıları olsun"): sitenin ana sayfası artık "5 örnek soru çöz" (ornek-*.html) veriyor; eski 10'luk vitrin uygulamadan çıktı */
 const VITRIN = ['kaydir/vitrin/ornek-sgs.html', 'kaydir/vitrin/ornek-smmm.html'];
-const KAPI_ETIKETI = '<script src="../../paket-kapisi.js?v=20261028t"></script>';
+const KAPI_ETIKETI = '<script src="../../paket-kapisi.js"></script>';
 const KASA_ISARETI = 'const SORULAR=window.__KASA_SORULAR||[]';
 const SATIS_BAG = /(satin-al|fiyat|radar-fiyat|mesafeli-satis)\.html/i;
 const SATIS_METNI = /Paketi al|Paketleri gör|Paketi güncelle/;
