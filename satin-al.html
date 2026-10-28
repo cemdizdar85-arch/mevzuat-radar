@@ -440,7 +440,7 @@ açıklama sunar; ders anlatımı, canlı yayın veya sertifika içermez.</p>
 
 </div>
 
-<script src="fiyat-motoru.js?v=20261027a"></script>
+<script src="fiyat-motoru.js?v=20261028y"></script>
 <script>
 /* ⚠️ BANKA BİLGİSİ — TEK YER: fiyat-motoru.js ODEME_BANKA (29.09'da oraya taşındı; radar abonelik
    formu da aynısını okur). Doldurulmadan sayfa yayına çıkmaz. */
@@ -747,7 +747,8 @@ function elciDenetle(){
   var ham = document.getElementById('elci').value, kod = elciTemizle(ham), sira = ++elciSira;
   elciIndirim = 0; kodTur = ''; otoKod = '';
   if(!ham.trim()){
-    if(secili && secili.id === 'sgs' && typeof erkenKayitAcik === 'function' && erkenKayitAcik()){ kod = otoKod = ERKEN_KAYIT.kod; }
+    var ek = (secili && typeof erkenKod === 'function') ? erkenKod(secili.id) : '';   /* 28.10: SGS Tam Paket + Yeterlilik tüm dersler */
+    if(ek){ kod = otoKod = ek; }
     else { elciDurumYaz(''); ozetCiz(); return; }
   }
   if(!kod){ elciDurumYaz('Kod biçimi geçersiz (3–12 harf/rakam).', 'var(--red)'); ozetCiz(); return; }

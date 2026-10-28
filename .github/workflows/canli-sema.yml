@@ -1,0 +1,88 @@
+# .github/workflows/canli-sema.yml — CANLI VERİTABANI FONKSİYON DÖKÜMÜ + RPC YETKİ KAPISI (28.10.2026, Cem "1.2.3" madde 2+3)
+#
+# NEDEN: ~30 fonksiyon panelden kurulmuştu, depoda tanımı yoktu (marka_*, davet_*, mukellef_pano ...) → "anon'a açık mı,
+# kapanmalı mı" denetlenemiyordu. Bu akış canlıdaki public şema fonksiyonlarının TANIMINI ve yetkisini depoya yazar:
+#   radar-app/canli-sema/fonksiyonlar.sql   pg_get_functiondef (eklenti fonksiyonları hariç)
+#   radar-app/canli-sema/yetki.tsv          ad · argümanlar · SD · anon · üye · dönüş · depoda tanımı var mı
+#   radar-app/canli-sema/OZET.md            sayılar + depoda tanımı OLMAYANLAR
+# ve RPC yetki kapısını (arac/rpc-yetki-kapisi.js, izin listesi radar-app/acik-rpc.txt) koşar.
+#
+# ⛔ Depo PUBLIC: dökümde anahtar/jeton deseni varsa YAZILMAZ, iş KIRMIZI + mail (fonksiyon gövdesinde sır olmamalı).
+# ⛔ Bağlantı adresi yalnız Secret (SUPABASE_DB_URL); günlüğe tanım basılmaz, yalnız sayı.
+# 🚫 GÖRMEZ: public dışı şemalar · tetikleyici/politika/tablo tanımları · panelden yapılıp göç kütüğüne girmeyen GRANT'ın
+#    NEDENİ (yalnız sonucu) · sır taraması desen tabanlıdır, bilinmeyen biçimdeki sırrı kaçırabilir.
+name: Canli sema dokumu + RPC yetki kapisi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['radar-app/acik-rpc.txt', 'arac/rpc-yetki-kapisi.js', '.github/workflows/canli-sema.yml']
+  workflow_run:
+    workflows: ["SQL Uygula (veritabani gocleri)"]
+    types: [completed]
+  schedule:
+    - cron: '17 3 * * 1'     # pazartesi 06:17 TR: panelden yapılan değişikliği haftada bir yakala
+
+permissions:
+  contents: write
+
+concurrency:
+  group: canli-sema
+  cancel-in-progress: false
+
+jobs:
+  dok:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Dok + kapi
+        env:
+          DB: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -euo pipefail
+          [ -n "${DB:-}" ] || { echo "SUPABASE_DB_URL tanimli degil"; exit 1; }
+          command -v psql >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client >/dev/null; }
+          export PGCONNECT_TIMEOUT=20
+          D=radar-app/canli-sema; mkdir -p "$D"; T=$(mktemp -d)
+          SECIM="from pg_proc p where p.pronamespace = 'public'::regnamespace and p.prokind in ('f','p')
+                 and not exists (select 1 from pg_depend d where d.objid = p.oid and d.deptype = 'e')"
+          psql "$DB" -qtA -v ON_ERROR_STOP=1 -c "select string_agg('-- ' || p.oid::regprocedure::text || E'\n' || pg_get_functiondef(p.oid) || E';\n', E'\n' order by p.proname, pg_get_function_identity_arguments(p.oid)) $SECIM" > "$T/fonksiyonlar.sql"
+          psql "$DB" -qtA -F $'\t' -v ON_ERROR_STOP=1 -c "select p.proname, pg_get_function_identity_arguments(p.oid),
+                 case when p.prosecdef then 'SD' else 'inv' end,
+                 case when has_function_privilege('anon', p.oid, 'execute') then 't' else 'f' end,
+                 case when has_function_privilege('authenticated', p.oid, 'execute') then 't' else 'f' end,
+                 format_type(p.prorettype, null) $SECIM order by 1, 2" > "$T/tum.tsv"
+          # kapı girdisi: yalnız SECURITY DEFINER, tetikleyici/olay tetikleyicisi hariç (RPC olarak çağrılamaz)
+          awk -F'\t' '$3=="SD" && $6!="trigger" && $6!="event_trigger" {print $1"\t"$2"\t"$4"\t"$5}' "$T/tum.tsv" > "$T/sd.tsv"   # sql-uygula.yml kapı sorgusuyla AYNI küme
+          echo "fonksiyon $(wc -l < "$T/tum.tsv") · SD rpc $(wc -l < "$T/sd.tsv") · tanim $(wc -c < "$T/fonksiyonlar.sql") bayt"
+          # SIR TARAMASI (depo public): bulursa yazmaz
+          if grep -n -E 'sb_secret_[A-Za-z0-9_-]{10,}|eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{15,}|sk-ant-[A-Za-z0-9_-]{10,}|re_[A-Za-z0-9]{8,}_[A-Za-z0-9]{8,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY' "$T/fonksiyonlar.sql" | cut -d: -f1 | head -5 > "$T/sir.txt" && [ -s "$T/sir.txt" ]; then
+            echo "::error::KIRMIZI: dokumde anahtar/jeton deseni var (satir: $(tr '\n' ' ' < "$T/sir.txt")) - depoya YAZILMADI"; exit 1
+          fi
+          cp "$T/fonksiyonlar.sql" "$D/fonksiyonlar.sql"
+          node arac/rpc-yetki-kapisi.js --ozet "$T/tum.tsv" --dizin "$D"
+          set +e; node arac/rpc-yetki-kapisi.js --tsv "$T/sd.tsv" > "$T/kapi.txt"; K=$?; set -e
+          cat "$T/kapi.txt"; echo "KAPI=$K" >> "$GITHUB_ENV"
+          tail -1 "$T/kapi.txt" >> "$GITHUB_STEP_SUMMARY"
+      - name: Yaz + it
+        run: |
+          git config user.name  "mevzuat-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add radar-app/canli-sema
+          git diff --cached --quiet && { echo "degisiklik yok"; exit 0; }
+          git commit -q -m "Canli sema dokumu [veri-operasyonu]"
+          for i in 1 2 3; do git pull --rebase --autostash -q && git push -q && exit 0; sleep 7; done
+          echo "!! PUSH TUTMADI"; exit 1
+      - name: Kapi sonucu
+        run: '[ "${KAPI:-1}" = "0" ] || { echo "RPC YETKI KAPISI KIRMIZI - radar-app/canli-sema/OZET.md"; exit 1; }'
+      - name: Hata olursa Cem'e mail
+        if: failure()
+        shell: pwsh
+        env:
+          RESEND_KEY:  ${{ secrets.RESEND_KEY }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          ./arac/alarm-maili.ps1 -Konu 'TETIKTE KIRMIZI - veritabani yetki kapisi / sema dokumu' -Mesaj "Anon/uye calistirabilen ve izin listesinde olmayan bir SD fonksiyon var ya da dokum dustu. Kosu: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"

@@ -168,6 +168,12 @@
        koyar) bu cihazın kc_kayit'ine eklenir; telefonda çözülen konu bilgisayarda da "dokundun" sayılır. Kimlik biçimi aynı.
        hesap=true sonuçta: liste hesaptaki cevaplara göre. 🚫 GÖRMEZ: ücretsiz örnek cevapları (sunucuya yazılmıyor; yalnız kc_kayit). */
     var hesapEk = Array.isArray(window.TT_HESAP_COZ) ? window.TT_HESAP_COZ : null;
+    /* 28.10 KONU HEDEFİ (Cem "SmartPath gibi yapalım"): soru başına SON cevabın doğruluğu. Önce hesap (uye_cozdugum_sorular 'o',
+       2026-10-28 SQL'inden sonra dolu; öncesinde null = bilinmiyor), sonra bu cihaz (kc_kayit.dogru) üstüne yazar. Tekil soru sayılır. */
+    var cvp = {};
+    (hesapEk || []).forEach(function(x){ if(x && x.i) cvp[x.i] = (x.o === true || x.o === false) ? x.o : null; });
+    kayit.forEach(function(x){ if(x && x.id) cvp[x.id] = !!x.dogru; });
+    var konuSay = function(r2, id){ r2.coz = (r2.coz || 0) + 1; if(cvp[id] !== null){ r2.olc = (r2.olc || 0) + 1; if(cvp[id]) r2.dog = (r2.dog || 0) + 1; } };
     if(hesapEk) kayit = kayit.concat(hesapEk.map(function(x){ return { id:x.i, ders:x.d }; }));
     var bitir = function(x){ try{ if(x) x.hesap = !!hesapEk; cb(x); }catch(e){} };
     /* 13.10 KGK (site kolu, KGK açılış hazırlığı): KGK'da seviye testi, deneme seti ve okunmuş konu bağı YOK → DERS düzeyi.
@@ -202,10 +208,12 @@
         Object.keys(es).forEach(function(id){ var e = es[id]; (e.konular || []).forEach(function(k){ var r2 = K[e.ders + '|' + k]; if(r2) r2.banka++; }); });
         var cozulen = 0;
         kayit.forEach(function(x){ var e = x && es[x.id]; if(!e) return; cozulen++; (e.konular || []).forEach(function(k){ var r2 = K[e.ders + '|' + k]; if(r2) r2.dokundu = true; }); });
+        Object.keys(cvp).forEach(function(id){ var e = es[id]; if(!e) return; (e.konular || []).forEach(function(k){ var r2 = K[e.ders + '|' + k]; if(r2) konuSay(r2, id); }); });
         var srt = function(z){ var p = String(z).split('/'); return +p[0] * 10 + +p[1]; };
         var hepsi = Object.keys(K).map(function(k){ var r2 = K[k], dn = Object.keys(r2.don).sort(function(a, b){ return srt(a) - srt(b); });
           r2.kanit.sort(function(a, b){ return srt(a.donem) - srt(b.donem) || String(a.soru).localeCompare(String(b.soru), 'tr', { numeric:true }); });
-          return { ders:r2.ders, konu:r2.konu.replace(/ › /g, ' — '), donSay:dn.length, son:dn[dn.length - 1], kanit:r2.kanit, banka:r2.banka, dokundu:r2.dokundu, sayfa:sayfa[r2.ders] || 'sorular.html#smmm' };
+          return { ders:r2.ders, konu:r2.konu.replace(/ › /g, ' — '), donSay:dn.length, son:dn[dn.length - 1], kanit:r2.kanit, banka:r2.banka, dokundu:r2.dokundu, sayfa:sayfa[r2.ders] || 'sorular.html#smmm',
+            coz:r2.coz || 0, olc:r2.olc || 0, dog:r2.dog || 0 };
         }).filter(function(z){ return z.banka >= 3; })
           .sort(function(a, b){ return b.donSay - a.donSay || srt(b.son) - srt(a.son); });
         /* "sık çıkan" = her dersin en sık 5 konusu (en-cok-cikan-konular-yeterlilik.html ile aynı ölçü) */
@@ -227,10 +235,13 @@
       var sgs = d && d.sinavlar ? d.sinavlar.filter(function(s){ return s.kod === 'sgs'; })[0] : null;
       if(!sgs) return bitir(null);
       if(sk && Array.isArray(sk.konular) && sk.kimlik){
-        var dok = {}, coz = 0;
+        var dok = {}, coz = 0, bk = {}, ks = {};
         kayit.forEach(function(x){ var i = x && sk.kimlik[x.id]; if(i == null) return; coz++; dok[i] = 1; });
-        var kl = sk.konular.map(function(k, i){ var b = dersBul(d, k.ders, 'sgs');
-          return { ders:k.ders, konu:k.konu, donSay:k.donem, son:k.son, kanit:k.kanit || [], dokundu:!!dok[i], sayfa:b ? b.sayfa : 'sorular.html#sgs' }; });
+        Object.keys(sk.kimlik).forEach(function(id){ var i = sk.kimlik[id]; bk[i] = (bk[i] || 0) + 1; });
+        Object.keys(cvp).forEach(function(id){ var i = sk.kimlik[id]; if(i == null) return; konuSay(ks[i] || (ks[i] = {}), id); });
+        var kl = sk.konular.map(function(k, i){ var b = dersBul(d, k.ders, 'sgs'), s2 = ks[i] || {};
+          return { ders:k.ders, konu:k.konu, donSay:k.donem, son:k.son, kanit:k.kanit || [], dokundu:!!dok[i], sayfa:b ? b.sayfa : 'sorular.html#sgs',
+            banka:bk[i] || 0, coz:s2.coz || 0, olc:s2.olc || 0, dog:s2.dog || 0 }; });
         return bitir({ sinav:'sgs', tur:'konu', cozulen:coz, pencere:sk.pencere, donem:sk.donem, toplamSik:kl.length,
           dokunulanSik:kl.filter(function(z){ return z.dokundu; }).length, liste:kl.filter(function(z){ return !z.dokundu; }).slice(0, 6), tumu:kl });
       }
