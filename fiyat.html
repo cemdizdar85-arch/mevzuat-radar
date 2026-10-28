@@ -9,6 +9,8 @@
 <!-- 17.10 Cem (ekran görüntüsü: menüden "Fiyatlar" tek bir SGS kartı açıyordu; "SGS tüm paket ve yanında tek paket ... kurumsal
      görünsün, aşağıya kayan şekilde olmasın"): süzgeç YALNIZ adreste açık ?sinav= varsa çalışır; cihazda kayıtlı sınav (tt_sinav) süzmez. -->
 <script>try{ var fsQ=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1], fsS=fsQ;
+  /* 28.10: ana sayfa gibi hep bir sınav seçili — adres yoksa ana sayfadaki seçim, o da yoksa SGS (aşağıdaki süzgeçle aynı sıra) */
+  if(fsS!=='sgs'&&fsS!=='yeterlilik'){ try{ fsS=localStorage.getItem('tt_sinav'); }catch(e){} if(fsS!=='yeterlilik') fsS='sgs'; }
   if(fsS==='sgs'||fsS==='yeterlilik') document.documentElement.classList.add('fs-'+fsS);
   /* fiyatlar fiyat-motoru.js gelince dolar: o ana dek kartlar ve takvim görünmez (yer ayrılı) - "— TL" görünmesin */
   document.documentElement.classList.add('fy-bekle'); setTimeout(function(){ document.documentElement.classList.remove('fy-bekle'); },3000); }catch(e){}</script>
@@ -141,6 +143,13 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
 </style>
 <link rel="stylesheet" href="stil-acik.css"><!-- 07.10 baş kopyası: ilk çizim açık tema + yazı boyutları (sondaki bağ kalır, sırası değişmez) -->
 <link rel="stylesheet" href="gkt.css?v=2">
+<link rel="stylesheet" href="paket-kartlari.css?v=1">
+<style>/* 28.10 Cem ("tüm fiyatlar sekmesi ilk sayfadaki gibi olsun"): üstte ana sayfanın sınav seçicisi + kartları (paket-kartlari.js).
+   Eski kart ızgarası ve telefon özeti GİZLİ (betikler kimliklerini arıyor, silinmedi). */
+#fozet,.kartlar,#secSatir{display:none!important}
+html.fy-bekle #paketler{visibility:hidden}
+.fiyat-ust .secim-bolum{padding:4px 0 14px}
+.fiyat-ust .paketler{padding:4px 0 30px}</style>
 </head>
 <body>
 <a class="atla" href="#icerik">İçeriğe atla</a>
@@ -173,6 +182,22 @@ html.fy-bekle .kartlar,html.fy-bekle #takvim,html.fy-bekle #fozet{visibility:hid
 
 <!-- 17.10 Cem ("aşağıya kayan şekilde olmasın"): telefonda kartlar alt alta uzuyor (ölçüm 360x740: ilk ekranda yalnız SGS kartı).
      Telefona özel üç satırlık özet: paket · fiyat · Al. Rakam fiyat-motoru.js'ten (aşağıdaki betik), ayrıntı kartlarda. -->
+<!-- 28.10 Cem ("tüm fiyatlar sekmesi ilk sayfadaki gibi olsun, nerede fiyat göster varsa"): ana sayfanın sınav seçicisi + paket
+     kartları, aynı kod (paket-kartlari.js/.css). Düğmeler data-sinav DEĞİL data-fs taşır: sayfanın [data-sinav] süzgeci onları gizlemesin. -->
+<div class="fiyat-ust">
+<section class="secim-bolum" aria-labelledby="fsBas">
+  <p class="secim-bas" id="fsBas">Sınavını seç</p>
+  <div class="secim" role="group" aria-labelledby="fsBas">
+    <button class="sinav" type="button" data-fs="sgs" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+    <button class="sinav" type="button" data-fs="yeterlilik" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+    <span class="sinav kapali" aria-disabled="true">KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+  </div>
+</section>
+<section class="paketler" id="paketler" aria-labelledby="paketBas">
+  <p class="secim-bas" id="paketBas">Paketler</p>
+  <div class="pk-kartlar" data-pk-kartlar></div>
+</section>
+</div>
 <!-- 27.10 Cem: GEÇENE KADAR TETİKTE iki paket (index.html ve kampanya-son-20-gun.html ile aynı kartlar; rakam gkt.js ← fiyat-motoru.js) -->
 <section class="gkt" data-sinav="sgs" data-gkt-bolum style="border-radius:20px;margin:0 0 22px;overflow:hidden" aria-labelledby="gktBas">
   <div class="gkt-serit">Geçene Kadar Tetikte · <span class="uz">Son 20 Gün · 7 Deneme · </span>SGS 21 Kasım</div>
@@ -485,6 +510,7 @@ deneme ve açıklama sunar; ders anlatımı, canlı yayın veya sertifika içerm
      fiyat-motoru.js'e tasindi: satin-al.html ayni dosyadan okuyor, boylece
      "sayfada yazan rakam ile odenecek rakam" ayrilamiyor. Rakam yalniz orada degisir. -->
 <script src="fiyat-motoru.js?v=20261028z"></script>
+<script src="paket-kartlari.js?v=1"></script>
 <script src="gkt.js?v=1" defer></script>
 <script>
 var tk = document.getElementById('takvim'), h = '';
@@ -665,12 +691,21 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
 <script>
 /* 24.09 Cem "staja başlamanın içine girdiğimde sadece staja başlama kalsın": seçili sınavın süzgeci.
    Kaynak sırası: ?sinav= (sgs|yeterlilik|kgk|hepsi) > ana sayfadaki sekme (localStorage tt_sinav). Seçim yoksa hepsi. */
+/* 28.10 Cem ("tüm fiyatlar ilk sayfadaki gibi olsun"): ana sayfa gibi HEP bir sınav seçili (varsayılan SGS; ?sinav= ya da ana
+   sayfadaki seçim tt_sinav); üstteki düğmeler süzgeci her basışta yeniden çalıştırır, seçim tt_sinav'a yazılır (iki sayfa aynı). */
 (function(){
   var ADLAR={ sgs:'Staja Giriş', yeterlilik:'SMMM Yeterlilik' };   /* 30.09: KGK gizli · 13.10: ICERIK_HAZIR.kgk açılınca süzgeçte */
   if(typeof ICERIK_HAZIR!=='undefined'&&ICERIK_HAZIR.kgk) ADLAR.kgk='KGK Bağımsız Denetçilik';
-  var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1];
-  var sn=q;   /* 17.10: cihazdaki tt_sinav artık süzmez (menüden gelen bütün paketleri görür) */
-  if(!sn||sn==='hepsi'||!ADLAR[sn]) return;
+  var q=(/[?&#]sinav=(sgs|yeterlilik|kgk|hepsi)\b/.exec(location.search+'&'+location.hash)||[])[1], kay='';
+  try{ kay=localStorage.getItem('tt_sinav')||''; }catch(e){}
+  var ilk=ADLAR[q]?q:ADLAR[kay]?kay:'sgs';
+  [].forEach.call(document.querySelectorAll('.fiyat-ust [data-fs]'),function(b){ b.addEventListener('click',function(){
+    var s=b.getAttribute('data-fs'); suz(s); try{ localStorage.setItem('tt_sinav',s); }catch(e){} }); });
+  suz(ilk);
+  function suz(sn){
+  [].forEach.call(document.querySelectorAll('.fiyat-ust [data-fs]'),function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-fs')===sn?'true':'false'); });
+  if(window.PaketKartlari) PaketKartlari.suz(sn);
+  var h=document.documentElement; h.classList.remove('fs-sgs','fs-yeterlilik'); if(sn==='sgs'||sn==='yeterlilik') h.classList.add('fs-'+sn);
   function gz(el,v){ if(el) el.style.display=v?'none':''; }
   var kutu=document.querySelector('.kartlar'); if(!kutu) return;
   [].forEach.call(kutu.querySelectorAll('.p[data-sinav]'),function(k){ gz(k,k.getAttribute('data-sinav')!==sn); });
@@ -680,17 +715,16 @@ document.getElementById('harcKgkBiz').textContent = tl(pKgk.fiyat) + ' TL';
      ve bölümler de süzülür; resmî ücret toplamı görünen satırlardan yeniden hesaplanır. */
   [].forEach.call(document.querySelectorAll('[data-sinav]'),function(el){ if(kutu.contains(el)) return; gz(el, el.getAttribute('data-sinav')!==sn); });
   var top=0, tsat=document.querySelectorAll('tr[data-toplam]'); [].forEach.call(tsat,function(t){ if(t.style.display!=='none') top+=+t.getAttribute('data-toplam'); });
-  var tt=document.getElementById('tesmerToplam'); if(tt){ if(sn==='sgs') document.getElementById('tesmerToplamSgs').textContent=top.toLocaleString('tr-TR')+' TL'; else gz(tt,true); }
+  var tt=document.getElementById('tesmerToplam'); if(tt){ gz(tt,sn!=='sgs'); if(sn==='sgs') document.getElementById('tesmerToplamSgs').textContent=top.toLocaleString('tr-TR')+' TL'; }
   /* üst blok SGS harcına dayanıyor (1.635 TL): yalnız SGS'de */
-  var v=document.querySelector('.vurus'); if(v&&sn!=='sgs') gz(v,true);
+  var v=document.querySelector('.vurus'); if(v) gz(v,sn!=='sgs');
   /* geri sayım: yalnız seçili sınav (KGK'nın ilanlı tarihi yok -> takvim gizli) */
   if(typeof SINAVLAR!=='undefined'){
     var tks=document.querySelectorAll('#takvim .tk'), var_=false;
     SINAVLAR.forEach(function(s,i){ if(tks[i]){ var bu=(s.anahtar===sn); gz(tks[i],!bu); if(bu) var_=true; } });
-    if(!var_){ var tk=document.getElementById('takvim'); if(tk) gz(tk,true); var kn=document.querySelector('.kaynakNot'); if(kn) gz(kn,true); }
+    gz(document.getElementById('takvim'),!var_); gz(document.querySelector('.kaynakNot'),!var_);
   }
-  var s=document.getElementById('secSatir');
-  if(s){ s.innerHTML='<b>'+ADLAR[sn]+'</b> paket fiyatı · <a href="fiyat.html?sinav=hepsi">Diğer sınavların fiyatları →</a>'; s.hidden=false; }
+  }
 })();
 </script>
 <script>document.documentElement.classList.remove('fy-bekle');   /* 07.10: fiyatlar ve süzgeç hazır, kartlar görünür */</script>

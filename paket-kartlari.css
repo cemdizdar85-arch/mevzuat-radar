@@ -1,0 +1,53 @@
+/* paket-kartlari.css — 28.10.2026: sınav seçici + paket kartları, index.html ile fiyat.html ORTAK (Cem: "tüm fiyatlar ilk sayfadaki gibi olsun").
+   index.html'in satır içi stilinden aynı sırayla taşındı; değişiklik yalnız burada. */
+/* sınav hapları (Becker): seçilen sınav dolu lacivert; seçim üstteki satırı, düğmeyi, kısayolları ve günün sorusunu değiştirir */
+.secim-bolum{padding:4px 0 36px}
+.secim-bas{font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 14px}
+.secim{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+html body .sinav{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:96px;padding:12px 22px;background:var(--kagit);border:2px solid var(--line2);border-radius:999px;text-decoration:none;font-weight:800;font-size:20px;line-height:1.2;color:var(--ink);font-family:inherit;cursor:pointer;text-align:center;width:100%}
+html body .sinav:hover{border-color:var(--ink)}
+.sinav small{display:block;font-weight:650;color:var(--muted);font-size:14px}
+html body .sinav[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.sinav[aria-pressed="true"] small{color:color-mix(in srgb,var(--bg) 82%,transparent)}
+html body .sinav.kapali{color:var(--dim);background:transparent;border-style:dashed;cursor:default}
+/* 28.10 Cem ("sınavını seç üste gelsin" → "aşağıya koy, basınca fiyatları göremiyorum"): seçim paketlerin hemen üstünde;
+   masaüstünde alçak haplar, telefonda TEK SATIR üç düğme (tarih kahramanın üst satırında yazar). */
+.secim-bolum{padding:8px 0 22px;scroll-margin-top:72px}
+html body .sinav{min-height:76px;font-size:19px}
+@media(max-width:900px){
+  .secim-bolum{padding:6px 0 16px}
+  .secim-bas{font-size:12.5px;margin:0 0 8px}
+  .secim{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  html body .sinav{min-height:52px;border-radius:14px;align-items:center;text-align:center;font-size:13.5px;padding:7px 6px;line-height:1.2}
+  .sinav small{display:none}
+}
+
+/* paket kartları (17.10): üç kart yan yana, eşit boy; ortadaki değil sağdaki (tüm dersler) ince amber üst çizgili */
+.paketler{padding:8px 0 40px}
+#paketler{scroll-margin-top:72px}
+.paket-bas{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+html body .paket-bas a{font-size:14.5px;font-weight:700;color:var(--ink)!important;text-underline-offset:3px}
+.pk-kartlar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:16px}   /* 28.10: görünen kart sayısı kadar sütun (seçili sınava göre 2) */
+.pk-kart[hidden],.paketler[hidden],.kah-fiyat[hidden]{display:none!important}
+.kah-fiyat{margin:0 0 14px;font-size:17px;color:var(--ink);line-height:1.5}
+.kah-fiyat b{font-weight:850;white-space:nowrap}
+.kah-fiyat small{display:block;font-size:13.5px;color:var(--muted);font-weight:500}
+.pk-kart{display:flex;flex-direction:column;background:var(--kagit);border:1px solid var(--line2);border-radius:16px;padding:20px 20px 16px}
+.pk-kart.pk-one{border-top:4px solid var(--amber-dolgu);padding-top:17px}
+.pk-sinav{margin:0;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+html body .pk-kart h3{margin:2px 0 10px;font-size:21px;font-weight:800;color:var(--ink)}
+.pk-ders{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 12px}
+html body .pk-ders button{min-height:40px;padding:0 4px;border:1.5px solid var(--line2);border-radius:10px;background:var(--kagit);color:var(--ink);font:inherit;font-size:14px;font-weight:750;cursor:pointer}
+html body .pk-ders button:hover{border-color:var(--ink)}
+html body .pk-ders button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.pk-fiyat{margin:0;font-size:28px;font-weight:800;letter-spacing:-.5px;color:var(--ink);line-height:1.1}
+.pk-fiyat small{font-size:15px;font-weight:700;color:var(--muted)}
+.pk-alt{margin:4px 0 0;min-height:20px;font-size:13px;color:var(--muted)}
+.pk-kart ul{list-style:none;margin:12px 0 16px;padding:0;display:grid;gap:6px;flex:1}
+.pk-kart li{position:relative;padding-left:20px;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.pk-kart li::before{content:"✓";position:absolute;left:0;top:0;font-weight:800;color:var(--green)}
+html body .pk-al{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;background:var(--ink);color:var(--bg)!important;font-weight:800;font-size:15.5px;text-decoration:none}
+html body .pk-al:hover{opacity:.92}
+html body .pk-one .pk-al{background:var(--amber-dolgu);color:var(--amber-uzeri)!important}
+.pk-sonra{margin:8px 0 0;min-height:18px;font-size:12.5px;color:var(--dim);text-align:center}
+@media(max-width:900px){ .pk-kartlar{grid-template-columns:1fr;grid-auto-flow:row;gap:12px} .paketler{padding-bottom:28px} .kah-fiyat{font-size:16px} }
