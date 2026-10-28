@@ -1,3 +1,6 @@
+-- ⚠️ 28.10.2026: CANLI DEĞİŞTİ → radar-app/sql/2026-10-28-marka-nobet-onay.sql (e-posta onayı: marka_takip_ac kapandı,
+--    yerine marka_takip_ac2 [servis, edge marka-nobet] + marka_takip_onayla; marka_takip_bekleyen yalnız onaylı nöbet).
+--    Canlı tanımın tamamı: radar-app/canli-sema/fonksiyonlar.sql (robot). BU DOSYAYI YENİDEN BASMA.
 -- ⚠️ BU DOSYA CANLIDA BASILI OLANI ANLATIR (01.09.2026 itibariyla).
 --    Depoda durmasi basildigi anlamina gelmez; ama depodaki metin canlidan
 --    FARKLI olursa, dosyayi yeniden basmak iyi surumu bozar. 01.09'da tam bu

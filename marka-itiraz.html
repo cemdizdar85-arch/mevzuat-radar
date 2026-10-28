@@ -381,10 +381,18 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
   }
 
   /* --- MARKA NÖBETİ ------------------------------------------------------
-     Kayıt sunucuda kasa fonksiyonuyla açılır (marka_takip_ac). E-posta listesi
-     tabloya doğrudan okunamaz; kullanıcı kendi kaydına ancak elindeki jetonla
-     ulaşır. Jetonu tarayıcıda saklarız ki "kurdum mu?" sorusu cevapsız kalmasın. */
+     28.10: E-POSTA ONAYLI. İstek edge 'marka-nobet'e gider (hız sınırı + onay maili); nöbet, maildeki bağlantıya
+     tıklanınca (48 saat, tek kullanım) başlar. Onaylanmayan nöbete robot mail ATMAZ. Yönetim jetonu sayfaya yalnız
+     onay bağlantısından sonra döner (eskiden aynı marka+adresle yeniden kayıt, başkasının nöbet jetonunu veriyordu). */
   var nbDurum=function(h){ var e=$('#nbDurum'); if(e) e.innerHTML=h; };
+  var NB_FN=SB_URL+'/functions/v1/marka-nobet';
+  var NB_MESAJ={
+    ZATEN_ACIK:'Bu marka için bu adreste <b>zaten açık bir nöbet var</b>. Çıkış bağlantısı gönderdiğimiz her e-postanın altında.',
+    BEKLE:'Bu adrese az önce onay e-postası gönderdik. Gelen kutunu (ve gereksiz klasörünü) kontrol et; 10 dakika sonra yeniden isteyebilirsin.',
+    TAVAN:'Bu e-posta için nöbet sayısı sınıra ulaştı (25).',
+    AD_GECERSIZ:'Markanın adını yaz (en az 2 harf).',
+    EPOSTA_GECERSIZ:'E-posta adresi geçerli görünmüyor.'
+  };
 
   function nobetKur(){
     var ad=($('#nbAd').value||'').trim();
@@ -395,24 +403,55 @@ function fmt(d){return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).sl
     if(!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(mail)){ nbDurum('E-posta adresi geçerli görünmüyor.'); return; }
     if(!$('#nbKvkk').checked){ nbDurum('Devam etmek için onay kutusunu işaretle.'); return; }
 
-    nbDurum('Nöbet kuruluyor…');
-    fetch(SB_URL+'/rest/v1/rpc/marka_takip_ac',{
+    nbDurum('Onay e-postası hazırlanıyor…');
+    fetch(NB_FN,{
       method:'POST',
-      headers:{'Content-Type':'application/json', apikey:SB_KEY, Authorization:'Bearer '+SB_KEY},
-      body:JSON.stringify({p_ad:ad, p_sinif:(sinif.length?sinif:null), p_eposta:mail})
+      headers:{'Content-Type':'application/json', apikey:SB_KEY},
+      body:JSON.stringify({ad:ad, sinif:sinif, eposta:mail})
     })
-    .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error((j&&j.message)||('HTTP '+r.status)); return j; }); })
-    .then(function(j){
-      var k=Array.isArray(j)?j[0]:j;
-      if(!k||!k.jeton) throw new Error('Kayıt döndü ama jeton yok');
-      try{ localStorage.setItem('nbJeton', k.jeton); }catch(e){}
-      nbDurum('<b style="color:var(--green)">Nöbet kuruldu.</b> '
-        +'Bundan sonra <b>'+esc(k.ad)+'</b> markasına benzer bir başvuru yayımlanırsa '
-        +'<b>'+esc(mail)+'</b> adresine yazacağız. '
-        +'<a href="?nobet=kapat&jeton='+encodeURIComponent(k.jeton)+'">Nöbeti kapat</a>');
+    .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error((j&&j.hata)||('HTTP '+r.status)); return j; }); })
+    .then(function(k){
+      if(k.durum==='ONAY_GONDERILDI'){
+        nbDurum('<b style="color:var(--green)">Onay e-postası gönderildi.</b> '
+          +'<b>'+esc(mail)+'</b> adresine gelen e-postadaki <b>“Nöbeti onayla”</b> bağlantısına tıklayınca '
+          +'<b>'+esc(k.ad||ad)+'</b> için nöbet başlar. Bağlantı 48 saat geçerli. '
+          +'Gelmediyse gereksiz klasörüne bak.');
+        return;
+      }
+      nbDurum(NB_MESAJ[k.durum]||('Beklenmeyen cevap: '+esc(k.durum)));
     })
     .catch(function(e){ nbDurum('<b style="color:var(--red)">Nöbet kurulamadı:</b> '+esc(e.message)); });
   }
+
+  /* E-postadaki onay bağlantısı buraya düşer: ?nobet=onay&j=<48 hane> (tek kullanım, 48 saat). */
+  (function(){
+    var q=new URLSearchParams(location.search);
+    if(q.get('nobet')!=='onay') return;
+    var j=q.get('j')||'';
+    var kutu=$('#nbKutu'); if(kutu&&kutu.scrollIntoView) setTimeout(function(){ kutu.scrollIntoView({block:'center'}); },300);
+    if(!/^[0-9a-f]{48}$/.test(j)){ nbDurum('Onay bağlantısı eksik ya da bozuk. Nöbeti yeniden kurabilirsin.'); return; }
+    nbDurum('Nöbet onaylanıyor…');
+    fetch(SB_URL+'/rest/v1/rpc/marka_takip_onayla',{
+      method:'POST',
+      headers:{'Content-Type':'application/json', apikey:SB_KEY, Authorization:'Bearer '+SB_KEY},
+      body:JSON.stringify({p_onay:j})
+    })
+    .then(function(r){ return r.json().then(function(v){ if(!r.ok) throw new Error((v&&v.message)||('HTTP '+r.status)); return v; }); })
+    .then(function(v){
+      if(v&&v.durum==='ONAYLANDI'){
+        try{ localStorage.setItem('nbJeton', v.jeton); }catch(e){}
+        try{ history.replaceState(null,'',location.pathname); }catch(e){}
+        nbDurum('<b style="color:var(--green)">Nöbet başladı.</b> '
+          +'Bundan sonra <b>'+esc(v.ad)+'</b> markasına benzer bir başvuru yayımlanırsa sana yazacağız. '
+          +'<a href="?nobet=kapat&jeton='+encodeURIComponent(v.jeton)+'">Nöbeti kapat</a>');
+      } else if(v&&v.durum==='SURESI_DOLDU'){
+        nbDurum('Bu onay bağlantısının süresi dolmuş (48 saat). Nöbeti yeniden kurarsan yeni bağlantı göndeririz.');
+      } else {
+        nbDurum('Bu onay bağlantısı geçersiz ya da daha önce kullanılmış. Nöbetin açıksa uyarı e-postalarımız gelmeye devam eder.');
+      }
+    })
+    .catch(function(e){ nbDurum('<b style="color:var(--red)">Onaylanamadı:</b> '+esc(e.message)); });
+  })();
 
   /* E-postadaki tek tıklık çıkış bağlantısı buraya düşer. */
   (function(){
