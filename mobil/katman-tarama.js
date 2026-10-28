@@ -48,10 +48,17 @@ const CIKISSIZ = `(function(){ var V=innerWidth*innerHeight, l=[];
   }); return l; })()`;
 
 /* sürüm şeridini eski sürüm taklidiyle zorla açar (kritik: en_dusuk altı) */
+/* 28.10 ilk koşu: <script src="surum-uyari.js?kt=…"> uygulamanın yerel sunucusunda çalışmadı (iki platformda da şerit yok) →
+   dosya fetch ile okunur ve aynı kodla çalıştırılır (setTimeout 1500 içinde bak()). Sürüm verisi gerçek köprüden (tetikte.com). */
 const SURUM_TAKLIT = (surum) => `(function(){ try{ localStorage.removeItem('tt_surum_kapat'); }catch(e){}
   var o=document.getElementById('ttSurum'); if(o) o.remove();
   window.TT_KATALOG=window.TT_KATALOG||{}; window.__ktEskiSurum=window.TT_KATALOG.surum; window.TT_KATALOG.surum=${JSON.stringify(surum)};
-  var s=document.createElement('script'); s.src='surum-uyari.js?kt='+Date.now(); document.head.appendChild(s); return 1; })()`;
+  window.__ktSurumHata='';
+  fetch('surum-uyari.js').then(function(r){ return r.text(); }).then(function(t){ (new Function(t))(); }).catch(function(e){ window.__ktSurumHata='betik: '+e; });
+  return 1; })()`;
+const SURUM_TANI = `(function(){ var p=''; try{ p=window.Capacitor&&Capacitor.getPlatform?Capacitor.getPlatform():'web'; }catch(e){}
+  return fetch('veri/uygulama-surum.json',{cache:'no-store'}).then(function(r){ return r.text().then(function(t){ return 'platform '+p+' · veri '+r.status+' '+t.slice(0,60).replace(/\\s+/g,' ')+' · '+(window.__ktSurumHata||''); }); })
+    .catch(function(e){ return 'platform '+p+' · veri HATA '+e+' · '+(window.__ktSurumHata||''); }); })()`;
 const SURUM_GERI = `(function(){ if(window.TT_KATALOG&&window.__ktEskiSurum) window.TT_KATALOG.surum=window.__ktEskiSurum; return !!document.getElementById('ttSurum'); })()`;
 
 /* A = { js, bul, dokun, bekle, sonuc } — iki provanın kendi ilkel işlevleri */
@@ -82,7 +89,7 @@ async function surumSeridi(A) {
   for (const [ad, surum] of [['sarı "yeni sürüm hazır"', '1.8.1'], ['kırmızı "güncelleme gerekli"', '1.7.0']]) {
     await A.js(SURUM_TAKLIT(surum));
     let var_ = false; for (let i = 0; i < 12 && !var_; i++) { await A.bekle(700); var_ = await A.js('!!document.getElementById("ttSurum")'); }
-    A.sonuc('sürüm şeridi ' + ad + ' çizildi', var_, 'taklit sürüm ' + surum);
+    A.sonuc('sürüm şeridi ' + ad + ' çizildi', var_, 'taklit sürüm ' + surum + (var_ ? '' : ' · ' + (await A.js(SURUM_TANI))));
     if (var_) {
       const alt = await A.bul('#sekmeCubugu button');
       A.sonuc('sürüm şeridi açıkken alt menü dokunulabilir', !!(alt && alt.ustte), alt && !alt.ustte ? 'üstünde ' + alt.ortu : '');

@@ -204,15 +204,22 @@ async function sekme(ad) {
    hizasında görünüyordu (koşu 38838202866 görüntü 10). Ölçülen: ilk görünümde güvenli alana (home indicator) taşıyor mu,
    kaydırınca tamamı güvenli alanın üstüne geliyor ve en üstteki öğe kendisi mi, "Sonraki"ye gerçek dokunuş soruyu ilerletiyor mu. */
 async function altDugmeler(ad) {
+  /* 28.10: akışta birden çok kart var; ilk eşleşen ekran dışındaki ESKİ kartın düğmesiydi ("Daha fazla" alt -3574) → ekranda
+     görünen (yoksa ekrana en yakın) düğme ölçülür. */
   const olc = (desen) => js(`(function(){var pr=document.createElement('div');pr.style.cssText='position:fixed;bottom:0;height:env(safe-area-inset-bottom);width:1px;pointer-events:none';
     document.body.appendChild(pr);var g=pr.offsetHeight;pr.remove();var sinir=innerHeight-g;
-    var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
+    var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})
+      .sort(function(p,q){var a=p.getBoundingClientRect(),c=q.getBoundingClientRect();var u=function(r){return r.bottom<0?-r.bottom:r.top>innerHeight?r.top-innerHeight:0;};return u(a)-u(c);})[0];
     if(!b) return null; var r=b.getBoundingClientRect(); var x=r.left+r.width/2,y=Math.min(r.top+r.height/2,innerHeight-1);var u=document.elementFromPoint(x,y);
     return {alt:Math.round(r.bottom),ust:Math.round(r.top),sinir:Math.round(sinir),guvenli:g,ic:innerHeight,tasma:Math.max(0,Math.round(r.bottom-sinir)),x:x,y:r.top+r.height/2,ustte:!!u&&(u===b||b.contains(u))};})()`);
   /* kullanıcı gibi: düğmeyi taşıyan her kaydırılabilir ata SONUNA kadar kaydırılır (scrollIntoView 'end' kabın
      padding-bottom'unu atlayıp düğmeyi ekranın dibine yapıştırıyordu → 16.10 ilk ölçüm yanlış DÜŞTÜ verdi) */
   const kaydir = (desen) => js(`(function(){var b=[].slice.call(document.querySelectorAll('button,a')).filter(function(e){var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&${desen}.test((e.innerText||'').trim());})[0];
-    if(!b) return null; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){e.scrollTop=e.scrollHeight;
+    if(!b) return null; for(var e=b.parentElement;e;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==='auto'||o==='scroll')&&e.scrollHeight>e.clientHeight){
+      /* 28.10: 27.10 "sade cevap sırası"ndan sonra cevap paneli ayrı kaymıyor, en yakın kap bütün akış (#akis); onu sonuna kaydırmak
+         düğmeyi ekrandan atıyordu (alt -3463). Akışta düğme ekranın dibine gelecek kadar kaydırılır (kullanıcının parmağı gibi). */
+      if(e.id==='akis'){ var br=b.getBoundingClientRect(); if(br.bottom>innerHeight-60) e.scrollTop+=br.bottom-(innerHeight-60); return '#akis (düğmeye kadar) pb='+getComputedStyle(e).paddingBottom; }
+      e.scrollTop=e.scrollHeight;
       return (e.id?'#'+e.id:'')+(typeof e.className==='string'&&e.className?'.'+e.className.split(' ')[0]:'')+' pb='+getComputedStyle(e).paddingBottom;}}
     return 'kaydırılabilir ata yok';})()`);
   /* 16.10 ikinci ölçüm: TÜM atalar kaydırılınca soru akışı (#akis) da sonuna gitti → düğme ekrandan çıktı (alt -3506). Artık
