@@ -3,7 +3,7 @@
 > Robot yazar (`.github/workflows/canli-sema.yml`); elle düzenlenmez. Tanımlar `fonksiyonlar.sql`, yetkiler `yetki.tsv`.
 > Güvenlik kapısı: `arac/rpc-yetki-kapisi.js` + izin listesi `radar-app/acik-rpc.txt`.
 
-- public fonksiyon: **154** · SECURITY DEFINER: 134 · anon çalıştırabilir: 64 · üye çalıştırabilir: 114
+- public fonksiyon: **154** · SECURITY DEFINER: 134 · anon çalıştırabilir: 61 · üye çalıştırabilir: 110
 - depoda tanımı OLMAYAN (panelden kurulmuş / göçü kayıp): **26**
 
 | fonksiyon | tür | anon | üye |

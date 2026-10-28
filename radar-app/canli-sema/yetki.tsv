@@ -23,7 +23,7 @@ alacak_yaz	p_kayitlar jsonb	SD	f	f	integer	depoda
 anlik_teklif_al	p_sonuc text, p_kaynak text, p_ders text	SD	f	t	jsonb	depoda
 anlik_teklif_kontrol	p_belirtec text	SD	f	t	jsonb	depoda
 bedel_kaydi_damga		inv	t	t	trigger	DEPODA-YOK
-cevap_kaydet	p_token uuid, p_soru_id uuid, p_cevap text, p_dosya text	SD	t	t	boolean	depoda
+cevap_kaydet	p_token uuid, p_soru_id uuid, p_cevap text, p_dosya text	SD	f	f	boolean	depoda
 cihaz_cikar	p_hedef text	SD	f	t	jsonb	depoda
 cihaz_kontrol	p_cihaz text, p_etiket text, p_devral boolean	SD	f	t	jsonb	depoda
 cihazlarim	p_cihaz text	SD	f	t	jsonb	depoda
@@ -49,7 +49,7 @@ ihale_kutuk_denetim		SD	f	f	record	depoda
 ihale_kutuk_yaz	p_gun date, p_tur text, p_bulten_sayi integer, p_kayit integer, p_beklenen integer, p_bulunan integer, p_eksik_ikn text[], p_bos_sebep text	SD	f	f	void	depoda
 ihale_sayi		SD	f	f	record	depoda
 ihale_yaz	p_kayitlar jsonb	SD	f	f	integer	depoda
-istek_getir	p_token uuid	SD	t	t	json	depoda
+istek_getir	p_token uuid	SD	f	f	json	depoda
 kalip_parti_damga		inv	t	t	trigger	DEPODA-YOK
 kart_siparis_odendi	p_no text, p_payment_id text	SD	f	f	jsonb	depoda
 kasa_cekim_izin2	p_sayfa text, p_bas integer, p_adet integer, p_ids text[]	SD	f	f	text	depoda
@@ -86,7 +86,7 @@ marka_takip_kapat	p_jeton text	SD	t	t	boolean	DEPODA-YOK
 marka_takip_sayac		SD	t	t	record	DEPODA-YOK
 marka_talep_ac	p_unvan text, p_email text, p_kaynak text	SD	t	t	text	DEPODA-YOK
 marka_talep_sonuc	p_jeton text	SD	t	t	jsonb	DEPODA-YOK
-mukellef_pano	p_token uuid	SD	t	t	json	depoda
+mukellef_pano	p_token uuid	SD	f	f	json	depoda
 nobetci_durum	p_uid uuid	SD	f	f	jsonb	depoda
 olay_say	p_olay text, p_platform text	SD	t	t	void	depoda
 ozel_kod_kontrol	p_kod text, p_paket text	SD	t	t	integer	depoda
@@ -142,7 +142,7 @@ yonetim_hesap_bul	p_eposta text	SD	f	t	jsonb	depoda
 yonetim_kaynak	p_gun integer	SD	f	t	jsonb	depoda
 yonetim_nobetci_ozet		SD	f	t	jsonb	depoda
 yonetim_ozel_kod_iptal	p_kod text	SD	f	t	jsonb	depoda
-yonetim_ozel_kod_uret	p_kime text, p_gun integer, p_indirim integer	SD	f	t	jsonb	depoda
+yonetim_ozel_kod_uret	p_kime text, p_gun integer, p_indirim integer	SD	f	f	jsonb	depoda
 yonetim_ozel_kod_uret2	p_kime text, p_gun integer, p_indirim jsonb, p_aciklama text	SD	f	t	jsonb	depoda
 yonetim_ozel_kodlar		SD	f	t	jsonb	depoda
 yonetim_ozet		SD	f	t	jsonb	depoda
