@@ -471,7 +471,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   <button type="button" class="kayan-x" id="kayanX" aria-label="Duyuruyu kapat">✕</button></div>
 <div class="uye-hos" id="uyeHos" hidden><div class="ic"><span id="uyeHosMetin"></span><a class="btn btn-ana" id="uyeHosBtn" href="ogrenci.html">Devam et →</a><button type="button" class="uye-hos-x" id="uyeHosX" aria-label="Kapat">✕</button></div></div>
 <section class="kah">
-  <div class="ic">
+    <div class="ic">
     <!-- 17.10 Cem: Duolingo düzeni + kendi maskotumuz (kâğıt baykuş; _yerel-veri-kasasi/bolum2/ref/oda-B1-maskot.png kırpması) -->
     <figure class="maskot"><img src="gorsel/maskot-giris.jpg" width="560" height="840" alt="Nöbetçi, Tetikte'nin maskotu: üstünde cevap şıkları olan kâğıttan bir baykuş" fetchpriority="high" decoding="async"></figure>
     <div class="kah-yazi">
@@ -482,8 +482,9 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
            16.10 Cem ("insanlar yalnız soru çözüyoruz sanıyor" → "önerini yapalım"): başlık "soru çözerek hazırlan" konuyu yok sayıyordu.
            Konu özeti cevaptan sonra açılır (ölçüm 16.10: SGS 4.795/4.937 · Yeterlilik 3.874/3.878 · KGK 1.131/1.134) -> sıra
            gerçeğe uygun: önce soru, sonra konu. "Ders / konu anlatımı" yazılmaz (5580). -->
-      <!-- 28.10 Cem ("patron ilk sayfada göreyim bari dersleri"): sınav seçimi açılış ekranının İÇİNDE (üstteyken fiyatlar ekran dışında,
-           alttayken sınavlar ilk ekranda görünmüyordu). Basınca sayfa kaymaz; başlık, söz ve fiyat satırı aynı ekranda değişir. -->
+      
+      <!-- 28.10 Cem ("ilk sayfada göreyim bari dersleri" + "hem burada kalsın hem dediğim yere de koy"): küçük sekmeler açılış ekranında;
+           aynı düğmelerin BÜYÜK hâli paketlerin üstünde. İkisi aynı seçimi yapar (bütün .sinav[data-sinav] dinlenir). -->
       <div class="kah-secim"><p class="kah-secim-bas" id="secimBas">Sınavını seç</p>
       <div class="secim" role="group" aria-labelledby="secimBas">
         <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
@@ -524,6 +525,23 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
 </section>
 
 
+
+<!-- 28.10 Cem ("bunu eski ekranda büyük şekilde SMMM giriş paketi üstüne koyuyordun, hem burada kalsın hem dediğim yere de koy"):
+     büyük sınav düğmeleri paketlerin hemen üstünde (açılış ekranındaki küçük sekmelerle aynı seçim). -->
+<section class="secim-bolum" aria-labelledby="secimBas2">
+  <div class="ic">
+      <p class="secim-bas" id="secimBas2">Sınavını seç</p>
+      <div class="secim" role="group" aria-labelledby="secimBas2">
+        <button class="sinav" type="button" data-sinav="sgs" data-tarih="2026-11-21" aria-pressed="true">SMMM Staja Giriş <small>2026/3 dönemi · 21 Kasım 2026</small></button>
+        <button class="sinav" type="button" data-sinav="yeterlilik" data-tarih="2026-11-28" aria-pressed="false">SMMM Yeterlilik <small>2026/3 dönemi · 28 Kasım 2026</small></button>
+        <!-- 13.10 KGK açılış hazırlığı (site kolu): tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk. Kapalıyken "Hazırlanıyor" çipi
+             (03.10 Cem kararı), açılınca düğme (aşağıdaki betik değiştirir). KGK 2026 ikinci dönem sınav günü 13.10'da KGK'da ilan
+             edilmemişti (kgk.gov.tr sınav duyuruları: 14-16 Nisan e-sınav, 27 Haziran) -> teyitsiz tarih yazılmaz. -->
+        <span class="sinav kapali" id="kgkKapali2" aria-disabled="true" >KGK Bağımsız Denetçilik <small>Hazırlanıyor</small></span>
+        <button class="sinav" type="button" id="kgkAcik2" data-sinav="kgk" aria-pressed="false" hidden>KGK Bağımsız Denetçilik <small>Sınav günü KGK ilanıyla</small></button>
+      </div>
+  </div>
+</section>
 
 <!-- 17.10 Cem ("paketleri gör büyük olsun ve SGS tüm paket ve yanında hemen tek paket ... kurumsal görünsün, aşağıya kayan şekilde
      olmasın"): üç paket kartı yan yana, sınav haplarının hemen altında. Rakam YALNIZ fiyat-motoru.js'ten (paketBul), biçim fiyat.html
@@ -568,6 +586,17 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
         <ul><li>Sınırsız soru: sekiz dersin tamamı</li><li>Ders bazlı prova: 100 üzerinden, baraj 50</li><li>Her sorunun dayandığı madde altında yazar</li></ul>
         <a class="pk-al" href="satin-al.html?paket=yeterlilik-tum">Satın al</a>
         <p class="pk-sonra" data-sonra></p>
+      </article>
+      <!-- 28.10 Cem ("bunu da Yeterlilik'e geliyor diye ekleyelim; son 20 gün kala gelecek; üye olmak isteyenlere erken üyelik verelim,
+           kaçırmayalım; 20 gün ne kadar kaldı ölç, o gün açacağız"): 28 Kasım − 20 gün = 8 Kasım 2026. Fiyat/kurgu kararı YOK →
+           kartta fiyat ve deneme sayısı yazılmaz; düğme mevcut ön kayıt formuna (e-posta + izin, ucretsiz-dene.html#onkayit). -->
+      <article class="pk-kart pk-yakinda" data-sinav-kart="yeterlilik">
+        <p class="pk-sinav">SMMM Yeterlilik · Son 20 Gün</p>
+        <h3>8 Kasım'da açılıyor</h3>
+        <p class="pk-fiyat" style="font-size:22px" data-yet20-gun>Yakında</p><p class="pk-alt">28 Kasım sınavına son 20 gün</p>
+        <ul><li>Sınava özel yeni sorular</li><li>Son 10 yılın en sık çıkan konularından</li><li>Ön kayıt olana açılınca ilk haber</li></ul>
+        <a class="pk-al" href="ucretsiz-dene.html?sinav=yeterlilik&amp;onkayit=yet-s20&amp;k=yet-s20#onkayit">Ön kayıt ol</a>
+        <p class="pk-sonra">Fiyat ve paket 8 Kasım'da açıklanır.</p>
       </article>
     </div>
   </div>
@@ -730,7 +759,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
   /* 13.10 KGK açılış hazırlığı: tek anahtar fiyat-motoru.js ICERIK_HAZIR.kgk (+ uye-durumu.js SINAVLAR.kgk.icerik aynı commit).
      Kapalıyken "Hazırlanıyor" çipi (03.10 Cem), açıkken sekme düğmesi. uye-durumu.js seciliSinav kapalıyken KGK döndürmez. */
   var KGK_ACIK=!!(typeof ICERIK_HAZIR!=='undefined'&&ICERIK_HAZIR.kgk&&U&&U.SINAVLAR.kgk&&U.SINAVLAR.kgk.icerik);
-  if(KGK_ACIK){ $('kgkKapali').hidden=true; $('kgkAcik').hidden=false; }
+  if(KGK_ACIK){ ['kgkKapali','kgkKapali2'].forEach(function(i){ if($(i)) $(i).hidden=true; }); ['kgkAcik','kgkAcik2'].forEach(function(i){ if($(i)) $(i).hidden=false; }); }   /* 28.10: iki seçici (sekme + büyük) */
   var secili=(U&&U.seciliSinav)?U.seciliSinav():'sgs';
   var OZET=null, acik=false, TARANAN=0;
   var OZET_ANAHTAR={sgs:'sgs',yeterlilik:'smmm',kgk:'kgk'}, AD={sgs:'SMMM Staja Giriş',yeterlilik:'SMMM Yeterlilik',kgk:'KGK Bağımsız Denetçilik'};
@@ -835,6 +864,12 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     [].forEach.call(bol.querySelectorAll('.pk-kart[data-paket]'),function(k){
       var id=k.getAttribute('data-paket'), s=(id==='sgs'||id==='son20-sgs')?'sgs':(id.indexOf('yeterlilik')===0?'yeterlilik':'kgk');
       k.hidden=(s!==sec); if(!k.hidden) gor++; });
+    /* 28.10 Yeterlilik Son 20 Gün ön kayıt kartı: 8 Kasım 2026'ya (28 Kasım − 20) kalan gün; açılış günü gelince kart kalkar */
+    [].forEach.call(bol.querySelectorAll('.pk-kart[data-sinav-kart]'),function(k){
+      var acilis=Date.parse('2026-11-08T00:00:00+03:00'), kal=Math.ceil((acilis-Date.now())/864e5);
+      k.hidden=(k.getAttribute('data-sinav-kart')!==sec)||kal<=0;
+      var g=k.querySelector('[data-yet20-gun]'); if(g) g.textContent=kal>1?kal+' gün sonra':'Yarın';
+      if(!k.hidden) gor++; });
     bol.hidden=!gor;
     var b=$('paketBas'); if(b) b.textContent=sec==='yeterlilik'?'SMMM Yeterlilik paketleri':'SMMM Staja Giriş paketleri';
   }
@@ -842,6 +877,8 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
     var iz=document.querySelector('#kayanSerit .kayan-iz'), a=$('kayanA'); if(!iz||!a) return;
     var erken=(typeof erkenKayitAcik==='function'&&erkenKayitAcik()), m, href;
     if(sec==='sgs'&&erken){ m='🎯 <b>GEÇENE KADAR TETİKTE</b> · 1 Kasım 23:59\'a kadar Staja Giriş Tam Paket '+tl(sgsTam())+' TL ('+tl(paketBul('sgs').fiyat)+' TL yerine) · Son 20 Gün: 7 deneme · <u>Hemen al →</u>'; href='satin-al.html?paket=sgs'; a.setAttribute('aria-label','Staja Giriş erken kayıt: 1 Kasım 23:59\'a kadar Tam Paket '+tl(sgsTam())+' TL. Satın al.'); }
+    else if(sec==='yeterlilik'&&Date.now()<Date.parse('2026-11-08T00:00:00+03:00')){   /* 28.10: Yeterlilik Son 20 Gün ön kaydı */
+      m='🎯 <b>SMMM YETERLİLİK · SON 20 GÜN</b> · 28 Kasım sınavına son 20 gün, 8 Kasım\'da açılıyor · sınava özel yeni sorular · <u>Ön kayıt ol →</u>'; href='ucretsiz-dene.html?sinav=yeterlilik&onkayit=yet-s20&k=yet-s20-serit#onkayit'; a.setAttribute('aria-label','SMMM Yeterlilik Son 20 Gün 8 Kasım\'da açılıyor. Ön kayıt ol.'); }
     else { m='🎯 <b>YENİ</b> · Sınavda en çok çıkan konulardan sorular · '+(sec==='yeterlilik'?'SMMM Yeterlilik':'Staja Giriş')+' · ders ders 20 soru · son 10 yılın çıkmış soruları tek tek okunarak · <u>Hemen gör →</u>'; href='en-cok-cikan-sorular.html?sinav='+(sec==='yeterlilik'?'yeterlilik':'sgs'); a.setAttribute('aria-label','Yeni: Sınavda en çok çıkan konulardan sorular, ders ders. Aç.'); }
     iz.innerHTML='<span>'+m+'</span><span>'+m+'</span>'; a.href=href;
   }
