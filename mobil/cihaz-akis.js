@@ -112,19 +112,11 @@ async function bas(ad, secici, metin, sn) {
 }
 async function adres() { return js('location.pathname.replace(/^.*\\/(www\\/)?/,"/")+location.search'); }
 
-/* bütün görünür ✕'ler: örtülü mü, dokununca kapanıyor mu */
-async function xler(ad) {
-  const X = '.tuKapat,[aria-label="Kapat"],.ttSeritX,.pk-x,#kutuKapat,.oyunX,.kagitKapat';
-  const say = await js(`[...document.querySelectorAll(${JSON.stringify(X)})].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0;}).length`);
-  if (!say) { console.log('BILGI ' + ad + ': açık ✕ yok'); return; }
-  for (let i = 0; i < say; i++) {
-    const o = await bul(X); if (!o) break;
-    if (!o.ustte) { sonuc(ad + ': ✕ dokunulabilir', false, 'üstünde ' + o.ortu); return; }
-    await dokun(o); await bekle(1200);
-  }
-  const kalan = await js(`[...document.querySelectorAll(${JSON.stringify(X)})].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0;}).length`);
-  sonuc(ad + ': ' + say + ' ✕ dokunulabilir ve kapandı', kalan < say, say + ' → ' + kalan);
-}
+/* bütün görünür ✕'ler + çıkışsız katmanlar (28.10: ortak katman-tarama.js; eski 7 sınıflık liste ✕'i metinden tanımıyordu,
+   ✕'siz kaplayan katmanı hiç aramıyordu — Cem "çarpı geldi basamadık ilerleyemedik olmasın") */
+const KT = require('./katman-tarama');
+const A = { js: (e) => js(e), bul: (s, m) => bul(s, m), dokun: (o) => dokun(o), bekle: (ms) => bekle(ms), sonuc: (a, t, n) => sonuc(a, t, n) };
+async function xler(ad) { return KT.katmanTara(A, ad); }
 async function anaSayfa() {
   await js('location.href=location.origin+"/index.html"'); await bekle(4000);
 }
@@ -162,6 +154,8 @@ async function sekme(ad) {
   // 2) sekmeler
   for (const s of ['Sınavlar', 'Karnem', 'Hesap', 'Bugün']) { await sekme(s); goruntu('sekme-' + s.normalize('NFD').replace(/[^\w]/g, '')); }
   await xler('ana ekran');
+  /* 28.10: sürüm şeridi gerçek telefonda eski sürümde çıkar, provada hiç görünmüyordu → eski sürüm taklidiyle zorla aç + ✕ */
+  await anaSayfa(); await KT.surumSeridi(A);
 
   // 3) örnek sorular → şık seç
   await sekme('Sınavlar');

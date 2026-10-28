@@ -182,18 +182,11 @@ const X = '.tuKapat,[aria-label="Kapat"],.ttSeritX,.pk-x,#kutuKapat,.oyunX,.kagi
    "1 → 1 kapanmadı" yanlış alarmı verdi (koşu 38858109381, görüntüde ✕ yok). Görünürlük + opaklık da denetlenir. */
 const gorunurX = `[].slice.call(document.querySelectorAll(${JSON.stringify(X)})).filter(function(e){var r=e.getBoundingClientRect();var s=getComputedStyle(e);
   return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&s.visibility!=='hidden'&&+s.opacity>0.05;}).length`;
-/* bütün görünür ✕'ler: örtülü mü, gerçek dokunuşla kapanıyor mu */
-async function xler(ad) {
-  const say = await js(gorunurX);
-  if (!say) { console.log('BILGI ' + ad + ': açık ✕ yok'); return; }
-  for (let i = 0; i < say; i++) {
-    const o = await bul(X); if (!o) break;
-    if (!o.ustte) { sonuc(ad + ': ✕ dokunulabilir', false, 'üstünde ' + o.ortu); return; }
-    await dokun(o); await bekle(1200);
-  }
-  const kalan = await js(gorunurX);
-  sonuc(ad + ': ' + say + ' ✕ dokunulabilir ve kapandı', kalan < say, say + ' → ' + kalan);
-}
+/* bütün görünür ✕'ler + çıkışsız katmanlar (28.10: ortak katman-tarama.js, Android ile aynı ölçüm; Cem "çarpı geldi basamadık
+   ilerleyemedik olmasın, tek tek Apple ve Play Store incele") */
+const KT = require('./katman-tarama');
+const A = { js: (e) => js(e), bul: (s, m) => bul(s, m), dokun: (o) => dokun(o), bekle: (ms) => bekle(ms), sonuc: (a, t, n) => sonuc(a, t, n) };
+async function xler(ad) { return KT.katmanTara(A, ad); }
 /* iPhone kuralı: görünür düğme/bağlantıda satış çağrısı yok (Apple 3.1.1; 08.10 reddi "kilitli yollar") */
 async function satisYok(ad) {
   const l = await js(`[].slice.call(document.querySelectorAll('button,a,[role=button]')).filter(function(e){var r=e.getBoundingClientRect();
@@ -300,6 +293,8 @@ async function kartDugmesi(desen, dugme) {
     await sekme(s2); await goruntu('sekme-' + s2.normalize('NFD').replace(/[^\w]/g, '')); await satisYok('sekme ' + s2);
   }
   await xler('ana ekran');
+  /* 28.10: sürüm şeridi gerçek telefonda eski sürümde çıkar, provada hiç görünmüyordu → eski sürüm taklidiyle zorla aç + ✕ */
+  await anaSayfa(); await KT.surumSeridi(A);
 
   // 3) örnek sorular → şık seç
   await sekme('Sınavlar');
@@ -338,7 +333,8 @@ async function kartDugmesi(desen, dugme) {
   // 4) seviye testi (girişsiz ilk sorular)
   await anaSayfa(); await sekme('Sınavlar');
   const sv = await kartDugmesi('/seviyeni ölç/i', '/^Başla/');
-  if (!sv) sonuc('seviye testi kartı bulundu', false);
+  /* 28.10: 30 soruluk seviye testi kartı 27.10'da bilerek kapandı (246eeb30; Cem 17.10 "5 örnek soru") → yokluğu beklenen durum */
+  if (!sv) sonuc('30 soruluk seviye testi kartı yok (17.10 kararı; giriş 5 örnek soru)', true);
   else if (!sv.ustte) sonuc('seviye testi düğmesi dokunulabilir', false);
   else {
     await dokun(sv); await bekle(4000);
