@@ -3518,13 +3518,13 @@ CREATE OR REPLACE FUNCTION public.uye_cozdugum_sorular()
  STABLE SECURITY DEFINER
  SET search_path TO 'public'
 AS $function$
-  select coalesce(jsonb_agg(jsonb_build_object('i', t.soru_id, 'd', t.ders)), '[]'::jsonb)
+  select coalesce(jsonb_agg(jsonb_build_object('i', t.soru_id, 'd', t.ders, 'o', t.dogru)), '[]'::jsonb)
   from (
-    select distinct on (a.soru_id) a.soru_id, s.ders
+    select distinct on (a.soru_id) a.soru_id, s.ders, a.dogru
     from public.kasa_cevap a
     left join public.paket_soru s on s.id = a.soru_id
     where a.user_id = auth.uid()
-    order by a.soru_id
+    order by a.soru_id, a.zaman desc
     limit 30000
   ) t;
 $function$
