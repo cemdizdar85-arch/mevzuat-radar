@@ -1074,7 +1074,7 @@ try{ if(window.TetikteUye&&TetikteUye.SINAVLAR.kgk&&TetikteUye.SINAVLAR.kgk.icer
     $('svGiris').querySelector('.sv-maddeler').innerHTML='<li>Bitince <b>geçme ihtimalin</b>: her dersten 50, ortalamada 60 kuralıyla</li><li>Sekiz dersin her biri için <b>Güçlü / Sınırda / Riskli</b></li><li>Yanlışlarının doğru cevabı ve hangi dersten başlaman gerektiği</li>';
     $('svGiris').querySelectorAll('.sv-not')[0].textContent='Hemen başlarsın, form yok. Bitirince sonucun hemen görünür; ayrıntılı rapor için ücretsiz hesap açman yeter. Kart istenmez.';
     /* 12.10 (Cem "4 yanlış 1 düşelim yeterlilikte"): Yeterlilik'te yanlış 0,25 doğruyu götürür (TÜRMOB E.233 eki viii) → düğme "Boş bırak" */
-    $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. Gerçek sınavdaki gibi her yanlış 0,25 doğruyu götürür: hiçbir şıkkı eleyemiyorsan "Boş bırak".';
+    $('svGiris').querySelectorAll('.sv-not')[1].textContent='Çözerken doğru cevap gösterilmez ve önceki soruya dönülmez. Sınav kuralına göre burada da her yanlış 0,25 doğruyu götürür: hiçbir şıkkı eleyemiyorsan "Boş bırak".';
     $('svBilmiyorum').textContent='Boş bırak';
     document.documentElement.classList.remove('sv-yet-bekle');   /* 07.10: metin Yeterlilik'e döndü, kutu görünür */
     /* 07.10: eski "örnek sorular" düğmesinin adres değişimi kalktı (düğme yok, yerinde yarının sorusu) */

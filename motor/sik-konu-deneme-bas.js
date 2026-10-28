@@ -244,7 +244,7 @@ async function smmm() {
     uretim: new Date().toISOString().slice(0, 16).replace('T', ' '), uretici: 'motor/sik-konu-deneme-bas.js',
     sinav: 'smmm', tur: 'sik', ad: 'Yeterlilik', baslik: `Yeterlilik · Her Dersin En Çok Sorulan ${SM_KONU} Konusu`,
     deneme_ad: `Her Dersin En Çok Sorulan ${SM_KONU} Konusu Denemesi`,
-    alt: `Her dersin son 10 yılın sınavlarında en sık sorulan ${SM_KONU} konusu. Sınavda daha çok puan getiren konu önde: ilk testlerde ve her testte o konudan daha çok soru. Ders başına ${SM_SORU} soru, ${SM_SURE} dakika, gerçek 2026 düzeninde. Bitince hangi konuda eksiğin olduğunu konu konu görürsün.`,
+    alt: `Her dersin son 10 yılın sınavlarında en sık sorulan ${SM_KONU} konusu. Sınavda daha çok puan getiren konu önde: ilk testlerde ve her testte o konudan daha çok soru. Ders başına ${SM_SORU} soru, ${SM_SURE} dakika (sınavdaki süre). Bitince hangi konuda eksiğin olduğunu konu konu görürsün.`,
     kural: [`Ders başına ${SM_SORU} soru`, `${SM_SURE} dakika`, 'Yanlış 0,25 götürür', 'Baraj 50', 'Setler arası tekrar yok'],
     not: `Konu listesi okunarak sayılmış çıkmış sorulardan (${ok.pencere}), "En sık sorulan konular" sayfasıyla aynı. Konu sırası ve payı, konunun bu sınavlarda dönem başına getirdiği puana göre (2026 testlerinde soru başı 5 puan; klasik dönemde komisyon cevabındaki puan, yazılı değilse sorular eşit sayıldı). Bu konular sınavda kesin çıkar demek değildir.`,
     sonuc_alt: 'Puan: (doğru − yanlış ÷ 4) × 5. Geçme barajı 50.',

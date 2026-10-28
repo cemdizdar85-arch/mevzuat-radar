@@ -920,7 +920,7 @@ html body .kah h1{font-size:clamp(32px,4.2vw,50px);margin-bottom:14px}   /* html
        seviye ölçümü = Yeterlilik seti. Metin deneme.html'deki Birebir Prova açıklamasıyla aynı. */
     setTimeout(function(){ var z=document.getElementById('ozDeneme'); if(z) z.classList.remove('oz-bekle'); },3000);   /* 07.10 yedek */
     try{ var yetSec=(secili==='yeterlilik');
-      $('ozDenemeP').textContent = yetSec ? 'Gerçek 2026 düzeninde ders ders prova: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50.'
+      $('ozDenemeP').textContent = yetSec ? 'Sınavdaki soru sayısı ve süreyle ders ders deneme: seçtiğin dersten 20 soru, 45 dakika, yanlış 0,25 götürür, baraj 50.'
                                           : '130 soru, 165 dakika, resmî ders dağılımı. Çözerken cevap görünmez; bitince ders ders karne.';
       $('ozDenemeA').setAttribute('href', yetSec ? 'deneme.html?sinav=SMMM' : 'sinav-gibi.html'); $('ozDenemeA').textContent = yetSec ? 'Provayı gör →' : 'Denemeleri gör →';
       $('ozDeneme').classList.remove('oz-bekle');   /* 07.10: seçili sınavın metni yazıldı */

@@ -13,7 +13,7 @@
   var AYAR={
     yeterlilik:{ dizin:'veri/deneme/smmm-sik-dizin.json', kanit:'en-cok-cikan-konular-yeterlilik.html', fiyat:'fiyat.html?sinav=yeterlilik', ornek:'kaydir/vitrin/ornek-smmm.html',
       git:function(d){ return 'sinav-gibi.html?tur=sik&sinav=smmm&ders='+encodeURIComponent(d); },
-      cip:['Ders başına en sık 5 konu','20 soru · 45 dakika','gerçek 2026 düzeni','bitince konu konu karne'] },
+      cip:['Ders başına en sık 5 konu','20 soru · 45 dakika','sınavdaki süre','bitince konu konu karne'] },
     sgs:{ dizin:'veri/deneme/sgs-sik-dizin.json', kanit:'en-cok-cikan-konular-sgs.html', fiyat:'fiyat.html?sinav=sgs', ornek:'kaydir/vitrin/ornek-sgs.html',
       git:function(d){ return 'sinav-gibi.html?tur=sik&ders='+encodeURIComponent(d); },
       cip:['En sık 20 konu, ders ders','20 soru · 25 dakika','önce görmediğin sorular','bitince konu konu karne'] } };

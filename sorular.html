@@ -355,7 +355,7 @@
     return '<div class="sc-karsila"><span class="sc-deneme-et">Hoş geldin'+(ss?' · sınava '+ss.gun+' gün':'')+'</span>'
       +'<b>Aldığın ders'+(p.dersler.length>1?'ler':'')+'</b><ul>'+satir+'</ul>'
       +'<p>'+(denemeVar?'Sıradaki adım: <b>sana özel deneme</b>. Hiç görmediğin sorular gelir; bitince Nöbetçi seni zayıf konuna götürür.'
-        :'İlk iş: <b>20 soruluk ders denemesi</b> (45 dakika, gerçek sınav düzeni). Nerede olduğunu görürsün; bitince Nöbetçi seni zayıf konuna götürür.')+'</p>'
+        :'İlk iş: <b>20 soruluk ders denemesi</b> (45 dakika, sınavdaki süre). Nerede olduğunu görürsün; bitince Nöbetçi seni zayıf konuna götürür.')+'</p>'
       +'<div class="sc-karsila-dug"><a class="sc-deneme-git" href="sinav-gibi.html?tur=ders&amp;sinav=smmm&amp;ders='+encodeURIComponent(ilk)+'">'+(denemeVar?'Sana özel denemeye git →':'Ders denemesine başla →')+'</a>'
       +(calH?'<a class="sc-devam sc-karsila-ikinci" href="'+esc(calH.sayfa)+'" data-ders="'+esc(calH.sayfa)+'">'+(calH.sayfa===son?'Kaldığın yerden soru çöz':'Soru çöz: '+esc(calH.ad))+' →</a>':'')+'</div></div>';
   }
@@ -399,7 +399,7 @@
          denemesi (veri/deneme/smmm-ders-*.json). Tek/birkaç ders alan kendi dersinin setlerine iner (&ders=). */
       :(acik&&s.kod==='smmm')?(function(){ var p=PAKET[s.kod], ilk=p&&p.dersler&&p.dersler.length?p.dersler[0]:'';
         return '<a class="sc-deneme" href="sinav-gibi.html?tur=ders&amp;sinav=smmm'+(ilk?'&amp;ders='+encodeURIComponent(ilk):'')+'"><span><span class="sc-deneme-et">Ders denemesi · sınav gibi çöz</span>'
-        +'<b>'+(ilk&&p.dersler.length===1?esc(ilk)+' · ':'')+'20 soru · 45 dakika · gerçek 2026 düzeni</b>'
+        +'<b>'+(ilk&&p.dersler.length===1?esc(ilk)+' · ':'')+'20 soru · 45 dakika · sınavdaki süre</b>'
         +'<span class="sc-deneme-alt">Gerçek sınavda her ders ayrı bir sınav; burada da öyle. Yanlış doğrunun 0,25\'ini götürür, baraj 50. Bitince puanın ve konu konu karnen.</span></span>'
         +'<span class="sc-deneme-git">'+(p?'Başla →':'🔒 Pakete dahil →')+'</span></a>'; })():'';
     /* 14.09 Cem "deneme amaçlı sadece kendin dene": üyeliksiz ücretsiz katman en üstte.

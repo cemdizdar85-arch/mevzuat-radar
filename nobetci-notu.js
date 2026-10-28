@@ -135,7 +135,7 @@
         }
       } else if (o.dogru === o.toplam) h += '<p>Bu ' + o.toplam + ' soruda yanlışın yok. Böyle devam.</p>';
       else h += '<p>Yanlışların farklı konulara dağılmış; tek bir konuda yığılma yok.</p>';
-      if (davet && !A.ios) h += '<div class="dav"><p style="margin:0 0 8px"><b>Ders denemesine hazırsın.</b> Gerçek sınav düzeni: 20 soru, 45 dakika, yanlış doğrunun 0,25\'ini götürür.</p>'
+      if (davet && !A.ios) h += '<div class="dav"><p style="margin:0 0 8px"><b>Ders denemesine hazırsın.</b> Biçim: 20 soru, 45 dakika, yanlış doğrunun 0,25\'ini götürür.</p>'
         + '<div class="d" style="margin:0"><a class="ana" href="' + esc(deneme) + '">Ders denemesini başlat →</a></div></div>';
       h += '<div class="d">';
       if (z && !A.ios) h += '<a class="' + (davet ? '' : 'ana') + '" href="' + esc(deneme + '&konu=' + encodeURIComponent(z.konu) + '&adet=10') + '">Bu konudan 10 soru →</a>';
