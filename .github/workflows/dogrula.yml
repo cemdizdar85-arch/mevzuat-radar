@@ -712,6 +712,11 @@ jobs:
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --sinav" }
           - { ad: "Kaldigin yer gocu MUTASYON (kimlik yolu kapatilinca sinav duser mi)",
               kabuk: bash, komut: "node arac/smmm-konum-gocu.js --mutasyon" }
+          # 28.10 hesap tablosu: yesil sonuc satiri = dogru sikla tutan satir; tutmuyorsa tablo cizilmez (kural kaydir-coz.ps1'den okunur).
+          - { ad: "Hesap tablosu KAPI-HT OZ-SINAVI (sonuc satiri dogru sikla tutar)",
+              kabuk: bash, komut: "node arac/hesap-tablosu-kapisi.js --sinav" }
+          - { ad: "Hesap tablosu KAPI-HT MUTASYON (son satir kurali geri gelirse sinav duser mi)",
+              kabuk: bash, komut: "node arac/hesap-tablosu-kapisi.js --mutasyon" }
           # 28.10 SGS ders sayfasi soru sirasi (motor/sgs-ders-sira.js): ilk 10 farkli konu, art arda ayni konu yok, kume ayni;
           # depodaki gercek secimde (4.926 soru) esdegerlik. GORMEZ: yazimi farkli ayni konu, zorluk serpistirme.
           - { ad: "SGS soru sirasi OZ-SINAVI (ilk 10 farkli konu, art arda ayni konu yok, kume ayni)",
